@@ -1,48 +1,119 @@
 package MusicBrainz::Script::MBDump;
 
-use base 'Exporter';
-
 use DBDefs;
-use Encode qw( encode );
-use Fcntl qw( LOCK_EX );
+use File::Copy qw( copy );
+use File::Path qw( make_path );
+use File::Spec::Functions qw( catfile );
 use File::Temp qw( tempdir );
+use Moose;
 use MusicBrainz::Script::Utils qw( log );
+use String::ShellQuote qw( shell_quote );
 use Time::HiRes qw( gettimeofday tv_interval );
 
-our $keep_files = 0;
-# overrides the user-specified $keep_files
-our $erase_files_on_exit = 1;
-our $tmp_dir = '/tmp';
-our $export_dir = '';
-our $output_dir = '.';
-our $row_counts = {};
-our $table_file_mapping = {};
-
-my $total_tables = 0;
-my $total_rows = 0;
-my $start_time;
-my $lock_fh;
-
-our @EXPORT_OK = qw(
-    begin_dump
-    copy_readme
-    dump_table
-    end_dump
-    gpg_sign
-    make_tar
-    write_file
+has c => (
+    handles => ['sql', 'dbh'],
+    is => 'ro',
+    isa => 'MusicBrainz::Server::Context',
+    required => 1,
 );
 
-sub copy_readme() {
-    write_file('README', <<EOF);
+has keep_files => (
+    is => 'rw',
+    isa => 'Bool',
+    default => 0,
+);
+
+# overrides the user-specified keep_files
+has erase_files_on_exit => (
+    is => 'rw',
+    isa => 'Bool',
+    default => 1,
+);
+
+has tmp_dir => (
+    is => 'rw',
+    isa => 'Str',
+    default => '/tmp',
+);
+
+has export_dir => (
+    is => 'rw',
+    isa => 'Str',
+    default => '',
+);
+
+has output_dir => (
+    is => 'rw',
+    isa => 'Str',
+    default => '.',
+);
+
+has compression => (
+    is => 'rw',
+    isa => 'Str',
+    default => 'bzip2',
+);
+
+has replication_sequence => (
+    is => 'ro',
+    isa => 'Maybe[Int]',
+);
+
+sub BUILD { shift->begin_dump }
+
+sub begin_dump {
+    my ($self) = @_;
+
+    make_path($self->output_dir);
+
+    my $export_dir = tempdir(
+        'mbexport-XXXXXX', DIR => $self->tmp_dir, CLEANUP => 0);
+    mkdir "$export_dir/mbdump" or die $!;
+    log("Exporting to $export_dir");
+    $self->export_dir($export_dir);
+
+    # Write the TIMESTAMP file.
+    # This used to be free text; now it's parseable. It contains a PostgreSQL
+    # TIMESTAMP WITH TIME ZONE expression.
+    my $now = $self->sql->select_single_value('SELECT NOW()');
+    $self->write_file('TIMESTAMP', "$now\n");
+
+    # Write the README file.
+    $self->copy_readme();
+
+    my $replication_control = $self->sql->select_single_row_hash(
+        'SELECT current_replication_sequence, current_schema_sequence
+           FROM replication_control'
+    );
+    my $replication_sequence = $self->replication_sequence //
+        $replication_control->{current_replication_sequence};
+    my $schema_sequence = $replication_control->{current_schema_sequence};
+    my $dbdefs_schema_sequence = DBDefs->DB_SCHEMA_SEQUENCE;
+    $schema_sequence
+        or die "Don't know what schema sequence number we're using";
+    $schema_sequence == $dbdefs_schema_sequence
+        or die "Stored schema sequence ($schema_sequence) does not match " .
+               "DBDefs->DB_SCHEMA_SEQUENCE ($dbdefs_schema_sequence)";
+
+    # Write the SCHEMA_SEQUENCE and REPLICATION_SEQUENCE files. Again, this
+    # is parseable - it's just an integer.
+    $self->write_file('SCHEMA_SEQUENCE', "$schema_sequence\n");
+    $self->write_file('REPLICATION_SEQUENCE', "$replication_sequence\n");
+}
+
+our $readme_text = <<'EOF';
 The files in this directory are snapshots of the MusicBrainz database,
 in a format suitable for import into a PostgreSQL database. To import
 them, you need a compatible version of the MusicBrainz server software.
 EOF
+
+sub copy_readme() {
+    my ($self) = @_;
+    $self->write_file('README', $readme_text);
 }
 
 sub gpg_sign {
-    my ($file_to_be_signed) = @_;
+    my ($self, $file_to_be_signed) = @_;
 
     my $sign_with = DBDefs->GPG_SIGN_KEY;
     return unless $sign_with;
@@ -60,10 +131,7 @@ sub gpg_sign {
 }
 
 sub make_tar {
-    my ($tar_file, @tables) = @_;
-
-    my @files = map { 'mbdump/' . ($table_file_mapping->{$_} // $_) }
-                grep { $row_counts->{$_} } @tables;
+    my ($self, $tar_file, @files) = @_;
 
     # These ones go first, so MBImport can quickly find them.
     unshift @files, qw(
@@ -75,11 +143,14 @@ sub make_tar {
     );
 
     my $t0 = [gettimeofday];
+    my $output_dir = $self->output_dir;
+    my $compression = $self->compression;
+
     log("Creating $tar_file");
     chomp (my $tar_bin = `which gtar` || `which tar`);
     system $tar_bin,
-           '-C', $export_dir,
-           '--bzip2',
+           '-C', $self->export_dir,
+           "--$compression",
            '--create',
            '--verbose',
            '--file', "$output_dir/$tar_file",
@@ -89,169 +160,50 @@ sub make_tar {
     $? == 0 or die "Tar returned $?";
     log(sprintf "Tar completed in %d seconds\n", tv_interval($t0));
 
-    gpg_sign("$output_dir/$tar_file");
+    $self->gpg_sign("$output_dir/$tar_file");
+}
+
+sub copy_file {
+    my ($self, $src_path, $dst_path) = @_;
+
+    my $export_dir = $self->export_dir;
+    ($export_dir && -d $export_dir) or die 'No export directory';
+    $dst_path = (defined $dst_path && $dst_path ne '') ?
+        catfile($export_dir, $dst_path) : $export_dir;
+    copy($src_path, $dst_path);
 }
 
 sub write_file {
-    my ($file, $contents) = @_;
+    my ($self, $file, $contents) = @_;
 
-    open(my $fh, ">$export_dir/$file") or die $!;
+    open(my $fh, '>' . $self->export_dir . "/$file") or die $!;
     print $fh $contents or die $!;
     close $fh or die $!;
 }
 
-sub table_rowcount {
-    my ($c, $table) = @_;
+sub DEMOLISH {
+    my ($self) = @_;
 
-    $table =~ s/_sanitised$//;
-    $table =~ s/.*\.//;
-
-    $c->sql->select_single_value(
-        'SELECT reltuples FROM pg_class WHERE relname = ? LIMIT 1',
-        $table,
-    );
-}
-
-sub dump_table {
-    my ($c, $table) = @_;
-
-    my $table_file = $table_file_mapping->{$table} // $table;
-    my $table_file_path = "$export_dir/mbdump/$table_file";
-    open(DUMP, ">$table_file_path") or die $!;
-
-    my $rows_estimate = $row_counts->{$table} // table_rowcount($c, $table) // 1;
-    my $dbh = $c->dbh; # issues a ping, must be done before COPY
-    $c->sql->do("COPY $table TO stdout");
-
-    my $buffer;
-    my $rows = 0;
-    my $t1 = [gettimeofday];
-    my $interval;
-
-    my $p = sub {
-        my ($pre, $post) = @_;
-        no integer;
-        printf $pre . '%-30.30s %9d %3d%% %9d' . $post,
-               $table, $rows, int(100 * $rows / ($rows_estimate || 1)),
-               $rows / ($interval || 1);
-    };
-
-    $p->('', '') if -t STDOUT;
-
-    my $longest = 0;
-    while ($dbh->pg_getcopydata($buffer) >= 0) {
-        $longest = length($buffer) if length($buffer) > $longest;
-        print DUMP encode('utf-8', $buffer) or die $!;
-
-        ++$rows;
-        unless ($rows & 0xFFF) {
-            $interval = tv_interval($t1);
-            $p->("\r", '') if -t STDOUT;
-        }
+    my $export_dir = $self->export_dir;
+    if (
+        $self->erase_files_on_exit &&
+        !$self->keep_files &&
+        defined($export_dir) &&
+        -d $export_dir &&
+        -d "$export_dir/mbdump"
+    ) {
+        # Buffer this so concurrent processes don't overlap.
+        my $log_output .= "Disk space just before erasing $export_dir:\n";
+        $log_output .= qx(/bin/df -m 2>&1);
+        $log_output .= "Erasing $export_dir\n";
+        my $quoted_dir = shell_quote($export_dir);
+        $log_output .= qx(/bin/rm -rf $quoted_dir 2>&1);
+        log($log_output);
     }
-
-    close DUMP or die $!;
-
-    $interval = tv_interval($t1);
-    $p->((-t STDOUT ? "\r" : ''), sprintf(" %.2f sec\n", $interval));
-    print "Longest buffer used: $longest\n" if $ENV{SHOW_BUFFER_SIZE};
-
-    $total_tables++;
-    $total_rows += $rows;
-    $row_counts->{$table} = $rows;
-
-    $table_file_path;
 }
 
-sub begin_dump {
-    my $c = shift;
+no Moose;
 
-    $start_time = gettimeofday;
-    $export_dir = tempdir('mbexport-XXXXXX', DIR => $tmp_dir, CLEANUP => 0);
-    mkdir "$export_dir/mbdump" or die $!;
-    log("Exporting to $export_dir");
-
-    END {
-        if (
-            $erase_files_on_exit &&
-            !$keep_files &&
-            defined($export_dir) &&
-            -d $export_dir &&
-            -d "$export_dir/mbdump"
-        ) {
-            log('Disk space just before erasing tmp dir:');
-            system '/bin/df -m';
-            log("Erasing $export_dir");
-            system '/bin/rm', '-rf', $export_dir;
-        }
-    }
-
-    # A quick discussion of the "Can't serialize access due to concurrent
-    # update" problem. See "transaction-iso.html" in the Postgres
-    # documentation. Basically the problem is this: export "A" starts; export
-    # "B" starts; export "B" updates replication_control; export "A" then
-    # can't update replication_control, failing with the above error. The
-    # solution is to get a lock (outside of the database) before we start the
-    # serializable transaction.
-    open($lock_fh, '>>' . $tmp_dir . '/.mb-export-lock') or die $!;
-    flock($lock_fh, LOCK_EX) or die $!;
-
-    my $sql = $c->sql;
-    $sql->auto_commit;
-    $sql->do(q{SET SESSION CHARACTERISTICS
-               AS TRANSACTION ISOLATION LEVEL SERIALIZABLE});
-    $sql->begin;
-
-    # Write the TIMESTAMP file.
-    # This used to be free text; now it's parseable. It contains a PostgreSQL
-    # TIMESTAMP WITH TIME ZONE expression.
-    my $now = $sql->select_single_value('SELECT NOW()');
-    write_file('TIMESTAMP', "$now\n");
-
-    # Write the README file.
-    copy_readme();
-
-    my $schema_sequence = $sql->select_single_value(
-        'SELECT current_schema_sequence FROM replication_control'
-    );
-    my $dbdefs_schema_sequence = DBDefs->DB_SCHEMA_SEQUENCE;
-    $schema_sequence
-        or die "Don't know what schema sequence number we're using";
-    $schema_sequence == $dbdefs_schema_sequence
-        or die "Stored schema sequence ($schema_sequence) does not match " .
-               "DBDefs->DB_SCHEMA_SEQUENCE ($dbdefs_schema_sequence)";
-
-    # Write the SCHEMA_SEQUENCE file. Again, this is parseable - it's just an
-    # integer.
-    write_file('SCHEMA_SEQUENCE', "$schema_sequence\n");
-    write_file('REPLICATION_SEQUENCE', '');
-
-    $| = 1;
-    printf "%-30.30s %9s %4s %9s\n",
-           qw(Table Rows est% rows/sec);
-}
-
-sub end_dump {
-    my $c = shift;
-
-    # Make sure our replication data is safe before we commit its removal from
-    # the database.
-    system '/bin/sync';
-    $? == 0 or die "sync failed (rc=$?)";
-    $c->sql->commit;
-
-    log(sprintf "Dumped %d tables (%d rows) in %d seconds\n",
-        $total_tables,
-        $total_rows,
-        tv_interval([$start_time]));
-
-    # We can release the lock, allowing other exports to run if they wish.
-    close $lock_fh;
-    undef $lock_fh;
-
-    $total_tables = 0;
-    $total_rows = 0;
-    undef $start_time;
-}
+__PACKAGE__->meta->make_immutable;
 
 1;
