@@ -557,13 +557,13 @@ CREATE TRIGGER a_ins_edit_artist BEFORE INSERT ON edit_artist
 CREATE TRIGGER a_ins_edit_artist BEFORE INSERT ON edit_label
     FOR EACH ROW EXECUTE PROCEDURE b_ins_edit_materialize_status();
 
-CREATE TRIGGER a_ins_instrument AFTER INSERT ON musicbrainz.instrument
+CREATE TRIGGER a_ins_instrument AFTER INSERT ON instrument
     FOR EACH ROW EXECUTE PROCEDURE a_ins_instrument();
 
-CREATE TRIGGER a_upd_instrument AFTER UPDATE ON musicbrainz.instrument
+CREATE TRIGGER a_upd_instrument AFTER UPDATE ON instrument
     FOR EACH ROW EXECUTE PROCEDURE a_upd_instrument();
 
-CREATE TRIGGER a_del_instrument AFTER DELETE ON musicbrainz.instrument
+CREATE TRIGGER a_del_instrument AFTER DELETE ON instrument
     FOR EACH ROW EXECUTE PROCEDURE a_del_instrument();
 
 CREATE TRIGGER a_ins_edit_note AFTER INSERT ON edit_note
