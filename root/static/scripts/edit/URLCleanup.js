@@ -472,6 +472,38 @@ const CLEANUPS = {
       return url.replace(/^(https:\/\/archive\.org\/details\/[A-Za-z0-9._-]+)\/$/, "$1");
     }
   },
+  bigcartel: {
+    match: [new RegExp("^(https?://)?[^/]+\\.bigcartel\\.com","i")],
+    type: LINK_TYPES.mailorder,
+    clean: function (url) {
+      var m = url.match(/^(?:https?:\/\/)?([^\/]+)\.bigcartel\.com(?:\/(?:product\/([^\/?#]+)|[^\/]*))?/);
+      if (m) {
+        var subdomain = m[1];
+        var product = m[2];
+        url = "http://" + subdomain + ".bigcartel.com";
+        if (product !== undefined) {
+          url = url + "/product/" + product;
+        }
+      }
+      return url;
+    },
+    validate: function (url, id) {
+      var m = /^http:\/\/([^\/]+)\.bigcartel\.com(\/product\/[^\/?#]+)?/.exec(url);
+      if (m) {
+        var subdomain = m[1];
+        var product = m[2];
+        if (!/^(images|www)$/.test(subdomain)) {
+          switch (id) {
+            case LINK_TYPES.mailorder.artist:
+              return product === undefined;
+            case LINK_TYPES.mailorder.release:
+              return product !== undefined;
+          }
+        }
+      }
+      return false;
+    }
+  },
   blogspot: {
     match: [new RegExp("^(https?://)?(www\\.)?[^./]+\\.blogspot\\.([a-z]{2,3}\\.)?[a-z]{2,3}/?","i")],
     clean: function (url) {
