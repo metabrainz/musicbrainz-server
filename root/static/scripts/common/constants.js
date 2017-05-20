@@ -104,6 +104,7 @@ exports.FAVICON_CLASSES = {
     'livefans.jp':                  'livefans',
     'twitch.tv':                    'twitch',
     'dailymotion.com':              'dailymotion',
+    'bigcartel.com':                'bigcartel',
 };
 
 exports.PART_OF_SERIES_LINK_TYPES = {
