@@ -64,8 +64,8 @@ sub serialize
     my $coverart = $stash ? $stash->store($entity)->{'cover-art-archive'} : undef;
     if ($coverart) {
         $body{'cover-art-archive'} = {
-            artwork => boolean($entity->cover_art_presence eq 'present'),
-            darkened => boolean($entity->cover_art_presence eq 'darkened'),
+            artwork => boolean(($entity->cover_art_presence // '') eq 'present'),
+            darkened => boolean(($entity->cover_art_presence // '') eq 'darkened'),
             # force to number
             count => $coverart->{total} * 1,
             front => boolean($coverart->{front}),
