@@ -210,6 +210,17 @@ after accept => sub {
     }
 };
 
+sub restore {
+    my ($self, $data) = @_;
+
+    for my $side (qw( old new )) {
+        $data->{$side}{languages} = [ delete $data->{$side}{language_id} // () ]
+            if exists $data->{$side}{language_id};
+    }
+
+    $self->data($data);
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 
