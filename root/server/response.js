@@ -12,6 +12,7 @@ const ReactDOMServer = require('react-dom/server');
 const DBDefs = require('../static/scripts/common/DBDefs');
 const i18n = require('../static/scripts/common/i18n');
 const getCookie = require('../static/scripts/common/utility/getCookie');
+const {bufferFrom} = require('./buffer');
 const gettext = require('./gettext');
 
 function pathFromRoot(fpath) {
@@ -19,7 +20,7 @@ function pathFromRoot(fpath) {
 }
 
 function badRequest(err) {
-  return Buffer.from(JSON.stringify({
+  return bufferFrom(JSON.stringify({
     body: err.stack,
     content_type: 'text/plain',
     status: 400,
@@ -74,7 +75,7 @@ function getResponse(requestBody, context) {
     return badRequest(err);
   }
 
-  return Buffer.from(JSON.stringify({
+  return bufferFrom(JSON.stringify({
     body: response,
     content_type: 'text/html',
     status,
