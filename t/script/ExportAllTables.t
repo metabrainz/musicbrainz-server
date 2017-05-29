@@ -95,9 +95,6 @@ EOSQL
             File::Spec->catfile($output_dir, 'mbdump-derived.tar.bz2'),
     );
 
-    system 'sh', '-c' => "$psql TEST < " .
-        File::Spec->catfile($root, 'admin/sql/ReplicationSetup.sql');
-
     $exec_sql->(<<EOSQL);
     SET client_min_messages TO WARNING;
     TRUNCATE replication_control CASCADE;
