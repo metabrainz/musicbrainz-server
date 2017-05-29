@@ -18,7 +18,7 @@ function canonicalize(url) {
 function getTitle(props) {
   let {title, pager} = props;
 
-  if (props.homepage) {
+  if (!props.homepage) {
     let parts = [];
 
     if (title) {
