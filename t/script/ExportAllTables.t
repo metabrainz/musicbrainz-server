@@ -8,9 +8,10 @@ use String::ShellQuote;
 use Test::More;
 use Test::Routine;
 use Test::Routine::Util;
-use Test::Deep qw( cmp_bag ignore );
+use Test::Deep qw( cmp_deeply ignore );
 use MusicBrainz::Server::Test;
 use aliased 'MusicBrainz::Server::DatabaseConnectionFactory' => 'Databases';
+use utf8;
 
 test all => sub {
     # Because this test invokes external scripts that rely on certain test data
@@ -32,11 +33,21 @@ test all => sub {
     # Test requires a clean database
     system File::Spec->catfile($root, 'script/create_test_db.sh');
 
+    # MBS-9342
+    my $long_unicode_tag1 = '松' x 255;
+    my $long_unicode_tag2 = '変' x 255;
+
     $exec_sql->(<<EOSQL);
+    BEGIN;
     INSERT INTO replication_control (current_schema_sequence, current_replication_sequence, last_replication_date) VALUES
         ($schema_seq, 1, now() - interval '1 hour');
     INSERT INTO artist (id, gid, name, sort_name) VALUES
         (666, '30238ead-59fa-41e2-a7ab-b7f6e6363c4b', 'A', 'A');
+    INSERT INTO tag (id, name, ref_count) VALUES
+        (1, '$long_unicode_tag1', 1);
+    INSERT INTO artist_tag (artist, tag, count, last_updated) VALUES
+        (666, 1, 1, now());
+    COMMIT;
 EOSQL
 
     system (
@@ -52,11 +63,15 @@ EOSQL
     SET client_min_messages TO WARNING;
     INSERT INTO dbmirror_pending VALUES
         (1, '"musicbrainz"."artist"', 'i', 1),
-        (2, '"musicbrainz"."artist"', 'u', 2);
+        (2, '"musicbrainz"."artist"', 'u', 2),
+        (3, '"musicbrainz"."tag"', 'i', 3),
+        (4, '"musicbrainz"."artist_tag"', 'i', 3);
     INSERT INTO dbmirror_pendingdata VALUES
         (1, 'f', '"id"=''667'' "gid"=''b3d9590e-cd28-47a9-838a-ed41a78002f5'' "name"=''B'' "sort_name"=''B'' "last_updated"=''2016-05-03 20:00:00+00'' '),
         (2, 't', '"id"=''666'' '),
-        (2, 'f', '"name"=''Updated A'' ');
+        (2, 'f', '"name"=''Updated A'' '),
+        (3, 'f', '"id"=''2'' "name"=''$long_unicode_tag2'' "ref_count"=''1'' '),
+        (4, 'f', '"artist"=''667'' "tag"=''2'' "count"=''1'' "last_updated"=''2016-05-03 20:00:00+00'' ');
 EOSQL
 
     system (
@@ -75,7 +90,9 @@ EOSQL
         File::Spec->catfile($root, 'admin/InitDb.pl'),
         '--database', 'TEST',
         '--createdb',
-        '--import', File::Spec->catfile($output_dir, 'mbdump.tar.bz2'),
+        '--import',
+            File::Spec->catfile($output_dir, 'mbdump.tar.bz2'),
+            File::Spec->catfile($output_dir, 'mbdump-derived.tar.bz2'),
     );
 
     system 'sh', '-c' => "$psql TEST < " .
@@ -94,9 +111,9 @@ EOSQL
     );
 
     my $c = MusicBrainz::Server::Context->create_script_context(database => 'TEST');
-    my $artists = $c->sql->select_list_of_hashes('SELECT * FROM artist');
+    my $artists = $c->sql->select_list_of_hashes('SELECT * FROM artist ORDER BY id');
 
-    cmp_bag($artists, [
+    cmp_deeply($artists, [
         {
             area => undef,
             begin_area => undef,
@@ -141,9 +158,26 @@ EOSQL
         },
     ]);
 
+    my $tags = $c->sql->select_list_of_hashes('SELECT * FROM tag ORDER BY id');
+
+    cmp_deeply($tags, [
+        {
+            id => 1,
+            name => $long_unicode_tag1,
+            ref_count => 1,
+        },
+        {
+            id => 2,
+            name => $long_unicode_tag2,
+            ref_count => 1,
+        },
+    ]);
+
     $exec_sql->(<<EOSQL);
     SET client_min_messages TO WARNING;
     TRUNCATE artist CASCADE;
+    TRUNCATE artist_tag CASCADE;
+    TRUNCATE tag CASCADE;
 EOSQL
 };
 

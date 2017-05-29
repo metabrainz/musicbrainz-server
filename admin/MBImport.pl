@@ -288,6 +288,8 @@ sub ImportTable
                         # replaces any invalid UTF-8 character with special 0xFFFD codepoint
                         # and warn on any such occurence
                         $t = Encode::decode("UTF-8", $t, Encode::FB_DEFAULT | Encode::WARN_ON_ERR);
+                } else {
+                        $t = Encode::decode("UTF-8", $t, Encode::FB_CROAK);
                 }
                 if (!$dbh->pg_putcopydata($t))
                 {
