@@ -25,7 +25,7 @@ function getTitle(props) {
       parts.push(title);
     }
 
-    if (pager.current_page && pager.current_page > 1) {
+    if (pager && pager.current_page && pager.current_page > 1) {
       parts.push(l('Page {n}', {n: pager.current_page}));
     }
 
