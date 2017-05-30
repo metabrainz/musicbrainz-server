@@ -405,6 +405,35 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
                      input_entity_type: 'artist',
             expected_relationship_type: 'otherdatabases',
         },
+        // Big Cartel
+        {
+                             input_url: 'www.musicofjunior.bigcartel.com/test',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'mailorder',
+                    expected_clean_url: 'http://www.musicofjunior.bigcartel.com',
+               only_valid_entity_types: ['artist']
+        },
+        {
+                             input_url: 'http://www.musicofjunior.bigcartel.com?test',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'mailorder',
+                    expected_clean_url: 'http://www.musicofjunior.bigcartel.com',
+               only_valid_entity_types: ['artist']
+        },
+        {
+                             input_url: 'https://www.musicofjunior.bigcartel.com/product/juniorland-ep#test',
+                     input_entity_type: 'release',
+            expected_relationship_type: 'mailorder',
+                    expected_clean_url: 'http://www.musicofjunior.bigcartel.com/product/juniorland-ep',
+               only_valid_entity_types: ['release']
+        },
+        {
+                             input_url: 'http://images.bigcartel.com/product_images/186926366/juniorland_bigcartel.jpg?auto=format&fit=max&w=300',
+                     input_entity_type: 'release',
+            expected_relationship_type: undefined,
+               input_relationship_type: 'mailorder',
+               only_valid_entity_types: []
+        },
         // BIS Records
         {
                              input_url: 'http://bis.se/index.php?op=album&aID=BIS-1961',
@@ -576,6 +605,19 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
                              input_url: 'http://castalbums.org/recordings/The-Scottsboro-Boys-2014-Original-London-Cast/28967',
                      input_entity_type: 'release_group',
             expected_relationship_type: 'otherdatabases',
+        },
+        // CD Baby
+        {
+                             input_url: 'www.cdbaby.name/artist/JohnDoe1#',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'cdbaby',
+                    expected_clean_url: 'https://store.cdbaby.com/Artist/JohnDoe1',
+        },
+        {
+                             input_url: 'http://cdbaby.com/cd/John003',
+                     input_entity_type: 'release',
+            expected_relationship_type: undefined,
+                    expected_clean_url: 'https://store.cdbaby.com/cd/john003',
         },
         // CB (Cape Breton) Fiddle Recordings
         {

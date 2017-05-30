@@ -91,7 +91,7 @@ sub event_browse : Private {
         my $area = $c->model('Area')->get_by_gid($id);
         $c->detach('not_found') unless $area;
 
-        my @tmp = $c->model('Area')->find_by_area($area->id, $limit, $offset);
+        my @tmp = $c->model('Event')->find_by_area($area->id, $limit, $offset);
         $events = $self->make_list(@tmp, $offset);
     }
 

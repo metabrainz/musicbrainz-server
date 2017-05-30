@@ -128,7 +128,7 @@ function runYarb(resourceName, vinyl, callback) {
     global: true,
     vars: {
       L: function (file) {
-        if (file.includes('leaflet.markercluster')) {
+        if (/leaflet\.markercluster/.test(file)) {
           return "require('leaflet/dist/leaflet-src')";
         }
       },
