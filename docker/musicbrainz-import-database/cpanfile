@@ -1,0 +1,16 @@
+# Dependencies needed only to execute ./admin/MBImport.pl
+
+requires 'aliased'              => '0.34';
+requires 'Class::MOP'           => '2.1600';
+requires 'DBD::Pg'              => '3.5.3';
+requires 'DBIx::Connector'      => '0.53';
+requires 'JSON'                 => '2.61';
+requires 'JSON::XS'             => '2.34';
+requires 'Moose'                => '2.1600';
+requires 'String::ShellQuote'   => '1.03';
+requires 'Throwable'            => '0.200009';
+requires 'DateTime::Duration'   => '1.1902';
+requires 'File::Slurp';
+requires 'List::AllUtils'       => '0.03';
+requires 'Readonly'             => '1.04';
+requires 'File::Spec'           => '3.40';
