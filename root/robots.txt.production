@@ -32,4 +32,7 @@ User-agent: ia_archiver
 Allow: /
 Crawl-delay: 1
 
+User-agent: AhrefsBot
+Disallow: /
+
 Sitemap: https://musicbrainz.org/sitemap-index.xml.gz
