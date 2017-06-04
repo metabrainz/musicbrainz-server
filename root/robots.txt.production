@@ -22,7 +22,6 @@ Disallow: /report/
 Disallow: /reports
 Disallow: /search
 Disallow: /set-beta-preference
-Disallow: /statistics/timeline
 Disallow: /tag/
 Disallow: /taglookup
 Disallow: /tags
