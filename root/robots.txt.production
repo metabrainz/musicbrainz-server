@@ -5,7 +5,7 @@ Disallow: /ajax/
 Disallow: /area/
 Disallow: /cdstub/
 Disallow: /cdtoc/attach
-Disallow: /collection/create
+Disallow: /collection/
 Disallow: /edit/
 Disallow: /election/
 Disallow: /elections
