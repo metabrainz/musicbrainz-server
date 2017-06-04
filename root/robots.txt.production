@@ -50,4 +50,7 @@ Disallow: /
 User-agent: SemrushBot-SA
 Disallow: /
 
+User-agent: dotbot
+Disallow: /
+
 Sitemap: https://musicbrainz.org/sitemap-index.xml.gz
