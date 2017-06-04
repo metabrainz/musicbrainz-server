@@ -5,12 +5,14 @@ Disallow: /ajax/
 Disallow: /area/
 Disallow: /cdstub/
 Disallow: /cdtoc/attach
+Disallow: /collection/
 Disallow: /edit/
 Disallow: /election/
 Disallow: /elections
 Disallow: /isrc/
 Disallow: /iswc/
 Disallow: /login
+Disallow: /oauth2
 Disallow: /otherlookup
 Disallow: /partners/
 Disallow: /rating/
@@ -19,15 +21,36 @@ Disallow: /register
 Disallow: /report/
 Disallow: /reports
 Disallow: /search
+Disallow: /set-beta-preference
+Disallow: /set-language/
 Disallow: /tag/
 Disallow: /taglookup
 Disallow: /tags
 Disallow: /test/
+Disallow: /tops/
+Disallow: /track/
 Disallow: /url/
 Disallow: /user/
 Disallow: /ws
+Crawl-delay: 2
 
 User-agent: ia_archiver
 Allow: /
+Crawl-delay: 1
+
+User-agent: AhrefsBot
+Disallow: /
+
+User-agent: CrazyWebCrawler-Spider
+Disallow: /
+
+User-agent: SemrushBot
+Disallow: /
+
+User-agent: SemrushBot-SA
+Disallow: /
+
+User-agent: dotbot
+Disallow: /
 
 Sitemap: https://musicbrainz.org/sitemap-index.xml.gz
