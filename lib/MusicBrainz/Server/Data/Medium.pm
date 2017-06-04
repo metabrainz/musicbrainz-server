@@ -251,13 +251,27 @@ sub merge
     # the target from the first merge).
     my %merge_targets;
 
+    @recording_merges = grep {
+        my ($new, $old) = @{$_};
+
+        $merge_targets{$old} = $new;
+
+        $target_count{$old} == 1
+    } @recording_merges;
+
     for my $recording_merge (@recording_merges) {
         my ($new, $old) = @$recording_merge;
-        next if $target_count{$old} > 1;
 
         $new = $merge_targets{$new} // $new;
-        $self->c->model('Recording')->merge($new, $old);
-        $merge_targets{$old} = $new;
+
+        # If two recordings' positions are swapped (e.g. recording 1 is being
+        # merged into recording 2, and recording 2 is being merged into
+        # recording 1), then we don't merge them in that case, because it's
+        # probably not intentional.
+        if ($new != $old) {
+            $self->c->model('Recording')->merge($new, $old);
+            $merge_targets{$old} = $new;
+        }
     }
 
     $self->c->model('Track')->merge_mediums($new_medium_id, $old_medium_id);

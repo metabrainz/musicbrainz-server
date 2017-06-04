@@ -140,4 +140,18 @@ test 'Reordering mediums' => sub {
     is($c->model('Medium')->get_by_id(2)->position => 1);
 };
 
+test 'Merging mediums with swapped recordings (MBS-9309)' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_raw_test_database($c, '+mbs-9309');
+
+    $c->model('Medium')->merge(1, 2);
+
+    my $medium = $c->model('Medium')->get_by_id(1);
+    $c->model('Track')->load_for_mediums($medium);
+
+    is_deeply([map { $_->recording_id } $medium->all_tracks], [1, 2]);
+};
+
 1;
