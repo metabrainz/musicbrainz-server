@@ -41,4 +41,7 @@ Crawl-delay: 1
 User-agent: AhrefsBot
 Disallow: /
 
+User-agent: CrazyWebCrawler-Spider
+Disallow: /
+
 Sitemap: https://musicbrainz.org/sitemap-index.xml.gz
