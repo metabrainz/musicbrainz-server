@@ -44,4 +44,10 @@ Disallow: /
 User-agent: CrazyWebCrawler-Spider
 Disallow: /
 
+User-agent: SemrushBot
+Disallow: /
+
+User-agent: SemrushBot-SA
+Disallow: /
+
 Sitemap: https://musicbrainz.org/sitemap-index.xml.gz
