@@ -230,7 +230,7 @@ sub merge
 {
     my ($self, $new_medium_id, $old_medium_id) = @_;
     my @recording_merges = @{
-        $self->sql->select_list_of_lists(
+        $self->sql->select_list_of_hashes(
             'SELECT DISTINCT newt.recording AS new, oldt.recording AS old
                FROM track oldt
                JOIN track newt ON newt.position = oldt.position
@@ -243,16 +243,19 @@ sub merge
     # We need to make sure that for each old recording, there is only 1 new recording
     # to merge into. If there is > 1, then it's not clear what we should merge into.
     my %target_count;
-    $target_count{ $_->[1] }++ for @recording_merges;
+    $target_count{ $_->{old} }++ for @recording_merges;
 
     # MBS-8614. Track recording merges, to resolve cases where a recording is
     # a merge source on one track (after which it gets deleted), and a merge
     # target on another track (in which case we should instead use the ID of
-    # the target from the first merge).
+    # the target from the first merge). Example where recording 3 should be
+    # merged into recording 2:
+    # 1 -> 2
+    # 3 -> 1
     my %merge_targets;
 
     @recording_merges = grep {
-        my ($new, $old) = @{$_};
+        my ($new, $old) = @{$_}{qw( new old )};
 
         $merge_targets{$old} = $new;
 
@@ -260,7 +263,7 @@ sub merge
     } @recording_merges;
 
     for my $recording_merge (@recording_merges) {
-        my ($new, $old) = @$recording_merge;
+        my ($new, $old) = @{$recording_merge}{qw( new old )};
 
         $new = $merge_targets{$new} // $new;
 
