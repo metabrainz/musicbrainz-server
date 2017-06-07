@@ -6,7 +6,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 # install_extensions.sh removes certain build dependencies that we need, so we
 # can't install everything here.
 # Note: curl is also a dependency of carton.
-RUN apt_install(`ca-certificates curl sudo')
+RUN apt_install(`ca-certificates curl sudo wget')
 
 RUN cd /tmp && \
     curl -O https://raw.githubusercontent.com/metabrainz/docker-postgres/1ce35dc/postgres-base/install_extensions.sh && \
@@ -22,6 +22,7 @@ COPY \
     ./
 
 ENV PERL_CPANM_OPT --notest --no-interactive
+ENV test=true
 
 RUN apt_install(`test_db_build_deps test_db_run_deps') && \
     sudo_mb(`carton install --deployment') && \
@@ -31,6 +32,10 @@ COPY admin/ admin/
 COPY lib/ lib/
 COPY script/ script/
 COPY t/sql/initial.sql t/sql/
+COPY entities.json entities.json
+
+RUN chown_mb('/home/musicbrainz/dumps') && \
+    chmod 733 /home/musicbrainz/dumps
 
 COPY docker/musicbrainz-test-database/DBDefs.pm lib/
 
