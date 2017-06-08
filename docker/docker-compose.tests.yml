@@ -9,6 +9,8 @@ services:
     build:
       context: ../
       dockerfile: docker/Dockerfile.test-database
+    environment:
+      MB_IMPORT_DUMPS: "false"
     network_mode: bridge
 
   musicbrainz-tests:
