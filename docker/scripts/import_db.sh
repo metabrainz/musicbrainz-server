@@ -1,6 +1,6 @@
 #!/bin/bash
 set -o errexit
-cd `dirname $0`/../..
+cd /home/musicbrainz/musicbrainz-server
 
 DATABASE=READWRITE
 DIRECTORY=/home/musicbrainz/dumps
