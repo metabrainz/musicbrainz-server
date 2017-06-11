@@ -81,16 +81,21 @@ sub data : Chained('load') RequireAuth
                template => 'edit/data.tt' );
 }
 
-sub enter_votes : Local RequireAuth(editing_enabled) DenyWhenReadonly
+sub enter_votes : Local RequireAuth DenyWhenReadonly
 {
     my ($self, $c) = @_;
 
     my $form = $c->form(vote_form => 'Vote');
     if ($c->form_posted && $form->submitted_and_valid($c->req->params)) {
         my @submissions = @{ $form->field('vote')->value };
+        my @votes = grep { defined($_->{vote}) } @submissions;
+        unless ($c->user->is_editing_enabled || scalar @votes == 0) {
+            $c->stash( template => 'edit/cannot_vote.tt' );
+            return;
+        }
         $c->model('Edit')->insert_votes_and_notes(
             $c->user,
-            votes => [ grep { defined($_->{vote}) } @submissions ],
+            votes => [ @votes ],
             notes => [ grep { defined($_->{edit_note}) } @submissions ]
         );
     }
