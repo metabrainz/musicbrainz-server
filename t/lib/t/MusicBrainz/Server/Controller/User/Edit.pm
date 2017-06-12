@@ -67,8 +67,9 @@ test 'Limited users cannot edit website and biography' => sub {
     $mech->submit_form( with_fields => { username => 'new_editor', password => 'password' } );
 
     $mech->get_ok('/account/edit');
+    html_ok($mech->content);
+
     my $tx = test_xpath_html($mech->content);
-    html_ok($tx);
     $tx->ok('//input[@id="id-profile.email"]', 'email field for all users');
     $tx->not_ok('//input[@id="id-profile.website"]', 'no website field for limited users');
     $tx->not_ok('//textarea[@id="id-profile.biography"]', 'no biography field for limited users');
@@ -88,8 +89,9 @@ INSERT INTO edit (id, editor, type, status, expire_time, autoedit) VALUES
 EOSQL
 
     $mech->get_ok('/account/edit');
+    html_ok($mech->content);
+
     $tx = test_xpath_html($mech->content);
-    html_ok($tx);
     $tx->ok('//input[@id="id-profile.email"]', 'email field for all users');
     $tx->ok('//input[@id="id-profile.website"]', 'website field for normal (not imited) users');
     $tx->ok('//textarea[@id="id-profile.biography"]', 'biography field for normal (not limited) users');
