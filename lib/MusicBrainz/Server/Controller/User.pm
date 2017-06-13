@@ -216,7 +216,7 @@ sub _renew_login_cookie
     };
 }
 
-sub base : Chained PathPart('user') CaptureArgs(0) HiddenOnSlaves { }
+sub base : Chained PathPart('user') CaptureArgs(0) RequireAuth HiddenOnSlaves { }
 
 sub _load
 {
