@@ -18,14 +18,14 @@ function canonicalize(url) {
 function getTitle(props) {
   let {title, pager} = props;
 
-  if (props.homepage) {
+  if (!props.homepage) {
     let parts = [];
 
     if (title) {
       parts.push(title);
     }
 
-    if (pager.current_page && pager.current_page > 1) {
+    if (pager && pager.current_page && pager.current_page > 1) {
       parts.push(l('Page {n}', {n: pager.current_page}));
     }
 

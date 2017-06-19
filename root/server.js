@@ -7,13 +7,16 @@
 
 require('babel-core/register');
 
+const Raven = require('raven');
+const DBDefs = require('./static/scripts/common/DBDefs');
+Raven.config(DBDefs.SENTRY_DSN).install();
+
 const cluster = require('cluster');
 const fs = require('fs');
-const Raven = require('raven');
 const spawnSync = require('child_process').spawnSync;
+const _ = require('lodash');
 
 const createServer = require('./server/createServer');
-const DBDefs = require('./static/scripts/common/DBDefs');
 const gettext = require('./server/gettext');
 const {clearRequireCache} = require('./server/utils');
 
@@ -28,8 +31,6 @@ const yargs = require('yargs')
     default: process.env.RENDERER_WORKERS || 1,
     describe: 'Number of workers to spawn',
   });
-
-Raven.config(DBDefs.SENTRY_DSN).install();
 
 const SOCKET_PATH = yargs.argv.socket;
 const WORKER_COUNT = yargs.argv.workers;
@@ -46,7 +47,7 @@ if (cluster.isMaster) {
 
   function forkWorker(listening) {
     // Allow spawning one additional worker during HUP.
-    if (Object.keys(cluster.workers).length > WORKER_COUNT) {
+    if (_.keys(cluster.workers).length > WORKER_COUNT) {
       return false;
     }
 
@@ -85,13 +86,13 @@ if (cluster.isMaster) {
     }
   }
 
-  const cleanup = function (signal) {
+  const cleanup = Raven.wrap(function (signal) {
     for (const id in cluster.workers) {
       killWorker(cluster.workers[id], signal);
     }
     fs.unlinkSync(SOCKET_PATH);
     process.exit();
-  };
+  });
 
   let hupAction = null;
   const hup = Raven.wrap(function () {
@@ -105,9 +106,9 @@ if (cluster.isMaster) {
       initialTimeout = 2000;
     }
 
-    function killNext() {
+    const killNext = Raven.wrap(function () {
       if (!oldWorkers) {
-        oldWorkers = Object.values(cluster.workers);
+        oldWorkers = _.values(cluster.workers);
       }
       const oldWorker = oldWorkers.pop();
       if (oldWorker) {
@@ -121,7 +122,7 @@ if (cluster.isMaster) {
       } else {
         hupAction = null;
       }
-    }
+    });
 
     hupAction = setTimeout(killNext, initialTimeout);
   });

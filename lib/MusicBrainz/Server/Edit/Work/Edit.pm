@@ -194,9 +194,28 @@ around allow_auto_edit => sub {
 
     return 0 if defined $self->data->{old}{language_id};
     return 0 if @{ $self->data->{old}{languages} // [] };
-    return 0 if defined $self->data->{old}{attributes};
 
-    return $self->$orig(@args);
+    return 0 if !$self->$orig(@args);
+
+    return 1 if defined $self->data->{old}{attributes} && scalar $self->data->{old}{attributes} == 0;
+
+    if (exists $self->data->{new}{attributes}) {
+        my %new = $self->grouped_attributes_by_type($self->data->{new}{attributes});
+        my %old = $self->grouped_attributes_by_type($self->data->{old}{attributes});
+
+        my $changed_types = Set::Scalar->new(keys %new, keys %old);
+
+        while (defined(my $type = $changed_types->each)) {
+            my @new_values = map { $_->l_value } @{ $new{$type} //= [] };
+            my @old_values = map { $_->l_value } @{ $old{$type} //= [] };
+
+            unless (scalar @old_values == 0 || Set::Scalar->new(@new_values) == Set::Scalar->new(@old_values)) {
+                return 0;
+            }
+        }
+    }
+
+    return 1;
 };
 
 sub current_instance {
@@ -255,6 +274,17 @@ after accept => sub {
         $self->c->model('Work')->language->set($self->work_id, @$languages);
     }
 };
+
+sub restore {
+    my ($self, $data) = @_;
+
+    for my $side (qw( old new )) {
+        $data->{$side}{languages} = [ delete $data->{$side}{language_id} // () ]
+            if exists $data->{$side}{language_id};
+    }
+
+    $self->data($data);
+}
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

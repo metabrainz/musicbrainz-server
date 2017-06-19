@@ -37748,7 +37748,7 @@ msgstr ""
 msgid "Wuzlam"
 msgstr ""
 
-#. frequency:0 iso_code_3:wya 
+#. frequency:1 iso_code_3:wya 
 #: DB:language/name:7181
 msgid "Wyandot"
 msgstr ""

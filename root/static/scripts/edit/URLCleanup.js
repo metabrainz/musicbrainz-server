@@ -191,6 +191,9 @@ const LINK_TYPES = {
     event: "81bc32b3-7039-486a-a92f-52486fb7e162",
     place: "0e41b9de-20d8-4d1a-869d-7018e1045439",
   },
+  cdbaby: {
+    artist: "4c21e5f5-2960-4abc-88a1-62ce491bb96e"
+  },
   songkick: {
     artist: "aac9c4bc-a5b9-30b8-9839-e3ac314c6e58",
     event: "125afc57-4d33-3b63-ab41-848a3a18d3a6",
@@ -472,6 +475,38 @@ const CLEANUPS = {
       return url.replace(/^(https:\/\/archive\.org\/details\/[A-Za-z0-9._-]+)\/$/, "$1");
     }
   },
+  bigcartel: {
+    match: [new RegExp("^(https?://)?[^/]+\\.bigcartel\\.com","i")],
+    type: LINK_TYPES.mailorder,
+    clean: function (url) {
+      var m = url.match(/^(?:https?:\/\/)?([^\/]+)\.bigcartel\.com(?:\/(?:product\/([^\/?#]+)|[^\/]*))?/);
+      if (m) {
+        var subdomain = m[1];
+        var product = m[2];
+        url = "http://" + subdomain + ".bigcartel.com";
+        if (product !== undefined) {
+          url = url + "/product/" + product;
+        }
+      }
+      return url;
+    },
+    validate: function (url, id) {
+      var m = /^http:\/\/([^\/]+)\.bigcartel\.com(\/product\/[^\/?#]+)?/.exec(url);
+      if (m) {
+        var subdomain = m[1];
+        var product = m[2];
+        if (!/^(images|www)$/.test(subdomain)) {
+          switch (id) {
+            case LINK_TYPES.mailorder.artist:
+              return product === undefined;
+            case LINK_TYPES.mailorder.release:
+              return product !== undefined;
+          }
+        }
+      }
+      return false;
+    }
+  },
   blogspot: {
     match: [new RegExp("^(https?://)?(www\\.)?[^./]+\\.blogspot\\.([a-z]{2,3}\\.)?[a-z]{2,3}/?","i")],
     clean: function (url) {
@@ -488,15 +523,25 @@ const CLEANUPS = {
       return /^https:\/\/bookbrainz\.org\/[^\/]+\/[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$/.test(url);
     }
   },
-  cdbaby: {
-    match: [new RegExp("^(https?://)?([^/]+\\.)?cdbaby\\.(com|name)","i")],
+  cdbaby_artist: {
+    match: [new RegExp("^(https?://)?((store|www)\\.)?cdbaby\\.(com|name)/Artist/","i")],
+    type: LINK_TYPES.cdbaby,
     clean: function (url) {
-      var m = url.match(/(?:https?:\/\/)?(?:www\.)?cdbaby\.com\/cd\/([^\/]+)(\/(from\/[^\/]+)?)?/);
+      return url.replace(/(?:https?:\/\/)?(?:(?:store|www)\.)?cdbaby\.(?:com|name)\/Artist\/([a-z0-9]+).*$/i, "https://store.cdbaby.com/Artist/$1");
+    },
+    validate: function (url, id) {
+      return /^https:\/\/store.cdbaby\.com\/Artist\/[a-z0-9]+$/.test(url) && id === LINK_TYPES.cdbaby.artist;
+    }
+  },
+  cdbaby: {
+    match: [new RegExp("^(https?://)?([^/]+\\.)?cdbaby\\.(com|name)/(?!Artist/)","i")],
+    clean: function (url) {
+      var m = url.match(/(?:https?:\/\/)?(?:(?:store|www)\.)?cdbaby\.com\/cd\/([^\/]+)(\/(from\/[^\/]+)?)?/);
       if (m) {
-        url = "http://www.cdbaby.com/cd/" + m[1].toLowerCase();
+        url = "https://store.cdbaby.com/cd/" + m[1].toLowerCase();
       }
-      url = url.replace(/(?:https?:\/\/)?(?:www\.)?cdbaby\.com\/Images\/Album\/([a-z0-9]+)(?:_small)?\.jpg/, "http://www.cdbaby.com/cd/$1");
-      return url.replace(/(?:https?:\/\/)?(?:images\.)?cdbaby\.name\/.\/.\/([a-z0-9]+)(?:_small)?\.jpg/, "http://www.cdbaby.com/cd/$1");
+      url = url.replace(/(?:https?:\/\/)?(?:(?:store|www)\.)?cdbaby\.com\/Images\/Album\/([a-z0-9]+)(?:_small)?\.jpg/, "https://store.cdbaby.com/cd/$1");
+      return url.replace(/(?:https?:\/\/)?(?:images\.)?cdbaby\.name\/.\/.\/([a-z0-9]+)(?:_small)?\.jpg/, "https://store.cdbaby.com/cd/$1");
     }
   },
   downloadpurchase: {
