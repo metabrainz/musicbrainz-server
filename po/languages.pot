@@ -2528,6 +2528,11 @@ msgstr ""
 msgid "Wolof"
 msgstr ""
 
+#. frequency:1 iso_code_3:wya 
+#: DB:language/name:7181
+msgid "Wyandot"
+msgstr ""
+
 #. frequency:1 iso_code_3:xho 
 #: DB:language/name:460
 msgid "Xhosa"
