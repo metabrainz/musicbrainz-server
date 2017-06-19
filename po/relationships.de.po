@@ -9,13 +9,14 @@
 # Philipp Wolfer <email address hidden>, 2015
 # S.Brandt <email address hidden>, 2014,2016
 # Shepard, 2013-2014
+# Till Berger <email address hidden>, 2017
 # TL, 2016
 # Ulrich Klauer <email address hidden>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2017-03-27 17:08+0000\n"
-"Last-Translator: Michael Wiencek <email address hidden>\n"
+"PO-Revision-Date: 2017-06-10 18:01+0000\n"
+"Last-Translator: Till Berger <email address hidden>\n"
 "Language-Team: German (http://www.transifex.com/musicbrainz/musicbrainz/language/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -124,6 +125,14 @@ msgstr "BookBrainz"
 msgid "BookBrainz page for"
 msgstr "BookBrainz-Seite für"
 
+#: DB:link_type/link_phrase:919
+msgid "CD Baby"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:919
+msgid "CD Baby page for"
+msgstr ""
+
 #: DB:link_type/link_phrase:8 DB:link_type/link_phrase:227
 msgid "DJ-mix of"
 msgstr "DJ-Mix von"
@@ -165,7 +174,7 @@ msgstr "Beschreibt die Tatsache, dass eine Person von einer Örtlichkeit als Mas
 #: DB:link_type/description:703
 msgid ""
 "Describes the fact a person was contracted by a place as a mixing engineer."
-msgstr "Beschreibt die Tatsache, dass eine Person von einer Örtlichkeit als Toningenier beauftragt wurde."
+msgstr "Beschreibt die Tatsache, dass eine Person von einer Örtlichkeit als Toningenieur beauftragt wurde."
 
 #: DB:link_type/description:702
 msgid ""
@@ -340,7 +349,7 @@ msgstr "Gibt ein Orchester an, das auf dieser Veröffentlichung auftrat."
 msgid ""
 "Indicates that an artist revised a work. In most cases, this will be the "
 "original composer revising the work at a later date."
-msgstr ""
+msgstr "Gibt an, dass ein Künstler ein Werk überarbeitet hat. In den meisten Fällen wird dies der ursprüngliche Komponist sein, der das Werk zu einem späteren Zeitpunkt überarbeitet hat."
 
 #: DB:link_type/description:887
 msgid ""
@@ -1210,13 +1219,13 @@ msgstr ""
 msgid ""
 "This indicates an artist who was the concertmaster/leader for an orchestra "
 "or band on this recording."
-msgstr ""
+msgstr "Gibt einen Künstler an, der der Konzertmeister/Leiter eines Orchesters oder einer Band auf dieser Aufnahme war."
 
 #: DB:link_type/description:759
 msgid ""
 "This indicates an artist who was the concertmaster/leader for an orchestra "
 "or band on this release."
-msgstr ""
+msgstr "Gibt einen Künstler an, der der Konzertmeister/Leiter eines Orchesters oder einer Band auf dieser Veröffentlichung war."
 
 #: DB:link_type/description:891
 msgid ""
@@ -1812,7 +1821,7 @@ msgstr ""
 
 #: DB:link_type/description:726
 msgid "This links a recording to the balance engineer who engineered it."
-msgstr ""
+msgstr "Verbindet eine Aufnahme mit dem verantwortlichen Tonmeister."
 
 #: DB:link_type/description:153
 msgid ""
@@ -1871,7 +1880,7 @@ msgstr ""
 
 #: DB:link_type/description:727
 msgid "This links a release to the balance engineer who engineered it."
-msgstr ""
+msgstr "Verbindet eine Veröffentlichung mit dem verantwortlichen Tonmeister."
 
 #: DB:link_type/description:47
 msgid ""
@@ -1951,7 +1960,7 @@ msgstr ""
 
 #: DB:link_type/description:881
 msgid "This links a work with the area it was revised in."
-msgstr ""
+msgstr "Verbindet ein Werk mit dem Gebiet, in dem es überarbeitet wurde."
 
 #: DB:link_type/description:884
 msgid "This links a work with the area it was translated in."
@@ -1979,7 +1988,7 @@ msgstr ""
 
 #: DB:link_type/description:882
 msgid "This links a work with the place it was revised at."
-msgstr ""
+msgstr "Verbindet ein Werk mit der Örtlichkeit, an der es überarbeitet wurde."
 
 #: DB:link_type/description:883
 msgid "This links a work with the place it was translated at."
@@ -2024,7 +2033,7 @@ msgstr "Dies verbindet einen Künstler mit einer URL die ein Interview mit diese
 
 #: DB:link_type/description:182
 msgid "This links an artist to an online biography for that artist."
-msgstr "Dies verbindet einen Künstler mit seiner online Biografie."
+msgstr "Dies verbindet einen Künstler mit einer Online-Biografie über ihn."
 
 #: DB:link_type/description:184
 msgid ""
@@ -2036,6 +2045,10 @@ msgstr ""
 #: DB:link_type/description:718
 msgid "This links an artist to its page at Bandcamp."
 msgstr "Dies verbindet einen Künstler mit seiner Seite bei Bandcamp."
+
+#: DB:link_type/description:919
+msgid "This links an artist to its page at CD Baby."
+msgstr ""
 
 #: DB:link_type/description:178
 msgid ""
@@ -2241,7 +2254,7 @@ msgstr ""
 #: DB:link_type/description:847
 msgid ""
 "This relationship indicates that a person was another's teacher/student."
-msgstr "Diese Beziehung gibt, dass eine Person Lehrer/Student einer anderen Person war."
+msgstr "Diese Beziehung gibt an, dass eine Person Lehrer/Student einer anderen Person war."
 
 #: DB:link_type/description:869
 msgid ""
@@ -2313,13 +2326,13 @@ msgstr ""
 msgid ""
 "This relationship is used to link a catalogue work series to a person who "
 "was involved in compiling it."
-msgstr ""
+msgstr "Diese Beziehung verbindet ein Werkverzeichnis mit einer Person, die an dessen Zusammenstellung beteiligt war."
 
 #: DB:link_type/description:750
 msgid ""
 "This relationship is used to link a catalogue work series to a person whose "
 "work it catalogues."
-msgstr ""
+msgstr "Diese Beziehung verbindet ein Werkverzeichnis mit einer Person, deren Werk es katalogisiert."
 
 #: DB:link_type/description:54
 msgid ""
@@ -2348,13 +2361,13 @@ msgstr ""
 msgid ""
 "This relationship links an instrument to the company that invented or "
 "designed it."
-msgstr ""
+msgstr "Diese Beziehung verbindet ein Instrument mit der Firma, die es erfunden oder entworfen hat."
 
 #: DB:link_type/description:896
 msgid ""
 "This relationship links an instrument to the person(s) who invented or "
 "designed it."
-msgstr ""
+msgstr "Diese Beziehung verbindet ein Instrument mit der/den Person(en), die es erfunden oder entworfen hat/haben."
 
 #: DB:link_type/description:856
 msgid ""
@@ -2467,7 +2480,7 @@ msgstr ""
 
 #: DB:link_type/description:224
 msgid "This relationship type is used to link a label to its blog."
-msgstr ""
+msgstr "Dieser Beziehungstyp wird benutzt, um ein Label zu seinem Blog zu verlinken."
 
 #: DB:link_type/description:287
 msgid ""
@@ -2496,7 +2509,7 @@ msgstr "Dieser Beziehungstyp wird benutzt um einen Künstler zu einer Seite zu v
 
 #: DB:link_type/description:199
 msgid "This relationship type is used to link an artist to their blog."
-msgstr "Dieser Beziehungstyp wird benutzt um einen Künstler zu einer Seite mit seinem Blog zu verlinken."
+msgstr "Dieser Beziehungstyp wird benutzt, um einen Künstler zu seinem Blog zu verlinken."
 
 #: DB:link_type/description:175
 msgid ""
@@ -2508,7 +2521,7 @@ msgstr ""
 msgid ""
 "This relationship type is used to link to a page where the release can be "
 "purchased for mail order."
-msgstr "Dieser Beziehungstyp wird benutzt um eine Seite zu verlinken, von welcher die Veröffentlichung per Post bestellt werden kann."
+msgstr "Dieser Beziehungstyp wird benutzt, um eine Seite zu verlinken, von welcher die Veröffentlichung per Post bestellt werden kann."
 
 #: DB:link_type/description:274
 msgid ""
@@ -2903,11 +2916,11 @@ msgstr "katalogisiert"
 
 #: DB:link_type/reverse_link_phrase:751
 msgid "cataloguer"
-msgstr "Titelaufnehmer"
+msgstr "Katalogisierer"
 
 #: DB:link_type/reverse_link_phrase:750
 msgid "catalogues work of"
-msgstr ""
+msgstr "katalogisiert das Werk von"
 
 #: DB:link_type/reverse_link_phrase:735
 msgid "child of"
@@ -2973,11 +2986,11 @@ msgstr "Komposition"
 
 #: DB:link_type/reverse_link_phrase:759 DB:link_type/reverse_link_phrase:760
 msgid "concertmaster"
-msgstr ""
+msgstr "Konzertmeister(in)"
 
 #: DB:link_type/link_phrase:759 DB:link_type/link_phrase:760
 msgid "concertmaster for"
-msgstr ""
+msgstr "Konzertmeister(in) für"
 
 #: DB:link_type/link_phrase:806
 msgid "conductor at"
@@ -3307,6 +3320,10 @@ msgstr "has Amazon-ASIN"
 #: DB:link_type/long_link_phrase:719 DB:link_type/long_link_phrase:718
 msgid "has Bandcamp page at"
 msgstr "hat Bandcamp-Seite unter"
+
+#: DB:link_type/long_link_phrase:919
+msgid "has CD Baby page at"
+msgstr ""
 
 #: DB:link_type/long_link_phrase:311 DB:link_type/long_link_phrase:310
 msgid "has VIAF ID at"
@@ -4931,7 +4948,7 @@ msgstr ""
 
 #: DB:link_type/long_link_phrase:759 DB:link_type/long_link_phrase:760
 msgid "was the concertmaster for"
-msgstr ""
+msgstr "war der/die Konzertmeister(in) für"
 
 #: DB:link_type/description:731
 msgid "wikipedia"
@@ -5064,7 +5081,7 @@ msgstr "{co:ko-}audio-engineerte {additional:zusätzlich} {assistant:assistieren
 #: DB:link_type/long_link_phrase:727 DB:link_type/long_link_phrase:726
 msgid ""
 "{additional:additionally} {assistant} {associate} {co:co-}balance engineered"
-msgstr ""
+msgstr "fungierte als {additional:zusätzliche(r)} {assistant:assistierende(r)} {associate:Partner-}{co:Ko-}Tonmeister(in) für"
 
 #: DB:link_type/link_phrase:38 DB:link_type/link_phrase:144
 #: DB:link_type/long_link_phrase:38 DB:link_type/long_link_phrase:144
@@ -5259,7 +5276,7 @@ msgstr "{additional:zusätzliches} {assistant:assistierendes} {associate:Partner
 
 #: DB:link_type/reverse_link_phrase:727 DB:link_type/reverse_link_phrase:726
 msgid "{additional} {assistant} {associate} {co:co-}balance engineer"
-msgstr ""
+msgstr "{additional:zusätzliche(r)} {assistant:assistierende(r)} {associate:Partner-}{co:Ko-}Tonmeister(in)"
 
 #: DB:link_type/reverse_link_phrase:38 DB:link_type/reverse_link_phrase:144
 msgid "{additional} {assistant} {associate} {co:co-}editor"
@@ -5354,7 +5371,7 @@ msgstr "{bonus:kann|ist} Teil eines Sets {bonus:sein}, das nächste Medium im Se
 
 #: DB:link_type/long_link_phrase:750
 msgid "{entity1} catalogues the work of {entity0}"
-msgstr ""
+msgstr "{entity1} katalogisiert das Werk von {entity0}"
 
 #: DB:link_type/long_link_phrase:154 DB:link_type/long_link_phrase:49
 msgid "{entity1} contains {additional} samples by {entity0}"
@@ -5543,11 +5560,11 @@ msgstr ""
 
 #: DB:link_type/long_link_phrase:882
 msgid "{entity1} was revised at {entity0}"
-msgstr ""
+msgstr "{entity1} wurde überarbeitet in {entity0}"
 
 #: DB:link_type/long_link_phrase:881
 msgid "{entity1} was revised in {entity0}"
-msgstr ""
+msgstr "{entity1} wurde überarbeitet in {entity0}"
 
 #: DB:link_type/long_link_phrase:886
 msgid "{entity1} was {additional:additionally} arranged at {entity0}"

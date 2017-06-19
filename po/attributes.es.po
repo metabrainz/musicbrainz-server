@@ -5,6 +5,7 @@
 # Alexander Dupuy <email address hidden>, 2012
 # Alexander Dupuy <email address hidden>, 2012
 # Alfredo Briones <email address hidden>, 2016
+# Antony Duran <email address hidden>, 2017
 #   <email address hidden>, 2012
 # Fran Martín <email address hidden>, 2016
 # gr0uch0mars <email address hidden>, 2011
@@ -28,8 +29,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2017-04-23 11:51+0000\n"
-"Last-Translator: Luis zas <email address hidden>\n"
+"PO-Revision-Date: 2017-05-17 04:21+0000\n"
+"Last-Translator: Antony Duran <email address hidden>\n"
 "Language-Team: Spanish (http://www.transifex.com/musicbrainz/musicbrainz/language/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1114,7 +1115,7 @@ msgstr "CASH ID"
 #: DB:work_attribute_type/name:22
 msgctxt "work_attribute_type"
 msgid "CCLI ID"
-msgstr ""
+msgstr "Identificador CCLI"
 
 #: DB:medium_format/name:1
 msgctxt "medium_format"
@@ -1405,12 +1406,12 @@ msgstr "DVDplus"
 #: DB:medium_format/name:70
 msgctxt "medium_format"
 msgid "DVDplus (CD side)"
-msgstr ""
+msgstr "DVDPlus (CD lateral)"
 
 #: DB:medium_format/name:68
 msgctxt "medium_format"
 msgid "DVDplus (DVD-Audio side)"
-msgstr ""
+msgstr "DVDPlus (DVD-Audio-lateral)"
 
 #: DB:medium_format/name:69
 msgctxt "medium_format"
@@ -4398,7 +4399,7 @@ msgstr "SACEM ID"
 #: DB:work_attribute_type/name:24
 msgctxt "work_attribute_type"
 msgid "SADAIC ID"
-msgstr ""
+msgstr "Identificador SADAIC "
 
 #: DB:medium_format/name:62
 msgctxt "medium_format"
@@ -5001,7 +5002,7 @@ msgctxt "medium_format"
 msgid ""
 "The CD layer of a hybrid SACD. The SACD layer should be added as a separate "
 "medium."
-msgstr ""
+msgstr "La capa de CD de un DVDplus. La capa de DVD se debe agregar como un medio separado."
 
 #: DB:medium_format/description:60
 msgctxt "medium_format"
@@ -5038,7 +5039,7 @@ msgctxt "medium_format"
 msgid ""
 "The SACD layer of a hybrid SACD. The CD layer should be added as a separate "
 "medium."
-msgstr ""
+msgstr "La capa CD de un Disco dual. Para un DVD se debe agregar como un medio separado."
 
 #: DB:work_type/description:7
 msgctxt "work_type"
