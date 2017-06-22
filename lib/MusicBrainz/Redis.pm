@@ -19,7 +19,7 @@ sub BUILD {
 
     $self->_connection(Redis->new(
         encoding => undef,
-        reconnect => 60,
+        reconnect => 5,
         server => $args->{server},
     ));
 
