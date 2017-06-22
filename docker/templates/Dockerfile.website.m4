@@ -2,7 +2,7 @@ m4_include(`server_base.m4')m4_dnl
 
 ARG DEBIAN_FRONTEND=noninteractive
 
-RUN apt_install(`rsync zopfli')
+RUN apt_install(`lsof rsync zopfli')
 
 install_javascript_and_templates(` --only=production')
 
