@@ -8,6 +8,7 @@ const React = require('react');
 const manifest = require('../../static/manifest');
 const DBDefs = require('../../static/scripts/common/DBDefs');
 const {l} = require('../../static/scripts/common/i18n');
+const escapeClosingTags = require('../../utility/escapeClosingTags');
 const MetaDescription = require('./MetaDescription');
 
 let canonRegexp = new RegExp('^(https?:)?//' + DBDefs.WEB_SERVER);
@@ -77,9 +78,10 @@ const Head = (props) => (
     })}
 
     <If condition={$c.stash.jsonld_data}>
-      <script type="application/ld+json">
-        {JSON.stringify($c.stash.jsonld_data)}
-      </script>
+      <script
+        dangerouslySetInnerHTML={{__html: escapeClosingTags(JSON.stringify($c.stash.jsonld_data))}}
+        type="application/ld+json"
+      />
     </If>
 
     <If condition={DBDefs.GOOGLE_ANALYTICS_CODE}>
