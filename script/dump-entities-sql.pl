@@ -324,7 +324,7 @@ sub dump_release_groups {
     my $rows = get_core_entities_by_gids($c, 'release_group', $gids);
 
     my $release_ids = $c->sql->select_single_column_array(
-        'SELECT release FROM release_group WHERE id = any(?) ORDER BY release',
+        'SELECT release.id FROM release WHERE release_group = any(?) ORDER BY release.id',
         pluck('id', $rows)
     );
 
