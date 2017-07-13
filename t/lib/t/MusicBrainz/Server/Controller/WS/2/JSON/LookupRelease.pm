@@ -400,6 +400,7 @@ test 'release lookup with labels and recordings' => sub {
                     tracks => [
                         {
                             id => "ec60f5e2-ed8a-391d-90cd-bf119c50f6a0",
+                            position => 1,
                             number => "1",
                             title => "the Love Bug",
                             length => 243000,
@@ -413,6 +414,7 @@ test 'release lookup with labels and recordings' => sub {
                         },
                         {
                             id => "2519283c-93d9-30de-a0ba-75f99ca25604",
+                            position => 2,
                             number => "2",
                             length => 222000,
                             title => "the Love Bug (Big Bug NYC remix)",
@@ -426,6 +428,7 @@ test 'release lookup with labels and recordings' => sub {
                         },
                         {
                             id => "4ffc18f0-96cc-3e1f-8192-cf0d0c489beb",
+                            position => 3,
                             number => "3",
                             length => 333000,
                             title => "the Love Bug (cover)",
@@ -681,6 +684,7 @@ test 'release lookup with discids and puids' => sub {
                     tracks => [
                         {
                             id => "3b9d0128-ed86-3c2c-af24-c331a3798875",
+                            position => 1,
                             number => "1",
                             title => "Summer Reggae! Rainbow",
                             length => 296026,
@@ -694,6 +698,7 @@ test 'release lookup with discids and puids' => sub {
                         },
                         {
                             id => "c7c21691-6f85-3ec7-9b08-e431c3b310a5",
+                            position => 2,
                             number => "2",
                             title => "Hello! Mata Aou Ne (7nin Matsuri version)",
                             length => 213106,
@@ -707,6 +712,7 @@ test 'release lookup with discids and puids' => sub {
                         },
                         {
                             id => "e436c057-ca19-36c6-9f1e-dc4ada2604b0",
+                            position => 3,
                             number => "3",
                             title => "Summer Reggae! Rainbow (Instrumental)",
                             length => 292800,
@@ -951,6 +957,7 @@ test 'release lookup, track artists have no tags' => sub {
                 {
                     id => '9b9a84b5-0a41-38f6-859f-36cb22ac813c',
                     length => 267560,
+                    position => 1,
                     number => '1',
                     recording => {
                         disambiguation => '',
@@ -985,6 +992,7 @@ test 'release lookup, track artists have no tags' => sub {
                 {
                     id => 'f38b8e31-a10d-3973-8c1f-10923ee61adc',
                     length => 230506,
+                    position => 2,
                     number => '2',
                     recording => {
                         disambiguation => '',
@@ -1018,6 +1026,7 @@ test 'release lookup, track artists have no tags' => sub {
                     id => 'd17bed32-940a-3fcc-9210-a5d7c516b4bb',
                     length => 237133,
                     number => '3',
+                    position => 3,
                     recording => {
                         disambiguation => '',
                         id => '6e89c516-b0b6-4735-a758-38e31855dcb6',
@@ -1049,6 +1058,7 @@ test 'release lookup, track artists have no tags' => sub {
                 {
                     id => '001bc675-ba25-32bc-9914-d5d9e22c3c44',
                     length => 229826,
+                    position => 4,
                     number => '4',
                     recording => {
                         disambiguation => '',
@@ -1081,6 +1091,7 @@ test 'release lookup, track artists have no tags' => sub {
                 {
                     id => 'c009176f-ff26-3f5f-bd16-46cede30ebe6',
                     length => 217440,
+                    position => 5,
                     number => '5',
                     recording => {
                         disambiguation => '',
@@ -1113,6 +1124,7 @@ test 'release lookup, track artists have no tags' => sub {
                 {
                     id => '70454e43-b39b-3ca7-8c50-ae235b5ef358',
                     length => 227293,
+                    position => 6,
                     number => '6',
                     recording => {
                         disambiguation => '',
@@ -1145,6 +1157,7 @@ test 'release lookup, track artists have no tags' => sub {
                 {
                     id => '1b5da50c-e20f-3762-839c-5a0eea89d6a5',
                     length => 244506,
+                    position => 7,
                     number => '7',
                     recording => {
                         disambiguation => '',
@@ -1177,6 +1190,7 @@ test 'release lookup, track artists have no tags' => sub {
                 {
                     id => 'f1b5bd23-ad01-3c0c-a49a-cf8e99088369',
                     length => 173960,
+                    position => 8,
                     number => '8',
                     recording => {
                         disambiguation => '',
@@ -1209,6 +1223,7 @@ test 'release lookup, track artists have no tags' => sub {
                 {
                     id => '928f2274-5694-35f9-92da-a1fc565867cf',
                     length => 208706,
+                    position => 9,
                     number => '9',
                     recording => {
                         disambiguation => '',
@@ -1241,6 +1256,7 @@ test 'release lookup, track artists have no tags' => sub {
                 {
                     id => '40727388-237d-34b2-8a3a-288878e5c883',
                     length => 320067,
+                    position => 10,
                     number => '10',
                     recording => {
                         disambiguation => '',
@@ -1355,6 +1371,7 @@ test 'release lookup, pregap track' => sub {
                 id => '1a0ba71b-fb23-3931-a426-cd204a82a90e',
                 title => 'Hello Goodbye [hidden track]',
                 length => 128000,
+                position => 0,
                 number => '0',
                 %artist_credit,
                 recording => {
@@ -1371,6 +1388,7 @@ test 'release lookup, pregap track' => sub {
                     id => '7b84af2d-96b3-3c50-a667-e7d10e8b000d',
                     title => 'Galaxie',
                     length => 211133,
+                    position => 1,
                     number => '1',
                     %artist_credit,
                     recording => {
@@ -1386,6 +1404,7 @@ test 'release lookup, pregap track' => sub {
                     id => 'e9f7ca98-ba9d-3276-97a4-26475c9f4527',
                     title => '2 X 4',
                     length => 240400,
+                    position => 2,
                     number => '2',
                     %artist_credit,
                     recording => {
@@ -1485,6 +1504,7 @@ test 'MBS-7914' => sub {
                 }],
                 id => '8ac89142-1318-490a-bed2-5b0c89b251b2',
                 length => JSON::null,
+                position => 1,
                 number => '1',
                 recording => {
                     aliases => [],
