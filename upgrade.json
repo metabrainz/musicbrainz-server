@@ -58,5 +58,9 @@
                    "20170401-mbs-8393-entity-attributes-fks.sql",
                    "20170329-mbs-5452-fks.sql",
                    "20170503-mbs-9329-event-meta-standalone.sql"]
+  },
+
+  "25": {
+    "standalone": ["20170604-mbs-9365.sql"]
   }
 }

@@ -103,7 +103,7 @@
             END;
            END %]
 
-        [% IF user.website && (user.has_confirmed_email_address || c.user.is_account_admin) %]
+        [% IF user.website && (!c.user.is_limited || c.user.is_account_admin) %]
             [% WRAPPER property name=l("Homepage:") %]
                 <a href="[% user.website | html %]" rel="nofollow">
                     [%~ user.website | html ~%]
@@ -127,7 +127,7 @@
             [% END %]
         [% END %]
 
-        [% IF user.biography && (user.has_confirmed_email_address || c.user.is_account_admin) %]
+        [% IF user.biography && (!c.user.is_limited || c.user.is_account_admin) %]
             [% WRAPPER property name=l("Bio:") class='biography' %]
                 [% user.biography | format_wikitext %]
             [% END %]

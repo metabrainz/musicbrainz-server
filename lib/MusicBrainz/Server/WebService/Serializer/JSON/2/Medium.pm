@@ -61,7 +61,8 @@ sub serialize_track {
         id => $entity->gid,
         length => $entity->length,
         number => $entity->number,
-        title => $entity->name
+        position => $entity->position,
+        title => $entity->name,
     );
 
     $track_output{recording} = serialize_entity($entity->recording, $inc, $stash)

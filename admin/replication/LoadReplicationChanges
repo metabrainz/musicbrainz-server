@@ -172,10 +172,26 @@ unless (defined $iReplicationSequence)
 
 check_foreign_keys();
 
+my %known_broken_sequences = (
+    # MBS-9366
+    '104949' => 1,
+);
+
 if ($sql->select_single_value('SELECT COUNT(*) FROM dbmirror_pending'))
 {
-    print localtime() . " : Continuing a previously aborted load\n";
-    goto APPLY_CHANGES;
+    my $aborted_sequence = $iReplicationSequence + 1;
+    if ($known_broken_sequences{$aborted_sequence}) {
+        print localtime() . " : Looks like we may have previously tried " .
+            "to apply packet #$aborted_sequence, which is known to be " .
+            "broken, and failed. Retrying in case the packet was fixed.\n";
+        $sql->auto_commit(1);
+        $sql->do('TRUNCATE dbmirror_pending CASCADE');
+        $sql->auto_commit(1);
+        $sql->do('TRUNCATE dbmirror_pendingdata CASCADE');
+    } else {
+        print localtime() . " : Continuing a previously aborted load\n";
+        goto APPLY_CHANGES;
+    }
 }
 
 NEXT_PACKET:

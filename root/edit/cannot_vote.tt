@@ -1,0 +1,4 @@
+[% WRAPPER 'layout.tt' full_width=1 title=l('Error Voting on Edits') %]
+    <h1>[% l('Error Voting on Edits') %]</h1>
+    <p>[% l('You’re not currently allowed to vote, please read the banner.') %]</p>
+[% END %]

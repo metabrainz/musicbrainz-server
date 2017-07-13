@@ -18,7 +18,9 @@
       <div class="no-label">
         [% l('If you change your email address, you will be required to verify it.') %]
       </div>
+      [%- IF !c.user.is_limited -%]
       [% form_row_url_long(r, 'website', l('Website:')) %]
+      [%- END -%]
       [% form_row_select(r, 'gender_id', l('Gender:')) %]
       [% WRAPPER form_row %]
         [% area_field = form.field('area.name') %]
@@ -42,11 +44,13 @@
       <div class="no-label">
         [% l('We will use your birth date to display your age in years on your profile page.') %]
       </div>
+      [%- IF !c.user.is_limited -%]
       [% WRAPPER form_row %]
         [% r.label('biography', l('Bio:')) %]
         [% r.textarea('biography', { cols => 80, rows => 5 }) %]
         [% field_errors(form, 'biography') %]
       [% END %]
+      [%- END -%]
 
       [% WRAPPER form_row %]
         [% r.label('languages', l('Languages Known:'), fake => 1) %]
