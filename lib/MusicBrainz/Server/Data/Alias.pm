@@ -187,7 +187,7 @@ sub merge
           WHERE id IN (
              SELECT a.id FROM (
                  SELECT id, rank() OVER (PARTITION BY locale
-                                         ORDER BY primary_for_locale DESC, ($type = ?) DESC) > 1 AS redundant
+                                         ORDER BY primary_for_locale DESC, ($type = ?) DESC, id DESC) > 1 AS redundant
                    FROM $table WHERE $type = any(?)
              ) a WHERE redundant
          )", $new_id, [ $new_id, @old_ids ]

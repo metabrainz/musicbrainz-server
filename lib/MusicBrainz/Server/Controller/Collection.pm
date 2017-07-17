@@ -14,7 +14,7 @@ with 'MusicBrainz::Server::Controller::Role::Subscribe';
 use MusicBrainz::Server::Data::Utils qw( model_to_type type_to_model load_everything_for_edits );
 use MusicBrainz::Server::Constants qw( :edit_status entities_with %ENTITIES );
 
-sub base : Chained('/') PathPart('collection') CaptureArgs(0) { }
+sub base : Chained('/') PathPart('collection') CaptureArgs(0) RequireAuth { }
 
 after 'load' => sub {
     my ($self, $c) = @_;
