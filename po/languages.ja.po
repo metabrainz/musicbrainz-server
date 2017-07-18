@@ -10,7 +10,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2017-01-31 02:01+0000\n"
+"PO-Revision-Date: 2017-06-19 19:32+0000\n"
 "Last-Translator: Michael Wiencek <email address hidden>\n"
 "Language-Team: Japanese (http://www.transifex.com/musicbrainz/musicbrainz/language/ja/)\n"
 "MIME-Version: 1.0\n"
@@ -2538,6 +2538,11 @@ msgstr "ワッラモ語"
 #: DB:language/name:458
 msgid "Wolof"
 msgstr "ウォロフ語"
+
+#. frequency:1 iso_code_3:wya
+#: DB:language/name:7181
+msgid "Wyandot"
+msgstr ""
 
 #. frequency:1 iso_code_3:xho
 #: DB:language/name:460

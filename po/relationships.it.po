@@ -13,7 +13,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2017-05-15 15:49+0000\n"
+"PO-Revision-Date: 2017-06-19 19:32+0000\n"
 "Last-Translator: Michael Wiencek <email address hidden>\n"
 "Language-Team: Italian (http://www.transifex.com/musicbrainz/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
@@ -1423,6 +1423,12 @@ msgstr ""
 #: DB:link_type/description:53
 msgid ""
 "This indicates the chorus master of a choir which performed on this release."
+msgstr ""
+
+#: DB:link_attribute_type/description:1018
+msgid ""
+"This indicates the linked entity translated something, rather than being the"
+" original writer."
 msgstr ""
 
 #: DB:link_type/description:361
@@ -4827,6 +4833,10 @@ msgstr "tradotta"
 msgid "translated at"
 msgstr ""
 
+#: DB:link_attribute_type/name:1018
+msgid "translator"
+msgstr ""
+
 #: DB:link_attribute_type/name:477
 msgid "transliterated"
 msgstr ""
@@ -4966,10 +4976,6 @@ msgstr ""
 
 #: DB:link_type/long_link_phrase:701
 msgid "works as an engineer at"
-msgstr ""
-
-#: DB:link_type/long_link_phrase:24
-msgid "wrote {additional} liner notes for"
 msgstr ""
 
 #: DB:link_type/link_phrase:293 DB:link_type/link_phrase:295
@@ -5203,7 +5209,7 @@ msgid "{additional} libretto writing location for"
 msgstr ""
 
 #: DB:link_type/link_phrase:24 DB:link_type/reverse_link_phrase:24
-msgid "{additional} liner notes"
+msgid "{additional} liner notes {translator}"
 msgstr ""
 
 #: DB:link_type/reverse_link_phrase:56 DB:link_type/reverse_link_phrase:165
@@ -5638,6 +5644,10 @@ msgstr ""
 
 #: DB:link_type/reverse_link_phrase:241
 msgid "{translated} {parody} version of"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:24
+msgid "{translator:translated|wrote} {additional} liner notes for"
 msgstr ""
 
 #: DB:link_type/long_link_phrase:85 DB:link_type/long_link_phrase:268

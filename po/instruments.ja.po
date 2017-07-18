@@ -11,7 +11,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2017-05-15 15:49+0000\n"
+"PO-Revision-Date: 2017-06-19 19:32+0000\n"
 "Last-Translator: Michael Wiencek <email address hidden>\n"
 "Language-Team: Japanese (http://www.transifex.com/musicbrainz/musicbrainz/language/ja/)\n"
 "MIME-Version: 1.0\n"
@@ -429,7 +429,7 @@ msgstr "バンジョー"
 
 #: DB:instrument/name:832
 msgctxt "banjo ukulele hybrid"
-msgid "banjo-ukelele"
+msgid "banjo-ukulele"
 msgstr ""
 
 #: DB:instrument/name:831
@@ -1598,12 +1598,12 @@ msgid "hourglass drum"
 msgstr "砂時計形太鼓"
 
 #: DB:instrument/name:858
-msgctxt "Māori traditional large bass gourd"
+msgctxt "Māori taonga pūoro large bass gourd"
 msgid "hue puruhau"
 msgstr ""
 
 #: DB:instrument/name:857
-msgctxt "Māori traditional shaking gourd"
+msgctxt "Māori taonga pūoro shaking gourd"
 msgid "hue puruwai"
 msgstr ""
 
@@ -1854,12 +1854,12 @@ msgid "kös"
 msgstr "キョス"
 
 #: DB:instrument/name:782
-msgctxt "Māori traditional small, ductless and notchless flute"
+msgctxt "Māori taonga pūoro small cross-blown flute"
 msgid "kōauau"
 msgstr ""
 
 #: DB:instrument/name:856
-msgctxt "Māori traditional tiny gourd nose flute"
+msgctxt "Māori taonga pūoro tiny gourd nose flute"
 msgid "kōauau ponga ihu"
 msgstr ""
 
@@ -2101,7 +2101,7 @@ msgid "ney"
 msgstr ""
 
 #: DB:instrument/name:783
-msgctxt "Māori traditional small vessel flute"
+msgctxt "Māori taonga pūoro small vessel flute"
 msgid "nguru"
 msgstr ""
 
@@ -2203,8 +2203,13 @@ msgstr "その他の楽器"
 msgid "oud"
 msgstr "ウード"
 
+#: DB:instrument/name:864
+msgctxt "Māori taonga pūoro large signalling drum"
+msgid "pahū"
+msgstr ""
+
 #: DB:instrument/name:790
-msgctxt "Māori traditional gong made of jade and bone"
+msgctxt "Māori taonga pūoro gong made of jade and bone"
 msgid "pahū pounamu"
 msgstr ""
 
@@ -2298,13 +2303,18 @@ msgstr "撥弦楽器"
 msgid "pocket trumpet"
 msgstr "ポケット・トランペット"
 
+#: DB:instrument/name:866
+msgctxt "Māori taonga pūoro flax leaf balls used in dancing"
+msgid "poi"
+msgstr ""
+
 #: DB:instrument/name:792
-msgctxt "Māori traditional swung whistling gourd"
+msgctxt "Māori taonga pūoro swung whistling gourd"
 msgid "poi āwhiowhio"
 msgstr ""
 
 #: DB:instrument/name:862
-msgctxt "Māori traditional humming discs"
+msgctxt "Māori taonga pūoro humming discs"
 msgid "porotiti"
 msgstr ""
 
@@ -2332,42 +2342,47 @@ msgstr "プサルタリー"
 msgid "pí thiu"
 msgstr ""
 
+#: DB:instrument/name:867
+msgctxt "Māori taonga pūoro tapping sticks"
+msgid "pākuru"
+msgstr ""
+
 #: DB:instrument/name:726
 msgid "pātē"
 msgstr ""
 
 #: DB:instrument/name:787
-msgctxt "Māori traditional hardwood flute"
+msgctxt "Māori taonga pūoro two harmonic flute"
 msgid "pōrutu"
 msgstr ""
 
 #: DB:instrument/name:788
-msgctxt "Māori traditional trumpet made of wood."
+msgctxt "Māori taonga pūoro wooden announcement trumpet"
 msgid "pūkaea"
 msgstr ""
 
 #: DB:instrument/name:785
-msgctxt "Māori traditional long flute"
+msgctxt "Māori taonga pūoro long one-holed flute"
 msgid "pūmotomoto"
 msgstr ""
 
 #: DB:instrument/name:861
-msgctxt "Māori traditional long necked conch trumpet"
+msgctxt "Māori taonga pūoro long necked conch trumpet"
 msgid "pūpakapaka"
 msgstr ""
 
 #: DB:instrument/name:791
-msgctxt "Māori traditional bullroarer"
+msgctxt "Māori taonga pūoro bullroarer"
 msgid "pūrerehua"
 msgstr ""
 
 #: DB:instrument/name:789
-msgctxt "Māori traditional conch shell trumpet"
+msgctxt "Māori taonga pūoro conch shell trumpet"
 msgid "pūtātara"
 msgstr ""
 
 #: DB:instrument/name:786
-msgctxt "Māori traditional wide ranged flute."
+msgctxt "Māori taonga pūoro wooden dual-voiced flute"
 msgid "pūtōrino"
 msgstr ""
 
@@ -2448,7 +2463,7 @@ msgid "reeds"
 msgstr "リード"
 
 #: DB:instrument/name:784
-msgctxt "Māori traditional long flute"
+msgctxt "Māori taonga pūoro long flute"
 msgid "rehu"
 msgstr ""
 
@@ -2489,7 +2504,7 @@ msgid "ryuteki"
 msgstr "龍笛"
 
 #: DB:instrument/name:859
-msgctxt "Māori traditional jew's harp"
+msgctxt "Māori taonga pūoro jew's harp"
 msgid "rōria"
 msgstr ""
 
@@ -2902,7 +2917,7 @@ msgid "tanpura"
 msgstr ""
 
 #: DB:instrument/name:781
-msgctxt "Māori traditional instrument ensamble."
+msgctxt "Māori traditional instrument ensemble"
 msgid "taonga pūoro"
 msgstr ""
 
@@ -2933,7 +2948,7 @@ msgid "taragot"
 msgstr "タラゴット"
 
 #: DB:instrument/name:860
-msgctxt "Māori traditional single string bow"
+msgctxt "Māori taonga pūoro single string bow"
 msgid "te kū"
 msgstr ""
 
@@ -3143,6 +3158,11 @@ msgstr "チューブラーベル"
 msgid "tumbi"
 msgstr "トゥンビ"
 
+#: DB:instrument/name:863
+msgctxt "Māori taonga pūoro ancient struck percussion"
+msgid "tumutumu"
+msgstr ""
+
 #: DB:instrument/name:115
 msgid "tuned percussion"
 msgstr ""
@@ -3166,6 +3186,11 @@ msgstr "タイプライター"
 
 #: DB:instrument/name:463
 msgid "tzoura"
+msgstr ""
+
+#: DB:instrument/name:865
+msgctxt "Māori taonga pūoro castanets"
+msgid "tōkere"
 msgstr ""
 
 #: DB:instrument/name:330
