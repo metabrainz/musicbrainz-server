@@ -14,8 +14,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2017-02-15 10:19+0000\n"
-"Last-Translator: Peter Cuevas H <email address hidden>\n"
+"PO-Revision-Date: 2017-06-19 19:32+0000\n"
+"Last-Translator: Michael Wiencek <email address hidden>\n"
 "Language-Team: Spanish (http://www.transifex.com/musicbrainz/musicbrainz/language/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -2542,6 +2542,11 @@ msgstr "Welayta"
 #: DB:language/name:458
 msgid "Wolof"
 msgstr "Wólof"
+
+#. frequency:1 iso_code_3:wya
+#: DB:language/name:7181
+msgid "Wyandot"
+msgstr ""
 
 #. frequency:1 iso_code_3:xho
 #: DB:language/name:460

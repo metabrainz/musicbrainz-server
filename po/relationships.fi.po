@@ -14,7 +14,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2017-03-27 17:08+0000\n"
+"PO-Revision-Date: 2017-06-19 19:32+0000\n"
 "Last-Translator: Michael Wiencek <email address hidden>\n"
 "Language-Team: Finnish (http://www.transifex.com/musicbrainz/musicbrainz/language/fi/)\n"
 "MIME-Version: 1.0\n"
@@ -122,6 +122,14 @@ msgstr ""
 #: DB:link_type/reverse_link_phrase:851 DB:link_type/reverse_link_phrase:852
 #: DB:link_type/reverse_link_phrase:853
 msgid "BookBrainz page for"
+msgstr ""
+
+#: DB:link_type/link_phrase:919
+msgid "CD Baby"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:919
+msgid "CD Baby page for"
 msgstr ""
 
 #: DB:link_type/link_phrase:8 DB:link_type/link_phrase:227
@@ -1418,6 +1426,12 @@ msgid ""
 "This indicates the chorus master of a choir which performed on this release."
 msgstr ""
 
+#: DB:link_attribute_type/description:1018
+msgid ""
+"This indicates the linked entity translated something, rather than being the"
+" original writer."
+msgstr ""
+
 #: DB:link_type/description:361
 msgid ""
 "This indicates the organization that distributes (or contracts out distribution). \n"
@@ -2035,6 +2049,10 @@ msgstr ""
 
 #: DB:link_type/description:718
 msgid "This links an artist to its page at Bandcamp."
+msgstr ""
+
+#: DB:link_type/description:919
+msgid "This links an artist to its page at CD Baby."
 msgstr ""
 
 #: DB:link_type/description:178
@@ -3307,6 +3325,10 @@ msgstr "omaa Amazon ASIN -tunnisteen"
 #: DB:link_type/long_link_phrase:719 DB:link_type/long_link_phrase:718
 msgid "has Bandcamp page at"
 msgstr "omaa Bandcamp-sivun"
+
+#: DB:link_type/long_link_phrase:919
+msgid "has CD Baby page at"
+msgstr ""
 
 #: DB:link_type/long_link_phrase:311 DB:link_type/long_link_phrase:310
 msgid "has VIAF ID at"
@@ -4812,6 +4834,10 @@ msgstr "käännetty"
 msgid "translated at"
 msgstr ""
 
+#: DB:link_attribute_type/name:1018
+msgid "translator"
+msgstr ""
+
 #: DB:link_attribute_type/name:477
 msgid "transliterated"
 msgstr "translitteroitu"
@@ -4952,10 +4978,6 @@ msgstr "työskentelee äänittäjänä kohteessa"
 #: DB:link_type/long_link_phrase:701
 msgid "works as an engineer at"
 msgstr "työskentelee studioteknikkona kohteessa"
-
-#: DB:link_type/long_link_phrase:24
-msgid "wrote {additional} liner notes for"
-msgstr "kirjoittanut {additional:lisäksi} kansiteksit kohteelle"
 
 #: DB:link_type/link_phrase:293 DB:link_type/link_phrase:295
 #: DB:link_type/link_phrase:297 DB:link_type/long_link_phrase:293
@@ -5188,8 +5210,8 @@ msgid "{additional} libretto writing location for"
 msgstr ""
 
 #: DB:link_type/link_phrase:24 DB:link_type/reverse_link_phrase:24
-msgid "{additional} liner notes"
-msgstr "{additional} kansitekstit"
+msgid "{additional} liner notes {translator}"
+msgstr ""
 
 #: DB:link_type/reverse_link_phrase:56 DB:link_type/reverse_link_phrase:165
 msgid "{additional} lyricist"
@@ -5623,6 +5645,10 @@ msgstr ""
 
 #: DB:link_type/reverse_link_phrase:241
 msgid "{translated} {parody} version of"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:24
+msgid "{translator:translated|wrote} {additional} liner notes for"
 msgstr ""
 
 #: DB:link_type/long_link_phrase:85 DB:link_type/long_link_phrase:268

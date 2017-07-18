@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-05-15 10:45-0500\n"
+"POT-Creation-Date: 2017-07-17 21:24-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -661,7 +661,7 @@ msgstr ""
 msgid "Add a New Example"
 msgstr ""
 
-#: ../root/account/edit.tt:65
+#: ../root/account/edit.tt:69
 msgid "Add a language"
 msgstr ""
 
@@ -1757,12 +1757,12 @@ msgid ""
 "sure to include it!"
 msgstr ""
 
-#: ../root/account/edit.tt:46 ../root/admin/edit_user.tt:40
+#: ../root/account/edit.tt:49 ../root/admin/edit_user.tt:40
 #: ../root/user/profile.tt:131
 msgid "Bio:"
 msgstr ""
 
-#: ../root/account/edit.tt:38
+#: ../root/account/edit.tt:40
 msgid "Birth date:"
 msgstr ""
 
@@ -3037,6 +3037,10 @@ msgstr ""
 msgid "Error Cancelling Edit"
 msgstr ""
 
+#: ../root/edit/cannot_vote.tt:1 ../root/edit/cannot_vote.tt:2
+msgid "Error Voting on Edits"
+msgstr ""
+
 #: ../root/release/edit/layout.tt:32
 msgid "Error loading release: {error}"
 msgstr ""
@@ -3425,7 +3429,7 @@ msgstr ""
 msgid "Gender"
 msgstr ""
 
-#: ../root/account/edit.tt:22 ../root/artist/edit_form.tt:18
+#: ../root/account/edit.tt:24 ../root/artist/edit_form.tt:18
 #: ../root/artist/layout.tt:30 ../root/edit/details/add_artist.tt:31
 #: ../root/edit/details/edit_artist.tt:30 ../root/user/profile.tt:74
 #: ../root/layout/components/MetaDescription.js:32
@@ -3578,7 +3582,7 @@ msgid "Help:"
 msgstr ""
 
 #: ../root/components/common-macros.tt:628
-#: ../lib/MusicBrainz/Server/Controller/Edit.pm:202
+#: ../lib/MusicBrainz/Server/Controller/Edit.pm:207
 msgid "High"
 msgstr ""
 
@@ -4156,7 +4160,7 @@ msgstr ""
 msgid "Language: {language}, script: {script}"
 msgstr ""
 
-#: ../root/account/edit.tt:52
+#: ../root/account/edit.tt:56
 msgid "Languages Known:"
 msgstr ""
 
@@ -4340,7 +4344,7 @@ msgstr ""
 msgid "Location editors are users who can add or modify {uri|areas}."
 msgstr ""
 
-#: ../root/account/edit.tt:25 ../root/user/profile.tt:80
+#: ../root/account/edit.tt:27 ../root/user/profile.tt:80
 msgid "Location:"
 msgstr ""
 
@@ -4405,7 +4409,7 @@ msgid "Lost Username"
 msgstr ""
 
 #: ../root/components/common-macros.tt:628
-#: ../lib/MusicBrainz/Server/Controller/Edit.pm:202
+#: ../lib/MusicBrainz/Server/Controller/Edit.pm:207
 msgid "Low"
 msgstr ""
 
@@ -4413,7 +4417,7 @@ msgstr ""
 #: ../root/edit/details/edit_work.tt:31
 #: ../root/release/edit_relationships.tt:150 ../root/work/layout.tt:21
 #: ../root/layout/components/MetaDescription.js:147
-#: ../root/static/scripts/work.js:165
+#: ../root/static/scripts/work.js:174
 msgid "Lyrics Languages"
 msgstr ""
 
@@ -5151,7 +5155,7 @@ msgid ""
 msgstr ""
 
 #: ../root/components/common-macros.tt:628
-#: ../lib/MusicBrainz/Server/Controller/Edit.pm:202
+#: ../lib/MusicBrainz/Server/Controller/Edit.pm:207
 msgid "Normal"
 msgstr ""
 
@@ -6518,8 +6522,8 @@ msgstr ""
 msgid "Releases:"
 msgstr ""
 
-#: ../root/account/applications.tt:76 ../root/account/edit.tt:59
-#: ../root/account/edit.tt:72 ../root/admin/attributes/delete.tt:11
+#: ../root/account/applications.tt:76 ../root/account/edit.tt:63
+#: ../root/account/edit.tt:76 ../root/admin/attributes/delete.tt:11
 #: ../root/admin/attributes/index.tt:61 ../root/admin/attributes/language.tt:28
 #: ../root/admin/attributes/script.tt:24 ../root/admin/wikidoc/index.tt:62
 #: ../root/area/delete.tt:1 ../root/cdtoc/list.tt:52
@@ -6771,7 +6775,7 @@ msgid ""
 "Running: <span class=\"tooltip\" title=\"{msg}\">{branch} ({sha})</span>"
 msgstr ""
 
-#: ../root/account/edit.tt:109 ../root/account/preferences.tt:50
+#: ../root/account/edit.tt:113 ../root/account/preferences.tt:50
 #: ../root/admin/attributes/form.tt:83
 #: ../root/relationship/linkattributetype/form.tt:21
 #: ../root/relationship/linktype/form.tt:200
@@ -6802,7 +6806,7 @@ msgstr ""
 msgid "Script:"
 msgstr ""
 
-#: ../root/account/edit.tt:27 ../root/artist/edit_form.tt:23
+#: ../root/account/edit.tt:29 ../root/artist/edit_form.tt:23
 #: ../root/artist/edit_form.tt:45 ../root/artist/edit_form.tt:58
 #: ../root/cdtoc/attach_filter_artist.tt:10
 #: ../root/cdtoc/attach_filter_release.tt:11 ../root/cdtoc/lookup.tt:63
@@ -7786,7 +7790,7 @@ msgid ""
 "and may not display correctly"
 msgstr ""
 
-#: ../root/layout.tt:93 ../root/layout/index.js:96
+#: ../root/layout.tt:93 ../root/layout/index.js:98
 msgid ""
 "The data you have submitted does not make any changes to the data already "
 "present."
@@ -7801,7 +7805,7 @@ msgid "The database has no tags."
 msgstr ""
 
 #: ../root/release/edit/information.tt:155
-#: ../root/static/scripts/relationship-editor/common/dialog.js:495
+#: ../root/static/scripts/relationship-editor/common/dialog.js:496
 msgid "The date you've entered is not valid."
 msgstr ""
 
@@ -7906,7 +7910,7 @@ msgid ""
 "This is usually only temporary, so please retry your search again later."
 msgstr ""
 
-#: ../root/layout.tt:74 ../root/layout/index.js:79
+#: ../root/layout.tt:74 ../root/layout/index.js:81
 msgid "The server is temporarily in read-only mode for database maintenance."
 msgstr ""
 
@@ -8484,7 +8488,7 @@ msgstr ""
 
 #: ../root/doc/relationship_type.tt:11
 #: ../root/static/scripts/edit/externalLinks.js:173
-#: ../root/static/scripts/relationship-editor/common/dialog.js:461
+#: ../root/static/scripts/relationship-editor/common/dialog.js:462
 msgid "This relationship type is deprecated and should not be used."
 msgstr ""
 
@@ -9953,7 +9957,7 @@ msgstr ""
 msgid "We used DiscID <code>{discid}</code> to look up this information."
 msgstr ""
 
-#: ../root/account/edit.tt:43
+#: ../root/account/edit.tt:45
 msgid ""
 "We will use your birth date to display your age in years on your profile "
 "page."
@@ -9983,7 +9987,7 @@ msgstr ""
 msgid "Web Application"
 msgstr ""
 
-#: ../root/account/edit.tt:21 ../root/admin/edit_user.tt:38
+#: ../root/account/edit.tt:22 ../root/admin/edit_user.tt:38
 msgid "Website:"
 msgstr ""
 
@@ -10295,7 +10299,7 @@ msgid ""
 "database."
 msgstr ""
 
-#: ../root/account/edit.tt:35
+#: ../root/account/edit.tt:37
 msgid ""
 "You can pick the level you prefer here: your country, region or city. Be as "
 "specific as you want to!"
@@ -10516,6 +10520,10 @@ msgid ""
 "You’re currently not allowed to edit or vote because an admin has revoked "
 "your privileges. If you haven’t already been contacted about why, please "
 "{uri|send us a message}."
+msgstr ""
+
+#: ../root/edit/cannot_vote.tt:3
+msgid "You’re not currently allowed to vote, please read the banner."
 msgstr ""
 
 #: ../root/release/edit/tracklist.tt:265
@@ -11091,7 +11099,7 @@ msgstr ""
 msgid "{entity} has not been added to any collections."
 msgstr ""
 
-#: ../root/layout.tt:84 ../root/layout/index.js:88
+#: ../root/layout.tt:84 ../root/layout/index.js:90
 msgid ""
 "{link|New notes} have been left on some of your edits. Please make sure to "
 "read them and respond if necessary."
@@ -11542,7 +11550,7 @@ msgstr ""
 msgid "The provided artist id is not valid"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/Edit.pm:202
+#: ../lib/MusicBrainz/Server/Controller/Edit.pm:207
 msgid "Default"
 msgstr ""
 
@@ -12456,7 +12464,7 @@ msgid "These coordinates could not be parsed"
 msgstr ""
 
 #: ../lib/MusicBrainz/Server/Form/Field/DatePeriod.pm:40
-#: ../root/static/scripts/relationship-editor/common/dialog.js:506
+#: ../root/static/scripts/relationship-editor/common/dialog.js:507
 msgid "The end date cannot precede the begin date."
 msgstr ""
 
@@ -12596,12 +12604,6 @@ msgstr ""
 msgid "Birth year must be after 1900"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Form/User/EditProfile.pm:101
-msgid ""
-"Biography and website fields may not be edited until your email address is "
-"confirmed."
-msgstr ""
-
 #: ../lib/MusicBrainz/Server/Form/User/Login.pm:11
 msgid "Username field is required"
 msgstr ""
@@ -12698,19 +12700,19 @@ msgstr ""
 msgid "Please choose another username, this one is already taken."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Form/Work.pm:56
+#: ../lib/MusicBrainz/Server/Form/Work.pm:55
 msgid "Please select a work attribute type."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Form/Work.pm:63
+#: ../lib/MusicBrainz/Server/Form/Work.pm:62
 msgid "Please enter a work attribute value."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Form/Work.pm:102
+#: ../lib/MusicBrainz/Server/Form/Work.pm:101
 msgid "Unknown work attribute type."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Form/Work.pm:109
+#: ../lib/MusicBrainz/Server/Form/Work.pm:108
 msgid "This value is not allowed for this work attribute type."
 msgstr ""
 
@@ -13112,7 +13114,7 @@ msgstr ""
 
 #: ../root/static/scripts/edit/check-duplicates.js:137
 #: ../root/static/scripts/edit/externalLinks.js:165
-#: ../root/static/scripts/relationship-editor/common/dialog.js:479
+#: ../root/static/scripts/relationship-editor/common/dialog.js:480
 msgid "Required field."
 msgstr ""
 
@@ -13183,7 +13185,7 @@ msgid "Please select a link type for the URL you’ve entered."
 msgstr ""
 
 #: ../root/static/scripts/edit/externalLinks.js:175
-#: ../root/static/scripts/relationship-editor/common/dialog.js:466
+#: ../root/static/scripts/relationship-editor/common/dialog.js:467
 msgid ""
 "This URL is not allowed for the selected link type, or is incorrectly "
 "formatted."
@@ -13194,7 +13196,7 @@ msgid "This relationship already exists."
 msgstr ""
 
 #: ../root/static/scripts/edit/externalLinks.js:243
-#: ../root/static/scripts/relationship-editor/common/dialog.js:348
+#: ../root/static/scripts/relationship-editor/common/dialog.js:349
 msgid "{description} ({url|more documentation})"
 msgstr ""
 
@@ -13243,33 +13245,33 @@ msgid ""
 "language guidelines}. "
 msgstr ""
 
-#: ../root/static/scripts/relationship-editor/common/dialog.js:20
+#: ../root/static/scripts/relationship-editor/common/dialog.js:21
 msgid "The series you’ve selected is for recordings."
 msgstr ""
 
-#: ../root/static/scripts/relationship-editor/common/dialog.js:21
+#: ../root/static/scripts/relationship-editor/common/dialog.js:22
 msgid "The series you’ve selected is for releases."
 msgstr ""
 
-#: ../root/static/scripts/relationship-editor/common/dialog.js:22
+#: ../root/static/scripts/relationship-editor/common/dialog.js:23
 msgid "The series you’ve selected is for release groups."
 msgstr ""
 
-#: ../root/static/scripts/relationship-editor/common/dialog.js:23
+#: ../root/static/scripts/relationship-editor/common/dialog.js:24
 msgid "The series you’ve selected is for works."
 msgstr ""
 
-#: ../root/static/scripts/relationship-editor/common/dialog.js:457
+#: ../root/static/scripts/relationship-editor/common/dialog.js:458
 msgid "Please select a relationship type."
 msgstr ""
 
-#: ../root/static/scripts/relationship-editor/common/dialog.js:459
+#: ../root/static/scripts/relationship-editor/common/dialog.js:460
 msgid ""
 "Please select a subtype of the currently selected relationship type. The "
 "selected relationship type is only used for grouping subtypes."
 msgstr ""
 
-#: ../root/static/scripts/relationship-editor/common/dialog.js:481
+#: ../root/static/scripts/relationship-editor/common/dialog.js:482
 msgid "Entities in a relationship cannot be the same."
 msgstr ""
 
@@ -13365,10 +13367,10 @@ msgstr ""
 msgid "The barcode you entered is not a valid UPC or EAN code."
 msgstr ""
 
-#: ../root/static/scripts/work.js:163
+#: ../root/static/scripts/work.js:172
 msgid "Add Language"
 msgstr ""
 
-#: ../root/static/scripts/work.js:171
+#: ../root/static/scripts/work.js:180
 msgid "Remove Language"
 msgstr ""

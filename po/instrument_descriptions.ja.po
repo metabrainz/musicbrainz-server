@@ -8,7 +8,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2017-04-12 20:07+0000\n"
+"PO-Revision-Date: 2017-06-19 19:32+0000\n"
 "Last-Translator: Michael Wiencek <email address hidden>\n"
 "Language-Team: Japanese (http://www.transifex.com/musicbrainz/musicbrainz/language/ja/)\n"
 "MIME-Version: 1.0\n"
@@ -39,13 +39,6 @@ msgstr ""
 msgid ""
 "A Turkish version of tambourine / daf, made from animal skin and played with"
 " the fingers."
-msgstr ""
-
-#. name:donso ngɔni
-#: DB:instrument/description:776
-msgid ""
-"A banjo-like lute from West Africa. Made of hollowed out wood with an animal"
-" hide as membrane."
 msgstr ""
 
 #. name:baroque trumpet
@@ -79,13 +72,6 @@ msgstr ""
 msgid ""
 "A bicycle bell is a percussive signaling instrument mounted on a bicycle for"
 " warning pedestrians and other cyclists."
-msgstr ""
-
-#. name:pūrerehua
-#: DB:instrument/description:791
-msgid ""
-"A blade-like piece of bone, wood or stone, swung on a long cord producing a "
-"loud, deep whirling that can be heard from a distance."
 msgstr ""
 
 #. name:bullroarer
@@ -173,13 +159,6 @@ msgid ""
 "from the flow of air across an opening."
 msgstr ""
 
-#. name:pūtōrino
-#: DB:instrument/description:786
-msgid ""
-"A flute with a wide range, made of wood, tapered at each end. part of the "
-"traditional Māori instruments Taonga pūoro"
-msgstr ""
-
 #. name:four-string banjo
 #: DB:instrument/description:656
 msgid "A four-string banjo is a banjo with four strings."
@@ -193,13 +172,6 @@ msgstr ""
 #. name:gong bass drum
 #: DB:instrument/description:639
 msgid "A gong bass drum is a large single drumhead which resembles a gong."
-msgstr ""
-
-#. name:pahū pounamu
-#: DB:instrument/description:790
-msgid ""
-"A gong made of jade and pilot-whale bone with a striker made of a hardwood, "
-"akeake."
 msgstr ""
 
 #. name:guitar synthesizer
@@ -216,12 +188,11 @@ msgid ""
 "mounted on a stand."
 msgstr ""
 
-#. name:poi awhiowhio
+#. name:poi āwhiowhio
 #: DB:instrument/description:792
 msgid ""
-"A hollowed out gourd with drilled holes, swung around creating a whistling, "
-"chattering sound that attracted birds. part of the traditional Māori "
-"instruments Taonga pūoro"
+"A hollowed out gourd (hue) with one to three holes, swung around creating a "
+"whistling, chattering sound that resembled birds"
 msgstr ""
 
 #. name:17-string koto
@@ -259,26 +230,12 @@ msgid ""
 "which are struck to produce musical notes."
 msgstr ""
 
-#. name:rehu
-#: DB:instrument/description:784
-msgid ""
-"A long flute with a closed top and a transverse blowing hole and finger "
-"holes like the pōrutu."
-msgstr ""
-
-#. name:pūmotomoto
-#: DB:instrument/description:785
-msgid ""
-"A long flute with a notched open top and a single finger hole near the end. "
-"part of the traditional Māori instruments Taonga pūoro"
-msgstr ""
-
 #. name:pōrutu
 #: DB:instrument/description:787
 msgid ""
-"A longer version of the kōauau, made of hardwoods such as mānuka, mataī, or "
-"black maire. Like the pūtorino, it has 2 voices, the male (trumpet) and "
-"female (flute)."
+"A longer version of the kōauau, it is from 30-40 cm up towards 60 cm in "
+"length and often made of bone and hardwoods such as porokaiwhiria, mataī and"
+" tutu."
 msgstr ""
 
 #. name:mandolute
@@ -348,26 +305,18 @@ msgid ""
 "dampers."
 msgstr ""
 
+#. name:pūpakapaka
+#: DB:instrument/description:861
+msgid ""
+"A pūtātara with a long wooden mouth piece, it has a deeper timbre than the "
+"pūtātara"
+msgstr ""
+
 #. name:slit drum
 #: DB:instrument/description:366
 msgid ""
 "A slit drum is a hollow percussion instrument made of wood or bamboo with a "
 "slit at the top."
-msgstr ""
-
-#. name:nguru
-#: DB:instrument/description:783
-msgid ""
-"A small vessel flute like the ocarina or xun. Made of wood, soapstone or "
-"bone and shaped like a whale's tooth. part of the traditional Māori "
-"instruments Taonga pūoro"
-msgstr ""
-
-#. name:kōauau
-#: DB:instrument/description:782
-msgid ""
-"A small, ductless and notchless flute, made of wood or bone. part of the "
-"traditional Māori instruments Taonga pūoro"
 msgstr ""
 
 #. name:spinet
@@ -417,20 +366,6 @@ msgstr ""
 msgid ""
 "A tom-tom (or just tom) is a cylindrical drum with no snare, commonly found "
 "in a standard drum set."
-msgstr ""
-
-#. name:pūkaea
-#: DB:instrument/description:788
-msgid ""
-"A traditional Maori trumpet made of wood. A war and announcement trumpet. "
-"part of the traditional Māori instruments Taonga pūoro"
-msgstr ""
-
-#. name:pūtātara
-#: DB:instrument/description:789
-msgid ""
-"A traditional conch shell trumpet, used for signalling to ceremonial and "
-"ritual use. part of the traditional Māori instruments Taonga pūoro"
 msgstr ""
 
 #. name:tromba marina
@@ -546,14 +481,11 @@ msgid ""
 "as a whole vibrating without the use of strings or membranes."
 msgstr ""
 
-#. name:craviola
-#: DB:instrument/description:779
+#. name:three-hole pipe
+#: DB:instrument/description:805
 msgid ""
-"An instrument designed by brazilian composer Paulinho Nogueira, it is "
-"distinctly asymmetric in contrast to typical guitar.The timbre is like a "
-"combination of the harpsichord (pt:cravo) and the Viola caipira. Craviolas "
-"can be six-string or twelve-string (either nylon or steel) and are produced "
-"solely by company Giannini."
+"Ancient pipe originating in Europe, with analogies all over the world, it is"
+" often combined with tabor drums."
 msgstr ""
 
 #. name:bellow-blown bagpipes
@@ -609,6 +541,11 @@ msgstr ""
 msgid "Cajón, Peruvian box drum"
 msgstr ""
 
+#. name:tōkere
+#: DB:instrument/description:865
+msgid "Castanets of wood, bone, bivalve shells or even flax leaf."
+msgstr ""
+
 #. name:chacha
 #: DB:instrument/description:335
 msgid "Chacha, west Indian rattle"
@@ -645,6 +582,15 @@ msgstr ""
 msgid "Davul, turkish drum"
 msgstr ""
 
+#. name:craviola
+#: DB:instrument/description:779
+msgid ""
+"Distinctly asymmetric in contrast to typical guitar, it's timbre is a "
+"combination of the harpsichord (pt:cravo) and the Viola caipira. It can have"
+" six or twelve nylon or steel strings and are produced solely by company "
+"Giannini."
+msgstr ""
+
 #. name:dobro
 #: DB:instrument/description:184
 msgid "Dobro, resonator guitar"
@@ -679,10 +625,38 @@ msgstr ""
 msgid "Electric guitar without frets."
 msgstr ""
 
+#. name:trautonium
+#: DB:instrument/description:808
+msgid ""
+"Electric instrument from the 1930's with a resistor wire and moving metal "
+"plate."
+msgstr ""
+
+#. name:spinettone
+#: DB:instrument/description:799
+msgid ""
+"Exceptionally long spinet, with multiple strings choirs, its bass-tones were"
+" produced by longer, not thicker strings."
+msgstr ""
+
+#. name:poi
+#: DB:instrument/description:866
+msgid ""
+"Flax leaf balls filled with seeds, swung around to create rhythmic and "
+"visual patterns. An important element in the dance also known as poi."
+msgstr ""
+
 #. name:floppy disk drive
 #: DB:instrument/description:604
 msgid ""
 "Floppy Drives configured to produce tones while reading, software is used."
+msgstr ""
+
+#. name:jeli ngɔni
+#: DB:instrument/description:854
+msgid ""
+"Four-stringed banjo-like lute from West Africa, traditionally played by "
+"griots. Made of hollowed out wood with an animal hide as membrane."
 msgstr ""
 
 #. name:friction idiophone
@@ -710,6 +684,18 @@ msgstr ""
 #. name:goblet drum
 #: DB:instrument/description:268
 msgid "Goblet drums are single-headed drums with a goblet shaped body."
+msgstr ""
+
+#. name:pahū pounamu
+#: DB:instrument/description:790
+msgid ""
+"Gong made of pounamu; greenstone and pilot-whale bone with a striker made of"
+" akeake, a hardwood."
+msgstr ""
+
+#. name:hue puruwai
+#: DB:instrument/description:857
+msgid "Gourd (hue) shakers with seeds intact"
 msgstr ""
 
 #. name:syrinx
@@ -810,6 +796,20 @@ msgid ""
 "Highland Bagpipe fingering."
 msgstr ""
 
+#. name:pahū
+#: DB:instrument/description:864
+msgid ""
+"Logs or thick planks up to 9 meters long used as signalling drums, as gongs "
+"for both war and peace. Even living hollowed trees have been used as pahū."
+msgstr ""
+
+#. name:pūmotomoto
+#: DB:instrument/description:785
+msgid ""
+"Long wooden flute with a notched open top and a single finger hole near the "
+"end."
+msgstr ""
+
 #. name:practice chanter
 #: DB:instrument/description:429
 msgid ""
@@ -828,6 +828,28 @@ msgstr ""
 msgid ""
 "Maddale is a double-headed drum from Karnataka, India. It is the primary "
 "rhythmic accompaniment in Yakshagana."
+msgstr ""
+
+#. name:tumutumu
+#: DB:instrument/description:863
+msgid ""
+"Made of resonating stone, wood or bone with a striker of stone, bone or "
+"hardwood, this ancient instrument was used for rhythm during chanting."
+msgstr ""
+
+#. name:pūtōrino
+#: DB:instrument/description:786
+msgid ""
+"Made of wood and shaped after the casemoth cocoon, it can be played as both "
+"a flute (female voice) and a trumpet (male voice)."
+msgstr ""
+
+#. name:rehu
+#: DB:instrument/description:784
+msgid ""
+"Made of wood like mataī or tutu, this long flute has a transverse blowing "
+"hole with a fipple like European flutes but finger holes in the style of the"
+" traditional pōrutu."
 msgstr ""
 
 #. name:Mexican vihuela
@@ -868,6 +890,15 @@ msgstr ""
 #. name:oboe d'amore
 #: DB:instrument/description:473
 msgid "Oboe d'amore / Oboe d'amour (mezzo-soprano)"
+msgstr ""
+
+#. name:pipe and tabor
+#: DB:instrument/description:807
+msgid ""
+"Originally an early European combination of a drum (tambourine) and pipe "
+"(fipple flute) were pipe was played by one hand and drum beaten by the "
+"other. It was chiefly used for dancing music. There are analogies all over "
+"the world of this get up."
 msgstr ""
 
 #. name:other instruments
@@ -916,6 +947,11 @@ msgstr ""
 msgid "Pi is a family of quadruple reed oboes from Thailand."
 msgstr ""
 
+#. name:ngɔni
+#: DB:instrument/description:729
+msgid "Plucked string instrument made of wood or gourd from West Africa."
+msgstr ""
+
 #. name:pí thiu
 #: DB:instrument/description:339
 msgid "Pí thiu or Pí khui vertical flute"
@@ -941,6 +977,20 @@ msgstr ""
 msgid "Shawm, Medieval and Renaissance instrument, predecessor to the oboe"
 msgstr ""
 
+#. name:tabor
+#: DB:instrument/description:806
+msgid ""
+"Side drum, often with one or more snares, worn by one person and beaten by "
+"one hand, it is often combined with tabor pipes."
+msgstr ""
+
+#. name:donso ngɔni
+#: DB:instrument/description:776
+msgid ""
+"Six-stringed lute-harp from Wassoulou, West Africa. Traditionally played by "
+"hunters, its resonator box is made of calabash covered by animal skin."
+msgstr ""
+
 #. name:slide brass instruments
 #: DB:instrument/description:202
 msgid "Slide brass instruments use a slide to change the length of tubing."
@@ -963,11 +1013,25 @@ msgstr ""
 msgid "Small Polish traditional fiddle."
 msgstr ""
 
+#. name:nguru
+#: DB:instrument/description:783
+msgid ""
+"Small vessel flute made of wood, clay, bone or soft stone like soapstone, it"
+" has 4 holes and is played with the nose or mouth."
+msgstr ""
+
 #. name:sopilka
 #: DB:instrument/description:760
 msgid ""
 "Sopilka (generally) refers to a type of fife used in Ukrainian traditional "
 "music."
+msgstr ""
+
+#. name:video game console
+#: DB:instrument/description:853
+msgid ""
+"Sound chip in various video game consoles used for music, chiefly in bit-"
+"tunes and chip-tunes"
 msgstr ""
 
 #. name:struck idiophone
@@ -2144,11 +2208,6 @@ msgstr ""
 msgid "The naobo are Chinese cymbals, specially used in Beijing opera."
 msgstr ""
 
-#. name:ngɔni
-#: DB:instrument/description:729
-msgid "The ngoni is a plucked string instrument from West Africa."
-msgstr ""
-
 #. name:nohkan
 #: DB:instrument/description:493
 msgid "The nohkan is a high-pitched bamboo transverse flute from Japan."
@@ -3065,7 +3124,15 @@ msgstr ""
 #: DB:instrument/description:781
 msgid ""
 "Traditional musical instruments of the Māori people of New Zealand. Consists"
-" of flutes trumpets and percussion."
+" of gourds (hue), shell flutes (pu), wooden flutes (koauau), wind roarers "
+"and other natural materials."
+msgstr ""
+
+#. name:pūtātara
+#: DB:instrument/description:789
+msgid ""
+"Trumpet made of conch shell, it has a beautifully carved wooden mouthpiece. "
+"It was for signalling, but also ceremonial and ritual use."
 msgstr ""
 
 #. name:classical kemençe
@@ -3081,6 +3148,21 @@ msgstr ""
 #. name:kudüm
 #: DB:instrument/description:525
 msgid "Turkish pair of small, hemispherical drums"
+msgstr ""
+
+#. name:pākuru
+#: DB:instrument/description:867
+msgid ""
+"Two rods, one is held in the mouth, which works as a resonance chamber while"
+" chanting and singing, the other is used for tapping and scraping, creating "
+"rhythm."
+msgstr ""
+
+#. name:pūkaea
+#: DB:instrument/description:788
+msgid ""
+"Up to 2,5 meters long, this wooden trumpet was used for a variety of "
+"announcements like war, welcoming people and kumara planting."
 msgstr ""
 
 #. name:tanpura
@@ -3115,9 +3197,23 @@ msgid ""
 "the Eastern Mediterranean"
 msgstr ""
 
+#. name:Blaster Beam
+#: DB:instrument/description:852
+msgid ""
+"Very long metal bar fitted with strings and electric pickups, it makes a "
+"deep ominous booming sound and is often used in score."
+msgstr ""
+
 #. name:violone
 #: DB:instrument/description:420
 msgid "Violone, The largest/deepest member of the Viol family"
+msgstr ""
+
+#. name:porotiti
+#: DB:instrument/description:862
+msgid ""
+"Whirring, spinning disks of many shapes, sizes and materials. When blown on,"
+" they also create a well of different humming sounds."
 msgstr ""
 
 #. name:wind chime
@@ -3176,6 +3272,13 @@ msgstr ""
 msgid "a wooden or birch bark natural horn known from Viking age/Middle Ages."
 msgstr ""
 
+#. name:te kū
+#: DB:instrument/description:860
+msgid ""
+"also just \"kū\", a mouthbow with a single string, struck with a light "
+"implement of bone or wood."
+msgstr ""
+
 #. name:samica
 #: DB:instrument/description:830
 msgid ""
@@ -3203,26 +3306,12 @@ msgid ""
 "an empty jug (usually made of glass or stoneware) played with the mouth"
 msgstr ""
 
-#. name:spinettone
-#: DB:instrument/description:799
-msgid ""
-"an exceptionally long spinet, with multiple strings choirs, its bass-tones "
-"where produced by long strings, not thicker strings."
-msgstr ""
-
 #. name:barbat
 #: DB:instrument/description:819
 msgid ""
 "ancient central asian/persian string instrument ancestor of the iranian oud."
 " it was an important instrument in pre-islamic iran and persia. the current "
 "\"Persian barbat\" is more similar to the oud"
-msgstr ""
-
-#. name:three-hole pipe
-#: DB:instrument/description:805
-msgid ""
-"ancient pipe originating in europe, with analogies all over the world, it is"
-" one half of Pipe & Tabor."
 msgstr ""
 
 #. name:disk drive
@@ -3297,6 +3386,13 @@ msgid ""
 "banjolin like modern Turkish instrument"
 msgstr ""
 
+#. name:kōauau
+#: DB:instrument/description:782
+msgid ""
+"cross-blown flute made of stone, bone or wood. It is 10 to 39 cm long, with "
+"usually 3, but everything from none to 5 holes is known."
+msgstr ""
+
 #. name:dholak
 #: DB:instrument/description:382
 msgid "dholak, classical North Indian hand drum"
@@ -3320,14 +3416,6 @@ msgstr ""
 msgid "edo village traditional flute, four finger holes, blowing reed"
 msgstr ""
 
-#. name:trautonium
-#: DB:instrument/description:808
-msgid ""
-"electric instrument from the 1930's with a resistor wire and moving metal "
-"plate, invented by Friedrich Trautwein and championed by Oskar Sala and Paul"
-" Hindemith and then later Peter Pichler."
-msgstr ""
-
 #. name:tubon
 #: DB:instrument/description:775
 msgid "electronic bass organ proto-keytar"
@@ -3338,20 +3426,16 @@ msgstr ""
 msgid "family of Hmông flutes"
 msgstr ""
 
+#. name:txistu
+#: DB:instrument/description:855
+msgid "fipple flute that became a symbol for the Basque folk revival."
+msgstr ""
+
 #. name:claviola
 #: DB:instrument/description:780
 msgid ""
 "free reed melodica like instrument that is worn like an accordion, with "
 "differenting length pipes which control the pitch"
-msgstr ""
-
-#. name:pipe and tabor
-#: DB:instrument/description:807
-msgid ""
-"generally considered a very early european combination of a drum (tambourin)"
-" and pipe (duct flute) where pipe was played by one hand and drum beaten by "
-"the other. it was chiefly used for dancing music. there are analogies all "
-"over the world of this get up."
 msgstr ""
 
 #. name:bouzar / gouzouki
@@ -3391,12 +3475,34 @@ msgid ""
 " percussion"
 msgstr ""
 
+#. name:hue puruhau
+#: DB:instrument/description:858
+msgid ""
+"large gourd (hue) with no finger-holes, it is blown like a jug and has a "
+"booming bass sound."
+msgstr ""
+
 #. name:duggi
 #: DB:instrument/description:851
 msgid ""
 "made of clay with two layers of goat skin, it is used as a rhythmic "
 "accompaniment to shehnai players and is one of the instruments of the Baul "
 "community."
+msgstr ""
+
+#. name:pūrerehua
+#: DB:instrument/description:791
+msgid ""
+"made of wood, bone or stone it has a long string attached, when spun around "
+"it produces a deep, loud whizzing sound that can be heard from far away."
+msgstr ""
+
+#. name:kamalen ngɔni
+#: DB:instrument/description:817
+msgid ""
+"modern derivative of the donso ngɔni, it comes with more strings and is made"
+" of calabash, it became an important instrument in the rise of the Wassoulou"
+" music in the 80's and 90's"
 msgstr ""
 
 #. name:German concertina
@@ -3416,6 +3522,13 @@ msgstr ""
 msgid ""
 "neither a horn nor english, it is a transposing member of the oboe family, "
 "pitched at F"
+msgstr ""
+
+#. name:kōauau ponga ihu
+#: DB:instrument/description:856
+msgid ""
+"nose flute made of gourd with it two holes, while it is tiny, it has a huge "
+"sound"
 msgstr ""
 
 #. name:ondioline
@@ -3453,13 +3566,6 @@ msgid ""
 " two double strings and three single strings"
 msgstr ""
 
-#. name:tabor
-#: DB:instrument/description:806
-msgid ""
-"side drum, often with one or more snares, worn by one person and beaten by "
-"one hand, it is one half of Pipe & Tabor"
-msgstr ""
-
 #. name:whistle
 #: DB:instrument/description:274
 msgid ""
@@ -3481,7 +3587,7 @@ msgid ""
 "likes it can also be played with two hands."
 msgstr ""
 
-#. name:banjo-ukelele
+#. name:banjo-ukulele
 #: DB:instrument/description:832
 msgid ""
 "small fretted hybrid instrument with a banjo body and a ukulele neck, "
@@ -3502,13 +3608,6 @@ msgid ""
 "pickup."
 msgstr ""
 
-#. name:kamalen ngɔni
-#: DB:instrument/description:817
-msgid ""
-"smaller and higher-tuned ngoni made of calabash, it became an important "
-"instrument in the rise of the Wassoulou music in the 80's and 90's"
-msgstr ""
-
 #. name:bisernica
 #: DB:instrument/description:824
 msgid ""
@@ -3527,6 +3626,11 @@ msgstr ""
 #: DB:instrument/description:809
 msgid ""
 "there are two types: temür/tömör khuur (steel) and khulsan khuur (bamboo)"
+msgstr ""
+
+#. name:rōria
+#: DB:instrument/description:859
+msgid "thin quiet jew's harp-like instrument made of wood or bone."
 msgstr ""
 
 #. name:ti bwa
@@ -3599,6 +3703,13 @@ msgstr ""
 msgid ""
 "while today it is obscure, it was developed and improved for 400 years, the "
 "French flageolet has 4 holes in front and two thumb holes in the back"
+msgstr ""
+
+#. name:wind synthesizer
+#: DB:instrument/description:560
+msgid ""
+"wind synthesizer or wind controller, it is connected to a midi controller "
+"and is played like a wind instrument."
 msgstr ""
 
 #. name:vibrandoneon
