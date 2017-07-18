@@ -625,7 +625,7 @@ msgstr "Utilisateurs actifs"
 msgid "Active Voters"
 msgstr "Électeurs actifs"
 
-#: ../root/statistics/timeline.tt:20
+#: ../root/statistics/timeline.tt:18
 msgid "Add/remove lines:"
 msgstr "Ajouter/supprimer des lignes :"
 
@@ -649,7 +649,7 @@ msgstr "Toutes les modifications ayant échoué les contrôles de prérequis"
 msgid "All edits that have hit an error"
 msgstr "Toutes les modifications ayant provoqué une erreur"
 
-#: ../root/statistics/languages_scripts.tt:24
+#: ../root/statistics/languages_scripts.tt:23
 msgid "All other available languages and scripts have 0 releases and works."
 msgstr "Toutes les autres langues et systèmes d’écriture n’ont aucune parution et œuvre."
 
@@ -714,7 +714,7 @@ msgstr "Balises d’artiste (brut)"
 msgid "Artist Types and Genders"
 msgstr "Types et sexes des artistes"
 
-#: ../root/statistics/countries.tt:27 ../root/statistics/index.tt:142
+#: ../root/statistics/countries.tt:26 ../root/statistics/index.tt:142
 #: ../root/statistics/index.tt:146 ../root/statistics/view_js.tt:48
 msgid "Artists"
 msgstr "Artistes"
@@ -855,7 +855,7 @@ msgstr "Annulées :"
 msgid "Characters"
 msgstr "Personnages"
 
-#: ../root/statistics/timeline.tt:20
+#: ../root/statistics/timeline.tt:18
 msgid "Check boxes above"
 msgstr "Cochez les cases ci-dessus"
 
@@ -863,11 +863,11 @@ msgstr "Cochez les cases ci-dessus"
 msgid "Choirs"
 msgstr "Chœurs"
 
-#: ../root/statistics/timeline.tt:19
+#: ../root/statistics/timeline.tt:17
 msgid "Click to deselect"
 msgstr "Cliquez pour désélectionner"
 
-#: ../root/statistics/timeline.tt:16
+#: ../root/statistics/timeline.tt:14
 msgid "Controls"
 msgstr "Contrôles"
 
@@ -1203,15 +1203,15 @@ msgstr "Nombre de votes par jour"
 msgid "Count of votes per week"
 msgstr "Nombre de votes par semaine"
 
-#: ../root/statistics/countries.tt:18 ../root/statistics/layout.tt:5
+#: ../root/statistics/countries.tt:16 ../root/statistics/layout.tt:4
 msgid "Countries"
 msgstr "Pays"
 
-#: ../root/statistics/countries.tt:26
+#: ../root/statistics/countries.tt:25
 msgid "Country"
 msgstr "Pays"
 
-#: ../root/statistics/coverart.tt:6 ../root/statistics/layout.tt:5
+#: ../root/statistics/coverart.tt:5 ../root/statistics/layout.tt:4
 #: ../root/statistics/view_js.tt:38
 msgid "Cover Art"
 msgstr "Illustration"
@@ -1224,11 +1224,11 @@ msgstr "Sources des illustrations"
 msgid "Data Quality"
 msgstr "Qualité des données"
 
-#: ../root/statistics/layout.tt:24 ../root/statistics/layout.tt:35
+#: ../root/statistics/layout.tt:23 ../root/statistics/layout.tt:34
 msgid "Database Statistics"
 msgstr "Statistiques de la base de données"
 
-#: ../root/statistics/layout.tt:16
+#: ../root/statistics/layout.tt:15
 msgid "Database Statistics - {title}"
 msgstr "Statistiques de la base de données - {title}"
 
@@ -1248,7 +1248,7 @@ msgstr "ID de disque"
 msgid "Disc IDs:"
 msgstr "ID de disque :"
 
-#: ../root/statistics/timeline.tt:18
+#: ../root/statistics/timeline.tt:16
 msgid "Draw a rectangle on either graph"
 msgstr "Dessinez un rectangle sur l’un des graphiques"
 
@@ -1256,12 +1256,12 @@ msgstr "Dessinez un rectangle sur l’un des graphiques"
 msgid "Edit Information"
 msgstr "Modifier les informations"
 
-#: ../root/statistics/editors.tt:36 ../root/statistics/editors.tt:37
+#: ../root/statistics/editors.tt:37 ../root/statistics/editors.tt:38
 msgid "Editor"
 msgstr "Éditeur"
 
-#: ../root/statistics/editors.tt:2 ../root/statistics/editors.tt:35
-#: ../root/statistics/index.tt:743 ../root/statistics/layout.tt:5
+#: ../root/statistics/editors.tt:1 ../root/statistics/editors.tt:36
+#: ../root/statistics/index.tt:743 ../root/statistics/layout.tt:4
 msgid "Editors"
 msgstr "Éditeurs"
 
@@ -1297,8 +1297,8 @@ msgstr "Éditeurs (valides) :"
 msgid "Editors, Edits, and Votes"
 msgstr "Éditeurs, modifications et votes"
 
-#: ../root/statistics/edits.tt:2 ../root/statistics/edits.tt:9
-#: ../root/statistics/index.tt:855 ../root/statistics/layout.tt:5
+#: ../root/statistics/edits.tt:1 ../root/statistics/edits.tt:9
+#: ../root/statistics/index.tt:855 ../root/statistics/layout.tt:4
 #: ../root/statistics/view_js.tt:61
 msgid "Edits"
 msgstr "Modifications"
@@ -1344,7 +1344,7 @@ msgstr "Événements :"
 msgid "Exact Values (items vs. day)"
 msgstr "Valeurs exactes (articles vs jour)"
 
-#: ../root/statistics/relationships.tt:31
+#: ../root/statistics/relationships.tt:30
 msgid "Exclusive"
 msgstr "Exclusivité"
 
@@ -1380,7 +1380,7 @@ msgstr "Artiste féminine"
 msgid "Female:"
 msgstr "Femmes :"
 
-#: ../root/statistics/editors.tt:31
+#: ../root/statistics/editors.tt:32
 msgid ""
 "For the vote statistics, only yes or no votes are counted, abstain votes are"
 " not counted."
@@ -1390,7 +1390,7 @@ msgstr "Pour les statistiques des votes, seuls les votes oui et non sont compté
 msgid "Format"
 msgstr "Format"
 
-#: ../root/statistics/layout.tt:5 ../root/statistics/view_js.tt:37
+#: ../root/statistics/layout.tt:4 ../root/statistics/view_js.tt:37
 msgid "Formats"
 msgstr "Formats"
 
@@ -1406,7 +1406,7 @@ msgstr "Données de haute qualité"
 msgid "High Data Quality:"
 msgstr "Données de haute qualité :"
 
-#: ../root/statistics/timeline.tt:21
+#: ../root/statistics/timeline.tt:19
 msgid "Hover and click on vertical lines"
 msgstr "Survolez et cliquez sur les lignes verticales"
 
@@ -1454,7 +1454,7 @@ msgstr "ISWC (tous)"
 msgid "Identifiers"
 msgstr "Identifiants"
 
-#: ../root/statistics/relationships.tt:31
+#: ../root/statistics/relationships.tt:30
 msgid "Inclusive"
 msgstr "Inclusif"
 
@@ -1494,7 +1494,7 @@ msgstr "Évaluations des labels (brut)"
 msgid "Label Tags (raw)"
 msgstr "Balises de labels (brut)"
 
-#: ../root/statistics/countries.tt:29 ../root/statistics/index.tt:522
+#: ../root/statistics/countries.tt:28 ../root/statistics/index.tt:522
 #: ../root/statistics/index.tt:529 ../root/statistics/view_js.tt:54
 msgid "Labels"
 msgstr "Labels"
@@ -1507,19 +1507,19 @@ msgstr "Labels sans pays d’indiqué"
 msgid "Labels:"
 msgstr "Labels :"
 
-#: ../root/statistics/languages_scripts.tt:32
+#: ../root/statistics/languages_scripts.tt:31
 msgid "Language"
 msgstr "Langue"
 
-#: ../root/statistics/languages_scripts.tt:27
+#: ../root/statistics/languages_scripts.tt:26
 msgid "Languages"
 msgstr "Langues"
 
-#: ../root/statistics/languages_scripts.tt:21
+#: ../root/statistics/languages_scripts.tt:19
 msgid "Languages and Scripts"
 msgstr "Langues et systèmes d’écriture"
 
-#: ../root/statistics/layout.tt:5
+#: ../root/statistics/layout.tt:4
 msgid "Languages/Scripts"
 msgstr "Langues/systèmes d’écriture"
 
@@ -1527,15 +1527,15 @@ msgstr "Langues/systèmes d’écriture"
 msgid "Last 7 days:"
 msgstr "7 derniers jours :"
 
-#: ../root/statistics/countries.tt:20 ../root/statistics/coverart.tt:11
-#: ../root/statistics/editors.tt:29 ../root/statistics/edits.tt:7
+#: ../root/statistics/countries.tt:19 ../root/statistics/coverart.tt:11
+#: ../root/statistics/editors.tt:30 ../root/statistics/edits.tt:7
 #: ../root/statistics/formats.tt:18 ../root/statistics/index.tt:7
-#: ../root/statistics/languages_scripts.tt:23
-#: ../root/statistics/relationships.tt:20
+#: ../root/statistics/languages_scripts.tt:22
+#: ../root/statistics/relationships.tt:19
 msgid "Last updated: {date}"
 msgstr "Dernière mise à jour : {date}"
 
-#: ../root/statistics/timeline.tt:4
+#: ../root/statistics/timeline.tt:2
 msgid "Legend"
 msgstr "Légende"
 
@@ -1589,19 +1589,19 @@ msgstr "Support sans format de défini"
 msgid "Mediums:"
 msgstr "Supports :"
 
-#: ../root/statistics/editors.tt:36
+#: ../root/statistics/editors.tt:37
 msgid "Most active editors in the past week"
 msgstr "Éditeurs les plus actifs durant la semaine dernière"
 
-#: ../root/statistics/editors.tt:42
+#: ../root/statistics/editors.tt:43
 msgid "Most active voters in the past week"
 msgstr "Voteurs les plus actifs durant la semaine dernière"
 
-#: ../root/statistics/timeline.tt:8
+#: ../root/statistics/timeline.tt:6
 msgid "MusicBrainz Events"
 msgstr "Événements MusicBrainz"
 
-#: ../root/statistics/timeline.tt:21
+#: ../root/statistics/timeline.tt:19
 msgid "MusicBrainz Events:"
 msgstr "Événements MusicBrainz :"
 
@@ -1639,7 +1639,7 @@ msgstr "Pas d’illustration de couverture :"
 msgid "No packaging set"
 msgstr "Pas d’emballage de défini"
 
-#: ../root/statistics/relationships.tt:25
+#: ../root/statistics/relationships.tt:24
 msgid "No relationship statistics available."
 msgstr "Aucune statistique de relation."
 
@@ -1678,7 +1678,7 @@ msgstr "Qualité de données normale :"
 msgid "Open Edits"
 msgstr "Modifications ouvertes"
 
-#: ../root/statistics/editors.tt:36
+#: ../root/statistics/editors.tt:37
 msgid "Open and applied edits in past week"
 msgstr "Modifications ouvertes et acceptées durant la semaine dernière"
 
@@ -1710,7 +1710,7 @@ msgstr "Artiste d’un autre sexe :"
 msgid "Other-type Artists"
 msgstr "Artiste d’un autre type :"
 
-#: ../root/statistics/index.tt:2 ../root/statistics/layout.tt:5
+#: ../root/statistics/index.tt:1 ../root/statistics/layout.tt:4
 msgid "Overview"
 msgstr "Aperçu"
 
@@ -1746,9 +1746,9 @@ msgstr "Lieux :"
 msgid "Primary Types"
 msgstr "Types principaux"
 
-#: ../root/statistics/countries.tt:25 ../root/statistics/editors.tt:8
-#: ../root/statistics/formats.tt:24 ../root/statistics/languages_scripts.tt:31
-#: ../root/statistics/languages_scripts.tt:52
+#: ../root/statistics/countries.tt:24 ../root/statistics/editors.tt:9
+#: ../root/statistics/formats.tt:24 ../root/statistics/languages_scripts.tt:30
+#: ../root/statistics/languages_scripts.tt:51
 msgid "Rank"
 msgstr "Rang"
 
@@ -1756,7 +1756,7 @@ msgstr "Rang"
 msgid "Rate of Change (average items/day vs. day)"
 msgstr "Taux de modification (articles moyens/jour vs jour)"
 
-#: ../root/statistics/timeline.tt:12
+#: ../root/statistics/timeline.tt:10
 msgid "Rate of Change Graph"
 msgstr "Graphique du taux de modification"
 
@@ -1807,13 +1807,13 @@ msgstr "Enregistrements avec ISRC"
 msgid "Recordings:"
 msgstr "Enregistrements : "
 
-#: ../root/statistics/layout.tt:5 ../root/statistics/relationships.tt:15
-#: ../root/statistics/relationships.tt:22 ../root/statistics/view_js.tt:34
+#: ../root/statistics/layout.tt:4 ../root/statistics/relationships.tt:13
+#: ../root/statistics/relationships.tt:21 ../root/statistics/view_js.tt:34
 #: ../root/statistics/view_js.tt:196
 msgid "Relationships"
 msgstr "Relations"
 
-#: ../root/statistics/index.tt:83 ../root/statistics/relationships.tt:34
+#: ../root/statistics/index.tt:83 ../root/statistics/relationships.tt:33
 msgid "Relationships:"
 msgstr "Relations : "
 
@@ -1880,14 +1880,14 @@ msgstr "Groupes de parution"
 msgid "Release groups with cover art:"
 msgstr "Groupes de parution avec illustration :"
 
-#: ../root/statistics/formats.tt:16 ../root/statistics/formats.tt:20
+#: ../root/statistics/formats.tt:15 ../root/statistics/formats.tt:20
 msgid "Release/Medium Formats"
 msgstr "Formats de parution/support"
 
-#: ../root/statistics/countries.tt:28 ../root/statistics/coverart.tt:35
+#: ../root/statistics/countries.tt:27 ../root/statistics/coverart.tt:35
 #: ../root/statistics/formats.tt:26 ../root/statistics/index.tt:243
-#: ../root/statistics/languages_scripts.tt:33
-#: ../root/statistics/languages_scripts.tt:54 ../root/statistics/view_js.tt:52
+#: ../root/statistics/languages_scripts.tt:32
+#: ../root/statistics/languages_scripts.tt:53 ../root/statistics/view_js.tt:52
 msgid "Releases"
 msgstr "Parutions"
 
@@ -1970,15 +1970,15 @@ msgstr "Parutions, qualité des données et ID de disque"
 msgid "Releases:"
 msgstr "Parutions :"
 
-#: ../root/statistics/timeline.tt:19
+#: ../root/statistics/timeline.tt:17
 msgid "Reset:"
 msgstr "Réinitialisation :"
 
-#: ../root/statistics/languages_scripts.tt:53
+#: ../root/statistics/languages_scripts.tt:52
 msgid "Script"
 msgstr "Système d’écriture"
 
-#: ../root/statistics/languages_scripts.tt:48
+#: ../root/statistics/languages_scripts.tt:47
 msgid "Scripts"
 msgstr "Systèmes d’écriture"
 
@@ -2016,15 +2016,15 @@ msgstr "Balises (brut / agrégé) : "
 msgid "Tags (raw)"
 msgstr "Balises (brut)"
 
-#: ../root/statistics/editors.tt:16
+#: ../root/statistics/editors.tt:17
 msgid "There is no data to display here."
 msgstr "Il n’y a pas de donnée à afficher ici."
 
-#: ../root/statistics/layout.tt:5
+#: ../root/statistics/layout.tt:4
 msgid "Timeline"
 msgstr "Chronologie"
 
-#: ../root/statistics/timeline.tt:27
+#: ../root/statistics/timeline.tt:25
 msgid "Timeline Graph"
 msgstr "Graphique chronologique"
 
@@ -2032,24 +2032,24 @@ msgstr "Graphique chronologique"
 msgid "To-be-cancelled edits"
 msgstr "Modifications à annuler"
 
-#: ../root/statistics/editors.tt:37
+#: ../root/statistics/editors.tt:38
 msgid "Top editors overall"
 msgstr "Les premiers éditeurs"
 
-#: ../root/statistics/editors.tt:43
+#: ../root/statistics/editors.tt:44
 msgid "Top voters overall"
 msgstr "Les premiers voteurs"
 
-#: ../root/statistics/countries.tt:30 ../root/statistics/formats.tt:35
-#: ../root/statistics/languages_scripts.tt:35
+#: ../root/statistics/countries.tt:29 ../root/statistics/formats.tt:35
+#: ../root/statistics/languages_scripts.tt:34
 msgid "Total"
 msgstr "Total"
 
-#: ../root/statistics/editors.tt:37
+#: ../root/statistics/editors.tt:38
 msgid "Total applied edits"
 msgstr "Total des modifications acceptées"
 
-#: ../root/statistics/editors.tt:43
+#: ../root/statistics/editors.tt:44
 msgid "Total votes"
 msgstr "Total des votes"
 
@@ -2076,7 +2076,7 @@ msgstr "Relations d’URL :"
 msgid "URLs:"
 msgstr "URLs :"
 
-#: ../root/statistics/countries.tt:9 ../root/statistics/view_js.tt:91
+#: ../root/statistics/countries.tt:7 ../root/statistics/view_js.tt:91
 #: ../root/statistics/view_js.tt:92 ../root/statistics/view_js.tt:93
 msgid "Unknown Country"
 msgstr "Pays inconnu"
@@ -2089,7 +2089,7 @@ msgstr "Qualité de données inconnue"
 msgid "Unknown Data Quality:"
 msgstr "Qualité de données inconnue :"
 
-#: ../root/statistics/formats.tt:5
+#: ../root/statistics/formats.tt:4
 msgid "Unknown Format"
 msgstr "Format inconnu"
 
@@ -2109,11 +2109,11 @@ msgstr "Langue inconnue"
 msgid "Unknown Script"
 msgstr "Système d’écriture inconnu"
 
-#: ../root/statistics/languages_scripts.tt:7
+#: ../root/statistics/languages_scripts.tt:5
 msgid "Unknown language"
 msgstr "Langue inconnu"
 
-#: ../root/statistics/languages_scripts.tt:14
+#: ../root/statistics/languages_scripts.tt:12
 msgid "Unknown script"
 msgstr "Système d’écriture inconnu"
 
@@ -2133,11 +2133,11 @@ msgstr "Vidéos :"
 msgid "Voted down:"
 msgstr "Rejetées par vote :"
 
-#: ../root/statistics/editors.tt:42 ../root/statistics/editors.tt:43
+#: ../root/statistics/editors.tt:43 ../root/statistics/editors.tt:44
 msgid "Voter"
 msgstr "Voteur"
 
-#: ../root/statistics/editors.tt:41
+#: ../root/statistics/editors.tt:42
 msgid "Voters"
 msgstr "Voteurs"
 
@@ -2145,7 +2145,7 @@ msgstr "Voteurs"
 msgid "Votes"
 msgstr "Votes"
 
-#: ../root/statistics/editors.tt:42
+#: ../root/statistics/editors.tt:43
 msgid "Votes in past week"
 msgstr "Votes durant la semaine dernière"
 
@@ -2173,7 +2173,7 @@ msgstr "Évaluations d’œuvres (brut)"
 msgid "Work Tags (raw)"
 msgstr "Balises d’œuvres (brut)"
 
-#: ../root/statistics/index.tt:550 ../root/statistics/languages_scripts.tt:34
+#: ../root/statistics/index.tt:550 ../root/statistics/languages_scripts.tt:33
 #: ../root/statistics/view_js.tt:50
 msgid "Works"
 msgstr "Œuvres"
@@ -2196,7 +2196,7 @@ msgstr "Votes oui"
 msgid "Yesterday:"
 msgstr "Hier :"
 
-#: ../root/statistics/timeline.tt:18
+#: ../root/statistics/timeline.tt:16
 msgid "Zoom:"
 msgstr "Zoom :"
 
@@ -2365,7 +2365,7 @@ msgstr "Parutions {name}"
 #: ../root/statistics/coverart.tt:109 ../root/statistics/coverart.tt:115
 #: ../root/statistics/coverart.tt:141 ../root/statistics/coverart.tt:157
 #: ../root/statistics/coverart.tt:164 ../root/statistics/edits.tt:29
-#: ../root/statistics/formats.tt:7 ../root/statistics/formats.tt:9
+#: ../root/statistics/formats.tt:6 ../root/statistics/formats.tt:8
 #: ../root/statistics/index.tt:157 ../root/statistics/index.tt:163
 #: ../root/statistics/index.tt:169 ../root/statistics/index.tt:175
 #: ../root/statistics/index.tt:181 ../root/statistics/index.tt:187
@@ -2407,8 +2407,8 @@ msgstr "Parutions {name}"
 #: ../root/statistics/index.tt:920 ../root/statistics/index.tt:936
 #: ../root/statistics/index.tt:942 ../root/statistics/index.tt:948
 #: ../root/statistics/index.tt:954 ../root/statistics/index.tt:965
-#: ../root/statistics/index.tt:972 ../root/statistics/relationships.tt:8
-#: ../root/statistics/relationships.tt:50
+#: ../root/statistics/index.tt:972 ../root/statistics/relationships.tt:6
+#: ../root/statistics/relationships.tt:49
 msgid "{n}%"
 msgstr "{n}%"
 
@@ -2416,10 +2416,10 @@ msgstr "{n}%"
 msgid "{script} releases"
 msgstr "Parutions {script}"
 
-#: ../root/statistics/relationships.tt:45
+#: ../root/statistics/relationships.tt:44
 msgid "{type0}-{type1}"
 msgstr "{type0}-{type1}"
 
-#: ../root/statistics/relationships.tt:48
+#: ../root/statistics/relationships.tt:47
 msgid "{type0}-{type1} relationships:"
 msgstr "Relations de {type0}-{type1} :"

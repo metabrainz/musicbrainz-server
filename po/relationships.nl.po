@@ -10,7 +10,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2017-05-15 20:49+0000\n"
+"PO-Revision-Date: 2017-07-17 10:43+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -531,7 +531,7 @@ msgstr "Koppelt de opname aan het gebied waar de techniek voor de opname werd ve
 msgid ""
 "Links a recording to the area it was mixed in. Use only when the place is "
 "unknown!"
-msgstr ""
+msgstr "Koppelt een opname aan het gebied waarin hij werd gemixt. Gebruik dit alleen als de plaats onbekend is!"
 
 #: DB:link_type/description:827
 msgid ""
@@ -613,13 +613,13 @@ msgstr "Koppelt de uitgave aan het gebied waarin hij werd gefabriceerd."
 msgid ""
 "Links a release to the area it was mastered in. Use only when the place is "
 "unknown!"
-msgstr ""
+msgstr "Koppelt een uitgave aan het gebied waarin hij werd gemasterd. Gebruik dit alleen als de plaats onbekend is!"
 
 #: DB:link_type/description:757
 msgid ""
 "Links a release to the area it was mixed in. Use only when the place is "
 "unknown!"
-msgstr ""
+msgstr "Koppelt een uitgave aan het gebied waarin hij werd gemixt. Gebruik dit alleen als de plaats onbekend is!"
 
 #: DB:link_type/description:849
 msgid "Links a release to the area it was printed in."
@@ -1421,6 +1421,12 @@ msgstr "Dit geeft de koormeester aan van het koor dat op deze opname zong."
 msgid ""
 "This indicates the chorus master of a choir which performed on this release."
 msgstr "Dit geeft de koormeester aan van het koor dat op deze uitgave zong."
+
+#: DB:link_attribute_type/description:1018
+msgid ""
+"This indicates the linked entity translated something, rather than being the"
+" original writer."
+msgstr "Dit geeft aan de het gekoppelde object iets heeft vertaald en niet de originele auteur is."
 
 #: DB:link_type/description:361
 msgid ""
@@ -4081,7 +4087,7 @@ msgstr "gemixt bij"
 
 #: DB:link_type/reverse_link_phrase:757 DB:link_type/reverse_link_phrase:758
 msgid "mixed in"
-msgstr ""
+msgstr "gemixt in"
 
 #: DB:link_type/link_phrase:703
 msgid "mixing engineer position at"
@@ -4824,6 +4830,10 @@ msgstr "vertaald"
 msgid "translated at"
 msgstr "vertaald bij"
 
+#: DB:link_attribute_type/name:1018
+msgid "translator"
+msgstr "vertaler"
+
 #: DB:link_attribute_type/name:477
 msgid "transliterated"
 msgstr "getranscribeerd"
@@ -4964,10 +4974,6 @@ msgstr "werkt als opnametechnicus bij"
 #: DB:link_type/long_link_phrase:701
 msgid "works as an engineer at"
 msgstr "werkt als technicus bij"
-
-#: DB:link_type/long_link_phrase:24
-msgid "wrote {additional} liner notes for"
-msgstr "schreef {additional:aanvullend} het boekje van"
 
 #: DB:link_type/link_phrase:293 DB:link_type/link_phrase:295
 #: DB:link_type/link_phrase:297 DB:link_type/long_link_phrase:293
@@ -5200,8 +5206,8 @@ msgid "{additional} libretto writing location for"
 msgstr "is de locatie waar het libretto van {entity1} {additional:aanvullend} geschreven werd."
 
 #: DB:link_type/link_phrase:24 DB:link_type/reverse_link_phrase:24
-msgid "{additional} liner notes"
-msgstr "{additional:aanvullende} boektekst"
+msgid "{additional} liner notes {translator}"
+msgstr "{additional:aanvullende} boektekst {(translator:als vertaler)}"
 
 #: DB:link_type/reverse_link_phrase:56 DB:link_type/reverse_link_phrase:165
 msgid "{additional} lyricist"
@@ -5636,6 +5642,10 @@ msgstr "{translated:vertaalde} {parody:parodie|cover} van"
 #: DB:link_type/reverse_link_phrase:241
 msgid "{translated} {parody} version of"
 msgstr "{translated:vertaalde} {parody:parodie}versie van"
+
+#: DB:link_type/long_link_phrase:24
+msgid "{translator:translated|wrote} {additional} liner notes for"
+msgstr "{translator:vertaalde|schreef} {additional:aanvullend} het boekje van"
 
 #: DB:link_type/long_link_phrase:85 DB:link_type/long_link_phrase:268
 msgid "{video} can be streamed for free at"
