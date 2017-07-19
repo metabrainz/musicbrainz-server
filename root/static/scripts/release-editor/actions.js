@@ -127,11 +127,7 @@ const guessFeat = require('../edit/utility/guessFeat');
 
             if (track.isDataTrack() && (!previous || !previous.isDataTrack())) {
                 track.isDataTrack(false);
-            } else {
-                // can't move pregap tracks
-                if (!previous || previous.position() == 0) {
-                    return false;
-                }
+            } else if (previous) {
                 this.swapTracks(track, previous, track.medium);
             }
 
@@ -196,15 +192,16 @@ const guessFeat = require('../edit/utility/guessFeat');
             var medium = track.medium;
             var tracks = medium.tracks;
             var index = tracks.indexOf(track);
+            var offset = medium.hasPregap() ? 0 : 1;
 
             tracks.remove(track)
             tracks = tracks.peek();
 
             for (var i = index; track = tracks[i]; i++) {
-                track.position(i + 1);
+                track.position(i + offset);
 
-                if (track.number.peek() == i + 2) {
-                    track.number(i + 1);
+                if (track.number.peek() == (i + offset + 1)) {
+                    track.number(i + offset);
                 }
             }
 
