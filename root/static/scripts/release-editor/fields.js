@@ -296,7 +296,14 @@ const validation = require('../edit/validation');
                     var oldValue = hasPregap();
 
                     if (oldValue && !newValue) {
-                        self.tracks.shift();
+                        const tracks = self.tracks.peek();
+                        const pregap = tracks[0];
+
+                        if (pregap.id) {
+                            releaseEditor.resetTrackPositions(tracks, 0, 1, -1);
+                        } else {
+                            self.tracks.shift();
+                        }
                     } else if (newValue && !oldValue) {
                         self.tracks.unshift(fields.Track({ position: 0, number: 0 }, self));
                     }

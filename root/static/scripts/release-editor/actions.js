@@ -186,6 +186,17 @@ const guessFeat = require('../edit/utility/guessFeat');
             tracks.notifySubscribers(underlyingTracks);
         },
 
+        resetTrackPositions: function (tracks, start, offset, removed) {
+            let track;
+            for (let i = start; track = tracks[i]; i++) {
+                track.position(i + offset);
+
+                if (track.number.peek() == (i + offset + removed)) {
+                    track.number(i + offset);
+                }
+            }
+        },
+
         removeTrack: function (track) {
             var focus = track.next() || track.previous();
             var $medium = $("#" + track.elementID).parents(".advanced-disc");
@@ -195,15 +206,7 @@ const guessFeat = require('../edit/utility/guessFeat');
             var offset = medium.hasPregap() ? 0 : 1;
 
             tracks.remove(track)
-            tracks = tracks.peek();
-
-            for (var i = index; track = tracks[i]; i++) {
-                track.position(i + offset);
-
-                if (track.number.peek() == (i + offset + 1)) {
-                    track.number(i + offset);
-                }
-            }
+            releaseEditor.resetTrackPositions(tracks.peek(), index, offset, 1);
 
             if (focus) {
                 deferFocus("button.remove-item", "#" + focus.elementID);
