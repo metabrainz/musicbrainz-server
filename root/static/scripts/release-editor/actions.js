@@ -185,8 +185,8 @@ const guessFeat = require('../edit/utility/guessFeat');
             track2.number(number1);
             track2.isDataTrack(dataTrack1);
 
-            underlyingTracks[position1 - 1] = track2;
-            underlyingTracks[position2 - 1] = track1;
+            underlyingTracks[position1 - offset] = track2;
+            underlyingTracks[position2 - offset] = track1;
             tracks.notifySubscribers(underlyingTracks);
         },
 
