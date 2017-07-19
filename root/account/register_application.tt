@@ -14,7 +14,7 @@
         </div>
     </form>
 
-    <script type="text/javascript">//<![CDATA[
+    <script type="text/javascript">
       (function () {
         var $oauthType = $("#id-application\\.oauth_type");
         var $oauthRedirectURI = $("#id-application\\.oauth_redirect_uri");
@@ -26,6 +26,6 @@
 
         $oauthType.change();
       }());
-    //]]></script>
+    </script>
 
 [% END %]

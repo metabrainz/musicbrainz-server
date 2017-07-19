@@ -2,7 +2,7 @@
 
     <h2 id="acoustids">[%- l('Associated AcoustIDs') -%]</h2>
 
-    <script type="text/javascript">//<![CDATA[
+    <script type="text/javascript">
 
         function buildAcoustidTable(tracks, mbid) {
             var tbl = $('<table class="tbl"><thead><tr><th>AcoustID<\/th><th style="width:5em;">[% l('Actions') %]<\/th><\/tr><\/thead><tbody><\/tbody><\/table>');
@@ -48,6 +48,6 @@
             }
         );
 
-    //]]></script>
+    </script>
 
 [%- END -%]

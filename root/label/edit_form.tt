@@ -56,7 +56,7 @@
 
 [%- guesscase_options() -%]
 
-<script type="text/javascript">//<![CDATA[
+<script type="text/javascript">
   (function () {
     MB.Control.initialize_guess_case("label", "id-edit-label");
 
@@ -64,4 +64,4 @@
 
     MB.initializeDuplicateChecker('label');
   }());
-//]]></script>
+</script>

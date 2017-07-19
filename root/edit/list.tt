@@ -85,8 +85,8 @@
 
 [% script_manifest('voting.js') %]
 
-<script type="text/javascript">//<![CDATA[
+<script type="text/javascript">
   [% IF c.user.is_auto_editor %]
     MB.Control.EditList("#edits");
   [% END %]
-//]]></script>
+</script>

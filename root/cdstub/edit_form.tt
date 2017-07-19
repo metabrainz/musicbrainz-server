@@ -25,7 +25,7 @@
         </div>
     </form>
 
-    <script type="text/javascript">//<![CDATA[
+    <script type="text/javascript">
         function vaswitch(artist_value)
         {
             var va_checkbox = document.getElementById("id-CDStub.multiple_artists");
@@ -69,4 +69,4 @@
                 vaswitch(artist_value);
             });
         }
-    //]]></script>
+    </script>

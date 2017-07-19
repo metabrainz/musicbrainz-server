@@ -52,7 +52,7 @@
 
 [%- guesscase_options() -%]
 
-<script type="text/javascript">//<![CDATA[
+<script type="text/javascript">
   $(function () {
     MB.initializeArtistCredit(
       [% closing_tag_escape(form.to_encoded_json) %],
@@ -62,4 +62,4 @@
     MB.Control.initGuessFeatButton('edit-recording');
     MB.Control.initializeBubble("#isrcs-bubble", "input[name=edit-recording\\.isrcs\\.0]");
   });
-//]]></script>
+</script>
