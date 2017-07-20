@@ -69,7 +69,7 @@
     "jsdom": "7.0.2",
     "node-storage-shim": "1.0.1",
     "react-addons-test-utils": "https://github.com/mwiencek/react-packages/raw/master/react-addons-test-utils.tgz",
-    "tape": "4.2.2"
+    "tape": "4.7.0"
   },
   "private": true
 }
