@@ -46,9 +46,9 @@ note:        Modifications were made to add browserify support; see git log.
 
 library:     flot
 license:     MIT
-version:     v0.7
+version:     v0.8.3
 author:      IOLA and Ole Laursen
-url:         http://code.google.com/p/flot/
+url:         http://www.flotcharts.org/
 
 -- knockout/knockout-latest.debug.js --
 
