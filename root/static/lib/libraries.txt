@@ -50,20 +50,6 @@ version:     v0.7
 author:      IOLA and Ole Laursen
 url:         http://code.google.com/p/flot/
 
--- flot/canvas.text.js --
-library:     canvas-text
-license:     MIT
-version:     SVN, June 2011
-author:      Fabien Ménager
-url:         http://code.google.com/p/canvas-text/
-
--- flot/faces/bitstream_vera_sans-normal-normal.js --
-library:     Bitstream Vera Sans (font)
-license:     custom; derivative works, redistribution
-version:     1.10
-author:      Bitstream, Inc.
-url:         http://www-old.gnome.org/fonts/
-
 -- knockout/knockout-latest.debug.js --
 
 library:     Knockout
