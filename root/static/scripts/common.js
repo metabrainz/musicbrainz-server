@@ -17,7 +17,6 @@ global.ko = require("knockout");
 global._ = require("lodash");
 global.$ = global.jQuery = require("jquery");
 
-require("jquery.browser");
 require("../lib/jquery.ui/ui/jquery-ui.custom");
 
 require("./common/DBDefs");
