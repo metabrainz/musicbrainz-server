@@ -3,8 +3,15 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
+const ko = require('knockout');
+const _ = require('lodash');
+
+require('knockout-arraytransforms');
+
 const deferFocus = require('../../edit/utility/deferFocus');
 const mergeDates = require('./mergeDates');
+
+require('../../common/entity');
 
 function getDirection(relationship, source) {
   let entities = relationship.entities();

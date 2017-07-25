@@ -3,9 +3,11 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
+const ko = require('knockout');
 const _ = require('lodash');
 
 const i18n = require('../common/i18n');
+const MB = require('../common/MB');
 const linkPhrase = require('../edit/utility/linkPhrase');
 
 const ELEMENT_NODE = window.Node.ELEMENT_NODE;
@@ -274,3 +276,5 @@ ko.bindingHandlers.withLabel = {
             .parents("td").prev("td").find("label").attr("for", name);
     }
 };
+
+module.exports = MB.forms;

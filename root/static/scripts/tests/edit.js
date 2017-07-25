@@ -3,12 +3,19 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
+require('./browser-shims');
+
+const ko = require('knockout');
 const test = require('tape');
+
+const MB_edit = require('../edit/MB/edit');
+
+require('../edit/forms');
 
 test("missing track numbers should be empty strings, not null (MBS-7246)", function (t) {
     t.plan(1);
 
-    var data = MB.edit.fields.track({});
+    var data = MB_edit.fields.track({});
 
     t.equal(data.number, "", "number is empty string");
 });

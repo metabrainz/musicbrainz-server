@@ -3,9 +3,12 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
+const ko = require('knockout');
 const _ = require('lodash');
 
+const {hex_sha1} = require('../../../lib/sha1/sha1');
 const {VIDEO_ATTRIBUTE_GID} = require('../../common/constants');
+const MB = require('../../common/MB');
 const clean = require('../../common/utility/clean');
 const nonEmpty = require('../../common/utility/nonEmpty');
 const request = require('../../common/utility/request');
@@ -194,7 +197,7 @@ const request = require('../../common/utility/request');
         release: function (release) {
             var releaseGroupID = (release.releaseGroup() || {}).id;
 
-            var events = $.map(value(release.events), function (data) {
+            var events = _(value(release.events)).map(function (data) {
                 var event = {
                     date:       fields.partialDate(data.date),
                     country_id: number(data.countryID)
@@ -203,7 +206,7 @@ const request = require('../../common/utility/request');
                 if (_(event.date).values().any(nonEmpty) || event.country_id !== null) {
                     return event;
                 }
-            });
+            }).compact().value();
 
             return {
                 name:               string(release.name),
@@ -458,3 +461,5 @@ const request = require('../../common/utility/request');
     edit.create = editEndpoint("/ws/js/edit/create");
 
 }(MB.edit = {}));
+
+module.exports = MB.edit;

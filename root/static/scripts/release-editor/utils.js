@@ -8,16 +8,18 @@
 // Original version Copyright (C) 2010 Nick Galbreath, and released under
 // the MIT license: http://opensource.org/licenses/MIT
 
+const ko = require('knockout');
 const _ = require('lodash');
 
+const {rstr_sha1} = require('../../lib/sha1/sha1');
 const {MAX_LENGTH_DIFFERENCE, MIN_NAME_SIMILARITY} = require('../common/constants');
 const request = require('../common/utility/request');
 const similarity = require('../edit/utility/similarity');
+const releaseEditor = require('./viewModel');
 
-(function (releaseEditor) {
+    const utils = exports;
 
-    var utils = releaseEditor.utils = {};
-
+    releaseEditor.utils = utils;
 
     utils.mapChild = function (parent, children, type) {
         return _.map(children || [], function (data) {
@@ -214,7 +216,3 @@ const similarity = require('../edit/utility/similarity');
 
         return x.join("");
     }
-
-}(MB.releaseEditor = MB.releaseEditor || {}));
-
-module.exports = MB.releaseEditor.utils;

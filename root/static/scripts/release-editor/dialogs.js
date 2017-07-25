@@ -3,13 +3,20 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
+const aclass = require('aclass');
+const $ = require('jquery');
+const ko = require('knockout');
+const _ = require('lodash');
+
 const i18n = require('../common/i18n');
 const {artistCreditFromArray, reduceArtistCredit} = require('../common/immutable-entities');
 const formatTrackLength = require('../common/utility/formatTrackLength');
 const isBlank = require('../common/utility/isBlank');
 const request = require('../common/utility/request');
-
-(function (releaseEditor) {
+const fields = require('./fields');
+const trackParser = require('./trackParser');
+const utils = require('./utils');
+const releaseEditor = require('./viewModel');
 
     var Dialog = aclass({
 
@@ -23,7 +30,7 @@ const request = require('../common/utility/request');
     });
 
 
-    releaseEditor.trackParserDialog = Dialog().extend({
+    var trackParserDialog = exports.trackParserDialog = Dialog().extend({
         element: "#track-parser-dialog",
         title: i18n.l("Track Parser"),
 
@@ -35,14 +42,14 @@ const request = require('../common/utility/request');
 
         setMedium: function (medium) {
             this.medium = medium;
-            this.toBeParsed(releaseEditor.trackParser.mediumToString(medium));
+            this.toBeParsed(trackParser.mediumToString(medium));
         },
 
         parse: function () {
             var medium = this.medium;
             var toBeParsed = this.toBeParsed();
 
-            var newTracks = releaseEditor.trackParser.parse(toBeParsed, medium);
+            var newTracks = trackParser.parse(toBeParsed, medium);
             var error = !isBlank(toBeParsed) && newTracks.length === 0;
 
             this.error(error);
@@ -95,7 +102,7 @@ const request = require('../common/utility/request');
 
         requestDone: function (data) {
             _.each(data.tracks, this.parseTrack, this);
-            _.extend(this, releaseEditor.utils.reuseExistingMediumData(data));
+            _.extend(this, utils.reuseExistingMediumData(data));
 
             this.loaded(true);
         },
@@ -204,7 +211,7 @@ const request = require('../common/utility/request');
 
         addDisc: function (inner) {
             var release = releaseEditor.rootField.release(),
-                medium = releaseEditor.fields.Medium(this.result(), release);
+                medium = fields.Medium(this.result(), release);
 
             medium.name("");
             inner && inner(medium);
@@ -214,7 +221,7 @@ const request = require('../common/utility/request');
     });
 
 
-    var mediumSearchTab = releaseEditor.mediumSearchTab = SearchTab().extend({
+    var mediumSearchTab = exports.mediumSearchTab = SearchTab().extend({
         endpoint: "/ws/js/medium",
 
         tracksRequestData: { inc: "recordings" },
@@ -239,18 +246,18 @@ const request = require('../common/utility/request');
     });
 
 
-    var addDiscDialog = releaseEditor.addDiscDialog = Dialog().extend({
+    var addDiscDialog = exports.addDiscDialog = Dialog().extend({
         element: "#add-disc-dialog",
         title: i18n.l("Add Medium"),
 
-        trackParser: releaseEditor.trackParserDialog,
+        trackParser: trackParserDialog,
         mediumSearch: mediumSearchTab,
         cdstubSearch: cdstubSearchTab,
-        currentTab: ko.observable(releaseEditor.trackParserDialog),
+        currentTab: ko.observable(trackParserDialog),
 
         before$open: function () {
             var release = releaseEditor.rootField.release(),
-                blankMedium = releaseEditor.fields.Medium({}, release);
+                blankMedium = fields.Medium({}, release);
 
             this.trackParser.setMedium(blankMedium);
             this.trackParser.result(blankMedium);
@@ -308,4 +315,4 @@ const request = require('../common/utility/request');
         });
     });
 
-}(MB.releaseEditor = MB.releaseEditor || {}));
+_.assign(releaseEditor, exports);

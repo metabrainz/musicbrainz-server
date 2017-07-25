@@ -1,9 +1,5 @@
 require('babel-core/register');
 
-if (typeof window === 'undefined') {
-    require('./browser-shims');
-}
-
 var rowCount = 0;
 var timeout;
 

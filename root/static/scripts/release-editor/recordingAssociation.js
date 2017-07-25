@@ -3,6 +3,9 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
+const ko = require('knockout');
+const _ = require('lodash');
+
 const {MAX_LENGTH_DIFFERENCE} = require('../common/constants');
 const {
         artistCreditFromArray,
@@ -11,11 +14,12 @@ const {
     } = require('../common/immutable-entities');
 const request = require('../common/utility/request');
 const debounce = require('../common/utility/debounce');
+const releaseEditor = require('./viewModel');
+const utils = require('./utils');
 
-(function (releaseEditor) {
+    const recordingAssociation = exports;
 
-    var recordingAssociation = releaseEditor.recordingAssociation = {};
-    var utils = releaseEditor.utils;
+    releaseEditor.recordingAssociation = recordingAssociation;
 
     // This file contains code for finding suggested recording associations
     // in the release editor.
@@ -38,32 +42,9 @@ const debounce = require('../common/utility/debounce');
     // column to find these.)
 
     var releaseGroupRecordings = ko.observable(),
-        releaseGroupTimer,
         recentRecordings = [],
         trackArtistIDs = [],
         etiRegex = /(\([^)]+\) ?)*$/;
-
-
-    var releaseGroupField = utils.computedWith(
-        function (release) { return release.releaseGroup() }, releaseEditor.rootField.release
-    );
-
-
-    releaseGroupField.subscribe(function (releaseGroup) {
-        if (releaseGroupTimer) clearTimeout(releaseGroupTimer);
-
-        var getRecordings = function () {
-            getReleaseGroupRecordings(releaseGroup, 0, []);
-        };
-
-        // Refresh our list of recordings every 10 minutes, in case the user
-        // leaves the tab open and comes back later, potentially leaving us
-        // with stale data.
-        releaseGroupTimer = setTimeout(getRecordings, 10 * 60 * 1000);
-
-        getRecordings();
-    });
-
 
     debounce(utils.withRelease(function (release) {
         var newIDs = _(release.mediums()).invoke("tracks").flatten()
@@ -96,7 +77,7 @@ const debounce = require('../common/utility/debounce');
     }));
 
 
-    function getReleaseGroupRecordings(releaseGroup, offset, results) {
+    recordingAssociation.getReleaseGroupRecordings = function (releaseGroup, offset, results) {
         if (!releaseGroup || !releaseGroup.gid) return;
 
         var query = utils.constructLuceneField(
@@ -112,15 +93,15 @@ const debounce = require('../common/utility/debounce');
                 var countSoFar = data.offset + 100;
 
                 if (countSoFar < data.count) {
-                    getReleaseGroupRecordings(releaseGroup, countSoFar, results);
+                    recordingAssociation.getReleaseGroupRecordings(releaseGroup, countSoFar, results);
                 } else {
                     releaseGroupRecordings(results);
                 }
             })
             .fail(function () {
-                _.delay(getReleaseGroupRecordings, 5000, releaseGroup, offset, results);
+                _.delay(recordingAssociation.getReleaseGroupRecordings, 5000, releaseGroup, offset, results);
             });
-    }
+    };
 
 
     function recordingQuery(track, name) {
@@ -291,7 +272,8 @@ const debounce = require('../common/utility/debounce');
 
 
     recordingAssociation.findRecordingSuggestions = function (track) {
-        var releaseGroup = releaseGroupField(),
+        var release = releaseEditor.rootField.release(),
+            releaseGroup = release ? release.releaseGroup() : null,
             rgRecordings;
 
         if (releaseGroup && releaseGroup.gid) {
@@ -395,4 +377,4 @@ const debounce = require('../common/utility/debounce');
         debounce(function () { watchTrackForChanges(track) });
     };
 
-}(MB.releaseEditor = MB.releaseEditor || {}));
+    module.exports = recordingAssociation;

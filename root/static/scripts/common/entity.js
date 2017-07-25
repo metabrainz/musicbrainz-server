@@ -3,8 +3,9 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-const _ = require('lodash');
 const aclass = require('aclass');
+const ko = require('knockout');
+const _ = require('lodash');
 const ReactDOMServer = require('react-dom/server');
 
 const ArtistCreditLink = require('./components/ArtistCreditLink');
@@ -403,3 +404,5 @@ const formatTrackLength = require('./utility/formatTrackLength');
         editor:        MB.entity.Editor
     };
 }());
+
+module.exports = MB.entity;

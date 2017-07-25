@@ -3,11 +3,14 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
+require('../browser-shims');
+
+const _ = require('lodash');
 const test = require('tape');
 
+const actions = require('../../release-editor/actions');
+const fields = require('../../release-editor/fields');
 const common = require('./common');
-
-var releaseEditor = MB.releaseEditor;
 
 test("removing a track should change the track numbers", function (t) {
     t.plan(3);
@@ -18,7 +21,7 @@ test("removing a track should change the track numbers", function (t) {
 
     t.equal(track2.number(), "2", "track has number \"2\" before removal");
 
-    releaseEditor.removeTrack(tracks[0]);
+    actions.removeTrack(tracks[0]);
 
     t.equal(tracks[0], track2, "first track was removed");
     t.equal(+track2.number(), 1, "track has number \"1\" after removal");
@@ -30,14 +33,14 @@ test("removing a medium should change the medium positions", function (t) {
     var release = common.setupReleaseEdit();
 
     release.mediums.push(
-        releaseEditor.fields.Medium(common.testMedium),
-        releaseEditor.fields.Medium({ tracks: [], position: 3 })
+        fields.Medium(common.testMedium),
+        fields.Medium({ tracks: [], position: 3 })
     );
 
     var mediums = release.mediums();
     t.deepEqual(_.invoke(mediums, "position"), [1, 2, 3], "medium positions are consecutive before removal");
 
-    releaseEditor.removeMedium(mediums[0]);
+    actions.removeMedium(mediums[0]);
     t.deepEqual(_.invoke(mediums, "position"), [1, 2], "medium positions are consecutive after removal");
 });
 
@@ -51,7 +54,7 @@ test("reordering tracks that have non-consecutive \"position\" properties (MBS-7
 
     originalTrack2.position(3);
 
-    releaseEditor.moveTrackUp(originalTrack2);
+    actions.moveTrackUp(originalTrack2);
 
     t.equal(tracks[0], originalTrack2, "original track 2 has moved to position 1");
     t.equal(originalTrack2.position(), 1, "original track 2 now has position() 1");

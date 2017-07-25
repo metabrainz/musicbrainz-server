@@ -8,6 +8,7 @@ const _ = require('lodash');
 
 const {MIN_NAME_SIMILARITY} = require('../../common/constants');
 const {artistCreditFromArray} = require('../../common/immutable-entities');
+const MB = require('../../common/MB');
 const clean = require('../../common/utility/clean');
 const getSimilarity = require('./similarity');
 

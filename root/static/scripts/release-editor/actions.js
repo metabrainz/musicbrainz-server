@@ -3,6 +3,10 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
+const $ = require('jquery');
+const ko = require('knockout');
+const _ = require('lodash');
+
 const i18n = require('../common/i18n');
 const {
         artistCreditFromArray,
@@ -12,10 +16,10 @@ const {
     } = require('../common/immutable-entities');
 const deferFocus = require('../edit/utility/deferFocus');
 const guessFeat = require('../edit/utility/guessFeat');
+const fields = require('./fields');
+const releaseEditor = require('./viewModel');
 
-(function (releaseEditor) {
-
-    _.extend(releaseEditor, {
+    const actions = {
 
         cancelPage: function () { window.location = this.returnTo },
 
@@ -44,7 +48,7 @@ const guessFeat = require('../edit/utility/guessFeat');
         copyArtistToReleaseGroup: ko.observable(false),
 
         addReleaseEvent: function (release) {
-            release.events.push(this.fields.ReleaseEvent({}, release));
+            release.events.push(fields.ReleaseEvent({}, release));
         },
 
         removeReleaseEvent: function (releaseEvent) {
@@ -52,7 +56,7 @@ const guessFeat = require('../edit/utility/guessFeat');
         },
 
         addReleaseLabel: function (release) {
-            release.labels.push(this.fields.ReleaseLabel({}, release));
+            release.labels.push(fields.ReleaseLabel({}, release));
         },
 
         removeReleaseLabel: function (releaseLabel) {
@@ -301,6 +305,8 @@ const guessFeat = require('../edit/utility/guessFeat');
 
         copyTrackTitlesToRecordings: ko.observable(false),
         copyTrackArtistsToRecordings: ko.observable(false)
-    });
+    };
 
-}(MB.releaseEditor = MB.releaseEditor || {}));
+_.extend(releaseEditor, actions);
+
+module.exports = actions;

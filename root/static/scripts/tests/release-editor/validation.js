@@ -3,11 +3,14 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
+require('../browser-shims');
+
 const test = require('tape');
 
 const validation = require('../../edit/validation');
+const releaseEditor = require('../../release-editor/viewModel');
 
-var releaseEditor = MB.releaseEditor;
+require('../../release-editor/init');
 
 function validationTest(name, callback) {
     test(name, function (t) {
@@ -98,5 +101,5 @@ validationTest('duplicate label/catalog number pairs are rejected (MBS-8137)', f
     t.ok(!labels[6].isDuplicate());
     t.ok(!labels[7].isDuplicate());
 
-    t.ok(releaseEditor.validation.errorsExist());
+    t.ok(validation.errorsExist());
 });

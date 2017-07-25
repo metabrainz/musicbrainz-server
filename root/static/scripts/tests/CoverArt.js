@@ -3,7 +3,14 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
+require('./browser-shims');
+
+const $ = require('jquery');
+const ko = require('knockout');
 const test = require('tape');
+
+const MB = require('../common/MB');
+const CoverArt = require('../edit/MB/CoverArt');
 
 MB.cover_art_types_json = [
     { id: 'image/jpeg', l_name: 'jpg' },
@@ -42,7 +49,7 @@ var test_files = {
 
 function mime_type_test(t, filename, expected, expected_state) {
     var input = base64_to_blob(test_files[filename]);
-    var promise = MB.CoverArt.validate_file(input);
+    var promise = CoverArt.validate_file(input);
 
     promise.done(function (mime_type) {
         t.equal(mime_type, expected, filename);
@@ -75,16 +82,16 @@ test('iframe mime type', function (t) {
     input.id = 'file';
 
     input.value = 'filename.with.dots.jpg';
-    t.equal(MB.CoverArt.get_image_mime_type(), 'image/jpeg', input.value);
+    t.equal(CoverArt.get_image_mime_type(), 'image/jpeg', input.value);
 
     input.value = 'ALL CAPS AND SOME SPACES.PNG';
-    t.equal(MB.CoverArt.get_image_mime_type(), 'image/png', input.value);
+    t.equal(CoverArt.get_image_mime_type(), 'image/png', input.value);
 
     input.value = 'is this animated?.gif';
-    t.equal(MB.CoverArt.get_image_mime_type(), 'image/gif', input.value);
+    t.equal(CoverArt.get_image_mime_type(), 'image/gif', input.value);
 
     input.value = 'linux-3.10-rc7.tar.xz';
-    t.equal(MB.CoverArt.get_image_mime_type(), null, input.value);
+    t.equal(CoverArt.get_image_mime_type(), null, input.value);
 
     $fixture.remove();
 });
@@ -108,7 +115,7 @@ test('multifile/ajax upload mime type', function (t) {
 test('cover art types', function (t) {
     t.plan(4);
 
-    var types = MB.CoverArt.cover_art_types();
+    var types = CoverArt.cover_art_types();
     t.equal(types().length, 2, 'two types in observableArray');
     t.equal(types()[0].id, 'image/jpeg', 'first type is image/jpeg');
     t.equal(types()[0].checked(), false, 'jpg not checked');
@@ -124,7 +131,7 @@ test('upload queue', function (t) {
 
     t.plan(8);
 
-    var upvm = new MB.CoverArt.UploadProcessViewModel();
+    var upvm = new CoverArt.UploadProcessViewModel();
     ko.applyBindings(upvm);
 
     t.equal(upvm.files_to_upload().length, 0, 'zero files in upload queue');

@@ -3,9 +3,10 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-// FIXME
-// const $ = require('jquery');
+const $ = require('jquery');
+const ko = require('knockout');
 
+const MB = require('../common/MB');
 const clean = require('../common/utility/clean');
 
 exports.errorFields = ko.observableArray([]);

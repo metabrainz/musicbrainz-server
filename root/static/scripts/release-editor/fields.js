@@ -3,9 +3,16 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
+const aclass = require('aclass');
+const $ = require('jquery');
+const ko = require('knockout');
+const _ = require('lodash');
 const React = require('react');
 const ReactDOM = require('react-dom');
 
+require('knockout-arraytransforms');
+
+const MB_entity = require('../common/entity');
 const {l} = require('../common/i18n');
 const {
         artistCreditFromArray,
@@ -18,14 +25,17 @@ const clean = require('../common/utility/clean');
 const formatTrackLength = require('../common/utility/formatTrackLength');
 const request = require('../common/utility/request');
 const ArtistCreditEditor = require('../edit/components/ArtistCreditEditor');
+const MB_edit = require('../edit/MB/edit');
 const dates = require('../edit/utility/dates');
 const validation = require('../edit/validation');
+const actions = require('./actions');
+const recordingAssociation = require('./recordingAssociation');
+const utils = require('./utils');
+const releaseEditor = require('./viewModel');
 
-(function (releaseEditor) {
+    const fields = exports;
 
-    var fields = releaseEditor.fields = releaseEditor.fields || {};
-    var utils = releaseEditor.utils;
-
+    releaseEditor.fields = fields;
 
     fields.Track = aclass({
         entityType: 'track',
@@ -65,7 +75,7 @@ const validation = require('../edit/validation');
             releaseEditor.copyTrackArtistsToRecordings.subscribe(this.updateRecordingArtist);
 
             this.recordingValue = ko.observable(
-                MB.entity.Recording({ name: data.name })
+                MB_entity.Recording({ name: data.name })
             );
 
             // Custom write function is needed around recordingValue because
@@ -86,12 +96,12 @@ const validation = require('../edit/validation');
                 if (_.isEmpty(recordingData.artistCredit)) {
                     recordingData.artistCredit = this.artistCredit().names.toJS();
                 }
-                this.recording(MB.entity(recordingData, "recording"));
-                this.recording.original(MB.edit.fields.recording(this.recording.peek()));
+                this.recording(MB_entity(recordingData, "recording"));
+                this.recording.original(MB_edit.fields.recording(this.recording.peek()));
                 this.hasNewRecording(false);
             }
 
-            releaseEditor.recordingAssociation.track(this);
+            recordingAssociation.track(this);
 
             this.uniqueID = this.id || _.uniqueId("new-");
             this.elementID = "track-row-" + this.uniqueID;
@@ -214,7 +224,7 @@ const validation = require('../edit/validation');
         },
 
         setRecordingValue: function (value) {
-            value = value || MB.entity.Recording({ name: this.name() });
+            value = value || MB_entity.Recording({ name: this.name() });
 
             var currentValue = this.recording.peek();
             if (value.gid === currentValue.gid) return;
@@ -228,7 +238,7 @@ const validation = require('../edit/validation');
                 this.name.saved = this.name.peek();
                 this.length.saved = this.length.peek();
                 this.recording.saved = value;
-                this.recording.savedEditData = MB.edit.fields.recording(value);
+                this.recording.savedEditData = MB_edit.fields.recording(value);
                 this.hasNewRecording(false);
             }
 
@@ -267,8 +277,8 @@ const validation = require('../edit/validation');
         },
 
         // Classes are a joke
-        renderArtistCredit: MB.entity.Entity.prototype.renderArtistCredit,
-        isCompleteArtistCredit: MB.entity.Entity.prototype.isCompleteArtistCredit,
+        renderArtistCredit: MB_entity.Entity.prototype.renderArtistCredit,
+        isCompleteArtistCredit: MB_entity.Entity.prototype.isCompleteArtistCredit,
     });
 
 
@@ -365,7 +375,7 @@ const validation = require('../edit/validation');
             this.collapsed = ko.observable(!loaded);
             this.collapsed.subscribe(this.collapsedChanged, this);
             this.addTrackCount = ko.observable("");
-            this.original = ko.observable(this.id ? MB.edit.fields.medium(this) : {});
+            this.original = ko.observable(this.id ? MB_edit.fields.medium(this) : {});
             this.uniqueID = this.id || _.uniqueId("new-");
 
             this.needsTracks = ko.computed(function () {
@@ -506,7 +516,7 @@ const validation = require('../edit/validation');
             // which we don't want to overwrite - it could have been changed
             // by the user before they loaded the medium. We just need the
             // tracklist data, now that it's loaded.
-            var currentEditData = MB.edit.fields.medium(this);
+            var currentEditData = MB_edit.fields.medium(this);
             var originalEditData = this.original();
 
             originalEditData.tracklist = currentEditData.tracklist;
@@ -545,7 +555,7 @@ const validation = require('../edit/validation');
     });
 
 
-    fields.ReleaseGroup = aclass(MB.entity.ReleaseGroup, {
+    fields.ReleaseGroup = aclass(MB_entity.ReleaseGroup, {
 
         after$init: function (data) {
             data = data || {};
@@ -604,7 +614,7 @@ const validation = require('../edit/validation');
         init: function (data, release) {
             if (data.id) this.id = data.id;
 
-            this.label = ko.observable(MB.entity(data.label || {}, "label"));
+            this.label = ko.observable(MB_entity(data.label || {}, "label"));
             this.catalogNumber = ko.observable(data.catalogNumber);
             this.release = release;
             this.isDuplicate = ko.observable(false);
@@ -679,7 +689,7 @@ const validation = require('../edit/validation');
     });
 
 
-    fields.Release = aclass(MB.entity.Release, {
+    fields.Release = aclass(MB_entity.Release, {
 
         after$init: function (data) {
             if (data.gid) {
@@ -747,7 +757,7 @@ const validation = require('../edit/validation');
             );
 
             this.labels.original = ko.observable(
-                _.map(this.labels.peek(), MB.edit.fields.releaseLabel)
+                _.map(this.labels.peek(), MB_edit.fields.releaseLabel)
             );
 
             function releaseLabelKey(releaseLabel) {
@@ -788,7 +798,7 @@ const validation = require('../edit/validation');
             this.formats = data.formats;
             this.mediums.original = ko.observableArray([]);
             this.mediums.original(this.existingMediumData());
-            this.original = ko.observable(MB.edit.fields.release(this));
+            this.original = ko.observable(MB_edit.fields.release(this));
 
             this.loadedMediums = this.mediums.filter("loaded");
             this.hasTrackInfo = this.loadedMediums.all("hasTrackInfo");
@@ -975,5 +985,3 @@ const validation = require('../edit/validation');
         'previousTrack',
         'update',
     );
-
-}(MB.releaseEditor = MB.releaseEditor || {}));

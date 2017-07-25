@@ -6,10 +6,9 @@
 const {isCompleteArtistCredit} = require('../common/immutable-entities');
 const debounce = require('../common/utility/debounce');
 const request = require('../common/utility/request');
+const releaseEditor = require('./viewModel');
+const utils = require('./utils');
 
-(function (releaseEditor) {
-
-    var utils = releaseEditor.utils;
     var releaseGroupReleases = ko.observableArray([]);
 
 
@@ -160,5 +159,3 @@ const request = require('../common/utility/request');
         })
         .value().join(" + ");
     }
-
-}(MB.releaseEditor = MB.releaseEditor || {}));

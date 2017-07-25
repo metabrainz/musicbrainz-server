@@ -4,11 +4,12 @@
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
 const i18n = require('../common/i18n');
+const releaseEditor = require('./viewModel');
+const utils = require('./utils');
 
-(function (releaseEditor) {
+    const validation = exports;
 
-    var validation = releaseEditor.validation = releaseEditor.validation || {};
-    var utils = releaseEditor.utils;
+    releaseEditor.validation = validation;
 
     // Allow for access in ko templates
     validation.errorsExist = require('../edit/validation').errorsExist;
@@ -160,5 +161,3 @@ const i18n = require('../common/i18n');
             );
         }
     });
-
-}(MB.releaseEditor = MB.releaseEditor || {}));

@@ -3,19 +3,21 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
+const ko = require('knockout');
+const _ = require('lodash');
+
 const {VIDEO_ATTRIBUTE_GID} = require('../common/constants');
 const {reduceArtistCredit} = require('../common/immutable-entities');
 const clean = require('../common/utility/clean');
 const debounce = require('../common/utility/debounce');
 const isPositiveInteger = require('../edit/utility/isPositiveInteger');
 const validation = require('../edit/validation');
+const releaseEditor = require('./viewModel');
+const utils = require('./utils');
+
+require('./init');
 
 const WS_EDIT_RESPONSE_OK = 1;
-
-(function (releaseEditor) {
-
-    var utils = releaseEditor.utils;
-
 
     var releaseEditData = utils.withRelease(MB.edit.fields.release);
 
@@ -647,4 +649,4 @@ const WS_EDIT_RESPONSE_OK = 1;
         chainEditSubmissions(release, releaseEditor.orderedEditSubmissions);
     };
 
-}(MB.releaseEditor = MB.releaseEditor || {}));
+module.exports = releaseEditor.edits;

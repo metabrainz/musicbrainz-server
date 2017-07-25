@@ -3,12 +3,13 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
+const ko = require('knockout');
+const _ = require('lodash');
+
 const {artistCreditFromArray} = require('../common/immutable-entities');
-
-(function (releaseEditor) {
-
-    var utils = releaseEditor.utils;
-
+const fields = require('./fields');
+const utils = require('./utils');
+const releaseEditor = require('./viewModel');
 
     releaseEditor.seedErrors = ko.observable(null);
 
@@ -38,7 +39,7 @@ const {artistCreditFromArray} = require('../common/immutable-entities');
                 releaseData.relationships = seed.relationships;
             }
 
-            var release = this.fields.Release(releaseData);
+            var release = fields.Release(releaseData);
             this.seedRelease(release, seed);
             this.rootField.release(release);
         }
@@ -46,8 +47,6 @@ const {artistCreditFromArray} = require('../common/immutable-entities');
 
 
     releaseEditor.seedRelease = function (release, data) {
-        var fields = releaseEditor.fields;
-
         if (data.name !== undefined) {
             release.name(data.name);
         }
@@ -114,5 +113,3 @@ const {artistCreditFromArray} = require('../common/immutable-entities');
                 }, {});
         }
     };
-
-}(MB.releaseEditor = MB.releaseEditor || {}));

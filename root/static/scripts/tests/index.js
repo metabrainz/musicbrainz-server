@@ -1,18 +1,3 @@
-require('../common');
-require('../edit');
-require('../guess-case');
-require('../release-editor');
-
-MB.edit.preview = function (data, context) {
-  return $.Deferred().resolveWith(context, [{ previews: [] }, data]);
-};
-
-MB.edit.create = function (data, context) {
-  return $.Deferred().resolveWith(context, [{ edits: [] }, data]);
-};
-
-require('./typeInfo');
-
 require('./autocomplete');
 require('./common/immutable-entities');
 require('./edit/components/ArtistCreditEditor');
