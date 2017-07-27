@@ -3,9 +3,6 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-require('./browser-shims');
-
-const $ = require('jquery');
 const _ = require('lodash');
 const test = require('tape');
 
@@ -54,7 +51,7 @@ test('parseDate', function (t) {
         { date: '1999-01--', expected: { year: 1999, month: 1, day: null } },
     ];
 
-    $.each(parseDateTests, function (i, test) {
+    _.each(parseDateTests, function (test) {
         var result = parseDate(test.date);
         t.deepEqual(result, test.expected, test.date);
     });
