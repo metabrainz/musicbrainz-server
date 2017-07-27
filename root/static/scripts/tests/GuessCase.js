@@ -3,9 +3,6 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-require('./browser-shims');
-
-const $ = require('jquery');
 const _ = require('lodash');
 const test = require('tape');
 
@@ -38,7 +35,7 @@ test('Sortname', function (t) {
         }
     ];
 
-    $.each(tests, function (idx, test) {
+    _.each(tests, function (test, idx) {
         var result = MB.GuessCase.artist.sortname(test.input, test.person);
         t.equal(result, test.expected, test.input);
     });
@@ -72,7 +69,7 @@ test('Sortname', function (t) {
         */
     ];
 
-    $.each(tests, function (idx, test) {
+    _.each(tests, function (test, idx) {
         var result = MB.GuessCase.label.sortname(test.input);
         t.equal(result, test.expected, test.input);
     });
@@ -102,7 +99,7 @@ test('Artist', function (t) {
         }
     ];
 
-    $.each(tests, function (idx, test) {
+    _.each(tests, function (test, idx) {
         var result = MB.GuessCase.artist.guess(test.input);
 
         var prefix = test.bug ? test.bug + ', ' : '';
@@ -126,7 +123,7 @@ test('Label', function (t) {
         { input: 'No Label',  expected: '[unknown]' }
     ];
 
-    $.each(tests, function (idx, test) {
+    _.each(tests, function (test, idx) {
         var result = MB.GuessCase.label.guess(test.input);
         t.equal(result, test.expected, test.input);
     });
@@ -218,7 +215,7 @@ test('Work', function (t) {
         }
     ];
 
-    $.each(tests, function (idx, test) {
+    _.each(tests, function (test, idx) {
         setCookie('guesscase_roman', String(test.roman));
         gc.CFG_UC_UPPERCASED = test.keepuppercase;
         gc.mode = modes[test.mode];
@@ -335,7 +332,7 @@ test('BugFixes', function (t) {
         */
     ];
 
-    $.each(tests, function (idx, test) {
+    _.each(tests, function (test, idx) {
         gc.mode = modes[test.mode];
 
         var result = MB.GuessCase.work.guess(test.input);
