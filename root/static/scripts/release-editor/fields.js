@@ -4,7 +4,6 @@
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
 const aclass = require('aclass');
-const $ = require('jquery');
 const ko = require('knockout');
 const _ = require('lodash');
 const React = require('react');
@@ -24,7 +23,6 @@ const {
 const clean = require('../common/utility/clean');
 const formatTrackLength = require('../common/utility/formatTrackLength');
 const request = require('../common/utility/request');
-const ArtistCreditEditor = require('../edit/components/ArtistCreditEditor');
 const MB_edit = require('../edit/MB/edit');
 const dates = require('../edit/utility/dates');
 const validation = require('../edit/validation');
@@ -43,7 +41,13 @@ const releaseEditor = require('./viewModel');
         init: function (data, medium) {
             this.medium = medium;
 
-            $.extend(this, _.pick(data, "id", "gid"));
+            if (data.id != null) {
+                this.id = data.id;
+            }
+
+            if (data.gid != null) {
+                this.gid = data.gid;
+            }
 
             data.name = data.name || "";
             this.name = ko.observable(data.name);
@@ -158,9 +162,15 @@ const releaseEditor = require('./viewModel');
                 this.formattedLength(newFormattedLength);
             }
 
+            if (typeof document === 'undefined') {
+                // XXX Skip during tests
+                return;
+            }
+
             // If the length being changed is for a pregap track and the medium
             // has cdtocs attached, make sure the new length doesn't exceed the
             // maximum possible allowed by any of the tocs.
+            const $ = require('jquery');
 
             var $lengthInput = $("input.track-length", "#track-row-" + this.uniqueID);
             $lengthInput.attr("title", "");
@@ -353,7 +363,13 @@ const releaseEditor = require('./viewModel');
             this.hasVariousArtistTracks = this.tracks.any("hasVariousArtists");
             this.needsTrackInfo = ko.computed(function () { return !self.hasTrackInfo() });
 
-            $.extend(this, _.pick(data, "id", "originalID"));
+            if (data.id != null) {
+                this.id = data.id;
+            }
+
+            if (data.originalID != null) {
+                this.originalID = data.originalID;
+            }
 
             // The medium is considered to be loaded if it has tracks, or if
             // there's no ID to load tracks from.
@@ -863,125 +879,3 @@ const releaseEditor = require('./viewModel');
             });
         }
     });
-
-
-    ko.bindingHandlers.disableBecauseDiscIDs = {
-
-        update: function (element, valueAccessor, allBindings, viewModel) {
-            var disabled = ko.unwrap(valueAccessor()) && viewModel.medium.hasToc();
-
-            $(element)
-                .prop("disabled", disabled)
-                .toggleClass("disabled-hint", disabled)
-                .attr("title", disabled ? l("This medium has one or more discids which prevent this information from being changed.") : "");
-        }
-    };
-
-
-    ko.bindingHandlers.artistCreditEditor = {
-        changeMatchingArtists: false,
-
-        onChangeMatchingArtists: function () {
-            this.changeMatchingArtists = !this.changeMatchingArtists;
-        },
-
-        currentTarget: function () {
-            return $('#artist-credit-bubble').data('target');
-        },
-
-        previousTrack: function () {
-            const entity = this.currentTarget();
-            const prev = entity.medium.tracks()[entity.position() - 2];
-            if (prev) {
-                prev.artistCreditEditorInst.updateBubble(true);
-            }
-        },
-
-        nextTrack: function () {
-            const entity = this.currentTarget();
-            const next = entity.medium.tracks()[entity.position()];
-            if (next) {
-                next.artistCreditEditorInst.updateBubble(true);
-            }
-        },
-
-        extraButtons: function () {
-            return (
-                <frag>
-                    <button type="button" style={{float: 'right'}} onClick={this.nextTrack}>
-                        {l('Next')}
-                    </button>
-                    <button type="button" style={{float: 'right'}} onClick={this.previousTrack}>
-                        {l('Previous')}
-                    </button>
-                </frag>
-            );
-        },
-
-        extraContent: function () {
-            return (
-                <div>
-                    <label>
-                        <input type="checkbox" onChange={this.onChangeMatchingArtists} />
-                        {l('Change all artists on this release that match “{name}”', {name: this.initialArtistText})}
-                    </label>
-                </div>
-            );
-        },
-
-        beforeShow: function (props, state) {
-            this.initialArtistText = reduceArtistCredit(state.artistCredit);
-        },
-
-        doneCallback: function () {
-            if (!this.changeMatchingArtists) {
-                return;
-            }
-
-            const track = this.currentTarget();
-            const matchWith = this.initialArtistText;
-            const artistCredit = track.artistCredit.peek();
-
-            _(track.medium.release.mediums())
-                .invoke("tracks").flatten().without(track).pluck("artistCredit")
-                .each(function (ac) {
-                    if (matchWith === reduceArtistCredit(ac.peek())) {
-                        ac(artistCredit);
-                    }
-                })
-                .value();
-
-            this.initialArtistText = '';
-        },
-
-        update: function (element, valueAccessor) {
-            const bindingHandler = ko.bindingHandlers.artistCreditEditor;
-            const entity = valueAccessor();
-            const props = {
-                entity: entity,
-                hiddenInputs: false,
-                onChange: entity.artistCredit,
-            };
-            if (entity instanceof fields.Track) {
-                props.beforeShow = this.beforeShow;
-                props.doneCallback = this.doneCallback;
-                props.extraButtons = this.extraButtons;
-                props.extraContent = this.extraContent;
-                props.orientation = 'left';
-            }
-            entity.artistCreditEditorInst =
-                ReactDOM.render(<ArtistCreditEditor {...props} />, element);
-        }
-    };
-
-    _.bindAll(
-        ko.bindingHandlers.artistCreditEditor,
-        'beforeShow',
-        'doneCallback',
-        'extraButtons',
-        'extraContent',
-        'nextTrack',
-        'onChangeMatchingArtists',
-        'previousTrack',
-        'update',
-    );
