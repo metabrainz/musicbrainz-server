@@ -3,7 +3,6 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-require('../browser-shims');
 require('../typeInfo');
 
 const $ = require('jquery');

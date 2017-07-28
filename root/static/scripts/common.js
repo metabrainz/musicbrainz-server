@@ -1,21 +1,9 @@
-let RUNNING_TESTS = false;
+require('./common/raven');
 
-try {
-  if (String(process.env.MUSICBRAINZ_RUNNING_TESTS) === '1') {
-    RUNNING_TESTS = true
-  }
-} catch (e) {}
-
-if (!RUNNING_TESTS) {
-  require('./common/raven');
-}
-
-const global = require('./global');
-
-global.aclass = require("aclass");
-global.ko = require("knockout");
-global._ = require("lodash");
-global.$ = global.jQuery = require("jquery");
+window.aclass = require("aclass");
+window.ko = require("knockout");
+window._ = require("lodash");
+window.$ = window.jQuery = require("jquery");
 
 require("../lib/jquery.ui/ui/jquery-ui.custom");
 
