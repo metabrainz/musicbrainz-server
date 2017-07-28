@@ -28,5 +28,5 @@ fi
 
 ./script/dbdefs_to_js.pl
 
-./node_modules/.bin/gulp &
+./node_modules/.bin/gulp "$@" &
 trap_jobs
