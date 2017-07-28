@@ -15,10 +15,6 @@ while true; do
     fi
 done
 
-# Tests require rev-manifest.json to exist.
-sudo -E -H -u musicbrainz \
-    carton exec -- ./script/compile_resources.sh
-
 exec sudo -E -H -u musicbrainz carton exec -- prove \
     --pgtap-option dbname=musicbrainz_test \
     --pgtap-option host=musicbrainz-test-database \
