@@ -671,7 +671,7 @@ const PART_OF_SERIES_LINK_TYPE_GIDS = _.values(PART_OF_SERIES_LINK_TYPES);
                 return MB.edit.workCreate(editData);
             });
 
-            MB.edit.create({ editNote: "", makeVotable: false, edits: edits })
+            this.createEdits(edits)
                 .done(function (data) {
                     var works = _.pluck(data.edits, "entity");
 
@@ -686,6 +686,10 @@ const PART_OF_SERIES_LINK_TYPE_GIDS = _.values(PART_OF_SERIES_LINK_TYPES);
                     self.loading(false);
                     self.error(true);
                 });
+        },
+
+        createEdits: function (edits) {
+            return MB.edit.create({ editNote: "", makeVotable: false, edits: edits });
         },
 
         targetEntityError: function () { return "" }

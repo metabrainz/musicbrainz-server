@@ -116,8 +116,12 @@ MB.initRelationshipEditors = function (args) {
     var source = MB.sourceEntity;
     var vmArgs = { source: source, formName: args.formName };
 
-    const {GenericEntityViewModel} = require('../generic');
-    GenericEntityViewModel(vmArgs);
+    let {vmClass} = args;
+    if (!vmClass) {
+        vmClass = require('../generic').GenericEntityViewModel;
+    }
+
+    vmClass(vmArgs);
 
     var externalLinksEditor = $('#external-links-editor-container')[0];
     if (externalLinksEditor) {

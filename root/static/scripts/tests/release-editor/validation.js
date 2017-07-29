@@ -5,17 +5,25 @@
 
 require('../browser-shims');
 
+const aclass = require('aclass');
+const _ = require('lodash');
 const test = require('tape');
 
 const validation = require('../../edit/validation');
+const fields = require('../../release-editor/fields');
 const releaseEditor = require('../../release-editor/viewModel');
 
 require('../../release-editor/init');
 
 function validationTest(name, callback) {
     test(name, function (t) {
+        const Release = fields.Release;
+        fields.Release = aclass(Release, {loadMedia: _.noop});
+
         callback(t);
+
         validation.errorFields([]);
+        fields.Release = Release;
     });
 }
 

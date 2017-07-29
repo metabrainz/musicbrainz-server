@@ -232,15 +232,18 @@ const mergeDates = require('./mergeDates');
             if (entity0.entityType === "recording"
                 && entity1.entityType === "work"
                 && saved1 !== entity1 && entity1.gid) {
-
-                var args = { url: "/ws/js/entity/" + entity1.gid + "?inc=rels" };
-
-                request(args).done(function (data) {
-                    entity1.parseRelationships(data.relationships);
-                });
+                this.loadWorkRelationships(entity1);
             }
 
             this.entities.saved = [entity0, entity1];
+        },
+
+        loadWorkRelationships: function (work) {
+            var args = { url: "/ws/js/entity/" + work.gid + "?inc=rels" };
+
+            request(args).done(function (data) {
+                work.parseRelationships(data.relationships);
+            });
         },
 
         clone: function () {

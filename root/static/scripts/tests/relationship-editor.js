@@ -6,20 +6,37 @@
 require('./browser-shims');
 require('./typeInfo');
 
+const aclass = require('aclass');
 const $ = require('jquery');
 const ko = require('knockout');
 const _ = require('lodash');
 const test = require('tape');
 
-const {LinkAttribute} = require('../relationship-editor/common/fields');
+const {LinkAttribute, Relationship} = require('../relationship-editor/common/fields');
 const {
         AddDialog,
         BatchCreateWorksDialog,
         BatchRelationshipDialog,
         EditDialog,
     } = require('../relationship-editor/common/dialog');
-const {prepareSubmission} = require('../relationship-editor/generic');
+const {
+        GenericEntityViewModel,
+        prepareSubmission,
+    } = require('../relationship-editor/generic');
 const {ReleaseViewModel} = require('../relationship-editor/release');
+
+const FakeRelationship = aclass(Relationship, {
+    loadWorkRelationships: _.noop,
+});
+
+const FakeGenericEntityViewModel = aclass(GenericEntityViewModel, {
+    relationshipClass: FakeRelationship,
+});
+
+const FakeReleaseViewModel = aclass(ReleaseViewModel, {
+    loadRelease: _.noop,
+    relationshipClass: FakeRelationship,
+});
 
 var fakeGID0 = "a0ba91b0-c564-4eec-be2e-9ff071a47b59";
 var fakeGID1 = "acb75d59-b0dc-4105-bad6-81ac8c66da4d";
@@ -96,7 +113,7 @@ function id2attr(id) { return { type: MB.attrInfoByID[id] } }
 function ids2attrs(ids) { return _.map(ids, id2attr) }
 
 function setupReleaseRelationshipEditor() {
-    var vm = ReleaseViewModel({
+    var vm = FakeReleaseViewModel({
         sourceData: _.omit(testRelease, "mediums")
     });
 
@@ -105,6 +122,7 @@ function setupReleaseRelationshipEditor() {
 }
 
 function setupGenericRelationshipEditor(options) {
+    options.vmClass = FakeGenericEntityViewModel;
     MB.initRelationshipEditors(options);
     return MB.sourceRelationshipEditor;
 }
@@ -417,17 +435,14 @@ relationshipEditorTest("BatchCreateWorksDialog", function (t) {
         sources: recordings, viewModel: vm
     });
 
-    // Mock edit submission.
-    var _MB_edit_create = MB.edit.create;
-
-    MB.edit.create = function () {
+    dialog.createEdits = function () {
         return $.Deferred().resolve({
             edits: [
                 { entity: { name: "WorkFoo", gid: fakeGID0, entityType: "work" } },
                 { entity: { name: "WorkBar", gid: fakeGID1, entityType: "work" } }
             ]
         });
-    }
+    };
 
     dialog.accept();
 
@@ -438,8 +453,6 @@ relationshipEditorTest("BatchCreateWorksDialog", function (t) {
     t.deepEqual(recordings[1].relationships()[0].entities(), [
         recordings[1], MB.entity({ gid: fakeGID1 }, "work")
     ]);
-
-    MB.edit.create = _MB_edit_create;
 });
 
 relationshipEditorTest("canceling an edit dialog reverts the changes", function (t) {
@@ -962,7 +975,7 @@ relationshipEditorTest("empty dates are submitted as a hash, not as undef (MBS-8
         verbosePhrase: "{additional} composer",
     };
 
-    var vm = ReleaseViewModel({
+    var vm = FakeReleaseViewModel({
         sourceData: {
             entityType: "release",
             name: "3 Great Piano Sonatas (Wilhelm Backhaus)",

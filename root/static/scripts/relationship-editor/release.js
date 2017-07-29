@@ -59,13 +59,7 @@ require('./common/entity');
 
             ko.applyBindings(this, document.getElementById("content"));
 
-            this.loadingRelease(true);
-            var url = "/ws/js/release/" + this.source.gid + "?inc=rels+recordings";
-            request({ url: url }, this)
-                .done(this.releaseLoaded)
-                .always(function () {
-                    self.loadingRelease(false);
-                });
+            this.loadRelease();
 
             window.addEventListener('beforeunload', function (event) {
                 if (self.redirecting) {
@@ -79,6 +73,19 @@ require('./common/entity');
                     return event.returnValue;
                 }
             });
+        },
+
+        loadRelease: function () {
+            const self = this;
+            const url = '/ws/js/release/' + this.source.gid + '?inc=rels+recordings';
+
+            this.loadingRelease(true);
+
+            request({url}, this)
+                .done(this.releaseLoaded)
+                .always(function () {
+                    self.loadingRelease(false);
+                });
         },
 
         getEdits: function (addChanged) {
