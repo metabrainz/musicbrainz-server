@@ -2431,6 +2431,12 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
                     expected_clean_url: 'https://www.wikidata.org/wiki/Q14005',
         },
         {
+                             input_url: 'https://www.wikidata.org/wiki/Special:EntityPage/Q339359',
+                     input_entity_type: 'instrument',
+                    expected_clean_url: 'https://www.wikidata.org/wiki/Q339359',
+            expected_relationship_type: 'wikidata',
+        },
+        {
                              input_url: 'http://www.wikidata.org/entity/Q4655955',
                      input_entity_type: 'artist',
                     expected_clean_url: 'https://www.wikidata.org/wiki/Q4655955',
