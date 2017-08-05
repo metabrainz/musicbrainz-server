@@ -16,7 +16,8 @@
         "safari": "9.1"
       }
     }],
-    "stage-2"
+    "stage-2",
+    "flow"
   ],
   "plugins": [
     "jsx-control-statements",
