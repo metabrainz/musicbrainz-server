@@ -1,0 +1,12 @@
+[ignore]
+.*/lib/.*
+.*/root/static/build/.*
+.*/t/.*
+
+[include]
+
+[libs]
+
+[lints]
+
+[options]
