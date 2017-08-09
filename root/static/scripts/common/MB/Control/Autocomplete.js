@@ -1010,12 +1010,7 @@ ko.bindingHandlers.autocomplete = {
     init: function (element, valueAccessor) {
         var options = valueAccessor();
 
-        var autocomplete = $(element).autocomplete(options)
-            .data("ui-autocomplete");
-
-        if (options.artistCredit) {
-            options.artistCredit.setAutocomplete(autocomplete, element);
-        }
+        $(element).autocomplete(options);
     }
 };
 
