@@ -2,6 +2,7 @@ const debounce = require('./common/utility/debounce');
 
 require('../lib/flot/jquery.flot');
 require('../lib/flot/jquery.flot.selection');
+require('../lib/flot/jquery.flot.time');
 require('./jquery.flot.musicbrainz_events');
 
 MB.Timeline = {};
@@ -487,7 +488,7 @@ MB.Timeline.TimelineLine = aclass({
                 // Main options (hoverability, axes, tick formatting, events, line size)
                 if (graph === 'main' || graph === 'rate') {
                     options.grid = { hoverable: true };
-                    options.xaxis = { mode: "time", timeformat: "%y/%0m/%0d", minTickSize: [7, "day"]};
+                    options.xaxis = { mode: "time", timeformat: "%Y/%m/%d", minTickSize: [7, "day"]};
                     options.yaxis = { tickFormatter: function (x) {
                         return x.toString().replace(/\B(?=(?:\d{3})+(?!\d))/g, ","); // XXX: localized number formatting
                     }};

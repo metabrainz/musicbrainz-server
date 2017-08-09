@@ -1,5 +1,11 @@
 const parseCookie = require('cookie').parse;
 
+const _cookies = require('./_cookies');
+
+function getCookieFallback(name, defaultValue = undefined) {
+  return _cookies.hasOwnProperty(name) ? _cookies[name] : defaultValue;
+}
+
 function getCookie(name, defaultValue = undefined) {
   let cookie;
   if (typeof $c !== 'undefined') {
@@ -16,4 +22,9 @@ function getCookie(name, defaultValue = undefined) {
   return defaultValue;
 }
 
-module.exports = getCookie;
+if (typeof document === 'undefined' ||
+    window.location.protocol === 'file:') {
+  module.exports = getCookieFallback;
+} else {
+  module.exports = getCookie;
+}

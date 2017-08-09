@@ -3,116 +3,113 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
+const ko = require('knockout');
+const _ = require('lodash');
+
 const {artistCreditFromArray} = require('../common/immutable-entities');
+const fields = require('./fields');
+const utils = require('./utils');
+const releaseEditor = require('./viewModel');
 
-(function (releaseEditor) {
-
-    var utils = releaseEditor.utils;
-
-
-    releaseEditor.seedErrors = ko.observable(null);
+releaseEditor.seedErrors = ko.observable(null);
 
 
-    releaseEditor.seed = function (data) {
-        data = data || { seed: {}, errors: [] };
+releaseEditor.seed = function (data) {
+    data = data || { seed: {}, errors: [] };
 
-        var seed = data.seed;
-        this.seededReleaseData = seed;
+    var seed = data.seed;
+    this.seededReleaseData = seed;
 
-        if (data.errors && data.errors.length) {
-            this.seedErrors(data.errors);
+    if (data.errors && data.errors.length) {
+        this.seedErrors(data.errors);
+    }
+
+    if (seed.editNote) {
+        this.rootField.editNote(seed.editNote);
+    }
+
+    if (seed.makeVotable !== undefined) {
+        this.rootField.makeVotable(!!seed.makeVotable);
+    }
+
+    if (this.action === "add") {
+        var releaseData = {};
+
+        if (seed.relationships) {
+            releaseData.relationships = seed.relationships;
         }
 
-        if (seed.editNote) {
-            this.rootField.editNote(seed.editNote);
-        }
-
-        if (seed.makeVotable !== undefined) {
-            this.rootField.makeVotable(!!seed.makeVotable);
-        }
-
-        if (this.action === "add") {
-            var releaseData = {};
-
-            if (seed.relationships) {
-                releaseData.relationships = seed.relationships;
-            }
-
-            var release = this.fields.Release(releaseData);
-            this.seedRelease(release, seed);
-            this.rootField.release(release);
-        }
-    };
+        var release = fields.Release(releaseData);
+        this.seedRelease(release, seed);
+        this.rootField.release(release);
+    }
+};
 
 
-    releaseEditor.seedRelease = function (release, data) {
-        var fields = releaseEditor.fields;
+releaseEditor.seedRelease = function (release, data) {
+    if (data.name !== undefined) {
+        release.name(data.name);
+    }
 
-        if (data.name !== undefined) {
-            release.name(data.name);
-        }
+    if (data.statusID !== undefined) {
+        release.statusID(data.statusID);
+    }
 
-        if (data.statusID !== undefined) {
-            release.statusID(data.statusID);
-        }
+    if (data.languageID !== undefined) {
+        release.languageID(data.languageID);
+    }
 
-        if (data.languageID !== undefined) {
-            release.languageID(data.languageID);
-        }
+    if (data.scriptID !== undefined) {
+        release.scriptID(data.scriptID);
+    }
 
-        if (data.scriptID !== undefined) {
-            release.scriptID(data.scriptID);
-        }
+    if (data.packagingID !== undefined) {
+        release.packagingID(data.packagingID);
+    }
 
-        if (data.packagingID !== undefined) {
-            release.packagingID(data.packagingID);
-        }
+    if (data.comment !== undefined) {
+        release.comment(data.comment);
+    }
 
-        if (data.comment !== undefined) {
-            release.comment(data.comment);
-        }
+    if (data.annotation !== undefined) {
+        release.annotation(data.annotation);
+    }
 
-        if (data.annotation !== undefined) {
-            release.annotation(data.annotation);
-        }
+    if (data.barcode) {
+        release.barcode.value(data.barcode);
+    }
 
-        if (data.barcode) {
-            release.barcode.value(data.barcode);
-        }
+    if (data.artistCredit) {
+        release.artistCredit(artistCreditFromArray(data.artistCredit));
+        release.artistCredit.saved = release.artistCredit.peek();
+    }
 
-        if (data.artistCredit) {
-            release.artistCredit(artistCreditFromArray(data.artistCredit));
-            release.artistCredit.saved = release.artistCredit.peek();
-        }
+    if (data.events) {
+        release.events(utils.mapChild(release, data.events, fields.ReleaseEvent));
+    }
 
-        if (data.events) {
-            release.events(utils.mapChild(release, data.events, fields.ReleaseEvent));
-        }
+    if (data.labels) {
+        release.labels(utils.mapChild(release, data.labels, fields.ReleaseLabel));
+    }
 
-        if (data.labels) {
-            release.labels(utils.mapChild(release, data.labels, fields.ReleaseLabel));
-        }
+    if (data.releaseGroup) {
+        // Need to convert secondary type IDs into strings because
+        // Knockout.js will do a strict comparison when rendering the
+        // input. See MBS-7828.
+        data.releaseGroup.secondaryTypeIDs = data.releaseGroup.secondaryTypeIDs.map(String);
+        release.releaseGroup(fields.ReleaseGroup(data.releaseGroup));
+    }
 
-        if (data.releaseGroup) {
-            // Need to convert secondary type IDs into strings because
-            // Knockout.js will do a strict comparison when rendering the
-            // input. See MBS-7828.
-            data.releaseGroup.secondaryTypeIDs = data.releaseGroup.secondaryTypeIDs.map(String);
-            release.releaseGroup(fields.ReleaseGroup(data.releaseGroup));
-        }
+    if (data.mediums) {
+        release.mediums(utils.mapChild(release, data.mediums, fields.Medium));
 
-        if (data.mediums) {
-            release.mediums(utils.mapChild(release, data.mediums, fields.Medium));
+        release.seededTocs = _.transform(release.mediums(),
+            function (result, medium) {
+                var toc = medium.toc();
 
-            release.seededTocs = _.transform(release.mediums(),
-                function (result, medium) {
-                    var toc = medium.toc();
-
-                    if (toc) {
-                        result[medium.position()] = toc;
-                    }
-                }, {});
-        }
-    };
-
-}(MB.releaseEditor = MB.releaseEditor || {}));
+                if (toc) {
+                    result[medium.position()] = toc;
+                }
+            }, {});
+    }
+};

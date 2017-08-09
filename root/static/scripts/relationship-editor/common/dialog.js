@@ -3,6 +3,13 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
+const aclass = require('aclass');
+const $ = require('jquery');
+const ko = require('knockout');
+const _ = require('lodash');
+
+require('../../../lib/jquery-ui');
+
 const {PART_OF_SERIES_LINK_TYPES} = require('../../common/constants');
 const i18n = require('../../common/i18n');
 const URLCleanup = require('../../edit/URLCleanup');
@@ -550,7 +557,7 @@ const PART_OF_SERIES_LINK_TYPE_GIDS = _.values(PART_OF_SERIES_LINK_TYPES);
         });
     }
 
-    UI.AddDialog = aclass(Dialog, {
+    const AddDialog = aclass(Dialog, {
 
         dialogTemplate: "template.relationship-dialog",
         disableTypeSelection: false,
@@ -567,7 +574,7 @@ const PART_OF_SERIES_LINK_TYPE_GIDS = _.values(PART_OF_SERIES_LINK_TYPES);
     });
 
 
-    UI.EditDialog = aclass(Dialog, {
+    const EditDialog = aclass(Dialog, {
 
         dialogTemplate: "template.relationship-dialog",
         disableTypeSelection: true,
@@ -604,7 +611,7 @@ const PART_OF_SERIES_LINK_TYPE_GIDS = _.values(PART_OF_SERIES_LINK_TYPES);
     });
 
 
-    UI.BatchRelationshipDialog = aclass(Dialog, {
+    const BatchRelationshipDialog = aclass(Dialog, {
 
         dialogTemplate: "template.batch-relationship-dialog",
         disableTypeSelection: false,
@@ -636,7 +643,7 @@ const PART_OF_SERIES_LINK_TYPE_GIDS = _.values(PART_OF_SERIES_LINK_TYPES);
     });
 
 
-    UI.BatchCreateWorksDialog = aclass(UI.BatchRelationshipDialog, {
+    const BatchCreateWorksDialog = aclass(BatchRelationshipDialog, {
 
         dialogTemplate: "template.batch-create-works-dialog",
         workType: ko.observable(null),
@@ -664,7 +671,7 @@ const PART_OF_SERIES_LINK_TYPE_GIDS = _.values(PART_OF_SERIES_LINK_TYPES);
                 return MB.edit.workCreate(editData);
             });
 
-            MB.edit.create({ editNote: "", makeVotable: false, edits: edits })
+            this.createEdits(edits)
                 .done(function (data) {
                     var works = _.pluck(data.edits, "entity");
 
@@ -679,6 +686,10 @@ const PART_OF_SERIES_LINK_TYPE_GIDS = _.values(PART_OF_SERIES_LINK_TYPES);
                     self.loading(false);
                     self.error(true);
                 });
+        },
+
+        createEdits: function (edits) {
+            return MB.edit.create({ editNote: "", makeVotable: false, edits: edits });
         },
 
         targetEntityError: function () { return "" }
@@ -734,5 +745,15 @@ const PART_OF_SERIES_LINK_TYPE_GIDS = _.values(PART_OF_SERIES_LINK_TYPES);
 
         return relationships;
     }
+
+    UI.AddDialog = AddDialog;
+    UI.EditDialog = EditDialog;
+    UI.BatchRelationshipDialog = BatchRelationshipDialog;
+    UI.BatchCreateWorksDialog = BatchCreateWorksDialog;
+
+    exports.AddDialog = AddDialog;
+    exports.EditDialog = EditDialog;
+    exports.BatchRelationshipDialog = BatchRelationshipDialog;
+    exports.BatchCreateWorksDialog = BatchCreateWorksDialog;
 
 }(MB.relationshipEditor = MB.relationshipEditor || {}));

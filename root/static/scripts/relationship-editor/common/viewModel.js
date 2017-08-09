@@ -3,8 +3,15 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
+const aclass = require('aclass');
+const $ = require('jquery');
+const ko = require('knockout');
+const _ = require('lodash');
+
+const MB = require('../../common/MB');
 const parseDate = require('../../common/utility/parseDate');
 const request = require('../../common/utility/request');
+const fields = require('./fields');
 
 (function (RE) {
 
@@ -59,9 +66,9 @@ const request = require('../../common/utility/request');
     });
 
 
-    RE.ViewModel = aclass({
+    exports.ViewModel = aclass({
 
-        relationshipClass: RE.fields.Relationship,
+        relationshipClass: fields.Relationship,
         activeDialog: ko.observable(),
 
         init: function (options) {
@@ -109,7 +116,12 @@ MB.initRelationshipEditors = function (args) {
     var source = MB.sourceEntity;
     var vmArgs = { source: source, formName: args.formName };
 
-    MB.relationshipEditor.GenericEntityViewModel(vmArgs);
+    let {vmClass} = args;
+    if (!vmClass) {
+        vmClass = require('../generic').GenericEntityViewModel;
+    }
+
+    vmClass(vmArgs);
 
     var externalLinksEditor = $('#external-links-editor-container')[0];
     if (externalLinksEditor) {

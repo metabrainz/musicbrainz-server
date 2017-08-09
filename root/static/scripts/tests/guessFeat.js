@@ -7,6 +7,7 @@ const _ = require('lodash');
 const test = require('tape');
 
 const guessFeat = require('../edit/utility/guessFeat');
+const fields = require('../release-editor/fields');
 
 test('guessing feat. artists', function (t) {
     t.plan(17);
@@ -300,7 +301,7 @@ test('guessing feat. artists', function (t) {
     }
 
     _.each(trackTests, function (x) {
-        var release = MB.releaseEditor.fields.Release({
+        var release = fields.Release({
             artistCredit: [],
             mediums: [{tracks: [x.input]}],
         });
@@ -309,6 +310,6 @@ test('guessing feat. artists', function (t) {
     });
 
     _.each(releaseTests, function (x) {
-        runTest(x, MB.releaseEditor.fields.Release(x.input));
+        runTest(x, fields.Release(x.input));
     });
 });

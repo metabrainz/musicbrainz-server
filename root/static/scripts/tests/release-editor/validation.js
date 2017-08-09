@@ -3,16 +3,25 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
+const aclass = require('aclass');
+const _ = require('lodash');
 const test = require('tape');
 
 const validation = require('../../edit/validation');
+const fields = require('../../release-editor/fields');
+const releaseEditor = require('../../release-editor/viewModel');
 
-var releaseEditor = MB.releaseEditor;
+require('../../release-editor/init');
 
 function validationTest(name, callback) {
     test(name, function (t) {
+        const Release = fields.Release;
+        fields.Release = aclass(Release, {loadMedia: _.noop});
+
         callback(t);
+
         validation.errorFields([]);
+        fields.Release = Release;
     });
 }
 
@@ -98,5 +107,5 @@ validationTest('duplicate label/catalog number pairs are rejected (MBS-8137)', f
     t.ok(!labels[6].isDuplicate());
     t.ok(!labels[7].isDuplicate());
 
-    t.ok(releaseEditor.validation.errorsExist());
+    t.ok(validation.errorsExist());
 });

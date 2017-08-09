@@ -3,15 +3,23 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
+const aclass = require('aclass');
+const $ = require('jquery');
+const ko = require('knockout');
+const _ = require('lodash');
+
 const i18n = require('../common/i18n');
 const request = require('../common/utility/request');
+const {ViewModel} = require('./common/viewModel');
+
+require('./common/entity');
 
 (function (RE) {
 
     var UI = RE.UI = RE.UI || {};
 
 
-    RE.ReleaseViewModel = aclass(RE.ViewModel, {
+    const ReleaseViewModel = aclass(ViewModel, {
 
         after$init: function (options) {
             MB.releaseRelationshipEditor = this;
@@ -51,13 +59,7 @@ const request = require('../common/utility/request');
 
             ko.applyBindings(this, document.getElementById("content"));
 
-            this.loadingRelease(true);
-            var url = "/ws/js/release/" + this.source.gid + "?inc=rels+recordings";
-            request({ url: url }, this)
-                .done(this.releaseLoaded)
-                .always(function () {
-                    self.loadingRelease(false);
-                });
+            this.loadRelease();
 
             window.addEventListener('beforeunload', function (event) {
                 if (self.redirecting) {
@@ -71,6 +73,19 @@ const request = require('../common/utility/request');
                     return event.returnValue;
                 }
             });
+        },
+
+        loadRelease: function () {
+            const self = this;
+            const url = '/ws/js/release/' + this.source.gid + '?inc=rels+recordings';
+
+            this.loadingRelease(true);
+
+            request({url}, this)
+                .done(this.releaseLoaded)
+                .always(function () {
+                    self.loadingRelease(false);
+                });
         },
 
         getEdits: function (addChanged) {
@@ -150,7 +165,7 @@ const request = require('../common/utility/request');
                 edits: edits
             };
 
-            MB.edit.create(data, this)
+            this._createEdit(data, this)
                 .always(function () {
                     this.submissionLoading(false);
                 })
@@ -269,9 +284,15 @@ const request = require('../common/utility/request');
             }).sortBy("linkOrder").sortBy(function (relationship) {
                 return relationship.lowerCasePhrase(source);
             });
-        }
+        },
+
+        _createEdit: function () {
+            return MB.edit.create.apply(MB.edit, arguments);
+        },
     });
 
+    RE.ReleaseViewModel = ReleaseViewModel;
+    exports.ReleaseViewModel = ReleaseViewModel;
 
     var recordingCheckboxes = "td.recording > input[type=checkbox]";
     var workCheckboxes = "td.works > div.ar > input[type=checkbox]";

@@ -15,9 +15,11 @@ while true; do
     fi
 done
 
-# Tests require rev-manifest.json to exist.
-sudo -E -H -u musicbrainz \
-    carton exec -- ./script/compile_resources.sh
+(sudo -E -H -u musicbrainz google-chrome-stable \
+    --headless \
+    --disable-gpu \
+    --no-sandbox \
+    --remote-debugging-port=9222 &)
 
 exec sudo -E -H -u musicbrainz carton exec -- prove \
     --pgtap-option dbname=musicbrainz_test \
@@ -29,6 +31,7 @@ exec sudo -E -H -u musicbrainz carton exec -- prove \
     -I lib \
     t/critic.t \
     t/js.t \
+    t/web.js \
     t/pgtap/* \
     t/pgtap/unused-tags/* \
     t/script/*.t \

@@ -3,17 +3,22 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
+const aclass = require('aclass');
+const ko = require('knockout');
 const _ = require('lodash');
 
 const {
     SERIES_ORDERING_ATTRIBUTE,
     SERIES_ORDERING_TYPE_AUTOMATIC
 } = require('../../common/constants');
+const MB_entity = require('../../common/entity');
 const i18n = require('../../common/i18n');
+const MB = require('../../common/MB');
 const clean = require('../../common/utility/clean');
 const formatDate = require('../../common/utility/formatDate');
 const formatDatePeriod = require('../../common/utility/formatDatePeriod');
 const request = require('../../common/utility/request');
+const MB_edit = require('../../edit/MB/edit');
 const linkPhrase = require('../../edit/utility/linkPhrase');
 const mergeDates = require('./mergeDates');
 
@@ -34,7 +39,7 @@ const mergeDates = require('./mergeDates');
             }
 
             this.entities = ko.observable(_.map(data.entities, function (entity) {
-                return MB.entity(entity);
+                return MB_entity(entity);
             }));
 
             this.entities.equalityComparer = entitiesComparer;
@@ -98,7 +103,7 @@ const mergeDates = require('./mergeDates');
             this.editsPending = Boolean(data.editsPending);
 
             this.editData = ko.computed(function () {
-                return MB.edit.fields.relationship(self);
+                return MB_edit.fields.relationship(self);
             });
 
             this.phraseAndExtraAttributes = ko.computed(function () {
@@ -119,7 +124,7 @@ const mergeDates = require('./mergeDates');
 
         fromJS: function (data) {
             this.linkTypeID(data.linkTypeID);
-            this.entities([MB.entity(data.entities[0]), MB.entity(data.entities[1])]);
+            this.entities([MB_entity(data.entities[0]), MB_entity(data.entities[1])]);
             this.entity0_credit(data.entity0_credit || '');
             this.entity1_credit(data.entity1_credit || '');
 
@@ -227,15 +232,18 @@ const mergeDates = require('./mergeDates');
             if (entity0.entityType === "recording"
                 && entity1.entityType === "work"
                 && saved1 !== entity1 && entity1.gid) {
-
-                var args = { url: "/ws/js/entity/" + entity1.gid + "?inc=rels" };
-
-                request(args).done(function (data) {
-                    entity1.parseRelationships(data.relationships);
-                });
+                this.loadWorkRelationships(entity1);
             }
 
             this.entities.saved = [entity0, entity1];
+        },
+
+        loadWorkRelationships: function (work) {
+            var args = { url: "/ws/js/entity/" + work.gid + "?inc=rels" };
+
+            request(args).done(function (data) {
+                work.parseRelationships(data.relationships);
+            });
         },
 
         clone: function () {
@@ -418,8 +426,8 @@ const mergeDates = require('./mergeDates');
 
         openEdits: function () {
             var entities = this.original.entities;
-            var entity0 = MB.entity(entities[0]);
-            var entity1 = MB.entity(entities[1]);
+            var entity0 = MB_entity(entities[0]);
+            var entity1 = MB_entity(entities[1]);
 
             return (
                 '/search/edits?auto_edit_filter=&order=desc&negation=0&combinator=and' +
@@ -557,3 +565,5 @@ const mergeDates = require('./mergeDates');
     }
 
 }(MB.relationshipEditor = MB.relationshipEditor || {}));
+
+module.exports = MB.relationshipEditor.fields;

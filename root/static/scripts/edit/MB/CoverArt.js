@@ -19,6 +19,11 @@
 */
 
 const filesize = require('filesize');
+const $ = require('jquery');
+const ko = require('knockout');
+const _ = require('lodash');
+
+const MB = require('../../common/MB');
 
 MB.CoverArt = {};
 
@@ -631,3 +636,5 @@ function iteratePromises(promises) {
     iterate();
     return deferred.promise();
 }
+
+module.exports = MB.CoverArt;

@@ -19,6 +19,8 @@
 
 */
 
+const _ = require('lodash');
+
 const utils = require('../../utils');
 
 MB.GuessCase = MB.GuessCase ? MB.GuessCase : {};
@@ -254,3 +256,5 @@ MB.GuessCase.Input = function () {
 
     return self;
 }
+
+module.exports = MB.GuessCase.Input;

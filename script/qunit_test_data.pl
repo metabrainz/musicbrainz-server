@@ -22,6 +22,8 @@ print "Writing root/static/scripts/tests/typeInfo.js ...\n";
 open(my $fh, ">", "$FindBin::Bin/../root/static/scripts/tests/typeInfo.js");
 print $fh <<EOF;
 // Automatically generated, do not edit.
+require('../relationship-editor/common/viewModel');
+const MB = require('../common/MB');
 MB.relationshipEditor.exportTypeInfo($type_info, $attr_info);
 EOF
 close $fh;

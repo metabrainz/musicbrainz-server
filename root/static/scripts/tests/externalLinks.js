@@ -3,11 +3,17 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
+const $ = require('jquery');
+const _ = require('lodash');
 const test = require('tape');
 const ReactTestUtils = require('react-addons-test-utils');
 
+const MB_entity = require('../common/entity');
 const externalLinks = require('../edit/externalLinks');
+const {prepareSubmission} = require('../relationship-editor/generic');
 const {triggerChange, triggerClick, addURL} = require('./external-links-editor/utils');
+
+require('./typeInfo');
 
 function externalLinksTest(name, callback, initialLinks) {
     test(name, function (t) {
@@ -108,7 +114,7 @@ externalLinksTest("deprecated link type detection for existing links (MBS-8408)"
 [
     {
         id: 1,
-        target: MB.entity.URL({ name: "http://www.example.com/" }),
+        target: MB_entity.URL({ name: "http://www.example.com/" }),
         linkTypeID: 179
     }
 ]);
@@ -120,7 +126,7 @@ externalLinksTest("hidden input data for form submission", function (t, $mountPo
 
     addURL('http://rateyourmusic.com/artist/deerhunter');
 
-    MB.relationshipEditor.prepareSubmission('edit-artist');
+    prepareSubmission('edit-artist');
     t.equal($re.find("input[name=edit-artist\\.url\\.0\\.relationship_id]").val(), "1");
     t.equal($re.find("input[name=edit-artist\\.url\\.0\\.text]").val(), "https://en.wikipedia.org/wiki/Deerhunter");
     t.equal($re.find("input[name=edit-artist\\.url\\.0\\.link_type_id]").val(), "179");
@@ -134,14 +140,14 @@ externalLinksTest("hidden input data for form submission", function (t, $mountPo
 
     triggerClick($mountPoint.find('button:eq(1)')[0]);
 
-    MB.relationshipEditor.prepareSubmission('edit-artist');
+    prepareSubmission('edit-artist');
     t.equal($re.find("input[name=edit-artist\\.url\\.0\\.relationship_id]").val(), "1");
     t.equal($re.find("input[name=edit-artist\\.url\\.0\\.text]").val(), "https://en.wikipedia.org/wiki/dEErHuNtER");
     t.equal($re.find("input[name=edit-artist\\.url\\.0\\.link_type_id]").val(), "179");
 
     triggerClick($mountPoint.find('button:eq(0)')[0]);
 
-    MB.relationshipEditor.prepareSubmission('edit-artist');
+    prepareSubmission('edit-artist');
     t.equal($re.find("input[name=edit-artist\\.url\\.0\\.relationship_id]").val(), "1");
     t.equal($re.find("input[name=edit-artist\\.url\\.0\\.removed]").val(), "1");
     t.equal($re.find("input[name=edit-artist\\.url\\.0\\.text]").val(), "https://en.wikipedia.org/wiki/Deerhunter");
@@ -153,7 +159,7 @@ externalLinksTest("hidden input data for form submission", function (t, $mountPo
 [
     {
         id: 1,
-        target: MB.entity.URL({ name: "https://en.wikipedia.org/wiki/Deerhunter" }),
+        target: MB_entity.URL({ name: "https://en.wikipedia.org/wiki/Deerhunter" }),
         linkTypeID: 179
     }
 ]);

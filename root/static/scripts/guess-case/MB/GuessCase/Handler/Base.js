@@ -888,7 +888,7 @@ MB.GuessCase.Handler.Base = function () {
         joinPhrase = (is.indexOf(" + ") != -1 ? " + " : joinPhrase);
         joinPhrase = (is.indexOf(" & ") != -1 ? " & " : joinPhrase);
 
-        return $.map(is.split(joinPhrase), callback).join(joinPhrase);
+        return is.split(joinPhrase).map(callback).join(joinPhrase);
     };
 
     return self;

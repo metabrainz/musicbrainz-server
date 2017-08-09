@@ -11,6 +11,8 @@ m4_define(`apt_purge', `apt-get purge --auto-remove -y $1')
 
 m4_define(`sudo_mb', `sudo -E -H -u musicbrainz $1')
 
+m4_define(`CHROME_DEB', `google-chrome-stable_current_amd64.deb')
+
 m4_define(`NODEJS_DEB', `nodejs_7.9.0-1nodesource1~xenial1_amd64.deb')
 
 m4_define(

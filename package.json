@@ -29,7 +29,6 @@
     "immutable": "3.7.5",
     "jed": "1.1.0",
     "jquery": "1.11.2",
-    "jquery.browser": "git://github.com/gabceb/jquery-browser-plugin.git#e4a01fd",
     "jsx-control-statements": "3.2.5",
     "knockout": "git://github.com/mwiencek/knockout.git#a8f12df",
     "knockout-arraytransforms": "2.0.0",
@@ -63,13 +62,15 @@
     "yargs": "3.10.0"
   },
   "devDependencies": {
+    "chrome-remote-interface": "0.24.2",
     "eslint": "1.10.2",
     "eslint-plugin-react": "3.11.1",
+    "file-url": "2.0.2",
     "gulp-watch": "4.3.5",
     "jsdom": "7.0.2",
-    "node-storage-shim": "1.0.1",
     "react-addons-test-utils": "https://github.com/mwiencek/react-packages/raw/master/react-addons-test-utils.tgz",
-    "tape": "4.2.2"
+    "tape": "4.7.0",
+    "utf8": "2.1.2"
   },
   "private": true
 }

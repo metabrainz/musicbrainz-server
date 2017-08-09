@@ -19,6 +19,8 @@
 
 */
 
+const _ = require('lodash');
+
 const flags = require('../../../flags');
 const utils = require('../../../utils');
 
