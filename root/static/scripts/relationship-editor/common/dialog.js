@@ -3,7 +3,6 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-const aclass = require('aclass');
 const $ = require('jquery');
 const ko = require('knockout');
 const _ = require('lodash');
@@ -126,14 +125,14 @@ const PART_OF_SERIES_LINK_TYPE_GIDS = _.values(PART_OF_SERIES_LINK_TYPES);
             });
 
             if (!instruments.peek().length) {
-                addInstrument(MB.entity.Instrument({}));
+                addInstrument(new MB.entity.Instrument({}));
             }
 
             var vm = {
                 instruments: instruments,
 
                 addItem: function () {
-                    addInstrument(MB.entity.Instrument({}));
+                    addInstrument(new MB.entity.Instrument({}));
                     focusLastInput();
                 },
 
@@ -162,21 +161,9 @@ const PART_OF_SERIES_LINK_TYPE_GIDS = _.values(PART_OF_SERIES_LINK_TYPES);
     };
 
 
-    var Dialog = aclass({
+    class Dialog {
 
-        loading: ko.observable(false),
-        showAttributesHelp: ko.observable(false),
-        showLinkTypeHelp: ko.observable(false),
-
-        uiOptions: {
-            dialogClass: "rel-editor-dialog",
-            draggable: false,
-            resizable: false,
-            autoOpen: false,
-            width: "auto"
-        },
-
-        init: function (options) {
+        constructor(options) {
             var self = this;
 
             this.viewModel = options.viewModel;
@@ -205,19 +192,9 @@ const PART_OF_SERIES_LINK_TYPE_GIDS = _.values(PART_OF_SERIES_LINK_TYPES);
             this.changeOtherRelationshipCredits = {source: ko.observable(false), target: ko.observable(false)};
             this.selectedRelationshipCredits = {source: ko.observable('all'), target: ko.observable('all')};
             this.setupUI();
-        },
+        }
 
-        setupUI: _.once(function () {
-            var $dialog = $("#dialog").dialog(this.uiOptions);
-
-            var widget = $dialog.data("ui-dialog");
-            widget.uiDialog.find(".ui-dialog-titlebar").remove();
-
-            Dialog.extend({ $dialog: $dialog, widget: widget });
-            ko.applyBindings(this.viewModel, $dialog[0]);
-        }),
-
-        open: function (positionBy) {
+        open(positionBy) {
             this.viewModel.activeDialog(this);
 
             var widget = this.widget;
@@ -236,11 +213,13 @@ const PART_OF_SERIES_LINK_TYPE_GIDS = _.values(PART_OF_SERIES_LINK_TYPES);
             this.positionBy(positionBy);
 
             this.$dialog.find(".link-type").focus();
-        },
+        }
 
-        accept: function (inner) {
+        accept() {
             if (!this.hasErrors()) {
-                inner && inner.apply(this, _.toArray(arguments).slice(1));
+                if (this._accept) {
+                    this._accept.apply(this, arguments);
+                }
                 for (var role in this.changeOtherRelationshipCredits) {
                     if (this.changeOtherRelationshipCredits[role]()) {
                         var vm = this.viewModel;
@@ -279,14 +258,14 @@ const PART_OF_SERIES_LINK_TYPE_GIDS = _.values(PART_OF_SERIES_LINK_TYPES);
 
                 this.close(false);
             }
-        },
+        }
 
-        close: function () {
+        close() {
             this.viewModel.activeDialog(null);
             this.widget && this.widget.close();
-        },
+        }
 
-        clickEvent: function (data, event) {
+        clickEvent(data, event) {
             if (!event.isDefaultPrevented()) {
                 var $menu = this.$dialog.find(".menu");
 
@@ -296,9 +275,9 @@ const PART_OF_SERIES_LINK_TYPE_GIDS = _.values(PART_OF_SERIES_LINK_TYPES);
             }
 
             return true;
-        },
+        }
 
-        keydownEvent: function (data, event) {
+        keydownEvent(data, event) {
             if (event.isDefaultPrevented()) {
                 return;
             }
@@ -324,31 +303,31 @@ const PART_OF_SERIES_LINK_TYPE_GIDS = _.values(PART_OF_SERIES_LINK_TYPES);
             }
 
             return true;
-        },
+        }
 
-        toggleAttributesHelp: function () {
+        toggleAttributesHelp() {
             this.showAttributesHelp(!this.showAttributesHelp());
-        },
+        }
 
-        changeDirection: function () {
+        changeDirection() {
             var relationship = this.relationship.peek();
             relationship.entities(relationship.entities().slice(0).reverse());
-        },
+        }
 
-        backward: function () {
+        backward() {
             return this.source === this.relationship().entities()[1];
-        },
+        }
 
-        toggleLinkTypeHelp: function () {
+        toggleLinkTypeHelp() {
             this.showLinkTypeHelp(!this.showLinkTypeHelp.peek());
-        },
+        }
 
-        linkTypeName: function () {
+        linkTypeName() {
             var linkTypeID = this.relationship().linkTypeID();
             return linkTypeID ? linkPhrase.clean(linkTypeID, this.backward()) : "";
-        },
+        }
 
-        linkTypeDescription: function () {
+        linkTypeDescription() {
             var typeInfo = this.relationship().linkTypeInfo();
             var description;
 
@@ -360,15 +339,15 @@ const PART_OF_SERIES_LINK_TYPE_GIDS = _.values(PART_OF_SERIES_LINK_TYPES);
             }
 
             return description || "";
-        },
+        }
 
-        positionBy: function (element) {
+        positionBy(element) {
             this.widget._setOption("position", {
                 my: "top center", at: "center", of: element
             });
-        },
+        }
 
-        linkTypeOptions: function (entityTypes) {
+        linkTypeOptions(entityTypes) {
             var options = MB.forms.linkTypeOptions(
                 { children: MB.typeInfo[entityTypes] }, this.backward()
             );
@@ -387,9 +366,9 @@ const PART_OF_SERIES_LINK_TYPE_GIDS = _.values(PART_OF_SERIES_LINK_TYPES);
             }
 
             return options;
-        },
+        }
 
-        targetTypeOptions: function () {
+        targetTypeOptions() {
             var sourceType = this.source.entityType;
             var targetTypes = _.without(MB.allowedRelations[sourceType], 'url');
 
@@ -414,9 +393,9 @@ const PART_OF_SERIES_LINK_TYPE_GIDS = _.values(PART_OF_SERIES_LINK_TYPES);
             });
 
             return options;
-        },
+        }
 
-        targetTypeChanged: function (newType) {
+        targetTypeChanged(newType) {
             if (!newType) return;
 
             var currentRelationship = this.relationship();
@@ -456,9 +435,9 @@ const PART_OF_SERIES_LINK_TYPE_GIDS = _.values(PART_OF_SERIES_LINK_TYPES);
                 ac.clear();
                 ac.changeEntity(newType);
             }
-        },
+        }
 
-        linkTypeError: function () {
+        linkTypeError() {
             var typeInfo = this.relationship().linkTypeInfo();
 
             if (!typeInfo) {
@@ -476,9 +455,9 @@ const PART_OF_SERIES_LINK_TYPE_GIDS = _.values(PART_OF_SERIES_LINK_TYPES);
             }
 
             return "";
-        },
+        }
 
-        targetEntityError: function () {
+        targetEntityError() {
             var relationship = this.relationship();
             var target = relationship.target(this.source);
             var typeInfo = relationship.linkTypeInfo() || {};
@@ -496,14 +475,14 @@ const PART_OF_SERIES_LINK_TYPE_GIDS = _.values(PART_OF_SERIES_LINK_TYPES);
             }
 
             return "";
-        },
+        }
 
-        dateError: function (date) {
+        dateError(date) {
             var valid = dates.isDateValid(date.year(), date.month(), date.day());
             return valid ? "" : i18n.l("The date you've entered is not valid.");
-        },
+        }
 
-        datePeriodError: function () {
+        datePeriodError() {
             var relationship = this.relationship();
 
             var a = relationship.begin_date;
@@ -516,9 +495,9 @@ const PART_OF_SERIES_LINK_TYPE_GIDS = _.values(PART_OF_SERIES_LINK_TYPES);
             }
 
             return "";
-        },
+        }
 
-        hasErrors: function () {
+        hasErrors() {
             var relationship = this.relationship();
 
             return this.linkTypeError() ||
@@ -529,6 +508,30 @@ const PART_OF_SERIES_LINK_TYPE_GIDS = _.values(PART_OF_SERIES_LINK_TYPES);
                    this.dateError(relationship.end_date) ||
                    this.datePeriodError();
         }
+    }
+
+    _.assign(Dialog.prototype, {
+        loading: ko.observable(false),
+        showAttributesHelp: ko.observable(false),
+        showLinkTypeHelp: ko.observable(false),
+
+        uiOptions: {
+            dialogClass: "rel-editor-dialog",
+            draggable: false,
+            resizable: false,
+            autoOpen: false,
+            width: "auto"
+        },
+
+        setupUI: _.once(function () {
+            var $dialog = $("#dialog").dialog(this.uiOptions);
+
+            var widget = $dialog.data("ui-dialog");
+            widget.uiDialog.find(".ui-dialog-titlebar").remove();
+
+            _.assign(Dialog.prototype, {$dialog, widget});
+            ko.applyBindings(this.viewModel, $dialog[0]);
+        }),
     });
 
     function addRelationships(relationships, source, viewModel) {
@@ -557,38 +560,39 @@ const PART_OF_SERIES_LINK_TYPE_GIDS = _.values(PART_OF_SERIES_LINK_TYPES);
         });
     }
 
-    const AddDialog = aclass(Dialog, {
+    class AddDialog extends Dialog {
 
-        dialogTemplate: "template.relationship-dialog",
-        disableTypeSelection: false,
-
-        augment$accept: function () {
+        _accept() {
             addRelationships(splitByCreditableAttributes(this.relationship()), this.source, this.viewModel);
-        },
+        }
 
-        before$close: function (cancel) {
+        close(cancel) {
             if (cancel !== false) {
                 this.relationship().remove();
             }
+            super.close(cancel);
         }
+    }
+
+    _.assign(AddDialog.prototype, {
+        dialogTemplate: "template.relationship-dialog",
+        disableTypeSelection: false,
     });
 
+    class EditDialog extends Dialog {
 
-    const EditDialog = aclass(Dialog, {
-
-        dialogTemplate: "template.relationship-dialog",
-        disableTypeSelection: true,
-
-        before$init: function (options) {
+        constructor(options) {
             // originalRelationship is a copy of the relationship when the dialog
             // was opened, i.e. before the user edits it. if they cancel the
             // dialog, this is what gets copied back to revert their changes.
-            this.originalRelationship = options.relationship.editData();
-            this.editing = options.relationship;
-            options.relationship = this.editing.clone();
-        },
+            const relationship = options.relationship;
+            options.relationship = relationship.clone();
+            super(options);
+            this.originalRelationship = relationship.editData();
+            this.editing = relationship;
+        }
 
-        augment$accept: function () {
+        _accept() {
             var relationships = splitByCreditableAttributes(this.relationship()),
                 relationship = relationships.shift();
 
@@ -597,9 +601,9 @@ const PART_OF_SERIES_LINK_TYPE_GIDS = _.values(PART_OF_SERIES_LINK_TYPES);
             if (relationships.length) {
                 addRelationships(relationships, this.source, this.viewModel);
             }
-        },
+        }
 
-        before$close: function (cancel) {
+        close(cancel) {
             if (cancel !== false) {
                 var relationship = this.relationship();
 
@@ -607,25 +611,27 @@ const PART_OF_SERIES_LINK_TYPE_GIDS = _.values(PART_OF_SERIES_LINK_TYPES);
                     relationship.fromJS(this.originalRelationship);
                 }
             }
+            super.close(cancel);
         }
+    }
+
+    _.assign(EditDialog.prototype, {
+        dialogTemplate: "template.relationship-dialog",
+        disableTypeSelection: true,
     });
 
+    class BatchRelationshipDialog extends Dialog {
 
-    const BatchRelationshipDialog = aclass(Dialog, {
+        constructor(options) {
+            options.source = MB.entity({}, options.sources[0].entityType);
+            options.target = options.target || new MB.entity.Artist({});
 
-        dialogTemplate: "template.batch-relationship-dialog",
-        disableTypeSelection: false,
+            super(options);
 
-        around$init: function (supr, options) {
             this.sources = options.sources;
+        }
 
-            options.source = MB.entity({}, this.sources[0].entityType);
-            options.target = options.target || MB.entity.Artist({});
-
-            supr(options);
-        },
-
-        augment$accept: function (callback) {
+        _accept(callback) {
             var vm = this.viewModel;
             var model = _.omit(this.relationship().editData(), "id", "entities");
 
@@ -640,23 +646,22 @@ const PART_OF_SERIES_LINK_TYPE_GIDS = _.values(PART_OF_SERIES_LINK_TYPES);
                 }
             });
         }
+    }
+
+    _.assign(BatchRelationshipDialog.prototype, {
+        dialogTemplate: "template.batch-relationship-dialog",
+        disableTypeSelection: false,
     });
 
+    class BatchCreateWorksDialog extends BatchRelationshipDialog {
 
-    const BatchCreateWorksDialog = aclass(BatchRelationshipDialog, {
-
-        dialogTemplate: "template.batch-create-works-dialog",
-        workType: ko.observable(null),
-        workLanguage: ko.observable(null),
-
-        around$init: function (supr, options) {
+        constructor(options) {
+            super(_.assign(options, { target: new MB.entity.Work({}) }));
             this.error = ko.observable(false);
-            supr(_.assign(options, { target: MB.entity.Work({}) }));
-        },
+        }
 
-        around$accept: function (supr) {
-            var self = this,
-                workType = this.workType(),
+        accept() {
+            var workType = this.workType(),
                 workLang = this.workLanguage();
 
             this.loading(true);
@@ -672,29 +677,34 @@ const PART_OF_SERIES_LINK_TYPE_GIDS = _.values(PART_OF_SERIES_LINK_TYPES);
             });
 
             this.createEdits(edits)
-                .done(function (data) {
+                .done((data) => {
                     var works = _.pluck(data.edits, "entity");
 
-                    supr(function (relationshipData) {
+                    super.accept(function (relationshipData) {
                         relationshipData.target = MB.entity(works.shift(), "work");
                         return true;
                     });
 
-                    self.loading(false);
+                    this.loading(false);
                 })
-                .fail(function () {
-                    self.loading(false);
-                    self.error(true);
+                .fail(() => {
+                    this.loading(false);
+                    this.error(true);
                 });
-        },
+        }
 
-        createEdits: function (edits) {
+        createEdits(edits) {
             return MB.edit.create({ editNote: "", makeVotable: false, edits: edits });
-        },
+        }
 
-        targetEntityError: function () { return "" }
+        targetEntityError() { return "" }
+    }
+
+    _.assign(BatchCreateWorksDialog.prototype, {
+        dialogTemplate: "template.batch-create-works-dialog",
+        workType: ko.observable(null),
+        workLanguage: ko.observable(null),
     });
-
 
     function defaultLinkType(root) {
         var child, id, i = 0;

@@ -7,8 +7,9 @@ require('./jquery.flot.musicbrainz_events');
 
 MB.Timeline = {};
 
-MB.Timeline.TimelineViewModel = aclass({
-    init: function (initialLines) {
+class TimelineViewModel {
+
+    constructor(initialLines) {
         var self = this;
         self.categories = ko.observableArray([]);
         self.enabledCategories = ko.computed(function () {
@@ -153,9 +154,9 @@ MB.Timeline.TimelineViewModel = aclass({
             },
             disposeWhen: self.loadedEvents
         });
-    },
+    }
 
-    _getLocationHashSettings: function () {
+    _getLocationHashSettings() {
         // XXX: reset to defaults when preference is not expressed
         var parts = _.filter(location.hash.replace(/^#/, '').split('+'));
         var self = this;
@@ -178,31 +179,31 @@ MB.Timeline.TimelineViewModel = aclass({
                 if (line) { line.enabled(!(match[1] === '-')) }
             }
         });
-    },
+    }
 
-    addCategory: function(category) {
+    addCategory(category) {
         this.categories.push(category);
         return category
-    },
+    }
 
-    addLine: function(name) {
+    addLine(name) {
         var newLine = MB.text.Timeline.Stat(name)
         var category = _.find(this.categories(), { name: newLine.Category });
 
         if (!category) {
             var newCategory = MB.text.Timeline.Category[newLine.Category];
-            category = this.addCategory(MB.Timeline.TimelineCategory(newLine.Category, newCategory.Label, !newCategory.Hide));
+            category = this.addCategory(new TimelineCategory(newLine.Category, newCategory.Label, !newCategory.Hide));
         }
 
-        category.addLine(MB.Timeline.TimelineLine(name, newLine.Label, newLine.Color, !newLine.Hide));
-    },
+        category.addLine(new TimelineLine(name, newLine.Label, newLine.Color, !newLine.Hide));
+    }
 
-    addLines: function(names) {
+    addLines(names) {
         var self = this;
         _.forEach(names, function (name) { self.addLine(name) });
-    },
+    }
 
-    loadEvents: function () {
+    loadEvents() {
         var self = this;
         self.loadingEvents(true);
         $.ajax({
@@ -220,10 +221,11 @@ MB.Timeline.TimelineViewModel = aclass({
             self.loadingEvents(false);
         });
     }
-});
+}
 
-MB.Timeline.TimelineCategory = aclass({
-    init: function(name, label, enabledByDefault) {
+class TimelineCategory {
+
+    constructor(name, label, enabledByDefault) {
         var self = this;
         if (enabledByDefault === undefined) {
             enabledByDefault = false;
@@ -252,12 +254,14 @@ MB.Timeline.TimelineCategory = aclass({
         debounce(function () {
             _.forEach(self.needLoadingLines(), function (line) { line.loadData() });
         }, 1);
-    },
-    addLine: function(line) { this.lines.push(line); }
-});
+    }
 
-MB.Timeline.TimelineLine = aclass({
-    init: function(name, label, color, enabledByDefault) {
+    addLine(line) { this.lines.push(line); }
+}
+
+class TimelineLine {
+
+    constructor(name, label, color, enabledByDefault) {
         var self = this;
         if (enabledByDefault === undefined) {
             enabledByDefault = false;
@@ -274,8 +278,9 @@ MB.Timeline.TimelineLine = aclass({
         self.rateData = ko.computed(function () {
             return self.calculateRateData(self.data());
         });
-    },
-    loadData: function () {
+    }
+
+    loadData () {
         var self = this;
         self.loading(true);
         $.ajax({
@@ -289,8 +294,9 @@ MB.Timeline.TimelineLine = aclass({
         }).always(function () {
             self.loading(false);
         });
-    },
-    calculateRateData: function (data) {
+    }
+
+    calculateRateData (data) {
         if (!data || !data.length) { return {data: [], thresholds: {min: null, max: null}}; }
         var weekData = [];
         var oneDay = 1000 * 60 * 60 * 24;
@@ -333,8 +339,9 @@ MB.Timeline.TimelineLine = aclass({
                           max: mean + 3 * standardDeviation};
 
         return {data: weekData, thresholds: thresholds};
-    },
-    calculateRateBounds: function(data, thresholds, dateThresholds) {
+    }
+
+    calculateRateBounds(data, thresholds, dateThresholds) {
         var rateBounds = {min: thresholds.max, max: thresholds.min};
         $.each(data, function (index, value) {
                 if (value[1] > thresholds.min &&
@@ -355,7 +362,9 @@ MB.Timeline.TimelineLine = aclass({
         }
         return rateBounds;
     }
-});
+}
+
+MB.Timeline.TimelineViewModel = TimelineViewModel;
 
 (function () {
     // Closure over utility functions.

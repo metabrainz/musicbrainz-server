@@ -88,7 +88,7 @@ dialogTest("switching to the tracklist tab opens the add-disc dialog if there's 
     t.ok(!uiDialog.isOpen(), "add-disc dialog is closed after switching back to the information tab");
 
     release.mediums()[0].tracks.push(
-        fields.Track({ name: "~fooo~", position: 1, length: 12345 })
+        new fields.Track({ name: "~fooo~", position: 1, length: 12345 })
     );
 
     releaseEditor.activeTabID("#information");
@@ -103,7 +103,7 @@ dialogTest("clearing the tracks of an existing medium via the track parser doesn
     var medium = release.mediums()[0];
 
     medium.tracks.push(
-        fields.Track({ name: "~fooo~", position: 1, length: 12345 })
+        new fields.Track({ name: "~fooo~", position: 1, length: 12345 })
     );
 
     t.ok(medium.hasTracks(), "medium has tracks");
@@ -124,7 +124,7 @@ dialogTest("adding a new medium does not cause reorder edits (MBS-7412)", functi
     t.plan(1);
 
     release.mediums([
-        fields.Medium(
+        new fields.Medium(
             _.assign(_.omit(common.testMedium, "id"), { position: 1 })
         )
     ]);

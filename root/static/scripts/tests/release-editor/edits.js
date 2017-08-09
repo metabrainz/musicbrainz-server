@@ -141,13 +141,13 @@ addReleaseTest("recordingEdit edits are generated for new mediums (MBS-7271)", f
     };
 
     release.mediums.push(
-        fields.Medium({ tracks: [ trackData ] })
+        new fields.Medium({ tracks: [ trackData ] })
     );
 
     var track = release.mediums()[1].tracks()[0];
     var recordingData = _.extend({ gid: "80f797aa-2077-435d-85e2-c22e31a654f4" }, trackData);
 
-    track.recording(MB.entity.Recording(recordingData));
+    track.recording(new MB.entity.Recording(recordingData));
     track.name("foobar");
 
     var edits = _.filter(releaseEditor.edits.medium(release),
@@ -172,7 +172,7 @@ addReleaseTest("mediumCreate edits are generated for new release", function (t, 
     t.plan(1);
 
     release.mediums.push(
-      fields.Medium(_.omit(common.testMedium, "id"))
+      new fields.Medium(_.omit(common.testMedium, "id"))
     );
 
     t.deepEqual(releaseEditor.edits.medium(release), [
@@ -291,7 +291,7 @@ addReleaseTest("mediumAddDiscID edits are generated for new release", function (
 test("releaseReorderMediums edits are not generated for new releases", function (t) {
     t.plan(1);
 
-    var release = fields.Release({
+    var release = new fields.Release({
         mediums: [
             { position: 1, tracks: [ { name: "foo" } ] },
             { position: 2, tracks: [ { name: "bar" } ] },
@@ -308,7 +308,7 @@ test("releaseReorderMediums edits are not generated for new releases", function 
 test("MBS-7453: release group edits strip whitespace from name", function (t) {
     t.plan(1);
 
-    var release = fields.Release({ name: "  Foo  oo " });
+    var release = new fields.Release({ name: "  Foo  oo " });
 
     t.equal(releaseEditor.edits.releaseGroup(release)[0].name, "Foo oo");
 });
@@ -316,7 +316,7 @@ test("MBS-7453: release group edits strip whitespace from name", function (t) {
 test("releaseGroupCreate edits", function (t) {
     t.plan(1);
 
-    var release = fields.Release({
+    var release = new fields.Release({
         name: "Chocolate Synthesizer",
         artistCredit: common.testArtistCredit,
         releaseGroup: { typeID: 1 }
@@ -413,7 +413,7 @@ editReleaseTest("releaseDeleteReleaseLabel edit is generated when label/catalog 
     t.plan(1);
 
     var releaseLabel = release.labels()[0];
-    releaseLabel.label(MB.entity.Label({}));
+    releaseLabel.label(new MB.entity.Label({}));
     releaseLabel.catalogNumber("");
 
     t.deepEqual(releaseEditor.edits.releaseLabel(release), [
@@ -677,7 +677,7 @@ editReleaseTest("releaseGroupEdit edits should not include unchanged fields (MBS
 test("mediumEdit and releaseReorderMediums edits are generated for non-loaded mediums", function (t) {
     t.plan(6);
 
-    var release = fields.Release({
+    var release = new fields.Release({
         gid: "f4c552ab-515e-42df-a9ee-a370867d29d1",
         mediums: [
             { id: 123, name: "foo", position: 1 },
@@ -745,7 +745,7 @@ test("mediumEdit and releaseReorderMediums edits are generated for non-loaded me
 test("mediumCreate edits are not given conflicting positions", function (t) {
     t.plan(2);
 
-    var release = fields.Release({
+    var release = new fields.Release({
         gid: "f4c552ab-515e-42df-a9ee-a370867d29d1",
         mediums: [
             { id: 123, position: 1 },
@@ -761,19 +761,19 @@ test("mediumCreate edits are not given conflicting positions", function (t) {
 
     medium1.position(4);
 
-    var newMedium1 = fields.Medium({
+    var newMedium1 = new fields.Medium({
         name: "foo",
         position: 1
     });
 
-    newMedium1.tracks.push(fields.Track({}, newMedium1));
+    newMedium1.tracks.push(new fields.Track({}, newMedium1));
 
-    var newMedium2 = fields.Medium({
+    var newMedium2 = new fields.Medium({
         name: "bar",
         position: 2
     });
 
-    newMedium2.tracks.push(fields.Track({}, newMedium2));
+    newMedium2.tracks.push(new fields.Track({}, newMedium2));
     mediums.push(newMedium1, newMedium2);
 
     var mediumCreateEdits = _.map(
@@ -827,7 +827,7 @@ test("mediumCreate edits are not given conflicting positions", function (t) {
 test("mediumCreate positions don't conflict with removed mediums (MBS-7952)", function (t) {
     t.plan(1);
 
-    var release = fields.Release({
+    var release = new fields.Release({
         gid: "f4c552ab-515e-42df-a9ee-a370867d29d1",
         mediums: [{ id: 123, position: 1 }]
     });
@@ -835,9 +835,9 @@ test("mediumCreate positions don't conflict with removed mediums (MBS-7952)", fu
     releaseEditor.rootField.release(release);
 
     var mediums = release.mediums;
-    var newMedium = fields.Medium({ position: 2 });
+    var newMedium = new fields.Medium({ position: 2 });
 
-    newMedium.tracks.push(fields.Track({}, newMedium));
+    newMedium.tracks.push(new fields.Track({}, newMedium));
     mediums.push(newMedium);
     releaseEditor.removeMedium(mediums()[0]);
     common.createMediums(release);
@@ -866,7 +866,7 @@ test("mediumCreate positions don't conflict with removed mediums (MBS-7952)", fu
 test("releaseDeleteReleaseLabel edits are not generated for non-existent release labels (MBS-7455)", function (t) {
     t.plan(1);
 
-    var release = fields.Release({
+    var release = new fields.Release({
         gid: "f4c552ab-515e-42df-a9ee-a370867d29d1",
         labels: [
             { id: 123, label: null, catalogNumber: "foo123" },

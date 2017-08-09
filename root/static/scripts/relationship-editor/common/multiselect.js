@@ -3,7 +3,6 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-const aclass = require('aclass');
 const ko = require('knockout');
 
 const clean = require('../../common/utility/clean');
@@ -11,9 +10,9 @@ const deferFocus = require('../../edit/utility/deferFocus');
 
 (function () {
 
-    var Multiselect = aclass({
+    class Multiselect {
 
-        init: function (params, $element) {
+        constructor(params, $element) {
             this.$element = $element;
             this.$menu = $element.find("div.menu").data("multiselect", this);
             this.$items = $element.find("div.items");
@@ -65,21 +64,21 @@ const deferFocus = require('../../edit/utility/deferFocus');
             this.optionNodes = optionNodes.slice(0);
             this.$menu.empty().append(optionNodes);
             this.firstVisibleOption = ko.observable(this.optionNodes[0]);
-        },
+        }
 
-        termChanged: function (term) {
+        termChanged(term) {
             term = clean(term);
             this.updateOptions(term);
             this.menuVisible(!!term);
-        },
+        }
 
-        menuVisibleChanged: function (visible) {
+        menuVisibleChanged(visible) {
             if (visible) {
                 this.$menu.css("top", this.$element.outerHeight() + "px");
             }
-        },
+        }
 
-        updateOptions: function (term) {
+        updateOptions(term) {
             var selected = this.relationship.attributes.peek();
             var self = this;
             var menu = this.$menu[0];
@@ -102,17 +101,17 @@ const deferFocus = require('../../edit/utility/deferFocus');
 
             menu.style.display = previousDisplay;
             this.firstVisibleOption(optionNodes[0]);
-        },
+        }
 
-        select: function (option) {
+        select(option) {
             this.relationship.addAttribute(option.value);
             this.menuVisible(false);
             this.term("");
             this.inputHasFocus(true);
             this.updateOptions("");
-        },
+        }
 
-        deselect: function (event) {
+        deselect(event) {
             event.preventDefault();
 
             var attribute = ko.dataFor(event.target);
@@ -140,14 +139,14 @@ const deferFocus = require('../../edit/utility/deferFocus');
             } else {
                 this.inputHasFocus(true);
             }
-        },
+        }
 
-        inputClick: function (event) {
+        inputClick(event) {
             this.menuVisible(!this.menuVisible());
             event.preventDefault();
-        },
+        }
 
-        inputKeydown: function (event) {
+        inputKeydown(event) {
             var keyCode = event.keyCode;
             var menuVisible = this.menuVisibleWithOptions();
 
@@ -175,9 +174,9 @@ const deferFocus = require('../../edit/utility/deferFocus');
                     }
                     break;
             }
-        },
+        }
 
-        menuKeydown: function (event) {
+        menuKeydown(event) {
             var keyCode = event.keyCode;
             var activeElement = document.activeElement;
             var menuItemActive = activeElement.parentNode === this.$menu[0];
@@ -215,12 +214,12 @@ const deferFocus = require('../../edit/utility/deferFocus');
                     }
                     break;
             }
-        },
+        }
 
-        menuVisibleWithOptions: function () {
+        menuVisibleWithOptions() {
             return this.menuVisible() && this.firstVisibleOption();
         }
-    });
+    }
 
     function matchIndex(option, term) {
         if (option.data.unaccented) {

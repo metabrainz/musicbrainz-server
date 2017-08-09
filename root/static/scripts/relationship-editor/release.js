@@ -3,7 +3,6 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-const aclass = require('aclass');
 const $ = require('jquery');
 const ko = require('knockout');
 const _ = require('lodash');
@@ -19,9 +18,11 @@ require('./common/entity');
     var UI = RE.UI = RE.UI || {};
 
 
-    const ReleaseViewModel = aclass(ViewModel, {
+    class ReleaseViewModel extends ViewModel {
 
-        after$init: function (options) {
+        constructor(options) {
+            super(options);
+
             MB.releaseRelationshipEditor = this;
 
             this.editNote = ko.observable("");
@@ -73,9 +74,9 @@ require('./common/entity');
                     return event.returnValue;
                 }
             });
-        },
+        }
 
-        loadRelease: function () {
+        loadRelease() {
             const self = this;
             const url = '/ws/js/release/' + this.source.gid + '?inc=rels+recordings';
 
@@ -86,9 +87,9 @@ require('./common/entity');
                 .always(function () {
                     self.loadingRelease(false);
                 });
-        },
+        }
 
-        getEdits: function (addChanged) {
+        getEdits(addChanged) {
             var self = this;
             var release = this.source;
 
@@ -118,9 +119,9 @@ require('./common/entity');
             _.each(rg.relationships(), function (r) {
                 addChanged(r, rg);
             });
-        },
+        }
 
-        submit: function (data, event) {
+        submit(data, event) {
             event.preventDefault();
 
             var self = this;
@@ -182,14 +183,14 @@ require('./common/entity');
                         this.submissionError(jqXHR.responseText);
                     }
                 });
-        },
+        }
 
-        submissionDone: function () {
+        submissionDone() {
             this.redirecting = true;
             window.location.replace("/release/" + this.source.gid);
-        },
+        }
 
-        releaseLoaded: function (data) {
+        releaseLoaded(data) {
             var release = this.source;
 
             release.mediums(_.map(data.mediums, function (mediumData) {
@@ -198,71 +199,73 @@ require('./common/entity');
                         trackData.recording.relationships
                     );
                 });
-                return MB.entity.Medium(mediumData, release);
+                return new MB.entity.Medium(mediumData, release);
             }));
 
             var trackCount = _.reduce(release.mediums(),
                 function (memo, medium) { return memo + medium.tracks.length }, 0);
 
             initCheckboxes(this.checkboxes, trackCount);
-        },
+        }
 
-        openAddDialog: function (source, event) {
-            UI.AddDialog({
+        openAddDialog(source, event) {
+            new UI.AddDialog({
                 source: source,
-                target: MB.entity.Artist({}),
+                target: new MB.entity.Artist({}),
                 viewModel: this
             }).open(event.target);
-        },
+        }
 
-        openEditDialog: function (relationship, event) {
+        openEditDialog(relationship, event) {
             if (!relationship.removed()) {
-                UI.EditDialog({
+                new UI.EditDialog({
                     relationship: relationship,
                     source: ko.contextFor(event.target).$parent,
                     viewModel: this
                 }).open(event.target);
             }
-        },
+        }
 
-        openBatchRecordingsDialog: function () {
+        openBatchRecordingsDialog() {
             var sources = UI.checkedRecordings();
 
             if (sources.length > 0) {
-                UI.BatchRelationshipDialog({ sources: sources, viewModel: this }).open();
+                new UI.BatchRelationshipDialog({ sources: sources, viewModel: this }).open();
             }
-        },
+        }
 
-        openBatchWorksDialog: function () {
+        openBatchWorksDialog() {
             var sources = UI.checkedWorks();
 
             if (sources.length > 0) {
-                UI.BatchRelationshipDialog({ sources: sources, viewModel: this }).open();
+                new UI.BatchRelationshipDialog({ sources: sources, viewModel: this }).open();
             }
-        },
+        }
 
-        openBatchCreateWorksDialog: function () {
+        openBatchCreateWorksDialog() {
             var sources = _.filter(UI.checkedRecordings(), function (recording) {
                 return recording.performances().length === 0;
             });
 
             if (sources.length > 0) {
-                UI.BatchCreateWorksDialog({ sources: sources, viewModel: this }).open();
+                new UI.BatchCreateWorksDialog({ sources: sources, viewModel: this }).open();
             }
-        },
+        }
 
-        openRelateToWorkDialog: function (track) {
+        openRelateToWorkDialog(track) {
             var source = track.recording;
-            var target = MB.entity.Work({ name: source.name });
+            var target = new MB.entity.Work({ name: source.name });
 
-            UI.AddDialog({
+            new UI.AddDialog({
                 source: source,
                 target: target,
                 viewModel: this
             }).open();
-        },
+        }
 
-        after$removeRelationship: function (relationship, event) {
+        removeRelationship(relationship, event) {
+            super.removeRelationship(relationship, event);
+
             if (relationship.added()) {
                 $(event.target)
                     .parent()
@@ -270,9 +273,9 @@ require('./common/entity');
                     .prop("checked", false)
                     .click();
             }
-        },
+        }
 
-        _sortedRelationships: function (relationships, source) {
+        _sortedRelationships(relationships, source) {
             var self = this;
 
             return relationships.filter(function (relationship) {
@@ -284,12 +287,12 @@ require('./common/entity');
             }).sortBy("linkOrder").sortBy(function (relationship) {
                 return relationship.lowerCasePhrase(source);
             });
-        },
+        }
 
-        _createEdit: function () {
+        _createEdit () {
             return MB.edit.create.apply(MB.edit, arguments);
-        },
-    });
+        }
+    }
 
     RE.ReleaseViewModel = ReleaseViewModel;
     exports.ReleaseViewModel = ReleaseViewModel;

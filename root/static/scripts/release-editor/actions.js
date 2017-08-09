@@ -48,7 +48,7 @@ const actions = {
     copyArtistToReleaseGroup: ko.observable(false),
 
     addReleaseEvent: function (release) {
-        release.events.push(fields.ReleaseEvent({}, release));
+        release.events.push(new fields.ReleaseEvent({}, release));
     },
 
     removeReleaseEvent: function (releaseEvent) {
@@ -56,7 +56,7 @@ const actions = {
     },
 
     addReleaseLabel: function (release) {
-        release.labels.push(fields.ReleaseLabel({}, release));
+        release.labels.push(new fields.ReleaseLabel({}, release));
     },
 
     removeReleaseLabel: function (releaseLabel) {

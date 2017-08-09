@@ -3,7 +3,6 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-const aclass = require('aclass');
 const $ = require('jquery');
 const ko = require('knockout');
 const _ = require('lodash');
@@ -66,22 +65,19 @@ const fields = require('./fields');
     });
 
 
-    exports.ViewModel = aclass({
+    class ViewModel {
 
-        relationshipClass: fields.Relationship,
-        activeDialog: ko.observable(),
-
-        init: function (options) {
+        constructor(options) {
             this.source = options.source;
             this.uniqueID = _.uniqueId("relationship-editor-");
             this.cache = {};
-        },
+        }
 
-        getRelationship: function (data, source) {
+        getRelationship(data, source) {
             return MB.getRelationship(data, source);
-        },
+        }
 
-        removeRelationship: function (relationship) {
+        removeRelationship(relationship) {
             if (relationship.added()) {
                 relationship.remove();
             } else if (relationship.removed()) {
@@ -92,14 +88,21 @@ const fields = require('./fields');
                 }
                 relationship.removed(true);
             }
-        },
+        }
 
-        _sortedRelationships: function (relationships, source) {
+        _sortedRelationships(relationships, source) {
             return relationships
                 .sortBy(function (r) { return r.lowerCaseTargetName(source) })
                 .sortBy("linkOrder");
         }
+    }
+
+    _.assign(ViewModel.prototype, {
+        relationshipClass: fields.Relationship,
+        activeDialog: ko.observable(),
     });
+
+    exports.ViewModel = ViewModel;
 
 }(MB.relationshipEditor = MB.relationshipEditor || {}));
 
@@ -121,7 +124,7 @@ MB.initRelationshipEditors = function (args) {
         vmClass = require('../generic').GenericEntityViewModel;
     }
 
-    vmClass(vmArgs);
+    new vmClass(vmArgs);
 
     var externalLinksEditor = $('#external-links-editor-container')[0];
     if (externalLinksEditor) {
@@ -168,7 +171,7 @@ MB.getRelationship = function (data, source) {
                 return cached;
             }
         }
-        var relationship = viewModel.relationshipClass(data, source, viewModel);
+        var relationship = new viewModel.relationshipClass(data, source, viewModel);
         return data.id ? (viewModel.cache[cacheKey] = relationship) : relationship;
     }
 };

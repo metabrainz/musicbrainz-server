@@ -3,10 +3,14 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
+const _ = require('lodash');
+
 const releaseEditor = require('./viewModel');
 
 function bubbleDoc(options) {
-    return MB.Control.BubbleDoc("Information").extend(options || {});
+    var bubble = new MB.Control.BubbleDoc("Information");
+    _.assign(bubble, options);
+    return bubble;
 }
 
 releaseEditor.releaseGroupBubble = bubbleDoc({
@@ -47,10 +51,9 @@ releaseEditor.annotationBubble = bubbleDoc();
 
 releaseEditor.commentBubble = bubbleDoc();
 
+class RecordingBubble extends MB.Control.BubbleDoc {
 
-var trackBubble = {
-
-    previousTrack: function (data, event, stealFocus) {
+    previousTrack(data, event, stealFocus) {
         event && event.stopPropagation();
 
         var track = this.currentTrack().previous();
@@ -63,9 +66,9 @@ var trackBubble = {
             this.moveToTrack(track, stealFocus === true);
             return true;
         }
-    },
+    }
 
-    nextTrack: function (data, event, stealFocus) {
+    nextTrack(data, event, stealFocus) {
         event && event.stopPropagation();
 
         var track = this.currentTrack().next();
@@ -74,9 +77,9 @@ var trackBubble = {
             this.moveToTrack(track, stealFocus === true);
             return true;
         }
-    },
+    }
 
-    submit: function () {
+    submit() {
         // stealFocus set to true causes the bubble to move focus to the
         // first input in the bubble. This is useful here, but not if the
         // user explicitly presses a next/previous button.
@@ -85,24 +88,22 @@ var trackBubble = {
             this.hide();
         }
     }
-};
 
-
-var RecordingBubble = aclass(MB.Control.BubbleDoc, trackBubble)
-.extend({
-    before$show: function (control) {
+    show(control) {
         var track = ko.dataFor(control);
 
         if (track && !track.hasExistingRecording()) {
             releaseEditor.recordingAssociation.findRecordingSuggestions(track);
         }
-    },
 
-    currentTrack: function () { return this.target() },
+        super.show(control);
+    }
 
-    moveToTrack: function (track, stealFocus) {
+    currentTrack() { return this.target() }
+
+    moveToTrack(track, stealFocus) {
         this.show(track.bubbleControlRecording, stealFocus);
     }
-});
+}
 
-releaseEditor.recordingBubble = RecordingBubble("Recording");
+releaseEditor.recordingBubble = new RecordingBubble("Recording");

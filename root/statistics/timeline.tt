@@ -59,7 +59,7 @@
 <script type="text/javascript">
   $(function () {
     ko.applyBindings(
-      MB.Timeline.TimelineViewModel([
+      new MB.Timeline.TimelineViewModel([
         [%~ FOREACH dataset_key = stats ~%]
           "[%- dataset_key -%]"[%~ IF NOT loop.last() ~%],[%~ END ~%]
         [%~ END ~%]

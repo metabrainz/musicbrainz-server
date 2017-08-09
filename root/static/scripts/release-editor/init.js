@@ -272,7 +272,7 @@ releaseEditor.releaseLoaded = function (data) {
         releaseEditor.createExternalLinksEditor(data, $('#external-links-editor-container')[0]);
     });
 
-    var release = fields.Release(data);
+    var release = new fields.Release(data);
 
     if (seed) this.seedRelease(release, seed);
 

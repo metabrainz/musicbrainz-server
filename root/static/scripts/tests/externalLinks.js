@@ -114,7 +114,7 @@ externalLinksTest("deprecated link type detection for existing links (MBS-8408)"
 [
     {
         id: 1,
-        target: MB_entity.URL({ name: "http://www.example.com/" }),
+        target: new MB_entity.URL({ name: "http://www.example.com/" }),
         linkTypeID: 179
     }
 ]);
@@ -159,7 +159,7 @@ externalLinksTest("hidden input data for form submission", function (t, $mountPo
 [
     {
         id: 1,
-        target: MB_entity.URL({ name: "https://en.wikipedia.org/wiki/Deerhunter" }),
+        target: new MB_entity.URL({ name: "https://en.wikipedia.org/wiki/Deerhunter" }),
         linkTypeID: 179
     }
 ]);

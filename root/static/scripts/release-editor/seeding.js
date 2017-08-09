@@ -39,7 +39,7 @@ releaseEditor.seed = function (data) {
             releaseData.relationships = seed.relationships;
         }
 
-        var release = fields.Release(releaseData);
+        var release = new fields.Release(releaseData);
         this.seedRelease(release, seed);
         this.rootField.release(release);
     }
@@ -97,7 +97,7 @@ releaseEditor.seedRelease = function (release, data) {
         // Knockout.js will do a strict comparison when rendering the
         // input. See MBS-7828.
         data.releaseGroup.secondaryTypeIDs = data.releaseGroup.secondaryTypeIDs.map(String);
-        release.releaseGroup(fields.ReleaseGroup(data.releaseGroup));
+        release.releaseGroup(new fields.ReleaseGroup(data.releaseGroup));
     }
 
     if (data.mediums) {

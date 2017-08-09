@@ -1,6 +1,5 @@
 require('./common/raven');
 
-window.aclass = require("aclass");
 window.ko = require("knockout");
 window._ = require("lodash");
 window.$ = window.jQuery = require("jquery");

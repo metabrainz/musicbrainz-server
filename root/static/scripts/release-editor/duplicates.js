@@ -20,14 +20,14 @@ releaseEditor.baseRelease.subscribe(function (gid) {
     var release = releaseEditor.rootField.release();
 
     if (!gid) {
-        release.mediums([ releaseEditor.fields.Medium({}, release) ]);
+        release.mediums([ new releaseEditor.fields.Medium({}, release) ]);
         return;
     }
 
     releaseEditor.loadRelease(gid, function (data) {
         release.mediums(
             _.map(data.mediums, function (m) {
-                return releaseEditor.fields.Medium(
+                return new releaseEditor.fields.Medium(
                     utils.reuseExistingMediumData(m), release
                 );
             })
@@ -122,7 +122,7 @@ function pluck(chain, name) { return chain.pluck(name).compact() }
 
 
 function formatReleaseData(release) {
-    var clean = MB.entity.Release(utils.cleanWebServiceData(release));
+    var clean = new MB.entity.Release(utils.cleanWebServiceData(release));
 
     var events = _(release["release-events"]);
     var labels = _(release["label-info"]);
@@ -137,7 +137,7 @@ function formatReleaseData(release) {
         .flatten().compact().uniq().value();
 
     clean.labels = pluck(labels, "label").map(function (info) {
-        return MB.entity.Label({ gid: info.id, name: info.name });
+        return new MB.entity.Label({ gid: info.id, name: info.name });
     }).value();
 
     clean.catalogNumbers = pluck(labels, "catalog-number").value();

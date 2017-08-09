@@ -201,7 +201,7 @@ $.widget("ui.autocomplete", $.ui.autocomplete, {
     _dataToEntity: function (data) {
         try {
             if (this.options.entityConstructor) {
-                return this.options.entityConstructor(data);
+                return new this.options.entityConstructor(data);
             }
             return MB_entity(data, this.entity);
         } catch (e) {
