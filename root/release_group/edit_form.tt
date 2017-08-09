@@ -33,7 +33,7 @@
 
 [%- guesscase_options() -%]
 
-<script type="text/javascript">//<![CDATA[
+<script type="text/javascript">
   $(function () {
     MB.initializeArtistCredit(
       [% closing_tag_escape(form.to_encoded_json) %],
@@ -42,4 +42,4 @@
     MB.Control.initialize_guess_case("release-group", "id-edit-release-group");
     MB.Control.initGuessFeatButton('edit-release-group');
   });
-//]]></script>
+</script>

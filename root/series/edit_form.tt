@@ -43,12 +43,12 @@
 
 [%- guesscase_options() -%]
 
-<script>//<![CDATA[
+<script>
 $(function () {
   [%- USE JSON.Escape -%]
   MB.seriesTypesByID = [% series_types.json %];
   MB.orderingTypesByID = [% series_ordering_types.json %];
 });
-//]]></script>
+</script>
 
 [% script_manifest('series.js') %]

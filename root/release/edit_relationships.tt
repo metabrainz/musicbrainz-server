@@ -245,7 +245,7 @@
       </div>
     </script>
 
-    <script type="text/javascript">//<![CDATA[
+    <script type="text/javascript">
       $(function () {
         var RE = MB.relationshipEditor;
 
@@ -257,6 +257,6 @@
 
         MB.confirmNavigationFallback();
       });
-    //]]></script>
+    </script>
 
 [%- END -%]

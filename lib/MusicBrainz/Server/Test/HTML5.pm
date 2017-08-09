@@ -5,9 +5,8 @@ use DBDefs;
 use Encode;
 use File::Temp qw( tempfile );
 use JSON;
-use XML::LibXML;
 
-use Sub::Exporter -setup => { exports => [ qw(xhtml_ok html5_ok) ] };
+use Sub::Exporter -setup => { exports => [ qw(html5_ok) ] };
 
 =func ignore_warning
 
@@ -101,37 +100,6 @@ sub save_html
         $Test->diag("failed output written to $filename");
     };
 }
-
-
-=func xhtml_ok
-
-Check if the document is well-formed xhtml. (== well-formed xml, but
-html character entities are allowed without an external DTD).
-
-=cut
-
-sub xhtml_ok
-{
-    my ($Test, $content, $message) = @_;
-
-    $message ||= "well-formed XHTML";
-
-    eval { XML::LibXML->load_xml(string => $content); };
-    if ($@)
-    {
-        foreach (split "\n", $@->as_string())
-        {
-            $Test->diag($_);
-        }
-        save_html($Test, $content, ".xml");
-        return $Test->ok(0, $message);
-    }
-    else
-    {
-        return $Test->ok(1, $message);
-    }
-}
-
 
 =func html5_ok
 

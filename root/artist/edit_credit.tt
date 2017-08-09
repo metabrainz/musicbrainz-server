@@ -24,10 +24,10 @@
      </div>
    </form>
 
-  <script type="text/javascript">//<![CDATA[
+  <script type="text/javascript">
       MB.initializeArtistCredit(
         [% closing_tag_escape(form.to_encoded_json) %],
         [% closing_tag_escape(form.field('artist_credit').json) %]
       );
-  //]]></script>
+  </script>
 [% END %]

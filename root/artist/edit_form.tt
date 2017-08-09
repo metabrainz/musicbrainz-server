@@ -99,7 +99,7 @@
 
 [%- guesscase_options() -%]
 
-<script type="text/javascript">//<![CDATA[
+<script type="text/javascript">
   (function () {
     var edit = MB.Control.ArtistEdit();
 
@@ -109,4 +109,4 @@
 
     MB.initializeDuplicateChecker('artist');
   }());
-//]]></script>
+</script>

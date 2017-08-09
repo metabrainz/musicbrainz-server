@@ -56,8 +56,8 @@
 
 [%- guesscase_options() -%]
 
-<script type="text/javascript">//<![CDATA[
+<script type="text/javascript">
   (function () {
     MB.Control.initialize_guess_case("event", "id-edit-event");
   }());
-//]]></script>
+</script>
