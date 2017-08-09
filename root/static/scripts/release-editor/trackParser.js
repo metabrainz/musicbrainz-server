@@ -180,7 +180,7 @@ releaseEditor.trackParser = {
                 return matchedTrack;
             }
 
-            return fields.Track(data, medium);
+            return new fields.Track(data, medium);
         });
 
         if (medium) {
@@ -224,7 +224,7 @@ releaseEditor.trackParser = {
                 newTracks.splice.apply(
                     newTracks,
                     [newAudioTrackCount, 0].concat(_.times(difference, function (n) {
-                        return fields.Track({
+                        return new fields.Track({
                             length: currentTracks[newAudioTrackCount + n].length.peek()
                         }, medium);
                     }))

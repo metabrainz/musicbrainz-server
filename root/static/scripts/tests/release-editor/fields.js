@@ -50,12 +50,12 @@ fieldTest("mediums having their \"loaded\" observable set correctly", function (
     var mediums = release.mediums;
 
     mediums([
-        fields.Medium({ tracks: [] }),
-        fields.Medium({ tracks: [ {} ] }),
-        fields.Medium({ id: 1, tracks: [] }),
-        fields.Medium({ originalID: 1, tracks: [] }),
-        fields.Medium({ id: 1, tracks: [ {} ] }),
-        fields.Medium({ originalID: 1, tracks: [ {} ] })
+        new fields.Medium({ tracks: [] }),
+        new fields.Medium({ tracks: [ {} ] }),
+        new fields.Medium({ id: 1, tracks: [] }),
+        new fields.Medium({ originalID: 1, tracks: [] }),
+        new fields.Medium({ id: 1, tracks: [ {} ] }),
+        new fields.Medium({ originalID: 1, tracks: [ {} ] })
     ]);
 
     t.equal(mediums()[0].loaded(), true, "medium without id or tracks is considered loaded");
@@ -70,7 +70,7 @@ fieldTest("mediums having their \"loaded\" observable set correctly", function (
 fieldTest("loading a medium doesn't overwrite its original edit data", function (t, release) {
     t.plan(11);
 
-    var medium = fields.Medium({
+    var medium = new fields.Medium({
         id: 123,
         position: 1,
         formatID: 1,
@@ -114,7 +114,7 @@ fieldTest("loading a medium doesn't overwrite its original edit data", function 
 fieldTest("data tracks are appended with a correct position if there's a pregap (MBS-8013)", function (t, release) {
     t.plan(1);
 
-    var medium = fields.Medium({ tracks: [] }, release);
+    var medium = new fields.Medium({ tracks: [] }, release);
     medium.hasPregap(true);
     medium.hasDataTracks(true);
 
@@ -151,7 +151,7 @@ fieldTest("tracks are set correctly when the cdtoc is changed", function (t, rel
         { length: 737000, position: 5 }
     ];
 
-    var medium = fields.Medium({ tracks: [] }, release);
+    var medium = new fields.Medium({ tracks: [] }, release);
 
     // 7 tracks added
     medium.toc(toc1);

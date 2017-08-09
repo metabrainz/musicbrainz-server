@@ -3,7 +3,6 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-const aclass = require('aclass');
 const ko = require('knockout');
 const _ = require('lodash');
 const ReactDOMServer = require('react-dom/server');
@@ -29,22 +28,22 @@ const formatTrackLength = require('./utility/formatTrackLength');
     // Base class that both core and non-core entities inherit from. The only
     // purpose this really serves is allowing the `data instanceof Entity`
     // check in MB.entity() to work.
-    var Entity = aclass({
+    class Entity {
 
-        init: function (data) {
+        constructor(data) {
             _.assign(this, data);
             this.name = this.name || "";
-        },
+        }
 
-        toJSON: function () {
+        toJSON() {
             var key, result = {};
             for (key in this) {
                 toJSON(result, this[key], key);
             }
             return result;
-        },
+        }
 
-        renderArtistCredit: function (ac) {
+        renderArtistCredit(ac) {
             ac = ko.unwrap(ac);
             // XXX For suggested recording data in the release editor,
             // which root/release/edit/recordings.tt passes into here as plain
@@ -55,16 +54,16 @@ const formatTrackLength = require('./utility/formatTrackLength');
             return ReactDOMServer.renderToStaticMarkup(
                 <ArtistCreditLink artistCredit={ac} target="_blank" />
             );
-        },
+        }
 
-        isCompleteArtistCredit: function (ac) {
+        isCompleteArtistCredit(ac) {
             ac = ko.unwrap(ac);
             if (Array.isArray(ac)) {
                 ac = artistCreditFromArray(ac);
             }
             return isCompleteArtistCredit(ac);
-        },
-    });
+        }
+    }
 
     var primitiveTypes = /^(boolean|number|string)$/;
 
@@ -120,38 +119,26 @@ const formatTrackLength = require('./utility/formatTrackLength');
         return entity;
     };
 
-    MB.entity.Entity = Entity;
-
     // Used by MB.entity() above to cache everything with a GID.
     MB.entityCache = {};
 
-    MB.entity.CoreEntity = aclass(Entity, {
+    class CoreEntity extends Entity {
 
-        template: _.template(
-            "<% if (data.editsPending) { %><span class=\"mp\"><% } %>" +
-            "<% if (data.nameVariation) { %><span class=\"name-variation\" title=\"<%- data.name %>\"><% } %>" +
-            "<a href=\"/<%= data.entityType %>/<%- data.gid %>\"" +
-            "<% if (data.target) { %> target=\"_blank\"<% } %>" +
-            "<% if (data.sort_name) { %> title=\"<%- data.sort_name %>\"" +
-            "<% } %>><bdi><%- data.creditedAs || data.name %></bdi></a>" +
-            "<% if (data.comment) { %> " +
-            "<span class=\"comment\">(<%- data.comment %>)</span><% } %>" +
-            "<% if (data.video) { %> <span class=\"comment\">" +
-            "(<%- data.videoString %>)</span><% } %>" +
-            "<% if (data.nameVariation) { %></span><% } %>" +
-            "<% if (data.editsPending) { %></span><% } %>",
-            {variable: "data"}
-        ),
+        constructor(data) {
+            super(data);
 
-        after$init: function (data) {
             this.relationships = ko.observableArray([]);
 
             if (data.artistCredit) {
                 this.artistCredit = artistCreditFromArray(data.artistCredit);
             }
-        },
 
-        html: function (renderParams) {
+            if (this._afterCoreEntityCtor) {
+                this._afterCoreEntityCtor(data);
+            }
+        }
+
+        html(renderParams) {
             var json = this.toJSON();
 
             json.entityType = json.entityType.replace("_", "-");
@@ -161,59 +148,87 @@ const formatTrackLength = require('./utility/formatTrackLength');
                 return this.template(_.extend(renderParams || {}, json));
             }
             return json.name;
-        },
+        }
 
-        around$toJSON: function (supr) {
-            var json = supr();
+        toJSON() {
+            var json = super.toJSON();
 
             if (this.artistCredit) {
                 json.artistCredit = ko.unwrap(this.artistCredit).names.toJS();
             }
             return json;
-        },
+        }
 
-        canTakeName: function (name) {
+        canTakeName(name) {
             name = clean(name);
             return name && name !== ko.unwrap(this.name);
-        },
+        }
 
-        canTakeArtist: function (ac) {
+        canTakeArtist(ac) {
             ac = ko.unwrap(ac);
             return isCompleteArtistCredit(ac) && !this.isArtistCreditEqual(ac);
-        },
+        }
 
-        isArtistCreditEqual: function (ac) {
+        isArtistCreditEqual(ac) {
             ac = ko.unwrap(ac);
             return artistCreditsAreEqual(ko.unwrap(this.artistCredit), ac);
         }
-    });
+    }
 
-    MB.entity.Editor = aclass(MB.entity.CoreEntity, {
-        entityType: "editor",
+    CoreEntity.prototype.template = _.template(
+        "<% if (data.editsPending) { %><span class=\"mp\"><% } %>" +
+        "<% if (data.nameVariation) { %><span class=\"name-variation\" title=\"<%- data.name %>\"><% } %>" +
+        "<a href=\"/<%= data.entityType %>/<%- data.gid %>\"" +
+        "<% if (data.target) { %> target=\"_blank\"<% } %>" +
+        "<% if (data.sort_name) { %> title=\"<%- data.sort_name %>\"" +
+        "<% } %>><bdi><%- data.creditedAs || data.name %></bdi></a>" +
+        "<% if (data.comment) { %> " +
+        "<span class=\"comment\">(<%- data.comment %>)</span><% } %>" +
+        "<% if (data.video) { %> <span class=\"comment\">" +
+        "(<%- data.videoString %>)</span><% } %>" +
+        "<% if (data.nameVariation) { %></span><% } %>" +
+        "<% if (data.editsPending) { %></span><% } %>",
+        {variable: "data"}
+    );
 
-        template: _.template(
-            "<a href=\"/<%= data.entityType %>/<%- data.name %>\">" +
-            "<bdi><%- data.name %></bdi></a>",
-            {variable: "data"}
-        )
-    });
+    class Editor extends CoreEntity {}
 
-    MB.entity.Artist = aclass(MB.entity.CoreEntity, { entityType: "artist" });
+    Editor.prototype.entityType = 'editor';
 
-    MB.entity.Event = aclass(MB.entity.CoreEntity, { entityType: "event" });
+    Editor.prototype.template = _.template(
+        "<a href=\"/<%= data.entityType %>/<%- data.name %>\">" +
+        "<bdi><%- data.name %></bdi></a>",
+        {variable: "data"}
+    );
 
-    MB.entity.Instrument = aclass(MB.entity.CoreEntity, { entityType: "instrument" });
+    class Artist extends CoreEntity {}
 
-    MB.entity.Label = aclass(MB.entity.CoreEntity, { entityType: "label" });
+    Artist.prototype.entityType = 'artist';
 
-    MB.entity.Area = aclass(MB.entity.CoreEntity, { entityType: "area" });
+    class Event extends CoreEntity {}
 
-    MB.entity.Place = aclass(MB.entity.CoreEntity, { entityType: "place" });
+    Event.prototype.entityType = 'event';
 
-    MB.entity.Recording = aclass(MB.entity.CoreEntity, {
-        entityType: "recording",
+    class Instrument extends CoreEntity {}
 
-        after$init: function (data) {
+    Instrument.prototype.entityType = 'instrument';
+
+    class Label extends CoreEntity {}
+
+    Label.prototype.entityType = 'label';
+
+    class Area extends CoreEntity {}
+
+    Area.prototype.entityType = 'area';
+
+    class Place extends CoreEntity {}
+
+    Place.prototype.entityType = 'place';
+
+    class Recording extends CoreEntity {
+        constructor(data) {
+            super(data);
+
             this.formattedLength = formatTrackLength(data.length);
 
             // Returned from the /ws/js/recording search.
@@ -234,37 +249,44 @@ const formatTrackLength = require('./utility/formatTrackLength');
 
             this.relatedArtists = relatedArtists(data.relationships);
             this.isProbablyClassical = isProbablyClassical(data);
-        },
 
-        around$html: function (supr, params) {
+            if (this._afterRecordingCtor) {
+                this._afterRecordingCtor(data);
+            }
+        }
+
+        html(params) {
             params = params || {};
             params.videoString = i18n.l("video");
-            return supr(params);
-        },
-
-        around$toJSON: function (supr) {
-            return _.assign(supr(), { isrcs: this.isrcs, appearsOn: this.appearsOn });
+            return super.html(params);
         }
-    });
 
-    MB.entity.Release = aclass(MB.entity.CoreEntity, {
-        entityType: "release",
+        toJSON() {
+            return _.assign(super.toJSON(), { isrcs: this.isrcs, appearsOn: this.appearsOn });
+        }
+    }
 
-        after$init: function (data) {
+    Recording.prototype.entityType = 'recording';
+
+    class Release extends CoreEntity {
+
+        constructor(data) {
+            super(data);
+
             if (data.releaseGroup) {
                 this.releaseGroup = MB.entity(data.releaseGroup, "release_group");
             }
 
             if (data.mediums) {
-                this.mediums = _.map(data.mediums, MB.entity.Medium);
+                this.mediums = _.map(data.mediums, x => new Medium(x));
             }
 
             this.relatedArtists = relatedArtists(data.relationships);
             this.isProbablyClassical = isProbablyClassical(data);
-        },
+        }
 
-        around$toJSON: function (supr) {
-            var object = supr();
+        toJSON() {
+            var object = super.toJSON();
 
             if (_.isArray(this.events)) {
                 object.events = _.cloneDeep(this.events);
@@ -276,20 +298,24 @@ const formatTrackLength = require('./utility/formatTrackLength');
 
             return object;
         }
-    });
+    }
 
-    MB.entity.ReleaseGroup = aclass(MB.entity.CoreEntity, { entityType: "release_group" });
+    Release.prototype.entityType = 'release';
 
-    MB.entity.Series = aclass(MB.entity.CoreEntity, {
-        entityType: "series",
+    class ReleaseGroup extends CoreEntity {}
 
-        after$init: function (data) {
+    ReleaseGroup.prototype.entityType = 'release_group';
+
+    class Series extends CoreEntity {
+
+        constructor(data) {
+            super(data);
             this.type = ko.observable(data.type);
             this.typeID = ko.observable(data.type && data.type.id);
             this.orderingTypeID = ko.observable(data.orderingTypeID);
-        },
+        }
 
-        getSeriesItems: function (viewModel) {
+        getSeriesItems(viewModel) {
             var type = this.type();
             if (!type) return [];
 
@@ -299,33 +325,36 @@ const formatTrackLength = require('./utility/formatTrackLength');
             return _.filter(this.displayableRelationships(viewModel)(), function (r) {
                 return r.linkTypeID() === linkTypeID;
             });
-        },
+        }
 
-        around$toJSON: function (supr) {
-            return _.assign(supr(), {
+        toJSON() {
+            return _.assign(super.toJSON(), {
                 type: this.type(),
                 typeID: this.typeID,
                 orderingTypeID: this.orderingTypeID
             });
         }
-    });
+    }
 
-    MB.entity.Track = aclass(MB.entity.CoreEntity, {
-        entityType: "track",
+    Series.prototype.entityType = 'series';
 
-        after$init: function (data) {
+    class Track extends CoreEntity {
+
+        constructor(data) {
+            super(data);
+
             this.formattedLength = formatTrackLength(this.length);
 
             if (data.recording) {
                 this.recording = MB.entity(data.recording, "recording");
             }
-        },
+        }
 
-        around$html: function (supr, renderParams) {
+        html(renderParams) {
             var recording = this.recording;
 
             if (!recording) {
-                return supr(renderParams);
+                return super.html(renderParams);
             }
 
             return this.template(
@@ -341,21 +370,27 @@ const formatTrackLength = require('./utility/formatTrackLength');
                 )
             );
         }
-    });
+    }
 
-    MB.entity.URL = aclass(MB.entity.CoreEntity, { entityType: "url" });
+    Track.prototype.entityType = 'track';
 
-    MB.entity.Work = aclass(MB.entity.CoreEntity, {
-        entityType: "work",
+    class URL extends CoreEntity {}
 
-        around$toJSON: function (supr) {
-            return _.assign(supr(), { artists: this.artists });
+    URL.prototype.entityType = 'url';
+
+    class Work extends CoreEntity {
+        toJSON() {
+            return _.assign(super.toJSON(), { artists: this.artists });
         }
-    });
+    }
 
-    MB.entity.Medium = aclass(Entity, {
-        after$init: function (data) {
-            this.tracks = _.map(data.tracks, MB.entity.Track);
+    Work.prototype.entityType = 'work';
+
+    class Medium extends Entity {
+        constructor(data) {
+            super(data);
+
+            this.tracks = _.map(data.tracks, x => new Track(x));
 
             var positionName;
             if (this.name) {
@@ -370,7 +405,25 @@ const formatTrackLength = require('./utility/formatTrackLength');
                 title: this.name
             });
         }
-    });
+    }
+
+    MB.entity.Area = Area;
+    MB.entity.Artist = Artist;
+    MB.entity.CoreEntity = CoreEntity;
+    MB.entity.Editor = Editor;
+    MB.entity.Entity = Entity;
+    MB.entity.Event = Event;
+    MB.entity.Instrument = Instrument;
+    MB.entity.Label = Label;
+    MB.entity.Medium = Medium;
+    MB.entity.Place = Place;
+    MB.entity.Recording = Recording;
+    MB.entity.Release = Release;
+    MB.entity.ReleaseGroup = ReleaseGroup;
+    MB.entity.Series = Series;
+    MB.entity.Track = Track;
+    MB.entity.URL = URL;
+    MB.entity.Work = Work;
 
     function relatedArtists(relationships) {
         return _(relationships).filter({target: {entityType: 'artist'}}).pluck('target').value();
@@ -388,20 +441,20 @@ const formatTrackLength = require('./utility/formatTrackLength');
     // usually includes a lower-case type name, which is used as the key.
 
     var coreEntityMapping = {
-        artist:        MB.entity.Artist,
-        event:         MB.entity.Event,
-        instrument:    MB.entity.Instrument,
-        label:         MB.entity.Label,
-        area:          MB.entity.Area,
-        place:         MB.entity.Place,
-        recording:     MB.entity.Recording,
-        release:       MB.entity.Release,
-        release_group: MB.entity.ReleaseGroup,
-        series:        MB.entity.Series,
-        track:         MB.entity.Track,
-        work:          MB.entity.Work,
-        url:           MB.entity.URL,
-        editor:        MB.entity.Editor
+        artist:        Artist,
+        event:         Event,
+        instrument:    Instrument,
+        label:         Label,
+        area:          Area,
+        place:         Place,
+        recording:     Recording,
+        release:       Release,
+        release_group: ReleaseGroup,
+        series:        Series,
+        track:         Track,
+        work:          Work,
+        url:           URL,
+        editor:        Editor
     };
 }());
 

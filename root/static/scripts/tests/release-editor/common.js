@@ -22,7 +22,7 @@ exports.setupReleaseAdd = function (data) {
 
 exports.setupReleaseEdit = function () {
     releaseEditor.action = "edit";
-    var release = fields.Release(exports.testRelease);
+    var release = new fields.Release(exports.testRelease);
     releaseEditor.rootField.release(release);
     return release;
 };

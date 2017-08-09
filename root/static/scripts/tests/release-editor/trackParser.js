@@ -160,7 +160,7 @@ parserTest("internal track positions are updated appropriately after being reuse
     });
 
     var re = releaseEditor;
-    releaseEditor.rootField.release(fields.Release(common.testRelease));
+    releaseEditor.rootField.release(new fields.Release(common.testRelease));
 
     var release = releaseEditor.rootField.release();
     var medium = release.mediums()[0];
@@ -182,7 +182,7 @@ parserTest("MBS-7451: track parser can clear TOC track lengths", function (t) {
     t.plan(1);
 
     var re = releaseEditor;
-    releaseEditor.rootField.release(fields.Release(common.testRelease));
+    releaseEditor.rootField.release(new fields.Release(common.testRelease));
 
     var release = releaseEditor.rootField.release();
     var medium = release.mediums()[0];
@@ -226,7 +226,7 @@ parserTest("MBS-7456: Failing to parse artists does not break track autocomplete
         useTrackArtists: true
     });
 
-    var release = fields.Release({
+    var release = new fields.Release({
         mediums: [{
             tracks: [{
                 name: "foo"
@@ -261,7 +261,7 @@ parserTest("can parse only numbers, titles, artists, or lengths (MBS-3730, MBS-3
         useTrackNumbers: true
     });
 
-    var release = fields.Release({
+    var release = new fields.Release({
         mediums: [{
             tracks: [{
                 number: "1",
@@ -338,7 +338,7 @@ parserTest("Does not lose previous recordings (MBS-7719)", function (t) {
         useTrackNames: true
     });
 
-    var release = fields.Release({
+    var release = new fields.Release({
         mediums: [
             {
                 tracks: [
@@ -430,7 +430,7 @@ parserTest("parses track times for data tracks if there's a disc ID (MBS-8409)",
     var trackParser = releaseEditor.trackParser;
     _.assign(trackParser.options, {useTrackLengths: true});
 
-    var release = fields.Release({
+    var release = new fields.Release({
         id: 1,
         mediums: [
             {
@@ -471,7 +471,7 @@ parserTest("data track boundary is unchanged if the track count is >= the previo
     var trackParser = releaseEditor.trackParser;
     trackParser.options.useTrackNames = true;
 
-    var release = fields.Release({
+    var release = new fields.Release({
         id: 1,
         mediums: [
             {
@@ -506,7 +506,7 @@ parserTest("force number of tracks to equal CD TOC", function (t) {
 
     trackParser.options.useTrackNames = true;
 
-    var release = fields.Release({
+    var release = new fields.Release({
         id: 1,
         mediums: [
             {

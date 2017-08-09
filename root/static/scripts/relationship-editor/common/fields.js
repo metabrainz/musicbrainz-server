@@ -3,7 +3,6 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-const aclass = require('aclass');
 const ko = require('knockout');
 const _ = require('lodash');
 
@@ -27,9 +26,9 @@ const mergeDates = require('./mergeDates');
     var fields = RE.fields = RE.fields || {};
 
 
-    fields.Relationship = aclass({
+    class Relationship {
 
-        init: function (data, source, parent) {
+        constructor(data, source, parent) {
             var self = this;
 
             this.parent = parent;
@@ -116,13 +115,13 @@ const mergeDates = require('./mergeDates');
 
             // By default, show all existing relationships on the page.
             if (this.id) this.show();
-        },
+        }
 
-        formatDatePeriod: function () {
+        formatDatePeriod() {
             return formatDatePeriod(this);
-        },
+        }
 
-        fromJS: function (data) {
+        fromJS(data) {
             this.linkTypeID(data.linkTypeID);
             this.entities([MB_entity(data.entities[0]), MB_entity(data.entities[1])]);
             this.entity0_credit(data.entity0_credit || '');
@@ -136,18 +135,18 @@ const mergeDates = require('./mergeDates');
             this.linkOrder(data.linkOrder || 0);
 
             _.has(data, "removed") && this.removed(!!data.removed);
-        },
+        }
 
-        target: function (source) {
+        target(source) {
             var entities = this.entities();
 
             if (source === entities[0]) return entities[1];
             if (source === entities[1]) return entities[0];
 
             throw new Error("The given entity is not used by this relationship");
-        },
+        }
 
-        linkTypeIDChanged: function () {
+        linkTypeIDChanged() {
             var typeInfo = this.linkTypeInfo();
 
             if (!typeInfo) {
@@ -170,28 +169,28 @@ const mergeDates = require('./mergeDates');
                     --len;
                 }
             }
-        },
+        }
 
-        linkTypeInfo: function () {
+        linkTypeInfo() {
             return MB.typeInfoByID[this.linkTypeID()];
-        },
+        }
 
-        hasDates: function () {
+        hasDates() {
             var typeInfo = this.linkTypeInfo();
             return typeInfo ? (typeInfo.hasDates !== false) : true;
-        },
+        }
 
-        added: function () { return !this.id },
+        added() { return !this.id }
 
-        edited: function () {
+        edited() {
             return !_.isEqual(this.original, this.editData());
-        },
+        }
 
-        hasChanges: function () {
+        hasChanges() {
             return this.added() || this.removed() || this.edited();
-        },
+        }
 
-        show: function () {
+        show() {
             var entities = this.entities();
 
             if (entities[0].relationships.indexOf(this) < 0) {
@@ -201,9 +200,9 @@ const mergeDates = require('./mergeDates');
             if (entities[1].relationships.indexOf(this) < 0) {
                 entities[1].relationships.push(this);
             }
-        },
+        }
 
-        entitiesChanged: function (newEntities) {
+        entitiesChanged(newEntities) {
             var oldEntities = this.entities.saved;
 
             var entity0 = newEntities[0];
@@ -236,23 +235,23 @@ const mergeDates = require('./mergeDates');
             }
 
             this.entities.saved = [entity0, entity1];
-        },
+        }
 
-        loadWorkRelationships: function (work) {
+        loadWorkRelationships(work) {
             var args = { url: "/ws/js/entity/" + work.gid + "?inc=rels" };
 
             request(args).done(function (data) {
                 work.parseRelationships(data.relationships);
             });
-        },
+        }
 
-        clone: function () {
-            var clone = fields.Relationship(_.omit(this.editData(), "id"));
+        clone() {
+            var clone = new fields.Relationship(_.omit(this.editData(), "id"));
             clone.parent = this.parent;
             return clone;
-        },
+        }
 
-        remove: function () {
+        remove() {
             if (this.removed() === true) return;
 
             var entities = this.entities();
@@ -262,35 +261,35 @@ const mergeDates = require('./mergeDates');
 
             delete this.parent.cache[this.entityTypes + "-" + this.id];
             this.removed(true);
-        },
+        }
 
-        getAttribute: function (typeGID) {
+        getAttribute(typeGID) {
             var attributes = this.attributes();
 
             for (var i = 0, linkAttribute; linkAttribute = attributes[i]; i++) {
                 if (linkAttribute.type.gid === typeGID) return linkAttribute;
             }
             return new fields.LinkAttribute({ type: { gid: typeGID }});
-        },
+        }
 
-        setAttributes: function (attributes) {
+        setAttributes(attributes) {
             this.attributes(_.map(validAttributes(this, attributes), function (data) {
                 return new fields.LinkAttribute(data);
             }));
-        },
+        }
 
-        addAttribute: function (typeGID) {
+        addAttribute(typeGID) {
             var attribute = new fields.LinkAttribute({ type: { gid: typeGID } });
             this.attributes.push(attribute);
             return attribute;
-        },
+        }
 
-        linkTypeAttributes: function () {
+        linkTypeAttributes() {
             var typeInfo = this.linkTypeInfo();
             return typeInfo ? _.values(typeInfo.attributes) : [];
-        },
+        }
 
-        attributeError: function (rootInfo) {
+        attributeError(rootInfo) {
             var min = rootInfo.min;
 
             if (min > 0) {
@@ -306,25 +305,25 @@ const mergeDates = require('./mergeDates');
             }
 
             return "";
-        },
+        }
 
-        _phraseAndExtraAttributes: function () {
+        _phraseAndExtraAttributes() {
             return linkPhrase.interpolate(this.linkTypeID(), this.attributes());
-        },
+        }
 
-        linkPhrase: function (source) {
+        linkPhrase(source) {
             return this.phraseAndExtraAttributes()[_.indexOf(this.entities(), source)];
-        },
+        }
 
-        lowerCasePhrase: function (source) {
+        lowerCasePhrase(source) {
             return this.linkPhrase(source).toLowerCase();
-        },
+        }
 
-        lowerCaseTargetName: function (source) {
+        lowerCaseTargetName(source) {
             return ko.unwrap(this.target(source).name).toLowerCase();
-        },
+        }
 
-        paddedSeriesNumber: function () {
+        paddedSeriesNumber() {
             var attributes = this.attributes(), numberAttribute;
 
             for (var i = 0; numberAttribute = attributes[i]; i++) {
@@ -347,9 +346,9 @@ const mergeDates = require('./mergeDates');
             }
 
             return parts.join("");
-        },
+        }
 
-        entityIsOrdered: function (entity) {
+        entityIsOrdered(entity) {
             var typeInfo = this.linkTypeInfo();
             if (!typeInfo) return false;
 
@@ -367,9 +366,9 @@ const mergeDates = require('./mergeDates');
             }
 
             return false;
-        },
+        }
 
-        entityCanBeReordered: function (entity) {
+        entityCanBeReordered(entity) {
             if (!this.entityIsOrdered(entity)) {
                 return false;
             }
@@ -381,9 +380,9 @@ const mergeDates = require('./mergeDates');
             }
 
             return true;
-        },
+        }
 
-        _moveEntity: function (offset) {
+        _moveEntity(offset) {
             var vm = this.parent;
             var relationships = vm.source.getRelationshipGroup(this, vm);
             var index = _.indexOf(relationships, this);
@@ -398,21 +397,21 @@ const mergeDates = require('./mergeDates');
                     r.linkOrder(i + 1);
                 });
             }
-        },
+        }
 
-        moveEntityUp: function () {
+        moveEntityUp() {
             this._moveEntity(-1);
-        },
+        }
 
-        moveEntityDown: function () {
+        moveEntityDown() {
             this._moveEntity(1);
-        },
+        }
 
-        showLinkOrder: function (source) {
+        showLinkOrder(source) {
             return this.linkOrder() > 0 && this.entityCanBeReordered(this.target(source));
-        },
+        }
 
-        isDuplicate: function (other) {
+        isDuplicate(other) {
             return (
                 this !== other &&
                 this.linkTypeID() == other.linkTypeID() &&
@@ -422,9 +421,9 @@ const mergeDates = require('./mergeDates');
                 mergeDates(this.end_date, other.end_date) &&
                 attributesAreEqual(this.attributes(), other.attributes())
             );
-        },
+        }
 
-        openEdits: function () {
+        openEdits() {
             var entities = this.original.entities;
             var entity0 = MB_entity(entities[0]);
             var entity1 = MB_entity(entities[1]);
@@ -444,9 +443,9 @@ const mergeDates = require('./mergeDates');
                 '&conditions.2.args=92&conditions.3.field=status&conditions.3.operator=%3D' +
                 '&conditions.3.args=1&field=Please+choose+a+condition'
             );
-        },
+        }
 
-        creditField: function (entity) {
+        creditField(entity) {
             var entities = this.entities();
 
             if (entity === entities[0]) {
@@ -457,8 +456,9 @@ const mergeDates = require('./mergeDates');
                 return this.entity1_credit;
             }
         }
-    });
+    }
 
+    fields.Relationship = Relationship;
 
     fields.LinkAttribute = function (data) {
         var type = this.type = MB.attrInfoByID[data.type.gid];

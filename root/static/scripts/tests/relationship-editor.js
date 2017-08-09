@@ -5,7 +5,6 @@
 
 require('./typeInfo');
 
-const aclass = require('aclass');
 const $ = require('jquery');
 const ko = require('knockout');
 const _ = require('lodash');
@@ -24,18 +23,19 @@ const {
     } = require('../relationship-editor/generic');
 const {ReleaseViewModel} = require('../relationship-editor/release');
 
-const FakeRelationship = aclass(Relationship, {
-    loadWorkRelationships: _.noop,
-});
+class FakeRelationship extends Relationship {}
 
-const FakeGenericEntityViewModel = aclass(GenericEntityViewModel, {
-    relationshipClass: FakeRelationship,
-});
+FakeRelationship.prototype.loadWorkRelationships = _.noop;
 
-const FakeReleaseViewModel = aclass(ReleaseViewModel, {
-    loadRelease: _.noop,
-    relationshipClass: FakeRelationship,
-});
+class FakeGenericEntityViewModel extends GenericEntityViewModel {}
+
+FakeGenericEntityViewModel.prototype.relationshipClass = FakeRelationship;
+
+class FakeReleaseViewModel extends ReleaseViewModel {}
+
+FakeReleaseViewModel.prototype.loadRelease = _.noop;
+
+FakeReleaseViewModel.prototype.relationshipClass = FakeRelationship;
 
 var fakeGID0 = "a0ba91b0-c564-4eec-be2e-9ff071a47b59";
 var fakeGID1 = "acb75d59-b0dc-4105-bad6-81ac8c66da4d";
@@ -112,7 +112,7 @@ function id2attr(id) { return { type: MB.attrInfoByID[id] } }
 function ids2attrs(ids) { return _.map(ids, id2attr) }
 
 function setupReleaseRelationshipEditor() {
-    var vm = FakeReleaseViewModel({
+    var vm = new FakeReleaseViewModel({
         sourceData: _.omit(testRelease, "mediums")
     });
 
@@ -359,7 +359,7 @@ relationshipEditorTest("dialog backwardness", function (t) {
 
     _.each(tests, function (test) {
         var options = _.assign({ viewModel: vm }, test.input);
-        var dialog = AddDialog(options);
+        var dialog = new AddDialog(options);
 
         t.equal(dialog.backward(), test.expected.backward)
         t.deepEqual(dialog.relationship().entities(), test.expected.entities);
@@ -376,7 +376,7 @@ relationshipEditorTest("AddDialog", function (t) {
     var source = vm.source.mediums()[0].tracks[0].recording;
     var target = MB.entity({ entityType: "artist", gid: fakeGID0 });
 
-    var dialog = AddDialog({ source: source, target: target, viewModel: vm });
+    var dialog = new AddDialog({ source: source, target: target, viewModel: vm });
     var relationship = dialog.relationship();
 
     relationship.linkTypeID(148);
@@ -396,7 +396,7 @@ relationshipEditorTest("BatchRelationshipDialog", function (t) {
     var target = MB.entity({ entityType: "artist", gid: fakeGID0 });
     var recordings = _.pluck(vm.source.mediums()[0].tracks, "recording");
 
-    var dialog = BatchRelationshipDialog({
+    var dialog = new BatchRelationshipDialog({
         sources: recordings,
         target: target,
         viewModel: vm
@@ -430,7 +430,7 @@ relationshipEditorTest("BatchCreateWorksDialog", function (t) {
 
     var recordings = _.pluck(vm.source.mediums()[0].tracks, "recording");
 
-    var dialog = BatchCreateWorksDialog({
+    var dialog = new BatchCreateWorksDialog({
         sources: recordings, viewModel: vm
     });
 
@@ -467,7 +467,7 @@ relationshipEditorTest("canceling an edit dialog reverts the changes", function 
         attributes: [],
     }, source);
 
-    var dialog = EditDialog({
+    var dialog = new EditDialog({
         relationship: relationship,
         source: source,
         viewModel: vm
@@ -499,7 +499,7 @@ relationshipEditorTest("MBS-5389: added recording-recording relationship appears
     var recording0 = tracks[0].recording;
     var recording1 = tracks[1].recording;
 
-    var dialog = AddDialog({ source: recording1, target: recording0, viewModel: vm });
+    var dialog = new AddDialog({ source: recording1, target: recording0, viewModel: vm });
 
     var relationship = dialog.relationship();
     relationship.linkTypeID(231);
@@ -892,7 +892,7 @@ relationshipEditorTest("attributes are cleared when the target type is changed (
     var relationship = vm.source.relationships()[0];
     t.equal(relationship.attributes().length, 1);
 
-    var dialog = EditDialog({
+    var dialog = new EditDialog({
         relationship: relationship,
         source: vm.source,
         viewModel: vm
@@ -974,7 +974,7 @@ relationshipEditorTest("empty dates are submitted as a hash, not as undef (MBS-8
         verbosePhrase: "{additional} composer",
     };
 
-    var vm = FakeReleaseViewModel({
+    var vm = new FakeReleaseViewModel({
         sourceData: {
             entityType: "release",
             name: "3 Great Piano Sonatas (Wilhelm Backhaus)",

@@ -3,7 +3,6 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-const aclass = require('aclass');
 const _ = require('lodash');
 const test = require('tape');
 
@@ -15,13 +14,13 @@ require('../../release-editor/init');
 
 function validationTest(name, callback) {
     test(name, function (t) {
-        const Release = fields.Release;
-        fields.Release = aclass(Release, {loadMedia: _.noop});
+        const loadMedia = fields.Release.prototype.loadMedia;
+        fields.Release.prototype.loadMedia = _.noop;
 
         callback(t);
 
         validation.errorFields([]);
-        fields.Release = Release;
+        fields.Release.prototype.loadMedia = loadMedia;
     });
 }
 

@@ -3,7 +3,6 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-const aclass = require('aclass');
 const $ = require('jquery');
 const ko = require('knockout');
 const _ = require('lodash');
@@ -18,19 +17,21 @@ const trackParser = require('./trackParser');
 const utils = require('./utils');
 const releaseEditor = require('./viewModel');
 
-var Dialog = aclass({
+class Dialog {
 
-    open: function () {
+    open() {
         $(this.element).dialog({ title: this.title, width: 700 });
-    },
+    }
 
-    close: function () {
+    close() {
         $(this.element).dialog("close");
     }
-});
+}
 
 
-var trackParserDialog = exports.trackParserDialog = Dialog().extend({
+var trackParserDialog = exports.trackParserDialog = new Dialog();
+
+_.assign(trackParserDialog, {
     element: "#track-parser-dialog",
     title: i18n.l("Track Parser"),
 
@@ -38,7 +39,10 @@ var trackParserDialog = exports.trackParserDialog = Dialog().extend({
     result: ko.observable(null),
     error: ko.observable(""),
 
-    before$open: function (medium) { this.setMedium(medium) },
+    open: function (medium) {
+        this.setMedium(medium);
+        Dialog.prototype.open.apply(this, arguments);
+    },
 
     setMedium: function (medium) {
         this.medium = medium;
@@ -63,20 +67,20 @@ var trackParserDialog = exports.trackParserDialog = Dialog().extend({
 });
 
 
-var SearchResult = aclass({
+class SearchResult {
 
-    init: function (tab, data) {
+    constructor(tab, data) {
         _.extend(this, data);
 
         this.tab = tab;
         this.loaded = ko.observable(false);
         this.loading = ko.observable(false);
         this.error = ko.observable("");
-    },
+    }
 
-    expanded: function () { return this.tab.result() === this },
+    expanded() { return this.tab.result() === this }
 
-    toggle: function () {
+    toggle() {
         var expand = this.tab.result() !== this;
 
         this.tab.result(expand ? this : null);
@@ -98,16 +102,16 @@ var SearchResult = aclass({
         }
 
         return false;
-    },
+    }
 
-    requestDone: function (data) {
+    requestDone(data) {
         _.each(data.tracks, this.parseTrack, this);
         _.extend(this, utils.reuseExistingMediumData(data));
 
         this.loaded(true);
-    },
+    }
 
-    parseTrack: function (track, index) {
+    parseTrack(track, index) {
         track.id = null;
         track.position = track.position || (index + 1);
         track.number = track.position;
@@ -120,14 +124,12 @@ var SearchResult = aclass({
             track.artistCredit = [{ name: track.artist }];
         }
     }
-});
+}
 
 
-var SearchTab = aclass({
+class SearchTab {
 
-    tracksRequestData: {},
-
-    init: function () {
+    constructor() {
         this.releaseName = ko.observable("");
         this.artistName = ko.observable("");
         this.trackCount = ko.observable("");
@@ -139,9 +141,9 @@ var SearchTab = aclass({
 
         this.currentPage = ko.observable(0);
         this.totalPages = ko.observable(0);
-    },
+    }
 
-    search: function (data, event, pageJump) {
+    search(data, event, pageJump) {
         this.searching(true);
 
         var data = {
@@ -161,17 +163,17 @@ var SearchTab = aclass({
             .always(function () {
                 this.searching(false);
             });
-    },
+    }
 
-    cancelSearch: function () {
+    cancelSearch() {
         if (this._jqXHR) this._jqXHR.abort();
-    },
+    }
 
-    buttonClicked: function () {
+    buttonClicked() {
         this.searching() ? this.cancelSearch() : this.search();
-    },
+    }
 
-    keydownEvent: function (data, event) {
+    keydownEvent(data, event) {
         if (event.keyCode === 13) { // Enter
             this.search(data, event);
         }
@@ -180,23 +182,23 @@ var SearchTab = aclass({
             // people to actually enter text.
             return true;
         }
-    },
+    }
 
-    nextPage: function () {
+    nextPage() {
         if (this.currentPage() < this.totalPages()) {
             this.search(this, null, 1);
         }
         return false;
-    },
+    }
 
-    previousPage: function () {
+    previousPage() {
         if (this.currentPage() > 1) {
             this.search(this, null, -1);
         }
         return false;
-    },
+    }
 
-    requestDone: function (results) {
+    requestDone(results) {
         this.error("");
 
         var pager = results.pop();
@@ -207,21 +209,28 @@ var SearchTab = aclass({
         }
 
         this.searchResults(_.map(results, _.partial(SearchResult, this)));
-    },
+    }
 
-    addDisc: function (inner) {
+    addDisc() {
         var release = releaseEditor.rootField.release(),
-            medium = fields.Medium(this.result(), release);
+            medium = new fields.Medium(this.result(), release);
 
         medium.name("");
-        inner && inner(medium);
+
+        if (this._addDisc) {
+            this._addDisc(medium);
+        }
 
         return medium;
     }
-});
+}
+
+SearchTab.prototype.tracksRequestData = {};
 
 
-var mediumSearchTab = exports.mediumSearchTab = SearchTab().extend({
+var mediumSearchTab = exports.mediumSearchTab = new SearchTab();
+
+_.assign(mediumSearchTab, {
     endpoint: "/ws/js/medium",
 
     tracksRequestData: { inc: "recordings" },
@@ -230,14 +239,16 @@ var mediumSearchTab = exports.mediumSearchTab = SearchTab().extend({
         return [this.endpoint, result.medium_id].join("/");
     },
 
-    augment$addDisc: function (medium) {
+    _addDisc(medium) {
         medium.loaded(true);
         medium.collapsed(false);
     }
 });
 
 
-var cdstubSearchTab = SearchTab().extend({
+var cdstubSearchTab = new SearchTab();
+
+_.assign(cdstubSearchTab, {
     endpoint: "/ws/js/cdstub",
 
     tracksRequestURL: function (result) {
@@ -246,7 +257,9 @@ var cdstubSearchTab = SearchTab().extend({
 });
 
 
-var addDiscDialog = exports.addDiscDialog = Dialog().extend({
+var addDiscDialog = exports.addDiscDialog = new Dialog();
+
+_.assign(addDiscDialog, {
     element: "#add-disc-dialog",
     title: i18n.l("Add Medium"),
 
@@ -255,9 +268,9 @@ var addDiscDialog = exports.addDiscDialog = Dialog().extend({
     cdstubSearch: cdstubSearchTab,
     currentTab: ko.observable(trackParserDialog),
 
-    before$open: function () {
+    open: function () {
         var release = releaseEditor.rootField.release(),
-            blankMedium = fields.Medium({}, release);
+            blankMedium = new fields.Medium({}, release);
 
         this.trackParser.setMedium(blankMedium);
         this.trackParser.result(blankMedium);
@@ -270,6 +283,8 @@ var addDiscDialog = exports.addDiscDialog = Dialog().extend({
                     tab.artistName(reduceArtistCredit(release.artistCredit()));
                 }
             });
+
+        Dialog.prototype.open.apply(this, arguments);
     },
 
     addDisc: function () {

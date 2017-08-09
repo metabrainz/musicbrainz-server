@@ -301,7 +301,7 @@ test('guessing feat. artists', function (t) {
     }
 
     _.each(trackTests, function (x) {
-        var release = fields.Release({
+        var release = new fields.Release({
             artistCredit: [],
             mediums: [{tracks: [x.input]}],
         });
@@ -310,6 +310,6 @@ test('guessing feat. artists', function (t) {
     });
 
     _.each(releaseTests, function (x) {
-        runTest(x, fields.Release(x.input));
+        runTest(x, new fields.Release(x.input));
     });
 });

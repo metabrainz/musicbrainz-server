@@ -547,7 +547,7 @@ releaseEditor.orderedEditSubmissions = [
             var edit = edits[0];
 
             if (edit.edit_type == MB.edit.TYPES.EDIT_RELEASEGROUP_CREATE) {
-                release.releaseGroup(releaseEditor.fields.ReleaseGroup(edits[0].entity));
+                release.releaseGroup(new releaseEditor.fields.ReleaseGroup(edits[0].entity));
             }
         }
     },

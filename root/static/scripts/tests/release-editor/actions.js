@@ -31,8 +31,8 @@ test("removing a medium should change the medium positions", function (t) {
     var release = common.setupReleaseEdit();
 
     release.mediums.push(
-        fields.Medium(common.testMedium),
-        fields.Medium({ tracks: [], position: 3 })
+        new fields.Medium(common.testMedium),
+        new fields.Medium({ tracks: [], position: 3 })
     );
 
     var mediums = release.mediums();

@@ -23,7 +23,7 @@ releaseEditor.utils = utils;
 
 utils.mapChild = function (parent, children, type) {
     return _.map(children || [], function (data) {
-        return type(data, parent);
+        return new type(data, parent);
     });
 };
 

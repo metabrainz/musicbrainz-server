@@ -3,7 +3,6 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-const aclass = require('aclass');
 const ko = require('knockout');
 const _ = require('lodash');
 const React = require('react');
@@ -35,10 +34,9 @@ const fields = exports;
 
 releaseEditor.fields = fields;
 
-fields.Track = aclass({
-    entityType: 'track',
+class Track {
 
-    init: function (data, medium) {
+    constructor(data, medium) {
         this.medium = medium;
 
         if (data.id != null) {
@@ -79,7 +77,7 @@ fields.Track = aclass({
         releaseEditor.copyTrackArtistsToRecordings.subscribe(this.updateRecordingArtist);
 
         this.recordingValue = ko.observable(
-            MB_entity.Recording({ name: data.name })
+            new MB_entity.Recording({ name: data.name })
         );
 
         // Custom write function is needed around recordingValue because
@@ -112,23 +110,23 @@ fields.Track = aclass({
 
         this.formattedLength.subscribe(this.formattedLengthChanged, this);
         this.hasNewRecording.subscribe(this.hasNewRecordingChanged, this);
-    },
+    }
 
-    recordingGID: function () {
+    recordingGID() {
         var recording = this.recording();
         return recording ? recording.gid : null;
-    },
+    }
 
-    nameChanged: function (name) {
+    nameChanged(name) {
         if (!this.hasExistingRecording()) {
             var recording = this.recording.peek();
 
             recording.name = this.name();
             this.recording.notifySubscribers(recording);
         }
-    },
+    }
 
-    formattedLengthChanged: function (length) {
+    formattedLengthChanged(length) {
         var lengthLength = length.length;
 
         // Convert stuff like 111 into 1:11
@@ -188,27 +186,27 @@ fields.Track = aclass({
         } else if (hasTooltip) {
             $lengthInput.tooltip("close").tooltip("destroy");
         }
-    },
+    }
 
-    previous: function () {
+    previous() {
         var tracks = this.medium.tracks();
         var index = _.indexOf(tracks, this);
 
         return index > 0 ? tracks[index - 1] : null;
-    },
+    }
 
-    next: function () {
+    next() {
         var tracks = this.medium.tracks();
         var index = _.indexOf(tracks, this);
 
         return index < tracks.length - 1 ? tracks[index + 1] : null;
-    },
+    }
 
-    titleDiffersFromRecording: function () {
+    titleDiffersFromRecording() {
         return this.name() !== this.recording().name;
-    },
+    }
 
-    artistDiffersFromRecording: function () {
+    artistDiffersFromRecording() {
         const recording = this.recording();
 
         // This function is used to determine whether we can update the
@@ -219,22 +217,22 @@ fields.Track = aclass({
         }
 
         return !artistCreditsAreEqual(this.artistCredit(), recording.artistCredit);
-    },
+    }
 
-    hasExistingRecording: function () {
+    hasExistingRecording() {
         return !!this.recording().gid;
-    },
+    }
 
-    needsRecording: function () {
+    needsRecording() {
         return !(this.hasExistingRecording() || this.hasNewRecording());
-    },
+    }
 
-    hasNewRecordingChanged: function (value) {
+    hasNewRecordingChanged(value) {
         value && this.recording(null);
-    },
+    }
 
-    setRecordingValue: function (value) {
-        value = value || MB_entity.Recording({ name: this.name() });
+    setRecordingValue(value) {
+        value = value || new MB_entity.Recording({ name: this.name() });
 
         var currentValue = this.recording.peek();
         if (value.gid === currentValue.gid) return;
@@ -268,40 +266,43 @@ fields.Track = aclass({
         }
 
         this.recordingValue(value);
-    },
+    }
 
-    hasNameAndArtist: function () {
+    hasNameAndArtist() {
         return this.name() && isCompleteArtistCredit(this.artistCredit());
-    },
+    }
 
-    hasVariousArtists: function () {
+    hasVariousArtists() {
         return hasVariousArtists(this.artistCredit());
-    },
+    }
 
-    relatedArtists: function () {
+    relatedArtists() {
         return this.medium.release.relatedArtists;
-    },
+    }
 
-    isProbablyClassical: function () {
+    isProbablyClassical() {
         return this.medium.release.isProbablyClassical;
-    },
+    }
+}
 
-    // Classes are a joke
+_.assign(Track.prototype, {
+    entityType: 'track',
     renderArtistCredit: MB_entity.Entity.prototype.renderArtistCredit,
     isCompleteArtistCredit: MB_entity.Entity.prototype.isCompleteArtistCredit,
-});
+})
 
+fields.Track = Track;
 
-fields.Medium = aclass({
+class Medium {
 
-    init: function (data, release) {
+    constructor(data, release) {
         this.release = release;
         this.name = ko.observable(data.name);
         this.position = ko.observable(data.position || 1);
         this.formatID = ko.observable(data.formatID);
 
         var tracks = data.tracks;
-        this.tracks = ko.observableArray(utils.mapChild(this, tracks, fields.Track));
+        this.tracks = ko.observableArray(utils.mapChild(this, tracks, Track));
 
         var self = this;
 
@@ -325,7 +326,7 @@ fields.Medium = aclass({
                         self.tracks.shift();
                     }
                 } else if (newValue && !oldValue) {
-                    self.tracks.unshift(fields.Track({ position: 0, number: 0 }, self));
+                    self.tracks.unshift(new Track({ position: 0, number: 0 }, self));
                 }
             }
         });
@@ -397,9 +398,9 @@ fields.Medium = aclass({
         this.needsTracks = ko.computed(function () {
             return self.loaded() && self.tracks().length === 0;
         });
-    },
+    }
 
-    pushTrack: function (data) {
+    pushTrack(data) {
         data = data || {};
 
         if (data.position === undefined) {
@@ -414,18 +415,18 @@ fields.Medium = aclass({
             data.isDataTrack = true;
         }
 
-        this.tracks.push(fields.Track(data, this));
-    },
+        this.tracks.push(new Track(data, this));
+    }
 
-    hasExistingTocs: function () {
+    hasExistingTocs() {
         return !!(this.id && this.cdtocs && this.cdtocs.length);
-    },
+    }
 
-    hasToc: function () {
+    hasToc() {
         return this.hasExistingTocs() || (this.toc() ? true : false);
-    },
+    }
 
-    tocChanged: function (toc) {
+    tocChanged(toc) {
         if (!_.isString(toc)) return;
 
         toc = toc.split(/\s+/);
@@ -447,7 +448,7 @@ fields.Medium = aclass({
             var self = this;
 
             _.times(tocTrackCount - trackCount, function () {
-                tocTracks.push(fields.Track({}, self));
+                tocTracks.push(new Track({}, self));
             });
         }
 
@@ -474,9 +475,9 @@ fields.Medium = aclass({
                 track.number(pregapOffset + index);
             }
         });
-    },
+    }
 
-    hasInvalidPregapLength: function () {
+    hasInvalidPregapLength() {
         if (!this.hasPregap() || !this.hasToc()) {
             return;
         }
@@ -490,15 +491,15 @@ fields.Medium = aclass({
         });
 
         return this.tracks()[0].length() > maxLength;
-    },
+    }
 
-    collapsedChanged: function (collapsed) {
+    collapsedChanged(collapsed) {
         if (!collapsed && !this.loaded() && !this.loading()) {
             this.loadTracks(true);
         }
-    },
+    }
 
-    loadTracks: function () {
+    loadTracks() {
         var id = this.id || this.originalID;
         if (!id) return;
 
@@ -510,14 +511,14 @@ fields.Medium = aclass({
         };
 
         request(args, this).done(this.tracksLoaded);
-    },
+    }
 
-    tracksLoaded: function (data) {
+    tracksLoaded(data) {
         var tracks = data.tracks;
 
         var pp = this.id ? // no ID means this medium is being reused
-            fields.Track :
-            function (track, parent) { return fields.Track(_.omit(track, 'id'), parent); };
+            Track :
+            function (track, parent) { return new Track(_.omit(track, 'id'), parent); };
         this.tracks(utils.mapChild(this, data.tracks, pp));
 
         if (this.release.seededTocs) {
@@ -541,11 +542,11 @@ fields.Medium = aclass({
         this.loaded(true);
         this.loading(false);
         this.collapsed(false);
-    },
+    }
 
-    hasTracks: function () { return this.tracks().length > 0 },
+    hasTracks() { return this.tracks().length > 0 }
 
-    formattedName: function () {
+    formattedName() {
         var name = this.name(),
             position = this.position(),
             multidisc = this.release.mediums().length > 1 || position > 1;
@@ -561,30 +562,34 @@ fields.Medium = aclass({
             return l("Medium {position}", { position: position });
         }
         return l("Tracklist");
-    },
+    }
 
-    canHaveDiscID: function () {
+    canHaveDiscID() {
         var formatID = parseInt(this.formatID(), 10);
 
         return !formatID || _.contains(MB.formatsWithDiscIDs, formatID);
     }
-});
+}
 
+fields.Medium = Medium;
 
-fields.ReleaseGroup = aclass(MB_entity.ReleaseGroup, {
+class ReleaseGroup extends MB_entity.ReleaseGroup {
 
-    after$init: function (data) {
+    constructor(data) {
         data = data || {};
+
+        super(data);
 
         this.typeID = ko.observable(data.typeID)
         this.secondaryTypeIDs = ko.observableArray(data.secondaryTypeIDs);
     }
-});
+}
 
+fields.ReleaseGroup = ReleaseGroup;
 
-fields.ReleaseEvent = aclass({
+class ReleaseEvent {
 
-    init: function (data, release) {
+    constructor(data, release) {
         var date = data.date || {};
 
         this.date = {
@@ -603,31 +608,32 @@ fields.ReleaseEvent = aclass({
             var date = self.unwrapDate();
             return !dates.isDateValid(date.year, date.month, date.day);
         });
-    },
+    }
 
-    unwrapDate: function () {
+    unwrapDate() {
         return {
             year: this.date.year(),
             month: this.date.month(),
             day: this.date.day()
         };
-    },
+    }
 
-    hasAmazonDate: function () {
+    hasAmazonDate() {
         var date = this.unwrapDate();
         return date.year == 1990 && date.month == 10 && date.day == 25;
-    },
+    }
 
-    hasJanuaryFirstDate: function () {
+    hasJanuaryFirstDate() {
         var date = this.unwrapDate();
         return date.month == 1 && date.day == 1;
     }
-});
+}
 
+fields.ReleaseEvent = ReleaseEvent;
 
-fields.ReleaseLabel = aclass({
+class ReleaseLabel {
 
-    init: function (data, release) {
+    constructor(data, release) {
         if (data.id) this.id = data.id;
 
         this.label = ko.observable(MB_entity(data.label || {}, "label"));
@@ -641,19 +647,18 @@ fields.ReleaseLabel = aclass({
             var label = self.label() || {};
             return !!(label.name && !label.gid);
         });
-    },
+    }
 
-    labelHTML: function () {
+    labelHTML() {
         return this.label().html({ target: "_blank" });
     }
-});
+}
 
+fields.ReleaseLabel = ReleaseLabel;
 
-fields.Barcode = aclass({
+class Barcode {
 
-    weights: [1, 3, 1, 3, 1, 3, 1, 3, 1, 3, 1, 3],
-
-    init: function (data) {
+    constructor(data) {
         this.original = data;
         this.barcode = ko.observable(data);
         this.message = ko.observable("");
@@ -681,9 +686,9 @@ fields.Barcode = aclass({
             },
             owner: this
         });
-    },
+    }
 
-    checkDigit: function (barcode) {
+    checkDigit(barcode) {
         if (barcode.length !== 12) return false;
 
         for (var i = 0, calc = 0; i < 12; i++) {
@@ -692,22 +697,27 @@ fields.Barcode = aclass({
 
         var digit = 10 - (calc % 10);
         return digit === 10 ? 0 : digit;
-    },
+    }
 
-    validateCheckDigit: function (barcode) {
+    validateCheckDigit(barcode) {
         return this.checkDigit(barcode.slice(0, 12)) === parseInt(barcode[12], 10);
-    },
+    }
 
-    writeBarcode: function (barcode) {
+    writeBarcode(barcode) {
         this.barcode((barcode || "").replace(/[^\d]/g, "") || null);
         this.confirmed(false);
     }
-});
+}
 
+Barcode.prototype.weights = [1, 3, 1, 3, 1, 3, 1, 3, 1, 3, 1, 3];
 
-fields.Release = aclass(MB_entity.Release, {
+fields.Barcode = Barcode;
 
-    after$init: function (data) {
+class Release extends MB_entity.Release {
+
+    constructor(data) {
+        super(data);
+
         if (data.gid) {
             MB.entityCache[data.gid] = this; // XXX HACK
         }
@@ -743,13 +753,13 @@ fields.Release = aclass(MB_entity.Release, {
         this.languageID = ko.observable(data.languageID);
         this.scriptID = ko.observable(data.scriptID);
         this.packagingID = ko.observable(data.packagingID);
-        this.barcode = fields.Barcode(data.barcode);
+        this.barcode = new Barcode(data.barcode);
         this.comment = ko.observable(data.comment);
         this.annotation = ko.observable(data.annotation || "");
         this.annotation.original = ko.observable(data.annotation || "");
 
         this.events = ko.observableArray(
-            utils.mapChild(this, data.events, fields.ReleaseEvent)
+            utils.mapChild(this, data.events, ReleaseEvent)
         );
 
         function countryID(event) { return event.countryID() }
@@ -769,7 +779,7 @@ fields.Release = aclass(MB_entity.Release, {
         this.hasInvalidDates = errorField(this.events.any("hasInvalidDate"));
 
         this.labels = ko.observableArray(
-            utils.mapChild(this, data.labels, fields.ReleaseLabel)
+            utils.mapChild(this, data.labels, ReleaseLabel)
         );
 
         this.labels.original = ko.observable(
@@ -794,7 +804,7 @@ fields.Release = aclass(MB_entity.Release, {
         this.hasDuplicateLabels = errorField(this.labels.any("isDuplicate"));
 
         this.releaseGroup = ko.observable(
-            fields.ReleaseGroup(data.releaseGroup || {})
+            new ReleaseGroup(data.releaseGroup || {})
         );
 
         this.releaseGroup.subscribe(function (releaseGroup) {
@@ -808,7 +818,7 @@ fields.Release = aclass(MB_entity.Release, {
         });
 
         this.mediums = ko.observableArray(
-            utils.mapChild(this, data.mediums, fields.Medium)
+            utils.mapChild(this, data.mediums, Medium)
         );
 
         this.formats = data.formats;
@@ -830,32 +840,32 @@ fields.Release = aclass(MB_entity.Release, {
         // Ensure there's at least one event, label, and medium to edit.
 
         if (!this.events().length) {
-            this.events.push(fields.ReleaseEvent({}, this));
+            this.events.push(new ReleaseEvent({}, this));
         }
 
         if (!this.labels().length) {
-            this.labels.push(fields.ReleaseLabel({}, this));
+            this.labels.push(new ReleaseLabel({}, this));
         }
 
         if (!this.mediums().length && !this.hasUnknownTracklist()) {
-            this.mediums.push(fields.Medium({}, this));
+            this.mediums.push(new Medium({}, this));
         }
-    },
+    }
 
-    loadMedia: function () {
+    loadMedia() {
         var mediums = this.mediums();
 
         if (mediums.length <= 3) {
             _.invoke(mediums, "loadTracks");
         }
-    },
+    }
 
-    hasOneEmptyMedium: function () {
+    hasOneEmptyMedium() {
         var mediums = this.mediums();
         return mediums.length === 1 && !mediums[0].hasTracks();
-    },
+    }
 
-    tracksWithUnsetPreviousRecordings: function () {
+    tracksWithUnsetPreviousRecordings() {
         return _.transform(this.mediums(), function (result, medium) {
             _.each(medium.tracks(), function (track) {
                 if (track.recording.saved && track.needsRecording()) {
@@ -863,9 +873,9 @@ fields.Release = aclass(MB_entity.Release, {
                 }
             });
         });
-    },
+    }
 
-    existingMediumData: function () {
+    existingMediumData() {
         // This function should return the mediums on the release as they
         // hopefully exist in the DB, so including ones removed from the
         // page (as long as they have an id, i.e. were attached before).
@@ -878,4 +888,6 @@ fields.Release = aclass(MB_entity.Release, {
             }
         });
     }
-});
+}
+
+fields.Release = Release;

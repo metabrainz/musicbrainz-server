@@ -3,7 +3,6 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-const aclass = require('aclass');
 const $ = require('jquery');
 const ko = require('knockout');
 const _ = require('lodash');
@@ -19,10 +18,11 @@ const {ViewModel} = require('./common/viewModel');
 
     var UI = RE.UI = RE.UI || {};
 
-    exports.GenericEntityViewModel = aclass(ViewModel, {
-        fieldName: "rel",
+    class GenericEntityViewModel extends ViewModel {
 
-        after$init: function () {
+        constructor(options) {
+            super(options);
+
             MB.sourceRelationshipEditor = this;
 
             var source = this.source;
@@ -32,30 +32,30 @@ const {ViewModel} = require('./common/viewModel');
                     return !r.linkTypeID() || !r.target(source).gid;
                 })
             );
-        },
+        }
 
-        openAddDialog: function (source, event) {
+        openAddDialog(source, event) {
             var targetType = _.without(MB.allowedRelations[source.entityType], 'url')[0];
 
-            UI.AddDialog({
+            new UI.AddDialog({
                 source: source,
                 target: MB.entity({}, targetType),
                 viewModel: this
             }).open(event.target);
-        },
+        }
 
-        openEditDialog: function (relationship, event) {
+        openEditDialog(relationship, event) {
             if (!relationship.removed()) {
-                UI.EditDialog({
+                new UI.EditDialog({
                     relationship: relationship,
                     source: ko.contextFor(event.target).$parents[1],
                     viewModel: this
                 }).open(event.target);
             }
-        },
+        }
 
-        around$_sortedRelationships: function (supr, relationships, source) {
-            var result = supr(relationships, source);
+        _sortedRelationships(relationships, source) {
+            var result = super._sortedRelationships(relationships, source);
 
             if (source.entityType === "series") {
                 var sorted = ko.observableArray(result());
@@ -80,7 +80,11 @@ const {ViewModel} = require('./common/viewModel');
 
             return result;
         }
-    });
+    }
+
+    GenericEntityViewModel.prototype.fieldName = 'rel';
+
+    exports.GenericEntityViewModel = GenericEntityViewModel;
 
     var seriesOrdering = {
         event: function (relationships, series) {
