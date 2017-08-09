@@ -9,6 +9,8 @@ const _ = require('lodash');
 const React = require('react');
 const ReactDOM = require('react-dom');
 
+const {l} = require('../common/i18n');
+const {reduceArtistCredit} = require('../common/immutable-entities');
 const ArtistCreditEditor = require('../edit/components/ArtistCreditEditor');
 const fields = require('./fields');
 
