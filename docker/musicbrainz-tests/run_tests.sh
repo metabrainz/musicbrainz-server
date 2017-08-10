@@ -21,6 +21,10 @@ done
     --no-sandbox \
     --remote-debugging-port=9222 &)
 
+(exec sudo -E -H -u musicbrainz node root/server.js &)
+
+(exec sudo -E -H -u musicbrainz carton exec -- plackup -Ilib &)
+
 exec sudo -E -H -u musicbrainz carton exec -- prove \
     --pgtap-option dbname=musicbrainz_test \
     --pgtap-option host=musicbrainz-test-database \
@@ -32,6 +36,8 @@ exec sudo -E -H -u musicbrainz carton exec -- prove \
     t/critic.t \
     t/js.t \
     t/web.js \
+    t/selenium.js \
+    t/create_test_db.t \
     t/pgtap/* \
     t/pgtap/unused-tags/* \
     t/script/*.t \

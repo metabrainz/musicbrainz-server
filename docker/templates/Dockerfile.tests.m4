@@ -12,6 +12,13 @@ RUN cd /tmp && \
     rm CHROME_DEB && \
     cd -
 
+RUN cd /tmp && \
+    curl -sLO http://chromedriver.storage.googleapis.com/2.31/CHROME_DRIVER && \
+    apt_install(`unzip') && \
+    unzip CHROME_DRIVER -d /usr/local/bin && \
+    rm CHROME_DRIVER && \
+    cd -
+
 RUN cd /home/musicbrainz && \
     git clone https://github.com/metabrainz/mmd-schema
 
@@ -24,7 +31,7 @@ git_info
 COPY docker/musicbrainz-tests/DBDefs.pm lib/
 
 # Depends on DBDefs.pm.
-RUN sudo_mb(`carton exec -- ./script/compile_resources.sh web-tests')
+RUN sudo_mb(`carton exec -- ./script/compile_resources.sh default web-tests')
 
 COPY docker/musicbrainz-tests/run_tests.sh /usr/local/bin/
 COPY script/ script/

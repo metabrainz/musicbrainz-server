@@ -68,6 +68,7 @@
     "gulp-watch": "4.3.5",
     "jsdom": "11.1.0",
     "react-addons-test-utils": "https://github.com/mwiencek/react-packages/raw/master/react-addons-test-utils.tgz",
+    "selenium-webdriver": "3.5.0",
     "tape": "4.7.0",
     "utf8": "2.1.2"
   },
