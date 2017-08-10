@@ -133,6 +133,7 @@ const tests = [
   'Create_Account.html',
   'Log_Out.html',
   'Log_In.html',
+  'MBS-7456.html',
 ];
 
 async function nextTest(testIndex) {

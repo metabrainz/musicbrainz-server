@@ -208,49 +208,6 @@ parserTest("MBS-7451: track parser can clear TOC track lengths", function (t) {
     );
 });
 
-parserTest("MBS-7456: Failing to parse artists does not break track autocompletes", function (t) {
-    // The issue described in the ticket throws an exception.
-    t.plan(0);
-
-    // FIXME: This test should be fixed once the release editor is converted to React.
-    t.end();
-    return;
-
-    var re = releaseEditor;
-
-    _.assign(trackParser.options, {
-        hasTrackNumbers: true,
-        useTrackNumbers: true,
-        useTrackNames: true,
-        hasTrackArtists: true,
-        useTrackArtists: true
-    });
-
-    var release = new fields.Release({
-        mediums: [{
-            tracks: [{
-                name: "foo"
-            }]
-        }]
-    });
-
-    releaseEditor.rootField.release(release);
-
-    var medium = release.mediums()[0];
-    medium.tracks(trackParser.parse("1. bar", medium));
-
-/*  FIXME:
-    var $span = $("<span>");
-    var autocomplete = $span.autocomplete({ entity: "artist" }).data("ui-autocomplete");
-
-    medium.tracks()[0].artistCredit.setAutocomplete(autocomplete, $span[0]);
-*/
-
-    // Needs to be done twice so that it reuses the existing track.
-    medium.tracks(trackParser.parse("1. bar", medium));
-    t.end();
-});
-
 parserTest("can parse only numbers, titles, artists, or lengths (MBS-3730, MBS-3732)", function (t) {
     t.plan(16);
 
