@@ -9,7 +9,7 @@ sub sidebar_name {
     my $self = shift;
 
     if ($self->url =~ m{^(?:https?:)?//(?:www.)?youtube.com/watch\?v=([a-z0-9_-]+)/?$}i) {
-        return "Watch on YouTube";
+        return "Play on YouTube";
     }
     elsif ($self->url =~ m{^(?:https?:)?//(?:www.)?youtube.com/(?:user/)?([a-z0-9_-]+)/?$}i) {
         return $1;
