@@ -15,15 +15,7 @@ while true; do
     fi
 done
 
-(sudo -E -H -u musicbrainz google-chrome-stable \
-    --headless \
-    --disable-gpu \
-    --no-sandbox \
-    --remote-debugging-port=9222 &)
-
-(exec sudo -E -H -u musicbrainz node root/server.js &)
-
-(exec sudo -E -H -u musicbrainz carton exec -- plackup -Ilib &)
+(exec runsvdir /etc/service &>/dev/null &)
 
 exec sudo -E -H -u musicbrainz carton exec -- prove \
     --pgtap-option dbname=musicbrainz_test \

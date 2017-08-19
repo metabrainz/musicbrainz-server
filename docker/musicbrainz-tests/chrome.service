@@ -1,0 +1,7 @@
+#!/bin/bash
+
+exec sudo -E -H -u musicbrainz google-chrome-stable \
+    --headless \
+    --disable-gpu \
+    --no-sandbox \
+    --remote-debugging-port=9222

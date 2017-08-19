@@ -26,6 +26,20 @@ ENV MMDSCHEMA /home/musicbrainz/mmd-schema
 
 copy_common_mbs_files
 
+COPY \
+    docker/musicbrainz-tests/chrome.service \
+    /etc/service/chrome/run
+COPY \
+    docker/musicbrainz-tests/template-renderer.service \
+    /etc/service/template-renderer/run
+COPY \
+    docker/musicbrainz-tests/website.service \
+    /etc/service/website/run
+RUN chmod 755 \
+        /etc/service/chrome/run \
+        /etc/service/template-renderer/run \
+        /etc/service/website/run
+
 git_info
 
 COPY docker/musicbrainz-tests/DBDefs.pm lib/
