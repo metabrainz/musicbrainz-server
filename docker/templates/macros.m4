@@ -13,6 +13,8 @@ m4_define(`sudo_mb', `sudo -E -H -u musicbrainz $1')
 
 m4_define(`CHROME_DEB', `google-chrome-stable_current_amd64.deb')
 
+m4_define(`CHROME_DRIVER', `chromedriver_linux64.zip')
+
 m4_define(`NODEJS_DEB', `nodejs_7.9.0-1nodesource1~xenial1_amd64.deb')
 
 m4_define(

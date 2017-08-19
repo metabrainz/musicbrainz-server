@@ -13,7 +13,7 @@ let document = global.document;
 if (!document) {
   // Prevent this from being required for the browser.
   const jsdom = 'jsdom';
-  document = require(jsdom).jsdom();
+  document = new (require(jsdom).JSDOM)('').window.document;
 }
 
 const React = require('react');

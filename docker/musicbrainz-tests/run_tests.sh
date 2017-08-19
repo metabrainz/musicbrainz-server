@@ -15,11 +15,7 @@ while true; do
     fi
 done
 
-(sudo -E -H -u musicbrainz google-chrome-stable \
-    --headless \
-    --disable-gpu \
-    --no-sandbox \
-    --remote-debugging-port=9222 &)
+(exec runsvdir /etc/service &>/dev/null &)
 
 exec sudo -E -H -u musicbrainz carton exec -- prove \
     --pgtap-option dbname=musicbrainz_test \
@@ -32,6 +28,8 @@ exec sudo -E -H -u musicbrainz carton exec -- prove \
     t/critic.t \
     t/js.t \
     t/web.js \
+    t/selenium.js \
+    t/create_test_db.t \
     t/pgtap/* \
     t/pgtap/unused-tags/* \
     t/script/*.t \

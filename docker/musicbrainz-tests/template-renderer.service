@@ -1,0 +1,4 @@
+#!/bin/bash
+
+cd /home/musicbrainz/musicbrainz-server
+exec sudo -E -H -u musicbrainz node root/server.js
