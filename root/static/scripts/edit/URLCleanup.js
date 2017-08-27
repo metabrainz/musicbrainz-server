@@ -1472,10 +1472,25 @@ const CLEANUPS = {
     match: [new RegExp("^(https?://)?(www\\.)?rock\\.com\\.ar", "i")],
     type: LINK_TYPES.otherdatabases,
     clean: function (url) {
-      return url.replace(/^(?:https?:\/\/)?(?:www\.)?rock\.com\.ar\/([^#]+)(?:#.*)?$/, "http://rock.com.ar/$1");
+      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?rock\.com\.ar\/([^#]+)(?:#.*)?$/, "http://rock.com.ar/$1");
+      url = url.replace(/^(http:\/\/rock\.com\.ar\/artistas\/[1-9][0-9]*)\/(?:[a-z]*|fotos\/[1-9][0-9]*)?$/, "$1");
+      return url;
     },
     validate: function (url, id) {
-      var m = /^http:\/\/rock\.com\.ar\/(?:(bios|discos|letras)(?:\/[0-9]+){2}\.shtml|(artistas)\/.+)$/.exec(url);
+      var m = /^http:\/\/rock\.com\.ar\/artistas\/[1-9][0-9]*(?:\/(discos|letras)\/[1-9][0-9]*)?$/.exec(url);
+      if (m) {
+        var subsection = m[1];
+        switch (id) {
+          case LINK_TYPES.otherdatabases.artist:
+            return !subsection;
+          case LINK_TYPES.otherdatabases.release_group:
+            return subsection === 'discos';
+          case LINK_TYPES.otherdatabases.work:
+            return subsection === 'letras';
+        }
+      }
+      // Keep validating URLs from before Rock.com.ar 2017 relaunch
+      m = /^http:\/\/rock\.com\.ar\/(?:(bios|discos|letras)(?:\/[0-9]+){2}\.shtml|(artistas)\/.+)$/.exec(url);
       if (m) {
         var prefix = m[1] || m[2];
         switch (id) {
