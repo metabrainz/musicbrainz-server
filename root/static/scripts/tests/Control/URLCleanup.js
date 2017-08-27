@@ -1805,10 +1805,10 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
         },
         // Rock.com.ar
         {
-                             input_url: 'http://www.rock.com.ar/artistas/soda-stero#contenedor',
+                             input_url: 'http://www.rock.com.ar/artistas/soda-stereo#contenedor',
                      input_entity_type: 'artist',
             expected_relationship_type: 'otherdatabases',
-                    expected_clean_url: 'http://www.rock.com.ar/artistas/soda-stero',
+                    expected_clean_url: 'http://www.rock.com.ar/artistas/soda-stereo',
                only_valid_entity_types: ['artist']
         },
         {
