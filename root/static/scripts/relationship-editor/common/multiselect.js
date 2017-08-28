@@ -233,7 +233,7 @@ const deferFocus = require('../../edit/utility/deferFocus');
     ko.components.register("multiselect", {
         viewModel: {
             createViewModel: function (params, componentInfo) {
-                return Multiselect(params, $(componentInfo.element));
+                return new Multiselect(params, $(componentInfo.element));
             }
         },
         template: { fromScript: "template.multiselect" }
