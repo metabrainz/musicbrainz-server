@@ -7,13 +7,14 @@ const _ = require('lodash');
 const test = require('tape');
 
 const {reduceArtistCredit} = require('../../common/immutable-entities');
+const fields = require('../../release-editor/fields');
+const trackParser = require('../../release-editor/trackParser');
+const releaseEditor = require('../../release-editor/viewModel');
 const common = require('./common');
-
-var releaseEditor = MB.releaseEditor;
 
 function parserTest(name, callback) {
     test(name, function (t) {
-        releaseEditor.trackParser.options = {
+        trackParser.options = {
             hasTrackNumbers: false,
             hasVinylNumbers: false,
             hasTrackArtists: false,
@@ -29,7 +30,7 @@ function parserTest(name, callback) {
 parserTest("track numbers", function (t) {
     t.plan(1);
 
-    _.assign(releaseEditor.trackParser.options, {
+    _.assign(trackParser.options, {
         hasTrackNumbers: true,
         hasVinylNumbers: true,
         useTrackNumbers: true,
@@ -62,7 +63,7 @@ parserTest("track numbers", function (t) {
 parserTest("parsing track durations with trailing whitespace (MBS-1284)", function (t) {
     t.plan(1);
 
-    _.assign(releaseEditor.trackParser.options, {
+    _.assign(trackParser.options, {
         hasTrackNumbers: true,
         useTrackNumbers: true,
         useTrackNames: true,
@@ -88,7 +89,7 @@ parserTest("parsing track durations with trailing whitespace (MBS-1284)", functi
 parserTest("numbers at the end of track names being wrongly interpreted as durations (MBS-2511, MBS-2902)", function (t) {
     t.plan(1);
 
-    _.assign(releaseEditor.trackParser.options, {
+    _.assign(trackParser.options, {
         hasTrackNumbers: true,
         useTrackNumbers: true,
         useTrackNames: true,
@@ -110,7 +111,7 @@ parserTest("numbers at the end of track names being wrongly interpreted as durat
 parserTest("ignoring lines that don't start with a number when the option is set (MBS-2540)", function (t) {
     t.plan(1);
 
-    _.assign(releaseEditor.trackParser.options, {
+    _.assign(trackParser.options, {
         hasTrackNumbers: true,
         useTrackNumbers: true,
         useTrackNames: true,
@@ -135,7 +136,7 @@ parserTest("ignoring lines that don't start with a number when the option is set
 parserTest("XX:XX:XX track times (MBS-3353)", function (t) {
     t.plan(1);
 
-    _.assign(releaseEditor.trackParser.options, {
+    _.assign(trackParser.options, {
         hasTrackNumbers: true,
         useTrackNumbers: true,
         useTrackNames: true,
@@ -152,24 +153,24 @@ parserTest("XX:XX:XX track times (MBS-3353)", function (t) {
 parserTest("internal track positions are updated appropriately after being reused", function (t) {
     t.plan(2);
 
-    _.assign(releaseEditor.trackParser.options, {
+    _.assign(trackParser.options, {
         hasTrackNumbers: true,
         useTrackNames: true,
         useTrackLengths: true
     });
 
     var re = releaseEditor;
-    re.rootField.release(re.fields.Release(common.testRelease));
+    releaseEditor.rootField.release(new fields.Release(common.testRelease));
 
-    var release = re.rootField.release();
+    var release = releaseEditor.rootField.release();
     var medium = release.mediums()[0];
 
     medium.cdtocs = [];
     medium.toc(null);
 
-    var input = re.trackParser.mediumToString(medium).split('\n').reverse().join("\n");
+    var input = trackParser.mediumToString(medium).split('\n').reverse().join("\n");
 
-    medium.tracks(re.trackParser.parse(input, medium));
+    medium.tracks(trackParser.parse(input, medium));
 
     var tracks = medium.tracks();
 
@@ -181,22 +182,22 @@ parserTest("MBS-7451: track parser can clear TOC track lengths", function (t) {
     t.plan(1);
 
     var re = releaseEditor;
-    re.rootField.release(re.fields.Release(common.testRelease));
+    releaseEditor.rootField.release(new fields.Release(common.testRelease));
 
-    var release = re.rootField.release();
+    var release = releaseEditor.rootField.release();
     var medium = release.mediums()[0];
 
     medium.cdtocs = ["1"];
 
-    re.trackParser.options.useTrackLengths = true;
+    trackParser.options.useTrackLengths = true;
 
     // The string does not include track numbers.
-    var input = re.trackParser.mediumToString(medium);
+    var input = trackParser.mediumToString(medium);
 
     // Re-enable track numbers so that parsing anything fails.
-    re.trackParser.options.hasTrackNumbers = true;
+    trackParser.options.hasTrackNumbers = true;
 
-    medium.tracks(re.trackParser.parse(input, medium));
+    medium.tracks(trackParser.parse(input, medium));
 
     var tracks = medium.tracks();
 
@@ -207,54 +208,8 @@ parserTest("MBS-7451: track parser can clear TOC track lengths", function (t) {
     );
 });
 
-parserTest("MBS-7456: Failing to parse artists does not break track autocompletes", function (t) {
-    // The issue described in the ticket throws an exception.
-    t.plan(0);
-
-    // FIXME: This test should be fixed once the release editor is converted to React.
-    t.end();
-    return;
-
-    var re = releaseEditor;
-
-    _.assign(re.trackParser.options, {
-        hasTrackNumbers: true,
-        useTrackNumbers: true,
-        useTrackNames: true,
-        hasTrackArtists: true,
-        useTrackArtists: true
-    });
-
-    var release = re.fields.Release({
-        mediums: [{
-            tracks: [{
-                name: "foo"
-            }]
-        }]
-    });
-
-    re.rootField.release(release);
-
-    var medium = release.mediums()[0];
-    medium.tracks(re.trackParser.parse("1. bar", medium));
-
-/*  FIXME:
-    var $span = $("<span>");
-    var autocomplete = $span.autocomplete({ entity: "artist" }).data("ui-autocomplete");
-
-    medium.tracks()[0].artistCredit.setAutocomplete(autocomplete, $span[0]);
-*/
-
-    // Needs to be done twice so that it reuses the existing track.
-    medium.tracks(re.trackParser.parse("1. bar", medium));
-    t.end();
-});
-
 parserTest("can parse only numbers, titles, artists, or lengths (MBS-3730, MBS-3732)", function (t) {
     t.plan(16);
-
-    var re = releaseEditor;
-    var trackParser = re.trackParser;
 
     _.assign(trackParser.options, {
         hasTrackNumbers: true,
@@ -263,7 +218,7 @@ parserTest("can parse only numbers, titles, artists, or lengths (MBS-3730, MBS-3
         useTrackNumbers: true
     });
 
-    var release = re.fields.Release({
+    var release = new fields.Release({
         mediums: [{
             tracks: [{
                 number: "1",
@@ -274,7 +229,7 @@ parserTest("can parse only numbers, titles, artists, or lengths (MBS-3730, MBS-3
         }]
     });
 
-    re.rootField.release(release);
+    releaseEditor.rootField.release(release);
 
     // Parse only numbers
     var medium = release.mediums()[0];
@@ -340,7 +295,7 @@ parserTest("Does not lose previous recordings (MBS-7719)", function (t) {
         useTrackNames: true
     });
 
-    var release = releaseEditor.fields.Release({
+    var release = new fields.Release({
         mediums: [
             {
                 tracks: [
@@ -432,7 +387,7 @@ parserTest("parses track times for data tracks if there's a disc ID (MBS-8409)",
     var trackParser = releaseEditor.trackParser;
     _.assign(trackParser.options, {useTrackLengths: true});
 
-    var release = releaseEditor.fields.Release({
+    var release = new fields.Release({
         id: 1,
         mediums: [
             {
@@ -473,7 +428,7 @@ parserTest("data track boundary is unchanged if the track count is >= the previo
     var trackParser = releaseEditor.trackParser;
     trackParser.options.useTrackNames = true;
 
-    var release = releaseEditor.fields.Release({
+    var release = new fields.Release({
         id: 1,
         mediums: [
             {
@@ -506,10 +461,9 @@ parserTest("data track boundary is unchanged if the track count is >= the previo
 parserTest("force number of tracks to equal CD TOC", function (t) {
     t.plan(3);
 
-    var trackParser = releaseEditor.trackParser;
     trackParser.options.useTrackNames = true;
 
-    var release = releaseEditor.fields.Release({
+    var release = new fields.Release({
         id: 1,
         mediums: [
             {

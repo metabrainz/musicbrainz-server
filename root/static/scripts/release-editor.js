@@ -9,6 +9,7 @@ require("./release-editor/dialogs");
 require("./release-editor/duplicates");
 require("./release-editor/edits");
 require("./release-editor/fields");
+require("./release-editor/bindingHandlers");
 require("./release-editor/init");
 require("./release-editor/recordingAssociation");
 require("./release-editor/seeding");

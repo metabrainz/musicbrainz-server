@@ -45,7 +45,7 @@
 [% END %]
 
 [% MACRO attach_list_script BLOCK %]
-  <script>//<![CDATA[
+  <script>
     $(".tracklist").hide();
 
     $(document).on("click", ".toggle", function () {
@@ -57,5 +57,5 @@
         $(this).text("[% l('hide tracklist') | js %]");
       }
     });
-  //]]></script>
+  </script>
 [% END %]

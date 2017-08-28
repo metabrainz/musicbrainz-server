@@ -80,7 +80,7 @@
         </ul>
       [% END %]
 
-      <script>//<![CDATA[
+      <script>
       $(function () {
           $(document.body).append( $('#add-language-template') );
           $('#add-language-template').children().removeAttr('id').removeAttr('name');
@@ -106,7 +106,7 @@
               languageCount++;
           });
       });
-      //]]></script>
+      </script>
 
       <div class="row no-label" id="edit-profile-submit">
         <span class="buttons">
@@ -115,8 +115,8 @@
       </div>
     </form>
 
-    <script type="text/javascript">//<![CDATA[
+    <script type="text/javascript">
       MB.Control.EntityAutocomplete({ inputs: $("span.area.autocomplete") });
-    //]]></script>
+    </script>
 
 [% END %]

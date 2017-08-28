@@ -322,18 +322,27 @@ gulp.task('watch', ['default'], function () {
   });
 });
 
-gulp.task('tests', function () {
-  process.env.NODE_ENV = 'development';
+function createTestsTask(name, source) {
+  gulp.task(name, function () {
+    process.env.NODE_ENV = 'development';
 
-  runYarb('tests/browser-runner.js', function (bundle) {
+    var deferred = Q.defer();
+
     bundleScripts(
-      bundle
-        .expose(path.join(BUILD_DIR, 'rev-manifest.json'), 'rev-manifest.json')
-        .expose(createLangVinyl('en', JED_OPTIONS_EN), 'jed-data'),
-      'tests.js',
-    ).pipe(gulp.dest(BUILD_DIR));
+        runYarb(source)
+          .expose(path.join(BUILD_DIR, 'rev-manifest.json'), 'rev-manifest.json')
+          .expose(createLangVinyl('en', JED_OPTIONS_EN), 'jed-data'),
+        name + '.js'
+      )
+      .pipe(gulp.dest(BUILD_DIR))
+      .on('finish', function () { deferred.resolve() });
+
+    return deferred.promise;
   });
-});
+}
+
+createTestsTask('tests', 'tests/browser-runner.js');
+createTestsTask('web-tests', 'tests/index-web.js');
 
 gulp.task('default', function () {
   const IMAGE_GLOBS = [

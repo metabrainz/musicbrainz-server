@@ -254,3 +254,5 @@ MB.GuessCase.Output = function () {
 
     return self;
 }
+
+module.exports = MB.GuessCase.Output;

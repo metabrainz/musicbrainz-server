@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="http://localhost:5000/" />
+<title>Create Account</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">Create Account</td></tr>
+</thead><tbody>
+<tr>
+	<td>open</td>
+	<td>/register</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=id-register.username</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=id-register.username</td>
+	<td>editor</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=id-register.password</td>
+	<td>password</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=id-register.confirm_password</td>
+	<td>password</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=id-register.email</td>
+	<td>editor@example.com</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>css=span.buttons &gt; button[type=&quot;submit&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertLocation</td>
+	<td>http://localhost:5000/user/editor</td>
+	<td></td>
+</tr>
+<tr>
+	<td>open</td>
+	<td>/verify-email?email=editor%40example.com&amp;time=32503680000&amp;userid=5&amp;chk=BzM%2FJSHNWpbB%2BbtslPr3VVT3bz0</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTitle</td>
+	<td>Email Address Verified - MusicBrainz</td>
+	<td></td>
+</tr>
+</tbody></table>
+</body>
+</html>

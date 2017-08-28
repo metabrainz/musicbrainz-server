@@ -118,37 +118,37 @@ test 'can_merge for the merge strategy' => sub {
     MusicBrainz::Server::Test->prepare_test_database($test->c, '+release');
 
     ok(
-        $test->c->model('Release')->can_merge(
+        $test->c->model('Release')->can_merge({
             merge_strategy => $MusicBrainz::Server::Data::Release::MERGE_MERGE,
             new_id => 6, old_ids => [ 7 ]
-        ),
+        }),
         'can merge 2 discs with equal track counts'
     );
 
     ok(
-        $test->c->model('Release')->can_merge(
+        $test->c->model('Release')->can_merge({
             merge_strategy => $MusicBrainz::Server::Data::Release::MERGE_MERGE,
             new_id => 7,
             old_ids => [ 6 ]
-        ),
+        }),
         'can merge 2 discs with equal track counts in opposite direction'
     );
 
     ok(
-        !$test->c->model('Release')->can_merge(
+        !$test->c->model('Release')->can_merge({
             merge_strategy => $MusicBrainz::Server::Data::Release::MERGE_MERGE,
             new_id => 6,
             old_ids => [ 3 ]
-        ),
+        }),
         'cannot merge releases with different track counts'
     );
 
     ok(
-        !$test->c->model('Release')->can_merge(
+        !$test->c->model('Release')->can_merge({
             merge_strategy => $MusicBrainz::Server::Data::Release::MERGE_MERGE,
             new_id => 3,
             old_ids => [ 6 ]
-        ),
+        }),
         'cannot merge releases with different track counts in opposite direction'
     );
 
@@ -163,30 +163,48 @@ test 'can_merge for the merge strategy' => sub {
     );
 
     ok(
-        $test->c->model('Release')->can_merge(
+        $test->c->model('Release')->can_merge({
             merge_strategy => $MusicBrainz::Server::Data::Release::MERGE_MERGE,
             new_id => 6,
             old_ids => [ 8 ]
-        ),
+        }),
         'can merge with differing medium counts as long as position/track count matches'
     );
 
     ok(
-        !$test->c->model('Release')->can_merge(
+        !$test->c->model('Release')->can_merge({
             merge_strategy => $MusicBrainz::Server::Data::Release::MERGE_MERGE,
             new_id => 6,
             old_ids => [ 3 ]
-        ),
+        }),
         'cannot merge with differing medium counts when there is a track count mismatch'
     );
 
     ok(
-        !$test->c->model('Release')->can_merge(
+        !$test->c->model('Release')->can_merge({
             merge_strategy => $MusicBrainz::Server::Data::Release::MERGE_MERGE,
             new_id => 8,
             old_ids => [ 6]
-        ),
+        }),
         'cannot merge when old mediums are not accounted for'
+    );
+
+    ok(
+        !$test->c->model('Release')->can_merge({
+            merge_strategy => $MusicBrainz::Server::Data::Release::MERGE_MERGE,
+            new_id => 110,
+            old_ids => [100],
+        }),
+        'cannot merge a release with a pregap into one without a pregap'
+    );
+
+    ok(
+        !$test->c->model('Release')->can_merge({
+            merge_strategy => $MusicBrainz::Server::Data::Release::MERGE_MERGE,
+            new_id => 100,
+            old_ids => [110],
+        }),
+        'cannot merge a release without a pregap into one with a pregap'
     );
 };
 
@@ -213,7 +231,7 @@ INSERT INTO medium (id, release, position, track_count)
 EOSQL
 
     ok(
-        $test->c->model('Release')->can_merge(
+        $test->c->model('Release')->can_merge({
             merge_strategy => $MusicBrainz::Server::Data::Release::MERGE_APPEND,
             new_id => 1,
             old_ids => [ 3 ],
@@ -221,7 +239,7 @@ EOSQL
                 1 => 1,
                 3 => 2
             }
-        )
+        })
     );
 
     $test->c->model('Release')->merge(
@@ -235,7 +253,7 @@ EOSQL
     );
 
     ok(
-        $test->c->model('Release')->can_merge(
+        $test->c->model('Release')->can_merge({
             merge_strategy => $MusicBrainz::Server::Data::Release::MERGE_APPEND,
             new_id => 1,
             old_ids => [ 2 ],
@@ -244,7 +262,7 @@ EOSQL
                 2 => 2,
                 3 => 3,
             }
-        )
+        })
     );
 };
 
@@ -335,8 +353,8 @@ $release = $release_data->get_by_id(2);
 is( $release->quality, $QUALITY_UNKNOWN_MAPPED );
 
 my ($releases, $hits) = $release_data->find_by_artist(1, 100, 0);
-is( $hits, 6 );
-is( scalar(@$releases), 6 );
+is( $hits, 8 );
+is( scalar(@$releases), 8 );
 ok( (grep { $_->id == 1 } @$releases), 'found release by artist');
 ok( (grep { $_->id == 2 } @$releases), 'found release by artist');
 
@@ -577,7 +595,7 @@ EOSQL
     my ($releases, undef) = $c->model('Release')->find_by_artist(1, 10, 0);
     is_deeply(
         [map { $_->id } @$releases],
-        [8, 7, 1, 9, 2, 6]
+        [8, 7, 1, 9, 110, 100, 2, 6]
     );
 };
 
@@ -615,7 +633,7 @@ test 'find_by_cdtoc' => sub {
     my ($releases, undef) = $c->model('Release')->find_for_cdtoc(1, 1);
     is_deeply(
       [map { $_->id } @$releases],
-      [8, 9, 6, 7]
+      [8, 9, 6, 7, 100]
     );
 };
 

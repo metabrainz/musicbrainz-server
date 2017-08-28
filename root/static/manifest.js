@@ -8,16 +8,19 @@ const fs = require('fs');
 const path = require('path');
 const React = require('react');
 
-const DBDefs = require('./scripts/common/DBDefs');
+const {
+    STAT_TTL,
+    STATIC_RESOURCES_LOCATION,
+  } = require('./scripts/common/DBDefs');
 
 function _pathTo(manifest, signatures) {
   manifest = manifest.replace(/^\//, '');
 
   if (!signatures[manifest]) {
-    throw new Error('no such manifest: ' + manifest);
+    return STATIC_RESOURCES_LOCATION + '/' + manifest;
   }
 
-  return DBDefs.STATIC_RESOURCES_LOCATION + '/' + signatures[manifest];
+  return STATIC_RESOURCES_LOCATION + '/' + signatures[manifest];
 }
 
 let pathTo;
@@ -31,7 +34,7 @@ if (isNodeJS) {
   pathTo = function (manifest) {
     let now = Date.now();
 
-    if ((now - MANIFEST_LAST_CHECKED) > (DBDefs.STAT_TTL || 0)) {
+    if ((now - MANIFEST_LAST_CHECKED) > (STAT_TTL || 0)) {
       MANIFEST_LAST_CHECKED = now;
 
       let stats = fs.statSync(REV_MANIFEST_PATH);

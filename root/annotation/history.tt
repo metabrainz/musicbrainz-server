@@ -43,7 +43,7 @@
 </form>
 [% END %]
 
-<script type="text/javascript">//<![CDATA[
+<script type="text/javascript">
   (function () {
     var $table = $("#annotation-history");
 
@@ -67,5 +67,5 @@
     reset();
     $table.find("input.old, input.new").change(reset);
   }());
-//]]></script>
+</script>
 [%~ END ~%]

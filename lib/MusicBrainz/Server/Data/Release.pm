@@ -23,6 +23,7 @@ use MusicBrainz::Server::Data::Utils qw(
     placeholders
 );
 use MusicBrainz::Server::Log qw( log_debug );
+use MusicBrainz::Server::Translation qw( N_l );
 use aliased 'MusicBrainz::Server::Entity::Artwork';
 
 extends 'MusicBrainz::Server::Data::CoreEntity';
@@ -781,11 +782,11 @@ sub delete
 }
 
 sub can_merge {
-    my ($self, %opts) = @_;
+    my ($self, $opts) = @_;
 
-    my $new_id = $opts{new_id};
-    my @old_ids = @{ $opts{old_ids} };
-    my $strategy = $opts{merge_strategy} || $MERGE_APPEND;
+    my $new_id = $opts->{new_id};
+    my @old_ids = @{ $opts->{old_ids} };
+    my $strategy = $opts->{merge_strategy} || $MERGE_APPEND;
 
     if ($strategy == $MERGE_MERGE) {
         my $mediums_differ = $self->sql->select_single_value(
@@ -802,10 +803,38 @@ sub can_merge {
              LIMIT 1',
             @old_ids, $new_id);
 
-        return !$mediums_differ;
+        if ($mediums_differ) {
+            $opts->{_cannot_merge_reason} = N_l('The track counts on at least one set of corresponding mediums do not match.');
+            return 0;
+        }
+
+        my $medium_ids = $self->sql->select_single_column_array(
+            'SELECT id FROM medium WHERE release = any(?)',
+            [$new_id, @old_ids]
+        );
+
+        my %mediums_by_position =
+            partition_by { $_->position }
+            values %{ $self->c->model('Medium')->get_by_ids(@{$medium_ids}) };
+
+        for my $mediums (values %mediums_by_position) {
+            my %pregap_count;
+            $pregap_count{$_->has_pregap}++ for @{$mediums};
+
+            # Mediums in the same position should either all have pregaps,
+            # or none should.
+            if ($pregap_count{0} && $pregap_count{1}) {
+                $opts->{_cannot_merge_reason} = N_l('Mediums with a pregap track can only be merged with other mediums with a pregap track.');
+                return 0;
+            }
+        }
+
+        return 1;
     }
     elsif ($strategy == $MERGE_APPEND) {
-        my %positions = %{ $opts{medium_positions} || {} } or return 0;
+        $opts->{_cannot_merge_reason} = N_l('The medium positions conflict.');
+
+        my %positions = %{ $opts->{medium_positions} || {} } or return 0;
 
         # All mediums on the source releases must be moved
         my @must_move_mediums = @{ $self->sql->select_single_column_array(
@@ -843,6 +872,7 @@ sub can_merge {
         return 0 if @conflicts;
 
         # If we've got this far, it must be ok to merge
+        delete $opts->{_cannot_merge_reason};
         return 1;
     }
 }
@@ -1039,10 +1069,11 @@ sub merge
     }
     elsif ($merge_strategy == $MERGE_MERGE) {
         confess('Mediums contain differing numbers of tracks')
-            unless $self->can_merge(
+            unless $self->can_merge({
                 merge_strategy => $MERGE_MERGE,
                 new_id => $new_id,
-                old_ids => \@old_ids);
+                old_ids => \@old_ids,
+            });
 
         my @merges = @{
             $self->sql->select_list_of_hashes(

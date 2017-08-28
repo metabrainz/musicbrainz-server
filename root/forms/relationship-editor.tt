@@ -74,7 +74,7 @@
   </table>
 </fieldset>
 
-<script>//<![CDATA[
+<script>
   $(function () {
     MB.formWasPosted = [% c.form_posted ? 'true' : 'false' %];
     MB.userIsLocationEditor = [% c.user.is_location_editor ? 'true' : 'false' %];
@@ -87,4 +87,4 @@
         attrInfo: [% closing_tag_escape(attr_info) %]
     });
   });
-//]]></script>
+</script>

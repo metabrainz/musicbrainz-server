@@ -24,13 +24,13 @@ $(function () {
 
   series.orderingTypeID($orderingType.val());
 
-  series.typeBubble = MB.Control.BubbleDoc().extend({
-    canBeShown: function () {
-      return !!series.type();
-    }
-  });
+  series.typeBubble = new MB.Control.BubbleDoc();
 
-  series.orderingTypeBubble = MB.Control.BubbleDoc();
+  series.typeBubble.canBeShown = function () {
+    return !!series.type();
+  };
+
+  series.orderingTypeBubble = new MB.Control.BubbleDoc();
 
   ko.computed(function () {
     series.type(MB.seriesTypesByID[series.typeID()]);

@@ -37,14 +37,14 @@
         [%~ IF model == "CollectionType" || model == "SeriesType" ~%]
             [% form_row_select(r, 'entity_type', add_colon(l('Entity type'))) %]
             [%~ IF c.action.name == "edit" ~%]
-                <script>//<![CDATA[
+                <script>
                     $(function () {
                         $('#id-attr\\.entity_type').prop('disabled', true);
                         $('form[action="[% c.req.uri %]"]').bind('submit', function () {
                             $('#id-attr\\.entity_type').prop('disabled', false);
                         });
                     });
-                //]]></script>
+                </script>
             [%~ END ~%]
         [%~ END ~%]
 

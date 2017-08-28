@@ -131,7 +131,7 @@
     </form>
     </div>
 
-    <script type="text/javascript">//<![CDATA[
+    <script type="text/javascript">
       (function () {
         function updateStrategy(val) {
           $(".merge-strategy").hide();
@@ -141,6 +141,6 @@
         $("#id-merge\\.merge_strategy").change(function () { updateStrategy($(this).val()) });
         updateStrategy($("#id-merge\\.merge_strategy").val());
       }());
-    //]]></script>
+    </script>
 
 [% END %]

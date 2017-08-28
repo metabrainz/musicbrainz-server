@@ -4,6 +4,9 @@
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
 const Immutable = require('immutable');
+const $ = require('jquery');
+const ko = require('knockout');
+const _ = require('lodash');
 const React = require('react');
 const ReactDOM = require('react-dom');
 const PropTypes = React.PropTypes;
@@ -17,6 +20,7 @@ const {compare, l} = require('../common/i18n');
 const isPositiveInteger = require('./utility/isPositiveInteger');
 const HelpIcon = require('./components/HelpIcon');
 const RemoveButton = require('./components/RemoveButton');
+const {linkTypeOptions} = require('./forms');
 const URLCleanup = require('./URLCleanup');
 const validation = require('./validation');
 
@@ -458,7 +462,7 @@ MB.createExternalLinksEditor = function (options) {
   });
 
   var typeOptions = (
-    MB.forms.linkTypeOptions({children: MB.typeInfo[entityTypes]}, /^url-/.test(entityTypes))
+    linkTypeOptions({children: MB.typeInfo[entityTypes]}, /^url-/.test(entityTypes))
       .map((data) => <option value={data.value} disabled={data.disabled} key={data.value}>{data.text}</option>)
   );
 

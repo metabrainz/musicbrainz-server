@@ -3,7 +3,39 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
+require('./typeInfo');
+
+const $ = require('jquery');
+const ko = require('knockout');
+const _ = require('lodash');
 const test = require('tape');
+
+const {LinkAttribute, Relationship} = require('../relationship-editor/common/fields');
+const {
+        AddDialog,
+        BatchCreateWorksDialog,
+        BatchRelationshipDialog,
+        EditDialog,
+    } = require('../relationship-editor/common/dialog');
+const {
+        GenericEntityViewModel,
+        prepareSubmission,
+    } = require('../relationship-editor/generic');
+const {ReleaseViewModel} = require('../relationship-editor/release');
+
+class FakeRelationship extends Relationship {}
+
+FakeRelationship.prototype.loadWorkRelationships = _.noop;
+
+class FakeGenericEntityViewModel extends GenericEntityViewModel {}
+
+FakeGenericEntityViewModel.prototype.relationshipClass = FakeRelationship;
+
+class FakeReleaseViewModel extends ReleaseViewModel {}
+
+FakeReleaseViewModel.prototype.loadRelease = _.noop;
+
+FakeReleaseViewModel.prototype.relationshipClass = FakeRelationship;
 
 var fakeGID0 = "a0ba91b0-c564-4eec-be2e-9ff071a47b59";
 var fakeGID1 = "acb75d59-b0dc-4105-bad6-81ac8c66da4d";
@@ -80,7 +112,7 @@ function id2attr(id) { return { type: MB.attrInfoByID[id] } }
 function ids2attrs(ids) { return _.map(ids, id2attr) }
 
 function setupReleaseRelationshipEditor() {
-    var vm = MB.relationshipEditor.ReleaseViewModel({
+    var vm = new FakeReleaseViewModel({
         sourceData: _.omit(testRelease, "mediums")
     });
 
@@ -89,6 +121,7 @@ function setupReleaseRelationshipEditor() {
 }
 
 function setupGenericRelationshipEditor(options) {
+    options.vmClass = FakeGenericEntityViewModel;
     MB.initRelationshipEditors(options);
     return MB.sourceRelationshipEditor;
 }
@@ -326,7 +359,7 @@ relationshipEditorTest("dialog backwardness", function (t) {
 
     _.each(tests, function (test) {
         var options = _.assign({ viewModel: vm }, test.input);
-        var dialog = MB.relationshipEditor.UI.AddDialog(options);
+        var dialog = new AddDialog(options);
 
         t.equal(dialog.backward(), test.expected.backward)
         t.deepEqual(dialog.relationship().entities(), test.expected.entities);
@@ -343,7 +376,7 @@ relationshipEditorTest("AddDialog", function (t) {
     var source = vm.source.mediums()[0].tracks[0].recording;
     var target = MB.entity({ entityType: "artist", gid: fakeGID0 });
 
-    var dialog = MB.relationshipEditor.UI.AddDialog({ source: source, target: target, viewModel: vm });
+    var dialog = new AddDialog({ source: source, target: target, viewModel: vm });
     var relationship = dialog.relationship();
 
     relationship.linkTypeID(148);
@@ -363,7 +396,7 @@ relationshipEditorTest("BatchRelationshipDialog", function (t) {
     var target = MB.entity({ entityType: "artist", gid: fakeGID0 });
     var recordings = _.pluck(vm.source.mediums()[0].tracks, "recording");
 
-    var dialog = MB.relationshipEditor.UI.BatchRelationshipDialog({
+    var dialog = new BatchRelationshipDialog({
         sources: recordings,
         target: target,
         viewModel: vm
@@ -397,21 +430,18 @@ relationshipEditorTest("BatchCreateWorksDialog", function (t) {
 
     var recordings = _.pluck(vm.source.mediums()[0].tracks, "recording");
 
-    var dialog = MB.relationshipEditor.UI.BatchCreateWorksDialog({
+    var dialog = new BatchCreateWorksDialog({
         sources: recordings, viewModel: vm
     });
 
-    // Mock edit submission.
-    var _MB_edit_create = MB.edit.create;
-
-    MB.edit.create = function () {
+    dialog.createEdits = function () {
         return $.Deferred().resolve({
             edits: [
                 { entity: { name: "WorkFoo", gid: fakeGID0, entityType: "work" } },
                 { entity: { name: "WorkBar", gid: fakeGID1, entityType: "work" } }
             ]
         });
-    }
+    };
 
     dialog.accept();
 
@@ -422,8 +452,6 @@ relationshipEditorTest("BatchCreateWorksDialog", function (t) {
     t.deepEqual(recordings[1].relationships()[0].entities(), [
         recordings[1], MB.entity({ gid: fakeGID1 }, "work")
     ]);
-
-    MB.edit.create = _MB_edit_create;
 });
 
 relationshipEditorTest("canceling an edit dialog reverts the changes", function (t) {
@@ -439,7 +467,7 @@ relationshipEditorTest("canceling an edit dialog reverts the changes", function 
         attributes: [],
     }, source);
 
-    var dialog = MB.relationshipEditor.UI.EditDialog({
+    var dialog = new EditDialog({
         relationship: relationship,
         source: source,
         viewModel: vm
@@ -471,7 +499,7 @@ relationshipEditorTest("MBS-5389: added recording-recording relationship appears
     var recording0 = tracks[0].recording;
     var recording1 = tracks[1].recording;
 
-    var dialog = MB.relationshipEditor.UI.AddDialog({ source: recording1, target: recording0, viewModel: vm });
+    var dialog = new AddDialog({ source: recording1, target: recording0, viewModel: vm });
 
     var relationship = dialog.relationship();
     relationship.linkTypeID(231);
@@ -544,6 +572,10 @@ relationshipEditorTest("edit submission request is entered for release (MBS-7740
 
     relationship1.show();
     relationship2.show();
+
+    vm._createEdit = function (data, context) {
+        return $.Deferred().resolveWith(context, [{ edits: [] }, data]);
+    };
 
     vm.submissionDone = function (data, submitted) {
         t.deepEqual(submitted.edits, [
@@ -671,7 +703,7 @@ relationshipEditorTest("hidden input fields are generated for non-release forms"
     relationships[0].attributes([]);
     relationships[1].removed(true);
 
-    MB.relationshipEditor.prepareSubmission('edit-artist');
+    prepareSubmission('edit-artist');
 
     t.deepEqual(formData(), {
         "edit-artist.rel.0.relationship_id": "131689",
@@ -769,7 +801,7 @@ relationshipEditorTest("link orders are submitted for new, orderable relationshi
     newRelationship2.show();
     newRelationship3.show();
 
-    MB.relationshipEditor.prepareSubmission('edit-series');
+    prepareSubmission('edit-series');
 
     t.deepEqual(formData(), {
         "edit-series.rel.0.attributes.0.type.gid": "a59c5830-5ec7-38fe-9a21-c7ea54f6650a",
@@ -860,7 +892,7 @@ relationshipEditorTest("attributes are cleared when the target type is changed (
     var relationship = vm.source.relationships()[0];
     t.equal(relationship.attributes().length, 1);
 
-    var dialog = MB.relationshipEditor.UI.EditDialog({
+    var dialog = new EditDialog({
         relationship: relationship,
         source: vm.source,
         viewModel: vm
@@ -892,7 +924,7 @@ relationshipEditorTest("invalid attributes can’t be set on a relationship (MBS
     t.equal(relationship.attributes().length, 1);
 
     relationship.attributes.push(
-        new MB.relationshipEditor.fields.LinkAttribute(
+        new LinkAttribute(
             { type: { gid: "ed11fcb1-5a18-4e1d-b12c-633ed19c8ee1" } }
         )
     );
@@ -942,7 +974,7 @@ relationshipEditorTest("empty dates are submitted as a hash, not as undef (MBS-8
         verbosePhrase: "{additional} composer",
     };
 
-    var vm = MB.relationshipEditor.ReleaseViewModel({
+    var vm = new FakeReleaseViewModel({
         sourceData: {
             entityType: "release",
             name: "3 Great Piano Sonatas (Wilhelm Backhaus)",
@@ -995,7 +1027,7 @@ relationshipEditorTest("empty date period fields are outputted when cleared", fu
     relationship.begin_date.year(null);
     relationship.ended(false);
 
-    MB.relationshipEditor.prepareSubmission('edit-artist');
+    prepareSubmission('edit-artist');
 
     t.deepEqual(formData(), {
         "edit-artist.rel.0.relationship_id": "1",
@@ -1067,7 +1099,7 @@ relationshipEditorTest("only relationships of the same direction are ordered tog
     var relationship = vm.getRelationship(relData[2], vm.source);
     relationship.moveEntityDown();
 
-    MB.relationshipEditor.prepareSubmission('edit-work');
+    prepareSubmission('edit-work');
 
     t.deepEqual(formData(), {
         'edit-work.rel.0.backward': '1',
