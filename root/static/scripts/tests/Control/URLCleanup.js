@@ -1808,14 +1808,14 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
                              input_url: 'http://www.rock.com.ar/artistas/soda-stereo#contenedor',
                      input_entity_type: 'artist',
             expected_relationship_type: 'otherdatabases',
-                    expected_clean_url: 'http://www.rock.com.ar/artistas/soda-stereo',
+                    expected_clean_url: 'http://rock.com.ar/artistas/soda-stereo',
                only_valid_entity_types: ['artist']
         },
         {
                              input_url: 'http://www.rock.com.ar/bios/0/168.shtml',
                      input_entity_type: 'artist',
             expected_relationship_type: 'otherdatabases',
-                    expected_clean_url: 'http://www.rock.com.ar/bios/0/168.shtml',
+                    expected_clean_url: 'http://rock.com.ar/bios/0/168.shtml',
                only_valid_entity_types: ['artist']
         },
         {
@@ -1828,14 +1828,14 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
                              input_url: 'www.rock.com.ar/discos/10/10703.shtml',
                      input_entity_type: 'release',
             expected_relationship_type: 'otherdatabases',
-                    expected_clean_url: 'http://www.rock.com.ar/discos/10/10703.shtml',
+                    expected_clean_url: 'http://rock.com.ar/discos/10/10703.shtml',
                only_valid_entity_types: ['release_group']
         },
         {
                              input_url: 'rock.com.ar/letras/19/19898.shtml',
                      input_entity_type: 'recording',
             expected_relationship_type: 'otherdatabases',
-                    expected_clean_url: 'http://www.rock.com.ar/letras/19/19898.shtml',
+                    expected_clean_url: 'http://rock.com.ar/letras/19/19898.shtml',
                only_valid_entity_types: ['work']
         },
         // Rockens Danmarkskort
