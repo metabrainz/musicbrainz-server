@@ -30,7 +30,9 @@ function getDirection(relationship, source) {
     const coreEntityPrototype = MB.entity.CoreEntity.prototype;
 
     coreEntityPrototype._afterCoreEntityCtor = function () {
-        this.uniqueID = _.uniqueId("entity-");
+        if (this.uniqueID == null) {
+            this.uniqueID = _.uniqueId("entity-");
+        }
         this.relationshipElements = {};
     };
 

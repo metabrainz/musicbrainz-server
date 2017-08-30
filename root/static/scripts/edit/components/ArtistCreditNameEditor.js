@@ -92,7 +92,9 @@ class ArtistCreditNameEditor extends React.Component {
   }
 
   render() {
-    const name = this.props.name;
+    const {entity, index, name} = this.props;
+
+    const id = 'ac-' + entity.uniqueID;
 
     return (
       <tr>
@@ -100,10 +102,12 @@ class ArtistCreditNameEditor extends React.Component {
           <Autocomplete
             currentSelection={name.artist || {name: name.name}}
             entity="artist"
+            inputID={`${id}-artist-${index}`}
             onChange={this.onArtistChange} />
         </td>
         <td>
           <input
+            id={`${id}-credited-as-${index}`}
             onBlur={this.onNameBlur}
             onChange={this.onNameChange}
             type="text"
@@ -111,6 +115,7 @@ class ArtistCreditNameEditor extends React.Component {
         </td>
         <td>
           <input
+            id={`${id}-join-phrase-${index}`}
             onBlur={this.onJoinPhraseBlur}
             onChange={this.onJoinPhraseChange}
             type="text"
