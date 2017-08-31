@@ -1673,6 +1673,20 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
                      input_entity_type: 'work',
             expected_relationship_type: 'otherdatabases',
         },
+        // Operabase
+        {
+                             input_url: 'www.operabase.com/a/Risto_Joost/21715/future',
+                     input_entity_type: 'label',
+            expected_relationship_type: 'otherdatabases',
+                    expected_clean_url: 'http://operabase.com/a/Risto_Joost/21715',
+               only_valid_entity_types: ['artist']
+        },
+        {
+                             input_url: 'http://operabase.com/listart.cgi?name=Risto+Joost&acts=+Schedule+',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'otherdatabases',
+               only_valid_entity_types: []
+        },
         // OPERADIS Operatic Discography
         {
                              input_url: 'http://www.operadis-opera-discography.org.uk/CLBABLUE.HTM',
