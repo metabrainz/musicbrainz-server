@@ -1468,6 +1468,16 @@ const CLEANUPS = {
       return false;
     }
   },
+  operabase: {
+    match: [new RegExp("^(https?://)?(www\\.)?operabase\\.com", "i")],
+    type: LINK_TYPES.otherdatabases,
+    clean: function (url) {
+      return url.replace(/^(?:https?:\/\/)?(?:www\.)?operabase\.com\/a\/([^\/?#]+)\/([0-9]+).*$/, "http://operabase.com/a/$1/$2");
+    },
+    validate: function (url, id) {
+      return id === LINK_TYPES.otherdatabases.artist && /^http:\/\/operabase\.com\/a\/[^\/?#]+\/[0-9]+$/.test(url);
+    }
+  },
   rockcomar: {
     match: [new RegExp("^(https?://)?(www\\.)?rock\\.com\\.ar", "i")],
     type: LINK_TYPES.otherdatabases,
