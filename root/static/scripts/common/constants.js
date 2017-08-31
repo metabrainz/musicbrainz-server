@@ -105,6 +105,7 @@ exports.FAVICON_CLASSES = {
     'twitch.tv':                    'twitch',
     'dailymotion.com':              'dailymotion',
     'bigcartel.com':                'bigcartel',
+    'operabase.com':                'operabase',
 };
 
 exports.PART_OF_SERIES_LINK_TYPES = {
