@@ -134,6 +134,16 @@ sub new_from_row {
     return $class->new(%info);
 }
 
+sub TO_JSON {
+    my ($self) = @_;
+
+    return {
+        year => $self->year,
+        month => $self->month,
+        day => $self->day,
+    };
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;
