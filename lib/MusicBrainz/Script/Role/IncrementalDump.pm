@@ -6,6 +6,7 @@ use warnings;
 use Data::Dumper;
 use DBDefs;
 use Moose::Role;
+use MusicBrainz::Script::Utils qw( log );
 use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Replication qw( REPLICATION_ACCESS_URI );
 use Parallel::ForkManager 0.7.6;
@@ -15,10 +16,11 @@ use Try::Tiny;
 with 'MusicBrainz::Server::Role::FollowForeignKeys';
 
 requires qw(
-    build_and_check_urls
     database
     dump_schema
     dumped_entity_types
+    get_changed_documents
+    handle_update_path
     should_follow_table
 );
 
@@ -127,12 +129,37 @@ sub follow_foreign_key($$$$$$) {
         $new_c->lwp->timeout(DBDefs->DETERMINE_MAX_REQUEST_TIME // 60);
 
         my ($exit_code, $shared_data, @args) = (1, undef, @_);
+
+        my $total_changed = 0;
+        my $fetch_document = sub {
+            my ($item, %extra_args) = @_;
+
+            # What $item is is up to the consumer of this role and
+            # its implementation of get_changed_documents. For
+            # sitemaps, it's a single row; for the json dumps, it's
+            # an array of row IDs.
+            my $changed = $self->get_changed_documents(
+                $new_c, $pk_table, $item, $update, %extra_args);
+            $total_changed += $changed;
+            return $changed;
+        };
+
         try {
-            # Returns 1 if any updates occurred.
-            if ($self->build_and_check_urls($new_c, $pk_schema, $pk_table, $update, $joins)) {
-                $exit_code = 0;
-                shift @args;
-                $shared_data = \@args;
+            my $entity_rows = $self->get_linked_entities(
+                $new_c, $pk_table, $update, $joins);
+
+            if (@{$entity_rows}) {
+                $self->handle_update_path(
+                    $new_c, $pk_table, $entity_rows, $fetch_document);
+
+                if ($total_changed) {
+                    $exit_code = 0;
+                    shift @args;
+                    $shared_data = \@args;
+                }
+            } else {
+                log('No more linked entities found for sequence ID ' .
+                    $update->{sequence_id} . " in table $pk_table");
             }
         } catch {
             $exit_code = 2;

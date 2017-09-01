@@ -97,41 +97,10 @@ sub dump_schema { 'sitemaps' }
 
 sub dumped_entity_types { \@LASTMOD_ENTITIES }
 
-sub build_and_check_urls($$$$$) {
-    my ($self, $c, $pk_schema, $pk_table, $update, $joins) = @_;
+sub handle_update_path($$$$) {
+    my ($self, $c, $entity_type, $entity_rows, $fetch) = @_;
 
-    # Returns whether we found any changes to JSON-LD markup (a page was
-    # added, or an existing page's markup changed.)
-    my $found_changes = 0;
-
-    my $fetch = sub {
-        my ($row_id, $url, $is_paginated, $sitemap_suffix_key) = @_;
-
-        my $was_updated = $self->fetch_and_handle_jsonld(
-            $c,
-            $pk_table,
-            $row_id,
-            $url,
-            $update,
-            $is_paginated,
-            $sitemap_suffix_key,
-        );
-
-        if ($was_updated) {
-            $found_changes = 1;
-        }
-
-        return $was_updated;
-    };
-
-    my $suffix_info = $SITEMAP_SUFFIX_INFO{$pk_table};
-    my $entity_rows = $self->get_linked_entities($c, $pk_table, $update, $joins);
-
-    unless (@{$entity_rows}) {
-        log('No new entities found for sequence ID ' .
-            $update->{sequence_id} . " in table $pk_table");
-        return 0;
-    }
+    my $suffix_info = $SITEMAP_SUFFIX_INFO{$entity_type};
 
     for my $suffix_key (sort keys %{$suffix_info}) {
         my $opts = $suffix_info->{$suffix_key};
@@ -139,40 +108,38 @@ sub build_and_check_urls($$$$$) {
         next unless $opts->{jsonld_markup};
 
         for my $row (@{$entity_rows}) {
-            my $url = $self->build_page_url($pk_table, $row->{gid}, %{$opts});
-            my $was_updated = $fetch->($row->{id}, $url, 0, $suffix_key);
+            my $was_updated = $fetch->(
+                $row,
+                paginated => 0,
+                sitemap_suffix_key => $suffix_key,
+            );
 
             if ($opts->{paginated}) {
                 my $page = 2;
-
-                # FIXME We should probably build URLs using the URI module.
-                # But this is what BuildSitemaps.pl does.
-                my $use_amp = $url =~ m/\?/;
-
                 while ($was_updated) {
-                    my $paginated_url = $url . ($use_amp ? '&' : '?') . "page=$page";
-
-                    $was_updated = $fetch->($row->{id}, $paginated_url, 1, $suffix_key);
+                    $was_updated = $fetch->(
+                        $row,
+                        paginated => 1,
+                        sitemap_suffix_key => $suffix_key,
+                        page_number => $page,
+                    );
+                    $page++;
                 }
-
             }
         }
     }
-
-    return $found_changes;
 }
 
-# Declaration silences "called too early to check prototype" from recursive call.
-sub fetch_and_handle_jsonld($$$$$$$);
-
-sub fetch_and_handle_jsonld($$$$$$$) {
-    my ($self, $c, $entity_type, $row_id, $url, $update, $is_paginated, $suffix_key) = @_;
+sub get_changed_documents {
+    my ($self, $c, $entity_type, $row, $update, %extra_args) = @_;
 
     state $attempts = {};
     state $canonical_json = JSON->new->canonical->utf8;
 
+    my $row_id = $row->{id};
     my $web_server = DBDefs->WEB_SERVER;
     my $canonical_server = DBDefs->CANONICAL_SERVER;
+    my $url = $self->build_page_url_from_row($entity_type, $row->{gid}, %extra_args);
     my $request_url = $url;
     $request_url =~ s{\Q$canonical_server\E}{http://$web_server};
 
@@ -222,8 +189,8 @@ EOSQL
                     ) VALUES (?, ?, ?, ?, ?, ?, ?)},
                     $row_id,
                     $url,
-                    $is_paginated,
-                    $suffix_key,
+                    $extra_args{paginated},
+                    $extra_args{sitemap_suffix_key},
                     "\\x$new_hash",
                     $last_modified,
                     $replication_sequence
@@ -246,20 +213,34 @@ EOSQL
         if (!(defined $attempts->{$url}) || $attempts->{$url} < 3) {
             sleep 10;
             $attempts->{$url}++;
-            return $self->fetch_and_handle_jsonld(
+            return $self->get_changed_documents(
                 $c,
                 $entity_type,
-                $row_id,
-                $url,
+                $row,
                 $update,
-                $is_paginated,
-                $suffix_key,
+                %extra_args,
             );
         }
     }
 
     log("ERROR: Got response code $code fetching $request_url");
     return 0;
+}
+
+sub build_page_url_from_row {
+    my ($self, $entity_type, $gid, %extra_args) = @_;
+
+    my $suffix_key = $extra_args{sitemap_suffix_key};
+    my $opts = $SITEMAP_SUFFIX_INFO{$entity_type}{$suffix_key};
+    my $url = $self->build_page_url($entity_type, $gid, %{$opts});
+
+    if ($extra_args{paginated}) {
+        my $use_amp = $url =~ m/\?/;
+        my $page = $extra_args{page_number};
+        $url .= ($use_amp ? '&' : '?') . "page=$page";
+    }
+
+    return $url;
 }
 
 sub should_follow_table($) {
