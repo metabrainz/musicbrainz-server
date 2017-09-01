@@ -52,6 +52,16 @@ has worker_count => (
     documentation => 'number of worker processes to use (default: 1)',
 );
 
+has packet_limit => (
+    is => 'rw',
+    isa => 'Int',
+    default => 0,
+    traits => ['Getopt'],
+    cmd_flag => 'packet-limit',
+    documentation => ('process only this many packets, ' .
+                      'or specify 0 to process all (default: 0)'),
+);
+
 has pm => (
     is => 'ro',
     isa => 'Parallel::ForkManager',

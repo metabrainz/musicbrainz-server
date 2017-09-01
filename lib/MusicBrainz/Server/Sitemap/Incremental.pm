@@ -357,6 +357,7 @@ sub run {
         "SELECT last_processed_replication_sequence FROM $dump_schema.control"
     );
     my $did_update_anything = 0;
+    my $packets_processed = 0;
 
     while (1) {
         my $current_seq = $self->get_current_replication_sequence($c);
@@ -411,6 +412,12 @@ sub run {
         );
 
         $did_update_anything = 1;
+        $packets_processed++;
+
+        my $packet_limit = $self->packet_limit;
+        if ($packet_limit > 0 && $packets_processed == $packet_limit) {
+            last;
+        }
     }
 
     if ($did_update_anything) {
