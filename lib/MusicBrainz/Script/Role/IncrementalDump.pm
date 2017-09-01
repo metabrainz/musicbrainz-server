@@ -68,6 +68,22 @@ sub should_follow_primary_key($) {
     return 1;
 }
 
+around should_follow_foreign_key => sub {
+    my ($orig, $self, $direction, $pk, $fk, $joins) = @_;
+
+    return 0 unless $self->$orig($direction, $pk, $fk, $joins);
+
+    return 0 if $self->has_join($pk, $fk, $joins);
+
+    $pk = get_ident($pk);
+    $fk = get_ident($fk);
+
+    # Modifications to a track shouldn't affect a recording's JSON-LD.
+    return 0 if $pk eq 'musicbrainz.track.recording' && $fk eq 'musicbrainz.recording.id';
+
+    return 1;
+};
+
 no Moose::Role;
 
 1;

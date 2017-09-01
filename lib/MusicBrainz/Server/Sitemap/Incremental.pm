@@ -291,22 +291,6 @@ sub should_follow_table($) {
     return 1;
 }
 
-around should_follow_foreign_key => sub {
-    my ($orig, $self, $direction, $pk, $fk, $joins) = @_;
-
-    return 0 unless $self->$orig($direction, $pk, $fk, $joins);
-
-    return 0 if $self->has_join($pk, $fk, $joins);
-
-    $pk = get_ident($pk);
-    $fk = get_ident($fk);
-
-    # Modifications to a track shouldn't affect a recording's JSON-LD.
-    return 0 if $pk eq 'musicbrainz.track.recording' && $fk eq 'musicbrainz.recording.id';
-
-    return 1;
-};
-
 sub get_linked_entities($$$$) {
     my ($self, $c, $entity_type, $update, $joins) = @_;
 
