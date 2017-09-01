@@ -3,11 +3,13 @@ package MusicBrainz::Script::Role::IncrementalDump;
 use strict;
 use warnings;
 
+use Data::Dumper;
 use DBDefs;
 use Moose::Role;
 use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Replication qw( REPLICATION_ACCESS_URI );
 use Parallel::ForkManager 0.7.6;
+use Sql;
 use Try::Tiny;
 
 with 'MusicBrainz::Server::Role::FollowForeignKeys';
@@ -142,6 +144,83 @@ sub follow_foreign_key($$$$$$) {
     } else {
         $self->follow_foreign_keys(@_);
     }
+}
+
+sub get_linked_entities($$$$) {
+    my ($self, $c, $entity_type, $update, $joins) = @_;
+
+    my $dump_schema = $self->dump_schema;
+
+    my ($src_schema, $src_table, $src_column, $src_value, $replication_sequence) =
+        @{$update}{qw(schema table column value replication_sequence)};
+
+    my $first_join;
+    my $last_join;
+
+    if (@$joins) {
+        $first_join = $joins->[0];
+        $last_join = $joins->[scalar(@$joins) - 1];
+
+        # The target entity table we're selecting from should always be the
+        # RHS of the first join. Conversely, the source table - i.e., where
+        # the change originated - should always be the LHS of the final join.
+        # These values are still passed through via @_ and $update, because
+        # there sometimes aren't any joins. In that case, the source and
+        # target tables should be equal.
+        die ('Bad join: ' . Dumper($joins)) unless (
+            $first_join->{rhs}{schema} eq 'musicbrainz' &&
+            $first_join->{rhs}{table}  eq $entity_type  &&
+
+            $last_join->{lhs}{schema}  eq $src_schema   &&
+            $last_join->{lhs}{table}   eq $src_table
+        );
+    } else {
+        die 'Bad join' unless (
+            $src_schema eq 'musicbrainz' &&
+            $src_table  eq $entity_type
+        );
+    }
+
+    my $table = "musicbrainz.$entity_type";
+    my $joins_string = '';
+    my $src_alias;
+
+    if (@$joins) {
+        my $aliases = {
+            $table => 'entity_table',
+        };
+        $joins_string = stringify_joins($joins, $aliases);
+        $src_alias = $aliases->{"$src_schema.$src_table"};
+    } else {
+        $src_alias = 'entity_table';
+    }
+
+    Sql::run_in_transaction(sub {
+        $c->sql->do("LOCK TABLE $dump_schema.tmp_checked_entities IN SHARE ROW EXCLUSIVE MODE");
+
+        my $entity_rows = $c->sql->select_list_of_hashes(
+            "SELECT DISTINCT entity_table.id, entity_table.gid
+               FROM $table entity_table
+               $joins_string
+              WHERE ($src_alias.$src_column = $src_value)
+                AND NOT EXISTS (
+                    SELECT 1 FROM $dump_schema.tmp_checked_entities ce
+                     WHERE ce.entity_type = '$entity_type'
+                       AND ce.id = entity_table.id
+                )"
+        );
+
+        my @entity_rows = @{$entity_rows};
+        if (@entity_rows) {
+            $c->sql->do(
+                "INSERT INTO $dump_schema.tmp_checked_entities (id, entity_type) " .
+                'VALUES ' . (join ', ', ("(?, '$entity_type')") x scalar(@entity_rows)),
+                map { $_->{id} } @entity_rows,
+            );
+        }
+
+        $entity_rows;
+    }, $c->sql);
 }
 
 no Moose::Role;
