@@ -317,13 +317,8 @@ around do_not_delete => sub {
     $self->$orig($file) || ($file !~ /incremental/);
 };
 
-sub run {
-    my ($self) = @_;
-
-    my $c = MusicBrainz::Server::Context->create_script_context(
-        database => $self->database,
-        fresh_connector => 1,
-    );
+sub run_incremental_dump {
+    my ($self, $c) = @_;
 
     $self->pm->run_on_finish(sub {
         my $shared_data = pop;
@@ -345,11 +340,6 @@ sub run {
 
     if ($control_is_empty) {
         log("ERROR: Table $dump_schema.control is empty (has a full dump run yet?)");
-        exit 1;
-    }
-
-    unless (-f $self->index_localname) {
-        log("ERROR: No sitemap index file was found");
         exit 1;
     }
 
@@ -420,7 +410,23 @@ sub run {
         }
     }
 
-    if ($did_update_anything) {
+    return $did_update_anything;
+}
+
+sub run {
+    my ($self) = @_;
+
+    my $c = MusicBrainz::Server::Context->create_script_context(
+        database => $self->database,
+        fresh_connector => 1,
+    );
+
+    unless (-f $self->index_localname) {
+        log("ERROR: No sitemap index file was found");
+        exit 1;
+    }
+
+    if ($self->run_incremental_dump($c)) {
         $self->write_index;
         $self->ping_search_engines($c);
     }
