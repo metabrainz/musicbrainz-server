@@ -14,7 +14,6 @@ use HTTP::Status qw( RC_OK RC_NOT_MODIFIED );
 use JSON qw( decode_json );
 use List::UtilsBy qw( partition_by );
 use Moose;
-use Parallel::ForkManager 0.7.6;
 use Sql;
 use Try::Tiny;
 
@@ -32,7 +31,7 @@ use MusicBrainz::Server::Replication::Packet qw(
 extends 'MusicBrainz::Server::Sitemap::Builder';
 
 with 'MooseX::Runnable';
-with 'MusicBrainz::Server::Role::FollowForeignKeys';
+with 'MusicBrainz::Script::Role::IncrementalDump';
 
 =head1 SYNOPSIS
 
@@ -96,25 +95,6 @@ BEGIN {
         };
     }
 }
-
-has worker_count => (
-    is => 'ro',
-    isa => 'Int',
-    default => 1,
-    traits => ['Getopt'],
-    cmd_flag => 'worker-count',
-    documentation => 'number of worker processes to use (default: 1)',
-);
-
-has pm => (
-    is => 'ro',
-    isa => 'Parallel::ForkManager',
-    lazy => 1,
-    default => sub {
-        Parallel::ForkManager->new(shift->worker_count);
-    },
-    traits => ['NoGetopt'],
-);
 
 sub build_and_check_urls($$$$$) {
     my ($self, $c, $pk_schema, $pk_table, $update, $joins) = @_;
