@@ -8,6 +8,7 @@ use DBDefs;
 use File::Path qw( rmtree );
 use File::Slurp qw( read_file );
 use HTTP::Status qw( RC_OK RC_NOT_MODIFIED );
+use JSON qw( decode_json );
 use Moose::Role;
 use MusicBrainz::Script::Utils qw( log );
 use MusicBrainz::Server::Context;
@@ -353,6 +354,22 @@ sub handle_replication_sequence($$) {
     rmtree($output_dir);
 
     $self->post_replication_sequence($c);
+}
+
+sub get_current_replication_sequence {
+    my ($self, $c) = @_;
+
+    my $replication_info_uri = $self->replication_access_uri . '/replication-info';
+    my $response = $c->lwp->get("$replication_info_uri?token=" . DBDefs->REPLICATION_ACCESS_TOKEN);
+
+    unless ($response->code == 200) {
+        log("ERROR: Request to $replication_info_uri returned status code " . $response->code);
+        exit 1;
+    }
+
+    my $replication_info = decode_json($response->content);
+
+    $replication_info->{last_packet} =~ s/^replication-([0-9]+)\.tar\.bz2$/$1/r
 }
 
 no Moose::Role;
