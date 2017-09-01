@@ -319,6 +319,13 @@ sub handle_replication_sequence($$) {
 
         my $conditions = $change_keys{$seq_id} // {};
         my ($schema, $table) = @{$change}{qw(schema table)};
+        my $last_modified = $data->{last_updated};
+
+        # Some tables have a `created` column. Use that as a fallback if
+        # this is an insert.
+        if (!(defined $last_modified) && $change->{operation} eq 'i') {
+            $last_modified = $data->{created};
+        }
 
         my @primary_keys = grep {
             should_follow_primary_key("$schema.$table.$_")
@@ -329,14 +336,6 @@ sub handle_replication_sequence($$) {
                 $conditions->{$pk_column} // $data->{$pk_column},
                 $c->sql->get_column_data_type("$schema.$table", $pk_column)
             );
-
-            my $last_modified = $data->{last_updated};
-
-            # Some tables have a `created` column. Use that as a fallback if
-            # this is an insert.
-            if (!(defined $last_modified) && $change->{operation} eq 'i') {
-                $last_modified = $data->{created};
-            }
 
             my $update = {
                 %{$change},
