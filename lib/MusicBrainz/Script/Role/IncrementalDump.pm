@@ -3,6 +3,7 @@ package MusicBrainz::Script::Role::IncrementalDump;
 use strict;
 use warnings;
 
+use DBDefs;
 use Moose::Role;
 use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Replication qw( REPLICATION_ACCESS_URI );
@@ -121,6 +122,7 @@ sub follow_foreign_key($$$$$$) {
             database => $self->database,
             fresh_connector => 1,
         );
+        $new_c->lwp->timeout(DBDefs->DETERMINE_MAX_REQUEST_TIME // 60);
 
         my ($exit_code, $shared_data, @args) = (1, undef, @_);
         try {
