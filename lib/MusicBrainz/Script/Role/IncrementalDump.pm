@@ -12,6 +12,7 @@ with 'MusicBrainz::Server::Role::FollowForeignKeys';
 requires qw(
     database
     dump_schema
+    dumped_entity_types
 );
 
 has replication_access_uri => (
@@ -41,6 +42,13 @@ has pm => (
     },
     traits => ['NoGetopt'],
 );
+
+sub should_fetch_document($$) {
+    my ($self, $schema, $table) = @_;
+
+    return $schema eq 'musicbrainz' &&
+        (grep { $_ eq $table } @{ $self->dumped_entity_types });
+}
 
 no Moose::Role;
 

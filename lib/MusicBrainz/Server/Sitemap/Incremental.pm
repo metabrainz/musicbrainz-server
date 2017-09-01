@@ -71,7 +71,6 @@ This script works by:
 my %INDEXABLE_ENTITIES = map { $_ => 1 } entities_with(['mbid', 'indexable']);
 my @LASTMOD_ENTITIES = grep { exists $INDEXABLE_ENTITIES{$_} }
                        entities_with('sitemaps_lastmod_table');
-my %LASTMOD_ENTITIES = map { $_ => 1 } @LASTMOD_ENTITIES;
 
 BEGIN {
     if ($ENV{MUSICBRAINZ_RUNNING_TESTS}) {
@@ -97,6 +96,8 @@ BEGIN {
 }
 
 sub dump_schema { 'sitemaps' }
+
+sub dumped_entity_types { \@LASTMOD_ENTITIES }
 
 sub build_and_check_urls($$$$$) {
     my ($self, $c, $pk_schema, $pk_table, $update, $joins) = @_;
@@ -275,12 +276,6 @@ EOSQL
     return 0;
 }
 
-sub should_fetch_jsonld($$) {
-    my ($schema, $table) = @_;
-
-    return $schema eq 'musicbrainz' && exists $LASTMOD_ENTITIES{$table};
-}
-
 sub should_follow_table($) {
     my $table = shift;
 
@@ -413,7 +408,7 @@ sub follow_foreign_key($$$$$$) {
 
     my ($c, $direction, $pk_schema, $pk_table, $update, $joins) = @_;
 
-    if (should_fetch_jsonld($pk_schema, $pk_table)) {
+    if ($self->should_fetch_document($pk_schema, $pk_table)) {
         $self->pm->start and return;
 
         # This should be refreshed for each new worker, as internal DBI handles
