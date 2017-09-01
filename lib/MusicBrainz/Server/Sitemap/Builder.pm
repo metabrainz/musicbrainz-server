@@ -25,7 +25,6 @@ use MusicBrainz::Server::Sitemap::Utils qw(
     serialize_sitemap
     serialize_sitemap_index
 );
-use POSIX qw( ceil );
 use Readonly;
 use String::ShellQuote qw( shell_quote );
 use Try::Tiny;
