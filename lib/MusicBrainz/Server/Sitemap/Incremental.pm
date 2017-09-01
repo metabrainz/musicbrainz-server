@@ -138,21 +138,9 @@ sub build_and_check_urls($$$$$) {
 
         next unless $opts->{jsonld_markup};
 
-        my $current = 0;
-        my $remaining = @{$entity_rows};
-
         for my $row (@{$entity_rows}) {
-            $current++;
-            $remaining--;
-
             my $url = $self->build_page_url($pk_table, $row->{gid}, %{$opts});
             my $was_updated = $fetch->($row->{id}, $url, 0, $suffix_key);
-
-            my $is_first_of_many = ($current == 0 && $remaining > 0);
-            if ($is_first_of_many && !$was_updated) {
-                log("Skipping $remaining");
-                last;
-            }
 
             if ($opts->{paginated}) {
                 my $page = 2;
