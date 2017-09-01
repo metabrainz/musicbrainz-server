@@ -5,10 +5,18 @@ use warnings;
 
 use Data::Dumper;
 use DBDefs;
+use File::Path qw( rmtree );
+use File::Slurp qw( read_file );
+use HTTP::Status qw( RC_OK RC_NOT_MODIFIED );
 use Moose::Role;
 use MusicBrainz::Script::Utils qw( log );
 use MusicBrainz::Server::Context;
+use MusicBrainz::Server::dbmirror;
 use MusicBrainz::Server::Replication qw( REPLICATION_ACCESS_URI );
+use MusicBrainz::Server::Replication::Packet qw(
+    decompress_packet
+    retrieve_remote_file
+);
 use Parallel::ForkManager 0.7.6;
 use Sql;
 use Try::Tiny;
@@ -249,6 +257,102 @@ sub get_linked_entities($$$$) {
 
         $entity_rows;
     }, $c->sql);
+}
+
+sub handle_replication_sequence($$) {
+    my ($self, $c, $sequence) = @_;
+
+    my $dump_schema = $self->dump_schema;
+    my $file = "replication-$sequence.tar.bz2";
+    my $url = $self->replication_access_uri . "/$file";
+    my $local_file = "/tmp/$file";
+
+    my $resp = retrieve_remote_file($url, $local_file);
+    unless ($resp->code == RC_OK or $resp->code == RC_NOT_MODIFIED) {
+        die $resp->as_string;
+    }
+
+    my $output_dir = decompress_packet(
+        "$dump_schema-XXXXXX",
+        '/tmp',
+        $local_file,
+        1, # CLEANUP
+    );
+
+    my (%changes, %change_keys);
+    open my $dbmirror_pending, '<', "$output_dir/mbdump/dbmirror_pending";
+    while (<$dbmirror_pending>) {
+        my ($seq_id, $table_name, $op) = split /\t/;
+
+        my ($schema, $table) = map { m/"(.*?)"/; $1 } split /\./, $table_name;
+
+        next unless $self->should_follow_table("$schema.$table");
+
+        $changes{$seq_id} = {
+            schema      => $schema,
+            table       => $table,
+            operation   => $op,
+        };
+    }
+
+    # File::Slurp is required so that fork() doesn't interrupt IO.
+    my @dbmirror_pendingdata = read_file("$output_dir/mbdump/dbmirror_pendingdata");
+    for (@dbmirror_pendingdata) {
+        my ($seq_id, $is_key, $data) = split /\t/;
+
+        chomp $data;
+        $data = MusicBrainz::Server::dbmirror::unpack_data($data, $seq_id);
+
+        if ($is_key eq 't') {
+            $change_keys{$seq_id} = $data;
+            next;
+        }
+
+        # Undefined if the table was skipped, per should_follow_table.
+        my $change = $changes{$seq_id};
+        next unless defined $change;
+
+        my $conditions = $change_keys{$seq_id} // {};
+        my ($schema, $table) = @{$change}{qw(schema table)};
+        my $last_modified = $data->{last_updated};
+
+        # Some tables have a `created` column. Use that as a fallback if
+        # this is an insert.
+        if (!(defined $last_modified) && $change->{operation} eq 'i') {
+            $last_modified = $data->{created};
+        }
+
+        my @primary_keys = grep {
+            should_follow_primary_key("$schema.$table.$_")
+        } $self->get_primary_keys($c, $schema, $table);
+
+        for my $pk_column (@primary_keys) {
+            my $pk_value = $c->sql->dbh->quote(
+                $conditions->{$pk_column} // $data->{$pk_column},
+                $c->sql->get_column_data_type("$schema.$table", $pk_column)
+            );
+
+            my $update = {
+                %{$change},
+                sequence_id             => $seq_id,
+                column                  => $pk_column,
+                value                   => $pk_value,
+                last_modified           => $last_modified,
+                replication_sequence    => $sequence,
+            };
+
+            for (1...2) {
+                $self->follow_foreign_key($c, $_, $schema, $table, $update, []);
+            }
+        }
+    }
+
+    $self->pm->wait_all_children;
+
+    log("Removing $output_dir");
+    rmtree($output_dir);
+
+    $self->post_replication_sequence($c);
 }
 
 no Moose::Role;
