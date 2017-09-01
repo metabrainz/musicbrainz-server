@@ -318,7 +318,7 @@ around do_not_delete => sub {
 };
 
 sub run_incremental_dump {
-    my ($self, $c) = @_;
+    my ($self, $c, $replication_sequence) = @_;
 
     $self->pm->run_on_finish(sub {
         my $shared_data = pop;
@@ -361,6 +361,8 @@ sub run_incremental_dump {
             $last_processed_seq = $current_seq - 1;
         }
 
+        $replication_sequence //= ($last_processed_seq + 1);
+
         if ($did_update_anything == 0) { # only executed on first iteration
             my $checked_entities = $c->sql->select_single_value(
                 "SELECT 1 FROM $dump_schema.tmp_checked_entities"
@@ -390,7 +392,7 @@ sub run_incremental_dump {
             }
         }
 
-        $self->handle_replication_sequence($c, ++$last_processed_seq);
+        $self->handle_replication_sequence($c, $replication_sequence);
 
         $c->sql->auto_commit(1);
         $c->sql->do("TRUNCATE $dump_schema.tmp_checked_entities");
@@ -398,11 +400,12 @@ sub run_incremental_dump {
         $c->sql->auto_commit(1);
         $c->sql->do(
             "UPDATE $dump_schema.control SET last_processed_replication_sequence = ?",
-            $last_processed_seq,
+            $replication_sequence,
         );
 
         $did_update_anything = 1;
         $packets_processed++;
+        $last_processed_seq = $replication_sequence++;
 
         my $packet_limit = $self->packet_limit;
         if ($packet_limit > 0 && $packets_processed == $packet_limit) {
