@@ -15,7 +15,6 @@ use JSON qw( decode_json );
 use List::UtilsBy qw( partition_by );
 use Moose;
 use Sql;
-use Try::Tiny;
 
 use MusicBrainz::Script::Utils qw( log );
 use MusicBrainz::Server::Constants qw( entities_with );
@@ -366,45 +365,6 @@ sub get_linked_entities($$$$) {
 
         $entity_rows;
     }, $c->sql);
-}
-
-# Declaration silences "called too early to check prototype" from recursive call.
-sub follow_foreign_key($$$$$$);
-
-sub follow_foreign_key($$$$$$) {
-    my $self = shift;
-
-    my ($c, $direction, $pk_schema, $pk_table, $update, $joins) = @_;
-
-    if ($self->should_fetch_document($pk_schema, $pk_table)) {
-        $self->pm->start and return;
-
-        # This should be refreshed for each new worker, as internal DBI handles
-        # would otherwise be shared across processes (and are not advertized as
-        # MPSAFE).
-        my $new_c = MusicBrainz::Server::Context->create_script_context(
-            database => $self->database,
-            fresh_connector => 1,
-        );
-
-        my ($exit_code, $shared_data, @args) = (1, undef, @_);
-        try {
-            # Returns 1 if any updates occurred.
-            if ($self->build_and_check_urls($new_c, $pk_schema, $pk_table, $update, $joins)) {
-                $exit_code = 0;
-                shift @args;
-                $shared_data = \@args;
-            }
-        } catch {
-            $exit_code = 2;
-            $shared_data = {error => "$_"};
-        };
-
-        $new_c->connector->disconnect;
-        $self->pm->finish($exit_code, $shared_data);
-    } else {
-        $self->follow_foreign_keys(@_);
-    }
 }
 
 sub handle_replication_sequence($$) {
