@@ -21,6 +21,7 @@ requires qw(
     dumped_entity_types
     get_changed_documents
     handle_update_path
+    post_replication_sequence
     should_follow_table
 );
 

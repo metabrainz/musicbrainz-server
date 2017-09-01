@@ -358,7 +358,13 @@ sub handle_replication_sequence($$) {
     log("Removing $output_dir");
     rmtree($output_dir);
 
-    for my $entity_type (@LASTMOD_ENTITIES) {
+    $self->post_replication_sequence($c);
+}
+
+sub post_replication_sequence {
+    my ($self, $c) = @_;
+
+    for my $entity_type (@{ $self->dumped_entity_types }) {
         # The sitemaps.control columns will be NULL on first run, in which case
         # we just select all updates for writing.
         my $all_updates = $c->sql->select_list_of_hashes(
