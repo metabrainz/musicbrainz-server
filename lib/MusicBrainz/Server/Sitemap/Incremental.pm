@@ -356,7 +356,7 @@ sub run {
     my $last_processed_seq = $c->sql->select_single_value(
         "SELECT last_processed_replication_sequence FROM $dump_schema.control"
     );
-    my $should_update_index = 0;
+    my $did_update_anything = 0;
 
     while (1) {
         my $current_seq = $self->get_current_replication_sequence($c);
@@ -370,7 +370,7 @@ sub run {
             $last_processed_seq = $current_seq - 1;
         }
 
-        if ($should_update_index == 0) { # only executed on first iteration
+        if ($did_update_anything == 0) { # only executed on first iteration
             my $checked_entities = $c->sql->select_single_value(
                 "SELECT 1 FROM $dump_schema.tmp_checked_entities"
             );
@@ -410,10 +410,10 @@ sub run {
             $last_processed_seq,
         );
 
-        $should_update_index = 1;
+        $did_update_anything = 1;
     }
 
-    if ($should_update_index) {
+    if ($did_update_anything) {
         $self->write_index;
         $self->ping_search_engines($c);
     }
