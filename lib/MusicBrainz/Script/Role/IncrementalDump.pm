@@ -13,6 +13,7 @@ requires qw(
     database
     dump_schema
     dumped_entity_types
+    should_follow_table
 );
 
 has replication_access_uri => (
@@ -73,13 +74,28 @@ around should_follow_foreign_key => sub {
 
     return 0 unless $self->$orig($direction, $pk, $fk, $joins);
 
+    return 0 unless $self->should_follow_table($fk->{schema} . '.' . $fk->{table});
+
     return 0 if $self->has_join($pk, $fk, $joins);
 
     $pk = get_ident($pk);
     $fk = get_ident($fk);
 
+    # Modifications to a release_label don't affect the label.
+    return 0 if $pk eq 'musicbrainz.release_label.label' && $fk eq 'musicbrainz.label.id';
+
     # Modifications to a track shouldn't affect a recording's JSON-LD.
     return 0 if $pk eq 'musicbrainz.track.recording' && $fk eq 'musicbrainz.recording.id';
+
+    # Modifications to artist credits don't affect the linked artists.
+    if ($fk eq 'musicbrainz.artist_credit.id') {
+        return 0 if $pk eq 'musicbrainz.alternative_release.artist_credit';
+        return 0 if $pk eq 'musicbrainz.alternative_track.artist_credit';
+        return 0 if $pk eq 'musicbrainz.recording.artist_credit';
+        return 0 if $pk eq 'musicbrainz.release.artist_credit';
+        return 0 if $pk eq 'musicbrainz.release_group.artist_credit';
+        return 0 if $pk eq 'musicbrainz.track.artist_credit';
+    }
 
     return 1;
 };

@@ -277,7 +277,7 @@ EOSQL
 }
 
 sub should_follow_table($) {
-    my $table = shift;
+    my ($self, $table) = @_;
 
     return 0 if $table eq 'cover_art_archive.cover_art_type';
     return 0 if $table eq 'musicbrainz.cdtoc';
@@ -434,7 +434,7 @@ sub handle_replication_sequence($$) {
 
         my ($schema, $table) = map { m/"(.*?)"/; $1 } split /\./, $table_name;
 
-        next unless should_follow_table("$schema.$table");
+        next unless $self->should_follow_table("$schema.$table");
 
         $changes{$seq_id} = {
             schema      => $schema,
