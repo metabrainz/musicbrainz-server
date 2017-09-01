@@ -50,6 +50,22 @@ sub should_fetch_document($$) {
         (grep { $_ eq $table } @{ $self->dumped_entity_types });
 }
 
+sub should_follow_primary_key($) {
+    my $pk = shift;
+
+    # Nothing in mbserver should update an artist_credit row on its own; we
+    # treat them as immutable using a find_or_insert method. (It's possible
+    # an upgrade script changed them, but that's unlikely.)
+    return 0 if $pk eq 'musicbrainz.artist_credit.id';
+
+    # Useless joins.
+    return 0 if $pk eq 'musicbrainz.artist_credit_name.position';
+    return 0 if $pk eq 'musicbrainz.release_country.country';
+    return 0 if $pk eq 'musicbrainz.release_group_secondary_type_join.secondary_type';
+
+    return 1;
+}
+
 no Moose::Role;
 
 1;
