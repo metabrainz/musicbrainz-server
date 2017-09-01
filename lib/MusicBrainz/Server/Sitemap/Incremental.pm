@@ -158,6 +158,12 @@ sub get_changed_documents {
             @{$update}{qw(operation last_modified replication_sequence)};
 
         return Sql::run_in_transaction(sub {
+            # Fallback for where the source table had no `last_updated` or
+            # `created` columns.
+            unless (defined $last_modified) {
+                $last_modified = $c->sql->select_single_value('SELECT now()');
+            }
+
             my $old_hash = $c->sql->select_single_value(<<"EOSQL", $row_id, $url);
 SELECT encode(jsonld_sha1, 'hex') FROM sitemaps.${entity_type}_lastmod WHERE id = ? AND url = ?
 EOSQL
@@ -294,9 +300,6 @@ sub handle_replication_sequence($$) {
         };
     }
 
-    # Fallback for rows that don't have a last_updated column.
-    my $last_updated_fallback = $c->sql->select_single_value('SELECT now()');
-
     # File::Slurp is required so that fork() doesn't interrupt IO.
     my @dbmirror_pendingdata = read_file("$output_dir/mbdump/dbmirror_pendingdata");
     for (@dbmirror_pendingdata) {
@@ -334,9 +337,6 @@ sub handle_replication_sequence($$) {
             if (!(defined $last_modified) && $change->{operation} eq 'i') {
                 $last_modified = $data->{created};
             }
-
-            # Otherwise, use the current time.
-            $last_modified //= $last_updated_fallback;
 
             my $update = {
                 %{$change},
