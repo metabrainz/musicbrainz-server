@@ -62,6 +62,8 @@ sub should_follow_primary_key($) {
     return 0 if $pk eq 'musicbrainz.artist_credit_name.position';
     return 0 if $pk eq 'musicbrainz.release_country.country';
     return 0 if $pk eq 'musicbrainz.release_group_secondary_type_join.secondary_type';
+    return 0 if $pk eq 'musicbrainz.work_language.language';
+    return 0 if $pk eq 'musicbrainz.medium.format';
 
     return 1;
 }
