@@ -96,6 +96,8 @@ BEGIN {
     }
 }
 
+sub dump_schema { 'sitemaps' }
+
 sub build_and_check_urls($$$$$) {
     my ($self, $c, $pk_schema, $pk_table, $update, $joins) = @_;
 
@@ -329,6 +331,8 @@ around should_follow_foreign_key => sub {
 sub get_linked_entities($$$$) {
     my ($self, $c, $entity_type, $update, $joins) = @_;
 
+    my $dump_schema = $self->dump_schema;
+
     my ($src_schema, $src_table, $src_column, $src_value, $replication_sequence) =
         @{$update}{qw(schema table column value replication_sequence)};
 
@@ -374,7 +378,7 @@ sub get_linked_entities($$$$) {
     }
 
     Sql::run_in_transaction(sub {
-        $c->sql->do('LOCK TABLE sitemaps.tmp_checked_entities IN SHARE ROW EXCLUSIVE MODE');
+        $c->sql->do("LOCK TABLE $dump_schema.tmp_checked_entities IN SHARE ROW EXCLUSIVE MODE");
 
         my $entity_rows = $c->sql->select_list_of_hashes(
             "SELECT DISTINCT entity_table.id, entity_table.gid
@@ -382,7 +386,7 @@ sub get_linked_entities($$$$) {
                $joins_string
               WHERE ($src_alias.$src_column = $src_value)
                 AND NOT EXISTS (
-                    SELECT 1 FROM sitemaps.tmp_checked_entities ce
+                    SELECT 1 FROM $dump_schema.tmp_checked_entities ce
                      WHERE ce.entity_type = '$entity_type'
                        AND ce.id = entity_table.id
                 )"
@@ -391,7 +395,7 @@ sub get_linked_entities($$$$) {
         my @entity_rows = @{$entity_rows};
         if (@entity_rows) {
             $c->sql->do(
-                'INSERT INTO sitemaps.tmp_checked_entities (id, entity_type) ' .
+                "INSERT INTO $dump_schema.tmp_checked_entities (id, entity_type) " .
                 'VALUES ' . (join ', ', ("(?, '$entity_type')") x scalar(@entity_rows)),
                 map { $_->{id} } @entity_rows,
             );
@@ -443,6 +447,7 @@ sub follow_foreign_key($$$$$$) {
 sub handle_replication_sequence($$) {
     my ($self, $c, $sequence) = @_;
 
+    my $dump_schema = $self->dump_schema;
     my $file = "replication-$sequence.tar.bz2";
     my $url = $self->replication_access_uri . "/$file";
     my $local_file = "/tmp/$file";
@@ -453,7 +458,7 @@ sub handle_replication_sequence($$) {
     }
 
     my $output_dir = decompress_packet(
-        'sitemaps-XXXXXX',
+        "$dump_schema-XXXXXX",
         '/tmp',
         $local_file,
         1, # CLEANUP
@@ -633,12 +638,14 @@ sub run {
         }
     });
 
-    my $sitemaps_control = $c->sql->select_single_value(
-        'SELECT 1 FROM sitemaps.control'
+    my $dump_schema = $self->dump_schema;
+
+    my $control_is_empty = !$c->sql->select_single_value(
+        "SELECT 1 FROM $dump_schema.control"
     );
 
-    unless (defined $sitemaps_control) {
-        log("ERROR: Table sitemaps.control is empty (has admin/BuildSitemaps.pl run yet?)");
+    if ($control_is_empty) {
+        log("ERROR: Table $dump_schema.control is empty (has a full dump run yet?)");
         exit 1;
     }
 
@@ -648,7 +655,7 @@ sub run {
     }
 
     my $last_processed_seq = $c->sql->select_single_value(
-        'SELECT last_processed_replication_sequence FROM sitemaps.control'
+        "SELECT last_processed_replication_sequence FROM $dump_schema.control"
     );
     my $should_update_index = 0;
 
@@ -666,26 +673,27 @@ sub run {
 
         if ($should_update_index == 0) { # only executed on first iteration
             my $checked_entities = $c->sql->select_single_value(
-                'SELECT 1 FROM sitemaps.tmp_checked_entities'
+                "SELECT 1 FROM $dump_schema.tmp_checked_entities"
             );
 
-            # If sitemaps.tmp_checked_entities is not empty, then another copy
-            # of the script is either still running (perhaps because it has to
-            # process a large number of changes), or has crashed unexpectedly
-            # (if it had completed normally, then the table would have been
-            # truncated below).
+            # If $dump_schema.tmp_checked_entities is not empty, then another
+            # copy of the script is either still running (perhaps because it
+            # has to process a large number of changes), or has crashed
+            # unexpectedly (if it had completed normally, then the table
+            # would have been truncated below).
 
             if ($checked_entities) {
                 # Don't generate cron email spam until we're more behind than
                 # usual, since that could indicate a problem.
 
                 if (($current_seq - $last_processed_seq) > 2) {
-                    log("ERROR: Table sitemaps.tmp_checked_entities is not " .
-                        "empty, and the script is more than two replication " .
-                        "packets behind. You should check that a previous " .
-                        "run of the script didn't unexpectedly die; this " .
-                        "script will not run again until " .
-                        "sitemaps.tmp_checked_entities is cleared.");
+                    log("ERROR: Table $dump_schema.tmp_checked_entities " .
+                        "is not empty, and the script is more than two " .
+                        "replication packets behind. You should check " .
+                        "that a previous run of the script didn't " .
+                        "unexpectedly die; this script will not run again " .
+                        "until $dump_schema.tmp_checked_entities is " .
+                        "cleared.");
                     exit 1;
                 }
                 exit 0;
@@ -695,11 +703,11 @@ sub run {
         $self->handle_replication_sequence($c, ++$last_processed_seq);
 
         $c->sql->auto_commit(1);
-        $c->sql->do('TRUNCATE sitemaps.tmp_checked_entities');
+        $c->sql->do("TRUNCATE $dump_schema.tmp_checked_entities");
 
         $c->sql->auto_commit(1);
         $c->sql->do(
-            'UPDATE sitemaps.control SET last_processed_replication_sequence = ?',
+            "UPDATE $dump_schema.control SET last_processed_replication_sequence = ?",
             $last_processed_seq,
         );
 

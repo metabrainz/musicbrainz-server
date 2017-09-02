@@ -11,6 +11,7 @@ with 'MusicBrainz::Server::Role::FollowForeignKeys';
 
 requires qw(
     database
+    dump_schema
 );
 
 has replication_access_uri => (
