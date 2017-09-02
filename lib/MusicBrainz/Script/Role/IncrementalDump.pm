@@ -34,6 +34,47 @@ requires qw(
     should_follow_table
 );
 
+=head1 SYNOPSIS
+
+Backend for admin/BuildIncrementalSitemaps.pl and admin/DumpJSON.
+
+This script works by:
+
+    (1) Reading in the most recent replication packets. The last one that was
+        processed is stored in the $schema.control table.
+
+    (2) Iterating through every changed row.
+
+    (3) Finding links (foreign keys) from each row to a core entity that we
+        care about.
+
+        (For BuildIncrementalSitemaps, we care about entities that have
+        JSON-LD markup on their pages; these are indicated by the
+        `sitemaps_lastmod_table` property inside the %ENTITIES hash.)
+
+        The foreign keys can be indirect (going through multiple tables). As an
+        optimization, we do skip certain links that don't give meaningful
+        connections (e.g. certain tables, and specific links on certain tables,
+        don't ever affect the JSON-LD output of a linked entity).
+
+    (4) Building a list of URLs for each linked entity we found.
+
+        For sitemaps, the URLs we care about are ones which are contained in
+        the overall sitemaps, and which also contain embedded JSON-LD markup.
+
+        Some URLs match only one (or neither) of these conditions, and are
+        ignored. For example, we include JSON-LD on area pages, but don't build
+        sitemaps for areas. Conversely, there are lots of URLs contained in the
+        overall sitemaps which don't contain any JSON-LD markup.
+
+        For the JSON dumps, we care about most URLs, except for 'url' and
+        standalone recording ones.
+
+    (5) Doing all of the above as quickly as possible, fast enough that this
+        script can be run hourly.
+
+=cut
+
 has replication_access_uri => (
     is => 'ro',
     isa => 'Str',
