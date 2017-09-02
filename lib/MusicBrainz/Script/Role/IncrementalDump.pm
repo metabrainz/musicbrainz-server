@@ -72,6 +72,29 @@ has pm => (
     traits => ['NoGetopt'],
 );
 
+our $parent_pid;
+our $saved_database;
+our $saved_dump_schema;
+
+BEGIN {
+    $parent_pid = $$;
+}
+
+END {
+    return unless ($$ == $parent_pid &&
+                   $saved_database &&
+                   $saved_dump_schema);
+
+    log("Truncating $saved_dump_schema.tmp_checked_entities");
+    my $c = MusicBrainz::Server::Context->create_script_context(
+        database => $saved_database,
+        fresh_connector => 1,
+    );
+    $c->sql->auto_commit(1);
+    $c->sql->do("TRUNCATE $saved_dump_schema.tmp_checked_entities");
+    $c->connector->disconnect;
+}
+
 sub should_fetch_document($$) {
     my ($self, $schema, $table) = @_;
 
@@ -398,6 +421,11 @@ sub run_incremental_dump {
     });
 
     my $dump_schema = $self->dump_schema;
+
+    # Needed in the END block at the top of the file which handles clearing
+    # tmp_checked_entities.
+    $saved_database = $self->database;
+    $saved_dump_schema = $dump_schema;
 
     my $control_is_empty = !$c->sql->select_single_value(
         "SELECT 1 FROM $dump_schema.control"
