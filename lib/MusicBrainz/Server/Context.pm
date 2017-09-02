@@ -79,6 +79,16 @@ has store => (
     default => sub { MusicBrainz::DataStore::Redis->new }
 );
 
+# This is not the Catalyst stash, but it's used by
+# MusicBrainz::Server::JSONLookup to trick some controller methods into
+# thinking it is.
+has stash => (
+    is => 'rw',
+    isa => 'Maybe[HashRef]',
+    lazy => 1,
+    default => sub { {} },
+);
+
 sub model
 {
     my ($self, $name) = @_;
