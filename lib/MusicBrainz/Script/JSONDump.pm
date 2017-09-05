@@ -17,7 +17,7 @@ use List::MoreUtils qw( natatime );
 use Moose;
 use MusicBrainz::Script::JSONDump::Constants qw( %DUMPED_ENTITY_TYPES );
 use MusicBrainz::Script::MBDump;
-use MusicBrainz::Script::Utils qw( log );
+use MusicBrainz::Script::Utils qw( log retry );
 use MusicBrainz::Server::Constants qw( %ENTITIES );
 use MusicBrainz::Server::JSONLookup qw( json_lookup );
 use Readonly;
@@ -338,31 +338,28 @@ sub insert_entities_json {
         $ids, $json_hash) = @_;
 
     state $json = JSON::XS->new->utf8;
-    my $result;
-    my $attempts = 0;
-    while (1) {
-        $attempts++;
-        try {
-            $result = json_lookup($c, $entity_type, $ids);
-        } catch {
-            die $_ if $attempts == 3;
-            log("Got an error looking up JSON, retrying in 3 seconds: $_");
-            sleep 3;
-        };
-        last if $result;
-    }
+
+    my $result = retry(
+        sub { json_lookup($c, $entity_type, $ids) },
+        reason => 'looking up JSON',
+    );
     my @inserts;
 
     my $commit_inserts = sub {
         my $values_placholders =
             join q(, ), (('(?, ?, ?, ?)') x (@inserts / 4));
-        $c->sql->auto_commit(1);
-        $c->sql->do(<<"SQL", @inserts);
-            INSERT INTO json_dump.${entity_type}_json
-                (id, replication_sequence, json, last_modified)
-            VALUES $values_placholders
-            ON CONFLICT DO NOTHING
+
+        # retry: transient "server closed the connection unexpectedly" errors
+        # have happened here.
+        retry(sub {
+            $c->sql->auto_commit(1);
+            $c->sql->do(<<"SQL", @inserts);
+                INSERT INTO json_dump.${entity_type}_json
+                    (id, replication_sequence, json, last_modified)
+                VALUES $values_placholders
+                ON CONFLICT DO NOTHING
 SQL
+        }, reason => 'inserting JSON');
         @inserts = ();
     };
 
@@ -388,14 +385,18 @@ SQL
         $min_needed_sequence = $replication_sequence;
     }
 
-    $c->sql->auto_commit(1);
-    $c->sql->do(<<"SQL", $ids, $min_needed_sequence);
-        DELETE FROM json_dump.${entity_type}_json a
-         WHERE a.id = any(\$1)
-           AND a.replication_sequence < \$2
-           AND EXISTS (SELECT 1 FROM json_dump.${entity_type}_json b
-                        WHERE b.id = a.id AND b.replication_sequence >= \$2)
+    # retry: transient "server closed the connection unexpectedly" errors
+    # have happened here.
+    retry(sub {
+        $c->sql->auto_commit(1);
+        $c->sql->do(<<"SQL", $ids, $min_needed_sequence);
+            DELETE FROM json_dump.${entity_type}_json a
+             WHERE a.id = any(\$1)
+               AND a.replication_sequence < \$2
+               AND EXISTS (SELECT 1 FROM json_dump.${entity_type}_json b
+                            WHERE b.id = a.id AND b.replication_sequence >= \$2)
 SQL
+    }, reason => 'deleting unneeded JSON');
 
     return;
 }

@@ -4,6 +4,7 @@ use Data::Compare qw( Compare );
 use Data::Dumper;
 use List::AllUtils qw( any );
 use Moose::Role;
+use MusicBrainz::Script::Utils qw( retry );
 
 requires qw( follow_foreign_key );
 
@@ -86,7 +87,7 @@ sub has_join {
     } @{$joins};
 }
 
-sub get_foreign_keys {
+sub _get_foreign_keys {
     my ($self, $c, $direction, $schema, $table) = @_;
 
     my $cache_key = "$direction\t$schema\t$table";
@@ -145,7 +146,11 @@ sub follow_foreign_keys($$$$$$) {
     my ($self, $c, $direction, $pk_schema, $pk_table, $update, $joins) = @_;
 
     # Continue traversing the schemas until we stop finding changes.
-    my $foreign_keys = $self->get_foreign_keys($c, $direction, $pk_schema, $pk_table);
+    # retry: "server closed the connection unexpectedly" has happened here.
+    my $foreign_keys = retry(
+        sub { $self->_get_foreign_keys($c, $direction, $pk_schema, $pk_table) },
+        reason => 'getting foreign keys',
+    );
     return unless @{$foreign_keys};
 
     for my $info (@{$foreign_keys}) {
@@ -176,10 +181,17 @@ sub get_primary_keys($$$) {
         return @{ $cache->{$table} };
     }
 
-    my @keys = map {
+    # retry: transient "server closed the connection unexpectedly",
+    # "no statement executing", and "Field 'attnum' does not exist" errors
+    # have happened here.
+    my @keys = retry(
+        sub { $c->sql->dbh->primary_key(undef, $schema, $table) },
+        reason => 'getting primary keys',
+    );
+    @keys = map {
         # Some columns are wrapped in quotes, others aren't...
         s/^"(.*?)"$/$1/r
-    } $c->sql->dbh->primary_key(undef, $schema, $table);
+    } @keys;
     $cache->{$table} = \@keys;
     return @keys;
 }

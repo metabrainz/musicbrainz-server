@@ -10,7 +10,7 @@ use File::Slurp qw( read_file );
 use HTTP::Status qw( RC_OK RC_NOT_MODIFIED );
 use JSON qw( decode_json );
 use Moose::Role;
-use MusicBrainz::Script::Utils qw( log );
+use MusicBrainz::Script::Utils qw( log retry );
 use MusicBrainz::Server::Context;
 use MusicBrainz::Server::dbmirror;
 use MusicBrainz::Server::Replication qw( REPLICATION_ACCESS_URI );
@@ -307,7 +307,7 @@ sub get_linked_entities($$$$) {
         $src_alias = 'entity_table';
     }
 
-    Sql::run_in_transaction(sub {
+    my $tx = sub {
         $c->sql->do("LOCK TABLE $dump_schema.tmp_checked_entities IN SHARE ROW EXCLUSIVE MODE");
 
         my $entity_rows = $c->sql->select_list_of_hashes(
@@ -332,7 +332,13 @@ sub get_linked_entities($$$$) {
         }
 
         $entity_rows;
-    }, $c->sql);
+    };
+
+    my $rows = retry(
+        sub { Sql::run_in_transaction($tx, $c->sql) },
+        reason => 'getting linked entities',
+    );
+    return $rows;
 }
 
 sub handle_replication_sequence($$) {
@@ -406,9 +412,18 @@ sub handle_replication_sequence($$) {
         } $self->get_primary_keys($c, $schema, $table);
 
         for my $pk_column (@primary_keys) {
-            my $pk_value = $c->sql->dbh->quote(
-                $conditions->{$pk_column} // $data->{$pk_column},
-                $c->sql->get_column_data_type("$schema.$table", $pk_column)
+            my $value = $conditions->{$pk_column} // $data->{$pk_column};
+            # retry: transient "Can't use an undefined value as an ARRAY
+            # reference" errors have happened in DBD::Pg::db::column_info.
+            my $data_type = retry(
+                sub { $c->sql->get_column_data_type("$schema.$table", $pk_column) },
+                reason => 'getting column data type',
+            );
+            # retry: transient "No such database: musicbrainz_json_dump"
+            # errors have happened here.
+            my $pk_value = retry(
+                sub { $c->sql->dbh->quote($value, $data_type) },
+                reason => 'quoting value',
             );
 
             my $update = {
