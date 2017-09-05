@@ -67,12 +67,15 @@ def deploy(deploy_env="prod"):
     """
     Update the *musicbrainz.org servers.
     """
-    services = " ".join((
+    services = (
         "musicbrainz-website-" + deploy_env,
         "musicbrainz-webservice-" + deploy_env,
-    ))
-    sudo("docker stop --time 30 " + services)
-    sudo("docker rm " + services)
+    )
+    for svc in services:
+        sudo("docker container inspect {0} > /dev/null 2>&1; "
+             "if [ $? -eq 0 ]; then "
+             "docker stop --time 30 {0} && docker rm {0}; "
+             "fi".format(svc))
     sudo("su root -c 'cd /root/docker-server-configs; git pull; ./scripts/start_services.sh; exit 0'")
     local("sleep 15")
 
