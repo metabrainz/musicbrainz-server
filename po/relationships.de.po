@@ -15,7 +15,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2017-06-19 19:32+0000\n"
+"PO-Revision-Date: 2017-07-18 02:25+0000\n"
 "Last-Translator: Michael Wiencek <email address hidden>\n"
 "Language-Team: German (http://www.transifex.com/musicbrainz/musicbrainz/language/de/)\n"
 "MIME-Version: 1.0\n"
@@ -206,6 +206,12 @@ msgstr "Discogs"
 msgid "Discogs page for"
 msgstr "Discogs-Seite für"
 
+#: DB:link_attribute_type/description:1020
+msgid ""
+"For indicating the step-spouse of the artist's parent, or the sibling "
+"relationship with the children of such a spouse"
+msgstr ""
+
 #: DB:link_attribute_type/description:580
 msgid ""
 "For works that have lyrics, this indicates that those lyrics are not "
@@ -282,6 +288,10 @@ msgstr "Gibt eine bildliche Darstellung (JPEG, GIF, PNG) einer Örtlichkeit an"
 #: DB:link_type/description:173
 msgid "Indicates a pictorial image (JPEG, GIF, PNG) of an artist."
 msgstr "Gibt eine bildliche Darstellung (JPEG, GIF, PNG) eines Künstlers an."
+
+#: DB:link_attribute_type/description:1019
+msgid "Indicates a sibling with whom the artist has only one parent in common"
+msgstr ""
 
 #: DB:link_type/description:842
 msgid "Indicates a webpage that reviews the event in question."
@@ -2932,7 +2942,7 @@ msgstr "katalogisiert das Werk von"
 msgid "child of"
 msgstr "Kind von"
 
-#: DB:link_type/link_phrase:735 DB:link_type/link_phrase:109
+#: DB:link_type/link_phrase:735
 msgid "children"
 msgstr "Kinder"
 
@@ -3319,6 +3329,10 @@ msgstr "hatte einen Plattenvertrag mit"
 msgid "had an engineer position at"
 msgstr "war Techniker/Toningenieur bei"
 
+#: DB:link_attribute_type/name:1019
+msgid "half"
+msgstr ""
+
 #: DB:link_type/long_link_phrase:77
 msgid "has Amazon ASIN"
 msgstr "has Amazon-ASIN"
@@ -3606,10 +3620,6 @@ msgstr ""
 msgid "has show notes at"
 msgstr ""
 
-#: DB:link_type/long_link_phrase:110
-msgid "has sibling(s)"
-msgstr "hat Geschwister"
-
 #: DB:link_type/long_link_phrase:823
 msgid "has subseries"
 msgstr ""
@@ -3620,6 +3630,10 @@ msgstr "hat Untertyp"
 
 #: DB:link_type/long_link_phrase:69
 msgid "has {additional} samples taken from"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:110
+msgid "has {half:half-}{step}sibling"
 msgstr ""
 
 #: DB:link_type/link_phrase:794
@@ -3815,13 +3829,13 @@ msgstr "ist die früheste Version von {translated:übersetzter} {parody:Parodie}
 msgid "is the original for the transliterated/translated track listing"
 msgstr ""
 
-#: DB:link_type/long_link_phrase:109
-msgid "is the parent of"
-msgstr "ist Elternteil von"
-
 #: DB:link_type/long_link_phrase:349
 msgid "is the rights society associated with"
 msgstr "ist die Verwertungsgesellschaft für"
+
+#: DB:link_type/long_link_phrase:109
+msgid "is the {step}parent of"
+msgstr ""
 
 #: DB:link_type/long_link_phrase:722
 msgid "is/was a subgroup of"
@@ -3893,8 +3907,7 @@ msgstr "Sologesang"
 msgid "legal name"
 msgstr "bürgerlicher Name"
 
-#: DB:link_type/link_phrase:22 DB:link_type/link_phrase:142
-#: DB:link_type/reverse_link_phrase:22 DB:link_type/reverse_link_phrase:142
+#: DB:link_type/link_phrase:142 DB:link_type/reverse_link_phrase:142
 msgid "legal representation"
 msgstr "rechtliche Vertretung"
 
@@ -4231,10 +4244,6 @@ msgstr "sonstiger Gesang"
 msgid "parent label"
 msgstr "Mutterlabel"
 
-#: DB:link_type/reverse_link_phrase:109
-msgid "parents"
-msgstr "Eltern"
-
 #: DB:link_attribute_type/name:511
 msgid "parody"
 msgstr "Parodie"
@@ -4445,7 +4454,7 @@ msgstr "hat A&R-Management übernommen für"
 msgid "provided booking for"
 msgstr "hat Reservierungen vorgenommen für"
 
-#: DB:link_type/long_link_phrase:22 DB:link_type/long_link_phrase:142
+#: DB:link_type/long_link_phrase:142
 msgid "provided legal representation for"
 msgstr "hat rechtliche Vertretung übernommen für"
 
@@ -4464,6 +4473,10 @@ msgstr "gestaltete {additional:zusätzliche} Design/Illustrationen für"
 #: DB:link_type/long_link_phrase:27 DB:link_type/long_link_phrase:125
 msgid "provided {additional} graphic design on"
 msgstr "führte {additional:zusätzliches} Grafikdesign durch für"
+
+#: DB:link_type/long_link_phrase:22
+msgid "provided {additional} legal representation for"
+msgstr ""
 
 #: DB:link_type/link_phrase:206 DB:link_type/link_phrase:127
 #: DB:link_type/link_phrase:362 DB:link_type/link_phrase:32
@@ -4679,10 +4692,6 @@ msgstr "Sendungsnotizen"
 msgid "show notes for"
 msgstr "Sendungsnotizen für"
 
-#: DB:link_type/link_phrase:110 DB:link_type/reverse_link_phrase:110
-msgid "siblings"
-msgstr "Geschwister"
-
 #: DB:link_type/reverse_link_phrase:121
 msgid "signed"
 msgstr "unter Vertrag"
@@ -4726,6 +4735,10 @@ msgstr "Eigenständige Webseite"
 #: DB:link_type/reverse_link_phrase:287
 msgid "standalone website for"
 msgstr "Eigenständige Webseite für"
+
+#: DB:link_attribute_type/name:1020
+msgid "step"
+msgstr ""
 
 #: DB:link_type/link_phrase:194
 msgid "stream for free"
@@ -5197,6 +5210,10 @@ msgstr "{additional:zusätzliche} Design/Illustrationen"
 msgid "{additional} graphic design"
 msgstr "{additional:zusätzliches} Grafikdesign"
 
+#: DB:link_type/link_phrase:22 DB:link_type/reverse_link_phrase:22
+msgid "{additional} legal representation"
+msgstr ""
+
 #: DB:link_type/link_phrase:57 DB:link_type/reverse_link_phrase:57
 #: DB:link_type/reverse_link_phrase:169
 msgid "{additional} librettist"
@@ -5612,6 +5629,10 @@ msgstr ""
 msgid "{entity1} was {re}mastered in {entity0}"
 msgstr ""
 
+#: DB:link_type/link_phrase:110 DB:link_type/reverse_link_phrase:110
+msgid "{half:half-}{step}siblings"
+msgstr ""
+
 #: DB:link_type/link_phrase:278
 msgid ""
 "{live} {medley:medley including a} {partial} {instrumental} {cover} "
@@ -5634,6 +5655,14 @@ msgstr ""
 
 #: DB:link_type/link_phrase:697 DB:link_type/link_phrase:756
 msgid "{re}mastering location for"
+msgstr ""
+
+#: DB:link_type/link_phrase:109
+msgid "{step}children"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:109
+msgid "{step}parents"
 msgstr ""
 
 #: DB:link_type/reverse_link_phrase:15

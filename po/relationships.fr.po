@@ -6,6 +6,7 @@
 # Benjamin Sonntag <email address hidden>, 2011
 # Dibou <email address hidden>, 2012,2015
 # French language coordinator <email address hidden>, 2013,2015
+# French language coordinator <email address hidden>, 2013,2015
 # Laurent Hosch <email address hidden>, 2017
 # Laurent Monin <email address hidden>, 2016
 # Léonard Cardyn <email address hidden>, 2015
@@ -31,8 +32,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2017-06-24 14:11+0000\n"
-"Last-Translator: Raphaël Fery <email address hidden>\n"
+"PO-Revision-Date: 2017-08-19 10:08+0000\n"
+"Last-Translator: yvanz\n"
 "Language-Team: French (http://www.transifex.com/musicbrainz/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -222,6 +223,12 @@ msgstr "Discogs"
 msgid "Discogs page for"
 msgstr "Page Discogs pour"
 
+#: DB:link_attribute_type/description:1020
+msgid ""
+"For indicating the step-spouse of the artist's parent, or the sibling "
+"relationship with the children of such a spouse"
+msgstr "Indique un parent ou un enfant avec qui l’artiste n'est pas lié par le sang mais seulement par alliance."
+
 #: DB:link_attribute_type/description:580
 msgid ""
 "For works that have lyrics, this indicates that those lyrics are not "
@@ -298,6 +305,10 @@ msgstr "Indique une illustration (JPEG, GIF, PNG) d’un lieu."
 #: DB:link_type/description:173
 msgid "Indicates a pictorial image (JPEG, GIF, PNG) of an artist."
 msgstr "Indique une représentation picturale (JPEG, GIF, PNG) d’un artiste."
+
+#: DB:link_attribute_type/description:1019
+msgid "Indicates a sibling with whom the artist has only one parent in common"
+msgstr "Indique un frère ou une sœur avec qui l’artiste n’a qu’un seul parent en commun."
 
 #: DB:link_type/description:842
 msgid "Indicates a webpage that reviews the event in question."
@@ -1447,7 +1458,7 @@ msgstr "Ceci indique le chef de chœur qui a travaillé sur cette parution."
 msgid ""
 "This indicates the linked entity translated something, rather than being the"
 " original writer."
-msgstr ""
+msgstr "Indique que l’entité liée est créditée pour une traduction, plutôt que pour un texte original."
 
 #: DB:link_type/description:361
 msgid ""
@@ -2070,7 +2081,7 @@ msgstr "Ceci relie un artiste à sa page sur Bandcamp."
 
 #: DB:link_type/description:919
 msgid "This links an artist to its page at CD Baby."
-msgstr ""
+msgstr "Ceci relie un artiste à sa page sur CD Baby."
 
 #: DB:link_type/description:178
 msgid ""
@@ -2948,7 +2959,7 @@ msgstr "catalogue les œuvres de "
 msgid "child of"
 msgstr "enfant de"
 
-#: DB:link_type/link_phrase:735 DB:link_type/link_phrase:109
+#: DB:link_type/link_phrase:735
 msgid "children"
 msgstr "enfants"
 
@@ -3335,6 +3346,10 @@ msgstr "à eu un contrat d’enregistrement avec"
 msgid "had an engineer position at"
 msgstr "à eu un poste d’ingénieur"
 
+#: DB:link_attribute_type/name:1019
+msgid "half"
+msgstr "demi"
+
 #: DB:link_type/long_link_phrase:77
 msgid "has Amazon ASIN"
 msgstr "a un ASIN d’Amazon"
@@ -3622,10 +3637,6 @@ msgstr "a une révision"
 msgid "has show notes at"
 msgstr "a des notes sur l’émission à"
 
-#: DB:link_type/long_link_phrase:110
-msgid "has sibling(s)"
-msgstr "a un/des frère(s) et sœur(s)"
-
 #: DB:link_type/long_link_phrase:823
 msgid "has subseries"
 msgstr "a une sous-série"
@@ -3637,6 +3648,10 @@ msgstr "a un sous-type"
 #: DB:link_type/long_link_phrase:69
 msgid "has {additional} samples taken from"
 msgstr "a des échantillons {additional:additionnels} provenant de"
+
+#: DB:link_type/long_link_phrase:110
+msgid "has {half:half-}{step}sibling"
+msgstr "a pour {half:demi-}{step:demi-}frère ou {half:demi-}{step:demi-}sœur"
 
 #: DB:link_type/link_phrase:794
 msgid "held at"
@@ -3831,13 +3846,13 @@ msgstr "est la première version {parody:parodie} {translated:traduite} de"
 msgid "is the original for the transliterated/translated track listing"
 msgstr "est l’original de la liste translittérée/traduite des pistes"
 
-#: DB:link_type/long_link_phrase:109
-msgid "is the parent of"
-msgstr "est le parent de"
-
 #: DB:link_type/long_link_phrase:349
 msgid "is the rights society associated with"
 msgstr "est la société de gestion des droits associé avec"
+
+#: DB:link_type/long_link_phrase:109
+msgid "is the {step}parent of"
+msgstr "est le {half:beau-}{step:beau-}père ou la {half:belle-}{step:belle-}mère de"
 
 #: DB:link_type/long_link_phrase:722
 msgid "is/was a subgroup of"
@@ -3909,8 +3924,7 @@ msgstr "chant"
 msgid "legal name"
 msgstr "nom légal"
 
-#: DB:link_type/link_phrase:22 DB:link_type/link_phrase:142
-#: DB:link_type/reverse_link_phrase:22 DB:link_type/reverse_link_phrase:142
+#: DB:link_type/link_phrase:142 DB:link_type/reverse_link_phrase:142
 msgid "legal representation"
 msgstr "représentation juridique"
 
@@ -4247,10 +4261,6 @@ msgstr "autres voix"
 msgid "parent label"
 msgstr "label parent"
 
-#: DB:link_type/reverse_link_phrase:109
-msgid "parents"
-msgstr "parents"
-
 #: DB:link_attribute_type/name:511
 msgid "parody"
 msgstr "parodie"
@@ -4461,7 +4471,7 @@ msgstr "a fourni le soutien artiste & répertoire pour"
 msgid "provided booking for"
 msgstr "a assuré le placement pour"
 
-#: DB:link_type/long_link_phrase:22 DB:link_type/long_link_phrase:142
+#: DB:link_type/long_link_phrase:142
 msgid "provided legal representation for"
 msgstr "a assuré la représentation juridique pour"
 
@@ -4480,6 +4490,10 @@ msgstr "a assuré la conception/l’illustration {additional:supplémentaire} su
 #: DB:link_type/long_link_phrase:27 DB:link_type/long_link_phrase:125
 msgid "provided {additional} graphic design on"
 msgstr "a assuré la conception graphique {additional:supplémentaire} sur"
+
+#: DB:link_type/long_link_phrase:22
+msgid "provided {additional} legal representation for"
+msgstr "a assuré la représentation juridique {additional:supplémentaire} pour"
 
 #: DB:link_type/link_phrase:206 DB:link_type/link_phrase:127
 #: DB:link_type/link_phrase:362 DB:link_type/link_phrase:32
@@ -4695,10 +4709,6 @@ msgstr "notes sur l’émission"
 msgid "show notes for"
 msgstr "notes sur l’émission pour"
 
-#: DB:link_type/link_phrase:110 DB:link_type/reverse_link_phrase:110
-msgid "siblings"
-msgstr "frères et sœurs "
-
 #: DB:link_type/reverse_link_phrase:121
 msgid "signed"
 msgstr "signé"
@@ -4742,6 +4752,10 @@ msgstr "site Web autonome"
 #: DB:link_type/reverse_link_phrase:287
 msgid "standalone website for"
 msgstr "site Web autonome pour"
+
+#: DB:link_attribute_type/name:1020
+msgid "step"
+msgstr "par alliance"
 
 #: DB:link_type/link_phrase:194
 msgid "stream for free"
@@ -5213,6 +5227,10 @@ msgstr "conception/illustration {additional:supplémentaire} "
 msgid "{additional} graphic design"
 msgstr "conception graphique {additional:supplémentaire}"
 
+#: DB:link_type/link_phrase:22 DB:link_type/reverse_link_phrase:22
+msgid "{additional} legal representation"
+msgstr "représentation juridique {additional:supplémentaire}"
+
 #: DB:link_type/link_phrase:57 DB:link_type/reverse_link_phrase:57
 #: DB:link_type/reverse_link_phrase:169
 msgid "{additional} librettist"
@@ -5228,7 +5246,7 @@ msgstr "lieu {additional:additionnel} d’écriture du livret de"
 
 #: DB:link_type/link_phrase:24 DB:link_type/reverse_link_phrase:24
 msgid "{additional} liner notes {translator}"
-msgstr ""
+msgstr "{translator:traduction des} notes de livret {additional:supplémentaires}"
 
 #: DB:link_type/reverse_link_phrase:56 DB:link_type/reverse_link_phrase:165
 msgid "{additional} lyricist"
@@ -5628,6 +5646,10 @@ msgstr "{entity1} a été {re}masterisé à {entity0}"
 msgid "{entity1} was {re}mastered in {entity0}"
 msgstr "{entity1} a été {re}masterisé en {entity0}"
 
+#: DB:link_type/link_phrase:110 DB:link_type/reverse_link_phrase:110
+msgid "{half:half-}{step}siblings"
+msgstr "{half:demi-}{frère}/{half:demie-}{soeur}"
+
 #: DB:link_type/link_phrase:278
 msgid ""
 "{live} {medley:medley including a} {partial} {instrumental} {cover} "
@@ -5652,6 +5674,14 @@ msgstr "{re}masterisé en"
 msgid "{re}mastering location for"
 msgstr "lieu de {re}masterisation de"
 
+#: DB:link_type/link_phrase:109
+msgid "{step}children"
+msgstr "{step:beau-}fils ou {step:belle-}fille"
+
+#: DB:link_type/reverse_link_phrase:109
+msgid "{step}parents"
+msgstr "beaux-parents"
+
 #: DB:link_type/reverse_link_phrase:15
 msgid "{translated} {parody:parodies|covers}"
 msgstr "{parody:parodies|reprises} {translated:traduites}"
@@ -5666,7 +5696,7 @@ msgstr "version {translated:traduite} {parody:parodiée} de"
 
 #: DB:link_type/long_link_phrase:24
 msgid "{translator:translated|wrote} {additional} liner notes for"
-msgstr ""
+msgstr "{translator:traducteur|a rédigé} des notes {additional|complémentaires} à"
 
 #: DB:link_type/long_link_phrase:85 DB:link_type/long_link_phrase:268
 msgid "{video} can be streamed for free at"
