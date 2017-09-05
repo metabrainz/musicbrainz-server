@@ -31,6 +31,7 @@ requires qw(
     get_changed_documents
     handle_update_path
     post_replication_sequence
+    pre_key_traversal
     should_follow_table
 );
 
@@ -396,6 +397,9 @@ sub handle_replication_sequence($$) {
         if (!(defined $last_modified) && $change->{operation} eq 'i') {
             $last_modified = $data->{created};
         }
+
+        $self->pre_key_traversal(
+            $c, $change, $data, $sequence, $last_modified);
 
         my @primary_keys = grep {
             should_follow_primary_key("$schema.$table.$_")

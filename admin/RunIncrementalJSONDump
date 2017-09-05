@@ -1,0 +1,68 @@
+#!/bin/bash
+
+set -o errexit
+
+exec 220>/tmp/.RunIncrementalJSONDump.lock || exit 1
+# Will be automatically released when the script exits.
+flock -n 220 || { echo "Failed to obtain lock. Another instance is running?" >&2; exit 1; }
+
+# This is to help with disk space monitoring - run "df" before and after
+echo "Disk space when RunIncrementalJSONDump starts:" ; df -m
+trap 'echo "Disk space when RunIncrementalJSONDump ends:" ; df -m' 0
+
+MB_SERVER_ROOT=$(cd "$(dirname "${BASH_SOURCE[0]}")/../" && pwd)
+cd "$MB_SERVER_ROOT"
+
+source admin/config.sh
+
+. ./admin/functions.sh
+make_temp_dir
+
+DUMP_DIR="$JSON_DUMP_DIR"/incremental
+
+# Create necessary directories and set permissions. If we're not doing a full
+# dump then $DUMP_STAMP is empty, so that argument is ignored.
+
+mkdir -m "$JSON_DUMP_DIR_MODE" -p "$DUMP_DIR"
+chown "$JSON_DUMP_USER:$JSON_DUMP_GROUP" "$DUMP_DIR"
+
+# The database from which the dumps are generated is replicated, but created
+# as standalone - meaning it has foreign keys and triggers. Foreign keys are
+# needed for MusicBrainz::Server::Role::FollowForeignKeys to work. The
+# triggers aren't needed and could (or should) be dropped, but it's safer to
+# make sure they are fully disabled here too. Leaving them enabled would
+# certainly cause the data to become corrupted and replication to break.
+echo `date`" : Disabling all database triggers"
+./admin/DisableAllTriggers
+
+echo `date`" : Making incremental JSON dumps"
+./admin/DumpIncrementalJSON \
+    --output-dir "$TEMP_DIR" \
+    --compress \
+    --database READWRITE \
+    --worker-count 4 \
+    || exit $?
+
+# Was a dump created?
+shopt -s nullglob
+DUMP_FILE=`echo -n "$TEMP_DIR"/json-dump-*/*.tar.xz`
+shopt -u nullglob
+
+# Incremental JSON dumps go to the "FTP data directory", consistent with the
+# full dumps, but they aren't synced to real FTP like the full dumps are,
+# since they require a replication token to access.
+#
+# They're synced from here to a Docker volume shared by the metabrainz.org
+# container on another server, via ./bin/rsync-incremental-json-dumps.
+if [ "$DUMP_FILE" ]
+then
+    echo `date`" : Copying incremental json dumps to backup dir"
+    chown "$JSON_DUMP_USER:$JSON_DUMP_GROUP" "$TEMP_DIR"/json-dump-*/*
+    chmod "$JSON_DUMP_FILE_MODE" "$TEMP_DIR"/json-dump-*/*
+    mv "$TEMP_DIR"/* "$DUMP_DIR"/
+
+    cp admin/config.incremental-json-dump.sh admin/config.user.sh
+    ./bin/rsync-fullexport-files
+fi
+
+# eof

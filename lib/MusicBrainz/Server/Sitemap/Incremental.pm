@@ -275,6 +275,8 @@ sub post_replication_sequence {
     }
 }
 
+sub pre_key_traversal { }
+
 around do_not_delete => sub {
     my ($orig, $self, $file) = @_;
 

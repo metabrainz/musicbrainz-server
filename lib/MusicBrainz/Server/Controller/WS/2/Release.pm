@@ -56,13 +56,6 @@ with 'MusicBrainz::Server::Controller::WS::2::Role::BrowseByCollection';
 
 Readonly our $MAX_ITEMS => 25;
 
-# The maximum number of recordings to try to get relationships for, if
-# inc=recording-level-rels is specified. Certain releases with an enourmous
-# number of recordings (audiobooks) will almost always timeout, driving up
-# server load average for nothing. Ideally we can remove this limit as soon as
-# we resolve the performance issues we have.
-Readonly our $MAX_RECORDING_RELATIONSHIPS => 500;
-
 sub base : Chained('root') PathPart('release') CaptureArgs(0) { }
 
 sub release_toplevel {
@@ -151,7 +144,14 @@ sub release_toplevel {
         my @recordings = $c->model('Recording')->load(@tracks);
         $c->model('Recording')->load_meta(@recordings);
 
-        if ($inc->recording_level_rels && @recordings <= $MAX_RECORDING_RELATIONSHIPS) {
+        # The maximum number of recordings to try to get relationships for, if
+        # inc=recording-level-rels is specified. Certain releases with an enourmous
+        # number of recordings (audiobooks) will almost always timeout, driving up
+        # server load average for nothing. Ideally we can remove this limit as soon as
+        # we resolve the performance issues we have.
+        my $max_recording_relationships = 500;
+
+        if ($inc->recording_level_rels && @recordings <= $max_recording_relationships) {
             push @rels_entities, @recordings;
         }
 

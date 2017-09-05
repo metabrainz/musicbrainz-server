@@ -94,6 +94,8 @@ around make_tar => sub {
         @tables;
 
     $self->$orig($tar_file, @tables);
+
+    $self->gpg_sign($self->output_dir . "/$tar_file");
 };
 
 sub table_rowcount {

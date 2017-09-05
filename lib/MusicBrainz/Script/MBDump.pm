@@ -150,7 +150,7 @@ sub make_tar {
     chomp (my $tar_bin = `which gtar` || `which tar`);
     system $tar_bin,
            '-C', $self->export_dir,
-           "--$compression",
+           ($compression ? "--$compression" : ()),
            '--create',
            '--verbose',
            '--file', "$output_dir/$tar_file",
@@ -159,8 +159,6 @@ sub make_tar {
 
     $? == 0 or die "Tar returned $?";
     log(sprintf "Tar completed in %d seconds\n", tv_interval($t0));
-
-    $self->gpg_sign("$output_dir/$tar_file");
 }
 
 sub copy_file {
