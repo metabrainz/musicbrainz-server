@@ -34,7 +34,7 @@
 
 [%- guesscase_options() -%]
 
-<script>//<![CDATA[
+<script>
 (function () {
     function togglePrimaryForLocale() {
         var allowed = $('#id-edit-alias\\\.locale').val() != '';
@@ -61,4 +61,4 @@
 
     MB.Control.initialize_guess_case('[% entity_type %]', 'id-edit-alias');
 }());
-//]]></script>
+</script>

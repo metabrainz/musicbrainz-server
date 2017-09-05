@@ -6,6 +6,8 @@
 # Dibou <email address hidden>, 2012,2016
 # Frédéric Da Vitoria <email address hidden>, 2014
 # French language coordinator <email address hidden>, 2013,2015
+# French language coordinator <email address hidden>, 2013,2015
+# Jack, 2016
 # Jack Ruertnevel, 2016
 # Jack, 2016
 # Léonard Cardyn <email address hidden>, 2015
@@ -19,8 +21,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2017-06-19 19:32+0000\n"
-"Last-Translator: Michael Wiencek <email address hidden>\n"
+"PO-Revision-Date: 2017-08-06 16:09+0000\n"
+"Last-Translator: Jean-Jacques Brioist <email address hidden>\n"
 "Language-Team: French (http://www.transifex.com/musicbrainz/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -555,7 +557,7 @@ msgstr "Le cajón, une caisse de résonance péruvienne"
 #. name:tōkere
 #: DB:instrument/description:865
 msgid "Castanets of wood, bone, bivalve shells or even flax leaf."
-msgstr ""
+msgstr "Les castagnettes peuvent être en bois ou en os, faites de deux coquillages ou de feuilles de lin."
 
 #. name:chacha
 #: DB:instrument/description:335
@@ -600,7 +602,7 @@ msgid ""
 "combination of the harpsichord (pt:cravo) and the Viola caipira. It can have"
 " six or twelve nylon or steel strings and are produced solely by company "
 "Giannini."
-msgstr ""
+msgstr "De caisse asymétrique contrairement aux guitares, son timbrese situe entre celui du clavecin et de la viola caipira. Elle peut comportersix ou douze cordes en nylon ou en acier, et est exclusivement fabriquéepar la société Gainnini."
 
 #. name:dobro
 #: DB:instrument/description:184
@@ -641,21 +643,21 @@ msgstr "Guitare électrique sans frette."
 msgid ""
 "Electric instrument from the 1930's with a resistor wire and moving metal "
 "plate."
-msgstr ""
+msgstr "Instrument électrique analogique des années 1930 doté d'un fil résistifet d'une frette."
 
 #. name:spinettone
 #: DB:instrument/description:799
 msgid ""
 "Exceptionally long spinet, with multiple strings choirs, its bass-tones were"
 " produced by longer, not thicker strings."
-msgstr ""
+msgstr "Epinette de longueur exceptionnelle, avec de nombreux jeux. Les bassessont obtenues par des fils, non plus gros, mais plus longs."
 
 #. name:poi
 #: DB:instrument/description:866
 msgid ""
 "Flax leaf balls filled with seeds, swung around to create rhythmic and "
 "visual patterns. An important element in the dance also known as poi."
-msgstr ""
+msgstr "Bogues de lins remplies de graines, que l'on fait tourner pour produire divers motifsrhythmiques ou visuels. La danse exécutée par l'interprète, ou poi, joue un grand rôle."
 
 #. name:floppy disk drive
 #: DB:instrument/description:604
@@ -668,7 +670,7 @@ msgstr "Lecteurs de disquettes réglés pour produire des tonalités durant la l
 msgid ""
 "Four-stringed banjo-like lute from West Africa, traditionally played by "
 "griots. Made of hollowed out wood with an animal hide as membrane."
-msgstr ""
+msgstr "Luth à quatre cordes d'Afrique de l'Ouest en forme de banjo, jouétraditionnellement par les griots. La caisse est un tronc évidé, refermé par une peau tendue."
 
 #. name:friction idiophone
 #: DB:instrument/description:701
@@ -702,12 +704,12 @@ msgstr "Les tambours en gobelet sont des membranophones à une tête dont le cor
 msgid ""
 "Gong made of pounamu; greenstone and pilot-whale bone with a striker made of"
 " akeake, a hardwood."
-msgstr ""
+msgstr "Gong fait d'une variété de jade (pounamou) et d'os de dauphin, avec une baguetteen bois exotique de bonne dureté, l'akeake."
 
 #. name:hue puruwai
 #: DB:instrument/description:857
 msgid "Gourd (hue) shakers with seeds intact"
-msgstr ""
+msgstr "Sistre fait de courges remplies de graines."
 
 #. name:syrinx
 #: DB:instrument/description:298
@@ -734,7 +736,7 @@ msgstr "Les Huqins sont une famille d’instruments à cordes frottées chinois.
 msgid ""
 "Inspired by the violin in 1920, Hellenic luthiers combined parts of the old "
 "Cretan lyra with the violin."
-msgstr ""
+msgstr "Inspirés par le violon, les luthiers grecs ont imagine dans les années 1920cet hybride de lyre crétoise et de violon."
 
 #. name:arpeggione
 #: DB:instrument/description:823
@@ -748,7 +750,7 @@ msgstr "Inventé en 1823, il ressemble à un violoncelle, mais avec des frettes 
 msgid ""
 "Invented in 1966 by vox, and in 1969 by Bob Murrell, it is an electric "
 "guitar with electronic organ wiring and knobs added."
-msgstr ""
+msgstr "Inventée en 1966 par vox et en 1969 Bob Murrell, cette guitare électriqueest câblée à un orgue électronique et comporte des touches."
 
 #. name:taiko
 #: DB:instrument/description:378
@@ -812,14 +814,14 @@ msgstr "Comme les « Northumbrian smallpipes » (dont elle s’inspire), mais 
 msgid ""
 "Logs or thick planks up to 9 meters long used as signalling drums, as gongs "
 "for both war and peace. Even living hollowed trees have been used as pahū."
-msgstr ""
+msgstr "Bûches ou planches de bois de près de 9 m, utilisées pour donner l'alerte,comme les gongs. Même des troncs creux ont servi de pahū."
 
 #. name:pūmotomoto
 #: DB:instrument/description:785
 msgid ""
 "Long wooden flute with a notched open top and a single finger hole near the "
 "end."
-msgstr ""
+msgstr "Longue flûte en bois dont la partie supérieure est fendue, et ne comportantqu'un orifice près d'une de ses extrémités."
 
 #. name:practice chanter
 #: DB:instrument/description:429
@@ -3642,7 +3644,7 @@ msgstr "Guimbarde mongole, soit en métal (temür/tömör khuur), soit en bambou
 #. name:rōria
 #: DB:instrument/description:859
 msgid "thin quiet jew's harp-like instrument made of wood or bone."
-msgstr ""
+msgstr "Sorte de harpe douce de Judée, à corps en bois ou en os."
 
 #. name:ti bwa
 #: DB:instrument/description:332
@@ -3654,7 +3656,7 @@ msgstr "le ti bwa, instrument de percussion fait d’un morceau de bambou horizo
 #. name:kagurabue
 #: DB:instrument/description:849
 msgid "traditional six holed bamboo flute used in Gagaku no Kagaku"
-msgstr ""
+msgstr "flûte de bambou traditionnelle jouée à Gagaku no Kagaku"
 
 #. name:trắng jâu
 #: DB:instrument/description:314
@@ -3667,12 +3669,12 @@ msgid ""
 "unison course tuned 12 stringed electric guitar body with mandolin neck, it "
 "is tuned an octave higher than a conventional guitar, thus having the tonal "
 "range of the mandolin."
-msgstr ""
+msgstr "corps de guitare électrique à 12 cordes avec manche de mandoline ;elle est accordée un octave au-dessus d'une guitare ordinaire, ce qui luiconfère la tessiture d'une mandoline."
 
 #. name:English concertina
 #: DB:instrument/description:837
 msgid "unisonoric concertina with hexagonal sides and concertina reeds."
-msgstr ""
+msgstr "concertina monodique de forme hexagonale, dotée d'anches de concertina"
 
 #. name:khulsan khuur
 #: DB:instrument/description:811
@@ -3714,19 +3716,19 @@ msgstr "tambours de diverses tailles"
 msgid ""
 "while today it is obscure, it was developed and improved for 400 years, the "
 "French flageolet has 4 holes in front and two thumb holes in the back"
-msgstr ""
+msgstr "Bien oublié aujourd'hui, il a été amélioré au fil de quatre siècles.Le flageolet du Midi de la France possède quatre trous sur le dessuset deux trous pour les pouces en-dessous."
 
 #. name:wind synthesizer
 #: DB:instrument/description:560
 msgid ""
 "wind synthesizer or wind controller, it is connected to a midi controller "
 "and is played like a wind instrument."
-msgstr ""
+msgstr "Le synthétiseur d'instruments à vent est câblé à une console midiet se joue comme un instrument à vent."
 
 #. name:vibrandoneon
 #: DB:instrument/description:840
 msgid "wood accordina with piano keys invented in Italy"
-msgstr ""
+msgstr "accordina en bois avec des touches de piano, inventée en Italie."
 
 #. name:English flageolet
 #: DB:instrument/description:844

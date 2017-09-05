@@ -87,7 +87,6 @@ test('clicking outside of a track AC bubble closes it', function (t) {
       $('body').click();
       t.ok(!$bubble.is(':visible'), 'bubble is hidden after clicking outside of it');
 
-      ReactDOM.unmountComponentAtNode($container[0]);
       $container.remove();
     }
   );
@@ -119,7 +118,6 @@ test('creating a new artist from the track AC bubble should not close it (MBS-72
       $button.click();
       t.ok(!$bubble.is(':visible'), 'bubble is hidden after clicking the button again');
 
-      ReactDOM.unmountComponentAtNode($container[0]);
       $container.remove();
     }
   );
@@ -144,7 +142,6 @@ test('removing all credits but one should clear the join phrase (MBS-8896)', fun
       $bubble.find('.remove-item:last').click();
       t.equal($joinPhrase.val(), '');
 
-      ReactDOM.unmountComponentAtNode($container[0]);
       $container.remove();
     }
   );
@@ -174,7 +171,6 @@ test('updating the artist field should also update the credited name field (MBS-
       $artistNode.val('').trigger('input');
       t.equal($creditNode.val(), '');
 
-      ReactDOM.unmountComponentAtNode($container[0]);
       $container.remove();
     }
   );
@@ -212,7 +208,6 @@ test('can clear the credited name field until it is blurred', function (t) {
       ReactTestUtils.Simulate.blur($creditNode[0], {target: $creditNode[0]});
       t.equal($creditNode.val(), 'hello');
 
-      ReactDOM.unmountComponentAtNode($container[0]);
       $container.remove();
     }
   );
@@ -251,7 +246,6 @@ test('MBS-8924: Changing an artist field causes infinite recursion', function (t
       t.equal($creditNode.val(), 'Silent Dawn');
       t.ok($artistNode.is(':not(.lookup-performed)'));
 
-      ReactDOM.unmountComponentAtNode($container[0]);
       $container.remove();
     }
   );

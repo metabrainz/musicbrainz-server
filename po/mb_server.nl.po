@@ -23,8 +23,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-06-19 21:20+0200\n"
-"PO-Revision-Date: 2017-05-15 20:39+0000\n"
+"POT-Creation-Date: 2017-07-17 21:24-0500\n"
+"PO-Revision-Date: 2017-07-18 20:55+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -43,7 +43,7 @@ msgid ""
 " Enter your username and email below. We will send you an email with a link "
 "to reset your password. If you have forgotten your username, {link|retrieve "
 "it} first and then reset your password. "
-msgstr "Voer hieronder je gebruikersnaam en wachtwoord in. We zullen je een e-mail sturen met een link om je wachtwoord opnieuw in te stellen. Als je je gebruikersnaam bent vergeten, moet je dat eest {link|opvragen} en daarna je wachtwoord opnieuw instellen."
+msgstr "Voer hieronder je gebruikersnaam en wachtwoord in. We zullen je een e-mail sturen met een link om je wachtwoord opnieuw in te stellen. Als je je gebruikersnaam bent vergeten, moet je die eerst {link|opvragen} en daarna je wachtwoord opnieuw instellen."
 
 #: ../root/components/forms.tt:294
 msgid "\"C\" is a single check digit."
@@ -83,8 +83,9 @@ msgstr "‘JJ’ zijn de laatste twee cijfers van het registratiejaar."
 #: ../root/edit/details/edit_medium.tt:176
 #: ../root/edit/details/edit_medium.tt:207
 #: ../root/edit/details/historic/add_release.tt:49
-#: ../root/recording/index.tt:10 ../root/release/edit_relationships.tt:48
-#: ../root/release/edit/tracklist.tt:137 ../root/release/edit/tracklist.tt:343
+#: ../root/recording/index.tt:10 ../root/release/edit/tracklist.tt:137
+#: ../root/release/edit/tracklist.tt:343
+#: ../root/release/edit_relationships.tt:48
 msgid "#"
 msgstr "#"
 
@@ -114,7 +115,7 @@ msgstr "&#x26a0; De server is overbelast, probeer het later opnieuw"
 
 #: ../root/release/add_cover_art.tt:63
 msgid "&#x26a0; Unrecognized file"
-msgstr "&#x26a0; Niet herkend bestand"
+msgstr "&#x26a0; Bestand niet herkend"
 
 #: ../root/release/add_cover_art.tt:62
 msgid "&#x2713; Success"
@@ -286,7 +287,7 @@ msgstr "250px"
 msgid ""
 "2: Shown in the \"other\" section, used for scripts in Unicode which are "
 "unlikely to be used"
-msgstr "2. Zichtbaar in de sectie “overig”, wordt gebruikt voor schriften in Unicode die waarschijnlijk niet gebruikt gaan worden."
+msgstr "2. Zichtbaar in de sectie “overig”. Dit wordt gebruikt voor schriften in Unicode die waarschijnlijk niet gebruikt gaan worden."
 
 #: ../root/admin/attributes/form.tt:14
 msgid "2: Shown in the commonly used section"
@@ -300,7 +301,7 @@ msgstr "Tweede secondant"
 msgid ""
 "3: Shown in the \"other\" section, used for scripts which are likely to get "
 "some usage"
-msgstr "3. Zichtbaar in de sectie “overig”, wordt gebruikt voor schriften die waarschijnlijk soms gebruikt gaan worden."
+msgstr "3. Zichtbaar in de sectie “overig”. Dit wordt gebruikt voor schriften die waarschijnlijk soms gebruikt gaan worden."
 
 #: ../root/admin/attributes/form.tt:29
 msgid "4: Shown in the commonly used section"
@@ -394,7 +395,7 @@ msgstr "Er is een cd-beginsel gevonden dat overeenkomt met je disc-id. Als de on
 
 #: ../root/place/map.tt:6
 msgid "A map cannot be shown because this place has no coordinates."
-msgstr "Er kan geen kaart worden vertoond omdat deze plaats geen coördinaten heeft."
+msgstr "Er kan geen kaart worden getoond omdat deze plaats geen coördinaten heeft."
 
 #: ../root/entity/collections.tt:18
 msgid "A private collection"
@@ -496,7 +497,7 @@ msgid ""
 "Add \"@ \" at line start to indicate artists, \"* \" for a work/song, \"# \""
 " for additional info (such as \"Encore\"). [mbid|name] allows linking to "
 "artists and works."
-msgstr "Begin een regel met “@ ” om artiesten aan te geven, “* ” voor een compositie/nummer of “# ” voor extra informatie (zoals ‘toegift’). Met [mbid|naam] kunnen artiesten en composities gekoppeld worden."
+msgstr "Begin een regel met “@ ” om artiesten aan te geven, “* ” voor een compositie/nummer of “# ” voor extra informatie (zoals ‘toegift’). Met [mbid|naam] kunnen artiesten en composities worden gekoppeld."
 
 #: ../root/entity/alias/add.tt:1
 msgid "Add Alias"
@@ -675,7 +676,7 @@ msgstr "Nieuwe collectie toevoegen"
 msgid "Add a New Example"
 msgstr "Nieuw voorbeeld toevoegen"
 
-#: ../root/account/edit.tt:65
+#: ../root/account/edit.tt:69
 msgid "Add a language"
 msgstr "Taal toevoegen"
 
@@ -729,7 +730,7 @@ msgstr "Kindelement toevoegen"
 
 #: ../root/cdstub/layout.tt:29
 msgid "Add disc ID to an existing release"
-msgstr "Disc-id aan een bestaande uitgave toevoegen"
+msgstr "Disc-ID aan een bestaande uitgave toevoegen"
 
 #: ../root/edit/add_note.tt:4
 msgid "Add edit note"
@@ -966,6 +967,7 @@ msgid "Alternatively, you may {uri|add a new artist}."
 msgstr "Je kan ook {uri|een nieuwe artiest toevoegen}."
 
 #: ../root/search/results-event.tt:54
+#: ../root/search/components/EventResults.js:80
 msgid "Alternatively, you may {uri|add a new event}."
 msgstr "Je kan ook {uri|een nieuw evenement toevoegen}."
 
@@ -1132,7 +1134,7 @@ msgstr "Direct goedkeuren"
 msgid ""
 "Are you sure that you wish to attach the disc ID <code>{discid}</code> to "
 "{format} {pos} of {release} by {artist}?"
-msgstr "Weet je zeker dat je de disc-id <code>{discid}</code> aan {format} {pos} van {release} van {artist} wil toevoegen?"
+msgstr "Weet je zeker dat je de disc-ID <code>{discid}</code> aan {format} {pos} van {release} van {artist} wil toevoegen?"
 
 #: ../root/admin/delete_user.tt:5
 msgid ""
@@ -1158,7 +1160,7 @@ msgstr "Weet je zeker dat je de collectie {collection} wil verwijderen?"
 msgid ""
 "Are you sure you want to remove the disc ID <code>{discid}</code> from the "
 "release {release} by {artist}?"
-msgstr "Weet je zeker dat je de disc-id <code>{discid}</code> van de uitgave {release} door {artist} wil verwijderen?"
+msgstr "Weet je zeker dat je de disc-ID <code>{discid}</code> van de uitgave {release} door {artist} wil verwijderen?"
 
 #: ../root/account/remove_application.tt:5
 msgid "Are you sure you want to remove this application?"
@@ -1236,7 +1238,7 @@ msgstr "Collecties met gebieden"
 
 #: ../root/area/edit_form.tt:9
 msgid "Area Details"
-msgstr "Details van het gebied"
+msgstr "Details over het gebied"
 
 #: ../root/area/not_found.tt:1 ../root/area/not_found.tt:2
 msgid "Area Not Found"
@@ -1282,10 +1284,11 @@ msgstr "Gebieden"
 #: ../root/edit/details/merge_releases.tt:19 ../root/edit/search_macros.tt:360
 #: ../root/isrc/index.tt:17 ../root/otherlookup/results-release.tt:11
 #: ../root/release/edit/tracklist.tt:139 ../root/release/edit/tracklist.tt:345
-#: ../root/release_group/merge.tt:13 ../root/release/lookup.tt:10
-#: ../root/release/merge.tt:14 ../root/report/artist_list.tt:7
+#: ../root/release/lookup.tt:10 ../root/release/merge.tt:14
+#: ../root/release_group/merge.tt:13 ../root/report/artist_list.tt:7
+#: ../root/report/artist_url_list.tt:6
 #: ../root/report/artists_with_multiple_occurances_in_artist_credits.tt:17
-#: ../root/report/artist_url_list.tt:6 ../root/report/bad_amazon_urls.tt:19
+#: ../root/report/bad_amazon_urls.tt:19
 #: ../root/report/cat_no_looks_like_asin.tt:20
 #: ../root/report/duplicate_artists.tt:25
 #: ../root/report/isrc_with_many_recordings.tt:24
@@ -1368,7 +1371,7 @@ msgstr "Informatie over de artiest"
 msgid "Artist name:"
 msgstr "Artiestennaam:"
 
-#: ../root/user/ratings_summary.tt:3 ../root/user/ratings.tt:2
+#: ../root/user/ratings.tt:2 ../root/user/ratings_summary.tt:3
 msgid "Artist ratings"
 msgstr "Waarderingen van artiesten"
 
@@ -1379,14 +1382,13 @@ msgstr "Artiest {n}:"
 #: ../root/cdstub/edit_form.tt:6 ../root/cdstub/import.tt:7
 #: ../root/cdtoc/attach_filter_artist.tt:8 ../root/cdtoc/lookup.tt:61
 #: ../root/components/common-macros.tt:578
-#: ../root/edit/details/add_artist.tt:3
+#: ../root/edit/details/add_artist.tt:3 ../root/edit/details/add_release.tt:15
 #: ../root/edit/details/add_release_group.tt:15
-#: ../root/edit/details/add_release.tt:15
 #: ../root/edit/details/add_standalone_recording.tt:15
 #: ../root/edit/details/edit_artist.tt:5
 #: ../root/edit/details/edit_recording.tt:32
-#: ../root/edit/details/edit_release_group.tt:30
 #: ../root/edit/details/edit_release.tt:15
+#: ../root/edit/details/edit_release_group.tt:30
 #: ../root/edit/details/historic/add_release.tt:19
 #: ../root/edit/details/historic/add_track_kv.tt:20
 #: ../root/edit/details/historic/change_artist_quality.tt:3
@@ -1409,6 +1411,7 @@ msgstr "Artiest:"
 #: ../root/report/index.tt:14 ../root/report/iswc_with_many_works.tt:21
 #: ../root/search/results-event.tt:10 ../root/search/results-work.tt:10
 #: ../root/tag/header.tt:1 ../root/tag/index.tt:8 ../root/work/merge.tt:13
+#: ../root/search/components/EventResults.js:31
 msgid "Artists"
 msgstr "Artiesten"
 
@@ -1422,7 +1425,7 @@ msgstr "Artiesten met een verduidelijking in de naam"
 #: ../root/report/artists_with_multiple_occurances_in_artist_credits.tt:3
 #: ../root/report/index.tt:26
 msgid "Artists occuring multiple times in the same artist credit"
-msgstr "Artiesten die meerdere keren als artiest in één nummer of opname vermeld worden."
+msgstr "Artiesten die meerdere keren als artiest van één nummer of opname worden vermeld."
 
 #: ../root/report/possible_collaborations.tt:1
 #: ../root/report/possible_collaborations.tt:3
@@ -1513,7 +1516,7 @@ msgstr "TOC van de cd toevoegen"
 
 #: ../root/cdtoc/lookup.tt:52 ../root/release/edit/tracklist.tt:370
 msgid "Attach Disc ID"
-msgstr "Disc-id toevoegen"
+msgstr "Disc-ID toevoegen"
 
 #: ../root/cdtoc/index.tt:7
 msgid "Attached to releases"
@@ -1653,8 +1656,9 @@ msgstr "Mededelingsredacteurs zijn gebruikers die een mededeling kunnen instelle
 #: ../root/edit/details/historic/add_release.tt:79
 #: ../root/edit/details/merge_releases.tt:26
 #: ../root/otherlookup/results-release.tt:18
-#: ../root/release/edit/duplicates.tt:17 ../root/release_group/index.tt:30
-#: ../root/release/merge.tt:21 ../root/search/lib/inline-results-release.tt:17
+#: ../root/release/edit/duplicates.tt:17 ../root/release/merge.tt:21
+#: ../root/release_group/index.tt:30
+#: ../root/search/lib/inline-results-release.tt:17
 msgid "Barcode"
 msgstr "Streepjescode"
 
@@ -1662,8 +1666,8 @@ msgstr "Streepjescode"
 #: ../root/edit/details/add_release.tt:67
 #: ../root/edit/details/edit_barcodes.tt:17
 #: ../root/edit/details/edit_barcodes.tt:21
-#: ../root/edit/details/edit_release_label.tt:56
-#: ../root/edit/details/edit_release.tt:75 ../root/otherlookup/form.tt:3
+#: ../root/edit/details/edit_release.tt:75
+#: ../root/edit/details/edit_release_label.tt:56 ../root/otherlookup/form.tt:3
 #: ../root/release/edit/information.tt:213 ../root/release/layout.tt:43
 #: ../root/layout/components/MetaDescription.js:135
 msgid "Barcode:"
@@ -1777,12 +1781,12 @@ msgid ""
 " sure to include it!"
 msgstr "Hieronder staat informatie over de foutmelding. Als je deze fout wil rapporteren, kan je dat doen op {bugs|onze bugtracker}. Voeg de onderstaande informatie alsjeblieft toe aan het rapport. Dit help ons om het op te lossen!"
 
-#: ../root/account/edit.tt:46 ../root/admin/edit_user.tt:40
+#: ../root/account/edit.tt:49 ../root/admin/edit_user.tt:40
 #: ../root/user/profile.tt:131
 msgid "Bio:"
 msgstr "Biografie:"
 
-#: ../root/account/edit.tt:38
+#: ../root/account/edit.tt:40
 msgid "Birth date:"
 msgstr "Geboortedatum:"
 
@@ -1825,7 +1829,7 @@ msgstr "Cd opzoeken"
 
 #: ../root/release/lookup.tt:2
 msgid "CD Lookup results"
-msgstr "Cd opzoekresultaten"
+msgstr "Cd-opzoekresultaten"
 
 #: ../root/cdtoc/lookup.tt:83
 msgid "CD Not Found"
@@ -1878,7 +1882,7 @@ msgid ""
 "CD stubs are a feature to allow anonymous users to submit data to "
 "MusicBrainz. For more information, see {cdstub|the documentation on CD "
 "stubs}."
-msgstr "Cd-beginsels zijn een manier die anonieme gebruikers gegevens laat toevoegen aan MusicBrainz. Kijk voor meer informatie bij {cdstub|de documentatie over cd-beginsels}."
+msgstr "Cd-beginsels zijn een manier om anonieme gebruikers gegevens te laten toevoegen aan MusicBrainz. Kijk voor meer informatie bij {cdstub|de documentatie over cd-beginsels}."
 
 #: ../root/account/edit_application.tt:10
 #: ../root/account/register_application.tt:10
@@ -1887,7 +1891,7 @@ msgstr "Callback URL:"
 
 #: ../root/doc/edit_type.tt:42
 msgid "Can be approved"
-msgstr "Kan goedgekeurd worden"
+msgstr "Kan worden goedgekeurd"
 
 #: ../root/account/remove_application.tt:9
 #: ../root/account/revoke_application_access.tt:9 ../root/area/merge.tt:20
@@ -1897,8 +1901,8 @@ msgstr "Kan goedgekeurd worden"
 #: ../root/instrument/merge.tt:36 ../root/label/merge.tt:49
 #: ../root/layout/merge-helper.tt:34 ../root/place/merge.tt:48
 #: ../root/recording/merge.tt:26 ../root/release/edit/layout.tt:58
-#: ../root/release/edit/tracklist.tt:87 ../root/release_group/merge.tt:41
-#: ../root/release/merge.tt:130 ../root/series/merge.tt:37
+#: ../root/release/edit/tracklist.tt:87 ../root/release/merge.tt:130
+#: ../root/release_group/merge.tt:41 ../root/series/merge.tt:37
 #: ../root/work/merge.tt:67 ../root/layout/components/MergeHelper.js:38
 msgid "Cancel"
 msgstr "Annuleren"
@@ -1947,7 +1951,7 @@ msgstr "Kan geen afbeelding toevoegen"
 
 #: ../root/admin/attributes/in_use.tt:1 ../root/admin/attributes/in_use.tt:2
 msgid "Cannot Remove Attribute"
-msgstr "Eigenschap kan niet verwijderd worden"
+msgstr "Eigenschap kan niet worden verwijderd"
 
 #: ../root/artist/special_purpose.tt:1
 msgid "Cannot edit"
@@ -1987,8 +1991,9 @@ msgstr "Catalogusnummer:"
 #: ../root/components/releases-list.tt:21
 #: ../root/edit/details/merge_releases.tt:25
 #: ../root/otherlookup/results-release.tt:17 ../root/recording/index.tt:18
-#: ../root/release/edit/duplicates.tt:16 ../root/release_group/index.tt:29
-#: ../root/release/merge.tt:20 ../root/search/lib/inline-results-release.tt:16
+#: ../root/release/edit/duplicates.tt:16 ../root/release/merge.tt:20
+#: ../root/release_group/index.tt:29
+#: ../root/search/lib/inline-results-release.tt:16
 msgid "Catalog#"
 msgstr "Catalogus#"
 
@@ -2158,7 +2163,7 @@ msgstr "Versies vergelijken"
 msgid ""
 "Comparing revision by {user_old} on {date_old} with revision by {user_new} "
 "on {date_new}."
-msgstr "Vergelijkt de revisie door {user_old} op {date_old} met revisie {user_new} op {date_new}."
+msgstr "Vergelijkt de revisie door {user_old} op {date_old} met de revisie door {user_new} op {date_new}."
 
 #: ../root/edit/info.tt:59
 msgid "Conditions:"
@@ -2214,8 +2219,9 @@ msgstr "Kopieer de titel van de uitgave naar de uitgavegroep"
 #: ../root/edit/details/historic/add_release.tt:76
 #: ../root/edit/details/merge_releases.tt:23
 #: ../root/otherlookup/results-release.tt:15 ../root/recording/index.tt:16
-#: ../root/release/edit/duplicates.tt:14 ../root/release_group/index.tt:27
-#: ../root/release/merge.tt:18 ../root/search/lib/inline-results-release.tt:14
+#: ../root/release/edit/duplicates.tt:14 ../root/release/merge.tt:18
+#: ../root/release_group/index.tt:27
+#: ../root/search/lib/inline-results-release.tt:14
 msgid "Country"
 msgstr "Land"
 
@@ -2335,11 +2341,12 @@ msgstr "Data:"
 #: ../root/edit/details/historic/add_release.tt:75
 #: ../root/edit/details/merge_releases.tt:22 ../root/elections/show.tt:118
 #: ../root/otherlookup/results-release.tt:14 ../root/recording/index.tt:15
-#: ../root/release/edit/duplicates.tt:13 ../root/release_group/index.tt:26
-#: ../root/release/lookup.tt:11 ../root/release/merge.tt:17
+#: ../root/release/edit/duplicates.tt:13 ../root/release/lookup.tt:11
+#: ../root/release/merge.tt:17 ../root/release_group/index.tt:26
 #: ../root/report/event_list.tt:11
 #: ../root/search/lib/inline-results-release.tt:13
 #: ../root/search/results-event.tt:12
+#: ../root/search/components/EventResults.js:33
 msgid "Date"
 msgstr "Datum"
 
@@ -2470,8 +2477,8 @@ msgstr "Direct in de database zoeken"
 #: ../root/edit/details/add_event.tt:16
 #: ../root/edit/details/add_instrument.tt:16
 #: ../root/edit/details/add_label.tt:23 ../root/edit/details/add_place.tt:16
-#: ../root/edit/details/add_release_group.tt:21
 #: ../root/edit/details/add_release.tt:32
+#: ../root/edit/details/add_release_group.tt:21
 #: ../root/edit/details/add_series.tt:16
 #: ../root/edit/details/add_standalone_recording.tt:21
 #: ../root/edit/details/add_work.tt:16 ../root/edit/details/edit_area.tt:21
@@ -2480,8 +2487,8 @@ msgstr "Direct in de database zoeken"
 #: ../root/edit/details/edit_instrument.tt:14
 #: ../root/edit/details/edit_label.tt:19 ../root/edit/details/edit_place.tt:14
 #: ../root/edit/details/edit_recording.tt:17
-#: ../root/edit/details/edit_release_group.tt:15
 #: ../root/edit/details/edit_release.tt:25
+#: ../root/edit/details/edit_release_group.tt:15
 #: ../root/edit/details/edit_series.tt:14 ../root/edit/details/edit_work.tt:15
 #: ../root/event/edit_form.tt:14 ../root/instrument/edit_form.tt:11
 #: ../root/label/edit_form.tt:14 ../root/place/edit_form.tt:14
@@ -2493,19 +2500,19 @@ msgstr "Verduidelijking:"
 
 #: ../root/release/discids.tt:8
 msgid "Disc ID"
-msgstr "Disc-id"
+msgstr "Disc-ID"
 
 #: ../root/cdstub/index.tt:10
 msgid "Disc ID information"
-msgstr "Informatie over de disc-id"
+msgstr "Informatie over de disc-ID"
 
 #: ../root/cdtoc/index.tt:3
 msgid "Disc ID “<code>{discid}</code>”"
-msgstr "Disc-id “<code>{discid}</code>”"
+msgstr "Disc-ID “<code>{discid}</code>”"
 
 #: ../root/cdtoc/index.tt:1
 msgid "Disc ID “{discid}”"
-msgstr "Disc-id “{discid}”"
+msgstr "Disc-ID “{discid}”"
 
 #: ../root/cdtoc/info.tt:11 ../root/edit/details/add_disc_id.tt:11
 #: ../root/edit/details/historic/add_disc_id.tt:17
@@ -2515,20 +2522,20 @@ msgstr "Disc-id “{discid}”"
 #: ../root/edit/details/remove_disc_id.tt:9
 #: ../root/edit/details/set_track_lengths.tt:15 ../root/otherlookup/form.tt:3
 msgid "Disc ID:"
-msgstr "Disc-id:"
+msgstr "Disc-ID:"
 
 #: ../root/components/entity-tabs.tt:1 ../root/release/discids.tt:1
 #: ../root/release/discids.tt:3
 msgid "Disc IDs"
-msgstr "Disc-id’s"
+msgstr "Disc-ID’s"
 
 #: ../root/admin/attributes/index.tt:25
 msgid "Disc IDs allowed"
-msgstr "Disc-id’s toegestaan"
+msgstr "Disc-ID’s toegestaan"
 
 #: ../root/report/superfluous_data_tracks.tt:1
 msgid "Disc IDs with superfluous data tracks"
-msgstr "Disc-id’s met overbodige gegevensnummers"
+msgstr "Disc-ID’s met overbodige gegevensnummers"
 
 #: ../root/release/edit/tracklist.tt:290
 msgid "Disc title:"
@@ -2753,8 +2760,8 @@ msgstr "Relatietypes bewerken"
 msgid "Edit Relationships: {release}"
 msgstr "Relaties bewerken: {release}"
 
-#: ../root/doc/edit_types.tt:1 ../root/doc/edit_types.tt:3
-#: ../root/doc/edit_type.tt:18 ../root/edit/info.tt:69
+#: ../root/doc/edit_type.tt:18 ../root/doc/edit_types.tt:1
+#: ../root/doc/edit_types.tt:3 ../root/edit/info.tt:69
 #: ../root/layout/header/bottom.tt:172
 #: ../root/layout/components/BottomMenu.js:237
 msgid "Edit Types"
@@ -3055,6 +3062,10 @@ msgstr "Fout bij het goedkeuren van de bewerking"
 msgid "Error Cancelling Edit"
 msgstr "Fout bij het annuleren van de bewerking"
 
+#: ../root/edit/cannot_vote.tt:1 ../root/edit/cannot_vote.tt:2
+msgid "Error Voting on Edits"
+msgstr "Fout bij het stemmen"
+
 #: ../root/release/edit/layout.tt:32
 msgid "Error loading release: {error}"
 msgstr "Fout bij het laden van de uitgave: {error}"
@@ -3075,7 +3086,7 @@ msgstr[1] "Foutmeldingen:"
 
 #: ../root/components/entity-tabs.tt:1
 msgid "Error: Unknown Tab Type"
-msgstr "Fout: Onbekend type tabblad."
+msgstr "Foutmelding: Onbekend type tabblad"
 
 #: ../root/components/common-macros.tt:131
 msgid "Error: Unknown Type"
@@ -3116,13 +3127,13 @@ msgstr "Evenement niet gevonden"
 msgid "Event information"
 msgstr "Informatie over het evenement"
 
-#: ../root/user/ratings_summary.tt:3 ../root/user/ratings.tt:2
+#: ../root/user/ratings.tt:2 ../root/user/ratings_summary.tt:3
 msgid "Event ratings"
 msgstr "Waarderingen van evenementen"
 
-#: ../root/components/common-macros.tt:578
+#: ../root/components/common-macros.tt:578 ../root/edit/details/add_event.tt:3
 #: ../root/edit/details/add_event_annotation.tt:3
-#: ../root/edit/details/add_event.tt:3 ../root/edit/details/edit_event.tt:5
+#: ../root/edit/details/edit_event.tt:5
 msgid "Event:"
 msgstr "Evenement:"
 
@@ -3304,8 +3315,8 @@ msgstr "Ben je je {link1|gebruikersnaam} of {link2|wachtwoord} vergeten?"
 #: ../root/edit/details/historic/add_release.tt:80
 #: ../root/edit/details/merge_releases.tt:20
 #: ../root/otherlookup/results-release.tt:12
-#: ../root/release/edit/duplicates.tt:11 ../root/release_group/index.tt:24
-#: ../root/release/lookup.tt:12 ../root/release/merge.tt:15
+#: ../root/release/edit/duplicates.tt:11 ../root/release/lookup.tt:12
+#: ../root/release/merge.tt:15 ../root/release_group/index.tt:24
 #: ../root/search/lib/inline-results-release.tt:11
 msgid "Format"
 msgstr "Type medium"
@@ -3337,13 +3348,13 @@ msgstr "Bewoording van de voorwaartse link:"
 msgid ""
 "Found a broken link on our site? Please let us know by {report|reporting a "
 "bug}."
-msgstr "Heb je een kapotte link gevonden op onze site? Laat het ons alsjeblieft weten door {report|een bug te rapporteren}."
+msgstr "Heb je op onze site een kapotte link gevonden? Laat het ons alsjeblieft weten door {report|een bug te rapporteren}."
 
 #: ../root/main/400.tt:16
 msgid ""
 "Found a problem on our site? Please {report|report a bug} and include any "
 "error message that is shown above."
-msgstr "Heb je een probleem gevonden op onze site? {report|Rapporteer het alsjeblieft} en voeg elke foutmelding toe die hierboven wordt weergegeven."
+msgstr "Heb je op onze site een probleem gevonden? {report|Rapporteer het alsjeblieft} en voeg elke foutmelding toe die hierboven wordt weergegeven."
 
 #: ../root/edit/list.tt:29
 msgid "Found at least {n} edit"
@@ -3407,7 +3418,7 @@ msgstr "FreeDB-toegang"
 
 #: ../root/otherlookup/form.tt:3
 msgid "FreeDB ID:"
-msgstr "FreeDB-id:"
+msgstr "FreeDB-ID:"
 
 #: ../root/cdtoc/info.tt:15
 msgid "FreeDB:"
@@ -3446,7 +3457,7 @@ msgstr "Volledige TOC:"
 msgid "Gender"
 msgstr "Geslacht"
 
-#: ../root/account/edit.tt:22 ../root/artist/edit_form.tt:18
+#: ../root/account/edit.tt:24 ../root/artist/edit_form.tt:18
 #: ../root/artist/layout.tt:30 ../root/edit/details/add_artist.tt:31
 #: ../root/edit/details/edit_artist.tt:30 ../root/user/profile.tt:74
 #: ../root/layout/components/MetaDescription.js:32
@@ -3509,30 +3520,30 @@ msgstr "Algemene informatie"
 #: ../root/report/part_of_set_relationships.tt:14
 #: ../root/report/possible_collaborations.tt:14
 #: ../root/report/recordings_with_earliest_release_relationships.tt:12
+#: ../root/report/recordings_with_varying_track_lengths.tt:9
 #: ../root/report/recordings_without_va_credit.tt:9
 #: ../root/report/recordings_without_va_link.tt:9
-#: ../root/report/recordings_with_varying_track_lengths.tt:9
-#: ../root/report/released_too_early.tt:8
 #: ../root/report/release_groups_without_va_credit.tt:9
 #: ../root/report/release_groups_without_va_link.tt:9
+#: ../root/report/released_too_early.tt:8
 #: ../root/report/releases_in_caa_with_cover_art_relationships.tt:10
 #: ../root/report/releases_to_convert.tt:12
 #: ../root/report/releases_with_coverart_links.tt:8
 #: ../root/report/releases_with_download_relationships.tt:10
 #: ../root/report/releases_with_no_mediums.tt:8
+#: ../root/report/releases_with_unlikely_language_script.tt:10
 #: ../root/report/releases_without_language.tt:11
 #: ../root/report/releases_without_script.tt:10
 #: ../root/report/releases_without_va_credit.tt:9
 #: ../root/report/releases_without_va_link.tt:9
-#: ../root/report/releases_with_unlikely_language_script.tt:10
 #: ../root/report/separate_discs.tt:10
 #: ../root/report/set_in_different_rg.tt:14
 #: ../root/report/single_medium_releases_with_medium_titles.tt:10
 #: ../root/report/some_formats_unset.tt:10
 #: ../root/report/superfluous_data_tracks.tt:10
 #: ../root/report/tracks_named_with_sequence.tt:11
-#: ../root/report/tracks_without_times.tt:8
 #: ../root/report/tracks_with_sequence_issues.tt:10
+#: ../root/report/tracks_without_times.tt:8
 #: ../root/report/unlinked_pseudo_releases.tt:8
 msgid "Generated on {date}"
 msgstr "Aangemaakt op {date}"
@@ -3602,7 +3613,7 @@ msgid "Help:"
 msgstr "Help:"
 
 #: ../root/components/common-macros.tt:628
-#: ../lib/MusicBrainz/Server/Controller/Edit.pm:202
+#: ../lib/MusicBrainz/Server/Controller/Edit.pm:207
 msgid "High"
 msgstr "Hoog"
 
@@ -3643,7 +3654,7 @@ msgstr "Ik heb net gedoneerd! Waarom zie ik dit?"
 #: ../root/admin/attributes/index.tt:17 ../root/admin/attributes/language.tt:8
 #: ../root/admin/attributes/script.tt:8 ../root/edit/search_macros.tt:360
 msgid "ID"
-msgstr "id"
+msgstr "ID"
 
 #: ../root/doc/relationship_type.tt:31
 msgid "ID:"
@@ -3812,7 +3823,7 @@ msgstr "{report|Rapporteer een bug} als het probleem zich blijft voordoen, en vo
 msgid ""
 "If this is an Amazon ASIN, please do not enter it in the catalog number "
 "field, but add it as a URL relationship later."
-msgstr "Als dit een ASIN van Amazon is, moet u dit niet invoeren als een catalogusnummer, maar later een URL-relatie toevoegen."
+msgstr "Als dit een ASIN van Amazon is, moet je dit niet invoeren als een catalogusnummer, maar als URL-relatie toevoegen."
 
 #: ../root/release/edit/recordings.tt:139
 msgid ""
@@ -3898,7 +3909,7 @@ msgstr "Als je mee wil helpen om MusicBrainz te verbeteren, maar niet weet waar 
 msgid ""
 "If you’d like us to be able to easily respond to your report, please check "
 "“Reveal my email address” below."
-msgstr "Als je wilt dat we makkelijk op je rapport kunnen reageren, moet je hieronder “Toon mijn e-mailadres” aanvinken."
+msgstr "Als je wil dat we makkelijk op je rapport kunnen reageren, moet je hieronder “Toon mijn e-mailadres” aanvinken."
 
 #: ../root/components/commons-image.tt:4
 msgid "Image from Wikimedia Commons"
@@ -3931,7 +3942,7 @@ msgstr "Om je aan te melden of om veranderingen te maken in de database, moet je
 msgid ""
 "In order to view this page, please visit the main server at "
 "{mb|https://musicbrainz.org/}."
-msgstr "Om deze pagina te bekijken, moet je de hoofdserver gebruiken op {mb|https://musicbrainz.org/}."
+msgstr "Om deze pagina te bekijken, moet je de hoofdserver op {mb|https://musicbrainz.org/} gebruiken."
 
 #: ../root/user/login.tt:20
 msgid "Incorrect username or password"
@@ -4034,7 +4045,7 @@ msgstr "Naar:"
 
 #: ../root/cdstub/error.tt:5
 msgid "Invalid Disc ID"
-msgstr "Ongeldige disc-id"
+msgstr "Ongeldige disc-ID"
 
 #: ../root/main/timeout.tt:6
 msgid "It may help to try again by reloading the page."
@@ -4061,8 +4072,8 @@ msgstr "Aangemeld blijven"
 #: ../root/edit/details/merge_releases.tt:24 ../root/edit/search_macros.tt:360
 #: ../root/label/header.tt:4 ../root/label/merge.tt:12
 #: ../root/otherlookup/results-release.tt:16 ../root/recording/index.tt:17
-#: ../root/release/edit/duplicates.tt:15 ../root/release_group/index.tt:28
-#: ../root/release/merge.tt:19 ../root/report/label_list.tt:7
+#: ../root/release/edit/duplicates.tt:15 ../root/release/merge.tt:19
+#: ../root/release_group/index.tt:28 ../root/report/label_list.tt:7
 #: ../root/report/label_url_list.tt:6
 #: ../root/search/lib/inline-results-release.tt:15
 #: ../lib/MusicBrainz/Server/Edit/Label.pm:7
@@ -4118,7 +4129,7 @@ msgstr "Platenmaatschappij-code"
 msgid "Label information"
 msgstr "Informatie over de platenmaatschappij"
 
-#: ../root/user/ratings_summary.tt:3 ../root/user/ratings.tt:2
+#: ../root/user/ratings.tt:2 ../root/user/ratings_summary.tt:3
 msgid "Label ratings"
 msgstr "Waarderingen van platenmaatschappijen"
 
@@ -4182,7 +4193,7 @@ msgstr "Taal:"
 msgid "Language: {language}, script: {script}"
 msgstr "Taal: {language}, schrift: {script}"
 
-#: ../root/account/edit.tt:52
+#: ../root/account/edit.tt:56
 msgid "Languages Known:"
 msgstr "Bekende talen:"
 
@@ -4347,6 +4358,7 @@ msgstr "Lokalisatie"
 
 #: ../root/components/events-list.tt:24 ../root/report/event_list.tt:10
 #: ../root/search/results-event.tt:11
+#: ../root/search/components/EventResults.js:32
 msgid "Location"
 msgstr "Locatie"
 
@@ -4366,7 +4378,7 @@ msgstr "Locatieredacteurs"
 msgid "Location editors are users who can add or modify {uri|areas}."
 msgstr "Locatieredacteurs zijn gebruikers die {uri|gebieden} kunnen toevoegen of bewerken."
 
-#: ../root/account/edit.tt:25 ../root/user/profile.tt:80
+#: ../root/account/edit.tt:27 ../root/user/profile.tt:80
 msgid "Location:"
 msgstr "Locatie:"
 
@@ -4420,18 +4432,18 @@ msgstr "Aantal keer opgevraagd"
 msgid "Lookup count:"
 msgstr "Aantal keer opgevraagd:"
 
-#: ../root/account/lost_password_sent.tt:1 ../root/account/lost_password.tt:1
-#: ../root/account/lost_password.tt:3
+#: ../root/account/lost_password.tt:1 ../root/account/lost_password.tt:3
+#: ../root/account/lost_password_sent.tt:1
 msgid "Lost Password"
 msgstr "Wachtwoord verloren"
 
-#: ../root/account/lost_username_sent.tt:1 ../root/account/lost_username.tt:1
-#: ../root/account/lost_username.tt:3
+#: ../root/account/lost_username.tt:1 ../root/account/lost_username.tt:3
+#: ../root/account/lost_username_sent.tt:1
 msgid "Lost Username"
 msgstr "Gebruikersnaam kwijt"
 
 #: ../root/components/common-macros.tt:628
-#: ../lib/MusicBrainz/Server/Controller/Edit.pm:202
+#: ../lib/MusicBrainz/Server/Controller/Edit.pm:207
 msgid "Low"
 msgstr "Laag"
 
@@ -4462,7 +4474,7 @@ msgstr "Magic MP3 Tagger"
 msgid ""
 "Mail me when one of my edits gets a \"no\" vote. (Note: the email is only "
 "sent for the first \"no\" vote, not each one)"
-msgstr "E-mail mij als er tegen een van mijn bewerkingen wordt gestemd. (Notitie: de e-mail wordt alleen gestuurd na de eerste tegenstem, niet voor elke.)"
+msgstr "E-mail mij als er tegen een van mijn bewerkingen wordt gestemd. De e-mail wordt alleen gestuurd na de eerste tegenstem, niet voor elke."
 
 #: ../root/taglookup/nag.tt:24
 msgid "Make a donation now!"
@@ -4677,7 +4689,7 @@ msgstr "Verplaatsen"
 
 #: ../root/cdtoc/move_search.tt:1 ../root/cdtoc/move_search.tt:2
 msgid "Move Disc ID"
-msgstr "Disc-id verplaatsen"
+msgstr "Disc-ID verplaatsen"
 
 #: ../root/release/edit/tracklist.tt:297
 msgid "Move disc down"
@@ -4764,14 +4776,14 @@ msgstr "MusicBrainz heeft één type account voor alle gebruikers. Gebruik het b
 msgid ""
 "MusicBrainz is an open music encyclopedia that collects music metadata and "
 "makes it available to the public."
-msgstr "MusicBrainz is een open muziekencyclopedie die metagegevens over muziek verzamelt en aan het publiek beschikbaar stelt."
+msgstr "MusicBrainz is een open muziekencyclopedie met door gebruikers verzamelde, openbare metagegevens over muziek."
 
 #: ../root/main/index.tt:38
 msgid ""
 "MusicBrainz is operated by the {uri|MetaBrainz Foundation}, a California "
 "based 501(c)(3) tax-exempt non-profit corporation dedicated to keeping "
 "MusicBrainz {free|free and open source}."
-msgstr "MusicBrainz wordt beheerd door de {uri|MetaBrainz Foundation}, een in Californië gevestigde en van de belasting vrijgestelde stichting zonder winstoogmerk die MusicBrainz {free|gratis en open} probeert te houden."
+msgstr "MusicBrainz wordt beheerd door de {uri|MetaBrainz Foundation}, een in Californië gevestigde stichting zonder winstoogmerk die MusicBrainz {free|gratis en open} probeert te houden."
 
 #: ../root/layout/header/top.tt:25 ../root/layout/components/TopMenu.js:46
 msgid "My Collections"
@@ -4823,6 +4835,7 @@ msgstr "Geen"
 #: ../root/search/results-place.tt:8 ../root/search/results-series.tt:8
 #: ../root/search/results-tag.tt:8 ../root/search/results-work.tt:8
 #: ../root/user/subscriptions/table.tt:12
+#: ../root/search/components/EventResults.js:29
 msgid "Name"
 msgstr "Naam"
 
@@ -4836,8 +4849,8 @@ msgstr "Naam"
 #: ../root/edit/details/add_place.tt:10
 #: ../root/edit/details/add_relationship_attribute.tt:3
 #: ../root/edit/details/add_relationship_type.tt:3
-#: ../root/edit/details/add_release_group.tt:10
 #: ../root/edit/details/add_release.tt:10
+#: ../root/edit/details/add_release_group.tt:10
 #: ../root/edit/details/add_series.tt:10
 #: ../root/edit/details/add_standalone_recording.tt:10
 #: ../root/edit/details/add_work.tt:10 ../root/edit/details/edit_area.tt:11
@@ -4848,8 +4861,8 @@ msgstr "Naam"
 #: ../root/edit/details/edit_recording.tt:12
 #: ../root/edit/details/edit_relationship_attribute.tt:4
 #: ../root/edit/details/edit_relationship_type.tt:11
-#: ../root/edit/details/edit_release_group.tt:11
 #: ../root/edit/details/edit_release.tt:9
+#: ../root/edit/details/edit_release_group.tt:11
 #: ../root/edit/details/edit_series.tt:9 ../root/edit/details/edit_work.tt:11
 #: ../root/edit/details/historic/add_release.tt:14
 #: ../root/edit/details/historic/add_track_kv.tt:14
@@ -5057,7 +5070,7 @@ msgstr "Geen opnames met dit etiket gevonden."
 
 #: ../root/place/performances.tt:5
 msgid "No recordings, releases or release groups are linked to this place"
-msgstr "Er zijn geen opnames; uitgaves of uitgavegroepen aan deze plaats gekoppeld."
+msgstr "Er zijn geen opnames, uitgaves of uitgavegroepen aan deze plaats gekoppeld."
 
 #: ../root/relationship/linkattributetype/index.tt:29
 msgid "No relationship attributes found."
@@ -5085,7 +5098,7 @@ msgstr "Geen uitgaves gevonden."
 
 #: ../root/release_group/set_cover_art.tt:52
 msgid "No releases have cover art marked as \"Front\", cannot set cover art."
-msgstr "Geen uitgaves hebben afbeeldingen van de voorkant, er kan geen afbeelding worden ingesteld."
+msgstr "Geen van de uitgaves heeft een afbeelding van de voorkant, dus er kan geen afbeelding worden ingesteld."
 
 #: ../root/tag/release.tt:1
 msgid "No releases with this tag were found."
@@ -5115,6 +5128,7 @@ msgstr "Geen resultaten gevonden."
 #: ../root/search/results-label.tt:40 ../root/search/results-place.tt:40
 #: ../root/search/results-release_group.tt:26
 #: ../root/search/results-series.tt:26 ../root/search/results-work.tt:58
+#: ../root/search/components/EventResults.js:76
 msgid "No results found. Try refining your search query."
 msgstr "Geen resultaten gevonden. Probeer je zoekopdracht te herdefiniëren."
 
@@ -5174,10 +5188,10 @@ msgstr "Geen"
 #: ../root/static/scripts/release-editor/fields.js:161
 msgid ""
 "None of the attached disc IDs can fit a pregap track of the given length."
-msgstr "Geen van de gekoppelde disc-id’s past bij een pregapnummer met de opgegeven lengte."
+msgstr "Geen van de gekoppelde disc-ID’s past bij een pregapnummer met de opgegeven duur."
 
 #: ../root/components/common-macros.tt:628
-#: ../lib/MusicBrainz/Server/Controller/Edit.pm:202
+#: ../lib/MusicBrainz/Server/Controller/Edit.pm:207
 msgid "Normal"
 msgstr "Normaal"
 
@@ -5208,7 +5222,7 @@ msgid ""
 "Note: only searches edits that: add or edit relationships, created after "
 "2011-05-16; or which remove relationships, created after 2013-07-08; or "
 "which reorder relationships."
-msgstr "Let op: dit zoekt nu alleen naar bewerkingen die relaties toevoegen of bewerken en gecreëerd zijn na 16 mei 2011, of die relaties verwijderen en gecreëerd zijn na 8 juli 2013, of die de volgorde van relaties veranderen."
+msgstr "Let op: er wordt nu alleen gezocht naar bewerkingen die relaties toevoegen of bewerken en gecreëerd zijn na 16 mei 2011, of die relaties verwijderen en gecreëerd zijn na 8 juli 2013, of die de volgorde van relaties veranderen."
 
 #: ../root/layout/header/top.tt:46 ../root/layout/components/TopMenu.js:67
 msgid "Notes Left on My Edits"
@@ -5236,7 +5250,7 @@ msgstr "OAuth-machtigingsfout"
 
 #: ../root/account/applications.tt:56
 msgid "OAuth Client ID"
-msgstr "OAuth Client-id"
+msgstr "OAuth Client-ID"
 
 #: ../root/account/applications.tt:57
 msgid "OAuth Client Secret "
@@ -5299,7 +5313,7 @@ msgstr "Oud:"
 msgid ""
 "Only releases with the same amount of tracks ({n}) as the release the disc "
 "ID is currently attached to are shown."
-msgstr "Alleen uitgaves met hetzelfde aantal nummers ({n}) als de uitgave waar de Disc ID aan is gekoppeld, worden getoond."
+msgstr "Alleen uitgaves met hetzelfde aantal nummers ({n}) als de uitgave waar de disc-ID aan is gekoppeld, worden getoond."
 
 #: ../root/edit/list.tt:5
 msgid "Only show open edits"
@@ -5325,7 +5339,7 @@ msgstr "Alleen {doc|autoredacteurs} kunnen een bewerking direct goedkeuren."
 msgid ""
 "Oops! It seems your search parameters are not correct, please double check "
 "your input!"
-msgstr "Oeps! Het lijkt er op dat je zoekparameters niet correct waren, controleer je invoer nog eens!"
+msgstr "Oeps! Het lijkt erop dat je zoekparameters niet correct waren, controleer je invoer nog eens!"
 
 #: ../root/main/500.tt:5
 msgid "Oops, something went wrong!"
@@ -5459,7 +5473,7 @@ msgstr "Ouderelement"
 
 #: ../root/admin/attributes/index.tt:21
 msgid "Parent ID"
-msgstr "Ouder-id"
+msgstr "Ouder-ID"
 
 #: ../root/edit/details/add_relationship_attribute.tt:15
 #: ../root/edit/details/edit_relationship_attribute.tt:14
@@ -5695,8 +5709,8 @@ msgstr "Mogelijk dubbele artiesten"
 msgid "Possibly duplicate events"
 msgstr "Mogelijk dubbele evenementen"
 
-#: ../root/account/preferences_ok.tt:1 ../root/account/preferences_ok.tt:3
-#: ../root/account/preferences.tt:2 ../root/user/profile/layout.tt:23
+#: ../root/account/preferences.tt:2 ../root/account/preferences_ok.tt:1
+#: ../root/account/preferences_ok.tt:3 ../root/user/profile/layout.tt:23
 msgid "Preferences"
 msgstr "Voorkeuren"
 
@@ -5893,7 +5907,7 @@ msgstr "Opname van {artist}"
 msgid "Recording information"
 msgstr "Informatie over de opname"
 
-#: ../root/user/ratings_summary.tt:3 ../root/user/ratings.tt:2
+#: ../root/user/ratings.tt:2 ../root/user/ratings_summary.tt:3
 msgid "Recording ratings"
 msgstr "Waarderingen van opnames"
 
@@ -5922,13 +5936,13 @@ msgstr "Opnames"
 #: ../root/report/index.tt:116 ../root/report/recordings_without_va_link.tt:1
 #: ../root/report/recordings_without_va_link.tt:3
 msgid "Recordings credited to \"Various Artists\" but not linked to VA"
-msgstr "Opnames waarvan de artiest vermeld wordt als “Diverse Artiesten”, maar die gekoppeld is aan een andere artiest."
+msgstr "Opnames waarvan de artiest vermeld wordt als “Diverse Artiesten”, maar die aan een andere artiest zijn gekoppeld."
 
 #: ../root/report/index.tt:115
 #: ../root/report/recordings_without_va_credit.tt:1
 #: ../root/report/recordings_without_va_credit.tt:3
 msgid "Recordings not credited to \"Various Artists\" but linked to VA"
-msgstr "Opnames waarvan de artiest niet vermeld wordt als “Diverse Artiesten”, maar die wel aan “Diverse Artiesten” gekoppeld zijn."
+msgstr "Opnames waarvan de artiest niet vermeld wordt als “Diverse Artiesten”, maar die wel aan “Diverse Artiesten” zijn gekoppeld."
 
 #: ../root/report/recordings_with_earliest_release_relationships.tt:1
 #: ../root/report/recordings_with_earliest_release_relationships.tt:3
@@ -5938,7 +5952,7 @@ msgstr "Opnames met eerste uitgave-relaties"
 #: ../root/report/recordings_with_varying_track_lengths.tt:1
 #: ../root/report/recordings_with_varying_track_lengths.tt:3
 msgid "Recordings with Varying Track Lengths"
-msgstr "Opnames met variërende nummerlengtes"
+msgstr "Opnames met afwijkende nummerlengtes"
 
 #: ../root/report/index.tt:114
 msgid "Recordings with annotations"
@@ -5967,7 +5981,7 @@ msgstr "Opnames met de naam van een gastartiest in de titel"
 
 #: ../root/report/index.tt:112
 msgid "Recordings with varying track times"
-msgstr "Opnames met verschillende nummerlengtes"
+msgstr "Opnames met afwijkende nummerlengtes"
 
 #: ../root/edit/details/edit_medium.tt:171
 msgid "Recordings:"
@@ -6121,9 +6135,9 @@ msgstr "Relaties:"
 #: ../root/components/releases-list.tt:10
 #: ../root/edit/details/edit_release_events.tt:4
 #: ../root/edit/details/merge_releases.tt:18 ../root/edit/search_macros.tt:360
-#: ../root/release/edit/duplicates.tt:10 ../root/release_group/index.tt:23
-#: ../root/release/index.tt:50 ../root/release/lookup.tt:9
-#: ../root/release/merge.tt:13 ../root/report/bad_amazon_urls.tt:20
+#: ../root/release/edit/duplicates.tt:10 ../root/release/index.tt:50
+#: ../root/release/lookup.tt:9 ../root/release/merge.tt:13
+#: ../root/release_group/index.tt:23 ../root/report/bad_amazon_urls.tt:20
 #: ../root/report/cat_no_looks_like_asin.tt:19
 #: ../root/report/release_list.tt:7 ../root/report/release_url_list.tt:6
 #: ../root/search/lib/inline-results-recording.tt:12
@@ -6179,8 +6193,8 @@ msgid "Release Group Relationships"
 msgstr "Relaties van de uitgavegroep"
 
 #: ../root/edit/details/add_release_group.tt:3
-#: ../root/edit/details/edit_release_group.tt:5
 #: ../root/edit/details/edit_release.tt:21
+#: ../root/edit/details/edit_release_group.tt:5
 #: ../root/release/edit/information.tt:33
 msgid "Release Group:"
 msgstr "Uitgavegroep:"
@@ -6243,8 +6257,8 @@ msgid "Release events"
 msgstr "Uitgavegebeurtenissen"
 
 #: ../root/edit/details/add_release.tt:74
-#: ../root/edit/details/edit_release_label.tt:50
 #: ../root/edit/details/edit_release.tt:65
+#: ../root/edit/details/edit_release_label.tt:50
 msgid "Release events:"
 msgstr "Uitgavegebeurtenissen:"
 
@@ -6275,7 +6289,7 @@ msgstr "Informatie over de uitgavegroep"
 msgid "Release group rating"
 msgstr "Waardering van de uitgavegroep"
 
-#: ../root/user/ratings_summary.tt:3 ../root/user/ratings.tt:2
+#: ../root/user/ratings.tt:2 ../root/user/ratings_summary.tt:3
 msgid "Release group ratings"
 msgstr "Waarderingen van uitgavegroepen"
 
@@ -6313,7 +6327,7 @@ msgstr "Uitgavegroepen waarvan de artiest niet vermeld wordt als “Diverse Arti
 
 #: ../root/report/index.tt:57
 msgid "Release groups that might need to be merged"
-msgstr "Uitgavegroepen die misschien samengevoegd moeten worden"
+msgstr "Uitgavegroepen die misschien moeten worden samengevoegd"
 
 #: ../root/report/index.tt:63
 msgid "Release groups with annotations"
@@ -6344,14 +6358,13 @@ msgstr "Uitgave ‘{name}’ van {artist}"
 
 #: ../root/cdtoc/lookup.tt:71 ../root/components/common-macros.tt:578
 #: ../root/edit/details/add_cover_art.tt:5
-#: ../root/edit/details/add_medium.tt:5
+#: ../root/edit/details/add_medium.tt:5 ../root/edit/details/add_release.tt:3
 #: ../root/edit/details/add_release_label.tt:4
-#: ../root/edit/details/add_release.tt:3
 #: ../root/edit/details/change_release_quality.tt:3
 #: ../root/edit/details/edit_barcodes.tt:12
 #: ../root/edit/details/edit_cover_art.tt:5
-#: ../root/edit/details/edit_release_label.tt:5
 #: ../root/edit/details/edit_release.tt:5
+#: ../root/edit/details/edit_release_label.tt:5
 #: ../root/edit/details/historic/move_release_to_rg.tt:3
 #: ../root/edit/details/remove_cover_art.tt:5
 #: ../root/edit/details/remove_release_label.tt:3
@@ -6400,7 +6413,7 @@ msgstr "Uitgaves waarbij sommige mediumtypes ontbreken."
 #: ../root/report/index.tt:102 ../root/report/releases_without_va_link.tt:1
 #: ../root/report/releases_without_va_link.tt:3
 msgid "Releases credited to \"Various Artists\" but not linked to VA"
-msgstr "Uitgaves waarvan de artiest vermeld wordt als “Diverse Artiesten”, maar die gekoppeld is aan een andere artiest."
+msgstr "Uitgaves waarvan de artiest vermeld wordt als “Diverse Artiesten”, maar die aan een andere artiest zijn gekoppeld."
 
 #: ../root/report/index.tt:89
 #: ../root/report/releases_in_caa_with_cover_art_relationships.tt:1
@@ -6411,7 +6424,7 @@ msgstr "Uitgaves in het Cover Art Archive die nog steeds relaties hebben voor af
 #: ../root/report/index.tt:101 ../root/report/releases_without_va_credit.tt:1
 #: ../root/report/releases_without_va_credit.tt:3
 msgid "Releases not credited to \"Various Artists\" but linked to VA"
-msgstr "Uitgaves waarvan de artiest niet vermeld wordt als “Diverse Artiesten”, maar die wel aan “Diverse Artiesten” gekoppeld zijn."
+msgstr "Uitgaves waarvan de artiest niet vermeld wordt als “Diverse Artiesten”, maar die wel aan “Diverse Artiesten” zijn gekoppeld."
 
 #: ../root/report/index.tt:91
 msgid "Releases of any sort that still have cover art relationships"
@@ -6543,14 +6556,14 @@ msgstr "Uitgaves zonder schrift"
 #: ../root/edit/details/historic/mac_to_sac.tt:3
 #: ../root/edit/details/historic/move_release.tt:3
 #: ../root/edit/details/historic/remove_disc_id.tt:3
-#: ../root/edit/details/historic/remove_releases.tt:3
 #: ../root/edit/details/historic/remove_release.tt:2
+#: ../root/edit/details/historic/remove_releases.tt:3
 #: ../root/edit/details/historic/remove_track.tt:3
 msgid "Releases:"
 msgstr "Uitgaves:"
 
-#: ../root/account/applications.tt:76 ../root/account/edit.tt:59
-#: ../root/account/edit.tt:72 ../root/admin/attributes/delete.tt:11
+#: ../root/account/applications.tt:76 ../root/account/edit.tt:63
+#: ../root/account/edit.tt:76 ../root/admin/attributes/delete.tt:11
 #: ../root/admin/attributes/index.tt:61
 #: ../root/admin/attributes/language.tt:28
 #: ../root/admin/attributes/script.tt:24 ../root/admin/wikidoc/index.tt:62
@@ -6593,7 +6606,7 @@ msgstr "Afbeelding verwijderen"
 
 #: ../root/cdtoc/remove.tt:1 ../root/cdtoc/remove.tt:2
 msgid "Remove Disc ID"
-msgstr "Disc-id verwijderen"
+msgstr "Disc-ID verwijderen"
 
 #: ../root/relationship/linktype/form.tt:81
 msgid "Remove Example"
@@ -6737,12 +6750,12 @@ msgstr "Ondertekeningsverzoek"
 msgid "Requires:"
 msgstr "Benodigd:"
 
-#: ../root/account/lost_password.tt:17
+#: ../root/account/lost_password.tt:17 ../root/account/reset_password.tt:1
+#: ../root/account/reset_password.tt:3 ../root/account/reset_password.tt:14
 #: ../root/account/reset_password_error.tt:1
 #: ../root/account/reset_password_error.tt:3
 #: ../root/account/reset_password_ok.tt:1
-#: ../root/account/reset_password_ok.tt:3 ../root/account/reset_password.tt:1
-#: ../root/account/reset_password.tt:3 ../root/account/reset_password.tt:14
+#: ../root/account/reset_password_ok.tt:3
 msgid "Reset Password"
 msgstr "Wachtwoord opnieuw instellen"
 
@@ -6803,7 +6816,7 @@ msgstr "Rol"
 msgid "Running: <span class=\"tooltip\" title=\"{msg}\">{branch} ({sha})</span>"
 msgstr "Draait <span class=\"tooltip\" title=\"{msg}\">{branch} ({sha})</span>"
 
-#: ../root/account/edit.tt:109 ../root/account/preferences.tt:50
+#: ../root/account/edit.tt:113 ../root/account/preferences.tt:50
 #: ../root/admin/attributes/form.tt:83
 #: ../root/relationship/linkattributetype/form.tt:21
 #: ../root/relationship/linktype/form.tt:200
@@ -6820,6 +6833,7 @@ msgstr "Opslaan"
 #: ../root/search/results-release_group.tt:7
 #: ../root/search/results-series.tt:7 ../root/search/results-tag.tt:7
 #: ../root/search/results-work.tt:7
+#: ../root/search/components/EventResults.js:28
 msgid "Score"
 msgstr "Relevantie"
 
@@ -6834,7 +6848,7 @@ msgstr "Schrift"
 msgid "Script:"
 msgstr "Schrift:"
 
-#: ../root/account/edit.tt:27 ../root/artist/edit_form.tt:23
+#: ../root/account/edit.tt:29 ../root/artist/edit_form.tt:23
 #: ../root/artist/edit_form.tt:45 ../root/artist/edit_form.tt:58
 #: ../root/cdtoc/attach_filter_artist.tt:10
 #: ../root/cdtoc/attach_filter_release.tt:11 ../root/cdtoc/lookup.tt:63
@@ -6888,8 +6902,8 @@ msgstr "Naar artiesten zoeken"
 msgid "Search by release"
 msgstr "Naar uitgaves zoeken"
 
-#: ../root/edit/search_results.tt:3 ../root/edit/search_results.tt:5
 #: ../root/edit/search.tt:2 ../root/edit/search.tt:4
+#: ../root/edit/search_results.tt:3 ../root/edit/search_results.tt:5
 msgid "Search for Edits"
 msgstr "Naar bewerkingen zoeken"
 
@@ -7062,7 +7076,7 @@ msgstr "Selecteer een medium uit de zoekresultaten hieronder en klik dan “Medi
 msgid ""
 "Select a release to which the disc ID <code>{discid}</code>. should be moved"
 " to."
-msgstr "Selecteer een uitgave waarnaar de disc-id <code>{discid}</code> naar moet worden verplaatst."
+msgstr "Selecteer een uitgave waarnaar de disc-ID <code>{discid}</code> naar moet worden verplaatst."
 
 #: ../root/release/add_cover_art.tt:34
 msgid "Select images..."
@@ -7318,7 +7332,7 @@ msgstr "Onze excuses, <code>{discid}</code> komt niet overeen met een cd-beginse
 
 #: ../root/cdstub/error.tt:19
 msgid "Sorry, <code>{discid}</code> is not a valid disc ID."
-msgstr "Onze excuses, <code>{discid}</code> is geen geldige disc-id."
+msgstr "Onze excuses, <code>{discid}</code> is geen geldige disc-ID."
 
 #: ../root/search/error/no-results.tt:3
 msgid ""
@@ -7386,7 +7400,7 @@ msgstr "Onze excuses, we konden geen opname vinden met die MBID. Je kan ook prob
 #: ../root/relationship/linkattributetype/not_found.tt:3
 msgid ""
 "Sorry, we could not find a relationship attribute with that MusicBrainz ID."
-msgstr "Onze excuses, we konden geen relatie-eigenschap vinden met die MusicBrainz ID."
+msgstr "Onze excuses, we konden geen relatie-eigenschap vinden met die MusicBrainz-ID."
 
 #: ../root/release_group/not_found.tt:4
 msgid ""
@@ -7432,7 +7446,7 @@ msgstr "Onze excuses, we konden geen collectie vinden met die MBID."
 msgid ""
 "Sorry, we could not find an edit with that edit ID. You may wish to try and "
 "perform an {search_url|edit search} instead."
-msgstr "Onze excuses, we konden geen bewerking vinden met die bewerking-id. Je kan ook proberen om {search_url|ernaar te zoeken}."
+msgstr "Onze excuses, we konden geen bewerking vinden met die bewerking-ID. Je kan ook proberen om {search_url|ernaar te zoeken}."
 
 #: ../root/user/not_found.tt:4
 msgid ""
@@ -7758,7 +7772,7 @@ msgstr "Tekst"
 
 #: ../root/account/donation.tt:14
 msgid "Thank you for contributing to MusicBrainz."
-msgstr "Bedankt voor het bijdragen aan MusicBrainz."
+msgstr "Bedankt voor je bijdrage aan MusicBrainz."
 
 #: ../root/account/verified.tt:4
 msgid ""
@@ -7816,7 +7830,7 @@ msgstr "Het catalogusnummer dat je hebt ingevoerd, ziet er uit als een ASIN van 
 msgid ""
 "The comment field is used to help users distinguish between identically "
 "named releases."
-msgstr "Het verduidelijkingsveld wordt gebruikt om het verschil tussen uitgaves met dezelfde naam aan te geven."
+msgstr "De verduidelijking wordt gebruikt om het verschil tussen uitgaves met dezelfde naam aan te geven."
 
 #: ../root/edit/details/merge_releases.tt:145
 msgid ""
@@ -7857,7 +7871,7 @@ msgstr "Deze bewerking is geannuleerd."
 
 #: ../root/doc/relationship_type.tt:54
 msgid "The following attributes can be used with this relationship type:"
-msgstr "De volgende eigenschappen kunnen met dit relatietype gebruikt worden:"
+msgstr "De volgende eigenschappen kunnen met dit relatietype worden gebruikt:"
 
 #: ../root/user/privileged.tt:58
 msgid "The following {count} user accounts are bots:"
@@ -7892,7 +7906,7 @@ msgid ""
 "The majority of the data in the <strong>MusicBrainz Database</strong> is "
 "released into the <strong>Public Domain</strong> and can be downloaded and "
 "used <strong>for free</strong>."
-msgstr "De meeste gegevens op <strong>MusicBrainz</strong> zijn vrijgegeven in het <strong>Publiek Domein</strong> en kunnen <strong>gratis</strong> gedownload en gebruikt worden."
+msgstr "De meeste gegevens op <strong>MusicBrainz</strong> zijn vrijgegeven in het <strong>Publiek Domein</strong> en kunnen <strong>gratis</strong> worden gedownload en gebruikt."
 
 #: ../root/cdtoc/set_durations.tt:19
 msgid ""
@@ -7915,7 +7929,7 @@ msgid ""
 "into the strict structural data schema of MusicBrainz (be it due to "
 "technical limitations that may be addressed later, or because the "
 "information in itself has to be free-text)."
-msgstr "Het doel van dit veld is om informatie toe te voegen die normaal gesproken niet in de strikte gegevensstructuur van MusicBrainz past, dan wel door technische beperkingen die later misschien opgelost worden, of omdat de informatie zelf geen vaste formattering heeft."
+msgstr "Het doel van dit veld is om informatie toe te voegen die normaal gesproken niet in de strikte gegevensstructuur van MusicBrainz past, dan wel door technische beperkingen die later misschien worden opgelost, of omdat de informatie zelf geen vaste formattering heeft."
 
 #: ../root/edit/cannot_approve.tt:12
 msgid "The reason for this was unknown."
@@ -8013,7 +8027,7 @@ msgstr "Er zijn momenteel geen gebruikers geabonneerd op {series}."
 msgid ""
 "There are no disc IDs attached to this release; to find out more about how "
 "to add one, see {doc|How to Add Disc IDs}."
-msgstr "Er zijn geen disc-id’s verbonden aan deze uitgave. Lees {doc|hoe disc-id’s toe te voegen} om te zien hoe ze toegevoegd kunnen worden."
+msgstr "Er zijn geen disc-ID’s aan deze uitgave gekoppeld. Lees {doc|hoe disc-ID’s toe te voegen} om te zien hoe ze kunnen worden toegevoegd."
 
 #: ../root/artist/split.tt:10
 msgid ""
@@ -8165,7 +8179,7 @@ msgstr "Deze artiest heeft geen uitgavegroepen van diverse artiesten. {show_non_
 #: ../root/artist/edit_form.tt:53
 #: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:44
 msgid "This artist has ended."
-msgstr "Deze artiest is beëindigd."
+msgstr "Deze artiest bestaat niet meer."
 
 #: ../root/artist/index.tt:12
 msgid ""
@@ -8234,7 +8248,7 @@ msgstr "Dit medium bevat datanummers ({info|meer informatie})."
 
 #: ../root/release/edit/tracklist.tt:386
 msgid "This disc has a hidden pregap track before track 1 ({info|more info})"
-msgstr "Dit medium heeft een verborgen pregapnummer voor nummer 1 ({info|meer informatie})"
+msgstr "Dit medium heeft een verborgen pregapnummer voor nummer 1 ({info|meer informatie})."
 
 #: ../root/edit/details/edit_release.tt:82
 msgid "This edit also changed the track artists."
@@ -8270,13 +8284,13 @@ msgstr "Deze bewerking is mislukt omdat er niet genoeg voorstemmen waren."
 #: ../root/components/common-macros.tt:641
 msgid ""
 "This edit failed due to an internal error and may need to be entered again."
-msgstr "Deze bewerking is mislukt door een interne fout en moet misschien opnieuw ingevoerd worden."
+msgstr "Deze bewerking is mislukt door een interne fout en moet misschien opnieuw worden ingevoerd."
 
 #: ../root/components/common-macros.tt:641
 msgid ""
 "This edit failed either because an entity it was modifying no longer exists,"
 " or the entity can not be modified in this manner anymore."
-msgstr "Deze bewerking is mislukt omdat het betreffende object niet meer bestaat of niet meer op deze manier veranderd kan worden."
+msgstr "Deze bewerking is mislukt omdat het betreffende object niet meer bestaat of niet meer op deze manier kan worden veranderd."
 
 #: ../root/components/common-macros.tt:641
 msgid "This edit has been successfully applied."
@@ -8288,7 +8302,7 @@ msgstr "Deze bewerking staat open en wacht op stemmen voordat het wordt doorgevo
 
 #: ../root/edit/details/set_track_lengths.tt:42
 msgid "This edit makes subsecond changes to track lengths"
-msgstr "Deze bewerking verandert lengtes van nummers met minder dan een seconde"
+msgstr "Deze bewerking verandert de duur van nummers met minder dan een seconde."
 
 #: ../root/edit/details/historic/merge_releases.tt:37
 msgid ""
@@ -8350,7 +8364,7 @@ msgstr "Met dit formulier kan je {artist} splitsen in afzonderlijke artiesten. A
 
 #: ../root/admin/attributes/form.tt:74
 msgid "This format can have disc IDs"
-msgstr "Dit soort medium kan een disc-id hebben"
+msgstr "Dit soort medium kan een disc-ID hebben"
 
 #: ../root/instrument/delete.tt:15
 msgid ""
@@ -8378,7 +8392,7 @@ msgstr "Dit is een PDF-bestand, de miniatuur toont misschien niet alle inhoud."
 msgid ""
 "This is a development server. Your email address is not private or secure. "
 "Proceed with caution!"
-msgstr "Dit is een server voor ontwikkeling. je e-mailadres is hier niet privé of veilig. Ga voorzichtig te werk!"
+msgstr "Dit is een server voor ontwikkeling. Je e-mailadres is hier niet privé of veilig. Wees voorzichtig!"
 
 #: ../root/user/login.tt:27
 msgid "This is a development server; all passwords have been reset to \"mb\"."
@@ -8436,13 +8450,13 @@ msgstr "Deze combinatie van platenmaatschappij en catalogusnummer bestaat al."
 
 #: ../root/cdtoc/attach_list.tt:24
 msgid "This medium format cannot have a disc ID attached"
-msgstr "Dit soort medium kan geen disc-id hebben"
+msgstr "Dit soort medium kan geen disc-ID hebben"
 
 #: ../root/release/edit/tracklist.tt:303
 msgid ""
 "This medium has a disc ID, pregap track, or data track, so you can only "
 "change the format to one that can have disc IDs."
-msgstr "Dit medium heeft een disc-id, pregapnummer of datanummer, dus je kan het type alleen veranderen in een type medium dat dit ondersteunt."
+msgstr "Dit medium heeft een disc-ID, pregapnummer of datanummer, dus je kan het type alleen veranderen in een type medium dat dit ondersteunt."
 
 #: ../root/release/merge.tt:109
 msgid ""
@@ -8556,7 +8570,7 @@ msgid ""
 "separate real release. It should not be used to denote bootlegs, "
 "mixtape/street albums, demos, or digital albums. Be sure to link to the "
 "corresponding real release with the {url|transl(iter)ation relationship}."
-msgstr "Deze uitgavestatus wordt gebruikt voor onofficiële vertalingen en transliteraties van nummerlijsten en uitgavetitels, en geeft geen afzonderlijke echte uitgave aan. Hij moet niet worden gebruikt om bootlegs mixtape/straat albums, demo’s of digitale albums aan te geven. Vergeet niet om de uitgave met de {url|vertaald/getranslitereerd}-relatie te koppelen aan de originele uitgave."
+msgstr "Deze uitgavestatus wordt gebruikt voor onofficiële vertalingen en transliteraties van nummerlijsten en uitgavetitels, en geeft geen afzonderlijke echte uitgave aan. Hij moet niet worden gebruikt om bootlegs, mixtape/straat albums, demo’s of digitale albums aan te geven. Vergeet niet om de uitgave met de {url|vertaald/getranslitereerd}-relatie te koppelen aan de originele uitgave."
 
 #: ../root/report/duplicate_artists.tt:6
 msgid ""
@@ -8594,7 +8608,7 @@ msgstr "In dit rapport staan URL’s met verouderde relaties of relaties die all
 msgid ""
 "This report lists all releases where some or all tracks have unknown track "
 "lengths."
-msgstr "In dit rapport staan uitgaves waar de duur van sommige of alle nummers bekend is."
+msgstr "In dit rapport staan uitgaves waarbij de duur van sommige of alle nummers onbekend is."
 
 #: ../root/report/tracks_with_sequence_issues.tt:6
 msgid ""
@@ -8620,7 +8634,7 @@ msgid ""
 "This report lists artists that have no editors subscribed to them, and whose"
 " changes may therefore be under-reviewed. Artists with more release groups "
 "and more open edits are listed first."
-msgstr "In dit rapport staan artiesten waar geen redacteurs op geabonneerd zijn, waardoor bewerkingen misschien niet genoeg nagekeken worden. Artiesten met meer uitgavegroepen en open bewerkingen worden het eerst getoond."
+msgstr "In dit rapport staan artiesten waar geen redacteurs op geabonneerd zijn, waardoor bewerkingen misschien niet genoeg worden nagekeken. Artiesten met meer uitgavegroepen en open bewerkingen worden het eerst getoond."
 
 #: ../root/report/artists_disambiguation_same_name.tt:6
 msgid ""
@@ -8668,7 +8682,7 @@ msgid ""
 "relationships. If the collaboration has its own independent name, do "
 "nothing. If it is in a format like \"X with Y\" or \"X & Y\", you should "
 "probably split it. See {how_to_split_artists|How to Split Artists}."
-msgstr "In dit rapport staan artiesten die een samenwerkingsrelatie hebben, maar geen URL-relaties. Als de samenwerking zijn eigen unieke naam heeft, moet er niets gebeuren. Als het lijkt op ‘X met Y’ of ‘X & Y’, moet de artiest waarschijnlijk gesplitst worden. Zie {how_to_split_artists|artiesten splitsen}."
+msgstr "In dit rapport staan artiesten die een samenwerkingsrelatie hebben, maar geen URL-relaties. Als de samenwerking zijn eigen unieke naam heeft, moet er niets gebeuren. Als het lijkt op ‘X met Y’ of ‘X & Y’, moet de artiest waarschijnlijk worden gesplitst. Zie {how_to_split_artists|artiesten splitsen}."
 
 #: ../root/report/duplicate_relationships_artists.tt:6
 msgid ""
@@ -8693,7 +8707,7 @@ msgid ""
 "This report lists events happening at the same place on the same date. If "
 "they're duplicates (for example, if there are separate events for headliner "
 "and supporting artist) please merge them."
-msgstr "In dit rapport staan evenementen die op dezelfde plaats en op dezelfde datum plaatsvinden. Als ze dubbel zijn (bijvoorbeeld als er verschillende evenementen voor de hoofdartiest en het voorprogramma zijn) moeten ze samengevoegd worden."
+msgstr "In dit rapport staan evenementen die op dezelfde plaats en op dezelfde datum plaatsvinden. Als ze dubbel zijn (bijvoorbeeld als er verschillende evenementen voor de hoofdartiest en het voorprogramma zijn) moeten ze worden samengevoegd."
 
 #: ../root/report/labels_disambiguation_same_name.tt:6
 msgid ""
@@ -8791,7 +8805,7 @@ msgid ""
 "This report lists releases without any disc IDs that probably contain data "
 "tracks (like videos). A data track should be deleted if it is the last track"
 " of the CD and there is no disc ID."
-msgstr "In dit rapport staan uitgaves zonder disc-id’s die waarschijnlijk datanummers (zoals video’s) hebben. Een datanummer moet verwijderd worden als het het laatste nummer van een cd is en er geen disc-id is."
+msgstr "In dit rapport staan uitgaves zonder disc-ID’s die waarschijnlijk datanummers (zoals video’s) hebben. Een datanummer moet worden verwijderd als het het laatste nummer van een cd is en er geen disc-ID is."
 
 #: ../root/report/annotations_series.tt:6
 msgid "This report lists series with annotations."
@@ -8823,7 +8837,7 @@ msgid ""
 "recording, the ISRCs are probably correct and should be left alone. If the "
 "same ISRC appears on two unrelated recordings on the same release, this is "
 "usually means there was an error when reading the disc."
-msgstr "In dit rapport staan {isrc|ISRC’s} die aan meerdere opnames zijn gekoppeld. Als de opnames hetzelfde zijn, moeten ze meestal samengevoegd worden (ISRC’s kunnen verkeerd worden toegewezen, dus controleer of de opnames echt hetzelfde zijn). Als de opnames een deel zijn van een grotere opname, dan zijn de ISRC’s waarschijnlijk correct en moet ze zo gelaten worden. Als dezelfde ISRC op twee ongerelateerde opnames op dezelfde uitgave voorkomen, betekent dit meestal dat de cd verkeerd is uitgelezen."
+msgstr "In dit rapport staan {isrc|ISRC’s} die aan meerdere opnames zijn gekoppeld. Als de opnames hetzelfde zijn, moeten ze meestal worden samengevoegd (ISRC’s kunnen verkeerd worden toegewezen, dus controleer of de opnames echt hetzelfde zijn). Als de opnames een deel zijn van een grotere opname, dan zijn de ISRC’s waarschijnlijk correct en moeten ze zo worden gelaten. Als dezelfde ISRC op twee ongerelateerde opnames op dezelfde uitgave voorkomen, betekent dit meestal dat de cd verkeerd is uitgelezen."
 
 #: ../root/report/iswc_with_many_works.tt:6
 msgid ""
@@ -8840,20 +8854,20 @@ msgid ""
 " barcode, you can also search Amazon for it and see which ASIN matches. You "
 "might also find some ASINs linked to several discs of a multi-disc release: "
 "just merge those (see {how_to_merge_releases|How to Merge Releases})."
-msgstr "In dit rapport staan URL’s van Amazon die aan meerdere uitgaves gekoppeld zijn. In de meeste gevallen zouden ASIN’s van Amazon 1:1 overeen moeten komen met uitgaves op MusicBrainz, zodat er maar één correcte koppeling kan zijn. Controleer of de uitgave in MusicBrainz overeenkomt met de uitgave op Amazon (let op het medium, de nummers op de uitgave en het land van uitgave). Soms is een URL van Amazon gekoppeld aan verschillende uitgaves in MusicBrainz die eigenlijk verschillende losse media van één uitgave zijn. In dat geval moeten deze uitgaves worden samengevoegd (zie {how_to_merge_releases|Hoe uitgaves samen te voegen})."
+msgstr "In dit rapport staan URL’s van Amazon die aan meerdere uitgaves zijn gekoppeld. In de meeste gevallen zouden ASIN’s van Amazon 1:1 overeen moeten komen met uitgaves op MusicBrainz, zodat er maar één correcte koppeling kan zijn. Controleer of de uitgave in MusicBrainz overeenkomt met de uitgave op Amazon (let op het medium, de nummers op de uitgave en het land van uitgave). Soms is een URL van Amazon gekoppeld aan verschillende uitgaves in MusicBrainz die eigenlijk verschillende losse media van één uitgave zijn. In dat geval moeten deze uitgaves worden samengevoegd (zie {how_to_merge_releases|Hoe uitgaves samen te voegen})."
 
 #: ../root/report/discogs_links_with_multiple_artists.tt:6
 msgid "This report shows Discogs URLs which are linked to multiple artists."
-msgstr "In dit rapport staan URL’s van Discogs die aan meerdere artiesten gekoppeld zijn."
+msgstr "In dit rapport staan URL’s van Discogs die aan meerdere artiesten zijn gekoppeld."
 
 #: ../root/report/discogs_links_with_multiple_labels.tt:6
 msgid "This report shows Discogs URLs which are linked to multiple labels."
-msgstr "In dit rapport staan URL’s van Discogs die aan meerdere platenmaatschappijen gekoppeld zijn."
+msgstr "In dit rapport staan URL’s van Discogs die aan meerdere platenmaatschappijen zijn gekoppeld."
 
 #: ../root/report/discogs_links_with_multiple_release_groups.tt:6
 msgid ""
 "This report shows Discogs URLs which are linked to multiple release groups."
-msgstr "In dit rapport staan URL’s van Discogs die aan meerdere uitgavegroepen gekoppeld zijn."
+msgstr "In dit rapport staan URL’s van Discogs die aan meerdere uitgavegroepen zijn gekoppeld."
 
 #: ../root/report/discogs_links_with_multiple_releases.tt:6
 msgid ""
@@ -8864,7 +8878,7 @@ msgid ""
 "etc.). You might also find some Discogs URLs linked to several discs of a "
 "multi-disc release: just merge those (see {how_to_merge_releases|How to "
 "Merge Releases})."
-msgstr "In dit rapport staan URL’s van Discogs die aan meerdere uitgaves gekoppeld zijn. In de meeste gevallen zouden uitgaves in Discogs 1:1 overeen moeten komen met uitgaves op MusicBrainz, zodat er maar één correcte koppeling kan zijn. Controleer of de uitgave in MusicBrainz overeenkomt met de uitgave op Discogs (let op het medium, de nummers op de uitgave en het land van uitgave). Soms is een URL van Discogs gekoppeld aan verschillende uitgaves in MusicBrainz die eigenlijk verschillende losse media van één uitgave zijn. In dat geval moeten deze uitgaves worden samengevoegd (zie {how_to_merge_releases|Hoe uitgaves samen te voegen})."
+msgstr "In dit rapport staan URL’s van Discogs die aan meerdere uitgaves zijn gekoppeld. In de meeste gevallen zouden uitgaves in Discogs 1:1 overeen moeten komen met uitgaves op MusicBrainz, zodat er maar één correcte koppeling kan zijn. Controleer of de uitgave in MusicBrainz overeenkomt met de uitgave op Discogs (let op het medium, de nummers op de uitgave en het land van uitgave). Soms is een URL van Discogs gekoppeld aan verschillende uitgaves in MusicBrainz die eigenlijk verschillende losse media van één uitgave zijn. In dat geval moeten deze uitgaves worden samengevoegd (zie {how_to_merge_releases|Hoe uitgaves samen te voegen})."
 
 #: ../root/report/instruments_without_an_image.tt:6
 msgid ""
@@ -8885,13 +8899,13 @@ msgid ""
 " they're not, the relationship should be removed. Please, do not merge "
 "recordings blindly just because the lengths fit, and do not merge recordings"
 " with very different times!"
-msgstr "In dit rapport staan opnames met het verouderde relatietype ‘vroegste uitgave’. Als deze opnames echt hetzelfde zijn, moeten ze worden samengevoegd. Als ze niet hetzelfde zijn, moet de relatie worden verwijderd. Voeg geen opnames samen alleen omdat ze dezelfde lengte hebben, en zeker niet als de opnames niet even lang zijn!"
+msgstr "In dit rapport staan opnames met het verouderde relatietype ‘vroegste uitgave’. Als deze opnames echt hetzelfde zijn, moeten ze worden samengevoegd. Als ze niet hetzelfde zijn, moet de relatie worden verwijderd. Voeg geen opnames samen alleen omdat ze dezelfde duur hebben, en zeker niet als de opnames niet even lang duren!"
 
 #: ../root/report/recordings_with_varying_track_lengths.tt:6
 msgid ""
 "This report shows recordings where the linked tracks have times that vary by"
 " more than 30 seconds."
-msgstr "In dit rapport staan opnames waarbij de gekoppelde nummers lengtes hebben die met meer dan 30 seconden variëren."
+msgstr "In dit rapport staan opnames die gekoppeld zijn aan nummers waarvan de duur meer dan 30 seconden varieert."
 
 #: ../root/report/recordings_without_va_link.tt:6
 msgid ""
@@ -8937,7 +8951,7 @@ msgid ""
 "them. If the releases are discs linked with \"part of set\" relationships, "
 "you might want to merge them too into one multi-disc release (see "
 "{how_to_merge_releases|How to Merge Releases})."
-msgstr "In dit rapport staan uitgavegroepen met uitgaves die via een deel-van-een-set-relatie of een transliteratie-relatie gekoppeld zijn aan een uitgave in een andere uitgavegroep. Paren van uitgavegroepen in dit rapport moeten waarschijnlijk samengevoegd worden. Als blijkt dat de verschillende uitgaves eigenlijk de losse media van één uitgave zijn, kunnen die uitgaves ook worden samengevoegd. Zie {how_to_merge_releases|Hoe uitgaves samen te voegen}."
+msgstr "In dit rapport staan uitgavegroepen met uitgaves die via een deel-van-een-set-relatie of een transliteratie-relatie gekoppeld zijn aan een uitgave in een andere uitgavegroep. Paren van uitgavegroepen in dit rapport moeten waarschijnlijk worden samengevoegd. Als blijkt dat de verschillende uitgaves eigenlijk de losse media van één uitgave zijn, kunnen die uitgaves ook worden samengevoegd. Zie {how_to_merge_releases|Hoe uitgaves samen te voegen}."
 
 #: ../root/report/releases_without_va_credit.tt:6
 msgid ""
@@ -8981,7 +8995,7 @@ msgid ""
 "release (because of format, different number of tracks, etc). Any \"master\""
 " Discogs page belongs at the {release_group|release group level}, not at the"
 " release level, and should be removed from releases too."
-msgstr "In dit rapport staan uitgaves die meer dan een koppeling naar Discogs hebben. In de meeste gevallen hoort een uitgave op MusicBrainz maar één equivalent te hebben op Discogs, dus zal er maar één koppeling correct zijn. Controleer welke niet bij de uitgave passen (vanwege het medium of het aantal nummers bijvoorbeeld) en verwijder deze koppeling. Een ‘master’-Discogspagina hoort bij de {release_group|uitgavegroep} en moet ook verwijderd worden van uitgaves."
+msgstr "In dit rapport staan uitgaves die meer dan één Discogs-link hebben. In de meeste gevallen hoort een uitgave op MusicBrainz maar één equivalent te hebben op Discogs, dus zal er maar één link correct zijn. Controleer welke niet bij de uitgave passen (vanwege het medium of het aantal nummers bijvoorbeeld) en verwijder deze koppeling. Een ‘master’-Discogspagina hoort bij de {release_group|uitgavegroep} en moet ook van uitgaves worden verwijderd."
 
 #: ../root/report/releases_without_language.tt:6
 msgid ""
@@ -9048,7 +9062,7 @@ msgid ""
 "released too early to have disc IDs, where one of the medium formats didn't "
 "exist at the time the release was released or where a disc ID is attached to"
 " a medium whose format does not have disc IDs."
-msgstr "In dit rapport staan uitgaves die disc-id’s hebben terwijl ze te vroeg zijn uitgebracht om disc-id’s te kunnen hebben, waar één van de media van een type is dat nog niet bestond toen het uitkwam of waar er disc-id’s zijn gekoppeld aan types media waarvoor geen disc-id bestaat."
+msgstr "In dit rapport staan uitgaves die disc-ID’s hebben terwijl ze te vroeg zijn uitgebracht om disc-ID’s te kunnen hebben, waar één van de media van een type is dat nog niet bestond toen de uitgave werd uitgebracht of waar er disc-ID’s zijn gekoppeld aan types media waarvoor geen disc-ID bestaat."
 
 #: ../root/report/releases_without_va_link.tt:6
 msgid ""
@@ -9063,7 +9077,7 @@ msgid ""
 "releases, this is inherited from an older version of MusicBrainz and should "
 "be fixed. Consult the {featured_artists|page about featured artists} to know"
 " more."
-msgstr "In dit rapport staan uitgaves met (feat. Artist) in de titel. Bekijk voor klassieke opnames de {CSG|Klassieke stijlgids}. Voor niet-klassieke opnames is dit een overblijfsel van een oudere versie van MusicBrainz en moet dit worden verbeterd. Lees {featured_artists| de pagina over gastartiesten} om meer te weten te komen."
+msgstr "In dit rapport staan uitgaves met (feat. Artist) in de titel. Bekijk voor klassieke uitgaves de {CSG|Klassieke stijlgids}. Voor niet-klassieke uitgaves is dit een overblijfsel van een oudere versie van MusicBrainz en moet dit worden verbeterd. Lees {featured_artists| de pagina over gastartiesten} om meer te weten te komen."
 
 #: ../root/report/bad_amazon_urls.tt:6
 msgid ""
@@ -9150,6 +9164,7 @@ msgstr "Deze compositie heeft geen relaties en zal in de komende dagen automatis
 #: ../root/cdtoc/info.tt:37 ../root/cdtoc/info.tt:39 ../root/cdtoc/info.tt:41
 #: ../root/components/events-list.tt:27 ../root/event/merge.tt:16
 #: ../root/report/event_list.tt:12 ../root/search/results-event.tt:13
+#: ../root/search/components/EventResults.js:34
 msgid "Time"
 msgstr "Duur"
 
@@ -9294,9 +9309,9 @@ msgstr "Totaal aantal gevonden plaatsen: {count}"
 #: ../root/report/duplicate_relationships_recordings.tt:7
 #: ../root/report/featuring_recordings.tt:13
 #: ../root/report/recordings_with_earliest_release_relationships.tt:11
+#: ../root/report/recordings_with_varying_track_lengths.tt:8
 #: ../root/report/recordings_without_va_credit.tt:8
 #: ../root/report/recordings_without_va_link.tt:8
-#: ../root/report/recordings_with_varying_track_lengths.tt:8
 msgid "Total recordings found: {count}"
 msgstr "Totaal aantal gevonden opnames: {count}"
 
@@ -9331,11 +9346,11 @@ msgstr "Totaal aantal gevonden uitgaves: {count}"
 #: ../root/report/releases_with_coverart_links.tt:7
 #: ../root/report/releases_with_download_relationships.tt:8
 #: ../root/report/releases_with_no_mediums.tt:7
+#: ../root/report/releases_with_unlikely_language_script.tt:8
 #: ../root/report/releases_without_language.tt:10
 #: ../root/report/releases_without_script.tt:9
 #: ../root/report/releases_without_va_credit.tt:8
 #: ../root/report/releases_without_va_link.tt:8
-#: ../root/report/releases_with_unlikely_language_script.tt:8
 #: ../root/report/separate_discs.tt:9
 #: ../root/report/single_medium_releases_with_medium_titles.tt:9
 #: ../root/report/some_formats_unset.tt:9
@@ -9346,8 +9361,8 @@ msgstr "Totaal aantal gevonden uitgaves: {count}"
 #: ../root/report/mediums_with_sequence_issues.tt:7
 #: ../root/report/superfluous_data_tracks.tt:9
 #: ../root/report/tracks_named_with_sequence.tt:10
-#: ../root/report/tracks_without_times.tt:7
 #: ../root/report/tracks_with_sequence_issues.tt:9
+#: ../root/report/tracks_without_times.tt:7
 msgid "Total releases: {count}"
 msgstr "Totaal aantal uitgaves: {count}"
 
@@ -9432,8 +9447,9 @@ msgstr "Nummerlijst:"
 #: ../root/components/releases-list.tt:15
 #: ../root/edit/details/merge_releases.tt:21
 #: ../root/otherlookup/results-release.tt:13 ../root/release/discids.tt:9
-#: ../root/release/edit/duplicates.tt:12 ../root/release_group/index.tt:25
-#: ../root/release/merge.tt:16 ../root/search/lib/inline-results-release.tt:12
+#: ../root/release/edit/duplicates.tt:12 ../root/release/merge.tt:16
+#: ../root/release_group/index.tt:25
+#: ../root/search/lib/inline-results-release.tt:12
 #: ../root/search/results-cdstub.tt:10
 msgid "Tracks"
 msgstr "Nummers"
@@ -9499,7 +9515,7 @@ msgstr "Twitter"
 #: ../root/event/merge.tt:13 ../root/instrument/merge.tt:12
 #: ../root/iswc/index.tt:19 ../root/label/merge.tt:13
 #: ../root/otherlookup/results-release.tt:20 ../root/place/merge.tt:12
-#: ../root/release_group/merge.tt:14 ../root/release/lookup.tt:13
+#: ../root/release/lookup.tt:13 ../root/release_group/merge.tt:14
 #: ../root/report/artist_list.tt:8
 #: ../root/report/artists_with_multiple_occurances_in_artist_credits.tt:18
 #: ../root/report/duplicate_artists.tt:27 ../root/report/event_list.tt:8
@@ -9515,7 +9531,7 @@ msgstr "Twitter"
 #: ../root/search/results-release_group.tt:10
 #: ../root/search/results-series.tt:9 ../root/search/results-work.tt:12
 #: ../root/series/merge.tt:13 ../root/user/collections.tt:45
-#: ../root/work/merge.tt:15
+#: ../root/work/merge.tt:15 ../root/search/components/EventResults.js:30
 msgid "Type"
 msgstr "Type"
 
@@ -9540,8 +9556,8 @@ msgstr "Type"
 #: ../root/label/layout.tt:16 ../root/place/edit_form.tt:16
 #: ../root/place/layout.tt:13 ../root/release/add_cover_art.tt:81
 #: ../root/release/cover_art_fields.tt:3
-#: ../root/release/edit/information.tt:97 ../root/release_group/layout.tt:29
-#: ../root/release/layout.tt:53 ../root/search/form.tt:5
+#: ../root/release/edit/information.tt:97 ../root/release/layout.tt:53
+#: ../root/release_group/layout.tt:29 ../root/search/form.tt:5
 #: ../root/series/edit_form.tt:16 ../root/series/layout.tt:13
 #: ../root/work/edit_form.tt:15 ../root/work/layout.tt:18
 #: ../root/layout/components/MetaDescription.js:22
@@ -9734,7 +9750,7 @@ msgstr "Gebruik de {doc|geavanceerde zoeksyntaxis)"
 msgid ""
 "User accounts must be more than 2 weeks old, have a confirmed email address,"
 " and more than 10 accepted edits in order to vote on others' edits."
-msgstr "Gebruikers moeten langer dan twee weken geleden geregistreerd staan, een bevestigd e-mailadres hebben en meer dan tien doorgevoerde bewerkingen hebben gemaakt om op de bewerkingen van anderen te kunnen stemmen."
+msgstr "Gebruikers moeten langer dan twee weken geleden geregistreerd zijn, een bevestigd e-mailadres hebben en meer dan tien doorgevoerde bewerkingen hebben gemaakt om op de bewerkingen van anderen te kunnen stemmen."
 
 #: ../root/account/change_password.tt:21
 msgid "User name:"
@@ -9986,7 +10002,7 @@ msgid ""
 "We found discs matching the information you requested, listed below. If none"
 " of these are the release you are looking for, you may search using the form"
 " below in order to attach this disc to another MusicBrainz release."
-msgstr "We hebben media gevonden die overeenkomen met de informatie die je opvroeg. Als geen van deze uitgaves is wat u zoekt, kan je met het onderstaande formulier zoeken naar andere uitgaves in MusicBrainz, zodat je dit medium eraan kan toevoegen."
+msgstr "We hebben media gevonden die overeenkomen met de informatie die je opvroeg. Als geen van deze uitgaves is wat je zoekt, kan je met het onderstaande formulier zoeken naar andere uitgaves in MusicBrainz, zodat je dit medium eraan kan toevoegen."
 
 #: ../root/account/donation.tt:7
 msgid ""
@@ -9997,9 +10013,9 @@ msgstr "We hebben de laatste tijd geen donatie meer van je gehad. Als je net een
 
 #: ../root/cdtoc/lookup.tt:10
 msgid "We used DiscID <code>{discid}</code> to look up this information."
-msgstr "We hebben de DiscID <code>{discid}</code> gebruikt om deze informatie op te zoeken."
+msgstr "We hebben de disc-ID <code>{discid}</code> gebruikt om deze informatie op te zoeken."
 
-#: ../root/account/edit.tt:43
+#: ../root/account/edit.tt:45
 msgid ""
 "We will use your birth date to display your age in years on your profile "
 "page."
@@ -10016,7 +10032,7 @@ msgid ""
 "We've sent you information about your MusicBrainz account. If you don't "
 "receive this email or still have problems logging in, please {link|contact "
 "us}."
-msgstr "We hebben je informatie gestuurd over uw MusicBrainz-account. Neem {link|contact met ons op} als je deze e-mail niet hebt ontvangen of nog steeds problemen hebt met aanmelden."
+msgstr "We hebben je informatie gestuurd over je MusicBrainz-account. Neem {link|contact met ons op} als je deze e-mail niet hebt ontvangen of nog steeds problemen hebt met aanmelden."
 
 #: ../root/account/lost_password_sent.tt:5
 msgid ""
@@ -10029,7 +10045,7 @@ msgstr "We hebben je instructies gestuurd om je wachtwoord opnieuw in te stellen
 msgid "Web Application"
 msgstr "Web Application"
 
-#: ../root/account/edit.tt:21 ../root/admin/edit_user.tt:38
+#: ../root/account/edit.tt:22 ../root/admin/edit_user.tt:38
 msgid "Website:"
 msgstr "Website:"
 
@@ -10117,7 +10133,7 @@ msgstr "Composities met aantekeningen"
 msgid "Work information"
 msgstr "Informatie over de compositie"
 
-#: ../root/user/ratings_summary.tt:3 ../root/user/ratings.tt:2
+#: ../root/user/ratings.tt:2 ../root/user/ratings_summary.tt:3
 msgid "Work ratings"
 msgstr "Compositiewaarderingen"
 
@@ -10222,13 +10238,13 @@ msgstr "Je staat op het punt om een ISWC aan deze compositie toe te voegen. De I
 msgid ""
 "You are about to enter an edit that will change the durations of tracks to "
 "match that of the below disc ID."
-msgstr "Je staat op het punt om een bewerking toe te voegen die de duur van de nummers verandert zodat ze overeenkomen met de onderstaande disc-id."
+msgstr "Je staat op het punt om een bewerking toe te voegen die de duur van de nummers verandert zodat ze overeenkomen met de onderstaande disc-ID."
 
 #: ../root/area/merge.tt:4
 msgid ""
 "You are about to merge the following areas into a single area. Please select"
 " the area which you would like other areas to be merged into:"
-msgstr "Je staat op het punt om de volgende gebieden samen te voegen. Selecteer het gebied waarin je de andere gebieden wil samenvoegen:"
+msgstr "Je staat op het punt om de volgende gebieden samen te voegen. Selecteer het gebied waarin je het andere gebied of de andere gebieden wil samenvoegen:"
 
 #: ../root/artist/merge.tt:4
 msgid ""
@@ -10340,9 +10356,9 @@ msgid ""
 "main MusicBrainz database until an editor decides to take your submitted "
 "information, ensures it meets our standards and inserts it into the main "
 "database."
-msgstr "Je kan informatie over een cd toevoegen zoals dit op de cd staat aangegeven, zonder verder deel uit te maken van MusicBrainz. Cd’s die zo zijn toegevoegd, zijn beschikbaar in programma’s. Maar het zal niet aan de belangrijkste database van MusicBrainz worden toegevoegd tot een redacteur besluit om deze informatie op te pakken, ervoor zorgt dat het aan onze standaarden voldoet, en het aan de belangrijkste database toevoegt."
+msgstr "Je kan informatie over een cd toevoegen zoals dit op de cd staat aangegeven, zonder verder deel uit te maken van MusicBrainz. Cd’s die zo zijn toegevoegd, zijn beschikbaar in programma’s, maar zullen niet aan de belangrijkste database van MusicBrainz worden toegevoegd tot een redacteur besluit om deze informatie op te pakken, ervoor zorgt dat het aan onze standaarden voldoet, en het toevoegt."
 
-#: ../root/account/edit.tt:35
+#: ../root/account/edit.tt:37
 msgid ""
 "You can pick the level you prefer here: your country, region or city. Be as "
 "specific as you want to!"
@@ -10489,7 +10505,7 @@ msgid ""
 "erroneously, since a release can have multiple valid disc IDs, and each disc"
 " ID can belong to more than one release. For more in-depth information about"
 " this topic, please see our {doc|CD submission guide}."
-msgstr "Je moet er zeker van zijn dat deze disc-id foutief aan deze uitgave is toegevoegd, aangezien een uitgave meerdere geldige disc-id’s kan hebben, en elke disc-id bij meerdere uitgaves kan horen. Lees onze {doc|handleiding voor het indienen van cd’s} voor meer informatie."
+msgstr "Je moet er zeker van zijn dat deze disc-ID foutief aan deze uitgave is toegevoegd, aangezien een uitgave meerdere geldige disc-ID’s kan hebben, en elke disc-ID bij meerdere uitgaves kan horen. Lees onze {doc|handleiding voor het indienen van cd’s} voor meer informatie."
 
 #: ../root/user/login.tt:7
 msgid "You need to be logged in to view this page."
@@ -10568,11 +10584,15 @@ msgid ""
 "{uri|send us a message}."
 msgstr "Je kan op het moment geen bewerkingen maken en niet stemmen omdat een beheerder je privileges heeft ingetrokken. {uri|Stuur ons een bericht} als je hier nog niets over gehoord hebt."
 
+#: ../root/edit/cannot_vote.tt:3
+msgid "You’re not currently allowed to vote, please read the banner."
+msgstr "Je mag nu niet stemmen; lees de mededeling bovenaan de pagina."
+
 #: ../root/release/edit/tracklist.tt:265
 msgid ""
 "You’ve seeded some Disc IDs that aren’t matched to any medium. If this is "
 "wrong, use the “Attach Disc ID” options below."
-msgstr "Je hebt een paar Disc-id’s ingevuld die niet bij een medium passen. Gebruik de onderstaande optie “Disc-id toevoegen” als dit niet klopt."
+msgstr "Je hebt een paar disc-ID’s ingevuld die niet bij een medium passen. Gebruik de onderstaande optie “Disc-ID toevoegen” als dit niet klopt."
 
 #: ../root/release/edit/tracklist.tt:321
 msgid ""
@@ -11035,7 +11055,7 @@ msgstr "{area_type} in {parent_areas}"
 #: ../root/otherlookup/results-work.tt:20 ../root/report/event_list.tt:28
 #: ../root/report/iswc_with_many_works.tt:46
 #: ../root/search/results-event.tt:28 ../root/search/results-work.tt:25
-#: ../root/work/merge.tt:35
+#: ../root/work/merge.tt:35 ../root/search/components/EventResults.js:49
 msgid "{artist} ({roles})"
 msgstr "{artist} ({roles})"
 
@@ -11080,11 +11100,11 @@ msgstr "{doc|Autoredacteur}"
 
 #: ../root/cdstub/index.tt:13
 msgid "{doc|Disc ID}:"
-msgstr "{doc|disc-id}"
+msgstr "{doc|disc-ID}"
 
 #: ../root/oauth2/error.tt:7
 msgid "{doc|Learn more}"
-msgstr "{doc|Meer leren}"
+msgstr "{doc|Meer informatie}"
 
 #: ../root/user/profile.tt:57
 msgid "{doc|Location Editor}"
@@ -11407,7 +11427,7 @@ msgstr "…"
 #: ../lib/MusicBrainz/Server/Controller.pm:29
 #, perl-brace-format
 msgid "'{id}' is not a valid MusicBrainz ID"
-msgstr "“{id}” is geen geldige MusicBrainz-id"
+msgstr "“{id}” is geen geldige MusicBrainz-ID"
 
 #: ../lib/MusicBrainz/Server/Controller.pm:142
 #, perl-brace-format
@@ -11446,7 +11466,7 @@ msgstr[1] "Bedankt, je {num_edits} {edit_url|bewerkingen} ({edit_ids}) zijn inge
 
 #: ../lib/MusicBrainz/Server/Controller/Account.pm:45
 msgid "The user ID is missing or is in an invalid format."
-msgstr "Dit gebruikers ID ontbreekt of heeft een ongeldige opmaak."
+msgstr "Deze gebruikers-ID ontbreekt of heeft een ongeldige opmaak."
 
 #: ../lib/MusicBrainz/Server/Controller/Account.pm:52
 msgid "The email address is missing."
@@ -11473,7 +11493,7 @@ msgstr "Onze excuses, deze e-mailverificatielink is verlopen."
 #: ../lib/MusicBrainz/Server/Controller/Account.pm:222
 #, perl-brace-format
 msgid "The user with ID '{user_id}' could not be found."
-msgstr "De gebruiker met het ID “{user_id}” kon niet worden gevonden."
+msgstr "De gebruiker met de ID “{user_id}” kon niet worden gevonden."
 
 #: ../lib/MusicBrainz/Server/Controller/Account.pm:136
 msgid ""
@@ -11487,7 +11507,7 @@ msgstr "Er is geen gebruiker met deze gebruikersnaam"
 
 #: ../lib/MusicBrainz/Server/Controller/Account.pm:165
 msgid "There is no user with this username and email"
-msgstr "Er is geen gebruiker met deze gebruikersnaam en e-mailadres"
+msgstr "Er is geen gebruiker met deze gebruikersnaam en dit e-mailadres"
 
 #: ../lib/MusicBrainz/Server/Controller/Account.pm:168
 msgid ""
@@ -11528,7 +11548,7 @@ msgid ""
 "<strong>We were unable to send a confirmation email to you.</strong><br/>Please confirm that you have entered a valid\n"
 "             address by editing your {settings|account settings}. If the problem still persists, please contact us at\n"
 "             {mail|support@musicbrainz.org}."
-msgstr "<strong>We konden geen confirmatie-e-mail naar je sturen.</strong>\n<br/>Controleer of je een geldig adres hebt ingevoerd door je {settings|gebruikersinstellingen} te wijzigen. Neem contact op met {mail|support@musicbrainz.org} als het probleem zich blijft voordoen."
+msgstr "<strong>We konden je geen confirmatie-e-mail sturen.</strong>\n<br/>Controleer of je een geldig adres hebt ingevoerd door je {settings|gebruikersinstellingen} te wijzigen. Neem contact op met {mail|support@musicbrainz.org} als het probleem zich blijft voordoen."
 
 #: ../lib/MusicBrainz/Server/Controller/Admin.pm:80
 msgid "User successfully edited."
@@ -11572,7 +11592,7 @@ msgstr "De ingevoerde TOC is niet geldig"
 #: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:164
 #: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:321
 msgid "The provided medium id is not valid"
-msgstr "De ingevoerde medium-id is niet geldig"
+msgstr "De ingevoerde medium-ID is niet geldig"
 
 #: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:170
 msgid "This CDTOC is already attached to this medium"
@@ -11581,13 +11601,13 @@ msgstr "Deze TOC is al aan dit medium gekoppeld"
 #: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:179
 #: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:329
 msgid "The selected medium cannot have disc IDs"
-msgstr "Het geselecteerde medium kan geen disc-id’s hebben"
+msgstr "Het geselecteerde medium kan geen disc-ID’s hebben"
 
 #: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:206
 msgid "The provided artist id is not valid"
-msgstr "De ingevoerde artiest-id is niet geldig"
+msgstr "De ingevoerde artiest-ID is niet geldig"
 
-#: ../lib/MusicBrainz/Server/Controller/Edit.pm:202
+#: ../lib/MusicBrainz/Server/Controller/Edit.pm:207
 msgid "Default"
 msgstr "Standaard"
 
@@ -11607,7 +11627,7 @@ msgstr "De ID voor de revisie van de aantekening moet een positieve integer zijn
 
 #: ../lib/MusicBrainz/Server/Controller/Role/Annotation.pm:175
 msgid "The old and new annotation ids must be unique, positive integers."
-msgstr "De oude en nieuwe id van de aantekening moeten unieke positieve integers zijn."
+msgstr "De oude en nieuwe ID van de aantekening moeten unieke positieve integers zijn."
 
 #: ../lib/MusicBrainz/Server/Controller/Root.pm:75
 msgid ""
@@ -11638,7 +11658,7 @@ msgstr "De redacteur {name} heeft geen e-mailadres aan zijn of haar account geko
 
 #: ../lib/MusicBrainz/Server/Controller/User.pm:298
 msgid "Your message could not be sent"
-msgstr "Je bericht kon niet verzonden worden"
+msgstr "Je bericht kon niet worden verzonden"
 
 #: ../lib/MusicBrainz/Server/Controller/User.pm:388
 #, perl-brace-format
@@ -11695,11 +11715,11 @@ msgstr "Incomplete TOC-gegevens"
 
 #: ../lib/MusicBrainz/Server/Data/CDStub.pm:125
 msgid "Missing disc ID"
-msgstr "Ontbrekende disc-id"
+msgstr "Ontbrekende disc-ID"
 
 #: ../lib/MusicBrainz/Server/Data/CDStub.pm:129
 msgid "Disc ID does match parsed TOC"
-msgstr "De disc-id komt niet overeen met de TOC"
+msgstr "De disc-ID komt niet overeen met de TOC"
 
 #: ../lib/MusicBrainz/Server/Data/CDStub.pm:133
 msgid "Number of submitted tracks does not match track count in TOC"
@@ -11711,11 +11731,11 @@ msgstr "Ongeldige streepjescode"
 
 #: ../lib/MusicBrainz/Server/Data/CDStub.pm:147
 msgid "There are already MusicBrainz releases with this disc ID"
-msgstr "Er zijn al uitgaves in MusicBrainz met deze disc-id"
+msgstr "Er zijn al uitgaves in MusicBrainz met deze disc-ID"
 
 #: ../lib/MusicBrainz/Server/Data/CDStub.pm:154
 msgid "There is already a CD stub with this disc ID"
-msgstr "Er is al een cd-beginsel met deze disc-id"
+msgstr "Er is al een cd-beginsel met deze disc-ID"
 
 #: ../lib/MusicBrainz/Server/Data/Language.pm:61
 #: ../lib/MusicBrainz/Server/Form/Utils.pm:44
@@ -11834,7 +11854,7 @@ msgstr "Evenementen samenvoegen"
 #: ../lib/MusicBrainz/Server/Edit/Historic/AddDiscID.pm:11
 #: ../lib/MusicBrainz/Server/Edit/Medium/AddDiscID.pm:10
 msgid "Add disc ID"
-msgstr "Disc-id toevoegen"
+msgstr "Disc-ID toevoegen"
 
 #: ../lib/MusicBrainz/Server/Edit/Historic/AddReleaseAnnotation.pm:13
 #: ../lib/MusicBrainz/Server/Edit/Release/AddAnnotation.pm:12
@@ -11899,12 +11919,12 @@ msgstr "Uitgaves samenvoegen"
 #: ../lib/MusicBrainz/Server/Edit/Historic/MoveDiscID.pm:11
 #: ../lib/MusicBrainz/Server/Edit/Medium/MoveDiscID.pm:20
 msgid "Move disc ID"
-msgstr "Disc-id verplaatsen"
+msgstr "Disc-ID verplaatsen"
 
 #: ../lib/MusicBrainz/Server/Edit/Historic/RemoveDiscID.pm:11
 #: ../lib/MusicBrainz/Server/Edit/Medium/RemoveDiscID.pm:9
 msgid "Remove disc ID"
-msgstr "Disc-id verwijderen"
+msgstr "Disc-ID verwijderen"
 
 #: ../lib/MusicBrainz/Server/Edit/Historic/RemoveLabelAlias.pm:11
 #: ../lib/MusicBrainz/Server/Edit/Label/DeleteAlias.pm:14
@@ -11936,7 +11956,7 @@ msgstr "Zet uitgave om naar meerdere artiesten (historisch)"
 #: ../lib/MusicBrainz/Server/Edit/Historic/SetTrackLengthsFromCDTOC.pm:13
 #: ../lib/MusicBrainz/Server/Edit/Medium/SetTrackLengths.pm:20
 msgid "Set track lengths"
-msgstr "Lengtes van de nummers instellen"
+msgstr "Duur van de nummers instellen"
 
 #: ../lib/MusicBrainz/Server/Edit/Instrument/AddAlias.pm:11
 msgid "Add instrument alias"
@@ -12507,11 +12527,11 @@ msgstr "De einddatum kan niet voor de begindatum zijn."
 
 #: ../lib/MusicBrainz/Server/Form/Field/DiscID.pm:12
 msgid "This is not a valid disc ID"
-msgstr "Dit is geen geldig disc-id"
+msgstr "Dit is geen geldige disc-ID"
 
 #: ../lib/MusicBrainz/Server/Form/Field/FreeDBID.pm:12
 msgid "This is not a valid FreeDB ID"
-msgstr "Dit is geen geldige FreeDB-id"
+msgstr "Dit is geen geldige FreeDB-ID"
 
 #: ../lib/MusicBrainz/Server/Form/Field/GID.pm:12
 msgid "This is not a valid MBID"
@@ -12640,12 +12660,6 @@ msgstr "Je moet een volledige geboortedatum opgeven om je leeftijd te kunnen ton
 #: ../lib/MusicBrainz/Server/Form/User/EditProfile.pm:93
 msgid "Birth year must be after 1900"
 msgstr "De geboortedatum moet na 1900 zijn"
-
-#: ../lib/MusicBrainz/Server/Form/User/EditProfile.pm:101
-msgid ""
-"Biography and website fields may not be edited until your email address is "
-"confirmed."
-msgstr "De velden voor je biografie en website kunnen niet worden bewerkt tot je e-mailadres bevestigd is."
 
 #: ../lib/MusicBrainz/Server/Form/User/Login.pm:11
 msgid "Username field is required"
@@ -12822,7 +12836,7 @@ msgstr "Een uitgave die niet onder één van bovenstaande categorieën valt."
 msgid ""
 "Any release officially sanctioned by the artist and/or their record company."
 " (Most releases will fit into this category.)"
-msgstr "Elke uitgave die officieel door de artiest of platenmaatschappij gesanctioneerd is. (De meeste uitgaves vallen onder deze categorie.)"
+msgstr "Elke uitgave die officieel door de artiest of platenmaatschappij is gesanctioneerd. (De meeste uitgaves vallen onder deze categorie.)"
 
 #: ../lib/MusicBrainz/Server/Release.pm:71
 msgid ""
@@ -13279,7 +13293,7 @@ msgid ""
 "This mode capitalises the first word of a sentence, most other words are "
 "lowercased. Some words, often proper nouns, may need to be manually fixed "
 "according to the {url|relevant language guidelines}."
-msgstr "Deze methode schrijft alleen de het eerste woord van een zin met een hoofdletter. De meeste andere woorden worden geschreven zonder hoofdletters. Sommige woorden, zoals eigennamen, moeten handmatig worden ingesteld, naar aanleiding van de {url|richtlijn voor de relevante taal}."
+msgstr "Deze methode schrijft alleen het eerste woord van een zin met een hoofdletter. De meeste andere woorden worden geschreven zonder hoofdletters. Sommige woorden, zoals eigennamen, moeten handmatig worden ingesteld, naar aanleiding van de {url|richtlijn voor de relevante taal}."
 
 #: ../root/static/scripts/guess-case/modes.js:297
 msgid ""
@@ -13353,7 +13367,7 @@ msgstr "Medium {position}"
 msgid ""
 "This medium has one or more discids which prevent this information from "
 "being changed."
-msgstr "Dit medium heeft één of meer disc-id’s die voorkomen dat deze informatie veranderd kan worden."
+msgstr "Dit medium heeft één of meer disc-ID’s die voorkomen dat deze informatie kan worden veranderd."
 
 #: ../root/static/scripts/release-editor/fields.js:909
 msgid "Change all artists on this release that match “{name}”"
@@ -13381,22 +13395,22 @@ msgstr "Het controlegetal is {checkdigit}."
 
 #: ../root/static/scripts/release-editor/validation.js:125
 msgid "Please double-check the barcode on the release."
-msgstr "Controleer de streepjescode op de release nog een keer."
+msgstr "Controleer de streepjescode op de uitgave nog een keer."
 
 #: ../root/static/scripts/release-editor/validation.js:129
 msgid ""
 "The barcode you entered looks like a UPC code with the check digit missing."
-msgstr "De streepjescode die je hebt ingevoerd, lijkt op een UPC-code waarbij het controlegetal ontbreekt."
+msgstr "De streepjescode die je hebt ingevoerd, lijkt op een UPC waarvan het controlegetal ontbreekt."
 
 #: ../root/static/scripts/release-editor/validation.js:135
 msgid "The barcode you entered is a valid UPC code."
-msgstr "De streepjescode die je hebt ingevoerd, is een geldige UPC-code."
+msgstr "De streepjescode die je hebt ingevoerd, is een geldige UPC."
 
 #: ../root/static/scripts/release-editor/validation.js:138
 msgid ""
 "The barcode you entered is either an invalid UPC code, or an EAN code with "
 "the check digit missing."
-msgstr "De streepjescode die je hebt ingevoerd, is of een ongeldige UPC-code, of een EAN-code waarvan het controlegetal ontbreekt."
+msgstr "De streepjescode die je hebt ingevoerd, is of een ongeldige UPC, of een EAN-code waarvan het controlegetal ontbreekt."
 
 #: ../root/static/scripts/release-editor/validation.js:147
 msgid "The barcode you entered is a valid EAN code."

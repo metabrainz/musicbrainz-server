@@ -3,10 +3,9 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-// FIXME
-// const $ = require('jquery');
+const ko = require('knockout');
 
-const clean = require('../common/utility/clean');
+const MB = require('../common/MB');
 
 exports.errorFields = ko.observableArray([]);
 
@@ -28,33 +27,39 @@ exports.errorsExist = ko.computed(function () {
     return false;
 });
 
-exports.errorsExist.subscribe(function (value) {
-    $('#page form button[type=submit]').prop('disabled', value);
-});
-
-$(document).on('submit', '#page form', function (event) {
-    if (exports.errorsExist()) {
-        event.preventDefault();
-    }
-});
-
-$(function () {
-    $('#page form :input[required]').each(function () {
-        var $input = $(this);
-
-        // XXX We can't handle artist credit fields here. They have separate
-        // hidden inputs that are injected by knockout.
-        if ($input.is('.artist-credit-input')) {
-            return;
-        }
-
-        var error = exports.errorField(ko.observable(!clean($input.val())));
-
-        $input.on('input change', function () {
-            error(!clean(this.value));
-        });
-    });
-});
-
 // XXX needed by inline scripts
 MB.validation = exports;
+
+if (typeof document !== 'undefined') {
+    const $ = require('jquery');
+
+    const clean = require('../common/utility/clean');
+
+    exports.errorsExist.subscribe(function (value) {
+        $('#page form button[type=submit]').prop('disabled', value);
+    });
+
+    $(document).on('submit', '#page form', function (event) {
+        if (exports.errorsExist()) {
+            event.preventDefault();
+        }
+    });
+
+    $(function () {
+        $('#page form :input[required]').each(function () {
+            var $input = $(this);
+
+            // XXX We can't handle artist credit fields here. They have separate
+            // hidden inputs that are injected by knockout.
+            if ($input.is('.artist-credit-input')) {
+                return;
+            }
+
+            var error = exports.errorField(ko.observable(!clean($input.val())));
+
+            $input.on('input change', function () {
+                error(!clean(this.value));
+            });
+        });
+    });
+}

@@ -23,9 +23,16 @@ var bubble = initializeBubble('#coordinates-bubble', 'input[name=edit-place\\.co
 
 // The map is hidden by default, which means it can't position itself correctly.
 // This tells it to update its position once it's visible.
-bubble.after("show", _.once(function () {
+const afterBubbleShow = _.once(function () {
     map.invalidateSize();
-}));
+});
+
+const bubbleShow = bubble.show;
+
+bubble.show = function () {
+    bubbleShow.apply(this, arguments);
+    afterBubbleShow();
+};
 
 map.on('click', function (e) {
     if (map.getZoom() > 11) {

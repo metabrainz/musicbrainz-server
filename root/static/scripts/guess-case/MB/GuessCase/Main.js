@@ -19,9 +19,21 @@
 
 */
 
+const MB = require('../../../common/MB');
 const getCookie = require('../../../common/utility/getCookie');
 const global = require('../../../global');
 const flags = require('../../flags');
+
+require('./Handler/Base');
+require('./Handler/Area');
+require('./Handler/Artist');
+require('./Handler/Label');
+require('./Handler/Place');
+require('./Handler/Release');
+require('./Handler/Track');
+require('./Handler/Work');
+
+MB.GuessCase = MB.GuessCase || {};
 
 /**
  * Main class of the GC functionality
@@ -38,8 +50,8 @@ const flags = require('../../flags');
     // ----------------------------------------------------------------------------
     // member variables
     // ----------------------------------------------------------------------------
-    self.i = MB.GuessCase.Input();
-    self.o = MB.GuessCase.Output();
+    self.i = require('./Input')();
+    self.o = require('./Output')();
 
     self.re = {
         // define commonly used RE's
@@ -133,4 +145,6 @@ const flags = require('../../flags');
 
     /* FIXME: ugly hack, need to get rid of using a global 'gc' everywhere. */
     global.gc = self;
+
+    module.exports = self;
 }());

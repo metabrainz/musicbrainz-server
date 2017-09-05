@@ -548,12 +548,13 @@ around _merge_submit => sub {
         };
     }
 
-    if ($c->model('Release')->can_merge(%merge_opts)) {
+    if ($c->model('Release')->can_merge(\%merge_opts)) {
         $self->$orig($c, $form, $entities);
     } else {
         $form->field('merge_strategy')->add_error(
             l('This merge strategy is not applicable to the releases you have selected.')
         );
+        $form->field('merge_strategy')->add_error(l($merge_opts{_cannot_merge_reason}));
     }
 };
 

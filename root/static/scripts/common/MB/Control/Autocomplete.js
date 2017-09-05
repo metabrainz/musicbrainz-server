@@ -8,6 +8,7 @@ const _ = require('lodash');
 const ko = require('knockout');
 
 const {ENTITIES, MAX_RECENT_ENTITIES} = require('../../constants');
+const MB_entity = require('../../entity');
 const i18n = require('../../i18n');
 const commaOnlyList = require('../../i18n/commaOnlyList');
 const {artistCreditFromArray, reduceArtistCredit} = require('../../immutable-entities');
@@ -200,9 +201,9 @@ $.widget("ui.autocomplete", $.ui.autocomplete, {
     _dataToEntity: function (data) {
         try {
             if (this.options.entityConstructor) {
-                return this.options.entityConstructor(data);
+                return new this.options.entityConstructor(data);
             }
-            return MB.entity(data, this.entity);
+            return MB_entity(data, this.entity);
         } catch (e) {
             return data;
         }
@@ -981,7 +982,7 @@ MB.Control.EntityAutocomplete = function (options) {
     $name.autocomplete(options);
     var autocomplete = $name.data("ui-autocomplete");
 
-    autocomplete.currentSelection(MB.entity({
+    autocomplete.currentSelection(MB_entity({
         name: $name.val(),
         id: $inputs.find("input.id").val(),
         gid: $inputs.find("input.gid").val()
@@ -1009,12 +1010,7 @@ ko.bindingHandlers.autocomplete = {
     init: function (element, valueAccessor) {
         var options = valueAccessor();
 
-        var autocomplete = $(element).autocomplete(options)
-            .data("ui-autocomplete");
-
-        if (options.artistCredit) {
-            options.artistCredit.setAutocomplete(autocomplete, element);
-        }
+        $(element).autocomplete(options);
     }
 };
 

@@ -3,11 +3,24 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
+const $ = require('jquery');
+const _ = require('lodash');
 const test = require('tape');
 
+require('../../../lib/jquery-ui');
+
+const {
+        addDiscDialog,
+        mediumSearchTab,
+        trackParserDialog,
+    } = require('../../release-editor/dialogs');
+const edits = require('../../release-editor/edits');
+const fields = require('../../release-editor/fields');
+const trackParser = require('../../release-editor/trackParser');
+const releaseEditor = require('../../release-editor/viewModel');
 const common = require('./common');
 
-var releaseEditor = MB.releaseEditor;
+require('../../release-editor/init');
 
 $.ui.dialog.prototype.options.appendTo = "#fixture";
 
@@ -15,7 +28,7 @@ function dialogTest(name, callback) {
     test(name, function (t) {
         var release = common.setupReleaseAdd();
 
-        releaseEditor.trackParser.options = {
+        trackParser.options = {
             hasTrackNumbers: true,
             hasVinylNumbers: false,
             hasTrackArtists: false,
@@ -41,8 +54,6 @@ function dialogTest(name, callback) {
 dialogTest("adding an empty medium via the add-disc dialog is allowed (MBS-7221)", function (t, release) {
     t.plan(3);
 
-    var addDiscDialog = releaseEditor.addDiscDialog;
-    var trackParserDialog = releaseEditor.trackParserDialog;
     var mediums = release.mediums;
 
     t.ok(!mediums()[0].hasTracks(), "first medium is empty");
@@ -64,9 +75,6 @@ dialogTest("adding an empty medium via the add-disc dialog is allowed (MBS-7221)
 dialogTest("switching to the tracklist tab opens the add-disc dialog if there's only one empty medium", function (t, release) {
     t.plan(3);
 
-    var addDiscDialog = releaseEditor.addDiscDialog;
-    var trackParserDialog = releaseEditor.trackParserDialog;
-
     releaseEditor.activeTabID("#tracklist");
     releaseEditor.autoOpenTheAddDiscDialog(release);
 
@@ -80,7 +88,7 @@ dialogTest("switching to the tracklist tab opens the add-disc dialog if there's 
     t.ok(!uiDialog.isOpen(), "add-disc dialog is closed after switching back to the information tab");
 
     release.mediums()[0].tracks.push(
-        releaseEditor.fields.Track({ name: "~fooo~", position: 1, length: 12345 })
+        new fields.Track({ name: "~fooo~", position: 1, length: 12345 })
     );
 
     releaseEditor.activeTabID("#information");
@@ -92,12 +100,10 @@ dialogTest("switching to the tracklist tab opens the add-disc dialog if there's 
 dialogTest("clearing the tracks of an existing medium via the track parser doesn't cause the add-disc dialog to open", function (t, release) {
     t.plan(3);
 
-    var addDiscDialog = releaseEditor.addDiscDialog;
-    var trackParserDialog = releaseEditor.trackParserDialog;
     var medium = release.mediums()[0];
 
     medium.tracks.push(
-        releaseEditor.fields.Track({ name: "~fooo~", position: 1, length: 12345 })
+        new fields.Track({ name: "~fooo~", position: 1, length: 12345 })
     );
 
     t.ok(medium.hasTracks(), "medium has tracks");
@@ -117,11 +123,8 @@ dialogTest("clearing the tracks of an existing medium via the track parser doesn
 dialogTest("adding a new medium does not cause reorder edits (MBS-7412)", function (t, release) {
     t.plan(1);
 
-    var addDiscDialog = releaseEditor.addDiscDialog;
-    var mediumSearchTab = releaseEditor.mediumSearchTab;
-
     release.mediums([
-        releaseEditor.fields.Medium(
+        new fields.Medium(
             _.assign(_.omit(common.testMedium, "id"), { position: 1 })
         )
     ]);
@@ -133,5 +136,5 @@ dialogTest("adding a new medium does not cause reorder edits (MBS-7412)", functi
 
     common.createMediums(release);
 
-    t.equal(releaseEditor.edits.mediumReorder(release).length, 0, "mediums are not reordered");
+    t.equal(edits.mediumReorder(release).length, 0, "mediums are not reordered");
 });

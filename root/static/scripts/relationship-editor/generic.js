@@ -3,20 +3,26 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
+const $ = require('jquery');
+const ko = require('knockout');
+const _ = require('lodash');
+
 const {SERIES_ORDERING_TYPE_AUTOMATIC} = require('../common/constants');
+const MB = require('../common/MB');
 const clean = require('../common/utility/clean');
 const formatDate = require('../common/utility/formatDate');
 const validation = require('../edit/validation');
+const {ViewModel} = require('./common/viewModel');
 
 (function (RE) {
 
     var UI = RE.UI = RE.UI || {};
 
+    class GenericEntityViewModel extends ViewModel {
 
-    RE.GenericEntityViewModel = aclass(RE.ViewModel, {
-        fieldName: "rel",
+        constructor(options) {
+            super(options);
 
-        after$init: function () {
             MB.sourceRelationshipEditor = this;
 
             var source = this.source;
@@ -26,30 +32,30 @@ const validation = require('../edit/validation');
                     return !r.linkTypeID() || !r.target(source).gid;
                 })
             );
-        },
+        }
 
-        openAddDialog: function (source, event) {
+        openAddDialog(source, event) {
             var targetType = _.without(MB.allowedRelations[source.entityType], 'url')[0];
 
-            UI.AddDialog({
+            new UI.AddDialog({
                 source: source,
                 target: MB.entity({}, targetType),
                 viewModel: this
             }).open(event.target);
-        },
+        }
 
-        openEditDialog: function (relationship, event) {
+        openEditDialog(relationship, event) {
             if (!relationship.removed()) {
-                UI.EditDialog({
+                new UI.EditDialog({
                     relationship: relationship,
                     source: ko.contextFor(event.target).$parents[1],
                     viewModel: this
                 }).open(event.target);
             }
-        },
+        }
 
-        around$_sortedRelationships: function (supr, relationships, source) {
-            var result = supr(relationships, source);
+        _sortedRelationships(relationships, source) {
+            var result = super._sortedRelationships(relationships, source);
 
             if (source.entityType === "series") {
                 var sorted = ko.observableArray(result());
@@ -74,7 +80,11 @@ const validation = require('../edit/validation');
 
             return result;
         }
-    });
+    }
+
+    GenericEntityViewModel.prototype.fieldName = 'rel';
+
+    exports.GenericEntityViewModel = GenericEntityViewModel;
 
     var seriesOrdering = {
         event: function (relationships, series) {
@@ -203,7 +213,7 @@ const validation = require('../edit/validation');
         }
     }
 
-    RE.prepareSubmission = function (formName) {
+    function prepareSubmission(formName) {
         var submitted = [];
         var submittedLinks;
         var vm;
@@ -254,10 +264,13 @@ const validation = require('../edit/validation');
         }
 
         $("#relationship-editor").append(hiddenInputs);
-    };
+    }
 
     $(document).on("submit", "#page form:not(#relationship-editor-form)", _.once(function () {
-        RE.prepareSubmission($('#relationship-editor').data('form-name'));
+        prepareSubmission($('#relationship-editor').data('form-name'));
     }));
+
+    RE.prepareSubmission = prepareSubmission;
+    exports.prepareSubmission = prepareSubmission;
 
 }(MB.relationshipEditor = MB.relationshipEditor || {}));

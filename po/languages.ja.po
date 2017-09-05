@@ -2,6 +2,7 @@
 # Translators:
 # nikki2 <email address hidden>, 2012
 # Keshav Kini <email address hidden>, 2013
+# ktu0457, 2017
 # mai inoue, 2015
 # Nozomu Kurasawa <email address hidden>, 2013,2015
 # nikki, 2012
@@ -10,8 +11,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2017-06-19 19:32+0000\n"
-"Last-Translator: Michael Wiencek <email address hidden>\n"
+"PO-Revision-Date: 2017-09-02 23:27+0000\n"
+"Last-Translator: ktu0457\n"
 "Language-Team: Japanese (http://www.transifex.com/musicbrainz/musicbrainz/language/ja/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1707,7 +1708,7 @@ msgstr "ノガイ語"
 #. frequency:1 iso_code_3:nrn
 #: DB:language/name:4991
 msgid "Norn"
-msgstr ""
+msgstr "ノーン語"
 
 #. frequency:1 iso_code_3:non
 #: DB:language/name:308
@@ -1862,7 +1863,7 @@ msgstr "フェニキア語"
 #. frequency:1 iso_code_3:pjt
 #: DB:language/name:5402
 msgid "Pitjantjatjara"
-msgstr ""
+msgstr "ピチャンチャチャラ語"
 
 #. frequency:1 iso_code_3:pon
 #: DB:language/name:339
@@ -2512,7 +2513,7 @@ msgstr "ワライ語"
 #. frequency:1 iso_code_3:wbp
 #: DB:language/name:7009
 msgid "Warlpiri"
-msgstr ""
+msgstr "ワルビリ語"
 
 #. frequency:1 iso_code_3:was
 #: DB:language/name:454
@@ -2542,7 +2543,7 @@ msgstr "ウォロフ語"
 #. frequency:1 iso_code_3:wya
 #: DB:language/name:7181
 msgid "Wyandot"
-msgstr ""
+msgstr "ワイアンドット語"
 
 #. frequency:1 iso_code_3:xho
 #: DB:language/name:460

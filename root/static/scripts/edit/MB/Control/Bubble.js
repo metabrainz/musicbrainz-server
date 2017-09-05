@@ -4,21 +4,13 @@
 
 const deferFocus = require('../../utility/deferFocus');
 
-MB.Control.BubbleBase = aclass({
-
-    // Organized by group, where only one bubble from each group can be
-    // visible on the page at once.
-    activeBubbles: {},
-
-    // Whether the bubble should close when we click outside of it. Used for
-    // track artist credit bubbles.
-    closeWhenFocusIsLost: false,
+class BubbleBase {
 
     // The default observable equality comparer returns false if the values
     // aren't primitive, even if the values are equal.
-    targetEqualityComparer: function (a, b) { return a === b },
+    targetEqualityComparer(a, b) { return a === b }
 
-    init: function (group) {
+    constructor(group) {
         this.group = group || 0;
 
         // this.target is the current viewModel that the bubble is pointing at.
@@ -26,9 +18,9 @@ MB.Control.BubbleBase = aclass({
         this.target.equalityComparer = this.targetEqualityComparer;
 
         this.visible = ko.observable(false);
-    },
+    }
 
-    show: function (control, stealFocus) {
+    show(control, stealFocus) {
         this.control = control;
         this.target(ko.dataFor(control));
         this.visible(true);
@@ -49,9 +41,9 @@ MB.Control.BubbleBase = aclass({
         _.defer(function () {
             $bubble.find("a").attr("target", "_blank");
         });
-    },
+    }
 
-    hide: function (stealFocus) {
+    hide(stealFocus) {
         this.visible(false);
 
         var $control = $(this.control);
@@ -66,24 +58,24 @@ MB.Control.BubbleBase = aclass({
         if (activeBubble === this) {
             this.activeBubbles[this.group] = null;
         }
-    },
+    }
 
     // Action upon pressing enter in an input. Defaults to hide.
-    submit: function () { this.hide() },
+    submit() { this.hide() }
 
-    toggle: function (control) {
+    toggle(control) {
         if (this.visible.peek()) {
             this.hide();
         } else {
             this.show(control);
         }
-    },
+    }
 
-    canBeShown: function () {
+    canBeShown() {
         return true;
-    },
+    }
 
-    redraw: function (stealFocus) {
+    redraw(stealFocus) {
         if (this.visible.peek()) {
             // It's possible that the control we're pointing at has been
             // removed, hence why MutationObserver has triggered a redraw. If
@@ -96,20 +88,29 @@ MB.Control.BubbleBase = aclass({
                 this.show(this.control, !!stealFocus, true /* isRedraw */);
             }
         }
-    },
+    }
 
-    targetIs: function (data) {
+    targetIs(data) {
         return this.target() === data;
     }
-});
+}
 
+// Organized by group, where only one bubble from each group can be
+// visible on the page at once.
+BubbleBase.prototype.activeBubbles = {};
+
+// Whether the bubble should close when we click outside of it. Used for
+// track artist credit bubbles.
+BubbleBase.prototype.closeWhenFocusIsLost = false;
 
 /* BubbleDoc turns a documentation div into a bubble pointing at an
    input to the left of it.
 */
-MB.Control.BubbleDoc = aclass(MB.Control.BubbleBase, {
+class BubbleDoc extends BubbleBase {
 
-    after$show: function (control) {
+    show(control) {
+        super.show(control);
+
         var $bubble = this.$bubble,
             $parent = $bubble.parent();
 
@@ -124,8 +125,9 @@ MB.Control.BubbleDoc = aclass(MB.Control.BubbleBase, {
             })
             .addClass("left-tail");
     }
-});
+}
 
+MB.Control.BubbleDoc = BubbleDoc;
 
 // Knockout's visible binding only toggles the display style between "none"
 // and "". When it's an empty string, the display falls back to whatever
@@ -313,7 +315,7 @@ $("body")
 MB.Control.initializeBubble = function (bubble, control, vm, canBeShown) {
     vm = vm || {};
 
-    var bubbleDoc = MB.Control.BubbleDoc();
+    var bubbleDoc = new BubbleDoc();
 
     if (canBeShown) {
         bubbleDoc.canBeShown = canBeShown;

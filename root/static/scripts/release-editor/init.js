@@ -3,6 +3,10 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
+const $ = require('jquery');
+const ko = require('knockout');
+const _ = require('lodash');
+
 const i18n = require('../common/i18n');
 const {
         artistCreditFromArray,
@@ -14,8 +18,12 @@ const clean = require('../common/utility/clean');
 const request = require('../common/utility/request');
 const externalLinks = require('../edit/externalLinks');
 const validation = require('../edit/validation');
+const fields = require('./fields');
+const recordingAssociation = require('./recordingAssociation');
+const utils = require('./utils');
+const releaseEditor = require('./viewModel');
 
-MB.releaseEditor = _.extend(MB.releaseEditor || {}, {
+_.extend(releaseEditor, {
     activeTabID: ko.observable("#information"),
     activeTabIndex: ko.observable(0),
     loadError: ko.observable(""),
@@ -23,8 +31,7 @@ MB.releaseEditor = _.extend(MB.releaseEditor || {}, {
     hasInvalidLinks: validation.errorField(ko.observable(false))
 });
 
-
-MB.releaseEditor.init = function (options) {
+releaseEditor.init = function (options) {
     var self = this;
 
     $.extend(this, _.pick(options, "action", "returnTo", "redirectURI"));
@@ -32,7 +39,7 @@ MB.releaseEditor.init = function (options) {
     // Setup guess case buttons for the title field. Do this every time the
     // release changes, since the old fields get removed and the events no
     // longer exist.
-    this.utils.withRelease(function (release) {
+    utils.withRelease(function (release) {
         _.defer(function () {
             MB.Control.initialize_guess_case("release");
         });
@@ -95,7 +102,7 @@ MB.releaseEditor.init = function (options) {
     // Enable or disable the recordings tab depending on whether there are
     // tracks or if the tracks have errors.
 
-    this.utils.withRelease(function (release) {
+    utils.withRelease(function (release) {
         var addingRelease = self.action === "add";
         var tabEnabled = addingRelease ? release.hasTracks() : true;
 
@@ -124,7 +131,7 @@ MB.releaseEditor.init = function (options) {
 
     // Change the track artists to match the release artist if it was changed.
 
-    this.utils.withRelease(function (release) {
+    utils.withRelease(function (release) {
         var tabID = self.activeTabID();
         var releaseAC = release.artistCredit();
         var savedReleaseAC = release.artistCredit.saved;
@@ -148,7 +155,7 @@ MB.releaseEditor.init = function (options) {
 
     // Update the document title to match the release title
 
-    this.utils.withRelease(function (release) {
+    utils.withRelease(function (release) {
         var name = clean(release.name());
 
         if (self.action === "add") {
@@ -167,14 +174,34 @@ MB.releaseEditor.init = function (options) {
     // Handle showing/hiding the AddDisc dialog when the user switches to/from
     // the tracklist tab.
 
-    this.utils.withRelease(function (release) {
+    utils.withRelease(function (release) {
         self.autoOpenTheAddDiscDialog(release);
+    });
+
+    // Keep track of recordings associated with the current release group.
+    let releaseGroupTimer;
+
+    utils.withRelease(r => r.releaseGroup()).subscribe(function (releaseGroup) {
+        if (releaseGroupTimer) {
+            clearTimeout(releaseGroupTimer);
+        }
+
+        function getRecordings() {
+            recordingAssociation.getReleaseGroupRecordings(releaseGroup, 0, []);
+        }
+
+        // Refresh our list of recordings every 10 minutes, in case the user
+        // leaves the tab open and comes back later, potentially leaving us
+        // with stale data.
+        releaseGroupTimer = setTimeout(getRecordings, 10 * 60 * 1000);
+
+        getRecordings();
     });
 
     // Make sure the user actually wants to close the page/tab if they've made
     // any changes.
     var hasEdits = ko.computed(function () {
-        return MB.releaseEditor.allEdits().length > 0;
+        return releaseEditor.allEdits().length > 0;
     });
 
     window.addEventListener('beforeunload', event => {
@@ -195,7 +222,7 @@ MB.releaseEditor.init = function (options) {
     if (this.action === "edit") {
         this.loadRelease(options.gid);
     } else {
-        MB.releaseEditor.createExternalLinksEditor(
+        releaseEditor.createExternalLinksEditor(
             { entityType: 'release' },
             $('#external-links-editor-container')[0]
         );
@@ -214,8 +241,7 @@ MB.releaseEditor.init = function (options) {
     });
 };
 
-
-MB.releaseEditor.loadRelease = function (gid, callback) {
+releaseEditor.loadRelease = function (gid, callback) {
     var args = {
         url: "/ws/js/release/" + gid,
         data: { inc: "rels" }
@@ -236,18 +262,17 @@ MB.releaseEditor.loadRelease = function (gid, callback) {
 
 };
 
-
-MB.releaseEditor.releaseLoaded = function (data) {
+releaseEditor.releaseLoaded = function (data) {
     this.loadError("");
 
     var seed = this.seededReleaseData;
 
     // Setup the external links editor
     _.defer(function () {
-        MB.releaseEditor.createExternalLinksEditor(data, $('#external-links-editor-container')[0]);
+        releaseEditor.createExternalLinksEditor(data, $('#external-links-editor-container')[0]);
     });
 
-    var release = this.fields.Release(data);
+    var release = new fields.Release(data);
 
     if (seed) this.seedRelease(release, seed);
 
@@ -256,8 +281,7 @@ MB.releaseEditor.releaseLoaded = function (data) {
     this.rootField.release(release);
 };
 
-
-MB.releaseEditor.createExternalLinksEditor = function (data, mountPoint) {
+releaseEditor.createExternalLinksEditor = function (data, mountPoint) {
     if (!mountPoint) {
         // XXX undefined in some tape tests
         return;
@@ -291,8 +315,7 @@ MB.releaseEditor.createExternalLinksEditor = function (data, mountPoint) {
     return this.externalLinks;
 };
 
-
-MB.releaseEditor.autoOpenTheAddDiscDialog = function (release) {
+releaseEditor.autoOpenTheAddDiscDialog = function (release) {
     var addDiscUI = $(this.addDiscDialog.element).data("ui-dialog");
     var trackParserUI = $(this.trackParserDialog.element).data("ui-dialog");
 
@@ -310,7 +333,7 @@ MB.releaseEditor.autoOpenTheAddDiscDialog = function (release) {
     }
 };
 
-MB.releaseEditor.allowsSubmission = function () {
+releaseEditor.allowsSubmission = function () {
     return (
         !this.submissionInProgress() &&
         !validation.errorsExist() &&

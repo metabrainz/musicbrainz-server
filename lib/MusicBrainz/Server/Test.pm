@@ -1,5 +1,7 @@
 package MusicBrainz::Server::Test;
 
+use feature 'state';
+
 binmode STDOUT, ":utf8";
 binmode STDERR, ":utf8";
 
@@ -7,6 +9,7 @@ use DBDefs;
 use Encode qw( encode );
 use FindBin '$Bin';
 use Getopt::Long;
+use HTML::HTML5::Parser;
 use HTTP::Headers;
 use HTTP::Request;
 use JSON qw( decode_json encode_json );
@@ -15,7 +18,7 @@ use MusicBrainz::Server::CacheManager;
 use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Data::Edit;
 use MusicBrainz::Server::Replication ':replication_type';
-use MusicBrainz::Server::Test::HTML5 qw( xhtml_ok html5_ok );
+use MusicBrainz::Server::Test::HTML5 qw( html5_ok );
 use MusicBrainz::WWW::Mechanize;
 use Sql;
 use Test::Builder;
@@ -188,15 +191,28 @@ sub test_xpath_html
 {
     my $content = shift;
 
-    return Test::XPath->new(
-        xml => $content,
-        xmlns => { "html" => "http://www.w3.org/1999/xhtml" });
+    state $parser = HTML::HTML5::Parser->new(no_cache => 1);
+
+    # We don't use $parser->parse_string because it calls parse_byte_string
+    # even if you don't specify an encoding, which requires us to
+    # unnecessarily re-encode the content first.
+    my $errors = ($parser->{errors} = []);
+    my $doc = XML::LibXML::Document->createDocument;
+
+    $parser->{parser}->parse_char_string($content, $doc, sub {
+        push @{$errors}, HTML::HTML5::Parser::Error->new(@_);
+    });
+
+    # Remove the XML namespace so that XPath expressions work.
+    my ($html) = $doc->getElementsByTagName('html');
+    $html->setAttribute('xmlns', '');
+
+    return Test::XPath->new(doc => $doc);
 }
 
 =func html_ok
 
-Validate html by checking if it is well-formed XML and validating
-HTML5 with validator.nu.
+Validate HTML5 with validator.nu.
 
 =cut
 
@@ -204,7 +220,6 @@ sub html_ok
 {
     my ($content) = @_;
 
-    xhtml_ok($Test, $content);
     html5_ok($Test, $content);
 }
 

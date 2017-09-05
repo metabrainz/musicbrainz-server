@@ -3,8 +3,14 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
+const $ = require('jquery');
+const ko = require('knockout');
+const _ = require('lodash');
+
+const MB = require('../../common/MB');
 const parseDate = require('../../common/utility/parseDate');
 const request = require('../../common/utility/request');
+const fields = require('./fields');
 
 (function (RE) {
 
@@ -59,22 +65,19 @@ const request = require('../../common/utility/request');
     });
 
 
-    RE.ViewModel = aclass({
+    class ViewModel {
 
-        relationshipClass: RE.fields.Relationship,
-        activeDialog: ko.observable(),
-
-        init: function (options) {
+        constructor(options) {
             this.source = options.source;
             this.uniqueID = _.uniqueId("relationship-editor-");
             this.cache = {};
-        },
+        }
 
-        getRelationship: function (data, source) {
+        getRelationship(data, source) {
             return MB.getRelationship(data, source);
-        },
+        }
 
-        removeRelationship: function (relationship) {
+        removeRelationship(relationship) {
             if (relationship.added()) {
                 relationship.remove();
             } else if (relationship.removed()) {
@@ -85,14 +88,21 @@ const request = require('../../common/utility/request');
                 }
                 relationship.removed(true);
             }
-        },
+        }
 
-        _sortedRelationships: function (relationships, source) {
+        _sortedRelationships(relationships, source) {
             return relationships
                 .sortBy(function (r) { return r.lowerCaseTargetName(source) })
                 .sortBy("linkOrder");
         }
+    }
+
+    _.assign(ViewModel.prototype, {
+        relationshipClass: fields.Relationship,
+        activeDialog: ko.observable(),
     });
+
+    exports.ViewModel = ViewModel;
 
 }(MB.relationshipEditor = MB.relationshipEditor || {}));
 
@@ -109,7 +119,12 @@ MB.initRelationshipEditors = function (args) {
     var source = MB.sourceEntity;
     var vmArgs = { source: source, formName: args.formName };
 
-    MB.relationshipEditor.GenericEntityViewModel(vmArgs);
+    let {vmClass} = args;
+    if (!vmClass) {
+        vmClass = require('../generic').GenericEntityViewModel;
+    }
+
+    new vmClass(vmArgs);
 
     var externalLinksEditor = $('#external-links-editor-container')[0];
     if (externalLinksEditor) {
@@ -156,7 +171,7 @@ MB.getRelationship = function (data, source) {
                 return cached;
             }
         }
-        var relationship = viewModel.relationshipClass(data, source, viewModel);
+        var relationship = new viewModel.relationshipClass(data, source, viewModel);
         return data.id ? (viewModel.cache[cacheKey] = relationship) : relationship;
     }
 };

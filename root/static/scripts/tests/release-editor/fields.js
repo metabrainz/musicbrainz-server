@@ -3,11 +3,15 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
+const $ = require('jquery');
+const ko = require('knockout');
+const _ = require('lodash');
 const test = require('tape');
 
+const fields = require('../../release-editor/fields');
 const common = require('./common');
 
-var releaseEditor = MB.releaseEditor;
+require('../../common/MB/Control/Autocomplete');
 
 function fieldTest(name, callback) {
     test(name, function (t) {
@@ -28,7 +32,7 @@ fieldTest("release group types being preserved after editing the name", function
         autocomplete: {
             entity: "release-group",
             currentSelection: releaseGroup,
-            entityConstructor: releaseEditor.fields.ReleaseGroup
+            entityConstructor: fields.ReleaseGroup
         }
     });
 
@@ -43,16 +47,15 @@ fieldTest("release group types being preserved after editing the name", function
 fieldTest("mediums having their \"loaded\" observable set correctly", function (t, release) {
     t.plan(6);
 
-    var fields = releaseEditor.fields;
     var mediums = release.mediums;
 
     mediums([
-        fields.Medium({ tracks: [] }),
-        fields.Medium({ tracks: [ {} ] }),
-        fields.Medium({ id: 1, tracks: [] }),
-        fields.Medium({ originalID: 1, tracks: [] }),
-        fields.Medium({ id: 1, tracks: [ {} ] }),
-        fields.Medium({ originalID: 1, tracks: [ {} ] })
+        new fields.Medium({ tracks: [] }),
+        new fields.Medium({ tracks: [ {} ] }),
+        new fields.Medium({ id: 1, tracks: [] }),
+        new fields.Medium({ originalID: 1, tracks: [] }),
+        new fields.Medium({ id: 1, tracks: [ {} ] }),
+        new fields.Medium({ originalID: 1, tracks: [ {} ] })
     ]);
 
     t.equal(mediums()[0].loaded(), true, "medium without id or tracks is considered loaded");
@@ -67,9 +70,7 @@ fieldTest("mediums having their \"loaded\" observable set correctly", function (
 fieldTest("loading a medium doesn't overwrite its original edit data", function (t, release) {
     t.plan(11);
 
-    var fields = releaseEditor.fields;
-
-    var medium = fields.Medium({
+    var medium = new fields.Medium({
         id: 123,
         position: 1,
         formatID: 1,
@@ -113,9 +114,7 @@ fieldTest("loading a medium doesn't overwrite its original edit data", function 
 fieldTest("data tracks are appended with a correct position if there's a pregap (MBS-8013)", function (t, release) {
     t.plan(1);
 
-    var fields = releaseEditor.fields;
-
-    var medium = fields.Medium({ tracks: [] }, release);
+    var medium = new fields.Medium({ tracks: [] }, release);
     medium.hasPregap(true);
     medium.hasDataTracks(true);
 
@@ -124,8 +123,6 @@ fieldTest("data tracks are appended with a correct position if there's a pregap 
 
 fieldTest("tracks are set correctly when the cdtoc is changed", function (t, release) {
     t.plan(7);
-
-    var fields = releaseEditor.fields;
 
     function lengthsAndPositions() {
         return _.map(medium.tracks(), function (t) {
@@ -154,7 +151,7 @@ fieldTest("tracks are set correctly when the cdtoc is changed", function (t, rel
         { length: 737000, position: 5 }
     ];
 
-    var medium = fields.Medium({ tracks: [] }, release);
+    var medium = new fields.Medium({ tracks: [] }, release);
 
     // 7 tracks added
     medium.toc(toc1);

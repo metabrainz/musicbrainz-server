@@ -4,9 +4,11 @@
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
 MB.Control.Area = function () {
-    var bubble =  MB.Control.BubbleDoc().extend({
-        canBeShown: function (viewModel) { return viewModel.area().gid }
-    });
+    var bubble = new MB.Control.BubbleDoc();
+
+    bubble.canBeShown = function (viewModel) {
+        return viewModel.area().gid;
+    };
 
     ko.applyBindingsToNode($("#area-bubble")[0], { bubble: bubble });
 

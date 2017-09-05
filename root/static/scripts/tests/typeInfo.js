@@ -1,4 +1,6 @@
 // Automatically generated, do not edit.
+require('../relationship-editor/common/viewModel');
+const MB = require('../common/MB');
 MB.relationshipEditor.exportTypeInfo({
    "place-release_group" : [
       {

@@ -45,4 +45,4 @@ window.addEventListener('error', function (event) {
     console.log('Line number: ' + event.lineno);
 });
 
-require('./index');
+require('./index-web');

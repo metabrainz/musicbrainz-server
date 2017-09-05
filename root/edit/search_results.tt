@@ -11,12 +11,12 @@
         [% INCLUDE 'edit/list.tt' guess_search=1 %]
     </div>
 
-    <script type="text/javascript">//<![CDATA[
+    <script type="text/javascript">
       $('.search-refine select').attr('size', '10');
 
       $('.search-toggle a').click(function () {
         $('.search-refine').slideToggle('500');
         return false;
       });
-    //]]></script>
+    </script>
 [% END %]

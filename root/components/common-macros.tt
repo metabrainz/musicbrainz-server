@@ -883,14 +883,14 @@ END ~%]
         [%- INCLUDE 'components/wikipedia_extract.tt' -%]
     [%- ELSIF wikipedia_extract_url -%]
         <span style="display:none" id="wikipedia-insertion-point"></span>
-        <script type="text/javascript">//<![CDATA[
+        <script type="text/javascript">
             $.get('[% wikipedia_extract_url %]',
                   function (data) {
                       $('#wikipedia-insertion-point').replaceWith(data);
                       MB.makeCollapsible('wikipedia-extract');
                   },
                   'html');
-        //]]></script>
+        </script>
     [%- END -%]
 [%- END -%]
 
@@ -899,13 +899,13 @@ END ~%]
         [%- INCLUDE 'components/commons-image.tt' -%]
     [%- ELSIF image_url -%]
         <span style="display:none" id="image-insertion-point"></span>
-        <script type="text/javascript">//<![CDATA[
+        <script type="text/javascript">
             $.get('[% image_url %]',
                   function (data) {
                       $('#image-insertion-point').replaceWith(data);
                   },
                   'html');
-        //]]></script>
+        </script>
     [%- END -%]
 [%- END -%]
 

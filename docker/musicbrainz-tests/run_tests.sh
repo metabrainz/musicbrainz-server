@@ -15,9 +15,7 @@ while true; do
     fi
 done
 
-# Tests require rev-manifest.json to exist.
-sudo -E -H -u musicbrainz \
-    carton exec -- ./script/compile_resources.sh
+(exec runsvdir /etc/service &>/dev/null &)
 
 exec sudo -E -H -u musicbrainz carton exec -- prove \
     --pgtap-option dbname=musicbrainz_test \
@@ -29,6 +27,9 @@ exec sudo -E -H -u musicbrainz carton exec -- prove \
     -I lib \
     t/critic.t \
     t/js.t \
+    t/web.js \
+    t/selenium.js \
+    t/create_test_db.t \
     t/pgtap/* \
     t/pgtap/unused-tags/* \
     t/script/*.t \

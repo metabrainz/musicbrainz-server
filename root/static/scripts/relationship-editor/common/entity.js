@@ -3,8 +3,15 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
+const ko = require('knockout');
+const _ = require('lodash');
+
+require('knockout-arraytransforms');
+
 const deferFocus = require('../../edit/utility/deferFocus');
 const mergeDates = require('./mergeDates');
+
+require('../../common/entity');
 
 function getDirection(relationship, source) {
   let entities = relationship.entities();
@@ -20,12 +27,14 @@ function getDirection(relationship, source) {
 
 (function (RE) {
 
-    MB.entity.CoreEntity.extend({
+    const coreEntityPrototype = MB.entity.CoreEntity.prototype;
 
-        after$init: function () {
-            this.uniqueID = _.uniqueId("entity-");
-            this.relationshipElements = {};
-        },
+    coreEntityPrototype._afterCoreEntityCtor = function () {
+        this.uniqueID = _.uniqueId("entity-");
+        this.relationshipElements = {};
+    };
+
+    _.assign(coreEntityPrototype, {
 
         parseRelationships: function (relationships) {
             var self = this;
@@ -73,7 +82,7 @@ function getDirection(relationship, source) {
                 var relationships = this.values(),
                     firstRelationship = relationships[0];
 
-                var dialog = RE.UI.AddDialog({
+                var dialog = new RE.UI.AddDialog({
                     source: self,
                     target: MB.entity({}, firstRelationship.target(self).entityType),
                     direction: getDirection(firstRelationship, self),
@@ -173,14 +182,11 @@ function getDirection(relationship, source) {
         }
     });
 
+    const recordingPrototype = MB.entity.Recording.prototype;
 
-    MB.entity.Recording.extend({
-
-        after$init: function () {
-            this.performances = this.relationships.filter(isPerformance);
-        }
-    });
-
+    recordingPrototype._afterRecordingCtor = function () {
+        this.performances = this.relationships.filter(isPerformance);
+    };
 
     function isPerformance(relationship) {
         return relationship.entityTypes === "recording-work";

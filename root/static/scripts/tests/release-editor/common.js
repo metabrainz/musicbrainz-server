@@ -3,17 +3,15 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-var releaseEditor = MB.releaseEditor;
+const ko = require('knockout');
+const _ = require('lodash');
 
-$.ajax = function () {
-    var mockXHR = $.Deferred();
+const fields = require('../../release-editor/fields');
+const trackParser = require('../../release-editor/trackParser');
+const releaseEditor = require('../../release-editor/viewModel');
 
-    mockXHR.success = mockXHR.done;
-    mockXHR.error = mockXHR.fail;
-    mockXHR.complete = mockXHR.always;
-
-    return mockXHR;
-};
+require('../../release-editor/edits');
+require('../../release-editor/seeding');
 
 exports.setupReleaseAdd = function (data) {
     releaseEditor.action = "add";
@@ -24,13 +22,13 @@ exports.setupReleaseAdd = function (data) {
 
 exports.setupReleaseEdit = function () {
     releaseEditor.action = "edit";
-    var release = releaseEditor.fields.Release(exports.testRelease);
+    var release = new fields.Release(exports.testRelease);
     releaseEditor.rootField.release(release);
     return release;
 };
 
 exports.trackParser = function (t, input, expected) {
-    var result = releaseEditor.trackParser.parse(input);
+    var result = trackParser.parse(input);
 
     function getProps(track) {
         return _.pick.apply(_, [track].concat(_.keys(expected[0])));

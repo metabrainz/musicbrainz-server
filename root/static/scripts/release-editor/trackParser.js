@@ -3,6 +3,8 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
+const $ = require('jquery');
+const ko = require('knockout');
 const _ = require('lodash');
 
 const {MIN_NAME_SIMILARITY} = require('../common/constants');
@@ -17,11 +19,11 @@ const isBlank = require('../common/utility/isBlank');
 const getCookie = require('../common/utility/getCookie');
 const setCookie = require('../common/utility/setCookie');
 const getSimilarity = require('../edit/utility/similarity');
+const fields = require('./fields');
+const utils = require('./utils');
+const releaseEditor = require('./viewModel');
 
-MB.releaseEditor = MB.releaseEditor || {};
-
-
-MB.releaseEditor.trackParser = {
+releaseEditor.trackParser = {
 
     // These are all different types of dash
     separators: /(\s+[\-‒–—―]\s+|\s*\t\s*)/,
@@ -137,7 +139,7 @@ MB.releaseEditor.trackParser = {
 
                     return isCompleteArtistCredit(ac) && (
                         !data.artist ||
-                        MB.releaseEditor.utils.similarNames(data.artist, reduceArtistCredit(ac))
+                        utils.similarNames(data.artist, reduceArtistCredit(ac))
                     );
                 }
             );
@@ -178,7 +180,7 @@ MB.releaseEditor.trackParser = {
                 return matchedTrack;
             }
 
-            return MB.releaseEditor.fields.Track(data, medium);
+            return new fields.Track(data, medium);
         });
 
         if (medium) {
@@ -222,7 +224,7 @@ MB.releaseEditor.trackParser = {
                 newTracks.splice.apply(
                     newTracks,
                     [newAudioTrackCount, 0].concat(_.times(difference, function (n) {
-                        return MB.releaseEditor.fields.Track({
+                        return new fields.Track({
                             length: currentTracks[newAudioTrackCount + n].length.peek()
                         }, medium);
                     }))
@@ -288,7 +290,7 @@ MB.releaseEditor.trackParser = {
         if (match !== null) {
             if (options.useTrackLengths && match[1] !== "?:??") {
                 data.formattedLength = fullWidthConverter(match[1]);
-                data.length = MB.releaseEditor.utils.unformatTrackLength(data.formattedLength);
+                data.length = utils.unformatTrackLength(data.formattedLength);
             }
             // Remove the track time from the line.
             line = line.slice(0, -match[0].length);
@@ -439,4 +441,4 @@ function fullWidthConverter(inputString) {
     return newString.reverse().join("");
 }
 
-exports.fullWidthConverter = fullWidthConverter;
+module.exports = releaseEditor.trackParser;
