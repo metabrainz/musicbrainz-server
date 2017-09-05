@@ -14,7 +14,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2017-06-19 19:32+0000\n"
+"PO-Revision-Date: 2017-07-18 02:25+0000\n"
 "Last-Translator: Michael Wiencek <email address hidden>\n"
 "Language-Team: Finnish (http://www.transifex.com/musicbrainz/musicbrainz/language/fi/)\n"
 "MIME-Version: 1.0\n"
@@ -205,6 +205,12 @@ msgstr "Discogs"
 msgid "Discogs page for"
 msgstr "Discogs-sivuna"
 
+#: DB:link_attribute_type/description:1020
+msgid ""
+"For indicating the step-spouse of the artist's parent, or the sibling "
+"relationship with the children of such a spouse"
+msgstr ""
+
 #: DB:link_attribute_type/description:580
 msgid ""
 "For works that have lyrics, this indicates that those lyrics are not "
@@ -280,6 +286,10 @@ msgstr ""
 
 #: DB:link_type/description:173
 msgid "Indicates a pictorial image (JPEG, GIF, PNG) of an artist."
+msgstr ""
+
+#: DB:link_attribute_type/description:1019
+msgid "Indicates a sibling with whom the artist has only one parent in common"
 msgstr ""
 
 #: DB:link_type/description:842
@@ -2931,7 +2941,7 @@ msgstr ""
 msgid "child of"
 msgstr "on lapsi vanhemmalle"
 
-#: DB:link_type/link_phrase:735 DB:link_type/link_phrase:109
+#: DB:link_type/link_phrase:735
 msgid "children"
 msgstr "lapset"
 
@@ -3318,6 +3328,10 @@ msgstr ""
 msgid "had an engineer position at"
 msgstr ""
 
+#: DB:link_attribute_type/name:1019
+msgid "half"
+msgstr ""
+
 #: DB:link_type/long_link_phrase:77
 msgid "has Amazon ASIN"
 msgstr "omaa Amazon ASIN -tunnisteen"
@@ -3605,10 +3619,6 @@ msgstr ""
 msgid "has show notes at"
 msgstr ""
 
-#: DB:link_type/long_link_phrase:110
-msgid "has sibling(s)"
-msgstr "omaa sisaruksen"
-
 #: DB:link_type/long_link_phrase:823
 msgid "has subseries"
 msgstr ""
@@ -3619,6 +3629,10 @@ msgstr ""
 
 #: DB:link_type/long_link_phrase:69
 msgid "has {additional} samples taken from"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:110
+msgid "has {half:half-}{step}sibling"
 msgstr ""
 
 #: DB:link_type/link_phrase:794
@@ -3814,12 +3828,12 @@ msgstr "on aiempi {translated} {parody}versio"
 msgid "is the original for the transliterated/translated track listing"
 msgstr ""
 
-#: DB:link_type/long_link_phrase:109
-msgid "is the parent of"
-msgstr "on vanhempi henkilölle"
-
 #: DB:link_type/long_link_phrase:349
 msgid "is the rights society associated with"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:109
+msgid "is the {step}parent of"
 msgstr ""
 
 #: DB:link_type/long_link_phrase:722
@@ -3892,8 +3906,7 @@ msgstr "päälaulu"
 msgid "legal name"
 msgstr "virallinen nimi"
 
-#: DB:link_type/link_phrase:22 DB:link_type/link_phrase:142
-#: DB:link_type/reverse_link_phrase:22 DB:link_type/reverse_link_phrase:142
+#: DB:link_type/link_phrase:142 DB:link_type/reverse_link_phrase:142
 msgid "legal representation"
 msgstr ""
 
@@ -4230,10 +4243,6 @@ msgstr "muu laulu"
 msgid "parent label"
 msgstr ""
 
-#: DB:link_type/reverse_link_phrase:109
-msgid "parents"
-msgstr "vanhemmat"
-
 #: DB:link_attribute_type/name:511
 msgid "parody"
 msgstr "parodia"
@@ -4444,7 +4453,7 @@ msgstr ""
 msgid "provided booking for"
 msgstr ""
 
-#: DB:link_type/long_link_phrase:22 DB:link_type/long_link_phrase:142
+#: DB:link_type/long_link_phrase:142
 msgid "provided legal representation for"
 msgstr ""
 
@@ -4462,6 +4471,10 @@ msgstr ""
 
 #: DB:link_type/long_link_phrase:27 DB:link_type/long_link_phrase:125
 msgid "provided {additional} graphic design on"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:22
+msgid "provided {additional} legal representation for"
 msgstr ""
 
 #: DB:link_type/link_phrase:206 DB:link_type/link_phrase:127
@@ -4678,10 +4691,6 @@ msgstr ""
 msgid "show notes for"
 msgstr ""
 
-#: DB:link_type/link_phrase:110 DB:link_type/reverse_link_phrase:110
-msgid "siblings"
-msgstr "sisaruksia"
-
 #: DB:link_type/reverse_link_phrase:121
 msgid "signed"
 msgstr ""
@@ -4724,6 +4733,10 @@ msgstr ""
 
 #: DB:link_type/reverse_link_phrase:287
 msgid "standalone website for"
+msgstr ""
+
+#: DB:link_attribute_type/name:1020
+msgid "step"
 msgstr ""
 
 #: DB:link_type/link_phrase:194
@@ -5196,6 +5209,10 @@ msgstr "{additional} suunnittelu/kuvitus"
 msgid "{additional} graphic design"
 msgstr "{additional} graafinen suunnittelu"
 
+#: DB:link_type/link_phrase:22 DB:link_type/reverse_link_phrase:22
+msgid "{additional} legal representation"
+msgstr ""
+
 #: DB:link_type/link_phrase:57 DB:link_type/reverse_link_phrase:57
 #: DB:link_type/reverse_link_phrase:169
 msgid "{additional} librettist"
@@ -5611,6 +5628,10 @@ msgstr ""
 msgid "{entity1} was {re}mastered in {entity0}"
 msgstr ""
 
+#: DB:link_type/link_phrase:110 DB:link_type/reverse_link_phrase:110
+msgid "{half:half-}{step}siblings"
+msgstr ""
+
 #: DB:link_type/link_phrase:278
 msgid ""
 "{live} {medley:medley including a} {partial} {instrumental} {cover} "
@@ -5633,6 +5654,14 @@ msgstr ""
 
 #: DB:link_type/link_phrase:697 DB:link_type/link_phrase:756
 msgid "{re}mastering location for"
+msgstr ""
+
+#: DB:link_type/link_phrase:109
+msgid "{step}children"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:109
+msgid "{step}parents"
 msgstr ""
 
 #: DB:link_type/reverse_link_phrase:15

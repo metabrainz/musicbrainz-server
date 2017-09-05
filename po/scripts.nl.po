@@ -1,12 +1,12 @@
 # 
 # Translators:
 # Maurits Meulenbelt <email address hidden>, 2012
-# Maurits Meulenbelt <email address hidden>, 2014-2016
+# Maurits Meulenbelt <email address hidden>, 2014-2017
 # Nikolai Prokoschenko <email address hidden>, 2011
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2016-08-05 20:17+0000\n"
+"PO-Revision-Date: 2017-07-18 09:07+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -693,7 +693,7 @@ msgstr "Syrisch (oosterse variant)"
 #. frequency:1 iso_code:Syre
 #: DB:script/name:15
 msgid "Syriac (Estrangelo variant)"
-msgstr "Syrisch (Estrangelo variant)"
+msgstr "Syrisch (estrangelo-variant)"
 
 #. frequency:1 iso_code:Syrj
 #: DB:script/name:14

@@ -10,7 +10,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2017-07-17 10:43+0000\n"
+"PO-Revision-Date: 2017-07-25 14:09+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -201,6 +201,12 @@ msgstr "Discogs"
 msgid "Discogs page for"
 msgstr "Discogspagina over"
 
+#: DB:link_attribute_type/description:1020
+msgid ""
+"For indicating the step-spouse of the artist's parent, or the sibling "
+"relationship with the children of such a spouse"
+msgstr "Deze eigenschap geeft aan dat het hier gaat om een stiefouder, stiefbroer of stiefzus."
+
 #: DB:link_attribute_type/description:580
 msgid ""
 "For works that have lyrics, this indicates that those lyrics are not "
@@ -277,6 +283,10 @@ msgstr "Verwijst naar een afbeelding (JPEG, GIF of PNG) van een plaats."
 #: DB:link_type/description:173
 msgid "Indicates a pictorial image (JPEG, GIF, PNG) of an artist."
 msgstr "Verwijst naar een afbeelding (JPEG, GIF of PNG) van een artiest."
+
+#: DB:link_attribute_type/description:1019
+msgid "Indicates a sibling with whom the artist has only one parent in common"
+msgstr "Deze eigenschap geeft aan dat een broer of zus maar één gemeenschappelijke ouder heeft."
 
 #: DB:link_type/description:842
 msgid "Indicates a webpage that reviews the event in question."
@@ -2927,7 +2937,7 @@ msgstr "is een catalogus van"
 msgid "child of"
 msgstr "kind van"
 
-#: DB:link_type/link_phrase:735 DB:link_type/link_phrase:109
+#: DB:link_type/link_phrase:735
 msgid "children"
 msgstr "kinderen"
 
@@ -3314,6 +3324,10 @@ msgstr "had een platencontract met"
 msgid "had an engineer position at"
 msgstr "heeft een technische functie bij"
 
+#: DB:link_attribute_type/name:1019
+msgid "half"
+msgstr "half"
+
 #: DB:link_type/long_link_phrase:77
 msgid "has Amazon ASIN"
 msgstr "heeft Amazon-ASIN"
@@ -3601,10 +3615,6 @@ msgstr "heeft revisie"
 msgid "has show notes at"
 msgstr "heeft shownotities op"
 
-#: DB:link_type/long_link_phrase:110
-msgid "has sibling(s)"
-msgstr "heeft broer(s) of zus(sen)"
-
 #: DB:link_type/long_link_phrase:823
 msgid "has subseries"
 msgstr "heeft subseries"
@@ -3616,6 +3626,10 @@ msgstr "heeft subtype"
 #: DB:link_type/long_link_phrase:69
 msgid "has {additional} samples taken from"
 msgstr "bevat {additional:aanvullende} samples van"
+
+#: DB:link_type/long_link_phrase:110
+msgid "has {half:half-}{step}sibling"
+msgstr "heeft {half:half-}{step:stief}broer of zus"
 
 #: DB:link_type/link_phrase:794
 msgid "held at"
@@ -3810,13 +3824,13 @@ msgstr "is de vroegste versie van {translated:de vertaling} {parody:de parodie}"
 msgid "is the original for the transliterated/translated track listing"
 msgstr "is het origineel van de getranscribeerde/vertaalde nummerlijst"
 
-#: DB:link_type/long_link_phrase:109
-msgid "is the parent of"
-msgstr "is de ouder van"
-
 #: DB:link_type/long_link_phrase:349
 msgid "is the rights society associated with"
 msgstr "is de auteursrechtenorganisatie verbonden met"
+
+#: DB:link_type/long_link_phrase:109
+msgid "is the {step}parent of"
+msgstr "is de {step:stief}ouder van"
 
 #: DB:link_type/long_link_phrase:722
 msgid "is/was a subgroup of"
@@ -3888,8 +3902,7 @@ msgstr "lead-vocalen"
 msgid "legal name"
 msgstr "wettelijke naam"
 
-#: DB:link_type/link_phrase:22 DB:link_type/link_phrase:142
-#: DB:link_type/reverse_link_phrase:22 DB:link_type/reverse_link_phrase:142
+#: DB:link_type/link_phrase:142 DB:link_type/reverse_link_phrase:142
 msgid "legal representation"
 msgstr "juridische vertegenwoordiging"
 
@@ -4226,10 +4239,6 @@ msgstr "overige vocalen"
 msgid "parent label"
 msgstr "moedermaatschappij"
 
-#: DB:link_type/reverse_link_phrase:109
-msgid "parents"
-msgstr "ouders"
-
 #: DB:link_attribute_type/name:511
 msgid "parody"
 msgstr "parodie"
@@ -4440,7 +4449,7 @@ msgstr "verzorgde A&R-ondersteuning voor"
 msgid "provided booking for"
 msgstr "verzorgde boekingen voor"
 
-#: DB:link_type/long_link_phrase:22 DB:link_type/long_link_phrase:142
+#: DB:link_type/long_link_phrase:142
 msgid "provided legal representation for"
 msgstr "verzorgde juridische vertegenwoordiging voor"
 
@@ -4459,6 +4468,10 @@ msgstr "verzorgde {additional:aanvullend} ontwerp/illustratie voor"
 #: DB:link_type/long_link_phrase:27 DB:link_type/long_link_phrase:125
 msgid "provided {additional} graphic design on"
 msgstr "verzorgde {additional:aanvullend} grafisch ontwerp voor"
+
+#: DB:link_type/long_link_phrase:22
+msgid "provided {additional} legal representation for"
+msgstr "verzorgde {additional:aanvullende} juridische vertegenwoordiging voor"
 
 #: DB:link_type/link_phrase:206 DB:link_type/link_phrase:127
 #: DB:link_type/link_phrase:362 DB:link_type/link_phrase:32
@@ -4674,10 +4687,6 @@ msgstr "shownotities"
 msgid "show notes for"
 msgstr "shownotities van"
 
-#: DB:link_type/link_phrase:110 DB:link_type/reverse_link_phrase:110
-msgid "siblings"
-msgstr "broer(s) of zus(sen)"
-
 #: DB:link_type/reverse_link_phrase:121
 msgid "signed"
 msgstr "onder contract"
@@ -4721,6 +4730,10 @@ msgstr "eigen website"
 #: DB:link_type/reverse_link_phrase:287
 msgid "standalone website for"
 msgstr "eigen website van"
+
+#: DB:link_attribute_type/name:1020
+msgid "step"
+msgstr "stief"
 
 #: DB:link_type/link_phrase:194
 msgid "stream for free"
@@ -5192,6 +5205,10 @@ msgstr "{additional:aanvullend} ontwerp/illustratie"
 msgid "{additional} graphic design"
 msgstr "{additional:aanvullend} grafisch ontwerp"
 
+#: DB:link_type/link_phrase:22 DB:link_type/reverse_link_phrase:22
+msgid "{additional} legal representation"
+msgstr "{additional:aanvullende} juridische vertegenwoordiging"
+
 #: DB:link_type/link_phrase:57 DB:link_type/reverse_link_phrase:57
 #: DB:link_type/reverse_link_phrase:169
 msgid "{additional} librettist"
@@ -5207,7 +5224,7 @@ msgstr "is de locatie waar het libretto van {entity1} {additional:aanvullend} ge
 
 #: DB:link_type/link_phrase:24 DB:link_type/reverse_link_phrase:24
 msgid "{additional} liner notes {translator}"
-msgstr "{additional:aanvullende} boektekst {(translator:als vertaler)}"
+msgstr "{additional:aanvullende} boektekst {translator:(als vertaler)}"
 
 #: DB:link_type/reverse_link_phrase:56 DB:link_type/reverse_link_phrase:165
 msgid "{additional} lyricist"
@@ -5607,6 +5624,10 @@ msgstr "{entity1} werd bij {entity0} ge{re}masterd"
 msgid "{entity1} was {re}mastered in {entity0}"
 msgstr "{entity1} werd in {entity0} ge{re}masterd"
 
+#: DB:link_type/link_phrase:110 DB:link_type/reverse_link_phrase:110
+msgid "{half:half-}{step}siblings"
+msgstr "{half:half-}{step:stief}broers of zussen"
+
 #: DB:link_type/link_phrase:278
 msgid ""
 "{live} {medley:medley including a} {partial} {instrumental} {cover} "
@@ -5630,6 +5651,14 @@ msgstr "ge{re}masterd in"
 #: DB:link_type/link_phrase:697 DB:link_type/link_phrase:756
 msgid "{re}mastering location for"
 msgstr "{re}masteringlocatie van"
+
+#: DB:link_type/link_phrase:109
+msgid "{step}children"
+msgstr "{step:stief}kinderen"
+
+#: DB:link_type/reverse_link_phrase:109
+msgid "{step}parents"
+msgstr "{step:stief}ouders"
 
 #: DB:link_type/reverse_link_phrase:15
 msgid "{translated} {parody:parodies|covers}"
