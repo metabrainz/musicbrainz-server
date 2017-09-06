@@ -1805,17 +1805,60 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
         },
         // Rock.com.ar
         {
-                             input_url: 'http://www.rock.com.ar/artistas/soda-stero#contenedor',
+                             input_url: 'http://rock.com.ar/artistas/200',
                      input_entity_type: 'artist',
             expected_relationship_type: 'otherdatabases',
-                    expected_clean_url: 'http://www.rock.com.ar/artistas/soda-stero',
+                    expected_clean_url: 'http://rock.com.ar/artistas/200',
+               only_valid_entity_types: ['artist']
+        },
+        {
+                             input_url: 'http://rock.com.ar/artistas/168/biografia',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'otherdatabases',
+                    expected_clean_url: 'http://rock.com.ar/artistas/168',
+               only_valid_entity_types: ['artist']
+        },
+        {
+                             input_url: 'http://rock.com.ar/artistas/239/fotos/13',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'otherdatabases',
+                    expected_clean_url: 'http://rock.com.ar/artistas/239',
+               only_valid_entity_types: ['artist']
+        },
+        {
+                             input_url: 'rock.com.ar/artistas/11752/discos/10703',
+                     input_entity_type: 'release',
+            expected_relationship_type: 'otherdatabases',
+                    expected_clean_url: 'http://rock.com.ar/artistas/11752/discos/10703',
+               only_valid_entity_types: ['release_group']
+        },
+        {
+                             input_url: 'rock.com.ar/artistas/11752/discos',
+                     input_entity_type: 'release_group',
+            expected_relationship_type: 'otherdatabases',
+                    expected_clean_url: 'http://rock.com.ar/artistas/11752',
+               only_valid_entity_types: ['artist']
+        },
+        {
+                             input_url: 'www.rock.com.ar/artistas/11752/letras/19898',
+                     input_entity_type: 'recording',
+            expected_relationship_type: 'otherdatabases',
+                    expected_clean_url: 'http://rock.com.ar/artistas/11752/letras/19898',
+               only_valid_entity_types: ['work']
+        },
+        // Rock.com.ar (from before its 2017 relaunch)
+        {
+                             input_url: 'http://www.rock.com.ar/artistas/soda-stereo#contenedor',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'otherdatabases',
+                    expected_clean_url: 'http://rock.com.ar/artistas/soda-stereo',
                only_valid_entity_types: ['artist']
         },
         {
                              input_url: 'http://www.rock.com.ar/bios/0/168.shtml',
                      input_entity_type: 'artist',
             expected_relationship_type: 'otherdatabases',
-                    expected_clean_url: 'http://www.rock.com.ar/bios/0/168.shtml',
+                    expected_clean_url: 'http://rock.com.ar/bios/0/168.shtml',
                only_valid_entity_types: ['artist']
         },
         {
@@ -1828,14 +1871,14 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
                              input_url: 'www.rock.com.ar/discos/10/10703.shtml',
                      input_entity_type: 'release',
             expected_relationship_type: 'otherdatabases',
-                    expected_clean_url: 'http://www.rock.com.ar/discos/10/10703.shtml',
+                    expected_clean_url: 'http://rock.com.ar/discos/10/10703.shtml',
                only_valid_entity_types: ['release_group']
         },
         {
                              input_url: 'rock.com.ar/letras/19/19898.shtml',
                      input_entity_type: 'recording',
             expected_relationship_type: 'otherdatabases',
-                    expected_clean_url: 'http://www.rock.com.ar/letras/19/19898.shtml',
+                    expected_clean_url: 'http://rock.com.ar/letras/19/19898.shtml',
                only_valid_entity_types: ['work']
         },
         // Rockens Danmarkskort
