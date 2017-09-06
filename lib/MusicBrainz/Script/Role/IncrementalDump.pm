@@ -18,9 +18,7 @@ use MusicBrainz::Server::Replication::Packet qw(
     decompress_packet
     retrieve_remote_file
 );
-use Parallel::ForkManager 0.7.6;
 use Sql;
-use Try::Tiny;
 
 with 'MusicBrainz::Server::Role::FollowForeignKeys';
 
@@ -85,15 +83,6 @@ has replication_access_uri => (
     documentation => 'URI to request replication packets from (default: https://metabrainz.org/api/musicbrainz)',
 );
 
-has worker_count => (
-    is => 'ro',
-    isa => 'Int',
-    default => 1,
-    traits => ['Getopt'],
-    cmd_flag => 'worker-count',
-    documentation => 'number of worker processes to use (default: 1)',
-);
-
 has packet_limit => (
     is => 'rw',
     isa => 'Int',
@@ -102,16 +91,6 @@ has packet_limit => (
     cmd_flag => 'packet-limit',
     documentation => ('process only this many packets, ' .
                       'or specify 0 to process all (default: 0)'),
-);
-
-has pm => (
-    is => 'ro',
-    isa => 'Parallel::ForkManager',
-    lazy => 1,
-    default => sub {
-        Parallel::ForkManager->new(shift->worker_count);
-    },
-    traits => ['NoGetopt'],
 );
 
 our $parent_pid;
@@ -202,19 +181,6 @@ sub follow_foreign_key($$$$$$) {
     my ($c, $direction, $pk_schema, $pk_table, $update, $joins) = @_;
 
     if ($self->should_fetch_document($pk_schema, $pk_table)) {
-        $self->pm->start and return;
-
-        # This should be refreshed for each new worker, as internal DBI handles
-        # would otherwise be shared across processes (and are not advertized as
-        # MPSAFE).
-        my $new_c = MusicBrainz::Server::Context->create_script_context(
-            database => $self->database,
-            fresh_connector => 1,
-        );
-        $new_c->lwp->timeout(DBDefs->DETERMINE_MAX_REQUEST_TIME // 60);
-
-        my ($exit_code, $shared_data, @args) = (1, undef, @_);
-
         my $total_changed = 0;
         my $fetch_document = sub {
             my ($item, %extra_args) = @_;
@@ -224,35 +190,25 @@ sub follow_foreign_key($$$$$$) {
             # sitemaps, it's a single row; for the json dumps, it's
             # an array of row IDs.
             my $changed = $self->get_changed_documents(
-                $new_c, $pk_table, $item, $update, %extra_args);
+                $c, $pk_table, $item, $update, %extra_args);
             $total_changed += $changed;
             return $changed;
         };
 
-        try {
-            my $entity_rows = $self->get_linked_entities(
-                $new_c, $pk_table, $update, $joins);
+        my $entity_rows = $self->get_linked_entities(
+            $c, $pk_table, $update, $joins);
 
-            if (@{$entity_rows}) {
-                $self->handle_update_path(
-                    $new_c, $pk_table, $entity_rows, $fetch_document);
+        if (@{$entity_rows}) {
+            $self->handle_update_path(
+                $c, $pk_table, $entity_rows, $fetch_document);
 
-                if ($total_changed) {
-                    $exit_code = 0;
-                    shift @args;
-                    $shared_data = \@args;
-                }
-            } else {
-                log('No more linked entities found for sequence ID ' .
-                    $update->{sequence_id} . " in table $pk_table");
+            if ($total_changed) {
+                $self->follow_foreign_keys(@_);
             }
-        } catch {
-            $exit_code = 2;
-            $shared_data = {error => "$_"};
-        };
-
-        $new_c->connector->disconnect;
-        $self->pm->finish($exit_code, $shared_data);
+        } else {
+            log('No more linked entities found for sequence ID ' .
+                $update->{sequence_id} . " in table $pk_table");
+        }
     } else {
         $self->follow_foreign_keys(@_);
     }
@@ -441,8 +397,6 @@ sub handle_replication_sequence($$) {
         }
     }
 
-    $self->pm->wait_all_children;
-
     log("Removing $output_dir");
     rmtree($output_dir);
 
@@ -467,18 +421,6 @@ sub get_current_replication_sequence {
 
 sub run_incremental_dump {
     my ($self, $c, $replication_sequence) = @_;
-
-    $self->pm->run_on_finish(sub {
-        my $shared_data = pop;
-
-        my ($pid, $exit_code) = @_;
-
-        if ($exit_code == 0) {
-            $self->follow_foreign_keys($c, @{$shared_data});
-        } elsif ($exit_code == 2) {
-            die $shared_data->{error};
-        }
-    });
 
     my $dump_schema = $self->dump_schema;
 

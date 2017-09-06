@@ -40,7 +40,6 @@ echo `date`" : Making incremental JSON dumps"
     --output-dir "$TEMP_DIR" \
     --compress \
     --database READWRITE \
-    --worker-count 4 \
     || exit $?
 
 # Was a dump created?
