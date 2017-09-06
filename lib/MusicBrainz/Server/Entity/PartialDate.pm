@@ -1,6 +1,8 @@
 package MusicBrainz::Server::Entity::PartialDate;
 use Moose;
 
+extends 'MusicBrainz::Server::Entity';
+
 use Date::Calc;
 use List::AllUtils qw( any first_index );
 use MusicBrainz::Server::Data::Utils qw( take_while );
