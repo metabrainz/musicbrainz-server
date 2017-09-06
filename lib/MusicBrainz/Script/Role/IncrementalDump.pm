@@ -173,9 +173,9 @@ around should_follow_foreign_key => sub {
 };
 
 # Declaration silences "called too early to check prototype" from recursive call.
-sub follow_foreign_key($$$$$$);
+sub follow_primary_key($$$$$$);
 
-sub follow_foreign_key($$$$$$) {
+sub follow_primary_key($$$$$$) {
     my $self = shift;
 
     my ($c, $direction, $pk_schema, $pk_table, $update, $joins) = @_;
@@ -201,17 +201,15 @@ sub follow_foreign_key($$$$$$) {
         if (@{$entity_rows}) {
             $self->handle_update_path(
                 $c, $pk_table, $entity_rows, $fetch_document);
-
-            if ($total_changed) {
-                $self->follow_foreign_keys(@_);
-            }
+            return $total_changed;
         } else {
             log('No more linked entities found for sequence ID ' .
                 $update->{sequence_id} . " in table $pk_table");
+            return 0;
         }
-    } else {
-        $self->follow_foreign_keys(@_);
     }
+
+    return 1;
 }
 
 sub get_linked_entities($$$$) {
@@ -392,7 +390,10 @@ sub handle_replication_sequence($$) {
             };
 
             for (1...2) {
-                $self->follow_foreign_key($c, $_, $schema, $table, $update, []);
+                my @args = ($c, $_, $schema, $table, $update, []);
+                if ($self->follow_primary_key(@args)) {
+                    $self->follow_foreign_keys(@args);
+                }
             }
         }
     }
