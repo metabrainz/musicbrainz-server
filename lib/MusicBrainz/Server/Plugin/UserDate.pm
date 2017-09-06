@@ -6,6 +6,8 @@ use Text::Trim qw( trim );
 
 use base 'Template::Plugin';
 
+use DateTime;
+
 sub preferences { shift->{preferences}; }
 sub locale { shift->{locale}; }
 
