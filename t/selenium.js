@@ -11,6 +11,7 @@ const shell = require('shelljs');
 const test = require('tape');
 const webdriver = require('selenium-webdriver');
 const chrome = require('selenium-webdriver/chrome');
+const {Key} = require('selenium-webdriver/lib/input');
 const until = require('selenium-webdriver/lib/until');
 
 const testSqlPath = path.resolve(__dirname, 'sql', 'selenium.sql');
@@ -70,6 +71,13 @@ async function setChecked(element, wantChecked) {
   }
 }
 
+const KEY_CODES = {
+  '${KEY_BKSP}': Key.BACK_SPACE,
+  '${KEY_END}': Key.END,
+  '${KEY_HOME}': Key.HOME,
+  '${KEY_SHIFT}': Key.SHIFT,
+};
+
 async function handleCommandAndWait(command, target, value, baseURL, t) {
   command = command.replace(/AndWait$/, '');
 
@@ -83,12 +91,13 @@ async function handleCommand(command, target, value, baseURL, t) {
     return handleCommandAndWait.apply(null, arguments);
   }
 
+  let element;
   switch (command) {
     case 'assertAttribute':
       const splitAt = target.indexOf('@');
       const locator = target.slice(0, splitAt);
       const attribute = target.slice(splitAt + 1);
-      const element = await findElement(locator);
+      element = await findElement(locator);
 
       t.equal(await element.getAttribute(attribute), value);
       return;
@@ -96,6 +105,11 @@ async function handleCommand(command, target, value, baseURL, t) {
     case 'assertElementPresent':
       const elements = await driver.findElements(makeLocator(target));
       t.ok(elements.length > 0);
+      return;
+
+    case 'assertEval':
+      t.comment(`assertEval: String(${target}) === ${JSON.stringify(value)}`);
+      t.equal(await driver.executeScript(`return String(${target})`), value);
       return;
 
     case 'assertLocation':
@@ -106,20 +120,54 @@ async function handleCommand(command, target, value, baseURL, t) {
       t.equal(await driver.getTitle(), target);
       return;
 
+    case 'assertValue':
+      t.equal(await findElement(target).getAttribute('value'), value);
+      return;
+
     case 'check':
       return setChecked(findElement(target), true);
 
     case 'click':
       return findElement(target).click();
 
+    case 'fireEvent':
+      return driver.executeScript(
+        `arguments[0].dispatchEvent(new Event('${value}'))`,
+        await findElement(target)
+      );
+
+    case 'focus':
+      return driver.executeScript(
+        'arguments[0].focus()',
+        await findElement(target)
+      );
+
+    case 'mouseOver':
+      return driver.actions()
+        .mouseMove(await findElement(target))
+        .perform();
+
     case 'open':
-      return driver.get(baseURL + target);
+      await driver.get(baseURL + target);
+      return driver.manage().window().setSize(1024, 768);
+
+    case 'pause':
+      return driver.sleep(target);
 
     case 'runScript':
       return driver.executeScript(target);
 
+    case 'sendKeys':
+      value = value.split(/(\$\{[A-Z_]+\})/)
+        .filter(x => x)
+        .map(x => KEY_CODES[x] || x);
+      element = await findElement(target);
+      return element.sendKeys.apply(element, value);
+
     case 'type':
-      return findElement(target).sendKeys(value);
+      element = await findElement(target);
+      await element.clear();
+      return element.sendKeys(value);
 
     case 'uncheck':
       return setChecked(findElement(target), false);
@@ -134,6 +182,7 @@ const tests = [
   'Log_Out.html',
   'Log_In.html',
   'MBS-7456.html',
+  'Artist_Credit_Editor.html',
 ];
 
 async function nextTest(testIndex) {
