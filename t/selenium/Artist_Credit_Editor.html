@@ -1,0 +1,394 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="http://localhost:5000" />
+<title>Artist_Credit_Editor</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">Artist_Credit_Editor</td></tr>
+</thead><tbody>
+<tr>
+	<td>open</td>
+	<td>/recording/create</td>
+	<td></td>
+</tr>
+<tr>
+	<td>runScript</td>
+	<td>document.body.setAttribute('js-error', ''); window.onerror = function (err) { document.body.setAttribute('js-error', err); };</td>
+	<td></td>
+</tr>
+<!--hidden inputs-->
+<tr>
+	<td>click</td>
+	<td>css=button.open-ac</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=ac-source-artist-0</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=ac-source-artist-0</td>
+	<td>5441c29d-3602-4898-b1a1-b77fa23b8e50</td>
+</tr>
+<tr>
+	<td>fireEvent</td>
+	<td>id=ac-source-artist-0</td>
+	<td>input</td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>1000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertEval</td>
+	<td>window.document.querySelectorAll('#artist-credit-editor input[type=hidden]').length</td>
+	<td>4</td>
+</tr>
+<tr>
+	<td>assertValue</td>
+	<td>css=input[type=hidden][name=&quot;edit-recording.artist_credit.names.0.name&quot;]</td>
+	<td>David Bowie</td>
+</tr>
+<tr>
+	<td>assertValue</td>
+	<td>css=input[type=hidden][name=&quot;edit-recording.artist_credit.names.0.join_phrase&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertValue</td>
+	<td>css=input[type=hidden][name=&quot;edit-recording.artist_credit.names.0.artist.name&quot;]</td>
+	<td>David Bowie</td>
+</tr>
+<tr>
+	<td>assertValue</td>
+	<td>css=input[type=hidden][name=&quot;edit-recording.artist_credit.names.0.artist.id&quot;]</td>
+	<td>956</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=ac-source-credited-as-0</td>
+	<td>David Robert Jones</td>
+</tr>
+<tr>
+	<td>fireEvent</td>
+	<td>id=ac-source-credited-as-0</td>
+	<td>blur</td>
+</tr>
+<tr>
+	<td>assertEval</td>
+	<td>window.document.querySelectorAll('#artist-credit-editor input[type=hidden]').length</td>
+	<td>4</td>
+</tr>
+<tr>
+	<td>assertValue</td>
+	<td>css=input[type=hidden][name=&quot;edit-recording.artist_credit.names.0.name&quot;]</td>
+	<td>David Robert Jones</td>
+</tr>
+<tr>
+	<td>assertValue</td>
+	<td>css=input[type=hidden][name=&quot;edit-recording.artist_credit.names.0.join_phrase&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertValue</td>
+	<td>css=input[type=hidden][name=&quot;edit-recording.artist_credit.names.0.artist.name&quot;]</td>
+	<td>David Bowie</td>
+</tr>
+<tr>
+	<td>assertValue</td>
+	<td>css=input[type=hidden][name=&quot;edit-recording.artist_credit.names.0.artist.id&quot;]</td>
+	<td>956</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=td &gt; button.add-item.with-label</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=ac-source-artist-1</td>
+	<td>2437980f-513a-44fc-80f1-b90d9d7fcf8f</td>
+</tr>
+<tr>
+	<td>fireEvent</td>
+	<td>id=ac-source-artist-1</td>
+	<td>input</td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>1000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertEval</td>
+	<td>window.document.querySelectorAll('#artist-credit-editor input[type=hidden]').length</td>
+	<td>8</td>
+</tr>
+<tr>
+	<td>assertValue</td>
+	<td>css=input[type=hidden][name=&quot;edit-recording.artist_credit.names.0.name&quot;]</td>
+	<td>David Robert Jones</td>
+</tr>
+<tr>
+	<td>assertEval</td>
+	<td>window.document.querySelector('input[name=&quot;edit-recording.artist_credit.names.0.join_phrase&quot;]').value</td>
+	<td> &amp; </td>
+</tr>
+<tr>
+	<td>assertValue</td>
+	<td>css=input[type=hidden][name=&quot;edit-recording.artist_credit.names.0.artist.name&quot;]</td>
+	<td>David Bowie</td>
+</tr>
+<tr>
+	<td>assertValue</td>
+	<td>css=input[type=hidden][name=&quot;edit-recording.artist_credit.names.0.artist.id&quot;]</td>
+	<td>956</td>
+</tr>
+<tr>
+	<td>assertValue</td>
+	<td>css=input[type=hidden][name=&quot;edit-recording.artist_credit.names.1.name&quot;]</td>
+	<td>Bing Crosby</td>
+</tr>
+<tr>
+	<td>assertValue</td>
+	<td>css=input[type=hidden][name=&quot;edit-recording.artist_credit.names.1.join_phrase&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertValue</td>
+	<td>css=input[type=hidden][name=&quot;edit-recording.artist_credit.names.1.artist.name&quot;]</td>
+	<td>Bing Crosby</td>
+</tr>
+<tr>
+	<td>assertValue</td>
+	<td>css=input[type=hidden][name=&quot;edit-recording.artist_credit.names.1.artist.id&quot;]</td>
+	<td>99</td>
+</tr>
+<!--removing all credits but one should clear the join phrase (MBS-8896)-->
+<tr>
+	<td>click</td>
+	<td>xpath=(//button[contains(@class, 'remove-artist-credit')])[2]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertEval</td>
+	<td>window.document.querySelector('input[name=&quot;edit-recording.artist_credit.names.0.join_phrase&quot;]').value</td>
+	<td></td>
+</tr>
+<!--updating the artist field should also update the credited name field (MBS-8911)-->
+<tr>
+	<td>sendKeys</td>
+	<td>id=ac-source-credited-as-0</td>
+	<td>${KEY_HOME}${KEY_SHIFT}${KEY_END}${KEY_SHIFT}${KEY_BKSP}David Bowie</td>
+</tr>
+<tr>
+	<td>sendKeys</td>
+	<td>id=ac-source-artist-0</td>
+	<td>${KEY_HOME}${KEY_SHIFT}${KEY_END}${KEY_SHIFT}${KEY_BKSP}</td>
+</tr>
+<tr>
+	<td>assertValue</td>
+	<td>id=ac-source-credited-as-0</td>
+	<td></td>
+</tr>
+<tr>
+	<td>sendKeys</td>
+	<td>id=ac-source-artist-0</td>
+	<td>hello</td>
+</tr>
+<tr>
+	<td>assertValue</td>
+	<td>id=ac-source-credited-as-0</td>
+	<td>hello</td>
+</tr>
+<!--can clear the credited name field until it is blurred-->
+<tr>
+	<td>assertValue</td>
+	<td>id=ac-source-artist-0</td>
+	<td>hello</td>
+</tr>
+<tr>
+	<td>focus</td>
+	<td>id=ac-source-credited-as-0</td>
+	<td></td>
+</tr>
+<tr>
+	<td>sendKeys</td>
+	<td>id=ac-source-credited-as-0</td>
+	<td>${KEY_BKSP}${KEY_BKSP}${KEY_BKSP}${KEY_BKSP}${KEY_BKSP}</td>
+</tr>
+<tr>
+	<td>assertValue</td>
+	<td>id=ac-source-credited-as-0</td>
+	<td></td>
+</tr>
+<!--also test whether it can be cleared when it differs from the artist name, which was another subtle bug-->
+<tr>
+	<td>type</td>
+	<td>id=ac-source-artist-0</td>
+	<td>5441c29d-3602-4898-b1a1-b77fa23b8e50</td>
+</tr>
+<tr>
+	<td>fireEvent</td>
+	<td>id=ac-source-artist-0</td>
+	<td>input</td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>1000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>focus</td>
+	<td>id=ac-source-credited-as-0</td>
+	<td></td>
+</tr>
+<tr>
+	<td>sendKeys</td>
+	<td>id=ac-source-credited-as-0</td>
+	<td>${KEY_HOME}${KEY_SHIFT}${KEY_END}${KEY_SHIFT}${KEY_BKSP}hello${KEY_SHIFT}${KEY_HOME}${KEY_SHIFT}${KEY_BKSP}</td>
+</tr>
+<tr>
+	<td>assertValue</td>
+	<td>id=ac-source-credited-as-0</td>
+	<td></td>
+</tr>
+<!--finally, blur-->
+<tr>
+	<td>fireEvent</td>
+	<td>id=ac-source-credited-as-0</td>
+	<td>blur</td>
+</tr>
+<tr>
+	<td>assertValue</td>
+	<td>id=ac-source-credited-as-0</td>
+	<td>David Bowie</td>
+</tr>
+<!--changing an artist field should not cause infinite recursion (MBS-8924)-->
+<tr>
+	<td>type</td>
+	<td>id=entity-artist</td>
+	<td>Silent Dawn</td>
+</tr>
+<tr>
+	<td>fireEvent</td>
+	<td>id=entity-artist</td>
+	<td>input</td>
+</tr>
+<tr>
+	<td>assertValue</td>
+	<td>id=ac-source-artist-0</td>
+	<td>Silent Dawn</td>
+</tr>
+<tr>
+	<td>assertValue</td>
+	<td>id=ac-source-credited-as-0</td>
+	<td>Silent Dawn</td>
+</tr>
+<!--artist field does not have the "lookup-performed" class-->
+<tr>
+	<td>assertEval</td>
+	<td>window.document.getElementById('ac-source-artist-0').classList.contains('lookup-performed')</td>
+	<td>false</td>
+</tr>
+<tr>
+	<td>assertAttribute</td>
+	<td>css=body@js-error</td>
+	<td></td>
+</tr>
+<!--creating a new artist from the track AC bubble should not close it (MBS-7251)-->
+<tr>
+	<td>open</td>
+	<td>/release/add</td>
+	<td></td>
+</tr>
+<tr>
+	<td>runScript</td>
+	<td>document.body.setAttribute('js-error', ''); window.onerror = function (err) { document.body.setAttribute('js-error', err); };</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=a[href=&quot;#tracklist&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=.ui-dialog[aria-describedby=add-disc-dialog] button.ui-dialog-titlebar-close</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=.add-tracks button.add-item</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=td.artist button.open-ac</td>
+	<td></td>
+</tr>
+<tr>
+	<td>sendKeys</td>
+	<td>id=ac-new-12-artist-0</td>
+	<td>test</td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>2000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>mouseOver</td>
+	<td>xpath=//li[contains(@class, 'ui-menu-item')][contains(., 'Add a new artist')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>xpath=//li[contains(@class, 'ui-menu-item')][contains(., 'Add a new artist')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>3000</td>
+	<td></td>
+</tr>
+<!--close the dialog-->
+<tr>
+	<td>click</td>
+	<td>xpath=//span[contains(@class, 'ui-dialog-title')][contains(., 'Add a new artist')]/following-sibling::button[contains(@class, 'ui-dialog-titlebar-close')]</td>
+	<td></td>
+</tr>
+<!--bubble is visible after dialog is closed-->
+<tr>
+	<td>assertEval</td>
+	<td>window.$('#artist-credit-bubble').is(':visible')</td>
+	<td>true</td>
+</tr>
+<!--clicking outside of a track AC bubble closes it-->
+<tr>
+	<td>click</td>
+	<td>css=h1</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertEval</td>
+	<td>window.$('#artist-credit-bubble').is(':visible')</td>
+	<td>false</td>
+</tr>
+<tr>
+	<td>assertAttribute</td>
+	<td>css=body@js-error</td>
+	<td></td>
+</tr>
+
+</tbody></table>
+</body>
+</html>

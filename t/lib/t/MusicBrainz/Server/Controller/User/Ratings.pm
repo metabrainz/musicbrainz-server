@@ -19,17 +19,17 @@ TRUNCATE artist_rating_raw CASCADE;
 INSERT INTO artist_rating_raw (artist, editor, rating) VALUES (7, 1, 80);
 ");
 
-$mech->get('/user/new_editor/ratings');
-$mech->content_contains('Kate Bush', "new_editor has rated Kate Bush");
-
 $mech->get('/user/alice/ratings');
-is ($mech->status(), 403, "alice' ratings are private");
+$mech->content_contains('You need to be logged in to view this page.', "user ratings require login");
 
 $mech->get('/login');
 $mech->submit_form( with_fields => { username => 'new_editor', password => 'password' } );
 
 $mech->get('/user/alice/ratings');
 is ($mech->status(), 403, "alice' ratings are still private");
+
+$mech->get('/user/new_editor/ratings');
+$mech->content_contains('Kate Bush', "new_editor has rated Kate Bush");
 
 $mech->get('/logout');
 $mech->get('/login');

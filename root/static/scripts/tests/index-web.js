@@ -3,7 +3,6 @@ require('./common/immutable-entities');
 require('./Control/URLCleanup');
 require('./CoverArt');
 require('./edit');
-require('./edit/components/ArtistCreditEditor');
 require('./entity');
 require('./externalLinks');
 require('./GuessCase');
