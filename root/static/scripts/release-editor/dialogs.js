@@ -208,7 +208,7 @@ class SearchTab {
             this.totalPages(parseInt(pager.pages, 10));
         }
 
-        this.searchResults(_.map(results, _.partial(SearchResult, this)));
+        this.searchResults(_.map(results, x => new SearchResult(this, x)));
     }
 
     addDisc() {
