@@ -80,6 +80,12 @@ has '_verbose_phrase' => (
     lazy => 1
 );
 
+has '_grouping_phrase' => (
+    is => 'ro',
+    builder => '_build_grouping_phrase',
+    lazy => 1,
+);
+
 sub entity_is_orderable {
     my ($self, $entity) = @_;
 
@@ -195,6 +201,10 @@ sub extra_verbose_phrase_attributes
     return $self->_verbose_phrase->[1];
 }
 
+sub grouping_phrase { shift->_grouping_phrase->[0] }
+
+sub extra_grouping_phrase_attributes { shift->_grouping_phrase->[1] }
+
 sub _build_phrase {
     my ($self) = @_;
     $self->_interpolate(
@@ -209,8 +219,18 @@ sub _build_verbose_phrase {
     $self->_interpolate($self->link->type->l_long_link_phrase);
 }
 
+sub _build_grouping_phrase {
+    my ($self) = @_;
+    $self->_interpolate(
+        ($self->direction == $DIRECTION_FORWARD
+            ? $self->link->type->l_link_phrase
+            : $self->link->type->l_reverse_link_phrase),
+        ($self->link->type->orderable_direction > 0),
+    );
+}
+
 sub _interpolate {
-    my ($self, $phrase) = @_;
+    my ($self, $phrase, $for_grouping) = @_;
 
     my @attrs = $self->link->all_attributes;
     my %attrs;
@@ -224,12 +244,11 @@ sub _interpolate {
         }
     }
     my %extra_attrs = %attrs;
-    my $type_is_orderable = $self->link->type->orderable_direction > 0;
 
     # Ordered relationships in a series should all share the same link phrase,
     # even if their attributes differ, so that they remain grouped together
     # in the relationships display.
-    %attrs = () if $type_is_orderable;
+    %attrs = () if $for_grouping;
 
     my $replace_attrs = sub {
         my ($name, $alt) = @_;
@@ -237,7 +256,7 @@ sub _interpolate {
         # placeholders for entity names which are processed elsewhere
         return "{$name}" if $name eq "entity0" || $name eq "entity1";
 
-        delete $extra_attrs{$name} unless $type_is_orderable;
+        delete $extra_attrs{$name} unless $for_grouping;
         if (!$alt) {
             return '' unless exists $attrs{$name};
             return comma_list(@{ $attrs{$name} });

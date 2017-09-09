@@ -185,7 +185,7 @@
       [% bracketed(l('ended')) | html %]
     <!-- /ko -->
   <!-- /ko -->
-  <!-- ko with: relationship.phraseAndExtraAttributes()[2] -->
+  <!-- ko with: relationship.phraseAndExtraAttributes()[2 + (forGrouping ? 3 : 0)] -->
     (<!-- ko text: $data --><!-- /ko -->)
   <!-- /ko -->
 </script>

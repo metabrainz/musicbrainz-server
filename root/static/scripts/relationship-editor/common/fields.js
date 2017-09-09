@@ -308,11 +308,31 @@ const mergeDates = require('./mergeDates');
         }
 
         _phraseAndExtraAttributes() {
-            return linkPhrase.interpolate(this.linkTypeID(), this.attributes());
+            const typeInfo = this.linkTypeInfo();
+            return linkPhrase.interpolate(typeInfo, this.attributes());
+        }
+
+        _linkPhrase(source, clean) {
+            const index = _.indexOf(this.entities(), source) +
+                (clean ? 3 : 0);
+            return this.phraseAndExtraAttributes()[index];
         }
 
         linkPhrase(source) {
-            return this.phraseAndExtraAttributes()[_.indexOf(this.entities(), source)];
+            return this._linkPhrase(source, false);
+        }
+
+        hasOrderableLinkType() {
+            const typeInfo = this.linkTypeInfo();
+            return !!(typeInfo && typeInfo.orderableDirection > 0);
+        }
+
+        // Same as linkPhrase, but if the link type is orderable, then
+        // also stripped of non-required attributes so that `groupBy` keeps
+        // ordered relationships together even if they have different
+        // attributes.
+        groupingLinkPhrase(source) {
+            return this._linkPhrase(source, this.hasOrderableLinkType());
         }
 
         lowerCasePhrase(source) {
