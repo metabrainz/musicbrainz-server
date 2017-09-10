@@ -22,7 +22,7 @@ class Autocomplete extends React.Component {
     this._currentSelection = currentSelection;
     this._subscription = currentSelection.subscribe(this.props.onChange);
 
-    this._autocomplete = $(this.refs.name).autocomplete(options).data('ui-autocomplete');
+    this._autocomplete = $(this._nameInput).autocomplete(options).data('ui-autocomplete');
     currentSelection(this._autocomplete._dataToEntity(this.props.currentSelection));
   }
 
@@ -31,7 +31,7 @@ class Autocomplete extends React.Component {
     this._subscription = null;
     this._currentSelection = null;
     this._autocomplete = null;
-    $(this.refs.name).autocomplete('destroy');
+    $(this._nameInput).autocomplete('destroy');
   }
 
   componentWillReceiveProps(nextProps) {
@@ -71,7 +71,7 @@ class Autocomplete extends React.Component {
           className={className}
           disabled={disabled}
           id={inputID}
-          ref="name"
+          ref={input => this._nameInput = input}
           type="text" />
       </span>
     );

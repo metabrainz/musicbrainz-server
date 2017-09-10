@@ -23,7 +23,7 @@ const DescriptiveLink = ({entity, content, showDeletedArtists = true}) => {
 
   if (entity.artistCredit) {
     return l('{entity} by {artist}', {
-      __react: 'frag',
+      __react: true,
       entity: link,
       artist: (
         <ArtistCreditLink
@@ -36,7 +36,7 @@ const DescriptiveLink = ({entity, content, showDeletedArtists = true}) => {
 
   if (entity.entityType === 'place' && entity.area) {
     return l('{place} in {area}', {
-      __react: 'frag',
+      __react: true,
       place: link,
       area: <AreaWithContainmentLink area={entity.area} key={1} />
     });

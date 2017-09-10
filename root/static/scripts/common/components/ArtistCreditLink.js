@@ -3,6 +3,8 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
+const React = require('react');
+
 const EntityLink = require('./EntityLink');
 
 const ArtistCreditLink = ({artistCredit, showDeleted = true, ...props}) => {
@@ -28,7 +30,7 @@ const ArtistCreditLink = ({artistCredit, showDeleted = true, ...props}) => {
     }
     parts.push(credit.joinPhrase);
   }
-  return <frag>{parts}</frag>;
+  return parts;
 };
 
 module.exports = ArtistCreditLink;
