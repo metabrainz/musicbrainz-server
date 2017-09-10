@@ -1,11 +1,13 @@
 [ignore]
 .*/lib/.*
+.*/node_modules/jsx-control-statements/jsx-control-statements.flow.js
 .*/root/static/build/.*
 .*/t/.*
 
 [include]
 
 [libs]
+./node_modules/jsx-control-statements/jsx-control-statements.latest.flow.js
 
 [lints]
 
