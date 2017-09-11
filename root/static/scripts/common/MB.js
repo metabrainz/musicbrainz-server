@@ -30,6 +30,9 @@ global.MB = {
     // Hold translated text strings
     text: {},
 
+    // Hold constants for knockout templates that depend on globals.
+    constants: require('./constants'),
+
     // Holds data where localStorage isn't supported
     store: {},
 

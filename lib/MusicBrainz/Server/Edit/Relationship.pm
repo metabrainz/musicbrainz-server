@@ -1,6 +1,9 @@
 package MusicBrainz::Server::Edit::Relationship;
 use List::UtilsBy qw( sort_by partition_by );
 use Moose::Role;
+use MusicBrainz::Server::Constants qw(
+    %ENTITIES_WITH_RELATIONSHIP_CREDITS
+);
 use MusicBrainz::Server::ControllerUtils::Relationship qw(
     serialize_link_attribute
     serialize_link_attribute_type
@@ -114,7 +117,7 @@ sub sanitize_entity_credits {
         my $type_prop = "${_}_type";
         my $credit_prop = "${_}_credit";
 
-        if ($link_type->$type_prop eq 'artist') {
+        if ($ENTITIES_WITH_RELATIONSHIP_CREDITS{$link_type->$type_prop}) {
             if (exists $opts->{$credit_prop}) {
                 $opts->{$credit_prop} = sanitize($opts->{$credit_prop});
             }

@@ -38,7 +38,7 @@
 </script>
 
 <script type="text/html" id="template.dialog-entity-credit">
-  <!-- ko if: entity.entityType === 'artist' -->
+  <!-- ko if: MB.constants.ENTITIES_WITH_RELATIONSHIP_CREDITS[entity.entityType] -->
     <div>
       <label>
         [% l('Credited as:') %]
