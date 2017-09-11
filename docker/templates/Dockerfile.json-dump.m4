@@ -1,6 +1,24 @@
 m4_include(`server_base.m4')m4_dnl
 
-RUN apt_install(`pixz rsync')
+COPY docker/musicbrainz-json-dump/lasse_collin_pubkey.txt /tmp/
+
+RUN apt_install(`autoconf automake gettext libtool rsync') && \
+    cd /tmp && \
+    sudo_mb(`gpg --import lasse_collin_pubkey.txt') && \
+    rm lasse_collin_pubkey.txt && \
+    wget https://tukaani.org/xz/xz-5.2.3.tar.gz && \
+    wget https://tukaani.org/xz/xz-5.2.3.tar.gz.sig && \
+    sudo_mb(`gpg --verify xz-5.2.3.tar.gz.sig') && \
+    rm xz-5.2.3.tar.gz.sig && \
+    tar xvzf xz-5.2.3.tar.gz && \
+    cd xz-5.2.3 && \
+    ./configure --disable-shared --prefix=/usr/local/ && \
+    make && \
+    make install && \
+    cd ../ && \
+    rm -r xz-5.2.3* && \
+    apt_purge(`autoconf automake libtool') && \
+    cd /home/musicbrainz
 
 RUN chown_mb(`/home/musicbrainz/log') && \
     chown_mb(`/home/musicbrainz/json-dumps/full') && \

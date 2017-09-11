@@ -121,13 +121,13 @@ EOF
 
         my $t0 = [gettimeofday];
 
-        log("Compressing $tar_file with pixz");
+        log("Compressing $tar_file with xz");
 
         my $tar_path = catfile($mbdump->output_dir, $tar_file);
-        system 'pixz', $tar_path, "$tar_path.xz";
-        $? == 0 or die "pixz returned $?";
+        system qw( xz -T 0 -k -z ), $tar_path;
+        $? == 0 or die "xz returned $?";
 
-        log(sprintf "pixz completed in %d seconds\n", tv_interval($t0));
+        log(sprintf "xz completed in %d seconds\n", tv_interval($t0));
 
         unlink $tar_path;
 
