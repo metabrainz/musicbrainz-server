@@ -1,0 +1,386 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="http://localhost:5000" />
+<title>External_Links_Editor</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">External_Links_Editor</td></tr>
+</thead><tbody>
+<tr>
+	<td>open</td>
+	<td>/artist/create</td>
+	<td></td>
+</tr>
+<!--automatic link type detection for URL-->
+<tr>
+	<td>click</td>
+	<td>xpath=(//table[@id='external-links-editor']//input[@type='url'])[1]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>sendKeys</td>
+	<td>xpath=(//table[@id='external-links-editor']//input[@type='url'])[1]</td>
+	<td>https://en.wikipedia.org/wiki/No_Age</td>
+</tr>
+<tr>
+	<td>assertElementPresent</td>
+	<td>css=#external-links-editor .wikipedia-favicon</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>xpath=//table[@id='external-links-editor']//label[1]</td>
+	<td>Wikipedia</td>
+</tr>
+<!--invalid URL detection-->
+<tr>
+	<td>click</td>
+	<td>xpath=(//table[@id='external-links-editor']//input[@type='url'])[2]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>sendKeys</td>
+	<td>xpath=(//table[@id='external-links-editor']//input[@type='url'])[2]</td>
+	<td>foo</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>xpath=//table[@id='external-links-editor']//tr[2]//div[contains(@class, 'error')]</td>
+	<td>Enter a valid url e.g. &quot;http://google.com/&quot;</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>xpath=//table[@id='external-links-editor']//tr[2]//button[contains(@class, 'remove-item')]</td>
+	<td></td>
+</tr>
+<!--shortened URL detection-->
+<tr>
+	<td>click</td>
+	<td>xpath=(//table[@id='external-links-editor']//input[@type='url'])[2]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>sendKeys</td>
+	<td>xpath=(//table[@id='external-links-editor']//input[@type='url'])[2]</td>
+	<td>http://goo.gl/example</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>xpath=//table[@id='external-links-editor']//tr[2]//div[contains(@class, 'error')]</td>
+	<td>Please don't use shortened URLs.</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>xpath=//table[@id='external-links-editor']//tr[2]//button[contains(@class, 'remove-item')]</td>
+	<td></td>
+</tr>
+<!--deprecated link type detection for new links-->
+<tr>
+	<td>sendKeys</td>
+	<td>xpath=(//table[@id='external-links-editor']//input[@type='url'])[2]</td>
+	<td>http://example.com/</td>
+</tr>
+<tr>
+	<td>runScript</td>
+	<td>document.querySelector('option[value=&quot;666&quot;]').disabled = false;</td>
+	<td></td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>css=select.link-type</td>
+	<td>label=regexp:\s*MusicMoz</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>xpath=//table[@id='external-links-editor']//tr[2]//div[contains(@class, 'error')]</td>
+	<td>This relationship type is deprecated and should not be used.</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>xpath=//table[@id='external-links-editor']//tr[2]//button[contains(@class, 'remove-item')]</td>
+	<td></td>
+</tr>
+<!--submit the artist-->
+<tr>
+	<td>type</td>
+	<td>id=id-edit-artist.name</td>
+	<td>No Age</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=id-edit-artist.sort_name</td>
+	<td>No Age</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>css=button.submit.positive</td>
+	<td></td>
+</tr>
+<!--deprecated link type detection for existing links (MBS-8408)-->
+<tr>
+	<td>clickAndWait</td>
+	<td>xpath=//ul[@class='tabs']//a[descendant::text()='Edit']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>sendKeys</td>
+	<td>xpath=(//table[@id='external-links-editor']//input[@type='url'])[1]</td>
+	<td>${KEY_HOME}${KEY_SHIFT}${KEY_END}${KEY_SHIFT}${KEY_BKSP}http://example.com/</td>
+</tr>
+<tr>
+	<td>runScript</td>
+	<td>document.querySelector('option[value=&quot;666&quot;]').disabled = false;</td>
+	<td></td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>css=select.link-type</td>
+	<td>label=regexp:\s*MusicMoz</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>xpath=//table[@id='external-links-editor']//tr[1]//div[contains(@class, 'error')]</td>
+	<td>This relationship type is deprecated and should not be used.</td>
+</tr>
+<!--relationshipCreate edit for external link is generated for existing release-->
+<tr>
+	<td>open</td>
+	<td>/release/24d4159a-99d9-425d-a7b8-1b9ec0261a33/edit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>sendKeys</td>
+	<td>xpath=(//table[@id='external-links-editor']//input[@type='url'])[1]</td>
+	<td>https://www.discogs.com/David-Bowie--Blackstar/release/7949394</td>
+</tr>
+<tr>
+	<td>sendKeys</td>
+	<td>xpath=(//table[@id='external-links-editor']//input[@type='url'])[2]</td>
+	<td>https://www.amazon.co.jp/Blackstar-David-Bowie/dp/B017VORJK6/</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=a[href="#edit-note"]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>1500</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>xpath=(//div[contains(@class, 'edit-list')]//h2)[1]</td>
+	<td>Add relationship</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>xpath=(//div[contains(@class, 'edit-details')])[1]</td>
+	<td>Relationship: ★ by David Bowie has a Discogs page at https://www.discogs.com/release/7949394 [info]</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>xpath=(//div[contains(@class, 'edit-list')]//h2)[2]</td>
+	<td>Add relationship</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>xpath=(//div[contains(@class, 'edit-details')])[2]</td>
+	<td>Relationship: ★ by David Bowie has Amazon ASIN https://www.amazon.co.jp/gp/product/B017VORJK6 [info]</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>css=#enter-edit</td>
+	<td></td>
+</tr>
+<!--relationshipEdit edit for external link is generated for existing release-->
+<tr>
+	<td>clickAndWait</td>
+	<td>css=.tabs a[href$="/edit"]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>sendKeys</td>
+	<td>xpath=(//table[@id='external-links-editor']//input[@type='url'])[2]</td>
+	<td>${KEY_HOME}${KEY_SHIFT}${KEY_END}${KEY_SHIFT}${KEY_BKSP}https://www.gnu.org/licenses/gpl-3.0.en.html</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>css=select.link-type</td>
+	<td>label=regexp:\s*license</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=a[href="#edit-note"]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>1500</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>xpath=(//div[contains(@class, 'edit-list')]//h2)[1]</td>
+	<td>Edit relationship</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>xpath=(//div[contains(@class, 'edit-details')])[1]</td>
+	<td>Relationship: ★ by David Bowie has a Discogs page at https://www.discogs.com/release/7949394 [info] ★ by David Bowie is licensed under https://www.gnu.org/licenses/gpl-3.0.en.html [info]</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>css=#enter-edit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>xpath=//span[contains(@class, 'menu-header')][contains(text(), 'My Data')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>xpath=//ul[contains(@class, 'menu')]//a[contains(text(), 'My Open Edits')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>xpath=//a[contains(text(), 'Accept edit')][1]</td>
+	<td></td>
+</tr>
+<!--relationshipDelete edit for external link is generated for existing release-->
+<tr>
+	<td>open</td>
+	<td>/release/24d4159a-99d9-425d-a7b8-1b9ec0261a33/edit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>xpath=//table[@id='external-links-editor']//tr[1]//button[contains(@class, 'remove-item')]</td>
+	<td></td>
+</tr>
+<!--check that edits are not generated for links that duplicate removed ones-->
+<tr>
+	<td>sendKeys</td>
+	<td>xpath=(//table[@id='external-links-editor']//input[@type='url'])[2]</td>
+	<td>https://www.amazon.co.jp/gp/product/B017VORJK6</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>xpath=//table[@id='external-links-editor']//tr[2]//div[contains(@class, 'field-error')]</td>
+	<td>This relationship already exists.</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=a[href="#edit-note"]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertEval</td>
+	<td>window.document.getElementById('enter-edit').disabled</td>
+	<td>true</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=a[href="#information"]</td>
+	<td></td>
+</tr>
+<!--duplicate the first URL again by editing the other existing URL-->
+<tr>
+	<td>click</td>
+	<td>xpath=//table[@id='external-links-editor']//tr[2]//button[contains(@class, 'remove-item')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>sendKeys</td>
+	<td>xpath=(//table[@id='external-links-editor']//input[@type='url'])[1]</td>
+	<td>${KEY_HOME}${KEY_SHIFT}${KEY_END}${KEY_SHIFT}${KEY_BKSP}https://www.amazon.co.jp/gp/product/B017VORJK6</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>css=select.link-type</td>
+	<td>label=regexp:\s*ASIN</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>xpath=//table[@id='external-links-editor']//tr[1]//div[contains(@class, 'field-error')]</td>
+	<td>This relationship already exists.</td>
+</tr>
+<!--revert above edit-->
+<tr>
+	<td>sendKeys</td>
+	<td>xpath=(//table[@id='external-links-editor']//input[@type='url'])[1]</td>
+	<td>${KEY_HOME}${KEY_SHIFT}${KEY_END}${KEY_SHIFT}${KEY_BKSP}https://www.gnu.org/licenses/gpl-3.0.en.html</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>css=select.link-type</td>
+	<td>label=regexp:\s*license</td>
+</tr>
+<!--assert that there's now only one remove edit and submit-->
+<tr>
+	<td>click</td>
+	<td>css=a[href="#edit-note"]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>1500</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertEval</td>
+	<td>window.document.getElementsByClassName('edit-list').length</td>
+	<td>1</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>xpath=(//div[contains(@class, 'edit-list')]//h2)[1]</td>
+	<td>Remove relationship</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>xpath=(//div[contains(@class, 'edit-details')])[1]</td>
+	<td>Relationship: ★ by David Bowie has Amazon ASIN JP: B017VORJK6 [info]</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>css=#enter-edit</td>
+	<td></td>
+</tr>
+<!--accept the edit and check that the removal succeeded-->
+<tr>
+	<td>click</td>
+	<td>xpath=//span[contains(@class, 'menu-header')][contains(text(), 'My Data')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>xpath=//ul[contains(@class, 'menu')]//a[contains(text(), 'My Open Edits')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>xpath=//a[contains(text(), 'Accept edit')][1]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>open</td>
+	<td>/release/24d4159a-99d9-425d-a7b8-1b9ec0261a33/edit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertEval</td>
+	<td>window.JSON.stringify(window.Array.from(window.document.querySelectorAll('#external-links-editor input[type=url]').values()).map(function (x) { return x.value }))</td>
+	<td>["https://www.gnu.org/licenses/gpl-3.0.en.html",""]</td>
+</tr>
+
+</tbody></table>
+</body>
+</html>
