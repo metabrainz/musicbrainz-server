@@ -168,7 +168,9 @@ async function handleCommand(command, target, value, baseURL, t) {
       return setChecked(findElement(target), true);
 
     case 'click':
-      return findElement(target).click();
+      element = await findElement(target);
+      await driver.executeScript('arguments[0].scrollIntoView()', element);
+      return element.click();
 
     case 'fireEvent':
       return driver.executeScript(
