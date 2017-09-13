@@ -1,6 +1,3 @@
-INSERT INTO script (id, iso_code, iso_number, name)
-    VALUES (112, 'Zsym', '996', 'Symbols');
-
 INSERT INTO area (id, gid, name, type)
     VALUES (107, '2db42837-c832-3c27-b4a3-08198f75693c', 'Japan', 1);
 

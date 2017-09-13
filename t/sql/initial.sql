@@ -898,10 +898,18 @@ INSERT INTO release_group_secondary_type VALUES (8, 'DJ-mix', NULL, 0, NULL, '0d
 INSERT INTO release_group_secondary_type VALUES (9, 'Mixtape/Street', NULL, 0, NULL, '15c1b1f5-d893-3375-a1db-e180c5ae15ed');
 INSERT INTO release_group_secondary_type VALUES (10, 'Demo', NULL, 0, NULL, '81598169-0d6c-3bce-b4be-866fa658eda3');
 
+INSERT INTO release_packaging VALUES (1, 'Jewel Case', NULL, 0, 'The traditional CD case, made of hard, brittle plastic.', 'ec27701a-4a22-37f4-bfac-6616e0f9750a');
+INSERT INTO release_packaging VALUES (3, 'Digipak', NULL, 0, NULL, '8f931351-d2e2-310f-afc6-37b89ddba246');
+
 INSERT INTO release_status VALUES (1, 'Official', NULL, 1, 'Any release officially sanctioned by the artist and/or their record company. Most releases will fit into this category.', '4e304316-386d-3409-af2e-78857eec5cfe');
 INSERT INTO release_status VALUES (2, 'Promotion', NULL, 2, 'A give-away release or a release intended to promote an upcoming official release (e.g. pre-release versions, releases included with a magazine, versions supplied to radio DJs for air-play).', '518ffc83-5cde-34df-8627-81bff5093d92');
 INSERT INTO release_status VALUES (3, 'Bootleg', NULL, 3, 'An unofficial/underground release that was not sanctioned by the artist and/or the record company. This includes unofficial live recordings and pirated releases.', '1156806e-d06a-38bd-83f0-cf2284a808b9');
 INSERT INTO release_status VALUES (4, 'Pseudo-Release', NULL, 4, 'An alternate version of a release where the titles have been changed. These don''t correspond to any real release and should be linked to the original release using the transl(iter)ation relationship.', '41121bb9-3413-3818-8a9a-9742318349aa');
+
+INSERT INTO script VALUES (3, 'Ugar', '040', 'Ugaritic', 2);
+INSERT INTO script VALUES (28, 'Latn', '215', 'Latin', 4);
+INSERT INTO script VALUES (85, 'Jpan', '413', 'Japanese', 4);
+INSERT INTO script VALUES (112, 'Zsym', '996', 'Symbols', 3);
 
 INSERT INTO series_alias_type VALUES (1, 'Series name', NULL, 0, NULL, '0c615dbc-c7d6-39b3-b8da-bef465ce3046');
 INSERT INTO series_alias_type VALUES (2, 'Search hint', NULL, 0, NULL, '8950366b-5ea3-32f2-bf74-ee482474c18b');

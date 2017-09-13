@@ -5,10 +5,6 @@ SET client_min_messages TO 'warning';
 -- Temporarily drop problematic triggers.
 DROP TRIGGER deny_deprecated ON link;
 
--- Helper quasi-entities script, area
-INSERT INTO script (frequency, id, iso_code, iso_number, name) VALUES (4, 28, 'Latn', '215', 'Latin');
-INSERT INTO script (frequency, id, iso_code, iso_number, name) VALUES (4, 85, 'Jpan', '413', 'Japanese');
-
 INSERT INTO area (id, gid, name, type) VALUES
   ( 13, '106e0bec-b638-3b37-b731-f53d507dc00e', 'Australia', 1),
   ( 81, '85752fda-13c4-31a3-bee5-0e5cb1f51dad', 'Germany', 1),

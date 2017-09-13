@@ -81,7 +81,7 @@ $c->model('Release')->load_release_events($release);
 
 is($release->name, 'Edited name', 'release name is Edited name');
 is($release->packaging_id, 1, 'packaging id is 1');
-is($release->script_id, 1, 'script id is 1');
+is($release->script_id, 3, 'script id is 3');
 is($release->release_group_id, 2, 'release_group id is 2');
 is($release->barcode->format, 'BARCODE', 'barcode is BARCODE');
 is($release->events->[0]->country_id, 221, 'country id is 1');
@@ -212,7 +212,7 @@ sub create_edit {
             ],
         },
         language_id => 145,
-        script_id => 1,
+        script_id => 3,
     );
 }
 
