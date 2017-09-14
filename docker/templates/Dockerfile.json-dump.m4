@@ -2,7 +2,7 @@ m4_include(`server_base.m4')m4_dnl
 
 COPY docker/musicbrainz-json-dump/lasse_collin_pubkey.txt /tmp/
 
-RUN apt_install(`autoconf automake gettext libtool rsync') && \
+RUN apt_install(`autoconf automake build-essential gettext libtool rsync') && \
     cd /tmp && \
     sudo_mb(`gpg --import lasse_collin_pubkey.txt') && \
     rm lasse_collin_pubkey.txt && \
