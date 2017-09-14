@@ -2,7 +2,7 @@ m4_include(`server_base.m4')m4_dnl
 
 install_javascript_and_templates()
 
-RUN apt_install(`libexpat1 libexpat1-dev libxml2 libxml2-dev') && \
+RUN apt_install(`build-essential libexpat1 libexpat1-dev libxml2 libxml2-dev') && \
     cpanm TAP::Harness::JUnit && \
     apt_purge(`libexpat1-dev libxml2-dev')
 
