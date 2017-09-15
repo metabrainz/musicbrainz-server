@@ -817,7 +817,7 @@ const CLEANUPS = {
     clean: function (url) {
       url = url.replace(/^(?:https?:\/\/)?(?:(?:www|m)\.)?reverbnation\.com(?:\/#!)?\//, "http://www.reverbnation.com/");
       url = url.replace(/#.*$/,'');
-      url = url.replace(new RegExp("([?&])(?:blog|current_active_tab|fg_og_[^=]+|kick|profile_tour|profile_view_source|utm_[^=]+)=(?:[^?&]*)", "g"), "$1");
+      url = url.replace(new RegExp("([?&])(?:blog|current_active_tab|fb_og_[^=]+|kick|player_client_id|profile_tour|profile_view_source|utm_[^=]+)=(?:[^?&]*)", "g"), "$1");
       url = url.replace(/([?&])&+/, "$1");
       url = url.replace(/[?&]$/, "");
       return url;
