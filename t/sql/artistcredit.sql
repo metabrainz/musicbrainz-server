@@ -7,10 +7,12 @@ INSERT INTO artist (id, gid, name, sort_name)
 INSERT INTO artist (id, gid, name, sort_name)
     VALUES (3, '5f9913b0-7219-11de-8a39-0800200c9a66', 'Merge', 'Merge');
 
-INSERT INTO artist_credit (id, name, artist_count) VALUES (1, 'Queen & David Bowie', 2);
+INSERT INTO artist_credit (id, name, artist_count)
+VALUES (1, 'Queen & David Bowie', 2),
+       (2, 'Queen & Bowie', 2);
 
 INSERT INTO artist_credit_name (artist_credit, position, artist, name, join_phrase)
-    VALUES (1, 0, 1, 'Queen', ' & ');
-
-INSERT INTO artist_credit_name (artist_credit, position, artist, name, join_phrase)
-    VALUES (1, 1, 2, 'David Bowie', '');
+VALUES (1, 0, 1, 'Queen', ' & '),
+       (1, 1, 2, 'David Bowie', ''),
+       (2, 0, 1, 'Queen', ' & '),
+       (2, 1, 2, 'Bowie', '');
