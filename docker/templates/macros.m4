@@ -61,6 +61,7 @@ libxml2-dev')
 m4_define(
     `mbs_run_deps',
     `m4_dnl
+bzip2 m4_dnl
 ca-certificates m4_dnl
 libdb5.3 m4_dnl
 libexpat1 m4_dnl
