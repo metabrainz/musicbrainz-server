@@ -612,6 +612,7 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
                      input_entity_type: 'artist',
             expected_relationship_type: 'cdbaby',
                     expected_clean_url: 'https://store.cdbaby.com/Artist/JohnDoe1',
+               only_valid_entity_types: ['artist']
         },
         {
                              input_url: 'http://cdbaby.com/cd/John003',
