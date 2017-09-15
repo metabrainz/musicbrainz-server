@@ -1707,6 +1707,12 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
             expected_relationship_type: 'patronage',
                     expected_clean_url: 'https://www.patreon.com/example',
         },
+        {
+                             input_url: 'https://www.patreon.com/user/posts?u=4212671&month=2017-4',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'patronage',
+                    expected_clean_url: 'https://www.patreon.com/user?u=4212671',
+        },
         // PayPal.Me
         {
                              input_url: 'https://paypal.me/example',
