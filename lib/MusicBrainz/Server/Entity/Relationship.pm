@@ -237,11 +237,7 @@ sub _interpolate {
     foreach my $attr (@attrs) {
         my $name = lc $attr->type->root->name;
 
-        if (exists $attrs{$name}) {
-            push @{$attrs{$name}}, $attr->html;
-        } else {
-            $attrs{$name} = [ $attr->html ];
-        }
+        push @{$attrs{$name}}, $attr->html;
     }
     my %extra_attrs = %attrs;
 
