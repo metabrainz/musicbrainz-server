@@ -770,10 +770,10 @@ const CLEANUPS = {
     }
   },
   facebook: {
-    match: [new RegExp("^(https?://)?([^/]+\\.)?facebook\\.com/", "i")],
+    match: [new RegExp("^(https?://)?([^/]+\\.)?(facebook|fb)\\.com/", "i")],
     type: LINK_TYPES.socialnetwork,
     clean: function (url) {
-      url = url.replace(/^(https?:\/\/)?([^\/]+\.)?facebook\.com(\/#!)?/, "https://www.facebook.com");
+      url = url.replace(/^(https?:\/\/)?([^\/]+\.)?(facebook|fb)\.com(\/#!)?/, "https://www.facebook.com");
       // Remove ref (where the user came from), sk (subpages in a page, since we want the main link) and a couple others
       url = url.replace(new RegExp("([&?])(__tn__|_fb_noscript|_rdr|acontext|em|entry_point|filter|focus_composer|fref|hc_location|pnref|qsefr|ref|ref_dashboard_filter|ref_type|refsrc|rf|sid_reminder|sk|tab|viewas)=([^?&]*)", "g"), "$1");
       // Ensure the first parameter left uses ? not to break the URL
