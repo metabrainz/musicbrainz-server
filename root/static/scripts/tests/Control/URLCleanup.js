@@ -1836,6 +1836,12 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
             expected_relationship_type: 'socialnetwork',
                     expected_clean_url: 'http://www.reverbnation.com/sidneybowen',
         },
+        {
+                             input_url: 'https://www.reverbnation.com/tomorrowsyesterdayband?fb_og_action=reverbnation_fb:unknown&fb_og_object=reverbnation_fb:artist&player_client_id=j29dsi7kl&utm_campaign=a_profile_page&utm_content=reverbnation_fb:artist&utm_medium=facebook_og&utm_source=reverbnation_fb:unknown',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'socialnetwork',
+                    expected_clean_url: 'http://www.reverbnation.com/tomorrowsyesterdayband',
+        },
         // Rock.com.ar
         {
                              input_url: 'http://rock.com.ar/artistas/200',
