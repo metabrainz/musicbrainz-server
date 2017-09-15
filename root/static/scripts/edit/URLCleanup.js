@@ -395,7 +395,7 @@ const CLEANUPS = {
     match: [new RegExp("^(https?://)?([^/]+\\.)?recochoku\\.jp","i")],
     type: LINK_TYPES.downloadpurchase,
     clean: function (url) {
-      return url.replace(/^(?:https?:\/\/)?(?:[^.]+\.)?recochoku\.jp\/(album|song)\/([a-zA-Z0-9]+)(\/)?.*$/, "http://recochoku.jp/$1/$2/");
+      return url.replace(/^(?:https?:\/\/)?(?:[^.]+\.)?recochoku\.jp\/(album|artist|song)\/([a-zA-Z0-9]+)(\/)?.*$/, "http://recochoku.jp/$1/$2/");
     }
   },
   allmusic: {
