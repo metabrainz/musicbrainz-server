@@ -1754,6 +1754,12 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
         },
         // RecoChoku
         {
+                             input_url: 'http://recochoku.jp/artist/2000166063/?affiliate=4350010210',
+                     input_entity_type: 'release',
+            expected_relationship_type: 'downloadpurchase',
+                    expected_clean_url: 'http://recochoku.jp/artist/2000166063/',
+        },
+        {
                              input_url: 'recochoku.jp/song/S21893898/',
                      input_entity_type: 'recording',
             expected_relationship_type: 'downloadpurchase',
