@@ -979,6 +979,12 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
             expected_relationship_type: 'socialnetwork',
                     expected_clean_url: 'https://www.facebook.com/events/314549615570029',
         },
+        {
+                             input_url: 'http://www.fb.com/bradpot187',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'socialnetwork',
+                    expected_clean_url: 'https://www.facebook.com/bradpot187',
+        },
         // Finna.fi
         {
                              input_url: 'https://www.finna.fi/Record/viola.163990',
