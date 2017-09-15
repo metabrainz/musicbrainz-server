@@ -527,10 +527,10 @@ const CLEANUPS = {
     match: [new RegExp("^(https?://)?((store|www)\\.)?cdbaby\\.(com|name)/Artist/","i")],
     type: LINK_TYPES.cdbaby,
     clean: function (url) {
-      return url.replace(/(?:https?:\/\/)?(?:(?:store|www)\.)?cdbaby\.(?:com|name)\/Artist\/([a-z0-9]+).*$/i, "https://store.cdbaby.com/Artist/$1");
+      return url.replace(/(?:https?:\/\/)?(?:(?:store|www)\.)?cdbaby\.(?:com|name)\/Artist\/(\w+).*$/i, "https://store.cdbaby.com/Artist/$1");
     },
     validate: function (url, id) {
-      return /^https:\/\/store.cdbaby\.com\/Artist\/[a-z0-9]+$/.test(url) && id === LINK_TYPES.cdbaby.artist;
+      return /^https:\/\/store.cdbaby\.com\/Artist\/\w+$/.test(url) && id === LINK_TYPES.cdbaby.artist;
     }
   },
   cdbaby: {
@@ -540,8 +540,8 @@ const CLEANUPS = {
       if (m) {
         url = "https://store.cdbaby.com/cd/" + m[1].toLowerCase();
       }
-      url = url.replace(/(?:https?:\/\/)?(?:(?:store|www)\.)?cdbaby\.com\/Images\/Album\/([a-z0-9]+)(?:_small)?\.jpg/, "https://store.cdbaby.com/cd/$1");
-      return url.replace(/(?:https?:\/\/)?(?:images\.)?cdbaby\.name\/.\/.\/([a-z0-9]+)(?:_small)?\.jpg/, "https://store.cdbaby.com/cd/$1");
+      url = url.replace(/(?:https?:\/\/)?(?:(?:store|www)\.)?cdbaby\.com\/Images\/Album\/(\w+)(?:_small)?\.jpg/, "https://store.cdbaby.com/cd/$1");
+      return url.replace(/(?:https?:\/\/)?(?:images\.)?cdbaby\.name\/.\/.\/(\w+)(?:_small)?\.jpg/, "https://store.cdbaby.com/cd/$1");
     }
   },
   downloadpurchase: {
