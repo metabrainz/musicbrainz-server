@@ -219,6 +219,15 @@ sub _build_verbose_phrase {
     $self->_interpolate($self->link->type->l_long_link_phrase);
 }
 
+=method _build_grouping_phrase
+
+For ordered relationships (such as those in a series), builds a phrase with
+attributes removed, so that these relationships can remain grouped together
+under the same phrase in our relationships display, even if their attributes
+differ.
+
+=cut
+
 sub _build_grouping_phrase {
     my ($self) = @_;
     $self->_interpolate(
@@ -241,9 +250,12 @@ sub _interpolate {
     }
     my %extra_attrs = %attrs;
 
-    # Ordered relationships in a series should all share the same link phrase,
-    # even if their attributes differ, so that they remain grouped together
-    # in the relationships display.
+    # In order to keep relationships grouped together under the same link
+    # phrase, set %attrs (which contains the replacement values) to (). Now,
+    # all attributes will be replaced with the empty string in the phrase,
+    # and moved to @extra_attrs so that they can appear in a comma-separated
+    # list after the relationship target link. (Normally, @extra_attrs only
+    # contains attributes which don't appear in the phrase at all.)
     %attrs = () if $for_grouping;
 
     my $replace_attrs = sub {
