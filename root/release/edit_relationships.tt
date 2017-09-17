@@ -189,7 +189,7 @@
                            css: { 'rel-edit': editsPending }"></span>
           <!-- ko template: {
                     name: "template.extra-attributes-and-dates",
-                    data: { source: $parents, relationship: $data }
+                    data: { source: $parents, relationship: $data, forGrouping: false }
                   }
             --><!-- /ko -->
         </div>

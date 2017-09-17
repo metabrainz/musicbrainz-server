@@ -34,21 +34,16 @@ exports.clean = _.memoize(function (linkType, backward) {
     }));
 }, (a, b) => a + String(b));
 
-exports.interpolate = function (linkType, attributes) {
-    var typeInfo = MB.typeInfoByID[linkType];
-
+exports.interpolate = function (typeInfo, attributes) {
     if (!typeInfo) {
         return ['', '', ''];
     }
 
     var phrase = typeInfo.phrase;
     var reversePhrase = typeInfo.reversePhrase;
-
-    if (typeInfo.orderableDirection > 0) {
-        phrase = exports.clean(typeInfo.id, false);
-        reversePhrase = exports.clean(typeInfo.id, true);
-    }
-
+    var cleanPhrase = '';
+    var cleanReversePhrase = '';
+    var cleanExtraAttributes;
     var attributesByName = {};
     var usedAttributes = [];
 
@@ -89,9 +84,23 @@ exports.interpolate = function (linkType, attributes) {
         return replacement;
     }
 
+    phrase = clean(phrase.replace(attributeRegex, interpolate));
+    reversePhrase = clean(reversePhrase.replace(attributeRegex, interpolate));
+    const extraAttributes = commaOnlyList(_(attributesByName).omit(usedAttributes).values().flatten().value());
+
+    if (typeInfo.orderableDirection > 0) {
+        usedAttributes = [];
+        cleanPhrase = clean(exports.clean(typeInfo.id, false).replace(attributeRegex, interpolate));
+        cleanReversePhrase = clean(exports.clean(typeInfo.id, true).replace(attributeRegex, interpolate));
+        cleanExtraAttributes = commaOnlyList(_(attributesByName).omit(usedAttributes).values().flatten().value());
+    }
+
     return [
-        clean(phrase.replace(attributeRegex, interpolate)),
-        clean(reversePhrase.replace(attributeRegex, interpolate)),
-        commaOnlyList(_(attributesByName).omit(usedAttributes).values().flatten().value())
+        phrase,
+        reversePhrase,
+        extraAttributes,
+        cleanPhrase,
+        cleanReversePhrase,
+        cleanExtraAttributes,
     ];
 };

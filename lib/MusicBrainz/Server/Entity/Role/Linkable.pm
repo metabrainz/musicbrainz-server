@@ -36,7 +36,7 @@ sub grouped_relationships
     for my $relationship (@relationships) {
         next if ($filter_present && !$filter{ $relationship->target_type });
 
-        my $phrase = $relationship->phrase;
+        my $phrase = $relationship->grouping_phrase;
         if ($relationship->source_credit) {
             $phrase = l('{role} (as {credited_name})', {
                 role => $phrase,

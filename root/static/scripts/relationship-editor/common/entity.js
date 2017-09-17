@@ -77,7 +77,7 @@ function getDirection(relationship, source) {
             var self = this;
 
             function linkPhrase(relationship) {
-                return relationship.linkPhrase(self);
+                return relationship.groupingLinkPhrase(self);
             }
 
             function openAddDialog(source, event) {
