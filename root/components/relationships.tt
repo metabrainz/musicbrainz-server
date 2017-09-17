@@ -13,9 +13,9 @@
               <td>
                   [% FOR rel IN relationship.value %]
                       [% IF relationship.value.size > 1 && rel.link_order && rel.entity_is_orderable(rel.target) %]
-                        [% l('{num}. {relationship}', { num => rel.link_order, relationship => relationship_target_links(rel) }) %]
+                        [% l('{num}. {relationship}', { num => rel.link_order, relationship => relationship_target_links(rel, 1) }) %]
                       [% ELSE %]
-                        [% relationship_target_links(rel) %]
+                        [% relationship_target_links(rel, 1) %]
                       [% END %]
                       <br />
                   [% END %]

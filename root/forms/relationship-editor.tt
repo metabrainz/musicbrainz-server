@@ -48,7 +48,7 @@
             <!-- /ko -->
             <!-- ko template: {
                       name: "template.extra-attributes-and-dates",
-                      data: { source: $parent, relationship: $data }
+                      data: { source: $parent, relationship: $data, forGrouping: $data.hasOrderableLinkType() }
                     } --><!-- /ko -->
           </div>
         </td>
