@@ -612,6 +612,7 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
                      input_entity_type: 'artist',
             expected_relationship_type: 'cdbaby',
                     expected_clean_url: 'https://store.cdbaby.com/Artist/JohnDoe1',
+               only_valid_entity_types: ['artist']
         },
         {
                              input_url: 'http://cdbaby.com/cd/John003',
@@ -977,6 +978,12 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
                      input_entity_type: 'event',
             expected_relationship_type: 'socialnetwork',
                     expected_clean_url: 'https://www.facebook.com/events/314549615570029',
+        },
+        {
+                             input_url: 'http://www.fb.com/bradpot187',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'socialnetwork',
+                    expected_clean_url: 'https://www.facebook.com/bradpot187',
         },
         // Finna.fi
         {
@@ -1706,6 +1713,12 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
             expected_relationship_type: 'patronage',
                     expected_clean_url: 'https://www.patreon.com/example',
         },
+        {
+                             input_url: 'https://www.patreon.com/user/posts?u=4212671&month=2017-4',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'patronage',
+                    expected_clean_url: 'https://www.patreon.com/user?u=4212671',
+        },
         // PayPal.Me
         {
                              input_url: 'https://paypal.me/example',
@@ -1740,6 +1753,12 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
             expected_relationship_type: 'otherdatabases',
         },
         // RecoChoku
+        {
+                             input_url: 'http://recochoku.jp/artist/2000166063/?affiliate=4350010210',
+                     input_entity_type: 'release',
+            expected_relationship_type: 'downloadpurchase',
+                    expected_clean_url: 'http://recochoku.jp/artist/2000166063/',
+        },
         {
                              input_url: 'recochoku.jp/song/S21893898/',
                      input_entity_type: 'recording',
@@ -1816,6 +1835,12 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
                      input_entity_type: 'place',
             expected_relationship_type: 'socialnetwork',
                     expected_clean_url: 'http://www.reverbnation.com/sidneybowen',
+        },
+        {
+                             input_url: 'https://www.reverbnation.com/tomorrowsyesterdayband?fb_og_action=reverbnation_fb:unknown&fb_og_object=reverbnation_fb:artist&player_client_id=j29dsi7kl&utm_campaign=a_profile_page&utm_content=reverbnation_fb:artist&utm_medium=facebook_og&utm_source=reverbnation_fb:unknown',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'socialnetwork',
+                    expected_clean_url: 'http://www.reverbnation.com/tomorrowsyesterdayband',
         },
         // Rock.com.ar
         {
