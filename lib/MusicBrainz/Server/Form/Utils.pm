@@ -218,7 +218,7 @@ sub build_attr_info {
         return $attr;
     }
 
-    return { map { $_->name => build_attr($_) } $root->all_children };
+    return { map { $_->gid => build_attr($_) } $root->all_children };
 }
 
 sub build_child_info {
