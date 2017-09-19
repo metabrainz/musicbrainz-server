@@ -27,7 +27,6 @@ const fields = require('./fields');
 
     RE.exportTypeInfo = _.once(function (typeInfo, attrInfo) {
         MB.typeInfo = typeInfo;
-        MB.attrInfo = attrInfo;
 
         MB.typeInfoByID = _(typeInfo).values().flatten().transform(mapItems, {}).value();
         MB.attrInfoByID = _(attrInfo).values().transform(mapItems, {}).value();
