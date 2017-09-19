@@ -21,8 +21,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2017-08-06 16:09+0000\n"
-"Last-Translator: Jean-Jacques Brioist <email address hidden>\n"
+"PO-Revision-Date: 2017-09-05 00:54+0000\n"
+"Last-Translator: Michael Wiencek <email address hidden>\n"
 "Language-Team: French (http://www.transifex.com/musicbrainz/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -559,6 +559,13 @@ msgstr "Le cajón, une caisse de résonance péruvienne"
 msgid "Castanets of wood, bone, bivalve shells or even flax leaf."
 msgstr "Les castagnettes peuvent être en bois ou en os, faites de deux coquillages ou de feuilles de lin."
 
+#. name:tible
+#: DB:instrument/description:871
+msgid ""
+"Catalan double-reed, created in the 19th Century by adding valves to the "
+"tarota. Used principally for cobla music."
+msgstr ""
+
 #. name:chacha
 #: DB:instrument/description:335
 msgid "Chacha, west Indian rattle"
@@ -594,6 +601,14 @@ msgstr "Le tournebout, utilisé en Europe du 14e au 17e siècle"
 #: DB:instrument/description:411
 msgid "Davul, turkish drum"
 msgstr "Le davul, un tambour turc"
+
+#. name:tenora
+#: DB:instrument/description:869
+msgid ""
+"Derived from the tenor shawm, it was independently developed in Catalonia by"
+" oboe player Andreu Turon in the 19th century. Made of ginjoler wood with a "
+"metal cone, it is used in the traditional Cobla and Sardana music."
+msgstr ""
 
 #. name:craviola
 #: DB:instrument/description:779
@@ -726,6 +741,14 @@ msgstr "Le gousli, un instrument slave ancien, russe"
 msgid "Harddisk configured to produce tones in pattern."
 msgstr "Disque dur configuré pour produire des tonalités organisées."
 
+#. name:accordina
+#: DB:instrument/description:778
+msgid ""
+"Harmonica/Accordion hybrid where the bellows for the accordion bit with "
+"buttons/keys receive air though the user blowing into the instrument like an"
+" harmonica"
+msgstr ""
+
 #. name:huqin
 #: DB:instrument/description:213
 msgid "Huqin is a Chinese family of bowed string instruments."
@@ -761,11 +784,6 @@ msgstr "Un tambour traditionnel japonais utilisé avec des baguettes appelées �
 #: DB:instrument/description:422
 msgid "Kanklės, Lithuanian plucked string"
 msgstr "Le kanklės, instrument à cordes pincées"
-
-#. name:kantele
-#: DB:instrument/description:424
-msgid "Kantele, Finnish traditional plucked string"
-msgstr "Le kantele, instrument à cordes pincées traditionnel finlandais"
 
 #. name:kanun
 #: DB:instrument/description:288
@@ -865,6 +883,15 @@ msgid ""
 " traditional pōrutu."
 msgstr ""
 
+#. name:gemshorn
+#: DB:instrument/description:868
+msgid ""
+"Medieval or possibly older, it was historically made of goat-horns or, less "
+"commonly, clay. With only a few holes and a single octave range it was used "
+"pastorally. Modern revival variants are more complicated and are usually "
+"made of cattle-horn."
+msgstr ""
+
 #. name:Mexican vihuela
 #: DB:instrument/description:92
 msgid "Mexican vihuela, used by mariachi bands"
@@ -882,6 +909,14 @@ msgstr "Le mirliton (anciennement flûte à mirliton) est un membranophone joué
 #: DB:instrument/description:297
 msgid "Nai, Romanian Panflute"
 msgstr "La naÏ, flûte de Pan roumaine"
+
+#. name:kannel
+#: DB:instrument/description:872
+msgid ""
+"National symbol of Estonia, related to Finnish kantele. While traditionally "
+"a small instrument with 5 to 7 strings, some newer versions are much bigger,"
+" with up to 50 strings."
+msgstr ""
 
 #. name:natural brass instruments
 #: DB:instrument/description:35
@@ -3133,6 +3168,14 @@ msgstr "Un orgue de cinéma, comme le Wurlitzer."
 msgid "Timpani (Kettle drum)"
 msgstr "Cymbales"
 
+#. name:tarota
+#: DB:instrument/description:870
+msgid ""
+"Traditional Catalan double reed of medieval origin. Used for cobla music in "
+"the 19th century, it mostly disappeared: current tarotas are a modern re-"
+"invention."
+msgstr ""
+
 #. name:taonga pūoro
 #: DB:instrument/description:781
 msgid ""
@@ -3264,14 +3307,6 @@ msgstr "Cousin de la chamélie, introduit en Amérique latine par les espagnols 
 #: DB:instrument/description:803
 msgid "a spanish plucked cittern, it is also played in the spanish diaspora."
 msgstr "Cistre espagnol à cordes pincées, diffusé par la diaspora espagnole."
-
-#. name:accordina
-#: DB:instrument/description:778
-msgid ""
-"a type of Harmonica/Accordion hybrid, the bellows for the accordion bit with"
-" buttons/keys receive their air though the user blowing into the instrument "
-"like an harmonica"
-msgstr "hybride entre l’harmonica et l’accordéon, la partie accordéon avec boutons ou touches reçoit l’air du souffle de l’instrumentiste comme pour un harmonica"
 
 #. name:tràm plè
 #: DB:instrument/description:308
@@ -3652,6 +3687,11 @@ msgid ""
 "ti bwa, percussion instrument made of a piece of bamboo laid horizontally "
 "and beaten with sticks"
 msgstr "le ti bwa, instrument de percussion fait d’un morceau de bambou horizontal frappé avec des baguettes"
+
+#. name:kantele
+#: DB:instrument/description:424
+msgid "traditional Finnish psaltery"
+msgstr ""
 
 #. name:kagurabue
 #: DB:instrument/description:849

@@ -22,8 +22,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-07-17 21:24-0500\n"
-"PO-Revision-Date: 2017-09-02 23:04+0000\n"
+"POT-Creation-Date: 2017-09-04 19:52-0500\n"
+"PO-Revision-Date: 2017-09-06 23:52+0000\n"
 "Last-Translator: ktu0457\n"
 "Language-Team: Japanese (http://www.transifex.com/musicbrainz/musicbrainz/language/ja/)\n"
 "MIME-Version: 1.0\n"
@@ -568,7 +568,7 @@ msgid "Add Label"
 msgstr "レーベルを追加"
 
 #: ../root/release/edit/layout.tt:64 ../root/release/edit/tracklist.tt:243
-#: ../root/static/scripts/release-editor/dialogs.js:244
+#: ../root/static/scripts/release-editor/dialogs.js:264
 msgid "Add Medium"
 msgstr "メディアを追加"
 
@@ -2729,7 +2729,7 @@ msgstr "メモを編集"
 
 #: ../root/edit/search_macros.tt:360
 msgid "Edit Note Author"
-msgstr ""
+msgstr "編集ノートの著者"
 
 #: ../root/account/edit.tt:1 ../root/account/edit.tt:4
 #: ../root/user/profile/layout.tt:23
@@ -3178,20 +3178,20 @@ msgstr "満了"
 msgid "Expires in <span class=\"tooltip\" title=\"{exactdate}\">{num} day</span>"
 msgid_plural ""
 "Expires in <span class=\"tooltip\" title=\"{exactdate}\">{num} days</span>"
-msgstr[0] ""
+msgstr[0] "投票の締め切りまで<span class=\"tooltip\" title=\"{exactdate}\">{num}日</span>"
 
 #: ../root/components/common-macros.tt:683
 msgid "Expires in <span class=\"tooltip\" title=\"{exactdate}\">{num} hour</span>"
 msgid_plural ""
 "Expires in <span class=\"tooltip\" title=\"{exactdate}\">{num} hours</span>"
-msgstr[0] ""
+msgstr[0] "投票の締め切りまで<span class=\"tooltip\" title=\"{exactdate}\">{num}時間</span>"
 
 #: ../root/components/common-macros.tt:689
 msgid "Expires in <span class=\"tooltip\" title=\"{exactdate}\">{num} minute</span>"
 msgid_plural ""
 "Expires in <span class=\"tooltip\" title=\"{exactdate}\">{num} "
 "minutes</span>"
-msgstr[0] ""
+msgstr[0] "投票の締め切りまで<span class=\"tooltip\" title=\"{exactdate}\">{num}分</span>"
 
 #: ../root/area/edit_form.tt:23 ../root/artist/edit_form.tt:70
 #: ../root/event/edit_form.tt:42 ../root/instrument/edit_form.tt:23
@@ -4960,7 +4960,7 @@ msgstr "新しいバージョン:"
 #: ../root/components/paginator.tt:44 ../root/components/paginator.tt:46
 #: ../root/release/edit/macros.tt:44
 #: ../root/static/scripts/common/artworkViewer.js:35
-#: ../root/static/scripts/release-editor/fields.js:895
+#: ../root/static/scripts/release-editor/bindingHandlers.js:60
 msgid "Next"
 msgstr "次へ"
 
@@ -5089,7 +5089,7 @@ msgid "No releases with this tag were found."
 msgstr ""
 
 #: ../root/release/edit/tracklist.tt:110
-#: ../root/static/scripts/common/MB/Control/Autocomplete.js:407
+#: ../root/static/scripts/common/MB/Control/Autocomplete.js:408
 msgid "No results"
 msgstr ""
 
@@ -5169,7 +5169,7 @@ msgid "None"
 msgstr "無し"
 
 #: ../root/release/edit/tracklist.tt:336
-#: ../root/static/scripts/release-editor/fields.js:161
+#: ../root/static/scripts/release-editor/fields.js:179
 msgid ""
 "None of the attached disc IDs can fit a pregap track of the given length."
 msgstr ""
@@ -5714,7 +5714,7 @@ msgstr "プレビュー:"
 #: ../root/components/paginator.tt:6 ../root/components/paginator.tt:8
 #: ../root/release/edit/macros.tt:43
 #: ../root/static/scripts/common/artworkViewer.js:31
-#: ../root/static/scripts/release-editor/fields.js:898
+#: ../root/static/scripts/release-editor/bindingHandlers.js:63
 msgid "Previous"
 msgstr "前へ"
 
@@ -7825,7 +7825,7 @@ msgid "The database has no tags."
 msgstr "データベースにタグがありません。"
 
 #: ../root/release/edit/information.tt:155
-#: ../root/static/scripts/relationship-editor/common/dialog.js:496
+#: ../root/static/scripts/relationship-editor/common/dialog.js:482
 msgid "The date you've entered is not valid."
 msgstr "入力した日付は無効です。"
 
@@ -8500,8 +8500,8 @@ msgid "This relationship type doesn't allow any attributes."
 msgstr ""
 
 #: ../root/doc/relationship_type.tt:11
-#: ../root/static/scripts/edit/externalLinks.js:173
-#: ../root/static/scripts/relationship-editor/common/dialog.js:462
+#: ../root/static/scripts/edit/externalLinks.js:177
+#: ../root/static/scripts/relationship-editor/common/dialog.js:448
 msgid "This relationship type is deprecated and should not be used."
 msgstr ""
 
@@ -9357,7 +9357,7 @@ msgid "Track Not Found"
 msgstr "トラックがありません"
 
 #: ../root/release/edit/tracklist.tt:398
-#: ../root/static/scripts/release-editor/dialogs.js:28
+#: ../root/static/scripts/release-editor/dialogs.js:36
 msgid "Track Parser"
 msgstr "トラックパーサ"
 
@@ -9398,7 +9398,7 @@ msgstr "トラック:"
 
 #: ../root/cdstub/edit_form.tt:12 ../root/cdstub/index.tt:7
 #: ../root/release/edit/layout.tt:16 ../root/release/index.tt:4
-#: ../root/static/scripts/release-editor/fields.js:530
+#: ../root/static/scripts/release-editor/fields.js:564
 msgid "Tracklist"
 msgstr "トラックリスト"
 
@@ -9464,7 +9464,7 @@ msgstr ""
 
 #: ../root/layout.tt:120 ../root/layout/components/Footer.js:28
 msgid "Twitter"
-msgstr "ツイッター"
+msgstr "Twitter"
 
 #: ../root/account/applications.tt:55 ../root/components/aliases.tt:15
 #: ../root/components/areas-list.tt:6 ../root/components/artists-list.tt:6
@@ -9559,7 +9559,7 @@ msgstr "URL情報"
 
 #: ../root/url/not_found.tt:1 ../root/url/not_found.tt:2
 msgid "URL Not Found"
-msgstr "URL見つかりません"
+msgstr "URLが見つかりません"
 
 #: ../root/components/common-macros.tt:578 ../root/edit/details/edit_url.tt:5
 #: ../root/edit/details/edit_url.tt:11 ../root/main/info/environment.tt:18
@@ -9835,7 +9835,7 @@ msgstr "編集の投票"
 
 #: ../root/edit/search_macros.tt:360
 msgid "Vote tally"
-msgstr ""
+msgstr "投票数"
 
 #: ../root/edit/index.tt:21
 msgid "Vote tally:"
@@ -9912,7 +9912,7 @@ msgstr "投票期間 (日)"
 
 #: ../root/components/common-macros.tt:774
 msgid "Warning"
-msgstr ""
+msgstr "警告"
 
 #: ../root/release/edit/information.tt:273
 msgid ""
@@ -10399,7 +10399,7 @@ msgid "You haven’t entered a complete artist credit."
 msgstr ""
 
 #: ../root/release/edit/editnote.tt:10
-#: ../root/static/scripts/relationship-editor/release.js:143
+#: ../root/static/scripts/relationship-editor/release.js:159
 msgid "You haven’t made any changes!"
 msgstr ""
 
@@ -11676,6 +11676,21 @@ msgstr ""
 msgid "{t0}-{t1} relationships"
 msgstr "{t0}・{t1} の関係"
 
+#: ../lib/MusicBrainz/Server/Data/Release.pm:807
+msgid ""
+"The track counts on at least one set of corresponding mediums do not match."
+msgstr ""
+
+#: ../lib/MusicBrainz/Server/Data/Release.pm:827
+msgid ""
+"Mediums with a pregap track can only be merged with other mediums with a "
+"pregap track."
+msgstr ""
+
+#: ../lib/MusicBrainz/Server/Data/Release.pm:835
+msgid "The medium positions conflict."
+msgstr ""
+
 #: ../lib/MusicBrainz/Server/Data/Vote.pm:159
 msgid "Total"
 msgstr "合計"
@@ -12450,7 +12465,7 @@ msgid "These coordinates could not be parsed"
 msgstr ""
 
 #: ../lib/MusicBrainz/Server/Form/Field/DatePeriod.pm:40
-#: ../root/static/scripts/relationship-editor/common/dialog.js:507
+#: ../root/static/scripts/relationship-editor/common/dialog.js:493
 msgid "The end date cannot precede the begin date."
 msgstr ""
 
@@ -12516,7 +12531,7 @@ msgid "This is not a valid time."
 msgstr ""
 
 #: ../lib/MusicBrainz/Server/Form/Field/URL.pm:21
-#: ../root/static/scripts/edit/externalLinks.js:167
+#: ../root/static/scripts/edit/externalLinks.js:171
 msgid "Enter a valid url e.g. \"http://google.com/\""
 msgstr "有効な URL を入力してください。 例: \"http://google.com/\""
 
@@ -12819,23 +12834,23 @@ msgstr "全関連を表示"
 msgid "Running: {git_details}"
 msgstr ""
 
-#: ../root/layout/components/Head.js:29
+#: ../root/layout/components/Head.js:30
 msgid "Page {n}"
 msgstr "{n} ページ"
 
-#: ../root/layout/components/Head.js:60
+#: ../root/layout/components/Head.js:61
 msgid "MusicBrainz: Artist"
 msgstr "MusicBrainz: アーティスト"
 
-#: ../root/layout/components/Head.js:61
+#: ../root/layout/components/Head.js:62
 msgid "MusicBrainz: Label"
 msgstr "MusicBrainz: レーベル"
 
-#: ../root/layout/components/Head.js:62
+#: ../root/layout/components/Head.js:63
 msgid "MusicBrainz: Release"
 msgstr "MusicBrainz: リリース"
 
-#: ../root/layout/components/Head.js:63
+#: ../root/layout/components/Head.js:64
 msgid "MusicBrainz: Track"
 msgstr "MusicBrainz: トラック"
 
@@ -12886,42 +12901,42 @@ msgstr ""
 msgid "{place_type}: {place_link}"
 msgstr ""
 
-#: ../root/static/scripts/common/MB/Control/Autocomplete.js:63
+#: ../root/static/scripts/common/MB/Control/Autocomplete.js:64
 msgid "An error occurred while searching. Click here to try again."
 msgstr ""
 
-#: ../root/static/scripts/common/MB/Control/Autocomplete.js:67
+#: ../root/static/scripts/common/MB/Control/Autocomplete.js:68
 msgid "Try with direct search instead."
 msgstr ""
 
-#: ../root/static/scripts/common/MB/Control/Autocomplete.js:68
+#: ../root/static/scripts/common/MB/Control/Autocomplete.js:69
 msgid "Try with indexed search instead."
 msgstr ""
 
-#: ../root/static/scripts/common/MB/Control/Autocomplete.js:100
+#: ../root/static/scripts/common/MB/Control/Autocomplete.js:101
 msgid "Type to search, or paste an MBID"
 msgstr ""
 
-#: ../root/static/scripts/common/MB/Control/Autocomplete.js:172
+#: ../root/static/scripts/common/MB/Control/Autocomplete.js:173
 msgid "Clear recent items"
 msgstr ""
 
-#: ../root/static/scripts/common/MB/Control/Autocomplete.js:414
+#: ../root/static/scripts/common/MB/Control/Autocomplete.js:415
 #: ../root/static/scripts/common/text-collapse.js:23
 msgid "Show more..."
 msgstr ""
 
-#: ../root/static/scripts/common/MB/Control/Autocomplete.js:420
+#: ../root/static/scripts/common/MB/Control/Autocomplete.js:421
 msgid "Not found? Try again with direct search."
 msgstr ""
 
-#: ../root/static/scripts/common/MB/Control/Autocomplete.js:421
+#: ../root/static/scripts/common/MB/Control/Autocomplete.js:422
 msgid "Slow? Switch back to indexed search."
 msgstr ""
 
-#: ../root/static/scripts/common/MB/Control/Autocomplete.js:612
-#: ../root/static/scripts/common/entity.js:240
-#: ../root/static/scripts/edit/externalLinks.js:283
+#: ../root/static/scripts/common/MB/Control/Autocomplete.js:613
+#: ../root/static/scripts/common/entity.js:260
+#: ../root/static/scripts/edit/externalLinks.js:287
 msgid "video"
 msgstr "ビデオ"
 
@@ -13098,8 +13113,8 @@ msgid "This group has dissolved."
 msgstr "このグループは解散しました。"
 
 #: ../root/static/scripts/edit/check-duplicates.js:137
-#: ../root/static/scripts/edit/externalLinks.js:165
-#: ../root/static/scripts/relationship-editor/common/dialog.js:480
+#: ../root/static/scripts/edit/externalLinks.js:169
+#: ../root/static/scripts/relationship-editor/common/dialog.js:466
 msgid "Required field."
 msgstr "必須な項目"
 
@@ -13156,44 +13171,44 @@ msgid ""
 msgstr "この項目を他の項目と区別するために{doc_disambiguation|曖昧さ回避}を入力してください。"
 
 #: ../root/static/scripts/edit/confirmNavigationFallback.js:34
-#: ../root/static/scripts/relationship-editor/release.js:70
-#: ../root/static/scripts/release-editor/init.js:182
+#: ../root/static/scripts/relationship-editor/release.js:73
+#: ../root/static/scripts/release-editor/init.js:209
 msgid "All of your changes will be lost if you leave this page."
 msgstr ""
 
-#: ../root/static/scripts/edit/externalLinks.js:169
+#: ../root/static/scripts/edit/externalLinks.js:173
 msgid "Please don't use shortened URLs."
 msgstr "短縮URLを使用しないでください。"
 
-#: ../root/static/scripts/edit/externalLinks.js:171
+#: ../root/static/scripts/edit/externalLinks.js:175
 msgid "Please select a link type for the URL you’ve entered."
 msgstr "入力したURLの種類を選択してください。"
 
-#: ../root/static/scripts/edit/externalLinks.js:175
-#: ../root/static/scripts/relationship-editor/common/dialog.js:467
+#: ../root/static/scripts/edit/externalLinks.js:179
+#: ../root/static/scripts/relationship-editor/common/dialog.js:453
 msgid ""
 "This URL is not allowed for the selected link type, or is incorrectly "
 "formatted."
 msgstr ""
 
-#: ../root/static/scripts/edit/externalLinks.js:177
+#: ../root/static/scripts/edit/externalLinks.js:181
 msgid "This relationship already exists."
 msgstr ""
 
-#: ../root/static/scripts/edit/externalLinks.js:243
-#: ../root/static/scripts/relationship-editor/common/dialog.js:349
+#: ../root/static/scripts/edit/externalLinks.js:247
+#: ../root/static/scripts/relationship-editor/common/dialog.js:335
 msgid "{description} ({url|more documentation})"
 msgstr ""
 
-#: ../root/static/scripts/edit/externalLinks.js:270
+#: ../root/static/scripts/edit/externalLinks.js:274
 msgid "Add link:"
 msgstr ""
 
-#: ../root/static/scripts/edit/externalLinks.js:270
+#: ../root/static/scripts/edit/externalLinks.js:274
 msgid "Add another link:"
 msgstr ""
 
-#: ../root/static/scripts/edit/externalLinks.js:289
+#: ../root/static/scripts/edit/externalLinks.js:293
 msgid "Remove Link"
 msgstr "リンクの削除"
 
@@ -13230,123 +13245,123 @@ msgid ""
 "language guidelines}. "
 msgstr ""
 
-#: ../root/static/scripts/relationship-editor/common/dialog.js:21
+#: ../root/static/scripts/relationship-editor/common/dialog.js:27
 msgid "The series you’ve selected is for recordings."
 msgstr ""
 
-#: ../root/static/scripts/relationship-editor/common/dialog.js:22
+#: ../root/static/scripts/relationship-editor/common/dialog.js:28
 msgid "The series you’ve selected is for releases."
 msgstr ""
 
-#: ../root/static/scripts/relationship-editor/common/dialog.js:23
+#: ../root/static/scripts/relationship-editor/common/dialog.js:29
 msgid "The series you’ve selected is for release groups."
 msgstr ""
 
-#: ../root/static/scripts/relationship-editor/common/dialog.js:24
+#: ../root/static/scripts/relationship-editor/common/dialog.js:30
 msgid "The series you’ve selected is for works."
 msgstr ""
 
-#: ../root/static/scripts/relationship-editor/common/dialog.js:458
+#: ../root/static/scripts/relationship-editor/common/dialog.js:444
 msgid "Please select a relationship type."
 msgstr "関係タイプをお選びください。"
 
-#: ../root/static/scripts/relationship-editor/common/dialog.js:460
+#: ../root/static/scripts/relationship-editor/common/dialog.js:446
 msgid ""
 "Please select a subtype of the currently selected relationship type. The "
 "selected relationship type is only used for grouping subtypes."
 msgstr ""
 
-#: ../root/static/scripts/relationship-editor/common/dialog.js:482
+#: ../root/static/scripts/relationship-editor/common/dialog.js:468
 msgid "Entities in a relationship cannot be the same."
 msgstr "関係する二つのエンティティは異なっていなければなりません。"
 
-#: ../root/static/scripts/relationship-editor/common/fields.js:296
+#: ../root/static/scripts/relationship-editor/common/fields.js:303
 msgid "This attribute is required."
 msgstr "属性が必要です。"
 
-#: ../root/static/scripts/relationship-editor/release.js:33
+#: ../root/static/scripts/relationship-editor/release.js:42
 msgid "{n} recording selected"
 msgid_plural "{n} recordings selected"
 msgstr[0] "{n} レコーディングを選択"
 
-#: ../root/static/scripts/relationship-editor/release.js:38
+#: ../root/static/scripts/relationship-editor/release.js:47
 msgid "{n} work selected"
 msgid_plural "{n} works selected"
 msgstr[0] "{n} 作品を選択"
 
-#: ../root/static/scripts/release-editor/actions.js:251
+#: ../root/static/scripts/release-editor/actions.js:255
 msgid ""
 "This tracklist has artist credits with information that will be lost if you "
 "swap artist credits with track titles. This cannot be undone. Do you wish to"
 " continue?"
 msgstr ""
 
-#: ../root/static/scripts/release-editor/fields.js:522
-msgid "Medium {position}: {title}"
-msgstr "メディア {position}: {title}"
-
-#: ../root/static/scripts/release-editor/fields.js:528
-msgid "Medium {position}"
-msgstr "メディア {position}"
-
-#: ../root/static/scripts/release-editor/fields.js:859
+#: ../root/static/scripts/release-editor/bindingHandlers.js:25
 msgid ""
 "This medium has one or more discids which prevent this information from "
 "being changed."
 msgstr ""
 
-#: ../root/static/scripts/release-editor/fields.js:909
+#: ../root/static/scripts/release-editor/bindingHandlers.js:74
 msgid "Change all artists on this release that match “{name}”"
 msgstr "このリリースに表れる\"{name}\"にマッチする全てのアーティストを変更する"
 
-#: ../root/static/scripts/release-editor/init.js:156
+#: ../root/static/scripts/release-editor/fields.js:556
+msgid "Medium {position}: {title}"
+msgstr "メディア {position}: {title}"
+
+#: ../root/static/scripts/release-editor/fields.js:562
+msgid "Medium {position}"
+msgstr "メディア {position}"
+
+#: ../root/static/scripts/release-editor/init.js:163
 msgid "{name} - Add Release"
 msgstr "{name} - リリースを追加"
 
-#: ../root/static/scripts/release-editor/init.js:157
+#: ../root/static/scripts/release-editor/init.js:164
 msgid "Add Release"
 msgstr "リリースを追加"
 
-#: ../root/static/scripts/release-editor/init.js:161
+#: ../root/static/scripts/release-editor/init.js:168
 msgid "{name} - Edit Release"
 msgstr "{name} - リリースを編集"
 
-#: ../root/static/scripts/release-editor/init.js:162
+#: ../root/static/scripts/release-editor/init.js:169
 msgid "Edit Release"
 msgstr "リリースを編集"
 
-#: ../root/static/scripts/release-editor/validation.js:124
+#: ../root/static/scripts/release-editor/validation.js:125
 msgid "The check digit is {checkdigit}."
 msgstr "チェックディジットは {checkdigit} です。"
 
-#: ../root/static/scripts/release-editor/validation.js:125
+#: ../root/static/scripts/release-editor/validation.js:126
 msgid "Please double-check the barcode on the release."
 msgstr "リリースのバーコードをご確認ください。"
 
-#: ../root/static/scripts/release-editor/validation.js:129
+#: ../root/static/scripts/release-editor/validation.js:130
 msgid ""
 "The barcode you entered looks like a UPC code with the check digit missing."
 msgstr "入力したバーコードは、チェックディジットがないUPCコードのようです。"
 
-#: ../root/static/scripts/release-editor/validation.js:135
+#: ../root/static/scripts/release-editor/validation.js:136
 msgid "The barcode you entered is a valid UPC code."
 msgstr "入力したバーコードは、有効なUPCコードです。"
 
-#: ../root/static/scripts/release-editor/validation.js:138
+#: ../root/static/scripts/release-editor/validation.js:139
 msgid ""
 "The barcode you entered is either an invalid UPC code, or an EAN code with "
 "the check digit missing."
 msgstr "入力したバーコードは、無効なUPCコードあるいはチェックディジットのないEANコードです。"
 
-#: ../root/static/scripts/release-editor/validation.js:147
+#: ../root/static/scripts/release-editor/validation.js:148
 msgid "The barcode you entered is a valid EAN code."
 msgstr "入力したバーコードは、有効なEANコードです。"
 
-#: ../root/static/scripts/release-editor/validation.js:150
+#: ../root/static/scripts/release-editor/validation.js:151
 msgid "The barcode you entered is not a valid EAN code."
 msgstr "入力したバーコードは、有効なEANコードではありません。"
 
-#: ../root/static/scripts/release-editor/validation.js:157
+#: ../root/static/scripts/release-editor/validation.js:158
 msgid "The barcode you entered is not a valid UPC or EAN code."
 msgstr "入力したバーコードは、有効なUPCコードないしEANコードではありません。"
 

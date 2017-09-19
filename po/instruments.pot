@@ -613,6 +613,11 @@ msgstr ""
 msgid "bongos"
 msgstr ""
 
+#: DB:instrument/name:874
+msgctxt "arrangement of bamboo tube-drums"
+msgid "boobam"
+msgstr ""
+
 #: DB:instrument/name:833
 msgctxt "hybrid of bouzouki and guitar"
 msgid "bouzar / gouzouki"
@@ -2016,6 +2021,11 @@ msgstr ""
 msgid "metallophone"
 msgstr ""
 
+#: DB:instrument/name:876
+msgctxt "twin bamboo single reed pipe"
+msgid "mijwiz"
+msgstr ""
+
 #: DB:instrument/name:752
 msgid "minipiano"
 msgstr ""
@@ -2157,6 +2167,11 @@ msgstr ""
 
 #: DB:instrument/name:601
 msgid "octave mandolin"
+msgstr ""
+
+#: DB:instrument/name:875
+msgctxt "racked 4 or 8 tom-toms"
+msgid "octoban"
 msgstr ""
 
 #: DB:instrument/name:759
@@ -3165,6 +3180,11 @@ msgstr ""
 
 #: DB:instrument/name:168
 msgid "tubular bells"
+msgstr ""
+
+#: DB:instrument/name:873
+msgctxt "PVC pipe instrument"
+msgid "tubulum"
 msgstr ""
 
 #: DB:instrument/name:511

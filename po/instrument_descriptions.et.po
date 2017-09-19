@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2017-06-19 19:32+0000\n"
+"PO-Revision-Date: 2017-09-05 00:54+0000\n"
 "Last-Translator: Michael Wiencek <email address hidden>\n"
 "Language-Team: Estonian (http://www.transifex.com/musicbrainz/musicbrainz/language/et/)\n"
 "MIME-Version: 1.0\n"
@@ -544,6 +544,13 @@ msgstr ""
 msgid "Castanets of wood, bone, bivalve shells or even flax leaf."
 msgstr ""
 
+#. name:tible
+#: DB:instrument/description:871
+msgid ""
+"Catalan double-reed, created in the 19th Century by adding valves to the "
+"tarota. Used principally for cobla music."
+msgstr ""
+
 #. name:chacha
 #: DB:instrument/description:335
 msgid "Chacha, west Indian rattle"
@@ -579,6 +586,14 @@ msgstr "kasutati 14.–17. sajandil Euroopas"
 #: DB:instrument/description:411
 msgid "Davul, turkish drum"
 msgstr "türgi trumm"
+
+#. name:tenora
+#: DB:instrument/description:869
+msgid ""
+"Derived from the tenor shawm, it was independently developed in Catalonia by"
+" oboe player Andreu Turon in the 19th century. Made of ginjoler wood with a "
+"metal cone, it is used in the traditional Cobla and Sardana music."
+msgstr ""
 
 #. name:craviola
 #: DB:instrument/description:779
@@ -711,6 +726,14 @@ msgstr ""
 msgid "Harddisk configured to produce tones in pattern."
 msgstr ""
 
+#. name:accordina
+#: DB:instrument/description:778
+msgid ""
+"Harmonica/Accordion hybrid where the bellows for the accordion bit with "
+"buttons/keys receive air though the user blowing into the instrument like an"
+" harmonica"
+msgstr ""
+
 #. name:huqin
 #: DB:instrument/description:213
 msgid "Huqin is a Chinese family of bowed string instruments."
@@ -746,11 +769,6 @@ msgstr ""
 #: DB:instrument/description:422
 msgid "Kanklės, Lithuanian plucked string"
 msgstr "leedu näppekeelpill"
-
-#. name:kantele
-#: DB:instrument/description:424
-msgid "Kantele, Finnish traditional plucked string"
-msgstr "eesti kannel või soome <em>kantele</em>, traditsiooniline näppekeelpill"
 
 #. name:kanun
 #: DB:instrument/description:288
@@ -850,6 +868,15 @@ msgid ""
 " traditional pōrutu."
 msgstr ""
 
+#. name:gemshorn
+#: DB:instrument/description:868
+msgid ""
+"Medieval or possibly older, it was historically made of goat-horns or, less "
+"commonly, clay. With only a few holes and a single octave range it was used "
+"pastorally. Modern revival variants are more complicated and are usually "
+"made of cattle-horn."
+msgstr ""
+
 #. name:Mexican vihuela
 #: DB:instrument/description:92
 msgid "Mexican vihuela, used by mariachi bands"
@@ -867,6 +894,14 @@ msgstr ""
 #: DB:instrument/description:297
 msgid "Nai, Romanian Panflute"
 msgstr "rumeenia paaniflööt"
+
+#. name:kannel
+#: DB:instrument/description:872
+msgid ""
+"National symbol of Estonia, related to Finnish kantele. While traditionally "
+"a small instrument with 5 to 7 strings, some newer versions are much bigger,"
+" with up to 50 strings."
+msgstr ""
 
 #. name:natural brass instruments
 #: DB:instrument/description:35
@@ -3118,6 +3153,14 @@ msgstr ""
 msgid "Timpani (Kettle drum)"
 msgstr ""
 
+#. name:tarota
+#: DB:instrument/description:870
+msgid ""
+"Traditional Catalan double reed of medieval origin. Used for cobla music in "
+"the 19th century, it mostly disappeared: current tarotas are a modern re-"
+"invention."
+msgstr ""
+
 #. name:taonga pūoro
 #: DB:instrument/description:781
 msgid ""
@@ -3248,14 +3291,6 @@ msgstr ""
 #. name:laúd
 #: DB:instrument/description:803
 msgid "a spanish plucked cittern, it is also played in the spanish diaspora."
-msgstr ""
-
-#. name:accordina
-#: DB:instrument/description:778
-msgid ""
-"a type of Harmonica/Accordion hybrid, the bellows for the accordion bit with"
-" buttons/keys receive their air though the user blowing into the instrument "
-"like an harmonica"
 msgstr ""
 
 #. name:tràm plè
@@ -3637,6 +3672,11 @@ msgid ""
 "ti bwa, percussion instrument made of a piece of bamboo laid horizontally "
 "and beaten with sticks"
 msgstr "lapiti laotatud bambusest valmistatud ja pulkadega taotav löökriist"
+
+#. name:kantele
+#: DB:instrument/description:424
+msgid "traditional Finnish psaltery"
+msgstr ""
 
 #. name:kagurabue
 #: DB:instrument/description:849
