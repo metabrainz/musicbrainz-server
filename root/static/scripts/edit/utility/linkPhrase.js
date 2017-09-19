@@ -13,7 +13,9 @@ const clean = require('../../common/utility/clean');
 var attributeRegex = /\{(.*?)(?::(.*?))?\}/g;
 
 function mapNameToID(result, info, id) {
-    result[info.attribute.name] = id;
+    if (info.attribute !== undefined) {
+        result[info.attribute.name] = id;
+    }
 }
 
 exports.clean = _.memoize(function (linkType, backward) {
