@@ -63,7 +63,7 @@ msgstr ""
 msgid "Akan"
 msgstr ""
 
-#. frequency:0 iso_code_3:akk 
+#. frequency:1 iso_code_3:akk 
 #: DB:language/name:11
 msgid "Akkadian"
 msgstr ""
@@ -613,7 +613,7 @@ msgstr ""
 msgid "Efik"
 msgstr ""
 
-#. frequency:0 iso_code_3:egy 
+#. frequency:1 iso_code_3:egy 
 #: DB:language/name:117
 msgid "Egyptian (Ancient)"
 msgstr ""

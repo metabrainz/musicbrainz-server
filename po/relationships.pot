@@ -2208,6 +2208,15 @@ msgid ""
 "Virtual_International_Authority_File\">more information on Wikipedia</a>)"
 msgstr ""
 
+#: DB:link_type/description:920
+msgid ""
+"This points to the <a href=\"//viaf.org/\">VIAF</a> page for this place. "
+"VIAF is an international project to make a common authority file available "
+"to libraries across the world. An authority file is similar to an MBID for "
+"libraries. (<a href=\"//en.wikipedia.org/wiki/"
+"Virtual_International_Authority_File\">more information on Wikipedia</a>)"
+msgstr ""
+
 #: DB:link_type/description:312
 msgid ""
 "This points to the <a href=\"//viaf.org/\">VIAF</a> page for this work. VIAF "
@@ -2721,13 +2730,13 @@ msgstr ""
 msgid "VGMdb page for"
 msgstr ""
 
-#: DB:link_type/link_phrase:311 DB:link_type/link_phrase:310
-#: DB:link_type/reverse_link_phrase:312
+#: DB:link_type/link_phrase:920 DB:link_type/link_phrase:311
+#: DB:link_type/link_phrase:310 DB:link_type/reverse_link_phrase:312
 msgid "VIAF ID"
 msgstr ""
 
-#: DB:link_type/link_phrase:312 DB:link_type/reverse_link_phrase:311
-#: DB:link_type/reverse_link_phrase:310
+#: DB:link_type/link_phrase:312 DB:link_type/reverse_link_phrase:920
+#: DB:link_type/reverse_link_phrase:311 DB:link_type/reverse_link_phrase:310
 msgid "VIAF ID for"
 msgstr ""
 
@@ -3336,7 +3345,8 @@ msgstr ""
 msgid "has CD Baby page at"
 msgstr ""
 
-#: DB:link_type/long_link_phrase:311 DB:link_type/long_link_phrase:310
+#: DB:link_type/long_link_phrase:920 DB:link_type/long_link_phrase:311
+#: DB:link_type/long_link_phrase:310
 msgid "has VIAF ID at"
 msgstr ""
 
