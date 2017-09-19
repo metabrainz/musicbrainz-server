@@ -156,6 +156,34 @@ done with the following command:
 
     $ prove -l t/js.t
 
+### Selenium
+
+We have a set of browser-automated UI tests running with Selenium WebDriver.
+These are a bit more involved to set up:
+
+ * Install ChromeDriver:
+   https://github.com/SeleniumHQ/selenium/wiki/ChromeDriver
+
+ * Install a version of Google Chrome that supports headless mode (versions 59
+   and above).
+
+ * Temporarily copy your `TEST` database configuration to `READWRITE`; you can
+   revert this once you are done running the tests.
+
+ * Run ./script/create_test_db.sh and ./script/compile_resources.sh again.
+
+With the above prerequisites out of the way, the tests can be run from the
+command line like so:
+
+    $ node t/selenium.js
+
+The `.html` files located under ./t/selenium/ describe the tests being run,
+and were created using the Selenium IDE plugin for Firefox. You can easily
+open these files in the IDE and run the tests that way if you wish; it'll play
+back the actions in the browser window you have open, so doesn't require any
+headless mode. However, these files are not always "atomic" and may depend on
+a previous test having been run first.
+
 ### Code standards
 
 We use `Perl::Critic` to enforce certain code standards. The list of

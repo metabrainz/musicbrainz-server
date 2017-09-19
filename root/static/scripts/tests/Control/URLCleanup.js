@@ -612,6 +612,7 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
                      input_entity_type: 'artist',
             expected_relationship_type: 'cdbaby',
                     expected_clean_url: 'https://store.cdbaby.com/Artist/JohnDoe1',
+               only_valid_entity_types: ['artist']
         },
         {
                              input_url: 'http://cdbaby.com/cd/John003',
@@ -977,6 +978,12 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
                      input_entity_type: 'event',
             expected_relationship_type: 'socialnetwork',
                     expected_clean_url: 'https://www.facebook.com/events/314549615570029',
+        },
+        {
+                             input_url: 'http://www.fb.com/bradpot187',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'socialnetwork',
+                    expected_clean_url: 'https://www.facebook.com/bradpot187',
         },
         // Finna.fi
         {
@@ -1673,6 +1680,20 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
                      input_entity_type: 'work',
             expected_relationship_type: 'otherdatabases',
         },
+        // Operabase
+        {
+                             input_url: 'www.operabase.com/a/Risto_Joost/21715/future',
+                     input_entity_type: 'label',
+            expected_relationship_type: 'otherdatabases',
+                    expected_clean_url: 'http://operabase.com/a/Risto_Joost/21715',
+               only_valid_entity_types: ['artist']
+        },
+        {
+                             input_url: 'http://operabase.com/listart.cgi?name=Risto+Joost&acts=+Schedule+',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'otherdatabases',
+               only_valid_entity_types: []
+        },
         // OPERADIS Operatic Discography
         {
                              input_url: 'http://www.operadis-opera-discography.org.uk/CLBABLUE.HTM',
@@ -1691,6 +1712,12 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
                      input_entity_type: 'place',
             expected_relationship_type: 'patronage',
                     expected_clean_url: 'https://www.patreon.com/example',
+        },
+        {
+                             input_url: 'https://www.patreon.com/user/posts?u=4212671&month=2017-4',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'patronage',
+                    expected_clean_url: 'https://www.patreon.com/user?u=4212671',
         },
         // PayPal.Me
         {
@@ -1726,6 +1753,12 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
             expected_relationship_type: 'otherdatabases',
         },
         // RecoChoku
+        {
+                             input_url: 'http://recochoku.jp/artist/2000166063/?affiliate=4350010210',
+                     input_entity_type: 'release',
+            expected_relationship_type: 'downloadpurchase',
+                    expected_clean_url: 'http://recochoku.jp/artist/2000166063/',
+        },
         {
                              input_url: 'recochoku.jp/song/S21893898/',
                      input_entity_type: 'recording',
@@ -1803,19 +1836,68 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
             expected_relationship_type: 'socialnetwork',
                     expected_clean_url: 'http://www.reverbnation.com/sidneybowen',
         },
+        {
+                             input_url: 'https://www.reverbnation.com/tomorrowsyesterdayband?fb_og_action=reverbnation_fb:unknown&fb_og_object=reverbnation_fb:artist&player_client_id=j29dsi7kl&utm_campaign=a_profile_page&utm_content=reverbnation_fb:artist&utm_medium=facebook_og&utm_source=reverbnation_fb:unknown',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'socialnetwork',
+                    expected_clean_url: 'http://www.reverbnation.com/tomorrowsyesterdayband',
+        },
         // Rock.com.ar
         {
-                             input_url: 'http://www.rock.com.ar/artistas/soda-stero#contenedor',
+                             input_url: 'http://rock.com.ar/artistas/200',
                      input_entity_type: 'artist',
             expected_relationship_type: 'otherdatabases',
-                    expected_clean_url: 'http://www.rock.com.ar/artistas/soda-stero',
+                    expected_clean_url: 'http://rock.com.ar/artistas/200',
+               only_valid_entity_types: ['artist']
+        },
+        {
+                             input_url: 'http://rock.com.ar/artistas/168/biografia',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'otherdatabases',
+                    expected_clean_url: 'http://rock.com.ar/artistas/168',
+               only_valid_entity_types: ['artist']
+        },
+        {
+                             input_url: 'http://rock.com.ar/artistas/239/fotos/13',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'otherdatabases',
+                    expected_clean_url: 'http://rock.com.ar/artistas/239',
+               only_valid_entity_types: ['artist']
+        },
+        {
+                             input_url: 'rock.com.ar/artistas/11752/discos/10703',
+                     input_entity_type: 'release',
+            expected_relationship_type: 'otherdatabases',
+                    expected_clean_url: 'http://rock.com.ar/artistas/11752/discos/10703',
+               only_valid_entity_types: ['release_group']
+        },
+        {
+                             input_url: 'rock.com.ar/artistas/11752/discos',
+                     input_entity_type: 'release_group',
+            expected_relationship_type: 'otherdatabases',
+                    expected_clean_url: 'http://rock.com.ar/artistas/11752',
+               only_valid_entity_types: ['artist']
+        },
+        {
+                             input_url: 'www.rock.com.ar/artistas/11752/letras/19898',
+                     input_entity_type: 'recording',
+            expected_relationship_type: 'otherdatabases',
+                    expected_clean_url: 'http://rock.com.ar/artistas/11752/letras/19898',
+               only_valid_entity_types: ['work']
+        },
+        // Rock.com.ar (from before its 2017 relaunch)
+        {
+                             input_url: 'http://www.rock.com.ar/artistas/soda-stereo#contenedor',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'otherdatabases',
+                    expected_clean_url: 'http://rock.com.ar/artistas/soda-stereo',
                only_valid_entity_types: ['artist']
         },
         {
                              input_url: 'http://www.rock.com.ar/bios/0/168.shtml',
                      input_entity_type: 'artist',
             expected_relationship_type: 'otherdatabases',
-                    expected_clean_url: 'http://www.rock.com.ar/bios/0/168.shtml',
+                    expected_clean_url: 'http://rock.com.ar/bios/0/168.shtml',
                only_valid_entity_types: ['artist']
         },
         {
@@ -1828,14 +1910,14 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
                              input_url: 'www.rock.com.ar/discos/10/10703.shtml',
                      input_entity_type: 'release',
             expected_relationship_type: 'otherdatabases',
-                    expected_clean_url: 'http://www.rock.com.ar/discos/10/10703.shtml',
+                    expected_clean_url: 'http://rock.com.ar/discos/10/10703.shtml',
                only_valid_entity_types: ['release_group']
         },
         {
                              input_url: 'rock.com.ar/letras/19/19898.shtml',
                      input_entity_type: 'recording',
             expected_relationship_type: 'otherdatabases',
-                    expected_clean_url: 'http://www.rock.com.ar/letras/19/19898.shtml',
+                    expected_clean_url: 'http://rock.com.ar/letras/19/19898.shtml',
                only_valid_entity_types: ['work']
         },
         // Rockens Danmarkskort

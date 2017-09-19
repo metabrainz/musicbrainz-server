@@ -169,6 +169,7 @@ const LINK_TYPES = {
   viaf: {
     artist: "e8571dcc-35d4-4e91-a577-a3382fd84460",
     label: "c4bee4f4-e622-4c74-b80b-585989de27f4",
+    place: "49a08641-0aed-4e10-8311-ec220b8c50ad",
     work: "b6eaef52-68a0-4b50-b875-8acd7d9212ba"
   },
   wikidata: {
@@ -395,7 +396,7 @@ const CLEANUPS = {
     match: [new RegExp("^(https?://)?([^/]+\\.)?recochoku\\.jp","i")],
     type: LINK_TYPES.downloadpurchase,
     clean: function (url) {
-      return url.replace(/^(?:https?:\/\/)?(?:[^.]+\.)?recochoku\.jp\/(album|song)\/([a-zA-Z0-9]+)(\/)?.*$/, "http://recochoku.jp/$1/$2/");
+      return url.replace(/^(?:https?:\/\/)?(?:[^.]+\.)?recochoku\.jp\/(album|artist|song)\/([a-zA-Z0-9]+)(\/)?.*$/, "http://recochoku.jp/$1/$2/");
     }
   },
   allmusic: {
@@ -527,10 +528,10 @@ const CLEANUPS = {
     match: [new RegExp("^(https?://)?((store|www)\\.)?cdbaby\\.(com|name)/Artist/","i")],
     type: LINK_TYPES.cdbaby,
     clean: function (url) {
-      return url.replace(/(?:https?:\/\/)?(?:(?:store|www)\.)?cdbaby\.(?:com|name)\/Artist\/([a-z0-9]+).*$/i, "https://store.cdbaby.com/Artist/$1");
+      return url.replace(/(?:https?:\/\/)?(?:(?:store|www)\.)?cdbaby\.(?:com|name)\/Artist\/(\w+).*$/i, "https://store.cdbaby.com/Artist/$1");
     },
     validate: function (url, id) {
-      return /^https:\/\/store.cdbaby\.com\/Artist\/[a-z0-9]+$/.test(url) && id === LINK_TYPES.cdbaby.artist;
+      return /^https:\/\/store.cdbaby\.com\/Artist\/\w+$/.test(url) && id === LINK_TYPES.cdbaby.artist;
     }
   },
   cdbaby: {
@@ -540,8 +541,8 @@ const CLEANUPS = {
       if (m) {
         url = "https://store.cdbaby.com/cd/" + m[1].toLowerCase();
       }
-      url = url.replace(/(?:https?:\/\/)?(?:(?:store|www)\.)?cdbaby\.com\/Images\/Album\/([a-z0-9]+)(?:_small)?\.jpg/, "https://store.cdbaby.com/cd/$1");
-      return url.replace(/(?:https?:\/\/)?(?:images\.)?cdbaby\.name\/.\/.\/([a-z0-9]+)(?:_small)?\.jpg/, "https://store.cdbaby.com/cd/$1");
+      url = url.replace(/(?:https?:\/\/)?(?:(?:store|www)\.)?cdbaby\.com\/Images\/Album\/(\w+)(?:_small)?\.jpg/, "https://store.cdbaby.com/cd/$1");
+      return url.replace(/(?:https?:\/\/)?(?:images\.)?cdbaby\.name\/.\/.\/(\w+)(?:_small)?\.jpg/, "https://store.cdbaby.com/cd/$1");
     }
   },
   downloadpurchase: {
@@ -770,10 +771,10 @@ const CLEANUPS = {
     }
   },
   facebook: {
-    match: [new RegExp("^(https?://)?([^/]+\\.)?facebook\\.com/", "i")],
+    match: [new RegExp("^(https?://)?([\\w.-]*\\.)?(facebook|fb)\\.com/", "i")],
     type: LINK_TYPES.socialnetwork,
     clean: function (url) {
-      url = url.replace(/^(https?:\/\/)?([^\/]+\.)?facebook\.com(\/#!)?/, "https://www.facebook.com");
+      url = url.replace(/^(https?:\/\/)?([\w.-]*\.)?(facebook|fb)\.com(\/#!)?/, "https://www.facebook.com");
       // Remove ref (where the user came from), sk (subpages in a page, since we want the main link) and a couple others
       url = url.replace(new RegExp("([&?])(__tn__|_fb_noscript|_rdr|acontext|em|entry_point|filter|focus_composer|fref|hc_location|pnref|qsefr|ref|ref_dashboard_filter|ref_type|refsrc|rf|sid_reminder|sk|tab|viewas)=([^?&]*)", "g"), "$1");
       // Ensure the first parameter left uses ? not to break the URL
@@ -817,7 +818,7 @@ const CLEANUPS = {
     clean: function (url) {
       url = url.replace(/^(?:https?:\/\/)?(?:(?:www|m)\.)?reverbnation\.com(?:\/#!)?\//, "http://www.reverbnation.com/");
       url = url.replace(/#.*$/,'');
-      url = url.replace(new RegExp("([?&])(?:blog|current_active_tab|fg_og_[^=]+|kick|profile_tour|profile_view_source|utm_[^=]+)=(?:[^?&]*)", "g"), "$1");
+      url = url.replace(new RegExp("([?&])(?:blog|current_active_tab|fb_og_[^=]+|kick|player_client_id|profile_tour|profile_view_source|utm_[^=]+)=(?:[^?&]*)", "g"), "$1");
       url = url.replace(/([?&])&+/, "$1");
       url = url.replace(/[?&]$/, "");
       return url;
@@ -1468,14 +1469,39 @@ const CLEANUPS = {
       return false;
     }
   },
+  operabase: {
+    match: [new RegExp("^(https?://)?(www\\.)?operabase\\.com", "i")],
+    type: LINK_TYPES.otherdatabases,
+    clean: function (url) {
+      return url.replace(/^(?:https?:\/\/)?(?:www\.)?operabase\.com\/a\/([^\/?#]+)\/([0-9]+).*$/, "http://operabase.com/a/$1/$2");
+    },
+    validate: function (url, id) {
+      return id === LINK_TYPES.otherdatabases.artist && /^http:\/\/operabase\.com\/a\/[^\/?#]+\/[0-9]+$/.test(url);
+    }
+  },
   rockcomar: {
     match: [new RegExp("^(https?://)?(www\\.)?rock\\.com\\.ar", "i")],
     type: LINK_TYPES.otherdatabases,
     clean: function (url) {
-      return url.replace(/^(?:https?:\/\/)?(?:www\.)?rock\.com\.ar\/([^#]+)(?:#.*)?$/, "http://www.rock.com.ar/$1");
+      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?rock\.com\.ar\/([^#]+)(?:#.*)?$/, "http://rock.com.ar/$1");
+      url = url.replace(/^(http:\/\/rock\.com\.ar\/artistas\/[1-9][0-9]*)\/(?:[a-z]*|fotos\/[1-9][0-9]*)?$/, "$1");
+      return url;
     },
     validate: function (url, id) {
-      var m = /^http:\/\/www\.rock\.com\.ar\/(?:(bios|discos|letras)(?:\/[0-9]+){2}\.shtml|(artistas)\/.+)$/.exec(url);
+      var m = /^http:\/\/rock\.com\.ar\/artistas\/[1-9][0-9]*(?:\/(discos|letras)\/[1-9][0-9]*)?$/.exec(url);
+      if (m) {
+        var subsection = m[1];
+        switch (id) {
+          case LINK_TYPES.otherdatabases.artist:
+            return !subsection;
+          case LINK_TYPES.otherdatabases.release_group:
+            return subsection === 'discos';
+          case LINK_TYPES.otherdatabases.work:
+            return subsection === 'letras';
+        }
+      }
+      // Keep validating URLs from before Rock.com.ar 2017 relaunch
+      m = /^http:\/\/rock\.com\.ar\/(?:(bios|discos|letras)(?:\/[0-9]+){2}\.shtml|(artistas)\/.+)$/.exec(url);
       if (m) {
         var prefix = m[1] || m[2];
         switch (id) {
@@ -1583,7 +1609,8 @@ const CLEANUPS = {
       url = url.replace(/^(?:https?:\/\/)?(?:www\.)?changetip\.com\/tipme\/([^\/?#]+)(?:.*)?$/, "https://www.changetip.com/tipme/$1");
       url = url.replace(/^(?:https?:\/\/)?([^\/?#]+)\.tip\.me(?:[\/?#].*)?$/, "https://www.changetip.com/tipme/$1");
       url = url.replace(/^(?:https?:\/\/)?(?:www\.)?flattr\.com\/profile\/([^\/?#]+)(?:.*)?$/, "https://flattr.com/profile/$1");
-      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?patreon\.com\/([^\/?#]+)(?:.*)?$/, "https://www.patreon.com/$1");
+      url = url.replace(/^((?:https?:\/\/)?(?:www\.)?patreon\.com\/user)\/(?:community|posts)(\?u=.*)$/, "$1$2");
+      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?patreon\.com\/((?:user\?u=)?[^\/?&#]+)(?:.*)?$/, "https://www.patreon.com/$1");
       url = url.replace(/^(?:https?:\/\/)?(?:www\.)?paypal\.me\/([^\/?#]+)(?:.*)?$/, "https://www.paypal.me/$1");
       url = url.replace(/^(?:https?:\/\/)?(?:www\.)?tipeee\.com\/([^\/?#]+)(?:.*)?$/, "https://www.tipeee.com/$1");
       return url;

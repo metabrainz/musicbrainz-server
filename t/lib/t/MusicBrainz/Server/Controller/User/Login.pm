@@ -84,11 +84,11 @@ EOSQL
 
     $mech->get_ok('/user/ocharles%2Fbot');
     html_ok($mech->content);
-    $mech->content_contains('ocharles/bot');
-    $mech->follow_link_ok({ url_regex => qr{/login} });
+    $mech->content_contains('You need to be logged in to view this page');
     $mech->submit_form(
         with_fields => { username => 'ocharles/bot', password => 'mb' }
     );
+    $mech->content_contains('ocharles/bot');
     like($mech->uri->path, qr{/user/ocharles%2Fbot});
 };
 

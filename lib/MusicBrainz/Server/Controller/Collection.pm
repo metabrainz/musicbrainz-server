@@ -14,7 +14,7 @@ with 'MusicBrainz::Server::Controller::Role::Subscribe';
 use MusicBrainz::Server::Data::Utils qw( model_to_type type_to_model load_everything_for_edits );
 use MusicBrainz::Server::Constants qw( :edit_status entities_with %ENTITIES );
 
-sub base : Chained('/') PathPart('collection') CaptureArgs(0) RequireAuth { }
+sub base : Chained('/') PathPart('collection') CaptureArgs(0) { }
 
 after 'load' => sub {
     my ($self, $c) = @_;
@@ -71,7 +71,7 @@ sub remove : Chained('own_collection') RequireAuth {
     $self->_do_add_or_remove($c, 'remove_entities_from_collection');
 }
 
-sub show : Chained('load') PathPart('') {
+sub show : Chained('load') PathPart('') RequireAuth {
     my ($self, $c) = @_;
 
     my $collection = $c->stash->{collection};

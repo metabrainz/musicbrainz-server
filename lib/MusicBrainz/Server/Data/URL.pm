@@ -88,6 +88,7 @@ my %URL_SPECIALIZATIONS = (
     'NDL'                 => qr{^https?://(?:www.)?iss.ndl.go.jp/}i,
     'OCReMix'             => qr{^https?://(?:www.)?ocremix.org/}i,
     'OpenLibrary'         => qr{^https?://(?:www.)?openlibrary.org/}i,
+    'Operabase'           => qr{^https?://(?:www.)?operabase.com/}i,
     'Operadis'            => qr{^https?://(?:www.)?operadis-opera-discography.org.uk/}i,
     'Ozon'                => qr{^https?://(?:www.)?ozon.ru/}i,
     'Patreon'             => qr{^https?://(?:www.)?patreon.com/}i,

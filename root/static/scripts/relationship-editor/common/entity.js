@@ -30,7 +30,9 @@ function getDirection(relationship, source) {
     const coreEntityPrototype = MB.entity.CoreEntity.prototype;
 
     coreEntityPrototype._afterCoreEntityCtor = function () {
-        this.uniqueID = _.uniqueId("entity-");
+        if (this.uniqueID == null) {
+            this.uniqueID = _.uniqueId("entity-");
+        }
         this.relationshipElements = {};
     };
 
@@ -75,7 +77,7 @@ function getDirection(relationship, source) {
             var self = this;
 
             function linkPhrase(relationship) {
-                return relationship.linkPhrase(self);
+                return relationship.groupingLinkPhrase(self);
             }
 
             function openAddDialog(source, event) {

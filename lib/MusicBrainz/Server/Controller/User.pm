@@ -216,7 +216,7 @@ sub _renew_login_cookie
     };
 }
 
-sub base : Chained PathPart('user') CaptureArgs(0) RequireAuth HiddenOnSlaves { }
+sub base : Chained PathPart('user') CaptureArgs(0) HiddenOnSlaves { }
 
 sub _load
 {
@@ -303,7 +303,7 @@ sub contact : Chained('load') RequireAuth HiddenOnSlaves
     }
 }
 
-sub collections : Chained('load') PathPart('collections')
+sub collections : Chained('load') PathPart('collections') RequireAuth
 {
     my ($self, $c) = @_;
 
@@ -331,7 +331,7 @@ sub collections : Chained('load') PathPart('collections')
     $c->stash(user => $user, no_collections => $no_collections);
 }
 
-sub profile : Chained('load') PathPart('') HiddenOnSlaves
+sub profile : Chained('load') PathPart('') RequireAuth HiddenOnSlaves
 {
     my ($self, $c) = @_;
 
@@ -353,7 +353,7 @@ sub profile : Chained('load') PathPart('') HiddenOnSlaves
     );
 }
 
-sub rating_summary : Chained('load') PathPart('ratings') Args(0) HiddenOnSlaves
+sub rating_summary : Chained('load') PathPart('ratings') Args(0) RequireAuth HiddenOnSlaves
 {
     my ($self, $c) = @_;
 
@@ -376,7 +376,7 @@ sub rating_summary : Chained('load') PathPart('ratings') Args(0) HiddenOnSlaves
     );
 }
 
-sub ratings : Chained('load') PathPart('ratings') Args(1) HiddenOnSlaves
+sub ratings : Chained('load') PathPart('ratings') Args(1) RequireAuth HiddenOnSlaves
 {
     my ($self, $c, $type) = @_;
 
@@ -411,7 +411,7 @@ sub ratings : Chained('load') PathPart('ratings') Args(1) HiddenOnSlaves
     );
 }
 
-sub tags : Chained('load') PathPart('tags')
+sub tags : Chained('load') PathPart('tags') RequireAuth
 {
     my ($self, $c) = @_;
 
@@ -434,7 +434,7 @@ sub tags : Chained('load') PathPart('tags')
     );
 }
 
-sub tag : Chained('load') PathPart('tag') Args(1)
+sub tag : Chained('load') PathPart('tag') Args(1) RequireAuth
 {
     my ($self, $c, $tag_name) = @_;
     my $user = $c->stash->{user};

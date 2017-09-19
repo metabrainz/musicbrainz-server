@@ -79,6 +79,8 @@ const ArtistCreditBubble = ({
       <tbody>
         <For each="name" of={artistCredit.names.toArray()} index="index">
           <ArtistCreditNameEditor
+            entity={entity}
+            index={index}
             key={index}
             name={name}
             onChange={update => onNameChange(index, update)}

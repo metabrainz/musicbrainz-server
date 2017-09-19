@@ -105,6 +105,7 @@ exports.FAVICON_CLASSES = {
     'twitch.tv':                    'twitch',
     'dailymotion.com':              'dailymotion',
     'bigcartel.com':                'bigcartel',
+    'operabase.com':                'operabase',
 };
 
 exports.PART_OF_SERIES_LINK_TYPES = {
@@ -141,3 +142,9 @@ exports.MAX_LENGTH_DIFFERENCE = 10500;
 exports.MAX_RECENT_ENTITIES = 10;
 
 exports.MIN_NAME_SIMILARITY = 0.75;
+
+exports.ENTITIES_WITH_RELATIONSHIP_CREDITS = {
+    area: true,
+    artist: true,
+    place: true,
+};

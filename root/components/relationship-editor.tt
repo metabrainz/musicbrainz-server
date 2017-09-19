@@ -38,7 +38,7 @@
 </script>
 
 <script type="text/html" id="template.dialog-entity-credit">
-  <!-- ko if: entity.entityType === 'artist' -->
+  <!-- ko if: MB.constants.ENTITIES_WITH_RELATIONSHIP_CREDITS[entity.entityType] -->
     <div>
       <label>
         [% l('Credited as:') %]
@@ -185,7 +185,7 @@
       [% bracketed(l('ended')) | html %]
     <!-- /ko -->
   <!-- /ko -->
-  <!-- ko with: relationship.phraseAndExtraAttributes()[2] -->
+  <!-- ko with: relationship.phraseAndExtraAttributes()[2 + (forGrouping ? 3 : 0)] -->
     (<!-- ko text: $data --><!-- /ko -->)
   <!-- /ko -->
 </script>

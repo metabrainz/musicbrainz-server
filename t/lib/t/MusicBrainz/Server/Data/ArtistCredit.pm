@@ -80,7 +80,7 @@ EOSQL
     is($c->sql->select_single_value('SELECT count(*) from artist_credit_name'), 2, 'AC after merge has two artists');
 };
 
-test 'Merging updates the complete name' => sub {
+test 'Merging updates matching names' => sub {
     my $test = shift;
     my $c = $test->c;
     my $artist_credit_data = $c->model('ArtistCredit');
@@ -91,11 +91,12 @@ test 'Merging updates the complete name' => sub {
     $artist_credit_data->merge_artists(3, [ 2 ], rename => 1);
     $c->sql->commit;
 
-    my $artist_credit_id =
-        $c->sql->select_single_value(
-            'SELECT artist_credit FROM artist_credit_name WHERE artist = ?',
-            3
-        );
+    # The credited name "David Bowie" is the same as the artist name, so it's
+    # renamed to "Merge".
+    my $artist_credit_id = $c->sql->select_single_value(
+        'SELECT artist_credit FROM artist_credit_name WHERE artist = ? AND name = ?',
+        3, 'Merge'
+    );
     my $ac = $artist_credit_data->get_by_id($artist_credit_id);
 
     is( $ac->artist_count, 2, "2 artists in artist credit");
@@ -116,6 +117,35 @@ test 'Merging updates the complete name' => sub {
     my $name = $c->sql->select_single_value("
         SELECT name FROM artist_credit ac WHERE id=?", $artist_credit_id);
     is( $name, "Queen & Merge", "Name is Queen & Merge" );
+
+    # The credited name "Bowie" is different from the artist name, so it's
+    # left alone.
+    $artist_credit_id = $c->sql->select_single_value(
+        'SELECT artist_credit FROM artist_credit_name WHERE artist = ? AND name = ?',
+        3, 'Bowie'
+    );
+    $ac = $artist_credit_data->get_by_id($artist_credit_id);
+
+    is($ac->artist_count, 2, '2 artists in artist credit');
+    is($ac->name, 'Queen & Bowie', 'Name is Queen & Bowie');
+    is($ac->names->[0]->name, 'Queen', 'First artist credit is Queen');
+    is($ac->names->[0]->artist_id, 1);
+    is($ac->names->[0]->artist->id, 1);
+    is($ac->names->[0]->artist->gid, '945c079d-374e-4436-9448-da92dedef3cf');
+    is($ac->names->[0]->artist->name, 'Queen', 'First artist is Queen');
+    is($ac->names->[0]->join_phrase, ' & ');
+    is($ac->names->[1]->name, 'Bowie', 'Second artist credit is Bowie');
+    is($ac->names->[1]->artist_id, 3);
+    is($ac->names->[1]->artist->id, 3);
+    is($ac->names->[1]->artist->gid, '5f9913b0-7219-11de-8a39-0800200c9a66');
+    is($ac->names->[1]->artist->name, 'Merge', 'Second artist is Merge');
+    is($ac->names->[1]->join_phrase, '');
+
+    $name = $c->sql->select_single_value(
+        'SELECT name FROM artist_credit WHERE id = ?',
+        $artist_credit_id,
+    );
+    is($name, 'Queen & Bowie', 'Name is Queen & Bowie');
 };
 
 test 'Merging clears the cache' => sub {

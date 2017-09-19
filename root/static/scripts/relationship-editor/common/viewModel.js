@@ -113,6 +113,7 @@ MB.initRelationshipEditors = function (args) {
 
     // XXX used by series edit form
     sourceData.gid = sourceData.gid || _.uniqueId("tmp-");
+    sourceData.uniqueID = sourceData.id || 'source';
     MB.sourceEntityGID = sourceData.gid;
     MB.sourceEntity = MB.entity(sourceData);
 

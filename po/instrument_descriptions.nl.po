@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2017-07-17 18:08+0000\n"
+"PO-Revision-Date: 2017-09-10 10:04+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -545,6 +545,13 @@ msgstr "Een handtrommel met een slagvlak van hout uit Peru."
 msgid "Castanets of wood, bone, bivalve shells or even flax leaf."
 msgstr "Tookere zijn castagnetten van hout, bot, tweekleppige schelpen of zelfs vlasbladeren."
 
+#. name:tible
+#: DB:instrument/description:871
+msgid ""
+"Catalan double-reed, created in the 19th Century by adding valves to the "
+"tarota. Used principally for cobla music."
+msgstr "De tible is een Catalaans dubbelrietinstrument dat in de negentiende eeuw is ontstaan door de tarota van ventielen te voorzien. Het wordt vooral gebruikt voor coblamuziek."
+
 #. name:chacha
 #: DB:instrument/description:335
 msgid "Chacha, west Indian rattle"
@@ -580,6 +587,14 @@ msgstr "De kromhoorn werd vooral tussen de veertiende en zeventiende eeuw gebrui
 #: DB:instrument/description:411
 msgid "Davul, turkish drum"
 msgstr "Davul, Turkse trommel"
+
+#. name:tenora
+#: DB:instrument/description:869
+msgid ""
+"Derived from the tenor shawm, it was independently developed in Catalonia by"
+" oboe player Andreu Turon in the 19th century. Made of ginjoler wood with a "
+"metal cone, it is used in the traditional Cobla and Sardana music."
+msgstr "De tenora is een ontwikkeling van de tenorschalmei, in de negentiende eeuw door hobospeler Andreu Turon in Catalonië ontwikkeld. Het wordt gemaakt van jujubehout met een onderkant van metaal. Het instrument wordt bespeeld bij traditionele cobla- en sardanamuziek."
 
 #. name:craviola
 #: DB:instrument/description:779
@@ -712,6 +727,14 @@ msgstr "Een Gusli (Russisch: гу́сли) is een Russisch tokkelinstrument."
 msgid "Harddisk configured to produce tones in pattern."
 msgstr "Een harde schijf die is ingesteld om in een patroon geluiden te maken."
 
+#. name:accordina
+#: DB:instrument/description:778
+msgid ""
+"Harmonica/Accordion hybrid where the bellows for the accordion bit with "
+"buttons/keys receive air though the user blowing into the instrument like an"
+" harmonica"
+msgstr "Een accordina is een soort combinatie van een mondharmonica en een accordeon. Net als een accordeon heeft het toetsen of knoppen, maar de lucht wordt aangevoerd door de speler die als net als bij een mondharmonica op het instrument blaast."
+
 #. name:huqin
 #: DB:instrument/description:213
 msgid "Huqin is a Chinese family of bowed string instruments."
@@ -747,11 +770,6 @@ msgstr "Traditionele Japanse trommel die wordt beslagen met bachi-stokken."
 #: DB:instrument/description:422
 msgid "Kanklės, Lithuanian plucked string"
 msgstr "Een kanklės is een Litouws tokkelinstrument."
-
-#. name:kantele
-#: DB:instrument/description:424
-msgid "Kantele, Finnish traditional plucked string"
-msgstr "Een kantele is een traditioneel Fins tokkelinstrument."
 
 #. name:kanun
 #: DB:instrument/description:288
@@ -841,7 +859,7 @@ msgstr "Een tumutumu wordt gemaakt van resonerend steen, hout of bot en wordt be
 msgid ""
 "Made of wood and shaped after the casemoth cocoon, it can be played as both "
 "a flute (female voice) and a trumpet (male voice)."
-msgstr ""
+msgstr "De puutoorino is gemaakt van hout en heeft de vorm van een cocon van een kokermot. Het kan zowel als fluit (vrouwelijk) of als trompet (mannelijk) worden bespeeld."
 
 #. name:rehu
 #: DB:instrument/description:784
@@ -850,6 +868,15 @@ msgid ""
 "hole with a fipple like European flutes but finger holes in the style of the"
 " traditional pōrutu."
 msgstr "Een rehu wordt gemaakt van hout, vaak matai of tutu, en is een lange dwarsfluit met vingergaten zoals de traditionele poorutu."
+
+#. name:gemshorn
+#: DB:instrument/description:868
+msgid ""
+"Medieval or possibly older, it was historically made of goat-horns or, less "
+"commonly, clay. With only a few holes and a single octave range it was used "
+"pastorally. Modern revival variants are more complicated and are usually "
+"made of cattle-horn."
+msgstr "De gemshoorn stamt uit de middeleeuwen of eerder en werd vroeger gemaakt van de hoorn van een gems of van klei. Het heeft maar een paar vingergaten en een bereik van een octaaf. Moderne varianten zijn complexer en meestal gemaakt van de hoornen van vee."
 
 #. name:Mexican vihuela
 #: DB:instrument/description:92
@@ -868,6 +895,14 @@ msgstr "Miriliton is een algemene term voor membranofonen die worden bespeeld do
 #: DB:instrument/description:297
 msgid "Nai, Romanian Panflute"
 msgstr "Een nai is een Roemeense panfluit."
+
+#. name:kannel
+#: DB:instrument/description:872
+msgid ""
+"National symbol of Estonia, related to Finnish kantele. While traditionally "
+"a small instrument with 5 to 7 strings, some newer versions are much bigger,"
+" with up to 50 strings."
+msgstr "De kannel is het nationale symbool van Estland en verwant aan de Finse kantele. Hoewel het oorspronkelijk een klein instrument met vijf tot zeven snaren was, zijn moderne versies veel groter, met tot wel vijftig snaren."
 
 #. name:natural brass instruments
 #: DB:instrument/description:35
@@ -3119,6 +3154,14 @@ msgstr "Een (klein) pijporgel dat bedoeld was voor de begeleiding van stomme fil
 msgid "Timpani (Kettle drum)"
 msgstr "Een pauk is een keteltrom van kunststof of koper. Het is de meest gebruikte trommel in het symfonieorkest."
 
+#. name:tarota
+#: DB:instrument/description:870
+msgid ""
+"Traditional Catalan double reed of medieval origin. Used for cobla music in "
+"the 19th century, it mostly disappeared: current tarotas are a modern re-"
+"invention."
+msgstr "De tarota is een traditioneel Catalaans dubbelrietinstrument dat tijdens de middeleeuwen is ontstaan. In de negentiende was het een onderdeel van de cobla, maar daarna raakte het in onbruik. Huidige tarota’s zijn een moderne heruitvinding."
+
 #. name:taonga pūoro
 #: DB:instrument/description:781
 msgid ""
@@ -3250,14 +3293,6 @@ msgstr "De chirimía is gerelateerd aan de schalmei en werd in de 16e en 17e eeu
 #: DB:instrument/description:803
 msgid "a spanish plucked cittern, it is also played in the spanish diaspora."
 msgstr "De laúd is een Spaanse getokkelde cister die ook in het Spaanse diaspora wordt bespeeld."
-
-#. name:accordina
-#: DB:instrument/description:778
-msgid ""
-"a type of Harmonica/Accordion hybrid, the bellows for the accordion bit with"
-" buttons/keys receive their air though the user blowing into the instrument "
-"like an harmonica"
-msgstr "Een accordina is een soort combinatie van een mondharmonica en een accordeon. Net als een accordeon heeft het toetsen of knoppen, maar de lucht wordt aangevoerd door de speler die als net als bij een mondharmonica op het instrument blaast."
 
 #. name:tràm plè
 #: DB:instrument/description:308
@@ -3638,6 +3673,11 @@ msgid ""
 "ti bwa, percussion instrument made of a piece of bamboo laid horizontally "
 "and beaten with sticks"
 msgstr "Een percussie-instrument gemaakt van een horizontaal stuk bamboe waarop wordt geslagen met stokken."
+
+#. name:kantele
+#: DB:instrument/description:424
+msgid "traditional Finnish psaltery"
+msgstr "De kantele is een traditioneel Fins psalter."
 
 #. name:kagurabue
 #: DB:instrument/description:849

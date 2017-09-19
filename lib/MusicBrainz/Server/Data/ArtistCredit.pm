@@ -201,7 +201,8 @@ sub merge_artists
 
     my @queries;
     if ($opts{rename}) {
-        # When renaming, first replace ACs with versions using the new name
+        # When renaming, first replace ACs with versions using the new name,
+        # wherever credits match the original artist name.
         push @queries, [
             'SELECT
                artist_credit,
@@ -217,12 +218,13 @@ sub merge_artists
                WHERE artist.id = ?
              ) new_artist,
              (
-               SELECT artist_credit, artist, artist_credit_name.name, join_phrase, position
-               FROM artist_credit_name
-               WHERE artist_credit_name.artist_credit IN (
-                 SELECT artist_credit
+               SELECT artist_credit, artist, name, join_phrase, position
                  FROM artist_credit_name
-                 WHERE artist = any(?)
+                WHERE artist_credit IN (
+                 SELECT acn.artist_credit
+                   FROM artist_credit_name acn
+                   JOIN artist a ON a.id = acn.artist
+                  WHERE a.id = any(?) AND a.name = acn.name
                )
              ) artist_credit_name
              GROUP BY artist_credit',

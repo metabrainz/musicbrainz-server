@@ -24,7 +24,11 @@ use MusicBrainz::Server::Data::Utils qw(
     ref_to_type
     type_to_model
 );
-use MusicBrainz::Server::Constants qw( entities_with $PART_OF_AREA_LINK_TYPE );
+use MusicBrainz::Server::Constants qw(
+    $PART_OF_AREA_LINK_TYPE
+    %ENTITIES_WITH_RELATIONSHIP_CREDITS
+    entities_with
+);
 use Scalar::Util 'weaken';
 use List::AllUtils qw( any part uniq );
 use List::UtilsBy qw( nsort_by partition_by );
@@ -338,7 +342,7 @@ sub merge_entities {
 
         # Unless the rename_credits option is given, preserve implicit (empty)
         # relationship credits by copying the existing entity names into them.
-        if ($type eq 'artist' && !$opts{rename_credits}) {
+        if ($ENTITIES_WITH_RELATIONSHIP_CREDITS{$type} && !$opts{rename_credits}) {
             my $target_table = $self->c->model(type_to_model($type))->_main_table;
 
             $self->sql->do(

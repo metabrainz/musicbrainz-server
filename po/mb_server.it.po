@@ -21,9 +21,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-07-17 21:24-0500\n"
-"PO-Revision-Date: 2017-07-18 02:25+0000\n"
-"Last-Translator: Michael Wiencek <email address hidden>\n"
+"POT-Creation-Date: 2017-09-04 19:52-0500\n"
+"PO-Revision-Date: 2017-09-09 11:27+0000\n"
+"Last-Translator: Luca Salini <email address hidden>\n"
 "Language-Team: Italian (http://www.transifex.com/musicbrainz/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -569,7 +569,7 @@ msgid "Add Label"
 msgstr "Aggiungi etichetta"
 
 #: ../root/release/edit/layout.tt:64 ../root/release/edit/tracklist.tt:243
-#: ../root/static/scripts/release-editor/dialogs.js:244
+#: ../root/static/scripts/release-editor/dialogs.js:264
 msgid "Add Medium"
 msgstr "Aggiungi supporto"
 
@@ -3062,7 +3062,7 @@ msgstr "Errore durante l'annullamento della modifica"
 
 #: ../root/edit/cannot_vote.tt:1 ../root/edit/cannot_vote.tt:2
 msgid "Error Voting on Edits"
-msgstr ""
+msgstr "Errore durante il voto sulle modifiche"
 
 #: ../root/release/edit/layout.tt:32
 msgid "Error loading release: {error}"
@@ -4974,7 +4974,7 @@ msgstr "Nuova versione:"
 #: ../root/components/paginator.tt:44 ../root/components/paginator.tt:46
 #: ../root/release/edit/macros.tt:44
 #: ../root/static/scripts/common/artworkViewer.js:35
-#: ../root/static/scripts/release-editor/fields.js:895
+#: ../root/static/scripts/release-editor/bindingHandlers.js:60
 msgid "Next"
 msgstr "Seguente"
 
@@ -5103,7 +5103,7 @@ msgid "No releases with this tag were found."
 msgstr "Nessuna pubblicazione trovata con questo tag."
 
 #: ../root/release/edit/tracklist.tt:110
-#: ../root/static/scripts/common/MB/Control/Autocomplete.js:407
+#: ../root/static/scripts/common/MB/Control/Autocomplete.js:408
 msgid "No results"
 msgstr "Nessun risultato"
 
@@ -5183,7 +5183,7 @@ msgid "None"
 msgstr "Nessuno"
 
 #: ../root/release/edit/tracklist.tt:336
-#: ../root/static/scripts/release-editor/fields.js:161
+#: ../root/static/scripts/release-editor/fields.js:179
 msgid ""
 "None of the attached disc IDs can fit a pregap track of the given length."
 msgstr "Nessuno degli ID disco collegati può accettare una traccia pregap della durata fornita."
@@ -5728,7 +5728,7 @@ msgstr "Anteprima:"
 #: ../root/components/paginator.tt:6 ../root/components/paginator.tt:8
 #: ../root/release/edit/macros.tt:43
 #: ../root/static/scripts/common/artworkViewer.js:31
-#: ../root/static/scripts/release-editor/fields.js:898
+#: ../root/static/scripts/release-editor/bindingHandlers.js:63
 msgid "Previous"
 msgstr "Precedente"
 
@@ -7851,7 +7851,7 @@ msgid "The database has no tags."
 msgstr "Il database non ha tag."
 
 #: ../root/release/edit/information.tt:155
-#: ../root/static/scripts/relationship-editor/common/dialog.js:496
+#: ../root/static/scripts/relationship-editor/common/dialog.js:482
 msgid "The date you've entered is not valid."
 msgstr "La data che hai inserito non è valida."
 
@@ -8534,8 +8534,8 @@ msgid "This relationship type doesn't allow any attributes."
 msgstr "Questo tipo di relazione non consente nessun attributo."
 
 #: ../root/doc/relationship_type.tt:11
-#: ../root/static/scripts/edit/externalLinks.js:173
-#: ../root/static/scripts/relationship-editor/common/dialog.js:462
+#: ../root/static/scripts/edit/externalLinks.js:177
+#: ../root/static/scripts/relationship-editor/common/dialog.js:448
 msgid "This relationship type is deprecated and should not be used."
 msgstr "Questo tipo di relazione è obsoleto e non dovrebbe essere utilizzato."
 
@@ -9391,7 +9391,7 @@ msgid "Track Not Found"
 msgstr "Traccia non trovata"
 
 #: ../root/release/edit/tracklist.tt:398
-#: ../root/static/scripts/release-editor/dialogs.js:28
+#: ../root/static/scripts/release-editor/dialogs.js:36
 msgid "Track Parser"
 msgstr "Analizzatore di tracce"
 
@@ -9432,7 +9432,7 @@ msgstr "Traccia:"
 
 #: ../root/cdstub/edit_form.tt:12 ../root/cdstub/index.tt:7
 #: ../root/release/edit/layout.tt:16 ../root/release/index.tt:4
-#: ../root/static/scripts/release-editor/fields.js:530
+#: ../root/static/scripts/release-editor/fields.js:564
 msgid "Tracklist"
 msgstr "Elenco di tracce"
 
@@ -10434,7 +10434,7 @@ msgid "You haven’t entered a complete artist credit."
 msgstr "Non hai inserito un accreditamento artista completo."
 
 #: ../root/release/edit/editnote.tt:10
-#: ../root/static/scripts/relationship-editor/release.js:143
+#: ../root/static/scripts/relationship-editor/release.js:159
 msgid "You haven’t made any changes!"
 msgstr "Non hai effettuato nessuna modifica!"
 
@@ -10584,7 +10584,7 @@ msgstr "Al momento non ti è consentito creare modifiche o votare perché un amm
 
 #: ../root/edit/cannot_vote.tt:3
 msgid "You’re not currently allowed to vote, please read the banner."
-msgstr ""
+msgstr "Al momento non ti è permesso di votare. Per favore leggi il banner."
 
 #: ../root/release/edit/tracklist.tt:265
 msgid ""
@@ -11745,6 +11745,21 @@ msgstr "[Nessun testo]"
 msgid "{t0}-{t1} relationships"
 msgstr "{t0}-{t1} relazioni"
 
+#: ../lib/MusicBrainz/Server/Data/Release.pm:807
+msgid ""
+"The track counts on at least one set of corresponding mediums do not match."
+msgstr "Il numero di tracce in almeno un set di supporti corrispondenti non combacia."
+
+#: ../lib/MusicBrainz/Server/Data/Release.pm:827
+msgid ""
+"Mediums with a pregap track can only be merged with other mediums with a "
+"pregap track."
+msgstr "Supporti con una traccia pregap possono essere uniti solo con altri supporti con una traccia pregap."
+
+#: ../lib/MusicBrainz/Server/Data/Release.pm:835
+msgid "The medium positions conflict."
+msgstr "Le posizioni dei supporti sono in conflitto."
+
 #: ../lib/MusicBrainz/Server/Data/Vote.pm:159
 msgid "Total"
 msgstr "Totale"
@@ -12519,7 +12534,7 @@ msgid "These coordinates could not be parsed"
 msgstr "Non è stato possibile analizzare queste coordinate"
 
 #: ../lib/MusicBrainz/Server/Form/Field/DatePeriod.pm:40
-#: ../root/static/scripts/relationship-editor/common/dialog.js:507
+#: ../root/static/scripts/relationship-editor/common/dialog.js:493
 msgid "The end date cannot precede the begin date."
 msgstr "La data finale non può precedere quella iniziale."
 
@@ -12585,7 +12600,7 @@ msgid "This is not a valid time."
 msgstr "Questo non è un orario valido."
 
 #: ../lib/MusicBrainz/Server/Form/Field/URL.pm:21
-#: ../root/static/scripts/edit/externalLinks.js:167
+#: ../root/static/scripts/edit/externalLinks.js:171
 msgid "Enter a valid url e.g. \"http://google.com/\""
 msgstr "Inserisci un URL valido, ad es. \"http://google.com/\""
 
@@ -12888,23 +12903,23 @@ msgstr "Visualizza tutte le relazioni"
 msgid "Running: {git_details}"
 msgstr "In esecuzione: {git_details}"
 
-#: ../root/layout/components/Head.js:29
+#: ../root/layout/components/Head.js:30
 msgid "Page {n}"
 msgstr "Pagina {n}"
 
-#: ../root/layout/components/Head.js:60
+#: ../root/layout/components/Head.js:61
 msgid "MusicBrainz: Artist"
 msgstr "MusicBrainz: Artista"
 
-#: ../root/layout/components/Head.js:61
+#: ../root/layout/components/Head.js:62
 msgid "MusicBrainz: Label"
 msgstr "MusicBrainz: Etichetta"
 
-#: ../root/layout/components/Head.js:62
+#: ../root/layout/components/Head.js:63
 msgid "MusicBrainz: Release"
 msgstr "MusicBrainz: Pubblicazione"
 
-#: ../root/layout/components/Head.js:63
+#: ../root/layout/components/Head.js:64
 msgid "MusicBrainz: Track"
 msgstr "MusicBrainz: Traccia"
 
@@ -12956,42 +12971,42 @@ msgstr "Nessun tipo"
 msgid "{place_type}: {place_link}"
 msgstr "{place_type}: {place_link}"
 
-#: ../root/static/scripts/common/MB/Control/Autocomplete.js:63
+#: ../root/static/scripts/common/MB/Control/Autocomplete.js:64
 msgid "An error occurred while searching. Click here to try again."
 msgstr "Si è verificato un errore durante la ricerca. Clicca qui per riprovare."
 
-#: ../root/static/scripts/common/MB/Control/Autocomplete.js:67
+#: ../root/static/scripts/common/MB/Control/Autocomplete.js:68
 msgid "Try with direct search instead."
 msgstr "Prova a usare la ricerca diretta."
 
-#: ../root/static/scripts/common/MB/Control/Autocomplete.js:68
+#: ../root/static/scripts/common/MB/Control/Autocomplete.js:69
 msgid "Try with indexed search instead."
 msgstr "Prova a usare la ricerca indicizzata."
 
-#: ../root/static/scripts/common/MB/Control/Autocomplete.js:100
+#: ../root/static/scripts/common/MB/Control/Autocomplete.js:101
 msgid "Type to search, or paste an MBID"
 msgstr "Digita per cercare o incolla un MBID"
 
-#: ../root/static/scripts/common/MB/Control/Autocomplete.js:172
+#: ../root/static/scripts/common/MB/Control/Autocomplete.js:173
 msgid "Clear recent items"
 msgstr "Cancella elementi recenti"
 
-#: ../root/static/scripts/common/MB/Control/Autocomplete.js:414
+#: ../root/static/scripts/common/MB/Control/Autocomplete.js:415
 #: ../root/static/scripts/common/text-collapse.js:23
 msgid "Show more..."
 msgstr "Mostra di più..."
 
-#: ../root/static/scripts/common/MB/Control/Autocomplete.js:420
+#: ../root/static/scripts/common/MB/Control/Autocomplete.js:421
 msgid "Not found? Try again with direct search."
 msgstr "Non l'hai trovato? Riprova con la ricerca diretta."
 
-#: ../root/static/scripts/common/MB/Control/Autocomplete.js:421
+#: ../root/static/scripts/common/MB/Control/Autocomplete.js:422
 msgid "Slow? Switch back to indexed search."
 msgstr "Lento? Torna alla ricerca indicizzata."
 
-#: ../root/static/scripts/common/MB/Control/Autocomplete.js:612
-#: ../root/static/scripts/common/entity.js:240
-#: ../root/static/scripts/edit/externalLinks.js:283
+#: ../root/static/scripts/common/MB/Control/Autocomplete.js:613
+#: ../root/static/scripts/common/entity.js:260
+#: ../root/static/scripts/edit/externalLinks.js:287
 msgid "video"
 msgstr "video"
 
@@ -13168,8 +13183,8 @@ msgid "This group has dissolved."
 msgstr "Questo gruppo si è sciolto."
 
 #: ../root/static/scripts/edit/check-duplicates.js:137
-#: ../root/static/scripts/edit/externalLinks.js:165
-#: ../root/static/scripts/relationship-editor/common/dialog.js:480
+#: ../root/static/scripts/edit/externalLinks.js:169
+#: ../root/static/scripts/relationship-editor/common/dialog.js:466
 msgid "Required field."
 msgstr "Campo necessario."
 
@@ -13226,44 +13241,44 @@ msgid ""
 msgstr "Inserisci una {doc_disambiguation|disambiguazione} per distinguere questa entità dalle altre."
 
 #: ../root/static/scripts/edit/confirmNavigationFallback.js:34
-#: ../root/static/scripts/relationship-editor/release.js:70
-#: ../root/static/scripts/release-editor/init.js:182
+#: ../root/static/scripts/relationship-editor/release.js:73
+#: ../root/static/scripts/release-editor/init.js:209
 msgid "All of your changes will be lost if you leave this page."
 msgstr "Se lasci questa pagina perderai tutte le tue modifiche."
 
-#: ../root/static/scripts/edit/externalLinks.js:169
+#: ../root/static/scripts/edit/externalLinks.js:173
 msgid "Please don't use shortened URLs."
 msgstr "Non utilizzare URL abbreviati."
 
-#: ../root/static/scripts/edit/externalLinks.js:171
+#: ../root/static/scripts/edit/externalLinks.js:175
 msgid "Please select a link type for the URL you’ve entered."
 msgstr "Seleziona un tipo di collegamento per l'URL che hai inserito."
 
-#: ../root/static/scripts/edit/externalLinks.js:175
-#: ../root/static/scripts/relationship-editor/common/dialog.js:467
+#: ../root/static/scripts/edit/externalLinks.js:179
+#: ../root/static/scripts/relationship-editor/common/dialog.js:453
 msgid ""
 "This URL is not allowed for the selected link type, or is incorrectly "
 "formatted."
 msgstr "Questo URL non è consentito per il tipo di collegamento selezionato o è formattato in modo non corretto."
 
-#: ../root/static/scripts/edit/externalLinks.js:177
+#: ../root/static/scripts/edit/externalLinks.js:181
 msgid "This relationship already exists."
 msgstr "Questa relazione è già esistente."
 
-#: ../root/static/scripts/edit/externalLinks.js:243
-#: ../root/static/scripts/relationship-editor/common/dialog.js:349
+#: ../root/static/scripts/edit/externalLinks.js:247
+#: ../root/static/scripts/relationship-editor/common/dialog.js:335
 msgid "{description} ({url|more documentation})"
 msgstr "{description} ({url|altra documentazione})"
 
-#: ../root/static/scripts/edit/externalLinks.js:270
+#: ../root/static/scripts/edit/externalLinks.js:274
 msgid "Add link:"
 msgstr "Aggiungi collegamento:"
 
-#: ../root/static/scripts/edit/externalLinks.js:270
+#: ../root/static/scripts/edit/externalLinks.js:274
 msgid "Add another link:"
 msgstr "Aggiungi un altro collegamento:"
 
-#: ../root/static/scripts/edit/externalLinks.js:289
+#: ../root/static/scripts/edit/externalLinks.js:293
 msgid "Remove Link"
 msgstr "Rimuovi collegamento"
 
@@ -13300,125 +13315,125 @@ msgid ""
 "language guidelines}. "
 msgstr "Questa modalità gestisce il maiuscolo/minuscolo in turco per 'i' ('İ') e 'ı' ('I'). Alcune parole potrebbero dover essere corrette manualmente per seguire le {url|linee guida su maiuscolo/minuscolo per il turco}."
 
-#: ../root/static/scripts/relationship-editor/common/dialog.js:21
+#: ../root/static/scripts/relationship-editor/common/dialog.js:27
 msgid "The series you’ve selected is for recordings."
 msgstr "La serie che hai selezionato è una serie di registrazioni."
 
-#: ../root/static/scripts/relationship-editor/common/dialog.js:22
+#: ../root/static/scripts/relationship-editor/common/dialog.js:28
 msgid "The series you’ve selected is for releases."
 msgstr "La serie che hai selezionato è una serie di pubblicazioni."
 
-#: ../root/static/scripts/relationship-editor/common/dialog.js:23
+#: ../root/static/scripts/relationship-editor/common/dialog.js:29
 msgid "The series you’ve selected is for release groups."
 msgstr "La serie che hai selezionato è una serie di gruppi di pubblicazioni."
 
-#: ../root/static/scripts/relationship-editor/common/dialog.js:24
+#: ../root/static/scripts/relationship-editor/common/dialog.js:30
 msgid "The series you’ve selected is for works."
 msgstr "La serie che hai selezionato è una serie di opere."
 
-#: ../root/static/scripts/relationship-editor/common/dialog.js:458
+#: ../root/static/scripts/relationship-editor/common/dialog.js:444
 msgid "Please select a relationship type."
 msgstr "Seleziona un tipo di relazione."
 
-#: ../root/static/scripts/relationship-editor/common/dialog.js:460
+#: ../root/static/scripts/relationship-editor/common/dialog.js:446
 msgid ""
 "Please select a subtype of the currently selected relationship type. The "
 "selected relationship type is only used for grouping subtypes."
 msgstr "Seleziona un sottotipo del tipo di relazione attualmente selezionato. Questo tipo di relazione è utilizzato solo per raggruppare altre relazioni."
 
-#: ../root/static/scripts/relationship-editor/common/dialog.js:482
+#: ../root/static/scripts/relationship-editor/common/dialog.js:468
 msgid "Entities in a relationship cannot be the same."
 msgstr "Le entità in una relazione non possono essere le stesse."
 
-#: ../root/static/scripts/relationship-editor/common/fields.js:296
+#: ../root/static/scripts/relationship-editor/common/fields.js:303
 msgid "This attribute is required."
 msgstr "Questo attributo è necessario."
 
-#: ../root/static/scripts/relationship-editor/release.js:33
+#: ../root/static/scripts/relationship-editor/release.js:42
 msgid "{n} recording selected"
 msgid_plural "{n} recordings selected"
 msgstr[0] "{n} registrazione selezionata"
 msgstr[1] "{n} registrazioni selezionate"
 
-#: ../root/static/scripts/relationship-editor/release.js:38
+#: ../root/static/scripts/relationship-editor/release.js:47
 msgid "{n} work selected"
 msgid_plural "{n} works selected"
 msgstr[0] "{n} opera selezionata"
 msgstr[1] "{n} opere selezionate"
 
-#: ../root/static/scripts/release-editor/actions.js:251
+#: ../root/static/scripts/release-editor/actions.js:255
 msgid ""
 "This tracklist has artist credits with information that will be lost if you "
 "swap artist credits with track titles. This cannot be undone. Do you wish to"
 " continue?"
 msgstr "Questo elenco di tracce contiene accreditamenti artista con informazioni che saranno perse se inverti gli accreditamenti con i titoli di traccia. Quest'operazione non può essere annullata. Sei sicuro di voler continuare?"
 
-#: ../root/static/scripts/release-editor/fields.js:522
-msgid "Medium {position}: {title}"
-msgstr "Supporto {position}: {title}"
-
-#: ../root/static/scripts/release-editor/fields.js:528
-msgid "Medium {position}"
-msgstr "Supporto {position}"
-
-#: ../root/static/scripts/release-editor/fields.js:859
+#: ../root/static/scripts/release-editor/bindingHandlers.js:25
 msgid ""
 "This medium has one or more discids which prevent this information from "
 "being changed."
 msgstr "Questo supporto ha almeno un ID disco che impedisce la modifica di queste informazioni."
 
-#: ../root/static/scripts/release-editor/fields.js:909
+#: ../root/static/scripts/release-editor/bindingHandlers.js:74
 msgid "Change all artists on this release that match “{name}”"
 msgstr "Cambia tutti gli artisti che corrispondono a \"{name}\" su questa pubblicazione"
 
-#: ../root/static/scripts/release-editor/init.js:156
+#: ../root/static/scripts/release-editor/fields.js:556
+msgid "Medium {position}: {title}"
+msgstr "Supporto {position}: {title}"
+
+#: ../root/static/scripts/release-editor/fields.js:562
+msgid "Medium {position}"
+msgstr "Supporto {position}"
+
+#: ../root/static/scripts/release-editor/init.js:163
 msgid "{name} - Add Release"
 msgstr "{name} - Aggiungi pubblicazione"
 
-#: ../root/static/scripts/release-editor/init.js:157
+#: ../root/static/scripts/release-editor/init.js:164
 msgid "Add Release"
 msgstr "Aggiungi pubblicazione"
 
-#: ../root/static/scripts/release-editor/init.js:161
+#: ../root/static/scripts/release-editor/init.js:168
 msgid "{name} - Edit Release"
 msgstr "{name} - Modifica pubblicazione"
 
-#: ../root/static/scripts/release-editor/init.js:162
+#: ../root/static/scripts/release-editor/init.js:169
 msgid "Edit Release"
 msgstr "Modifica pubblicazione"
 
-#: ../root/static/scripts/release-editor/validation.js:124
+#: ../root/static/scripts/release-editor/validation.js:125
 msgid "The check digit is {checkdigit}."
 msgstr "La cifra di controllo è {checkdigit}."
 
-#: ../root/static/scripts/release-editor/validation.js:125
+#: ../root/static/scripts/release-editor/validation.js:126
 msgid "Please double-check the barcode on the release."
 msgstr "Per favore, verifica il codice a barre sulla pubblicazione."
 
-#: ../root/static/scripts/release-editor/validation.js:129
+#: ../root/static/scripts/release-editor/validation.js:130
 msgid ""
 "The barcode you entered looks like a UPC code with the check digit missing."
 msgstr "Il codice a barre inserito sembra essere un codice UPC senza la cifra di controllo."
 
-#: ../root/static/scripts/release-editor/validation.js:135
+#: ../root/static/scripts/release-editor/validation.js:136
 msgid "The barcode you entered is a valid UPC code."
 msgstr "Il codice a barre inserito è un codice UPC valido."
 
-#: ../root/static/scripts/release-editor/validation.js:138
+#: ../root/static/scripts/release-editor/validation.js:139
 msgid ""
 "The barcode you entered is either an invalid UPC code, or an EAN code with "
 "the check digit missing."
 msgstr "Il codice a barre inserito è un codice UPC non valido, oppure un codice EAN senza la cifra di controllo."
 
-#: ../root/static/scripts/release-editor/validation.js:147
+#: ../root/static/scripts/release-editor/validation.js:148
 msgid "The barcode you entered is a valid EAN code."
 msgstr "Il codice a barre inserito è un codice EAN valido."
 
-#: ../root/static/scripts/release-editor/validation.js:150
+#: ../root/static/scripts/release-editor/validation.js:151
 msgid "The barcode you entered is not a valid EAN code."
 msgstr "Il codice a barre inserito non è un codice EAN valido."
 
-#: ../root/static/scripts/release-editor/validation.js:157
+#: ../root/static/scripts/release-editor/validation.js:158
 msgid "The barcode you entered is not a valid UPC or EAN code."
 msgstr "Il codice a barre inserito non è un codice UPC o EAN valido."
 
