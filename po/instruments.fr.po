@@ -19,8 +19,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2017-08-19 10:01+0000\n"
-"Last-Translator: yvanz\n"
+"PO-Revision-Date: 2017-09-05 00:54+0000\n"
+"Last-Translator: Michael Wiencek <email address hidden>\n"
 "Language-Team: French (http://www.transifex.com/musicbrainz/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1393,6 +1393,11 @@ msgstr "kayagum"
 msgid "gehu"
 msgstr "gehu"
 
+#: DB:instrument/name:868
+msgctxt "Medieval chamois or goat horn"
+msgid "gemshorn"
+msgstr ""
+
 #: DB:instrument/name:76
 msgid "geomungo"
 msgstr "geomungo"
@@ -1698,6 +1703,11 @@ msgstr "kanjira"
 #: DB:instrument/name:422
 msgid "kanklės"
 msgstr "kanklės"
+
+#: DB:instrument/name:872
+msgctxt "Traditional Estonian plucked psaltery"
+msgid "kannel"
+msgstr ""
 
 #: DB:instrument/name:424
 msgid "kantele"
@@ -2955,6 +2965,11 @@ msgstr "tar"
 msgid "taragot"
 msgstr "tárogató"
 
+#: DB:instrument/name:870
+msgctxt "Wooden keyless shawm from Catalonia"
+msgid "tarota"
+msgstr ""
+
 #: DB:instrument/name:860
 msgctxt "Māori taonga pūoro single string bow"
 msgid "te kū"
@@ -3006,6 +3021,11 @@ msgstr "trombone ténor"
 msgid "tenor violin"
 msgstr "alto"
 
+#: DB:instrument/name:869
+msgctxt "Catalonian double reed descendant of shawm"
+msgid "tenora"
+msgstr ""
+
 #: DB:instrument/name:480
 msgid "thavil"
 msgstr "thavil"
@@ -3034,6 +3054,11 @@ msgstr "galoubet"
 #: DB:instrument/name:332
 msgid "ti bwa"
 msgstr "ti bwa"
+
+#: DB:instrument/name:871
+msgctxt "Catalan valved shawm used in cobla"
+msgid "tible"
+msgstr ""
 
 #: DB:instrument/name:105
 msgid "timbales"

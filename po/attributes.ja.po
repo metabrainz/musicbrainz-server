@@ -19,7 +19,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2017-08-18 20:18+0000\n"
+"PO-Revision-Date: 2017-09-08 18:53+0000\n"
 "Last-Translator: ktu0457\n"
 "Language-Team: Japanese (http://www.transifex.com/musicbrainz/musicbrainz/language/ja/)\n"
 "MIME-Version: 1.0\n"
@@ -368,7 +368,7 @@ msgstr "嬰イ短調"
 #: DB:work_attribute_type/name:23
 msgctxt "work_attribute_type"
 msgid "AKM ID"
-msgstr ""
+msgstr "AKM ID"
 
 #: DB:work_attribute_type/name:13
 msgctxt "work_attribute_type"
