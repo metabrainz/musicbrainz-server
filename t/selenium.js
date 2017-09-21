@@ -121,6 +121,15 @@ async function handleCommandAndWait(command, target, value, baseURL, t) {
 }
 
 async function handleCommand(command, target, value, baseURL, t) {
+  // Die if there are any JS errors on the page since the previous command.
+  const errors = await driver.executeScript('return ((window.MB || {}).js_errors || [])');
+  if (errors.length) {
+    throw new Error(
+      'Errors were found on the page since executing the previous command:\n' +
+      errors.join('\n\n')
+    );
+  }
+
   if (/AndWait$/.test(command)) {
     return handleCommandAndWait.apply(null, arguments);
   }
