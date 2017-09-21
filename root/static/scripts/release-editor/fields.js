@@ -251,7 +251,7 @@ class Track {
         if (currentValue.gid) {
             var suggestions = this.suggestedRecordings.peek();
 
-            if (!_.contains(suggestions, currentValue)) {
+            if (!_.includes(suggestions, currentValue)) {
                 this.suggestedRecordings.unshift(currentValue);
             }
         }
@@ -435,7 +435,7 @@ class Medium {
         var trackCount = tocTracks.length;
         var pregapOffset = this.hasPregap() ? 0 : 1;
 
-        var wasConsecutivelyNumbered = _.all(tracks, function (t, index) {
+        var wasConsecutivelyNumbered = _.every(tracks, function (t, index) {
             return t.number() == (index + pregapOffset);
         });
 
@@ -565,7 +565,7 @@ class Medium {
     canHaveDiscID() {
         var formatID = parseInt(this.formatID(), 10);
 
-        return !formatID || _.contains(MB.formatsWithDiscIDs, formatID);
+        return !formatID || _.includes(MB.formatsWithDiscIDs, formatID);
     }
 }
 
@@ -769,8 +769,9 @@ class Release extends MB_entity.Release {
 
         ko.computed(function () {
             _(self.events()).groupBy(countryID).each(function (events) {
-                _.invoke(events, "isDuplicate", _.filter(events, nonEmptyEvent).length > 1);
-            }).value();
+                const isDuplicate = _.filter(events, nonEmptyEvent).length > 1;
+                events.forEach(e => e.isDuplicate(isDuplicate));
+            });
         });
 
         this.hasDuplicateCountries = errorField(this.events.any("isDuplicate"));
@@ -794,8 +795,9 @@ class Release extends MB_entity.Release {
 
         ko.computed(function () {
             _(self.labels()).groupBy(releaseLabelKey).each(function (labels) {
-                _.invoke(labels, "isDuplicate", _.filter(labels, nonEmptyReleaseLabel).length > 1);
-            }).value();
+                const isDuplicate = _.filter(labels, nonEmptyReleaseLabel).length > 1;
+                labels.forEach(l => l.isDuplicate(isDuplicate));
+            });
         });
 
         this.needsLabels = errorField(this.labels.any("needsLabel"));
@@ -854,7 +856,7 @@ class Release extends MB_entity.Release {
         var mediums = this.mediums();
 
         if (mediums.length <= 3) {
-            _.invoke(mediums, "loadTracks");
+            mediums.forEach(m => m.loadTracks());
         }
     }
 

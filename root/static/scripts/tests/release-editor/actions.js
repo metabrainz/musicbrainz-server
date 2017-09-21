@@ -36,10 +36,10 @@ test("removing a medium should change the medium positions", function (t) {
     );
 
     var mediums = release.mediums();
-    t.deepEqual(_.invoke(mediums, "position"), [1, 2, 3], "medium positions are consecutive before removal");
+    t.deepEqual(_.invokeMap(mediums, "position"), [1, 2, 3], "medium positions are consecutive before removal");
 
     actions.removeMedium(mediums[0]);
-    t.deepEqual(_.invoke(mediums, "position"), [1, 2], "medium positions are consecutive after removal");
+    t.deepEqual(_.invokeMap(mediums, "position"), [1, 2], "medium positions are consecutive after removal");
 });
 
 test("reordering tracks that have non-consecutive \"position\" properties (MBS-7227)", function (t) {

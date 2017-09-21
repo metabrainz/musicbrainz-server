@@ -220,7 +220,7 @@ relationshipEditorTest("link phrase interpolation", function (t) {
         t.equal(
             result[entities.indexOf(source)],
             test.expected,
-            [test.linkTypeID, JSON.stringify(_(test.attributes).pluck("type").pluck("id").value())].join(", ")
+            [test.linkTypeID, JSON.stringify(_(test.attributes).map('type.id').value())].join(", ")
         );
 
         if (test.expectedExtra) {
@@ -263,7 +263,7 @@ relationshipEditorTest("merging duplicate relationships", function (t) {
     t.ok(source.mergeRelationship(duplicateRelationship), "relationships were merged");
 
     t.deepEqual(
-        _(relationship.attributes()).pluck("type").pluck("id").value().sort(),
+        _(relationship.attributes()).map('type.id').value().sort(),
         [123, 194, 277],
         "attributes are the same"
     );
@@ -394,7 +394,7 @@ relationshipEditorTest("BatchRelationshipDialog", function (t) {
     var vm = setupReleaseRelationshipEditor();
 
     var target = MB.entity({ entityType: "artist", gid: fakeGID0 });
-    var recordings = _.pluck(vm.source.mediums()[0].tracks, "recording");
+    var recordings = _.map(vm.source.mediums()[0].tracks, "recording");
 
     var dialog = new BatchRelationshipDialog({
         sources: recordings,
@@ -428,7 +428,7 @@ relationshipEditorTest("BatchCreateWorksDialog", function (t) {
 
     var vm = setupReleaseRelationshipEditor();
 
-    var recordings = _.pluck(vm.source.mediums()[0].tracks, "recording");
+    var recordings = _.map(vm.source.mediums()[0].tracks, "recording");
 
     var dialog = new BatchCreateWorksDialog({
         sources: recordings, viewModel: vm

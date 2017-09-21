@@ -158,7 +158,7 @@ $.widget("ui.autocomplete", $.ui.autocomplete, {
                 return;
             }
 
-            if (event.type === "keyup" && !_.contains([8, 40], event.keyCode)) {
+            if (event.type === "keyup" && !_.includes([8, 40], event.keyCode)) {
                 return;
             }
 
@@ -678,7 +678,7 @@ MB.Control.autocomplete_formatters = {
                     appendComment(
                         $a,
                         name +
-                        maybeParentheses(_.first(catalogNumbers) + ' … ' + _.last(catalogNumbers), name)
+                        maybeParentheses(_.head(catalogNumbers) + ' … ' + _.last(catalogNumbers), name)
                     );
                 } else {
                     _.each(releaseLabels, function (releaseLabel) {
@@ -686,8 +686,7 @@ MB.Control.autocomplete_formatters = {
                         appendComment($a, name + maybeParentheses(getCatalogNumber(releaseLabel), name));
                     });
                 }
-            })
-            .value();
+            });
 
         if (item.barcode) {
             appendComment($a, item.barcode);
@@ -938,7 +937,7 @@ function getCatalogNumber(releaseLabel) {
 }
 
 function renderContainingAreas(area) {
-    return commaOnlyList(_(area.containment).pluck('name').value());
+    return commaOnlyList(_(area.containment).map('name').value());
 }
 
 /*
@@ -970,7 +969,7 @@ MB.Control.EntityAutocomplete = function (options) {
 
     if (!options.entity) {
         // guess the entity from span classes.
-        _.any(_.keys(ENTITIES), function (entity) {
+        _.some(_.keys(ENTITIES), function (entity) {
             entity = entity.replace(/_/g, '-');
             if ($inputs.hasClass(entity)) {
                 options.entity = entity;

@@ -53,10 +53,10 @@ const fields = require('./fields');
             if (type0 !== type1) {
                 (MB.allowedRelations[type1] = MB.allowedRelations[type1] || []).push(type0);
             }
-        }).value();
+        });
 
         // Sort each list of types alphabetically.
-        _(MB.allowedRelations).values().invoke('sort').value();
+        _(MB.allowedRelations).values().invokeMap('sort').value();
 
         _.each(MB.attrInfoByID, function (attr) {
             attr.root = MB.attrInfoByID[attr.rootID];
@@ -164,7 +164,7 @@ MB.getRelationship = function (data, source) {
 
     if (viewModel) {
         if (data.id) {
-            var cacheKey = _.pluck(data.entities, "entityType").concat(data.id).join("-");
+            var cacheKey = _.map(data.entities, "entityType").concat(data.id).join("-");
             var cached = viewModel.cache[cacheKey];
 
             if (cached) {

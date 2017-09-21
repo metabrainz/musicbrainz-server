@@ -95,8 +95,8 @@ releaseEditor.edits = {
         var newLabels = _.map(newReleaseLabels(), MB.edit.fields.releaseLabel);
         var oldLabels = release.labels.original();
 
-        var newLabelsByID = _.indexBy(newLabels, "release_label");
-        var oldLabelsByID = _.indexBy(oldLabels, "release_label");
+        var newLabelsByID = _.keyBy(newLabels, "release_label");
+        var oldLabelsByID = _.keyBy(oldLabels, "release_label");
 
         var edits = [];
 
@@ -149,7 +149,7 @@ releaseEditor.edits = {
         });
 
         var newMediums = release.mediums();
-        var newPositions = _.invoke(newMediums, "position");
+        var newPositions = _.invokeMap(newMediums, "position");
         var tmpPositions = [];
 
         _.each(newMediums, function (medium) {
@@ -204,18 +204,18 @@ releaseEditor.edits = {
 
                 var newPosition = newMediumData.position;
 
-                if (_.contains(oldPositions, newPosition)) {
+                if (_.includes(oldPositions, newPosition)) {
                     var lastAttempt = (_.last(tmpPositions) + 1) || 1;
                     var attempt;
 
                     while (attempt = lastAttempt++) {
-                        if (_.contains(oldPositions, attempt) ||
-                            _.contains(tmpPositions, attempt)) {
+                        if (_.includes(oldPositions, attempt) ||
+                            _.includes(tmpPositions, attempt)) {
                             // This position is taken.
                             continue;
                         }
 
-                        if (_.contains(newPositions, attempt)) {
+                        if (_.includes(newPositions, attempt)) {
                             // Another medium is being moved to the
                             // position we want. Avoid this *unless* we're
                             // swapping with that medium.
@@ -589,8 +589,8 @@ releaseEditor.orderedEditSubmissions = [
         edits: releaseEditor.edits.medium,
 
         callback: function (release, edits) {
-            var added = _(edits).pluck("entity").compact()
-                                .indexBy("position").value();
+            var added = _(edits).map("entity").compact()
+                                .keyBy("position").value();
 
             var newMediums = release.mediums();
 
@@ -609,7 +609,7 @@ releaseEditor.orderedEditSubmissions = [
 
                     medium.original(currentData);
                 }
-            }).value();
+            });
 
             release.mediums.original(release.existingMediumData());
             release.mediums.notifySubscribers(newMediums);
@@ -622,7 +622,7 @@ releaseEditor.orderedEditSubmissions = [
         edits: releaseEditor.edits.discID,
 
         callback: function (release) {
-            _.invoke(release.mediums(), "toc", null);
+            release.mediums().forEach(m => m.toc(null));
         }
     },
     {

@@ -94,7 +94,7 @@ function getDirection(relationship, source) {
                 var relationship = dialog.relationship();
                 relationship.linkTypeID(firstRelationship.linkTypeID());
 
-                var attributeLists = _.invoke(relationships, "attributes");
+                var attributeLists = _.invokeMap(relationships, "attributes");
 
                 var commonAttributes = _.map(
                     _.reject(_.intersection.apply(_, attributeLists), isFreeText),
