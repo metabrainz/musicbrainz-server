@@ -134,6 +134,8 @@ async function handleCommand(command, target, value, baseURL, t) {
     return handleCommandAndWait.apply(null, arguments);
   }
 
+  t.comment(`${command} target=${JSON.stringify(target)} value=${JSON.stringify(value)}`);
+
   let element;
   switch (command) {
     case 'assertAttribute':
@@ -151,7 +153,6 @@ async function handleCommand(command, target, value, baseURL, t) {
       return;
 
     case 'assertEval':
-      t.comment(`assertEval: String(${target}) === ${JSON.stringify(value)}`);
       t.equal(await driver.executeScript(`return String(${target})`), value);
       return;
 
