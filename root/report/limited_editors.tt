@@ -1,0 +1,18 @@
+[%~ WRAPPER 'layout.tt' title=l('Beginner/limited editors') full_width=1 ~%]
+
+<h1>[%~ l('Beginner/limited editors') ~%]</h1>
+
+<ul>
+    <li>[%~ l("This report lists {url|beginner/limited editors}.", {
+            url => doc_link('How_to_Create_an_Account') }) ~%]</li>
+    <li>[%~ l('Total editors found: {count}', { count => pager.total_entries }) ~%]</li>
+    <li>[%~ l('Generated on {date}', { date => UserDate.format(generated) }) ~%]</li>
+</ul>
+
+[%~ IF c.user.is_account_admin ~%]
+[%~ INCLUDE 'report/editor_list.tt' ~%]
+[%~ ELSE ~%]
+<p>[%~ l('Sorry, you are not authorized to view this page.') ~%]</p>
+[%~ END ~%]
+
+[%~ END ~%]
