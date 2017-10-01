@@ -6,6 +6,7 @@
 const React = require('react');
 const URL = require('url');
 
+const Frag = require('../../components/Frag');
 const EntityLink =
   require('../../static/scripts/common/components/EntityLink');
 const {FAVICON_CLASSES} = require('../../static/scripts/common/constants');
@@ -90,7 +91,7 @@ const ExternalLinks = ({entity, empty, heading}) => {
   }));
 
   return (
-    <frag>
+    <Frag>
       <h2 className="external-links">
         {heading || l('External links')}
       </h2>
@@ -108,7 +109,7 @@ const ExternalLinks = ({entity, empty, heading}) => {
           </li>
         </If>
       </ul>
-    </frag>
+    </Frag>
   );
 };
 

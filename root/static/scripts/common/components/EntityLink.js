@@ -7,6 +7,7 @@ const ko = require('knockout');
 const _ = require('lodash');
 const React = require('react');
 
+const Frag = require('../../../../components/Frag');
 const {ENTITIES, AREA_TYPE_COUNTRY} = require('../constants');
 const {l} = require('../i18n');
 const bracketed = require('../utility/bracketed');
@@ -29,10 +30,10 @@ const DeletedLink = ({name, allowNew}) => {
 };
 
 const Comment = ({className, comment}) => (
-  <frag>
+  <Frag>
     {' '}
     <span className={className}>({isolateText(comment)})</span>
-  </frag>
+  </Frag>
 );
 
 class EventDisambiguation extends React.Component {
@@ -43,14 +44,14 @@ class EventDisambiguation extends React.Component {
       return null;
     }
     return (
-      <frag>
+      <Frag>
         <If condition={dates}>
           {bracketed(dates)}
         </If>
         <If condition={event.cancelled}>
           <Comment className="cancelled" comment={l('cancelled')} />
         </If>
-      </frag>
+      </Frag>
     );
   }
 }
@@ -80,11 +81,11 @@ class AreaDisambiguation extends React.Component {
 }
 
 const NoInfoURL = ({url, allowNew}) => (
-  <frag>
+  <Frag>
     <a href={url}>{url}</a>
     {' '}
     <DeletedLink name={'[' + l('info') + ']'} allowNew={allowNew} />
-  </frag>
+  </Frag>
 );
 
 const EntityLink = (props = {}) => {
@@ -176,7 +177,7 @@ const EntityLink = (props = {}) => {
   }
 
   return (
-    <frag>
+    <Frag>
       {content}
       <If condition={showDisambiguation}>
         <If condition={entityType === 'event'}>
@@ -193,7 +194,7 @@ const EntityLink = (props = {}) => {
         {' '}
         [<a href={infoLink}>{l('info')}</a>]
       </If>
-    </frag>
+    </Frag>
   );
 };
 

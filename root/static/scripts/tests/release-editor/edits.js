@@ -9,7 +9,7 @@ const $ = require('jquery');
 const ko = require('knockout');
 const _ = require('lodash');
 const test = require('tape');
-const ReactTestUtils = require('react-addons-test-utils');
+const ReactTestUtils = require('react-dom/test-utils');
 const ReactDOM = require('react-dom');
 
 const validation = require('../../edit/validation');

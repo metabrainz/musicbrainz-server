@@ -23,7 +23,6 @@
     "jsx-control-statements",
     "transform-react-jsx",
     "transform-react-constant-elements",
-    "transform-react-inline-elements",
     "transform-runtime"
   ]
 }
