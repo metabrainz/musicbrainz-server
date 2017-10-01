@@ -31,7 +31,7 @@
     "immutable": "3.7.5",
     "jed": "1.1.0",
     "jquery": "1.11.2",
-    "jsx-control-statements": "AlexGilleran/jsx-control-statements#af1f013",
+    "jsx-control-statements": "git://github.com/AlexGilleran/jsx-control-statements.git/np#af1f013",
     "knockout": "git://github.com/mwiencek/knockout.git#a8f12df",
     "knockout-arraytransforms": "2.0.0",
     "leaflet": "1.0.2",
