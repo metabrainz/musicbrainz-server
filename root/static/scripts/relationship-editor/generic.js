@@ -258,8 +258,8 @@ const {ViewModel} = require('./common/viewModel');
         if (vm = MB.sourceExternalLinksEditor) {
             vm.getFormData(formName + '.url', fieldCount, pushInput);
 
-            if (MB.hasSessionStorage && vm.state.links.size) {
-                window.sessionStorage.setItem('submittedLinks', JSON.stringify(vm.state.links.toJS()));
+            if (MB.hasSessionStorage && vm.state.links.length) {
+                window.sessionStorage.setItem('submittedLinks', JSON.stringify(vm.state.links));
             }
         }
 

@@ -12,6 +12,7 @@ const test = require('tape');
 const webdriver = require('selenium-webdriver');
 const chrome = require('selenium-webdriver/chrome');
 const {Key} = require('selenium-webdriver/lib/input');
+const promise = require('selenium-webdriver/lib/promise');
 const until = require('selenium-webdriver/lib/until');
 
 const testSqlPath = path.resolve(__dirname, 'sql', 'selenium.sql');
@@ -71,6 +72,39 @@ async function setChecked(element, wantChecked) {
   }
 }
 
+async function selectOption(select, optionLocator) {
+  await select.click();
+
+  const splitAt = optionLocator.indexOf('=');
+  const prefix = optionLocator.slice(0, splitAt);
+  let value = optionLocator.slice(splitAt + 1);
+  let option;
+
+  switch (prefix) {
+    case 'label':
+      if (!value.startsWith('regexp:')) {
+        throw 'Only regexp patterns are supported for the "label" select prefix';
+      }
+      value = new RegExp(value.slice(7));
+      option = await select.findElement(function () {
+        const options = select.findElements(webdriver.By.tagName('option'));
+        return promise.filter(options, function (option) {
+          return option.getText().then(x => value.test(x));
+        });
+      });
+      break;
+
+    default:
+      throw 'Unsupported select prefix: ' + prefix;
+  }
+
+  if (!option) {
+    throw 'Option not found: ' + optionLocator;
+  }
+
+  return option.click();
+}
+
 const KEY_CODES = {
   '${KEY_BKSP}': Key.BACK_SPACE,
   '${KEY_END}': Key.END,
@@ -116,6 +150,12 @@ async function handleCommand(command, target, value, baseURL, t) {
       t.equal(await driver.getCurrentUrl(), target);
       return;
 
+    case 'assertText':
+      // The Selenium IDE converts tabs and newlines to normal spaces.
+      target = (await findElement(target).getText()).replace(/\s/g, ' ').trim();
+      t.equal(target, value.trim());
+      return;
+
     case 'assertTitle':
       t.equal(await driver.getTitle(), target);
       return;
@@ -128,7 +168,9 @@ async function handleCommand(command, target, value, baseURL, t) {
       return setChecked(findElement(target), true);
 
     case 'click':
-      return findElement(target).click();
+      element = await findElement(target);
+      await driver.executeScript('arguments[0].scrollIntoView()', element);
+      return element.click();
 
     case 'fireEvent':
       return driver.executeScript(
@@ -157,6 +199,9 @@ async function handleCommand(command, target, value, baseURL, t) {
     case 'runScript':
       return driver.executeScript(target);
 
+    case 'select':
+      return selectOption(await findElement(target), value);
+
     case 'sendKeys':
       value = value.split(/(\$\{[A-Z_]+\})/)
         .filter(x => x)
@@ -183,6 +228,7 @@ const tests = [
   'Log_In.html',
   'MBS-7456.html',
   'Artist_Credit_Editor.html',
+  'External_Links_Editor.html',
 ];
 
 async function nextTest(testIndex) {
@@ -194,7 +240,7 @@ async function nextTest(testIndex) {
   const tbody = document.querySelector('tbody');
   const rows = Array.prototype.slice.call(tbody.getElementsByTagName('tr'), 0);
 
-  test(title, {timeout: 30000}, async function (t) {
+  test(title, {timeout: 60000}, async function (t) {
     async function nextRow(index) {
       if (index < rows.length) {
         const cols = rows[index].getElementsByTagName('td');

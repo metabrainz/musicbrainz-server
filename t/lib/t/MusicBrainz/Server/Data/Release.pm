@@ -4,7 +4,6 @@ use Test::Moose;
 use Test::More;
 use Test::Deep qw( cmp_bag cmp_deeply );
 use Test::Memory::Cycle;
-use Test::Magpie qw( mock when inspect verify );
 
 use MusicBrainz::Server::Data::Release;
 
@@ -327,7 +326,7 @@ is( $release->artist_credit_id, 1 );
 is( $release->release_group_id, 1 );
 is( $release->status_id, 1 );
 is( $release->packaging_id, 1 );
-is( $release->script_id, 1 );
+is( $release->script_id, 3 );
 is( $release->language_id, 145 );
 is( $release->barcode, "731453398122" );
 is( $release->comment, "Comment" );
@@ -395,7 +394,7 @@ $release = $release_data->insert({
     packaging_id => 1,
     status_id => 1,
     barcode => '0123456789',
-    script_id => 1,
+    script_id => 3,
     language_id => 145,
     comment => 'A comment',
     events => [
@@ -413,7 +412,7 @@ is($release->artist_credit_id, 1);
 is($release->release_group_id, 1);
 is($release->packaging_id, 1);
 is($release->status_id, 1);
-is($release->script_id, 1);
+is($release->script_id, 3);
 is($release->language_id, 145);
 is($release->comment, 'A comment');
 

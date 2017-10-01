@@ -4,7 +4,6 @@ require('./Control/URLCleanup');
 require('./CoverArt');
 require('./edit');
 require('./entity');
-require('./externalLinks');
 require('./GuessCase');
 require('./guessFeat');
 require('./i18n');

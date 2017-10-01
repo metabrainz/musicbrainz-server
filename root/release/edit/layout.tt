@@ -64,7 +64,7 @@
         <button type="button" data-click="open">[% l('Add Medium') %]</button>
       <!-- /ko -->
 
-      <button type="button" class="positive" data-click="submitEdits" data-bind="visible: activeTabID() === '#edit-note', enable: allowsSubmission()">[% l('Enter edit') %]</button>
+      <button type="button" id="enter-edit" class="positive" data-click="submitEdits" data-bind="visible: activeTabID() === '#edit-note', enable: allowsSubmission()">[% l('Enter edit') %]</button>
     </div>
   </div>
 
