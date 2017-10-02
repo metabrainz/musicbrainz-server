@@ -10,7 +10,7 @@ with 'MusicBrainz::Server::Entity::Role::Linkable';
 with 'MusicBrainz::Server::Entity::Role::Annotation';
 with 'MusicBrainz::Server::Entity::Role::LastUpdate';
 with 'MusicBrainz::Server::Entity::Role::Rating';
-with 'MusicBrainz::Server::Entity::Role::Age';
+with 'MusicBrainz::Server::Entity::Role::DatePeriod';
 with 'MusicBrainz::Server::Entity::Role::IPI';
 with 'MusicBrainz::Server::Entity::Role::ISNI';
 with 'MusicBrainz::Server::Entity::Role::Comment';

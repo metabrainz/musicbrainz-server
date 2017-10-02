@@ -10,7 +10,7 @@ with 'MusicBrainz::Server::Entity::Role::Linkable';
 with 'MusicBrainz::Server::Entity::Role::Annotation';
 with 'MusicBrainz::Server::Entity::Role::LastUpdate';
 with 'MusicBrainz::Server::Entity::Role::Rating';
-with 'MusicBrainz::Server::Entity::Role::Age';
+with 'MusicBrainz::Server::Entity::Role::DatePeriod';
 with 'MusicBrainz::Server::Entity::Role::Comment';
 with 'MusicBrainz::Server::Entity::Role::Area';
 with 'MusicBrainz::Server::Entity::Role::Type' => { model => 'PlaceType' };

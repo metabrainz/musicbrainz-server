@@ -586,4 +586,3 @@ exports.MainTagEditor = MainTagEditor;
 exports.SidebarTagEditor = hydrate('sidebar-tags', SidebarTagEditor);
 
 MB.init_main_tag_editor = init_tag_editor(MainTagEditor, 'all-tags');
-MB.init_sidebar_tag_editor = init_tag_editor(SidebarTagEditor, 'sidebar-tags');

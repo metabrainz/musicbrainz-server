@@ -19,8 +19,6 @@
 [%~ MACRO html_unescape(text) BLOCK; text.replace('&quot;', '"').replace('&lt;', '<').replace('&gt;', '>').replace('&#39;', "'").replace('&amp;', '&'); END -%]
 [%~ MACRO bracketedWithSpace(text) BLOCK; text != '' ? l(' ({text})', { text => text }) : ''; END # Converted to React at root/static/scripts/common/utility/bracketed.js
 -%]
-[%~ MACRO js_escape(text) BLOCK; text | js; END # Converted to React (unused)
-~%]
 [%~ MACRO closing_tag_escape(text) BLOCK; text.replace('</', '<\\/'); END # Converted to React at root/utility/escapeClosingTags.js
 ~%]
 [%- USE UserDate(c.user.preferences, current_language) # Converted to React at root/utility/formatUserDate.js
@@ -65,20 +63,6 @@ END; -%]
 [%~ MACRO expand(text, args) BLOCK; # Converted to React at root/static/scripts/common/i18n/expand.js
     Translation.expand(text, args);
 END; -%]
-
-[%~ MACRO display_age(age, person) BLOCK; # Converted to React at root/utility/age.js
-      IF person AND age.0;
-        l('aged {num}', { num => age.0 });
-      ELSE;
-        IF age.0;
-          ln('{num} year', '{num} years', age.0, { num => age.0 });
-        ELSIF age.1;
-          ln('{num} month', '{num} months', age.1, { num => age.1 });
-        ELSE;
-          ln('{num} day', '{num} days', age.2, { num => age.2 });
-        END;
-      END;
-    END -%]
 
 [%~ MACRO display_age_ago(age) BLOCK; # Converted to React at root/utility/age.js
         IF age.0;
@@ -811,16 +795,8 @@ END ~%]
     [%~ type_id == 1 ? l('Born:') : (type_id ==  2 || type_id == 5 || type_id == 6) ? l('Founded:') : l('Begin date:') ~%]
 [%~ END -%]
 
-[%~ MACRO artist_begin_area_label_from_type(type_id) BLOCK # Converted to React at root/artist/utils.js ~%]
-    [%~ type_id == 1 ? l('Born in:') : (type_id ==  2 || type_id == 5 || type_id == 6) ? l('Founded in:') : l('Begin area:') ~%]
-[%~ END -%]
-
 [%~ MACRO artist_end_label_from_type(type_id) BLOCK ~%]
     [%~ type_id == 1 ? l('Died:') : (type_id ==  2 || type_id == 5 || type_id == 6) ? l('Dissolved:') : l('End date:') ~%]
-[%~ END -%]
-
-[%~ MACRO artist_end_area_label_from_type(type_id) BLOCK # Converted to React at root/artist/utils.js ~%]
-    [%~ type_id == 1 ? l('Died in:') : (type_id ==  2 || type_id == 5 || type_id == 6) ? l('Dissolved in:') : l('End area:') ~%]
 [%~ END -%]
 
 [%~ MACRO show_wikipedia_extract BLOCK # Converted to React at root/static/scripts/common/components/WikipediaExtract.js
@@ -829,14 +805,6 @@ END ~%]
         entity => {entityType => entity.entity_type, gid => entity.gid},
         wikipediaExtract => wikipedia_extract,
     }) -%]
-[%- END -%]
-
-[%~ MACRO show_image BLOCK # Converted to React at root/static/scripts/common/components/CommonsImage.js
--%]
-    [%- React.embed(c, 'static/scripts/common/components/CommonsImage', {
-            image => commons_image,
-            entity => {entityType => entity.entity_type, gid => entity.gid},
-        }) -%]
 [%- END -%]
 
 [%~ MACRO track_duration_changes(loop_over, old_base, new_base, old_prop, new_prop) BLOCK -%]
@@ -920,12 +888,6 @@ END -%]
 [%~ MACRO format_isni(isni) BLOCK;
       isni.replace('(.{4})(.{4})(.{4})(.{4})', '$1 $2 $3 $4');
     END -%]
-
-[%~ MACRO link_isni(isni) BLOCK -%]
-    <a href="[% isni.url %]">
-        [%- format_isni(isni.isni) -%]
-    </a>
-[%- END -%]
 
 [%~ MACRO country_abbr(country) BLOCK -%]
     <span class="flag flag-[% country.primary_code %]">
