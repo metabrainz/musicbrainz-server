@@ -32,13 +32,13 @@ sub sidebar_name {
     }
 }
 
-=method show_in_sidebar
+=method show_in_external_links
 
 IMSLP URLs are only show in the sidebar if the URL can be decoded from utf-8
 
 =cut
 
-sub show_in_sidebar { !shift->uses_legacy_encoding }
+sub show_in_external_links { !shift->uses_legacy_encoding }
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

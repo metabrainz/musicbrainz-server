@@ -73,7 +73,7 @@ const ExternalLinks = ({entity, empty, heading}) => {
           text={l('Official homepage')}
         />
       );
-    } else if (target.show_in_sidebar) {
+    } else if (target.show_in_external_links) {
       otherLinks.push(relationship);
     }
   }

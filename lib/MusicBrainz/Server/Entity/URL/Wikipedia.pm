@@ -41,13 +41,13 @@ sub language
     }
 }
 
-=method show_in_sidebar
+=method show_in_external_links
 
 Wikipedia URLs are only show in the sidebar if the URL can be decoded from utf-8
 
 =cut
 
-sub show_in_sidebar { !shift->uses_legacy_encoding }
+sub show_in_external_links { !shift->uses_legacy_encoding }
 
 sub url_is_scheme_independent { 1 }
 
