@@ -12,6 +12,11 @@
 // TO_JSON methods under lib/MusicBrainz/Server/Entity/; those are precisely
 // how data is serialized for us.
 
+declare type CommonsImageT = {
+  page_url: string;
+  thumb_url: string;
+};
+
 declare type CoreEntityT = EntityT & {
   gid: string;
 };

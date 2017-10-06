@@ -277,6 +277,10 @@ runYarb('work.js', function (b) {
   b.external(editBundle).external(guessCaseBundle);
 });
 
+runYarb('commons-image.js', function (b) {
+  b.external(commonBundle);
+});
+
 gulp.task('watch', ['default'], function () {
   let watch = require('gulp-watch');
 

@@ -23,6 +23,15 @@ sub page_url
     return sprintf "https://commons.wikimedia.org/wiki/%s", $self->title;
 }
 
+sub TO_JSON {
+    my ($self) = @_;
+
+    return {
+        page_url => $self->page_url,
+        thumb_url => $self->thumb_url,
+    };
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;
