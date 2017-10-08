@@ -469,6 +469,7 @@ with 'MusicBrainz::Server::Controller::Role::Edit' => {
                 my ($edit, $form) = @_;
 
                 my $editid = $edit->id;
+                my $artistname = $artist->name;
                 my $name = $form->field('name')->value;
                 if ($name ne $artist->name) {
                     my %rename = %{ $form->rename_artist_credit_set };
@@ -485,7 +486,7 @@ with 'MusicBrainz::Server::Controller::Role::Edit' => {
                         $c->model('EditNote')->add_note(
                             $ac_edit->id,
                             {
-                                text => "The artist name has been changed in edit #$editid.",
+                                text => "This credit is being changed because the main name for the artist “$artistname” is being modified by edit #$editid.",
                                 editor_id => $EDITOR_MODBOT
                             }
                         );
