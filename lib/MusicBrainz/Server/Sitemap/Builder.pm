@@ -19,13 +19,11 @@ use MusicBrainz::Server::Constants qw(
     $MAX_INITIAL_MEDIUMS
 );
 use MusicBrainz::Server::Context;
-use MusicBrainz::Server::Replication qw( REPLICATION_ACCESS_URI );
 use MusicBrainz::Server::Sitemap::Constants qw( $MAX_SITEMAP_SIZE );
 use MusicBrainz::Server::Sitemap::Utils qw(
     serialize_sitemap
     serialize_sitemap_index
 );
-use POSIX qw( ceil );
 use Readonly;
 use String::ShellQuote qw( shell_quote );
 use Try::Tiny;
@@ -91,15 +89,6 @@ has output_dir => (
     traits => ['Getopt'],
     cmd_flag => 'output-dir',
     documentation => 'directory to write sitemaps to (default: root/static/sitemaps/)',
-);
-
-has replication_access_uri => (
-    is => 'ro',
-    isa => 'Str',
-    default => REPLICATION_ACCESS_URI,
-    traits => ['Getopt'],
-    cmd_flag => 'replication-access-uri',
-    documentation => 'URI to request replication packets from (default: https://metabrainz.org/api/musicbrainz)',
 );
 
 has current_time => (

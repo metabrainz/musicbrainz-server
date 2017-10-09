@@ -129,6 +129,12 @@ sub disconnect {
     $self->_connection->quit;
 }
 
+sub clear {
+    my ($self) = @_;
+
+    $self->_connection->flushdb;
+}
+
 __PACKAGE__->meta->make_immutable;
 
 no Moose;

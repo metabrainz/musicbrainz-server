@@ -6,6 +6,7 @@ use Test::More;
 use MusicBrainz::Server::Entity::Label;
 use MusicBrainz::Server::Entity::LabelType;
 use MusicBrainz::Server::Entity::LabelAlias;
+use aliased 'MusicBrainz::Server::Entity::PartialDate';
 
 test all => sub {
 
@@ -29,8 +30,8 @@ $label->edits_pending(2);
 is( $label->edits_pending, 2 );
 
 ok( !$label->has_age );
-$label->begin_date->year  (1976);
-$label->end_date->year  (2009);
+$label->begin_date(PartialDate->new(year => 1976));
+$label->end_date(PartialDate->new(year => 2009));
 my @got = $label->age;
 is_deeply( \@got, [33, 0, 0], "Label age 33 years" );
 

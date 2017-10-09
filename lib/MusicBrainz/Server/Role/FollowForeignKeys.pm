@@ -4,8 +4,9 @@ use Data::Compare qw( Compare );
 use Data::Dumper;
 use List::AllUtils qw( any );
 use Moose::Role;
+use MusicBrainz::Script::Utils qw( retry );
 
-requires qw( follow_foreign_key );
+requires qw( follow_primary_key );
 
 has _foreign_keys_cache => (
     isa => 'HashRef',
@@ -86,7 +87,7 @@ sub has_join {
     } @{$joins};
 }
 
-sub get_foreign_keys {
+sub _get_foreign_keys {
     my ($self, $c, $direction, $schema, $table) = @_;
 
     my $cache_key = "$direction\t$schema\t$table";
@@ -144,27 +145,42 @@ sub follow_foreign_keys($$$$$$);
 sub follow_foreign_keys($$$$$$) {
     my ($self, $c, $direction, $pk_schema, $pk_table, $update, $joins) = @_;
 
+    my @primary_keys = (
+        [$pk_schema, $pk_table, $joins],
+    );
     # Continue traversing the schemas until we stop finding changes.
-    my $foreign_keys = $self->get_foreign_keys($c, $direction, $pk_schema, $pk_table);
-    return unless @{$foreign_keys};
+    while (@primary_keys) {
+        ($pk_schema, $pk_table, $joins) = @{ pop(@primary_keys) };
 
-    for my $info (@{$foreign_keys}) {
-        my ($pk_column, $fk_schema, $fk_table, $fk_column) =
-            @{$info}{qw(pk_column fk_schema fk_table fk_column)};
-
-        my $lhs = {schema => $pk_schema, table => $pk_table, column => $pk_column};
-        my $rhs = {schema => $fk_schema, table => $fk_table, column => $fk_column};
-
-        next unless $self->should_follow_foreign_key($direction, $lhs, $rhs, $joins);
-
-        $self->follow_foreign_key(
-            $c,
-            $direction,
-            $fk_schema,
-            $fk_table,
-            $update,
-            [{lhs => $lhs, rhs => $rhs}, @{$joins}],
+        # retry: "server closed the connection unexpectedly" has happened here.
+        my $foreign_keys = retry(
+            sub { $self->_get_foreign_keys($c, $direction, $pk_schema, $pk_table) },
+            reason => 'getting foreign keys',
         );
+        next unless @{$foreign_keys};
+
+        for my $info (@{$foreign_keys}) {
+            my ($pk_column, $fk_schema, $fk_table, $fk_column) =
+                @{$info}{qw(pk_column fk_schema fk_table fk_column)};
+
+            my $lhs = {schema => $pk_schema, table => $pk_table, column => $pk_column};
+            my $rhs = {schema => $fk_schema, table => $fk_table, column => $fk_column};
+
+            next unless $self->should_follow_foreign_key($direction, $lhs, $rhs, $joins);
+
+            my $new_joins = [{lhs => $lhs, rhs => $rhs}, @{$joins}];
+
+            my $continue = $self->follow_primary_key(
+                $c,
+                $direction,
+                $fk_schema,
+                $fk_table,
+                $update,
+                $new_joins,
+            );
+
+            push @primary_keys, [$fk_schema, $fk_table, $new_joins] if $continue;
+        }
     }
 }
 
@@ -176,10 +192,17 @@ sub get_primary_keys($$$) {
         return @{ $cache->{$table} };
     }
 
-    my @keys = map {
+    # retry: transient "server closed the connection unexpectedly",
+    # "no statement executing", and "Field 'attnum' does not exist" errors
+    # have happened here.
+    my @keys = retry(
+        sub { $c->sql->dbh->primary_key(undef, $schema, $table) },
+        reason => 'getting primary keys',
+    );
+    @keys = map {
         # Some columns are wrapped in quotes, others aren't...
         s/^"(.*?)"$/$1/r
-    } $c->sql->dbh->primary_key(undef, $schema, $table);
+    } @keys;
     $cache->{$table} = \@keys;
     return @keys;
 }

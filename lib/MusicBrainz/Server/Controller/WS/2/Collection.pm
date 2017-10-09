@@ -37,9 +37,8 @@ with 'MusicBrainz::Server::WebService::Validator' =>
      defs => $ws_defs,
 };
 
-with 'MusicBrainz::Server::Controller::Role::Load' => {
+with 'MusicBrainz::Server::Controller::WS::2::Role::Lookup' => {
     model => 'Collection',
-    entity_name => 'collection'
 };
 
 Readonly our $MAX_ITEMS => 25;
@@ -60,22 +59,23 @@ sub get_collection_from_stash {
 
 sub base : Chained('root') PathPart('collection') CaptureArgs(0) { }
 
-sub collection : Chained('load') PathPart('') {
+before lookup => sub {
     my ($self, $c) = @_;
 
     $c->detach('method_not_allowed')
         unless $c->req->method eq 'GET';
 
-    my $collection = $self->get_collection_from_stash($c);
-    my $stash = WebServiceStash->new;
-    my $opts = $stash->store($collection);
+    $self->get_collection_from_stash($c);
+};
 
-    $c->model('Collection')->load_entity_count($collection);
-    $c->model('CollectionType')->load($collection);
-    $c->model('Editor')->load($collection);
+sub collection_toplevel {
+    my ($self, $c, $stash, $collections) = @_;
 
-    $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
-    $c->res->body($c->stash->{serializer}->serialize('collection', $collection, $c->stash->{inc}, $stash));
+    my @collections = @{$collections};
+
+    $c->model('Collection')->load_entity_count(@collections);
+    $c->model('CollectionType')->load(@collections);
+    $c->model('Editor')->load(@collections);
 }
 
 map {
@@ -101,7 +101,7 @@ map {
         $c->model('CollectionType')->load($collection);
 
         $self->_error($c, "This is not a collection for entity type $url."),
-            unless ($collection->type->entity_type eq $type);
+            unless ($collection->type->item_entity_type eq $type);
 
         $c->model('Editor')->load($collection);
 
@@ -132,7 +132,7 @@ map {
             unless ($c->user->id == $collection->editor_id);
 
         $self->_error($c, "This is not a collection for entity type $url.")
-            unless ($collection->type->entity_type eq $type);
+            unless ($collection->type->item_entity_type eq $type);
 
         my $client = $c->req->query_params->{client}
             or $self->_error($c, 'You must provide information about your client, by the client query parameter');
@@ -250,9 +250,7 @@ sub collection_browse : Private {
 
     $collections = $self->make_list(@result, $offset);
     my @collections = @{ $result[0] };
-    $c->model('Editor')->load(@collections);
-    $c->model('Collection')->load_entity_count(@collections);
-    $c->model('CollectionType')->load(@collections);
+    $self->collection_toplevel($c, $stash, \@collections);
 
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
     $c->res->body($c->stash->{serializer}->serialize('collection-list', $collections, $c->stash->{inc}, $stash));

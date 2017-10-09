@@ -15,6 +15,8 @@ with 'MusicBrainz::Server::Entity::Role::Comment';
 with 'MusicBrainz::Server::Entity::Role::Area';
 with 'MusicBrainz::Server::Entity::Role::Type' => { model => 'PlaceType' };
 
+sub entity_type { 'place' }
+
 has 'address' => (
     is => 'rw',
     isa => 'Str'

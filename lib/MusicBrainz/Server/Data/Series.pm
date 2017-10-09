@@ -199,7 +199,7 @@ sub delete
 sub get_entities {
     my ($self, $series, $limit, $offset) = @_;
 
-    my $entity_type = $series->type->entity_type;
+    my $entity_type = $series->type->item_entity_type;
     my $model = $self->c->model(type_to_model($entity_type));
 
     my $query = "

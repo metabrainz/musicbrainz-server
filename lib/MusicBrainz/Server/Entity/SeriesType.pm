@@ -15,7 +15,7 @@ sub l_name {
     return lp($self->name, 'series_type')
 }
 
-has entity_type => (
+has item_entity_type => (
     is => 'rw',
     isa => 'Str',
 );
@@ -30,7 +30,7 @@ around TO_JSON => sub {
 
     return {
         %{ $self->$orig },
-        series_entity_type => $self->entity_type,
+        item_entity_type => $self->item_entity_type,
     };
 };
 

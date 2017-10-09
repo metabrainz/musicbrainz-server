@@ -12,6 +12,8 @@ use overload
 
 extends 'MusicBrainz::Server::Entity';
 
+sub entity_type { 'artist_credit' }
+
 has 'names' => (
     is => 'rw',
     isa => 'ArrayRef[ArtistCreditName]',

@@ -7,7 +7,6 @@ cd "$MB_SERVER_ROOT"
 
 ./admin/BuildIncrementalSitemaps.pl \
     --database READWRITE \
-    --ping \
-    --worker-count 7
+    --ping
 
 ./bin/rsync-sitemaps

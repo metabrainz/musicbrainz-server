@@ -4,15 +4,6 @@ use List::UtilsBy 'sort_by';
 use MusicBrainz::Server::WebService::Serializer::JSON::2::Utils qw( list_of serialize_entity );
 
 extends 'MusicBrainz::Server::WebService::Serializer::JSON::2';
-with 'MusicBrainz::Server::WebService::Serializer::JSON::2::Role::Aliases';
-with 'MusicBrainz::Server::WebService::Serializer::JSON::2::Role::Annotation';
-with 'MusicBrainz::Server::WebService::Serializer::JSON::2::Role::GID';
-with 'MusicBrainz::Server::WebService::Serializer::JSON::2::Role::IPIs';
-with 'MusicBrainz::Server::WebService::Serializer::JSON::2::Role::ISNIs';
-with 'MusicBrainz::Server::WebService::Serializer::JSON::2::Role::LifeSpan';
-with 'MusicBrainz::Server::WebService::Serializer::JSON::2::Role::Rating';
-with 'MusicBrainz::Server::WebService::Serializer::JSON::2::Role::Relationships';
-with 'MusicBrainz::Server::WebService::Serializer::JSON::2::Role::Tags';
 
 sub serialize
 {
@@ -25,8 +16,6 @@ sub serialize
 
     if ($toplevel)
     {
-        $body{type} = $entity->type ? $entity->type_name : JSON::null;
-        $body{'type-id'} = $entity->type ? $entity->type->gid : JSON::null;
         $body{gender} = $entity->gender ? $entity->gender_name : JSON::null;
         $body{'gender-id'} = $entity->gender ? $entity->gender->gid : JSON::null;
 

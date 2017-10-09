@@ -137,6 +137,6 @@
     [%~ INCLUDE "layout/sidebar/sidebar-licenses.tt" source=entity ~%]
 
     [%~ IF entity.last_updated ~%]
-        <p class="lastupdate">[%~ l('Last updated on {date}', { date => UserDate.format(entity.last_updated) }) ~%]</p>
+        <p class="lastupdate">[%~ l('Last updated on {date}', { date => UserDate.format_pg_string(entity.last_updated) }) ~%]</p>
     [%~ END ~%]
 [%~ END ~%]

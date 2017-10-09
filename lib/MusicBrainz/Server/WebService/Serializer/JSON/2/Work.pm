@@ -1,14 +1,11 @@
 package MusicBrainz::Server::WebService::Serializer::JSON::2::Work;
 use List::UtilsBy qw( sort_by );
 use Moose;
+use MusicBrainz::Server::WebService::Serializer::JSON::2::Utils qw(
+    serialize_type
+);
 
 extends 'MusicBrainz::Server::WebService::Serializer::JSON::2';
-with 'MusicBrainz::Server::WebService::Serializer::JSON::2::Role::Annotation';
-with 'MusicBrainz::Server::WebService::Serializer::JSON::2::Role::Aliases';
-with 'MusicBrainz::Server::WebService::Serializer::JSON::2::Role::GID';
-with 'MusicBrainz::Server::WebService::Serializer::JSON::2::Role::Rating';
-with 'MusicBrainz::Server::WebService::Serializer::JSON::2::Role::Relationships';
-with 'MusicBrainz::Server::WebService::Serializer::JSON::2::Role::Tags';
 
 sub element { 'work'; }
 
@@ -20,16 +17,16 @@ sub serialize
     $body{title} = $entity->name;
     $body{disambiguation} = $entity->comment // "";
     $body{iswcs} = [ map { $_->iswc } @{ $entity->iswcs } ];
-    $body{type} = $entity->type ? $entity->type->name : JSON::null;
-    $body{'type-id'} = $entity->type ? $entity->type->gid : JSON::null;
 
     $body{attributes} = [
-        map +{
-            type        => $_->type->name,
-            'type-id'   => $_->type->gid,
-            value       => $_->value,
-            $_->value_gid ? ('value-id' => $_->value_gid) : (),
-        }, $entity->all_attributes
+        map {
+            my $attr_output = {
+                value => $_->value,
+                $_->value_gid ? ('value-id' => $_->value_gid) : (),
+            };
+            serialize_type($attr_output, $_, $inc, $stash, 1);
+            $attr_output
+        } $entity->all_attributes
     ];
 
     my @languages = map { $_->language->alpha_3_code } $entity->all_languages;

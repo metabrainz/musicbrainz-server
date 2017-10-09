@@ -3,15 +3,6 @@ use Moose;
 use MusicBrainz::Server::WebService::Serializer::JSON::2::Utils qw( list_of number serialize_entity );
 
 extends 'MusicBrainz::Server::WebService::Serializer::JSON::2';
-with 'MusicBrainz::Server::WebService::Serializer::JSON::2::Role::Aliases';
-with 'MusicBrainz::Server::WebService::Serializer::JSON::2::Role::Annotation';
-with 'MusicBrainz::Server::WebService::Serializer::JSON::2::Role::GID';
-with 'MusicBrainz::Server::WebService::Serializer::JSON::2::Role::IPIs';
-with 'MusicBrainz::Server::WebService::Serializer::JSON::2::Role::ISNIs';
-with 'MusicBrainz::Server::WebService::Serializer::JSON::2::Role::LifeSpan';
-with 'MusicBrainz::Server::WebService::Serializer::JSON::2::Role::Rating';
-with 'MusicBrainz::Server::WebService::Serializer::JSON::2::Role::Relationships';
-with 'MusicBrainz::Server::WebService::Serializer::JSON::2::Role::Tags';
 
 sub serialize
 {
@@ -25,8 +16,6 @@ sub serialize
 
     if ($toplevel)
     {
-        $body{type} = $entity->type ? $entity->type_name : JSON::null;
-        $body{'type-id'} = $entity->type ? $entity->type->gid : JSON::null;
         $body{country} = $entity->area && $entity->area->country_code ? $entity->area->country_code : JSON::null;
         $body{area} = $entity->area ? serialize_entity($entity->area) : JSON::null;
 

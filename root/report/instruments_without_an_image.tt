@@ -30,7 +30,7 @@
             [%- PROCESS extra_row_start -%]
             <td>[% link_entity(item.instrument) %]</td>
             <td>[% item.instrument.l_type_name || l('Unclassified instrument') %]</td>
-            <td>[% UserDate.format(item.instrument.last_updated) %]</td>
+            <td>[% UserDate.format_pg_string(item.instrument.last_updated) %]</td>
             [% BLOCK extra_row_end %][% END %]
             [%- PROCESS extra_row_end -%]
         </tr>
