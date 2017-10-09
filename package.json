@@ -28,7 +28,7 @@
     "gulp-less": "3.1.0",
     "gulp-rev": "7.1.2",
     "gulp-streamify": "1.0.2",
-    "immutable": "3.7.5",
+    "immutable": "4.0.0-rc.9",
     "jed": "1.1.0",
     "jquery": "1.11.2",
     "jsx-control-statements": "git://github.com/AlexGilleran/jsx-control-statements.git#af1f013",
