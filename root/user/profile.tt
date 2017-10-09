@@ -56,7 +56,7 @@
             [% types.push(l('{doc|Transclusion Editor}', {doc => doc_link('Editor')})) IF user.is_wiki_transcluder %]
             [% types.push(l('{doc|Location Editor}', {doc => doc_link('Editor')})) IF user.is_location_editor %]
             [% types.push('<span class="tooltip" title="' _ l('User accounts must be more than 2 weeks old, have a confirmed email address,
-                           and more than 10 accepted edits in order to vote on others\' edits.') _ '">' _ l('Limited User') _ '</span>')
+                           and more than 10 accepted edits in order to vote on others\' edits.') _ '">' _ l('Beginner') _ '</span>')
                            IF user.is_limited %]
             [% types.push(l('Normal User')) IF types.size == 0 %]
             [% comma_list(types) %]
