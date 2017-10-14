@@ -177,12 +177,12 @@ sub all_languages
     my @lang_with_locale = sort_by { ucfirst $_->[1]->native_language }
                            map { [ $_ => DateTime::Locale->load($_) ] }
                            grep { my $l = $_;
-                                  grep { $l eq $_ } DateTime::Locale->ids() }
+                                  grep { $l eq $_ } DateTime::Locale->codes() }
                            map { s/-([a-z]{2})/-\U$1/r } DBDefs->MB_LANGUAGES;
     my @lang_without_locale = sort_by { $_->[1]->{id} }
                               map { [ $_ => {'id' => $_, 'native_language' => ''} ] }
                               grep { my $l = $_;
-                                     !(grep { $l eq $_ } DateTime::Locale->ids()) }
+                                     !(grep { $l eq $_ } DateTime::Locale->codes()) }
                               map { s/-([a-z]{2})/-\U$1/r } DBDefs->MB_LANGUAGES;
     my @languages = (@lang_with_locale, @lang_without_locale);
     return \@languages;
