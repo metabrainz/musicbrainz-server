@@ -196,6 +196,13 @@ class ExternalLinksEditor extends React.Component<LinksEditorProps, LinksEditorS
               error = l('This relationship type is deprecated and should not be used.');
             } else if ((!isPositiveInteger(link.relationship) || (oldLink && link.url !== oldLink.url)) && checker && !checker(link.url)) {
               error = l('This URL is not allowed for the selected link type, or is incorrectly formatted.');
+            } else if ((!isPositiveInteger(link.relationship) || (oldLink && link.url !== oldLink.url)) && /^(https?:\/\/)?([^.\/]+\.)?wikipedia\.org\/.*#/.test(link.url)) {
+              // Kludge for MBS-9515 to be replaced with the more general MBS-9516
+              error = l('Links to specific sections of Wikipedia articles are not allowed. Please remove “{fragment}” if still appropriate. See the {url|guidelines}.', {
+                __react: true,
+                fragment: <span className='url-quote'>{link.url.replace(/^(?:https?:\/\/)?(?:[^.\/]+\.)?wikipedia\.org\/[^#]*#(.*)$/, '#$1')}</span>,
+                url: { href: '/relationship/' + typeInfo.gid, target: '_blank' }
+              });
             } else if ((linksByTypeAndUrl[linkTypeAndUrlString(link)] || []).length > 1) {
               error = l('This relationship already exists.');
             }
