@@ -30,7 +30,8 @@ INSERT INTO release_group (id, gid, name, artist_credit, type) VALUES (1, '7c321
 
 INSERT INTO release (id, gid, name, artist_credit, release_group)
     VALUES (1, 'f205627f-b70a-409d-adbe-66289b614e80', 'Aerial', 1, 1),
-           (2, '9b3d9383-3d2a-417f-bfbb-56f7c15f075b', 'Aerial', 1, 1);
+           (2, '9b3d9383-3d2a-417f-bfbb-56f7c15f075b', 'Aerial', 1, 1),
+           (3, 'ab3d9383-3d2a-417f-bfbb-56f7c15f075b', 'Aerial', 1, 1);
 
 INSERT INTO release_unknown_country (release, date_year)
 VALUES (1, 2007), (2, 2008);
@@ -41,6 +42,8 @@ INSERT INTO medium (id, release, position, format, name) VALUES (2, 1, 2, 123465
 
 INSERT INTO medium (id, release, position, format, name) VALUES (3, 2, 1, 123465, 'A Sea of Honey');
 INSERT INTO medium (id, release, position, format, name) VALUES (4, 2, 2, 123465, 'A Sky of Honey');
+
+INSERT INTO medium (id, release, position, format, name) VALUES (5, 3, 1, 123465, 'A Sky of Honey');
 
 INSERT INTO track (id, gid, medium, position, number, recording, name, artist_credit, length)
     VALUES (1, '66c2ebff-86a8-4e12-a9a2-1650fb97d9d8', 1, 1, 1, 1, 'King of the Mountain', 1, NULL),
@@ -82,6 +85,18 @@ INSERT INTO track (id, gid, medium, position, number, recording, name, artist_cr
            (31, '14767038-01d2-4763-911a-10269df14d1b', 4, 8, 8, 15, 'Nocturn', 1, 514679),
            (32, '0a989191-d8ec-4147-9915-9ddcf59fea95', 4, 9, 9, 16, 'Aerial', 1, 472880),
            (33, 'b5c9ac02-dc07-4850-9338-03a4588de554', 4, 0, 0, 17, '[pregap]', 1, 148);
+
+INSERT INTO track (id, gid, medium, position, number, recording, name, artist_credit, length)
+    VALUES (34, '17e1a081-ecf8-4ac4-92dd-6697c775b341', 5, 1, 1, 8, 'Prelude', 1, 86186),
+           (35, 'fe10482e-d2e5-4204-9e26-7289e5f9f39d', 5, 2, 2, 9, 'Prologue', 1, 342306),
+           (36, '2e394020-16e1-49d6-ac78-d6c8d833b775', 5, 3, 3, 10, 'An Architect''s Dream', 1, 290053),
+           (37, '15262836-6f29-4807-9b2c-f07b5d5eeb33', 5, 4, 4, 11, 'The Painter''s Link', 1, 95933),
+           (38, '43e4113d-97ce-4ad0-9642-3420d0440a5b', 5, 5, 5, 12, 'Sunset', 1, 358573),
+           (39, 'd05600b8-8ff4-4c66-bd57-b6690252e4f3', 5, 6, 6, 13, 'Aerial Tal', 1, 61333),
+           (40, '6cebf694-6346-44be-9724-375c08864a9d', 5, 7, 7, 14, 'Somewhere in Between', 1, 300626),
+           (41, '24767038-01d2-4763-911a-10269df14d1b', 5, 8, 8, 15, 'Nocturn', 1, 514679),
+           (42, '1a989191-d8ec-4147-9915-9ddcf59fea95', 5, 9, 9, 16, 'Aerial', 1, 123456),
+           (43, 'c5c9ac02-dc07-4850-9338-03a4588de554', 5, 0, 0, 17, '[pregap]', 1, 148);
 
 INSERT INTO cdtoc (id, discid, freedb_id, track_count, leadout_offset, track_offset, degraded)
        VALUES (1, 'BySFY0Ymit0miawEWumIN8Nvx-', '4b094107', 7, 171327,
