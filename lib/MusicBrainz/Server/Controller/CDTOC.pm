@@ -57,9 +57,17 @@ sub show : Chained('load') PathPart('')
     my ($self, $c) = @_;
 
     my $cdtoc = $c->stash->{cdtoc};
+    my $medium_cdtocs = $self->_load_releases($c, $cdtoc);
+
+    for my $mc (@$medium_cdtocs) {
+        $mc->perfect_match = $c->model('Medium')->perfect_match_cdtoc(
+            $mc->medium->id,
+            $mc->cdtoc->id
+        );
+    }
 
     $c->stash(
-        medium_cdtocs => $self->_load_releases($c, $cdtoc),
+        medium_cdtocs => $medium_cdtocs,
         template      => 'cdtoc/index.tt',
     );
 }
