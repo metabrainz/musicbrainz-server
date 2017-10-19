@@ -9,6 +9,7 @@ const jsdom = require('jsdom');
 const path = require('path');
 const shell = require('shelljs');
 const test = require('tape');
+const utf8 = require('utf8');
 const webdriver = require('selenium-webdriver');
 const chrome = require('selenium-webdriver/chrome');
 const {UnexpectedAlertOpenError} = require('selenium-webdriver/lib/error');
@@ -156,7 +157,11 @@ async function handleCommand(command, target, value, baseURL, t) {
     return handleCommandAndWait.apply(null, arguments);
   }
 
-  t.comment(`${command} target=${JSON.stringify(target)} value=${JSON.stringify(value)}`);
+  t.comment(
+    command +
+    ' target=' + utf8.encode(JSON.stringify(target)) +
+    ' value=' + utf8.encode(JSON.stringify(value))
+  );
 
   let element;
   switch (command) {
