@@ -11,6 +11,7 @@ const shell = require('shelljs');
 const test = require('tape');
 const webdriver = require('selenium-webdriver');
 const chrome = require('selenium-webdriver/chrome');
+const {UnexpectedAlertOpenError} = require('selenium-webdriver/lib/error');
 const {Key} = require('selenium-webdriver/lib/input');
 const promise = require('selenium-webdriver/lib/promise');
 const until = require('selenium-webdriver/lib/until');
@@ -112,6 +113,10 @@ const KEY_CODES = {
   '${KEY_SHIFT}': Key.SHIFT,
 };
 
+function getPageErrors() {
+  return driver.executeScript('return ((window.MB || {}).js_errors || [])');
+}
+
 async function handleCommandAndWait(command, target, value, baseURL, t) {
   command = command.replace(/AndWait$/, '');
 
@@ -122,7 +127,24 @@ async function handleCommandAndWait(command, target, value, baseURL, t) {
 
 async function handleCommand(command, target, value, baseURL, t) {
   // Die if there are any JS errors on the page since the previous command.
-  const errors = await driver.executeScript('return ((window.MB || {}).js_errors || [])');
+  let errors;
+  try {
+    errors = await getPageErrors();
+  } catch (e) {
+    // Handle the "All of your changes will be lost" confirmation dialog in
+    // the release editor.
+    //  1. Setting the unexpectedAlertBehavior capability on the session
+    //     doesn't seem to handle this.
+    //  2. The webdriver thinks the alert text is empty, so we don't bother
+    //     checking it.
+    if (e instanceof UnexpectedAlertOpenError) {
+      await driver.switchTo().alert().accept();
+      errors = await getPageErrors();
+    } else {
+      throw e;
+    }
+  }
+
   if (errors.length) {
     throw new Error(
       'Errors were found on the page since executing the previous command:\n' +
