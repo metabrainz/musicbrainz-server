@@ -28,7 +28,7 @@ if it has been created by the same editor less than an hour ago.
              WHERE edit_$entity_type.$entity_type = ?
                AND edit.editor = ?
                AND edit.type = $create_edit_type
-               AND (now() - edit.open_time) < interval '1 hour'
+               AND (now() - edit.open_time) < interval '1 day'
         ", $amended_entity_id, $self->editor_id);
 
         return defined $add_entity_edit;
