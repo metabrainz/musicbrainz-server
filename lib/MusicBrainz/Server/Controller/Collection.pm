@@ -71,7 +71,7 @@ sub remove : Chained('own_collection') RequireAuth {
     $self->_do_add_or_remove($c, 'remove_entities_from_collection');
 }
 
-sub show : Chained('load') PathPart('') RequireAuth {
+sub show : Chained('load') PathPart('') {
     my ($self, $c) = @_;
 
     my $collection = $c->stash->{collection};

@@ -303,7 +303,7 @@ sub contact : Chained('load') RequireAuth HiddenOnSlaves
     }
 }
 
-sub collections : Chained('load') PathPart('collections') RequireAuth
+sub collections : Chained('load') PathPart('collections')
 {
     my ($self, $c) = @_;
 
@@ -331,7 +331,7 @@ sub collections : Chained('load') PathPart('collections') RequireAuth
     $c->stash(user => $user, no_collections => $no_collections);
 }
 
-sub profile : Chained('load') PathPart('') RequireAuth HiddenOnSlaves
+sub profile : Chained('load') PathPart('') HiddenOnSlaves
 {
     my ($self, $c) = @_;
 
@@ -353,7 +353,7 @@ sub profile : Chained('load') PathPart('') RequireAuth HiddenOnSlaves
     );
 }
 
-sub rating_summary : Chained('load') PathPart('ratings') Args(0) RequireAuth HiddenOnSlaves
+sub rating_summary : Chained('load') PathPart('ratings') Args(0) HiddenOnSlaves
 {
     my ($self, $c) = @_;
 
@@ -376,7 +376,7 @@ sub rating_summary : Chained('load') PathPart('ratings') Args(0) RequireAuth Hid
     );
 }
 
-sub ratings : Chained('load') PathPart('ratings') Args(1) RequireAuth HiddenOnSlaves
+sub ratings : Chained('load') PathPart('ratings') Args(1) HiddenOnSlaves
 {
     my ($self, $c, $type) = @_;
 
@@ -411,7 +411,7 @@ sub ratings : Chained('load') PathPart('ratings') Args(1) RequireAuth HiddenOnSl
     );
 }
 
-sub tags : Chained('load') PathPart('tags') RequireAuth
+sub tags : Chained('load') PathPart('tags')
 {
     my ($self, $c) = @_;
 
@@ -434,7 +434,7 @@ sub tags : Chained('load') PathPart('tags') RequireAuth
     );
 }
 
-sub tag : Chained('load') PathPart('tag') Args(1) RequireAuth
+sub tag : Chained('load') PathPart('tag') Args(1)
 {
     my ($self, $c, $tag_name) = @_;
     my $user = $c->stash->{user};
