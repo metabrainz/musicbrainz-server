@@ -1,3 +1,15 @@
+const DBDefs = require('./common/DBDefs');
+const MB = require('./common/MB');
+
+if (DBDefs.DEVELOPMENT_SERVER) {
+  // Used by the Selenium tests under /t/selenium/ to make sure that no errors
+  // occurred on the page.
+  MB.js_errors = [];
+  window.onerror = function (err) {
+    MB.js_errors.push(err);
+  };
+}
+
 require('./common/raven');
 
 window.ko = require("knockout");
@@ -6,8 +18,6 @@ window.$ = window.jQuery = require("jquery");
 
 require("../lib/jquery.ui/ui/jquery-ui.custom");
 
-require("./common/DBDefs");
-require("./common/MB");
 require("./common/i18n");
 require("./common/text-collapse");
 require("./common/artworkViewer");
