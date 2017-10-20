@@ -83,19 +83,14 @@ sub get_rows {
     return unless @$values;
 
     my $column_type = $c->sql->get_column_type_name($table, $column);
-    my $condition;
+    my @values = grep { defined } @{$values};
 
-    if (scalar(@$values) > 1) {
-        my $values_string = join(', ', map { quote_column($column_type, $_) } grep { defined } @$values);
+    return unless @values;
 
-        return unless $values_string;
-
-        $condition = "$column IN ($values_string)";
-    } else {
-        $condition = "$column = " . quote_column($column_type, $values->[0]);
-    }
-
-    return $c->sql->select_list_of_hashes("SELECT * FROM $table WHERE $condition ORDER BY $column");
+    return $c->sql->select_list_of_hashes(
+        "SELECT * FROM $table WHERE $column = any(?) ORDER BY $column",
+        \@values,
+    );
 }
 
 sub print_rows {
