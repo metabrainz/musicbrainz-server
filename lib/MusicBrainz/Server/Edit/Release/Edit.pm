@@ -340,7 +340,8 @@ around allow_auto_edit => sub {
     return 0 if defined $self->data->{old}{language_id};
     return 0 if defined $self->data->{old}{script_id};
 
-    return 0 if defined $self->data->{old}{events} && scalar @{ $self->data->{old}{events} } > 0;
+    my $events = $self->data->{old}{events};
+    return 0 if defined $events && scalar @{$events};
 
     return 0 if exists $self->data->{old}{release_group_id};
 
