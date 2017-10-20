@@ -22,8 +22,12 @@ sub pluck {
     [map { $_->{$prop} } @$values];
 }
 
-sub print_inserts {
-    my ($c, $table, $rows) = @_;
+sub handle_rows {
+    my ($c, $table) = @_;
+
+    my $rows;
+    $rows = $_[2] if (@_ == 3);
+    $rows = get_rows($c, $table, $_[2], $_[3]) if (@_ == 4);
 
     return unless defined $rows && @{$rows};
 
@@ -71,21 +75,14 @@ sub get_rows {
     );
 }
 
-sub print_rows {
-    my ($c, $table, $column, $values) = @_;
-
-    my $rows = get_rows($c, $table, $column, $values);
-    print_inserts($c, $table, $rows);
-}
-
 sub tags {
     my ($c, $entity_type, $ids) = @_;
 
     my $table = "${entity_type}_tag";
     my $rows = get_rows($c, $table, $entity_type, $ids);
 
-    print_rows($c, 'tag', 'id', pluck('tag', $rows));
-    print_inserts($c, $table, $rows);
+    handle_rows($c, 'tag', 'id', pluck('tag', $rows));
+    handle_rows($c, $table, $rows);
 }
 
 sub artist_credits {
@@ -95,8 +92,8 @@ sub artist_credits {
     my $name_rows = get_rows($c, 'artist_credit_name', 'artist_credit', $ids);
 
     artists($c, pluck('artist', $name_rows), link_path => ['artist_credit']);
-    print_inserts($c, 'artist_credit', $rows);
-    print_inserts($c, 'artist_credit_name', $name_rows);
+    handle_rows($c, 'artist_credit', $rows);
+    handle_rows($c, 'artist_credit_name', $name_rows);
 }
 
 sub relationships {
@@ -135,11 +132,11 @@ sub relationships {
         );
 
         my $link_ids = pluck('link', $results);
-        print_rows($c, 'link', 'id', $link_ids);
-        print_rows($c, 'link_attribute', 'link', $link_ids);
-        print_rows($c, 'link_attribute_text_value', 'link', $link_ids);
+        handle_rows($c, 'link', 'id', $link_ids);
+        handle_rows($c, 'link_attribute', 'link', $link_ids);
+        handle_rows($c, 'link_attribute_text_value', 'link', $link_ids);
 
-        print_inserts($c, $table, $results);
+        handle_rows($c, $table, $results);
     }
 }
 
@@ -153,11 +150,11 @@ sub core_entity {
         artist_credits($c, pluck('artist_credit', $rows));
     }
 
-    my $callback = $opts{callback} // \&print_inserts;
+    my $callback = $opts{callback} // \&handle_rows;
     $callback->($c, $entity_type, $rows);
 
     if ($entity_properties->{aliases}) {
-        print_rows($c, "${entity_type}_alias", $entity_type, pluck('id', $rows));
+        handle_rows($c, "${entity_type}_alias", $entity_type, pluck('id', $rows));
     }
 
     if ($entity_properties->{tags}) {
@@ -177,8 +174,8 @@ sub artists {
     core_entity($c, 'artist', $ids, %opts, callback => sub {
         my ($c, $entity_type, $rows) = @_;
 
-        print_rows($c, 'area', 'id', [map { @{$_}{qw(area begin_area end_area)} } @$rows]);
-        print_inserts($c, $entity_type, $rows);
+        handle_rows($c, 'area', 'id', [map { @{$_}{qw(area begin_area end_area)} } @$rows]);
+        handle_rows($c, $entity_type, $rows);
     });
 }
 
@@ -188,9 +185,9 @@ sub recordings {
     my $link_path = $opts{link_path} // [];
 
     core_entity($c, 'recording', $ids, %opts, callback => sub {
-        print_inserts(@_);
+        handle_rows(@_);
 
-        print_rows($c, 'isrc', 'recording', $ids);
+        handle_rows($c, 'isrc', 'recording', $ids);
 
         if (Compare($link_path, ['release']) || Compare($link_path, ['release_group', 'release'])) {
             relationships($c, 'recording', $ids, %opts);
@@ -205,40 +202,40 @@ sub releases {
         my ($c, $entity_type, $rows) = @_;
 
         get_core_entities($c, 'release_group', pluck('release_group', $rows), link_path => ['release']);
-        print_rows($c, 'release_status', 'id', pluck('status', $rows));
-        print_rows($c, 'script', 'id', pluck('script', $rows));
+        handle_rows($c, 'release_status', 'id', pluck('status', $rows));
+        handle_rows($c, 'script', 'id', pluck('script', $rows));
 
-        print_inserts($c, $entity_type, $rows);
+        handle_rows($c, $entity_type, $rows);
 
-        print_rows($c, 'release_unknown_country', 'release', $ids);
+        handle_rows($c, 'release_unknown_country', 'release', $ids);
 
         my $release_country_rows = get_rows($c, 'release_event', 'release', $ids);
         get_core_entities($c, 'area', pluck('country', $release_country_rows), link_path => ['release']);
-        print_inserts($c, 'release_country', $release_country_rows);
+        handle_rows($c, 'release_country', $release_country_rows);
 
         my $release_label_rows = get_rows($c, 'release_label', 'release', $ids);
         get_core_entities($c, 'label', pluck('label', $release_label_rows), link_path => ['release']);
-        print_inserts($c, 'release_label', $release_label_rows);
+        handle_rows($c, 'release_label', $release_label_rows);
 
         my $medium_rows = get_rows($c, 'medium', 'release', $ids);
         my $medium_ids = pluck('id', $medium_rows);
 
-        print_rows($c, 'medium_format', 'id', pluck('format', $medium_rows));
-        print_inserts($c, 'medium', $medium_rows);
+        handle_rows($c, 'medium_format', 'id', pluck('format', $medium_rows));
+        handle_rows($c, 'medium', $medium_rows);
 
         my $cdtoc_rows = get_rows($c, 'medium_cdtoc', 'medium', $medium_ids);
-        print_rows($c, 'cdtoc', 'id', pluck('cdtoc', $cdtoc_rows));
-        print_inserts($c, 'medium_cdtoc', $cdtoc_rows);
+        handle_rows($c, 'cdtoc', 'id', pluck('cdtoc', $cdtoc_rows));
+        handle_rows($c, 'medium_cdtoc', $cdtoc_rows);
 
         my $track_rows = get_rows($c, 'track', 'medium', $medium_ids);
         recordings($c, pluck('recording', $track_rows), %opts);
         artist_credits($c, pluck('artist_credit', $track_rows));
-        print_inserts($c, 'track', $track_rows);
+        handle_rows($c, 'track', $track_rows);
 
         my $cover_art_rows = get_rows($c, 'cover_art_archive.cover_art', 'release', $ids);
-        print_rows($c, 'edit', 'id', pluck('edit', $cover_art_rows));
-        print_rows($c, 'cover_art_archive.image_type', 'mime_type', pluck('mime_type', $cover_art_rows));
-        print_inserts($c, 'cover_art_archive.cover_art', $cover_art_rows);
+        handle_rows($c, 'edit', 'id', pluck('edit', $cover_art_rows));
+        handle_rows($c, 'cover_art_archive.image_type', 'mime_type', pluck('mime_type', $cover_art_rows));
+        handle_rows($c, 'cover_art_archive.cover_art', $cover_art_rows);
     });
 }
 
@@ -251,7 +248,7 @@ sub works {
     core_entity($c, 'work', $ids, %opts, callback => sub {
         my ($c, $entity_type, $rows) = @_;
 
-        print_inserts($c, $entity_type, $rows);
+        handle_rows($c, $entity_type, $rows);
 
         if (Compare($link_path, \@via_release) || Compare($link_path, ['release_group', @via_release])) {
             relationships($c, 'work', $ids, %opts);
