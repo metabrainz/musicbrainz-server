@@ -346,7 +346,7 @@ sub insert_entities_json {
     my @inserts;
 
     my $commit_inserts = sub {
-        my $values_placholders =
+        my $values_placeholders =
             join q(, ), (('(?, ?, ?, ?)') x (@inserts / 4));
 
         # retry: transient "server closed the connection unexpectedly" errors
@@ -356,7 +356,7 @@ sub insert_entities_json {
             $c->sql->do(<<"SQL", @inserts);
                 INSERT INTO json_dump.${entity_type}_json
                     (id, replication_sequence, json, last_modified)
-                VALUES $values_placholders
+                VALUES $values_placeholders
                 ON CONFLICT DO NOTHING
 SQL
         }, reason => 'inserting JSON');
