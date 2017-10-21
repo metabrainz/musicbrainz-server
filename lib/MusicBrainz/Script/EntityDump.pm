@@ -209,7 +209,7 @@ sub releases {
 
         handle_rows($c, 'release_unknown_country', 'release', $ids);
 
-        my $release_country_rows = get_rows($c, 'release_event', 'release', $ids);
+        my $release_country_rows = get_rows($c, 'release_country', 'release', $ids);
         get_core_entities($c, 'area', pluck('country', $release_country_rows), link_path => ['release']);
         handle_rows($c, 'release_country', $release_country_rows);
 
