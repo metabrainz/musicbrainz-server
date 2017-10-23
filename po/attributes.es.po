@@ -29,7 +29,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2017-05-17 04:21+0000\n"
+"PO-Revision-Date: 2017-09-19 12:56+0000\n"
 "Last-Translator: Antony Duran <email address hidden>\n"
 "Language-Team: Spanish (http://www.transifex.com/musicbrainz/musicbrainz/language/es/)\n"
 "MIME-Version: 1.0\n"

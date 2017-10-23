@@ -22,8 +22,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-09-04 19:52-0500\n"
-"PO-Revision-Date: 2017-09-06 23:52+0000\n"
+"POT-Creation-Date: 2017-09-19 01:53-0500\n"
+"PO-Revision-Date: 2017-09-19 13:52+0000\n"
 "Last-Translator: ktu0457\n"
 "Language-Team: Japanese (http://www.transifex.com/musicbrainz/musicbrainz/language/ja/)\n"
 "MIME-Version: 1.0\n"
@@ -73,7 +73,7 @@ msgid "\"YY\" is the last two digits of the year of registration."
 msgstr "「YY」は登録された年の最後の2桁です。"
 
 #: ../root/cdstub/cdstub.tt:4 ../root/components/events-list.tt:11
-#: ../root/components/medium.tt:64 ../root/components/recordings-list.tt:22
+#: ../root/components/medium.tt:76 ../root/components/recordings-list.tt:22
 #: ../root/components/release_groups-list.tt:6
 #: ../root/components/releases-list.tt:8 ../root/components/works-list.tt:10
 #: ../root/edit/details/add_medium.tt:49
@@ -1266,7 +1266,7 @@ msgstr "地域\t"
 #: ../root/cdstub/cdstub.tt:7 ../root/cdtoc/attach_filter_release.tt:29
 #: ../root/cdtoc/list.tt:6 ../root/cdtoc/lookup.tt:39
 #: ../root/components/artists-list.tt:5
-#: ../root/components/common-macros.tt:595 ../root/components/medium.tt:70
+#: ../root/components/common-macros.tt:595 ../root/components/medium.tt:82
 #: ../root/components/recordings-list.tt:29
 #: ../root/components/relationships-table.tt:28
 #: ../root/components/release_groups-list.tt:11
@@ -2317,7 +2317,7 @@ msgstr "データのライセンス"
 msgid "Data Quality:"
 msgstr "データ品質:"
 
-#: ../root/components/medium.tt:84 ../root/medium/tracklist.tt:35
+#: ../root/components/medium.tt:96 ../root/medium/tracklist.tt:35
 #: ../root/release/edit/tracklist.tt:358
 msgid "Data Tracks"
 msgstr "データトラック"
@@ -2641,7 +2641,7 @@ msgstr "寄付の確認"
 
 #: ../root/components/relationship-editor.tt:7
 #: ../root/release/edit/macros.tt:45
-#: ../root/static/scripts/edit/components/ArtistCreditBubble.js:101
+#: ../root/static/scripts/edit/components/ArtistCreditBubble.js:103
 msgid "Done"
 msgstr "完了"
 
@@ -4241,7 +4241,7 @@ msgid "Legal name"
 msgstr "正式名称"
 
 #: ../root/cdstub/cdstub.tt:9 ../root/cdtoc/info.tt:33
-#: ../root/components/medium.tt:73 ../root/components/recordings-list.tt:33
+#: ../root/components/medium.tt:85 ../root/components/recordings-list.tt:33
 #: ../root/components/relationships-table.tt:31
 #: ../root/edit/details/edit_medium.tt:53
 #: ../root/edit/details/edit_medium.tt:57
@@ -5805,7 +5805,7 @@ msgid_plural "Rate: {rating} stars"
 msgstr[0] "評価: {rating}つ星"
 
 #: ../root/components/artists-list.tt:9 ../root/components/events-list.tt:29
-#: ../root/components/labels-list.tt:14 ../root/components/medium.tt:72
+#: ../root/components/labels-list.tt:14 ../root/components/medium.tt:84
 #: ../root/components/recordings-list.tt:32
 #: ../root/components/release_groups-list.tt:17
 #: ../root/components/releases-list.tt:24 ../root/components/works-list.tt:20
@@ -6024,7 +6024,7 @@ msgid "Related works"
 msgstr "関係する作品"
 
 #: ../root/edit/details/reorder_relationships.tt:4
-#: ../lib/MusicBrainz/Server/Edit/Relationship.pm:15
+#: ../lib/MusicBrainz/Server/Edit/Relationship.pm:18
 msgid "Relationship"
 msgstr "関係"
 
@@ -8465,7 +8465,7 @@ msgstr ""
 msgid "This recording does not have any associated AcoustIDs"
 msgstr "このレコーディングは関連のAcoustIDがありません。"
 
-#: ../root/components/medium.tt:36 ../root/components/recordings-list.tt:49
+#: ../root/components/medium.tt:48 ../root/components/recordings-list.tt:49
 #: ../root/components/recordings-list.tt:77 ../root/medium/tracklist.tt:46
 #: ../root/search/lib/inline-results-recording.tt:29
 #: ../root/search/lib/inline-results-recording.tt:54
@@ -9148,7 +9148,7 @@ msgid "Timezone:"
 msgstr "タイムゾーン:"
 
 #: ../root/cdstub/browse.tt:8 ../root/cdstub/cdstub.tt:5
-#: ../root/cdtoc/list.tt:5 ../root/components/medium.tt:68
+#: ../root/cdtoc/list.tt:5 ../root/components/medium.tt:80
 #: ../root/components/relationships-table.tt:20
 #: ../root/components/release_groups-list.tt:9
 #: ../root/edit/details/edit_medium.tt:51
@@ -10970,7 +10970,7 @@ msgstr ""
 msgid "track"
 msgstr "トラック"
 
-#: ../root/components/medium.tt:107
+#: ../root/components/medium.tt:119
 msgid "track {tracks}"
 msgid_plural "tracks {tracks}"
 msgstr[0] "トラック {tracks}"
@@ -12348,13 +12348,13 @@ msgid "Submit new barcodes to the database"
 msgstr "新しいバーコードを追加"
 
 #: ../lib/MusicBrainz/Server/Entity/LinkAttribute.pm:33
-#: ../root/static/scripts/edit/utility/linkPhrase.js:69
+#: ../root/static/scripts/edit/utility/linkPhrase.js:64
 #, perl-brace-format
 msgid "{attribute} [{credited_as}]"
 msgstr ""
 
 #: ../lib/MusicBrainz/Server/Entity/LinkAttribute.pm:37
-#: ../root/static/scripts/edit/utility/linkPhrase.js:62
+#: ../root/static/scripts/edit/utility/linkPhrase.js:57
 #, perl-brace-format
 msgid "{attribute}: {value}"
 msgstr "{attribute}: {value}"
@@ -13136,19 +13136,19 @@ msgstr "アーティストのクレジット表記:"
 msgid "Join phrase:"
 msgstr "フレーズを結合"
 
-#: ../root/static/scripts/edit/components/ArtistCreditBubble.js:91
+#: ../root/static/scripts/edit/components/ArtistCreditBubble.js:93
 msgid "Add Artist Credit"
 msgstr "アーティストクレジットの追加"
 
-#: ../root/static/scripts/edit/components/ArtistCreditBubble.js:99
+#: ../root/static/scripts/edit/components/ArtistCreditBubble.js:101
 msgid "Copy Credits"
 msgstr "クレジットをコピー"
 
-#: ../root/static/scripts/edit/components/ArtistCreditBubble.js:100
+#: ../root/static/scripts/edit/components/ArtistCreditBubble.js:102
 msgid "Paste Credits"
 msgstr ""
 
-#: ../root/static/scripts/edit/components/ArtistCreditNameEditor.js:122
+#: ../root/static/scripts/edit/components/ArtistCreditNameEditor.js:127
 msgid "Remove Artist Credit"
 msgstr "アーティストクレジットを削除"
 

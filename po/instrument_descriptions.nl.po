@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2017-09-10 10:04+0000\n"
+"PO-Revision-Date: 2017-09-19 19:11+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -747,6 +747,14 @@ msgid ""
 "Cretan lyra with the violin."
 msgstr "De vioollier (Grieks: βιολολύρα, viololyra) is een in de jaren 1920 door Griekse luitmakers ontwikkelde hybride van de viool en de Kretenzische lier."
 
+#. name:tubulum
+#: DB:instrument/description:873
+msgid ""
+"Invented (or atleast made popular by) Blue Man Group, it is made of "
+"alternating length PVC pipes and hit with sticks or flaps. It is popular "
+"with street musicians."
+msgstr "De tubulum werd uitgevonden (of in ieder geval gepopulariseerd) door de Blue Man Group. Het is gemaakt van pvc-buizen van verschillende lengtes en wordt met stokken of latjes aangeslagen. Ook populair onder straatmuzikanten."
+
 #. name:arpeggione
 #: DB:instrument/description:823
 msgid ""
@@ -981,6 +989,22 @@ msgstr "Phách zijn houten stokjes die op een klein stuk bamboe of een houten bl
 msgid "Pi is a family of quadruple reed oboes from Thailand."
 msgstr "Pi (Thai: ปี่) is een familie van hobo’s uit Thailand met vier rieten."
 
+#. name:boobam
+#: DB:instrument/description:874
+msgid ""
+"Pipes of bamboo with goat or calfskin membranes, the pitches depend largely "
+"on tube-lenght, it is the ancestor to the octoban. Modern variants are "
+"usually made of wood, plastic or metal with plastic membranes."
+msgstr "Een boebam is een pijp van bamboe met een membraan van geiten- of kalfshuid.  De toonhoogte hangt vooral van de lengte van de pijp af. Het instrument is een voorloper van de octoban."
+
+#. name:mijwiz
+#: DB:instrument/description:876
+msgid ""
+"Played using circular breathing, it is made of twin bamboo reeds with five "
+"to six holes. From the middle-east, it is used in traditional music and as a"
+" accompaniment to belly dancing and dabke."
+msgstr "De midjwiz is een blaasinstrument dat bestaat uit twee pijpen met vijf tot zes vingergaten. Het is afkomstig uit het Midden-Oosten en wordt bespeeld bij traditionele muziek en als begeleiding bij buikdansen en dabke-muziek."
+
 #. name:ngɔni
 #: DB:instrument/description:729
 msgid "Plucked string instrument made of wood or gourd from West Africa."
@@ -1046,6 +1070,15 @@ msgstr "Een iets kleinere variant op de standaard akoestische of elektrische git
 #: DB:instrument/description:759
 msgid "Small Polish traditional fiddle."
 msgstr "Een oktawa is een kleine traditionele Poolse viool."
+
+#. name:octoban
+#: DB:instrument/description:875
+msgid ""
+"Small but long tom-tom drums usually set in groups of four or eight, they "
+"are a common addition in drumsets. Originally made of fibreglass, the "
+"manufacturers today also use acrylic, aluminium or wood, though homemade "
+"ones of f.ex PVC are not uncommon."
+msgstr "Een octoban is een dunne, lange tom-tom. Ze worden vaak in groepen van vier of acht opgesteld en aan een drumstel toegevoegd. Oorspronkelijk werden ze gemaakt van glasvezelversterkte kunststof, maar tegenwoordig ook van acryl, aluminium of hout, en door hobbyisten van pvc."
 
 #. name:nguru
 #: DB:instrument/description:783
