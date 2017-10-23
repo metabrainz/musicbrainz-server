@@ -2,7 +2,13 @@
     <div class="description">
        [%- IF collection.description -%]
           <h2>[% l('Description') %]</h2>
-          [% collection.description | format_wikitext  %]
+          [%- IF !collection.user.is_limited || c.user_exists -%]
+              [% collection.description | format_wikitext  %]
+          [%- ELSE -%]
+              <p class="deleted">[%- l('This content is hidden to prevent spam.
+                                        To view it, please {url|log in}.',
+                                       { url => c.uri_for_action('user/login') }) -%]</p>
+          [%- END -%]
        [%- END -%]
     </div>
 

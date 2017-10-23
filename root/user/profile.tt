@@ -103,11 +103,18 @@
             END;
            END %]
 
-        [% IF user.website && (!c.user.is_limited || c.user.is_account_admin) %]
+        [% IF user.website %]
             [% WRAPPER property name=l("Homepage:") %]
-                <a href="[% user.website | html %]" rel="nofollow">
-                    [%~ user.website | html ~%]
-                </a>
+                [%- IF !user.is_limited || c.user_exists -%]
+                    [% user.website | format_wikitext %]
+                    <a href="[% user.website | html %]" rel="nofollow">
+                        [%~ user.website | html ~%]
+                    </a>
+                [%- ELSE -%]
+                    <p class="deleted">[%- l('This content is hidden to prevent spam.
+                                              To view it, please {url|log in}.',
+                                             { url => c.uri_for_action('user/login') }) -%]</p>
+                [%- END -%]
             [% END %]
         [% END %]
 
@@ -127,9 +134,15 @@
             [% END %]
         [% END %]
 
-        [% IF user.biography && (!c.user.is_limited || c.user.is_account_admin) %]
+        [% IF user.biography %]
             [% WRAPPER property name=l("Bio:") class='biography' %]
-                [% user.biography | format_wikitext %]
+                [%- IF !user.is_limited || c.user_exists -%]
+                    [% user.biography | format_wikitext %]
+                [%- ELSE -%]
+                    <p class="deleted">[%- l('This content is hidden to prevent spam.
+                                              To view it, please {url|log in}.',
+                                             { url => c.uri_for_action('user/login') }) -%]</p>
+                [%- END -%]
             [% END %]
         [% END %]
 
