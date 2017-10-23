@@ -62,6 +62,58 @@ $mech->content_contains('new_email@example.com');
 
 };
 
+test 'Hide biography and website/homepage of beginners/limited users from not-logged-in users and only from them' => sub {
+    my $test = shift;
+    my $mech = $test->mech;
+    my $c    = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+editor');
+
+    $mech->get('/login');
+    $mech->submit_form( with_fields => { username => 'Alice', password => 'secret1' } );
+
+    $mech->get('/user/new_editor');
+    html_ok($mech->content);
+    my $tx = test_xpath_html($mech->content);
+    $tx->ok('//tr[@class="biography"]/td[count(*)=1]/p[text()="biography"]',
+        'biography field of beginner/limited user is visible from logged-in user');
+    $tx->ok('//tr/td[preceding-sibling::th[1][normalize-space(text())="Homepage:"]]/a[@href="http://test.website"]',
+        'website field of beginner/limited user is visible from logged-in user');
+
+    $mech->get('/logout');
+    html_ok($mech->content);
+
+    $mech->get('/user/new_editor');
+    html_ok($mech->content);
+    $tx = test_xpath_html($mech->content);
+    $tx->ok('//tr[@class="biography"]/td[count(*)=1]/p[@class="deleted" and starts-with(text(), "This content is hidden to prevent spam.")]',
+        'biography field of beginner/limited user is hidden from not-logged-in user');
+    $tx->ok('//tr/td[preceding-sibling::th[1][normalize-space(text())="Homepage:"]]/p[@class="deleted" and starts-with(text(), "This content is hidden to prevent spam.")]',
+        'website field of beginner/limited user is hidden from not-logged-in user');
+
+    $test->c->sql->do(<<EOSQL);
+INSERT INTO edit (id, editor, type, status, expire_time, autoedit) VALUES
+    ( 1, 1, 1, $STATUS_APPLIED, now(), 0),
+    ( 2, 1, 1, $STATUS_APPLIED, now(), 0),
+    ( 3, 1, 1, $STATUS_APPLIED, now(), 0),
+    ( 4, 1, 1, $STATUS_APPLIED, now(), 0),
+    ( 5, 1, 1, $STATUS_APPLIED, now(), 0),
+    ( 6, 1, 1, $STATUS_APPLIED, now(), 0),
+    ( 7, 1, 1, $STATUS_APPLIED, now(), 0),
+    ( 8, 1, 1, $STATUS_APPLIED, now(), 0),
+    ( 9, 1, 1, $STATUS_APPLIED, now(), 0),
+    (10, 1, 1, $STATUS_APPLIED, now(), 0);
+EOSQL
+
+    $mech->get('/user/new_editor');
+    html_ok($mech->content);
+    $tx = test_xpath_html($mech->content);
+    $tx->ok('//tr[@class="biography"]/td[count(*)=1]/p[text()="biography"]',
+        'biography field of (not beginner/limited) user is visible from everyone');
+    $tx->ok('//tr/td[preceding-sibling::th[1][normalize-space(text())="Homepage:"]]/a[@href="http://test.website"]',
+        'website field of (not beginner/limited) user is visible from everyone');
+};
+
 test 'After removing email address, editors cannot edit' => sub {
     my $test = shift;
     my $mech = $test->mech;
