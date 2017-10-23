@@ -40,11 +40,7 @@ function wrapGettext(method) {
         if (expandArgs) {
             let react = expandArgs.__react;
             if (react) {
-                let parts = expandToArray(string, expandArgs);
-                if (react === 'frag') {
-                    return <frag>{parts}</frag>;
-                }
-                return parts;
+                return expandToArray(string, expandArgs);
             }
             return exports.expand(string, expandArgs);
         }

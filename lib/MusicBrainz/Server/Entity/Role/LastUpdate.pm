@@ -1,12 +1,12 @@
 package MusicBrainz::Server::Entity::Role::LastUpdate;
-use Moose::Role;
-use namespace::autoclean;
 
-use MusicBrainz::Server::Types qw( DateTime );
+use Moose::Role;
+use MusicBrainz::Server::Types qw( PgDateStr );
+use namespace::autoclean;
 
 has 'last_updated' => (
     is => 'rw',
-    isa => DateTime,
+    isa => PgDateStr,
     coerce => 1,
 );
 

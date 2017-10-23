@@ -14,7 +14,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2017-09-05 00:54+0000\n"
+"PO-Revision-Date: 2017-09-19 12:54+0000\n"
 "Last-Translator: Michael Wiencek <email address hidden>\n"
 "Language-Team: German (http://www.transifex.com/musicbrainz/musicbrainz/language/de/)\n"
 "MIME-Version: 1.0\n"
@@ -627,6 +627,11 @@ msgstr "Knochen"
 #: DB:instrument/name:103
 msgid "bongos"
 msgstr "Bongos"
+
+#: DB:instrument/name:874
+msgctxt "arrangement of bamboo tube-drums"
+msgid "boobam"
+msgstr ""
 
 #: DB:instrument/name:833
 msgctxt "hybrid of bouzouki and guitar"
@@ -2031,6 +2036,11 @@ msgstr ""
 msgid "metallophone"
 msgstr "Metallophon"
 
+#: DB:instrument/name:876
+msgctxt "twin bamboo single reed pipe"
+msgid "mijwiz"
+msgstr ""
+
 #: DB:instrument/name:752
 msgid "minipiano"
 msgstr ""
@@ -2173,6 +2183,11 @@ msgstr "Ozeantrommel"
 #: DB:instrument/name:601
 msgid "octave mandolin"
 msgstr "Mandola (Tenor- oder Oktav-Mandoline)"
+
+#: DB:instrument/name:875
+msgctxt "racked 4 or 8 tom-toms"
+msgid "octoban"
+msgstr ""
 
 #: DB:instrument/name:759
 msgid "oktawka"
@@ -3181,6 +3196,11 @@ msgstr "Tubon"
 #: DB:instrument/name:168
 msgid "tubular bells"
 msgstr "Röhrenglocken"
+
+#: DB:instrument/name:873
+msgctxt "PVC pipe instrument"
+msgid "tubulum"
+msgstr ""
 
 #: DB:instrument/name:511
 msgid "tumbi"

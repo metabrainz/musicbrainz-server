@@ -16,11 +16,6 @@
 	<td>/recording/create</td>
 	<td></td>
 </tr>
-<tr>
-	<td>runScript</td>
-	<td>document.body.setAttribute('js-error', ''); window.onerror = function (err) { document.body.setAttribute('js-error', err); };</td>
-	<td></td>
-</tr>
 <!--hidden inputs-->
 <tr>
 	<td>click</td>
@@ -299,20 +294,10 @@
 	<td>window.document.getElementById('ac-source-artist-0').classList.contains('lookup-performed')</td>
 	<td>false</td>
 </tr>
-<tr>
-	<td>assertAttribute</td>
-	<td>css=body@js-error</td>
-	<td></td>
-</tr>
 <!--creating a new artist from the track AC bubble should not close it (MBS-7251)-->
 <tr>
 	<td>open</td>
 	<td>/release/add</td>
-	<td></td>
-</tr>
-<tr>
-	<td>runScript</td>
-	<td>document.body.setAttribute('js-error', ''); window.onerror = function (err) { document.body.setAttribute('js-error', err); };</td>
 	<td></td>
 </tr>
 <tr>
@@ -382,11 +367,6 @@
 	<td>assertEval</td>
 	<td>window.$('#artist-credit-bubble').is(':visible')</td>
 	<td>false</td>
-</tr>
-<tr>
-	<td>assertAttribute</td>
-	<td>css=body@js-error</td>
-	<td></td>
 </tr>
 
 </tbody></table>

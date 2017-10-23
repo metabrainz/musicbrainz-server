@@ -265,6 +265,7 @@ sub CreateRelations
             musicbrainz
             cover_art_archive
             documentation
+            json_dump
             report
             sitemaps
             statistics
@@ -277,6 +278,7 @@ sub CreateRelations
     RunSQLScript($DB, "CreateTables.sql", "Creating tables ...");
     RunSQLScript($DB, "caa/CreateTables.sql", "Creating tables ...");
     RunSQLScript($DB, "documentation/CreateTables.sql", "Creating documentation tables ...");
+    RunSQLScript($DB, "json_dump/CreateTables.sql", "Creating json_dump tables ...");
     RunSQLScript($DB, "report/CreateTables.sql", "Creating tables ...");
     RunSQLScript($DB, "sitemaps/CreateTables.sql", "Creating sitemaps tables ...");
     RunSQLScript($DB, "statistics/CreateTables.sql", "Creating statistics tables ...");
@@ -307,6 +309,7 @@ sub CreateRelations
 
     RunSQLScript($DB, "CreateIndexes.sql", "Creating indexes ...");
     RunSQLScript($DB, "caa/CreateIndexes.sql", "Creating CAA indexes ...");
+    RunSQLScript($DB, "json_dump/CreateIndexes.sql", "Creating json_dump indexes ...");
     RunSQLScript($DB, "sitemaps/CreateIndexes.sql", "Creating sitemaps indexes ...");
     RunSQLScript($DB, "statistics/CreateIndexes.sql", "Creating statistics indexes ...");
 

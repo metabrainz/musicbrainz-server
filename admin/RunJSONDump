@@ -1,0 +1,63 @@
+#!/bin/bash
+
+set -o errexit
+
+exec 220>/tmp/.RunJSONDump.lock || exit 1
+# Will be automatically released when the script exits.
+flock -n 220 || { echo "Failed to obtain lock. Another instance is running?" >&2; exit 1; }
+
+# This is to help with disk space monitoring - run "df" before and after
+echo "Disk space when RunJSONDump starts:" ; df -m
+trap 'echo "Disk space when RunJSONDump ends:" ; df -m' 0
+
+MB_SERVER_ROOT=$(cd "$(dirname "${BASH_SOURCE[0]}")/../" && pwd)
+cd "$MB_SERVER_ROOT"
+
+source admin/config.sh
+
+. ./admin/functions.sh
+make_temp_dir
+
+DUMP_DIR="$JSON_DUMP_DIR/full"
+DUMP_STAMP=`TZ=UTC date +'%Y%m%d-%H%M%S'`
+
+# Create necessary directories and set permissions. If we're not doing a full
+# dump then $DUMP_STAMP is empty, so that argument is ignored.
+
+mkdir -m "$JSON_DUMP_DIR_MODE" -p "$DUMP_DIR/$DUMP_STAMP"
+
+chown "$JSON_DUMP_USER:$JSON_DUMP_GROUP" \
+    "$DUMP_DIR" \
+    "$DUMP_DIR"/"$DUMP_STAMP"
+
+echo `date`" : Making a full JSON dump"
+./admin/DumpJSON \
+    --output-dir "$TEMP_DIR" \
+    --compress \
+    --database READWRITE \
+    --worker-count 4 \
+    || exit $?
+
+# Copy the full export to the FTP directory.
+chown "$JSON_DUMP_USER:$JSON_DUMP_GROUP" "$TEMP_DIR"/*
+chmod "$JSON_DUMP_FILE_MODE" "$TEMP_DIR"/*
+mv "$TEMP_DIR"/* "$DUMP_DIR"/"$DUMP_STAMP"/
+
+# Finally create a "latest-is" file, indicating the export we just did.
+rm -rf "$DUMP_DIR"/latest-is-*
+> "$DUMP_DIR"/latest-is-"$DUMP_STAMP"
+chmod "$JSON_DUMP_FILE_MODE" "$DUMP_DIR"/latest-is-"$DUMP_STAMP"
+chown "$JSON_DUMP_USER:$JSON_DUMP_GROUP" "$DUMP_DIR"/latest-is-"$DUMP_STAMP"
+
+# Finally finally, create a LATEST file whose *contents* are this export's tag
+rm -rf "$DUMP_DIR"/LATEST
+echo "$DUMP_STAMP" > "$DUMP_DIR"/LATEST
+chmod "$JSON_DUMP_FILE_MODE" "$DUMP_DIR"/LATEST
+chown "$JSON_DUMP_USER:$JSON_DUMP_GROUP" "$DUMP_DIR"/LATEST
+
+./bin/delete-old-fullexports -k -r "$DUMP_DIR"
+
+cp admin/config.json-dump.sh admin/config.user.sh
+./bin/rsync-fullexport-files
+
+# eof

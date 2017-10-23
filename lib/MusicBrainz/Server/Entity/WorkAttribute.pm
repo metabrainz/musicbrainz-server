@@ -5,6 +5,8 @@ use MusicBrainz::Server::Translation::Attributes qw( lp );
 
 with 'MusicBrainz::Server::Entity::Role::Type' => { model => 'WorkAttributeType' };
 
+sub entity_type { 'work_attribute' }
+
 has value_id => (
     isa => 'Maybe[Int]',
     required => 1,

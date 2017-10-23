@@ -1,3 +1,4 @@
+// @flow
 // Copyright (C) 2014 Khan Academy
 // Copyright (C) 2015 MetaBrainz Foundation
 
@@ -9,11 +10,19 @@
 
 const React = require('react');
 const ReactDOM = require('react-dom');
-const PropTypes = React.PropTypes;
 
-class Tooltip extends React.Component {
+type TooltipProps = {
+  hoverCallback: (bool) => void;
+  html: string;
+};
+
+class Tooltip extends React.Component<TooltipProps> {
   componentDidMount() {
-    $(ReactDOM.findDOMNode(this)).find('a').attr('target', '_blank');
+    const element: any = ReactDOM.findDOMNode(this);
+    const links = element.getElementsByTagName('a');
+    for (let i = 0; i < links.length; i++) {
+      links[i].setAttribute('target', '_blank');
+    }
   }
 
   render() {
@@ -28,7 +37,5 @@ class Tooltip extends React.Component {
     );
   }
 }
-
-Tooltip.propTypes = {hoverCallback: PropTypes.func.isRequired};
 
 module.exports = Tooltip;

@@ -13,7 +13,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2017-09-05 00:54+0000\n"
+"PO-Revision-Date: 2017-09-19 12:54+0000\n"
 "Last-Translator: Michael Wiencek <email address hidden>\n"
 "Language-Team: Italian (http://www.transifex.com/musicbrainz/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
@@ -626,6 +626,11 @@ msgstr ""
 #: DB:instrument/name:103
 msgid "bongos"
 msgstr "Bonghi"
+
+#: DB:instrument/name:874
+msgctxt "arrangement of bamboo tube-drums"
+msgid "boobam"
+msgstr ""
 
 #: DB:instrument/name:833
 msgctxt "hybrid of bouzouki and guitar"
@@ -2030,6 +2035,11 @@ msgstr ""
 msgid "metallophone"
 msgstr ""
 
+#: DB:instrument/name:876
+msgctxt "twin bamboo single reed pipe"
+msgid "mijwiz"
+msgstr ""
+
 #: DB:instrument/name:752
 msgid "minipiano"
 msgstr ""
@@ -2171,6 +2181,11 @@ msgstr ""
 
 #: DB:instrument/name:601
 msgid "octave mandolin"
+msgstr ""
+
+#: DB:instrument/name:875
+msgctxt "racked 4 or 8 tom-toms"
+msgid "octoban"
 msgstr ""
 
 #: DB:instrument/name:759
@@ -3179,6 +3194,11 @@ msgstr ""
 
 #: DB:instrument/name:168
 msgid "tubular bells"
+msgstr ""
+
+#: DB:instrument/name:873
+msgctxt "PVC pipe instrument"
+msgid "tubulum"
 msgstr ""
 
 #: DB:instrument/name:511

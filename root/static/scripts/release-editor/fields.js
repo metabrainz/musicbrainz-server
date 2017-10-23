@@ -5,8 +5,6 @@
 
 const ko = require('knockout');
 const _ = require('lodash');
-const React = require('react');
-const ReactDOM = require('react-dom');
 
 require('knockout-arraytransforms');
 

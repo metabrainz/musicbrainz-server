@@ -4,11 +4,25 @@
     "root/static/lib",
     "root/static/scripts/tests/typeInfo.js"
   ],
-  "presets": ["es2015", "stage-2"],
+  "presets": [
+    ["env", {
+      "targets": {
+        "chrome": "44",
+        "edge": "13",
+        "firefox": "44",
+        "ie": "11",
+        "node": "6",
+        "opera": "39",
+        "safari": "9.1"
+      }
+    }],
+    "stage-2",
+    "flow"
+  ],
   "plugins": [
     "jsx-control-statements",
     "transform-react-jsx",
     "transform-react-constant-elements",
-    "transform-react-inline-elements"
+    "transform-runtime"
   ]
 }

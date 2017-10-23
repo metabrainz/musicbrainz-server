@@ -225,14 +225,14 @@ sub update {
     my $row = $self->_hash_to_row($update);
     my $collection = $self->get_by_id($collection_id);
     $self->c->model('CollectionType')->load($collection);
-    my $old_entity_type = $collection->type->entity_type;
+    my $old_entity_type = $collection->type->item_entity_type;
 
     if (defined($row->{type}) && $collection->type_id != $row->{type} &&
             !$self->is_empty($old_entity_type, $collection->id)) {
         my $new_type = $self->c->model('CollectionType')->get_by_id($row->{type});
 
         die "The collection type must match the type of entities it contains."
-            if $old_entity_type ne $new_type->entity_type;
+            if $old_entity_type ne $new_type->item_entity_type;
     }
 
     $self->sql->auto_commit;

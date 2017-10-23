@@ -31,8 +31,8 @@ with 'MusicBrainz::Server::WebService::Validator' => {
      defs => $ws_defs,
 };
 
-with 'MusicBrainz::Server::Controller::Role::Load' => {
-    model => 'Event'
+with 'MusicBrainz::Server::Controller::WS::2::Role::Lookup' => {
+    model => 'Event',
 };
 
 with 'MusicBrainz::Server::Controller::WS::2::Role::BrowseByCollection';
@@ -40,38 +40,28 @@ with 'MusicBrainz::Server::Controller::WS::2::Role::BrowseByCollection';
 sub base : Chained('root') PathPart('event') CaptureArgs(0) { }
 
 sub event_toplevel {
-    my ($self, $c, $stash, $event) = @_;
+    my ($self, $c, $stash, $events) = @_;
 
-    my $opts = $stash->store($event);
+    my $inc = $c->stash->{inc};
+    my @events = @{$events};
 
-    $self->linked_events($c, $stash, [$event]);
+    $self->linked_events($c, $stash, $events);
 
-    $c->model('EventType')->load($event);
+    $c->model('EventType')->load(@events);
 
-    $c->model('Event')->annotation->load_latest($event)
-        if $c->stash->{inc}->annotation;
+    $c->model('Event')->annotation->load_latest(@events)
+        if $inc->annotation;
 
-    if ($c->stash->{inc}->aliases) {
-        my $aliases = $c->model('Event')->alias->find_by_entity_id($event->id);
-        $opts->{aliases} = $aliases;
+    if ($inc->aliases) {
+        my $aliases = $c->model('Event')->alias->find_by_entity_ids(
+            map { $_->id } @events
+        );
+        for (@events) {
+            $stash->store($_)->{aliases} = $aliases->{$_->id};
+        }
     }
 
-    $self->load_relationships($c, $stash, $event);
-}
-
-sub event : Chained('load') PathPart('') {
-    my ($self, $c) = @_;
-    my $event = $c->stash->{entity};
-
-    return unless defined $event;
-
-    my $stash = WebServiceStash->new;
-    my $opts = $stash->store($event);
-
-    $self->event_toplevel($c, $stash, $event);
-
-    $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
-    $c->res->body($c->stash->{serializer}->serialize('event', $event, $c->stash->{inc}, $stash));
+    $self->load_relationships($c, $stash, @events);
 }
 
 sub event_browse : Private {
@@ -117,9 +107,7 @@ sub event_browse : Private {
 
     my $stash = WebServiceStash->new;
 
-    for (@{ $events->{items} }) {
-        $self->event_toplevel($c, $stash, $_);
-    }
+    $self->event_toplevel($c, $stash, $events->{items});
 
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
     $c->res->body($c->stash->{serializer}->serialize('event-list', $events, $c->stash->{inc}, $stash));

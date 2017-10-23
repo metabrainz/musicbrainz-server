@@ -64,7 +64,7 @@ const {ViewModel} = require('./common/viewModel');
                     var seriesType = source.type();
 
                     if (seriesType) {
-                        sorted((seriesOrdering[seriesType.series_entity_type] || _.identity)(result(), source));
+                        sorted((seriesOrdering[seriesType.item_entity_type] || _.identity)(result(), source));
                     } else {
                         sorted(result());
                     }
@@ -258,8 +258,8 @@ const {ViewModel} = require('./common/viewModel');
         if (vm = MB.sourceExternalLinksEditor) {
             vm.getFormData(formName + '.url', fieldCount, pushInput);
 
-            if (MB.hasSessionStorage && vm.state.links.size) {
-                window.sessionStorage.setItem('submittedLinks', JSON.stringify(vm.state.links.toJS()));
+            if (MB.hasSessionStorage && vm.state.links.length) {
+                window.sessionStorage.setItem('submittedLinks', JSON.stringify(vm.state.links));
             }
         }
 

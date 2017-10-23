@@ -21,13 +21,13 @@ sub _columns {
 
 sub _column_mapping {
     return {
-        id              => 'id',
-        gid             => 'gid',
-        name            => 'name',
-        entity_type     => 'entity_type',
-        parent_id       => 'parent',
-        child_order     => 'child_order',
-        description     => 'description',
+        id                  => 'id',
+        gid                 => 'gid',
+        name                => 'name',
+        item_entity_type    => 'entity_type',
+        parent_id           => 'parent',
+        child_order         => 'child_order',
+        description         => 'description',
     };
 }
 

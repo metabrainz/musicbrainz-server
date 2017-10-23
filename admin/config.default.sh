@@ -8,6 +8,13 @@ FTP_GROUP=musicbrainz
 FTP_DIR_MODE=755
 FTP_FILE_MODE=644
 
+# Same, but for JSON dumps.
+JSON_DUMP_DIR=/home/musicbrainz/json-dumps
+JSON_DUMP_USER=musicbrainz
+JSON_DUMP_GROUP=musicbrainz
+JSON_DUMP_DIR_MODE=755
+JSON_DUMP_FILE_MODE=644
+
 # Where to back things up to, who should own the backup files, and what mode
 # those files should have.
 # The backups include a full database export, and all replication data.
@@ -19,3 +26,6 @@ BACKUP_FILE_MODE=600
 
 RSYNC_FULLEXPORT_HOST='10.2.2.37'
 RSYNC_FULLEXPORT_PORT='65415'
+RSYNC_FULLEXPORT_DIR="$FTP_DATA_DIR/fullexport"
+RSYNC_FULLEXPORT_KEY='~/.ssh/rsync-data-fullexport'
+RSYNC_LATEST_KEY='~/.ssh/rsync-data-latest'

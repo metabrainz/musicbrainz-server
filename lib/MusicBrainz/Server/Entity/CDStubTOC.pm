@@ -5,6 +5,8 @@ use MusicBrainz::Server::Entity::Types;
 
 extends 'MusicBrainz::Server::Entity';
 
+sub entity_type { 'cdstubtoc' }
+
 has 'cdstub_id' => (
     is => 'rw',
     isa => 'Int'

@@ -16,6 +16,8 @@ with 'MusicBrainz::Server::Entity::Role::Rating';
 with 'MusicBrainz::Server::Entity::Role::Comment';
 with 'MusicBrainz::Server::Entity::Role::ArtistCredit';
 
+sub entity_type { 'release_group' }
+
 has 'primary_type_id' => (
     is => 'rw',
     isa => 'Int'

@@ -14,7 +14,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2017-06-19 19:32+0000\n"
+"PO-Revision-Date: 2017-09-19 12:56+0000\n"
 "Last-Translator: Michael Wiencek <email address hidden>\n"
 "Language-Team: Spanish (http://www.transifex.com/musicbrainz/musicbrainz/language/es/)\n"
 "MIME-Version: 1.0\n"
@@ -78,7 +78,7 @@ msgstr "Ainu"
 msgid "Akan"
 msgstr "Acano"
 
-#. frequency:0 iso_code_3:akk
+#. frequency:1 iso_code_3:akk
 #: DB:language/name:11
 msgid "Akkadian"
 msgstr "Acadio"
@@ -628,7 +628,7 @@ msgstr "Arrernte oriental"
 msgid "Efik"
 msgstr "Efik"
 
-#. frequency:0 iso_code_3:egy
+#. frequency:1 iso_code_3:egy
 #: DB:language/name:117
 msgid "Egyptian (Ancient)"
 msgstr "Egipcio (arcaico)"

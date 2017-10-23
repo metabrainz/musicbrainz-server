@@ -1,0 +1,54 @@
+#!/usr/bin/env perl
+
+use strict;
+use warnings;
+
+use FindBin;
+use lib "$FindBin::Bin/../lib";
+
+use MooseX::Runnable::Run;
+use MusicBrainz::Sentry qw( capture_exceptions );
+
+capture_exceptions(sub {
+    run_application 'MusicBrainz::Script::JSONDump::Incremental', @ARGV;
+});
+
+=head1 SYNOPSIS
+
+See SYNOPSIS in /admin/DumpJSON.
+
+This script generates JSON dumps in the same format as the aforementioned
+DumpJSON script, but only including entities whose JSON representation has
+changed in a given replication sequence.
+
+This script cannot run until DumpJSON is run at least once first (i.e. a full
+dump is generated).
+
+Separate dumps are made for each replication sequence between the one last
+processed by DumpIncrementalJSON (during a previous run), and the current
+available sequence. Or if this script is running for the first time, between
+the sequence at which the last full dump was made (by DumpJSON), and the
+current available sequence.
+
+Options:
+
+    --help                      show this help
+    --database                  database to use (default: MAINTENANCE)
+    --entity                    entity type to dump; can specify multiple of
+                                this flag (default: dump all entities)
+    --output-dir                location where dumps are outputted (default: .)
+    --replication-access-uri    URI to request replication packets from
+                                (default:
+                                https://metabrainz.org/api/musicbrainz)
+
+=cut
+
+=head1 COPYRIGHT AND LICENSE
+
+Copyright (C) 2017 MetaBrainz Foundation
+
+This file is part of MusicBrainz, the open internet music database,
+and is licensed under the GPL version 2, or (at your option) any
+later version: http://www.gnu.org/licenses/gpl-2.0.txt
+
+=cut

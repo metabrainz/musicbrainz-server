@@ -22,12 +22,19 @@ $mech->submit_form( with_fields => { username => 'new_editor', password => 'pass
 $mech->get_ok('/account/edit');
 html_ok($mech->content);
 $mech->submit_form( with_fields => {
+    'profile.website' => 'foo',
+    'profile.biography' => 'hello world!',
+} );
+$mech->content_contains('Invalid URL format', "Invalid URL format 'foo' triggers validation failure.");
+$mech->submit_form( with_fields => {
     'profile.birth_date.year' => 0,
     'profile.birth_date.month' => 1,
     'profile.birth_date.day' => 1
 } );
 $mech->content_contains('invalid date', "Invalid date 0-1-1 triggers validation failure.");
 $mech->submit_form( with_fields => {
+    'profile.website' => 'http://example.com/~new_editor/',
+    'profile.biography' => 'hello world!',
     'profile.email' => 'new_email@example.com',
     'profile.birth_date.year' => '',
     'profile.birth_date.month' => '',
@@ -53,10 +60,9 @@ $mech->content_contains("Thank you, your email address has now been verified!");
 $mech->get('/user/new_editor');
 $mech->content_contains('new_email@example.com');
 
-
 };
 
-test 'Limited users cannot edit website and biography' => sub {
+test 'Hide biography and website/homepage of beginners/limited users from not-logged-in users and only from them' => sub {
     my $test = shift;
     my $mech = $test->mech;
     my $c    = $test->c;
@@ -64,15 +70,26 @@ test 'Limited users cannot edit website and biography' => sub {
     MusicBrainz::Server::Test->prepare_test_database($c, '+editor');
 
     $mech->get('/login');
-    $mech->submit_form( with_fields => { username => 'new_editor', password => 'password' } );
+    $mech->submit_form( with_fields => { username => 'Alice', password => 'secret1' } );
 
-    $mech->get_ok('/account/edit');
+    $mech->get('/user/new_editor');
+    html_ok($mech->content);
+    my $tx = test_xpath_html($mech->content);
+    $tx->ok('//tr[@class="biography"]/td[count(*)=1]/p[text()="biography"]',
+        'biography field of beginner/limited user is visible from logged-in user');
+    $tx->ok('//tr/td[preceding-sibling::th[1][normalize-space(text())="Homepage:"]]/a[@href="http://test.website"]',
+        'website field of beginner/limited user is visible from logged-in user');
+
+    $mech->get('/logout');
     html_ok($mech->content);
 
-    my $tx = test_xpath_html($mech->content);
-    $tx->ok('//input[@id="id-profile.email"]', 'email field for all users');
-    $tx->not_ok('//input[@id="id-profile.website"]', 'no website field for limited users');
-    $tx->not_ok('//textarea[@id="id-profile.biography"]', 'no biography field for limited users');
+    $mech->get('/user/new_editor');
+    html_ok($mech->content);
+    $tx = test_xpath_html($mech->content);
+    $tx->ok('//tr[@class="biography"]/td[count(*)=1]/p[@class="deleted" and starts-with(text(), "This content is hidden to prevent spam.")]',
+        'biography field of beginner/limited user is hidden from not-logged-in user');
+    $tx->ok('//tr/td[preceding-sibling::th[1][normalize-space(text())="Homepage:"]]/p[@class="deleted" and starts-with(text(), "This content is hidden to prevent spam.")]',
+        'website field of beginner/limited user is hidden from not-logged-in user');
 
     $test->c->sql->do(<<EOSQL);
 INSERT INTO edit (id, editor, type, status, expire_time, autoedit) VALUES
@@ -88,29 +105,13 @@ INSERT INTO edit (id, editor, type, status, expire_time, autoedit) VALUES
     (10, 1, 1, $STATUS_APPLIED, now(), 0);
 EOSQL
 
-    $mech->get_ok('/account/edit');
-    html_ok($mech->content);
-
-    $tx = test_xpath_html($mech->content);
-    $tx->ok('//input[@id="id-profile.email"]', 'email field for all users');
-    $tx->ok('//input[@id="id-profile.website"]', 'website field for normal (not imited) users');
-    $tx->ok('//textarea[@id="id-profile.biography"]', 'biography field for normal (not limited) users');
-
-    $mech->submit_form( with_fields => {
-        'profile.website' => 'foo',
-        'profile.biography' => 'hello world!',
-    } );
-    $mech->content_contains('Invalid URL format', "Invalid URL format 'foo' triggers validation failure.");
-    $mech->submit_form( with_fields => {
-        'profile.website' => 'http://example.com/~new_editor/',
-        'profile.biography' => 'hello world!',
-        'profile.email' => 'new_email@example.com',
-    } );
-    $mech->content_contains('Your profile has been updated');
-
     $mech->get('/user/new_editor');
-    $mech->content_contains('http://example.com/~new_editor/');
-    $mech->content_contains('hello world!');
+    html_ok($mech->content);
+    $tx = test_xpath_html($mech->content);
+    $tx->ok('//tr[@class="biography"]/td[count(*)=1]/p[text()="biography"]',
+        'biography field of (not beginner/limited) user is visible from everyone');
+    $tx->ok('//tr/td[preceding-sibling::th[1][normalize-space(text())="Homepage:"]]/a[@href="http://test.website"]',
+        'website field of (not beginner/limited) user is visible from everyone');
 };
 
 test 'After removing email address, editors cannot edit' => sub {

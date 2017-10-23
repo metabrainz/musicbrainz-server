@@ -69,13 +69,6 @@ INSERT INTO work (id, gid, name, type) VALUES
     (1, '745c079d-374e-4436-9448-da92dedef3ce', 'Dancing Queen', 1);
 INSERT INTO iswc (work, iswc) VALUES (1, 'T-000.000.001-0');
 
-INSERT INTO release_packaging (id, name, gid) VALUES (1, 'Jewel Case', 'e2ac3831-739d-11de-8a39-0800200c9a66');
-INSERT INTO release_packaging (id, name, gid) VALUES (2, 'Digipak', 'e1ab3831-739d-11de-8a39-0800200c9a66');
-
-INSERT INTO script (id, iso_code, iso_number, name, frequency)
-    VALUES (1, 'Ugar', '040', 'Ugaritic', 2),
-           (2, 'Hebr', '125', 'Hebrew', 4);
-
 -- Special Labels
 INSERT INTO label (id, gid, name, type) VALUES
     (1, 'f43e252d-9ebf-4e8e-bba8-36d080756cc1', 'Deleted Label', 4);

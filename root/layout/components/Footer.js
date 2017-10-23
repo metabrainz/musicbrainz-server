@@ -5,6 +5,7 @@
 
 const React = require('react');
 
+const Frag = require('../../components/Frag');
 const DBDefs = require('../../static/scripts/common/DBDefs');
 const {l} = require('../../static/scripts/common/i18n');
 const formatUserDate = require('../../utility/formatUserDate');
@@ -45,14 +46,14 @@ const Footer = (props) => {
         ]}
 
         <If condition={stash.last_replication_date}>
-          <frag>
+          <Frag>
             <br />
             {l('Last replication packet received at {datetime}', {
                 datetime: $c.user ?
                   formatUserDate($c.user, stash.last_replication_date) :
                   stash.last_replication_date
             })}
-          </frag>
+          </Frag>
         </If>
       </p>
 

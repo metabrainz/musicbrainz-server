@@ -19,6 +19,8 @@ with 'MusicBrainz::Server::Entity::Role::ArtistCredit';
 
 use aliased 'MusicBrainz::Server::Entity::Work';
 
+sub entity_type { 'release' }
+
 around BUILDARGS => sub {
     my $orig = shift;
     my $self = shift;

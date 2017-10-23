@@ -8,7 +8,7 @@ use MusicBrainz::Server::Constants qw(
     $ACCESS_SCOPE_SUBMIT_BARCODE
     $EDIT_RELEASE_EDIT_BARCODES
 );
-use List::UtilsBy qw( uniq_by );
+use List::UtilsBy qw( partition_by uniq_by );
 use MusicBrainz::Server::WebService::XML::XPath;
 use MusicBrainz::Server::Validation qw( is_guid is_valid_ean );
 use Readonly;
@@ -48,7 +48,7 @@ with 'MusicBrainz::Server::WebService::Validator' =>
      defs => $ws_defs,
 };
 
-with 'MusicBrainz::Server::Controller::Role::Load' => {
+with 'MusicBrainz::Server::Controller::WS::2::Role::Lookup' => {
     model => 'Release',
 };
 
@@ -56,68 +56,76 @@ with 'MusicBrainz::Server::Controller::WS::2::Role::BrowseByCollection';
 
 Readonly our $MAX_ITEMS => 25;
 
-# The maximum number of recordings to try to get relationships for, if
-# inc=recording-level-rels is specified. Certain releases with an enourmous
-# number of recordings (audiobooks) will almost always timeout, driving up
-# server load average for nothing. Ideally we can remove this limit as soon as
-# we resolve the performance issues we have.
-Readonly our $MAX_RECORDING_RELATIONSHIPS => 500;
-
 sub base : Chained('root') PathPart('release') CaptureArgs(0) { }
 
-sub release_toplevel
-{
-    my ($self, $c, $stash, $release) = @_;
+sub release_toplevel {
+    my ($self, $c, $stash, $releases) = @_;
 
-    $c->model('Release')->load_meta($release);
-    $c->model('Release')->load_release_events($release);
-    $self->linked_releases($c, $stash, [ $release ]);
+    my $inc = $c->stash->{inc};
+    my @releases = @{$releases};
 
-    if ($release->cover_art_presence eq 'present') {
-        $stash->store($release)->{'cover-art-archive'} = $c->model('CoverArtArchive')->get_stats_for_release($release->id);
-    } else {
-        $stash->store($release)->{'cover-art-archive'} = {total => 0, front => 0, back => 0};
+    $c->model('Release')->load_meta(@releases);
+    $c->model('Release')->load_release_events(@releases);
+
+    $self->linked_releases($c, $stash, $releases);
+
+    $c->model('Release')->annotation->load_latest(@releases)
+        if $inc->annotation;
+
+    my %cover_art_presence =
+        partition_by { $_->cover_art_presence eq 'present' ? 1 : 0 }
+        @releases;
+
+    if (my $art_present = $cover_art_presence{1}) {
+        my @release_ids = map { $_->id } @$art_present;
+        my $stats = $c->model('CoverArtArchive')->get_stats_for_releases(@release_ids);
+        $stash->store($_)->{'cover-art-archive'} = $stats->{$_->id} for @$art_present;
     }
 
-    my @rels_entities = $release;
+    if (my $art_not_present = $cover_art_presence{0}) {
+        my $stats = {total => 0, front => 0, back => 0};
+        $stash->store($_)->{'cover-art-archive'} = $stats for @$art_not_present;
+    }
 
-    $c->model('Release')->annotation->load_latest($release)
-        if $c->stash->{inc}->annotation;
+    my @rels_entities = @releases;
 
-    if ($c->stash->{inc}->artists)
+    if ($inc->artists)
     {
-        $c->model('ArtistCredit')->load($release);
+        $c->model('ArtistCredit')->load(@releases);
 
-        my @artists = map { $c->model('Artist')->load($_); $_->artist } @{ $release->artist_credit->names };
+        my @acns = map { $_->artist_credit->all_names } @releases;
+        $c->model('Artist')->load(@acns);
 
+        my @artists = map { $_->artist } @acns;
         $self->linked_artists($c, $stash, \@artists);
     }
 
-    if ($c->stash->{inc}->labels)
+    if ($inc->labels)
     {
-        $c->model('ReleaseLabel')->load($release);
-        $c->model('Label')->load($release->all_labels);
+        $c->model('ReleaseLabel')->load(@releases);
 
-        my @labels = grep { defined } map { $_->label } $release->all_labels;
+        my @release_labels = map { $_->all_labels } @releases;
+        $c->model('Label')->load(@release_labels);
 
+        my @labels = grep { defined } map { $_->label } @release_labels;
         $self->linked_labels($c, $stash, \@labels);
     }
 
-    if ($c->stash->{inc}->release_groups)
+    if ($inc->release_groups)
     {
-         $c->model('ReleaseGroup')->load($release);
-         $c->model('ReleaseGroup')->load_meta($release->release_group);
+         $c->model('ReleaseGroup')->load(@releases);
 
-         my $rg = $release->release_group;
+         my @release_groups = map { $_->release_group } @releases;
+         $c->model('ReleaseGroup')->load_meta(@release_groups);
 
-         $self->linked_release_groups($c, $stash, [ $rg ]);
+         $self->linked_release_groups($c, $stash, \@release_groups);
     }
 
-    if ($c->stash->{inc}->recordings)
+    if ($inc->recordings)
     {
-        my @mediums = $release->all_mediums;
+        my @mediums = map { $_->all_mediums } @releases;
 
-        if (!$c->stash->{inc}->discids)
+        if (!$inc->discids)
         {
             my @medium_cdtocs = $c->model('MediumCDTOC')->load_for_mediums(@mediums);
             $c->model('CDTOC')->load(@medium_cdtocs);
@@ -126,7 +134,7 @@ sub release_toplevel
         $c->model('Track')->load_for_mediums(@mediums);
         my @tracks = map { $_->all_tracks } @mediums;
 
-        if ($c->stash->{inc}->artist_credits) {
+        if ($inc->artist_credits) {
             $c->model('ArtistCredit')->load(@tracks);
             my @acns = map { $_->artist_credit->all_names } @tracks;
             $c->model('Artist')->load(@acns);
@@ -136,61 +144,50 @@ sub release_toplevel
         my @recordings = $c->model('Recording')->load(@tracks);
         $c->model('Recording')->load_meta(@recordings);
 
-        if ($c->stash->{inc}->recording_level_rels && @recordings <= $MAX_RECORDING_RELATIONSHIPS) {
+        # The maximum number of recordings to try to get relationships for, if
+        # inc=recording-level-rels is specified. Certain releases with an enourmous
+        # number of recordings (audiobooks) will almost always timeout, driving up
+        # server load average for nothing. Ideally we can remove this limit as soon as
+        # we resolve the performance issues we have.
+        my $max_recording_relationships = 500;
+
+        if ($inc->recording_level_rels && @recordings <= $max_recording_relationships) {
             push @rels_entities, @recordings;
         }
 
         $self->linked_recordings($c, $stash, \@recordings);
     }
 
-    $self->load_relationships($c, $stash, @rels_entities);
-
-    my $inc = $c->stash->{inc};
     if ($inc->collections || $inc->user_collections) {
         if ($inc->user_collections) {
             $self->authenticate($c, $ACCESS_SCOPE_COLLECTION);
         }
-        my ($collections, $total) = $c->model('Collection')->find_by({
-            entity_type => 'release',
-            entity_id => $release->id,
-            # This should probably check $inc->user_collections instead of
-            # $c->user_exists, but that would break the collections feature in
-            # versions of Picard that didn't know about user-collections. Picard
-            # would rely on user-tags or user-ratings to force authentication
-            # and get private collections. See MBS-6152.
-            show_private => $c->user_exists ? $c->user->id : undef,
-        });
+        my @collections;
+        for my $release (@releases) {
+            my ($collections, $total) = $c->model('Collection')->find_by({
+                entity_type => 'release',
+                entity_id => $release->id,
+                # This should probably check $inc->user_collections instead of
+                # $c->user_exists, but that would break the collections feature in
+                # versions of Picard that didn't know about user-collections. Picard
+                # would rely on user-tags or user-ratings to force authentication
+                # and get private collections. See MBS-6152.
+                show_private => $c->user_exists ? $c->user->id : undef,
+            });
 
-        $c->model('Editor')->load(@$collections);
-        $c->model('Collection')->load_entity_count(@$collections);
-        $c->model('CollectionType')->load(@$collections);
+            push @collections, @{$collections};
 
-        $stash->store($release)->{collections} =
-            $self->make_list($collections, $total);
-    }
-}
-
-sub release: Chained('root') PathPart('release') Args(1)
-{
-    my ($self, $c, $gid) = @_;
-
-    if (!is_guid($gid))
-    {
-        $c->stash->{error} = "Invalid mbid.";
-        $c->detach('bad_req');
+            $stash->store($release)->{collections} =
+                $self->make_list($collections, $total);
+        }
+        if (@collections) {
+            $c->model('Editor')->load(@collections);
+            $c->model('Collection')->load_entity_count(@collections);
+            $c->model('CollectionType')->load(@collections);
+        }
     }
 
-    my $release = $c->model('Release')->get_by_gid($gid);
-    unless ($release) {
-        $c->detach('not_found');
-    }
-
-    my $stash = WebServiceStash->new;
-
-    $self->release_toplevel($c, $stash, $release);
-
-    $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
-    $c->res->body($c->stash->{serializer}->serialize('release', $release, $c->stash->{inc}, $stash));
+    $self->load_relationships($c, $stash, @rels_entities);
 }
 
 sub release_browse : Private
@@ -264,10 +261,7 @@ sub release_browse : Private
 
     my $stash = WebServiceStash->new;
 
-    for (@{ $releases->{items} })
-    {
-        $self->release_toplevel($c, $stash, $_);
-    }
+    $self->release_toplevel($c, $stash, $releases->{items});
 
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
     $c->res->body($c->stash->{serializer}->serialize('release-list', $releases, $c->stash->{inc}, $stash));

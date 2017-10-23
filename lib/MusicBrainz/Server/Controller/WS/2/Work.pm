@@ -32,47 +32,32 @@ with 'MusicBrainz::Server::WebService::Validator' =>
      defs => $ws_defs,
 };
 
-with 'MusicBrainz::Server::Controller::Role::Load' => {
-    model => 'Work'
+with 'MusicBrainz::Server::Controller::WS::2::Role::Lookup' => {
+    model => 'Work',
 };
 
 with 'MusicBrainz::Server::Controller::WS::2::Role::BrowseByCollection';
 
 sub work_toplevel
 {
-    my ($self, $c, $stash, $work) = @_;
+    my ($self, $c, $stash, $works) = @_;
 
-    my $opts = $stash->store($work);
+    my $inc = $c->stash->{inc};
+    my @works = @{$works};
 
-    $self->linked_works($c, $stash, [ $work ]);
+    $self->linked_works($c, $stash, $works);
 
-    $c->model('Work')->annotation->load_latest($work)
-        if $c->stash->{inc}->annotation;
+    $c->model('Work')->annotation->load_latest(@works)
+        if $inc->annotation;
 
-    $c->model('WorkAttribute')->load_for_works($work);
+    $c->model('WorkAttribute')->load_for_works(@works);
 
-    $self->load_relationships($c, $stash, $work);
+    $self->load_relationships($c, $stash, @works);
 
-    $c->model('WorkType')->load($work);
+    $c->model('WorkType')->load(@works);
 }
 
 sub base : Chained('root') PathPart('work') CaptureArgs(0) { }
-
-sub work : Chained('load') PathPart('')
-{
-    my ($self, $c) = @_;
-    my $work = $c->stash->{entity};
-
-    return unless defined $work;
-
-    my $stash = WebServiceStash->new;
-    my $opts = $stash->store($work);
-
-    $self->work_toplevel($c, $stash, $work);
-
-    $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
-    $c->res->body($c->stash->{serializer}->serialize('work', $work, $c->stash->{inc}, $stash));
-}
 
 sub work_browse : Private
 {
@@ -100,10 +85,7 @@ sub work_browse : Private
 
     my $stash = WebServiceStash->new;
 
-    for (@{ $works->{items} })
-    {
-        $self->work_toplevel($c, $stash, $_);
-    }
+    $self->work_toplevel($c, $stash, $works->{items});
 
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
     $c->res->body($c->stash->{serializer}->serialize('work-list', $works, $c->stash->{inc}, $stash));

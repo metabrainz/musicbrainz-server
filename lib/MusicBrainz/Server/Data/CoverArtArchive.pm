@@ -8,16 +8,23 @@ use JSON;
 use MIME::Base64 qw( encode_base64 );
 use Time::HiRes qw( time );
 
-sub get_stats_for_release {
-    my ($self, $release_id) = @_;
+sub get_stats_for_releases {
+    my ($self, @release_ids) = @_;
     my $stats = $self->sql->select_list_of_hashes(
-    'SELECT COUNT(*) total,
+    'SELECT release,
+            COUNT(*) total,
             bool_or(is_front) front,
             bool_or(is_back) back
      FROM cover_art_archive.index_listing
-     WHERE release = ?',
-     $release_id);
-    return $stats->[0];
+     WHERE release = any(?)
+     GROUP BY release',
+     \@release_ids);
+    return {
+        map {
+            my $release = delete $_->{release};
+            ($release => $_)
+        } @$stats
+    };
 }
 
 sub fresh_id {
