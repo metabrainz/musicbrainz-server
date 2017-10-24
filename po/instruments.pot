@@ -124,6 +124,11 @@ msgstr ""
 msgid "Irish bouzouki"
 msgstr ""
 
+#: DB:instrument/name:878
+msgctxt "19th century transverse flute"
+msgid "Irish flute"
+msgstr ""
+
 #: DB:instrument/name:355
 msgid "Irish harp / clàrsach"
 msgstr ""
@@ -1496,6 +1501,7 @@ msgid "gusli"
 msgstr ""
 
 #: DB:instrument/name:567
+msgctxt "gut-stringed acoustic guitar"
 msgid "gut guitar"
 msgstr ""
 
@@ -2138,6 +2144,7 @@ msgid "nyckelharpa"
 msgstr ""
 
 #: DB:instrument/name:566
+msgctxt "nylon-stringed acoustic guitar"
 msgid "nylon guitar"
 msgstr ""
 
@@ -3362,6 +3369,11 @@ msgstr ""
 
 #: DB:instrument/name:450
 msgid "voice synthesizer"
+msgstr ""
+
+#: DB:instrument/name:877
+msgctxt "plastic horn"
+msgid "vuvuzela"
 msgstr ""
 
 #: DB:instrument/name:159

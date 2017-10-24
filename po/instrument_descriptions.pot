@@ -90,16 +90,6 @@ msgstr ""
 msgid "A class of South-American guitars"
 msgstr ""
 
-#. name:gut guitar 
-#: DB:instrument/description:567
-msgid "A classical guitar strung with gut strings."
-msgstr ""
-
-#. name:nylon guitar 
-#: DB:instrument/description:566
-msgid "A classical guitar strung with nylon strings."
-msgstr ""
-
 #. name:saduk 
 #: DB:instrument/description:804
 msgid ""
@@ -724,6 +714,16 @@ msgid ""
 "Harmonica/Accordion hybrid where the bellows for the accordion bit with "
 "buttons/keys receive air though the user blowing into the instrument like an "
 "harmonica"
+msgstr ""
+
+#. name:gut guitar 
+#: DB:instrument/description:567
+msgid "Hollow-body acoustic guitar strung with gut-strings."
+msgstr ""
+
+#. name:nylon guitar 
+#: DB:instrument/description:566
+msgid "Hollow-body acoustic guitar strung with nylon-strings."
 msgstr ""
 
 #. name:huqin 
@@ -3583,6 +3583,11 @@ msgid ""
 "Martenot's."
 msgstr ""
 
+#. name:vuvuzela 
+#: DB:instrument/description:877
+msgid "plastic horn often used at football matches in South Africa"
+msgstr ""
+
 #. name:orphica 
 #: DB:instrument/description:842
 msgid ""
@@ -3764,6 +3769,11 @@ msgstr ""
 #. name:vibrandoneon 
 #: DB:instrument/description:840
 msgid "wood accordina with piano keys invented in Italy"
+msgstr ""
+
+#. name:Irish flute 
+#: DB:instrument/description:878
+msgid "wooden flute of the simple-system type, popular in Irish folk music"
 msgstr ""
 
 #. name:English flageolet 

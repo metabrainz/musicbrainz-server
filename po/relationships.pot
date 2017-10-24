@@ -843,6 +843,10 @@ msgstr ""
 msgid "Points to the Wikipedia page for this event."
 msgstr ""
 
+#: DB:link_type/description:731
+msgid "Points to the Wikipedia page for this instrument."
+msgstr ""
+
 #: DB:link_type/description:595
 msgid "Points to the Wikipedia page for this place"
 msgstr ""
@@ -2720,6 +2724,35 @@ msgid ""
 "soprano range"
 msgstr ""
 
+#: DB:link_attribute_type/description:1032
+msgid ""
+"Use this for operas and similar works that are <a href=\"https://en."
+"wikipedia.org/wiki/Number_opera\">separated in numbers</a>, to specify what "
+"parts are numbers (as opposed to spoken dialog or other non-numbered parts)."
+msgstr ""
+
+#: DB:link_attribute_type/description:1033
+msgid ""
+"Use this to indicate the parent work is not intended to be performed as a "
+"whole, but is just a grouping of pieces or works that can be performed "
+"individually (collections of songs, several sonatas or concertos published "
+"as a set, books of piano pieces, etc.)"
+msgstr ""
+
+#: DB:link_attribute_type/description:1030
+msgid ""
+"Use this to mark acts of an opera (as opposed to other parts that are not "
+"acts)"
+msgstr ""
+
+#: DB:link_attribute_type/description:1031
+msgid ""
+"Use this when the parent work consists of several parts which are generally "
+"meant to be performed one after another in a particular order (rather than "
+"in any order, or multiple times, or in arbitrary selections rather than as a "
+"whole)."
+msgstr ""
+
 #: DB:link_type/link_phrase:788 DB:link_type/link_phrase:86
 #: DB:link_type/link_phrase:191 DB:link_type/link_phrase:210
 msgid "VGMdb"
@@ -2756,19 +2789,19 @@ msgstr ""
 msgid "Wikidata page for"
 msgstr ""
 
-#: DB:link_type/link_phrase:789 DB:link_type/link_phrase:355
-#: DB:link_type/link_phrase:89 DB:link_type/link_phrase:744
-#: DB:link_type/link_phrase:216 DB:link_type/link_phrase:179
-#: DB:link_type/link_phrase:595 DB:link_type/link_phrase:731
-#: DB:link_type/reverse_link_phrase:279 DB:link_type/reverse_link_phrase:731
-#: DB:link_type/long_link_phrase:731
+#: DB:link_type/link_phrase:789 DB:link_type/link_phrase:595
+#: DB:link_type/link_phrase:355 DB:link_type/link_phrase:744
+#: DB:link_type/link_phrase:89 DB:link_type/link_phrase:216
+#: DB:link_type/link_phrase:179 DB:link_type/link_phrase:731
+#: DB:link_type/reverse_link_phrase:279
 msgid "Wikipedia"
 msgstr ""
 
 #: DB:link_type/link_phrase:279 DB:link_type/reverse_link_phrase:789
-#: DB:link_type/reverse_link_phrase:355 DB:link_type/reverse_link_phrase:89
-#: DB:link_type/reverse_link_phrase:744 DB:link_type/reverse_link_phrase:216
-#: DB:link_type/reverse_link_phrase:179 DB:link_type/reverse_link_phrase:595
+#: DB:link_type/reverse_link_phrase:595 DB:link_type/reverse_link_phrase:355
+#: DB:link_type/reverse_link_phrase:744 DB:link_type/reverse_link_phrase:89
+#: DB:link_type/reverse_link_phrase:216 DB:link_type/reverse_link_phrase:179
+#: DB:link_type/reverse_link_phrase:731
 msgid "Wikipedia page for"
 msgstr ""
 
@@ -2782,6 +2815,10 @@ msgstr ""
 #: DB:link_type/link_phrase:193 DB:link_type/link_phrase:528
 #: DB:link_type/link_phrase:225
 msgid "YouTube channels"
+msgstr ""
+
+#: DB:link_attribute_type/name:1030
+msgid "act"
 msgstr ""
 
 #: DB:link_attribute_type/name:1
@@ -3414,10 +3451,10 @@ msgstr ""
 msgid "has a Wikidata page at"
 msgstr ""
 
-#: DB:link_type/long_link_phrase:789 DB:link_type/long_link_phrase:355
-#: DB:link_type/long_link_phrase:89 DB:link_type/long_link_phrase:744
-#: DB:link_type/long_link_phrase:216 DB:link_type/long_link_phrase:179
-#: DB:link_type/long_link_phrase:595
+#: DB:link_type/long_link_phrase:789 DB:link_type/long_link_phrase:595
+#: DB:link_type/long_link_phrase:355 DB:link_type/long_link_phrase:744
+#: DB:link_type/long_link_phrase:89 DB:link_type/long_link_phrase:216
+#: DB:link_type/long_link_phrase:179 DB:link_type/long_link_phrase:731
 msgid "has a Wikipedia page at"
 msgstr ""
 
@@ -4121,6 +4158,10 @@ msgstr ""
 msgid "mixing location for"
 msgstr ""
 
+#: DB:link_attribute_type/name:1031
+msgid "movement"
+msgstr ""
+
 #: DB:link_type/long_link_phrase:177
 msgid "music can be downloaded for free at"
 msgstr ""
@@ -4150,7 +4191,7 @@ msgstr ""
 msgid "musical relationship"
 msgstr ""
 
-#: DB:link_attribute_type/name:788
+#: DB:link_attribute_type/name:788 DB:link_attribute_type/name:1032
 msgid "number"
 msgstr ""
 
@@ -4255,6 +4296,10 @@ msgstr ""
 #: DB:link_type/reverse_link_phrase:717 DB:link_type/reverse_link_phrase:281
 #: DB:link_type/reverse_link_phrase:356 DB:link_type/reverse_link_phrase:743
 msgid "part of"
+msgstr ""
+
+#: DB:link_attribute_type/name:1033
+msgid "part of collection"
 msgstr ""
 
 #: DB:link_attribute_type/name:579
@@ -4972,10 +5017,6 @@ msgstr ""
 
 #: DB:link_type/long_link_phrase:759 DB:link_type/long_link_phrase:760
 msgid "was the concertmaster for"
-msgstr ""
-
-#: DB:link_type/description:731
-msgid "wikipedia"
 msgstr ""
 
 #: DB:link_type/long_link_phrase:704
