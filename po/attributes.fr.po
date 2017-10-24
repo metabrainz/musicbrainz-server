@@ -1,4 +1,4 @@
-# Translators:
+# 
 # Translators:
 # French language coordinator <email address hidden>, 2013
 # murdos <email address hidden>, 2015
@@ -25,8 +25,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2017-09-23 18:13+0000\n"
-"Last-Translator: Laurent Monin <email address hidden>\n"
+"PO-Revision-Date: 2017-10-24 00:47+0000\n"
+"Last-Translator: yvanz\n"
 "Language-Team: French (http://www.transifex.com/musicbrainz/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -59,6 +59,11 @@ msgctxt "medium_format"
 msgid "10\" Vinyl"
 msgstr "Vinyle 25 cm (10 po)"
 
+#: DB:medium_format/name:72
+msgctxt "medium_format"
+msgid "12\" LaserDisc"
+msgstr "LaserDisc 30 cm (12 po)"
+
 #: DB:medium_format/name:55
 msgctxt "medium_format"
 msgid "12\" Shellac"
@@ -88,6 +93,11 @@ msgstr "Shellac 18 cm (7 po)"
 msgctxt "medium_format"
 msgid "7\" Vinyl"
 msgstr "Vinyle 18 cm (7 po)"
+
+#: DB:medium_format/name:71
+msgctxt "medium_format"
+msgid "8\" LaserDisc"
+msgstr "LaserDisc 20 cm (8 po)"
 
 #: DB:medium_format/name:34
 msgctxt "medium_format"
@@ -191,6 +201,11 @@ msgid ""
 "A party, reception or other event held specifically for the launch of a "
 "release."
 msgstr "Une fête, une réception ou autre événement tenu spécialement pour le lancement d’une parution."
+
+#: DB:release_packaging/description:17
+msgctxt "release_packaging"
+msgid "A perfect bound book with a sleeve at the end to hold a CD"
+msgstr "Un livre parfaitement relié avec une pochette à la fin pour tenir un CD "
 
 #: DB:place_type/description:5
 msgctxt "place_type"
@@ -796,6 +811,11 @@ msgctxt "work_attribute_type"
 msgid "BMI ID"
 msgstr "ID BMI"
 
+#: DB:work_attribute_type/name:26
+msgctxt "work_attribute_type"
+msgid "BUMA/STEMRA ID"
+msgstr "ID BUMA/STEMRA"
+
 #: DB:cover_art_archive.art_type/name:2
 msgctxt "cover_art_type"
 msgid "Back"
@@ -1017,6 +1037,11 @@ msgstr "Production pirate"
 msgctxt "work_attribute_type_allowed_value"
 msgid "Bozlak"
 msgstr "Bozlak"
+
+#: DB:instrument_alias_type/name:3
+msgctxt "alias_type"
+msgid "Brand name"
+msgstr "Nom de marque"
 
 #: DB:release_group_primary_type/name:12
 msgctxt "release_group_primary_type"
@@ -1553,6 +1578,11 @@ msgstr "Dhr̥va"
 msgctxt "work_attribute_type_allowed_value"
 msgid "Dhēnuka"
 msgstr "Dhēnuka"
+
+#: DB:release_packaging/name:17
+msgctxt "release_packaging"
+msgid "Digibook"
+msgstr "Digibook"
 
 #: DB:release_packaging/name:3
 msgctxt "release_packaging"
@@ -3821,6 +3851,11 @@ msgstr "Nāṭakurinji"
 msgctxt "work_attribute_type_allowed_value"
 msgid "Nīlāṁbari"
 msgstr "Nīlāṁbari"
+
+#: DB:work_attribute_type/name:25
+msgctxt "work_attribute_type"
+msgid "OSA ID"
+msgstr "ID OSA"
 
 #: DB:cover_art_archive.art_type/name:5
 msgctxt "cover_art_type"
