@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-24 02:16+0200\n"
+"POT-Creation-Date: 2017-10-24 04:04+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -12641,12 +12641,6 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Form/User/EditProfile.pm:93
 msgid "Birth year must be after 1900"
-msgstr ""
-
-#: ../lib/MusicBrainz/Server/Form/User/EditProfile.pm:101
-msgid ""
-"Biography and website fields may not be edited until your email address is "
-"confirmed."
 msgstr ""
 
 #: ../lib/MusicBrainz/Server/Form/User/Login.pm:11
