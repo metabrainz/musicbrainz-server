@@ -148,7 +148,7 @@ has source_credit => (
 
 sub _build_source_credit {
     my ($self) = @_;
-    return $self->_source_target_prop(prop_suffix => 'credit');
+    return $self->_source_target_prop(prop_suffix => 'credit') // '';
 }
 
 sub source_key {
@@ -191,7 +191,7 @@ has target_credit => (
 
 sub _build_target_credit {
     my ($self) = @_;
-    return $self->_source_target_prop(is_target => 1, prop_suffix => 'credit');
+    return $self->_source_target_prop(is_target => 1, prop_suffix => 'credit') // '';
 }
 
 sub target_key

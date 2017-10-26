@@ -331,7 +331,13 @@ class SidebarTagEditor extends TagEditor {
         {!this.state.tags.size && <p>{lp('(none)', 'tag')}</p>}
         <form id="tag-form" onSubmit={this.addTags}>
           <div style={{display: 'flex'}}>
-            <input ref="tags" type="text" name="tags" className="tag-input" style={{flexGrow: 2}} />
+            <input
+              className="tag-input"
+              name="tags"
+              ref={input => this._tagsInput = input}
+              style={{flexGrow: 2}}
+              type="text"
+            />
             <button type="submit" className="styled-button">
               {l('Tag', 'verb')}
             </button>
