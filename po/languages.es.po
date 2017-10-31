@@ -8,14 +8,15 @@
 # Nacho Pique <email address hidden>, 2016
 # Nicolás Tamargo <email address hidden>, 2011-2013
 # Peter Cuevas H <email address hidden>, 2017
+# Pier Jose Gotta Perez <email address hidden>, 2017
 # Kevin Doncam Demian López Brante <email address hidden>, 2012
 #   Tobias Quathamer <email address hidden>, 2007
 # t0n3t <email address hidden>, 2012
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2017-09-19 12:56+0000\n"
-"Last-Translator: Michael Wiencek <email address hidden>\n"
+"PO-Revision-Date: 2017-10-30 17:13+0000\n"
+"Last-Translator: Pier Jose Gotta Perez <email address hidden>\n"
 "Language-Team: Spanish (http://www.transifex.com/musicbrainz/musicbrainz/language/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -2546,7 +2547,7 @@ msgstr "Wólof"
 #. frequency:1 iso_code_3:wya
 #: DB:language/name:7181
 msgid "Wyandot"
-msgstr ""
+msgstr "Hurón"
 
 #. frequency:1 iso_code_3:xho
 #: DB:language/name:460
