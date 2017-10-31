@@ -10,7 +10,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2017-09-05 00:54+0000\n"
+"PO-Revision-Date: 2017-09-19 12:54+0000\n"
 "Last-Translator: Michael Wiencek <email address hidden>\n"
 "Language-Team: Italian (http://www.transifex.com/musicbrainz/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
@@ -750,6 +750,14 @@ msgid ""
 "Cretan lyra with the violin."
 msgstr ""
 
+#. name:tubulum
+#: DB:instrument/description:873
+msgid ""
+"Invented (or atleast made popular by) Blue Man Group, it is made of "
+"alternating length PVC pipes and hit with sticks or flaps. It is popular "
+"with street musicians."
+msgstr ""
+
 #. name:arpeggione
 #: DB:instrument/description:823
 msgid ""
@@ -984,6 +992,22 @@ msgstr ""
 msgid "Pi is a family of quadruple reed oboes from Thailand."
 msgstr ""
 
+#. name:boobam
+#: DB:instrument/description:874
+msgid ""
+"Pipes of bamboo with goat or calfskin membranes, the pitches depend largely "
+"on tube-lenght, it is the ancestor to the octoban. Modern variants are "
+"usually made of wood, plastic or metal with plastic membranes."
+msgstr ""
+
+#. name:mijwiz
+#: DB:instrument/description:876
+msgid ""
+"Played using circular breathing, it is made of twin bamboo reeds with five "
+"to six holes. From the middle-east, it is used in traditional music and as a"
+" accompaniment to belly dancing and dabke."
+msgstr ""
+
 #. name:ngɔni
 #: DB:instrument/description:729
 msgid "Plucked string instrument made of wood or gourd from West Africa."
@@ -1048,6 +1072,15 @@ msgstr ""
 #. name:oktawka
 #: DB:instrument/description:759
 msgid "Small Polish traditional fiddle."
+msgstr ""
+
+#. name:octoban
+#: DB:instrument/description:875
+msgid ""
+"Small but long tom-tom drums usually set in groups of four or eight, they "
+"are a common addition in drumsets. Originally made of fibreglass, the "
+"manufacturers today also use acrylic, aluminium or wood, though homemade "
+"ones of f.ex PVC are not uncommon."
 msgstr ""
 
 #. name:nguru

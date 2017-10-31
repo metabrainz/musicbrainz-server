@@ -32,8 +32,8 @@ with 'MusicBrainz::Server::WebService::Validator' =>
      defs => $ws_defs,
 };
 
-with 'MusicBrainz::Server::Controller::Role::Load' => {
-    model => 'Label'
+with 'MusicBrainz::Server::Controller::WS::2::Role::Lookup' => {
+    model => 'Label',
 };
 
 with 'MusicBrainz::Server::Controller::WS::2::Role::BrowseByCollection';
@@ -42,48 +42,35 @@ Readonly our $MAX_ITEMS => 25;
 
 sub base : Chained('root') PathPart('label') CaptureArgs(0) { }
 
-sub label_toplevel
-{
-    my ($self, $c, $stash, $label) = @_;
+sub label_toplevel {
+    my ($self, $c, $stash, $labels) = @_;
 
-    my $opts = $stash->store($label);
+    my $inc = $c->stash->{inc};
+    my @labels = @{$labels};
 
-    $self->linked_labels($c, $stash, [ $label ]);
+    $self->linked_labels($c, $stash, $labels);
 
-    $c->model('LabelType')->load($label);
-    $c->model('Area')->load($label);
-    $c->model('Label')->ipi->load_for($label);
-    $c->model('Label')->isni->load_for($label);
+    $c->model('LabelType')->load(@labels);
+    $c->model('Area')->load(@labels);
+    $c->model('Label')->ipi->load_for(@labels);
+    $c->model('Label')->isni->load_for(@labels);
 
-    $c->model('Label')->annotation->load_latest($label)
-        if $c->stash->{inc}->annotation;
+    $c->model('Label')->annotation->load_latest(@labels)
+        if $inc->annotation;
 
-    if ($c->stash->{inc}->releases)
-    {
-        my @results = $c->model('Release')->find_by_label(
-            $label->id, $MAX_ITEMS, 0, filter => { status => $c->stash->{status}, type => $c->stash->{type} });
-        $opts->{releases} = $self->make_list(@results);
+    $self->load_relationships($c, $stash, @labels);
 
-        $self->linked_releases($c, $stash, $opts->{releases}->{items});
+    if ($inc->releases) {
+        my @releases;
+        for my $label (@labels) {
+            my $opts = $stash->store($label);
+            my @results = $c->model('Release')->find_by_label(
+                $label->id, $MAX_ITEMS, 0, filter => { status => $c->stash->{status}, type => $c->stash->{type} });
+            $opts->{releases} = $self->make_list(@results);
+            push @releases, @{ $opts->{releases}{items} };
+        }
+        $self->linked_releases($c, $stash, \@releases) if @releases;
     }
-
-    $self->load_relationships($c, $stash, $label);
-}
-
-sub label : Chained('load') PathPart('')
-{
-    my ($self, $c) = @_;
-    my $label = $c->stash->{entity};
-
-    return unless defined $label;
-
-    my $stash = WebServiceStash->new;
-    my $opts = $stash->store($label);
-
-    $self->label_toplevel($c, $stash, $label);
-
-    $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
-    $c->res->body($c->stash->{serializer}->serialize('label', $label, $c->stash->{inc}, $stash));
 }
 
 sub label_browse : Private
@@ -118,10 +105,7 @@ sub label_browse : Private
 
     my $stash = WebServiceStash->new;
 
-    for (@{ $labels->{items} })
-    {
-        $self->label_toplevel($c, $stash, $_);
-    }
+    $self->label_toplevel($c, $stash, $labels->{items});
 
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
     $c->res->body($c->stash->{serializer}->serialize('label-list', $labels, $c->stash->{inc}, $stash));

@@ -6,6 +6,7 @@
 
 require('leaflet.markercluster/dist/leaflet.markercluster-src');
 const _ = require('lodash');
+const React = require('react');
 const ReactDOMServer = require('react-dom/server');
 
 const manifest = require('../../manifest');

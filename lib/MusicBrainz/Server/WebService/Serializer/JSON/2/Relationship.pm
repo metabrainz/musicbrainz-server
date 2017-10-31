@@ -1,12 +1,12 @@
 package MusicBrainz::Server::WebService::Serializer::JSON::2::Relationship;
 use Moose;
-use Hash::Merge qw( merge );
 use List::AllUtils qw( any );
 use MusicBrainz::Server::Data::Utils qw( non_empty );
 use MusicBrainz::Server::WebService::Serializer::JSON::2::Utils qw(
-    date_period
     number
+    serialize_date_period
     serialize_entity
+    serialize_type
 );
 
 extends 'MusicBrainz::Server::WebService::Serializer::JSON::2';
@@ -16,15 +16,16 @@ sub element { 'relation'; }
 sub serialize
 {
     my ($self, $entity, $inc, $opts) = @_;
-    my $body;
+    my $body = {};
     my @attributes = $entity->link->all_attributes;
 
-    $body->{type} = $entity->link->type->name;
-    $body->{"type-id"} = $entity->link->type->gid;
+    serialize_type($body, $entity->link, $inc, $opts, 1);
+
     $body->{direction} = $entity->direction == 2 ? "backward" : "forward";
     $body->{'ordering-key'} = number($entity->link_order) if $entity->link_order;
 
-    $body = merge($body, date_period($entity->link));
+    serialize_date_period($body, $entity->link);
+
     $body->{attributes} = [ map { $_->type->name } @attributes ];
 
     $body->{"attribute-values"} = {

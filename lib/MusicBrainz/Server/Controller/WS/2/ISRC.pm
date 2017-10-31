@@ -22,15 +22,15 @@ with 'MusicBrainz::Server::WebService::Validator' =>
 
 sub isrc : Chained('root') PathPart('isrc') Args(1)
 {
-    my ($self, $c, $isrc) = @_;
+    my ($self, $c, $isrc_code) = @_;
 
-    if (!is_valid_isrc($isrc))
+    if (!is_valid_isrc($isrc_code))
     {
         $c->stash->{error} = "Invalid isrc.";
         $c->detach('bad_req');
     }
 
-    my @isrcs = $c->model('ISRC')->find_by_isrc($isrc);
+    my @isrcs = $c->model('ISRC')->find_by_isrc($isrc_code);
     unless (@isrcs) {
         $c->detach('not_found');
     }
@@ -40,18 +40,15 @@ sub isrc : Chained('root') PathPart('isrc') Args(1)
     my @recordings = $c->model('Recording')->load(@isrcs);
     my $recordings = $self->make_list(\@recordings);
 
-    for (@recordings)
-    {
-        $c->controller('WS::2::Recording')->recording_toplevel($c, $stash, $_);
-    }
+    $c->controller('WS::2::Recording')->recording_toplevel($c, $stash, \@recordings);
 
-    for (@isrcs)
-    {
-        $stash->store($_)->{recordings} = $recordings;
-    }
+    # We only need to pass the first ISRC to the serializer, since the code
+    # itself is the same on all of them.
+    my $isrc = $isrcs[0];
+    $stash->store($isrc)->{recordings} = $recordings;
 
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
-    $c->res->body($c->stash->{serializer}->serialize('isrc', \@isrcs, $c->stash->{inc}, $stash));
+    $c->res->body($c->stash->{serializer}->serialize('isrc', $isrc, $c->stash->{inc}, $stash));
 }
 
 __PACKAGE__->meta->make_immutable;

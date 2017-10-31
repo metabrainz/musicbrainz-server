@@ -14,17 +14,18 @@ $date = Date->new();
 ok( $date->is_empty );
 is( $date->format, "" );
 
-$date->year(0);
+$date = Date->new( year => 0 );
 ok( not $date->is_empty );
 
-$date->year(2009);
+$date = Date->new( year => 2009 );
 ok( not $date->is_empty );
 is( $date->year, 2009 );
-
 is( $date->format, "2009" );
-$date->month(4);
+
+$date = Date->new( year => 2009, month => 4 );
 is( $date->format, "2009-04" );
-$date->day(18);
+
+$date = Date->new( year => 2009, month => 4, day => 18 );
 is( $date->format, "2009-04-18" );
 
 $partial = { 'year' => 1476, 'month' => 12 };
@@ -55,6 +56,15 @@ is ($date->format, "1999-??-01");
 
 $date = Date->new( day => 01 );
 is ($date->format, "????-??-01");
+
+$date = Date->new( year => 0 );
+is ($date->format, "0000");
+
+$date = Date->new( month => 1 );
+is ($date->format, "????-01");
+
+$date = Date->new( year => -1, month => 1, day => 1 );
+is ($date->format, "-001-01-01");
 
 my ($a, $b);
 

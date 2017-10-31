@@ -27,6 +27,7 @@ use MusicBrainz::Server::Data::Utils qw(
 use MusicBrainz::Server::Constants qw(
     $PART_OF_AREA_LINK_TYPE
     %ENTITIES_WITH_RELATIONSHIP_CREDITS
+    @RELATABLE_ENTITIES
     entities_with
 );
 use Scalar::Util 'weaken';
@@ -37,14 +38,7 @@ no if $] >= 5.018, warnings => "experimental::smartmatch";
 
 extends 'MusicBrainz::Server::Data::Entity';
 
-Readonly my @TYPES => sort (entities_with(['mbid', 'relatable']));
-
-my %TYPES = map { $_ => 1} @TYPES;
-
-sub all_link_types
-{
-    return @TYPES;
-}
+my %TYPES = map { $_ => 1} @RELATABLE_ENTITIES;
 
 sub _entity_class
 {
@@ -277,19 +271,19 @@ sub load_subset {
 
 sub load {
     my ($self, @objs) = @_;
-    return $self->_load_subset(\@TYPES, 0, @objs);
+    return $self->_load_subset(\@RELATABLE_ENTITIES, 0, @objs);
 }
 
 sub load_cardinal {
     my ($self, @objs) = @_;
-    return $self->_load_subset(\@TYPES, 1, @objs);
+    return $self->_load_subset(\@RELATABLE_ENTITIES, 1, @objs);
 }
 
 sub generate_table_list {
     my ($self, $type, @end_types) = @_;
     # Generate a list of all possible type combinations
     my @types;
-    @end_types = @TYPES unless @end_types;
+    @end_types = @RELATABLE_ENTITIES unless @end_types;
     foreach my $t (@end_types) {
         if ($type le $t) {
             push @types, ["l_${type}_${t}", 'entity0', 'entity1'];
@@ -307,8 +301,8 @@ sub all_pairs
 
     # Generate a list of all possible type combinations
     my @all;
-    for my $l0 (@TYPES) {
-        for my $l1 (@TYPES) {
+    for my $l0 (@RELATABLE_ENTITIES) {
+        for my $l1 (@RELATABLE_ENTITIES) {
             next if $l1 lt $l0;
             push @all, [ $l0, $l1 ];
         }

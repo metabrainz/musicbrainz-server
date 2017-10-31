@@ -3,7 +3,7 @@ package MusicBrainz::Server::WebService::WebServiceInc;
 use Moose;
 with qw(MooseX::Clone);
 use MusicBrainz::Server::WebService::Exceptions;
-use MusicBrainz::Server::Constants qw( entities_with );
+use MusicBrainz::Server::Constants qw( @RELATABLE_ENTITIES );
 
 has $_ => (
     is  => 'rw',
@@ -14,13 +14,13 @@ has $_ => (
           artists labels recordings releases release_groups works
           tags ratings user_tags user_ratings collections user_collections
           recording_level_rels work_level_rels rels annotation release_events
-), map { $_ . '_rels' } entities_with(['mbid', 'relatable']));
+), map { $_ . '_rels' } @RELATABLE_ENTITIES);
 
 sub has_rels
 {
     my ($self) = @_;
 
-    for my $type (entities_with(['mbid','relatable'])) {
+    for my $type (@RELATABLE_ENTITIES) {
         my $meth = $type . '_rels';
         return 1 if $self->$meth;
     }
@@ -33,7 +33,7 @@ sub get_rel_types
     my ($self) = @_;
 
     my @rels;
-    for my $type (entities_with(['mbid', 'relatable'])) {
+    for my $type (@RELATABLE_ENTITIES) {
         my $meth = $type . '_rels';
         push @rels, $type if ($self->$meth);
     }

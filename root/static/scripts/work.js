@@ -1,6 +1,7 @@
 const Immutable = require('immutable');
 const ko = require('knockout');
 const _ = require('lodash');
+const React = require('react');
 const ReactDOM = require('react-dom');
 const {createStore} = require('redux');
 

@@ -116,7 +116,7 @@ sub set_language
 
     my @avail_lang;
     if (defined $lang) {
-        @avail_lang = ($lang);
+        @avail_lang = ($lang =~ s/-/_/gr);
     } elsif (DBDefs->LANGUAGE_FALLBACK_TO_BROWSER) {
         # change e.g. 'en-aq' to 'en_AQ'
         @avail_lang = map { s/-([a-z]{2})/_\U$1/; $_; }
@@ -158,9 +158,9 @@ sub language_from_cookie
 {
     my ($self, $cookie) = @_;
     my $cookie_munge = defined $cookie ? $cookie->value : '';
-    $cookie_munge =~ s/_([A-Z]{2})/-\L$1/;
+    $cookie_munge =~ s/-([A-Z]{2})/-\L$1/;
     my $cookie_nocountry = defined $cookie ? $cookie->value : '';
-    $cookie_nocountry =~ s/_[A-Z]{2}//;
+    $cookie_nocountry =~ s/-[A-Z]{2}//;
     if (defined $cookie &&
         grep { $cookie->value eq $_ || $cookie_munge eq $_ } DBDefs->MB_LANGUAGES) {
         return $cookie->value;
@@ -177,12 +177,12 @@ sub all_languages
     my @lang_with_locale = sort_by { ucfirst $_->[1]->native_language }
                            map { [ $_ => DateTime::Locale->load($_) ] }
                            grep { my $l = $_;
-                                  grep { $l eq $_ } DateTime::Locale->ids() }
+                                  grep { $l eq $_ } DateTime::Locale->codes() }
                            map { s/-([a-z]{2})/-\U$1/r } DBDefs->MB_LANGUAGES;
     my @lang_without_locale = sort_by { $_->[1]->{id} }
                               map { [ $_ => {'id' => $_, 'native_language' => ''} ] }
                               grep { my $l = $_;
-                                     !(grep { $l eq $_ } DateTime::Locale->ids()) }
+                                     !(grep { $l eq $_ } DateTime::Locale->codes()) }
                               map { s/-([a-z]{2})/-\U$1/r } DBDefs->MB_LANGUAGES;
     my @languages = (@lang_with_locale, @lang_without_locale);
     return \@languages;

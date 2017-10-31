@@ -1,6 +1,6 @@
-use MusicBrainz::Server::Constants qw( %ENTITIES entities_with );
+use MusicBrainz::Server::Constants qw( %ENTITIES @RELATABLE_ENTITIES );
 
-for my $type (entities_with(['mbid', 'relatable'])) {
+for my $type (@RELATABLE_ENTITIES) {
     my $model = $ENTITIES{$type}{model};
     my $has_subs = $ENTITIES{$type}{subscriptions};
     my $subs_section = '';

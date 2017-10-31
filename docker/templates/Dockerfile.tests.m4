@@ -13,7 +13,7 @@ RUN cd /tmp && \
     cd -
 
 RUN cd /tmp && \
-    curl -sLO http://chromedriver.storage.googleapis.com/2.32/CHROME_DRIVER && \
+    curl -sLO http://chromedriver.storage.googleapis.com/2.33/CHROME_DRIVER && \
     apt_install(`unzip') && \
     unzip CHROME_DRIVER -d /usr/local/bin && \
     rm CHROME_DRIVER && \

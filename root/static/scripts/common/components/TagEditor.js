@@ -204,8 +204,7 @@ class TagEditor extends React.Component {
   addTags(event) {
     event.preventDefault();
 
-    var input = this.refs.tags;
-    var tags = input.value;
+    var tags = this._tagsInput.value;
 
     this.updateTags(
       _(tags.split(','))
@@ -229,7 +228,7 @@ class TagEditor extends React.Component {
       this.updateTags(JSON.parse(data).updates);
     });
 
-    input.value = '';
+    this._tagsInput.value = '';
   }
 
   updateVote(index, vote) {
@@ -305,7 +304,7 @@ class MainTagEditor extends TagEditor {
             {tagdocs: '/doc/Folksonomy_Tagging'})}}></p>
         <form id="tag-form" onSubmit={this.addTags}>
           <p>
-            <textarea row="5" cols="50" ref="tags"></textarea>
+            <textarea row="5" cols="50" ref={input => this._tagsInput = input}></textarea>
           </p>
           <button type="submit" className="styled-button">
             {l('Submit tags')}
@@ -323,14 +322,22 @@ class SidebarTagEditor extends TagEditor {
         <ul className="tag-list">
           {this.createTagRows()}
           {this.props.more &&
-            <li>
+            // createTagRows uses tags as keys; \0 is simply used here to
+            // guarantee that there isn't any conflict.
+            <li key="\0:more">
               <a href={getTagsPath(this.props.entity)}>{l('more...')}</a>
             </li>}
         </ul>
         {!this.state.tags.size && <p>{lp('(none)', 'tag')}</p>}
         <form id="tag-form" onSubmit={this.addTags}>
           <div style={{display: 'flex'}}>
-            <input ref="tags" type="text" name="tags" className="tag-input" style={{flexGrow: 2}} />
+            <input
+              className="tag-input"
+              name="tags"
+              ref={input => this._tagsInput = input}
+              style={{flexGrow: 2}}
+              type="text"
+            />
             <button type="submit" className="styled-button">
               {l('Tag', 'verb')}
             </button>

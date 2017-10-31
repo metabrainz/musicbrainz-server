@@ -317,7 +317,7 @@ sub process_triggers
     close FILE;
 
     my @triggers;
-    while ($create_triggers_sql =~ m/CREATE (?:CONSTRAINT )?TRIGGER\s+"?([a-z0-9_]+)"?\s+.*?\s+ON\s+"?([a-z0-9_]+)"?.*?;/gsi) {
+    while ($create_triggers_sql =~ m/CREATE (?:CONSTRAINT )?TRIGGER\s+"?([a-z0-9_]+)"?\s+.*?\s+ON\s+"?([a-z0-9_\.]+)"?.*?;/gsi) {
         push @triggers, [$1, $2];
     }
 

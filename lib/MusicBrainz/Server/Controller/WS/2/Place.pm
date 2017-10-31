@@ -32,8 +32,8 @@ with 'MusicBrainz::Server::WebService::Validator' =>
      defs => $ws_defs,
 };
 
-with 'MusicBrainz::Server::Controller::Role::Load' => {
-    model => 'Place'
+with 'MusicBrainz::Server::Controller::WS::2::Role::Lookup' => {
+    model => 'Place',
 };
 
 with 'MusicBrainz::Server::Controller::WS::2::Role::BrowseByCollection';
@@ -44,35 +44,20 @@ sub base : Chained('root') PathPart('place') CaptureArgs(0) { }
 
 sub place_toplevel
 {
-    my ($self, $c, $stash, $place) = @_;
+    my ($self, $c, $stash, $places) = @_;
 
-    my $opts = $stash->store($place);
+    my $inc = $c->stash->{inc};
+    my @places = @{$places};
 
-    $self->linked_places($c, $stash, [ $place ]);
+    $self->linked_places($c, $stash, $places);
 
-    $c->model('PlaceType')->load($place);
-    $c->model('Area')->load($c->stash->{place});
+    $c->model('PlaceType')->load(@places);
+    $c->model('Area')->load(@places);
 
-    $c->model('Place')->annotation->load_latest($place)
-        if $c->stash->{inc}->annotation;
+    $c->model('Place')->annotation->load_latest(@places)
+        if $inc->annotation;
 
-    $self->load_relationships($c, $stash, $place);
-}
-
-sub place : Chained('load') PathPart('')
-{
-    my ($self, $c) = @_;
-    my $place = $c->stash->{entity};
-
-    return unless defined $place;
-
-    my $stash = WebServiceStash->new;
-    my $opts = $stash->store($place);
-
-    $self->place_toplevel($c, $stash, $place);
-
-    $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
-    $c->res->body($c->stash->{serializer}->serialize('place', $place, $c->stash->{inc}, $stash));
+    $self->load_relationships($c, $stash, @places);
 }
 
 sub place_browse : Private
@@ -102,10 +87,7 @@ sub place_browse : Private
 
     my $stash = WebServiceStash->new;
 
-    for (@{ $places->{items} })
-    {
-        $self->place_toplevel($c, $stash, $_);
-    }
+    $self->place_toplevel($c, $stash, $places->{items});
 
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
     $c->res->body($c->stash->{serializer}->serialize('place-list', $places, $c->stash->{inc}, $stash));

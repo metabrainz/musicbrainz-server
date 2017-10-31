@@ -76,7 +76,7 @@ Prerequisites
     This is only needed where it exists, so a warning about the package not being
     found is not a problem.
 
-    For npm, at least version 3 is required. If your distribution has an older
+    For npm, at least version 4 is required. If your distribution has an older
     version (`npm --version` to check), you can use that to install a newer
     version of itself:
 

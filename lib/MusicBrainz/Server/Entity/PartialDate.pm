@@ -2,24 +2,23 @@ package MusicBrainz::Server::Entity::PartialDate;
 use Moose;
 
 use Date::Calc;
-use List::AllUtils qw( any first_index );
 use MusicBrainz::Server::Data::Utils qw( take_while );
 
 use overload '<=>' => \&_cmp, fallback => 1;
 
 has 'year' => (
-    is => 'rw',
+    is => 'ro',
     isa => 'Maybe[Int]',
     predicate => 'has_year',
 );
 
 has 'month' => (
-    is => 'rw',
+    is => 'ro',
     isa => 'Maybe[Int]'
 );
 
 has 'day' => (
-    is => 'rw',
+    is => 'ro',
     isa => 'Maybe[Int]'
 );
 
@@ -46,49 +45,69 @@ around BUILDARGS => sub {
     return $class->$orig( %info );
 };
 
+has is_empty => (
+    is => 'ro',
+    isa => 'Bool',
+    lazy => 1,
+    builder => '_build_is_empty',
+);
 
-sub is_empty
-{
+sub _build_is_empty {
     my ($self) = @_;
     return !(defined $self->year || $self->month || $self->day);
 }
 
-sub format
-{
+has format => (
+    is => 'ro',
+    isa => 'Str',
+    lazy => 1,
+    builder => '_build_format',
+);
+
+sub _build_format {
     my ($self) = @_;
 
-    # Take as many values as possible, but drop any trailing undefined values
-    my @comp = ($self->day, $self->month, $self->year);
-    return '' unless any { defined } @comp;
+    return '' if $self->is_empty;
 
-    splice(@comp, 0, first_index { defined } @comp);
-    my @significant_components = reverse(@comp);
+    my ($year, $month, $day, $result) =
+        ($self->year, $self->month, $self->day, '');
 
-    # Attempt to display each significant date component, but if it's undefined
-    # replace by an appropriate number of '?' characters
-    my @len = (4, 2, 2);
-    my @res;
-    for my $i (0..$#significant_components) {
-        my $len = $len[$i];
-        my $val = $significant_components[$i];
-
-        push @res, defined($val) ? sprintf "%0${len}d", $val : '?' x $len;
+    if (defined $year) {
+        $result .= (sprintf '%04d', $year);
+    } elsif ($month || $day) {
+        $result .= '????';
     }
 
-    return join('-', @res);
+    if ($month) {
+        $result .= '-' . (sprintf '%02d', $month);
+    } elsif ($day) {
+        $result .= '-??';
+    }
+
+    $result .= '-' . (sprintf '%02d', $day) if $day;
+
+    return $result;
 }
 
-=method defined_run
+=attribute defined_run
 
-Return all parts of the date that are defined, returning at the first undefined
-value.
+Return all parts of the date that are defined, returning at the first
+undefined value.
 
 =cut
 
-sub defined_run {
+has defined_run => (
+    isa => 'ArrayRef[Int]',
+    lazy => 1,
+    builder => '_build_defined_run',
+    traits => ['Array'],
+    handles => {defined_run => 'elements'},
+);
+
+sub _build_defined_run {
     my $self = shift;
     my @components = ($self->year, $self->month, $self->day);
-    return take_while { defined } @components;
+    return [take_while { defined } @components];
 }
 
 sub _cmp

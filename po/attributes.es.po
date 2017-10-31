@@ -1,4 +1,4 @@
-# Translators:
+# 
 # Translators:
 # Abby Zla <email address hidden>, 2017
 # adeluna <email address hidden>, 2012
@@ -21,6 +21,7 @@
 # Mathias Gonzalez <email address hidden>, 2015
 # Nicolás Tamargo <email address hidden>, 2011-2012
 # Nicolás Tamargo <email address hidden>, 2011-2013,2015
+# Pier Jose Gotta Perez <email address hidden>, 2017
 # Kevin Doncam Demian López Brante <email address hidden>, 2012
 #   Tobias Quathamer <email address hidden>, 2007
 #   Tobias Quathamer <email address hidden>, 2007
@@ -29,8 +30,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2017-05-17 04:21+0000\n"
-"Last-Translator: Antony Duran <email address hidden>\n"
+"PO-Revision-Date: 2017-10-30 17:24+0000\n"
+"Last-Translator: Pier Jose Gotta Perez <email address hidden>\n"
 "Language-Team: Spanish (http://www.transifex.com/musicbrainz/musicbrainz/language/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -63,6 +64,11 @@ msgctxt "medium_format"
 msgid "10\" Vinyl"
 msgstr "Vinilo 10\""
 
+#: DB:medium_format/name:72
+msgctxt "medium_format"
+msgid "12\" LaserDisc"
+msgstr "12\" LaserDisc"
+
 #: DB:medium_format/name:55
 msgctxt "medium_format"
 msgid "12\" Shellac"
@@ -92,6 +98,11 @@ msgstr "Goma laca 7\""
 msgctxt "medium_format"
 msgid "7\" Vinyl"
 msgstr "Vinilo 7″"
+
+#: DB:medium_format/name:71
+msgctxt "medium_format"
+msgid "8\" LaserDisc"
+msgstr "8\" LaserDisc"
 
 #: DB:medium_format/name:34
 msgctxt "medium_format"
@@ -195,6 +206,11 @@ msgid ""
 "A party, reception or other event held specifically for the launch of a "
 "release."
 msgstr "Una fiesta, recepción u otro evento celebrado específicamente para el lanzamiento de una edición."
+
+#: DB:release_packaging/description:17
+msgctxt "release_packaging"
+msgid "A perfect bound book with a sleeve at the end to hold a CD"
+msgstr "Un libro encuadernado perfecto con una funda al final para guardar un CD"
 
 #: DB:place_type/description:5
 msgctxt "place_type"
@@ -800,6 +816,11 @@ msgctxt "work_attribute_type"
 msgid "BMI ID"
 msgstr "Identificador BMI"
 
+#: DB:work_attribute_type/name:26
+msgctxt "work_attribute_type"
+msgid "BUMA/STEMRA ID"
+msgstr "ID BUMA/STEMRA"
+
 #: DB:cover_art_archive.art_type/name:2
 msgctxt "cover_art_type"
 msgid "Back"
@@ -1021,6 +1042,11 @@ msgstr "Producción de bootlegs"
 msgctxt "work_attribute_type_allowed_value"
 msgid "Bozlak"
 msgstr "Bozlak"
+
+#: DB:instrument_alias_type/name:3
+msgctxt "alias_type"
+msgid "Brand name"
+msgstr "Nombre de la marca"
 
 #: DB:release_group_primary_type/name:12
 msgctxt "release_group_primary_type"
@@ -1557,6 +1583,11 @@ msgstr "Dhr̥va"
 msgctxt "work_attribute_type_allowed_value"
 msgid "Dhēnuka"
 msgstr "Dhēnuka"
+
+#: DB:release_packaging/name:17
+msgctxt "release_packaging"
+msgid "Digibook"
+msgstr "Digipak"
 
 #: DB:release_packaging/name:3
 msgctxt "release_packaging"
@@ -3825,6 +3856,11 @@ msgstr "Nāṭakurinji"
 msgctxt "work_attribute_type_allowed_value"
 msgid "Nīlāṁbari"
 msgstr "Nīlāṁbari"
+
+#: DB:work_attribute_type/name:25
+msgctxt "work_attribute_type"
+msgid "OSA ID"
+msgstr "ID OSA"
 
 #: DB:cover_art_archive.art_type/name:5
 msgctxt "cover_art_type"

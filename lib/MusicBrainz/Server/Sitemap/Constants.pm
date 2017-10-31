@@ -1,7 +1,10 @@
 package MusicBrainz::Server::Sitemap::Constants;
 
 use base 'Exporter';
-use MusicBrainz::Server::Constants qw( %ENTITIES entities_with );
+use MusicBrainz::Server::Constants qw(
+    %ENTITIES
+    @RELATABLE_ENTITIES
+);
 use MusicBrainz::Server::Data::Relationship;
 use Readonly;
 
@@ -221,7 +224,7 @@ our Readonly %SITEMAP_SUFFIX_INFO = map {
         if ($entity_properties->{mbid}{relatable} eq 'dedicated') {
             my @tables = MusicBrainz::Server::Data::Relationship->generate_table_list(
                 $entity_type,
-                grep { $_ ne 'url' } entities_with(['mbid', 'relatable'])
+                grep { $_ ne 'url' } @RELATABLE_ENTITIES
             );
 
             my $select = join(' UNION ALL ', map {

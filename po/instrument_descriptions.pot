@@ -90,16 +90,6 @@ msgstr ""
 msgid "A class of South-American guitars"
 msgstr ""
 
-#. name:gut guitar 
-#: DB:instrument/description:567
-msgid "A classical guitar strung with gut strings."
-msgstr ""
-
-#. name:nylon guitar 
-#: DB:instrument/description:566
-msgid "A classical guitar strung with nylon strings."
-msgstr ""
-
 #. name:saduk 
 #: DB:instrument/description:804
 msgid ""
@@ -726,6 +716,16 @@ msgid ""
 "harmonica"
 msgstr ""
 
+#. name:gut guitar 
+#: DB:instrument/description:567
+msgid "Hollow-body acoustic guitar strung with gut-strings."
+msgstr ""
+
+#. name:nylon guitar 
+#: DB:instrument/description:566
+msgid "Hollow-body acoustic guitar strung with nylon-strings."
+msgstr ""
+
 #. name:huqin 
 #: DB:instrument/description:213
 msgid "Huqin is a Chinese family of bowed string instruments."
@@ -1225,11 +1225,6 @@ msgstr ""
 #. name:ajaeng 
 #: DB:instrument/description:642
 msgid "The ajaeng is a bowed Korean zither with 7 (sometimes 8 or 9) strings."
-msgstr ""
-
-#. name:akete 
-#: DB:instrument/description:747
-msgid "The akete are drums commonly used in Nyabinghi music."
 msgstr ""
 
 #. name:alfaia 
@@ -3332,6 +3327,15 @@ msgid ""
 "two double strings and is played solo."
 msgstr ""
 
+#. name:repeater 
+#: DB:instrument/description:882
+msgid ""
+"also known as kette or keteh, it is the smallest size/pitch drum. It has a "
+"tight goat skin membrane and it is struck with the fingertips. Important in "
+"the Jamaican Burru music and Rastafari movement, it is part of the Nyabinghi/"
+"Akete drums."
+msgstr ""
+
 #. name:clavioline 
 #: DB:instrument/description:815
 msgid ""
@@ -3526,6 +3530,14 @@ msgid ""
 "booming bass sound."
 msgstr ""
 
+#. name:baandu 
+#: DB:instrument/description:880
+msgid ""
+"larger bass drum also known as thunder or pope smasher, it has a double goat "
+"skin membrane and is hit with a padded mallet. Important in the Jamaican "
+"Burru music and Rastafari movement, it is part of the Nyabinghi/Akete drums."
+msgstr ""
+
 #. name:duggi 
 #: DB:instrument/description:851
 msgid ""
@@ -3541,12 +3553,28 @@ msgid ""
 "it produces a deep, loud whizzing sound that can be heard from far away."
 msgstr ""
 
+#. name:fundeh 
+#: DB:instrument/description:881
+msgid ""
+"middle size/pitch drum, it has a slack goat skin membrane and it is hit with "
+"the palms. Important in the Jamaican Burru music and Rastafari movement, it "
+"is part of the Nyabinghi/Akete drums."
+msgstr ""
+
 #. name:kamalen ngɔni 
 #: DB:instrument/description:817
 msgid ""
 "modern derivative of the donso ngɔni, it comes with more strings and is made "
 "of calabash, it became an important instrument in the rise of the Wassoulou "
 "music in the 80's and 90's"
+msgstr ""
+
+#. name:oval spinet 
+#: DB:instrument/description:879
+msgid ""
+"more accurately a virginals, its strings were arranged in a pattern creating "
+"an oval shape, allowing for a stronger, more compact configuration. 2 "
+"examples survive today."
 msgstr ""
 
 #. name:German concertina 
@@ -3581,6 +3609,11 @@ msgid ""
 "one of the first analogue synths, it had a filter bank with 15 sliders for "
 "different sounds, and a \"vibrato\" inducing keyboard based on the ondes "
 "Martenot's."
+msgstr ""
+
+#. name:vuvuzela 
+#: DB:instrument/description:877
+msgid "plastic horn often used at football matches in South Africa"
 msgstr ""
 
 #. name:orphica 
@@ -3677,6 +3710,13 @@ msgstr ""
 msgid "thin quiet jew's harp-like instrument made of wood or bone."
 msgstr ""
 
+#. name:akete 
+#: DB:instrument/description:747
+msgid ""
+"three-parts drumset (baandu, funde, and kete) commonly used in Burru and "
+"Nyabinghi musics."
+msgstr ""
+
 #. name:ti bwa 
 #: DB:instrument/description:332
 msgid ""
@@ -3764,6 +3804,11 @@ msgstr ""
 #. name:vibrandoneon 
 #: DB:instrument/description:840
 msgid "wood accordina with piano keys invented in Italy"
+msgstr ""
+
+#. name:Irish flute 
+#: DB:instrument/description:878
+msgid "wooden flute of the simple-system type, popular in Irish folk music"
 msgstr ""
 
 #. name:English flageolet 

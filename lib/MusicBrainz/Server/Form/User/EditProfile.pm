@@ -96,14 +96,6 @@ sub validate_birth_date {
     return $field->add_error("invalid date") unless Date::Calc::check_date($year, $month, $day);
 }
 
-sub _requires_not_limited {
-    my ($self, $field) = @_;
-    return $field->add_error('Spammers are not welcome, go away.') if $self->ctx->user->is_limited;
-}
-
-sub validate_biography { return _requires_not_limited(@_); }
-sub validate_website { return _requires_not_limited(@_); }
-
 1;
 
 =head1 COPYRIGHT

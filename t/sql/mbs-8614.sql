@@ -17,8 +17,6 @@ INSERT INTO artist_credit_name (artist, artist_credit, join_phrase, name, positi
 	(11617, 11617, '', 'Paul Anka', 0);
 INSERT INTO release_group (artist_credit, comment, edits_pending, gid, id, last_updated, name, type) VALUES
 	(11617, '', 0, '51538135-0d1c-31a7-852e-ea5dd0c72d4d', 71076, '2015-10-29 21:00:55.471066+00', 'Diana', NULL);
-INSERT INTO script (frequency, id, iso_code, iso_number, name) VALUES
-	(4, 28, 'Latn', '215', 'Latin');
 INSERT INTO release (artist_credit, barcode, comment, edits_pending, gid, id, language, last_updated, name, packaging, quality, release_group, script, status) VALUES
 	(11617, NULL, '', 1, '142015fb-3775-4b25-9d4a-51e0bd289ef4', 1231807, NULL, '2015-10-29 21:00:55.471066+00', 'Diana', NULL, -1, 71076, 28, NULL),
 	(11617, NULL, '', 1, '765435fa-1e6e-40aa-bef2-2d09f367ef44', 1231808, NULL, '2015-10-26 20:04:18.393064+00', 'Diana', NULL, -1, 71076, 28, NULL);

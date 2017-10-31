@@ -1,0 +1,73 @@
+#!/usr/bin/env perl
+
+use strict;
+use warnings;
+
+use FindBin;
+use lib "$FindBin::Bin/../lib";
+
+use MooseX::Runnable::Run;
+use MusicBrainz::Sentry qw( capture_exceptions );
+
+capture_exceptions(sub {
+    run_application 'MusicBrainz::Script::JSONDump::Full', @ARGV;
+});
+
+=head1 SYNOPSIS
+
+This script will dump the majority of possible webservice version 2 lookups in
+JSON format. Since it makes actual webservice calls to do this, it's intended
+to be run against a static copy of the database (otherwise, the data wouldn't
+be consistent with itself).
+
+Each entity type being dumped is outputted to a single file, located under the
+path set by --output-dir, at $entity_type/mbdump/$entity_type. This file
+contains one JSON document (entity) per line (LF).
+
+Interally, when making the requests to fetch the JSON, all inc parameters are
+included except:
+
+ * Those that perform subqueries and return 25 linked entities:
+   https://wiki.musicbrainz.org/Development/XML_Web_Service/Version_2#Subqueries
+
+ * 'work-level-rels' on recording and release lookups.
+
+All entity types are dumped with the exception of URLs, since those are
+outputted via relationships. In addition, since recordings are outputted in
+release lookups, the script only dumps standalone recordings directly.
+
+Caveats:
+
+Releases with more than 500 recordings ignore 'recording-level-rels', and
+since those recordings aren't dumped separately, their relationships will
+only be included in the target entities' output. As of 2017-04, this affects
+~200 releases.
+
+Options:
+
+    --help                      show this help
+    --database                  database to use (default: MAINTENANCE)
+    --entity                    entity type to dump; can specify multiple of
+                                this flag (default: dump all entities)
+    --force-update              force-update entities of this type in its
+                                json_dump.${entity}_json table; by default,
+                                entities are only inserted where they don't
+                                exist, and updates are done by the incremental
+                                dump only. can specify multiple of this flag
+                                (default: no force-updates)
+    --output-dir                location where dumps are outputted (default: .)
+    --sample-dump               generate a sample dump instead
+                                (default: disabled)
+    --worker-count              number of worker processes to use (default: 1)
+
+=cut
+
+=head1 COPYRIGHT AND LICENSE
+
+Copyright (C) 2017 MetaBrainz Foundation
+
+This file is part of MusicBrainz, the open internet music database,
+and is licensed under the GPL version 2, or (at your option) any
+later version: http://www.gnu.org/licenses/gpl-2.0.txt
+
+=cut

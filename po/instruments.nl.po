@@ -8,7 +8,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2017-09-10 09:48+0000\n"
+"PO-Revision-Date: 2017-09-19 17:48+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -621,6 +621,11 @@ msgstr "botten"
 #: DB:instrument/name:103
 msgid "bongos"
 msgstr "bongos"
+
+#: DB:instrument/name:874
+msgctxt "arrangement of bamboo tube-drums"
+msgid "boobam"
+msgstr "boebam"
 
 #: DB:instrument/name:833
 msgctxt "hybrid of bouzouki and guitar"
@@ -2025,6 +2030,11 @@ msgstr "metalen angkloeng"
 msgid "metallophone"
 msgstr "metallofoon"
 
+#: DB:instrument/name:876
+msgctxt "twin bamboo single reed pipe"
+msgid "mijwiz"
+msgstr "midjwiz"
+
 #: DB:instrument/name:752
 msgid "minipiano"
 msgstr "minipiano"
@@ -2167,6 +2177,11 @@ msgstr "oceaantrommel"
 #: DB:instrument/name:601
 msgid "octave mandolin"
 msgstr "octaafmandoline"
+
+#: DB:instrument/name:875
+msgctxt "racked 4 or 8 tom-toms"
+msgid "octoban"
+msgstr "octoban"
 
 #: DB:instrument/name:759
 msgid "oktawka"
@@ -3175,6 +3190,11 @@ msgstr "tubon"
 #: DB:instrument/name:168
 msgid "tubular bells"
 msgstr "buisklokken"
+
+#: DB:instrument/name:873
+msgctxt "PVC pipe instrument"
+msgid "tubulum"
+msgstr "tubulum"
 
 #: DB:instrument/name:511
 msgid "tumbi"

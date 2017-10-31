@@ -29,6 +29,14 @@
             <li><a href="[% c.uri_for_action('/report/show', 'ArtistsDisambiguationSameName') %]">[% l('Artists with disambiguation the same as the name') %]</a></li>
         </ul>
 
+        [% IF c.user.is_account_admin -%]
+        <h2>[% l('Editors') %]</h2>
+
+        <ul>
+            <li><a href="[% c.uri_for_action('/report/show', 'LimitedEditors') %]">[% l('Beginner/limited editors') %]</a></li>
+        </ul>
+
+        [% END -%]
         <h2>[% l('Events') %]</h2>
 
         <ul>

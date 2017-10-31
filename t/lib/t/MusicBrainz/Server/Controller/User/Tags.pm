@@ -19,8 +19,11 @@ test all => sub {
     INSERT INTO artist_tag_raw (artist, editor, tag, is_upvote) VALUES (7, 1, 1, 't');
 EOSQL
 
+    $mech->get('/user/new_editor/tags');
+    $mech->content_contains('not a musical', "new_editor has used the tag 'not a musical'");
+
     $mech->get('/user/alice/tags');
-    $mech->content_contains('You need to be logged in to view this page.', "user tags require login");
+    is($mech->status, 403, "alice' tags are private");
 
     $mech->get('/login');
     $mech->submit_form(with_fields => { username => 'new_editor', password => 'password' });
@@ -35,9 +38,6 @@ EOSQL
     $mech->get('/user/alice/tags');
     is($mech->status, 200, "alice can view her own tags");
     $mech->content_contains('Alice has not tagged anything', "alice has not tagged anything");
-
-    $mech->get('/user/new_editor/tags');
-    $mech->content_contains('not a musical', "new_editor has used the tag 'not a musical'");
 };
 
 1;

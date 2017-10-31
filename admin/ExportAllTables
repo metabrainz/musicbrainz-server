@@ -32,15 +32,8 @@ use strict;
 use DBDefs;
 use integer;
 
-use MusicBrainz::Script::MBDump qw(
-    begin_dump
-    copy_readme
-    dump_table
-    end_dump
-    gpg_sign
-    make_tar
-    write_file
-);
+use File::Spec::Functions qw( catfile );
+use MusicBrainz::Script::DatabaseDump;
 use MusicBrainz::Server::Constants qw(
     $EDITOR_SANITISED_COLUMNS
     @FULL_TABLE_LIST
@@ -57,8 +50,6 @@ use MusicBrainz::Server::Constants qw(
 );
 
 use Getopt::Long;
-
-BEGIN { *MBDump:: = *MusicBrainz::Script::MBDump:: }
 
 ################################################################################
 
@@ -113,10 +104,6 @@ GetOptions(
     "help"                      => \$fHelp,
 );
 
-$MBDump::keep_files = $fKeepFiles;
-$MBDump::tmp_dir = $tmp_dir;
-$MBDump::output_dir = $OutputDir;
-
 sub usage
 {
     print <<EOF;
@@ -167,11 +154,16 @@ my $c = MusicBrainz::Server::Context->create_script_context(database => $databas
 my $sql = $c->sql;
 my $dbh = $c->dbh;
 
+# Obtains locks and writes the TIMESTAMP and SCHEMA_SEQUENCE files.
+my $mbdump = MusicBrainz::Script::DatabaseDump->new(
+    c => $c,
+    keep_files => $fKeepFiles,
+    output_dir => $OutputDir,
+    tmp_dir => $tmp_dir,
+);
+
 @tables = @tablelist if @tablelist;
 @tables = () if not $fDoFullExport;
-
-# Obtain locks and write the TIMESTAMP and SCHEMA_SEQUENCE files.
-begin_dump($c);
 
 # Sanitise various things for public consumption
 if (grep { $_ eq "editor_sanitised" } @tables)
@@ -183,7 +175,7 @@ if (grep { $_ eq "editor_sanitised" } @tables)
 
 for my $table (@tables)
 {
-    dump_table($c, $table);
+    $mbdump->dump_table($table);
 }
 
 # Get the replication control data
@@ -235,28 +227,28 @@ if ($fDoReplication)
         print localtime() . " : Producing replication packet #$iReplicationSequence\n";
 
         # Dump 'em
-        dump_table($c, $_) for @replication_tables;
+        $mbdump->dump_table($_) for @replication_tables;
 
         # Remove the rows we just dumped
         empty_replication_tables();
 
-        write_file("REPLICATION_SEQUENCE", "$iReplicationSequence\n");
+        $mbdump->write_file("REPLICATION_SEQUENCE", "$iReplicationSequence\n");
     } elsif (defined $iReplicationSequence and not $fAnyReplicationData) {
         print localtime() . " : No changes since the last replication point (#$iReplicationSequence)\n";
-        write_file("REPLICATION_SEQUENCE", "$iReplicationSequence\n");
+        $mbdump->write_file("REPLICATION_SEQUENCE", "$iReplicationSequence\n");
     } else {
         print localtime() . " : No replication data dumped - not producing a replication packet\n";
-        write_file("REPLICATION_SEQUENCE", "");
+        $mbdump->write_file("REPLICATION_SEQUENCE", "");
     }
 } else {
-    write_file("REPLICATION_SEQUENCE", "");
+    $mbdump->write_file("REPLICATION_SEQUENCE", "");
 }
 
 # Dump this /after/ we've possibly updated the current_replication_sequence
 # Dump this table only if we're dumping everything (i.e., @tablelist is empty) or if it's explicitly requested.
-dump_table($c, "replication_control") if (scalar @tablelist == 0 || grep { $_ eq 'replication_control' } @tablelist);
+$mbdump->dump_table("replication_control") if (scalar @tablelist == 0 || grep { $_ eq 'replication_control' } @tablelist);
 
-end_dump($c);
+$mbdump->end_dump;
 
 optimise_replication_tables() if $fDoReplication;
 
@@ -271,12 +263,13 @@ if ($fCompress and $fDoReplication)
 {
     my $tarfile = "replication-$iReplicationSequence.tar.bz2";
 
-    if (grep { $MBDump::row_counts->{$_} } @replication_tables)
+    if (grep { $mbdump->row_counts->{$_} } @replication_tables)
     {
-        copy_readme() or die $!;
+        $mbdump->copy_readme() or die $!;
         # Go for the "most restrictive" license
-        copy("$FindBin::Bin/COPYING-CCShareAlike", "$MBDump::export_dir/COPYING") or die $!;
-        make_tar($tarfile, @replication_tables);
+        copy("$FindBin::Bin/COPYING-CCShareAlike",
+             catfile($mbdump->export_dir, 'COPYING')) or die $!;
+        $mbdump->make_tar($tarfile, @replication_tables);
     }
     if ($fCallback) {
         system $fCallback;
@@ -285,21 +278,21 @@ if ($fCompress and $fDoReplication)
 
 if ($fCompress and $fDoFullExport)
 {
-    copy_readme() or die $!;
-    copy("$FindBin::Bin/COPYING-PublicDomain", "$MBDump::export_dir/COPYING") or die $!;
-    make_tar("mbdump.tar.bz2", @CORE_TABLE_LIST);
+    $mbdump->copy_readme() or die $!;
+    $mbdump->copy_file("$FindBin::Bin/COPYING-PublicDomain", 'COPYING') or die $!;
+    $mbdump->make_tar("mbdump.tar.bz2", @CORE_TABLE_LIST);
 
-    copy_readme() or die $!;
-    copy("$FindBin::Bin/COPYING-CCShareAlike", "$MBDump::export_dir/COPYING") or die $!;
-    make_tar("mbdump-derived.tar.bz2", @DERIVED_TABLE_LIST);
-    make_tar("mbdump-editor.tar.bz2", @EDITOR_TABLE_LIST);
-    make_tar("mbdump-edit.tar.bz2", @EDIT_TABLE_LIST);
-    make_tar("mbdump-stats.tar.bz2", @STATS_TABLE_LIST);
-    make_tar("mbdump-private.tar.bz2", @PRIVATE_TABLE_LIST);
-    make_tar("mbdump-cdstubs.tar.bz2", @CDSTUBS_TABLE_LIST);
-    make_tar("mbdump-cover-art-archive.tar.bz2", @CAA_TABLE_LIST);
-    make_tar("mbdump-wikidocs.tar.bz2", @WIKIDOCS_TABLE_LIST);
-    make_tar("mbdump-documentation.tar.bz2", @DOCUMENTATION_TABLE_LIST);
+    $mbdump->copy_readme() or die $!;
+    $mbdump->copy_file("$FindBin::Bin/COPYING-CCShareAlike", 'COPYING') or die $!;
+    $mbdump->make_tar("mbdump-derived.tar.bz2", @DERIVED_TABLE_LIST);
+    $mbdump->make_tar("mbdump-editor.tar.bz2", @EDITOR_TABLE_LIST);
+    $mbdump->make_tar("mbdump-edit.tar.bz2", @EDIT_TABLE_LIST);
+    $mbdump->make_tar("mbdump-stats.tar.bz2", @STATS_TABLE_LIST);
+    $mbdump->make_tar("mbdump-private.tar.bz2", @PRIVATE_TABLE_LIST);
+    $mbdump->make_tar("mbdump-cdstubs.tar.bz2", @CDSTUBS_TABLE_LIST);
+    $mbdump->make_tar("mbdump-cover-art-archive.tar.bz2", @CAA_TABLE_LIST);
+    $mbdump->make_tar("mbdump-wikidocs.tar.bz2", @WIKIDOCS_TABLE_LIST);
+    $mbdump->make_tar("mbdump-documentation.tar.bz2", @DOCUMENTATION_TABLE_LIST);
 
     for my $hash_program ('md5sum', 'sha256sum') {
         my $hash_output_file = uc($hash_program . 's');
@@ -309,7 +302,7 @@ if ($fCompress and $fDoFullExport)
 
         $? == 0 or die "$hash_program returned $?";
 
-        gpg_sign("$OutputDir/$hash_output_file");
+        $mbdump->gpg_sign("$OutputDir/$hash_output_file");
     }
 
     my $encrypt_for = DBDefs->GPG_ENCRYPT_KEY;
@@ -321,7 +314,7 @@ if ($fCompress and $fDoFullExport)
 
 # Tar files all created safely... we can erase the tmpdir on exit
 system "/bin/sync"; $? == 0 or die "sync failed (rc=$?)";
-$MBDump::erase_files_on_exit = 1;
+$mbdump->erase_files_on_exit(1);
 
 exit;
 
@@ -333,7 +326,7 @@ sub empty_replication_tables
     $sql->do("DELETE FROM dbmirror_pending");
     # As soon as we commit, the replication data is gone from the DB, so we must
     # be sure that we have a safe copy.
-    $MBDump::erase_files_on_exit = 0;
+    $mbdump->erase_files_on_exit(0);
 }
 
 sub optimise_replication_tables

@@ -54,6 +54,8 @@ sub delete_multi
 
 sub disconnect {}
 
+sub clear {}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;

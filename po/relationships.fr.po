@@ -32,7 +32,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2017-08-19 10:08+0000\n"
+"PO-Revision-Date: 2017-10-24 01:17+0000\n"
 "Last-Translator: yvanz\n"
 "Language-Team: French (http://www.transifex.com/musicbrainz/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -880,6 +880,10 @@ msgstr "Dirige vers la page Wikipédia pour cet artiste."
 #: DB:link_type/description:789
 msgid "Points to the Wikipedia page for this event."
 msgstr "Dirige vers la page Wikipédia pour cet événement."
+
+#: DB:link_type/description:731
+msgid "Points to the Wikipedia page for this instrument."
+msgstr "Dirige vers la page Wikipédia pour cet instrument."
 
 #: DB:link_type/description:595
 msgid "Points to the Wikipedia page for this place"
@@ -2247,6 +2251,16 @@ msgid ""
 "information on Wikipedia</a>)"
 msgstr "Ceci dirige vers la page <a href=\"//viaf.org/\">VIAF</a>pour ce label. VIAF est un projet international de création d’un fichier d’autorité commun offert aux bibliothèques du monde. Un fichier d’autorité est semblable à un MBID pour les bibliothèques. (<a href=\"//http://fr.wikipedia.org/wiki/Fichier_d%27autorit%C3%A9_international_virtuel\">Plus d’informations sur Wikipédia</a>)"
 
+#: DB:link_type/description:920
+msgid ""
+"This points to the <a href=\"//viaf.org/\">VIAF</a> page for this place. "
+"VIAF is an international project to make a common authority file available "
+"to libraries across the world. An authority file is similar to an MBID for "
+"libraries. (<a "
+"href=\"//en.wikipedia.org/wiki/Virtual_International_Authority_File\">more "
+"information on Wikipedia</a>)"
+msgstr "Ceci dirige vers la page <a href=\"//viaf.org/\">VIAF</a>pour ce lieu. VIAF est un projet international de création d’un fichier d’autorité commun offert aux bibliothèques du monde. Un fichier d’autorité est semblable à un MBID pour les bibliothèques. (<a href=\"//http://fr.wikipedia.org/wiki/Fichier_d%27autorit%C3%A9_international_virtuel\">Plus d’informations sur Wikipédia</a>)"
+
 #: DB:link_type/description:312
 msgid ""
 "This points to the <a href=\"//viaf.org/\">VIAF</a> page for this work. VIAF is an international project to make a common authority file available to libraries across the world. An authority file is similar to an MBID for libraries. (<a href=\"//en.wikipedia.org/wiki/Virtual_International_Authority_File\">more information on Wikipedia</a>)\n"
@@ -2737,6 +2751,36 @@ msgid ""
 "soprano range"
 msgstr "Un jeune soprano est un jeune chanteur dont la voix de soprano n’a pas mué"
 
+#: DB:link_attribute_type/description:1032
+msgid ""
+"Use this for operas and similar works that are <a "
+"href=\"https://en.wikipedia.org/wiki/Number_opera\">separated in "
+"numbers</a>, to specify what parts are numbers (as opposed to spoken dialog "
+"or other non-numbered parts)."
+msgstr "Utilisez cet attribut pour les parties d’un opéra à numéro (par opposition à un opéra à développement) qui correspondent à un numéro (par opposition aux dialogues et aux autres parties non-numérotées)."
+
+#: DB:link_attribute_type/description:1033
+msgid ""
+"Use this to indicate the parent work is not intended to be performed as a "
+"whole, but is just a grouping of pieces or works that can be performed "
+"individually (collections of songs, several sonatas or concertos published "
+"as a set, books of piano pieces, etc.)"
+msgstr "Utilisez cet attribut quand l’œuvre parente n’a pas été créée pour être interprétée dans son ensemble, mais seulement comme un ensemble de pièces ou d’œuvres qui peuvent interprétées séparément (recueil de chansons, plusieurs sonates ou concertos publiés ensemble, livres de pièces pour piano, etc.)."
+
+#: DB:link_attribute_type/description:1030
+msgid ""
+"Use this to mark acts of an opera (as opposed to other parts that are not "
+"acts)"
+msgstr "Utilisez cet attribut pour indiquer les actes d’un opéra (par opposition aux autres parties qui ne sont pas des actes)"
+
+#: DB:link_attribute_type/description:1031
+msgid ""
+"Use this when the parent work consists of several parts which are generally "
+"meant to be performed one after another in a particular order (rather than "
+"in any order, or multiple times, or in arbitrary selections rather than as a"
+" whole)."
+msgstr "Utilisez cet attribut quand l’œuvre parente est constituée de plusieurs parties créées pour être toutes interprétées l’une après l’autre dans un ordre particulier (plutôt que dans n’importe quel ordre, plusieurs fois, ou en sélections arbitraires)."
+
 #: DB:link_type/link_phrase:788 DB:link_type/link_phrase:86
 #: DB:link_type/link_phrase:191 DB:link_type/link_phrase:210
 msgid "VGMdb"
@@ -2747,13 +2791,13 @@ msgstr "VGMdb"
 msgid "VGMdb page for"
 msgstr "Page VGMdb pour"
 
-#: DB:link_type/link_phrase:311 DB:link_type/link_phrase:310
-#: DB:link_type/reverse_link_phrase:312
+#: DB:link_type/link_phrase:920 DB:link_type/link_phrase:311
+#: DB:link_type/link_phrase:310 DB:link_type/reverse_link_phrase:312
 msgid "VIAF ID"
 msgstr "ID VIAF"
 
-#: DB:link_type/link_phrase:312 DB:link_type/reverse_link_phrase:311
-#: DB:link_type/reverse_link_phrase:310
+#: DB:link_type/link_phrase:312 DB:link_type/reverse_link_phrase:920
+#: DB:link_type/reverse_link_phrase:311 DB:link_type/reverse_link_phrase:310
 msgid "VIAF ID for"
 msgstr "ID VIAF pour"
 
@@ -2773,19 +2817,19 @@ msgstr "Wikidata"
 msgid "Wikidata page for"
 msgstr "Page Wikidata pour"
 
-#: DB:link_type/link_phrase:789 DB:link_type/link_phrase:355
-#: DB:link_type/link_phrase:89 DB:link_type/link_phrase:744
-#: DB:link_type/link_phrase:216 DB:link_type/link_phrase:179
-#: DB:link_type/link_phrase:595 DB:link_type/link_phrase:731
-#: DB:link_type/reverse_link_phrase:279 DB:link_type/reverse_link_phrase:731
-#: DB:link_type/long_link_phrase:731
+#: DB:link_type/link_phrase:789 DB:link_type/link_phrase:595
+#: DB:link_type/link_phrase:355 DB:link_type/link_phrase:744
+#: DB:link_type/link_phrase:89 DB:link_type/link_phrase:216
+#: DB:link_type/link_phrase:179 DB:link_type/link_phrase:731
+#: DB:link_type/reverse_link_phrase:279
 msgid "Wikipedia"
 msgstr "Wikipédia"
 
 #: DB:link_type/link_phrase:279 DB:link_type/reverse_link_phrase:789
-#: DB:link_type/reverse_link_phrase:355 DB:link_type/reverse_link_phrase:89
-#: DB:link_type/reverse_link_phrase:744 DB:link_type/reverse_link_phrase:216
-#: DB:link_type/reverse_link_phrase:179 DB:link_type/reverse_link_phrase:595
+#: DB:link_type/reverse_link_phrase:595 DB:link_type/reverse_link_phrase:355
+#: DB:link_type/reverse_link_phrase:744 DB:link_type/reverse_link_phrase:89
+#: DB:link_type/reverse_link_phrase:216 DB:link_type/reverse_link_phrase:179
+#: DB:link_type/reverse_link_phrase:731
 msgid "Wikipedia page for"
 msgstr "Page Wikipédia pour"
 
@@ -2800,6 +2844,10 @@ msgstr "Chaîne YouTube de"
 #: DB:link_type/link_phrase:225
 msgid "YouTube channels"
 msgstr "Chaînes YouTube"
+
+#: DB:link_attribute_type/name:1030
+msgid "act"
+msgstr "acte"
 
 #: DB:link_attribute_type/name:1
 msgid "additional"
@@ -3362,7 +3410,8 @@ msgstr "a une page Bandcamp sur"
 msgid "has CD Baby page at"
 msgstr "a une page CD Baby sur"
 
-#: DB:link_type/long_link_phrase:311 DB:link_type/long_link_phrase:310
+#: DB:link_type/long_link_phrase:920 DB:link_type/long_link_phrase:311
+#: DB:link_type/long_link_phrase:310
 msgid "has VIAF ID at"
 msgstr "a un ID VIAF à"
 
@@ -3430,10 +3479,10 @@ msgstr "a une page VGMdb sur"
 msgid "has a Wikidata page at"
 msgstr "a une page Wikidata sur"
 
-#: DB:link_type/long_link_phrase:789 DB:link_type/long_link_phrase:355
-#: DB:link_type/long_link_phrase:89 DB:link_type/long_link_phrase:744
-#: DB:link_type/long_link_phrase:216 DB:link_type/long_link_phrase:179
-#: DB:link_type/long_link_phrase:595
+#: DB:link_type/long_link_phrase:789 DB:link_type/long_link_phrase:595
+#: DB:link_type/long_link_phrase:355 DB:link_type/long_link_phrase:744
+#: DB:link_type/long_link_phrase:89 DB:link_type/long_link_phrase:216
+#: DB:link_type/long_link_phrase:179 DB:link_type/long_link_phrase:731
 msgid "has a Wikipedia page at"
 msgstr "a une page Wikipédia sur"
 
@@ -4137,6 +4186,10 @@ msgstr "ingénieurs de mixage"
 msgid "mixing location for"
 msgstr "lieu de mixage pour"
 
+#: DB:link_attribute_type/name:1031
+msgid "movement"
+msgstr "mouvement"
+
 #: DB:link_type/long_link_phrase:177
 msgid "music can be downloaded for free at"
 msgstr "la musique peut être téléchargée gratuitement sur"
@@ -4166,7 +4219,7 @@ msgstr "clips"
 msgid "musical relationship"
 msgstr "relation musicale"
 
-#: DB:link_attribute_type/name:788
+#: DB:link_attribute_type/name:788 DB:link_attribute_type/name:1032
 msgid "number"
 msgstr "numéro"
 
@@ -4272,6 +4325,10 @@ msgstr "parodie"
 #: DB:link_type/reverse_link_phrase:356 DB:link_type/reverse_link_phrase:743
 msgid "part of"
 msgstr "partie de"
+
+#: DB:link_attribute_type/name:1033
+msgid "part of collection"
+msgstr "partie de collection"
 
 #: DB:link_attribute_type/name:579
 msgid "partial"
@@ -4989,10 +5046,6 @@ msgstr "a été reprogrammé comme"
 #: DB:link_type/long_link_phrase:759 DB:link_type/long_link_phrase:760
 msgid "was the concertmaster for"
 msgstr "était le premier violon pour"
-
-#: DB:link_type/description:731
-msgid "wikipedia"
-msgstr "wikipédia"
 
 #: DB:link_type/long_link_phrase:704
 msgid "works as a mastering engineer at"

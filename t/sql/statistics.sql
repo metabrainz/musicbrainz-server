@@ -28,8 +28,6 @@ INSERT INTO edit_artist (edit, artist) VALUES (4, 1);
 INSERT INTO edit_artist (edit, artist) VALUES (4, 2);
 INSERT INTO edit_label (edit, label) VALUES (2, 1);
 
-INSERT INTO release_packaging (id, name, gid) VALUES (1, 'Jewel Case', 'e2ac3831-739d-11de-8a39-0800200c9a66');
-
 INSERT INTO artist_ipi (artist, ipi) VALUES (3, '00151894163');
 INSERT INTO artist_isni (artist, isni) VALUES (3, '1422458635730476');
 INSERT INTO label_ipi (label, ipi) VALUES (1, '00151894166');

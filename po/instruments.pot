@@ -124,6 +124,11 @@ msgstr ""
 msgid "Irish bouzouki"
 msgstr ""
 
+#: DB:instrument/name:878
+msgctxt "19th century transverse flute"
+msgid "Irish flute"
+msgstr ""
+
 #: DB:instrument/name:355
 msgid "Irish harp / clàrsach"
 msgstr ""
@@ -272,6 +277,7 @@ msgid "ajaeng"
 msgstr ""
 
 #: DB:instrument/name:747
+msgctxt "set of Nyabinghi drums"
 msgid "akete"
 msgstr ""
 
@@ -357,6 +363,11 @@ msgstr ""
 
 #: DB:instrument/name:409
 msgid "autoharp"
+msgstr ""
+
+#: DB:instrument/name:880
+msgctxt "Nyabinghi bass drum"
+msgid "baandu"
 msgstr ""
 
 #: DB:instrument/name:426
@@ -1342,6 +1353,11 @@ msgstr ""
 msgid "fujara"
 msgstr ""
 
+#: DB:instrument/name:881
+msgctxt "Nyabinghi middle pitch drum"
+msgid "fundeh"
+msgstr ""
+
 #: DB:instrument/name:231
 msgid "gadulka"
 msgstr ""
@@ -1496,6 +1512,7 @@ msgid "gusli"
 msgstr ""
 
 #: DB:instrument/name:567
+msgctxt "gut-stringed acoustic guitar"
 msgid "gut guitar"
 msgstr ""
 
@@ -2138,6 +2155,7 @@ msgid "nyckelharpa"
 msgstr ""
 
 #: DB:instrument/name:566
+msgctxt "nylon-stringed acoustic guitar"
 msgid "nylon guitar"
 msgstr ""
 
@@ -2214,6 +2232,11 @@ msgstr ""
 
 #: DB:instrument/name:234
 msgid "oud"
+msgstr ""
+
+#: DB:instrument/name:879
+msgctxt "late 17th century oval harpsichord"
+msgid "oval spinet"
 msgstr ""
 
 #: DB:instrument/name:864
@@ -2478,6 +2501,11 @@ msgstr ""
 #: DB:instrument/name:784
 msgctxt "Māori taonga pūoro long flute"
 msgid "rehu"
+msgstr ""
+
+#: DB:instrument/name:882
+msgctxt "Nyabinghi smaller pitch drum"
+msgid "repeater"
 msgstr ""
 
 #: DB:instrument/name:722
@@ -3362,6 +3390,11 @@ msgstr ""
 
 #: DB:instrument/name:450
 msgid "voice synthesizer"
+msgstr ""
+
+#: DB:instrument/name:877
+msgctxt "plastic horn"
+msgid "vuvuzela"
 msgstr ""
 
 #: DB:instrument/name:159

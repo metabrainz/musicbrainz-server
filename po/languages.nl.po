@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2017-07-17 09:58+0000\n"
+"PO-Revision-Date: 2017-09-19 12:55+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -71,7 +71,7 @@ msgstr "Ainu"
 msgid "Akan"
 msgstr "Akaans"
 
-#. frequency:0 iso_code_3:akk
+#. frequency:1 iso_code_3:akk
 #: DB:language/name:11
 msgid "Akkadian"
 msgstr "Akkadisch"
@@ -621,7 +621,7 @@ msgstr "Oost-Arrernte"
 msgid "Efik"
 msgstr "Efikisch"
 
-#. frequency:0 iso_code_3:egy
+#. frequency:1 iso_code_3:egy
 #: DB:language/name:117
 msgid "Egyptian (Ancient)"
 msgstr "Egyptisch (Antiek)"

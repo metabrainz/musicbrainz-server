@@ -1,0 +1,28 @@
+#!/usr/bin/env perl
+
+use strict;
+use warnings;
+
+use FindBin;
+use lib "$FindBin::Bin/../lib";
+
+use DBDefs;
+use aliased 'MusicBrainz::Server::DatabaseConnectionFactory' => 'Databases';
+use MusicBrainz::Server::Constants qw( @FULL_TABLE_LIST );
+
+my $readwrite_db = Databases->get('READWRITE');
+my $system_db = Databases->get('SYSTEM');
+my $sysmb_db = $system_db->meta->clone_object(
+    $system_db,
+    database => $readwrite_db->database,
+);
+Databases->register_database('SYSMB', $sysmb_db);
+my $conn = Databases->get_connection('SYSMB');
+my $sql = Sql->new($conn->conn);
+
+for my $table (@FULL_TABLE_LIST) {
+    my $real_table = $table;
+    $real_table = 'editor' if $table eq 'editor_sanitised';
+    $sql->auto_commit;
+    $sql->do("SET search_path = musicbrainz; ALTER TABLE $real_table DISABLE TRIGGER ALL");
+}
