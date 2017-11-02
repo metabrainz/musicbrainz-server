@@ -24,6 +24,7 @@ our $handle_inserts = sub {};
 our $dump_annotations = 0;
 our $dump_gid_redirects = 0;
 our $dump_meta_tables = 0;
+our $dump_tags = 0;
 our $follow_extra_data = 1;
 # This is a hack that allows us to clear editor.area for areas that weren't
 # already dumped. (We don't follow this column because it creates cycles;
@@ -108,8 +109,24 @@ sub tags {
     my $table = "${entity_type}_tag";
     my $rows = get_rows($c, $table, $entity_type, $ids);
 
-    handle_rows($c, 'tag', 'id', pluck('tag', $rows));
+    my $raw_table = "${table}_raw";
+    my $raw_rows = $c->sql->select_list_of_hashes(
+        qq{SELECT $raw_table.* FROM $raw_table
+             LEFT JOIN editor_preference ep ON (ep.editor = $raw_table.editor AND ep.name = 'public_tags')
+            WHERE $raw_table.$entity_type = any(?)
+              AND coalesce(ep.value, '1') = '1'
+            ORDER BY $raw_table.$entity_type},
+        $ids,
+    );
+
+    editors($c, pluck('editor', $raw_rows));
+
+    my $tag_ids = pluck('tag', $rows);
+    push @{$tag_ids}, @{ pluck('tag', $raw_rows) };
+    handle_rows($c, 'tag', 'id', $tag_ids);
+
     handle_rows($c, $table, $rows);
+    handle_rows($c, $raw_table, $raw_rows);
 }
 
 sub annotations {
@@ -227,7 +244,7 @@ sub core_entity {
         annotations($c, $entity_type, $ids);
     }
 
-    if ($entity_properties->{tags}) {
+    if ($dump_tags && $entity_properties->{tags}) {
         tags($c, $entity_type, $ids);
     }
 
