@@ -5,7 +5,6 @@ use warnings;
 
 use base 'Exporter';
 use feature 'state';
-use Data::Compare qw( Compare );
 use MusicBrainz::Script::Utils qw( get_primary_keys );
 use MusicBrainz::Server::Constants qw( %ENTITIES );
 
@@ -14,8 +13,12 @@ our @EXPORT_OK = qw(
     get_core_entities_by_gids
 );
 
+our @link_path;
+
 # Should be set by users of this package.
 our $handle_inserts = sub {};
+our $follow_extra_data = 1;
+our %path_ids;
 
 sub pluck {
     my ($prop, $values) = @_;
@@ -91,13 +94,13 @@ sub artist_credits {
     my $rows = get_rows($c, 'artist_credit', 'id', $ids);
     my $name_rows = get_rows($c, 'artist_credit_name', 'artist_credit', $ids);
 
-    artists($c, pluck('artist', $name_rows), link_path => ['artist_credit']);
+    artists($c, pluck('artist', $name_rows));
     handle_rows($c, 'artist_credit', $rows);
     handle_rows($c, 'artist_credit_name', $name_rows);
 }
 
 sub relationships {
-    my ($c, $entity_type, $entity_ids, %opts) = @_;
+    my ($c, $entity_type, $entity_ids) = @_;
 
     for my $t ($c->model('Relationship')->generate_table_list($entity_type)) {
         my ($table, $column) = @$t;
@@ -122,13 +125,10 @@ sub relationships {
             $entity_ids
         );
 
-        $opts{link_path} = [@{$opts{link_path} // []}, $entity_type];
-
         get_core_entities(
             $c,
             $target_type,
             pluck($target_column, $results),
-            %opts
         );
 
         my $link_ids = pluck('link', $results);
@@ -141,7 +141,13 @@ sub relationships {
 }
 
 sub core_entity {
-    my ($c, $entity_type, $ids, %opts) = @_;
+    my ($c, $entity_type, $ids, $callback) = @_;
+
+    local @link_path = (@link_path, $entity_type);
+
+    my $last_part;
+    $last_part = ($path_ids{$_} //= {}) for @link_path;
+    $last_part->{_ids}{$_} = 1 for @{$ids};
 
     my $rows = get_rows($c, $entity_type, 'id', $ids);
     my $entity_properties = $ENTITIES{$entity_type};
@@ -150,7 +156,7 @@ sub core_entity {
         artist_credits($c, pluck('artist_credit', $rows));
     }
 
-    my $callback = $opts{callback} // \&handle_rows;
+    $callback //= \&handle_rows;
     $callback->($c, $entity_type, $rows);
 
     if ($entity_properties->{aliases}) {
@@ -161,17 +167,13 @@ sub core_entity {
         tags($c, $entity_type, $ids);
     }
 
-    if (scalar(@{$opts{link_path} // []}) == 0) {
-        relationships($c, $entity_type, $ids, %opts);
-    }
-
     return $rows;
 }
 
 sub areas {
-    my ($c, $ids, %opts) = @_;
+    my ($c, $ids) = @_;
 
-    core_entity($c, 'area', $ids, %opts, callback => sub {
+    core_entity($c, 'area', $ids, sub {
         my ($c, $entity_type, $rows) = @_;
 
         handle_rows($c, $entity_type, $rows);
@@ -183,61 +185,55 @@ sub areas {
 }
 
 sub artists {
-    my ($c, $ids, %opts) = @_;
+    my ($c, $ids) = @_;
 
-    core_entity($c, 'artist', $ids, %opts, callback => sub {
+    core_entity($c, 'artist', $ids, sub {
         my ($c, $entity_type, $rows) = @_;
 
-        areas($c, [map { @{$_}{qw(area begin_area end_area)} } @$rows], link_path => ['artist']);
+        areas($c, [map { @{$_}{qw(area begin_area end_area)} } @$rows]);
         handle_rows($c, 'artist', $rows);
     });
 }
 
 sub labels {
-    my ($c, $ids, %opts) = @_;
+    my ($c, $ids) = @_;
 
-    core_entity($c, 'label', $ids, %opts, callback => sub {
+    core_entity($c, 'label', $ids, sub {
         my ($c, $entity_type, $rows) = @_;
 
-        areas($c, pluck('area', $rows), link_path => ['label']);
+        areas($c, pluck('area', $rows));
         handle_rows($c, 'label', $rows);
     });
 }
 
 sub places {
-    my ($c, $ids, %opts) = @_;
+    my ($c, $ids) = @_;
 
-    core_entity($c, 'place', $ids, %opts, callback => sub {
+    core_entity($c, 'place', $ids, sub {
         my ($c, $entity_type, $rows) = @_;
 
-        areas($c, pluck('area', $rows), link_path => ['place']);
+        areas($c, pluck('area', $rows));
         handle_rows($c, 'place', $rows);
     });
 }
 
 sub recordings {
-    my ($c, $ids, %opts) = @_;
+    my ($c, $ids) = @_;
 
-    my $link_path = $opts{link_path} // [];
-
-    core_entity($c, 'recording', $ids, %opts, callback => sub {
+    core_entity($c, 'recording', $ids, sub {
         handle_rows(@_);
 
         handle_rows($c, 'isrc', 'recording', $ids);
-
-        if (Compare($link_path, ['release']) || Compare($link_path, ['release_group', 'release'])) {
-            relationships($c, 'recording', $ids, %opts);
-        }
     });
 }
 
 sub releases {
-    my ($c, $ids, %opts) = @_;
+    my ($c, $ids) = @_;
 
-    core_entity($c, 'release', $ids, %opts, callback => sub {
+    core_entity($c, 'release', $ids, sub {
         my ($c, $entity_type, $rows) = @_;
 
-        get_core_entities($c, 'release_group', pluck('release_group', $rows), link_path => ['release']);
+        get_core_entities($c, 'release_group', pluck('release_group', $rows));
         handle_rows($c, 'release_status', 'id', pluck('status', $rows));
         handle_rows($c, 'script', 'id', pluck('script', $rows));
 
@@ -246,11 +242,11 @@ sub releases {
         handle_rows($c, 'release_unknown_country', 'release', $ids);
 
         my $release_country_rows = get_rows($c, 'release_country', 'release', $ids);
-        areas($c, pluck('country', $release_country_rows), link_path => ['release']);
+        areas($c, pluck('country', $release_country_rows));
         handle_rows($c, 'release_country', $release_country_rows);
 
         my $release_label_rows = get_rows($c, 'release_label', 'release', $ids);
-        labels($c, pluck('label', $release_label_rows), link_path => ['release']);
+        labels($c, pluck('label', $release_label_rows));
         handle_rows($c, 'release_label', $release_label_rows);
 
         my $medium_rows = get_rows($c, 'medium', 'release', $ids);
@@ -264,7 +260,9 @@ sub releases {
         handle_rows($c, 'medium_cdtoc', $cdtoc_rows);
 
         my $track_rows = get_rows($c, 'track', 'medium', $medium_ids);
-        recordings($c, pluck('recording', $track_rows), %opts);
+        my $recording_ids = pluck('recording', $track_rows);
+        recordings($c, $recording_ids);
+        relationships($c, 'recording', $recording_ids);
         artist_credits($c, pluck('artist_credit', $track_rows));
         handle_rows($c, 'track', $track_rows);
 
@@ -276,19 +274,12 @@ sub releases {
 }
 
 sub works {
-    my ($c, $ids, %opts) = @_;
+    my ($c, $ids) = @_;
 
-    my $link_path = $opts{link_path} // [];
-    my @via_release = ('release', 'recording');
-
-    core_entity($c, 'work', $ids, %opts, callback => sub {
+    core_entity($c, 'work', $ids, sub {
         my ($c, $entity_type, $rows) = @_;
 
         handle_rows($c, $entity_type, $rows);
-
-        if (Compare($link_path, \@via_release) || Compare($link_path, ['release_group', @via_release])) {
-            relationships($c, 'work', $ids, %opts);
-        }
     });
 }
 
@@ -303,15 +294,54 @@ our %CORE_ENTITY_METHODS = (
 );
 
 sub get_core_entities {
-    my ($c, $entity_type, $ids, %opts) = @_;
+    my ($c, $entity_type, $ids) = @_;
+
+    local %path_ids = ();
 
     my $method = $CORE_ENTITY_METHODS{$entity_type} // sub {
-        my ($c, $ids, %opts) = @_;
+        my ($c, $ids) = @_;
 
-        core_entity($c, $entity_type, $ids, %opts);
+        core_entity($c, $entity_type, $ids);
     };
 
-    $method->($c, $ids, %opts);
+    $method->($c, $ids);
+
+    return unless $follow_extra_data;
+
+    my %relationship_entities;
+
+    my $follow_path;
+    $follow_path = sub {
+        my ($path_part, $depth, @path) = @_;
+
+        if ($depth) {
+            my @ids = keys %{ $path_part->{_ids} };
+            my $part_type = $path[-1];
+
+            if (@path <= 2 ||
+                    # There aren't a lot of these entities relative to the
+                    # rest, so just get all of their relationships.
+                    ($part_type =~ /^(event|instrument|place|series)$/)) {
+                $relationship_entities{$part_type}{$_} = 1 for @ids;
+            }
+        }
+
+        $depth++;
+        for my $key (keys %{$path_part}) {
+            if ($key ne '_ids') {
+                $follow_path->($path_part->{$key}, $depth, @path, $key);
+            }
+        }
+    };
+
+    $follow_path->(\%path_ids, 0);
+
+    local $follow_extra_data = 0;
+
+    for my $type (keys %relationship_entities) {
+        my @ids = keys %{ $relationship_entities{$type} };
+        relationships($c, $type, \@ids);
+    }
 }
 
 sub get_core_entities_by_gids {
