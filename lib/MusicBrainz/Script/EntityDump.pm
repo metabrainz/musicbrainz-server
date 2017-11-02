@@ -314,7 +314,7 @@ sub releases {
     core_entity($c, 'release', $ids, sub {
         my ($c, $entity_type, $rows) = @_;
 
-        get_core_entities($c, 'release_group', pluck('release_group', $rows));
+        release_groups($c, pluck('release_group', $rows));
         handle_rows($c, 'release_status', 'id', pluck('status', $rows));
         handle_rows($c, 'script', 'id', pluck('script', $rows));
 
@@ -355,6 +355,18 @@ sub releases {
     });
 }
 
+sub release_groups {
+    my ($c, $ids) = @_;
+
+    core_entity($c, 'release_group', $ids, sub {
+        my ($c, $entity_type, $rows) = @_;
+
+        handle_rows($c, 'release_group', $rows);
+
+        handle_rows($c, 'release_group_secondary_type_join', 'release_group', $ids);
+    });
+}
+
 sub works {
     my ($c, $ids) = @_;
 
@@ -372,6 +384,7 @@ our %CORE_ENTITY_METHODS = (
     place => \&places,
     recording => \&recordings,
     release => \&releases,
+    release_group => \&release_groups,
     work => \&works,
 );
 
