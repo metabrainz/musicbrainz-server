@@ -27,6 +27,7 @@ our $dump_meta_tables = 0;
 our $dump_ratings = 0;
 our $dump_tags = 0;
 our $follow_extra_data = 1;
+our $relationships_cardinality = 0;
 # This is a hack that allows us to clear editor.area for areas that weren't
 # already dumped. (We don't follow this column because it creates cycles;
 # see `sub editors`.)
@@ -171,15 +172,25 @@ sub relationships {
             $target_type =~ s/l_([a-z_]+)_\Q${entity_type}\E$/$1/;
         }
 
+        my $joins = '';
+        my $conditions = "WHERE $column = any(?)";
+        my @values = ($entity_ids);
+
+        if (defined $relationships_cardinality) {
+            $joins .= "JOIN link ON link.id = $table.link\n";
+            $joins .= "JOIN link_type ON link_type.id = link.link_type";
+            $conditions .= "\n";
+            $conditions .= "AND link_type.${column}_cardinality = ?";
+            push @values, $relationships_cardinality;
+        }
+
         my $results = $c->sql->select_list_of_hashes(
             "SELECT $table.*
                FROM $table
-               JOIN link ON link.id = $table.link
-               JOIN link_type ON link_type.id = link.link_type
-              WHERE $column = any(?)
-                AND link_type.${column}_cardinality = 0
+             $joins
+             $conditions
               ORDER BY $table.id",
-            $entity_ids
+            @values,
         );
 
         get_core_entities(
