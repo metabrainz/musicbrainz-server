@@ -22,6 +22,7 @@ our @link_path;
 # Should be set by users of this package.
 our $handle_inserts = sub {};
 our $dump_annotations = 0;
+our $dump_collections = 0;
 our $dump_gid_redirects = 0;
 our $dump_meta_tables = 0;
 our $dump_ratings = 0;
@@ -155,6 +156,27 @@ sub artist_credits {
     artists($c, pluck('artist', $name_rows));
     handle_rows($c, 'artist_credit', $rows);
     handle_rows($c, 'artist_credit_name', $name_rows);
+}
+
+sub collections {
+    my ($c, $entity_type, $ids) = @_;
+
+    my $entity_collection_rows =
+        get_rows($c, "editor_collection_${entity_type}", $entity_type, $ids);
+
+    # Need a custom query here to exclude private collections.
+    my $collection_rows = $c->sql->select_list_of_hashes(
+        "SELECT * FROM editor_collection WHERE id = any(?) and public = 't' ORDER BY id",
+        pluck('collection', $entity_collection_rows),
+    );
+
+    # Filter out private collections from $entity_collection_rows.
+    my %ids = map { $_->{id} => 1 } @{$collection_rows};
+    $entity_collection_rows = [grep { $ids{$_->{collection}} } @{$entity_collection_rows}];
+
+    editors($c, pluck('editor', $collection_rows));
+    handle_rows($c, 'editor_collection', $collection_rows);
+    handle_rows($c, "editor_collection_${entity_type}", $entity_collection_rows);
 }
 
 sub relationships {
@@ -505,6 +527,7 @@ sub get_core_entities {
 
     return unless $follow_extra_data;
 
+    my %collection_entities;
     my %relationship_entities;
 
     my $follow_path;
@@ -514,6 +537,17 @@ sub get_core_entities {
         if ($depth) {
             my @ids = keys %{ $path_part->{_ids} };
             my $part_type = $path[-1];
+            my $properties = $ENTITIES{$part_type};
+
+            if ($depth == 1) {
+                my $_dump_collections =
+                    $dump_collections && $properties->{collections};
+                if ($_dump_collections) {
+                    for my $id (@ids) {
+                        $collection_entities{$part_type}{$id} = 1;
+                    }
+                }
+            }
 
             if (@path <= 2 ||
                     # There aren't a lot of these entities relative to the
@@ -534,6 +568,11 @@ sub get_core_entities {
     $follow_path->(\%path_ids, 0);
 
     local $follow_extra_data = 0;
+
+    for my $type (keys %collection_entities) {
+        my @ids = keys %{ $collection_entities{$type} };
+        collections($c, $type, \@ids);
+    }
 
     for my $type (keys %relationship_entities) {
         my @ids = keys %{ $relationship_entities{$type} };
