@@ -168,14 +168,50 @@ sub core_entity {
     return $rows;
 }
 
+sub areas {
+    my ($c, $ids, %opts) = @_;
+
+    core_entity($c, 'area', $ids, %opts, callback => sub {
+        my ($c, $entity_type, $rows) = @_;
+
+        handle_rows($c, $entity_type, $rows);
+
+        handle_rows($c, 'iso_3166_1', 'area', $ids);
+        handle_rows($c, 'iso_3166_2', 'area', $ids);
+        handle_rows($c, 'iso_3166_3', 'area', $ids);
+    });
+}
+
 sub artists {
     my ($c, $ids, %opts) = @_;
 
     core_entity($c, 'artist', $ids, %opts, callback => sub {
         my ($c, $entity_type, $rows) = @_;
 
-        handle_rows($c, 'area', 'id', [map { @{$_}{qw(area begin_area end_area)} } @$rows]);
-        handle_rows($c, $entity_type, $rows);
+        areas($c, [map { @{$_}{qw(area begin_area end_area)} } @$rows], link_path => ['artist']);
+        handle_rows($c, 'artist', $rows);
+    });
+}
+
+sub labels {
+    my ($c, $ids, %opts) = @_;
+
+    core_entity($c, 'label', $ids, %opts, callback => sub {
+        my ($c, $entity_type, $rows) = @_;
+
+        areas($c, pluck('area', $rows), link_path => ['label']);
+        handle_rows($c, 'label', $rows);
+    });
+}
+
+sub places {
+    my ($c, $ids, %opts) = @_;
+
+    core_entity($c, 'place', $ids, %opts, callback => sub {
+        my ($c, $entity_type, $rows) = @_;
+
+        areas($c, pluck('area', $rows), link_path => ['place']);
+        handle_rows($c, 'place', $rows);
     });
 }
 
@@ -210,11 +246,11 @@ sub releases {
         handle_rows($c, 'release_unknown_country', 'release', $ids);
 
         my $release_country_rows = get_rows($c, 'release_country', 'release', $ids);
-        get_core_entities($c, 'area', pluck('country', $release_country_rows), link_path => ['release']);
+        areas($c, pluck('country', $release_country_rows), link_path => ['release']);
         handle_rows($c, 'release_country', $release_country_rows);
 
         my $release_label_rows = get_rows($c, 'release_label', 'release', $ids);
-        get_core_entities($c, 'label', pluck('label', $release_label_rows), link_path => ['release']);
+        labels($c, pluck('label', $release_label_rows), link_path => ['release']);
         handle_rows($c, 'release_label', $release_label_rows);
 
         my $medium_rows = get_rows($c, 'medium', 'release', $ids);
@@ -257,7 +293,10 @@ sub works {
 }
 
 our %CORE_ENTITY_METHODS = (
+    area => \&areas,
     artist => \&artists,
+    label => \&labels,
+    place => \&places,
     recording => \&recordings,
     release => \&releases,
     work => \&works,
