@@ -10,7 +10,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2017-09-23 18:13+0000\n"
+"PO-Revision-Date: 2017-11-01 19:51+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -858,6 +858,10 @@ msgstr "Verwijst naar de Wikipediapagina over deze artiest."
 #: DB:link_type/description:789
 msgid "Points to the Wikipedia page for this event."
 msgstr "Verwijst naar de Wikipediapagina over dit evenement."
+
+#: DB:link_type/description:731
+msgid "Points to the Wikipedia page for this instrument."
+msgstr "Verwijst naar de Wikipediapagina over dit instrument."
 
 #: DB:link_type/description:595
 msgid "Points to the Wikipedia page for this place"
@@ -2725,6 +2729,36 @@ msgid ""
 "soprano range"
 msgstr "Een jongenssopraan is een jongeman die met een onveranderde stem op sopraanhoogte zingt."
 
+#: DB:link_attribute_type/description:1032
+msgid ""
+"Use this for operas and similar works that are <a "
+"href=\"https://en.wikipedia.org/wiki/Number_opera\">separated in "
+"numbers</a>, to specify what parts are numbers (as opposed to spoken dialog "
+"or other non-numbered parts)."
+msgstr "Gebruik dit voor opera’s en soortgelijke composities die in <a href=\"https://en.wikipedia.org/wiki/Number_opera\">in nummers zijn onderverdeeld</a> om aan te geven welke delen nummers zijn (in tegenstelling tot gesproken dialogen en andere niet-genummerde delen)."
+
+#: DB:link_attribute_type/description:1033
+msgid ""
+"Use this to indicate the parent work is not intended to be performed as a "
+"whole, but is just a grouping of pieces or works that can be performed "
+"individually (collections of songs, several sonatas or concertos published "
+"as a set, books of piano pieces, etc.)"
+msgstr "Gebruik dit om aan te geven dat het hoofdwerk niet bedoeld is om in zijn geheel uit te voeren, maar om composities die individueel kunnen worden uitgevoerd te groeperen. Dit zijn bijvoorbeeld verzamelingen met liederen, een aantal sonates of concerten die samen zijn uitgegeven, boeken met pianowerken etc."
+
+#: DB:link_attribute_type/description:1030
+msgid ""
+"Use this to mark acts of an opera (as opposed to other parts that are not "
+"acts)"
+msgstr "Gebruik dit voor de bedrijven van een opera (niet voor andere delen die geen bedrijf zijn)"
+
+#: DB:link_attribute_type/description:1031
+msgid ""
+"Use this when the parent work consists of several parts which are generally "
+"meant to be performed one after another in a particular order (rather than "
+"in any order, or multiple times, or in arbitrary selections rather than as a"
+" whole)."
+msgstr "Gebruik dit om aan te geven dat het hoofdwerk uit verschillende delen bestaat. Dit is alleen bedoeld voor composities waarvan alle delen doorgaans in dezelfde volgorde worden gespeeld, niet voor composities met delen die in een willekeurige volgorde of meerdere keren worden uitgevoerd of als er meestal alleen een willekeurig aantal delen van het hoofdwerk wordt uitgevoerd."
+
 #: DB:link_type/link_phrase:788 DB:link_type/link_phrase:86
 #: DB:link_type/link_phrase:191 DB:link_type/link_phrase:210
 msgid "VGMdb"
@@ -2761,19 +2795,19 @@ msgstr "Wikidata"
 msgid "Wikidata page for"
 msgstr "Wikidatapagina over"
 
-#: DB:link_type/link_phrase:789 DB:link_type/link_phrase:355
-#: DB:link_type/link_phrase:89 DB:link_type/link_phrase:744
-#: DB:link_type/link_phrase:216 DB:link_type/link_phrase:179
-#: DB:link_type/link_phrase:595 DB:link_type/link_phrase:731
-#: DB:link_type/reverse_link_phrase:279 DB:link_type/reverse_link_phrase:731
-#: DB:link_type/long_link_phrase:731
+#: DB:link_type/link_phrase:789 DB:link_type/link_phrase:595
+#: DB:link_type/link_phrase:355 DB:link_type/link_phrase:744
+#: DB:link_type/link_phrase:89 DB:link_type/link_phrase:216
+#: DB:link_type/link_phrase:179 DB:link_type/link_phrase:731
+#: DB:link_type/reverse_link_phrase:279
 msgid "Wikipedia"
 msgstr "Wikipedia"
 
 #: DB:link_type/link_phrase:279 DB:link_type/reverse_link_phrase:789
-#: DB:link_type/reverse_link_phrase:355 DB:link_type/reverse_link_phrase:89
-#: DB:link_type/reverse_link_phrase:744 DB:link_type/reverse_link_phrase:216
-#: DB:link_type/reverse_link_phrase:179 DB:link_type/reverse_link_phrase:595
+#: DB:link_type/reverse_link_phrase:595 DB:link_type/reverse_link_phrase:355
+#: DB:link_type/reverse_link_phrase:744 DB:link_type/reverse_link_phrase:89
+#: DB:link_type/reverse_link_phrase:216 DB:link_type/reverse_link_phrase:179
+#: DB:link_type/reverse_link_phrase:731
 msgid "Wikipedia page for"
 msgstr "Wikipediapagina over"
 
@@ -2788,6 +2822,10 @@ msgstr "YouTubekanaal van"
 #: DB:link_type/link_phrase:225
 msgid "YouTube channels"
 msgstr "YouTube-kanaal"
+
+#: DB:link_attribute_type/name:1030
+msgid "act"
+msgstr "bedrijf"
 
 #: DB:link_attribute_type/name:1
 msgid "additional"
@@ -3419,10 +3457,10 @@ msgstr "heeft een VGMdb-pagina op"
 msgid "has a Wikidata page at"
 msgstr "heeft een Wikidatapagina op"
 
-#: DB:link_type/long_link_phrase:789 DB:link_type/long_link_phrase:355
-#: DB:link_type/long_link_phrase:89 DB:link_type/long_link_phrase:744
-#: DB:link_type/long_link_phrase:216 DB:link_type/long_link_phrase:179
-#: DB:link_type/long_link_phrase:595
+#: DB:link_type/long_link_phrase:789 DB:link_type/long_link_phrase:595
+#: DB:link_type/long_link_phrase:355 DB:link_type/long_link_phrase:744
+#: DB:link_type/long_link_phrase:89 DB:link_type/long_link_phrase:216
+#: DB:link_type/long_link_phrase:179 DB:link_type/long_link_phrase:731
 msgid "has a Wikipedia page at"
 msgstr "heeft een Wikipediapagina op"
 
@@ -4126,6 +4164,10 @@ msgstr "mixtechnici"
 msgid "mixing location for"
 msgstr "mixlocatie van"
 
+#: DB:link_attribute_type/name:1031
+msgid "movement"
+msgstr "deel"
+
 #: DB:link_type/long_link_phrase:177
 msgid "music can be downloaded for free at"
 msgstr "muziek kan gratis gedownload worden van"
@@ -4155,7 +4197,7 @@ msgstr "videoclips"
 msgid "musical relationship"
 msgstr "muzikale relatie"
 
-#: DB:link_attribute_type/name:788
+#: DB:link_attribute_type/name:788 DB:link_attribute_type/name:1032
 msgid "number"
 msgstr "nummer"
 
@@ -4261,6 +4303,10 @@ msgstr "parodie"
 #: DB:link_type/reverse_link_phrase:356 DB:link_type/reverse_link_phrase:743
 msgid "part of"
 msgstr "deel van"
+
+#: DB:link_attribute_type/name:1033
+msgid "part of collection"
+msgstr "deel van een verzameling"
 
 #: DB:link_attribute_type/name:579
 msgid "partial"
@@ -4978,10 +5024,6 @@ msgstr "werd opnieuw gepland als"
 #: DB:link_type/long_link_phrase:759 DB:link_type/long_link_phrase:760
 msgid "was the concertmaster for"
 msgstr "was de concertmeester van"
-
-#: DB:link_type/description:731
-msgid "wikipedia"
-msgstr "wikipedia"
 
 #: DB:link_type/long_link_phrase:704
 msgid "works as a mastering engineer at"
