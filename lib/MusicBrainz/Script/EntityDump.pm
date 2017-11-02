@@ -374,6 +374,10 @@ sub works {
         my ($c, $entity_type, $rows) = @_;
 
         handle_rows($c, $entity_type, $rows);
+
+        handle_rows($c, 'iswc', 'work', $ids);
+        handle_rows($c, 'work_attribute', 'work', $ids);
+        handle_rows($c, 'work_language', 'work', $ids);
     });
 }
 
