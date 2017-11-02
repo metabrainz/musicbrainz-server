@@ -75,11 +75,7 @@ sub handle_rows {
 sub get_rows {
     my ($c, $table, $column, $values) = @_;
 
-    return unless @$values;
-
-    my $column_type = $c->sql->get_column_type_name($table, $column);
-    my @values = grep { defined } @{$values};
-
+    my @values = grep { defined } @{ $values // [] };
     return unless @values;
 
     return $c->sql->select_list_of_hashes(
