@@ -22,6 +22,7 @@ our @link_path;
 # Should be set by users of this package.
 our $handle_inserts = sub {};
 our $dump_annotations = 0;
+our $dump_gid_redirects = 0;
 our $follow_extra_data = 1;
 # This is a hack that allows us to clear editor.area for areas that weren't
 # already dumped. (We don't follow this column because it creates cycles;
@@ -204,6 +205,10 @@ sub core_entity {
 
     $callback //= \&handle_rows;
     $callback->($c, $entity_type, $rows);
+
+    if ($dump_gid_redirects) {
+        handle_rows($c, "${entity_type}_gid_redirect", 'new_id', $ids);
+    }
 
     if ($entity_properties->{ipis}) {
         ipis($c, $entity_type, $ids);
