@@ -436,6 +436,8 @@ sub releases {
         handle_rows($c, 'cdtoc', 'id', pluck('cdtoc', $cdtoc_rows));
         handle_rows($c, 'medium_cdtoc', $cdtoc_rows);
 
+        handle_rows($c, 'medium_index', 'medium', $medium_ids);
+
         my $track_rows = get_rows($c, 'track', 'medium', $medium_ids);
         my $recording_ids = pluck('recording', $track_rows);
         recordings($c, $recording_ids);
