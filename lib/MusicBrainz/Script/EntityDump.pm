@@ -21,6 +21,7 @@ our @link_path;
 
 # Should be set by users of this package.
 our $handle_inserts = sub {};
+our $dump_annotations = 0;
 our $follow_extra_data = 1;
 # This is a hack that allows us to clear editor.area for areas that weren't
 # already dumped. (We don't follow this column because it creates cycles;
@@ -113,6 +114,18 @@ sub tags {
     handle_rows($c, $table, $rows);
 }
 
+sub annotations {
+    my ($c, $entity_type, $ids) = @_;
+
+    my $entity_annotation_rows =
+        get_rows($c, "${entity_type}_annotation", $entity_type, $ids);
+    my $annotation_rows =
+        get_rows($c, 'annotation', 'id', pluck('annotation', $entity_annotation_rows));
+    editors($c, pluck('editor', $annotation_rows));
+    handle_rows($c, 'annotation', $annotation_rows);
+    handle_rows($c, "${entity_type}_annotation", $entity_annotation_rows);
+}
+
 sub artist_credits {
     my ($c, $ids) = @_;
 
@@ -192,6 +205,10 @@ sub core_entity {
 
     if ($entity_properties->{aliases}) {
         handle_rows($c, "${entity_type}_alias", $entity_type, pluck('id', $rows));
+    }
+
+    if ($dump_annotations && $entity_properties->{annotations}) {
+        annotations($c, $entity_type, pluck('id', $rows));
     }
 
     if ($entity_properties->{tags}) {
