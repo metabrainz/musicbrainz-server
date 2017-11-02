@@ -195,6 +195,7 @@ sub core_entity {
     $last_part->{_ids}{$_} = 1 for @{$ids};
 
     my $rows = get_rows($c, $entity_type, 'id', $ids);
+    $ids = pluck('id', $rows);
     my $entity_properties = $ENTITIES{$entity_type};
 
     if ($entity_properties->{artist_credits}) {
@@ -204,12 +205,20 @@ sub core_entity {
     $callback //= \&handle_rows;
     $callback->($c, $entity_type, $rows);
 
+    if ($entity_properties->{ipis}) {
+        ipis($c, $entity_type, $ids);
+    }
+
+    if ($entity_properties->{isnis}) {
+        isnis($c, $entity_type, $ids);
+    }
+
     if ($entity_properties->{aliases}) {
-        handle_rows($c, "${entity_type}_alias", $entity_type, pluck('id', $rows));
+        handle_rows($c, "${entity_type}_alias", $entity_type, $ids);
     }
 
     if ($dump_annotations && $entity_properties->{annotations}) {
-        annotations($c, $entity_type, pluck('id', $rows));
+        annotations($c, $entity_type, $ids);
     }
 
     if ($entity_properties->{tags}) {
@@ -292,6 +301,18 @@ sub editors {
     handle_rows($c, 'editor', $editor_rows);
 
     handle_rows($c, 'editor_language', 'editor', $ids);
+}
+
+sub isnis {
+    my ($c, $entity_type, $ids) = @_;
+
+    handle_rows($c, "${entity_type}_isni", $entity_type, $ids);
+}
+
+sub ipis {
+    my ($c, $entity_type, $ids) = @_;
+
+    handle_rows($c, "${entity_type}_ipi", $entity_type, $ids);
 }
 
 sub labels {
