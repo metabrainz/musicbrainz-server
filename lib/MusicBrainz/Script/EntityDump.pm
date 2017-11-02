@@ -24,6 +24,7 @@ our $handle_inserts = sub {};
 our $dump_annotations = 0;
 our $dump_gid_redirects = 0;
 our $dump_meta_tables = 0;
+our $dump_ratings = 0;
 our $dump_tags = 0;
 our $follow_extra_data = 1;
 # This is a hack that allows us to clear editor.area for areas that weren't
@@ -244,6 +245,10 @@ sub core_entity {
         annotations($c, $entity_type, $ids);
     }
 
+    if ($dump_ratings && $entity_properties->{ratings}) {
+        ratings($c, $entity_type, $ids);
+    }
+
     if ($dump_tags && $entity_properties->{tags}) {
         tags($c, $entity_type, $ids);
     }
@@ -358,6 +363,24 @@ sub places {
         areas($c, pluck('area', $rows));
         handle_rows($c, 'place', $rows);
     });
+}
+
+sub ratings {
+    my ($c, $entity_type, $ids) = @_;
+
+    my $table = "${entity_type}_rating_raw";
+    my $rows = $c->sql->select_list_of_hashes(
+        qq{SELECT $table.* FROM $table
+             LEFT JOIN editor_preference ep ON (ep.editor = $table.editor AND ep.name = 'public_ratings')
+            WHERE $table.$entity_type = any(?)
+              AND coalesce(ep.value, '1') = '1'
+            ORDER BY $table.$entity_type},
+        $ids,
+    );
+
+    editors($c, pluck('editor', $rows));
+
+    handle_rows($c, $table, $rows);
 }
 
 sub recordings {
