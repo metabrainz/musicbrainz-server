@@ -175,6 +175,7 @@ sub relationships {
         my $link_ids = pluck('link', $results);
         handle_rows($c, 'link', 'id', $link_ids);
         handle_rows($c, 'link_attribute', 'link', $link_ids);
+        handle_rows($c, 'link_attribute_credit', 'link', $link_ids);
         handle_rows($c, 'link_attribute_text_value', 'link', $link_ids);
 
         handle_rows($c, $table, $results);
