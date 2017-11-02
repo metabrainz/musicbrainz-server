@@ -6,7 +6,11 @@ use warnings;
 use base 'Exporter';
 use feature 'state';
 use MusicBrainz::Script::Utils qw( get_primary_keys );
-use MusicBrainz::Server::Constants qw( %ENTITIES );
+use MusicBrainz::Server::Constants qw(
+    $EDITOR_SANITISED_COLUMNS
+    %ENTITIES
+    entities_with
+);
 
 our @EXPORT_OK = qw(
     get_core_entities
@@ -18,6 +22,10 @@ our @link_path;
 # Should be set by users of this package.
 our $handle_inserts = sub {};
 our $follow_extra_data = 1;
+# This is a hack that allows us to clear editor.area for areas that weren't
+# already dumped. (We don't follow this column because it creates cycles;
+# see `sub editors`.)
+our %area_ids;
 our %path_ids;
 
 sub pluck {
@@ -196,6 +204,12 @@ sub core_entity {
 sub areas {
     my ($c, $ids) = @_;
 
+    my @ids = grep { defined } @{$ids};
+    return unless @ids;
+
+    $area_ids{$_} = 1 for @ids;
+    $ids = \@ids;
+
     core_entity($c, 'area', $ids, sub {
         my ($c, $entity_type, $rows) = @_;
 
@@ -216,6 +230,50 @@ sub artists {
         areas($c, [map { @{$_}{qw(area begin_area end_area)} } @$rows]);
         handle_rows($c, 'artist', $rows);
     });
+}
+
+sub edits {
+    my ($c, $ids) = @_;
+
+    $ids = get_new_ids('edit', $ids);
+    return unless @{$ids};
+
+    for my $entity_type (entities_with('edit_table')) {
+        my $table = "edit_$entity_type";
+        my $rows = get_rows($c, $table, 'edit', $ids);
+
+        get_core_entities($c, $entity_type, pluck($entity_type, $rows));
+
+        handle_rows($c, $table, $rows);
+    }
+
+    my $rows = get_rows($c, 'edit', 'id', $ids);
+    editors($c, pluck('editor', $rows));
+    handle_rows($c, 'edit', $rows);
+}
+
+sub editors {
+    my ($c, $ids) = @_;
+
+    $ids = get_new_ids('editor', $ids);
+    return unless @{$ids};
+
+    my $editor_rows = $c->sql->select_list_of_hashes(
+        "SELECT $EDITOR_SANITISED_COLUMNS FROM editor WHERE id = any(?) ORDER BY id",
+        $ids,
+    );
+
+    # The editor table's 'area' column creates cycles between several tables,
+    # so we only do this for areas that we know have been dumped. While it's
+    # true that we can detect cycles in core_entity, that would prevent us
+    # from filtering out core entities that have already been followed,
+    # because the result of the function would depend on the @link_path.
+    my @known_areas = grep { defined $_ && $area_ids{$_} } @{ pluck('area', $editor_rows) };
+    areas($c, \@known_areas);
+
+    handle_rows($c, 'editor', $editor_rows);
+
+    handle_rows($c, 'editor_language', 'editor', $ids);
 }
 
 sub labels {
@@ -290,7 +348,7 @@ sub releases {
         handle_rows($c, 'track', $track_rows);
 
         my $cover_art_rows = get_rows($c, 'cover_art_archive.cover_art', 'release', $ids);
-        handle_rows($c, 'edit', 'id', pluck('edit', $cover_art_rows));
+        edits($c, pluck('edit', $cover_art_rows));
         handle_rows($c, 'cover_art_archive.image_type', 'mime_type', pluck('mime_type', $cover_art_rows));
         handle_rows($c, 'cover_art_archive.cover_art', $cover_art_rows);
     });
