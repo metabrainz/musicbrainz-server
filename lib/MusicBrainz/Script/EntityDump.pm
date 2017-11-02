@@ -26,6 +26,7 @@ our $dump_collections = 0;
 our $dump_gid_redirects = 0;
 our $dump_meta_tables = 0;
 our $dump_ratings = 0;
+our $dump_subscriptions = 0;
 our $dump_tags = 0;
 our $follow_extra_data = 1;
 our $relationships_cardinality = 0;
@@ -487,6 +488,26 @@ sub release_groups {
     });
 }
 
+sub subscriptions {
+    my ($c, $entity_type, $ids) = @_;
+
+    my $table = "editor_subscribe_${entity_type}";
+
+    my $rows = $c->sql->select_list_of_hashes(
+        qq{SELECT $table.* FROM $table
+             LEFT JOIN editor_preference ep ON (ep.editor = $table.editor AND ep.name = 'public_subscriptions')
+            WHERE $table.$entity_type = any(?)
+              AND coalesce(ep.value, '1') = '1'
+            ORDER BY $table.$entity_type},
+        $ids,
+    );
+
+    editors($c, pluck('editor', $rows));
+    edits($c, pluck('last_edit_sent', $rows));
+
+    handle_rows($c, $table, $rows);
+}
+
 sub works {
     my ($c, $ids) = @_;
 
@@ -529,6 +550,7 @@ sub get_core_entities {
 
     my %collection_entities;
     my %relationship_entities;
+    my %subscription_entities;
 
     my $follow_path;
     $follow_path = sub {
@@ -542,9 +564,18 @@ sub get_core_entities {
             if ($depth == 1) {
                 my $_dump_collections =
                     $dump_collections && $properties->{collections};
-                if ($_dump_collections) {
+
+                my $_dump_subscriptions =
+                    $dump_subscriptions &&
+                    $properties->{subscriptions} &&
+                    $properties->{subscriptions}{entity};
+
+                if ($_dump_collections || $_dump_subscriptions) {
                     for my $id (@ids) {
-                        $collection_entities{$part_type}{$id} = 1;
+                        $collection_entities{$part_type}{$id} = 1
+                            if $_dump_collections;
+                        $subscription_entities{$part_type}{$id} = 1
+                            if $_dump_subscriptions;
                     }
                 }
             }
@@ -577,6 +608,11 @@ sub get_core_entities {
     for my $type (keys %relationship_entities) {
         my @ids = keys %{ $relationship_entities{$type} };
         relationships($c, $type, \@ids);
+    }
+
+    for my $type (keys %subscription_entities) {
+        my @ids = keys %{ $subscription_entities{$type} };
+        subscriptions($c, $type, \@ids);
     }
 }
 
