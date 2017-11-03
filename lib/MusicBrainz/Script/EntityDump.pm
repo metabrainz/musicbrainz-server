@@ -74,7 +74,7 @@ sub handle_rows {
     } @{$rows};
 
     if (@new_rows) {
-        $handle_inserts->($c, $table, \@new_rows);
+        $handle_inserts->($c, $schema, $table, \@new_rows);
     }
 };
 

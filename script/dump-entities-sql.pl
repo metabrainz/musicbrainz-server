@@ -37,7 +37,7 @@ sub quote_column {
 }
 
 $MusicBrainz::Script::EntityDump::handle_inserts = sub {
-    my ($c, $table, $rows) = @_;
+    my ($c, $schema, $table, $rows) = @_;
 
     my @columns = sort keys %{$rows->[0]};
     my $columns_string = join ', ', @columns;
@@ -46,13 +46,13 @@ $MusicBrainz::Script::EntityDump::handle_inserts = sub {
         my $row = $_;
 
         my $values_string = join ', ', map {
-            quote_column($c->sql->get_column_type_name($table, $_), $row->{$_})
+            quote_column($c->sql->get_column_type_name("$schema.$table", $_), $row->{$_})
         } @columns;
 
         "\t($values_string)";
     } @{$rows};
 
-    print encode('utf-8', "INSERT INTO $table ($columns_string) VALUES\n${tuples_string};\n");
+    print encode('utf-8', "INSERT INTO $schema.$table ($columns_string) VALUES\n${tuples_string};\n");
 };
 
 sub dump_release_groups {
