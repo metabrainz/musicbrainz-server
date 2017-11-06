@@ -87,8 +87,8 @@ sub serialize
         # any), those of the release group should be serialized (to match the
         # behaviour of the XML serializer). So we call `serialize_rating`
         # directly on the release group, setting `$toplevel` to 1.
+        local $MusicBrainz::Server::WebService::Serializer::JSON::2::Utils::force_ratings = 1;
         my $output = serialize_entity($entity->release_group, $inc, $stash);
-        serialize_rating($output, $entity->release_group, $inc, $stash, 1);
         $body{"release-group"} = $output;
     }
 
@@ -118,7 +118,7 @@ sub serialize
         # any), those of the related entities should be displayed. So we override
         # a package variable to force the ratings to be serialized despite not
         # being top-level.
-        local $MusicBrainz::Server::WebService::Serializer::JSON::2::Role::Rating::forced = 1;
+        local $MusicBrainz::Server::WebService::Serializer::JSON::2::Utils::force_ratings = 1;
         $body{media} = [
             map { serialize_entity($_, $inc, $stash) }
             $entity->all_mediums ];
