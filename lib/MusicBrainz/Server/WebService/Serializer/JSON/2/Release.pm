@@ -114,6 +114,11 @@ sub serialize
 
     if ($inc && ($inc->media || $inc->discids || $inc->recordings))
     {
+        # MBS-9540: If ratings are requested (even though a release doesn't have
+        # any), those of the related entities should be displayed. So we override
+        # a package variable to force the ratings to be serialized despite not
+        # being top-level.
+        local $MusicBrainz::Server::WebService::Serializer::JSON::2::Role::Rating::forced = 1;
         $body{media} = [
             map { serialize_entity($_, $inc, $stash) }
             $entity->all_mediums ];
