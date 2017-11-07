@@ -568,7 +568,7 @@ const CLEANUPS = {
     match: [new RegExp("^(https?://)?([^/]+\\.)?itunes\\.apple\\.com/", "i")],
     type: LINK_TYPES.downloadpurchase,
     clean: function (url) {
-      return url.replace(/^https?:\/\/(?:geo\.)?itunes\.apple\.com\/([a-z]{2}\/)?(artist|album|audiobook|music-video|podcast|preorder)\/(?:[^?#\/]+\/)?(id[0-9]+)(?:\?.*)?$/, "https://itunes.apple.com/$1$2/$3");
+      return url.replace(/^https?:\/\/(?:geo\.)?itunes\.apple\.com\/([a-z]{2}\/)?(artist|album|audiobook|music-video|podcast|preorder)\/(?:[^?#\/]+\/)?(?:id)?([0-9]+)(?:\?.*)?$/, "https://itunes.apple.com/$1$2/id$3");
     },
     validate: function (url, id) {
       var m = /^https:\/\/itunes\.apple\.com\/(?:[a-z]{2}\/)?([a-z-]{3,})\/id[0-9]+$/.exec(url);
