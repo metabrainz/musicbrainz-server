@@ -106,7 +106,6 @@
         [% IF user.website %]
             [% WRAPPER property name=l("Homepage:") %]
                 [%- IF !user.is_limited || c.user_exists -%]
-                    [% user.website | format_wikitext %]
                     <a href="[% user.website | html %]" rel="nofollow">
                         [%~ user.website | html ~%]
                     </a>
