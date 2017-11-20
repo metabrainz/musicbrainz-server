@@ -494,8 +494,8 @@ sub select_list_of_hashes
     $self->_select_list($query, \@params, 'hashref');
 }
 
-sub get_column_info($$$) {
-    my ($self, $table, $column) = @_;
+sub get_all_column_info($$$) {
+    my ($self, $table) = @_;
 
     state $cache = {};
 
@@ -513,7 +513,13 @@ sub get_column_info($$$) {
         $cache->{$schema}{$table} = $column_info;
     }
 
-    return $column_info->{$column};
+    return $column_info;
+}
+
+sub get_column_info($$$) {
+    my ($self, $table, $column) = @_;
+
+    return $self->get_all_column_info($table)->{$column};
 }
 
 sub get_column_type_name($$$) {
