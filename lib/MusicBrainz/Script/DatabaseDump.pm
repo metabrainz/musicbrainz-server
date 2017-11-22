@@ -57,6 +57,12 @@ has lock_fh => (
     isa => 'Maybe[FileHandle]',
 );
 
+has isolation_level => (
+    is => 'ro',
+    isa => 'Str',
+    default => 'SERIALIZABLE',
+);
+
 around begin_dump => sub {
     my ($orig, $self) = @_;
 
@@ -76,7 +82,7 @@ around begin_dump => sub {
     my $sql = $self->sql;
     $sql->auto_commit;
     $sql->do(q{SET SESSION CHARACTERISTICS
-               AS TRANSACTION ISOLATION LEVEL SERIALIZABLE});
+               AS TRANSACTION ISOLATION LEVEL } . $self->isolation_level);
     $sql->begin;
 
     $self->$orig;
