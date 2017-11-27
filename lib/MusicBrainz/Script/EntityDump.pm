@@ -30,6 +30,7 @@ our $dump_subscriptions = 0;
 our $dump_tags = 0;
 our $follow_extra_data = 1;
 our $relationships_cardinality = 0;
+our @skip_tables;
 # This is a hack that allows us to clear editor.area for areas that weren't
 # already dumped. (We don't follow this column because it creates cycles;
 # see `sub editors`.)
@@ -43,6 +44,9 @@ sub pluck {
 
 sub handle_rows {
     my ($c, $table) = @_;
+
+    state $skip_tables = { map { $_ => 1 } @skip_tables };
+    return if exists $skip_tables->{$table};
 
     my $rows;
     $rows = $_[2] if (@_ == 3);
