@@ -446,7 +446,10 @@ sub releases {
         handle_rows($c, 'release_unknown_country', 'release', $ids);
 
         my $release_country_rows = get_rows($c, 'release_country', 'release', $ids);
-        areas($c, pluck('country', $release_country_rows));
+        my $country_ids = pluck('country', $release_country_rows);
+        my $country_area_rows = get_rows($c, 'country_area', 'area', $country_ids);
+        areas($c, $country_ids);
+        handle_rows($c, 'country_area', $country_area_rows);
         handle_rows($c, 'release_country', $release_country_rows);
 
         my $release_label_rows = get_rows($c, 'release_label', 'release', $ids);
