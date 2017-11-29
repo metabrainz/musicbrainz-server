@@ -78,6 +78,23 @@ sub get_rows {
     );
 }
 
+sub get_new_ids {
+    my ($cache_key, $ids) = @_;
+
+    state $root = {};
+    my $cache = ($root->{$cache_key} //= {});
+
+    my @new_ids;
+    for my $id (@{$ids}) {
+        if (defined $id && !exists $cache->{$id}) {
+            $cache->{$id} = 1;
+            push @new_ids, $id;
+        }
+    }
+
+    return \@new_ids;
+}
+
 sub tags {
     my ($c, $entity_type, $ids) = @_;
 
@@ -90,6 +107,9 @@ sub tags {
 
 sub artist_credits {
     my ($c, $ids) = @_;
+
+    $ids = get_new_ids('artist_credit', $ids);
+    return unless @{$ids};
 
     my $rows = get_rows($c, 'artist_credit', 'id', $ids);
     my $name_rows = get_rows($c, 'artist_credit_name', 'artist_credit', $ids);
@@ -142,6 +162,9 @@ sub relationships {
 
 sub core_entity {
     my ($c, $entity_type, $ids, $callback) = @_;
+
+    $ids = get_new_ids($entity_type, $ids);
+    return unless @{$ids};
 
     local @link_path = (@link_path, $entity_type);
 
