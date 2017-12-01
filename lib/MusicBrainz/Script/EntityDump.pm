@@ -474,6 +474,8 @@ sub releases {
         relationships($c, 'recording', $recording_ids);
         artist_credits($c, pluck('artist_credit', $track_rows));
         handle_rows($c, 'track', $track_rows);
+        my $work_relationships = get_rows($c, 'l_recording_work', 'entity0', $recording_ids);
+        relationships($c, 'work', pluck('entity1', $work_relationships));
 
         my $cover_art_rows = get_rows($c, 'cover_art_archive.cover_art', 'release', $ids);
         edits($c, pluck('edit', $cover_art_rows));
