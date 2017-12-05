@@ -99,7 +99,7 @@ sub _create_message_to_editor_email
     my @headers = (
         'To'          => _user_address($to),
         'Sender'      => $EMAIL_NOREPLY_ADDRESS,
-        'Subject'     => $subject,
+        'Subject'     => _encode_header($subject),
         'Message-Id'  => _message_id('correspondence-%s-%s-%d', $correspondents[0]->id, $correspondents[1]->id, $time),
         'References'  => _message_id('correspondence-%s-%s', $correspondents[0]->id, $correspondents[1]->id),
         'In-Reply-To' => _message_id('correspondence-%s-%s', $correspondents[0]->id, $correspondents[1]->id),
@@ -534,7 +534,7 @@ EOF
     my @headers = (
         'To'          => $admin_addresses,
         'Sender'      => $EMAIL_NOREPLY_ADDRESS,
-        'Subject'     => $subject,
+        'Subject'     => _encode_header($subject),
         'Message-Id'  => _message_id('editor-report-%s-%s-%d', $reporter->id, $reported_user->id, time),
     );
 
