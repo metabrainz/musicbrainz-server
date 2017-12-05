@@ -35,6 +35,16 @@ has 'c' => (
 
 Readonly our $url_prefix => 'https://' . DBDefs->WEB_SERVER_USED_IN_EMAIL;
 
+sub _encode_header {
+    my $header = shift;
+
+    if ($header =~ /[^\x20-\x7E]/) {
+        return encode("MIME-Q", $header);
+    } else {
+        return $header;
+    }
+}
+
 sub _user_address
 {
     my ($user, $hidden) = @_;
