@@ -49,13 +49,15 @@ sub _user_address
 {
     my ($user, $hidden) = @_;
 
+    my $quoted_name = _encode_header($user->name);
+
     if ($hidden) {
         # Hide the real address
-        my $email = sprintf '"%s"@users.musicbrainz.org', $user->name;
-        return Email::Address->new($user->name, $email)->format;
+        my $email = sprintf '"%s"@users.musicbrainz.org', $quoted_name;
+        return Email::Address->new($quoted_name, $email)->format;
     }
 
-    return Email::Address->new($user->name, $user->email)->format;
+    return Email::Address->new($quoted_name, $user->email)->format;
 }
 
 sub _message_id
