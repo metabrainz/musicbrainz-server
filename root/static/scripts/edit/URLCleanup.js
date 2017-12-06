@@ -629,6 +629,7 @@ const CLEANUPS = {
       new RegExp("^(https?://)?([^/]+\\.)?muzikum\\.eu", "i"),
       new RegExp("^(https?://)?([^/]+\\.)?genius\\.com", "i"),
       new RegExp("^(https?://)?([^/]+\\.)?gutenberg\\.org", "i"),
+      new RegExp("^(https?://)?([^/]+\\.)?laboiteauxparoles\\.com", "i"),
     ],
     type: LINK_TYPES.lyrics,
     clean: function (url) {
