@@ -35,17 +35,29 @@ has 'c' => (
 
 Readonly our $url_prefix => 'https://' . DBDefs->WEB_SERVER_USED_IN_EMAIL;
 
+sub _encode_header {
+    my $header = shift;
+
+    if ($header =~ /[^\x20-\x7E]/) {
+        return encode("MIME-Q", $header);
+    } else {
+        return $header;
+    }
+}
+
 sub _user_address
 {
     my ($user, $hidden) = @_;
 
+    my $quoted_name = _encode_header($user->name);
+
     if ($hidden) {
         # Hide the real address
-        my $email = sprintf '"%s"@users.musicbrainz.org', $user->name;
-        return Email::Address->new($user->name, $email)->format;
+        my $email = sprintf '"%s"@users.musicbrainz.org', $quoted_name;
+        return Email::Address->new($quoted_name, $email)->format;
     }
 
-    return Email::Address->new($user->name, $user->email)->format;
+    return Email::Address->new($quoted_name, $user->email)->format;
 }
 
 sub _message_id
@@ -87,7 +99,7 @@ sub _create_message_to_editor_email
     my @headers = (
         'To'          => _user_address($to),
         'Sender'      => $EMAIL_NOREPLY_ADDRESS,
-        'Subject'     => $subject,
+        'Subject'     => _encode_header($subject),
         'Message-Id'  => _message_id('correspondence-%s-%s-%d', $correspondents[0]->id, $correspondents[1]->id, $time),
         'References'  => _message_id('correspondence-%s-%s', $correspondents[0]->id, $correspondents[1]->id),
         'In-Reply-To' => _message_id('correspondence-%s-%s', $correspondents[0]->id, $correspondents[1]->id),
@@ -522,7 +534,7 @@ EOF
     my @headers = (
         'To'          => $admin_addresses,
         'Sender'      => $EMAIL_NOREPLY_ADDRESS,
-        'Subject'     => $subject,
+        'Subject'     => _encode_header($subject),
         'Message-Id'  => _message_id('editor-report-%s-%s-%d', $reporter->id, $reported_user->id, time),
     );
 
