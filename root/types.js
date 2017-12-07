@@ -12,6 +12,10 @@
 // TO_JSON methods under lib/MusicBrainz/Server/Entity/; those are precisely
 // how data is serialized for us.
 
+type CatalystContextT = {
+  user_exists: bool;
+};
+
 declare type CommonsImageT = {
   page_url: string;
   thumb_url: string;
@@ -27,8 +31,16 @@ declare type EntityT = {
   name: string;
 };
 
+declare type RatableT = EntityT & {
+  rating: number | null;
+  rating_count: number;
+  user_rating: number | null;
+};
+
 declare type UserTagT = {
   count: number;
   tag: string;
   vote: 1 | -1;
 };
+
+declare var $c: CatalystContextT;

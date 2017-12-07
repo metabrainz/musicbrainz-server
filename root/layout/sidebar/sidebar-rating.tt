@@ -1,7 +1,0 @@
-<h2 class="rating">[% rating_heading || l('Rating') %]</h2>
-<p>
-    [% rating_stars(entity) %]
-    [%- IF entity.rating_count -%]
-    ([% link_entity(entity, "ratings", l("see all ratings")) %])
-    [%- END -%]
-</p>
