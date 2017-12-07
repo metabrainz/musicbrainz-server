@@ -49,12 +49,12 @@ function _formFromHash(key, value, path) {
       return value.toList();
 
     case 'field':
-      return Immutable.Iterable.isIndexed(value) ?
+      return Immutable.isIndexed(value) ?
         value.toList() : value.toMap();
 
     default:
       if (value.has('field')) {
-        value = Immutable.Iterable.isIndexed(value.get('field')) ?
+        value = Immutable.isIndexed(value.get('field')) ?
           (new RepeatableField(value)) : (new CompoundField(value));
       } else if (value.has('value')) {
         value = new Field(value);
