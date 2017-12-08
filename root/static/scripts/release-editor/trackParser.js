@@ -37,7 +37,7 @@ releaseEditor.trackParser = {
     options: {
         hasTrackNumbers: optionCookie("trackparser_tracknumbers", true),
         hasTrackArtists: optionCookie("trackparser_trackartists", true),
-        hasVinylNumbers: optionCookie("trackparser_vinylnumbers", true),
+        hasVinylNumbers: optionCookie("trackparser_vinylnumbers", false),
         useTrackNumbers: optionCookie("trackparser_usetracknumbers", true),
         useTrackNames: optionCookie("trackparser_usetracknames", true),
         useTrackArtists: optionCookie("trackparser_usetrackartists", true),
