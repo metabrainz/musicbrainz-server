@@ -582,6 +582,10 @@ msgstr ""
 msgid "bin-sasara"
 msgstr ""
 
+#: DB:instrument/name:884
+msgid "birbynė"
+msgstr ""
+
 #: DB:instrument/name:801
 msgctxt "wooden natural horn"
 msgid "birch lur"
@@ -1634,6 +1638,11 @@ msgstr ""
 msgid "hurdy gurdy"
 msgstr ""
 
+#: DB:instrument/name:889
+msgctxt "\"woodwater\" flute made with hydraulics"
+msgid "hydraulophone"
+msgstr ""
+
 #: DB:instrument/name:818
 msgctxt "fipple flute from Härjedalen, sweden"
 msgid "härjedalspipa"
@@ -1892,7 +1901,13 @@ msgid "langeleik"
 msgstr ""
 
 #: DB:instrument/name:704
+msgctxt "Greek long-neck lute"
 msgid "laouto"
+msgstr ""
+
+#: DB:instrument/name:886
+msgctxt "simplified zither"
+msgid "lap harp"
 msgstr ""
 
 #: DB:instrument/name:385
@@ -2196,6 +2211,11 @@ msgstr ""
 msgid "oktawka"
 msgstr ""
 
+#: DB:instrument/name:888
+msgctxt "Natural horn made of ivory"
+msgid "olifant"
+msgstr ""
+
 #: DB:instrument/name:281
 msgid "omnichord"
 msgstr ""
@@ -2479,6 +2499,7 @@ msgid "rebab"
 msgstr ""
 
 #: DB:instrument/name:206
+msgctxt "Medieval bowed lyre"
 msgid "rebec"
 msgstr ""
 
@@ -2534,6 +2555,11 @@ msgstr ""
 
 #: DB:instrument/name:545
 msgid "ruan"
+msgstr ""
+
+#: DB:instrument/name:883
+msgctxt "Plucked lute member of the bowed rebab family"
+msgid "rubab"
 msgstr ""
 
 #: DB:instrument/name:501
@@ -3228,6 +3254,11 @@ msgstr ""
 msgid "tuned percussion"
 msgstr ""
 
+#: DB:instrument/name:887
+msgctxt "Korean notched end-blown bamboo flute"
+msgid "tungso"
+msgstr ""
+
 #: DB:instrument/name:181
 msgid "turntable(s)"
 msgstr ""
@@ -3502,6 +3533,11 @@ msgstr ""
 
 #: DB:instrument/name:685
 msgid "yonggo"
+msgstr ""
+
+#: DB:instrument/name:885
+msgctxt "Mongolian wire-stringed hammered dulcimer"
+msgid "yoochin"
 msgstr ""
 
 #: DB:instrument/name:240
