@@ -25,7 +25,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2017-10-24 00:47+0000\n"
+"PO-Revision-Date: 2017-11-13 07:25+0000\n"
 "Last-Translator: yvanz\n"
 "Language-Team: French (http://www.transifex.com/musicbrainz/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -251,7 +251,7 @@ msgid ""
 "A play is a form of literature usually consisting of scripted dialogue "
 "between characters, and intended for theatrical performance rather than just"
 " reading."
-msgstr "Une pièce est une forme de littérature consistant habituellement d’un dialogue préparé entre des personnages et destinée à l’interprétation théâtrale plutôt qu’à la lecture. "
+msgstr "Une pièce de théâtre est une forme de littérature consistant habituellement d’un dialogue préparé entre des personnages et destinée à l’interprétation théâtrale plutôt qu’à la lecture. "
 
 #: DB:work_type/description:21
 msgctxt "work_type"
@@ -512,7 +512,7 @@ msgctxt "work_type"
 msgid ""
 "An audio drama is a dramatized, purely acoustic performance, broadcast on "
 "radio or published on an audio medium (tape, CD, etc.)."
-msgstr "Une dramatique sonore est une interprétation théâtrale purement acoustique, diffusée à la radio ou publiée sur des supports (cassette, CD, etc.)."
+msgstr "Une pièce de théâtre audiophonique est une pièce de théâtre adaptée à la diffusion par un média purement audio, que ce soit à la radio ou sur des supports physiques (cassette, CD, etc.)."
 
 #: DB:event_type/description:2
 msgctxt "event_type"
@@ -674,7 +674,7 @@ msgstr "Présent"
 #: DB:work_type/name:25
 msgctxt "work_type"
 msgid "Audio drama"
-msgstr "Pièce de théâtre"
+msgstr "Pièce de théâtre audiophonique"
 
 #: DB:release_group_secondary_type/name:5
 msgctxt "release_group_secondary_type"
@@ -4040,7 +4040,7 @@ msgstr "Nom du lieu"
 #: DB:work_type/name:28
 msgctxt "work_type"
 msgid "Play"
-msgstr "Pièce"
+msgstr "Pièce de théâtre"
 
 #: DB:medium_format/name:45
 msgctxt "medium_format"
@@ -4080,7 +4080,7 @@ msgstr "Prose"
 #: DB:release_status/name:4
 msgctxt "release_status"
 msgid "Pseudo-Release"
-msgstr "Pseudo-Release"
+msgstr "Pseudo-parution"
 
 #: DB:label_type/name:7
 msgctxt "label_type"
