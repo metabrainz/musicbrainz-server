@@ -88,7 +88,7 @@ const {ViewModel} = require('./common/viewModel');
 
     var seriesOrdering = {
         event: function (relationships, series) {
-            return _.sortByAll(
+            return _.sortBy(
                 relationships,
                 function (r) { return r.target(series).begin_date || '' },
                 function (r) { return r.target(series).end_date || '' },
@@ -96,10 +96,10 @@ const {ViewModel} = require('./common/viewModel');
             );
         },
         release: function (relationships, series) {
-            return _.sortByAll(
+            return _.sortBy(
                 relationships,
-                function (r) { return _(r.target(series).events).map(getDate).sort().first() },
-                function (r) { return _(r.target(series).labels).map(getCatalogNumber).sort().first() }
+                function (r) { return _(r.target(series).events).map(getDate).sort().head() },
+                function (r) { return _(r.target(series).labels).map(getCatalogNumber).sort().head() }
             );
         },
         release_group: function (relationships, series) {

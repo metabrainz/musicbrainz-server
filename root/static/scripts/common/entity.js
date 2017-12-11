@@ -427,14 +427,14 @@ const formatTrackLength = require('./utility/formatTrackLength');
     MB.entity.Work = Work;
 
     function relatedArtists(relationships) {
-        return _(relationships).filter({target: {entityType: 'artist'}}).pluck('target').value();
+        return _(relationships).filter({target: {entityType: 'artist'}}).map('target').value();
     }
 
     var classicalRoles = /\W(baritone|cello|conductor|gamba|guitar|orch|orchestra|organ|piano|soprano|tenor|trumpet|vocals?|viola|violin): /;
 
     function isProbablyClassical(entity) {
-        return classicalRoles.test(entity.name) || _.any(entity.relationships, function (r) {
-            return _.contains(PROBABLY_CLASSICAL_LINK_TYPES, r.linkTypeID);
+        return classicalRoles.test(entity.name) || _.some(entity.relationships, function (r) {
+            return _.includes(PROBABLY_CLASSICAL_LINK_TYPES, r.linkTypeID);
         });
     }
 

@@ -78,7 +78,7 @@ releaseEditor.trackParser = {
             // We should've parsed at least some values, otherwise something
             // went wrong. Returning undefined removes this result from
             // newTracks.
-            if (!_.any(_.values(data))) return;
+            if (!_.some(_.values(data))) return;
 
             currentPosition += 1;
             data.position = currentPosition;
@@ -120,8 +120,7 @@ releaseEditor.trackParser = {
                     data.matchedTrack = track;
                     matchedTracks[track.uniqueID] = 1;
                 }
-            })
-            .value();
+            });
 
         var newTracks = _.map(newTracksData, function (data, index) {
             var matchedTrack = data.matchedTrack;
@@ -214,7 +213,7 @@ releaseEditor.trackParser = {
             }
 
             // Force a minimum number of audio tracks if there's a CDTOC.
-            var newAudioTrackCount = _.sum(newTracks, function (t) {
+            var newAudioTrackCount = _.sumBy(newTracks, function (t) {
                 return t.isDataTrack() ? 0 : 1;
             });
 
@@ -325,7 +324,7 @@ releaseEditor.trackParser = {
 
         // Split the string into parts, if there are any.
         var parts = line.split(this.separators),
-            names = _.reject(parts, this.separatorOrBlank, this);
+            names = _.reject(parts, x => this.separatorOrBlank(x));
 
         // Only parse an artist if there's more than one name. Assume the
         // artist is the last name.

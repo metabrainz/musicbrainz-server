@@ -202,8 +202,8 @@ parserTest("MBS-7451: track parser can clear TOC track lengths", function (t) {
     var tracks = medium.tracks();
 
     t.deepEqual(
-        _.invoke(tracks, "length"),
-        _.pluck(medium.original().tracklist, "length"),
+        _.invokeMap(tracks, "length"),
+        _.map(medium.original().tracklist, "length"),
         "track lengths are unchanged"
     );
 });
@@ -333,7 +333,7 @@ parserTest("Does not lose previous recordings (MBS-7719)", function (t) {
 
     releaseEditor.rootField.release(release);
     var medium = release.mediums()[0];
-    var oldRecordings = _(medium.tracks()).invoke('recording').value();
+    var oldRecordings = _(medium.tracks()).invokeMap('recording').value();
 
     medium.tracks(
         trackParser.parse(
@@ -344,7 +344,7 @@ parserTest("Does not lose previous recordings (MBS-7719)", function (t) {
         )
     );
     var newTracks = medium.tracks();
-    var newRecordings = _(newTracks).invoke('recording').value();
+    var newRecordings = _(newTracks).invokeMap('recording').value();
 
     t.ok(!newTracks[0].id, 'first track has no id');
     t.ok(!newTracks[0].gid, 'first track has no gid');
@@ -355,7 +355,7 @@ parserTest("Does not lose previous recordings (MBS-7719)", function (t) {
 
     releaseEditor.reuseUnsetPreviousRecordings(release);
     newTracks = medium.tracks();
-    newRecordings = _(newTracks).invoke('recording').value();
+    newRecordings = _(newTracks).invokeMap('recording').value();
 
     t.equal(newTracks[0].id, 1, 'previous first track’s id is used');
     t.equal(newTracks[0].gid, '7aeebcb5-cc99-4c7f-82bc-f2da35200081', 'previous first track’s gid is used');
@@ -490,5 +490,5 @@ parserTest("force number of tracks to equal CD TOC", function (t) {
 
     t.equal(medium.audioTracks().length, 1);
     t.equal(medium.dataTracks().length, 2);
-    t.deepEqual(_.invoke(medium.tracks(), 'name'), ['Track A', 'Very Different Title', 'Another Data Track']);
+    t.deepEqual(_.invokeMap(medium.tracks(), 'name'), ['Track A', 'Very Different Title', 'Another Data Track']);
 });

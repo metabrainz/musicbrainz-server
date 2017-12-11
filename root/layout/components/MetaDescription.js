@@ -151,12 +151,12 @@ function workDescription(work) {
   if (work.writers) {
     desc.push(
       l('Writers:') + ' ' +
-      commaOnlyList(_.pluck(work.writers, 'entity.name'))
+      commaOnlyList(_.map(work.writers, 'entity.name'))
     );
   }
   if (work.iswcs) {
     desc.push(
-      l('ISWCs:') + ' ' + commaOnlyList(_.pluck(work.iswcs, 'iswc'))
+      l('ISWCs:') + ' ' + commaOnlyList(_.map(work.iswcs, 'iswc'))
     );
   }
   return desc;

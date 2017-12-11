@@ -27,7 +27,7 @@
         <td data-bind="text: tracks"></td>
         <td data-bind="html: dates.join('<br />')"></td>
         <td data-bind="html: countries.join('<br />')"></td>
-        <td data-bind="html: _.invoke(labels, 'html').join('<br />')"></td>
+        <td data-bind="html: _.invokeMap(labels, 'html').join('<br />')"></td>
         <td data-bind="html: catalogNumbers.join('<br />')"></td>
         <td data-bind="text: barcode"></td>
       </tr>

@@ -44,7 +44,7 @@ const mergeDates = require('./mergeDates');
             this.entities.equalityComparer = entitiesComparer;
             this.entities.saved = this.entities.peek().slice(0);
             this.entities.subscribe(this.entitiesChanged, this);
-            this.entityTypes = _(data.entities).pluck("entityType").join("-");
+            this.entityTypes = _(data.entities).map("entityType").join("-");
             this.uniqueID = this.entityTypes + "-" + (this.id || _.uniqueId("new-"));
 
             this.entity0_credit = ko.observable(data.entity0_credit || '');
@@ -361,7 +361,7 @@ const mergeDates = require('./mergeDates');
 
             for (var i = 0, part; part = parts[i]; i++) {
                 if (integerRegex.test(part)) {
-                    parts[i] = _.padLeft(part, 10, "0");
+                    parts[i] = _.padStart(part, 10, "0");
                 }
             }
 

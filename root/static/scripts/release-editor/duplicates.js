@@ -84,7 +84,7 @@ releaseEditor.findReleaseDuplicates = function () {
             release: [ utils.escapeLuceneValue(name) ],
 
             arid: _(ac.names.toJS())
-                    .pluck("artist").pluck("gid")
+                    .map('artist.gid')
                     .map(utils.escapeLuceneValue).value()
         });
 
@@ -118,7 +118,7 @@ function toggleLoadingIndicator(show) {
 }
 
 
-function pluck(chain, name) { return chain.pluck(name).compact() }
+function pluck(chain, name) { return chain.map(name).compact() }
 
 
 function formatReleaseData(release) {
@@ -128,12 +128,12 @@ function formatReleaseData(release) {
     var labels = _(release["label-info"]);
 
     clean.formats = combinedMediumFormatName(release.media);
-    clean.tracks = _.pluck(release.media, "track-count").join(" + ");
+    clean.tracks = _.map(release.media, "track-count").join(" + ");
 
     clean.dates = pluck(events, "date").value();
 
     clean.countries = pluck(events, "area")
-        .pluck("iso-3166-1-codes")
+        .map("iso-3166-1-codes")
         .flatten().compact().uniq().value();
 
     clean.labels = pluck(labels, "label").map(function (info) {

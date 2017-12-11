@@ -197,11 +197,11 @@ class TagEditor extends React.Component<TagEditorProps, TagEditorState> {
     }
 
     _.each(actions, (items, action) => {
-      var url = action + '?tags=' + encodeURIComponent(_(items).pluck('tag').join(','));
+      var url = action + '?tags=' + encodeURIComponent(_(items).map('tag').join(','));
 
       doRequest({url: url})
         .done(data => this.updateTags(data.updates))
-        .fail(() => _.invoke(items, 'fail'));
+        .fail(() => items.forEach(x => x.fail()));
     });
   }
 
@@ -416,7 +416,7 @@ class SidebarTagEditor extends TagEditor {
 
 function init_tag_editor(Component, mountPoint) {
   return function (entity, aggregatedTags, userTags, more) {
-    userTags = _.indexBy(userTags, t => t.tag);
+    userTags = _.keyBy(userTags, t => t.tag);
 
     var combined = _.map(aggregatedTags, function (t) {
       var userTag = userTags[t.tag];

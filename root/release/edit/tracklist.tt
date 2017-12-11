@@ -259,7 +259,7 @@
   <!-- /ko -->
 
   <!-- ko if: !needsMediums() && mediums().length === loadedMediums().length &&
-              _(mediums()).invoke("toc").filter().size() < _($data.seededTocs).values().size() -->
+              _(mediums()).invokeMap("toc").filter().size() < _($data.seededTocs).values().size() -->
     <div class="warning">
       <p>
         [%~ l('You’ve seeded some Disc IDs that aren’t matched to any medium. If this is wrong, use the “Attach Disc ID” options below.') ~%]
