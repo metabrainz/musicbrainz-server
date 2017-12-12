@@ -20,6 +20,8 @@ our @EXPORT_OK = qw(
     serializer
 );
 
+our $force_ratings = 0;
+
 my %serializers =
     map {
         my $class = "MusicBrainz::Server::WebService::Serializer::JSON::2::$_";
@@ -219,7 +221,7 @@ sub serialize_rating {
     my ($into, $entity, $inc, $stash, $toplevel) = @_;
 
     return unless
-        ($toplevel &&
+        (($toplevel || $force_ratings) &&
          (defined $inc && ($inc->ratings || $inc->user_ratings)));
 
     my $opts = $stash->store($entity);

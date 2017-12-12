@@ -1285,6 +1285,13 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
                     expected_clean_url: 'https://itunes.apple.com/ir/podcast/id469326376',
                only_valid_entity_types: ['release']
         },
+        {
+                             input_url: 'https://itunes.apple.com/jp/album/uchiagehanabi-single/1263790414',
+                     input_entity_type: 'release',
+            expected_relationship_type: 'downloadpurchase',
+                    expected_clean_url: 'https://itunes.apple.com/jp/album/id1263790414',
+               only_valid_entity_types: ['release']
+        },
         // Jamendo Music
         {
                              input_url: 'http://www.jamendo.com/en/track/725574/giraffe',

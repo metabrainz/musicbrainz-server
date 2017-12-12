@@ -7,7 +7,9 @@
 [include]
 
 [libs]
+./node_modules/immutable/dist/immutable.js.flow
 ./node_modules/jsx-control-statements/jsx-control-statements.latest.flow.js
+./root/types.js
 
 [lints]
 

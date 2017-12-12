@@ -8,7 +8,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2017-09-19 17:48+0000\n"
+"PO-Revision-Date: 2017-11-21 11:21+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -133,6 +133,11 @@ msgstr "Indiase bamboefluiten"
 msgid "Irish bouzouki"
 msgstr "Ierse bouzouki"
 
+#: DB:instrument/name:878
+msgctxt "19th century transverse flute"
+msgid "Irish flute"
+msgstr "Ierse fluit"
+
 #: DB:instrument/name:355
 msgid "Irish harp / clàrsach"
 msgstr "Ierse harp (clàrsach)"
@@ -229,7 +234,7 @@ msgstr "Wagnertuba"
 
 #: DB:instrument/name:253
 msgid "Warr guitar"
-msgstr "Warr gitaar"
+msgstr "Warr-gitaar"
 
 #: DB:instrument/name:468
 msgid "Wurlitzer electric piano"
@@ -281,6 +286,7 @@ msgid "ajaeng"
 msgstr "ajaeng"
 
 #: DB:instrument/name:747
+msgctxt "set of Nyabinghi drums"
 msgid "akete"
 msgstr "akete"
 
@@ -367,6 +373,11 @@ msgstr "atarigane"
 #: DB:instrument/name:409
 msgid "autoharp"
 msgstr "autoharp"
+
+#: DB:instrument/name:880
+msgctxt "Nyabinghi bass drum"
+msgid "baandu"
+msgstr "baandu"
 
 #: DB:instrument/name:426
 msgid "baglama"
@@ -1351,6 +1362,11 @@ msgstr "frottoir"
 msgid "fujara"
 msgstr "fujara"
 
+#: DB:instrument/name:881
+msgctxt "Nyabinghi middle pitch drum"
+msgid "fundeh"
+msgstr "fundeh"
+
 #: DB:instrument/name:231
 msgid "gadulka"
 msgstr "gdulka"
@@ -1505,8 +1521,9 @@ msgid "gusli"
 msgstr "gusli"
 
 #: DB:instrument/name:567
+msgctxt "gut-stringed acoustic guitar"
 msgid "gut guitar"
-msgstr "darmgitaar"
+msgstr "darmsnaargitaar"
 
 #: DB:instrument/name:452
 msgid "guzheng"
@@ -2147,6 +2164,7 @@ msgid "nyckelharpa"
 msgstr "nyckelharpa / sleutelharp"
 
 #: DB:instrument/name:566
+msgctxt "nylon-stringed acoustic guitar"
 msgid "nylon guitar"
 msgstr "nylongitaar"
 
@@ -2224,6 +2242,11 @@ msgstr "overige instrumenten"
 #: DB:instrument/name:234
 msgid "oud"
 msgstr "oed / oud"
+
+#: DB:instrument/name:879
+msgctxt "late 17th century oval harpsichord"
+msgid "oval spinet"
+msgstr "ovale spinet"
 
 #: DB:instrument/name:864
 msgctxt "Māori taonga pūoro large signalling drum"
@@ -2489,6 +2512,11 @@ msgctxt "Māori taonga pūoro long flute"
 msgid "rehu"
 msgstr "rehu"
 
+#: DB:instrument/name:882
+msgctxt "Nyabinghi smaller pitch drum"
+msgid "repeater"
+msgstr "keteh"
+
 #: DB:instrument/name:722
 msgid "repinique"
 msgstr "repinique"
@@ -2713,7 +2741,7 @@ msgstr "koperblazers met schuifventiel"
 
 #: DB:instrument/name:56
 msgid "slide guitar"
-msgstr "slide gitaar"
+msgstr "slide-gitaar"
 
 #: DB:instrument/name:198
 msgid "slide whistle"
@@ -3372,6 +3400,11 @@ msgstr "vocoder"
 #: DB:instrument/name:450
 msgid "voice synthesizer"
 msgstr "spraaksynthesiser"
+
+#: DB:instrument/name:877
+msgctxt "plastic horn"
+msgid "vuvuzela"
+msgstr "vuvuzela"
 
 #: DB:instrument/name:159
 msgid "washboard"

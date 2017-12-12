@@ -317,7 +317,7 @@ require('./common/entity');
         var $tracklist = $("#tracklist tbody");
 
         function count($inputs) {
-            return _.uniq($inputs, ko.dataFor).length;
+            return _.uniqBy($inputs, ko.dataFor).length;
         }
 
         function medium(medium_selector, selector, counter) {

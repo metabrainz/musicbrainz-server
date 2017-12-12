@@ -577,10 +577,18 @@ msgid ""
 "metal cone, it is used in the traditional Cobla and Sardana music."
 msgstr ""
 
+#. name:laouto 
+#: DB:instrument/description:704
+msgid ""
+"Differs from other lutes in that its string tension is greater thus sounding "
+"more like the oud. From ancient Greece, it was used as an accompaniment to "
+"Cretan Lyra"
+msgstr ""
+
 #. name:craviola 
 #: DB:instrument/description:779
 msgid ""
-"Distinctly asymmetric in contrast to typical guitar, it's timbre is a "
+"Distinctly asymmetric in contrast to typical guitar, its timbre is a "
 "combination of the harpsichord (pt:cravo) and the Viola caipira. It can have "
 "six or twelve nylon or steel strings and are produced solely by company "
 "Giannini."
@@ -726,6 +734,13 @@ msgstr ""
 msgid "Hollow-body acoustic guitar strung with nylon-strings."
 msgstr ""
 
+#. name:olifant 
+#: DB:instrument/description:888
+msgid ""
+"Hunting horn carved out of ivory, it was widely used in Medieval wars to "
+"alarm or increase soldiers' morale."
+msgstr ""
+
 #. name:huqin 
 #: DB:instrument/description:213
 msgid "Huqin is a Chinese family of bowed string instruments."
@@ -853,6 +868,21 @@ msgid ""
 "hardwood, this ancient instrument was used for rhythm during chanting."
 msgstr ""
 
+#. name:tungso 
+#: DB:instrument/description:887
+msgid ""
+"Made of thick aged bamboo, this notched end-blown flute may have had a "
+"buzzing membrane."
+msgstr ""
+
+#. name:hydraulophone 
+#: DB:instrument/description:889
+msgid ""
+"Made of tubing with holes that may have everything from none to two reeds, "
+"water instead of air comes out of the holes. Sound is produced by covering "
+"the holes with fingers, altering the flow of water through the holes."
+msgstr ""
+
 #. name:pūtōrino 
 #: DB:instrument/description:786
 msgid ""
@@ -934,6 +964,14 @@ msgid ""
 "the world of this get up."
 msgstr ""
 
+#. name:yoochin 
+#: DB:instrument/description:885
+msgid ""
+"Originally introduced to Mongolia from China, it has 13 double wire-strings "
+"and a black lacquered wooden soundboard. Traditionally it was only played by "
+"townspeople."
+msgstr ""
+
 #. name:other instruments 
 #: DB:instrument/description:141
 msgid ""
@@ -1004,6 +1042,14 @@ msgstr ""
 #. name:pí thiu 
 #: DB:instrument/description:339
 msgid "Pí thiu or Pí khui vertical flute"
+msgstr ""
+
+#. name:rubab 
+#: DB:instrument/description:883
+msgid ""
+"Related to bowed instrument rebab, it is played in many countries, from "
+"India to Afghanistan. It's made of wood and covered with a membrane and has "
+"3 melody strings, 3 drone strings and 11/12 resonance strings."
 msgstr ""
 
 #. name:ruan 
@@ -2137,11 +2183,6 @@ msgid ""
 "vibrates when it is blown."
 msgstr ""
 
-#. name:laouto 
-#: DB:instrument/description:704
-msgid "The laouto is a long-neck fretted instrument of the lute family."
-msgstr ""
-
 #. name:lasso d'amore 
 #: DB:instrument/description:144
 msgid ""
@@ -3213,6 +3254,13 @@ msgid ""
 "announcements like war, welcoming people and kumara planting."
 msgstr ""
 
+#. name:lap harp 
+#: DB:instrument/description:886
+msgid ""
+"Used to teach children how to play, it is a simplified zither shaped like a "
+"trapezoid."
+msgstr ""
+
 #. name:tanpura 
 #: DB:instrument/description:829
 msgid ""
@@ -3609,6 +3657,14 @@ msgid ""
 "one of the first analogue synths, it had a filter bank with 15 sliders for "
 "different sounds, and a \"vibrato\" inducing keyboard based on the ondes "
 "Martenot's."
+msgstr ""
+
+#. name:rebec 
+#: DB:instrument/description:206
+msgid ""
+"pear shaped body made from a single piece of wood, this medieval bowed "
+"string-instrument originated as a Byzantian lyra like variant of the Arabic "
+"Rebab and was a possible influence to the violin."
 msgstr ""
 
 #. name:vuvuzela 

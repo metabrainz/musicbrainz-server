@@ -1,4 +1,7 @@
 package MusicBrainz::Server::Controller::Artist;
+
+use utf8;
+
 use Moose;
 
 BEGIN { extends 'MusicBrainz::Server::Controller'; }
@@ -486,7 +489,7 @@ with 'MusicBrainz::Server::Controller::Role::Edit' => {
                         $c->model('EditNote')->add_note(
                             $ac_edit->id,
                             {
-                                text => "This credit is being changed because the main name for the artist “$artistname” is being modified by edit #$editid.",
+                                text => "This credit is being changed because the main name for the artist \“$artistname\” is being modified by edit #$editid.",
                                 editor_id => $EDITOR_MODBOT
                             }
                         );

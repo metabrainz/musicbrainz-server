@@ -75,7 +75,7 @@ class TimelineViewModel {
         }, 1000);
 
         self.waitToGraph = ko.computed(function () {
-            if (_.any(self.enabledCategories(), function (c) { return c.hasLoadingLines() }))
+            if (_.some(self.enabledCategories(), function (c) { return c.hasLoadingLines() }))
                 return true;
 
             if (self.options.events() && !self.loadedEvents())

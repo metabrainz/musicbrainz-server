@@ -358,7 +358,7 @@ const PART_OF_SERIES_LINK_TYPE_GIDS = _.values(PART_OF_SERIES_LINK_TYPES);
                 options = _.reject(options, function (opt) {
                     var info = MB.typeInfoByID[opt.value];
 
-                    if (_.contains(PART_OF_SERIES_LINK_TYPE_GIDS, info.gid) &&
+                    if (_.includes(PART_OF_SERIES_LINK_TYPE_GIDS, info.gid) &&
                             info.gid !== PART_OF_SERIES_LINK_TYPES[itemType]) {
                         return true;
                     }
@@ -469,7 +469,7 @@ const PART_OF_SERIES_LINK_TYPE_GIDS = _.values(PART_OF_SERIES_LINK_TYPES);
             }
 
             if (target.entityType === "series" &&
-                    _.contains(PART_OF_SERIES_LINK_TYPE_GIDS, typeInfo.gid) &&
+                    _.includes(PART_OF_SERIES_LINK_TYPE_GIDS, typeInfo.gid) &&
                     target.type().entityType !== this.source.entityType) {
                 return incorrectEntityForSeries[target.type().entityType];
             }
@@ -503,7 +503,7 @@ const PART_OF_SERIES_LINK_TYPE_GIDS = _.values(PART_OF_SERIES_LINK_TYPES);
             return this.linkTypeError() ||
                    this.targetEntityError() ||
                    _(relationship.linkTypeInfo().attributes)
-                     .values().map(_.bind(relationship.attributeError, relationship)).any() ||
+                     .values().map(_.bind(relationship.attributeError, relationship)).some() ||
                    this.dateError(relationship.begin_date) ||
                    this.dateError(relationship.end_date) ||
                    this.datePeriodError();
@@ -678,7 +678,7 @@ const PART_OF_SERIES_LINK_TYPE_GIDS = _.values(PART_OF_SERIES_LINK_TYPES);
 
             this.createEdits(edits)
                 .done((data) => {
-                    var works = _.pluck(data.edits, "entity");
+                    var works = _.map(data.edits, "entity");
 
                     super.accept(function (relationshipData) {
                         relationshipData.target = MB.entity(works.shift(), "work");
@@ -747,11 +747,10 @@ const PART_OF_SERIES_LINK_TYPE_GIDS = _.values(PART_OF_SERIES_LINK_TYPES);
         _(creditable)
             .groupBy(linkAttributeTypeID)
             .each(function (attributes) {
-                var extra = _.rest(attributes);
+                var extra = _.tail(attributes);
                 relationship.attributes.removeAll(extra);
                 _.each(extra, split);
-            })
-            .value();
+            });
 
         return relationships;
     }
