@@ -1355,7 +1355,7 @@ const CLEANUPS = {
       return /^http:\/\/www\.cancioneros\.si\/mediawiki\/index\.php\?title=.+$/.test(url)
         && (id === LINK_TYPES.otherdatabases.artist
           || id === LINK_TYPES.otherdatabases.series
-            || id === LINK_TYPES.otherdatabases.work);
+            || id === LINK_TYPES.otherdatabases.work);
     }
   },
   cbfiddlerx: {
@@ -1462,7 +1462,7 @@ const CLEANUPS = {
         var prefix = m[1] || m[2];
         switch (id) {
           case LINK_TYPES.otherdatabases.artist:
-            return prefix === 'artista' || prefix === 'grupo';
+            return prefix === 'artista' || prefix === 'grupo';
           case LINK_TYPES.otherdatabases.release_group:
             return prefix === 'disco';
         }
@@ -1507,7 +1507,7 @@ const CLEANUPS = {
         var prefix = m[1] || m[2];
         switch (id) {
           case LINK_TYPES.otherdatabases.artist:
-            return prefix === 'artistas' || prefix === 'bios';
+            return prefix === 'artistas' || prefix === 'bios';
           case LINK_TYPES.otherdatabases.release_group:
             return prefix === 'discos';
           case LINK_TYPES.otherdatabases.work:
