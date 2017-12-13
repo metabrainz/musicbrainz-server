@@ -12,6 +12,6 @@
             s.parentNode.insertBefore(gcse, s);
           })();
         </script>
-        <gcse:search queryParameterName="query"></gcse:search>
+        <gcse:search enableHistory="true" queryParameterName="query"></gcse:search>
     </div>
 [%- END -%]
