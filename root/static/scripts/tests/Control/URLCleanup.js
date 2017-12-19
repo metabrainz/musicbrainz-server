@@ -1726,6 +1726,25 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
             expected_relationship_type: 'patronage',
                     expected_clean_url: 'https://www.patreon.com/user?u=4212671',
         },
+        // Drip
+        {
+                             input_url: 'https://d.rip/example/post/example',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'patronage',
+                    expected_clean_url: 'https://d.rip/example',
+        },
+        {
+                             input_url: 'https://d.rip/example/post/',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'patronage',
+                    expected_clean_url: 'https://d.rip/example',
+        },
+        {
+                             input_url: 'https://d.rip/example/',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'patronage',
+                    expected_clean_url: 'https://d.rip/example',
+        },
         // PayPal.Me
         {
                              input_url: 'https://paypal.me/example',
