@@ -921,14 +921,18 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
                      input_entity_type: 'artist',
             expected_relationship_type: 'patronage',
                     expected_clean_url: 'https://d.rip/ehaidle',
-               only_valid_entity_types: ['artist']
+        },
+        {
+                             input_url: 'https://d.rip/ehaidle/post/',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'patronage',
+                    expected_clean_url: 'https://d.rip/ehaidle',
         },
         {
                              input_url: 'https://d.rip/ehaidle/',
                      input_entity_type: 'artist',
             expected_relationship_type: 'patronage',
                     expected_clean_url: 'https://d.rip/ehaidle',
-               only_valid_entity_types: ['artist']
         },
         // Drip (old)
         {
@@ -936,7 +940,6 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
                      input_entity_type: 'artist',
             expected_relationship_type: 'patronage',
                     expected_clean_url: 'https://d.rip/willits',
-               only_valid_entity_types: ['artist']
         },
         // e-onkyo music
         {
