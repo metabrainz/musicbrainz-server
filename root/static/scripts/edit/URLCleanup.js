@@ -1604,6 +1604,8 @@ const CLEANUPS = {
       new RegExp("^(https?://)?(www\\.)?patreon\\.com/[^/?#]", "i"),
       new RegExp("^(https?://)?(www\\.)?paypal\\.me/[^/?#]", "i"),
       new RegExp("^(https?://)?(www\\.)?tipeee\\.com/[^/?#]", "i"),
+      new RegExp("^(https?://)?(www\\.)?d\\.rip/[^/?#]", "i"),
+      new RegExp("^(https?://)?(www\\.)?drip\\.kickstarter.com/[^/?#]", "i"),
     ],
     type: LINK_TYPES.patronage,
     clean: function (url) {
@@ -1614,6 +1616,8 @@ const CLEANUPS = {
       url = url.replace(/^(?:https?:\/\/)?(?:www\.)?patreon\.com\/((?:user\?u=)?[^\/?&#]+)(?:.*)?$/, "https://www.patreon.com/$1");
       url = url.replace(/^(?:https?:\/\/)?(?:www\.)?paypal\.me\/([^\/?#]+)(?:.*)?$/, "https://www.paypal.me/$1");
       url = url.replace(/^(?:https?:\/\/)?(?:www\.)?tipeee\.com\/([^\/?#]+)(?:.*)?$/, "https://www.tipeee.com/$1");
+      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?d\.rip\/([^\/?#]+)(?:.*)?$/, "https://d.rip/$1");
+      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?drip\.kickstarter.com\/([^\/?#]+)(?:.*)?$/, "https://d.rip/$1");
       return url;
     }
   },
