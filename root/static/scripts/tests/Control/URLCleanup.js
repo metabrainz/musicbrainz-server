@@ -915,6 +915,32 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
             expected_relationship_type: 'discogs',
                     expected_clean_url: 'https://www.discogs.com/release/5578',
         },
+        // Drip
+        {
+                             input_url: 'https://d.rip/ehaidle/posts/RHJvcFBvc3QtMzQ4',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'patronage',
+                    expected_clean_url: 'https://d.rip/ehaidle',
+        },
+        {
+                             input_url: 'https://d.rip/ehaidle/post/',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'patronage',
+                    expected_clean_url: 'https://d.rip/ehaidle',
+        },
+        {
+                             input_url: 'https://d.rip/ehaidle/',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'patronage',
+                    expected_clean_url: 'https://d.rip/ehaidle',
+        },
+        // Drip (old)
+        {
+                             input_url: 'https://drip.kickstarter.com/willits',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'patronage',
+                    expected_clean_url: 'https://d.rip/willits',
+        },
         // e-onkyo music
         {
                              input_url: 'http://www.e-onkyo.com/music/album/vpcd81809/',
@@ -1725,32 +1751,6 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
                      input_entity_type: 'artist',
             expected_relationship_type: 'patronage',
                     expected_clean_url: 'https://www.patreon.com/user?u=4212671',
-        },
-        // Drip (old)
-        {
-                             input_url: 'https://drip.kickstarter.com/example/',
-                     input_entity_type: 'artist',
-            expected_relationship_type: 'patronage',
-                    expected_clean_url: 'https://d.rip/example',
-        },
-        // Drip
-        {
-                             input_url: 'https://d.rip/example/post/example',
-                     input_entity_type: 'artist',
-            expected_relationship_type: 'patronage',
-                    expected_clean_url: 'https://d.rip/example',
-        },
-        {
-                             input_url: 'https://d.rip/example/post/',
-                     input_entity_type: 'artist',
-            expected_relationship_type: 'patronage',
-                    expected_clean_url: 'https://d.rip/example',
-        },
-        {
-                             input_url: 'https://d.rip/example/',
-                     input_entity_type: 'artist',
-            expected_relationship_type: 'patronage',
-                    expected_clean_url: 'https://d.rip/example',
         },
         // PayPal.Me
         {
