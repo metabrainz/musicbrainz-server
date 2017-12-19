@@ -1726,6 +1726,13 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
             expected_relationship_type: 'patronage',
                     expected_clean_url: 'https://www.patreon.com/user?u=4212671',
         },
+        // Drip (old)
+        {
+                             input_url: 'https://drip.kickstarter.com/example/',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'patronage',
+                    expected_clean_url: 'https://d.rip/example',
+        },
         // Drip
         {
                              input_url: 'https://d.rip/example/post/example',
