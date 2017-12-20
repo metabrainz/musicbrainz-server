@@ -14,6 +14,11 @@ sub l_name {
     return lp($self->name, 'work_type')
 }
 
+sub l_description {
+    my $self = shift;
+    return lp($self->description, 'work_type');
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;
