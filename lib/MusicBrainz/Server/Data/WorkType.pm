@@ -38,6 +38,14 @@ sub in_use {
         $id);
 }
 
+sub get_description
+{
+    my ($self, $id) = @_;
+    return $self->sql->select_single_value(
+        'SELECT description FROM work_type WHERE id = ? LIMIT 1',
+        $id);
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;
