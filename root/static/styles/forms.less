@@ -27,7 +27,7 @@ input[disabled] { background: @medium-bg; cursor: default; }
    width if you set the same width on them. (without this a <select>
    is a few pixels narrower than an <input type="text> in at least
    firefox and chrome) */
-input, select, textarea {
+input:not(.gsc-search-button), select, textarea {
   box-sizing: border-box;
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
