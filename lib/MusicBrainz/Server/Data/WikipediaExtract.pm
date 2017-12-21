@@ -132,7 +132,11 @@ sub _extract_by_language_callback
         return WikipediaExtract->new( title => $opts{fetched}{title},
                                       content => $opts{fetched}{content},
                                       canonical => $opts{fetched}{canonical},
-                                      language => $opts{language} );
+                                      language => $opts{language},
+                                      url => sprintf "https://%s.wikipedia.org/wiki/%s",
+                                                     $opts{language},
+                                                     uri_escape_utf8($opts{fetched}{title} =~ tr/ /_/r)
+        );
     }
 }
 
