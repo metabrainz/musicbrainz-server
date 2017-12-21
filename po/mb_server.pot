@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-24 04:04+0200\n"
+"POT-Creation-Date: 2017-12-21 02:01+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -175,7 +175,7 @@ msgid "(none)"
 msgstr ""
 
 #: ../root/layout/sidebar/sidebar-tags.tt:16
-#: ../root/static/scripts/common/components/TagEditor.js:331
+#: ../root/static/scripts/common/components/TagEditor.js:397
 msgctxt "tag"
 msgid "(none)"
 msgstr ""
@@ -231,7 +231,7 @@ msgstr ""
 msgid "-"
 msgstr ""
 
-#: ../root/user/profile.tt:125
+#: ../root/user/profile.tt:124
 msgid "0"
 msgstr ""
 
@@ -248,7 +248,7 @@ msgid_plural "{n} unanimous votes"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../root/user/profile.tt:263 ../root/user/profile.tt:267
+#: ../root/user/profile.tt:262 ../root/user/profile.tt:266
 msgid "100%"
 msgstr ""
 
@@ -434,7 +434,7 @@ msgstr ""
 msgid "Accept upon expiration"
 msgstr ""
 
-#: ../root/user/profile.tt:176
+#: ../root/user/profile.tt:175
 msgctxt "edit descriptor"
 msgid "Accepted"
 msgstr ""
@@ -1563,7 +1563,7 @@ msgid ""
 "well as the ability to instantly approve other users' edits."
 msgstr ""
 
-#: ../root/user/profile.tt:180
+#: ../root/user/profile.tt:179
 msgid "Auto-edits"
 msgstr ""
 
@@ -1766,7 +1766,7 @@ msgid "Bio"
 msgstr ""
 
 #: ../root/account/edit.tt:46 ../root/admin/edit_user.tt:40
-#: ../root/user/profile.tt:138
+#: ../root/user/profile.tt:137
 msgid "Bio:"
 msgstr ""
 
@@ -1904,7 +1904,7 @@ msgstr ""
 msgid "Cancel the election"
 msgstr ""
 
-#: ../root/user/profile.tt:196 ../lib/MusicBrainz/Server/Edit/Utils.pm:280
+#: ../root/user/profile.tt:195 ../lib/MusicBrainz/Server/Edit/Utils.pm:280
 msgid "Cancelled"
 msgstr ""
 
@@ -2851,7 +2851,7 @@ msgstr ""
 msgid "Edits"
 msgstr ""
 
-#: ../root/user/profile.tt:171
+#: ../root/user/profile.tt:170
 msgid "Edits ({view_url|view})"
 msgstr ""
 
@@ -3201,7 +3201,7 @@ msgstr ""
 msgid "FAQs"
 msgstr ""
 
-#: ../root/user/profile.tt:188
+#: ../root/user/profile.tt:187
 msgid "Failed"
 msgstr ""
 
@@ -4174,15 +4174,15 @@ msgstr ""
 msgid "Languages Known:"
 msgstr ""
 
-#: ../root/user/profile.tt:150
+#: ../root/user/profile.tt:149
 msgid "Languages:"
 msgstr ""
 
-#: ../root/user/profile.tt:200
+#: ../root/user/profile.tt:199
 msgid "Last 24 hours"
 msgstr ""
 
-#: ../root/user/profile.tt:230
+#: ../root/user/profile.tt:229
 msgid "Last 28 days"
 msgstr ""
 
@@ -4305,10 +4305,6 @@ msgstr ""
 msgid "Live Data Feed"
 msgstr ""
 
-#: ../root/search/results-doc.tt:5
-msgid "Loading"
-msgstr ""
-
 #: ../root/release/edit/editnote.tt:15
 msgid "Loading edit previews..."
 msgstr ""
@@ -4422,7 +4418,7 @@ msgstr ""
 #: ../root/edit/details/edit_work.tt:31
 #: ../root/release/edit_relationships.tt:150 ../root/work/layout.tt:21
 #: ../root/layout/components/MetaDescription.js:147
-#: ../root/static/scripts/work.js:174
+#: ../root/static/scripts/work.js:175
 msgid "Lyrics Languages"
 msgstr ""
 
@@ -5135,7 +5131,7 @@ msgid "Nobody has left notes on any of your edits in the past three months."
 msgstr ""
 
 #: ../root/entity/tags.tt:5
-#: ../root/static/scripts/common/components/TagEditor.js:285
+#: ../root/static/scripts/common/components/TagEditor.js:350
 msgid "Nobody has tagged this yet."
 msgstr ""
 
@@ -5315,7 +5311,7 @@ msgstr ""
 msgid "Oops, something went wrong!"
 msgstr ""
 
-#: ../root/user/profile.tt:192 ../lib/MusicBrainz/Server/Edit/Utils.pm:273
+#: ../root/user/profile.tt:191 ../lib/MusicBrainz/Server/Edit/Utils.pm:273
 msgid "Open"
 msgstr ""
 
@@ -5382,7 +5378,7 @@ msgstr ""
 msgid "Other lookups"
 msgstr ""
 
-#: ../root/user/profile.tt:233
+#: ../root/user/profile.tt:232
 msgid "Overall"
 msgstr ""
 
@@ -6689,7 +6685,7 @@ msgstr ""
 msgid "Report User"
 msgstr ""
 
-#: ../root/user/profile.tt:276
+#: ../root/user/profile.tt:275
 msgid "Report this user for bad behavior"
 msgstr ""
 
@@ -7506,7 +7502,7 @@ msgstr ""
 msgid "Start date"
 msgstr ""
 
-#: ../root/layout/header/bottom.tt:49 ../root/user/profile.tt:167
+#: ../root/layout/header/bottom.tt:49 ../root/user/profile.tt:166
 #: ../root/layout/components/BottomMenu.js:103
 msgid "Statistics"
 msgstr ""
@@ -7627,7 +7623,7 @@ msgstr ""
 msgid "Subscribers"
 msgstr ""
 
-#: ../root/user/profile.tt:121
+#: ../root/user/profile.tt:120
 msgid "Subscribers:"
 msgstr ""
 
@@ -8198,8 +8194,8 @@ msgstr[1] ""
 msgid "This collection is empty."
 msgstr ""
 
-#: ../root/collection/index.tt:8 ../root/user/profile.tt:114
-#: ../root/user/profile.tt:142
+#: ../root/collection/index.tt:8 ../root/user/profile.tt:113
+#: ../root/user/profile.tt:141
 msgid ""
 "This content is hidden to prevent spam. To view it, please {url|log in}."
 msgstr ""
@@ -9079,7 +9075,7 @@ msgstr ""
 msgid "This series is currently empty."
 msgstr ""
 
-#: ../root/user/profile.tt:218
+#: ../root/user/profile.tt:217
 msgid "This table shows a summary of votes cast by this editor."
 msgstr ""
 
@@ -9837,7 +9833,7 @@ msgstr ""
 msgid "Vote tally:"
 msgstr ""
 
-#: ../root/user/profile.tt:184
+#: ../root/user/profile.tt:183
 msgid "Voted down"
 msgstr ""
 
@@ -9849,7 +9845,7 @@ msgstr ""
 msgid "Votes"
 msgstr ""
 
-#: ../root/user/profile.tt:222
+#: ../root/user/profile.tt:221
 msgid "Votes ({view_url|view})"
 msgstr ""
 
@@ -10830,7 +10826,7 @@ msgid "more"
 msgstr ""
 
 #: ../root/layout/sidebar/sidebar-tags.tt:1
-#: ../root/static/scripts/common/components/TagEditor.js:328
+#: ../root/static/scripts/common/components/TagEditor.js:393
 msgid "more..."
 msgstr ""
 
@@ -10959,7 +10955,7 @@ msgstr ""
 msgid "start date"
 msgstr ""
 
-#: ../root/user/profile.tt:132
+#: ../root/user/profile.tt:131
 msgid "subscribe"
 msgstr ""
 
@@ -10983,7 +10979,7 @@ msgstr[1] ""
 msgid "tracks"
 msgstr ""
 
-#: ../root/user/profile.tt:130
+#: ../root/user/profile.tt:129
 msgid "unsubscribe"
 msgstr ""
 
@@ -11039,14 +11035,14 @@ msgstr[1] ""
 msgid "{collection} by {owner}"
 msgstr ""
 
-#: ../root/user/profile.tt:123
+#: ../root/user/profile.tt:122
 msgid "{count} ({url|view list})"
 msgstr ""
 
-#: ../root/user/profile.tt:177 ../root/user/profile.tt:181
-#: ../root/user/profile.tt:185 ../root/user/profile.tt:189
-#: ../root/user/profile.tt:193 ../root/user/profile.tt:197
-#: ../root/user/profile.tt:201
+#: ../root/user/profile.tt:176 ../root/user/profile.tt:180
+#: ../root/user/profile.tt:184 ../root/user/profile.tt:188
+#: ../root/user/profile.tt:192 ../root/user/profile.tt:196
+#: ../root/user/profile.tt:200
 msgid "{count} ({view_url|view})"
 msgstr ""
 
@@ -11297,7 +11293,7 @@ msgstr[1] ""
 msgid "{num}. {relationship}"
 msgstr ""
 
-#: ../root/user/profile.tt:246 ../root/user/profile.tt:250
+#: ../root/user/profile.tt:245 ../root/user/profile.tt:249
 msgid "{percentage}%"
 msgstr ""
 
@@ -11526,11 +11522,11 @@ msgid ""
 "Banner updated. Remember that each server has its own, independent banner."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/Artist.pm:534
+#: ../lib/MusicBrainz/Server/Controller/Artist.pm:537
 msgid "You cannot merge a special purpose artist into another artist"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/Artist.pm:539
+#: ../lib/MusicBrainz/Server/Controller/Artist.pm:542
 msgid "You cannot merge into Deleted Artist"
 msgstr ""
 
@@ -13003,47 +12999,47 @@ msgstr ""
 msgid "Image {current} of {total}"
 msgstr ""
 
-#: ../root/static/scripts/common/components/TagEditor.js:72
+#: ../root/static/scripts/common/components/TagEditor.js:90
 msgid "Upvote"
 msgstr ""
 
-#: ../root/static/scripts/common/components/TagEditor.js:73
+#: ../root/static/scripts/common/components/TagEditor.js:91
 msgid "You’ve upvoted this tag"
 msgstr ""
 
-#: ../root/static/scripts/common/components/TagEditor.js:81
+#: ../root/static/scripts/common/components/TagEditor.js:99
 msgid "Downvote"
 msgstr ""
 
-#: ../root/static/scripts/common/components/TagEditor.js:82
+#: ../root/static/scripts/common/components/TagEditor.js:100
 msgid "You’ve downvoted this tag"
 msgstr ""
 
-#: ../root/static/scripts/common/components/TagEditor.js:294
+#: ../root/static/scripts/common/components/TagEditor.js:359
 msgid ""
 "Tags with a score of zero or below, and tags that you’ve downvoted are "
 "hidden."
 msgstr ""
 
-#: ../root/static/scripts/common/components/TagEditor.js:297
+#: ../root/static/scripts/common/components/TagEditor.js:362
 msgid "Show all tags."
 msgstr ""
 
-#: ../root/static/scripts/common/components/TagEditor.js:301
+#: ../root/static/scripts/common/components/TagEditor.js:366
 msgid "Add Tags"
 msgstr ""
 
-#: ../root/static/scripts/common/components/TagEditor.js:303
+#: ../root/static/scripts/common/components/TagEditor.js:368
 msgid ""
 "You can add your own {tagdocs|tags} below. Use commas to separate multiple "
 "tags."
 msgstr ""
 
-#: ../root/static/scripts/common/components/TagEditor.js:310
+#: ../root/static/scripts/common/components/TagEditor.js:375
 msgid "Submit tags"
 msgstr ""
 
-#: ../root/static/scripts/common/components/TagEditor.js:336
+#: ../root/static/scripts/common/components/TagEditor.js:408
 msgid "Tag"
 msgstr ""
 
@@ -13412,10 +13408,10 @@ msgstr ""
 msgid "The barcode you entered is not a valid UPC or EAN code."
 msgstr ""
 
-#: ../root/static/scripts/work.js:172
+#: ../root/static/scripts/work.js:173
 msgid "Add Language"
 msgstr ""
 
-#: ../root/static/scripts/work.js:180
+#: ../root/static/scripts/work.js:181
 msgid "Remove Language"
 msgstr ""

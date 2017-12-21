@@ -5,7 +5,7 @@ use Moose;
 extends 'MusicBrainz::Server::Entity::URL';
 with 'MusicBrainz::Server::Entity::URL::MediaWiki';
 
-sub show_in_sidebar { 0 }
+sub show_in_external_links { 0 }
 
 sub url_is_scheme_independent { 1 }
 

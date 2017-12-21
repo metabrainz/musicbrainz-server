@@ -1,7 +1,9 @@
-// This file is part of MusicBrainz, the open internet music database.
+// @flow
 // Copyright (C) 2015 MetaBrainz Foundation
-// Licensed under the GPL version 2, or (at your option) any later version:
-// http://www.gnu.org/licenses/gpl-2.0.txt
+//
+// This file is part of MusicBrainz, the open internet music database,
+// and is licensed under the GPL version 2, or (at your option) any
+// later version: http://www.gnu.org/licenses/gpl-2.0.txt
 
 const Immutable = require('immutable');
 const $ = require('jquery');
@@ -10,9 +12,15 @@ const React = require('react');
 const ReactDOM = require('react-dom');
 
 const {l, lp} = require('../i18n');
+const MB = require('../MB');
 const request = require('../utility/request');
+const TagLink = require('./TagLink');
 
-var Tag = Immutable.Record({tag: '', count: 0, vote: 0});
+const newTag: RecordFactory<UserTagT> = Immutable.Record({
+  tag: '',
+  count: 0,
+  vote: 0,
+});
 
 var VOTE_ACTIONS = {
   '0': 'withdraw',
@@ -30,7 +38,7 @@ function sortedTags(tags) {
 }
 
 function getTagsPath(entity) {
-  var type = entity.entity_type.replace('_', '-');
+  var type = entity.entityType.replace('_', '-');
   return `/${type}/${entity.gid}/tags`;
 }
 
@@ -38,16 +46,27 @@ function isAlwaysVisible(tag) {
   return tag.vote > 0 || (tag.vote === 0 && tag.count > 0);
 }
 
-class TagLink extends React.Component {
-  render() {
-    var tag = this.props.tag;
-    return <a href={`/tag/${encodeURIComponent(tag)}`}>{tag}</a>;
-  }
-}
+type VoteT = 1 | 0 | -1;
 
-class VoteButton extends React.Component {
+type VoteButtonProps = {
+  activeTitle: string;
+  callback: (VoteT) => void;
+  currentVote: VoteT;
+  text: string;
+  title: string;
+  vote: VoteT;
+};
+
+class VoteButton extends React.Component<VoteButtonProps> {
   render() {
-    var {vote, currentVote, title, activeTitle, callback} = this.props;
+    var {
+      activeTitle,
+      callback,
+      currentVote,
+      text,
+      title,
+      vote,
+    } = this.props;
     var isActive = vote === currentVote;
 
     var buttonProps = {
@@ -58,32 +77,38 @@ class VoteButton extends React.Component {
     };
 
     if (!isActive) {
-      buttonProps.onClick = _.partial(callback, currentVote === 0 ? vote : 0);
+      (buttonProps: any).onClick = _.partial(callback, currentVote === 0 ? vote : 0);
     }
 
-    return <button {...buttonProps}>{this.props.text}</button>;
+    return <button {...buttonProps}>{text}</button>;
   }
 }
 
-class UpvoteButton extends VoteButton {}
+class UpvoteButton extends VoteButton {
+  static defaultProps = {
+    text: '+',
+    title: l('Upvote'),
+    activeTitle: l('You’ve upvoted this tag'),
+    vote: 1,
+  }
+}
 
-UpvoteButton.defaultProps = {
-  text: '+',
-  title: l('Upvote'),
-  activeTitle: l('You’ve upvoted this tag'),
-  vote: 1
+class DownvoteButton extends VoteButton {
+  static defaultProps = {
+    text: '\u2212',
+    title: l('Downvote'),
+    activeTitle: l('You’ve downvoted this tag'),
+    vote: -1,
+  }
+}
+
+type VoteButtonsProps = {
+  callback: (VoteT) => void;
+  count: number;
+  currentVote: VoteT;
 };
 
-class DownvoteButton extends VoteButton {}
-
-DownvoteButton.defaultProps = {
-  text: '\u2212',
-  title: l('Downvote'),
-  activeTitle: l('You’ve downvoted this tag'),
-  vote: -1
-};
-
-class VoteButtons extends React.Component {
+class VoteButtons extends React.Component<VoteButtonsProps> {
   render() {
     var currentVote = this.props.currentVote;
     var className = '';
@@ -104,7 +129,15 @@ class VoteButtons extends React.Component {
   }
 }
 
-class TagRow extends React.Component {
+type TagRowProps = {
+  callback: (VoteT) => void;
+  count: number;
+  currentVote: VoteT;
+  index: number;
+  tag: string;
+};
+
+class TagRow extends React.Component<TagRowProps> {
   render() {
     var {tag, index} = this.props;
 
@@ -117,7 +150,26 @@ class TagRow extends React.Component {
   }
 }
 
-class TagEditor extends React.Component {
+type TagEditorProps = {
+  entity: CoreEntityT;
+};
+
+type TagEditorState = {
+  positiveTagsOnly: bool;
+  tags: List<RecordOf<UserTagT>>;
+};
+
+type PendingVoteT = {
+  fail: () => void;
+  tag: string;
+  vote: VoteT;
+};
+
+class TagEditor extends React.Component<TagEditorProps, TagEditorState> {
+  _tagsInput: HTMLInputElement | HTMLTextAreaElement | null;
+  debouncePendingVotes: () => void;
+  pendingVotes: {[string]: PendingVoteT};
+
   constructor(props) {
     super(props);
     this.state = _.assign({positiveTagsOnly: true}, props.initialState);
@@ -145,11 +197,11 @@ class TagEditor extends React.Component {
     }
 
     _.each(actions, (items, action) => {
-      var url = action + '?tags=' + encodeURIComponent(_(items).pluck('tag').join(','));
+      var url = action + '?tags=' + encodeURIComponent(_(items).map('tag').join(','));
 
       doRequest({url: url})
         .done(data => this.updateTags(data.updates))
-        .fail(() => _.invoke(items, 'fail'));
+        .fail(() => items.forEach(x => x.fail()));
     });
   }
 
@@ -192,6 +244,10 @@ class TagEditor extends React.Component {
   getNewCount(index, vote) {
     var current = this.state.tags.get(index);
 
+    if (!current) {
+      return 0;
+    }
+
     if (vote === current.vote) {
       return current.count;
     } else if (vote === 0) {
@@ -204,7 +260,12 @@ class TagEditor extends React.Component {
   addTags(event) {
     event.preventDefault();
 
-    var tags = this._tagsInput.value;
+    const input = this._tagsInput;
+    if (!input) {
+      return;
+    }
+
+    var tags = input.value;
 
     this.updateTags(
       _(tags.split(','))
@@ -228,7 +289,7 @@ class TagEditor extends React.Component {
       this.updateTags(JSON.parse(data).updates);
     });
 
-    this._tagsInput.value = '';
+    input.value = '';
   }
 
   updateVote(index, vote) {
@@ -247,12 +308,16 @@ class TagEditor extends React.Component {
       if (t.deleted) {
         newTags = newTags.delete(index);
       } else {
-        var newTag = Tag({tag: t.tag, vote: t.vote, count: t.count});
+        var tag = newTag(({
+          count: t.count,
+          tag: t.tag,
+          vote: t.vote,
+        }: UserTagT));
 
         if (index >= 0) {
-          newTags = newTags.set(index, newTag);
+          newTags = newTags.set(index, tag);
         } else {
-          newTags = newTags.push(newTag);
+          newTags = newTags.push(tag);
         }
       }
     });
@@ -321,12 +386,13 @@ class SidebarTagEditor extends TagEditor {
       <div>
         <ul className="tag-list">
           {this.createTagRows()}
-          {this.props.more &&
+          {this.props.more
             // createTagRows uses tags as keys; \0 is simply used here to
             // guarantee that there isn't any conflict.
-            <li key="\0:more">
-              <a href={getTagsPath(this.props.entity)}>{l('more...')}</a>
-            </li>}
+            ? <li key="\0:more">
+                <a href={getTagsPath(this.props.entity)}>{l('more...')}</a>
+              </li>
+            : null}
         </ul>
         {!this.state.tags.size && <p>{lp('(none)', 'tag')}</p>}
         <form id="tag-form" onSubmit={this.addTags}>
@@ -350,7 +416,7 @@ class SidebarTagEditor extends TagEditor {
 
 function init_tag_editor(Component, mountPoint) {
   return function (entity, aggregatedTags, userTags, more) {
-    userTags = _.indexBy(userTags, t => t.tag);
+    userTags = _.keyBy(userTags, t => t.tag);
 
     var combined = _.map(aggregatedTags, function (t) {
       var userTag = userTags[t.tag];
@@ -360,20 +426,20 @@ function init_tag_editor(Component, mountPoint) {
         userTag.used = true;
       }
 
-      return Tag(t);
+      return newTag(t);
     });
 
     // Always show upvoted user tags (affects sidebar)
     _.each(userTags, function (t) {
       if (t.vote > 0 && !t.used) {
-        combined.push(Tag(t));
+        combined.push(newTag(t));
       }
     });
 
     ReactDOM.render(
       <Component entity={entity} more={more}
                  initialState={{tags: sortedTags(Immutable.List(combined))}} />,
-      document.getElementById(mountPoint)
+      (document.getElementById(mountPoint): any)
     );
   };
 }

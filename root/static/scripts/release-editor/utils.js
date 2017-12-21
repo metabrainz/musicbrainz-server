@@ -179,7 +179,7 @@ utils.calculateDiscID = function (toc) {
 };
 
 function paddedHex(str, length) {
-    return _.padLeft((parseInt(str, 10) || 0).toString(16).toUpperCase(), length, '0');
+    return _.padStart((parseInt(str, 10) || 0).toString(16).toUpperCase(), length, '0');
 }
 
 // The alphabet has been modified and does not conform to RFC822.

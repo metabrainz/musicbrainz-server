@@ -83,7 +83,7 @@ const request = require('../../common/utility/request');
 
                 // Trim trailing whitespace for the final join phrase only.
                 if (index === names.length - 1) {
-                    name.join_phrase = _.trimRight(name.join_phrase);
+                    name.join_phrase = _.trimEnd(name.join_phrase);
                 }
 
                 name.join_phrase = name.join_phrase || null;
@@ -155,7 +155,7 @@ const request = require('../../common/utility/request');
             };
 
             data.attributes = _(ko.unwrap(relationship.attributes))
-                .invoke('toJS')
+                .invokeMap('toJS')
                 .sortBy(function (a) { return a.type.id })
                 .value();
 
@@ -169,7 +169,7 @@ const request = require('../../common/utility/request');
                 data.begin_date = fields.partialDate(relationship.begin_date);
                 data.end_date = fields.partialDate(relationship.end_date);
 
-                if (data.end_date && _(data.end_date).values().any(nonEmpty)) {
+                if (data.end_date && _(data.end_date).values().some(nonEmpty)) {
                     data.ended = true;
                 } else {
                     data.ended = Boolean(value(relationship.ended));
@@ -203,7 +203,7 @@ const request = require('../../common/utility/request');
                     country_id: number(data.countryID)
                 };
 
-                if (_(event.date).values().any(nonEmpty) || event.country_id !== null) {
+                if (_(event.date).values().some(nonEmpty) || event.country_id !== null) {
                     return event;
                 }
             }).compact().value();
@@ -290,8 +290,7 @@ const request = require('../../common/utility/request');
                 if (_.isEqual(newData[key], oldData[key])) {
                     delete newData[key];
                 }
-            })
-            .value();
+            });
     }
 
 
@@ -313,7 +312,7 @@ const request = require('../../common/utility/request');
         function (args) {
             delete args.gid;
 
-            if (!_.any(args.secondary_type_ids)) {
+            if (!_.some(args.secondary_type_ids)) {
                 delete args.secondary_type_ids;
             }
         }

@@ -8,7 +8,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2017-11-01 19:52+0000\n"
+"PO-Revision-Date: 2017-11-21 11:21+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -136,7 +136,7 @@ msgstr "Ierse bouzouki"
 #: DB:instrument/name:878
 msgctxt "19th century transverse flute"
 msgid "Irish flute"
-msgstr ""
+msgstr "Ierse fluit"
 
 #: DB:instrument/name:355
 msgid "Irish harp / clàrsach"
@@ -234,7 +234,7 @@ msgstr "Wagnertuba"
 
 #: DB:instrument/name:253
 msgid "Warr guitar"
-msgstr "Warr gitaar"
+msgstr "Warr-gitaar"
 
 #: DB:instrument/name:468
 msgid "Wurlitzer electric piano"
@@ -288,7 +288,7 @@ msgstr "ajaeng"
 #: DB:instrument/name:747
 msgctxt "set of Nyabinghi drums"
 msgid "akete"
-msgstr ""
+msgstr "akete"
 
 #: DB:instrument/name:718
 msgid "alfaia"
@@ -377,7 +377,7 @@ msgstr "autoharp"
 #: DB:instrument/name:880
 msgctxt "Nyabinghi bass drum"
 msgid "baandu"
-msgstr ""
+msgstr "baandu"
 
 #: DB:instrument/name:426
 msgid "baglama"
@@ -1365,7 +1365,7 @@ msgstr "fujara"
 #: DB:instrument/name:881
 msgctxt "Nyabinghi middle pitch drum"
 msgid "fundeh"
-msgstr ""
+msgstr "fundeh"
 
 #: DB:instrument/name:231
 msgid "gadulka"
@@ -1523,7 +1523,7 @@ msgstr "gusli"
 #: DB:instrument/name:567
 msgctxt "gut-stringed acoustic guitar"
 msgid "gut guitar"
-msgstr ""
+msgstr "darmsnaargitaar"
 
 #: DB:instrument/name:452
 msgid "guzheng"
@@ -2166,7 +2166,7 @@ msgstr "nyckelharpa / sleutelharp"
 #: DB:instrument/name:566
 msgctxt "nylon-stringed acoustic guitar"
 msgid "nylon guitar"
-msgstr ""
+msgstr "nylongitaar"
 
 #: DB:instrument/name:272
 msgid "não bạt / chập chõa"
@@ -2246,7 +2246,7 @@ msgstr "oed / oud"
 #: DB:instrument/name:879
 msgctxt "late 17th century oval harpsichord"
 msgid "oval spinet"
-msgstr ""
+msgstr "ovale spinet"
 
 #: DB:instrument/name:864
 msgctxt "Māori taonga pūoro large signalling drum"
@@ -2515,7 +2515,7 @@ msgstr "rehu"
 #: DB:instrument/name:882
 msgctxt "Nyabinghi smaller pitch drum"
 msgid "repeater"
-msgstr ""
+msgstr "keteh"
 
 #: DB:instrument/name:722
 msgid "repinique"
@@ -2741,7 +2741,7 @@ msgstr "koperblazers met schuifventiel"
 
 #: DB:instrument/name:56
 msgid "slide guitar"
-msgstr "slide gitaar"
+msgstr "slide-gitaar"
 
 #: DB:instrument/name:198
 msgid "slide whistle"

@@ -105,7 +105,7 @@ class SearchResult {
     }
 
     requestDone(data) {
-        _.each(data.tracks, this.parseTrack, this);
+        _.each(data.tracks, (track, index) => this.parseTrack(track, index));
         _.extend(this, utils.reuseExistingMediumData(data));
 
         this.loaded(true);
@@ -305,10 +305,9 @@ _.assign(addDiscDialog, {
             release.mediums([medium]);
         }
         else {
-            // If there are no mediums, _.max will return -Infinity.
-            var nextPosition = Math.max(
-                1, _.max(_.invoke(release.mediums(), "position")) + 1
-            );
+            // If there are no mediums, _.max will return undefined.
+            const maxPosition = _.max(_.invokeMap(release.mediums(), 'position'));
+            const nextPosition = _.isFinite(maxPosition) ? (maxPosition + 1) : 1;
             medium.position(nextPosition);
             release.mediums.push(medium);
         }

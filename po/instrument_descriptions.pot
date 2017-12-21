@@ -577,10 +577,18 @@ msgid ""
 "metal cone, it is used in the traditional Cobla and Sardana music."
 msgstr ""
 
+#. name:laouto 
+#: DB:instrument/description:704
+msgid ""
+"Differs from other lutes in that its string tension is greater thus sounding "
+"more like the oud. From ancient Greece, it was used as an accompaniment to "
+"Cretan Lyra"
+msgstr ""
+
 #. name:craviola 
 #: DB:instrument/description:779
 msgid ""
-"Distinctly asymmetric in contrast to typical guitar, it's timbre is a "
+"Distinctly asymmetric in contrast to typical guitar, its timbre is a "
 "combination of the harpsichord (pt:cravo) and the Viola caipira. It can have "
 "six or twelve nylon or steel strings and are produced solely by company "
 "Giannini."
@@ -606,6 +614,14 @@ msgstr ""
 msgid ""
 "EWI (an acronym for electric wind instrument) is the name of Akai's wind "
 "controller."
+msgstr ""
+
+#. name:harpejji 
+#: DB:instrument/description:894
+msgid ""
+"Effectively a small electric guitar-piano hybrid, it is played by tapping "
+"the multiple isometric arranged strings that are stretched over a long flat "
+"board."
 msgstr ""
 
 #. name:effects 
@@ -659,6 +675,14 @@ msgstr ""
 msgid ""
 "Friction idiophones are idiophones where the sound is created by the "
 "instrument being rubbed."
+msgstr ""
+
+#. name:yu 
+#: DB:instrument/description:891
+msgid ""
+"From atleast 600 BC, it is made of wood to resemble a tiger with its spine "
+"made into notches. Notches are scraped to produce sound, it was used in "
+"ensemble with zhu."
 msgstr ""
 
 #. name:gankogui 
@@ -726,6 +750,13 @@ msgstr ""
 msgid "Hollow-body acoustic guitar strung with nylon-strings."
 msgstr ""
 
+#. name:olifant 
+#: DB:instrument/description:888
+msgid ""
+"Hunting horn carved out of ivory, it was widely used in Medieval wars to "
+"alarm or increase soldiers' morale."
+msgstr ""
+
 #. name:huqin 
 #: DB:instrument/description:213
 msgid "Huqin is a Chinese family of bowed string instruments."
@@ -744,6 +775,14 @@ msgid ""
 "Invented (or atleast made popular by) Blue Man Group, it is made of "
 "alternating length PVC pipes and hit with sticks or flaps. It is popular "
 "with street musicians."
+msgstr ""
+
+#. name:mandora / gallichon 
+#: DB:instrument/description:895
+msgid ""
+"Invented by European luthiers in the first half of the 18th century, it had "
+"6 to 7 single or double courses of gut strings and a long neck with either "
+"sharp or shallow angled pegbox."
 msgstr ""
 
 #. name:arpeggione 
@@ -787,6 +826,14 @@ msgstr ""
 msgid ""
 "Klong that are large barrel drums from Thailand. They are played in a pair "
 "using wooden sticks and are used in the piphat ensemble."
+msgstr ""
+
+#. name:double bass 
+#: DB:instrument/description:48
+msgid ""
+"Known also as contrabass or upright bass, it is the largest and lowest-"
+"pitched member of the modern violin family, it is a principal member of the "
+"symphony orchestra."
 msgstr ""
 
 #. name:krakebs 
@@ -851,6 +898,21 @@ msgstr ""
 msgid ""
 "Made of resonating stone, wood or bone with a striker of stone, bone or "
 "hardwood, this ancient instrument was used for rhythm during chanting."
+msgstr ""
+
+#. name:tungso 
+#: DB:instrument/description:887
+msgid ""
+"Made of thick aged bamboo, this notched end-blown flute may have had a "
+"buzzing membrane."
+msgstr ""
+
+#. name:hydraulophone 
+#: DB:instrument/description:889
+msgid ""
+"Made of tubing with holes that may have everything from none to two reeds, "
+"water instead of air comes out of the holes. Sound is produced by covering "
+"the holes with fingers, altering the flow of water through the holes."
 msgstr ""
 
 #. name:pūtōrino 
@@ -934,6 +996,23 @@ msgid ""
 "the world of this get up."
 msgstr ""
 
+#. name:yoochin 
+#: DB:instrument/description:885
+msgid ""
+"Originally introduced to Mongolia from China, it has 13 double wire-strings "
+"and a black lacquered wooden soundboard. Traditionally it was only played by "
+"townspeople."
+msgstr ""
+
+#. name:kokle 
+#: DB:instrument/description:893
+msgid ""
+"Originating from 13th century Latvia, it is made of wood and have today nine "
+"to eleven, up to thirty-three strings tuned diatonically. Played "
+"horizontally on lap or table by plucking while muting chosen strings. Became "
+"in the 70's and 80's an important part of the folklore movement."
+msgstr ""
+
 #. name:other instruments 
 #: DB:instrument/description:141
 msgid ""
@@ -1006,9 +1085,25 @@ msgstr ""
 msgid "Pí thiu or Pí khui vertical flute"
 msgstr ""
 
+#. name:rubab 
+#: DB:instrument/description:883
+msgid ""
+"Related to bowed instrument rebab, it is played in many countries, from "
+"India to Afghanistan. It's made of wood and covered with a membrane and has "
+"3 melody strings, 3 drone strings and 11/12 resonance strings."
+msgstr ""
+
 #. name:ruan 
 #: DB:instrument/description:545
 msgid "Ruan is a family of Chinese plucked lutes."
+msgstr ""
+
+#. name:junjung 
+#: DB:instrument/description:892
+msgid ""
+"Sacred cylindrical goat or cattle rawhide drum, traditionally it was held "
+"with straps or placed on a stand and played horizontally while walking to "
+"battle, on special state occasions and religious ceremonies."
 msgstr ""
 
 #. name:santoor 
@@ -1019,6 +1114,21 @@ msgstr ""
 #. name:santur 
 #: DB:instrument/description:255
 msgid "Santur, Middle Eastern"
+msgstr ""
+
+#. name:drumset 
+#: DB:instrument/description:101
+msgid ""
+"Set of drums developed from the 1930's onward, it is used in Jazz, Swing, "
+"Rock and Pop music. It consists of snare drum, tom-toms, hi-hats, cymbals "
+"and bass drum."
+msgstr ""
+
+#. name:Otamatone 
+#: DB:instrument/description:890
+msgid ""
+"Shaped like an eighth-note with a cute face, it is played with one hand "
+"fingering the neck and the other squeezing the head to create wah-wah."
 msgstr ""
 
 #. name:shawm 
@@ -1688,14 +1798,6 @@ msgstr ""
 msgid "The doshpuluur is a long-necked Tuvan lute."
 msgstr ""
 
-#. name:double bass 
-#: DB:instrument/description:48
-msgid ""
-"The double bass, also known as contrabass or upright bass as well as many "
-"other names, is the largest and lowest-pitched bowed string instrument of "
-"the violin family in the modern symphony orchestra."
-msgstr ""
-
 #. name:dramyin 
 #: DB:instrument/description:689
 msgid ""
@@ -2135,11 +2237,6 @@ msgid ""
 "The kèn lá is an instrument used by the Hmong minority of Vietnam which "
 "consists of a leaf which is curled up and positioned in the mouth so it "
 "vibrates when it is blown."
-msgstr ""
-
-#. name:laouto 
-#: DB:instrument/description:704
-msgid "The laouto is a long-neck fretted instrument of the lute family."
 msgstr ""
 
 #. name:lasso d'amore 
@@ -3213,6 +3310,13 @@ msgid ""
 "announcements like war, welcoming people and kumara planting."
 msgstr ""
 
+#. name:lap harp 
+#: DB:instrument/description:886
+msgid ""
+"Used to teach children how to play, it is a simplified zither shaped like a "
+"trapezoid."
+msgstr ""
+
 #. name:tanpura 
 #: DB:instrument/description:829
 msgid ""
@@ -3592,7 +3696,7 @@ msgstr ""
 #. name:English horn 
 #: DB:instrument/description:7
 msgid ""
-"neither a horn nor english, it is a transposing member of the oboe family, "
+"neither a horn nor English, it is a transposing member of the oboe family, "
 "pitched at F"
 msgstr ""
 
@@ -3609,6 +3713,14 @@ msgid ""
 "one of the first analogue synths, it had a filter bank with 15 sliders for "
 "different sounds, and a \"vibrato\" inducing keyboard based on the ondes "
 "Martenot's."
+msgstr ""
+
+#. name:rebec 
+#: DB:instrument/description:206
+msgid ""
+"pear shaped body made from a single piece of wood, this medieval bowed "
+"string-instrument originated as a Byzantian lyra like variant of the Arabic "
+"Rebab and was a possible influence to the violin."
 msgstr ""
 
 #. name:vuvuzela 
@@ -3814,6 +3926,6 @@ msgstr ""
 #. name:English flageolet 
 #: DB:instrument/description:844
 msgid ""
-"working to improve on its design, the english flageolet had 6 finger holes "
+"working to improve on its design, the English flageolet had 6 finger holes "
 "in front and one thumb hole in the back."
 msgstr ""

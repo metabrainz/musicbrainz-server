@@ -92,13 +92,12 @@ ko.bindingHandlers.artistCreditEditor = {
         const artistCredit = track.artistCredit.peek();
 
         _(track.medium.release.mediums())
-            .invoke("tracks").flatten().without(track).pluck("artistCredit")
+            .invokeMap("tracks").flatten().without(track).map("artistCredit")
             .each(function (ac) {
                 if (matchWith === reduceArtistCredit(ac.peek())) {
                     ac(artistCredit);
                 }
-            })
-            .value();
+            });
 
         this.initialArtistText = '';
     },

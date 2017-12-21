@@ -219,8 +219,7 @@ _(DBDefs.MB_LANGUAGES || '')
       b.expose(langVinyl, 'jed-data');
       commonBundle.external(b);
     });
-  })
-  .value();
+  });
 
 runYarb('area/places-map.js', function (b) {
   b.external(commonBundle);

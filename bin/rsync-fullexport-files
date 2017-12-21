@@ -6,11 +6,12 @@ MB_SERVER_ROOT=$(cd "$(dirname "${BASH_SOURCE[0]}")/../" && pwd)
 cd "$MB_SERVER_ROOT"
 
 source admin/config.sh
+source admin/functions.sh
 
 if [ -n "$RSYNC_FULLEXPORT_HOST" ]; then
     RSYNC_FULLEXPORT_PORT=${RSYNC_FULLEXPORT_PORT:-22}
 
-    rsync \
+    retry rsync \
         --archive \
         --delete \
         --exclude='latest-is*' \
@@ -20,7 +21,7 @@ if [ -n "$RSYNC_FULLEXPORT_HOST" ]; then
         brainz@$RSYNC_FULLEXPORT_HOST:./
 
     if [ -n "$RSYNC_LATEST_KEY" ]; then
-        rsync \
+        retry rsync \
             --archive \
             --rsh "ssh -i $RSYNC_LATEST_KEY -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -p $RSYNC_FULLEXPORT_PORT" \
             --verbose \

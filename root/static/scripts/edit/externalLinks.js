@@ -110,13 +110,13 @@ class ExternalLinksEditor extends React.Component<LinksEditorProps, LinksEditorS
   getOldLinksHash() {
     return _(this.props.initialLinks)
       .filter(link => isPositiveInteger(link.relationship))
-      .indexBy('relationship')
+      .keyBy('relationship')
       .value();
   }
 
   getEditData() {
     var oldLinks = this.getOldLinksHash();
-    var newLinks = _.indexBy(this.state.links, 'relationship');
+    var newLinks = _.keyBy(this.state.links, 'relationship');
 
     return {
       oldLinks: oldLinks,
@@ -171,7 +171,7 @@ class ExternalLinksEditor extends React.Component<LinksEditorProps, LinksEditorS
     var linksArray = this.state.links;
 
     var linksByTypeAndUrl = _(linksArray).concat(this.props.initialLinks)
-          .uniq((link) => link.relationship).groupBy(linkTypeAndUrlString).value();
+          .uniqBy((link) => link.relationship).groupBy(linkTypeAndUrlString).value();
 
     return (
       <table id="external-links-editor" className="row-form">
@@ -400,7 +400,7 @@ function parseRelationships(relationships?: Array<RelationshipT>) {
         relationship: data.id,
         url: target.name,
         type: data.linkTypeID,
-        video: _.any(data.attributes, (attr) => attr.type.gid === VIDEO_ATTRIBUTE_GID)
+        video: _.some(data.attributes, (attr) => attr.type.gid === VIDEO_ATTRIBUTE_GID)
       });
     }
   });

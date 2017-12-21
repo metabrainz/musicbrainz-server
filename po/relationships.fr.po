@@ -32,7 +32,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2017-10-24 01:17+0000\n"
+"PO-Revision-Date: 2017-12-05 16:09+0000\n"
 "Last-Translator: yvanz\n"
 "Language-Team: French (http://www.transifex.com/musicbrainz/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -1129,7 +1129,7 @@ msgid ""
 "This describes an engineer involved with the machines used to generate "
 "sound, such as effects processors and digital audio equipment used to modify"
 " or manipulate sound in either an analogue or digital form."
-msgstr "Ceci décrit un ingénieur s’occupant des machines utilisées pour générer le son tels que les processeurs à effets et l’équipement audio numérique utilisés pour modifier ou manipuler le son qu’il soit analogique ou numérique."
+msgstr "Ceci décrit un technicien s’occupant des machines utilisées pour générer le son tels que les processeurs à effets et l’équipement audio numérique utilisés pour modifier ou manipuler le son qu’il soit analogique ou numérique."
 
 #: DB:link_type/description:36 DB:link_type/description:128
 msgid ""
@@ -1154,7 +1154,7 @@ msgid ""
 "This describes an engineer responsible for ensuring that the sounds that the"
 " artists make reach the microphones sounding pleasant, without unwanted "
 "resonance or noise. Sometimes known as acoustical engineering."
-msgstr "Ceci décrit un ingénieur devant s’assurer que les sons produits par les artistes atteignent les microphones en étant plaisant à l’oreille, sans résonance ni bruit indésirable.  Il est parfois appelé ingénieur acousticien."
+msgstr "Ceci décrit un technicien devant s’assurer que les sons produits par les artistes atteignent les microphones en étant plaisant à l’oreille, sans résonance ni bruit indésirable."
 
 #: DB:link_type/description:143
 msgid ""
@@ -5164,7 +5164,7 @@ msgstr "a {additional:aussi} programmé {assistant:en tant qu’assistant} {asso
 #: DB:link_type/long_link_phrase:140 DB:link_type/long_link_phrase:31
 msgid ""
 "{additional:additionally} {assistant} {associate} {co:co-}audio engineered"
-msgstr "{additional:aussi} {co:co-}ingénieur du son {assistant} {associate:associé}"
+msgstr "{additional:aussi} {co:co-}sonorisateur {assistant} {associate:associé}"
 
 #: DB:link_type/link_phrase:727 DB:link_type/link_phrase:726
 #: DB:link_type/long_link_phrase:727 DB:link_type/long_link_phrase:726
@@ -5199,7 +5199,7 @@ msgstr "{additional:aussi} {co:co-}enregistré {assistant:en tant qu’assistant
 #: DB:link_type/long_link_phrase:29 DB:link_type/long_link_phrase:133
 msgid ""
 "{additional:additionally} {assistant} {associate} {co:co-}sound engineered"
-msgstr "était {additional:aussi} {co:co-}ingénieur du son {assistant} {associate:associé}"
+msgstr "était {additional:aussi} {co:co-}preneur de son {assistant} {associate:associé}"
 
 #: DB:link_type/link_phrase:138 DB:link_type/link_phrase:28
 #: DB:link_type/long_link_phrase:138 DB:link_type/long_link_phrase:28
@@ -5365,7 +5365,7 @@ msgstr "lieu {additional:additionnel} d’écriture de"
 
 #: DB:link_type/reverse_link_phrase:140 DB:link_type/reverse_link_phrase:31
 msgid "{additional} {assistant} {associate} {co:co-}audio engineer"
-msgstr "{co:co-}ingénieur du son {additional:supplémentaire} {assistant} {associate:associé}"
+msgstr "{co:co-}sonorisateur {additional:supplémentaire} {assistant} {associate:associé}"
 
 #: DB:link_type/reverse_link_phrase:727 DB:link_type/reverse_link_phrase:726
 msgid "{additional} {assistant} {associate} {co:co-}balance engineer"
@@ -5385,7 +5385,7 @@ msgstr "{co:co-}mixeur {additional:supplémentaire} {assistant} {associate:assoc
 
 #: DB:link_type/reverse_link_phrase:29 DB:link_type/reverse_link_phrase:133
 msgid "{additional} {assistant} {associate} {co:co-}sound engineer"
-msgstr "{co:co-}ingénieur du son {additional:supplémentaire} {assistant} {associate:associé}"
+msgstr "{co:co-}preneur de son {additional:supplémentaire} {assistant} {associate:associé}"
 
 #: DB:link_type/reverse_link_phrase:138 DB:link_type/reverse_link_phrase:28
 msgid ""
