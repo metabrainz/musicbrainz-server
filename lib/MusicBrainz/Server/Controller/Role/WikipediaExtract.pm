@@ -16,7 +16,13 @@ sub wikipedia_extract : Chained('load') PathPart('wikipedia-extract')
     $self->_get_extract($c, 0);
 
     $c->res->headers->header('X-Robots-Tag' => 'noindex');
-    $c->stash->{template} = 'components/wikipedia_extract.tt';
+    $c->stash(
+        current_view => 'Node',
+        component_path => 'components/WikipediaExtract',
+        component_props => {
+            wikipediaExtract => $c->stash->{wikipedia_extract},
+        }
+    );
 }
 
 sub _get_extract

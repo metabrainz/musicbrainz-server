@@ -880,7 +880,7 @@ END ~%]
 
 [%~ MACRO show_wikipedia_extract BLOCK -%]
     [%- IF wikipedia_extract -%]
-        [%- INCLUDE 'components/wikipedia_extract.tt' -%]
+        [%- React.embed(c, 'components/WikipediaExtract.js', { wikipedia_extract => wikipedia_extract }) -%]
     [%- ELSIF wikipedia_extract_url -%]
         <span style="display:none" id="wikipedia-insertion-point"></span>
         <script type="text/javascript">
