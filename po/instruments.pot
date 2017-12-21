@@ -77,7 +77,7 @@ msgid "English concertina"
 msgstr ""
 
 #: DB:instrument/name:844
-msgctxt "english \"improved\" flageolet"
+msgctxt "English \"improved\" flageolet"
 msgid "English flageolet"
 msgstr ""
 
@@ -151,6 +151,11 @@ msgstr ""
 
 #: DB:instrument/name:358
 msgid "Northumbrian pipes"
+msgstr ""
+
+#: DB:instrument/name:890
+msgctxt "Toy synthesizer"
+msgid "Otamatone"
 msgstr ""
 
 #: DB:instrument/name:664
@@ -1086,6 +1091,7 @@ msgid "doshpuluur"
 msgstr ""
 
 #: DB:instrument/name:48
+msgctxt "Contrabass of modern violin family"
 msgid "double bass"
 msgstr ""
 
@@ -1113,6 +1119,7 @@ msgid "drums"
 msgstr ""
 
 #: DB:instrument/name:101
+msgctxt "Set of drums in modern music"
 msgid "drumset"
 msgstr ""
 
@@ -1512,6 +1519,7 @@ msgid "guqin"
 msgstr ""
 
 #: DB:instrument/name:423
+msgctxt "Traditional Russian plucked psaltery"
 msgid "gusli"
 msgstr ""
 
@@ -1574,6 +1582,11 @@ msgstr ""
 
 #: DB:instrument/name:681
 msgid "harp guitar"
+msgstr ""
+
+#: DB:instrument/name:894
+msgctxt "Electric guitar-piano tapping instrument"
+msgid "harpejji"
 msgstr ""
 
 #: DB:instrument/name:131
@@ -1689,6 +1702,11 @@ msgstr ""
 msgid "jug"
 msgstr ""
 
+#: DB:instrument/name:892
+msgctxt "Sacred royal Serer war drum"
+msgid "junjung"
+msgstr ""
+
 #: DB:instrument/name:283
 msgid "k'lông pút"
 msgstr ""
@@ -1712,6 +1730,7 @@ msgid "kanjira"
 msgstr ""
 
 #: DB:instrument/name:422
+msgctxt "Traditional Lithuanian plucked psaltery"
 msgid "kanklės"
 msgstr ""
 
@@ -1721,6 +1740,7 @@ msgid "kannel"
 msgstr ""
 
 #: DB:instrument/name:424
+msgctxt "Traditional Finnish plucked psaltery"
 msgid "kantele"
 msgstr ""
 
@@ -1832,6 +1852,11 @@ msgstr ""
 
 #: DB:instrument/name:670
 msgid "klong yao"
+msgstr ""
+
+#: DB:instrument/name:893
+msgctxt "Traditional Latvian plucked psaltery"
+msgid "kokle"
 msgstr ""
 
 #: DB:instrument/name:223
@@ -1998,6 +2023,11 @@ msgstr ""
 
 #: DB:instrument/name:766
 msgid "mandolute"
+msgstr ""
+
+#: DB:instrument/name:895
+msgctxt "18th century bass lute"
+msgid "mandora / gallichon"
 msgstr ""
 
 #: DB:instrument/name:113
@@ -3538,6 +3568,11 @@ msgstr ""
 #: DB:instrument/name:885
 msgctxt "Mongolian wire-stringed hammered dulcimer"
 msgid "yoochin"
+msgstr ""
+
+#: DB:instrument/name:891
+msgctxt "wooden tiger scraped with bamboo whisk"
+msgid "yu"
 msgstr ""
 
 #: DB:instrument/name:240

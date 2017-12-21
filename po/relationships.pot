@@ -374,6 +374,10 @@ msgstr ""
 msgid "Indicates that the recording is part of a series."
 msgstr ""
 
+#: DB:link_attribute_type/description:1053
+msgid "Indicates that the relationship is optional - doesn't always apply."
+msgstr ""
+
 #: DB:link_type/description:49
 msgid ""
 "Indicates that the release contains samples from material by the indicated "
@@ -4221,6 +4225,10 @@ msgstr ""
 #: DB:link_type/long_link_phrase:841 DB:link_type/long_link_phrase:221
 #: DB:link_type/long_link_phrase:660
 msgid "online data"
+msgstr ""
+
+#: DB:link_attribute_type/name:1053
+msgid "optional"
 msgstr ""
 
 #: DB:link_type/link_phrase:807
