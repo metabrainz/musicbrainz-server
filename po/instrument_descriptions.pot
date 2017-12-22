@@ -616,6 +616,14 @@ msgid ""
 "controller."
 msgstr ""
 
+#. name:harpejji 
+#: DB:instrument/description:894
+msgid ""
+"Effectively a small electric guitar-piano hybrid, it is played by tapping "
+"the multiple isometric arranged strings that are stretched over a long flat "
+"board."
+msgstr ""
+
 #. name:effects 
 #: DB:instrument/description:677
 msgid ""
@@ -667,6 +675,14 @@ msgstr ""
 msgid ""
 "Friction idiophones are idiophones where the sound is created by the "
 "instrument being rubbed."
+msgstr ""
+
+#. name:yu 
+#: DB:instrument/description:891
+msgid ""
+"From atleast 600 BC, it is made of wood to resemble a tiger with its spine "
+"made into notches. Notches are scraped to produce sound, it was used in "
+"ensemble with zhu."
 msgstr ""
 
 #. name:gankogui 
@@ -761,6 +777,14 @@ msgid ""
 "with street musicians."
 msgstr ""
 
+#. name:mandora / gallichon 
+#: DB:instrument/description:895
+msgid ""
+"Invented by European luthiers in the first half of the 18th century, it had "
+"6 to 7 single or double courses of gut strings and a long neck with either "
+"sharp or shallow angled pegbox."
+msgstr ""
+
 #. name:arpeggione 
 #: DB:instrument/description:823
 msgid ""
@@ -802,6 +826,14 @@ msgstr ""
 msgid ""
 "Klong that are large barrel drums from Thailand. They are played in a pair "
 "using wooden sticks and are used in the piphat ensemble."
+msgstr ""
+
+#. name:double bass 
+#: DB:instrument/description:48
+msgid ""
+"Known also as contrabass or upright bass, it is the largest and lowest-"
+"pitched member of the modern violin family, it is a principal member of the "
+"symphony orchestra."
 msgstr ""
 
 #. name:krakebs 
@@ -972,6 +1004,15 @@ msgid ""
 "townspeople."
 msgstr ""
 
+#. name:kokle 
+#: DB:instrument/description:893
+msgid ""
+"Originating from 13th century Latvia, it is made of wood and have today nine "
+"to eleven, up to thirty-three strings tuned diatonically. Played "
+"horizontally on lap or table by plucking while muting chosen strings. Became "
+"in the 70's and 80's an important part of the folklore movement."
+msgstr ""
+
 #. name:other instruments 
 #: DB:instrument/description:141
 msgid ""
@@ -1057,6 +1098,14 @@ msgstr ""
 msgid "Ruan is a family of Chinese plucked lutes."
 msgstr ""
 
+#. name:junjung 
+#: DB:instrument/description:892
+msgid ""
+"Sacred cylindrical goat or cattle rawhide drum, traditionally it was held "
+"with straps or placed on a stand and played horizontally while walking to "
+"battle, on special state occasions and religious ceremonies."
+msgstr ""
+
 #. name:santoor 
 #: DB:instrument/description:286
 msgid "Santoor, Indian dulcimer"
@@ -1065,6 +1114,21 @@ msgstr ""
 #. name:santur 
 #: DB:instrument/description:255
 msgid "Santur, Middle Eastern"
+msgstr ""
+
+#. name:drumset 
+#: DB:instrument/description:101
+msgid ""
+"Set of drums developed from the 1930's onward, it is used in Jazz, Swing, "
+"Rock and Pop music. It consists of snare drum, tom-toms, hi-hats, cymbals "
+"and bass drum."
+msgstr ""
+
+#. name:Otamatone 
+#: DB:instrument/description:890
+msgid ""
+"Shaped like an eighth-note with a cute face, it is played with one hand "
+"fingering the neck and the other squeezing the head to create wah-wah."
 msgstr ""
 
 #. name:shawm 
@@ -1732,14 +1796,6 @@ msgstr ""
 #. name:doshpuluur 
 #: DB:instrument/description:706
 msgid "The doshpuluur is a long-necked Tuvan lute."
-msgstr ""
-
-#. name:double bass 
-#: DB:instrument/description:48
-msgid ""
-"The double bass, also known as contrabass or upright bass as well as many "
-"other names, is the largest and lowest-pitched bowed string instrument of "
-"the violin family in the modern symphony orchestra."
 msgstr ""
 
 #. name:dramyin 
@@ -3640,7 +3696,7 @@ msgstr ""
 #. name:English horn 
 #: DB:instrument/description:7
 msgid ""
-"neither a horn nor english, it is a transposing member of the oboe family, "
+"neither a horn nor English, it is a transposing member of the oboe family, "
 "pitched at F"
 msgstr ""
 
@@ -3870,6 +3926,6 @@ msgstr ""
 #. name:English flageolet 
 #: DB:instrument/description:844
 msgid ""
-"working to improve on its design, the english flageolet had 6 finger holes "
+"working to improve on its design, the English flageolet had 6 finger holes "
 "in front and one thumb hole in the back."
 msgstr ""
