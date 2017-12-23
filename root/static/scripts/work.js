@@ -189,3 +189,16 @@ store.subscribe(renderWorkLanguages);
 renderWorkLanguages();
 
 MB.Control.initializeBubble('#iswcs-bubble', 'input[name=edit-work\\.iswcs\\.0]');
+
+let typeIdField = 'select[name=edit-work\\.type_id]';
+MB.Control.initializeBubble('#type-bubble', typeIdField);
+$(typeIdField).on('change', function() {
+  if (!this.value.match(/\S/g)) {
+    $('.type-bubble-description').hide();
+    $('#type-bubble-default').show();
+  } else {
+    $('#type-bubble-default').hide();
+    $('.type-bubble-description').hide();
+    $(`#type-bubble-description-${this.value}`).show();
+  }
+});
