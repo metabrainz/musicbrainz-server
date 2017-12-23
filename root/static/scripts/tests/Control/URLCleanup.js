@@ -266,6 +266,28 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
             expected_relationship_type: 'otherdatabases',
                     expected_clean_url: 'http://www.animenewsnetwork.com/encyclopedia/company.php?id=10510',
         },
+        // Anison Generation
+        {
+                             input_url: 'http://anison.info/data/person/1878.html',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'otherdatabases',
+                    expected_clean_url: 'http://anison.info/data/person/1878.html',
+               only_valid_entity_types: ['artist']
+        },
+        {
+                             input_url: 'http://anison.info/data/source/15524.html?test',
+                     input_entity_type: 'release',
+            expected_relationship_type: 'otherdatabases',
+                    expected_clean_url: 'http://anison.info/data/source/15524.html',
+               only_valid_entity_types: ['release']
+        },
+        {
+                             input_url: 'http://anison.info/data/song/5227.html#test',
+                     input_entity_type: 'recording',
+            expected_relationship_type: 'otherdatabases',
+                    expected_clean_url: 'http://anison.info/data/song/5227.html',
+               only_valid_entity_types: ['recording']
+        },
         // (Internet) Archive
         {
                              input_url: 'http://web.archive.org/web/20100904165354/i265.photobucket.com/albums/ii229/drsaunde/487015.jpg',
