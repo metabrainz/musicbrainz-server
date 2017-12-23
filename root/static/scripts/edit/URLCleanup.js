@@ -1279,6 +1279,28 @@ const CLEANUPS = {
       return false;
     }
   },
+  anisongeneration: {
+    match: [new RegExp("^(?:https?://)?anison\\.info/", "i")],
+    type: LINK_TYPES.otherdatabases,
+    clean: function (url) {
+      return url.replace(/^(?:https?:\/\/)?(?:www\.)?anison\.info\/data\/(person|source|song)\/([0-9]+)\.html.*$/, "http://anison.info/data/$1/$2.html");
+      },
+    validate: function (url, id) {
+      var m = /^http:\/\/anison\.info\/data\/(person|source|song)\/([0-9]+)\.html$/.exec(url);
+      if (m) {
+        var prefix = m[1];
+        switch (id) {
+          case LINK_TYPES.otherdatabases.artist:
+            return prefix === 'person';
+          case LINK_TYPES.otherdatabases.release:
+            return prefix === 'source';
+          case LINK_TYPES.otherdatabases.recording:
+            return prefix === 'song';
+        }
+      }
+      return false;
+    }
+  },
   baidubaike: {
     match: [new RegExp("^(https?://)?baike\\.baidu\\.com/", "i")],
     type: LINK_TYPES.otherdatabases,
