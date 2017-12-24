@@ -34,6 +34,7 @@ const yargs = require('yargs')
 
 const SOCKET_PATH = yargs.argv.socket;
 const WORKER_COUNT = yargs.argv.workers;
+const DISCONNECT_TIMEOUT = 10000;
 
 if (cluster.isMaster) {
   if (fs.existsSync(SOCKET_PATH)) {
@@ -77,16 +78,37 @@ if (cluster.isMaster) {
 
   console.log(`server.js listening on ${SOCKET_PATH} (pid ${process.pid})`);
 
+  function killWorker(worker) {
+    if (!worker.isDead()) {
+      console.info(
+        `worker hasn't died after ${DISCONNECT_TIMEOUT}ms; ` +
+        `sending SIGKILL to pid ${worker.process.pid}`
+      );
+      worker.process.kill('SIGKILL');
+    }
+  }
+
   function disconnectWorker(worker) {
     if (worker.isConnected()) {
       worker.disconnect();
+      setTimeout(() => killWorker(worker), DISCONNECT_TIMEOUT);
     }
   }
 
   const cleanup = Raven.wrap(function (signal) {
+    let timeout;
+
     cluster.disconnect(function () {
+      clearTimeout(timeout);
       process.exit();
     });
+
+    timeout = setTimeout(() => {
+      for (const id in cluster.workers) {
+        killWorker(cluster.workers[id]);
+      }
+      process.exit();
+    }, DISCONNECT_TIMEOUT);
   });
 
   let hupAction = null;
