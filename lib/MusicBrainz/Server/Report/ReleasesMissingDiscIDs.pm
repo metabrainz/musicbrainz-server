@@ -18,7 +18,7 @@ sub query {
               AND id NOT IN (SELECT medium FROM medium_cdtoc)
           )
         ) r
-        WHERE r.status NOT IN (3, 4) -- ignore psuedo and bootleg releases
+        WHERE r.status NOT IN (3, 4) -- ignore pseudo and bootleg releases
     }
 }
 
