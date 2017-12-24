@@ -63,7 +63,7 @@ if (cluster.isMaster) {
       } else if (code !== 0) {
         console.info(`worker exited with error code: ${code}`);
       }
-      if (!worker.noRespawn) {
+      if (!worker.exitedAfterDisconnect) {
         forkWorker();
       }
     });
@@ -77,20 +77,16 @@ if (cluster.isMaster) {
 
   console.log(`server.js listening on ${SOCKET_PATH} (pid ${process.pid})`);
 
-  function killWorker(worker, signal) {
-    worker.noRespawn = true;
-    if (!worker.isDead()) {
-      const proc = worker.process;
-      console.info('sending ' + signal + ' to worker ' + proc.pid);
-      proc.kill(signal);
+  function disconnectWorker(worker) {
+    if (worker.isConnected()) {
+      worker.disconnect();
     }
   }
 
   const cleanup = Raven.wrap(function (signal) {
-    for (const id in cluster.workers) {
-      killWorker(cluster.workers[id], signal);
-    }
-    process.exit();
+    cluster.disconnect(function () {
+      process.exit();
+    });
   });
 
   let hupAction = null;
@@ -112,7 +108,7 @@ if (cluster.isMaster) {
       const oldWorker = oldWorkers.pop();
       if (oldWorker) {
         const doKill = function () {
-          killWorker(oldWorker, 'SIGTERM');
+          disconnectWorker(oldWorker);
           hupAction = setTimeout(killNext, 1000);
         };
         if (!forkWorker(doKill)) {
@@ -126,18 +122,9 @@ if (cluster.isMaster) {
     hupAction = setTimeout(killNext, initialTimeout);
   });
 
-  process.on('SIGINT', () => cleanup('SIGINT'));
-  process.on('SIGTERM', () => cleanup('SIGTERM'));
-  process.on('SIGHUP', hup);
-} else {
-  const socketServer = createServer(SOCKET_PATH);
-
-  const cleanup = Raven.wrap(function () {
-    socketServer.close(function () {
-      process.exit();
-    });
-  });
-
   process.on('SIGINT', cleanup);
   process.on('SIGTERM', cleanup);
+  process.on('SIGHUP', hup);
+} else {
+  createServer(SOCKET_PATH);
 }
