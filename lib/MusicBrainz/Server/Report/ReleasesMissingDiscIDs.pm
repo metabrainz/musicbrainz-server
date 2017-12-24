@@ -1,4 +1,4 @@
-package MusicBrainz::Server::Report::ReleasesMissingDiscIds;
+package MusicBrainz::Server::Report::ReleasesMissingDiscIDs;
 use Moose;
 
 with 'MusicBrainz::Server::Report::ReleaseReport',
