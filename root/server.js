@@ -90,7 +90,6 @@ if (cluster.isMaster) {
     for (const id in cluster.workers) {
       killWorker(cluster.workers[id], signal);
     }
-    fs.unlinkSync(SOCKET_PATH);
     process.exit();
   });
 

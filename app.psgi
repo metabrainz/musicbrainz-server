@@ -43,7 +43,6 @@ BEGIN {
             use POSIX;
             my $action = POSIX::SigAction->new(sub {
                 kill 'TERM', $child;
-                unlink DBDefs->RENDERER_SOCKET;
                 exit;
             });
             $action->safe(1);
