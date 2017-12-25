@@ -1,0 +1,17 @@
+[%- WRAPPER 'layout.tt' title=l('Recordings possibly assigned to the wrong artist(s)') full_width=1 -%]
+
+<h1>[% l('Recordings possibly assigned to the wrong artist(s)') %]</h1>
+
+<ul>
+    <li>[% l('This report shows all recordings with the same name that have different artist MBIDs with the same name.') %]</li>
+    <li>[% l('These are most likely cases where the artist is incorrect for at least one
+              one of the instances. Make sure to check that the {artist_credit|Artist Credit} is correct as well.',
+              { artist_credit => doc_link('Artist_Credits') }) %]</li>
+    <li>[% l('Total releases found: {count}', { count => pager.total_entries }) %]</li>
+    <li>[% l('Generated on {date}', { date => UserDate.format(generated) }) %]</li>
+    [%- INCLUDE 'report/filter_link.tt' -%]
+</ul>
+
+[%- INCLUDE 'report/recording_list.tt' -%]
+
+[%- END -%]
