@@ -10,14 +10,14 @@ sub query {
             r.id AS release_id,
             row_number() OVER (ORDER BY r.artist_credit, r.name)
         FROM
-        ( SELECT r.id, r.artist_credit, r.name
-          FROM release r
+        ( SELECT id, artist_credit, name
+          FROM release
           WHERE id IN (
               SELECT release FROM medium
               WHERE (SELECT has_discids FROM medium_format WHERE medium_format.id = medium.format)
               AND id NOT IN (SELECT medium FROM medium_cdtoc)
           )
-          AND r.status NOT IN (3, 4) -- ignore pseudo and bootleg releases
+          AND status NOT IN (3, 4) -- ignore pseudo and bootleg releases
         ) r
     }
 }
