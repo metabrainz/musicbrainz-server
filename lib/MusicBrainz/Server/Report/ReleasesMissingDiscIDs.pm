@@ -25,7 +25,7 @@ sub query {
 __PACKAGE__->meta->make_immutable;
 1;
 
-=head1 COPYRIGHT
+=head1 COPYRIGHT AND LICENSE
 
 Copyright (C) 2017 MetaBrainz Foundation
 
