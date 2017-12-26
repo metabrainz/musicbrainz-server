@@ -17,8 +17,8 @@ sub query {
               WHERE (SELECT has_discids FROM medium_format WHERE medium_format.id = medium.format)
               AND id NOT IN (SELECT medium FROM medium_cdtoc)
           )
+          AND r.status NOT IN (3, 4) -- ignore pseudo and bootleg releases
         ) r
-        WHERE r.status NOT IN (3, 4) -- ignore pseudo and bootleg releases
     }
 }
 
