@@ -1367,6 +1367,26 @@ const CLEANUPS = {
       return false;
     }
   },
+  brahms: {
+    match: [new RegExp("^(https?://)?brahms\\.ircam\\.fr/", "i")],
+    type: LINK_TYPES.otherdatabases,
+    clean: function (url) {
+      return url.replace(/^(?:https?:\/\/)?brahms\.ircam\.fr\/((works\/work)(?:\/)([0-9]+)|(?!works)[^?\/#]+).*$/, "http://brahms.ircam.fr/$1");
+    },
+    validate: function (url, id) {
+      var m = /^(?:https?:\/\/)?brahms\.ircam\.fr\/(works\/work|(?!works)[^?\/#]+).*$/.exec(url);
+      if (m) {
+        var prefix = m[1];
+        switch (id) {
+          case LINK_TYPES.otherdatabases.work:
+            return prefix == 'works/work';
+          case LINK_TYPES.otherdatabases.artist:
+            return prefix !== 'works/work';	
+        }
+      }
+      return false;
+    }
+  },
   cancionerosmewiki: {
     match: [new RegExp("^(https?://)?(www\\.)?cancioneros\\.si/mediawiki/", "i")],
     type: LINK_TYPES.otherdatabases,
