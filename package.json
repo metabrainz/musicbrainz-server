@@ -41,7 +41,7 @@
     "lodash": "4.17.4",
     "merge-stream": "1.0.1",
     "moment": "2.10.6",
-    "moment-strftime": "0.1.5",
+    "moment-strftime": "0.2.3",
     "moment-timezone": "0.4.1",
     "node-gettext": "1.0.1",
     "po2json": "0.4.1",
