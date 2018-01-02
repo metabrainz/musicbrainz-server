@@ -108,7 +108,7 @@
             <li><a href="[% c.uri_for_action('/report/show', 'ReleasesWithNoMediums') %]">[% l('Releases with no mediums') %]</a></li>
             <li><a href="[% c.uri_for_action('/report/show', 'ReleasesWithoutVACredit') %]">[% l('Releases not credited to "Various Artists" but linked to VA') %]</a></li>
             <li><a href="[% c.uri_for_action('/report/show', 'ReleasesWithoutVALink') %]">[% l('Releases credited to "Various Artists" but not linked to VA') %]</a></li>
-            <li><a href="[% c.uri_for_action('/report/show', 'ReleasesMissingDiscIds') %]">[% l('Releases missing Disc IDs') %]</a></li>
+            <li><a href="[% c.uri_for_action('/report/show', 'ReleasesMissingDiscIDs') %]">[% l('Releases missing disc IDs') %]</a></li>
         </ul>
 
         <h2>[% l('Recordings') %]</h2>

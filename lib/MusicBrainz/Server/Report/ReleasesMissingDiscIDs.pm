@@ -1,4 +1,4 @@
-package MusicBrainz::Server::Report::ReleasesMissingDiscIds;
+package MusicBrainz::Server::Report::ReleasesMissingDiscIDs;
 use Moose;
 
 with 'MusicBrainz::Server::Report::ReleaseReport',
@@ -10,22 +10,23 @@ sub query {
             r.id AS release_id,
             row_number() OVER (ORDER BY r.artist_credit, r.name)
         FROM
-        ( SELECT r.id, r.artist_credit, r.name
-          FROM release r
+        ( SELECT id, artist_credit, name
+          FROM release
           WHERE id IN (
               SELECT release FROM medium
               WHERE (SELECT has_discids FROM medium_format WHERE medium_format.id = medium.format)
               AND id NOT IN (SELECT medium FROM medium_cdtoc)
           )
+          AND status NOT IN (3, 4) -- ignore pseudo and bootleg releases
         ) r
-        WHERE r.status NOT IN (3, 4) -- ignore psuedo and bootleg releases
     }
 }
 
 __PACKAGE__->meta->make_immutable;
+no Moose;
 1;
 
-=head1 COPYRIGHT
+=head1 COPYRIGHT AND LICENSE
 
 Copyright (C) 2017 MetaBrainz Foundation
 
