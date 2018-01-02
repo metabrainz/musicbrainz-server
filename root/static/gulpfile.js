@@ -1,4 +1,5 @@
 const canonicalJSON = require('canonical-json');
+const EventEmitter = require('events');
 const fs = require('fs');
 const gulp = require('gulp');
 const less = require('gulp-less');
@@ -17,6 +18,10 @@ const yarb = require('yarb');
 
 const {findObjectFile} = require('../server/gettext');
 const DBDefs = require('./scripts/common/DBDefs');
+
+// This may need to be increased when a new bundle is added, to silence
+// warnings of the form "Possible EventEmitter memory leak detected."
+EventEmitter.defaultMaxListeners = 16;
 
 process.env.NODE_ENV = DBDefs.DEVELOPMENT_SERVER ? 'development' : 'production';
 
@@ -275,6 +280,10 @@ runYarb('voting.js', function (b) {
 
 runYarb('work.js', function (b) {
   b.external(editBundle).external(guessCaseBundle);
+});
+
+runYarb('commons-image.js', function (b) {
+  b.external(commonBundle);
 });
 
 gulp.task('watch', ['default'], function () {

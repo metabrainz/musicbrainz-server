@@ -13,16 +13,22 @@ Readonly my $WIKIDATA_PROP_LOCATOR_MAP_IMAGE => "P242";
 after load => sub {
     my ($self, $c) = @_;
 
-    $self->_get_commons_image($c, 1);
+    my $entity = $c->stash->{entity};
+    my $endpoint = $c->uri_for_action($self->action_for('commons_image'), [$entity->gid]);
+    $c->stash->{image} = $self->_get_commons_image($c, 1);
+    $c->stash->{commons_image_props} = $c->json->encode({
+        imageEndpoint => $endpoint->as_string,
+    });
 };
 
 sub commons_image : Chained('load') PathPart('commons-image') {
     my ($self, $c) = @_;
 
-    $self->_get_commons_image($c, 0);
+    my $image = $self->_get_commons_image($c, 0);
 
     $c->res->headers->header('X-Robots-Tag' => 'noindex');
-    $c->stash->{template} = 'components/commons-image.tt';
+    $c->res->content_type('application/json; charset=utf-8');
+    $c->res->{body} = $c->json->encode({image => $image});
 }
 
 sub _get_commons_image {
@@ -47,12 +53,7 @@ sub _get_commons_image {
     # Return early if no image exists.
     return unless defined $title;
 
-    my $commons_image = $c->model('CommonsImage')->get_commons_image($title, cache_only => $cache_only);
-    if ($commons_image) {
-        $c->stash->{image} = $commons_image;
-    } else {
-        $c->stash->{image_url} = $c->uri_for_action($self->action_for('commons_image'), [ $entity->gid ]);
-    }
+    return $c->model('CommonsImage')->get_commons_image($title, cache_only => $cache_only);
 }
 
 sub _get_wikidata_image {
