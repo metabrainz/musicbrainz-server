@@ -492,6 +492,7 @@ sub TO_JSON {
 
     return {
         user => ($self->user_exists ? $self->user : undef),
+        user_exists => boolean_to_json($self->user_exists),
         debug => boolean_to_json($self->debug),
         relative_uri => $self->relative_uri,
         req => {
