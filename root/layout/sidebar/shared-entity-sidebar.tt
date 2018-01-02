@@ -4,7 +4,7 @@
     [%~ content ~%]
 
     [%~ IF entity_properties.ratings;
-            React.embed(c, 'root/layout/components/sidebar/SidebarRating', {
+            React.embed(c, 'layout/components/sidebar/SidebarRating', {
                 entity => entity,
             });
         END
@@ -17,12 +17,12 @@
     [%~ END ~%]
 
     [%- IF entity_type != 'url';
-            React.embed(c, 'root/layout/components/ExternalLinks', {
+            React.embed(c, 'layout/components/ExternalLinks', {
                 empty => React.bool(1),
             });
         END;
         IF entity.isa('MusicBrainz::Server::Entity::Release');
-            React.embed(c, 'root/layout/components/ExternalLinks', {
+            React.embed(c, 'layout/components/ExternalLinks', {
                 entity => entity.release_group,
                 empty => React.bool(0),
                 heading => l('Release group external links'),

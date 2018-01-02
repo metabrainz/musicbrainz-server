@@ -896,7 +896,7 @@ END ~%]
 
 [%~ MACRO show_image BLOCK -%]
     <div id="commons-image">
-        [%~ React.embed(c, 'root/components/CommonsImage', { image => image }) ~%]
+        [%~ React.embed(c, 'components/CommonsImage', { image => image }) ~%]
     </div>
     [%- script_manifest(
             'commons-image.js',

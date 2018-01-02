@@ -8,7 +8,7 @@
       </script>
     </head>
   [% ELSE %]
-    [%- React.embed(c, 'root/layout/components/Head', {
+    [%- React.embed(c, 'layout/components/Head', {
             canonical_url => canonical_url,
             homepage => homepage,
             no_icons => no_icons,

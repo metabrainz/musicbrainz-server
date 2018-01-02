@@ -86,7 +86,7 @@
                 [%~ release_events(release.events) ~%]
             [%~ END ~%]
 
-            [%~ React.embed(c, 'root/layout/components/sidebar/SidebarRating', {
+            [%~ React.embed(c, 'layout/components/sidebar/SidebarRating', {
                     entity => release.release_group,
                     heading => l('Release group rating'),
                 });
