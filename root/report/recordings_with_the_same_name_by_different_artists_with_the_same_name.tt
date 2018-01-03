@@ -1,6 +1,6 @@
-[%- WRAPPER 'layout.tt' title=l('Recordings possibly assigned to the wrong artist(s)') full_width=1 -%]
+[%- WRAPPER 'layout.tt' title=l('Recordings with the same name by different artists with the same name') full_width=1 -%]
 
-<h1>[% l('Recordings possibly assigned to the wrong artist(s)') %]</h1>
+<h1>[% l('Recordigns with the sae name by different artists with the same name') %]</h1>
 
 <ul>
     <li>[% l('This report shows all recordings with the same name that have different artist MBIDs with the same name.') %]</li>

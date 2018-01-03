@@ -1,12 +1,10 @@
-package MusicBrainz::Server::Report::RecordingsPossiblyAssignedToTheWrongArtist;
+package MusicBrainz::Server::Report::RecordingsWithTheSameNameByDifferentArtistsWithTheSameName
 use Moose;
 
 with 'MusicBrainz::Server::Report::RecordingReport',
      'MusicBrainz::Server::Report::FilterForEditor::RecordingID';
 
 sub query {
-    # Find all recordings with the same name that have artists with the same name.
-    "
     SELECT
         recording_id,
         row_number() OVER (ORDER BY musicbrainz_collate(rname), recording_id)
