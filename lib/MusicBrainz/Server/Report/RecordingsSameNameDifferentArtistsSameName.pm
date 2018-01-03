@@ -1,10 +1,11 @@
-package MusicBrainz::Server::Report::RecordingsWithTheSameNameByDifferentArtistsWithTheSameName
+package MusicBrainz::Server::Report::RecordingsSameNameDifferentArtistsSameName;
 use Moose;
 
 with 'MusicBrainz::Server::Report::RecordingReport',
      'MusicBrainz::Server::Report::FilterForEditor::RecordingID';
 
 sub query {
+    "
     SELECT
         recording_id,
         row_number() OVER (ORDER BY musicbrainz_collate(rname), recording_id)
