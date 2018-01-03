@@ -16,6 +16,18 @@ has 'rating_count' => (
     isa => 'Int'
 );
 
+around TO_JSON => sub {
+    my ($orig, $self) = @_;
+
+    my $json = $self->$orig;
+
+    $json->{rating} = $self->rating;
+    $json->{rating_count} = $self->rating_count // 0;
+    $json->{user_rating} = $self->user_rating;
+
+    return $json;
+};
+
 no Moose::Role;
 1;
 

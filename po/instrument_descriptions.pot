@@ -116,18 +116,6 @@ msgid ""
 "is in fact a zither with a keyboard."
 msgstr ""
 
-#. name:duck call 
-#: DB:instrument/description:649
-msgid "A duck call is a tool used to emulate the sound of a duck."
-msgstr ""
-
-#. name:fife 
-#: DB:instrument/description:514
-msgid ""
-"A fife is a small, high-pitched, transverse flute that is similar to the "
-"piccolo, but louder and shriller due to its narrower bore."
-msgstr ""
-
 #. name:five-string banjo 
 #: DB:instrument/description:523
 msgid "A five-string banjo is a banjo with five strings."
@@ -485,11 +473,6 @@ msgstr ""
 msgid "Bandura, Ukrainian 14th century lute"
 msgstr ""
 
-#. name:bandura 
-#: DB:instrument/description:394
-msgid "Bandura, modern day Ukrainian zither"
-msgstr ""
-
 #. name:bass guitar 
 #: DB:instrument/description:207
 msgid "Bass (modern, typically electrical, but not always)"
@@ -502,6 +485,11 @@ msgid ""
 "instrument, the most common being the bass guitar and the double bass (a.k."
 "a. contrabass, acoustic upright bass, wood bass). Please use the correct "
 "instrument if you know which one is intended."
+msgstr ""
+
+#. name:daruan 
+#: DB:instrument/description:546
+msgid "Bass member of Chinese ruan family of lutes."
 msgstr ""
 
 #. name:berda 
@@ -852,6 +840,14 @@ msgid ""
 "vibrate."
 msgstr ""
 
+#. name:bandura 
+#: DB:instrument/description:394
+msgid ""
+"Large box lute-zither with a short, unfretted neck. It has 30 or more "
+"strings fanned out on the body, the four to eight bass strings are strung to "
+"the neck."
+msgstr ""
+
 #. name:Scottish smallpipes 
 #: DB:instrument/description:427
 msgid ""
@@ -1136,6 +1132,11 @@ msgstr ""
 msgid "Shawm, Medieval and Renaissance instrument, predecessor to the oboe"
 msgstr ""
 
+#. name:duck call 
+#: DB:instrument/description:649
+msgid "Short wooden flute used to imitate the sound of ducks"
+msgstr ""
+
 #. name:tabor 
 #: DB:instrument/description:806
 msgid ""
@@ -1186,6 +1187,13 @@ msgstr ""
 msgid ""
 "Small vessel flute made of wood, clay, bone or soft stone like soapstone, it "
 "has 4 holes and is played with the nose or mouth."
+msgstr ""
+
+#. name:fife 
+#: DB:instrument/description:514
+msgid ""
+"Small, high-pitched, transverse flute, similar to the piccolo, but with a "
+"narrower bore."
 msgstr ""
 
 #. name:sopilka 
@@ -1729,11 +1737,6 @@ msgstr ""
 msgid ""
 "The darbuka is an hourglass-shaped goblet drum from Greece, the Middle East "
 "and India."
-msgstr ""
-
-#. name:daruan 
-#: DB:instrument/description:546
-msgid "The daruan is a Chinese plucked lute."
 msgstr ""
 
 #. name:diddley bow 
@@ -3310,6 +3313,13 @@ msgid ""
 "announcements like war, welcoming people and kumara planting."
 msgstr ""
 
+#. name:turntable 
+#: DB:instrument/description:181
+msgid ""
+"Used in turntablism, vinyl records are not simply played on it, instead DJ's "
+"perform creating sound."
+msgstr ""
+
 #. name:lap harp 
 #: DB:instrument/description:886
 msgid ""
@@ -3596,6 +3606,13 @@ msgid ""
 "guitar-bouzouki hybrid with guitar body and 4 pairs of strings like the "
 "bouzouki, developed separately several different luthiers, among them Stefan "
 "Sobell (bouzar) and Davy Stuart (gouzouki)"
+msgstr ""
+
+#. name:reed organ 
+#: DB:instrument/description:204
+msgid ""
+"having pedals attached to bellows with reeds. sound is produced by playing "
+"the keyboard."
 msgstr ""
 
 #. name:elektronium 

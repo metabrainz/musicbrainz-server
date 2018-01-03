@@ -186,6 +186,12 @@ after create => sub {
     stash_work_form_json($c);
 };
 
+before qw( create edit ) => sub {
+    my ($self, $c) = @_;
+    my %work_types = map {$_->id => $_} $c->model('WorkType')->get_all();
+    $c->stash->{work_types} = \%work_types;
+};
+
 1;
 
 =head1 COPYRIGHT

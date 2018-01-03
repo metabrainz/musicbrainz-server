@@ -9,15 +9,30 @@
 
 [%- info_links = [
     ['index', simple_link(c.uri_for_action("/user/profile", [ user.name ]), l('Profile'))],
-    ['subscriptions', simple_link(c.uri_for_action("/user/subscriptions/artist", [ user.name ]), l('Subscriptions'))],
-    ['subscribers', simple_link(c.uri_for_action("/user/subscribers", [ user.name ]), l('Subscribers'))],
-    ['collections', simple_link(c.uri_for_action("/user/collections", [ user.name ]), l('Collections'))],
 ] -%]
 
+[%- IF c.user.is_account_admin || viewing_own_profile || user.preferences.public_subscriptions -%]
+[%- info_links.push(
+    ['subscriptions', simple_link(c.uri_for_action("/user/subscriptions/artist", [ user.name ]), l('Subscriptions'))],
+) -%]
+[%- END -%]
+
+[%- info_links.push(
+    ['subscribers', simple_link(c.uri_for_action("/user/subscribers", [ user.name ]), l('Subscribers'))],
+    ['collections', simple_link(c.uri_for_action("/user/collections", [ user.name ]), l('Collections'))],
+) -%]
+
+[%- IF c.user.is_account_admin || viewing_own_profile || user.preferences.public_tags -%]
 [%- info_links.push(
     ['tags', simple_link(c.uri_for_action("/user/tags", [ user.name ]), l('Tags'))],
+) -%]
+[%- END -%]
+
+[%- IF c.user.is_account_admin || viewing_own_profile || user.preferences.public_ratings -%]
+[%- info_links.push(
     ['ratings', simple_link(c.uri_for_action("/user/ratings", [ user.name ]), l('Ratings'))],
 ) -%]
+[%- END -%]
 
 [%- IF viewing_own_profile -%]
 [%- info_links.push(

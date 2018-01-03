@@ -32,9 +32,12 @@ test all => sub {
                 "id" => 5,
                 "name" => "David Bowie",
                 "primaryAlias" => undef,
+                "rating" => undef,
+                "rating_count" => 0,
                 "sort_name" => "David Bowie",
                 "typeID" => undef,
                 "unaccented_name" => undef,
+                "user_rating" => undef,
               }, { "current" => 1, "pages" => 1 } ];
 
     ws_test 'label autocomplete response',
@@ -52,8 +55,11 @@ test all => sub {
                 "label_code" => 2070,
                 "name" => 'Warp Records',
                 "primaryAlias" => undef,
+                "rating" => undef,
+                "rating_count" => 0,
                 "typeID" => 4,
                 "unaccented_name" => undef,
+                "user_rating" => undef,
               }, { "current" => 1, "pages" => 1 } ];
 
 };

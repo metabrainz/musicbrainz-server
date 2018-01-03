@@ -15,7 +15,9 @@ sub process {
 
     $self->next::method(@_);
 
-    my $response = render_component($c, $c->req->path, {});
+    my $component_path = $c->stash->{component_path} // $c->req->path;
+    my $component_props = $c->stash->{component_props} // {};
+    my $response = render_component($c, $component_path, $component_props);
     my ($content_type, $status, $body) =
         @$response{qw(content_type status body)};
 

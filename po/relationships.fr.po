@@ -27,12 +27,12 @@
 # French language coordinator <email address hidden>, 2013-2015
 # Youenn Piolet, 2015
 # Youenn Piolet, 2015
-# yvanz, 2016-2017
+# yvanz, 2016-2018
 # yvanz, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2017-12-05 16:09+0000\n"
+"PO-Revision-Date: 2018-01-03 10:40+0000\n"
 "Last-Translator: yvanz\n"
 "Language-Team: French (http://www.transifex.com/musicbrainz/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -410,6 +410,10 @@ msgstr "Indique que l’enregistrement contient des échantillons de cette parut
 #: DB:link_type/description:740
 msgid "Indicates that the recording is part of a series."
 msgstr "Indique que l’enregistrement fait partie d’une série."
+
+#: DB:link_attribute_type/description:1053
+msgid "Indicates that the relationship is optional - doesn't always apply."
+msgstr "Indique une relation facultative, c’est-à-dire, qui ne s’applique pas toujours."
 
 #: DB:link_type/description:49
 msgid ""
@@ -4250,6 +4254,10 @@ msgstr "page de communauté en ligne pour"
 #: DB:link_type/long_link_phrase:660
 msgid "online data"
 msgstr "données en ligne"
+
+#: DB:link_attribute_type/name:1053
+msgid "optional"
+msgstr "facultative"
 
 #: DB:link_type/link_phrase:807
 msgid "orchestra at"

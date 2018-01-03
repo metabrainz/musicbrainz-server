@@ -1279,6 +1279,28 @@ const CLEANUPS = {
       return false;
     }
   },
+  anisongeneration: {
+    match: [new RegExp("^(?:https?://)?anison\\.info/", "i")],
+    type: LINK_TYPES.otherdatabases,
+    clean: function (url) {
+      return url.replace(/^(?:https?:\/\/)?(?:www\.)?anison\.info\/data\/(person|source|song)\/([0-9]+)\.html.*$/, "http://anison.info/data/$1/$2.html");
+      },
+    validate: function (url, id) {
+      var m = /^http:\/\/anison\.info\/data\/(person|source|song)\/([0-9]+)\.html$/.exec(url);
+      if (m) {
+        var prefix = m[1];
+        switch (id) {
+          case LINK_TYPES.otherdatabases.artist:
+            return prefix === 'person';
+          case LINK_TYPES.otherdatabases.release:
+            return prefix === 'source';
+          case LINK_TYPES.otherdatabases.recording:
+            return prefix === 'song';
+        }
+      }
+      return false;
+    }
+  },
   baidubaike: {
     match: [new RegExp("^(https?://)?baike\\.baidu\\.com/", "i")],
     type: LINK_TYPES.otherdatabases,
@@ -1345,6 +1367,26 @@ const CLEANUPS = {
       return false;
     }
   },
+  brahms: {
+    match: [new RegExp("^(https?://)?brahms\\.ircam\\.fr/", "i")],
+    type: LINK_TYPES.otherdatabases,
+    clean: function (url) {
+      return url.replace(/^(?:https?:\/\/)?brahms\.ircam\.fr\/((works\/work)(?:\/)([0-9]+)|(?!works)[^?\/#]+).*$/, "http://brahms.ircam.fr/$1");
+    },
+    validate: function (url, id) {
+      var m = /^(?:https?:\/\/)?brahms\.ircam\.fr\/(works\/work|(?!works)[^?\/#]+).*$/.exec(url);
+      if (m) {
+        var prefix = m[1];
+        switch (id) {
+          case LINK_TYPES.otherdatabases.work:
+            return prefix == 'works/work';
+          case LINK_TYPES.otherdatabases.artist:
+            return prefix !== 'works/work';	
+        }
+      }
+      return false;
+    }
+  },
   cancionerosmewiki: {
     match: [new RegExp("^(https?://)?(www\\.)?cancioneros\\.si/mediawiki/", "i")],
     type: LINK_TYPES.otherdatabases,
@@ -1355,7 +1397,7 @@ const CLEANUPS = {
       return /^http:\/\/www\.cancioneros\.si\/mediawiki\/index\.php\?title=.+$/.test(url)
         && (id === LINK_TYPES.otherdatabases.artist
           || id === LINK_TYPES.otherdatabases.series
-            || id === LINK_TYPES.otherdatabases.work);
+            || id === LINK_TYPES.otherdatabases.work);
     }
   },
   cbfiddlerx: {
@@ -1462,7 +1504,7 @@ const CLEANUPS = {
         var prefix = m[1] || m[2];
         switch (id) {
           case LINK_TYPES.otherdatabases.artist:
-            return prefix === 'artista' || prefix === 'grupo';
+            return prefix === 'artista' || prefix === 'grupo';
           case LINK_TYPES.otherdatabases.release_group:
             return prefix === 'disco';
         }
@@ -1507,7 +1549,7 @@ const CLEANUPS = {
         var prefix = m[1] || m[2];
         switch (id) {
           case LINK_TYPES.otherdatabases.artist:
-            return prefix === 'artistas' || prefix === 'bios';
+            return prefix === 'artistas' || prefix === 'bios';
           case LINK_TYPES.otherdatabases.release_group:
             return prefix === 'discos';
           case LINK_TYPES.otherdatabases.work:
@@ -1604,6 +1646,8 @@ const CLEANUPS = {
       new RegExp("^(https?://)?(www\\.)?patreon\\.com/[^/?#]", "i"),
       new RegExp("^(https?://)?(www\\.)?paypal\\.me/[^/?#]", "i"),
       new RegExp("^(https?://)?(www\\.)?tipeee\\.com/[^/?#]", "i"),
+      new RegExp("^(https?://)?(www\\.)?d\\.rip/[^/?#]", "i"),
+      new RegExp("^(https?://)?(www\\.)?drip\\.kickstarter.com/[^/?#]", "i"),
     ],
     type: LINK_TYPES.patronage,
     clean: function (url) {
@@ -1614,6 +1658,8 @@ const CLEANUPS = {
       url = url.replace(/^(?:https?:\/\/)?(?:www\.)?patreon\.com\/((?:user\?u=)?[^\/?&#]+)(?:.*)?$/, "https://www.patreon.com/$1");
       url = url.replace(/^(?:https?:\/\/)?(?:www\.)?paypal\.me\/([^\/?#]+)(?:.*)?$/, "https://www.paypal.me/$1");
       url = url.replace(/^(?:https?:\/\/)?(?:www\.)?tipeee\.com\/([^\/?#]+)(?:.*)?$/, "https://www.tipeee.com/$1");
+      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?d\.rip\/([^\/?#]+)(?:.*)?$/, "https://d.rip/$1");
+      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?drip\.kickstarter.com\/([^\/?#]+)(?:.*)?$/, "https://d.rip/$1");
       return url;
     }
   },
