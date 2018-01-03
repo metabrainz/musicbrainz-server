@@ -64,9 +64,10 @@ const Head = (props) => (
     <link rel="search" type="application/opensearchdescription+xml" title={l('MusicBrainz: Track')} href="/static/search_plugins/opensearch/musicbrainz_track.xml" />
 
     <noscript>
-      <style type="text/css">
-        {'.header > .right > .bottom > .menu > li:focus > ul { left: auto; }'}
-      </style>
+      <style
+        dangerouslySetInnerHTML={{__html: '.header > .right > .bottom > .menu > li:focus > ul { left: auto; }'}}
+        type="text/css"
+      />
     </noscript>
 
     {manifest.js('rev-manifest')}
