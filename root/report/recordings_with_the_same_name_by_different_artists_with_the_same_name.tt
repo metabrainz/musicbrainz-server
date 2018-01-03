@@ -4,9 +4,8 @@
 
 <ul>
     <li>[% l('This report shows all recordings with the same name that have different artist MBIDs with the same name.') %]</li>
-    <li>[% l('These are most likely cases where the artist is incorrect for at least one
-              one of the instances. Make sure to check that the {artist_credit|Artist Credit} is correct as well.',
-              { artist_credit => doc_link('Artist_Credits') }) %]</li>
+    <li>[% l('These are most likely cases where the {ac|artist credit} is incorrect for at least one of the recordings.',
+             { ac => doc_link('Artist_Credits') }) %]</li>
     <li>[% l('Total recordings found: {count}', { count => pager.total_entries }) %]</li>
     <li>[% l('Generated on {date}', { date => UserDate.format(generated) }) %]</li>
     [%- INCLUDE 'report/filter_link.tt' -%]
