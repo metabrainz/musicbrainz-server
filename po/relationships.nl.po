@@ -10,7 +10,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2017-11-01 19:51+0000\n"
+"PO-Revision-Date: 2017-12-26 15:07+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -388,6 +388,10 @@ msgstr "Geeft aan dat een opname deze uitgave sampelt."
 #: DB:link_type/description:740
 msgid "Indicates that the recording is part of a series."
 msgstr "Geeft aan dat de opname deel van een serie uitmaakt."
+
+#: DB:link_attribute_type/description:1053
+msgid "Indicates that the relationship is optional - doesn't always apply."
+msgstr "Deze eigenschap geeft aan dat de relatie optioneel, dus niet altijd van toepassing is."
 
 #: DB:link_type/description:49
 msgid ""
@@ -4228,6 +4232,10 @@ msgstr "online gemeenschap van"
 #: DB:link_type/long_link_phrase:660
 msgid "online data"
 msgstr "online gegevens"
+
+#: DB:link_attribute_type/name:1053
+msgid "optional"
+msgstr "optioneel"
 
 #: DB:link_type/link_phrase:807
 msgid "orchestra at"

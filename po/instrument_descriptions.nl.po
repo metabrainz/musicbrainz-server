@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2017-11-21 11:19+0000\n"
+"PO-Revision-Date: 2017-12-26 15:20+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -586,14 +586,22 @@ msgid ""
 "metal cone, it is used in the traditional Cobla and Sardana music."
 msgstr "De tenora is een ontwikkeling van de tenorschalmei, in de negentiende eeuw door hobospeler Andreu Turon in Catalonië ontwikkeld. Het wordt gemaakt van jujubehout met een onderkant van metaal. Het instrument wordt bespeeld bij traditionele cobla- en sardanamuziek."
 
+#. name:laouto
+#: DB:instrument/description:704
+msgid ""
+"Differs from other lutes in that its string tension is greater thus sounding"
+" more like the oud. From ancient Greece, it was used as an accompaniment to "
+"Cretan Lyra"
+msgstr ""
+
 #. name:craviola
 #: DB:instrument/description:779
 msgid ""
-"Distinctly asymmetric in contrast to typical guitar, it's timbre is a "
+"Distinctly asymmetric in contrast to typical guitar, its timbre is a "
 "combination of the harpsichord (pt:cravo) and the Viola caipira. It can have"
 " six or twelve nylon or steel strings and are produced solely by company "
 "Giannini."
-msgstr "Een craviola is een gitaar met een karakteristieke asymmetrische vorm. Het klinkt als een combinatie van een klavecimbel (Portugees: cravo) en een viola caipira. Craviola’s kunnen zes of twaalf snaren hebben, zowel van nylon als van staal, en worden alleen door het bedrijf Giannini geproduceerd."
+msgstr ""
 
 #. name:dobro
 #: DB:instrument/description:184
@@ -616,6 +624,14 @@ msgid ""
 "EWI (an acronym for electric wind instrument) is the name of Akai's wind "
 "controller."
 msgstr "EWI is een afkorting voor Electric Wind Instrument en is de naam van Akai’s blaas-synthesizer."
+
+#. name:harpejji
+#: DB:instrument/description:894
+msgid ""
+"Effectively a small electric guitar-piano hybrid, it is played by tapping "
+"the multiple isometric arranged strings that are stretched over a long flat "
+"board."
+msgstr ""
 
 #. name:effects
 #: DB:instrument/description:677
@@ -669,6 +685,14 @@ msgid ""
 "Friction idiophones are idiophones where the sound is created by the "
 "instrument being rubbed."
 msgstr "Frictie-idiofonen zijn idiofonen waarbij het geluid wordt veroorzaakt door over het instrument te wrijven."
+
+#. name:yu
+#: DB:instrument/description:891
+msgid ""
+"From atleast 600 BC, it is made of wood to resemble a tiger with its spine "
+"made into notches. Notches are scraped to produce sound, it was used in "
+"ensemble with zhu."
+msgstr ""
 
 #. name:gankogui
 #: DB:instrument/description:383
@@ -735,6 +759,13 @@ msgstr "Een darmsnaargitaar is een akoestische gitaar met snaren gemaakt van dar
 msgid "Hollow-body acoustic guitar strung with nylon-strings."
 msgstr "Een nylongitaar is een akoestische gitaar met nylonsnaren."
 
+#. name:olifant
+#: DB:instrument/description:888
+msgid ""
+"Hunting horn carved out of ivory, it was widely used in Medieval wars to "
+"alarm or increase soldiers' morale."
+msgstr "Een olifant is een natuurhoorn van ivoor. Het werd tijdens de middeleeuwen vaak tijdens oorlogen gebruikt om het moreel van de soldaten te verhogen."
+
 #. name:huqin
 #: DB:instrument/description:213
 msgid "Huqin is a Chinese family of bowed string instruments."
@@ -754,6 +785,14 @@ msgid ""
 "alternating length PVC pipes and hit with sticks or flaps. It is popular "
 "with street musicians."
 msgstr "De tubulum werd uitgevonden (of in ieder geval gepopulariseerd) door de Blue Man Group. Het is gemaakt van pvc-buizen van verschillende lengtes en wordt met stokken of latjes aangeslagen. Ook populair onder straatmuzikanten."
+
+#. name:mandora / gallichon
+#: DB:instrument/description:895
+msgid ""
+"Invented by European luthiers in the first half of the 18th century, it had "
+"6 to 7 single or double courses of gut strings and a long neck with either "
+"sharp or shallow angled pegbox."
+msgstr ""
 
 #. name:arpeggione
 #: DB:instrument/description:823
@@ -797,6 +836,14 @@ msgid ""
 "Klong that are large barrel drums from Thailand. They are played in a pair "
 "using wooden sticks and are used in the piphat ensemble."
 msgstr "Klong that (Thai: กลองทัด) zijn grote vattrommels uit Thailand. Ze worden bespeeld met een stel houten stokken en maken deel uit van het piphatensemble."
+
+#. name:double bass
+#: DB:instrument/description:48
+msgid ""
+"Known also as contrabass or upright bass, it is the largest and lowest-"
+"pitched member of the modern violin family, it is a principal member of the "
+"symphony orchestra."
+msgstr ""
 
 #. name:krakebs
 #: DB:instrument/description:652
@@ -861,6 +908,21 @@ msgid ""
 "Made of resonating stone, wood or bone with a striker of stone, bone or "
 "hardwood, this ancient instrument was used for rhythm during chanting."
 msgstr "Een tumutumu wordt gemaakt van resonerend steen, hout of bot en wordt bespeeld met een klopper van steen, bot of hardhout. Het instrument wordt gebruikt voor ritmische begeleiding tijdens het zingen."
+
+#. name:tungso
+#: DB:instrument/description:887
+msgid ""
+"Made of thick aged bamboo, this notched end-blown flute may have had a "
+"buzzing membrane."
+msgstr ""
+
+#. name:hydraulophone
+#: DB:instrument/description:889
+msgid ""
+"Made of tubing with holes that may have everything from none to two reeds, "
+"water instead of air comes out of the holes. Sound is produced by covering "
+"the holes with fingers, altering the flow of water through the holes."
+msgstr ""
 
 #. name:pūtōrino
 #: DB:instrument/description:786
@@ -943,6 +1005,23 @@ msgid ""
 "the world of this get up."
 msgstr "De benaming eenhandsfluit en tabor wordt oorspronkelijk gebruikt voor een vroege Europese combinatie van een fluit en trommel, die door één speler tegelijk werden bespeeld. Er zijn van over de hele wereld soortgelijke combinaties bekend."
 
+#. name:yoochin
+#: DB:instrument/description:885
+msgid ""
+"Originally introduced to Mongolia from China, it has 13 double wire-strings "
+"and a black lacquered wooden soundboard. Traditionally it was only played by"
+" townspeople."
+msgstr ""
+
+#. name:kokle
+#: DB:instrument/description:893
+msgid ""
+"Originating from 13th century Latvia, it is made of wood and have today nine"
+" to eleven, up to thirty-three strings tuned diatonically. Played "
+"horizontally on lap or table by plucking while muting chosen strings. Became"
+" in the 70's and 80's an important part of the folklore movement."
+msgstr ""
+
 #. name:other instruments
 #: DB:instrument/description:141
 msgid ""
@@ -1015,10 +1094,26 @@ msgstr "Een ngoni is een tokkelinstrument gemaakt van hout of kalebas uit West-A
 msgid "Pí thiu or Pí khui vertical flute"
 msgstr "Pí thiu or Pí khui verticale fluit"
 
+#. name:rubab
+#: DB:instrument/description:883
+msgid ""
+"Related to bowed instrument rebab, it is played in many countries, from "
+"India to Afghanistan. It's made of wood and covered with a membrane and has "
+"3 melody strings, 3 drone strings and 11/12 resonance strings."
+msgstr ""
+
 #. name:ruan
 #: DB:instrument/description:545
 msgid "Ruan is a family of Chinese plucked lutes."
 msgstr "De ruan is een familie van Chinese getokkelde luiten."
+
+#. name:junjung
+#: DB:instrument/description:892
+msgid ""
+"Sacred cylindrical goat or cattle rawhide drum, traditionally it was held "
+"with straps or placed on a stand and played horizontally while walking to "
+"battle, on special state occasions and religious ceremonies."
+msgstr ""
 
 #. name:santoor
 #: DB:instrument/description:286
@@ -1029,6 +1124,21 @@ msgstr "Een santoor is een Indiaas hakkebord."
 #: DB:instrument/description:255
 msgid "Santur, Middle Eastern"
 msgstr "Midden-Oosterse santur."
+
+#. name:drumset
+#: DB:instrument/description:101
+msgid ""
+"Set of drums developed from the 1930's onward, it is used in Jazz, Swing, "
+"Rock and Pop music. It consists of snare drum, tom-toms, hi-hats, cymbals "
+"and bass drum."
+msgstr ""
+
+#. name:Otamatone
+#: DB:instrument/description:890
+msgid ""
+"Shaped like an eighth-note with a cute face, it is played with one hand "
+"fingering the neck and the other squeezing the head to create wah-wah."
+msgstr "Een Otamatone is een elektronische synthesizer in de vorm van een achtste noot. Met één hand wordt de hals bespeeld terwijl de andere hand wordt gebruikt om in het bolvormige uiteinde te knijpen, waardoor een wah-wah-geluid ontstaat."
 
 #. name:shawm
 #: DB:instrument/description:408
@@ -1704,14 +1814,6 @@ msgstr "Een domra (Russisch: домра) is een Russisch snaarinstrument uit de 
 msgid "The doshpuluur is a long-necked Tuvan lute."
 msgstr "Een doshpuluur is een luit met een lange hals uit de Russische autonome republiek Toeva."
 
-#. name:double bass
-#: DB:instrument/description:48
-msgid ""
-"The double bass, also known as contrabass or upright bass as well as many "
-"other names, is the largest and lowest-pitched bowed string instrument of "
-"the violin family in the modern symphony orchestra."
-msgstr "Een contrabas, ook wel staande bas of simpelweg bas genoemd, is het grootste strijkinstrument uit de familie van de violen dat gebruikt wordt in het moderne symfonieorkest."
-
 #. name:dramyin
 #: DB:instrument/description:689
 msgid ""
@@ -2155,11 +2257,6 @@ msgid ""
 "consists of a leaf which is curled up and positioned in the mouth so it "
 "vibrates when it is blown."
 msgstr "Een kèn lá , ook bekend als khen la of nplooj, is een instrument dat wordt gebruikt door de Hmong-minderheid in Vietnam. Het instrument bestaat uit een gekruld blad dat in de mond geplaatst wordt en vibreert als er op geblazen wordt."
-
-#. name:laouto
-#: DB:instrument/description:704
-msgid "The laouto is a long-neck fretted instrument of the lute family."
-msgstr "Een laouto is een soort luit met een lange nek en fretten uit Griekenland."
 
 #. name:lasso d'amore
 #: DB:instrument/description:144
@@ -3235,6 +3332,13 @@ msgid ""
 "announcements like war, welcoming people and kumara planting."
 msgstr "Een puukaea is een houten trompet met een lengte tot 2,5 meter. Het werd gebruikt voor verschillende aankondigen, bijvoorbeeld tijdens oorlogen, om mensen te verwelkomen en bij het planten van kumara-aardappelen."
 
+#. name:lap harp
+#: DB:instrument/description:886
+msgid ""
+"Used to teach children how to play, it is a simplified zither shaped like a "
+"trapezoid."
+msgstr ""
+
 #. name:tanpura
 #: DB:instrument/description:829
 msgid ""
@@ -3615,7 +3719,7 @@ msgstr "Een combinatie van chirimía en trommel die door één speler bespeeld w
 #. name:English horn
 #: DB:instrument/description:7
 msgid ""
-"neither a horn nor english, it is a transposing member of the oboe family, "
+"neither a horn nor English, it is a transposing member of the oboe family, "
 "pitched at F"
 msgstr "De althobo wordt ook wel een Engelse hoorn genoemd, maar is een hoorn noch Engels. Het is een in F gestemde hobo."
 
@@ -3633,6 +3737,14 @@ msgid ""
 "different sounds, and a \"vibrato\" inducing keyboard based on the ondes "
 "Martenot's."
 msgstr "Een van de eerste analoge synthesizers, met een filterbank met 15 schuifregelaars om geluid te produceren, en het toetsenbord kon een vibrato opwekken."
+
+#. name:rebec
+#: DB:instrument/description:206
+msgid ""
+"pear shaped body made from a single piece of wood, this medieval bowed "
+"string-instrument originated as a Byzantian lyra like variant of the Arabic "
+"Rebab and was a possible influence to the violin."
+msgstr "De peervormige klankkast van de rebec is uit één stuk hout vervaardigd. Dit middeleeuwse strijkinstrument begon als Byzantijnse variant op de Arabische Rebab en heeft mogelijk de ontwikkeling van de viool beïnvloed."
 
 #. name:vuvuzela
 #: DB:instrument/description:877
@@ -3837,6 +3949,6 @@ msgstr "Een Ierse fluit is een dwarsfluit met een eenvoudig kleppensysteem die w
 #. name:English flageolet
 #: DB:instrument/description:844
 msgid ""
-"working to improve on its design, the english flageolet had 6 finger holes "
+"working to improve on its design, the English flageolet had 6 finger holes "
 "in front and one thumb hole in the back."
-msgstr "De Engelse flageolet is een ontwikkeling van de flageolet met zes vingergaten aan de voorkant en een vingergat voor de duim aan de achterkant."
+msgstr ""
