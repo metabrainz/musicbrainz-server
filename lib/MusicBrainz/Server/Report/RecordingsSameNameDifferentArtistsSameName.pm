@@ -11,14 +11,17 @@ sub query {
         row_number() OVER (ORDER BY musicbrainz_collate(rname), recording_id)
     FROM (
         SELECT
-            DISTINCT r1.id AS recording_id, r1.NAME AS rname, a1.NAME AS aname
+            DISTINCT r1.id AS recording_id, r1.name AS rname, a1.name AS aname
         FROM
             recording r1
-            INNER JOIN recording r2 ON (r1.NAME = r2.NAME AND r1.id != r2.id)
-            INNER JOIN artist_credit_name acn1 ON r1.artist_credit = acn1.artist_credit
-            INNER JOIN artist_credit_name acn2 ON r2.artist_credit = acn2.artist_credit
-            INNER JOIN artist a1 ON acn1.artist = a1.id
-            INNER JOIN artist a2 ON (acn2.artist = a2.id AND a1.NAME = a2.NAME AND a1.id != a2.id)
+            JOIN recording r2 ON (r1.name = r2.name AND r1.id != r2.id)
+            JOIN artist_credit ac1 ON (r1.artist_credit = ac1.id AND ac1.artist_count = 1)
+            JOIN artist_credit ac2 ON (r2.artist_credit = ac2.id AND ac2.artist_count = 1)
+            JOIN artist_credit_name acn1 ON ac1.id = acn1.artist_credit
+            JOIN artist_credit_name acn2 ON ac2.id = acn2.artist_credit
+            JOIN artist a1 ON acn1.artist = a1.id
+            JOIN artist a2 ON (acn2.artist = a2.id AND a1.id != a2.id)
+            WHERE (acn1.name = acn2.name OR a1.name = a2.name)
     ) r
     ";
 }
