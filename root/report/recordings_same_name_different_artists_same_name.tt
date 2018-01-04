@@ -12,6 +12,8 @@
     [%- INCLUDE 'report/filter_link.tt' -%]
 </ul>
 
+[% BLOCK extra_header_start %]<th>[% l('Artist MBID') %]</th>[% END %]
+[% BLOCK extra_row_start %]<td>[% item.recording.artist_credit.names.0.artist.gid %]</td>[% END %]
 [%- INCLUDE 'report/recording_list.tt' -%]
 
 [%- END -%]
