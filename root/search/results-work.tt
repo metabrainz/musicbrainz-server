@@ -10,7 +10,7 @@
                             <th>[%- l('Artists') -%]</th>
                             <th>[%- l('ISWC') -%]</th>
                             <th>[%- l('Type') -%]</th>
-                            <th>[%- l('Language') -%]</th>
+                            <th>[%- l('Languages') -%]</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -45,9 +45,15 @@
                                 [% result.entity.type.l_name %]
                             </td>
                             <td>
-                              <abbr title="[% result.entity.language.l_name %]">
-                                [% result.entity.language.iso_code_3 %]
-                              </abbr>
+                              <ul>
+                              [%- FOR work_language=result.entity.languages %]
+                                <li>
+                                  <abbr title="[% work_language.language.l_name %]">
+                                    [% work_language.language.iso_code_3 %]
+                                  </abbr>
+                                </li>
+                              [%- END %]
+                              </ul>
                             </td>
                         </tr>
                         [%- END -%]
