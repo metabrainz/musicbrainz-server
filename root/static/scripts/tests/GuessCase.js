@@ -155,7 +155,7 @@ test('Recording', function (t) {
 });
 
 test('Work', function (t) {
-    t.plan(11);
+    t.plan(17);
 
     var tests = [
         {
@@ -182,6 +182,36 @@ test('Work', function (t) {
             input: "acte 1, no. 7: chœur: «voyons brigadier»",
             expected: "Acte 1, no. 7 : Chœur : « voyons brigadier »",
             mode: "French", roman: false, keepuppercase: false
+        },
+        {
+            input: "La chenille",
+            expected: "La Chenille",
+            mode: "French", roman: false, keepuppercase: false
+        },
+        {
+            input: "Le téléphone",
+            expected: "Le Téléphone",
+            mode: "French", roman: false, keepuppercase: false
+        },
+        {
+            input: "Les corons",
+            expected: "Les Corons",
+            mode: "French", roman: false, keepuppercase: false
+        },
+        {
+            input: "L'envie",
+            expected: "L’Envie",
+            mode: "French", roman: false, keepuppercase: false
+        },
+        {
+            input: "L’envie",
+            expected: "L’Envie",
+            mode: "French", roman: false, keepuppercase: false
+        },
+        {
+            input: "La guerre de Troie n’aura pas lieu",
+            expected: "La guerre de Troie n’aura pas lieu",
+            mode: "French", roman: false, keepuppercase: true
         },
         {
             input: "American Way ft. Kelis",
