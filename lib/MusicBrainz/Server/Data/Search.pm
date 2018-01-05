@@ -400,6 +400,7 @@ sub schema_fixup
             if (defined $data->{$json_prop})
             {
                 my $area = delete $data->{$json_prop};
+                $area = $self->schema_fixup_type($area, 'area');
                 $area->{gid} = $area->{id};
                 $area->{id} = 1;
                 $data->{$prop} = MusicBrainz::Server::Entity::Area->new($area);
