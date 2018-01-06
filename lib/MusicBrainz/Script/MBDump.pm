@@ -180,7 +180,10 @@ sub make_tar {
         log(sprintf "xz completed in %d seconds\n", tv_interval($t0));
 
         unlink $tar_path;
+        $tar_file .= '.xz';
     }
+
+    $self->gpg_sign("$output_dir/$tar_file");
 }
 
 sub copy_file {

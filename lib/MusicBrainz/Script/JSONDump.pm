@@ -109,16 +109,11 @@ EOF
     move($dump_fpath, $dest_dump_fpath) or die $!;
 
     if ($self->compression_enabled) {
-        my $tar_file = "$dump_fname.tar";
-
         $mbdump->make_tar(
-            $tar_file,
+            "$dump_fname.tar.xz",
             "mbdump/$dump_fname",
             'JSON_DUMPS_SCHEMA_NUMBER',
         );
-
-        my $tar_path = catfile($mbdump->output_dir, $tar_file);
-        $mbdump->gpg_sign("$tar_path.xz");
     } else {
         move($mbdump->export_dir,
              catdir($mbdump->output_dir, $dump_fname)) or die $!;
