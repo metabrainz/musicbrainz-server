@@ -48,8 +48,6 @@ chmod "$FTP_FILE_MODE" "$DUMP_DIR/LATEST"
 chown "$FTP_USER:$FTP_GROUP" "$DUMP_DIR/LATEST"
 
 ./bin/delete-old-fullexports -k -r "$DUMP_DIR"
-
-cp admin/config.sample-dump.sh admin/config.user.sh
-./bin/rsync-fullexport-files
+MBS_ADMIN_CONFIG=config.sample-dump.sh ./bin/rsync-fullexport-files
 
 # eof

@@ -60,8 +60,7 @@ then
     chmod "$JSON_DUMP_FILE_MODE" "$TEMP_DIR"/json-dump-*/*
     mv "$TEMP_DIR"/* "$DUMP_DIR"/
 
-    cp admin/config.incremental-json-dump.sh admin/config.user.sh
-    ./bin/rsync-fullexport-files
+    MBS_ADMIN_CONFIG=config.incremental-json-dump.sh ./bin/rsync-fullexport-files
 fi
 
 # eof
