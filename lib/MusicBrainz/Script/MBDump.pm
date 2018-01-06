@@ -145,6 +145,12 @@ sub make_tar {
     my $t0 = [gettimeofday];
     my $output_dir = $self->output_dir;
     my $compression = $self->compression;
+    my $_compression = $compression;
+
+    if ($compression eq 'xz') {
+        $compression = '';
+        $tar_file =~ s/\.xz$//;
+    }
 
     log("Creating $tar_file");
     chomp (my $tar_bin = `which gtar` || `which tar`);
@@ -159,6 +165,22 @@ sub make_tar {
 
     $? == 0 or die "Tar returned $?";
     log(sprintf "Tar completed in %d seconds\n", tv_interval($t0));
+
+    # This is done separately instead of using --xz in order to take
+    # advantage of the multithreading option.
+    if ($_compression eq 'xz') {
+        $t0 = [gettimeofday];
+
+        log("Compressing $tar_file with xz");
+
+        my $tar_path = catfile($output_dir, $tar_file);
+        system qw( xz -T 0 -k -z ), $tar_path;
+        $? == 0 or die "xz returned $?";
+
+        log(sprintf "xz completed in %d seconds\n", tv_interval($t0));
+
+        unlink $tar_path;
+    }
 }
 
 sub copy_file {

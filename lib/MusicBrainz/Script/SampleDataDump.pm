@@ -146,6 +146,7 @@ sub run {
 
     my $mbdump = MusicBrainz::Script::DatabaseDump->new(
         c => $c,
+        compression => 'xz',
         output_dir => $self->output_dir,
         isolation_level => 'READ COMMITTED',
     );
@@ -217,7 +218,7 @@ sub run {
          $mbdump->export_dir . '/COPYING') or die $!;
 
     my @all_tables = sort { $a cmp $b } (@DUMP_ALL, keys %table_map);
-    $mbdump->make_tar('mbdump-sample.tar.bz2', @all_tables);
+    $mbdump->make_tar('mbdump-sample.tar.xz', @all_tables);
 
     $mbdump->end_dump;
     undef $mbdump_handle;

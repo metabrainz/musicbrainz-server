@@ -22,7 +22,6 @@ use MusicBrainz::Server::Constants qw( %ENTITIES );
 use MusicBrainz::Server::JSONLookup qw( json_lookup );
 use Readonly;
 use String::ShellQuote qw( shell_quote );
-use Time::HiRes qw( gettimeofday tv_interval );
 use Try::Tiny;
 
 with 'MooseX::Getopt';
@@ -94,7 +93,7 @@ EOF
 
     my $mbdump = MusicBrainz::Script::MBDump->new(
         c => $c,
-        compression => '',
+        compression => 'xz',
         output_dir => $self->output_dir,
         %mbdump_options,
     );
@@ -119,18 +118,7 @@ EOF
             'JSON_DUMPS_SCHEMA_NUMBER',
         );
 
-        my $t0 = [gettimeofday];
-
-        log("Compressing $tar_file with xz");
-
         my $tar_path = catfile($mbdump->output_dir, $tar_file);
-        system qw( xz -T 0 -k -z ), $tar_path;
-        $? == 0 or die "xz returned $?";
-
-        log(sprintf "xz completed in %d seconds\n", tv_interval($t0));
-
-        unlink $tar_path;
-
         $mbdump->gpg_sign("$tar_path.xz");
     } else {
         move($mbdump->export_dir,
