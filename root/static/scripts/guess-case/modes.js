@@ -4,7 +4,7 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-const {assign, capitalize} = require('lodash');
+const {assign} = require('lodash');
 
 const {l} = require('../common/i18n');
 const getBooleanCookie = require('../common/utility/getBooleanCookie');
@@ -278,9 +278,7 @@ exports.French = assign({}, DefaultMode, {
     return DefaultMode.runPostProcess(is)
       .replace(/([!\?;:]+)/gi, ' $1')
       .replace(/([«]+)/gi, '$1 ')
-      .replace(/([»]+)/gi, ' $1')
-      .replace(/^(Le\s|La\s|Les\s|L[’'])(\S+)$/gi,
-               (_, m1, m2) => m1.replace('\'', '’') + capitalize(m2));
+      .replace(/([»]+)/gi, ' $1');
   },
 });
 
