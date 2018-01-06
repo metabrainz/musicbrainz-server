@@ -26,7 +26,7 @@ sub xml_search
     my $dur = 0;
     my $offset = 0;
     my $limit = $args->{limit} || 0;
-    my $dismax = 'false'; # MBS-8994
+    my $def_type = 'lucene';
 
     if (defined $args->{offset} && is_positive_integer($args->{offset}))
     {
@@ -45,8 +45,9 @@ sub xml_search
 
         $query = $args->{query};
 
+        # MBS-8994
         if (defined $args->{dismax} && $args->{dismax} eq 'true') {
-            $dismax = 'true';
+            $def_type = 'dismax';
         }
     }
     elsif ($resource eq 'artist')
@@ -202,16 +203,15 @@ sub xml_search
         };
     }
 
-    my $format = ($args->{fmt} // "") eq "json" ? "jsonnew" : "xml";
-
-    my $url_ext = "/ws/2/$resource/?" .
-        "max=$limit&type=$resource&fmt=$format&offset=$offset" .
-        "&query=" . uri_escape_utf8($query) . "&dismax=$dismax";
+    my $format = ($args->{fmt} // "") eq "json" ? "mbjson" : "mbxml";
+    my $url_ext = "/$resource/select?" .
+        "rows=$limit&wt=$format&start=$offset" .
+        "&q=" . uri_escape_utf8($query) . "&defType=$def_type";
 
     if (DBDefs->LUCENE_X_ACCEL_REDIRECT) {
-        return { redirect_url => '/internal/search/' . DBDefs->LUCENE_SERVER . $url_ext }
+        return { redirect_url => '/internal/search/' . DBDefs->SOLR_SERVER . $url_ext }
     } else {
-        my $url = 'http://' . DBDefs->LUCENE_SERVER . $url_ext;
+        my $url = 'http://' . DBDefs->SOLR_SERVER . $url_ext;
         my $response = $self->c->lwp->get($url);
         if ( $response->is_success )
         {
