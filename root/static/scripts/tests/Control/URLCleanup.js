@@ -2408,6 +2408,29 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
                      input_entity_type: 'work',
             expected_relationship_type: 'lyrics',
         },
+        // Utaten
+        {
+                             input_url: 'utaten.com/artist/fripSide?sort=popular_sort_asc',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'lyrics',
+                    expected_clean_url: 'https://utaten.com/artist/fripSide',
+               only_valid_entity_types: ['artist']
+        },
+        {
+                             input_url: 'http://utaten.com/lyric/fripSide/prominence#sort=popular_sort_asc',
+                     input_entity_type: 'work',
+            expected_relationship_type: 'lyrics',
+                    expected_clean_url: 'https://utaten.com/lyric/fripSide/prominence',
+               only_valid_entity_types: ['work']
+        },
+        {
+                             input_url: 'https://utaten.com/news/index/14365',
+                     input_entity_type: 'artist',
+            expected_relationship_type: undefined,
+                    expected_clean_url: 'https://utaten.com/news/index/14365',
+               input_relationship_type: 'lyrics',
+               only_valid_entity_types: []
+        },
         // VGMdb (Video Game Music and Anime Soundtrack Database)
         {
                              input_url: 'https://vgmdb.net/artist/431',
