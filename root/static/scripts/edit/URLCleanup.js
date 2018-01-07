@@ -282,7 +282,7 @@ function disallow(url, id) {
 
 /**
  * CLEANUPS entries have 2 to 4 of the following properties:
- * 
+ *
  * - match: Array of regexps to match a given URL with the entry.
  *          It is the only mandatory property.
  * - type: Set of relationship types to be auto-selected for matched URL.

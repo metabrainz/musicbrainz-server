@@ -1681,7 +1681,7 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
                      input_entity_type: 'release',
             expected_relationship_type: 'discographyentry',
         },
-        // Ney Nota Arşivi 
+        // Ney Nota Arşivi
         {
                              input_url: 'http://www.neyzen.com/nota_arsivi/02_klasik_eserler/054_mahur_buselik/mahur_buselik_ss_aydin_oran.pdf',
                      input_entity_type: 'work',
@@ -2504,13 +2504,13 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
                      input_entity_type: 'artist',
             expected_relationship_type: 'socialnetwork',
         },
-        // VKontakte 
+        // VKontakte
         {
                              input_url: 'http://vk.com/tin_sontsya',
                      input_entity_type: 'artist',
             expected_relationship_type: 'socialnetwork',
         },
-        // Weibo 
+        // Weibo
         {
                              input_url: 'www.weibo.com/mchotdog2010#test',
                      input_entity_type: 'artist',
