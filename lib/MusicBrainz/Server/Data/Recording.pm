@@ -422,8 +422,14 @@ sub find_recent_by_artists
 {
     my ($self, $artist_ids) = @_;
 
-    my $search_url = sprintf("http://%s/ws/2/recording/?query=title:\"\"",
-                              DBDefs->LUCENE_SERVER);
+    my $search_url;
+    if (DBDefs->SEARCH_ENGINE eq 'LUCENE') {
+        $search_url = sprintf('http://%s/ws/2/recording/?query=title:""',
+                              DBDefs->SEARCH_SERVER);
+    } else {
+        $search_url = sprintf('http://%s/recording/select?q=recording:*&wt=mbxml',
+                              DBDefs->SEARCH_SERVER);
+    }
 
     my $ua = LWP::UserAgent->new;
 

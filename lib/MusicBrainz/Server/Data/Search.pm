@@ -743,14 +743,22 @@ sub external_search
 
     $query = uri_escape_utf8($query);
     $type =~ s/release_group/release-group/;
-    my $search_url = sprintf("http://%s/%s/select?q=%s&start=%s&rows=%s&wt=mbjson&defType=%s&fl=score",
-                                 DBDefs->SOLR_SERVER,
+
+    my $search_url_string;
+    if (DBDefs->SEARCH_ENGINE eq 'LUCENE') {
+        my $dismax = $adv ? 'false' : 'true';
+        $search_url_string = "http://%s/ws/2/%s/?query=%s&offset=%s&max=%s&fmt=jsonnew&dismax=$dismax&web=1";
+    } else {
+        my $def_type = $adv ? 'lucene' : 'dismax';
+        $search_url_string = "http://%s/%s/select?q=%s&start=%s&rows=%s&wt=mbjson&defType=$def_type&fl=score";
+    }
+
+    my $search_url = sprintf($search_url_string,
+                                 DBDefs->SEARCH_SERVER,
                                  $type,
                                  $query,
                                  $offset,
-                                 $limit,
-                                 $adv ? 'lucene' : 'dismax',
-                                 );
+                                 $limit);
 
     # Dispatch the search request.
     my $response = get_chunked_with_retry($self->c->lwp, $search_url);
@@ -1020,9 +1028,16 @@ sub xml_search
     }
 
     $query = uri_escape_utf8($query);
-    my $search_url = sprintf("http://%s/ws/%d/%s/?query=%s&offset=%s&max=%s&fmt=xml",
-                                 DBDefs->LUCENE_SERVER,
-                                 $version,
+
+    my $search_url_string;
+    if (DBDefs->SEARCH_ENGINE eq 'LUCENE') {
+        $search_url_string = "http://%s/ws/%d/%s/?query=%s&offset=%s&max=%s&fmt=xml";
+    } else {
+        $search_url_string = "http://%s/%s/select?q=%s&start=%s&rows=%s&wt=mbxml&fl=score";
+    }
+
+    my $search_url = sprintf($search_url_string,
+                                 DBDefs->SEARCH_SERVER,
                                  $type,
                                  $query,
                                  $offset,
