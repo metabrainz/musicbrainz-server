@@ -1656,6 +1656,26 @@ const CLEANUPS = {
       url = url.replace(/^(?:https?:\/\/)?(?:www\.)?kickstarter\.com\/projects\/(\d+)\/([\w\-]+)(?:[\/?#].*)?$/, "https://www.kickstarter.com/projects/$1/$2");
       return url;
     }
+  },
+  utaten: {
+    match: [new RegExp("^(https?://)?([^/]+\\.)?utaten\\.com/", "i")],
+    type: LINK_TYPES.lyrics,
+    clean: function (url) {
+      return url.replace(/^(?:https?:\/\/)?utaten\.com\/(artist|lyric\/.+)\/([^\/?#]+).*$/, "https://utaten.com/$1/$2");
+    },
+    validate: function (url, id) {
+      var m = /^https:\/\/utaten\.com\/(artist|lyric)\/.+$/.exec(url);
+      if (m) {
+        var prefix = m[1];
+        switch (id) {
+          case LINK_TYPES.lyrics.artist:
+            return prefix === 'artist';
+          case LINK_TYPES.lyrics.work:
+            return prefix === 'lyric';
+        }
+      }
+      return false;
+    }
   }
 };
 
