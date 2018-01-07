@@ -8,10 +8,10 @@ sub query {
     "
     SELECT
         recording_id,
-        row_number() OVER (ORDER BY musicbrainz_collate(rname), recording_id)
+        row_number() OVER (ORDER BY musicbrainz_collate(rname), artist_id)
     FROM (
         SELECT
-            DISTINCT r1.id AS recording_id, r1.name AS rname, a1.name AS aname
+            DISTINCT r1.id AS recording_id, r1.name AS rname, a1.id as artist_id
         FROM
             recording r1
             JOIN recording r2 ON (r1.name = r2.name AND r1.id != r2.id)
