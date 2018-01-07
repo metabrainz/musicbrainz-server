@@ -122,11 +122,12 @@ for my $arg (@ARGV)
     next if -d _;
     -f _ or die "'$arg' is neither a regular file nor a directory";
 
-    next unless $arg =~ /\.tar(?:\.(gz|bz2))?$/;
+    next unless $arg =~ /\.tar(?:\.(gz|bz2|xz))?$/;
 
     my $decompress = "";
     $decompress = "--gzip" if $1 and $1 eq "gz";
     $decompress = "--bzip2" if $1 and $1 eq "bz2";
+    $decompress = "--xz" if $1 and $1 eq "xz";
 
     use File::Temp qw( tempdir );
     my $dir = tempdir("MBImport-XXXXXXXX", DIR => $tmpdir, CLEANUP => 1)
@@ -444,6 +445,7 @@ sub validate_tar
         not($decompress) ? "cat"
         : $decompress eq "--gzip" ? "gunzip"
         : $decompress eq "--bzip2" ? "bunzip2"
+        : $decompress eq "--xz" ? "xz -d"
         : die
     );
 
