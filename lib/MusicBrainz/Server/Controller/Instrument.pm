@@ -159,6 +159,8 @@ sub list : Path('/instruments') Args(0) {
     $c->stash(
         entities => $entities,
         types => \@types,
+        current_view => 'Node',
+        component_path => 'instrument/List',
     );
 }
 

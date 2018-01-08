@@ -436,6 +436,7 @@ sub TO_JSON {
         current_language
         current_language_html
         entity
+        entities
         hide_merge_helper
         jsonld_data
         last_replication_date
@@ -446,6 +447,7 @@ sub TO_JSON {
         server_details
         server_languages
         to_merge
+        types
     );
 
     my %stash;
