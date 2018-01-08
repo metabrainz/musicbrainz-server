@@ -155,7 +155,7 @@ test('Recording', function (t) {
 });
 
 test('Work', function (t) {
-    t.plan(16);
+    t.plan(18);
 
     var tests = [
         {
@@ -194,6 +194,11 @@ test('Work', function (t) {
             mode: "French", roman: false, keepuppercase: false
         },
         {
+            input: "Le tire-bouchon",
+            expected: "Le Tire-bouchon",
+            mode: "French", roman: false, keepuppercase: false
+        },
+        {
             input: "Les corons",
             expected: "Les Corons",
             mode: "French", roman: false, keepuppercase: false
@@ -206,6 +211,11 @@ test('Work', function (t) {
         {
             input: "L’envie",
             expected: "L’Envie",
+            mode: "French", roman: false, keepuppercase: false
+        },
+        {
+            input: "La patience est le courage de la vertu.",
+            expected: "La patience est le courage de la vertu.",
             mode: "French", roman: false, keepuppercase: false
         },
         {
