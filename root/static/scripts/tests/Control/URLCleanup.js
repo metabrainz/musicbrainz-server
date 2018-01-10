@@ -266,6 +266,28 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
             expected_relationship_type: 'otherdatabases',
                     expected_clean_url: 'http://www.animenewsnetwork.com/encyclopedia/company.php?id=10510',
         },
+        // Anison Generation
+        {
+                             input_url: 'http://anison.info/data/person/1878.html',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'otherdatabases',
+                    expected_clean_url: 'http://anison.info/data/person/1878.html',
+               only_valid_entity_types: ['artist']
+        },
+        {
+                             input_url: 'http://anison.info/data/source/15524.html?test',
+                     input_entity_type: 'release',
+            expected_relationship_type: 'otherdatabases',
+                    expected_clean_url: 'http://anison.info/data/source/15524.html',
+               only_valid_entity_types: ['release']
+        },
+        {
+                             input_url: 'http://anison.info/data/song/5227.html#test',
+                     input_entity_type: 'recording',
+            expected_relationship_type: 'otherdatabases',
+                    expected_clean_url: 'http://anison.info/data/song/5227.html',
+               only_valid_entity_types: ['recording']
+        },
         // (Internet) Archive
         {
                              input_url: 'http://web.archive.org/web/20100904165354/i265.photobucket.com/albums/ii229/drsaunde/487015.jpg',
@@ -586,6 +608,28 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
                      input_entity_type: 'work',
             expected_relationship_type: 'bookbrainz',
                     expected_clean_url: 'https://bookbrainz.org/work/65e71f2e-7245-42df-b93e-89463a28f75c',
+        },
+        // Brahms Ircam
+        {
+                             input_url: 'http://brahms.ircam.fr/gilbert-amy#parcours',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'otherdatabases',
+                    expected_clean_url: 'http://brahms.ircam.fr/gilbert-amy',
+               only_valid_entity_types: ['artist']
+        },
+        {
+                             input_url: 'http://brahms.ircam.fr/works/work/6385/',
+                     input_entity_type: 'work',
+            expected_relationship_type: 'otherdatabases',
+                    expected_clean_url: 'http://brahms.ircam.fr/works/work/6385',
+               only_valid_entity_types: ['work']
+        },
+        {
+                             input_url: 'http://brahms.ircam.fr/works/genre/328/?test/',
+                     input_entity_type: 'work',
+               input_relationship_type: 'otherdatabases', 
+            expected_relationship_type: undefined,
+               only_valid_entity_types: []
         },
         // Cancioneros Musicales Españoles (CME)
         {
@@ -914,6 +958,26 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
                      input_entity_type: 'release',
             expected_relationship_type: 'discogs',
                     expected_clean_url: 'https://www.discogs.com/release/5578',
+        },
+        // Drip
+        {
+                             input_url: 'https://d.rip/ehaidle/posts/RHJvcFBvc3QtMzQ4',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'patronage',
+                    expected_clean_url: 'https://d.rip/ehaidle',
+        },
+        {
+                             input_url: 'https://d.rip/ehaidle/',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'patronage',
+                    expected_clean_url: 'https://d.rip/ehaidle',
+        },
+        // Drip (old)
+        {
+                             input_url: 'https://drip.kickstarter.com/willits',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'patronage',
+                    expected_clean_url: 'https://d.rip/willits',
         },
         // e-onkyo music
         {

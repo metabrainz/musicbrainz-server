@@ -27,12 +27,12 @@
 # French language coordinator <email address hidden>, 2013-2015
 # Youenn Piolet, 2015
 # Youenn Piolet, 2015
-# yvanz, 2016-2017
+# yvanz, 2016-2018
 # yvanz, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2017-12-05 16:09+0000\n"
+"PO-Revision-Date: 2018-01-10 09:05+0000\n"
 "Last-Translator: yvanz\n"
 "Language-Team: French (http://www.transifex.com/musicbrainz/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -410,6 +410,10 @@ msgstr "Indique que l’enregistrement contient des échantillons de cette parut
 #: DB:link_type/description:740
 msgid "Indicates that the recording is part of a series."
 msgstr "Indique que l’enregistrement fait partie d’une série."
+
+#: DB:link_attribute_type/description:1053
+msgid "Indicates that the relationship is optional - doesn't always apply."
+msgstr "Indique une relation facultative, c’est-à-dire, qui ne s’applique pas toujours."
 
 #: DB:link_type/description:49
 msgid ""
@@ -1561,6 +1565,13 @@ msgid ""
 " for classical works, but also exists in other genres to a degree."
 msgstr "Ceci indique que l’œuvre est dédiée à une région en particulier. Ceci est très habituel pour les œuvres classiques, mais existe aussi, jusqu’à un certain point, pour d’autres genres. "
 
+#: DB:link_type/description:922
+msgid ""
+"This indicates the work is dedicated to a specific organization. This is "
+"most common for classical works, but also exists in other genres to a "
+"degree."
+msgstr "Ceci indique que l’œuvre est dédiée à une organisation en particulier. Ceci est très habituel pour les œuvres classiques, mais existe aussi, jusqu’à un certain point, pour d’autres genres. "
+
 #: DB:link_type/description:846
 msgid ""
 "This indicates the work is dedicated to a specific person. This is most "
@@ -1738,6 +1749,12 @@ msgid ""
 "This link points to a page for a particular release within a discography for"
 " an artist or label."
 msgstr "Ce lien dirige vers la page d’une parution particulière de la discographie d’un artiste ou label."
+
+#: DB:link_type/description:921
+msgid ""
+"This link points to a page for a particular work within a work list for an "
+"artist."
+msgstr "Ce lien dirige vers la page d’une œuvre particulière dans le répertoire d’un artiste."
 
 #: DB:link_type/description:43 DB:link_type/description:155
 msgid ""
@@ -3161,11 +3178,12 @@ msgid "crowdfunding page for"
 msgstr "page de financement participatif pour"
 
 #: DB:link_type/reverse_link_phrase:868 DB:link_type/reverse_link_phrase:846
-#: DB:link_type/reverse_link_phrase:914
+#: DB:link_type/reverse_link_phrase:922 DB:link_type/reverse_link_phrase:914
 msgid "dedicated to"
 msgstr "dédié à"
 
-#: DB:link_type/link_phrase:846 DB:link_type/link_phrase:914
+#: DB:link_type/link_phrase:846 DB:link_type/link_phrase:922
+#: DB:link_type/link_phrase:914
 msgid "dedicated works"
 msgstr "oeuvre dédiée"
 
@@ -4251,6 +4269,10 @@ msgstr "page de communauté en ligne pour"
 msgid "online data"
 msgstr "données en ligne"
 
+#: DB:link_attribute_type/name:1053
+msgid "optional"
+msgstr "facultative"
+
 #: DB:link_type/link_phrase:807
 msgid "orchestra at"
 msgstr "orchestre à"
@@ -5047,6 +5069,14 @@ msgstr "a été reprogrammé comme"
 msgid "was the concertmaster for"
 msgstr "était le premier violon pour"
 
+#: DB:link_type/reverse_link_phrase:921
+msgid "work list entry"
+msgstr "entrée de répertoire"
+
+#: DB:link_type/link_phrase:921
+msgid "work list entry for"
+msgstr "entrée de répertoire pour"
+
 #: DB:link_type/long_link_phrase:704
 msgid "works as a mastering engineer at"
 msgstr "travaille en tant qu’ingénieur de matriçage à"
@@ -5502,6 +5532,10 @@ msgstr "{entity1} a une page de financement participatif à {entity0}"
 msgid "{entity1} has a page in a database at {entity0}"
 msgstr "{entity1} a une page dans une base de données à {entity0}"
 
+#: DB:link_type/long_link_phrase:921
+msgid "{entity1} has a work list entry at {entity0}"
+msgstr "{entity1} a une entrée de répertoire à {entity0}"
+
 #: DB:link_type/long_link_phrase:286
 msgid "{entity1} has an Allmusic page at {entity0}"
 msgstr "{entity1} a une page Allmusic à {entity0}"
@@ -5543,7 +5577,7 @@ msgid "{entity1} is a tribute to {entity0}"
 msgstr "{entity1} est un hommage à {entity0}"
 
 #: DB:link_type/long_link_phrase:868 DB:link_type/long_link_phrase:846
-#: DB:link_type/long_link_phrase:914
+#: DB:link_type/long_link_phrase:922 DB:link_type/long_link_phrase:914
 msgid "{entity1} is dedicated to {entity0}"
 msgstr "{entity1} est dédicacé à {entity0}"
 

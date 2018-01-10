@@ -86,7 +86,11 @@
                 [%~ release_events(release.events) ~%]
             [%~ END ~%]
 
-            [%~ INCLUDE "layout/sidebar/sidebar-rating.tt" entity=release.release_group rating_heading=l('Release group rating') ~%]
+            [%~ React.embed(c, 'layout/components/sidebar/SidebarRating', {
+                    entity => release.release_group,
+                    heading => l('Release group rating'),
+                });
+            ~%]
 
             [%~ IF release.release_group.review_count ~%]
                 <h2 class="reviews">[% l('Release group reviews') %]</h2>

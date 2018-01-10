@@ -16,7 +16,7 @@ const {bufferFrom} = require('./buffer');
 const gettext = require('./gettext');
 
 function pathFromRoot(fpath) {
-  return path.resolve(__dirname, '../../', fpath);
+  return path.resolve(__dirname, '../', fpath);
 }
 
 function badRequest(err) {
@@ -54,7 +54,7 @@ function getResponse(requestBody, context) {
   } catch (err) {
     if (err.code === 'MODULE_NOT_FOUND') {
       try {
-        Page = require(pathFromRoot('root/main/404'));
+        Page = require(pathFromRoot('main/404'));
         status = 404;
       } catch (err) {
         Raven.captureException(err);

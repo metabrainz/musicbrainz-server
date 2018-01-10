@@ -1,0 +1,16 @@
+[%- WRAPPER 'layout.tt' title=l('Releases Missing Disc IDs') full_width=1 -%]
+
+<h1>[% l('Releases Missing Disc IDs') %]</h1>
+
+<ul>
+    <li>[% l('This report shows releases (official and promotional only) that have at least one medium with a format that supports disc IDs, but is missing one.') %]</li>
+    <li>[% l('For instructions on how to add one, see the {add_discids|documentation page}.',
+              { add_discids => doc_link('How_to_Add_Disc_IDs') }) %]</li>
+    <li>[% l('Total releases found: {count}', { count => pager.total_entries }) %]</li>
+    <li>[% l('Generated on {date}', { date => UserDate.format(generated) }) %]</li>
+    [%- INCLUDE 'report/filter_link.tt' -%]
+</ul>
+
+[%- INCLUDE 'report/release_list.tt' -%]
+
+[%- END -%]

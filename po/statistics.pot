@@ -1990,6 +1990,10 @@ msgid ""
 "code> or import <code>mbdump-stats.tar.bz2</code>."
 msgstr ""
 
+#: ../root/statistics/view_js.tt:184
+msgid "Tags"
+msgstr ""
+
 #: ../root/statistics/index.tt:91
 msgid "Tags (raw / aggregated):"
 msgstr ""

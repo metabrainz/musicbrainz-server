@@ -311,6 +311,8 @@ msgid "alto saxophone"
 msgstr ""
 
 #: DB:instrument/name:174
+msgctxt ""
+"instrument between viola and cello - for French \"alto\" credits, pick viola"
 msgid "alto violin"
 msgstr ""
 
@@ -407,7 +409,8 @@ msgstr ""
 msgid "bandora"
 msgstr ""
 
-#: DB:instrument/name:394 DB:instrument/name:393
+#: DB:instrument/name:394
+msgctxt "Ukraininan lute-zither"
 msgid "bandura"
 msgstr ""
 
@@ -1002,6 +1005,7 @@ msgid "darbuka"
 msgstr ""
 
 #: DB:instrument/name:546
+msgctxt "Bass ruan"
 msgid "daruan"
 msgstr ""
 
@@ -1553,15 +1557,12 @@ msgid "handclaps"
 msgstr ""
 
 #: DB:instrument/name:512
-msgid "hang"
+msgctxt "Tuned metal ufo"
+msgid "handpan"
 msgstr ""
 
 #: DB:instrument/name:603
 msgid "hard disk drive"
-msgstr ""
-
-#: DB:instrument/name:142
-msgid "hardart"
 msgstr ""
 
 #: DB:instrument/name:78
@@ -3290,7 +3291,7 @@ msgid "tungso"
 msgstr ""
 
 #: DB:instrument/name:181
-msgid "turntable(s)"
+msgid "turntable"
 msgstr ""
 
 #: DB:instrument/name:772

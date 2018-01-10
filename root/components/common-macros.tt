@@ -895,18 +895,13 @@ END ~%]
 [%- END -%]
 
 [%~ MACRO show_image BLOCK -%]
-    [%- IF image -%]
-        [%- INCLUDE 'components/commons-image.tt' -%]
-    [%- ELSIF image_url -%]
-        <span style="display:none" id="image-insertion-point"></span>
-        <script type="text/javascript">
-            $.get('[% image_url %]',
-                  function (data) {
-                      $('#image-insertion-point').replaceWith(data);
-                  },
-                  'html');
-        </script>
-    [%- END -%]
+    <div id="commons-image">
+        [%~ React.embed(c, 'components/CommonsImage', { image => image }) ~%]
+    </div>
+    [%- script_manifest(
+            'commons-image.js',
+            { async => 'async', 'data-args' => commons_image_props }
+        ) UNLESS image -%]
 [%- END -%]
 
 [%~ MACRO track_duration_changes(loop_over, old_base, new_base, old_prop, new_prop) BLOCK -%]

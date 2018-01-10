@@ -3,15 +3,7 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-const {l, ln} = require('./i18n');
-
-function ratingTooltip(rating) {
-    if (rating == 0) {
-       return l("Remove your rating");
-    } else {
-       return ln("Rate: {rating} star", "Rate: {rating} stars", rating, { rating: rating });
-    }
-}
+const ratingTooltip = require('../../../utility/ratingTooltip');
 
 $(document).on("click", "span.star-rating a", function () {
     var $ratingLink = $(this);

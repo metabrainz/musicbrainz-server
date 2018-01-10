@@ -1528,6 +1528,12 @@ msgid ""
 "for classical works, but also exists in other genres to a degree."
 msgstr ""
 
+#: DB:link_type/description:922
+msgid ""
+"This indicates the work is dedicated to a specific organization. This is "
+"most common for classical works, but also exists in other genres to a degree."
+msgstr ""
+
 #: DB:link_type/description:846
 msgid ""
 "This indicates the work is dedicated to a specific person. This is most "
@@ -1707,6 +1713,12 @@ msgstr ""
 msgid ""
 "This link points to a page for a particular release within a discography for "
 "an artist or label."
+msgstr ""
+
+#: DB:link_type/description:921
+msgid ""
+"This link points to a page for a particular work within a work list for an "
+"artist."
 msgstr ""
 
 #: DB:link_type/description:43 DB:link_type/description:155
@@ -3137,11 +3149,12 @@ msgid "crowdfunding page for"
 msgstr ""
 
 #: DB:link_type/reverse_link_phrase:868 DB:link_type/reverse_link_phrase:846
-#: DB:link_type/reverse_link_phrase:914
+#: DB:link_type/reverse_link_phrase:922 DB:link_type/reverse_link_phrase:914
 msgid "dedicated to"
 msgstr ""
 
-#: DB:link_type/link_phrase:846 DB:link_type/link_phrase:914
+#: DB:link_type/link_phrase:846 DB:link_type/link_phrase:922
+#: DB:link_type/link_phrase:914
 msgid "dedicated works"
 msgstr ""
 
@@ -5027,6 +5040,14 @@ msgstr ""
 msgid "was the concertmaster for"
 msgstr ""
 
+#: DB:link_type/reverse_link_phrase:921
+msgid "work list entry"
+msgstr ""
+
+#: DB:link_type/link_phrase:921
+msgid "work list entry for"
+msgstr ""
+
 #: DB:link_type/long_link_phrase:704
 msgid "works as a mastering engineer at"
 msgstr ""
@@ -5482,6 +5503,10 @@ msgstr ""
 msgid "{entity1} has a page in a database at {entity0}"
 msgstr ""
 
+#: DB:link_type/long_link_phrase:921
+msgid "{entity1} has a work list entry at {entity0}"
+msgstr ""
+
 #: DB:link_type/long_link_phrase:286
 msgid "{entity1} has an Allmusic page at {entity0}"
 msgstr ""
@@ -5523,7 +5548,7 @@ msgid "{entity1} is a tribute to {entity0}"
 msgstr ""
 
 #: DB:link_type/long_link_phrase:868 DB:link_type/long_link_phrase:846
-#: DB:link_type/long_link_phrase:914
+#: DB:link_type/long_link_phrase:922 DB:link_type/long_link_phrase:914
 msgid "{entity1} is dedicated to {entity0}"
 msgstr ""
 
