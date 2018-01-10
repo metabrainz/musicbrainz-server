@@ -21,9 +21,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-24 04:04+0200\n"
-"PO-Revision-Date: 2017-10-28 11:01+0000\n"
-"Last-Translator: Luca Salini <email address hidden>\n"
+"POT-Creation-Date: 2018-01-03 12:07+0100\n"
+"PO-Revision-Date: 2018-01-03 11:15+0000\n"
+"Last-Translator: yvanz\n"
 "Language-Team: Italian (http://www.transifex.com/musicbrainz/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -187,7 +187,7 @@ msgid "(none)"
 msgstr "(nessuno)"
 
 #: ../root/layout/sidebar/sidebar-tags.tt:16
-#: ../root/static/scripts/common/components/TagEditor.js:331
+#: ../root/static/scripts/common/components/TagEditor.js:397
 msgctxt "tag"
 msgid "(none)"
 msgstr "(nessuno)"
@@ -243,7 +243,7 @@ msgstr "* Corrispondenza indica la differenza totale in secondi tra il CD richie
 msgid "-"
 msgstr "-"
 
-#: ../root/user/profile.tt:125
+#: ../root/user/profile.tt:124
 msgid "0"
 msgstr "0"
 
@@ -260,7 +260,7 @@ msgid_plural "{n} unanimous votes"
 msgstr[0] "1 voto"
 msgstr[1] "{n} voti unanimi"
 
-#: ../root/user/profile.tt:263 ../root/user/profile.tt:267
+#: ../root/user/profile.tt:262 ../root/user/profile.tt:266
 msgid "100%"
 msgstr "100%"
 
@@ -446,7 +446,7 @@ msgstr "Accetta modifica"
 msgid "Accept upon expiration"
 msgstr "Accetta alla scadenza"
 
-#: ../root/user/profile.tt:176
+#: ../root/user/profile.tt:175
 msgctxt "edit descriptor"
 msgid "Accepted"
 msgstr "Accettate"
@@ -712,7 +712,7 @@ msgstr "Aggiungi alias"
 msgid "Add an edit note"
 msgstr "Aggiungi una nota di modifica"
 
-#: ../root/layout/sidebar/shared-entity-sidebar.tt:35
+#: ../root/layout/sidebar/shared-entity-sidebar.tt:38
 msgid "Add annotation"
 msgstr "Aggiungi annotazione"
 
@@ -788,16 +788,16 @@ msgstr "Aggiungi le pubblicazioni selezionate per unirle"
 msgid "Add selected works for merging"
 msgstr "Aggiungi le opere selezionate per unirle"
 
-#: ../root/layout/sidebar/shared-entity-sidebar.tt:130
+#: ../root/layout/sidebar/shared-entity-sidebar.tt:133
 msgid "Add to a new collection"
 msgstr "Aggiungi ad una nuova collezione"
 
-#: ../root/layout/sidebar/shared-entity-sidebar.tt:106
+#: ../root/layout/sidebar/shared-entity-sidebar.tt:109
 msgid "Add to a new list"
 msgstr "Aggiungi a un nuovo elenco"
 
-#: ../root/layout/sidebar/shared-entity-sidebar.tt:98
-#: ../root/layout/sidebar/shared-entity-sidebar.tt:122
+#: ../root/layout/sidebar/shared-entity-sidebar.tt:101
+#: ../root/layout/sidebar/shared-entity-sidebar.tt:125
 msgid "Add to {collection}"
 msgstr "Aggiungi a {collection}"
 
@@ -1025,7 +1025,7 @@ msgid ""
 " click on the link in the email to verify your email address."
 msgstr "Abbiamo inviato un'email a <code>{addr}</code>. Controlla la tua casella di posta e clicca sul link presente nell'email per verificare il tuo indirizzo email."
 
-#: ../root/components/common-macros.tt:1062
+#: ../root/components/common-macros.tt:1057
 msgid ""
 "An entity with that name and disambiguation already exists. You must enter a"
 " unique disambiguation comment."
@@ -1517,7 +1517,7 @@ msgstr "Associa ID disco"
 msgid "Attached to releases"
 msgstr "Associato alle pubblicazioni"
 
-#: ../root/layout/sidebar/shared-entity-sidebar.tt:87
+#: ../root/layout/sidebar/shared-entity-sidebar.tt:90
 msgid "Attendance"
 msgstr "Partecipazione"
 
@@ -1586,7 +1586,7 @@ msgid ""
 "well as the ability to instantly approve other users' edits."
 msgstr "Gli auto-editor sono utenti di fiducia a cui sono stati concessi {url|privilegi speciali}. Questi privilegi consentono loro di applicare alcune modifiche che sono approvate automaticamente, senza passare per il normale processo di voto, così come la capacità di approvare istantaneamente le modifiche di altri utenti."
 
-#: ../root/user/profile.tt:180
+#: ../root/user/profile.tt:179
 msgid "Auto-edits"
 msgstr "Auto-modifiche"
 
@@ -1614,7 +1614,7 @@ msgstr "Torna a tutte le elezioni."
 msgid "Back to elections"
 msgstr "Torna alle elezioni"
 
-#: ../root/components/common-macros.tt:1033
+#: ../root/components/common-macros.tt:1028
 msgid "Backward"
 msgstr "Indietro"
 
@@ -1789,7 +1789,7 @@ msgid "Bio"
 msgstr "Biografia"
 
 #: ../root/account/edit.tt:46 ../root/admin/edit_user.tt:40
-#: ../root/user/profile.tt:138
+#: ../root/user/profile.tt:137
 msgid "Bio:"
 msgstr "Biografia:"
 
@@ -1927,7 +1927,7 @@ msgstr "Annulla modifica"
 msgid "Cancel the election"
 msgstr "Annulla l'elezione"
 
-#: ../root/user/profile.tt:196 ../lib/MusicBrainz/Server/Edit/Utils.pm:280
+#: ../root/user/profile.tt:195 ../lib/MusicBrainz/Server/Edit/Utils.pm:280
 msgid "Cancelled"
 msgstr "Annullate"
 
@@ -2004,7 +2004,7 @@ msgid "Catalog#"
 msgstr "Nº di catalogo"
 
 #: ../root/account/change_password.tt:1 ../root/account/change_password.tt:3
-#: ../root/account/change_password.tt:27 ../root/user/profile/layout.tt:23
+#: ../root/account/change_password.tt:27 ../root/user/profile/layout.tt:38
 msgid "Change Password"
 msgstr "Cambia password"
 
@@ -2140,9 +2140,9 @@ msgstr "Collezione “{collection}”"
 
 #: ../root/components/common-macros.tt:612 ../root/entity/collections.tt:1
 #: ../root/entity/collections.tt:2
-#: ../root/layout/sidebar/shared-entity-sidebar.tt:111
+#: ../root/layout/sidebar/shared-entity-sidebar.tt:114
 #: ../root/user/collections.tt:16 ../root/user/collections.tt:23
-#: ../root/user/profile/layout.tt:10
+#: ../root/user/profile/layout.tt:20
 msgid "Collections"
 msgstr "Collezioni"
 
@@ -2384,7 +2384,7 @@ msgstr "Sciolto:"
 msgid "Delete"
 msgstr "Elimina"
 
-#: ../root/admin/delete_user.tt:3 ../root/user/profile/layout.tt:38
+#: ../root/admin/delete_user.tt:3 ../root/user/profile/layout.tt:53
 msgid "Delete Account"
 msgstr "Elimina account"
 
@@ -2412,7 +2412,7 @@ msgstr "Obsoleto:"
 #: ../root/collection/index.tt:4 ../root/components/instruments-list.tt:7
 #: ../root/doc/edit_type.tt:23 ../root/doc/relationship_type.tt:25
 #: ../root/instrument/index.tt:3 ../root/instrument/merge.tt:13
-#: ../root/search/results-instrument.tt:10
+#: ../root/search/results-instrument.tt:10 ../root/work/edit_form.tt:111
 msgid "Description"
 msgstr "Descrizione"
 
@@ -2645,7 +2645,7 @@ msgid "Donate"
 msgstr "Fai una donazione"
 
 #: ../root/account/donation.tt:1 ../root/account/donation.tt:3
-#: ../root/user/profile/layout.tt:23
+#: ../root/user/profile/layout.tt:38
 msgid "Donation Check"
 msgstr "Verifica donazione"
 
@@ -2742,7 +2742,7 @@ msgid "Edit Note Author"
 msgstr "Autore della nota di modifica"
 
 #: ../root/account/edit.tt:1 ../root/account/edit.tt:4
-#: ../root/user/profile/layout.tt:23
+#: ../root/user/profile/layout.tt:38
 msgid "Edit Profile"
 msgstr "Modifica profilo"
 
@@ -2775,7 +2775,7 @@ msgstr "Tipi di modifiche"
 msgid "Edit URL"
 msgstr "Modifica URL"
 
-#: ../root/user/profile/layout.tt:32
+#: ../root/user/profile/layout.tt:47
 msgid "Edit User"
 msgstr "Modifica utente"
 
@@ -2784,7 +2784,7 @@ msgid "Edit alias"
 msgstr "Modifica alias"
 
 #: ../root/annotation/edit.tt:2
-#: ../root/layout/sidebar/shared-entity-sidebar.tt:35
+#: ../root/layout/sidebar/shared-entity-sidebar.tt:38
 msgid "Edit annotation"
 msgstr "Modifica annotazione"
 
@@ -2823,7 +2823,7 @@ msgstr "Modificato"
 
 #: ../root/account/preferences.tt:40 ../root/collection/layout.tt:19
 #: ../root/layout/header/bottom.tt:112
-#: ../root/layout/sidebar/shared-entity-sidebar.tt:30
+#: ../root/layout/sidebar/shared-entity-sidebar.tt:33
 #: ../root/layout/components/BottomMenu.js:173
 msgid "Editing"
 msgstr "Modifiche"
@@ -2833,7 +2833,7 @@ msgid "Editing FAQ"
 msgstr "Domande frequenti sulle modifiche"
 
 #: ../root/collection/layout.tt:23
-#: ../root/layout/sidebar/shared-entity-sidebar.tt:65
+#: ../root/layout/sidebar/shared-entity-sidebar.tt:68
 msgid "Editing history"
 msgstr "Cronologia modifiche"
 
@@ -2876,7 +2876,7 @@ msgstr "Editor"
 msgid "Edits"
 msgstr "Modifiche"
 
-#: ../root/user/profile.tt:171
+#: ../root/user/profile.tt:170
 msgid "Edits ({view_url|view})"
 msgstr "Modifiche ({view_url|visualizza})"
 
@@ -3226,7 +3226,7 @@ msgstr "Collegamenti esterni"
 msgid "FAQs"
 msgstr "Domande frequenti"
 
-#: ../root/user/profile.tt:188
+#: ../root/user/profile.tt:187
 msgid "Failed"
 msgstr "Fallite"
 
@@ -3238,7 +3238,7 @@ msgstr "Modifiche fallite"
 msgid "Failed Edits by {name}"
 msgstr "Modifiche fallite di {name}"
 
-#: ../root/components/common-macros.tt:1026
+#: ../root/components/common-macros.tt:1021
 msgid "Few relationships"
 msgstr "Poche relazioni"
 
@@ -3287,6 +3287,12 @@ msgid ""
 "For information about the account deletion process, please read the "
 "{uri|account FAQ}."
 msgstr "Per maggiori informazioni sul processo di eliminazione degli account, leggi le {uri|domande frequenti sugli account}."
+
+#: ../root/report/releases_missing_disc_ids.tt:7
+msgid ""
+"For instructions on how to add one, see the {add_discids|documentation "
+"page}."
+msgstr ""
 
 #: ../root/report/separate_discs.tt:7
 msgid ""
@@ -3343,7 +3349,7 @@ msgstr "Formato:"
 msgid "Forums"
 msgstr "Forum"
 
-#: ../root/components/common-macros.tt:1033
+#: ../root/components/common-macros.tt:1028
 msgid "Forward"
 msgstr "Avanti"
 
@@ -3371,13 +3377,13 @@ msgid_plural "Found at least {n} edits"
 msgstr[0] "Trovata almeno {n} modifica"
 msgstr[1] "Trovate almeno {n} modifiche"
 
-#: ../root/layout/sidebar/shared-entity-sidebar.tt:107
+#: ../root/layout/sidebar/shared-entity-sidebar.tt:110
 msgid "Found in {num} attendance list"
 msgid_plural "Found in {num} attendance lists"
 msgstr[0] "Trovato in {num} elenco di partecipazione"
 msgstr[1] "Trovato in {num} elenchi di partecipazione"
 
-#: ../root/layout/sidebar/shared-entity-sidebar.tt:131
+#: ../root/layout/sidebar/shared-entity-sidebar.tt:134
 msgid "Found in {num} user collection"
 msgid_plural "Found in {num} user collections"
 msgstr[0] "Trovato in {num} collezione utente"
@@ -3537,6 +3543,7 @@ msgstr "Informazioni generali"
 #: ../root/report/release_groups_without_va_credit.tt:9
 #: ../root/report/release_groups_without_va_link.tt:9
 #: ../root/report/releases_in_caa_with_cover_art_relationships.tt:10
+#: ../root/report/releases_missing_disc_ids.tt:10
 #: ../root/report/releases_to_convert.tt:12
 #: ../root/report/releases_with_coverart_links.tt:8
 #: ../root/report/releases_with_download_relationships.tt:10
@@ -3771,12 +3778,12 @@ msgstr "ISRC “{isrc}”"
 msgid "ISRC:"
 msgstr "ISRC:"
 
-#: ../root/components/recordings-list.tt:31 ../root/report/index.tt:155
+#: ../root/components/recordings-list.tt:31 ../root/report/index.tt:156
 #: ../root/search/lib/inline-results-recording.tt:11
 msgid "ISRCs"
 msgstr "ISRC"
 
-#: ../root/report/index.tt:158 ../root/report/isrc_with_many_recordings.tt:1
+#: ../root/report/index.tt:159 ../root/report/isrc_with_many_recordings.tt:1
 #: ../root/report/isrc_with_many_recordings.tt:3
 msgid "ISRCs with multiple recordings"
 msgstr "ISRC con più registrazioni"
@@ -3809,11 +3816,11 @@ msgstr "ISWC “{iswc}”"
 msgid "ISWC:"
 msgstr "ISWC:"
 
-#: ../root/report/index.tt:161
+#: ../root/report/index.tt:162
 msgid "ISWCs"
 msgstr "ISWC"
 
-#: ../root/report/index.tt:164 ../root/report/iswc_with_many_works.tt:1
+#: ../root/report/index.tt:165 ../root/report/iswc_with_many_works.tt:1
 #: ../root/report/iswc_with_many_works.tt:3
 msgid "ISWCs with multiple works"
 msgstr "ISWC con più opere"
@@ -3920,10 +3927,6 @@ msgid ""
 "If you’d like us to be able to easily respond to your report, please check "
 "“Reveal my email address” below."
 msgstr "Se ci vuoi permettere di rispondere più facilmente alla tua segnalazione, dai la spunta a \"Rivela il mio indirizzo email\" qui sotto."
-
-#: ../root/components/commons-image.tt:4
-msgid "Image from Wikimedia Commons"
-msgstr "Immagine da Wikimedia Commons"
 
 #: ../root/components/common-macros.tt:102
 msgid "Image not available yet, please try again in a few minutes."
@@ -4207,15 +4210,15 @@ msgstr "Lingua: {language}, script: {script}"
 msgid "Languages Known:"
 msgstr "Lingue parlate:"
 
-#: ../root/user/profile.tt:150
+#: ../root/user/profile.tt:149
 msgid "Languages:"
 msgstr "Lingue:"
 
-#: ../root/user/profile.tt:200
+#: ../root/user/profile.tt:199
 msgid "Last 24 hours"
 msgstr "Ultime 24 ore"
 
-#: ../root/user/profile.tt:230
+#: ../root/user/profile.tt:229
 msgid "Last 28 days"
 msgstr "Ultimi 28 giorni"
 
@@ -4246,7 +4249,7 @@ msgstr "Ultimo pacchetto di replica ricevuto il {datetime}"
 msgid "Last updated"
 msgstr "Ultimo aggiornamento"
 
-#: ../root/layout/sidebar/shared-entity-sidebar.tt:140
+#: ../root/layout/sidebar/shared-entity-sidebar.tt:143
 msgid "Last updated on {date}"
 msgstr "Ultimo aggiornamento il {date}"
 
@@ -4338,10 +4341,6 @@ msgstr "Elenchi:"
 msgid "Live Data Feed"
 msgstr "Live Data Feed"
 
-#: ../root/search/results-doc.tt:5
-msgid "Loading"
-msgstr "Caricamento in corso"
-
 #: ../root/release/edit/editnote.tt:15
 msgid "Loading edit previews..."
 msgstr "Caricamento anteprima modifiche in corso..."
@@ -4402,7 +4401,7 @@ msgid "Log in"
 msgstr "Accedi"
 
 #: ../root/collection/layout.tt:25
-#: ../root/layout/sidebar/shared-entity-sidebar.tt:67
+#: ../root/layout/sidebar/shared-entity-sidebar.tt:70
 msgid "Log in to edit"
 msgstr "Effettua l'accesso per modificare"
 
@@ -4456,7 +4455,7 @@ msgstr "Bassa"
 #: ../root/edit/details/edit_work.tt:31
 #: ../root/release/edit_relationships.tt:150 ../root/work/layout.tt:21
 #: ../root/layout/components/MetaDescription.js:147
-#: ../root/static/scripts/work.js:174
+#: ../root/static/scripts/work.js:175
 msgid "Lyrics Languages"
 msgstr "Lingue del testo"
 
@@ -4500,7 +4499,7 @@ msgstr "Assicurati che tutti i supporti della pubblicazione che stai unendo si t
 msgid "Manual entry"
 msgstr "Inserimento manuale"
 
-#: ../root/components/common-macros.tt:1026
+#: ../root/components/common-macros.tt:1021
 msgid "Many relationships"
 msgstr "Molte relazioni"
 
@@ -4579,7 +4578,7 @@ msgid "Member since:"
 msgstr "Membro da:"
 
 #: ../root/layout/merge-helper.tt:30
-#: ../root/layout/sidebar/shared-entity-sidebar.tt:40
+#: ../root/layout/sidebar/shared-entity-sidebar.tt:43
 #: ../root/layout/components/MergeHelper.js:36
 msgid "Merge"
 msgstr "Unisci"
@@ -5172,7 +5171,7 @@ msgid "Nobody has left notes on any of your edits in the past three months."
 msgstr "Nessuno ha lasciato note sulle tue modifiche negli ultimi tre mesi."
 
 #: ../root/entity/tags.tt:5
-#: ../root/static/scripts/common/components/TagEditor.js:285
+#: ../root/static/scripts/common/components/TagEditor.js:350
 msgid "Nobody has tagged this yet."
 msgstr "Nessuna ha ancora taggato questo."
 
@@ -5186,7 +5185,7 @@ msgstr "Nomina un candidato al ruolo di auto-editor"
 msgid "Non-digital releases with download relationships"
 msgstr "Pubblicazioni non digitali con relazioni di download"
 
-#: ../root/components/common-macros.tt:1033 ../root/edit/edit_header.tt:27
+#: ../root/components/common-macros.tt:1028 ../root/edit/edit_header.tt:27
 #: ../root/edit/vote.tt:23
 msgid "None"
 msgstr "Nessuno"
@@ -5352,7 +5351,7 @@ msgstr "Ops! Sembra che i tuoi parametri di ricerca non siano corretti, ricontro
 msgid "Oops, something went wrong!"
 msgstr "Ops, qualcosa è andato storto!"
 
-#: ../root/user/profile.tt:192 ../lib/MusicBrainz/Server/Edit/Utils.pm:273
+#: ../root/user/profile.tt:191 ../lib/MusicBrainz/Server/Edit/Utils.pm:273
 msgid "Open"
 msgstr "In corso"
 
@@ -5369,7 +5368,7 @@ msgid "Open Edits for {name}"
 msgstr "Modifiche aperte per {name}"
 
 #: ../root/collection/layout.tt:22 ../root/edit/list_header.tt:16
-#: ../root/layout/sidebar/shared-entity-sidebar.tt:63
+#: ../root/layout/sidebar/shared-entity-sidebar.tt:66
 msgid "Open edits"
 msgstr "Modifiche in corso"
 
@@ -5420,7 +5419,7 @@ msgstr "Altre ricerche"
 msgid "Other lookups"
 msgstr "Altre ricerche"
 
-#: ../root/user/profile.tt:233
+#: ../root/user/profile.tt:232
 msgid "Overall"
 msgstr "Totali"
 
@@ -5558,17 +5557,17 @@ msgstr "Luogo:"
 
 #: ../root/area/places.tt:1 ../root/area/places.tt:2
 #: ../root/components/common-macros.tt:612 ../root/components/entity-tabs.tt:1
-#: ../root/report/index.tt:127 ../root/tag/header.tt:1 ../root/tag/index.tt:8
+#: ../root/report/index.tt:128 ../root/tag/header.tt:1 ../root/tag/index.tt:8
 msgid "Places"
 msgstr "Luoghi"
 
-#: ../root/report/index.tt:131
+#: ../root/report/index.tt:132
 msgid "Places with annotations"
 msgstr "Luoghi con annotazioni"
 
 #: ../root/report/deprecated_relationship_places.tt:1
 #: ../root/report/deprecated_relationship_places.tt:3
-#: ../root/report/index.tt:130
+#: ../root/report/index.tt:131
 msgid "Places with deprecated relationships"
 msgstr "Luoghi con relazioni obsolete"
 
@@ -5717,7 +5716,7 @@ msgid "Possibly duplicate events"
 msgstr "Eventi che potrebbero essere doppioni"
 
 #: ../root/account/preferences_ok.tt:1 ../root/account/preferences_ok.tt:3
-#: ../root/account/preferences.tt:2 ../root/user/profile/layout.tt:23
+#: ../root/account/preferences.tt:2 ../root/user/profile/layout.tt:38
 msgid "Preferences"
 msgstr "Preferenze"
 
@@ -5821,8 +5820,7 @@ msgstr "Guida rapida"
 msgid "Quick links:"
 msgstr "Collegamenti rapidi:"
 
-#: ../root/components/rating-macros.tt:1
-#: ../root/static/scripts/common/ratings.js:12
+#: ../root/components/rating-macros.tt:1 ../root/utility/ratingTooltip.js:13
 msgid "Rate: {rating} star"
 msgid_plural "Rate: {rating} stars"
 msgstr[0] "Valuta: {rating} stella"
@@ -5833,12 +5831,12 @@ msgstr[1] "Valuta: {rating} stelle"
 #: ../root/components/recordings-list.tt:32
 #: ../root/components/release_groups-list.tt:17
 #: ../root/components/releases-list.tt:24 ../root/components/works-list.tt:20
-#: ../root/layout/sidebar/sidebar-rating.tt:1
+#: ../root/layout/components/sidebar/SidebarRating.js:22
 msgid "Rating"
 msgstr "Valutazione"
 
 #: ../root/entity/ratings.tt:1 ../root/entity/ratings.tt:2
-#: ../root/user/profile/layout.tt:17 ../root/user/ratings_summary.tt:1
+#: ../root/user/profile/layout.tt:32 ../root/user/ratings_summary.tt:1
 #: ../root/user/ratings_summary.tt:32
 msgid "Ratings"
 msgstr "Valutazioni"
@@ -5934,18 +5932,18 @@ msgstr "Registrazione:"
 #: ../root/artist/recordings.tt:1 ../root/artist/recordings.tt:4
 #: ../root/components/common-macros.tt:612 ../root/components/entity-tabs.tt:1
 #: ../root/instrument/recordings.tt:1 ../root/instrument/recordings.tt:2
-#: ../root/release/edit/layout.tt:17 ../root/report/index.tt:113
+#: ../root/release/edit/layout.tt:17 ../root/report/index.tt:114
 #: ../root/series/index.tt:15 ../root/tag/header.tt:1 ../root/tag/index.tt:8
 #: ../root/work/index.tt:17
 msgid "Recordings"
 msgstr "Registrazioni"
 
-#: ../root/report/index.tt:124 ../root/report/recordings_without_va_link.tt:1
+#: ../root/report/index.tt:125 ../root/report/recordings_without_va_link.tt:1
 #: ../root/report/recordings_without_va_link.tt:3
 msgid "Recordings credited to \"Various Artists\" but not linked to VA"
 msgstr "Registrazioni accreditate ad \"Artisti Vari\" ma non collegate ad AV"
 
-#: ../root/report/index.tt:123
+#: ../root/report/index.tt:124
 #: ../root/report/recordings_without_va_credit.tt:1
 #: ../root/report/recordings_without_va_credit.tt:3
 msgid "Recordings not credited to \"Various Artists\" but linked to VA"
@@ -5961,32 +5959,32 @@ msgstr "Registrazioni con relazioni di prima pubblicazione"
 msgid "Recordings with Varying Track Lengths"
 msgstr "Registrazioni con durata delle tracce variabile"
 
-#: ../root/report/index.tt:122
+#: ../root/report/index.tt:123
 msgid "Recordings with annotations"
 msgstr "Registrazioni con annotazioni"
 
 #: ../root/report/deprecated_relationship_recordings.tt:1
 #: ../root/report/deprecated_relationship_recordings.tt:3
-#: ../root/report/index.tt:121
+#: ../root/report/index.tt:122
 msgid "Recordings with deprecated relationships"
 msgstr "Registrazioni con relazioni obsolete"
 
-#: ../root/report/index.tt:116
+#: ../root/report/index.tt:117
 msgid "Recordings with earliest release relationships"
 msgstr "Registrazioni con relazioni di prima pubblicazione"
 
 #: ../root/report/duplicate_relationships_recordings.tt:1
 #: ../root/report/duplicate_relationships_recordings.tt:3
-#: ../root/report/index.tt:119
+#: ../root/report/index.tt:120
 msgid "Recordings with possible duplicate relationships"
 msgstr "Registrazioni che potrebbero avere relazioni doppie"
 
 #: ../root/report/featuring_recordings.tt:1
-#: ../root/report/featuring_recordings.tt:3 ../root/report/index.tt:118
+#: ../root/report/featuring_recordings.tt:3 ../root/report/index.tt:119
 msgid "Recordings with titles containing featuring artists"
 msgstr "Registrazioni che contengono \"feat.\" nel titolo"
 
-#: ../root/report/index.tt:120
+#: ../root/report/index.tt:121
 msgid "Recordings with varying track times"
 msgstr "Registrazioni con durata delle tracce variabile"
 
@@ -6284,7 +6282,7 @@ msgstr "Annotazioni di gruppi di pubblicazioni"
 msgid "Release group by {artist}"
 msgstr "Gruppo di pubblicazioni di {artist}"
 
-#: ../root/layout/sidebar/shared-entity-sidebar.tt:16
+#: ../root/layout/sidebar/shared-entity-sidebar.tt:19
 msgid "Release group external links"
 msgstr "Collegamenti esterni del gruppo di pubblicazioni"
 
@@ -6300,7 +6298,7 @@ msgstr "Valutazione del gruppo di pubblicazioni"
 msgid "Release group ratings"
 msgstr "Valutazioni di gruppi di pubblicazioni"
 
-#: ../root/release/layout.tt:92
+#: ../root/release/layout.tt:96
 msgid "Release group reviews"
 msgstr "Recensioni del gruppo di pubblicazioni"
 
@@ -6394,6 +6392,11 @@ msgstr "Pubblicazione:"
 msgid "Releases"
 msgstr "Pubblicazioni"
 
+#: ../root/report/releases_missing_disc_ids.tt:1
+#: ../root/report/releases_missing_disc_ids.tt:3
+msgid "Releases Missing Disc IDs"
+msgstr ""
+
 #: ../root/report/tracks_named_with_sequence.tt:1
 #: ../root/report/tracks_named_with_sequence.tt:3
 msgid "Releases Where Track Names Start With Their Track Number"
@@ -6428,6 +6431,10 @@ msgstr "Pubblicazioni accreditate ad \"Artisti Vari\" ma non collegate ad AV"
 msgid ""
 "Releases in the Cover Art Archive that still have cover art relationships"
 msgstr "Pubblicazioni nel Cover Art Archive che hanno ancora relazioni di copertina"
+
+#: ../root/report/index.tt:111
+msgid "Releases missing disc IDs"
+msgstr ""
 
 #: ../root/report/index.tt:109 ../root/report/releases_without_va_credit.tt:1
 #: ../root/report/releases_without_va_credit.tt:3
@@ -6579,7 +6586,7 @@ msgstr "Pubblicazioni:"
 #: ../root/collection/delete.tt:1 ../root/collection/header.tt:7
 #: ../root/components/aliases.tt:63 ../root/doc/relationship_type.tt:19
 #: ../root/label/delete.tt:1
-#: ../root/layout/sidebar/shared-entity-sidebar.tt:44
+#: ../root/layout/sidebar/shared-entity-sidebar.tt:47
 #: ../root/recording/delete.tt:1
 #: ../root/relationship/linkattributetype/common.tt:26
 #: ../root/relationship/linkattributetype/delete.tt:11
@@ -6682,8 +6689,8 @@ msgstr "Rimuovi collezione"
 msgid "Remove disc"
 msgstr "Rimuovi disco"
 
-#: ../root/layout/sidebar/shared-entity-sidebar.tt:94
-#: ../root/layout/sidebar/shared-entity-sidebar.tt:118
+#: ../root/layout/sidebar/shared-entity-sidebar.tt:97
+#: ../root/layout/sidebar/shared-entity-sidebar.tt:121
 msgid "Remove from {collection}"
 msgstr "Rimuovi da {collection}"
 
@@ -6701,8 +6708,7 @@ msgstr "Rimuovi gli elementi selezionati dalla collezione"
 msgid "Remove track"
 msgstr "Rimuovi traccia"
 
-#: ../root/components/rating-macros.tt:1
-#: ../root/static/scripts/common/ratings.js:10
+#: ../root/components/rating-macros.tt:1 ../root/utility/ratingTooltip.js:12
 msgid "Remove your rating"
 msgstr "Rimuovi la tua valutazione"
 
@@ -6733,7 +6739,7 @@ msgstr "Riordina copertine"
 msgid "Report User"
 msgstr "Segnala utente"
 
-#: ../root/user/profile.tt:276
+#: ../root/user/profile.tt:275
 msgid "Report this user for bad behavior"
 msgstr "Segnala questo utente per comportamento scorretto"
 
@@ -7085,6 +7091,12 @@ msgid ""
 " to."
 msgstr "Seleziona la pubblicazione in cui vuoi spostare l'ID disco <code>{discid}</code>."
 
+#: ../root/work/edit_form.tt:105
+msgid ""
+"Select any type from the list to see its description. If the work doesn’t "
+"seem to match any type, just leave this blank."
+msgstr ""
+
 #: ../root/release/add_cover_art.tt:34
 msgid "Select images..."
 msgstr "Seleziona immagini..."
@@ -7111,7 +7123,7 @@ msgstr "Inviami email con le modifiche alle mie sottoscrizioni:"
 msgid "Sentence"
 msgstr "Frase"
 
-#: ../root/report/index.tt:134 ../root/report/series_list.tt:7
+#: ../root/report/index.tt:135 ../root/report/series_list.tt:7
 #: ../root/tag/index.tt:8
 msgid "Series"
 msgstr "Serie"
@@ -7157,7 +7169,7 @@ msgstr "Annotazioni di serie"
 msgid "Series information"
 msgstr "Informazioni sulla serie"
 
-#: ../root/report/index.tt:137
+#: ../root/report/index.tt:138
 msgid "Series with annotations"
 msgstr "Serie con annotazioni"
 
@@ -7555,7 +7567,7 @@ msgstr "Data di inizio:"
 msgid "Start date"
 msgstr "Data di inizio"
 
-#: ../root/layout/header/bottom.tt:49 ../root/user/profile.tt:167
+#: ../root/layout/header/bottom.tt:49 ../root/user/profile.tt:166
 #: ../root/layout/components/BottomMenu.js:103
 msgid "Statistics"
 msgstr "Statistiche"
@@ -7650,7 +7662,7 @@ msgid "Submitting edits..."
 msgstr "Invio modifiche in corso..."
 
 #: ../root/collection/layout.tt:35
-#: ../root/layout/sidebar/shared-entity-sidebar.tt:78
+#: ../root/layout/sidebar/shared-entity-sidebar.tt:81
 msgid "Subscribe"
 msgstr "Sottoscrivi"
 
@@ -7670,20 +7682,20 @@ msgstr "Entità sottoscritte"
 #: ../root/collection/layout.tt:37 ../root/collection/subscribers.tt:1
 #: ../root/collection/subscribers.tt:2 ../root/label/subscribers.tt:1
 #: ../root/label/subscribers.tt:2
-#: ../root/layout/sidebar/shared-entity-sidebar.tt:80
+#: ../root/layout/sidebar/shared-entity-sidebar.tt:83
 #: ../root/series/subscribers.tt:1 ../root/series/subscribers.tt:2
-#: ../root/user/profile/layout.tt:10 ../root/user/subscribers.tt:1
+#: ../root/user/profile/layout.tt:20 ../root/user/subscribers.tt:1
 #: ../root/user/subscribers.tt:2
 msgid "Subscribers"
 msgstr "Sottoscrittori"
 
-#: ../root/user/profile.tt:121
+#: ../root/user/profile.tt:120
 msgid "Subscribers:"
 msgstr "Sottoscrittori:"
 
 #: ../root/collection/layout.tt:30 ../root/layout/header/top.tt:14
-#: ../root/layout/sidebar/shared-entity-sidebar.tt:73
-#: ../root/user/profile/layout.tt:10 ../root/layout/components/TopMenu.js:28
+#: ../root/layout/sidebar/shared-entity-sidebar.tt:76
+#: ../root/user/profile/layout.tt:15 ../root/layout/components/TopMenu.js:28
 msgid "Subscriptions"
 msgstr "Sottoscrizioni"
 
@@ -7750,7 +7762,7 @@ msgstr "Tagger"
 #: ../root/components/entity-tabs.tt:51 ../root/components/tags.tt:5
 #: ../root/entity/tags.tt:1 ../root/layout/header/bottom.tt:103
 #: ../root/layout/sidebar/sidebar-tags.tt:12 ../root/tag/cloud.tt:1
-#: ../root/tag/cloud.tt:4 ../root/user/profile/layout.tt:17
+#: ../root/tag/cloud.tt:4 ../root/user/profile/layout.tt:26
 #: ../root/user/tags.tt:1 ../root/layout/components/BottomMenu.js:162
 msgid "Tags"
 msgstr "Tag"
@@ -8249,8 +8261,8 @@ msgstr[1] "Questo cambiamento riguarda {num} relazioni."
 msgid "This collection is empty."
 msgstr "Questa collezione è vuota."
 
-#: ../root/collection/index.tt:8 ../root/user/profile.tt:114
-#: ../root/user/profile.tt:142
+#: ../root/collection/index.tt:8 ../root/user/profile.tt:113
+#: ../root/user/profile.tt:141
 msgid ""
 "This content is hidden to prevent spam. To view it, please {url|log in}."
 msgstr "Questo contenuto è nascosto per prevenire lo spam. {url|Accedi} per visualizzarlo."
@@ -8970,6 +8982,12 @@ msgid ""
 "{how_to_merge_releases|How to Merge Releases})."
 msgstr "Questo report mostra i gruppi di pubblicazioni con pubblicazioni che sono collegate ad altre pubblicazioni in gruppi diversi da relazioni di \"parte di un set\" o di traslitterazione. Se trovi elencata una coppia di gruppi di pubblicazioni, è probabile che essi debbano essere uniti. Se le pubblicazioni sono dischi collegati con relazioni di \"parte di un set\", potresti doverle unire in una pubblicazione con più dischi (controlla {how_to_merge_releases|come unire le pubblicazioni})."
 
+#: ../root/report/releases_missing_disc_ids.tt:6
+msgid ""
+"This report shows releases (official and promotional only) that have at "
+"least one medium with a format that supports disc IDs, but is missing one."
+msgstr ""
+
 #: ../root/report/releases_without_va_credit.tt:6
 msgid ""
 "This report shows releases linked to the Various Artists entity without "
@@ -9132,11 +9150,11 @@ msgstr "Questa serie non ha relazioni e sarà rimossa automaticamente nei prossi
 msgid "This series is currently empty."
 msgstr "Al momento questa serie è vuota."
 
-#: ../root/user/profile.tt:218
+#: ../root/user/profile.tt:217
 msgid "This table shows a summary of votes cast by this editor."
 msgstr "Questa tabella mostra un riassunto dei voti espressi da questo editor."
 
-#: ../root/components/common-macros.tt:1045
+#: ../root/components/common-macros.tt:1040
 msgid "This track is a data track."
 msgstr "Questa traccia è una traccia dati."
 
@@ -9362,6 +9380,7 @@ msgstr "Totale gruppi di pubblicazioni: {count}"
 #: ../root/report/part_of_set_relationships.tt:13
 #: ../root/report/released_too_early.tt:7
 #: ../root/report/releases_in_caa_with_cover_art_relationships.tt:9
+#: ../root/report/releases_missing_disc_ids.tt:9
 #: ../root/report/releases_to_convert.tt:11
 #: ../root/report/releases_with_coverart_links.tt:7
 #: ../root/report/releases_with_download_relationships.tt:8
@@ -9473,7 +9492,7 @@ msgstr "Elenco di tracce:"
 msgid "Tracks"
 msgstr "Tracce"
 
-#: ../root/report/index.tt:117
+#: ../root/report/index.tt:118
 msgid "Tracks whose names include their sequence numbers"
 msgstr "Tracce i cui titoli includono il loro numero di traccia"
 
@@ -9628,13 +9647,13 @@ msgid "URL; [URL]; [URL|label]"
 msgstr "URL; [URL]; [URL|etichetta]"
 
 #: ../root/components/common-macros.tt:131
-#: ../root/components/common-macros.tt:612 ../root/report/index.tt:148
+#: ../root/components/common-macros.tt:612 ../root/report/index.tt:149
 msgid "URLs"
 msgstr "URL"
 
 #: ../root/report/deprecated_relationship_urls.tt:1
 #: ../root/report/deprecated_relationship_urls.tt:3
-#: ../root/report/index.tt:151
+#: ../root/report/index.tt:152
 msgid "URLs with deprecated relationships"
 msgstr "URL con relazioni obsolete"
 
@@ -9661,7 +9680,7 @@ msgstr "Strumento non classificato"
 msgid "Unconfirmed Email Address"
 msgstr "Indirizzo email non confermato"
 
-#: ../root/components/common-macros.tt:1026 ../root/report/artist_list.tt:19
+#: ../root/components/common-macros.tt:1021 ../root/report/artist_list.tt:19
 #: ../root/report/artists_with_multiple_occurances_in_artist_credits.tt:25
 msgid "Unknown"
 msgstr "Sconosciuto"
@@ -9680,7 +9699,7 @@ msgid "Unspecified type"
 msgstr "Tipo non specificato"
 
 #: ../root/collection/layout.tt:33
-#: ../root/layout/sidebar/shared-entity-sidebar.tt:76
+#: ../root/layout/sidebar/shared-entity-sidebar.tt:79
 #: ../root/user/subscriptions/table.tt:28
 msgid "Unsubscribe"
 msgstr "Annulla sottoscrizione"
@@ -9839,7 +9858,7 @@ msgid "View all ratings"
 msgstr "Visualizza tutte le valutazioni"
 
 #: ../root/annotation/common.tt:21
-#: ../root/layout/sidebar/shared-entity-sidebar.tt:36
+#: ../root/layout/sidebar/shared-entity-sidebar.tt:39
 msgid "View annotation history"
 msgstr "Visualizza cronologia dell'annotazione"
 
@@ -9896,7 +9915,7 @@ msgstr "Conteggio dei voti"
 msgid "Vote tally:"
 msgstr "Conteggio dei voti:"
 
-#: ../root/user/profile.tt:184
+#: ../root/user/profile.tt:183
 msgid "Voted down"
 msgstr "Rifiutate"
 
@@ -9909,7 +9928,7 @@ msgstr "Votante"
 msgid "Votes"
 msgstr "Voti"
 
-#: ../root/user/profile.tt:222
+#: ../root/user/profile.tt:221
 msgid "Votes ({view_url|view})"
 msgstr "Voti ({view_url|visualizza})"
 
@@ -10171,24 +10190,24 @@ msgstr "Opera:"
 
 #: ../root/artist/works.tt:1 ../root/artist/works.tt:2
 #: ../root/components/common-macros.tt:612 ../root/components/entity-tabs.tt:1
-#: ../root/report/index.tt:140 ../root/series/index.tt:15
+#: ../root/report/index.tt:141 ../root/series/index.tt:15
 #: ../root/tag/header.tt:1 ../root/tag/index.tt:8
 msgid "Works"
 msgstr "Opere"
 
-#: ../root/report/index.tt:145
+#: ../root/report/index.tt:146
 msgid "Works with annotations"
 msgstr "Opere con annotazioni"
 
 #: ../root/report/deprecated_relationship_works.tt:1
 #: ../root/report/deprecated_relationship_works.tt:3
-#: ../root/report/index.tt:144
+#: ../root/report/index.tt:145
 msgid "Works with deprecated relationships"
 msgstr "Opere con relazioni obsolete"
 
 #: ../root/report/duplicate_relationships_works.tt:1
 #: ../root/report/duplicate_relationships_works.tt:3
-#: ../root/report/index.tt:143
+#: ../root/report/index.tt:144
 msgid "Works with possible duplicate relationships"
 msgstr "Opere che potrebbero avere relazioni doppie"
 
@@ -10432,11 +10451,11 @@ msgid ""
 "to complete the authorization process:"
 msgstr "Hai permesso l'accesso a {app}. Ora ritorna a {app} e copia questo token per completare il processo di autorizzazione:"
 
-#: ../root/layout/sidebar/shared-entity-sidebar.tt:104
+#: ../root/layout/sidebar/shared-entity-sidebar.tt:107
 msgid "You have no attendance lists!"
 msgstr "Non hai nessun elenco di partecipazione!"
 
-#: ../root/layout/sidebar/shared-entity-sidebar.tt:128
+#: ../root/layout/sidebar/shared-entity-sidebar.tt:131
 msgid "You have no collections!"
 msgstr "Non hai nessuna collezione!"
 
@@ -10481,7 +10500,7 @@ msgstr "Non puoi modificare gli artisti speciali"
 msgid "You must be logged in to vote on edits"
 msgstr "Devi effettuare l'accesso per votare sulle modifiche."
 
-#: ../root/components/common-macros.tt:1061
+#: ../root/components/common-macros.tt:1056
 msgid "You must enter a disambiguation comment for this entity."
 msgstr "Devi inserire un commento di disambiguazione per questa entità."
 
@@ -10894,7 +10913,7 @@ msgid "more"
 msgstr "più"
 
 #: ../root/layout/sidebar/sidebar-tags.tt:1
-#: ../root/static/scripts/common/components/TagEditor.js:328
+#: ../root/static/scripts/common/components/TagEditor.js:393
 msgid "more..."
 msgstr "altri..."
 
@@ -10996,10 +11015,6 @@ msgstr "pubblicazioni"
 msgid "resend verification email"
 msgstr "invia nuovamente email di verifica"
 
-#: ../root/layout/sidebar/sidebar-rating.tt:5
-msgid "see all ratings"
-msgstr "Visualizza tutte le valutazioni"
-
 #: ../root/release/header.tt:10
 msgid "see all versions of this release, {count} available"
 msgid_plural "see all versions of this release, {count} available"
@@ -11023,7 +11038,7 @@ msgstr "visualizza elenco di tracce"
 msgid "start date"
 msgstr "data iniziale"
 
-#: ../root/user/profile.tt:132
+#: ../root/user/profile.tt:131
 msgid "subscribe"
 msgstr "sottoscriviti"
 
@@ -11047,7 +11062,7 @@ msgstr[1] "tracce {tracks}"
 msgid "tracks"
 msgstr "tracce"
 
-#: ../root/user/profile.tt:130
+#: ../root/user/profile.tt:129
 msgid "unsubscribe"
 msgstr "annulla sottoscrizione"
 
@@ -11104,14 +11119,14 @@ msgstr[1] "{artist} non ha nessuna pubblicazione con {n} tracce."
 msgid "{collection} by {owner}"
 msgstr "{collection} di {owner}"
 
-#: ../root/user/profile.tt:123
+#: ../root/user/profile.tt:122
 msgid "{count} ({url|view list})"
 msgstr "{count} ({url|visualizza elenco})"
 
-#: ../root/user/profile.tt:177 ../root/user/profile.tt:181
-#: ../root/user/profile.tt:185 ../root/user/profile.tt:189
-#: ../root/user/profile.tt:193 ../root/user/profile.tt:197
-#: ../root/user/profile.tt:201
+#: ../root/user/profile.tt:176 ../root/user/profile.tt:180
+#: ../root/user/profile.tt:184 ../root/user/profile.tt:188
+#: ../root/user/profile.tt:192 ../root/user/profile.tt:196
+#: ../root/user/profile.tt:200
 msgid "{count} ({view_url|view})"
 msgstr "{count} ({view_url|visualizza})"
 
@@ -11362,7 +11377,7 @@ msgstr[1] "{num}&#xa0;anni fa"
 msgid "{num}. {relationship}"
 msgstr "{num}. {relationship}"
 
-#: ../root/user/profile.tt:246 ../root/user/profile.tt:250
+#: ../root/user/profile.tt:245 ../root/user/profile.tt:249
 msgid "{percentage}%"
 msgstr "{percentage}%"
 
@@ -11433,7 +11448,7 @@ msgid ""
 " that the artist has been entered correctly."
 msgstr "{valink|Artisti vari} non va normalmente usato nelle registrazioni: assicurati che gli artisti siano stati inseriti correttamente."
 
-#: ../root/components/common-macros.tt:1011
+#: ../root/components/common-macros.tt:1006
 #: ../root/static/scripts/common/i18n.js:163
 msgid "{variable}:"
 msgstr "{variable}:"
@@ -11586,11 +11601,11 @@ msgid ""
 "Banner updated. Remember that each server has its own, independent banner."
 msgstr "Banner aggiornato. Ricordati che ogni server ha il suo banner indipendente dagli altri."
 
-#: ../lib/MusicBrainz/Server/Controller/Artist.pm:534
+#: ../lib/MusicBrainz/Server/Controller/Artist.pm:537
 msgid "You cannot merge a special purpose artist into another artist"
 msgstr "Non è possibile unire un artista speciale con un altro artista."
 
-#: ../lib/MusicBrainz/Server/Controller/Artist.pm:539
+#: ../lib/MusicBrainz/Server/Controller/Artist.pm:542
 msgid "You cannot merge into Deleted Artist"
 msgstr "Non puoi unire con Artista eliminato"
 
@@ -12916,6 +12931,10 @@ msgstr "{list_item}, {rest}"
 msgid "{last_list_item}"
 msgstr "{last_list_item}"
 
+#: ../root/components/CommonsImage.js:23
+msgid "Image from Wikimedia Commons"
+msgstr "Immagine da Wikimedia Commons"
+
 #: ../root/layout/components/ExternalLinks.js:73
 msgid "Official homepage"
 msgstr "Pagina ufficiale"
@@ -12975,6 +12994,10 @@ msgstr "Etichette:"
 #: ../root/layout/components/MetaDescription.js:153
 msgid "Writers:"
 msgstr "Autori:"
+
+#: ../root/layout/components/sidebar/SidebarRating.js:31
+msgid "see all ratings"
+msgstr "Visualizza tutte le valutazioni"
 
 #: ../root/main/404.js:20
 msgid "Sorry, the page you're looking for does not exist."
@@ -13063,47 +13086,47 @@ msgstr "Non è stato possibile caricare il supporto."
 msgid "Image {current} of {total}"
 msgstr "Immagine {current} di {total}"
 
-#: ../root/static/scripts/common/components/TagEditor.js:72
+#: ../root/static/scripts/common/components/TagEditor.js:90
 msgid "Upvote"
 msgstr "Vota a favore"
 
-#: ../root/static/scripts/common/components/TagEditor.js:73
+#: ../root/static/scripts/common/components/TagEditor.js:91
 msgid "You’ve upvoted this tag"
 msgstr "Hai votato a favore di questo tag"
 
-#: ../root/static/scripts/common/components/TagEditor.js:81
+#: ../root/static/scripts/common/components/TagEditor.js:99
 msgid "Downvote"
 msgstr "Vota contro"
 
-#: ../root/static/scripts/common/components/TagEditor.js:82
+#: ../root/static/scripts/common/components/TagEditor.js:100
 msgid "You’ve downvoted this tag"
 msgstr "Hai votato contro questo tag"
 
-#: ../root/static/scripts/common/components/TagEditor.js:294
+#: ../root/static/scripts/common/components/TagEditor.js:359
 msgid ""
 "Tags with a score of zero or below, and tags that you’ve downvoted are "
 "hidden."
 msgstr "I tag con un punteggio di zero o minore e i tag cui hai votato contro sono nascosti."
 
-#: ../root/static/scripts/common/components/TagEditor.js:297
+#: ../root/static/scripts/common/components/TagEditor.js:362
 msgid "Show all tags."
 msgstr "Visualizza tutti i tag."
 
-#: ../root/static/scripts/common/components/TagEditor.js:301
+#: ../root/static/scripts/common/components/TagEditor.js:366
 msgid "Add Tags"
 msgstr "Aggiungi tag"
 
-#: ../root/static/scripts/common/components/TagEditor.js:303
+#: ../root/static/scripts/common/components/TagEditor.js:368
 msgid ""
 "You can add your own {tagdocs|tags} below. Use commas to separate multiple "
 "tags."
 msgstr "Puoi aggiungere i tuoi {tagdocs|tag} qui sotto. Usa una virgola per separare tag diversi."
 
-#: ../root/static/scripts/common/components/TagEditor.js:310
+#: ../root/static/scripts/common/components/TagEditor.js:375
 msgid "Submit tags"
 msgstr "Invia tag"
 
-#: ../root/static/scripts/common/components/TagEditor.js:336
+#: ../root/static/scripts/common/components/TagEditor.js:408
 msgid "Tag"
 msgstr "Tag"
 
@@ -13472,10 +13495,10 @@ msgstr "Il codice a barre inserito non è un codice EAN valido."
 msgid "The barcode you entered is not a valid UPC or EAN code."
 msgstr "Il codice a barre inserito non è un codice UPC o EAN valido."
 
-#: ../root/static/scripts/work.js:172
+#: ../root/static/scripts/work.js:173
 msgid "Add Language"
 msgstr "Aggiungi lingua"
 
-#: ../root/static/scripts/work.js:180
+#: ../root/static/scripts/work.js:181
 msgid "Remove Language"
 msgstr "Rimuovi lingua"
