@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-01-03 12:07+0100\n"
+"POT-Creation-Date: 2018-01-10 10:16+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3263,7 +3263,7 @@ msgid ""
 "account FAQ}."
 msgstr ""
 
-#: ../root/report/releases_missing_disc_ids.tt:7
+#: ../root/report/releases_missing_disc_i_ds.tt:7
 msgid ""
 "For instructions on how to add one, see the {add_discids|documentation page}."
 msgstr ""
@@ -3512,7 +3512,7 @@ msgstr ""
 #: ../root/report/release_groups_without_va_credit.tt:9
 #: ../root/report/release_groups_without_va_link.tt:9
 #: ../root/report/releases_in_caa_with_cover_art_relationships.tt:10
-#: ../root/report/releases_missing_disc_ids.tt:10
+#: ../root/report/releases_missing_disc_i_ds.tt:10
 #: ../root/report/releases_to_convert.tt:12
 #: ../root/report/releases_with_coverart_links.tt:8
 #: ../root/report/releases_with_download_relationships.tt:10
@@ -6349,8 +6349,8 @@ msgstr ""
 msgid "Releases"
 msgstr ""
 
-#: ../root/report/releases_missing_disc_ids.tt:1
-#: ../root/report/releases_missing_disc_ids.tt:3
+#: ../root/report/releases_missing_disc_i_ds.tt:1
+#: ../root/report/releases_missing_disc_i_ds.tt:3
 msgid "Releases Missing Disc IDs"
 msgstr ""
 
@@ -8929,7 +8929,7 @@ msgid ""
 "{how_to_merge_releases|How to Merge Releases})."
 msgstr ""
 
-#: ../root/report/releases_missing_disc_ids.tt:6
+#: ../root/report/releases_missing_disc_i_ds.tt:6
 msgid ""
 "This report shows releases (official and promotional only) that have at "
 "least one medium with a format that supports disc IDs, but is missing one."
@@ -9325,7 +9325,7 @@ msgstr ""
 #: ../root/report/part_of_set_relationships.tt:13
 #: ../root/report/released_too_early.tt:7
 #: ../root/report/releases_in_caa_with_cover_art_relationships.tt:9
-#: ../root/report/releases_missing_disc_ids.tt:9
+#: ../root/report/releases_missing_disc_i_ds.tt:9
 #: ../root/report/releases_to_convert.tt:11
 #: ../root/report/releases_with_coverart_links.tt:7
 #: ../root/report/releases_with_download_relationships.tt:8

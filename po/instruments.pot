@@ -409,10 +409,6 @@ msgstr ""
 msgid "bandora"
 msgstr ""
 
-#: DB:instrument/name:393
-msgid "bandura"
-msgstr ""
-
 #: DB:instrument/name:394
 msgctxt "Ukraininan lute-zither"
 msgid "bandura"
@@ -1561,15 +1557,12 @@ msgid "handclaps"
 msgstr ""
 
 #: DB:instrument/name:512
-msgid "hang"
+msgctxt "Tuned metal ufo"
+msgid "handpan"
 msgstr ""
 
 #: DB:instrument/name:603
 msgid "hard disk drive"
-msgstr ""
-
-#: DB:instrument/name:142
-msgid "hardart"
 msgstr ""
 
 #: DB:instrument/name:78
