@@ -10,7 +10,7 @@
                             <th>[%- l('Artists') -%]</th>
                             <th>[%- l('ISWC') -%]</th>
                             <th>[%- l('Type') -%]</th>
-                            <th>[%- l('Languages') -%]</th>
+                            <th>[%- l('Lyrics Languages') -%]</th>
                         </tr>
                     </thead>
                     <tbody>
