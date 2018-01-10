@@ -468,11 +468,6 @@ msgstr ""
 msgid "Balafon, Malian 'gourd xylophone'"
 msgstr ""
 
-#. name:bandura 
-#: DB:instrument/description:393
-msgid "Bandura, Ukrainian 14th century lute"
-msgstr ""
-
 #. name:bass guitar 
 #: DB:instrument/description:207
 msgid "Bass (modern, typically electrical, but not always)"
@@ -539,6 +534,11 @@ msgid ""
 "Chime or chimes can refer to multiple different instruments, including "
 "tubular bells, wind chime, chime bar and mark tree. Please use the correct "
 "instrument if you know which one is intended."
+msgstr ""
+
+#. name:naobo 
+#: DB:instrument/description:599
+msgid "Chinese cymbals specially used in the Beijing opera."
 msgstr ""
 
 #. name:ching 
@@ -787,6 +787,13 @@ msgid ""
 "guitar with electronic organ wiring and knobs added."
 msgstr ""
 
+#. name:handpan 
+#: DB:instrument/description:512
+msgid ""
+"Invented initially as the Hang, it is made of two tuned metal convex pans "
+"glued together creating an UFO shape."
+msgstr ""
+
 #. name:taiko 
 #: DB:instrument/description:378
 msgid "Japanese traditional drum beaten with sticks called bachi."
@@ -1014,13 +1021,6 @@ msgstr ""
 msgid ""
 "Other instruments. If you can't find an instrument, please <a href=\"http://"
 "tickets.musicbrainz.org/browse/INST\">request it</a>."
-msgstr ""
-
-#. name:hang 
-#: DB:instrument/description:512
-msgid ""
-"Percussion instrument made from two steel sheets that are attached together "
-"creating a recognizable 'UFO shape'."
 msgstr ""
 
 #. name:body percussion 
@@ -2346,11 +2346,6 @@ msgstr ""
 msgid "The nagadou-daiko is an elongated barrel-shaped Japanese drum."
 msgstr ""
 
-#. name:naobo 
-#: DB:instrument/description:599
-msgid "The naobo are Chinese cymbals, specially used in Beijing opera."
-msgstr ""
-
 #. name:nohkan 
 #: DB:instrument/description:493
 msgid "The nohkan is a high-pitched bamboo transverse flute from Japan."
@@ -3431,6 +3426,11 @@ msgstr ""
 msgid ""
 "also just \"kū\", a mouthbow with a single string, struck with a light "
 "implement of bone or wood."
+msgstr ""
+
+#. name:cello 
+#: DB:instrument/description:60
+msgid "also know as violoncello"
 msgstr ""
 
 #. name:samica 
