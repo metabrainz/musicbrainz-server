@@ -22,7 +22,13 @@ function getCookieBrowser(name, defaultValue = undefined) {
 }
 
 function getCookieServer(name, defaultValue = undefined) {
-  return getCookie($c.req.headers.cookie, name, defaultValue);
+  const headers = $c.req.headers;
+  const cookie = (
+    headers.cookie ||
+    headers.Cookie ||
+    headers.COOKIE
+  );
+  return getCookie(cookie, name, defaultValue);
 }
 
 module.exports = getCookieFallback;
