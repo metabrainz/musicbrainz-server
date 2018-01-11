@@ -12,7 +12,6 @@ const ReactDOMServer = require('react-dom/server');
 const DBDefs = require('../static/scripts/common/DBDefs');
 const getCookie = require('../static/scripts/common/utility/getCookie');
 const {bufferFrom} = require('./buffer');
-const gettext = require('./gettext');
 
 function pathFromRoot(fpath) {
   return path.resolve(__dirname, '../', fpath);
@@ -46,6 +45,7 @@ function getResponse(requestBody, context) {
 
   // Set the current translations to be used for this request based on the
   // given 'lang' cookie.
+  const gettext = require('./gettext');
   gettext.setLocale(getCookie('lang') || 'en');
 
   try {
