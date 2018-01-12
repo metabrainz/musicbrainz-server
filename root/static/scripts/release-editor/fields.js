@@ -298,6 +298,7 @@ class Medium {
         this.name = ko.observable(data.name);
         this.position = ko.observable(data.position || 1);
         this.formatID = ko.observable(data.formatID);
+        this.formatUnknownToUser = ko.observable(Boolean(data.id && !data.formatID));
 
         var tracks = data.tracks;
         this.tracks = ko.observableArray(utils.mapChild(this, tracks, Track));
@@ -395,6 +396,16 @@ class Medium {
 
         this.needsTracks = ko.computed(function () {
             return self.loaded() && self.tracks().length === 0;
+        });
+
+        this.needsFormat = validation.errorField(function() {
+            return !(self.formatID() || self.formatUnknownToUser());
+        });
+
+        this.formatID.subscribe(function (value) {
+            if (value) {
+                self.formatUnknownToUser(false);
+            }
         });
     }
 
