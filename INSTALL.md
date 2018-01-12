@@ -348,7 +348,7 @@ up a local instance of the
 [search server](https://github.com/metabrainz/search-server). By default,
 search queries are sent to search.musicbrainz.org and are rate limited.
 
-Once you set up your own instance, change `LUCENE_SERVER` in lib/DBDefs.pm to
+Once you set up your own instance, change `SEARCH_SERVER` in lib/DBDefs.pm to
 point to it.
 
 
