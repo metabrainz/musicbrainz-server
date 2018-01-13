@@ -9,6 +9,8 @@ const fs = require('fs');
 const Gettext = require('node-gettext');
 const path = require('path');
 
+const poFile = require('./gettext/poFile');
+
 const EN_HANDLE = new Gettext();
 const GETTEXT_HANDLES = {};
 const PO_DIR = path.resolve(__dirname, '../../po');
@@ -25,33 +27,13 @@ const TEXT_DOMAINS = [
   //'statistics',
 ];
 
-function findObjectFile(domain, lang, ext) {
-  let fpath = path.resolve(PO_DIR, `${domain}.${lang}.${ext}`);
-
-  try {
-    fs.statSync(fpath);
-  } catch (err) {
-    if (err.code === 'ENOENT' && /_/.test(lang)) {
-      let fallback = fpath.replace(new RegExp(`_[a-zA-Z]+\\.${ext}$`), `.${ext}`);
-
-      console.warn(`Warning: ${fpath} does not exist, trying ${fallback}`);
-
-      fpath = fallback;
-    } else {
-      throw err;
-    }
-  }
-
-  return fpath;
-}
-
 function loadMoFiles(lang) {
   let gettext = new Gettext();
 
   TEXT_DOMAINS.forEach(domain => {
     gettext.addTextdomain(
       domain,
-      fs.readFileSync(findObjectFile(domain, lang, 'mo'))
+      fs.readFileSync(poFile.find(domain, lang, 'mo'))
     );
   });
 
@@ -79,6 +61,5 @@ function getHandle(lang) {
   return handle;
 }
 
-exports.findObjectFile = findObjectFile;
 exports.loadMoFiles = loadMoFiles;
 exports.getHandle = getHandle;

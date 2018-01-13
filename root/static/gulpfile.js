@@ -8,7 +8,6 @@ const streamify = require('gulp-streamify');
 const _ = require('lodash');
 const mergeStream = require('merge-stream');
 const path = require('path');
-const po2json = require('po2json');
 const Q = require('q');
 const shellQuote = require('shell-quote');
 const shell = require('shelljs');
@@ -16,7 +15,7 @@ const File = require('vinyl');
 const source = require('vinyl-source-stream');
 const yarb = require('yarb');
 
-const {findObjectFile} = require('../server/gettext');
+const poFile = require('../server/gettext/poFile');
 const DBDefs = require('./scripts/common/DBDefs');
 
 // This may need to be increased when a new bundle is added, to silence
@@ -196,7 +195,7 @@ _(DBDefs.MB_LANGUAGES || '')
   .without('en')
   .map(langToPosix)
   .transform(function (result, lang) {
-    var srcPo = shellQuote.quote([findObjectFile('mb_server', lang, 'po')]);
+    var srcPo = shellQuote.quote([poFile.find('mb_server', lang, 'po')]);
     var tmpPo = shellQuote.quote([path.resolve(PO_DIR, `javascript.${lang}.po`)]);
 
     // msggrep's -N option supports wildcards which use fnmatch internally.
@@ -212,8 +211,7 @@ _(DBDefs.MB_LANGUAGES || '')
     // Create a temporary .po file containing only the strings used by root/static/scripts.
     shell.exec(`msggrep ${msgLocations} ${srcPo} -o ${tmpPo}`);
 
-    result[lang] = po2json.parseFileSync(tmpPo, {format: 'jed1.x', domain: 'mb_server'});
-
+    result[lang] = poFile.load('javascript', lang, 'mb_server');
     fs.unlinkSync(tmpPo);
   }, {})
   .assign({en: JED_OPTIONS_EN})
