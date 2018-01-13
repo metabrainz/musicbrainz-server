@@ -8,19 +8,17 @@ const fs = require('fs');
 const path = require('path');
 const po2json = require('po2json');
 
+const LOCALE_EXT = new RegExp('_[a-zA-Z]+\\.po$');
 const PO_DIR = path.resolve(__dirname, '../../../po');
 
-exports.find = function (domain, locale, ext) {
-  let fpath = path.resolve(PO_DIR, `${domain}.${locale}.${ext}`);
+exports.find = function (domain, locale) {
+  let fpath = path.resolve(PO_DIR, `${domain}.${locale}.po`);
 
   try {
     fs.statSync(fpath);
   } catch (err) {
     if (err.code === 'ENOENT' && /_/.test(locale)) {
-      const fallback = fpath.replace(
-        new RegExp(`_[a-zA-Z]+\\.${ext}$`),
-        `.${ext}`,
-      );
+      const fallback = fpath.replace(LOCALE_EXT, '.po');
 
       console.warn(`Warning: ${fpath} does not exist, trying ${fallback}`);
 

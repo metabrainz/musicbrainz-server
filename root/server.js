@@ -17,7 +17,6 @@ const spawnSync = require('child_process').spawnSync;
 const _ = require('lodash');
 
 const createServer = require('./server/createServer');
-const gettext = require('./server/gettext');
 const {clearRequireCache} = require('./server/utils');
 
 const yargs = require('yargs')

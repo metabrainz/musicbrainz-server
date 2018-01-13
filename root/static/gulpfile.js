@@ -195,7 +195,7 @@ _(DBDefs.MB_LANGUAGES || '')
   .without('en')
   .map(langToPosix)
   .transform(function (result, lang) {
-    var srcPo = shellQuote.quote([poFile.find('mb_server', lang, 'po')]);
+    var srcPo = shellQuote.quote([poFile.find('mb_server', lang)]);
     var tmpPo = shellQuote.quote([path.resolve(PO_DIR, `javascript.${lang}.po`)]);
 
     // msggrep's -N option supports wildcards which use fnmatch internally.

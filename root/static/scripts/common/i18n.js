@@ -12,15 +12,11 @@ const sliced = require('sliced');
 let gettext;
 if (isNodeJS) {
     // Avoid bundling this module in the browser by using a dynamic require().
-    let nodeGettext = '../../../server/gettext';
-    gettext = require(nodeGettext).getHandle('en')
+    const gettextPath = '../../../server/gettext';
+    gettext = require(gettextPath);
 } else {
     gettext = new Jed(require('jed-data'));
 }
-
-exports.setGettextHandle = function (handle) {
-    gettext = handle;
-};
 
 function wrapGettext(method) {
     return function () {
