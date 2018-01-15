@@ -69,8 +69,8 @@ function getExpandRegExps(args) {
     var re = _(args).keys().map(escapeRegExp).join('|');
 
     return {
-        links: new RegExp(`\\{(${re})\\|(.*?)\\}`, 'g'),
-        names: new RegExp(`\\{(${re})\\}`, 'g')
+        linksRegex: new RegExp(`\\{(${re})\\|(.*?)\\}`, 'g'),
+        namesRegex: new RegExp(`\\{(${re})\\}`, 'g')
     };
 }
 
@@ -100,11 +100,11 @@ function reactAnchor(props, text) {
 
 // Adapted from `sub _expand` in lib/MusicBrainz/Server/Translation.pm
 exports.expand = function (string, args) {
-    let {links, names} = getExpandRegExps(args);
+    let {linksRegex, namesRegex} = getExpandRegExps(args);
 
     return (string || '')
-        .replace(links, (match, p1, p2) => anchor(args, p1, p2, textAnchor))
-        .replace(names, (match, p1) => varReplacement(args, p1));
+        .replace(linksRegex, (match, p1, p2) => anchor(args, p1, p2, textAnchor))
+        .replace(namesRegex, (match, p1) => varReplacement(args, p1));
 };
 
 function expandToArray(string, args) {
@@ -112,12 +112,12 @@ function expandToArray(string, args) {
         return [];
     }
 
-    let {links, names} = getExpandRegExps(args);
-    let parts = string.split(links);
+    let {linksRegex, namesRegex} = getExpandRegExps(args);
+    let parts = string.split(linksRegex);
 
     return parts.reduce(function (accum, part, index) {
         if (index % 3 === 0) {
-            let nameParts = part.split(names).reduce(function (accum2, part2, index2) {
+            let nameParts = part.split(namesRegex).reduce(function (accum2, part2, index2) {
                 if (index2 % 2 === 0) {
                     return part2 ? accum2.concat(part2) : accum2;
                 }
