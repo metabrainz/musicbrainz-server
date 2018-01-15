@@ -34,11 +34,7 @@ function wrapGettext(method) {
         const string = gettext[method].apply(gettext, args);
 
         if (expandArgs) {
-            let react = expandArgs.__react;
-            if (react) {
-                return expandToArray(string, expandArgs);
-            }
-            return exports.expand(string, expandArgs);
+            return exports.expand(string, expandArgs, !!expandArgs.__react);
         }
 
         return string;
@@ -63,15 +59,6 @@ const regExpChars = /([.*+?^=!:${}()|\[\]\/\\])/g;
 
 function escapeRegExp(string) {
     return string.replace(regExpChars, "\\$1");
-}
-
-function getExpandRegExps(args) {
-    const re = _(args).keys().map(escapeRegExp).join('|');
-
-    return {
-        linksRegex: new RegExp(`\\{(${re})\\|(.*?)\\}`, 'g'),
-        namesRegex: new RegExp(`\\{(${re})\\}`, 'g')
-    };
 }
 
 function varReplacement(args, key) {
@@ -99,20 +86,26 @@ function reactAnchor(props, text) {
 }
 
 // Adapted from `sub _expand` in lib/MusicBrainz/Server/Translation.pm
-exports.expand = function (string, args) {
-    const {linksRegex, namesRegex} = getExpandRegExps(args);
-
-    return (string || '')
-        .replace(linksRegex, (match, p1, p2) => anchor(args, p1, p2, textAnchor))
-        .replace(namesRegex, (match, p1) => varReplacement(args, p1));
-};
-
-function expandToArray(string, args) {
+exports.expand = function (string, args, wantArray = false) {
     if (!string) {
-        return [];
+        return wantArray ? [] : '';
     }
 
-    const {linksRegex, namesRegex} = getExpandRegExps(args);
+    const re = _(args).keys().map(escapeRegExp).join('|');
+    const linksRegex = new RegExp(`\\{(${re})\\|(.*?)\\}`, 'g');
+    const namesRegex = new RegExp(`\\{(${re})\\}`, 'g');
+
+    const func = wantArray ? _expandToArray : _expand;
+    return func(string, args, linksRegex, namesRegex);
+};
+
+function _expand(string, args, linksRegex, namesRegex) {
+    return string
+        .replace(linksRegex, (match, p1, p2) => anchor(args, p1, p2, textAnchor))
+        .replace(namesRegex, (match, p1) => varReplacement(args, p1));
+}
+
+function _expandToArray(string, args, linksRegex, namesRegex) {
     const parts = string.split(linksRegex);
 
     return parts.reduce(function (accum, part, index) {
