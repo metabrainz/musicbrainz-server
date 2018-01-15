@@ -108,17 +108,16 @@ function _expand(string, args, linksRegex, namesRegex) {
 function _expandToArray(string, args, linksRegex, namesRegex) {
     const parts = string.split(linksRegex);
 
+    function reduceName(accum, part, index) {
+        if (index % 2 === 0) {
+            return part ? accum.concat(part) : accum;
+        }
+        return accum.concat(varReplacement(args, part));
+    }
+
     return parts.reduce(function (accum, part, index) {
         if (index % 3 === 0) {
-            let nameParts = part.split(namesRegex).reduce(function (accum2, part2, index2) {
-                if (index2 % 2 === 0) {
-                    return part2 ? accum2.concat(part2) : accum2;
-                }
-
-                return accum2.concat(varReplacement(args, part2));
-            }, []);
-
-            return accum.concat(nameParts);
+            return accum.concat(part.split(namesRegex).reduce(reduceName, []));
         }
 
         if ((index - 1) % 3 === 0) {
