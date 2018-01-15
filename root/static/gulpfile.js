@@ -211,8 +211,16 @@ _(DBDefs.MB_LANGUAGES || '')
     // Create a temporary .po file containing only the strings used by root/static/scripts.
     shell.exec(`msggrep ${msgLocations} ${srcPo} -o ${tmpPo}`);
 
-    result[lang] = poFile.load('javascript', lang, 'mb_server');
+    const jedOptions = poFile.load('javascript', lang, 'mb_server');
     fs.unlinkSync(tmpPo);
+
+    // Load other domains used by the JavaScript.
+    Object.assign(
+      jedOptions.locale_data,
+      poFile.load('attributes', lang).locale_data,
+    );
+
+    result[lang] = jedOptions;
   }, {})
   .assign({en: JED_OPTIONS_EN})
   .each(function (jedOptions, lang) {

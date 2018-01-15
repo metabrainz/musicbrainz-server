@@ -16,11 +16,19 @@ if (isNodeJS) {
   gettext = require(gettextPath);
 } else {
   const Jed = require('jed');
+  // jed-data contains all domains used by the client.
   gettext = new Jed(require('jed-data'));
 }
 
-function wrapGettext(method) {
+function wrapGettext(method, domain) {
+  let domainLoaded = !isNodeJS;
+
   return function () {
+    if (!domainLoaded) {
+      gettext.loadDomain(domain);
+      domainLoaded = true;
+    }
+
     const args = sliced(arguments);
 
     let expandArgs = args[args.length - 1];
@@ -35,8 +43,7 @@ function wrapGettext(method) {
       [args[0], args[1]] = [args[1], args[0]];
     }
 
-    // FIXME support domains other than mb_server
-    args.unshift('mb_server');
+    args.unshift(domain);
     const string = gettext[method].apply(gettext, args);
 
     if (expandArgs) {

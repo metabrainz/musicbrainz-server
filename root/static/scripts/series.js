@@ -2,7 +2,7 @@ const _ = require('lodash');
 const ko = require('knockout');
 
 const {SERIES_ORDERING_TYPE_AUTOMATIC} = require('./common/constants');
-const {lp} = require('./common/i18n');
+const {lp_attributes} = require('./common/i18n/attributes');
 const initializeDuplicateChecker = require('./edit/check-duplicates');
 
 $(function () {
@@ -37,7 +37,10 @@ $(function () {
   });
 
   series.orderingTypeDescription = ko.computed(function () {
-    return lp(MB.orderingTypesByID[series.orderingTypeID()].description, 'series_ordering_type');
+    return lp_attributes(
+      MB.orderingTypesByID[series.orderingTypeID()].description,
+      'series_ordering_type',
+    );
   });
 
   var seriesHasItems = ko.computed(function () {

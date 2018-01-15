@@ -6,9 +6,9 @@
 const expand = require('./i18n/expand');
 const wrapGettext = require('./i18n/wrapGettext');
 
-const l = wrapGettext("dgettext");
-const ln = wrapGettext("dngettext");
-const lp = wrapGettext("dpgettext");
+const l = wrapGettext('dgettext', 'mb_server');
+const ln = wrapGettext('dngettext', 'mb_server');
+const lp = wrapGettext('dpgettext', 'mb_server');
 
 exports.l = l;
 exports.ln = ln;
