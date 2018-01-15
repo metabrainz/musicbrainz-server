@@ -3,43 +3,8 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-const isNodeJS = require('detect-node');
-const Jed = require('jed');
-const sliced = require('sliced');
-
 const expand = require('./i18n/expand');
-
-let gettext;
-if (isNodeJS) {
-    // Avoid bundling this module in the browser by using a dynamic require().
-    const gettextPath = '../../../server/gettext';
-    gettext = require(gettextPath);
-} else {
-    gettext = new Jed(require('jed-data'));
-}
-
-function wrapGettext(method) {
-    return function () {
-        const args = sliced(arguments);
-
-        let expandArgs = args[args.length - 1];
-        if (expandArgs && typeof expandArgs === "object") {
-            args.pop();
-        } else {
-            expandArgs = null;
-        }
-
-        // FIXME support domains other than mb_server
-        args.unshift('mb_server');
-        const string = gettext[method].apply(gettext, args);
-
-        if (expandArgs) {
-            return expand(string, expandArgs, !!expandArgs.__react);
-        }
-
-        return string;
-    };
-}
+const wrapGettext = require('./i18n/wrapGettext');
 
 const l = wrapGettext("dgettext");
 const ln = wrapGettext("dngettext");
