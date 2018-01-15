@@ -30,6 +30,11 @@ function wrapGettext(method) {
       expandArgs = null;
     }
 
+    if (method === 'dpgettext') {
+      // Swap order of context, msgid.
+      [args[0], args[1]] = [args[1], args[0]];
+    }
+
     // FIXME support domains other than mb_server
     args.unshift('mb_server');
     const string = gettext[method].apply(gettext, args);

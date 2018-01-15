@@ -8,12 +8,7 @@ const wrapGettext = require('./i18n/wrapGettext');
 
 const l = wrapGettext("dgettext");
 const ln = wrapGettext("dngettext");
-
-const __dpgettext = wrapGettext("dpgettext");
-function lp() {
-    // Swap order of context, msgid.
-    return __dpgettext.call(null, arguments[1], arguments[0], arguments[2]);
-}
+const lp = wrapGettext("dpgettext");
 
 exports.l = l;
 exports.ln = ln;
