@@ -218,7 +218,8 @@ sub xml_search
     }
 
     if (DBDefs->SEARCH_X_ACCEL_REDIRECT) {
-        return { redirect_url => '/internal/search/' . DBDefs->SEARCH_SERVER . $url_ext }
+        my $redirect_url = (DBDefs->SEARCH_ENGINE eq 'LUCENE') ? '/internal/search/' : '/internal/solr/';
+        return { redirect_url => $redirect_url . DBDefs->SEARCH_SERVER . $url_ext };
     } else {
         my $url = 'http://' . DBDefs->SEARCH_SERVER . $url_ext;
         my $response = $self->c->lwp->get($url);
