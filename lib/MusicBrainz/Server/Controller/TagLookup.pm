@@ -177,7 +177,10 @@ sub external : Private
 sub not_found : Private
 {
     my ($self, $c) = @_;
-    $c->stash( template => 'taglookup/not_found.tt' );
+    $c->stash(
+        current_view => 'Node',
+        component_path => 'taglookup/NotFound.js',
+    );
     $c->detach;
 }
 
