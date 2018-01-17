@@ -6,6 +6,7 @@
             no_icons => no_icons,
             pager => pager,
             title => title,
+            gettext_domains => gettext_domains,
         })
     -%]
     <body>

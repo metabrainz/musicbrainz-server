@@ -20,7 +20,7 @@ const DBDefs = require('./scripts/common/DBDefs');
 
 // This may need to be increased when a new bundle is added, to silence
 // warnings of the form "Possible EventEmitter memory leak detected."
-EventEmitter.defaultMaxListeners = 16;
+EventEmitter.defaultMaxListeners = 32;
 
 process.env.NODE_ENV = DBDefs.DEVELOPMENT_SERVER ? 'development' : 'production';
 
@@ -46,12 +46,10 @@ const revManifestBundle = runYarb('rev-manifest.js', function (b) {
   b.expose(path.join(BUILD_DIR, 'rev-manifest.json'), 'rev-manifest.json');
 });
 
-const JED_OPTIONS_EN = {
-  domain: 'mb_server',
-  locale_data: {
-    mb_server: {'': {}},
-  },
-};
+const JED_DATA_PATH = path.join(SCRIPTS_DIR, 'common/i18n/jedData.json');
+const jedDataBundle = runYarb('common/i18n/jedData.json', function (b) {
+  b.expose(JED_DATA_PATH, 'jed-data');
+});
 
 function writeResources(stream, writeManifest = true) {
   var deferred = Q.defer();
@@ -162,13 +160,6 @@ function runYarb(resourceName, vinyl, callback) {
   return bundle;
 }
 
-function createLangVinyl(lang, jedOptions) {
-  return new File({
-    path: path.resolve(SCRIPTS_DIR, `jed-${lang}.js`),
-    contents: new Buffer('module.exports = ' + canonicalJSON(jedOptions) + ';\n'),
-  });
-}
-
 function langToPosix(lang) {
   return lang.replace(/^([a-zA-Z]+)-([a-zA-Z]+)$/, function (match, l, c) {
     return l + '_' + c.toUpperCase();
@@ -177,6 +168,7 @@ function langToPosix(lang) {
 
 const commonBundle = runYarb('common.js', function (b) {
   b.external(revManifestBundle);
+  b.external(jedDataBundle);
 
   // Map DBDefs.js to DBDefs-client.js on disk. (The actual requires have to
   // remain constant for the node renderer.)
@@ -189,12 +181,26 @@ const commonBundle = runYarb('common.js', function (b) {
   );
 });
 
+const GETTEXT_DOMAINS = [
+  'attributes',
+  'countries',
+  'instrument_descriptions',
+  'instruments',
+  'languages',
+  'mb_server',
+  'relationships',
+  'scripts',
+  'statistics',
+];
+
 _(DBDefs.MB_LANGUAGES || '')
   .split(/\s+/)
   .compact()
   .without('en')
   .map(langToPosix)
-  .transform(function (result, lang) {
+  .each(function (lang) {
+    // We handle the mb_server domain specially by filtering out strings that
+    // don't appear in any JavaScript file.
     var srcPo = shellQuote.quote([poFile.find('mb_server', lang)]);
     var tmpPo = shellQuote.quote([path.resolve(PO_DIR, `javascript.${lang}.po`)]);
 
@@ -211,24 +217,38 @@ _(DBDefs.MB_LANGUAGES || '')
     // Create a temporary .po file containing only the strings used by root/static/scripts.
     shell.exec(`msggrep ${msgLocations} ${srcPo} -o ${tmpPo}`);
 
-    const jedOptions = poFile.load('javascript', lang, 'mb_server');
-    fs.unlinkSync(tmpPo);
+    GETTEXT_DOMAINS.forEach(function (domain) {
+      let jedData;
 
-    // Load other domains used by the JavaScript.
-    Object.assign(
-      jedOptions.locale_data,
-      poFile.load('attributes', lang).locale_data,
-    );
+      if (domain === 'mb_server') {
+        jedData = poFile.load('javascript', lang, 'mb_server');
+        fs.unlinkSync(tmpPo);
+      } else {
+        jedData = poFile.load(domain, lang);
+        jedData.domain = 'mb_server';
+      }
 
-    result[lang] = jedOptions;
-  }, {})
-  .assign({en: JED_OPTIONS_EN})
-  .each(function (jedOptions, lang) {
-    const langVinyl = createLangVinyl(lang, jedOptions);
+      const langString = JSON.stringify(lang);
+      const source = `
+        const jedData = require('jed-data');
+        const newData = ${JSON.stringify(jedData)};
+        if (jedData[${langString}]) {
+          jedData[${langString}].locale_data.${domain} = newData.locale_data.${domain};
+        } else {
+          jedData[${langString}] = newData;
+        }
+        jedData.locale = ${langString};`;
 
-    runYarb(`jed-${lang}.js`, langVinyl, function (b) {
-      b.expose(langVinyl, 'jed-data');
-      commonBundle.external(b);
+      const bundleName = `jed-${lang}-${domain}.js`;
+
+      const langVinyl = new File({
+        path: path.resolve(SCRIPTS_DIR, bundleName),
+        contents: new Buffer(source),
+      });
+
+      runYarb(bundleName, langVinyl, function (b) {
+        b.external(jedDataBundle);
+      });
     });
   });
 
@@ -344,8 +364,7 @@ function createTestsTask(name, source) {
 
     bundleScripts(
         runYarb(source)
-          .expose(path.join(BUILD_DIR, 'rev-manifest.json'), 'rev-manifest.json')
-          .expose(createLangVinyl('en', JED_OPTIONS_EN), 'jed-data'),
+          .expose(path.join(BUILD_DIR, 'rev-manifest.json'), 'rev-manifest.json'),
         name + '.js'
       )
       .pipe(gulp.dest(BUILD_DIR))

@@ -1,3 +1,3 @@
-[%- WRAPPER "$entity_type/layout.tt" title=l('Edit') full_width=1 page='edit' -%]
+[%- WRAPPER "$entity_type/layout.tt" title=l('Edit') full_width=1 page='edit' gettext_domains=['attributes'] -%]
     [%- INCLUDE "$entity_type/edit_form.tt" -%]
 [%- END -%]

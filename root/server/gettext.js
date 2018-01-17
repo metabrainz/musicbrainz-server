@@ -6,49 +6,21 @@
 
 const Jed = require('jed');
 
+const jedData = require('../static/scripts/common/i18n/jedData');
 const poFile = require('./gettext/poFile');
 
 const gettext = new Jed({});
 
-const TEXT_DOMAINS = [
-  'attributes',
-  'countries',
-  'instrument_descriptions',
-  'instruments',
-  'languages',
-  'mb_server',
-  'relationships',
-  'scripts',
-  'statistics',
-];
-
-const jedOptions = {
-  en: {
-    locale_data: {},
-    domain: 'mb_server',
-  },
-};
-
-TEXT_DOMAINS.forEach(function (domain) {
-  jedOptions.en.locale_data[domain] = {
-    '': {
-      domain,
-      lang: 'en',
-      plural_forms: 'nplurals=2; plural=(n != 1);',
-    },
-  };
-});
-
 gettext.setLocale = function (locale) {
-  let options = jedOptions[locale];
+  let options = jedData[locale];
 
   if (!options) {
     try {
       options = poFile.load('mb_server', locale);
-      jedOptions[locale] = options;
+      jedData[locale] = options;
     } catch (e) {
       console.warn(e);
-      options = jedOptions.en;
+      options = jedData.en;
     }
   }
 
@@ -68,7 +40,7 @@ gettext.loadDomain = function (domain) {
       );
     } catch (e) {
       console.warn(e);
-      localeData[domain] = jedOptions.en.locale_data[domain];
+      localeData[domain] = jedData.en.locale_data[domain];
     }
   }
 };

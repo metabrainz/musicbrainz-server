@@ -16,8 +16,9 @@ if (isNodeJS) {
   gettext = require(gettextPath);
 } else {
   const Jed = require('jed');
-  // jed-data contains all domains used by the client.
-  gettext = new Jed(require('jed-data'));
+  const jedData = require('./jedData');
+  // jedData contains all domains used by the client.
+  gettext = new Jed(jedData[jedData.locale]);
 }
 
 function wrapGettext(method, domain) {
