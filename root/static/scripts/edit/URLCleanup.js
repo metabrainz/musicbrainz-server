@@ -1049,7 +1049,7 @@ const CLEANUPS = {
     match: [new RegExp("^(https?://)?((m|www)\\.)?bandsintown\\.com","i")],
     type: LINK_TYPES.bandsintown,
     clean: function (url) {
-      var m = url.match(/^(?:https?:\/\/)?(?:(?:m|www)\.)?bandsintown\.com\/(event|venue)\/0*([1-9][0-9]*)(?:[^0-9].*)?$/);
+      var m = url.match(/^(?:https?:\/\/)?(?:(?:m|www)\.)?bandsintown\.com\/(a(?=rtist|\/)|e(?=vent|\/)|v(?=enue|\/))[a-z]*\/0*([1-9][0-9]*)(?:[^0-9].*)?$/);
       if (m) {
         var prefix = m[1];
         var number = m[2];
@@ -1064,17 +1064,17 @@ const CLEANUPS = {
       return url;
     },
     validate: function (url, id) {
-      var m = /^https:\/\/bandsintown\.com\/(?:(event|venue)\/)?([^\/?#]+)$/.exec(url);
+      var m = /^https:\/\/bandsintown\.com\/(?:(a|e|v)\/)?([^\/?#]+)$/.exec(url);
       if (m) {
         var prefix = m[1];
         var target = m[2];
         switch (id) {
           case LINK_TYPES.bandsintown.artist:
-            return prefix === undefined && target !== undefined;
+            return prefix === undefined && target !== undefined || prefix === 'a' && /^[1-9][0-9]*$/.test(target);
           case LINK_TYPES.bandsintown.event:
-            return prefix === 'event' && /^[1-9][0-9]*$/.test(target);
+            return prefix === 'e' && /^[1-9][0-9]*$/.test(target);
           case LINK_TYPES.bandsintown.place:
-            return prefix === 'venue' && /^[1-9][0-9]*$/.test(target);
+            return prefix === 'v' && /^[1-9][0-9]*$/.test(target);
         }
       }
       return false;
