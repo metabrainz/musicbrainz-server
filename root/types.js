@@ -85,6 +85,13 @@ declare type CommonsImageT = {|
   +thumb_url: string,
 |};
 
+declare type CompoundFieldT<F: {+[string]: mixed}> = {|
+  +errors: $ReadOnlyArray<string>,
+  +field: F,
+  +has_errors: boolean,
+  +id: number,
+|};
+
 declare type CoreEntityT = EntityT & {|
   +gid: string,
   +name: string,
@@ -97,6 +104,21 @@ declare type EditableRoleT = {|
 declare type EntityT = {|
   +entityType: string,
   +id: number,
+|};
+
+declare type FieldT<V> = {|
+  +errors: $ReadOnlyArray<string>,
+  +has_errors: boolean,
+  +id: number,
+  +value: V,
+|};
+
+// See lib/MusicBrainz/Server/Form/Role/ToJSON.pm
+declare type FormT<F> = {|
+  +field: F,
+  +has_errors: boolean,
+  +last_field_id: number,
+  +name: string,
 |};
 
 // See MusicBrainz::Server::Form::Utils::build_grouped_options
@@ -218,6 +240,13 @@ declare type ReleaseT =
       +scriptID: number | null,
       +statusID: number | null,
     |};
+
+declare type RepeatableFieldT<F> = {|
+  +errors: $ReadOnlyArray<string>,
+  +field: $ReadOnlyArray<F>,
+  +has_errors: boolean,
+  +id: number,
+|};
 
 declare type SeriesT =
   & CommentRoleT

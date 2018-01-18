@@ -7,71 +7,87 @@
 
 const $ = require('jquery');
 const _ = require('lodash');
-const Immutable = require('immutable');
 const ko = require('knockout');
 const React = require('react');
 const ReactDOM = require('react-dom');
 const {createStore} = require('redux');
 
 const {
-    createField,
-    formFromHash,
-    FormRowSelectList,
-  } = require('../../components/forms');
+  createField,
+  FormRowSelectList,
+  subfieldErrors,
+} = require('../../components/forms');
 const {l} = require('./common/i18n');
 const {lp_attributes} = require('./common/i18n/attributes');
 const MB = require('./common/MB');
 const scriptArgs = require('./common/utility/getScriptArgs')();
+const {Lens, prop, index, set, compose2, compose3} = require('./common/utility/lens');
+
+type LanguageField = FieldT<number>;
+
+type LanguageFields = $ReadOnlyArray<LanguageField>;
+
+type WorkAttributeField = CompoundFieldT<{|
+  +type_id: FieldT<number | null>,
+  +value: FieldT<number | string | null>,
+|}>;
+
+type WorkForm = FormT<{|
+  +attributes: RepeatableFieldT<WorkAttributeField>,
+  +languages: RepeatableFieldT<LanguageField>,
+|}>;
 
 // Flow does not support assigning types within destructuring assignments:
 // https://github.com/facebook/flow/issues/235
-const form = scriptArgs.form;
+const form: WorkForm = scriptArgs.form;
 const workAttributeTypeTree: WorkAttributeTypeTreeRootT = scriptArgs.workAttributeTypeTree;
 const workAttributeValueTree: WorkAttributeTypeAllowedValueTreeRootT = scriptArgs.workAttributeValueTree;
 const workLanguageOptions: GroupedOptionsT = scriptArgs.workLanguageOptions;
 
-function addLanguageAction(state) {
-  return state.updateIn(
-    ['field', 'languages', 'field'],
-    x => x.push(createField(null))
-  );
-}
+const languagesField: Lens<WorkForm, LanguageFields> =
+  compose3(prop('field'), prop('languages'), prop('field'));
 
-const store = createStore(function (state = formFromHash(form), action) {
+const store = createStore(function (state: WorkForm = form, action) {
   switch (action.type) {
     case 'ADD_LANGUAGE':
-      state = addLanguageAction(state);
+      state = addLanguageToState(state);
       break;
 
     case 'EDIT_LANGUAGE':
-      state = state.setIn(
-        ['field', 'languages', 'field', action.index, 'value'],
-        action.languageId
+      state = set(
+        (compose3(
+          languagesField,
+          (index(action.index): Lens<LanguageFields, LanguageField>),
+          (prop('value'): Lens<LanguageField, number>)
+        ): Lens<WorkForm, number>),
+        action.languageId,
+        state,
       );
       break;
 
     case 'REMOVE_LANGUAGE':
-      state = state.deleteIn(['field', 'languages', 'field', action.index]);
+      state = removeLanguageFromState(state, action.index);
       break;
   }
 
-  if (!state.getIn(['field', 'languages', 'field']).size) {
-    state = addLanguageAction(state);
+  if (!state.field.languages.field.length) {
+    state = addLanguageToState(state);
   }
 
   return state;
 });
 
-function subfieldErrors(field, accum = []) {
-  if (field.errors) {
-    accum = accum.concat(field.errors);
-  }
-  if (field.field) {
-    _.each(field.field, function (subfield) {
-      accum = subfieldErrors(subfield, accum);
-    });
-  }
-  return accum;
+function addLanguageToState(form: WorkForm): WorkForm {
+  const languages = form.field.languages.field.slice(0);
+  const newForm = set(languagesField, languages, form);
+  languages.push(createField(newForm, null));
+  return newForm;
+}
+
+function removeLanguageFromState(form: WorkForm, i: number): WorkForm {
+  const languages = form.field.languages.field.slice(0);
+  languages.splice(i, 1);
+  return set(languagesField, languages, form);
 }
 
 class WorkAttribute {
@@ -84,14 +100,14 @@ class WorkAttribute {
   typeID: (?number) => number;
 
   constructor(
-    data,
+    data: WorkAttributeField,
     parent: ViewModel,
   ) {
     this.attributeValue = ko.observable(data.field.value.value);
     this.errors = ko.observableArray(subfieldErrors(data));
     this.parent = parent;
     this.typeHasFocus = ko.observable(false);
-    this.typeID = ko.observable(_.get(data, ['field', 'type_id', 'value']));
+    this.typeID = ko.observable(data.field.type_id.value);
 
     this.allowedValues = ko.computed(() => {
       let typeID = this.typeID();
@@ -140,7 +156,7 @@ class ViewModel {
   constructor(
     attributeTypes: WorkAttributeTypeTreeRootT,
     allowedValues: WorkAttributeTypeAllowedValueTreeRootT,
-    attributes,
+    attributes: $ReadOnlyArray<WorkAttributeField>,
   ) {
     this.attributeTypes = MB.forms.buildOptionsTree(
       attributeTypes,
@@ -162,17 +178,17 @@ class ViewModel {
       .value();
 
     if (_.isEmpty(attributes)) {
-      attributes = [createField({
+      attributes = [createField(form, {
         type_id: null,
         value: null,
-      }, form)];
+      })];
     }
 
     this.attributes = ko.observableArray(_.map(attributes, data => new WorkAttribute(data, this)));
   }
 
   newAttribute() {
-    let attr = new WorkAttribute(createField({
+    let attr = new WorkAttribute(createField(form, {
       type_id: null,
       value: null,
     }), this);
@@ -190,7 +206,7 @@ ko.applyBindings(
   new ViewModel(
     workAttributeTypeTree,
     workAttributeValueTree,
-    _.get(form, ['field', 'attributes', 'field']),
+    form.field.attributes.field,
   ),
   $('#work-attributes')[0]
 );
@@ -203,23 +219,23 @@ function addLanguage() {
   store.dispatch({type: 'ADD_LANGUAGE'});
 }
 
-function editLanguage(index, languageId) {
+function editLanguage(i, languageId) {
   store.dispatch({
     type: 'EDIT_LANGUAGE',
-    index: index,
+    index: i,
     languageId: languageId,
   });
 }
 
-function removeLanguage(index) {
+function removeLanguage(i) {
   store.dispatch({
     type: 'REMOVE_LANGUAGE',
-    index: index,
+    index: i,
   });
 }
 
 function renderWorkLanguages() {
-  const form = store.getState();
+  const form: WorkForm = store.getState();
   ReactDOM.render(
     <FormRowSelectList
       addId="add-language"
@@ -233,7 +249,7 @@ function renderWorkLanguages() {
       options={workLanguageOptions}
       removeClassName="remove-language"
       removeLabel={l('Remove Language')}
-      repeatable={form.field.get('languages')}
+      repeatable={form.field.languages}
     />,
     ((workLanguagesNode: any): Element),
   );

@@ -28,7 +28,6 @@
     "gulp-less": "3.1.0",
     "gulp-rev": "7.1.2",
     "gulp-streamify": "1.0.2",
-    "immutable": "4.0.0-rc.9",
     "jed": "git://github.com/mwiencek/Jed.git#cd3f71b",
     "jquery": "1.11.2",
     "knockout": "git://github.com/mwiencek/knockout.git#a8f12df",
