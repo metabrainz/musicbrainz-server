@@ -634,8 +634,8 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
         {
                              input_url: 'http://brahms.ircam.fr/works/genre/328/?test/',
                      input_entity_type: 'work',
-               input_relationship_type: 'otherdatabases', 
             expected_relationship_type: undefined,
+               input_relationship_type: 'otherdatabases',
                only_valid_entity_types: []
         },
         // Cancioneros Musicales Españoles (CME)
