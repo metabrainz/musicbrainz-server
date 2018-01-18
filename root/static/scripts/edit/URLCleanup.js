@@ -1053,18 +1053,18 @@ const CLEANUPS = {
       if (m) {
         var prefix = m[1];
         var number = m[2];
-        url = "https://bandsintown.com/" + prefix + "/" + number;
+        url = "https://www.bandsintown.com/" + prefix + "/" + number;
       } else {
         m = url.match(/^(?:https?:\/\/)?(?:(?:m|www)\.)?bandsintown\.com\/([^\/?#]+)(?:[\/?#].*)?$/);
         if (m) {
           var name = m[1];
-          url = "https://bandsintown.com/" + name.toLowerCase();
+          url = "https://www.bandsintown.com/" + name.toLowerCase();
         }
       }
       return url;
     },
     validate: function (url, id) {
-      var m = /^https:\/\/bandsintown\.com\/(?:(a|e|v)\/)?([^\/?#]+)$/.exec(url);
+      var m = /^https:\/\/www.bandsintown\.com\/(?:(a|e|v)\/)?([^\/?#]+)$/.exec(url);
       if (m) {
         var prefix = m[1];
         var target = m[2];
