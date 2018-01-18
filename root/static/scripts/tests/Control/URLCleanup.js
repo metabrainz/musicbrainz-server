@@ -395,17 +395,24 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
                only_valid_entity_types: ['artist']
         },
         {
+                             input_url: 'https://www.bandsintown.com/a/159526#',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'bandsintown',
+                    expected_clean_url: 'https://bandsintown.com/a/159526',
+               only_valid_entity_types: ['artist']
+        },
+        {
                              input_url: 'https://www.bandsintown.com/event/13245613-the-accidentals-santa-barbara-soho-restaurant-and-music-club-2017?artist=The+Accidentals&came_from=174',
                      input_entity_type: 'event',
             expected_relationship_type: 'bandsintown',
-                    expected_clean_url: 'https://bandsintown.com/event/13245613',
+                    expected_clean_url: 'https://bandsintown.com/e/13245613',
                only_valid_entity_types: ['event']
         },
         {
                              input_url: 'bandsintown.com/venue/846942-soho-restaurant-and-music-club-santa-barbara-ca-tickets-and-schedule',
                      input_entity_type: 'place',
             expected_relationship_type: 'bandsintown',
-                    expected_clean_url: 'https://bandsintown.com/venue/846942',
+                    expected_clean_url: 'https://bandsintown.com/v/846942',
                only_valid_entity_types: ['place']
         },
         // BBC Music
