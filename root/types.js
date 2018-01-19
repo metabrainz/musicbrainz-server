@@ -17,6 +17,7 @@
  */
 
 declare type AreaT =
+  & CommentRoleT
   & CoreEntityT
   & TypeRoleT<AreaTypeT>
   & {|
@@ -39,6 +40,7 @@ declare type ArtistCreditRoleT = {|
 declare type ArtistCreditT = $ReadOnlyArray<ArtistCreditNameT>;
 
 declare type ArtistT =
+  & CommentRoleT
   & CoreEntityT
   & TypeRoleT<ArtistTypeT>
   & {|
@@ -76,6 +78,8 @@ type CatalystStashT = {|
   +tag?: string,
 |};
 
+type CommentRoleT = {|+comment: string|};
+
 declare type CommonsImageT = {|
   +page_url: string,
   +thumb_url: string,
@@ -95,7 +99,19 @@ declare type EntityT = {|
   +id: number,
 |};
 
+// See MusicBrainz::Server::Form::Utils::build_grouped_options
+// FIXME(michael): Figure out a way to consolidate GroupedOptionsT,
+// OptionListT, and OptionTreeT?
+declare type GroupedOptionsT = $ReadOnlyArray<{|
+  +optgroup: string,
+  +options: $ReadOnlyArray<{|
+    +label: string,
+    +value: number,
+  |}>,
+|}>;
+
 declare type InstrumentT =
+  & CommentRoleT
   & CoreEntityT
   & TypeRoleT<InstrumentTypeT>
   & {|
@@ -106,6 +122,7 @@ declare type InstrumentT =
 export opaque type InstrumentTypeT: OptionTreeT = OptionTreeT;
 
 declare type EventT =
+  & CommentRoleT
   & CoreEntityT
   & TypeRoleT<EventTypeT>
   & {|
@@ -133,10 +150,17 @@ declare type IswcT =
     |};
 
 declare type LabelT =
+  & CommentRoleT
   & CoreEntityT
   & {|
       +entityType: 'label',
     |};
+
+// See MB.forms.buildOptionsTree
+declare type OptionListT = $ReadOnlyArray<{|
+  +value: number,
+  +text: string,
+|}>;
 
 declare type OptionTreeT =
   & EntityT
@@ -149,6 +173,7 @@ declare type OptionTreeT =
     |};
 
 declare type PlaceT =
+  & CommentRoleT
   & CoreEntityT
   & TypeRoleT<PlaceTypeT>
   & {|
@@ -164,6 +189,7 @@ declare type RatableT = CoreEntityT & {|
 |};
 
 declare type RecordingT =
+  & CommentRoleT
   & ArtistCreditRoleT
   & CoreEntityT
   & {|
@@ -174,22 +200,27 @@ declare type RecordingT =
     |};
 
 declare type ReleaseGroupT =
+  & CommentRoleT
   & ArtistCreditRoleT
   & CoreEntityT
   & {|
       +entityType: 'release_group',
     |};
 
-declare type ReleaseT = CoreEntityT & {|
-  +barcode: string | null,
-  +entityType: 'release',
-  +languageID: number | null,
-  +packagingID: number | null,
-  +scriptID: number | null,
-  +statusID: number | null,
-|};
+declare type ReleaseT =
+  & CommentRoleT
+  & CoreEntityT
+  & {|
+      +barcode: string | null,
+      +entityType: 'release',
+      +languageID: number | null,
+      +packagingID: number | null,
+      +scriptID: number | null,
+      +statusID: number | null,
+    |};
 
 declare type SeriesT =
+  & CommentRoleT
   & CoreEntityT
   & {|
       +entityType: 'series',
@@ -215,6 +246,7 @@ declare type UserTagT = {|
 |};
 
 declare type WorkT =
+  & CommentRoleT
   & CoreEntityT
   & TypeRoleT<WorkTypeT>
   & {|
@@ -222,5 +254,32 @@ declare type WorkT =
     |};
 
 export opaque type WorkTypeT: OptionTreeT = OptionTreeT;
+
+declare type WorkAttributeTypeAllowedValueT =
+  & EntityT
+  & OptionTreeT
+  & {|+workAttributeTypeID: number, +value: string|};
+
+// See MusicBrainz::Server::Controller::Work::stash_work_form_json
+declare type WorkAttributeTypeAllowedValueTreeT =
+  & WorkAttributeTypeAllowedValueT
+  & {|+children?: $ReadOnlyArray<WorkAttributeTypeAllowedValueTreeT>|};
+
+declare type WorkAttributeTypeAllowedValueTreeRootT =
+  {|+children: $ReadOnlyArray<WorkAttributeTypeAllowedValueTreeT>|};
+
+declare type WorkAttributeTypeT =
+  & CommentRoleT
+  & EntityT
+  & OptionTreeT
+  & {|+freeText: boolean|};
+
+// See MusicBrainz::Server::Controller::Work::stash_work_form_json
+declare type WorkAttributeTypeTreeT =
+  & WorkAttributeTypeT
+  & {|+children?: $ReadOnlyArray<WorkAttributeTypeTreeT>|};
+
+declare type WorkAttributeTypeTreeRootT =
+  {|+children: $ReadOnlyArray<WorkAttributeTypeTreeT>|};
 
 declare var $c: CatalystContextT;

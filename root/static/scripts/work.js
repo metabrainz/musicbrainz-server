@@ -1,6 +1,14 @@
+// @flow
+// Copyright (C) 2015-2018 MetaBrainz Foundation
+//
+// This file is part of MusicBrainz, the open internet music database,
+// and is licensed under the GPL version 2, or (at your option) any
+// later version: http://www.gnu.org/licenses/gpl-2.0.txt
+
+const $ = require('jquery');
+const _ = require('lodash');
 const Immutable = require('immutable');
 const ko = require('knockout');
-const _ = require('lodash');
 const React = require('react');
 const ReactDOM = require('react-dom');
 const {createStore} = require('redux');
@@ -12,13 +20,15 @@ const {
   } = require('../../components/forms');
 const {l} = require('./common/i18n');
 const {lp_attributes} = require('./common/i18n/attributes');
-const {
-    form,
-    work,
-    workAttributeTypeTree,
-    workAttributeValueTree,
-    workLanguageOptions,
-  } = require('./common/utility/getScriptArgs')();
+const MB = require('./common/MB');
+const scriptArgs = require('./common/utility/getScriptArgs')();
+
+// Flow does not support assigning types within destructuring assignments:
+// https://github.com/facebook/flow/issues/235
+const form = scriptArgs.form;
+const workAttributeTypeTree: WorkAttributeTypeTreeRootT = scriptArgs.workAttributeTypeTree;
+const workAttributeValueTree: WorkAttributeTypeAllowedValueTreeRootT = scriptArgs.workAttributeValueTree;
+const workLanguageOptions: GroupedOptionsT = scriptArgs.workLanguageOptions;
 
 function addLanguageAction(state) {
   return state.updateIn(
@@ -65,8 +75,19 @@ function subfieldErrors(field, accum = []) {
 }
 
 class WorkAttribute {
-  constructor(data, parent) {
-    this.attributeValue = ko.observable(_.get(data, ['field', 'value', 'value']));
+  allowedValues: () => OptionListT;
+  allowedValuesByTypeID: {[number]: OptionListT};
+  attributeValue: (?string) => string;
+  errors: (?$ReadOnlyArray<string>) => $ReadOnlyArray<string>;
+  parent: ViewModel;
+  typeHasFocus: (?boolean) => boolean;
+  typeID: (?number) => number;
+
+  constructor(
+    data,
+    parent: ViewModel,
+  ) {
+    this.attributeValue = ko.observable(data.field.value.value);
     this.errors = ko.observableArray(subfieldErrors(data));
     this.parent = parent;
     this.typeHasFocus = ko.observable(false);
@@ -78,11 +99,7 @@ class WorkAttribute {
       if (this.allowsFreeText()) {
         return [];
       } else {
-        return MB.forms.buildOptionsTree({
-          children: _.filter(this.parent.allowedValues.children, function (value) {
-            return value.workAttributeTypeID == typeID;
-          })
-        }, 'value', 'id');
+        return this.parent.allowedValuesByTypeID[typeID];
       }
     });
 
@@ -115,28 +132,50 @@ class WorkAttribute {
 }
 
 class ViewModel {
-  constructor(attributeTypes, allowedValues, attributes) {
-    attributeTypes.children.forEach(type => {
-      type.name = lp_attributes(type.name, 'work_attribute_type');
-    });
+  attributeTypes: OptionListT;
+  attributeTypesByID: {[number]: WorkAttributeTypeTreeT};
+  allowedValuesByTypeID: {[number]: OptionListT};
+  attributes: (?$ReadOnlyArray<WorkAttribute>) => $ReadOnlyArray<WorkAttribute>;
 
-    allowedValues.children.forEach(value => {
-      value.value = lp_attributes(value.value, 'work_attribute_type_allowed_value');
-    });
+  constructor(
+    attributeTypes: WorkAttributeTypeTreeRootT,
+    allowedValues: WorkAttributeTypeAllowedValueTreeRootT,
+    attributes,
+  ) {
+    this.attributeTypes = MB.forms.buildOptionsTree(
+      attributeTypes,
+      x => lp_attributes(x.name, 'work_attribute_type'),
+      'id',
+    );
 
-    this.attributeTypes = MB.forms.buildOptionsTree(attributeTypes, 'name', 'id');
     this.attributeTypesByID = _.transform(attributeTypes.children, byID, {});
-    this.allowedValues = allowedValues;
+
+    this.allowedValuesByTypeID = _(allowedValues.children)
+      .groupBy(x => x.workAttributeTypeID)
+      .mapValues(function (children) {
+        return MB.forms.buildOptionsTree(
+          {children},
+          x => lp_attributes(x.value, 'work_attribute_type_allowed_value'),
+          'id',
+        );
+      })
+      .value();
 
     if (_.isEmpty(attributes)) {
-      attributes = [{}];
+      attributes = [createField({
+        type_id: null,
+        value: null,
+      }, form)];
     }
 
     this.attributes = ko.observableArray(_.map(attributes, data => new WorkAttribute(data, this)));
   }
 
   newAttribute() {
-    let attr = new WorkAttribute({}, this);
+    let attr = new WorkAttribute(createField({
+      type_id: null,
+      value: null,
+    }), this);
     attr.typeHasFocus(true);
     this.attributes.push(attr);
   }
@@ -196,7 +235,7 @@ function renderWorkLanguages() {
       removeLabel={l('Remove Language')}
       repeatable={form.field.get('languages')}
     />,
-    workLanguagesNode
+    ((workLanguagesNode: any): Element),
   );
 }
 

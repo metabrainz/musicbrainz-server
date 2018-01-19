@@ -48,8 +48,11 @@ COPY docker/musicbrainz-tests/DBDefs.pm lib/
 RUN sudo_mb(`carton exec -- ./script/compile_resources.sh default web-tests')
 
 COPY docker/musicbrainz-tests/run_tests.sh /usr/local/bin/
+COPY flow-typed/ flow-typed/
 COPY script/ script/
 COPY t/ t/
 COPY .flowconfig .perlcriticrc ./
+
+RUN chown_mb(`MBS_ROOT')
 
 ENTRYPOINT ["run_tests.sh"]
