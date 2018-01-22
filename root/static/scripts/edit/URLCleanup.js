@@ -282,7 +282,7 @@ function disallow(url, id) {
 
 /**
  * CLEANUPS entries have 2 to 4 of the following properties:
- * 
+ *
  * - match: Array of regexps to match a given URL with the entry.
  *          It is the only mandatory property.
  * - type: Set of relationship types to be auto-selected for matched URL.
@@ -1675,6 +1675,26 @@ const CLEANUPS = {
       url = url.replace(/^(?:https?:\/\/)?(?:www\.)?kickstarter\.com\/profile\/([\w\-]+)(?:[\/?#].*)?$/, "https://www.kickstarter.com/profile/$1");
       url = url.replace(/^(?:https?:\/\/)?(?:www\.)?kickstarter\.com\/projects\/(\d+)\/([\w\-]+)(?:[\/?#].*)?$/, "https://www.kickstarter.com/projects/$1/$2");
       return url;
+    }
+  },
+  utaten: {
+    match: [new RegExp("^(https?://)?([^/]+\\.)?utaten\\.com/", "i")],
+    type: LINK_TYPES.lyrics,
+    clean: function (url) {
+      return url.replace(/^(?:https?:\/\/)?utaten\.com\/(artist|lyric\/.+)\/([^\/?#]+).*$/, "https://utaten.com/$1/$2");
+    },
+    validate: function (url, id) {
+      var m = /^https:\/\/utaten\.com\/(artist|lyric)\/.+$/.exec(url);
+      if (m) {
+        var prefix = m[1];
+        switch (id) {
+          case LINK_TYPES.lyrics.artist:
+            return prefix === 'artist';
+          case LINK_TYPES.lyrics.work:
+            return prefix === 'lyric';
+        }
+      }
+      return false;
     }
   }
 };
