@@ -4,13 +4,13 @@
 # nikki2 <email address hidden>, 2012
 # reneweesp <email address hidden>, 2017
 # Maurits Meulenbelt <email address hidden>, 2012
-# Maurits Meulenbelt <email address hidden>, 2013-2017
+# Maurits Meulenbelt <email address hidden>, 2013-2018
 # Nikolai Prokoschenko <email address hidden>, 2011
 # nikki, 2012
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2017-12-26 15:07+0000\n"
+"PO-Revision-Date: 2018-01-11 12:17+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -1543,6 +1543,13 @@ msgid ""
 " for classical works, but also exists in other genres to a degree."
 msgstr "Dit geeft aan dat de compositie aan een specifiek gebied is opgedragen. Dit komt vaak voor bij klassieke muziek, maar soms ook bij andere genres."
 
+#: DB:link_type/description:922
+msgid ""
+"This indicates the work is dedicated to a specific organization. This is "
+"most common for classical works, but also exists in other genres to a "
+"degree."
+msgstr "Dit geeft aan dat een compositie aan een specifieke organisatie is opgedragen. Dit komt vaak voor bij klassieke muziek, maar soms ook bij andere genres."
+
 #: DB:link_type/description:846
 msgid ""
 "This indicates the work is dedicated to a specific person. This is most "
@@ -1720,6 +1727,12 @@ msgid ""
 "This link points to a page for a particular release within a discography for"
 " an artist or label."
 msgstr "Deze koppeling wijst naar een pagina voor een bepaalde uitgave binnen een discografie van een artiest of platenmaatschappij."
+
+#: DB:link_type/description:921
+msgid ""
+"This link points to a page for a particular work within a work list for an "
+"artist."
+msgstr "Deze koppeling wijst naar een pagina met een lijst met composities van een artiest."
 
 #: DB:link_type/description:43 DB:link_type/description:155
 msgid ""
@@ -3143,11 +3156,12 @@ msgid "crowdfunding page for"
 msgstr "crowdfundingpagina voor"
 
 #: DB:link_type/reverse_link_phrase:868 DB:link_type/reverse_link_phrase:846
-#: DB:link_type/reverse_link_phrase:914
+#: DB:link_type/reverse_link_phrase:922 DB:link_type/reverse_link_phrase:914
 msgid "dedicated to"
 msgstr "opgedragen aan"
 
-#: DB:link_type/link_phrase:846 DB:link_type/link_phrase:914
+#: DB:link_type/link_phrase:846 DB:link_type/link_phrase:922
+#: DB:link_type/link_phrase:914
 msgid "dedicated works"
 msgstr "opgedragen composities"
 
@@ -5033,6 +5047,14 @@ msgstr "werd opnieuw gepland als"
 msgid "was the concertmaster for"
 msgstr "was de concertmeester van"
 
+#: DB:link_type/reverse_link_phrase:921
+msgid "work list entry"
+msgstr ""
+
+#: DB:link_type/link_phrase:921
+msgid "work list entry for"
+msgstr ""
+
 #: DB:link_type/long_link_phrase:704
 msgid "works as a mastering engineer at"
 msgstr "werkt als masteringtechnicus bij"
@@ -5488,6 +5510,10 @@ msgstr "{entity1} heeft een crowdfundingpagina op {entity0}"
 msgid "{entity1} has a page in a database at {entity0}"
 msgstr "{entity1} heeft een pagina in een database op {entity0}"
 
+#: DB:link_type/long_link_phrase:921
+msgid "{entity1} has a work list entry at {entity0}"
+msgstr "{entity1} heeft een lemma in een compositielijst op {entity0}"
+
 #: DB:link_type/long_link_phrase:286
 msgid "{entity1} has an Allmusic page at {entity0}"
 msgstr "{entity1} heeft een Allmusicpagina op {entity0}"
@@ -5529,7 +5555,7 @@ msgid "{entity1} is a tribute to {entity0}"
 msgstr "{entity1} is een eerbetoon aan {entity0}"
 
 #: DB:link_type/long_link_phrase:868 DB:link_type/long_link_phrase:846
-#: DB:link_type/long_link_phrase:914
+#: DB:link_type/long_link_phrase:922 DB:link_type/long_link_phrase:914
 msgid "{entity1} is dedicated to {entity0}"
 msgstr "{entity1} is opgedragen aan {entity0}"
 

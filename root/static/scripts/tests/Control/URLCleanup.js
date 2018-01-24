@@ -384,28 +384,35 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
                              input_url: "https://m.bandsintown.com/MattDobberteen's50thBirthday?came_from=178",
                      input_entity_type: 'artist',
             expected_relationship_type: 'bandsintown',
-                    expected_clean_url: "https://bandsintown.com/mattdobberteen's50thbirthday",
+                    expected_clean_url: "https://www.bandsintown.com/mattdobberteen's50thbirthday",
                only_valid_entity_types: ['artist']
         },
         {
-                             input_url: 'http://bandsintown.com/1%252F2Orchestra/past_events',
+                             input_url: 'http://www.bandsintown.com/1%252F2Orchestra/past_events',
                      input_entity_type: 'artist',
             expected_relationship_type: 'bandsintown',
-                    expected_clean_url: 'https://bandsintown.com/1%252f2orchestra',
+                    expected_clean_url: 'https://www.bandsintown.com/1%252f2orchestra',
                only_valid_entity_types: ['artist']
         },
         {
-                             input_url: 'https://www.bandsintown.com/event/13245613-the-accidentals-santa-barbara-soho-restaurant-and-music-club-2017?artist=The+Accidentals&came_from=174',
+                             input_url: 'https://bandsintown.com/a/159526#',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'bandsintown',
+                    expected_clean_url: 'https://www.bandsintown.com/a/159526',
+               only_valid_entity_types: ['artist']
+        },
+        {
+                             input_url: 'https://bandsintown.com/event/13245613-the-accidentals-santa-barbara-soho-restaurant-and-music-club-2017?artist=The+Accidentals&came_from=174',
                      input_entity_type: 'event',
             expected_relationship_type: 'bandsintown',
-                    expected_clean_url: 'https://bandsintown.com/event/13245613',
+                    expected_clean_url: 'https://www.bandsintown.com/e/13245613',
                only_valid_entity_types: ['event']
         },
         {
                              input_url: 'bandsintown.com/venue/846942-soho-restaurant-and-music-club-santa-barbara-ca-tickets-and-schedule',
                      input_entity_type: 'place',
             expected_relationship_type: 'bandsintown',
-                    expected_clean_url: 'https://bandsintown.com/venue/846942',
+                    expected_clean_url: 'https://www.bandsintown.com/v/846942',
                only_valid_entity_types: ['place']
         },
         // BBC Music
@@ -627,8 +634,8 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
         {
                              input_url: 'http://brahms.ircam.fr/works/genre/328/?test/',
                      input_entity_type: 'work',
-               input_relationship_type: 'otherdatabases', 
             expected_relationship_type: undefined,
+               input_relationship_type: 'otherdatabases',
                only_valid_entity_types: []
         },
         // Cancioneros Musicales Españoles (CME)
@@ -1703,7 +1710,7 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
                      input_entity_type: 'release',
             expected_relationship_type: 'discographyentry',
         },
-        // Ney Nota Arşivi 
+        // Ney Nota Arşivi
         {
                              input_url: 'http://www.neyzen.com/nota_arsivi/02_klasik_eserler/054_mahur_buselik/mahur_buselik_ss_aydin_oran.pdf',
                      input_entity_type: 'work',
@@ -2430,6 +2437,29 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
                      input_entity_type: 'work',
             expected_relationship_type: 'lyrics',
         },
+        // Utaten
+        {
+                             input_url: 'utaten.com/artist/fripSide?sort=popular_sort_asc',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'lyrics',
+                    expected_clean_url: 'https://utaten.com/artist/fripSide',
+               only_valid_entity_types: ['artist']
+        },
+        {
+                             input_url: 'http://utaten.com/lyric/fripSide/prominence#sort=popular_sort_asc',
+                     input_entity_type: 'work',
+            expected_relationship_type: 'lyrics',
+                    expected_clean_url: 'https://utaten.com/lyric/fripSide/prominence',
+               only_valid_entity_types: ['work']
+        },
+        {
+                             input_url: 'https://utaten.com/news/index/14365',
+                     input_entity_type: 'artist',
+            expected_relationship_type: undefined,
+                    expected_clean_url: 'https://utaten.com/news/index/14365',
+               input_relationship_type: 'lyrics',
+               only_valid_entity_types: []
+        },
         // VGMdb (Video Game Music and Anime Soundtrack Database)
         {
                              input_url: 'https://vgmdb.net/artist/431',
@@ -2526,13 +2556,13 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
                      input_entity_type: 'artist',
             expected_relationship_type: 'socialnetwork',
         },
-        // VKontakte 
+        // VKontakte
         {
                              input_url: 'http://vk.com/tin_sontsya',
                      input_entity_type: 'artist',
             expected_relationship_type: 'socialnetwork',
         },
-        // Weibo 
+        // Weibo
         {
                              input_url: 'www.weibo.com/mchotdog2010#test',
                      input_entity_type: 'artist',

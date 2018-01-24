@@ -282,7 +282,7 @@ function disallow(url, id) {
 
 /**
  * CLEANUPS entries have 2 to 4 of the following properties:
- * 
+ *
  * - match: Array of regexps to match a given URL with the entry.
  *          It is the only mandatory property.
  * - type: Set of relationship types to be auto-selected for matched URL.
@@ -1049,32 +1049,32 @@ const CLEANUPS = {
     match: [new RegExp("^(https?://)?((m|www)\\.)?bandsintown\\.com","i")],
     type: LINK_TYPES.bandsintown,
     clean: function (url) {
-      var m = url.match(/^(?:https?:\/\/)?(?:(?:m|www)\.)?bandsintown\.com\/(event|venue)\/0*([1-9][0-9]*)(?:[^0-9].*)?$/);
+      var m = url.match(/^(?:https?:\/\/)?(?:(?:m|www)\.)?bandsintown\.com\/(a(?=rtist|\/)|e(?=vent|\/)|v(?=enue|\/))[a-z]*\/0*([1-9][0-9]*)(?:[^0-9].*)?$/);
       if (m) {
         var prefix = m[1];
         var number = m[2];
-        url = "https://bandsintown.com/" + prefix + "/" + number;
+        url = "https://www.bandsintown.com/" + prefix + "/" + number;
       } else {
         m = url.match(/^(?:https?:\/\/)?(?:(?:m|www)\.)?bandsintown\.com\/([^\/?#]+)(?:[\/?#].*)?$/);
         if (m) {
           var name = m[1];
-          url = "https://bandsintown.com/" + name.toLowerCase();
+          url = "https://www.bandsintown.com/" + name.toLowerCase();
         }
       }
       return url;
     },
     validate: function (url, id) {
-      var m = /^https:\/\/bandsintown\.com\/(?:(event|venue)\/)?([^\/?#]+)$/.exec(url);
+      var m = /^https:\/\/www.bandsintown\.com\/(?:(a|e|v)\/)?([^\/?#]+)$/.exec(url);
       if (m) {
         var prefix = m[1];
         var target = m[2];
         switch (id) {
           case LINK_TYPES.bandsintown.artist:
-            return prefix === undefined && target !== undefined;
+            return prefix === undefined && target !== undefined || prefix === 'a' && /^[1-9][0-9]*$/.test(target);
           case LINK_TYPES.bandsintown.event:
-            return prefix === 'event' && /^[1-9][0-9]*$/.test(target);
+            return prefix === 'e' && /^[1-9][0-9]*$/.test(target);
           case LINK_TYPES.bandsintown.place:
-            return prefix === 'venue' && /^[1-9][0-9]*$/.test(target);
+            return prefix === 'v' && /^[1-9][0-9]*$/.test(target);
         }
       }
       return false;
@@ -1675,6 +1675,26 @@ const CLEANUPS = {
       url = url.replace(/^(?:https?:\/\/)?(?:www\.)?kickstarter\.com\/profile\/([\w\-]+)(?:[\/?#].*)?$/, "https://www.kickstarter.com/profile/$1");
       url = url.replace(/^(?:https?:\/\/)?(?:www\.)?kickstarter\.com\/projects\/(\d+)\/([\w\-]+)(?:[\/?#].*)?$/, "https://www.kickstarter.com/projects/$1/$2");
       return url;
+    }
+  },
+  utaten: {
+    match: [new RegExp("^(https?://)?([^/]+\\.)?utaten\\.com/", "i")],
+    type: LINK_TYPES.lyrics,
+    clean: function (url) {
+      return url.replace(/^(?:https?:\/\/)?utaten\.com\/(artist|lyric\/.+)\/([^\/?#]+).*$/, "https://utaten.com/$1/$2");
+    },
+    validate: function (url, id) {
+      var m = /^https:\/\/utaten\.com\/(artist|lyric)\/.+$/.exec(url);
+      if (m) {
+        var prefix = m[1];
+        switch (id) {
+          case LINK_TYPES.lyrics.artist:
+            return prefix === 'artist';
+          case LINK_TYPES.lyrics.work:
+            return prefix === 'lyric';
+        }
+      }
+      return false;
     }
   }
 };

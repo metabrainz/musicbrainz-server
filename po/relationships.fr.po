@@ -27,13 +27,14 @@
 # French language coordinator <email address hidden>, 2013-2015
 # Youenn Piolet, 2015
 # Youenn Piolet, 2015
-# yvanz, 2016-2018
+# Yvan Zo, 2016-2018
 # yvanz, 2016
+# Yvan Zo, 2018
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2018-01-10 09:05+0000\n"
-"Last-Translator: yvanz\n"
+"PO-Revision-Date: 2018-01-24 20:06+0000\n"
+"Last-Translator: Yvan Zo\n"
 "Language-Team: French (http://www.transifex.com/musicbrainz/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -2421,6 +2422,17 @@ msgid ""
 "This relationship links a concert tour to the artist(s) the tour is by."
 msgstr "Cette relation relie une tournée de concerts à/aux l’artiste(s) de la tournée"
 
+#: DB:link_type/description:924
+msgid ""
+"This relationship links a musician to the music school(s) they taught at."
+msgstr "Cette relation relie un musicien à/aux école(s) de musique où il a enseigné."
+
+#: DB:link_type/description:923
+msgid ""
+"This relationship links a musician to the music school(s) they were educated"
+" at."
+msgstr "Cette relation relie un musicien  à/aux école(s) de musique où il a étudié."
+
 #: DB:link_type/description:918
 msgid ""
 "This relationship links an instrument to the company that invented or "
@@ -3290,6 +3302,10 @@ msgstr "lieu de montage pour"
 #: DB:link_type/reverse_link_phrase:309
 msgid "edits"
 msgstr "montages"
+
+#: DB:link_type/reverse_link_phrase:924
+msgid "educators"
+msgstr "enseignants"
 
 #: DB:link_attribute_type/name:617
 msgid "emeritus"
@@ -4844,9 +4860,13 @@ msgstr "diffusion en flux gratuite"
 msgid "stream {video} for free"
 msgstr "diffusion en flux {video} gratuite"
 
-#: DB:link_type/link_phrase:847
+#: DB:link_type/link_phrase:847 DB:link_type/reverse_link_phrase:923
 msgid "students"
 msgstr "étudiants"
+
+#: DB:link_type/link_phrase:923 DB:link_type/long_link_phrase:923
+msgid "studied at"
+msgstr "a étudié à"
 
 #: DB:link_type/link_phrase:722
 msgid "subgroup of"
@@ -4908,7 +4928,8 @@ msgstr "soutien {instrument} pour"
 msgid "taught"
 msgstr "a enseigné à"
 
-#: DB:link_type/link_phrase:893 DB:link_type/long_link_phrase:893
+#: DB:link_type/link_phrase:924 DB:link_type/link_phrase:893
+#: DB:link_type/long_link_phrase:924 DB:link_type/long_link_phrase:893
 msgid "taught at"
 msgstr "enseigna à"
 

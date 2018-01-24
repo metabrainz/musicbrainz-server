@@ -39,15 +39,16 @@
 # French language coordinator <email address hidden>, 2013-2015
 # Youenn Piolet, 2015
 # Youenn Piolet, 2015
-# yvanz, 2016-2018
+# Yvan Zo, 2016-2018
 # yvanz, 2016
+# Yvan Zo, 2018
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-01-03 12:07+0100\n"
-"PO-Revision-Date: 2018-01-04 15:40+0000\n"
-"Last-Translator: yvanz\n"
+"POT-Creation-Date: 2018-01-24 20:56+0100\n"
+"PO-Revision-Date: 2018-01-24 20:12+0000\n"
+"Last-Translator: Yvan Zo\n"
 "Language-Team: French (http://www.transifex.com/musicbrainz/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1357,6 +1358,10 @@ msgstr "IPI de l’artiste :"
 msgid "Artist ISNI:"
 msgstr "ISNI de l’artiste :"
 
+#: ../root/report/recordings_same_name_different_artists_same_name.tt:15
+msgid "Artist MBID"
+msgstr "MBID de l’artiste"
+
 #: ../root/artist/not_found.tt:1 ../root/artist/not_found.tt:2
 msgid "Artist Not Found"
 msgstr "Artiste introuvable"
@@ -2332,6 +2337,11 @@ msgstr "Critiques sur CritiqueBrainz"
 #: ../root/admin/wikidoc/edit.tt:14
 msgid "Current version:"
 msgstr "Version actuelle :"
+
+#: ../root/report/recordings_same_name_different_artists_same_name.tt:9
+msgid ""
+"Currently, this report only works with recordings that have one artist."
+msgstr "Pour le moment, ce rapport ne liste que les enregistrements crédités à un seul artiste."
 
 #: ../root/components/relationship-editor.tt:130
 #: ../root/release/edit/information.tt:140
@@ -3312,7 +3322,7 @@ msgid ""
 "{uri|account FAQ}."
 msgstr "Pour toute information sur le processus de suppression de compte, veuillez lire la {uri|FAQ des comptes}."
 
-#: ../root/report/releases_missing_disc_ids.tt:7
+#: ../root/report/releases_missing_disc_i_ds.tt:7
 msgid ""
 "For instructions on how to add one, see the {add_discids|documentation "
 "page}."
@@ -3559,6 +3569,7 @@ msgstr "Information Générale"
 #: ../root/report/multiple_discogs_links.tt:15
 #: ../root/report/part_of_set_relationships.tt:14
 #: ../root/report/possible_collaborations.tt:14
+#: ../root/report/recordings_same_name_different_artists_same_name.tt:11
 #: ../root/report/recordings_with_earliest_release_relationships.tt:12
 #: ../root/report/recordings_without_va_credit.tt:9
 #: ../root/report/recordings_without_va_link.tt:9
@@ -3567,7 +3578,7 @@ msgstr "Information Générale"
 #: ../root/report/release_groups_without_va_credit.tt:9
 #: ../root/report/release_groups_without_va_link.tt:9
 #: ../root/report/releases_in_caa_with_cover_art_relationships.tt:10
-#: ../root/report/releases_missing_disc_ids.tt:10
+#: ../root/report/releases_missing_disc_i_ds.tt:10
 #: ../root/report/releases_to_convert.tt:12
 #: ../root/report/releases_with_coverart_links.tt:8
 #: ../root/report/releases_with_download_relationships.tt:10
@@ -3802,12 +3813,12 @@ msgstr "ISRC « {isrc} »"
 msgid "ISRC:"
 msgstr "ISRC :"
 
-#: ../root/components/recordings-list.tt:31 ../root/report/index.tt:156
+#: ../root/components/recordings-list.tt:31 ../root/report/index.tt:157
 #: ../root/search/lib/inline-results-recording.tt:11
 msgid "ISRCs"
 msgstr "ISRC"
 
-#: ../root/report/index.tt:159 ../root/report/isrc_with_many_recordings.tt:1
+#: ../root/report/index.tt:160 ../root/report/isrc_with_many_recordings.tt:1
 #: ../root/report/isrc_with_many_recordings.tt:3
 msgid "ISRCs with multiple recordings"
 msgstr "ISRC avec plusieurs enregistrements"
@@ -3840,11 +3851,11 @@ msgstr "Code ISWC « {iswc} »"
 msgid "ISWC:"
 msgstr "ISWC :"
 
-#: ../root/report/index.tt:162
+#: ../root/report/index.tt:163
 msgid "ISWCs"
 msgstr "ISWC"
 
-#: ../root/report/index.tt:165 ../root/report/iswc_with_many_works.tt:1
+#: ../root/report/index.tt:166 ../root/report/iswc_with_many_works.tt:1
 #: ../root/report/iswc_with_many_works.tt:3
 msgid "ISWCs with multiple works"
 msgstr "ISWC à plusieurs œuvres "
@@ -5581,17 +5592,17 @@ msgstr "Lieu :"
 
 #: ../root/area/places.tt:1 ../root/area/places.tt:2
 #: ../root/components/common-macros.tt:612 ../root/components/entity-tabs.tt:1
-#: ../root/report/index.tt:128 ../root/tag/header.tt:1 ../root/tag/index.tt:8
+#: ../root/report/index.tt:129 ../root/tag/header.tt:1 ../root/tag/index.tt:8
 msgid "Places"
 msgstr "Lieux"
 
-#: ../root/report/index.tt:132
+#: ../root/report/index.tt:133
 msgid "Places with annotations"
 msgstr "Lieux avec annotations"
 
 #: ../root/report/deprecated_relationship_places.tt:1
 #: ../root/report/deprecated_relationship_places.tt:3
-#: ../root/report/index.tt:131
+#: ../root/report/index.tt:132
 msgid "Places with deprecated relationships"
 msgstr "Lieux avec des relations obsolètes"
 
@@ -6002,6 +6013,12 @@ msgstr "Enregistrements avec des relations de parution la plus ancienne"
 #: ../root/report/index.tt:120
 msgid "Recordings with possible duplicate relationships"
 msgstr "Enregistrements avec relations probablement en double"
+
+#: ../root/report/index.tt:126
+#: ../root/report/recordings_same_name_different_artists_same_name.tt:1
+#: ../root/report/recordings_same_name_different_artists_same_name.tt:3
+msgid "Recordings with the same name by different artists with the same name"
+msgstr "Enregistrements de même nom par des des artistes différents de même nom"
 
 #: ../root/report/featuring_recordings.tt:1
 #: ../root/report/featuring_recordings.tt:3 ../root/report/index.tt:119
@@ -6416,8 +6433,8 @@ msgstr "Parution :"
 msgid "Releases"
 msgstr "Parutions"
 
-#: ../root/report/releases_missing_disc_ids.tt:1
-#: ../root/report/releases_missing_disc_ids.tt:3
+#: ../root/report/releases_missing_disc_i_ds.tt:1
+#: ../root/report/releases_missing_disc_i_ds.tt:3
 msgid "Releases Missing Disc IDs"
 msgstr "Parutions en manque d’ID de disque"
 
@@ -7147,7 +7164,7 @@ msgstr "Envoyez-moi des courriels quand des modifications ont été apportés à
 msgid "Sentence"
 msgstr "Phrase"
 
-#: ../root/report/index.tt:135 ../root/report/series_list.tt:7
+#: ../root/report/index.tt:136 ../root/report/series_list.tt:7
 #: ../root/tag/index.tt:8
 msgid "Series"
 msgstr "Série"
@@ -7193,7 +7210,7 @@ msgstr "Annotations sur les séries"
 msgid "Series information"
 msgstr "Informations sur la série"
 
-#: ../root/report/index.tt:138
+#: ../root/report/index.tt:139
 msgid "Series with annotations"
 msgstr "Séries avec annotations"
 
@@ -8140,6 +8157,12 @@ msgid_plural ""
 msgstr[0] "{reviews_link|{review_count} critique} est proposée sur CritiqueBrainz. Vous pouvez aussi en {write_link|write rédiger une}."
 msgstr[1] "{reviews_link|{review_count} critiques} sont proposées sur CritiqueBrainz. Vous pouvez aussi en {write_link|write rédiger une}."
 
+#: ../root/report/recordings_same_name_different_artists_same_name.tt:7
+msgid ""
+"These are most likely cases where the {ac|artist credit} is incorrect for at"
+" least one of the recordings."
+msgstr "Lorsque cela arrive, c’est le plus souvent que les {ac|crédits artiste} sont incorrects pour au moins un des enregistrements de même nom."
+
 #: ../root/place/edit_form.tt:30
 msgid "These coordinates could not be parsed."
 msgstr "Ces coordonnées n’ont pas pu être analysées."
@@ -8933,6 +8956,12 @@ msgid ""
 "Merge Releases})."
 msgstr "Ce rapport montre les URLs Discogs qui sont reliées à plusieurs parutions. Dans la plupart des cas les parutions Discogs devrait mapper 1:1 vers MusicBrainz. Ainsi seul un des lien sera correct. Vérifier quelle parution MusicBrainz concorde avec la parution Discogs (regarder le format, la liste de pistes, pays de parution, etc.). Vous pourriez aussi trouver des URLs Discogs reliées à plusieurs disques d’une parution multi-disques : fusionnez-les (see {how_to_merge_releases|Comment fusionner des parutions})."
 
+#: ../root/report/recordings_same_name_different_artists_same_name.tt:6
+msgid ""
+"This report shows all recordings with the same name that have different "
+"artists (having different MBIDs) with the same name."
+msgstr "Ce rapport montre tous les enregistrements ayant le même nom et différents artistes (c’est-à-dire différents MBID) de même nom."
+
 #: ../root/report/instruments_without_an_image.tt:6
 msgid ""
 "This report shows instruments without {image_rel} relationships or "
@@ -9006,7 +9035,7 @@ msgid ""
 "{how_to_merge_releases|How to Merge Releases})."
 msgstr "Ce rapport montre les groupes de parution avec des parutions qui sont reliés à des parutions dans des groupes de parution différents par des relations partie-d’un-ensemble ou de translittération. Si une paire de groupes de parution apparaît ici, vous devriez probablement les fusionner en une parution multi-disques (voir {how_to_merge_releases|Comment fusionner les parutions})."
 
-#: ../root/report/releases_missing_disc_ids.tt:6
+#: ../root/report/releases_missing_disc_i_ds.tt:6
 msgid ""
 "This report shows releases (official and promotional only) that have at "
 "least one medium with a format that supports disc IDs, but is missing one."
@@ -9370,6 +9399,7 @@ msgstr "Total des lieux trouvés : {count}"
 #: ../root/report/deprecated_relationship_recordings.tt:8
 #: ../root/report/duplicate_relationships_recordings.tt:7
 #: ../root/report/featuring_recordings.tt:13
+#: ../root/report/recordings_same_name_different_artists_same_name.tt:10
 #: ../root/report/recordings_with_earliest_release_relationships.tt:11
 #: ../root/report/recordings_without_va_credit.tt:8
 #: ../root/report/recordings_without_va_link.tt:8
@@ -9404,7 +9434,7 @@ msgstr "Total des groupes de parution : {count}"
 #: ../root/report/part_of_set_relationships.tt:13
 #: ../root/report/released_too_early.tt:7
 #: ../root/report/releases_in_caa_with_cover_art_relationships.tt:9
-#: ../root/report/releases_missing_disc_ids.tt:9
+#: ../root/report/releases_missing_disc_i_ds.tt:9
 #: ../root/report/releases_to_convert.tt:11
 #: ../root/report/releases_with_coverart_links.tt:7
 #: ../root/report/releases_with_download_relationships.tt:8
@@ -9671,13 +9701,13 @@ msgid "URL; [URL]; [URL|label]"
 msgstr "URL ; [URL] ; [URL|label]"
 
 #: ../root/components/common-macros.tt:131
-#: ../root/components/common-macros.tt:612 ../root/report/index.tt:149
+#: ../root/components/common-macros.tt:612 ../root/report/index.tt:150
 msgid "URLs"
 msgstr "URLs"
 
 #: ../root/report/deprecated_relationship_urls.tt:1
 #: ../root/report/deprecated_relationship_urls.tt:3
-#: ../root/report/index.tt:152
+#: ../root/report/index.tt:153
 msgid "URLs with deprecated relationships"
 msgstr "URLs avec des relations obsolètes"
 
@@ -10214,24 +10244,24 @@ msgstr "Œuvre :"
 
 #: ../root/artist/works.tt:1 ../root/artist/works.tt:2
 #: ../root/components/common-macros.tt:612 ../root/components/entity-tabs.tt:1
-#: ../root/report/index.tt:141 ../root/series/index.tt:15
+#: ../root/report/index.tt:142 ../root/series/index.tt:15
 #: ../root/tag/header.tt:1 ../root/tag/index.tt:8
 msgid "Works"
 msgstr "Œuvres"
 
-#: ../root/report/index.tt:146
+#: ../root/report/index.tt:147
 msgid "Works with annotations"
 msgstr "Œuvres avec des annotations"
 
 #: ../root/report/deprecated_relationship_works.tt:1
 #: ../root/report/deprecated_relationship_works.tt:3
-#: ../root/report/index.tt:145
+#: ../root/report/index.tt:146
 msgid "Works with deprecated relationships"
 msgstr "Œuvres avec des relations obsolètes"
 
 #: ../root/report/duplicate_relationships_works.tt:1
 #: ../root/report/duplicate_relationships_works.tt:3
-#: ../root/report/index.tt:144
+#: ../root/report/index.tt:145
 msgid "Works with possible duplicate relationships"
 msgstr "Œuvres avec relations probablement en double"
 
@@ -13383,14 +13413,14 @@ msgid ""
 "{url|French capitalisation guidelines}."
 msgstr "Ce mode met en majuscule les titres en mode phrase, mais insère des espaces devant les points-virgules, deux-points, points d’exclamation, points d’interrogation et à l’intérieure des guillemets. Certains mots devront peut-être être mis en majuscule manuellement pour suivre les {url|directives de mise en majuscule en français}."
 
-#: ../root/static/scripts/guess-case/modes.js:287
+#: ../root/static/scripts/guess-case/modes.js:289
 msgid ""
 "This mode capitalises the first word of a sentence, most other words are "
 "lowercased. Some words, often proper nouns, may need to be manually fixed "
 "according to the {url|relevant language guidelines}."
 msgstr "Ce mode met en majuscule le premier mot de la phrase, la plupart des autres mots sont en minuscule. Certains mots, souvent des noms propres, peuvent devoir être changés manuellement suivant les {url|directives propres à la langue}."
 
-#: ../root/static/scripts/guess-case/modes.js:297
+#: ../root/static/scripts/guess-case/modes.js:299
 msgid ""
 "This mode handles the Turkish capitalisation of 'i' ('İ') and 'ı' ('I'). "
 "Some words may need to be manually corrected according to the {url|Turkish "

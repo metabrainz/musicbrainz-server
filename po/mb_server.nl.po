@@ -12,7 +12,7 @@
 # Ian McEwen <email address hidden>, 2012
 # Maurits Meulenbelt <email address hidden>, 2012
 # Maurits Meulenbelt <email address hidden>, 2012
-# Maurits Meulenbelt <email address hidden>, 2013-2017
+# Maurits Meulenbelt <email address hidden>, 2013-2018
 # Nathan Follens, 2016
 # Nikolai Prokoschenko <email address hidden>, 2011
 # Nikolai Prokoschenko <email address hidden>, 2011
@@ -23,9 +23,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-01-03 12:07+0100\n"
-"PO-Revision-Date: 2018-01-03 11:15+0000\n"
-"Last-Translator: yvanz\n"
+"POT-Creation-Date: 2018-01-10 10:16+0100\n"
+"PO-Revision-Date: 2018-01-11 12:11+0000\n"
+"Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -3290,11 +3290,11 @@ msgid ""
 "{uri|account FAQ}."
 msgstr "Lees de {uri|veelgestelde vragen over accounts} voor informatie over het verwijderen van accounts."
 
-#: ../root/report/releases_missing_disc_ids.tt:7
+#: ../root/report/releases_missing_disc_i_ds.tt:7
 msgid ""
 "For instructions on how to add one, see the {add_discids|documentation "
 "page}."
-msgstr ""
+msgstr "Lees de documentatie over {add_discids|het toevoegen van disc-ID’s} voor meer informatie."
 
 #: ../root/report/separate_discs.tt:7
 msgid ""
@@ -3359,7 +3359,7 @@ msgstr "Vooruit"
 #: ../root/relationship/linktype/form.tt:13
 #: ../root/relationship/linktype/tree.tt:8
 msgid "Forward link phrase:"
-msgstr "Bewoording van de voorwaartse link:"
+msgstr "Voorwaartse koppelzin:"
 
 #: ../root/doc/bare_error.tt:17
 msgid ""
@@ -3545,7 +3545,7 @@ msgstr "Algemene informatie"
 #: ../root/report/release_groups_without_va_credit.tt:9
 #: ../root/report/release_groups_without_va_link.tt:9
 #: ../root/report/releases_in_caa_with_cover_art_relationships.tt:10
-#: ../root/report/releases_missing_disc_ids.tt:10
+#: ../root/report/releases_missing_disc_i_ds.tt:10
 #: ../root/report/releases_to_convert.tt:12
 #: ../root/report/releases_with_coverart_links.tt:8
 #: ../root/report/releases_with_download_relationships.tt:10
@@ -6394,10 +6394,10 @@ msgstr "Uitgave:"
 msgid "Releases"
 msgstr "Uitgaves"
 
-#: ../root/report/releases_missing_disc_ids.tt:1
-#: ../root/report/releases_missing_disc_ids.tt:3
+#: ../root/report/releases_missing_disc_i_ds.tt:1
+#: ../root/report/releases_missing_disc_i_ds.tt:3
 msgid "Releases Missing Disc IDs"
-msgstr ""
+msgstr "Uitgaves zonder disc-ID’s"
 
 #: ../root/report/tracks_named_with_sequence.tt:1
 #: ../root/report/tracks_named_with_sequence.tt:3
@@ -6436,7 +6436,7 @@ msgstr "Uitgaves in het Cover Art Archive die nog steeds relaties hebben voor af
 
 #: ../root/report/index.tt:111
 msgid "Releases missing disc IDs"
-msgstr ""
+msgstr "Uitgaves zonder disc-ID’s"
 
 #: ../root/report/index.tt:109 ../root/report/releases_without_va_credit.tt:1
 #: ../root/report/releases_without_va_credit.tt:3
@@ -7097,7 +7097,7 @@ msgstr "Selecteer een uitgave waarnaar de disc-ID <code>{discid}</code> naar moe
 msgid ""
 "Select any type from the list to see its description. If the work doesn’t "
 "seem to match any type, just leave this blank."
-msgstr ""
+msgstr "Selecteer een type uit deze lijst om een omschrijving te zien. Als er geen passend type voor deze compositie tussen zit, kan je het type leeg laten."
 
 #: ../root/release/add_cover_art.tt:34
 msgid "Select images..."
@@ -8984,11 +8984,11 @@ msgid ""
 "{how_to_merge_releases|How to Merge Releases})."
 msgstr "In dit rapport staan uitgavegroepen met uitgaves die via een deel-van-een-set-relatie of een transliteratie-relatie gekoppeld zijn aan een uitgave in een andere uitgavegroep. Paren van uitgavegroepen in dit rapport moeten waarschijnlijk worden samengevoegd. Als blijkt dat de verschillende uitgaves eigenlijk de losse media van één uitgave zijn, kunnen die uitgaves ook worden samengevoegd. Zie {how_to_merge_releases|Hoe uitgaves samen te voegen}."
 
-#: ../root/report/releases_missing_disc_ids.tt:6
+#: ../root/report/releases_missing_disc_i_ds.tt:6
 msgid ""
 "This report shows releases (official and promotional only) that have at "
 "least one medium with a format that supports disc IDs, but is missing one."
-msgstr ""
+msgstr "Dit rapport laat (officiële en promotie)uitgaves zien waar geen disc-id aan is gekoppeld, terwijl ten minste één van de aanwezige media van een type is dat disc-id’s ondersteunt."
 
 #: ../root/report/releases_without_va_credit.tt:6
 msgid ""
@@ -9382,7 +9382,7 @@ msgstr "Totaal aantal gevonden uitgaves: {count}"
 #: ../root/report/part_of_set_relationships.tt:13
 #: ../root/report/released_too_early.tt:7
 #: ../root/report/releases_in_caa_with_cover_art_relationships.tt:9
-#: ../root/report/releases_missing_disc_ids.tt:9
+#: ../root/report/releases_missing_disc_i_ds.tt:9
 #: ../root/report/releases_to_convert.tt:11
 #: ../root/report/releases_with_coverart_links.tt:7
 #: ../root/report/releases_with_download_relationships.tt:8

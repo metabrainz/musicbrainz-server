@@ -188,7 +188,7 @@ sub GIT_SHA { {{executeTemplate "QUOTED_STRING" (env "GIT_SHA")}} }
 {{executeTemplate "BOOLEAN_DEF" "DEVELOPMENT_SERVER"}}
 {{executeTemplate "BOOLEAN_DEF" "FORK_RENDERER"}}
 {{executeTemplate "BOOLEAN_DEF" "IS_BETA"}}
-{{executeTemplate "BOOLEAN_DEF" "LUCENE_X_ACCEL_REDIRECT"}}
+{{executeTemplate "BOOLEAN_DEF" "SEARCH_X_ACCEL_REDIRECT"}}
 {{executeTemplate "BOOLEAN_DEF" "SSL_REDIRECTS_ENABLED"}}
 {{executeTemplate "CODE_DEF" "DB_STAGING_SERVER_DESCRIPTION"}}
 {{executeTemplate "CODE_DEF" "ENTITY_CACHE_TTL"}}
@@ -207,12 +207,13 @@ sub GIT_SHA { {{executeTemplate "QUOTED_STRING" (env "GIT_SHA")}} }
 {{executeTemplate "STRING_DEF" "GOOGLE_CUSTOM_SEARCH"}}
 {{executeTemplate "STRING_DEF" "GPG_ENCRYPT_KEY"}}
 {{executeTemplate "STRING_DEF" "GPG_SIGN_KEY"}}
-{{executeTemplate "STRING_DEF" "LUCENE_SERVER"}}
 {{executeTemplate "STRING_DEF" "MAPBOX_ACCESS_TOKEN"}}
 {{executeTemplate "STRING_DEF" "RECAPTCHA_PRIVATE_KEY"}}
 {{executeTemplate "STRING_DEF" "RECAPTCHA_PUBLIC_KEY"}}
 {{executeTemplate "STRING_DEF" "RENDERER_SOCKET"}}
 {{executeTemplate "STRING_DEF" "REPLICATION_ACCESS_TOKEN"}}
+{{executeTemplate "STRING_DEF" "SEARCH_ENGINE"}}
+{{executeTemplate "STRING_DEF" "SEARCH_SERVER"}}
 {{executeTemplate "STRING_DEF" "SENTRY_DSN"}}
 {{executeTemplate "STRING_DEF" "SENTRY_DSN_PUBLIC"}}
 {{executeTemplate "STRING_DEF" "SESSION_COOKIE"}}

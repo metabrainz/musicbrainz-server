@@ -2387,6 +2387,17 @@ msgstr ""
 msgid "This relationship links a concert tour to the artist(s) the tour is by."
 msgstr ""
 
+#: DB:link_type/description:924
+msgid ""
+"This relationship links a musician to the music school(s) they taught at."
+msgstr ""
+
+#: DB:link_type/description:923
+msgid ""
+"This relationship links a musician to the music school(s) they were educated "
+"at."
+msgstr ""
+
 #: DB:link_type/description:918
 msgid ""
 "This relationship links an instrument to the company that invented or "
@@ -3260,6 +3271,10 @@ msgstr ""
 
 #: DB:link_type/reverse_link_phrase:309
 msgid "edits"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:924
+msgid "educators"
 msgstr ""
 
 #: DB:link_attribute_type/name:617
@@ -4815,8 +4830,12 @@ msgstr ""
 msgid "stream {video} for free"
 msgstr ""
 
-#: DB:link_type/link_phrase:847
+#: DB:link_type/link_phrase:847 DB:link_type/reverse_link_phrase:923
 msgid "students"
+msgstr ""
+
+#: DB:link_type/link_phrase:923 DB:link_type/long_link_phrase:923
+msgid "studied at"
 msgstr ""
 
 #: DB:link_type/link_phrase:722
@@ -4879,7 +4898,8 @@ msgstr ""
 msgid "taught"
 msgstr ""
 
-#: DB:link_type/link_phrase:893 DB:link_type/long_link_phrase:893
+#: DB:link_type/link_phrase:924 DB:link_type/link_phrase:893
+#: DB:link_type/long_link_phrase:924 DB:link_type/long_link_phrase:893
 msgid "taught at"
 msgstr ""
 
