@@ -245,6 +245,13 @@ msgctxt "series_type"
 msgid "A recurring festival, usually happening annually in the same location."
 msgstr ""
 
+#: DB:place_type/description:7
+msgctxt "place_type"
+msgid ""
+"A school, university or other similar educational institution (especially, "
+"but not only, one where music is taught)"
+msgstr ""
+
 #: DB:series_type/description:6
 msgctxt "series_type"
 msgid "A series of events."
@@ -1785,6 +1792,11 @@ msgstr ""
 #: DB:medium_format/name:50
 msgctxt "medium_format"
 msgid "Edison Diamond Disc"
+msgstr ""
+
+#: DB:place_type/name:7
+msgctxt "place_type"
+msgid "Educational institution"
 msgstr ""
 
 #: DB:instrument_type/name:4

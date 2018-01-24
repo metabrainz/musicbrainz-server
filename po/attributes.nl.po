@@ -3,13 +3,13 @@
 # reneweesp <email address hidden>, 2017
 # Maurits Meulenbelt <email address hidden>, 2012
 # Maurits Meulenbelt <email address hidden>, 2012
-# Maurits Meulenbelt <email address hidden>, 2013-2017
+# Maurits Meulenbelt <email address hidden>, 2013-2018
 # Nikolai Prokoschenko <email address hidden>, 2011
 # Nikolai Prokoschenko <email address hidden>, 2011
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2017-11-01 19:25+0000\n"
+"PO-Revision-Date: 2018-01-11 12:05+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -189,7 +189,7 @@ msgstr "Een feest, receptie of ander evenement dat speciaal wordt gehouden voor 
 #: DB:release_packaging/description:17
 msgctxt "release_packaging"
 msgid "A perfect bound book with a sleeve at the end to hold a CD"
-msgstr ""
+msgstr "Een gelijmd gebonden boek met achterin een hoesje voor een cd."
 
 #: DB:place_type/description:5
 msgctxt "place_type"
