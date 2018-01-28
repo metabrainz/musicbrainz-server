@@ -17,6 +17,8 @@ const {Key} = require('selenium-webdriver/lib/input');
 const promise = require('selenium-webdriver/lib/promise');
 const until = require('selenium-webdriver/lib/until');
 
+const escapeRegExp = require('../root/static/scripts/common/utility/escapeRegExp');
+
 const testSqlPath = path.resolve(__dirname, 'sql', 'selenium.sql');
 const psqlPath = path.resolve(__dirname, '..', 'admin', 'psql');
 
@@ -84,10 +86,11 @@ async function selectOption(select, optionLocator) {
 
   switch (prefix) {
     case 'label':
-      if (!value.startsWith('regexp:')) {
-        throw 'Only regexp patterns are supported for the "label" select prefix';
+      if (value.startsWith('regexp:')) {
+        value = new RegExp(value.slice(7));
+      } else {
+        value = new RegExp('^\s*' + escapeRegExp(value) + '\s*$');
       }
-      value = new RegExp(value.slice(7));
       option = await select.findElement(function () {
         const options = select.findElements(webdriver.By.tagName('option'));
         return promise.filter(options, function (option) {
@@ -266,6 +269,7 @@ const tests = [
   'MBS-7456.html',
   'Artist_Credit_Editor.html',
   'External_Links_Editor.html',
+  'Work_Editor.html',
 ];
 
 async function nextTest(testIndex) {

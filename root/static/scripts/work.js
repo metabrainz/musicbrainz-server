@@ -183,6 +183,7 @@ function renderWorkLanguages() {
   const form = store.getState();
   ReactDOM.render(
     <FormRowSelectList
+      addId="add-language"
       addLabel={l('Add Language')}
       fieldName={null}
       label={l('Lyrics Languages')}
@@ -191,6 +192,7 @@ function renderWorkLanguages() {
       onEdit={editLanguage}
       onRemove={removeLanguage}
       options={workLanguageOptions}
+      removeClassName="remove-language"
       removeLabel={l('Remove Language')}
       repeatable={form.field.get('languages')}
     />,

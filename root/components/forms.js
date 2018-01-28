@@ -175,6 +175,7 @@ const SelectField = ({
 );
 
 const FormRowSelectList = ({
+  addId,
   addLabel,
   fieldName,
   label,
@@ -183,6 +184,7 @@ const FormRowSelectList = ({
   onEdit,
   onRemove,
   options,
+  removeClassName,
   removeLabel,
   repeatable,
 }) => (
@@ -199,7 +201,7 @@ const FormRowSelectList = ({
           />
           {' '}
           <button
-            className="nobutton icon remove-item"
+            className={`nobutton icon remove-item ${removeClassName}`}
             onClick={event => onRemove(index)}
             title={removeLabel}
             type="button"
@@ -212,6 +214,7 @@ const FormRowSelectList = ({
       <div className="form-row-add">
         <button
           className="with-label add-item"
+          id={addId}
           onClick={onAdd}
           type="button"
         >

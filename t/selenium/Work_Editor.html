@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="http://localhost:5000" />
+<title>Work Editor</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">Work Editor</td></tr>
+</thead><tbody>
+<tr>
+	<td>open</td>
+	<td>/work/create</td>
+	<td></td>
+</tr>
+<tr>
+	<td>sendKeys</td>
+	<td>xpath=//input[@id='id-edit-work.name']</td>
+	<td>all my loving</td>
+</tr>
+<!-- Check that guess case works. -->
+<tr>
+	<td>click</td>
+	<td>xpath=//button[contains(@class, 'guesscase-title')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertEval</td>
+	<td>window.document.getElementById('id-edit-work.name').value</td>
+	<td>All My Loving</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>css=#id-edit-work\.type_id</td>
+	<td>label=Song</td>
+</tr>
+<!-- Add, remove, and edit some languages. -->
+<tr>
+	<td>select</td>
+	<td>name=edit-work.languages.0</td>
+	<td>label=[No lyrics]</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=#add-language</td>
+	<td></td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>name=edit-work.languages.1</td>
+	<td>label=Dutch</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>xpath=(//button[contains(@class, 'remove-language')])[1]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>name=edit-work.languages.0</td>
+	<td>label=English</td>
+</tr>
+<!-- Add an ISWC. -->
+<tr>
+	<td>type</td>
+	<td>name=edit-work.iswcs.0</td>
+	<td>T-010.068.558-2</td>
+</tr>
+<!-- Add some work attributes. -->
+<tr>
+	<td>select</td>
+	<td>name=edit-work.attributes.0.type_id</td>
+	<td>label=regexp:\s*ASCAP ID</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=edit-work.attributes.0.value</td>
+	<td>310093673</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=#add-work-attribute</td>
+	<td></td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>name=edit-work.attributes.1.type_id</td>
+	<td>label=Key</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>name=edit-work.attributes.1.value</td>
+	<td>label=E major</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>css=button.submit.positive</td>
+	<td></td>
+</tr>
+<!-- Check the submission. -->
+<tr>
+	<td>assertText</td>
+	<td>css=dd.type</td>
+	<td>Song</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>css=dd.lyrics-language &gt; a</td>
+	<td>English</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>css=code</td>
+	<td>T-010.068.558-2</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>css=dd.work-attribute.work-attribute-ascap-id</td>
+	<td>310093673</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>css=dd.work-attribute.work-attribute-key</td>
+	<td>E major</td>
+</tr>
+</tbody></table>
+</body>
+</html>
