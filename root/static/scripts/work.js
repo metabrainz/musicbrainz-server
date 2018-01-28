@@ -52,10 +52,22 @@ const store = createStore(function (state = formFromHash(form), action) {
   return state;
 });
 
+function subfieldErrors(field, accum = []) {
+  if (field.errors) {
+    accum = accum.concat(field.errors);
+  }
+  if (field.field) {
+    _.each(field.field, function (subfield) {
+      accum = subfieldErrors(subfield, accum);
+    });
+  }
+  return accum;
+}
+
 class WorkAttribute {
   constructor(data, parent) {
     this.attributeValue = ko.observable(_.get(data, ['field', 'value', 'value']));
-    this.errors = ko.observableArray(data.errors);
+    this.errors = ko.observableArray(subfieldErrors(data));
     this.parent = parent;
     this.typeHasFocus = ko.observable(false);
     this.typeID = ko.observable(_.get(data, ['field', 'type_id', 'value']));
