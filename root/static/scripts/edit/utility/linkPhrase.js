@@ -8,6 +8,7 @@ const _ = require('lodash');
 const {l} = require('../../common/i18n');
 const commaList = require('../../common/i18n/commaList');
 const commaOnlyList = require('../../common/i18n/commaOnlyList');
+const linkTypeInfo = require('../../common/typeInfo').link_type;
 const clean = require('../../common/utility/clean');
 
 var attributeRegex = /\{(.*?)(?::(.*?))?\}/g;
@@ -16,8 +17,8 @@ function mapNameToID(result, info, id) {
     result[info.attribute.name] = id;
 }
 
-exports.clean = _.memoize(function (linkType, backward) {
-    var linkType = MB.typeInfoByID[linkType];
+exports.clean = _.memoize(function (linkTypeID, backward) {
+    var linkType = linkTypeInfo.byId[linkTypeID];
     var idsByName = _.transform(linkType.attributes, mapNameToID);
 
     // remove {foo} {bar} junk, unless it's for a required attribute.

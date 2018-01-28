@@ -9,6 +9,7 @@ const _ = require('lodash');
 const {hex_sha1} = require('../../../lib/sha1/sha1');
 const {VIDEO_ATTRIBUTE_GID} = require('../../common/constants');
 const MB = require('../../common/MB');
+const typeInfo = require('../../common/typeInfo');
 const clean = require('../../common/utility/clean');
 const nonEmpty = require('../../common/utility/nonEmpty');
 const request = require('../../common/utility/request');
@@ -158,7 +159,7 @@ const request = require('../../common/utility/request');
                 .value();
 
             if (_.isNumber(data.linkTypeID)) {
-                if (MB.typeInfoByID[data.linkTypeID].orderableDirection !== 0) {
+                if (typeInfo.link_type.byId[data.linkTypeID].orderableDirection !== 0) {
                     data.linkOrder = number(relationship.linkOrder) || 0;
                 }
             }

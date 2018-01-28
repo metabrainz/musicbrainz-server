@@ -17,6 +17,7 @@ const {
   } = require('../common/constants');
 const {compare, l} = require('../common/i18n');
 const MB = require('../common/MB');
+const linkTypeInfo = require('../common/typeInfo').link_type;
 const {hasSessionStorage} = require('../common/utility/storage');
 const isPositiveInteger = require('./utility/isPositiveInteger');
 const HelpIcon = require('./components/HelpIcon');
@@ -27,8 +28,8 @@ const validation = require('./validation');
 
 type LinkStateT = {
   url: string,
-  type: number|null,
-  relationship: number|null,
+  type: number | null,
+  relationship: number | string | null,
   video: boolean,
 };
 
@@ -74,7 +75,7 @@ class ExternalLinksEditor extends React.Component<LinksEditorProps, LinksEditorS
         var type = URLCleanup.guessType(this.props.sourceType, url);
 
         if (type) {
-          this.setLinkState(index, {type: MB.typeInfoByID[type].id});
+          this.setLinkState(index, {type: linkTypeInfo.byId[type].id});
         }
       }
     });
@@ -179,7 +180,7 @@ class ExternalLinksEditor extends React.Component<LinksEditorProps, LinksEditorS
         <tbody>
           {linksArray.map((link, index) => {
             var error;
-            var linkType = MB.typeInfoByID[link.type] || {};
+            var linkType = link.type ? linkTypeInfo.byId[link.type] : {};
             var checker = URLCleanup.validationRules[linkType.gid];
             var oldLink = oldLinks[link.relationship];
 
@@ -271,9 +272,9 @@ type LinkProps = {
 class ExternalLink extends React.Component<LinkProps> {
   render() {
     var props = this.props;
-    var linkType = MB.typeInfoByID[props.type] || {};
+    var linkType = props.type ? linkTypeInfo.byId[props.type] : {};
     var typeDescription = '';
-    var faviconClass;
+    var faviconClass: string | void;
 
     if (linkType.description) {
       typeDescription = l('{description} ({url|more documentation})', {
@@ -289,7 +290,7 @@ class ExternalLink extends React.Component<LinkProps> {
 
     var showTypeSelection = props.errorMessage ? true : !(props.urlMatchesType || isEmpty(props));
     if (!showTypeSelection && props.urlMatchesType) {
-      faviconClass = _.find(FAVICON_CLASSES, (value, key) => props.url.indexOf(key) > 0);
+      faviconClass = _.find(FAVICON_CLASSES, (value: string, key: string) => props.url.indexOf(key) > 0);
     }
 
     return (
@@ -313,7 +314,7 @@ class ExternalLink extends React.Component<LinkProps> {
                  onChange={props.urlChangeCallback}
                  onBlur={props.urlBlurCallback} />
           {props.errorMessage && <div className="error field-error" data-visible="1">{props.errorMessage}</div>}
-          {_.has(linkType.attributes, VIDEO_ATTRIBUTE_ID) &&
+          {_.has(linkType.attributes, String(VIDEO_ATTRIBUTE_ID)) &&
             <div className="attribute-container">
               <label>
                 <input type="checkbox" checked={props.video} onChange={props.videoChangeCallback} /> {l('video')}
@@ -502,8 +503,8 @@ MB.createExternalLinksEditor = function (options: InitialOptionsT) {
   }
 
   initialLinks.sort(function (a, b) {
-    var typeA = MB.typeInfoByID[a.type];
-    var typeB = MB.typeInfoByID[b.type];
+    var typeA = linkTypeInfo.byId[a.type];
+    var typeB = linkTypeInfo.byId[b.type];
 
     return compare(typeA ? typeA.phrase.toLowerCase() : '',
                    typeB ? typeB.phrase.toLowerCase() : '');
@@ -522,7 +523,7 @@ MB.createExternalLinksEditor = function (options: InitialOptionsT) {
   });
 
   var typeOptions = (
-    linkTypeOptions({children: MB.typeInfo[entityTypes]}, /^url-/.test(entityTypes))
+    linkTypeOptions({children: linkTypeInfo.byTypes[entityTypes]}, /^url-/.test(entityTypes))
       .map((data) => <option value={data.value} disabled={data.disabled} key={data.value}>{data.text}</option>)
   );
 

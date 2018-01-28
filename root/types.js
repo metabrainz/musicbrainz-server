@@ -50,6 +50,21 @@ declare type ArtistT =
 
 export opaque type ArtistTypeT: OptionTreeT = OptionTreeT;
 
+// See MusicBrainz::Server::Form::Utils::build_attr_info
+declare type AttrInfoT = {|
+  +id: number,
+  +gid: string,
+  root: AttrInfoT,
+  +rootID: number,
+  +name: string,
+  +l_name: string,
+  +freeText: boolean,
+  +creditable: boolean,
+  +description?: string,
+  +children?: $ReadOnlyArray<AttrInfoT>,
+  +unaccented?: string,
+|};
+
 type CatalystContextT = {|
   +session: CatalystSessionT | null,
   +sessionid: string | null,
@@ -177,6 +192,30 @@ declare type LabelT =
   & {|
       +entityType: 'label',
     |};
+
+declare type LinkTypeAttrTypeT = {|
+  attribute: AttrInfoT,
+  +min: number | null,
+  +max: number | null,
+|};
+
+declare type LinkTypeInfoT = {|
+  +attributes?: {+[number]: LinkTypeAttrTypeT},
+  +cardinality0: number,
+  +cardinality1: number,
+  +childOrder: number,
+  +children?: $ReadOnlyArray<LinkTypeInfoT>,
+  +deprecated: boolean,
+  +description?: string;
+  +gid: string,
+  +hasDates: boolean,
+  +id: number,
+  +orderableDirection: number,
+  +phrase: string,
+  +reversePhrase: string,
+  +type0: string,
+  +type1: string,
+|};
 
 // See MB.forms.buildOptionsTree
 declare type OptionListT = $ReadOnlyArray<{|

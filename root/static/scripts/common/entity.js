@@ -21,6 +21,7 @@ const {
         isCompleteArtistCredit,
     } = require('./immutable-entities');
 const MB = require('./MB');
+const linkTypeInfo = require('./typeInfo').link_type;
 const clean = require('./utility/clean');
 const formatTrackLength = require('./utility/formatTrackLength');
 
@@ -321,7 +322,7 @@ const formatTrackLength = require('./utility/formatTrackLength');
             if (!type) return [];
 
             var gid = PART_OF_SERIES_LINK_TYPES[type.item_entity_type];
-            var linkTypeID = MB.typeInfoByID[gid].id;
+            var linkTypeID = linkTypeInfo.byId[gid].id;
 
             return _.filter(this.displayableRelationships(viewModel)(), function (r) {
                 return r.linkTypeID() === linkTypeID;

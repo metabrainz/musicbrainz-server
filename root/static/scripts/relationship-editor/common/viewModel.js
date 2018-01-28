@@ -8,6 +8,7 @@ const ko = require('knockout');
 const _ = require('lodash');
 
 const MB = require('../../common/MB');
+const typeInfo = require('../../common/typeInfo');
 const parseDate = require('../../common/utility/parseDate');
 const request = require('../../common/utility/request');
 const {hasSessionStorage} = require('../../common/utility/storage');
@@ -26,21 +27,21 @@ const fields = require('./fields');
     }
 
 
-    RE.exportTypeInfo = _.once(function (typeInfo, attrInfo) {
-        MB.typeInfo = typeInfo;
+    RE.exportTypeInfo = _.once(function (_typeInfo, _attrInfo) {
+        typeInfo.link_type.byTypes = _typeInfo;
 
-        MB.typeInfoByID = _(typeInfo).values().flatten().transform(mapItems, {}).value();
-        MB.attrInfoByID = _(attrInfo).values().transform(mapItems, {}).value();
+        typeInfo.link_type.byId = _(_typeInfo).values().flatten().transform(mapItems, {}).value();
+        typeInfo.link_attribute_type = _(_attrInfo).values().transform(mapItems, {}).value();
 
-        _.each(MB.typeInfoByID, function (type) {
+        _.each(typeInfo.link_type.byId, function (type) {
             _.each(type.attributes, function (typeAttr, id) {
-                typeAttr.attribute = MB.attrInfoByID[id];
+                typeAttr.attribute = typeInfo.link_attribute_type[id];
             });
         });
 
         MB.allowedRelations = {};
 
-        _(MB.typeInfo).keys().each(function (typeString) {
+        _(_typeInfo).keys().each(function (typeString) {
             var types = typeString.split("-");
             var type0 = types[0];
             var type1 = types[1];
@@ -59,8 +60,8 @@ const fields = require('./fields');
         // Sort each list of types alphabetically.
         _(MB.allowedRelations).values().invokeMap('sort').value();
 
-        _.each(MB.attrInfoByID, function (attr) {
-            attr.root = MB.attrInfoByID[attr.rootID];
+        _.each(typeInfo.link_attribute_type, function (attr) {
+            attr.root = typeInfo.link_attribute_type[attr.rootID];
         });
     });
 
@@ -183,7 +184,7 @@ function getRelationshipEditor(data, source) {
     }
 
     var target = data.target;
-    var linkType = MB.typeInfoByID[data.linkTypeID];
+    var linkType = typeInfo.link_type.byId[data.linkTypeID];
 
     if ((target && target.entityType === 'url') ||
         (linkType && (linkType.type0 === 'url' || linkType.type1 === 'url'))) {
@@ -231,7 +232,7 @@ function addRelationshipsFromQueryString(source) {
     var fields = parseQueryString(window.location.search);
 
     _.each(fields.rels, function (rel) {
-        var linkType = MB.typeInfoByID[rel.type];
+        var linkType = typeInfo.link_type.byId[rel.type];
         var targetIsUUID = uuidRegex.test(rel.target);
 
         if (!linkType && !targetIsUUID) {
@@ -257,7 +258,7 @@ function addRelationshipsFromQueryString(source) {
 
         if (linkType) {
             data.attributes = _.transform(rel.attributes, function (accum, attr) {
-                var attrInfo = MB.attrInfoByID[attr.type];
+                var attrInfo = typeInfo.link_attribute_type[attr.type];
 
                 if (attrInfo && linkType.attributes[attrInfo.id]) {
                     accum.push({

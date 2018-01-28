@@ -22,6 +22,9 @@ const {lp_attributes} = require('./common/i18n/attributes');
 const MB = require('./common/MB');
 const scriptArgs = require('./common/utility/getScriptArgs')();
 const {Lens, prop, index, set, compose2, compose3} = require('./common/utility/lens');
+const {buildOptionsTree} = require('./edit/forms');
+const {initializeBubble} = require('./edit/MB/Control/Bubble');
+const {initialize_guess_case} = require('./guess-case/MB/Control/GuessCase');
 
 type LanguageField = FieldT<number>;
 
@@ -158,18 +161,18 @@ class ViewModel {
     allowedValues: WorkAttributeTypeAllowedValueTreeRootT,
     attributes: $ReadOnlyArray<WorkAttributeField>,
   ) {
-    this.attributeTypes = MB.forms.buildOptionsTree(
+    this.attributeTypes = buildOptionsTree(
       attributeTypes,
       x => lp_attributes(x.name, 'work_attribute_type'),
       'id',
     );
 
-    this.attributeTypesByID = _.transform(attributeTypes.children, byID, {});
+    this.attributeTypesByID = attributeTypes.children.reduce(byID, {});
 
     this.allowedValuesByTypeID = _(allowedValues.children)
       .groupBy(x => x.workAttributeTypeID)
       .mapValues(function (children) {
-        return MB.forms.buildOptionsTree(
+        return buildOptionsTree(
           {children},
           x => lp_attributes(x.value, 'work_attribute_type_allowed_value'),
           'id',
@@ -199,7 +202,10 @@ class ViewModel {
 
 function byID(result, parent) {
   result[parent.id] = parent;
-  _.transform(parent.children, byID, result);
+  if (parent.children) {
+    parent.children.reduce(byID, result);
+  }
+  return result;
 }
 
 ko.applyBindings(
@@ -211,7 +217,7 @@ ko.applyBindings(
   $('#work-attributes')[0]
 );
 
-MB.Control.initialize_guess_case('work', 'id-edit-work');
+initialize_guess_case('work', 'id-edit-work');
 
 const workLanguagesNode = document.getElementById('work-languages-editor');
 
@@ -258,10 +264,10 @@ function renderWorkLanguages() {
 store.subscribe(renderWorkLanguages);
 renderWorkLanguages();
 
-MB.Control.initializeBubble('#iswcs-bubble', 'input[name=edit-work\\.iswcs\\.0]');
+initializeBubble('#iswcs-bubble', 'input[name=edit-work\\.iswcs\\.0]');
 
 let typeIdField = 'select[name=edit-work\\.type_id]';
-MB.Control.initializeBubble('#type-bubble', typeIdField);
+initializeBubble('#type-bubble', typeIdField);
 $(typeIdField).on('change', function() {
   if (!this.value.match(/\S/g)) {
     $('.type-bubble-description').hide();

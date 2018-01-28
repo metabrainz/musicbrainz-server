@@ -13,6 +13,7 @@ const {
 const MB_entity = require('../../common/entity');
 const i18n = require('../../common/i18n');
 const MB = require('../../common/MB');
+const typeInfo = require('../../common/typeInfo');
 const clean = require('../../common/utility/clean');
 const formatDate = require('../../common/utility/formatDate');
 const formatDatePeriod = require('../../common/utility/formatDatePeriod');
@@ -172,7 +173,7 @@ const mergeDates = require('./mergeDates');
         }
 
         getLinkType() {
-            return MB.typeInfoByID[this.linkTypeID()];
+            return typeInfo.link_type.byId[this.linkTypeID()];
         }
 
         hasDates() {
@@ -481,7 +482,7 @@ const mergeDates = require('./mergeDates');
     fields.Relationship = Relationship;
 
     fields.LinkAttribute = function (data) {
-        var type = this.type = MB.attrInfoByID[data.type.gid];
+        var type = this.type = typeInfo.link_attribute_type[data.type.gid];
 
         if (type.creditable) {
             this.creditedAs = ko.observable(ko.unwrap(data.credited_as) || "");
@@ -575,7 +576,7 @@ const mergeDates = require('./mergeDates');
             return [];
         } else {
             return _.transform(attributes, function (accum, data) {
-                var attrInfo = MB.attrInfoByID[data.type.gid];
+                var attrInfo = typeInfo.link_attribute_type[data.type.gid];
 
                 if (attrInfo && linkType.attributes[attrInfo.rootID]) {
                     accum.push(data);

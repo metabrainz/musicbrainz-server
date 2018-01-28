@@ -117,7 +117,7 @@ export function update<S: *, A>(lens: Lens<S, A>, f: (a: A) => A, s: S): S {
 }
 
 function _merge<T: MapT>(a: T, b: T): T {
-  return assign({}, a, b);
+  return ((assign({}, a, b): any): T);
 }
 
 export function merge<S: *, A: MapT>(lens: Lens<S, A>, values: A, s: S): S {

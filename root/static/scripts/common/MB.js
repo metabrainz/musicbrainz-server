@@ -1,4 +1,5 @@
-/* Copyright (C) 2009 Oliver Charles
+/* @flow
+   Copyright (C) 2009 Oliver Charles
 
    This program is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -17,10 +18,12 @@
 
 'use strict';
 
+import * as constants from './constants';
+
 const global = require('../global');
 
 // Namespaces
-global.MB = {
+const MB: {[string]: *} = {
     // Classes, common controls used throughout MusicBrainz
     Control: {},
 
@@ -31,10 +34,12 @@ global.MB = {
     text: {},
 
     // Hold constants for knockout templates that depend on globals.
-    constants: require('./constants'),
+    constants,
 
     // Deprecated reference needed by knockout templates
     i18n: require('./i18n')
 };
+
+global.MB = MB;
 
 module.exports = MB;
