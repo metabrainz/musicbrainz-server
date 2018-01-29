@@ -52,10 +52,14 @@ if (isNodeJS) {
   };
 }
 
+const jsExt = /\.js(?:on)?$/;
 function js(manifest, extraAttrs={}) {
+  if (!jsExt.test(manifest)) {
+    manifest += '.js';
+  }
   return (
     <script
-      src={pathTo('scripts/' + manifest + '.js')}
+      src={pathTo('scripts/' + manifest)}
       {...extraAttrs}>
     </script>
   );
