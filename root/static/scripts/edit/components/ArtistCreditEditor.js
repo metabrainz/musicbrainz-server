@@ -29,6 +29,7 @@ const {
   prop,
 } = require('../../common/utility/lens');
 const nonEmpty = require('../../common/utility/nonEmpty');
+const {localStorage} = require('../../common/utility/storage');
 const ArtistCreditBubble = require('./ArtistCreditBubble');
 
 function setAutoJoinPhrases(ac) {
@@ -124,11 +125,11 @@ class ArtistCreditEditor extends React.Component {
       ac = [{artist: null, joinPhrase: '', name: ''}];
     }
 
-    MB.localStorage('copiedArtistCredit', JSON.stringify(ac));
+    localStorage('copiedArtistCredit', JSON.stringify(ac));
   }
 
   pasteArtistCredit() {
-    const ac = JSON.parse(MB.localStorage('copiedArtistCredit') || '[{}]');
+    const ac = JSON.parse(localStorage('copiedArtistCredit') || '[{}]');
     this.setState({artistCredit: ac});
   }
 

@@ -11,6 +11,7 @@ const {SERIES_ORDERING_TYPE_AUTOMATIC} = require('../common/constants');
 const MB = require('../common/MB');
 const clean = require('../common/utility/clean');
 const formatDate = require('../common/utility/formatDate');
+const {hasSessionStorage} = require('../common/utility/storage');
 const validation = require('../edit/validation');
 const {ViewModel} = require('./common/viewModel');
 
@@ -238,7 +239,7 @@ const {ViewModel} = require('./common/viewModel');
             submitted = submitted.concat(source.relationshipsInViewModel(vm)());
         }
 
-        if (submitted.length && MB.hasSessionStorage) {
+        if (submitted.length && hasSessionStorage) {
             window.sessionStorage.setItem('submittedRelationships', JSON.stringify(
                 _.map(submitted, function (relationship) {
                     var data = relationship.editData();
@@ -258,7 +259,7 @@ const {ViewModel} = require('./common/viewModel');
         if (vm = MB.sourceExternalLinksEditor) {
             vm.getFormData(formName + '.url', fieldCount, pushInput);
 
-            if (MB.hasSessionStorage && vm.state.links.length) {
+            if (hasSessionStorage && vm.state.links.length) {
                 window.sessionStorage.setItem('submittedLinks', JSON.stringify(vm.state.links));
             }
         }

@@ -17,6 +17,7 @@ const {
   } = require('../common/constants');
 const {compare, l} = require('../common/i18n');
 const MB = require('../common/MB');
+const {hasSessionStorage} = require('../common/utility/storage');
 const isPositiveInteger = require('./utility/isPositiveInteger');
 const HelpIcon = require('./components/HelpIcon');
 const RemoveButton = require('./components/RemoveButton');
@@ -476,7 +477,7 @@ MB.createExternalLinksEditor = function (options: InitialOptionsT) {
 
   // Terribly get seeded URLs
   if (MB.formWasPosted) {
-    if (MB.hasSessionStorage) {
+    if (hasSessionStorage) {
       let submittedLinks = window.sessionStorage.getItem('submittedLinks');
       if (submittedLinks) {
         initialLinks = JSON.parse(submittedLinks).filter(l => !isEmpty(l)).map(newLinkState);

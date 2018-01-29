@@ -10,6 +10,7 @@ const _ = require('lodash');
 const MB = require('../../common/MB');
 const parseDate = require('../../common/utility/parseDate');
 const request = require('../../common/utility/request');
+const {hasSessionStorage} = require('../../common/utility/storage');
 const fields = require('./fields');
 
 (function (RE) {
@@ -210,7 +211,7 @@ function addSubmittedRelationship(data, source) {
 }
 
 function addPostedRelationships(source) {
-    if (!MB.hasSessionStorage) {
+    if (!hasSessionStorage) {
         return;
     }
 
