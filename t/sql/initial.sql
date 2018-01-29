@@ -930,6 +930,17 @@ INSERT INTO series_type VALUES (9, 'Run', 'event', 6, 2, 'A series of performanc
 INSERT INTO work_alias_type VALUES (1, 'Work name', NULL, 0, NULL, 'a18cab3f-0ae2-3978-8f75-dd9c09702b25');
 INSERT INTO work_alias_type VALUES (2, 'Search hint', NULL, 0, NULL, '02238bc1-dfd8-39a8-bbf8-c697747291ec');
 
+INSERT INTO work_attribute_type VALUES (1, 'Key', '', false, NULL, 0, NULL, '7526c19d-3be4-3420-b6cc-9fb6e49fa1a9');
+INSERT INTO work_attribute_type VALUES (4, 'Rāga (Carnatic)', '', false, NULL, 2, NULL, 'fc6b57cc-d017-3a60-a59a-cbd23854b9d4');
+INSERT INTO work_attribute_type VALUES (14, 'Identifiers', '', false, NULL, 1, NULL, '588e1c46-c825-3aea-9068-9907f5c7c736');
+INSERT INTO work_attribute_type VALUES (6, 'ASCAP ID', '', true, 14, 0, NULL, 'd833318c-6c6a-370e-8b16-9cb15873ba76');
+INSERT INTO work_attribute_type VALUES (7, 'BMI ID', '', true, 14, 0, NULL, 'c8ac7e55-fd45-3002-9f89-e8b43911a479');
+
+INSERT INTO work_attribute_type_allowed_value VALUES (13, 1, 'E major', NULL, 13, NULL, '5fd130f8-4180-38d8-9a8a-2f49d783792c');
+INSERT INTO work_attribute_type_allowed_value VALUES (28, 1, 'A major', NULL, 28, NULL, '14e86ed3-7440-3d28-a095-405fc01692b7');
+INSERT INTO work_attribute_type_allowed_value VALUES (33, 1, 'B major', NULL, 33, NULL, '32ea711e-9df6-328c-a495-1e6e32e7253b');
+INSERT INTO work_attribute_type_allowed_value VALUES (35, 4, 'Ābhēri', NULL, 0, NULL, '64c06c3c-139b-3332-a757-109cfe240d99');
+
 INSERT INTO work_type VALUES (1, 'Aria', NULL, 2, 'An aria is a self-contained piece for one voice usually with orchestral accompaniment. They are most common inside operas, but also appear in cantatas, oratorios and even on their own (concert arias).', 'ae801f48-7a7f-3af6-91c7-456f82dae8a9');
 INSERT INTO work_type VALUES (2, 'Ballet', NULL, 2, 'A ballet is music composed to be used, together with a choreography, for a ballet dance production.', '6a90744c-1e07-3b88-b394-cd44cd68bd63');
 INSERT INTO work_type VALUES (3, 'Cantata', NULL, 2, 'A cantata is a vocal (often choral) composition with an instrumental (usually orchestral) accompaniment, typically in several movements.', '0db2f555-15f9-393f-af4c-739db5711146');
