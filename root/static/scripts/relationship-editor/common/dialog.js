@@ -67,7 +67,7 @@ const PART_OF_SERIES_LINK_TYPE_GIDS = _.values(PART_OF_SERIES_LINK_TYPES);
 
                         resultHook: function (items) {
                             if (dialog.autocomplete.entity === "series" &&
-                                    dialog.relationship().linkTypeInfo().orderableDirection !== 0) {
+                                    dialog.relationship().getLinkType().orderableDirection !== 0) {
                                 return _.filter(items, function (item) {
                                     return item.type.item_entity_type === dialog.source.entityType;
                                 });
@@ -328,13 +328,13 @@ const PART_OF_SERIES_LINK_TYPE_GIDS = _.values(PART_OF_SERIES_LINK_TYPES);
         }
 
         linkTypeDescription() {
-            var typeInfo = this.relationship().linkTypeInfo();
+            var linkType = this.relationship().getLinkType();
             var description;
 
-            if (typeInfo) {
+            if (linkType) {
                 description = i18n.l("{description} ({url|more documentation})", {
-                    description: typeInfo.description,
-                    url: { href: "/relationship/" + typeInfo.gid, target: "_blank" }
+                    description: linkType.description,
+                    url: { href: "/relationship/" + linkType.gid, target: "_blank" }
                 });
             }
 
@@ -356,10 +356,10 @@ const PART_OF_SERIES_LINK_TYPE_GIDS = _.values(PART_OF_SERIES_LINK_TYPES);
                 var itemType = MB.seriesTypesByID[this.source.typeID()].item_entity_type;
 
                 options = _.reject(options, function (opt) {
-                    var info = MB.typeInfoByID[opt.value];
+                    var linkType = MB.typeInfoByID[opt.value];
 
-                    if (_.includes(PART_OF_SERIES_LINK_TYPE_GIDS, info.gid) &&
-                            info.gid !== PART_OF_SERIES_LINK_TYPES[itemType]) {
+                    if (_.includes(PART_OF_SERIES_LINK_TYPE_GIDS, linkType.gid) &&
+                            linkType.gid !== PART_OF_SERIES_LINK_TYPES[itemType]) {
                         return true;
                     }
                 });
@@ -438,16 +438,16 @@ const PART_OF_SERIES_LINK_TYPE_GIDS = _.values(PART_OF_SERIES_LINK_TYPES);
         }
 
         linkTypeError() {
-            var typeInfo = this.relationship().linkTypeInfo();
+            var linkType = this.relationship().getLinkType();
 
-            if (!typeInfo) {
+            if (!linkType) {
                 return i18n.l("Please select a relationship type.");
-            } else if (!typeInfo.description) {
+            } else if (!linkType.description) {
                 return i18n.l("Please select a subtype of the currently selected relationship type. The selected relationship type is only used for grouping subtypes.");
-            } else if (typeInfo.deprecated) {
+            } else if (linkType.deprecated) {
                 return i18n.l("This relationship type is deprecated and should not be used.");
             } else if (this.source.entityType === "url") {
-                var checker = URLCleanup.validationRules[typeInfo.gid];
+                var checker = URLCleanup.validationRules[linkType.gid];
 
                 if (checker && !checker(this.source.name())) {
                     return i18n.l("This URL is not allowed for the selected link type, or is incorrectly formatted.");
@@ -460,7 +460,7 @@ const PART_OF_SERIES_LINK_TYPE_GIDS = _.values(PART_OF_SERIES_LINK_TYPES);
         targetEntityError() {
             var relationship = this.relationship();
             var target = relationship.target(this.source);
-            var typeInfo = relationship.linkTypeInfo() || {};
+            var linkType = relationship.getLinkType() || {};
 
             if (!target.gid) {
                 return i18n.l("Required field.");
@@ -469,7 +469,7 @@ const PART_OF_SERIES_LINK_TYPE_GIDS = _.values(PART_OF_SERIES_LINK_TYPES);
             }
 
             if (target.entityType === "series" &&
-                    _.includes(PART_OF_SERIES_LINK_TYPE_GIDS, typeInfo.gid) &&
+                    _.includes(PART_OF_SERIES_LINK_TYPE_GIDS, linkType.gid) &&
                     target.type().entityType !== this.source.entityType) {
                 return incorrectEntityForSeries[target.type().entityType];
             }
@@ -502,7 +502,7 @@ const PART_OF_SERIES_LINK_TYPE_GIDS = _.values(PART_OF_SERIES_LINK_TYPES);
 
             return this.linkTypeError() ||
                    this.targetEntityError() ||
-                   _(relationship.linkTypeInfo().attributes)
+                   _(relationship.getLinkType().attributes)
                      .values().map(_.bind(relationship.attributeError, relationship)).some() ||
                    this.dateError(relationship.begin_date) ||
                    this.dateError(relationship.end_date) ||
@@ -540,7 +540,7 @@ const PART_OF_SERIES_LINK_TYPE_GIDS = _.values(PART_OF_SERIES_LINK_TYPES);
                 return;
             }
 
-            if (relationship.linkTypeInfo().orderableDirection) {
+            if (relationship.getLinkType().orderableDirection) {
                 var group = source.getRelationshipGroup(relationship, viewModel);
                 var maxLinkOrder = -Infinity;
 

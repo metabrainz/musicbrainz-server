@@ -203,7 +203,7 @@ const {ViewModel} = require('./common/viewModel');
 
             pushInput(prefix, "link_type_id", editData.linkTypeID || "");
 
-            if (relationship.linkTypeInfo().orderableDirection !== 0) {
+            if (relationship.getLinkType().orderableDirection !== 0) {
                 if (relationship.added() || changeData.linkOrder) {
                     pushInput(prefix, "link_order", editData.linkOrder);
                 }

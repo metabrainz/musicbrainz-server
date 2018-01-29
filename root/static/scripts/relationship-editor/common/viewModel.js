@@ -182,10 +182,10 @@ function getRelationshipEditor(data, source) {
     }
 
     var target = data.target;
-    var typeInfo = MB.typeInfoByID[data.linkTypeID];
+    var linkType = MB.typeInfoByID[data.linkTypeID];
 
     if ((target && target.entityType === 'url') ||
-        (typeInfo && (typeInfo.type0 === 'url' || typeInfo.type1 === 'url'))) {
+        (linkType && (linkType.type0 === 'url' || linkType.type1 === 'url'))) {
         return; // handled by the external links editor
     }
 
@@ -230,23 +230,23 @@ function addRelationshipsFromQueryString(source) {
     var fields = parseQueryString(window.location.search);
 
     _.each(fields.rels, function (rel) {
-        var typeInfo = MB.typeInfoByID[rel.type];
+        var linkType = MB.typeInfoByID[rel.type];
         var targetIsUUID = uuidRegex.test(rel.target);
 
-        if (!typeInfo && !targetIsUUID) {
+        if (!linkType && !targetIsUUID) {
             // We need at least a link type or target gid
             return;
         }
 
         var target = targetIsUUID ? (MB.entityCache[rel.target] || { gid: rel.target }) : { name: rel.target };
 
-        if (typeInfo && !target.entityType) {
-            target.entityType = source.entityType === typeInfo.type0 ? typeInfo.type1 : typeInfo.type0;
+        if (linkType && !target.entityType) {
+            target.entityType = source.entityType === linkType.type0 ? linkType.type1 : linkType.type0;
         }
 
         var data = {
             target: target,
-            linkTypeID: typeInfo ? typeInfo.id : null,
+            linkTypeID: linkType ? linkType.id : null,
             begin_date: parseDate(rel.begin_date || ''),
             end_date: parseDate(rel.end_date || ''),
             ended: !!Number(rel.ended),
@@ -254,11 +254,11 @@ function addRelationshipsFromQueryString(source) {
             linkOrder: Number(rel.link_order) || 0
         };
 
-        if (typeInfo) {
+        if (linkType) {
             data.attributes = _.transform(rel.attributes, function (accum, attr) {
                 var attrInfo = MB.attrInfoByID[attr.type];
 
-                if (attrInfo && typeInfo.attributes[attrInfo.id]) {
+                if (attrInfo && linkType.attributes[attrInfo.id]) {
                     accum.push({
                         type: { gid: attr.type },
                         credit: attr.credited_as,

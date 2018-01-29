@@ -178,8 +178,8 @@ class ExternalLinksEditor extends React.Component<LinksEditorProps, LinksEditorS
         <tbody>
           {linksArray.map((link, index) => {
             var error;
-            var typeInfo = MB.typeInfoByID[link.type] || {};
-            var checker = URLCleanup.validationRules[typeInfo.gid];
+            var linkType = MB.typeInfoByID[link.type] || {};
+            var checker = URLCleanup.validationRules[linkType.gid];
             var oldLink = oldLinks[link.relationship];
 
             if (isEmpty(link)) {
@@ -192,7 +192,7 @@ class ExternalLinksEditor extends React.Component<LinksEditorProps, LinksEditorS
               error = l("Please don't use shortened URLs.");
             } else if (!link.type) {
               error = l('Please select a link type for the URL you’ve entered.');
-            } else if (typeInfo.deprecated && (!isPositiveInteger(link.relationship) || (oldLink && +link.type !== +oldLink.type))) {
+            } else if (linkType.deprecated && (!isPositiveInteger(link.relationship) || (oldLink && +link.type !== +oldLink.type))) {
               error = l('This relationship type is deprecated and should not be used.');
             } else if ((!isPositiveInteger(link.relationship) || (oldLink && link.url !== oldLink.url)) && checker && !checker(link.url)) {
               error = l('This URL is not allowed for the selected link type, or is incorrectly formatted.');
@@ -201,7 +201,7 @@ class ExternalLinksEditor extends React.Component<LinksEditorProps, LinksEditorS
               error = l('Links to specific sections of Wikipedia articles are not allowed. Please remove “{fragment}” if still appropriate. See the {url|guidelines}.', {
                 __react: true,
                 fragment: <span className='url-quote'>{link.url.replace(/^(?:https?:\/\/)?(?:[^.\/]+\.)?wikipedia\.org\/[^#]*#(.*)$/, '#$1')}</span>,
-                url: { href: '/relationship/' + typeInfo.gid, target: '_blank' }
+                url: { href: '/relationship/' + linkType.gid, target: '_blank' }
               });
             } else if ((linksByTypeAndUrl[linkTypeAndUrlString(link)] || []).length > 1) {
               error = l('This relationship already exists.');
@@ -219,7 +219,7 @@ class ExternalLinksEditor extends React.Component<LinksEditorProps, LinksEditorS
                 video={link.video}
                 errorMessage={error || ''}
                 isOnlyLink={this.state.links.length === 1}
-                urlMatchesType={typeInfo.gid === URLCleanup.guessType(this.props.sourceType, link.url)}
+                urlMatchesType={linkType.gid === URLCleanup.guessType(this.props.sourceType, link.url)}
                 removeCallback={_.bind(this.removeLink, this, index)}
                 urlChangeCallback={_.bind(this.handleUrlChange, this, index)}
                 urlBlurCallback={_.bind(this.handleUrlBlur, this, index)}
@@ -270,14 +270,14 @@ type LinkProps = {
 class ExternalLink extends React.Component<LinkProps> {
   render() {
     var props = this.props;
-    var typeInfo = MB.typeInfoByID[props.type] || {};
+    var linkType = MB.typeInfoByID[props.type] || {};
     var typeDescription = '';
     var faviconClass;
 
-    if (typeInfo.description) {
+    if (linkType.description) {
       typeDescription = l('{description} ({url|more documentation})', {
-        description: typeInfo.description,
-        url: '/relationship/' + typeInfo.gid
+        description: linkType.description,
+        url: '/relationship/' + linkType.gid
       });
     }
 
@@ -302,7 +302,7 @@ class ExternalLink extends React.Component<LinkProps> {
               </LinkTypeSelect>
             : <label>
                 {faviconClass && <span className={'favicon ' + faviconClass + '-favicon'}></span>}
-                {typeInfo.phrase || (props.isOnlyLink ? l('Add link:') : l('Add another link:'))}
+                {linkType.phrase || (props.isOnlyLink ? l('Add link:') : l('Add another link:'))}
               </label>}
         </td>
         <td>
@@ -312,7 +312,7 @@ class ExternalLink extends React.Component<LinkProps> {
                  onChange={props.urlChangeCallback}
                  onBlur={props.urlBlurCallback} />
           {props.errorMessage && <div className="error field-error" data-visible="1">{props.errorMessage}</div>}
-          {_.has(typeInfo.attributes, VIDEO_ATTRIBUTE_ID) &&
+          {_.has(linkType.attributes, VIDEO_ATTRIBUTE_ID) &&
             <div className="attribute-container">
               <label>
                 <input type="checkbox" checked={props.video} onChange={props.videoChangeCallback} /> {l('video')}

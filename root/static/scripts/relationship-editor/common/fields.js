@@ -147,17 +147,17 @@ const mergeDates = require('./mergeDates');
         }
 
         linkTypeIDChanged() {
-            var typeInfo = this.linkTypeInfo();
+            var linkType = this.getLinkType();
 
-            if (!typeInfo) {
+            if (!linkType) {
                 return;
             }
 
             // This should really only change if the relationship was initially
             // seeded without any link type.
-            this.entityTypes = typeInfo.type0 + '-' + typeInfo.type1;
+            this.entityTypes = linkType.type0 + '-' + linkType.type1;
 
-            var typeAttributes = typeInfo.attributes,
+            var typeAttributes = linkType.attributes,
                 attributes = this.attributes(), attribute;
 
             for (var i = 0, len = attributes.length; i < len; i++) {
@@ -171,13 +171,13 @@ const mergeDates = require('./mergeDates');
             }
         }
 
-        linkTypeInfo() {
+        getLinkType() {
             return MB.typeInfoByID[this.linkTypeID()];
         }
 
         hasDates() {
-            var typeInfo = this.linkTypeInfo();
-            return typeInfo ? (typeInfo.hasDates !== false) : true;
+            var linkType = this.getLinkType();
+            return linkType ? (linkType.hasDates !== false) : true;
         }
 
         added() { return !this.id }
@@ -285,8 +285,8 @@ const mergeDates = require('./mergeDates');
         }
 
         linkTypeAttributes() {
-            var typeInfo = this.linkTypeInfo();
-            return typeInfo ? _.values(typeInfo.attributes) : [];
+            var linkType = this.getLinkType();
+            return linkType ? _.values(linkType.attributes) : [];
         }
 
         attributeError(rootInfo) {
@@ -308,8 +308,8 @@ const mergeDates = require('./mergeDates');
         }
 
         _phraseAndExtraAttributes() {
-            const typeInfo = this.linkTypeInfo();
-            return linkPhrase.interpolate(typeInfo, this.attributes());
+            const linkType = this.getLinkType();
+            return linkPhrase.interpolate(linkType, this.attributes());
         }
 
         _linkPhrase(source, clean) {
@@ -323,8 +323,8 @@ const mergeDates = require('./mergeDates');
         }
 
         hasOrderableLinkType() {
-            const typeInfo = this.linkTypeInfo();
-            return !!(typeInfo && typeInfo.orderableDirection > 0);
+            const linkType = this.getLinkType();
+            return !!(linkType && linkType.orderableDirection > 0);
         }
 
         // Same as linkPhrase, but if the link type is orderable, then
@@ -369,10 +369,10 @@ const mergeDates = require('./mergeDates');
         }
 
         entityIsOrdered(entity) {
-            var typeInfo = this.linkTypeInfo();
-            if (!typeInfo) return false;
+            var linkType = this.getLinkType();
+            if (!linkType) return false;
 
-            var orderableDirection = typeInfo.orderableDirection;
+            var orderableDirection = linkType.orderableDirection;
             if (orderableDirection === 0) return false;
 
             var entities = this.entities();
@@ -569,15 +569,15 @@ const mergeDates = require('./mergeDates');
     }
 
     function validAttributes(relationship, attributes) {
-        var typeInfo = relationship.linkTypeInfo();
+        var linkType = relationship.getLinkType();
 
-        if (_.isEmpty(attributes) || _.isEmpty(typeInfo) || _.isEmpty(typeInfo.attributes)) {
+        if (_.isEmpty(attributes) || _.isEmpty(linkType) || _.isEmpty(linkType.attributes)) {
             return [];
         } else {
             return _.transform(attributes, function (accum, data) {
                 var attrInfo = MB.attrInfoByID[data.type.gid];
 
-                if (attrInfo && typeInfo.attributes[attrInfo.rootID]) {
+                if (attrInfo && linkType.attributes[attrInfo.rootID]) {
                     accum.push(data);
                 }
             });
