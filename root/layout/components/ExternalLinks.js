@@ -69,6 +69,7 @@ const ExternalLinks = ({entity, empty, heading}) => {
       links.push(
         <ExternalLink
           className="home-favicon"
+          key={relationship.id}
           relationship={relationship}
           text={l('Official homepage')}
         />
@@ -87,7 +88,7 @@ const ExternalLinks = ({entity, empty, heading}) => {
   });
 
   links.push.apply(links, otherLinks.map(function (relationship) {
-    return <ExternalLink relationship={relationship} />;
+    return <ExternalLink key={relationship.id} relationship={relationship} />;
   }));
 
   const entityType = entity.entityType;
