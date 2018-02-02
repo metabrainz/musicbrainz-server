@@ -3,7 +3,7 @@ FROM metabrainz/consul-template-base:v0.18.5-2
 
 ARG DEBIAN_FRONTEND=noninteractive
 
-RUN apt_install(`sudo')
+RUN apt_install(`rsync sudo')
 
 setup_mbs_root()
 

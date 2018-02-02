@@ -10,7 +10,7 @@ use File::Slurp qw( read_file );
 use HTTP::Status qw( RC_OK RC_NOT_MODIFIED );
 use JSON qw( decode_json );
 use Moose::Role;
-use MusicBrainz::Script::Utils qw( log retry );
+use MusicBrainz::Script::Utils qw( get_primary_keys log retry );
 use MusicBrainz::Server::Context;
 use MusicBrainz::Server::dbmirror;
 use MusicBrainz::Server::Replication qw( REPLICATION_ACCESS_URI );
@@ -363,7 +363,7 @@ sub handle_replication_sequence($$) {
 
         my @primary_keys = grep {
             should_follow_primary_key("$schema.$table.$_")
-        } $self->get_primary_keys($c, $schema, $table);
+        } get_primary_keys($c, $schema, $table);
 
         for my $pk_column (@primary_keys) {
             my $value = $conditions->{$pk_column} // $data->{$pk_column};

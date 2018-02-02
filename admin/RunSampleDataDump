@@ -1,0 +1,53 @@
+#!/bin/bash
+
+set -o errexit
+
+exec 220>/tmp/.RunSampleDataDump.lock || exit 1
+# Will be automatically released when the script exits.
+flock -n 220 || { echo "Failed to obtain lock. Another instance is running?" >&2; exit 1; }
+
+MB_SERVER_ROOT=$(cd "$(dirname "${BASH_SOURCE[0]}")/../" && pwd)
+cd "$MB_SERVER_ROOT"
+
+source admin/config.sh
+
+. ./admin/functions.sh
+make_temp_dir
+
+DUMP_DIR="$FTP_DATA_DIR/sample"
+DUMP_STAMP=`TZ=UTC date +'%Y%m%d-%H%M%S'`
+
+# Create necessary directories and set permissions.
+mkdir -m "$FTP_DIR_MODE" -p "$DUMP_DIR/$DUMP_STAMP"
+
+chown "$FTP_USER:$FTP_GROUP" \
+    "$DUMP_DIR" \
+    "$DUMP_DIR/$DUMP_STAMP"
+
+echo `date`" : Making a sample database dump"
+./admin/DumpSampleData \
+    --output-dir "$TEMP_DIR" \
+    --database READWRITE \
+    || exit $?
+
+# Copy the dump to the FTP directory.
+chown "$FTP_USER:$FTP_GROUP" "$TEMP_DIR"/*
+chmod "$FTP_FILE_MODE" "$TEMP_DIR"/*
+mv "$TEMP_DIR"/* "$DUMP_DIR/$DUMP_STAMP/"
+
+# Finally create a "latest-is" file, indicating the dump we just did.
+rm -rf "$DUMP_DIR"/latest-is-*
+> "$DUMP_DIR/latest-is-$DUMP_STAMP"
+chmod "$FTP_FILE_MODE" "$DUMP_DIR/latest-is-$DUMP_STAMP"
+chown "$FTP_USER:$FTP_GROUP" "$DUMP_DIR/latest-is-$DUMP_STAMP"
+
+# Finally finally, create a LATEST file whose *contents* are this dump's tag.
+rm -rf "$DUMP_DIR/LATEST"
+echo "$DUMP_STAMP" > "$DUMP_DIR/LATEST"
+chmod "$FTP_FILE_MODE" "$DUMP_DIR/LATEST"
+chown "$FTP_USER:$FTP_GROUP" "$DUMP_DIR/LATEST"
+
+./bin/delete-old-fullexports -k -r "$DUMP_DIR"
+MBS_ADMIN_CONFIG=config.sample-dump.sh ./bin/rsync-fullexport-files
+
+# eof
