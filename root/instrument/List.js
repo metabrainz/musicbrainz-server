@@ -1,4 +1,5 @@
-/* Copyright (C) 2018 Shamroy Pellew
+/* @flow
+ * Copyright (C) 2018 Shamroy Pellew
  *
  * This file is part of MusicBrainz, the open internet music database,
  * and is licensed under the GPL version 2, or (at your option) any
@@ -31,32 +32,46 @@ const Instrument = ({instrument}) => (
   </li>
 );
 
-const InstrumentList = () => (
-  <Layout title={l('Instrument List')} fullWidth={true}>
-    <div id="content">
-      <h1>{l('Instrument List')}</h1>
-      {$c.stash.types.map(type => (
-        <Frag>
-          <h2>{lp_attributes(type.name, 'instrument_type')}</h2>
-          <ul>
-            {$c.stash.entities[type.id].map(instrument => (
-              <Instrument key={instrument.id} instrument={instrument} />
-            ))}
-          </ul>
-        </Frag>
-      ))}
-      {($c.stash.entities.unknown && $c.stash.entities.unknown.length)
-        ? <Frag>
-            <h2>{l('Unclassified instrument')}</h2>
+const InstrumentList = () => {
+  const instrumentTypes = $c.stash.instrument_types;
+  if (!instrumentTypes) {
+    return null;
+  }
+
+  const instrumentsByType = $c.stash.instruments_by_type;
+  if (!instrumentsByType) {
+    return null;
+  }
+
+  const unknown = instrumentsByType.unknown;
+
+  return (
+    <Layout title={l('Instrument List')} fullWidth={true}>
+      <div id="content">
+        <h1>{l('Instrument List')}</h1>
+        {instrumentTypes.map(type => (
+          <Frag>
+            <h2>{lp_attributes(type.name, 'instrument_type')}</h2>
             <ul>
-              {$c.stash.entities.unknown.map(instrument => (
+              {instrumentsByType[type.id].map(instrument => (
                 <Instrument key={instrument.id} instrument={instrument} />
               ))}
             </ul>
           </Frag>
-        : null}
-    </div>
-  </Layout>
-);
+        ))}
+        {(unknown && unknown.length)
+          ? <Frag>
+              <h2>{l('Unclassified instrument')}</h2>
+              <ul>
+                {unknown.map(instrument => (
+                  <Instrument key={instrument.id} instrument={instrument} />
+                ))}
+              </ul>
+            </Frag>
+          : null}
+      </div>
+    </Layout>
+  );
+};
 
 module.exports = InstrumentList;

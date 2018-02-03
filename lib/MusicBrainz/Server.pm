@@ -436,8 +436,9 @@ sub TO_JSON {
         current_language
         current_language_html
         entity
-        entities
         hide_merge_helper
+        instrument_types
+        instruments_by_type
         jsonld_data
         last_replication_date
         linked_entities
@@ -447,7 +448,6 @@ sub TO_JSON {
         server_details
         server_languages
         to_merge
-        types
     );
 
     my %stash;

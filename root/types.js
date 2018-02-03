@@ -13,7 +13,16 @@
 // how data is serialized for us.
 
 type CatalystContextT = {
-  user_exists: bool;
+  stash: CatalystStashT,
+  user_exists: bool,
+};
+
+type CatalystStashT = {
+  instruments_by_type?: {
+    [number]: Array<InstrumentT>,
+    unknown: Array<InstrumentT>,
+  },
+  instrument_types?: Array<InstrumentTypeT>,
 };
 
 declare type CommonsImageT = {
@@ -30,6 +39,23 @@ declare type EntityT = {
   id: number;
   name: string;
 };
+
+declare type InstrumentT =
+  & EntityT
+  & {
+    +description: string,
+  };
+
+declare type InstrumentTypeT =
+  & EntityT
+  & OptionTreeT;
+
+declare type OptionTreeT = {|
+  +gid: string,
+  +parentID: number | null,
+  +childOrder: number,
+  +description: string,
+|};
 
 declare type RatableT = EntityT & {
   rating: number | null;
