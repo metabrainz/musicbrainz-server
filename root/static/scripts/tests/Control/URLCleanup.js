@@ -1523,6 +1523,10 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
                              input_url: 'http://www.lastfm.com/music/Carving+Colours',
                     expected_clean_url: 'http://www.last.fm/music/Carving+Colours',
         },
+        {
+                             input_url: 'https://www.last.fm/it/label/Shyrec#shoutbox',
+                    expected_clean_url: 'http://www.last.fm/label/Shyrec',
+        },
         // LiederNet Archive
         {
                              input_url: 'http://www.lieder.net/lieder/get_text.html?TextId=6448',
