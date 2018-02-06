@@ -1395,6 +1395,21 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
             expected_relationship_type: 'downloadfree',
                     expected_clean_url: 'http://www.jamendo.com/album/56372',
         },
+        // JOYSOUND
+        {
+                             input_url: 'https://www.joysound.com/web/search/artist/5169?startIndex=20#songlist',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'lyrics',
+                    expected_clean_url: 'https://www.joysound.com/web/search/artist/5169',
+               only_valid_entity_types: ['artist']
+        },
+        {
+                             input_url: 'https://www.joysound.com/web/search/song/155526#lyrics',
+                     input_entity_type: 'work',
+            expected_relationship_type: 'lyrics',
+                    expected_clean_url: 'https://www.joysound.com/web/search/song/155526',
+               only_valid_entity_types: ['work']
+        },
         // JUGEM
         {
                              input_url: 'http://milk-pu-rin.jugem.jp/',
