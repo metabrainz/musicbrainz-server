@@ -855,7 +855,7 @@ const CLEANUPS = {
     ],
     type: LINK_TYPES.streamingmusic,
     clean: function (url) {
-      url = url.replace(/^https?:\/\/(www\.)?deezer\.com\/(\w+)\/(\d+).*$/, "https://www.deezer.com/$2/$3");
+      url = url.replace(/^https?:\/\/(www\.)?deezer\.com\/(?:[a-z]{2}\/)?(\w+)\/(\d+).*$/, "https://www.deezer.com/$2/$3");
       return url;
     }
   },
