@@ -1537,6 +1537,28 @@ const CLEANUPS = {
       return id === LINK_TYPES.otherdatabases.artist && /^http:\/\/operabase\.com\/a\/[^\/?#]+\/[0-9]+$/.test(url);
     }
   },
+  petitlyrics: {
+    match: [new RegExp("^(https?://)?([^/]+\\.)?petitlyrics\\.com/", "i")],
+    type: LINK_TYPES.lyrics,
+    clean: function (url) {
+      return url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?petitlyrics\.com\/(lyrics(?:\/artist)?\/\d+|lyrics\/album\/[^?]+).*$/, "https://petitlyrics.com/$1");
+    },
+    validate: function (url, id) {
+      var m = /^https:\/\/petitlyrics\.com\/(lyrics(?:\/album|\/artist)?)\/.+$/.exec(url);
+      if (m) {
+        var prefix = m[1];
+        switch (id) {
+          case LINK_TYPES.lyrics.artist:
+            return prefix === 'lyrics/artist';
+          case LINK_TYPES.lyrics.release_group:
+            return prefix === 'lyrics/album';
+          case LINK_TYPES.lyrics.work:
+            return prefix === 'lyrics';
+        }
+      }
+      return false;
+    }
+  },
   rockcomar: {
     match: [new RegExp("^(https?://)?(www\\.)?rock\\.com\\.ar", "i")],
     type: LINK_TYPES.otherdatabases,
