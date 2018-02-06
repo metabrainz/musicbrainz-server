@@ -1196,6 +1196,36 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
             expected_relationship_type: 'otherdatabases',
                only_valid_entity_types: []
         },
+        // Hoick Music Search
+        {
+                             input_url: 'http://hoick.jp/mdb/author/%E4%BD%90%E7%80%AC%E5%AF%BF%E4%B8%80',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'lyrics',
+                    expected_clean_url: 'https://hoick.jp/mdb/author/%E4%BD%90%E7%80%AC%E5%AF%BF%E4%B8%80',
+               only_valid_entity_types: ['artist']
+        },
+        {
+                             input_url: 'hoick.jp/mdb/detail/3467/%E3%81%8A%E3%82%88%E3%81%92!%E3%81%9F%E3%81%84%E3%82%84%E3%81%8D%E3%81%8F%E3%82%93#rev_conte',
+                     input_entity_type: 'work',
+            expected_relationship_type: 'lyrics',
+                    expected_clean_url: 'https://hoick.jp/mdb/detail/3467/%E3%81%8A%E3%82%88%E3%81%92!%E3%81%9F%E3%81%84%E3%82%84%E3%81%8D%E3%81%8F%E3%82%93',
+               only_valid_entity_types: ['work']
+        },
+        // Hoick Online Shop
+        {
+                             input_url: 'http://hoick.jp/products/detail/18578/%E3%81%9F%E3%81%A3%E3%81%B7%E3%82%8A!%E3%81%95%E3%81%84%E3%81%97%E3%82%93%E3%82%AD%E3%83%83%E3%82%BA%E3%82%BD%E3%83%B3%E3%82%B0%20%E3%82%B6%E3%83%BB%E3%83%99%E3%82%B9%E3%83%8851#review_contents',
+                     input_entity_type: 'release',
+            expected_relationship_type: 'mailorder',
+                    expected_clean_url: 'https://hoick.jp/products/detail/18578/%E3%81%9F%E3%81%A3%E3%81%B7%E3%82%8A!%E3%81%95%E3%81%84%E3%81%97%E3%82%93%E3%82%AD%E3%83%83%E3%82%BA%E3%82%BD%E3%83%B3%E3%82%B0%20%E3%82%B6%E3%83%BB%E3%83%99%E3%82%B9%E3%83%8851',
+               only_valid_entity_types: ['release']
+        },
+        {
+                             input_url: 'https://hoick.jp/products/detail/18578/%E3%81%9F%E3%81%A3%E3%81%B7%E3%82%8A!%E3%81%95%E3%81%84%E3%81%97%E3%82%93%E3%82%AD%E3%83%83%E3%82%BA%E3%82%BD%E3%83%B3%E3%82%B0%20%E3%82%B6%E3%83%BB%E3%83%99%E3%82%B9%E3%83%8851',
+                     input_entity_type: 'release_group',
+            expected_relationship_type: undefined,
+               input_relationship_type: 'lyrics',
+               only_valid_entity_types: []
+        },
         // (VICTOR STUDIO) HD-Music.
         {
                              input_url: 'http://hd-music.info/album.cgi/913',
