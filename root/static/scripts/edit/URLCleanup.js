@@ -857,6 +857,21 @@ const CLEANUPS = {
     clean: function (url) {
       url = url.replace(/^https?:\/\/(www\.)?deezer\.com\/(?:[a-z]{2}\/)?(\w+)\/(\d+).*$/, "https://www.deezer.com/$2/$3");
       return url;
+    },
+    validate: function (url, id) {
+      var m = /^https:\/\/www\.deezer\.com\/([a-z]+)\/(?:\d+)$/.exec(url);
+      if (m) {
+        var prefix = m[1];
+        switch (id) {
+          case LINK_TYPES.streamingmusic.artist:
+            return prefix === 'artist';
+          case LINK_TYPES.streamingmusic.release:
+            return prefix === 'album';
+          case LINK_TYPES.streamingmusic.recording:
+            return prefix === 'track';
+        }
+      }
+      return false;
     }
   },
   spotifyuseraccount: {
