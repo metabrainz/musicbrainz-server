@@ -853,9 +853,10 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
             expected_relationship_type: 'streamingmusic',
         },
         {
-                             input_url: 'http://www.deezer.com/album/497382',
+                             input_url: 'http://www.deezer.com/en/album/497382',
                      input_entity_type: 'release',
             expected_relationship_type: 'streamingmusic',
+                    expected_clean_url: 'https://www.deezer.com/album/497382',
         },
         // DHHU
         {
