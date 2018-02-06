@@ -1015,10 +1015,10 @@ const CLEANUPS = {
     match: [new RegExp("^(https?://)?vgmdb\\.(net|com)/", "i")],
     type: LINK_TYPES.vgmdb,
     clean: function (url) {
-      return url.replace(/^(?:https?:\/\/)?vgmdb\.(?:net|com)\/(album|artist|event|org)\/([0-9]+).*$/, "http://vgmdb.net/$1/$2");
+      return url.replace(/^(?:https?:\/\/)?vgmdb\.(?:net|com)\/(album|artist|event|org)\/([0-9]+).*$/, "https://vgmdb.net/$1/$2");
     },
     validate: function (url, id) {
-      var m = /^http:\/\/vgmdb\.net\/(album|artist|org|event)\/[1-9][0-9]*$/.exec(url);
+      var m = /^https:\/\/vgmdb\.net\/(album|artist|org|event)\/[1-9][0-9]*$/.exec(url);
       if (m) {
         var prefix = m[1];
         switch (id) {
