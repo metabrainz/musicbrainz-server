@@ -1461,6 +1461,30 @@ const CLEANUPS = {
             || id === LINK_TYPES.otherdatabases.work);
     }
   },
+  hoick: {
+    match: [new RegExp("^(https?://)?([^/]+\\.)?hoick\\.jp/", "i")],
+    type: _.defaults({}, LINK_TYPES.lyrics, LINK_TYPES.mailorder),
+    clean: function (url) {
+      return url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?hoick\.jp\/(mdb\/detail\/\d+|mdb\/author|products\/detail\/\d+)\/([^\/?#]+).*$/, "https://hoick.jp/$1/$2");
+    },
+    validate: function (url, id) {
+      var m = /^https:\/\/hoick\.jp\/(mdb|products)\/(author|detail)(\/\d+)?\/[^\/?#]+$/.exec(url);
+      if (m) {
+        var db = m[1];
+        var type = m[2];
+        var slashRef = m[3];
+        switch (id) {
+          case LINK_TYPES.lyrics.artist:
+            return db === 'mdb' && type === 'author' && slashRef === undefined;
+          case LINK_TYPES.mailorder.release:
+            return db === 'products' && type === 'detail' && slashRef !== undefined;
+          case LINK_TYPES.lyrics.work:
+            return db === 'mdb' && type === 'detail' && slashRef !== undefined;
+        }
+      }
+      return false;
+    }
+  },
   irishtune: {
     match: [new RegExp("^(https?://)?(www\\.)?irishtune\\.info","i")],
     type: LINK_TYPES.otherdatabases,
