@@ -1481,6 +1481,26 @@ const CLEANUPS = {
       return false;
     }
   },
+  joysound: {
+    match: [new RegExp("^(https?://)?([^/]+\\.)?joysound\\.com/", "i")],
+    type: LINK_TYPES.lyrics,
+    clean: function (url) {
+      return url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?joysound\.com\/(web\/search\/(?:artist|song)\/\d+).*$/, "https://www.joysound.com/$1");
+    },
+    validate: function (url, id) {
+      var m = /^https:\/\/www.joysound\.com\/web\/search\/(artist|song)\/\d+$/.exec(url);
+      if (m) {
+        var prefix = m[1];
+        switch (id) {
+          case LINK_TYPES.lyrics.artist:
+            return prefix === 'artist';
+          case LINK_TYPES.lyrics.work:
+            return prefix === 'song';
+        }
+      }
+      return false;
+    }
+  },
   livefans: {
     match: [new RegExp("^(https?://)?(www\\.)?livefans\\.jp", "i")],
     type: LINK_TYPES.otherdatabases,
