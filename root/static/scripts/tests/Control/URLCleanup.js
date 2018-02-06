@@ -1820,6 +1820,28 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
                              input_url: 'https://www.paypal.me/example?q=test',
                     expected_clean_url: 'https://www.paypal.me/example',
         },
+        // Petit Lyrics
+        {
+                             input_url: 'https://petitlyrics.com/lyrics/artist/24786/2-1.html',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'lyrics',
+                    expected_clean_url: 'https://petitlyrics.com/lyrics/artist/24786',
+               only_valid_entity_types: ['artist']
+        },
+        {
+                             input_url: 'petitlyrics.com/lyrics/1039367',
+                     input_entity_type: 'work',
+            expected_relationship_type: 'lyrics',
+                    expected_clean_url: 'https://petitlyrics.com/lyrics/1039367',
+               only_valid_entity_types: ['work']
+        },
+        {
+                             input_url: 'https://petitlyrics.com/lyrics/album/4e484be3818ae3818be38182e38195e38293e381a8e38184e381a3e38197e3828720e69c80e696b0e38399e382b9e38388e3808ce381bfe38293e381aae381aee383aae382bae383a0e3808d?artist=%E6%A8%AA%E5%B1%B1%E3%81%A0%E3%81%84%E3%81%99%E3%81%91%2C%E4%B8%89%E8%B0%B7%E3%81%9F%E3%81%8F%E3%81%BF',
+                     input_entity_type: 'release_group',
+            expected_relationship_type: 'lyrics',
+                    expected_clean_url: 'https://petitlyrics.com/lyrics/album/4e484be3818ae3818be38182e38195e38293e381a8e38184e381a3e38197e3828720e69c80e696b0e38399e382b9e38388e3808ce381bfe38293e381aae381aee383aae382bae383a0e3808d',
+               only_valid_entity_types: ['release_group']
+        },
         // Pinterest
         {
                              input_url: 'uk.pinterest.com/tucenter/pins/#',
