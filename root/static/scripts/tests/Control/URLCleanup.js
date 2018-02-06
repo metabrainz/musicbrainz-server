@@ -834,29 +834,41 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
                              input_url: 'http://www.deezer.com/artist/243332',
                      input_entity_type: 'artist',
             expected_relationship_type: 'streamingmusic',
+               only_valid_entity_types: ['artist']
         },
         {
                              input_url: 'http://www.deezer.com/artist/6509511?test',
                      input_entity_type: 'artist',
             expected_relationship_type: 'streamingmusic',
                     expected_clean_url: 'https://www.deezer.com/artist/6509511',
+               only_valid_entity_types: ['artist']
         },
         {
                              input_url: 'https://deezer.com/album/8935347',
                      input_entity_type: 'release',
             expected_relationship_type: 'streamingmusic',
                     expected_clean_url: 'https://www.deezer.com/album/8935347',
+               only_valid_entity_types: ['release']
         },
         {
                              input_url: 'http://www.deezer.com/track/3437226',
                      input_entity_type: 'recording',
             expected_relationship_type: 'streamingmusic',
+               only_valid_entity_types: ['recording']
         },
         {
                              input_url: 'http://www.deezer.com/en/album/497382',
                      input_entity_type: 'release',
             expected_relationship_type: 'streamingmusic',
                     expected_clean_url: 'https://www.deezer.com/album/497382',
+               only_valid_entity_types: ['release']
+        },
+        {
+                             input_url: 'https://www.deezer.com/profile/18671676',
+                     input_entity_type: 'artist',
+            expected_relationship_type: undefined,
+               input_relationship_type: 'streamingmusic',
+               only_valid_entity_types: []
         },
         // DHHU
         {
