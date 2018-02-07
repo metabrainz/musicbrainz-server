@@ -71,7 +71,16 @@ const Head = (props) => (
     </noscript>
 
     {manifest.js('rev-manifest')}
-    {manifest.js('jed-' + $c.stash.current_language)}
+
+    {manifest.js('common/i18n/jedData.json')}
+
+    {$c.stash.current_language !== 'en'
+      ? ['mb_server'].concat(props.gettext_domains || []).map(function (domain) {
+          const name = 'jed-' + $c.stash.current_language + '-' + domain;
+          return manifest.js(name, {key: name});
+        })
+      : null}
+
     {manifest.js('common', {
       'data-args': JSON.stringify({
         user: $c.user ? {id: $c.user.id, name: $c.user.name} : null,

@@ -322,13 +322,6 @@ msgid ""
 "A tenor banjo is a four-string banjo with tenor tuning, usually C G D A."
 msgstr ""
 
-#. name:tenor violin 
-#: DB:instrument/description:615
-msgid ""
-"A tenor violin is an instrument with a range between those of the cello and "
-"the viola."
-msgstr ""
-
 #. name:tom-tom 
 #: DB:instrument/description:462
 msgid ""
@@ -565,6 +558,26 @@ msgid ""
 "metal cone, it is used in the traditional Cobla and Sardana music."
 msgstr ""
 
+#. name:viol family 
+#: DB:instrument/description:899
+msgid ""
+"Developed in the 15th century from Vihuelists starting to play with bows, "
+"viols have frets, flat backs, sloped shoulders, c-holes and are tuned in "
+"fourths. The members are: * Violone (double-bass viol) * Viola da gamba "
+"(Bass viol) * Tenor viol * Alt viol * Treble or Diskant viol"
+msgstr ""
+
+#. name:violin family 
+#: DB:instrument/description:59
+msgid ""
+"Developed in the 16th century, these violas da braccio are distinct from the "
+"violas da gamba family. Modern members are * Violin (little viola) * Viola * "
+"Violoncello (small big viola) * Double Bass (replacing the violone (big "
+"viola)) Past members include the violone (now a considered a viol) and bass "
+"viol (a forerunner to the violoncello) Occasionally Octobass is included as "
+"a member."
+msgstr ""
+
 #. name:laouto 
 #: DB:instrument/description:704
 msgid ""
@@ -748,6 +761,14 @@ msgstr ""
 #. name:huqin 
 #: DB:instrument/description:213
 msgid "Huqin is a Chinese family of bowed string instruments."
+msgstr ""
+
+#. name:baroque rackett 
+#: DB:instrument/description:897
+msgid ""
+"Improved by Johann Christoph Denner sometime around 1730, its \"coiled snake"
+"\" bore now is conical, in addition it is played through a removable metal "
+"curled mouth piece."
 msgstr ""
 
 #. name:viololyra 
@@ -975,6 +996,15 @@ msgid ""
 "series."
 msgstr ""
 
+#. name:violin octet 
+#: DB:instrument/description:898
+msgid ""
+"New Violin Family of eight proportionally-sized violins developed mainly by "
+"Carleen Hutchins, each based directly on the standard violin and its "
+"acoustic properties, thus their sound is at a more homogeneous pitch \"near "
+"the two middle open strings.\""
+msgstr ""
+
 #. name:Northumbrian pipes 
 #: DB:instrument/description:358
 msgid "Northumbrian (small)pipes"
@@ -1005,6 +1035,14 @@ msgid ""
 "Originally introduced to Mongolia from China, it has 13 double wire-strings "
 "and a black lacquered wooden soundboard. Traditionally it was only played by "
 "townspeople."
+msgstr ""
+
+#. name:renaissance rackett 
+#: DB:instrument/description:896
+msgid ""
+"Originating 1590 or earlier and made of wood or ivory, it had nine parallel "
+"cylindrical bores joined up at the top and bottom creating a continuous bore "
+"like a curled up snake. Its reed is attached to a center pirouette."
 msgstr ""
 
 #. name:kokle 
@@ -1149,6 +1187,13 @@ msgstr ""
 msgid ""
 "Six-stringed lute-harp from Wassoulou, West Africa. Traditionally played by "
 "hunters, its resonator box is made of calabash covered by animal skin."
+msgstr ""
+
+#. name:bass violin 
+#: DB:instrument/description:900
+msgid ""
+"Sixteenth century predecessor of the violoncello, it was fretless with f-"
+"holes and had at first three, then later four, strings tuned in fifths."
 msgstr ""
 
 #. name:slide brass instruments 
@@ -3278,6 +3323,33 @@ msgid ""
 "It was for signalling, but also ceremonial and ritual use."
 msgstr ""
 
+#. name:soprano violin 
+#: DB:instrument/description:210
+msgid ""
+"Tuned a fourth above and about three quarters the size of a standard violin."
+msgstr ""
+
+#. name:treble violin 
+#: DB:instrument/description:209
+msgid ""
+"Tuned an octave above and about quarter the size of the traditional violin."
+msgstr ""
+
+#. name:tenor violin 
+#: DB:instrument/description:615
+msgid ""
+"Tuned an octave below the traditional violin and at about half the size of "
+"the cello, it has a range between the cello and the viola. It has a longer "
+"neck and thinner ribs than the cello."
+msgstr ""
+
+#. name:alto violin 
+#: DB:instrument/description:174
+msgid ""
+"Tuned the same as the viola but larger in size, it is played upright like "
+"the cello."
+msgstr ""
+
 #. name:classical kemençe 
 #: DB:instrument/description:542
 msgid "Turkish bowl-shaped kemenche, mainly used in classical Ottoman music"
@@ -3364,6 +3436,20 @@ msgstr ""
 #. name:violone 
 #: DB:instrument/description:420
 msgid "Violone, The largest/deepest member of the Viol family"
+msgstr ""
+
+#. name:viola da gamba 
+#: DB:instrument/description:93
+msgid ""
+"When not specified, \"viola da gamba\" usually means the bass viol member."
+msgstr ""
+
+#. name:viola d'amore 
+#: DB:instrument/description:94
+msgid ""
+"While it is fretless and played like the violins \"a la braccia\", it has a "
+"flat back, c-holes and sloping shoulders like a viol. From the baroque "
+"period, it has up to 14 strings."
 msgstr ""
 
 #. name:porotiti 

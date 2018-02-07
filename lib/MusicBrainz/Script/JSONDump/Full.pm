@@ -36,20 +36,6 @@ has force_update_entity_types => (
                       '(default: no force-updates)'),
 );
 
-has sample_dump => (
-    is => 'ro',
-    isa => 'Bool',
-    default => 0,
-    traits => ['Getopt'],
-    cmd_flag => 'sample-dump',
-    documentation => ('generate a sample dump instead (default: disabled)'),
-);
-
-has sample_entities => (
-    is => 'rw',
-    isa => 'Maybe[HashRef]',
-);
-
 has worker_count => (
     is => 'ro',
     isa => 'Int',
@@ -97,10 +83,6 @@ sub do_batch {
         lte_id => $lte_id,
         force_update => $self->force_update_entity_types,
     );
-
-    if ($self->sample_dump) {
-        $extra_options{rows} = $self->sample_entities->{$entity_type};
-    }
 
     $self->fetch_entities_json(
         $c, $entity_type, $replication_sequence, undef,
@@ -155,10 +137,6 @@ sub run_impl {
 
     log('Dumping JSON for the following entity types: ' .
         join(', ', @dumped_entity_types));
-
-    if ($self->sample_dump) {
-        $self->sample_entities(get_sample_entities($c));
-    }
 
     for my $entity_type (@dumped_entity_types) {
         log("Dumping $entity_type JSON");

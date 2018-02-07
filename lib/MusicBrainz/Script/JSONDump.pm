@@ -21,8 +21,6 @@ use MusicBrainz::Script::Utils qw( log retry );
 use MusicBrainz::Server::Constants qw( %ENTITIES );
 use MusicBrainz::Server::JSONLookup qw( json_lookup );
 use Readonly;
-use String::ShellQuote qw( shell_quote );
-use Time::HiRes qw( gettimeofday tv_interval );
 use Try::Tiny;
 
 with 'MooseX::Getopt';
@@ -94,7 +92,7 @@ EOF
 
     my $mbdump = MusicBrainz::Script::MBDump->new(
         c => $c,
-        compression => '',
+        compression => 'xz',
         output_dir => $self->output_dir,
         %mbdump_options,
     );
@@ -111,27 +109,11 @@ EOF
     move($dump_fpath, $dest_dump_fpath) or die $!;
 
     if ($self->compression_enabled) {
-        my $tar_file = "$dump_fname.tar";
-
         $mbdump->make_tar(
-            $tar_file,
+            "$dump_fname.tar.xz",
             "mbdump/$dump_fname",
             'JSON_DUMPS_SCHEMA_NUMBER',
         );
-
-        my $t0 = [gettimeofday];
-
-        log("Compressing $tar_file with xz");
-
-        my $tar_path = catfile($mbdump->output_dir, $tar_file);
-        system qw( xz -T 0 -k -z ), $tar_path;
-        $? == 0 or die "xz returned $?";
-
-        log(sprintf "xz completed in %d seconds\n", tv_interval($t0));
-
-        unlink $tar_path;
-
-        $mbdump->gpg_sign("$tar_path.xz");
     } else {
         move($mbdump->export_dir,
              catdir($mbdump->output_dir, $dump_fname)) or die $!;
@@ -346,7 +328,7 @@ sub insert_entities_json {
     my @inserts;
 
     my $commit_inserts = sub {
-        my $values_placholders =
+        my $values_placeholders =
             join q(, ), (('(?, ?, ?, ?)') x (@inserts / 4));
 
         # retry: transient "server closed the connection unexpectedly" errors
@@ -356,7 +338,7 @@ sub insert_entities_json {
             $c->sql->do(<<"SQL", @inserts);
                 INSERT INTO json_dump.${entity_type}_json
                     (id, replication_sequence, json, last_modified)
-                VALUES $values_placholders
+                VALUES $values_placeholders
                 ON CONFLICT DO NOTHING
 SQL
         }, reason => 'inserting JSON');

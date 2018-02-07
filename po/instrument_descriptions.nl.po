@@ -2,12 +2,12 @@
 # Translators:
 # reneweesp <email address hidden>, 2017
 # Maurits Meulenbelt <email address hidden>, 2012
-# Maurits Meulenbelt <email address hidden>, 2013-2017
+# Maurits Meulenbelt <email address hidden>, 2013-2018
 # Nikolai Prokoschenko <email address hidden>, 2011
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2017-12-26 15:20+0000\n"
+"PO-Revision-Date: 2018-02-03 11:31+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -123,18 +123,6 @@ msgid ""
 "A dolceola is a musical instrument resembling a miniature piano, but which "
 "is in fact a zither with a keyboard."
 msgstr "Een dolceola is een muziekinstrument dat lijkt op een minipiano, maar eigenlijk een citer met een toetsenbord is."
-
-#. name:duck call
-#: DB:instrument/description:649
-msgid "A duck call is a tool used to emulate the sound of a duck."
-msgstr "Een eendenlokfluitje wordt gebruikt om het geluid van een eend na te bootsen."
-
-#. name:fife
-#: DB:instrument/description:514
-msgid ""
-"A fife is a small, high-pitched, transverse flute that is similar to the "
-"piccolo, but louder and shriller due to its narrower bore."
-msgstr "Een pijperfluit is een kleine dwarsfluit, vergelijkbaar met de piccolo, maar met een harder en scheller geluid dankzij een smallere boring."
 
 #. name:five-string banjo
 #: DB:instrument/description:523
@@ -489,16 +477,6 @@ msgstr "Doedelzakken die bespeeld worden door lucht in een luchtzak en van de lu
 msgid "Balafon, Malian 'gourd xylophone'"
 msgstr "Een balafoon, soort xylofoon van kalebasflessen uit Mali."
 
-#. name:bandura
-#: DB:instrument/description:393
-msgid "Bandura, Ukrainian 14th century lute"
-msgstr "Een bandura is een Oekraïense luit uit de veertiende eeuw."
-
-#. name:bandura
-#: DB:instrument/description:394
-msgid "Bandura, modern day Ukrainian zither"
-msgstr "Een bandura is een moderne Oekraïense citer."
-
 #. name:bass guitar
 #: DB:instrument/description:207
 msgid "Bass (modern, typically electrical, but not always)"
@@ -512,6 +490,11 @@ msgid ""
 "(a.k.a. contrabass, acoustic upright bass, wood bass). Please use the "
 "correct instrument if you know which one is intended."
 msgstr "Bas is een veel voorkomende maar algemene naam die verwijst naar meerdere instrumenten, vooral de basgitaar en de contrabas. Gebruik het correcte instrument als je weet welke bedoeld wordt."
+
+#. name:daruan
+#: DB:instrument/description:546
+msgid "Bass member of Chinese ruan family of lutes."
+msgstr "De daruan (letterlijk: grote ruan) is het basinstrument uit de Chinese luitenfamilie ruan."
 
 #. name:berda
 #: DB:instrument/description:828
@@ -562,6 +545,11 @@ msgid ""
 "instrument if you know which one is intended."
 msgstr "Klokkenspel of chimes kan verwijzen naar verschillende muziekinstrumenten, waaronder buisklokken, de windgong of de bellenboom. Gebruik het juiste instrument als je weet welke bedoeld wordt."
 
+#. name:naobo
+#: DB:instrument/description:599
+msgid "Chinese cymbals specially used in the Beijing opera."
+msgstr ""
+
 #. name:ching
 #: DB:instrument/description:618
 msgid ""
@@ -601,7 +589,7 @@ msgid ""
 "combination of the harpsichord (pt:cravo) and the Viola caipira. It can have"
 " six or twelve nylon or steel strings and are produced solely by company "
 "Giannini."
-msgstr ""
+msgstr "Een craviola is een gitaar met een karakteristieke asymmetrische vorm. Het klinkt als een combinatie van een klavecimbel (Portugees: cravo) en een viola caipira. Craviola’s kunnen zes of twaalf snaren hebben, zowel van nylon als van staal, en worden alleen door het bedrijf Giannini geproduceerd."
 
 #. name:dobro
 #: DB:instrument/description:184
@@ -631,7 +619,7 @@ msgid ""
 "Effectively a small electric guitar-piano hybrid, it is played by tapping "
 "the multiple isometric arranged strings that are stretched over a long flat "
 "board."
-msgstr ""
+msgstr "Een harpejji is eigenlijk een kleine hybride tussen een elektrische gitaar en een piano, en wordt bespeeld door te tikken op meerdere parallel gespannen snaren die over een lang plat bord zijn gespannen."
 
 #. name:effects
 #: DB:instrument/description:677
@@ -734,7 +722,7 @@ msgstr "Griekse panfluit"
 #. name:gusli
 #: DB:instrument/description:423
 msgid "Gusli, an ancient Slavic musical instrument, Russian"
-msgstr "Een Gusli (Russisch: гу́сли) is een Russisch tokkelinstrument."
+msgstr "Een goesli (Russisch: гу́сли) is een Russisch tokkelinstrument."
 
 #. name:hard disk drive
 #: DB:instrument/description:603
@@ -808,6 +796,13 @@ msgid ""
 "guitar with electronic organ wiring and knobs added."
 msgstr "De gitorgel is een elektrische gitaar met onderdelen van een elektrisch orgel."
 
+#. name:handpan
+#: DB:instrument/description:512
+msgid ""
+"Invented initially as the Hang, it is made of two tuned metal convex pans "
+"glued together creating an UFO shape."
+msgstr "De handpan werd ontwikkeld als de Hang. Het is gemaakt van twee gestemde bolle pannen die zo op elkaar zijn gelijmd dat het geheel eruitziet als een ufo."
+
 #. name:taiko
 #: DB:instrument/description:378
 msgid "Japanese traditional drum beaten with sticks called bachi."
@@ -860,6 +855,14 @@ msgid ""
 "and free at the other end. The free end is plucked, causing the plate to "
 "vibrate."
 msgstr "Lamellofonen zijn muziekinstrumenten met één of meer lange dunne plaatjes (lamellen of tongen) die aan één kant vast zitten en waarvan de andere kant vrij kan bewegen. Door deze plaatjes aan te slaan, gaan ze vibreren, waardoor geluid ontstaat."
+
+#. name:bandura
+#: DB:instrument/description:394
+msgid ""
+"Large box lute-zither with a short, unfretted neck. It has 30 or more "
+"strings fanned out on the body, the four to eight bass strings are strung to"
+" the neck."
+msgstr "Een bandoera is een groot snaarinstrument dat overeenkomsten vertoont met de luit en de citer. Het heeft een korte hals zonder fretten en dertig of meer snaren die over de hele klankkast zijn gespannen. De vier tot acht bassnaren worden over de hals gespannen."
 
 #. name:Scottish smallpipes
 #: DB:instrument/description:427
@@ -922,7 +925,7 @@ msgid ""
 "Made of tubing with holes that may have everything from none to two reeds, "
 "water instead of air comes out of the holes. Sound is produced by covering "
 "the holes with fingers, altering the flow of water through the holes."
-msgstr ""
+msgstr "Een hydraulofoon is gemaakt van een buis met gaten met daarin geen, enkel of dubbel riet. Door de gaten stroomt water naar buiten, en het geluid wordt gemanipuleerd door gaten met de vinger af te sluiten, waardoor de stroming wordt beïnvloed."
 
 #. name:pūtōrino
 #: DB:instrument/description:786
@@ -1028,13 +1031,6 @@ msgid ""
 "Other instruments. If you can't find an instrument, please <a "
 "href=\"http://tickets.musicbrainz.org/browse/INST\">request it</a>."
 msgstr "Overige instrumenten. Als je een instrument niet kan vinden, kan je <a href=\"http://tickets.musicbrainz.org/browse/INST\">het aanvragen</a>."
-
-#. name:hang
-#: DB:instrument/description:512
-msgid ""
-"Percussion instrument made from two steel sheets that are attached together "
-"creating a recognizable 'UFO shape'."
-msgstr "Een slaginstrument dat bestaat uit twee op elkaar geplaatste sferische schalen van staal."
 
 #. name:body percussion
 #: DB:instrument/description:500
@@ -1145,6 +1141,11 @@ msgstr "Een Otamatone is een elektronische synthesizer in de vorm van een achtst
 msgid "Shawm, Medieval and Renaissance instrument, predecessor to the oboe"
 msgstr "Een schalmei is een instrument uit de de middeleeuwen en de renaissance en een voorloper van de hobo."
 
+#. name:duck call
+#: DB:instrument/description:649
+msgid "Short wooden flute used to imitate the sound of ducks"
+msgstr ""
+
 #. name:tabor
 #: DB:instrument/description:806
 msgid ""
@@ -1196,6 +1197,13 @@ msgid ""
 "Small vessel flute made of wood, clay, bone or soft stone like soapstone, it"
 " has 4 holes and is played with the nose or mouth."
 msgstr "De nguru is een kleine vatfluit gemaakt van hout, klei, bot of een zachte steensoort zoals speksteen, heeft vier gaten en wordt met de neus of de mond bespeeld."
+
+#. name:fife
+#: DB:instrument/description:514
+msgid ""
+"Small, high-pitched, transverse flute, similar to the piccolo, but with a "
+"narrower bore."
+msgstr ""
 
 #. name:sopilka
 #: DB:instrument/description:760
@@ -1746,11 +1754,6 @@ msgid ""
 "The darbuka is an hourglass-shaped goblet drum from Greece, the Middle East "
 "and India."
 msgstr "Een darbuka (Arabisch: ‏دربكة, ook wel daraboeka, derboeka of taramboeka genoemd) is een vaastrommel die vooral in de Balkan, in het Midden-Oosten en in Oost-Europa gebruikt wordt."
-
-#. name:daruan
-#: DB:instrument/description:546
-msgid "The daruan is a Chinese plucked lute."
-msgstr "Een daruan (Chinees: 大阮, pinyin: dàruǎn) is een Chinese getokkelde luit. Het wordt ook wel bas-ruan genoemd."
 
 #. name:diddley bow
 #: DB:instrument/description:635
@@ -2361,11 +2364,6 @@ msgstr "Een nadaswaram is een dubbelrietinstrument uit het zuiden van India."
 #: DB:instrument/description:553
 msgid "The nagadou-daiko is an elongated barrel-shaped Japanese drum."
 msgstr "De nagadou-daiko (Japans: 長胴太鼓) is een verlengde tonvormige Japanse trommel."
-
-#. name:naobo
-#: DB:instrument/description:599
-msgid "The naobo are Chinese cymbals, specially used in Beijing opera."
-msgstr "De naobo (Chinees: 铙钹, pinyin: náobó) zijn Chinese bekkens die veel worden gebruikt in de opera van Beijing."
 
 #. name:nohkan
 #: DB:instrument/description:493
@@ -3332,6 +3330,13 @@ msgid ""
 "announcements like war, welcoming people and kumara planting."
 msgstr "Een puukaea is een houten trompet met een lengte tot 2,5 meter. Het werd gebruikt voor verschillende aankondigen, bijvoorbeeld tijdens oorlogen, om mensen te verwelkomen en bij het planten van kumara-aardappelen."
 
+#. name:turntable
+#: DB:instrument/description:181
+msgid ""
+"Used in turntablism, vinyl records are not simply played on it, instead DJ's"
+" perform creating sound."
+msgstr ""
+
 #. name:lap harp
 #: DB:instrument/description:886
 msgid ""
@@ -3444,6 +3449,11 @@ msgid ""
 "also just \"kū\", a mouthbow with a single string, struck with a light "
 "implement of bone or wood."
 msgstr "Een te kuu, ook wel gewoon “ku” genoemd, is een mondboog met een enkele snaar, die met een klein stukje bot of hout wordt aangeslagen."
+
+#. name:cello
+#: DB:instrument/description:60
+msgid "also know as violoncello"
+msgstr ""
 
 #. name:samica
 #: DB:instrument/description:830
@@ -3620,6 +3630,13 @@ msgid ""
 "bouzouki, developed separately several different luthiers, among them Stefan"
 " Sobell (bouzar) and Davy Stuart (gouzouki)"
 msgstr "Een mengvorm van gitaar en bouzouki met de klankkast van een gitaar en vier dubbelkorige snaren zoals een bouzouki. Het werd door meerdere instrumentenmakers apart ontwikkeld, zoals Stefan Sobell (bouzar) en Davy Stuart (gouzouki)."
+
+#. name:reed organ
+#: DB:instrument/description:204
+msgid ""
+"having pedals attached to bellows with reeds. sound is produced by playing "
+"the keyboard."
+msgstr ""
 
 #. name:elektronium
 #: DB:instrument/description:848

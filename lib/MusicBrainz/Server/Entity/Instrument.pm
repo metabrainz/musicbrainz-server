@@ -42,7 +42,7 @@ around TO_JSON => sub {
 
     return {
         %{ $self->$orig },
-        description => $self->l_description,
+        description => $self->description,
     };
 };
 

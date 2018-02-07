@@ -834,28 +834,41 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
                              input_url: 'http://www.deezer.com/artist/243332',
                      input_entity_type: 'artist',
             expected_relationship_type: 'streamingmusic',
+               only_valid_entity_types: ['artist']
         },
         {
                              input_url: 'http://www.deezer.com/artist/6509511?test',
                      input_entity_type: 'artist',
             expected_relationship_type: 'streamingmusic',
                     expected_clean_url: 'https://www.deezer.com/artist/6509511',
+               only_valid_entity_types: ['artist']
         },
         {
                              input_url: 'https://deezer.com/album/8935347',
                      input_entity_type: 'release',
             expected_relationship_type: 'streamingmusic',
                     expected_clean_url: 'https://www.deezer.com/album/8935347',
+               only_valid_entity_types: ['release']
         },
         {
                              input_url: 'http://www.deezer.com/track/3437226',
                      input_entity_type: 'recording',
             expected_relationship_type: 'streamingmusic',
+               only_valid_entity_types: ['recording']
         },
         {
-                             input_url: 'http://www.deezer.com/album/497382',
+                             input_url: 'http://www.deezer.com/en/album/497382',
                      input_entity_type: 'release',
             expected_relationship_type: 'streamingmusic',
+                    expected_clean_url: 'https://www.deezer.com/album/497382',
+               only_valid_entity_types: ['release']
+        },
+        {
+                             input_url: 'https://www.deezer.com/profile/18671676',
+                     input_entity_type: 'artist',
+            expected_relationship_type: undefined,
+               input_relationship_type: 'streamingmusic',
+               only_valid_entity_types: []
         },
         // DHHU
         {
@@ -1183,6 +1196,36 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
             expected_relationship_type: 'otherdatabases',
                only_valid_entity_types: []
         },
+        // Hoick Music Search
+        {
+                             input_url: 'http://hoick.jp/mdb/author/%E4%BD%90%E7%80%AC%E5%AF%BF%E4%B8%80',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'lyrics',
+                    expected_clean_url: 'https://hoick.jp/mdb/author/%E4%BD%90%E7%80%AC%E5%AF%BF%E4%B8%80',
+               only_valid_entity_types: ['artist']
+        },
+        {
+                             input_url: 'hoick.jp/mdb/detail/3467/%E3%81%8A%E3%82%88%E3%81%92!%E3%81%9F%E3%81%84%E3%82%84%E3%81%8D%E3%81%8F%E3%82%93#rev_conte',
+                     input_entity_type: 'work',
+            expected_relationship_type: 'lyrics',
+                    expected_clean_url: 'https://hoick.jp/mdb/detail/3467/%E3%81%8A%E3%82%88%E3%81%92!%E3%81%9F%E3%81%84%E3%82%84%E3%81%8D%E3%81%8F%E3%82%93',
+               only_valid_entity_types: ['work']
+        },
+        // Hoick Online Shop
+        {
+                             input_url: 'http://hoick.jp/products/detail/18578/%E3%81%9F%E3%81%A3%E3%81%B7%E3%82%8A!%E3%81%95%E3%81%84%E3%81%97%E3%82%93%E3%82%AD%E3%83%83%E3%82%BA%E3%82%BD%E3%83%B3%E3%82%B0%20%E3%82%B6%E3%83%BB%E3%83%99%E3%82%B9%E3%83%8851#review_contents',
+                     input_entity_type: 'release',
+            expected_relationship_type: 'mailorder',
+                    expected_clean_url: 'https://hoick.jp/products/detail/18578/%E3%81%9F%E3%81%A3%E3%81%B7%E3%82%8A!%E3%81%95%E3%81%84%E3%81%97%E3%82%93%E3%82%AD%E3%83%83%E3%82%BA%E3%82%BD%E3%83%B3%E3%82%B0%20%E3%82%B6%E3%83%BB%E3%83%99%E3%82%B9%E3%83%8851',
+               only_valid_entity_types: ['release']
+        },
+        {
+                             input_url: 'https://hoick.jp/products/detail/18578/%E3%81%9F%E3%81%A3%E3%81%B7%E3%82%8A!%E3%81%95%E3%81%84%E3%81%97%E3%82%93%E3%82%AD%E3%83%83%E3%82%BA%E3%82%BD%E3%83%B3%E3%82%B0%20%E3%82%B6%E3%83%BB%E3%83%99%E3%82%B9%E3%83%8851',
+                     input_entity_type: 'release_group',
+            expected_relationship_type: undefined,
+               input_relationship_type: 'lyrics',
+               only_valid_entity_types: []
+        },
         // (VICTOR STUDIO) HD-Music.
         {
                              input_url: 'http://hd-music.info/album.cgi/913',
@@ -1382,6 +1425,21 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
             expected_relationship_type: 'downloadfree',
                     expected_clean_url: 'http://www.jamendo.com/album/56372',
         },
+        // JOYSOUND
+        {
+                             input_url: 'https://www.joysound.com/web/search/artist/5169?startIndex=20#songlist',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'lyrics',
+                    expected_clean_url: 'https://www.joysound.com/web/search/artist/5169',
+               only_valid_entity_types: ['artist']
+        },
+        {
+                             input_url: 'https://www.joysound.com/web/search/song/155526#lyrics',
+                     input_entity_type: 'work',
+            expected_relationship_type: 'lyrics',
+                    expected_clean_url: 'https://www.joysound.com/web/search/song/155526',
+               only_valid_entity_types: ['work']
+        },
         // JUGEM
         {
                              input_url: 'http://milk-pu-rin.jugem.jp/',
@@ -1464,6 +1522,10 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
         {
                              input_url: 'http://www.lastfm.com/music/Carving+Colours',
                     expected_clean_url: 'http://www.last.fm/music/Carving+Colours',
+        },
+        {
+                             input_url: 'https://www.last.fm/it/label/Shyrec#shoutbox',
+                    expected_clean_url: 'http://www.last.fm/label/Shyrec',
         },
         // LiederNet Archive
         {
@@ -1806,6 +1868,28 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
         {
                              input_url: 'https://www.paypal.me/example?q=test',
                     expected_clean_url: 'https://www.paypal.me/example',
+        },
+        // Petit Lyrics
+        {
+                             input_url: 'https://petitlyrics.com/lyrics/artist/24786/2-1.html',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'lyrics',
+                    expected_clean_url: 'https://petitlyrics.com/lyrics/artist/24786',
+               only_valid_entity_types: ['artist']
+        },
+        {
+                             input_url: 'petitlyrics.com/lyrics/1039367',
+                     input_entity_type: 'work',
+            expected_relationship_type: 'lyrics',
+                    expected_clean_url: 'https://petitlyrics.com/lyrics/1039367',
+               only_valid_entity_types: ['work']
+        },
+        {
+                             input_url: 'https://petitlyrics.com/lyrics/album/4e484be3818ae3818be38182e38195e38293e381a8e38184e381a3e38197e3828720e69c80e696b0e38399e382b9e38388e3808ce381bfe38293e381aae381aee383aae382bae383a0e3808d?artist=%E6%A8%AA%E5%B1%B1%E3%81%A0%E3%81%84%E3%81%99%E3%81%91%2C%E4%B8%89%E8%B0%B7%E3%81%9F%E3%81%8F%E3%81%BF',
+                     input_entity_type: 'release_group',
+            expected_relationship_type: 'lyrics',
+                    expected_clean_url: 'https://petitlyrics.com/lyrics/album/4e484be3818ae3818be38182e38195e38293e381a8e38184e381a3e38197e3828720e69c80e696b0e38399e382b9e38388e3808ce381bfe38293e381aae381aee383aae382bae383a0e3808d',
+               only_valid_entity_types: ['release_group']
         },
         // Pinterest
         {
@@ -2465,28 +2549,28 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
                              input_url: 'https://vgmdb.net/artist/431',
                      input_entity_type: 'artist',
             expected_relationship_type: 'vgmdb',
-                    expected_clean_url: 'http://vgmdb.net/artist/431',
+                    expected_clean_url: 'https://vgmdb.net/artist/431',
                only_valid_entity_types: ['artist']
         },
         {
                              input_url: 'http://vgmdb.com/event/197',
                      input_entity_type: 'event',
             expected_relationship_type: 'vgmdb',
-                    expected_clean_url: 'http://vgmdb.net/event/197',
+                    expected_clean_url: 'https://vgmdb.net/event/197',
                only_valid_entity_types: ['event']
         },
         {
                              input_url: 'https://vgmdb.com/org/284',
                      input_entity_type: 'label',
             expected_relationship_type: 'vgmdb',
-                    expected_clean_url: 'http://vgmdb.net/org/284',
+                    expected_clean_url: 'https://vgmdb.net/org/284',
                only_valid_entity_types: ['artist', 'label']
         },
         {
                              input_url: 'vgmdb.net/album/29727',
                      input_entity_type: 'release',
             expected_relationship_type: 'vgmdb',
-                    expected_clean_url: 'http://vgmdb.net/album/29727',
+                    expected_clean_url: 'https://vgmdb.net/album/29727',
                only_valid_entity_types: ['release']
         },
         // VIAF (Virtual International Authority File)

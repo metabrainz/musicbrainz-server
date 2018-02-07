@@ -184,27 +184,4 @@ sub follow_foreign_keys($$$$$$) {
     }
 }
 
-sub get_primary_keys($$$) {
-    my ($self, $c, $schema, $table) = @_;
-
-    my $cache = ($self->_primary_keys_cache->{$schema} //= {});
-    if (defined $cache->{$table}) {
-        return @{ $cache->{$table} };
-    }
-
-    # retry: transient "server closed the connection unexpectedly",
-    # "no statement executing", and "Field 'attnum' does not exist" errors
-    # have happened here.
-    my @keys = retry(
-        sub { $c->sql->dbh->primary_key(undef, $schema, $table) },
-        reason => 'getting primary keys',
-    );
-    @keys = map {
-        # Some columns are wrapped in quotes, others aren't...
-        s/^"(.*?)"$/$1/r
-    } @keys;
-    $cache->{$table} = \@keys;
-    return @keys;
-}
-
 1;

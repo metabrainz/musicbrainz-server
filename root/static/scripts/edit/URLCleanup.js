@@ -855,8 +855,23 @@ const CLEANUPS = {
     ],
     type: LINK_TYPES.streamingmusic,
     clean: function (url) {
-      url = url.replace(/^https?:\/\/(www\.)?deezer\.com\/(\w+)\/(\d+).*$/, "https://www.deezer.com/$2/$3");
+      url = url.replace(/^https?:\/\/(www\.)?deezer\.com\/(?:[a-z]{2}\/)?(\w+)\/(\d+).*$/, "https://www.deezer.com/$2/$3");
       return url;
+    },
+    validate: function (url, id) {
+      var m = /^https:\/\/www\.deezer\.com\/([a-z]+)\/(?:\d+)$/.exec(url);
+      if (m) {
+        var prefix = m[1];
+        switch (id) {
+          case LINK_TYPES.streamingmusic.artist:
+            return prefix === 'artist';
+          case LINK_TYPES.streamingmusic.release:
+            return prefix === 'album';
+          case LINK_TYPES.streamingmusic.recording:
+            return prefix === 'track';
+        }
+      }
+      return false;
     }
   },
   spotifyuseraccount: {
@@ -1000,10 +1015,10 @@ const CLEANUPS = {
     match: [new RegExp("^(https?://)?vgmdb\\.(net|com)/", "i")],
     type: LINK_TYPES.vgmdb,
     clean: function (url) {
-      return url.replace(/^(?:https?:\/\/)?vgmdb\.(?:net|com)\/(album|artist|event|org)\/([0-9]+).*$/, "http://vgmdb.net/$1/$2");
+      return url.replace(/^(?:https?:\/\/)?vgmdb\.(?:net|com)\/(album|artist|event|org)\/([0-9]+).*$/, "https://vgmdb.net/$1/$2");
     },
     validate: function (url, id) {
-      var m = /^http:\/\/vgmdb\.net\/(album|artist|org|event)\/[1-9][0-9]*$/.exec(url);
+      var m = /^https:\/\/vgmdb\.net\/(album|artist|org|event)\/[1-9][0-9]*$/.exec(url);
       if (m) {
         var prefix = m[1];
         switch (id) {
@@ -1126,19 +1141,19 @@ const CLEANUPS = {
     type: _.defaults({}, LINK_TYPES.imslp, LINK_TYPES.score)
   },
   lastfm: {
-    match: [new RegExp("^(https?://)?([^/]+\\.)?(last\\.fm|lastfm\\.(com\\.br|com\\.tr|at|com|de|es|fr|it|jp|pl|pt|ru|se))/(music|label|venue|event|festival)/", "i")],
+    match: [new RegExp("^(https?://)?([^/]+\\.)?(last\\.fm|lastfm\\.(com\\.br|com\\.tr|at|com|de|es|fr|it|jp|pl|pt|ru|se))/([a-z]{2}/)?(music|label|venue|event|festival)/", "i")],
     type: LINK_TYPES.lastfm,
     clean: function (url) {
-      url = url.replace(/^(https?:\/\/)?((www|cn|m)\.)?(last\.fm|lastfm\.(com\.br|com\.tr|at|com|de|es|fr|it|jp|pl|pt|ru|se))/, "http://www.last.fm");
-      url = url.replace(/^http:\/\/www\.last\.fm\/music\/([^?]+).*/, "http://www.last.fm/music/$1");
+      url = url.replace(/^(https?:\/\/)?((www|cn|m)\.)?(last\.fm|lastfm\.(com\.br|com\.tr|at|com|de|es|fr|it|jp|pl|pt|ru|se))\/([a-z]{2}\/)?/, "http://www.last.fm/");
+      url = url.replace(/^http:\/\/www\.last\.fm\/(?:[a-z]{2}\/)?([a-z]+)\/([^?#]+).*$/, "http://www.last.fm/$1/$2");
       return url;
     }
   },
   onlinecommunity: {
-    match: [new RegExp("^(https?://)?([^/]+\\.)?(last\\.fm|lastfm\\.(com\\.br|com\\.tr|at|com|de|es|fr|it|jp|pl|pt|ru|se))/group/", "i")],
+    match: [new RegExp("^(https?://)?([^/]+\\.)?(last\\.fm|lastfm\\.(com\\.br|com\\.tr|at|com|de|es|fr|it|jp|pl|pt|ru|se))/([a-z]{2}/)?group/", "i")],
     type: LINK_TYPES.onlinecommunity,
     clean: function (url) {
-      url = url.replace(/^(https?:\/\/)?((www|cn|m)\.)?(last\.fm|lastfm\.(com\.br|com\.tr|at|com|de|es|fr|it|jp|pl|pt|ru|se))/, "http://www.last.fm");
+      url = url.replace(/^(https?:\/\/)?((www|cn|m)\.)?(last\.fm|lastfm\.(com\.br|com\.tr|at|com|de|es|fr|it|jp|pl|pt|ru|se))\/([a-z]{2}\/)?/, "http://www.last.fm/");
       return url;
     }
   },
@@ -1446,6 +1461,30 @@ const CLEANUPS = {
             || id === LINK_TYPES.otherdatabases.work);
     }
   },
+  hoick: {
+    match: [new RegExp("^(https?://)?([^/]+\\.)?hoick\\.jp/", "i")],
+    type: _.defaults({}, LINK_TYPES.lyrics, LINK_TYPES.mailorder),
+    clean: function (url) {
+      return url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?hoick\.jp\/(mdb\/detail\/\d+|mdb\/author|products\/detail\/\d+)\/([^\/?#]+).*$/, "https://hoick.jp/$1/$2");
+    },
+    validate: function (url, id) {
+      var m = /^https:\/\/hoick\.jp\/(mdb|products)\/(author|detail)(\/\d+)?\/[^\/?#]+$/.exec(url);
+      if (m) {
+        var db = m[1];
+        var type = m[2];
+        var slashRef = m[3];
+        switch (id) {
+          case LINK_TYPES.lyrics.artist:
+            return db === 'mdb' && type === 'author' && slashRef === undefined;
+          case LINK_TYPES.mailorder.release:
+            return db === 'products' && type === 'detail' && slashRef !== undefined;
+          case LINK_TYPES.lyrics.work:
+            return db === 'mdb' && type === 'detail' && slashRef !== undefined;
+        }
+      }
+      return false;
+    }
+  },
   irishtune: {
     match: [new RegExp("^(https?://)?(www\\.)?irishtune\\.info","i")],
     type: LINK_TYPES.otherdatabases,
@@ -1461,6 +1500,26 @@ const CLEANUPS = {
             return prefix === 'album';
           case LINK_TYPES.otherdatabases.work:
             return prefix === 'tune';
+        }
+      }
+      return false;
+    }
+  },
+  joysound: {
+    match: [new RegExp("^(https?://)?([^/]+\\.)?joysound\\.com/", "i")],
+    type: LINK_TYPES.lyrics,
+    clean: function (url) {
+      return url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?joysound\.com\/(web\/search\/(?:artist|song)\/\d+).*$/, "https://www.joysound.com/$1");
+    },
+    validate: function (url, id) {
+      var m = /^https:\/\/www.joysound\.com\/web\/search\/(artist|song)\/\d+$/.exec(url);
+      if (m) {
+        var prefix = m[1];
+        switch (id) {
+          case LINK_TYPES.lyrics.artist:
+            return prefix === 'artist';
+          case LINK_TYPES.lyrics.work:
+            return prefix === 'song';
         }
       }
       return false;
@@ -1520,6 +1579,28 @@ const CLEANUPS = {
     },
     validate: function (url, id) {
       return id === LINK_TYPES.otherdatabases.artist && /^http:\/\/operabase\.com\/a\/[^\/?#]+\/[0-9]+$/.test(url);
+    }
+  },
+  petitlyrics: {
+    match: [new RegExp("^(https?://)?([^/]+\\.)?petitlyrics\\.com/", "i")],
+    type: LINK_TYPES.lyrics,
+    clean: function (url) {
+      return url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?petitlyrics\.com\/(lyrics(?:\/artist)?\/\d+|lyrics\/album\/[^?]+).*$/, "https://petitlyrics.com/$1");
+    },
+    validate: function (url, id) {
+      var m = /^https:\/\/petitlyrics\.com\/(lyrics(?:\/album|\/artist)?)\/.+$/.exec(url);
+      if (m) {
+        var prefix = m[1];
+        switch (id) {
+          case LINK_TYPES.lyrics.artist:
+            return prefix === 'lyrics/artist';
+          case LINK_TYPES.lyrics.release_group:
+            return prefix === 'lyrics/album';
+          case LINK_TYPES.lyrics.work:
+            return prefix === 'lyrics';
+        }
+      }
+      return false;
     }
   },
   rockcomar: {
