@@ -3,12 +3,12 @@
 # nikki, 2014
 # reneweesp <email address hidden>, 2017
 # Maurits Meulenbelt <email address hidden>, 2012
-# Maurits Meulenbelt <email address hidden>, 2013-2017
+# Maurits Meulenbelt <email address hidden>, 2013-2018
 # Nikolai Prokoschenko <email address hidden>, 2011
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2017-12-26 15:36+0000\n"
+"PO-Revision-Date: 2018-02-03 11:29+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -88,7 +88,7 @@ msgstr "Engelse concertina"
 #: DB:instrument/name:844
 msgctxt "English \"improved\" flageolet"
 msgid "English flageolet"
-msgstr ""
+msgstr "Engelse flageolet"
 
 #: DB:instrument/name:7
 msgctxt "also known as Cor anglais"
@@ -320,8 +320,10 @@ msgid "alto saxophone"
 msgstr "altsaxofoon"
 
 #: DB:instrument/name:174
+msgctxt ""
+"instrument between viola and cello - for French \"alto\" credits, pick viola"
 msgid "alto violin"
-msgstr "verticale viola"
+msgstr "altviool"
 
 #: DB:instrument/name:363
 msgid "amadinda"
@@ -416,9 +418,10 @@ msgstr "bandoneon"
 msgid "bandora"
 msgstr "bandora"
 
-#: DB:instrument/name:394 DB:instrument/name:393
+#: DB:instrument/name:394
+msgctxt "Ukraininan lute-zither"
 msgid "bandura"
-msgstr "bandura"
+msgstr "bandoera"
 
 #: DB:instrument/name:771
 msgid "bandurria"
@@ -598,7 +601,7 @@ msgstr "bin-sasara"
 
 #: DB:instrument/name:884
 msgid "birbynė"
-msgstr ""
+msgstr "birbynė"
 
 #: DB:instrument/name:801
 msgctxt "wooden natural horn"
@@ -1011,6 +1014,7 @@ msgid "darbuka"
 msgstr "darbuka"
 
 #: DB:instrument/name:546
+msgctxt "Bass ruan"
 msgid "daruan"
 msgstr "daruan"
 
@@ -1530,7 +1534,7 @@ msgstr "guqin"
 #: DB:instrument/name:423
 msgctxt "Traditional Russian plucked psaltery"
 msgid "gusli"
-msgstr ""
+msgstr "goesli"
 
 #: DB:instrument/name:567
 msgctxt "gut-stringed acoustic guitar"
@@ -1562,16 +1566,13 @@ msgid "handclaps"
 msgstr "klappen"
 
 #: DB:instrument/name:512
-msgid "hang"
-msgstr "hang"
+msgctxt "Tuned metal ufo"
+msgid "handpan"
+msgstr "handpan"
 
 #: DB:instrument/name:603
 msgid "hard disk drive"
 msgstr "harde schijf"
-
-#: DB:instrument/name:142
-msgid "hardart"
-msgstr "hardart"
 
 #: DB:instrument/name:78
 msgid "hardingfele"
@@ -1596,7 +1597,7 @@ msgstr "harpgitaar"
 #: DB:instrument/name:894
 msgctxt "Electric guitar-piano tapping instrument"
 msgid "harpejji"
-msgstr ""
+msgstr "harpejji"
 
 #: DB:instrument/name:131
 msgid "harpsichord"
@@ -1663,7 +1664,7 @@ msgstr "draailier"
 #: DB:instrument/name:889
 msgctxt "\"woodwater\" flute made with hydraulics"
 msgid "hydraulophone"
-msgstr ""
+msgstr "hydraulofoon"
 
 #: DB:instrument/name:818
 msgctxt "fipple flute from Härjedalen, sweden"
@@ -3299,8 +3300,8 @@ msgid "tungso"
 msgstr ""
 
 #: DB:instrument/name:181
-msgid "turntable(s)"
-msgstr "draaitafel(s)"
+msgid "turntable"
+msgstr "draaitafel"
 
 #: DB:instrument/name:772
 msgid "txalaparta"

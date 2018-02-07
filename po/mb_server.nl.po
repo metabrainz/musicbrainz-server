@@ -23,8 +23,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-01-10 10:16+0100\n"
-"PO-Revision-Date: 2018-01-11 12:11+0000\n"
+"POT-Creation-Date: 2018-01-24 20:56+0100\n"
+"PO-Revision-Date: 2018-02-03 10:07+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -1335,6 +1335,10 @@ msgstr "IPI van de artiest:"
 msgid "Artist ISNI:"
 msgstr "ISNI’s van de artiest:"
 
+#: ../root/report/recordings_same_name_different_artists_same_name.tt:15
+msgid "Artist MBID"
+msgstr "Artiest-MBID"
+
 #: ../root/artist/not_found.tt:1 ../root/artist/not_found.tt:2
 msgid "Artist Not Found"
 msgstr "Artiest niet gevonden"
@@ -2310,6 +2314,11 @@ msgstr "Recensies op CritiqueBrainz"
 #: ../root/admin/wikidoc/edit.tt:14
 msgid "Current version:"
 msgstr "Huidige versie:"
+
+#: ../root/report/recordings_same_name_different_artists_same_name.tt:9
+msgid ""
+"Currently, this report only works with recordings that have one artist."
+msgstr "In dit rapport staan nu alleen composities waarvan de opnames maar één artiest hebben."
 
 #: ../root/components/relationship-editor.tt:130
 #: ../root/release/edit/information.tt:140
@@ -3537,6 +3546,7 @@ msgstr "Algemene informatie"
 #: ../root/report/multiple_discogs_links.tt:15
 #: ../root/report/part_of_set_relationships.tt:14
 #: ../root/report/possible_collaborations.tt:14
+#: ../root/report/recordings_same_name_different_artists_same_name.tt:11
 #: ../root/report/recordings_with_earliest_release_relationships.tt:12
 #: ../root/report/recordings_without_va_credit.tt:9
 #: ../root/report/recordings_without_va_link.tt:9
@@ -3780,12 +3790,12 @@ msgstr "ISRC “{isrc}”"
 msgid "ISRC:"
 msgstr "ISRC:"
 
-#: ../root/components/recordings-list.tt:31 ../root/report/index.tt:156
+#: ../root/components/recordings-list.tt:31 ../root/report/index.tt:157
 #: ../root/search/lib/inline-results-recording.tt:11
 msgid "ISRCs"
 msgstr "ISRC’s"
 
-#: ../root/report/index.tt:159 ../root/report/isrc_with_many_recordings.tt:1
+#: ../root/report/index.tt:160 ../root/report/isrc_with_many_recordings.tt:1
 #: ../root/report/isrc_with_many_recordings.tt:3
 msgid "ISRCs with multiple recordings"
 msgstr "ISRC’s met meerdere opnames"
@@ -3818,11 +3828,11 @@ msgstr "ISWC ‘{iswc}’"
 msgid "ISWC:"
 msgstr "ISWC:"
 
-#: ../root/report/index.tt:162
+#: ../root/report/index.tt:163
 msgid "ISWCs"
 msgstr "ISWC’s"
 
-#: ../root/report/index.tt:165 ../root/report/iswc_with_many_works.tt:1
+#: ../root/report/index.tt:166 ../root/report/iswc_with_many_works.tt:1
 #: ../root/report/iswc_with_many_works.tt:3
 msgid "ISWCs with multiple works"
 msgstr "ISWC’s met meerdere composities"
@@ -5559,17 +5569,17 @@ msgstr "Plaats:"
 
 #: ../root/area/places.tt:1 ../root/area/places.tt:2
 #: ../root/components/common-macros.tt:612 ../root/components/entity-tabs.tt:1
-#: ../root/report/index.tt:128 ../root/tag/header.tt:1 ../root/tag/index.tt:8
+#: ../root/report/index.tt:129 ../root/tag/header.tt:1 ../root/tag/index.tt:8
 msgid "Places"
 msgstr "Plaatsen"
 
-#: ../root/report/index.tt:132
+#: ../root/report/index.tt:133
 msgid "Places with annotations"
 msgstr "Plaatsen met aantekeningen"
 
 #: ../root/report/deprecated_relationship_places.tt:1
 #: ../root/report/deprecated_relationship_places.tt:3
-#: ../root/report/index.tt:131
+#: ../root/report/index.tt:132
 msgid "Places with deprecated relationships"
 msgstr "Plaatsen met verouderde relaties"
 
@@ -5980,6 +5990,12 @@ msgstr "Opnames met eerste uitgave-relaties"
 #: ../root/report/index.tt:120
 msgid "Recordings with possible duplicate relationships"
 msgstr "Opnames met mogelijk dubbele relaties"
+
+#: ../root/report/index.tt:126
+#: ../root/report/recordings_same_name_different_artists_same_name.tt:1
+#: ../root/report/recordings_same_name_different_artists_same_name.tt:3
+msgid "Recordings with the same name by different artists with the same name"
+msgstr "Opnames met dezelfde naam van verschillende artiesten met dezelfde naam"
 
 #: ../root/report/featuring_recordings.tt:1
 #: ../root/report/featuring_recordings.tt:3 ../root/report/index.tt:119
@@ -7125,7 +7141,7 @@ msgstr "Stuur mij e-mails met bewerkingen in mijn abonnementen:"
 msgid "Sentence"
 msgstr "Zin"
 
-#: ../root/report/index.tt:135 ../root/report/series_list.tt:7
+#: ../root/report/index.tt:136 ../root/report/series_list.tt:7
 #: ../root/tag/index.tt:8
 msgid "Series"
 msgstr "Series"
@@ -7171,7 +7187,7 @@ msgstr "Series met aantekeningen"
 msgid "Series information"
 msgstr "Informatie over de serie"
 
-#: ../root/report/index.tt:138
+#: ../root/report/index.tt:139
 msgid "Series with annotations"
 msgstr "Series met aantekeningen"
 
@@ -8118,6 +8134,12 @@ msgid_plural ""
 msgstr[0] "Er staat {reviews_link|{review_count} recensie} op CritiqueBrainz. Je kan ook {write_link|zelf een recensie schrijven}."
 msgstr[1] "Er staan {reviews_link|{review_count} recensies} op CritiqueBrainz. Je kan ook {write_link|zelf een recensie schrijven}."
 
+#: ../root/report/recordings_same_name_different_artists_same_name.tt:7
+msgid ""
+"These are most likely cases where the {ac|artist credit} is incorrect for at"
+" least one of the recordings."
+msgstr "Dit zijn meestal gevallen waarbij de {ac|vermelding} op ten minste één opname incorrect is."
+
 #: ../root/place/edit_form.tt:30
 msgid "These coordinates could not be parsed."
 msgstr "Deze coördinaten konden niet worden ingevoerd."
@@ -8911,6 +8933,12 @@ msgid ""
 "Merge Releases})."
 msgstr "In dit rapport staan URL’s van Discogs die aan meerdere uitgaves zijn gekoppeld. In de meeste gevallen zouden uitgaves in Discogs 1:1 overeen moeten komen met uitgaves op MusicBrainz, zodat er maar één correcte koppeling kan zijn. Controleer of de uitgave in MusicBrainz overeenkomt met de uitgave op Discogs (let op het medium, de nummers op de uitgave en het land van uitgave). Soms is een URL van Discogs gekoppeld aan verschillende uitgaves in MusicBrainz die eigenlijk verschillende losse media van één uitgave zijn. In dat geval moeten deze uitgaves worden samengevoegd (zie {how_to_merge_releases|Hoe uitgaves samen te voegen})."
 
+#: ../root/report/recordings_same_name_different_artists_same_name.tt:6
+msgid ""
+"This report shows all recordings with the same name that have different "
+"artists (having different MBIDs) with the same name."
+msgstr "Dit rapport toont alle opnames met dezelfde naam van verschillende artiesten (met verschillende MBID’s) die dezelfde naam hebben."
+
 #: ../root/report/instruments_without_an_image.tt:6
 msgid ""
 "This report shows instruments without {image_rel} relationships or "
@@ -9348,6 +9376,7 @@ msgstr "Totaal aantal gevonden plaatsen: {count}"
 #: ../root/report/deprecated_relationship_recordings.tt:8
 #: ../root/report/duplicate_relationships_recordings.tt:7
 #: ../root/report/featuring_recordings.tt:13
+#: ../root/report/recordings_same_name_different_artists_same_name.tt:10
 #: ../root/report/recordings_with_earliest_release_relationships.tt:11
 #: ../root/report/recordings_without_va_credit.tt:8
 #: ../root/report/recordings_without_va_link.tt:8
@@ -9649,13 +9678,13 @@ msgid "URL; [URL]; [URL|label]"
 msgstr "URL; [URL]; [URL|platenmaatschappij]"
 
 #: ../root/components/common-macros.tt:131
-#: ../root/components/common-macros.tt:612 ../root/report/index.tt:149
+#: ../root/components/common-macros.tt:612 ../root/report/index.tt:150
 msgid "URLs"
 msgstr "URL’s"
 
 #: ../root/report/deprecated_relationship_urls.tt:1
 #: ../root/report/deprecated_relationship_urls.tt:3
-#: ../root/report/index.tt:152
+#: ../root/report/index.tt:153
 msgid "URLs with deprecated relationships"
 msgstr "URL’s met verouderde relaties"
 
@@ -10192,24 +10221,24 @@ msgstr "Compositie:"
 
 #: ../root/artist/works.tt:1 ../root/artist/works.tt:2
 #: ../root/components/common-macros.tt:612 ../root/components/entity-tabs.tt:1
-#: ../root/report/index.tt:141 ../root/series/index.tt:15
+#: ../root/report/index.tt:142 ../root/series/index.tt:15
 #: ../root/tag/header.tt:1 ../root/tag/index.tt:8
 msgid "Works"
 msgstr "Composities"
 
-#: ../root/report/index.tt:146
+#: ../root/report/index.tt:147
 msgid "Works with annotations"
 msgstr "Composities met aantekeningen."
 
 #: ../root/report/deprecated_relationship_works.tt:1
 #: ../root/report/deprecated_relationship_works.tt:3
-#: ../root/report/index.tt:145
+#: ../root/report/index.tt:146
 msgid "Works with deprecated relationships"
 msgstr "Composities met verouderde relaties"
 
 #: ../root/report/duplicate_relationships_works.tt:1
 #: ../root/report/duplicate_relationships_works.tt:3
-#: ../root/report/index.tt:144
+#: ../root/report/index.tt:145
 msgid "Works with possible duplicate relationships"
 msgstr "Composities met mogelijk dubbele relaties"
 
@@ -13361,14 +13390,14 @@ msgid ""
 "{url|French capitalisation guidelines}."
 msgstr "Deze methode schrijft hoofdletters zoals in zinnen, maar voegt ook spaties toe voor puntkomma’s, dubbele punten, uitroeptekens en vraagtekens en binnen guillemets. Sommige woorden moeten misschien handmatig van hoofdletters worden voorzien, naar aanleiding van de {url|richtlijn voor hoofdlettergebruik in het Frans}. "
 
-#: ../root/static/scripts/guess-case/modes.js:287
+#: ../root/static/scripts/guess-case/modes.js:289
 msgid ""
 "This mode capitalises the first word of a sentence, most other words are "
 "lowercased. Some words, often proper nouns, may need to be manually fixed "
 "according to the {url|relevant language guidelines}."
 msgstr "Deze methode schrijft alleen het eerste woord van een zin met een hoofdletter. De meeste andere woorden worden geschreven zonder hoofdletters. Sommige woorden, zoals eigennamen, moeten handmatig worden ingesteld, naar aanleiding van de {url|richtlijn voor de relevante taal}."
 
-#: ../root/static/scripts/guess-case/modes.js:297
+#: ../root/static/scripts/guess-case/modes.js:299
 msgid ""
 "This mode handles the Turkish capitalisation of 'i' ('İ') and 'ı' ('I'). "
 "Some words may need to be manually corrected according to the {url|Turkish "

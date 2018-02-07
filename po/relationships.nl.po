@@ -10,7 +10,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2018-01-11 12:17+0000\n"
+"PO-Revision-Date: 2018-02-03 10:13+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -2399,6 +2399,17 @@ msgid ""
 "This relationship links a concert tour to the artist(s) the tour is by."
 msgstr "Deze relatie koppelt een tournee aan een of meer artiesten."
 
+#: DB:link_type/description:924
+msgid ""
+"This relationship links a musician to the music school(s) they taught at."
+msgstr "Deze relatie koppelt een artiest aan een muziekschool waar ze les hebben gegeven."
+
+#: DB:link_type/description:923
+msgid ""
+"This relationship links a musician to the music school(s) they were educated"
+" at."
+msgstr "Deze relatie koppelt een artiest aan een muziekschool waar ze les hebben gekregen."
+
 #: DB:link_type/description:918
 msgid ""
 "This relationship links an instrument to the company that invented or "
@@ -3268,6 +3279,10 @@ msgstr "locatie waar {entity1} geëdit werd."
 #: DB:link_type/reverse_link_phrase:309
 msgid "edits"
 msgstr "edits"
+
+#: DB:link_type/reverse_link_phrase:924
+msgid "educators"
+msgstr "onderwijzers"
 
 #: DB:link_attribute_type/name:617
 msgid "emeritus"
@@ -4822,9 +4837,13 @@ msgstr "gratis streamen"
 msgid "stream {video} for free"
 msgstr "{video:video} gratis streamen"
 
-#: DB:link_type/link_phrase:847
+#: DB:link_type/link_phrase:847 DB:link_type/reverse_link_phrase:923
 msgid "students"
 msgstr "leerlingen"
+
+#: DB:link_type/link_phrase:923 DB:link_type/long_link_phrase:923
+msgid "studied at"
+msgstr "onderwezen aan"
 
 #: DB:link_type/link_phrase:722
 msgid "subgroup of"
@@ -4886,7 +4905,8 @@ msgstr "ondersteunend {instrument:instrument} voor"
 msgid "taught"
 msgstr "onderwees"
 
-#: DB:link_type/link_phrase:893 DB:link_type/long_link_phrase:893
+#: DB:link_type/link_phrase:924 DB:link_type/link_phrase:893
+#: DB:link_type/long_link_phrase:924 DB:link_type/long_link_phrase:893
 msgid "taught at"
 msgstr "gaf les op"
 
