@@ -437,6 +437,8 @@ sub TO_JSON {
         current_language_html
         entity
         hide_merge_helper
+        instrument_types
+        instruments_by_type
         jsonld_data
         last_replication_date
         linked_entities
