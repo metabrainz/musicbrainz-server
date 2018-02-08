@@ -398,7 +398,7 @@ class Medium {
             return self.loaded() && self.tracks().length === 0;
         });
 
-        this.needsFormat = validation.errorField(function() {
+        this.needsFormat = ko.computed(function() {
             return !(self.formatID() || self.formatUnknownToUser());
         });
 
@@ -844,6 +844,7 @@ class Release extends MB_entity.Release {
         this.needsRecordings = errorField(this.mediums.any("needsRecordings"));
         this.hasInvalidFormats = errorField(this.mediums.any("hasInvalidFormat"));
         this.needsMediums = errorField(function () { return !(self.mediums().length || self.hasUnknownTracklist()) });
+        this.needsFormat = errorField(this.mediums.any("needsFormat"));
         this.needsTracks = errorField(this.mediums.any("needsTracks"));
         this.needsTrackInfo = errorField(function () { return !self.hasTrackInfo() });
         this.hasInvalidPregapLength = errorField(this.mediums.any("hasInvalidPregapLength"));
