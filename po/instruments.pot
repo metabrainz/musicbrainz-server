@@ -99,6 +99,11 @@ msgstr ""
 msgid "German harp"
 msgstr ""
 
+#: DB:instrument/name:901
+msgctxt "Modern 24-stringed stainless steel kora"
+msgid "Gravikord"
+msgstr ""
+
 #: DB:instrument/name:236
 msgid "Greek baglama"
 msgstr ""
