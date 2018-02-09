@@ -461,6 +461,14 @@ msgstr ""
 msgid "Balafon, Malian 'gourd xylophone'"
 msgstr ""
 
+#. name:Gravikord 
+#: DB:instrument/description:901
+msgid ""
+"Based on the polyrhythm of the Afrikan kora, kalimba and Japanese koto, it "
+"is electro-acoustic with a stainless steel frame with 24 nylon strings and "
+"an integral piezoelectric sensor."
+msgstr ""
+
 #. name:bass guitar 
 #: DB:instrument/description:207
 msgid "Bass (modern, typically electrical, but not always)"
