@@ -1,6 +1,6 @@
 m4_include(`server_base.m4')m4_dnl
 
-RUN apt_install(`rsync')
+install_new_xz_utils
 
 RUN chown_mb(`/home/musicbrainz/backup') && \
     chown_mb(`/var/ftp/pub/musicbrainz/data')

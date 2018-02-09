@@ -56,8 +56,6 @@ Options:
                                 dump only. can specify multiple of this flag
                                 (default: no force-updates)
     --output-dir                location where dumps are outputted (default: .)
-    --sample-dump               generate a sample dump instead
-                                (default: disabled)
     --worker-count              number of worker processes to use (default: 1)
 
 =cut

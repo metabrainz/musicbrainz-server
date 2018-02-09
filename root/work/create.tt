@@ -1,4 +1,4 @@
-[% WRAPPER 'layout.tt' title=lp('Add Work', 'header') full_width=1 %]
+[% WRAPPER 'layout.tt' title=lp('Add Work', 'header') full_width=1 gettext_domains=['attributes'] %]
    <h1>[%- lp('Add Work', 'header') -%]</h1>
 
    [% INCLUDE 'work/edit_form.tt' %]

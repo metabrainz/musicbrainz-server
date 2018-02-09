@@ -10,7 +10,8 @@ const {
     formFromHash,
     FormRowSelectList,
   } = require('../../components/forms');
-const {l, lp} = require('./common/i18n');
+const {l} = require('./common/i18n');
+const {lp_attributes} = require('./common/i18n/attributes');
 const {
     form,
     work,
@@ -104,11 +105,11 @@ class WorkAttribute {
 class ViewModel {
   constructor(attributeTypes, allowedValues, attributes) {
     attributeTypes.children.forEach(type => {
-      type.name = lp(type.name, 'work_attribute_type');
+      type.name = lp_attributes(type.name, 'work_attribute_type');
     });
 
     allowedValues.children.forEach(value => {
-      value.value = lp(value.value, 'work_attribute_type_allowed_value');
+      value.value = lp_attributes(value.value, 'work_attribute_type_allowed_value');
     });
 
     this.attributeTypes = MB.forms.buildOptionsTree(attributeTypes, 'name', 'id');

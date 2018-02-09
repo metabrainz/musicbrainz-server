@@ -33,7 +33,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2018-01-24 20:06+0000\n"
+"PO-Revision-Date: 2018-02-09 12:50+0000\n"
 "Last-Translator: Yvan Zo\n"
 "Language-Team: French (http://www.transifex.com/musicbrainz/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -1087,7 +1087,7 @@ msgid ""
 "This relationship type should be used in this last case."
 msgstr "Ceci crédite l’auteur des notes de livret fournies avec cette parution (habituellement sur la pochette). Alors que la plupart des notes de livret sont juste des informations personnelles et des données de production, dans certains cas elles sont un texte de présentation (article). Ce type de relation devrait être utilisé dans ce dernier cas."
 
-#: DB:link_type/description:27 DB:link_type/description:125
+#: DB:link_type/description:125 DB:link_type/description:27
 msgid ""
 "This credits the people or agency who did the graphic design, arranging "
 "pieces of content into a coherent and aesthetically-pleasing sleeve design."
@@ -1192,17 +1192,27 @@ msgid ""
 "between artists and the labels."
 msgstr "Ceci indique une personne ou agence qui est responsable du repérage de talents, supervise le développement artistique d’un artiste et agit en tant que liaison entre les artistes et les labels. "
 
+#: DB:link_type/description:928
+msgid "This indicates a person or agency who did design for the release."
+msgstr "Ceci indique une personne ou agence qui a fait de la conception pour cette parution."
+
 #: DB:link_type/description:19
 msgid ""
 "This indicates a person or agency who did design or illustration for the "
-"release."
-msgstr "Ceci indique une personne ou agence qui a fait de la conception ou de l’illustration pour cette parution."
+"release. This relationship is deprecated, please use either \"design\" or "
+"\"illustration\" (or both!)"
+msgstr "Ceci indique une personne ou agence qui a fait de la conception ou de l’illustration pour cette parution. Cette relation est maintenant obsolète et ne doit plus être utilisée, merci d’utiliser plus « conception » ou « illustration » (ou les deux) à la place."
 
 #: DB:link_type/description:130
 msgid ""
 "This indicates a person or agency who did design or illustration for the "
 "track."
 msgstr "Ceci indique une personne ou agence qui a fait de la conception ou de l’illustration pour cette piste."
+
+#: DB:link_type/description:927
+msgid ""
+"This indicates a person or agency who did illustration for the release."
+msgstr "Ceci indique une personne ou agence qui a fait de l’illustration pour cette parution."
 
 #: DB:link_type/description:723
 msgid ""
@@ -2310,6 +2320,12 @@ msgid ""
 "permitted."
 msgstr "Cette relation décrit une URL où des paroles peuvent être trouvées pour cette œuvre. Seul les sites de la <a href=\"/doc/Style/Relationships/URLs/Lyrics_whitelist\">liste blanche</a> sont permis."
 
+#: DB:link_type/description:929
+msgid ""
+"This relationship indicates an artist credited as the booklet editor for a "
+"release."
+msgstr "Cette relation indique que l’artiste crédité comme éditeur du livret pour une parution."
+
 #: DB:link_type/description:893
 msgid ""
 "This relationship indicates that a person was a teacher at an event (e.g. a "
@@ -2421,6 +2437,12 @@ msgstr "Cette relation est utilisée pour relier une œuvre à l’artiste respo
 msgid ""
 "This relationship links a concert tour to the artist(s) the tour is by."
 msgstr "Cette relation relie une tournée de concerts à/aux l’artiste(s) de la tournée"
+
+#: DB:link_type/description:926
+msgid ""
+"This relationship links a group with the institution (esp. educational "
+"institution) they're associated with."
+msgstr "Cette relation relie un groupe à/aux école(s) de musique auxquelles il est associé."
 
 #: DB:link_type/description:924
 msgid ""
@@ -2932,9 +2954,17 @@ msgstr "assistant"
 msgid "associate"
 msgstr "associé"
 
+#: DB:link_type/reverse_link_phrase:926
+msgid "associated groups"
+msgstr "groupes associés"
+
 #: DB:link_type/reverse_link_phrase:11
 msgid "associated singles/EPs"
 msgstr "singles/EP associés"
+
+#: DB:link_type/link_phrase:926
+msgid "associated with"
+msgstr "associé à"
 
 #: DB:link_type/reverse_link_phrase:795
 msgid "available at"
@@ -2986,6 +3016,14 @@ msgstr "bonus"
 #: DB:link_type/reverse_link_phrase:23 DB:link_type/reverse_link_phrase:134
 msgid "booking"
 msgstr "placement"
+
+#: DB:link_type/reverse_link_phrase:929
+msgid "booklet editor"
+msgstr "éditeur du livret"
+
+#: DB:link_type/link_phrase:929
+msgid "booklet editor for"
+msgstr "éditeur du livret pour"
 
 #: DB:link_type/link_phrase:66 DB:link_type/link_phrase:205
 #: DB:link_type/reverse_link_phrase:205 DB:link_type/long_link_phrase:205
@@ -3109,6 +3147,10 @@ msgstr "chef d’orchestre à"
 #: DB:link_type/reverse_link_phrase:806
 msgid "conductors"
 msgstr "chefs d’orchestre"
+
+#: DB:link_type/reverse_link_phrase:925
+msgid "connected with"
+msgstr "est en lien avec"
 
 #: DB:link_type/link_phrase:739
 msgid "consists of"
@@ -3294,6 +3336,10 @@ msgstr "monté à"
 msgid "edited in"
 msgstr "monté à"
 
+#: DB:link_type/long_link_phrase:929
+msgid "edited the booklet of"
+msgstr "a édité le livret de"
+
 #: DB:link_type/link_phrase:820 DB:link_type/link_phrase:821
 #: DB:link_type/link_phrase:822 DB:link_type/link_phrase:819
 msgid "editing location for"
@@ -3302,6 +3348,10 @@ msgstr "lieu de montage pour"
 #: DB:link_type/reverse_link_phrase:309
 msgid "edits"
 msgstr "montages"
+
+#: DB:link_type/link_phrase:925
+msgid "educational institution connection"
+msgstr "lien à un établissement scolaire"
 
 #: DB:link_type/reverse_link_phrase:924
 msgid "educators"
@@ -3897,9 +3947,17 @@ msgstr "est une reprise {translated:traduite} {parody:parodiée} de"
 msgid "is an edit of"
 msgstr "est un montage de"
 
+#: DB:link_type/long_link_phrase:926
+msgid "is associated with"
+msgstr "est associé à"
+
 #: DB:link_type/reverse_link_phrase:314
 msgid "is based on"
 msgstr "est basé sur"
+
+#: DB:link_type/long_link_phrase:925
+msgid "is connected to the educational institution"
+msgstr "est lié à l’établissement scolaire"
 
 #: DB:link_type/long_link_phrase:894
 msgid "is included in"
@@ -4578,13 +4636,21 @@ msgstr "a assuré la direction artistique {additional:supplémentaire} sur"
 msgid "provided {additional} creative direction on"
 msgstr "a assuré la direction créative {additional:supplémentaire} sur"
 
+#: DB:link_type/long_link_phrase:928
+msgid "provided {additional} design on"
+msgstr "a assuré la conception {additional:supplémentaire} sur"
+
 #: DB:link_type/long_link_phrase:19 DB:link_type/long_link_phrase:130
 msgid "provided {additional} design/illustration on"
 msgstr "a assuré la conception/l’illustration {additional:supplémentaire} sur"
 
-#: DB:link_type/long_link_phrase:27 DB:link_type/long_link_phrase:125
+#: DB:link_type/long_link_phrase:125 DB:link_type/long_link_phrase:27
 msgid "provided {additional} graphic design on"
 msgstr "a assuré la conception graphique {additional:supplémentaire} sur"
+
+#: DB:link_type/long_link_phrase:927
+msgid "provided {additional} illustration on"
+msgstr "a assuré l’illustration {additional:supplémentaire} sur"
 
 #: DB:link_type/long_link_phrase:22
 msgid "provided {additional} legal representation for"
@@ -5321,15 +5387,23 @@ msgstr "chef d’orchestre {additional:supplémentaire}"
 msgid "{additional} creative direction"
 msgstr "direction créative {additional:supplémentaire}"
 
+#: DB:link_type/link_phrase:928 DB:link_type/reverse_link_phrase:928
+msgid "{additional} design"
+msgstr "conception {additional:supplémentaire}"
+
 #: DB:link_type/link_phrase:19 DB:link_type/link_phrase:130
 #: DB:link_type/reverse_link_phrase:19 DB:link_type/reverse_link_phrase:130
 msgid "{additional} design/illustration"
 msgstr "conception/illustration {additional:supplémentaire} "
 
-#: DB:link_type/link_phrase:27 DB:link_type/link_phrase:125
-#: DB:link_type/reverse_link_phrase:27 DB:link_type/reverse_link_phrase:125
+#: DB:link_type/link_phrase:125 DB:link_type/link_phrase:27
+#: DB:link_type/reverse_link_phrase:125 DB:link_type/reverse_link_phrase:27
 msgid "{additional} graphic design"
 msgstr "conception graphique {additional:supplémentaire}"
+
+#: DB:link_type/link_phrase:927 DB:link_type/reverse_link_phrase:927
+msgid "{additional} illustration"
+msgstr "illustration {additional:supplémentaire} "
 
 #: DB:link_type/link_phrase:22 DB:link_type/reverse_link_phrase:22
 msgid "{additional} legal representation"

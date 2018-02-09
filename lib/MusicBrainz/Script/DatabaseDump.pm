@@ -2,6 +2,7 @@ package MusicBrainz::Script::DatabaseDump;
 
 use Encode qw( encode );
 use Fcntl qw( LOCK_EX );
+use List::MoreUtils qw( natatime );
 use Moose;
 use MusicBrainz::Script::Utils qw( log );
 use Time::HiRes qw( gettimeofday tv_interval );
@@ -57,6 +58,12 @@ has lock_fh => (
     isa => 'Maybe[FileHandle]',
 );
 
+has isolation_level => (
+    is => 'ro',
+    isa => 'Str',
+    default => 'SERIALIZABLE',
+);
+
 around begin_dump => sub {
     my ($orig, $self) = @_;
 
@@ -76,7 +83,7 @@ around begin_dump => sub {
     my $sql = $self->sql;
     $sql->auto_commit;
     $sql->do(q{SET SESSION CHARACTERISTICS
-               AS TRANSACTION ISOLATION LEVEL SERIALIZABLE});
+               AS TRANSACTION ISOLATION LEVEL } . $self->isolation_level);
     $sql->begin;
 
     $self->$orig;
@@ -94,8 +101,6 @@ around make_tar => sub {
         @tables;
 
     $self->$orig($tar_file, @tables);
-
-    $self->gpg_sign($self->output_dir . "/$tar_file");
 };
 
 sub table_rowcount {
@@ -110,12 +115,21 @@ sub table_rowcount {
     );
 }
 
-sub dump_table {
-    my ($self, $table) = @_;
+sub _open_table_file {
+    my ($self, $table, $mode) = @_;
 
     my $table_file = $self->table_file_mapping->{$table} // $table;
     my $table_file_path = $self->export_dir . "/mbdump/$table_file";
-    open(my $dump_fh, ">$table_file_path") or die $!;
+    my $table_file_is_new = !-e $table_file_path;
+    open(my $dump_fh, "${mode}${table_file_path}") or die $!;
+
+    return ($dump_fh, $table_file_path, $table_file_is_new);
+}
+
+sub dump_table {
+    my ($self, $table) = @_;
+
+    my ($dump_fh, $table_file_path) = $self->_open_table_file($table, '>');
 
     my $rows_estimate = $self->row_counts->{$table} //
         $self->table_rowcount($table) // 1;
@@ -158,6 +172,48 @@ sub dump_table {
     $self->inc_total_tables;
     $self->inc_total_rows($rows);
     $self->row_counts->{$table} = $rows;
+
+    $table_file_path;
+}
+
+sub dump_rows {
+    my ($self, $schema, $table, $rows) = @_;
+
+    my ($dump_fh, $table_file_path, $table_file_is_new) =
+        $self->_open_table_file($table, '>>');
+
+    my $all_column_info = $self->sql->get_all_column_info("$schema.$table");
+    my @ordered_columns = sort {
+        $all_column_info->{$a}{ORDINAL_POSITION} <=> $all_column_info->{$b}{ORDINAL_POSITION}
+    } keys %$all_column_info;
+
+    my $it = natatime 1000, @{$rows};
+    while (my @next_rows = $it->()) {
+        my @values = map {
+            my $row = $_;
+            (map { $row->{$_} } @ordered_columns)
+        } @next_rows;
+
+        my $qs = '(' . (join q(, ), (('?') x @ordered_columns)) . ')';
+        my $values_placeholders = 'VALUES ' . (join q(, ), (($qs) x scalar @next_rows));
+
+        my $dbh = $self->dbh; # issues a ping, must be done before COPY
+        $self->sql->do("COPY ($values_placeholders) TO stdout", @values);
+
+        my $buffer;
+        while ($dbh->pg_getcopydata($buffer) >= 0) {
+            print $dump_fh encode('utf-8', $buffer) or die $!;
+        }
+    }
+
+    close $dump_fh or die $!;
+
+    if ($table_file_is_new) {
+        $self->inc_total_tables;
+    }
+    my $row_count = scalar @{$rows};
+    $self->inc_total_rows($row_count);
+    $self->row_counts->{$table} += $row_count;
 
     $table_file_path;
 }

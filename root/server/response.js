@@ -10,10 +10,8 @@ const React = require('react');
 const ReactDOMServer = require('react-dom/server');
 
 const DBDefs = require('../static/scripts/common/DBDefs');
-const i18n = require('../static/scripts/common/i18n');
 const getCookie = require('../static/scripts/common/utility/getCookie');
 const {bufferFrom} = require('./buffer');
-const gettext = require('./gettext');
 
 function pathFromRoot(fpath) {
   return path.resolve(__dirname, '../', fpath);
@@ -45,9 +43,10 @@ function getResponse(requestBody, context) {
 
   global.$c = context;
 
-  // We use a separate gettext handle for each language. Set the current handle
-  // to be used for this request based on the given 'lang' cookie.
-  i18n.setGettextHandle(gettext.getHandle(getCookie('lang')));
+  // Set the current translations to be used for this request based on the
+  // given 'lang' cookie.
+  const gettext = require('./gettext');
+  gettext.setLocale(getCookie('lang') || 'en');
 
   try {
     Page = require(pathFromRoot(requestBody.component));

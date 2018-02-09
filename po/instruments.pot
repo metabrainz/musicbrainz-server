@@ -99,6 +99,11 @@ msgstr ""
 msgid "German harp"
 msgstr ""
 
+#: DB:instrument/name:901
+msgctxt "Modern 24-stringed stainless steel kora"
+msgid "Gravikord"
+msgstr ""
+
 #: DB:instrument/name:236
 msgid "Greek baglama"
 msgstr ""
@@ -311,8 +316,7 @@ msgid "alto saxophone"
 msgstr ""
 
 #: DB:instrument/name:174
-msgctxt ""
-"instrument between viola and cello - for French \"alto\" credits, pick viola"
+msgctxt "Alto or vertical violin, for French \"alto\" credits, choose viola"
 msgid "alto violin"
 msgstr ""
 
@@ -465,6 +469,11 @@ msgstr ""
 msgid "baritone saxophone"
 msgstr ""
 
+#: DB:instrument/name:897
+msgctxt "Conical bored compact double reed"
+msgid "baroque rackett"
+msgstr ""
+
 #: DB:instrument/name:521
 msgid "baroque trumpet"
 msgstr ""
@@ -531,6 +540,11 @@ msgstr ""
 
 #: DB:instrument/name:727
 msgid "bass trumpet"
+msgstr ""
+
+#: DB:instrument/name:900
+msgctxt "Sixteenth century precursor of the (violon)cello"
+msgid "bass violin"
 msgstr ""
 
 #: DB:instrument/name:404
@@ -2555,6 +2569,11 @@ msgctxt "Māori taonga pūoro long flute"
 msgid "rehu"
 msgstr ""
 
+#: DB:instrument/name:896
+msgctxt "Renaissance era compact double reed"
+msgid "renaissance rackett"
+msgstr ""
+
 #: DB:instrument/name:882
 msgctxt "Nyabinghi smaller pitch drum"
 msgid "repeater"
@@ -3202,6 +3221,7 @@ msgid "treble recorder / alto recorder"
 msgstr ""
 
 #: DB:instrument/name:209
+msgctxt "Smallest member of the new violin family"
 msgid "treble violin"
 msgstr ""
 
@@ -3391,6 +3411,11 @@ msgctxt "Spanish string instrument."
 msgid "vihuela"
 msgstr ""
 
+#: DB:instrument/name:899
+msgctxt "Viola de gamba family"
+msgid "viol family"
+msgstr ""
+
 #: DB:instrument/name:63
 msgid "viola"
 msgstr ""
@@ -3400,10 +3425,12 @@ msgid "viola caipira"
 msgstr ""
 
 #: DB:instrument/name:94
+msgctxt "Baroque fretless similar to both viols and violins."
 msgid "viola d'amore"
 msgstr ""
 
 #: DB:instrument/name:93
+msgctxt "Bass member of the viol family"
 msgid "viola da gamba"
 msgstr ""
 
@@ -3415,13 +3442,18 @@ msgstr ""
 msgid "violin"
 msgstr ""
 
-#: DB:instrument/name:661
-msgid "violino piccolo"
+#: DB:instrument/name:59
+msgctxt "Modern violin family"
+msgid "violin family"
 msgstr ""
 
-#: DB:instrument/name:59
-msgctxt "violin family"
-msgid "violins"
+#: DB:instrument/name:898
+msgctxt "New modern streamlined family of violins"
+msgid "violin octet"
+msgstr ""
+
+#: DB:instrument/name:661
+msgid "violino piccolo"
 msgstr ""
 
 #: DB:instrument/name:834

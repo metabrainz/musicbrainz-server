@@ -57,7 +57,6 @@ chown "$JSON_DUMP_USER:$JSON_DUMP_GROUP" "$DUMP_DIR"/LATEST
 
 ./bin/delete-old-fullexports -k -r "$DUMP_DIR"
 
-cp admin/config.json-dump.sh admin/config.user.sh
-./bin/rsync-fullexport-files
+MBS_ADMIN_CONFIG=config.json-dump.sh ./bin/rsync-fullexport-files
 
 # eof

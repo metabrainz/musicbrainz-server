@@ -1046,7 +1046,7 @@ msgid ""
 "This relationship type should be used in this last case."
 msgstr ""
 
-#: DB:link_type/description:27 DB:link_type/description:125
+#: DB:link_type/description:125 DB:link_type/description:27
 msgid ""
 "This credits the people or agency who did the graphic design, arranging "
 "pieces of content into a coherent and aesthetically-pleasing sleeve design."
@@ -1153,16 +1153,25 @@ msgid ""
 "between artists and the labels."
 msgstr ""
 
+#: DB:link_type/description:928
+msgid "This indicates a person or agency who did design for the release."
+msgstr ""
+
 #: DB:link_type/description:19
 msgid ""
 "This indicates a person or agency who did design or illustration for the "
-"release."
+"release. This relationship is deprecated, please use either \"design\" or "
+"\"illustration\" (or both!)"
 msgstr ""
 
 #: DB:link_type/description:130
 msgid ""
 "This indicates a person or agency who did design or illustration for the "
 "track."
+msgstr ""
+
+#: DB:link_type/description:927
+msgid "This indicates a person or agency who did illustration for the release."
 msgstr ""
 
 #: DB:link_type/description:723
@@ -2270,6 +2279,12 @@ msgid ""
 "\">whitelist</a> are permitted."
 msgstr ""
 
+#: DB:link_type/description:929
+msgid ""
+"This relationship indicates an artist credited as the booklet editor for a "
+"release."
+msgstr ""
+
 #: DB:link_type/description:893
 msgid ""
 "This relationship indicates that a person was a teacher at an event (e.g. a "
@@ -2385,6 +2400,12 @@ msgstr ""
 
 #: DB:link_type/description:859
 msgid "This relationship links a concert tour to the artist(s) the tour is by."
+msgstr ""
+
+#: DB:link_type/description:926
+msgid ""
+"This relationship links a group with the institution (esp. educational "
+"institution) they're associated with."
 msgstr ""
 
 #: DB:link_type/description:924
@@ -2902,8 +2923,16 @@ msgstr ""
 msgid "associate"
 msgstr ""
 
+#: DB:link_type/reverse_link_phrase:926
+msgid "associated groups"
+msgstr ""
+
 #: DB:link_type/reverse_link_phrase:11
 msgid "associated singles/EPs"
+msgstr ""
+
+#: DB:link_type/link_phrase:926
+msgid "associated with"
 msgstr ""
 
 #: DB:link_type/reverse_link_phrase:795
@@ -2955,6 +2984,14 @@ msgstr ""
 #: DB:link_type/link_phrase:23 DB:link_type/link_phrase:134
 #: DB:link_type/reverse_link_phrase:23 DB:link_type/reverse_link_phrase:134
 msgid "booking"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:929
+msgid "booklet editor"
+msgstr ""
+
+#: DB:link_type/link_phrase:929
+msgid "booklet editor for"
 msgstr ""
 
 #: DB:link_type/link_phrase:66 DB:link_type/link_phrase:205
@@ -3078,6 +3115,10 @@ msgstr ""
 
 #: DB:link_type/reverse_link_phrase:806
 msgid "conductors"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:925
+msgid "connected with"
 msgstr ""
 
 #: DB:link_type/link_phrase:739
@@ -3264,6 +3305,10 @@ msgstr ""
 msgid "edited in"
 msgstr ""
 
+#: DB:link_type/long_link_phrase:929
+msgid "edited the booklet of"
+msgstr ""
+
 #: DB:link_type/link_phrase:820 DB:link_type/link_phrase:821
 #: DB:link_type/link_phrase:822 DB:link_type/link_phrase:819
 msgid "editing location for"
@@ -3271,6 +3316,10 @@ msgstr ""
 
 #: DB:link_type/reverse_link_phrase:309
 msgid "edits"
+msgstr ""
+
+#: DB:link_type/link_phrase:925
+msgid "educational institution connection"
 msgstr ""
 
 #: DB:link_type/reverse_link_phrase:924
@@ -3867,8 +3916,16 @@ msgstr ""
 msgid "is an edit of"
 msgstr ""
 
+#: DB:link_type/long_link_phrase:926
+msgid "is associated with"
+msgstr ""
+
 #: DB:link_type/reverse_link_phrase:314
 msgid "is based on"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:925
+msgid "is connected to the educational institution"
 msgstr ""
 
 #: DB:link_type/long_link_phrase:894
@@ -4548,12 +4605,20 @@ msgstr ""
 msgid "provided {additional} creative direction on"
 msgstr ""
 
+#: DB:link_type/long_link_phrase:928
+msgid "provided {additional} design on"
+msgstr ""
+
 #: DB:link_type/long_link_phrase:19 DB:link_type/long_link_phrase:130
 msgid "provided {additional} design/illustration on"
 msgstr ""
 
-#: DB:link_type/long_link_phrase:27 DB:link_type/long_link_phrase:125
+#: DB:link_type/long_link_phrase:125 DB:link_type/long_link_phrase:27
 msgid "provided {additional} graphic design on"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:927
+msgid "provided {additional} illustration on"
 msgstr ""
 
 #: DB:link_type/long_link_phrase:22
@@ -5291,14 +5356,22 @@ msgstr ""
 msgid "{additional} creative direction"
 msgstr ""
 
+#: DB:link_type/link_phrase:928 DB:link_type/reverse_link_phrase:928
+msgid "{additional} design"
+msgstr ""
+
 #: DB:link_type/link_phrase:19 DB:link_type/link_phrase:130
 #: DB:link_type/reverse_link_phrase:19 DB:link_type/reverse_link_phrase:130
 msgid "{additional} design/illustration"
 msgstr ""
 
-#: DB:link_type/link_phrase:27 DB:link_type/link_phrase:125
-#: DB:link_type/reverse_link_phrase:27 DB:link_type/reverse_link_phrase:125
+#: DB:link_type/link_phrase:125 DB:link_type/link_phrase:27
+#: DB:link_type/reverse_link_phrase:125 DB:link_type/reverse_link_phrase:27
 msgid "{additional} graphic design"
+msgstr ""
+
+#: DB:link_type/link_phrase:927 DB:link_type/reverse_link_phrase:927
+msgid "{additional} illustration"
 msgstr ""
 
 #: DB:link_type/link_phrase:22 DB:link_type/reverse_link_phrase:22

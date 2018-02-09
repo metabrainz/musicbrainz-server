@@ -146,4 +146,27 @@ ENV `GIT_MSG' GIT_MSG
 ENV `GIT_SHA' GIT_SHA
 m4_popdef(`git_info')')
 
+m4_define(
+    `install_new_xz_utils',
+    `m4_dnl
+COPY docker/lasse_collin_pubkey.txt /tmp/
+
+RUN apt_install(``autoconf automake build-essential gettext libtool'') && \
+    cd /tmp && \
+    sudo_mb(``gpg --import lasse_collin_pubkey.txt'') && \
+    rm lasse_collin_pubkey.txt && \
+    wget https://tukaani.org/xz/xz-5.2.3.tar.gz && \
+    wget https://tukaani.org/xz/xz-5.2.3.tar.gz.sig && \
+    sudo_mb(``gpg --verify xz-5.2.3.tar.gz.sig'') && \
+    rm xz-5.2.3.tar.gz.sig && \
+    tar xvzf xz-5.2.3.tar.gz && \
+    cd xz-5.2.3 && \
+    ./configure --disable-shared --prefix=/usr/local/ && \
+    make && \
+    make install && \
+    cd ../ && \
+    rm -r xz-5.2.3* && \
+    apt_purge(``autoconf automake libtool'') && \
+    cd /home/musicbrainz')
+
 m4_divert`'m4_dnl
