@@ -11,15 +11,42 @@ env:
 
 rules:
   # Possible Errors
+  for-direction: error
+  no-await-in-loop: error
+  no-cond-assign: warn
   no-constant-condition: [error, {checkLoops: false}]
+  no-control-regex: warn
+  no-debugger: error
+  no-dupe-args: error
+  no-dupe-keys: error
+  no-duplicate-case: error
+  no-empty-character-class: error
+  no-empty: [error, {allowEmptyCatch: true}]
+  no-irregular-whitespace: warn
+  no-obj-calls: error
+  no-prototype-builtins: warn
+  no-regex-spaces: error
+  no-sparse-arrays: error
   no-unexpected-multiline: error
+  no-unreachable: error
+  no-unsafe-finally: error
+  no-unsafe-negation: error
+  use-isnan: error
+  valid-typeof: error
 
   # Best Practices
   block-scoped-var: warn
+  class-methods-use-this: warn
+  consistent-return: error
+  curly: [error, all]
+  dot-location: [warn, property]
+  dot-notation: [warn, {allowKeywords: true}]
   eqeqeq: warn
   no-alert: off
+  no-else-return: warn
   no-eq-null: error
   no-floating-decimal: warn
+  no-multi-spaces: [error, {ignoreEOLComments: true}]
   radix: warn
   wrap-iife: warn
 
@@ -30,34 +57,97 @@ rules:
   no-use-before-define: [error, nofunc]
 
   # Stylistic Issues
-  array-bracket-spacing: [error, never]
-  brace-style: [error, 1tbs]
+  array-bracket-newline: [warn, {multiline: true}]
+  array-bracket-spacing: [warn, never]
+  array-element-newline: [warn, {multiline: true}]
+  block-spacing: [warn, always]
+  brace-style: [warn, 1tbs]
   camelcase: [warn, {properties: never}]
   comma-dangle: [warn, {arrays: always-multiline,
                         objects: always-multiline,
                         imports: always-multiline,
                         exports: always-multiline,
                         functions: always-multiline}]
+  comma-spacing: [warn, {before: false, after: true}]
+  comma-style: [warn, last]
+  computed-property-spacing: [warn, never]
   consistent-this: [warn, self]
-  indent: [error, 2, {SwitchCase: 1}]
-  jsx-quotes: [error, prefer-double]
-  keyword-spacing: [error, {before: true, after: true}]
-  linebreak-style: [error, unix]
+  eol-last: [warn, always]
+  func-call-spacing: [warn, never]
+  function-paren-newline: [warn, consistent]
+  implicit-arrow-linebreak: [warn, beside]
+  indent: [warn, 2, {SwitchCase: 1}]
+  jsx-quotes: [warn, prefer-double]
+  key-spacing: [warn, {beforeColon: false, afterColon: true}]
+  keyword-spacing: [warn, {before: true, after: true}]
+  linebreak-style: [warn, unix]
+  lines-between-class-members: [warn, always]
+  max-len: [warn, {code: 78,
+                   ignoreUrls: true,
+                   ignoreStrings: true,
+                   ignoreTemplateLiterals: true,
+                   ignoreRegExpLiterals: true}]
+  max-statements-per-line: [warn, {max: 1}]
+  multiline-comment-style: [warn, starred-block]
+  multiline-ternary: off
   new-cap: off
+  new-parens: warn
+  newline-per-chained-call: [warn, {ignoreChainWithDepth: 3}]
   no-lonely-if: warn
+  no-mixed-spaces-and-tabs: warn
+  no-multi-assign: off
   no-multiple-empty-lines: [warn, {max: 2}]
+  no-negated-condition: warn
+  no-nested-ternary: off
+  no-plusplus: off
+  no-tabs: warn
+  no-ternary: off
+  no-trailing-spaces: warn
   no-underscore-dangle: off
   no-unneeded-ternary: warn
-  object-curly-spacing: [error, never]
-  padded-blocks: [error, never]
+  no-whitespace-before-property: warn
+  object-curly-newline: [warn, {multiline: true}]
+  object-curly-spacing: [warn, never]
+  object-property-newline: [warn, {allowAllPropertiesOnSameLine: true}]
+  one-var: [warn, never]
+  operator-assignment: [warn, always]
+  operator-linebreak: [warn, after, {overrides: {?: before, :: before}}]
+  padded-blocks: [warn, never]
   quote-props: [warn, as-needed]
   quotes: [warn, single, {avoidEscape: true,
                           allowTemplateLiterals: true}]
-  space-before-blocks: [error, always]
-  space-before-function-paren: [error, {anonymous: always,
-                                        named: never,
-                                        asyncArrow: always}]
-  spaced-comment: [warn, always]
+  semi: [warn, always, {omitLastInOneLineBlock: true}]
+  semi-spacing: [warn, {before: false, after: true}]
+  semi-style: [warn, last]
+  sort-keys: [warn, asc, {caseSensitive: true, natural: true}]
+  space-before-blocks: [warn, always]
+  space-before-function-paren: [warn, {anonymous: always,
+                                       named: never,
+                                       asyncArrow: always}]
+  space-in-parens: [warn, never]
+  space-infix-ops: [warn, {int32Hint: true}]
+  space-unary-ops: [warn, {words: true, nonwords: false}]
+  spaced-comment: [warn, always, {block: {balanced: true}}]
+  switch-colon-spacing: [warn, {after: true, before: false}]
+  template-tag-spacing: [warn, never]
+
+  # ECMAScript 6
+  constructor-super: error
+  no-class-assign: error
+  no-const-assign: error
+  no-dupe-class-members: error
+  no-duplicate-imports: warn
+  no-new-symbol: error
+  no-this-before-super: error
+  no-useless-constructor: warn
+  no-useless-rename: warn
+  no-var: warn
+  prefer-const: warn
+  prefer-numeric-literals: warn
+  require-yield: error
+  rest-spread-spacing: [warn, never]
+  sort-imports: warn
+  template-curly-spacing: [warn, never]
 
   #######################
   # eslint-plugin-react #
