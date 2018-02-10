@@ -1,16 +1,8 @@
 {
   "parser": "babel-eslint",
-  "globals": {
-    "$": true,
-    "document": false,
-    "exports": false,
-    "Intl": false,
-    "localStorage": false,
-    "MB": false,
-    "module": false,
-    "require": false,
-    "sessionStorage": false,
-    "window": false
+  "env": {
+    "browser": true,
+    "node": true
   },
   "rules": {
     "comma-dangle": 0,
