@@ -54,7 +54,7 @@ rules:
   strict: off
 
   # Variables
-  no-use-before-define: [error, nofunc]
+  no-use-before-define: off
 
   # Stylistic Issues
   array-bracket-newline: [warn, {multiline: true}]
