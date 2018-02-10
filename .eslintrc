@@ -1,20 +1,5 @@
 {
-  "parserOptions": {
-    "ecmaFeatures": {
-      "arrowFunctions": true,
-      "blockBindings": true,
-      "classes": true,
-      "destructuring": true,
-      "modules": true,
-      "objectLiteralShorthandMethods": true,
-      "objectLiteralShorthandProperties": true,
-      "spread": true,
-      "superInFunctions": true,
-      "templateStrings": true,
-      "jsx": true
-    },
-    "ecmaVersion": 6
-  },
+  "parser": "babel-eslint",
   "globals": {
     "$": true,
     "document": false,
