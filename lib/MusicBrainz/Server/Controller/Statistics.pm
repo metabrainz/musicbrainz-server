@@ -136,9 +136,10 @@ sub countries : Local
     }
 
     $c->stash(
-        template => 'statistics/countries.tt',
         stats    => $country_stats,
-        date_collected => $stats->{date_collected}
+        date_collected => $stats->{date_collected},
+        current_view => 'Node',
+        component_path => 'statistics/Countries.js',
     );
 }
 
