@@ -1032,7 +1032,6 @@ sub xml_search
     my $search_url_string;
     if (DBDefs->SEARCH_ENGINE eq 'LUCENE') {
         $search_url_string = "http://%s/ws/$version/%s/?query=%s&offset=%s&max=%s&fmt=xml";
-        print $search_url_string;
     } else {
         $search_url_string = "http://%s/%s/select?q=%s&start=%s&rows=%s&wt=mbxml&fl=score";
     }
