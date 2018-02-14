@@ -47,9 +47,8 @@ sub _truncate_message {
 
     my $message = $args{message} // '';
     if (length $message > $MAX_MESSAGE_LENGTH) {
-        my $nearest_newline = index $message, "\n", $MAX_MESSAGE_LENGTH;
-        $message = substr($message, 0, $MAX_MESSAGE_LENGTH + $nearest_newline + 1) .
-            "\n[message truncated]\n";
+        $message = substr($message, 0, $MAX_MESSAGE_LENGTH)
+            . "[message truncated]\n";
     }
     return $message;
 }
