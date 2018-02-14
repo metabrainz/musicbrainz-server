@@ -248,9 +248,10 @@ sub formats : Path('formats')
     }
 
     $c->stash(
-        template => 'statistics/formats.tt',
         format_stats => $format_stats,
-        stats => $stats
+        stats => $stats,
+        current_view => 'Node',
+        component_path => 'statistics/Formats.js',
     );
 }
 
