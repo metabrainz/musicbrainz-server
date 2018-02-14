@@ -31,6 +31,7 @@ require Exporter;
     our @EXPORT_OK = qw(
         unaccent_utf16
         is_integer
+        is_non_negative_integer
         is_positive_integer
         is_database_row_id
         is_database_bigint_id
@@ -85,6 +86,11 @@ sub is_integer
 {
     my $t = shift;
     defined($t) and not ref($t) and $t =~ /\A(-?[0-9]{1,20})\z/;
+}
+
+sub is_non_negative_integer {
+    my $t = shift;
+    is_integer($t) and $t >= 0;
 }
 
 sub is_positive_integer

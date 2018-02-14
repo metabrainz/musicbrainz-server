@@ -6,14 +6,17 @@ use DBDefs;
 use Encode qw( decode );
 use HTTP::Status ':constants';
 use MusicBrainz::Server::Release;
-use MusicBrainz::Server::Validation qw( is_positive_integer );
+use MusicBrainz::Server::Validation qw(
+    is_non_negative_integer
+    is_positive_integer
+);
 use URI::Escape qw( uri_escape_utf8 );
 
 with 'MusicBrainz::Server::Data::Role::Context';
 
 # Escape special characters in a Lucene search query
 sub escape_query {
-    shift =~ s/([+\-&|!(){}\[\]\^"~*?:\\])/\\$1/gr
+    (shift // '') =~ s/([+\-&|!(){}\[\]\^"~*?:\\])/\\$1/gr
 }
 
 # construct a lucene search query based on the args given and then pass it to a search server.
@@ -25,13 +28,17 @@ sub xml_search
     my $query = "";
     my $dur = 0;
     my $offset = 0;
-    my $limit = $args->{limit} || 0;
+    my $limit = 0;
     my $dismax = 'false';
 
-    if (defined $args->{offset} && is_positive_integer($args->{offset}))
-    {
+    if (is_positive_integer($args->{offset})) {
         $offset = $args->{offset}
     }
+
+    if (is_positive_integer($args->{limit})) {
+        $limit = $args->{limit}
+    }
+
     $limit = 25 if ($limit < 1 || $limit > 100);
 
     if (defined $args->{query} && $args->{query} ne "")
@@ -98,11 +105,11 @@ sub xml_search
         {
             $query .= " AND status:" . ($args->{releasestatus} - MusicBrainz::Server::Release::RELEASE_ATTR_SECTION_STATUS_START + 1) . "^0.0001";
         }
-        if ($args->{count} > 0)
+        if (is_positive_integer($args->{count}))
         {
             $query .= " AND tracks:" . $args->{count};
         }
-        if ($args->{discids} > 0)
+        if (is_positive_integer($args->{discids}))
         {
             $query .= " AND discids:" . $args->{discids};
         }
@@ -163,7 +170,7 @@ sub xml_search
             my $qdur = int($args->{duration} / 2000);
             $query .= " AND (qdur:$qdur OR qdur:" . ($qdur - 1) . " OR qdur:" . ($qdur + 1) . ")" if ($qdur);
         }
-        if ($args->{tracknumber} >= 0)
+        if (is_non_negative_integer($args->{tracknumber}))
         {
             $query .= " AND tnum:" . $args->{tracknumber};
         }
@@ -171,7 +178,7 @@ sub xml_search
         {
             $query .= " AND type:" . $args->{releasetype};
         }
-        if ($args->{count} > 0)
+        if (is_positive_integer($args->{count}))
         {
             $query .= " AND tracks:" . $args->{count};
         }
