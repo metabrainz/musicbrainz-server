@@ -102,10 +102,15 @@ with 'MusicBrainz::Server::Controller::Role::Merge' => {
     edit_type => $EDIT_WORK_MERGE,
 };
 
-before qw( show aliases tags details edit ) => sub {
+before qw( show aliases tags details edit edit_annotation open_edits edits ) => sub {
     my ($self, $c) = @_;
     my $work = $c->stash->{work};
     $c->model('WorkType')->load($work);
+};
+
+before qw( show aliases tags details edit ) => sub {
+    my ($self, $c) = @_;
+    my $work = $c->stash->{work};
     $c->model('Language')->load_for_works($work);
     $c->model('WorkAttribute')->load_for_works($work);
 };
