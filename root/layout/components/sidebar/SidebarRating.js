@@ -13,8 +13,8 @@ const {l} = require('../../../static/scripts/common/i18n');
 const EntityLink = require('../../../static/scripts/common/components/EntityLink');
 
 type Props = {
-  entity: RatableT;
-  heading?: string;
+  entity: RatableT,
+  heading?: string,
 };
 
 const SidebarRating = ({entity, heading}: Props) => (

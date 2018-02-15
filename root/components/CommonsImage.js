@@ -10,7 +10,7 @@ const React = require('react');
 const {l} = require('../static/scripts/common/i18n');
 
 type Props = {
-  image?: CommonsImageT | null;
+  image?: CommonsImageT | null,
 };
 
 const CommonsImage = ({image}: Props) => (

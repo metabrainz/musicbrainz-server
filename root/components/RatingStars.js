@@ -21,8 +21,8 @@ const ratingURL = (entity: RatableT, rating) => (
 const ratingInts = [1, 2, 3, 4, 5];
 
 type Props = {
-  entity: RatableT;
-  preventRating?: boolean;
+  entity: RatableT,
+  preventRating?: boolean,
 };
 
 const RatingStars = ({entity, preventRating}: Props) => {

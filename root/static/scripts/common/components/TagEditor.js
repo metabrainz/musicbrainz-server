@@ -25,7 +25,7 @@ const newTag: RecordFactory<UserTagT> = Immutable.Record({
 var VOTE_ACTIONS = {
   '0': 'withdraw',
   '1': 'upvote',
-  '-1': 'downvote'
+  '-1': 'downvote',
 };
 
 // The voting endpoints accept multiple tags, so we want to batch requests
@@ -49,12 +49,12 @@ function isAlwaysVisible(tag) {
 type VoteT = 1 | 0 | -1;
 
 type VoteButtonProps = {
-  activeTitle: string;
-  callback: (VoteT) => void;
-  currentVote: VoteT;
-  text: string;
-  title: string;
-  vote: VoteT;
+  activeTitle: string,
+  callback: (VoteT) => void,
+  currentVote: VoteT,
+  text: string,
+  title: string,
+  vote: VoteT,
 };
 
 class VoteButton extends React.Component<VoteButtonProps> {
@@ -103,9 +103,9 @@ class DownvoteButton extends VoteButton {
 }
 
 type VoteButtonsProps = {
-  callback: (VoteT) => void;
-  count: number;
-  currentVote: VoteT;
+  callback: (VoteT) => void,
+  count: number,
+  currentVote: VoteT,
 };
 
 class VoteButtons extends React.Component<VoteButtonsProps> {
@@ -130,11 +130,11 @@ class VoteButtons extends React.Component<VoteButtonsProps> {
 }
 
 type TagRowProps = {
-  callback: (VoteT) => void;
-  count: number;
-  currentVote: VoteT;
-  index: number;
-  tag: string;
+  callback: (VoteT) => void,
+  count: number,
+  currentVote: VoteT,
+  index: number,
+  tag: string,
 };
 
 class TagRow extends React.Component<TagRowProps> {
@@ -151,18 +151,18 @@ class TagRow extends React.Component<TagRowProps> {
 }
 
 type TagEditorProps = {
-  entity: CoreEntityT;
+  entity: CoreEntityT,
 };
 
 type TagEditorState = {
-  positiveTagsOnly: bool;
-  tags: List<RecordOf<UserTagT>>;
+  positiveTagsOnly: bool,
+  tags: List<RecordOf<UserTagT>>,
 };
 
 type PendingVoteT = {
-  fail: () => void;
-  tag: string;
-  vote: VoteT;
+  fail: () => void,
+  tag: string,
+  vote: VoteT,
 };
 
 class TagEditor extends React.Component<TagEditorProps, TagEditorState> {

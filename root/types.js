@@ -26,18 +26,18 @@ type CatalystStashT = {
 };
 
 declare type CommonsImageT = {
-  page_url: string;
-  thumb_url: string;
+  page_url: string,
+  thumb_url: string,
 };
 
 declare type CoreEntityT = EntityT & {
-  gid: string;
+  gid: string,
 };
 
 declare type EntityT = {
-  entityType: string;
-  id: number;
-  name: string;
+  entityType: string,
+  id: number,
+  name: string,
 };
 
 declare type InstrumentT =
@@ -58,15 +58,15 @@ declare type OptionTreeT = {|
 |};
 
 declare type RatableT = EntityT & {
-  rating: number | null;
-  rating_count: number;
-  user_rating: number | null;
+  rating: number | null,
+  rating_count: number,
+  user_rating: number | null,
 };
 
 declare type UserTagT = {
-  count: number;
-  tag: string;
-  vote: 1 | -1;
+  count: number,
+  tag: string,
+  vote: 1 | -1,
 };
 
 declare var $c: CatalystContextT;

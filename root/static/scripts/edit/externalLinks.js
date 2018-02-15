@@ -25,21 +25,21 @@ const URLCleanup = require('./URLCleanup');
 const validation = require('./validation');
 
 type LinkStateT = {
-  url: string;
-  type: number|null;
-  relationship: number|null;
-  video: boolean;
+  url: string,
+  type: number|null,
+  relationship: number|null,
+  video: boolean,
 };
 
 type LinksEditorProps = {
-  sourceType: string;
-  typeOptions: Array<React.Element<'option'>>;
-  initialLinks: Array<LinkStateT>;
-  errorObservable: (bool) => void;
+  sourceType: string,
+  typeOptions: Array<React.Element<'option'>>,
+  initialLinks: Array<LinkStateT>,
+  errorObservable: (bool) => void,
 };
 
 type LinksEditorState = {
-  links: Array<LinkStateT>;
+  links: Array<LinkStateT>,
 };
 
 class ExternalLinksEditor extends React.Component<LinksEditorProps, LinksEditorState> {
@@ -236,9 +236,9 @@ class ExternalLinksEditor extends React.Component<LinksEditorProps, LinksEditorS
 }
 
 type LinkTypeSelectProps = {
-  children: Array<React.Element<'option'>>;
-  type: number|null;
-  typeChangeCallback: (number, SyntheticEvent<HTMLSelectElement>) => void;
+  children: Array<React.Element<'option'>>,
+  type: number|null,
+  typeChangeCallback: (number, SyntheticEvent<HTMLSelectElement>) => void,
 };
 
 class LinkTypeSelect extends React.Component<LinkTypeSelectProps> {
@@ -253,18 +253,18 @@ class LinkTypeSelect extends React.Component<LinkTypeSelectProps> {
 }
 
 type LinkProps = {
-  url: string;
-  type: number|null;
-  video: boolean;
-  errorMessage: string;
-  isOnlyLink: boolean;
-  urlMatchesType: boolean;
-  removeCallback: (number) => void;
-  urlChangeCallback: (number, SyntheticEvent<HTMLInputElement>) => void;
-  urlBlurCallback: (number, SyntheticEvent<HTMLInputElement>) => void;
-  typeChangeCallback: (number, SyntheticEvent<HTMLSelectElement>) => void;
-  videoChangeCallback: (number, SyntheticEvent<HTMLInputElement>) => void;
-  typeOptions: Array<React.Element<'option'>>;
+  url: string,
+  type: number|null,
+  video: boolean,
+  errorMessage: string,
+  isOnlyLink: boolean,
+  urlMatchesType: boolean,
+  removeCallback: (number) => void,
+  urlChangeCallback: (number, SyntheticEvent<HTMLInputElement>) => void,
+  urlBlurCallback: (number, SyntheticEvent<HTMLInputElement>) => void,
+  typeChangeCallback: (number, SyntheticEvent<HTMLSelectElement>) => void,
+  videoChangeCallback: (number, SyntheticEvent<HTMLInputElement>) => void,
+  typeOptions: Array<React.Element<'option'>>,
 };
 
 class ExternalLink extends React.Component<LinkProps> {
@@ -371,24 +371,24 @@ function withOneEmptyLink(links, dontRemove) {
 }
 
 type RelationshipTargetT = {
-  entityType: string;
-  name: string;
-  relationships?: Array<RelationshipT>;
+  entityType: string,
+  name: string,
+  relationships?: Array<RelationshipT>,
 };
 
 type RelationshipAttributeTypeT = {
-  gid: string;
+  gid: string,
 };
 
 type RelationshipAttributeT = {
-  type: RelationshipAttributeTypeT;
+  type: RelationshipAttributeTypeT,
 };
 
 type RelationshipT = {
-  attributes: Array<RelationshipAttributeT>;
-  id: number;
-  linkTypeID: number;
-  target: RelationshipTargetT;
+  attributes: Array<RelationshipAttributeT>,
+  id: number,
+  linkTypeID: number,
+  target: RelationshipTargetT,
 };
 
 function parseRelationships(relationships?: Array<RelationshipT>) {
@@ -463,9 +463,9 @@ function isShortened(url) {
 }
 
 type InitialOptionsT = {
-  errorObservable?: (boolean) => void;
-  mountPoint: Element;
-  sourceData: RelationshipTargetT;
+  errorObservable?: (boolean) => void,
+  mountPoint: Element,
+  sourceData: RelationshipTargetT,
 };
 
 MB.createExternalLinksEditor = function (options: InitialOptionsT) {

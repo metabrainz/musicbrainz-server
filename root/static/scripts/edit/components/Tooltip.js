@@ -12,8 +12,8 @@ const React = require('react');
 const ReactDOM = require('react-dom');
 
 type TooltipProps = {
-  hoverCallback: (bool) => void;
-  html: string;
+  hoverCallback: (bool) => void,
+  html: string,
 };
 
 class Tooltip extends React.Component<TooltipProps> {
