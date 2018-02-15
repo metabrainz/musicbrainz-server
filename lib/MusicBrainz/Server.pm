@@ -366,7 +366,10 @@ around dispatch => sub {
             if (my $sth = $context->sql->sth) {
                 $sth->cancel;
             }
-            MusicBrainz::Server::Exceptions::GenericTimeout->throw("Request took more than $max_request_time seconds");
+            MusicBrainz::Server::Exceptions::GenericTimeout->throw(
+                $c->req->method . ' ' . $c->req->uri .
+                " took more than $max_request_time seconds"
+            );
         });
         $action->safe(1);
         POSIX::sigaction(SIGALRM, $action);
