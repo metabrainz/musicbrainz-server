@@ -221,10 +221,11 @@ sub languages_scripts : Path('languages-scripts')
     }
 
     $c->stash(
-        template => 'statistics/languages_scripts.tt',
         language_stats => [ rev_nsort_by { $_->{total} } @language_stats ],
         script_stats => $script_stats,
-        date_collected => $stats->{date_collected}
+        date_collected => $stats->{date_collected},
+        current_view => 'Node',
+        component_path => 'statistics/LanguagesScripts.js'
     );
 }
 

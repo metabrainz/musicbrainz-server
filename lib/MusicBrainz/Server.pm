@@ -494,6 +494,7 @@ sub TO_JSON {
         format_stats
         hide_merge_helper
         jsonld_data
+        language_stats
         last_replication_date
         makes_no_changes
         merge_link
@@ -501,6 +502,7 @@ sub TO_JSON {
         new_edit_notes
         number_of_revisions
         release_artwork
+        script_stats
         server_details
         server_languages
         stats
