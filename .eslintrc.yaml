@@ -4,10 +4,15 @@ parser: babel-eslint
 
 plugins:
   - react
+  - flowtype
 
 env:
   browser: true
   node: true
+
+settings:
+  flowtype:
+    onlyFilesWithFlowAnnotation: true
 
 rules:
   # Possible Errors
@@ -233,3 +238,30 @@ rules:
                                       condition: parens-new-line,
                                       logical: parens-new-line,
                                       prop: ignore}]
+
+  ##########################
+  # eslint-plugin-flowtype #
+  ##########################
+
+  flowtype/boolean-style: [warn, boolean]
+  flowtype/define-flow-type: warn
+  flowtype/delimiter-dangle: [warn, always-multiline]
+  flowtype/generic-spacing: [warn, never]
+  flowtype/no-dupe-keys: error
+  flowtype/no-flow-fix-me-comments: off
+  flowtype/no-mutable-array: warn
+  flowtype/no-primitive-constructor-types: error
+  flowtype/no-types-missing-file-annotation: error
+  flowtype/no-weak-types: warn
+  flowtype/object-type-delimiter: [warn, comma]
+  flowtype/require-exact-type: off
+  flowtype/require-parameter-type: off
+  flowtype/require-return-type: off
+  flowtype/require-valid-file-annotation: off
+  flowtype/semi: [warn, always]
+  flowtype/sort-keys: [warn, asc, {caseSensitive: true, natural: true}]
+  flowtype/space-after-type-colon: [warn, always, {allowLineBreak: true}]
+  flowtype/space-before-generic-bracket: [warn, never]
+  flowtype/space-before-type-colon: [warn, never]
+  flowtype/union-intersection-spacing: [warn, always]
+  flowtype/use-flow-type: warn

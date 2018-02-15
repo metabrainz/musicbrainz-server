@@ -65,6 +65,7 @@
     "babel-eslint": "8.2.1",
     "chrome-remote-interface": "0.24.2",
     "eslint": "4.17.0",
+    "eslint-plugin-flowtype": "2.44.0",
     "eslint-plugin-react": "7.6.1",
     "file-url": "2.0.2",
     "gulp-watch": "4.3.5",
