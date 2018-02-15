@@ -12,39 +12,39 @@
 // TO_JSON methods under lib/MusicBrainz/Server/Entity/; those are precisely
 // how data is serialized for us.
 
-type CatalystContextT = {
-  stash: CatalystStashT,
-  user_exists: bool,
-};
+type CatalystContextT = {|
+  +stash: CatalystStashT,
+  +user_exists: bool,
+|};
 
-type CatalystStashT = {
-  instruments_by_type?: {
-    [number]: Array<InstrumentT>,
-    unknown: Array<InstrumentT>,
-  },
-  instrument_types?: Array<InstrumentTypeT>,
-};
+type CatalystStashT = {|
+  instruments_by_type?: {|
+    +[number]: $ReadOnlyArray<InstrumentT>,
+    +unknown: $ReadOnlyArray<InstrumentT>,
+  |},
+  +instrument_types?: $ReadOnlyArray<InstrumentTypeT>,
+|};
 
-declare type CommonsImageT = {
-  page_url: string,
-  thumb_url: string,
-};
+declare type CommonsImageT = {|
+  +page_url: string,
+  +thumb_url: string,
+|};
 
-declare type CoreEntityT = EntityT & {
-  gid: string,
-};
+declare type CoreEntityT = EntityT & {|
+  +gid: string,
+|};
 
-declare type EntityT = {
-  entityType: string,
-  id: number,
-  name: string,
-};
+declare type EntityT = {|
+  +entityType: string,
+  +id: number,
+  +name: string,
+|};
 
 declare type InstrumentT =
   & EntityT
-  & {
+  & {|
     +description: string,
-  };
+  |};
 
 declare type InstrumentTypeT =
   & EntityT
@@ -57,16 +57,16 @@ declare type OptionTreeT = {|
   +description: string,
 |};
 
-declare type RatableT = EntityT & {
-  rating: number | null,
-  rating_count: number,
-  user_rating: number | null,
-};
+declare type RatableT = EntityT & {|
+  +rating: number | null,
+  +rating_count: number,
+  +user_rating: number | null,
+|};
 
-declare type UserTagT = {
-  count: number,
-  tag: string,
-  vote: 1 | -1,
-};
+declare type UserTagT = {|
+  +count: number,
+  +tag: string,
+  +vote: 1 | -1,
+|};
 
 declare var $c: CatalystContextT;
