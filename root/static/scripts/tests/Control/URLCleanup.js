@@ -1736,6 +1736,28 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
             expected_relationship_type: 'otherdatabases',
                     expected_clean_url: 'https://www.musik-sammler.de/media/594158/',
         },
+        // Musixmatch
+        {
+                             input_url: 'https://www.musixmatch.com/artist/Bruno-Mars/community/2',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'lyrics',
+                    expected_clean_url: 'https://www.musixmatch.com/artist/Bruno-Mars',
+               only_valid_entity_types: ['artist']
+        },
+        {
+                             input_url: 'https://www.musixmatch.com/album/Bruno-Mars/This-Is-My-Love-Remixes-3',
+                     input_entity_type: 'album',
+            expected_relationship_type: undefined,
+               input_relationship_type: 'lyrics',
+               only_valid_entity_types: []
+        },
+        {
+                             input_url: 'https://www.musixmatch.com/lyrics/Mark-Ronson-feat-Bruno-Mars/Uptown-Funk/translation/spanish',
+                     input_entity_type: 'work',
+            expected_relationship_type: 'lyrics',
+                    expected_clean_url: 'https://www.musixmatch.com/lyrics/Mark-Ronson-feat-Bruno-Mars/Uptown-Funk',
+               only_valid_entity_types: ['work']
+        },
         // mvdbase.com (The Music Video DataBase)
         {
                              input_url: 'http://www.mvdbase.com/video.php?id=4',
