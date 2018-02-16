@@ -12,6 +12,13 @@
 // TO_JSON methods under lib/MusicBrainz/Server/Entity/; those are precisely
 // how data is serialized for us.
 
+declare type ArtistT =
+  & CoreEntityT
+  & {|
+      +entityType: 'artist',
+      +sort_name: string,
+    |};
+
 type CatalystContextT = {|
   +session: CatalystSessionT | null,
   +sessionid: string | null,
