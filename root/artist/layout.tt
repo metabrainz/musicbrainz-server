@@ -1,6 +1,6 @@
 [%~ WRAPPER "layout.tt" title=title ? artist.name _ " - ${title}" : artist.name canonical_url=replace_gid(entity.gid) ~%]
     <div id="content">
-        [%~ INCLUDE "artist/header.tt" ~%]
+        [%~ React.embed(c, 'artist/ArtistHeader', { artist => artist, page => page }) ~%]
         [%~ content ~%]
     </div>
 
