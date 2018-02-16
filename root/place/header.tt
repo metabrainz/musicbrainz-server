@@ -1,8 +1,0 @@
-<div class="placeheader">
-    <h1>[% link_entity(place) %]</h1>
-    <p class="subheader">
-        <span class="prefix">~</span>
-             [% html_escape(place.l_type_name) or l('Place') %]    </p>
-</div>
-
-[%- INCLUDE 'components/entity-tabs.tt' edit_tab='default' -%]
