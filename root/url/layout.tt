@@ -1,7 +1,7 @@
 [% WRAPPER 'layout.tt' canonical_url=replace_gid(entity.gid) %]
     <div id="content">
-         [% INCLUDE 'url/header.tt' %]
-         [% content %]
+        [%~ React.embed(c, 'url/URLHeader', { url => url, page => page }) ~%]
+        [% content %]
     </div>
 
     [%- IF !full_width -%]
