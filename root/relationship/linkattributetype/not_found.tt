@@ -1,6 +1,0 @@
-[% WRAPPER "layout.tt" title=l("Relationship Attributes") full_width=1 %]
-  <div id="content">
-    <p>[% l('Sorry, we could not find a relationship attribute with that
-         MusicBrainz ID.') %]</p>
-  </div>
-[% END %]

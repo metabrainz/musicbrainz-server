@@ -26,7 +26,7 @@ function badRequest(err) {
 }
 
 function getResponse(requestBody, context) {
-  let status = 200;
+  let status = null;
   let Page;
   let response;
 

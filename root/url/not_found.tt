@@ -1,5 +1,0 @@
-[% WRAPPER 'layout.tt' title=l('URL Not Found') full_width=1 %]
-<h1>[% l('URL Not Found') %]</h1>
-
-<p>[% l('Sorry, we could not find a URL with that MusicBrainz ID.') %]</p>
-[% END %]

@@ -19,7 +19,10 @@ sub not_found : Private
 {
     my ($self, $c) = @_;
     $c->response->status(404);
-    $c->stash( template => $self->action_namespace . '/not_found.tt' );
+    $c->stash(
+        current_view => 'Node',
+        component_path => $self->action_namespace . '/NotFound.js',
+    );
     $c->detach;
 }
 

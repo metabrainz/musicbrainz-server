@@ -23,6 +23,7 @@ type CatalystStashT = {|
     +unknown: $ReadOnlyArray<InstrumentT>,
   |},
   +instrument_types?: $ReadOnlyArray<InstrumentTypeT>,
+  +tag?: string,
 |};
 
 declare type CommonsImageT = {|
