@@ -13,8 +13,14 @@
 // how data is serialized for us.
 
 type CatalystContextT = {|
+  +session: CatalystSessionT | null,
+  +sessionid: string | null,
   +stash: CatalystStashT,
   +user_exists: bool,
+|};
+
+type CatalystSessionT = {|
+  +tport?: number,
 |};
 
 type CatalystStashT = {|
@@ -62,6 +68,21 @@ declare type RatableT = EntityT & {|
   +rating: number | null,
   +rating_count: number,
   +user_rating: number | null,
+|};
+
+declare type RecordingT = CoreEntityT & {|
+  +entityType: 'recording',
+  +length: number,
+  +video: boolean,
+|};
+
+declare type ReleaseT = CoreEntityT & {|
+  +barcode: string | null,
+  +entityType: 'release',
+  +languageID: number | null,
+  +packagingID: number | null,
+  +scriptID: number | null,
+  +statusID: number | null,
 |};
 
 declare type UserTagT = {|
