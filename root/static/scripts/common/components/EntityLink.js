@@ -128,7 +128,7 @@ const EntityLink = (props = {}) => {
     return null;
   }
 
-  let href = entityHref(entityType, ko.unwrap(entity.gid), subPath);
+  let href = entityHref(entity, subPath);
   let nameVariation;
   let infoLink;
 

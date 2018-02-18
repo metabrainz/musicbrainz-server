@@ -7,18 +7,29 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
+const ko = require('knockout');
+
 const {ENTITIES} = require('../constants');
 const nonEmpty = require('./nonEmpty');
 
 const leadingSlash = /^\/?(.*)/;
 
 function entityHref(
-  entityType: $Keys<ENTITIES>,
-  id: number | string,
+  entity: EntityT | CoreEntityT,
   subPath?: string,
 ) {
-  let href = '/' + ENTITIES[entityType].url + '/' +
-    encodeURIComponent(String(id));
+  const entityType = entity.entityType;
+  const entityProps = ENTITIES[entityType];
+  let href = '/' + entityProps.url + '/';
+  let id: string;
+
+  if (entityProps.mbid) {
+    id = ko.unwrap((entity: any).gid);
+  } else {
+    id = (entity: any).name;
+  }
+
+  href += encodeURIComponent(id);
 
   if (nonEmpty(subPath)) {
     subPath = subPath.replace(leadingSlash, '$1');

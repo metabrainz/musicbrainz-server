@@ -32,7 +32,7 @@ const EditorLink = ({editor, content, avatarSize, subPath}) => {
   }
 
   return (
-    <a href={entityHref('editor', editor.name, subPath)}>
+    <a href={entityHref(editor, subPath)}>
       <img src={imageURL} height={avatarSize} width={avatarSize} className="gravatar" alt="" />
       {isolateText(content)}
     </a>
