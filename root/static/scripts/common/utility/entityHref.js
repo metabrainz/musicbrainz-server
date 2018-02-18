@@ -3,7 +3,7 @@ const nonEmpty = require('./nonEmpty');
 
 const leadingSlash = /^\/?(.*)/;
 
-function entityHREF(entityType, id, subPath) {
+function entityHref(entityType, id, subPath) {
   let href = '/' + ENTITIES[entityType].url + '/' + encodeURIComponent(id);
 
   if (nonEmpty(subPath)) {
@@ -16,4 +16,4 @@ function entityHREF(entityType, id, subPath) {
   return href;
 }
 
-module.exports = entityHREF;
+module.exports = entityHref;
