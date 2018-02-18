@@ -15,6 +15,8 @@ my $LATEST_SECURITY_VULNERABILITY = DateTime->new( year => 2013, month => 3, day
 
 extends 'MusicBrainz::Server::Entity';
 
+sub entity_type { 'editor' }
+
 has 'name' => (
     is  => 'rw',
     isa => 'Str',
