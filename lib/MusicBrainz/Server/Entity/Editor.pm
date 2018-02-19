@@ -279,6 +279,7 @@ around TO_JSON => sub {
         is_location_editor => boolean_to_json($self->is_location_editor),
         is_relationship_editor => boolean_to_json($self->is_relationship_editor),
         is_wiki_transcluder => boolean_to_json($self->is_wiki_transcluder),
+        name => $self->name,
         preferences => $self->preferences->TO_JSON,
     };
 };

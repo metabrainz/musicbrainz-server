@@ -81,6 +81,7 @@ declare type CommonsImageT = {|
 
 declare type CoreEntityT = EntityT & {|
   +gid: string,
+  +name: string,
 |};
 
 declare type EditsPendingT = {|
@@ -90,7 +91,6 @@ declare type EditsPendingT = {|
 declare type EntityT = {|
   +entityType: string,
   +id: number,
-  +name: string,
 |};
 
 declare type InstrumentT =
@@ -121,10 +121,11 @@ declare type LabelT =
 declare type OptionTreeT =
   & EntityT
   & {|
+      +gid: string,
+      +name: string,
+      +parentID: number | null,
       +childOrder: number,
       +description: string,
-      +gid: string,
-      +parentID: number | null,
     |};
 
 declare type PlaceT =
@@ -136,7 +137,7 @@ declare type PlaceT =
 
 export opaque type PlaceTypeT: OptionTreeT = OptionTreeT;
 
-declare type RatableT = EntityT & {|
+declare type RatableT = CoreEntityT & {|
   +rating: number | null,
   +rating_count: number,
   +user_rating: number | null,

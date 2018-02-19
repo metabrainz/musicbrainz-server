@@ -30,6 +30,14 @@ has 'frequency' => (
     isa => 'Int'
 );
 
+around TO_JSON => sub {
+    my ($orig, $self) = @_;
+
+    my $json = $self->$orig;
+    $json->{name} = $self->name;
+    return $json;
+};
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;
