@@ -25,6 +25,8 @@ function entityHref(
 
   if (entityProps.mbid) {
     id = ko.unwrap((entity: any).gid);
+  } else if (entityType === 'isrc' || entityType === 'iswc') {
+    id = (entity: any)[entityType];
   } else {
     id = (entity: any).name;
   }
