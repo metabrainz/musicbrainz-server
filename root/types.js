@@ -71,6 +71,8 @@ type CatalystStashT = {|
     +unknown: $ReadOnlyArray<InstrumentT>,
   |},
   +instrument_types?: $ReadOnlyArray<InstrumentTypeT>,
+  +isrcs?: $ReadOnlyArray<IsrcT>,
+  +recordings?: $ReadOnlyArray<RecordingT>,
   +tag?: string,
 |};
 
@@ -161,20 +163,21 @@ declare type RatableT = CoreEntityT & {|
   +user_rating: number | null,
 |};
 
-declare type ReleaseGroupT =
-  & ArtistCreditRoleT
-  & CoreEntityT
-  & {|
-      +entityType: 'release_group',
-    |};
-
 declare type RecordingT =
   & ArtistCreditRoleT
   & CoreEntityT
   & {|
       +entityType: 'recording',
+      +isrcs: $ReadOnlyArray<IsrcT>,
       +length: number,
       +video: boolean,
+    |};
+
+declare type ReleaseGroupT =
+  & ArtistCreditRoleT
+  & CoreEntityT
+  & {|
+      +entityType: 'release_group',
     |};
 
 declare type ReleaseT = CoreEntityT & {|
