@@ -79,14 +79,14 @@ const ArtistCreditBubble = ({
         </tr>
       </thead>
       <tbody>
-        {artistCredit.names.toArray().map((name, index) => (
+        {artistCredit.map((name, index) => (
           <ArtistCreditNameEditor
             entity={entity}
             index={index}
             key={index}
             name={name}
             onChange={update => onNameChange(index, update)}
-            onRemove={artistCredit.names.size > 1 ? (event => removeName(index, event)) : null}
+            onRemove={artistCredit.length > 1 ? (event => removeName(index, event)) : null}
           />
         ))}
         <tr>

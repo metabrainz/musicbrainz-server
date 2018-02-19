@@ -155,7 +155,7 @@ const formatTrackLength = require('./utility/formatTrackLength');
             var json = super.toJSON();
 
             if (this.artistCredit) {
-                json.artistCredit = ko.unwrap(this.artistCredit).names.toJS();
+                json.artistCredit = ko.unwrap(this.artistCredit);
             }
             return json;
         }

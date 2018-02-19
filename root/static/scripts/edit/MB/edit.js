@@ -62,9 +62,7 @@ const request = require('../../common/utility/request');
                 return {names: []};
             }
 
-            var names = ac.names.toJS();
-
-            names = _.map(names, function (credit, index) {
+            ac = _.map(ac, function (credit, index) {
                 var artist = value(credit.artist) || {};
 
                 var name = {
@@ -82,7 +80,7 @@ const request = require('../../common/utility/request');
                 name.join_phrase = joinPhrase.replace(/\s{2,}/g, " ");
 
                 // Trim trailing whitespace for the final join phrase only.
-                if (index === names.length - 1) {
+                if (index === ac.length - 1) {
                     name.join_phrase = _.trimEnd(name.join_phrase);
                 }
 
@@ -90,7 +88,7 @@ const request = require('../../common/utility/request');
 
                 return name;
             });
-            return { names: names };
+            return { names: ac };
         },
 
         externalLinkRelationship: function (link, source) {

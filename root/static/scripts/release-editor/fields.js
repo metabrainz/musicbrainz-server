@@ -56,7 +56,7 @@ class Track {
         var release = medium && medium.release;
 
         if (release && !data.artistCredit && !hasVariousArtists(release.artistCredit.peek())) {
-            data.artistCredit = release.artistCredit.peek().names.toJS();
+            data.artistCredit = release.artistCredit.peek();
         }
 
         this.artistCredit = ko.observable(artistCreditFromArray(data.artistCredit || []));
@@ -94,7 +94,7 @@ class Track {
         var recordingData = data.recording;
         if (recordingData) {
             if (_.isEmpty(recordingData.artistCredit)) {
-                recordingData.artistCredit = this.artistCredit().names.toJS();
+                recordingData.artistCredit = this.artistCredit();
             }
             this.recording(MB_entity(recordingData, "recording"));
             this.recording.original(MB_edit.fields.recording(this.recording.peek()));
