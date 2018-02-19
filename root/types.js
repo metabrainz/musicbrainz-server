@@ -112,6 +112,24 @@ declare type EventT =
 
 export opaque type EventTypeT: OptionTreeT = OptionTreeT;
 
+declare type IsrcT =
+  & EditsPendingT
+  & EntityT
+  & {|
+      +entityType: 'isrc',
+      +isrc: string,
+      +recording_id: number,
+    |};
+
+declare type IswcT =
+  & EditsPendingT
+  & EntityT
+  & {|
+      +entityType: 'iswc',
+      +iswc: string,
+      +work_id: number,
+    |};
+
 declare type LabelT =
   & CoreEntityT
   & {|
