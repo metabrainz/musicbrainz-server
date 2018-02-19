@@ -5,7 +5,6 @@
 // and is licensed under the GPL version 2, or (at your option) any
 // later version: http://www.gnu.org/licenses/gpl-2.0.txt
 
-const Immutable = require('immutable');
 const $ = require('jquery');
 const _ = require('lodash');
 const React = require('react');
@@ -15,12 +14,6 @@ const {l, lp} = require('../i18n');
 const MB = require('../MB');
 const request = require('../utility/request');
 const TagLink = require('./TagLink');
-
-const newTag: RecordFactory<UserTagT> = Immutable.Record({
-  tag: '',
-  count: 0,
-  vote: 0,
-});
 
 var VOTE_ACTIONS = {
   '0': 'withdraw',
@@ -34,7 +27,7 @@ var VOTE_ACTIONS = {
 var VOTE_DELAY = 1000;
 
 function sortedTags(tags) {
-  return tags.sortBy(t => t.tag).sortBy(t => -t.count);
+  return _.sortBy(tags, t => t.tag, t => -t.count);
 }
 
 function getTagsPath(entity) {
@@ -156,7 +149,7 @@ type TagEditorProps = {
 
 type TagEditorState = {
   positiveTagsOnly: bool,
-  tags: List<RecordOf<UserTagT>>,
+  tags: $ReadOnlyArray<UserTagT>,
 };
 
 type PendingVoteT = {
@@ -242,7 +235,7 @@ class TagEditor extends React.Component<TagEditorProps, TagEditorState> {
   }
 
   getNewCount(index, vote) {
-    var current = this.state.tags.get(index);
+    var current = this.state.tags[index];
 
     if (!current) {
       return 0;
@@ -272,7 +265,7 @@ class TagEditor extends React.Component<TagEditorProps, TagEditorState> {
         .map(name => {
           name = _.trim(name).toLowerCase();
           if (name) {
-            var index = this.state.tags.findIndex(t => t.tag === name);
+            var index = _.findIndex(this.state.tags, t => t.tag === name);
             if (index >= 0) {
               return {tag: name, count: this.getNewCount(index, 1), vote: 1};
             } else {
@@ -294,30 +287,30 @@ class TagEditor extends React.Component<TagEditorProps, TagEditorState> {
 
   updateVote(index, vote) {
     var newCount = this.getNewCount(index, vote);
-    this.setState({
-      tags: this.state.tags.mergeIn([index], {count: newCount, vote: vote})
-    });
+    const tags = this.state.tags.slice(0);
+    tags[index] = _.assign({}, tags[index], {count: newCount, vote: vote});
+    this.setState({tags});
   }
 
   updateTags(updatedUserTags) {
-    var newTags = this.state.tags;
+    var newTags = this.state.tags.slice(0);
 
     updatedUserTags.forEach(t => {
-      var index = newTags.findIndex(ct => ct.tag === t.tag);
+      var index = _.findIndex(newTags, ct => ct.tag === t.tag);
 
       if (t.deleted) {
-        newTags = newTags.delete(index);
+        newTags.splice(index, 1);
       } else {
-        var tag = newTag(({
+        var tag = {
           count: t.count,
           tag: t.tag,
           vote: t.vote,
-        }: UserTagT));
+        };
 
         if (index >= 0) {
-          newTags = newTags.set(index, tag);
+          newTags[index] = tag;
         } else {
-          newTags = newTags.push(tag);
+          newTags.push(tag);
         }
       }
     });
@@ -347,14 +340,14 @@ class MainTagEditor extends TagEditor {
 
     return (
       <div>
-        {tags.size === 0 && <p>{l('Nobody has tagged this yet.')}</p>}
+        {tags.length === 0 && <p>{l('Nobody has tagged this yet.')}</p>}
 
         {tagRows.length > 0 &&
           <ul className="tag-list">
             {tagRows}
           </ul>}
 
-        {(positiveTagsOnly && tags.some(t => !isAlwaysVisible(t))) && [
+        {(positiveTagsOnly && !tags.every(isAlwaysVisible)) && [
           <p key={1}>
             {l('Tags with a score of zero or below, and tags that you’ve downvoted are hidden.')}
           </p>,
@@ -394,7 +387,7 @@ class SidebarTagEditor extends TagEditor {
               </li>
             : null}
         </ul>
-        {!this.state.tags.size && <p>{lp('(none)', 'tag')}</p>}
+        {!this.state.tags.length && <p>{lp('(none)', 'tag')}</p>}
         <form id="tag-form" onSubmit={this.addTags}>
           <div style={{display: 'flex'}}>
             <input
@@ -426,19 +419,19 @@ function init_tag_editor(Component, mountPoint) {
         userTag.used = true;
       }
 
-      return newTag(t);
+      return _.clone(t);
     });
 
     // Always show upvoted user tags (affects sidebar)
     _.each(userTags, function (t) {
       if (t.vote > 0 && !t.used) {
-        combined.push(newTag(t));
+        combined.push(_.clone(t));
       }
     });
 
     ReactDOM.render(
       <Component entity={entity} more={more}
-                 initialState={{tags: sortedTags(Immutable.List(combined))}} />,
+                 initialState={{tags: sortedTags(combined)}} />,
       (document.getElementById(mountPoint): any)
     );
   };
