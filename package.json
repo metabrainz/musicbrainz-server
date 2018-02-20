@@ -33,7 +33,7 @@
     "jquery": "1.11.2",
     "jsx-control-statements": "git://github.com/AlexGilleran/jsx-control-statements.git#af1f013",
     "knockout": "git://github.com/mwiencek/knockout.git#a8f12df",
-    "knockout-arraytransforms": "2.0.0",
+    "knockout-arraytransforms": "git://github.com/mwiencek/knockout-arraytransforms.git#9673e91",
     "leaflet": "1.0.2",
     "leaflet.markercluster": "1.0.0",
     "less-plugin-clean-css": "1.5.1",
