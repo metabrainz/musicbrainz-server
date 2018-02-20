@@ -61,13 +61,13 @@ Prerequisites
     in lib/DBDefs.pm.  The defaults should be fine if you don't use
     your redis install for anything else.
 
-6.  Node.js
+6.  Node.js and Yarn
 
     Node.js is required to build (and optionally minify) our JavaScript and CSS.
     If you plan on accessing musicbrainz-server inside a web browser, you should
-    install Node and its package manager, npm. Do this by running:
+    install Node and the package manager Yarn. Do this by running:
 
-        sudo apt-get install nodejs npm
+        sudo apt-get install nodejs
 
     Depending on your Ubuntu version, another package might be required, too:
 
@@ -76,15 +76,9 @@ Prerequisites
     This is only needed where it exists, so a warning about the package not being
     found is not a problem.
 
-    For npm, at least version 4 is required. If your distribution has an older
-    version (`npm --version` to check), you can use that to install a newer
-    version of itself:
-
-        sudo npm install -g npm
-
-    (Instead of this global install, you can also run `npm install npm`. In
-    that case, replace all calls to `npm` further down in this text with
-    `./node_modules/.bin/npm`.)
+    Next you need Yarn to install the JS dependencies. There are a variety of
+    installation methods described on their website, located here:
+    https://yarnpkg.com/en/docs/install
 
 7.  Standard Development Tools
 
@@ -193,10 +187,10 @@ Below outlines how to setup MusicBrainz server with local::lib.
 Installing Node.js dependencies
 -------------------------------
 
-Node dependencies are managed using `npm`. To install these dependencies, run
+Node dependencies are managed using `yarn`. To install these dependencies, run
 the following inside the musicbrainz-server/ checkout:
 
-    npm install
+    yarn install
 
 Node dependencies are installed under ./node\_modules.
 
