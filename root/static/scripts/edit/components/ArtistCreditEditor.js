@@ -59,6 +59,15 @@ function setAutoJoinPhrases(names) {
   return names;
 }
 
+const makeHiddenInput = (data) => (
+  <input
+    key={data.name}
+    name={data.name}
+    type="hidden"
+    value={nonEmpty(data.value) ? data.value : ''}
+  />
+);
+
 class ArtistCreditEditor extends React.Component {
   constructor(props) {
     super(props);
@@ -386,11 +395,9 @@ class ArtistCreditEditor extends React.Component {
             </tr>
           </tbody>
         </table>
-        <If condition={this.props.hiddenInputs}>
-          <For each="data" of={this.getHiddenInputs()}>
-            <input key={data.name} type="hidden" name={data.name} value={nonEmpty(data.value) ? data.value : ''} />
-          </For>
-        </If>
+        {this.props.hiddenInputs
+          ? this.getHiddenInputs().map(makeHiddenInput)
+          : null}
       </Frag>
     );
   }

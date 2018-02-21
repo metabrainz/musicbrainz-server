@@ -235,8 +235,8 @@ rules:
                                       assignment: parens-new-line,
                                       return: parens-new-line,
                                       arrow: parens-new-line,
-                                      condition: parens-new-line,
-                                      logical: parens-new-line,
+                                      condition: ignore,
+                                      logical: ignore,
                                       prop: ignore}]
 
   ##########################

@@ -99,6 +99,10 @@ function subfieldErrors(field, accum = Immutable.List()) {
   return accum;
 }
 
+const buildErrorListItem = (error, index) => (
+  <li key={index}>{error}</li>
+);
+
 const FieldErrors = ({field}) => {
   if (!field) {
     return null;
@@ -110,9 +114,7 @@ const FieldErrors = ({field}) => {
   if (errors.size) {
     return (
       <ul className="errors">
-        <For each="error" of={errors.toArray()}>
-          <li>{error}</li>
-        </For>
+        {errors.toArray().map(buildErrorListItem)}
       </ul>
     );
   }
@@ -124,16 +126,6 @@ const FormRow = ({children, ...props}) => (
     {children}
   </div>
 );
-
-function selectOptions(options) {
-  return (
-    <For each="option" index="index" of={options}>
-      <option key={index} value={option.value}>
-        {option.label}
-      </option>
-    </For>
-  );
-}
 
 function getValue(field, options, allowEmpty) {
   if (field.value != null) {
@@ -149,6 +141,18 @@ function getValue(field, options, allowEmpty) {
   return firstOption.value;
 }
 
+const buildOption = (option, index) => (
+  <option key={index} value={option.value}>
+    {option.label}
+  </option>
+);
+
+const buildOptGroup = (optgroup, index) => (
+  <optgroup key={index} label={optgroup.optgroup}>
+    {optgroup.options.map(buildOption)}
+  </optgroup>
+);
+
 const SelectField = ({
   allowEmpty = true,
   field,
@@ -161,18 +165,12 @@ const SelectField = ({
     name={name}
     onChange={onChange}
     value={getValue(field, options, allowEmpty)}>
-    <If condition={allowEmpty}>
-      <option value="">{'\xA0'}</option>
-    </If>
-    <If condition={options[0].optgroup}>
-      <For each="optgroup" index="index" of={options}>
-        <optgroup key={index} label={optgroup.optgroup}>
-          {selectOptions(optgroup.options)}
-        </optgroup>
-      </For>
-    <Else />
-      {selectOptions(options)}
-    </If>
+    {allowEmpty
+      ? <option value="">{'\xA0'}</option>
+      : null}
+    {options[0].optgroup
+      ? options.map(buildOptGroup)
+      : options.map(buildOption)}
   </select>
 );
 
@@ -191,7 +189,7 @@ const FormRowSelectList = ({
   <div className="row">
     <label>{addColon(label)}</label>
     <div className="form-row-select-list">
-      <For each="subfield" index="index" of={repeatable.field.toArray()}>
+      {repeatable.field.toArray().map((subfield, index) => (
         <div className="select-list-row" key={subfield.id}>
           <SelectField
             field={fieldName ? subfield.field.get(fieldName) : subfield}
@@ -210,7 +208,7 @@ const FormRowSelectList = ({
             field={fieldName ? subfield.field.get(fieldName) : subfield}
           />
         </div>
-      </For>
+      ))}
       <div className="form-row-add">
         <button
           className="with-label add-item"

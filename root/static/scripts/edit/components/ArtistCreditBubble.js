@@ -55,20 +55,22 @@ const ArtistCreditBubble = ({
              {__react: true, ac: '/doc/Artist_Credits'})}
           </td>
         </tr>
-        <If condition={clean(reduceArtistCredit(artistCredit))}>
+        {clean(reduceArtistCredit(artistCredit)) ? (
           <tr>
             <td colSpan="4" style={{paddingBottom: '1em'}}>
               {l('Preview:') + ' '}
-              <If condition={entity.entityType === 'track'}>
-                <DescriptiveLink
-                  entity={assign(Object.create(entity), {artistCredit: artistCredit})}
-                  showDeletedArtists={false} />
-              <Else />
-                <ArtistCreditLink artistCredit={artistCredit} showDeleted={false} />
-              </If>
+              {entity.entityType === 'track'
+                ? <DescriptiveLink
+                    entity={assign(Object.create(entity), {artistCredit: artistCredit})}
+                    showDeletedArtists={false}
+                  />
+                : <ArtistCreditLink
+                    artistCredit={artistCredit}
+                    showDeleted={false}
+                  />}
             </td>
           </tr>
-        </If>
+        ) : null}
         <tr className="artist-credit-header">
           <th style={{width: '40%'}}>{l('Artist in MusicBrainz:')}</th>
           <th style={{width: '40%'}}>{l('Artist as credited:')}</th>
@@ -77,7 +79,7 @@ const ArtistCreditBubble = ({
         </tr>
       </thead>
       <tbody>
-        <For each="name" of={artistCredit.names.toArray()} index="index">
+        {artistCredit.names.toArray().map((name, index) => (
           <ArtistCreditNameEditor
             entity={entity}
             index={index}
@@ -86,7 +88,7 @@ const ArtistCreditBubble = ({
             onChange={update => onNameChange(index, update)}
             onRemove={artistCredit.names.size > 1 ? (event => removeName(index, event)) : null}
           />
-        </For>
+        ))}
         <tr>
           <td colSpan="4" style={{textAlign: 'right'}}>
             <button type="button" className="add-item with-label" onClick={addName}>
