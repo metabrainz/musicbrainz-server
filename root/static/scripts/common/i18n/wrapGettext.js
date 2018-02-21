@@ -8,6 +8,7 @@ const isNodeJS = require('detect-node');
 const sliced = require('sliced');
 
 const expand = require('./expand');
+const NopArgs = require('./NopArgs');
 
 let gettext;
 if (isNodeJS) {
@@ -30,7 +31,12 @@ function wrapGettext(method, domain) {
       domainLoaded = true;
     }
 
-    const args = sliced(arguments);
+    let args = sliced(arguments);
+    const firstArg = args[0];
+
+    if (typeof firstArg === 'object' && firstArg instanceof NopArgs) {
+      args = firstArg.args.concat(args.slice(1));
+    }
 
     let expandArgs = args[args.length - 1];
     if (expandArgs && typeof expandArgs === 'object') {
