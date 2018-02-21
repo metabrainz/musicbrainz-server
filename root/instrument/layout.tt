@@ -4,7 +4,7 @@
 }) ~%]
 [%~ WRAPPER "layout.tt" title=title ? main_title _ " - ${title}" : main_title canonical_url=replace_gid(entity.gid) ~%]
     <div id="content">
-        [%~ INCLUDE 'instrument/header.tt' ~%]
+        [%~ React.embed(c, 'instrument/InstrumentHeader', { instrument => instrument, page => page }) ~%]
         [%~ content ~%]
     </div>
 

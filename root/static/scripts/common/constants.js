@@ -2,6 +2,8 @@ exports.ENTITIES = require('../../../../entities');
 
 exports.AREA_TYPE_COUNTRY = 1;
 
+exports.DARTIST_ID = 2;
+
 exports.FAVICON_CLASSES = {
     'amazon':                       'amazon',
     'allmusic.com':                 'allmusic',
@@ -130,6 +132,8 @@ exports.SERIES_ORDERING_TYPE_MANUAL = 2;
 exports.UUID_REGEXP_STR = '[0-9a-f]{8}-[0-9a-f]{4}-[345][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}';
 
 exports.VARTIST_GID = '89ad4ac3-39f7-470e-963a-56509c546377';
+
+exports.VARTIST_ID = 1;
 
 exports.VARTIST_NAME = 'Various Artists';
 

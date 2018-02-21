@@ -1,6 +1,6 @@
 [%~ WRAPPER "layout.tt" title=title ? place.name _ " - ${title}" : place.name canonical_url=replace_gid(entity.gid) ~%]
     <div id="content">
-        [%~ INCLUDE "place/header.tt" ~%]
+        [%~ React.embed(c, 'place/PlaceHeader', { place => place, page => page }) ~%]
         [%~ content ~%]
     </div>
 

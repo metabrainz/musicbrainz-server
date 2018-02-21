@@ -127,6 +127,7 @@ around TO_JSON => sub {
             (sidebar_name => $self->sidebar_name) : (),
         href_url => $self->href_url,
         pretty_name => $self->pretty_name,
+        decoded => $self->decoded,
     };
 };
 
