@@ -442,12 +442,14 @@ sub TO_JSON {
         hide_merge_helper
         instrument_types
         instruments_by_type
+        isrcs
         jsonld_data
         last_replication_date
         linked_entities
         makes_no_changes
         merge_link
         new_edit_notes
+        recordings
         server_details
         server_languages
         tag

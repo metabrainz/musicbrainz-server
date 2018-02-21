@@ -7,6 +7,7 @@ const ko = require('knockout');
 const React = require('react');
 
 const {l} = require('../i18n');
+const {artistCreditFromArray} = require('../immutable-entities');
 const AreaWithContainmentLink = require('./AreaWithContainmentLink');
 const ArtistCreditLink = require('./ArtistCreditLink');
 const EntityLink = require('./EntityLink');
@@ -22,12 +23,16 @@ const DescriptiveLink = ({entity, content, showDeletedArtists = true}) => {
   let link = <EntityLink entity={entity} {...props} />;
 
   if (entity.artistCredit) {
+    let artistCredit = ko.unwrap(entity.artistCredit);
+    if (Array.isArray(artistCredit)) {
+      artistCredit = artistCreditFromArray(artistCredit);
+    }
     return l('{entity} by {artist}', {
       __react: true,
       entity: link,
       artist: (
         <ArtistCreditLink
-          artistCredit={ko.unwrap(entity.artistCredit)}
+          artistCredit={artistCredit}
           key={1}
           showDeleted={showDeletedArtists} />
       ),

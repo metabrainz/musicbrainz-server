@@ -7,7 +7,7 @@ const crypto = require('crypto');
 const {trim} = require('lodash');
 const React = require('react');
 
-const entityHREF = require('../utility/entityHREF');
+const entityHref = require('../utility/entityHref');
 const isolateText = require('../utility/isolateText');
 
 function gravatar(email) {
@@ -32,7 +32,7 @@ const EditorLink = ({editor, content, avatarSize, subPath}) => {
   }
 
   return (
-    <a href={entityHREF('editor', editor.name, subPath)}>
+    <a href={entityHref(editor, subPath)}>
       <img src={imageURL} height={avatarSize} width={avatarSize} className="gravatar" alt="" />
       {isolateText(content)}
     </a>

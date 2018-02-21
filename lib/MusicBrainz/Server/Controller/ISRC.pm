@@ -36,7 +36,8 @@ sub show : Chained('load') PathPart('')
     $c->model('ArtistCredit')->load(@recordings);
     $c->stash(
         recordings => \@recordings,
-        template   => 'isrc/index.tt',
+        current_view => 'Node',
+        component_path => 'isrc/Index.js',
     );
 }
 

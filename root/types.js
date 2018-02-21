@@ -71,6 +71,8 @@ type CatalystStashT = {|
     +unknown: $ReadOnlyArray<InstrumentT>,
   |},
   +instrument_types?: $ReadOnlyArray<InstrumentTypeT>,
+  +isrcs?: $ReadOnlyArray<IsrcT>,
+  +recordings?: $ReadOnlyArray<RecordingT>,
   +tag?: string,
 |};
 
@@ -81,16 +83,16 @@ declare type CommonsImageT = {|
 
 declare type CoreEntityT = EntityT & {|
   +gid: string,
+  +name: string,
 |};
 
-declare type EditsPendingT = {|
+declare type EditableRoleT = {|
   +editsPending: boolean,
 |};
 
 declare type EntityT = {|
   +entityType: string,
   +id: number,
-  +name: string,
 |};
 
 declare type InstrumentT =
@@ -112,6 +114,24 @@ declare type EventT =
 
 export opaque type EventTypeT: OptionTreeT = OptionTreeT;
 
+declare type IsrcT =
+  & EditableRoleT
+  & EntityT
+  & {|
+      +entityType: 'isrc',
+      +isrc: string,
+      +recording_id: number,
+    |};
+
+declare type IswcT =
+  & EditableRoleT
+  & EntityT
+  & {|
+      +entityType: 'iswc',
+      +iswc: string,
+      +work_id: number,
+    |};
+
 declare type LabelT =
   & CoreEntityT
   & {|
@@ -121,10 +141,11 @@ declare type LabelT =
 declare type OptionTreeT =
   & EntityT
   & {|
+      +gid: string,
+      +name: string,
+      +parentID: number | null,
       +childOrder: number,
       +description: string,
-      +gid: string,
-      +parentID: number | null,
     |};
 
 declare type PlaceT =
@@ -136,26 +157,27 @@ declare type PlaceT =
 
 export opaque type PlaceTypeT: OptionTreeT = OptionTreeT;
 
-declare type RatableT = EntityT & {|
+declare type RatableT = CoreEntityT & {|
   +rating: number | null,
   +rating_count: number,
   +user_rating: number | null,
 |};
-
-declare type ReleaseGroupT =
-  & ArtistCreditRoleT
-  & CoreEntityT
-  & {|
-      +entityType: 'release_group',
-    |};
 
 declare type RecordingT =
   & ArtistCreditRoleT
   & CoreEntityT
   & {|
       +entityType: 'recording',
+      +isrcs: $ReadOnlyArray<IsrcT>,
       +length: number,
       +video: boolean,
+    |};
+
+declare type ReleaseGroupT =
+  & ArtistCreditRoleT
+  & CoreEntityT
+  & {|
+      +entityType: 'release_group',
     |};
 
 declare type ReleaseT = CoreEntityT & {|
@@ -180,7 +202,7 @@ declare type TypeRoleT<T: OptionTreeT> = {|
 
 declare type UrlT =
   & CoreEntityT
-  & EditsPendingT
+  & EditableRoleT
   & {|
       +decoded: string,
       +entityType: 'url',

@@ -11,7 +11,7 @@ const Frag = require('../../../../components/Frag');
 const {ENTITIES, AREA_TYPE_COUNTRY} = require('../constants');
 const {l} = require('../i18n');
 const bracketed = require('../utility/bracketed');
-const entityHREF = require('../utility/entityHREF');
+const entityHref = require('../utility/entityHref');
 const formatDatePeriod = require('../utility/formatDatePeriod');
 const isolateText = require('../utility/isolateText');
 const nonEmpty = require('../utility/nonEmpty');
@@ -128,7 +128,7 @@ const EntityLink = (props = {}) => {
     return null;
   }
 
-  let href = entityHREF(entityType, ko.unwrap(entity.gid), subPath);
+  let href = entityHref(entity, subPath);
   let nameVariation;
   let infoLink;
 
