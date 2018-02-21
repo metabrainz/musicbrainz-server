@@ -16,6 +16,21 @@
  * how data is serialized for us.
  */
 
+declare type AliasT =
+  & DatePeriodRoleT
+  & EntityT
+  & EditableRoleT
+  & TypeRoleT<AliasTypeT>
+  & {|
+      +entityType: 'alias',
+      +locale: string | null,
+      +name: string,
+      +primary_for_locale: boolean,
+      +sort_name: string,
+    |};
+
+export opaque type AliasTypeT: OptionTreeT = OptionTreeT;
+
 declare type AreaT =
   & CommentRoleT
   & CoreEntityT
