@@ -50,6 +50,6 @@ RUN sudo_mb(`carton exec -- ./script/compile_resources.sh default web-tests')
 COPY docker/musicbrainz-tests/run_tests.sh /usr/local/bin/
 COPY script/ script/
 COPY t/ t/
-COPY .perlcriticrc ./
+COPY .flowconfig .perlcriticrc ./
 
 ENTRYPOINT ["run_tests.sh"]
