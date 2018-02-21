@@ -84,7 +84,7 @@ declare type CoreEntityT = EntityT & {|
   +name: string,
 |};
 
-declare type EditsPendingT = {|
+declare type EditableRoleT = {|
   +editsPending: boolean,
 |};
 
@@ -113,7 +113,7 @@ declare type EventT =
 export opaque type EventTypeT: OptionTreeT = OptionTreeT;
 
 declare type IsrcT =
-  & EditsPendingT
+  & EditableRoleT
   & EntityT
   & {|
       +entityType: 'isrc',
@@ -122,7 +122,7 @@ declare type IsrcT =
     |};
 
 declare type IswcT =
-  & EditsPendingT
+  & EditableRoleT
   & EntityT
   & {|
       +entityType: 'iswc',
@@ -199,7 +199,7 @@ declare type TypeRoleT<T: OptionTreeT> = {|
 
 declare type UrlT =
   & CoreEntityT
-  & EditsPendingT
+  & EditableRoleT
   & {|
       +decoded: string,
       +entityType: 'url',
