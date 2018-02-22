@@ -8,8 +8,8 @@
  */
 
 const React = require('react');
-const NotFound = require('../components/NotFound');
-const {l} = require('../static/scripts/common/i18n');
+const NotFound = require('../../components/NotFound');
+const {l} = require('../../static/scripts/common/i18n');
 
 const RelationshipAttributeNotFound = () => (
   <NotFound title={l('Relationship Attributes')}>
