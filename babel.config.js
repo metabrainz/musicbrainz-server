@@ -20,11 +20,11 @@ module.exports = function (api) {
     '@babel/plugin-transform-react-constant-elements',
     '@babel/plugin-transform-runtime',
     '@babel/plugin-proposal-class-properties',
+    '@babel/plugin-syntax-dynamic-import',
   ];
 
   const ignore = [
     'node_modules',
-    'root/static/lib',
     'root/static/scripts/tests/typeInfo.js',
   ];
 

@@ -12,12 +12,10 @@ const expand2 = require('./expand2').default;
 
 let gettext;
 if (isNodeJS) {
-  // Avoid bundling this module in the browser by using a dynamic require().
-  const gettextPath = '../../../../server/gettext';
-  gettext = require(gettextPath);
+  gettext = require('../../../../server/gettext');
 } else {
   const Jed = require('jed');
-  const jedData = require('./jedData');
+  const {jedData} = require('../../jed-data');
   // jedData contains all domains used by the client.
   gettext = new Jed(jedData[jedData.locale]);
 }

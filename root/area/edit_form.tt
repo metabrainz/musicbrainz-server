@@ -1,4 +1,3 @@
-[% script_manifest('guess-case.js') %]
 [% script_manifest('edit.js') %]
 
 <form action="[% c.req.uri %]" method="post" class="edit-area">

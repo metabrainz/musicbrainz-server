@@ -9,14 +9,13 @@
 
 import * as React from 'react';
 
-import * as manifest from '../../../manifest';
 import {l} from '../../common/i18n';
 
 const WarningIcon = () => (
   <img
     alt={l('Warning')}
     className="warning"
-    src={manifest.pathTo('/images/icons/warning.png')}
+    src={require('../../../images/icons/warning.png')}
   />
 );
 

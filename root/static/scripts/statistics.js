@@ -1,5 +1,10 @@
 const tablesorter = require('tablesorter');
 
+// Needed by root/statistics/macros-header.tt, which uses the
+// css_manifest TT macro that requires statistics.less to exist in
+// rev-manifest.json.
+require('../styles/statistics.less');
+
 tablesorter.addWidget({
   format: function (table) {
     $('tbody tr', table).each(function (index) {

@@ -7,8 +7,6 @@
 
 'use strict';
 
-require('@babel/register');
-
 const Raven = require('raven');
 const DBDefs = require('./static/scripts/common/DBDefs');
 Raven.config(DBDefs.SENTRY_DSN).install();

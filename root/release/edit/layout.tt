@@ -70,7 +70,6 @@
 
   [%- guesscase_options() -%]
 
-  [% script_manifest('guess-case.js') %]
   [% script_manifest('edit.js') %]
   [% script_manifest('release-editor.js') %]
 

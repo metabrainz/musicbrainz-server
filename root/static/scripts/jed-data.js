@@ -1,4 +1,12 @@
-{
+/*
+ * Copyright (C) 2018 MetaBrainz Foundation
+ *
+ * This file is part of MusicBrainz, the open internet music database,
+ * and is licensed under the GPL version 2, or (at your option) any
+ * later version: http://www.gnu.org/licenses/gpl-2.0.txt
+ */
+
+const jedData = {
   "en": {
     "domain": "mb_server",
     "locale_data": {
@@ -68,4 +76,16 @@
     }
   },
   "locale": "en"
+};
+
+function mergeData(domain, lang, newData) {
+  if (jedData[lang]) {
+    jedData[lang].locale_data[domain] = newData.locale_data[domain];
+  } else {
+    jedData[lang] = newData;
+  }
+  jedData.locale = lang;
 }
+
+exports.jedData = jedData;
+exports.mergeData = mergeData;
