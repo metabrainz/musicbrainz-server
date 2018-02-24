@@ -1,4 +1,5 @@
 /*
+ * @flow
  * Copyright (C) 2015 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -13,14 +14,14 @@ import * as manifest from '../../static/manifest';
 import TopMenu from './TopMenu';
 import BottomMenu from './BottomMenu';
 
-const Header = (props) => (
+const Header = () => (
   <div className="header">
     <a className="logo" href="/" title="MusicBrainz">
       <img className="logo" src={manifest.pathTo('/images/layout/header-logo.svg')} />
     </a>
     <div className="right">
-      <TopMenu {...props} />
-      <BottomMenu {...props} />
+      <TopMenu />
+      <BottomMenu />
     </div>
   </div>
 );

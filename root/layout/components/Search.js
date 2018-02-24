@@ -1,4 +1,5 @@
 /*
+ * @flow
  * Copyright (C) 2015 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -17,6 +18,7 @@ const TYPE_OPTIONS = {
   area: l('Area'),
   artist: l('Artist'),
   cdstub: l('CD Stub'),
+  doc: DBDefs.GOOGLE_CUSTOM_SEARCH ? l('Documentation') : null,
   editor: l('Editor'),
   event: l('Event'),
   instrument: l('Instrument'),
@@ -30,14 +32,14 @@ const TYPE_OPTIONS = {
   work: l('Work'),
 };
 
-if (DBDefs.GOOGLE_CUSTOM_SEARCH) {
-  TYPE_OPTIONS.doc = l('Documentation');
-}
-
 const searchOptions = (
   <select id="headerid-type" name="type">
     {Object.keys(TYPE_OPTIONS).map(function (key, index) {
-      return <option key={index} value={key}>{TYPE_OPTIONS[key]}</option>;
+      const text = TYPE_OPTIONS[key];
+      if (!text) {
+        return null;
+      }
+      return <option key={index} value={key}>{text}</option>;
     })}
   </select>
 );

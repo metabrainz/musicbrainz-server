@@ -108,6 +108,8 @@ declare type AutoEditorElectionVoteT = {|
 |};
 
 type CatalystContextT = {|
+  +relative_uri: string,
+  +req: CatalystRequestContextT,
   +session: CatalystSessionT | null,
   +sessionid: string | null,
   +stash: CatalystStashT,
@@ -115,11 +117,20 @@ type CatalystContextT = {|
   +user_exists: boolean,
 |};
 
+type CatalystRequestContextT = {|
+  +headers: {+[string]: string},
+  +query_params: {+[string]: string},
+  +uri: string,
+|};
+
 type CatalystSessionT = {|
   +tport?: number,
 |};
 
 type CatalystStashT = {|
+  +current_language: string,
+  +current_language_html: string,
+  +server_languages?: $ReadOnlyArray<ServerLanguageT>,
 |};
 
 type CatalystUserT = EditorT;
@@ -370,6 +381,13 @@ declare type SeriesT = {|
   ...CommentRoleT,
   ...CoreEntityRoleT,
   +entityType: 'series',
+|};
+
+declare type ServerLanguageT = {|
+  +id: number,
+  +name: string,
+  +native_language: string,
+  +native_territory: string,
 |};
 
 declare type TypeRoleT<T: OptionTreeT> = {|

@@ -1,4 +1,5 @@
 /*
+ * @flow
  * Copyright (C) 2015 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -13,6 +14,10 @@ import {VARTIST_GID} from '../../static/scripts/common/constants';
 import {l, lp} from '../../static/scripts/common/i18n';
 
 function languageName(language, selected) {
+  if (!language) {
+    return '';
+  }
+
   const {
     id,
     native_language: nativeLanguage,
@@ -38,34 +43,36 @@ function languageName(language, selected) {
 
 function languageLink(language) {
   return (
-    <a href={'/set-language/' + encodeURIComponent(language[0])}>
-      {languageName(language[1], false)}
+    <a href={'/set-language/' + encodeURIComponent(language.name)}>
+      {languageName(language, false)}
     </a>
   );
 }
 
 function isCurrentLanguage(language) {
-  return language[0] === $c.stash.current_language;
+  return language === $c.stash.current_language;
 }
 
 const LanguageMenu = () => (
   <li className="language-selector" tabIndex="-1">
     <span className="menu-header">
       {languageName(
-        _.find($c.stash.server_languages, isCurrentLanguage)[1],
+        _.find($c.stash.server_languages, isCurrentLanguage),
         true,
       )}
     </span>
     <ul>
-      {$c.stash.server_languages.map(function (l, index) {
-        let inner = languageLink(l);
+      {$c.stash.server_languages ? (
+        $c.stash.server_languages.map(function (language, index) {
+          let inner = languageLink(language);
 
-        if (l[0] === $c.stash.current_language) {
-          inner = <strong>{inner}</strong>;
-        }
+          if (language.name === $c.stash.current_language) {
+            inner = <strong>{inner}</strong>;
+          }
 
-        return <li key={index}>{inner}</li>;
-      })}
+          return <li key={index}>{inner}</li>;
+        })
+      ) : null}
       <li>
         <a href="/set-language/unset">
           {l('(reset language)')}
@@ -276,7 +283,9 @@ const BottomMenu = () => (
       <SearchMenu />
       {$c.user ? <EditingMenu /> : null}
       <DocumentationMenu />
-      {$c.stash.server_languages.length > 1 ? <LanguageMenu /> : null}
+      {($c.stash.server_languages && $c.stash.server_languages.length > 1)
+        ? <LanguageMenu />
+        : null}
     </ul>
   </div>
 );
