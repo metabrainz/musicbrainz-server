@@ -487,9 +487,9 @@ sub TO_JSON {
         my @langs;
         for my $lang (@{$server_languages}) {
             push @langs,
-                [ $lang->[0],
-                  { map { $_ => $lang->[1]->{$_} }
-                    qw( id native_language native_territory ) } ];
+                { name => $lang->[0],
+                  map { $_ => $lang->[1]->{$_} }
+                  qw( id native_language native_territory ) };
         }
         $stash{server_languages} = \@langs;
     }

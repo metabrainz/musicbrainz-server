@@ -1,4 +1,5 @@
 /*
+ * @flow
  * Copyright (C) 2015 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -18,18 +19,20 @@ function userLink(userName, path) {
   return `/user/${encodeURIComponent(userName)}${path}`;
 }
 
-const AccountMenu = () => (
+type UserProp = {|+user: CatalystUserT|};
+
+const AccountMenu = ({user}: UserProp) => (
   <li className="account" tabIndex="-1">
-    <span className="menu-header">{$c.user.name}{'\xA0\u25BE'}</span>
+    <span className="menu-header">{user.name}{'\xA0\u25BE'}</span>
     <ul>
       <li>
-        <a href={userLink($c.user.name, '')}>{l('Profile')}</a>
+        <a href={userLink(user.name, '')}>{l('Profile')}</a>
       </li>
       <li>
         <a href="/account/applications">{l('Applications')}</a>
       </li>
       <li>
-        <a href={userLink($c.user.name, '/subscriptions/artist')}>
+        <a href={userLink(user.name, '/subscriptions/artist')}>
           {l('Subscriptions')}
         </a>
       </li>
@@ -40,8 +43,8 @@ const AccountMenu = () => (
   </li>
 );
 
-const DataMenu = () => {
-  const userName = $c.user.name;
+const DataMenu = ({user}: UserProp) => {
+  const userName = user.name;
 
   return (
     <li className="data" tabIndex="-1">
@@ -76,17 +79,17 @@ const DataMenu = () => {
   );
 };
 
-const AdminMenu = () => (
+const AdminMenu = ({user}: UserProp) => (
   <li className="admin" tabIndex="-1">
     <span className="menu-header">{l('Admin')}{'\xA0\u25BE'}</span>
     <ul>
-      {$c.user.is_location_editor ? (
+      {user.is_location_editor ? (
         <li>
           <a href="/area/create">{lp('Add Area', 'button/menu')}</a>
         </li>
       ) : null}
 
-      {$c.user.is_relationship_editor ? [
+      {user.is_relationship_editor ? [
         <li key="1">
           <a href="/instrument/create">{lp('Add Instrument', 'button/menu')}</a>
         </li>,
@@ -95,19 +98,19 @@ const AdminMenu = () => (
         </li>,
       ] : null}
 
-      {$c.user.is_wiki_transcluder ? (
+      {user.is_wiki_transcluder ? (
         <li>
           <a href="/admin/wikidoc">{l('Transclude WikiDocs')}</a>
         </li>
       ) : null}
 
-      {$c.user.is_banner_editor ? (
+      {user.is_banner_editor ? (
         <li>
           <a href="/admin/banner/edit">{l('Edit Banner Message')}</a>
         </li>
       ) : null}
 
-      {$c.user.is_account_admin ? (
+      {user.is_account_admin ? (
         <li>
           <a href="/admin/attributes">{l('Edit Attributes')}</a>
         </li>
@@ -116,13 +119,13 @@ const AdminMenu = () => (
   </li>
 );
 
-const UserMenu = (props) => (
+const UserMenu = () => (
   <ul className="menu" tabIndex="-1">
-    {$c.user_exists ? (
+    {$c.user ? (
       <Frag>
-        <AccountMenu />
-        <DataMenu />
-        {$c.user.is_admin ? <AdminMenu /> : null}
+        <AccountMenu user={$c.user} />
+        <DataMenu user={$c.user} />
+        {$c.user.is_admin ? <AdminMenu user={$c.user} /> : null}
       </Frag>
     ) : (
       <Frag>
@@ -141,13 +144,13 @@ const UserMenu = (props) => (
   </ul>
 );
 
-const TopMenu = (props) => (
+const TopMenu = () => (
   <div className="top">
     <div className="links-container">
       <UserMenu />
     </div>
     <div className="search-container">
-      <Search {...props} />
+      <Search />
     </div>
   </div>
 );
