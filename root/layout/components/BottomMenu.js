@@ -1,23 +1,31 @@
-// This file is part of MusicBrainz, the open internet music database.
-// Copyright (C) 2015 MetaBrainz Foundation
-// Licensed under the GPL version 2, or (at your option) any later version:
-// http://www.gnu.org/licenses/gpl-2.0.txt
+/*
+ * Copyright (C) 2015 MetaBrainz Foundation
+ *
+ * This file is part of MusicBrainz, the open internet music database,
+ * and is licensed under the GPL version 2, or (at your option) any
+ * later version: http://www.gnu.org/licenses/gpl-2.0.txt
+ */
 
-const _ = require('lodash');
-const React = require('react');
+import _ from 'lodash';
+import React from 'react';
 
-const {VARTIST_GID} = require('../../static/scripts/common/constants');
-const {l, lp} = require('../../static/scripts/common/i18n');
+import {VARTIST_GID} from '../../static/scripts/common/constants';
+import {l, lp} from '../../static/scripts/common/i18n';
 
 function languageName(language, selected) {
-  let {id, native_language, native_territory} = language[1];
+  const {
+    id,
+    native_language: nativeLanguage,
+    native_territory: nativeTerritory,
+  } = language;
+
   let text = `[${id}]`;
 
-  if (native_language) {
-    text = _.capitalize(native_language);
+  if (nativeLanguage) {
+    text = _.capitalize(nativeLanguage);
 
-    if (native_territory) {
-      text += ' (' + _.capitalize(native_territory) + ')';
+    if (nativeTerritory) {
+      text += ' (' + _.capitalize(nativeTerritory) + ')';
     }
   }
 
@@ -30,16 +38,23 @@ function languageName(language, selected) {
 
 function languageLink(language) {
   return (
-    <a href={"/set-language/" + encodeURIComponent(language[0])}>
-      {languageName(language, false)}
+    <a href={'/set-language/' + encodeURIComponent(language[0])}>
+      {languageName(language[1], false)}
     </a>
   );
+}
+
+function isCurrentLanguage(language) {
+  return language[0] === $c.stash.current_language;
 }
 
 const LanguageMenu = () => (
   <li className="language-selector" tabIndex="-1">
     <span className="menu-header">
-      {languageName(_.find($c.stash.server_languages, l => l[0] === $c.stash.current_language), true)}
+      {languageName(
+        _.find($c.stash.server_languages, isCurrentLanguage)[1],
+        true,
+      )}
     </span>
     <ul>
       {$c.stash.server_languages.map(function (l, index) {
@@ -154,10 +169,11 @@ const SearchMenu = () => (
       <li>
         <a href="/search">{l('Search Entities')}</a>
       </li>
-      {$c.user &&
+      {$c.user ? (
         <li>
           <a href="/search/edits">{l('Search Edits')}</a>
-        </li>}
+        </li>
+      ) : null}
       <li>
         <a href="/tags">{l('Tags')}</a>
       </li>
@@ -185,7 +201,7 @@ const EditingMenu = () => (
         <a href="/release/add">{lp('Add Release', 'button/menu')}</a>
       </li>
       <li>
-        <a href={"/release/add?artist=" + encodeURIComponent(VARTIST_GID)}>
+        <a href={'/release/add?artist=' + encodeURIComponent(VARTIST_GID)}>
           {l('Add Various Artists Release')}
         </a>
       </li>
@@ -234,7 +250,7 @@ const DocumentationMenu = () => (
         <a href="/doc/MusicBrainz_Documentation">{l('Documentation Index')}</a>
       </li>
       <li className="separator">
-        <a href='/doc/Edit_Types'>{l('Edit Types')}</a>
+        <a href="/doc/Edit_Types">{l('Edit Types')}</a>
       </li>
       <li>
         <a href="/relationships">{l('Relationship Types')}</a>
@@ -255,11 +271,11 @@ const BottomMenu = () => (
       <AboutMenu />
       <ProductsMenu />
       <SearchMenu />
-      {$c.user && <EditingMenu />}
+      {$c.user ? <EditingMenu /> : null}
       <DocumentationMenu />
-      {$c.stash.server_languages.length > 1 && <LanguageMenu />}
+      {$c.stash.server_languages.length > 1 ? <LanguageMenu /> : null}
     </ul>
   </div>
 );
 
-module.exports = BottomMenu;
+export default BottomMenu;

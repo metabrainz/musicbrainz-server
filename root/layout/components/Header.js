@@ -1,18 +1,22 @@
-// This file is part of MusicBrainz, the open internet music database.
-// Copyright (C) 2015 MetaBrainz Foundation
-// Licensed under the GPL version 2, or (at your option) any later version:
-// http://www.gnu.org/licenses/gpl-2.0.txt
+/*
+ * Copyright (C) 2015 MetaBrainz Foundation
+ *
+ * This file is part of MusicBrainz, the open internet music database,
+ * and is licensed under the GPL version 2, or (at your option) any
+ * later version: http://www.gnu.org/licenses/gpl-2.0.txt
+ */
 
-const React = require('react');
+import React from 'react';
 
-const manifest = require('../../static/manifest');
-const TopMenu = require('./TopMenu');
-const BottomMenu = require('./BottomMenu');
+import * as manifest from '../../static/manifest';
+
+import TopMenu from './TopMenu';
+import BottomMenu from './BottomMenu';
 
 const Header = (props) => (
   <div className="header">
-    <a href="/" className="logo" title="MusicBrainz">
-      <img src={manifest.pathTo('/images/layout/header-logo.svg')} className="logo" />
+    <a className="logo" href="/" title="MusicBrainz">
+      <img className="logo" src={manifest.pathTo('/images/layout/header-logo.svg')} />
     </a>
     <div className="right">
       <TopMenu {...props} />
@@ -21,4 +25,4 @@ const Header = (props) => (
   </div>
 );
 
-module.exports = Header;
+export default Header;
