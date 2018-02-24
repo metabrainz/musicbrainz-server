@@ -1,13 +1,18 @@
-// This file is part of MusicBrainz, the open internet music database.
-// Copyright (C) 2015 MetaBrainz Foundation
-// Licensed under the GPL version 2, or (at your option) any later version:
-// http://www.gnu.org/licenses/gpl-2.0.txt
+/*
+ * Copyright (C) 2015 MetaBrainz Foundation
+ *
+ * This file is part of MusicBrainz, the open internet music database,
+ * and is licensed under the GPL version 2, or (at your option) any
+ * later version: http://www.gnu.org/licenses/gpl-2.0.txt
+ */
 
-const _ = require('lodash');
-const React = require('react');
+import _ from 'lodash';
+import React from 'react';
 
-const Search = require('./Search');
-const {l, lp} = require('../../static/scripts/common/i18n');
+import Frag from '../../components/Frag';
+import {l, lp} from '../../static/scripts/common/i18n';
+
+import Search from './Search';
 
 function userLink(userName, path) {
   return `/user/${encodeURIComponent(userName)}${path}`;
@@ -36,7 +41,7 @@ const AccountMenu = () => (
 );
 
 const DataMenu = () => {
-  let userName = $c.user.name;
+  const userName = $c.user.name;
 
   return (
     <li className="data" tabIndex="-1">
@@ -75,57 +80,64 @@ const AdminMenu = () => (
   <li className="admin" tabIndex="-1">
     <span className="menu-header">{l('Admin')}{'\xA0\u25BE'}</span>
     <ul>
-      {$c.user.is_location_editor &&
+      {$c.user.is_location_editor ? (
         <li>
           <a href="/area/create">{lp('Add Area', 'button/menu')}</a>
-        </li>}
+        </li>
+      ) : null}
 
-      {$c.user.is_relationship_editor && [
+      {$c.user.is_relationship_editor ? [
         <li key="1">
           <a href="/instrument/create">{lp('Add Instrument', 'button/menu')}</a>
         </li>,
         <li key="2">
           <a href="/relationships">{l('Edit Relationship Types')}</a>
-        </li>]}
+        </li>,
+      ] : null}
 
-      {$c.user.is_wiki_transcluder &&
+      {$c.user.is_wiki_transcluder ? (
         <li>
           <a href="/admin/wikidoc">{l('Transclude WikiDocs')}</a>
-        </li>}
+        </li>
+      ) : null}
 
-      {$c.user.is_banner_editor &&
+      {$c.user.is_banner_editor ? (
         <li>
           <a href="/admin/banner/edit">{l('Edit Banner Message')}</a>
-        </li>}
+        </li>
+      ) : null}
 
-      {$c.user.is_account_admin &&
+      {$c.user.is_account_admin ? (
         <li>
           <a href="/admin/attributes">{l('Edit Attributes')}</a>
-        </li>}
+        </li>
+      ) : null}
     </ul>
   </li>
 );
 
 const UserMenu = (props) => (
   <ul className="menu" tabIndex="-1">
-    {$c.user && [
-      <AccountMenu key={1} />,
-      <DataMenu key={2} />,
-      $c.user.is_admin && <AdminMenu key={3} />
-    ]}
-
-    {!$c.user && [
-      <li key={4}>
-        <a href={"/login?uri=" + encodeURIComponent($c.req.query_params.uri || $c.relative_uri)}>
-          {l('Log In')}
-        </a>
-      </li>,
-      <li key={5}>
-        <a href={"/register?uri=" + encodeURIComponent($c.req.query_params.uri || $c.relative_uri)}>
-          {l('Create Account')}
-        </a>
-      </li>
-    ]}
+    {$c.user_exists ? (
+      <Frag>
+        <AccountMenu />
+        <DataMenu />
+        {$c.user.is_admin ? <AdminMenu /> : null}
+      </Frag>
+    ) : (
+      <Frag>
+        <li>
+          <a href={'/login?uri=' + encodeURIComponent($c.req.query_params.uri || $c.relative_uri)}>
+            {l('Log In')}
+          </a>
+        </li>
+        <li>
+          <a href={'/register?uri=' + encodeURIComponent($c.req.query_params.uri || $c.relative_uri)}>
+            {l('Create Account')}
+          </a>
+        </li>
+      </Frag>
+    )}
   </ul>
 );
 
@@ -140,4 +152,4 @@ const TopMenu = (props) => (
   </div>
 );
 
-module.exports = TopMenu;
+export default TopMenu;
