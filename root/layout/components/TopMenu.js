@@ -89,14 +89,16 @@ const AdminMenu = ({user}: UserProp) => (
         </li>
       ) : null}
 
-      {user.is_relationship_editor ? [
-        <li key="1">
-          <a href="/instrument/create">{lp('Add Instrument', 'button/menu')}</a>
-        </li>,
-        <li key="2">
-          <a href="/relationships">{l('Edit Relationship Types')}</a>
-        </li>,
-      ] : null}
+      {user.is_relationship_editor ? (
+        <Frag>
+          <li>
+            <a href="/instrument/create">{lp('Add Instrument', 'button/menu')}</a>
+          </li>
+          <li>
+            <a href="/relationships">{l('Edit Relationship Types')}</a>
+          </li>
+        </Frag>
+      ) : null}
 
       {user.is_wiki_transcluder ? (
         <li>
