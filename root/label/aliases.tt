@@ -1,6 +1,3 @@
 [%- WRAPPER "label/layout.tt" title=l('Aliases') page='aliases' -%]
-    [%- INCLUDE "components/aliases.tt" entity=label
-        delete_path='/label/delete_alias'
-        add_path='/label/add_alias'
-        edit_path='/label/edit_alias' -%]
+    [%~ React.embed(c, 'components/Aliases', { aliases => aliases, entity => label }) ~%]
 [%- END -%]

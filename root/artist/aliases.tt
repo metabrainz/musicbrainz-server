@@ -1,8 +1,5 @@
 [%- WRAPPER "artist/layout.tt" title=l('Aliases') page='aliases' -%]
-    [%- INCLUDE "components/aliases.tt" entity=artist
-        delete_path='/artist/delete_alias'
-        add_path='/artist/add_alias'
-        edit_path='/artist/edit_alias' -%]
+    [%~ React.embed(c, 'components/Aliases', { aliases => aliases, entity => artist }) ~%]
 
     [%- IF artist_credits.size > 0 -%]
     <h2>[% l("Artist credits") %]</h2>
