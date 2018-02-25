@@ -25,9 +25,7 @@ const FormRowArtistCredit = ({form, entity}) => (
       forLabel="entity-artist"
       form={form}
       hiddenInputs={true} />
-    <If condition={form}>
-      <FieldErrors field={form.field.get('artist_credit')} />
-    </If>
+    {form ? <FieldErrors field={form.field.get('artist_credit')} /> : null}
   </FormRow>
 );
 

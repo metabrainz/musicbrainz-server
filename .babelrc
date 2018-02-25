@@ -20,7 +20,6 @@
     "flow"
   ],
   "plugins": [
-    "jsx-control-statements",
     "transform-react-jsx",
     "transform-react-constant-elements",
     "transform-runtime"

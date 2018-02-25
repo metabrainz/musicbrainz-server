@@ -45,12 +45,10 @@ class EventDisambiguation extends React.Component {
     }
     return (
       <Frag>
-        <If condition={dates}>
-          {bracketed(dates)}
-        </If>
-        <If condition={event.cancelled}>
-          <Comment className="cancelled" comment={l('cancelled')} />
-        </If>
+        {dates ? bracketed(dates) : null}
+        {event.cancelled
+          ? <Comment className="cancelled" comment={l('cancelled')} />
+          : null}
       </Frag>
     );
   }
@@ -155,20 +153,28 @@ const EntityLink = (props = {}) => {
   if (hover) {
     anchorProps.title = hover;
   }
-  content = <a {...anchorProps}>{isolateText(content)}</a>;
+  content = <a key="link" {...anchorProps}>{isolateText(content)}</a>;
 
   if (nameVariation) {
-    content = <span className="name-variation">{content}</span>;
+    content = (
+      <span className="name-variation" key="namevar">
+        {content}
+      </span>
+    );
   }
 
   if (!subPath && entity.editsPending) {
-    content = <span className="mp">{content}</span>;
+    content = <span className="mp" key="mp">{content}</span>;
   }
 
   if (!subPath && entityType === 'area') {
     let isoCodes = entity.iso_3166_1_codes;
     if (isoCodes && isoCodes.length) {
-      content = <span className={'flag flag-' + isoCodes[0]}>{content}</span>;
+      content = (
+        <span className={'flag flag-' + isoCodes[0]} key="flag">
+          {content}
+        </span>
+      );
     }
   }
 
@@ -176,26 +182,27 @@ const EntityLink = (props = {}) => {
     return content;
   }
 
-  return (
-    <Frag>
-      {content}
-      <If condition={showDisambiguation}>
-        <If condition={entityType === 'event'}>
-          <EventDisambiguation event={entity} />
-        </If>
-        <If condition={comment}>
-          <Comment className="comment" comment={comment} />
-        </If>
-        <If condition={entityType === 'area'}>
-          <AreaDisambiguation area={entity} />
-        </If>
-      </If>
-      <If condition={infoLink}>
-        {' '}
-        [<a href={infoLink}>{l('info')}</a>]
-      </If>
-    </Frag>
-  );
+  const parts = [content];
+
+  if (showDisambiguation) {
+    if (entityType === 'event') {
+      parts.push(<EventDisambiguation event={entity} key="eventdisambig" />);
+    }
+    if (comment) {
+      parts.push(
+        <Comment className="comment" comment={comment} key="comment" />
+      );
+    }
+    if (entityType === 'area') {
+      parts.push(<AreaDisambiguation area={entity} key="areadisambig" />);
+    }
+  }
+
+  if (infoLink) {
+    parts.push(' [', <a href={infoLink} key="info">{l('info')}</a>, ']')
+  }
+
+  return parts;
 };
 
 module.exports = EntityLink;

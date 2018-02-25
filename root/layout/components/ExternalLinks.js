@@ -90,6 +90,8 @@ const ExternalLinks = ({entity, empty, heading}) => {
     return <ExternalLink relationship={relationship} />;
   }));
 
+  const entityType = entity.entityType;
+
   return (
     <Frag>
       <h2 className="external-links">
@@ -97,9 +99,7 @@ const ExternalLinks = ({entity, empty, heading}) => {
       </h2>
       <ul className="external_links">
         {links}
-        <If condition={empty &&
-                       (entity.entityType === 'artist' ||
-                        entity.entityType === 'label')}>
+        {(empty && (entityType === 'artist' || entityType === 'label')) ? (
           <li className="all-relationships">
             <EntityLink
               content={l('View all relationships')}
@@ -107,7 +107,7 @@ const ExternalLinks = ({entity, empty, heading}) => {
               subPath="relationships"
             />
           </li>
-        </If>
+        ) : null}
       </ul>
     </Frag>
   );
