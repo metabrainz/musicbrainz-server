@@ -41,13 +41,11 @@ function languageName(language, selected) {
   return text;
 }
 
-function languageLink(language) {
-  return (
-    <a href={'/set-language/' + encodeURIComponent(language.name)}>
-      {languageName(language, false)}
-    </a>
-  );
-}
+const LanguageLink = ({language}: {|+language: ServerLanguageT|}) => (
+  <a href={'/set-language/' + encodeURIComponent(language.name)}>
+    {languageName(language, false)}
+  </a>
+);
 
 function isCurrentLanguage(language) {
   return language === $c.stash.current_language;
@@ -64,7 +62,7 @@ const LanguageMenu = () => (
     <ul>
       {$c.stash.server_languages ? (
         $c.stash.server_languages.map(function (language, index) {
-          let inner = languageLink(language);
+          let inner = <LanguageLink language={language} />;
 
           if (language.name === $c.stash.current_language) {
             inner = <strong>{inner}</strong>;
