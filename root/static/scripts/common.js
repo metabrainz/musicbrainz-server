@@ -1,3 +1,6 @@
+// IE 11 doesn't support Object.assign.
+require('core-js/modules/es6.object.assign');
+
 const DBDefs = require('./common/DBDefs');
 const MB = require('./common/MB');
 
