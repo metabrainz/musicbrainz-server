@@ -1,3 +1,7 @@
+const $ = require('jquery');
+
+const MB = require('../MB');
+
 $(function () {
 
     var cardinalityMap = {

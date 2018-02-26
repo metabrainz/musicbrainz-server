@@ -17,6 +17,7 @@ const {
         isCompleteArtistCredit,
         reduceArtistCredit,
     } = require('../common/immutable-entities');
+const MB = require('../common/MB');
 const clean = require('../common/utility/clean');
 const formatTrackLength = require('../common/utility/formatTrackLength');
 import releaseLabelKey from '../common/utility/releaseLabelKey';

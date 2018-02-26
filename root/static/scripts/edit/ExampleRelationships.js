@@ -1,4 +1,9 @@
+const $ = require('jquery');
+const _ = require('lodash');
+const ko = require('knockout');
+
 const i18n = require('../common/i18n');
+const MB = require('../common/MB');
 const request = require('../common/utility/request');
 
 MB.ExampleRelationshipsEditor = (function (ERE) {

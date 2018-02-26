@@ -2,6 +2,11 @@
 // Copyright (C) 2013 MetaBrainz Foundation
 // Released under the GPLv2 license: http://www.gnu.org/licenses/gpl-2.0.txt
 
+const $ = require('jquery');
+const _ = require('lodash');
+const ko = require('knockout');
+
+const MB = require('../../../common/MB');
 const deferFocus = require('../../utility/deferFocus');
 
 class BubbleBase {

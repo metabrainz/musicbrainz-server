@@ -1,8 +1,10 @@
+const $ = require('jquery');
 const _ = require('lodash');
 const ko = require('knockout');
 
 const {SERIES_ORDERING_TYPE_AUTOMATIC} = require('./common/constants');
 const {lp_attributes} = require('./common/i18n/attributes');
+const MB = require('./common/MB');
 const initializeDuplicateChecker = require('./edit/check-duplicates');
 
 $(function () {

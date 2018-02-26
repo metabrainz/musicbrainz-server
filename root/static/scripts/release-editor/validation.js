@@ -3,6 +3,10 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
+const $ = require('jquery');
+const _ = require('lodash');
+const ko = require('knockout');
+
 const i18n = require('../common/i18n');
 const releaseEditor = require('./viewModel');
 const utils = require('./utils');

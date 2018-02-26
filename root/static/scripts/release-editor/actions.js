@@ -14,6 +14,7 @@ const {
         isComplexArtistCredit,
         reduceArtistCredit,
     } = require('../common/immutable-entities');
+const MB = require('../common/MB');
 const deferFocus = require('../edit/utility/deferFocus');
 const guessFeat = require('../edit/utility/guessFeat');
 const fields = require('./fields');

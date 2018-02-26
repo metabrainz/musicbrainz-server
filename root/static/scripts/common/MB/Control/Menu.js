@@ -18,6 +18,10 @@
 
 */
 
+const $ = require('jquery');
+
+const MB = require('../../MB');
+
 MB.Control.HeaderMenu = function () {
     var self = {};
 

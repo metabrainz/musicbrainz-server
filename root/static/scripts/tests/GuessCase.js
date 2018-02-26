@@ -6,6 +6,7 @@
 import _ from 'lodash';
 import test from 'tape';
 
+import MB from '../common/MB';
 import setCookie from '../common/utility/setCookie';
 import gc from '../guess-case/MB/GuessCase/Main';
 import * as modes from '../guess-case/modes';

@@ -21,6 +21,7 @@
 
 const _ = require('lodash');
 
+const MB = require('../../../common/MB');
 const utils = require('../../utils');
 
 MB.GuessCase = MB.GuessCase ? MB.GuessCase : {};
