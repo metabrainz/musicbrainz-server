@@ -42,7 +42,7 @@
                 },
                 controlsBubble: $root.releaseGroupBubble"
             />
-            <img class="search" src="[% c.model('FileCache').path_to('/images/icons/search.png') %]" alt="[% l('Search') %]" />
+            [% React.embed(c, 'static/scripts/common/components/SearchIcon') %]
           </span>
         </td>
       </tr>
@@ -179,7 +179,7 @@
                 },
                 controlsBubble: $root.labelBubble"
             />
-            <img class="search" src="[% c.model('FileCache').path_to('/images/icons/search.png') %]" alt="[% l('Search') %]" />
+            [% React.embed(c, 'static/scripts/common/components/SearchIcon') %]
           </span>
         </td>
         <td><label>[% l('Cat. No:') %]</label></td>

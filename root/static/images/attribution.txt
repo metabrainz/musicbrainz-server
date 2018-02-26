@@ -178,7 +178,6 @@ Images:
     icons/guesscase.32x32.png
     icons/guesscase.png
     icons/help.png
-    icons/search.png
     icons/up.png
 
     (original .svg versions are in src/icons/*.svg)
