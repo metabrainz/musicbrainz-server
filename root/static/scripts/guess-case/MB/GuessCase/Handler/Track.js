@@ -29,8 +29,8 @@ MB.GuessCase.Handler = (MB.GuessCase.Handler) ? MB.GuessCase.Handler : {};
 /**
  * Track specific GuessCase functionality
  **/
-MB.GuessCase.Handler.Track = function () {
-    var self = MB.GuessCase.Handler.Base();
+MB.GuessCase.Handler.Track = function (gc) {
+    var self = MB.GuessCase.Handler.Base(gc);
 
     self.removeBonusInfo = function (is) {
         return is

@@ -6,7 +6,7 @@
 const i18n = require('../../../common/i18n');
 const getBooleanCookie = require('../../../common/utility/getBooleanCookie');
 const setCookie = require('../../../common/utility/setCookie');
-const global = require('../../../global');
+const gc = require('../GuessCase/Main');
 
 MB.Control.initialize_guess_case = function (type, formPrefix) {
     formPrefix = formPrefix ? (formPrefix + "\\.") : "";
@@ -89,11 +89,11 @@ ko.bindingHandlers.guessCase = {
 
     init: function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
         if (!guessCaseOptions.modeName.peek()) {
-            guessCaseOptions.modeName(global.gc.modeName);
+            guessCaseOptions.modeName(gc.modeName);
         }
 
         if (!guessCaseOptions.keepUpperCase.peek()) {
-            guessCaseOptions.keepUpperCase(global.gc.CFG_UC_UPPERCASED);
+            guessCaseOptions.keepUpperCase(gc.CFG_UC_UPPERCASED);
         }
 
         if (!guessCaseOptions.upperCaseRoman.peek()) {

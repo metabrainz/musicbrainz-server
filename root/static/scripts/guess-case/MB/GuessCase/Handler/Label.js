@@ -27,8 +27,8 @@ MB.GuessCase.Handler = (MB.GuessCase.Handler) ? MB.GuessCase.Handler : {};
 /**
  * Label specific GuessCase functionality
  **/
-MB.GuessCase.Handler.Label = function () {
-    var self = MB.GuessCase.Handler.Base();
+MB.GuessCase.Handler.Label = function (gc) {
+    var self = MB.GuessCase.Handler.Base(gc);
 
     /**
      * Checks special cases of labels

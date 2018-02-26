@@ -27,7 +27,7 @@ MB.GuessCase = MB.GuessCase ? MB.GuessCase : {};
 /**
  * Holds the output variables
  **/
-MB.GuessCase.Output = function () {
+MB.GuessCase.Output = function (gc) {
     var self = {};
 
     // ----------------------------------------------------------------------------
@@ -176,7 +176,7 @@ MB.GuessCase.Output = function () {
                         pos--;
                     }
                     gc.i.setPos(pos);
-                    o = utils.titleString(w, overrideCaps);
+                    o = utils.titleString(gc, w, overrideCaps);
                     // restore pos pointer on input
                     gc.i.setPos(bef);
                     if (w != o) {
