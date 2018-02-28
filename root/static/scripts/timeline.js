@@ -5,6 +5,7 @@ const ko = require('knockout');
 const MB = require('./common/MB');
 const debounce = require('./common/utility/debounce');
 const parseDate = require('./common/utility/parseDate');
+import stats, {buildTypeStats, getStat} from '../../statistics/stats';
 
 require('../lib/flot/jquery.flot');
 require('../lib/flot/jquery.flot.selection');
@@ -232,15 +233,15 @@ class TimelineViewModel {
     }
 
     addLine(name) {
-        var newLine = MB.text.Timeline.Stat(name)
-        var category = _.find(this.categories(), { name: newLine.Category });
+        var newLine = getStat(name)
+        var category = _.find(this.categories(), { name: newLine.category });
 
         if (!category) {
-            var newCategory = MB.text.Timeline.Category[newLine.Category];
-            category = this.addCategory(new TimelineCategory(newLine.Category, newCategory.Label, !newCategory.Hide));
+            var newCategory = stats.category[newLine.category];
+            category = this.addCategory(new TimelineCategory(newLine.category, newCategory.label, !newCategory.hide));
         }
 
-        category.addLine(new TimelineLine(name, newLine.Label, newLine.Color, !newLine.Hide));
+        category.addLine(new TimelineLine(name, newLine.label, newLine.color, !newLine.hide));
     }
 
     addLines(names) {
@@ -495,7 +496,7 @@ MB.Timeline.TimelineViewModel = TimelineViewModel;
                         reset();
                         previousPoint = item.dataIndex;
                         setItemTooltip(item,
-                            graph === 'rate' ? MB.text.Timeline.RateTooltipCloser : undefined,
+                            graph === 'rate' ? stats.rateTooltipCloser : undefined,
                             graph === 'rate' ? 2 : undefined);
                     }
                 } else if ($(element).data('plot').getEvent(pos)) {
@@ -611,6 +612,13 @@ MB.Timeline.TimelineViewModel = TimelineViewModel;
     };
 })();
 
-$(function () {
-    ko.applyBindings(new MB.Timeline.TimelineViewModel());
+$.ajax({
+    dataType: 'json',
+    url: './type-data',
+}).done(function (data) {
+    buildTypeStats(data);
+
+    $(function () {
+        ko.applyBindings(new MB.Timeline.TimelineViewModel());
+    });
 });
