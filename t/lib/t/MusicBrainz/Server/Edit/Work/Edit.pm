@@ -176,11 +176,11 @@ test 'Adding first work attributes is an auto-edit for non-auto-editors' => sub 
         attributes => [
             {
                 attribute_type_id => 1,
-                attribute_value_id => 10,
+                attribute_value_id => 13,
                 attribute_text => undef,
             },
             {
-                attribute_type_id => 2,
+                attribute_type_id => 6,
                 attribute_text => 'Attr value',
                 attribute_value_id => undef
             }
@@ -195,7 +195,7 @@ test 'Adding first work attribute of a kind is an auto-edit for non-auto-editors
     my $c = $test->c;
 
     MusicBrainz::Server::Test->prepare_test_database($c, '+edit_work_attributes');
-    $c->sql->do('INSERT INTO work_attribute (id, work, work_attribute_type, work_attribute_type_allowed_value) VALUES (1, 1, 1, 10)');
+    $c->sql->do('INSERT INTO work_attribute (id, work, work_attribute_type, work_attribute_type_allowed_value) VALUES (1, 1, 1, 13)');
 
     my $work = $c->model('Work')->get_by_id(1);
     $c->model('WorkAttribute')->load_for_works($work);
@@ -205,7 +205,7 @@ test 'Adding first work attribute of a kind is an auto-edit for non-auto-editors
         attributes => [
             {
                 attribute_type_id => 1,
-                attribute_value_id => 10,
+                attribute_value_id => 13,
                 attribute_text => undef,
             }
         ]
@@ -217,11 +217,11 @@ test 'Adding first work attribute of a kind is an auto-edit for non-auto-editors
         attributes => [
             {
                 attribute_type_id => 1,
-                attribute_value_id => 10,
+                attribute_value_id => 13,
                 attribute_text => undef,
             },
             {
-                attribute_type_id => 2,
+                attribute_type_id => 6,
                 attribute_text => 'Attr value',
                 attribute_value_id => undef
             }
@@ -236,7 +236,7 @@ test 'Adding work attribute of existing kind is not an auto-edit for non-auto-ed
     my $c = $test->c;
 
     MusicBrainz::Server::Test->prepare_test_database($c, '+edit_work_attributes');
-    $c->sql->do('INSERT INTO work_attribute (id, work, work_attribute_type, work_attribute_type_allowed_value) VALUES (1, 1, 1, 10)');
+    $c->sql->do('INSERT INTO work_attribute (id, work, work_attribute_type, work_attribute_type_allowed_value) VALUES (1, 1, 1, 13)');
 
     my $work = $c->model('Work')->get_by_id(1);
     $c->model('WorkAttribute')->load_for_works($work);
@@ -247,12 +247,12 @@ test 'Adding work attribute of existing kind is not an auto-edit for non-auto-ed
         attributes => [
             {
                 attribute_type_id => 1,
-                attribute_value_id => 10,
+                attribute_value_id => 13,
                 attribute_text => undef,
             },
             {
                 attribute_type_id => 1,
-                attribute_value_id => 2,
+                attribute_value_id => 33,
                 attribute_text => undef,
             }
         ]
@@ -267,7 +267,7 @@ test 'Changing work attribute is not an auto-edit for non-auto-editors' => sub {
     my $c = $test->c;
 
     MusicBrainz::Server::Test->prepare_test_database($c, '+edit_work_attributes');
-    $c->sql->do('INSERT INTO work_attribute (id, work, work_attribute_type, work_attribute_type_allowed_value) VALUES (1, 1, 1, 10)');
+    $c->sql->do('INSERT INTO work_attribute (id, work, work_attribute_type, work_attribute_type_allowed_value) VALUES (1, 1, 1, 13)');
 
     my $work = $c->model('Work')->get_by_id(1);
     $c->model('WorkAttribute')->load_for_works($work);
@@ -278,7 +278,7 @@ test 'Changing work attribute is not an auto-edit for non-auto-editors' => sub {
         attributes => [
             {
                 attribute_type_id => 1,
-                attribute_value_id => 2,
+                attribute_value_id => 33,
                 attribute_text => undef,
             }
         ]
@@ -293,7 +293,7 @@ test 'Deleting work attribute is not an auto-edit for non-auto-editors' => sub {
     my $c = $test->c;
 
     MusicBrainz::Server::Test->prepare_test_database($c, '+edit_work_attributes');
-    $c->sql->do('INSERT INTO work_attribute (id, work, work_attribute_type, work_attribute_type_allowed_value) VALUES (1, 1, 1, 10)');
+    $c->sql->do('INSERT INTO work_attribute (id, work, work_attribute_type, work_attribute_type_allowed_value) VALUES (1, 1, 1, 13)');
 
     my $work = $c->model('Work')->get_by_id(1);
     $c->model('WorkAttribute')->load_for_works($work);
@@ -321,11 +321,11 @@ test 'Check conflicts (non-conflicting edits)' => sub {
         attributes => [
             {
                 attribute_type_id => 1,
-                attribute_value_id => 10,
+                attribute_value_id => 13,
                 attribute_text => undef,
             },
             {
-                attribute_type_id => 2,
+                attribute_type_id => 6,
                 attribute_text => 'Attr value',
                 attribute_value_id => undef
             }
@@ -340,7 +340,7 @@ test 'Check conflicts (non-conflicting edits)' => sub {
         name => 'Awesome work',
         attributes => [
             {
-                attribute_type_id => 2,
+                attribute_type_id => 6,
                 attribute_text => 'Attr value',
                 attribute_value_id => undef
             }

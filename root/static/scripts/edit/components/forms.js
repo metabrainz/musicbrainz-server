@@ -9,11 +9,7 @@ const ReactDOM = require('react-dom');
 const {l} = require('../../common/i18n');
 const {artistCreditFromArray} = require('../../common/immutable-entities');
 const ArtistCreditEditor = require('./ArtistCreditEditor');
-const {
-    FieldErrors,
-    formFromHash,
-    FormRow,
-  } = require('../../../../components/forms');
+const {FieldErrors, FormRow} = require('../../../../components/forms');
 
 const FormRowArtistCredit = ({form, entity}) => (
   <FormRow>
@@ -25,7 +21,7 @@ const FormRowArtistCredit = ({form, entity}) => (
       forLabel="entity-artist"
       form={form}
       hiddenInputs={true} />
-    {form ? <FieldErrors field={form.field.get('artist_credit')} /> : null}
+    {form ? <FieldErrors field={form.field.artist_credit} /> : null}
   </FormRow>
 );
 
@@ -34,7 +30,7 @@ MB.initializeArtistCredit = function (form, initialNames) {
   source.artistCredit = artistCreditFromArray(initialNames);
 
   ReactDOM.render(
-    <FormRowArtistCredit entity={source} form={formFromHash(form)} />,
+    <FormRowArtistCredit entity={source} form={form} />,
     document.getElementById('artist-credit-editor')
   );
 };

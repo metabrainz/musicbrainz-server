@@ -10,10 +10,9 @@ const React = require('react');
 const EntityLink = require('./EntityLink');
 
 const ArtistCreditLink = ({artistCredit, showDeleted = true, ...props}) => {
-  const names = artistCredit.names;
   const parts = [];
-  for (let i = 0; i < names.size; i++) {
-    const credit = names.get(i);
+  for (let i = 0; i < artistCredit.length; i++) {
+    const credit = artistCredit[i];
     if (props.plain) {
       parts.push(credit.name);
     } else {

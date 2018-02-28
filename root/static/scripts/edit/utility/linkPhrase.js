@@ -8,6 +8,7 @@ const _ = require('lodash');
 const {l} = require('../../common/i18n');
 const commaList = require('../../common/i18n/commaList');
 const commaOnlyList = require('../../common/i18n/commaOnlyList');
+const linkTypeInfo = require('../../common/typeInfo').link_type;
 const clean = require('../../common/utility/clean');
 
 var attributeRegex = /\{(.*?)(?::(.*?))?\}/g;
@@ -16,17 +17,17 @@ function mapNameToID(result, info, id) {
     result[info.attribute.name] = id;
 }
 
-exports.clean = _.memoize(function (linkType, backward) {
-    var typeInfo = MB.typeInfoByID[linkType];
-    var idsByName = _.transform(typeInfo.attributes, mapNameToID);
+exports.clean = _.memoize(function (linkTypeID, backward) {
+    var linkType = linkTypeInfo.byId[linkTypeID];
+    var idsByName = _.transform(linkType.attributes, mapNameToID);
 
     // remove {foo} {bar} junk, unless it's for a required attribute.
-    var phrase = backward ? typeInfo.reversePhrase : typeInfo.phrase;
+    var phrase = backward ? linkType.reversePhrase : linkType.phrase;
 
     return clean(phrase.replace(attributeRegex, function (match, name, alt) {
         var id = idsByName[name];
 
-        if (id !== undefined && typeInfo.attributes[id].min < 1) {
+        if (id !== undefined && linkType.attributes[id].min < 1) {
             return (alt ? alt.split('|')[1] : '') || '';
         }
 
@@ -34,13 +35,13 @@ exports.clean = _.memoize(function (linkType, backward) {
     }));
 }, (a, b) => a + String(b));
 
-exports.interpolate = function (typeInfo, attributes) {
-    if (!typeInfo) {
+exports.interpolate = function (linkType, attributes) {
+    if (!linkType) {
         return ['', '', ''];
     }
 
-    var phrase = typeInfo.phrase;
-    var reversePhrase = typeInfo.reversePhrase;
+    var phrase = linkType.phrase;
+    var reversePhrase = linkType.reversePhrase;
     var cleanPhrase = '';
     var cleanReversePhrase = '';
     var cleanExtraAttributes;
@@ -88,10 +89,10 @@ exports.interpolate = function (typeInfo, attributes) {
     reversePhrase = clean(reversePhrase.replace(attributeRegex, interpolate));
     const extraAttributes = commaOnlyList(_(attributesByName).omit(usedAttributes).values().flatten().value());
 
-    if (typeInfo.orderableDirection > 0) {
+    if (linkType.orderableDirection > 0) {
         usedAttributes = [];
-        cleanPhrase = clean(exports.clean(typeInfo.id, false).replace(attributeRegex, interpolate));
-        cleanReversePhrase = clean(exports.clean(typeInfo.id, true).replace(attributeRegex, interpolate));
+        cleanPhrase = clean(exports.clean(linkType.id, false).replace(attributeRegex, interpolate));
+        cleanReversePhrase = clean(exports.clean(linkType.id, true).replace(attributeRegex, interpolate));
         cleanExtraAttributes = commaOnlyList(_(attributesByName).omit(usedAttributes).values().flatten().value());
     }
 

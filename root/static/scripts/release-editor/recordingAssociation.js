@@ -48,7 +48,7 @@ var releaseGroupRecordings = ko.observable(),
 
 debounce(utils.withRelease(function (release) {
     var newIDs = _(release.mediums()).invokeMap("tracks").flatten()
-                  .map("artistCredit").invokeMap("names").flatten()
+                  .map("artistCredit").flatten()
                   .invokeMap("artist").map("id").uniq().compact().value();
 
     // Check if the current set of ids is identical, to avoid triggering
@@ -108,7 +108,7 @@ function recordingQuery(track, name) {
     var params = {
         recording: [ utils.escapeLuceneValue(name) ],
 
-        arid: _(track.artistCredit().names.toJS()).map('artist.gid')
+        arid: _(track.artistCredit()).map('artist.gid')
             .map(utils.escapeLuceneValue).value()
     };
 

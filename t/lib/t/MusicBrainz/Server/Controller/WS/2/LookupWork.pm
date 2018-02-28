@@ -25,8 +25,7 @@ MusicBrainz::Server::Test->prepare_test_database($c, '+multi_language_work');
 MusicBrainz::Server::Test->prepare_test_database($c, <<'EOSQL');
 INSERT INTO iswc (work, iswc)
 VALUES ( (SELECT id FROM work WHERE gid = '3c37b9fa-a6c1-37d2-9e90-657a116d337c'), 'T-000.000.002-0');
-INSERT INTO work_attribute_type (id, gid, name, free_text) VALUES (1, '345c079d-374e-4436-9448-da92dedef3ce', 'Key', true);
-INSERT INTO work_attribute VALUES (1, 1307406, 1, NULL, 'B major');
+INSERT INTO work_attribute VALUES (1, 1307406, 1, 33, NULL);
 EOSQL
 
 ws_test 'basic work lookup',
@@ -111,7 +110,7 @@ ws_test 'work lookup with attributes',
   <work id="7981d409-8e76-33df-be27-ef625d81c501">
     <title>Shine We Are!</title>
     <attribute-list>
-      <attribute type="Key" type-id="345c079d-374e-4436-9448-da92dedef3ce">B major</attribute>
+      <attribute type="Key" type-id="7526c19d-3be4-3420-b6cc-9fb6e49fa1a9" value-id="32ea711e-9df6-328c-a495-1e6e32e7253b">B major</attribute>
     </attribute-list>
   </work>
 </metadata>';

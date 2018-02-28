@@ -82,8 +82,11 @@ role {
     around TO_JSON => sub {
         my ($orig, $self) = @_;
 
+        my $name = $params->name;
+
         return {
             %{ $self->$orig },
+            $name       => $self->$name,
             gid         => $self->gid,
             parentID    => $self->parent_id,
             childOrder  => +$self->child_order,

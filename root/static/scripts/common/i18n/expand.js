@@ -7,12 +7,7 @@
 const _ = require('lodash');
 const React = require('react');
 
-// From https://developer.mozilla.org/en/docs/Web/JavaScript/Guide/Regular_Expressions
-const regExpChars = /([.*+?^=!:${}()|\[\]\/\\])/g;
-
-function escapeRegExp(string) {
-  return string.replace(regExpChars, "\\$1");
-}
+const escapeRegExp = require('../utility/escapeRegExp');
 
 function varReplacement(args, key) {
   return _.get(args, key, `{${key}}`);
