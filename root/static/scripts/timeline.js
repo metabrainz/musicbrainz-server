@@ -1,3 +1,8 @@
+const $ = require('jquery');
+const _ = require('lodash');
+const ko = require('knockout');
+
+const MB = require('./common/MB');
 const debounce = require('./common/utility/debounce');
 
 require('../lib/flot/jquery.flot');
