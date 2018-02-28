@@ -4,6 +4,7 @@ const ko = require('knockout');
 
 const MB = require('./common/MB');
 const debounce = require('./common/utility/debounce');
+const parseDate = require('./common/utility/parseDate');
 
 require('../lib/flot/jquery.flot');
 require('../lib/flot/jquery.flot.selection');
@@ -292,7 +293,16 @@ class TimelineLine {
             url: '../../statistics/dataset/' + self.name,
             dataType: 'json'
         }).done(function (data, status, jqxhr) {
-            self.data(data);
+            data = data.data;
+
+            const serial = [];
+            for (const key in data) {
+                const {year, month, day} = parseDate(key);
+                serial.push([Date.UTC(year, month, day), data[key]]);
+            }
+            serial.sort((a, b) => a[0] - b[0]);
+
+            self.data(serial);
             self.loaded(true);
         }).fail(function () {
             self.data(null);
