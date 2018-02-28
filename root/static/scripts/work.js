@@ -1,9 +1,11 @@
-// @flow
-// Copyright (C) 2015-2018 MetaBrainz Foundation
-//
-// This file is part of MusicBrainz, the open internet music database,
-// and is licensed under the GPL version 2, or (at your option) any
-// later version: http://www.gnu.org/licenses/gpl-2.0.txt
+/*
+ * @flow
+ * Copyright (C) 2015-2018 MetaBrainz Foundation
+ *
+ * This file is part of MusicBrainz, the open internet music database,
+ * and is licensed under the GPL version 2, or (at your option) any
+ * later version: http://www.gnu.org/licenses/gpl-2.0.txt
+ */
 
 const $ = require('jquery');
 const _ = require('lodash');
@@ -40,11 +42,15 @@ type WorkForm = FormT<{|
   +languages: RepeatableFieldT<LanguageField>,
 |}>;
 
-// Flow does not support assigning types within destructuring assignments:
-// https://github.com/facebook/flow/issues/235
+/*
+ * Flow does not support assigning types within destructuring assignments:
+ * https://github.com/facebook/flow/issues/235
+ */
 const form: WorkForm = scriptArgs.form;
-const workAttributeTypeTree: WorkAttributeTypeTreeRootT = scriptArgs.workAttributeTypeTree;
-const workAttributeValueTree: WorkAttributeTypeAllowedValueTreeRootT = scriptArgs.workAttributeValueTree;
+const workAttributeTypeTree: WorkAttributeTypeTreeRootT =
+  scriptArgs.workAttributeTypeTree;
+const workAttributeValueTree: WorkAttributeTypeAllowedValueTreeRootT =
+  scriptArgs.workAttributeValueTree;
 const workLanguageOptions: GroupedOptionsT = scriptArgs.workLanguageOptions;
 
 const languagesField: Lens<WorkForm, LanguageFields> =
@@ -61,7 +67,7 @@ const store = createStore(function (state: WorkForm = form, action) {
         (compose3(
           languagesField,
           (index(action.index): Lens<LanguageFields, LanguageField>),
-          (prop('value'): Lens<LanguageField, number>)
+          (prop('value'): Lens<LanguageField, number>),
         ): Lens<WorkForm, number>),
         action.languageId,
         state,
@@ -95,11 +101,17 @@ function removeLanguageFromState(form: WorkForm, i: number): WorkForm {
 
 class WorkAttribute {
   allowedValues: () => OptionListT;
+
   allowedValuesByTypeID: {[number]: OptionListT};
+
   attributeValue: (?string) => string;
+
   errors: (?$ReadOnlyArray<string>) => $ReadOnlyArray<string>;
+
   parent: ViewModel;
+
   typeHasFocus: (?boolean) => boolean;
+
   typeID: (?number) => number;
 
   constructor(
@@ -113,19 +125,18 @@ class WorkAttribute {
     this.typeID = ko.observable(data.field.type_id.value);
 
     this.allowedValues = ko.computed(() => {
-      let typeID = this.typeID();
+      const typeID = this.typeID();
 
       if (this.allowsFreeText()) {
         return [];
-      } else {
-        return this.parent.allowedValuesByTypeID[typeID];
       }
+      return this.parent.allowedValuesByTypeID[typeID];
     });
 
     this.typeID.subscribe(newTypeID => {
       // != is used intentionally for type coercion.
-      if (this.typeID() != newTypeID) {
-        this.attributeValue("");
+      if (this.typeID() != newTypeID) { // eslint-disable-line eqeqeq
+        this.attributeValue('');
         this.resetErrors();
       }
     });
@@ -134,11 +145,12 @@ class WorkAttribute {
   }
 
   allowsFreeText() {
-    return !this.typeID() || this.parent.attributeTypesByID[this.typeID()].freeText;
+    return !this.typeID() ||
+      this.parent.attributeTypesByID[this.typeID()].freeText;
   }
 
   isGroupingType() {
-    return !this.allowsFreeText() && this.allowedValues().length == 0;
+    return !this.allowsFreeText() && this.allowedValues().length === 0;
   }
 
   remove() {
@@ -152,9 +164,13 @@ class WorkAttribute {
 
 class ViewModel {
   attributeTypes: OptionListT;
+
   attributeTypesByID: {[number]: WorkAttributeTypeTreeT};
+
   allowedValuesByTypeID: {[number]: OptionListT};
-  attributes: (?$ReadOnlyArray<WorkAttribute>) => $ReadOnlyArray<WorkAttribute>;
+
+  attributes: (?$ReadOnlyArray<WorkAttribute>) =>
+    $ReadOnlyArray<WorkAttribute>;
 
   constructor(
     attributeTypes: WorkAttributeTypeTreeRootT,
@@ -181,17 +197,21 @@ class ViewModel {
       .value();
 
     if (_.isEmpty(attributes)) {
-      attributes = [createField(form, {
-        type_id: null,
-        value: null,
-      })];
+      attributes = [
+        createField(form, {
+          type_id: null,
+          value: null,
+        }),
+      ];
     }
 
-    this.attributes = ko.observableArray(_.map(attributes, data => new WorkAttribute(data, this)));
+    this.attributes = ko.observableArray(
+      _.map(attributes, data => new WorkAttribute(data, this)),
+    );
   }
 
   newAttribute() {
-    let attr = new WorkAttribute(createField(form, {
+    const attr = new WorkAttribute(createField(form, {
       type_id: null,
       value: null,
     }), this);
@@ -214,12 +234,10 @@ ko.applyBindings(
     workAttributeValueTree,
     form.field.attributes.field,
   ),
-  $('#work-attributes')[0]
+  $('#work-attributes')[0],
 );
 
 initialize_guess_case('work', 'id-edit-work');
-
-const workLanguagesNode = document.getElementById('work-languages-editor');
 
 function addLanguage() {
   store.dispatch({type: 'ADD_LANGUAGE'});
@@ -227,20 +245,24 @@ function addLanguage() {
 
 function editLanguage(i, languageId) {
   store.dispatch({
-    type: 'EDIT_LANGUAGE',
     index: i,
     languageId: languageId,
+    type: 'EDIT_LANGUAGE',
   });
 }
 
 function removeLanguage(i) {
   store.dispatch({
-    type: 'REMOVE_LANGUAGE',
     index: i,
+    type: 'REMOVE_LANGUAGE',
   });
 }
 
 function renderWorkLanguages() {
+  const workLanguagesNode = document.getElementById('work-languages-editor');
+  if (!workLanguagesNode) {
+    throw new Error('Mount point #work-languages-editor does not exist');
+  }
   const form: WorkForm = store.getState();
   ReactDOM.render(
     <FormRowSelectList
@@ -257,7 +279,7 @@ function renderWorkLanguages() {
       removeLabel={l('Remove Language')}
       repeatable={form.field.languages}
     />,
-    ((workLanguagesNode: any): Element),
+    workLanguagesNode,
   );
 }
 
@@ -266,15 +288,15 @@ renderWorkLanguages();
 
 initializeBubble('#iswcs-bubble', 'input[name=edit-work\\.iswcs\\.0]');
 
-let typeIdField = 'select[name=edit-work\\.type_id]';
+const typeIdField = 'select[name=edit-work\\.type_id]';
 initializeBubble('#type-bubble', typeIdField);
-$(typeIdField).on('change', function() {
-  if (!this.value.match(/\S/g)) {
-    $('.type-bubble-description').hide();
-    $('#type-bubble-default').show();
-  } else {
+$(typeIdField).on('change', function () {
+  if (this.value.match(/\S/g)) {
     $('#type-bubble-default').hide();
     $('.type-bubble-description').hide();
     $(`#type-bubble-description-${this.value}`).show();
+  } else {
+    $('.type-bubble-description').hide();
+    $('#type-bubble-default').show();
   }
 });
