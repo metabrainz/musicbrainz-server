@@ -92,10 +92,9 @@ sub dataset : Local Args(1)
     $c->res->content_type('application/json; charset=utf-8');
     my $tomorrow = Date_to_Time(Add_Delta_Days(Today(1), 1), 0, 0, 0);
     $c->res->headers->expires($tomorrow);
-    $c->stash(
-        template => 'statistics/dataset.tt',
-        statistic => $c->model('Statistics::ByName')->get_statistic($dataset)
-    )
+
+    my $statistic = $c->model('Statistics::ByName')->get_statistic($dataset);
+    $c->res->body($c->json_utf8->encode($statistic));
 }
 
 sub countries : Local

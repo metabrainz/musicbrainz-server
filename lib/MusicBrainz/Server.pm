@@ -431,6 +431,13 @@ has json => (
     }
 );
 
+has json_utf8 => (
+    is => 'ro',
+    default => sub {
+        return JSON->new->allow_blessed->convert_blessed->utf8;
+    }
+);
+
 sub TO_JSON {
     my $self = shift;
 

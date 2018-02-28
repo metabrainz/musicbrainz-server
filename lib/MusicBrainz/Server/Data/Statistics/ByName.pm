@@ -25,13 +25,12 @@ sub get_statistic {
                    FROM " . $self->_table . "
                   WHERE name = ?";
 
-    my @stats = @{ $self->sql->select_list_of_hashes($query, $statistic) }
-        or return undef;
+    my @stats = @{ $self->sql->select_list_of_hashes($query, $statistic) };
+    my $stats = MusicBrainz::Server::Entity::Statistics::ByName->new(
+        name => $statistic,
+    );
 
-    my $stats = MusicBrainz::Server::Entity::Statistics::ByName->new();
     for my $row (@stats) {
-        $stats->name($row->{name})
-            unless $stats->name;
         $stats->data->{$row->{date_collected}} = $row->{value};
     }
 
