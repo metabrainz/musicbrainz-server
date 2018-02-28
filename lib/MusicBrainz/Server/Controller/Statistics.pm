@@ -1,4 +1,5 @@
 package MusicBrainz::Server::Controller::Statistics;
+use Digest::MD5 qw( md5_hex );
 use Moose;
 use MusicBrainz::Server::Data::Statistics::ByDate;
 use MusicBrainz::Server::Data::Statistics::ByName;
@@ -54,6 +55,29 @@ sub statistics : Path('')
         work_attribute_types => \@work_attribute_types,
         stats => $latest_stats
     );
+}
+
+sub timeline_type_data : Path('timeline/type-data') {
+    my ($self, $c) = @_;
+
+    my @countries = $c->model('CountryArea')->get_all;
+    my %countries = map { $_->country_code => $_ } @countries;
+    my %languages = map { $_->iso_code_3 => $_ }
+        grep { defined $_->iso_code_3 } $c->model('Language')->get_all;
+    my %scripts = map { $_->iso_code => $_ } $c->model('Script')->get_all;
+    my %formats = map { $_->id => $_ } $c->model('MediumFormat')->get_all;
+    my @rel_pairs = $c->model('Relationship')->all_pairs;
+
+    my $body = $c->json_canonical_utf8->encode({
+        countries => \%countries,
+        formats => \%formats,
+        languages => \%languages,
+        relationships => \@rel_pairs,
+        scripts => \%scripts,
+    });
+    $c->res->body($body);
+    $c->res->content_type('application/json; charset=utf-8');
+    $c->res->headers->etag(md5_hex($body));
 }
 
 sub timeline : Path('timeline/main')

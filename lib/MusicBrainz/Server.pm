@@ -431,6 +431,13 @@ has json => (
     }
 );
 
+has json_canonical_utf8 => (
+    is => 'ro',
+    default => sub {
+        return JSON->new->allow_blessed->canonical->convert_blessed->utf8;
+    }
+);
+
 has json_utf8 => (
     is => 'ro',
     default => sub {
