@@ -2,7 +2,6 @@ const $ = require('jquery');
 const _ = require('lodash');
 const ko = require('knockout');
 
-const MB = require('./common/MB');
 const debounce = require('./common/utility/debounce');
 const parseDate = require('./common/utility/parseDate');
 import stats, {buildTypeStats, getStat} from '../../statistics/stats';
@@ -42,8 +41,6 @@ const defaultLines = [
     'count.vote.perweek',
     'count.work',
 ];
-
-MB.Timeline = {};
 
 class TimelineViewModel {
 
@@ -419,8 +416,6 @@ class TimelineLine {
     }
 }
 
-MB.Timeline.TimelineViewModel = TimelineViewModel;
-
 (function () {
     // Closure over utility functions.
     var showTooltip = function (x, y, contents) {
@@ -619,6 +614,6 @@ $.ajax({
     buildTypeStats(data);
 
     $(function () {
-        ko.applyBindings(new MB.Timeline.TimelineViewModel());
+        ko.applyBindings(new TimelineViewModel());
     });
 });
