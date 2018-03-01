@@ -11,11 +11,42 @@ require('../lib/flot/jquery.flot.selection');
 require('../lib/flot/jquery.flot.time');
 require('./jquery.flot.musicbrainz_events');
 
+const defaultLines = [
+    'count.area',
+    'count.artist',
+    'count.coverart',
+    'count.edit',
+    'count.edit.open',
+    'count.edit.perday',
+    'count.edit.perweek',
+    'count.editor',
+    'count.editor.activelastweek',
+    'count.editor.deleted',
+    'count.editor.editlastweek',
+    'count.editor.valid',
+    'count.editor.valid.active',
+    'count.editor.votelastweek',
+    'count.event',
+    'count.instrument',
+    'count.label',
+    'count.medium',
+    'count.place',
+    'count.recording',
+    'count.release',
+    'count.release.has_caa',
+    'count.releasegroup',
+    'count.series',
+    'count.vote',
+    'count.vote.perday',
+    'count.vote.perweek',
+    'count.work',
+];
+
 MB.Timeline = {};
 
 class TimelineViewModel {
 
-    constructor(initialLines) {
+    constructor() {
         var self = this;
         self.categories = ko.observableArray([]);
         self.enabledCategories = ko.computed(function () {
@@ -113,7 +144,15 @@ class TimelineViewModel {
             return bounds;
         });
 
-        self.addLines(initialLines);
+        let lines = document.location.pathname.match(
+            /^\/statistics\/timeline\/(.+)$/
+        )[1].split('+');
+
+        if (lines.length === 1 && lines[0] === 'main') {
+            lines = defaultLines;
+        }
+
+        self.addLines(lines);
         self._getLocationHashSettings();
 
         self.hash = debounce(function () {
@@ -571,3 +610,7 @@ MB.Timeline.TimelineViewModel = TimelineViewModel;
         }
     };
 })();
+
+$(function () {
+    ko.applyBindings(new MB.Timeline.TimelineViewModel());
+});
