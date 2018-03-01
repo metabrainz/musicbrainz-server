@@ -60,11 +60,7 @@ sub timeline : Path('timeline/main')
 {
     my ($self, $c) = @_;
 
-    my @stats = qw( count.area count.artist count.place count.release count.medium count.releasegroup count.label count.work count.recording count.series count.instrument count.event count.edit count.edit.open count.edit.perday count.edit.perweek count.vote count.vote.perday count.vote.perweek count.editor count.editor.valid count.editor.deleted count.editor.valid.active count.editor.editlastweek count.editor.votelastweek count.editor.activelastweek count.coverart count.release.has_caa );
-    $c->stash(
-        template => 'statistics/timeline.tt',
-        stats => \@stats
-    )
+    $c->stash(template => 'statistics/timeline.tt');
 }
 
 sub timeline_redirect : Path('timeline')
@@ -77,12 +73,10 @@ sub individual_timeline : Path('timeline') Args(1)
 {
     my ($self, $c, $stat) = @_;
 
-    my @stats = split /\+/, $stat;
     $c->stash(
         template => 'statistics/timeline.tt',
-        stats => \@stats,
         show_all => 1,
-    )
+    );
 }
 
 sub dataset : Local Args(1)
