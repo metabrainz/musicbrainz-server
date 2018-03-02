@@ -232,10 +232,7 @@ declare type FormT<F> = {|
  */
 declare type GroupedOptionsT = $ReadOnlyArray<{|
   +optgroup: string,
-  +options: $ReadOnlyArray<{|
-    +label: string,
-    +value: number,
-  |}>,
+  +options: SelectOptionsT,
 |}>;
 
 declare type InstrumentT = {|
@@ -305,6 +302,10 @@ declare type LinkTypeInfoT = {|
   +type0: string,
   +type1: string,
 |};
+
+declare type MaybeGroupedOptionsT =
+  | {|+grouped: true, +options: GroupedOptionsT|}
+  | {|+grouped: false, +options: SelectOptionsT|};
 
 // See MB.forms.buildOptionsTree
 declare type OptionListT = $ReadOnlyArray<{|
@@ -384,6 +385,17 @@ declare type RepeatableFieldT<+F> = {|
   ...FieldRoleT,
   +field: $ReadOnlyArray<F>,
 |};
+
+/*
+ * See MusicBrainz::Server::Form::Utils::select_options.
+ * FIXME(michael): Consolidate with OptionListT.
+ */
+declare type SelectOptionT = {|
+  +label: string,
+  +value: number | string,
+|};
+
+declare type SelectOptionsT = $ReadOnlyArray<SelectOptionT>;
 
 declare type SeriesT = {|
   ...CommentRoleT,

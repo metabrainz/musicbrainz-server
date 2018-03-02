@@ -14,11 +14,6 @@ const React = require('react');
 const ReactDOM = require('react-dom');
 const {createStore} = require('redux');
 
-const {
-  createField,
-  FormRowSelectList,
-  subfieldErrors,
-} = require('../../components/forms');
 const {l} = require('./common/i18n');
 const {lp_attributes} = require('./common/i18n/attributes');
 const MB = require('./common/MB');
@@ -27,6 +22,9 @@ const {Lens, prop, index, set, compose3} = require('./common/utility/lens');
 const {buildOptionsTree} = require('./edit/forms');
 const {initializeBubble} = require('./edit/MB/Control/Bubble');
 const {initialize_guess_case} = require('./guess-case/MB/Control/GuessCase');
+import FormRowSelectList from '../../components/FormRowSelectList';
+import createField from '../../utility/createField';
+import subfieldErrors from '../../utility/subfieldErrors';
 
 type LanguageField = FieldT<number>;
 
@@ -51,7 +49,10 @@ const workAttributeTypeTree: WorkAttributeTypeTreeRootT =
   scriptArgs.workAttributeTypeTree;
 const workAttributeValueTree: WorkAttributeTypeAllowedValueTreeRootT =
   scriptArgs.workAttributeValueTree;
-const workLanguageOptions: GroupedOptionsT = scriptArgs.workLanguageOptions;
+const workLanguageOptions: MaybeGroupedOptionsT = {
+  grouped: true,
+  options: scriptArgs.workLanguageOptions,
+};
 
 const languagesField: Lens<WorkForm, LanguageFields> =
   compose3(prop('field'), prop('languages'), prop('field'));
