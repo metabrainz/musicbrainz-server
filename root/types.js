@@ -30,6 +30,10 @@ declare type AliasT = {|
 
 export opaque type AliasTypeT: OptionTreeT = OptionTreeT;
 
+declare type AnyFieldT<+F> =
+  | FieldT<F>
+  | StructFieldT<F>;
+
 declare type AreaT = {|
   ...CommentRoleT,
   ...CoreEntityRoleT,
@@ -142,11 +146,9 @@ declare type CommonsImageT = {|
   +thumb_url: string,
 |};
 
-declare type CompoundFieldT<F: {+[string]: mixed}> = {|
-  +errors: $ReadOnlyArray<string>,
+declare type CompoundFieldT<+F> = {|
+  ...FieldRoleT,
   +field: F,
-  +has_errors: boolean,
-  +id: number,
 |};
 
 declare type CoreEntityRoleT = {|
@@ -200,10 +202,18 @@ declare type EntityRoleT = {|
   +id: number,
 |};
 
-declare type FieldT<V> = {|
+declare type FieldRoleT = {|
   +errors: $ReadOnlyArray<string>,
   +has_errors: boolean,
+  /*
+   * The field `id` is unique across all fields on the page. It's purpose
+   * is for passing to `key` attributes on React elements.
+   */
   +id: number,
+|};
+
+declare type FieldT<+V> = {|
+  ...FieldRoleT,
   +value: V,
 |};
 
@@ -370,11 +380,9 @@ declare type ReleaseT = {|
   +statusID: number | null,
 |};
 
-declare type RepeatableFieldT<F> = {|
-  +errors: $ReadOnlyArray<string>,
+declare type RepeatableFieldT<+F> = {|
+  ...FieldRoleT,
   +field: $ReadOnlyArray<F>,
-  +has_errors: boolean,
-  +id: number,
 |};
 
 declare type SeriesT = {|
@@ -389,6 +397,10 @@ declare type ServerLanguageT = {|
   +native_language: string,
   +native_territory: string,
 |};
+
+type StructFieldT<+F> =
+  | CompoundFieldT<F>
+  | RepeatableFieldT<F>;
 
 declare type TypeRoleT<T: OptionTreeT> = {|
   +typeID: number | null,
