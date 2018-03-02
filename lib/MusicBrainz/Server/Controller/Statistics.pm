@@ -40,7 +40,8 @@ sub statistics : Path('')
         $c->model('WorkAttributeType')->get_all;
 
     $c->stash(
-        template => 'statistics/index.tt',
+        current_view => 'Node',
+        component_path => 'statistics/Index.js',
         statuses => \%statuses,
         packagings => \%packagings,
         primary_types => \%primary_types,
