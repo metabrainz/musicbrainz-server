@@ -6,7 +6,7 @@
 const ko = require('knockout');
 
 const {l} = require('../i18n');
-const formatDate = require('./formatDate');
+import formatDate from './formatDate';
 
 function formatDatePeriod(entity) {
   let {begin_date, end_date, ended} = entity;
