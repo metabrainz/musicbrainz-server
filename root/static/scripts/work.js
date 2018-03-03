@@ -285,9 +285,8 @@ function renderWorkLanguages() {
     <FormRowSelectList
       addId="add-language"
       addLabel={l('Add Language')}
-      fieldName={null}
+      getSelectField={_.identity}
       label={l('Lyrics Languages')}
-      name={form.name + '.languages'}
       onAdd={addLanguage}
       onEdit={editLanguage}
       onRemove={removeLanguage}

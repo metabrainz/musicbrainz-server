@@ -8,7 +8,7 @@
  */
 
 export default function getSelectValue(
-  field: FieldT<number> | FieldT<string>,
+  field: FieldT<number | string>,
   options: MaybeGroupedOptionsT,
   allowEmpty: boolean = false,
 ): string {

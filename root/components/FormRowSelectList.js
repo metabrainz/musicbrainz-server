@@ -14,27 +14,25 @@ import {addColon} from '../static/scripts/common/i18n';
 import FieldErrors from './FieldErrors';
 import SelectField from './SelectField';
 
-type Props = {|
+type Props<S> = {|
   +addId: string,
   +addLabel: string,
-  +fieldName: string | null,
+  +getSelectField: (S) => FieldT<number | string>,
   +label: string,
-  +name: string,
   +onAdd: (event: SyntheticEvent<HTMLButtonElement>) => void,
   +onEdit: (index: number, value: string) => void,
   +onRemove: (index: number) => void,
   +options: MaybeGroupedOptionsT,
   +removeClassName: string,
   +removeLabel: string,
-  +repeatable: RepeatableFieldT<*>,
+  +repeatable: RepeatableFieldT<S>,
 |};
 
-const FormRowSelectList = ({
+const FormRowSelectList = <F, S: AnyFieldT<F>>({
   addId,
   addLabel,
-  fieldName,
+  getSelectField,
   label,
-  name,
   onAdd,
   onEdit,
   onRemove,
@@ -42,15 +40,14 @@ const FormRowSelectList = ({
   removeClassName,
   removeLabel,
   repeatable,
-}: Props) => (
+}: Props<S>) => (
   <div className="row">
     <label>{addColon(label)}</label>
     <div className="form-row-select-list">
       {repeatable.field.map((subfield, index) => (
         <div className="select-list-row" key={subfield.id}>
           <SelectField
-            field={fieldName ? (subfield: any).field[fieldName] : subfield}
-            name={name + '.' + index + (fieldName ? '.' + fieldName : '')}
+            field={getSelectField(subfield)}
             onChange={event => onEdit(index, event.currentTarget.value)}
             options={options}
           />
@@ -61,9 +58,7 @@ const FormRowSelectList = ({
             title={removeLabel}
             type="button"
           />
-          <FieldErrors
-            field={fieldName ? (subfield: any).field[fieldName] : subfield}
-          />
+          <FieldErrors field={getSelectField(subfield)} />
         </div>
       ))}
       <div className="form-row-add">
