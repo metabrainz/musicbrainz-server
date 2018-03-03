@@ -42,6 +42,8 @@ declare type AreaT = {|
   +containment: $ReadOnlyArray<AreaT> | null,
   +entityType: 'area',
   +iso_3166_1_codes: $ReadOnlyArray<string>,
+  +iso_3166_2_codes: $ReadOnlyArray<string>,
+  +iso_3166_3_codes: $ReadOnlyArray<string>,
 |};
 
 export opaque type AreaTypeT: OptionTreeT = OptionTreeT;
