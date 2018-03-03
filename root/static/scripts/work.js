@@ -84,10 +84,29 @@ const store = createStore(function (state: WorkForm = form, action) {
   return state;
 });
 
+function pushField<F, R: RepeatableFieldT<F>>(
+  form: WorkForm,
+  repeatable: R,
+  value: mixed,
+) {
+  return createField(
+    form,
+    repeatable,
+    String(repeatable.field.length),
+    value,
+  );
+}
+
 function addLanguageToState(form: WorkForm): WorkForm {
   const languages = form.field.languages.field.slice(0);
   const newForm = set(languagesField, languages, form);
-  languages.push(createField(newForm, null));
+  languages.push(
+    pushField(
+      newForm,
+      newForm.field.languages,
+      null,
+    )
+  );
   return newForm;
 }
 
@@ -196,7 +215,7 @@ class ViewModel {
 
     if (_.isEmpty(attributes)) {
       attributes = [
-        createField(form, {
+        pushField(form, form.field.attributes, {
           type_id: null,
           value: null,
         }),
@@ -209,7 +228,7 @@ class ViewModel {
   }
 
   newAttribute() {
-    const attr = new WorkAttribute(createField(form, {
+    const attr = new WorkAttribute(pushField(form, form.field.attributes, {
       type_id: null,
       value: null,
     }), this);

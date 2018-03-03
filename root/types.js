@@ -205,6 +205,7 @@ declare type EntityRoleT = {|
 declare type FieldRoleT = {|
   +errors: $ReadOnlyArray<string>,
   +has_errors: boolean,
+  +html_name: string,
   /*
    * The field `id` is unique across all fields on the page. It's purpose
    * is for passing to `key` attributes on React elements.

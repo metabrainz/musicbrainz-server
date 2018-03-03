@@ -7,22 +7,32 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-export default function createField(
-  form: FormT<$Subtype<{}>>,
+export default function createField<
+  F,
+  S,
+  P: StructFieldT<S>,
+  N: number | string,
+>(
+  form: FormT<F>,
+  parent: P,
+  name: N,
   value: mixed,
-): $Subtype<FieldRoleT> {
+): $ElementType<P, N> {
   const field: any = {
     errors: [],
     has_errors: false,
+    html_name: parent.html_name + '.' + String(name),
     id: ++form.last_field_id,
   };
   if (value && typeof value === 'object') {
     if (Array.isArray(value)) {
-      field.field = value.map(x => createField(form, x));
+      field.field = value.map(
+        (x, i) => createField(form, field, i, x),
+      );
     } else {
       const fields = {};
       for (const key in value) {
-        fields[key] = createField(form, value[key]);
+        fields[key] = createField(form, field, key, value[key]);
       }
       field.field = fields;
     }
