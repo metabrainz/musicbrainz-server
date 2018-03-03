@@ -19,6 +19,7 @@
 declare type AreaT =
   & CommentRoleT
   & CoreEntityT
+  & DatePeriodRoleT
   & TypeRoleT<AreaTypeT>
   & {|
       +containment: $ReadOnlyArray<AreaT>,
@@ -110,6 +111,12 @@ declare type CompoundFieldT<F: {+[string]: mixed}> = {|
 declare type CoreEntityT = EntityT & {|
   +gid: string,
   +name: string,
+|};
+
+declare type DatePeriodRoleT = {|
+  +begin_date: PartialDateT | null,
+  +end_date: PartialDateT | null,
+  +ended: boolean,
 |};
 
 declare type EditableRoleT = {|
@@ -232,6 +239,12 @@ declare type OptionTreeT =
       +childOrder: number,
       +description: string,
     |};
+
+declare type PartialDateT = {|
+  +day: number | null,
+  +month: number | null,
+  +year: number | null,
+|};
 
 declare type PlaceT =
   & CommentRoleT
