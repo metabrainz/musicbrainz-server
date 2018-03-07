@@ -14,7 +14,7 @@ const commaOnlyList = require('../../i18n/commaOnlyList');
 const {artistCreditFromArray, reduceArtistCredit} = require('../../immutable-entities');
 const MB = require('../../MB');
 const clean = require('../../utility/clean');
-const formatDate = require('../../utility/formatDate');
+import formatDate from '../../utility/formatDate';
 const formatTrackLength = require('../../utility/formatTrackLength');
 const isBlank = require('../../utility/isBlank');
 const {localStorage} = require('../../utility/storage');

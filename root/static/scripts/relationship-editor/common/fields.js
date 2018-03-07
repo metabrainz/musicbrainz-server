@@ -15,7 +15,7 @@ const i18n = require('../../common/i18n');
 const MB = require('../../common/MB');
 const typeInfo = require('../../common/typeInfo');
 const clean = require('../../common/utility/clean');
-const formatDate = require('../../common/utility/formatDate');
+import formatDate from '../../common/utility/formatDate';
 const formatDatePeriod = require('../../common/utility/formatDatePeriod');
 const request = require('../../common/utility/request');
 const MB_edit = require('../../edit/MB/edit');

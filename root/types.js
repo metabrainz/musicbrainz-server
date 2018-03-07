@@ -16,9 +16,25 @@
  * how data is serialized for us.
  */
 
+declare type AliasT =
+  & DatePeriodRoleT
+  & EntityT
+  & EditableRoleT
+  & TypeRoleT<AliasTypeT>
+  & {|
+      +entityType: 'alias',
+      +locale: string | null,
+      +name: string,
+      +primary_for_locale: boolean,
+      +sort_name: string,
+    |};
+
+export opaque type AliasTypeT: OptionTreeT = OptionTreeT;
+
 declare type AreaT =
   & CommentRoleT
   & CoreEntityT
+  & DatePeriodRoleT
   & TypeRoleT<AreaTypeT>
   & {|
       +containment: $ReadOnlyArray<AreaT>,
@@ -110,6 +126,12 @@ declare type CompoundFieldT<F: {+[string]: mixed}> = {|
 declare type CoreEntityT = EntityT & {|
   +gid: string,
   +name: string,
+|};
+
+declare type DatePeriodRoleT = {|
+  +begin_date: PartialDateT | null,
+  +end_date: PartialDateT | null,
+  +ended: boolean,
 |};
 
 declare type EditableRoleT = {|
@@ -232,6 +254,12 @@ declare type OptionTreeT =
       +childOrder: number,
       +description: string,
     |};
+
+declare type PartialDateT = {|
+  +day: number | null,
+  +month: number | null,
+  +year: number | null,
+|};
 
 declare type PlaceT =
   & CommentRoleT

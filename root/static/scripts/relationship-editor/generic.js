@@ -10,7 +10,7 @@ const _ = require('lodash');
 const {SERIES_ORDERING_TYPE_AUTOMATIC} = require('../common/constants');
 const MB = require('../common/MB');
 const clean = require('../common/utility/clean');
-const formatDate = require('../common/utility/formatDate');
+import formatDate from '../common/utility/formatDate';
 const {hasSessionStorage} = require('../common/utility/storage');
 const validation = require('../edit/validation');
 const {ViewModel} = require('./common/viewModel');
