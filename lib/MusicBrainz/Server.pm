@@ -9,7 +9,7 @@ use Encode;
 use JSON;
 use Moose::Util qw( does_role );
 use MusicBrainz::Sentry qw( sentry_enabled );
-use MusicBrainz::Server::Data::Utils qw( boolean_to_json );
+use MusicBrainz::Server::Data::Utils qw( boolean_to_json datetime_to_iso8601 );
 use MusicBrainz::Server::Log qw( logger );
 use POSIX qw(SIGALRM);
 use Sys::Hostname;
@@ -478,9 +478,7 @@ sub TO_JSON {
 
     # convert DateTime objects to iso8601-formatted strings
     if (my $date = $stash{last_replication_date}) {
-        $date = $date->clone;
-        $date->set_time_zone('UTC');
-        $stash{last_replication_date} = $date->iso8601 . 'Z';
+        $stash{last_replication_date} = datetime_to_iso8601($date);
     }
 
     # Limit server_languages data to what's needed, since the complete output
