@@ -4,6 +4,7 @@ use namespace::autoclean;
 
 use MusicBrainz::Server::Entity::Types;
 use MusicBrainz::Server::Constants qw( :election_status );
+use MusicBrainz::Server::Data::Utils qw( boolean_to_json datetime_to_iso8601 );
 use MusicBrainz::Server::Types qw( DateTime AutoEditorElectionStatus );
 use MusicBrainz::Server::Translation qw( N_lp );
 
@@ -184,6 +185,30 @@ sub current_expiration_time
            $self->open_time->clone->add( weeks => 1 ) :
            $self->propose_time->clone->add( weeks => 1 );
 }
+
+around TO_JSON => sub {
+    my ($orig, $self) = @_;
+
+    return {
+        %{ $self->$orig },
+        candidate => $self->candidate,
+        close_time => datetime_to_iso8601($self->close_time),
+        current_expiration_time => datetime_to_iso8601($self->current_expiration_time),
+        is_closed => boolean_to_json($self->is_closed),
+        is_open => boolean_to_json($self->is_open),
+        is_pending => boolean_to_json($self->is_pending),
+        no_votes => $self->no_votes,
+        proposer => $self->proposer,
+        propose_time => datetime_to_iso8601($self->propose_time),
+        open_time => datetime_to_iso8601($self->open_time),
+        seconder_1 => $self->seconder_1,
+        seconder_2 => $self->seconder_2,
+        status_name => $self->status_name,
+        status_name_short => $self->status_name_short,
+        votes => $self->votes,
+        yes_votes => $self->yes_votes,
+    };
+};
 
 no Moose;
 __PACKAGE__->meta->make_immutable;
