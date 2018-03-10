@@ -27,6 +27,7 @@ rules:
   no-duplicate-case: error
   no-empty-character-class: error
   no-empty: [error, {allowEmptyCatch: true}]
+  no-extra-semi: warn
   no-irregular-whitespace: warn
   no-obj-calls: error
   no-prototype-builtins: warn
