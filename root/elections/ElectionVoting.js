@@ -1,4 +1,5 @@
 /*
+ * @flow
  * Copyright (C) 2018 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -14,7 +15,12 @@ import formatUserDate from '../utility/formatUserDate';
 import {canCancel, canSecond, canVote, isInvolved, votesVisible} from '../utility/voting';
 import ExpirationDate from '../components/ExpirationDate';
 
-const ElectionVoting = ({election, user}) => {
+type PropsT = {
+  +election: AutoEditorElectionT,
+  +user?: EditorT,
+};
+
+const ElectionVoting = ({election, user}: PropsT) => {
   let message = l('To find out if you can vote for this candidate, please {url|log in}.',
     {__react: true, url: '/login'});
   if (user) {

@@ -1,4 +1,5 @@
 /*
+ * @flow
  * Copyright (C) 2018 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -12,7 +13,12 @@ import EditorLink from '../static/scripts/common/components/EditorLink';
 import formatUserDate from '../utility/formatUserDate';
 import {votesVisible} from '../utility/voting';
 
-const ElectionVotes = ({election, user}) => (
+type PropsT = {
+  +election: AutoEditorElectionT,
+  +user?: EditorT,
+};
+
+const ElectionVotes = ({election, user}: PropsT) => (
   <table className="tbl" style={{width: 'auto'}}>
     <thead>
       <tr>

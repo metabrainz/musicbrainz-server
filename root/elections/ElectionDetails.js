@@ -1,4 +1,5 @@
 /*
+ * @flow
  * Copyright (C) 2018 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -14,7 +15,12 @@ import formatUserDate from '../utility/formatUserDate';
 import {votesVisible} from '../utility/voting';
 import ExpirationDate from '../components/ExpirationDate';
 
-const ElectionDetails = ({election, user}) => (
+type PropsT = {
+  +election: AutoEditorElectionT,
+  +user?: EditorT,
+};
+
+const ElectionDetails = ({election, user}: PropsT) => (
   <Frag>
     <h2>{l('Details')}</h2>
     <table className="properties">

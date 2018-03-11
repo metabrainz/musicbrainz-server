@@ -1,4 +1,5 @@
 /*
+ * @flow
  * Copyright (C) 2018 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -15,6 +16,9 @@ import ElectionVoting from './ElectionVoting';
 
 const Show = ({election}: {+election: AutoEditorElectionT}) => {
   const user = $c.user;
+  if (!election) {
+    return null;
+  }
   const title = l('Auto-editor election #{no}', {no: election.id});
   return (
     <Layout fullWidth title={title}>

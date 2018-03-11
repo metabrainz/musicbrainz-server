@@ -79,6 +79,33 @@ declare type AttrInfoT = {|
   +unaccented?: string,
 |};
 
+declare type AutoEditorElectionT = {|
+  ...EntityT,
+  +candidate: EditorT,
+  +close_time?: string,
+  +current_expiration_time: string,
+  +is_closed: boolean,
+  +is_open: boolean,
+  +is_pending: boolean,
+  +no_votes: number,
+  +open_time?: string,
+  +propose_time: string,
+  +proposer: EditorT,
+  +seconder_1?: EditorT,
+  +seconder_2?: EditorT,
+  +status_name: string,
+  +status_name_short: string,
+  +votes: $ReadOnlyArray<AutoEditorElectionVoteT>,
+  +yes_votes: number,
+|};
+
+declare type AutoEditorElectionVoteT = {|
+  ...EntityT,
+  +vote_name: string,
+  +vote_time: string,
+  +voter: EditorT,
+|};
+
 type CatalystContextT = {|
   +session: CatalystSessionT | null,
   +sessionid: string | null,
@@ -91,13 +118,10 @@ type CatalystSessionT = {|
   +tport?: number,
 |};
 
-type CatalystUserT = {|
-  +is_location_editor: boolean,
-  +is_relationship_editor: boolean,
-|};
-
 type CatalystStashT = {|
 |};
+
+type CatalystUserT = EditorT;
 
 type CommentRoleT = {|+comment: string|};
 
@@ -141,6 +165,22 @@ declare type DatePeriodRoleT = {|
 
 declare type EditableRoleT = {|
   +editsPending: boolean,
+|};
+
+declare type EditorT = {|
+  ...EntityT,
+  +email: string,
+  +entityType: 'editor',
+  +is_account_admin: boolean,
+  +is_admin: boolean,
+  +is_auto_editor: boolean,
+  +is_banner_editor: boolean,
+  +is_bot: boolean,
+  +is_editing_disabled: boolean,
+  +is_location_editor: boolean,
+  +is_relationship_editor: boolean,
+  +is_wiki_transcluder: boolean,
+  +name: string,
 |};
 
 declare type EntityRoleT = {|
