@@ -226,6 +226,60 @@ specify its name in an argument:
 3. Create a new template for your report in *root/report/*.
 4. Add a link to report page in *root/report/index.tt* template.
 
+### Porting TT to React
+
+All the TT code resides in `root/**.tt`. Some guidelines for porting TT files to React/JSX -
+
+ * Ported server-side common react components will reside in `root/components/`.
+   This will generally include ported subs from `root/common-macros.tt` and components
+   common across multiple pages.
+ * Similarly any client side components will reside in `root/static/scripts/common/components`.
+ * Any server-side utility file will go in `root/utility`.
+ * All components must be type-annotated. We use flow for static type checks. You can find more
+   about it at [flow docs](https://flow.org/en/docs/).
+ * Global types are defined in `root/types.js`. They can be used without imports.
+ * Make sure your JS files conform to our ESlint setup.
+
+Common instructions for porting -
+
+1. Convert TT to its equivalent React component.
+2. There are two ways to use your react components-
+    1. In case your component is a page, find the appropriate perl file in
+       `lib/MusicBrainz/Server/Controller` and add the following to the stash of the
+       corresponding method which loads the respective page -
+       ```perl
+       $c->stash(
+           current_view => 'Node',
+           component_path => 'relative/path/to/component/from/root',
+           component_props => {prop_name => prop_value}
+       );
+       ```
+    2. In case you are embedding a React component in a TT page use
+        ```perl
+        [%~ React.embed(c, 'relative/path/to/component/from/root', { prop_name => prop_val }) ~%]
+        ```
+3. You can access the CatalystContext via the variable `$c`.
+4. To communicate between Perl and Node Server(which renders React components for us), you need to
+   appropirately serialize the props passed to the components. This can be done by defining a
+   `TO_JSON` sub-routine in the respective entity modules which can be found in `lib/MusicBrainz/Server/Entity`.
+   You generally want to do something like -
+   ```perl
+   around TO_JSON => sub {
+        my ($orig, $self) = @_;
+        return {
+            %{ $self->$orig },
+            prop_name => covert_to_json(prop_val)
+        };
+   };
+   ```
+   where the `convert_to_json` is a function that converts `prop_val` to its appropriate
+   JSON representation. If `prop_val` is an entity that has a `TO_JSON` sub defined, it will
+   most probably be called by the Server and you can simply pass `prop_val`.
+5. Make sure that all your components are type-annotated using flow type-annotations.
+6. We follow a `snake_case` naming convention for props passed from perl code and `lowerCamelCase`
+   for variables referencing them in JS code.
+7. All components are to be named following the `UpperCamelCase` convention.
+
 
 Cover Art Archive development
 -----------------------------
