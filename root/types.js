@@ -99,7 +99,6 @@ type CatalystUserT = {|
 |};
 
 type CatalystStashT = {|
-  +tag?: string,
 |};
 
 type CommentRoleT = {|+comment: string|};

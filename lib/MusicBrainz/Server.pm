@@ -448,7 +448,6 @@ sub TO_JSON {
         new_edit_notes
         server_details
         server_languages
-        tag
         to_merge
     );
 

@@ -11,10 +11,10 @@ const React = require('react');
 const NotFound = require('../components/NotFound');
 const {l} = require('../static/scripts/common/i18n');
 
-const TagNotFound = () => (
+const TagNotFound = ({tag}: {|+tag: string|}) => (
   <NotFound title={l('Tag Not Used')}>
     <p>
-      {l('No MusicBrainz entities have yet been tagged with "{tag}".', {tag: $c.stash.tag})}
+      {l('No MusicBrainz entities have yet been tagged with "{tag}".', {tag: tag})}
     </p>
     <p>
       {l('If you wish to use this tag, please {url|search} for the entity first and apply the tag using the sidebar.',
