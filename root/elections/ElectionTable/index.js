@@ -1,4 +1,5 @@
 /*
+ * @flow
  * Copyright (C) 2018 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -10,7 +11,11 @@ import React from 'react';
 import {l, lp} from '../../static/scripts/common/i18n';
 import Rows from './ElectionTableRows';
 
-const ElectionTable = ({elections}) => (
+type PropsT = {
+  +elections: $ReadOnlyArray<AutoEditorElectionT>,
+};
+
+const ElectionTable = ({elections}: PropsT) => (
   <table className="tbl" style={{width: 'auto'}}>
     <thead>
       <tr>

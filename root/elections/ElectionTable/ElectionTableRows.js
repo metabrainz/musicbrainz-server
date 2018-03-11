@@ -1,4 +1,5 @@
 /*
+ * @flow
  * Copyright (C) 2018 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -12,7 +13,13 @@ import EditorLink from '../../static/scripts/common/components/EditorLink';
 import formatUserDate from '../../utility/formatUserDate';
 import {votesVisible} from '../../utility/voting';
 
-const ElectionTableRows = ({elections}) => elections.map((election, index) => (
+type PropsT = {
+  +elections: $ReadOnlyArray<AutoEditorElectionT>,
+};
+
+const ElectionTableRows = (
+  {elections}: PropsT,
+) => elections.map((election, index) => (
   <tr className={index % 2 ? 'even' : 'odd'} key={election.id}>
     <td><EditorLink editor={election.candidate} /></td>
     <td>{lp(election.status_name_short, 'autoeditor election status (short)')}</td>

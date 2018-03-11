@@ -1,4 +1,5 @@
 /*
+ * @flow
  * Copyright (C) 2018 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -12,7 +13,12 @@ import {l, ln} from '../static/scripts/common/i18n';
 import bracketed from '../static/scripts/common/utility/bracketed';
 import formatUserDate from '../utility/formatUserDate';
 
-const ExpirationDate = ({date, user}) => {
+type PropsT = {
+  +date: string,
+  +user?: EditorT,
+};
+
+const ExpirationDate = ({date, user}: PropsT) => {
   const dateMoment = moment(date);
   const userDate = formatUserDate(user, date);
   let durationString = null;
