@@ -157,10 +157,12 @@ sub list : Path('/instruments') Args(0) {
     }
 
     $c->stash(
-        instruments_by_type => $entities,
-        instrument_types => \@types,
         current_view => 'Node',
         component_path => 'instrument/List',
+        component_props => {
+            instruments_by_type => $entities,
+            instrument_types => \@types
+        }
     );
 }
 
