@@ -440,14 +440,12 @@ sub TO_JSON {
         current_language_html
         entity
         hide_merge_helper
-        isrcs
         jsonld_data
         last_replication_date
         linked_entities
         makes_no_changes
         merge_link
         new_edit_notes
-        recordings
         server_details
         server_languages
         tag

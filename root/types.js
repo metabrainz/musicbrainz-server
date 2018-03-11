@@ -99,8 +99,6 @@ type CatalystUserT = {|
 |};
 
 type CatalystStashT = {|
-  +isrcs?: $ReadOnlyArray<IsrcT>,
-  +recordings?: $ReadOnlyArray<RecordingT>,
   +tag?: string,
 |};
 
