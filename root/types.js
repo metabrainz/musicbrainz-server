@@ -67,16 +67,16 @@ export opaque type ArtistTypeT: OptionTreeT = OptionTreeT;
 
 // See MusicBrainz::Server::Form::Utils::build_attr_info
 declare type AttrInfoT = {|
-  +id: number,
-  +gid: string,
-  root: AttrInfoT,
-  +rootID: number,
-  +name: string,
-  +l_name: string,
-  +freeText: boolean,
+  +children?: $ReadOnlyArray<AttrInfoT>,
   +creditable: boolean,
   +description?: string,
-  +children?: $ReadOnlyArray<AttrInfoT>,
+  +freeText: boolean,
+  +gid: string,
+  +id: number,
+  +l_name: string,
+  +name: string,
+  root: AttrInfoT,
+  +rootID: number,
   +unaccented?: string,
 |};
 
@@ -164,9 +164,11 @@ declare type FormT<F> = {|
   +name: string,
 |};
 
-// See MusicBrainz::Server::Form::Utils::build_grouped_options
-// FIXME(michael): Figure out a way to consolidate GroupedOptionsT,
-// OptionListT, and OptionTreeT?
+/*
+ * See MusicBrainz::Server::Form::Utils::build_grouped_options
+ * FIXME(michael): Figure out a way to consolidate GroupedOptionsT,
+ * OptionListT, and OptionTreeT?
+ */
 declare type GroupedOptionsT = $ReadOnlyArray<{|
   +optgroup: string,
   +options: $ReadOnlyArray<{|
@@ -221,8 +223,8 @@ declare type LabelT = {|
 
 declare type LinkTypeAttrTypeT = {|
   attribute: AttrInfoT,
-  +min: number | null,
   +max: number | null,
+  +min: number | null,
 |};
 
 declare type LinkTypeInfoT = {|
@@ -245,17 +247,17 @@ declare type LinkTypeInfoT = {|
 
 // See MB.forms.buildOptionsTree
 declare type OptionListT = $ReadOnlyArray<{|
-  +value: number,
   +text: string,
+  +value: number,
 |}>;
 
 declare type OptionTreeT = {|
   ...EntityRoleT,
+  +childOrder: number,
+  +description: string,
   +gid: string,
   +name: string,
   +parentID: number | null,
-  +childOrder: number,
-  +description: string,
 |};
 
 declare type PartialDateT = {|
@@ -363,8 +365,8 @@ export opaque type WorkTypeT: OptionTreeT = OptionTreeT;
 declare type WorkAttributeTypeAllowedValueT = {|
   ...EntityRoleT,
   ...OptionTreeT,
-  +workAttributeTypeID: number,
   +value: string,
+  +workAttributeTypeID: number,
 |};
 
 // See MusicBrainz::Server::Controller::Work::stash_work_form_json
