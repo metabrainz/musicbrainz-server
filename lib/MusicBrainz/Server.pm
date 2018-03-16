@@ -467,7 +467,7 @@ sub TO_JSON {
 
     my %stash;
     for (@stash_keys) {
-        $stash{$_} = $self->stash->{$_};
+        $stash{$_} = $self->stash->{$_} if exists $self->stash->{$_};
     }
 
     if (my $entity = delete $stash{entity}) {
