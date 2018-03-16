@@ -35,6 +35,7 @@ declare type AnyFieldT<+F> =
   | StructFieldT<F>;
 
 declare type AreaT = {|
+  ...AnnotationRoleT,
   ...CommentRoleT,
   ...CoreEntityRoleT,
   ...DatePeriodRoleT,
@@ -44,6 +45,19 @@ declare type AreaT = {|
   +iso_3166_1_codes: $ReadOnlyArray<string>,
   +iso_3166_2_codes: $ReadOnlyArray<string>,
   +iso_3166_3_codes: $ReadOnlyArray<string>,
+|};
+
+declare type AnnotationRoleT = {|
+  +latest_annotation?: AnnotationT;
+|};
+
+declare type AnnotationT = {|
+  +changelog: string,
+  +creation_date: string,
+  +editor: EditorT,
+  +formatted_wikitext: string,
+  +id: number,
+  +text: string,
 |};
 
 export opaque type AreaTypeT: OptionTreeT = OptionTreeT;
@@ -61,6 +75,7 @@ declare type ArtistCreditRoleT = {|
 declare type ArtistCreditT = $ReadOnlyArray<ArtistCreditNameT>;
 
 declare type ArtistT = {|
+  ...AnnotationRoleT,
   ...CommentRoleT,
   ...CoreEntityRoleT,
   ...DatePeriodRoleT,
@@ -222,6 +237,7 @@ declare type EntityRoleT = {|
 |};
 
 declare type EventT = {|
+  ...AnnotationRoleT,
   ...CommentRoleT,
   ...CoreEntityRoleT,
   ...RatableRoleT,
@@ -269,6 +285,7 @@ declare type GroupedOptionsT = $ReadOnlyArray<{|
 |}>;
 
 declare type InstrumentT = {|
+  ...AnnotationRoleT,
   ...CommentRoleT,
   ...CoreEntityRoleT,
   ...TypeRoleT<InstrumentTypeT>,
@@ -295,6 +312,7 @@ declare type IswcT = {|
 |};
 
 declare type LabelT = {|
+  ...AnnotationRoleT,
   ...CommentRoleT,
   ...CoreEntityRoleT,
   ...RatableRoleT,
@@ -364,6 +382,7 @@ declare type PartialDateT = {|
 |};
 
 declare type PlaceT = {|
+  ...AnnotationRoleT,
   ...CommentRoleT,
   ...CoreEntityRoleT,
   ...TypeRoleT<PlaceTypeT>,
@@ -387,6 +406,7 @@ declare type RatableT =
   | WorkT;
 
 declare type RecordingT = {|
+  ...AnnotationRoleT,
   ...ArtistCreditRoleT,
   ...CommentRoleT,
   ...CoreEntityRoleT,
@@ -398,6 +418,7 @@ declare type RecordingT = {|
 |};
 
 declare type ReleaseGroupT = {|
+  ...AnnotationRoleT,
   ...ArtistCreditRoleT,
   ...CommentRoleT,
   ...CoreEntityRoleT,
@@ -406,6 +427,7 @@ declare type ReleaseGroupT = {|
 |};
 
 declare type ReleaseT = {|
+  ...AnnotationRoleT,
   ...CommentRoleT,
   ...CoreEntityRoleT,
   +barcode: string | null,
@@ -446,6 +468,7 @@ declare type SelectOptionT = {|
 declare type SelectOptionsT = $ReadOnlyArray<SelectOptionT>;
 
 declare type SeriesT = {|
+  ...AnnotationRoleT,
   ...CommentRoleT,
   ...CoreEntityRoleT,
   +entityType: 'series',
@@ -483,6 +506,7 @@ declare type UserTagT = {|
 |};
 
 declare type WorkT = {|
+  ...AnnotationRoleT,
   ...CommentRoleT,
   ...CoreEntityRoleT,
   ...RatableRoleT,

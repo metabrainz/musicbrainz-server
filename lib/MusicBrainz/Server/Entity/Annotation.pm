@@ -1,8 +1,10 @@
 package MusicBrainz::Server::Entity::Annotation;
 
 use Moose;
+use MusicBrainz::Server::Data::Utils qw( datetime_to_iso8601 );
 use MusicBrainz::Server::Types qw( DateTime );
 use MusicBrainz::Server::Entity::Types;
+use MusicBrainz::Server::Filters qw( format_wikitext );
 
 use namespace::autoclean;
 
@@ -54,6 +56,19 @@ sub summary_is_short
 {
     my $self = shift;
     return $self->summary && $self->text && $self->summary ne $self->text;
+}
+
+sub TO_JSON {
+    my ($self) = @_;
+
+    return {
+        changelog => $self->changelog,
+        creation_date => datetime_to_iso8601($self->creation_date),
+        editor => $self->editor,
+        formatted_wikitext => format_wikitext($self->text),
+        id => $self->id,
+        text => $self->text,
+    };
 }
 
 __PACKAGE__->meta->make_immutable;
