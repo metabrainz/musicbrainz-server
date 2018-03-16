@@ -99,14 +99,6 @@ type CatalystUserT = {|
 |};
 
 type CatalystStashT = {|
-  +instruments_by_type?: {|
-    +[number]: $ReadOnlyArray<InstrumentT>,
-    +unknown: $ReadOnlyArray<InstrumentT>,
-  |},
-  +instrument_types?: $ReadOnlyArray<InstrumentTypeT>,
-  +isrcs?: $ReadOnlyArray<IsrcT>,
-  +recordings?: $ReadOnlyArray<RecordingT>,
-  +tag?: string,
 |};
 
 type CommentRoleT = {|+comment: string|};

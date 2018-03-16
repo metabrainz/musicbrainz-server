@@ -17,15 +17,13 @@ const {l, ln} = require('../static/scripts/common/i18n');
 const {artistCreditFromArray} = require('../static/scripts/common/immutable-entities');
 const formatTrackLength = require('../static/scripts/common/utility/formatTrackLength');
 
-const Index = () => {
-  const isrcs = $c.stash.isrcs;
-  const recordings = $c.stash.recordings;
+type PropsT = {|
+  +isrcs: $ReadOnlyArray<IsrcT>,
+  +recordings: $ReadOnlyArray<RecordingT>,
+|};
+
+const Index = ({isrcs, recordings}: PropsT) => {
   const userExists = $c.user_exists;
-
-  if (!isrcs || !recordings) {
-    return null;
-  }
-
   const isrc = isrcs[0];
   return (
     <Layout fullWidth title={l('ISRC “{isrc}”', {isrc: isrc.isrc})}>
