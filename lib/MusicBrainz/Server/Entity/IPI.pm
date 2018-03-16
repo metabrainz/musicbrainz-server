@@ -2,7 +2,6 @@ package MusicBrainz::Server::Entity::IPI;
 
 use Moose;
 
-extends 'MusicBrainz::Server::Entity';
 with 'MusicBrainz::Server::Entity::Role::Editable';
 
 has 'ipi' => (
