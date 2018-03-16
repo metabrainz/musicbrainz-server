@@ -92,6 +92,8 @@ declare type ArtistT = {|
   ...CommentRoleT,
   ...CoreEntityRoleT,
   ...DatePeriodRoleT,
+  ...IpiCodesRoleT,
+  ...IsniCodesRoleT,
   ...RatableRoleT,
   ...TypeRoleT<ArtistTypeT>,
   +area: AreaT | null,
@@ -354,6 +356,24 @@ declare type InstrumentT = {|
 
 export opaque type InstrumentTypeT: OptionTreeT = OptionTreeT;
 
+type IpiCodesRoleT = {|
+  +ipi_codes: $ReadOnlyArray<IpiCodeT>,
+|};
+
+declare type IpiCodeT = {|
+  ...EditableRoleT,
+  +ipi: string,
+|};
+
+type IsniCodesRoleT = {|
+  +isni_codes: $ReadOnlyArray<IsniCodeT>,
+|};
+
+declare type IsniCodeT = {|
+  ...EditableRoleT,
+  +isni: string,
+|};
+
 declare type IsrcT = {|
   ...EditableRoleT,
   ...EntityRoleT,
@@ -375,6 +395,8 @@ declare type LabelT = {|
   ...CommentRoleT,
   ...CoreEntityRoleT,
   ...DatePeriodRoleT,
+  ...IpiCodesRoleT,
+  ...IsniCodesRoleT,
   ...RatableRoleT,
   ...TypeRoleT<LabelTypeT>,
   +area: AreaT | null,

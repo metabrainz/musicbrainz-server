@@ -12,4 +12,12 @@ has ipi_codes => (
     }
 );
 
+around TO_JSON => sub {
+    my ($orig, $self) = @_;
+
+    my $json = $self->$orig;
+    $json->{ipi_codes} = [map { $_->TO_JSON } $self->all_ipi_codes];
+    return $json;
+};
+
 1;

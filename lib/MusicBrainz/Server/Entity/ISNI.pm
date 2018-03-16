@@ -14,6 +14,14 @@ sub url {
     return "http://isni-url.oclc.nl/isni/" . $self->isni;
 }
 
+sub TO_JSON {
+    my ($self) = @_;
+
+    return {
+        isni => $self->isni,
+    };
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;

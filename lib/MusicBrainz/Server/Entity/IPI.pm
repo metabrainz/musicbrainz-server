@@ -9,6 +9,14 @@ has 'ipi' => (
     isa => 'Str'
 );
 
+sub TO_JSON {
+    my ($self) = @_;
+
+    return {
+        ipi => $self->ipi,
+    };
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;

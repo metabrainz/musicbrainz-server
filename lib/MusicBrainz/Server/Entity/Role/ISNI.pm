@@ -12,4 +12,12 @@ has isni_codes => (
     }
 );
 
+around TO_JSON => sub {
+    my ($orig, $self) = @_;
+
+    my $json = $self->$orig;
+    $json->{isni_codes} = [map { $_->TO_JSON } $self->all_isni_codes];
+    return $json;
+};
+
 1;
