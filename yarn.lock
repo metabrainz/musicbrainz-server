@@ -5766,6 +5766,11 @@ tar@^4:
     safe-buffer "^5.1.2"
     yallist "^3.0.2"
 
+terable@0.1.4:
+  version "0.1.4"
+  resolved "https://registry.yarnpkg.com/terable/-/terable-0.1.4.tgz#17d466676cee267296efa692c2b8a30be5cd105b"
+  integrity sha512-e4uPo0GQUlBvoVriOh2Q4MTrQfRuEe807nLVziTE7fvRhRHRScrpBDhWK9w589oczO3OvpLhFlpgCmYJhijyoA==
+
 text-table@^0.2.0:
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/text-table/-/text-table-0.2.0.tgz#7f5ee823ae805207c00af2df4a84ec3fcfa570b4"

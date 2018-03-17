@@ -17,6 +17,11 @@ import NopArgs from './static/scripts/common/i18n/NopArgs';
  * how data is serialized for us.
  */
 
+declare type AggregatedTagT = {|
+  +tag: string,
+  +count: number,
+|};
+
 declare type AliasT = {|
   ...DatePeriodRoleT,
   ...EditableRoleT,
@@ -655,7 +660,7 @@ declare type UrlT = {|
 declare type UserTagT = {|
   +count: number,
   +tag: string,
-  +vote: 1 | -1,
+  +vote: 1 | 0 | -1,
 |};
 
 declare type WorkT = {|
