@@ -16,7 +16,7 @@ const SubHeader = require('./SubHeader');
 
 type Props = {|
   +editTab?: React.Node,
-  +entity: $Subtype<CoreEntityT>,
+  +entity: CoreEntityT,
   +headerClass: string,
   +heading?: string | React.Node,
   +page: string,

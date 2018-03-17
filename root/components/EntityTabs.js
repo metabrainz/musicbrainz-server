@@ -47,7 +47,7 @@ const buildLink = (
 );
 
 function buildLinks(
-  entity: $Subtype<EntityT>,
+  entity: CoreEntityT,
   page: string,
   editTab: React.Node,
   hideEditTab: boolean,
@@ -91,7 +91,7 @@ function buildLinks(
 
 type Props = {|
   +editTab: React.Node,
-  +entity: EntityT,
+  +entity: CoreEntityT,
   +hideEditTab?: boolean,
   +page: string,
 |};

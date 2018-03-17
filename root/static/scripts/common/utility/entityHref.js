@@ -14,8 +14,13 @@ const nonEmpty = require('./nonEmpty');
 
 const leadingSlash = /^\/?(.*)/;
 
+type LinkableEntity =
+  | CoreEntityT
+  | IsrcT
+  | IswcT;
+
 function entityHref(
-  entity: EntityT | CoreEntityT,
+  entity: LinkableEntity,
   subPath?: string,
 ) {
   const entityType = entity.entityType;

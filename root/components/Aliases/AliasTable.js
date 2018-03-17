@@ -14,7 +14,7 @@ const {l} = require('../../static/scripts/common/i18n');
 type Props = {
   +aliases: $ReadOnlyArray<AliasT>,
   +allowEditing: boolean,
-  +entity: $Subtype<CoreEntityT>,
+  +entity: CoreEntityT,
 };
 
 const AliasTable = (props: Props) => (
