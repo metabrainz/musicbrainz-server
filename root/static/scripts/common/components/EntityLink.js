@@ -1,8 +1,10 @@
-// @flow
-// This file is part of MusicBrainz, the open internet music database.
-// Copyright (C) 2015–2016 MetaBrainz Foundation
-// Licensed under the GPL version 2, or (at your option) any later version:
-// http://www.gnu.org/licenses/gpl-2.0.txt
+/*
+ * @flow
+ * This file is part of MusicBrainz, the open internet music database.
+ * Copyright (C) 2015–2016 MetaBrainz Foundation
+ * Licensed under the GPL version 2, or (at your option) any later version:
+ * http://www.gnu.org/licenses/gpl-2.0.txt
+ */
 
 const ko = require('knockout');
 const _ = require('lodash');
@@ -21,7 +23,7 @@ const nonEmpty = require('../utility/nonEmpty');
 const reactTextContent = require('../utility/reactTextContent');
 
 const DeletedLink = ({name, allowNew}) => {
-  let caption = allowNew
+  const caption = allowNew
     ? l('This entity will be created when edits are entered.')
     : l('This entity has been removed, and cannot be displayed correctly.');
 
@@ -35,7 +37,11 @@ const DeletedLink = ({name, allowNew}) => {
 const Comment = ({className, comment}) => (
   <Frag>
     {' '}
-    <span className={className}>({isolateText(comment)})</span>
+    <span className={className}>
+      {'('}
+      {isolateText(comment)}
+      {')'}
+    </span>
   </Frag>
 );
 
@@ -52,7 +58,7 @@ const EventDisambiguation = ({event}: {|+event: EventT|}) => {
         : null}
     </Frag>
   );
-}
+};
 
 const AreaDisambiguation = ({area}: {|+area: AreaT|}) => {
   if (!area.ended) {
@@ -72,16 +78,17 @@ const AreaDisambiguation = ({area}: {|+area: AreaT|}) => {
   }
 
   return <Comment className="historical" comment={comment} />;
-}
+};
 
 const NoInfoURL = ({url, allowNew}) => (
   <Frag>
     <a href={url}>{url}</a>
     {' '}
-    <DeletedLink name={'[' + l('info') + ']'} allowNew={allowNew} />
+    <DeletedLink allowNew={allowNew} name={'[' + l('info') + ']'} />
   </Frag>
 );
 
+/* eslint-disable sort-keys, flowtype/sort-keys */
 type EntityLinkProps = {
   +allowNew?: boolean,
   +content?: React.Node,
@@ -91,11 +98,12 @@ type EntityLinkProps = {
   +showDisambiguation?: boolean,
   +subPath?: string,
 
-  //anchorProps
+  // ...anchorProps
   href?: string,
   title?: string,
   +target?: '_blank',
 };
+/* eslint-enable sort-keys, flowtype/sort-keys */
 
 const EntityLink = ({
   allowNew = false,
@@ -128,10 +136,10 @@ const EntityLink = ({
 
   if (!ko.unwrap(entity.gid)) {
     if (entity.entityType === 'url') {
-      return <NoInfoURL url={entity.href_url} allowNew={allowNew} />;
+      return <NoInfoURL allowNew={allowNew} url={entity.href_url} />;
     }
     if (showDeleted) {
-      return <DeletedLink name={content} allowNew={allowNew} />;
+      return <DeletedLink allowNew={allowNew} name={content} />;
     }
     return null;
   }
@@ -148,11 +156,18 @@ const EntityLink = ({
 
   // TODO: support name variations for all entity types?
   if (!subPath && (entity.entityType === 'artist' || entity.entityType === 'recording')) {
-    nameVariation = (_.isObject(content) ? reactTextContent(content) : content) !== entity.name;
+    nameVariation = (
+      _.isObject(content)
+        ? reactTextContent(content)
+        : content
+    ) !== entity.name;
 
     if (nameVariation) {
       if (hover) {
-        hover = l('{name} – {additional_info}', {name: entity.name, additional_info: hover});
+        hover = l('{name} – {additional_info}', {
+          additional_info: hover,
+          name: entity.name,
+        });
       } else {
         hover = ko.unwrap(entity.name);
       }
@@ -178,7 +193,7 @@ const EntityLink = ({
   }
 
   if (!subPath && entity.entityType === 'area') {
-    let isoCodes = entity.iso_3166_1_codes;
+    const isoCodes = entity.iso_3166_1_codes;
     if (isoCodes && isoCodes.length) {
       content = (
         <span className={'flag flag-' + isoCodes[0]} key="flag">
@@ -200,7 +215,7 @@ const EntityLink = ({
     }
     if (comment) {
       parts.push(
-        <Comment className="comment" comment={comment} key="comment" />
+        <Comment className="comment" comment={comment} key="comment" />,
       );
     }
     if (entity.entityType === 'area') {
@@ -209,7 +224,7 @@ const EntityLink = ({
   }
 
   if (infoLink) {
-    parts.push(' [', <a href={infoLink} key="info">{l('info')}</a>, ']')
+    parts.push(' [', <a href={infoLink} key="info">{l('info')}</a>, ']');
   }
 
   return parts;
