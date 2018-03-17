@@ -37,6 +37,7 @@ declare type AreaT = {|
   ...TypeRoleT<AreaTypeT>,
   +containment: $ReadOnlyArray<AreaT>,
   +entityType: 'area',
+  +iso_3166_1_codes: $ReadOnlyArray<string>,
 |};
 
 export opaque type AreaTypeT: OptionTreeT = OptionTreeT;
@@ -189,6 +190,7 @@ declare type EventT = {|
   ...CoreEntityRoleT,
   ...RatableRoleT,
   ...TypeRoleT<EventTypeT>,
+  +cancelled: boolean,
   +entityType: 'event',
 |};
 
@@ -338,6 +340,8 @@ declare type UrlT = {|
   ...EditableRoleT,
   +decoded: string,
   +entityType: 'url',
+  +href_url: string,
+  +pretty_name: string,
 |};
 
 declare type UserTagT = {|
