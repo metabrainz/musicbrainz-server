@@ -1,3 +1,4 @@
+// @flow
 // This file is part of MusicBrainz, the open internet music database.
 // Copyright (C) 2015–2016 MetaBrainz Foundation
 // Licensed under the GPL version 2, or (at your option) any later version:
@@ -38,7 +39,7 @@ const Comment = ({className, comment}) => (
   </Frag>
 );
 
-const EventDisambiguation = ({event}) => {
+const EventDisambiguation = ({event}: {|+event: EventT|}) => {
   const dates = formatDatePeriod(event);
   if (!dates && !event.cancelled) {
     return null;
@@ -53,7 +54,7 @@ const EventDisambiguation = ({event}) => {
   );
 }
 
-const AreaDisambiguation = ({area}) => {
+const AreaDisambiguation = ({area}: {|+area: AreaT|}) => {
   if (!area.ended) {
     return null;
   }
@@ -81,41 +82,53 @@ const NoInfoURL = ({url, allowNew}) => (
   </Frag>
 );
 
-const EntityLink = (props = {}) => {
-  let {
-    allowNew,
-    content,
-    entity,
-    hover,
-    showDeleted = true,
-    showDisambiguation,
-    subPath,
-    ...anchorProps
-  } = props;
+type EntityLinkProps = {
+  +allowNew?: boolean,
+  +content?: React.Node,
+  +entity: CoreEntityT,
+  +hover?: string,
+  +showDeleted?: boolean,
+  +showDisambiguation?: boolean,
+  +subPath?: string,
 
+  //anchorProps
+  href?: string,
+  title?: string,
+  +target?: '_blank',
+};
+
+const EntityLink = ({
+  allowNew = false,
+  content,
+  entity,
+  hover,
+  showDeleted = true,
+  showDisambiguation,
+  subPath,
+  ...anchorProps
+}: EntityLinkProps) => {
   const hasCustomContent = nonEmpty(content);
-  const entityType = entity.entityType;
-  const comment = ko.unwrap(entity.comment);
+  const comment = entity.comment ? ko.unwrap(entity.comment) : '';
 
   if (showDisambiguation === undefined) {
     showDisambiguation = !hasCustomContent;
   }
 
-  if (entityType === 'artist' && !nonEmpty(hover)) {
+  if (entity.entityType === 'artist' && !nonEmpty(hover)) {
     hover = entity.sort_name + bracketed(comment);
   }
 
-  if (entityType === 'area') {
+  if (entity.entityType === 'area') {
     content = content || l_countries(entity.name);
-  } else if (entityType === 'instrument') {
+  } else if (entity.entityType === 'instrument') {
     content = content || l_instruments(entity.name);
   }
 
   content = content || ko.unwrap(entity.name);
 
   if (!ko.unwrap(entity.gid)) {
-    if (entityType === 'url') {
-      return <NoInfoURL url={entity.url} allowNew={allowNew} />;
+    if (entity.entityType === 'url') {
+      return <NoInfoURL url={entity.href_url} allowNew={allowNew} />;
     }
     if (showDeleted) {
       return <DeletedLink name={content} allowNew={allowNew} />;
@@ -127,14 +140,14 @@ const EntityLink = (props = {}) => {
   let nameVariation;
   let infoLink;
 
-  if (entityType === 'url' && !hasCustomContent) {
+  if (entity.entityType === 'url' && !hasCustomContent) {
     content = entity.pretty_name;
     infoLink = href;
     href = entity.href_url;
   }
 
   // TODO: support name variations for all entity types?
-  if (!subPath && (entityType === 'artist' || entityType === 'recording')) {
+  if (!subPath && (entity.entityType === 'artist' || entity.entityType === 'recording')) {
     nameVariation = (_.isObject(content) ? reactTextContent(content) : content) !== entity.name;
 
     if (nameVariation) {
@@ -164,7 +177,7 @@ const EntityLink = (props = {}) => {
     content = <span className="mp" key="mp">{content}</span>;
   }
 
-  if (!subPath && entityType === 'area') {
+  if (!subPath && entity.entityType === 'area') {
     let isoCodes = entity.iso_3166_1_codes;
     if (isoCodes && isoCodes.length) {
       content = (
@@ -182,7 +195,7 @@ const EntityLink = (props = {}) => {
   const parts = [content];
 
   if (showDisambiguation) {
-    if (entityType === 'event') {
+    if (entity.entityType === 'event') {
       parts.push(<EventDisambiguation event={entity} key="eventdisambig" />);
     }
     if (comment) {
@@ -190,7 +203,7 @@ const EntityLink = (props = {}) => {
         <Comment className="comment" comment={comment} key="comment" />
       );
     }
-    if (entityType === 'area') {
+    if (entity.entityType === 'area') {
       parts.push(<AreaDisambiguation area={entity} key="areadisambig" />);
     }
   }
