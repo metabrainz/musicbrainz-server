@@ -12,6 +12,7 @@ import React from 'react';
 
 import {withCatalystContext} from '../../context';
 import {l, lp} from '../../static/scripts/common/i18n';
+import returnUri from '../../utility/returnUri';
 
 import Search from './Search';
 
@@ -132,12 +133,12 @@ const UserMenu = ({$c}) => (
     ) : (
       <>
         <li>
-          <a href={'/login?uri=' + encodeURIComponent($c.req.query_params.uri || $c.relative_uri)}>
+          <a href={returnUri($c, '/login')}>
             {l('Log In')}
           </a>
         </li>
         <li>
-          <a href={'/register?uri=' + encodeURIComponent($c.req.query_params.uri || $c.relative_uri)}>
+          <a href={returnUri($c, '/register')}>
             {l('Create Account')}
           </a>
         </li>
