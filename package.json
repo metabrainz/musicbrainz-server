@@ -67,7 +67,7 @@
     "eslint-plugin-flowtype": "2.44.0",
     "eslint-plugin-react": "7.6.1",
     "file-url": "2.0.2",
-    "flow-bin": "0.66.0",
+    "flow-bin": "0.68.0",
     "gulp-watch": "4.3.5",
     "jsdom": "11.1.0",
     "selenium-webdriver": "3.5.0",
