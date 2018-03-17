@@ -36,46 +36,39 @@ const Comment = ({className, comment}) => (
   </Frag>
 );
 
-class EventDisambiguation extends React.Component {
-  render() {
-    let event = this.props.event;
-    let dates = formatDatePeriod(event);
-    if (!dates && !event.cancelled) {
-      return null;
-    }
-    return (
-      <Frag>
-        {dates ? bracketed(dates) : null}
-        {event.cancelled
-          ? <Comment className="cancelled" comment={l('cancelled')} />
-          : null}
-      </Frag>
-    );
+const EventDisambiguation = ({event}) => {
+  const dates = formatDatePeriod(event);
+  if (!dates && !event.cancelled) {
+    return null;
   }
+  return (
+    <Frag>
+      {dates ? bracketed(dates) : null}
+      {event.cancelled
+        ? <Comment className="cancelled" comment={l('cancelled')} />
+        : null}
+    </Frag>
+  );
 }
 
-class AreaDisambiguation extends React.Component {
-  render() {
-    let area = this.props.area;
-
-    if (!area.ended) {
-      return null;
-    }
-
-    let comment;
-    let beginYear = area.begin_date ? area.begin_date.year : null;
-    let endYear = area.end_date ? area.end_date.year : null;
-
-    if (beginYear && endYear) {
-      comment = l('historical, {begin}-{end}', {begin: beginYear, end: endYear});
-    } else if (endYear) {
-      comment = l('historical, until {end}', {end: endYear});
-    } else {
-      comment = l('historical');
-    }
-
-    return <Comment className="historical" comment={comment} />;
+const AreaDisambiguation = ({area}) => {
+  if (!area.ended) {
+    return null;
   }
+
+  let comment;
+  const beginYear = area.begin_date ? area.begin_date.year : null;
+  const endYear = area.end_date ? area.end_date.year : null;
+
+  if (beginYear && endYear) {
+    comment = l('historical, {begin}-{end}', {begin: beginYear, end: endYear});
+  } else if (endYear) {
+    comment = l('historical, until {end}', {end: endYear});
+  } else {
+    comment = l('historical');
+  }
+
+  return <Comment className="historical" comment={comment} />;
 }
 
 const NoInfoURL = ({url, allowNew}) => (
