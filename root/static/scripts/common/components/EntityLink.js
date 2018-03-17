@@ -7,7 +7,6 @@
  */
 
 const ko = require('knockout');
-const _ = require('lodash');
 const React = require('react');
 
 const Frag = require('../../../../components/Frag');
@@ -157,7 +156,7 @@ const EntityLink = ({
   // TODO: support name variations for all entity types?
   if (!subPath && (entity.entityType === 'artist' || entity.entityType === 'recording')) {
     nameVariation = (
-      _.isObject(content)
+      React.isValidElement(content)
         ? reactTextContent(content)
         : content
     ) !== entity.name;
