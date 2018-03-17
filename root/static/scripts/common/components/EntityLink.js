@@ -10,6 +10,8 @@ const React = require('react');
 const Frag = require('../../../../components/Frag');
 const {ENTITIES, AREA_TYPE_COUNTRY} = require('../constants');
 const {l} = require('../i18n');
+const {l_countries} = require('../i18n/countries');
+const {l_instruments} = require('../i18n/instruments');
 const bracketed = require('../utility/bracketed');
 const entityHref = require('../utility/entityHref');
 const formatDatePeriod = require('../utility/formatDatePeriod');
@@ -103,8 +105,10 @@ const EntityLink = (props = {}) => {
     hover = entity.sort_name + bracketed(comment);
   }
 
-  if (entityType === 'artist' || entityType === 'instrument') {
-    content = content || entity.l_name;
+  if (entityType === 'area') {
+    content = content || l_countries(entity.name);
+  } else if (entityType === 'instrument') {
+    content = content || l_instruments(entity.name);
   }
 
   content = content || ko.unwrap(entity.name);
