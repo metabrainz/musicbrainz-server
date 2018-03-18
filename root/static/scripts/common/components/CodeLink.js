@@ -19,6 +19,7 @@ const CodeLink = ({code}: Props) => {
   let link = (
     <a href={entityHref(code)}>
       <bdi>
+        {/* $FlowFixMe */}
         <code>{code[code.entityType]}</code>
       </bdi>
     </a>

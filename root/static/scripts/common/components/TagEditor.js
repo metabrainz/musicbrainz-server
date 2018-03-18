@@ -145,6 +145,7 @@ class TagRow extends React.Component<TagRowProps> {
 
 type TagEditorProps = {
   entity: CoreEntityT,
+  more: boolean,
 };
 
 type TagEditorState = {

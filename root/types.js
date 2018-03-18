@@ -16,30 +16,28 @@
  * how data is serialized for us.
  */
 
-declare type AliasT =
-  & DatePeriodRoleT
-  & EntityT
-  & EditableRoleT
-  & TypeRoleT<AliasTypeT>
-  & {|
-      +entityType: 'alias',
-      +locale: string | null,
-      +name: string,
-      +primary_for_locale: boolean,
-      +sort_name: string,
-    |};
+declare type AliasT = {|
+  ...DatePeriodRoleT,
+  ...EditableRoleT,
+  ...EntityRoleT,
+  ...TypeRoleT<AliasTypeT>,
+  +entityType: 'alias',
+  +locale: string | null,
+  +name: string,
+  +primary_for_locale: boolean,
+  +sort_name: string,
+|};
 
 export opaque type AliasTypeT: OptionTreeT = OptionTreeT;
 
-declare type AreaT =
-  & CommentRoleT
-  & CoreEntityT
-  & DatePeriodRoleT
-  & TypeRoleT<AreaTypeT>
-  & {|
-      +containment: $ReadOnlyArray<AreaT>,
-      +entityType: 'area',
-    |};
+declare type AreaT = {|
+  ...CommentRoleT,
+  ...CoreEntityRoleT,
+  ...DatePeriodRoleT,
+  ...TypeRoleT<AreaTypeT>,
+  +containment: $ReadOnlyArray<AreaT>,
+  +entityType: 'area',
+|};
 
 export opaque type AreaTypeT: OptionTreeT = OptionTreeT;
 
@@ -55,14 +53,14 @@ declare type ArtistCreditRoleT = {|
 
 declare type ArtistCreditT = $ReadOnlyArray<ArtistCreditNameT>;
 
-declare type ArtistT =
-  & CommentRoleT
-  & CoreEntityT
-  & TypeRoleT<ArtistTypeT>
-  & {|
-      +entityType: 'artist',
-      +sort_name: string,
-    |};
+declare type ArtistT = {|
+  ...CommentRoleT,
+  ...CoreEntityRoleT,
+  ...RatableRoleT,
+  ...TypeRoleT<ArtistTypeT>,
+  +entityType: 'artist',
+  +sort_name: string,
+|};
 
 export opaque type ArtistTypeT: OptionTreeT = OptionTreeT;
 
@@ -115,10 +113,25 @@ declare type CompoundFieldT<F: {+[string]: mixed}> = {|
   +id: number,
 |};
 
-declare type CoreEntityT = EntityT & {|
+declare type CoreEntityRoleT = {|
+  ...EntityRoleT,
   +gid: string,
   +name: string,
 |};
+
+declare type CoreEntityT =
+  | AreaT
+  | ArtistT
+  | EventT
+  | InstrumentT
+  | LabelT
+  | PlaceT
+  | RecordingT
+  | ReleaseGroupT
+  | ReleaseT
+  | SeriesT
+  | UrlT
+  | WorkT;
 
 declare type DatePeriodRoleT = {|
   +begin_date: PartialDateT | null,
@@ -130,7 +143,7 @@ declare type EditableRoleT = {|
   +editsPending: boolean,
 |};
 
-declare type EntityT = {|
+declare type EntityRoleT = {|
   +entityType: string,
   +id: number,
 |};
@@ -161,51 +174,48 @@ declare type GroupedOptionsT = $ReadOnlyArray<{|
   |}>,
 |}>;
 
-declare type InstrumentT =
-  & CommentRoleT
-  & CoreEntityT
-  & TypeRoleT<InstrumentTypeT>
-  & {|
-      +description: string,
-      +entityType: 'instrument',
-    |};
+declare type InstrumentT = {|
+  ...CommentRoleT,
+  ...CoreEntityRoleT,
+  ...TypeRoleT<InstrumentTypeT>,
+  +description: string,
+  +entityType: 'instrument',
+|};
 
 export opaque type InstrumentTypeT: OptionTreeT = OptionTreeT;
 
-declare type EventT =
-  & CommentRoleT
-  & CoreEntityT
-  & TypeRoleT<EventTypeT>
-  & {|
-      +entityType: 'event',
-    |};
+declare type EventT = {|
+  ...CommentRoleT,
+  ...CoreEntityRoleT,
+  ...RatableRoleT,
+  ...TypeRoleT<EventTypeT>,
+  +entityType: 'event',
+|};
 
 export opaque type EventTypeT: OptionTreeT = OptionTreeT;
 
-declare type IsrcT =
-  & EditableRoleT
-  & EntityT
-  & {|
-      +entityType: 'isrc',
-      +isrc: string,
-      +recording_id: number,
-    |};
+declare type IsrcT = {|
+  ...EditableRoleT,
+  ...EntityRoleT,
+  +entityType: 'isrc',
+  +isrc: string,
+  +recording_id: number,
+|};
 
-declare type IswcT =
-  & EditableRoleT
-  & EntityT
-  & {|
-      +entityType: 'iswc',
-      +iswc: string,
-      +work_id: number,
-    |};
+declare type IswcT = {|
+  ...EditableRoleT,
+  ...EntityRoleT,
+  +entityType: 'iswc',
+  +iswc: string,
+  +work_id: number,
+|};
 
-declare type LabelT =
-  & CommentRoleT
-  & CoreEntityT
-  & {|
-      +entityType: 'label',
-    |};
+declare type LabelT = {|
+  ...CommentRoleT,
+  ...CoreEntityRoleT,
+  ...RatableRoleT,
+  +entityType: 'label',
+|};
 
 declare type LinkTypeAttrTypeT = {|
   attribute: AttrInfoT,
@@ -237,15 +247,14 @@ declare type OptionListT = $ReadOnlyArray<{|
   +text: string,
 |}>;
 
-declare type OptionTreeT =
-  & EntityT
-  & {|
-      +gid: string,
-      +name: string,
-      +parentID: number | null,
-      +childOrder: number,
-      +description: string,
-    |};
+declare type OptionTreeT = {|
+  ...EntityRoleT,
+  +gid: string,
+  +name: string,
+  +parentID: number | null,
+  +childOrder: number,
+  +description: string,
+|};
 
 declare type PartialDateT = {|
   +day: number | null,
@@ -253,52 +262,58 @@ declare type PartialDateT = {|
   +year: number | null,
 |};
 
-declare type PlaceT =
-  & CommentRoleT
-  & CoreEntityT
-  & TypeRoleT<PlaceTypeT>
-  & {|
-      +entityType: 'place',
-    |};
+declare type PlaceT = {|
+  ...CommentRoleT,
+  ...CoreEntityRoleT,
+  ...TypeRoleT<PlaceTypeT>,
+  +entityType: 'place',
+|};
 
 export opaque type PlaceTypeT: OptionTreeT = OptionTreeT;
 
-declare type RatableT = CoreEntityT & {|
+declare type RatableRoleT = {|
   +rating: number | null,
   +rating_count: number,
   +user_rating: number | null,
 |};
 
-declare type RecordingT =
-  & CommentRoleT
-  & ArtistCreditRoleT
-  & CoreEntityT
-  & {|
-      +entityType: 'recording',
-      +isrcs: $ReadOnlyArray<IsrcT>,
-      +length: number,
-      +video: boolean,
-    |};
+declare type RatableT =
+  | ArtistT
+  | EventT
+  | LabelT
+  | RecordingT
+  | ReleaseGroupT
+  | WorkT;
 
-declare type ReleaseGroupT =
-  & CommentRoleT
-  & ArtistCreditRoleT
-  & CoreEntityT
-  & {|
-      +entityType: 'release_group',
-    |};
+declare type RecordingT = {|
+  ...ArtistCreditRoleT,
+  ...CommentRoleT,
+  ...CoreEntityRoleT,
+  ...RatableRoleT,
+  +entityType: 'recording',
+  +isrcs: $ReadOnlyArray<IsrcT>,
+  +length: number,
+  +video: boolean,
+|};
 
-declare type ReleaseT =
-  & CommentRoleT
-  & CoreEntityT
-  & {|
-      +barcode: string | null,
-      +entityType: 'release',
-      +languageID: number | null,
-      +packagingID: number | null,
-      +scriptID: number | null,
-      +statusID: number | null,
-    |};
+declare type ReleaseGroupT = {|
+  ...ArtistCreditRoleT,
+  ...CommentRoleT,
+  ...CoreEntityRoleT,
+  ...RatableRoleT,
+  +entityType: 'release_group',
+|};
+
+declare type ReleaseT = {|
+  ...CommentRoleT,
+  ...CoreEntityRoleT,
+  +barcode: string | null,
+  +entityType: 'release',
+  +languageID: number | null,
+  +packagingID: number | null,
+  +scriptID: number | null,
+  +statusID: number | null,
+|};
 
 declare type RepeatableFieldT<F> = {|
   +errors: $ReadOnlyArray<string>,
@@ -307,25 +322,23 @@ declare type RepeatableFieldT<F> = {|
   +id: number,
 |};
 
-declare type SeriesT =
-  & CommentRoleT
-  & CoreEntityT
-  & {|
-      +entityType: 'series',
-    |};
+declare type SeriesT = {|
+  ...CommentRoleT,
+  ...CoreEntityRoleT,
+  +entityType: 'series',
+|};
 
 declare type TypeRoleT<T: OptionTreeT> = {|
   +typeID: number | null,
   +typeName?: string,
 |};
 
-declare type UrlT =
-  & CoreEntityT
-  & EditableRoleT
-  & {|
-      +decoded: string,
-      +entityType: 'url',
-    |};
+declare type UrlT = {|
+  ...CoreEntityRoleT,
+  ...EditableRoleT,
+  +decoded: string,
+  +entityType: 'url',
+|};
 
 declare type UserTagT = {|
   +count: number,
@@ -333,39 +346,44 @@ declare type UserTagT = {|
   +vote: 1 | -1,
 |};
 
-declare type WorkT =
-  & CommentRoleT
-  & CoreEntityT
-  & TypeRoleT<WorkTypeT>
-  & {|
-      +entityType: 'work',
-    |};
+declare type WorkT = {|
+  ...CommentRoleT,
+  ...CoreEntityRoleT,
+  ...RatableRoleT,
+  ...TypeRoleT<WorkTypeT>,
+  +entityType: 'work',
+|};
 
 export opaque type WorkTypeT: OptionTreeT = OptionTreeT;
 
-declare type WorkAttributeTypeAllowedValueT =
-  & EntityT
-  & OptionTreeT
-  & {|+workAttributeTypeID: number, +value: string|};
+declare type WorkAttributeTypeAllowedValueT = {|
+  ...EntityRoleT,
+  ...OptionTreeT,
+  +workAttributeTypeID: number,
+  +value: string,
+|};
 
 // See MusicBrainz::Server::Controller::Work::stash_work_form_json
-declare type WorkAttributeTypeAllowedValueTreeT =
-  & WorkAttributeTypeAllowedValueT
-  & {|+children?: $ReadOnlyArray<WorkAttributeTypeAllowedValueTreeT>|};
+declare type WorkAttributeTypeAllowedValueTreeT = {|
+  ...WorkAttributeTypeAllowedValueT,
+  +children?: $ReadOnlyArray<WorkAttributeTypeAllowedValueTreeT>,
+|};
 
 declare type WorkAttributeTypeAllowedValueTreeRootT =
   {|+children: $ReadOnlyArray<WorkAttributeTypeAllowedValueTreeT>|};
 
-declare type WorkAttributeTypeT =
-  & CommentRoleT
-  & EntityT
-  & OptionTreeT
-  & {|+freeText: boolean|};
+declare type WorkAttributeTypeT = {|
+  ...CommentRoleT,
+  ...EntityRoleT,
+  ...OptionTreeT,
+  +freeText: boolean,
+|};
 
 // See MusicBrainz::Server::Controller::Work::stash_work_form_json
-declare type WorkAttributeTypeTreeT =
-  & WorkAttributeTypeT
-  & {|+children?: $ReadOnlyArray<WorkAttributeTypeTreeT>|};
+declare type WorkAttributeTypeTreeT = {|
+  ...WorkAttributeTypeT,
+  +children?: $ReadOnlyArray<WorkAttributeTypeTreeT>,
+|};
 
 declare type WorkAttributeTypeTreeRootT =
   {|+children: $ReadOnlyArray<WorkAttributeTypeTreeT>|};
