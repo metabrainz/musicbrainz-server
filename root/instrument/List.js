@@ -53,7 +53,7 @@ const InstrumentList = () => {
           <Frag>
             <h2>{lp_attributes(type.name, 'instrument_type')}</h2>
             <ul>
-              {instrumentsByType[type.id].map(instrument => (
+              {(instrumentsByType[type.id] || []).map(instrument => (
                 <Instrument key={instrument.id} instrument={instrument} />
               ))}
             </ul>
