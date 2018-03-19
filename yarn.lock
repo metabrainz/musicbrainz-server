@@ -3321,9 +3321,9 @@ modify-filename@^1.0.0, modify-filename@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/modify-filename/-/modify-filename-1.1.0.tgz#9a2dec83806fbb2d975f22beec859ca26b393aa1"
 
-moment-strftime@0.2.3:
+"moment-strftime@git://github.com/sambhav/moment-strftime.git#e8805b1":
   version "0.2.3"
-  resolved "https://registry.yarnpkg.com/moment-strftime/-/moment-strftime-0.2.3.tgz#830ed5336001e37a74bb5025030a839638357a75"
+  resolved "git://github.com/sambhav/moment-strftime.git#e8805b12ff07190c215c476d777169e584e809b0"
   dependencies:
     moment "^2.10"
 
