@@ -51,7 +51,7 @@ const EventDisambiguation = ({event}: {|+event: EventT|}) => {
   }
   return (
     <Frag>
-      {dates ? bracketed(dates) : null}
+      {dates ? ' ' + bracketed(dates) : null}
       {event.cancelled
         ? <Comment className="cancelled" comment={l('cancelled')} />
         : null}
@@ -122,7 +122,7 @@ const EntityLink = ({
   }
 
   if (entity.entityType === 'artist' && !nonEmpty(hover)) {
-    hover = entity.sort_name + bracketed(comment);
+    hover = entity.sort_name + (comment ? ' ' + bracketed(comment) : '');
   }
 
   if (entity.entityType === 'area') {

@@ -16,7 +16,7 @@ type Args = $Shape<{
 
 export default function bracketed(text: ?ReactNode, args: Args = {}) {
   if (text) {
-    return l(' ({text})', {text, ...args});
+    return l('({text})', {text, ...args});
   }
   return '';
 }
