@@ -37,9 +37,7 @@ const Comment = ({className, comment}) => (
   <Frag>
     {' '}
     <span className={className}>
-      {'('}
-      {isolateText(comment)}
-      {')'}
+      {bracketed(isolateText(comment), {__react: true})}
     </span>
   </Frag>
 );
@@ -83,7 +81,10 @@ const NoInfoURL = ({url, allowNew}) => (
   <Frag>
     <a href={url}>{url}</a>
     {' '}
-    <DeletedLink allowNew={allowNew} name={'[' + l('info') + ']'} />
+    <DeletedLink
+      allowNew={allowNew}
+      name={bracketed(l('info'), {type: '[]'})}
+    />
   </Frag>
 );
 
@@ -223,7 +224,14 @@ const EntityLink = ({
   }
 
   if (infoLink) {
-    parts.push(' [', <a href={infoLink} key="info">{l('info')}</a>, ']');
+    parts.push(' ');
+    parts.push.apply(
+      parts,
+      bracketed(
+        <a href={infoLink} key="info">{l('info')}</a>,
+        {__react: true, type: '[]'}
+      )
+    );
   }
 
   return parts;

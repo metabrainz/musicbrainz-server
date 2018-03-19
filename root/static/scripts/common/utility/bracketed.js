@@ -12,11 +12,21 @@ import type {Node as ReactNode} from 'react';
 
 type Args = $Shape<{
   __react: boolean,
+  text: ReactNode,
+  type: '()' | '[]',
 }>;
 
 export default function bracketed(text: ?ReactNode, args: Args = {}) {
   if (text) {
-    return l('({text})', {text, ...args});
+    const {type, ...largs} = args;
+    largs.text = text;
+    switch (type) {
+      case '[]':
+        return l('[{text}]', largs);
+      case '()':
+      case undefined:
+        return l('({text})', largs);
+    }
   }
   return '';
 }
