@@ -1,17 +1,22 @@
 /*
- * This file is part of MusicBrainz, the open internet music database.
+ * @flow
  * Copyright (C) 2015 MetaBrainz Foundation
- * Licensed under the GPL version 2, or (at your option) any later version:
- * http://www.gnu.org/licenses/gpl-2.0.txt
+ *
+ * This file is part of MusicBrainz, the open internet music database,
+ * and is licensed under the GPL version 2, or (at your option) any
+ * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-const {l} = require('../i18n');
+import {l} from '../i18n';
+import type {Node as ReactNode} from 'react';
 
-function bracketed(text, args = {}) {
+type Args = $Shape<{
+  __react: boolean,
+}>;
+
+export default function bracketed(text: ?ReactNode, args: Args = {}) {
   if (text) {
     return l(' ({text})', {text, ...args});
   }
   return '';
 }
-
-module.exports = bracketed;
