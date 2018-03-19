@@ -47,30 +47,32 @@ const LanguageLink = ({language}: {|+language: ServerLanguageT|}) => (
   </a>
 );
 
-function isCurrentLanguage(language) {
-  return language === $c.stash.current_language;
-}
+type LanguageMenuProps = {|
+  +currentLanguage: string,
+  +serverLanguages: $ReadOnlyArray<ServerLanguageT>,
+|};
 
-const LanguageMenu = () => (
+const LanguageMenu = ({
+  currentLanguage,
+  serverLanguages,
+}: LanguageMenuProps) => (
   <li className="language-selector" tabIndex="-1">
     <span className="menu-header">
       {languageName(
-        _.find($c.stash.server_languages, isCurrentLanguage),
+        _.find(serverLanguages, x => x.name === currentLanguage),
         true,
       )}
     </span>
     <ul>
-      {$c.stash.server_languages ? (
-        $c.stash.server_languages.map(function (language, index) {
-          let inner = <LanguageLink language={language} />;
+      {serverLanguages.map(function (language, index) {
+        let inner = <LanguageLink language={language} />;
 
-          if (language.name === $c.stash.current_language) {
-            inner = <strong>{inner}</strong>;
-          }
+        if (language.name === currentLanguage) {
+          inner = <strong>{inner}</strong>;
+        }
 
-          return <li key={index}>{inner}</li>;
-        })
-      ) : null}
+        return <li key={index}>{inner}</li>;
+      })}
       <li>
         <a href="/set-language/unset">
           {l('(reset language)')}
@@ -273,7 +275,15 @@ const DocumentationMenu = () => (
   </li>
 );
 
-const BottomMenu = () => (
+type BottomMenuProps = {|
+  +currentLanguage: string,
+  +serverLanguages?: $ReadOnlyArray<ServerLanguageT>,
+|};
+
+const BottomMenu = ({
+  currentLanguage,
+  serverLanguages,
+}: BottomMenuProps) => (
   <div className="bottom">
     <ul className="menu">
       <AboutMenu />
@@ -281,9 +291,12 @@ const BottomMenu = () => (
       <SearchMenu />
       {$c.user ? <EditingMenu /> : null}
       <DocumentationMenu />
-      {($c.stash.server_languages && $c.stash.server_languages.length > 1)
-        ? <LanguageMenu />
-        : null}
+      {(serverLanguages && serverLanguages.length > 1) ? (
+        <LanguageMenu
+          currentLanguage={currentLanguage}
+          serverLanguages={serverLanguages}
+        />
+      ) : null}
     </ul>
   </div>
 );
