@@ -14,7 +14,7 @@ const {ENTITIES, AREA_TYPE_COUNTRY} = require('../constants');
 const {l} = require('../i18n');
 const {l_countries} = require('../i18n/countries');
 const {l_instruments} = require('../i18n/instruments');
-const bracketed = require('../utility/bracketed');
+import bracketed from '../utility/bracketed';
 const entityHref = require('../utility/entityHref');
 const formatDatePeriod = require('../utility/formatDatePeriod');
 const isolateText = require('../utility/isolateText');
