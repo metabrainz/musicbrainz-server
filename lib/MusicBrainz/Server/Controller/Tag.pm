@@ -78,7 +78,10 @@ sub not_found : Private
     $c->stash(
         current_view => 'Node',
         component_path => 'tag/NotFound.js',
-        component_props => {tag => $tagname}
+        component_props => {
+            %{$c->stash->{component_props}},
+            tag => $tagname,
+        },
     );
     $c->detach;
 }

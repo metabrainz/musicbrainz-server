@@ -12,7 +12,10 @@
     <body>
         [%- IF c.debug -%][%- INCLUDE 'debug/stats.tt' -%][%- END ~%]
 
-        [%- React.embed(c, 'layout/components/Header') -%]
+        [%- React.embed(c, 'layout/components/Header', {
+                currentLanguage => current_language,
+                serverLanguages => server_languages,
+            }) -%]
 
         [%- IF c.user.is_editing_disabled -%]
             <div class="banner editing-disabled">
