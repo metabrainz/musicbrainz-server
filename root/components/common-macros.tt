@@ -877,7 +877,7 @@ END ~%]
     [%~ type_id == 1 ? l('Born:') : (type_id ==  2 || type_id == 5 || type_id == 6) ? l('Founded:') : l('Begin date:') ~%]
 [%~ END -%]
 
-[%~ MACRO artist_begin_area_label_from_type(type_id) BLOCK ~%]
+[%~ MACRO artist_begin_area_label_from_type(type_id) BLOCK # Converted to React at root/artist/utils.js ~%]
     [%~ type_id == 1 ? l('Born in:') : (type_id ==  2 || type_id == 5 || type_id == 6) ? l('Founded in:') : l('Begin area:') ~%]
 [%~ END -%]
 
@@ -885,7 +885,7 @@ END ~%]
     [%~ type_id == 1 ? l('Died:') : (type_id ==  2 || type_id == 5 || type_id == 6) ? l('Dissolved:') : l('End date:') ~%]
 [%~ END -%]
 
-[%~ MACRO artist_end_area_label_from_type(type_id) BLOCK ~%]
+[%~ MACRO artist_end_area_label_from_type(type_id) BLOCK # Converted to React at root/artist/utils.js ~%]
     [%~ type_id == 1 ? l('Died in:') : (type_id ==  2 || type_id == 5 || type_id == 6) ? l('Dissolved in:') : l('End area:') ~%]
 [%~ END -%]
 

@@ -9,6 +9,19 @@
 
 import {l} from '../static/scripts/common/i18n';
 
+export function artistBeginAreaLabel(typeId: ?number) {
+  switch (typeId) {
+    case 1:
+      return l('Born in:');
+    case 2:
+    case 5:
+    case 6:
+      return l('Founded in:');
+    default:
+      return l('Begin area:');
+  }
+}
+
 export function artistBeginLabel(typeId: ?number) {
   switch (typeId) {
     case 1:
@@ -19,6 +32,19 @@ export function artistBeginLabel(typeId: ?number) {
       return l('Founded:');
     default:
       return l('Begin date:');
+  }
+}
+
+export function artistEndAreaLabel(typeId: ?number) {
+  switch (typeId) {
+    case 1:
+      return l('Died in:');
+    case 2:
+    case 5:
+    case 6:
+      return l('Dissolved in:');
+    default:
+      return l('End area:');
   }
 }
 
