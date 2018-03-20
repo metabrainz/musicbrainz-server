@@ -37,7 +37,7 @@ const Comment = ({className, comment}) => (
   <Frag>
     {' '}
     <span className={className}>
-      {bracketed(isolateText(comment), {__react: true})}
+      {bracketed(<bdi key="comment">{comment}</bdi>, {__react: true})}
     </span>
   </Frag>
 );
