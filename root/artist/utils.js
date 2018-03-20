@@ -1,4 +1,5 @@
 /*
+ * @flow
  * Copyright (C) 2017 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -6,9 +7,9 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-const {l} = require('../static/scripts/common/i18n');
+import {l} from '../static/scripts/common/i18n';
 
-function artistBeginLabel(typeId) {
+export function artistBeginLabel(typeId: ?number) {
   switch (typeId) {
     case 1:
       return l('Born:');
@@ -21,7 +22,7 @@ function artistBeginLabel(typeId) {
   }
 }
 
-function artistEndLabel(typeId) {
+export function artistEndLabel(typeId: ?number) {
   switch (typeId) {
     case 1:
       return l('Died:');
@@ -33,6 +34,3 @@ function artistEndLabel(typeId) {
       return l('End date:');
   }
 }
-
-exports.artistBeginLabel = artistBeginLabel;
-exports.artistEndLabel = artistEndLabel;
