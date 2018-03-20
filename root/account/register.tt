@@ -16,7 +16,7 @@
         <p>[%- l('MusicBrainz believes strongly in the privacy of its users! Any personal
                   information you choose to provide will not be sold or shared with anyone else.
                   For full details, please read our {doc|Privacy Policy}.',
-                  {doc => doc_link('About/Privacy_Policy')}) -%]</p>
+                  {doc => { href => 'https://metabrainz.org/privacy' } }) -%]</p>
 
 
 

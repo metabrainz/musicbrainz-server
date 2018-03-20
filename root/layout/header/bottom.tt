@@ -31,13 +31,13 @@
                 <a href="[% doc_link('About/Data_License') %]">[% l('Data Licenses') %]</a>
             </li>
             <li>
-                <a href="[% doc_link('Social_Contract') %]">[% l('Social Contract') %]</a>
+                <a href="https://metabrainz.org/social-contract">[% l('Social Contract') %]</a>
             </li>
             <li>
                 <a href="[% doc_link('Code_of_Conduct') %]">[% l('Code of Conduct') %]</a>
             </li>
             <li>
-                <a href="[% doc_link('About/Privacy_Policy') %]">[% l('Privacy Policy') %]</a>
+                <a href="https://metabrainz.org/privacy">[% l('Privacy Policy') %]</a>
             </li>
             <li class="separator">
                 <a href="[% c.uri_for_action('/elections/index') %]">[% l('Auto-editor Elections') %]</a>
