@@ -220,6 +220,7 @@ declare type CoreEntityRoleT = {|
   ...EntityRoleT,
   +gid: string,
   +name: string,
+  +relationships?: $ReadOnlyArray<RelationshipT>,
 |};
 
 declare type CoreEntityT =
@@ -516,6 +517,21 @@ declare type RecordingT = {|
   +isrcs: $ReadOnlyArray<IsrcT>,
   +length: number,
   +video: boolean,
+|};
+
+declare type RelationshipAttributeTypeT = {|
+  +gid: string,
+|};
+
+declare type RelationshipAttributeT = {|
+  +type: RelationshipAttributeTypeT,
+|};
+
+declare type RelationshipT = {|
+  +attributes: $ReadOnlyArray<RelationshipAttributeT>,
+  +id: number,
+  +linkTypeID: number,
+  +target: CoreEntityT,
 |};
 
 declare type ReleaseGroupT = {|
