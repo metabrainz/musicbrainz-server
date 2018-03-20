@@ -5,13 +5,9 @@
 
 const _ = require('lodash');
 
+import getDaysInMonth from '../../../../utility/getDaysInMonth';
 const nonEmpty = require('../../common/utility/nonEmpty');
 const parseInteger = require('../../common/utility/parseInteger');
-
-var daysInMonth = {
-    "true":  [0, 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31],
-    "false": [0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
-};
 
 exports.isDateValid = function (y, m, d) {
     y = nonEmpty(y) ? parseInteger(y) : null;
@@ -30,10 +26,8 @@ exports.isDateValid = function (y, m, d) {
     // The day is empty. There's no further validation we can do.
     if (d === null) return true;
 
-    var isLeapYear = y % 400 ? (y % 100 ? !(y % 4) : false) : true;
-
     // Invalid number of days based on the year.
-    if (d < 1 || d > 31 || d > daysInMonth[isLeapYear.toString()][m]) return false;
+    if (d < 1 || d > 31 || d > getDaysInMonth(y, m)) return false;
 
     // The date is assumed to be valid.
     return true;
