@@ -676,6 +676,7 @@ declare type UrlT = {|
   +entityType: 'url',
   +href_url: string,
   +pretty_name: string,
+  +show_license_in_sidebar?: boolean,
 |};
 
 declare type UserTagT = {|
