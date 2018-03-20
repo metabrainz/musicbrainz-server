@@ -221,6 +221,17 @@ declare type EntityRoleT = {|
   +id: number,
 |};
 
+declare type EventT = {|
+  ...CommentRoleT,
+  ...CoreEntityRoleT,
+  ...RatableRoleT,
+  ...TypeRoleT<EventTypeT>,
+  +cancelled: boolean,
+  +entityType: 'event',
+|};
+
+export opaque type EventTypeT: OptionTreeT = OptionTreeT;
+
 declare type FieldRoleT = {|
   +errors: $ReadOnlyArray<string>,
   +has_errors: boolean,
@@ -266,17 +277,6 @@ declare type InstrumentT = {|
 |};
 
 export opaque type InstrumentTypeT: OptionTreeT = OptionTreeT;
-
-declare type EventT = {|
-  ...CommentRoleT,
-  ...CoreEntityRoleT,
-  ...RatableRoleT,
-  ...TypeRoleT<EventTypeT>,
-  +cancelled: boolean,
-  +entityType: 'event',
-|};
-
-export opaque type EventTypeT: OptionTreeT = OptionTreeT;
 
 declare type IsrcT = {|
   ...EditableRoleT,
