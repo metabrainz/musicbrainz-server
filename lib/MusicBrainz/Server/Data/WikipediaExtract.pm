@@ -35,23 +35,44 @@ sub get_extract
     my ($languages, $link) = $self->get_available_languages($links, cache_only => $cache_only);
 
     if (defined $languages && scalar @$languages) {
-        my $lang_wanted = first { $_->{lang} eq $wanted_language } @$languages;
+        # Use desired language if available
+        my $lang_to_use = first { $_->{lang} eq $wanted_language } @$languages;
 
-        my @fallbacks = Translation->all_system_languages;
-        push @fallbacks, qw(en ja de fr fi it sv es ru pl nl pt et da ko ca cs cy el he hu id lt lv no ro sk sl tr uk vi zh);
-        my $fallback;
-        for my $lang (@fallbacks) {
-            $fallback = first { $_->{lang} eq $lang } @$languages;
-            last if $fallback;
+        # Fall back to browser accepted languages
+        if (!$lang_to_use) {
+            for my $lang (Translation->all_system_languages) {
+                $lang_to_use = first { $_->{lang} eq $lang } @$languages;
+                last if $lang_to_use;
+            }
         }
 
-        # Desired language, fallback to english,
-        # fall back to languages that are explicitly linked, finally use "whatever we have"
-        my $lang_to_use = $lang_wanted || $fallback;
+        # Fall back to editor known languages
+        if (!$lang_to_use) {
+            my $editor = $opts{editor};
+            if (defined $editor) {
+                my @editor_languages = grep { $_ } map { $_->{language}->{iso_code_1} } @{ $editor->languages };
+                for my $lang (@editor_languages) {
+                    $lang_to_use = first { $_->{lang} eq $lang } @$languages;
+                    last if $lang_to_use;
+                }
+            }
+        }
+
+        # Fall back to most frequent languages
+        if (!$lang_to_use) {
+            for my $lang (qw(en ja de fr fi it sv es ru pl nl pt et da ko ca cs cy el he hu id lt lv no ro sk sl tr uk vi zh)) {
+                $lang_to_use = first { $_->{lang} eq $lang } @$languages;
+                last if $lang_to_use;
+            }
+        }
+
+        # Fall back to languages that are explicitly linked
         if (!$lang_to_use) {
             $link = first { $_->isa('MusicBrainz::Server::Entity::URL::Wikipedia') } @$links;
             $lang_to_use = {'title' => $link->page_name, 'lang' => $link->language} if defined $link;
         }
+
+        # Finally fall back to “whatever we have”
         if (!$lang_to_use) {
             $lang_to_use = $languages->[0];
         }
