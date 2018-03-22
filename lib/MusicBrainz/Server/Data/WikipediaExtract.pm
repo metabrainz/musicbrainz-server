@@ -4,6 +4,7 @@ use namespace::autoclean;
 
 use Readonly;
 use aliased 'MusicBrainz::Server::Entity::WikipediaExtract';
+use aliased 'MusicBrainz::Server::Translation';
 use JSON;
 use Encode qw( encode );
 use URI::Escape qw( uri_escape_utf8 );
@@ -36,9 +37,10 @@ sub get_extract
     if (defined $languages && scalar @$languages) {
         my $lang_wanted = first { $_->{lang} eq $wanted_language } @$languages;
 
-        my $fallbacks = [qw(en ja de fr fi it sv es ru pl nl pt et da ko ca cs cy el he hu id lt lv no ro sk sl tr uk vi zh)];
+        my @fallbacks = Translation->all_system_languages;
+        push @fallbacks, qw(en ja de fr fi it sv es ru pl nl pt et da ko ca cs cy el he hu id lt lv no ro sk sl tr uk vi zh);
         my $fallback;
-        for my $lang (@$fallbacks) {
+        for my $lang (@fallbacks) {
             $fallback = first { $_->{lang} eq $lang } @$languages;
             last if $fallback;
         }
