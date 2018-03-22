@@ -52,8 +52,10 @@ sub _get_extract
         } @{ $entity->relationships_by_link_type_names('wikipedia', 'wikidata') };
 
     if (scalar @links) {
+        $c->model('EditorLanguage')->load_for_editor($c->user) if $c->user_exists;
         my $wp_extract = $c->model('WikipediaExtract')->get_extract(\@links,
             $wanted_lang,
+            editor => $c->user,
             cache_only => $cache_only);
         if ($wp_extract) {
             $c->stash->{wikipedia_extract} = $wp_extract;
