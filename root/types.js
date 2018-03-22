@@ -19,8 +19,8 @@ type CatalystContextT = {
 
 type CatalystStashT = {
   instruments_by_type?: {
-    [number]: Array<InstrumentT>,
-    unknown: Array<InstrumentT>,
+    [number]: ?Array<InstrumentT>,
+    unknown: ?Array<InstrumentT>,
   },
   instrument_types?: Array<InstrumentTypeT>,
 };
