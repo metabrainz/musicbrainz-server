@@ -176,6 +176,11 @@ type CatalystContextT = {|
   +stash: CatalystStashT,
   +user?: CatalystUserT,
   +user_exists: boolean,
+  +linked_entities: {
+    +link_type: {|
+      +[number]: LinkTypeInfoT,
+    |},
+  },
 |};
 
 type CatalystRequestContextT = {|

@@ -2,13 +2,17 @@ package MusicBrainz::Server::Entity;
 
 use Moose;
 use MusicBrainz::Server::Data::Utils qw( ref_to_type );
-
-with 'MusicBrainz::Server::Entity::Role::LinkedEntities';
+use MusicBrainz::Server::Entity::Util::JSON qw( add_linked_entity );
 
 has 'id' => (
     is => 'rw',
     isa => 'Int'
 );
+
+sub link_entity {
+    shift;
+    add_linked_entity(@_);
+}
 
 sub TO_JSON {
     my ($self) = @_;

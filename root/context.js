@@ -11,6 +11,9 @@ import React from 'react';
 import type {ComponentType} from 'react';
 
 const defaultContext = {
+  linked_entities: {
+    link_type: {},
+  },
   relative_uri: '',
   req: {
     headers: {},

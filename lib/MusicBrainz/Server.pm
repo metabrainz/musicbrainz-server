@@ -456,7 +456,6 @@ sub TO_JSON {
         hide_merge_helper
         jsonld_data
         last_replication_date
-        linked_entities
         makes_no_changes
         merge_link
         new_edit_notes
@@ -472,7 +471,7 @@ sub TO_JSON {
 
     if (my $entity = delete $stash{entity}) {
         if (ref($entity) =~ /^MusicBrainz::Server::Entity::/) {
-            $entity->serialize_with_linked_entities(\%stash);
+            $stash{entity} = $entity->TO_JSON;
         }
     }
 

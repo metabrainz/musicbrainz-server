@@ -64,7 +64,7 @@ const ExternalLinks = ({$c, entity, empty, heading}) => {
     }
 
     const linkType =
-      $c.stash.linked_entities.link_type[relationship.linkTypeID];
+      $c.linked_entities.link_type[relationship.linkTypeID];
     if (/^official (?:homepage|site)$/.test(linkType.name)) {
       links.push(
         <ExternalLink

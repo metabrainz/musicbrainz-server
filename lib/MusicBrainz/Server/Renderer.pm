@@ -7,6 +7,9 @@ use base 'Exporter';
 use DBDefs;
 use feature 'state';
 use JSON -convert_blessed_universally;
+use MusicBrainz::Server::Entity::Util::JSON qw(
+    encode_with_linked_entities
+);
 
 our @EXPORT_OK = qw(
     render_component
@@ -19,7 +22,7 @@ sub send_to_renderer {
     require bytes;
 
     state $body_json = JSON->new->utf8->allow_unknown->allow_blessed->convert_blessed;
-    my $encoded_body = $body_json->encode($message);
+    my $encoded_body = encode_with_linked_entities($body_json, $message);
 
     my $socket = $c->stash->{renderer_socket};
     $socket->send(pack('V', bytes::length($encoded_body)));
