@@ -4,6 +4,7 @@ use Moose;
 BEGIN { extends 'MusicBrainz::Server::Controller'; }
 
 use DBDefs;
+use HTTP::Status qw( HTTP_MOVED_PERMANENTLY );
 use MusicBrainz::Server::Validation qw( is_guid );
 
 sub show : Path('')
@@ -21,7 +22,7 @@ sub show : Path('')
         my ($path, $fragment) = split /\#/, $page->{canonical}, 2;
         $fragment = $fragment ? '#'.$fragment : '';
 
-        $c->response->redirect($c->uri_for('/doc', $path).$fragment, 301);
+        $c->response->redirect($c->uri_for('/doc', $path).$fragment, HTTP_MOVED_PERMANENTLY);
         return;
     }
 
@@ -67,6 +68,7 @@ no Moose;
 =head1 COPYRIGHT
 
 Copyright (C) 2009 Lukas Lalinsky
+Copyright (C) 2018 MetaBrainz Foundation
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by

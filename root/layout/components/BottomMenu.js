@@ -85,13 +85,13 @@ const AboutMenu = () => (
         <a href="/doc/About/Data_License">{l('Data Licenses')}</a>
       </li>
       <li>
-        <a href="/doc/Social_Contract">{l('Social Contract')}</a>
+        <a href="https://metabrainz.org/social-contract">{l('Social Contract')}</a>
       </li>
       <li>
         <a href="/doc/Code_of_Conduct">{l('Code of Conduct')}</a>
       </li>
       <li>
-        <a href="/doc/About/Privacy_Policy">{l('Privacy Policy')}</a>
+        <a href="https://metabrainz.org/privacy">{l('Privacy Policy')}</a>
       </li>
       <li className="separator">
         <a href="/elections">{l('Auto-editor Elections')}</a>
