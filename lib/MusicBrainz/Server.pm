@@ -459,6 +459,7 @@ sub TO_JSON {
         makes_no_changes
         merge_link
         new_edit_notes
+        number_of_revisions
         server_details
         server_languages
         to_merge

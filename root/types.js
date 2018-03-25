@@ -196,6 +196,7 @@ type CatalystSessionT = {|
 type CatalystStashT = {|
   +current_language: string,
   +current_language_html: string,
+  +number_of_revisions?: number,
   +server_languages?: $ReadOnlyArray<ServerLanguageT>,
 |};
 
