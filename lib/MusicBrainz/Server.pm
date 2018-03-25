@@ -467,6 +467,7 @@ sub TO_JSON {
         number_of_revisions
         server_details
         server_languages
+        subscribed
         to_merge
         top_tags
         user_tags

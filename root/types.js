@@ -210,6 +210,7 @@ type CatalystStashT = {|
   +more_tags?: boolean,
   +number_of_revisions?: number,
   +server_languages?: $ReadOnlyArray<ServerLanguageT>,
+  +subscribed?: boolean,
   +top_tags?: $ReadOnlyArray<AggregatedTagT>,
   +user_tags?: $ReadOnlyArray<UserTagT>,
 |};
