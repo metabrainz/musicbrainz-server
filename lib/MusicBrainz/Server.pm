@@ -450,6 +450,9 @@ sub TO_JSON {
 
     # Whitelist of keys that we use in the templates.
     my @stash_keys = qw(
+        all_collections
+        collections
+        containment
         current_language
         current_language_html
         entity

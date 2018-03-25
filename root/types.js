@@ -194,6 +194,11 @@ type CatalystSessionT = {|
 |};
 
 type CatalystStashT = {|
+  +all_collections?: $ReadOnlyArray<CollectionT>,
+  +collections?: $ReadOnlyArray<CollectionT>,
+  +containment?: {|
+    [number]: ?1,
+  |},
   +current_language: string,
   +current_language_html: string,
   +number_of_revisions?: number,

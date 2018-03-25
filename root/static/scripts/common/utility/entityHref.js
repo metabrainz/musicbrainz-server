@@ -15,6 +15,7 @@ const nonEmpty = require('./nonEmpty');
 const leadingSlash = /^\/?(.*)/;
 
 type LinkableEntity =
+  | CollectionT
   | CoreEntityT
   | IsrcT
   | IswcT
