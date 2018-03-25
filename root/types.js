@@ -182,6 +182,9 @@ type CatalystContextT = {|
   +user?: CatalystUserT,
   +user_exists: boolean,
   +linked_entities: {
+    +artist_type: {|
+      +[number]: ArtistTypeT,
+    |},
     +link_type: {|
       +[number]: LinkTypeInfoT,
     |},

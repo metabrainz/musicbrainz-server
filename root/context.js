@@ -15,6 +15,7 @@ const defaultContext = {
     name: '',
   },
   linked_entities: {
+    artist_type: {},
     link_type: {},
   },
   relative_uri: '',
