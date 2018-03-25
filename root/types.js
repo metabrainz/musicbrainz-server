@@ -168,7 +168,12 @@ declare type BlogEntryT = {|
   +url: string,
 |};
 
+type CatalystActionT = {|
+  +name: string,
+|};
+
 type CatalystContextT = {|
+  +action: CatalystActionT,
   +relative_uri: string,
   +req: CatalystRequestContextT,
   +session: CatalystSessionT | null,
