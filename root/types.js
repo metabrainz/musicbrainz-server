@@ -201,13 +201,17 @@ type CatalystSessionT = {|
 type CatalystStashT = {|
   +all_collections?: $ReadOnlyArray<CollectionT>,
   +collections?: $ReadOnlyArray<CollectionT>,
+  +commons_image?: CommonsImageT | null,
   +containment?: {|
     [number]: ?1,
   |},
   +current_language: string,
   +current_language_html: string,
+  +more_tags?: boolean,
   +number_of_revisions?: number,
   +server_languages?: $ReadOnlyArray<ServerLanguageT>,
+  +top_tags?: $ReadOnlyArray<AggregatedTagT>,
+  +user_tags?: $ReadOnlyArray<UserTagT>,
 |};
 
 type CatalystUserT = EditorT;

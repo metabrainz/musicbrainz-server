@@ -452,6 +452,7 @@ sub TO_JSON {
     my @stash_keys = qw(
         all_collections
         collections
+        commons_image
         containment
         current_language
         current_language_html
@@ -461,11 +462,14 @@ sub TO_JSON {
         last_replication_date
         makes_no_changes
         merge_link
+        more_tags
         new_edit_notes
         number_of_revisions
         server_details
         server_languages
         to_merge
+        top_tags
+        user_tags
     );
 
     my %stash;

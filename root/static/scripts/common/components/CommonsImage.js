@@ -15,7 +15,7 @@ import {l} from '../i18n';
 import entityHref from '../utility/entityHref';
 
 type Props = {|
-  +image: CommonsImageT | null,
+  +image: ?CommonsImageT,
   +entity: CoreEntityT,
 |};
 
