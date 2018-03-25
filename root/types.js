@@ -322,6 +322,7 @@ declare type EventT = {|
   ...AnnotationRoleT,
   ...CommentRoleT,
   ...CoreEntityRoleT,
+  ...DatePeriodRoleT,
   ...RatableRoleT,
   ...TypeRoleT<EventTypeT>,
   +areas: $ReadOnlyArray<{|+entity: AreaT|}>,
