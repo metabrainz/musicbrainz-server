@@ -10,3 +10,9 @@
 export const CONTACT_URL = 'https://metabrainz.org/contact';
 
 export const DONATE_URL = 'https://metabrainz.org/donate';
+
+export const QUALITY_UNKNOWN = -1;
+export const QUALITY_UNKNOWN_MAPPED = 1;
+export const QUALITY_LOW = 0;
+export const QUALITY_NORMAL = 1;
+export const QUALITY_HIGH = 2;

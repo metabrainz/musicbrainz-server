@@ -19,6 +19,7 @@ const {
     } = require('../common/immutable-entities');
 const clean = require('../common/utility/clean');
 const formatTrackLength = require('../common/utility/formatTrackLength');
+import releaseLabelKey from '../common/utility/releaseLabelKey';
 const request = require('../common/utility/request');
 const MB_edit = require('../edit/MB/edit');
 const dates = require('../edit/utility/dates');
@@ -802,10 +803,6 @@ class Release extends MB_entity.Release {
         this.labels.original = ko.observable(
             _.map(this.labels.peek(), MB_edit.fields.releaseLabel)
         );
-
-        function releaseLabelKey(releaseLabel) {
-            return ((releaseLabel.label() || {}).id || '') + '\0' + clean(releaseLabel.catalogNumber());
-        }
 
         function nonEmptyReleaseLabel(releaseLabel) {
             return releaseLabelKey(releaseLabel) !== '\0';

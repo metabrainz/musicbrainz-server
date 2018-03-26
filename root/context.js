@@ -16,9 +16,13 @@ const defaultContext = {
   },
   linked_entities: {
     artist_type: {},
+    language: {},
     link_type: {},
     release_group_primary_type: {},
     release_group_secondary_type: {},
+    release_packaging: {},
+    release_status: {},
+    script: {},
   },
   relative_uri: '',
   req: {

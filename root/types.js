@@ -185,6 +185,9 @@ type CatalystContextT = {|
     +artist_type: {|
       +[number]: ArtistTypeT,
     |},
+    +language: {|
+      +[number]: LanguageT,
+    |},
     +link_type: {|
       +[number]: LinkTypeInfoT,
     |},
@@ -193,6 +196,15 @@ type CatalystContextT = {|
     |},
     +release_group_secondary_type: {|
       [number]: ReleaseGroupSecondaryTypeT,
+    |},
+    +release_packaging: {|
+      +[number]: ReleasePackagingT,
+    |},
+    +release_status: {|
+      +[number]: ReleaseStatusT,
+    |},
+    +script: {|
+      +[number]: ScriptT,
     |},
   },
 |};
@@ -219,6 +231,7 @@ type CatalystStashT = {|
   +current_language_html: string,
   +more_tags?: boolean,
   +number_of_revisions?: number,
+  +release_artwork?: ArtworkT,
   +server_languages?: $ReadOnlyArray<ServerLanguageT>,
   +subscribed?: boolean,
   +top_tags?: $ReadOnlyArray<AggregatedTagT>,
@@ -546,6 +559,8 @@ declare type PlaceT = {|
 
 export opaque type PlaceTypeT: OptionTreeT = OptionTreeT;
 
+declare type QualityT = -1 | 0 | 1 | 2;
+
 declare type RatableRoleT = {|
   +rating: number | null,
   +rating_count: number,
@@ -608,6 +623,8 @@ declare type ReleaseGroupT = {|
 
 export opaque type ReleaseGroupTypeT: OptionTreeT = OptionTreeT;
 
+export opaque type ReleasePackagingT: OptionTreeT = OptionTreeT;
+
 declare type ReleaseT = {|
   ...AnnotationRoleT,
   ...ArtistCreditRoleT,
@@ -616,13 +633,16 @@ declare type ReleaseT = {|
   +barcode: string | null,
   +combined_format_name?: string,
   +combined_track_count?: string,
+  +cover_art_presence: 'absent' | 'present' | 'darkened' | null,
   +cover_art_url: string | null,
   +entityType: 'release',
   +events?: $ReadOnlyArray<ReleaseEventT>,
   +labels?: $ReadOnlyArray<ReleaseLabelT>,
   +language: LanguageT | null,
   +languageID: number | null,
+  +length?: number,
   +packagingID: number | null,
+  +quality: QualityT,
   +releaseGroup?: ReleaseGroupT,
   +script: ScriptT | null,
   +scriptID: number | null,
