@@ -210,6 +210,16 @@ declare type CDStubT = {|
   +track_count: number,
 |};
 
+declare type CollectionT = {|
+  ...EntityRoleT,
+  +description: string,
+  +entity_count: number,
+  +entityType: 'collection',
+  +gid: string,
+  +name: string,
+  +public: boolean,
+|};
+
 type CommentRoleT = {|+comment: string|};
 
 declare type CommonsImageT = {|
