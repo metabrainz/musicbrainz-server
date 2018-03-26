@@ -948,7 +948,7 @@ END -%]
     END;
 END -%]
 
-[%~ MACRO release_events(release_events) BLOCK;
+[%~ MACRO release_events(release_events) BLOCK; # Converted to React at root/components/ReleaseEvents.js
       IF release_events.size;
         '<ul class="links">';
         FOR event=release_events;
@@ -958,7 +958,7 @@ END -%]
       END;
     END -%]
 
-[%~ MACRO release_event(event) BLOCK;
+[%~ MACRO release_event(event) BLOCK; # Converted to React at root/components/ReleaseEvent.js
       date = event.date;
       country = event.country;
       parts = [];
