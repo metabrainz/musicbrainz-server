@@ -1,4 +1,5 @@
 package t::MusicBrainz::Server::Controller::WS::js::Autocomplete;
+use Test::Deep qw( ignore );
 use Test::Routine;
 
 with 't::Mechanize', 't::Context';
@@ -32,6 +33,7 @@ test all => sub {
                 "id" => 5,
                 "ipi_codes" => [],
                 "isni_codes" => [],
+                "last_updated" => ignore,
                 "name" => "David Bowie",
                 "primaryAlias" => undef,
                 "rating" => undef,
@@ -57,6 +59,7 @@ test all => sub {
                 "ipi_codes" => [],
                 "isni_codes" => [],
                 "label_code" => 2070,
+                "last_updated" => ignore,
                 "name" => 'Warp Records',
                 "primaryAlias" => undef,
                 "rating" => undef,

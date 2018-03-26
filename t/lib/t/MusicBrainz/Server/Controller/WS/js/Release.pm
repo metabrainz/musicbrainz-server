@@ -1,6 +1,6 @@
 package t::MusicBrainz::Server::Controller::WS::js::Release;
 use Test::More;
-use Test::Deep qw( cmp_deeply );
+use Test::Deep qw( cmp_deeply ignore );
 use Test::Routine;
 use JSON;
 use MusicBrainz::Server::Test;
@@ -53,6 +53,7 @@ test all => sub {
             id => 9496,
             ipi_codes => [],
             isni_codes => [],
+            last_updated => ignore,
             name => 'BoA',
             sort_name => 'BoA',
             unaccented_name => undef,

@@ -223,6 +223,7 @@ declare type CompoundFieldT<+F> = {|
 
 declare type CoreEntityRoleT = {|
   ...EntityRoleT,
+  ...LastUpdateRoleT,
   +gid: string,
   +name: string,
   +relationships?: $ReadOnlyArray<RelationshipT>,
@@ -421,6 +422,10 @@ declare type LanguageT = {|
   +id: number,
   +iso_code_3: string | null,
   +name: string,
+|};
+
+type LastUpdateRoleT = {|
+  +last_updated: string,
 |};
 
 declare type LinkTypeAttrTypeT = {|
