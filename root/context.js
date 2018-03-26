@@ -17,6 +17,8 @@ const defaultContext = {
   linked_entities: {
     artist_type: {},
     link_type: {},
+    release_group_primary_type: {},
+    release_group_secondary_type: {},
   },
   relative_uri: '',
   req: {

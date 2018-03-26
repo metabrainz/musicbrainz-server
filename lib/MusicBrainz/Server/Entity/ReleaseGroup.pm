@@ -106,9 +106,27 @@ sub write_review_href {
 around TO_JSON => sub {
     my ($orig, $self) = @_;
 
+    if (my $primary_type = $self->primary_type) {
+        $self->link_entity(
+            'release_group_primary_type',
+            $primary_type->id,
+            $primary_type,
+        );
+    }
+
+    for my $secondary_type ($self->all_secondary_types) {
+        $self->link_entity(
+            'release_group_secondary_type',
+            $secondary_type->id,
+            $secondary_type,
+        );
+    }
+
     return {
         %{ $self->$orig },
+        $self->has_cover_art ? (cover_art => $self->cover_art) : (),
         firstReleaseDate    => $self->first_release_date ? $self->first_release_date->format : undef,
+        review_count        => $self->review_count,
         secondaryTypeIDs    => [map { $_->id } $self->all_secondary_types],
         typeID              => $self->primary_type_id,
         typeName            => $self->type_name,

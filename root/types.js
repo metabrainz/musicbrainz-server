@@ -188,6 +188,12 @@ type CatalystContextT = {|
     +link_type: {|
       +[number]: LinkTypeInfoT,
     |},
+    +release_group_primary_type: {|
+      [number]: ReleaseGroupTypeT,
+    |},
+    +release_group_secondary_type: {|
+      [number]: ReleaseGroupSecondaryTypeT,
+    |},
   },
 |};
 
@@ -580,6 +586,8 @@ declare type RelationshipT = {|
   +target: CoreEntityT,
 |};
 
+export opaque type ReleaseGroupSecondaryTypeT: OptionTreeT = OptionTreeT;
+
 declare type ReleaseGroupT = {|
   ...AnnotationRoleT,
   ...ArtistCreditRoleT,
@@ -587,7 +595,14 @@ declare type ReleaseGroupT = {|
   ...CoreEntityRoleT,
   ...RatableRoleT,
   ...TypeRoleT<ReleaseGroupTypeT>,
+  +cover_art?: ArtworkT,
   +entityType: 'release_group',
+  +firstReleaseDate: string | null,
+  +release_group?: ReleaseGroupT,
+  +review_count: number,
+  +secondaryTypeIDs: $ReadOnlyArray<number>,
+  +typeID: number | null,
+  +typeName: string | null,
 |};
 
 export opaque type ReleaseGroupTypeT: OptionTreeT = OptionTreeT;
