@@ -522,6 +522,7 @@ sub TO_JSON {
         req => {
             headers => \%headers,
             query_params => $req->query_params,
+            secure => boolean_to_json($req->secure),
             uri => $req->uri,
         },
         stash => \%stash,

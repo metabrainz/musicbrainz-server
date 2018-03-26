@@ -200,6 +200,7 @@ type CatalystContextT = {|
 type CatalystRequestContextT = {|
   +headers: {+[string]: string},
   +query_params: {+[string]: string},
+  +secure: boolean,
   +uri: string,
 |};
 

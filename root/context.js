@@ -24,6 +24,7 @@ const defaultContext = {
   req: {
     headers: {},
     query_params: {},
+    secure: false,
     uri: '',
   },
   session: null,

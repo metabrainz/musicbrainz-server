@@ -126,7 +126,7 @@ END; -%]
 <a href="[% artwork.image %]">[% l('original') %]</a>
 [%- END -%]
 
-[%~ MACRO cover_art_url(url) BLOCK;
+[%~ MACRO cover_art_url(url) BLOCK; # Converted to React at root/utility/coverArtUrl.js
     IF c.req.secure;
         url | coverart_https;
     ELSE;
