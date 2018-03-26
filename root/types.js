@@ -212,6 +212,9 @@ type CatalystContextT = {|
     +series_type: {|
       +[number]: SeriesTypeT,
     |},
+    +work_attribute_type: {|
+      +[number]: WorkAttributeTypeT,
+    |},
   },
 |};
 
@@ -771,6 +774,16 @@ declare type UserTagT = {|
   +vote: 1 | 0 | -1,
 |};
 
+declare type WorkAttributeT = {|
+  // Generally shouldn't be null, but the id isn't stored in edit data.
+  +id: number | null,
+  // N.B. TypeRoleT requires typeID to be nullable.
+  +typeID: number,
+  +typeName: string,
+  +value: string,
+  +value_id: number | null,
+|};
+
 declare type WorkT = {|
   ...AnnotationRoleT,
   ...CommentRoleT,
@@ -778,6 +791,7 @@ declare type WorkT = {|
   ...RatableRoleT,
   ...TypeRoleT<WorkTypeT>,
   +artists: $ReadOnlyArray<ArtistCreditT>,
+  +attributes: $ReadOnlyArray<WorkAttributeT>,
   +entityType: 'work',
   +iswcs: $ReadOnlyArray<IswcT>,
   +languages: $ReadOnlyArray<WorkLanguageT>,

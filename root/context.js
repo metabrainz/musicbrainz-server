@@ -25,6 +25,7 @@ const defaultContext = {
     script: {},
     series_ordering_type: {},
     series_type: {},
+    work_attribute_type: {},
   },
   relative_uri: '',
   req: {
