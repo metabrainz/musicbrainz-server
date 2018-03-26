@@ -89,6 +89,19 @@ sub image { my $self = shift; return $self->_urlprefix . "." . $self->suffix; }
 sub small_thumbnail { my $self = shift; return $self->_urlprefix . "-250.jpg"; }
 sub large_thumbnail { my $self = shift; return $self->_urlprefix . "-500.jpg"; }
 
+sub TO_JSON {
+    my ($self) = @_;
+
+    return {
+        comment => $self->comment,
+        image => $self->image,
+        large_thumbnail => $self->large_thumbnail,
+        mime_type => $self->mime_type,
+        small_thumbnail => $self->small_thumbnail,
+        types => $self->types,
+    };
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;

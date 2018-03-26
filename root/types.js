@@ -102,6 +102,15 @@ declare type ArtistT = {|
 
 export opaque type ArtistTypeT: OptionTreeT = OptionTreeT;
 
+declare type ArtworkT = {|
+  +comment: string,
+  +image: string,
+  +large_thumbnail: string,
+  +mime_type: string,
+  +small_thumbnail: string,
+  +types: $ReadOnlyArray<string>,
+|};
+
 // See MusicBrainz::Server::Form::Utils::build_attr_info
 declare type AttrInfoT = {|
   +children?: $ReadOnlyArray<AttrInfoT>,
