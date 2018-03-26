@@ -240,6 +240,11 @@ declare type CollectionT = {|
 
 type CommentRoleT = {|+comment: string|};
 
+declare type CoordinatesT = {|
+  +latitude: number,
+  +longitude: number,
+|};
+
 declare type CommonsImageT = {|
   +page_url: string,
   +thumb_url: string,
@@ -528,6 +533,7 @@ declare type PlaceT = {|
   ...TypeRoleT<PlaceTypeT>,
   +address: string,
   +area: AreaT | null,
+  +coordinates: CoordinatesT | null,
   +entityType: 'place',
 |};
 
