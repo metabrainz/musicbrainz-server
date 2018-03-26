@@ -206,6 +206,12 @@ type CatalystContextT = {|
     +script: {|
       +[number]: ScriptT,
     |},
+    +series_ordering_type: {|
+      +[number]: SeriesOrderingTypeT,
+    |},
+    +series_type: {|
+      +[number]: SeriesTypeT,
+    |},
   },
 |};
 
@@ -726,7 +732,10 @@ declare type SeriesT = {|
   ...CoreEntityRoleT,
   ...TypeRoleT<SeriesTypeT>,
   +entityType: 'series',
+  +orderingTypeID: number,
 |};
+
+export opaque type SeriesOrderingTypeT: OptionsTree = OptionsTree;
 
 export opaque type SeriesTypeT: OptionTreeT = OptionTreeT;
 

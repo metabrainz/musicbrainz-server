@@ -23,6 +23,8 @@ const defaultContext = {
     release_packaging: {},
     release_status: {},
     script: {},
+    series_ordering_type: {},
+    series_type: {},
   },
   relative_uri: '',
   req: {

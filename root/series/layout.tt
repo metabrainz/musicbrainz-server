@@ -5,16 +5,6 @@
     </div>
 
     [%~ IF !full_width ~%]
-        [%~ WRAPPER 'layout/sidebar/shared-entity-sidebar.tt' entity=series ~%]
-            [%~ show_image() ~%]
-
-            <h2 class="series-information">[%~ l('Series information') ~%]</h2>
-            [%~ WRAPPER 'layout/sidebar/properties.tt' ~%]
-                [%~ INCLUDE 'layout/sidebar/property.tt' label=l('Type:')
-                     content=html_escape(series.type.l_name) class="type" ~%]
-                [%~ INCLUDE 'layout/sidebar/property.tt' label=l('Ordering Type:')
-                     content=html_escape(series.ordering_type.l_name) class="type" ~%]
-            [%~ END ~%]
-        [%~ END ~%]
+        [%~ React.embed(c, 'layout/components/sidebar/SeriesSidebar', {series => series}) ~%]
     [%~ END ~%]
 [%~ END ~%]
