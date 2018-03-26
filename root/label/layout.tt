@@ -5,60 +5,6 @@
     </div>
 
     [%~ IF !full_width ~%]
-        [%~ edit_links_add_entity = [] ~%]
-        [%~ edit_links_add_entity.push({ url => c.uri_for_action('/release_editor/add', { label = label.gid }), text => l('Add release') }) ~%]
-
-        [%~ WRAPPER 'layout/sidebar/shared-entity-sidebar.tt' entity=label edit_links_add_entity=edit_links_add_entity ~%]
-            [%~ show_image() ~%]
-
-            <h2 class="label-information">[%~ l('Label information') ~%]</h2>
-            [%~ WRAPPER 'layout/sidebar/properties.tt' ~%]
-                [%~ INCLUDE 'layout/sidebar/property.tt' label=l('Type:')
-                     content=html_escape(label.l_type_name) class="type"
-                         IF label.type ~%]
-
-                [%~ UNLESS label.begin_date.is_empty AND label.end_date.is_empty AND !label.ended ~%]
-                    [%~ IF label.begin_date.format ~%]
-                        [%~ WRAPPER 'layout/sidebar/property.tt' label=l("Founded:") class="founded" ~%]
-                            [%~ label.begin_date.format ~%]
-                            [%~ IF label.has_age AND not label.end_date.format ~%]
-                                [%~ bracketedWithSpace(display_age_ago(label.age)) ~%]
-                            [%~ END ~%]
-                        [%~ END ~%]
-                    [%~ END ~%]
-                    [%~ IF label.end_date.format ~%]
-                        [%~ WRAPPER 'layout/sidebar/property.tt' label=l("Defunct:") class="defunct" ~%]
-                            [%~ label.end_date.format ~%]
-                            [%~ IF label.has_age ~%]
-                                [%~ bracketedWithSpace(display_age(label.age)) ~%]
-                            [%~ END ~%]
-                        [%~ END ~%]
-                    [%~ ELSIF label.ended ~%]
-                        [%~ WRAPPER 'layout/sidebar/property.tt' label=l("Defunct:") class="defunct" ~%]
-                            [%~ l('[unknown]') ~%]
-                        [%~ END ~%]
-                    [%~ END ~%]
-                [%~ END ~%]
-
-                [%~ FOR ipi_code IN label.ipi_codes ~%]
-                    [%~ INCLUDE 'layout/sidebar/property.tt' label=l('IPI code:')
-                         content=html_escape(ipi_code.ipi) class="ipi-code" ~%]
-                [%~ END ~%]
-
-                [%~ FOR isni_code IN label.isni_codes ~%]
-                    [%~ INCLUDE 'layout/sidebar/property.tt' label=l('ISNI code:')
-                         content=link_isni(isni_code) class="isni-code" ~%]
-                [%~ END ~%]
-
-                [%~ INCLUDE 'layout/sidebar/property.tt' label=l('Label code:')
-                     content=html_escape(label.format_label_code) class="label-code"
-                         IF label.label_code ~%]
-
-                [%~ INCLUDE 'layout/sidebar/property.tt' label=l('Area:')
-                     content=descriptive_link(label.area)
-                     class="area"
-                         IF label.area ~%]
-            [%~ END ~%]
-        [%~ END ~%]
+        [%~ React.embed(c, 'layout/components/sidebar/LabelSidebar', {label => label}) ~%]
     [%~ END ~%]
 [%~ END ~%]
