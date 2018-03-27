@@ -182,7 +182,7 @@
       (<!-- ko text: $data --><!-- /ko -->)
     <!-- /ko -->
     <!-- ko if: relationship.ended() && !relationship.formatDatePeriod() -->
-      [% bracketed(l('ended')) | html %]
+      [% bracketedWithSpace(l('ended')) | html %]
     <!-- /ko -->
   <!-- /ko -->
   <!-- ko with: relationship.phraseAndExtraAttributes()[2 + (forGrouping ? 3 : 0)] -->
