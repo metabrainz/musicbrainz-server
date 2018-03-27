@@ -1,7 +1,10 @@
-// This file is part of MusicBrainz, the open internet music database.
-// Copyright (C) 2017 MetaBrainz Foundation
-// Licensed under the GPL version 2, or (at your option) any later version:
-// http://www.gnu.org/licenses/gpl-2.0.txt
+/*
+ * Copyright (C) 2017 MetaBrainz Foundation
+ *
+ * This file is part of MusicBrainz, the open internet music database
+ * and is licensed under the GPL version 2, or (at your option) any
+ * later version: http://www.gnu.org/licenses/gpl-2.0.txt
+ */
 
 const React = require('react');
 const URL = require('url');
@@ -14,9 +17,9 @@ const {compare, l} = require('../../static/scripts/common/i18n');
 
 function faviconClass(urlEntity) {
   let matchingClass;
-  let urlObject = URL.parse(urlEntity.name, false, true);
+  const urlObject = URL.parse(urlEntity.name, false, true);
 
-  for (let key in FAVICON_CLASSES) {
+  for (const key in FAVICON_CLASSES) {
     if ((key.indexOf('/') >= 0 && urlEntity.name.indexOf(key) >= 0) ||
         urlObject.host.indexOf(key) >= 0) {
       matchingClass = FAVICON_CLASSES[key];
@@ -72,7 +75,7 @@ const ExternalLinks = ({entity, empty, heading}) => {
           key={relationship.id}
           relationship={relationship}
           text={l('Official homepage')}
-        />
+        />,
       );
     } else if (target.show_in_external_links) {
       otherLinks.push(relationship);
