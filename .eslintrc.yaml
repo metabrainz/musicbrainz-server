@@ -3,6 +3,7 @@ root: true
 parser: babel-eslint
 
 plugins:
+  - import
   - react
   - flowtype
 
@@ -142,7 +143,9 @@ rules:
   no-class-assign: error
   no-const-assign: error
   no-dupe-class-members: error
-  no-duplicate-imports: warn
+  # no-duplicate-imports does not support Flow 'type' imports, so we use
+  # the import/no-duplicates rule from eslint-plugin-import instead.
+  no-duplicate-imports: off
   no-new-symbol: error
   no-this-before-super: error
   no-useless-constructor: warn
@@ -152,8 +155,17 @@ rules:
   prefer-numeric-literals: warn
   require-yield: error
   rest-spread-spacing: [warn, never]
-  sort-imports: warn
+  # sort-imports does not support Flow 'type' imports, so we use the
+  # import/order rule from eslint-plugin-import instead.
+  sort-imports: off
   template-curly-spacing: [warn, never]
+
+  ########################
+  # eslint-plugin-import #
+  ########################
+
+  import/no-duplicates: warn
+  import/order: [warn, {newlines-between: always}]
 
   #######################
   # eslint-plugin-react #
