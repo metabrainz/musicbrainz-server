@@ -9,6 +9,8 @@ with 'MusicBrainz::Server::Entity::Role::OptionsTree' => {
     type => 'AliasType',
 };
 
+sub entity_type { 'alias_type' }
+
 sub l_name {
     my $self = shift;
     return lp($self->name, 'alias_type')

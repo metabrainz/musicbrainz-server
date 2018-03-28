@@ -9,6 +9,8 @@ with 'MusicBrainz::Server::Entity::Role::OptionsTree' => {
     type => 'CoverArtType',
 };
 
+sub entity_type { 'cover_art_type' }
+
 sub l_name {
     my $self = shift;
     return lp($self->name, 'cover_art_type');

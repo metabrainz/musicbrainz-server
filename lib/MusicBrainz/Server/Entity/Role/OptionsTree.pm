@@ -24,6 +24,8 @@ parameter sort_criterion => (
 role {
     my $params = shift;
 
+    requires qw( entity_type );
+
     has $params->name => (
         is => 'rw',
         isa => 'Str',
