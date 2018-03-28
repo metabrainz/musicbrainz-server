@@ -194,7 +194,9 @@ rules:
   react/no-danger: off
   react/no-danger-with-children: error
   react/no-deprecated: error
-  react/no-did-mount-set-state: error
+  # Using setState in componentDidMount is necessary when the state depends
+  # on the size/attributes of a DOM node, for example.
+  react/no-did-mount-set-state: off
   react/no-did-update-set-state: error
   react/no-direct-mutation-state: error
   react/no-find-dom-node: warn
@@ -202,7 +204,7 @@ rules:
   react/no-multi-comp: [warn, {ignoreStateless: true}]
   react/no-redundant-should-component-update: error
   react/no-render-return-value: warn
-  react/no-set-state: warn
+  react/no-set-state: off
   react/no-typos: error
   react/no-string-refs: warn
   react/no-this-in-sfc: error
