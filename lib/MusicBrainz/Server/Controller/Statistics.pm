@@ -1,4 +1,5 @@
 package MusicBrainz::Server::Controller::Statistics;
+use Digest::MD5 qw( md5_hex );
 use Moose;
 use MusicBrainz::Server::Data::Statistics::ByDate;
 use MusicBrainz::Server::Data::Statistics::ByName;
@@ -56,15 +57,34 @@ sub statistics : Path('')
     );
 }
 
+sub timeline_type_data : Path('timeline/type-data') {
+    my ($self, $c) = @_;
+
+    my @countries = $c->model('CountryArea')->get_all;
+    my %countries = map { $_->country_code => $_ } @countries;
+    my %languages = map { $_->iso_code_3 => $_ }
+        grep { defined $_->iso_code_3 } $c->model('Language')->get_all;
+    my %scripts = map { $_->iso_code => $_ } $c->model('Script')->get_all;
+    my %formats = map { $_->id => $_ } $c->model('MediumFormat')->get_all;
+    my @rel_pairs = $c->model('Relationship')->all_pairs;
+
+    my $body = $c->json_canonical_utf8->encode({
+        countries => \%countries,
+        formats => \%formats,
+        languages => \%languages,
+        relationships => \@rel_pairs,
+        scripts => \%scripts,
+    });
+    $c->res->body($body);
+    $c->res->content_type('application/json; charset=utf-8');
+    $c->res->headers->etag(md5_hex($body));
+}
+
 sub timeline : Path('timeline/main')
 {
     my ($self, $c) = @_;
 
-    my @stats = qw( count.area count.artist count.place count.release count.medium count.releasegroup count.label count.work count.recording count.series count.instrument count.event count.edit count.edit.open count.edit.perday count.edit.perweek count.vote count.vote.perday count.vote.perweek count.editor count.editor.valid count.editor.deleted count.editor.valid.active count.editor.editlastweek count.editor.votelastweek count.editor.activelastweek count.coverart count.release.has_caa );
-    $c->stash(
-        template => 'statistics/timeline.tt',
-        stats => \@stats
-    )
+    $c->stash(template => 'statistics/timeline.tt');
 }
 
 sub timeline_redirect : Path('timeline')
@@ -77,12 +97,10 @@ sub individual_timeline : Path('timeline') Args(1)
 {
     my ($self, $c, $stat) = @_;
 
-    my @stats = split /\+/, $stat;
     $c->stash(
         template => 'statistics/timeline.tt',
-        stats => \@stats,
         show_all => 1,
-    )
+    );
 }
 
 sub dataset : Local Args(1)
@@ -92,10 +110,9 @@ sub dataset : Local Args(1)
     $c->res->content_type('application/json; charset=utf-8');
     my $tomorrow = Date_to_Time(Add_Delta_Days(Today(1), 1), 0, 0, 0);
     $c->res->headers->expires($tomorrow);
-    $c->stash(
-        template => 'statistics/dataset.tt',
-        statistic => $c->model('Statistics::ByName')->get_statistic($dataset)
-    )
+
+    my $statistic = $c->model('Statistics::ByName')->get_statistic($dataset);
+    $c->res->body($c->json_utf8->encode($statistic));
 }
 
 sub countries : Local

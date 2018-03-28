@@ -1,15 +1,50 @@
+const $ = require('jquery');
+const _ = require('lodash');
+const ko = require('knockout');
+
 const debounce = require('./common/utility/debounce');
+const parseDate = require('./common/utility/parseDate');
+import stats, {buildTypeStats, getStat} from '../../statistics/stats';
 
 require('../lib/flot/jquery.flot');
 require('../lib/flot/jquery.flot.selection');
 require('../lib/flot/jquery.flot.time');
 require('./jquery.flot.musicbrainz_events');
 
-MB.Timeline = {};
+const defaultLines = [
+    'count.area',
+    'count.artist',
+    'count.coverart',
+    'count.edit',
+    'count.edit.open',
+    'count.edit.perday',
+    'count.edit.perweek',
+    'count.editor',
+    'count.editor.activelastweek',
+    'count.editor.deleted',
+    'count.editor.editlastweek',
+    'count.editor.valid',
+    'count.editor.valid.active',
+    'count.editor.votelastweek',
+    'count.event',
+    'count.instrument',
+    'count.label',
+    'count.medium',
+    'count.place',
+    'count.recording',
+    'count.release',
+    'count.release.has_caa',
+    'count.releasegroup',
+    'count.series',
+    'count.vote',
+    'count.vote.perday',
+    'count.vote.perweek',
+    'count.work',
+];
 
 class TimelineViewModel {
 
-    constructor(initialLines) {
+    constructor() {
         var self = this;
         self.categories = ko.observableArray([]);
         self.enabledCategories = ko.computed(function () {
@@ -107,7 +142,15 @@ class TimelineViewModel {
             return bounds;
         });
 
-        self.addLines(initialLines);
+        let lines = document.location.pathname.match(
+            /^\/statistics\/timeline\/(.+)$/
+        )[1].split('+');
+
+        if (lines.length === 1 && lines[0] === 'main') {
+            lines = defaultLines;
+        }
+
+        self.addLines(lines);
         self._getLocationHashSettings();
 
         self.hash = debounce(function () {
@@ -187,15 +230,15 @@ class TimelineViewModel {
     }
 
     addLine(name) {
-        var newLine = MB.text.Timeline.Stat(name)
-        var category = _.find(this.categories(), { name: newLine.Category });
+        var newLine = getStat(name)
+        var category = _.find(this.categories(), { name: newLine.category });
 
         if (!category) {
-            var newCategory = MB.text.Timeline.Category[newLine.Category];
-            category = this.addCategory(new TimelineCategory(newLine.Category, newCategory.Label, !newCategory.Hide));
+            var newCategory = stats.category[newLine.category];
+            category = this.addCategory(new TimelineCategory(newLine.category, newCategory.label, !newCategory.hide));
         }
 
-        category.addLine(new TimelineLine(name, newLine.Label, newLine.Color, !newLine.Hide));
+        category.addLine(new TimelineLine(name, newLine.label, newLine.color, !newLine.hide));
     }
 
     addLines(names) {
@@ -287,7 +330,16 @@ class TimelineLine {
             url: '../../statistics/dataset/' + self.name,
             dataType: 'json'
         }).done(function (data, status, jqxhr) {
-            self.data(data);
+            data = data.data;
+
+            const serial = [];
+            for (const key in data) {
+                const {year, month, day} = parseDate(key);
+                serial.push([Date.UTC(year, month, day), data[key]]);
+            }
+            serial.sort((a, b) => a[0] - b[0]);
+
+            self.data(serial);
             self.loaded(true);
         }).fail(function () {
             self.data(null);
@@ -364,8 +416,6 @@ class TimelineLine {
     }
 }
 
-MB.Timeline.TimelineViewModel = TimelineViewModel;
-
 (function () {
     // Closure over utility functions.
     var showTooltip = function (x, y, contents) {
@@ -441,7 +491,7 @@ MB.Timeline.TimelineViewModel = TimelineViewModel;
                         reset();
                         previousPoint = item.dataIndex;
                         setItemTooltip(item,
-                            graph === 'rate' ? MB.text.Timeline.RateTooltipCloser : undefined,
+                            graph === 'rate' ? stats.rateTooltipCloser : undefined,
                             graph === 'rate' ? 2 : undefined);
                     }
                 } else if ($(element).data('plot').getEvent(pos)) {
@@ -556,3 +606,14 @@ MB.Timeline.TimelineViewModel = TimelineViewModel;
         }
     };
 })();
+
+$.ajax({
+    dataType: 'json',
+    url: './type-data',
+}).done(function (data) {
+    buildTypeStats(data);
+
+    $(function () {
+        ko.applyBindings(new TimelineViewModel());
+    });
+});
