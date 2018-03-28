@@ -164,7 +164,14 @@ rules:
   # eslint-plugin-import #
   ########################
 
+  import/export: error
+  import/extensions: [warn, never]
+  import/first: warn
+  import/newline-after-import: [warn, {count: 1}]
+  import/no-commonjs: error
   import/no-duplicates: warn
+  import/no-dynamic-require: error
+  import/no-unresolved: error
   import/order: [warn, {newlines-between: always}]
 
   #######################
