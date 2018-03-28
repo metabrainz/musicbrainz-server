@@ -160,6 +160,14 @@ async function handleCommand(command, target, value, baseURL, t) {
     return handleCommandAndWait.apply(null, arguments);
   }
 
+  // The CATALYST_DEBUG views interfere with our tests. Remove them.
+  await driver.executeScript(`
+    var node = document.getElementById('catalyst-stats');
+    if (node) node.remove();
+    node = document.getElementById('plDebug');
+    if (node) node.remove();
+  `);
+
   t.comment(
     command +
     ' target=' + utf8.encode(JSON.stringify(target)) +
