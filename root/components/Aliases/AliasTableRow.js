@@ -12,7 +12,7 @@ const Frag = require('../Frag');
 const isolateText = require('../../static/scripts/common/utility/isolateText');
 import formatDate from '../../static/scripts/common/utility/formatDate';
 const entityHref = require('../../static/scripts/common/utility/entityHref');
-const bracketed = require('../../static/scripts/common/utility/bracketed');
+import bracketed from '../../static/scripts/common/utility/bracketed';
 const locales = require('../../static/scripts/common/constants/locales');
 const {l} = require('../../static/scripts/common/i18n');
 const {lp_attributes} = require('../../static/scripts/common/i18n/attributes');

@@ -1,16 +1,20 @@
-// This file is part of MusicBrainz, the open internet music database.
-// Copyright (C) 2015–2016 MetaBrainz Foundation
-// Licensed under the GPL version 2, or (at your option) any later version:
-// http://www.gnu.org/licenses/gpl-2.0.txt
+/*
+ * @flow
+ * This file is part of MusicBrainz, the open internet music database.
+ * Copyright (C) 2015–2016 MetaBrainz Foundation
+ * Licensed under the GPL version 2, or (at your option) any later version:
+ * http://www.gnu.org/licenses/gpl-2.0.txt
+ */
 
 const ko = require('knockout');
-const _ = require('lodash');
 const React = require('react');
 
 const Frag = require('../../../../components/Frag');
 const {ENTITIES, AREA_TYPE_COUNTRY} = require('../constants');
 const {l} = require('../i18n');
-const bracketed = require('../utility/bracketed');
+const {l_countries} = require('../i18n/countries');
+const {l_instruments} = require('../i18n/instruments');
+import bracketed from '../utility/bracketed';
 const entityHref = require('../utility/entityHref');
 const formatDatePeriod = require('../utility/formatDatePeriod');
 const isolateText = require('../utility/isolateText');
@@ -18,7 +22,7 @@ const nonEmpty = require('../utility/nonEmpty');
 const reactTextContent = require('../utility/reactTextContent');
 
 const DeletedLink = ({name, allowNew}) => {
-  let caption = allowNew
+  const caption = allowNew
     ? l('This entity will be created when edits are entered.')
     : l('This entity has been removed, and cannot be displayed correctly.');
 
@@ -32,96 +36,110 @@ const DeletedLink = ({name, allowNew}) => {
 const Comment = ({className, comment}) => (
   <Frag>
     {' '}
-    <span className={className}>({isolateText(comment)})</span>
+    <span className={className}>
+      {bracketed(<bdi key="comment">{comment}</bdi>, {__react: true})}
+    </span>
   </Frag>
 );
 
-class EventDisambiguation extends React.Component {
-  render() {
-    let event = this.props.event;
-    let dates = formatDatePeriod(event);
-    if (!dates && !event.cancelled) {
-      return null;
-    }
-    return (
-      <Frag>
-        {dates ? bracketed(dates) : null}
-        {event.cancelled
-          ? <Comment className="cancelled" comment={l('cancelled')} />
-          : null}
-      </Frag>
-    );
+const EventDisambiguation = ({event}: {|+event: EventT|}) => {
+  const dates = formatDatePeriod(event);
+  if (!dates && !event.cancelled) {
+    return null;
   }
-}
+  return (
+    <Frag>
+      {dates ? ' ' + bracketed(dates) : null}
+      {event.cancelled
+        ? <Comment className="cancelled" comment={l('cancelled')} />
+        : null}
+    </Frag>
+  );
+};
 
-class AreaDisambiguation extends React.Component {
-  render() {
-    let area = this.props.area;
-
-    if (!area.ended) {
-      return null;
-    }
-
-    let comment;
-    let beginYear = area.begin_date ? area.begin_date.year : null;
-    let endYear = area.end_date ? area.end_date.year : null;
-
-    if (beginYear && endYear) {
-      comment = l('historical, {begin}-{end}', {begin: beginYear, end: endYear});
-    } else if (endYear) {
-      comment = l('historical, until {end}', {end: endYear});
-    } else {
-      comment = l('historical');
-    }
-
-    return <Comment className="historical" comment={comment} />;
+const AreaDisambiguation = ({area}: {|+area: AreaT|}) => {
+  if (!area.ended) {
+    return null;
   }
-}
+
+  let comment;
+  const beginYear = area.begin_date ? area.begin_date.year : null;
+  const endYear = area.end_date ? area.end_date.year : null;
+
+  if (beginYear && endYear) {
+    comment = l('historical, {begin}-{end}', {begin: beginYear, end: endYear});
+  } else if (endYear) {
+    comment = l('historical, until {end}', {end: endYear});
+  } else {
+    comment = l('historical');
+  }
+
+  return <Comment className="historical" comment={comment} />;
+};
 
 const NoInfoURL = ({url, allowNew}) => (
   <Frag>
     <a href={url}>{url}</a>
     {' '}
-    <DeletedLink name={'[' + l('info') + ']'} allowNew={allowNew} />
+    <DeletedLink
+      allowNew={allowNew}
+      name={bracketed(l('info'), {type: '[]'})}
+    />
   </Frag>
 );
 
-const EntityLink = (props = {}) => {
-  let {
-    allowNew,
-    content,
-    entity,
-    hover,
-    showDeleted = true,
-    showDisambiguation,
-    subPath,
-    ...anchorProps
-  } = props;
+/* eslint-disable sort-keys, flowtype/sort-keys */
+type EntityLinkProps = {
+  +allowNew?: boolean,
+  +content?: React.Node,
+  +entity: CoreEntityT,
+  +hover?: string,
+  +showDeleted?: boolean,
+  +showDisambiguation?: boolean,
+  +subPath?: string,
 
+  // ...anchorProps
+  href?: string,
+  title?: string,
+  +target?: '_blank',
+};
+/* eslint-enable sort-keys, flowtype/sort-keys */
+
+const EntityLink = ({
+  allowNew = false,
+  content,
+  entity,
+  hover,
+  showDeleted = true,
+  showDisambiguation,
+  subPath,
+  ...anchorProps
+}: EntityLinkProps) => {
   const hasCustomContent = nonEmpty(content);
-  const entityType = entity.entityType;
-  const comment = ko.unwrap(entity.comment);
+  const comment = entity.comment ? ko.unwrap(entity.comment) : '';
 
   if (showDisambiguation === undefined) {
     showDisambiguation = !hasCustomContent;
   }
 
-  if (entityType === 'artist' && !nonEmpty(hover)) {
-    hover = entity.sort_name + bracketed(comment);
+  if (entity.entityType === 'artist' && !nonEmpty(hover)) {
+    hover = entity.sort_name + (comment ? ' ' + bracketed(comment) : '');
   }
 
-  if (entityType === 'artist' || entityType === 'instrument') {
-    content = content || entity.l_name;
+  if (entity.entityType === 'area') {
+    content = content || l_countries(entity.name);
+  } else if (entity.entityType === 'instrument') {
+    content = content || l_instruments(entity.name);
   }
 
   content = content || ko.unwrap(entity.name);
 
   if (!ko.unwrap(entity.gid)) {
-    if (entityType === 'url') {
-      return <NoInfoURL url={entity.url} allowNew={allowNew} />;
+    if (entity.entityType === 'url') {
+      return <NoInfoURL allowNew={allowNew} url={entity.href_url} />;
     }
     if (showDeleted) {
-      return <DeletedLink name={content} allowNew={allowNew} />;
+      return <DeletedLink allowNew={allowNew} name={content} />;
     }
     return null;
   }
@@ -130,19 +148,26 @@ const EntityLink = (props = {}) => {
   let nameVariation;
   let infoLink;
 
-  if (entityType === 'url' && !hasCustomContent) {
+  if (entity.entityType === 'url' && !hasCustomContent) {
     content = entity.pretty_name;
     infoLink = href;
     href = entity.href_url;
   }
 
   // TODO: support name variations for all entity types?
-  if (!subPath && (entityType === 'artist' || entityType === 'recording')) {
-    nameVariation = (_.isObject(content) ? reactTextContent(content) : content) !== entity.name;
+  if (!subPath && (entity.entityType === 'artist' || entity.entityType === 'recording')) {
+    nameVariation = (
+      React.isValidElement(content)
+        ? reactTextContent(content)
+        : content
+    ) !== entity.name;
 
     if (nameVariation) {
       if (hover) {
-        hover = l('{name} – {additional_info}', {name: entity.name, additional_info: hover});
+        hover = l('{name} – {additional_info}', {
+          additional_info: hover,
+          name: entity.name,
+        });
       } else {
         hover = ko.unwrap(entity.name);
       }
@@ -167,8 +192,8 @@ const EntityLink = (props = {}) => {
     content = <span className="mp" key="mp">{content}</span>;
   }
 
-  if (!subPath && entityType === 'area') {
-    let isoCodes = entity.iso_3166_1_codes;
+  if (!subPath && entity.entityType === 'area') {
+    const isoCodes = entity.iso_3166_1_codes;
     if (isoCodes && isoCodes.length) {
       content = (
         <span className={'flag flag-' + isoCodes[0]} key="flag">
@@ -185,21 +210,28 @@ const EntityLink = (props = {}) => {
   const parts = [content];
 
   if (showDisambiguation) {
-    if (entityType === 'event') {
+    if (entity.entityType === 'event') {
       parts.push(<EventDisambiguation event={entity} key="eventdisambig" />);
     }
     if (comment) {
       parts.push(
-        <Comment className="comment" comment={comment} key="comment" />
+        <Comment className="comment" comment={comment} key="comment" />,
       );
     }
-    if (entityType === 'area') {
+    if (entity.entityType === 'area') {
       parts.push(<AreaDisambiguation area={entity} key="areadisambig" />);
     }
   }
 
   if (infoLink) {
-    parts.push(' [', <a href={infoLink} key="info">{l('info')}</a>, ']')
+    parts.push(' ');
+    parts.push.apply(
+      parts,
+      bracketed(
+        <a href={infoLink} key="info">{l('info')}</a>,
+        {__react: true, type: '[]'}
+      )
+    );
   }
 
   return parts;
