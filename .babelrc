@@ -7,13 +7,12 @@
   "presets": [
     ["env", {
       "targets": {
-        "chrome": "44",
-        "edge": "13",
-        "firefox": "44",
+        "chrome": "49",
+        "edge": "14",
+        "firefox": "52",
         "ie": "11",
         "node": "6",
-        "opera": "39",
-        "safari": "9.1"
+        "safari": "9.0"
       }
     }],
     "stage-2",
