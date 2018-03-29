@@ -3,6 +3,7 @@ root: true
 parser: babel-eslint
 
 plugins:
+  - import
   - react
   - flowtype
 
@@ -112,7 +113,7 @@ rules:
   no-underscore-dangle: off
   no-unneeded-ternary: warn
   no-whitespace-before-property: warn
-  object-curly-newline: [warn, {multiline: true}]
+  object-curly-newline: [warn, {multiline: true, consistent: true}]
   object-curly-spacing: [warn, never]
   object-property-newline: [warn, {allowAllPropertiesOnSameLine: true}]
   one-var: [warn, never]
@@ -142,7 +143,9 @@ rules:
   no-class-assign: error
   no-const-assign: error
   no-dupe-class-members: error
-  no-duplicate-imports: warn
+  # no-duplicate-imports does not support Flow 'type' imports, so we use
+  # the import/no-duplicates rule from eslint-plugin-import instead.
+  no-duplicate-imports: off
   no-new-symbol: error
   no-this-before-super: error
   no-useless-constructor: warn
@@ -152,8 +155,24 @@ rules:
   prefer-numeric-literals: warn
   require-yield: error
   rest-spread-spacing: [warn, never]
-  sort-imports: warn
+  # sort-imports does not support Flow 'type' imports, so we use the
+  # import/order rule from eslint-plugin-import instead.
+  sort-imports: off
   template-curly-spacing: [warn, never]
+
+  ########################
+  # eslint-plugin-import #
+  ########################
+
+  import/export: error
+  import/extensions: [warn, never]
+  import/first: warn
+  import/newline-after-import: [warn, {count: 1}]
+  import/no-commonjs: error
+  import/no-duplicates: warn
+  import/no-dynamic-require: error
+  import/no-unresolved: error
+  import/order: [warn, {newlines-between: always}]
 
   #######################
   # eslint-plugin-react #
@@ -175,7 +194,9 @@ rules:
   react/no-danger: off
   react/no-danger-with-children: error
   react/no-deprecated: error
-  react/no-did-mount-set-state: error
+  # Using setState in componentDidMount is necessary when the state depends
+  # on the size/attributes of a DOM node, for example.
+  react/no-did-mount-set-state: off
   react/no-did-update-set-state: error
   react/no-direct-mutation-state: error
   react/no-find-dom-node: warn
@@ -183,7 +204,7 @@ rules:
   react/no-multi-comp: [warn, {ignoreStateless: true}]
   react/no-redundant-should-component-update: error
   react/no-render-return-value: warn
-  react/no-set-state: warn
+  react/no-set-state: off
   react/no-typos: error
   react/no-string-refs: warn
   react/no-this-in-sfc: error
