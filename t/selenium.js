@@ -4,10 +4,11 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
+const child_process = require('child_process');
 const fs = require('fs');
 const jsdom = require('jsdom');
 const path = require('path');
-const shell = require('shelljs');
+const shellQuote = require('shell-quote');
 const test = require('tape');
 const utf8 = require('utf8');
 const webdriver = require('selenium-webdriver');
@@ -19,14 +20,35 @@ const until = require('selenium-webdriver/lib/until');
 
 const escapeRegExp = require('../root/static/scripts/common/utility/escapeRegExp');
 
-const testSqlPath = path.resolve(__dirname, 'sql', 'selenium.sql');
-const psqlPath = path.resolve(__dirname, '..', 'admin', 'psql');
+function execFile(...args) {
+  return new Promise(function (resolve, reject) {
+    let exitCode = null;
+    let result = null;
 
-shell.exec(
-  (process.env.PERL_CARTON_PATH ? 'carton exec -- ' : '') +
-  psqlPath + ' TEST < ' + testSqlPath,
-  {silent: true}
-);
+    function done() {
+      result.code = exitCode;
+      if (result.error) {
+        reject(result);
+      } else {
+        resolve(result);
+      }
+    }
+
+    const child = child_process.execFile(...args, function (error, stdout, stderr) {
+      result = {error, stdout, stderr};
+      if (exitCode !== null) {
+        done();
+      }
+    });
+
+    child.on('exit', function (code) {
+      exitCode = code;
+      if (result !== null) {
+        done();
+      }
+    });
+  });
+}
 
 const driver = new webdriver.Builder()
   .forBrowser('chrome')
@@ -270,50 +292,173 @@ async function handleCommand(command, target, value, baseURL, t) {
   }
 }
 
-const tests = [
-  'Create_Account.html',
-  'Log_Out.html',
-  'Log_In.html',
-  'MBS-7456.html',
-  'MBS-9548.html',
-  'Artist_Credit_Editor.html',
-  'External_Links_Editor.html',
-  'Work_Editor.html',
+const seleniumTests = [
+  {name: 'Create_Account.html'},
+  {name: 'MBS-7456.html', login: true},
+  {name: 'MBS-9548.html'},
+  {name: 'Artist_Credit_Editor.html', login: true},
+  {name: 'External_Links_Editor.html', login: true},
+  {name: 'Work_Editor.html', login: true},
 ];
 
-async function nextTest(testIndex) {
-  const file = path.resolve(__dirname, 'selenium', tests[testIndex]);
-  const {document} = new jsdom.JSDOM(fs.readFileSync(file)).window;
+const testPath = name => path.resolve(__dirname, 'selenium', name);
 
+seleniumTests.forEach(x => {
+  x.path = testPath(x.name);
+});
+
+function getPlan(file) {
+  const {document} = new jsdom.JSDOM(fs.readFileSync(file)).window;
   const baseURL = document.querySelector('link[rel=selenium\\.base]').href;
   const title = document.querySelector('title').textContent;
   const tbody = document.querySelector('tbody');
   const rows = Array.prototype.slice.call(tbody.getElementsByTagName('tr'), 0);
+  const commands = [];
+  let plan = 0;
 
-  test(title, {timeout: 60000}, async function (t) {
-    async function nextRow(index) {
-      if (index < rows.length) {
-        const cols = rows[index].getElementsByTagName('td');
-        const command = cols[0].textContent;
-        const target = cols[1].textContent;
-        const value = cols[2].textContent;
+  for (let i = 0; i < rows.length; i++) {
+    const cols = rows[i].getElementsByTagName('td');
+    const command = cols[0].textContent;
+    const target = cols[1].textContent;
+    const value = cols[2].textContent;
 
-        await handleCommand(command, target, value, baseURL, t);
-
-        return nextRow(index + 1);
-      } else {
-        t.end();
-
-        if (testIndex < tests.length - 1) {
-          process.nextTick(nextTest, testIndex + 1);
-        } else {
-          await quit();
-        }
-      }
+    if (/^assert/.test(command)) {
+      plan++;
     }
 
-    await nextRow(0);
-  });
+    commands.push([command, target, value, baseURL]);
+  }
+
+  return {commands, plan, title};
 }
 
-nextTest(0);
+async function runCommands(commands, t) {
+  for (let i = 0; i < commands.length; i++) {
+    await handleCommand(...commands[i], t);
+  }
+}
+
+(async function runTests() {
+  const TEST_TIMEOUT = 60000; // 60 seconds
+
+  const cartonPrefix = process.env.PERL_CARTON_PATH
+    ? 'carton exec -- '
+    : '';
+
+  function pgPasswordEnv(db) {
+    if (db.password) {
+      return {env: Object.assign({}, process.env, {PGPASSWORD: db.password})};
+    }
+    return {};
+  }
+
+  async function getDbConfig(name) {
+    if (name !== 'SYSTEM' && name !== 'TEST') {
+      return null;
+    }
+
+    const result = (await execFile(
+      'sh', [
+        '-c',
+        `$(${cartonPrefix}./script/database_configuration ${name}) && ` +
+        'echo "$PGHOST\n$PGPORT\n$PGDATABASE\n$PGUSER\n$PGPASSWORD"',
+      ],
+    )).stdout.split('\n').map(x => x.trim());
+
+    return {
+      host: result[0],
+      port: result[1],
+      database: result[2],
+      user: result[3],
+      password: result[4],
+    };
+  }
+
+  const sysDb = await getDbConfig('SYSTEM');
+  const testDb = await getDbConfig('TEST');
+
+  const hostPort = ['-h', testDb.host, '-p', testDb.port];
+
+  const createdbArgs = [
+    '-O', testDb.user,
+    '-T', testDb.database,
+    '-U', sysDb.user,
+    ...hostPort,
+    'musicbrainz_selenium',
+  ];
+
+  const testSqlPath = path.resolve(__dirname, 'sql', 'selenium.sql');
+  const sqlInsertionArgs = [
+    '-c',
+    shellQuote.quote(['cat', testSqlPath]) +  ' | ' +
+    shellQuote.quote(['psql', ...hostPort, '-U', testDb.user, 'musicbrainz_selenium']),
+  ];
+
+  const dropdbArgs = [...hostPort, '-U', sysDb.user, 'musicbrainz_selenium'];
+
+  async function createSeleniumDb() {
+    await execFile('createdb', createdbArgs, pgPasswordEnv(sysDb));
+    await execFile('sh', sqlInsertionArgs, pgPasswordEnv(testDb));
+  }
+
+  function dropSeleniumDb() {
+    return execFile('dropdb', dropdbArgs, pgPasswordEnv(sysDb));
+  }
+
+  const seleniumDbCheck = await execFile(
+    'psql', [...hostPort, '-U', testDb.user, '-c', 'SELECT 1', 'musicbrainz_selenium'],
+    pgPasswordEnv(testDb),
+  ).catch(x => x);
+
+  if (seleniumDbCheck.code === 0) {
+    await dropSeleniumDb();
+  } else if (seleniumDbCheck.code !== 2) {
+    // An error other than the database not existing occurred.
+    throw seleniumDbCheck.error;
+  }
+
+  const loginPlan = getPlan(testPath('Log_In.html'));
+  const logoutPlan = getPlan(testPath('Log_Out.html'));
+  const testsPathsToRun = process.argv.slice(2).map(x => path.resolve(x));
+  const testsToRun = testsPathsToRun.length
+    ? seleniumTests.filter(x => testsPathsToRun.includes(x.path))
+    : seleniumTests;
+
+  await testsToRun.reduce(function (accum, stest) {
+    const {commands, plan, title} = getPlan(stest.path);
+
+    return new Promise(function (resolve) {
+      test(title, {timeout: TEST_TIMEOUT}, function (t) {
+        t.plan(plan);
+
+        const timeout = setTimeout(resolve, TEST_TIMEOUT);
+
+        accum.then(async function () {
+          try {
+            await createSeleniumDb();
+
+            if (stest.login) {
+              await runCommands(loginPlan.commands, t);
+            }
+
+            await runCommands(commands, t);
+
+            if (stest.login) {
+              await runCommands(logoutPlan.commands, t);
+            }
+
+            await dropSeleniumDb();
+          } catch (error) {
+            t.fail(JSON.stringify(error, null, 2));
+          }
+
+          t.end();
+          clearTimeout(timeout);
+          resolve();
+        });
+      });
+    });
+  }, Promise.resolve());
+
+  await quit();
+}());

@@ -24,7 +24,7 @@
 <tr>
 	<td>type</td>
 	<td>id=id-register.username</td>
-	<td>editor</td>
+	<td>new_editor</td>
 </tr>
 <tr>
 	<td>type</td>
@@ -39,7 +39,7 @@
 <tr>
 	<td>type</td>
 	<td>id=id-register.email</td>
-	<td>editor@example.com</td>
+	<td>new_editor@example.com</td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
@@ -48,12 +48,12 @@
 </tr>
 <tr>
 	<td>assertLocation</td>
-	<td>http://localhost:5000/user/editor</td>
+	<td>http://localhost:5000/user/new_editor</td>
 	<td></td>
 </tr>
 <tr>
 	<td>open</td>
-	<td>/verify-email?email=editor%40example.com&amp;time=32503680000&amp;userid=5&amp;chk=BzM%2FJSHNWpbB%2BbtslPr3VVT3bz0</td>
+	<td>/verify-email?email=new_editor%40example.com&amp;time=32503680000&amp;userid=6&amp;chk=EJq5fZgv%2FBzKsNkSJm6%2FDB6gg50</td>
 	<td></td>
 </tr>
 <tr>
@@ -61,6 +61,23 @@
 	<td>Email Address Verified - MusicBrainz</td>
 	<td></td>
 </tr>
+<!-- Log out -->
+<tr>
+	<td>click</td>
+	<td>css=span.menu-header</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Log Out</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertElementPresent</td>
+	<td>css=.header a[href*=&quot;/login&quot;]</td>
+	<td></td>
+</tr>
+
 </tbody></table>
 </body>
 </html>

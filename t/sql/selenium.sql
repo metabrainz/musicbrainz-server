@@ -2,8 +2,8 @@
 
 BEGIN;
 
--- Skip past $EDITOR_MODBOT.
-SELECT setval('editor_id_seq', 5, FALSE);
+-- Skip past $EDITOR_MODBOT and 'editor' below.
+SELECT setval('editor_id_seq', 6, FALSE);
 
 -- Skip past special purpose artists.
 SELECT setval('artist_id_seq', 3, FALSE);
@@ -20,6 +20,9 @@ INSERT INTO artist_credit (id, name, artist_count, ref_count) VALUES
 INSERT INTO artist_credit_name (artist_credit, position, artist, name, join_phrase) VALUES
     (956, 0, 956, 'David Bowie', ''),
     (2196047, 0, 1647244, 'The David Bowie Knives', '');
+
+INSERT INTO editor VALUES
+    (5, 'editor', 0, 'editor@example.com', NULL, NULL, '2018-03-30 00:39:29.175923-05', '2018-03-30 00:39:30.023663-05', '2018-03-30 00:39:29.175923-05', '2018-03-30 00:39:30.023663-05', NULL, NULL, NULL, '{CRYPT}$2a$10$d.6vAYMxGN56ExVNioQnZuLvSmnm3S5QCeSFWQSAo561aYhAEcLqC', '3a115bc4f05ea9856bd4611b75c80bca', false);
 
 INSERT INTO link_type (id, parent, child_order, gid, entity_type0, entity_type1, name, description, link_phrase, reverse_link_phrase, long_link_phrase, priority, last_updated, is_deprecated, has_dates, entity0_cardinality, entity1_cardinality) VALUES
 --    (74, 73, 1, '98e08c20-8402-4163-8970-53504bb6a1e4', 'release', 'url', 'purchase for download', 'This is used to link to a page where the release can be purchased for download.', 'purchase for download', 'download purchase page for', 'can be purchased for download at', 0, '2013-12-10 13:51:19.794106+00', false, true, 0, 0),
