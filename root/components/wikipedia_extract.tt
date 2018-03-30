@@ -1,9 +1,0 @@
-[%- IF wikipedia_extract -%]
-<h2 class="wikipedia">[% l('Wikipedia') %]</h2>
-<div class="wikipedia-extract-body wikipedia-extract-collapse">
-    [%- wikipedia_extract.content -%]
-</div>
-<a href="[% html_escape(wikipedia_extract.url) %]">[% l('Continue reading at Wikipedia...') %]</a>
-<small>[% l('Wikipedia content provided under the terms of the {license_link|Creative Commons BY-SA license}',
-            {license_link => 'http://creativecommons.org/licenses/by-sa/3.0/'}) %]</small>
-[%- END -%]

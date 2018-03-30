@@ -879,19 +879,10 @@ END ~%]
 [%~ END -%]
 
 [%~ MACRO show_wikipedia_extract BLOCK -%]
-    [%- IF wikipedia_extract -%]
-        [%- INCLUDE 'components/wikipedia_extract.tt' -%]
-    [%- ELSIF wikipedia_extract_url -%]
-        <span style="display:none" id="wikipedia-insertion-point"></span>
-        <script type="text/javascript">
-            $.get('[% wikipedia_extract_url %]',
-                  function (data) {
-                      $('#wikipedia-insertion-point').replaceWith(data);
-                      MB.makeCollapsible('wikipedia-extract');
-                  },
-                  'html');
-        </script>
-    [%- END -%]
+    [%- React.embed(c, 'components/EntityWikipediaExtract.js', {
+        wikipediaExtract => wikipedia_extract,
+        wikipediaExtractURL => wikipedia_extract_url
+    }) -%]
 [%- END -%]
 
 [%~ MACRO show_image BLOCK -%]

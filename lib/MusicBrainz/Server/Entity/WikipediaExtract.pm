@@ -24,13 +24,10 @@ has 'language' => (
     isa => 'Str',
 );
 
-sub url
-{
-    my $self = shift;
-    my $title = $self->title;
-    $title =~ tr/ /_/;
-    return sprintf "https://%s.wikipedia.org/wiki/%s", $self->language, uri_escape_utf8($title);
-}
+has 'url' => (
+    is => 'rw',
+    isa => 'Str',
+);
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

@@ -392,4 +392,9 @@ declare type WorkAttributeTypeTreeT = {|
 declare type WorkAttributeTypeTreeRootT =
   {|+children: $ReadOnlyArray<WorkAttributeTypeTreeT>|};
 
+declare type WikipediaExtractT = {|
+  +content: string,
+  +url: string,
+|};
+
 declare var $c: CatalystContextT;
