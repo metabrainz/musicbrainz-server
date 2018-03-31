@@ -292,10 +292,6 @@ ALTER TABLE l_event_url ADD CONSTRAINT control_for_whitespace_entity1_credit CHE
 ALTER TABLE l_event_work ADD CONSTRAINT control_for_whitespace_entity0_credit CHECK (controlled_for_whitespace(entity0_credit));
 ALTER TABLE l_event_work ADD CONSTRAINT control_for_whitespace_entity1_credit CHECK (controlled_for_whitespace(entity1_credit));
 
-ALTER TABLE l_label_label ADD CONSTRAINT control_for_whitespace_entity0_credit CHECK (controlled_for_whitespace(entity0_credit));
-ALTER TABLE l_label_label ADD CONSTRAINT control_for_whitespace_entity1_credit CHECK (controlled_for_whitespace(entity1_credit));
-ALTER TABLE l_label_label ADD CONSTRAINT non_loop_relationship CHECK (entity0 != entity1);
-
 ALTER TABLE l_instrument_instrument ADD CONSTRAINT control_for_whitespace_entity0_credit CHECK (controlled_for_whitespace(entity0_credit));
 ALTER TABLE l_instrument_instrument ADD CONSTRAINT control_for_whitespace_entity1_credit CHECK (controlled_for_whitespace(entity1_credit));
 ALTER TABLE l_instrument_instrument ADD CONSTRAINT non_loop_relationship CHECK (entity0 != entity1);
@@ -323,6 +319,10 @@ ALTER TABLE l_instrument_url ADD CONSTRAINT control_for_whitespace_entity1_credi
 
 ALTER TABLE l_instrument_work ADD CONSTRAINT control_for_whitespace_entity0_credit CHECK (controlled_for_whitespace(entity0_credit));
 ALTER TABLE l_instrument_work ADD CONSTRAINT control_for_whitespace_entity1_credit CHECK (controlled_for_whitespace(entity1_credit));
+
+ALTER TABLE l_label_label ADD CONSTRAINT control_for_whitespace_entity0_credit CHECK (controlled_for_whitespace(entity0_credit));
+ALTER TABLE l_label_label ADD CONSTRAINT control_for_whitespace_entity1_credit CHECK (controlled_for_whitespace(entity1_credit));
+ALTER TABLE l_label_label ADD CONSTRAINT non_loop_relationship CHECK (entity0 != entity1);
 
 ALTER TABLE l_label_place ADD CONSTRAINT control_for_whitespace_entity0_credit CHECK (controlled_for_whitespace(entity0_credit));
 ALTER TABLE l_label_place ADD CONSTRAINT control_for_whitespace_entity1_credit CHECK (controlled_for_whitespace(entity1_credit));
