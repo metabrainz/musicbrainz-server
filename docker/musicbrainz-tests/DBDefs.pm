@@ -26,6 +26,13 @@ MusicBrainz::Server::DatabaseConnectionFactory->register_databases(
         port        => 5432,
         username    => 'musicbrainz',
     },
+    SELENIUM => {
+        database    => 'musicbrainz_selenium',
+        host        => 'musicbrainz-test-database',
+        password    => '',
+        port        => 5432,
+        username    => 'musicbrainz',
+    },
 );
 
 sub CACHE_MANAGER_OPTIONS {
@@ -82,5 +89,7 @@ sub PLUGIN_CACHE_OPTIONS {
         namespace => 'MB:Catalyst:',
     };
 }
+
+sub USE_SELENIUM_HEADER { 1 }
 
 1;

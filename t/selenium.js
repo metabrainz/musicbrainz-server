@@ -6,6 +6,7 @@
 
 const child_process = require('child_process');
 const fs = require('fs');
+const httpProxy = require('http-proxy');
 const jsdom = require('jsdom');
 const path = require('path');
 const shellQuote = require('shell-quote');
@@ -13,11 +14,13 @@ const test = require('tape');
 const utf8 = require('utf8');
 const webdriver = require('selenium-webdriver');
 const chrome = require('selenium-webdriver/chrome');
+const webdriverProxy = require('selenium-webdriver/proxy');
 const {UnexpectedAlertOpenError} = require('selenium-webdriver/lib/error');
 const {Key} = require('selenium-webdriver/lib/input');
 const promise = require('selenium-webdriver/lib/promise');
 const until = require('selenium-webdriver/lib/until');
 
+const DBDefs = require('../root/static/scripts/common/DBDefs');
 const escapeRegExp = require('../root/static/scripts/common/utility/escapeRegExp');
 
 function execFile(...args) {
@@ -50,16 +53,29 @@ function execFile(...args) {
   });
 }
 
+const proxy = httpProxy.createProxyServer({
+  target: 'http://' + DBDefs.WEB_SERVER,
+});
+
+proxy.on('proxyReq', function (proxyReq) {
+  proxyReq.setHeader('Selenium', '1');
+});
+
 const driver = new webdriver.Builder()
   .forBrowser('chrome')
+  .setProxy(webdriverProxy.manual({http: 'localhost:5050'}))
   .setChromeOptions(
     new chrome.Options()
       .headless()
-      .addArguments('no-sandbox')
+      .addArguments(
+        'no-sandbox',
+        'proxy-server=http://localhost:5050',
+      )
   )
   .build();
 
 function quit() {
+  proxy.close();
   return driver.quit().catch(console.error);
 }
 
@@ -143,15 +159,15 @@ function getPageErrors() {
   return driver.executeScript('return ((window.MB || {}).js_errors || [])');
 }
 
-async function handleCommandAndWait(command, target, value, baseURL, t) {
+async function handleCommandAndWait(command, target, value, t) {
   command = command.replace(/AndWait$/, '');
 
   const html = await findElement('css=html');
-  await handleCommand(command, target, value, baseURL, t);
+  await handleCommand(command, target, value, t);
   return driver.wait(until.stalenessOf(html), 10000);
 }
 
-async function handleCommand(command, target, value, baseURL, t) {
+async function handleCommand(command, target, value, t) {
   // Die if there are any JS errors on the page since the previous command.
   let errors;
   try {
@@ -260,7 +276,7 @@ async function handleCommand(command, target, value, baseURL, t) {
         .perform();
 
     case 'open':
-      await driver.get(baseURL + target);
+      await driver.get('http://' + DBDefs.WEB_SERVER + target);
       return driver.manage().window().setSize(1024, 768);
 
     case 'pause':
@@ -309,7 +325,6 @@ seleniumTests.forEach(x => {
 
 function getPlan(file) {
   const {document} = new jsdom.JSDOM(fs.readFileSync(file)).window;
-  const baseURL = document.querySelector('link[rel=selenium\\.base]').href;
   const title = document.querySelector('title').textContent;
   const tbody = document.querySelector('tbody');
   const rows = Array.prototype.slice.call(tbody.getElementsByTagName('tr'), 0);
@@ -326,7 +341,7 @@ function getPlan(file) {
       plan++;
     }
 
-    commands.push([command, target, value, baseURL]);
+    commands.push([command, target, value]);
   }
 
   return {commands, plan, title};
@@ -423,6 +438,8 @@ async function runCommands(commands, t) {
   const testsToRun = testsPathsToRun.length
     ? seleniumTests.filter(x => testsPathsToRun.includes(x.path))
     : seleniumTests;
+
+  proxy.listen(5050);
 
   await testsToRun.reduce(function (accum, stest) {
     const {commands, plan, title} = getPlan(stest.path);
