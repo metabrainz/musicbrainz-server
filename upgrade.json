@@ -62,6 +62,7 @@
 
   "25": {
     "standalone": ["20170604-mbs-9365.sql",
-                   "20170909-mbs-9462-missing-event-triggers.sql"]
+                   "20170909-mbs-9462-missing-event-triggers.sql",
+                   "20180331-mbs-9664-non-loop-checks.sql"]
   }
 }
