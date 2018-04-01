@@ -1158,6 +1158,14 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
                      input_entity_type: 'area',
             expected_relationship_type: 'geonames',
                     expected_clean_url: 'http://sws.geonames.org/6255147/',
+               only_valid_entity_types: ['area', 'place']
+        },
+        {
+                             input_url: 'http://www.geonames.org/6698548/jaani-kirik.html',
+                     input_entity_type: 'area',
+            expected_relationship_type: 'geonames',
+                    expected_clean_url: 'http://sws.geonames.org/6698548/',
+               only_valid_entity_types: ['area', 'place']
         },
         // Google
         {
