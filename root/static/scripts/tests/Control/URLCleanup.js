@@ -1471,6 +1471,21 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
                      input_entity_type: 'release',
             expected_relationship_type: 'discographyentry',
         },
+        // Kget.jp
+        {
+                             input_url: 'http://www.kget.jp/search/index.php?c=0&r=%E3%83%A4%E3%83%B3%E3%82%B0%E3%83%BB%E3%83%95%E3%83%AC%E3%83%83%E3%82%B7%E3%83%A5&t=&v=&f=',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'lyrics',
+                    expected_clean_url: 'http://www.kget.jp/search/index.php?r=%E3%83%A4%E3%83%B3%E3%82%B0%E3%83%BB%E3%83%95%E3%83%AC%E3%83%83%E3%82%B7%E3%83%A5',
+               only_valid_entity_types: ['artist']
+        },
+        {
+                             input_url: 'http://www.kget.jp/lyric/173795/VAMOLA%21%E3%82%AD%E3%83%A7%E3%82%A6%E3%83%AA%E3%83%A5%E3%82%A6%E3%82%B8%E3%83%A3%E3%83%BC_%E9%8E%8C%E7%94%B0%E7%AB%A0%E5%90%BE',
+                     input_entity_type: 'work',
+            expected_relationship_type: 'lyrics',
+                    expected_clean_url: 'http://www.kget.jp/lyric/173795/',
+               only_valid_entity_types: ['work']
+        },
         // Kickstarter
         {
                              input_url: 'https://www.kickstarter.com/profile/0123456789/bio',
