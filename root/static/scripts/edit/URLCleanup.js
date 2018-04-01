@@ -1593,6 +1593,16 @@ const CLEANUPS = {
       return false;
     }
   },
+  onlinebijbel: {
+    match: [new RegExp("^(https?://)?([^/]+\\.)?online-bijbel\\.nl/", "i")],
+    type: LINK_TYPES.lyrics,
+    clean: function (url) {
+      return url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?online-bijbel\.nl\/(12gezang|gezang|psalm)\/(\d+).*$/, "http://www.online-bijbel.nl/$1/$2/");
+    },
+    validate: function (url, id) {
+      return id === LINK_TYPES.lyrics.work && /^http:\/\/www.online-bijbel\.nl\/(12gezang|gezang|psalm)\/\d+\/$/.test(url);
+    }
+  },
   operabase: {
     match: [new RegExp("^(https?://)?(www\\.)?operabase\\.com", "i")],
     type: LINK_TYPES.otherdatabases,
