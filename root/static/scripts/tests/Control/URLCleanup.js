@@ -1825,6 +1825,28 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
             expected_relationship_type: 'otherdatabases',
                     expected_clean_url: 'http://trove.nla.gov.au/work/9438679',
         },
+        // Online-Bijbel.nl
+        {
+                             input_url: 'http://www.online-bijbel.nl/12gezang/12/',
+                     input_entity_type: 'work',
+            expected_relationship_type: 'lyrics',
+                    expected_clean_url: 'http://www.online-bijbel.nl/12gezang/12/',
+               only_valid_entity_types: ['work']
+        },
+        {
+                             input_url: 'http://online-bijbel.nl/gezang/231',
+                     input_entity_type: 'work',
+            expected_relationship_type: 'lyrics',
+                    expected_clean_url: 'http://www.online-bijbel.nl/gezang/231/',
+               only_valid_entity_types: ['work']
+        },
+        {
+                             input_url: 'www.online-bijbel.nl/psalm/136/8',
+                     input_entity_type: 'work',
+            expected_relationship_type: 'lyrics',
+                    expected_clean_url: 'http://www.online-bijbel.nl/psalm/136/',
+               only_valid_entity_types: ['work']
+        },
         // Open Library
         {
                              input_url: 'http://openlibrary.org/authors/OL23919A/',
