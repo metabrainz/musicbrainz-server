@@ -1535,6 +1535,33 @@ const CLEANUPS = {
       return false;
     }
   },
+  kget: {
+    match: [new RegExp("^(https?://)?([^/]+\\.)?kget\\.jp/", "i")],
+    type: LINK_TYPES.lyrics,
+    clean: function (url) {
+      var m = /^(?:https?:\/\/)?(?:[^\/]+\.)?kget\.jp\/(.*)$/.exec(url);
+      if (m) {
+        var tail = m[1];
+        tail = tail.replace(/^(lyric\/\d+)(?:\/.*)?$/, "$1/");
+        tail = tail.replace(/^(search\/index.php\?).*(r=[^&#]+).*$/, "$1$2");
+        url = "http://www.kget.jp/" + tail;
+      }
+      return url;
+    },
+    validate: function (url, id) {
+      var m = /^http:\/\/www\.kget\.jp\/(lyric(?=\/)|search\/index(?=\.))(?:\/\d+\/|\.php\?r=[^&#]+)$/.exec(url);
+      if (m) {
+        var prefix = m[1];
+        switch (id) {
+          case LINK_TYPES.lyrics.artist:
+            return prefix === 'search/index';
+          case LINK_TYPES.lyrics.work:
+            return prefix === 'lyric';
+        }
+      }
+      return false;
+    }
+  },
   livefans: {
     match: [new RegExp("^(https?://)?(www\\.)?livefans\\.jp", "i")],
     type: LINK_TYPES.otherdatabases,
