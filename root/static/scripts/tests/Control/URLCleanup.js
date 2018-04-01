@@ -2640,6 +2640,21 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
                      input_entity_type: 'work',
             expected_relationship_type: 'lyrics',
         },
+        // Uta-Net
+        {
+                             input_url: 'http://uta-net.com/artist/9208/4/',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'lyrics',
+                    expected_clean_url: 'https://www.uta-net.com/artist/9208/',
+               only_valid_entity_types: ['artist']
+        },
+        {
+                             input_url: 'www.uta-net.com/song/188300/',
+                     input_entity_type: 'work',
+            expected_relationship_type: 'lyrics',
+                    expected_clean_url: 'https://www.uta-net.com/song/188300/',
+               only_valid_entity_types: ['work']
+        },
         // Utaten
         {
                              input_url: 'utaten.com/artist/fripSide?sort=popular_sort_asc',
