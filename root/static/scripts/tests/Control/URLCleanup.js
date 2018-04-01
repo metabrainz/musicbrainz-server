@@ -1613,6 +1613,21 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
             expected_relationship_type: 'downloadpurchase',
                     expected_clean_url: 'https://loudr.fm/release/dearly-beloved-2014/Vv2cZ',
         },
+        // lyric.evesta.jp
+        {
+                             input_url: 'http://lyric.evesta.jp/a7d0991.html',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'lyrics',
+                    expected_clean_url: 'http://lyric.evesta.jp/a7d0991.html',
+               only_valid_entity_types: ['artist']
+        },
+        {
+                             input_url: 'www.lyric.evesta.jp/l7a75fa.html#lyrictitle',
+                     input_entity_type: 'work',
+            expected_relationship_type: 'lyrics',
+                    expected_clean_url: 'http://lyric.evesta.jp/l7a75fa.html',
+               only_valid_entity_types: ['work']
+        },
         // LYRICSnMUSIC
         {
                              input_url: 'http://www.lyricsnmusic.com/david-hasselhoff/white-christmas-lyrics/27952232',
