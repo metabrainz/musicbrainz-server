@@ -206,7 +206,8 @@ const LINK_TYPES = {
     place: "751e8fb1-ed8d-4a94-b71b-a38065054f5d"
   },
   geonames: {
-    area: "c52f14c0-e9ac-4a8a-8f7a-c47328de168f"
+    area: "c52f14c0-e9ac-4a8a-8f7a-c47328de168f",
+    place: "c4c6356f-9cbc-4e26-ae76-63eef96d059d"
   },
   imslp: {
     artist: "8147b6a2-ad14-4ce7-8f0a-697f9a31f68f"
