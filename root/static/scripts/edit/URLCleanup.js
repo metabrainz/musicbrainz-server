@@ -1294,6 +1294,16 @@ const CLEANUPS = {
       return false;
     }
   },
+  animationsong: {
+    match: [new RegExp("^(https?://)?([^/]+\\.)?animationsong\\.com/", "i")],
+    type: LINK_TYPES.lyrics,
+    clean: function (url) {
+      return url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?animationsong\.com\/(archives\/\d+\.html).*$/, "http://animationsong.com/$1");
+    },
+    validate: function (url, id) {
+      return id === LINK_TYPES.lyrics.work && /^http:\/\/animationsong\.com\/archives\/\d+\.html$/.test(url);
+    }
+  },
   anisongeneration: {
     match: [new RegExp("^(?:https?://)?anison\\.info/", "i")],
     type: LINK_TYPES.otherdatabases,
