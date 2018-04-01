@@ -1535,6 +1535,33 @@ const CLEANUPS = {
       return false;
     }
   },
+  kashinavi: {
+    match: [new RegExp("^(https?://)?([^/]+\\.)?kashinavi\\.com/", "i")],
+    type: LINK_TYPES.lyrics,
+    clean: function (url) {
+      var m = /^(?:https?:\/\/)?(?:[^\/]+\.)?kashinavi\.com\/(.*)$/.exec(url);
+      if (m) {
+        var tail = m[1];
+        tail = tail.replace(/^(song_view\.html\?\d+).*$/, "$1");
+        tail = tail.replace(/^(kashu\.php\?).*(artist=\d+).*$/, "$1$2");
+        url = "http://kashinavi.com/" + tail;
+      }
+      return url;
+    },
+    validate: function (url, id) {
+      var m = /^http:\/\/kashinavi\.com\/(.+)$/.exec(url);
+      if (m) {
+        var tail = m[1];
+        switch (id) {
+          case LINK_TYPES.lyrics.artist:
+            return /^kashu\.php\?artist=\d+$/.test(tail);
+          case LINK_TYPES.lyrics.work:
+            return /^song_view\.html\?\d+$/.test(tail);
+        }
+      }
+      return false;
+    }
+  },
   kget: {
     match: [new RegExp("^(https?://)?([^/]+\\.)?kget\\.jp/", "i")],
     type: LINK_TYPES.lyrics,
