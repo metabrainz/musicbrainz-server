@@ -1561,6 +1561,26 @@ const CLEANUPS = {
       return false;
     }
   },
+  lyricevesta: {
+    match: [new RegExp("^(https?://)?([^/]+\\.)?lyric\\.evesta\\.jp/", "i")],
+    type: LINK_TYPES.lyrics,
+    clean: function (url) {
+      return url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?lyric\.evesta\.jp\/([al]\w+\.html).*$/, "http://lyric.evesta.jp/$1");
+    },
+    validate: function (url, id) {
+      var m = /^http:\/\/lyric\.evesta\.jp\/(a|l)\w+\.html$/.exec(url);
+      if (m) {
+        var prefix = m[1];
+        switch (id) {
+          case LINK_TYPES.lyrics.artist:
+            return prefix === 'a';
+          case LINK_TYPES.lyrics.work:
+            return prefix === 'l';
+        }
+      }
+      return false;
+    }
+  },
   musicapopularcl: {
     match: [new RegExp("^(https?://)?(www\\.)?musicapopular\\.cl", "i")],
     type: LINK_TYPES.otherdatabases,
