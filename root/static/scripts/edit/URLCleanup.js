@@ -1672,6 +1672,16 @@ const CLEANUPS = {
       return false;
     }
   },
+  runeberg: {
+    match: [new RegExp("^(https?://)?([^/]+\\.)?runeberg\\.org/", "i")],
+    type: LINK_TYPES.lyrics,
+    clean: function (url) {
+      return url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?runeberg\.org\/(.*)$/, "http://runeberg.org/$1");
+    },
+    validate: function (url, id) {
+      return id === LINK_TYPES.lyrics.work && /^http:\/\/runeberg\.org\/[\w-\/]+\/\d+\.html$/.test(url);
+    }
+  },
   soundtrackcollector: {
     match: [new RegExp("^(https?://)?(www\\.)?soundtrackcollector\\.com", "i")],
     type: LINK_TYPES.otherdatabases,
