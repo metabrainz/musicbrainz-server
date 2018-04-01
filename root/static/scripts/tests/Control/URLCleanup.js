@@ -2156,6 +2156,28 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
                      input_entity_type: 'release',
             expected_relationship_type: 'otherdatabases',
         },
+        // Runeberg
+        {
+                             input_url: 'http://runeberg.org/f3gd/31/0194.html',
+                     input_entity_type: 'work',
+            expected_relationship_type: 'lyrics',
+                    expected_clean_url: 'http://runeberg.org/f3gd/31/0194.html',
+               only_valid_entity_types: ['work']
+        },
+        {
+                             input_url: 'www.runeberg.org/kacpoet/0023.html',
+                     input_entity_type: 'work',
+            expected_relationship_type: 'lyrics',
+                    expected_clean_url: 'http://runeberg.org/kacpoet/0023.html',
+               only_valid_entity_types: ['work']
+        },
+        {
+                             input_url: 'https://runeberg.org/saol/9-5/0593.html',
+                     input_entity_type: 'work',
+            expected_relationship_type: 'lyrics',
+                    expected_clean_url: 'http://runeberg.org/saol/9-5/0593.html',
+               only_valid_entity_types: ['work']
+        },
         // SecondHandSongs
         {
                              input_url: 'http://www.secondhandsongs.com/artist/103',
