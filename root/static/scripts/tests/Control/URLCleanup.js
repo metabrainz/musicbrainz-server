@@ -1471,6 +1471,21 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
                      input_entity_type: 'release',
             expected_relationship_type: 'discographyentry',
         },
+        // Kashinavi.com
+        {
+                             input_url: 'http://kashinavi.com/kashu.php?artist=103530&kashu=%8A%99%93c%8F%CD%8C%E1&start=1',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'lyrics',
+                    expected_clean_url: 'http://kashinavi.com/kashu.php?artist=103530',
+               only_valid_entity_types: ['artist']
+        },
+        {
+                             input_url: 'www.kashinavi.com/song_view.html?68574',
+                     input_entity_type: 'work',
+            expected_relationship_type: 'lyrics',
+                    expected_clean_url: 'http://kashinavi.com/song_view.html?68574',
+               only_valid_entity_types: ['work']
+        },
         // Kget.jp
         {
                              input_url: 'http://www.kget.jp/search/index.php?c=0&r=%E3%83%A4%E3%83%B3%E3%82%B0%E3%83%BB%E3%83%95%E3%83%AC%E3%83%83%E3%82%B7%E3%83%A5&t=&v=&f=',
