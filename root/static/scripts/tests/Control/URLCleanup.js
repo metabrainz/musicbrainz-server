@@ -253,6 +253,14 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
                      input_entity_type: 'label',
             expected_relationship_type: 'blog',
         },
+        // Animationsong.com
+        {
+                             input_url: 'http://animationsong.com/archives/816073.html#post-13222',
+                     input_entity_type: 'work',
+            expected_relationship_type: 'lyrics',
+                    expected_clean_url: 'http://animationsong.com/archives/816073.html',
+               only_valid_entity_types: ['work']
+        },
         // Anime News Network
         {
                              input_url: 'http://animenewsnetwork.com/encyclopedia/people.php?id=59062',
