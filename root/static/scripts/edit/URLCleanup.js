@@ -1884,6 +1884,26 @@ const CLEANUPS = {
       return url;
     }
   },
+  utanet: {
+    match: [new RegExp("^(https?://)?([^/]+\\.)?uta-net\\.com/", "i")],
+    type: LINK_TYPES.lyrics,
+    clean: function (url) {
+      return url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?uta-net\.com\/(artist|song)\/(\d+).*$/, "https://www.uta-net.com/$1/$2/");
+    },
+    validate: function (url, id) {
+      var m = /^https:\/\/www\.uta-net\.com\/(artist|song)\/\d+\/$/.exec(url);
+      if (m) {
+        var prefix = m[1];
+        switch (id) {
+          case LINK_TYPES.lyrics.artist:
+            return prefix === 'artist';
+          case LINK_TYPES.lyrics.work:
+            return prefix === 'song';
+        }
+      }
+      return false;
+    }
+  },
   utaten: {
     match: [new RegExp("^(https?://)?([^/]+\\.)?utaten\\.com/", "i")],
     type: LINK_TYPES.lyrics,
