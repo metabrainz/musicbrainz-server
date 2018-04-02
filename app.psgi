@@ -64,7 +64,7 @@ builder {
         enable 'Plack::Middleware::ReverseProxy';
     }
 
-    enable 'Static', path => qr{^/static/}, root => 'root';
+    enable 'Static', path => qr{^/(static/|favicon\.ico$)}, root => 'root';
     MusicBrainz::Server->psgi_app;
 };
 
