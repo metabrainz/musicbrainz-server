@@ -9,6 +9,8 @@
 
 export const ENTITIES = require('../../../../entities');
 
+export const GENRE_TAGS = new Set(ENTITIES.tag.genres);
+
 export const AREA_TYPE_COUNTRY = 1;
 
 export const DARTIST_ID = 2;

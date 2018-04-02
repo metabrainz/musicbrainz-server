@@ -664,7 +664,16 @@
         "cache": {
             "id": 33
         },
-        "model": "Tag"
+        "model": "Tag",
+        "genres": [
+            "classical",
+            "electronic",
+            "hip-hop",
+            "metal",
+            "pop",
+            "rock",
+            "salsa"
+        ]
     },
     "track": {
         "artist_credits": 1,
