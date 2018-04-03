@@ -1010,7 +1010,11 @@ ko.bindingHandlers.autocomplete = {
     init: function (element, valueAccessor) {
         var options = valueAccessor();
 
-        $(element).autocomplete(options);
+        $(element)
+            .autocomplete(options)
+            .data('ui-autocomplete')
+            .menu.element[0]
+            .setAttribute('data-input-id', element.id);
     }
 };
 
