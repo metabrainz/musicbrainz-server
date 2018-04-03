@@ -22,6 +22,7 @@ sub grouped_attributes_by_type {
 
     return partition_by { $_->type->l_name } map {
         MusicBrainz::Server::Entity::WorkAttribute->new(
+            id => $_->{id},
             type_id => $_->{attribute_type_id},
             type => $attribute_types->{$_->{attribute_type_id}},
             value => $_->{attribute_text} // $attribute_values->{$_->{attribute_value_id}}->value,
