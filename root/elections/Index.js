@@ -8,11 +8,15 @@
  */
 
 import React from 'react';
+
 import Layout from '../layout';
 import {l} from '../static/scripts/common/i18n';
+
 import ElectionTable from './ElectionTable';
 
-const Index = ({elections}: {+elections: $ReadOnlyArray<AutoEditorElectionT>}) => (
+const Index = ({elections}: {
+  +elections: $ReadOnlyArray<AutoEditorElectionT>,
+}) => (
   <Layout fullWidth title={l('Auto-editor elections')}>
     <h1>{l('Auto-editor elections')}</h1>
     {elections.length

@@ -8,6 +8,7 @@
  */
 
 import React from 'react';
+
 import Frag from '../components/Frag';
 import {l, lp} from '../static/scripts/common/i18n';
 import EditorLink from '../static/scripts/common/components/EditorLink';
@@ -60,40 +61,50 @@ const ElectionDetails = ({election, user}: PropsT) => (
               <td>{election.no_votes}</td>
             </tr>
           </Frag>
-        )
-        : (election.is_open
-          ? (
-            <tr>
-              <th>{l('Votes for/against:')}</th>
-              <td>{l('The tally of votes cast will only be shown when the election is complete.')}</td>
-            </tr>
-          ) : null
+        ) : (
+          election.is_open
+            ? (
+              <tr>
+                <th>{l('Votes for/against:')}</th>
+                <td>{l('The tally of votes cast will only be shown when the election is complete.')}</td>
+              </tr>
+            ) : null
         )
       }
       <tr>
         <th>{lp('Status:', 'election status')}</th>
         <td>
           {election.is_open
-            ? lp(election.status_name, 'autoeditor election status', {
+            ? (
+              lp(election.status_name, 'autoeditor election status', {
                 date: formatUserDate(user, election.open_time),
               })
-            : null}
+            ) : null}
 
           {election.is_pending
             ? lp(election.status_name, 'autoeditor election status')
             : null}
 
           {election.is_pending || election.is_open
-            ? <ExpirationDate date={election.current_expiration_time} user={user} />
-            : null}
+            ? (
+              <ExpirationDate
+                date={election.current_expiration_time}
+                user={user}
+              />
+            ) : null}
 
           {election.is_closed
-            ? (election.close_time
-                ? lp(election.status_name, 'autoeditor election status', {
+            ? (
+              election.close_time
+                ? (
+                  lp(election.status_name, 'autoeditor election status', {
                     date: formatUserDate(user, election.close_time),
                   })
-                : lp(election.status_name_short, 'autoeditor election status (short)'))
-            : null}
+                ) : (
+                  lp(election.status_name_short,
+                    'autoeditor election status (short)')
+                )
+            ) : null}
 
           {(election.is_open || election.is_pending || election.is_closed)
             ? null

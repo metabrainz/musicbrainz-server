@@ -17,7 +17,8 @@ export function isInvolved(election: AutoEditorElectionT, user: ?EditorT) {
 }
 
 export function votesVisible(election: AutoEditorElectionT, user: ?EditorT) {
-  return election.is_closed || (election.is_open && isInvolved(election, user));
+  return election.is_closed ||
+    (election.is_open && isInvolved(election, user));
 }
 
 export function canVote(election: AutoEditorElectionT, user: ?EditorT) {
