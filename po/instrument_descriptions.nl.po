@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2018-02-03 11:31+0000\n"
+"PO-Revision-Date: 2018-03-27 19:49+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -331,13 +331,6 @@ msgid ""
 "A tenor banjo is a four-string banjo with tenor tuning, usually C G D A."
 msgstr "Een tenorbanjo is een viersnarige banjo die als tenor is gestemd, meestal C G D A."
 
-#. name:tenor violin
-#: DB:instrument/description:615
-msgid ""
-"A tenor violin is an instrument with a range between those of the cello and "
-"the viola."
-msgstr "Een tenorviool is een instrument met een bereik tussen de cello en de altviool."
-
 #. name:tom-tom
 #: DB:instrument/description:462
 msgid ""
@@ -477,6 +470,14 @@ msgstr "Doedelzakken die bespeeld worden door lucht in een luchtzak en van de lu
 msgid "Balafon, Malian 'gourd xylophone'"
 msgstr "Een balafoon, soort xylofoon van kalebasflessen uit Mali."
 
+#. name:Gravikord
+#: DB:instrument/description:901
+msgid ""
+"Based on the polyrhythm of the Afrikan kora, kalimba and Japanese koto, it "
+"is electro-acoustic with a stainless steel frame with 24 nylon strings and "
+"an integral piezoelectric sensor."
+msgstr "De Gravikord is gebaseerd op het polyritme van de Afrikaanse kora en kalimba en de Japanse koto. Het is een elektroakoestisch instrument bestaande uit een frame van rvs met 24 nylonsnaren en een geïntegreerde piezo-elektrische sensor."
+
 #. name:bass guitar
 #: DB:instrument/description:207
 msgid "Bass (modern, typically electrical, but not always)"
@@ -548,7 +549,7 @@ msgstr "Klokkenspel of chimes kan verwijzen naar verschillende muziekinstrumente
 #. name:naobo
 #: DB:instrument/description:599
 msgid "Chinese cymbals specially used in the Beijing opera."
-msgstr ""
+msgstr "De naobo zijn Chinese bekkens die veel worden gebruikt in Jing-opera’s."
 
 #. name:ching
 #: DB:instrument/description:618
@@ -574,13 +575,33 @@ msgid ""
 "metal cone, it is used in the traditional Cobla and Sardana music."
 msgstr "De tenora is een ontwikkeling van de tenorschalmei, in de negentiende eeuw door hobospeler Andreu Turon in Catalonië ontwikkeld. Het wordt gemaakt van jujubehout met een onderkant van metaal. Het instrument wordt bespeeld bij traditionele cobla- en sardanamuziek."
 
+#. name:viol family
+#: DB:instrument/description:899
+msgid ""
+"Developed in the 15th century from Vihuelists starting to play with bows, "
+"viols have frets, flat backs, sloped shoulders, c-holes and are tuned in "
+"fourths. The members are: * Violone (double-bass viol) * Viola da gamba "
+"(Bass viol) * Tenor viol * Alt viol * Treble or Diskant viol"
+msgstr ""
+
+#. name:violin family
+#: DB:instrument/description:59
+msgid ""
+"Developed in the 16th century, these violas da braccio are distinct from the"
+" violas da gamba family. Modern members are * Violin (little viola) * Viola "
+"* Violoncello (small big viola) * Double Bass (replacing the violone (big "
+"viola)) Past members include the violone (now a considered a viol) and bass "
+"viol (a forerunner to the violoncello) Occasionally Octobass is included as "
+"a member."
+msgstr "De vioolfamilie instrumenten werd in de 16e eeuw ontwikkeld. Deze viole da braccio verschillen van de viole da gamba. Tegenwoordig worden de viool, altviool, cello, contrabas en soms de octobas tot deze familie gerekend. Vroeger werden ook de violone en basviool tot deze familie gerekend."
+
 #. name:laouto
 #: DB:instrument/description:704
 msgid ""
 "Differs from other lutes in that its string tension is greater thus sounding"
 " more like the oud. From ancient Greece, it was used as an accompaniment to "
 "Cretan Lyra"
-msgstr ""
+msgstr "De laouto verschilt van andere luiten door de hogere snaarspanning, waardoor het instrument meer als een oed klinkt. Het wordt vaak bespeeld in combinatie met een Kretenzische lier."
 
 #. name:craviola
 #: DB:instrument/description:779
@@ -680,7 +701,7 @@ msgid ""
 "From atleast 600 BC, it is made of wood to resemble a tiger with its spine "
 "made into notches. Notches are scraped to produce sound, it was used in "
 "ensemble with zhu."
-msgstr ""
+msgstr "Een yu is een houten tijger met een rij tanden op de rug. Het geluid wordt geproduceerd door over de tanden te schrapen. Het instrument werd bespeeld in een ensemble met de zhu."
 
 #. name:gankogui
 #: DB:instrument/description:383
@@ -758,6 +779,14 @@ msgstr "Een olifant is een natuurhoorn van ivoor. Het werd tijdens de middeleeuw
 #: DB:instrument/description:213
 msgid "Huqin is a Chinese family of bowed string instruments."
 msgstr "Huqin (胡琴, pinyin: húqín) is een familie van Chinese strijkinstrumenten."
+
+#. name:baroque rackett
+#: DB:instrument/description:897
+msgid ""
+"Improved by Johann Christoph Denner sometime around 1730, its \"coiled "
+"snake\" bore now is conical, in addition it is played through a removable "
+"metal curled mouth piece."
+msgstr "Johann Christoph Denner verbeterde de renaissanceranket rond 1730. De boring van de barokranket is conisch, en het instrument wordt aangeblazen via een gekruld verwijderbaar mondstuk van metaal."
 
 #. name:viololyra
 #: DB:instrument/description:834
@@ -838,7 +867,7 @@ msgid ""
 "Known also as contrabass or upright bass, it is the largest and lowest-"
 "pitched member of the modern violin family, it is a principal member of the "
 "symphony orchestra."
-msgstr ""
+msgstr "Een contrabas, ook wel staande bas of simpelweg bas genoemd, is het grootste en laagst klinkende lid van de moderne vioolfamilie. Het is een belangrijk onderdeel van moderne symfonieorkesten."
 
 #. name:krakebs
 #: DB:instrument/description:652
@@ -883,7 +912,7 @@ msgstr "De pahuu bestaat uit boomstammen of dikke planken met een lengte tot neg
 msgid ""
 "Long wooden flute with a notched open top and a single finger hole near the "
 "end."
-msgstr "Een puumotomoto is een lange fluit met een open bovenkant met inkepingen en een enkel vingergat aan het uiteinde."
+msgstr "Een puumotomoto is een lange bekfluit met een open bovenkant en een enkel vingergat aan het uiteinde."
 
 #. name:practice chanter
 #: DB:instrument/description:429
@@ -917,7 +946,7 @@ msgstr "Een tumutumu wordt gemaakt van resonerend steen, hout of bot en wordt be
 msgid ""
 "Made of thick aged bamboo, this notched end-blown flute may have had a "
 "buzzing membrane."
-msgstr ""
+msgstr "Een tongso is een bekfluit van gerijpt bamboe. Sommige varianten hebben en membraan."
 
 #. name:hydraulophone
 #: DB:instrument/description:889
@@ -984,6 +1013,15 @@ msgid ""
 "series."
 msgstr "Natuurlijk koperblazers spelen alleen natuurtonen, gehele veelvouden van de grondtoon zoals die door de lengte van de buis bepaald is."
 
+#. name:violin octet
+#: DB:instrument/description:898
+msgid ""
+"New Violin Family of eight proportionally-sized violins developed mainly by "
+"Carleen Hutchins, each based directly on the standard violin and its "
+"acoustic properties, thus their sound is at a more homogeneous pitch \"near "
+"the two middle open strings.\""
+msgstr "Viooloctet is een benaming voor een moderne gestroomlijnde familie van violen met proportionele formaten. Alle leden van de familie zijn gebaseerd op de standaardviool en zijn akoestische eigenschappen, zodat ze een homogener geluid hebben."
+
 #. name:Northumbrian pipes
 #: DB:instrument/description:358
 msgid "Northumbrian (small)pipes"
@@ -1014,7 +1052,15 @@ msgid ""
 "Originally introduced to Mongolia from China, it has 13 double wire-strings "
 "and a black lacquered wooden soundboard. Traditionally it was only played by"
 " townspeople."
-msgstr ""
+msgstr "De jootsjin werd vanuit China in Mongolië geïntroduceerd. Het heeft 13 dubbele snaren en een zwartgelakt houten klankbord. Het werd oorspronkelijk alleen door dorpsbewoners bespeeld."
+
+#. name:renaissance rackett
+#: DB:instrument/description:896
+msgid ""
+"Originating 1590 or earlier and made of wood or ivory, it had nine parallel "
+"cylindrical bores joined up at the top and bottom creating a continuous bore"
+" like a curled up snake. Its reed is attached to a center pirouette."
+msgstr "De ranket werd waarschijnlijk in de 16e eeuw ontwikkeld. Het is gemaakt van hout of ivoor, met negen parallelle cilindrische boringen die aan de onder- en bovenkant zijn verbonden, waardoor één lange klankbuis ontstaat. "
 
 #. name:kokle
 #: DB:instrument/description:893
@@ -1023,7 +1069,7 @@ msgid ""
 " to eleven, up to thirty-three strings tuned diatonically. Played "
 "horizontally on lap or table by plucking while muting chosen strings. Became"
 " in the 70's and 80's an important part of the folklore movement."
-msgstr ""
+msgstr "De kokle is een in de 13e eeuw in Letland ontstaan houten snaarinstrument met negen tot 33 diatonisch gestemde snaren. Het wordt in horizontale positie bespeeld door te tokkelen en bepaalde snaren te dempen."
 
 #. name:other instruments
 #: DB:instrument/description:141
@@ -1096,7 +1142,7 @@ msgid ""
 "Related to bowed instrument rebab, it is played in many countries, from "
 "India to Afghanistan. It's made of wood and covered with a membrane and has "
 "3 melody strings, 3 drone strings and 11/12 resonance strings."
-msgstr ""
+msgstr " De roebab is verwant aan het strijkinstrument rebab en wordt in veel landen van India tot Afghanistan bespeeld. Het is gemaakt van hout en bedekt met een membraan en heeft drie melodiesnaren, drie bourdonsnaren en 11/12 resonantiesnaren."
 
 #. name:ruan
 #: DB:instrument/description:545
@@ -1109,7 +1155,7 @@ msgid ""
 "Sacred cylindrical goat or cattle rawhide drum, traditionally it was held "
 "with straps or placed on a stand and played horizontally while walking to "
 "battle, on special state occasions and religious ceremonies."
-msgstr ""
+msgstr "Een junjung is een heilige cilindrische trommel met een geiten- of koeienvel. Traditioneel werd het aan riemen gedragen of op een standaard geplaatst en horizontaal bespeeld op weg naar een veldslag, of bij speciale officiële of religieuze gelegenheden."
 
 #. name:santoor
 #: DB:instrument/description:286
@@ -1127,7 +1173,7 @@ msgid ""
 "Set of drums developed from the 1930's onward, it is used in Jazz, Swing, "
 "Rock and Pop music. It consists of snare drum, tom-toms, hi-hats, cymbals "
 "and bass drum."
-msgstr ""
+msgstr "Het drumstel werd vanaf de jaren 1930 ontwikkeld als een vaste verzameling trommels. Het bestaat uit een kleine en grote trom (snare en bass drum), tom-toms, hi-hats en bekkens."
 
 #. name:Otamatone
 #: DB:instrument/description:890
@@ -1144,7 +1190,7 @@ msgstr "Een schalmei is een instrument uit de de middeleeuwen en de renaissance 
 #. name:duck call
 #: DB:instrument/description:649
 msgid "Short wooden flute used to imitate the sound of ducks"
-msgstr ""
+msgstr "Een eendenlokfluitje is een kort houten fluitje om het geluid van een eend na te bootsen."
 
 #. name:tabor
 #: DB:instrument/description:806
@@ -1159,6 +1205,13 @@ msgid ""
 "Six-stringed lute-harp from Wassoulou, West Africa. Traditionally played by "
 "hunters, its resonator box is made of calabash covered by animal skin."
 msgstr "Een donso ngoni is een zes-snarige harp uit West-Afrika. De klankkast wordt gemaakt van een kalebas en bedekt met een dierenhuid. Het instrument wordt traditioneel door jagers bespeeld."
+
+#. name:bass violin
+#: DB:instrument/description:900
+msgid ""
+"Sixteenth century predecessor of the violoncello, it was fretless with "
+"f-holes and had at first three, then later four, strings tuned in fifths."
+msgstr ""
 
 #. name:slide brass instruments
 #: DB:instrument/description:202
@@ -1203,7 +1256,7 @@ msgstr "De nguru is een kleine vatfluit gemaakt van hout, klei, bot of een zacht
 msgid ""
 "Small, high-pitched, transverse flute, similar to the piccolo, but with a "
 "narrower bore."
-msgstr ""
+msgstr "Een pijperfluit is een kleine dwarsfluit, vergelijkbaar met de piccolo, maar met een smallere boring."
 
 #. name:sopilka
 #: DB:instrument/description:760
@@ -3300,6 +3353,33 @@ msgid ""
 "It was for signalling, but also ceremonial and ritual use."
 msgstr "Een puutaatara is een trompet gemaakt van een zeeschelp met een prachtig gesneden houten mondstuk. Het werd gebruikt om signalen door te geven, maar ook in ceremonies en rituelen."
 
+#. name:soprano violin
+#: DB:instrument/description:210
+msgid ""
+"Tuned a fourth above and about three quarters the size of a standard violin."
+msgstr "De sopraninoviool is een octaaf hoger gestemd dan de standaardviool en is ongeveer driekwart zo groot."
+
+#. name:treble violin
+#: DB:instrument/description:209
+msgid ""
+"Tuned an octave above and about quarter the size of the traditional violin."
+msgstr "De sopraninoviool is een octaaf hoger gestemd dan de traditionele viool en ongeveer vier keer zo klein."
+
+#. name:tenor violin
+#: DB:instrument/description:615
+msgid ""
+"Tuned an octave below the traditional violin and at about half the size of "
+"the cello, it has a range between the cello and the viola. It has a longer "
+"neck and thinner ribs than the cello."
+msgstr "Een tenoorviool is een octaaf lager gestemd dan een traditionele viool en is ongeveer half zo groot als een cello. Het bereik zit tussen een cello en een altviool in."
+
+#. name:alto violin
+#: DB:instrument/description:174
+msgid ""
+"Tuned the same as the viola but larger in size, it is played upright like "
+"the cello."
+msgstr "De verticale altviool is een iets grotere versie van de altviool, die vanwege het grote formaat tussen de benen wordt bespeeld in plaats van op de arm."
+
 #. name:classical kemençe
 #: DB:instrument/description:542
 msgid "Turkish bowl-shaped kemenche, mainly used in classical Ottoman music"
@@ -3335,14 +3415,14 @@ msgstr "Een puukaea is een houten trompet met een lengte tot 2,5 meter. Het werd
 msgid ""
 "Used in turntablism, vinyl records are not simply played on it, instead DJ's"
 " perform creating sound."
-msgstr ""
+msgstr "Draaitafels worden gebruikt bij turntablism. Platen worden niet simpelweg afgespeeld, maar door dj’s gebruikt om nieuw geluid te creëren."
 
 #. name:lap harp
 #: DB:instrument/description:886
 msgid ""
 "Used to teach children how to play, it is a simplified zither shaped like a "
 "trapezoid."
-msgstr ""
+msgstr "De schootharp wordt gebruikt om kinderen te leren spelen. Het is een vereenvoudigde citer in de vorm van een trapezoïde."
 
 #. name:tanpura
 #: DB:instrument/description:829
@@ -3387,6 +3467,19 @@ msgstr "Een Blaster Beam is een lange metalen balk met snaren en elektrische git
 #: DB:instrument/description:420
 msgid "Violone, The largest/deepest member of the Viol family"
 msgstr "De violone is het grootste en laagste lid van de altvioolfamilie en een voorloper van de contrabas."
+
+#. name:viola da gamba
+#: DB:instrument/description:93
+msgid "When not specified, \"viola da gamba\" usually means the bass viol member."
+msgstr ""
+
+#. name:viola d'amore
+#: DB:instrument/description:94
+msgid ""
+"While it is fretless and played like the violins \"a la braccia\", it has a "
+"flat back, c-holes and sloping shoulders like a viol. From the baroque "
+"period, it has up to 14 strings."
+msgstr ""
 
 #. name:porotiti
 #: DB:instrument/description:862
@@ -3636,7 +3729,7 @@ msgstr "Een mengvorm van gitaar en bouzouki met de klankkast van een gitaar en v
 msgid ""
 "having pedals attached to bellows with reeds. sound is produced by playing "
 "the keyboard."
-msgstr ""
+msgstr "Een rietorgel heeft pedalen die een balg van lucht voorzien, waarna de lucht langs tongetjes wordt geblazen. Het wordt bespeeld met een klavier."
 
 #. name:elektronium
 #: DB:instrument/description:848
@@ -3968,4 +4061,4 @@ msgstr "Een Ierse fluit is een dwarsfluit met een eenvoudig kleppensysteem die w
 msgid ""
 "working to improve on its design, the English flageolet had 6 finger holes "
 "in front and one thumb hole in the back."
-msgstr ""
+msgstr "De Engelse flageolet is een ontwikkeling van de flageolet met zes vingergaten aan de voorkant en een vingergat voor de duim aan de achterkant."

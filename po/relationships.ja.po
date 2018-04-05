@@ -7,8 +7,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2017-09-19 13:52+0000\n"
-"Last-Translator: Michael Wiencek <email address hidden>\n"
+"PO-Revision-Date: 2018-02-07 12:21+0000\n"
+"Last-Translator: yvanz\n"
 "Language-Team: Japanese (http://www.transifex.com/musicbrainz/musicbrainz/language/ja/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -385,6 +385,10 @@ msgstr "そのレコーディングが対象リリースからのサンプリン
 #: DB:link_type/description:740
 msgid "Indicates that the recording is part of a series."
 msgstr "このレコーディングがあるシリーズの一部であることを示します。"
+
+#: DB:link_attribute_type/description:1053
+msgid "Indicates that the relationship is optional - doesn't always apply."
+msgstr ""
 
 #: DB:link_type/description:49
 msgid ""
@@ -856,6 +860,10 @@ msgstr "このアーティストのWikipediaページを指します。"
 msgid "Points to the Wikipedia page for this event."
 msgstr "このイベントのWikipediaページを指します。"
 
+#: DB:link_type/description:731
+msgid "Points to the Wikipedia page for this instrument."
+msgstr ""
+
 #: DB:link_type/description:595
 msgid "Points to the Wikipedia page for this place"
 msgstr "この場所のWikipediaページを指します"
@@ -1053,7 +1061,7 @@ msgid ""
 "This relationship type should be used in this last case."
 msgstr ""
 
-#: DB:link_type/description:27 DB:link_type/description:125
+#: DB:link_type/description:125 DB:link_type/description:27
 msgid ""
 "This credits the people or agency who did the graphic design, arranging "
 "pieces of content into a coherent and aesthetically-pleasing sleeve design."
@@ -1158,16 +1166,26 @@ msgid ""
 "between artists and the labels."
 msgstr ""
 
+#: DB:link_type/description:928
+msgid "This indicates a person or agency who did design for the release."
+msgstr ""
+
 #: DB:link_type/description:19
 msgid ""
 "This indicates a person or agency who did design or illustration for the "
-"release."
+"release. This relationship is deprecated, please use either \"design\" or "
+"\"illustration\" (or both!)"
 msgstr ""
 
 #: DB:link_type/description:130
 msgid ""
 "This indicates a person or agency who did design or illustration for the "
 "track."
+msgstr ""
+
+#: DB:link_type/description:927
+msgid ""
+"This indicates a person or agency who did illustration for the release."
 msgstr ""
 
 #: DB:link_type/description:723
@@ -1532,6 +1550,13 @@ msgid ""
 " for classical works, but also exists in other genres to a degree."
 msgstr ""
 
+#: DB:link_type/description:922
+msgid ""
+"This indicates the work is dedicated to a specific organization. This is "
+"most common for classical works, but also exists in other genres to a "
+"degree."
+msgstr ""
+
 #: DB:link_type/description:846
 msgid ""
 "This indicates the work is dedicated to a specific person. This is most "
@@ -1708,6 +1733,12 @@ msgstr ""
 msgid ""
 "This link points to a page for a particular release within a discography for"
 " an artist or label."
+msgstr ""
+
+#: DB:link_type/description:921
+msgid ""
+"This link points to a page for a particular work within a work list for an "
+"artist."
 msgstr ""
 
 #: DB:link_type/description:43 DB:link_type/description:155
@@ -2263,6 +2294,12 @@ msgid ""
 "permitted."
 msgstr ""
 
+#: DB:link_type/description:929
+msgid ""
+"This relationship indicates an artist credited as the booklet editor for a "
+"release."
+msgstr ""
+
 #: DB:link_type/description:893
 msgid ""
 "This relationship indicates that a person was a teacher at an event (e.g. a "
@@ -2373,6 +2410,23 @@ msgstr ""
 #: DB:link_type/description:859
 msgid ""
 "This relationship links a concert tour to the artist(s) the tour is by."
+msgstr ""
+
+#: DB:link_type/description:926
+msgid ""
+"This relationship links a group with the institution (esp. educational "
+"institution) they're associated with."
+msgstr ""
+
+#: DB:link_type/description:924
+msgid ""
+"This relationship links a musician to the music school(s) they taught at."
+msgstr ""
+
+#: DB:link_type/description:923
+msgid ""
+"This relationship links a musician to the music school(s) they were educated"
+" at."
 msgstr ""
 
 #: DB:link_type/description:918
@@ -2722,6 +2776,36 @@ msgid ""
 "soprano range"
 msgstr ""
 
+#: DB:link_attribute_type/description:1032
+msgid ""
+"Use this for operas and similar works that are <a "
+"href=\"https://en.wikipedia.org/wiki/Number_opera\">separated in "
+"numbers</a>, to specify what parts are numbers (as opposed to spoken dialog "
+"or other non-numbered parts)."
+msgstr ""
+
+#: DB:link_attribute_type/description:1033
+msgid ""
+"Use this to indicate the parent work is not intended to be performed as a "
+"whole, but is just a grouping of pieces or works that can be performed "
+"individually (collections of songs, several sonatas or concertos published "
+"as a set, books of piano pieces, etc.)"
+msgstr ""
+
+#: DB:link_attribute_type/description:1030
+msgid ""
+"Use this to mark acts of an opera (as opposed to other parts that are not "
+"acts)"
+msgstr ""
+
+#: DB:link_attribute_type/description:1031
+msgid ""
+"Use this when the parent work consists of several parts which are generally "
+"meant to be performed one after another in a particular order (rather than "
+"in any order, or multiple times, or in arbitrary selections rather than as a"
+" whole)."
+msgstr ""
+
 #: DB:link_type/link_phrase:788 DB:link_type/link_phrase:86
 #: DB:link_type/link_phrase:191 DB:link_type/link_phrase:210
 msgid "VGMdb"
@@ -2758,19 +2842,19 @@ msgstr "Wikidata"
 msgid "Wikidata page for"
 msgstr "次のWikidataページ"
 
-#: DB:link_type/link_phrase:789 DB:link_type/link_phrase:355
-#: DB:link_type/link_phrase:89 DB:link_type/link_phrase:744
-#: DB:link_type/link_phrase:216 DB:link_type/link_phrase:179
-#: DB:link_type/link_phrase:595 DB:link_type/link_phrase:731
-#: DB:link_type/reverse_link_phrase:279 DB:link_type/reverse_link_phrase:731
-#: DB:link_type/long_link_phrase:731
+#: DB:link_type/link_phrase:789 DB:link_type/link_phrase:595
+#: DB:link_type/link_phrase:355 DB:link_type/link_phrase:744
+#: DB:link_type/link_phrase:89 DB:link_type/link_phrase:216
+#: DB:link_type/link_phrase:179 DB:link_type/link_phrase:731
+#: DB:link_type/reverse_link_phrase:279
 msgid "Wikipedia"
 msgstr "Wikipedia"
 
 #: DB:link_type/link_phrase:279 DB:link_type/reverse_link_phrase:789
-#: DB:link_type/reverse_link_phrase:355 DB:link_type/reverse_link_phrase:89
-#: DB:link_type/reverse_link_phrase:744 DB:link_type/reverse_link_phrase:216
-#: DB:link_type/reverse_link_phrase:179 DB:link_type/reverse_link_phrase:595
+#: DB:link_type/reverse_link_phrase:595 DB:link_type/reverse_link_phrase:355
+#: DB:link_type/reverse_link_phrase:744 DB:link_type/reverse_link_phrase:89
+#: DB:link_type/reverse_link_phrase:216 DB:link_type/reverse_link_phrase:179
+#: DB:link_type/reverse_link_phrase:731
 msgid "Wikipedia page for"
 msgstr "次のWikipediaページ"
 
@@ -2785,6 +2869,10 @@ msgstr "次のYouTubeチャンネル"
 #: DB:link_type/link_phrase:225
 msgid "YouTube channels"
 msgstr "YouTubeチャンネル"
+
+#: DB:link_attribute_type/name:1030
+msgid "act"
+msgstr ""
 
 #: DB:link_attribute_type/name:1
 msgid "additional"
@@ -2840,8 +2928,16 @@ msgstr ""
 msgid "associate"
 msgstr ""
 
+#: DB:link_type/reverse_link_phrase:926
+msgid "associated groups"
+msgstr ""
+
 #: DB:link_type/reverse_link_phrase:11
 msgid "associated singles/EPs"
+msgstr ""
+
+#: DB:link_type/link_phrase:926
+msgid "associated with"
 msgstr ""
 
 #: DB:link_type/reverse_link_phrase:795
@@ -2893,6 +2989,14 @@ msgstr ""
 #: DB:link_type/link_phrase:23 DB:link_type/link_phrase:134
 #: DB:link_type/reverse_link_phrase:23 DB:link_type/reverse_link_phrase:134
 msgid "booking"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:929
+msgid "booklet editor"
+msgstr ""
+
+#: DB:link_type/link_phrase:929
+msgid "booklet editor for"
 msgstr ""
 
 #: DB:link_type/link_phrase:66 DB:link_type/link_phrase:205
@@ -3018,6 +3122,10 @@ msgstr ""
 msgid "conductors"
 msgstr ""
 
+#: DB:link_type/reverse_link_phrase:925
+msgid "connected with"
+msgstr ""
+
 #: DB:link_type/link_phrase:739
 msgid "consists of"
 msgstr ""
@@ -3098,11 +3206,12 @@ msgid "crowdfunding page for"
 msgstr ""
 
 #: DB:link_type/reverse_link_phrase:868 DB:link_type/reverse_link_phrase:846
-#: DB:link_type/reverse_link_phrase:914
+#: DB:link_type/reverse_link_phrase:922 DB:link_type/reverse_link_phrase:914
 msgid "dedicated to"
 msgstr ""
 
-#: DB:link_type/link_phrase:846 DB:link_type/link_phrase:914
+#: DB:link_type/link_phrase:846 DB:link_type/link_phrase:922
+#: DB:link_type/link_phrase:914
 msgid "dedicated works"
 msgstr ""
 
@@ -3201,6 +3310,10 @@ msgstr ""
 msgid "edited in"
 msgstr ""
 
+#: DB:link_type/long_link_phrase:929
+msgid "edited the booklet of"
+msgstr ""
+
 #: DB:link_type/link_phrase:820 DB:link_type/link_phrase:821
 #: DB:link_type/link_phrase:822 DB:link_type/link_phrase:819
 msgid "editing location for"
@@ -3208,6 +3321,14 @@ msgstr ""
 
 #: DB:link_type/reverse_link_phrase:309
 msgid "edits"
+msgstr ""
+
+#: DB:link_type/link_phrase:925
+msgid "educational institution connection"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:924
+msgid "educators"
 msgstr ""
 
 #: DB:link_attribute_type/name:617
@@ -3416,10 +3537,10 @@ msgstr "のVGMdbページのURLは"
 msgid "has a Wikidata page at"
 msgstr "のWikidataページのURLは"
 
-#: DB:link_type/long_link_phrase:789 DB:link_type/long_link_phrase:355
-#: DB:link_type/long_link_phrase:89 DB:link_type/long_link_phrase:744
-#: DB:link_type/long_link_phrase:216 DB:link_type/long_link_phrase:179
-#: DB:link_type/long_link_phrase:595
+#: DB:link_type/long_link_phrase:789 DB:link_type/long_link_phrase:595
+#: DB:link_type/long_link_phrase:355 DB:link_type/long_link_phrase:744
+#: DB:link_type/long_link_phrase:89 DB:link_type/long_link_phrase:216
+#: DB:link_type/long_link_phrase:179 DB:link_type/long_link_phrase:731
 msgid "has a Wikipedia page at"
 msgstr "のWikipediaページのURLは"
 
@@ -3800,8 +3921,16 @@ msgstr ""
 msgid "is an edit of"
 msgstr ""
 
+#: DB:link_type/long_link_phrase:926
+msgid "is associated with"
+msgstr ""
+
 #: DB:link_type/reverse_link_phrase:314
 msgid "is based on"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:925
+msgid "is connected to the educational institution"
 msgstr ""
 
 #: DB:link_type/long_link_phrase:894
@@ -4123,6 +4252,10 @@ msgstr ""
 msgid "mixing location for"
 msgstr ""
 
+#: DB:link_attribute_type/name:1031
+msgid "movement"
+msgstr ""
+
 #: DB:link_type/long_link_phrase:177
 msgid "music can be downloaded for free at"
 msgstr ""
@@ -4152,7 +4285,7 @@ msgstr ""
 msgid "musical relationship"
 msgstr ""
 
-#: DB:link_attribute_type/name:788
+#: DB:link_attribute_type/name:788 DB:link_attribute_type/name:1032
 msgid "number"
 msgstr ""
 
@@ -4182,6 +4315,10 @@ msgstr ""
 #: DB:link_type/long_link_phrase:841 DB:link_type/long_link_phrase:221
 #: DB:link_type/long_link_phrase:660
 msgid "online data"
+msgstr ""
+
+#: DB:link_attribute_type/name:1053
+msgid "optional"
 msgstr ""
 
 #: DB:link_type/link_phrase:807
@@ -4257,6 +4394,10 @@ msgstr "パロディー"
 #: DB:link_type/reverse_link_phrase:717 DB:link_type/reverse_link_phrase:281
 #: DB:link_type/reverse_link_phrase:356 DB:link_type/reverse_link_phrase:743
 msgid "part of"
+msgstr ""
+
+#: DB:link_attribute_type/name:1033
+msgid "part of collection"
 msgstr ""
 
 #: DB:link_attribute_type/name:579
@@ -4469,12 +4610,20 @@ msgstr ""
 msgid "provided {additional} creative direction on"
 msgstr ""
 
+#: DB:link_type/long_link_phrase:928
+msgid "provided {additional} design on"
+msgstr ""
+
 #: DB:link_type/long_link_phrase:19 DB:link_type/long_link_phrase:130
 msgid "provided {additional} design/illustration on"
 msgstr ""
 
-#: DB:link_type/long_link_phrase:27 DB:link_type/long_link_phrase:125
+#: DB:link_type/long_link_phrase:125 DB:link_type/long_link_phrase:27
 msgid "provided {additional} graphic design on"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:927
+msgid "provided {additional} illustration on"
 msgstr ""
 
 #: DB:link_type/long_link_phrase:22
@@ -4751,8 +4900,12 @@ msgstr ""
 msgid "stream {video} for free"
 msgstr ""
 
-#: DB:link_type/link_phrase:847
+#: DB:link_type/link_phrase:847 DB:link_type/reverse_link_phrase:923
 msgid "students"
+msgstr ""
+
+#: DB:link_type/link_phrase:923 DB:link_type/long_link_phrase:923
+msgid "studied at"
 msgstr ""
 
 #: DB:link_type/link_phrase:722
@@ -4815,7 +4968,8 @@ msgstr ""
 msgid "taught"
 msgstr ""
 
-#: DB:link_type/link_phrase:893 DB:link_type/long_link_phrase:893
+#: DB:link_type/link_phrase:924 DB:link_type/link_phrase:893
+#: DB:link_type/long_link_phrase:924 DB:link_type/long_link_phrase:893
 msgid "taught at"
 msgstr ""
 
@@ -4976,9 +5130,13 @@ msgstr ""
 msgid "was the concertmaster for"
 msgstr ""
 
-#: DB:link_type/description:731
-msgid "wikipedia"
-msgstr "wikipedia"
+#: DB:link_type/reverse_link_phrase:921
+msgid "work list entry"
+msgstr ""
+
+#: DB:link_type/link_phrase:921
+msgid "work list entry for"
+msgstr ""
 
 #: DB:link_type/long_link_phrase:704
 msgid "works as a mastering engineer at"
@@ -5203,15 +5361,23 @@ msgstr "{additional:補助的な}指揮者"
 msgid "{additional} creative direction"
 msgstr "{additional:補助的な}クリエイティブディレクション"
 
+#: DB:link_type/link_phrase:928 DB:link_type/reverse_link_phrase:928
+msgid "{additional} design"
+msgstr ""
+
 #: DB:link_type/link_phrase:19 DB:link_type/link_phrase:130
 #: DB:link_type/reverse_link_phrase:19 DB:link_type/reverse_link_phrase:130
 msgid "{additional} design/illustration"
 msgstr "{additional:補助的な}デザイン/イラスト"
 
-#: DB:link_type/link_phrase:27 DB:link_type/link_phrase:125
-#: DB:link_type/reverse_link_phrase:27 DB:link_type/reverse_link_phrase:125
+#: DB:link_type/link_phrase:125 DB:link_type/link_phrase:27
+#: DB:link_type/reverse_link_phrase:125 DB:link_type/reverse_link_phrase:27
 msgid "{additional} graphic design"
 msgstr "{additional:補助的な}グラフィックデザイン"
+
+#: DB:link_type/link_phrase:927 DB:link_type/reverse_link_phrase:927
+msgid "{additional} illustration"
+msgstr ""
 
 #: DB:link_type/link_phrase:22 DB:link_type/reverse_link_phrase:22
 msgid "{additional} legal representation"
@@ -5435,6 +5601,10 @@ msgstr ""
 msgid "{entity1} has a page in a database at {entity0}"
 msgstr ""
 
+#: DB:link_type/long_link_phrase:921
+msgid "{entity1} has a work list entry at {entity0}"
+msgstr ""
+
 #: DB:link_type/long_link_phrase:286
 msgid "{entity1} has an Allmusic page at {entity0}"
 msgstr "{entity1}のAllmusicページは{entity0}です"
@@ -5476,7 +5646,7 @@ msgid "{entity1} is a tribute to {entity0}"
 msgstr ""
 
 #: DB:link_type/long_link_phrase:868 DB:link_type/long_link_phrase:846
-#: DB:link_type/long_link_phrase:914
+#: DB:link_type/long_link_phrase:922 DB:link_type/long_link_phrase:914
 msgid "{entity1} is dedicated to {entity0}"
 msgstr ""
 
