@@ -8,8 +8,10 @@
  */
 
 import React from 'react';
+
 import Layout from '../layout';
 import {l} from '../static/scripts/common/i18n';
+
 import ElectionDetails from './ElectionDetails';
 import ElectionVotes from './ElectionVotes';
 import ElectionVoting from './ElectionVoting';

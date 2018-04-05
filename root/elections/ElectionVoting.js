@@ -8,6 +8,7 @@
  */
 
 import React from 'react';
+
 import Frag from '../components/Frag';
 import {l, lp} from '../static/scripts/common/i18n';
 import EditorLink from '../static/scripts/common/components/EditorLink';
