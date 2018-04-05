@@ -67,17 +67,44 @@ export opaque type ArtistTypeT: OptionTreeT = OptionTreeT;
 
 // See MusicBrainz::Server::Form::Utils::build_attr_info
 declare type AttrInfoT = {|
-  +id: number,
-  +gid: string,
-  root: AttrInfoT,
-  +rootID: number,
-  +name: string,
-  +l_name: string,
-  +freeText: boolean,
+  +children?: $ReadOnlyArray<AttrInfoT>,
   +creditable: boolean,
   +description?: string,
-  +children?: $ReadOnlyArray<AttrInfoT>,
+  +freeText: boolean,
+  +gid: string,
+  +id: number,
+  +l_name: string,
+  +name: string,
+  root: AttrInfoT,
+  +rootID: number,
   +unaccented?: string,
+|};
+
+declare type AutoEditorElectionT = {|
+  ...EntityT,
+  +candidate: EditorT,
+  +close_time?: string,
+  +current_expiration_time: string,
+  +is_closed: boolean,
+  +is_open: boolean,
+  +is_pending: boolean,
+  +no_votes: number,
+  +open_time?: string,
+  +propose_time: string,
+  +proposer: EditorT,
+  +seconder_1?: EditorT,
+  +seconder_2?: EditorT,
+  +status_name: string,
+  +status_name_short: string,
+  +votes: $ReadOnlyArray<AutoEditorElectionVoteT>,
+  +yes_votes: number,
+|};
+
+declare type AutoEditorElectionVoteT = {|
+  ...EntityT,
+  +vote_name: string,
+  +vote_time: string,
+  +voter: EditorT,
 |};
 
 type CatalystContextT = {|
@@ -92,13 +119,10 @@ type CatalystSessionT = {|
   +tport?: number,
 |};
 
-type CatalystUserT = {|
-  +is_location_editor: boolean,
-  +is_relationship_editor: boolean,
-|};
-
 type CatalystStashT = {|
 |};
+
+type CatalystUserT = EditorT;
 
 type CommentRoleT = {|+comment: string|};
 
@@ -144,6 +168,22 @@ declare type EditableRoleT = {|
   +editsPending: boolean,
 |};
 
+declare type EditorT = {|
+  ...EntityT,
+  +email: string,
+  +entityType: 'editor',
+  +is_account_admin: boolean,
+  +is_admin: boolean,
+  +is_auto_editor: boolean,
+  +is_banner_editor: boolean,
+  +is_bot: boolean,
+  +is_editing_disabled: boolean,
+  +is_location_editor: boolean,
+  +is_relationship_editor: boolean,
+  +is_wiki_transcluder: boolean,
+  +name: string,
+|};
+
 declare type EntityRoleT = {|
   +entityType: string,
   +id: number,
@@ -164,9 +204,11 @@ declare type FormT<F> = {|
   +name: string,
 |};
 
-// See MusicBrainz::Server::Form::Utils::build_grouped_options
-// FIXME(michael): Figure out a way to consolidate GroupedOptionsT,
-// OptionListT, and OptionTreeT?
+/*
+ * See MusicBrainz::Server::Form::Utils::build_grouped_options
+ * FIXME(michael): Figure out a way to consolidate GroupedOptionsT,
+ * OptionListT, and OptionTreeT?
+ */
 declare type GroupedOptionsT = $ReadOnlyArray<{|
   +optgroup: string,
   +options: $ReadOnlyArray<{|
@@ -221,8 +263,8 @@ declare type LabelT = {|
 
 declare type LinkTypeAttrTypeT = {|
   attribute: AttrInfoT,
-  +min: number | null,
   +max: number | null,
+  +min: number | null,
 |};
 
 declare type LinkTypeInfoT = {|
@@ -245,17 +287,17 @@ declare type LinkTypeInfoT = {|
 
 // See MB.forms.buildOptionsTree
 declare type OptionListT = $ReadOnlyArray<{|
-  +value: number,
   +text: string,
+  +value: number,
 |}>;
 
 declare type OptionTreeT = {|
   ...EntityRoleT,
+  +childOrder: number,
+  +description: string,
   +gid: string,
   +name: string,
   +parentID: number | null,
-  +childOrder: number,
-  +description: string,
 |};
 
 declare type PartialDateT = {|
@@ -363,8 +405,8 @@ export opaque type WorkTypeT: OptionTreeT = OptionTreeT;
 declare type WorkAttributeTypeAllowedValueT = {|
   ...EntityRoleT,
   ...OptionTreeT,
-  +workAttributeTypeID: number,
   +value: string,
+  +workAttributeTypeID: number,
 |};
 
 // See MusicBrainz::Server::Controller::Work::stash_work_form_json

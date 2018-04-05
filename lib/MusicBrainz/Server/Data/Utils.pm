@@ -40,6 +40,7 @@ our @EXPORT_OK = qw(
     check_data
     copy_escape
     coordinates_to_hash
+    datetime_to_iso8601
     defined_hash
     generate_gid
     generate_token
@@ -610,6 +611,17 @@ sub boolean_from_json {
 
     $bool = ref($bool) ? ${$bool} : $bool;
     return $bool ? 1 : 0;
+}
+
+sub datetime_to_iso8601 {
+    my $date = shift;
+
+    return undef unless defined $date;
+
+    $date = $date->clone;
+    $date->set_time_zone('UTC');
+    $date = $date->iso8601 . 'Z';
+    return $date;
 }
 
 1;

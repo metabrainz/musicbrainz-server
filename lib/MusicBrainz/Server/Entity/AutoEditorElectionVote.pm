@@ -4,6 +4,7 @@ use namespace::autoclean;
 
 use MusicBrainz::Server::Entity::Types;
 use MusicBrainz::Server::Constants qw( :election_vote );
+use MusicBrainz::Server::Data::Utils qw( datetime_to_iso8601 );
 use MusicBrainz::Server::Types qw( VoteOption DateTime );
 
 extends 'MusicBrainz::Server::Entity';
@@ -46,6 +47,17 @@ sub vote_name
 
     return $VOTE_NAMES{$self->vote};
 }
+
+around TO_JSON => sub {
+    my ($orig, $self) = @_;
+
+    return {
+        %{ $self->$orig },
+        vote_name => $self->vote_name,
+        voter => $self->voter,
+        vote_time => datetime_to_iso8601($self->vote_time),
+    };
+};
 
 no Moose;
 __PACKAGE__->meta->make_immutable;

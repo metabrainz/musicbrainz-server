@@ -18,7 +18,11 @@ sub index : Path('')
     my @elections = $c->model('AutoEditorElection')->get_all();
     $c->model('AutoEditorElection')->load_editors(@elections);
 
-    $c->stash( elections => \@elections );
+    $c->stash(
+        current_view => 'Node',
+        component_path => 'elections/Index.js',
+        component_props => {elections => \@elections},
+    );
 }
 
 sub nominate : Path('nominate') Args(1) RequireAuth(auto_editor)
@@ -44,7 +48,11 @@ sub nominate : Path('nominate') Args(1) RequireAuth(auto_editor)
         }
     }
 
-    $c->stash( candidate => $candidate );
+    $c->stash(
+        current_view => 'Node',
+        component_path => 'elections/Nominate.js',
+        component_props => {candidate => $candidate},
+    );
 }
 
 sub base : Chained('/') PathPart('election') CaptureArgs(0) { }
@@ -82,10 +90,10 @@ sub show : Chained('load') PathPart('') Args(0)
     $c->model('AutoEditorElection')->load_editors($election);
 
     $c->stash(
-        can_vote => $c->user_exists && $election->can_vote($c->user),
-        can_second => $c->user_exists && $election->can_second($c->user),
-        can_cancel => $c->user_exists && $election->can_cancel($c->user),
-        can_see_vote_count => $election->can_see_vote_count($c->user),
+        current_view => 'Node',
+        component_path => 'elections/Show.js',
+        component_props => {election => $election},
+
     );
 }
 
