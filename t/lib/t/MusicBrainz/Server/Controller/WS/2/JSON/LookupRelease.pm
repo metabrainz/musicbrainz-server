@@ -920,8 +920,8 @@ test 'release lookup, track artists have no tags' => sub {
 
     MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
 
-    ws2_test_json 'release lookup, track artists have no tags',
-    '/release/4f5a6b97-a09b-4893-80d1-eae1f3bfa221?inc=artists+recordings+tags+artist-rels+recording-level-rels'
+    ws2_test_json 'release lookup, track artists have no tags/genres',
+    '/release/4f5a6b97-a09b-4893-80d1-eae1f3bfa221?inc=artists+recordings+tags+genres+artist-rels+recording-level-rels'
     => {
         'artist-credit' => [ {
             artist => {
@@ -1323,6 +1323,7 @@ test 'release lookup, track artists have no tags' => sub {
         status => 'Official',
         "status-id" => "4e304316-386d-3409-af2e-78857eec5cfe",
         tags => [],
+        genres => [],
         'text-representation' => {
             language => 'eng',
             script => 'Latn'

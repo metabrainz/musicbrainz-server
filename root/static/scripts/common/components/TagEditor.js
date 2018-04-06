@@ -11,7 +11,7 @@ const React = require('react');
 const ReactDOM = require('react-dom');
 
 import loopParity from '../../../../utility/loopParity';
-import {GENRE_TAGS} from '../../common/constants';
+import {GENRE_TAGS} from '../constants';
 const {l, lp} = require('../i18n');
 const MB = require('../MB');
 import bracketed from '../utility/bracketed';

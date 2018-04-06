@@ -14,7 +14,7 @@ test 'browse release group via release' => sub {
     MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
 
     ws_test_json 'browse release group via release',
-    '/release-group?release=adcf7b48-086e-48ee-b420-1001f88d672f&inc=artist-credits+tags+ratings' =>
+    '/release-group?release=adcf7b48-086e-48ee-b420-1001f88d672f&inc=artist-credits+tags+genres+ratings' =>
         {
             "release-group-offset" => 0,
             "release-group-count" => 1,
@@ -42,6 +42,10 @@ test 'browse release group via release' => sub {
                         { count => 2, name => "dubstep" },
                         { count => 1, name => "electronic" },
                         { count => 1, name => "grime" }],
+                    genres => [
+                        { count => 2, name => "dubstep" },
+                        { count => 1, name => "electronic" },
+                        { count => 1, name => "grime" }],
                     "rating" => { "votes-count" => 1, "value" => 4 },
                     disambiguation => "",
                 }]
@@ -53,7 +57,7 @@ test 'browse release group via artist' => sub {
     MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
 
     ws_test_json 'browse release group via artist',
-    '/release-group?artist=472bc127-8861-45e8-bc9e-31e8dd32de7a&inc=artist-credits+tags+ratings' =>
+    '/release-group?artist=472bc127-8861-45e8-bc9e-31e8dd32de7a&inc=artist-credits+tags+genres+ratings' =>
         {
             "release-group-count" => 2,
             "release-group-offset" => 0,
@@ -81,6 +85,10 @@ test 'browse release group via artist' => sub {
                         { count => 2, name => "dubstep" },
                         { count => 1, name => "electronic" },
                         { count => 1, name => "grime" }],
+                    genres => [
+                        { count => 2, name => "dubstep" },
+                        { count => 1, name => "electronic" },
+                        { count => 1, name => "grime" }],
                     "rating" => { "votes-count" => 1, "value" => 4 },
                     disambiguation => "",
                 },
@@ -104,6 +112,7 @@ test 'browse release group via artist' => sub {
                             joinphrase => "",
                         }],
                     tags => [ ],
+                    genres => [ ],
                     "rating" => { "votes-count" => 0, "value" => JSON::null },
                     disambiguation => "",
                 }]
