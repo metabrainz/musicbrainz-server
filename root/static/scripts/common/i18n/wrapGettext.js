@@ -22,13 +22,12 @@ if (isNodeJS) {
   gettext = new Jed(jedData[jedData.locale]);
 }
 
-function wrapGettext(method, domain) {
-  let domainLoaded = !isNodeJS;
+const canLoadDomain = typeof gettext.loadDomain === 'function';
 
+function wrapGettext(method, domain) {
   return function () {
-    if (!domainLoaded) {
+    if (canLoadDomain && !gettext.options.locale_data[domain]) {
       gettext.loadDomain(domain);
-      domainLoaded = true;
     }
 
     let args = sliced(arguments);
