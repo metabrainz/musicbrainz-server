@@ -268,7 +268,7 @@ sub serialize_tags {
     return unless
         ($toplevel &&
          defined $inc &&
-         ($inc->tags || $inc->user_tags));
+         ($inc->tags || $inc->user_tags || $inc->genres || $inc->user_genres));
 
     my $opts = $stash->store($entity);
 
@@ -280,10 +280,26 @@ sub serialize_tags {
         ];
     }
 
+    if ($inc->genres) {
+        $into->{genres} = [
+            sort { $a->{name} cmp $b->{name} }
+            map +{ count => $_->count, name => $_->tag->name },
+                grep {$_->tag->is_genre_tag} @{ $opts->{tags} }
+        ];
+    }
+
     if ($inc->user_tags) {
         $into->{'user-tags'} = [
             sort { $a->{name} cmp $b->{name} }
             map +{ name => $_->tag->name }, @{ $opts->{user_tags} }
+        ];
+    }
+
+    if ($inc->user_genres) {
+        $into->{'user_genres'} = [
+            sort { $a->{name} cmp $b->{name} }
+            map +{ name => $_->tag->name },
+                grep {$_->tag->is_genre_tag} @{ $opts->{user_tags} }
         ];
     }
 
