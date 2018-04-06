@@ -81,7 +81,7 @@ declare type AttrInfoT = {|
 |};
 
 declare type AutoEditorElectionT = {|
-  ...EntityT,
+  ...EntityRoleT,
   +candidate: EditorT,
   +close_time?: string,
   +current_expiration_time: string,
@@ -101,7 +101,7 @@ declare type AutoEditorElectionT = {|
 |};
 
 declare type AutoEditorElectionVoteT = {|
-  ...EntityT,
+  ...EntityRoleT,
   +vote_name: string,
   +vote_time: string,
   +voter: EditorT,
@@ -169,7 +169,7 @@ declare type EditableRoleT = {|
 |};
 
 declare type EditorT = {|
-  ...EntityT,
+  ...EntityRoleT,
   +email: string,
   +entityType: 'editor',
   +is_account_admin: boolean,
