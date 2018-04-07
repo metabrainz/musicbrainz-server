@@ -8,6 +8,7 @@
  */
 
 const React = require('react');
+const {withCatalystContext} = require('../../context');
 const Frag = require('../Frag');
 const {l} = require('../../static/scripts/common/i18n');
 const EntityLink = require('../../static/scripts/common/components/EntityLink');
@@ -15,12 +16,13 @@ const entityHref = require('../../static/scripts/common/utility/entityHref');
 const AliasTable = require('./AliasTable');
 
 type Props = {
+  +$c: CatalystContextT,
   +aliases: $ReadOnlyArray<AliasT>,
-  +allowEditing: boolean,
   +entity: $Subtype<CoreEntityT>,
 };
 
-const Aliases = ({aliases, entity, allowEditing = $c.user_exists}: Props) => {
+const Aliases = ({$c, aliases, entity}: Props) => {
+  const allowEditing = $c.user ? $c.user.is_location_editor : false;
   return (
     <Frag>
       <h2>{l('Aliases')}</h2>
@@ -44,4 +46,4 @@ const Aliases = ({aliases, entity, allowEditing = $c.user_exists}: Props) => {
   );
 };
 
-module.exports = Aliases;
+export default withCatalystContext(Aliases);

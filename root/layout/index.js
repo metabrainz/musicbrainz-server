@@ -5,7 +5,8 @@
 
 const React = require('react');
 
-const Footer = require('./components/Footer');
+import {withCatalystContext} from '../context';
+import Footer from './components/Footer';
 const Head = require('./components/Head');
 import Header from './components/Header';
 const MergeHelper = require('./components/MergeHelper');
@@ -60,7 +61,7 @@ const ServerDetailsBanner = () => {
   return null;
 };
 
-const Layout = (props) => (
+const Layout = ({$c, ...props}) => (
   <html lang={$c.stash.current_language_html}>
     <Head {...props} />
 
@@ -115,4 +116,4 @@ const Layout = (props) => (
   </html>
 );
 
-module.exports = Layout;
+module.exports = withCatalystContext(Layout);

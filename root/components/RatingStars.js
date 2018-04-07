@@ -7,6 +7,7 @@
 
 const React = require('react');
 
+const {withCatalystContext} = require('../context');
 const ratingTooltip = require('../utility/ratingTooltip');
 
 const ratingURL = (entity: RatableT, rating) => (
@@ -21,10 +22,11 @@ const ratingURL = (entity: RatableT, rating) => (
 const ratingInts = [1, 2, 3, 4, 5];
 
 type Props = {|
+  +$c: CatalystContextT,
   +entity: RatableT,
 |};
 
-const RatingStars = ({entity}: Props) => {
+const RatingStars = ({$c, entity}: Props) => {
   const currentStarRating =
     entity.user_rating ? (5 * entity.user_rating / 100) : 0;
 
@@ -62,4 +64,4 @@ const RatingStars = ({entity}: Props) => {
   );
 };
 
-module.exports = RatingStars;
+export default withCatalystContext(RatingStars);

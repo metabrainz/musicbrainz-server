@@ -45,8 +45,6 @@ function getResponse(requestBody, context) {
     Raven.mergeContext({user: _.pick(context.user, ['id', 'name'])});
   }
 
-  global.$c = context;
-
   // Set the current translations to be used for this request based on the
   // given 'lang' cookie.
   const gettext = require('./gettext');
@@ -71,8 +69,16 @@ function getResponse(requestBody, context) {
   }
 
   try {
+    // N.B. This must be required in the same process that serves the request.
+    // Do not move to the top of the file.
+    const {CatalystContext} = require('../context');
+
     response = ReactDOMServer.renderToStaticMarkup(
-      React.createElement(Page, requestBody.props)
+      React.createElement(
+        CatalystContext.Provider,
+        {value: context},
+        React.createElement(Page, requestBody.props),
+      )
     );
   } catch (err) {
     Raven.captureException(err);

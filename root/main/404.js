@@ -5,6 +5,7 @@
 
 const React = require('react');
 
+const {withCatalystContext} = require('../context');
 const Layout = require('../layout');
 const {l} = require('../static/scripts/common/i18n');
 const bugTrackerURL = require('../static/scripts/common/utility/bugTrackerURL');
@@ -12,7 +13,7 @@ const bugTrackerURL = require('../static/scripts/common/utility/bugTrackerURL');
 // Please try and keep the WikiDoc templates (doc/error.tt & doc/bare_error.tt)
 // looking similar to how this template looks.
 
-const _404 = (props) => (
+const _404 = ({$c, ...props}) => (
   <Layout {...props} title={l('Page Not Found')} fullWidth={true}>
     <div id="content">
       <h1>{l('Page Not Found')}</h1>
@@ -41,4 +42,4 @@ const _404 = (props) => (
   </Layout>
 );
 
-module.exports = _404;
+export default withCatalystContext(_404);

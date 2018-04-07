@@ -10,19 +10,20 @@
 import React from 'react';
 import type {Node as ReactNode} from 'react';
 
+import {withCatalystContext} from '../../context';
 import {l, lp} from '../../static/scripts/common/i18n';
 import EditorLink from '../../static/scripts/common/components/EditorLink';
 import formatUserDate from '../../utility/formatUserDate';
 import {votesVisible} from '../../utility/voting';
 
-type PropsT = {
-  +elections: $ReadOnlyArray<AutoEditorElectionT>,
-};
+type RowProps = {|
+  +$c: CatalystContextT,
+  +election: AutoEditorElectionT,
+  +index: number,
+|};
 
-const ElectionTableRows = (
-  {elections}: PropsT,
-): ReactNode => elections.map((election, index) => (
-  <tr className={index % 2 ? 'even' : 'odd'} key={election.id}>
+const ElectionTableRow = withCatalystContext(({$c, election, index}: RowProps) => (
+  <tr className={index % 2 ? 'even' : 'odd'}>
     <td><EditorLink editor={election.candidate} /></td>
     <td>{lp(election.status_name_short, 'autoeditor election status (short)')}</td>
     <td>{formatUserDate($c.user, election.propose_time)}</td>
@@ -50,6 +51,16 @@ const ElectionTableRows = (
     </td>
     <td><a href={`/election/${election.id}`}>{l('View details')}</a></td>
   </tr>
+));
+
+const ElectionTableRows = (
+  {elections}: {|+elections: $ReadOnlyArray<AutoEditorElectionT>|},
+): ReactNode => elections.map((election, index) => (
+  <ElectionTableRow
+    election={election}
+    index={index}
+    key={election.id}
+  />
 ));
 
 export default ElectionTableRows;
