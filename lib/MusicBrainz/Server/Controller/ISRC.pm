@@ -38,6 +38,7 @@ sub show : Chained('load') PathPart('')
         current_view => 'Node',
         component_path => 'isrc/Index.js',
         component_props => {
+            %{$c->stash->{component_props}},
             isrcs => $isrcs,
             recordings => \@recordings
         }

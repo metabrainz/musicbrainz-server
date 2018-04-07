@@ -1,53 +1,69 @@
-// This file is part of MusicBrainz, the open internet music database.
-// Copyright (C) 2015 MetaBrainz Foundation
-// Licensed under the GPL version 2, or (at your option) any later version:
-// http://www.gnu.org/licenses/gpl-2.0.txt
+/*
+ * @flow
+ * Copyright (C) 2015 MetaBrainz Foundation
+ *
+ * This file is part of MusicBrainz, the open internet music database,
+ * and is licensed under the GPL version 2, or (at your option) any
+ * later version: http://www.gnu.org/licenses/gpl-2.0.txt
+ */
 
-const React = require('react');
+import React from 'react';
 
-const manifest = require('../../static/manifest');
-const DBDefs = require('../../static/scripts/common/DBDefs');
-const {l, lp} = require('../../static/scripts/common/i18n');
+import * as manifest from '../../static/manifest';
+import * as DBDefs from '../../static/scripts/common/DBDefs';
+import {l, lp} from '../../static/scripts/common/i18n';
 
-let TYPE_OPTIONS = {
-  artist:         l('Artist'),
-  release_group:  l('Release Group'),
-  release:        l('Release'),
-  recording:      l('Recording'),
-  work:           l('Work'),
-  label:          l('Label'),
-  area:           l('Area'),
-  place:          l('Place'),
-  annotation:     l('Annotation'),
-  cdstub:         l('CD Stub'),
-  editor:         l('Editor'),
-  tag:            lp('Tag', 'noun'),
-  instrument:     l('Instrument'),
-  series:         lp('Series', 'singular'),
-  event:          l('Event')
+const TYPE_OPTIONS = {
+  annotation: l('Annotation'),
+  area: l('Area'),
+  artist: l('Artist'),
+  cdstub: l('CD Stub'),
+  doc: DBDefs.GOOGLE_CUSTOM_SEARCH ? l('Documentation') : null,
+  editor: l('Editor'),
+  event: l('Event'),
+  instrument: l('Instrument'),
+  label: l('Label'),
+  place: l('Place'),
+  recording: l('Recording'),
+  release: l('Release'),
+  release_group: l('Release Group'),
+  series: lp('Series', 'singular'),
+  tag: lp('Tag', 'noun'),
+  work: l('Work'),
 };
-
-if (DBDefs.GOOGLE_CUSTOM_SEARCH) {
-  TYPE_OPTIONS.doc = l('Documentation');
-}
 
 const searchOptions = (
   <select id="headerid-type" name="type">
-    {Object.keys(TYPE_OPTIONS).map((key, index) =>
-      <option key={index} value={key}>{TYPE_OPTIONS[key]}</option>
-    )}
+    {Object.keys(TYPE_OPTIONS).map(function (key, index) {
+      const text = TYPE_OPTIONS[key];
+      if (!text) {
+        return null;
+      }
+      return <option key={index} value={key}>{text}</option>;
+    })}
   </select>
 );
 
 const Search = () => (
   <form action="/search" method="get">
-    <input type="text" id="headerid-query" name="query" placeholder={l('Search')} required={true} />
+    <input
+      id="headerid-query"
+      name="query"
+      placeholder={l('Search')}
+      required
+      type="text"
+    />
     {' '}{searchOptions}{' '}
-    <input type="hidden" id="headerid-method" name="method" value="indexed" />
+    <input
+      id="headerid-method"
+      name="method"
+      type="hidden"
+      value="indexed"
+    />
     <button type="submit">
       <img alt="" src={manifest.pathTo('/images/icons/search.svg')} />
     </button>
   </form>
 );
 
-module.exports = Search;
+export default Search;

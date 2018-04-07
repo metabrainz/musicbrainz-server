@@ -160,6 +160,7 @@ sub list : Path('/instruments') Args(0) {
         current_view => 'Node',
         component_path => 'instrument/List',
         component_props => {
+            %{$c->stash->{component_props}},
             instruments_by_type => $entities,
             instrument_types => \@types
         }

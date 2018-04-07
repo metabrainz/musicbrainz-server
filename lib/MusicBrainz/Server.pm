@@ -461,7 +461,6 @@ sub TO_JSON {
         merge_link
         new_edit_notes
         server_details
-        server_languages
         to_merge
     );
 
@@ -479,19 +478,6 @@ sub TO_JSON {
     # convert DateTime objects to iso8601-formatted strings
     if (my $date = $stash{last_replication_date}) {
         $stash{last_replication_date} = datetime_to_iso8601($date);
-    }
-
-    # Limit server_languages data to what's needed, since the complete output
-    # is very large.
-    if (my $server_languages = $stash{server_languages}) {
-        my @langs;
-        for my $lang (@{$server_languages}) {
-            push @langs,
-                [ $lang->[0],
-                  { map { $_ => $lang->[1]->{$_} }
-                    qw( id native_language native_territory ) } ];
-        }
-        $stash{server_languages} = \@langs;
     }
 
     if (my $server_details = delete $stash{server_details}) {
