@@ -10,7 +10,7 @@ const React = require('react');
 const ReactDOMServer = require('react-dom/server');
 
 const DBDefs = require('../static/scripts/common/DBDefs');
-const getCookie = require('../static/scripts/common/utility/getCookie');
+const getRequestCookie = require('../utility/getRequestCookie').default;
 const {bufferFrom} = require('./buffer');
 
 function pathFromRoot(fpath) {
@@ -50,7 +50,7 @@ function getResponse(requestBody, context) {
   // Set the current translations to be used for this request based on the
   // given 'lang' cookie.
   const gettext = require('./gettext');
-  const bcp47Locale = getCookie('lang') || 'en';
+  const bcp47Locale = getRequestCookie(context.req, 'lang') || 'en';
   gettext.setLocale(bcp47Locale.replace("-", "_"));
 
   try {

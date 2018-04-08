@@ -12,7 +12,7 @@ const MergeHelper = require('./components/MergeHelper');
 const {RT_SLAVE} = require('../static/scripts/common/constants');
 const DBDefs = require('../static/scripts/common/DBDefs');
 const {l} = require('../static/scripts/common/i18n');
-const getCookie = require('../static/scripts/common/utility/getCookie');
+import getRequestCookie from '../utility/getRequestCookie';
 
 const DismissBannerButton = ({bannerName}) => (
   <button className="dismiss-banner remove-item icon"
@@ -67,9 +67,9 @@ const Layout = (props) => (
     <body>
       <Header {...props} />
 
-      {!getCookie('server_details_dismissed_mtime') && <ServerDetailsBanner />}
+      {!getRequestCookie($c.req, 'server_details_dismissed_mtime') && <ServerDetailsBanner />}
 
-      {!!($c.stash.alert && $c.stash.alert_mtime > getCookie('alert_dismissed_mtime', 0)) &&
+      {!!($c.stash.alert && $c.stash.alert_mtime > getRequestCookie($c.req, 'alert_dismissed_mtime', 0)) &&
         <div className="banner warning-header">
           <p dangerouslySetInnerHTML={{__html: $c.stash.alert}}></p>
           <DismissBannerButton bannerName="alert" />
@@ -83,8 +83,8 @@ const Layout = (props) => (
         </div>}
 
       {!!($c.stash.new_edit_notes &&
-          $c.stash.new_edit_notes_mtime > getCookie('new_edit_notes_dismissed_mtime', 0) &&
-          ($c.user.is_limited || getCookie('alert_new_edit_notes', 'true') !== 'false')) &&
+          $c.stash.new_edit_notes_mtime > getRequestCookie($c.req, 'new_edit_notes_dismissed_mtime', 0) &&
+          ($c.user.is_limited || getRequestCookie($c.req, 'alert_new_edit_notes', 'true') !== 'false')) &&
         <div className="banner new-edit-notes">
           <p>
             {l('{link|New notes} have been left on some of your edits. Please make sure to read them and respond if necessary.',
