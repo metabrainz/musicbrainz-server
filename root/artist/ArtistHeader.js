@@ -10,7 +10,6 @@
 const React = require('react');
 const {l} = require('../static/scripts/common/i18n');
 const {lp_attributes} = require('../static/scripts/common/i18n/attributes');
-const isSpecialPurposeArtist = require('../static/scripts/common/utility/isSpecialPurposeArtist');
 const EntityHeader = require('../components/EntityHeader');
 
 type Props = {|
@@ -27,7 +26,6 @@ const ArtistHeader = ({artist, page}: Props) => {
     <EntityHeader
       entity={artist}
       headerClass={headerClass}
-      hideEditTab={isSpecialPurposeArtist(artist)}
       page={page}
       subHeading={artist.typeName ? lp_attributes(artist.typeName, 'artist_type') : l('Artist')}
     />

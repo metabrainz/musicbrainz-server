@@ -8,19 +8,17 @@
  */
 
 const React = require('react');
-const {withCatalystContext} = require('../context');
 const {l} = require('../static/scripts/common/i18n');
 const {lp_attributes} = require('../static/scripts/common/i18n/attributes');
 const AreaContainmentLink = require('../static/scripts/common/components/AreaContainmentLink');
 const EntityHeader = require('../components/EntityHeader');
 
 type Props = {|
-  +$c: CatalystContextT,
   +area: AreaT,
   +page: string,
 |};
 
-const AreaHeader = ({$c, area, page}: Props) => {
+const AreaHeader = ({area, page}: Props) => {
   const areaType = area.typeName ? lp_attributes(area.typeName, 'area_type') : l('Area');
   let subHeading = areaType;
   if (area.containment.length) {
@@ -35,11 +33,10 @@ const AreaHeader = ({$c, area, page}: Props) => {
     <EntityHeader
       entity={area}
       headerClass="areaheader"
-      hideEditTab={!($c.user && $c.user.is_location_editor)}
       page={page}
       subHeading={subHeading}
     />
   );
 };
 
-export default withCatalystContext(AreaHeader);
+export default AreaHeader;
