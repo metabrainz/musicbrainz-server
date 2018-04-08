@@ -34,11 +34,13 @@ class Autocomplete extends React.Component {
     $(this._nameInput).autocomplete('destroy');
   }
 
-  componentWillReceiveProps(nextProps) {
+  componentDidUpdate(prevProps) {
+    const nextProps = this.props;
+
     this._subscription.dispose();
     this._subscription = this._currentSelection.subscribe(nextProps.onChange);
 
-    const prev = this.props.currentSelection;
+    const prev = prevProps.currentSelection;
     const next = nextProps.currentSelection;
     const autocomplete = this._autocomplete;
 
