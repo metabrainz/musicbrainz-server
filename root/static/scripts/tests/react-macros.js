@@ -5,7 +5,7 @@
 
 'use strict';
 
-require('babel-core/register');
+require('@babel/register');
 
 const global = require('../global');
 
