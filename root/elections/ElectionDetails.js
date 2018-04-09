@@ -16,11 +16,11 @@ import {votesVisible} from '../utility/voting';
 import VotingPeriod from '../components/VotingPeriod';
 
 type PropsT = {
+  +$c: CatalystContextT,
   +election: AutoEditorElectionT,
-  +user?: EditorT,
 };
 
-const ElectionDetails = ({election, user}: PropsT) => (
+const ElectionDetails = ({$c, election}: PropsT) => (
   <>
     <h2>{l('Details')}</h2>
     <table className="properties">
@@ -48,7 +48,7 @@ const ElectionDetails = ({election, user}: PropsT) => (
             : '-'}
         </td>
       </tr>
-      {votesVisible(election, user)
+      {votesVisible(election, $c.user)
         ? (
           <>
             <tr>
@@ -79,7 +79,7 @@ const ElectionDetails = ({election, user}: PropsT) => (
           {election.is_open && election.open_time
             ? (
               texp.lp(election.status_name, 'autoeditor election status', {
-                date: formatUserDate(user, election.open_time),
+                date: formatUserDate($c, election.open_time),
               })
             ) : null}
 
@@ -94,7 +94,6 @@ const ElectionDetails = ({election, user}: PropsT) => (
                 {bracketed(
                   <VotingPeriod
                     closingDate={election.current_expiration_time}
-                    user={user}
                   />,
                 )}
               </>
@@ -106,7 +105,7 @@ const ElectionDetails = ({election, user}: PropsT) => (
                 ? (
                   texp.lp(election.status_name, 'autoeditor election status',
                           {
-                            date: formatUserDate(user, election.close_time),
+                            date: formatUserDate($c, election.close_time),
                           })
                 ) : (
                   lp(election.status_name_short,

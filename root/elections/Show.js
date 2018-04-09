@@ -33,11 +33,11 @@ const Show = ({$c, election}: Props) => {
       <p>
         <a href="/elections">{l('Back to elections')}</a>
       </p>
-      <ElectionDetails election={election} user={user} />
+      <ElectionDetails $c={$c} election={election} />
       <h2>{l('Voting')}</h2>
       <ElectionVoting election={election} user={user} />
       <h2>{l('Votes cast')}</h2>
-      <ElectionVotes election={election} user={user} />
+      <ElectionVotes $c={$c} election={election} />
     </Layout>
   );
 };

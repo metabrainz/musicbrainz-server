@@ -67,7 +67,7 @@ const Footer = ({$c, ...props}) => {
             <br />
             {texp.l('Last replication packet received at {datetime}', {
               datetime: $c.user
-                ? formatUserDate($c.user, stash.last_replication_date)
+                ? formatUserDate($c, stash.last_replication_date)
                 : stash.last_replication_date,
             })}
           </>

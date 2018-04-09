@@ -90,7 +90,7 @@ const Annotation = ({
           latestAnnotation && (annotation.id === latestAnnotation.id) ? (
             <>
               {exp.l('Annotation last modified by {user} on {date}.', {
-                date: formatUserDate($c.user, annotation.creation_date),
+                date: formatUserDate($c, annotation.creation_date),
                 user: <EditorLink editor={annotation.editor} />,
               })}
               {numberOfRevisions && numberOfRevisions > 1 ? (
@@ -109,7 +109,7 @@ const Annotation = ({
                {current|View current revision}.`,
               {
                 current: entityHref(entity, '/annotation'),
-                date: formatUserDate($c.user, annotation.creation_date),
+                date: formatUserDate($c, annotation.creation_date),
                 history: entityHref(entity, '/annotations'),
                 user: <EditorLink editor={annotation.editor} />,
               },
@@ -117,7 +117,7 @@ const Annotation = ({
           )
         ) : (
           texp.l('Annotation last modified on {date}.', {
-            date: formatUserDate($c.user, annotation.creation_date),
+            date: formatUserDate($c, annotation.creation_date),
           })
         )}
       </div>

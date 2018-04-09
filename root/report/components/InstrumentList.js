@@ -51,7 +51,7 @@ const InstrumentList = ({
                 </td>
                 <td>
                   {item.instrument.last_updated
-                    ? formatUserDate($c.user, item.instrument.last_updated)
+                    ? formatUserDate($c, item.instrument.last_updated)
                     : null
                   }
                 </td>

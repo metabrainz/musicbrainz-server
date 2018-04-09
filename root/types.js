@@ -873,6 +873,9 @@ declare type SanitizedCatalystContextT = {
   +req: {
     +uri: string,
   },
+  +stash: {
+    +current_language: string,
+  },
   +user: SanitizedEditorT | null,
   +user_exists: boolean,
 };

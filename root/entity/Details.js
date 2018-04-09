@@ -76,7 +76,7 @@ const Details = ({
           <th>{l('Last updated:')}</th>
           <td>
             {entity.last_updated
-              ? formatUserDate($c.user, entity.last_updated)
+              ? formatUserDate($c, entity.last_updated)
               : l('(unknown)')}
           </td>
         </tr>

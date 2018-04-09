@@ -31,10 +31,10 @@ const ElectionTableRow = withCatalystContext(({
     <td>
       {lp(election.status_name_short, 'autoeditor election status (short)')}
     </td>
-    <td>{formatUserDate($c.user, election.propose_time)}</td>
+    <td>{formatUserDate($c, election.propose_time)}</td>
     <td>
       {election.close_time
-        ? formatUserDate($c.user, election.close_time)
+        ? formatUserDate($c, election.close_time)
         : '-'}
     </td>
     <td><EditorLink editor={election.proposer} /></td>
