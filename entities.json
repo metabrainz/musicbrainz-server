@@ -276,10 +276,12 @@
         "model": "InstrumentType"
     },
     "isrc": {
-        "model": "ISRC"
+        "model": "ISRC",
+        "url": "isrc"
     },
     "iswc": {
-        "model": "ISWC"
+        "model": "ISWC",
+        "url": "iswc"
     },
     "label": {
         "aliases": {

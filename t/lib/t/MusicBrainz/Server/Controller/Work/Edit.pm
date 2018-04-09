@@ -103,16 +103,6 @@ test 'Editing works with attributes' => sub {
     $c->sql->do(<<'EOSQL');
 -- We aren't interested in ISWC editing
 DELETE FROM iswc;
-
-INSERT INTO work_attribute_type (id, gid, name, free_text)
-VALUES
-  (1, '325c079d-374e-4436-9448-da92dedef3ce', 'Attribute', false),
-  (2, '425c079d-374e-4436-9448-da92dedef3ce', 'Free attribute', true);
-INSERT INTO work_attribute_type_allowed_value (id, gid, work_attribute_type, value)
-VALUES
-  (1, '325c079a-374e-4436-9448-da92dedef3ce', 1, 'Value'),
-  (2, '7536cc39-5d16-4cf4-89f7-d2b7e10aff2b', 1, 'Value 2'),
-  (3, '125c079a-374e-4436-9448-da92dedef3ce', 1, 'Value 3');
 EOSQL
 
     $mech->get_ok('/login');
@@ -123,10 +113,10 @@ EOSQL
         html_ok($mech->content);
         my $request = POST $mech->uri, [
             'edit-work.name' => 'Work name',
-            'edit-work.attributes.0.type_id' => 2,
+            'edit-work.attributes.0.type_id' => 6,
             'edit-work.attributes.0.value' => 'Free text',
             'edit-work.attributes.1.type_id' => 1,
-            'edit-work.attributes.1.value' => '3'
+            'edit-work.attributes.1.value' => '13'
         ];
         my $response = $mech->request($request);
     } $c;
@@ -137,13 +127,13 @@ EOSQL
         [
             {
                 attribute_text => "Free text",
-                attribute_type_id => 2,
+                attribute_type_id => 6,
                 attribute_value_id => undef
             },
             {
                 attribute_text => undef,
                 attribute_type_id => 1,
-                attribute_value_id => 3
+                attribute_value_id => 13
             }
         ]
     );

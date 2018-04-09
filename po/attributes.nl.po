@@ -9,7 +9,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2018-02-03 10:09+0000\n"
+"PO-Revision-Date: 2018-02-09 16:15+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -2573,6 +2573,31 @@ msgctxt "work_attribute_type_allowed_value"
 msgid "Hēmavati"
 msgstr "Hēmavati"
 
+#: DB:work_attribute_type/name:29
+msgctxt "work_attribute_type"
+msgid "ICE ID"
+msgstr "ICE-ID"
+
+#: DB:work_attribute_type/description:28
+msgctxt "work_attribute_type"
+msgid "ID for the Belgian rights society SABAM"
+msgstr "Identificatiecode voor de Belgische auteursrechtenorganisatie SABAM"
+
+#: DB:work_attribute_type/description:29
+msgctxt "work_attribute_type"
+msgid "ID for the International Copyright Enterprise"
+msgstr "Identificatiecode voor de International Copyright Enterprise"
+
+#: DB:work_attribute_type/description:27
+msgctxt "work_attribute_type"
+msgid "ID for the Mexican rights society SACM"
+msgstr "Identificatiecode voor de Mexicaanse auteursrechtenorganisatie SACM"
+
+#: DB:work_attribute_type/description:30
+msgctxt "work_attribute_type"
+msgid "ID for the Polish rights society ZAiKS"
+msgstr "Identificatiecode voor de Poolse auteursrechtenorganisatie ZAiKS"
+
 #: DB:work_attribute_type/name:14
 msgctxt "work_attribute_type"
 msgid "Identifiers"
@@ -4413,6 +4438,11 @@ msgctxt "work_attribute_type_allowed_value"
 msgid "Rūpaka"
 msgstr "Rūpaka"
 
+#: DB:work_attribute_type/name:28
+msgctxt "work_attribute_type"
+msgid "SABAM ID"
+msgstr "SABAM-ID"
+
 #: DB:medium_format/name:3
 msgctxt "medium_format"
 msgid "SACD"
@@ -4422,6 +4452,11 @@ msgstr "sacd"
 msgctxt "work_attribute_type"
 msgid "SACEM ID"
 msgstr "SACEM-ID"
+
+#: DB:work_attribute_type/name:27
+msgctxt "work_attribute_type"
+msgid "SACM ID"
+msgstr "SACM-ID"
 
 #: DB:work_attribute_type/name:24
 msgctxt "work_attribute_type"
@@ -5428,6 +5463,11 @@ msgstr "Yürüksemai II"
 msgctxt "work_attribute_type_allowed_value"
 msgid "Yürüksofyan"
 msgstr "Yürüksofyan"
+
+#: DB:work_attribute_type/name:30
+msgctxt "work_attribute_type"
+msgid "ZAiKS ID"
+msgstr "ZAiKS-ID"
 
 #: DB:work_attribute_type_allowed_value/value:780
 msgctxt "work_attribute_type_allowed_value"

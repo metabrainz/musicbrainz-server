@@ -6,7 +6,7 @@
 const _ = require('lodash');
 const test = require('tape');
 
-const formatDate = require('../common/utility/formatDate');
+import formatDate from '../common/utility/formatDate';
 const formatDatePeriod = require('../common/utility/formatDatePeriod');
 const formatTrackLength = require('../common/utility/formatTrackLength');
 const parseDate = require('../common/utility/parseDate');

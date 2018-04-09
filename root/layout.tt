@@ -12,17 +12,10 @@
     <body>
         [%- IF c.debug -%][%- INCLUDE 'debug/stats.tt' -%][%- END ~%]
 
-        <div class="header">
-            <a href="/" title="MusicBrainz"><img src="[% c.model('FileCache').path_to('/images/layout/header-logo.svg') %]" class="logo" alt="MusicBrainz" /></a>
-            <div class="right">
-                <div class="top">
-                    [%- INCLUDE "layout/header/top.tt" -%]
-                </div>
-                <div class="bottom">
-                    [%- INCLUDE "layout/header/bottom.tt" -%]
-                </div>
-            </div>
-        </div>
+        [%- React.embed(c, 'layout/components/Header', {
+                currentLanguage => current_language,
+                serverLanguages => server_languages,
+            }) -%]
 
         [%- IF c.user.is_editing_disabled -%]
             <div class="banner editing-disabled">

@@ -45,7 +45,7 @@ const Footer = (props) => {
             })
         ]}
 
-        <If condition={stash.last_replication_date}>
+        {stash.last_replication_date ? (
           <Frag>
             <br />
             {l('Last replication packet received at {datetime}', {
@@ -54,7 +54,7 @@ const Footer = (props) => {
                   stash.last_replication_date
             })}
           </Frag>
-        </If>
+        ) : null}
       </p>
 
       <p className="right">

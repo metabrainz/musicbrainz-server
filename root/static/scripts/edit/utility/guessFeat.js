@@ -142,7 +142,7 @@ module.exports = function (entity) {
 
     entity.name(match.name);
 
-    var artistCredit = entity.artistCredit().names.toJS();
+    var artistCredit = entity.artistCredit().slice(0);
     _.last(artistCredit).joinPhrase = isProbablyClassical ? '; ' : ' feat. ';
     _.last(match.artistCredit).joinPhrase = '';
 

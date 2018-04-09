@@ -7,7 +7,7 @@ const React = require('react');
 
 const Footer = require('./components/Footer');
 const Head = require('./components/Head');
-const Header = require('./components/Header');
+import Header from './components/Header';
 const MergeHelper = require('./components/MergeHelper');
 const {RT_SLAVE} = require('../static/scripts/common/constants');
 const DBDefs = require('../static/scripts/common/DBDefs');

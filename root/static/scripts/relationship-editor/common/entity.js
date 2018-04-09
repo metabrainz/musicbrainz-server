@@ -8,6 +8,7 @@ const _ = require('lodash');
 
 require('knockout-arraytransforms');
 
+const typeInfo = require('../../common/typeInfo');
 const deferFocus = require('../../edit/utility/deferFocus');
 const mergeDates = require('./mergeDates');
 
@@ -115,9 +116,9 @@ function getDirection(relationship, source) {
                     group.canBeOrdered = ko.observable(false);
 
                     var relationships = group.values.peek();
-                    var typeInfo = relationships[0].linkTypeInfo();
+                    var linkType = relationships[0].getLinkType();
 
-                    if (typeInfo && typeInfo.orderableDirection > 0) {
+                    if (linkType && linkType.orderableDirection > 0) {
                         group.canBeOrdered = group.values.all(function (r) {
                             return r.entityCanBeReordered(r.target(self));
                         });
@@ -195,7 +196,7 @@ function getDirection(relationship, source) {
     }
 
     function isFreeText(linkAttribute) {
-        return MB.attrInfoByID[linkAttribute.type.id].freeText;
+        return typeInfo.link_attribute_type[linkAttribute.type.id].freeText;
     }
 
     function cacheByID(func) {

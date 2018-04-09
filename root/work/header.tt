@@ -1,9 +1,0 @@
-<div class="workheader">
-    <h1>[% link_entity(work) %]</h1>
-    <p class="subheader">
-        <span class="prefix">~</span>
-            [% html_escape(work.l_type_name) or l('Work') %]
-    </p>
-</div>
-
-[% INCLUDE 'components/entity-tabs.tt' edit_tab='default' %]

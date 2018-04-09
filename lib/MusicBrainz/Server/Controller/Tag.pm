@@ -75,8 +75,14 @@ sub not_found : Private
 {
     my ($self, $c, $tagname) = @_;
     $c->response->status(404);
-    $c->stash( template => 'tag/not_found.tt',
-               tag => $tagname );
+    $c->stash(
+        current_view => 'Node',
+        component_path => 'tag/NotFound.js',
+        component_props => {
+            %{$c->stash->{component_props}},
+            tag => $tagname,
+        },
+    );
     $c->detach;
 }
 

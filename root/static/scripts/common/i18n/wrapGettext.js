@@ -8,6 +8,7 @@ const isNodeJS = require('detect-node');
 const sliced = require('sliced');
 
 const expand = require('./expand');
+const NopArgs = require('./NopArgs');
 
 let gettext;
 if (isNodeJS) {
@@ -21,16 +22,20 @@ if (isNodeJS) {
   gettext = new Jed(jedData[jedData.locale]);
 }
 
-function wrapGettext(method, domain) {
-  let domainLoaded = !isNodeJS;
+const canLoadDomain = typeof gettext.loadDomain === 'function';
 
+function wrapGettext(method, domain) {
   return function () {
-    if (!domainLoaded) {
+    if (canLoadDomain && !gettext.options.locale_data[domain]) {
       gettext.loadDomain(domain);
-      domainLoaded = true;
     }
 
-    const args = sliced(arguments);
+    let args = sliced(arguments);
+    const firstArg = args[0];
+
+    if (typeof firstArg === 'object' && firstArg instanceof NopArgs) {
+      args = firstArg.args.concat(args.slice(1));
+    }
 
     let expandArgs = args[args.length - 1];
     if (expandArgs && typeof expandArgs === 'object') {

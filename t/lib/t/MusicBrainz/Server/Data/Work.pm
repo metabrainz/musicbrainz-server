@@ -175,15 +175,11 @@ test 'Loading work attributes for works with free text attributes' => sub {
     my $test = shift;
 
     MusicBrainz::Server::Test->prepare_test_database($test->c, '+work');
-    $test->c->sql->do(<<EOSQL);
-INSERT INTO work_attribute_type (id, gid, name, free_text)
-VALUES (1, '125c079d-374e-4436-9448-da92dedef3ce', 'Attribute', true);
-EOSQL
 
     $test->c->model('Work')->set_attributes(
         1,
         {
-            attribute_type_id => 1,
+            attribute_type_id => 6,
             attribute_text => 'Value'
         }
     );
@@ -192,7 +188,7 @@ EOSQL
     is exception { $test->c->model('WorkAttribute')->load_for_works($work) }, undef;
 
     is($work->all_attributes, 1, 'work has 1 attribute');
-    is($work->attributes->[0]->type->name, 'Attribute',
+    is($work->attributes->[0]->type->name, 'ASCAP ID',
         'has correct attribute name');
     is($work->attributes->[0]->value, 'Value', 'has correct attribute value');
 };
@@ -201,20 +197,12 @@ test 'Loading work attributes for works with finite values' => sub {
     my $test = shift;
 
     MusicBrainz::Server::Test->prepare_test_database($test->c, '+work');
-    $test->c->sql->do(<<EOSQL);
-INSERT INTO work_attribute_type (id, gid, name, free_text)
-VALUES (1, '326c079d-374e-4436-9448-da92dedef3ce', 'Attribute', false);
-INSERT INTO work_attribute_type_allowed_value (id, gid, work_attribute_type, value)
-VALUES
-  (1, '325c079a-374e-4436-9448-da92dedef3ce', 1, 'Value'),
-  (2, '7536cc39-5d16-4cf4-89f7-d2b7e10aff2b', 1, 'Value 2');
-EOSQL
 
     $test->c->model('Work')->set_attributes(
         1,
         {
             attribute_type_id => 1,
-            attribute_value_id => 1
+            attribute_value_id => 33,
         }
     );
 
@@ -222,33 +210,24 @@ EOSQL
     is exception { $test->c->model('WorkAttribute')->load_for_works($work) }, undef;
 
     is($work->all_attributes, 1, 'work has 1 attribute');
-    is($work->attributes->[0]->type->name, 'Attribute',
+    is($work->attributes->[0]->type->name, 'Key',
         'has correct attribute name');
-    is($work->attributes->[0]->value, 'Value', 'has correct attribute value');
+    is($work->attributes->[0]->value, 'B major', 'has correct attribute value');
 };
 
 test 'Multiple attributes for a work' => sub {
     my $test = shift;
 
     MusicBrainz::Server::Test->prepare_test_database($test->c, '+work');
-    $test->c->sql->do(<<EOSQL);
-INSERT INTO work_attribute_type (id, gid, name, free_text)
-VALUES (1, '825c079d-374e-4436-9448-da92dedef3ce', 'Attribute', false),
-       (2, '75c2fb06-556e-4c3a-b62a-93c42df0a7a2', 'Type two', true);
-INSERT INTO work_attribute_type_allowed_value (id, gid, work_attribute_type, value)
-VALUES
-  (1, '325c079a-374e-4436-9448-da92dedef3ce', 1, 'Value'),
-  (2, '7536cc39-5d16-4cf4-89f7-d2b7e10aff2b', 1, 'Value 2');
-EOSQL
 
     $test->c->model('Work')->set_attributes(
         1,
         {
             attribute_type_id => 1,
-            attribute_value_id => 2
+            attribute_value_id => 13,
         },
         {
-            attribute_type_id => 2,
+            attribute_type_id => 6,
             attribute_text => 'Anything you want'
         }
     );
@@ -262,30 +241,17 @@ EOSQL
 test 'Determining allowed values for work attributes' => sub {
     my $test = shift;
 
-    $test->c->sql->do(<<EOSQL);
-INSERT INTO work_attribute_type (id, gid, name, free_text)
-VALUES
-  (1, '325c079d-374e-4436-9448-da92dedef3cd', 'Attribute', false),
-  (2, '82141173-321a-4425-93bb-8eb7794749c1', 'Free attribute', true),
-  (3, '325c079d-374e-4436-9448-da92dedef3ca', 'Attribute 3', false);
-INSERT INTO work_attribute_type_allowed_value (id, gid, work_attribute_type, value)
-VALUES
-  (1, '325c079a-374e-4436-9448-da92dedef3ce', 1, 'Value 1'),
-  (2, '7536cc39-5d16-4cf4-89f7-d2b7e10aff2b', 1, 'Value 2'),
-  (3, '125c079a-374e-4436-9448-da92dedef3ce', 3, 'Value 3');
-EOSQL
-
-    my $types = $test->c->model('WorkAttributeType')->get_by_ids(1..3);
+    my $types = $test->c->model('WorkAttributeType')->get_by_ids(1, 4, 6);
     $test->c->model('WorkAttributeTypeAllowedValue')->load_for_work_attribute_types(values %$types);
 
-    ok($types->{1}->allows_value(1), 'Attribute #1 allows value #1');
-    ok($types->{1}->allows_value(2), 'Attribute #1 allows value #2');
-    ok(!$types->{1}->allows_value(3), 'Attribute #1 disallows value #3');
+    ok($types->{1}->allows_value(13), 'Attribute #1 allows value #13');
+    ok($types->{1}->allows_value(33), 'Attribute #1 allows value #33');
+    ok(!$types->{1}->allows_value(99), 'Attribute #1 disallows value #99');
 
-    ok($types->{2}->allows_value('Anything you want'),
-        'Attribute #2 allows arbitrary text');
+    ok($types->{4}->allows_value(35), 'Attribute #4 allows value #35');
 
-    ok($types->{3}->allows_value(3), 'Attribute #3 allows value #3');
+    ok($types->{6}->allows_value('Anything you want'),
+        'Attribute #6 allows arbitrary text');
 };
 
 test 'Merge attributes for works' => sub {
@@ -293,34 +259,21 @@ test 'Merge attributes for works' => sub {
 
     my $work_data = $test->c->model('Work');
 
-    $test->c->sql->do(<<EOSQL);
-INSERT INTO work_attribute_type (id, gid, name, free_text)
-VALUES
-  (1, '325c079d-374e-4436-9448-da92dedef3cd', 'Attribute', false),
-  (2, '82141173-321a-4425-93bb-8eb7794749c1', 'Free attribute', true),
-  (3, '325c079d-374e-4436-9448-da92dedef3ca', 'Attribute 3', false);
-INSERT INTO work_attribute_type_allowed_value (id, gid, work_attribute_type, value)
-VALUES
-  (1, '325c079a-374e-4436-9448-da92dedef3ce', 1, 'Value'),
-  (2, '7536cc39-5d16-4cf4-89f7-d2b7e10aff2b', 1, 'Value 2'),
-  (3, '125c079a-374e-4436-9448-da92dedef3ce', 1, 'Value 3');
-EOSQL
-
     my $a = $work_data->insert({ name => 'Traits' });
     my $b = $work_data->insert({ name => 'Tru Beat' });
 
     $work_data->set_attributes(
         $a->{id},
-        { attribute_type_id => 1, attribute_value_id => 1 },
-        { attribute_type_id => 2, attribute_text => 'Free Text' }
+        { attribute_type_id => 1, attribute_value_id => 13 },
+        { attribute_type_id => 6, attribute_text => 'Free Text' }
     );
 
     $work_data->set_attributes(
         $b->{id},
-        { attribute_type_id => 1, attribute_value_id => 1 },
-        { attribute_type_id => 1, attribute_value_id => 2 },
-        { attribute_type_id => 3, attribute_value_id => 3 },
-        { attribute_type_id => 2, attribute_text => 'Free Text' }
+        { attribute_type_id => 1, attribute_value_id => 13 },
+        { attribute_type_id => 1, attribute_value_id => 28 },
+        { attribute_type_id => 4, attribute_value_id => 35 },
+        { attribute_type_id => 6, attribute_text => 'Free Text' }
     );
 
     $work_data->merge($a->{id}, $b->{id});
@@ -333,19 +286,19 @@ EOSQL
         set(
             methods(
                 type => methods(id => 1),
-                value_id => 1
+                value_id => 13
             ),
             methods(
                 type => methods(id => 1),
-                value_id => 2
+                value_id => 28
             ),
             methods(
-                type => methods(id => 2),
+                type => methods(id => 6),
                 value => "Free Text"
             ),
             methods(
-                type => methods(id => 3),
-                value_id => 3
+                type => methods(id => 4),
+                value_id => 35
             )
         )
     )
@@ -356,18 +309,11 @@ test 'Deleting a work with work attributes' => sub {
 
     my $work_data = $test->c->model('Work');
 
-    $test->c->sql->do(<<EOSQL);
-INSERT INTO work_attribute_type (id, gid, name, free_text)
-VALUES (1, '82141173-321a-4425-93bb-8eb7794749c1', 'Attribute', false);
-INSERT INTO work_attribute_type_allowed_value (id, gid, work_attribute_type, value)
-VALUES (1, '4d0ef991-a591-4946-bc18-d094233156ee', 1, 'Value');
-EOSQL
-
     my $a = $work_data->insert({ name => 'Foo' });
 
     $work_data->set_attributes(
         $a->{id},
-        { attribute_type_id => 1, attribute_value_id => 1 },
+        { attribute_type_id => 1, attribute_value_id => 13 },
     );
 
     ok !exception { $work_data->delete($a->{id}); }

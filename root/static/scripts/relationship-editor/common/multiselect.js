@@ -5,6 +5,7 @@
 
 const ko = require('knockout');
 
+const typeInfo = require('../../common/typeInfo');
 const clean = require('../../common/utility/clean');
 const deferFocus = require('../../edit/utility/deferFocus');
 
@@ -91,7 +92,7 @@ const deferFocus = require('../../edit/utility/deferFocus');
                 var typeGID = option.value;
 
                 var visible = matchIndex(option, term) >= 0 && (
-                    MB.attrInfoByID[typeGID].creditable ||
+                    typeInfo.link_attribute_type[typeGID].creditable ||
                     _.findIndex(selected, function (a) { return a.type.gid === typeGID }) < 0
                 );
 

@@ -9,6 +9,7 @@ const _ = require('lodash');
 const {hex_sha1} = require('../../../lib/sha1/sha1');
 const {VIDEO_ATTRIBUTE_GID} = require('../../common/constants');
 const MB = require('../../common/MB');
+const typeInfo = require('../../common/typeInfo');
 const clean = require('../../common/utility/clean');
 const nonEmpty = require('../../common/utility/nonEmpty');
 const request = require('../../common/utility/request');
@@ -62,9 +63,7 @@ const request = require('../../common/utility/request');
                 return {names: []};
             }
 
-            var names = ac.names.toJS();
-
-            names = _.map(names, function (credit, index) {
+            ac = _.map(ac, function (credit, index) {
                 var artist = value(credit.artist) || {};
 
                 var name = {
@@ -82,7 +81,7 @@ const request = require('../../common/utility/request');
                 name.join_phrase = joinPhrase.replace(/\s{2,}/g, " ");
 
                 // Trim trailing whitespace for the final join phrase only.
-                if (index === names.length - 1) {
+                if (index === ac.length - 1) {
                     name.join_phrase = _.trimEnd(name.join_phrase);
                 }
 
@@ -90,7 +89,7 @@ const request = require('../../common/utility/request');
 
                 return name;
             });
-            return { names: names };
+            return { names: ac };
         },
 
         externalLinkRelationship: function (link, source) {
@@ -160,7 +159,7 @@ const request = require('../../common/utility/request');
                 .value();
 
             if (_.isNumber(data.linkTypeID)) {
-                if (MB.typeInfoByID[data.linkTypeID].orderableDirection !== 0) {
+                if (typeInfo.link_type.byId[data.linkTypeID].orderableDirection !== 0) {
                     data.linkOrder = number(relationship.linkOrder) || 0;
                 }
             }

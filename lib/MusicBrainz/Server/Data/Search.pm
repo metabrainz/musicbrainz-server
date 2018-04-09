@@ -667,9 +667,7 @@ sub schema_fixup
         if (@languages) {
             $data->{languages} = [map {
                 MusicBrainz::Server::Entity::WorkLanguage->new({
-                    language => MusicBrainz::Server::Entity::Language->new({
-                        iso_code_3 => $_,
-                    }),
+                    language => $self->c->model('Language')->find_by_code($_),
                 })
             } @languages];
         }

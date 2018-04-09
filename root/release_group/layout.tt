@@ -4,7 +4,7 @@
 }) %]
 [%- WRAPPER "layout.tt" title=title ? main_title _ " - ${title}" : main_title canonical_url=replace_gid(entity.gid) -%]
     <div id="content">
-        [%- INCLUDE "release_group/header.tt" -%]
+        [%~ React.embed(c, 'release_group/ReleaseGroupHeader', { releaseGroup => rg, page => page }) ~%]
         [%- content -%]
     </div>
 

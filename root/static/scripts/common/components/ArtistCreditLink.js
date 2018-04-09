@@ -1,17 +1,18 @@
-// This file is part of MusicBrainz, the open internet music database.
-// Copyright (C) 2015–2016 MetaBrainz Foundation
-// Licensed under the GPL version 2, or (at your option) any later version:
-// http://www.gnu.org/licenses/gpl-2.0.txt
+/*
+ * This file is part of MusicBrainz, the open internet music database.
+ * Copyright (C) 2015–2016 MetaBrainz Foundation
+ * Licensed under the GPL version 2, or (at your option) any later version:
+ * http://www.gnu.org/licenses/gpl-2.0.txt
+ */
 
 const React = require('react');
 
 const EntityLink = require('./EntityLink');
 
 const ArtistCreditLink = ({artistCredit, showDeleted = true, ...props}) => {
-  const names = artistCredit.names;
-  let parts = [];
-  for (let i = 0; i < names.size; i++) {
-    let credit = names.get(i);
+  const parts = [];
+  for (let i = 0; i < artistCredit.length; i++) {
+    const credit = artistCredit[i];
     if (props.plain) {
       parts.push(credit.name);
     } else {
@@ -25,8 +26,9 @@ const ArtistCreditLink = ({artistCredit, showDeleted = true, ...props}) => {
           entity={artist}
           key={i}
           showDeleted={showDeleted}
-          target={props.target} />
-        );
+          target={props.target}
+        />,
+      );
     }
     parts.push(credit.joinPhrase);
   }

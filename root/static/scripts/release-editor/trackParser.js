@@ -144,7 +144,7 @@ releaseEditor.trackParser = {
             );
 
             if (matchedAC) {
-                data.artistCredit = matchedAC.names.toJS();
+                data.artistCredit = matchedAC;
             }
 
             data.artistCredit = data.artistCredit || [{ name: data.artist || "" }];

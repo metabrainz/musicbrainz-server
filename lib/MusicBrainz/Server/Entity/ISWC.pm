@@ -45,6 +45,7 @@ around TO_JSON => sub {
 
     my $json = $self->$orig;
     $json->{iswc} = $self->iswc;
+    $json->{work_id} = $self->work_id;
 
     return $json;
 };

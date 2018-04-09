@@ -10,6 +10,7 @@ const ko = require('knockout');
 const _ = require('lodash');
 const test = require('tape');
 
+const typeInfo = require('../common/typeInfo');
 const {LinkAttribute, Relationship} = require('../relationship-editor/common/fields');
 const {
         AddDialog,
@@ -107,7 +108,7 @@ var testRelease = {
     }
 };
 
-function id2attr(id) { return { type: MB.attrInfoByID[id] } }
+function id2attr(id) { return { type: typeInfo.link_attribute_type[id] } }
 
 function ids2attrs(ids) { return _.map(ids, id2attr) }
 

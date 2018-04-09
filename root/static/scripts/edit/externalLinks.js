@@ -17,6 +17,8 @@ const {
   } = require('../common/constants');
 const {compare, l} = require('../common/i18n');
 const MB = require('../common/MB');
+const linkTypeInfo = require('../common/typeInfo').link_type;
+const {hasSessionStorage} = require('../common/utility/storage');
 const isPositiveInteger = require('./utility/isPositiveInteger');
 const HelpIcon = require('./components/HelpIcon');
 const RemoveButton = require('./components/RemoveButton');
@@ -25,21 +27,21 @@ const URLCleanup = require('./URLCleanup');
 const validation = require('./validation');
 
 type LinkStateT = {
-  url: string;
-  type: number|null;
-  relationship: number|null;
-  video: boolean;
+  url: string,
+  type: number | null,
+  relationship: number | string | null,
+  video: boolean,
 };
 
 type LinksEditorProps = {
-  sourceType: string;
-  typeOptions: Array<React.Element<'option'>>;
-  initialLinks: Array<LinkStateT>;
-  errorObservable: (bool) => void;
+  sourceType: string,
+  typeOptions: Array<React.Element<'option'>>,
+  initialLinks: Array<LinkStateT>,
+  errorObservable: (bool) => void,
 };
 
 type LinksEditorState = {
-  links: Array<LinkStateT>;
+  links: Array<LinkStateT>,
 };
 
 class ExternalLinksEditor extends React.Component<LinksEditorProps, LinksEditorState> {
@@ -73,7 +75,7 @@ class ExternalLinksEditor extends React.Component<LinksEditorProps, LinksEditorS
         var type = URLCleanup.guessType(this.props.sourceType, url);
 
         if (type) {
-          this.setLinkState(index, {type: MB.typeInfoByID[type].id});
+          this.setLinkState(index, {type: linkTypeInfo.byId[type].id});
         }
       }
     });
@@ -178,8 +180,8 @@ class ExternalLinksEditor extends React.Component<LinksEditorProps, LinksEditorS
         <tbody>
           {linksArray.map((link, index) => {
             var error;
-            var typeInfo = MB.typeInfoByID[link.type] || {};
-            var checker = URLCleanup.validationRules[typeInfo.gid];
+            var linkType = link.type ? linkTypeInfo.byId[link.type] : {};
+            var checker = URLCleanup.validationRules[linkType.gid];
             var oldLink = oldLinks[link.relationship];
 
             if (isEmpty(link)) {
@@ -192,7 +194,7 @@ class ExternalLinksEditor extends React.Component<LinksEditorProps, LinksEditorS
               error = l("Please don't use shortened URLs.");
             } else if (!link.type) {
               error = l('Please select a link type for the URL you’ve entered.');
-            } else if (typeInfo.deprecated && (!isPositiveInteger(link.relationship) || (oldLink && +link.type !== +oldLink.type))) {
+            } else if (linkType.deprecated && (!isPositiveInteger(link.relationship) || (oldLink && +link.type !== +oldLink.type))) {
               error = l('This relationship type is deprecated and should not be used.');
             } else if ((!isPositiveInteger(link.relationship) || (oldLink && link.url !== oldLink.url)) && checker && !checker(link.url)) {
               error = l('This URL is not allowed for the selected link type, or is incorrectly formatted.');
@@ -201,7 +203,7 @@ class ExternalLinksEditor extends React.Component<LinksEditorProps, LinksEditorS
               error = l('Links to specific sections of Wikipedia articles are not allowed. Please remove “{fragment}” if still appropriate. See the {url|guidelines}.', {
                 __react: true,
                 fragment: <span className='url-quote'>{link.url.replace(/^(?:https?:\/\/)?(?:[^.\/]+\.)?wikipedia\.org\/[^#]*#(.*)$/, '#$1')}</span>,
-                url: { href: '/relationship/' + typeInfo.gid, target: '_blank' }
+                url: { href: '/relationship/' + linkType.gid, target: '_blank' }
               });
             } else if ((linksByTypeAndUrl[linkTypeAndUrlString(link)] || []).length > 1) {
               error = l('This relationship already exists.');
@@ -219,7 +221,7 @@ class ExternalLinksEditor extends React.Component<LinksEditorProps, LinksEditorS
                 video={link.video}
                 errorMessage={error || ''}
                 isOnlyLink={this.state.links.length === 1}
-                urlMatchesType={typeInfo.gid === URLCleanup.guessType(this.props.sourceType, link.url)}
+                urlMatchesType={linkType.gid === URLCleanup.guessType(this.props.sourceType, link.url)}
                 removeCallback={_.bind(this.removeLink, this, index)}
                 urlChangeCallback={_.bind(this.handleUrlChange, this, index)}
                 urlBlurCallback={_.bind(this.handleUrlBlur, this, index)}
@@ -236,9 +238,9 @@ class ExternalLinksEditor extends React.Component<LinksEditorProps, LinksEditorS
 }
 
 type LinkTypeSelectProps = {
-  children: Array<React.Element<'option'>>;
-  type: number|null;
-  typeChangeCallback: (number, SyntheticEvent<HTMLSelectElement>) => void;
+  children: Array<React.Element<'option'>>,
+  type: number|null,
+  typeChangeCallback: (number, SyntheticEvent<HTMLSelectElement>) => void,
 };
 
 class LinkTypeSelect extends React.Component<LinkTypeSelectProps> {
@@ -253,31 +255,31 @@ class LinkTypeSelect extends React.Component<LinkTypeSelectProps> {
 }
 
 type LinkProps = {
-  url: string;
-  type: number|null;
-  video: boolean;
-  errorMessage: string;
-  isOnlyLink: boolean;
-  urlMatchesType: boolean;
-  removeCallback: (number) => void;
-  urlChangeCallback: (number, SyntheticEvent<HTMLInputElement>) => void;
-  urlBlurCallback: (number, SyntheticEvent<HTMLInputElement>) => void;
-  typeChangeCallback: (number, SyntheticEvent<HTMLSelectElement>) => void;
-  videoChangeCallback: (number, SyntheticEvent<HTMLInputElement>) => void;
-  typeOptions: Array<React.Element<'option'>>;
+  url: string,
+  type: number|null,
+  video: boolean,
+  errorMessage: string,
+  isOnlyLink: boolean,
+  urlMatchesType: boolean,
+  removeCallback: (number) => void,
+  urlChangeCallback: (number, SyntheticEvent<HTMLInputElement>) => void,
+  urlBlurCallback: (number, SyntheticEvent<HTMLInputElement>) => void,
+  typeChangeCallback: (number, SyntheticEvent<HTMLSelectElement>) => void,
+  videoChangeCallback: (number, SyntheticEvent<HTMLInputElement>) => void,
+  typeOptions: Array<React.Element<'option'>>,
 };
 
 class ExternalLink extends React.Component<LinkProps> {
   render() {
     var props = this.props;
-    var typeInfo = MB.typeInfoByID[props.type] || {};
+    var linkType = props.type ? linkTypeInfo.byId[props.type] : {};
     var typeDescription = '';
-    var faviconClass;
+    var faviconClass: string | void;
 
-    if (typeInfo.description) {
+    if (linkType.description) {
       typeDescription = l('{description} ({url|more documentation})', {
-        description: typeInfo.description,
-        url: '/relationship/' + typeInfo.gid
+        description: linkType.description,
+        url: '/relationship/' + linkType.gid
       });
     }
 
@@ -288,7 +290,7 @@ class ExternalLink extends React.Component<LinkProps> {
 
     var showTypeSelection = props.errorMessage ? true : !(props.urlMatchesType || isEmpty(props));
     if (!showTypeSelection && props.urlMatchesType) {
-      faviconClass = _.find(FAVICON_CLASSES, (value, key) => props.url.indexOf(key) > 0);
+      faviconClass = _.find(FAVICON_CLASSES, (value: string, key: string) => props.url.indexOf(key) > 0);
     }
 
     return (
@@ -302,7 +304,7 @@ class ExternalLink extends React.Component<LinkProps> {
               </LinkTypeSelect>
             : <label>
                 {faviconClass && <span className={'favicon ' + faviconClass + '-favicon'}></span>}
-                {typeInfo.phrase || (props.isOnlyLink ? l('Add link:') : l('Add another link:'))}
+                {linkType.phrase || (props.isOnlyLink ? l('Add link:') : l('Add another link:'))}
               </label>}
         </td>
         <td>
@@ -312,7 +314,7 @@ class ExternalLink extends React.Component<LinkProps> {
                  onChange={props.urlChangeCallback}
                  onBlur={props.urlBlurCallback} />
           {props.errorMessage && <div className="error field-error" data-visible="1">{props.errorMessage}</div>}
-          {_.has(typeInfo.attributes, VIDEO_ATTRIBUTE_ID) &&
+          {_.has(linkType.attributes, String(VIDEO_ATTRIBUTE_ID)) &&
             <div className="attribute-container">
               <label>
                 <input type="checkbox" checked={props.video} onChange={props.videoChangeCallback} /> {l('video')}
@@ -371,24 +373,24 @@ function withOneEmptyLink(links, dontRemove) {
 }
 
 type RelationshipTargetT = {
-  entityType: string;
-  name: string;
-  relationships?: Array<RelationshipT>;
+  entityType: string,
+  name: string,
+  relationships?: Array<RelationshipT>,
 };
 
 type RelationshipAttributeTypeT = {
-  gid: string;
+  gid: string,
 };
 
 type RelationshipAttributeT = {
-  type: RelationshipAttributeTypeT;
+  type: RelationshipAttributeTypeT,
 };
 
 type RelationshipT = {
-  attributes: Array<RelationshipAttributeT>;
-  id: number;
-  linkTypeID: number;
-  target: RelationshipTargetT;
+  attributes: Array<RelationshipAttributeT>,
+  id: number,
+  linkTypeID: number,
+  target: RelationshipTargetT,
 };
 
 function parseRelationships(relationships?: Array<RelationshipT>) {
@@ -463,9 +465,9 @@ function isShortened(url) {
 }
 
 type InitialOptionsT = {
-  errorObservable?: (boolean) => void;
-  mountPoint: Element;
-  sourceData: RelationshipTargetT;
+  errorObservable?: (boolean) => void,
+  mountPoint: Element,
+  sourceData: RelationshipTargetT,
 };
 
 MB.createExternalLinksEditor = function (options: InitialOptionsT) {
@@ -476,7 +478,7 @@ MB.createExternalLinksEditor = function (options: InitialOptionsT) {
 
   // Terribly get seeded URLs
   if (MB.formWasPosted) {
-    if (MB.hasSessionStorage) {
+    if (hasSessionStorage) {
       let submittedLinks = window.sessionStorage.getItem('submittedLinks');
       if (submittedLinks) {
         initialLinks = JSON.parse(submittedLinks).filter(l => !isEmpty(l)).map(newLinkState);
@@ -501,8 +503,8 @@ MB.createExternalLinksEditor = function (options: InitialOptionsT) {
   }
 
   initialLinks.sort(function (a, b) {
-    var typeA = MB.typeInfoByID[a.type];
-    var typeB = MB.typeInfoByID[b.type];
+    var typeA = linkTypeInfo.byId[a.type];
+    var typeB = linkTypeInfo.byId[b.type];
 
     return compare(typeA ? typeA.phrase.toLowerCase() : '',
                    typeB ? typeB.phrase.toLowerCase() : '');
@@ -521,7 +523,7 @@ MB.createExternalLinksEditor = function (options: InitialOptionsT) {
   });
 
   var typeOptions = (
-    linkTypeOptions({children: MB.typeInfo[entityTypes]}, /^url-/.test(entityTypes))
+    linkTypeOptions({children: linkTypeInfo.byTypes[entityTypes]}, /^url-/.test(entityTypes))
       .map((data) => <option value={data.value} disabled={data.disabled} key={data.value}>{data.text}</option>)
   );
 

@@ -269,7 +269,7 @@ const actions = {
 
     addNewTracks: function (medium) {
         var releaseAC = medium.release.artistCredit();
-        var defaultAC = hasVariousArtists(releaseAC) ? null : releaseAC.names.toJS();
+        var defaultAC = hasVariousArtists(releaseAC) ? null : releaseAC;
         var addTrackCount = parseInt(medium.addTrackCount(), 10) || 1;
 
         _.times(addTrackCount, function () {

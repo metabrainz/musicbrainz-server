@@ -14,9 +14,10 @@ const commaOnlyList = require('../../i18n/commaOnlyList');
 const {artistCreditFromArray, reduceArtistCredit} = require('../../immutable-entities');
 const MB = require('../../MB');
 const clean = require('../../utility/clean');
-const formatDate = require('../../utility/formatDate');
+import formatDate from '../../utility/formatDate';
 const formatTrackLength = require('../../utility/formatTrackLength');
 const isBlank = require('../../utility/isBlank');
+const {localStorage} = require('../../utility/storage');
 
 require('../../../../lib/jquery-ui');
 
@@ -492,7 +493,7 @@ $.widget("ui.autocomplete", $.ui.autocomplete, {
     recentEntities: function () {
         var entityType = this.entityType();
         var recentEntities = {};
-        var storedRecentEntities = MB.localStorage("recentAutocompleteEntities");
+        var storedRecentEntities = localStorage("recentAutocompleteEntities");
 
         if (storedRecentEntities) {
             try {
@@ -508,7 +509,7 @@ $.widget("ui.autocomplete", $.ui.autocomplete, {
 
         if (arguments.length) {
             recentEntities[entityType] = _.take(arguments[0], MAX_RECENT_ENTITIES);
-            MB.localStorage("recentAutocompleteEntities", JSON.stringify(recentEntities));
+            localStorage("recentAutocompleteEntities", JSON.stringify(recentEntities));
         } else {
             return recentEntities[entityType] || [];
         }
