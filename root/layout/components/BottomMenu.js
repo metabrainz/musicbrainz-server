@@ -242,6 +242,9 @@ const DocumentationMenu = () => (
       <li>
         <a href="/instruments">{l('Instrument List')}</a>
       </li>
+      <li>
+        <a href="/genres">{l('Genre List')}</a>
+      </li>
       <li className="separator">
         <a href="/doc/Development">{l('Development')}</a>
       </li>

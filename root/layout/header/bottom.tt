@@ -177,6 +177,9 @@
             <li>
                 <a href="[% c.uri_for_action('/instrument/list') %]">[% l('Instrument List') %]</a>
             </li>
+            <li>
+                <a href="[% c.uri_for_action('/genre/list') %]">[% l('Genre List') %]</a>
+            </li>
             <li class="separator">
                 <a href="[% doc_link('Development') %]">[% l('Development') %]</a>
             </li>
