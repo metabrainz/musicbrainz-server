@@ -284,7 +284,7 @@ sub serialize_tags {
         $into->{genres} = [
             sort { $a->{name} cmp $b->{name} }
             map +{ count => $_->count, name => $_->tag->name },
-                grep {$_->tag->is_genre_tag} @{ $opts->{tags} }
+                @{ $opts->{genres} }
         ];
     }
 
@@ -296,10 +296,10 @@ sub serialize_tags {
     }
 
     if ($inc->user_genres) {
-        $into->{'user_genres'} = [
+        $into->{'user-genres'} = [
             sort { $a->{name} cmp $b->{name} }
             map +{ name => $_->tag->name },
-                grep {$_->tag->is_genre_tag} @{ $opts->{user_tags} }
+                @{ $opts->{user_genres} }
         ];
     }
 

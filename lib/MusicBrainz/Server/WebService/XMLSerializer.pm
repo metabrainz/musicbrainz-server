@@ -1212,9 +1212,9 @@ sub _serialize_tags_and_ratings
     $self->_serialize_user_tag_list($data, $gen, $inc, $opts)
         if $opts->{user_tags} && $inc->{user_tags};
     $self->_serialize_genre_list($data, $gen, $inc, $opts)
-        if $opts->{tags} && $inc->{genres};
+        if $opts->{genres} && $inc->{genres};
     $self->_serialize_user_genre_list($data, $gen, $inc, $opts)
-        if $opts->{user_tags} && $inc->{user_genres};
+        if $opts->{user_genres} && $inc->{user_genres};
     $self->_serialize_rating($data, $gen, $inc, $opts)
         if $opts->{ratings} && $inc->{ratings};
     $self->_serialize_user_rating($data, $gen, $inc, $opts)
@@ -1247,11 +1247,9 @@ sub _serialize_genre_list
     return if $in_relation_node;
 
     my @list;
-    foreach my $tag (sort_by { $_->tag->name } @{$opts->{tags}})
+    foreach my $tag (sort_by { $_->tag->name } @{$opts->{genres}})
     {
-        if ($tag->tag->is_genre_tag) {
-            $self->_serialize_genre(\@list, $gen, $tag, $inc, $opts);
-        }
+        $self->_serialize_genre(\@list, $gen, $tag, $inc, $opts);
     }
     push @$data, $gen->genre_list(@list);
 }
@@ -1289,11 +1287,9 @@ sub _serialize_user_genre_list
     my ($self, $data, $gen, $inc, $opts, $modelname, $entity) = @_;
 
     my @list;
-    foreach my $tag (sort_by { $_->tag->name } @{$opts->{user_tags}})
+    foreach my $tag (sort_by { $_->tag->name } @{$opts->{user_genres}})
     {
-        if ($tag->tag->is_genre_tag) {
-            $self->_serialize_user_genre(\@list, $gen, $tag, $inc, $opts, $modelname, $entity);
-        }
+        $self->_serialize_user_genre(\@list, $gen, $tag, $inc, $opts, $modelname, $entity);
     }
     push @$data, $gen->user_genre_list(@list);
 }

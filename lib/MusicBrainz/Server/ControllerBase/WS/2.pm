@@ -204,10 +204,11 @@ sub _tags
 
     for my $type (@todo) {
         # This is a hack but it seems pointless to create dupe "find_genres_for_entities" etc
-        $type =~ s/genre/tag/g;
-        my $find_method = 'find_' . $type . '_for_entities';
+        my $genre_flag = ($type eq 'genres' || $type eq 'user_genres') ? 1 : 0;
+        my $massaged_type = $type =~ s/genre/tag/gr;
+        my $find_method = 'find_' . $massaged_type . '_for_entities';
         my @tags = $model->tags->$find_method(
-                        $type eq 'user_tags' || $type eq 'user_genres' ? $c->user->id : (),
+                        $type eq 'user_tags' || $type eq 'user_genres' ? $c->user->id : (), $genre_flag,
                         map { $_->id } @$entities);
 
         my %tags_by_entity = partition_by { $_->entity_id } @tags;
