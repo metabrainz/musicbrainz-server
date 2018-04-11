@@ -48,18 +48,18 @@ const LanguageLink = ({language}: {|+language: ServerLanguageT|}) => (
 );
 
 type LanguageMenuProps = {|
-  +currentLanguage: string,
+  +currentBCP47Language: string,
   +serverLanguages: $ReadOnlyArray<ServerLanguageT>,
 |};
 
 const LanguageMenu = ({
-  currentLanguage,
+  currentBCP47Language,
   serverLanguages,
 }: LanguageMenuProps) => (
   <li className="language-selector" tabIndex="-1">
     <span className="menu-header">
       {languageName(
-        _.find(serverLanguages, x => x.name === currentLanguage),
+        _.find(serverLanguages, x => x.name === currentBCP47Language),
         true,
       )}
     </span>
@@ -67,7 +67,7 @@ const LanguageMenu = ({
       {serverLanguages.map(function (language, index) {
         let inner = <LanguageLink language={language} />;
 
-        if (language.name === currentLanguage) {
+        if (language.name === currentBCP47Language) {
           inner = <strong>{inner}</strong>;
         }
 
@@ -296,22 +296,25 @@ const DocumentationMenu = () => (
   </li>
 );
 
-const BottomMenu = ({$c}: {|+$c: CatalystContextT|}) => (
-  <div className="bottom">
-    <ul className="menu">
-      <AboutMenu />
-      <ProductsMenu />
-      <SearchMenu />
-      {$c.user_exists ? <EditingMenu /> : null}
-      <DocumentationMenu />
-      {$c.stash.server_languages && $c.stash.server_languages.length > 1 ? (
-        <LanguageMenu
-          currentLanguage={$c.stash.current_language}
-          serverLanguages={$c.stash.server_languages}
-        />
-      ) : null}
-    </ul>
-  </div>
-);
+const BottomMenu = ({$c}: {|+$c: CatalystContextT|}) => {
+  const serverLanguages = $c.stash.server_languages;
+  return (
+    <div className="bottom">
+      <ul className="menu">
+        <AboutMenu />
+        <ProductsMenu />
+        <SearchMenu />
+        {$c.user_exists ? <EditingMenu /> : null}
+        <DocumentationMenu />
+        {serverLanguages && serverLanguages.length > 1 ? (
+          <LanguageMenu
+            currentBCP47Language={$c.stash.current_language.replace('_', '-')}
+            serverLanguages={serverLanguages}
+          />
+        ) : null}
+      </ul>
+    </div>
+  );
+};
 
 export default withCatalystContext(BottomMenu);
