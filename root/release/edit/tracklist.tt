@@ -402,7 +402,7 @@
         <!-- /ko -->
 
         <div class="buttons">
-          <button type="button" id="open-track-parser" data-click="openTrackParser">[% l('Track Parser') %]</button>
+          <button type="button" class="open-track-parser" data-click="openTrackParser">[% l('Track Parser') %]</button>
           <button type="button" data-click="resetTrackNumbers">[%- l('Reset track numbers') -%]</button>
           <button type="button" data-click="swapTitlesWithArtists">[%- l('Swap track titles with artist credits') -%]</button>
           <button type="button" data-click="guessMediumFeatArtists">[%- l('Guess feat. artists from track titles') -%]</button>
