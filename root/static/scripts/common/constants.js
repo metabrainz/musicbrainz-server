@@ -9,7 +9,7 @@
 
 export const ENTITIES = require('../../../../entities');
 
-export const GENRE_TAGS = new Set(ENTITIES.tag.genres);
+export const GENRE_TAGS = new Set<string>(ENTITIES.tag.genres);
 
 export const AREA_TYPE_COUNTRY = 1;
 

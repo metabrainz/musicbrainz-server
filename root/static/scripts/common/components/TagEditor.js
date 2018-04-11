@@ -14,7 +14,7 @@ const {l, lp} = require('../i18n');
 const MB = require('../MB');
 const request = require('../utility/request');
 const TagLink = require('./TagLink');
-import { GENRE_TAGS } from '../static/scripts/common/constants';
+import { GENRE_TAGS } from '../constants';
 
 var VOTE_ACTIONS = {
   '0': 'withdraw',
