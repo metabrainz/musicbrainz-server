@@ -10,7 +10,7 @@
 
   <h3 class="track-parser-options">[% l('Options') %]</h3>
 
-  <table id="track-parser-options" data-bind="with: $root.trackParser.options">
+  <table class="track-parser-options" data-bind="with: $root.trackParser.options">
     <tr>
       <td>
         <label>
