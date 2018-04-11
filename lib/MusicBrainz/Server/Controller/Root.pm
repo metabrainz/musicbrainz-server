@@ -204,6 +204,7 @@ sub begin : Private
     if (DBDefs->USE_SELENIUM_HEADER && $c->req->headers->header('selenium')) {
         $c->model('MB')->context->database('SELENIUM');
         $c->model('MB')->context->clear_connector;
+        *DBDefs::SEARCH_SERVER = sub { '' };
     }
 
     # Can we automatically login?
