@@ -192,6 +192,10 @@ command line like so:
 
     $ ./t/selenium.js
 
+If you want to run specific tests under ./t/selenium/, you can specify the
+paths to them as arguments. t/selenium.js also accepts some command line flags
+which are useful for debugging and development; see `./t/selenium.js --help`.
+
 The `.html` files located under ./t/selenium/ describe the tests being run,
 and were created using the Selenium IDE plugin for Firefox. You can easily
 open these files in the IDE and run the tests that way if you wish; it'll play

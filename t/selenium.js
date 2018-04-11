@@ -4,6 +4,23 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
+const argv = require('yargs')
+  .option('h', {
+    alias: 'headless',
+    default: true,
+    describe: 'run Chrome in headless mode',
+    type: 'boolean',
+  })
+  .option('s', {
+    alias: 'stay-open',
+    default: false,
+    describe: 'stay logged in and keep the browser open after tests complete',
+    type: 'boolean',
+  })
+  .usage('Usage: $0 [-hs] [file...]')
+  .help('help')
+  .argv;
+
 const child_process = require('child_process');
 const fs = require('fs');
 const httpProxy = require('http-proxy');
@@ -61,18 +78,24 @@ proxy.on('proxyReq', function (proxyReq) {
   proxyReq.setHeader('Selenium', '1');
 });
 
-const driver = new webdriver.Builder()
-  .forBrowser('chrome')
-  .setProxy(webdriverProxy.manual({http: 'localhost:5050'}))
-  .setChromeOptions(
-    new chrome.Options()
-      .headless()
-      .addArguments(
-        'no-sandbox',
-        'proxy-server=http://localhost:5050',
-      )
-  )
-  .build();
+const driver = (x => {
+  x.forBrowser('chrome');
+
+  x.setProxy(webdriverProxy.manual({http: 'localhost:5050'}));
+
+  if (argv.headless) {
+    x.setChromeOptions(
+      new chrome.Options()
+        .headless()
+        .addArguments(
+          'no-sandbox',
+          'proxy-server=http://localhost:5050',
+        )
+    );
+  }
+
+  return x.build();
+})(new webdriver.Builder());
 
 function quit() {
   proxy.close();
@@ -80,9 +103,11 @@ function quit() {
 }
 
 async function unhandledRejection(err) {
-  await quit();
   console.error(err);
-  process.exit(1);
+  if (!argv.stayOpen) {
+    await quit();
+    process.exit(1);
+  }
 }
 
 process.on('unhandledRejection', unhandledRejection);
@@ -434,15 +459,17 @@ async function runCommands(commands, t) {
 
   const loginPlan = getPlan(testPath('Log_In.html'));
   const logoutPlan = getPlan(testPath('Log_Out.html'));
-  const testsPathsToRun = process.argv.slice(2).map(x => path.resolve(x));
+  const testsPathsToRun = argv._.map(x => path.resolve(x));
   const testsToRun = testsPathsToRun.length
     ? seleniumTests.filter(x => testsPathsToRun.includes(x.path))
     : seleniumTests;
 
   proxy.listen(5050);
 
-  await testsToRun.reduce(function (accum, stest) {
+  await testsToRun.reduce(function (accum, stest, index) {
     const {commands, plan, title} = getPlan(stest.path);
+
+    const isLastTest = index === testsToRun.length - 1;
 
     return new Promise(function (resolve) {
       test(title, {timeout: TEST_TIMEOUT}, function (t) {
@@ -460,11 +487,12 @@ async function runCommands(commands, t) {
 
             await runCommands(commands, t);
 
-            if (stest.login) {
-              await runCommands(logoutPlan.commands, t);
+            if (!(isLastTest && argv.stayOpen)) {
+              if (stest.login) {
+                await runCommands(logoutPlan.commands, t);
+              }
+              await dropSeleniumDb();
             }
-
-            await dropSeleniumDb();
           } catch (error) {
             t.fail(JSON.stringify(error, null, 2));
           }
@@ -477,5 +505,7 @@ async function runCommands(commands, t) {
     });
   }, Promise.resolve());
 
-  await quit();
+  if (!argv.stayOpen) {
+    await quit();
+  }
 }());
