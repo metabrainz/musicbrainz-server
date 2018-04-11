@@ -275,6 +275,7 @@ const tests = [
   'Log_Out.html',
   'Log_In.html',
   'MBS-7456.html',
+  'MBS-9548.html',
   'Artist_Credit_Editor.html',
   'External_Links_Editor.html',
   'Work_Editor.html',
