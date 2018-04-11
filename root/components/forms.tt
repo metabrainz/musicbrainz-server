@@ -234,7 +234,7 @@
       <img src="[% c.model('FileCache').path_to('/images/icons/guesscase.32x32.png') %]" style="float: left; margin: 1em;" alt="" />
     [% END %]
     <div style="float: right; margin: 10px;" class="buttons">
-      <button type="button" data-bind="click: guessCase">[% lp('Guess case', 'button/menu') %]</button>
+      <button id="guess-case-button" type="button" data-bind="click: guessCase">[% lp('Guess case', 'button/menu') %]</button>
     </div>
     <p class="guesscase-options">
       <select data-bind="value: modeName">

@@ -148,7 +148,7 @@
         [% table_cells_select('country', l('Country:'), 1,
             "value: countryID, withLabel: 'country'", countries) %]
         <td>
-          <button type="button" class="icon remove-item" title="[% l('Remove Release Event') %]" data-click="removeReleaseEvent"></button>
+          <button type="button" class="icon remove-item remove-release-event" title="[% l('Remove Release Event') %]" data-click="removeReleaseEvent"></button>
         </td>
       </tr>
 
@@ -187,7 +187,7 @@
           <input type="text" data-bind="withLabel: 'catno', value: catalogNumber, valueUpdate: 'input', controlsBubble: $root.labelBubble" />
         </td>
         <td>
-          <button type="button" class="remove-item icon" title="[% l('Remove Label') %]" data-click="removeReleaseLabel"></button>
+          <button type="button" class="remove-item icon remove-release-label" title="[% l('Remove Label') %]" data-click="removeReleaseLabel"></button>
         </td>
       </tr>
 

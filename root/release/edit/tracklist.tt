@@ -200,7 +200,7 @@
       <button type="button" class="icon guesscase-title" title="[% l('Guess case track') %]" data-click="guessCaseTrackName"></button>
       <button type="button" class="icon guessfeat" title="[% l('Guess feat. artists') %]" data-click="guessTrackFeatArtists"></button>
       <!-- ko ifnot: medium.hasToc() -->
-      <button type="button" class="icon remove-item" title="[% l('Remove track') %]" data-click="removeTrack"></button>
+      <button type="button" class="icon remove-item remove-track" title="[% l('Remove track') %]" data-click="removeTrack"></button>
       <!-- /ko -->
     </td>
   </tr>
@@ -286,7 +286,7 @@
             [%- END %]
           </select>
           <label>
-            <input type="checkbox" data-bind="checked: formatUnknownToUser, enable: formatID() == ''" />
+            <input id="format-unknown" type="checkbox" data-bind="checked: formatUnknownToUser, enable: formatID() == ''" />
             [% l('I don’t know') %]
           </label>
           (<a href="[% c.uri_for('/doc/Release/Format') %]" target="_blank">[% l('help') %]</a>)
@@ -389,13 +389,13 @@
         <!-- ko if: canHaveDiscID() -->
           <p style="margin-top: 0;">
             <label>
-              <input type="checkbox" data-bind="checked: hasPregap" />
+              <input class="has-pregap" type="checkbox" data-bind="checked: hasPregap" />
               [% l('This disc has a hidden pregap track before track 1 ({info|more info})', { info => { href => doc_link('Hidden_Track'), target => '_blank' } }) %]
             </label>
           </p>
           <p style="margin-top: 0;">
             <label>
-              <input type="checkbox" data-bind="checked: hasDataTracks" />
+              <input class="has-data-tracks" type="checkbox" data-bind="checked: hasDataTracks" />
               [% l('This disc contains data tracks at the end ({info|more info})', { info => { href => doc_link('Data_Track'), target => '_blank' } }) %]
             </label>
           </p>
@@ -403,7 +403,7 @@
 
         <div class="buttons">
           <button type="button" class="open-track-parser" data-click="openTrackParser">[% l('Track Parser') %]</button>
-          <button type="button" data-click="resetTrackNumbers">[%- l('Reset track numbers') -%]</button>
+          <button type="button" class="reset-track-numbers" data-click="resetTrackNumbers">[%- l('Reset track numbers') -%]</button>
           <button type="button" data-click="swapTitlesWithArtists">[%- l('Swap track titles with artist credits') -%]</button>
           <button type="button" data-click="guessMediumFeatArtists">[%- l('Guess feat. artists from track titles') -%]</button>
         </div>
