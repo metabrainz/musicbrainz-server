@@ -16,7 +16,7 @@ const {l} = require('../static/scripts/common/i18n');
 const {lp_attributes} = require('../static/scripts/common/i18n/attributes');
 
 type PropsT = {|
-  +genres: $ReadOnlyArray<GenreT>,
+  +genres: $ReadOnlyArray<string>,
 |};
 
 const Genre = ({genre}) => (
