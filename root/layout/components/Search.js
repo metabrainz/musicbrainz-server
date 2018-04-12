@@ -11,48 +11,57 @@ import React from 'react';
 
 import * as manifest from '../../static/manifest';
 import * as DBDefs from '../../static/scripts/common/DBDefs';
-import {compare, l, lp} from '../../static/scripts/common/i18n';
+import {compare, l, lp, N_l, N_lp} from '../../static/scripts/common/i18n';
 
 const TYPE_OPTION_GROUPS = [
   {
-    artist:        l('Artist'),
+    artist:        N_l('Artist'),
   },
   { // musical production
-    event:         l('Event'),
-    recording:     l('Recording'),
-    release:       l('Release'),
-    release_group: l('Release Group'),
-    series:        lp('Series', 'singular'),
-    work:          l('Work'),
+    event:         N_l('Event'),
+    recording:     N_l('Recording'),
+    release:       N_l('Release'),
+    release_group: N_l('Release Group'),
+    series:        N_lp('Series', 'singular'),
+    work:          N_l('Work'),
   },
   { // other core entities
-    area:          l('Area'),
-    instrument:    l('Instrument'),
-    label:         l('Label'),
-    place:         l('Place'),
+    area:          N_l('Area'),
+    instrument:    N_l('Instrument'),
+    label:         N_l('Label'),
+    place:         N_l('Place'),
   },
   { // derived data
-    annotation:    l('Annotation'),
-    tag:           lp('Tag', 'noun'),
+    annotation:    N_l('Annotation'),
+    tag:           N_lp('Tag', 'noun'),
   },
   {
-    cdstub:        l('CD Stub'),
+    cdstub:        N_l('CD Stub'),
   },
   {
-    editor:        l('Editor'),
+    editor:        N_l('Editor'),
   },
   {
-    doc:           DBDefs.GOOGLE_CUSTOM_SEARCH ? l('Documentation') : null,
+    doc:           DBDefs.GOOGLE_CUSTOM_SEARCH ? N_l('Documentation') : null,
   },
 ];
+
+function localizedTypeOption(group, key) {
+  return (key === 'series' || key === 'tag') ? lp(group[key])
+    : (key === 'doc' && group[key] === null) ? null
+      : l(group[key]);
+}
 
 const searchOptions = (
   <select id="headerid-type" name="type">
     {TYPE_OPTION_GROUPS.map(<TogT: {}>(group: TogT, groupIndex) => (
       Object.keys(group).sort(function (a, b) {
-        return compare(group[a], group[b]);
+        return compare(
+          localizedTypeOption(group, a),
+          localizedTypeOption(group, b),
+        );
       }).map(function (key, index) {
-        const text = group[key];
+        const text = localizedTypeOption(group, key);
         if (!text) {
           return null;
         }
