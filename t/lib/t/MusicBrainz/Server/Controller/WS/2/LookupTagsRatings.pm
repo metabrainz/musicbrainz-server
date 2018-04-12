@@ -21,8 +21,8 @@ my $diff = XML::SemanticDiff->new;
 
 MusicBrainz::Server::Test->prepare_test_database($c, '+webservice');
 
-ws_test 'artist lookup with tags and ratings',
-    '/artist/a16d1433-ba89-4f72-a47b-a370add0bb55?inc=tags+ratings' =>
+ws_test 'artist lookup with tags, genres and ratings',
+    '/artist/a16d1433-ba89-4f72-a47b-a370add0bb55?inc=tags+genres+ratings' =>
     '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
     <artist type="Person" type-id="b6e035f4-3ce9-331c-97df-83397230b0df" id="a16d1433-ba89-4f72-a47b-a370add0bb55">
@@ -31,16 +31,17 @@ ws_test 'artist lookup with tags and ratings',
             <begin>1986-11-05</begin>
         </life-span>
         <tag-list><tag count="1"><name>c-pop</name></tag><tag count="1"><name>j-pop</name></tag><tag count="1"><name>japanese</name></tag><tag count="1"><name>jpop</name></tag><tag count="1"><name>k-pop</name></tag><tag count="1"><name>kpop</name></tag><tag count="1"><name>pop</name></tag></tag-list>
+        <genre-list><genre count="1"><name>j-pop</name></genre><genre count="1"><name>k-pop</name></genre><genre count="1"><name>pop</name></genre></genre-list>
         <rating votes-count="3">4.35</rating>
     </artist>
 </metadata>';
 
 ws_test 'recording lookup with tags and ratings',
-    '/recording/7a356856-9483-42c2-bed9-dc07cb555952?inc=tags+ratings' =>
-    '<?xml version="1.0"?><metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#"><recording id="7a356856-9483-42c2-bed9-dc07cb555952"><title>Cella</title><length>334000</length><tag-list><tag count="1"><name>dubstep</name></tag></tag-list></recording></metadata>';
+    '/recording/7a356856-9483-42c2-bed9-dc07cb555952?inc=tags+genres+ratings' =>
+    '<?xml version="1.0"?><metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#"><recording id="7a356856-9483-42c2-bed9-dc07cb555952"><title>Cella</title><length>334000</length><tag-list><tag count="1"><name>dubstep</name></tag></tag-list><genre-list><genre count="1"><name>dubstep</name></genre></genre-list></recording></metadata>';
 
-ws_test 'label lookup with tags and ratings',
-    '/label/b4edce40-090f-4956-b82a-5d9d285da40b?inc=tags+ratings' =>
+ws_test 'label lookup with tags, genres and ratings',
+    '/label/b4edce40-090f-4956-b82a-5d9d285da40b?inc=tags+genres+ratings' =>
     '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
     <label type="Original Production" type-id="7aaa37fe-2def-3476-b359-80245850062d" id="b4edce40-090f-4956-b82a-5d9d285da40b">
@@ -65,8 +66,8 @@ ws_test 'label lookup with tags and ratings',
     </label>
 </metadata>';
 
-ws_test 'release group lookup with tags and ratings',
-    '/release-group/22b54315-6e51-350b-bb34-e6e16f7688bd?inc=tags+ratings' =>
+ws_test 'release group lookup with tags, genres and ratings',
+    '/release-group/22b54315-6e51-350b-bb34-e6e16f7688bd?inc=tags+genres+ratings' =>
     '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
     <release-group type="Album" type-id="f529b476-6e62-324f-b0aa-1f3e33d313fc" id="22b54315-6e51-350b-bb34-e6e16f7688bd">
@@ -84,12 +85,23 @@ ws_test 'release group lookup with tags and ratings',
                 <name>grime</name>
             </tag>
         </tag-list>
+        <genre-list>
+            <genre count="2">
+                <name>dubstep</name>
+            </genre>
+            <genre count="1">
+                <name>electronic</name>
+            </genre>
+            <genre count="1">
+                <name>grime</name>
+            </genre>
+        </genre-list>
         <rating votes-count="1">4</rating>
     </release-group>
 </metadata>';
 
-ws_test 'artist lookup with release-groups, tags and ratings',
-    '/artist/a16d1433-ba89-4f72-a47b-a370add0bb55?inc=release-groups+tags+ratings' =>
+ws_test 'artist lookup with release-groups, tags, genres and ratings',
+    '/artist/a16d1433-ba89-4f72-a47b-a370add0bb55?inc=release-groups+tags+genres+ratings' =>
     '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
     <artist type="Person" type-id="b6e035f4-3ce9-331c-97df-83397230b0df" id="a16d1433-ba89-4f72-a47b-a370add0bb55">
@@ -108,12 +120,13 @@ ws_test 'artist lookup with release-groups, tags and ratings',
             </release-group>
         </release-group-list>
         <tag-list><tag count="1"><name>c-pop</name></tag><tag count="1"><name>j-pop</name></tag><tag count="1"><name>japanese</name></tag><tag count="1"><name>jpop</name></tag><tag count="1"><name>k-pop</name></tag><tag count="1"><name>kpop</name></tag><tag count="1"><name>pop</name></tag></tag-list>
+        <genre-list><genre count="1"><name>j-pop</name></genre><genre count="1"><name>k-pop</name></genre><genre count="1"><name>pop</name></genre></genre-list>
         <rating votes-count="3">4.35</rating>
     </artist>
 </metadata>';
 
-ws_test 'release lookup with release-groups, tags and ratings',
-    '/release/adcf7b48-086e-48ee-b420-1001f88d672f?inc=release-groups+tags+ratings' =>
+ws_test 'release lookup with release-groups, tags, genres and ratings',
+    '/release/adcf7b48-086e-48ee-b420-1001f88d672f?inc=release-groups+tags+genres+ratings' =>
     '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
     <release id="adcf7b48-086e-48ee-b420-1001f88d672f">
@@ -129,6 +142,7 @@ ws_test 'release lookup with release-groups, tags and ratings',
             <first-release-date>2007-01-29</first-release-date>
             <primary-type id="f529b476-6e62-324f-b0aa-1f3e33d313fc">Album</primary-type>
             <tag-list><tag count="2"><name>dubstep</name></tag><tag count="1"><name>electronic</name></tag><tag count="1"><name>grime</name></tag></tag-list>
+            <genre-list><genre count="2"><name>dubstep</name></genre><genre count="1"><name>electronic</name></genre><genre count="1"><name>grime</name></genre></genre-list>
             <rating votes-count="1">4</rating>
         </release-group>
         <date>2007-01-29</date>

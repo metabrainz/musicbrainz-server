@@ -200,12 +200,15 @@ sub _tags
     my %map = object_to_ids(@$entities);
     my $model = $c->model($modelname);
 
-    my @todo = grep { $c->stash->{inc}->$_ } qw( tags user_tags );
+    my @todo = grep { $c->stash->{inc}->$_ } qw( tags user_tags genres user_genres);
 
     for my $type (@todo) {
-        my $find_method = 'find_' . $type . '_for_entities';
+        # This is a hack but it seems pointless to create dupe "find_genres_for_entities" etc
+        my $genre_flag = ($type eq 'genres' || $type eq 'user_genres') ? 1 : 0;
+        my $massaged_type = $type =~ s/genre/tag/gr;
+        my $find_method = 'find_' . $massaged_type . '_for_entities';
         my @tags = $model->tags->$find_method(
-                        $type eq 'user_tags' ? $c->user->id : (),
+                        $type eq 'user_tags' || $type eq 'user_genres' ? $c->user->id : (), $genre_flag,
                         map { $_->id } @$entities);
 
         my %tags_by_entity = partition_by { $_->entity_id } @tags;

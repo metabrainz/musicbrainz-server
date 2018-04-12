@@ -1,41 +1,29 @@
-package MusicBrainz::Server::Entity::Tag;
-
+package MusicBrainz::Server::Controller::Genre;
 use Moose;
+
 use MusicBrainz::Server::Constants qw( %ENTITIES );
 
-extends 'MusicBrainz::Server::Entity';
+BEGIN { extends 'MusicBrainz::Server::Controller'; }
 
-has 'name' => (
-    is => 'rw',
-    isa => 'Str'
-);
+sub list : Path('/genres') Args(0) {
+    my ($self, $c) = @_;
 
-sub TO_JSON {
-    return shift->name;
+    my @genres = $ENTITIES{tag}{genres};
+
+    $c->stash(
+        current_view => 'Node',
+        component_path => 'genre/List',
+        component_props => {
+            genres => @genres
+        }
+    );
 }
 
-sub is_genre_tag {
-    my $self = shift;
-    return ($self->name ~~ $ENTITIES{tag}{genres})
-}
-
-__PACKAGE__->meta->make_immutable;
-no Moose;
 1;
-
-=head1 NAME
-
-MusicBrainz::Server::Entity::Tag
-
-=head1 ATTRIBUTES
-
-=head2 name
-
-Name of the tag.
 
 =head1 COPYRIGHT
 
-Copyright (C) 2009 Lukas Lalinsky
+Copyright (C) 2018 MetaBrainz Foundation
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by

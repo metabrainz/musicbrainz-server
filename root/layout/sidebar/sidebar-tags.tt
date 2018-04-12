@@ -1,20 +1,33 @@
-[%- MACRO tag_list(tags, more, entity) BLOCK;
+[%- MACRO tag_list(tags, entity, genres) BLOCK;
     tag_links = [];
     FOR tag=tags;
-        tag_links.push(link_tag(tag.tag));
+        IF genres == 1 AND tag.tag.is_genre_tag;
+            tag_links.push(link_tag(tag.tag));
+        ELSIF genres == 0 AND NOT tag.tag.is_genre_tag;
+            tag_links.push(link_tag(tag.tag));
+        END;
     END;
-    IF more;
-        tag_links.push(link_entity(entity, 'tags', l('more...')));
+    IF !tag_links.size;
+        lp('(none)', 'tag');
     END;
     tag_links.join(', ');
 END -%]
 
-<h2>[% l('Tags') %]</h2>
-
 <div id="sidebar-tags">
-  <p>
-    [% IF tags.size; tag_list(tags, more, entity); ELSE; lp('(none)', 'tag'); END %]
-  </p>
+  <h2>[% l('Genres') %]</h2>
+  <div class="genre-list">
+    <p>
+      [% tag_list(tags, entity, 1) %]
+    </p>
+  </div>
+
+  <h2>[% l('Other tags') %]</h2>
+  <div id="sidebar-tag-list">
+    <p>
+      [% tag_list(tags, entity, 0) %]
+    </p>
+  </div>
+  <p>[% link_entity(entity, 'tags', l('See all tags')) %]</p>
 </div>
 
 [%- IF c.user_exists -%]
