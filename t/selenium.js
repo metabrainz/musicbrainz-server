@@ -212,15 +212,15 @@ function parseEditData(value) {
   return (new Function('ignore', `return (${value})`))(IGNORE);
 }
 
-async function handleCommandAndWait(command, target, value, t) {
+async function handleCommandAndWait(file, command, target, value, t) {
   command = command.replace(/AndWait$/, '');
 
   const html = await findElement('css=html');
-  await handleCommand(command, target, value, t);
+  await handleCommand(file, command, target, value, t);
   return driver.wait(until.stalenessOf(html), 15000);
 }
 
-async function handleCommand(command, target, value, t) {
+async function handleCommand(file, command, target, value, t) {
   // Die if there are any JS errors on the page since the previous command.
   let errors;
   try {
@@ -357,6 +357,10 @@ async function handleCommand(command, target, value, t) {
       await driver.get('http://' + DBDefs.WEB_SERVER + target);
       return driver.manage().window().setSize(1024, 768);
 
+    case 'openFile':
+      await driver.get('file://' + path.resolve(path.dirname(file), target));
+      return driver.manage().window().setSize(1024, 768);
+
     case 'pause':
       return driver.sleep(target);
 
@@ -394,6 +398,7 @@ const seleniumTests = [
   {name: 'External_Links_Editor.html', login: true, timeout: 75000},
   {name: 'Work_Editor.html', login: true},
   {name: 'Release_Editor.html', login: true, timeout: 90000},
+  {name: 'Release_Editor_Seeding.html', login: true},
 ];
 
 const testPath = name => path.resolve(__dirname, 'selenium', name);
@@ -420,7 +425,7 @@ function getPlan(file) {
       plan++;
     }
 
-    commands.push([command, target, value]);
+    commands.push([file, command, target, value]);
   }
 
   return {commands, plan, title};

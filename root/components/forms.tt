@@ -9,7 +9,7 @@
       <div class="auto-editor">
         [% IF ko %]
           <label>
-            <input type="checkbox" data-bind="checked: makeVotable" />
+            <input class="make-votable" type="checkbox" data-bind="checked: makeVotable" />
             [% l('Make all edits votable.') -%]
           </label>
         [% ELSE %]

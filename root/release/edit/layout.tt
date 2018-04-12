@@ -19,7 +19,7 @@
     </ul>
 
     <!-- ko if: seedErrors -->
-      <div class="page-error">
+      <div id="seed-errors" class="page-error">
         [% l('The data you’ve seeded contained the following errors:') %]
         <ul data-bind="foreach: seedErrors">
           <li data-bind="text: $data"></li>
