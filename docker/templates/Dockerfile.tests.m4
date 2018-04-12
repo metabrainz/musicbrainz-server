@@ -20,7 +20,7 @@ RUN cd /tmp && \
     cd -
 
 RUN cd /home/musicbrainz && \
-    git clone https://github.com/metabrainz/mmd-schema
+    git clone -b genres https://github.com/reosarevok/mmd-schema
 
 ENV MMDSCHEMA /home/musicbrainz/mmd-schema
 
