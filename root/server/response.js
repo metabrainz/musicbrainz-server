@@ -50,7 +50,8 @@ function getResponse(requestBody, context) {
   // Set the current translations to be used for this request based on the
   // given 'lang' cookie.
   const gettext = require('./gettext');
-  gettext.setLocale(getCookie('lang') || 'en');
+  const bcp47Locale = getCookie('lang') || 'en';
+  gettext.setLocale(bcp47Locale.replace("-", "_"));
 
   try {
     Page = getExport(require(pathFromRoot(requestBody.component)));
