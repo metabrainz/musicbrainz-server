@@ -397,8 +397,8 @@ const seleniumTests = [
   {name: 'Artist_Credit_Editor.html', login: true},
   {name: 'External_Links_Editor.html', login: true, timeout: 75000},
   {name: 'Work_Editor.html', login: true},
-  {name: 'Release_Editor.html', login: true, timeout: 90000},
-  {name: 'Release_Editor_Seeding.html', login: true},
+  {name: 'release-editor/The_Downward_Spiral.html', login: true, timeout: 90000},
+  {name: 'release-editor/Seeding.html', login: true},
 ];
 
 const testPath = name => path.resolve(__dirname, 'selenium', name);
