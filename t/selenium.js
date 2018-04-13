@@ -22,12 +22,15 @@ const argv = require('yargs')
   .argv;
 
 const child_process = require('child_process');
+const defined = require('defined');
 const fs = require('fs');
 const httpProxy = require('http-proxy');
 const jsdom = require('jsdom');
+const isEqualWith = require('lodash/isEqualWith');
 const path = require('path');
 const shellQuote = require('shell-quote');
 const test = require('tape');
+const TestCls = require('tape/lib/test');
 const utf8 = require('utf8');
 const webdriver = require('selenium-webdriver');
 const chrome = require('selenium-webdriver/chrome');
@@ -39,6 +42,22 @@ const until = require('selenium-webdriver/lib/until');
 
 const DBDefs = require('../root/static/scripts/common/DBDefs');
 const escapeRegExp = require('../root/static/scripts/common/utility/escapeRegExp');
+
+const IGNORE = Symbol();
+
+function skipIgnored(a, b) {
+  return (a === IGNORE || b === IGNORE) ? true : undefined;
+}
+
+TestCls.prototype.deepEqual2 = function (a, b, msg, extra) {
+  this._assert(isEqualWith(a, b, skipIgnored), {
+    message: defined(msg, 'should be equivalent'),
+    operator: 'deepEqual2',
+    actual: a,
+    expected: b,
+    extra: extra,
+  });
+};
 
 function execFile(...args) {
   return new Promise(function (resolve, reject) {
@@ -189,6 +208,10 @@ function getPageErrors() {
   return driver.executeScript('return ((window.MB || {}).js_errors || [])');
 }
 
+function parseEditData(value) {
+  return (new Function('ignore', `return (${value})`))(IGNORE);
+}
+
 async function handleCommandAndWait(command, target, value, t) {
   command = command.replace(/AndWait$/, '');
 
@@ -236,10 +259,19 @@ async function handleCommand(command, target, value, t) {
     if (node) node.remove();
   `);
 
+  let commentValue;
+  switch (command) {
+    case 'assertEditData':
+      commentValue = parseEditData(value);
+      break;
+    default:
+      commentValue = value;
+  }
+
   t.comment(
     command +
     ' target=' + utf8.encode(JSON.stringify(target)) +
-    ' value=' + utf8.encode(JSON.stringify(value))
+    ' value=' + utf8.encode(JSON.stringify(commentValue))
   );
 
   let element;
@@ -260,6 +292,19 @@ async function handleCommand(command, target, value, t) {
 
     case 'assertEval':
       t.equal(await driver.executeScript(`return String(${target})`), value);
+      return;
+
+    case 'assertEditData':
+      const actualEditData = JSON.parse(await driver.executeAsyncScript(`
+        var callback = arguments[arguments.length - 1];
+        fetch('/edit/${target}/data', {
+          credentials: 'same-origin',
+          method: 'GET',
+          headers: new Headers({'Accept': 'application/json'}),
+        }).then(x => x.text().then(callback));
+      `));
+      const expectedEditData = parseEditData(value);
+      t.deepEqual2(actualEditData, expectedEditData);
       return;
 
     case 'assertLocation':
@@ -504,7 +549,8 @@ async function runCommands(commands, t) {
               await dropSeleniumDb();
             }
           } catch (error) {
-            t.fail(JSON.stringify(error, null, 2));
+            t.fail('caught exception');
+            throw error;
           }
 
           t.end();
