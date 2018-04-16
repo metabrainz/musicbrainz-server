@@ -301,7 +301,7 @@
 <tr>
     <td>assertEval</td>
     <td>Array.from(document.querySelectorAll('input.track-length')).map(x => x.value).join(' ')</td>
-    <td>4:54 6:10 4:19 5:59 5:33 4:56 6:12</td>
+    <td>1:33 35:38 5:34</td>
 </tr>
 <tr>
     <td>assertEval</td>
@@ -311,12 +311,42 @@
 <tr>
     <td>assertValue</td>
     <td>css=#discid-attachment select</td>
-    <td>1 7 171327 150 22179 49905 69318 96240 121186 143398</td>
+    <td>1 3 192512 150 7100 167475</td>
 </tr>
 <tr>
     <td>assertEval</td>
     <td>document.querySelector('#discid-attachment select').selectedOptions[0].textContent</td>
-    <td>tLGBAiCflG8ZI6lFcOt87vXjEcI-</td>
+    <td>8JrTc74BBFV.d2LEmUkPiYMk6Ww-</td>
+</tr>
+<tr>
+    <td>click</td>
+    <td>xpath=//a[@href='#edit-note']</td>
+    <td></td>
+</tr>
+<tr>
+    <td>clickAndWait</td>
+    <td>id=enter-edit</td>
+    <td></td>
+</tr>
+<tr>
+    <td>assertEditData</td>
+    <td>4</td>
+    <td>
+        {
+          "type": 55,
+          "status": 2,
+          "data": {
+            "cdtoc": "1 3 192512 150 7100 167475",
+            "release": {
+              "id": 1,
+              "name": "Vision Creation Newsun"
+            },
+            "entity_id": 1,
+            "medium_id": 1,
+            "medium_position": 1
+          }
+        }
+    </td>
 </tr>
 <!-- seeding url relationships -->
 <tr>

@@ -398,7 +398,7 @@ const seleniumTests = [
   {name: 'External_Links_Editor.html', login: true, timeout: 75000},
   {name: 'Work_Editor.html', login: true},
   {name: 'release-editor/The_Downward_Spiral.html', login: true, timeout: 90000},
-  {name: 'release-editor/Seeding.html', login: true},
+  {name: 'release-editor/Seeding.html', login: true, sql: 'vision_creation_newsun.sql'},
 ];
 
 const testPath = name => path.resolve(__dirname, 'selenium', name);
@@ -486,18 +486,20 @@ async function runCommands(commands, t) {
     'musicbrainz_selenium',
   ];
 
-  const testSqlPath = path.resolve(__dirname, 'sql', 'selenium.sql');
-  const sqlInsertionArgs = [
-    '-c',
-    shellQuote.quote(['cat', testSqlPath]) +  ' | ' +
-    shellQuote.quote(['psql', ...hostPort, '-U', testDb.user, 'musicbrainz_selenium']),
-  ];
-
   const dropdbArgs = [...hostPort, '-U', sysDb.user, 'musicbrainz_selenium'];
+
+  function execSql(sqlFile) {
+    const args = [
+      '-c',
+      shellQuote.quote(['cat', path.resolve(__dirname, 'sql', sqlFile)]) +  ' | ' +
+      shellQuote.quote(['psql', ...hostPort, '-U', testDb.user, 'musicbrainz_selenium']),
+    ];
+    return execFile('sh', args, pgPasswordEnv(testDb));
+  }
 
   async function createSeleniumDb() {
     await execFile('createdb', createdbArgs, pgPasswordEnv(sysDb));
-    await execFile('sh', sqlInsertionArgs, pgPasswordEnv(testDb));
+    await execSql('selenium.sql');
   }
 
   function dropSeleniumDb() {
@@ -540,6 +542,10 @@ async function runCommands(commands, t) {
         accum.then(async function () {
           try {
             await createSeleniumDb();
+
+            if (stest.sql) {
+              await execSql(stest.sql);
+            }
 
             if (stest.login) {
               await runCommands(loginPlan.commands, t);
