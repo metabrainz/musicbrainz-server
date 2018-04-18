@@ -131,7 +131,7 @@ test 'Request ja page via wikidata, fallback to it (according to browser accepte
     # Assuming that browser accepted languages are set to Japanese (Japan) then Italian (Italy),
     # set all_system_languages as usually set by sub build_languages_from_header
     MusicBrainz::Server::Translation->instance->languages([
-        'ja-ja',
+        'ja-jp',
         'ja',
         'it-it',
         'it',
