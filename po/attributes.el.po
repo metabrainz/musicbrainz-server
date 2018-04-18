@@ -8,7 +8,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2018-02-09 13:02+0000\n"
+"PO-Revision-Date: 2018-04-05 04:39+0000\n"
 "Last-Translator: yvanz\n"
 "Language-Team: Greek (http://www.transifex.com/musicbrainz/musicbrainz/language/el/)\n"
 "MIME-Version: 1.0\n"
@@ -143,6 +143,13 @@ msgid ""
 "A give-away release or a release intended to promote an upcoming official "
 "release (e.g. pre-release versions, releases included with a magazine, "
 "versions supplied to radio DJs for air-play)."
+msgstr ""
+
+#: DB:instrument_type/description:7
+msgctxt "instrument_type"
+msgid ""
+"A grouping of related but different instruments, like the different violin-"
+"like instruments"
 msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:28
@@ -323,6 +330,13 @@ msgctxt "work_type"
 msgid ""
 "A soundtrack is the music that accompanies a film, TV program, videogame, or"
 " even book."
+msgstr ""
+
+#: DB:instrument_type/description:6
+msgctxt "instrument_type"
+msgid ""
+"A standard grouping of instruments often played together, like a string "
+"quartet"
 msgstr ""
 
 #: DB:work_type/description:6
@@ -1819,6 +1833,11 @@ msgctxt "medium_format"
 msgid "Enhanced CD"
 msgstr ""
 
+#: DB:instrument_type/name:6
+msgctxt "instrument_type"
+msgid "Ensemble"
+msgstr ""
+
 #: DB:work_attribute_type_allowed_value/value:356
 msgctxt "work_attribute_type_allowed_value"
 msgid "Eski Sipihr"
@@ -1949,6 +1968,11 @@ msgctxt "work_attribute_type_allowed_value"
 msgid "Fahte"
 msgstr ""
 
+#: DB:instrument_type/name:7
+msgctxt "instrument_type"
+msgid "Family"
+msgstr ""
+
 #: DB:work_attribute_type_allowed_value/value:615
 msgctxt "work_attribute_type_allowed_value"
 msgid "Fantezi"
@@ -2032,6 +2056,13 @@ msgstr ""
 #: DB:work_attribute_type_allowed_value/value:734
 msgctxt "work_attribute_type_allowed_value"
 msgid "Fireng-i Fer"
+msgstr ""
+
+#: DB:medium_format/description:73
+msgctxt "medium_format"
+msgid ""
+"Flat discs with grooves used in phonographs/gramophones. For shellac and "
+"vinyl records, use that specifically"
 msgstr ""
 
 #: DB:medium_format/name:51
@@ -3257,11 +3288,6 @@ msgctxt "event_type"
 msgid "Masterclass/Clinic"
 msgstr ""
 
-#: DB:work_attribute_type_allowed_value/value:452
-msgctxt "work_attribute_type_allowed_value"
-msgid "Mate"
-msgstr ""
-
 #: DB:work_attribute_type_allowed_value/value:449
 msgctxt "work_attribute_type_allowed_value"
 msgid "Maver"
@@ -3280,6 +3306,11 @@ msgstr ""
 #: DB:editor_collection_type/name:6
 msgctxt "collection_type"
 msgid "Maybe attending"
+msgstr ""
+
+#: DB:work_attribute_type_allowed_value/value:452
+msgctxt "work_attribute_type_allowed_value"
+msgid "Maye"
 msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:175
@@ -4040,6 +4071,11 @@ msgstr ""
 #: DB:work_attribute_type_allowed_value/value:654
 msgctxt "work_attribute_type_allowed_value"
 msgid "Peşrev"
+msgstr ""
+
+#: DB:medium_format/name:73
+msgctxt "medium_format"
+msgid "Phonograph record"
 msgstr ""
 
 #: DB:medium_format/name:15

@@ -32,8 +32,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2018-03-17 21:37+0000\n"
-"Last-Translator: J L <email address hidden>\n"
+"PO-Revision-Date: 2018-04-05 04:39+0000\n"
+"Last-Translator: yvanz\n"
 "Language-Team: German (http://www.transifex.com/musicbrainz/musicbrainz/language/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -168,6 +168,13 @@ msgid ""
 "release (e.g. pre-release versions, releases included with a magazine, "
 "versions supplied to radio DJs for air-play)."
 msgstr "Ein Werbegeschenk bzw. eine Veröffentlichung, die zu Promotionszwecken verteilt wird, um eine bevorstehende offizielle Veröffentlichung zu bewerben (z.B. Vorveröffentlichungsalben, Magazinen beigelegte CDs, Versionen für Radio DJs)."
+
+#: DB:instrument_type/description:7
+msgctxt "instrument_type"
+msgid ""
+"A grouping of related but different instruments, like the different violin-"
+"like instruments"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:28
 msgctxt "work_attribute_type_allowed_value"
@@ -348,6 +355,13 @@ msgid ""
 "A soundtrack is the music that accompanies a film, TV program, videogame, or"
 " even book."
 msgstr "Soundtrack (englisch) bezeichnet wörtlich die Tonspur eines Films oder (eher figurativ) die Vertonung des Films. Heute versteht man darunter meist nur noch die einem konkreten Film oder Computerspiel oder Buch unterlegte Musik."
+
+#: DB:instrument_type/description:6
+msgctxt "instrument_type"
+msgid ""
+"A standard grouping of instruments often played together, like a string "
+"quartet"
+msgstr ""
 
 #: DB:work_type/description:6
 msgctxt "work_type"
@@ -1843,6 +1857,11 @@ msgctxt "medium_format"
 msgid "Enhanced CD"
 msgstr "Erweiterte CD"
 
+#: DB:instrument_type/name:6
+msgctxt "instrument_type"
+msgid "Ensemble"
+msgstr ""
+
 #: DB:work_attribute_type_allowed_value/value:356
 msgctxt "work_attribute_type_allowed_value"
 msgid "Eski Sipihr"
@@ -1973,6 +1992,11 @@ msgctxt "work_attribute_type_allowed_value"
 msgid "Fahte"
 msgstr ""
 
+#: DB:instrument_type/name:7
+msgctxt "instrument_type"
+msgid "Family"
+msgstr ""
+
 #: DB:work_attribute_type_allowed_value/value:615
 msgctxt "work_attribute_type_allowed_value"
 msgid "Fantezi"
@@ -2057,6 +2081,13 @@ msgstr "Feth-i Hicaz"
 msgctxt "work_attribute_type_allowed_value"
 msgid "Fireng-i Fer"
 msgstr "Fireng-i Fer"
+
+#: DB:medium_format/description:73
+msgctxt "medium_format"
+msgid ""
+"Flat discs with grooves used in phonographs/gramophones. For shellac and "
+"vinyl records, use that specifically"
+msgstr ""
 
 #: DB:medium_format/name:51
 msgctxt "medium_format"
@@ -3281,11 +3312,6 @@ msgctxt "event_type"
 msgid "Masterclass/Clinic"
 msgstr ""
 
-#: DB:work_attribute_type_allowed_value/value:452
-msgctxt "work_attribute_type_allowed_value"
-msgid "Mate"
-msgstr ""
-
 #: DB:work_attribute_type_allowed_value/value:449
 msgctxt "work_attribute_type_allowed_value"
 msgid "Maver"
@@ -3304,6 +3330,11 @@ msgstr "Maveraünnehir"
 #: DB:editor_collection_type/name:6
 msgctxt "collection_type"
 msgid "Maybe attending"
+msgstr ""
+
+#: DB:work_attribute_type_allowed_value/value:452
+msgctxt "work_attribute_type_allowed_value"
+msgid "Maye"
 msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:175
@@ -4065,6 +4096,11 @@ msgstr "Peyk-i Safa"
 msgctxt "work_attribute_type_allowed_value"
 msgid "Peşrev"
 msgstr "Peşrev"
+
+#: DB:medium_format/name:73
+msgctxt "medium_format"
+msgid "Phonograph record"
+msgstr ""
 
 #: DB:medium_format/name:15
 msgctxt "medium_format"

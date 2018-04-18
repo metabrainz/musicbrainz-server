@@ -6,6 +6,7 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
+const _ = require('lodash');
 const React = require('react');
 const URL = require('url');
 
@@ -87,10 +88,13 @@ const ExternalLinks = ({entity, empty, heading}) => {
   }
 
   otherLinks.sort(function (a, b) {
-    return compare(a.target.sidebar_name, b.target.sidebar_name);
+    return compare(a.target.sidebar_name, b.target.sidebar_name) ||
+      compare(a.target.href_url, b.target.href_url);
   });
 
-  links.push.apply(links, otherLinks.map(function (relationship) {
+  const uniqueOtherLinks = _.sortedUniqBy(otherLinks, x => x.target.href_url);
+
+  links.push.apply(links, uniqueOtherLinks.map(function (relationship) {
     return <ExternalLink key={relationship.id} relationship={relationship} />;
   }));
 
