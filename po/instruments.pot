@@ -251,7 +251,7 @@ msgid "Xaphoon"
 msgstr ""
 
 #: DB:instrument/name:778
-msgctxt "a type of harmonica/accordion hybrid"
+msgctxt "harmonica/accordion hybrid"
 msgid "accordina"
 msgstr ""
 
@@ -1367,6 +1367,7 @@ msgid "flugelhorn"
 msgstr ""
 
 #: DB:instrument/name:742
+msgctxt "Hybrid between trumpet and flugelhorn"
 msgid "flumpet"
 msgstr ""
 
@@ -2049,6 +2050,7 @@ msgid "lithophone"
 msgstr ""
 
 #: DB:instrument/name:609
+msgctxt "Small pearshaped chinese lute"
 msgid "liuqin"
 msgstr ""
 
@@ -2445,6 +2447,7 @@ msgid "piccolo trumpet"
 msgstr ""
 
 #: DB:instrument/name:350
+msgctxt "Pearshaped chinese lute"
 msgid "pipa"
 msgstr ""
 
@@ -2635,6 +2638,11 @@ msgstr ""
 
 #: DB:instrument/name:179
 msgid "reeds"
+msgstr ""
+
+#: DB:instrument/name:918
+msgctxt "Portable bellowed reed organ"
+msgid "regal"
 msgstr ""
 
 #: DB:instrument/name:784
@@ -3213,6 +3221,7 @@ msgid "theatre organ"
 msgstr ""
 
 #: DB:instrument/name:395
+msgctxt "Extended necked many-stringed lute"
 msgid "theorbo"
 msgstr ""
 
@@ -3701,6 +3710,7 @@ msgid "yu"
 msgstr ""
 
 #: DB:instrument/name:240
+msgctxt "Traditional Chinese lute"
 msgid "yueqin"
 msgstr ""
 
