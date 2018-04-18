@@ -383,8 +383,6 @@ sub end : ActionClass('RenderView')
         is_beta                    => DBDefs->IS_BETA
     };
 
-    $c->stash->{google_analytics_code} = DBDefs->GOOGLE_ANALYTICS_CODE;
-
     $c->stash->{various_artist_mbid} = $VARTIST_GID;
 
     $c->stash->{wiki_server} = DBDefs->WIKITRANS_SERVER;
