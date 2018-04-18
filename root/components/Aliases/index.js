@@ -30,7 +30,7 @@ const Aliases = ({aliases, entity, allowEditing = $c.user_exists}: Props) => {
       </p>
       {aliases && aliases.length
         ? <AliasTable aliases={aliases} allowEditing={allowEditing} entity={entity} />
-        : l('{entity} has no aliases.', {__react: true, entity: <EntityLink entity={entity} />})}
+        : <p>{l('{entity} has no aliases.', {__react: true, entity: <EntityLink entity={entity} />})}</p>}
       {allowEditing
         ? (
           <p>
