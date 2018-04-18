@@ -10,7 +10,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2018-03-27 10:09+0000\n"
+"PO-Revision-Date: 2018-04-10 12:02+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -214,11 +214,11 @@ msgid ""
 "\"beats\" from hip-hop songs which may be reused with different lyrics."
 msgstr "Dit geeft bij composities die normaal tekst hebben aan dat deze teksten voor deze opname niet relevant zijn. Bijvoorbeeld bij instrumentale uitvoeringen of ‘beats’ van hiphopnummers."
 
-#: DB:link_type/link_phrase:713
+#: DB:link_type/link_phrase:934 DB:link_type/link_phrase:713
 msgid "Geonames"
 msgstr "Geonames"
 
-#: DB:link_type/reverse_link_phrase:713
+#: DB:link_type/reverse_link_phrase:934 DB:link_type/reverse_link_phrase:713
 msgid "Geonames page for"
 msgstr "Geonamespagina over"
 
@@ -487,6 +487,12 @@ msgstr "Geeft de vertaler van de tekst of het libretto van deze uitgave aan."
 msgid "Indicates the person who translated the lyrics/libretto for this work."
 msgstr "Geeft de vertaler van de tekst of het libretto van deze compositie aan."
 
+#: DB:link_type/description:930 DB:link_type/description:931
+msgid ""
+"Indicates the piano technician for this release. Use also for \"piano "
+"tuner\" credits."
+msgstr "Deze relatie geeft de pianotechnicus voor deze uitgave aan. De relatie is ook bedoeld voor pianostemmers."
+
 #: DB:link_type/description:716
 msgid "Indicates the place where the work had its first performance"
 msgstr "Geeft de plaats aan waar de compositie voor het eerst is opgevoerd."
@@ -716,6 +722,12 @@ msgstr "Koppelt het evenement aan (een van) de belangrijkste optredende artiest(
 msgid "Links an event to (one of) its support act(s)."
 msgstr "Koppelt het evenement aan (een van) de ondersteunende artiest(en)."
 
+#: DB:link_type/description:932
+msgid ""
+"Links an event to a DJ that appeared in a supporting role (e.g. DJing "
+"between artists, or closing the night after a concert)."
+msgstr "Deze relatie koppelt een evenement aan een dj die er een ondersteunende rol had (bijv. dj’en tussen optredens, of de avond na een concert afsluiten)."
+
 #: DB:link_type/description:800
 msgid ""
 "Links an event to a guest performer. Guest performers usually make short "
@@ -750,6 +762,10 @@ msgstr "Koppelt het evenement aan de plaats waar het plaatsvond."
 msgid ""
 "Local time a band's performance is scheduled to start, formatted HH:MM."
 msgstr "De lokale tijd waarop een band zou moeten beginnen met optreden, geformatteerd als UU:MM."
+
+#: DB:link_attribute_type/description:1060
+msgid "Meane or mean is a young male singer with a voice lower than a treble"
+msgstr "Meane of mean is een jonge mannelijke zanger met een stem lager dan een jongenssopraan."
 
 #: DB:link_type/link_phrase:215 DB:link_type/link_phrase:462
 #: DB:link_type/link_phrase:189
@@ -788,6 +804,10 @@ msgstr "Verwijst naar de BookBrainz-pagina over deze compositie."
 #: DB:link_type/description:713
 msgid "Points to the Geonames page for this area."
 msgstr "Verwijst naar de Geonamespagina over dit gebied."
+
+#: DB:link_type/description:934
+msgid "Points to the Geonames page for this place."
+msgstr "Verwijst naar de Geonames-pagina over deze plaats."
 
 #: DB:link_type/description:706
 msgid "Points to the Internet Movie Database page for this place."
@@ -962,6 +982,10 @@ msgstr "De bladmuziek voor {entity1} kan tegen betaling van {entity0} worden ged
 #: DB:link_type/long_link_phrase:913
 msgid "The score for {entity1} can be purchased for mail-order at {entity0}"
 msgstr "De bladmuziek voor {entity1} kan op {entity0} worden besteld."
+
+#: DB:link_type/description:933
+msgid "This allows linking a series to the label who publishes it."
+msgstr "Deze relatie koppelt een serie aan de platenmaatschappij die haar uitgeeft."
 
 #: DB:link_attribute_type/description:3
 msgid "This attribute describes a type of vocal performance."
@@ -2916,7 +2940,7 @@ msgstr "arrangementen"
 #: DB:link_type/link_phrase:863 DB:link_type/link_phrase:864
 #: DB:link_type/link_phrase:865 DB:link_type/link_phrase:866
 msgid "arranging location for"
-msgstr "locatie waar {entity1} gearrangeerd werd."
+msgstr "hier gearrangeerd"
 
 #: DB:link_type/link_phrase:135 DB:link_type/link_phrase:62
 #: DB:link_type/reverse_link_phrase:135 DB:link_type/reverse_link_phrase:62
@@ -3320,7 +3344,7 @@ msgstr "redigeerde het boekje van"
 #: DB:link_type/link_phrase:820 DB:link_type/link_phrase:821
 #: DB:link_type/link_phrase:822 DB:link_type/link_phrase:819
 msgid "editing location for"
-msgstr "locatie waar {entity1} geëdit werd."
+msgstr "hier geëdit"
 
 #: DB:link_type/reverse_link_phrase:309
 msgid "edits"
@@ -3357,7 +3381,7 @@ msgstr "techniek verzorgd in"
 #: DB:link_type/link_phrase:812 DB:link_type/link_phrase:814
 #: DB:link_type/link_phrase:813 DB:link_type/link_phrase:815
 msgid "engineering location for"
-msgstr "locatie waar de techniek van {entity1} werd verzorgd"
+msgstr "locatie waar de techniek van werd verzorgd van"
 
 #: DB:link_type/reverse_link_phrase:120 DB:link_type/reverse_link_phrase:701
 msgid "engineers"
@@ -3496,7 +3520,7 @@ msgstr "heeft een BookBrainz-pagina op"
 msgid "has a Discogs page at"
 msgstr "heeft een Discogspagina op"
 
-#: DB:link_type/long_link_phrase:713
+#: DB:link_type/long_link_phrase:934 DB:link_type/long_link_phrase:713
 msgid "has a Geonames page at"
 msgstr "heeft een Geonamespagina op"
 
@@ -4138,7 +4162,7 @@ msgstr "gefabriceerd in"
 
 #: DB:link_type/link_phrase:835
 msgid "manufacturing location for"
-msgstr "locatie waar {entity1} gefabriceerd werd."
+msgstr "fabricagelocatie van"
 
 #: DB:link_type/link_phrase:848 DB:link_type/long_link_phrase:848
 msgid "marketed"
@@ -4167,6 +4191,10 @@ msgstr "masteringtechnische functie bij"
 #: DB:link_type/reverse_link_phrase:704
 msgid "mastering engineers"
 msgstr "masteringtechnici"
+
+#: DB:link_attribute_type/name:1060
+msgid "meane vocals"
+msgstr "meane-vocalen"
 
 #: DB:link_attribute_type/name:568
 msgid "medium"
@@ -4477,6 +4505,14 @@ msgstr "persoonlijke relatie"
 msgid "phonographic copyright by"
 msgstr "fonografisch auteursrecht"
 
+#: DB:link_type/reverse_link_phrase:930 DB:link_type/reverse_link_phrase:931
+msgid "piano technician"
+msgstr "pianotechnicus"
+
+#: DB:link_type/link_phrase:930 DB:link_type/link_phrase:931
+msgid "piano technician for"
+msgstr "pianotechnicus voor"
+
 #: DB:link_type/link_phrase:173 DB:link_type/link_phrase:396
 #: DB:link_type/link_phrase:732
 msgid "picture"
@@ -4549,7 +4585,7 @@ msgstr "gedrukt in"
 
 #: DB:link_type/link_phrase:849
 msgid "printing location for"
-msgstr "is de locatie waar {entity1} gedrukt werd."
+msgstr "hier gedrukt"
 
 #: DB:link_type/reverse_link_phrase:824 DB:link_type/reverse_link_phrase:825
 msgid "produced at"
@@ -4647,6 +4683,14 @@ msgstr "publiceerde"
 #: DB:link_type/reverse_link_phrase:208 DB:link_type/reverse_link_phrase:161
 msgid "publisher"
 msgstr "uitgever"
+
+#: DB:link_type/link_phrase:933 DB:link_type/long_link_phrase:933
+msgid "publishes series"
+msgstr "publiceert de serie"
+
+#: DB:link_type/reverse_link_phrase:933
+msgid "publishing label"
+msgstr "serie-uitgever"
 
 #: DB:link_type/link_phrase:254 DB:link_type/link_phrase:74
 msgid "purchase for download"
@@ -4811,7 +4855,7 @@ msgstr "herzien in"
 
 #: DB:link_type/link_phrase:881 DB:link_type/link_phrase:882
 msgid "revising location for"
-msgstr "locatie waar {entity1} herzien werd."
+msgstr "hier herzien"
 
 #: DB:link_type/reverse_link_phrase:315
 msgid "revision of"
@@ -4942,6 +4986,14 @@ msgstr "ondersteunende artiest op"
 #: DB:link_type/reverse_link_phrase:799
 msgid "support acts"
 msgstr "ondersteunende artiesten"
+
+#: DB:link_type/reverse_link_phrase:932
+msgid "supporting DJ"
+msgstr "ondersteunende dj"
+
+#: DB:link_type/link_phrase:932
+msgid "supporting DJ at"
+msgstr "ondersteunende dj op"
 
 #: DB:link_type/link_phrase:104
 msgid "supporting artist for"
@@ -5100,6 +5152,10 @@ msgstr "was een uitvoering van"
 msgid "was a support act at"
 msgstr "was een ondersteunende artiest op"
 
+#: DB:link_type/long_link_phrase:932
+msgid "was a supporting DJ at"
+msgstr "was ondersteunende dj op"
+
 #: DB:link_type/long_link_phrase:807
 msgid "was an orchestra at"
 msgstr "speelde als orkest op"
@@ -5132,6 +5188,19 @@ msgstr "werd opnieuw gepland als"
 #: DB:link_type/long_link_phrase:759 DB:link_type/long_link_phrase:760
 msgid "was the concertmaster for"
 msgstr "was de concertmeester van"
+
+#: DB:link_type/long_link_phrase:930 DB:link_type/long_link_phrase:931
+msgid "was the piano technician for"
+msgstr "was de pianotechnicus voor"
+
+#: DB:link_type/long_link_phrase:36
+msgid "was {additional} {assistant} {associate} {co:co-}recording engineer"
+msgstr "was {additional:aanvullend} {assistant:assisterend} {associate:geassocieerd} {co:co-}opnametechnicus"
+
+#: DB:link_type/long_link_phrase:128
+msgid ""
+"was {additional} {assistant} {associate} {co:co-}recording engineer for"
+msgstr "was {additional:aanvullend} {assistant:assisterend} {associate:geassocieerd} {co:co-}opnametechnicus van"
 
 #: DB:link_type/reverse_link_phrase:921
 msgid "work list entry"
@@ -5280,15 +5349,6 @@ msgstr "{co:co}masterde {additional:aanvullend} {assistant:assisterend} {associa
 msgid "{additional:additionally} {assistant} {associate} {co:co-}mixed"
 msgstr "{co:co}mixte {additional:aanvullend} {assistant:assisterend} {associate:als partner} "
 
-#: DB:link_type/link_phrase:36 DB:link_type/link_phrase:128
-#: DB:link_type/long_link_phrase:36 DB:link_type/long_link_phrase:128
-msgid "{additional:additionally} {assistant} {associate} {co:co-}recorded"
-msgstr "{co:co-}nam {additional:aanvullend} {assistant:assisterend} {associate:als partner} {entity1} op"
-
-#: DB:link_type/reverse_link_phrase:36 DB:link_type/reverse_link_phrase:128
-msgid "{additional:additionally} {assistant} {associate} {co:co-}recorded by"
-msgstr "{additional:aanvullend} {assistant:assisterend} {associate:als partner} {co:co-}opgenomen door"
-
 #: DB:link_type/link_phrase:29 DB:link_type/link_phrase:133
 #: DB:link_type/long_link_phrase:29 DB:link_type/long_link_phrase:133
 msgid ""
@@ -5335,7 +5395,7 @@ msgstr "{additional:aanvullend} arrangeur"
 
 #: DB:link_type/link_phrase:885 DB:link_type/link_phrase:886
 msgid "{additional} arranging location for"
-msgstr "is de locatie waar {entity1} {additional:aanvullend} geschreven werd."
+msgstr "hier {additional:aanvullend }geschreven"
 
 #: DB:link_type/link_phrase:137 DB:link_type/link_phrase:18
 #: DB:link_type/reverse_link_phrase:137 DB:link_type/reverse_link_phrase:18
@@ -5353,7 +5413,7 @@ msgstr "{additional:aanvullend} componist"
 
 #: DB:link_type/link_phrase:875 DB:link_type/link_phrase:876
 msgid "{additional} composing location for"
-msgstr "is de locatie waar {entity1} {additional:aanvullend} gecomponeerd werd."
+msgstr "hier {additional:aanvullend }gecomponeerd"
 
 #: DB:link_type/reverse_link_phrase:46 DB:link_type/reverse_link_phrase:151
 msgid "{additional} conductor"
@@ -5451,7 +5511,7 @@ msgstr "{additional:aanvullende} samples van"
 
 #: DB:link_type/link_phrase:883 DB:link_type/link_phrase:884
 msgid "{additional} translating location for"
-msgstr "is de locatie waar {entity1} {additional:aanvullend} vertaald werd."
+msgstr "hier {additional:aanvullend }vertaald"
 
 #: DB:link_type/reverse_link_phrase:871 DB:link_type/reverse_link_phrase:872
 msgid "{additional} translator"
@@ -5463,7 +5523,7 @@ msgstr "{additional:aanvullend} schrijver"
 
 #: DB:link_type/link_phrase:873 DB:link_type/link_phrase:874
 msgid "{additional} writing location for"
-msgstr "is de locatie waar {entity1} {additional:aanvullend} geschreven werd."
+msgstr "hier {additional:aanvullend }geschreven"
 
 #: DB:link_type/reverse_link_phrase:140 DB:link_type/reverse_link_phrase:31
 msgid "{additional} {assistant} {associate} {co:co-}audio engineer"
@@ -5484,6 +5544,14 @@ msgstr "{additional:aanvullende} {assistant:assisterende} {associate:geassocieer
 #: DB:link_type/reverse_link_phrase:26 DB:link_type/reverse_link_phrase:143
 msgid "{additional} {assistant} {associate} {co:co-}mixer"
 msgstr "{additional:aanvullende} {assistant:assisterende} {associate:geassocieerd} {co:co-}mixer"
+
+#: DB:link_type/reverse_link_phrase:36 DB:link_type/reverse_link_phrase:128
+msgid "{additional} {assistant} {associate} {co:co-}recording engineer"
+msgstr "{additional:aanvullend} {assistant:assisterend} {associate:geassocieerd} {co:co-}opnametechnicus"
+
+#: DB:link_type/link_phrase:36 DB:link_type/link_phrase:128
+msgid "{additional} {assistant} {associate} {co:co-}recording engineer for"
+msgstr "{additional:aanvullend} {assistant:assisterend} {associate:geassocieerd} {co:co-}opnametechnicus van"
 
 #: DB:link_type/reverse_link_phrase:29 DB:link_type/reverse_link_phrase:133
 msgid "{additional} {assistant} {associate} {co:co-}sound engineer"

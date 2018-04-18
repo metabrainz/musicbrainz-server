@@ -27,14 +27,14 @@
 # French language coordinator <email address hidden>, 2013-2015
 # Youenn Piolet, 2015
 # Youenn Piolet, 2015
-# Yvan Zo, 2016-2018
+# yvanz, 2016-2018
 # yvanz, 2016
-# Yvan Zo, 2018
+# yvanz, 2018
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2018-02-09 12:50+0000\n"
-"Last-Translator: Yvan Zo\n"
+"PO-Revision-Date: 2018-04-16 17:01+0000\n"
+"Last-Translator: yvanz\n"
 "Language-Team: French (http://www.transifex.com/musicbrainz/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -237,11 +237,11 @@ msgid ""
 "\"beats\" from hip-hop songs which may be reused with different lyrics."
 msgstr "Pour les œuvres avec paroles ceci indique que ces paroles n’ont pas pertinentes à cet enregistrement. Les exemples incluent les arrangements instrumentaux ou « beats » de chansons hip-hop qui peuvent être réutilisés avec des paroles différentes."
 
-#: DB:link_type/link_phrase:713
+#: DB:link_type/link_phrase:934 DB:link_type/link_phrase:713
 msgid "Geonames"
 msgstr "Geonames"
 
-#: DB:link_type/reverse_link_phrase:713
+#: DB:link_type/reverse_link_phrase:934 DB:link_type/reverse_link_phrase:713
 msgid "Geonames page for"
 msgstr "Page Geonames pour"
 
@@ -510,6 +510,12 @@ msgstr "Indique la personne ayant traduit les paroles/le livret pour cette parut
 msgid "Indicates the person who translated the lyrics/libretto for this work."
 msgstr "Indique la personne ayant traduit les paroles/le livret pour cette œuvre."
 
+#: DB:link_type/description:930 DB:link_type/description:931
+msgid ""
+"Indicates the piano technician for this release. Use also for \"piano "
+"tuner\" credits."
+msgstr "Indique le technicien spécialisé en piano pour cette parution. Utilisez aussi pour « accordeur de pianos »."
+
 #: DB:link_type/description:716
 msgid "Indicates the place where the work had its first performance"
 msgstr "Indique le lieu de la première présentation de l’œuvre."
@@ -739,6 +745,12 @@ msgstr "Relie un événement à son (ou l’un de ses) interprète principal."
 msgid "Links an event to (one of) its support act(s)."
 msgstr "Relie un événement à sa (ou l’une de ses) représentation de soutien."
 
+#: DB:link_type/description:932
+msgid ""
+"Links an event to a DJ that appeared in a supporting role (e.g. DJing "
+"between artists, or closing the night after a concert)."
+msgstr "Relie un événement à un DJ ayant un rôle de soutien (par exemple, DJing entre les artistes, ou pour finir la nuit après un concert)."
+
 #: DB:link_type/description:800
 msgid ""
 "Links an event to a guest performer. Guest performers usually make short "
@@ -773,6 +785,10 @@ msgstr "Relie un événement au lieu où il s’est tenu."
 msgid ""
 "Local time a band's performance is scheduled to start, formatted HH:MM."
 msgstr "Heure locale à laquelle la représentation d’un groupe est prévue, au format HH:MM. "
+
+#: DB:link_attribute_type/description:1060
+msgid "Meane or mean is a young male singer with a voice lower than a treble"
+msgstr "Un jeune alto est un jeune chanteur dont la voix est plus basse que celle d’un jeune soprano mais plus haute qu’un contralto."
 
 #: DB:link_type/link_phrase:215 DB:link_type/link_phrase:462
 #: DB:link_type/link_phrase:189
@@ -811,6 +827,10 @@ msgstr "Dirige vers la page BookBrainz pour cette œuvre."
 #: DB:link_type/description:713
 msgid "Points to the Geonames page for this area."
 msgstr "Dirige vers la page Geonames pour cette région."
+
+#: DB:link_type/description:934
+msgid "Points to the Geonames page for this place."
+msgstr "Dirige vers la page Geonames pour ce lieu."
 
 #: DB:link_type/description:706
 msgid "Points to the Internet Movie Database page for this place."
@@ -985,6 +1005,10 @@ msgstr "La partition de {entity1} peut être achetée pour téléchargement sur 
 #: DB:link_type/long_link_phrase:913
 msgid "The score for {entity1} can be purchased for mail-order at {entity0}"
 msgstr "La partition de {entity1} peut être achetée par correspondance sur {entity0}"
+
+#: DB:link_type/description:933
+msgid "This allows linking a series to the label who publishes it."
+msgstr "Ceci relie une série au label qui l’édite."
 
 #: DB:link_attribute_type/description:3
 msgid "This attribute describes a type of vocal performance."
@@ -3519,7 +3543,7 @@ msgstr "a une page BookBrainz à"
 msgid "has a Discogs page at"
 msgstr "a une page Discogs sur"
 
-#: DB:link_type/long_link_phrase:713
+#: DB:link_type/long_link_phrase:934 DB:link_type/long_link_phrase:713
 msgid "has a Geonames page at"
 msgstr "a une page Geonames sur"
 
@@ -4191,6 +4215,10 @@ msgstr "poste d’Ingénieur de matriçage à"
 msgid "mastering engineers"
 msgstr "ingénieurs de matriçage"
 
+#: DB:link_attribute_type/name:1060
+msgid "meane vocals"
+msgstr "voix d’enfant alto"
+
 #: DB:link_attribute_type/name:568
 msgid "medium"
 msgstr "support"
@@ -4500,6 +4528,14 @@ msgstr "relation personnelle"
 msgid "phonographic copyright by"
 msgstr "droits phonographiques d’auteur par"
 
+#: DB:link_type/reverse_link_phrase:930 DB:link_type/reverse_link_phrase:931
+msgid "piano technician"
+msgstr "technicien spécialisé en piano"
+
+#: DB:link_type/link_phrase:930 DB:link_type/link_phrase:931
+msgid "piano technician for"
+msgstr "technicien spécialisé en piano pour"
+
 #: DB:link_type/link_phrase:173 DB:link_type/link_phrase:396
 #: DB:link_type/link_phrase:732
 msgid "picture"
@@ -4670,6 +4706,14 @@ msgstr "publié"
 #: DB:link_type/reverse_link_phrase:208 DB:link_type/reverse_link_phrase:161
 msgid "publisher"
 msgstr "éditeur"
+
+#: DB:link_type/link_phrase:933 DB:link_type/long_link_phrase:933
+msgid "publishes series"
+msgstr "édite la série"
+
+#: DB:link_type/reverse_link_phrase:933
+msgid "publishing label"
+msgstr "label d’édition"
 
 #: DB:link_type/link_phrase:254 DB:link_type/link_phrase:74
 msgid "purchase for download"
@@ -4966,6 +5010,14 @@ msgstr "première partie à"
 msgid "support acts"
 msgstr "premières parties"
 
+#: DB:link_type/reverse_link_phrase:932
+msgid "supporting DJ"
+msgstr "DJ de soutien"
+
+#: DB:link_type/link_phrase:932
+msgid "supporting DJ at"
+msgstr "DJ de soutien à"
+
 #: DB:link_type/link_phrase:104
 msgid "supporting artist for"
 msgstr "artiste de soutien pour"
@@ -5123,6 +5175,10 @@ msgstr "fut une interprétation de"
 msgid "was a support act at"
 msgstr "était en première partie à"
 
+#: DB:link_type/long_link_phrase:932
+msgid "was a supporting DJ at"
+msgstr "était un DJ de soutien à"
+
 #: DB:link_type/long_link_phrase:807
 msgid "was an orchestra at"
 msgstr "était un orchestre à"
@@ -5155,6 +5211,19 @@ msgstr "a été reprogrammé comme"
 #: DB:link_type/long_link_phrase:759 DB:link_type/long_link_phrase:760
 msgid "was the concertmaster for"
 msgstr "était le premier violon pour"
+
+#: DB:link_type/long_link_phrase:930 DB:link_type/long_link_phrase:931
+msgid "was the piano technician for"
+msgstr "était le technicien spécialisé en piano pour"
+
+#: DB:link_type/long_link_phrase:36
+msgid "was {additional} {assistant} {associate} {co:co-}recording engineer"
+msgstr "était {additional:aussi} {co:co-}ingénieur du son {assistant} {associate:associé}"
+
+#: DB:link_type/long_link_phrase:128
+msgid ""
+"was {additional} {assistant} {associate} {co:co-}recording engineer for"
+msgstr "était {additional:aussi} {co:co-}ingénieur du son {assistant} {associate:associé} pour"
 
 #: DB:link_type/reverse_link_phrase:921
 msgid "work list entry"
@@ -5302,15 +5371,6 @@ msgstr "{additional:aussi} {co:co-}matricé {assistant:en tant qu’assistant} {
 #: DB:link_type/long_link_phrase:26 DB:link_type/long_link_phrase:143
 msgid "{additional:additionally} {assistant} {associate} {co:co-}mixed"
 msgstr "{additional:aussi} {co:co-}mixé {assistant:en tant qu’assistant} {associate:en tant qu’associé}"
-
-#: DB:link_type/link_phrase:36 DB:link_type/link_phrase:128
-#: DB:link_type/long_link_phrase:36 DB:link_type/long_link_phrase:128
-msgid "{additional:additionally} {assistant} {associate} {co:co-}recorded"
-msgstr "{additional:aussi} {co:co-}enregistré {assistant:en tant qu’assistant} {associate:en tant qu’associé}"
-
-#: DB:link_type/reverse_link_phrase:36 DB:link_type/reverse_link_phrase:128
-msgid "{additional:additionally} {assistant} {associate} {co:co-}recorded by"
-msgstr "{additional:aussi} {co:co-}enregistré {assistant:en tant qu’assistant} {associate:en tant qu’associé} par"
 
 #: DB:link_type/link_phrase:29 DB:link_type/link_phrase:133
 #: DB:link_type/long_link_phrase:29 DB:link_type/long_link_phrase:133
@@ -5507,6 +5567,14 @@ msgstr "{co:co-}matriçage {additional:supplémentaire} {assistant} {associate:a
 #: DB:link_type/reverse_link_phrase:26 DB:link_type/reverse_link_phrase:143
 msgid "{additional} {assistant} {associate} {co:co-}mixer"
 msgstr "{co:co-}mixeur {additional:supplémentaire} {assistant} {associate:associé}"
+
+#: DB:link_type/reverse_link_phrase:36 DB:link_type/reverse_link_phrase:128
+msgid "{additional} {assistant} {associate} {co:co-}recording engineer"
+msgstr "{additional:aussi} {co:co-}ingénieur du son {assistant} {associate:associé}"
+
+#: DB:link_type/link_phrase:36 DB:link_type/link_phrase:128
+msgid "{additional} {assistant} {associate} {co:co-}recording engineer for"
+msgstr "{additional:aussi} {co:co-}ingénieur du son {assistant} {associate:associé} pour"
 
 #: DB:link_type/reverse_link_phrase:29 DB:link_type/reverse_link_phrase:133
 msgid "{additional} {assistant} {associate} {co:co-}sound engineer"
