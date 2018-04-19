@@ -64,11 +64,8 @@ const store = createStore(function (state: WorkForm = form, action) {
 
     case 'EDIT_LANGUAGE':
       state = set(
-        (compose3(
-          languagesField,
-          (index(action.index): Lens<LanguageFields, LanguageField>),
-          (prop('value'): Lens<LanguageField, number>),
-        ): Lens<WorkForm, number>),
+        (compose3(languagesField, index(action.index), prop('value')):
+          Lens<WorkForm, number>),
         action.languageId,
         state,
       );
