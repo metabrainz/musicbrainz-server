@@ -205,6 +205,7 @@ sub begin : Private
         $c->model('MB')->context->database('SELENIUM');
         $c->model('MB')->context->clear_connector;
         *DBDefs::SEARCH_SERVER = sub { '' };
+        *DBDefs::ENTITY_CACHE_TTL = sub { 1 };
     }
 
     # Can we automatically login?
