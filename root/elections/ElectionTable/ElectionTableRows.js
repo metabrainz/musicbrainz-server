@@ -8,6 +8,7 @@
  */
 
 import React from 'react';
+import type {Node as ReactNode} from 'react';
 
 import {l, lp} from '../../static/scripts/common/i18n';
 import EditorLink from '../../static/scripts/common/components/EditorLink';
@@ -20,7 +21,7 @@ type PropsT = {
 
 const ElectionTableRows = (
   {elections}: PropsT,
-) => elections.map((election, index) => (
+): ReactNode => elections.map((election, index) => (
   <tr className={index % 2 ? 'even' : 'odd'} key={election.id}>
     <td><EditorLink editor={election.candidate} /></td>
     <td>{lp(election.status_name_short, 'autoeditor election status (short)')}</td>
