@@ -11,6 +11,7 @@ const React = require('react');
 const URL = require('url');
 
 const Frag = require('../../components/Frag');
+const {withCatalystContext} = require('../../context');
 const EntityLink =
   require('../../static/scripts/common/components/EntityLink');
 const {FAVICON_CLASSES} = require('../../static/scripts/common/constants');
@@ -50,11 +51,7 @@ const ExternalLink = ({className, relationship, text}) => {
   );
 };
 
-const ExternalLinks = ({entity, empty, heading}) => {
-  if (!entity) {
-    entity = $c.stash.entity;
-  }
-
+const ExternalLinks = ({$c, entity, empty, heading}) => {
   const relationships = entity.relationships;
   const links = [];
   const otherLinks = [];
@@ -121,4 +118,4 @@ const ExternalLinks = ({entity, empty, heading}) => {
   );
 };
 
-module.exports = ExternalLinks;
+module.exports = withCatalystContext(ExternalLinks);

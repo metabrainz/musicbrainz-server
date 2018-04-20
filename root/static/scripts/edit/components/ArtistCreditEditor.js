@@ -291,22 +291,22 @@ class ArtistCreditEditor extends React.Component {
     $('body').off('click.artist-credit-editor');
   }
 
-  componentWillReceiveProps(nextProps) {
+  static getDerivedStateFromProps(nextProps, prevState) {
     const artistCredit = ko.unwrap(nextProps.entity.artistCredit);
-    if (!artistCreditsAreEqual(this.state.artistCredit, artistCredit)) {
-      this.setState({artistCredit});
+    if (!artistCreditsAreEqual(prevState.artistCredit, artistCredit)) {
+      return {artistCredit};
     }
+    return null;
   }
 
-  componentWillUpdate(nextProps, nextState) {
-    if (nextProps.onChange &&
-        !artistCreditsAreEqual(this.state.artistCredit, nextState.artistCredit)) {
-      nextProps.onChange(nextState.artistCredit);
+  componentDidUpdate(prevProps, prevState) {
+    if (this.props.onChange &&
+        !artistCreditsAreEqual(prevState.artistCredit, this.state.artistCredit)) {
+      this.props.onChange(this.state.artistCredit);
     }
-  }
 
-  componentDidUpdate() {
     this.updateBubble();
+
     $('div.various-artists.warning')
       .toggle(hasVariousArtists(this.state.artistCredit));
   }

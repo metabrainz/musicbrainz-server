@@ -5,7 +5,7 @@
 
 'use strict';
 
-require('babel-core/register');
+require('@babel/register');
 
 const Raven = require('raven');
 const DBDefs = require('./static/scripts/common/DBDefs');

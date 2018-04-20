@@ -10,6 +10,7 @@
 import _ from 'lodash';
 import React from 'react';
 
+import {withCatalystContext} from '../../context';
 import {VARTIST_GID} from '../../static/scripts/common/constants';
 import {l, lp} from '../../static/scripts/common/i18n';
 
@@ -169,14 +170,14 @@ const ProductsMenu = () => (
   </li>
 );
 
-const SearchMenu = () => (
+const SearchMenu = withCatalystContext(({$c}: {+$c: CatalystContextT}) => (
   <li className="search" tabIndex="-1">
     <span className="menu-header">{l('Search')}{'\xA0\u25BE'}</span>
     <ul>
       <li>
         <a href="/search">{l('Search Entities')}</a>
       </li>
-      {$c.user ? (
+      {$c.user_exists ? (
         <li>
           <a href="/search/edits">{l('Search Edits')}</a>
         </li>
@@ -189,7 +190,7 @@ const SearchMenu = () => (
       </li>
     </ul>
   </li>
-);
+));
 
 const EditingMenu = () => (
   <li className="editing" tabIndex="-1">
@@ -272,30 +273,22 @@ const DocumentationMenu = () => (
   </li>
 );
 
-type BottomMenuProps = {|
-  +currentLanguage: string,
-  +serverLanguages?: $ReadOnlyArray<ServerLanguageT>,
-|};
-
-const BottomMenu = ({
-  currentLanguage,
-  serverLanguages,
-}: BottomMenuProps) => (
+const BottomMenu = ({$c}: {|+$c: CatalystContextT|}) => (
   <div className="bottom">
     <ul className="menu">
       <AboutMenu />
       <ProductsMenu />
       <SearchMenu />
-      {$c.user ? <EditingMenu /> : null}
+      {$c.user_exists ? <EditingMenu /> : null}
       <DocumentationMenu />
-      {(serverLanguages && serverLanguages.length > 1) ? (
+      {$c.stash.server_languages && $c.stash.server_languages.length > 1 ? (
         <LanguageMenu
-          currentLanguage={currentLanguage}
-          serverLanguages={serverLanguages}
+          currentLanguage={$c.stash.current_language}
+          serverLanguages={$c.stash.server_languages}
         />
       ) : null}
     </ul>
   </div>
 );
 
-export default BottomMenu;
+export default withCatalystContext(BottomMenu);

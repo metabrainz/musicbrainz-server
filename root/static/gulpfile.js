@@ -124,7 +124,7 @@ function runYarb(resourceName, vinyl, callback) {
     debug: DBDefs.DEVELOPMENT_SERVER,
   });
 
-  bundle.transform('babelify');
+  bundle.transform(require('./lib/babelify'));
   bundle.transform('envify', {global: true});
   bundle.transform('insert-module-globals', {
     global: true,

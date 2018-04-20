@@ -8,7 +8,7 @@
 const React = require('react');
 
 const Frag = require('../../../components/Frag');
-const RatingStars = require('../../../components/RatingStars');
+import RatingStars from '../../../components/RatingStars';
 const {l} = require('../../../static/scripts/common/i18n');
 const EntityLink = require('../../../static/scripts/common/components/EntityLink');
 

@@ -203,7 +203,7 @@ class TagEditor extends React.Component<TagEditorProps, TagEditorState> {
     this.flushPendingVotes(true);
   }
 
-  componentWillMount() {
+  componentDidMount() {
     window.addEventListener('beforeunload', this.onBeforeUnload);
   }
 
