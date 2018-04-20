@@ -178,6 +178,18 @@ declare type CoreEntityT =
   | UrlT
   | WorkT;
 
+declare type CritiqueBrainzReviewT = {|
+  +author: CritiqueBrainzUserT,
+  +body: string,
+  +created: string,
+  +id: string,
+|};
+
+declare type CritiqueBrainzUserT = {|
+  +id: string,
+  +name: string,
+|};
+
 declare type DatePeriodRoleT = {|
   +begin_date: PartialDateT | null,
   +end_date: PartialDateT | null,
