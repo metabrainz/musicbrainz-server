@@ -192,6 +192,7 @@ ALTER TABLE track ADD CONSTRAINT track_uniq_medium_position
 
 ALTER TABLE l_area_area ADD CONSTRAINT control_for_whitespace_entity0_credit CHECK (controlled_for_whitespace(entity0_credit));
 ALTER TABLE l_area_area ADD CONSTRAINT control_for_whitespace_entity1_credit CHECK (controlled_for_whitespace(entity1_credit));
+ALTER TABLE l_area_area ADD CONSTRAINT non_loop_relationship CHECK (entity0 != entity1);
 
 ALTER TABLE l_area_artist ADD CONSTRAINT control_for_whitespace_entity0_credit CHECK (controlled_for_whitespace(entity0_credit));
 ALTER TABLE l_area_artist ADD CONSTRAINT control_for_whitespace_entity1_credit CHECK (controlled_for_whitespace(entity1_credit));
@@ -228,6 +229,7 @@ ALTER TABLE l_area_work ADD CONSTRAINT control_for_whitespace_entity1_credit CHE
 
 ALTER TABLE l_artist_artist ADD CONSTRAINT control_for_whitespace_entity0_credit CHECK (controlled_for_whitespace(entity0_credit));
 ALTER TABLE l_artist_artist ADD CONSTRAINT control_for_whitespace_entity1_credit CHECK (controlled_for_whitespace(entity1_credit));
+ALTER TABLE l_artist_artist ADD CONSTRAINT non_loop_relationship CHECK (entity0 != entity1);
 
 ALTER TABLE l_artist_event ADD CONSTRAINT control_for_whitespace_entity0_credit CHECK (controlled_for_whitespace(entity0_credit));
 ALTER TABLE l_artist_event ADD CONSTRAINT control_for_whitespace_entity1_credit CHECK (controlled_for_whitespace(entity1_credit));
@@ -261,6 +263,7 @@ ALTER TABLE l_artist_work ADD CONSTRAINT control_for_whitespace_entity1_credit C
 
 ALTER TABLE l_event_event ADD CONSTRAINT control_for_whitespace_entity0_credit CHECK (controlled_for_whitespace(entity0_credit));
 ALTER TABLE l_event_event ADD CONSTRAINT control_for_whitespace_entity1_credit CHECK (controlled_for_whitespace(entity1_credit));
+ALTER TABLE l_event_event ADD CONSTRAINT non_loop_relationship CHECK (entity0 != entity1);
 
 ALTER TABLE l_event_instrument ADD CONSTRAINT control_for_whitespace_entity0_credit CHECK (controlled_for_whitespace(entity0_credit));
 ALTER TABLE l_event_instrument ADD CONSTRAINT control_for_whitespace_entity1_credit CHECK (controlled_for_whitespace(entity1_credit));
@@ -289,11 +292,9 @@ ALTER TABLE l_event_url ADD CONSTRAINT control_for_whitespace_entity1_credit CHE
 ALTER TABLE l_event_work ADD CONSTRAINT control_for_whitespace_entity0_credit CHECK (controlled_for_whitespace(entity0_credit));
 ALTER TABLE l_event_work ADD CONSTRAINT control_for_whitespace_entity1_credit CHECK (controlled_for_whitespace(entity1_credit));
 
-ALTER TABLE l_label_label ADD CONSTRAINT control_for_whitespace_entity0_credit CHECK (controlled_for_whitespace(entity0_credit));
-ALTER TABLE l_label_label ADD CONSTRAINT control_for_whitespace_entity1_credit CHECK (controlled_for_whitespace(entity1_credit));
-
 ALTER TABLE l_instrument_instrument ADD CONSTRAINT control_for_whitespace_entity0_credit CHECK (controlled_for_whitespace(entity0_credit));
 ALTER TABLE l_instrument_instrument ADD CONSTRAINT control_for_whitespace_entity1_credit CHECK (controlled_for_whitespace(entity1_credit));
+ALTER TABLE l_instrument_instrument ADD CONSTRAINT non_loop_relationship CHECK (entity0 != entity1);
 
 ALTER TABLE l_instrument_label ADD CONSTRAINT control_for_whitespace_entity0_credit CHECK (controlled_for_whitespace(entity0_credit));
 ALTER TABLE l_instrument_label ADD CONSTRAINT control_for_whitespace_entity1_credit CHECK (controlled_for_whitespace(entity1_credit));
@@ -319,6 +320,10 @@ ALTER TABLE l_instrument_url ADD CONSTRAINT control_for_whitespace_entity1_credi
 ALTER TABLE l_instrument_work ADD CONSTRAINT control_for_whitespace_entity0_credit CHECK (controlled_for_whitespace(entity0_credit));
 ALTER TABLE l_instrument_work ADD CONSTRAINT control_for_whitespace_entity1_credit CHECK (controlled_for_whitespace(entity1_credit));
 
+ALTER TABLE l_label_label ADD CONSTRAINT control_for_whitespace_entity0_credit CHECK (controlled_for_whitespace(entity0_credit));
+ALTER TABLE l_label_label ADD CONSTRAINT control_for_whitespace_entity1_credit CHECK (controlled_for_whitespace(entity1_credit));
+ALTER TABLE l_label_label ADD CONSTRAINT non_loop_relationship CHECK (entity0 != entity1);
+
 ALTER TABLE l_label_place ADD CONSTRAINT control_for_whitespace_entity0_credit CHECK (controlled_for_whitespace(entity0_credit));
 ALTER TABLE l_label_place ADD CONSTRAINT control_for_whitespace_entity1_credit CHECK (controlled_for_whitespace(entity1_credit));
 
@@ -342,6 +347,7 @@ ALTER TABLE l_label_work ADD CONSTRAINT control_for_whitespace_entity1_credit CH
 
 ALTER TABLE l_place_place ADD CONSTRAINT control_for_whitespace_entity0_credit CHECK (controlled_for_whitespace(entity0_credit));
 ALTER TABLE l_place_place ADD CONSTRAINT control_for_whitespace_entity1_credit CHECK (controlled_for_whitespace(entity1_credit));
+ALTER TABLE l_place_place ADD CONSTRAINT non_loop_relationship CHECK (entity0 != entity1);
 
 ALTER TABLE l_place_recording ADD CONSTRAINT control_for_whitespace_entity0_credit CHECK (controlled_for_whitespace(entity0_credit));
 ALTER TABLE l_place_recording ADD CONSTRAINT control_for_whitespace_entity1_credit CHECK (controlled_for_whitespace(entity1_credit));
@@ -363,6 +369,7 @@ ALTER TABLE l_place_work ADD CONSTRAINT control_for_whitespace_entity1_credit CH
 
 ALTER TABLE l_recording_recording ADD CONSTRAINT control_for_whitespace_entity0_credit CHECK (controlled_for_whitespace(entity0_credit));
 ALTER TABLE l_recording_recording ADD CONSTRAINT control_for_whitespace_entity1_credit CHECK (controlled_for_whitespace(entity1_credit));
+ALTER TABLE l_recording_recording ADD CONSTRAINT non_loop_relationship CHECK (entity0 != entity1);
 
 ALTER TABLE l_recording_release ADD CONSTRAINT control_for_whitespace_entity0_credit CHECK (controlled_for_whitespace(entity0_credit));
 ALTER TABLE l_recording_release ADD CONSTRAINT control_for_whitespace_entity1_credit CHECK (controlled_for_whitespace(entity1_credit));
@@ -381,6 +388,7 @@ ALTER TABLE l_recording_work ADD CONSTRAINT control_for_whitespace_entity1_credi
 
 ALTER TABLE l_release_release ADD CONSTRAINT control_for_whitespace_entity0_credit CHECK (controlled_for_whitespace(entity0_credit));
 ALTER TABLE l_release_release ADD CONSTRAINT control_for_whitespace_entity1_credit CHECK (controlled_for_whitespace(entity1_credit));
+ALTER TABLE l_release_release ADD CONSTRAINT non_loop_relationship CHECK (entity0 != entity1);
 
 ALTER TABLE l_release_release_group ADD CONSTRAINT control_for_whitespace_entity0_credit CHECK (controlled_for_whitespace(entity0_credit));
 ALTER TABLE l_release_release_group ADD CONSTRAINT control_for_whitespace_entity1_credit CHECK (controlled_for_whitespace(entity1_credit));
@@ -396,6 +404,7 @@ ALTER TABLE l_release_work ADD CONSTRAINT control_for_whitespace_entity1_credit 
 
 ALTER TABLE l_release_group_release_group ADD CONSTRAINT control_for_whitespace_entity0_credit CHECK (controlled_for_whitespace(entity0_credit));
 ALTER TABLE l_release_group_release_group ADD CONSTRAINT control_for_whitespace_entity1_credit CHECK (controlled_for_whitespace(entity1_credit));
+ALTER TABLE l_release_group_release_group ADD CONSTRAINT non_loop_relationship CHECK (entity0 != entity1);
 
 ALTER TABLE l_release_group_series ADD CONSTRAINT control_for_whitespace_entity0_credit CHECK (controlled_for_whitespace(entity0_credit));
 ALTER TABLE l_release_group_series ADD CONSTRAINT control_for_whitespace_entity1_credit CHECK (controlled_for_whitespace(entity1_credit));
@@ -408,6 +417,7 @@ ALTER TABLE l_release_group_work ADD CONSTRAINT control_for_whitespace_entity1_c
 
 ALTER TABLE l_series_series ADD CONSTRAINT control_for_whitespace_entity0_credit CHECK (controlled_for_whitespace(entity0_credit));
 ALTER TABLE l_series_series ADD CONSTRAINT control_for_whitespace_entity1_credit CHECK (controlled_for_whitespace(entity1_credit));
+ALTER TABLE l_series_series ADD CONSTRAINT non_loop_relationship CHECK (entity0 != entity1);
 
 ALTER TABLE l_series_url ADD CONSTRAINT control_for_whitespace_entity0_credit CHECK (controlled_for_whitespace(entity0_credit));
 ALTER TABLE l_series_url ADD CONSTRAINT control_for_whitespace_entity1_credit CHECK (controlled_for_whitespace(entity1_credit));
@@ -417,11 +427,13 @@ ALTER TABLE l_series_work ADD CONSTRAINT control_for_whitespace_entity1_credit C
 
 ALTER TABLE l_url_url ADD CONSTRAINT control_for_whitespace_entity0_credit CHECK (controlled_for_whitespace(entity0_credit));
 ALTER TABLE l_url_url ADD CONSTRAINT control_for_whitespace_entity1_credit CHECK (controlled_for_whitespace(entity1_credit));
+ALTER TABLE l_url_url ADD CONSTRAINT non_loop_relationship CHECK (entity0 != entity1);
 
 ALTER TABLE l_url_work ADD CONSTRAINT control_for_whitespace_entity0_credit CHECK (controlled_for_whitespace(entity0_credit));
 ALTER TABLE l_url_work ADD CONSTRAINT control_for_whitespace_entity1_credit CHECK (controlled_for_whitespace(entity1_credit));
 
 ALTER TABLE l_work_work ADD CONSTRAINT control_for_whitespace_entity0_credit CHECK (controlled_for_whitespace(entity0_credit));
 ALTER TABLE l_work_work ADD CONSTRAINT control_for_whitespace_entity1_credit CHECK (controlled_for_whitespace(entity1_credit));
+ALTER TABLE l_work_work ADD CONSTRAINT non_loop_relationship CHECK (entity0 != entity1);
 
 COMMIT;
