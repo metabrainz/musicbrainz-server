@@ -22,10 +22,9 @@ const ratingInts = [1, 2, 3, 4, 5];
 
 type Props = {|
   +entity: RatableT,
-  +preventRating?: boolean,
 |};
 
-const RatingStars = ({entity, preventRating}: Props) => {
+const RatingStars = ({entity}: Props) => {
   const currentStarRating =
     entity.user_rating ? (5 * entity.user_rating / 100) : 0;
 
@@ -43,7 +42,7 @@ const RatingStars = ({entity, preventRating}: Props) => {
           </span>
         : null}
 
-        {($c.user_exists && !preventRating) ?
+        {$c.user_exists ? (
           ratingInts.map(rating => {
             const isCurrentRating = rating === currentStarRating;
             const newRating = isCurrentRating ? 0 : rating;
@@ -57,7 +56,7 @@ const RatingStars = ({entity, preventRating}: Props) => {
               </a>
             );
           })
-        : null}
+        ) : null}
       </span>
     </span>
   );
