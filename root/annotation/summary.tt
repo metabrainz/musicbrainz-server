@@ -1,1 +1,6 @@
-[%- INCLUDE 'annotation/common.tt' annotation=entity.latest_annotation summary=1 -%]
+[%- React.embed(c, 'components/Annotation', {
+        annotation => entity.latest_annotation,
+        collapse => 1,
+        entity => entity,
+        numberOfRevisions => number_of_revisions,
+    }) -%]
