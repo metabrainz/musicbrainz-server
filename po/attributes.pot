@@ -73,6 +73,11 @@ msgctxt "medium_format"
 msgid "8\" LaserDisc"
 msgstr ""
 
+#: DB:medium_format/name:78
+msgctxt "medium_format"
+msgid "8-Track Cartridge"
+msgstr ""
+
 #: DB:medium_format/name:34
 msgctxt "medium_format"
 msgid "8cm CD"
@@ -2067,6 +2072,11 @@ msgid ""
 "a molded-in groove, designed to be playable on a normal phonograph turntable."
 msgstr ""
 
+#: DB:medium_format/name:76
+msgctxt "medium_format"
+msgid "Floppy Disk"
+msgstr ""
+
 #: DB:work_attribute_type/name:16
 msgctxt "work_attribute_type"
 msgid "Form (Ottoman, Turkish)"
@@ -2360,6 +2370,11 @@ msgstr ""
 #: DB:work_attribute_type_allowed_value/value:738
 msgctxt "work_attribute_type_allowed_value"
 msgid "Hezeç"
+msgstr ""
+
+#: DB:medium_format/name:75
+msgctxt "medium_format"
+msgid "HiPac"
 msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:391
@@ -3489,6 +3504,11 @@ msgctxt "work_attribute_type_allowed_value"
 msgid "Murabba"
 msgstr ""
 
+#: DB:work_attribute_type_allowed_value/value:811
+msgctxt "work_attribute_type_allowed_value"
+msgid "Murabba Beste "
+msgstr ""
+
 #: DB:medium_format/name:46
 msgctxt "medium_format"
 msgid "Music Card"
@@ -3619,6 +3639,21 @@ msgstr ""
 #: DB:work_attribute_type_allowed_value/value:648
 msgctxt "work_attribute_type_allowed_value"
 msgid "Nakış"
+msgstr ""
+
+#: DB:work_attribute_type_allowed_value/value:809
+msgctxt "work_attribute_type_allowed_value"
+msgid "Nakış Ağırsemai"
+msgstr ""
+
+#: DB:work_attribute_type_allowed_value/value:808
+msgctxt "work_attribute_type_allowed_value"
+msgid "Nakış Beste"
+msgstr ""
+
+#: DB:work_attribute_type_allowed_value/value:810
+msgctxt "work_attribute_type_allowed_value"
+msgid "Nakış Yürüksemai"
 msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:468
@@ -4084,6 +4119,11 @@ msgstr ""
 #: DB:work_type/name:28
 msgctxt "work_type"
 msgid "Play"
+msgstr ""
+
+#: DB:medium_format/name:74
+msgctxt "medium_format"
+msgid "PlayTape"
 msgstr ""
 
 #: DB:medium_format/name:45
@@ -5550,6 +5590,11 @@ msgstr ""
 #: DB:work_attribute_type_allowed_value/value:598
 msgctxt "work_attribute_type_allowed_value"
 msgid "Zilkeş"
+msgstr ""
+
+#: DB:medium_format/name:77
+msgctxt "medium_format"
+msgid "Zip Disk"
 msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:599
