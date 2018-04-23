@@ -5,26 +5,54 @@
 // and is licensed under the GPL version 2, or (at your option) any
 // later version: http://www.gnu.org/licenses/gpl-2.0.txt
 
+const $ = require('jquery');
+
 const React = require('react');
 
 const {l} = require('../static/scripts/common/i18n');
+import hydrate from '../utility/hydrate';
 
 type Props = {|
-  +image?: CommonsImageT | null,
+  +image: CommonsImageT | null,
+  +imageEndpoint: string,
 |};
 
-const CommonsImage = ({image}: Props) => (
-  image ? (
-    <div className="picture">
-      <img src={image.thumb_url} />
-      <br />
-      <span className="picture-note">
-        <a href={image.page_url}>
-          {l('Image from Wikimedia Commons')}
-        </a>
-      </span>
-    </div>
-  ) : null
-);
+type State = {|
+  image: CommonsImageT | null,
+|};
 
-module.exports = CommonsImage;
+class CommonsImage extends React.Component<Props, State> {
+  constructor(props: Props) {
+    super(props);
+    this.state = {image: null};
+  }
+
+  static getDerivedStateFromProps(nextProps: Props) {
+    return {image: nextProps.image};
+  }
+
+  componentDidMount() {
+    if (!this.state.image) {
+      $.get(this.props.imageEndpoint, data => {
+        this.setState({image: data.image});
+      });
+    }
+  }
+
+  render() {
+    const {image} = this.state;
+    return image ? (
+      <div className="picture">
+        <img src={image.thumb_url} />
+        <br />
+        <span className="picture-note">
+          <a href={image.page_url}>
+            {l('Image from Wikimedia Commons')}
+          </a>
+        </span>
+      </div>
+    ) : null;
+  }
+}
+
+module.exports = hydrate('commons-image', CommonsImage);

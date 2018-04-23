@@ -881,7 +881,7 @@ END ~%]
 [%- END -%]
 
 [%~ MACRO show_image BLOCK -%]
-    [%- React.embed(c, 'components/CommonsImageWrapper', {
+    [%- React.embed(c, 'components/CommonsImage', {
             image => commons_image,
             imageEndpoint => commons_image_endpoint,
         }) -%]
