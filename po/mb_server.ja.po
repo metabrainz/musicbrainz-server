@@ -23,7 +23,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-04-05 06:04+0200\n"
+"POT-Creation-Date: 2018-04-18 15:28+0200\n"
 "PO-Revision-Date: 2018-04-11 13:20+0000\n"
 "Last-Translator: wa2c <email address hidden>\n"
 "Language-Team: Japanese (http://www.transifex.com/musicbrainz/musicbrainz/language/ja/)\n"
@@ -193,11 +193,6 @@ msgstr "(なし)"
 msgctxt "type"
 msgid "(none)"
 msgstr "(なし)"
-
-#: ../root/layout/header/bottom.tt:203
-#: ../root/layout/components/BottomMenu.js:56
-msgid "(reset language)"
-msgstr "(言語をリセット)"
 
 #: ../root/search/lib/inline-results-recording.tt:63
 msgid "(standalone recording)"
@@ -403,16 +398,6 @@ msgid ""
 "respectively."
 msgstr ""
 
-#: ../root/layout/header/bottom.tt:19
-#: ../root/layout/components/BottomMenu.js:73
-msgid "About MusicBrainz"
-msgstr "MusicBrainzについて"
-
-#: ../root/layout/header/bottom.tt:16
-#: ../root/layout/components/BottomMenu.js:70
-msgid "About Us"
-msgstr "私たちについて"
-
 #: ../root/edit/search_macros.tt:263 ../root/edit/search_macros.tt:279
 #: ../root/edit/vote.tt:20 ../lib/MusicBrainz/Server/Data/Vote.pm:174
 msgctxt "vote"
@@ -489,18 +474,7 @@ msgstr "別名を追加"
 msgid "Add Area"
 msgstr "地域を追加"
 
-#: ../root/layout/header/top.tt:56 ../root/layout/components/TopMenu.js:80
-msgctxt "button/menu"
-msgid "Add Area"
-msgstr "地域を追加"
-
 #: ../root/artist/create.tt:1 ../root/artist/create.tt:3
-msgid "Add Artist"
-msgstr "アーティストを追加"
-
-#: ../root/layout/header/bottom.tt:115
-#: ../root/layout/components/BottomMenu.js:176
-msgctxt "button/menu"
 msgid "Add Artist"
 msgstr "アーティストを追加"
 
@@ -522,12 +496,6 @@ msgstr "カバーアートを追加"
 msgid "Add Event"
 msgstr "イベントを追加"
 
-#: ../root/layout/header/bottom.tt:142
-#: ../root/layout/components/BottomMenu.js:205
-msgctxt "button/menu"
-msgid "Add Event"
-msgstr "イベントを追加"
-
 #: ../root/relationship/linktype/form.tt:154
 msgid "Add Example"
 msgstr "例を追加"
@@ -536,18 +504,13 @@ msgstr "例を追加"
 msgid "Add Instrument"
 msgstr "楽器を追加"
 
-#: ../root/layout/header/top.tt:61 ../root/layout/components/TopMenu.js:85
-msgctxt "button/menu"
-msgid "Add Instrument"
-msgstr "楽器を追加"
-
 #: ../root/label/create.tt:1 ../root/label/create.tt:3
 msgid "Add Label"
 msgstr "レーベルを追加"
 
-#: ../root/layout/header/bottom.tt:118 ../root/release/edit/information.tt:206
+#: ../root/release/edit/information.tt:206
 #: ../root/release/edit/information.tt:207
-#: ../root/layout/components/BottomMenu.js:179
+#: ../root/layout/components/BottomMenu.js:202
 msgctxt "button/menu"
 msgid "Add Label"
 msgstr "レーベルを追加"
@@ -570,18 +533,6 @@ msgstr "ページを追加"
 msgid "Add Place"
 msgstr "場所を追加"
 
-#: ../root/layout/header/bottom.tt:136
-#: ../root/layout/components/BottomMenu.js:199
-msgctxt "button/menu"
-msgid "Add Place"
-msgstr "場所を追加"
-
-#: ../root/layout/header/bottom.tt:124
-#: ../root/layout/components/BottomMenu.js:185
-msgctxt "button/menu"
-msgid "Add Release"
-msgstr "リリースを追加"
-
 #: ../root/release/edit/layout.tt:7
 msgctxt "header"
 msgid "Add Release"
@@ -597,12 +548,6 @@ msgstr "リリースイベントを追加"
 msgid "Add Release Group"
 msgstr "リリースグループを追加"
 
-#: ../root/layout/header/bottom.tt:121
-#: ../root/layout/components/BottomMenu.js:182
-msgctxt "button/menu"
-msgid "Add Release Group"
-msgstr "リリースグループを追加"
-
 #: ../root/release_group/create.tt:3
 msgctxt "header"
 msgid "Add Release Group"
@@ -612,33 +557,10 @@ msgstr "リリースグループの追加"
 msgid "Add Series"
 msgstr "シリーズを追加"
 
-#: ../root/layout/header/bottom.tt:139
-#: ../root/layout/components/BottomMenu.js:202
-msgctxt "button/menu"
-msgid "Add Series"
-msgstr "シリーズを追加"
-
-#: ../root/layout/header/bottom.tt:130
-#: ../root/layout/components/BottomMenu.js:193
-msgctxt "button/menu"
-msgid "Add Standalone Recording"
-msgstr "スタンドアロンレコーディングを追加"
-
 #: ../root/recording/create.tt:1 ../root/recording/create.tt:3
 msgctxt "header"
 msgid "Add Standalone Recording"
 msgstr "スタンドアロンレコーディングの追加"
-
-#: ../root/layout/header/bottom.tt:127
-#: ../root/layout/components/BottomMenu.js:189
-msgid "Add Various Artists Release"
-msgstr "複数アーティストのリリースを追加"
-
-#: ../root/layout/header/bottom.tt:133
-#: ../root/layout/components/BottomMenu.js:196
-msgctxt "button/menu"
-msgid "Add Work"
-msgstr "作品を追加"
 
 #: ../root/work/create.tt:1 ../root/work/create.tt:2
 msgctxt "header"
@@ -837,10 +759,6 @@ msgstr "住所:"
 msgid "Adjust User Account Flags"
 msgstr "ユーザーアカウントフラグを編集"
 
-#: ../root/layout/header/top.tt:52 ../root/layout/components/TopMenu.js:76
-msgid "Admin"
-msgstr "管理者"
-
 #: ../root/admin/edit_user.tt:19
 msgid "Administration flags"
 msgstr "管理者フラグ"
@@ -876,10 +794,6 @@ msgstr "別名:"
 #: ../root/components/Aliases/index.js:26 ../root/components/EntityTabs.js:70
 msgid "Aliases"
 msgstr "別名"
-
-#: ../root/layout/header/top.tt:37 ../root/layout/components/TopMenu.js:58
-msgid "All My Edits"
-msgstr "すべての自分の編集"
 
 #: ../root/components/relationship-editor.tt:59
 msgid "All of these relationships."
@@ -1039,7 +953,7 @@ msgstr "作品の作成中にエラーが発生しました。"
 #: ../root/report/annotations_works.tt:13
 #: ../root/search/results-annotation.tt:10
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:43
-#: ../root/layout/components/Search.js:21
+#: ../root/layout/components/Search.js:35
 msgid "Annotation"
 msgstr "注釈"
 
@@ -1089,7 +1003,7 @@ msgid "Application"
 msgstr "アプリケーション"
 
 #: ../root/account/applications.tt:1 ../root/account/applications.tt:3
-#: ../root/layout/header/top.tt:11 ../root/layout/components/TopMenu.js:24
+#: ../root/layout/components/TopMenu.js:32
 msgid "Applications"
 msgstr "アプリケーション"
 
@@ -1198,7 +1112,7 @@ msgstr "本当にMusicBrainzから{series}というシリーズを削除しま�
 #: ../root/search/results-label.tt:11 ../root/search/results-place.tt:11
 #: ../lib/MusicBrainz/Server/Edit/Area.pm:7
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:41
-#: ../root/area/AreaHeader.js:22 ../root/layout/components/Search.js:19
+#: ../root/area/AreaHeader.js:22 ../root/layout/components/Search.js:29
 #: ../root/static/scripts/common/i18n.js:53
 msgid "Area"
 msgstr "地域"
@@ -1267,7 +1181,7 @@ msgstr "地域\t"
 #: ../lib/MusicBrainz/Server/Edit/Artist.pm:7
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:35
 #: ../root/artist/ArtistHeader.js:32 ../root/isrc/Index.js:52
-#: ../root/layout/components/Search.js:13
+#: ../root/layout/components/Search.js:18
 #: ../root/static/scripts/common/i18n.js:54
 msgid "Artist"
 msgstr "アーティスト"
@@ -1526,11 +1440,6 @@ msgstr "{name}による自動編集"
 msgid "Auto-editor"
 msgstr "自動編集者"
 
-#: ../root/layout/header/bottom.tt:43
-#: ../root/layout/components/BottomMenu.js:97
-msgid "Auto-editor Elections"
-msgstr "自動編集者選挙"
-
 #: ../root/user/privileged.tt:18
 msgid "Auto-editors"
 msgstr "自動編集者"
@@ -1713,11 +1622,6 @@ msgstr "ビギナー"
 msgid "Beginner/limited editors"
 msgstr "初心者/制限編集者"
 
-#: ../root/layout/header/bottom.tt:157
-#: ../root/layout/components/BottomMenu.js:222
-msgid "Beginners Guide"
-msgstr "初心者ガイド"
-
 #: ../root/main/index.tt:79
 msgid "Beginners guide"
 msgstr "初心者ガイド"
@@ -1742,7 +1646,7 @@ msgstr "プロフィール:"
 msgid "Birth date:"
 msgstr "生年月日:"
 
-#: ../root/layout.tt:120 ../root/layout/components/Footer.js:27
+#: ../root/layout.tt:113 ../root/layout/components/Footer.js:27
 msgid "Blog"
 msgstr "ブログ"
 
@@ -1764,13 +1668,13 @@ msgstr "ボット"
 msgid "Bots"
 msgstr "ボット"
 
-#: ../root/layout.tt:140 ../root/layout/components/Footer.js:61
+#: ../root/layout.tt:133 ../root/layout/components/Footer.js:61
 msgid ""
 "Brought to you by {MeB|MetaBrainz Foundation} and our {spon|sponsors} and "
 "{supp|supporters}. Cover Art provided by the {caa|Cover Art Archive}."
 msgstr ""
 
-#: ../root/layout.tt:119 ../root/main/index.tt:94
+#: ../root/layout.tt:112 ../root/main/index.tt:94
 #: ../root/layout/components/Footer.js:25
 msgid "Bug Tracker"
 msgstr "バグ管理"
@@ -1789,7 +1693,7 @@ msgstr "CDが見つかりません"
 
 #: ../root/search/results-cdstub.tt:8
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:44
-#: ../root/layout/components/Search.js:22
+#: ../root/layout/components/Search.js:39
 msgid "CD Stub"
 msgstr "CDスタブ"
 
@@ -2021,11 +1925,6 @@ msgstr "終了:"
 msgid "Code"
 msgstr "コード"
 
-#: ../root/layout/header/bottom.tt:37
-#: ../root/layout/components/BottomMenu.js:91
-msgid "Code of Conduct"
-msgstr "行動規範"
-
 #: ../root/report/collaboration_relationships.tt:19
 msgid "Collaboration"
 msgstr "コラボレーション"
@@ -2105,11 +2004,6 @@ msgstr "条件:"
 msgid "Confirm password:"
 msgstr "パスワード確認:"
 
-#: ../root/layout/header/bottom.tt:28
-#: ../root/layout/components/BottomMenu.js:82
-msgid "Contact Us"
-msgstr "お問い合わせ"
-
 #: ../root/place/edit_form.tt:29
 msgid "Coordinates"
 msgstr "座標"
@@ -2177,8 +2071,7 @@ msgstr "カバーアート:"
 msgid "Create"
 msgstr "作成"
 
-#: ../root/account/register.tt:43 ../root/layout/header/top.tt:87
-#: ../root/layout/components/TopMenu.js:125
+#: ../root/account/register.tt:43 ../root/layout/components/TopMenu.js:141
 msgid "Create Account"
 msgstr "アカウント作成"
 
@@ -2240,11 +2133,6 @@ msgstr ""
 #: ../lib/MusicBrainz/Server/Plugin/FormRenderer.pm:252
 msgid "DD"
 msgstr "DD"
-
-#: ../root/layout/header/bottom.tt:31
-#: ../root/layout/components/BottomMenu.js:85
-msgid "Data Licenses"
-msgstr "データのライセンス"
 
 #: ../root/edit/details/change_release_quality.tt:7
 #: ../root/edit/details/historic/change_artist_quality.tt:7
@@ -2370,19 +2258,9 @@ msgstr "詳細"
 msgid "Developer Applications"
 msgstr "開発者のアプリケーション"
 
-#: ../root/layout/header/bottom.tt:78
-#: ../root/layout/components/BottomMenu.js:135
-msgid "Developer Resources"
-msgstr "開発者リソース"
-
 #: ../root/main/index.tt:107
 msgid "Developers"
 msgstr "開発者"
-
-#: ../root/layout/header/bottom.tt:181
-#: ../root/layout/components/BottomMenu.js:246
-msgid "Development"
-msgstr "開発"
 
 #: ../root/components/common-macros.tt:878
 #: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:51
@@ -2541,18 +2419,6 @@ msgid ""
 "our {oauth2|OAuth documentation} for more details."
 msgstr ""
 
-#: ../root/layout/header/bottom.tt:154
-#: ../lib/MusicBrainz/Server/Form/Search/Search.pm:52
-#: ../root/layout/components/BottomMenu.js:219
-#: ../root/layout/components/Search.js:31
-msgid "Documentation"
-msgstr "ドキュメント"
-
-#: ../root/layout/header/bottom.tt:169
-#: ../root/layout/components/BottomMenu.js:234
-msgid "Documentation Index"
-msgstr "ドキュメントの目次"
-
 #: ../root/search/results-doc.tt:1 ../root/search/results-doc.tt:3
 msgid "Documentation Search"
 msgstr "ドキュメントの検索"
@@ -2567,7 +2433,7 @@ msgstr "ドキュメント:"
 msgid "Don't have an account? {uri|Create one now}!"
 msgstr "アカウント登録がまだの場合は{uri|こちらへ作成}。"
 
-#: ../root/layout.tt:116 ../root/layout/components/Footer.js:19
+#: ../root/layout.tt:109 ../root/layout/components/Footer.js:19
 msgid "Donate"
 msgstr "寄付する"
 
@@ -2638,12 +2504,8 @@ msgstr "アーティストクレジットを編集"
 msgid "Edit Attribute"
 msgstr "属性を編集"
 
-#: ../root/layout/header/top.tt:79 ../root/layout/components/TopMenu.js:103
-msgid "Edit Attributes"
-msgstr "属性を編集"
-
 #: ../root/admin/edit_banner.tt:1 ../root/admin/edit_banner.tt:3
-#: ../root/layout/header/top.tt:74 ../root/layout/components/TopMenu.js:98
+#: ../root/layout/components/TopMenu.js:111
 msgid "Edit Banner Message"
 msgstr "バナーメッセージの編集"
 
@@ -2679,18 +2541,13 @@ msgstr "関係属性を編集"
 msgid "Edit Relationship Type"
 msgstr "関係タイプを編集"
 
-#: ../root/layout/header/top.tt:64 ../root/layout/components/TopMenu.js:88
-msgid "Edit Relationship Types"
-msgstr "関係タイプを編集"
-
 #: ../root/release/edit_relationships.tt:1
 msgid "Edit Relationships: {release}"
 msgstr "{release}の関係を編集"
 
 #: ../root/doc/edit_types.tt:1 ../root/doc/edit_types.tt:3
 #: ../root/doc/edit_type.tt:18 ../root/edit/info.tt:69
-#: ../root/layout/header/bottom.tt:172
-#: ../root/layout/components/BottomMenu.js:237
+#: ../root/layout/components/BottomMenu.js:260
 msgid "Edit Types"
 msgstr "タイプを編集"
 
@@ -2745,9 +2602,8 @@ msgid "Edited"
 msgstr "編集"
 
 #: ../root/account/preferences.tt:40 ../root/collection/layout.tt:19
-#: ../root/layout/header/bottom.tt:112
 #: ../root/layout/sidebar/shared-entity-sidebar.tt:33
-#: ../root/layout/components/BottomMenu.js:173
+#: ../root/layout/components/BottomMenu.js:196
 msgid "Editing"
 msgstr "編集中"
 
@@ -2771,7 +2627,7 @@ msgstr "編集・投票が無効です"
 #: ../root/annotation/history.tt:11 ../root/edit/search_macros.tt:360
 #: ../root/report/editor_list.tt:7
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:45
-#: ../root/layout/components/Search.js:23
+#: ../root/layout/components/Search.js:42
 msgid "Editor"
 msgstr "編集者"
 
@@ -2799,10 +2655,6 @@ msgstr "編集"
 msgid "Edits ({view_url|view})"
 msgstr "編集を{view_url|表示}"
 
-#: ../root/layout/header/top.tt:43 ../root/layout/components/TopMenu.js:64
-msgid "Edits by Subscribed Editors"
-msgstr "購読してる編集者の編集"
-
 #: ../root/edit/subscribed-editors.tt:1 ../root/edit/subscribed-editors.tt:3
 msgid "Edits by Your Subscribed Editors"
 msgstr "購読している編集者の編集"
@@ -2810,10 +2662,6 @@ msgstr "購読している編集者の編集"
 #: ../root/user/edits.tt:1
 msgid "Edits by {name}"
 msgstr "{name}の編集"
-
-#: ../root/layout/header/top.tt:40 ../root/layout/components/TopMenu.js:61
-msgid "Edits for Subscribed Entities"
-msgstr "購読してるエンティティの編集"
 
 #: ../root/edit/subscribed.tt:1 ../root/edit/subscribed.tt:3
 msgid "Edits for Your Subscribed Entities"
@@ -3021,7 +2869,7 @@ msgstr "一つか二つのURLだけでも役立ちます！"
 #: ../root/event/merge.tt:11 ../root/report/event_list.tt:7
 #: ../root/series/index.tt:15 ../lib/MusicBrainz/Server/Edit/Event.pm:7
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:49
-#: ../root/event/EventHeader.js:25 ../root/layout/components/Search.js:27
+#: ../root/event/EventHeader.js:25 ../root/layout/components/Search.js:21
 #: ../root/static/scripts/common/i18n.js:55
 msgid "Event"
 msgstr "イベント"
@@ -3121,8 +2969,7 @@ msgstr[0] "投票の締め切りまで<span class=\"tooltip\" title=\"{exactdate
 msgid "External Links"
 msgstr "外部リンク"
 
-#: ../root/layout/header/bottom.tt:166 ../root/main/index.tt:82
-#: ../root/layout/components/BottomMenu.js:231
+#: ../root/main/index.tt:82 ../root/layout/components/BottomMenu.js:254
 msgid "FAQs"
 msgstr "よくある質問"
 
@@ -3245,7 +3092,7 @@ msgstr "フォーマット"
 msgid "Format:"
 msgstr "フォーマット:"
 
-#: ../root/layout.tt:118 ../root/main/index.tt:95
+#: ../root/layout.tt:111 ../root/main/index.tt:95
 #: ../root/layout/components/Footer.js:23
 msgid "Forums"
 msgstr "フォーラム"
@@ -3320,11 +3167,6 @@ msgstr "結成:"
 #: ../root/admin/attributes/index.tt:33
 msgid "Free text"
 msgstr "フリーテキスト"
-
-#: ../root/layout/header/bottom.tt:87
-#: ../root/layout/components/BottomMenu.js:144
-msgid "FreeDB Gateway"
-msgstr "FreeDBゲートウェイ"
 
 #: ../root/otherlookup/form.tt:3
 msgid "FreeDB ID:"
@@ -3516,11 +3358,6 @@ msgstr "未ログイン"
 msgid "Headings:"
 msgstr "見出し:"
 
-#: ../root/layout/header/bottom.tt:207
-#: ../root/layout/components/BottomMenu.js:61
-msgid "Help Translate"
-msgstr "翻訳への参加"
-
 #: ../root/edit/list_header.tt:25
 msgid "Help:"
 msgstr "ヘルプ:"
@@ -3542,11 +3379,6 @@ msgstr "ホームページ:"
 #: ../root/main/info/environment.tt:7
 msgid "Host:"
 msgstr "ホスト名:"
-
-#: ../root/layout/header/bottom.tt:163
-#: ../root/layout/components/BottomMenu.js:228
-msgid "How Tos"
-msgstr "どうやるか"
 
 #: ../root/edit/list_header.tt:34
 msgid "How editing works"
@@ -3862,7 +3694,7 @@ msgstr "インストールされたアプリケーション"
 #: ../root/report/instruments_without_an_image.tt:19
 #: ../lib/MusicBrainz/Server/Edit/Instrument.pm:7
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:47
-#: ../root/layout/components/Search.js:25
+#: ../root/layout/components/Search.js:30
 #: ../root/static/scripts/common/i18n.js:56
 msgid "Instrument"
 msgstr "楽器"
@@ -3879,11 +3711,6 @@ msgstr "楽器のクレジット"
 #: ../root/instrument/edit_form.tt:9
 msgid "Instrument Details"
 msgstr "楽器の詳細"
-
-#: ../root/layout/header/bottom.tt:178 ../root/instrument/List.js:51
-#: ../root/instrument/List.js:53 ../root/layout/components/BottomMenu.js:243
-msgid "Instrument List"
-msgstr "楽器リスト"
 
 #: ../root/instrument/layout.tt:16
 msgid "Instrument information"
@@ -3967,7 +3794,7 @@ msgstr "ログイン状態を保持"
 #: ../root/search/lib/inline-results-release.tt:15
 #: ../lib/MusicBrainz/Server/Edit/Label.pm:7
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:40
-#: ../root/label/LabelHeader.js:24 ../root/layout/components/Search.js:18
+#: ../root/label/LabelHeader.js:24 ../root/layout/components/Search.js:31
 #: ../root/static/scripts/common/i18n.js:57
 msgid "Label"
 msgstr "レーベル"
@@ -4113,7 +3940,7 @@ msgstr "最終ログイン:"
 msgid "Last modified:"
 msgstr "最終変更:"
 
-#: ../root/layout.tt:134 ../root/layout/components/Footer.js:51
+#: ../root/layout.tt:127 ../root/layout/components/Footer.js:51
 msgid "Last replication packet received at {datetime}"
 msgstr ""
 
@@ -4208,11 +4035,6 @@ msgstr "リンク:"
 msgid "Lists:"
 msgstr "リスト:"
 
-#: ../root/layout/header/bottom.tt:84
-#: ../root/layout/components/BottomMenu.js:141
-msgid "Live Data Feed"
-msgstr "ライブデータフィード"
-
 #: ../root/release/edit/editnote.tt:15
 msgid "Loading edit previews..."
 msgstr "編集プレビューを読込み中…"
@@ -4258,15 +4080,10 @@ msgstr "地域編集者は{uri|地域}を追加・編集できるユーザーで
 msgid "Location:"
 msgstr "地域:"
 
-#: ../root/layout/header/top.tt:86 ../root/user/login.tt:1
-#: ../root/user/login.tt:3 ../root/user/login.tt:34
-#: ../root/layout/components/TopMenu.js:120
+#: ../root/user/login.tt:1 ../root/user/login.tt:3 ../root/user/login.tt:34
+#: ../root/layout/components/TopMenu.js:136
 msgid "Log In"
 msgstr "ログイン"
-
-#: ../root/layout/header/top.tt:17 ../root/layout/components/TopMenu.js:32
-msgid "Log Out"
-msgstr "ログアウト"
 
 #: ../root/components/common-macros.tt:530
 msgid "Log in"
@@ -4341,8 +4158,7 @@ msgstr "MBID:"
 msgid "MM"
 msgstr "MM"
 
-#: ../root/layout/header/bottom.tt:63 ../root/main/index.tt:71
-#: ../root/layout/components/BottomMenu.js:120
+#: ../root/main/index.tt:71 ../root/layout/components/BottomMenu.js:142
 msgid "Magic MP3 Tagger"
 msgstr "Magic MP3 Tagger"
 
@@ -4612,20 +4428,13 @@ msgstr "MusicBrainz - オープン音楽百科事典"
 msgid "MusicBrainz Blog"
 msgstr "MusicBrainzブログ"
 
-#: ../root/layout/header/bottom.tt:75 ../root/main/index.tt:100
-#: ../root/layout/components/BottomMenu.js:132
+#: ../root/main/index.tt:100 ../root/layout/components/BottomMenu.js:154
 msgid "MusicBrainz Database"
 msgstr "MusicBrainz データベース"
 
-#: ../root/layout/header/bottom.tt:60 ../root/main/index.tt:70
-#: ../root/layout/components/BottomMenu.js:117
+#: ../root/main/index.tt:70 ../root/layout/components/BottomMenu.js:139
 msgid "MusicBrainz Picard"
 msgstr "MusicBrainz Picard"
-
-#: ../root/layout/header/bottom.tt:72
-#: ../root/layout/components/BottomMenu.js:129
-msgid "MusicBrainz Server"
-msgstr "MusicBrainz Server"
 
 #: ../root/main/index.tt:10
 msgid "MusicBrainz aims to be:"
@@ -4641,11 +4450,6 @@ msgstr "MusicBrainzは利用者のプライバシーを本当に尊重してい�
 #: ../root/cdtoc/lookup.tt:84
 msgid "MusicBrainz does not have any CDs with the TOC:"
 msgstr "MusicBrainzにはこのTOCを持つCDが登録されていません:"
-
-#: ../root/layout/header/bottom.tt:69
-#: ../root/layout/components/BottomMenu.js:126
-msgid "MusicBrainz for Android"
-msgstr "MusicBrainz for Android"
 
 #: ../root/account/register.tt:59
 msgid ""
@@ -4665,26 +4469,6 @@ msgid ""
 "based 501(c)(3) tax-exempt non-profit corporation dedicated to keeping "
 "MusicBrainz {free|free and open source}."
 msgstr ""
-
-#: ../root/layout/header/top.tt:25 ../root/layout/components/TopMenu.js:46
-msgid "My Collections"
-msgstr "自分のコレクション"
-
-#: ../root/layout/header/top.tt:22 ../root/layout/components/TopMenu.js:43
-msgid "My Data"
-msgstr "自分の情報"
-
-#: ../root/layout/header/top.tt:34 ../root/layout/components/TopMenu.js:55
-msgid "My Open Edits"
-msgstr "未確定編集一覧"
-
-#: ../root/layout/header/top.tt:28 ../root/layout/components/TopMenu.js:49
-msgid "My Ratings"
-msgstr "レーティング一覧"
-
-#: ../root/layout/header/top.tt:31 ../root/layout/components/TopMenu.js:52
-msgid "My Tags"
-msgstr "タグ一覧"
 
 #: ../root/edit/index.tt:26
 msgid "My vote:"
@@ -5091,10 +4875,6 @@ msgid ""
 "which reorder relationships."
 msgstr ""
 
-#: ../root/layout/header/top.tt:46 ../root/layout/components/TopMenu.js:67
-msgid "Notes Left on My Edits"
-msgstr "自分の編集に対するノート"
-
 #: ../root/account/preferences.tt:35
 msgid "Notify me by email on new releases to my watched artists"
 msgstr ""
@@ -5386,7 +5166,7 @@ msgstr "句:"
 #: ../root/edit/search_macros.tt:360 ../root/place/merge.tt:11
 #: ../root/report/place_list.tt:7 ../lib/MusicBrainz/Server/Edit/Place.pm:8
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:42
-#: ../root/layout/components/Search.js:20 ../root/place/PlaceHeader.js:25
+#: ../root/layout/components/Search.js:32 ../root/place/PlaceHeader.js:25
 #: ../root/static/scripts/common/i18n.js:58
 msgid "Place"
 msgstr "場所"
@@ -5615,11 +5395,6 @@ msgstr "優先権:"
 msgid "Privacy"
 msgstr "プライバシー"
 
-#: ../root/layout/header/bottom.tt:40
-#: ../root/layout/components/BottomMenu.js:94
-msgid "Privacy Policy"
-msgstr "プライバシーポリシー"
-
 #: ../root/user/collections.tt:62
 msgid "Private"
 msgstr "非公開"
@@ -5628,8 +5403,8 @@ msgstr "非公開"
 msgid "Private collection"
 msgstr "非公開コレクション"
 
-#: ../root/layout/header/bottom.tt:46 ../root/user/privileged.tt:14
-#: ../root/user/privileged.tt:16 ../root/layout/components/BottomMenu.js:100
+#: ../root/user/privileged.tt:14 ../root/user/privileged.tt:16
+#: ../root/layout/components/BottomMenu.js:122
 msgid "Privileged User Accounts"
 msgstr "特権ユーザーアカウント"
 
@@ -5637,13 +5412,7 @@ msgstr "特権ユーザーアカウント"
 msgid "Processing your request took too long and timed out."
 msgstr ""
 
-#: ../root/layout/header/bottom.tt:57
-#: ../root/layout/components/BottomMenu.js:114
-msgid "Products"
-msgstr "プロダクト"
-
-#: ../root/layout/header/top.tt:8 ../root/user/profile/layout.tt:10
-#: ../root/layout/components/TopMenu.js:21
+#: ../root/user/profile/layout.tt:10 ../root/layout/components/TopMenu.js:29
 msgid "Profile"
 msgstr "プロフィール"
 
@@ -5724,7 +5493,7 @@ msgstr ""
 #: ../root/report/recording_list.tt:8
 #: ../lib/MusicBrainz/Server/Edit/Recording.pm:7
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:38
-#: ../root/layout/components/Search.js:16
+#: ../root/layout/components/Search.js:22
 #: ../root/static/scripts/common/i18n.js:59
 msgid "Recording"
 msgstr "レコーディング"
@@ -5921,9 +5690,9 @@ msgstr "関係タイプ"
 msgid "Relationship Type In Use"
 msgstr "使用中の関係タイプ"
 
-#: ../root/doc/relationship_type.tt:4 ../root/layout/header/bottom.tt:175
-#: ../root/relationship/header.tt:1 ../root/relationship/linktype/index.tt:1
-#: ../root/layout/components/BottomMenu.js:240
+#: ../root/doc/relationship_type.tt:4 ../root/relationship/header.tt:1
+#: ../root/relationship/linktype/index.tt:1
+#: ../root/layout/components/BottomMenu.js:263
 msgid "Relationship Types"
 msgstr "関係タイプ"
 
@@ -5993,7 +5762,7 @@ msgstr "関係:"
 #: ../root/search/lib/inline-results-recording.tt:12
 #: ../lib/MusicBrainz/Server/Edit/Release.pm:8
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:37
-#: ../root/layout/components/Search.js:15
+#: ../root/layout/components/Search.js:23
 #: ../root/static/scripts/common/i18n.js:60
 msgid "Release"
 msgstr "リリース"
@@ -6022,7 +5791,7 @@ msgstr "リリースイベント:"
 #: ../root/release/index.tt:57 ../root/report/release_group_list.tt:8
 #: ../root/search/results-release_group.tt:8
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:36
-#: ../root/layout/components/Search.js:14
+#: ../root/layout/components/Search.js:24
 msgid "Release Group"
 msgstr "リリースグループ"
 
@@ -6577,8 +6346,8 @@ msgstr "ユーザーを報告"
 msgid "Report this user for bad behavior"
 msgstr "このユーザーの悪い行動を報告"
 
-#: ../root/layout/header/bottom.tt:148 ../root/report/index.tt:1
-#: ../root/report/index.tt:3 ../root/layout/components/BottomMenu.js:211
+#: ../root/report/index.tt:1 ../root/report/index.tt:3
+#: ../root/layout/components/BottomMenu.js:234
 msgid "Reports"
 msgstr "レポート"
 
@@ -6660,7 +6429,7 @@ msgstr "アプリケーションの許可を取り消す"
 msgid "Role"
 msgstr ""
 
-#: ../root/layout.tt:127
+#: ../root/layout.tt:120
 msgid "Running: <span class=\"tooltip\" title=\"{msg}\">{branch} ({sha})</span>"
 msgstr ""
 
@@ -6706,29 +6475,18 @@ msgstr "表記:"
 #: ../root/components/search.tt:11 ../root/edit/search_macros.tt:102
 #: ../root/edit/search_macros.tt:237 ../root/edit/search_macros.tt:252
 #: ../root/edit/search_macros.tt:299 ../root/edit/search_macros.tt:327
-#: ../root/label/edit_form.tt:21 ../root/layout/header/bottom.tt:92
-#: ../root/layout/header/top.tt:95 ../root/otherlookup/form.tt:20
+#: ../root/label/edit_form.tt:21 ../root/otherlookup/form.tt:20
 #: ../root/place/edit_form.tt:22 ../root/relationship/linktype/form.tt:118
 #: ../root/release/edit/information.tt:45
 #: ../root/release/edit/information.tt:182
 #: ../root/release/edit/recordings.tt:144 ../root/release/edit/tracklist.tt:87
 #: ../root/search/form.tt:42 ../root/search/index.tt:1
 #: ../root/search/index.tt:3 ../root/taglookup/form.tt:12
-#: ../root/layout/components/BottomMenu.js:152
-#: ../root/layout/components/Search.js:44
+#: ../root/layout/components/BottomMenu.js:174
+#: ../root/layout/components/Search.js:79
 #: ../root/static/scripts/common/components/Autocomplete.js:69
 msgid "Search"
 msgstr "検索"
-
-#: ../root/layout/header/bottom.tt:99
-#: ../root/layout/components/BottomMenu.js:159
-msgid "Search Edits"
-msgstr "編集を検索"
-
-#: ../root/layout/header/bottom.tt:95
-#: ../root/layout/components/BottomMenu.js:155
-msgid "Search Entities"
-msgstr "項目を検索"
 
 #: ../root/search/error/wrapper.tt:1 ../root/search/error/wrapper.tt:2
 msgid "Search Error"
@@ -6948,7 +6706,7 @@ msgstr "シリーズ"
 #: ../root/edit/search_macros.tt:360 ../root/series/merge.tt:12
 #: ../lib/MusicBrainz/Server/Edit/Series.pm:7
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:48
-#: ../root/layout/components/Search.js:26 ../root/series/SeriesHeader.js:24
+#: ../root/layout/components/Search.js:25 ../root/series/SeriesHeader.js:24
 #: ../root/static/scripts/common/i18n.js:62
 msgctxt "singular"
 msgid "Series"
@@ -7130,11 +6888,6 @@ msgstr "類似したリリーズ"
 msgid "Skip verification"
 msgstr "確認をスキップ"
 
-#: ../root/layout/header/bottom.tt:34
-#: ../root/layout/components/BottomMenu.js:88
-msgid "Social Contract"
-msgstr "社会契約"
-
 #: ../root/account/applications.tt:18
 msgid ""
 "Some applications and websites support accessing private data from or "
@@ -7242,11 +6995,6 @@ msgstr "別のアーティストに分割"
 msgid "Split into separate artists"
 msgstr "別のアーティストに分割"
 
-#: ../root/layout/header/bottom.tt:22
-#: ../root/layout/components/BottomMenu.js:76
-msgid "Sponsors"
-msgstr "スポンサー"
-
 #: ../root/main/info/error.tt:13
 msgid "Stack trace:"
 msgstr ""
@@ -7259,8 +7007,7 @@ msgstr "スタート"
 msgid "Start Date:"
 msgstr ""
 
-#: ../root/layout/header/bottom.tt:49 ../root/user/profile.tt:166
-#: ../root/layout/components/BottomMenu.js:103
+#: ../root/user/profile.tt:166 ../root/layout/components/BottomMenu.js:125
 msgid "Statistics"
 msgstr "統計"
 
@@ -7296,18 +7043,13 @@ msgctxt "release status"
 msgid "Status:"
 msgstr "ステータス:"
 
-#: ../root/layout.tt:123 ../root/layout/components/Footer.js:34
+#: ../root/layout.tt:116 ../root/layout/components/Footer.js:34
 msgid "Stop using beta site"
 msgstr "ベータサイトを使わない"
 
 #: ../root/watch/list.tt:28
 msgid "Stop watching selected artists"
 msgstr ""
-
-#: ../root/layout/header/bottom.tt:160
-#: ../root/layout/components/BottomMenu.js:225
-msgid "Style Guidelines"
-msgstr "スタイル指針"
 
 #: ../root/edit/list_header.tt:32 ../root/main/index.tt:81
 msgid "Style guidelines"
@@ -7375,9 +7117,9 @@ msgstr "購読者"
 msgid "Subscribers:"
 msgstr "購読者:"
 
-#: ../root/collection/layout.tt:30 ../root/layout/header/top.tt:14
+#: ../root/collection/layout.tt:30
 #: ../root/layout/sidebar/shared-entity-sidebar.tt:76
-#: ../root/user/profile/layout.tt:15 ../root/layout/components/TopMenu.js:28
+#: ../root/user/profile/layout.tt:15 ../root/layout/components/TopMenu.js:36
 msgid "Subscriptions"
 msgstr "購読中"
 
@@ -7435,18 +7177,13 @@ msgid "Tagger"
 msgstr "タグ者"
 
 #: ../root/components/entity-tabs.tt:51 ../root/components/tags.tt:5
-#: ../root/entity/tags.tt:1 ../root/layout/header/bottom.tt:103
-#: ../root/layout/sidebar/sidebar-tags.tt:12 ../root/tag/cloud.tt:1
-#: ../root/tag/cloud.tt:4 ../root/user/profile/layout.tt:26
-#: ../root/user/tags.tt:1 ../root/components/EntityTabs.js:74
-#: ../root/layout/components/BottomMenu.js:162
+#: ../root/entity/tags.tt:1 ../root/layout/sidebar/sidebar-tags.tt:12
+#: ../root/tag/cloud.tt:1 ../root/tag/cloud.tt:4
+#: ../root/user/profile/layout.tt:26 ../root/user/tags.tt:1
+#: ../root/components/EntityTabs.js:74
+#: ../root/layout/components/BottomMenu.js:185
 msgid "Tags"
 msgstr "タグ"
-
-#: ../root/layout/header/bottom.tt:25
-#: ../root/layout/components/BottomMenu.js:79
-msgid "Team"
-msgstr "チーム"
 
 #: ../root/main/400.tt:20 ../root/main/timeout.tt:9
 msgid "Technical Information"
@@ -7527,7 +7264,7 @@ msgid ""
 "and may not display correctly"
 msgstr ""
 
-#: ../root/layout.tt:94 ../root/layout/index.js:98
+#: ../root/layout.tt:87 ../root/layout/index.js:98
 msgid ""
 "The data you have submitted does not make any changes to the data already "
 "present."
@@ -7648,7 +7385,7 @@ msgid ""
 "This is usually only temporary, so please retry your search again later."
 msgstr ""
 
-#: ../root/layout.tt:75 ../root/layout/index.js:81
+#: ../root/layout.tt:68 ../root/layout/index.js:81
 msgid "The server is temporarily in read-only mode for database maintenance."
 msgstr ""
 
@@ -7898,7 +7635,7 @@ msgstr ""
 msgid "This attribute type is only used for grouping, please select a subtype"
 msgstr ""
 
-#: ../root/layout.tt:41 ../root/layout/index.js:29
+#: ../root/layout.tt:34 ../root/layout/index.js:29
 msgid ""
 "This beta test server allows testing of new features with the live database."
 msgstr ""
@@ -8048,11 +7785,11 @@ msgid ""
 "attributed to it."
 msgstr ""
 
-#: ../root/layout.tt:41 ../root/layout/index.js:31
+#: ../root/layout.tt:34 ../root/layout/index.js:31
 msgid "This is a MusicBrainz development server."
 msgstr "これはMusicBrainzの開発サーバーです。"
 
-#: ../root/layout.tt:58 ../root/layout/index.js:52
+#: ../root/layout.tt:51 ../root/layout/index.js:52
 msgid ""
 "This is a MusicBrainz mirror server. To edit or make changes to the data, "
 "please {uri|return to musicbrainz.org}."
@@ -8865,11 +8602,6 @@ msgstr "時間"
 msgid "Time:"
 msgstr ""
 
-#: ../root/layout/header/bottom.tt:52
-#: ../root/layout/components/BottomMenu.js:106
-msgid "Timeline Graph"
-msgstr "タイムライングラフ"
-
 #: ../root/account/preferences.tt:16
 msgid "Timezone:"
 msgstr "タイムゾーン:"
@@ -8930,8 +8662,7 @@ msgid "To:"
 msgstr ""
 
 #: ../root/cdstub/browse.tt:2 ../root/cdstub/browse.tt:3
-#: ../root/layout/header/bottom.tt:106
-#: ../root/layout/components/BottomMenu.js:165
+#: ../root/layout/components/BottomMenu.js:188
 msgid "Top CD Stubs"
 msgstr ""
 
@@ -9151,10 +8882,6 @@ msgstr "順序番号を含むトラック名"
 msgid "Tracks:"
 msgstr "トラック:"
 
-#: ../root/layout/header/top.tt:69 ../root/layout/components/TopMenu.js:93
-msgid "Transclude WikiDocs"
-msgstr ""
-
 #: ../root/admin/wikidoc/index.tt:33
 msgid "Transcluded version"
 msgstr "トランスクルードしたバージョン"
@@ -9186,7 +8913,7 @@ msgstr ""
 msgid "Turkish"
 msgstr ""
 
-#: ../root/layout.tt:121 ../root/layout/components/Footer.js:29
+#: ../root/layout.tt:114 ../root/layout/components/Footer.js:29
 msgid "Twitter"
 msgstr "Twitter"
 
@@ -9391,7 +9118,7 @@ msgstr ""
 msgid "Uppercase roman numerals"
 msgstr "大文字のローマ数字"
 
-#: ../root/layout.tt:123 ../root/layout/components/Footer.js:34
+#: ../root/layout.tt:116 ../root/layout/components/Footer.js:34
 msgid "Use beta site"
 msgstr "ベータサイトを使う"
 
@@ -9526,11 +9253,6 @@ msgstr "このバージョンを表示"
 #: ../root/admin/wikidoc/index.tt:12
 msgid "View transclusion history"
 msgstr "トランスクルージョンの履歴を表示"
-
-#: ../root/layout/header/bottom.tt:145
-#: ../root/layout/components/BottomMenu.js:208
-msgid "Vote on Edits"
-msgstr "編集の投票"
 
 #: ../root/edit/search_macros.tt:360
 msgid "Vote tally"
@@ -9696,7 +9418,7 @@ msgid ""
 "and following the merge link."
 msgstr ""
 
-#: ../root/layout.tt:117 ../root/layout/components/Footer.js:21
+#: ../root/layout.tt:110 ../root/layout/components/Footer.js:21
 msgid "Wiki"
 msgstr "Wiki"
 
@@ -9717,7 +9439,7 @@ msgstr "WikiDoc:"
 #: ../root/report/work_list.tt:7 ../root/work/merge.tt:11
 #: ../lib/MusicBrainz/Server/Edit/Work.pm:8
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:39
-#: ../root/layout/components/Search.js:17
+#: ../root/layout/components/Search.js:26
 #: ../root/static/scripts/common/i18n.js:64 ../root/work/WorkHeader.js:25
 msgid "Work"
 msgstr "作品"
@@ -9790,11 +9512,6 @@ msgstr "重複した関係を持つ可能性のある作品"
 msgid "Writers"
 msgstr "作者"
 
-#: ../root/layout/header/bottom.tt:81
-#: ../root/layout/components/BottomMenu.js:138
-msgid "XML Web Service"
-msgstr "XML Webサービス"
-
 #: ../root/entity/details.tt:28
 msgid "XML:"
 msgstr "XML:"
@@ -9805,8 +9522,7 @@ msgstr "XML:"
 msgid "YYYY"
 msgstr "YYYY"
 
-#: ../root/layout/header/bottom.tt:66 ../root/main/index.tt:72
-#: ../root/layout/components/BottomMenu.js:123
+#: ../root/main/index.tt:72 ../root/layout/components/BottomMenu.js:145
 msgid "Yate Music Tagger"
 msgstr "Yate Music Tagger"
 
@@ -10180,7 +9896,7 @@ msgstr ""
 msgid "Your username will be publicly visible."
 msgstr ""
 
-#: ../root/layout.tt:30
+#: ../root/layout.tt:23
 msgid ""
 "You’re currently not allowed to edit or vote because an admin has revoked "
 "your privileges. If you haven’t already been contacted about why, please "
@@ -10749,7 +10465,7 @@ msgstr[0] ""
 msgid "{entity} has not been added to any collections."
 msgstr ""
 
-#: ../root/layout.tt:85 ../root/layout/index.js:90
+#: ../root/layout.tt:78 ../root/layout/index.js:90
 msgid ""
 "{link|New notes} have been left on some of your edits. Please make sure to "
 "read them and respond if necessary."
@@ -10942,7 +10658,7 @@ msgstr ""
 msgid "{type} “{work}”"
 msgstr "{type}「{work}」"
 
-#: ../root/layout.tt:49 ../root/layout/index.js:39
+#: ../root/layout.tt:42 ../root/layout/index.js:39
 msgid "{uri|Return to musicbrainz.org}."
 msgstr ""
 
@@ -12194,10 +11910,16 @@ msgid "You must provide an edit note"
 msgstr ""
 
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:46
-#: ../root/layout/components/Search.js:24
+#: ../root/layout/components/Search.js:36
 msgctxt "noun"
 msgid "Tag"
 msgstr "タグ"
+
+#: ../lib/MusicBrainz/Server/Form/Search/Search.pm:52
+#: ../root/layout/components/BottomMenu.js:242
+#: ../root/layout/components/Search.js:45
+msgid "Documentation"
+msgstr "ドキュメント"
 
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:61
 msgid "Indexed search with advanced query syntax"
@@ -12740,6 +12462,11 @@ msgstr ""
 msgid "instrument"
 msgstr ""
 
+#: ../root/instrument/List.js:51 ../root/instrument/List.js:53
+#: ../root/layout/components/BottomMenu.js:266
+msgid "Instrument List"
+msgstr "楽器リスト"
+
 #: ../root/instrument/NotFound.js:15
 msgid "Instrument Not Found"
 msgstr "楽器がありません"
@@ -12789,15 +12516,171 @@ msgid ""
 "try and {search_url|search for it} instead."
 msgstr ""
 
-#: ../root/layout/components/ExternalLinks.js:77
+#: ../root/layout/components/BottomMenu.js:78
+msgid "(reset language)"
+msgstr "(言語をリセット)"
+
+#: ../root/layout/components/BottomMenu.js:83
+msgid "Help Translate"
+msgstr "翻訳への参加"
+
+#: ../root/layout/components/BottomMenu.js:92
+msgid "About Us"
+msgstr "私たちについて"
+
+#: ../root/layout/components/BottomMenu.js:95
+msgid "About MusicBrainz"
+msgstr "MusicBrainzについて"
+
+#: ../root/layout/components/BottomMenu.js:98
+msgid "Sponsors"
+msgstr "スポンサー"
+
+#: ../root/layout/components/BottomMenu.js:101
+msgid "Team"
+msgstr "チーム"
+
+#: ../root/layout/components/BottomMenu.js:104
+msgid "Contact Us"
+msgstr "お問い合わせ"
+
+#: ../root/layout/components/BottomMenu.js:107
+msgid "Data Licenses"
+msgstr "データのライセンス"
+
+#: ../root/layout/components/BottomMenu.js:110
+msgid "Social Contract"
+msgstr "社会契約"
+
+#: ../root/layout/components/BottomMenu.js:113
+msgid "Code of Conduct"
+msgstr "行動規範"
+
+#: ../root/layout/components/BottomMenu.js:116
+msgid "Privacy Policy"
+msgstr "プライバシーポリシー"
+
+#: ../root/layout/components/BottomMenu.js:119
+msgid "Auto-editor Elections"
+msgstr "自動編集者選挙"
+
+#: ../root/layout/components/BottomMenu.js:128
+msgid "Timeline Graph"
+msgstr "タイムライングラフ"
+
+#: ../root/layout/components/BottomMenu.js:136
+msgid "Products"
+msgstr "プロダクト"
+
+#: ../root/layout/components/BottomMenu.js:148
+msgid "MusicBrainz for Android"
+msgstr "MusicBrainz for Android"
+
+#: ../root/layout/components/BottomMenu.js:151
+msgid "MusicBrainz Server"
+msgstr "MusicBrainz Server"
+
+#: ../root/layout/components/BottomMenu.js:157
+msgid "Developer Resources"
+msgstr "開発者リソース"
+
+#: ../root/layout/components/BottomMenu.js:160
+msgid "XML Web Service"
+msgstr "XML Webサービス"
+
+#: ../root/layout/components/BottomMenu.js:163
+msgid "Live Data Feed"
+msgstr "ライブデータフィード"
+
+#: ../root/layout/components/BottomMenu.js:166
+msgid "FreeDB Gateway"
+msgstr "FreeDBゲートウェイ"
+
+#: ../root/layout/components/BottomMenu.js:177
+msgid "Search Entities"
+msgstr "項目を検索"
+
+#: ../root/layout/components/BottomMenu.js:181
+msgid "Search Edits"
+msgstr "編集を検索"
+
+#: ../root/layout/components/BottomMenu.js:199
+msgctxt "button/menu"
+msgid "Add Artist"
+msgstr "アーティストを追加"
+
+#: ../root/layout/components/BottomMenu.js:205
+msgctxt "button/menu"
+msgid "Add Release Group"
+msgstr "リリースグループを追加"
+
+#: ../root/layout/components/BottomMenu.js:208
+msgctxt "button/menu"
+msgid "Add Release"
+msgstr "リリースを追加"
+
+#: ../root/layout/components/BottomMenu.js:212
+msgid "Add Various Artists Release"
+msgstr "複数アーティストのリリースを追加"
+
+#: ../root/layout/components/BottomMenu.js:216
+msgctxt "button/menu"
+msgid "Add Standalone Recording"
+msgstr "スタンドアロンレコーディングを追加"
+
+#: ../root/layout/components/BottomMenu.js:219
+msgctxt "button/menu"
+msgid "Add Work"
+msgstr "作品を追加"
+
+#: ../root/layout/components/BottomMenu.js:222
+msgctxt "button/menu"
+msgid "Add Place"
+msgstr "場所を追加"
+
+#: ../root/layout/components/BottomMenu.js:225
+msgctxt "button/menu"
+msgid "Add Series"
+msgstr "シリーズを追加"
+
+#: ../root/layout/components/BottomMenu.js:228
+msgctxt "button/menu"
+msgid "Add Event"
+msgstr "イベントを追加"
+
+#: ../root/layout/components/BottomMenu.js:231
+msgid "Vote on Edits"
+msgstr "編集の投票"
+
+#: ../root/layout/components/BottomMenu.js:245
+msgid "Beginners Guide"
+msgstr "初心者ガイド"
+
+#: ../root/layout/components/BottomMenu.js:248
+msgid "Style Guidelines"
+msgstr "スタイル指針"
+
+#: ../root/layout/components/BottomMenu.js:251
+msgid "How Tos"
+msgstr "どうやるか"
+
+#: ../root/layout/components/BottomMenu.js:257
+msgid "Documentation Index"
+msgstr "ドキュメントの目次"
+
+#: ../root/layout/components/BottomMenu.js:269
+msgid "Development"
+msgstr "開発"
+
+#: ../root/layout/components/ExternalLinks.js:78
 msgid "Official homepage"
 msgstr "公式サイト"
 
-#: ../root/layout/components/ExternalLinks.js:102
+#: ../root/layout/components/ExternalLinks.js:106
 msgid "External links"
 msgstr "外部リンク"
 
-#: ../root/layout/components/ExternalLinks.js:109
+#: ../root/layout/components/ExternalLinks.js:113
 msgid "View all relationships"
 msgstr "全関連を表示"
 
@@ -12840,6 +12723,72 @@ msgstr "レーベル:"
 #: ../root/layout/components/MetaDescription.js:153
 msgid "Writers:"
 msgstr "作者:"
+
+#: ../root/layout/components/TopMenu.js:40
+msgid "Log Out"
+msgstr "ログアウト"
+
+#: ../root/layout/components/TopMenu.js:51
+msgid "My Data"
+msgstr "自分の情報"
+
+#: ../root/layout/components/TopMenu.js:54
+msgid "My Collections"
+msgstr "自分のコレクション"
+
+#: ../root/layout/components/TopMenu.js:57
+msgid "My Ratings"
+msgstr "レーティング一覧"
+
+#: ../root/layout/components/TopMenu.js:60
+msgid "My Tags"
+msgstr "タグ一覧"
+
+#: ../root/layout/components/TopMenu.js:63
+msgid "My Open Edits"
+msgstr "未確定編集一覧"
+
+#: ../root/layout/components/TopMenu.js:66
+msgid "All My Edits"
+msgstr "すべての自分の編集"
+
+#: ../root/layout/components/TopMenu.js:69
+msgid "Edits for Subscribed Entities"
+msgstr "購読してるエンティティの編集"
+
+#: ../root/layout/components/TopMenu.js:72
+msgid "Edits by Subscribed Editors"
+msgstr "購読してる編集者の編集"
+
+#: ../root/layout/components/TopMenu.js:75
+msgid "Notes Left on My Edits"
+msgstr "自分の編集に対するノート"
+
+#: ../root/layout/components/TopMenu.js:84
+msgid "Admin"
+msgstr "管理者"
+
+#: ../root/layout/components/TopMenu.js:88
+msgctxt "button/menu"
+msgid "Add Area"
+msgstr "地域を追加"
+
+#: ../root/layout/components/TopMenu.js:95
+msgctxt "button/menu"
+msgid "Add Instrument"
+msgstr "楽器を追加"
+
+#: ../root/layout/components/TopMenu.js:98
+msgid "Edit Relationship Types"
+msgstr "関係タイプを編集"
+
+#: ../root/layout/components/TopMenu.js:105
+msgid "Transclude WikiDocs"
+msgstr ""
+
+#: ../root/layout/components/TopMenu.js:117
+msgid "Edit Attributes"
+msgstr "属性を編集"
 
 #: ../root/layout/components/sidebar/SidebarRating.js:31
 msgid "see all ratings"

@@ -15,7 +15,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2018-04-05 04:39+0000\n"
+"PO-Revision-Date: 2018-04-18 13:36+0000\n"
 "Last-Translator: yvanz\n"
 "Language-Team: German (http://www.transifex.com/musicbrainz/musicbrainz/language/de/)\n"
 "MIME-Version: 1.0\n"
@@ -502,12 +502,6 @@ msgstr ""
 msgid "Indicates the place where the work had its first performance"
 msgstr "Gibt die Örtlichkeit an, wo ein Werk zum ersten Mal aufgeführt wurde."
 
-#: DB:link_type/description:127
-msgid ""
-"Indicates the publisher of this recording. This is <strong>not</strong> the "
-"same concept as the <a href=\"/doc/Label\">record label</a>."
-msgstr ""
-
 #: DB:link_type/description:32
 msgid ""
 "Indicates the publisher of this release. This is <strong>not</strong> the "
@@ -903,6 +897,13 @@ msgstr "Zeigt auf die Wikipedia-Seite für diese Serie."
 #: DB:link_type/description:279
 msgid "Points to the Wikipedia page for this work."
 msgstr "Zeigt auf die Wikipedia-Seite für dieses Werk."
+
+#: DB:link_type/description:127
+msgid ""
+"Publishers should be added on works instead. Keep in mind this is "
+"<strong>not</strong> the same concept as the <a href=\"/doc/Label\">record "
+"label</a>."
+msgstr ""
 
 #: DB:link_type/link_phrase:174
 msgid "PureVolume"
@@ -4674,17 +4675,17 @@ msgstr ""
 msgid "provided {additional} legal representation for"
 msgstr ""
 
-#: DB:link_type/link_phrase:206 DB:link_type/link_phrase:127
-#: DB:link_type/link_phrase:362 DB:link_type/link_phrase:32
+#: DB:link_type/link_phrase:206 DB:link_type/link_phrase:362
+#: DB:link_type/link_phrase:127 DB:link_type/link_phrase:32
 #: DB:link_type/link_phrase:208 DB:link_type/link_phrase:161
-#: DB:link_type/long_link_phrase:206 DB:link_type/long_link_phrase:127
-#: DB:link_type/long_link_phrase:362 DB:link_type/long_link_phrase:32
+#: DB:link_type/long_link_phrase:206 DB:link_type/long_link_phrase:362
+#: DB:link_type/long_link_phrase:127 DB:link_type/long_link_phrase:32
 #: DB:link_type/long_link_phrase:208 DB:link_type/long_link_phrase:161
 msgid "published"
 msgstr "veröffentlichte"
 
-#: DB:link_type/reverse_link_phrase:206 DB:link_type/reverse_link_phrase:127
-#: DB:link_type/reverse_link_phrase:362 DB:link_type/reverse_link_phrase:32
+#: DB:link_type/reverse_link_phrase:206 DB:link_type/reverse_link_phrase:362
+#: DB:link_type/reverse_link_phrase:127 DB:link_type/reverse_link_phrase:32
 #: DB:link_type/reverse_link_phrase:208 DB:link_type/reverse_link_phrase:161
 msgid "publisher"
 msgstr "Herausgeber"

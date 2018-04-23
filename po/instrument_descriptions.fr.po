@@ -22,7 +22,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2018-04-05 04:39+0000\n"
+"PO-Revision-Date: 2018-04-18 13:36+0000\n"
 "Last-Translator: yvanz\n"
 "Language-Team: French (http://www.transifex.com/musicbrainz/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -504,6 +504,13 @@ msgid ""
 " often combined with tabor drums."
 msgstr ""
 
+#. name:flumpet
+#: DB:instrument/description:742
+msgid ""
+"As long as a trumpet, it shares the piston valve design of both instruments "
+"with a mellow sound between the two."
+msgstr ""
+
 #. name:bellow-blown bagpipes
 #: DB:instrument/description:428
 msgid ""
@@ -634,6 +641,11 @@ msgid ""
 "wood or made of coconut."
 msgstr ""
 
+#. name:pipa
+#: DB:instrument/description:350
+msgid "Chinese pear-shaped plucked lute with four strings and 12 to 26 frets."
+msgstr ""
+
 #. name:ching
 #: DB:instrument/description:618
 msgid ""
@@ -677,6 +689,13 @@ msgid ""
 "Derived from the tenor shawm, it was independently developed in Catalonia by"
 " oboe player Andreu Turon in the 19th century. Made of ginjoler wood with a "
 "metal cone, it is used in the traditional Cobla and Sardana music."
+msgstr ""
+
+#. name:theorbo
+#: DB:instrument/description:395
+msgid ""
+"Developed as an extended range bass-lute in Italy during the late sixteenth "
+"century, it has an extended neck with a second pegbox."
 msgstr ""
 
 #. name:viol family
@@ -973,6 +992,14 @@ msgstr "Inventée en 1966 par vox et en 1969 Bob Murrell, cette guitare électri
 msgid ""
 "Invented initially as the Hang, it is made of two tuned metal convex pans "
 "glued together creating an UFO shape."
+msgstr ""
+
+#. name:yueqin
+#: DB:instrument/description:240
+msgid ""
+"It has a short fretted neck originally with four silk but now usually nylon "
+"or steel strings, and large flat round body, earning it the nickname \"moon "
+"lute\""
 msgstr ""
 
 #. name:taiko
@@ -1333,6 +1360,13 @@ msgid ""
 "Popular in the fifteenth century, it was a combination of a pipe organ and "
 "harpsichord, often with two keyboards, one for the strings and one for the "
 "pipes mounted underneath."
+msgstr ""
+
+#. name:regal
+#: DB:instrument/description:918
+msgid ""
+"Popular in the renaissance, it was small and portable with two bellows and "
+"brass reeds."
 msgstr ""
 
 #. name:baroque guitar
@@ -2119,13 +2153,6 @@ msgid ""
 "mostly used as an accompanying instrument"
 msgstr "L’esraj est un instrument à cordes frottées de l’Est et du centre de l’Inde, principalement utilisé comme accompagnement."
 
-#. name:flumpet
-#: DB:instrument/description:742
-msgid ""
-"The flumpet is a hybrid brass horn instrument that shares the construction "
-"and timbre qualities of a trumpet and flugelhorn."
-msgstr "Cuivre hybride de la trompette et du bugle."
-
 #. name:flûte d'amour
 #: DB:instrument/description:415
 msgid "The flûte d'amour is the mezzo-soprano instrument of the flute family."
@@ -2524,13 +2551,6 @@ msgid ""
 " string instrument with between 9 and 16 strings and a fretted neck."
 msgstr "La lyrone (ou lyre de gambe) est la basse de la famille des lyres. C’est un instrument à cordes frottées avec entre neuf et seize cordes et frettes."
 
-#. name:liuqin
-#: DB:instrument/description:609
-msgid ""
-"The liuqin is a Chinese string instrument which has four strings and a pear-"
-"shaped body and resembles the pipa."
-msgstr "Le liuqin est un instrument à cordes chinois comportant quatre cordes, une caisse piriforme et qui ressemble au pipa."
-
 #. name:luthéal
 #: DB:instrument/description:737
 msgid ""
@@ -2671,13 +2691,6 @@ msgid ""
 "The piccolo oboe is the smallest and highest pitched member of the oboe "
 "family."
 msgstr "La musette est le plus petit et le plus aigu membre de la famille des hautbois."
-
-#. name:pipa
-#: DB:instrument/description:350
-msgid ""
-"The pipa is a four-stringed plucked Chinese instrument with a pear-shaped "
-"body."
-msgstr "La pipa est un instrument piriforme chinois à quatre cordes pincées."
 
 #. name:piri
 #: DB:instrument/description:499
@@ -3337,11 +3350,6 @@ msgid ""
 " in daechwita, a genre of traditional Korean music."
 msgstr "L’yonggo est un tambour à fût. Un dragon est peint dessus. Il est utilisé en daechwita, un genre musical traditionnel coréen. "
 
-#. name:yueqin
-#: DB:instrument/description:240
-msgid "The yueqin is a Chinese \"moon-shaped\" plucked lute."
-msgstr "Le yueqin est un luth chinois à cordes pincées en forme de lune."
-
 #. name:zabumba
 #: DB:instrument/description:715
 msgid "The zabumba is a bass drum from Brazil."
@@ -3534,6 +3542,13 @@ msgid ""
 "for vibration and hit with long, thick sticks called Makilak, today the "
 "planks are shorter and can be made of many other materials like stone, wood "
 "or metal and are hit with shorter, lighter sticks."
+msgstr ""
+
+#. name:liuqin
+#: DB:instrument/description:609
+msgid ""
+"Traditionally made of willow, it has four strings and a small, pear-shaped "
+"body. Played with a pick, it has a higher pitch than the pipa."
 msgstr ""
 
 #. name:caixa

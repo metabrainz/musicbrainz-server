@@ -8,8 +8,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2018-04-11 09:34+0000\n"
-"Last-Translator: Maurits Meulenbelt <email address hidden>\n"
+"PO-Revision-Date: 2018-04-18 13:36+0000\n"
+"Last-Translator: yvanz\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -260,9 +260,9 @@ msgid "Xaphoon"
 msgstr "Xaphoon"
 
 #: DB:instrument/name:778
-msgctxt "a type of harmonica/accordion hybrid"
+msgctxt "harmonica/accordion hybrid"
 msgid "accordina"
-msgstr "accordina"
+msgstr ""
 
 #: DB:instrument/name:41
 msgid "accordion"
@@ -1376,8 +1376,9 @@ msgid "flugelhorn"
 msgstr "bugel"
 
 #: DB:instrument/name:742
+msgctxt "Hybrid between trumpet and flugelhorn"
 msgid "flumpet"
-msgstr "flümpet"
+msgstr ""
 
 #: DB:instrument/name:13
 msgid "flute"
@@ -2058,8 +2059,9 @@ msgid "lithophone"
 msgstr "lithofoon"
 
 #: DB:instrument/name:609
+msgctxt "Small pearshaped chinese lute"
 msgid "liuqin"
-msgstr "liuqin"
+msgstr ""
 
 #: DB:instrument/name:398
 msgid "low whistle"
@@ -2454,8 +2456,9 @@ msgid "piccolo trumpet"
 msgstr "piccolotrompet"
 
 #: DB:instrument/name:350
+msgctxt "Pearshaped chinese lute"
 msgid "pipa"
-msgstr "pipa"
+msgstr ""
 
 #: DB:instrument/name:807
 msgctxt "pair of flute and drum, each played by one hand"
@@ -2645,6 +2648,11 @@ msgstr "rietorgel"
 #: DB:instrument/name:179
 msgid "reeds"
 msgstr "rietblazers"
+
+#: DB:instrument/name:918
+msgctxt "Portable bellowed reed organ"
+msgid "regal"
+msgstr ""
 
 #: DB:instrument/name:784
 msgctxt "Māori taonga pūoro long flute"
@@ -3222,8 +3230,9 @@ msgid "theatre organ"
 msgstr "theaterorgel"
 
 #: DB:instrument/name:395
+msgctxt "Extended necked many-stringed lute"
 msgid "theorbo"
-msgstr "theorbe"
+msgstr ""
 
 #: DB:instrument/name:126
 msgid "theremin"
@@ -3710,8 +3719,9 @@ msgid "yu"
 msgstr "yu"
 
 #: DB:instrument/name:240
+msgctxt "Traditional Chinese lute"
 msgid "yueqin"
-msgstr "yueqin"
+msgstr ""
 
 #: DB:instrument/name:715
 msgid "zabumba"
