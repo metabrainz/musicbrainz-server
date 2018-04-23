@@ -63,7 +63,8 @@ const LINK_TYPES = {
   },
   license: {
     release: "004bd0c3-8a45-4309-ba52-fa99f3aa3d50",
-    recording: "f25e301d-b87b-4561-86a0-5d2df6d26c0a"
+    recording: "f25e301d-b87b-4561-86a0-5d2df6d26c0a",
+    work: "770ea9f4-cba0-4194-b77f-fe2740055e34"
   },
   lyrics: {
     artist: "e4d73442-3762-45a8-905c-401da65544ed",
