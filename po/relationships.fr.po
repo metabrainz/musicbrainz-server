@@ -33,7 +33,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2018-04-16 17:01+0000\n"
+"PO-Revision-Date: 2018-04-18 14:01+0000\n"
 "Last-Translator: yvanz\n"
 "Language-Team: French (http://www.transifex.com/musicbrainz/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -520,12 +520,6 @@ msgstr "Indique le technicien spécialisé en piano pour cette parution. Utilise
 msgid "Indicates the place where the work had its first performance"
 msgstr "Indique le lieu de la première présentation de l’œuvre."
 
-#: DB:link_type/description:127
-msgid ""
-"Indicates the publisher of this recording. This is <strong>not</strong> the "
-"same concept as the <a href=\"/doc/Label\">record label</a>."
-msgstr "Indique l’éditeur de cet enregistrement. Ce n’est <strong>pas</strong> le même concept que le <a href=\"/doc/Label\">label discographique</a>."
-
 #: DB:link_type/description:32
 msgid ""
 "Indicates the publisher of this release. This is <strong>not</strong> the "
@@ -921,6 +915,13 @@ msgstr "Dirige vers la page Wikipédia pour cette série."
 #: DB:link_type/description:279
 msgid "Points to the Wikipedia page for this work."
 msgstr "Dirige vers la page Wikipédia pour cette œuvre."
+
+#: DB:link_type/description:127
+msgid ""
+"Publishers should be added on works instead. Keep in mind this is "
+"<strong>not</strong> the same concept as the <a href=\"/doc/Label\">record "
+"label</a>."
+msgstr "Les éditeurs doivent désormais être ajoutés aux œuvres. Attention, ce n’est <strong>pas</strong> le même concept que le <a href=\"/doc/Label\">label discographique</a>."
 
 #: DB:link_type/link_phrase:174
 msgid "PureVolume"
@@ -4692,17 +4693,17 @@ msgstr "a assuré l’illustration {additional:supplémentaire} sur"
 msgid "provided {additional} legal representation for"
 msgstr "a assuré la représentation juridique {additional:supplémentaire} pour"
 
-#: DB:link_type/link_phrase:206 DB:link_type/link_phrase:127
-#: DB:link_type/link_phrase:362 DB:link_type/link_phrase:32
+#: DB:link_type/link_phrase:206 DB:link_type/link_phrase:362
+#: DB:link_type/link_phrase:127 DB:link_type/link_phrase:32
 #: DB:link_type/link_phrase:208 DB:link_type/link_phrase:161
-#: DB:link_type/long_link_phrase:206 DB:link_type/long_link_phrase:127
-#: DB:link_type/long_link_phrase:362 DB:link_type/long_link_phrase:32
+#: DB:link_type/long_link_phrase:206 DB:link_type/long_link_phrase:362
+#: DB:link_type/long_link_phrase:127 DB:link_type/long_link_phrase:32
 #: DB:link_type/long_link_phrase:208 DB:link_type/long_link_phrase:161
 msgid "published"
 msgstr "publié"
 
-#: DB:link_type/reverse_link_phrase:206 DB:link_type/reverse_link_phrase:127
-#: DB:link_type/reverse_link_phrase:362 DB:link_type/reverse_link_phrase:32
+#: DB:link_type/reverse_link_phrase:206 DB:link_type/reverse_link_phrase:362
+#: DB:link_type/reverse_link_phrase:127 DB:link_type/reverse_link_phrase:32
 #: DB:link_type/reverse_link_phrase:208 DB:link_type/reverse_link_phrase:161
 msgid "publisher"
 msgstr "éditeur"

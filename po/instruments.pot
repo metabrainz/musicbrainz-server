@@ -875,6 +875,10 @@ msgctxt "ancient predecessor of the Morin khuur"
 msgid "chuurqin"
 msgstr ""
 
+#: DB:instrument/name:256
+msgid "cimbalom"
+msgstr ""
+
 #: DB:instrument/name:761
 msgid "citole"
 msgstr ""
@@ -1025,10 +1029,6 @@ msgstr ""
 
 #: DB:instrument/name:271
 msgid "cymbal"
-msgstr ""
-
-#: DB:instrument/name:256
-msgid "cymbalum"
 msgstr ""
 
 #: DB:instrument/name:309

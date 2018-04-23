@@ -23,7 +23,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-04-05 06:04+0200\n"
+"POT-Creation-Date: 2018-04-18 15:28+0200\n"
 "PO-Revision-Date: 2018-04-15 07:59+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
@@ -193,11 +193,6 @@ msgstr "(geen)"
 msgctxt "type"
 msgid "(none)"
 msgstr "(geen)"
-
-#: ../root/layout/header/bottom.tt:203
-#: ../root/layout/components/BottomMenu.js:56
-msgid "(reset language)"
-msgstr "(taal terugzetten)"
 
 #: ../root/search/lib/inline-results-recording.tt:63
 msgid "(standalone recording)"
@@ -405,16 +400,6 @@ msgid ""
 "respectively."
 msgstr "Een waarde van 1 of 2 geeft aan dat respectievelijk entity1 of entity0 sorteerbaar zijn."
 
-#: ../root/layout/header/bottom.tt:19
-#: ../root/layout/components/BottomMenu.js:73
-msgid "About MusicBrainz"
-msgstr "Over MusicBrainz"
-
-#: ../root/layout/header/bottom.tt:16
-#: ../root/layout/components/BottomMenu.js:70
-msgid "About Us"
-msgstr "Over ons"
-
 #: ../root/edit/search_macros.tt:263 ../root/edit/search_macros.tt:279
 #: ../root/edit/vote.tt:20 ../lib/MusicBrainz/Server/Data/Vote.pm:174
 msgctxt "vote"
@@ -491,18 +476,7 @@ msgstr "Alias toevoegen"
 msgid "Add Area"
 msgstr "Gebied toevoegen"
 
-#: ../root/layout/header/top.tt:56 ../root/layout/components/TopMenu.js:80
-msgctxt "button/menu"
-msgid "Add Area"
-msgstr "Gebied toevoegen"
-
 #: ../root/artist/create.tt:1 ../root/artist/create.tt:3
-msgid "Add Artist"
-msgstr "Artiest toevoegen"
-
-#: ../root/layout/header/bottom.tt:115
-#: ../root/layout/components/BottomMenu.js:176
-msgctxt "button/menu"
 msgid "Add Artist"
 msgstr "Artiest toevoegen"
 
@@ -524,12 +498,6 @@ msgstr "Afbeelding toevoegen"
 msgid "Add Event"
 msgstr "Evenement toevoegen"
 
-#: ../root/layout/header/bottom.tt:142
-#: ../root/layout/components/BottomMenu.js:205
-msgctxt "button/menu"
-msgid "Add Event"
-msgstr "Evenement toevoegen"
-
 #: ../root/relationship/linktype/form.tt:154
 msgid "Add Example"
 msgstr "Voorbeeld toevoegen"
@@ -538,18 +506,13 @@ msgstr "Voorbeeld toevoegen"
 msgid "Add Instrument"
 msgstr "Instrument toevoegen"
 
-#: ../root/layout/header/top.tt:61 ../root/layout/components/TopMenu.js:85
-msgctxt "button/menu"
-msgid "Add Instrument"
-msgstr "Instrument toevoegen"
-
 #: ../root/label/create.tt:1 ../root/label/create.tt:3
 msgid "Add Label"
 msgstr "Platenmaatschappij toevoegen"
 
-#: ../root/layout/header/bottom.tt:118 ../root/release/edit/information.tt:206
+#: ../root/release/edit/information.tt:206
 #: ../root/release/edit/information.tt:207
-#: ../root/layout/components/BottomMenu.js:179
+#: ../root/layout/components/BottomMenu.js:202
 msgctxt "button/menu"
 msgid "Add Label"
 msgstr "Platenmaatschappij toevoegen"
@@ -572,18 +535,6 @@ msgstr "Pagina toevoegen"
 msgid "Add Place"
 msgstr "Plaats toevoegen"
 
-#: ../root/layout/header/bottom.tt:136
-#: ../root/layout/components/BottomMenu.js:199
-msgctxt "button/menu"
-msgid "Add Place"
-msgstr "Plaats toevoegen"
-
-#: ../root/layout/header/bottom.tt:124
-#: ../root/layout/components/BottomMenu.js:185
-msgctxt "button/menu"
-msgid "Add Release"
-msgstr "Uitgave toevoegen"
-
 #: ../root/release/edit/layout.tt:7
 msgctxt "header"
 msgid "Add Release"
@@ -599,12 +550,6 @@ msgstr "Uitgavegebeurtenis toevoegen"
 msgid "Add Release Group"
 msgstr "Uitgavegroep toevoegen"
 
-#: ../root/layout/header/bottom.tt:121
-#: ../root/layout/components/BottomMenu.js:182
-msgctxt "button/menu"
-msgid "Add Release Group"
-msgstr "Uitgavegroep toevoegen"
-
 #: ../root/release_group/create.tt:3
 msgctxt "header"
 msgid "Add Release Group"
@@ -614,33 +559,10 @@ msgstr "Uitgavegroep toevoegen"
 msgid "Add Series"
 msgstr "Serie toevoegen"
 
-#: ../root/layout/header/bottom.tt:139
-#: ../root/layout/components/BottomMenu.js:202
-msgctxt "button/menu"
-msgid "Add Series"
-msgstr "Serie toevoegen"
-
-#: ../root/layout/header/bottom.tt:130
-#: ../root/layout/components/BottomMenu.js:193
-msgctxt "button/menu"
-msgid "Add Standalone Recording"
-msgstr "Opname zonder uitgave toevoegen"
-
 #: ../root/recording/create.tt:1 ../root/recording/create.tt:3
 msgctxt "header"
 msgid "Add Standalone Recording"
 msgstr "Opname zonder uitgave toevoegen"
-
-#: ../root/layout/header/bottom.tt:127
-#: ../root/layout/components/BottomMenu.js:189
-msgid "Add Various Artists Release"
-msgstr "Uitgave van diverse artiesten toevoegen"
-
-#: ../root/layout/header/bottom.tt:133
-#: ../root/layout/components/BottomMenu.js:196
-msgctxt "button/menu"
-msgid "Add Work"
-msgstr "Compositie toevoegen"
 
 #: ../root/work/create.tt:1 ../root/work/create.tt:2
 msgctxt "header"
@@ -839,10 +761,6 @@ msgstr "Adres:"
 msgid "Adjust User Account Flags"
 msgstr "Rechten voor accounts aanpassen"
 
-#: ../root/layout/header/top.tt:52 ../root/layout/components/TopMenu.js:76
-msgid "Admin"
-msgstr "Beheerder"
-
 #: ../root/admin/edit_user.tt:19
 msgid "Administration flags"
 msgstr "Administratieve markering"
@@ -878,10 +796,6 @@ msgstr "Alias:"
 #: ../root/components/Aliases/index.js:26 ../root/components/EntityTabs.js:70
 msgid "Aliases"
 msgstr "Aliassen"
-
-#: ../root/layout/header/top.tt:37 ../root/layout/components/TopMenu.js:58
-msgid "All My Edits"
-msgstr "Al mijn bewerkingen"
 
 #: ../root/components/relationship-editor.tt:59
 msgid "All of these relationships."
@@ -1042,7 +956,7 @@ msgstr "Er trad een fout op bij het toevoegen van de composities."
 #: ../root/report/annotations_works.tt:13
 #: ../root/search/results-annotation.tt:10
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:43
-#: ../root/layout/components/Search.js:21
+#: ../root/layout/components/Search.js:35
 msgid "Annotation"
 msgstr "Aantekening"
 
@@ -1092,7 +1006,7 @@ msgid "Application"
 msgstr "Applicatie"
 
 #: ../root/account/applications.tt:1 ../root/account/applications.tt:3
-#: ../root/layout/header/top.tt:11 ../root/layout/components/TopMenu.js:24
+#: ../root/layout/components/TopMenu.js:32
 msgid "Applications"
 msgstr "Applicaties"
 
@@ -1201,7 +1115,7 @@ msgstr "Weet je zeker dat je de serie {series} wil verwijderen van MusicBrainz?"
 #: ../root/search/results-label.tt:11 ../root/search/results-place.tt:11
 #: ../lib/MusicBrainz/Server/Edit/Area.pm:7
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:41
-#: ../root/area/AreaHeader.js:22 ../root/layout/components/Search.js:19
+#: ../root/area/AreaHeader.js:22 ../root/layout/components/Search.js:29
 #: ../root/static/scripts/common/i18n.js:53
 msgid "Area"
 msgstr "Gebied"
@@ -1270,7 +1184,7 @@ msgstr "Gebieden"
 #: ../lib/MusicBrainz/Server/Edit/Artist.pm:7
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:35
 #: ../root/artist/ArtistHeader.js:32 ../root/isrc/Index.js:52
-#: ../root/layout/components/Search.js:13
+#: ../root/layout/components/Search.js:18
 #: ../root/static/scripts/common/i18n.js:54
 msgid "Artist"
 msgstr "Artiest"
@@ -1530,11 +1444,6 @@ msgstr "Automatische bewerkingen door {name}"
 msgid "Auto-editor"
 msgstr "Autoredacteur"
 
-#: ../root/layout/header/bottom.tt:43
-#: ../root/layout/components/BottomMenu.js:97
-msgid "Auto-editor Elections"
-msgstr "Autoredacteurverkiezingen"
-
 #: ../root/user/privileged.tt:18
 msgid "Auto-editors"
 msgstr "Autoredacteurs"
@@ -1717,11 +1626,6 @@ msgstr "Beginner"
 msgid "Beginner/limited editors"
 msgstr "Beginners / beperkte redacteurs"
 
-#: ../root/layout/header/bottom.tt:157
-#: ../root/layout/components/BottomMenu.js:222
-msgid "Beginners Guide"
-msgstr "Handleiding voor beginners"
-
 #: ../root/main/index.tt:79
 msgid "Beginners guide"
 msgstr "Handleiding voor beginners"
@@ -1746,7 +1650,7 @@ msgstr "Biografie:"
 msgid "Birth date:"
 msgstr "Geboortedatum:"
 
-#: ../root/layout.tt:120 ../root/layout/components/Footer.js:27
+#: ../root/layout.tt:113 ../root/layout/components/Footer.js:27
 msgid "Blog"
 msgstr "Weblog"
 
@@ -1768,13 +1672,13 @@ msgstr "Robot"
 msgid "Bots"
 msgstr "Robots"
 
-#: ../root/layout.tt:140 ../root/layout/components/Footer.js:61
+#: ../root/layout.tt:133 ../root/layout/components/Footer.js:61
 msgid ""
 "Brought to you by {MeB|MetaBrainz Foundation} and our {spon|sponsors} and "
 "{supp|supporters}. Cover Art provided by the {caa|Cover Art Archive}."
 msgstr "Aangeboden door de {MeB|MetaBrainz Foundation} en onze {spon|sponsors} en {supp|partners}. Hoesafbeeldingen worden geleverd door het {caa|Cover Art Archive}."
 
-#: ../root/layout.tt:119 ../root/main/index.tt:94
+#: ../root/layout.tt:112 ../root/main/index.tt:94
 #: ../root/layout/components/Footer.js:25
 msgid "Bug Tracker"
 msgstr "Bugtracker"
@@ -1793,7 +1697,7 @@ msgstr "Cd niet gevonden"
 
 #: ../root/search/results-cdstub.tt:8
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:44
-#: ../root/layout/components/Search.js:22
+#: ../root/layout/components/Search.js:39
 msgid "CD Stub"
 msgstr "Cd-beginsel"
 
@@ -2025,11 +1929,6 @@ msgstr "Gesloten:"
 msgid "Code"
 msgstr "Code"
 
-#: ../root/layout/header/bottom.tt:37
-#: ../root/layout/components/BottomMenu.js:91
-msgid "Code of Conduct"
-msgstr "Gedragscode"
-
 #: ../root/report/collaboration_relationships.tt:19
 msgid "Collaboration"
 msgstr "Samenwerking"
@@ -2109,11 +2008,6 @@ msgstr "Voorwaarden:"
 msgid "Confirm password:"
 msgstr "Wachtwoord bevestigen:"
 
-#: ../root/layout/header/bottom.tt:28
-#: ../root/layout/components/BottomMenu.js:82
-msgid "Contact Us"
-msgstr "Contact"
-
 #: ../root/place/edit_form.tt:29
 msgid "Coordinates"
 msgstr "Coördinaten"
@@ -2181,8 +2075,7 @@ msgstr "Afbeelding:"
 msgid "Create"
 msgstr "Aanmaken"
 
-#: ../root/account/register.tt:43 ../root/layout/header/top.tt:87
-#: ../root/layout/components/TopMenu.js:125
+#: ../root/account/register.tt:43 ../root/layout/components/TopMenu.js:141
 msgid "Create Account"
 msgstr "Registreren"
 
@@ -2244,11 +2137,6 @@ msgstr "In dit rapport staan nu alleen composities waarvan de opnames maar één
 #: ../lib/MusicBrainz/Server/Plugin/FormRenderer.pm:252
 msgid "DD"
 msgstr "DD"
-
-#: ../root/layout/header/bottom.tt:31
-#: ../root/layout/components/BottomMenu.js:85
-msgid "Data Licenses"
-msgstr "Gegevenslicenties"
 
 #: ../root/edit/details/change_release_quality.tt:7
 #: ../root/edit/details/historic/change_artist_quality.tt:7
@@ -2374,19 +2262,9 @@ msgstr "Details"
 msgid "Developer Applications"
 msgstr "Applicaties voor ontwikkelaars"
 
-#: ../root/layout/header/bottom.tt:78
-#: ../root/layout/components/BottomMenu.js:135
-msgid "Developer Resources"
-msgstr "Hulpmiddelen voor ontwikkelaars"
-
 #: ../root/main/index.tt:107
 msgid "Developers"
 msgstr "Ontwikkelaars"
-
-#: ../root/layout/header/bottom.tt:181
-#: ../root/layout/components/BottomMenu.js:246
-msgid "Development"
-msgstr "Ontwikkeling"
 
 #: ../root/components/common-macros.tt:878
 #: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:51
@@ -2545,18 +2423,6 @@ msgid ""
 "our {oauth2|OAuth documentation} for more details."
 msgstr "Wil je een applicatie ontwikkelen die de {ws|webdienst van MusicBrainz} gebruikt? {register|Registreer een applicatie} om OAuth-tokens te genereren. Bekijk onze {oauth2|documentatie over OAuth} voor meer details."
 
-#: ../root/layout/header/bottom.tt:154
-#: ../lib/MusicBrainz/Server/Form/Search/Search.pm:52
-#: ../root/layout/components/BottomMenu.js:219
-#: ../root/layout/components/Search.js:31
-msgid "Documentation"
-msgstr "Documentatie"
-
-#: ../root/layout/header/bottom.tt:169
-#: ../root/layout/components/BottomMenu.js:234
-msgid "Documentation Index"
-msgstr "Alle documentatie"
-
 #: ../root/search/results-doc.tt:1 ../root/search/results-doc.tt:3
 msgid "Documentation Search"
 msgstr "Documentatie zoeken"
@@ -2571,7 +2437,7 @@ msgstr "Documentatie:"
 msgid "Don't have an account? {uri|Create one now}!"
 msgstr "Heb je geen account? {uri|Maak er dan nu een aan}!"
 
-#: ../root/layout.tt:116 ../root/layout/components/Footer.js:19
+#: ../root/layout.tt:109 ../root/layout/components/Footer.js:19
 msgid "Donate"
 msgstr "Doneren"
 
@@ -2642,12 +2508,8 @@ msgstr "Vermeldingen van artiesten bewerken"
 msgid "Edit Attribute"
 msgstr "Eigenschap bewerken"
 
-#: ../root/layout/header/top.tt:79 ../root/layout/components/TopMenu.js:103
-msgid "Edit Attributes"
-msgstr "Eigenschappen bewerken"
-
 #: ../root/admin/edit_banner.tt:1 ../root/admin/edit_banner.tt:3
-#: ../root/layout/header/top.tt:74 ../root/layout/components/TopMenu.js:98
+#: ../root/layout/components/TopMenu.js:111
 msgid "Edit Banner Message"
 msgstr "Mededeling bewerken"
 
@@ -2683,18 +2545,13 @@ msgstr "Relatie-eigenschap bewerken"
 msgid "Edit Relationship Type"
 msgstr "Relatietype bewerken"
 
-#: ../root/layout/header/top.tt:64 ../root/layout/components/TopMenu.js:88
-msgid "Edit Relationship Types"
-msgstr "Relatietypes bewerken"
-
 #: ../root/release/edit_relationships.tt:1
 msgid "Edit Relationships: {release}"
 msgstr "Relaties bewerken: {release}"
 
 #: ../root/doc/edit_types.tt:1 ../root/doc/edit_types.tt:3
 #: ../root/doc/edit_type.tt:18 ../root/edit/info.tt:69
-#: ../root/layout/header/bottom.tt:172
-#: ../root/layout/components/BottomMenu.js:237
+#: ../root/layout/components/BottomMenu.js:260
 msgid "Edit Types"
 msgstr "Bewerkingstypes"
 
@@ -2749,9 +2606,8 @@ msgid "Edited"
 msgstr "Bewerkt"
 
 #: ../root/account/preferences.tt:40 ../root/collection/layout.tt:19
-#: ../root/layout/header/bottom.tt:112
 #: ../root/layout/sidebar/shared-entity-sidebar.tt:33
-#: ../root/layout/components/BottomMenu.js:173
+#: ../root/layout/components/BottomMenu.js:196
 msgid "Editing"
 msgstr "Bewerken"
 
@@ -2775,7 +2631,7 @@ msgstr "Bewerken en stemmen uitgeschakeld"
 #: ../root/annotation/history.tt:11 ../root/edit/search_macros.tt:360
 #: ../root/report/editor_list.tt:7
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:45
-#: ../root/layout/components/Search.js:23
+#: ../root/layout/components/Search.js:42
 msgid "Editor"
 msgstr "Redacteur"
 
@@ -2803,10 +2659,6 @@ msgstr "Bewerkingen"
 msgid "Edits ({view_url|view})"
 msgstr "Bewerkingen ({view_url|bekijken})"
 
-#: ../root/layout/header/top.tt:43 ../root/layout/components/TopMenu.js:64
-msgid "Edits by Subscribed Editors"
-msgstr "Bewerkingen door redacteurs waar ik op geabonneerd ben"
-
 #: ../root/edit/subscribed-editors.tt:1 ../root/edit/subscribed-editors.tt:3
 msgid "Edits by Your Subscribed Editors"
 msgstr "Bewerkingen door redacteurs waar ik op geabonneerd ben"
@@ -2814,10 +2666,6 @@ msgstr "Bewerkingen door redacteurs waar ik op geabonneerd ben"
 #: ../root/user/edits.tt:1
 msgid "Edits by {name}"
 msgstr "Bewerkingen door {name}"
-
-#: ../root/layout/header/top.tt:40 ../root/layout/components/TopMenu.js:61
-msgid "Edits for Subscribed Entities"
-msgstr "Bewerkingen van objecten waar ik op geabonneerd ben"
 
 #: ../root/edit/subscribed.tt:1 ../root/edit/subscribed.tt:3
 msgid "Edits for Your Subscribed Entities"
@@ -3026,7 +2874,7 @@ msgstr "Alleen al één of twee URL’s toevoegen helpt!"
 #: ../root/event/merge.tt:11 ../root/report/event_list.tt:7
 #: ../root/series/index.tt:15 ../lib/MusicBrainz/Server/Edit/Event.pm:7
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:49
-#: ../root/event/EventHeader.js:25 ../root/layout/components/Search.js:27
+#: ../root/event/EventHeader.js:25 ../root/layout/components/Search.js:21
 #: ../root/static/scripts/common/i18n.js:55
 msgid "Event"
 msgstr "Evenement"
@@ -3129,8 +2977,7 @@ msgstr[1] "<span class=\"tooltip\" title=\"{exactdate}\">{num} minuten</span>"
 msgid "External Links"
 msgstr "Externe websites"
 
-#: ../root/layout/header/bottom.tt:166 ../root/main/index.tt:82
-#: ../root/layout/components/BottomMenu.js:231
+#: ../root/main/index.tt:82 ../root/layout/components/BottomMenu.js:254
 msgid "FAQs"
 msgstr "Veelgestelde vragen"
 
@@ -3253,7 +3100,7 @@ msgstr "Type medium"
 msgid "Format:"
 msgstr "Type medium:"
 
-#: ../root/layout.tt:118 ../root/main/index.tt:95
+#: ../root/layout.tt:111 ../root/main/index.tt:95
 #: ../root/layout/components/Footer.js:23
 msgid "Forums"
 msgstr "Forum"
@@ -3334,11 +3181,6 @@ msgstr "Opgericht:"
 #: ../root/admin/attributes/index.tt:33
 msgid "Free text"
 msgstr "Zonder opmaak"
-
-#: ../root/layout/header/bottom.tt:87
-#: ../root/layout/components/BottomMenu.js:144
-msgid "FreeDB Gateway"
-msgstr "FreeDB-toegang"
 
 #: ../root/otherlookup/form.tt:3
 msgid "FreeDB ID:"
@@ -3530,11 +3372,6 @@ msgstr "Heeft zich nog nooit aangemeld"
 msgid "Headings:"
 msgstr "Koppen:"
 
-#: ../root/layout/header/bottom.tt:207
-#: ../root/layout/components/BottomMenu.js:61
-msgid "Help Translate"
-msgstr "Help mee vertalen"
-
 #: ../root/edit/list_header.tt:25
 msgid "Help:"
 msgstr "Help:"
@@ -3556,11 +3393,6 @@ msgstr "Website:"
 #: ../root/main/info/environment.tt:7
 msgid "Host:"
 msgstr "Host:"
-
-#: ../root/layout/header/bottom.tt:163
-#: ../root/layout/components/BottomMenu.js:228
-msgid "How Tos"
-msgstr "Korte handleidingen"
 
 #: ../root/edit/list_header.tt:34
 msgid "How editing works"
@@ -3876,7 +3708,7 @@ msgstr "Geïnstalleerde applicatie"
 #: ../root/report/instruments_without_an_image.tt:19
 #: ../lib/MusicBrainz/Server/Edit/Instrument.pm:7
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:47
-#: ../root/layout/components/Search.js:25
+#: ../root/layout/components/Search.js:30
 #: ../root/static/scripts/common/i18n.js:56
 msgid "Instrument"
 msgstr "Instrument"
@@ -3893,11 +3725,6 @@ msgstr "Instrumentvermeldingen"
 #: ../root/instrument/edit_form.tt:9
 msgid "Instrument Details"
 msgstr "Details van het instrument"
-
-#: ../root/layout/header/bottom.tt:178 ../root/instrument/List.js:51
-#: ../root/instrument/List.js:53 ../root/layout/components/BottomMenu.js:243
-msgid "Instrument List"
-msgstr "Instrumentenlijst"
 
 #: ../root/instrument/layout.tt:16
 msgid "Instrument information"
@@ -3981,7 +3808,7 @@ msgstr "Aangemeld blijven"
 #: ../root/search/lib/inline-results-release.tt:15
 #: ../lib/MusicBrainz/Server/Edit/Label.pm:7
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:40
-#: ../root/label/LabelHeader.js:24 ../root/layout/components/Search.js:18
+#: ../root/label/LabelHeader.js:24 ../root/layout/components/Search.js:31
 #: ../root/static/scripts/common/i18n.js:57
 msgid "Label"
 msgstr "Platenmaatschappij"
@@ -4127,7 +3954,7 @@ msgstr "Laatste aanmelding:"
 msgid "Last modified:"
 msgstr "Laatste bewerking:"
 
-#: ../root/layout.tt:134 ../root/layout/components/Footer.js:51
+#: ../root/layout.tt:127 ../root/layout/components/Footer.js:51
 msgid "Last replication packet received at {datetime}"
 msgstr "Laatste replicatiepakket ontvangen op {datetime}"
 
@@ -4222,11 +4049,6 @@ msgstr "Links:"
 msgid "Lists:"
 msgstr "Lijsten:"
 
-#: ../root/layout/header/bottom.tt:84
-#: ../root/layout/components/BottomMenu.js:141
-msgid "Live Data Feed"
-msgstr "Live gegevensfeed"
-
 #: ../root/release/edit/editnote.tt:15
 msgid "Loading edit previews..."
 msgstr "Voorvertoningen van de bewerkingen worden geladen …"
@@ -4272,15 +4094,10 @@ msgstr "Locatieredacteurs zijn gebruikers die {uri|gebieden} kunnen toevoegen of
 msgid "Location:"
 msgstr "Locatie:"
 
-#: ../root/layout/header/top.tt:86 ../root/user/login.tt:1
-#: ../root/user/login.tt:3 ../root/user/login.tt:34
-#: ../root/layout/components/TopMenu.js:120
+#: ../root/user/login.tt:1 ../root/user/login.tt:3 ../root/user/login.tt:34
+#: ../root/layout/components/TopMenu.js:136
 msgid "Log In"
 msgstr "Aanmelden"
-
-#: ../root/layout/header/top.tt:17 ../root/layout/components/TopMenu.js:32
-msgid "Log Out"
-msgstr "Afmelden"
 
 #: ../root/components/common-macros.tt:530
 msgid "Log in"
@@ -4355,8 +4172,7 @@ msgstr "MBID:"
 msgid "MM"
 msgstr "MM"
 
-#: ../root/layout/header/bottom.tt:63 ../root/main/index.tt:71
-#: ../root/layout/components/BottomMenu.js:120
+#: ../root/main/index.tt:71 ../root/layout/components/BottomMenu.js:142
 msgid "Magic MP3 Tagger"
 msgstr "Magic MP3 Tagger"
 
@@ -4626,20 +4442,13 @@ msgstr "MusicBrainz – De open muziekencyclopedie"
 msgid "MusicBrainz Blog"
 msgstr "Weblog van MusicBrainz"
 
-#: ../root/layout/header/bottom.tt:75 ../root/main/index.tt:100
-#: ../root/layout/components/BottomMenu.js:132
+#: ../root/main/index.tt:100 ../root/layout/components/BottomMenu.js:154
 msgid "MusicBrainz Database"
 msgstr "Onze database"
 
-#: ../root/layout/header/bottom.tt:60 ../root/main/index.tt:70
-#: ../root/layout/components/BottomMenu.js:117
+#: ../root/main/index.tt:70 ../root/layout/components/BottomMenu.js:139
 msgid "MusicBrainz Picard"
 msgstr "MusicBrainz Picard"
-
-#: ../root/layout/header/bottom.tt:72
-#: ../root/layout/components/BottomMenu.js:129
-msgid "MusicBrainz Server"
-msgstr "MusicBrainz-server"
 
 #: ../root/main/index.tt:10
 msgid "MusicBrainz aims to be:"
@@ -4655,11 +4464,6 @@ msgstr "MusicBrainz hecht veel waarde aan de privacy van haar gebruikers! Persoo
 #: ../root/cdtoc/lookup.tt:84
 msgid "MusicBrainz does not have any CDs with the TOC:"
 msgstr "MusicBrainz heeft geen cd’s met de TOC:"
-
-#: ../root/layout/header/bottom.tt:69
-#: ../root/layout/components/BottomMenu.js:126
-msgid "MusicBrainz for Android"
-msgstr "MusicBrainz voor Android"
 
 #: ../root/account/register.tt:59
 msgid ""
@@ -4679,26 +4483,6 @@ msgid ""
 "based 501(c)(3) tax-exempt non-profit corporation dedicated to keeping "
 "MusicBrainz {free|free and open source}."
 msgstr "MusicBrainz wordt beheerd door de {uri|MetaBrainz Foundation}, een in Californië gevestigde stichting zonder winstoogmerk die MusicBrainz {free|gratis en open} probeert te houden."
-
-#: ../root/layout/header/top.tt:25 ../root/layout/components/TopMenu.js:46
-msgid "My Collections"
-msgstr "Mijn collecties"
-
-#: ../root/layout/header/top.tt:22 ../root/layout/components/TopMenu.js:43
-msgid "My Data"
-msgstr "Mijn gegevens"
-
-#: ../root/layout/header/top.tt:34 ../root/layout/components/TopMenu.js:55
-msgid "My Open Edits"
-msgstr "Mijn open bewerkingen"
-
-#: ../root/layout/header/top.tt:28 ../root/layout/components/TopMenu.js:49
-msgid "My Ratings"
-msgstr "Mijn waarderingen"
-
-#: ../root/layout/header/top.tt:31 ../root/layout/components/TopMenu.js:52
-msgid "My Tags"
-msgstr "Mijn etiketten"
 
 #: ../root/edit/index.tt:26
 msgid "My vote:"
@@ -5105,10 +4889,6 @@ msgid ""
 "which reorder relationships."
 msgstr "Let op: er wordt nu alleen gezocht naar bewerkingen die relaties toevoegen of bewerken en gecreëerd zijn na 16 mei 2011, of die relaties verwijderen en gecreëerd zijn na 8 juli 2013, of die de volgorde van relaties veranderen."
 
-#: ../root/layout/header/top.tt:46 ../root/layout/components/TopMenu.js:67
-msgid "Notes Left on My Edits"
-msgstr "Notities bij mijn bewerkingen"
-
 #: ../root/account/preferences.tt:35
 msgid "Notify me by email on new releases to my watched artists"
 msgstr "Stuur mij een e-mail bij nieuwe uitgaves van artiesten die ik volg"
@@ -5400,7 +5180,7 @@ msgstr "Zin:"
 #: ../root/edit/search_macros.tt:360 ../root/place/merge.tt:11
 #: ../root/report/place_list.tt:7 ../lib/MusicBrainz/Server/Edit/Place.pm:8
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:42
-#: ../root/layout/components/Search.js:20 ../root/place/PlaceHeader.js:25
+#: ../root/layout/components/Search.js:32 ../root/place/PlaceHeader.js:25
 #: ../root/static/scripts/common/i18n.js:58
 msgid "Place"
 msgstr "Plaats"
@@ -5629,11 +5409,6 @@ msgstr "Prioriteit:"
 msgid "Privacy"
 msgstr "Privacy"
 
-#: ../root/layout/header/bottom.tt:40
-#: ../root/layout/components/BottomMenu.js:94
-msgid "Privacy Policy"
-msgstr "Privacybeleid"
-
 #: ../root/user/collections.tt:62
 msgid "Private"
 msgstr "Privé"
@@ -5642,8 +5417,8 @@ msgstr "Privé"
 msgid "Private collection"
 msgstr "Privécollectie"
 
-#: ../root/layout/header/bottom.tt:46 ../root/user/privileged.tt:14
-#: ../root/user/privileged.tt:16 ../root/layout/components/BottomMenu.js:100
+#: ../root/user/privileged.tt:14 ../root/user/privileged.tt:16
+#: ../root/layout/components/BottomMenu.js:122
 msgid "Privileged User Accounts"
 msgstr "Geprivilegieerde gebruikers"
 
@@ -5651,13 +5426,7 @@ msgstr "Geprivilegieerde gebruikers"
 msgid "Processing your request took too long and timed out."
 msgstr "Het verwerken van je verzoek duurde te lang en is afgebroken."
 
-#: ../root/layout/header/bottom.tt:57
-#: ../root/layout/components/BottomMenu.js:114
-msgid "Products"
-msgstr "Producten"
-
-#: ../root/layout/header/top.tt:8 ../root/user/profile/layout.tt:10
-#: ../root/layout/components/TopMenu.js:21
+#: ../root/user/profile/layout.tt:10 ../root/layout/components/TopMenu.js:29
 msgid "Profile"
 msgstr "Profiel"
 
@@ -5739,7 +5508,7 @@ msgstr "Recente notities bij mijn bewerkingen"
 #: ../root/report/recording_list.tt:8
 #: ../lib/MusicBrainz/Server/Edit/Recording.pm:7
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:38
-#: ../root/layout/components/Search.js:16
+#: ../root/layout/components/Search.js:22
 #: ../root/static/scripts/common/i18n.js:59
 msgid "Recording"
 msgstr "Opname"
@@ -5936,9 +5705,9 @@ msgstr "Relatietype"
 msgid "Relationship Type In Use"
 msgstr "Relatietype in gebruik"
 
-#: ../root/doc/relationship_type.tt:4 ../root/layout/header/bottom.tt:175
-#: ../root/relationship/header.tt:1 ../root/relationship/linktype/index.tt:1
-#: ../root/layout/components/BottomMenu.js:240
+#: ../root/doc/relationship_type.tt:4 ../root/relationship/header.tt:1
+#: ../root/relationship/linktype/index.tt:1
+#: ../root/layout/components/BottomMenu.js:263
 msgid "Relationship Types"
 msgstr "Relatietypes"
 
@@ -6008,7 +5777,7 @@ msgstr "Relaties:"
 #: ../root/search/lib/inline-results-recording.tt:12
 #: ../lib/MusicBrainz/Server/Edit/Release.pm:8
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:37
-#: ../root/layout/components/Search.js:15
+#: ../root/layout/components/Search.js:23
 #: ../root/static/scripts/common/i18n.js:60
 msgid "Release"
 msgstr "Uitgave"
@@ -6037,7 +5806,7 @@ msgstr "Uitgavegebeurtenissen:"
 #: ../root/release/index.tt:57 ../root/report/release_group_list.tt:8
 #: ../root/search/results-release_group.tt:8
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:36
-#: ../root/layout/components/Search.js:14
+#: ../root/layout/components/Search.js:24
 msgid "Release Group"
 msgstr "Uitgavegroep"
 
@@ -6592,8 +6361,8 @@ msgstr "Gebruiker rapporteren"
 msgid "Report this user for bad behavior"
 msgstr "Deze gebruiker rapporteren voor slecht gedrag"
 
-#: ../root/layout/header/bottom.tt:148 ../root/report/index.tt:1
-#: ../root/report/index.tt:3 ../root/layout/components/BottomMenu.js:211
+#: ../root/report/index.tt:1 ../root/report/index.tt:3
+#: ../root/layout/components/BottomMenu.js:234
 msgid "Reports"
 msgstr "Rapporten"
 
@@ -6675,7 +6444,7 @@ msgstr "Toegang voor applicatie intrekken"
 msgid "Role"
 msgstr "Rol"
 
-#: ../root/layout.tt:127
+#: ../root/layout.tt:120
 msgid "Running: <span class=\"tooltip\" title=\"{msg}\">{branch} ({sha})</span>"
 msgstr "Draait <span class=\"tooltip\" title=\"{msg}\">{branch} ({sha})</span>"
 
@@ -6721,29 +6490,18 @@ msgstr "Schrift:"
 #: ../root/components/search.tt:11 ../root/edit/search_macros.tt:102
 #: ../root/edit/search_macros.tt:237 ../root/edit/search_macros.tt:252
 #: ../root/edit/search_macros.tt:299 ../root/edit/search_macros.tt:327
-#: ../root/label/edit_form.tt:21 ../root/layout/header/bottom.tt:92
-#: ../root/layout/header/top.tt:95 ../root/otherlookup/form.tt:20
+#: ../root/label/edit_form.tt:21 ../root/otherlookup/form.tt:20
 #: ../root/place/edit_form.tt:22 ../root/relationship/linktype/form.tt:118
 #: ../root/release/edit/information.tt:45
 #: ../root/release/edit/information.tt:182
 #: ../root/release/edit/recordings.tt:144 ../root/release/edit/tracklist.tt:87
 #: ../root/search/form.tt:42 ../root/search/index.tt:1
 #: ../root/search/index.tt:3 ../root/taglookup/form.tt:12
-#: ../root/layout/components/BottomMenu.js:152
-#: ../root/layout/components/Search.js:44
+#: ../root/layout/components/BottomMenu.js:174
+#: ../root/layout/components/Search.js:79
 #: ../root/static/scripts/common/components/Autocomplete.js:69
 msgid "Search"
 msgstr "Zoeken"
-
-#: ../root/layout/header/bottom.tt:99
-#: ../root/layout/components/BottomMenu.js:159
-msgid "Search Edits"
-msgstr "Bewerkingen zoeken"
-
-#: ../root/layout/header/bottom.tt:95
-#: ../root/layout/components/BottomMenu.js:155
-msgid "Search Entities"
-msgstr "Objecten zoeken"
 
 #: ../root/search/error/wrapper.tt:1 ../root/search/error/wrapper.tt:2
 msgid "Search Error"
@@ -6974,7 +6732,7 @@ msgstr "Series"
 #: ../root/edit/search_macros.tt:360 ../root/series/merge.tt:12
 #: ../lib/MusicBrainz/Server/Edit/Series.pm:7
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:48
-#: ../root/layout/components/Search.js:26 ../root/series/SeriesHeader.js:24
+#: ../root/layout/components/Search.js:25 ../root/series/SeriesHeader.js:24
 #: ../root/static/scripts/common/i18n.js:62
 msgctxt "singular"
 msgid "Series"
@@ -7156,11 +6914,6 @@ msgstr "Soortgelijke uitgaves"
 msgid "Skip verification"
 msgstr "Verificatie overslaan"
 
-#: ../root/layout/header/bottom.tt:34
-#: ../root/layout/components/BottomMenu.js:88
-msgid "Social Contract"
-msgstr "Sociaal contract"
-
 #: ../root/account/applications.tt:18
 msgid ""
 "Some applications and websites support accessing private data from or "
@@ -7268,11 +7021,6 @@ msgstr "In aparte artiesten splitsen"
 msgid "Split into separate artists"
 msgstr "In aparte artiesten splitsen"
 
-#: ../root/layout/header/bottom.tt:22
-#: ../root/layout/components/BottomMenu.js:76
-msgid "Sponsors"
-msgstr "Sponsors"
-
 #: ../root/main/info/error.tt:13
 msgid "Stack trace:"
 msgstr "Stacktrace:"
@@ -7285,8 +7033,7 @@ msgstr "Begin"
 msgid "Start Date:"
 msgstr "Begindatum:"
 
-#: ../root/layout/header/bottom.tt:49 ../root/user/profile.tt:166
-#: ../root/layout/components/BottomMenu.js:103
+#: ../root/user/profile.tt:166 ../root/layout/components/BottomMenu.js:125
 msgid "Statistics"
 msgstr "Statistieken"
 
@@ -7322,18 +7069,13 @@ msgctxt "release status"
 msgid "Status:"
 msgstr "Status:"
 
-#: ../root/layout.tt:123 ../root/layout/components/Footer.js:34
+#: ../root/layout.tt:116 ../root/layout/components/Footer.js:34
 msgid "Stop using beta site"
 msgstr "Bètasite niet meer gebruiken"
 
 #: ../root/watch/list.tt:28
 msgid "Stop watching selected artists"
 msgstr "Stop met het volgen van de geselecteerde artiesten."
-
-#: ../root/layout/header/bottom.tt:160
-#: ../root/layout/components/BottomMenu.js:225
-msgid "Style Guidelines"
-msgstr "Stijlgids"
 
 #: ../root/edit/list_header.tt:32 ../root/main/index.tt:81
 msgid "Style guidelines"
@@ -7401,9 +7143,9 @@ msgstr "Abonnees"
 msgid "Subscribers:"
 msgstr "Abonnees:"
 
-#: ../root/collection/layout.tt:30 ../root/layout/header/top.tt:14
+#: ../root/collection/layout.tt:30
 #: ../root/layout/sidebar/shared-entity-sidebar.tt:76
-#: ../root/user/profile/layout.tt:15 ../root/layout/components/TopMenu.js:28
+#: ../root/user/profile/layout.tt:15 ../root/layout/components/TopMenu.js:36
 msgid "Subscriptions"
 msgstr "Abonnementen"
 
@@ -7461,18 +7203,13 @@ msgid "Tagger"
 msgstr "Tagger"
 
 #: ../root/components/entity-tabs.tt:51 ../root/components/tags.tt:5
-#: ../root/entity/tags.tt:1 ../root/layout/header/bottom.tt:103
-#: ../root/layout/sidebar/sidebar-tags.tt:12 ../root/tag/cloud.tt:1
-#: ../root/tag/cloud.tt:4 ../root/user/profile/layout.tt:26
-#: ../root/user/tags.tt:1 ../root/components/EntityTabs.js:74
-#: ../root/layout/components/BottomMenu.js:162
+#: ../root/entity/tags.tt:1 ../root/layout/sidebar/sidebar-tags.tt:12
+#: ../root/tag/cloud.tt:1 ../root/tag/cloud.tt:4
+#: ../root/user/profile/layout.tt:26 ../root/user/tags.tt:1
+#: ../root/components/EntityTabs.js:74
+#: ../root/layout/components/BottomMenu.js:185
 msgid "Tags"
 msgstr "Etiketten"
-
-#: ../root/layout/header/bottom.tt:25
-#: ../root/layout/components/BottomMenu.js:79
-msgid "Team"
-msgstr "Team"
 
 #: ../root/main/400.tt:20 ../root/main/timeout.tt:9
 msgid "Technical Information"
@@ -7553,7 +7290,7 @@ msgid ""
 "and may not display correctly"
 msgstr "De gegevens in deze bewerking komen oorspronkelijk uit een oudere versie van deze bewerking, en worden mogelijk niet correct weergegeven."
 
-#: ../root/layout.tt:94 ../root/layout/index.js:98
+#: ../root/layout.tt:87 ../root/layout/index.js:98
 msgid ""
 "The data you have submitted does not make any changes to the data already "
 "present."
@@ -7674,7 +7411,7 @@ msgid ""
 "This is usually only temporary, so please retry your search again later."
 msgstr "De zoekserver kon je verzoek door een interne fout niet uitvoeren. Dit probleem is meestal tijdelijk, dus probeer het later opnieuw."
 
-#: ../root/layout.tt:75 ../root/layout/index.js:81
+#: ../root/layout.tt:68 ../root/layout/index.js:81
 msgid "The server is temporarily in read-only mode for database maintenance."
 msgstr "De server is tijdelijk in alleenlezenmodus vanwege onderhoud aan de database."
 
@@ -7931,7 +7668,7 @@ msgstr "Deze artiest heeft alleen onofficiële uitgavegroepen."
 msgid "This attribute type is only used for grouping, please select a subtype"
 msgstr "Deze eigenschap wordt alleen gebruikt om te groeperen, gebruik een subtype."
 
-#: ../root/layout.tt:41 ../root/layout/index.js:29
+#: ../root/layout.tt:34 ../root/layout/index.js:29
 msgid ""
 "This beta test server allows testing of new features with the live database."
 msgstr "Op deze bètaserver kunnen gebruikers nieuwe mogelijkheden testen met de productiedatabase."
@@ -8082,11 +7819,11 @@ msgid ""
 "attributed to it."
 msgstr "Dit instrument kan niet worden verwijderd omdat er nog steeds relaties aan gekoppeld zijn."
 
-#: ../root/layout.tt:41 ../root/layout/index.js:31
+#: ../root/layout.tt:34 ../root/layout/index.js:31
 msgid "This is a MusicBrainz development server."
 msgstr "Dit is een MusicBrainz-server voor ontwikkeling."
 
-#: ../root/layout.tt:58 ../root/layout/index.js:52
+#: ../root/layout.tt:51 ../root/layout/index.js:52
 msgid ""
 "This is a MusicBrainz mirror server. To edit or make changes to the data, "
 "please {uri|return to musicbrainz.org}."
@@ -8899,11 +8636,6 @@ msgstr "Duur"
 msgid "Time:"
 msgstr "Tijd:"
 
-#: ../root/layout/header/bottom.tt:52
-#: ../root/layout/components/BottomMenu.js:106
-msgid "Timeline Graph"
-msgstr "Tijdslijn"
-
 #: ../root/account/preferences.tt:16
 msgid "Timezone:"
 msgstr "Tijdzone:"
@@ -8964,8 +8696,7 @@ msgid "To:"
 msgstr "Naar:"
 
 #: ../root/cdstub/browse.tt:2 ../root/cdstub/browse.tt:3
-#: ../root/layout/header/bottom.tt:106
-#: ../root/layout/components/BottomMenu.js:165
+#: ../root/layout/components/BottomMenu.js:188
 msgid "Top CD Stubs"
 msgstr "Populaire cd-beginsels"
 
@@ -9185,10 +8916,6 @@ msgstr "Nummers met de positie in de titel"
 msgid "Tracks:"
 msgstr "Nummers:"
 
-#: ../root/layout/header/top.tt:69 ../root/layout/components/TopMenu.js:93
-msgid "Transclude WikiDocs"
-msgstr "Transcludeer WikiDocs"
-
 #: ../root/admin/wikidoc/index.tt:33
 msgid "Transcluded version"
 msgstr "Getranscludeerde versie"
@@ -9220,7 +8947,7 @@ msgstr "Vertaalde of getranslitereerde pseudo-uitgaves die niet aan de originele
 msgid "Turkish"
 msgstr "Turks"
 
-#: ../root/layout.tt:121 ../root/layout/components/Footer.js:29
+#: ../root/layout.tt:114 ../root/layout/components/Footer.js:29
 msgid "Twitter"
 msgstr "Twitter"
 
@@ -9425,7 +9152,7 @@ msgstr "Afbeelding aan het uploaden"
 msgid "Uppercase roman numerals"
 msgstr "Zet Romeinse cijfers in bovenkast"
 
-#: ../root/layout.tt:123 ../root/layout/components/Footer.js:34
+#: ../root/layout.tt:116 ../root/layout/components/Footer.js:34
 msgid "Use beta site"
 msgstr "Bètasite gebruiken"
 
@@ -9560,11 +9287,6 @@ msgstr "Deze versie bekijken"
 #: ../root/admin/wikidoc/index.tt:12
 msgid "View transclusion history"
 msgstr "Transclusiegeschiedenis bekijken"
-
-#: ../root/layout/header/bottom.tt:145
-#: ../root/layout/components/BottomMenu.js:208
-msgid "Vote on Edits"
-msgstr "Op bewerkingen stemmen"
 
 #: ../root/edit/search_macros.tt:360
 msgid "Vote tally"
@@ -9730,7 +9452,7 @@ msgid ""
 "and following the merge link."
 msgstr "Klik op de knop “Samenvoegen” als je klaar bent om deze objecten samen te voegen. Je kan ook nog meer aan deze lijst samen te voegen objecten toevoegen door naar de pagina van het object te gaan en de link samenvoegen te volgen."
 
-#: ../root/layout.tt:117 ../root/layout/components/Footer.js:21
+#: ../root/layout.tt:110 ../root/layout/components/Footer.js:21
 msgid "Wiki"
 msgstr "Wiki"
 
@@ -9751,7 +9473,7 @@ msgstr "WikiDoc:"
 #: ../root/report/work_list.tt:7 ../root/work/merge.tt:11
 #: ../lib/MusicBrainz/Server/Edit/Work.pm:8
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:39
-#: ../root/layout/components/Search.js:17
+#: ../root/layout/components/Search.js:26
 #: ../root/static/scripts/common/i18n.js:64 ../root/work/WorkHeader.js:25
 msgid "Work"
 msgstr "Compositie"
@@ -9824,11 +9546,6 @@ msgstr "Composities met mogelijk dubbele relaties"
 msgid "Writers"
 msgstr "Auteurs"
 
-#: ../root/layout/header/bottom.tt:81
-#: ../root/layout/components/BottomMenu.js:138
-msgid "XML Web Service"
-msgstr "XML-webdienst"
-
 #: ../root/entity/details.tt:28
 msgid "XML:"
 msgstr "XML:"
@@ -9839,8 +9556,7 @@ msgstr "XML:"
 msgid "YYYY"
 msgstr "JJJJ"
 
-#: ../root/layout/header/bottom.tt:66 ../root/main/index.tt:72
-#: ../root/layout/components/BottomMenu.js:123
+#: ../root/main/index.tt:72 ../root/layout/components/BottomMenu.js:145
 msgid "Yate Music Tagger"
 msgstr "Yate Music Tagger"
 
@@ -10215,7 +9931,7 @@ msgstr "Je zoekopdracht duurde te lang en werd geannuleerd. Het kan helpen om sp
 msgid "Your username will be publicly visible."
 msgstr "Je gebruikersnaam zal publiekelijk zichtbaar zijn."
 
-#: ../root/layout.tt:30
+#: ../root/layout.tt:23
 msgid ""
 "You’re currently not allowed to edit or vote because an admin has revoked "
 "your privileges. If you haven’t already been contacted about why, please "
@@ -10792,7 +10508,7 @@ msgstr[1] "{entitiy} is aan {num} collecties toegevoegd:"
 msgid "{entity} has not been added to any collections."
 msgstr "{entity} is nog niet aan een collectie toegevoegd."
 
-#: ../root/layout.tt:85 ../root/layout/index.js:90
+#: ../root/layout.tt:78 ../root/layout/index.js:90
 msgid ""
 "{link|New notes} have been left on some of your edits. Please make sure to "
 "read them and respond if necessary."
@@ -11008,7 +10724,7 @@ msgstr "{type} ‘{instrument}’"
 msgid "{type} “{work}”"
 msgstr "{type} ‘{work}’"
 
-#: ../root/layout.tt:49 ../root/layout/index.js:39
+#: ../root/layout.tt:42 ../root/layout/index.js:39
 msgid "{uri|Return to musicbrainz.org}."
 msgstr "{uri|Keer terug naar musicbrainz.org}."
 
@@ -12263,10 +11979,16 @@ msgid "You must provide an edit note"
 msgstr "Je moet een opmerking toevoegen"
 
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:46
-#: ../root/layout/components/Search.js:24
+#: ../root/layout/components/Search.js:36
 msgctxt "noun"
 msgid "Tag"
 msgstr "Etiket"
+
+#: ../lib/MusicBrainz/Server/Form/Search/Search.pm:52
+#: ../root/layout/components/BottomMenu.js:242
+#: ../root/layout/components/Search.js:45
+msgid "Documentation"
+msgstr "Documentatie"
 
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:61
 msgid "Indexed search with advanced query syntax"
@@ -12811,6 +12533,11 @@ msgstr "Onze excuses, we konden geen evenement vinden met die MBID. Je kan ook p
 msgid "instrument"
 msgstr "instrument"
 
+#: ../root/instrument/List.js:51 ../root/instrument/List.js:53
+#: ../root/layout/components/BottomMenu.js:266
+msgid "Instrument List"
+msgstr "Instrumentenlijst"
+
 #: ../root/instrument/NotFound.js:15
 msgid "Instrument Not Found"
 msgstr "Instrument niet gevonden"
@@ -12861,15 +12588,171 @@ msgid ""
 "try and {search_url|search for it} instead."
 msgstr "Onze excuses, we konden geen platenmaatschappij vinden met die MBID. Je kan ook proberen om {search_url|ernaar te zoeken}."
 
-#: ../root/layout/components/ExternalLinks.js:77
+#: ../root/layout/components/BottomMenu.js:78
+msgid "(reset language)"
+msgstr "(taal terugzetten)"
+
+#: ../root/layout/components/BottomMenu.js:83
+msgid "Help Translate"
+msgstr "Help mee vertalen"
+
+#: ../root/layout/components/BottomMenu.js:92
+msgid "About Us"
+msgstr "Over ons"
+
+#: ../root/layout/components/BottomMenu.js:95
+msgid "About MusicBrainz"
+msgstr "Over MusicBrainz"
+
+#: ../root/layout/components/BottomMenu.js:98
+msgid "Sponsors"
+msgstr "Sponsors"
+
+#: ../root/layout/components/BottomMenu.js:101
+msgid "Team"
+msgstr "Team"
+
+#: ../root/layout/components/BottomMenu.js:104
+msgid "Contact Us"
+msgstr "Contact"
+
+#: ../root/layout/components/BottomMenu.js:107
+msgid "Data Licenses"
+msgstr "Gegevenslicenties"
+
+#: ../root/layout/components/BottomMenu.js:110
+msgid "Social Contract"
+msgstr "Sociaal contract"
+
+#: ../root/layout/components/BottomMenu.js:113
+msgid "Code of Conduct"
+msgstr "Gedragscode"
+
+#: ../root/layout/components/BottomMenu.js:116
+msgid "Privacy Policy"
+msgstr "Privacybeleid"
+
+#: ../root/layout/components/BottomMenu.js:119
+msgid "Auto-editor Elections"
+msgstr "Autoredacteurverkiezingen"
+
+#: ../root/layout/components/BottomMenu.js:128
+msgid "Timeline Graph"
+msgstr "Tijdslijn"
+
+#: ../root/layout/components/BottomMenu.js:136
+msgid "Products"
+msgstr "Producten"
+
+#: ../root/layout/components/BottomMenu.js:148
+msgid "MusicBrainz for Android"
+msgstr "MusicBrainz voor Android"
+
+#: ../root/layout/components/BottomMenu.js:151
+msgid "MusicBrainz Server"
+msgstr "MusicBrainz-server"
+
+#: ../root/layout/components/BottomMenu.js:157
+msgid "Developer Resources"
+msgstr "Hulpmiddelen voor ontwikkelaars"
+
+#: ../root/layout/components/BottomMenu.js:160
+msgid "XML Web Service"
+msgstr "XML-webdienst"
+
+#: ../root/layout/components/BottomMenu.js:163
+msgid "Live Data Feed"
+msgstr "Live gegevensfeed"
+
+#: ../root/layout/components/BottomMenu.js:166
+msgid "FreeDB Gateway"
+msgstr "FreeDB-toegang"
+
+#: ../root/layout/components/BottomMenu.js:177
+msgid "Search Entities"
+msgstr "Objecten zoeken"
+
+#: ../root/layout/components/BottomMenu.js:181
+msgid "Search Edits"
+msgstr "Bewerkingen zoeken"
+
+#: ../root/layout/components/BottomMenu.js:199
+msgctxt "button/menu"
+msgid "Add Artist"
+msgstr "Artiest toevoegen"
+
+#: ../root/layout/components/BottomMenu.js:205
+msgctxt "button/menu"
+msgid "Add Release Group"
+msgstr "Uitgavegroep toevoegen"
+
+#: ../root/layout/components/BottomMenu.js:208
+msgctxt "button/menu"
+msgid "Add Release"
+msgstr "Uitgave toevoegen"
+
+#: ../root/layout/components/BottomMenu.js:212
+msgid "Add Various Artists Release"
+msgstr "Uitgave van diverse artiesten toevoegen"
+
+#: ../root/layout/components/BottomMenu.js:216
+msgctxt "button/menu"
+msgid "Add Standalone Recording"
+msgstr "Opname zonder uitgave toevoegen"
+
+#: ../root/layout/components/BottomMenu.js:219
+msgctxt "button/menu"
+msgid "Add Work"
+msgstr "Compositie toevoegen"
+
+#: ../root/layout/components/BottomMenu.js:222
+msgctxt "button/menu"
+msgid "Add Place"
+msgstr "Plaats toevoegen"
+
+#: ../root/layout/components/BottomMenu.js:225
+msgctxt "button/menu"
+msgid "Add Series"
+msgstr "Serie toevoegen"
+
+#: ../root/layout/components/BottomMenu.js:228
+msgctxt "button/menu"
+msgid "Add Event"
+msgstr "Evenement toevoegen"
+
+#: ../root/layout/components/BottomMenu.js:231
+msgid "Vote on Edits"
+msgstr "Op bewerkingen stemmen"
+
+#: ../root/layout/components/BottomMenu.js:245
+msgid "Beginners Guide"
+msgstr "Handleiding voor beginners"
+
+#: ../root/layout/components/BottomMenu.js:248
+msgid "Style Guidelines"
+msgstr "Stijlgids"
+
+#: ../root/layout/components/BottomMenu.js:251
+msgid "How Tos"
+msgstr "Korte handleidingen"
+
+#: ../root/layout/components/BottomMenu.js:257
+msgid "Documentation Index"
+msgstr "Alle documentatie"
+
+#: ../root/layout/components/BottomMenu.js:269
+msgid "Development"
+msgstr "Ontwikkeling"
+
+#: ../root/layout/components/ExternalLinks.js:78
 msgid "Official homepage"
 msgstr "Officiële website"
 
-#: ../root/layout/components/ExternalLinks.js:102
+#: ../root/layout/components/ExternalLinks.js:106
 msgid "External links"
 msgstr "Externe websites"
 
-#: ../root/layout/components/ExternalLinks.js:109
+#: ../root/layout/components/ExternalLinks.js:113
 msgid "View all relationships"
 msgstr "Alle relaties bekijken"
 
@@ -12912,6 +12795,72 @@ msgstr "Platenmaatschappijen:"
 #: ../root/layout/components/MetaDescription.js:153
 msgid "Writers:"
 msgstr "Auteurs:"
+
+#: ../root/layout/components/TopMenu.js:40
+msgid "Log Out"
+msgstr "Afmelden"
+
+#: ../root/layout/components/TopMenu.js:51
+msgid "My Data"
+msgstr "Mijn gegevens"
+
+#: ../root/layout/components/TopMenu.js:54
+msgid "My Collections"
+msgstr "Mijn collecties"
+
+#: ../root/layout/components/TopMenu.js:57
+msgid "My Ratings"
+msgstr "Mijn waarderingen"
+
+#: ../root/layout/components/TopMenu.js:60
+msgid "My Tags"
+msgstr "Mijn etiketten"
+
+#: ../root/layout/components/TopMenu.js:63
+msgid "My Open Edits"
+msgstr "Mijn open bewerkingen"
+
+#: ../root/layout/components/TopMenu.js:66
+msgid "All My Edits"
+msgstr "Al mijn bewerkingen"
+
+#: ../root/layout/components/TopMenu.js:69
+msgid "Edits for Subscribed Entities"
+msgstr "Bewerkingen van objecten waar ik op geabonneerd ben"
+
+#: ../root/layout/components/TopMenu.js:72
+msgid "Edits by Subscribed Editors"
+msgstr "Bewerkingen door redacteurs waar ik op geabonneerd ben"
+
+#: ../root/layout/components/TopMenu.js:75
+msgid "Notes Left on My Edits"
+msgstr "Notities bij mijn bewerkingen"
+
+#: ../root/layout/components/TopMenu.js:84
+msgid "Admin"
+msgstr "Beheerder"
+
+#: ../root/layout/components/TopMenu.js:88
+msgctxt "button/menu"
+msgid "Add Area"
+msgstr "Gebied toevoegen"
+
+#: ../root/layout/components/TopMenu.js:95
+msgctxt "button/menu"
+msgid "Add Instrument"
+msgstr "Instrument toevoegen"
+
+#: ../root/layout/components/TopMenu.js:98
+msgid "Edit Relationship Types"
+msgstr "Relatietypes bewerken"
+
+#: ../root/layout/components/TopMenu.js:105
+msgid "Transclude WikiDocs"
+msgstr "Transcludeer WikiDocs"
+
+#: ../root/layout/components/TopMenu.js:117
+msgid "Edit Attributes"
+msgstr "Eigenschappen bewerken"
 
 #: ../root/layout/components/sidebar/SidebarRating.js:31
 msgid "see all ratings"

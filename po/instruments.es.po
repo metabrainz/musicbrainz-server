@@ -16,7 +16,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2018-04-05 04:39+0000\n"
+"PO-Revision-Date: 2018-04-18 13:36+0000\n"
 "Last-Translator: yvanz\n"
 "Language-Team: Spanish (http://www.transifex.com/musicbrainz/musicbrainz/language/es/)\n"
 "MIME-Version: 1.0\n"
@@ -268,7 +268,7 @@ msgid "Xaphoon"
 msgstr "Saxo de Bambú"
 
 #: DB:instrument/name:778
-msgctxt "a type of harmonica/accordion hybrid"
+msgctxt "harmonica/accordion hybrid"
 msgid "accordina"
 msgstr ""
 
@@ -1384,6 +1384,7 @@ msgid "flugelhorn"
 msgstr ""
 
 #: DB:instrument/name:742
+msgctxt "Hybrid between trumpet and flugelhorn"
 msgid "flumpet"
 msgstr ""
 
@@ -2066,6 +2067,7 @@ msgid "lithophone"
 msgstr ""
 
 #: DB:instrument/name:609
+msgctxt "Small pearshaped chinese lute"
 msgid "liuqin"
 msgstr ""
 
@@ -2462,6 +2464,7 @@ msgid "piccolo trumpet"
 msgstr ""
 
 #: DB:instrument/name:350
+msgctxt "Pearshaped chinese lute"
 msgid "pipa"
 msgstr ""
 
@@ -2652,6 +2655,11 @@ msgstr "órgano de lengüeta"
 
 #: DB:instrument/name:179
 msgid "reeds"
+msgstr ""
+
+#: DB:instrument/name:918
+msgctxt "Portable bellowed reed organ"
+msgid "regal"
 msgstr ""
 
 #: DB:instrument/name:784
@@ -3230,8 +3238,9 @@ msgid "theatre organ"
 msgstr ""
 
 #: DB:instrument/name:395
+msgctxt "Extended necked many-stringed lute"
 msgid "theorbo"
-msgstr "tiorba"
+msgstr ""
 
 #: DB:instrument/name:126
 msgid "theremin"
@@ -3718,6 +3727,7 @@ msgid "yu"
 msgstr ""
 
 #: DB:instrument/name:240
+msgctxt "Traditional Chinese lute"
 msgid "yueqin"
 msgstr ""
 

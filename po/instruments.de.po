@@ -14,7 +14,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2018-04-05 04:39+0000\n"
+"PO-Revision-Date: 2018-04-18 13:36+0000\n"
 "Last-Translator: yvanz\n"
 "Language-Team: German (http://www.transifex.com/musicbrainz/musicbrainz/language/de/)\n"
 "MIME-Version: 1.0\n"
@@ -266,9 +266,9 @@ msgid "Xaphoon"
 msgstr "Xaphoon"
 
 #: DB:instrument/name:778
-msgctxt "a type of harmonica/accordion hybrid"
+msgctxt "harmonica/accordion hybrid"
 msgid "accordina"
-msgstr "Accordina"
+msgstr ""
 
 #: DB:instrument/name:41
 msgid "accordion"
@@ -1382,8 +1382,9 @@ msgid "flugelhorn"
 msgstr "Flügelhorn"
 
 #: DB:instrument/name:742
+msgctxt "Hybrid between trumpet and flugelhorn"
 msgid "flumpet"
-msgstr "Flumpet"
+msgstr ""
 
 #: DB:instrument/name:13
 msgid "flute"
@@ -2064,8 +2065,9 @@ msgid "lithophone"
 msgstr "Lithophon"
 
 #: DB:instrument/name:609
+msgctxt "Small pearshaped chinese lute"
 msgid "liuqin"
-msgstr "Liuqin"
+msgstr ""
 
 #: DB:instrument/name:398
 msgid "low whistle"
@@ -2460,8 +2462,9 @@ msgid "piccolo trumpet"
 msgstr "Piccolotrompete"
 
 #: DB:instrument/name:350
+msgctxt "Pearshaped chinese lute"
 msgid "pipa"
-msgstr "Pipa"
+msgstr ""
 
 #: DB:instrument/name:807
 msgctxt "pair of flute and drum, each played by one hand"
@@ -2651,6 +2654,11 @@ msgstr "Harmonium"
 #: DB:instrument/name:179
 msgid "reeds"
 msgstr "Rohrblattinstrumente"
+
+#: DB:instrument/name:918
+msgctxt "Portable bellowed reed organ"
+msgid "regal"
+msgstr ""
 
 #: DB:instrument/name:784
 msgctxt "Māori taonga pūoro long flute"
@@ -3228,8 +3236,9 @@ msgid "theatre organ"
 msgstr "Kinoorgel"
 
 #: DB:instrument/name:395
+msgctxt "Extended necked many-stringed lute"
 msgid "theorbo"
-msgstr "Theorbe"
+msgstr ""
 
 #: DB:instrument/name:126
 msgid "theremin"
@@ -3716,8 +3725,9 @@ msgid "yu"
 msgstr ""
 
 #: DB:instrument/name:240
+msgctxt "Traditional Chinese lute"
 msgid "yueqin"
-msgstr "Yueqin"
+msgstr ""
 
 #: DB:instrument/name:715
 msgid "zabumba"

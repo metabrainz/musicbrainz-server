@@ -10,8 +10,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2018-04-10 12:02+0000\n"
-"Last-Translator: Maurits Meulenbelt <email address hidden>\n"
+"PO-Revision-Date: 2018-04-18 13:36+0000\n"
+"Last-Translator: yvanz\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -497,12 +497,6 @@ msgstr "Deze relatie geeft de pianotechnicus voor deze uitgave aan. De relatie i
 msgid "Indicates the place where the work had its first performance"
 msgstr "Geeft de plaats aan waar de compositie voor het eerst is opgevoerd."
 
-#: DB:link_type/description:127
-msgid ""
-"Indicates the publisher of this recording. This is <strong>not</strong> the "
-"same concept as the <a href=\"/doc/Label\">record label</a>."
-msgstr "Geeft de uitgever van deze opname aan. Dit is <strong>niet</strong> hetzelfde concept als de <a href=\"/doc/Label\">platenmaatschappij</a>."
-
 #: DB:link_type/description:32
 msgid ""
 "Indicates the publisher of this release. This is <strong>not</strong> the "
@@ -898,6 +892,13 @@ msgstr "Verwijst naar de Wikipediapagina over deze serie."
 #: DB:link_type/description:279
 msgid "Points to the Wikipedia page for this work."
 msgstr "Verwijst naar de Wikipediapagina over deze compositie."
+
+#: DB:link_type/description:127
+msgid ""
+"Publishers should be added on works instead. Keep in mind this is "
+"<strong>not</strong> the same concept as the <a href=\"/doc/Label\">record "
+"label</a>."
+msgstr ""
 
 #: DB:link_type/link_phrase:174
 msgid "PureVolume"
@@ -4669,17 +4670,17 @@ msgstr "verzorgde {aanvullende} illustratie voor"
 msgid "provided {additional} legal representation for"
 msgstr "verzorgde {additional:aanvullende} juridische vertegenwoordiging voor"
 
-#: DB:link_type/link_phrase:206 DB:link_type/link_phrase:127
-#: DB:link_type/link_phrase:362 DB:link_type/link_phrase:32
+#: DB:link_type/link_phrase:206 DB:link_type/link_phrase:362
+#: DB:link_type/link_phrase:127 DB:link_type/link_phrase:32
 #: DB:link_type/link_phrase:208 DB:link_type/link_phrase:161
-#: DB:link_type/long_link_phrase:206 DB:link_type/long_link_phrase:127
-#: DB:link_type/long_link_phrase:362 DB:link_type/long_link_phrase:32
+#: DB:link_type/long_link_phrase:206 DB:link_type/long_link_phrase:362
+#: DB:link_type/long_link_phrase:127 DB:link_type/long_link_phrase:32
 #: DB:link_type/long_link_phrase:208 DB:link_type/long_link_phrase:161
 msgid "published"
 msgstr "publiceerde"
 
-#: DB:link_type/reverse_link_phrase:206 DB:link_type/reverse_link_phrase:127
-#: DB:link_type/reverse_link_phrase:362 DB:link_type/reverse_link_phrase:32
+#: DB:link_type/reverse_link_phrase:206 DB:link_type/reverse_link_phrase:362
+#: DB:link_type/reverse_link_phrase:127 DB:link_type/reverse_link_phrase:32
 #: DB:link_type/reverse_link_phrase:208 DB:link_type/reverse_link_phrase:161
 msgid "publisher"
 msgstr "uitgever"
