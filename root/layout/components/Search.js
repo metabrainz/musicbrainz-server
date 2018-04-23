@@ -52,7 +52,7 @@ function localizedTypeOption(group, key) {
       : l(group[key]);
 }
 
-const searchOptions = (
+const SearchOptions = () => (
   <select id="headerid-type" name="type">
     {TYPE_OPTION_GROUPS.map(<TogT: {}>(group: TogT, groupIndex) => (
       Object.keys(group).sort(function (a, b) {
@@ -80,7 +80,7 @@ const Search = () => (
       required
       type="text"
     />
-    {' '}{searchOptions}{' '}
+    {' '}<SearchOptions />{' '}
     <input
       id="headerid-method"
       name="method"
