@@ -8,11 +8,13 @@
  */
 
 const React = require('react');
+const {CatalystContext} = require('../context');
 const {l, N_l} = require('../static/scripts/common/i18n');
 const Tabs = require('./Tabs');
 const EntityTabLink = require('./EntityTabLink');
 const EntityLink = require('../static/scripts/common/components/EntityLink');
 const {ENTITIES} = require('../static/scripts/common/constants');
+const isSpecialPurposeArtist = require('../static/scripts/common/utility/isSpecialPurposeArtist');
 
 const tabLinkNames = {
   artists: N_l('Artists'),
@@ -46,11 +48,27 @@ const buildLink = (
   />
 );
 
+function showEditTab(
+  user: ?EditorT,
+  entity: CoreEntityT,
+): boolean {
+  switch (entity.entityType) {
+    case 'area':
+      return user ? user.is_location_editor : false;
+    case 'artist':
+      return !isSpecialPurposeArtist(entity);
+    case 'instrument':
+      return user ? user.is_relationship_editor : false;
+    default:
+      return true;
+  }
+}
+
 function buildLinks(
+  user: ?EditorT,
   entity: CoreEntityT,
   page: string,
   editTab: React.Node,
-  hideEditTab: boolean,
 ): React.Node {
   const links = [buildLink(l('Overview'), entity, 'show', page, 'index')];
 
@@ -78,7 +96,7 @@ function buildLinks(
     links.push(buildLink(l('Details'), entity, 'details', page));
   }
 
-  if (!hideEditTab) {
+  if (showEditTab(user, entity)) {
     if (editTab) {
       links.push(editTab);
     } else {
@@ -92,18 +110,18 @@ function buildLinks(
 type Props = {|
   +editTab: React.Node,
   +entity: CoreEntityT,
-  +hideEditTab?: boolean,
   +page: string,
 |};
 
 const EntityTabs = ({
   editTab,
   entity,
-  hideEditTab = false,
   page,
 }: Props) => (
   <Tabs>
-    {buildLinks(entity, page, editTab, hideEditTab)}
+    <CatalystContext.Consumer>
+      {($c: CatalystContextT) => buildLinks($c.user, entity, page, editTab)}
+    </CatalystContext.Consumer>
   </Tabs>
 );
 

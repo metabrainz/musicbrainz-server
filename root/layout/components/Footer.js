@@ -6,13 +6,13 @@
 const React = require('react');
 
 const Frag = require('../../components/Frag');
+const {withCatalystContext} = require('../../context');
 const DBDefs = require('../../static/scripts/common/DBDefs');
 const {l} = require('../../static/scripts/common/i18n');
 const formatUserDate = require('../../utility/formatUserDate');
 
-const Footer = (props) => {
-  let stash = $c.stash;
-
+const Footer = ({$c, ...props}) => {
+  const stash = $c.stash;
   return (
     <div id="footer">
       <p className="left">
@@ -69,4 +69,4 @@ const Footer = (props) => {
   );
 };
 
-module.exports = Footer;
+export default withCatalystContext(Footer);

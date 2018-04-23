@@ -23,7 +23,7 @@ const {l} = require('./common/i18n');
 const {lp_attributes} = require('./common/i18n/attributes');
 const MB = require('./common/MB');
 const scriptArgs = require('./common/utility/getScriptArgs')();
-const {Lens, prop, index, set, compose2, compose3} = require('./common/utility/lens');
+const {Lens, prop, index, set, compose3} = require('./common/utility/lens');
 const {buildOptionsTree} = require('./edit/forms');
 const {initializeBubble} = require('./edit/MB/Control/Bubble');
 const {initialize_guess_case} = require('./guess-case/MB/Control/GuessCase');
@@ -64,11 +64,8 @@ const store = createStore(function (state: WorkForm = form, action) {
 
     case 'EDIT_LANGUAGE':
       state = set(
-        (compose3(
-          languagesField,
-          (index(action.index): Lens<LanguageFields, LanguageField>),
-          (prop('value'): Lens<LanguageField, number>),
-        ): Lens<WorkForm, number>),
+        (compose3(languagesField, index(action.index), prop('value')):
+          Lens<WorkForm, number>),
         action.languageId,
         state,
       );

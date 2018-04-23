@@ -33,11 +33,10 @@ const AreaHeader = ({area, page}: Props) => {
     <EntityHeader
       entity={area}
       headerClass="areaheader"
-      hideEditTab={!($c.user && $c.user.is_location_editor)}
       page={page}
       subHeading={subHeading}
     />
   );
 };
 
-module.exports = AreaHeader;
+export default AreaHeader;

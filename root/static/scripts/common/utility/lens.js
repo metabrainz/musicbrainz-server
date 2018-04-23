@@ -65,13 +65,13 @@ function arrayAssign<T: Array<*>, I: number>(
  * 3. set(a, set(a, s)) = set(a, s)
  */
 
-export interface Lens<S, A> {
+export interface Lens<+S, A> {
   get(s: S): A;
   set(a: A): (s: S) => S;
 }
 
 export function prop<
-  S: *,
+  S: MapT,
   P: $Keys<S>,
   A: $ElementType<S, P>
 >(prop: P): Lens<S, A> {
@@ -79,7 +79,7 @@ export function prop<
 }
 
 export function index<
-  S: *,
+  S: Array<*>,
   I: number,
   A: $ElementType<S, I>
 >(i: I): Lens<S, A> {
@@ -87,7 +87,7 @@ export function index<
 }
 
 export function maybeProp<
-  S: *,
+  S: MapT,
   P: $Keys<S>,
   A: $ElementType<$NonMaybeType<S>, P>
 >(prop: P, getDefault: (s: S) => A): Lens<S, A> {
@@ -98,7 +98,7 @@ export function maybeProp<
 }
 
 export function maybeIndex<
-  S: *,
+  S: Array<*>,
   I: number,
   A: $ElementType<$NonMaybeType<S>, I>
 >(i: I, getDefault: (s: S) => A): Lens<S, A> {

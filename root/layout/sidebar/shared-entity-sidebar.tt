@@ -19,6 +19,7 @@
     [%- IF entity_type != 'url';
             React.embed(c, 'layout/components/ExternalLinks', {
                 empty => React.bool(1),
+                entity => entity,
             });
         END;
         IF entity.isa('MusicBrainz::Server::Entity::Release');

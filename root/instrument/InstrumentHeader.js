@@ -21,10 +21,9 @@ const InstrumentHeader = ({instrument, page}: Props) => (
   <EntityHeader
     entity={instrument}
     headerClass="instrumentheader"
-    hideEditTab={!($c.user && $c.user.is_relationship_editor)}
     page={page}
     subHeading={instrument.typeName ? lp_attributes(instrument.typeName, 'instrument_type') : l('instrument')}
   />
 );
 
-module.exports = InstrumentHeader;
+export default InstrumentHeader;

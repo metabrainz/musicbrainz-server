@@ -5,6 +5,7 @@
 
 const React = require('react');
 
+const {withCatalystContext} = require('../../context');
 const manifest = require('../../static/manifest');
 const DBDefs = require('../../static/scripts/common/DBDefs');
 const {l} = require('../../static/scripts/common/i18n');
@@ -37,16 +38,15 @@ function getTitle(props) {
   return title;
 }
 
-const CanonicalLink = ({href}) => {
-  const reqUri = $c.req.uri;
-  const canonUri = canonicalize(href || reqUri);
-  if (reqUri !== canonUri) {
+const CanonicalLink = ({href, requestUri}) => {
+  const canonUri = canonicalize(href || requestUri);
+  if (requestUri !== canonUri) {
     return <link rel="canonical" href={canonUri} />;
   }
   return null;
 };
 
-const Head = (props) => (
+const Head = ({$c, ...props}) => (
   <head>
     <meta charSet="utf-8" />
     <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
@@ -55,7 +55,7 @@ const Head = (props) => (
 
     <title>{getTitle(props)}</title>
 
-    <CanonicalLink href={props.canonical_url} />
+    <CanonicalLink href={props.canonical_url} requestUri={$c.req.uri} />
 
     {manifest.css('common')}
 
@@ -99,4 +99,4 @@ const Head = (props) => (
   </head>
 );
 
-module.exports = Head;
+module.exports = withCatalystContext(Head);

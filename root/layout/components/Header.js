@@ -14,25 +14,14 @@ import * as manifest from '../../static/manifest';
 import TopMenu from './TopMenu';
 import BottomMenu from './BottomMenu';
 
-type Props = {|
-  +currentLanguage: string,
-  +serverLanguages?: $ReadOnlyArray<ServerLanguageT>,
-|};
-
-const Header = ({
-  currentLanguage,
-  serverLanguages,
-}: Props) => (
+const Header = () => (
   <div className="header">
     <a className="logo" href="/" title="MusicBrainz">
       <img className="logo" src={manifest.pathTo('/images/layout/header-logo.svg')} />
     </a>
     <div className="right">
       <TopMenu />
-      <BottomMenu
-        currentLanguage={currentLanguage}
-        serverLanguages={serverLanguages}
-      />
+      <BottomMenu />
     </div>
   </div>
 );

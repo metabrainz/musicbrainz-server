@@ -10,7 +10,7 @@ const React = require('react');
 const ReactDOMServer = require('react-dom/server');
 
 const DBDefs = require('../static/scripts/common/DBDefs');
-const getCookie = require('../static/scripts/common/utility/getCookie');
+const getRequestCookie = require('../utility/getRequestCookie').default;
 const {bufferFrom} = require('./buffer');
 
 function pathFromRoot(fpath) {
@@ -45,12 +45,10 @@ function getResponse(requestBody, context) {
     Raven.mergeContext({user: _.pick(context.user, ['id', 'name'])});
   }
 
-  global.$c = context;
-
   // Set the current translations to be used for this request based on the
   // given 'lang' cookie.
   const gettext = require('./gettext');
-  const bcp47Locale = getCookie('lang') || 'en';
+  const bcp47Locale = getRequestCookie(context.req, 'lang') || 'en';
   gettext.setLocale(bcp47Locale.replace("-", "_"));
 
   try {
@@ -71,8 +69,16 @@ function getResponse(requestBody, context) {
   }
 
   try {
+    // N.B. This must be required in the same process that serves the request.
+    // Do not move to the top of the file.
+    const {CatalystContext} = require('../context');
+
     response = ReactDOMServer.renderToStaticMarkup(
-      React.createElement(Page, requestBody.props)
+      React.createElement(
+        CatalystContext.Provider,
+        {value: context},
+        React.createElement(Page, requestBody.props),
+      )
     );
   } catch (err) {
     Raven.captureException(err);

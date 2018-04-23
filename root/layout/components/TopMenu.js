@@ -11,6 +11,7 @@ import _ from 'lodash';
 import React from 'react';
 
 import Frag from '../../components/Frag';
+import {withCatalystContext} from '../../context';
 import {l, lp} from '../../static/scripts/common/i18n';
 
 import Search from './Search';
@@ -121,7 +122,7 @@ const AdminMenu = ({user}: UserProp) => (
   </li>
 );
 
-const UserMenu = () => (
+const UserMenu = ({$c}) => (
   <ul className="menu" tabIndex="-1">
     {$c.user ? (
       <Frag>
@@ -146,10 +147,10 @@ const UserMenu = () => (
   </ul>
 );
 
-const TopMenu = () => (
+const TopMenu = ({$c}) => (
   <div className="top">
     <div className="links-container">
-      <UserMenu />
+      <UserMenu $c={$c} />
     </div>
     <div className="search-container">
       <Search />
@@ -157,4 +158,4 @@ const TopMenu = () => (
   </div>
 );
 
-export default TopMenu;
+export default withCatalystContext(TopMenu);
