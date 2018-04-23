@@ -123,6 +123,7 @@ const LINK_TYPES = {
   soundcloud: {
     artist: "89e4a949-0976-440d-bda1-5f772c1e5710",
     label: "a31d05ba-3b82-47b2-ab8b-1fe73b5459e2",
+    place: "1cd2eb89-2997-4901-87e9-838ac9a68da9",
     series: "4789521b-57b9-4689-9644-46de63190f66"
   },
   blog: {
