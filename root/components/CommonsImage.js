@@ -1,15 +1,16 @@
-// @flow
-// Copyright (C) 2017 MetaBrainz Foundation
-//
-// This file is part of MusicBrainz, the open internet music database,
-// and is licensed under the GPL version 2, or (at your option) any
-// later version: http://www.gnu.org/licenses/gpl-2.0.txt
+/*
+ * @flow
+ * Copyright (C) 2017 MetaBrainz Foundation
+ *
+ * This file is part of MusicBrainz, the open internet music database,
+ * and is licensed under the GPL version 2, or (at your option) any
+ * later version: http://www.gnu.org/licenses/gpl-2.0.txt
+ */
 
-const $ = require('jquery');
+import $ from 'jquery';
+import React from 'react';
 
-const React = require('react');
-
-const {l} = require('../static/scripts/common/i18n');
+import {l} from '../static/scripts/common/i18n';
 import hydrate from '../utility/hydrate';
 
 type Props = {|
@@ -55,4 +56,4 @@ class CommonsImage extends React.Component<Props, State> {
   }
 }
 
-module.exports = hydrate('commons-image', CommonsImage);
+export default hydrate('commons-image', CommonsImage);
