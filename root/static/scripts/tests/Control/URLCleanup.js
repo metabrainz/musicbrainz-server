@@ -2328,10 +2328,15 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
             expected_relationship_type: 'soundcloud',
         },
         {
+                             input_url: 'https://soundcloud.com/red-bull-studios-tyo',
+                     input_entity_type: 'place',
+            expected_relationship_type: 'soundcloud',
+        },
+        {
                              input_url: 'https://soundcloud.com/glastonburyofficial',
                      input_entity_type: 'series',
             expected_relationship_type: 'soundcloud',
-               only_valid_entity_types: ['artist', 'label', 'series']
+               only_valid_entity_types: ['artist', 'label', 'place', 'series']
         },
         {
                              input_url: 'https://soundcloud.com/tags/bug',
