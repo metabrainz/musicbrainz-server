@@ -351,9 +351,6 @@ sub COVER_ART_ARCHIVE_SECRET_KEY { };
 sub COVER_ART_ARCHIVE_UPLOAD_PREFIXER { shift; sprintf("//%s.s3.us.archive.org/", shift) };
 sub COVER_ART_ARCHIVE_DOWNLOAD_PREFIX { "//coverartarchive.org" };
 
-# Add a Google Analytics tracking code to enable Google Analytics tracking.
-sub GOOGLE_ANALYTICS_CODE { '' }
-
 sub MAPBOX_MAP_ID { 'mapbox.streets' }
 sub MAPBOX_ACCESS_TOKEN { '' }
 

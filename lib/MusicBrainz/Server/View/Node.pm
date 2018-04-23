@@ -26,7 +26,7 @@ sub process {
     }
 
     $c->res->content_type($content_type . '; charset=utf-8');
-    $c->res->status($status);
+    $c->res->status($status) if defined $status;
     $c->res->body($body);
     $self->_post_process($c);
 }

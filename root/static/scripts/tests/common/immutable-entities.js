@@ -5,11 +5,7 @@
 
 const test = require('tape');
 
-const Immutable = require('immutable');
-
 const {
-    ArtistCredit,
-    ArtistCreditName,
     artistCreditFromArray,
     artistCreditsAreEqual,
     isComplexArtistCredit,
@@ -27,11 +23,7 @@ test('isComplexArtistCredit', function (t) {
   ac = artistCreditFromArray([{artist: bowie, name: 'david robert jones'}]);
   t.equal(isComplexArtistCredit(ac), true, 'david robert jones is complex');
 
-  ac = new ArtistCredit({
-    names: Immutable.List([
-      new ArtistCreditName({artist: bowie, name: ''})
-    ])
-  });
+  ac = [{artist: bowie, name: '', joinPhrase: ''}];
   t.equal(isComplexArtistCredit(ac), true, 'empty artist credit is complex');
 
   ac = artistCreditFromArray([

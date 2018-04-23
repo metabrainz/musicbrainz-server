@@ -1,0 +1,289 @@
+root: true
+
+parser: babel-eslint
+
+plugins:
+  - import
+  - react
+  - flowtype
+
+env:
+  browser: true
+  node: true
+
+settings:
+  flowtype:
+    onlyFilesWithFlowAnnotation: true
+
+rules:
+  # Possible Errors
+  for-direction: error
+  no-await-in-loop: error
+  no-cond-assign: warn
+  no-constant-condition: [error, {checkLoops: false}]
+  no-control-regex: warn
+  no-debugger: error
+  no-dupe-args: error
+  no-dupe-keys: error
+  no-duplicate-case: error
+  no-empty-character-class: error
+  no-empty: [error, {allowEmptyCatch: true}]
+  no-extra-semi: warn
+  no-irregular-whitespace: warn
+  no-obj-calls: error
+  no-prototype-builtins: warn
+  no-regex-spaces: error
+  no-sparse-arrays: error
+  no-unexpected-multiline: error
+  no-unreachable: error
+  no-unsafe-finally: error
+  no-unsafe-negation: error
+  use-isnan: error
+  valid-typeof: error
+
+  # Best Practices
+  block-scoped-var: warn
+  class-methods-use-this: warn
+  consistent-return: error
+  curly: [error, all]
+  dot-location: [warn, property]
+  dot-notation: [warn, {allowKeywords: true}]
+  eqeqeq: warn
+  no-alert: off
+  no-else-return: warn
+  no-eq-null: error
+  no-floating-decimal: warn
+  no-multi-spaces: [error, {ignoreEOLComments: true}]
+  radix: warn
+  wrap-iife: warn
+
+  # Strict Mode
+  strict: off
+
+  # Variables
+  no-use-before-define: off
+
+  # Stylistic Issues
+  array-bracket-newline: [warn, {multiline: true}]
+  array-bracket-spacing: [warn, never]
+  array-element-newline: [warn, {multiline: true}]
+  block-spacing: [warn, always]
+  brace-style: [warn, 1tbs]
+  camelcase: [warn, {properties: never}]
+  comma-dangle: [warn, {arrays: always-multiline,
+                        objects: always-multiline,
+                        imports: always-multiline,
+                        exports: always-multiline,
+                        functions: always-multiline}]
+  comma-spacing: [warn, {before: false, after: true}]
+  comma-style: [warn, last]
+  computed-property-spacing: [warn, never]
+  consistent-this: [warn, self]
+  eol-last: [warn, always]
+  func-call-spacing: [warn, never]
+  function-paren-newline: [warn, consistent]
+  implicit-arrow-linebreak: [warn, beside]
+  indent: [warn, 2, {SwitchCase: 1}]
+  jsx-quotes: [warn, prefer-double]
+  key-spacing: [warn, {mode: minimum}]
+  keyword-spacing: [warn, {before: true, after: true}]
+  linebreak-style: [warn, unix]
+  lines-between-class-members: [warn, always]
+  max-len: [warn, {code: 78,
+                   ignoreUrls: true,
+                   ignoreStrings: true,
+                   ignoreTemplateLiterals: true,
+                   ignoreRegExpLiterals: true}]
+  max-statements-per-line: [warn, {max: 1}]
+  multiline-comment-style: [warn, starred-block]
+  multiline-ternary: off
+  new-cap: off
+  new-parens: warn
+  newline-per-chained-call: [warn, {ignoreChainWithDepth: 3}]
+  no-lonely-if: warn
+  no-mixed-spaces-and-tabs: warn
+  no-multi-assign: off
+  no-multiple-empty-lines: [warn, {max: 2, maxBOF: 0, maxEOF: 0}]
+  no-negated-condition: warn
+  no-nested-ternary: off
+  no-plusplus: off
+  no-tabs: warn
+  no-ternary: off
+  no-trailing-spaces: warn
+  no-underscore-dangle: off
+  no-unneeded-ternary: warn
+  no-whitespace-before-property: warn
+  object-curly-newline: [warn, {multiline: true, consistent: true}]
+  object-curly-spacing: [warn, never]
+  object-property-newline: [warn, {allowAllPropertiesOnSameLine: true}]
+  one-var: [warn, never]
+  operator-assignment: [warn, always]
+  operator-linebreak: [warn, after, {overrides: {?: before, :: before}}]
+  padded-blocks: [warn, never]
+  quote-props: [warn, consistent-as-needed, {numbers: true}]
+  quotes: [warn, single, {avoidEscape: true,
+                          allowTemplateLiterals: true}]
+  semi: [warn, always, {omitLastInOneLineBlock: true}]
+  semi-spacing: [warn, {before: false, after: true}]
+  semi-style: [warn, last]
+  sort-keys: [warn, asc, {caseSensitive: true, natural: true}]
+  space-before-blocks: [warn, always]
+  space-before-function-paren: [warn, {anonymous: always,
+                                       named: never,
+                                       asyncArrow: always}]
+  space-in-parens: [warn, never]
+  space-infix-ops: [warn, {int32Hint: true}]
+  space-unary-ops: [warn, {words: true, nonwords: false}]
+  spaced-comment: [warn, always, {block: {balanced: true}}]
+  switch-colon-spacing: [warn, {after: true, before: false}]
+  template-tag-spacing: [warn, never]
+
+  # ECMAScript 6
+  constructor-super: error
+  no-class-assign: error
+  no-const-assign: error
+  no-dupe-class-members: error
+  # no-duplicate-imports does not support Flow 'type' imports, so we use
+  # the import/no-duplicates rule from eslint-plugin-import instead.
+  no-duplicate-imports: off
+  no-new-symbol: error
+  no-this-before-super: error
+  no-useless-constructor: warn
+  no-useless-rename: warn
+  no-var: warn
+  prefer-const: warn
+  prefer-numeric-literals: warn
+  require-yield: error
+  rest-spread-spacing: [warn, never]
+  # sort-imports does not support Flow 'type' imports, so we use the
+  # import/order rule from eslint-plugin-import instead.
+  sort-imports: off
+  template-curly-spacing: [warn, never]
+
+  ########################
+  # eslint-plugin-import #
+  ########################
+
+  import/export: error
+  import/extensions: [warn, never]
+  import/first: warn
+  import/newline-after-import: [warn, {count: 1}]
+  import/no-commonjs: error
+  import/no-duplicates: warn
+  import/no-dynamic-require: error
+  import/no-unresolved: error
+  import/order: [warn, {newlines-between: always}]
+
+  #######################
+  # eslint-plugin-react #
+  #######################
+
+  react/boolean-prop-naming: off
+  react/button-has-type: error
+  react/default-props-match-prop-types: off
+  react/destructuring-assignment: off
+  react/display-name: off
+  react/forbid-component-props: off
+  react/forbid-dom-props: off
+  react/forbid-elements: off
+  react/forbid-prop-types: off
+  react/forbid-foreign-prop-types: off
+  react/no-access-state-in-setstate: error
+  react/no-array-index-key: off
+  react/no-children-prop: error
+  react/no-danger: off
+  react/no-danger-with-children: error
+  react/no-deprecated: error
+  # Using setState in componentDidMount is necessary when the state depends
+  # on the size/attributes of a DOM node, for example.
+  react/no-did-mount-set-state: off
+  react/no-did-update-set-state: error
+  react/no-direct-mutation-state: error
+  react/no-find-dom-node: warn
+  react/no-is-mounted: warn
+  react/no-multi-comp: [warn, {ignoreStateless: true}]
+  react/no-redundant-should-component-update: error
+  react/no-render-return-value: warn
+  react/no-set-state: off
+  react/no-typos: error
+  react/no-string-refs: warn
+  react/no-this-in-sfc: error
+  react/no-unescaped-entities: error
+  react/no-unknown-property: error
+  react/no-unused-prop-types: off
+  react/no-unused-state: error
+  react/no-will-update-set-state: error
+  react/prefer-es6-class: off
+  react/prefer-stateless-function: warn
+  react/prop-types: off
+  react/react-in-jsx-scope: error
+  react/require-default-props: off
+  react/require-optimization: off
+  react/require-render-return: error
+  react/self-closing-comp: error
+  react/sort-comp: warn
+  react/sort-prop-types: off
+  react/style-prop-object: error
+  react/void-dom-elements-no-children: error
+
+  # JSX-specific rules
+  react/jsx-boolean-value: [warn, never]
+  react/jsx-closing-bracket-location: [error, tag-aligned]
+  react/jsx-closing-tag-location: error
+  react/jsx-curly-spacing: [error, {when: never, children: true}]
+  react/jsx-equals-spacing: [error, never]
+  react/jsx-filename-extension: [error, {extensions: [.js]}]
+  react/jsx-first-prop-new-line: [error, multiline-multiprop]
+  react/jsx-handler-names: warn
+  react/jsx-indent: [error, 2]
+  react/jsx-indent-props: [error, 2]
+  react/jsx-key: warn
+  react/jsx-max-props-per-line: [error, {maximum: 1, when: multiline}]
+  react/jsx-no-bind: warn
+  react/jsx-no-comment-textnodes: warn
+  react/jsx-no-duplicate-props: [error, {ignoreCase: true}]
+  react/jsx-no-literals: warn
+  react/jsx-no-target-blank: error
+  react/jsx-no-undef: [error, {allowGlobals: true}]
+  react/jsx-one-expression-per-line: off
+  react/jsx-curly-brace-presence: [error, {props: never, children: ignore}]
+  react/jsx-pascal-case: error
+  react/jsx-sort-default-props: warn
+  react/jsx-sort-props: warn
+  react/jsx-tag-spacing: [error, {beforeClosing: never}]
+  react/jsx-uses-react: warn
+  react/jsx-uses-vars: warn
+  react/jsx-wrap-multilines: [error, {declaration: parens-new-line,
+                                      assignment: parens-new-line,
+                                      return: parens-new-line,
+                                      arrow: parens-new-line,
+                                      condition: ignore,
+                                      logical: ignore,
+                                      prop: ignore}]
+
+  ##########################
+  # eslint-plugin-flowtype #
+  ##########################
+
+  flowtype/boolean-style: [warn, boolean]
+  flowtype/define-flow-type: warn
+  flowtype/delimiter-dangle: [warn, always-multiline]
+  flowtype/generic-spacing: [warn, never]
+  flowtype/no-dupe-keys: error
+  flowtype/no-flow-fix-me-comments: off
+  flowtype/no-mutable-array: warn
+  flowtype/no-primitive-constructor-types: error
+  flowtype/no-types-missing-file-annotation: error
+  flowtype/no-weak-types: warn
+  flowtype/object-type-delimiter: [warn, comma]
+  flowtype/require-exact-type: off
+  flowtype/require-parameter-type: off
+  flowtype/require-return-type: off
+  flowtype/require-valid-file-annotation: off
+  flowtype/semi: [warn, always]
+  flowtype/sort-keys: [warn, asc, {caseSensitive: true, natural: true}]
+  flowtype/space-after-type-colon: [warn, always, {allowLineBreak: true}]
+  flowtype/space-before-generic-bracket: [warn, never]
+  flowtype/space-before-type-colon: [warn, never]
+  flowtype/union-intersection-spacing: [warn, always]
+  flowtype/use-flow-type: warn

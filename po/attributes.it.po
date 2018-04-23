@@ -5,13 +5,13 @@
 # Gioele  <email address hidden>, 2012
 # Gioele <email address hidden>, 2012
 # leofiore <email address hidden>, 2012
-# Luca Salini <email address hidden>, 2016-2017
+# Luca Salini <email address hidden>, 2016-2018
 # Luca Salini <email address hidden>, 2013-2015
 # Luca Salini <email address hidden>, 2012
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2017-10-28 10:48+0000\n"
+"PO-Revision-Date: 2018-04-05 23:52+0000\n"
 "Last-Translator: Luca Salini <email address hidden>\n"
 "Language-Team: Italian (http://www.transifex.com/musicbrainz/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
@@ -148,6 +148,13 @@ msgid ""
 "versions supplied to radio DJs for air-play)."
 msgstr "Una pubblicazione omaggio o destinata a promuovere una futura pubblicazione ufficiale (per es. versioni non definitive, pubblicazioni incluse con una rivista, versioni fornite alle radio per essere mandate in onda)."
 
+#: DB:instrument_type/description:7
+msgctxt "instrument_type"
+msgid ""
+"A grouping of related but different instruments, like the different violin-"
+"like instruments"
+msgstr "Un raggruppamento di strumenti imparentati ma distinti, come i diversi strumenti della famiglia del violino"
+
 #: DB:work_attribute_type_allowed_value/value:28
 msgctxt "work_attribute_type_allowed_value"
 msgid "A major"
@@ -257,6 +264,13 @@ msgctxt "series_type"
 msgid "A recurring festival, usually happening annually in the same location."
 msgstr "Un festival che si tiene periodicamente, di solito annualmente nello stesso luogo."
 
+#: DB:place_type/description:7
+msgctxt "place_type"
+msgid ""
+"A school, university or other similar educational institution (especially, "
+"but not only, one where music is taught)"
+msgstr "Una scuola, università o altra simile istituzione di istruzione (in particolare, ma non solo, dove si insegna musica)"
+
 #: DB:series_type/description:6
 msgctxt "series_type"
 msgid "A series of events."
@@ -320,6 +334,13 @@ msgid ""
 "A soundtrack is the music that accompanies a film, TV program, videogame, or"
 " even book."
 msgstr "Una colonna sonora è la musica che accompagna un film, un programma TV, un videogioco o anche un libro."
+
+#: DB:instrument_type/description:6
+msgctxt "instrument_type"
+msgid ""
+"A standard grouping of instruments often played together, like a string "
+"quartet"
+msgstr "Un raggruppamento standard di strumenti spesso suonati insieme, come un quartetto d'archi"
 
 #: DB:work_type/description:6
 msgctxt "work_type"
@@ -1800,6 +1821,11 @@ msgctxt "medium_format"
 msgid "Edison Diamond Disc"
 msgstr "Edison Diamond Disc"
 
+#: DB:place_type/name:7
+msgctxt "place_type"
+msgid "Educational institution"
+msgstr "Istituzione di istruzione"
+
 #: DB:instrument_type/name:4
 msgctxt "instrument_type"
 msgid "Electronic instrument"
@@ -1809,6 +1835,11 @@ msgstr "Strumento elettronico"
 msgctxt "medium_format"
 msgid "Enhanced CD"
 msgstr "Enhanced CD"
+
+#: DB:instrument_type/name:6
+msgctxt "instrument_type"
+msgid "Ensemble"
+msgstr "Ensemble"
 
 #: DB:work_attribute_type_allowed_value/value:356
 msgctxt "work_attribute_type_allowed_value"
@@ -1940,6 +1971,11 @@ msgctxt "work_attribute_type_allowed_value"
 msgid "Fahte"
 msgstr "Fahte"
 
+#: DB:instrument_type/name:7
+msgctxt "instrument_type"
+msgid "Family"
+msgstr "Famiglia"
+
 #: DB:work_attribute_type_allowed_value/value:615
 msgctxt "work_attribute_type_allowed_value"
 msgid "Fantezi"
@@ -2024,6 +2060,13 @@ msgstr "Feth-i Hicaz"
 msgctxt "work_attribute_type_allowed_value"
 msgid "Fireng-i Fer"
 msgstr "Fireng-i Fer"
+
+#: DB:medium_format/description:73
+msgctxt "medium_format"
+msgid ""
+"Flat discs with grooves used in phonographs/gramophones. For shellac and "
+"vinyl records, use that specifically"
+msgstr "Dischi piatti con solchi utilizzati in fonografi/grammofoni. Per i dischi in gommalacca e vinile, utilizza specificamente quei tipi"
 
 #: DB:medium_format/name:51
 msgctxt "medium_format"
@@ -2562,6 +2605,31 @@ msgstr "Hüzzam-ı Cedid"
 msgctxt "work_attribute_type_allowed_value"
 msgid "Hēmavati"
 msgstr "Hēmavati"
+
+#: DB:work_attribute_type/name:29
+msgctxt "work_attribute_type"
+msgid "ICE ID"
+msgstr "ID ICE"
+
+#: DB:work_attribute_type/description:28
+msgctxt "work_attribute_type"
+msgid "ID for the Belgian rights society SABAM"
+msgstr "ID per la società di diritti belga SABAM"
+
+#: DB:work_attribute_type/description:29
+msgctxt "work_attribute_type"
+msgid "ID for the International Copyright Enterprise"
+msgstr "ID per l'International Copyright Enterprise"
+
+#: DB:work_attribute_type/description:27
+msgctxt "work_attribute_type"
+msgid "ID for the Mexican rights society SACM"
+msgstr "ID per la società di diritti messicana SACM"
+
+#: DB:work_attribute_type/description:30
+msgctxt "work_attribute_type"
+msgid "ID for the Polish rights society ZAiKS"
+msgstr "ID per la società di diritti polacca ZAiKS"
 
 #: DB:work_attribute_type/name:14
 msgctxt "work_attribute_type"
@@ -3223,11 +3291,6 @@ msgctxt "event_type"
 msgid "Masterclass/Clinic"
 msgstr "Master class/Clinic"
 
-#: DB:work_attribute_type_allowed_value/value:452
-msgctxt "work_attribute_type_allowed_value"
-msgid "Mate"
-msgstr "Mate"
-
 #: DB:work_attribute_type_allowed_value/value:449
 msgctxt "work_attribute_type_allowed_value"
 msgid "Maver"
@@ -3247,6 +3310,11 @@ msgstr "Maveraünnehir"
 msgctxt "collection_type"
 msgid "Maybe attending"
 msgstr "Forse partecipo"
+
+#: DB:work_attribute_type_allowed_value/value:452
+msgctxt "work_attribute_type_allowed_value"
+msgid "Maye"
+msgstr "Maye"
 
 #: DB:work_attribute_type_allowed_value/value:175
 msgctxt "work_attribute_type_allowed_value"
@@ -4008,6 +4076,11 @@ msgctxt "work_attribute_type_allowed_value"
 msgid "Peşrev"
 msgstr "Peşrev"
 
+#: DB:medium_format/name:73
+msgctxt "medium_format"
+msgid "Phonograph record"
+msgstr "Disco fonografico"
+
 #: DB:medium_format/name:15
 msgctxt "medium_format"
 msgid "Piano Roll"
@@ -4403,6 +4476,11 @@ msgctxt "work_attribute_type_allowed_value"
 msgid "Rūpaka"
 msgstr "Rūpaka"
 
+#: DB:work_attribute_type/name:28
+msgctxt "work_attribute_type"
+msgid "SABAM ID"
+msgstr "ID SABAM"
+
 #: DB:medium_format/name:3
 msgctxt "medium_format"
 msgid "SACD"
@@ -4412,6 +4490,11 @@ msgstr "SACD"
 msgctxt "work_attribute_type"
 msgid "SACEM ID"
 msgstr "ID SACEM"
+
+#: DB:work_attribute_type/name:27
+msgctxt "work_attribute_type"
+msgid "SACM ID"
+msgstr "ID SACM"
 
 #: DB:work_attribute_type/name:24
 msgctxt "work_attribute_type"
@@ -5418,6 +5501,11 @@ msgstr "Yürüksemai II"
 msgctxt "work_attribute_type_allowed_value"
 msgid "Yürüksofyan"
 msgstr "Yürüksofyan"
+
+#: DB:work_attribute_type/name:30
+msgctxt "work_attribute_type"
+msgid "ZAiKS ID"
+msgstr "ID ZAiKS"
 
 #: DB:work_attribute_type_allowed_value/value:780
 msgctxt "work_attribute_type_allowed_value"

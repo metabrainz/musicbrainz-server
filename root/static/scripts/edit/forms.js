@@ -13,9 +13,13 @@ const linkPhrase = require('../edit/utility/linkPhrase');
 const ELEMENT_NODE = window.Node.ELEMENT_NODE;
 const COMMENT_NODE = window.Node.COMMENT_NODE;
 
+function cmpOptions(a, b) {
+    return (a.data.childOrder - b.data.childOrder) || i18n.compare(a.text, b.text);
+}
+
 MB.forms = {
 
-    buildOptionsTree: function (root, textAttr, valueAttr, sortFunc) {
+    buildOptionsTree: function (root, textAttr, valueAttr) {
         var options = [];
         var nbsp = String.fromCharCode(160);
 
@@ -23,10 +27,7 @@ MB.forms = {
             var i = 0, children = parent.children, child;
             if (!children) { return; }
 
-            if (sortFunc) {
-                children = children.concat().sort(sortFunc);
-            }
-
+            const childOptions = [];
             while (child = children[i++]) {
                 var opt = {};
 
@@ -34,9 +35,15 @@ MB.forms = {
                 opt.text = _.repeat(nbsp, indent * 2) +
                            (_.isFunction(textAttr) ? textAttr(child) : child[textAttr]);
                 opt.data = child;
-                options.push(opt);
+                childOptions.push(opt);
+            }
 
-                buildOptions(child, indent + 1);
+            childOptions.sort(cmpOptions);
+
+            for (let i = 0; i < childOptions.length; i++) {
+                const opt = childOptions[i];
+                options.push(opt);
+                buildOptions(opt.data, indent + 1);
             }
         }
 
@@ -45,17 +52,11 @@ MB.forms = {
     },
 
     linkTypeOptions: function (root, backward) {
-        var textAttr = backward ? 'reversePhrase' : 'phrase';
-
         function getText(data) {
             return linkPhrase.clean(data.gid, !!backward);
         }
 
-        function sortFunc(a, b) {
-            return (a.childOrder - b.childOrder) || i18n.compare(a[textAttr], b[textAttr]);
-        }
-
-        var options = MB.forms.buildOptionsTree(root, getText, "id", sortFunc);
+        var options = MB.forms.buildOptionsTree(root, getText, 'id');
 
         for (var i = 0, len = options.length, option; i < len; i++) {
             if ((option = options[i]) && !option.data.description) {

@@ -25,8 +25,12 @@ function badRequest(err) {
   }));
 }
 
+function getExport(object) {
+  return object.default || object;
+}
+
 function getResponse(requestBody, context) {
-  let status = 200;
+  let status = null;
   let Page;
   let response;
 
@@ -46,14 +50,15 @@ function getResponse(requestBody, context) {
   // Set the current translations to be used for this request based on the
   // given 'lang' cookie.
   const gettext = require('./gettext');
-  gettext.setLocale(getCookie('lang') || 'en');
+  const bcp47Locale = getCookie('lang') || 'en';
+  gettext.setLocale(bcp47Locale.replace("-", "_"));
 
   try {
-    Page = require(pathFromRoot(requestBody.component));
+    Page = getExport(require(pathFromRoot(requestBody.component)));
   } catch (err) {
     if (err.code === 'MODULE_NOT_FOUND') {
       try {
-        Page = require(pathFromRoot('main/404'));
+        Page = getExport(require(pathFromRoot('main/404')));
         status = 404;
       } catch (err) {
         Raven.captureException(err);

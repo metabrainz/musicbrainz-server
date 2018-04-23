@@ -34,8 +34,8 @@ is ( $languages->{145}->name, "German" );
 
 does_ok($language_data, 'MusicBrainz::Server::Data::Role::SelectAll');
 my @languages = $language_data->get_all;
-is(@languages, 5);
-is($languages[0]->id, 120);
+is(@languages, 6);
+is($languages[0]->id, 113);
 
 };
 

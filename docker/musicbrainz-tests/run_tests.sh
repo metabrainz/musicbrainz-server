@@ -26,6 +26,7 @@ exec sudo -E -H -u musicbrainz carton exec -- prove \
     --source pgTAP \
     -I lib \
     t/critic.t \
+    t/flow.sh \
     t/js.t \
     t/web.js \
     t/selenium.js \

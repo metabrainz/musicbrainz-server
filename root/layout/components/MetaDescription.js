@@ -10,7 +10,7 @@ const {artistBeginLabel, artistEndLabel} = require('../../artist/utils');
 const {addColon, l} = require('../../static/scripts/common/i18n');
 const commaOnlyList = require('../../static/scripts/common/i18n/commaOnlyList');
 const formatBarcode = require('../../static/scripts/common/utility/formatBarcode');
-const formatDate = require('../../static/scripts/common/utility/formatDate');
+import formatDate from '../../static/scripts/common/utility/formatDate';
 const formatTrackLength = require('../../static/scripts/common/utility/formatTrackLength');
 
 function entityDescription(entity) {

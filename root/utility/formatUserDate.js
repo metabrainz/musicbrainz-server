@@ -10,7 +10,7 @@ require('moment-strftime');
 require('moment-timezone');
 
 function formatUserDate(user, dateString, options) {
-  let preferences = user.preferences;
+  let preferences = user ? user.preferences : null;
   let result = moment(dateString);
   let format = '%Y-%m-%d %H:%M %Z';
 

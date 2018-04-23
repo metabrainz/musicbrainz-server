@@ -206,7 +206,8 @@ const LINK_TYPES = {
     place: "751e8fb1-ed8d-4a94-b71b-a38065054f5d"
   },
   geonames: {
-    area: "c52f14c0-e9ac-4a8a-8f7a-c47328de168f"
+    area: "c52f14c0-e9ac-4a8a-8f7a-c47328de168f",
+    place: "c4c6356f-9cbc-4e26-ae76-63eef96d059d"
   },
   imslp: {
     artist: "8147b6a2-ad14-4ce7-8f0a-697f9a31f68f"
@@ -1294,6 +1295,16 @@ const CLEANUPS = {
       return false;
     }
   },
+  animationsong: {
+    match: [new RegExp("^(https?://)?([^/]+\\.)?animationsong\\.com/", "i")],
+    type: LINK_TYPES.lyrics,
+    clean: function (url) {
+      return url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?animationsong\.com\/(archives\/\d+\.html).*$/, "http://animationsong.com/$1");
+    },
+    validate: function (url, id) {
+      return id === LINK_TYPES.lyrics.work && /^http:\/\/animationsong\.com\/archives\/\d+\.html$/.test(url);
+    }
+  },
   anisongeneration: {
     match: [new RegExp("^(?:https?://)?anison\\.info/", "i")],
     type: LINK_TYPES.otherdatabases,
@@ -1525,6 +1536,60 @@ const CLEANUPS = {
       return false;
     }
   },
+  kashinavi: {
+    match: [new RegExp("^(https?://)?([^/]+\\.)?kashinavi\\.com/", "i")],
+    type: LINK_TYPES.lyrics,
+    clean: function (url) {
+      var m = /^(?:https?:\/\/)?(?:[^\/]+\.)?kashinavi\.com\/(.*)$/.exec(url);
+      if (m) {
+        var tail = m[1];
+        tail = tail.replace(/^(song_view\.html\?\d+).*$/, "$1");
+        tail = tail.replace(/^(kashu\.php\?).*(artist=\d+).*$/, "$1$2");
+        url = "http://kashinavi.com/" + tail;
+      }
+      return url;
+    },
+    validate: function (url, id) {
+      var m = /^http:\/\/kashinavi\.com\/(.+)$/.exec(url);
+      if (m) {
+        var tail = m[1];
+        switch (id) {
+          case LINK_TYPES.lyrics.artist:
+            return /^kashu\.php\?artist=\d+$/.test(tail);
+          case LINK_TYPES.lyrics.work:
+            return /^song_view\.html\?\d+$/.test(tail);
+        }
+      }
+      return false;
+    }
+  },
+  kget: {
+    match: [new RegExp("^(https?://)?([^/]+\\.)?kget\\.jp/", "i")],
+    type: LINK_TYPES.lyrics,
+    clean: function (url) {
+      var m = /^(?:https?:\/\/)?(?:[^\/]+\.)?kget\.jp\/(.*)$/.exec(url);
+      if (m) {
+        var tail = m[1];
+        tail = tail.replace(/^(lyric\/\d+)(?:\/.*)?$/, "$1/");
+        tail = tail.replace(/^(search\/index.php\?).*(r=[^&#]+).*$/, "$1$2");
+        url = "http://www.kget.jp/" + tail;
+      }
+      return url;
+    },
+    validate: function (url, id) {
+      var m = /^http:\/\/www\.kget\.jp\/(lyric(?=\/)|search\/index(?=\.))(?:\/\d+\/|\.php\?r=[^&#]+)$/.exec(url);
+      if (m) {
+        var prefix = m[1];
+        switch (id) {
+          case LINK_TYPES.lyrics.artist:
+            return prefix === 'search/index';
+          case LINK_TYPES.lyrics.work:
+            return prefix === 'lyric';
+        }
+      }
+      return false;
+    }
+  },
   livefans: {
     match: [new RegExp("^(https?://)?(www\\.)?livefans\\.jp", "i")],
     type: LINK_TYPES.otherdatabases,
@@ -1551,6 +1616,26 @@ const CLEANUPS = {
       return false;
     }
   },
+  lyricevesta: {
+    match: [new RegExp("^(https?://)?([^/]+\\.)?lyric\\.evesta\\.jp/", "i")],
+    type: LINK_TYPES.lyrics,
+    clean: function (url) {
+      return url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?lyric\.evesta\.jp\/([al]\w+\.html).*$/, "http://lyric.evesta.jp/$1");
+    },
+    validate: function (url, id) {
+      var m = /^http:\/\/lyric\.evesta\.jp\/(a|l)\w+\.html$/.exec(url);
+      if (m) {
+        var prefix = m[1];
+        switch (id) {
+          case LINK_TYPES.lyrics.artist:
+            return prefix === 'a';
+          case LINK_TYPES.lyrics.work:
+            return prefix === 'l';
+        }
+      }
+      return false;
+    }
+  },
   musicapopularcl: {
     match: [new RegExp("^(https?://)?(www\\.)?musicapopular\\.cl", "i")],
     type: LINK_TYPES.otherdatabases,
@@ -1569,6 +1654,38 @@ const CLEANUPS = {
         }
       }
       return false;
+    }
+  },
+  musixmatch: {
+    match: [new RegExp("^(https?://)?([^/]+\\.)?musixmatch\\.com/", "i")],
+    type: LINK_TYPES.lyrics,
+    clean: function (url) {
+      url = url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?musixmatch\.com\/(artist)\/([^\/?#]+).*$/, "https://www.musixmatch.com/$1/$2");
+      url = url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?musixmatch\.com\/(lyrics)\/([^\/?#]+)\/([^\/?#]+).*$/, "https://www.musixmatch.com/$1/$2/$3");
+      return url;
+    },
+    validate: function (url, id) {
+      var m = /^https:\/\/www.musixmatch\.com\/(artist|lyrics)\/[^?#]+$/.exec(url);
+      if (m) {
+        var prefix = m[1];
+        switch (id) {
+          case LINK_TYPES.lyrics.artist:
+            return prefix === 'artist';
+          case LINK_TYPES.lyrics.work:
+            return prefix === 'lyrics';
+        }
+      }
+      return false;
+    }
+  },
+  onlinebijbel: {
+    match: [new RegExp("^(https?://)?([^/]+\\.)?online-bijbel\\.nl/", "i")],
+    type: LINK_TYPES.lyrics,
+    clean: function (url) {
+      return url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?online-bijbel\.nl\/(12gezang|gezang|psalm)\/(\d+).*$/, "http://www.online-bijbel.nl/$1/$2/");
+    },
+    validate: function (url, id) {
+      return id === LINK_TYPES.lyrics.work && /^http:\/\/www.online-bijbel\.nl\/(12gezang|gezang|psalm)\/\d+\/$/.test(url);
     }
   },
   operabase: {
@@ -1638,6 +1755,16 @@ const CLEANUPS = {
         }
       }
       return false;
+    }
+  },
+  runeberg: {
+    match: [new RegExp("^(https?://)?([^/]+\\.)?runeberg\\.org/", "i")],
+    type: LINK_TYPES.lyrics,
+    clean: function (url) {
+      return url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?runeberg\.org\/(.*)$/, "http://runeberg.org/$1");
+    },
+    validate: function (url, id) {
+      return id === LINK_TYPES.lyrics.work && /^http:\/\/runeberg\.org\/[\w-\/]+\/\d+\.html$/.test(url);
     }
   },
   soundtrackcollector: {
@@ -1756,6 +1883,26 @@ const CLEANUPS = {
       url = url.replace(/^(?:https?:\/\/)?(?:www\.)?kickstarter\.com\/profile\/([\w\-]+)(?:[\/?#].*)?$/, "https://www.kickstarter.com/profile/$1");
       url = url.replace(/^(?:https?:\/\/)?(?:www\.)?kickstarter\.com\/projects\/(\d+)\/([\w\-]+)(?:[\/?#].*)?$/, "https://www.kickstarter.com/projects/$1/$2");
       return url;
+    }
+  },
+  utanet: {
+    match: [new RegExp("^(https?://)?([^/]+\\.)?uta-net\\.com/", "i")],
+    type: LINK_TYPES.lyrics,
+    clean: function (url) {
+      return url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?uta-net\.com\/(artist|song)\/(\d+).*$/, "https://www.uta-net.com/$1/$2/");
+    },
+    validate: function (url, id) {
+      var m = /^https:\/\/www\.uta-net\.com\/(artist|song)\/\d+\/$/.exec(url);
+      if (m) {
+        var prefix = m[1];
+        switch (id) {
+          case LINK_TYPES.lyrics.artist:
+            return prefix === 'artist';
+          case LINK_TYPES.lyrics.work:
+            return prefix === 'song';
+        }
+      }
+      return false;
     }
   },
   utaten: {

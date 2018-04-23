@@ -9,7 +9,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2018-02-03 10:09+0000\n"
+"PO-Revision-Date: 2018-04-05 09:17+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -145,6 +145,13 @@ msgid ""
 "release (e.g. pre-release versions, releases included with a magazine, "
 "versions supplied to radio DJs for air-play)."
 msgstr "Een uitgave die wordt weggegeven of bedoeld is om een officiële uitgave te promoten (bijv. prerelease-uitgaves, uitgaves die met een tijdschrift gebundeld zijn of versies die aan radio-dj’s worden gegeven om te draaien)."
+
+#: DB:instrument_type/description:7
+msgctxt "instrument_type"
+msgid ""
+"A grouping of related but different instruments, like the different violin-"
+"like instruments"
+msgstr "Een groep verwante maar verschillende instrumenten, zoals de verschillende violen."
 
 #: DB:work_attribute_type_allowed_value/value:28
 msgctxt "work_attribute_type_allowed_value"
@@ -325,6 +332,13 @@ msgid ""
 "A soundtrack is the music that accompanies a film, TV program, videogame, or"
 " even book."
 msgstr "Een soundtrack is muziek die een film, televisieprogramma, computerspel of zelfs boek begeleidt."
+
+#: DB:instrument_type/description:6
+msgctxt "instrument_type"
+msgid ""
+"A standard grouping of instruments often played together, like a string "
+"quartet"
+msgstr "Een standaardgroep van instrumenten die vaak samen worden bespeeld, zoals een strijkkwartet."
 
 #: DB:work_type/description:6
 msgctxt "work_type"
@@ -1820,6 +1834,11 @@ msgctxt "medium_format"
 msgid "Enhanced CD"
 msgstr "Enhanced CD"
 
+#: DB:instrument_type/name:6
+msgctxt "instrument_type"
+msgid "Ensemble"
+msgstr "Ensemble"
+
 #: DB:work_attribute_type_allowed_value/value:356
 msgctxt "work_attribute_type_allowed_value"
 msgid "Eski Sipihr"
@@ -1950,6 +1969,11 @@ msgctxt "work_attribute_type_allowed_value"
 msgid "Fahte"
 msgstr "Fahte"
 
+#: DB:instrument_type/name:7
+msgctxt "instrument_type"
+msgid "Family"
+msgstr "Familie"
+
 #: DB:work_attribute_type_allowed_value/value:615
 msgctxt "work_attribute_type_allowed_value"
 msgid "Fantezi"
@@ -2034,6 +2058,13 @@ msgstr "Feth-i Hicaz"
 msgctxt "work_attribute_type_allowed_value"
 msgid "Fireng-i Fer"
 msgstr "Fireng-i Fer"
+
+#: DB:medium_format/description:73
+msgctxt "medium_format"
+msgid ""
+"Flat discs with grooves used in phonographs/gramophones. For shellac and "
+"vinyl records, use that specifically"
+msgstr "Platte schijven met groeven die met een platenspeler worden afgespeeld. Gebruik een specifieker medium, zoals schellak of vinyl, als je weet wat het is."
 
 #: DB:medium_format/name:51
 msgctxt "medium_format"
@@ -2572,6 +2603,31 @@ msgstr "Hüzzam-ı Cedid"
 msgctxt "work_attribute_type_allowed_value"
 msgid "Hēmavati"
 msgstr "Hēmavati"
+
+#: DB:work_attribute_type/name:29
+msgctxt "work_attribute_type"
+msgid "ICE ID"
+msgstr "ICE-ID"
+
+#: DB:work_attribute_type/description:28
+msgctxt "work_attribute_type"
+msgid "ID for the Belgian rights society SABAM"
+msgstr "Identificatiecode voor de Belgische auteursrechtenorganisatie SABAM"
+
+#: DB:work_attribute_type/description:29
+msgctxt "work_attribute_type"
+msgid "ID for the International Copyright Enterprise"
+msgstr "Identificatiecode voor de International Copyright Enterprise"
+
+#: DB:work_attribute_type/description:27
+msgctxt "work_attribute_type"
+msgid "ID for the Mexican rights society SACM"
+msgstr "Identificatiecode voor de Mexicaanse auteursrechtenorganisatie SACM"
+
+#: DB:work_attribute_type/description:30
+msgctxt "work_attribute_type"
+msgid "ID for the Polish rights society ZAiKS"
+msgstr "Identificatiecode voor de Poolse auteursrechtenorganisatie ZAiKS"
 
 #: DB:work_attribute_type/name:14
 msgctxt "work_attribute_type"
@@ -3233,11 +3289,6 @@ msgctxt "event_type"
 msgid "Masterclass/Clinic"
 msgstr "Masterclass/Clinic"
 
-#: DB:work_attribute_type_allowed_value/value:452
-msgctxt "work_attribute_type_allowed_value"
-msgid "Mate"
-msgstr "Mate"
-
 #: DB:work_attribute_type_allowed_value/value:449
 msgctxt "work_attribute_type_allowed_value"
 msgid "Maver"
@@ -3257,6 +3308,11 @@ msgstr "Maveraünnehir"
 msgctxt "collection_type"
 msgid "Maybe attending"
 msgstr "Ga ik misschien heen"
+
+#: DB:work_attribute_type_allowed_value/value:452
+msgctxt "work_attribute_type_allowed_value"
+msgid "Maye"
+msgstr "Maye"
 
 #: DB:work_attribute_type_allowed_value/value:175
 msgctxt "work_attribute_type_allowed_value"
@@ -4018,6 +4074,11 @@ msgctxt "work_attribute_type_allowed_value"
 msgid "Peşrev"
 msgstr "Peşrev"
 
+#: DB:medium_format/name:73
+msgctxt "medium_format"
+msgid "Phonograph record"
+msgstr "Grammofoonplaat"
+
 #: DB:medium_format/name:15
 msgctxt "medium_format"
 msgid "Piano Roll"
@@ -4413,6 +4474,11 @@ msgctxt "work_attribute_type_allowed_value"
 msgid "Rūpaka"
 msgstr "Rūpaka"
 
+#: DB:work_attribute_type/name:28
+msgctxt "work_attribute_type"
+msgid "SABAM ID"
+msgstr "SABAM-ID"
+
 #: DB:medium_format/name:3
 msgctxt "medium_format"
 msgid "SACD"
@@ -4422,6 +4488,11 @@ msgstr "sacd"
 msgctxt "work_attribute_type"
 msgid "SACEM ID"
 msgstr "SACEM-ID"
+
+#: DB:work_attribute_type/name:27
+msgctxt "work_attribute_type"
+msgid "SACM ID"
+msgstr "SACM-ID"
 
 #: DB:work_attribute_type/name:24
 msgctxt "work_attribute_type"
@@ -5428,6 +5499,11 @@ msgstr "Yürüksemai II"
 msgctxt "work_attribute_type_allowed_value"
 msgid "Yürüksofyan"
 msgstr "Yürüksofyan"
+
+#: DB:work_attribute_type/name:30
+msgctxt "work_attribute_type"
+msgid "ZAiKS ID"
+msgstr "ZAiKS-ID"
 
 #: DB:work_attribute_type_allowed_value/value:780
 msgctxt "work_attribute_type_allowed_value"

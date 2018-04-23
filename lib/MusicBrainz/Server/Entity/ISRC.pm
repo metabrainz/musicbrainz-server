@@ -44,6 +44,15 @@ sub source
 
 sub name { shift->isrc }
 
+around TO_JSON => sub {
+    my ($orig, $self) = @_;
+
+    my $json = $self->$orig;
+    $json->{isrc} = $self->isrc;
+    $json->{recording_id} = $self->recording_id;
+    return $json;
+};
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;

@@ -203,7 +203,6 @@ sub GIT_SHA { {{executeTemplate "QUOTED_STRING" (env "GIT_SHA")}} }
 {{executeTemplate "STRING_DEF" "DISCOURSE_API_USERNAME"}}
 {{executeTemplate "STRING_DEF" "DISCOURSE_SERVER"}}
 {{executeTemplate "STRING_DEF" "DISCOURSE_SSO_SECRET"}}
-{{executeTemplate "STRING_DEF" "GOOGLE_ANALYTICS_CODE"}}
 {{executeTemplate "STRING_DEF" "GOOGLE_CUSTOM_SEARCH"}}
 {{executeTemplate "STRING_DEF" "GPG_ENCRYPT_KEY"}}
 {{executeTemplate "STRING_DEF" "GPG_SIGN_KEY"}}

@@ -11,7 +11,8 @@ sub embed {
     my ($self, $c, $component, $props) = @_;
 
     my $response = render_component($c, $component, $props);
-    if ($response->{status} == 200) {
+    my $status = $response->{status};
+    if (!defined $status || $status == 200) {
         return $response->{body};
     } else {
         die $response->{body};

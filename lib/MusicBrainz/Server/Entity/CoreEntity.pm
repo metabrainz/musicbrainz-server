@@ -35,7 +35,11 @@ has 'unaccented_name' => (
 around TO_JSON => sub {
     my ($orig, $self) = @_;
 
-    return {%{ $self->$orig }, gid => $self->gid};
+    my $json = $self->$orig;
+    $json->{gid} = $self->gid;
+    $json->{name} = $self->name;
+    $json->{unaccented_name} = $self->unaccented_name;
+    return $json;
 };
 
 __PACKAGE__->meta->make_immutable;

@@ -1,8 +1,12 @@
-// This file is part of MusicBrainz, the open internet music database.
-// Copyright (C) 2017 MetaBrainz Foundation
-// Licensed under the GPL version 2, or (at your option) any later version:
-// http://www.gnu.org/licenses/gpl-2.0.txt
+/*
+ * Copyright (C) 2017 MetaBrainz Foundation
+ *
+ * This file is part of MusicBrainz, the open internet music database
+ * and is licensed under the GPL version 2, or (at your option) any
+ * later version: http://www.gnu.org/licenses/gpl-2.0.txt
+ */
 
+const _ = require('lodash');
 const React = require('react');
 const URL = require('url');
 
@@ -14,9 +18,9 @@ const {compare, l} = require('../../static/scripts/common/i18n');
 
 function faviconClass(urlEntity) {
   let matchingClass;
-  let urlObject = URL.parse(urlEntity.name, false, true);
+  const urlObject = URL.parse(urlEntity.name, false, true);
 
-  for (let key in FAVICON_CLASSES) {
+  for (const key in FAVICON_CLASSES) {
     if ((key.indexOf('/') >= 0 && urlEntity.name.indexOf(key) >= 0) ||
         urlObject.host.indexOf(key) >= 0) {
       matchingClass = FAVICON_CLASSES[key];
@@ -69,9 +73,10 @@ const ExternalLinks = ({entity, empty, heading}) => {
       links.push(
         <ExternalLink
           className="home-favicon"
+          key={relationship.id}
           relationship={relationship}
           text={l('Official homepage')}
-        />
+        />,
       );
     } else if (target.show_in_external_links) {
       otherLinks.push(relationship);
@@ -83,12 +88,17 @@ const ExternalLinks = ({entity, empty, heading}) => {
   }
 
   otherLinks.sort(function (a, b) {
-    return compare(a.target.sidebar_name, b.target.sidebar_name);
+    return compare(a.target.sidebar_name, b.target.sidebar_name) ||
+      compare(a.target.href_url, b.target.href_url);
   });
 
-  links.push.apply(links, otherLinks.map(function (relationship) {
-    return <ExternalLink relationship={relationship} />;
+  const uniqueOtherLinks = _.sortedUniqBy(otherLinks, x => x.target.href_url);
+
+  links.push.apply(links, uniqueOtherLinks.map(function (relationship) {
+    return <ExternalLink key={relationship.id} relationship={relationship} />;
   }));
+
+  const entityType = entity.entityType;
 
   return (
     <Frag>
@@ -97,9 +107,7 @@ const ExternalLinks = ({entity, empty, heading}) => {
       </h2>
       <ul className="external_links">
         {links}
-        <If condition={empty &&
-                       (entity.entityType === 'artist' ||
-                        entity.entityType === 'label')}>
+        {(empty && (entityType === 'artist' || entityType === 'label')) ? (
           <li className="all-relationships">
             <EntityLink
               content={l('View all relationships')}
@@ -107,7 +115,7 @@ const ExternalLinks = ({entity, empty, heading}) => {
               subPath="relationships"
             />
           </li>
-        </If>
+        ) : null}
       </ul>
     </Frag>
   );

@@ -73,6 +73,11 @@ msgctxt "medium_format"
 msgid "8\" LaserDisc"
 msgstr ""
 
+#: DB:medium_format/name:78
+msgctxt "medium_format"
+msgid "8-Track Cartridge"
+msgstr ""
+
 #: DB:medium_format/name:34
 msgctxt "medium_format"
 msgid "8cm CD"
@@ -134,6 +139,13 @@ msgid ""
 "A give-away release or a release intended to promote an upcoming official "
 "release (e.g. pre-release versions, releases included with a magazine, "
 "versions supplied to radio DJs for air-play)."
+msgstr ""
+
+#: DB:instrument_type/description:7
+msgctxt "instrument_type"
+msgid ""
+"A grouping of related but different instruments, like the different violin-"
+"like instruments"
 msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:28
@@ -314,6 +326,13 @@ msgctxt "work_type"
 msgid ""
 "A soundtrack is the music that accompanies a film, TV program, videogame, or "
 "even book."
+msgstr ""
+
+#: DB:instrument_type/description:6
+msgctxt "instrument_type"
+msgid ""
+"A standard grouping of instruments often played together, like a string "
+"quartet"
 msgstr ""
 
 #: DB:work_type/description:6
@@ -1809,6 +1828,11 @@ msgctxt "medium_format"
 msgid "Enhanced CD"
 msgstr ""
 
+#: DB:instrument_type/name:6
+msgctxt "instrument_type"
+msgid "Ensemble"
+msgstr ""
+
 #: DB:work_attribute_type_allowed_value/value:356
 msgctxt "work_attribute_type_allowed_value"
 msgid "Eski Sipihr"
@@ -1939,6 +1963,11 @@ msgctxt "work_attribute_type_allowed_value"
 msgid "Fahte"
 msgstr ""
 
+#: DB:instrument_type/name:7
+msgctxt "instrument_type"
+msgid "Family"
+msgstr ""
+
 #: DB:work_attribute_type_allowed_value/value:615
 msgctxt "work_attribute_type_allowed_value"
 msgid "Fantezi"
@@ -2024,6 +2053,13 @@ msgctxt "work_attribute_type_allowed_value"
 msgid "Fireng-i Fer"
 msgstr ""
 
+#: DB:medium_format/description:73
+msgctxt "medium_format"
+msgid ""
+"Flat discs with grooves used in phonographs/gramophones. For shellac and "
+"vinyl records, use that specifically"
+msgstr ""
+
 #: DB:medium_format/name:51
 msgctxt "medium_format"
 msgid "Flexi-disc"
@@ -2034,6 +2070,11 @@ msgctxt "medium_format"
 msgid ""
 "Flexi-discs are phonograph records made of a thin, flexible vinyl sheet with "
 "a molded-in groove, designed to be playable on a normal phonograph turntable."
+msgstr ""
+
+#: DB:medium_format/name:76
+msgctxt "medium_format"
+msgid "Floppy Disk"
 msgstr ""
 
 #: DB:work_attribute_type/name:16
@@ -2329,6 +2370,11 @@ msgstr ""
 #: DB:work_attribute_type_allowed_value/value:738
 msgctxt "work_attribute_type_allowed_value"
 msgid "Hezeç"
+msgstr ""
+
+#: DB:medium_format/name:75
+msgctxt "medium_format"
+msgid "HiPac"
 msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:391
@@ -3245,11 +3291,6 @@ msgctxt "event_type"
 msgid "Masterclass/Clinic"
 msgstr ""
 
-#: DB:work_attribute_type_allowed_value/value:452
-msgctxt "work_attribute_type_allowed_value"
-msgid "Mate"
-msgstr ""
-
 #: DB:work_attribute_type_allowed_value/value:449
 msgctxt "work_attribute_type_allowed_value"
 msgid "Maver"
@@ -3268,6 +3309,11 @@ msgstr ""
 #: DB:editor_collection_type/name:6
 msgctxt "collection_type"
 msgid "Maybe attending"
+msgstr ""
+
+#: DB:work_attribute_type_allowed_value/value:452
+msgctxt "work_attribute_type_allowed_value"
+msgid "Maye"
 msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:175
@@ -3458,6 +3504,11 @@ msgctxt "work_attribute_type_allowed_value"
 msgid "Murabba"
 msgstr ""
 
+#: DB:work_attribute_type_allowed_value/value:811
+msgctxt "work_attribute_type_allowed_value"
+msgid "Murabba Beste "
+msgstr ""
+
 #: DB:medium_format/name:46
 msgctxt "medium_format"
 msgid "Music Card"
@@ -3588,6 +3639,21 @@ msgstr ""
 #: DB:work_attribute_type_allowed_value/value:648
 msgctxt "work_attribute_type_allowed_value"
 msgid "Nakış"
+msgstr ""
+
+#: DB:work_attribute_type_allowed_value/value:809
+msgctxt "work_attribute_type_allowed_value"
+msgid "Nakış Ağırsemai"
+msgstr ""
+
+#: DB:work_attribute_type_allowed_value/value:808
+msgctxt "work_attribute_type_allowed_value"
+msgid "Nakış Beste"
+msgstr ""
+
+#: DB:work_attribute_type_allowed_value/value:810
+msgctxt "work_attribute_type_allowed_value"
+msgid "Nakış Yürüksemai"
 msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:468
@@ -4030,6 +4096,11 @@ msgctxt "work_attribute_type_allowed_value"
 msgid "Peşrev"
 msgstr ""
 
+#: DB:medium_format/name:73
+msgctxt "medium_format"
+msgid "Phonograph record"
+msgstr ""
+
 #: DB:medium_format/name:15
 msgctxt "medium_format"
 msgid "Piano Roll"
@@ -4048,6 +4119,11 @@ msgstr ""
 #: DB:work_type/name:28
 msgctxt "work_type"
 msgid "Play"
+msgstr ""
+
+#: DB:medium_format/name:74
+msgctxt "medium_format"
+msgid "PlayTape"
 msgstr ""
 
 #: DB:medium_format/name:45
@@ -5514,6 +5590,11 @@ msgstr ""
 #: DB:work_attribute_type_allowed_value/value:598
 msgctxt "work_attribute_type_allowed_value"
 msgid "Zilkeş"
+msgstr ""
+
+#: DB:medium_format/name:77
+msgctxt "medium_format"
+msgid "Zip Disk"
 msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:599

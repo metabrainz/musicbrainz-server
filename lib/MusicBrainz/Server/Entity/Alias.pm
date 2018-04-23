@@ -1,4 +1,5 @@
 package MusicBrainz::Server::Entity::Alias;
+use MusicBrainz::Server::Data::Utils qw( boolean_to_json );
 
 use Moose;
 
@@ -26,6 +27,18 @@ has 'primary_for_locale' => (
     isa => 'Bool',
     is => 'rw',
 );
+
+around TO_JSON => sub {
+    my ($orig, $self) = @_;
+
+    return {
+        %{ $self->$orig },
+        name => $self->name,
+        locale => $self->locale,
+        primary_for_locale => boolean_to_json($self->primary_for_locale),
+        sort_name => $self->sort_name,
+    };
+};
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

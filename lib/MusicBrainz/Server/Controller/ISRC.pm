@@ -35,8 +35,13 @@ sub show : Chained('load') PathPart('')
     my @recordings = sort_by { $_->name } $c->model('Recording')->load(@$isrcs);
     $c->model('ArtistCredit')->load(@recordings);
     $c->stash(
-        recordings => \@recordings,
-        template   => 'isrc/index.tt',
+        current_view => 'Node',
+        component_path => 'isrc/Index.js',
+        component_props => {
+            %{$c->stash->{component_props}},
+            isrcs => $isrcs,
+            recordings => \@recordings
+        }
     );
 }
 

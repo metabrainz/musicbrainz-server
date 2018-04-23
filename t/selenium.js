@@ -17,6 +17,8 @@ const {Key} = require('selenium-webdriver/lib/input');
 const promise = require('selenium-webdriver/lib/promise');
 const until = require('selenium-webdriver/lib/until');
 
+const escapeRegExp = require('../root/static/scripts/common/utility/escapeRegExp');
+
 const testSqlPath = path.resolve(__dirname, 'sql', 'selenium.sql');
 const psqlPath = path.resolve(__dirname, '..', 'admin', 'psql');
 
@@ -84,10 +86,11 @@ async function selectOption(select, optionLocator) {
 
   switch (prefix) {
     case 'label':
-      if (!value.startsWith('regexp:')) {
-        throw 'Only regexp patterns are supported for the "label" select prefix';
+      if (value.startsWith('regexp:')) {
+        value = new RegExp(value.slice(7));
+      } else {
+        value = new RegExp('^\s*' + escapeRegExp(value) + '\s*$');
       }
-      value = new RegExp(value.slice(7));
       option = await select.findElement(function () {
         const options = select.findElements(webdriver.By.tagName('option'));
         return promise.filter(options, function (option) {
@@ -156,6 +159,14 @@ async function handleCommand(command, target, value, baseURL, t) {
   if (/AndWait$/.test(command)) {
     return handleCommandAndWait.apply(null, arguments);
   }
+
+  // The CATALYST_DEBUG views interfere with our tests. Remove them.
+  await driver.executeScript(`
+    var node = document.getElementById('catalyst-stats');
+    if (node) node.remove();
+    node = document.getElementById('plDebug');
+    if (node) node.remove();
+  `);
 
   t.comment(
     command +
@@ -264,8 +275,10 @@ const tests = [
   'Log_Out.html',
   'Log_In.html',
   'MBS-7456.html',
+  'MBS-9548.html',
   'Artist_Credit_Editor.html',
   'External_Links_Editor.html',
+  'Work_Editor.html',
 ];
 
 async function nextTest(testIndex) {

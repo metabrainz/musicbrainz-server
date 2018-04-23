@@ -249,9 +249,15 @@ sub begin : Private
         $git_info{msg} = DBDefs->GIT_MSG;
     }
 
+    my @server_languages = map {
+        my $lang = $_;
+        { name => $lang->[0],
+          map { $_ => $lang->[1]->{$_} } qw( id native_language native_territory ) }
+    } @{ Translation->instance->all_languages };
+
     $c->stash(
         wiki_server => DBDefs->WIKITRANS_SERVER,
-        server_languages => Translation->instance->all_languages(),
+        server_languages => \@server_languages,
         server_details => {
             staging_server => DBDefs->DB_STAGING_SERVER,
             testing_features => DBDefs->DB_STAGING_TESTING_FEATURES,
@@ -264,6 +270,10 @@ sub begin : Private
         new_edit_notes => $new_edit_notes,
         new_edit_notes_mtime => $new_edit_notes_mtime,
         contact_url => $CONTACT_URL,
+        component_props => {
+            currentLanguage => $c->stash->{current_language},
+            serverLanguages => \@server_languages,
+        },
     );
 
     # Setup the searches on the sidebar.
@@ -372,8 +382,6 @@ sub end : ActionClass('RenderView')
         beta_redirect              => DBDefs->BETA_REDIRECT_HOSTNAME,
         is_beta                    => DBDefs->IS_BETA
     };
-
-    $c->stash->{google_analytics_code} = DBDefs->GOOGLE_ANALYTICS_CODE;
 
     $c->stash->{various_artist_mbid} = $VARTIST_GID;
 

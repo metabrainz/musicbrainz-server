@@ -253,6 +253,14 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
                      input_entity_type: 'label',
             expected_relationship_type: 'blog',
         },
+        // Animationsong.com
+        {
+                             input_url: 'http://animationsong.com/archives/816073.html#post-13222',
+                     input_entity_type: 'work',
+            expected_relationship_type: 'lyrics',
+                    expected_clean_url: 'http://animationsong.com/archives/816073.html',
+               only_valid_entity_types: ['work']
+        },
         // Anime News Network
         {
                              input_url: 'http://animenewsnetwork.com/encyclopedia/people.php?id=59062',
@@ -1150,6 +1158,14 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
                      input_entity_type: 'area',
             expected_relationship_type: 'geonames',
                     expected_clean_url: 'http://sws.geonames.org/6255147/',
+               only_valid_entity_types: ['area', 'place']
+        },
+        {
+                             input_url: 'http://www.geonames.org/6698548/jaani-kirik.html',
+                     input_entity_type: 'area',
+            expected_relationship_type: 'geonames',
+                    expected_clean_url: 'http://sws.geonames.org/6698548/',
+               only_valid_entity_types: ['area', 'place']
         },
         // Google
         {
@@ -1463,6 +1479,36 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
                      input_entity_type: 'release',
             expected_relationship_type: 'discographyentry',
         },
+        // Kashinavi.com
+        {
+                             input_url: 'http://kashinavi.com/kashu.php?artist=103530&kashu=%8A%99%93c%8F%CD%8C%E1&start=1',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'lyrics',
+                    expected_clean_url: 'http://kashinavi.com/kashu.php?artist=103530',
+               only_valid_entity_types: ['artist']
+        },
+        {
+                             input_url: 'www.kashinavi.com/song_view.html?68574',
+                     input_entity_type: 'work',
+            expected_relationship_type: 'lyrics',
+                    expected_clean_url: 'http://kashinavi.com/song_view.html?68574',
+               only_valid_entity_types: ['work']
+        },
+        // Kget.jp
+        {
+                             input_url: 'http://www.kget.jp/search/index.php?c=0&r=%E3%83%A4%E3%83%B3%E3%82%B0%E3%83%BB%E3%83%95%E3%83%AC%E3%83%83%E3%82%B7%E3%83%A5&t=&v=&f=',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'lyrics',
+                    expected_clean_url: 'http://www.kget.jp/search/index.php?r=%E3%83%A4%E3%83%B3%E3%82%B0%E3%83%BB%E3%83%95%E3%83%AC%E3%83%83%E3%82%B7%E3%83%A5',
+               only_valid_entity_types: ['artist']
+        },
+        {
+                             input_url: 'http://www.kget.jp/lyric/173795/VAMOLA%21%E3%82%AD%E3%83%A7%E3%82%A6%E3%83%AA%E3%83%A5%E3%82%A6%E3%82%B8%E3%83%A3%E3%83%BC_%E9%8E%8C%E7%94%B0%E7%AB%A0%E5%90%BE',
+                     input_entity_type: 'work',
+            expected_relationship_type: 'lyrics',
+                    expected_clean_url: 'http://www.kget.jp/lyric/173795/',
+               only_valid_entity_types: ['work']
+        },
         // Kickstarter
         {
                              input_url: 'https://www.kickstarter.com/profile/0123456789/bio',
@@ -1605,6 +1651,21 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
             expected_relationship_type: 'downloadpurchase',
                     expected_clean_url: 'https://loudr.fm/release/dearly-beloved-2014/Vv2cZ',
         },
+        // lyric.evesta.jp
+        {
+                             input_url: 'http://lyric.evesta.jp/a7d0991.html',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'lyrics',
+                    expected_clean_url: 'http://lyric.evesta.jp/a7d0991.html',
+               only_valid_entity_types: ['artist']
+        },
+        {
+                             input_url: 'www.lyric.evesta.jp/l7a75fa.html#lyrictitle',
+                     input_entity_type: 'work',
+            expected_relationship_type: 'lyrics',
+                    expected_clean_url: 'http://lyric.evesta.jp/l7a75fa.html',
+               only_valid_entity_types: ['work']
+        },
         // LYRICSnMUSIC
         {
                              input_url: 'http://www.lyricsnmusic.com/david-hasselhoff/white-christmas-lyrics/27952232',
@@ -1736,6 +1797,28 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
             expected_relationship_type: 'otherdatabases',
                     expected_clean_url: 'https://www.musik-sammler.de/media/594158/',
         },
+        // Musixmatch
+        {
+                             input_url: 'https://www.musixmatch.com/artist/Bruno-Mars/community/2',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'lyrics',
+                    expected_clean_url: 'https://www.musixmatch.com/artist/Bruno-Mars',
+               only_valid_entity_types: ['artist']
+        },
+        {
+                             input_url: 'https://www.musixmatch.com/album/Bruno-Mars/This-Is-My-Love-Remixes-3',
+                     input_entity_type: 'album',
+            expected_relationship_type: undefined,
+               input_relationship_type: 'lyrics',
+               only_valid_entity_types: []
+        },
+        {
+                             input_url: 'https://www.musixmatch.com/lyrics/Mark-Ronson-feat-Bruno-Mars/Uptown-Funk/translation/spanish',
+                     input_entity_type: 'work',
+            expected_relationship_type: 'lyrics',
+                    expected_clean_url: 'https://www.musixmatch.com/lyrics/Mark-Ronson-feat-Bruno-Mars/Uptown-Funk',
+               only_valid_entity_types: ['work']
+        },
         // mvdbase.com (The Music Video DataBase)
         {
                              input_url: 'http://www.mvdbase.com/video.php?id=4',
@@ -1802,6 +1885,28 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
                      input_entity_type: 'release_group',
             expected_relationship_type: 'otherdatabases',
                     expected_clean_url: 'http://trove.nla.gov.au/work/9438679',
+        },
+        // Online-Bijbel.nl
+        {
+                             input_url: 'http://www.online-bijbel.nl/12gezang/12/',
+                     input_entity_type: 'work',
+            expected_relationship_type: 'lyrics',
+                    expected_clean_url: 'http://www.online-bijbel.nl/12gezang/12/',
+               only_valid_entity_types: ['work']
+        },
+        {
+                             input_url: 'http://online-bijbel.nl/gezang/231',
+                     input_entity_type: 'work',
+            expected_relationship_type: 'lyrics',
+                    expected_clean_url: 'http://www.online-bijbel.nl/gezang/231/',
+               only_valid_entity_types: ['work']
+        },
+        {
+                             input_url: 'www.online-bijbel.nl/psalm/136/8',
+                     input_entity_type: 'work',
+            expected_relationship_type: 'lyrics',
+                    expected_clean_url: 'http://www.online-bijbel.nl/psalm/136/',
+               only_valid_entity_types: ['work']
         },
         // Open Library
         {
@@ -2111,6 +2216,28 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
                              input_url: 'http://www.rockipedia.no/utgivelser/hunting_high_and_low_-_remastered_and_ex-7991/',
                      input_entity_type: 'release',
             expected_relationship_type: 'otherdatabases',
+        },
+        // Runeberg
+        {
+                             input_url: 'http://runeberg.org/f3gd/31/0194.html',
+                     input_entity_type: 'work',
+            expected_relationship_type: 'lyrics',
+                    expected_clean_url: 'http://runeberg.org/f3gd/31/0194.html',
+               only_valid_entity_types: ['work']
+        },
+        {
+                             input_url: 'www.runeberg.org/kacpoet/0023.html',
+                     input_entity_type: 'work',
+            expected_relationship_type: 'lyrics',
+                    expected_clean_url: 'http://runeberg.org/kacpoet/0023.html',
+               only_valid_entity_types: ['work']
+        },
+        {
+                             input_url: 'https://runeberg.org/saol/9-5/0593.html',
+                     input_entity_type: 'work',
+            expected_relationship_type: 'lyrics',
+                    expected_clean_url: 'http://runeberg.org/saol/9-5/0593.html',
+               only_valid_entity_types: ['work']
         },
         // SecondHandSongs
         {
@@ -2520,6 +2647,21 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
                              input_url: 'http://www.utamap.com/showkasi.php?surl=34985',
                      input_entity_type: 'work',
             expected_relationship_type: 'lyrics',
+        },
+        // Uta-Net
+        {
+                             input_url: 'http://uta-net.com/artist/9208/4/',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'lyrics',
+                    expected_clean_url: 'https://www.uta-net.com/artist/9208/',
+               only_valid_entity_types: ['artist']
+        },
+        {
+                             input_url: 'www.uta-net.com/song/188300/',
+                     input_entity_type: 'work',
+            expected_relationship_type: 'lyrics',
+                    expected_clean_url: 'https://www.uta-net.com/song/188300/',
+               only_valid_entity_types: ['work']
         },
         // Utaten
         {

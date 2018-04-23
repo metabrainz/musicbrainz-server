@@ -1,4 +1,4 @@
-# Translators:
+# 
 # Translators:
 # Dimitris <email address hidden>, 2013,2016
 # Dimitris <email address hidden>, 2012
@@ -8,8 +8,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2017-09-23 18:13+0000\n"
-"Last-Translator: Laurent Monin <email address hidden>\n"
+"PO-Revision-Date: 2018-04-05 04:39+0000\n"
+"Last-Translator: yvanz\n"
 "Language-Team: Greek (http://www.transifex.com/musicbrainz/musicbrainz/language/el/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -42,6 +42,11 @@ msgctxt "medium_format"
 msgid "10\" Vinyl"
 msgstr "βινύλιο 10\" "
 
+#: DB:medium_format/name:72
+msgctxt "medium_format"
+msgid "12\" LaserDisc"
+msgstr ""
+
 #: DB:medium_format/name:55
 msgctxt "medium_format"
 msgid "12\" Shellac"
@@ -71,6 +76,11 @@ msgstr "Δίσκος σέλακ 7\""
 msgctxt "medium_format"
 msgid "7\" Vinyl"
 msgstr "βινύλιο 7\""
+
+#: DB:medium_format/name:71
+msgctxt "medium_format"
+msgid "8\" LaserDisc"
+msgstr ""
 
 #: DB:medium_format/name:34
 msgctxt "medium_format"
@@ -135,6 +145,13 @@ msgid ""
 "versions supplied to radio DJs for air-play)."
 msgstr ""
 
+#: DB:instrument_type/description:7
+msgctxt "instrument_type"
+msgid ""
+"A grouping of related but different instruments, like the different violin-"
+"like instruments"
+msgstr ""
+
 #: DB:work_attribute_type_allowed_value/value:28
 msgctxt "work_attribute_type_allowed_value"
 msgid "A major"
@@ -173,6 +190,11 @@ msgctxt "event_type"
 msgid ""
 "A party, reception or other event held specifically for the launch of a "
 "release."
+msgstr ""
+
+#: DB:release_packaging/description:17
+msgctxt "release_packaging"
+msgid "A perfect bound book with a sleeve at the end to hold a CD"
 msgstr ""
 
 #: DB:place_type/description:5
@@ -239,6 +261,13 @@ msgctxt "series_type"
 msgid "A recurring festival, usually happening annually in the same location."
 msgstr ""
 
+#: DB:place_type/description:7
+msgctxt "place_type"
+msgid ""
+"A school, university or other similar educational institution (especially, "
+"but not only, one where music is taught)"
+msgstr ""
+
 #: DB:series_type/description:6
 msgctxt "series_type"
 msgid "A series of events."
@@ -301,6 +330,13 @@ msgctxt "work_type"
 msgid ""
 "A soundtrack is the music that accompanies a film, TV program, videogame, or"
 " even book."
+msgstr ""
+
+#: DB:instrument_type/description:6
+msgctxt "instrument_type"
+msgid ""
+"A standard grouping of instruments often played together, like a string "
+"quartet"
 msgstr ""
 
 #: DB:work_type/description:6
@@ -779,6 +815,11 @@ msgctxt "work_attribute_type"
 msgid "BMI ID"
 msgstr ""
 
+#: DB:work_attribute_type/name:26
+msgctxt "work_attribute_type"
+msgid "BUMA/STEMRA ID"
+msgstr ""
+
 #: DB:cover_art_archive.art_type/name:2
 msgctxt "cover_art_type"
 msgid "Back"
@@ -999,6 +1040,11 @@ msgstr "Παραγωγή Bootleg"
 #: DB:work_attribute_type_allowed_value/value:607
 msgctxt "work_attribute_type_allowed_value"
 msgid "Bozlak"
+msgstr ""
+
+#: DB:instrument_alias_type/name:3
+msgctxt "alias_type"
+msgid "Brand name"
 msgstr ""
 
 #: DB:release_group_primary_type/name:12
@@ -1537,6 +1583,11 @@ msgctxt "work_attribute_type_allowed_value"
 msgid "Dhēnuka"
 msgstr ""
 
+#: DB:release_packaging/name:17
+msgctxt "release_packaging"
+msgid "Digibook"
+msgstr ""
+
 #: DB:release_packaging/name:3
 msgctxt "release_packaging"
 msgid "Digipak"
@@ -1767,6 +1818,11 @@ msgctxt "medium_format"
 msgid "Edison Diamond Disc"
 msgstr ""
 
+#: DB:place_type/name:7
+msgctxt "place_type"
+msgid "Educational institution"
+msgstr ""
+
 #: DB:instrument_type/name:4
 msgctxt "instrument_type"
 msgid "Electronic instrument"
@@ -1775,6 +1831,11 @@ msgstr ""
 #: DB:medium_format/name:42
 msgctxt "medium_format"
 msgid "Enhanced CD"
+msgstr ""
+
+#: DB:instrument_type/name:6
+msgctxt "instrument_type"
+msgid "Ensemble"
 msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:356
@@ -1907,6 +1968,11 @@ msgctxt "work_attribute_type_allowed_value"
 msgid "Fahte"
 msgstr ""
 
+#: DB:instrument_type/name:7
+msgctxt "instrument_type"
+msgid "Family"
+msgstr ""
+
 #: DB:work_attribute_type_allowed_value/value:615
 msgctxt "work_attribute_type_allowed_value"
 msgid "Fantezi"
@@ -1990,6 +2056,13 @@ msgstr ""
 #: DB:work_attribute_type_allowed_value/value:734
 msgctxt "work_attribute_type_allowed_value"
 msgid "Fireng-i Fer"
+msgstr ""
+
+#: DB:medium_format/description:73
+msgctxt "medium_format"
+msgid ""
+"Flat discs with grooves used in phonographs/gramophones. For shellac and "
+"vinyl records, use that specifically"
 msgstr ""
 
 #: DB:medium_format/name:51
@@ -2528,6 +2601,31 @@ msgstr ""
 #: DB:work_attribute_type_allowed_value/value:109
 msgctxt "work_attribute_type_allowed_value"
 msgid "Hēmavati"
+msgstr ""
+
+#: DB:work_attribute_type/name:29
+msgctxt "work_attribute_type"
+msgid "ICE ID"
+msgstr ""
+
+#: DB:work_attribute_type/description:28
+msgctxt "work_attribute_type"
+msgid "ID for the Belgian rights society SABAM"
+msgstr ""
+
+#: DB:work_attribute_type/description:29
+msgctxt "work_attribute_type"
+msgid "ID for the International Copyright Enterprise"
+msgstr ""
+
+#: DB:work_attribute_type/description:27
+msgctxt "work_attribute_type"
+msgid "ID for the Mexican rights society SACM"
+msgstr ""
+
+#: DB:work_attribute_type/description:30
+msgctxt "work_attribute_type"
+msgid "ID for the Polish rights society ZAiKS"
 msgstr ""
 
 #: DB:work_attribute_type/name:14
@@ -3190,11 +3288,6 @@ msgctxt "event_type"
 msgid "Masterclass/Clinic"
 msgstr ""
 
-#: DB:work_attribute_type_allowed_value/value:452
-msgctxt "work_attribute_type_allowed_value"
-msgid "Mate"
-msgstr ""
-
 #: DB:work_attribute_type_allowed_value/value:449
 msgctxt "work_attribute_type_allowed_value"
 msgid "Maver"
@@ -3213,6 +3306,11 @@ msgstr ""
 #: DB:editor_collection_type/name:6
 msgctxt "collection_type"
 msgid "Maybe attending"
+msgstr ""
+
+#: DB:work_attribute_type_allowed_value/value:452
+msgctxt "work_attribute_type_allowed_value"
+msgid "Maye"
 msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:175
@@ -3805,6 +3903,11 @@ msgctxt "work_attribute_type_allowed_value"
 msgid "Nīlāṁbari"
 msgstr ""
 
+#: DB:work_attribute_type/name:25
+msgctxt "work_attribute_type"
+msgid "OSA ID"
+msgstr ""
+
 #: DB:cover_art_archive.art_type/name:5
 msgctxt "cover_art_type"
 msgid "Obi"
@@ -3968,6 +4071,11 @@ msgstr ""
 #: DB:work_attribute_type_allowed_value/value:654
 msgctxt "work_attribute_type_allowed_value"
 msgid "Peşrev"
+msgstr ""
+
+#: DB:medium_format/name:73
+msgctxt "medium_format"
+msgid "Phonograph record"
 msgstr ""
 
 #: DB:medium_format/name:15
@@ -4365,6 +4473,11 @@ msgctxt "work_attribute_type_allowed_value"
 msgid "Rūpaka"
 msgstr ""
 
+#: DB:work_attribute_type/name:28
+msgctxt "work_attribute_type"
+msgid "SABAM ID"
+msgstr ""
+
 #: DB:medium_format/name:3
 msgctxt "medium_format"
 msgid "SACD"
@@ -4373,6 +4486,11 @@ msgstr "SACD"
 #: DB:work_attribute_type/name:21
 msgctxt "work_attribute_type"
 msgid "SACEM ID"
+msgstr ""
+
+#: DB:work_attribute_type/name:27
+msgctxt "work_attribute_type"
+msgid "SACM ID"
 msgstr ""
 
 #: DB:work_attribute_type/name:24
@@ -5379,6 +5497,11 @@ msgstr ""
 #: DB:work_attribute_type_allowed_value/value:779
 msgctxt "work_attribute_type_allowed_value"
 msgid "Yürüksofyan"
+msgstr ""
+
+#: DB:work_attribute_type/name:30
+msgctxt "work_attribute_type"
+msgid "ZAiKS ID"
 msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:780

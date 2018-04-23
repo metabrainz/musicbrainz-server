@@ -37,7 +37,14 @@ function getTitle(props) {
   return title;
 }
 
-const vars = {};
+const CanonicalLink = ({href}) => {
+  const reqUri = $c.req.uri;
+  const canonUri = canonicalize(href || reqUri);
+  if (reqUri !== canonUri) {
+    return <link rel="canonical" href={canonUri} />;
+  }
+  return null;
+};
 
 const Head = (props) => (
   <head>
@@ -48,15 +55,11 @@ const Head = (props) => (
 
     <title>{getTitle(props)}</title>
 
-    <If condition={(vars.canonURL = canonicalize(props.canonical_url || $c.req.uri)) !== $c.req.uri}>
-      <link rel="canonical" href={vars.canonURL} />
-    </If>
+    <CanonicalLink href={props.canonical_url} />
 
     {manifest.css('common')}
 
-    <If condition={!props.no_icons}>
-      {manifest.css('icons')}
-    </If>
+    {props.no_icons ? null : manifest.css('icons')}
 
     <link rel="search" type="application/opensearchdescription+xml" title={l('MusicBrainz: Artist')} href="/static/search_plugins/opensearch/musicbrainz_artist.xml" />
     <link rel="search" type="application/opensearchdescription+xml" title={l('MusicBrainz: Label')} href="/static/search_plugins/opensearch/musicbrainz_label.xml" />
@@ -87,27 +90,12 @@ const Head = (props) => (
       }),
     })}
 
-    <If condition={$c.stash.jsonld_data}>
+    {$c.stash.jsonld_data ? (
       <script
         dangerouslySetInnerHTML={{__html: escapeClosingTags(JSON.stringify($c.stash.jsonld_data))}}
         type="application/ld+json"
       />
-    </If>
-
-    <If condition={DBDefs.GOOGLE_ANALYTICS_CODE}>
-      <script type="text/javascript" dangerouslySetInnerHTML={{__html: `
-        var _gaq = _gaq || [];
-        _gaq.push(['_setAccount', '${DBDefs.GOOGLE_ANALYTICS_CODE}']);
-        _gaq.push(['_setCustomVar', 1, 'User is logged in', '${$c.user ? "Yes" : "No"}', 2]);
-        _gaq.push(['_trackPageview']);
-
-        (function () {
-          var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-          ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-          var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-        })();
-      `}}></script>
-    </If>
+    ) : null}
   </head>
 );
 

@@ -1,5 +1,0 @@
-[% WRAPPER 'layout.tt' title=l('CD TOC Not Found') full_width=1 %]
-<h1>[% l('CD TOC Not Found') %]</h1>
-
-<p>[% l('Sorry, we could not find the CD TOC you specified.') %]</p>
-[% END %]

@@ -29,7 +29,7 @@
         <dt>[% add_colon(relationship.phrase) %]</dt>
         <dd>
           [%- link_entity(work) %]
-          [%- bracketed(relationship.link.formatted_date) %]
+          [%- bracketedWithSpace(relationship.link.formatted_date) %]
           [%- grouped_relationships(work) %]
         </dd>
       [%- END %]

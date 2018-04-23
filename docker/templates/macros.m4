@@ -15,18 +15,22 @@ m4_define(`CHROME_DEB', `google-chrome-stable_current_amd64.deb')
 
 m4_define(`CHROME_DRIVER', `chromedriver_linux64.zip')
 
-m4_define(`NODEJS_DEB', `nodejs_7.9.0-1nodesource1~xenial1_amd64.deb')
+m4_define(`NODEJS_DEB', `nodejs_9.5.0-1nodesource1_amd64.deb')
 
 m4_define(
     `install_javascript',
     `m4_dnl
-COPY package.json package-lock.json ./
-RUN apt_install(``git'') && \
+COPY docker/yarn_pubkey.txt /tmp/
+COPY package.json yarn.lock ./
+RUN apt-key add /tmp/yarn_pubkey.txt && \
+    rm /tmp/yarn_pubkey.txt && \
+    echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list && \
+    apt_install(``git python-minimal yarn'') && \
     cd /tmp && \
-    curl -sLO https://deb.nodesource.com/node_7.x/pool/main/n/nodejs/NODEJS_DEB && \
+    curl -sLO https://deb.nodesource.com/node_9.x/pool/main/n/nodejs/NODEJS_DEB && \
     dpkg -i NODEJS_DEB && \
     cd - && \
-    sudo_mb(``npm install$1'')
+    sudo_mb(``yarn install$1'')
 COPY .babelrc ./')
 
 m4_define(

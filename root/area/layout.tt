@@ -1,13 +1,13 @@
 [%~ WRAPPER "layout.tt" title=title ? area.l_name _ " - ${title}" : area.l_name canonical_url=replace_gid(entity.gid) ~%]
     <div id="content">
-        [%~ INCLUDE "area/header.tt" ~%]
+        [%~ React.embed(c, 'area/AreaHeader', { area => area, page => page }) ~%]
         [%~ content ~%]
     </div>
 
     [%~ IF !full_width ~%]
         [%~ WRAPPER 'layout/sidebar/shared-entity-sidebar.tt' entity=area ~%]
             [%~ show_image() ~%]
-            
+
             <h2 class="area-information">[%~ l('Area information') ~%]</h2>
             [%~ WRAPPER 'layout/sidebar/properties.tt' ~%]
                 [%~ INCLUDE 'layout/sidebar/property.tt' label=l('Type:')
@@ -19,7 +19,7 @@
                         [%~ WRAPPER 'layout/sidebar/property.tt' label=l("Begin date:") class="begin-date" ~%]
                             [%~ area.begin_date.format ~%]
                             [%~ IF area.has_age AND not area.end_date.format ~%]
-                                [%~ bracketed(display_age_ago(area.age)) ~%]
+                                [%~ bracketedWithSpace(display_age_ago(area.age)) ~%]
                             [%~ END ~%]
                         [%~ END ~%]
                     [%~ END ~%]
@@ -27,7 +27,7 @@
                         [%~ WRAPPER 'layout/sidebar/property.tt' label=l("End date:") class="end-date" ~%]
                             [%~ area.end_date.format ~%]
                             [%~ IF area.has_age ~%]
-                                [%~ bracketed(display_age(area.age)) ~%]
+                                [%~ bracketedWithSpace(display_age(area.age)) ~%]
                             [%~ END ~%]
                         [%~ END ~%]
                     [%~ ELSIF area.ended ~%]

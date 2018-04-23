@@ -14,7 +14,7 @@
 [%~ MACRO uri_escape(text) BLOCK; text | uri; END ~%]
 [%~ MACRO html_escape(text) BLOCK; text | html; END ~%]
 [%~ MACRO html_unescape(text) BLOCK; text.replace('&quot;', '"').replace('&lt;', '<').replace('&gt;', '>').replace('&#39;', "'").replace('&amp;', '&'); END -%]
-[%~ MACRO bracketed(text) BLOCK; text != '' ? l(' ({text})', { text => text }) : ''; END -%]
+[%~ MACRO bracketedWithSpace(text) BLOCK; text != '' ? l(' ({text})', { text => text }) : ''; END -%]
 [%~ MACRO js_escape(text) BLOCK; text | js; END ~%]
 [%~ MACRO closing_tag_escape(text) BLOCK; text.replace('</', '<\\/'); END ~%]
 [%- USE UserDate(c.user.preferences, current_language) -%]
@@ -327,7 +327,7 @@ END -%]
             CASE 'info_link';  # add. parameter: infolink
                 content _ ' [<a href="' _ html_escape(infolink) _ '">' _ l('info') _ '</a>]';
             CASE 'show_dates';
-                content _ bracketed(dates);
+                content _ bracketedWithSpace(dates);
             CASE 'avatar'; # add. parameter: avatar
                 '<img src="' _ avatar _ '" height="' _ image_size _ '" width="' _ image_size _ '" class="gravatar" alt="" />' _ content;
         END;
@@ -408,7 +408,7 @@ END -%]
 END -%]
 
 [%~ MACRO link_artist(artist, action, text, no_escape) BLOCK;
-    hover = artist.sort_name _ bracketed(artist.comment);
+    hover = artist.sort_name _ bracketedWithSpace(artist.comment);
     INCLUDE _link_mbid_entity entity=artist type='artist' action=action content=text hover=hover namevar=1 noescape=no_escape;
 END -%]
 
@@ -743,7 +743,7 @@ END -%]
         l('until {date}', { date => relationship.link.end_date.format });
     ELSIF relationship.link.ended;
         ' ';
-        bracketed(l('ended'));
+        bracketedWithSpace(l('ended'));
     END;
     IF relationship.${extra_attributes_field};
         ' (' _ relationship.${extra_attributes_field} _ ')';
@@ -879,19 +879,10 @@ END ~%]
 [%~ END -%]
 
 [%~ MACRO show_wikipedia_extract BLOCK -%]
-    [%- IF wikipedia_extract -%]
-        [%- INCLUDE 'components/wikipedia_extract.tt' -%]
-    [%- ELSIF wikipedia_extract_url -%]
-        <span style="display:none" id="wikipedia-insertion-point"></span>
-        <script type="text/javascript">
-            $.get('[% wikipedia_extract_url %]',
-                  function (data) {
-                      $('#wikipedia-insertion-point').replaceWith(data);
-                      MB.makeCollapsible('wikipedia-extract');
-                  },
-                  'html');
-        </script>
-    [%- END -%]
+    [%- React.embed(c, 'components/EntityWikipediaExtract.js', {
+        wikipediaExtract => wikipedia_extract,
+        wikipediaExtractURL => wikipedia_extract_url
+    }) -%]
 [%- END -%]
 
 [%~ MACRO show_image BLOCK -%]
@@ -934,8 +925,8 @@ END ~%]
     ELSE;
         descriptive_link(rel.target, rel.target_credit);
     END;
-    bracketed(for_grouping ? rel.extra_grouping_phrase_attributes : rel.extra_phrase_attributes);
-    bracketed(rel.link.formatted_date);
+    bracketedWithSpace(for_grouping ? rel.extra_grouping_phrase_attributes : rel.extra_phrase_attributes);
+    bracketedWithSpace(rel.link.formatted_date);
     '</span>' IF rel.edits_pending;
 END ~%]
 

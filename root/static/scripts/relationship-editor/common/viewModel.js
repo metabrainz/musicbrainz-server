@@ -8,8 +8,10 @@ const ko = require('knockout');
 const _ = require('lodash');
 
 const MB = require('../../common/MB');
+const typeInfo = require('../../common/typeInfo');
 const parseDate = require('../../common/utility/parseDate');
 const request = require('../../common/utility/request');
+const {hasSessionStorage} = require('../../common/utility/storage');
 const fields = require('./fields');
 
 (function (RE) {
@@ -25,21 +27,21 @@ const fields = require('./fields');
     }
 
 
-    RE.exportTypeInfo = _.once(function (typeInfo, attrInfo) {
-        MB.typeInfo = typeInfo;
+    RE.exportTypeInfo = _.once(function (_typeInfo, _attrInfo) {
+        typeInfo.link_type.byTypes = _typeInfo;
 
-        MB.typeInfoByID = _(typeInfo).values().flatten().transform(mapItems, {}).value();
-        MB.attrInfoByID = _(attrInfo).values().transform(mapItems, {}).value();
+        typeInfo.link_type.byId = _(_typeInfo).values().flatten().transform(mapItems, {}).value();
+        typeInfo.link_attribute_type = _(_attrInfo).values().transform(mapItems, {}).value();
 
-        _.each(MB.typeInfoByID, function (type) {
+        _.each(typeInfo.link_type.byId, function (type) {
             _.each(type.attributes, function (typeAttr, id) {
-                typeAttr.attribute = MB.attrInfoByID[id];
+                typeAttr.attribute = typeInfo.link_attribute_type[id];
             });
         });
 
         MB.allowedRelations = {};
 
-        _(MB.typeInfo).keys().each(function (typeString) {
+        _(_typeInfo).keys().each(function (typeString) {
             var types = typeString.split("-");
             var type0 = types[0];
             var type1 = types[1];
@@ -58,8 +60,8 @@ const fields = require('./fields');
         // Sort each list of types alphabetically.
         _(MB.allowedRelations).values().invokeMap('sort').value();
 
-        _.each(MB.attrInfoByID, function (attr) {
-            attr.root = MB.attrInfoByID[attr.rootID];
+        _.each(typeInfo.link_attribute_type, function (attr) {
+            attr.root = typeInfo.link_attribute_type[attr.rootID];
         });
     });
 
@@ -182,10 +184,10 @@ function getRelationshipEditor(data, source) {
     }
 
     var target = data.target;
-    var typeInfo = MB.typeInfoByID[data.linkTypeID];
+    var linkType = typeInfo.link_type.byId[data.linkTypeID];
 
     if ((target && target.entityType === 'url') ||
-        (typeInfo && (typeInfo.type0 === 'url' || typeInfo.type1 === 'url'))) {
+        (linkType && (linkType.type0 === 'url' || linkType.type1 === 'url'))) {
         return; // handled by the external links editor
     }
 
@@ -210,7 +212,7 @@ function addSubmittedRelationship(data, source) {
 }
 
 function addPostedRelationships(source) {
-    if (!MB.hasSessionStorage) {
+    if (!hasSessionStorage) {
         return;
     }
 
@@ -230,23 +232,23 @@ function addRelationshipsFromQueryString(source) {
     var fields = parseQueryString(window.location.search);
 
     _.each(fields.rels, function (rel) {
-        var typeInfo = MB.typeInfoByID[rel.type];
+        var linkType = typeInfo.link_type.byId[rel.type];
         var targetIsUUID = uuidRegex.test(rel.target);
 
-        if (!typeInfo && !targetIsUUID) {
+        if (!linkType && !targetIsUUID) {
             // We need at least a link type or target gid
             return;
         }
 
         var target = targetIsUUID ? (MB.entityCache[rel.target] || { gid: rel.target }) : { name: rel.target };
 
-        if (typeInfo && !target.entityType) {
-            target.entityType = source.entityType === typeInfo.type0 ? typeInfo.type1 : typeInfo.type0;
+        if (linkType && !target.entityType) {
+            target.entityType = source.entityType === linkType.type0 ? linkType.type1 : linkType.type0;
         }
 
         var data = {
             target: target,
-            linkTypeID: typeInfo ? typeInfo.id : null,
+            linkTypeID: linkType ? linkType.id : null,
             begin_date: parseDate(rel.begin_date || ''),
             end_date: parseDate(rel.end_date || ''),
             ended: !!Number(rel.ended),
@@ -254,11 +256,11 @@ function addRelationshipsFromQueryString(source) {
             linkOrder: Number(rel.link_order) || 0
         };
 
-        if (typeInfo) {
+        if (linkType) {
             data.attributes = _.transform(rel.attributes, function (accum, attr) {
-                var attrInfo = MB.attrInfoByID[attr.type];
+                var attrInfo = typeInfo.link_attribute_type[attr.type];
 
-                if (attrInfo && typeInfo.attributes[attrInfo.id]) {
+                if (attrInfo && linkType.attributes[attrInfo.id]) {
                     accum.push({
                         type: { gid: attr.type },
                         credit: attr.credited_as,

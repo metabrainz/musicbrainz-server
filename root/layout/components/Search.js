@@ -1,53 +1,96 @@
-// This file is part of MusicBrainz, the open internet music database.
-// Copyright (C) 2015 MetaBrainz Foundation
-// Licensed under the GPL version 2, or (at your option) any later version:
-// http://www.gnu.org/licenses/gpl-2.0.txt
+/*
+ * @flow
+ * Copyright (C) 2015 MetaBrainz Foundation
+ *
+ * This file is part of MusicBrainz, the open internet music database,
+ * and is licensed under the GPL version 2, or (at your option) any
+ * later version: http://www.gnu.org/licenses/gpl-2.0.txt
+ */
 
-const React = require('react');
+import React from 'react';
 
-const manifest = require('../../static/manifest');
-const DBDefs = require('../../static/scripts/common/DBDefs');
-const {l, lp} = require('../../static/scripts/common/i18n');
+import * as manifest from '../../static/manifest';
+import * as DBDefs from '../../static/scripts/common/DBDefs';
+import {compare, l, lp, N_l, N_lp} from '../../static/scripts/common/i18n';
 
-let TYPE_OPTIONS = {
-  artist:         l('Artist'),
-  release_group:  l('Release Group'),
-  release:        l('Release'),
-  recording:      l('Recording'),
-  work:           l('Work'),
-  label:          l('Label'),
-  area:           l('Area'),
-  place:          l('Place'),
-  annotation:     l('Annotation'),
-  cdstub:         l('CD Stub'),
-  editor:         l('Editor'),
-  tag:            lp('Tag', 'noun'),
-  instrument:     l('Instrument'),
-  series:         lp('Series', 'singular'),
-  event:          l('Event')
-};
+const TYPE_OPTION_GROUPS = [
+  {
+    artist:        N_l('Artist'),
+  },
+  { // musical production
+    event:         N_l('Event'),
+    recording:     N_l('Recording'),
+    release:       N_l('Release'),
+    release_group: N_l('Release Group'),
+    series:        N_lp('Series', 'singular'),
+    work:          N_l('Work'),
+  },
+  { // other core entities
+    area:          N_l('Area'),
+    instrument:    N_l('Instrument'),
+    label:         N_l('Label'),
+    place:         N_l('Place'),
+  },
+  { // derived data
+    annotation:    N_l('Annotation'),
+    tag:           N_lp('Tag', 'noun'),
+  },
+  {
+    cdstub:        N_l('CD Stub'),
+  },
+  {
+    editor:        N_l('Editor'),
+  },
+  {
+    doc:           DBDefs.GOOGLE_CUSTOM_SEARCH ? N_l('Documentation') : null,
+  },
+];
 
-if (DBDefs.GOOGLE_CUSTOM_SEARCH) {
-  TYPE_OPTIONS.doc = l('Documentation');
+function localizedTypeOption(group, key) {
+  return (key === 'series' || key === 'tag') ? lp(group[key])
+    : (key === 'doc' && group[key] === null) ? null
+      : l(group[key]);
 }
 
 const searchOptions = (
   <select id="headerid-type" name="type">
-    {Object.keys(TYPE_OPTIONS).map((key, index) =>
-      <option key={index} value={key}>{TYPE_OPTIONS[key]}</option>
-    )}
+    {TYPE_OPTION_GROUPS.map(<TogT: {}>(group: TogT, groupIndex) => (
+      Object.keys(group).sort(function (a, b) {
+        return compare(
+          localizedTypeOption(group, a),
+          localizedTypeOption(group, b),
+        );
+      }).map(function (key, index) {
+        const text = localizedTypeOption(group, key);
+        if (!text) {
+          return null;
+        }
+        return <option key={groupIndex + '.' + index} value={key}>{text}</option>;
+      })
+    ))}
   </select>
 );
 
 const Search = () => (
   <form action="/search" method="get">
-    <input type="text" id="headerid-query" name="query" placeholder={l('Search')} required={true} />
+    <input
+      id="headerid-query"
+      name="query"
+      placeholder={l('Search')}
+      required
+      type="text"
+    />
     {' '}{searchOptions}{' '}
-    <input type="hidden" id="headerid-method" name="method" value="indexed" />
+    <input
+      id="headerid-method"
+      name="method"
+      type="hidden"
+      value="indexed"
+    />
     <button type="submit">
       <img alt="" src={manifest.pathTo('/images/icons/search.svg')} />
     </button>
   </form>
 );
 
-module.exports = Search;
+export default Search;

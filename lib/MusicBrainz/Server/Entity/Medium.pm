@@ -284,6 +284,7 @@ around TO_JSON => sub {
         cdtocs      => [map { $_->cdtoc->toc } $self->all_cdtocs],
         format      => $self->l_format_name,
         formatID    => $self->format_id,
+        name        => $self->name,
         position    => $self->position,
     };
 

@@ -1,4 +1,4 @@
-# Translators:
+# 
 # Translators:
 # Jaakko Perttilä <email address hidden>, 2012
 # Jaakko Perttilä <email address hidden>, 2012-2014,2017
@@ -7,7 +7,7 @@
 # ListMyCDs.com Martikainen <email address hidden>, 2012
 # Timo Martikainen <email address hidden>, 2012
 # phonebox, 2014
-# phonebox, 2014-2015
+# phonebox, 2014-2015,2018
 # Sami Korkalainen, 2017
 # Timo Martikainen <>, 2012
 # Timo Martikainen <email address hidden>, 2012
@@ -15,8 +15,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2017-10-09 22:01+0000\n"
-"Last-Translator: Jaakko Perttilä <email address hidden>\n"
+"PO-Revision-Date: 2018-04-05 04:39+0000\n"
+"Last-Translator: yvanz\n"
 "Language-Team: Finnish (http://www.transifex.com/musicbrainz/musicbrainz/language/fi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -49,6 +49,11 @@ msgctxt "medium_format"
 msgid "10\" Vinyl"
 msgstr "10″ vinyyli"
 
+#: DB:medium_format/name:72
+msgctxt "medium_format"
+msgid "12\" LaserDisc"
+msgstr "12\" LaserDisc"
+
 #: DB:medium_format/name:55
 msgctxt "medium_format"
 msgid "12\" Shellac"
@@ -78,6 +83,11 @@ msgstr "7″ sellakka"
 msgctxt "medium_format"
 msgid "7\" Vinyl"
 msgstr "7″ vinyyli"
+
+#: DB:medium_format/name:71
+msgctxt "medium_format"
+msgid "8\" LaserDisc"
+msgstr "8\" LaserDisc"
 
 #: DB:medium_format/name:34
 msgctxt "medium_format"
@@ -142,6 +152,13 @@ msgid ""
 "versions supplied to radio DJs for air-play)."
 msgstr "Vapaasti jaettava julkaisu, tai tulevan virallisen julkaisun markkinointiin tarkoitettu julkaisu (esim. esijulkaisuversiot, lehtien mukana tulevat julkaisut, radiosoittoa varten jaetut julkaisut)"
 
+#: DB:instrument_type/description:7
+msgctxt "instrument_type"
+msgid ""
+"A grouping of related but different instruments, like the different violin-"
+"like instruments"
+msgstr ""
+
 #: DB:work_attribute_type_allowed_value/value:28
 msgctxt "work_attribute_type_allowed_value"
 msgid "A major"
@@ -181,6 +198,11 @@ msgid ""
 "A party, reception or other event held specifically for the launch of a "
 "release."
 msgstr "Juhla, vastaanotto tai muu tapahtuma, joka pidetään erityisesti julkaisun juhlimiseksi."
+
+#: DB:release_packaging/description:17
+msgctxt "release_packaging"
+msgid "A perfect bound book with a sleeve at the end to hold a CD"
+msgstr ""
 
 #: DB:place_type/description:5
 msgctxt "place_type"
@@ -246,6 +268,13 @@ msgctxt "series_type"
 msgid "A recurring festival, usually happening annually in the same location."
 msgstr "Toistuva festivaali, joka yleensä järjestetään vuosittain samassa paikassa."
 
+#: DB:place_type/description:7
+msgctxt "place_type"
+msgid ""
+"A school, university or other similar educational institution (especially, "
+"but not only, one where music is taught)"
+msgstr ""
+
 #: DB:series_type/description:6
 msgctxt "series_type"
 msgid "A series of events."
@@ -310,6 +339,13 @@ msgid ""
 " even book."
 msgstr "Ääniraita on elokuvaan, tv-ohjelmaan, videopeliin tai jopa kirjaan liittyvä musiikki."
 
+#: DB:instrument_type/description:6
+msgctxt "instrument_type"
+msgid ""
+"A standard grouping of instruments often played together, like a string "
+"quartet"
+msgstr ""
+
 #: DB:work_type/description:6
 msgctxt "work_type"
 msgid ""
@@ -364,7 +400,7 @@ msgstr "ais-molli"
 #: DB:work_attribute_type/name:23
 msgctxt "work_attribute_type"
 msgid "AKM ID"
-msgstr ""
+msgstr "AKM-tunniste"
 
 #: DB:work_attribute_type/name:13
 msgctxt "work_attribute_type"
@@ -786,6 +822,11 @@ msgctxt "work_attribute_type"
 msgid "BMI ID"
 msgstr "BMI-tunniste"
 
+#: DB:work_attribute_type/name:26
+msgctxt "work_attribute_type"
+msgid "BUMA/STEMRA ID"
+msgstr "BUMA/STEMRA-tunniste"
+
 #: DB:cover_art_archive.art_type/name:2
 msgctxt "cover_art_type"
 msgid "Back"
@@ -1008,6 +1049,11 @@ msgctxt "work_attribute_type_allowed_value"
 msgid "Bozlak"
 msgstr ""
 
+#: DB:instrument_alias_type/name:3
+msgctxt "alias_type"
+msgid "Brand name"
+msgstr ""
+
 #: DB:release_group_primary_type/name:12
 msgctxt "release_group_primary_type"
 msgid "Broadcast"
@@ -1096,12 +1142,12 @@ msgstr "cis-molli"
 #: DB:work_attribute_type/name:19
 msgctxt "work_attribute_type"
 msgid "CASH ID"
-msgstr ""
+msgstr "CASH-tunniste"
 
 #: DB:work_attribute_type/name:22
 msgctxt "work_attribute_type"
 msgid "CCLI ID"
-msgstr ""
+msgstr "CCLI-tunniste"
 
 #: DB:medium_format/name:1
 msgctxt "medium_format"
@@ -1544,6 +1590,11 @@ msgctxt "work_attribute_type_allowed_value"
 msgid "Dhēnuka"
 msgstr "Dhēnuka"
 
+#: DB:release_packaging/name:17
+msgctxt "release_packaging"
+msgid "Digibook"
+msgstr ""
+
 #: DB:release_packaging/name:3
 msgctxt "release_packaging"
 msgid "Digipak"
@@ -1774,6 +1825,11 @@ msgctxt "medium_format"
 msgid "Edison Diamond Disc"
 msgstr ""
 
+#: DB:place_type/name:7
+msgctxt "place_type"
+msgid "Educational institution"
+msgstr ""
+
 #: DB:instrument_type/name:4
 msgctxt "instrument_type"
 msgid "Electronic instrument"
@@ -1782,6 +1838,11 @@ msgstr "Sähköinen soitin"
 #: DB:medium_format/name:42
 msgctxt "medium_format"
 msgid "Enhanced CD"
+msgstr ""
+
+#: DB:instrument_type/name:6
+msgctxt "instrument_type"
+msgid "Ensemble"
 msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:356
@@ -1914,6 +1975,11 @@ msgctxt "work_attribute_type_allowed_value"
 msgid "Fahte"
 msgstr ""
 
+#: DB:instrument_type/name:7
+msgctxt "instrument_type"
+msgid "Family"
+msgstr ""
+
 #: DB:work_attribute_type_allowed_value/value:615
 msgctxt "work_attribute_type_allowed_value"
 msgid "Fantezi"
@@ -1997,6 +2063,13 @@ msgstr ""
 #: DB:work_attribute_type_allowed_value/value:734
 msgctxt "work_attribute_type_allowed_value"
 msgid "Fireng-i Fer"
+msgstr ""
+
+#: DB:medium_format/description:73
+msgctxt "medium_format"
+msgid ""
+"Flat discs with grooves used in phonographs/gramophones. For shellac and "
+"vinyl records, use that specifically"
 msgstr ""
 
 #: DB:medium_format/name:51
@@ -2536,6 +2609,31 @@ msgstr ""
 msgctxt "work_attribute_type_allowed_value"
 msgid "Hēmavati"
 msgstr "Hēmavati"
+
+#: DB:work_attribute_type/name:29
+msgctxt "work_attribute_type"
+msgid "ICE ID"
+msgstr "ICE-tunniste"
+
+#: DB:work_attribute_type/description:28
+msgctxt "work_attribute_type"
+msgid "ID for the Belgian rights society SABAM"
+msgstr ""
+
+#: DB:work_attribute_type/description:29
+msgctxt "work_attribute_type"
+msgid "ID for the International Copyright Enterprise"
+msgstr ""
+
+#: DB:work_attribute_type/description:27
+msgctxt "work_attribute_type"
+msgid "ID for the Mexican rights society SACM"
+msgstr ""
+
+#: DB:work_attribute_type/description:30
+msgctxt "work_attribute_type"
+msgid "ID for the Polish rights society ZAiKS"
+msgstr ""
 
 #: DB:work_attribute_type/name:14
 msgctxt "work_attribute_type"
@@ -3197,11 +3295,6 @@ msgctxt "event_type"
 msgid "Masterclass/Clinic"
 msgstr ""
 
-#: DB:work_attribute_type_allowed_value/value:452
-msgctxt "work_attribute_type_allowed_value"
-msgid "Mate"
-msgstr ""
-
 #: DB:work_attribute_type_allowed_value/value:449
 msgctxt "work_attribute_type_allowed_value"
 msgid "Maver"
@@ -3220,6 +3313,11 @@ msgstr ""
 #: DB:editor_collection_type/name:6
 msgctxt "collection_type"
 msgid "Maybe attending"
+msgstr ""
+
+#: DB:work_attribute_type_allowed_value/value:452
+msgctxt "work_attribute_type_allowed_value"
+msgid "Maye"
 msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:175
@@ -3812,6 +3910,11 @@ msgctxt "work_attribute_type_allowed_value"
 msgid "Nīlāṁbari"
 msgstr "Nīlāṁbari"
 
+#: DB:work_attribute_type/name:25
+msgctxt "work_attribute_type"
+msgid "OSA ID"
+msgstr "OSA-tunniste"
+
 #: DB:cover_art_archive.art_type/name:5
 msgctxt "cover_art_type"
 msgid "Obi"
@@ -3975,6 +4078,11 @@ msgstr ""
 #: DB:work_attribute_type_allowed_value/value:654
 msgctxt "work_attribute_type_allowed_value"
 msgid "Peşrev"
+msgstr ""
+
+#: DB:medium_format/name:73
+msgctxt "medium_format"
+msgid "Phonograph record"
 msgstr ""
 
 #: DB:medium_format/name:15
@@ -4372,6 +4480,11 @@ msgctxt "work_attribute_type_allowed_value"
 msgid "Rūpaka"
 msgstr "Rūpaka"
 
+#: DB:work_attribute_type/name:28
+msgctxt "work_attribute_type"
+msgid "SABAM ID"
+msgstr "SABAM-tunniste"
+
 #: DB:medium_format/name:3
 msgctxt "medium_format"
 msgid "SACD"
@@ -4380,12 +4493,17 @@ msgstr "Super Audio CD"
 #: DB:work_attribute_type/name:21
 msgctxt "work_attribute_type"
 msgid "SACEM ID"
-msgstr ""
+msgstr "SACEM-tunniste"
+
+#: DB:work_attribute_type/name:27
+msgctxt "work_attribute_type"
+msgid "SACM ID"
+msgstr "SACM-tunniste"
 
 #: DB:work_attribute_type/name:24
 msgctxt "work_attribute_type"
 msgid "SADAIC ID"
-msgstr ""
+msgstr "SADAIC-tunniste"
 
 #: DB:medium_format/name:62
 msgctxt "medium_format"
@@ -4400,7 +4518,7 @@ msgstr "SESAC-tunniste"
 #: DB:work_attribute_type/name:20
 msgctxt "work_attribute_type"
 msgid "SGAE ID"
-msgstr ""
+msgstr "SGAE-tunniste"
 
 #: DB:medium_format/name:36
 msgctxt "medium_format"
@@ -4420,7 +4538,7 @@ msgstr "SOCAN-tunniste"
 #: DB:work_attribute_type/name:18
 msgctxt "work_attribute_type"
 msgid "SUISA ID"
-msgstr ""
+msgstr "SUISA-tunniste"
 
 #: DB:medium_format/name:23
 msgctxt "medium_format"
@@ -4974,21 +5092,21 @@ msgctxt "medium_format"
 msgid ""
 "The CD layer of a DVDplus. The DVD layer should be added as a separate "
 "medium."
-msgstr ""
+msgstr "CD-kerros DVDplus-levyssä. DVD-kerros tulisi lisätä erillisenä tallenteena."
 
 #: DB:medium_format/description:67
 msgctxt "medium_format"
 msgid ""
 "The CD layer of a DualDisc. The DVD layer should be added as a separate "
 "medium."
-msgstr ""
+msgstr "CD-kerros DualDisc-levyssä. DVD-kerros tulisi lisätä erillisenä tallenteena."
 
 #: DB:medium_format/description:63
 msgctxt "medium_format"
 msgid ""
 "The CD layer of a hybrid SACD. The SACD layer should be added as a separate "
 "medium."
-msgstr ""
+msgstr "CD-kerros hybridi-SACD-levyssä. SACD-kerros tulisi lisätä erillisenä tallenteena."
 
 #: DB:medium_format/description:60
 msgctxt "medium_format"
@@ -5004,28 +5122,28 @@ msgctxt "medium_format"
 msgid ""
 "The DVD (audio) layer of a DVDplus. The CD layer should be added as a "
 "separate medium."
-msgstr ""
+msgstr "DVD-Audio-kerros DVDplus-levyssä. CD-kerros tulisi lisätä erillisenä tallenteena."
 
 #: DB:medium_format/description:65
 msgctxt "medium_format"
 msgid ""
 "The DVD (audio) layer of a DualDisc. The CD layer should be added as a "
 "separate medium."
-msgstr ""
+msgstr "DVD-Audio-kerros DualDisc-levyssä. CD-kerros tulisi lisätä erillisenä tallenteena."
 
 #: DB:medium_format/description:66
 msgctxt "medium_format"
 msgid ""
 "The DVD (video) layer of a DualDisc. The CD layer should be added as a "
 "separate medium."
-msgstr ""
+msgstr "DVD-Video-kerros DualDisc-levyssä. CD-kerros tulisi lisätä erillisenä tallenteena."
 
 #: DB:medium_format/description:64
 msgctxt "medium_format"
 msgid ""
 "The SACD layer of a hybrid SACD. The CD layer should be added as a separate "
 "medium."
-msgstr ""
+msgstr "SACD-kerros hybridi-SACD-levyssä. CD-kerros tulisi lisätä erillisenä tallenteena."
 
 #: DB:work_type/description:7
 msgctxt "work_type"
@@ -5045,7 +5163,7 @@ msgstr ""
 #: DB:release_packaging/description:1
 msgctxt "release_packaging"
 msgid "The traditional CD case, made of hard, brittle plastic."
-msgstr ""
+msgstr "Perinteinen CD-kotelo, joka on valmistettu kovasta mutta hauraasta muovista."
 
 #: DB:work_type/description:23
 msgctxt "work_type"
@@ -5260,7 +5378,7 @@ msgctxt "medium_format"
 msgid ""
 "Video High Density (VHD) was a videodisc format which was marketed "
 "predominantly in Japan by JVC."
-msgstr ""
+msgstr "Video High Density (VHD) oli videodisc-formaatti, jota markkinoitiin pääosin Japanissa JVC:n toimesta."
 
 #: DB:work_attribute_type_allowed_value/value:273
 msgctxt "work_attribute_type_allowed_value"
@@ -5387,6 +5505,11 @@ msgstr ""
 msgctxt "work_attribute_type_allowed_value"
 msgid "Yürüksofyan"
 msgstr ""
+
+#: DB:work_attribute_type/name:30
+msgctxt "work_attribute_type"
+msgid "ZAiKS ID"
+msgstr "ZAiKS-tunniste"
 
 #: DB:work_attribute_type_allowed_value/value:780
 msgctxt "work_attribute_type_allowed_value"

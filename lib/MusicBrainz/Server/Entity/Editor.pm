@@ -15,6 +15,8 @@ my $LATEST_SECURITY_VULNERABILITY = DateTime->new( year => 2013, month => 3, day
 
 extends 'MusicBrainz::Server::Entity';
 
+sub entity_type { 'editor' }
+
 has 'name' => (
     is  => 'rw',
     isa => 'Str',
@@ -272,11 +274,14 @@ around TO_JSON => sub {
         email => $self->email,
         is_account_admin => boolean_to_json($self->is_account_admin),
         is_admin => boolean_to_json($self->is_admin),
+        is_auto_editor => boolean_to_json($self->is_auto_editor),
         is_banner_editor => boolean_to_json($self->is_banner_editor),
+        is_bot => boolean_to_json($self->is_bot),
         is_editing_disabled => boolean_to_json($self->is_editing_disabled),
         is_location_editor => boolean_to_json($self->is_location_editor),
         is_relationship_editor => boolean_to_json($self->is_relationship_editor),
         is_wiki_transcluder => boolean_to_json($self->is_wiki_transcluder),
+        name => $self->name,
         preferences => $self->preferences->TO_JSON,
     };
 };

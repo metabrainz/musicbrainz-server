@@ -1,8 +1,0 @@
-<div class="labelheader">
-    <h1>[% link_entity(label) %]</h1>
-    <p class="subheader">
-        <span class="prefix">~</span> [%- l('Label') -%]
-    </p>
-</div>
-
-[%- INCLUDE 'components/entity-tabs.tt' edit_tab='default' -%]

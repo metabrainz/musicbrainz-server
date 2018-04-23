@@ -220,12 +220,88 @@ specify its name in an argument:
 
 ### Adding a new report
 
-1. Create new module in */lib/MusicBrainz/Server/Report/*.
-2. Add created module into [ReportFactory.pm](https://github.com/metabrainz/musicbrainz-server/blob/master/lib/MusicBrainz/Server/ReportFactory.pm)
+ 1. Create new module in */lib/MusicBrainz/Server/Report/*.
+ 2. Add created module into [ReportFactory.pm](https://github.com/metabrainz/musicbrainz-server/blob/master/lib/MusicBrainz/Server/ReportFactory.pm).
    file (add into `@all` list and import module itself there).
-3. Create a new template for your report in *root/report/*.
-4. Add a link to report page in *root/report/index.tt* template.
+ 3. Create a new template for your report in *root/report/*.
+ 4. Add a link to report page in *root/report/index.tt* template.
 
+### Porting TT to React
+
+All the TT code resides in `root/**.tt`. Some guidelines for porting TT files
+to React/JSX:
+
+ * Ported server-side React components should reside in `root/components/`.
+   This generally includes ported macros from `root/common-macros.tt` and
+   components common across multiple pages.
+
+ * Any client-side components (ones which render on the client) should reside
+   in `root/static/scripts/common/components`. If a component is used both on
+   the client and server, put it here instead of `root/components/`.
+
+ * Server-side utility functions go in `root/utility`.
+
+ * All components must be type-annotated. We use Flow for static type checking.
+   You can find documentation for it [here](https://flow.org/en/docs/).
+
+ * Global types are defined in `root/types.js`. They can be used without imports.
+
+ * Make sure your JS files conform to our ESlint rules by running
+   `./node_modules/.bin/eslint path/to/file.js`.
+
+Common instructions for porting:
+
+ 1. Convert a TT file or macro to an equivalent React component (or set of
+    components). Make sure they output identical HTML where possible.
+
+ 2. There are two ways to use your React components:
+
+     1. If your component is a page, find the appropriate Catalyst controller
+        in `lib/MusicBrainz/Server/Controller` and add the following to
+        `$c->stash` in the corresponding action method which loads the
+        respective page:
+        ```perl
+        $c->stash(
+            current_view => 'Node',
+            component_path => 'relative/path/to/component/from/root',
+            component_props => {prop_name => prop_value}
+        );
+        ```
+
+     2. If you're embedding a React component inside a TT page, use:
+        ```perl
+        [%~ React.embed(c, 'relative/path/to/component/from/root', { prop_name => prop_val }) ~%]
+        ```
+
+ 3. You can access most of the [Catalyst Context](http://search.cpan.org/~ether/Catalyst-Manual-5.9009/lib/Catalyst/Manual/Intro.pod#Context) in JavaScript
+    via the variable `$c`.
+
+ 4. To communicate between the Perl and Node servers (the latter renders React
+    components for us), you need to appropriately serialize the props passed
+    to the components. This can be done by defining `TO_JSON` subroutines in
+    the respective Entity modules under `lib/MusicBrainz/Server/Entity`.
+
+    You generally want to do something like this:
+    ```perl
+    around TO_JSON => sub {
+        my ($orig, $self) = @_;
+        return {
+            %{ $self->$orig },
+            prop_name => covert_to_json($self->prop_name)
+        };
+    };
+    ```
+    Where `convert_to_json` is a function that converts `$self->prop_name` to
+    its appropriate JSON representation. If `prop_name` is an entity that has
+    a `TO_JSON` method defined, it will be called automatically and you can
+    simply do `prop_name => $self->prop_name`.
+
+ 5. Make sure that all your components are type-annotated using Flow.
+
+ 6. We follow the `snake_case` naming convention for props passed from Perl
+    code, and `lowerCamelCase` for variables referencing them in JavaScript.
+
+ 7. All components should be named following the `UpperCamelCase` convention.
 
 Cover Art Archive development
 -----------------------------
