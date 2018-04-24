@@ -18,11 +18,11 @@ const AliasTable = require('./AliasTable');
 type Props = {
   +$c: CatalystContextT,
   +aliases: $ReadOnlyArray<AliasT>,
+  +allowEditing?: boolean,
   +entity: $Subtype<CoreEntityT>,
 };
 
-const Aliases = ({$c, aliases, entity}: Props) => {
-  const allowEditing = $c.user ? $c.user.is_location_editor : false;
+const Aliases = ({$c, aliases, allowEditing = $c.user ? !$c.user.is_editing_disabled : false, entity}: Props) => {
   return (
     <Frag>
       <h2>{l('Aliases')}</h2>
