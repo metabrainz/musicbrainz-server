@@ -49,5 +49,6 @@ if ($child) {
     my @argv;
     push @argv, ('--socket', $socket) if $socket;
     push @argv, ('--workers', $workers) if $workers;
-    exec 'node', qq($FindBin::Bin/../root/$server_js_file), @argv;
+    chdir qq($FindBin::Bin/../);
+    exec 'node', qq(root/$server_js_file), @argv;
 }

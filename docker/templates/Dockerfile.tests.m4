@@ -30,7 +30,7 @@ COPY \
     docker/musicbrainz-tests/chrome.service \
     /etc/service/chrome/run
 COPY \
-    docker/musicbrainz-tests/template-renderer.service \
+    docker/scripts/start_template_renderer.sh \
     /etc/service/template-renderer/run
 COPY \
     docker/musicbrainz-tests/website.service \

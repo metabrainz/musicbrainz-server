@@ -63,7 +63,8 @@ const LINK_TYPES = {
   },
   license: {
     release: "004bd0c3-8a45-4309-ba52-fa99f3aa3d50",
-    recording: "f25e301d-b87b-4561-86a0-5d2df6d26c0a"
+    recording: "f25e301d-b87b-4561-86a0-5d2df6d26c0a",
+    work: "770ea9f4-cba0-4194-b77f-fe2740055e34"
   },
   lyrics: {
     artist: "e4d73442-3762-45a8-905c-401da65544ed",
@@ -123,6 +124,7 @@ const LINK_TYPES = {
   soundcloud: {
     artist: "89e4a949-0976-440d-bda1-5f772c1e5710",
     label: "a31d05ba-3b82-47b2-ab8b-1fe73b5459e2",
+    place: "1cd2eb89-2997-4901-87e9-838ac9a68da9",
     series: "4789521b-57b9-4689-9644-46de63190f66"
   },
   blog: {
