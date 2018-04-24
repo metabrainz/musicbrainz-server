@@ -70,7 +70,7 @@ releaseEditor.init = function (options) {
              * Workaround for buggy dictation software which may not trigger
              * change events after setting input values.
              */
-            $('input', ui.oldPanel).change();
+            $('input:enabled', ui.oldPanel).change();
         },
 
         activate: function (event, ui) {
