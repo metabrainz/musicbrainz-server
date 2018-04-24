@@ -102,6 +102,9 @@ const AboutMenu = () => (
         <a href="https://metabrainz.org/team">{l('Team')}</a>
       </li>
       <li>
+        <a href="https://www.redbubble.com/people/metabrainz/shop">{l('Shop')}</a>
+      </li>
+      <li>
         <a href="https://metabrainz.org/contact">{l('Contact Us')}</a>
       </li>
       <li className="separator">
