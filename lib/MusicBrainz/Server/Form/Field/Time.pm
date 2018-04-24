@@ -1,7 +1,7 @@
 package MusicBrainz::Server::Form::Field::Time;
 use HTML::FormHandler::Moose;
 
-use MusicBrainz::Server::Translation qw( l ln );
+use MusicBrainz::Server::Translation qw( l );
 use MusicBrainz::Server::Validation qw( is_valid_time );
 
 extends 'HTML::FormHandler::Field::Text';

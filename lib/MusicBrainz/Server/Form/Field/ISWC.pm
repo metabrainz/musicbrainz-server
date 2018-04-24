@@ -1,7 +1,7 @@
 package MusicBrainz::Server::Form::Field::ISWC;
 use HTML::FormHandler::Moose;
 
-use MusicBrainz::Server::Translation qw( l ln );
+use MusicBrainz::Server::Translation qw( l );
 use MusicBrainz::Server::Validation qw( is_valid_iswc format_iswc );
 
 extends 'HTML::FormHandler::Field::Text';

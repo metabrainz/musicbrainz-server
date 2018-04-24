@@ -9,7 +9,7 @@ extends 'HTML::FormHandler::Field::Compound';
 use MusicBrainz::Server::Edit::Utils qw( clean_submitted_artist_credits );
 use MusicBrainz::Server::Entity::ArtistCredit;
 use MusicBrainz::Server::Entity::ArtistCreditName;
-use MusicBrainz::Server::Translation qw( l ln );
+use MusicBrainz::Server::Translation qw( l );
 
 has_field 'names'             => ( type => 'Repeatable', num_when_empty => 1 );
 has_field 'names.name'        => ( type => '+MusicBrainz::Server::Form::Field::Text');

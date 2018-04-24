@@ -3,7 +3,7 @@ use HTML::FormHandler::Moose;
 
 use DateTime::Locale;
 use List::UtilsBy 'sort_by';
-use MusicBrainz::Server::Translation qw( l ln );
+use MusicBrainz::Server::Translation qw( l );
 use MusicBrainz::Server::Form::Utils qw( select_options_tree indentation );
 
 extends 'MusicBrainz::Server::Form';
