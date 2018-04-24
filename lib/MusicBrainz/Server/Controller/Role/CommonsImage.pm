@@ -15,8 +15,6 @@ after load => sub {
 
     my $entity = $c->stash->{entity};
     $c->stash->{commons_image} = $self->_get_commons_image($c, 1);
-    $c->stash->{commons_image_endpoint} = $c->uri_for_action(
-        $self->action_for('commons_image'), [$entity->gid]);
 };
 
 sub commons_image : Chained('load') PathPart('commons-image') {

@@ -11,11 +11,12 @@ import $ from 'jquery';
 import React from 'react';
 
 import {l} from '../static/scripts/common/i18n';
+import entityHref from '../static/scripts/common/utility/entityHref';
 import hydrate from '../utility/hydrate';
 
 type Props = {|
   +image: CommonsImageT | null,
-  +imageEndpoint: string,
+  +entity: CoreEntityT,
 |};
 
 type State = {|
@@ -34,7 +35,7 @@ class CommonsImage extends React.Component<Props, State> {
 
   componentDidMount() {
     if (!this.state.image) {
-      $.get(this.props.imageEndpoint, data => {
+      $.get(entityHref(this.props.entity, '/commons-image'), data => {
         this.setState({image: data.image});
       });
     }

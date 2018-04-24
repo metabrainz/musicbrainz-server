@@ -883,7 +883,7 @@ END ~%]
 [%~ MACRO show_image BLOCK -%]
     [%- React.embed(c, 'components/CommonsImage', {
             image => commons_image,
-            imageEndpoint => commons_image_endpoint,
+            entity => {entityType => entity.entity_type, gid => entity.gid},
         }) -%]
 [%- END -%]
 
