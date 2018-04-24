@@ -36,12 +36,14 @@ EOSQL
                     'VnIl0sWyJlcSIsIiR4LWFyY2hpdmUtYXV0by1tYWtlLWJ1Y2tldCIs' .
                     'IjEiXSxbImVxIiwiJHgtYXJjaGl2ZS1tZXRhLWNvbGxlY3Rpb24iLC' .
                     'Jjb3ZlcmFydGFyY2hpdmUiXSxbImVxIiwiJHgtYXJjaGl2ZS1tZXRh' .
-                    'LW1lZGlhdHlwZSIsImltYWdlIl1dLCJleHBpcmF0aW9uIjoiMjAxNS' .
-                    '0wOS0wOVQwMDo1MTozNy4wMDBaIn0=',
-        'signature' => 'gZnqIhkxf8Alfzbuwc9xlXiSpOk=',
+                    'LW1lZGlhdHlwZSIsImltYWdlIl0sWyJlcSIsIiR4LWFyY2hpdmUtbW' .
+                    'V0YS1ub2luZGV4IiwidHJ1ZSJdXSwiZXhwaXJhdGlvbiI6IjIwMTUt' .
+                    'MDktMDlUMDA6NTE6MzcuMDAwWiJ9',
+        'signature' => 'wkU8IRrcTn7BX67kmUDrfDpjnP8=',
         'x-archive-auto-make-bucket' => '1',
         'x-archive-meta-collection' => 'coverartarchive',
         'x-archive-meta-mediatype' => 'image',
+        'x-archive-meta-noindex' => 'true',
     });
 };
 

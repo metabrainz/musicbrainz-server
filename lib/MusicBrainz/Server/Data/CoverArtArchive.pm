@@ -52,6 +52,7 @@ sub post_fields {
         "x-archive-auto-make-bucket" => '1',
         "x-archive-meta-collection" => 'coverartarchive',
         "x-archive-meta-mediatype" => 'image',
+        "x-archive-meta-noindex" => 'true',
     );
 
     my $policy = {
