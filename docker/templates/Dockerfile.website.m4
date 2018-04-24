@@ -31,6 +31,7 @@ COPY \
     docker/musicbrainz-website/install_language_packs.pl \
     docker/musicbrainz-website/start_musicbrainz_website.sh \
     docker/scripts/start_musicbrainz_server.sh \
+    docker/scripts/start_template_renderer.sh \
     /usr/local/bin/
 
 COPY docker/templates/DBDefs.pm.ctmpl lib/
