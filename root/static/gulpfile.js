@@ -257,7 +257,15 @@ _(POSIX_LANGUAGES)
     });
   });
 
+runYarb('area/index.js', function (b) {
+  b.external(commonBundle);
+});
+
 runYarb('area/places-map.js', function (b) {
+  b.external(commonBundle);
+});
+
+runYarb('artist/index.js', function (b) {
   b.external(commonBundle);
 });
 
@@ -273,7 +281,23 @@ runYarb('edit/notes-received.js', function (b) {
   b.external(commonBundle);
 });
 
+runYarb('event/index.js', function (b) {
+  b.external(commonBundle);
+});
+
 const guessCaseBundle = runYarb('guess-case.js', function (b) {
+  b.external(commonBundle);
+});
+
+runYarb('instrument/index.js', function (b) {
+  b.external(commonBundle);
+});
+
+runYarb('label/index.js', function (b) {
+  b.external(commonBundle);
+});
+
+runYarb('place/index.js', function (b) {
   b.external(commonBundle);
 });
 
@@ -287,6 +311,10 @@ runYarb('place.js', function (b) {
 
 runYarb('release-editor.js', function (b) {
   b.external(commonBundle).external(editBundle);
+});
+
+runYarb('series/index.js', function (b) {
+  b.external(commonBundle);
 });
 
 runYarb('series.js', function (b) {
@@ -306,6 +334,10 @@ runYarb('url.js', function (b) {
 });
 
 runYarb('voting.js', function (b) {
+  b.external(commonBundle);
+});
+
+runYarb('work/index.js', function (b) {
   b.external(commonBundle);
 });
 

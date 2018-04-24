@@ -21,4 +21,6 @@
     [%- ELSE -%]
       <p>[%- l("This label does not have any releases.") -%]</p>
     [%- END -%]
+
+    [%- script_manifest('label/index.js', {async => 'async'}) -%]
 [% END %]
