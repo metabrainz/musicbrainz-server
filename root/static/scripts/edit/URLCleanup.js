@@ -1820,14 +1820,14 @@ const CLEANUPS = {
     match: [new RegExp("^(https?://)?(www\\.)?(utaite|voca)db\\.net", "i")],
     type: LINK_TYPES.otherdatabases,
     clean: function (url) {
-      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?(utaite|voca)db\.net\/((?:[A-Za-z]+\/){1,2}0*[1-9][0-9]*)(?:[\/?#].*)?$/, "http://$1db.net/$2");
+      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?(utaite|voca)db\.net\/((?:[A-Za-z]+\/){1,2}0*[1-9][0-9]*)(?:[\/?#].*)?$/, "https://$1db.net/$2");
       url = url.replace(/Artist\/(Details|Edit|Versions)/, "Ar");
       url = url.replace(/Album\/(Details|DownloadTags|Edit|Related|Versions)/, "Al");
       url = url.replace(/Event\/(Details|Edit|Versions)/, "E");
       return url.replace(/Song\/(Details|Edit|Related|Versions)/, "S");
     },
     validate: function (url, id) {
-      var m = /^http:\/\/(?:utaite|voca)db\.net\/([A-Za-z]+(?:\/[A-Za-z]+)?)\/[1-9][0-9]*$/.exec(url);
+      var m = /^https:\/\/(?:utaite|voca)db\.net\/([A-Za-z]+(?:\/[A-Za-z]+)?)\/[1-9][0-9]*$/.exec(url);
       if (m) {
         var prefix = m[1];
         switch (id) {
