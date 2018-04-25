@@ -418,6 +418,8 @@ function init_tag_editor(Component, mountPoint) {
       if (userTag) {
         t.vote = userTag.vote;
         userTag.used = true;
+      } else {
+        t.vote = 0;
       }
 
       return _.clone(t);
