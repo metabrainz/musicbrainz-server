@@ -155,7 +155,6 @@ function runYarb(resourceName, vinyl, callback) {
       // Uglify options
       output: {
         comments: /@preserve|@license/,
-        max_line_len: 256
       },
 
       sourcemap: false
