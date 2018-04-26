@@ -307,8 +307,8 @@ async function handleCommand(file, command, target, value, t) {
       t.deepEqual2(actualEditData, expectedEditData);
       return;
 
-    case 'assertLocation':
-      t.equal(await driver.getCurrentUrl(), target);
+    case 'assertLocationMatches':
+      t.ok(new RegExp(target).test(await driver.getCurrentUrl()));
       return;
 
     case 'assertText':
