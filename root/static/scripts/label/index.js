@@ -8,3 +8,4 @@
  */
 
 import '../../../components/CommonsImage';
+import '../../../components/WikipediaExtract';

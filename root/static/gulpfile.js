@@ -313,6 +313,10 @@ runYarb('release-editor.js', function (b) {
   b.external(commonBundle).external(editBundle);
 });
 
+runYarb('release-group/index.js', function (b) {
+  b.external(commonBundle);
+});
+
 runYarb('series/index.js', function (b) {
   b.external(commonBundle);
 });

@@ -90,4 +90,6 @@
         [% React.embed(c, 'components/CritiqueBrainzReview', {review => rg.most_popular_review, title => l('Most Popular')}) %]
       [%~ END ~%]
     </div>
+
+    [%- script_manifest('release-group/index.js', {async => 'async'}) -%]
 [%- END -%]

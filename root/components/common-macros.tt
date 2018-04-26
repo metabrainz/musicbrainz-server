@@ -874,9 +874,9 @@ END ~%]
 [%~ END -%]
 
 [%~ MACRO show_wikipedia_extract BLOCK -%]
-    [%- React.embed(c, 'components/EntityWikipediaExtract.js', {
+    [%- React.embed(c, 'components/WikipediaExtract.js', {
+        entity => {entityType => entity.entity_type, gid => entity.gid},
         wikipediaExtract => wikipedia_extract,
-        wikipediaExtractURL => wikipedia_extract_url
     }) -%]
 [%- END -%]
 
