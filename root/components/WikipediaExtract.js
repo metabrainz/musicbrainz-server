@@ -11,10 +11,10 @@ import $ from 'jquery';
 import React from 'react';
 
 import {l} from '../static/scripts/common/i18n';
-import makeCollapsible from '../static/scripts/common/text-collapse';
 import entityHref from '../static/scripts/common/utility/entityHref';
 import hydrate from '../utility/hydrate';
 
+import Collapsible from './Collapsible';
 import Frag from './Frag';
 
 type Props = {|
@@ -37,13 +37,9 @@ class WikipediaExtract extends React.Component<Props, State> {
   }
 
   componentDidMount() {
-    if (this.state.wikipediaExtract) {
-      makeCollapsible('wikipedia-extract');
-    } else {
+    if (!this.state.wikipediaExtract) {
       $.get(entityHref(this.props.entity, '/wikipedia-extract'), data => {
-        this.setState(data, () => {
-          makeCollapsible('wikipedia-extract');
-        });
+        this.setState(data);
       });
     }
   }
@@ -53,9 +49,9 @@ class WikipediaExtract extends React.Component<Props, State> {
     return wikipediaExtract ? (
       <Frag>
         <h2 className="wikipedia">{l('Wikipedia')}</h2>
-        <div
-          className="wikipedia-extract-body wikipedia-extract-collapse"
-          dangerouslySetInnerHTML={{__html: wikipediaExtract.content}}
+        <Collapsible
+          className="wikipedia-extract"
+          html={wikipediaExtract.content}
         />
         <a href={wikipediaExtract.url}>
           {l('Continue reading at Wikipedia...')}

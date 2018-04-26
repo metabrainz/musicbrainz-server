@@ -14,11 +14,13 @@ import {withCatalystContext} from '../context';
 import DBDefs from '../static/scripts/common/DBDefs';
 import {l} from '../static/scripts/common/i18n';
 import formatUserDate from '../utility/formatUserDate';
+import hydrate from '../utility/hydrate';
 
+import Collapsible from './Collapsible';
 import Frag from './Frag';
 
 type Props = {|
-  +$c: CatalystContextT,
+  +$c: CatalystContextT | SanitizedCatalystContextT,
   +review: CritiqueBrainzReviewT,
   +title: string,
 |};
@@ -46,11 +48,11 @@ const CritiqueBrainzReview = ({$c, review, title}: Props) => (
         review_link: {href: reviewHref(review), key: 'review_link'},
       })}
     </p>
-    <div
-      className="review-body review-collapse"
-      dangerouslySetInnerHTML={{__html: review.body}}
-    />
+    <Collapsible className="review" html={review.body} />
   </Frag>
 );
 
-export default withCatalystContext(CritiqueBrainzReview);
+export default withCatalystContext(hydrate(
+  'critiquebrainz-review',
+  CritiqueBrainzReview,
+));

@@ -21,10 +21,10 @@ window.$ = window.jQuery = require("jquery");
 
 require("../lib/jquery.ui/ui/jquery-ui.custom");
 
+require("../../components/Annotation");
 require("../../components/CommonsImage");
 require("../../components/WikipediaExtract");
 require("./common/i18n");
-require("./common/text-collapse");
 require("./common/artworkViewer");
 require("./common/dialogs");
 require("./common/entity");
