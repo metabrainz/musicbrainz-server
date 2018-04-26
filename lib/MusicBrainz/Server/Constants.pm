@@ -43,7 +43,7 @@ our %EXPORT_TAGS = (
         qw( $ELECTION_VOTE_YES $ELECTION_VOTE_NO $ELECTION_VOTE_ABSTAIN )
     ],
     email_addresses => [
-        qw( $EMAIL_NOREPLY_ADDRESS $EMAIL_SUPPORT_ADDRESS )
+        qw( $EMAIL_NOREPLY_ADDR_SPEC $EMAIL_NOREPLY_ADDRESS $EMAIL_SUPPORT_ADDRESS )
     ],
 );
 
@@ -290,7 +290,8 @@ Readonly our $ELECTION_ACCEPTED   => 4;
 Readonly our $ELECTION_REJECTED   => 5;
 Readonly our $ELECTION_CANCELLED  => 6;
 
-Readonly our $EMAIL_NOREPLY_ADDRESS => 'MusicBrainz Server <noreply@musicbrainz.org>';
+Readonly our $EMAIL_NOREPLY_ADDR_SPEC => 'noreply@musicbrainz.org';
+Readonly our $EMAIL_NOREPLY_ADDRESS => 'MusicBrainz Server <' . $EMAIL_NOREPLY_ADDR_SPEC . '>';
 Readonly our $EMAIL_SUPPORT_ADDRESS => 'MusicBrainz <support@musicbrainz.org>';
 
 Readonly our $VOTE_ABSTAIN => -1;

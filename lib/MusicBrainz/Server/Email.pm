@@ -50,7 +50,7 @@ sub _user_address
     my ($user, $hidden) = @_;
 
     my $quoted_name = _encode_header($user->name);
-    my $email = $hidden ? 'noreply@musicbrainz.org' : $user->email;
+    my $email = $hidden ? $EMAIL_NOREPLY_ADDR_SPEC : $user->email;
 
     return Email::Address->new($quoted_name, $email)->format;
 }
