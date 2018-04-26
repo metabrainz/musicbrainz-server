@@ -1495,10 +1495,12 @@ msgid "gizmo"
 msgstr ""
 
 #: DB:instrument/name:285
+msgctxt "Glass bowls mounted on spindle"
 msgid "glass harmonica"
 msgstr ""
 
 #: DB:instrument/name:765
+msgctxt "Musical Glasses"
 msgid "glass harp"
 msgstr ""
 
@@ -1633,10 +1635,12 @@ msgid "hardingfele"
 msgstr ""
 
 #: DB:instrument/name:43
+msgctxt "mouth organ"
 msgid "harmonica"
 msgstr ""
 
 #: DB:instrument/name:135
+msgctxt "reed organ"
 msgid "harmonium"
 msgstr ""
 

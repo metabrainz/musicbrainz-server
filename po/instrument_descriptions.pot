@@ -126,11 +126,6 @@ msgstr ""
 msgid "A four-string banjo is a banjo with four strings."
 msgstr ""
 
-#. name:glass harp 
-#: DB:instrument/description:765
-msgid "A glass harp is a musical instrument made of upright wine glasses."
-msgstr ""
-
 #. name:gong bass drum 
 #: DB:instrument/description:639
 msgid "A gong bass drum is a large single drumhead which resembles a gong."
@@ -1017,6 +1012,14 @@ msgid ""
 "or birch bark"
 msgstr ""
 
+#. name:glass harp 
+#: DB:instrument/description:765
+msgid ""
+"Known in Persia as far back as the 14th century, it consists of glass "
+"containers, tuned by either being filled with water or later being of "
+"different sizes. Played by rubbing dampened fingers on the rims."
+msgstr ""
+
 #. name:krakebs 
 #: DB:instrument/description:652
 msgid ""
@@ -1510,6 +1513,13 @@ msgstr ""
 #. name:Swedish bagpipes 
 #: DB:instrument/description:691
 msgid "Swedish bagpipes are a type of bagpipes from Sweden."
+msgstr ""
+
+#. name:glass harmonica 
+#: DB:instrument/description:285
+msgid ""
+"Taking the concept of musical glasses but mounting the incrementing bowls on "
+"a turnable spindle, it is played with damp fingers."
 msgstr ""
 
 #. name:tanbou ka 
@@ -2179,14 +2189,6 @@ msgstr ""
 msgid ""
 "The geomungo is a traditional Korean zither, based on the Chinese guqin, "
 "which typically has 6 strings."
-msgstr ""
-
-#. name:glass harmonica 
-#: DB:instrument/description:285
-msgid ""
-"The glass harmonica is an instrument made of a series of glass bowls mounted "
-"on a spindle which is then turned. It is played by touching the rims of the "
-"bowls with a finger."
 msgstr ""
 
 #. name:gralla 
