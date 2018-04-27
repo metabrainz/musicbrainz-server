@@ -39,7 +39,7 @@ const Footer = ({$c, ...props}) => {
           <br />,
           l('Running: {git_details}',
             {__react: true,
-             git_details: <span className="tooltip" title={DBDefs.GIT_MSG}>
+             git_details: <span className="tooltip" key='git_details' title={DBDefs.GIT_MSG}>
                             {DBDefs.GIT_BRANCH} ({DBDefs.GIT_SHA})
                           </span>
             })
