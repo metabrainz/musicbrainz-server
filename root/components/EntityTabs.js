@@ -52,7 +52,7 @@ function buildLinks(
   editTab: React.Node,
   hideEditTab: boolean,
 ): React.Node {
-  const links = [buildLink(l('Overview'), entity, 'show', page, 'index')];
+  const links = [buildLink(l('Overview'), entity, '', page, 'index')];
 
   const entityProperties = ENTITIES[entity.entityType];
 
