@@ -202,7 +202,7 @@ class ExternalLinksEditor extends React.Component<LinksEditorProps, LinksEditorS
               // Kludge for MBS-9515 to be replaced with the more general MBS-9516
               error = l('Links to specific sections of Wikipedia articles are not allowed. Please remove “{fragment}” if still appropriate. See the {url|guidelines}.', {
                 __react: true,
-                fragment: <span className='url-quote'>{link.url.replace(/^(?:https?:\/\/)?(?:[^.\/]+\.)?wikipedia\.org\/[^#]*#(.*)$/, '#$1')}</span>,
+                fragment: <span className='url-quote' key='fragment'>{link.url.replace(/^(?:https?:\/\/)?(?:[^.\/]+\.)?wikipedia\.org\/[^#]*#(.*)$/, '#$1')}</span>,
                 url: { href: '/relationship/' + linkType.gid, target: '_blank' }
               });
             } else if ((linksByTypeAndUrl[linkTypeAndUrlString(link)] || []).length > 1) {

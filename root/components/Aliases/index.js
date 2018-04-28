@@ -32,7 +32,7 @@ const Aliases = ({$c, aliases, allowEditing = $c.user ? !$c.user.is_editing_disa
       </p>
       {aliases && aliases.length
         ? <AliasTable aliases={aliases} allowEditing={allowEditing} entity={entity} />
-        : <p>{l('{entity} has no aliases.', {__react: true, entity: <EntityLink entity={entity} />})}</p>}
+        : <p>{l('{entity} has no aliases.', {__react: true, entity: <EntityLink entity={entity} key='entity' />})}</p>}
       {allowEditing
         ? (
           <p>

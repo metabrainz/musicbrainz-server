@@ -18,9 +18,19 @@ const yarb = require('yarb');
 const poFile = require('../server/gettext/poFile');
 const DBDefs = require('./scripts/common/DBDefs');
 
-// This may need to be increased when a new bundle is added, to silence
-// warnings of the form "Possible EventEmitter memory leak detected."
-EventEmitter.defaultMaxListeners = 32;
+const POSIX_LANGUAGES = _(DBDefs.MB_LANGUAGES || '')
+  .split(/\s+/)
+  .compact()
+  .without('en')
+  .map(langToPosix);
+
+{
+  let langCount = POSIX_LANGUAGES.size();
+  let extraLangCount = langCount > 0 ? langCount - 1 : 0;
+  // This may need to be increased when a new bundle is added, to silence
+  // warnings of the form "Possible EventEmitter memory leak detected."
+  EventEmitter.defaultMaxListeners = 11 + 9 * extraLangCount;
+}
 
 process.env.NODE_ENV = DBDefs.DEVELOPMENT_SERVER ? 'development' : 'production';
 
@@ -145,7 +155,6 @@ function runYarb(resourceName, vinyl, callback) {
       // Uglify options
       output: {
         comments: /@preserve|@license/,
-        max_line_len: 256
       },
 
       sourcemap: false
@@ -193,11 +202,7 @@ const GETTEXT_DOMAINS = [
   'statistics',
 ];
 
-_(DBDefs.MB_LANGUAGES || '')
-  .split(/\s+/)
-  .compact()
-  .without('en')
-  .map(langToPosix)
+_(POSIX_LANGUAGES)
   .each(function (lang) {
     // We handle the mb_server domain specially by filtering out strings that
     // don't appear in any JavaScript file.
