@@ -21,7 +21,7 @@ const AliasTableBody = ({aliases, ...props}: Props) => {
   const aliasRows = [];
   for (let i = 0; i < aliases.length; i++) {
     const alias = aliases[i];
-    aliasRows.push(<AliasTableRow alias={alias} row={i % 2 ? 'even' : 'odd'} {...props} />);
+    aliasRows.push(<AliasTableRow alias={alias} key={alias.id} row={i % 2 ? 'even' : 'odd'} {...props} />);
   }
   return <tbody>{aliasRows}</tbody>;
 };

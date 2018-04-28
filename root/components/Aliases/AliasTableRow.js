@@ -25,7 +25,7 @@ type Props = {
 };
 
 const AliasTableRow = ({alias, allowEditing, entity, row}: Props) => (
-  <tr className={row} key={alias.id}>
+  <tr className={row}>
     <td colSpan={alias.name === alias.sort_name ? 2 : 1}>
       {alias.editsPending
         ? <span className="mp">{isolateText(alias.name)}</span>
