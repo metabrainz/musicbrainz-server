@@ -217,8 +217,8 @@ declare type EditableRoleT = {|
 
 declare type EditorT = {|
   ...EntityRoleT,
-  +email: string,
   +entityType: 'editor',
+  +gravatar: string,
   +is_account_admin: boolean,
   +is_admin: boolean,
   +is_auto_editor: boolean,
