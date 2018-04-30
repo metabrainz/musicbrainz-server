@@ -15,6 +15,7 @@ import type {ComponentType as ReactComponentType} from 'react';
 export default function hydrate<T>(
   rootClass: string,
   Component: ReactComponentType<T>,
+  stringifyProps: (T) => string = JSON.stringify,
 ): ReactComponentType<T> {
   if (typeof document !== 'undefined') {
     // This should only run on the client.
@@ -31,7 +32,7 @@ export default function hydrate<T>(
     });
   }
   return (props) => (
-    <div className={rootClass} data-props={JSON.stringify(props)}>
+    <div className={rootClass} data-props={stringifyProps(props)}>
       <Component {...props} />
     </div>
   );

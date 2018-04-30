@@ -215,6 +215,11 @@ declare type EditableRoleT = {|
   +editsPending: boolean,
 |};
 
+declare type EditorPreferencesT = {|
+  datetime_format: string,
+  timezone: string,
+|};
+
 declare type EditorT = {|
   ...EntityRoleT,
   +entityType: 'editor',
@@ -229,6 +234,7 @@ declare type EditorT = {|
   +is_relationship_editor: boolean,
   +is_wiki_transcluder: boolean,
   +name: string,
+  +preferences: EditorPreferencesT,
 |};
 
 declare type EntityRoleT = {|
@@ -441,6 +447,24 @@ declare type ReleaseT = {|
 declare type RepeatableFieldT<+F> = {|
   ...FieldRoleT,
   +field: $ReadOnlyArray<F>,
+|};
+
+declare type SanitizedCatalystContextT = {|
+  +user: SanitizedEditorT | null,
+  +user_exists: boolean,
+|};
+
+declare type SanitizedEditorPreferencesT = {|
+  datetime_format: string,
+  timezone: string,
+|};
+
+declare type SanitizedEditorT = {|
+  ...EntityRoleT,
+  +entityType: 'editor',
+  +gravatar: string,
+  +name: string,
+  +preferences: SanitizedEditorPreferencesT,
 |};
 
 declare type SearchFormT = FormT<{|
