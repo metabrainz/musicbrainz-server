@@ -155,7 +155,6 @@ our $japan = {
     'begin_date' => undef,
     'code' => 'JP',
     'comment' => '',
-    'containment' => [],
     'editsPending' => \0,
     'end_date' => undef,
     'ended' => \0,

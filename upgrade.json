@@ -61,6 +61,7 @@
   },
 
   "25": {
+    "slave": ["20180503-mbs-9708-drop-area-containment-view.sql"],
     "standalone": ["20170604-mbs-9365.sql",
                    "20170909-mbs-9462-missing-event-triggers.sql"]
   }

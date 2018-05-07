@@ -48,7 +48,7 @@ INSERT INTO area (id, gid, name, type) VALUES
     (2, 'bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbaaaa', 'parent city', 3),
     (3, 'bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbcccc', 'parent subdivision', 2),
     (4, 'bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb', 'parent country', 1),
-    (5, 'cccccccc-cccc-cccc-cccc-cccccccccccc', 'incorrect parent country', 1);
+    (5, 'cccccccc-cccc-cccc-cccc-cccccccccccc', 'parent meta-country', 1);
 
 INSERT INTO link (id, link_type) VALUES (1, 356);
 INSERT INTO l_area_area (link, entity0, entity1) VALUES (1, 2, 1), (1, 3, 2), (1, 4, 3), (1, 5, 4);
@@ -58,33 +58,35 @@ EOSQL
     is($area->name, 'descendant', 'correct descendant country is loaded');
 
     $test->c->model('Area')->load_containment($area);
-    is($area->parent_city->name, 'parent city', 'correct parent city is loaded');
-    is($area->parent_subdivision->name, 'parent subdivision', 'correct parent subdivision is loaded');
-    is($area->parent_country->name, 'parent country', 'correct parent country is loaded');
+    is(scalar @{$area->containment}, 4);
+    is($area->containment->[0]->name, 'parent city', 'correct parent city is loaded');
+    is($area->containment->[1]->name, 'parent subdivision', 'correct parent subdivision is loaded');
+    is($area->containment->[2]->name, 'parent country', 'correct parent country is loaded');
+    is($area->containment->[3]->name, 'parent meta-country', 'parent meta-country is loaded');
 
     $area = $test->c->model('Area')->get_by_id(2);
     is($area->name, 'parent city', 'correct descendant is loaded');
 
     $test->c->model('Area')->load_containment($area);
-    is($area->parent_city, undef, 'no parent city is loaded');
-    is($area->parent_subdivision->name, 'parent subdivision', 'correct parent subdivision is loaded');
-    is($area->parent_country->name, 'parent country', 'correct parent country is loaded');
+    is(scalar @{$area->containment}, 3);
+    is($area->containment->[0]->name, 'parent subdivision', 'correct parent subdivision is loaded');
+    is($area->containment->[1]->name, 'parent country', 'correct parent country is loaded');
+    is($area->containment->[2]->name, 'parent meta-country', 'parent meta-country is loaded');
 
     $area = $test->c->model('Area')->get_by_id(3);
     is($area->name, 'parent subdivision', 'correct descendant is loaded');
 
     $test->c->model('Area')->load_containment($area);
-    is($area->parent_city, undef, 'no parent city is loaded');
-    is($area->parent_subdivision, undef, 'no parent subdivision is loaded');
-    is($area->parent_country->name, 'parent country', 'correct parent country is loaded');
+    is(scalar @{$area->containment}, 2);
+    is($area->containment->[0]->name, 'parent country', 'correct parent country is loaded');
+    is($area->containment->[1]->name, 'parent meta-country', 'parent meta-country is loaded');
 
     $area = $test->c->model('Area')->get_by_id(4);
     is($area->name, 'parent country', 'correct descendant is loaded');
 
     $test->c->model('Area')->load_containment($area);
-    is($area->parent_city, undef, 'no parent city is loaded');
-    is($area->parent_subdivision, undef, 'no parent subdivision is loaded');
-    is($area->parent_country->name, 'incorrect parent country', 'correct parent meta-country is loaded');
+    is(scalar @{$area->containment}, 1);
+    is($area->containment->[0]->name, 'parent meta-country', 'correct parent meta-country is loaded');
 
 };
 

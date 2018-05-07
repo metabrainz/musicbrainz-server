@@ -34,18 +34,18 @@ test all => sub {
         gid => '29a709d8-0320-493e-8d0c-f2c386662b7f',
         id => 5099,
         name => 'Chicago',
-        parent_country => Area->new(
-            gid => '489ce91b-6658-3307-9877-795b68554c98',
-            id => 222,
-            name => 'United States',
-        ),
-        parent_country_depth => 4,
-        parent_subdivision => Area->new(
-            gid => '8c2196d9-b7be-4051-90d1-ac81895355f1',
-            id => 276,
-            name => 'Illinois',
-        ),
-        parent_subdivision_depth => 3,
+        containment => [
+            Area->new(
+                gid => '8c2196d9-b7be-4051-90d1-ac81895355f1',
+                id => 276,
+                name => 'Illinois',
+            ),
+            Area->new(
+                gid => '489ce91b-6658-3307-9877-795b68554c98',
+                id => 222,
+                name => 'United States',
+            ),
+        ],
     );
 
     my @tests = (

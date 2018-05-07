@@ -238,7 +238,6 @@ test 'previewing/creating/editing a release group and release' => sub {
                         begin_date => undef,
                         code => 'JP',
                         comment => '',
-                        containment => [],
                         editsPending => JSON::false,
                         end_date => undef,
                         ended => JSON::false,
