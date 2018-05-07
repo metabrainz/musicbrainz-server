@@ -596,11 +596,6 @@ sub insert
         $self->c->model('Series')->automatically_reorder($values->{entity1_id});
     }
 
-    my $link_type = $self->c->model('LinkType')->get_by_id($values->{link_type_id});
-    if ($link_type->gid eq $PART_OF_AREA_LINK_TYPE) {
-        $self->c->model('Area')->clear_containment_cache;
-    }
-
     return $self->_entity_class->new( id => $id );
 }
 
@@ -644,14 +639,6 @@ sub update
 
     $self->c->model('Series')->automatically_reorder($new->{entity1})
         if $series1_changed || ($series1 && $old->{link} != $new->{link});
-
-    if ($entity0_changed || $entity1_changed) {
-        my $link_type = $self->c->model('LinkType')->get_by_id($link{link_type_id});
-
-        if ($link_type->gid eq $PART_OF_AREA_LINK_TYPE) {
-            $self->c->model('Area')->clear_containment_cache;
-        }
-    }
 }
 
 sub delete
@@ -673,19 +660,6 @@ sub delete
     if ($series_ids) {
         $self->c->model('Series')->automatically_reorder($_)
             for map { $_->{$series_col} } @$series_ids;
-    }
-
-    my $deletes_area_part = $self->sql->select_single_value(
-        "SELECT 1 FROM l_${type0}_${type1} r
-           JOIN link l ON l.id = r.link
-           JOIN link_type lt ON lt.id = l.link_type
-          WHERE r.id = any(?) AND lt.gid = ?",
-        \@ids,
-        $PART_OF_AREA_LINK_TYPE
-    );
-
-    if ($deletes_area_part) {
-        $self->c->model('Area')->clear_containment_cache;
     }
 }
 

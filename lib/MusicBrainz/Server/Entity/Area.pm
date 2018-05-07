@@ -29,34 +29,9 @@ sub l_name {
     }
 }
 
-has 'parent_country' => (
+has 'containment' => (
     is => 'rw',
-    isa => 'Maybe[Area]',
-);
-
-has 'parent_country_depth' => (
-    is => 'rw',
-    isa => 'Maybe[Int]',
-);
-
-has 'parent_subdivision' => (
-    is => 'rw',
-    isa => 'Maybe[Area]',
-);
-
-has 'parent_subdivision_depth' => (
-    is => 'rw',
-    isa => 'Maybe[Int]',
-);
-
-has 'parent_city' => (
-    is => 'rw',
-    isa => 'Maybe[Area]',
-);
-
-has 'parent_city_depth' => (
-    is => 'rw',
-    isa => 'Maybe[Int]',
+    isa => 'Maybe[ArrayRef[Area]]',
 );
 
 has 'iso_3166_1' => (
@@ -127,19 +102,18 @@ sub country_code
 around TO_JSON => sub {
     my ($orig, $self) = @_;
 
-    my $containment = [
-        map { $self->$_->TO_JSON }
-        nsort_by { $self->${ \"${_}_depth" } }
-        grep { $self->$_ }
-        qw( parent_city parent_subdivision parent_country )
-    ];
-
-    return {
+    my $json = {
         %{ $self->$orig },
         code => $self->primary_code,
-        containment => $containment,
         iso_3166_1_codes => [$self->iso_3166_1_codes],
     };
+
+    my $containment = $self->containment;
+    if (defined $containment) {
+        $json->{containment} = [map { $_->TO_JSON } @{$containment}];
+    }
+
+    return $json;
 };
 
 __PACKAGE__->meta->make_immutable;

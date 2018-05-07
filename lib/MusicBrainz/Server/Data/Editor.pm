@@ -165,15 +165,21 @@ sub find_by_email
 
 sub find_by_area {
     my ($self, $area_id, $limit, $offset) = @_;
+    my (
+        $containment_query,
+        @containment_query_args,
+    ) = $self->c->model('Area')->get_containment_query('$2', 'area');
     my $query = "SELECT " . $self->_columns . "
                  FROM " . $self->_table . "
                  WHERE area = \$1 OR EXISTS (
-                    SELECT 1 FROM area_containment
-                     WHERE descendant = area AND parent = \$1
+                    SELECT 1 FROM ($containment_query) ac
+                     WHERE ac.descendant = area AND ac.parent = \$1
                  )
                  ORDER BY name, id";
-    $self->query_to_list_limited($query, [$area_id], $limit, $offset, undef,
-                                 dollar_placeholders => 1);
+    $self->query_to_list_limited(
+        $query, [$area_id, @containment_query_args], $limit, $offset, undef,
+        dollar_placeholders => 1,
+    );
 }
 
 sub find_by_privileges
