@@ -25,18 +25,12 @@ around serialize => sub {
         }
     }
 
-    if ($entity->parent_country || $entity->parent_subdivision || $entity->parent_city) {
-        my %depths = map { my $depth_prop = $_ . '_depth'; $entity->$depth_prop => $entity->$_ }
-                     grep { $entity->$_ } qw( parent_city parent_subdivision parent_country );
-        my $contained;
-        for my $depth (sort { $b <=> $a } keys %depths) {
-            my $new = serialize_entity($depths{$depth}, $inc, $stash);
-            if ($contained) {
-                $new->{containedIn} = $contained;
-            }
-            $contained = $new;
-        }
-        $ret->{containedIn} = $contained;
+    my $containment = $entity->containment;
+    my $child_ret = $ret;
+    for my $parent (@{$containment}) {
+        my $parent_ret = serialize_entity($parent, $inc, $stash);
+        $child_ret->{containedIn} = $parent_ret;
+        $child_ret = $parent_ret;
     }
 
     return $ret;

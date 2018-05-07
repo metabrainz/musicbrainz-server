@@ -35,7 +35,7 @@ declare type AreaT = {|
   ...CoreEntityRoleT,
   ...DatePeriodRoleT,
   ...TypeRoleT<AreaTypeT>,
-  +containment: $ReadOnlyArray<AreaT>,
+  +containment: $ReadOnlyArray<AreaT> | null,
   +entityType: 'area',
   +iso_3166_1_codes: $ReadOnlyArray<string>,
 |};

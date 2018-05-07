@@ -5,7 +5,11 @@ use Moose;
 use namespace::autoclean;
 use List::AllUtils qw( any );
 use List::UtilsBy qw( partition_by );
-use MusicBrainz::Server::Constants qw( $STATUS_OPEN $AREA_TYPE_COUNTRY );
+use MusicBrainz::Server::Constants qw(
+    $STATUS_OPEN
+    $AREA_TYPE_COUNTRY
+    $PART_OF_AREA_LINK_TYPE_ID
+);
 use MusicBrainz::Server::Data::Edit;
 use MusicBrainz::Server::Entity::Area;
 use MusicBrainz::Server::Entity::PartialDate;
@@ -66,100 +70,57 @@ sub load
     load_subobjects($self, ['area', 'begin_area', 'end_area', 'country'], @objs);
 }
 
-sub load_containment
-{
-    my ($self, @areas) = @_;
-    # Define a map of area_type IDs to what property they correspond to
-    # on an Entity::Area.
-    my %type_parent_attribute = (
-        $AREA_TYPE_COUNTRY => 'parent_country',
-        2 => 'parent_subdivision',
-        3 => 'parent_city',
-    );
+sub get_containment_query {
+    my ($self, $link_type_param, $descendant_param) = @_;
 
-    # This helper function determines if a given area object should continue with loading
-    # it won't include an object if all the containments are already loaded, or with undef.
-    my $use_object = sub {
-        my $obj = $_;
-        return 0 if !defined $obj;
-        my $obj_type = ( defined $obj->type ? $obj->type->id : $obj->type_id );
-        # For each containment type, loading should continue
-        # if the object type differs and the parent property is undefined
-        # If all containments are loaded or match the object type, no loading needs to happen.
-        return any { !defined($obj->{$type_parent_attribute{$_}}) &&
-                     (!defined($obj_type) || $obj_type != $_) } keys %type_parent_attribute;
-    };
-
-    my @objects_to_use = grep { $use_object->($_) } @areas;
-    return unless @objects_to_use;
-    my %obj_id_map = object_to_ids(@objects_to_use);
-    my @all_ids = keys %obj_id_map;
-    my %ids_to_load = map { $_ => 1 } @all_ids;
-    my @containments;
-
-    my $namespace_key = $self->c->store->get('area_containment_key');
-    unless (defined $namespace_key) {
-        $namespace_key = $self->clear_containment_cache;
-    }
-
-    my $cached_containments = $self->c->cache('area_containment')->get_multi(
-        map { "area_containment:$namespace_key:$_" } @all_ids
-    );
-
-    if (defined $cached_containments && %{$cached_containments}) {
-        for (keys %$cached_containments) {
-            $_ =~ /:([0-9]+)$/;
-            delete $ids_to_load{$1};
-        }
-        @containments = map { @{$_} } values %{$cached_containments};
-    }
-
-    my @ids_to_load = keys %ids_to_load;
-    if (@ids_to_load) {
-        # See admin/sql/CreateViews.sql for a description of the
-        # area_containment view. If more types are added to
-        # %type_parent_attribute the view should be updated.
-        my $query = q{
-            SELECT descendant, parent, type,
-                   array_length(descendant_hierarchy, 1) AS depth
-              FROM area_containment
-             WHERE descendant = any(?)
-        };
-        my $loaded_containments = $self->sql->select_list_of_hashes($query, \@ids_to_load);
-        my %parents_by_descendant = partition_by { $_->{descendant} } @{$loaded_containments};
-
-        $self->c->cache('area_containment')->set_multi(
-            map {
-                my $parents = $parents_by_descendant{$_} // [];
-                ["area_containment:$namespace_key:$_", $parents, DBDefs->ENTITY_CACHE_TTL]
-            } @ids_to_load
-        );
-
-        push @containments, @{$loaded_containments};
-    }
-
-    my @parent_ids = grep { defined } map { $_->{parent} } @containments;
-
-    # Having determined the IDs for all the parents, actually load them and attach to the
-    # descendant objects.
-    my $parent_objects = $self->get_by_ids(@parent_ids);
-    for my $data (@containments) {
-        if (my $entities = $obj_id_map{$data->{descendant}}) {
-            my $type = $type_parent_attribute{$data->{type}};
-            my $type_depth = $type . '_depth';
-            my $parent_obj = $parent_objects->{$data->{parent}};
-            for my $entity (@$entities) {
-                $entity->$type($parent_obj);
-                $entity->$type_depth($data->{depth});
-            }
-        }
-    }
+    return (qq{
+        WITH RECURSIVE area_descendants AS (
+            SELECT entity0 AS parent, entity1 AS descendant, 1 AS depth
+              FROM l_area_area laa
+              JOIN link ON laa.link = link.id
+             WHERE link.link_type = $link_type_param
+               AND entity1 = $descendant_param
+                UNION
+            SELECT entity0 AS parent, descendant, (depth + 1) AS depth
+              FROM l_area_area laa
+              JOIN link ON laa.link = link.id
+              JOIN area_descendants ON area_descendants.parent = laa.entity1
+             WHERE link.link_type = $link_type_param
+               AND entity0 != descendant
+        )
+        SELECT ad.descendant, ad.parent, ad.depth
+          FROM area_descendants ad
+          JOIN area a ON a.id = ad.parent
+         WHERE a.type IN (1, 2, 3)
+         ORDER BY ad.descendant, ad.depth ASC
+    }, $PART_OF_AREA_LINK_TYPE_ID);
 }
 
-sub clear_containment_cache {
-    my $key = time;
-    shift->c->store->set('area_containment_key', $key);
-    return $key;
+sub load_containment {
+    my ($self, @areas) = @_;
+
+    @areas = grep { $_ && !defined $_->containment } @areas;
+    return unless @areas;
+
+    my @results = @{ $self->sql->select_list_of_hashes(
+        $self->get_containment_query('$1', 'any($2)'),
+        [map { $_->id } @areas],
+    ) };
+
+    my %results_by_descendant = partition_by {
+        $_->{descendant}
+    } @results;
+
+    my $parent_areas = $self->get_by_ids(
+        map { $_->{parent} } @results
+    );
+
+    for my $area (@areas) {
+        my @parent_ids = map {
+            $_->{parent}
+        } @{ $results_by_descendant{$area->id} // [] };
+        $area->containment([map { $parent_areas->{$_} } @parent_ids]);
+    }
 }
 
 sub _set_codes
@@ -195,10 +156,6 @@ sub update
     $self->sql->update_row('area', $row, { id => $area_id }) if %$row;
 
     $self->set_all_codes($area_id, $update);
-
-    if (exists $row->{type}) {
-        $self->clear_containment_cache;
-    }
 
     return 1;
 }
@@ -236,7 +193,6 @@ sub delete
         $self->sql->do("DELETE FROM $code_table WHERE area IN (" . placeholders(@area_ids) . ")", @area_ids);
     }
     $self->delete_returning_gids(@area_ids);
-    $self->clear_containment_cache;
     return 1;
 }
 
@@ -303,7 +259,6 @@ sub _merge_impl
     );
 
     $self->_delete_and_redirect_gids('area', $new_id, @old_ids);
-    $self->clear_containment_cache;
     return 1;
 }
 
