@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2018-04-18 13:36+0000\n"
+"PO-Revision-Date: 2018-04-23 16:37+0000\n"
 "Last-Translator: yvanz\n"
 "Language-Team: Japanese (http://www.transifex.com/musicbrainz/musicbrainz/language/ja/)\n"
 "MIME-Version: 1.0\n"
@@ -710,8 +710,10 @@ msgid "Links an event to (one of) its main performer(s)."
 msgstr "イベントとその主要なパフォーマーとを結びつけます。"
 
 #: DB:link_type/description:799
-msgid "Links an event to (one of) its support act(s)."
-msgstr "イベントとそのサポート演奏者とを結びつけます。"
+msgid ""
+"Links an event to (one of) its support act(s) (also known as opening acts or"
+" warm-up acts)."
+msgstr ""
 
 #: DB:link_type/description:932
 msgid ""
@@ -1844,6 +1846,12 @@ msgid ""
 "or Indiegogo."
 msgstr ""
 
+#: DB:link_type/description:937
+msgid ""
+"This links a place (often a concert hall or educational institution) to a "
+"composer who has a composer-in-residence position with it."
+msgstr ""
+
 #: DB:link_type/description:495
 msgid ""
 "This links a place to a channel, playlist, or user page on a video sharing "
@@ -2487,6 +2495,12 @@ msgid ""
 "themselves, dress, and/or act similarly to the artists they pay tribute to."
 msgstr ""
 
+#: DB:link_type/description:936
+msgid ""
+"This relationship specifies that an event was held as a tribute/homage to a "
+"specific artist."
+msgstr ""
+
 #: DB:link_type/description:462
 msgid ""
 "This relationship type can be used to link a MusicBrainz place to the "
@@ -2682,6 +2696,12 @@ msgid ""
 " to cataloguing the music of video games and anime."
 msgstr ""
 
+#: DB:link_type/description:938
+msgid ""
+"This relationship type links a series (like a festival) to its corresponding"
+" page at setlist.fm"
+msgstr ""
+
 #: DB:link_type/description:191
 msgid ""
 "This relationship type links an artist to its corresponding page at <a "
@@ -2823,6 +2843,12 @@ msgid ""
 "acts)"
 msgstr ""
 
+#: DB:link_attribute_type/description:1079
+msgid ""
+"Use this to mark that a tour was for the anniversary (rather than the "
+"launch) of a release group."
+msgstr ""
+
 #: DB:link_attribute_type/description:1031
 msgid ""
 "Use this when the parent work consists of several parts which are generally "
@@ -2905,6 +2931,10 @@ msgstr "補助"
 
 #: DB:link_attribute_type/description:5 DB:link_attribute_type/name:5
 msgid "alto vocals"
+msgstr ""
+
+#: DB:link_attribute_type/name:1079
+msgid "anniversary"
 msgstr ""
 
 #: DB:link_type/link_phrase:357
@@ -3117,11 +3147,11 @@ msgstr ""
 msgid "compiler"
 msgstr ""
 
-#: DB:link_type/link_phrase:855
+#: DB:link_type/link_phrase:855 DB:link_type/link_phrase:937
 msgid "composer-in-residence at"
 msgstr ""
 
-#: DB:link_type/reverse_link_phrase:855
+#: DB:link_type/reverse_link_phrase:855 DB:link_type/reverse_link_phrase:937
 msgid "composers-in-residence"
 msgstr ""
 
@@ -3477,6 +3507,10 @@ msgstr ""
 msgid "had an engineer position at"
 msgstr ""
 
+#: DB:link_type/long_link_phrase:936
+msgid "had tribute event"
+msgstr ""
+
 #: DB:link_attribute_type/name:1019
 msgid "half"
 msgstr ""
@@ -3636,7 +3670,7 @@ msgid "has a review page at"
 msgstr ""
 
 #: DB:link_type/long_link_phrase:811 DB:link_type/long_link_phrase:816
-#: DB:link_type/long_link_phrase:817
+#: DB:link_type/long_link_phrase:817 DB:link_type/long_link_phrase:938
 msgid "has a setlist.fm page at"
 msgstr ""
 
@@ -4314,6 +4348,11 @@ msgstr ""
 msgid "musical relationship"
 msgstr ""
 
+#: DB:link_type/link_phrase:935 DB:link_type/reverse_link_phrase:935
+#: DB:link_type/long_link_phrase:935
+msgid "non-performing relationships"
+msgstr ""
+
 #: DB:link_attribute_type/name:788 DB:link_attribute_type/name:1032
 msgid "number"
 msgstr ""
@@ -4872,12 +4911,12 @@ msgid "samples IMDb entry"
 msgstr ""
 
 #: DB:link_type/link_phrase:811 DB:link_type/link_phrase:816
-#: DB:link_type/link_phrase:817
+#: DB:link_type/link_phrase:817 DB:link_type/link_phrase:938
 msgid "setlist.fm"
 msgstr ""
 
 #: DB:link_type/reverse_link_phrase:811 DB:link_type/reverse_link_phrase:816
-#: DB:link_type/reverse_link_phrase:817
+#: DB:link_type/reverse_link_phrase:817 DB:link_type/reverse_link_phrase:938
 msgid "setlist.fm page for"
 msgstr ""
 
@@ -5005,10 +5044,6 @@ msgstr ""
 msgid "supporting releases"
 msgstr ""
 
-#: DB:link_type/link_phrase:888
-msgid "supporting tours"
-msgstr ""
-
 #: DB:link_type/reverse_link_phrase:105
 msgid "supporting {instrument} by"
 msgstr ""
@@ -5040,10 +5075,6 @@ msgstr ""
 
 #: DB:link_type/reverse_link_phrase:859
 msgid "tour by"
-msgstr ""
-
-#: DB:link_type/reverse_link_phrase:888
-msgid "tour in support of"
 msgstr ""
 
 #: DB:link_type/link_phrase:859
@@ -5086,7 +5117,12 @@ msgstr ""
 msgid "tribute artists"
 msgstr ""
 
-#: DB:link_type/link_phrase:728 DB:link_type/reverse_link_phrase:65
+#: DB:link_type/link_phrase:936
+msgid "tribute events"
+msgstr ""
+
+#: DB:link_type/link_phrase:728 DB:link_type/reverse_link_phrase:936
+#: DB:link_type/reverse_link_phrase:65
 msgid "tribute to"
 msgstr ""
 
@@ -5126,7 +5162,7 @@ msgstr ""
 msgid "voiced by"
 msgstr ""
 
-#: DB:link_type/long_link_phrase:855
+#: DB:link_type/long_link_phrase:855 DB:link_type/long_link_phrase:937
 msgid "was a composer-in-residence at"
 msgstr ""
 
@@ -5191,11 +5227,7 @@ msgstr ""
 msgid "was the piano technician for"
 msgstr ""
 
-#: DB:link_type/long_link_phrase:36
-msgid "was {additional} {assistant} {associate} {co:co-}recording engineer"
-msgstr ""
-
-#: DB:link_type/long_link_phrase:128
+#: DB:link_type/long_link_phrase:36 DB:link_type/long_link_phrase:128
 msgid ""
 "was {additional} {assistant} {associate} {co:co-}recording engineer for"
 msgstr ""
@@ -5614,6 +5646,14 @@ msgstr ""
 msgid "{additional} {vocal:%|vocals} arranger"
 msgstr ""
 
+#: DB:link_type/reverse_link_phrase:888
+msgid "{anniversary:anniversary tour for|tour in support of}"
+msgstr ""
+
+#: DB:link_type/link_phrase:888
+msgid "{anniversary:anniversary tours|supporting tours}"
+msgstr ""
+
 #: DB:link_type/reverse_link_phrase:305
 msgid "{assistant} {principal} {guest} conductor {emeritus}"
 msgstr ""
@@ -5725,10 +5765,6 @@ msgstr ""
 
 #: DB:link_type/long_link_phrase:714
 msgid "{entity1} is/was the primary concert venue of {entity0}"
-msgstr ""
-
-#: DB:link_type/long_link_phrase:888
-msgid "{entity1} was a tour in support of {entity0}"
 msgstr ""
 
 #: DB:link_type/long_link_phrase:865 DB:link_type/long_link_phrase:866
@@ -5861,6 +5897,12 @@ msgstr ""
 
 #: DB:link_type/long_link_phrase:873
 msgid "{entity1} was {additional:additionally} written in {entity0}"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:888
+msgid ""
+"{entity1} was {anniversary:an anniversary tour for|a tour in support of} "
+"{entity0}"
 msgstr ""
 
 #: DB:link_type/long_link_phrase:697

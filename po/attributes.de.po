@@ -32,7 +32,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2018-04-05 04:39+0000\n"
+"PO-Revision-Date: 2018-04-26 20:27+0000\n"
 "Last-Translator: yvanz\n"
 "Language-Team: German (http://www.transifex.com/musicbrainz/musicbrainz/language/de/)\n"
 "MIME-Version: 1.0\n"
@@ -105,6 +105,11 @@ msgstr "7″-Vinyl"
 msgctxt "medium_format"
 msgid "8\" LaserDisc"
 msgstr "8\"-LaserDisc"
+
+#: DB:medium_format/name:78
+msgctxt "medium_format"
+msgid "8-Track Cartridge"
+msgstr ""
 
 #: DB:medium_format/name:34
 msgctxt "medium_format"
@@ -219,6 +224,12 @@ msgstr "Eine Party, ein Empfang oder eine andere Art von Veranstaltung, die anl�
 #: DB:release_packaging/description:17
 msgctxt "release_packaging"
 msgid "A perfect bound book with a sleeve at the end to hold a CD"
+msgstr ""
+
+#: DB:place_type/description:8
+msgctxt "place_type"
+msgid ""
+"A place (generally a factory) at which physical media are manufactured."
 msgstr ""
 
 #: DB:place_type/description:5
@@ -2102,6 +2113,11 @@ msgid ""
 "turntable."
 msgstr "Die flexible Disc (Flexidisc, Schallfolie oder Flexi) ist eine Schallplatte aus sehr dünnem, biegsamem Material. Zum Abspielen ist ein Plattenspieler samt Unterlage mit kleinem Mittelloch notwendig."
 
+#: DB:medium_format/name:76
+msgctxt "medium_format"
+msgid "Floppy Disk"
+msgstr ""
+
 #: DB:work_attribute_type/name:16
 msgctxt "work_attribute_type"
 msgid "Form (Ottoman, Turkish)"
@@ -2396,6 +2412,11 @@ msgstr ""
 msgctxt "work_attribute_type_allowed_value"
 msgid "Hezeç"
 msgstr "Hezeç"
+
+#: DB:medium_format/name:75
+msgctxt "medium_format"
+msgid "HiPac"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:391
 msgctxt "work_attribute_type_allowed_value"
@@ -3292,6 +3313,11 @@ msgctxt "series_ordering_type"
 msgid "Manual"
 msgstr "Manuell"
 
+#: DB:label_type/name:10
+msgctxt "label_type"
+msgid "Manufacturer"
+msgstr ""
+
 #: DB:work_attribute_type_allowed_value/value:172
 msgctxt "work_attribute_type_allowed_value"
 msgid "Manōranjani"
@@ -3525,6 +3551,11 @@ msgctxt "work_attribute_type_allowed_value"
 msgid "Murabba"
 msgstr ""
 
+#: DB:work_attribute_type_allowed_value/value:811
+msgctxt "work_attribute_type_allowed_value"
+msgid "Murabba Beste "
+msgstr ""
+
 #: DB:medium_format/name:46
 msgctxt "medium_format"
 msgid "Music Card"
@@ -3656,6 +3687,21 @@ msgstr ""
 msgctxt "work_attribute_type_allowed_value"
 msgid "Nakış"
 msgstr "Nakış"
+
+#: DB:work_attribute_type_allowed_value/value:809
+msgctxt "work_attribute_type_allowed_value"
+msgid "Nakış Ağırsemai"
+msgstr ""
+
+#: DB:work_attribute_type_allowed_value/value:808
+msgctxt "work_attribute_type_allowed_value"
+msgid "Nakış Beste"
+msgstr ""
+
+#: DB:work_attribute_type_allowed_value/value:810
+msgctxt "work_attribute_type_allowed_value"
+msgid "Nakış Yürüksemai"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:468
 msgctxt "work_attribute_type_allowed_value"
@@ -4122,6 +4168,11 @@ msgctxt "work_type"
 msgid "Play"
 msgstr "Schauspiel"
 
+#: DB:medium_format/name:74
+msgctxt "medium_format"
+msgid "PlayTape"
+msgstr ""
+
 #: DB:medium_format/name:45
 msgctxt "medium_format"
 msgid "Playbutton"
@@ -4141,6 +4192,11 @@ msgstr "Pop şarkısı"
 msgctxt "cover_art_type"
 msgid "Poster"
 msgstr "Poster"
+
+#: DB:place_type/name:8
+msgctxt "place_type"
+msgid "Pressing plant"
+msgstr ""
 
 #: DB:label_type/name:3
 msgctxt "label_type"
@@ -5587,6 +5643,11 @@ msgstr ""
 msgctxt "work_attribute_type_allowed_value"
 msgid "Zilkeş"
 msgstr "Zilkeş"
+
+#: DB:medium_format/name:77
+msgctxt "medium_format"
+msgid "Zip Disk"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:599
 msgctxt "work_attribute_type_allowed_value"

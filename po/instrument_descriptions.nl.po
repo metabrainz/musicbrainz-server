@@ -7,8 +7,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2018-04-18 13:36+0000\n"
-"Last-Translator: yvanz\n"
+"PO-Revision-Date: 2018-04-30 11:45+0000\n"
+"Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -494,7 +494,7 @@ msgstr "Een eenhandsfluit is een middeleeuwse voorloper van de blokfluit. Het we
 msgid ""
 "As long as a trumpet, it shares the piston valve design of both instruments "
 "with a mellow sound between the two."
-msgstr ""
+msgstr "Een flümpet is even lang als een trompet, heeft dezelfde ventielen als de flügelhorn en trompet waar het van is afgeleid en een geluid dat tussen de twee instrumenten in ligt."
 
 #. name:bellow-blown bagpipes
 #: DB:instrument/description:428
@@ -629,7 +629,7 @@ msgstr "Huqin is een familie van Chinese spijkerluiten, meestal met twee, maar s
 #. name:pipa
 #: DB:instrument/description:350
 msgid "Chinese pear-shaped plucked lute with four strings and 12 to 26 frets."
-msgstr ""
+msgstr "Een pipa is een Chinese peervormige getokkelde luit met vier snaren en 12 tot 26 fretten."
 
 #. name:ching
 #: DB:instrument/description:618
@@ -681,7 +681,7 @@ msgstr "De tenora is een ontwikkeling van de tenorschalmei, in de negentiende ee
 msgid ""
 "Developed as an extended range bass-lute in Italy during the late sixteenth "
 "century, it has an extended neck with a second pegbox."
-msgstr ""
+msgstr "De theorbe werd eind zestiende eeuw in Italië ontwikkeld als een basluit met een vergroot bereik. Het heeft een verlengde nek met een tweede schroevenhouder."
 
 #. name:viol family
 #: DB:instrument/description:899
@@ -956,7 +956,7 @@ msgid ""
 "Invented by European luthiers in the first half of the 18th century, it had "
 "6 to 7 single or double courses of gut strings and a long neck with either "
 "sharp or shallow angled pegbox."
-msgstr "De mandora werd in de eerste helft van de 18e eeuw uitgevonden. Het heeft zes of zeven enkel- of dubbelkorige darmsnaren en een lange hals die een hoek maakt naar het gedeelte met de stempennen."
+msgstr "De mandora werd in de eerste helft van de 18e eeuw uitgevonden. Het heeft zes of zeven enkel- of dubbelkorige darmsnaren en een lange hals die een hoek en een schroevenhouder die onder een hoek staat."
 
 #. name:arpeggione
 #: DB:instrument/description:823
@@ -985,7 +985,7 @@ msgid ""
 "It has a short fretted neck originally with four silk but now usually nylon "
 "or steel strings, and large flat round body, earning it the nickname \"moon "
 "lute\""
-msgstr ""
+msgstr "De yueqin heeft een korte hals met fretten en vier snaren die traditioneel van zijde, maar tegenwoordig van nylon of staal worden gemaakt. Dankzij de schijfvormige klankkast heeft het instrument de bijnamen maangitaar en maanciter."
 
 #. name:taiko
 #: DB:instrument/description:378
@@ -1352,7 +1352,7 @@ msgstr "Het Klaviorganum is een combinatie van een klavecimbel en een pijporgel,
 msgid ""
 "Popular in the renaissance, it was small and portable with two bellows and "
 "brass reeds."
-msgstr ""
+msgstr "De regaal was een klein en draagbaar orgel met twee balgen en tongetjes van messing, populair tijdens de renaissance."
 
 #. name:baroque guitar
 #: DB:instrument/description:917
@@ -3534,7 +3534,7 @@ msgstr "De txalaparta bestaat traditioneel uit twee lange houten planken waaraan
 msgid ""
 "Traditionally made of willow, it has four strings and a small, pear-shaped "
 "body. Played with a pick, it has a higher pitch than the pipa."
-msgstr ""
+msgstr "De liuqin wordt traditioneel gemaakt van wilgenhout, heeft vier snaren en een kleine peervormige klankkast. Het instrument wordt met een plectrum bespeeld en heeft een hoger geluid dan de pipa."
 
 #. name:caixa
 #: DB:instrument/description:903
