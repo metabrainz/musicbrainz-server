@@ -320,6 +320,11 @@ msgstr ""
 msgid "alto saxophone"
 msgstr ""
 
+#: DB:instrument/name:923
+msgctxt "Alto member of the viol family"
+msgid "alto viol"
+msgstr ""
+
 #: DB:instrument/name:174
 msgctxt "Alto or vertical violin, for French \"alto\" credits, choose viola"
 msgid "alto violin"
@@ -611,6 +616,11 @@ msgstr ""
 
 #: DB:instrument/name:69
 msgid "berimbau"
+msgstr ""
+
+#: DB:instrument/name:920
+msgctxt "Rajasthani string membranophone"
+msgid "bhapang"
 msgstr ""
 
 #: DB:instrument/name:743
@@ -2180,7 +2190,7 @@ msgid "morin khuur"
 msgstr ""
 
 #: DB:instrument/name:533
-msgctxt "indian jew's harp"
+msgctxt "Indian mouth harp"
 msgid "morsing"
 msgstr ""
 
@@ -3207,6 +3217,11 @@ msgstr ""
 msgid "tenor trombone"
 msgstr ""
 
+#: DB:instrument/name:922
+msgctxt "Tenor member of the viol family"
+msgid "tenor viol"
+msgstr ""
+
 #: DB:instrument/name:615
 msgid "tenor violin"
 msgstr ""
@@ -3314,6 +3329,11 @@ msgstr ""
 
 #: DB:instrument/name:291
 msgid "treble recorder / alto recorder"
+msgstr ""
+
+#: DB:instrument/name:921
+msgctxt "Treble/descant member of the viol family"
+msgid "treble viol"
 msgstr ""
 
 #: DB:instrument/name:209
@@ -3513,6 +3533,11 @@ msgctxt "Spanish string instrument."
 msgid "vihuela"
 msgstr ""
 
+#: DB:instrument/name:93
+msgctxt "Generic member of the viol family, Use for \"Viol\" Credits"
+msgid "viol da gamba"
+msgstr ""
+
 #: DB:instrument/name:899
 msgctxt "Viola de gamba family"
 msgid "viol family"
@@ -3529,11 +3554,6 @@ msgstr ""
 #: DB:instrument/name:94
 msgctxt "Baroque fretless similar to both viols and violins."
 msgid "viola d'amore"
-msgstr ""
-
-#: DB:instrument/name:93
-msgctxt "Generic member of the viol family"
-msgid "viola da gamba"
 msgstr ""
 
 #: DB:instrument/name:227

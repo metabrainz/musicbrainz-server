@@ -418,6 +418,10 @@ msgstr ""
 msgid "Indicates the area where the work had its first performance"
 msgstr ""
 
+#: DB:link_type/description:956
+msgid "Indicates the artist(s) who gave the first performance of the work"
+msgstr ""
+
 #: DB:link_type/description:55
 msgid ""
 "Indicates the composer for this release, i.e. the artist who wrote the music "
@@ -669,6 +673,12 @@ msgstr ""
 msgid "Links a release to the place it was engineered at."
 msgstr ""
 
+#: DB:link_type/description:953
+msgid ""
+"Links a release to the place it was manufactured at. Use a more specific "
+"credit if available"
+msgstr ""
+
 #: DB:link_type/description:697
 msgid "Links a release to the place it was mastered at."
 msgstr ""
@@ -691,6 +701,12 @@ msgstr ""
 
 #: DB:link_type/description:828
 msgid "Links a release to the place it was remixed at."
+msgstr ""
+
+#: DB:link_type/description:954
+msgid ""
+"Links a release to the place where the glass master for pressing was made. "
+"Not the same as mastered!"
 msgstr ""
 
 #: DB:link_type/description:796
@@ -1472,6 +1488,13 @@ msgstr ""
 #: DB:link_type/description:53
 msgid ""
 "This indicates the chorus master of a choir which performed on this release."
+msgstr ""
+
+#: DB:link_type/description:955
+msgid ""
+"This indicates the company that made the glass master for a release. This is "
+"<strong>not</strong> the same concept as the <a href=\"/doc/Label\">record "
+"label</a>, nor as mastering engineering."
 msgstr ""
 
 #: DB:link_attribute_type/description:1018
@@ -2878,6 +2901,12 @@ msgid ""
 "\""
 msgstr ""
 
+#: DB:link_type/description:952
+msgid ""
+"Use this relationship for credits like \"Release was manufactured by X for "
+"Label\""
+msgstr ""
+
 #: DB:link_type/description:947
 msgid ""
 "Use this relationship for credits like \"Release was mixed by X for Label\""
@@ -3274,6 +3303,10 @@ msgstr ""
 msgid "contracted arrangement for"
 msgstr ""
 
+#: DB:link_type/link_phrase:952
+msgid "contracted manufacturing for"
+msgstr ""
+
 #: DB:link_type/link_phrase:946 DB:link_type/link_phrase:947
 msgid "contracted mixing for"
 msgstr ""
@@ -3443,21 +3476,8 @@ msgstr ""
 msgid "edit of"
 msgstr ""
 
-#: DB:link_type/reverse_link_phrase:820 DB:link_type/reverse_link_phrase:819
-msgid "edited at"
-msgstr ""
-
-#: DB:link_type/reverse_link_phrase:821 DB:link_type/reverse_link_phrase:822
-msgid "edited in"
-msgstr ""
-
 #: DB:link_type/long_link_phrase:929
 msgid "edited the booklet of"
-msgstr ""
-
-#: DB:link_type/link_phrase:820 DB:link_type/link_phrase:821
-#: DB:link_type/link_phrase:822 DB:link_type/link_phrase:819
-msgid "editing location for"
 msgstr ""
 
 #: DB:link_type/reverse_link_phrase:309
@@ -3482,19 +3502,6 @@ msgstr ""
 
 #: DB:link_type/link_phrase:701
 msgid "engineer position at"
-msgstr ""
-
-#: DB:link_type/reverse_link_phrase:812 DB:link_type/reverse_link_phrase:813
-msgid "engineered at"
-msgstr ""
-
-#: DB:link_type/reverse_link_phrase:814 DB:link_type/reverse_link_phrase:815
-msgid "engineered in"
-msgstr ""
-
-#: DB:link_type/link_phrase:812 DB:link_type/link_phrase:814
-#: DB:link_type/link_phrase:813 DB:link_type/link_phrase:815
-msgid "engineering location for"
 msgstr ""
 
 #: DB:link_type/reverse_link_phrase:120 DB:link_type/reverse_link_phrase:701
@@ -3559,6 +3566,22 @@ msgstr ""
 #: DB:link_type/link_phrase:911 DB:link_type/reverse_link_phrase:911
 #: DB:link_type/long_link_phrase:911
 msgid "get the score"
+msgstr ""
+
+#: DB:link_type/link_phrase:955 DB:link_type/long_link_phrase:955
+msgid "glass mastered"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:954
+msgid "glass mastered at"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:955
+msgid "glass mastered by"
+msgstr ""
+
+#: DB:link_type/link_phrase:954
+msgid "glass mastering location for"
 msgstr ""
 
 #: DB:link_attribute_type/name:194
@@ -4273,15 +4296,23 @@ msgstr ""
 msgid "manufactured"
 msgstr ""
 
+#: DB:link_type/reverse_link_phrase:953
+msgid "manufactured at"
+msgstr ""
+
 #: DB:link_type/reverse_link_phrase:360
 msgid "manufactured by"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:952
+msgid "manufactured for"
 msgstr ""
 
 #: DB:link_type/reverse_link_phrase:835
 msgid "manufactured in"
 msgstr ""
 
-#: DB:link_type/link_phrase:835
+#: DB:link_type/link_phrase:835 DB:link_type/link_phrase:953
 msgid "manufacturing location for"
 msgstr ""
 
@@ -4383,16 +4414,8 @@ msgstr ""
 msgid "miscellaneous support"
 msgstr ""
 
-#: DB:link_type/reverse_link_phrase:696 DB:link_type/reverse_link_phrase:694
-msgid "mixed at"
-msgstr ""
-
 #: DB:link_type/reverse_link_phrase:946 DB:link_type/reverse_link_phrase:947
 msgid "mixed for"
-msgstr ""
-
-#: DB:link_type/reverse_link_phrase:757 DB:link_type/reverse_link_phrase:758
-msgid "mixed in"
 msgstr ""
 
 #: DB:link_type/link_phrase:703
@@ -4401,11 +4424,6 @@ msgstr ""
 
 #: DB:link_type/reverse_link_phrase:703
 msgid "mixing engineers"
-msgstr ""
-
-#: DB:link_type/link_phrase:757 DB:link_type/link_phrase:696
-#: DB:link_type/link_phrase:758 DB:link_type/link_phrase:694
-msgid "mixing location for"
 msgstr ""
 
 #: DB:link_attribute_type/name:1031
@@ -4673,6 +4691,10 @@ msgstr ""
 msgid "premiered at"
 msgstr ""
 
+#: DB:link_type/reverse_link_phrase:956
+msgid "premiered by"
+msgstr ""
+
 #: DB:link_type/reverse_link_phrase:715
 msgid "premiered in"
 msgstr ""
@@ -4733,16 +4755,8 @@ msgstr ""
 msgid "printing location for"
 msgstr ""
 
-#: DB:link_type/reverse_link_phrase:824 DB:link_type/reverse_link_phrase:825
-msgid "produced at"
-msgstr ""
-
 #: DB:link_type/reverse_link_phrase:950 DB:link_type/reverse_link_phrase:951
 msgid "produced for"
-msgstr ""
-
-#: DB:link_type/reverse_link_phrase:826 DB:link_type/reverse_link_phrase:827
-msgid "produced in"
 msgstr ""
 
 #: DB:link_type/link_phrase:154 DB:link_type/link_phrase:49
@@ -4755,11 +4769,6 @@ msgstr ""
 
 #: DB:link_type/reverse_link_phrase:117
 msgid "producers"
-msgstr ""
-
-#: DB:link_type/link_phrase:824 DB:link_type/link_phrase:825
-#: DB:link_type/link_phrase:826 DB:link_type/link_phrase:827
-msgid "producing location for"
 msgstr ""
 
 #: DB:link_type/link_phrase:256 DB:link_type/link_phrase:160
@@ -4883,12 +4892,7 @@ msgid "reconstructed by"
 msgstr ""
 
 #: DB:link_type/reverse_link_phrase:810 DB:link_type/reverse_link_phrase:809
-#: DB:link_type/reverse_link_phrase:695 DB:link_type/reverse_link_phrase:693
 msgid "recorded at"
-msgstr ""
-
-#: DB:link_type/reverse_link_phrase:699 DB:link_type/reverse_link_phrase:698
-msgid "recorded in"
 msgstr ""
 
 #: DB:link_type/link_phrase:702
@@ -4900,8 +4904,6 @@ msgid "recording engineers"
 msgstr ""
 
 #: DB:link_type/link_phrase:810 DB:link_type/link_phrase:809
-#: DB:link_type/link_phrase:695 DB:link_type/link_phrase:699
-#: DB:link_type/link_phrase:698 DB:link_type/link_phrase:693
 msgid "recording location for"
 msgstr ""
 
@@ -4949,14 +4951,6 @@ msgstr ""
 msgid "remix of"
 msgstr ""
 
-#: DB:link_type/reverse_link_phrase:828 DB:link_type/reverse_link_phrase:829
-msgid "remixed at"
-msgstr ""
-
-#: DB:link_type/reverse_link_phrase:830 DB:link_type/reverse_link_phrase:831
-msgid "remixed in"
-msgstr ""
-
 #: DB:link_type/reverse_link_phrase:230 DB:link_type/reverse_link_phrase:9
 msgid "remixes"
 msgstr ""
@@ -4968,11 +4962,6 @@ msgstr ""
 #: DB:link_type/long_link_phrase:50 DB:link_type/long_link_phrase:157
 #: DB:link_type/long_link_phrase:13 DB:link_type/long_link_phrase:234
 msgid "remixes and compilations"
-msgstr ""
-
-#: DB:link_type/link_phrase:830 DB:link_type/link_phrase:828
-#: DB:link_type/link_phrase:829 DB:link_type/link_phrase:831
-msgid "remixing location for"
 msgstr ""
 
 #: DB:link_type/reverse_link_phrase:202
@@ -5376,6 +5365,10 @@ msgstr ""
 msgid "works as an engineer at"
 msgstr ""
 
+#: DB:link_type/link_phrase:956
+msgid "works premiered"
+msgstr ""
+
 #: DB:link_type/reverse_link_phrase:886
 msgid "{additional:additionally} arranged at"
 msgstr ""
@@ -5402,6 +5395,30 @@ msgstr ""
 msgid "{additional:additionally} conducted"
 msgstr ""
 
+#: DB:link_type/reverse_link_phrase:820 DB:link_type/reverse_link_phrase:819
+msgid "{additional:additionally} edited at"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:822 DB:link_type/reverse_link_phrase:821
+msgid "{additional:additionally} edited in"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:813 DB:link_type/reverse_link_phrase:812
+msgid "{additional:additionally} engineered at"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:814 DB:link_type/reverse_link_phrase:815
+msgid "{additional:additionally} engineered in"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:696 DB:link_type/reverse_link_phrase:694
+msgid "{additional:additionally} mixed at"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:757 DB:link_type/reverse_link_phrase:758
+msgid "{additional:additionally} mixed in"
+msgstr ""
+
 #: DB:link_type/link_phrase:40 DB:link_type/link_phrase:164
 #: DB:link_type/link_phrase:300 DB:link_type/long_link_phrase:40
 #: DB:link_type/long_link_phrase:164 DB:link_type/long_link_phrase:300
@@ -5412,9 +5429,33 @@ msgstr ""
 msgid "{additional:additionally} orchestrator"
 msgstr ""
 
+#: DB:link_type/reverse_link_phrase:824 DB:link_type/reverse_link_phrase:825
+msgid "{additional:additionally} produced at"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:826 DB:link_type/reverse_link_phrase:827
+msgid "{additional:additionally} produced in"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:693 DB:link_type/reverse_link_phrase:695
+msgid "{additional:additionally} recorded at"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:698 DB:link_type/reverse_link_phrase:699
+msgid "{additional:additionally} recorded in"
+msgstr ""
+
 #: DB:link_type/link_phrase:47 DB:link_type/link_phrase:153
 #: DB:link_type/long_link_phrase:47 DB:link_type/long_link_phrase:153
 msgid "{additional:additionally} remixed"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:829 DB:link_type/reverse_link_phrase:828
+msgid "{additional:additionally} remixed at"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:830 DB:link_type/reverse_link_phrase:831
+msgid "{additional:additionally} remixed in"
 msgstr ""
 
 #: DB:link_type/reverse_link_phrase:69 DB:link_type/reverse_link_phrase:231
@@ -5534,6 +5575,14 @@ msgstr ""
 msgid "{additional:additionally} {instrument:%|instruments} {co:co-}arranged"
 msgstr ""
 
+#: DB:link_type/reverse_link_phrase:697
+msgid "{additional:additionally} {re}mastered at"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:756
+msgid "{additional:additionally} {re}mastered in"
+msgstr ""
+
 #: DB:link_type/link_phrase:298 DB:link_type/link_phrase:296
 #: DB:link_type/link_phrase:294
 msgid "{additional:additionally} {vocal:%|vocals} {co:co-}arranged"
@@ -5577,6 +5626,16 @@ msgstr ""
 #: DB:link_type/link_phrase:19 DB:link_type/link_phrase:130
 #: DB:link_type/reverse_link_phrase:19 DB:link_type/reverse_link_phrase:130
 msgid "{additional} design/illustration"
+msgstr ""
+
+#: DB:link_type/link_phrase:820 DB:link_type/link_phrase:822
+#: DB:link_type/link_phrase:819 DB:link_type/link_phrase:821
+msgid "{additional} editing location for"
+msgstr ""
+
+#: DB:link_type/link_phrase:813 DB:link_type/link_phrase:814
+#: DB:link_type/link_phrase:815 DB:link_type/link_phrase:812
+msgid "{additional} engineering location for"
 msgstr ""
 
 #: DB:link_type/link_phrase:125 DB:link_type/link_phrase:27
@@ -5629,6 +5688,11 @@ msgstr ""
 msgid "{additional} lyrics written in"
 msgstr ""
 
+#: DB:link_type/link_phrase:757 DB:link_type/link_phrase:758
+#: DB:link_type/link_phrase:696 DB:link_type/link_phrase:694
+msgid "{additional} mixing location for"
+msgstr ""
+
 #: DB:link_type/link_phrase:150 DB:link_type/link_phrase:45
 #: DB:link_type/reverse_link_phrase:150 DB:link_type/reverse_link_phrase:45
 msgid "{additional} orchestra"
@@ -5638,13 +5702,28 @@ msgstr ""
 msgid "{additional} orchestrator"
 msgstr ""
 
-#: DB:link_type/link_phrase:123 DB:link_type/link_phrase:20
-#: DB:link_type/reverse_link_phrase:123 DB:link_type/reverse_link_phrase:20
+#: DB:link_type/link_phrase:20 DB:link_type/link_phrase:123
+#: DB:link_type/reverse_link_phrase:20 DB:link_type/reverse_link_phrase:123
 msgid "{additional} photography"
+msgstr ""
+
+#: DB:link_type/link_phrase:824 DB:link_type/link_phrase:825
+#: DB:link_type/link_phrase:826 DB:link_type/link_phrase:827
+msgid "{additional} producing location for"
+msgstr ""
+
+#: DB:link_type/link_phrase:698 DB:link_type/link_phrase:693
+#: DB:link_type/link_phrase:695 DB:link_type/link_phrase:699
+msgid "{additional} recording location for"
 msgstr ""
 
 #: DB:link_type/reverse_link_phrase:47 DB:link_type/reverse_link_phrase:153
 msgid "{additional} remixer"
+msgstr ""
+
+#: DB:link_type/link_phrase:829 DB:link_type/link_phrase:828
+#: DB:link_type/link_phrase:830 DB:link_type/link_phrase:831
+msgid "{additional} remixing location for"
 msgstr ""
 
 #: DB:link_type/link_phrase:231
@@ -5762,6 +5841,10 @@ msgstr ""
 msgid "{additional} {original} members"
 msgstr ""
 
+#: DB:link_type/link_phrase:697 DB:link_type/link_phrase:756
+msgid "{additional} {re}mastering location for"
+msgstr ""
+
 #: DB:link_type/reverse_link_phrase:298 DB:link_type/reverse_link_phrase:296
 #: DB:link_type/reverse_link_phrase:294
 msgid "{additional} {vocal:%|vocals} {co:co-}arranger"
@@ -5847,7 +5930,7 @@ msgstr ""
 msgid "{entity1} has lyrics available at {entity0}"
 msgstr ""
 
-#: DB:link_type/long_link_phrase:123 DB:link_type/long_link_phrase:20
+#: DB:link_type/long_link_phrase:20 DB:link_type/long_link_phrase:123
 msgid "{entity1} has {additional} photography by {entity0}"
 msgstr ""
 
@@ -5908,20 +5991,8 @@ msgstr ""
 msgid "{entity1} was available at {entity0}"
 msgstr ""
 
-#: DB:link_type/long_link_phrase:820 DB:link_type/long_link_phrase:819
-msgid "{entity1} was edited at {entity0}"
-msgstr ""
-
-#: DB:link_type/long_link_phrase:821 DB:link_type/long_link_phrase:822
-msgid "{entity1} was edited in {entity0}"
-msgstr ""
-
-#: DB:link_type/long_link_phrase:812 DB:link_type/long_link_phrase:813
-msgid "{entity1} was engineered at {entity0}"
-msgstr ""
-
-#: DB:link_type/long_link_phrase:814 DB:link_type/long_link_phrase:815
-msgid "{entity1} was engineered in {entity0}"
+#: DB:link_type/long_link_phrase:954
+msgid "{entity1} was glass mastered at {entity0}"
 msgstr ""
 
 #: DB:link_type/long_link_phrase:793
@@ -5932,24 +6003,28 @@ msgstr ""
 msgid "{entity1} was licensed to {entity0}"
 msgstr ""
 
-#: DB:link_type/long_link_phrase:835
-msgid "{entity1} was manufactured in {entity0}"
+#: DB:link_type/long_link_phrase:953
+msgid "{entity1} was manufactured at {entity0}"
 msgstr ""
 
-#: DB:link_type/long_link_phrase:696 DB:link_type/long_link_phrase:694
-msgid "{entity1} was mixed at {entity0}"
+#: DB:link_type/long_link_phrase:952
+msgid "{entity1} was manufactured for {entity0}"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:835
+msgid "{entity1} was manufactured in {entity0}"
 msgstr ""
 
 #: DB:link_type/long_link_phrase:946 DB:link_type/long_link_phrase:947
 msgid "{entity1} was mixed for {entity0}"
 msgstr ""
 
-#: DB:link_type/long_link_phrase:757 DB:link_type/long_link_phrase:758
-msgid "{entity1} was mixed in {entity0}"
-msgstr ""
-
 #: DB:link_type/long_link_phrase:845 DB:link_type/long_link_phrase:716
 msgid "{entity1} was premiered at {entity0}"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:956
+msgid "{entity1} was premiered by {entity0}"
 msgstr ""
 
 #: DB:link_type/long_link_phrase:715
@@ -5968,36 +6043,12 @@ msgstr ""
 msgid "{entity1} was printed in {entity0}"
 msgstr ""
 
-#: DB:link_type/long_link_phrase:824 DB:link_type/long_link_phrase:825
-msgid "{entity1} was produced at {entity0}"
-msgstr ""
-
 #: DB:link_type/long_link_phrase:950 DB:link_type/long_link_phrase:951
 msgid "{entity1} was produced for {entity0}"
 msgstr ""
 
-#: DB:link_type/long_link_phrase:826 DB:link_type/long_link_phrase:827
-msgid "{entity1} was produced in {entity0}"
-msgstr ""
-
 #: DB:link_type/long_link_phrase:810 DB:link_type/long_link_phrase:809
 msgid "{entity1} was recorded at  {entity0}"
-msgstr ""
-
-#: DB:link_type/long_link_phrase:695 DB:link_type/long_link_phrase:693
-msgid "{entity1} was recorded at {entity0}"
-msgstr ""
-
-#: DB:link_type/long_link_phrase:699 DB:link_type/long_link_phrase:698
-msgid "{entity1} was recorded in {entity0}"
-msgstr ""
-
-#: DB:link_type/long_link_phrase:828 DB:link_type/long_link_phrase:829
-msgid "{entity1} was remixed at {entity0}"
-msgstr ""
-
-#: DB:link_type/long_link_phrase:830 DB:link_type/long_link_phrase:831
-msgid "{entity1} was remixed in {entity0}"
 msgstr ""
 
 #: DB:link_type/long_link_phrase:882
@@ -6024,6 +6075,54 @@ msgstr ""
 msgid "{entity1} was {additional:additionally} composed in {entity0}"
 msgstr ""
 
+#: DB:link_type/long_link_phrase:820 DB:link_type/long_link_phrase:819
+msgid "{entity1} was {additional:additionally} edited at {entity0}"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:822 DB:link_type/long_link_phrase:821
+msgid "{entity1} was {additional:additionally} edited in {entity0}"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:813 DB:link_type/long_link_phrase:812
+msgid "{entity1} was {additional:additionally} engineered at {entity0}"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:814 DB:link_type/long_link_phrase:815
+msgid "{entity1} was {additional:additionally} engineered in {entity0}"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:696 DB:link_type/long_link_phrase:694
+msgid "{entity1} was {additional:additionally} mixed at {entity0}"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:757 DB:link_type/long_link_phrase:758
+msgid "{entity1} was {additional:additionally} mixed in {entity0}"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:824 DB:link_type/long_link_phrase:825
+msgid "{entity1} was {additional:additionally} produced at {entity0}"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:826 DB:link_type/long_link_phrase:827
+msgid "{entity1} was {additional:additionally} produced in {entity0}"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:693 DB:link_type/long_link_phrase:695
+msgid "{entity1} was {additional:additionally} recorded at {entity0}"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:698 DB:link_type/long_link_phrase:699
+msgid "{entity1} was {additional:additionally} recorded in {entity0}"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:829 DB:link_type/long_link_phrase:828
+msgid "{entity1} was {additional:additionally} remixed at {entity0}"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:830 DB:link_type/long_link_phrase:831
+msgid "{entity1} was {additional:additionally} remixed in {entity0}"
+msgstr ""
+
 #: DB:link_type/long_link_phrase:883
 msgid "{entity1} was {additional:additionally} translated at {entity0}"
 msgstr ""
@@ -6040,18 +6139,18 @@ msgstr ""
 msgid "{entity1} was {additional:additionally} written in {entity0}"
 msgstr ""
 
+#: DB:link_type/long_link_phrase:697
+msgid "{entity1} was {additional:additionally} {re}mastered at {entity0}"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:756
+msgid "{entity1} was {additional:additionally} {re}mastered in {entity0}"
+msgstr ""
+
 #: DB:link_type/long_link_phrase:888
 msgid ""
 "{entity1} was {anniversary:an anniversary tour for|a tour in support of} "
 "{entity0}"
-msgstr ""
-
-#: DB:link_type/long_link_phrase:697
-msgid "{entity1} was {re}mastered at {entity0}"
-msgstr ""
-
-#: DB:link_type/long_link_phrase:756
-msgid "{entity1} was {re}mastered in {entity0}"
 msgstr ""
 
 #: DB:link_type/link_phrase:110 DB:link_type/reverse_link_phrase:110
@@ -6067,18 +6166,6 @@ msgstr ""
 #: DB:link_type/reverse_link_phrase:278
 msgid ""
 "{live} {medley:medleys including} {partial} {instrumental} {cover} recordings"
-msgstr ""
-
-#: DB:link_type/reverse_link_phrase:697
-msgid "{re}mastered at"
-msgstr ""
-
-#: DB:link_type/reverse_link_phrase:756
-msgid "{re}mastered in"
-msgstr ""
-
-#: DB:link_type/link_phrase:697 DB:link_type/link_phrase:756
-msgid "{re}mastering location for"
 msgstr ""
 
 #: DB:link_type/link_phrase:109
