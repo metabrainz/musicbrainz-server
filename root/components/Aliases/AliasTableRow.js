@@ -44,7 +44,12 @@ const AliasTableRow = ({alias, allowEditing, entity, row}: Props) => (
     <td>
       {alias.locale ? locales[alias.locale] : null}
       {alias.primary_for_locale
-        ? bracketed(<span className="comment">{l('primary')}</span>, {__react: true})
+        ? (
+          <Frag>
+            {' '}
+            {bracketed(<span className="comment">{l('primary')}</span>, {__react: true})}
+          </Frag>
+        )
         : null}
     </td>
     <td>

@@ -14,7 +14,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2018-04-18 13:36+0000\n"
+"PO-Revision-Date: 2018-04-26 20:27+0000\n"
 "Last-Translator: yvanz\n"
 "Language-Team: German (http://www.transifex.com/musicbrainz/musicbrainz/language/de/)\n"
 "MIME-Version: 1.0\n"
@@ -890,6 +890,10 @@ msgctxt "ancient predecessor of the Morin khuur"
 msgid "chuurqin"
 msgstr ""
 
+#: DB:instrument/name:256
+msgid "cimbalom"
+msgstr ""
+
 #: DB:instrument/name:761
 msgid "citole"
 msgstr "Citole"
@@ -1041,10 +1045,6 @@ msgstr "Zylindertrommel"
 #: DB:instrument/name:271
 msgid "cymbal"
 msgstr ""
-
-#: DB:instrument/name:256
-msgid "cymbalum"
-msgstr "Zymbal"
 
 #: DB:instrument/name:309
 msgid "cò ke"
@@ -1510,12 +1510,14 @@ msgid "gizmo"
 msgstr ""
 
 #: DB:instrument/name:285
+msgctxt "Glass bowls mounted on spindle"
 msgid "glass harmonica"
-msgstr "Glasharmonika"
+msgstr ""
 
 #: DB:instrument/name:765
+msgctxt "Musical Glasses"
 msgid "glass harp"
-msgstr "Glasharfe (Gläserspiel)"
+msgstr ""
 
 #: DB:instrument/name:165
 msgid "glockenspiel"
@@ -1648,12 +1650,14 @@ msgid "hardingfele"
 msgstr "Hardangerfiedel"
 
 #: DB:instrument/name:43
+msgctxt "mouth organ"
 msgid "harmonica"
-msgstr "Mundharmonika"
+msgstr ""
 
 #: DB:instrument/name:135
+msgctxt "reed organ"
 msgid "harmonium"
-msgstr "Harmonium"
+msgstr ""
 
 #: DB:instrument/name:58
 msgid "harp"

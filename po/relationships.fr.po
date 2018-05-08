@@ -33,7 +33,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2018-04-24 12:53+0000\n"
+"PO-Revision-Date: 2018-04-26 20:45+0000\n"
 "Last-Translator: yvanz\n"
 "Language-Team: French (http://www.transifex.com/musicbrainz/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -739,7 +739,7 @@ msgstr "Relie un événement à son (ou l’un de ses) interprète principal."
 msgid ""
 "Links an event to (one of) its support act(s) (also known as opening acts or"
 " warm-up acts)."
-msgstr ""
+msgstr "Relie un événement à sa (ou l’une de ses) représentation(s) de soutien (aussi appelée première partie)."
 
 #: DB:link_type/description:932
 msgid ""
@@ -1876,7 +1876,7 @@ msgstr "Indique pour un label son profil sur un site de financement participatif
 msgid ""
 "This links a place (often a concert hall or educational institution) to a "
 "composer who has a composer-in-residence position with it."
-msgstr ""
+msgstr "Relie un lieu (souvent une salle de concert ou un établissement scolaire) à un compositeur qui a une place de compositeur-en-résidence dans ce lieu."
 
 #: DB:link_type/description:495
 msgid ""
@@ -2525,7 +2525,7 @@ msgstr "Cette relation spécifie qu’un artiste est un <a href=\"http://en.wiki
 msgid ""
 "This relationship specifies that an event was held as a tribute/homage to a "
 "specific artist."
-msgstr ""
+msgstr "Cette relation indique qu’un événement a été tenu en hommage à un artiste en particulier."
 
 #: DB:link_type/description:462
 msgid ""
@@ -2726,7 +2726,7 @@ msgstr "Ce type de relation relie une parution à sa page correspondante sur <a 
 msgid ""
 "This relationship type links a series (like a festival) to its corresponding"
 " page at setlist.fm"
-msgstr ""
+msgstr "Ce type de relation relie une série (telle qu’un festival) à sa page correspondante sur setlist.fm"
 
 #: DB:link_type/description:191
 msgid ""
@@ -3535,7 +3535,7 @@ msgstr "à eu un poste d’ingénieur"
 
 #: DB:link_type/long_link_phrase:936
 msgid "had tribute event"
-msgstr ""
+msgstr "a eu un événement hommage"
 
 #: DB:link_attribute_type/name:1019
 msgid "half"
@@ -4377,7 +4377,7 @@ msgstr "relation musicale"
 #: DB:link_type/link_phrase:935 DB:link_type/reverse_link_phrase:935
 #: DB:link_type/long_link_phrase:935
 msgid "non-performing relationships"
-msgstr ""
+msgstr "relations sans performance"
 
 #: DB:link_attribute_type/name:788 DB:link_attribute_type/name:1032
 msgid "number"
@@ -5145,7 +5145,7 @@ msgstr "artistes hommage"
 
 #: DB:link_type/link_phrase:936
 msgid "tribute events"
-msgstr ""
+msgstr "événements hommage"
 
 #: DB:link_type/link_phrase:728 DB:link_type/reverse_link_phrase:936
 #: DB:link_type/reverse_link_phrase:65

@@ -361,6 +361,13 @@ msgstr ""
 msgid "Acoustic guitar without frets."
 msgstr ""
 
+#. name:alto viol 
+#: DB:instrument/description:923
+msgid ""
+"Alt, alto or contralto member of the viol family. Not to be confused with "
+"the Viola of the violin family, known as \"Alto\" in French."
+msgstr ""
+
 #. name:bandora 
 #: DB:instrument/description:488
 msgid ""
@@ -388,13 +395,6 @@ msgstr ""
 msgid ""
 "An African percussion instrument, made of a dried gourd plant. Struck with "
 "hands or objects."
-msgstr ""
-
-#. name:morsing 
-#: DB:instrument/description:533
-msgid ""
-"An Indian version of the jew's harp, played as a percussion instrument in "
-"Carnatic music and Rajastani folk music."
 msgstr ""
 
 #. name:Irish harp / clàrsach 
@@ -669,15 +669,6 @@ msgid ""
 "century, it has an extended neck with a second pegbox."
 msgstr ""
 
-#. name:viol family 
-#: DB:instrument/description:899
-msgid ""
-"Developed in the 15th century from Vihuelists starting to play with bows, "
-"viols have frets, flat backs, sloped shoulders, c-holes and are tuned in "
-"fourths. The members are: * Violone (double-bass viol) * Viola da gamba "
-"(Bass viol) * Tenor viol * Alt viol * Treble or Diskant viol"
-msgstr ""
-
 #. name:violin family 
 #: DB:instrument/description:59
 msgid ""
@@ -919,6 +910,11 @@ msgid ""
 "Improved by Johann Christoph Denner sometime around 1730, its \"coiled snake"
 "\" bore now is conical, in addition it is played through a removable metal "
 "curled mouth piece."
+msgstr ""
+
+#. name:morsing 
+#: DB:instrument/description:533
+msgid "Indian mouth harp, played in Carnatic and Rajastani folk music."
 msgstr ""
 
 #. name:viololyra 
@@ -1258,11 +1254,32 @@ msgid ""
 "strings, but is made of wood."
 msgstr ""
 
+#. name:bhapang 
+#: DB:instrument/description:920
+msgid ""
+"Originating in Mewati community of Rahajastan, India, it is traditionally "
+"made of gourd with top and bottom cut of with a goat hide membrane nailed to "
+"one opening and a gut string which ends in a bamboo piece attached to the "
+"membrane. The instrument is held in the armpit and played by plucking the "
+"string while pulling the it."
+msgstr ""
+
 #. name:other instruments 
 #: DB:instrument/description:141
 msgid ""
 "Other instruments. If you can't find an instrument, please <a href=\"http://"
 "tickets.musicbrainz.org/browse/INST\">request it</a>."
+msgstr ""
+
+#. name:viol family 
+#: DB:instrument/description:899
+msgid ""
+"PLEASE use \"<href\"=https://beta.musicbrainz.org/instrument/"
+"be34e4e5-6e77-46f5-ab56-c9641d3da213\">Viola da Gamba</a>\" with artist "
+"credit \"viol\" for generic / unspecified viols credits and NOT this one. "
+"Developed in the 15th century from Vihuelists starting to play with bows, "
+"viols have frets, flat backs, sloped shoulders, c-holes and are tuned in "
+"fourths."
 msgstr ""
 
 #. name:castanets 
@@ -1534,6 +1551,11 @@ msgid ""
 "make a clicking sound as the dancer's feet strike the floor."
 msgstr ""
 
+#. name:tenor viol 
+#: DB:instrument/description:922
+msgid "Tenor member of the viol family"
+msgstr ""
+
 #. name:Cretan lyra 
 #: DB:instrument/description:482
 msgid ""
@@ -1546,7 +1568,7 @@ msgstr ""
 msgid "The E♭ clarinet is a member of the clarinet family."
 msgstr ""
 
-#. name:viola da gamba 
+#. name:viol da gamba 
 #: DB:instrument/description:93
 msgid ""
 "The Generic member of the viol family, use it for \"Viol\" credits, most "
@@ -3155,6 +3177,11 @@ msgstr ""
 #. name:topshuur 
 #: DB:instrument/description:708
 msgid "The topshuur is a two-stringed lute from Mongolia and Tuva."
+msgstr ""
+
+#. name:treble viol 
+#: DB:instrument/description:921
+msgid "The treble, descant or soprano member of the viol family"
 msgstr ""
 
 #. name:tromboon 

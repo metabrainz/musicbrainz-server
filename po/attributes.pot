@@ -386,6 +386,11 @@ msgctxt "work_attribute_type_allowed_value"
 msgid "A-flat minor"
 msgstr ""
 
+#: DB:work_attribute_type_allowed_value/value:817
+msgctxt "work_attribute_type_allowed_value"
+msgid "A-sharp major"
+msgstr ""
+
 #: DB:work_attribute_type_allowed_value/value:30
 msgctxt "work_attribute_type_allowed_value"
 msgid "A-sharp minor"
@@ -811,6 +816,16 @@ msgctxt "work_attribute_type_allowed_value"
 msgid "B-flat minor"
 msgstr ""
 
+#: DB:work_attribute_type_allowed_value/value:818
+msgctxt "work_attribute_type_allowed_value"
+msgid "B-sharp major"
+msgstr ""
+
+#: DB:work_attribute_type_allowed_value/value:819
+msgctxt "work_attribute_type_allowed_value"
+msgid "B-sharp minor"
+msgstr ""
+
 #: DB:work_attribute_type/name:7
 msgctxt "work_attribute_type"
 msgid "BMI ID"
@@ -1123,6 +1138,11 @@ msgctxt "work_attribute_type_allowed_value"
 msgid "C-flat major"
 msgstr ""
 
+#: DB:work_attribute_type_allowed_value/value:812
+msgctxt "work_attribute_type_allowed_value"
+msgid "C-flat minor"
+msgstr ""
+
 #: DB:work_attribute_type_allowed_value/value:4
 msgctxt "work_attribute_type_allowed_value"
 msgid "C-sharp major"
@@ -1381,6 +1401,11 @@ msgstr ""
 #: DB:work_attribute_type_allowed_value/value:7
 msgctxt "work_attribute_type_allowed_value"
 msgid "D-flat minor"
+msgstr ""
+
+#: DB:work_attribute_type_allowed_value/value:813
+msgctxt "work_attribute_type_allowed_value"
+msgid "D-sharp major"
 msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:10
@@ -1799,8 +1824,14 @@ msgid "E-flat major"
 msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:12
+#: DB:work_attribute_type_allowed_value/value:815
 msgctxt "work_attribute_type_allowed_value"
 msgid "E-flat minor"
+msgstr ""
+
+#: DB:work_attribute_type_allowed_value/value:814
+msgctxt "work_attribute_type_allowed_value"
+msgid "E-sharp major"
 msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:15
@@ -2125,6 +2156,11 @@ msgstr ""
 #: DB:work_attribute_type_allowed_value/value:21
 msgctxt "work_attribute_type_allowed_value"
 msgid "G-flat major"
+msgstr ""
+
+#: DB:work_attribute_type_allowed_value/value:816
+msgctxt "work_attribute_type_allowed_value"
+msgid "G-flat minor"
 msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:24
