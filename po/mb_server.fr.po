@@ -47,7 +47,7 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-04-23 18:29+0200\n"
-"PO-Revision-Date: 2018-04-26 16:53+0000\n"
+"PO-Revision-Date: 2018-05-09 10:28+0000\n"
 "Last-Translator: yvanz\n"
 "Language-Team: French (http://www.transifex.com/musicbrainz/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -3136,7 +3136,7 @@ msgstr "Avance"
 #: ../root/relationship/linktype/form.tt:13
 #: ../root/relationship/linktype/tree.tt:8
 msgid "Forward link phrase:"
-msgstr "Phrase du lien en avant :"
+msgstr "Phrase de liaison à l’endroit :"
 
 #: ../root/doc/bare_error.tt:17
 msgid ""
@@ -4058,11 +4058,11 @@ msgstr "Ordre des liens :"
 #: ../root/edit/details/add_relationship_type.tt:13
 #: ../root/edit/details/edit_relationship_type.tt:21
 msgid "Link phrase:"
-msgstr "Phrase de lien :"
+msgstr "Phrase de liaison :"
 
 #: ../root/doc/relationship_type.tt:40
 msgid "Link phrases"
-msgstr "Phrases de lien"
+msgstr "Phrases de liaison"
 
 #: ../root/annotation/edit.tt:56
 msgid "Links:"
@@ -4140,7 +4140,7 @@ msgstr "Connectez-vous pour téléverser une Illustration"
 #: ../root/relationship/linktype/form.tt:15
 #: ../root/relationship/linktype/tree.tt:10
 msgid "Long link phrase:"
-msgstr "Phrase de lien longue :"
+msgstr "Longue phrase de liaison :"
 
 #: ../root/doc/bare_error.tt:11 ../root/main/400.tt:10 ../root/main/404.js:28
 msgid "Looking for help? Check out our {doc|documentation} or {faq|FAQ}."
@@ -6442,7 +6442,7 @@ msgstr "Montrer mon adresse courriel"
 #: ../root/relationship/linktype/form.tt:14
 #: ../root/relationship/linktype/tree.tt:9
 msgid "Reverse link phrase:"
-msgstr "Inverser la phrase de lien : "
+msgstr "Phrase de liaison à l’envers : "
 
 #: ../root/release/edit/information.tt:298
 msgid "Review the {packaging|list of packaging types} for help."

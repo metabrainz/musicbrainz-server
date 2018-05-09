@@ -26,7 +26,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2018-04-26 21:16+0000\n"
+"PO-Revision-Date: 2018-05-08 10:37+0000\n"
 "Last-Translator: yvanz\n"
 "Language-Team: French (http://www.transifex.com/musicbrainz/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -413,6 +413,11 @@ msgstr "La♭ majeur"
 msgctxt "work_attribute_type_allowed_value"
 msgid "A-flat minor"
 msgstr "La♭ mineur"
+
+#: DB:work_attribute_type_allowed_value/value:817
+msgctxt "work_attribute_type_allowed_value"
+msgid "A-sharp major"
+msgstr "La♯ majeur"
 
 #: DB:work_attribute_type_allowed_value/value:30
 msgctxt "work_attribute_type_allowed_value"
@@ -839,6 +844,16 @@ msgctxt "work_attribute_type_allowed_value"
 msgid "B-flat minor"
 msgstr "Si♭ mineur"
 
+#: DB:work_attribute_type_allowed_value/value:818
+msgctxt "work_attribute_type_allowed_value"
+msgid "B-sharp major"
+msgstr "Si♯ majeur"
+
+#: DB:work_attribute_type_allowed_value/value:819
+msgctxt "work_attribute_type_allowed_value"
+msgid "B-sharp minor"
+msgstr "Si♯ mineur"
+
 #: DB:work_attribute_type/name:7
 msgctxt "work_attribute_type"
 msgid "BMI ID"
@@ -1151,6 +1166,11 @@ msgctxt "work_attribute_type_allowed_value"
 msgid "C-flat major"
 msgstr "Do♭ majeur"
 
+#: DB:work_attribute_type_allowed_value/value:812
+msgctxt "work_attribute_type_allowed_value"
+msgid "C-flat minor"
+msgstr "Do♭ mineur"
+
 #: DB:work_attribute_type_allowed_value/value:4
 msgctxt "work_attribute_type_allowed_value"
 msgid "C-sharp major"
@@ -1411,6 +1431,11 @@ msgstr "Ré♭ majeur"
 msgctxt "work_attribute_type_allowed_value"
 msgid "D-flat minor"
 msgstr "Ré♭ mineur"
+
+#: DB:work_attribute_type_allowed_value/value:813
+msgctxt "work_attribute_type_allowed_value"
+msgid "D-sharp major"
+msgstr "Ré♯ majeur"
 
 #: DB:work_attribute_type_allowed_value/value:10
 msgctxt "work_attribute_type_allowed_value"
@@ -1828,9 +1853,15 @@ msgid "E-flat major"
 msgstr "Mi♭ majeur"
 
 #: DB:work_attribute_type_allowed_value/value:12
+#: DB:work_attribute_type_allowed_value/value:815
 msgctxt "work_attribute_type_allowed_value"
 msgid "E-flat minor"
 msgstr "Mi♭ mineur"
+
+#: DB:work_attribute_type_allowed_value/value:814
+msgctxt "work_attribute_type_allowed_value"
+msgid "E-sharp major"
+msgstr "Mi♯ majeur"
 
 #: DB:work_attribute_type_allowed_value/value:15
 msgctxt "work_attribute_type_allowed_value"
@@ -2156,6 +2187,11 @@ msgstr "Sol mineur"
 msgctxt "work_attribute_type_allowed_value"
 msgid "G-flat major"
 msgstr "Sol♭ majeur"
+
+#: DB:work_attribute_type_allowed_value/value:816
+msgctxt "work_attribute_type_allowed_value"
+msgid "G-flat minor"
+msgstr "Sol♭ mineur"
 
 #: DB:work_attribute_type_allowed_value/value:24
 msgctxt "work_attribute_type_allowed_value"
