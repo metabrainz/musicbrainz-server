@@ -47,7 +47,7 @@ test all => sub {
     is($delivery->{envelope}->{from}, 'noreply@musicbrainz.org', "Envelope from is noreply@...");
     my $e = $delivery->{email};
     $email->transport->clear_deliveries;
-    is($e->get_header('From'), '"Editor 1" <"Editor 1"@users.musicbrainz.org>', 'Header from is Editor 1 @users.musicbrainz.org');
+    is($e->get_header('From'), '"Editor 1" <noreply@musicbrainz.org>', 'Header from is "Editor 1" <noreply@musicbrainz.org>');
     is($e->get_header('Reply-To'), 'MusicBrainz Server <noreply@musicbrainz.org>', 'Reply-To is noreply@');
     is($e->get_header('To'), '"Editor 2" <bar@example.com>', 'To is Editor 2, bar@example.com');
     is($e->get_header('BCC'), undef, 'BCC is undefined');
@@ -81,7 +81,7 @@ test all => sub {
     my $delivery = $email->transport->shift_deliveries;
     is($delivery->{envelope}->{from}, 'noreply@musicbrainz.org', "Envelope from is noreply@...");
     my $e = $delivery->{email};
-    is($e->get_header('From'), '"Editor 1" <"Editor 1"@users.musicbrainz.org>', 'Header from is Editor 1 @users.musicbrainz.org');
+    is($e->get_header('From'), '"Editor 1" <noreply@musicbrainz.org>', 'Header from is "Editor 1" <noreply@musicbrainz.org>');
     is($e->get_header('Reply-To'), '"Editor 1" <foo@example.com>', 'Reply-To is Editor 1, foo@example.com');
     is($e->get_header('To'), '"Editor 2" <bar@example.com>', 'To is Editor 2, bar@example.com');
     is($e->get_header('BCC'), undef, 'BCC is undefined');
@@ -102,7 +102,7 @@ test all => sub {
     is($delivery->{envelope}->{from}, 'noreply@musicbrainz.org');
     $e = $delivery->{email};
     $email->transport->clear_deliveries;
-    is($e->get_header('From'), '"Editor 1" <"Editor 1"@users.musicbrainz.org>', 'Header from is Editor 1 @users.musicbrainz.org');
+    is($e->get_header('From'), '"Editor 1" <noreply@musicbrainz.org>', 'Header from is "Editor 1" <noreply@musicbrainz.org>');
     is($e->get_header('Reply-To'), '"Editor 1" <foo@example.com>', 'Reply-To is Editor 1, foo@example.com');
     is($e->get_header('To'), '"Editor 1" <foo@example.com>', 'To is Editor 1, foo@example.com');
     is($e->get_header('BCC'), undef, 'BCC is undefined');
@@ -283,7 +283,7 @@ EOS
     is($delivery->{envelope}->{from}, 'noreply@musicbrainz.org', 'Envelope from is noreply@...');
     my $e = $delivery->{email};
     $email->transport->clear_deliveries;
-    is($e->get_header('From'), '"Editor 2" <"Editor 2"@users.musicbrainz.org>', 'From is Editor 2, @users.musicbrainz.org');
+    is($e->get_header('From'), '"Editor 2" <noreply@musicbrainz.org>', 'Header from is "Editor 2" <noreply@musicbrainz.org>');
     is($e->get_header('To'), '"Editor 1" <foo@example.com>', 'To is Editor 1, foo@example.com');
     is($e->get_header('Subject'), 'Note added to edit #1234', 'Subject is Note added to edit #1234');
     is($e->get_header('References'), sprintf('<edit-1234@%s>', DBDefs->WEB_SERVER_USED_IN_EMAIL) , 'References edit-1234');
@@ -315,7 +315,7 @@ EOS
     is($delivery->{envelope}->{from}, 'noreply@musicbrainz.org', 'Envelope from is noreply@...');
     my $e = $delivery->{email};
     $email->transport->clear_deliveries;
-    is($e->get_header('From'), '"Editor 1" <"Editor 1"@users.musicbrainz.org>', 'From is Editor 1, @users.musicbrainz.org');
+    is($e->get_header('From'), '"Editor 1" <noreply@musicbrainz.org>', 'Header from is "Editor 1" <noreply@musicbrainz.org>');
     is($e->get_header('To'), '"Editor 2" <bar@example.com>', 'To is Editor 2, bar@example.com');
     is($e->get_header('Subject'), 'Note added to your edit #9000', 'Subject is Note added to your edit #9000');
     like($e->get_header('Message-Id'), qr{<edit-9000-4444-edit-note-\d+@.*>} , 'Message ID has right format');

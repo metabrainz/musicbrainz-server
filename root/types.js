@@ -128,7 +128,9 @@ type CatalystSessionT = {|
 |};
 
 type CatalystStashT = {|
+  +current_language: string,
   +current_language_html: string,
+  +server_languages?: $ReadOnlyArray<ServerLanguageT>,
 |};
 
 type CatalystUserT = EditorT;
@@ -454,5 +456,3 @@ declare type WikipediaExtractT = {|
   +content: string,
   +url: string,
 |};
-
-declare var $c: CatalystContextT;

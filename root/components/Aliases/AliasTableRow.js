@@ -25,7 +25,7 @@ type Props = {
 };
 
 const AliasTableRow = ({alias, allowEditing, entity, row}: Props) => (
-  <tr className={row} key={alias.id}>
+  <tr className={row}>
     <td colSpan={alias.name === alias.sort_name ? 2 : 1}>
       {alias.editsPending
         ? <span className="mp">{isolateText(alias.name)}</span>
@@ -44,7 +44,12 @@ const AliasTableRow = ({alias, allowEditing, entity, row}: Props) => (
     <td>
       {alias.locale ? locales[alias.locale] : null}
       {alias.primary_for_locale
-        ? bracketed(<span className="comment">{l('primary')}</span>, {__react: true})
+        ? (
+          <Frag>
+            {' '}
+            {bracketed(<span className="comment">{l('primary')}</span>, {__react: true})}
+          </Frag>
+        )
         : null}
     </td>
     <td>

@@ -8,6 +8,7 @@
  */
 
 const React = require('react');
+const {withCatalystContext} = require('../../../../context');
 const {pathTo} = require('../../../manifest');
 const {l} = require('../i18n');
 
@@ -24,10 +25,11 @@ function buildTaggerLink(entity, tport: number): string {
 }
 
 type Props = {|
+  +$c: CatalystContextT,
   +entity: RecordingT | ReleaseT,
 |};
 
-const TaggerIcon = ({entity}: Props) => {
+const TaggerIcon = ({$c, entity}: Props) => {
   const tport = $c.session ? $c.session.tport : null;
   if (!tport) {
     return null;
@@ -46,4 +48,4 @@ const TaggerIcon = ({entity}: Props) => {
   );
 };
 
-module.exports = TaggerIcon;
+module.exports = withCatalystContext(TaggerIcon);

@@ -8,6 +8,7 @@
  */
 
 const React = require('react');
+const {withCatalystContext} = require('../../context');
 const Frag = require('../Frag');
 const {l} = require('../../static/scripts/common/i18n');
 const EntityLink = require('../../static/scripts/common/components/EntityLink');
@@ -15,12 +16,13 @@ const entityHref = require('../../static/scripts/common/utility/entityHref');
 const AliasTable = require('./AliasTable');
 
 type Props = {
+  +$c: CatalystContextT,
   +aliases: $ReadOnlyArray<AliasT>,
-  +allowEditing: boolean,
+  +allowEditing?: boolean,
   +entity: $Subtype<CoreEntityT>,
 };
 
-const Aliases = ({aliases, entity, allowEditing = $c.user_exists}: Props) => {
+const Aliases = ({$c, aliases, allowEditing = $c.user ? !$c.user.is_editing_disabled : false, entity}: Props) => {
   return (
     <Frag>
       <h2>{l('Aliases')}</h2>
@@ -30,7 +32,7 @@ const Aliases = ({aliases, entity, allowEditing = $c.user_exists}: Props) => {
       </p>
       {aliases && aliases.length
         ? <AliasTable aliases={aliases} allowEditing={allowEditing} entity={entity} />
-        : <p>{l('{entity} has no aliases.', {__react: true, entity: <EntityLink entity={entity} />})}</p>}
+        : <p>{l('{entity} has no aliases.', {__react: true, entity: <EntityLink entity={entity} key='entity' />})}</p>}
       {allowEditing
         ? (
           <p>
@@ -44,4 +46,4 @@ const Aliases = ({aliases, entity, allowEditing = $c.user_exists}: Props) => {
   );
 };
 
-module.exports = Aliases;
+export default withCatalystContext(Aliases);

@@ -9,6 +9,7 @@
 
 const React = require('react');
 
+const {withCatalystContext} = require('../context');
 const Layout = require('../layout');
 const ArtistCreditLink = require('../static/scripts/common/components/ArtistCreditLink');
 const CodeLink = require('../static/scripts/common/components/CodeLink');
@@ -18,11 +19,12 @@ const {artistCreditFromArray} = require('../static/scripts/common/immutable-enti
 const formatTrackLength = require('../static/scripts/common/utility/formatTrackLength');
 
 type PropsT = {|
+  +$c: CatalystContextT,
   +isrcs: $ReadOnlyArray<IsrcT>,
   +recordings: $ReadOnlyArray<RecordingT>,
 |};
 
-const Index = ({isrcs, recordings}: PropsT) => {
+const Index = ({$c, isrcs, recordings}: PropsT) => {
   const userExists = $c.user_exists;
   const isrc = isrcs[0];
   return (
@@ -93,4 +95,4 @@ const Index = ({isrcs, recordings}: PropsT) => {
   );
 };
 
-module.exports = Index;
+module.exports = withCatalystContext(Index);

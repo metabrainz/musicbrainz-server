@@ -19,7 +19,7 @@ const Nominate = ({candidate}: {+candidate: EditorT}) => (
     <p>
       {l('Are you sure you want to nominate the editor {editor} for auto-editor status?', {
         __react: true,
-        editor: <EditorLink editor={candidate} />,
+        editor: <EditorLink editor={candidate} key='editor' />,
       })}
     </p>
     <form method="post">

@@ -43,7 +43,7 @@ const DescriptiveLink = ({entity, content, showDeletedArtists = true}) => {
     return l('{place} in {area}', {
       __react: true,
       place: link,
-      area: <AreaWithContainmentLink area={entity.area} key={1} />
+      area: <AreaWithContainmentLink area={entity.area} key='area' />
     });
   }
 

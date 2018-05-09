@@ -5,10 +5,11 @@
 
 const React = require('react');
 
+const {withCatalystContext} = require('../../context');
 const {l} = require('../../static/scripts/common/i18n');
 const DescriptiveLink = require('../../static/scripts/common/components/DescriptiveLink');
 
-const MergeHelper = () => (
+const MergeHelper = ({$c}) => (
   <div id="current-editing">
     <form action={$c.stash.merge_link} method="get">
       <h2>{l('Merge Process')}</h2>
@@ -41,4 +42,4 @@ const MergeHelper = () => (
   </div>
 );
 
-module.exports = MergeHelper;
+module.exports = withCatalystContext(MergeHelper);

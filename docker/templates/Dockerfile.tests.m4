@@ -13,7 +13,7 @@ RUN cd /tmp && \
     cd -
 
 RUN cd /tmp && \
-    curl -sLO http://chromedriver.storage.googleapis.com/2.36/CHROME_DRIVER && \
+    curl -sLO http://chromedriver.storage.googleapis.com/2.38/CHROME_DRIVER && \
     apt_install(`unzip') && \
     unzip CHROME_DRIVER -d /usr/local/bin && \
     rm CHROME_DRIVER && \
@@ -30,7 +30,7 @@ COPY \
     docker/musicbrainz-tests/chrome.service \
     /etc/service/chrome/run
 COPY \
-    docker/musicbrainz-tests/template-renderer.service \
+    docker/scripts/start_template_renderer.sh \
     /etc/service/template-renderer/run
 COPY \
     docker/musicbrainz-tests/website.service \

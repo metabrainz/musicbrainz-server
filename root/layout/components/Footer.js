@@ -6,13 +6,13 @@
 const React = require('react');
 
 const Frag = require('../../components/Frag');
+const {withCatalystContext} = require('../../context');
 const DBDefs = require('../../static/scripts/common/DBDefs');
 const {l} = require('../../static/scripts/common/i18n');
 const formatUserDate = require('../../utility/formatUserDate');
 
-const Footer = (props) => {
-  let stash = $c.stash;
-
+const Footer = ({$c, ...props}) => {
+  const stash = $c.stash;
   return (
     <div id="footer">
       <p className="left">
@@ -39,7 +39,7 @@ const Footer = (props) => {
           <br />,
           l('Running: {git_details}',
             {__react: true,
-             git_details: <span className="tooltip" title={DBDefs.GIT_MSG}>
+             git_details: <span className="tooltip" key='git_details' title={DBDefs.GIT_MSG}>
                             {DBDefs.GIT_BRANCH} ({DBDefs.GIT_SHA})
                           </span>
             })
@@ -69,4 +69,4 @@ const Footer = (props) => {
   );
 };
 
-module.exports = Footer;
+export default withCatalystContext(Footer);

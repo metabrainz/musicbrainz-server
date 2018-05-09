@@ -9,6 +9,7 @@
 
 import React from 'react';
 
+import {withCatalystContext} from '../context';
 import Layout from '../layout';
 import {l} from '../static/scripts/common/i18n';
 
@@ -16,7 +17,12 @@ import ElectionDetails from './ElectionDetails';
 import ElectionVotes from './ElectionVotes';
 import ElectionVoting from './ElectionVoting';
 
-const Show = ({election}: {+election: AutoEditorElectionT}) => {
+type Props = {|
+  +$c: CatalystContextT,
+  +election: AutoEditorElectionT,
+|};
+
+const Show = ({$c, election}: Props) => {
   const user = $c.user;
   if (!election) {
     return null;
@@ -37,4 +43,4 @@ const Show = ({election}: {+election: AutoEditorElectionT}) => {
   );
 };
 
-export default Show;
+export default withCatalystContext(Show);

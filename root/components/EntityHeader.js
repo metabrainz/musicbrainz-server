@@ -21,7 +21,6 @@ type Props = {|
   +heading?: string | React.Node,
   +page: string,
   +preHeader?: React.Node,
-  +hideEditTab?: boolean,
   +subHeading: string,
 |};
 
@@ -30,7 +29,6 @@ const EntityHeader = ({
   entity,
   headerClass,
   heading,
-  hideEditTab = false,
   page,
   // $FlowFixMe
   preHeader = null,
@@ -48,7 +46,6 @@ const EntityHeader = ({
       editTab={editTab}
       entity={entity}
       page={page}
-      hideEditTab={hideEditTab}
     />
   </Frag>
 );

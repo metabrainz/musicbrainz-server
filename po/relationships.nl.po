@@ -10,8 +10,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2018-04-18 13:36+0000\n"
-"Last-Translator: yvanz\n"
+"PO-Revision-Date: 2018-04-30 11:16+0000\n"
+"Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -713,8 +713,10 @@ msgid "Links an event to (one of) its main performer(s)."
 msgstr "Koppelt het evenement aan (een van) de belangrijkste optredende artiest(en)."
 
 #: DB:link_type/description:799
-msgid "Links an event to (one of) its support act(s)."
-msgstr "Koppelt het evenement aan (een van) de ondersteunende artiest(en)."
+msgid ""
+"Links an event to (one of) its support act(s) (also known as opening acts or"
+" warm-up acts)."
+msgstr "Dit koppelt een evenement aan (een van) de ondersteunende artiest(en), bijvoorbeeld die het voorprogramma verzorgen."
 
 #: DB:link_type/description:932
 msgid ""
@@ -898,7 +900,7 @@ msgid ""
 "Publishers should be added on works instead. Keep in mind this is "
 "<strong>not</strong> the same concept as the <a href=\"/doc/Label\">record "
 "label</a>."
-msgstr ""
+msgstr "Uitgevers moeten aan composities worden toegevoegd. Vergeet niet dat dit <strong>niet</strong> hetzelfde concept is als een <a href=\"/doc/Label\">platenmaatschappij</a>."
 
 #: DB:link_type/link_phrase:174
 msgid "PureVolume"
@@ -1847,6 +1849,12 @@ msgid ""
 "or Indiegogo."
 msgstr "Deze relatie koppelt een platenmaatschappij aan haar profiel op een crowdfundingwebsite zoals Kickstarter of Indiegogo."
 
+#: DB:link_type/description:937
+msgid ""
+"This links a place (often a concert hall or educational institution) to a "
+"composer who has a composer-in-residence position with it."
+msgstr "Deze relatie koppelt een plaats (vaak een concertzaal of een onderwijsinstituut) aan de officiële huiscomponist van de plaats."
+
 #: DB:link_type/description:495
 msgid ""
 "This links a place to a channel, playlist, or user page on a video sharing "
@@ -2490,6 +2498,12 @@ msgid ""
 "themselves, dress, and/or act similarly to the artists they pay tribute to."
 msgstr "Deze relatie geeft aan dat een artiest een <a href=\"http://en.wikipedia.org/wiki/Tribute_act\">hommage</a> aan een andere specifieke artiest/band is. De artiest speelt voornamelijk covers van die artiest. Ze worden ook wel coverbands genoemd. Sommige tribute-artiesten noemen, kleden of gedragen zich op een vergelijkbare manier als de artiesten aan wie ze een hommage brengen."
 
+#: DB:link_type/description:936
+msgid ""
+"This relationship specifies that an event was held as a tribute/homage to a "
+"specific artist."
+msgstr "Deze relatie geeft aan dat een evenement een hommage aan een bepaalde artiest is."
+
 #: DB:link_type/description:462
 msgid ""
 "This relationship type can be used to link a MusicBrainz place to the "
@@ -2685,6 +2699,12 @@ msgid ""
 " to cataloguing the music of video games and anime."
 msgstr "Deze relatie koppelt een uitgave aan zijn <a href=\"http://vgmdb.net/\">VGMdb</a>-pagina. VGMdb is een gemeenschappelijk project dat is toegewijd aan het catalogiseren van muziek uit computerspellen en anime."
 
+#: DB:link_type/description:938
+msgid ""
+"This relationship type links a series (like a festival) to its corresponding"
+" page at setlist.fm"
+msgstr "Deze relatie koppelt een serie (zoals festivals) aan haar setlist.fm-pagina."
+
 #: DB:link_type/description:191
 msgid ""
 "This relationship type links an artist to its corresponding page at <a "
@@ -2826,6 +2846,12 @@ msgid ""
 "acts)"
 msgstr "Gebruik dit voor de bedrijven van een opera (niet voor andere delen die geen bedrijf zijn)"
 
+#: DB:link_attribute_type/description:1079
+msgid ""
+"Use this to mark that a tour was for the anniversary (rather than the "
+"launch) of a release group."
+msgstr "Gebruik deze eigenschap om aan te geven dat deze tournee in het kader van het jubileum in plaats van de uitgave van een uitgavegroep werd georganiseerd."
+
 #: DB:link_attribute_type/description:1031
 msgid ""
 "Use this when the parent work consists of several parts which are generally "
@@ -2909,6 +2935,10 @@ msgstr "aanvullend"
 #: DB:link_attribute_type/description:5 DB:link_attribute_type/name:5
 msgid "alto vocals"
 msgstr "altvocalen"
+
+#: DB:link_attribute_type/name:1079
+msgid "anniversary"
+msgstr "jubileum"
 
 #: DB:link_type/link_phrase:357
 msgid "anthem"
@@ -3120,11 +3150,11 @@ msgstr "samengesteld in"
 msgid "compiler"
 msgstr "samensteller"
 
-#: DB:link_type/link_phrase:855
+#: DB:link_type/link_phrase:855 DB:link_type/link_phrase:937
 msgid "composer-in-residence at"
 msgstr "huiscomponist van"
 
-#: DB:link_type/reverse_link_phrase:855
+#: DB:link_type/reverse_link_phrase:855 DB:link_type/reverse_link_phrase:937
 msgid "composers-in-residence"
 msgstr "huiscomponist"
 
@@ -3480,6 +3510,10 @@ msgstr "had een platencontract met"
 msgid "had an engineer position at"
 msgstr "heeft een technische functie bij"
 
+#: DB:link_type/long_link_phrase:936
+msgid "had tribute event"
+msgstr "kreeg hommage-evenement"
+
 #: DB:link_attribute_type/name:1019
 msgid "half"
 msgstr "half"
@@ -3639,7 +3673,7 @@ msgid "has a review page at"
 msgstr "heeft een recensie op"
 
 #: DB:link_type/long_link_phrase:811 DB:link_type/long_link_phrase:816
-#: DB:link_type/long_link_phrase:817
+#: DB:link_type/long_link_phrase:817 DB:link_type/long_link_phrase:938
 msgid "has a setlist.fm page at"
 msgstr "heeft een setlist.fm-pagina op"
 
@@ -4317,6 +4351,11 @@ msgstr "videoclips"
 msgid "musical relationship"
 msgstr "muzikale relatie"
 
+#: DB:link_type/link_phrase:935 DB:link_type/reverse_link_phrase:935
+#: DB:link_type/long_link_phrase:935
+msgid "non-performing relationships"
+msgstr "niet-uitvoeringsrelaties"
+
 #: DB:link_attribute_type/name:788 DB:link_attribute_type/name:1032
 msgid "number"
 msgstr "nummer"
@@ -4466,7 +4505,7 @@ msgstr "uitvoering van"
 
 #: DB:link_type/reverse_link_phrase:887
 msgid "performed at"
-msgstr "trad op bij"
+msgstr "werd uitgevoerd op"
 
 #: DB:link_type/long_link_phrase:292
 msgid "performed the voice of"
@@ -4875,12 +4914,12 @@ msgid "samples IMDb entry"
 msgstr "sampelt IMDb-lemma"
 
 #: DB:link_type/link_phrase:811 DB:link_type/link_phrase:816
-#: DB:link_type/link_phrase:817
+#: DB:link_type/link_phrase:817 DB:link_type/link_phrase:938
 msgid "setlist.fm"
 msgstr "setlist.fm"
 
 #: DB:link_type/reverse_link_phrase:811 DB:link_type/reverse_link_phrase:816
-#: DB:link_type/reverse_link_phrase:817
+#: DB:link_type/reverse_link_phrase:817 DB:link_type/reverse_link_phrase:938
 msgid "setlist.fm page for"
 msgstr "setlist.fm-pagina van"
 
@@ -5008,10 +5047,6 @@ msgstr "ondersteunende artiesten"
 msgid "supporting releases"
 msgstr "ondersteunende uitgaves"
 
-#: DB:link_type/link_phrase:888
-msgid "supporting tours"
-msgstr "ondersteunende tournees"
-
 #: DB:link_type/reverse_link_phrase:105
 msgid "supporting {instrument} by"
 msgstr "ondersteunend {instrument:instrument} door"
@@ -5044,10 +5079,6 @@ msgstr "tijdstip"
 #: DB:link_type/reverse_link_phrase:859
 msgid "tour by"
 msgstr "tournee van"
-
-#: DB:link_type/reverse_link_phrase:888
-msgid "tour in support of"
-msgstr "ondersteunende tournee van"
 
 #: DB:link_type/link_phrase:859
 msgid "tours"
@@ -5089,7 +5120,12 @@ msgstr "hommagealbums"
 msgid "tribute artists"
 msgstr "hommageartiesten"
 
-#: DB:link_type/link_phrase:728 DB:link_type/reverse_link_phrase:65
+#: DB:link_type/link_phrase:936
+msgid "tribute events"
+msgstr "hommage-evenementen"
+
+#: DB:link_type/link_phrase:728 DB:link_type/reverse_link_phrase:936
+#: DB:link_type/reverse_link_phrase:65
 msgid "tribute to"
 msgstr "hommage aan"
 
@@ -5129,7 +5165,7 @@ msgstr "stem van"
 msgid "voiced by"
 msgstr "ingesproken door"
 
-#: DB:link_type/long_link_phrase:855
+#: DB:link_type/long_link_phrase:855 DB:link_type/long_link_phrase:937
 msgid "was a composer-in-residence at"
 msgstr "was huiscomponist van"
 
@@ -5194,11 +5230,7 @@ msgstr "was de concertmeester van"
 msgid "was the piano technician for"
 msgstr "was de pianotechnicus voor"
 
-#: DB:link_type/long_link_phrase:36
-msgid "was {additional} {assistant} {associate} {co:co-}recording engineer"
-msgstr "was {additional:aanvullend} {assistant:assisterend} {associate:geassocieerd} {co:co-}opnametechnicus"
-
-#: DB:link_type/long_link_phrase:128
+#: DB:link_type/long_link_phrase:36 DB:link_type/long_link_phrase:128
 msgid ""
 "was {additional} {assistant} {associate} {co:co-}recording engineer for"
 msgstr "was {additional:aanvullend} {assistant:assisterend} {associate:geassocieerd} {co:co-}opnametechnicus van"
@@ -5617,6 +5649,14 @@ msgstr "{additional:aanvullende} {original:oorspronkelijke} leden"
 msgid "{additional} {vocal:%|vocals} arranger"
 msgstr "{additional:aanvullend} {vocal:%|vocaal} arrangeur"
 
+#: DB:link_type/reverse_link_phrase:888
+msgid "{anniversary:anniversary tour for|tour in support of}"
+msgstr "{anniversary:jubileumtournee voor|ondersteunende tournee voor}"
+
+#: DB:link_type/link_phrase:888
+msgid "{anniversary:anniversary tours|supporting tours}"
+msgstr "{anniversary:jubileumtournees|ondersteunende tournees}"
+
 #: DB:link_type/reverse_link_phrase:305
 msgid "{assistant} {principal} {guest} conductor {emeritus}"
 msgstr "{assistant:assisterend} {emeritus:emeritus} {principal:hoofd}{guest:gast}dirigent"
@@ -5729,10 +5769,6 @@ msgstr "{entity1} is of was het volkslied van {entity0}"
 #: DB:link_type/long_link_phrase:714
 msgid "{entity1} is/was the primary concert venue of {entity0}"
 msgstr "{entity1} is of was de standaard concertlocatie van {entity0}"
-
-#: DB:link_type/long_link_phrase:888
-msgid "{entity1} was a tour in support of {entity0}"
-msgstr "{entity1} was een tournee ter ondersteuning van {entity0}"
 
 #: DB:link_type/long_link_phrase:865 DB:link_type/long_link_phrase:866
 msgid "{entity1} was arranged at {entity0}"
@@ -5865,6 +5901,12 @@ msgstr "{entity1} werd {additional:aanvullend} geschreven bij {entity0}"
 #: DB:link_type/long_link_phrase:873
 msgid "{entity1} was {additional:additionally} written in {entity0}"
 msgstr "{entity1} werd {additional:aanvullend} geschreven in {entity0}"
+
+#: DB:link_type/long_link_phrase:888
+msgid ""
+"{entity1} was {anniversary:an anniversary tour for|a tour in support of} "
+"{entity0}"
+msgstr "{entitiy1} was {anniversary:een jubileumtournee voor|een ondersteunende tournee voor} {entity0}"
 
 #: DB:link_type/long_link_phrase:697
 msgid "{entity1} was {re}mastered at {entity0}"
