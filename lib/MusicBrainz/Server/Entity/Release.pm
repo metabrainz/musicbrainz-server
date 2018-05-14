@@ -264,6 +264,7 @@ around TO_JSON => sub {
         packagingID => $self->packaging_id,
         scriptID    => $self->script_id,
         statusID    => $self->status_id,
+        cover_art_url => $self->cover_art_url,
     };
 
     if ($self->release_group) {

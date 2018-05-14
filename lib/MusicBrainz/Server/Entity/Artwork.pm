@@ -92,7 +92,7 @@ sub large_thumbnail { my $self = shift; return $self->_urlprefix . "-500.jpg"; }
 sub TO_JSON {
     my ($self) = @_;
 
-    return {
+    my $json = {
         comment => $self->comment,
         image => $self->image,
         large_thumbnail => $self->large_thumbnail,
@@ -100,6 +100,12 @@ sub TO_JSON {
         small_thumbnail => $self->small_thumbnail,
         types => $self->types,
     };
+
+    if (my $release = $self->release) {
+        $json->{release} = $release->TO_JSON;
+    }
+
+    return $json;
 }
 
 __PACKAGE__->meta->make_immutable;

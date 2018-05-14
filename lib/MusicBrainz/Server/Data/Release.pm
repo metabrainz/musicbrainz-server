@@ -1243,13 +1243,10 @@ sub newest_releases_with_artwork {
         my $mbid = $release->gid;
         my $caa_id = $row->{cover_art_id};
 
-        {
+        Artwork->new(
+            id => $caa_id,
             release => $release,
-            artwork => Artwork->new(
-                id => $caa_id,
-                release => $release,
-            ),
-        };
+        );
     });
 }
 

@@ -107,6 +107,7 @@ declare type ArtworkT = {|
   +image: string,
   +large_thumbnail: string,
   +mime_type: string,
+  +release?: ReleaseT,
   +small_thumbnail: string,
   +types: $ReadOnlyArray<string>,
 |};
@@ -151,6 +152,11 @@ declare type AutoEditorElectionVoteT = {|
   +vote_name: string,
   +vote_time: string,
   +voter: EditorT,
+|};
+
+declare type BlogEntryT = {|
+  +title: string,
+  +url: string,
 |};
 
 type CatalystContextT = {|
@@ -471,9 +477,11 @@ declare type ReleaseGroupT = {|
 
 declare type ReleaseT = {|
   ...AnnotationRoleT,
+  ...ArtistCreditRoleT,
   ...CommentRoleT,
   ...CoreEntityRoleT,
   +barcode: string | null,
+  +cover_art_url: string | null,
   +entityType: 'release',
   +languageID: number | null,
   +packagingID: number | null,
