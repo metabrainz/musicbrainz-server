@@ -89,6 +89,7 @@ const SearchForm = ({form}: Props) => {
             required
           />
           <FormRowSelect
+            allowEmpty={false}
             field={form.field.limit}
             label={l('Results per page:')}
             onChange={noop}

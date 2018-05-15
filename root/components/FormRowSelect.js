@@ -15,6 +15,7 @@ import FormLabel from './FormLabel';
 import SelectField from './SelectField';
 
 type Props = {|
+  +allowEmpty?: boolean,
   +field: FieldT<number | string>,
   +label: string,
   +onChange?: (event: SyntheticEvent<HTMLSelectElement>) => void,
@@ -23,6 +24,7 @@ type Props = {|
 |};
 
 const FormRowSelect = ({
+  allowEmpty,
   field,
   label,
   onChange,
@@ -32,7 +34,7 @@ const FormRowSelect = ({
   <FormRow>
     <FormLabel forField={field} label={label} required={required} />
     <SelectField
-      allowEmpty={!required}
+      allowEmpty={allowEmpty === undefined ? !required : allowEmpty}
       field={field}
       onChange={onChange}
       options={options}
