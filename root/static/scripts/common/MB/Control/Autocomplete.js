@@ -938,6 +938,9 @@ function getCatalogNumber(releaseLabel) {
 }
 
 function renderContainingAreas(area) {
+    if (!area.containment) {
+        return '';
+    }
     return commaOnlyList(_(area.containment).map('name').value());
 }
 
