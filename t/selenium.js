@@ -146,7 +146,7 @@ function makeLocator(locatorStr) {
 function findElement(locatorStr) {
   return driver.wait(
     until.elementLocated(makeLocator(locatorStr)),
-    10000
+    30000, // 30 seconds
   );
 }
 
@@ -217,7 +217,7 @@ async function handleCommandAndWait(file, command, target, value, t) {
 
   const html = await findElement('css=html');
   await handleCommand(file, command, target, value, t);
-  return driver.wait(until.stalenessOf(html), 15000);
+  return driver.wait(until.stalenessOf(html), 30000);
 }
 
 async function handleCommand(file, command, target, value, t) {
@@ -395,9 +395,9 @@ const seleniumTests = [
   {name: 'MBS-7456.html', login: true},
   {name: 'MBS-9548.html'},
   {name: 'Artist_Credit_Editor.html', login: true},
-  {name: 'External_Links_Editor.html', login: true, timeout: 75000},
+  {name: 'External_Links_Editor.html', login: true, timeout: 90000},
   {name: 'Work_Editor.html', login: true},
-  {name: 'release-editor/The_Downward_Spiral.html', login: true, timeout: 90000},
+  {name: 'release-editor/The_Downward_Spiral.html', login: true, timeout: 120000},
   {name: 'release-editor/Seeding.html', login: true, sql: 'vision_creation_newsun.sql'},
 ];
 
@@ -438,7 +438,7 @@ async function runCommands(commands, t) {
 }
 
 (async function runTests() {
-  const TEST_TIMEOUT = 60000; // 60 seconds
+  const TEST_TIMEOUT = 75000; // 75 seconds
 
   const cartonPrefix = process.env.PERL_CARTON_PATH
     ? 'carton exec -- '
