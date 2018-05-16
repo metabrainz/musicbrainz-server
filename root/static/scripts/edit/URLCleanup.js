@@ -159,6 +159,7 @@ const LINK_TYPES = {
   },
   otherdatabases: {
     artist: "d94fb61c-fa20-4e3c-a19a-71a949fb2c55",
+    instrument: "41930af2-cb94-488d-a4f0-d232f6ef391a",
     label: "83eca2b3-5ae1-43f5-a732-56fa9a8591b1",
     place: "87a0a644-0a69-46c0-9e48-0656b8240d89",
     recording: "bc21877b-e993-42ed-a7ce-9187ec9b638f",
@@ -1381,6 +1382,7 @@ const CLEANUPS = {
         var digit = m[1];
         switch (id) {
           case LINK_TYPES.otherdatabases.artist:
+          case LINK_TYPES.otherdatabases.instrument:
           case LINK_TYPES.otherdatabases.label:
           case LINK_TYPES.otherdatabases.place:
           case LINK_TYPES.otherdatabases.work:
