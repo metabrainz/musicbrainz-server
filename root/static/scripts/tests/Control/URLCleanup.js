@@ -2312,6 +2312,28 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
                      input_entity_type: 'release_group',
             expected_relationship_type: 'otherdatabases',
         },
+        // (SNAC) Social Networks and Archival Context
+        {
+                             input_url: 'http://snaccooperative.org/ark:/99166/w6mq170x#',
+                     input_entity_type: 'label',
+            expected_relationship_type: 'otherdatabases',
+                    expected_clean_url: 'http://snaccooperative.org/ark:/99166/w6mq170x',
+               only_valid_entity_types: ['artist', 'label']
+        },
+        {
+                             input_url: 'https://n2t.net/ark:/99166/w6mq170x',
+                     input_entity_type: 'label',
+            expected_relationship_type: 'otherdatabases',
+                    expected_clean_url: 'http://snaccooperative.org/ark:/99166/w6mq170x',
+               only_valid_entity_types: ['artist', 'label']
+        },
+        {
+                             input_url: 'http://snaccooperative.org/view/14820000',
+                     input_entity_type: 'label',
+            expected_relationship_type: 'otherdatabases',
+                    expected_clean_url: 'http://snaccooperative.org/view/14820000',
+               only_valid_entity_types: []
+        },
         // Songkick
         {
                              input_url: 'http://www.songkick.com/festivals/74586-ruhrpott-rodeo/id/19803209-ruhrpott-rodeo-festival-2014',
