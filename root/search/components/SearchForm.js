@@ -86,10 +86,8 @@ const SearchForm = ({form}: Props) => {
             label={l('Type:')}
             onChange={noop}
             options={typeOptions}
-            required
           />
           <FormRowSelect
-            allowEmpty={false}
             field={form.field.limit}
             label={l('Results per page:')}
             onChange={noop}
@@ -99,7 +97,6 @@ const SearchForm = ({form}: Props) => {
             field={form.field.method}
             label={l('Search method:')}
             options={methodOptions}
-            required
           />
           <div className="row no-label">
             <FormSubmit label={l('Search')} />

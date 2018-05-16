@@ -15,32 +15,41 @@ import FormLabel from './FormLabel';
 import SelectField from './SelectField';
 
 type Props = {|
+  // `allowEmpty` prepends an empty default option to the list.
   +allowEmpty?: boolean,
   +field: FieldT<number | string>,
   +label: string,
   +onChange?: (event: SyntheticEvent<HTMLSelectElement>) => void,
   +options: MaybeGroupedOptionsT,
+  // `required` makes the field text bold to indicate a selection is required.
+  // Only useful when `allowEmpty` is true.
   +required?: boolean,
 |};
 
 const FormRowSelect = ({
-  allowEmpty,
+  allowEmpty = false,
   field,
   label,
   onChange,
   options,
   required = false,
-}: Props) => (
-  <FormRow>
-    <FormLabel forField={field} label={label} required={required} />
-    <SelectField
-      allowEmpty={allowEmpty === undefined ? !required : allowEmpty}
-      field={field}
-      onChange={onChange}
-      options={options}
-    />
-    <FieldErrors field={field} />
-  </FormRow>
-);
+}: Props) => {
+  if (!allowEmpty) {
+    // If the field can't be unset, there's nothing required from the user.
+    required = false;
+  }
+  return (
+    <FormRow>
+      <FormLabel forField={field} label={label} required={required} />
+      <SelectField
+        allowEmpty={allowEmpty}
+        field={field}
+        onChange={onChange}
+        options={options}
+      />
+      <FieldErrors field={field} />
+    </FormRow>
+  );
+};
 
 export default FormRowSelect;
