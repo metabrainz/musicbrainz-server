@@ -1793,6 +1793,27 @@ const CLEANUPS = {
       return id === LINK_TYPES.lyrics.work && /^http:\/\/runeberg\.org\/[\w-\/]+\/\d+\.html$/.test(url);
     }
   },
+  snac: {
+    match: [
+      new RegExp("^(https?://)?([^/]+\\.)?snaccooperative\\.org/", "i"),
+      new RegExp("^(https?://)?([^/]+\\.)?n2t\\.net/ark:/99166/", "i"),
+    ],
+    type: LINK_TYPES.otherdatabases,
+    clean: function (url) {
+      return url.replace(
+        /^(?:https?:\/\/)?(?:[\/]+\.)?(?:n2t\.net|snaccooperative\.org)\/(ark:\/99166\/\w+)(?:[.\/?#].*)?$/,
+        "http://snaccooperative.org/$1"
+      );
+    },
+    validate: function (url, id) {
+      switch (id) {
+        case LINK_TYPES.otherdatabases.artist:
+        case LINK_TYPES.otherdatabases.label:
+          return /^http:\/\/snaccooperative\.org\/ark:\/99166\/[a-z0-9]+$/.test(url);
+      }
+      return false;
+    }
+  },
   soundtrackcollector: {
     match: [new RegExp("^(https?://)?(www\\.)?soundtrackcollector\\.com", "i")],
     type: LINK_TYPES.otherdatabases,
