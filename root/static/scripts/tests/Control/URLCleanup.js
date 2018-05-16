@@ -541,7 +541,7 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
                only_valid_entity_types: ['event', 'release', 'series']
         },
         {
-                             input_url: 'http://catalogue.bnf.fr/ark:/12148/cb119983474',
+                             input_url: 'http://n2t.net/ark:/12148/cb119983474',
                      input_entity_type: 'instrument',
             expected_relationship_type: 'otherdatabases',
                     expected_clean_url: 'http://catalogue.bnf.fr/ark:/12148/cb119983474',
