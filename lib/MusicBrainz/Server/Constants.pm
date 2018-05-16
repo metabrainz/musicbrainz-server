@@ -383,6 +383,7 @@ Readonly our $WS_EDIT_RESPONSE_NO_CHANGES => 2;
 Readonly our %ENTITIES_WITH_RELATIONSHIP_CREDITS => map { $_ => 1 } qw(
     area
     artist
+    label
     place
 );
 
