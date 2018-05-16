@@ -1356,6 +1356,7 @@ const CLEANUPS = {
     match: [
       new RegExp("^(https?://)?(catalogue|data)\\.bnf\\.fr/", "i"),
       new RegExp("^(https?://)?ark\\.bnf\\.fr/ark:/12148/cb", "i"),
+      new RegExp("^(https?://)?n2t\\.net/ark:/12148/cb", "i"),
     ],
     type: LINK_TYPES.otherdatabases,
     clean: function (url) {
@@ -1368,7 +1369,7 @@ const CLEANUPS = {
         }, 2) % 29];
         url = 'http://catalogue.bnf.fr/ark:/12148/cb' + frBnF + controlChar;
       } else {
-        m = /^(?:https?:\/\/)?(?:ark|catalogue|data)\.bnf\.fr\/(ark:\/12148\/cb[1-4][0-9]{7}[0-9b-z])(?:[.\/?#].*)?$/.exec(url);
+        m = /^(?:https?:\/\/)?(?:n2t\.net|(?:ark|catalogue|data)\.bnf\.fr)\/(ark:\/12148\/cb[1-4][0-9]{7}[0-9b-z])(?:[.\/?#].*)?$/.exec(url);
         if (m) {
           var persistentARK = m[1];
           url = 'http://catalogue.bnf.fr/' + persistentARK;
