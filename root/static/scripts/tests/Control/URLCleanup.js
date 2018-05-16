@@ -1580,6 +1580,14 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
                              input_url: 'https://www.last.fm/it/label/Shyrec#shoutbox',
                     expected_clean_url: 'http://www.last.fm/label/Shyrec',
         },
+        // Library of Congress Linked Data Service
+        {
+                             input_url: 'http://id.loc.gov/authorities/names/n79018119.html#tab1',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'otherdatabases',
+                    expected_clean_url: 'http://id.loc.gov/authorities/names/n79018119',
+               only_valid_entity_types: ['artist']
+        },
         // LiederNet Archive
         {
                              input_url: 'http://www.lieder.net/lieder/get_text.html?TextId=6448',
