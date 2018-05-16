@@ -1595,6 +1595,17 @@ const CLEANUPS = {
       return false;
     }
   },
+  libraryofcongress: {
+    match: [new RegExp("^(https?://)?id\\.loc\\.gov/", "i")],
+    type: LINK_TYPES.otherdatabases,
+    clean: function (url) {
+      return url.replace(/^(?:https?:\/\/)?(id\.loc\.gov\/authorities\/names\/n\d+)(?:[.#].*)?$/, "http://$1");
+    },
+    validate: function (url, id) {
+      return /^http:\/\/id\.loc\.gov\/authorities\/names\/n\d+$/.test(url)
+        && id === LINK_TYPES.otherdatabases.artist;
+    }
+  },
   livefans: {
     match: [new RegExp("^(https?://)?(www\\.)?livefans\\.jp", "i")],
     type: LINK_TYPES.otherdatabases,
