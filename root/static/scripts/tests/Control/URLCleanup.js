@@ -2109,6 +2109,28 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
             expected_relationship_type: 'socialnetwork',
                     expected_clean_url: 'http://www.reverbnation.com/tomorrowsyesterdayband',
         },
+        // Prog Archives
+        {
+                             input_url: 'http://www.progarchives.com/artist.asp?id=105#discography',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'otherdatabases',
+                    expected_clean_url: 'https://www.progarchives.com/artist.asp?id=105',
+               only_valid_entity_types: ['artist']
+        },
+        {
+                             input_url: 'progarchives.com/album.asp?id=00001823',
+                     input_entity_type: 'release_group',
+            expected_relationship_type: 'otherdatabases',
+                    expected_clean_url: 'https://www.progarchives.com/album.asp?id=1823',
+               only_valid_entity_types: ['release_group']
+        },
+        {
+                             input_url: 'https://www.progarchives.com/Collaborators.asp?id=9702',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'otherdatabases',
+                    expected_clean_url: 'https://www.progarchives.com/Collaborators.asp?id=9702',
+               only_valid_entity_types: []
+        },
         // Rock.com.ar
         {
                              input_url: 'http://rock.com.ar/artistas/200',
