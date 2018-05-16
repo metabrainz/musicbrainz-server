@@ -1722,6 +1722,28 @@ const CLEANUPS = {
       return false;
     }
   },
+  progarchives: {
+    match: [new RegExp("^(https?://)?(www\\.)?progarchives\\.com", "i")],
+    type: LINK_TYPES.otherdatabases,
+    clean: function (url) {
+      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?progarchives\.com\/([^#]+)(?:#.*)?$/, "https://www.progarchives.com/$1");
+      url = url.replace(/id=0*([1-9])/, "id=$1");
+      return url;
+    },
+    validate: function (url, id) {
+      var m = /^https:\/\/www\.progarchives\.com\/(\w+)\.asp\?id=[1-9]\d*$/.exec(url);
+      if (m) {
+        var type = m[1];
+        switch (id) {
+          case LINK_TYPES.otherdatabases.artist:
+            return type === 'artist';
+          case LINK_TYPES.otherdatabases.release_group:
+            return type === 'album';
+        }
+      }
+      return false;
+    }
+  },
   rockcomar: {
     match: [new RegExp("^(https?://)?(www\\.)?rock\\.com\\.ar", "i")],
     type: LINK_TYPES.otherdatabases,
