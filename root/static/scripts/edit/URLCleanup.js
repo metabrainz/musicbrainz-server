@@ -1451,6 +1451,30 @@ const CLEANUPS = {
       return false;
     }
   },
+  dram: {
+    match: [new RegExp("^(https?://)?([^/]+\\.)?dramonline\\.org/", "i")],
+    type: LINK_TYPES.otherdatabases,
+    clean: function (url) {
+      return url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?dramonline\.org\/((?:instruments\/)?[a-z-]+)\/([\w-]+).*$/, "https://www.dramonline.org/$1/$2");
+    },
+    validate: function (url, id) {
+      var m = /^https:\/\/www\.dramonline\.org\/([a-z-]+(?:\/[a-z-]+)?)\/[\w-]+$/.exec(url);
+      if (m) {
+        var prefix = m[1];
+        switch (id) {
+          case LINK_TYPES.otherdatabases.artist:
+            return /^(composers|ensembles|performers)$/.test(prefix);
+          case LINK_TYPES.otherdatabases.release:
+            return prefix === 'albums';
+          case LINK_TYPES.otherdatabases.label:
+            return prefix === 'labels';
+          case LINK_TYPES.otherdatabases.instrument:
+            return /^instruments\/[a-z-]+$/.test(prefix);
+        }
+      }
+      return false;
+    }
+  },
   generasia: {
     match: [new RegExp("^(https?://)?(www\\.)?generasia\\.com/wiki/", "i")],
     type: LINK_TYPES.otherdatabases,
