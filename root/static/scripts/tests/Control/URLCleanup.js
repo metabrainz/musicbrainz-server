@@ -994,6 +994,63 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
             expected_relationship_type: 'discogs',
                     expected_clean_url: 'https://www.discogs.com/release/5578',
         },
+        // DRAM
+        {
+                             input_url: 'http://www.dramonline.org/composers/buren-john-van',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'otherdatabases',
+                    expected_clean_url: 'https://www.dramonline.org/composers/buren-john-van',
+               only_valid_entity_types: ['artist']
+        },
+        {
+                             input_url: 'dramonline.org/ensembles/portland-youth-philharmonic?t=work&o=title&d=0',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'otherdatabases',
+                    expected_clean_url: 'https://www.dramonline.org/ensembles/portland-youth-philharmonic',
+               only_valid_entity_types: ['artist']
+        },
+        {
+                             input_url: 'https://www.dramonline.org/performers/avshalomov-jacob#',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'otherdatabases',
+                    expected_clean_url: 'https://www.dramonline.org/performers/avshalomov-jacob',
+               only_valid_entity_types: ['artist']
+        },
+        {
+                             input_url: 'http://dramonline.org/albums/oregon-composers',
+                     input_entity_type: 'release',
+            expected_relationship_type: 'otherdatabases',
+                    expected_clean_url: 'https://www.dramonline.org/albums/oregon-composers',
+               only_valid_entity_types: ['release']
+        },
+        {
+                             input_url: 'http://www.dramonline.org/albums/oregon-composers?track/delphic-suite-lament-from-troy',
+                     input_entity_type: 'recording',
+            expected_relationship_type: 'otherdatabases',
+                    expected_clean_url: 'https://www.dramonline.org/albums/oregon-composers',
+               only_valid_entity_types: ['release']
+        },
+        {
+                             input_url: 'https://www.dramonline.org/albums/oregon-composers?work/delphic-suite',
+                     input_entity_type: 'work',
+            expected_relationship_type: 'otherdatabases',
+                    expected_clean_url: 'https://www.dramonline.org/albums/oregon-composers',
+               only_valid_entity_types: ['release']
+        },
+        {
+                             input_url: 'http://www.dramonline.org/labels/albany-records',
+                     input_entity_type: 'label',
+            expected_relationship_type: 'otherdatabases',
+                    expected_clean_url: 'https://www.dramonline.org/labels/albany-records',
+               only_valid_entity_types: ['label']
+        },
+        {
+                             input_url: 'http://www.dramonline.org/instruments/brass/natural-horn',
+                     input_entity_type: 'instrument',
+            expected_relationship_type: 'otherdatabases',
+                    expected_clean_url: 'https://www.dramonline.org/instruments/brass/natural-horn',
+               only_valid_entity_types: ['instrument']
+        },
         // Drip
         {
                              input_url: 'https://d.rip/ehaidle/posts/RHJvcFBvc3QtMzQ4',
