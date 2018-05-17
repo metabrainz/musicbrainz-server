@@ -2656,7 +2656,7 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
                      input_entity_type: 'release',
             expected_relationship_type: 'discographyentry',
         },
-        // UtaiteDB/VocaDB
+        // UtaiteDB/VocaDB/TouhouDB
         {
                              input_url: 'http://utaitedb.net/Ar/1#',
                      input_entity_type: 'artist',
@@ -2672,10 +2672,10 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
                only_valid_entity_types: ['artist', 'label']
         },
         {
-                             input_url: 'utaitedb.net/Al/4644',
+                             input_url: 'touhoudb.net/Al/4644',
                      input_entity_type: 'release',
             expected_relationship_type: 'otherdatabases',
-                    expected_clean_url: 'https://utaitedb.net/Al/4644',
+                    expected_clean_url: 'https://touhoudb.net/Al/4644',
                only_valid_entity_types: ['release_group']
         },
         {
