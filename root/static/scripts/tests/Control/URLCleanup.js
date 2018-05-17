@@ -1834,6 +1834,14 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
                     expected_clean_url: 'https://www.musixmatch.com/lyrics/Mark-Ronson-feat-Bruno-Mars/Uptown-Funk',
                only_valid_entity_types: ['work']
         },
+        // Musopen
+        {
+                             input_url: 'https://musopen.org/music/7887-elegie-op-24/#recordings',
+                     input_entity_type: 'work',
+            expected_relationship_type: 'score',
+                    expected_clean_url: 'https://musopen.org/music/7887/',
+               only_valid_entity_types: ['work']
+        },
         // mvdbase.com (The Music Video DataBase)
         {
                              input_url: 'http://www.mvdbase.com/video.php?id=4',
