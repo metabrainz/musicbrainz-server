@@ -1694,6 +1694,16 @@ const CLEANUPS = {
       return false;
     }
   },
+  musopen: {
+    match: [new RegExp("^(https?://)?([^/]+\\.)?musopen\\.org/", "i")],
+    type: LINK_TYPES.score,
+    clean: function (url) {
+      return url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?musopen\.org\/music\/(\d+).*$/, "https://musopen.org/music/$1/");
+    },
+    validate: function (url, id) {
+      return /^https:\/\/musopen\.org\/music\/\d+\/$/.test(url);
+    }
+  },
   onlinebijbel: {
     match: [new RegExp("^(https?://)?([^/]+\\.)?online-bijbel\\.nl/", "i")],
     type: LINK_TYPES.lyrics,
