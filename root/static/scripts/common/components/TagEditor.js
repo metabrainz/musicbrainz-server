@@ -10,6 +10,7 @@ const _ = require('lodash');
 const React = require('react');
 const ReactDOM = require('react-dom');
 
+import loopParity from '../../../../utility/loopParity';
 const {l, lp} = require('../i18n');
 const MB = require('../MB');
 const request = require('../utility/request');
@@ -135,7 +136,7 @@ class TagRow extends React.Component<TagRowProps> {
     var {tag, index} = this.props;
 
     return (
-      <li key={tag} className={(index + 1) % 2 ? 'odd' : 'even'}>
+      <li key={tag} className={loopParity(index)}>
         <TagLink tag={tag} />
         <VoteButtons {...this.props} />
       </li>

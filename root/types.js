@@ -30,6 +30,10 @@ declare type AliasT = {|
 
 export opaque type AliasTypeT: OptionTreeT = OptionTreeT;
 
+declare type AnyFieldT<+F> =
+  | FieldT<F>
+  | StructFieldT<F>;
+
 declare type AreaT = {|
   ...CommentRoleT,
   ...CoreEntityRoleT,
@@ -38,6 +42,8 @@ declare type AreaT = {|
   +containment: $ReadOnlyArray<AreaT> | null,
   +entityType: 'area',
   +iso_3166_1_codes: $ReadOnlyArray<string>,
+  +iso_3166_2_codes: $ReadOnlyArray<string>,
+  +iso_3166_3_codes: $ReadOnlyArray<string>,
 |};
 
 export opaque type AreaTypeT: OptionTreeT = OptionTreeT;
@@ -142,11 +148,9 @@ declare type CommonsImageT = {|
   +thumb_url: string,
 |};
 
-declare type CompoundFieldT<F: {+[string]: mixed}> = {|
-  +errors: $ReadOnlyArray<string>,
+declare type CompoundFieldT<+F> = {|
+  ...FieldRoleT,
   +field: F,
-  +has_errors: boolean,
-  +id: number,
 |};
 
 declare type CoreEntityRoleT = {|
@@ -200,10 +204,19 @@ declare type EntityRoleT = {|
   +id: number,
 |};
 
-declare type FieldT<V> = {|
+declare type FieldRoleT = {|
   +errors: $ReadOnlyArray<string>,
   +has_errors: boolean,
+  +html_name: string,
+  /*
+   * The field `id` is unique across all fields on the page. It's purpose
+   * is for passing to `key` attributes on React elements.
+   */
   +id: number,
+|};
+
+declare type FieldT<+V> = {|
+  ...FieldRoleT,
   +value: V,
 |};
 
@@ -222,10 +235,7 @@ declare type FormT<F> = {|
  */
 declare type GroupedOptionsT = $ReadOnlyArray<{|
   +optgroup: string,
-  +options: $ReadOnlyArray<{|
-    +label: string,
-    +value: number,
-  |}>,
+  +options: SelectOptionsT,
 |}>;
 
 declare type InstrumentT = {|
@@ -296,6 +306,10 @@ declare type LinkTypeInfoT = {|
   +type1: string,
 |};
 
+declare type MaybeGroupedOptionsT =
+  | {|+grouped: true, +options: GroupedOptionsT|}
+  | {|+grouped: false, +options: SelectOptionsT|};
+
 // See MB.forms.buildOptionsTree
 declare type OptionListT = $ReadOnlyArray<{|
   +text: string,
@@ -309,6 +323,19 @@ declare type OptionTreeT = {|
   +gid: string,
   +name: string,
   +parentID: number | null,
+|};
+
+/*
+ * See http://search.cpan.org/~lbrocard/Data-Page-2.02/lib/Data/Page.pm
+ * Serialized in MusicBrainz::Server::TO_JSON.
+ */
+declare type PagerT = {|
+  +current_page: number,
+  +first_page: 1,
+  +last_page: number,
+  +next_page: number | null,
+  +previous_page: number | null,
+  +total_entries: number,
 |};
 
 declare type PartialDateT = {|
@@ -370,12 +397,34 @@ declare type ReleaseT = {|
   +statusID: number | null,
 |};
 
-declare type RepeatableFieldT<F> = {|
-  +errors: $ReadOnlyArray<string>,
+declare type RepeatableFieldT<+F> = {|
+  ...FieldRoleT,
   +field: $ReadOnlyArray<F>,
-  +has_errors: boolean,
-  +id: number,
 |};
+
+declare type SearchFormT = FormT<{|
+  +limit: FieldT<number>,
+  +method: FieldT<'advanced' | 'direct' | 'indexed'>,
+  +query: FieldT<string>,
+  +type: FieldT<string>,
+|}>;
+
+declare type SearchResultT<T> = {|
+  +entity: T,
+  +position: number,
+  +score: number,
+|};
+
+/*
+ * See MusicBrainz::Server::Form::Utils::select_options.
+ * FIXME(michael): Consolidate with OptionListT.
+ */
+declare type SelectOptionT = {|
+  +label: string,
+  +value: number | string,
+|};
+
+declare type SelectOptionsT = $ReadOnlyArray<SelectOptionT>;
 
 declare type SeriesT = {|
   ...CommentRoleT,
@@ -389,6 +438,10 @@ declare type ServerLanguageT = {|
   +native_language: string,
   +native_territory: string,
 |};
+
+type StructFieldT<+F> =
+  | CompoundFieldT<F>
+  | RepeatableFieldT<F>;
 
 declare type TypeRoleT<T: OptionTreeT> = {|
   +typeID: number | null,

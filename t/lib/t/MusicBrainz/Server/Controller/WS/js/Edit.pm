@@ -236,7 +236,6 @@ test 'previewing/creating/editing a release group and release' => sub {
                 {
                     country => {
                         begin_date => undef,
-                        code => 'JP',
                         comment => '',
                         editsPending => JSON::false,
                         end_date => undef,
@@ -248,6 +247,8 @@ test 'previewing/creating/editing a release group and release' => sub {
                         unaccented_name => undef,
                         typeID => 1,
                         iso_3166_1_codes => ['JP'],
+                        iso_3166_2_codes => [],
+                        iso_3166_3_codes => [],
                     },
                     date => {
                         day => 27,

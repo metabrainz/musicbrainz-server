@@ -153,7 +153,6 @@ test 'returning an error when a space appears before an MBID' => sub {
 
 our $japan = {
     'begin_date' => undef,
-    'code' => 'JP',
     'comment' => '',
     'editsPending' => \0,
     'end_date' => undef,
@@ -165,6 +164,8 @@ our $japan = {
     'unaccented_name' => undef,
     'typeID' => 1,
     'iso_3166_1_codes' => ['JP'],
+    'iso_3166_2_codes' => [],
+    'iso_3166_3_codes' => [],
 };
 
 test 'seeding a release with no tracklist' => sub {

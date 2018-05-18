@@ -14,7 +14,9 @@ const commaOnlyList = require('../../common/i18n/commaOnlyList');
 const makeLink = (x, i) => <EntityLink entity={x} key={i} />;
 
 const AreaContainmentLink = ({area, ...props}) => (
-  commaOnlyList(area.containment.map(makeLink), {react: true})
+  area.containment
+    ? commaOnlyList(area.containment.map(makeLink), {react: true})
+    : null
 );
 
 module.exports = AreaContainmentLink;

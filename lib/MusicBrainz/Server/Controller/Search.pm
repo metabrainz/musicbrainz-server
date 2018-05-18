@@ -3,6 +3,7 @@ use Moose;
 BEGIN { extends 'MusicBrainz::Server::Controller' }
 
 use List::Util qw( min max );
+use MusicBrainz::Server::ControllerUtils::JSON qw( serialize_pager );
 use MusicBrainz::Server::Data::Utils qw( model_to_type type_to_model );
 use MusicBrainz::Server::Form::Search::Query;
 use MusicBrainz::Server::Form::Search::Search;
@@ -38,23 +39,43 @@ sub search : Path('')
 
     if ($form->process( params => $c->req->query_params ))
     {
-        if ($form->field('type')->value eq 'annotation' ||
-            $form->field('type')->value eq 'cdstub') {
+        my $type = $form->field('type')->value;
+
+        if ($type eq 'annotation' ||
+            $type eq 'cdstub') {
             $form->field('method')->value('indexed')
                 if $form->field('method')->value eq 'direct';
             $c->forward('external');
         }
-        elsif ($form->field('type')->value eq 'tag')
+        elsif ($type eq 'tag')
         {
             $form->field('method')->value('direct');
             $c->forward('direct');
         }
-        elsif ($form->field('type')->value eq 'doc')
+        elsif ($type eq 'doc')
         {
             $c->forward('doc');
         }
         else {
             $c->forward($form->field('method')->value eq 'direct' ? 'direct' : 'external');
+        }
+
+        if ($type eq 'area') {
+            my $stash = $c->stash;
+
+            my %props = (
+                form => $stash->{form},
+                lastUpdated => $stash->{last_updated},
+                pager => serialize_pager($stash->{pager}),
+                query => $stash->{query},
+                results => $stash->{results},
+            );
+
+            $c->stash(
+                component_path => 'search/components/AreaResults.js',
+                component_props => \%props,
+                current_view => 'Node',
+            );
         }
     }
     else

@@ -9,7 +9,8 @@ const ReactDOM = require('react-dom');
 const {l} = require('../../common/i18n');
 const {artistCreditFromArray} = require('../../common/immutable-entities');
 const ArtistCreditEditor = require('./ArtistCreditEditor');
-const {FieldErrors, FormRow} = require('../../../../components/forms');
+import FieldErrors from '../../../../components/FieldErrors';
+import FormRow from '../../../../components/FormRow';
 
 const FormRowArtistCredit = ({form, entity}) => (
   <FormRow>
