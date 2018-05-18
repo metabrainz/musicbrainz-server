@@ -88,15 +88,18 @@ const LINK_TYPES = {
   },
   mailorder: {
     artist: "611b1862-67af-4253-a64f-34adba305d1d",
+    label: "607deff9-31a8-4b8c-a971-d873cf59ef16",
     release: "3ee51e05-a06a-415e-b40c-b3f740dedfd7"
   },
   downloadpurchase: {
     artist: "f8319a2f-f824-4617-81c8-be6560b3b203",
+    label: "dc1a65f4-6458-4f3d-bbb1-57e58668d6e7",
     recording: "92777657-504c-4acb-bd33-51a201bd57e1",
     release: "98e08c20-8402-4163-8970-53504bb6a1e4"
   },
   downloadfree: {
     artist: "34ae77fe-defb-43ea-95d4-63c7540bac78",
+    label: "46505eea-05d6-48cc-ad78-1f79abc556e1",
     recording: "45d0cbc5-d65b-4e77-bdfd-8a75207cb5c5",
     release: "9896ecd0-6d29-482d-a21e-bd5d1b5e3425"
   },
