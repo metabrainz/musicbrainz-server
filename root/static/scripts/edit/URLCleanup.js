@@ -1054,13 +1054,13 @@ const CLEANUPS = {
     match: [new RegExp("^(https?://)?([^/]+)\\.bandcamp\\.com","i")],
     type: LINK_TYPES.bandcamp,
     clean: function (url) {
-      return url.replace(/^(?:https?:\/\/)?([^\/]+)\.bandcamp\.com(?:\/(((album|track)\/([^\/\?]+)))?)?.*$/, "http://$1.bandcamp.com/$2");
+      return url.replace(/^(?:https?:\/\/)?([^\/]+)\.bandcamp\.com(?:\/(((album|track)\/([^\/\?]+)))?)?.*$/, "https://$1.bandcamp.com/$2");
     },
     validate: function (url, id) {
       switch (id) {
         case LINK_TYPES.bandcamp.artist:
         case LINK_TYPES.bandcamp.label:
-          return /^http:\/\/[^\/]+\.bandcamp\.com\/$/.test(url);
+          return /^https:\/\/[^\/]+\.bandcamp\.com\/$/.test(url);
       }
       return false;
     }
