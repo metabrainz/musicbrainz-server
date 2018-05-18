@@ -206,7 +206,8 @@ const LINK_TYPES = {
   setlistfm: {
     artist: "bf5d0d5e-27a1-4e94-9df7-3cdc67b3b207",
     event: "027fce0c-c621-4fd1-b728-1678ae08f280",
-    place: "751e8fb1-ed8d-4a94-b71b-a38065054f5d"
+    place: "751e8fb1-ed8d-4a94-b71b-a38065054f5d",
+    series: "de143a8b-ea80-4b26-9246-f1ce498d4b01",
   },
   geonames: {
     area: "c52f14c0-e9ac-4a8a-8f7a-c47328de168f",
@@ -1135,6 +1136,8 @@ const CLEANUPS = {
             return prefix === 'setlist' || prefix === 'festival';
           case LINK_TYPES.setlistfm.place:
             return prefix === 'venue';
+          case LINK_TYPES.setlistfm.series:
+            return prefix === 'festivals';
         }
       }
       return false;
