@@ -167,22 +167,41 @@ These are a bit more involved to set up:
  * Install a version of Google Chrome that supports headless mode (versions 59
    and above).
 
- * Temporarily copy your `TEST` database configuration to `READWRITE`; you can
-   revert this once you are done running the tests.
+ * Add a `SELENIUM` database to the `register_databases` call in
+   lib/DBDefs.pm, like so:
+
+   ```perl
+   SELENIUM => {
+       database    => 'musicbrainz_selenium',
+       schema      => 'musicbrainz',
+       username    => 'musicbrainz',
+       host        => 'localhost',
+       port        => 5432,
+   },
+   ```
+
+   Just make sure the connection options match what you're using for the
+   `TEST` database.
+
+ * Set USE_SELENIUM_HEADER to 1 in lib/DBDefs.pm.
 
  * Run ./script/create_test_db.sh and ./script/compile_resources.sh again.
 
 With the above prerequisites out of the way, the tests can be run from the
 command line like so:
 
-    $ node t/selenium.js
+    $ ./t/selenium.js
+
+If you want to run specific tests under ./t/selenium/, you can specify the
+paths to them as arguments. t/selenium.js also accepts some command line flags
+which are useful for debugging and development; see `./t/selenium.js --help`.
 
 The `.html` files located under ./t/selenium/ describe the tests being run,
 and were created using the Selenium IDE plugin for Firefox. You can easily
 open these files in the IDE and run the tests that way if you wish; it'll play
 back the actions in the browser window you have open, so doesn't require any
-headless mode. However, these files are not always "atomic" and may depend on
-a previous test having been run first.
+headless mode. However, before running a test in this way, you must make sure
+the test database is clean and has t/sql/selenium.sql loaded into it.
 
 ### Code standards
 

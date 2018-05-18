@@ -71,6 +71,18 @@ sub data : Chained('load') RequireAuth
     my ($self, $c) = @_;
 
     my $edit = $c->stash->{edit};
+
+    my $accept = $c->req->header('Accept');
+    if ($accept eq 'application/json') {
+        $c->res->content_type('application/json; charset=utf-8');
+        $c->res->body($c->json_utf8->encode({
+            data => $c->json->decode($edit->raw_data),
+            status => $edit->status,
+            type => $edit->edit_type,
+        }));
+        return;
+    }
+
     my $related = $c->model('Edit')->get_related_entities($edit);
     my %entities;
     while (my ($type, $ids) = each %$related) {

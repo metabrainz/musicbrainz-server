@@ -27,11 +27,37 @@ ko.bindingHandlers.disableBecauseDiscIDs = {
     }
 };
 
-ko.bindingHandlers.artistCreditEditor = {
-    changeMatchingArtists: false,
+const ChangeMatchingArtists = ({artistText, checked, onChange}) => (
+    <div>
+        <label>
+            <input
+                checked={checked}
+                id="change-matching-artists"
+                onChange={onChange}
+                type="checkbox"
+            />
+            {l('Change all artists on this release that match “{name}”', {name: artistText})}
+        </label>
+    </div>
+);
 
-    onChangeMatchingArtists: function () {
-        this.changeMatchingArtists = !this.changeMatchingArtists;
+const TrackButtons = ({nextTrack, previousTrack}) => (
+    <Frag>
+        <button type="button" style={{float: 'right'}} onClick={nextTrack}>
+            {l('Next')}
+        </button>
+        <button type="button" style={{float: 'right'}} onClick={previousTrack}>
+            {l('Previous')}
+        </button>
+    </Frag>
+);
+
+ko.bindingHandlers.artistCreditEditor = {
+    changeMatchingArtists: ko.observable(false),
+    initialArtistText: ko.observable(''),
+
+    onChangeMatchingArtists: function (event) {
+        this.changeMatchingArtists(event.target.checked);
     },
 
     currentTarget: function () {
@@ -54,41 +80,17 @@ ko.bindingHandlers.artistCreditEditor = {
         }
     },
 
-    extraButtons: function () {
-        return (
-            <Frag>
-                <button type="button" style={{float: 'right'}} onClick={this.nextTrack}>
-                    {l('Next')}
-                </button>
-                <button type="button" style={{float: 'right'}} onClick={this.previousTrack}>
-                    {l('Previous')}
-                </button>
-            </Frag>
-        );
-    },
-
-    extraContent: function () {
-        return (
-            <div>
-                <label>
-                    <input type="checkbox" onChange={this.onChangeMatchingArtists} />
-                    {l('Change all artists on this release that match “{name}”', {name: this.initialArtistText})}
-                </label>
-            </div>
-        );
-    },
-
     beforeShow: function (props, state) {
-        this.initialArtistText = reduceArtistCredit(state.artistCredit);
+        this.initialArtistText(reduceArtistCredit(state.artistCredit));
     },
 
     doneCallback: function () {
-        if (!this.changeMatchingArtists) {
+        if (!this.changeMatchingArtists.peek()) {
             return;
         }
 
         const track = this.currentTarget();
-        const matchWith = this.initialArtistText;
+        const matchWith = this.initialArtistText.peek();
         const artistCredit = track.artistCredit.peek();
 
         _(track.medium.release.mediums())
@@ -99,7 +101,7 @@ ko.bindingHandlers.artistCreditEditor = {
                 }
             });
 
-        this.initialArtistText = '';
+        this.initialArtistText('');
     },
 
     update: function (element, valueAccessor) {
@@ -113,8 +115,19 @@ ko.bindingHandlers.artistCreditEditor = {
         if (entity instanceof fields.Track) {
             props.beforeShow = this.beforeShow;
             props.doneCallback = this.doneCallback;
-            props.extraButtons = this.extraButtons;
-            props.extraContent = this.extraContent;
+            props.extraButtons = (
+                <TrackButtons
+                    nextTrack={this.nextTrack}
+                    previousTrack={this.previousTrack}
+                />
+            );
+            props.extraContent = (
+                <ChangeMatchingArtists
+                    artistText={this.initialArtistText()}
+                    checked={this.changeMatchingArtists()}
+                    onChange={this.onChangeMatchingArtists}
+                />
+            );
             props.orientation = 'left';
         }
         entity.artistCreditEditorInst =
@@ -126,8 +139,6 @@ _.bindAll(
     ko.bindingHandlers.artistCreditEditor,
     'beforeShow',
     'doneCallback',
-    'extraButtons',
-    'extraContent',
     'nextTrack',
     'onChangeMatchingArtists',
     'previousTrack',

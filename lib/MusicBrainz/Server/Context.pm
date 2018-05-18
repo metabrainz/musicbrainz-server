@@ -19,10 +19,11 @@ has 'connector' => (
     is => 'ro',
     handles => [ 'dbh', 'sql', 'conn' ],
     lazy_build => 1,
+    clearer => 'clear_connector',
 );
 
 has 'database' => (
-    is => 'ro',
+    is => 'rw',
     isa => 'Str',
     default => sub { DBDefs->REPLICATION_TYPE == RT_SLAVE ? 'READONLY' : 'READWRITE' }
 );
