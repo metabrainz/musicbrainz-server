@@ -557,7 +557,6 @@ const CLEANUPS = {
     match: [
       new RegExp("^(https?://)?([^/]+\\.)?junodownload\\.com", "i"),
       new RegExp("^(https?://)?([^/]+\\.)?audiojelly\\.com", "i"),
-      new RegExp("^(https?://)?play\\.google\\.com/store/music/", "i"),
       new RegExp("^(https?://)?([^/]+\\.)?e-onkyo\\.com", "i"),
       new RegExp("^(https?://)?([^/]+\\.)?ototoy\\.jp", "i"),
       new RegExp("^(https?://)?([^/]+\\.)?hd-music\\.info", "i"),
@@ -567,7 +566,6 @@ const CLEANUPS = {
     ],
     type: LINK_TYPES.downloadpurchase,
     clean: function (url) {
-      url = url.replace(/^https?:\/\/play\.google\.com\/store\/music\/(artist|album)(?:\/[^?]*)?\?id=([^&#]+)(?:[&#].*)?$/, "https://play.google.com/store/music/$1?id=$2");
       url = url.replace(/^https?:\/\/loudr\.fm\/(artist|release)\/([a-zA-Z0-9_-]+)\/([a-zA-Z0-9_-]{5}).*$/, "https://loudr.fm/$1/$2/$3");
       return url;
     }
@@ -623,6 +621,12 @@ const CLEANUPS = {
       }
       return false;
     }
+  },
+  googleplay: {
+    match: [new RegExp("^(https?://)?play\\.google\\.com/store/music/", "i")],
+    clean: function (url) {
+      return url.replace(/^https?:\/\/play\.google\.com\/store\/music\/(artist|album)(?:\/[^?]*)?\?id=([^&#]+)(?:[&#].*)?$/, "https://play.google.com/store/music/$1?id=$2");
+    },
   },
   jamendo: {
     match: [new RegExp("^(https?://)?([^/]+\\.)?jamendo\\.com","i")],
