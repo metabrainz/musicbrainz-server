@@ -361,21 +361,21 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
                              input_url: 'https://davidrovics.bandcamp.com?test',
                      input_entity_type: 'artist',
             expected_relationship_type: 'bandcamp',
-                    expected_clean_url: 'http://davidrovics.bandcamp.com/',
+                    expected_clean_url: 'https://davidrovics.bandcamp.com/',
                only_valid_entity_types: ['artist', 'label']
         },
         {
                              input_url: 'http://idiotsikker.bandcamp.com/tra#top',
                      input_entity_type: 'label',
             expected_relationship_type: 'bandcamp',
-                    expected_clean_url: 'http://idiotsikker.bandcamp.com/',
+                    expected_clean_url: 'https://idiotsikker.bandcamp.com/',
                only_valid_entity_types: ['artist', 'label']
         },
         {
                              input_url: 'https://andrewhuang.bandcamp.com/track/boom-box/?test',
                      input_entity_type: 'recording',
             expected_relationship_type: undefined,
-                    expected_clean_url: 'http://andrewhuang.bandcamp.com/track/boom-box',
+                    expected_clean_url: 'https://andrewhuang.bandcamp.com/track/boom-box',
                input_relationship_type: 'bandcamp',
                only_valid_entity_types: []
         },
@@ -383,7 +383,7 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
                              input_url: 'http://fieldtriptothemoon.bandcamp.com/album/something-owed',
                      input_entity_type: 'release',
             expected_relationship_type: undefined,
-                    expected_clean_url: 'http://fieldtriptothemoon.bandcamp.com/album/something-owed',
+                    expected_clean_url: 'https://fieldtriptothemoon.bandcamp.com/album/something-owed',
                input_relationship_type: 'downloadpurchase',
                only_valid_entity_types: ['recording', 'release']
         },
