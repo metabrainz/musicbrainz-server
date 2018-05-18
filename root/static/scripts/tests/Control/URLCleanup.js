@@ -2379,6 +2379,12 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
             expected_relationship_type: 'setlistfm',
                only_valid_entity_types: ['place']
         },
+        {
+                             input_url: 'http://www.setlist.fm/festivals/house-of-blues-new-orleans-la-usa-23d61c9f.html',
+                     input_entity_type: 'series',
+            expected_relationship_type: 'setlistfm',
+               only_valid_entity_types: ['series']
+        },
         // (SMDB) Svensk mediedatabas
         {
                              input_url: 'http://smdb.kb.se/catalog/id/001508972',
