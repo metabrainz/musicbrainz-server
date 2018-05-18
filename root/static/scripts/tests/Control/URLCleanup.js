@@ -2017,6 +2017,21 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
                      input_entity_type: 'release',
             expected_relationship_type: 'discographyentry',
         },
+        // NDL (National Diet Library) Authorities
+        {
+                             input_url: 'id.ndl.go.jp/auth/ndlna/00151866#authdesc',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'otherdatabases',
+                    expected_clean_url: 'https://id.ndl.go.jp/auth/ndlna/00151866',
+               only_valid_entity_types: ['artist']
+        },
+        {
+                             input_url: 'https://id.ndl.go.jp/auth/ndlna/00151866.rdf',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'otherdatabases',
+                    expected_clean_url: 'https://id.ndl.go.jp/auth/ndlna/00151866',
+               only_valid_entity_types: ['artist']
+        },
         // Ney Nota Arşivi
         {
                              input_url: 'http://www.neyzen.com/nota_arsivi/02_klasik_eserler/054_mahur_buselik/mahur_buselik_ss_aydin_oran.pdf',
