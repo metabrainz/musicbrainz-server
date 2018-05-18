@@ -218,10 +218,16 @@ sub xml_search
            "&query=" . uri_escape_utf8($query) . "&dismax=$dismax";
     } else {
         my $format = ($args->{fmt} // "") eq "json" ? "mbjson" : "mbxml";
-        my $def_type = $dismax eq 'true' ? 'dismax' : 'lucene';
-        $url_ext = "/$resource/select?" .
-            "rows=$limit&wt=$format&start=$offset" .
-            "&q=" . uri_escape_utf8($query) . "&defType=$def_type";
+        if ($dismax eq 'true')
+        {
+            $url_ext = "/$resource/select?" .
+                "rows=$limit&wt=$format&start=$offset" .
+                "&q=" . uri_escape_utf8($query) . "&defType=dismax";
+        } else {
+            $url_ext = "/$resource/edismax?" .
+                "rows=$limit&wt=$format&start=$offset" .
+                "&q=" . uri_escape_utf8($query);
+        }
     }
 
     if (DBDefs->SEARCH_X_ACCEL_REDIRECT) {
