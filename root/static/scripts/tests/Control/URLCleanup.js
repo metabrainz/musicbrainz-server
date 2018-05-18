@@ -1789,6 +1789,12 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
                              input_url: 'mora.jp/package/43000002/ANTCD-3106/',
                     expected_clean_url: 'http://mora.jp/package/43000002/ANTCD-3106/',
         },
+        // Musa24
+        {
+                             input_url: 'https://www.musa24.fi/albumi/Matti-ja-Teppo/Nostalgiaa/a1481d06-ee36-844b-bf7f-e8c4f714591b/',
+                     input_entity_type: 'release',
+            expected_relationship_type: 'downloadpurchase',
+        },
         // MusicaPopular.cl
         {
                              input_url: 'musicapopular.cl/artista/sensorama-19-81/',
