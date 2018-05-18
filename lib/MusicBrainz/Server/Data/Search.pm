@@ -747,8 +747,11 @@ sub external_search
         my $dismax = $adv ? 'false' : 'true';
         $search_url_string = "http://%s/ws/2/%s/?query=%s&offset=%s&max=%s&fmt=jsonnew&dismax=$dismax&web=1";
     } else {
-        my $def_type = $adv ? 'lucene' : 'dismax';
-        $search_url_string = "http://%s/%s/select?q=%s&start=%s&rows=%s&wt=mbjson&defType=$def_type&fl=score";
+        if ($adv) {
+            $search_url_string = "http://%s/%s/edismax?q=%s&start=%s&rows=%s&wt=mbjson&fl=score";
+        } else {
+            $search_url_string = "http://%s/%s/select?q=%s&start=%s&rows=%s&wt=mbjson&fl=score&defType=dismax";
+        }
     }
 
     my $search_url = sprintf($search_url_string,
