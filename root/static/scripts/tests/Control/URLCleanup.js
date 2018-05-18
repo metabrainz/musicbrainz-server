@@ -432,9 +432,85 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
         },
         // Beatport
         {
-                             input_url: 'http://www.beatport.com/release/summertime-sadness-cedric-gervais-remix/1029002',
+                             input_url: 'http://dj.beatport.com/thegoldenboyuk',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'downloadpurchase',
+               only_valid_entity_types: []
+        },
+        {
+                             input_url: 'http://mixes.beatport.com/dj/lstunn/450603',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'downloadpurchase',
+               only_valid_entity_types: []
+        },
+        {
+                             input_url: 'http://sounds.beatport.com/publisher/Danyella/34462',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'downloadpurchase',
+               only_valid_entity_types: []
+        },
+        {
+                             input_url: 'beatport.com/artist/pryda/10554',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'downloadpurchase',
+                    expected_clean_url: 'https://www.beatport.com/artist/pryda/10554',
+               only_valid_entity_types: ['artist']
+        },
+        {
+                             input_url: 'http://classic.beatport.com/artist/pryda/10554/tracks',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'downloadpurchase',
+                    expected_clean_url: 'https://www.beatport.com/artist/pryda/10554',
+               only_valid_entity_types: ['artist']
+        },
+        {
+                             input_url: 'https://pro.beatport.com/artist/pryda/10554#',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'downloadpurchase',
+                    expected_clean_url: 'https://www.beatport.com/artist/pryda/10554',
+               only_valid_entity_types: ['artist']
+        },
+        {
+                             input_url: 'https://www.beatport.com/release/pryda-10-vol-i/1563118',
                      input_entity_type: 'release',
             expected_relationship_type: 'downloadpurchase',
+                    expected_clean_url: 'https://www.beatport.com/release/pryda-10-vol-i/1563118',
+               only_valid_entity_types: ['release']
+        },
+        {
+                             input_url: 'https://www.beatport.com/chart/eric-prydz-february-chart/32623',
+                     input_entity_type: 'release',
+            expected_relationship_type: 'downloadpurchase',
+                    expected_clean_url: 'https://www.beatport.com/chart/eric-prydz-february-chart/32623',
+               only_valid_entity_types: ['release']
+        },
+        {
+                             input_url: 'https://www.beatport.com/stem-pack/my-colors-ep/3030',
+                     input_entity_type: 'release',
+            expected_relationship_type: 'downloadpurchase',
+                    expected_clean_url: 'https://www.beatport.com/stem-pack/my-colors-ep/3030',
+               only_valid_entity_types: ['release']
+        },
+        {
+                             input_url: 'https://www.beatport.com/stem/celestial/7380',
+                     input_entity_type: 'recording',
+            expected_relationship_type: 'downloadpurchase',
+                    expected_clean_url: 'https://www.beatport.com/stem/celestial/7380',
+               only_valid_entity_types: ['recording']
+        },
+        {
+                             input_url: 'https://www.beatport.com/track/full-stop-original-mix/1682783',
+                     input_entity_type: 'recording',
+            expected_relationship_type: 'downloadpurchase',
+                    expected_clean_url: 'https://www.beatport.com/track/full-stop-original-mix/1682783',
+               only_valid_entity_types: ['recording']
+        },
+        {
+                             input_url: 'https://www.beatport.com/label/mouseville/1421',
+                     input_entity_type: 'label',
+            expected_relationship_type: 'downloadpurchase',
+                    expected_clean_url: 'https://www.beatport.com/label/mouseville/1421',
+               only_valid_entity_types: ['label']
         },
         // Biblioteka Polskiej Piosenki
         {
