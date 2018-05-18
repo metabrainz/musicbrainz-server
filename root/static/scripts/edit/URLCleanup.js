@@ -1764,6 +1764,17 @@ const CLEANUPS = {
       return /^https:\/\/musopen\.org\/music\/\d+\/$/.test(url);
     }
   },
+  ndlauth: {
+    match: [new RegExp("^(https?://)?id\\.ndl\\.go\\.jp/", "i")],
+    type: LINK_TYPES.otherdatabases,
+    clean: function (url) {
+      return url.replace(/^(?:https?:\/\/)?(id\.ndl\.go\.jp\/auth\/ndlna\/\d+)(?:[.#].*)?$/, "https://$1");
+    },
+    validate: function (url, id) {
+      return /^https:\/\/id\.ndl\.go\.jp\/auth\/ndlna\/\d+$/.test(url)
+        && id === LINK_TYPES.otherdatabases.artist;
+    }
+  },
   onlinebijbel: {
     match: [new RegExp("^(https?://)?([^/]+\\.)?online-bijbel\\.nl/", "i")],
     type: LINK_TYPES.lyrics,
