@@ -1311,13 +1311,13 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
         {
                              input_url: 'https://play.google.com/store/music/artist/Daylight?id=Ab34l5k2zbtfv2uwitbfwrwyufy',
                      input_entity_type: 'artist',
-            expected_relationship_type: 'downloadpurchase',
+            expected_relationship_type: undefined,
                     expected_clean_url: 'https://play.google.com/store/music/artist?id=Ab34l5k2zbtfv2uwitbfwrwyufy',
         },
         {
                              input_url: 'http://play.google.com/store/music/artist?id=Aathd3z2apf2hbln4wgkrthmhqu',
                      input_entity_type: 'artist',
-            expected_relationship_type: 'downloadpurchase',
+            expected_relationship_type: undefined,
                     expected_clean_url: 'https://play.google.com/store/music/artist?id=Aathd3z2apf2hbln4wgkrthmhqu',
         },
         {
@@ -1329,13 +1329,13 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
         {
                              input_url: 'https://play.google.com/store/music/artist/Julia_Haltigan_The_Hooligans?id=Avnwgjjbdf6la5zvdjf62k4jylq&hl=en',
                      input_entity_type: 'artist',
-            expected_relationship_type: 'downloadpurchase',
+            expected_relationship_type: undefined,
                     expected_clean_url: 'https://play.google.com/store/music/artist?id=Avnwgjjbdf6la5zvdjf62k4jylq',
         },
         {
                              input_url: 'https://play.google.com/store/music/album/Disasterpeace_The_Floor_is_Jelly_Original_Soundtra?id=Bxpxunylzxqoqiiostyvocjtuu4',
                      input_entity_type: 'release',
-            expected_relationship_type: 'downloadpurchase',
+            expected_relationship_type: undefined,
                     expected_clean_url: 'https://play.google.com/store/music/album?id=Bxpxunylzxqoqiiostyvocjtuu4',
         },
         // HMiku (Miku Hatsune) Wiki
