@@ -1413,6 +1413,11 @@ msgstr ""
 msgid "Luxembourgish"
 msgstr ""
 
+#. frequency:1 iso_code_3:luy 
+#: DB:language/name:4018
+msgid "Luyia"
+msgstr ""
+
 #. frequency:1 iso_code_3:mkd 
 #: DB:language/name:254
 msgid "Macedonian"
@@ -2591,6 +2596,11 @@ msgstr ""
 #. frequency:1 iso_code_3:zap 
 #: DB:language/name:466
 msgid "Zapotec"
+msgstr ""
+
+#. frequency:1 iso_code_3:dje 
+#: DB:language/name:2009
+msgid "Zarma"
 msgstr ""
 
 #. frequency:1 iso_code_3:zza 

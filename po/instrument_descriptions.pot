@@ -494,6 +494,13 @@ msgstr ""
 msgid "Balafon, Malian 'gourd xylophone'"
 msgstr ""
 
+#. name:chimes 
+#: DB:instrument/description:338
+msgid ""
+"Bar or pole shaped chimes, usually arranged in a line or circle, hanging "
+"free or struck with mallets."
+msgstr ""
+
 #. name:baroque trumpet 
 #: DB:instrument/description:521
 msgid ""
@@ -591,14 +598,6 @@ msgid ""
 "ritualistically buried in pairs."
 msgstr ""
 
-#. name:chimes 
-#: DB:instrument/description:338
-msgid ""
-"Chime or chimes can refer to multiple different instruments, including "
-"tubular bells, wind chime, chime bar and mark tree. Please use the correct "
-"instrument if you know which one is intended."
-msgstr ""
-
 #. name:naobo 
 #: DB:instrument/description:599
 msgid "Chinese cymbals specially used in the Beijing opera."
@@ -647,6 +646,11 @@ msgstr ""
 #. name:crumhorn 
 #: DB:instrument/description:348
 msgid "Crumhorn used in the 14th to 17th centuries in Europe"
+msgstr ""
+
+#. name:bells 
+#: DB:instrument/description:116
+msgid "Cup or bellshaped bells, these are shuk or struck."
 msgstr ""
 
 #. name:davul 
@@ -1289,6 +1293,11 @@ msgid ""
 "combined by a string and are often used by dancers."
 msgstr ""
 
+#. name:pardessus de viole 
+#: DB:instrument/description:924
+msgid "Pardessus or sopranino member of the viol family"
+msgstr ""
+
 #. name:body percussion 
 #: DB:instrument/description:500
 msgid "Percussion performed by parts of the body."
@@ -1484,6 +1493,13 @@ msgstr ""
 msgid "Small Polish traditional fiddle."
 msgstr ""
 
+#. name:lyra viol 
+#: DB:instrument/description:925
+msgid ""
+"Small bass viol, specialised for intricate polyphonics, it had a flatter "
+"bridge than the other bass viols."
+msgstr ""
+
 #. name:octoban 
 #: DB:instrument/description:875
 msgid ""
@@ -1523,8 +1539,10 @@ msgstr ""
 #. name:struck idiophone 
 #: DB:instrument/description:675
 msgid ""
-"Struck idiophones are idiophones where the sound is created by the "
-"instrument being struck. These are the most common type of idiophone."
+"Struck idiophone are ones where sound comes from striking the instrument and "
+"it as a whole vibrates, without the use of strings or membranes. Therefore "
+"these are most often made of sonorous material: metal, wood, glass and even "
+"stone."
 msgstr ""
 
 #. name:Swedish bagpipes 
@@ -1568,7 +1586,7 @@ msgstr ""
 msgid "The E♭ clarinet is a member of the clarinet family."
 msgstr ""
 
-#. name:viol da gamba 
+#. name:viola da gamba 
 #: DB:instrument/description:93
 msgid ""
 "The Generic member of the viol family, use it for \"Viol\" credits, most "
