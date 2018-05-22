@@ -420,6 +420,12 @@ sub DISCOURSE_API_USERNAME { '' }
 # See https://meta.discourse.org/t/official-single-sign-on-for-discourse/13045
 sub DISCOURSE_SSO_SECRET { '' }
 
+# When enabled, if Catalyst receives a request with the 'Selenium' header set
+# to 1, database queries will go to SELENIUM instead of READWRITE, as defined
+# in the `DatabaseConnectionFactory->register_databases` section of DBDefs.pm.
+# This is only useful if you're running Selenium tests locally.
+sub USE_SELENIUM_HEADER { 0 }
+
 ################################################################################
 # Profiling
 ################################################################################

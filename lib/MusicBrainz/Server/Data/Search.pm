@@ -210,7 +210,8 @@ sub search
         $extra_columns .= 'entity.address, entity.area, entity.begin_date_year, entity.begin_date_month, entity.begin_date_day,
                 entity.end_date_year, entity.end_date_month, entity.end_date_day, entity.ended,' if $type eq 'place';
         $extra_columns .= 'entity.description,' if $type eq 'instrument';
-        $extra_columns .= 'iso_3166_1s.codes AS iso_3166_1, iso_3166_2s.codes AS iso_3166_2, iso_3166_3s.codes AS iso_3166_3,' if $type eq 'area';
+        $extra_columns .= 'iso_3166_1s.codes AS iso_3166_1, iso_3166_2s.codes AS iso_3166_2, iso_3166_3s.codes AS iso_3166_3,
+                entity.end_date_year, entity.end_date_month, entity.end_date_day, entity.ended,' if $type eq 'area';
         $extra_columns .= 'entity.label_code, entity.area,' if $type eq 'label';
         $extra_columns .= 'entity.ordering_type,' if $type eq 'series';
         $extra_columns .= 'entity.time, entity.cancelled, entity.begin_date_year, entity.begin_date_month, entity.begin_date_day,
@@ -747,8 +748,11 @@ sub external_search
         my $dismax = $adv ? 'false' : 'true';
         $search_url_string = "http://%s/ws/2/%s/?query=%s&offset=%s&max=%s&fmt=jsonnew&dismax=$dismax&web=1";
     } else {
-        my $def_type = $adv ? 'lucene' : 'dismax';
-        $search_url_string = "http://%s/%s/select?q=%s&start=%s&rows=%s&wt=mbjson&defType=$def_type&fl=score";
+        if ($adv) {
+            $search_url_string = "http://%s/%s/edismax?q=%s&start=%s&rows=%s&wt=mbjson&fl=score";
+        } else {
+            $search_url_string = "http://%s/%s/select?q=%s&start=%s&rows=%s&wt=mbjson&fl=score&defType=dismax";
+        }
     }
 
     my $search_url = sprintf($search_url_string,

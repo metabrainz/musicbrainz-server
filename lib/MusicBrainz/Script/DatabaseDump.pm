@@ -182,10 +182,7 @@ sub dump_rows {
     my ($dump_fh, $table_file_path, $table_file_is_new) =
         $self->_open_table_file($table, '>>');
 
-    my $all_column_info = $self->sql->get_all_column_info("$schema.$table");
-    my @ordered_columns = sort {
-        $all_column_info->{$a}{ORDINAL_POSITION} <=> $all_column_info->{$b}{ORDINAL_POSITION}
-    } keys %$all_column_info;
+    my @ordered_columns = $self->sql->get_ordered_columns("$schema.$table");
 
     my $it = natatime 1000, @{$rows};
     while (my @next_rows = $it->()) {

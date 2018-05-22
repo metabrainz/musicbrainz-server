@@ -98,12 +98,12 @@ const ArtistCreditBubble = ({
         </tr>
       </tbody>
     </table>
-    {extraContent && extraContent()}
+    {extraContent ? extraContent : null}
     <div className="buttons">
       <button type="button" style={{float: 'left'}} onClick={copyArtistCredit}>{l('Copy Credits')}</button>
       <button type="button" style={{float: 'left'}} onClick={pasteArtistCredit}>{l('Paste Credits')}</button>
       <button type="button" style={{float: 'right'}} className="positive" onClick={done}>{l('Done')}</button>
-      {extraButtons && extraButtons()}
+      {extraButtons ? extraButtons : null}
     </div>
   </div>
 );

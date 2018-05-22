@@ -198,6 +198,16 @@ sub begin : Private
 
     $c->stats->enable(1) if DBDefs->DEVELOPMENT_SERVER;
 
+    # The selenium header is added by the http proxy in t/selenium.js, and
+    # instructs us to use the SELENIUM database instead of READWRITE. We
+    # ignore the header unless USE_SELENIUM_HEADER is also enabled.
+    if (DBDefs->USE_SELENIUM_HEADER && $c->req->headers->header('selenium')) {
+        $c->model('MB')->context->database('SELENIUM');
+        $c->model('MB')->context->clear_connector;
+        *DBDefs::SEARCH_SERVER = sub { '' };
+        *DBDefs::ENTITY_CACHE_TTL = sub { 1 };
+    }
+
     # Can we automatically login?
     if (!$c->user) {
         $c->forward('/user/cookie_login');

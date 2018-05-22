@@ -70,7 +70,9 @@ releaseEditor.init = function (options) {
              * Workaround for buggy dictation software which may not trigger
              * change events after setting input values.
              */
-            $('input:enabled:visible', ui.oldPanel).change();
+            if (ui.oldPanel[0].id === 'tracklist') {
+              $('.medium.tbl input:enabled:visible', ui.oldPanel).change();
+            }
         },
 
         activate: function (event, ui) {

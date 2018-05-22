@@ -217,7 +217,7 @@ VALUES
     (15, 1, 3, 9, '', 'kept10');
 EOSQL
 
-    $c->model('Relationship')->merge_entities('label', 1, [2, 3]);
+    $c->model('Relationship')->merge_entities('label', 1, [2, 3], rename_credits => 1);
 
     my $label = $c->model('Label')->get_by_id(1);
     $c->model('Relationship')->load($label);
@@ -259,7 +259,7 @@ VALUES
     (4, 2, 2, 4, '', '');
 EOSQL
 
-    $c->model('Relationship')->merge_entities('label', 1, [2]);
+    $c->model('Relationship')->merge_entities('label', 1, [2], rename_credits => 1);
 
     my $label = $c->model('Label')->get_by_id(1);
     $c->model('Relationship')->load($label);

@@ -288,6 +288,10 @@ msgstr ""
 msgid "Indicates a webpage that reviews the release (group) in question."
 msgstr ""
 
+#: DB:link_type/description:958
+msgid "Indicates a webpage where you can download a label's releases for free."
+msgstr ""
+
 #: DB:link_type/description:177
 msgid "Indicates a webpage where you can download an artist's work for free."
 msgstr ""
@@ -1767,6 +1771,12 @@ msgid ""
 "for download."
 msgstr ""
 
+#: DB:link_type/description:959
+msgid ""
+"This is used to link to a page where the label's releases can be purchased "
+"for download."
+msgstr ""
+
 #: DB:link_type/description:254
 msgid ""
 "This is used to link to a page where the recording can be purchased for "
@@ -2680,6 +2690,12 @@ msgid ""
 "can be purchased for mail order."
 msgstr ""
 
+#: DB:link_type/description:960
+msgid ""
+"This relationship type is used to link to a page where the label's releases "
+"can be purchased for mail order."
+msgstr ""
+
 #: DB:link_type/description:79
 msgid ""
 "This relationship type is used to link to a page where the release can be "
@@ -3451,12 +3467,12 @@ msgstr ""
 msgid "download for free"
 msgstr ""
 
-#: DB:link_type/link_phrase:177
+#: DB:link_type/link_phrase:958 DB:link_type/link_phrase:177
 msgid "download music for free"
 msgstr ""
 
-#: DB:link_type/reverse_link_phrase:254 DB:link_type/reverse_link_phrase:74
-#: DB:link_type/reverse_link_phrase:176
+#: DB:link_type/reverse_link_phrase:959 DB:link_type/reverse_link_phrase:254
+#: DB:link_type/reverse_link_phrase:74 DB:link_type/reverse_link_phrase:176
 msgid "download purchase page for"
 msgstr ""
 
@@ -3534,8 +3550,8 @@ msgstr ""
 msgid "founders"
 msgstr ""
 
-#: DB:link_type/reverse_link_phrase:75 DB:link_type/reverse_link_phrase:177
-#: DB:link_type/reverse_link_phrase:255
+#: DB:link_type/reverse_link_phrase:958 DB:link_type/reverse_link_phrase:75
+#: DB:link_type/reverse_link_phrase:177 DB:link_type/reverse_link_phrase:255
 msgid "free download page for"
 msgstr ""
 
@@ -3555,11 +3571,12 @@ msgstr ""
 msgid "from"
 msgstr ""
 
-#: DB:link_type/link_phrase:257 DB:link_type/link_phrase:73
-#: DB:link_type/link_phrase:187 DB:link_type/reverse_link_phrase:257
+#: DB:link_type/link_phrase:957 DB:link_type/link_phrase:257
+#: DB:link_type/link_phrase:73 DB:link_type/link_phrase:187
+#: DB:link_type/reverse_link_phrase:957 DB:link_type/reverse_link_phrase:257
 #: DB:link_type/reverse_link_phrase:73 DB:link_type/reverse_link_phrase:187
-#: DB:link_type/long_link_phrase:257 DB:link_type/long_link_phrase:73
-#: DB:link_type/long_link_phrase:187
+#: DB:link_type/long_link_phrase:957 DB:link_type/long_link_phrase:257
+#: DB:link_type/long_link_phrase:73 DB:link_type/long_link_phrase:187
 msgid "get the music"
 msgstr ""
 
@@ -4276,7 +4293,8 @@ msgstr ""
 msgid "lyrics page for"
 msgstr ""
 
-#: DB:link_type/reverse_link_phrase:175 DB:link_type/reverse_link_phrase:79
+#: DB:link_type/reverse_link_phrase:960 DB:link_type/reverse_link_phrase:175
+#: DB:link_type/reverse_link_phrase:79
 msgid "mail-order purchase page for"
 msgstr ""
 
@@ -4430,15 +4448,15 @@ msgstr ""
 msgid "movement"
 msgstr ""
 
-#: DB:link_type/long_link_phrase:177
+#: DB:link_type/long_link_phrase:958 DB:link_type/long_link_phrase:177
 msgid "music can be downloaded for free at"
 msgstr ""
 
-#: DB:link_type/long_link_phrase:176
+#: DB:link_type/long_link_phrase:959 DB:link_type/long_link_phrase:176
 msgid "music can be purchased for download at"
 msgstr ""
 
-#: DB:link_type/long_link_phrase:175
+#: DB:link_type/long_link_phrase:960 DB:link_type/long_link_phrase:175
 msgid "music can be purchased for mail-order at"
 msgstr ""
 
@@ -4859,11 +4877,11 @@ msgstr ""
 msgid "purchase for mail-order"
 msgstr ""
 
-#: DB:link_type/link_phrase:176
+#: DB:link_type/link_phrase:959 DB:link_type/link_phrase:176
 msgid "purchase music for download"
 msgstr ""
 
-#: DB:link_type/link_phrase:175
+#: DB:link_type/link_phrase:960 DB:link_type/link_phrase:175
 msgid "purchase music for mail-order"
 msgstr ""
 

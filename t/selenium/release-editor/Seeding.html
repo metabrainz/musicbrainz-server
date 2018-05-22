@@ -1,0 +1,470 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="http://localhost:5000" />
+<title>Release Editor Seeding</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">Release Editor</td></tr>
+</thead>
+<tbody>
+<!-- detecting indexes that start at 0 instead of 1 -->
+<tr>
+    <td>openFile</td>
+    <td>./seeds/0_based_indexes.html</td>
+    <td></td>
+</tr>
+<tr>
+    <td>clickAndWait</td>
+    <td>css=button[type=submit]</td>
+    <td></td>
+</tr>
+<tr>
+    <td>assertEval</td>
+    <td>document.getElementById('seed-errors').textContent.trim()</td>
+    <td>The data you’ve seeded contained the following errors:
+        
+          artist_credit.names.0 isn’t defined, do your indexes start at 0?
+        
+          labels.0 isn’t defined, do your indexes start at 0?
+        
+          mediums.0 isn’t defined, do your indexes start at 0?
+        
+          mediums.1.track.0 isn’t defined, do your indexes start at 0?
+        
+          mediums.1.track.1.artist_credit.names.0 isn’t defined, do your indexes start at 0?
+        
+        Review the documentation on release editor seeding and make sure your data is formatted correctly.</td>
+</tr>
+<!-- treating negative indexes as unknown fields -->
+<tr>
+    <td>openFile</td>
+    <td>./seeds/negative_indexes.html</td>
+    <td></td>
+</tr>
+<tr>
+    <td>clickAndWait</td>
+    <td>css=button[type=submit]</td>
+    <td></td>
+</tr>
+<tr>
+    <td>assertEval</td>
+    <td>document.getElementById('seed-errors').textContent.trim()</td>
+    <td>The data you’ve seeded contained the following errors:
+        
+          mediums must be an array
+        
+          Unknown field: mediums.-1
+        
+        Review the documentation on release editor seeding and make sure your data is formatted correctly.</td>
+</tr>
+<!-- returning an error for literal "n" as an index -->
+<tr>
+    <td>openFile</td>
+    <td>./seeds/literal_n.html</td>
+    <td></td>
+</tr>
+<tr>
+    <td>clickAndWait</td>
+    <td>css=button[type=submit]</td>
+    <td></td>
+</tr>
+<tr>
+    <td>assertEval</td>
+    <td>document.getElementById('seed-errors').textContent.trim()</td>
+    <td>The data you’ve seeded contained the following errors:
+        
+          mediums must be an array
+        
+          Unknown field: mediums.n
+        
+        Review the documentation on release editor seeding and make sure your data is formatted correctly.</td>
+</tr>
+<!-- returning an error for zero-padded indexes -->
+<tr>
+    <td>openFile</td>
+    <td>./seeds/zero_padded_indexes.html</td>
+    <td></td>
+</tr>
+<tr>
+    <td>clickAndWait</td>
+    <td>css=button[type=submit]</td>
+    <td></td>
+</tr>
+<tr>
+    <td>assertEval</td>
+    <td>document.getElementById('seed-errors').textContent.trim()</td>
+    <td>The data you’ve seeded contained the following errors:
+        
+          mediums.0.track must be an array
+        
+          Unknown field: mediums.0.track.00
+        
+          Unknown field: mediums.0.track.01
+        
+          Unknown field: mediums.0.track.02
+        
+        Review the documentation on release editor seeding and make sure your data is formatted correctly.</td>
+</tr>
+<!-- returning an error when multiple MBIDs are posted -->
+<tr>
+    <td>openFile</td>
+    <td>./seeds/multiple_mbids.html</td>
+    <td></td>
+</tr>
+<tr>
+    <td>clickAndWait</td>
+    <td>css=button[type=submit]</td>
+    <td></td>
+</tr>
+<tr>
+    <td>assertEval</td>
+    <td>document.getElementById('seed-errors').textContent.trim().replace(/ARRAY\(0x[0-9a-f]+\)/, 'ARRAY(0x...)')</td>
+    <td>The data you’ve seeded contained the following errors:
+        
+          Invalid mediums.0.track.0.artist_credit.names.0.mbid: “ARRAY(0x...)”.
+        
+        Review the documentation on release editor seeding and make sure your data is formatted correctly.</td>
+</tr>
+<!-- returning an error when a space appears before an MBID -->
+<tr>
+    <td>openFile</td>
+    <td>./seeds/mbid_with_space.html</td>
+    <td></td>
+</tr>
+<tr>
+    <td>clickAndWait</td>
+    <td>css=button[type=submit]</td>
+    <td></td>
+</tr>
+<tr>
+    <td>assertEval</td>
+    <td>document.getElementById('seed-errors').textContent.trim()</td>
+    <td>The data you’ve seeded contained the following errors:
+        
+          Invalid mediums.0.track.0.artist_credit.names.0.mbid: “ 9bffb20c-dd17-4895-9fd1-4e73e888d799”.
+        
+        Review the documentation on release editor seeding and make sure your data is formatted correctly.</td>
+</tr>
+<!-- seeding a release with no tracklist -->
+<tr>
+    <td>openFile</td>
+    <td>./seeds/no_tracklist.html</td>
+    <td></td>
+</tr>
+<tr>
+    <td>clickAndWait</td>
+    <td>css=button[type=submit]</td>
+    <td></td>
+</tr>
+<tr>
+    <td>assertEval</td>
+    <td>document.getElementById('seed-errors').textContent.trim()</td>
+    <td>The data you’ve seeded contained the following errors:
+        
+          Invalid language: “kpn”.
+        
+          Invalid script: “kpan”.
+        
+          labels.0 isn’t defined, do your indexes start at 0?
+        
+          Invalid labels.4.mbid: “9f142207-1a9e-4530-98a3-de23f50e8472”.
+        
+        Review the documentation on release editor seeding and make sure your data is formatted correctly.</td>
+</tr>
+<tr>
+    <td>assertValue</td>
+    <td>id=name</td>
+    <td>大人なのよ!/1億3千万総ダイエット王国</td>
+</tr>
+<tr>
+    <td>assertValue</td>
+    <td>css=.release-artist input.name</td>
+    <td>Berryz工房</td>
+</tr>
+<tr>
+    <td>assertValue</td>
+    <td>id=primary-type</td>
+    <td>2</td>
+</tr>
+<tr>
+    <td>assertValue</td>
+    <td>id=status</td>
+    <td>1</td>
+</tr>
+<tr>
+    <td>assertValue</td>
+    <td>css=input.partial-date-year</td>
+    <td>2014</td>
+</tr>
+<tr>
+    <td>assertValue</td>
+    <td>css=input.partial-date-month</td>
+    <td>2</td>
+</tr>
+<tr>
+    <td>assertValue</td>
+    <td>css=input.partial-date-day</td>
+    <td>19</td>
+</tr>
+<tr>
+    <td>assertValue</td>
+    <td>id=catno-4</td>
+    <td>PKCP-5256</td>
+</tr>
+<tr>
+    <td>assertValue</td>
+    <td>id=comment</td>
+    <td>通常盤B</td>
+</tr>
+<tr>
+    <td>assertValue</td>
+    <td>id=edit-note-text</td>
+    <td>http://www.helloproject.com/discography/berryz/s_036.html</td>
+</tr>
+<tr>
+    <td>assertValue</td>
+    <td>css=input.make-votable</td>
+    <td>on</td>
+</tr>
+<!-- seeding a string where a hash is expected -->
+<tr>
+    <td>openFile</td>
+    <td>./seeds/expected_hash.html</td>
+    <td></td>
+</tr>
+<tr>
+    <td>clickAndWait</td>
+    <td>css=button[type=submit]</td>
+    <td></td>
+</tr>
+<tr>
+    <td>assertEval</td>
+    <td>document.getElementById('seed-errors').textContent.trim()</td>
+    <td>The data you’ve seeded contained the following errors:
+        
+          mediums.0.track.0.artist_credit must be a hash.
+        
+        Review the documentation on release editor seeding and make sure your data is formatted correctly.</td>
+</tr>
+<!-- seeding an array where a string is expected -->
+<tr>
+    <td>openFile</td>
+    <td>./seeds/expected_string.html</td>
+    <td></td>
+</tr>
+<tr>
+    <td>clickAndWait</td>
+    <td>css=button[type=submit]</td>
+    <td></td>
+</tr>
+<tr>
+    <td>assertEval</td>
+    <td>document.getElementById('seed-errors').textContent.trim()</td>
+    <td>The data you’ve seeded contained the following errors:
+        
+          mediums.0.track.0.artist_credit.names.0.name must be a scalar, not a hash or array.
+        
+        Review the documentation on release editor seeding and make sure your data is formatted correctly.</td>
+</tr>
+<!-- seeding a lowercase country -->
+<tr>
+    <td>openFile</td>
+    <td>./seeds/lowercase_country.html</td>
+    <td></td>
+</tr>
+<tr>
+    <td>clickAndWait</td>
+    <td>css=button[type=submit]</td>
+    <td></td>
+</tr>
+<tr>
+    <td>assertValue</td>
+    <td>id=country-0</td>
+    <td>107</td>
+</tr>
+<!-- seeding a toc -->
+<tr>
+    <td>openFile</td>
+    <td>./seeds/toc.html</td>
+    <td></td>
+</tr>
+<tr>
+    <td>clickAndWait</td>
+    <td>css=button[type=submit]</td>
+    <td></td>
+</tr>
+<tr>
+    <td>assertEval</td>
+    <td>Array.from(document.querySelectorAll('input.track-length')).map(x => x.value).join(' ')</td>
+    <td>1:33 35:38 5:34</td>
+</tr>
+<tr>
+    <td>assertEval</td>
+    <td>Array.from(document.querySelectorAll('input.track-length')).every(x => x.disabled)</td>
+    <td>true</td>
+</tr>
+<tr>
+    <td>assertValue</td>
+    <td>css=#discid-attachment select</td>
+    <td>1 3 192512 150 7100 167475</td>
+</tr>
+<tr>
+    <td>assertEval</td>
+    <td>document.querySelector('#discid-attachment select').selectedOptions[0].textContent</td>
+    <td>8JrTc74BBFV.d2LEmUkPiYMk6Ww-</td>
+</tr>
+<tr>
+    <td>click</td>
+    <td>xpath=//a[@href='#edit-note']</td>
+    <td></td>
+</tr>
+<tr>
+    <td>clickAndWait</td>
+    <td>id=enter-edit</td>
+    <td></td>
+</tr>
+<tr>
+    <td>assertEditData</td>
+    <td>4</td>
+    <td>
+        {
+          "type": 55,
+          "status": 2,
+          "data": {
+            "cdtoc": "1 3 192512 150 7100 167475",
+            "release": {
+              "id": 1,
+              "name": "Vision Creation Newsun"
+            },
+            "entity_id": 1,
+            "medium_id": 1,
+            "medium_position": 1
+          }
+        }
+    </td>
+</tr>
+<!-- seeding url relationships -->
+<tr>
+    <td>openFile</td>
+    <td>./seeds/external_links.html</td>
+    <td></td>
+</tr>
+<tr>
+    <td>clickAndWait</td>
+    <td>css=button[type=submit]</td>
+    <td></td>
+</tr>
+<tr>
+    <td>assertEval</td>
+    <td>Array.from(document.querySelectorAll('#external-links-editor tr')).slice(0, 3).map(x => [x.querySelector('select').value, x.querySelector('input').value, x.querySelector('.error').textContent].join('\t')).join('\n')</td>
+    <td>	http://foo.bar.baz/	Please select a link type for the URL you’ve entered.
+77		Required field.
+76	http://foo.bar.baz/foo/	This URL is not allowed for the selected link type, or is incorrectly formatted.</td>
+</tr>
+<!-- MBS-7250: seeding empty date parts gives an ISE -->
+<tr>
+    <td>openFile</td>
+    <td>./seeds/mbs-7250.html</td>
+    <td></td>
+</tr>
+<tr>
+    <td>clickAndWait</td>
+    <td>css=button[type=submit]</td>
+    <td></td>
+</tr>
+<tr>
+    <td>assertValue</td>
+    <td>css=input.partial-date-year</td>
+    <td>2000</td>
+</tr>
+<tr>
+    <td>assertValue</td>
+    <td>css=input.partial-date-month</td>
+    <td></td>
+</tr>
+<tr>
+    <td>assertValue</td>
+    <td>css=input.partial-date-day</td>
+    <td></td>
+</tr>
+<!-- MBS-7439: seeding badly formatted dates gives an ISE -->
+<tr>
+    <td>openFile</td>
+    <td>./seeds/mbs-7439.html</td>
+    <td></td>
+</tr>
+<tr>
+    <td>clickAndWait</td>
+    <td>css=button[type=submit]</td>
+    <td></td>
+</tr>
+<tr>
+    <td>assertEval</td>
+    <td>document.getElementById('seed-errors').textContent.trim()</td>
+    <td>The data you’ve seeded contained the following errors:
+        
+          Invalid events.0.date.year: “15.0”.
+        
+          Invalid events.0.date.month: “.2”.
+        
+        Review the documentation on release editor seeding and make sure your data is formatted correctly.</td>
+</tr>
+<!-- MBS-7447: seeding an invalid track length gives an ISE -->
+<tr>
+    <td>openFile</td>
+    <td>./seeds/mbs-7447.html</td>
+    <td></td>
+</tr>
+<tr>
+    <td>clickAndWait</td>
+    <td>css=button[type=submit]</td>
+    <td></td>
+</tr>
+<tr>
+    <td>assertEval</td>
+    <td>document.getElementById('seed-errors').textContent.trim()</td>
+    <td>The data you’ve seeded contained the following errors:
+        
+          Invalid mediums.0.track.0.length: “4:195:0”.
+        
+          Invalid mediums.0.track.1.length: “:10”.
+        
+          Invalid mediums.0.track.2.length: “4:60”.
+        
+        Review the documentation on release editor seeding and make sure your data is formatted correctly.</td>
+</tr>
+<!-- seeding a pregap track -->
+<tr>
+    <td>openFile</td>
+    <td>./seeds/pregap.html</td>
+    <td></td>
+</tr>
+<tr>
+    <td>clickAndWait</td>
+    <td>css=button[type=submit]</td>
+    <td></td>
+</tr>
+<tr>
+    <td>assertEval</td>
+    <td>document.querySelector('tr.track td.reorder').textContent.trim()</td>
+    <td>Pregap</td>
+</tr>
+<tr>
+    <td>assertEval</td>
+    <td>document.querySelector('tr.track td.position input').value</td>
+    <td>0</td>
+</tr>
+<tr>
+    <td>assertEval</td>
+    <td>document.querySelector('tr.track td.title input').value</td>
+    <td>foo</td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>
