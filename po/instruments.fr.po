@@ -13,6 +13,7 @@
 # Paul Tremberth <email address hidden>, 2013
 # French language coordinator <email address hidden>, 2015
 # French language coordinator <email address hidden>, 2013-2015
+# Yohann Merly <email address hidden>, 2018
 # Youenn Piolet, 2015
 # Youenn Piolet, 2015
 # yvanz, 2016-2017
@@ -20,8 +21,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2018-04-26 20:27+0000\n"
-"Last-Translator: yvanz\n"
+"PO-Revision-Date: 2018-05-14 12:57+0000\n"
+"Last-Translator: Yohann Merly <email address hidden>\n"
 "Language-Team: French (http://www.transifex.com/musicbrainz/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -106,7 +107,7 @@ msgstr "flageolet anglais"
 #: DB:instrument/name:7
 msgctxt "Transposing oboe"
 msgid "English horn"
-msgstr ""
+msgstr "cor anglais"
 
 #: DB:instrument/name:30
 msgid "French horn"
@@ -340,6 +341,11 @@ msgstr "flûte en sol"
 #: DB:instrument/name:21
 msgid "alto saxophone"
 msgstr "saxophone alto"
+
+#: DB:instrument/name:923
+msgctxt "Alto member of the viol family"
+msgid "alto viol"
+msgstr ""
 
 #: DB:instrument/name:174
 msgctxt "Alto or vertical violin, for French \"alto\" credits, choose viola"
@@ -633,6 +639,11 @@ msgstr "berda"
 #: DB:instrument/name:69
 msgid "berimbau"
 msgstr "berimbau"
+
+#: DB:instrument/name:920
+msgctxt "Rajasthani string membranophone"
+msgid "bhapang"
+msgstr ""
 
 #: DB:instrument/name:743
 msgid "bicycle bell"
@@ -2201,9 +2212,9 @@ msgid "morin khuur"
 msgstr ""
 
 #: DB:instrument/name:533
-msgctxt "indian jew's harp"
+msgctxt "Indian mouth harp"
 msgid "morsing"
-msgstr "môrsing"
+msgstr ""
 
 #: DB:instrument/name:610
 msgid "mouth organ"
@@ -3228,6 +3239,11 @@ msgstr "saxophone ténor"
 msgid "tenor trombone"
 msgstr "trombone ténor"
 
+#: DB:instrument/name:922
+msgctxt "Tenor member of the viol family"
+msgid "tenor viol"
+msgstr ""
+
 #: DB:instrument/name:615
 msgid "tenor violin"
 msgstr "alto"
@@ -3336,6 +3352,11 @@ msgstr "flûte en sol"
 #: DB:instrument/name:291
 msgid "treble recorder / alto recorder"
 msgstr "flûte à bec alto"
+
+#: DB:instrument/name:921
+msgctxt "Treble/descant member of the viol family"
+msgid "treble viol"
+msgstr ""
 
 #: DB:instrument/name:209
 msgctxt "Smallest member of the new violin family"
@@ -3534,6 +3555,11 @@ msgctxt "Spanish string instrument."
 msgid "vihuela"
 msgstr "vihuela"
 
+#: DB:instrument/name:93
+msgctxt "Generic member of the viol family, Use for \"Viol\" Credits"
+msgid "viol da gamba"
+msgstr ""
+
 #: DB:instrument/name:899
 msgctxt "Viola de gamba family"
 msgid "viol family"
@@ -3550,11 +3576,6 @@ msgstr "viola caipira"
 #: DB:instrument/name:94
 msgctxt "Baroque fretless similar to both viols and violins."
 msgid "viola d'amore"
-msgstr ""
-
-#: DB:instrument/name:93
-msgctxt "Generic member of the viol family"
-msgid "viola da gamba"
 msgstr ""
 
 #: DB:instrument/name:227

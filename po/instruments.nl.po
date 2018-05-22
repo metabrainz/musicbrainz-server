@@ -8,7 +8,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2018-04-30 11:41+0000\n"
+"PO-Revision-Date: 2018-05-11 13:03+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -329,6 +329,11 @@ msgstr "altfluit"
 msgid "alto saxophone"
 msgstr "altsaxofoon"
 
+#: DB:instrument/name:923
+msgctxt "Alto member of the viol family"
+msgid "alto viol"
+msgstr "altgamba"
+
 #: DB:instrument/name:174
 msgctxt "Alto or vertical violin, for French \"alto\" credits, choose viola"
 msgid "alto violin"
@@ -621,6 +626,11 @@ msgstr "berda"
 #: DB:instrument/name:69
 msgid "berimbau"
 msgstr "berimbau"
+
+#: DB:instrument/name:920
+msgctxt "Rajasthani string membranophone"
+msgid "bhapang"
+msgstr "bhapang"
 
 #: DB:instrument/name:743
 msgid "bicycle bell"
@@ -2189,7 +2199,7 @@ msgid "morin khuur"
 msgstr "morin khuur"
 
 #: DB:instrument/name:533
-msgctxt "indian jew's harp"
+msgctxt "Indian mouth harp"
 msgid "morsing"
 msgstr "morsing"
 
@@ -3216,6 +3226,11 @@ msgstr "tenorsaxofoon"
 msgid "tenor trombone"
 msgstr "tenortrombone"
 
+#: DB:instrument/name:922
+msgctxt "Tenor member of the viol family"
+msgid "tenor viol"
+msgstr "tenorgamba"
+
 #: DB:instrument/name:615
 msgid "tenor violin"
 msgstr "tenorviool"
@@ -3324,6 +3339,11 @@ msgstr "sopraninodwarsfluit"
 #: DB:instrument/name:291
 msgid "treble recorder / alto recorder"
 msgstr "altblokfluit"
+
+#: DB:instrument/name:921
+msgctxt "Treble/descant member of the viol family"
+msgid "treble viol"
+msgstr "discantgamba"
 
 #: DB:instrument/name:209
 msgctxt "Smallest member of the new violin family"
@@ -3522,6 +3542,11 @@ msgctxt "Spanish string instrument."
 msgid "vihuela"
 msgstr "vihuela"
 
+#: DB:instrument/name:93
+msgctxt "Generic member of the viol family, Use for \"Viol\" Credits"
+msgid "viol da gamba"
+msgstr ""
+
 #: DB:instrument/name:899
 msgctxt "Viola de gamba family"
 msgid "viol family"
@@ -3539,11 +3564,6 @@ msgstr "viola caipira"
 msgctxt "Baroque fretless similar to both viols and violins."
 msgid "viola d'amore"
 msgstr "viola d’amore"
-
-#: DB:instrument/name:93
-msgctxt "Generic member of the viol family"
-msgid "viola da gamba"
-msgstr "viola da gamba"
 
 #: DB:instrument/name:227
 msgid "viola organista"
