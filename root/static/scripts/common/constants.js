@@ -23,6 +23,7 @@ export const FAVICON_CLASSES: {[string]: string} = {
   'bandcamp.com': 'bandcamp',
   'bandsintown.com': 'bandsintown',
   'bbc.co.uk': 'bbcmusic',
+  'beatport.com': 'beatport',
   'bibliotekapiosenki.pl': 'piosenki',
   'bigcartel.com': 'bigcartel',
   'cancioneros.si': 'cancioneros',
