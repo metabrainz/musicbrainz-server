@@ -218,16 +218,21 @@ sub xml_search
            "&query=" . uri_escape_utf8($query) . "&dismax=$dismax";
     } else {
         my $format = ($args->{fmt} // "") eq "json" ? "mbjson" : "mbxml";
+        my $endpoint = "advanced";
         if ($dismax eq 'true')
         {
-            $url_ext = "/$resource/select?" .
-                "rows=$limit&wt=$format&start=$offset" .
-                "&q=" . uri_escape_utf8($query) . "&defType=dismax";
-        } else {
-            $url_ext = "/$resource/edismax?" .
-                "rows=$limit&wt=$format&start=$offset" .
-                "&q=" . uri_escape_utf8($query);
+            # Solr has a bug where the dismax end point behaves differently
+            # from edismax when the query size is 1. This is a fix for that
+            # See https://issues.apache.org/jira/browse/SOLR-12409
+            if (split(/[\P{Word}_]+/, $query, 2) == 1) {
+                $endpoint = "basic";
+            } else {
+                $endpoint = "select";
+            }
         }
+        $url_ext = "/$resource/$endpoint?" .
+            "rows=$limit&wt=$format&start=$offset" .
+            "&q=" . uri_escape_utf8($query);
     }
 
     if (DBDefs->SEARCH_X_ACCEL_REDIRECT) {
