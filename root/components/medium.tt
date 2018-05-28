@@ -24,7 +24,10 @@
   [%- IF has_work_relationships %]
     <dl class="ars">
     [%- FOR relationship=source.relationships %]
-      [%- IF relationship.target_type == 'work' %]
+      [%- IF relationship.target_type == 'work' &&
+              # Specifically ignore work parts,
+              # still keep works this work is a part of.
+              !(relationship.link.type_id == 281 && relationship.direction == 1) %]
         [%- work = relationship.target %]
         <dt>[% add_colon(relationship.phrase) %]</dt>
         <dd>
