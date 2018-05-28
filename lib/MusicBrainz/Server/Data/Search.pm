@@ -748,12 +748,20 @@ sub external_search
         my $dismax = $adv ? 'false' : 'true';
         $search_url_string = "http://%s/ws/2/%s/?query=%s&offset=%s&max=%s&fmt=jsonnew&dismax=$dismax&web=1";
     } else {
-        if ($adv) {
-            $search_url_string = "http://%s/%s/edismax?q=%s&start=%s&rows=%s&wt=mbjson&fl=score";
-        } else {
-            $search_url_string = "http://%s/%s/select?q=%s&start=%s&rows=%s&wt=mbjson&fl=score&defType=dismax";
+        my $endpoint = "advanced";
+        if (!$adv)
+        {
+            # Solr has a bug where the dismax end point behaves differently
+            # from edismax when the query size is 1. This is a fix for that
+            # See https://issues.apache.org/jira/browse/SOLR-12409
+            if (split(/[\P{Word}_]+/, $query, 2) == 1) {
+                $endpoint = "basic";
+            } else {
+                $endpoint = "select";
+            }
         }
-    }
+        $search_url_string = "http://%s/%s/$endpoint?q=%s&start=%s&rows=%s&wt=mbjson";
+     }
 
     my $search_url = sprintf($search_url_string,
                                  DBDefs->SEARCH_SERVER,
@@ -1035,7 +1043,7 @@ sub xml_search
     if (DBDefs->SEARCH_ENGINE eq 'LUCENE') {
         $search_url_string = "http://%s/ws/$version/%s/?query=%s&offset=%s&max=%s&fmt=xml";
     } else {
-        $search_url_string = "http://%s/%s/select?q=%s&start=%s&rows=%s&wt=mbxml&fl=score";
+        $search_url_string = "http://%s/%s/edismax?q=%s&start=%s&rows=%s&wt=mbxml";
     }
 
     my $search_url = sprintf($search_url_string,
