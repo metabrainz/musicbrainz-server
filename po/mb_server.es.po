@@ -10339,7 +10339,7 @@ msgstr "reenviar correo de verificación"
 #: ../root/release/header.tt:10
 msgid "see all versions of this release, {count} available"
 msgid_plural "see all versions of this release, {count} available"
-msgstr[0] ""
+msgstr[0] "ver todas las versiones de la publicación, disponible {count}"
 msgstr[1] "ver todas las versiones de la publicación, disponibles {count}"
 
 #: ../root/user/profile.tt:43

@@ -10326,7 +10326,7 @@ msgstr "αποστολή email επιβεβαίωσης ξανά"
 #: ../root/release/header.tt:10
 msgid "see all versions of this release, {count} available"
 msgid_plural "see all versions of this release, {count} available"
-msgstr[0] ""
+msgstr[0] "δείτε όλες τις εκδόσεις αυτή της κυκλοφορίας, {count} διαθέσιμη"
 msgstr[1] "δείτε όλες τις εκδόσεις αυτή της κυκλοφορίας, {count} διαθέσιμες"
 
 #: ../root/user/profile.tt:43
