@@ -8,7 +8,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2018-05-11 13:03+0000\n"
+"PO-Revision-Date: 2018-05-23 10:22+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -146,7 +146,7 @@ msgstr "Ierse fluit"
 
 #: DB:instrument/name:355
 msgid "Irish harp / clàrsach"
-msgstr "Ierse harp (clàrsach)"
+msgstr "Keltische harp"
 
 #: DB:instrument/name:561
 msgid "Lyricon"
@@ -857,7 +857,7 @@ msgstr "chikuzen biwa"
 
 #: DB:instrument/name:638
 msgid "chime bar"
-msgstr "klokkenstaaf (chime bar)"
+msgstr "klokkenstaaf"
 
 #: DB:instrument/name:338
 msgid "chimes"
@@ -879,7 +879,7 @@ msgstr "chirimía en trommel"
 
 #: DB:instrument/name:744
 msgid "chitra veena"
-msgstr "gottuvadhyam (chitraveena)"
+msgstr "gottuvadhyam"
 
 #: DB:instrument/name:433
 msgid "chromatic button accordion"
@@ -1539,10 +1539,6 @@ msgstr "gong"
 msgid "gong bass drum"
 msgstr "grote gongtrom"
 
-#: DB:instrument/name:269
-msgid "gongs"
-msgstr "gongs"
-
 #: DB:instrument/name:582
 msgid "gralla"
 msgstr "gralla"
@@ -2089,6 +2085,11 @@ msgstr "luit"
 msgid "luthéal"
 msgstr "luthéal"
 
+#: DB:instrument/name:925
+msgctxt "Small bass viol"
+msgid "lyra viol"
+msgstr "lyra-viol"
+
 #: DB:instrument/name:84
 msgid "lyre"
 msgstr "lier"
@@ -2141,7 +2142,7 @@ msgstr "marimba lumina"
 
 #: DB:instrument/name:637
 msgid "mark tree"
-msgstr "bellenboom (mark tree)"
+msgstr "bellenboom"
 
 #: DB:instrument/name:442
 msgid "marxophone"
@@ -2415,6 +2416,11 @@ msgstr "panfluit"
 msgid "pang gu ly hu hmông"
 msgstr "pang gu ly hu hmông"
 
+#: DB:instrument/name:924
+msgctxt "Smallest member of the viol family"
+msgid "pardessus de viole"
+msgstr "pardessus de viole"
+
 #: DB:instrument/name:606
 msgid "pedal piano"
 msgstr "pedaalpiano"
@@ -2624,7 +2630,7 @@ msgstr "ranat thum"
 
 #: DB:instrument/name:161
 msgid "ratchet"
-msgstr "ratel (met getand wiel)"
+msgstr "ratel"
 
 #: DB:instrument/name:334
 msgid "rattle"
@@ -3424,7 +3430,7 @@ msgstr "tubulum"
 
 #: DB:instrument/name:511
 msgid "tumbi"
-msgstr "thumbi (tumbi)"
+msgstr "thumbi"
 
 #: DB:instrument/name:863
 msgctxt "Māori taonga pūoro ancient struck percussion"
@@ -3542,11 +3548,6 @@ msgctxt "Spanish string instrument."
 msgid "vihuela"
 msgstr "vihuela"
 
-#: DB:instrument/name:93
-msgctxt "Generic member of the viol family, Use for \"Viol\" Credits"
-msgid "viol da gamba"
-msgstr ""
-
 #: DB:instrument/name:899
 msgctxt "Viola de gamba family"
 msgid "viol family"
@@ -3564,6 +3565,11 @@ msgstr "viola caipira"
 msgctxt "Baroque fretless similar to both viols and violins."
 msgid "viola d'amore"
 msgstr "viola d’amore"
+
+#: DB:instrument/name:93
+msgctxt "Generic member of the viol family, Use for \"Viol\" Credits"
+msgid "viola da gamba"
+msgstr "viola da gamba"
 
 #: DB:instrument/name:227
 msgid "viola organista"
@@ -3655,7 +3661,7 @@ msgstr "wilgenfluit"
 
 #: DB:instrument/name:497
 msgid "wind chime"
-msgstr "windgong (wind chime)"
+msgstr "windgong"
 
 #: DB:instrument/name:1
 msgid "wind instruments"
@@ -3779,7 +3785,7 @@ msgstr "zill"
 
 #: DB:instrument/name:98
 msgid "zither"
-msgstr "citer (zither)"
+msgstr "citer"
 
 #: DB:instrument/name:407
 msgid "zurna"
