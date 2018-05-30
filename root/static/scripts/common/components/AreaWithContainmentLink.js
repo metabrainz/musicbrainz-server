@@ -14,13 +14,13 @@ const makeContainmentLink = (x, i) => (
   <EntityLink entity={x} key={i + 1} />
 );
 
-const AreaWithContainmentLink = ({area, ...props}) => (
-  commaOnlyList(
-    [<EntityLink entity={area} key={0} {...props} />].concat(
-      area.containment.map(makeContainmentLink),
-    ),
+const AreaWithContainmentLink = ({area, ...props}) => {
+  const areaLink = <EntityLink entity={area} key={0} {...props} />;
+
+  return area.containment ? commaOnlyList(
+    [areaLink].concat(area.containment.map(makeContainmentLink)),
     {react: true},
-  )
-);
+  ) : areaLink;
+};
 
 module.exports = AreaWithContainmentLink;

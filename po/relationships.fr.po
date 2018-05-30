@@ -33,7 +33,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2018-05-09 10:20+0000\n"
+"PO-Revision-Date: 2018-05-22 09:21+0000\n"
 "Last-Translator: yvanz\n"
 "Language-Team: French (http://www.transifex.com/musicbrainz/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -324,6 +324,11 @@ msgstr "Indique une page Web qui propose une critique de l’événement en ques
 #: DB:link_type/description:94
 msgid "Indicates a webpage that reviews the release (group) in question."
 msgstr "Indique une page Web qui propose une critique de la parution (groupe de) en question."
+
+#: DB:link_type/description:958
+msgid ""
+"Indicates a webpage where you can download a label's releases for free."
+msgstr "Indique une page Web où vous pouvez télécharger les parutions d’un label gratuitement."
 
 #: DB:link_type/description:177
 msgid "Indicates a webpage where you can download an artist's work for free."
@@ -1804,6 +1809,12 @@ msgid ""
 "for download."
 msgstr "Ceci est utilisé pour faire un lien vers une page où les parutions de l’artiste peuvent être achetées pour le téléchargement. "
 
+#: DB:link_type/description:959
+msgid ""
+"This is used to link to a page where the label's releases can be purchased "
+"for download."
+msgstr "Ceci est utilisé pour faire un lien vers une page où les parutions du label peuvent être achetées pour le téléchargement. "
+
 #: DB:link_type/description:254
 msgid ""
 "This is used to link to a page where the recording can be purchased for "
@@ -2708,6 +2719,12 @@ msgid ""
 " can be purchased for mail order."
 msgstr "Ce type de relation est utilisé pour faire le lien vers une page où les parutions de l’artiste peuvent âtre achetées par correspondance."
 
+#: DB:link_type/description:960
+msgid ""
+"This relationship type is used to link to a page where the label's releases "
+"can be purchased for mail order."
+msgstr "Ce type de relation est utilisé pour faire le lien vers une page où les parutions du label peuvent âtre achetées par correspondance."
+
 #: DB:link_type/description:79
 msgid ""
 "This relationship type is used to link to a page where the release can be "
@@ -3483,12 +3500,12 @@ msgstr "apporte/a apporté une {vocal:%|voix} de soutien pour"
 msgid "download for free"
 msgstr "télécharger gratuitement"
 
-#: DB:link_type/link_phrase:177
+#: DB:link_type/link_phrase:958 DB:link_type/link_phrase:177
 msgid "download music for free"
 msgstr "télécharger de la musique gratuitement"
 
-#: DB:link_type/reverse_link_phrase:254 DB:link_type/reverse_link_phrase:74
-#: DB:link_type/reverse_link_phrase:176
+#: DB:link_type/reverse_link_phrase:959 DB:link_type/reverse_link_phrase:254
+#: DB:link_type/reverse_link_phrase:74 DB:link_type/reverse_link_phrase:176
 msgid "download purchase page for"
 msgstr "page d’achat pour le téléchargement de"
 
@@ -3566,8 +3583,8 @@ msgstr "fondé par"
 msgid "founders"
 msgstr "fondateurs"
 
-#: DB:link_type/reverse_link_phrase:75 DB:link_type/reverse_link_phrase:177
-#: DB:link_type/reverse_link_phrase:255
+#: DB:link_type/reverse_link_phrase:958 DB:link_type/reverse_link_phrase:75
+#: DB:link_type/reverse_link_phrase:177 DB:link_type/reverse_link_phrase:255
 msgid "free download page for"
 msgstr "page de téléchargement gratuit pour"
 
@@ -3587,11 +3604,12 @@ msgstr "page de diffusion musicale {video} en flux pour"
 msgid "from"
 msgstr "de"
 
-#: DB:link_type/link_phrase:257 DB:link_type/link_phrase:73
-#: DB:link_type/link_phrase:187 DB:link_type/reverse_link_phrase:257
+#: DB:link_type/link_phrase:957 DB:link_type/link_phrase:257
+#: DB:link_type/link_phrase:73 DB:link_type/link_phrase:187
+#: DB:link_type/reverse_link_phrase:957 DB:link_type/reverse_link_phrase:257
 #: DB:link_type/reverse_link_phrase:73 DB:link_type/reverse_link_phrase:187
-#: DB:link_type/long_link_phrase:257 DB:link_type/long_link_phrase:73
-#: DB:link_type/long_link_phrase:187
+#: DB:link_type/long_link_phrase:957 DB:link_type/long_link_phrase:257
+#: DB:link_type/long_link_phrase:73 DB:link_type/long_link_phrase:187
 msgid "get the music"
 msgstr "trouver de la musique"
 
@@ -4308,7 +4326,8 @@ msgstr "page des paroles"
 msgid "lyrics page for"
 msgstr "page des paroles pour"
 
-#: DB:link_type/reverse_link_phrase:175 DB:link_type/reverse_link_phrase:79
+#: DB:link_type/reverse_link_phrase:960 DB:link_type/reverse_link_phrase:175
+#: DB:link_type/reverse_link_phrase:79
 msgid "mail-order purchase page for"
 msgstr "page d’achat par correspondance pour"
 
@@ -4462,15 +4481,15 @@ msgstr "ingénieurs de mixage"
 msgid "movement"
 msgstr "mouvement"
 
-#: DB:link_type/long_link_phrase:177
+#: DB:link_type/long_link_phrase:958 DB:link_type/long_link_phrase:177
 msgid "music can be downloaded for free at"
 msgstr "la musique peut être téléchargée gratuitement sur"
 
-#: DB:link_type/long_link_phrase:176
+#: DB:link_type/long_link_phrase:959 DB:link_type/long_link_phrase:176
 msgid "music can be purchased for download at"
 msgstr "la musique peut être achetée pour téléchargement sur"
 
-#: DB:link_type/long_link_phrase:175
+#: DB:link_type/long_link_phrase:960 DB:link_type/long_link_phrase:175
 msgid "music can be purchased for mail-order at"
 msgstr "la musique peut être achetée par correspondance sur"
 
@@ -4891,11 +4910,11 @@ msgstr "acheter pour télécharger"
 msgid "purchase for mail-order"
 msgstr "acheter par correspondance"
 
-#: DB:link_type/link_phrase:176
+#: DB:link_type/link_phrase:959 DB:link_type/link_phrase:176
 msgid "purchase music for download"
 msgstr "acheter de la musique pour la télécharger"
 
-#: DB:link_type/link_phrase:175
+#: DB:link_type/link_phrase:960 DB:link_type/link_phrase:175
 msgid "purchase music for mail-order"
 msgstr "acheter de la musique par correspondance"
 

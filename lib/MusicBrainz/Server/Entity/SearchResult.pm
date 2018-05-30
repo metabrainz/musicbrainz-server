@@ -25,6 +25,16 @@ has 'extra' => (
     default => sub { [] },
 );
 
+sub TO_JSON {
+    my ($self) = @_;
+
+    return {
+        entity => $self->entity,
+        position => $self->position,
+        score => $self->score,
+    };
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;

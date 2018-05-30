@@ -39,7 +39,7 @@ sub quote_column {
 $MusicBrainz::Script::EntityDump::handle_inserts = sub {
     my ($c, $schema, $table, $rows) = @_;
 
-    my @columns = sort keys %{$rows->[0]};
+    my @columns = $c->sql->get_ordered_columns("$schema.$table");
     my $columns_string = join ', ', @columns;
 
     my $tuples_string = join ",\n", map {

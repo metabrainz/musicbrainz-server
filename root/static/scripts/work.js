@@ -14,11 +14,6 @@ const React = require('react');
 const ReactDOM = require('react-dom');
 const {createStore} = require('redux');
 
-const {
-  createField,
-  FormRowSelectList,
-  subfieldErrors,
-} = require('../../components/forms');
 const {l} = require('./common/i18n');
 const {lp_attributes} = require('./common/i18n/attributes');
 const MB = require('./common/MB');
@@ -27,6 +22,9 @@ const {Lens, prop, index, set, compose3} = require('./common/utility/lens');
 const {buildOptionsTree} = require('./edit/forms');
 const {initializeBubble} = require('./edit/MB/Control/Bubble');
 const {initialize_guess_case} = require('./guess-case/MB/Control/GuessCase');
+import FormRowSelectList from '../../components/FormRowSelectList';
+import createField from '../../utility/createField';
+import subfieldErrors from '../../utility/subfieldErrors';
 
 type LanguageField = FieldT<number>;
 
@@ -51,7 +49,10 @@ const workAttributeTypeTree: WorkAttributeTypeTreeRootT =
   scriptArgs.workAttributeTypeTree;
 const workAttributeValueTree: WorkAttributeTypeAllowedValueTreeRootT =
   scriptArgs.workAttributeValueTree;
-const workLanguageOptions: GroupedOptionsT = scriptArgs.workLanguageOptions;
+const workLanguageOptions: MaybeGroupedOptionsT = {
+  grouped: true,
+  options: scriptArgs.workLanguageOptions,
+};
 
 const languagesField: Lens<WorkForm, LanguageFields> =
   compose3(prop('field'), prop('languages'), prop('field'));
@@ -83,10 +84,29 @@ const store = createStore(function (state: WorkForm = form, action) {
   return state;
 });
 
+function pushField<F, R: RepeatableFieldT<F>>(
+  form: WorkForm,
+  repeatable: R,
+  value: mixed,
+) {
+  return createField(
+    form,
+    repeatable,
+    String(repeatable.field.length),
+    value,
+  );
+}
+
 function addLanguageToState(form: WorkForm): WorkForm {
   const languages = form.field.languages.field.slice(0);
   const newForm = set(languagesField, languages, form);
-  languages.push(createField(newForm, null));
+  languages.push(
+    pushField(
+      newForm,
+      newForm.field.languages,
+      null,
+    )
+  );
   return newForm;
 }
 
@@ -195,7 +215,7 @@ class ViewModel {
 
     if (_.isEmpty(attributes)) {
       attributes = [
-        createField(form, {
+        pushField(form, form.field.attributes, {
           type_id: null,
           value: null,
         }),
@@ -208,7 +228,7 @@ class ViewModel {
   }
 
   newAttribute() {
-    const attr = new WorkAttribute(createField(form, {
+    const attr = new WorkAttribute(pushField(form, form.field.attributes, {
       type_id: null,
       value: null,
     }), this);
@@ -265,9 +285,8 @@ function renderWorkLanguages() {
     <FormRowSelectList
       addId="add-language"
       addLabel={l('Add Language')}
-      fieldName={null}
+      getSelectField={_.identity}
       label={l('Lyrics Languages')}
-      name={form.name + '.languages'}
       onAdd={addLanguage}
       onEdit={editLanguage}
       onRemove={removeLanguage}

@@ -1,13 +1,13 @@
 # 
 # Translators:
 # Maurits Meulenbelt <email address hidden>, 2012
-# Maurits Meulenbelt <email address hidden>, 2013-2017
+# Maurits Meulenbelt <email address hidden>, 2013-2018
 # Nathan Follens, 2017
 # Nikolai Prokoschenko <email address hidden>, 2011
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2017-09-19 12:55+0000\n"
+"PO-Revision-Date: 2018-05-23 08:55+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -1421,6 +1421,11 @@ msgstr "Lushai"
 msgid "Luxembourgish"
 msgstr "Luxemburgs"
 
+#. frequency:1 iso_code_3:luy
+#: DB:language/name:4018
+msgid "Luyia"
+msgstr "Luhya"
+
 #. frequency:1 iso_code_3:mkd
 #: DB:language/name:254
 msgid "Macedonian"
@@ -2600,6 +2605,11 @@ msgstr "Zande-talen"
 #: DB:language/name:466
 msgid "Zapotec"
 msgstr "Zapoteeks"
+
+#. frequency:1 iso_code_3:dje
+#: DB:language/name:2009
+msgid "Zarma"
+msgstr "Zarma"
 
 #. frequency:1 iso_code_3:zza
 #: DB:language/name:483

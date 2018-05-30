@@ -28,6 +28,7 @@ sub TO_JSON {
     if ($self->isa('HTML::FormHandler::Field')) {
         # On the form, `errors` is a list.
         $json->{errors} = $self->errors;
+        $json->{html_name} = $self->html_name;
         $json->{id} = ++$field_id_counter;
     }
 

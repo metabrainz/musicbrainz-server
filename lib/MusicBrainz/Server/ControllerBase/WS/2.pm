@@ -129,7 +129,7 @@ sub authenticate {
     my ($self, $c, $scope) = @_;
 
     try {
-        $c->authenticate({}, 'musicbrainz.org');
+        $c->authenticate({}, 'musicbrainz.org') unless $c->user_exists;
     } catch {
         # A 400 response code is already set in this case.
         $c->detach if $c->stash->{bad_auth_encoding};

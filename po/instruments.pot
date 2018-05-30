@@ -1530,10 +1530,6 @@ msgstr ""
 msgid "gong bass drum"
 msgstr ""
 
-#: DB:instrument/name:269
-msgid "gongs"
-msgstr ""
-
 #: DB:instrument/name:582
 msgid "gralla"
 msgstr ""
@@ -2080,6 +2076,11 @@ msgstr ""
 msgid "luthéal"
 msgstr ""
 
+#: DB:instrument/name:925
+msgctxt "Small bass viol"
+msgid "lyra viol"
+msgstr ""
+
 #: DB:instrument/name:84
 msgid "lyre"
 msgstr ""
@@ -2404,6 +2405,11 @@ msgstr ""
 
 #: DB:instrument/name:315
 msgid "pang gu ly hu hmông"
+msgstr ""
+
+#: DB:instrument/name:924
+msgctxt "Smallest member of the viol family"
+msgid "pardessus de viole"
 msgstr ""
 
 #: DB:instrument/name:606
@@ -3533,11 +3539,6 @@ msgctxt "Spanish string instrument."
 msgid "vihuela"
 msgstr ""
 
-#: DB:instrument/name:93
-msgctxt "Generic member of the viol family, Use for \"Viol\" Credits"
-msgid "viol da gamba"
-msgstr ""
-
 #: DB:instrument/name:899
 msgctxt "Viola de gamba family"
 msgid "viol family"
@@ -3554,6 +3555,11 @@ msgstr ""
 #: DB:instrument/name:94
 msgctxt "Baroque fretless similar to both viols and violins."
 msgid "viola d'amore"
+msgstr ""
+
+#: DB:instrument/name:93
+msgctxt "Generic member of the viol family, Use for \"Viol\" Credits"
+msgid "viola da gamba"
 msgstr ""
 
 #: DB:instrument/name:227

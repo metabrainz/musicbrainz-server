@@ -534,6 +534,16 @@ sub get_column_data_type($$$) {
     return $self->get_column_info($table, $column)->{DATA_TYPE};
 }
 
+sub get_ordered_columns($$) {
+    my ($self, $table) = @_;
+
+    my $columns = $self->get_all_column_info($table);
+    my @ordered_columns = sort {
+        $columns->{$a}{ORDINAL_POSITION} <=> $columns->{$b}{ORDINAL_POSITION}
+    } keys %{$columns};
+    return @ordered_columns;
+}
+
 ################################################################################
 
 package Sql::Timer;

@@ -23,6 +23,7 @@ export const FAVICON_CLASSES: {[string]: string} = {
   'bandcamp.com': 'bandcamp',
   'bandsintown.com': 'bandsintown',
   'bbc.co.uk': 'bbcmusic',
+  'beatport.com': 'beatport',
   'bibliotekapiosenki.pl': 'piosenki',
   'bigcartel.com': 'bigcartel',
   'cancioneros.si': 'cancioneros',
@@ -159,5 +160,6 @@ export const MIN_NAME_SIMILARITY = 0.75;
 export const ENTITIES_WITH_RELATIONSHIP_CREDITS: {[string]: boolean} = {
   area: true,
   artist: true,
+  label: true,
   place: true,
 };

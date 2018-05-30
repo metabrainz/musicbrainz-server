@@ -901,6 +901,7 @@ INSERT INTO release_group_secondary_type VALUES (10, 'Demo', NULL, 0, NULL, '815
 
 INSERT INTO release_packaging VALUES (1, 'Jewel Case', NULL, 0, 'The traditional CD case, made of hard, brittle plastic.', 'ec27701a-4a22-37f4-bfac-6616e0f9750a');
 INSERT INTO release_packaging VALUES (3, 'Digipak', NULL, 0, NULL, '8f931351-d2e2-310f-afc6-37b89ddba246');
+INSERT INTO release_packaging VALUES (5, 'Other', NULL, 1, NULL, '815b7785-8284-3926-8f04-e48bc6c4d102');
 
 INSERT INTO release_status VALUES (1, 'Official', NULL, 1, 'Any release officially sanctioned by the artist and/or their record company. Most releases will fit into this category.', '4e304316-386d-3409-af2e-78857eec5cfe');
 INSERT INTO release_status VALUES (2, 'Promotion', NULL, 2, 'A give-away release or a release intended to promote an upcoming official release (e.g. pre-release versions, releases included with a magazine, versions supplied to radio DJs for air-play).', '518ffc83-5cde-34df-8627-81bff5093d92');

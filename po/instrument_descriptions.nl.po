@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2018-04-30 11:45+0000\n"
+"PO-Revision-Date: 2018-05-23 11:23+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -133,11 +133,6 @@ msgstr "Een fluit is een aerofoon zonder riet die geluid produceert door lucht l
 #: DB:instrument/description:656
 msgid "A four-string banjo is a banjo with four strings."
 msgstr "Een viersnarige banjo is een banjo met vier snaren."
-
-#. name:glass harp
-#: DB:instrument/description:765
-msgid "A glass harp is a musical instrument made of upright wine glasses."
-msgstr "Een glasharp is een muziekinstrument dat bestaat uit rechtopstaande wijnglazen."
 
 #. name:gong bass drum
 #: DB:instrument/description:639
@@ -375,6 +370,13 @@ msgstr "Een houten vis (ook wel muyu of Chinees tempelblok genoemd) is een idiof
 msgid "Acoustic guitar without frets."
 msgstr "Akoestische gitaar zonder fretten."
 
+#. name:alto viol
+#: DB:instrument/description:923
+msgid ""
+"Alt, alto or contralto member of the viol family. Not to be confused with "
+"the Viola of the violin family, known as \"Alto\" in French."
+msgstr "De altgamba is de alt van de familie viole da gamba. Niet te verwarren met de altviool, die in het Frans “Alto” wordt genoemd."
+
 #. name:bandora
 #: DB:instrument/description:488
 msgid ""
@@ -403,13 +405,6 @@ msgid ""
 "An African percussion instrument, made of a dried gourd plant. Struck with "
 "hands or objects."
 msgstr "Een kalebas is een Afrikaans percussie-instrument dat wordt gemaakt van een gedroogde fleskalebas. Het wordt bespeeld door er met de handen of een voorwerp op te slaan."
-
-#. name:morsing
-#: DB:instrument/description:533
-msgid ""
-"An Indian version of the jew's harp, played as a percussion instrument in "
-"Carnatic music and Rajastani folk music."
-msgstr "Een Indiase variant op de mondharp, bespeeld als percussie-instrument in Carnatische en Rajastaanse muziek."
 
 #. name:Irish harp / clàrsach
 #: DB:instrument/description:355
@@ -508,6 +503,13 @@ msgstr "Doedelzakken die bespeeld worden door lucht in een luchtzak en van de lu
 msgid "Balafon, Malian 'gourd xylophone'"
 msgstr "Een balafoon, soort xylofoon van kalebasflessen uit Mali."
 
+#. name:chimes
+#: DB:instrument/description:338
+msgid ""
+"Bar or pole shaped chimes, usually arranged in a line or circle, hanging "
+"free or struck with mallets."
+msgstr "Een klokkenspel bestaat uit staven of balken die meestal in een lijn of cirkel staan opgesteld en met hamertjes worden aangeslagen."
+
 #. name:baroque trumpet
 #: DB:instrument/description:521
 msgid ""
@@ -605,14 +607,6 @@ msgid ""
 "ritualistically buried in pairs."
 msgstr "De bronselur is een Scandinavische natuurhoorn van brons die vaak in paren ritueel werden begraven."
 
-#. name:chimes
-#: DB:instrument/description:338
-msgid ""
-"Chime or chimes can refer to multiple different instruments, including "
-"tubular bells, wind chime, chime bar and mark tree. Please use the correct "
-"instrument if you know which one is intended."
-msgstr "Klokkenspel of chimes kan verwijzen naar verschillende muziekinstrumenten, waaronder buisklokken, de windgong of de bellenboom. Gebruik het juiste instrument als je weet welke bedoeld wordt."
-
 #. name:naobo
 #: DB:instrument/description:599
 msgid "Chinese cymbals specially used in the Beijing opera."
@@ -663,6 +657,11 @@ msgstr "De chuurqin is een Mongools strijkinstrument en de voorloper van de mori
 msgid "Crumhorn used in the 14th to 17th centuries in Europe"
 msgstr "De kromhoorn werd vooral tussen de veertiende en zeventiende eeuw gebruikt in Europa"
 
+#. name:bells
+#: DB:instrument/description:116
+msgid "Cup or bellshaped bells, these are shuk or struck."
+msgstr "Bellen zijn klok- of schaalvormige instrumenten die worden geschud of aangeslagen."
+
 #. name:davul
 #: DB:instrument/description:411
 msgid "Davul, turkish drum"
@@ -682,15 +681,6 @@ msgid ""
 "Developed as an extended range bass-lute in Italy during the late sixteenth "
 "century, it has an extended neck with a second pegbox."
 msgstr "De theorbe werd eind zestiende eeuw in Italië ontwikkeld als een basluit met een vergroot bereik. Het heeft een verlengde nek met een tweede schroevenhouder."
-
-#. name:viol family
-#: DB:instrument/description:899
-msgid ""
-"Developed in the 15th century from Vihuelists starting to play with bows, "
-"viols have frets, flat backs, sloped shoulders, c-holes and are tuned in "
-"fourths. The members are: * Violone (double-bass viol) * Viola da gamba "
-"(Bass viol) * Tenor viol * Alt viol * Treble or Diskant viol"
-msgstr "De viole da gamba werden in de 15e eeuw ontwikkeld door vihuelisten die met een strijkstok begonnen te spelen. Viole de gamba hebben fretten, een vlak onderblad, aflopende schouders, C-gaten en worden in kwarten gestemd. Leden zijn de violone (laagst), basgamba, tenorgamba, altgamba en discantgamba."
 
 #. name:violin family
 #: DB:instrument/description:59
@@ -935,6 +925,11 @@ msgid ""
 "metal curled mouth piece."
 msgstr "Johann Christoph Denner verbeterde de renaissanceranket rond 1730. De boring van de barokranket is conisch, en het instrument wordt aangeblazen via een gekruld verwijderbaar mondstuk van metaal."
 
+#. name:morsing
+#: DB:instrument/description:533
+msgid "Indian mouth harp, played in Carnatic and Rajastani folk music."
+msgstr "De morsing is een Indiase mondharp, en wordt bespeeld in Carnatische en Rajastaanse muziek."
+
 #. name:viololyra
 #: DB:instrument/description:834
 msgid ""
@@ -1025,6 +1020,14 @@ msgid ""
 "Known from the Viking age, this natural brass trumpet/horn was made of wood "
 "or birch bark"
 msgstr "De nävelur is een natuurhoorn van hout of berkenbast, bekend vanaf de Vikingtijd."
+
+#. name:glass harp
+#: DB:instrument/description:765
+msgid ""
+"Known in Persia as far back as the 14th century, it consists of glass "
+"containers, tuned by either being filled with water or later being of "
+"different sizes. Played by rubbing dampened fingers on the rims."
+msgstr "De glasharp was al in de 14e eeuw in Perzië bekend. Het bestaat uit glazen containers, die worden gestemd door ze deels met water te vullen of door de grootte van de glazen te variëren. Het wordt bespeeld door met vochtige vingers over de randen te wrijven."
 
 #. name:krakebs
 #: DB:instrument/description:652
@@ -1264,6 +1267,16 @@ msgid ""
 " strings, but is made of wood."
 msgstr "De zhuihu is een fretloze huqin uit de provincie Henan. Het heeft twee snaren en is gemaakt van hout."
 
+#. name:bhapang
+#: DB:instrument/description:920
+msgid ""
+"Originating in Mewati community of Rahajastan, India, it is traditionally "
+"made of gourd with top and bottom cut of with a goat hide membrane nailed to"
+" one opening and a gut string which ends in a bamboo piece attached to the "
+"membrane. The instrument is held in the armpit and played by plucking the "
+"string while pulling the it."
+msgstr "De bhapang komt uit de Mewati-gemeenschap in Rahajastan in India. Het wordt traditioneel gemaakt van een kalebas waar de boven- en onderkant van is afgesneden. Tussen de twee helften van de kalebas is een membraan gespannen waaraan een enkele snaar is bevestigd. Het instrument wordt bespeeld door de snaar met de hand te spannen en te tokkelen."
+
 #. name:other instruments
 #: DB:instrument/description:141
 msgid ""
@@ -1271,12 +1284,28 @@ msgid ""
 "href=\"http://tickets.musicbrainz.org/browse/INST\">request it</a>."
 msgstr "Overige instrumenten. Als je een instrument niet kan vinden, kan je <a href=\"http://tickets.musicbrainz.org/browse/INST\">het aanvragen</a>."
 
+#. name:viol family
+#: DB:instrument/description:899
+msgid ""
+"PLEASE use "
+"\"<href\"=https://beta.musicbrainz.org/instrument/be34e4e5-6e77-46f5-ab56-c9641d3da213\">Viola"
+" da Gamba</a>\" with artist credit \"viol\" for generic / unspecified viols "
+"credits and NOT this one. Developed in the 15th century from Vihuelists "
+"starting to play with bows, viols have frets, flat backs, sloped shoulders, "
+"c-holes and are tuned in fourths."
+msgstr ""
+
 #. name:castanets
 #: DB:instrument/description:109
 msgid ""
 "Pair of concave wood, bone, shell or even fibreglass shells, they are "
 "combined by a string and are often used by dancers."
 msgstr "Castagnetten zijn schelpvormige kleppers van hout, bot, schelp of glasvezelversterkte kunststof, die per paar met een koordje aan elkaar zijn bevestigd en vaak door dansers worden gebruikt."
+
+#. name:pardessus de viole
+#: DB:instrument/description:924
+msgid "Pardessus or sopranino member of the viol family"
+msgstr "De pardessus de viole is het kleinste lid (sopranino) van de familie viole da gamba."
 
 #. name:body percussion
 #: DB:instrument/description:500
@@ -1473,6 +1502,13 @@ msgstr "De flabiol is een kleine Catalaanse flageolet die wordt bespeeld in het 
 msgid "Small Polish traditional fiddle."
 msgstr "Een oktawa is een kleine traditionele Poolse viool."
 
+#. name:lyra viol
+#: DB:instrument/description:925
+msgid ""
+"Small bass viol, specialised for intricate polyphonics, it had a flatter "
+"bridge than the other bass viols."
+msgstr "De lyra-viol is een kleinere variant van de basgamba met een vlakkere kam. Het instrument is specifiek geschikt voor het spelen van polyfonie en was vooral in Engeland populair."
+
 #. name:octoban
 #: DB:instrument/description:875
 msgid ""
@@ -1512,14 +1548,23 @@ msgstr "Met spelcomputer wordt de geluidschip uit verschillende spelcomputers be
 #. name:struck idiophone
 #: DB:instrument/description:675
 msgid ""
-"Struck idiophones are idiophones where the sound is created by the "
-"instrument being struck. These are the most common type of idiophone."
-msgstr "Aangeslagen idiofonen zijn idiofonen waarbij het geluid wordt veroorzaakt door het instrument aan te slaan. Dit is het meest voorkomende type idiofoon."
+"Struck idiophone are ones where sound comes from striking the instrument and"
+" it as a whole vibrates, without the use of strings or membranes. Therefore "
+"these are most often made of sonorous material: metal, wood, glass and even "
+"stone."
+msgstr "Aangeslagen idiofonen zijn instrumenten die geluid maken door in zijn geheel te trillen als ze worden aangeslagen, dus zonder gebruik te maken van snaren of membranen. Om deze reden zijn ze meestal gemaakt van klankrijke materialen zoals metaal, hout, glas of zelfs steen."
 
 #. name:Swedish bagpipes
 #: DB:instrument/description:691
 msgid "Swedish bagpipes are a type of bagpipes from Sweden."
 msgstr "Een type doedelzak uit Zweden met een enkelriet en een cilindrische boring."
+
+#. name:glass harmonica
+#: DB:instrument/description:285
+msgid ""
+"Taking the concept of musical glasses but mounting the incrementing bowls on"
+" a turnable spindle, it is played with damp fingers."
+msgstr "Een glasharmonica is een instrument dat gemaakt is van een serie glazen kommen die op een as zijn bevestigd. Het instrument wordt met vochtige vingers bespeeld."
 
 #. name:tanbou ka
 #: DB:instrument/description:333
@@ -1532,6 +1577,11 @@ msgid ""
 "Tap dancing is a type of dance in which the dancer wears special shoes that "
 "make a clicking sound as the dancer's feet strike the floor."
 msgstr "Tapdansen is een vorm van dans waarbij ritmische klanken worden gemaakt door tikken op de grond met metalen plaatjes aan de schoenzolen. De danser doet daarmee aan een vorm van percussie."
+
+#. name:tenor viol
+#: DB:instrument/description:922
+msgid "Tenor member of the viol family"
+msgstr "De tenorgamba is de tenor van de familie viole da gamba."
 
 #. name:Cretan lyra
 #: DB:instrument/description:482
@@ -2197,14 +2247,6 @@ msgid ""
 "which typically has 6 strings."
 msgstr "Ook wel komungo of kŏmun’go of hyeongeum (letterlijk ‘zwarte citer’, ook gespeld als hyongum of hyŏn’gŭm) is een traditionele Koreaanse citer met zes snaren en 16 fretten."
 
-#. name:glass harmonica
-#: DB:instrument/description:285
-msgid ""
-"The glass harmonica is an instrument made of a series of glass bowls mounted"
-" on a spindle which is then turned. It is played by touching the rims of the"
-" bowls with a finger."
-msgstr "Een glasharmonica is een instrument dat gemaakt is van een serie glazen kommen die op een as bevestigd zijn. Het instrument wordt bespeeld door met de vingers de randen van de kommen aan te raken."
-
 #. name:gralla
 #: DB:instrument/description:582
 msgid ""
@@ -2281,7 +2323,7 @@ msgstr "Een mondharmonica is een soort mondorgel en wordt veel gebruikt in de bl
 msgid ""
 "The harp guitar is a guitar-based string instrument with any number of "
 "additional unstopped strings which can accommodate individual plucking."
-msgstr "Een harpgitaar is een gitaar met een aantal toegevoegde snaren die net als een harp bespeeld kunnen worden."
+msgstr "Een harpgitaar is een gitaar met een aantal toegevoegde snaren die net als een harp kunnen worden bespeeld."
 
 #. name:harp
 #: DB:instrument/description:58
@@ -2541,7 +2583,7 @@ msgstr "Een lirone (of lira da gamba) is een basinstrument uit de familie van de
 msgid ""
 "The luthéal is a kind of hybrid piano which extends the register "
 "possibilities of a standard piano, created by Georges Cloetens"
-msgstr "Een luthéal is een door Georges Cloetens ontworpen piano die zo is geprepareerd dat de klankkleur veranderd kan worden."
+msgstr "Een luthéal is een door Georges Cloetens ontworpen piano die zo is geprepareerd dat de klankkleur kan worden veranderd."
 
 #. name:mandocello
 #: DB:instrument/description:600
@@ -3175,6 +3217,11 @@ msgstr "Een tonkori is een tokkelinstrument dat wordt bespeeld door de Ainu uit 
 msgid "The topshuur is a two-stringed lute from Mongolia and Tuva."
 msgstr "Een topshuur is een luit met twee snaren uit Mongolië en de Russische autonome republiek Toeva."
 
+#. name:treble viol
+#: DB:instrument/description:921
+msgid "The treble, descant or soprano member of the viol family"
+msgstr "De discantgamba is de sopraan van de familie viole da gamba."
+
 #. name:tromboon
 #: DB:instrument/description:663
 msgid ""
@@ -3643,7 +3690,7 @@ msgstr "Deze fretloze langehalsluit wordt vaak gebruikt om een sitar te begeleid
 msgid ""
 "Valved brass instruments use a set of valves which introduce additional "
 "tubing into the instrument."
-msgstr "Koperblazers met ventiel gebruiken ventielen waarmee de lengte van de buis beïnvloed kan worden. (<a href=\"http://nl.wikipedia.org/wiki/Ventiel_(muziek)\">Wikipedia</a>)"
+msgstr "Koperblazers met ventiel gebruiken ventielen waarmee de lengte van de buis kan worden beïnvloed."
 
 #. name:não bạt / chập chõa
 #: DB:instrument/description:272

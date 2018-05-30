@@ -19323,7 +19323,7 @@ msgstr ""
 msgid "Luyana"
 msgstr ""
 
-#. frequency:0 iso_code_3:luy 
+#. frequency:1 iso_code_3:luy 
 #: DB:language/name:4018
 msgid "Luyia"
 msgstr ""
@@ -38953,7 +38953,7 @@ msgstr ""
 msgid "Zari"
 msgstr ""
 
-#. frequency:0 iso_code_3:dje 
+#. frequency:1 iso_code_3:dje 
 #: DB:language/name:2009
 msgid "Zarma"
 msgstr ""

@@ -1,0 +1,3209 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="http://localhost:5000" />
+<title>Release Editor</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">Release Editor</td></tr>
+</thead><tbody>
+<tr>
+	<td>open</td>
+	<td>/release/add</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>1000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=name</td>
+	<td>The Downword Spiral</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=button.guesscase-title.icon</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>xpath=//td[contains(@class, 'release-artist')]//input[contains(@class, 'name')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>xpath=//td[contains(@class, 'release-artist')]//input[contains(@class, 'name')]</td>
+	<td>nine inch nails</td>
+</tr>
+<tr>
+	<td>fireEvent</td>
+	<td>xpath=//td[contains(@class, 'release-artist')]//input[contains(@class, 'name')]</td>
+	<td>input</td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>1000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>xpath=//li[contains(@class, 'ui-menu-item')][contains(., 'direct search')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>1000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>xpath=//li[contains(@class, 'ui-menu-item')][contains(., 'Nine Inch Nails')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>id=primary-type</td>
+	<td>label=Single</td>
+</tr>
+<tr>
+	<td>runScript</td>
+	<td>Array.prototype.find.call(document.querySelector('#secondary-types').options, x =&gt; x.textContent.trim() === 'Compilation').selected = true;</td>
+	<td></td>
+</tr>
+<tr>
+	<td>runScript</td>
+	<td>Array.prototype.find.call(document.querySelector('#secondary-types').options, x =&gt; x.textContent.trim() === 'Demo').selected = true;</td>
+	<td></td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>id=status</td>
+	<td>label=Bootleg</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>id=language</td>
+	<td>label=German</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>id=script</td>
+	<td>label=Symbols</td>
+</tr>
+<!-- Add an event with both a date and country. -->
+<tr>
+	<td>type</td>
+	<td>id=event-date-0</td>
+	<td>1995</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>id=country-0</td>
+	<td>label=United States</td>
+</tr>
+<!-- Add an event with just a date. -->
+<tr>
+	<td>click</td>
+	<td>xpath=//button[contains(text(), 'Add Release Event')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>xpath=(//input[contains(@class, 'partial-date-month')])[2]</td>
+	<td>12</td>
+</tr>
+<!-- Add an event with just a country. -->
+<tr>
+	<td>click</td>
+	<td>xpath=//button[contains(text(), 'Add Release Event')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>id=country-2</td>
+	<td>label=United States</td>
+</tr>
+<!-- Check that errors were displayed. -->
+<tr>
+	<td>assertEval</td>
+	<td>Array.prototype.filter.call(window.document.querySelectorAll('.field-error'), x =&gt; x.textContent === 'You cannot use the same country more than once.' &amp;&amp; x.style.display !== 'none').length</td>
+	<td>2</td>
+</tr>
+<!-- Change the second country to France, and check that the errors are gone. -->
+<tr>
+	<td>select</td>
+	<td>id=country-2</td>
+	<td>label=France</td>
+</tr>
+<tr>
+	<td>assertEval</td>
+	<td>Array.prototype.filter.call(window.document.querySelectorAll('.field-error'), x =&gt; x.textContent === 'You cannot use the same country more than once.' &amp;&amp; x.style.display !== 'none').length</td>
+	<td>0</td>
+</tr>
+<!-- Add the first label/catalog number pair, pasting the MBID in. -->
+<tr>
+	<td>type</td>
+	<td>id=label-0</td>
+	<td>2182a316-c4bd-4605-936a-5e2fac52bdd2</td>
+</tr>
+<tr>
+	<td>fireEvent</td>
+	<td>id=label-0</td>
+	<td>input</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=catno-0</td>
+	<td>INTD‐92346</td>
+</tr>
+<!-- Add the second, with just a label, this time searching for it. -->
+<tr>
+	<td>click</td>
+	<td>xpath=//button[contains(text(), 'Add Label')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=label-1</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=label-1</td>
+	<td>nothing</td>
+</tr>
+<tr>
+	<td>fireEvent</td>
+	<td>id=label-1</td>
+	<td>input</td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>1000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>xpath=//ul[contains(@class, 'ui-menu')][@data-input-id='label-1']/li[contains(., 'direct search')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>1000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>xpath=//ul[contains(@class, 'ui-menu')][@data-input-id='label-1']/li[contains(., 'Nothing Records')]</td>
+	<td></td>
+</tr>
+<!-- Add the third release-label, with just a catalog number. -->
+<tr>
+	<td>click</td>
+	<td>xpath=//button[contains(text(), 'Add Label')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=catno-2</td>
+	<td>INTD‐92346</td>
+</tr>
+<!-- Fill in the rest of the fields on the information page. -->
+<tr>
+	<td>click</td>
+	<td>id=no-barcode</td>
+	<td></td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>id=packaging</td>
+	<td>label=Digipak</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=annotation</td>
+	<td>also known as halo eight</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=comment</td>
+	<td>.</td>
+</tr>
+<!-- Go to the tracklist tab. -->
+<tr>
+	<td>click</td>
+	<td>xpath=//a[@href='#tracklist']</td>
+	<td></td>
+</tr>
+<!-- Paste half of the tracklist into the track parser. -->
+<tr>
+	<td>type</td>
+	<td>xpath=//div[@id='add-disc-parser']//textarea[contains(@class, 'tracklist')]</td>
+	<td>A1 Mr Self Destruct - nin 4:31
+A2 Piggy - nin 4:24
+A3 Heresy - nin 3:54
+A4 March of the Pigs - nin 2:58
+A5 Closer - nin 6:13
+A6 Ruiner - nin 4:59
+A7 The Becoming - nin 5:32</td>
+</tr>
+<tr>
+	<td>check</td>
+	<td>xpath=//div[@id='add-disc-dialog']//input[@name='lines-have-numbers']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>check</td>
+	<td>xpath=//div[@id='add-disc-dialog']//input[@name='enable-vinyl-numbers']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>check</td>
+	<td>xpath=//div[@id='add-disc-dialog']//input[@name='lines-have-artists']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>check</td>
+	<td>xpath=//div[@id='add-disc-dialog']//input[@name='use-numbers']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>check</td>
+	<td>xpath=//div[@id='add-disc-dialog']//input[@name='use-artists']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>check</td>
+	<td>xpath=//div[@id='add-disc-dialog']//input[@name='use-titles']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>check</td>
+	<td>xpath=//div[@id='add-disc-dialog']//input[@name='use-lengths']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>xpath=//div[@id='add-disc-dialog']//button[contains(text(), 'Add Medium')]</td>
+	<td></td>
+</tr>
+<!-- Fill in the track artists. -->
+<tr>
+	<td>click</td>
+	<td>xpath=(//tr[contains(@class, 'track')])[1]//button[contains(@class, 'open-ac')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>check</td>
+	<td>xpath=//input[@id = 'change-matching-artists']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>1000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>xpath=//div[@id='artist-credit-bubble']//input[contains(@id, 'artist')]</td>
+	<td>b7ffd2af-418f-4be2-bdd1-22f8b48613da</td>
+</tr>
+<tr>
+	<td>fireEvent</td>
+	<td>xpath=//div[@id='artist-credit-bubble']//input[contains(@id, 'artist')]</td>
+	<td>input</td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>500</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>xpath=//div[@id='artist-credit-bubble']//input[contains(@id, 'credited-as')]</td>
+	<td>nin</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>xpath=//div[@id='artist-credit-bubble']//button[text() = 'Done']</td>
+	<td></td>
+</tr>
+<!-- Add 7 more tracks. -->
+<tr>
+	<td>type</td>
+	<td>css=div.add-tracks input[type=number]</td>
+	<td>7</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=div.add-tracks button.add-item</td>
+	<td></td>
+</tr>
+<!-- Fill in the details for those by hand. -->
+<tr>
+	<td>type</td>
+	<td>xpath=(//tr[contains(@id, 'track-row-new')])[8]//input[contains(@class, 'track-name')]</td>
+	<td>big man with a gun</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>xpath=(//tr[contains(@id, 'track-row-new')])[9]//input[contains(@class, 'track-name')]</td>
+	<td>i do not want this</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>xpath=(//tr[contains(@id, 'track-row-new')])[10]//input[contains(@class, 'track-name')]</td>
+	<td>a warm place</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>xpath=(//tr[contains(@id, 'track-row-new')])[11]//input[contains(@class, 'track-name')]</td>
+	<td>eraser</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>xpath=(//tr[contains(@id, 'track-row-new')])[12]//input[contains(@class, 'track-name')]</td>
+	<td>reptile</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>xpath=(//tr[contains(@id, 'track-row-new')])[13]//input[contains(@class, 'track-name')]</td>
+	<td>the downward spiral</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>xpath=(//tr[contains(@id, 'track-row-new')])[14]//input[contains(@class, 'track-name')]</td>
+	<td>hurt</td>
+</tr>
+<!-- Incorrectly set pregap, data tracks. -->
+<tr>
+	<td>check</td>
+	<td>xpath=(//input[contains(@class, 'has-pregap')])[1]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>xpath=(//tr[contains(@id, 'track-row-new')])[1]//input[contains(@class, 'track-name')]</td>
+	<td>pregap</td>
+</tr>
+<tr>
+	<td>check</td>
+	<td>xpath=(//input[contains(@class, 'has-data-tracks')])[1]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>xpath=(//tr[contains(@id, 'track-row-new')])[16]//input[contains(@class, 'track-name')]</td>
+	<td>data track</td>
+</tr>
+<!-- Guess case. -->
+<tr>
+	<td>click</td>
+	<td>id=guess-case-button</td>
+	<td></td>
+</tr>
+<!-- Set the format to "unknown." -->
+<tr>
+	<td>check</td>
+	<td>id=format-unknown</td>
+	<td></td>
+</tr>
+<!-- Move on to the recordings tab. -->
+<tr>
+	<td>click</td>
+	<td>xpath=//a[@href='#recordings']</td>
+	<td></td>
+</tr>
+<!-- Set the first track to an existing recording, pasting an MBID. -->
+<tr>
+	<td>click</td>
+	<td>xpath=(//button[contains(@class, 'edit-track-recording')])[2]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>xpath=//div[@id='recording-assoc-bubble']//span[contains(@class, 'autocomplete')]//input[contains(@class, 'name')]</td>
+	<td>96f64611-49df-4e54-84e7-0f9a30f01766</td>
+</tr>
+<!-- Set the first track to an existing recording, searching for it. -->
+<tr>
+	<td>click</td>
+	<td>xpath=(//button[contains(@class, 'edit-track-recording')])[3]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>xpath=//div[@id='recording-assoc-bubble']//span[contains(@class, 'autocomplete')]//img[contains(@class, 'search')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>1000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>xpath=//li[contains(@class, 'ui-menu-item')][contains(., 'direct search')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>1000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>xpath=//li[contains(@class, 'ui-menu-item')][contains(., 'Piggy')]</td>
+	<td></td>
+</tr>
+<!-- Copy the first track title to the recording. -->
+<tr>
+	<td>check</td>
+	<td>xpath=(//input[contains(@class, 'update-recording-title')])[1]</td>
+	<td></td>
+</tr>
+<!-- Copy the second track artist credit to the recording. -->
+<tr>
+	<td>check</td>
+	<td>xpath=(//input[contains(@class, 'update-recording-artist')])[2]</td>
+	<td></td>
+</tr>
+<!-- Go to the edit note tab and submit. -->
+<tr>
+	<td>click</td>
+	<td>xpath=//a[@href='#edit-note']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=edit-note-text</td>
+	<td>disc in hand</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>id=enter-edit</td>
+	<td></td>
+</tr>
+<!-- Check that the submitted release information is "correct." -->
+<tr>
+	<td>assertText</td>
+	<td>css=h1</td>
+	<td>The Downword Spiral (.)</td>
+</tr>
+<tr>
+	<td>assertTextMatches</td>
+	<td>css=h1 + p.subheader</td>
+	<td>Release by Nine Inch Nails</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>css=.annotation-body</td>
+	<td>also known as halo eight</td>
+</tr>
+<tr>
+	<td>assertEval</td>
+	<td>Array.from(document.querySelectorAll('table.medium > tbody > tr')).slice(1).map(x => Array.from(x.querySelectorAll('td')).filter(x => !x.classList.contains('rating')).map(x => x.textContent.trim()).join('\t')).join('\n')</td>
+	<td>0	Pregap	Nine Inch Nails	?:??
+A1	Mr Self Destruct	nin	4:31
+A2	Piggy	nin	4:24
+A3	Heresy	nin	3:54
+A4	March of the Pigs	nin	2:58
+A5	Closer	nin	6:13
+A6	Ruiner	nin	4:59
+A7	The Becoming	nin	5:32
+8	Big Man With a Gun	Nine Inch Nails	?:??
+9	I Do Not Want This	Nine Inch Nails	?:??
+10	A Warm Place	Nine Inch Nails	?:??
+11	Eraser	Nine Inch Nails	?:??
+12	Reptile	Nine Inch Nails	?:??
+13	The Downward Spiral	Nine Inch Nails	?:??
+14	Hurt	Nine Inch Nails	?:??
+Data Tracks
+15	[data track]	Nine Inch Nails	?:??</td>
+</tr>
+<tr>
+	<td>assertEval</td>
+	<td>document.querySelector('h2.release-information + dl.properties').textContent.trim()</td>
+	<td>Barcode:
+[none]
+Format:
+(unknown)</td>
+</tr>
+<tr>
+	<td>assertEval</td>
+	<td>document.querySelector('h2.additional-details + dl.properties').textContent.trim()</td>
+	<td>Type:
+Single
+Packaging:
+Digipak
+Status:
+Bootleg
+Language:
+German
+Script:
+Symbols
+Data Quality:
+Normal</td>
+</tr>
+<tr>
+	<td>assertEval</td>
+	<td>Array.from(document.querySelectorAll('h2.labels + ul.links > li')).map(x => Array.from(x.childNodes).map(y => y.textContent.trim()).filter(x => x).join('\t')).join('\n')</td>
+	<td>Interscope Records	INTD‐92346
+INTD‐92346
+Nothing Records</td>
+</tr>
+<tr>
+	<td>assertEval</td>
+	<td>Array.from(document.querySelectorAll('h2.release-events + ul.links > li')).map(x => Array.from(x.childNodes).map(y => y.textContent.trim()).filter(x => x).join('\t')).join('\n')</td>
+	<td>United States	1995
+????-12
+France</td>
+</tr>
+<!-- Check that the correct edits were entered. -->
+<tr>
+	<td>assertEditData</td>
+	<td>1</td>
+	<td>
+		{
+		  "type": 20,
+		  "status": 2,
+		  "data": {
+		    "name": "The Downword Spiral",
+		    "comment": "",
+		    "type_id": 2,
+		    "entity_id": 1,
+		    "entity_gid": ignore,
+		    "artist_credit": {
+		      "names": [
+		        {
+		          "name": "Nine Inch Nails",
+		          "artist": {
+		            "id": 347,
+		            "name": "Nine Inch Nails"
+		          },
+		          "join_phrase": ""
+		        }
+		      ]
+		    }
+		  }
+		}
+	</td>
+</tr>
+<tr>
+	<td>assertEditData</td>
+	<td>2</td>
+	<td>
+		{
+		  "type": 31,
+		  "status": 2,
+		  "data": {
+		    "name": "The Downword Spiral",
+		    "events": [
+		      {
+		        "date": {
+		          "year": 1995
+		        },
+		        "country_id": "222"
+		      },
+		      {
+		        "date": {
+		          "month": 12
+		        },
+		        "country_id": null
+		      },
+		      {
+		        "date": {},
+		        "country_id": "73"
+		      }
+		    ],
+		    "barcode": "",
+		    "comment": ".",
+		    "entity_id": 1,
+		    "script_id": 112,
+		    "status_id": 3,
+		    "entity_gid": ignore,
+		    "language_id": 145,
+		    "packaging_id": 3,
+		    "artist_credit": {
+		      "names": [
+		        {
+		          "name": "Nine Inch Nails",
+		          "artist": {
+		            "id": 347,
+		            "gid": "b7ffd2af-418f-4be2-bdd1-22f8b48613da",
+		            "name": "Nine Inch Nails"
+		          },
+		          "join_phrase": null
+		        }
+		      ]
+		    },
+		    "release_group_id": 1
+		  }
+		}
+	</td>
+</tr>
+<tr>
+	<td>assertEditData</td>
+	<td>3</td>
+	<td>
+		{
+		  "type": 34,
+		  "status": 2,
+		  "data": {
+		    "label": {
+		      "id": 620,
+		      "gid": "2182a316-c4bd-4605-936a-5e2fac52bdd2",
+		      "name": "Interscope Records"
+		    },
+		    "release": {
+		      "id": 1,
+		      "gid": ignore,
+		      "name": "The Downword Spiral"
+		    },
+		    "entity_id": 1,
+		    "catalog_number": "INTD‐92346"
+		  }
+		}
+	</td>
+</tr>
+<tr>
+	<td>assertEditData</td>
+	<td>4</td>
+	<td>
+		{
+		  "type": 34,
+		  "status": 2,
+		  "data": {
+		    "label": {
+		      "id": 399,
+		      "gid": "4b5cba06-6a79-454c-91f5-3fe220d4950d",
+		      "name": "Nothing Records"
+		    },
+		    "release": {
+		      "id": 1,
+		      "gid": ignore,
+		      "name": "The Downword Spiral"
+		    },
+		    "entity_id": 2,
+		    "catalog_number": null
+		  }
+		}
+	</td>
+</tr>
+<tr>
+	<td>assertEditData</td>
+	<td>5</td>
+	<td>
+		{
+		  "type": 34,
+		  "status": 2,
+		  "data": {
+		    "label": null,
+		    "release": {
+		      "id": 1,
+		      "gid": ignore,
+		      "name": "The Downword Spiral"
+		    },
+		    "entity_id": 3,
+		    "catalog_number": "INTD‐92346"
+		  }
+		}
+	</td>
+</tr>
+<tr>
+	<td>assertEditData</td>
+	<td>6</td>
+	<td>
+		{
+		  "type": 72,
+		  "status": 2,
+		  "data": {
+		    "new": {
+		      "name": "Mr Self Destruct"
+		    },
+		    "old": {
+		      "name": "mr self destruct"
+		    },
+		    "entity": {
+		      "id": 164872,
+		      "gid": "96f64611-49df-4e54-84e7-0f9a30f01766",
+		      "name": "mr self destruct"
+		    }
+		  }
+		}
+	</td>
+</tr>
+<tr>
+	<td>assertEditData</td>
+	<td>7</td>
+	<td>
+		{
+		  "type": 72,
+		  "status": 1,
+		  "data": {
+		    "new": {
+		      "artist_credit": {
+		        "names": [
+		          {
+		            "name": "nin",
+		            "artist": {
+		              "id": 347,
+		              "name": "Nine Inch Nails"
+		            },
+		            "join_phrase": ""
+		          }
+		        ]
+		      }
+		    },
+		    "old": {
+		      "artist_credit": {
+		        "names": [
+		          {
+		            "name": "Nine Inch Nails",
+		            "artist": {
+		              "id": 347,
+		              "name": "Nine Inch Nails"
+		            },
+		            "join_phrase": ""
+		          }
+		        ]
+		      }
+		    },
+		    "entity": {
+		      "id": 164873,
+		      "gid": "429f0b1a-0293-4793-993b-0bb5f73567f2",
+		      "name": "Piggy"
+		    }
+		  }
+		}
+	</td>
+</tr>
+<tr>
+	<td>assertEditData</td>
+	<td>8</td>
+	<td>
+		{
+		  "type": 51,
+		  "status": 2,
+		  "data": {
+		    "name": "",
+		    "release": {
+		      "id": 1,
+		      "name": "The Downword Spiral"
+		    },
+		    "position": 1,
+		    "entity_id": 1,
+		    "tracklist": [
+		      {
+		        "id": null,
+		        "name": "Pregap",
+		        "length": null,
+		        "number": "0",
+		        "position": 0,
+		        "recording_id": 1,
+		        "artist_credit": {
+		          "names": [
+		            {
+		              "name": "Nine Inch Nails",
+		              "artist": {
+		                "id": 347,
+		                "name": "Nine Inch Nails"
+		              },
+		              "join_phrase": ""
+		            }
+		          ]
+		        },
+		        "is_data_track": "0"
+		      },
+		      {
+		        "id": null,
+		        "name": "Mr Self Destruct",
+		        "length": 271000,
+		        "number": "A1",
+		        "position": 1,
+		        "recording_id": 164872,
+		        "artist_credit": {
+		          "names": [
+		            {
+		              "name": "nin",
+		              "artist": {
+		                "id": 347,
+		                "name": "Nine Inch Nails"
+		              },
+		              "join_phrase": ""
+		            }
+		          ]
+		        },
+		        "is_data_track": "0"
+		      },
+		      {
+		        "id": null,
+		        "name": "Piggy",
+		        "length": 264000,
+		        "number": "A2",
+		        "position": 2,
+		        "recording_id": 164873,
+		        "artist_credit": {
+		          "names": [
+		            {
+		              "name": "nin",
+		              "artist": {
+		                "id": 347,
+		                "name": "Nine Inch Nails"
+		              },
+		              "join_phrase": ""
+		            }
+		          ]
+		        },
+		        "is_data_track": "0"
+		      },
+		      {
+		        "id": null,
+		        "name": "Heresy",
+		        "length": 234000,
+		        "number": "A3",
+		        "position": 3,
+		        "recording_id": 2,
+		        "artist_credit": {
+		          "names": [
+		            {
+		              "name": "nin",
+		              "artist": {
+		                "id": 347,
+		                "name": "Nine Inch Nails"
+		              },
+		              "join_phrase": ""
+		            }
+		          ]
+		        },
+		        "is_data_track": "0"
+		      },
+		      {
+		        "id": null,
+		        "name": "March of the Pigs",
+		        "length": 178000,
+		        "number": "A4",
+		        "position": 4,
+		        "recording_id": 3,
+		        "artist_credit": {
+		          "names": [
+		            {
+		              "name": "nin",
+		              "artist": {
+		                "id": 347,
+		                "name": "Nine Inch Nails"
+		              },
+		              "join_phrase": ""
+		            }
+		          ]
+		        },
+		        "is_data_track": "0"
+		      },
+		      {
+		        "id": null,
+		        "name": "Closer",
+		        "length": 373000,
+		        "number": "A5",
+		        "position": 5,
+		        "recording_id": 4,
+		        "artist_credit": {
+		          "names": [
+		            {
+		              "name": "nin",
+		              "artist": {
+		                "id": 347,
+		                "name": "Nine Inch Nails"
+		              },
+		              "join_phrase": ""
+		            }
+		          ]
+		        },
+		        "is_data_track": "0"
+		      },
+		      {
+		        "id": null,
+		        "name": "Ruiner",
+		        "length": 299000,
+		        "number": "A6",
+		        "position": 6,
+		        "recording_id": 5,
+		        "artist_credit": {
+		          "names": [
+		            {
+		              "name": "nin",
+		              "artist": {
+		                "id": 347,
+		                "name": "Nine Inch Nails"
+		              },
+		              "join_phrase": ""
+		            }
+		          ]
+		        },
+		        "is_data_track": "0"
+		      },
+		      {
+		        "id": null,
+		        "name": "The Becoming",
+		        "length": 332000,
+		        "number": "A7",
+		        "position": 7,
+		        "recording_id": 6,
+		        "artist_credit": {
+		          "names": [
+		            {
+		              "name": "nin",
+		              "artist": {
+		                "id": 347,
+		                "name": "Nine Inch Nails"
+		              },
+		              "join_phrase": ""
+		            }
+		          ]
+		        },
+		        "is_data_track": "0"
+		      },
+		      {
+		        "id": null,
+		        "name": "Big Man With a Gun",
+		        "length": null,
+		        "number": "8",
+		        "position": 8,
+		        "recording_id": 7,
+		        "artist_credit": {
+		          "names": [
+		            {
+		              "name": "Nine Inch Nails",
+		              "artist": {
+		                "id": 347,
+		                "name": "Nine Inch Nails"
+		              },
+		              "join_phrase": ""
+		            }
+		          ]
+		        },
+		        "is_data_track": "0"
+		      },
+		      {
+		        "id": null,
+		        "name": "I Do Not Want This",
+		        "length": null,
+		        "number": "9",
+		        "position": 9,
+		        "recording_id": 8,
+		        "artist_credit": {
+		          "names": [
+		            {
+		              "name": "Nine Inch Nails",
+		              "artist": {
+		                "id": 347,
+		                "name": "Nine Inch Nails"
+		              },
+		              "join_phrase": ""
+		            }
+		          ]
+		        },
+		        "is_data_track": "0"
+		      },
+		      {
+		        "id": null,
+		        "name": "A Warm Place",
+		        "length": null,
+		        "number": "10",
+		        "position": 10,
+		        "recording_id": 9,
+		        "artist_credit": {
+		          "names": [
+		            {
+		              "name": "Nine Inch Nails",
+		              "artist": {
+		                "id": 347,
+		                "name": "Nine Inch Nails"
+		              },
+		              "join_phrase": ""
+		            }
+		          ]
+		        },
+		        "is_data_track": "0"
+		      },
+		      {
+		        "id": null,
+		        "name": "Eraser",
+		        "length": null,
+		        "number": "11",
+		        "position": 11,
+		        "recording_id": 10,
+		        "artist_credit": {
+		          "names": [
+		            {
+		              "name": "Nine Inch Nails",
+		              "artist": {
+		                "id": 347,
+		                "name": "Nine Inch Nails"
+		              },
+		              "join_phrase": ""
+		            }
+		          ]
+		        },
+		        "is_data_track": "0"
+		      },
+		      {
+		        "id": null,
+		        "name": "Reptile",
+		        "length": null,
+		        "number": "12",
+		        "position": 12,
+		        "recording_id": 11,
+		        "artist_credit": {
+		          "names": [
+		            {
+		              "name": "Nine Inch Nails",
+		              "artist": {
+		                "id": 347,
+		                "name": "Nine Inch Nails"
+		              },
+		              "join_phrase": ""
+		            }
+		          ]
+		        },
+		        "is_data_track": "0"
+		      },
+		      {
+		        "id": null,
+		        "name": "The Downward Spiral",
+		        "length": null,
+		        "number": "13",
+		        "position": 13,
+		        "recording_id": 12,
+		        "artist_credit": {
+		          "names": [
+		            {
+		              "name": "Nine Inch Nails",
+		              "artist": {
+		                "id": 347,
+		                "name": "Nine Inch Nails"
+		              },
+		              "join_phrase": ""
+		            }
+		          ]
+		        },
+		        "is_data_track": "0"
+		      },
+		      {
+		        "id": null,
+		        "name": "Hurt",
+		        "length": null,
+		        "number": "14",
+		        "position": 14,
+		        "recording_id": 13,
+		        "artist_credit": {
+		          "names": [
+		            {
+		              "name": "Nine Inch Nails",
+		              "artist": {
+		                "id": 347,
+		                "name": "Nine Inch Nails"
+		              },
+		              "join_phrase": ""
+		            }
+		          ]
+		        },
+		        "is_data_track": "0"
+		      },
+		      {
+		        "id": null,
+		        "name": "[data track]",
+		        "length": null,
+		        "number": "15",
+		        "position": 15,
+		        "recording_id": 14,
+		        "artist_credit": {
+		          "names": [
+		            {
+		              "name": "Nine Inch Nails",
+		              "artist": {
+		                "id": 347,
+		                "name": "Nine Inch Nails"
+		              },
+		              "join_phrase": ""
+		            }
+		          ]
+		        },
+		        "is_data_track": "1"
+		      }
+		    ]
+		  }
+		}
+	</td>
+</tr>
+<tr>
+	<td>assertEditData</td>
+	<td>9</td>
+	<td>
+		{
+		  "type": 35,
+		  "status": 2,
+		  "data": {
+		    "text": "also known as halo eight",
+		    "entity": {
+		      "id": 1,
+		      "name": "The Downword Spiral"
+		    },
+		    "editor_id": 5,
+		    "annotation_id": 1
+		  }
+		}
+	</td>
+</tr>
+<!-- Edit the release to fix our mistakes. -->
+<tr>
+	<td>clickAndWait</td>
+	<td>css=.tabs a[href$="/edit"]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=name</td>
+	<td>The Downward Spiral</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>id=status</td>
+	<td>label=Official</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>id=language</td>
+	<td>label=English</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>id=script</td>
+	<td>label=Latin</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>xpath=(//button[contains(@class, 'remove-release-event')])[1]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>xpath=(//button[contains(@class, 'remove-release-event')])[1]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>xpath=(//input[contains(@class, 'partial-date-year')])[1]</td>
+	<td>1994</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>xpath=(//input[contains(@class, 'partial-date-month')])[1]</td>
+	<td>3</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>xpath=(//input[contains(@class, 'partial-date-day')])[1]</td>
+	<td>8</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>id=country-0</td>
+	<td>label=United States</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=catno-0</td>
+	<td>92346-2</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=label-1</td>
+	<td>c9117237-b78b-4e47-b452-c9d94fb34916</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=catno-1</td>
+	<td>92346-2</td>
+</tr>
+<tr>
+	<td>uncheck</td>
+	<td>id=no-barcode</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=barcode</td>
+	<td>765449234620</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>id=packaging</td>
+	<td>label=Jewel Case</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=comment</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>xpath=//a[@href='#tracklist']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>id=disc-format-1</td>
+	<td>label=CD</td>
+</tr>
+<tr>
+	<td>uncheck</td>
+	<td>xpath=(//input[contains(@class, 'has-pregap')])[1]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>uncheck</td>
+	<td>xpath=(//input[contains(@class, 'has-data-tracks')])[1]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>xpath=(//button[contains(@class, 'remove-track')])[1]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>xpath=(//button[contains(@class, 'remove-track')])[15]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>xpath=(//button[contains(@class, 'track-down')])[8]</td>
+	<td></td>
+</tr>
+<!-- Use the track parser to fix half of the tracks, and manually fix the rest. -->
+<tr>
+	<td>click</td>
+	<td>css=button.open-track-parser</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>xpath=//div[@id='track-parser-dialog']//textarea[contains(@class, 'tracklist')]</td>
+	<td>A1. Mr Self Destruct (4:31)
+A2. Piggy (4:24)
+A3. Heresy (3:54)
+A4. March of the Pigs (2:58)
+A5. Closer (6:13)
+A6. Ruiner (4:59)
+A7. The Becoming (5:32)
+B1. I Do Not Want This (5:41)
+B2. Big Man With a Gun (1:36)
+B3. A Warm Place (3:23)
+B4. Eraser (4:54)
+12. Reptile (?:??)
+13. The Downward Spiral (?:??)
+14. Hurt (?:??)</td>
+</tr>
+<tr>
+	<td>check</td>
+	<td>xpath=//div[@id='track-parser-dialog']//input[@name='lines-have-numbers']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>check</td>
+	<td>xpath=//div[@id='track-parser-dialog']//input[@name='enable-vinyl-numbers']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>uncheck</td>
+	<td>xpath=//div[@id='track-parser-dialog']//input[@name='lines-have-artists']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>check</td>
+	<td>xpath=//div[@id='track-parser-dialog']//input[@name='use-numbers']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>uncheck</td>
+	<td>xpath=//div[@id='track-parser-dialog']//input[@name='use-artists']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>uncheck</td>
+	<td>xpath=//div[@id='track-parser-dialog']//input[@name='use-titles']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>check</td>
+	<td>xpath=//div[@id='track-parser-dialog']//input[@name='use-lengths']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>xpath=//div[@id='track-parser-dialog']//button[contains(text(), 'Parse Tracks')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>xpath=//div[@id='track-parser-dialog']//button[contains(text(), 'Close')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>xpath=(//tr[contains(@class, 'track')])[12]//input[contains(@class, 'pos')]</td>
+	<td>B5</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>xpath=(//tr[contains(@class, 'track')])[12]//input[contains(@class, 'track-length')]</td>
+	<td>6:52</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>xpath=(//tr[contains(@class, 'track')])[13]//input[contains(@class, 'pos')]</td>
+	<td>B6</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>xpath=(//tr[contains(@class, 'track')])[13]//input[contains(@class, 'track-length')]</td>
+	<td>3:57</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>xpath=(//tr[contains(@class, 'track')])[14]//input[contains(@class, 'pos')]</td>
+	<td>B7</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>xpath=(//tr[contains(@class, 'track')])[14]//input[contains(@class, 'track-length')]</td>
+	<td>6:14</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>xpath=(//tr[contains(@class, 'track')])[1]//button[contains(@class, 'open-ac')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>check</td>
+	<td>xpath=//input[@id = 'change-matching-artists']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>500</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>xpath=//div[@id='artist-credit-bubble']//input[contains(@id, 'credited-as')]</td>
+	<td>Nine Inch Nails</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>xpath=//div[@id='artist-credit-bubble']//button[text() = 'Done']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>xpath=//a[@href='#recordings']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>check</td>
+	<td>id=update-all-recording-artists</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>xpath=//a[@href='#edit-note']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>id=enter-edit</td>
+	<td></td>
+</tr>
+<!-- Check that the submitted release information is correct. -->
+<tr>
+	<td>assertText</td>
+	<td>css=h1</td>
+	<td>The Downward Spiral</td>
+</tr>
+<tr>
+	<td>assertTextMatches</td>
+	<td>css=h1 + p.subheader</td>
+	<td>Release by Nine Inch Nails</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>css=.annotation-body</td>
+	<td>also known as halo eight</td>
+</tr>
+<tr>
+	<td>assertEval</td>
+	<td>Array.from(document.querySelectorAll('table.medium > tbody > tr')).slice(1).map(x => Array.from(x.querySelectorAll('td')).filter(x => !x.classList.contains('rating')).map(x => x.textContent.trim()).join('\t')).join('\n')</td>
+	<td>A1	Mr Self Destruct	4:31
+A2	Piggy	4:24
+A3	Heresy	3:54
+A4	March of the Pigs	2:58
+A5	Closer	6:13
+A6	Ruiner	4:59
+A7	The Becoming	5:32
+B1	I Do Not Want This	5:41
+B2	Big Man With a Gun	1:36
+B3	A Warm Place	3:23
+B4	Eraser	4:54
+B5	Reptile	6:52
+B6	The Downward Spiral	3:57
+B7	Hurt	6:14</td>
+</tr>
+<tr>
+	<td>assertEval</td>
+	<td>document.querySelector('h2.release-information + dl.properties').textContent.trim()</td>
+	<td>Barcode:
+765449234620
+Format:
+CD
+Length:
+1:05:08</td>
+</tr>
+<tr>
+	<td>assertEval</td>
+	<td>document.querySelector('h2.additional-details + dl.properties').textContent.trim()</td>
+	<td>Type:
+Single
+Packaging:
+Jewel Case
+Status:
+Official
+Language:
+English
+Script:
+Latin
+Data Quality:
+Normal</td>
+</tr>
+<tr>
+	<td>assertEval</td>
+	<td>Array.from(document.querySelectorAll('h2.labels + ul.links > li')).map(x => Array.from(x.childNodes).map(y => y.textContent.trim()).filter(x => x).join('\t')).join('\n')</td>
+	<td>Interscope Records	92346-2
+TVT Records	92346-2
+Nothing Records</td>
+</tr>
+<tr>
+	<td>assertEval</td>
+	<td>Array.from(document.querySelectorAll('h2.release-events + ul.links > li')).map(x => Array.from(x.childNodes).map(y => y.textContent.trim()).filter(x => x).join('\t')).join('\n')</td>
+	<td>United States	1994-03-08</td>
+</tr>
+<tr>
+	<td>assertEditData</td>
+	<td>10</td>
+	<td>
+		{
+		  "type": 32,
+		  "status": 2,
+		  "data": {
+		    "new": {
+		      "name": "The Downward Spiral",
+		      "events": [
+		        {
+		          "date": {
+		            "day": 8,
+		            "year": 1994,
+		            "month": 3
+		          },
+		          "country_id": "222"
+		        }
+		      ],
+		      "barcode": "765449234620",
+		      "comment": "",
+		      "script_id": 28,
+		      "status_id": 1,
+		      "language_id": 120,
+		      "packaging_id": 1
+		    },
+		    "old": {
+		      "name": "The Downword Spiral",
+		      "events": [
+		        {
+		          "date": {
+		            "day": null,
+		            "year": 1995,
+		            "month": null
+		          },
+		          "country_id": 222
+		        },
+		        {
+		          "date": {
+		            "day": null,
+		            "year": null,
+		            "month": 12
+		          },
+		          "country_id": null
+		        },
+		        {
+		          "date": {
+		            "day": null,
+		            "year": null,
+		            "month": null
+		          },
+		          "country_id": 73
+		        }
+		      ],
+		      "barcode": "",
+		      "comment": ".",
+		      "script_id": "112",
+		      "status_id": "3",
+		      "language_id": "145",
+		      "packaging_id": "3"
+		    },
+		    "entity": {
+		      "id": 1,
+		      "gid": ignore,
+		      "name": "The Downword Spiral"
+		    }
+		  }
+		}
+	</td>
+</tr>
+<tr>
+	<td>assertEditData</td>
+	<td>11</td>
+	<td>
+		{
+		  "type": 37,
+		  "status": 2,
+		  "data": {
+		    "new": {
+		      "catalog_number": "92346-2"
+		    },
+		    "old": {
+		      "label": {
+		        "id": 620,
+		        "gid": "2182a316-c4bd-4605-936a-5e2fac52bdd2",
+		        "name": "Interscope Records"
+		      },
+		      "catalog_number": "INTD‐92346"
+		    },
+		    "release": {
+		      "id": 1,
+		      "gid": ignore,
+		      "name": "The Downward Spiral",
+		      "events": [
+		        {
+		          "date": "1994-03-08",
+		          "country": {
+		            "id": 222,
+		            "gid": "489ce91b-6658-3307-9877-795b68554c98",
+		            "name": "United States"
+		          }
+		        }
+		      ],
+		      "barcode": "765449234620",
+		      "medium_formats": [
+		        "(unknown)"
+		      ]
+		    },
+		    "release_label_id": 1
+		  }
+		}
+	</td>
+</tr>
+<tr>
+	<td>assertEditData</td>
+	<td>12</td>
+	<td>
+		{
+		  "type": 37,
+		  "status": 2,
+		  "data": {
+		    "new": {
+		      "label": {
+		        "id": 403,
+		        "gid": "c9117237-b78b-4e47-b452-c9d94fb34916",
+		        "name": "TVT Records"
+		      },
+		      "catalog_number": "92346-2"
+		    },
+		    "old": {
+		      "label": null,
+		      "catalog_number": "INTD‐92346"
+		    },
+		    "release": {
+		      "id": 1,
+		      "gid": ignore,
+		      "name": "The Downward Spiral",
+		      "events": [
+		        {
+		          "date": "1994-03-08",
+		          "country": {
+		            "id": 222,
+		            "gid": "489ce91b-6658-3307-9877-795b68554c98",
+		            "name": "United States"
+		          }
+		        }
+		      ],
+		      "barcode": "765449234620",
+		      "medium_formats": [
+		        "(unknown)"
+		      ]
+		    },
+		    "release_label_id": 3
+		  }
+		}
+	</td>
+</tr>
+<tr>
+	<td>assertEditData</td>
+	<td>13</td>
+	<td>
+		{
+		  "type": 72,
+		  "status": 1,
+		  "data": {
+		    "new": {
+		      "artist_credit": {
+		        "names": [
+		          {
+		            "name": "Nine Inch Nails",
+		            "artist": {
+		              "id": 347,
+		              "name": "Nine Inch Nails"
+		            },
+		            "join_phrase": ""
+		          }
+		        ]
+		      }
+		    },
+		    "old": {
+		      "artist_credit": {
+		        "names": [
+		          {
+		            "name": "nin",
+		            "artist": {
+		              "id": 347,
+		              "name": "Nine Inch Nails"
+		            },
+		            "join_phrase": ""
+		          }
+		        ]
+		      }
+		    },
+		    "entity": {
+		      "id": 2,
+		      "gid": ignore,
+		      "name": "Heresy"
+		    }
+		  }
+		}
+	</td>
+</tr>
+<tr>
+	<td>assertEditData</td>
+	<td>14</td>
+	<td>
+		{
+		  "type": 72,
+		  "status": 1,
+		  "data": {
+		    "new": {
+		      "artist_credit": {
+		        "names": [
+		          {
+		            "name": "Nine Inch Nails",
+		            "artist": {
+		              "id": 347,
+		              "name": "Nine Inch Nails"
+		            },
+		            "join_phrase": ""
+		          }
+		        ]
+		      }
+		    },
+		    "old": {
+		      "artist_credit": {
+		        "names": [
+		          {
+		            "name": "nin",
+		            "artist": {
+		              "id": 347,
+		              "name": "Nine Inch Nails"
+		            },
+		            "join_phrase": ""
+		          }
+		        ]
+		      }
+		    },
+		    "entity": {
+		      "id": 3,
+		      "gid": ignore,
+		      "name": "March of the Pigs"
+		    }
+		  }
+		}
+	</td>
+</tr>
+<tr>
+	<td>assertEditData</td>
+	<td>15</td>
+	<td>
+		{
+		  "type": 72,
+		  "status": 1,
+		  "data": {
+		    "new": {
+		      "artist_credit": {
+		        "names": [
+		          {
+		            "name": "Nine Inch Nails",
+		            "artist": {
+		              "id": 347,
+		              "name": "Nine Inch Nails"
+		            },
+		            "join_phrase": ""
+		          }
+		        ]
+		      }
+		    },
+		    "old": {
+		      "artist_credit": {
+		        "names": [
+		          {
+		            "name": "nin",
+		            "artist": {
+		              "id": 347,
+		              "name": "Nine Inch Nails"
+		            },
+		            "join_phrase": ""
+		          }
+		        ]
+		      }
+		    },
+		    "entity": {
+		      "id": 4,
+		      "gid": ignore,
+		      "name": "Closer"
+		    }
+		  }
+		}
+	</td>
+</tr>
+<tr>
+	<td>assertEditData</td>
+	<td>16</td>
+	<td>
+		{
+		  "type": 72,
+		  "status": 1,
+		  "data": {
+		    "new": {
+		      "artist_credit": {
+		        "names": [
+		          {
+		            "name": "Nine Inch Nails",
+		            "artist": {
+		              "id": 347,
+		              "name": "Nine Inch Nails"
+		            },
+		            "join_phrase": ""
+		          }
+		        ]
+		      }
+		    },
+		    "old": {
+		      "artist_credit": {
+		        "names": [
+		          {
+		            "name": "nin",
+		            "artist": {
+		              "id": 347,
+		              "name": "Nine Inch Nails"
+		            },
+		            "join_phrase": ""
+		          }
+		        ]
+		      }
+		    },
+		    "entity": {
+		      "id": 5,
+		      "gid": ignore,
+		      "name": "Ruiner"
+		    }
+		  }
+		}
+	</td>
+</tr>
+<tr>
+	<td>assertEditData</td>
+	<td>17</td>
+	<td>
+		{
+		  "type": 72,
+		  "status": 1,
+		  "data": {
+		    "new": {
+		      "artist_credit": {
+		        "names": [
+		          {
+		            "name": "Nine Inch Nails",
+		            "artist": {
+		              "id": 347,
+		              "name": "Nine Inch Nails"
+		            },
+		            "join_phrase": ""
+		          }
+		        ]
+		      }
+		    },
+		    "old": {
+		      "artist_credit": {
+		        "names": [
+		          {
+		            "name": "nin",
+		            "artist": {
+		              "id": 347,
+		              "name": "Nine Inch Nails"
+		            },
+		            "join_phrase": ""
+		          }
+		        ]
+		      }
+		    },
+		    "entity": {
+		      "id": 6,
+		      "gid": ignore,
+		      "name": "The Becoming"
+		    }
+		  }
+		}
+	</td>
+</tr>
+<tr>
+	<td>assertEditData</td>
+	<td>18</td>
+	<td>
+		{
+		  "type": 52,
+		  "status": 2,
+		  "data": {
+		    "new": {
+		      "format_id": 1,
+		      "tracklist": [
+		        {
+		          "id": 2,
+		          "name": "Mr Self Destruct",
+		          "length": 271000,
+		          "number": "A1",
+		          "position": 1,
+		          "recording_id": 164872,
+		          "artist_credit": {
+		            "names": [
+		              {
+		                "name": "Nine Inch Nails",
+		                "artist": {
+		                  "id": 347,
+		                  "name": "Nine Inch Nails"
+		                },
+		                "join_phrase": ""
+		              }
+		            ]
+		          },
+		          "is_data_track": "0"
+		        },
+		        {
+		          "id": 3,
+		          "name": "Piggy",
+		          "length": 264000,
+		          "number": "A2",
+		          "position": 2,
+		          "recording_id": 164873,
+		          "artist_credit": {
+		            "names": [
+		              {
+		                "name": "Nine Inch Nails",
+		                "artist": {
+		                  "id": 347,
+		                  "name": "Nine Inch Nails"
+		                },
+		                "join_phrase": ""
+		              }
+		            ]
+		          },
+		          "is_data_track": "0"
+		        },
+		        {
+		          "id": 4,
+		          "name": "Heresy",
+		          "length": 234000,
+		          "number": "A3",
+		          "position": 3,
+		          "recording_id": 2,
+		          "artist_credit": {
+		            "names": [
+		              {
+		                "name": "Nine Inch Nails",
+		                "artist": {
+		                  "id": 347,
+		                  "name": "Nine Inch Nails"
+		                },
+		                "join_phrase": ""
+		              }
+		            ]
+		          },
+		          "is_data_track": "0"
+		        },
+		        {
+		          "id": 5,
+		          "name": "March of the Pigs",
+		          "length": 178000,
+		          "number": "A4",
+		          "position": 4,
+		          "recording_id": 3,
+		          "artist_credit": {
+		            "names": [
+		              {
+		                "name": "Nine Inch Nails",
+		                "artist": {
+		                  "id": 347,
+		                  "name": "Nine Inch Nails"
+		                },
+		                "join_phrase": ""
+		              }
+		            ]
+		          },
+		          "is_data_track": "0"
+		        },
+		        {
+		          "id": 6,
+		          "name": "Closer",
+		          "length": 373000,
+		          "number": "A5",
+		          "position": 5,
+		          "recording_id": 4,
+		          "artist_credit": {
+		            "names": [
+		              {
+		                "name": "Nine Inch Nails",
+		                "artist": {
+		                  "id": 347,
+		                  "name": "Nine Inch Nails"
+		                },
+		                "join_phrase": ""
+		              }
+		            ]
+		          },
+		          "is_data_track": "0"
+		        },
+		        {
+		          "id": 7,
+		          "name": "Ruiner",
+		          "length": 299000,
+		          "number": "A6",
+		          "position": 6,
+		          "recording_id": 5,
+		          "artist_credit": {
+		            "names": [
+		              {
+		                "name": "Nine Inch Nails",
+		                "artist": {
+		                  "id": 347,
+		                  "name": "Nine Inch Nails"
+		                },
+		                "join_phrase": ""
+		              }
+		            ]
+		          },
+		          "is_data_track": "0"
+		        },
+		        {
+		          "id": 8,
+		          "name": "The Becoming",
+		          "length": 332000,
+		          "number": "A7",
+		          "position": 7,
+		          "recording_id": 6,
+		          "artist_credit": {
+		            "names": [
+		              {
+		                "name": "Nine Inch Nails",
+		                "artist": {
+		                  "id": 347,
+		                  "name": "Nine Inch Nails"
+		                },
+		                "join_phrase": ""
+		              }
+		            ]
+		          },
+		          "is_data_track": "0"
+		        },
+		        {
+		          "id": 10,
+		          "name": "I Do Not Want This",
+		          "length": 341000,
+		          "number": "B1",
+		          "position": 8,
+		          "recording_id": 8,
+		          "artist_credit": {
+		            "names": [
+		              {
+		                "name": "Nine Inch Nails",
+		                "artist": {
+		                  "id": 347,
+		                  "name": "Nine Inch Nails"
+		                },
+		                "join_phrase": ""
+		              }
+		            ]
+		          },
+		          "is_data_track": "0"
+		        },
+		        {
+		          "id": 9,
+		          "name": "Big Man With a Gun",
+		          "length": 96000,
+		          "number": "B2",
+		          "position": 9,
+		          "recording_id": 7,
+		          "artist_credit": {
+		            "names": [
+		              {
+		                "name": "Nine Inch Nails",
+		                "artist": {
+		                  "id": 347,
+		                  "name": "Nine Inch Nails"
+		                },
+		                "join_phrase": ""
+		              }
+		            ]
+		          },
+		          "is_data_track": "0"
+		        },
+		        {
+		          "id": 11,
+		          "name": "A Warm Place",
+		          "length": 203000,
+		          "number": "B3",
+		          "position": 10,
+		          "recording_id": 9,
+		          "artist_credit": {
+		            "names": [
+		              {
+		                "name": "Nine Inch Nails",
+		                "artist": {
+		                  "id": 347,
+		                  "name": "Nine Inch Nails"
+		                },
+		                "join_phrase": ""
+		              }
+		            ]
+		          },
+		          "is_data_track": "0"
+		        },
+		        {
+		          "id": 12,
+		          "name": "Eraser",
+		          "length": 294000,
+		          "number": "B4",
+		          "position": 11,
+		          "recording_id": 10,
+		          "artist_credit": {
+		            "names": [
+		              {
+		                "name": "Nine Inch Nails",
+		                "artist": {
+		                  "id": 347,
+		                  "name": "Nine Inch Nails"
+		                },
+		                "join_phrase": ""
+		              }
+		            ]
+		          },
+		          "is_data_track": "0"
+		        },
+		        {
+		          "id": 13,
+		          "name": "Reptile",
+		          "length": 412000,
+		          "number": "B5",
+		          "position": 12,
+		          "recording_id": 11,
+		          "artist_credit": {
+		            "names": [
+		              {
+		                "name": "Nine Inch Nails",
+		                "artist": {
+		                  "id": 347,
+		                  "name": "Nine Inch Nails"
+		                },
+		                "join_phrase": ""
+		              }
+		            ]
+		          },
+		          "is_data_track": "0"
+		        },
+		        {
+		          "id": 14,
+		          "name": "The Downward Spiral",
+		          "length": 237000,
+		          "number": "B6",
+		          "position": 13,
+		          "recording_id": 12,
+		          "artist_credit": {
+		            "names": [
+		              {
+		                "name": "Nine Inch Nails",
+		                "artist": {
+		                  "id": 347,
+		                  "name": "Nine Inch Nails"
+		                },
+		                "join_phrase": ""
+		              }
+		            ]
+		          },
+		          "is_data_track": "0"
+		        },
+		        {
+		          "id": 15,
+		          "name": "Hurt",
+		          "length": 374000,
+		          "number": "B7",
+		          "position": 14,
+		          "recording_id": 13,
+		          "artist_credit": {
+		            "names": [
+		              {
+		                "name": "Nine Inch Nails",
+		                "artist": {
+		                  "id": 347,
+		                  "name": "Nine Inch Nails"
+		                },
+		                "join_phrase": ""
+		              }
+		            ]
+		          },
+		          "is_data_track": "0"
+		        }
+		      ]
+		    },
+		    "old": {
+		      "format_id": null,
+		      "tracklist": [
+		        {
+		          "id": 1,
+		          "name": "Pregap",
+		          "length": null,
+		          "number": "0",
+		          "position": 0,
+		          "recording_id": 1,
+		          "artist_credit": {
+		            "names": [
+		              {
+		                "name": "Nine Inch Nails",
+		                "artist": {
+		                  "id": 347,
+		                  "name": "Nine Inch Nails"
+		                },
+		                "join_phrase": ""
+		              }
+		            ]
+		          },
+		          "is_data_track": "0"
+		        },
+		        {
+		          "id": 2,
+		          "name": "Mr Self Destruct",
+		          "length": 271000,
+		          "number": "A1",
+		          "position": 1,
+		          "recording_id": 164872,
+		          "artist_credit": {
+		            "names": [
+		              {
+		                "name": "nin",
+		                "artist": {
+		                  "id": 347,
+		                  "name": "Nine Inch Nails"
+		                },
+		                "join_phrase": ""
+		              }
+		            ]
+		          },
+		          "is_data_track": "0"
+		        },
+		        {
+		          "id": 3,
+		          "name": "Piggy",
+		          "length": 264000,
+		          "number": "A2",
+		          "position": 2,
+		          "recording_id": 164873,
+		          "artist_credit": {
+		            "names": [
+		              {
+		                "name": "nin",
+		                "artist": {
+		                  "id": 347,
+		                  "name": "Nine Inch Nails"
+		                },
+		                "join_phrase": ""
+		              }
+		            ]
+		          },
+		          "is_data_track": "0"
+		        },
+		        {
+		          "id": 4,
+		          "name": "Heresy",
+		          "length": 234000,
+		          "number": "A3",
+		          "position": 3,
+		          "recording_id": 2,
+		          "artist_credit": {
+		            "names": [
+		              {
+		                "name": "nin",
+		                "artist": {
+		                  "id": 347,
+		                  "name": "Nine Inch Nails"
+		                },
+		                "join_phrase": ""
+		              }
+		            ]
+		          },
+		          "is_data_track": "0"
+		        },
+		        {
+		          "id": 5,
+		          "name": "March of the Pigs",
+		          "length": 178000,
+		          "number": "A4",
+		          "position": 4,
+		          "recording_id": 3,
+		          "artist_credit": {
+		            "names": [
+		              {
+		                "name": "nin",
+		                "artist": {
+		                  "id": 347,
+		                  "name": "Nine Inch Nails"
+		                },
+		                "join_phrase": ""
+		              }
+		            ]
+		          },
+		          "is_data_track": "0"
+		        },
+		        {
+		          "id": 6,
+		          "name": "Closer",
+		          "length": 373000,
+		          "number": "A5",
+		          "position": 5,
+		          "recording_id": 4,
+		          "artist_credit": {
+		            "names": [
+		              {
+		                "name": "nin",
+		                "artist": {
+		                  "id": 347,
+		                  "name": "Nine Inch Nails"
+		                },
+		                "join_phrase": ""
+		              }
+		            ]
+		          },
+		          "is_data_track": "0"
+		        },
+		        {
+		          "id": 7,
+		          "name": "Ruiner",
+		          "length": 299000,
+		          "number": "A6",
+		          "position": 6,
+		          "recording_id": 5,
+		          "artist_credit": {
+		            "names": [
+		              {
+		                "name": "nin",
+		                "artist": {
+		                  "id": 347,
+		                  "name": "Nine Inch Nails"
+		                },
+		                "join_phrase": ""
+		              }
+		            ]
+		          },
+		          "is_data_track": "0"
+		        },
+		        {
+		          "id": 8,
+		          "name": "The Becoming",
+		          "length": 332000,
+		          "number": "A7",
+		          "position": 7,
+		          "recording_id": 6,
+		          "artist_credit": {
+		            "names": [
+		              {
+		                "name": "nin",
+		                "artist": {
+		                  "id": 347,
+		                  "name": "Nine Inch Nails"
+		                },
+		                "join_phrase": ""
+		              }
+		            ]
+		          },
+		          "is_data_track": "0"
+		        },
+		        {
+		          "id": 9,
+		          "name": "Big Man With a Gun",
+		          "length": null,
+		          "number": "8",
+		          "position": 8,
+		          "recording_id": 7,
+		          "artist_credit": {
+		            "names": [
+		              {
+		                "name": "Nine Inch Nails",
+		                "artist": {
+		                  "id": 347,
+		                  "name": "Nine Inch Nails"
+		                },
+		                "join_phrase": ""
+		              }
+		            ]
+		          },
+		          "is_data_track": "0"
+		        },
+		        {
+		          "id": 10,
+		          "name": "I Do Not Want This",
+		          "length": null,
+		          "number": "9",
+		          "position": 9,
+		          "recording_id": 8,
+		          "artist_credit": {
+		            "names": [
+		              {
+		                "name": "Nine Inch Nails",
+		                "artist": {
+		                  "id": 347,
+		                  "name": "Nine Inch Nails"
+		                },
+		                "join_phrase": ""
+		              }
+		            ]
+		          },
+		          "is_data_track": "0"
+		        },
+		        {
+		          "id": 11,
+		          "name": "A Warm Place",
+		          "length": null,
+		          "number": "10",
+		          "position": 10,
+		          "recording_id": 9,
+		          "artist_credit": {
+		            "names": [
+		              {
+		                "name": "Nine Inch Nails",
+		                "artist": {
+		                  "id": 347,
+		                  "name": "Nine Inch Nails"
+		                },
+		                "join_phrase": ""
+		              }
+		            ]
+		          },
+		          "is_data_track": "0"
+		        },
+		        {
+		          "id": 12,
+		          "name": "Eraser",
+		          "length": null,
+		          "number": "11",
+		          "position": 11,
+		          "recording_id": 10,
+		          "artist_credit": {
+		            "names": [
+		              {
+		                "name": "Nine Inch Nails",
+		                "artist": {
+		                  "id": 347,
+		                  "name": "Nine Inch Nails"
+		                },
+		                "join_phrase": ""
+		              }
+		            ]
+		          },
+		          "is_data_track": "0"
+		        },
+		        {
+		          "id": 13,
+		          "name": "Reptile",
+		          "length": null,
+		          "number": "12",
+		          "position": 12,
+		          "recording_id": 11,
+		          "artist_credit": {
+		            "names": [
+		              {
+		                "name": "Nine Inch Nails",
+		                "artist": {
+		                  "id": 347,
+		                  "name": "Nine Inch Nails"
+		                },
+		                "join_phrase": ""
+		              }
+		            ]
+		          },
+		          "is_data_track": "0"
+		        },
+		        {
+		          "id": 14,
+		          "name": "The Downward Spiral",
+		          "length": null,
+		          "number": "13",
+		          "position": 13,
+		          "recording_id": 12,
+		          "artist_credit": {
+		            "names": [
+		              {
+		                "name": "Nine Inch Nails",
+		                "artist": {
+		                  "id": 347,
+		                  "name": "Nine Inch Nails"
+		                },
+		                "join_phrase": ""
+		              }
+		            ]
+		          },
+		          "is_data_track": "0"
+		        },
+		        {
+		          "id": 15,
+		          "name": "Hurt",
+		          "length": null,
+		          "number": "14",
+		          "position": 14,
+		          "recording_id": 13,
+		          "artist_credit": {
+		            "names": [
+		              {
+		                "name": "Nine Inch Nails",
+		                "artist": {
+		                  "id": 347,
+		                  "name": "Nine Inch Nails"
+		                },
+		                "join_phrase": ""
+		              }
+		            ]
+		          },
+		          "is_data_track": "0"
+		        },
+		        {
+		          "id": 16,
+		          "name": "[data track]",
+		          "length": null,
+		          "number": "15",
+		          "position": 15,
+		          "recording_id": 14,
+		          "artist_credit": {
+		            "names": [
+		              {
+		                "name": "Nine Inch Nails",
+		                "artist": {
+		                  "id": 347,
+		                  "name": "Nine Inch Nails"
+		                },
+		                "join_phrase": ""
+		              }
+		            ]
+		          },
+		          "is_data_track": "1"
+		        }
+		      ]
+		    },
+		    "release": {
+		      "id": 1,
+		      "name": "The Downward Spiral"
+		    },
+		    "entity_id": 1
+		  }
+		}
+	</td>
+</tr>
+<!-- Reset the track numbers. -->
+	<td>clickAndWait</td>
+	<td>css=.tabs a[href$="/edit"]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>xpath=//a[@href='#tracklist']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>1000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=button.reset-track-numbers</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>xpath=//a[@href='#edit-note']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>id=enter-edit</td>
+	<td></td>
+</tr>
+<!-- Check that the submitted release information is correct. -->
+<tr>
+	<td>assertEval</td>
+	<td>Array.from(document.querySelectorAll('table.medium > tbody > tr')).slice(1).map(x => Array.from(x.querySelectorAll('td')).filter(x => !x.classList.contains('rating')).map(x => x.textContent.trim()).join('\t')).join('\n')</td>
+	<td>1	Mr Self Destruct	4:31
+2	Piggy	4:24
+3	Heresy	3:54
+4	March of the Pigs	2:58
+5	Closer	6:13
+6	Ruiner	4:59
+7	The Becoming	5:32
+8	I Do Not Want This	5:41
+9	Big Man With a Gun	1:36
+10	A Warm Place	3:23
+11	Eraser	4:54
+12	Reptile	6:52
+13	The Downward Spiral	3:57
+14	Hurt	6:14</td>
+</tr>
+<tr>
+	<td>assertEditData</td>
+	<td>19</td>
+	<td>
+		{
+		  "type": 52,
+		  "status": 2,
+		  "data": {
+		    "new": {
+		      "tracklist": [
+		        {
+		          "id": 2,
+		          "name": "Mr Self Destruct",
+		          "length": 271000,
+		          "number": "1",
+		          "position": 1,
+		          "recording_id": 164872,
+		          "artist_credit": {
+		            "names": [
+		              {
+		                "name": "Nine Inch Nails",
+		                "artist": {
+		                  "id": 347,
+		                  "name": "Nine Inch Nails"
+		                },
+		                "join_phrase": ""
+		              }
+		            ]
+		          },
+		          "is_data_track": "0"
+		        },
+		        {
+		          "id": 3,
+		          "name": "Piggy",
+		          "length": 264000,
+		          "number": "2",
+		          "position": 2,
+		          "recording_id": 164873,
+		          "artist_credit": {
+		            "names": [
+		              {
+		                "name": "Nine Inch Nails",
+		                "artist": {
+		                  "id": 347,
+		                  "name": "Nine Inch Nails"
+		                },
+		                "join_phrase": ""
+		              }
+		            ]
+		          },
+		          "is_data_track": "0"
+		        },
+		        {
+		          "id": 4,
+		          "name": "Heresy",
+		          "length": 234000,
+		          "number": "3",
+		          "position": 3,
+		          "recording_id": 2,
+		          "artist_credit": {
+		            "names": [
+		              {
+		                "name": "Nine Inch Nails",
+		                "artist": {
+		                  "id": 347,
+		                  "name": "Nine Inch Nails"
+		                },
+		                "join_phrase": ""
+		              }
+		            ]
+		          },
+		          "is_data_track": "0"
+		        },
+		        {
+		          "id": 5,
+		          "name": "March of the Pigs",
+		          "length": 178000,
+		          "number": "4",
+		          "position": 4,
+		          "recording_id": 3,
+		          "artist_credit": {
+		            "names": [
+		              {
+		                "name": "Nine Inch Nails",
+		                "artist": {
+		                  "id": 347,
+		                  "name": "Nine Inch Nails"
+		                },
+		                "join_phrase": ""
+		              }
+		            ]
+		          },
+		          "is_data_track": "0"
+		        },
+		        {
+		          "id": 6,
+		          "name": "Closer",
+		          "length": 373000,
+		          "number": "5",
+		          "position": 5,
+		          "recording_id": 4,
+		          "artist_credit": {
+		            "names": [
+		              {
+		                "name": "Nine Inch Nails",
+		                "artist": {
+		                  "id": 347,
+		                  "name": "Nine Inch Nails"
+		                },
+		                "join_phrase": ""
+		              }
+		            ]
+		          },
+		          "is_data_track": "0"
+		        },
+		        {
+		          "id": 7,
+		          "name": "Ruiner",
+		          "length": 299000,
+		          "number": "6",
+		          "position": 6,
+		          "recording_id": 5,
+		          "artist_credit": {
+		            "names": [
+		              {
+		                "name": "Nine Inch Nails",
+		                "artist": {
+		                  "id": 347,
+		                  "name": "Nine Inch Nails"
+		                },
+		                "join_phrase": ""
+		              }
+		            ]
+		          },
+		          "is_data_track": "0"
+		        },
+		        {
+		          "id": 8,
+		          "name": "The Becoming",
+		          "length": 332000,
+		          "number": "7",
+		          "position": 7,
+		          "recording_id": 6,
+		          "artist_credit": {
+		            "names": [
+		              {
+		                "name": "Nine Inch Nails",
+		                "artist": {
+		                  "id": 347,
+		                  "name": "Nine Inch Nails"
+		                },
+		                "join_phrase": ""
+		              }
+		            ]
+		          },
+		          "is_data_track": "0"
+		        },
+		        {
+		          "id": 10,
+		          "name": "I Do Not Want This",
+		          "length": 341000,
+		          "number": "8",
+		          "position": 8,
+		          "recording_id": 8,
+		          "artist_credit": {
+		            "names": [
+		              {
+		                "name": "Nine Inch Nails",
+		                "artist": {
+		                  "id": 347,
+		                  "name": "Nine Inch Nails"
+		                },
+		                "join_phrase": ""
+		              }
+		            ]
+		          },
+		          "is_data_track": "0"
+		        },
+		        {
+		          "id": 9,
+		          "name": "Big Man With a Gun",
+		          "length": 96000,
+		          "number": "9",
+		          "position": 9,
+		          "recording_id": 7,
+		          "artist_credit": {
+		            "names": [
+		              {
+		                "name": "Nine Inch Nails",
+		                "artist": {
+		                  "id": 347,
+		                  "name": "Nine Inch Nails"
+		                },
+		                "join_phrase": ""
+		              }
+		            ]
+		          },
+		          "is_data_track": "0"
+		        },
+		        {
+		          "id": 11,
+		          "name": "A Warm Place",
+		          "length": 203000,
+		          "number": "10",
+		          "position": 10,
+		          "recording_id": 9,
+		          "artist_credit": {
+		            "names": [
+		              {
+		                "name": "Nine Inch Nails",
+		                "artist": {
+		                  "id": 347,
+		                  "name": "Nine Inch Nails"
+		                },
+		                "join_phrase": ""
+		              }
+		            ]
+		          },
+		          "is_data_track": "0"
+		        },
+		        {
+		          "id": 12,
+		          "name": "Eraser",
+		          "length": 294000,
+		          "number": "11",
+		          "position": 11,
+		          "recording_id": 10,
+		          "artist_credit": {
+		            "names": [
+		              {
+		                "name": "Nine Inch Nails",
+		                "artist": {
+		                  "id": 347,
+		                  "name": "Nine Inch Nails"
+		                },
+		                "join_phrase": ""
+		              }
+		            ]
+		          },
+		          "is_data_track": "0"
+		        },
+		        {
+		          "id": 13,
+		          "name": "Reptile",
+		          "length": 412000,
+		          "number": "12",
+		          "position": 12,
+		          "recording_id": 11,
+		          "artist_credit": {
+		            "names": [
+		              {
+		                "name": "Nine Inch Nails",
+		                "artist": {
+		                  "id": 347,
+		                  "name": "Nine Inch Nails"
+		                },
+		                "join_phrase": ""
+		              }
+		            ]
+		          },
+		          "is_data_track": "0"
+		        },
+		        {
+		          "id": 14,
+		          "name": "The Downward Spiral",
+		          "length": 237000,
+		          "number": "13",
+		          "position": 13,
+		          "recording_id": 12,
+		          "artist_credit": {
+		            "names": [
+		              {
+		                "name": "Nine Inch Nails",
+		                "artist": {
+		                  "id": 347,
+		                  "name": "Nine Inch Nails"
+		                },
+		                "join_phrase": ""
+		              }
+		            ]
+		          },
+		          "is_data_track": "0"
+		        },
+		        {
+		          "id": 15,
+		          "name": "Hurt",
+		          "length": 374000,
+		          "number": "14",
+		          "position": 14,
+		          "recording_id": 13,
+		          "artist_credit": {
+		            "names": [
+		              {
+		                "name": "Nine Inch Nails",
+		                "artist": {
+		                  "id": 347,
+		                  "name": "Nine Inch Nails"
+		                },
+		                "join_phrase": ""
+		              }
+		            ]
+		          },
+		          "is_data_track": "0"
+		        }
+		      ]
+		    },
+		    "old": {
+		      "tracklist": [
+		        {
+		          "id": 2,
+		          "name": "Mr Self Destruct",
+		          "length": 271000,
+		          "number": "A1",
+		          "position": 1,
+		          "recording_id": 164872,
+		          "artist_credit": {
+		            "names": [
+		              {
+		                "name": "Nine Inch Nails",
+		                "artist": {
+		                  "id": 347,
+		                  "name": "Nine Inch Nails"
+		                },
+		                "join_phrase": ""
+		              }
+		            ]
+		          },
+		          "is_data_track": "0"
+		        },
+		        {
+		          "id": 3,
+		          "name": "Piggy",
+		          "length": 264000,
+		          "number": "A2",
+		          "position": 2,
+		          "recording_id": 164873,
+		          "artist_credit": {
+		            "names": [
+		              {
+		                "name": "Nine Inch Nails",
+		                "artist": {
+		                  "id": 347,
+		                  "name": "Nine Inch Nails"
+		                },
+		                "join_phrase": ""
+		              }
+		            ]
+		          },
+		          "is_data_track": "0"
+		        },
+		        {
+		          "id": 4,
+		          "name": "Heresy",
+		          "length": 234000,
+		          "number": "A3",
+		          "position": 3,
+		          "recording_id": 2,
+		          "artist_credit": {
+		            "names": [
+		              {
+		                "name": "Nine Inch Nails",
+		                "artist": {
+		                  "id": 347,
+		                  "name": "Nine Inch Nails"
+		                },
+		                "join_phrase": ""
+		              }
+		            ]
+		          },
+		          "is_data_track": "0"
+		        },
+		        {
+		          "id": 5,
+		          "name": "March of the Pigs",
+		          "length": 178000,
+		          "number": "A4",
+		          "position": 4,
+		          "recording_id": 3,
+		          "artist_credit": {
+		            "names": [
+		              {
+		                "name": "Nine Inch Nails",
+		                "artist": {
+		                  "id": 347,
+		                  "name": "Nine Inch Nails"
+		                },
+		                "join_phrase": ""
+		              }
+		            ]
+		          },
+		          "is_data_track": "0"
+		        },
+		        {
+		          "id": 6,
+		          "name": "Closer",
+		          "length": 373000,
+		          "number": "A5",
+		          "position": 5,
+		          "recording_id": 4,
+		          "artist_credit": {
+		            "names": [
+		              {
+		                "name": "Nine Inch Nails",
+		                "artist": {
+		                  "id": 347,
+		                  "name": "Nine Inch Nails"
+		                },
+		                "join_phrase": ""
+		              }
+		            ]
+		          },
+		          "is_data_track": "0"
+		        },
+		        {
+		          "id": 7,
+		          "name": "Ruiner",
+		          "length": 299000,
+		          "number": "A6",
+		          "position": 6,
+		          "recording_id": 5,
+		          "artist_credit": {
+		            "names": [
+		              {
+		                "name": "Nine Inch Nails",
+		                "artist": {
+		                  "id": 347,
+		                  "name": "Nine Inch Nails"
+		                },
+		                "join_phrase": ""
+		              }
+		            ]
+		          },
+		          "is_data_track": "0"
+		        },
+		        {
+		          "id": 8,
+		          "name": "The Becoming",
+		          "length": 332000,
+		          "number": "A7",
+		          "position": 7,
+		          "recording_id": 6,
+		          "artist_credit": {
+		            "names": [
+		              {
+		                "name": "Nine Inch Nails",
+		                "artist": {
+		                  "id": 347,
+		                  "name": "Nine Inch Nails"
+		                },
+		                "join_phrase": ""
+		              }
+		            ]
+		          },
+		          "is_data_track": "0"
+		        },
+		        {
+		          "id": 10,
+		          "name": "I Do Not Want This",
+		          "length": 341000,
+		          "number": "B1",
+		          "position": 8,
+		          "recording_id": 8,
+		          "artist_credit": {
+		            "names": [
+		              {
+		                "name": "Nine Inch Nails",
+		                "artist": {
+		                  "id": 347,
+		                  "name": "Nine Inch Nails"
+		                },
+		                "join_phrase": ""
+		              }
+		            ]
+		          },
+		          "is_data_track": "0"
+		        },
+		        {
+		          "id": 9,
+		          "name": "Big Man With a Gun",
+		          "length": 96000,
+		          "number": "B2",
+		          "position": 9,
+		          "recording_id": 7,
+		          "artist_credit": {
+		            "names": [
+		              {
+		                "name": "Nine Inch Nails",
+		                "artist": {
+		                  "id": 347,
+		                  "name": "Nine Inch Nails"
+		                },
+		                "join_phrase": ""
+		              }
+		            ]
+		          },
+		          "is_data_track": "0"
+		        },
+		        {
+		          "id": 11,
+		          "name": "A Warm Place",
+		          "length": 203000,
+		          "number": "B3",
+		          "position": 10,
+		          "recording_id": 9,
+		          "artist_credit": {
+		            "names": [
+		              {
+		                "name": "Nine Inch Nails",
+		                "artist": {
+		                  "id": 347,
+		                  "name": "Nine Inch Nails"
+		                },
+		                "join_phrase": ""
+		              }
+		            ]
+		          },
+		          "is_data_track": "0"
+		        },
+		        {
+		          "id": 12,
+		          "name": "Eraser",
+		          "length": 294000,
+		          "number": "B4",
+		          "position": 11,
+		          "recording_id": 10,
+		          "artist_credit": {
+		            "names": [
+		              {
+		                "name": "Nine Inch Nails",
+		                "artist": {
+		                  "id": 347,
+		                  "name": "Nine Inch Nails"
+		                },
+		                "join_phrase": ""
+		              }
+		            ]
+		          },
+		          "is_data_track": "0"
+		        },
+		        {
+		          "id": 13,
+		          "name": "Reptile",
+		          "length": 412000,
+		          "number": "B5",
+		          "position": 12,
+		          "recording_id": 11,
+		          "artist_credit": {
+		            "names": [
+		              {
+		                "name": "Nine Inch Nails",
+		                "artist": {
+		                  "id": 347,
+		                  "name": "Nine Inch Nails"
+		                },
+		                "join_phrase": ""
+		              }
+		            ]
+		          },
+		          "is_data_track": "0"
+		        },
+		        {
+		          "id": 14,
+		          "name": "The Downward Spiral",
+		          "length": 237000,
+		          "number": "B6",
+		          "position": 13,
+		          "recording_id": 12,
+		          "artist_credit": {
+		            "names": [
+		              {
+		                "name": "Nine Inch Nails",
+		                "artist": {
+		                  "id": 347,
+		                  "name": "Nine Inch Nails"
+		                },
+		                "join_phrase": ""
+		              }
+		            ]
+		          },
+		          "is_data_track": "0"
+		        },
+		        {
+		          "id": 15,
+		          "name": "Hurt",
+		          "length": 374000,
+		          "number": "B7",
+		          "position": 14,
+		          "recording_id": 13,
+		          "artist_credit": {
+		            "names": [
+		              {
+		                "name": "Nine Inch Nails",
+		                "artist": {
+		                  "id": 347,
+		                  "name": "Nine Inch Nails"
+		                },
+		                "join_phrase": ""
+		              }
+		            ]
+		          },
+		          "is_data_track": "0"
+		        }
+		      ]
+		    },
+		    "release": {
+		      "id": 1,
+		      "name": "The Downward Spiral"
+		    },
+		    "entity_id": 1
+		  }
+		}
+	</td>
+</tr>
+</tbody></table>
+</body>
+</html>

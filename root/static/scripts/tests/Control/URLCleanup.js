@@ -361,21 +361,21 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
                              input_url: 'https://davidrovics.bandcamp.com?test',
                      input_entity_type: 'artist',
             expected_relationship_type: 'bandcamp',
-                    expected_clean_url: 'http://davidrovics.bandcamp.com/',
+                    expected_clean_url: 'https://davidrovics.bandcamp.com/',
                only_valid_entity_types: ['artist', 'label']
         },
         {
                              input_url: 'http://idiotsikker.bandcamp.com/tra#top',
                      input_entity_type: 'label',
             expected_relationship_type: 'bandcamp',
-                    expected_clean_url: 'http://idiotsikker.bandcamp.com/',
+                    expected_clean_url: 'https://idiotsikker.bandcamp.com/',
                only_valid_entity_types: ['artist', 'label']
         },
         {
                              input_url: 'https://andrewhuang.bandcamp.com/track/boom-box/?test',
                      input_entity_type: 'recording',
             expected_relationship_type: undefined,
-                    expected_clean_url: 'http://andrewhuang.bandcamp.com/track/boom-box',
+                    expected_clean_url: 'https://andrewhuang.bandcamp.com/track/boom-box',
                input_relationship_type: 'bandcamp',
                only_valid_entity_types: []
         },
@@ -383,7 +383,7 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
                              input_url: 'http://fieldtriptothemoon.bandcamp.com/album/something-owed',
                      input_entity_type: 'release',
             expected_relationship_type: undefined,
-                    expected_clean_url: 'http://fieldtriptothemoon.bandcamp.com/album/something-owed',
+                    expected_clean_url: 'https://fieldtriptothemoon.bandcamp.com/album/something-owed',
                input_relationship_type: 'downloadpurchase',
                only_valid_entity_types: ['recording', 'release']
         },
@@ -432,9 +432,85 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
         },
         // Beatport
         {
-                             input_url: 'http://www.beatport.com/release/summertime-sadness-cedric-gervais-remix/1029002',
+                             input_url: 'http://dj.beatport.com/thegoldenboyuk',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'downloadpurchase',
+               only_valid_entity_types: []
+        },
+        {
+                             input_url: 'http://mixes.beatport.com/dj/lstunn/450603',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'downloadpurchase',
+               only_valid_entity_types: []
+        },
+        {
+                             input_url: 'http://sounds.beatport.com/publisher/Danyella/34462',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'downloadpurchase',
+               only_valid_entity_types: []
+        },
+        {
+                             input_url: 'beatport.com/artist/pryda/10554',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'downloadpurchase',
+                    expected_clean_url: 'https://www.beatport.com/artist/pryda/10554',
+               only_valid_entity_types: ['artist']
+        },
+        {
+                             input_url: 'http://classic.beatport.com/artist/pryda/10554/tracks',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'downloadpurchase',
+                    expected_clean_url: 'https://www.beatport.com/artist/pryda/10554',
+               only_valid_entity_types: ['artist']
+        },
+        {
+                             input_url: 'https://pro.beatport.com/artist/pryda/10554#',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'downloadpurchase',
+                    expected_clean_url: 'https://www.beatport.com/artist/pryda/10554',
+               only_valid_entity_types: ['artist']
+        },
+        {
+                             input_url: 'https://www.beatport.com/release/pryda-10-vol-i/1563118',
                      input_entity_type: 'release',
             expected_relationship_type: 'downloadpurchase',
+                    expected_clean_url: 'https://www.beatport.com/release/pryda-10-vol-i/1563118',
+               only_valid_entity_types: ['release']
+        },
+        {
+                             input_url: 'https://www.beatport.com/chart/eric-prydz-february-chart/32623',
+                     input_entity_type: 'release',
+            expected_relationship_type: 'downloadpurchase',
+                    expected_clean_url: 'https://www.beatport.com/chart/eric-prydz-february-chart/32623',
+               only_valid_entity_types: ['release']
+        },
+        {
+                             input_url: 'https://www.beatport.com/stem-pack/my-colors-ep/3030',
+                     input_entity_type: 'release',
+            expected_relationship_type: 'downloadpurchase',
+                    expected_clean_url: 'https://www.beatport.com/stem-pack/my-colors-ep/3030',
+               only_valid_entity_types: ['release']
+        },
+        {
+                             input_url: 'https://www.beatport.com/stem/celestial/7380',
+                     input_entity_type: 'recording',
+            expected_relationship_type: 'downloadpurchase',
+                    expected_clean_url: 'https://www.beatport.com/stem/celestial/7380',
+               only_valid_entity_types: ['recording']
+        },
+        {
+                             input_url: 'https://www.beatport.com/track/full-stop-original-mix/1682783',
+                     input_entity_type: 'recording',
+            expected_relationship_type: 'downloadpurchase',
+                    expected_clean_url: 'https://www.beatport.com/track/full-stop-original-mix/1682783',
+               only_valid_entity_types: ['recording']
+        },
+        {
+                             input_url: 'https://www.beatport.com/label/mouseville/1421',
+                     input_entity_type: 'label',
+            expected_relationship_type: 'downloadpurchase',
+                    expected_clean_url: 'https://www.beatport.com/label/mouseville/1421',
+               only_valid_entity_types: ['label']
         },
         // Biblioteka Polskiej Piosenki
         {
@@ -496,35 +572,35 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
                      input_entity_type: 'artist',
             expected_relationship_type: 'otherdatabases',
                     expected_clean_url: 'http://catalogue.bnf.fr/ark:/12148/cb11923342r',
-               only_valid_entity_types: ['artist', 'label', 'place', 'series', 'work']
+               only_valid_entity_types: ['artist', 'instrument', 'label', 'place', 'series', 'work']
         },
         {
                              input_url: 'catalogue.bnf.fr/ark:/12148/cb11923342r',
                      input_entity_type: 'artist',
             expected_relationship_type: 'otherdatabases',
                     expected_clean_url: 'http://catalogue.bnf.fr/ark:/12148/cb11923342r',
-               only_valid_entity_types: ['artist', 'label', 'place', 'series', 'work']
+               only_valid_entity_types: ['artist', 'instrument', 'label', 'place', 'series', 'work']
         },
         {
                              input_url: 'http://data.bnf.fr/ark:/12148/cb11923342r',
                      input_entity_type: 'artist',
             expected_relationship_type: 'otherdatabases',
                     expected_clean_url: 'http://catalogue.bnf.fr/ark:/12148/cb11923342r',
-               only_valid_entity_types: ['artist', 'label', 'place', 'series', 'work']
+               only_valid_entity_types: ['artist', 'instrument', 'label', 'place', 'series', 'work']
         },
         {
                              input_url: 'https://data.bnf.fr/11923342/antoine_de_saint-exupery/',
                      input_entity_type: 'artist',
             expected_relationship_type: 'otherdatabases',
                     expected_clean_url: 'http://catalogue.bnf.fr/ark:/12148/cb11923342r',
-               only_valid_entity_types: ['artist', 'label', 'place', 'series', 'work']
+               only_valid_entity_types: ['artist', 'instrument', 'label', 'place', 'series', 'work']
         },
         {
                              input_url: 'http://data.bnf.fr/linked-authors/11923342/r/220',
                      input_entity_type: 'artist',
             expected_relationship_type: 'otherdatabases',
                     expected_clean_url: 'http://catalogue.bnf.fr/ark:/12148/cb11923342r',
-               only_valid_entity_types: ['artist', 'label', 'place', 'series', 'work']
+               only_valid_entity_types: ['artist', 'instrument', 'label', 'place', 'series', 'work']
         },
         {
                              input_url: 'catalogue.bnf.fr/ark:/12148/cb394875737.unimarc',
@@ -541,18 +617,25 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
                only_valid_entity_types: ['event', 'release', 'series']
         },
         {
+                             input_url: 'http://n2t.net/ark:/12148/cb119983474',
+                     input_entity_type: 'instrument',
+            expected_relationship_type: 'otherdatabases',
+                    expected_clean_url: 'http://catalogue.bnf.fr/ark:/12148/cb119983474',
+               only_valid_entity_types: ['artist', 'instrument', 'label', 'place', 'series', 'work']
+        },
+        {
                              input_url: 'http://catalogue.bnf.fr/ark:/12148/cb13875048m/PUBLIC',
                      input_entity_type: 'label',
             expected_relationship_type: 'otherdatabases',
                     expected_clean_url: 'http://catalogue.bnf.fr/ark:/12148/cb13875048m',
-               only_valid_entity_types: ['artist', 'label', 'place', 'series', 'work']
+               only_valid_entity_types: ['artist', 'instrument', 'label', 'place', 'series', 'work']
         },
         {
                              input_url: 'http://catalogue.bnf.fr/ark:/12148/cb16215568r#noticeNum',
                      input_entity_type: 'place',
             expected_relationship_type: 'otherdatabases',
                     expected_clean_url: 'http://catalogue.bnf.fr/ark:/12148/cb16215568r',
-               only_valid_entity_types: ['artist', 'label', 'place', 'series', 'work']
+               only_valid_entity_types: ['artist', 'instrument', 'label', 'place', 'series', 'work']
         },
         {
                              input_url: 'http://catalogue.bnf.fr/ark:/12148/cb37879365r',
@@ -585,7 +668,7 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
                      input_entity_type: 'work',
             expected_relationship_type: 'otherdatabases',
                     expected_clean_url: 'http://catalogue.bnf.fr/ark:/12148/cb11962706k',
-               only_valid_entity_types: ['artist', 'label', 'place', 'series', 'work']
+               only_valid_entity_types: ['artist', 'instrument', 'label', 'place', 'series', 'work']
         },
         // BookBrainz
         {
@@ -987,6 +1070,63 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
             expected_relationship_type: 'discogs',
                     expected_clean_url: 'https://www.discogs.com/release/5578',
         },
+        // DRAM
+        {
+                             input_url: 'http://www.dramonline.org/composers/buren-john-van',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'otherdatabases',
+                    expected_clean_url: 'https://www.dramonline.org/composers/buren-john-van',
+               only_valid_entity_types: ['artist']
+        },
+        {
+                             input_url: 'dramonline.org/ensembles/portland-youth-philharmonic?t=work&o=title&d=0',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'otherdatabases',
+                    expected_clean_url: 'https://www.dramonline.org/ensembles/portland-youth-philharmonic',
+               only_valid_entity_types: ['artist']
+        },
+        {
+                             input_url: 'https://www.dramonline.org/performers/avshalomov-jacob#',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'otherdatabases',
+                    expected_clean_url: 'https://www.dramonline.org/performers/avshalomov-jacob',
+               only_valid_entity_types: ['artist']
+        },
+        {
+                             input_url: 'http://dramonline.org/albums/oregon-composers',
+                     input_entity_type: 'release',
+            expected_relationship_type: 'otherdatabases',
+                    expected_clean_url: 'https://www.dramonline.org/albums/oregon-composers',
+               only_valid_entity_types: ['release']
+        },
+        {
+                             input_url: 'http://www.dramonline.org/albums/oregon-composers?track/delphic-suite-lament-from-troy',
+                     input_entity_type: 'recording',
+            expected_relationship_type: 'otherdatabases',
+                    expected_clean_url: 'https://www.dramonline.org/albums/oregon-composers',
+               only_valid_entity_types: ['release']
+        },
+        {
+                             input_url: 'https://www.dramonline.org/albums/oregon-composers?work/delphic-suite',
+                     input_entity_type: 'work',
+            expected_relationship_type: 'otherdatabases',
+                    expected_clean_url: 'https://www.dramonline.org/albums/oregon-composers',
+               only_valid_entity_types: ['release']
+        },
+        {
+                             input_url: 'http://www.dramonline.org/labels/albany-records',
+                     input_entity_type: 'label',
+            expected_relationship_type: 'otherdatabases',
+                    expected_clean_url: 'https://www.dramonline.org/labels/albany-records',
+               only_valid_entity_types: ['label']
+        },
+        {
+                             input_url: 'http://www.dramonline.org/instruments/brass/natural-horn',
+                     input_entity_type: 'instrument',
+            expected_relationship_type: 'otherdatabases',
+                    expected_clean_url: 'https://www.dramonline.org/instruments/brass/natural-horn',
+               only_valid_entity_types: ['instrument']
+        },
         // Drip
         {
                              input_url: 'https://d.rip/ehaidle/posts/RHJvcFBvc3QtMzQ4',
@@ -1171,13 +1311,13 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
         {
                              input_url: 'https://play.google.com/store/music/artist/Daylight?id=Ab34l5k2zbtfv2uwitbfwrwyufy',
                      input_entity_type: 'artist',
-            expected_relationship_type: 'downloadpurchase',
+            expected_relationship_type: undefined,
                     expected_clean_url: 'https://play.google.com/store/music/artist?id=Ab34l5k2zbtfv2uwitbfwrwyufy',
         },
         {
                              input_url: 'http://play.google.com/store/music/artist?id=Aathd3z2apf2hbln4wgkrthmhqu',
                      input_entity_type: 'artist',
-            expected_relationship_type: 'downloadpurchase',
+            expected_relationship_type: undefined,
                     expected_clean_url: 'https://play.google.com/store/music/artist?id=Aathd3z2apf2hbln4wgkrthmhqu',
         },
         {
@@ -1189,13 +1329,13 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
         {
                              input_url: 'https://play.google.com/store/music/artist/Julia_Haltigan_The_Hooligans?id=Avnwgjjbdf6la5zvdjf62k4jylq&hl=en',
                      input_entity_type: 'artist',
-            expected_relationship_type: 'downloadpurchase',
+            expected_relationship_type: undefined,
                     expected_clean_url: 'https://play.google.com/store/music/artist?id=Avnwgjjbdf6la5zvdjf62k4jylq',
         },
         {
                              input_url: 'https://play.google.com/store/music/album/Disasterpeace_The_Floor_is_Jelly_Original_Soundtra?id=Bxpxunylzxqoqiiostyvocjtuu4',
                      input_entity_type: 'release',
-            expected_relationship_type: 'downloadpurchase',
+            expected_relationship_type: undefined,
                     expected_clean_url: 'https://play.google.com/store/music/album?id=Bxpxunylzxqoqiiostyvocjtuu4',
         },
         // HMiku (Miku Hatsune) Wiki
@@ -1573,6 +1713,14 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
                              input_url: 'https://www.last.fm/it/label/Shyrec#shoutbox',
                     expected_clean_url: 'http://www.last.fm/label/Shyrec',
         },
+        // Library of Congress Linked Data Service
+        {
+                             input_url: 'http://id.loc.gov/authorities/names/n79018119.html#tab1',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'otherdatabases',
+                    expected_clean_url: 'http://id.loc.gov/authorities/names/n79018119',
+               only_valid_entity_types: ['artist']
+        },
         // LiederNet Archive
         {
                              input_url: 'http://www.lieder.net/lieder/get_text.html?TextId=6448',
@@ -1717,6 +1865,12 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
                              input_url: 'mora.jp/package/43000002/ANTCD-3106/',
                     expected_clean_url: 'http://mora.jp/package/43000002/ANTCD-3106/',
         },
+        // Musa24
+        {
+                             input_url: 'https://www.musa24.fi/albumi/Matti-ja-Teppo/Nostalgiaa/a1481d06-ee36-844b-bf7f-e8c4f714591b/',
+                     input_entity_type: 'release',
+            expected_relationship_type: 'downloadpurchase',
+        },
         // MusicaPopular.cl
         {
                              input_url: 'musicapopular.cl/artista/sensorama-19-81/',
@@ -1819,6 +1973,14 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
                     expected_clean_url: 'https://www.musixmatch.com/lyrics/Mark-Ronson-feat-Bruno-Mars/Uptown-Funk',
                only_valid_entity_types: ['work']
         },
+        // Musopen
+        {
+                             input_url: 'https://musopen.org/music/7887-elegie-op-24/#recordings',
+                     input_entity_type: 'work',
+            expected_relationship_type: 'score',
+                    expected_clean_url: 'https://musopen.org/music/7887/',
+               only_valid_entity_types: ['work']
+        },
         // mvdbase.com (The Music Video DataBase)
         {
                              input_url: 'http://www.mvdbase.com/video.php?id=4',
@@ -1854,6 +2016,21 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
                              input_url: 'http://www.naxos.com/catalogue/item.asp?item_code=8.553162',
                      input_entity_type: 'release',
             expected_relationship_type: 'discographyentry',
+        },
+        // NDL (National Diet Library) Authorities
+        {
+                             input_url: 'id.ndl.go.jp/auth/ndlna/00151866#authdesc',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'otherdatabases',
+                    expected_clean_url: 'https://id.ndl.go.jp/auth/ndlna/00151866',
+               only_valid_entity_types: ['artist']
+        },
+        {
+                             input_url: 'https://id.ndl.go.jp/auth/ndlna/00151866.rdf',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'otherdatabases',
+                    expected_clean_url: 'https://id.ndl.go.jp/auth/ndlna/00151866',
+               only_valid_entity_types: ['artist']
         },
         // Ney Nota Arşivi
         {
@@ -2109,6 +2286,28 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
             expected_relationship_type: 'socialnetwork',
                     expected_clean_url: 'http://www.reverbnation.com/tomorrowsyesterdayband',
         },
+        // Prog Archives
+        {
+                             input_url: 'http://www.progarchives.com/artist.asp?id=105#discography',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'otherdatabases',
+                    expected_clean_url: 'https://www.progarchives.com/artist.asp?id=105',
+               only_valid_entity_types: ['artist']
+        },
+        {
+                             input_url: 'progarchives.com/album.asp?id=00001823',
+                     input_entity_type: 'release_group',
+            expected_relationship_type: 'otherdatabases',
+                    expected_clean_url: 'https://www.progarchives.com/album.asp?id=1823',
+               only_valid_entity_types: ['release_group']
+        },
+        {
+                             input_url: 'https://www.progarchives.com/Collaborators.asp?id=9702',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'otherdatabases',
+                    expected_clean_url: 'https://www.progarchives.com/Collaborators.asp?id=9702',
+               only_valid_entity_types: []
+        },
         // Rock.com.ar
         {
                              input_url: 'http://rock.com.ar/artistas/200',
@@ -2277,11 +2476,39 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
             expected_relationship_type: 'setlistfm',
                only_valid_entity_types: ['place']
         },
+        {
+                             input_url: 'http://www.setlist.fm/festivals/house-of-blues-new-orleans-la-usa-23d61c9f.html',
+                     input_entity_type: 'series',
+            expected_relationship_type: 'setlistfm',
+               only_valid_entity_types: ['series']
+        },
         // (SMDB) Svensk mediedatabas
         {
                              input_url: 'http://smdb.kb.se/catalog/id/001508972',
                      input_entity_type: 'release_group',
             expected_relationship_type: 'otherdatabases',
+        },
+        // (SNAC) Social Networks and Archival Context
+        {
+                             input_url: 'http://snaccooperative.org/ark:/99166/w6mq170x#',
+                     input_entity_type: 'label',
+            expected_relationship_type: 'otherdatabases',
+                    expected_clean_url: 'http://snaccooperative.org/ark:/99166/w6mq170x',
+               only_valid_entity_types: ['artist', 'label']
+        },
+        {
+                             input_url: 'https://n2t.net/ark:/99166/w6mq170x',
+                     input_entity_type: 'label',
+            expected_relationship_type: 'otherdatabases',
+                    expected_clean_url: 'http://snaccooperative.org/ark:/99166/w6mq170x',
+               only_valid_entity_types: ['artist', 'label']
+        },
+        {
+                             input_url: 'http://snaccooperative.org/view/14820000',
+                     input_entity_type: 'label',
+            expected_relationship_type: 'otherdatabases',
+                    expected_clean_url: 'http://snaccooperative.org/view/14820000',
+               only_valid_entity_types: []
         },
         // Songkick
         {
@@ -2597,7 +2824,7 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
                      input_entity_type: 'release',
             expected_relationship_type: 'discographyentry',
         },
-        // UtaiteDB/VocaDB
+        // UtaiteDB/VocaDB/TouhouDB
         {
                              input_url: 'http://utaitedb.net/Ar/1#',
                      input_entity_type: 'artist',
@@ -2613,10 +2840,10 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
                only_valid_entity_types: ['artist', 'label']
         },
         {
-                             input_url: 'utaitedb.net/Al/4644',
+                             input_url: 'touhoudb.net/Al/4644',
                      input_entity_type: 'release',
             expected_relationship_type: 'otherdatabases',
-                    expected_clean_url: 'https://utaitedb.net/Al/4644',
+                    expected_clean_url: 'https://touhoudb.net/Al/4644',
                only_valid_entity_types: ['release_group']
         },
         {

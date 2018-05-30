@@ -17,6 +17,7 @@ const clean = require('../../utility/clean');
 import formatDate from '../../utility/formatDate';
 const formatTrackLength = require('../../utility/formatTrackLength');
 const isBlank = require('../../utility/isBlank');
+const primaryAreaCode = require('../../utility/primaryAreaCode');
 const {localStorage} = require('../../utility/storage');
 
 require('../../../../lib/jquery-ui');
@@ -659,7 +660,11 @@ MB.Control.autocomplete_formatters = {
             var countryHTML = '';
 
             if (country) {
-                countryHTML = `<span class="flag flag-${country.code}"><abbr title="${country.name}">${country.code}</abbr></span>`;
+                const primaryCode = primaryAreaCode(country);
+                countryHTML = (
+                    `<span class="flag flag-${primaryCode}">` +
+                    `<abbr title="${country.name}">${primaryCode}</abbr></span>`
+                );
             }
 
             const date = formatDate(event.date);
@@ -938,6 +943,9 @@ function getCatalogNumber(releaseLabel) {
 }
 
 function renderContainingAreas(area) {
+    if (!area.containment) {
+        return '';
+    }
     return commaOnlyList(_(area.containment).map('name').value());
 }
 
@@ -1010,7 +1018,11 @@ ko.bindingHandlers.autocomplete = {
     init: function (element, valueAccessor) {
         var options = valueAccessor();
 
-        $(element).autocomplete(options);
+        $(element)
+            .autocomplete(options)
+            .data('ui-autocomplete')
+            .menu.element[0]
+            .setAttribute('data-input-id', element.id);
     }
 };
 

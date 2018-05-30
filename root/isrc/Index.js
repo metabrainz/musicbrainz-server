@@ -17,6 +17,7 @@ const EntityLink = require('../static/scripts/common/components/EntityLink');
 const {l, ln} = require('../static/scripts/common/i18n');
 const {artistCreditFromArray} = require('../static/scripts/common/immutable-entities');
 const formatTrackLength = require('../static/scripts/common/utility/formatTrackLength');
+import loopParity from '../utility/loopParity';
 
 type PropsT = {|
   +$c: CatalystContextT,
@@ -58,7 +59,7 @@ const Index = ({$c, isrcs, recordings}: PropsT) => {
           <tbody>
             {recordings.map((recording, index) => (
               <tr
-                className={(index + 1) % 2 ? 'odd' : 'even'}
+                className={loopParity(index)}
                 key={recording.id}
               >
                 {userExists ? (

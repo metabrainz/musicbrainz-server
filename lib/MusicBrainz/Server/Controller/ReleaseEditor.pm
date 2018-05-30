@@ -605,7 +605,7 @@ sub _report_unknown_fields
     my ($parent, $fields, $errors, @valid_fields) = @_;
 
     my %valid_keys = map { $_ => 1 } @valid_fields;
-    my @unknown_keys = grep { !exists $valid_keys{$_} } keys %$fields;
+    my @unknown_keys = sort { $a cmp $b } grep { !exists $valid_keys{$_} } keys %$fields;
 
     push @$errors, map {
         "Unknown field: " . ($parent ? "$parent." : "") . "$_"
