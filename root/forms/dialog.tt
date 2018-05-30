@@ -8,8 +8,15 @@
       </script>
     </head>
   [% ELSE %]
-    [%- React.embed(c, 'layout/components/Head', {
+    [%- IF !gettext_domains;
+          SET gettext_domains = [];
+        END;
+        IF dialog_template == "work/edit_form.tt";
+          gettext_domains.push('attributes');
+        END;
+        React.embed(c, 'layout/components/Head', {
             canonical_url => canonical_url,
+            gettext_domains => gettext_domains,
             homepage => homepage,
             no_icons => no_icons,
             pager => pager,

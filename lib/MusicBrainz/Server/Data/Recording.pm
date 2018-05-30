@@ -427,7 +427,7 @@ sub find_recent_by_artists
         $search_url = sprintf('http://%s/ws/2/recording/?query=title:""',
                               DBDefs->SEARCH_SERVER);
     } else {
-        $search_url = sprintf('http://%s/recording/select?q=recording:*&wt=mbxml',
+        $search_url = sprintf('http://%s/recording/edismax?q=recording:*&wt=mbxml',
                               DBDefs->SEARCH_SERVER);
     }
 
