@@ -387,6 +387,20 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
                input_relationship_type: 'downloadpurchase',
                only_valid_entity_types: ['recording', 'release']
         },
+        {
+                             input_url: 'daily.bandcamp.com/2018/05/30/brownout-fear-of-a-brown-planet-album-review/#more-90177',
+                     input_entity_type: 'release_group',
+            expected_relationship_type: 'review',
+                    expected_clean_url: 'https://daily.bandcamp.com/2018/05/30/brownout-fear-of-a-brown-planet-album-review/',
+               only_valid_entity_types: ['release_group']
+        },
+        {
+                             input_url: 'http://daily.bandcamp.com/2018/05/30/gnawa-bandcamp-list',
+                     input_entity_type: 'release_group',
+            expected_relationship_type: 'review',
+                    expected_clean_url: 'https://daily.bandcamp.com/2018/05/30/gnawa-bandcamp-list/',
+               only_valid_entity_types: []
+        },
         // Bandsintown
         {
                              input_url: "https://m.bandsintown.com/MattDobberteen's50thBirthday?came_from=178",
