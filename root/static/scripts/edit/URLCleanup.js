@@ -1089,15 +1089,23 @@ const CLEANUPS = {
   },
   bandcamp: {
     match: [new RegExp("^(https?://)?([^/]+)\\.bandcamp\\.com","i")],
-    type: LINK_TYPES.bandcamp,
+    type: _.defaults({}, LINK_TYPES.bandcamp, LINK_TYPES.review),
     clean: function (url) {
-      return url.replace(/^(?:https?:\/\/)?([^\/]+)\.bandcamp\.com(?:\/(((album|track)\/([^\/\?]+)))?)?.*$/, "https://$1.bandcamp.com/$2");
+      url = url.replace(/^(?:https?:\/\/)?([^\/]+)\.bandcamp\.com([\/?#].*)?$/, "https://$1.bandcamp.com$2");
+      if (/^https:\/\/daily\.bandcamp\.com/.test(url)) {
+        url = url.replace(/^(?:https?:\/\/)?daily\.bandcamp\.com\/(\d+\/\d+\/\d+\/[\w-]+)(?:[\/?#].*)?$/, "https://daily.bandcamp.com/$1/");
+      } else {
+        url = url.replace(/^(?:https?:\/\/)?([^\/]+)\.bandcamp\.com(?:\/(((album|track)\/([^\/\?]+)))?)?.*$/, "https://$1.bandcamp.com/$2");
+      }
+      return url;
     },
     validate: function (url, id) {
       switch (id) {
         case LINK_TYPES.bandcamp.artist:
         case LINK_TYPES.bandcamp.label:
           return /^https:\/\/[^\/]+\.bandcamp\.com\/$/.test(url);
+        case LINK_TYPES.review.release_group:
+          return /^https:\/\/daily\.bandcamp\.com\/\d+\/\d+\/\d+\/[\w-]+-review\/$/.test(url);
       }
       return false;
     }
