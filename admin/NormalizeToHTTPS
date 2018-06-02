@@ -1,0 +1,63 @@
+#!/usr/bin/env perl
+
+use strict;
+use warnings;
+
+use FindBin;
+use lib "$FindBin::Bin/../lib";
+
+use MusicBrainz::Server::Context;
+use MusicBrainz::Server::Validation qw( is_positive_integer );
+
+my $usage = "\"Usage: $0 number_of_rows domain.name [domain.name ...]\"";
+
+my $number_of_rows = shift;
+is_positive_integer($number_of_rows) or warn $usage and die "invalid number of rows";
+
+my @domain_names;
+while (my $domain_name = shift) {
+    $domain_name =~ /^(?:[\w-]+\.)+\w+$/n or warn $usage and die "invalid domain name";
+    push @domain_names, $domain_name;
+}
+if (scalar @domain_names == 0) {
+    warn $usage and die "missing domain name";
+}
+
+my $regexp =
+    '^http://' .
+    '(?:[\w-]+\.)*' .
+    '(?:' . (join '|', map { $_ =~ s/\./\\./gr } @domain_names) . ')' .
+    '(?:[:/?#]|$)';
+
+my $c = MusicBrainz::Server::Context->create_script_context(database => 'READWRITE');
+
+$c->sql->auto_commit;
+$c->sql->do(<<'EOF', $regexp, $number_of_rows);
+WITH updateable AS (
+    SELECT A.id
+      FROM url A
+     WHERE A.edits_pending = 0
+       AND A.url ~ ?
+       AND NOT EXISTS (
+               SELECT 1
+                 FROM url B
+                WHERE B.url = 'https' || substr(A.url, 5)
+           )
+     LIMIT ?
+       FOR UPDATE
+)
+UPDATE url
+   SET url = 'https' || substr(url, 5)
+ WHERE id IN (SELECT id FROM updateable);
+EOF
+
+=head1 COPYRIGHT AND LICENSE
+
+Copyright (C) 2016 Ulrich Klauer
+Copyright (C) 2018 MetaBrainz Foundation
+
+This file is part of MusicBrainz, the open internet music database,
+and is licensed under the GPL version 2, or (at your option) any
+later version: http://www.gnu.org/licenses/gpl-2.0.txt
+
+=cut
