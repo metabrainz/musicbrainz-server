@@ -1739,7 +1739,7 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
                              input_url: 'https://id.loc.gov/authorities/names/no2016104748.html',
                      input_entity_type: 'artist',
             expected_relationship_type: 'otherdatabases',
-                    expected_clean_url: 'http://id.loc.gov/authorities/names/no2016104748.html',
+                    expected_clean_url: 'http://id.loc.gov/authorities/names/no2016104748',
                only_valid_entity_types: ['artist']
         },
         // LiederNet Archive
