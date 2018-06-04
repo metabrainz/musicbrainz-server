@@ -60,7 +60,7 @@ sub search : Path('')
             $c->forward($form->field('method')->value eq 'direct' ? 'direct' : 'external');
         }
 
-        if ($type eq 'area') {
+        if ($type eq 'area' || $type eq 'artist') {
             my $stash = $c->stash;
 
             my %props = (
@@ -72,7 +72,7 @@ sub search : Path('')
             );
 
             $c->stash(
-                component_path => 'search/components/AreaResults.js',
+                component_path => 'search/components/' . type_to_model($type) . 'Results.js',
                 component_props => \%props,
                 current_view => 'Node',
             );
