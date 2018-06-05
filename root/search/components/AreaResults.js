@@ -15,6 +15,7 @@ import {l_attributes} from '../../static/scripts/common/i18n/attributes';
 import PaginatedResults from '../../components/PaginatedResults';
 import DescriptiveLink from '../../static/scripts/common/components/DescriptiveLink';
 import formatDate from '../../static/scripts/common/utility/formatDate';
+import formatEndDate from '../../static/scripts/common/utility/formatEndDate';
 import primaryAreaCode from '../../static/scripts/common/utility/primaryAreaCode';
 import loopParity from '../../utility/loopParity';
 import type {ResultsPropsT} from '../types';
@@ -36,11 +37,7 @@ function buildResult(result, index) {
       </td>
       <td>{primaryAreaCode(area)}</td>
       <td>{formatDate(area.begin_date)}</td>
-      <td>
-        {area.end_date
-          ? formatDate(area.end_date)
-          : area.ended ? l('[unknown]') : null}
-      </td>
+      <td>{formatEndDate(area)}</td>
     </tr>
   );
 }

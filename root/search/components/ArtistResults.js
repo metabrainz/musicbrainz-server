@@ -15,6 +15,7 @@ import {l_attributes} from '../../static/scripts/common/i18n/attributes';
 import PaginatedResults from '../../components/PaginatedResults';
 import EntityLink from '../../static/scripts/common/components/EntityLink';
 import formatDate from '../../static/scripts/common/utility/formatDate';
+import formatEndDate from '../../static/scripts/common/utility/formatEndDate';
 import primaryAreaCode from '../../static/scripts/common/utility/primaryAreaCode';
 import loopParity from '../../utility/loopParity';
 import type {ResultsPropsT} from '../types';
@@ -45,11 +46,7 @@ function buildResult(result, index) {
       <td>
         {artist.begin_area ? <EntityLink entity={artist.begin_area} /> : null}
       </td>
-      <td>
-        {artist.end_date
-          ? formatDate(artist.end_date)
-          : artist.ended ? l('[unknown]') : null}
-      </td>
+      <td>{formatEndDate(artist)}</td>
       <td>
         {artist.end_area ? <EntityLink entity={artist.end_area} /> : null}
       </td>
