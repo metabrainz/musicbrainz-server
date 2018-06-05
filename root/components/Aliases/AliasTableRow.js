@@ -21,7 +21,7 @@ const {lp_attributes} = require('../../static/scripts/common/i18n/attributes');
 type Props = {
   +alias: AliasT,
   +allowEditing: boolean,
-  +entity: $Subtype<CoreEntityT>,
+  +entity: CoreEntityT,
   +row: string,
 };
 
