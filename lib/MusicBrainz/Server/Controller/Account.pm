@@ -705,6 +705,15 @@ sub register_application : Path('/account/applications/register') RequireAuth Re
         });
         $c->response->redirect($c->uri_for_action('/account/applications'));
         $c->detach;
+    } else {
+        $c->stash(
+            current_view => 'Node',
+            component_path => 'account/applications/Register',
+            component_props => {
+                form => $form,
+            },
+        );
+        $c->detach;
     }
 }
 
