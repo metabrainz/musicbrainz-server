@@ -63,9 +63,14 @@ declare type ArtistCreditT = $ReadOnlyArray<ArtistCreditNameT>;
 declare type ArtistT = {|
   ...CommentRoleT,
   ...CoreEntityRoleT,
+  ...DatePeriodRoleT,
   ...RatableRoleT,
   ...TypeRoleT<ArtistTypeT>,
+  +area: AreaT | null,
+  +begin_area: AreaT | null,
+  +end_area: AreaT | null,
   +entityType: 'artist',
+  +gender: GenderT | null,
   +sort_name: string,
 |};
 
@@ -227,6 +232,8 @@ declare type FormT<F> = {|
   +last_field_id: number,
   +name: string,
 |};
+
+export opaque type GenderT: OptionTreeT = OptionTreeT;
 
 /*
  * See MusicBrainz::Server::Form::Utils::build_grouped_options

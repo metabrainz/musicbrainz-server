@@ -19,7 +19,7 @@ type Props = {
   +$c: CatalystContextT,
   +aliases: $ReadOnlyArray<AliasT>,
   +allowEditing?: boolean,
-  +entity: $Subtype<CoreEntityT>,
+  +entity: CoreEntityT,
 };
 
 const Aliases = ({$c, aliases, allowEditing = $c.user ? !$c.user.is_editing_disabled : false, entity}: Props) => {
