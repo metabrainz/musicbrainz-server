@@ -100,6 +100,7 @@ my %URL_SPECIALIZATIONS = (
     'PayPalMe'            => qr{^https?://(?:www\.)?paypal\.me/}i,
     'Piosenki'            => qr{^https?://(?:www\.)?bibliotekapiosenki\.pl/}i,
     'Pomus'               => qr{^https?://(?:www\.)?pomus\.net/}i,
+    'ProgArchives'        => qr{^https?://(?:www\.)?progarchives\.com/}i,
     'PsyDB'               => qr{^https?://(?:www\.)?psydb\.net/}i,
     'PureVolume'          => qr{^https?://(?:www\.)?purevolume\.com/}i,
     'QuebecInfoMusique'   => qr{^https?://(?:www\.)?qim\.com/}i,

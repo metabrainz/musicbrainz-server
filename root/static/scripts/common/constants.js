@@ -79,6 +79,7 @@ export const FAVICON_CLASSES: {[string]: string} = {
   'paypal.me': 'paypal',
   'play.google.com': 'googleplay',
   'plus.google.com': 'googleplus',
+  'progarchives.com': 'progarchives',
   'psydb.net': 'psydb',
   'qim.com': 'quebecinfomusique',
   'rateyourmusic.com': 'rateyourmusic',
