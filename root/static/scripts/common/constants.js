@@ -103,6 +103,7 @@ export const FAVICON_CLASSES: {[string]: string} = {
   'thedancegypsy.com': 'thedancegypsy',
   'thesession.org': 'thesession',
   'tipeee.com': 'tipeee',
+  'touhoudb.com': 'touhoudb',
   'triplejunearthed.com': 'triplejunearthed',
   'tunearch.org': 'tunearch',
   'twitch.tv': 'twitch',
