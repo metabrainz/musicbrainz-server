@@ -92,6 +92,7 @@ export const FAVICON_CLASSES: {[string]: string} = {
   'secondhandsongs.com': 'secondhandsongs',
   'setlist.fm': 'setlistfm',
   'smdb.kb.se': 'smdb',
+  'snaccooperative.org': 'snac',
   'songfacts.com': 'songfacts',
   'songkick.com': 'songkick',
   'soundcloud.com': 'soundcloud',

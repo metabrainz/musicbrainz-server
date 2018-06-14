@@ -114,6 +114,7 @@ my %URL_SPECIALIZATIONS = (
     'SecondHandSongs'     => qr{^https?://(?:www\.)?secondhandsongs\.com/}i,
     'SetlistFM'           => qr{^https?://(?:www\.)?setlist\.fm/}i,
     'SMDB'                => qr{^https?://(?:www\.)?smdb\.kb\.se/}i,
+    'SNAC'                => qr{^https?://(?:www\.)?snaccooperative\.org/}i,
     'Songfacts'           => qr{^https?://(?:www\.)?songfacts\.com/}i,
     'Songkick'            => qr{^https?://(?:www\.)?songkick\.com/}i,
     'SoundCloud'          => qr{^https?://(?:www\.)?soundcloud\.com/}i,
