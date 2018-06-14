@@ -86,6 +86,7 @@ my %URL_SPECIALIZATIONS = (
     'MusicaPopularCl'     => qr{^https?://(?:www\.)?musicapopular\.cl/}i,
     'MusicMoz'            => qr{^https?://(?:www\.)?musicmoz\.org/}i,
     'MusikSammler'        => qr{^https?://(?:www\.)?musik-sammler\.de/}i,
+    'Musopen'             => qr{^https?://(?:www\.)?musopen\.org/}i,
     'MVDbase'             => qr{^https?://(?:www\.)?mvdbase\.com/}i,
     'MySpace'             => qr{^https?://(?:www\.)?myspace\.com/}i,
     'NDL'                 => qr{^https?://(?:www\.)?iss\.ndl\.go\.jp/}i,
