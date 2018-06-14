@@ -35,6 +35,7 @@ export const FAVICON_CLASSES: {[string]: string} = {
   'ci.nii.ac.jp': 'cinii',
   'cpdl.org': 'cpdl',
   'd-nb.info': 'dnb',
+  'dramonline.org': 'dram',
   'dailymotion.com': 'dailymotion',
   'dhhu.dk': 'dhhu',
   'discogs.com': 'discogs',

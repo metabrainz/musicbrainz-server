@@ -45,6 +45,7 @@ my %URL_SPECIALIZATIONS = (
     'Discogs'             => qr{^https?://(?:www\.)?discogs\.com/}i,
     'DiscosDoBrasil'      => qr{^https?://(?:www\.)?discosdobrasil\.com\.br/}i,
     'DNB'                 => qr{^https?://(?:www\.)?d-nb\.info/}i,
+    'DRAM'                => qr{^https?://(?:www\.)?dramonline\.org/}i,
     'Encyclopedisque'     => qr{^https?://(?:www\.)?encyclopedisque\.fr/}i,
     'ESTER'               => qr{^https?://(?:www\.)?ester\.ee/}i,
     'Facebook'            => qr{^https?://(?:www\.)?facebook\.com/}i,
