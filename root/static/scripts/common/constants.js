@@ -63,6 +63,7 @@ export const FAVICON_CLASSES: {[string]: string} = {
   'lieder.net': 'lieder',
   'linkedin.com': 'linkedin',
   'livefans.jp': 'livefans',
+  'loc.gov': 'loc',
   'loudr.fm': 'loudr',
   'mainlynorfolk.info': 'mainlynorfolk',
   'metal-archives.com': 'metalarchives',
