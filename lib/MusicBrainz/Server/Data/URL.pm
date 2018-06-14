@@ -91,6 +91,7 @@ my %URL_SPECIALIZATIONS = (
     'MVDbase'             => qr{^https?://(?:www\.)?mvdbase\.com/}i,
     'MySpace'             => qr{^https?://(?:www\.)?myspace\.com/}i,
     'NDL'                 => qr{^https?://(?:www\.)?iss\.ndl\.go\.jp/}i,
+    'NDLAuthorities'      => qr{^https?://id\.ndl\.go\.jp/}i,
     'OCReMix'             => qr{^https?://(?:www\.)?ocremix\.org/}i,
     'OpenLibrary'         => qr{^https?://(?:www\.)?openlibrary\.org/}i,
     'Operabase'           => qr{^https?://(?:www\.)?operabase\.com/}i,
