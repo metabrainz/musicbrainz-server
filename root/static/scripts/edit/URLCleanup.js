@@ -598,10 +598,10 @@ const CLEANUPS = {
     clean: function (url) {
       url = url.replace(/^(?:https?:\/\/)?(?:(?:classic|pro|www)\.)?beatport\.com\//, "https://www.beatport.com/");
       url = url.replace(/^(https:\/\/www\.beatport\.com)\/[\w-]+\/html\/content\/([\w-]+)\/0*([0-9]+)\/([\w-]+).*$/, "$1/$2/$4/$3");
-      url = url.replace(/^(https:\/\/www\.beatport\.com)\/[\w-]+\/html\/content\/([\w-]+)\/0*([0-9]+).*$/, "$1/$2/-/$3");
+      url = url.replace(/^(https:\/\/www\.beatport\.com)\/[\w-]+\/html\/content\/([\w-]+)\/0*([0-9]+)(?:[\/?#].*)?$/, "$1/$2/-/$3");
       url = url.replace(/^(https:\/\/www\.beatport\.com)\/([\w-]+)\/([\w-]+)\/0*([0-9]+).*$/, "$1/$2/$3/$4");
-      url = url.replace(/^(https:\/\/www\.beatport\.com)\/([\w-]+)\/\/*0*([0-9]+).*$/, "$1/$2/-/$3");
-      url = url.replace(/^(https:\/\/www\.beatport\.com)\/([\w-]+)\/0*([0-9]+).*$/, "$1/$2/$3");
+      url = url.replace(/^(https:\/\/www\.beatport\.com)\/([\w-]+)\/\/+0*([0-9]+)(?:[\/?#].*)?$/, "$1/$2/-/$3");
+      url = url.replace(/^(https:\/\/www\.beatport\.com)\/([\w-]+)\/0*([0-9]+)(?:[\/?#].*)?$/, "$1/$2/$3");
       return url;
     },
     validate: function (url, id) {
