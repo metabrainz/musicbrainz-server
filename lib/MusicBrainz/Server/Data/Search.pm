@@ -563,7 +563,9 @@ sub schema_fixup
 
     if ($type eq 'recording' && defined $data->{'isrcs'}) {
         $data->{isrcs} = [
-            map { MusicBrainz::Server::Entity::ISRC->new( isrc => $_->{id} ) } @{ $data->{'isrcs'} }
+            map { MusicBrainz::Server::Entity::ISRC->new(
+                isrc => (DBDefs->SEARCH_ENGINE eq 'LUCENE') ? $_->{id} : $_
+            ) } @{ $data->{'isrcs'} }
         ];
     }
 
