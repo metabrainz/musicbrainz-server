@@ -4,6 +4,7 @@ use strict;
 use warnings;
 
 use DateTime;
+use Encode qw( decode );
 use MusicBrainz::Server::Authentication::WS::User;
 
 sub new
@@ -28,7 +29,8 @@ sub find_user
         }
     }
     else {
-        my $editor = $c->model('Editor')->get_by_name($authinfo->{username});
+        my $username = decode('utf8', $authinfo->{username}, Encode::FB_QUIET);
+        my $editor = $c->model('Editor')->get_by_name($username);
         if (defined $editor) {
             $user = MusicBrainz::Server::Authentication::WS::User->new_from_editor($editor);
         }
