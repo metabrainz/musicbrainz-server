@@ -45,8 +45,5 @@
 </div>
 
 <div class="searchinfo">
-    <strong>
-        [% l('Please note:') %]
-    </strong>
-    <p>[%- l('Search indexes are updated every 3 hours, use the direct database search if you require up to the minute correct results.') %]</p>
+    <p>[%- l('For more information, check the {doc_doc|documentation}.', { doc_doc => doc_link('Search') }) %]</p>
 </div>
