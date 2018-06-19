@@ -58,7 +58,7 @@ def pot():
 
 def no_local_changes():
     # The exit code of these will be 0 if there are no changes.
-    # If there are changes, then the author should fix his damn code.
+    # If there are changes, then the author should fix his or her damn code.
     with settings( hide("stdout") ):
         local("git diff --exit-code")
         local("git diff --exit-code --cached")
