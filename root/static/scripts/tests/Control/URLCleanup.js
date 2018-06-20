@@ -485,6 +485,13 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
                only_valid_entity_types: ['artist']
         },
         {
+                             input_url: 'https://www.beatport.com/artist/4orcedj/208047',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'downloadpurchase',
+                    expected_clean_url: 'https://www.beatport.com/artist/4orcedj/208047',
+               only_valid_entity_types: ['artist']
+        },
+        {
                              input_url: 'https://www.beatport.com/release/pryda-10-vol-i/1563118',
                      input_entity_type: 'release',
             expected_relationship_type: 'downloadpurchase',
