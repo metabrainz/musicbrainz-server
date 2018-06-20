@@ -80,8 +80,16 @@ def deploy(deploy_env="prod"):
     local("sleep 15")
 
 def tag():
-    tag = prompt("Tag name", default='v-' + date.today().strftime("%Y-%m-%d"))
-    blog_url = prompt("Blog post URL", validate=r'^http.*')
+    year  = date.today().strftime("%Y")
+    month = date.today().strftime("%m")
+    day   = date.today().strftime("%d")
+    tag = prompt("Tag name", default="-".join("v", year, month, day))
+    blog_url = prompt(
+            "Blog post URL", validate=r'^http.*',
+            default="https://blog.musicbrainz.org/" +
+            "/".join(year, month, day) + "/" +
+            "-".join("server", "update", year, month, day) + "/"
+            )
     no_local_changes()
     local("git tag -u 'CE33CF04' %s -m '%s' production" % (tag, blog_url))
     local("git push origin %s" % (tag))

@@ -71,6 +71,7 @@ my %URL_SPECIALIZATIONS = (
     'iTunes'              => qr{^https?://itunes\.apple\.com/}i,
     'Jamendo'             => qr{^https?://(?:www\.)?jamendo\.com/}i,
     'Japameta'            => qr{^https?://(?:www\.)?japanesemetal\.gooside\.com/}i,
+    'JunoDownload'        => qr{^https?://(?:www\.)?junodownload\.com/}i,
     'Kickstarter'         => qr{^https?://(?:www\.)?kickstarter\.com/}i,
     'LastFM'              => qr{^https?://(?:www\.)?last\.fm/}i,
     'Lieder'              => qr{^https?://(?:www\.)?lieder\.net/}i,

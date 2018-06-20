@@ -104,8 +104,12 @@ const SearchForm = ({form}: Props) => {
         </form>
       </div>
       <div className="searchinfo">
-        <strong>{l('Please note:')}</strong>
-        <p>{l('Search indexes are updated every 3 hours, use the direct database search if you require up to the minute correct results.')}</p>
+        <p>
+          {l('For more information, check the {doc_doc|documentation}.', {
+            __react: true,
+            doc_doc: '/doc/Search',
+          })}
+        </p>
       </div>
     </Frag>
   );

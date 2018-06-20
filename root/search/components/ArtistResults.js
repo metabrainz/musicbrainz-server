@@ -13,7 +13,7 @@ import {withCatalystContext} from '../../context';
 import {l} from '../../static/scripts/common/i18n';
 import {l_attributes} from '../../static/scripts/common/i18n/attributes';
 import PaginatedResults from '../../components/PaginatedResults';
-import DescriptiveLink from '../../static/scripts/common/components/DescriptiveLink';
+import EntityLink from '../../static/scripts/common/components/EntityLink';
 import formatDate from '../../static/scripts/common/utility/formatDate';
 import formatEndDate from '../../static/scripts/common/utility/formatEndDate';
 import primaryAreaCode from '../../static/scripts/common/utility/primaryAreaCode';
@@ -23,33 +23,45 @@ import type {ResultsPropsT} from '../types';
 import ResultsLayout from './ResultsLayout';
 
 function buildResult(result, index) {
-  const area = result.entity;
+  const artist = result.entity;
   const score = result.score;
 
   return (
-    <tr className={loopParity(index)} key={area.id}>
-      <td>{score}</td>
+    <tr className={loopParity(index)} key={artist.id}>
+      <td>{result.score}</td>
       <td>
-        <DescriptiveLink entity={area} />
+        <EntityLink entity={artist} />
+      </td>
+      <td>{artist.sort_name}</td>
+      <td>
+        {artist.typeName ? l_attributes(artist.typeName) : null}
       </td>
       <td>
-        {area.typeName ? l_attributes(area.typeName) : null}
+        {artist.gender ? l_attributes(artist.gender.name) : null}
       </td>
-      <td>{primaryAreaCode(area)}</td>
-      <td>{formatDate(area.begin_date)}</td>
-      <td>{formatEndDate(area)}</td>
+      <td>
+        {artist.area ? <EntityLink entity={artist.area} /> : null}
+      </td>
+      <td>{formatDate(artist.begin_date)}</td>
+      <td>
+        {artist.begin_area ? <EntityLink entity={artist.begin_area} /> : null}
+      </td>
+      <td>{formatEndDate(artist)}</td>
+      <td>
+        {artist.end_area ? <EntityLink entity={artist.end_area} /> : null}
+      </td>
     </tr>
   );
 }
 
-const AreaResults = ({
+const ArtistResults = ({
   $c,
   form,
   lastUpdated,
   pager,
   query,
   results,
-}: ResultsPropsT<AreaT>) => (
+}: ResultsPropsT<ArtistT>) => (
   <ResultsLayout form={form} lastUpdated={lastUpdated}>
     {results.length ? (
       <PaginatedResults pager={pager} query={query} search>
@@ -58,10 +70,14 @@ const AreaResults = ({
             <tr>
               <th>{l('Score')}</th>
               <th>{l('Name')}</th>
+              <th>{l('Sort Name')}</th>
               <th>{l('Type')}</th>
-              <th>{l('Code')}</th>
+              <th>{l('Gender')}</th>
+              <th>{l('Area')}</th>
               <th>{l('Begin')}</th>
+              <th>{l('Begin Area')}</th>
               <th>{l('End')}</th>
+              <th>{l('End Area')}</th>
             </tr>
           </thead>
           <tbody>
@@ -72,15 +88,15 @@ const AreaResults = ({
     ) : (
       <p>{l('No results found. Try refining your search query.')}</p>
     )}
-    {$c.user && $c.user.is_location_editor ? (
+    {$c.user && !$c.user.is_editing_disabled ? (
       <p>
-        {l('Alternatively, you may {uri|add a new area}.', {
+        {l('Alternatively, you may {uri|add a new artist}.', {
           __react: true,
-          uri: '/area/create?edit-area.name=' + encodeURIComponent(query),
+          uri: '/artist/create?edit-artist.name=' + encodeURIComponent(query),
         })}
       </p>
     ) : null}
   </ResultsLayout>
 );
 
-export default withCatalystContext(AreaResults);
+export default withCatalystContext(ArtistResults);

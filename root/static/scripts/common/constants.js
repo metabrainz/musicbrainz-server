@@ -56,6 +56,7 @@ export const FAVICON_CLASSES: {[string]: string} = {
   'irishtune.info': 'irishtune',
   'iss.ndl.go.jp': 'ndl',
   'itunes.apple.com': 'itunes',
+  'junodownload.com': 'junodownload',
   'kickstarter.com': 'kickstarter',
   'last.fm': 'lastfm',
   'lieder.net': 'lieder',

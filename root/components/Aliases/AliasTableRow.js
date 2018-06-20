@@ -11,6 +11,7 @@ const React = require('react');
 const Frag = require('../Frag');
 const isolateText = require('../../static/scripts/common/utility/isolateText');
 import formatDate from '../../static/scripts/common/utility/formatDate';
+import formatEndDate from '../../static/scripts/common/utility/formatEndDate';
 const entityHref = require('../../static/scripts/common/utility/entityHref');
 import bracketed from '../../static/scripts/common/utility/bracketed';
 const locales = require('../../static/scripts/common/constants/locales');
@@ -20,7 +21,7 @@ const {lp_attributes} = require('../../static/scripts/common/i18n/attributes');
 type Props = {
   +alias: AliasT,
   +allowEditing: boolean,
-  +entity: $Subtype<CoreEntityT>,
+  +entity: CoreEntityT,
   +row: string,
 };
 
@@ -35,11 +36,7 @@ const AliasTableRow = ({alias, allowEditing, entity, row}: Props) => (
       ? null
       : <td>{isolateText(alias.sort_name)}</td>}
     <td>{formatDate(alias.begin_date)}</td>
-    <td>
-      {alias.ended
-        ? alias.end_date ? formatDate(alias.end_date) : l('[unknown]')
-        : null}
-    </td>
+    <td>{formatEndDate(alias)}</td>
     <td>{alias.typeName ? lp_attributes(alias.typeName, 'alias_type') : ''}</td>
     <td>
       {alias.locale ? locales[alias.locale] : null}
