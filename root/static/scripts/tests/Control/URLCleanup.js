@@ -1221,6 +1221,12 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
                     expected_clean_url: 'https://www.facebook.com/events/779218695457920',
         },
         {
+                             input_url: 'https://www.facebook.com/events/145813152724695/?ref_page_id=431240490226949&acontext=%7B%22ref%22%3A51%2C%22source%22%3A5%2C%22action_history%22%3A[%7B%22surface%22%3A%22page%22%2C%22mechanism%22%3A%22main_list%22%2C%22extra_data%22%3A%22%5C%22[]%5C%22%22%7D]%2C%22has_source%22%3Atrue%7D',
+                     input_entity_type: 'event',
+            expected_relationship_type: 'socialnetwork',
+                    expected_clean_url: 'https://www.facebook.com/events/145813152724695',
+        },
+        {
                              input_url: 'https://www.facebook.com/muse/photos_stream',
                      input_entity_type: 'event',
             expected_relationship_type: 'socialnetwork',
