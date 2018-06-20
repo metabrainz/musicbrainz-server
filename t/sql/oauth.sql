@@ -18,4 +18,5 @@ INSERT INTO editor_oauth_token (editor, application, authorization_code, refresh
 INSERT INTO editor_oauth_token (editor, application, refresh_token, access_token, expire_time, scope)
     VALUES (1, 1, 'yi3qjrMf4hG9VVUxXMVIuQ', '7Fjfp0ZBr1KtDRbnfVdmIw', now() + interval '1 hour', 1),
            (1, 1, 'uTuPnUfMRQPx8HBnHf22eg', 'Nlaa7v15QHm9g8rUOmT3dQ', now() + interval '1 hour', 1 + 2 + 4 + 8 + 16 + 32 + 64 + 128),
-           (1, 1, 'xi2Aq4235zX32XUx1231u1', '3fxf40Z5r6K78D9b031xaw', now() - interval '1 hour', 1);
+           (1, 1, 'xi2Aq4235zX32XUx1231u1', '3fxf40Z5r6K78D9b031xaw', now() - interval '1 hour', 1),
+           (4, 1, 'r29KLDbKINaCcrEEpv89XA', 'h_UngEx7VcA6I-XybPS13Q', now() + interval '1 hour', 1);
