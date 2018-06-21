@@ -237,8 +237,10 @@ sub _send_response
         'Pragma' => 'no-cache',
     );
 
-    $c->stash( json => $response );
-    $c->detach('View::JSON');
+    my $body = $c->json_utf8->encode($response);
+    $c->response->body($body);
+    $c->response->content_type('application/json; charset=utf-8');
+    $c->detach;
 }
 
 sub _send_redirect_error
