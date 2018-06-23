@@ -62,11 +62,11 @@ const Annotation = ({
       {collapse
         ? <Collapsible
             className="annotation"
-            html={annotation.formatted_wikitext}
+            html={annotation.html}
           />
         : <div
             className="annotation-body"
-            dangerouslySetInnerHTML={{__html: annotation.formatted_wikitext}}
+            dangerouslySetInnerHTML={{__html: annotation.html}}
           />
       }
 

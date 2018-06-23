@@ -55,7 +55,7 @@ declare type AnnotationT = {|
   +changelog: string,
   +creation_date: string,
   +editor: EditorT,
-  +formatted_wikitext: string,
+  +html: string,
   +id: number,
   +text: string,
 |};

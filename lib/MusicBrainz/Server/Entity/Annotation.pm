@@ -65,7 +65,7 @@ sub TO_JSON {
         changelog => $self->changelog,
         creation_date => datetime_to_iso8601($self->creation_date),
         editor => $self->editor,
-        formatted_wikitext => format_wikitext($self->text),
+        html => format_wikitext($self->text),
         id => $self->id,
         text => $self->text,
     };
