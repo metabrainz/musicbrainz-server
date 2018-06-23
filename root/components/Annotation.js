@@ -21,11 +21,24 @@ import sanitizedEditor from '../utility/sanitizedEditor';
 import Collapsible from './Collapsible';
 import Frag from './Frag';
 
+type AnnotatedEntityT =
+  | AreaT
+  | ArtistT
+  | EventT
+  | InstrumentT
+  | LabelT
+  | PlaceT
+  | RecordingT
+  | ReleaseGroupT
+  | ReleaseT
+  | SeriesT
+  | WorkT;
+
 type Props = {|
   +$c: CatalystContextT | SanitizedCatalystContextT,
   +annotation: ?AnnotationT,
   +collapse?: boolean,
-  +entity: CoreEntityT,
+  +entity: AnnotatedEntityT,
   +numberOfRevisions: number,
   +showChangeLog?: boolean,
 |};
@@ -38,7 +51,7 @@ const Annotation = ({
   numberOfRevisions,
   showChangeLog = false,
 }: Props) => {
-  if (!annotation || !annotation.text || entity.entityType === 'url') {
+  if (!annotation || !annotation.text) {
     return null;
   }
   const latestAnnotation = entity.latest_annotation;
