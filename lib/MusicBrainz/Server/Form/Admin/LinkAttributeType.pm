@@ -3,6 +3,7 @@ package MusicBrainz::Server::Form::Admin::LinkAttributeType;
 use HTML::FormHandler::Moose;
 use MusicBrainz::Server::Form::Utils qw( select_options_tree );
 use MusicBrainz::Server::Constants qw( $INSTRUMENT_ROOT_ID );
+use MusicBrainz::Server::Translation qw( l );
 
 extends 'MusicBrainz::Server::Form';
 with 'MusicBrainz::Server::Form::Role::Edit';
@@ -45,7 +46,7 @@ after validate => sub {
 
     my $root = defined $parent ? ($parent->root_id // $parent->id) : 0;
     if ($root == $INSTRUMENT_ROOT_ID) {
-        $self->field('parent_id')->add_error('Cannot add or edit instruments here; use the instrument editing forms instead');
+        $self->field('parent_id')->add_error(l('Cannot add or edit instruments here; use the instrument editing forms instead'));
     }
 };
 

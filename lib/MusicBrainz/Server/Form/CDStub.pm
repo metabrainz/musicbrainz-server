@@ -78,7 +78,7 @@ sub validate
 {
     my $self = shift;
     if ($self->field('multiple_artists')->value) {
-        $self->field('artist')->add_error('You may not specify a release artist while also specifying track artists')
+        $self->field('artist')->add_error(l('You may not specify a release artist while also specifying track artists'))
             if $self->field('artist')->value;
 
         for my $field ($self->field('tracks')->fields) {
@@ -93,7 +93,7 @@ sub validate
 
         for my $field ($self->field('tracks')->fields) {
             $field = $field->field('artist');
-            $field->add_error('You may not specify a combination of track artists and a release artist')
+            $field->add_error(l('You may not specify a combination of track artists and a release artist'))
                 if $field->value;
         }
     }
