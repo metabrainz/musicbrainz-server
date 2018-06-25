@@ -8,7 +8,6 @@ has 'requires_edit_note' => ( is => 'ro', default => 0 );
 has_field 'edit_note' => (
     type => 'TextArea',
     label => 'Edit note:',
-    localize_meth => sub { my ($self, @message) = @_; return l(@message); }
 );
 
 has_field 'make_votable' => (
@@ -16,15 +15,11 @@ has_field 'make_votable' => (
     default => 0,
 );
 
-sub requires_edit_note_text {
-    l("You must provide an edit note");
-}
-
 after validate => sub {
     my $self = shift;
 
     if ($self->requires_edit_note && (!defined $self->field('edit_note')->value || $self->field('edit_note')->value eq '')) {
-        $self->field('edit_note')->add_error($self->requires_edit_note_text);
+        $self->field('edit_note')->add_error(l('You must provide an edit note'));
     }
 };
 
