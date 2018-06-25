@@ -26,7 +26,7 @@ has_field 'website' => (
     maxlength => 255,
     apply     => [ {
         check => sub { is_valid_url($_[0]) },
-        message => l('Invalid URL format'),
+        message => sub { l('Invalid URL format') },
     } ],
 );
 

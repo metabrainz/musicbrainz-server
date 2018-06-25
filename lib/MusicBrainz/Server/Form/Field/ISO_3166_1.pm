@@ -9,7 +9,7 @@ extends 'HTML::FormHandler::Field::Text';
 apply ([
     {
         check => sub { is_valid_iso_3166_1(shift) },
-        message => l('This is not a valid ISO 3166-1 code'),
+        message => sub { l('This is not a valid ISO 3166-1 code') },
     }
 ]);
 

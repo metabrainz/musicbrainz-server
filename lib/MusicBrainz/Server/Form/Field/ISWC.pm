@@ -9,11 +9,11 @@ extends 'HTML::FormHandler::Field::Text';
 apply ([
     {
         transform => sub { return format_iswc(shift) },
-        message => l('This is not a valid ISWC'),
+        message => sub { l('This is not a valid ISWC') },
     },
     {
         check => sub { is_valid_iswc(shift) },
-        message => l('This is not a valid ISWC'),
+        message => sub { l('This is not a valid ISWC') },
     }
 ]);
 

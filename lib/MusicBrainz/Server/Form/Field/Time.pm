@@ -13,7 +13,7 @@ has '+deflate_method' => (
 apply ([
     {
         check => sub { is_valid_time(shift) },
-        message => l('This is not a valid time.'),
+        message => sub { l('This is not a valid time.') },
     }
 ]);
 
