@@ -133,8 +133,8 @@ sub _send_password_reset_email
     }
     catch {
         $c->flash->{message} = l(
-            'We were unable to send login information to your email address.  Please try again,
-             however if you continue to experience difficulty contact us at support@musicbrainz.org.'
+            'We were unable to send login information to your email address.  Please try again, ' .
+            'however if you continue to experience difficulty contact us at support@musicbrainz.org.'
         );
     };
 }
@@ -340,9 +340,9 @@ sub edit : Local RequireAuth DenyWhenReadonly {
 
         if ($verification_sent) {
             $flash .= ' ';
-            $flash .= l('We have sent you a verification email to <code>{email}</code>.
-                         Please check your mailbox and click on the link in the email
-                         to verify the new email address.',
+            $flash .= l('We have sent you a verification email to <code>{email}</code>. ' .
+                        'Please check your mailbox and click on the link in the email ' .
+                        'to verify the new email address.',
                         { email => encode_entities($new_email) });
         }
 
@@ -560,9 +560,9 @@ sub _send_confirmation_email
     }
     catch {
         $c->flash->{message} = l(
-            '<strong>We were unable to send a confirmation email to you.</strong><br/>Please confirm that you have entered a valid
-             address by editing your {settings|account settings}. If the problem still persists, please contact us at
-             {mail|support@musicbrainz.org}.',
+            '<strong>We were unable to send a confirmation email to you.</strong><br/>Please confirm that you have entered a valid ' .
+            'address by editing your {settings|account settings}. If the problem still persists, please contact us at ' .
+            '{mail|support@musicbrainz.org}.',
             {
                 settings => $c->uri_for_action('/account/edit'),
                 mail => 'mailto:support@musicbrainz.org'

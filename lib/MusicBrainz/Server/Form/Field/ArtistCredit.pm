@@ -52,8 +52,8 @@ around 'validate_field' => sub {
         {
             # FIXME: better error message.
             $self->add_error(
-                l('Artist "{artist}" is unlinked, please select an existing artist.
-                   You may need to add a new artist to MusicBrainz first.',
+                l('Artist "{artist}" is unlinked, please select an existing artist. ' .
+                  'You may need to add a new artist to MusicBrainz first.',
                   { artist => ($name || $artist_name) }));
         }
         elsif (!$artist_id)
