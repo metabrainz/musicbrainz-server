@@ -46,7 +46,7 @@ after validate => sub {
 
     my $root = defined $parent ? ($parent->root_id // $parent->id) : 0;
     if ($root == $INSTRUMENT_ROOT_ID) {
-        $self->field('parent_id')->add_error(l('Cannot add or edit instruments here; use the instrument editing forms instead'));
+        $self->field('parent_id')->add_error(l('Cannot add or edit instruments here; use the instrument editing forms instead.'));
     }
 };
 

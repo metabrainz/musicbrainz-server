@@ -115,7 +115,7 @@ after validate => sub {
                                      type_id => $self->field('type_id')->value,
                                      not_id => $self->init_object ? $self->init_object->{id} : undef,
                                  })) {
-        $self->field('name')->add_error(l('This alias already exists'));
+        $self->field('name')->add_error(l('This alias already exists.'));
     }
 };
 

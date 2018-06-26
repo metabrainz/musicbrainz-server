@@ -69,21 +69,21 @@ sub validate {
     if ($self->field('type_id')->value &&
         $self->field('type_id')->value == 2) {
         if ($self->field('gender_id')->value) {
-            $self->field('gender_id')->add_error(l('Group artists cannot have a gender'));
+            $self->field('gender_id')->add_error(l('Group artists cannot have a gender.'));
         }
     }
 
     if ($self->field('type_id')->value &&
         $self->field('type_id')->value == 5) {
         if ($self->field('gender_id')->value) {
-            $self->field('gender_id')->add_error(l('Orchestras cannot have a gender'));
+            $self->field('gender_id')->add_error(l('Orchestras cannot have a gender.'));
         }
     }
 
     if ($self->field('type_id')->value &&
         $self->field('type_id')->value == 6) {
         if ($self->field('gender_id')->value) {
-            $self->field('gender_id')->add_error(l('Choirs cannot have a gender'));
+            $self->field('gender_id')->add_error(l('Choirs cannot have a gender.'));
         }
     }
 }
