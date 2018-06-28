@@ -36,6 +36,46 @@ ws_test 'artist lookup with tags, genres and ratings',
     </artist>
 </metadata>';
 
+ws_test 'artist lookup with tags, genres, user-tags, and user-genres',
+    '/artist/1946a82a-f927-40c2-8235-38d64f50d043?inc=tags+genres+user-tags+user-genres' =>
+    '<?xml version="1.0"?>
+<metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
+    <artist type="Group" id="1946a82a-f927-40c2-8235-38d64f50d043" type-id="e431f5f6-b5d2-343d-8b36-72607fffb74b">
+        <name>The Chemical Brothers</name>
+        <sort-name>Chemical Brothers, The</sort-name>
+        <life-span>
+            <begin>1989</begin>
+        </life-span>
+        <tag-list>
+            <tag count="3"><name>big beat</name></tag>
+            <tag count="6"><name>british</name></tag>
+            <tag count="1"><name>dance and electronica</name></tag>
+            <tag count="7"><name>electronic</name></tag>
+            <tag count="2"><name>electronica</name></tag>
+            <tag count="1"><name>english</name></tag>
+            <tag count="1"><name>house</name></tag>
+            <tag count="1"><name>manchester</name></tag>
+            <tag count="1"><name>trip-hop</name></tag>
+            <tag count="1"><name>uk</name></tag>
+            <tag count="1"><name>united kingdom</name></tag>
+        </tag-list>
+        <user-tag-list>
+            <user-tag><name>big beat</name></user-tag>
+            <user-tag><name>electronic</name></user-tag>
+        </user-tag-list>
+        <genre-list>
+            <genre count="3"><name>big beat</name></genre>
+            <genre count="7"><name>electronic</name></genre>
+            <genre count="2"><name>electronica</name></genre>
+            <genre count="1"><name>house</name></genre>
+        </genre-list>
+        <user-genre-list>
+            <user-genre><name>big beat</name></user-genre>
+            <user-genre><name>electronic</name></user-genre>
+        </user-genre-list>
+    </artist>
+</metadata>', { username => 'the-anti-kuno', password => 'notreally' };
+
 ws_test 'recording lookup with tags and ratings',
     '/recording/7a356856-9483-42c2-bed9-dc07cb555952?inc=tags+genres+ratings' =>
     '<?xml version="1.0"?><metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#"><recording id="7a356856-9483-42c2-bed9-dc07cb555952"><title>Cella</title><length>334000</length><tag-list><tag count="1"><name>dubstep</name></tag></tag-list><genre-list><genre count="1"><name>dubstep</name></genre></genre-list></recording></metadata>';
