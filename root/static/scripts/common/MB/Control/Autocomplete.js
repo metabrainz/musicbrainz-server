@@ -22,7 +22,7 @@ const {localStorage} = require('../../utility/storage');
 
 require('../../../../lib/jquery-ui');
 
-$.widget("ui.autocomplete", $.ui.autocomplete, {
+$.widget("mb.entitylookup", $.ui.autocomplete, {
 
     mbidRegex: /[a-f\d]{8}-[a-f\d]{4}-[a-f\d]{4}-[a-f\d]{4}-[a-f\d]{12}/,
 
@@ -985,8 +985,8 @@ MB.Control.EntityAutocomplete = function (options) {
         });
     }
 
-    $name.autocomplete(options);
-    var autocomplete = $name.data("ui-autocomplete");
+    $name.entitylookup(options);
+    var autocomplete = $name.data("mb-entitylookup");
 
     autocomplete.currentSelection(MB_entity({
         name: $name.val(),
@@ -1017,8 +1017,8 @@ ko.bindingHandlers.autocomplete = {
         var options = valueAccessor();
 
         $(element)
-            .autocomplete(options)
-            .data('ui-autocomplete')
+            .entitylookup(options)
+            .data('mb-entitylookup')
             .menu.element[0]
             .setAttribute('data-input-id', element.id);
     }
