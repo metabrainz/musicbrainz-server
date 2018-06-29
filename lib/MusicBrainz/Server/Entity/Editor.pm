@@ -4,6 +4,7 @@ use namespace::autoclean;
 
 use Authen::Passphrase;
 use DateTime;
+use Digest::MD5 qw( md5_hex );
 use Encode;
 use MusicBrainz::Server::Data::Utils qw( boolean_to_json );
 use MusicBrainz::Server::Entity::Preferences;
@@ -266,12 +267,23 @@ sub new_privileged {
     );
 }
 
+sub gravatar {
+    my $self = shift;
+
+    if ($self->preferences->show_gravatar) {
+        my $hex = md5_hex(lc $self->email);
+        return "//gravatar.com/avatar/$hex?d=mm";
+    }
+
+    return '//gravatar.com/avatar/placeholder?d=mm';
+}
+
 around TO_JSON => sub {
     my ($orig, $self) = @_;
 
     return {
         %{$self->$orig},
-        email => $self->email,
+        gravatar => $self->gravatar,
         is_account_admin => boolean_to_json($self->is_account_admin),
         is_admin => boolean_to_json($self->is_admin),
         is_auto_editor => boolean_to_json($self->is_auto_editor),

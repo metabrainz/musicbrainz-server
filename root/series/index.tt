@@ -57,4 +57,6 @@
 
     [% INCLUDE "components/relationships.tt" source=series
         relationships=series.display_relationships %]
+
+    [%- script_manifest('series/index.js', {async => 'async'}) -%]
 [% END %]

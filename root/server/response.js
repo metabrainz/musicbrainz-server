@@ -73,7 +73,7 @@ function getResponse(requestBody, context) {
     // Do not move to the top of the file.
     const {CatalystContext} = require('../context');
 
-    response = ReactDOMServer.renderToStaticMarkup(
+    response = ReactDOMServer.renderToString(
       React.createElement(
         CatalystContext.Provider,
         {value: context},

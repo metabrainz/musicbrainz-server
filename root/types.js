@@ -35,6 +35,7 @@ declare type AnyFieldT<+F> =
   | StructFieldT<F>;
 
 declare type AreaT = {|
+  ...AnnotationRoleT,
   ...CommentRoleT,
   ...CoreEntityRoleT,
   ...DatePeriodRoleT,
@@ -44,6 +45,19 @@ declare type AreaT = {|
   +iso_3166_1_codes: $ReadOnlyArray<string>,
   +iso_3166_2_codes: $ReadOnlyArray<string>,
   +iso_3166_3_codes: $ReadOnlyArray<string>,
+|};
+
+declare type AnnotationRoleT = {|
+  +latest_annotation?: AnnotationT;
+|};
+
+declare type AnnotationT = {|
+  +changelog: string,
+  +creation_date: string,
+  +editor: EditorT,
+  +html: string,
+  +id: number,
+  +text: string,
 |};
 
 export opaque type AreaTypeT: OptionTreeT = OptionTreeT;
@@ -61,6 +75,7 @@ declare type ArtistCreditRoleT = {|
 declare type ArtistCreditT = $ReadOnlyArray<ArtistCreditNameT>;
 
 declare type ArtistT = {|
+  ...AnnotationRoleT,
   ...CommentRoleT,
   ...CoreEntityRoleT,
   ...DatePeriodRoleT,
@@ -178,6 +193,18 @@ declare type CoreEntityT =
   | UrlT
   | WorkT;
 
+declare type CritiqueBrainzReviewT = {|
+  +author: CritiqueBrainzUserT,
+  +body: string,
+  +created: string,
+  +id: string,
+|};
+
+declare type CritiqueBrainzUserT = {|
+  +id: string,
+  +name: string,
+|};
+
 declare type DatePeriodRoleT = {|
   +begin_date: PartialDateT | null,
   +end_date: PartialDateT | null,
@@ -188,10 +215,15 @@ declare type EditableRoleT = {|
   +editsPending: boolean,
 |};
 
+declare type EditorPreferencesT = {|
+  datetime_format: string,
+  timezone: string,
+|};
+
 declare type EditorT = {|
   ...EntityRoleT,
-  +email: string,
   +entityType: 'editor',
+  +gravatar: string,
   +is_account_admin: boolean,
   +is_admin: boolean,
   +is_auto_editor: boolean,
@@ -202,12 +234,25 @@ declare type EditorT = {|
   +is_relationship_editor: boolean,
   +is_wiki_transcluder: boolean,
   +name: string,
+  +preferences: EditorPreferencesT,
 |};
 
 declare type EntityRoleT = {|
   +entityType: string,
   +id: number,
 |};
+
+declare type EventT = {|
+  ...AnnotationRoleT,
+  ...CommentRoleT,
+  ...CoreEntityRoleT,
+  ...RatableRoleT,
+  ...TypeRoleT<EventTypeT>,
+  +cancelled: boolean,
+  +entityType: 'event',
+|};
+
+export opaque type EventTypeT: OptionTreeT = OptionTreeT;
 
 declare type FieldRoleT = {|
   +errors: $ReadOnlyArray<string>,
@@ -246,6 +291,7 @@ declare type GroupedOptionsT = $ReadOnlyArray<{|
 |}>;
 
 declare type InstrumentT = {|
+  ...AnnotationRoleT,
   ...CommentRoleT,
   ...CoreEntityRoleT,
   ...TypeRoleT<InstrumentTypeT>,
@@ -254,17 +300,6 @@ declare type InstrumentT = {|
 |};
 
 export opaque type InstrumentTypeT: OptionTreeT = OptionTreeT;
-
-declare type EventT = {|
-  ...CommentRoleT,
-  ...CoreEntityRoleT,
-  ...RatableRoleT,
-  ...TypeRoleT<EventTypeT>,
-  +cancelled: boolean,
-  +entityType: 'event',
-|};
-
-export opaque type EventTypeT: OptionTreeT = OptionTreeT;
 
 declare type IsrcT = {|
   ...EditableRoleT,
@@ -283,6 +318,7 @@ declare type IswcT = {|
 |};
 
 declare type LabelT = {|
+  ...AnnotationRoleT,
   ...CommentRoleT,
   ...CoreEntityRoleT,
   ...RatableRoleT,
@@ -352,6 +388,7 @@ declare type PartialDateT = {|
 |};
 
 declare type PlaceT = {|
+  ...AnnotationRoleT,
   ...CommentRoleT,
   ...CoreEntityRoleT,
   ...TypeRoleT<PlaceTypeT>,
@@ -375,6 +412,7 @@ declare type RatableT =
   | WorkT;
 
 declare type RecordingT = {|
+  ...AnnotationRoleT,
   ...ArtistCreditRoleT,
   ...CommentRoleT,
   ...CoreEntityRoleT,
@@ -386,6 +424,7 @@ declare type RecordingT = {|
 |};
 
 declare type ReleaseGroupT = {|
+  ...AnnotationRoleT,
   ...ArtistCreditRoleT,
   ...CommentRoleT,
   ...CoreEntityRoleT,
@@ -394,6 +433,7 @@ declare type ReleaseGroupT = {|
 |};
 
 declare type ReleaseT = {|
+  ...AnnotationRoleT,
   ...CommentRoleT,
   ...CoreEntityRoleT,
   +barcode: string | null,
@@ -407,6 +447,24 @@ declare type ReleaseT = {|
 declare type RepeatableFieldT<+F> = {|
   ...FieldRoleT,
   +field: $ReadOnlyArray<F>,
+|};
+
+declare type SanitizedCatalystContextT = {|
+  +user: SanitizedEditorT | null,
+  +user_exists: boolean,
+|};
+
+declare type SanitizedEditorPreferencesT = {|
+  datetime_format: string,
+  timezone: string,
+|};
+
+declare type SanitizedEditorT = {|
+  ...EntityRoleT,
+  +entityType: 'editor',
+  +gravatar: string,
+  +name: string,
+  +preferences: SanitizedEditorPreferencesT,
 |};
 
 declare type SearchFormT = FormT<{|
@@ -434,6 +492,7 @@ declare type SelectOptionT = {|
 declare type SelectOptionsT = $ReadOnlyArray<SelectOptionT>;
 
 declare type SeriesT = {|
+  ...AnnotationRoleT,
   ...CommentRoleT,
   ...CoreEntityRoleT,
   +entityType: 'series',
@@ -471,6 +530,7 @@ declare type UserTagT = {|
 |};
 
 declare type WorkT = {|
+  ...AnnotationRoleT,
   ...CommentRoleT,
   ...CoreEntityRoleT,
   ...RatableRoleT,

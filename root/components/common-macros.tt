@@ -874,20 +874,17 @@ END ~%]
 [%~ END -%]
 
 [%~ MACRO show_wikipedia_extract BLOCK -%]
-    [%- React.embed(c, 'components/EntityWikipediaExtract.js', {
+    [%- React.embed(c, 'components/WikipediaExtract.js', {
+        entity => {entityType => entity.entity_type, gid => entity.gid},
         wikipediaExtract => wikipedia_extract,
-        wikipediaExtractURL => wikipedia_extract_url
     }) -%]
 [%- END -%]
 
 [%~ MACRO show_image BLOCK -%]
-    <div id="commons-image">
-        [%~ React.embed(c, 'components/CommonsImage', { image => image }) ~%]
-    </div>
-    [%- script_manifest(
-            'commons-image.js',
-            { async => 'async', 'data-args' => commons_image_props }
-        ) UNLESS image -%]
+    [%- React.embed(c, 'components/CommonsImage', {
+            image => commons_image,
+            entity => {entityType => entity.entity_type, gid => entity.gid},
+        }) -%]
 [%- END -%]
 
 [%~ MACRO track_duration_changes(loop_over, old_base, new_base, old_prop, new_prop) BLOCK -%]

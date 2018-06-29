@@ -16,4 +16,5 @@
 
     [%- INCLUDE "components/relationships-table.tt" heading=l("Recordings") entity=work -%]
 
+    [%- script_manifest('work/index.js', {async => 'async'}) -%]
 [%- END -%]

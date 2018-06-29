@@ -28,7 +28,9 @@ const defaultContext = {
 
 export const CatalystContext = React.createContext(defaultContext);
 
-type ContextPropT = {$c: CatalystContextT};
+type ContextPropT = {
+  $c: CatalystContextT | SanitizedCatalystContextT,
+};
 
 export function withCatalystContext<P: ContextPropT, T: $Diff<P, ContextPropT>>(
   Component: ComponentType<P>,

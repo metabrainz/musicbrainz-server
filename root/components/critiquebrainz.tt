@@ -1,18 +1,3 @@
-[% MACRO critiquebrainz_review(review, title) BLOCK %]
-  <h3>[% title | html %]</h3>
-  <p class="review-metadata">
-    [%- l('{review_link|Review} by {author} on {date}', {
-          review_link => review.href,
-          author => '<a href="' _ html_escape(review.author.href) _ '">' _ html_escape(review.author.name) _ '</a>',
-          date => UserDate.format(review.created, date_only=1)
-        })
-    -%]
-  </p>
-  <div class="review-body review-collapse">
-    [% review.body %]
-  </div>
-[% END %]
-
 [%~ MACRO critiquebrainz_links(rg) BLOCK;
   IF rg.review_count == 0;
     l('No one has reviewed this release group yet. Be the first to {write_link|write a review}.', {

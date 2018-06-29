@@ -257,7 +257,15 @@ _(POSIX_LANGUAGES)
     });
   });
 
+runYarb('area/index.js', function (b) {
+  b.external(commonBundle);
+});
+
 runYarb('area/places-map.js', function (b) {
+  b.external(commonBundle);
+});
+
+runYarb('artist/index.js', function (b) {
   b.external(commonBundle);
 });
 
@@ -273,7 +281,23 @@ runYarb('edit/notes-received.js', function (b) {
   b.external(commonBundle);
 });
 
+runYarb('event/index.js', function (b) {
+  b.external(commonBundle);
+});
+
 const guessCaseBundle = runYarb('guess-case.js', function (b) {
+  b.external(commonBundle);
+});
+
+runYarb('instrument/index.js', function (b) {
+  b.external(commonBundle);
+});
+
+runYarb('label/index.js', function (b) {
+  b.external(commonBundle);
+});
+
+runYarb('place/index.js', function (b) {
   b.external(commonBundle);
 });
 
@@ -287,6 +311,14 @@ runYarb('place.js', function (b) {
 
 runYarb('release-editor.js', function (b) {
   b.external(commonBundle).external(editBundle);
+});
+
+runYarb('release-group/index.js', function (b) {
+  b.external(commonBundle);
+});
+
+runYarb('series/index.js', function (b) {
+  b.external(commonBundle);
 });
 
 runYarb('series.js', function (b) {
@@ -309,12 +341,12 @@ runYarb('voting.js', function (b) {
   b.external(commonBundle);
 });
 
-runYarb('work.js', function (b) {
-  b.external(editBundle).external(guessCaseBundle);
+runYarb('work/index.js', function (b) {
+  b.external(commonBundle);
 });
 
-runYarb('commons-image.js', function (b) {
-  b.external(commonBundle);
+runYarb('work.js', function (b) {
+  b.external(editBundle).external(guessCaseBundle);
 });
 
 gulp.task('watch', ['default'], function () {
