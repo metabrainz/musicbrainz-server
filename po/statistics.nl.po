@@ -6,14 +6,14 @@
 # Translators:
 # Ian McEwen <email address hidden>, 2012
 # Maurits Meulenbelt <email address hidden>, 2012
-# Maurits Meulenbelt <email address hidden>, 2013-2017
+# Maurits Meulenbelt <email address hidden>, 2013-2018
 # Nikolai Prokoschenko <email address hidden>, 2011
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-04-23 18:29+0200\n"
-"PO-Revision-Date: 2017-09-19 12:54+0000\n"
+"PO-Revision-Date: 2018-05-31 11:55+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -59,7 +59,7 @@ msgid ""
 "Advanced relationships that allow users to connect basic data entities is "
 "relased and unused TRMs pruned from the database. Inline editing is turned "
 "off by default, causing a drop in voting activity."
-msgstr "Relaties waarmee gebruikers objecten kunnen verbinden, zijn uitgebracht en ongebruikte TRM’s zijn uit de database verwijderd. Bewerkingen op dezelfde pagina is standaard uitgeschakeld waardoor er minder wordt gestemd."
+msgstr "Relaties waarmee gebruikers objecten kunnen verbinden, zijn uitgebracht en ongebruikte TRM’s zijn uit de database verwijderd. Bewerken op dezelfde pagina is standaard uitgeschakeld, waardoor er minder wordt gestemd."
 
 #: DB:statistics.statistic_event/title:2005-05-22
 msgid "Album languages"
@@ -1608,7 +1608,7 @@ msgstr "Artiest met overig geslacht"
 
 #: ../root/statistics/stats.js:103
 msgid "Artists with at least one artist credit appearance"
-msgstr "Artiesten die in ten minste in één nummer of opname vermeld worden"
+msgstr "Artiesten die in ten minste één nummer of opname vermeld worden"
 
 #: ../root/statistics/stats.js:104
 msgid "Artists in ACs"

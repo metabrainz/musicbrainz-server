@@ -387,6 +387,20 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
                input_relationship_type: 'downloadpurchase',
                only_valid_entity_types: ['recording', 'release']
         },
+        {
+                             input_url: 'daily.bandcamp.com/2018/05/30/brownout-fear-of-a-brown-planet-album-review/#more-90177',
+                     input_entity_type: 'release_group',
+            expected_relationship_type: 'review',
+                    expected_clean_url: 'https://daily.bandcamp.com/2018/05/30/brownout-fear-of-a-brown-planet-album-review/',
+               only_valid_entity_types: ['release_group']
+        },
+        {
+                             input_url: 'http://daily.bandcamp.com/2018/05/30/gnawa-bandcamp-list',
+                     input_entity_type: 'release_group',
+            expected_relationship_type: 'review',
+                    expected_clean_url: 'https://daily.bandcamp.com/2018/05/30/gnawa-bandcamp-list/',
+               only_valid_entity_types: []
+        },
         // Bandsintown
         {
                              input_url: "https://m.bandsintown.com/MattDobberteen's50thBirthday?came_from=178",
@@ -468,6 +482,13 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
                      input_entity_type: 'artist',
             expected_relationship_type: 'downloadpurchase',
                     expected_clean_url: 'https://www.beatport.com/artist/pryda/10554',
+               only_valid_entity_types: ['artist']
+        },
+        {
+                             input_url: 'https://www.beatport.com/artist/4orcedj/208047',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'downloadpurchase',
+                    expected_clean_url: 'https://www.beatport.com/artist/4orcedj/208047',
                only_valid_entity_types: ['artist']
         },
         {
@@ -1200,6 +1221,12 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
                     expected_clean_url: 'https://www.facebook.com/events/779218695457920',
         },
         {
+                             input_url: 'https://www.facebook.com/events/145813152724695/?ref_page_id=431240490226949&acontext=%7B%22ref%22%3A51%2C%22source%22%3A5%2C%22action_history%22%3A[%7B%22surface%22%3A%22page%22%2C%22mechanism%22%3A%22main_list%22%2C%22extra_data%22%3A%22%5C%22[]%5C%22%22%7D]%2C%22has_source%22%3Atrue%7D',
+                     input_entity_type: 'event',
+            expected_relationship_type: 'socialnetwork',
+                    expected_clean_url: 'https://www.facebook.com/events/145813152724695',
+        },
+        {
                              input_url: 'https://www.facebook.com/muse/photos_stream',
                      input_entity_type: 'event',
             expected_relationship_type: 'socialnetwork',
@@ -1719,7 +1746,14 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
                      input_entity_type: 'artist',
             expected_relationship_type: 'otherdatabases',
                     expected_clean_url: 'http://id.loc.gov/authorities/names/n79018119',
-               only_valid_entity_types: ['artist']
+               only_valid_entity_types: ['artist', 'work']
+        },
+        {
+                             input_url: 'https://id.loc.gov/authorities/names/no2016104748.html',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'otherdatabases',
+                    expected_clean_url: 'http://id.loc.gov/authorities/names/no2016104748',
+               only_valid_entity_types: ['artist', 'work']
         },
         // LiederNet Archive
         {

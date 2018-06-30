@@ -27,7 +27,7 @@
 # Laurent Monin <email address hidden>, 2014,2016
 # Laurent Monin <email address hidden>, 2014,2016
 # Lionel Nerf <email address hidden>, 2016
-# Lionel Nerf <email address hidden>, 2016
+# 22b34a22462c0529d66b4552af09c837, 2016
 # Lotheric <email address hidden>, 2011
 # Lotheric <email address hidden>, 2011
 # murdos <email address hidden>, 2011-2013,2015
@@ -59,7 +59,7 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-05-29 14:45+0200\n"
-"PO-Revision-Date: 2018-05-29 13:10+0000\n"
+"PO-Revision-Date: 2018-06-05 18:00+0000\n"
 "Last-Translator: yvanz\n"
 "Language-Team: French (http://www.transifex.com/musicbrainz/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -4965,7 +4965,7 @@ msgstr "Secret du client d’OAuth "
 
 #: ../root/account/applications.tt:5
 msgid "Offline Access"
-msgstr "Accès horsligne"
+msgstr "Accès hors ligne"
 
 #: ../root/annotation/history.tt:9
 msgid "Old"

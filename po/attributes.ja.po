@@ -8,7 +8,7 @@
 # Mitsuharu Kurita, 2016
 # nikki, 2013-2014
 # Nozomu Kurasawa <email address hidden>, 2012
-# Nozomu Kurasawa <email address hidden>, 2012-2014
+# Nozomu KURASAWA <email address hidden>, 2012-2014
 # Osamu Takahashi, 2014
 # Osamu Takahashi, 2014
 # PATATE12, 2014
@@ -20,8 +20,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2018-04-26 20:27+0000\n"
-"Last-Translator: yvanz\n"
+"PO-Revision-Date: 2018-05-30 11:40+0000\n"
+"Last-Translator: nikki\n"
 "Language-Team: Japanese (http://www.transifex.com/musicbrainz/musicbrainz/language/ja/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -407,6 +407,11 @@ msgstr "変イ長調"
 msgctxt "work_attribute_type_allowed_value"
 msgid "A-flat minor"
 msgstr "変イ短調"
+
+#: DB:work_attribute_type_allowed_value/value:817
+msgctxt "work_attribute_type_allowed_value"
+msgid "A-sharp major"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:30
 msgctxt "work_attribute_type_allowed_value"
@@ -833,6 +838,16 @@ msgctxt "work_attribute_type_allowed_value"
 msgid "B-flat minor"
 msgstr "変ロ短調"
 
+#: DB:work_attribute_type_allowed_value/value:818
+msgctxt "work_attribute_type_allowed_value"
+msgid "B-sharp major"
+msgstr ""
+
+#: DB:work_attribute_type_allowed_value/value:819
+msgctxt "work_attribute_type_allowed_value"
+msgid "B-sharp minor"
+msgstr ""
+
 #: DB:work_attribute_type/name:7
 msgctxt "work_attribute_type"
 msgid "BMI ID"
@@ -1145,6 +1160,11 @@ msgctxt "work_attribute_type_allowed_value"
 msgid "C-flat major"
 msgstr "変ハ長調"
 
+#: DB:work_attribute_type_allowed_value/value:812
+msgctxt "work_attribute_type_allowed_value"
+msgid "C-flat minor"
+msgstr ""
+
 #: DB:work_attribute_type_allowed_value/value:4
 msgctxt "work_attribute_type_allowed_value"
 msgid "C-sharp major"
@@ -1405,6 +1425,11 @@ msgstr "変ニ長調"
 msgctxt "work_attribute_type_allowed_value"
 msgid "D-flat minor"
 msgstr "変ニ短調"
+
+#: DB:work_attribute_type_allowed_value/value:813
+msgctxt "work_attribute_type_allowed_value"
+msgid "D-sharp major"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:10
 msgctxt "work_attribute_type_allowed_value"
@@ -1822,9 +1847,15 @@ msgid "E-flat major"
 msgstr "変ホ長調"
 
 #: DB:work_attribute_type_allowed_value/value:12
+#: DB:work_attribute_type_allowed_value/value:815
 msgctxt "work_attribute_type_allowed_value"
 msgid "E-flat minor"
 msgstr "変ホ短調"
+
+#: DB:work_attribute_type_allowed_value/value:814
+msgctxt "work_attribute_type_allowed_value"
+msgid "E-sharp major"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:15
 msgctxt "work_attribute_type_allowed_value"
@@ -2150,6 +2181,11 @@ msgstr "ト短調"
 msgctxt "work_attribute_type_allowed_value"
 msgid "G-flat major"
 msgstr "変ト長調"
+
+#: DB:work_attribute_type_allowed_value/value:816
+msgctxt "work_attribute_type_allowed_value"
+msgid "G-flat minor"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:24
 msgctxt "work_attribute_type_allowed_value"
@@ -2999,7 +3035,7 @@ msgstr "キープケース"
 #: DB:work_attribute_type/name:1
 msgctxt "work_attribute_type"
 msgid "Key"
-msgstr ""
+msgstr "キー"
 
 #: DB:work_attribute_type_allowed_value/value:282
 msgctxt "work_attribute_type_allowed_value"
@@ -4359,7 +4395,7 @@ msgstr ""
 #: DB:editor_collection_type/name:12
 msgctxt "collection_type"
 msgid "Recording"
-msgstr ""
+msgstr "レコーディング"
 
 #: DB:series_type/name:3
 msgctxt "series_type"

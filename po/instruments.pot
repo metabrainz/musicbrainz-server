@@ -56,6 +56,10 @@ msgstr ""
 msgid "Cretan lyra"
 msgstr ""
 
+#: DB:instrument/name:736
+msgid "Cristal Baschet"
+msgstr ""
+
 #: DB:instrument/name:118
 msgid "Denis d'or"
 msgstr ""
@@ -889,6 +893,11 @@ msgstr ""
 msgid "cimbalom"
 msgstr ""
 
+#: DB:instrument/name:929
+msgctxt "19th century bass trombone"
+msgid "cimbasso"
+msgstr ""
+
 #: DB:instrument/name:761
 msgid "citole"
 msgstr ""
@@ -1009,10 +1018,6 @@ msgctxt "guitar/Viola caipira like plucked string instrument"
 msgid "craviola"
 msgstr ""
 
-#: DB:instrument/name:736
-msgid "cristal Baschet"
-msgstr ""
-
 #: DB:instrument/name:164
 msgid "crotales"
 msgstr ""
@@ -1064,6 +1069,11 @@ msgstr ""
 
 #: DB:instrument/name:551
 msgid "daluo"
+msgstr ""
+
+#: DB:instrument/name:927
+msgctxt "Korean educational end-blown bamboo flute"
+msgid "danso"
 msgstr ""
 
 #: DB:instrument/name:342
@@ -1182,16 +1192,9 @@ msgstr ""
 msgid "drum machine"
 msgstr ""
 
-#: DB:instrument/name:100
-msgctxt ""
-"generic drums, for the set of drums typically used in modern music, use "
-"\"drumset\""
-msgid "drums"
-msgstr ""
-
 #: DB:instrument/name:101
 msgctxt "Set of drums in modern music"
-msgid "drumset"
+msgid "drums (drum set)"
 msgstr ""
 
 #: DB:instrument/name:649
@@ -1320,6 +1323,11 @@ msgstr ""
 #: DB:instrument/name:215
 msgctxt "Middle range huqin"
 msgid "erhu"
+msgstr ""
+
+#: DB:instrument/name:933
+msgctxt "Generic drums of any kind"
+msgid "error"
 msgstr ""
 
 #: DB:instrument/name:529
@@ -1492,6 +1500,16 @@ msgstr ""
 
 #: DB:instrument/name:331
 msgid "ghatam"
+msgstr ""
+
+#: DB:instrument/name:931
+msgctxt "Perisan double-chambered bowl lute"
+msgid "ghaychak"
+msgstr ""
+
+#: DB:instrument/name:932
+msgctxt "Uyghur spike fiddle"
+msgid "ghijak"
 msgstr ""
 
 #: DB:instrument/name:802
@@ -2160,6 +2178,11 @@ msgstr ""
 msgid "melodica"
 msgstr ""
 
+#: DB:instrument/name:100
+msgctxt "generic drums of any kind"
+msgid "membranophone"
+msgstr ""
+
 #: DB:instrument/name:114
 msgid "mendoza"
 msgstr ""
@@ -2488,6 +2511,10 @@ msgstr ""
 msgid "pkhachich"
 msgstr ""
 
+#: DB:instrument/name:930
+msgid "plucked idiophone"
+msgstr ""
+
 #: DB:instrument/name:232
 msgid "plucked string instruments"
 msgstr ""
@@ -2781,6 +2808,11 @@ msgstr ""
 
 #: DB:instrument/name:749
 msgid "sarrusophone"
+msgstr ""
+
+#: DB:instrument/name:928
+msgctxt "Indonesian tube zither"
+msgid "sasando"
 msgstr ""
 
 #: DB:instrument/name:580
@@ -3688,6 +3720,7 @@ msgid "xalam"
 msgstr ""
 
 #: DB:instrument/name:484
+msgctxt "Chinese end-blown flute"
 msgid "xiao"
 msgstr ""
 

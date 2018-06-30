@@ -18,7 +18,7 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-05-29 14:45+0200\n"
-"PO-Revision-Date: 2018-05-29 13:19+0000\n"
+"PO-Revision-Date: 2018-05-30 11:40+0000\n"
 "Last-Translator: yvanz\n"
 "Language-Team: Estonian (http://www.transifex.com/musicbrainz/musicbrainz/language/et/)\n"
 "MIME-Version: 1.0\n"
@@ -547,7 +547,7 @@ msgstr "Väljalaskerühma lisamine"
 #: ../root/release_group/create.tt:3
 msgctxt "header"
 msgid "Add Release Group"
-msgstr ""
+msgstr "Väljalaskerühma lisamine"
 
 #: ../root/series/create.tt:1 ../root/series/create.tt:3
 msgid "Add Series"

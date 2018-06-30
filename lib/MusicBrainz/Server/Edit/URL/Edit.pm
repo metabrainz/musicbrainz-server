@@ -76,7 +76,9 @@ after initialize => sub {
 };
 
 override allow_auto_edit => sub {
-    return 0;
+    my $self = shift;
+    return 0 unless defined $self->data->{old}{url} && defined $self->data->{new}{url};
+    return ($self->data->{old}{url} =~ s/^http:/https:/r) eq $self->data->{new}{url};
 };
 
 around accept => sub {

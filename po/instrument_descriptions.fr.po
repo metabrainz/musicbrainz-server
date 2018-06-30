@@ -22,7 +22,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2018-04-18 13:36+0000\n"
+"PO-Revision-Date: 2018-05-30 11:39+0000\n"
 "Last-Translator: yvanz\n"
 "Language-Team: French (http://www.transifex.com/musicbrainz/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -148,11 +148,6 @@ msgstr "Une flûte est un aérophone ou un instrument de musique sans anche prod
 #: DB:instrument/description:656
 msgid "A four-string banjo is a banjo with four strings."
 msgstr "Un banjo à cinq cordes."
-
-#. name:glass harp
-#: DB:instrument/description:765
-msgid "A glass harp is a musical instrument made of upright wine glasses."
-msgstr "Instrument de musique fait de verres à vin."
 
 #. name:gong bass drum
 #: DB:instrument/description:639
@@ -390,6 +385,13 @@ msgstr "Le bloc de temple « poisson en bois » est un idiophone souvent utili
 msgid "Acoustic guitar without frets."
 msgstr "Guitare acoustique sans frette."
 
+#. name:alto viol
+#: DB:instrument/description:923
+msgid ""
+"Alt, alto or contralto member of the viol family. Not to be confused with "
+"the Viola of the violin family, known as \"Alto\" in French."
+msgstr ""
+
 #. name:bandora
 #: DB:instrument/description:488
 msgid ""
@@ -418,13 +420,6 @@ msgid ""
 "An African percussion instrument, made of a dried gourd plant. Struck with "
 "hands or objects."
 msgstr "Percussion africaine faite d’une demi-calebasse – la cucurbitacée – séchée, qui peut être frappée à mains nues ou avec des objets."
-
-#. name:morsing
-#: DB:instrument/description:533
-msgid ""
-"An Indian version of the jew's harp, played as a percussion instrument in "
-"Carnatic music and Rajastani folk music."
-msgstr "Une version indienne de la guimbarde, instrument à percussions dans la musique carnatique et folklorique du Rajasthan."
 
 #. name:Irish harp / clàrsach
 #: DB:instrument/description:355
@@ -523,6 +518,13 @@ msgstr "Cornemuse dont l’on joue en pompant de l’air dans un sac, puis du sa
 msgid "Balafon, Malian 'gourd xylophone'"
 msgstr "Balafon, xylophone à calebasses du Mali."
 
+#. name:chimes
+#: DB:instrument/description:338
+msgid ""
+"Bar or pole shaped chimes, usually arranged in a line or circle, hanging "
+"free or struck with mallets."
+msgstr ""
+
 #. name:baroque trumpet
 #: DB:instrument/description:521
 msgid ""
@@ -620,14 +622,6 @@ msgid ""
 "ritualistically buried in pairs."
 msgstr ""
 
-#. name:chimes
-#: DB:instrument/description:338
-msgid ""
-"Chime or chimes can refer to multiple different instruments, including "
-"tubular bells, wind chime, chime bar and mark tree. Please use the correct "
-"instrument if you know which one is intended."
-msgstr "Les cloches peuvent être différents instruments incluant le carillon tubulaire, le carillon à vent et la rivière. Veuillez utiliser le bonne instrument si vous savez duquel il s’agit."
-
 #. name:naobo
 #: DB:instrument/description:599
 msgid "Chinese cymbals specially used in the Beijing opera."
@@ -678,6 +672,11 @@ msgstr ""
 msgid "Crumhorn used in the 14th to 17th centuries in Europe"
 msgstr "Le tournebout, utilisé en Europe du 14e au 17e siècle"
 
+#. name:bells
+#: DB:instrument/description:116
+msgid "Cup or bellshaped bells, these are shuk or struck."
+msgstr ""
+
 #. name:davul
 #: DB:instrument/description:411
 msgid "Davul, turkish drum"
@@ -696,15 +695,6 @@ msgstr ""
 msgid ""
 "Developed as an extended range bass-lute in Italy during the late sixteenth "
 "century, it has an extended neck with a second pegbox."
-msgstr ""
-
-#. name:viol family
-#: DB:instrument/description:899
-msgid ""
-"Developed in the 15th century from Vihuelists starting to play with bows, "
-"viols have frets, flat backs, sloped shoulders, c-holes and are tuned in "
-"fourths. The members are: * Violone (double-bass viol) * Viola da gamba "
-"(Bass viol) * Tenor viol * Alt viol * Treble or Diskant viol"
 msgstr ""
 
 #. name:violin family
@@ -950,6 +940,11 @@ msgid ""
 "metal curled mouth piece."
 msgstr ""
 
+#. name:morsing
+#: DB:instrument/description:533
+msgid "Indian mouth harp, played in Carnatic and Rajastani folk music."
+msgstr ""
+
 #. name:viololyra
 #: DB:instrument/description:834
 msgid ""
@@ -1039,6 +1034,14 @@ msgstr ""
 msgid ""
 "Known from the Viking age, this natural brass trumpet/horn was made of wood "
 "or birch bark"
+msgstr ""
+
+#. name:glass harp
+#: DB:instrument/description:765
+msgid ""
+"Known in Persia as far back as the 14th century, it consists of glass "
+"containers, tuned by either being filled with water or later being of "
+"different sizes. Played by rubbing dampened fingers on the rims."
 msgstr ""
 
 #. name:krakebs
@@ -1279,6 +1282,16 @@ msgid ""
 " strings, but is made of wood."
 msgstr ""
 
+#. name:bhapang
+#: DB:instrument/description:920
+msgid ""
+"Originating in Mewati community of Rahajastan, India, it is traditionally "
+"made of gourd with top and bottom cut of with a goat hide membrane nailed to"
+" one opening and a gut string which ends in a bamboo piece attached to the "
+"membrane. The instrument is held in the armpit and played by plucking the "
+"string while pulling the it."
+msgstr ""
+
 #. name:other instruments
 #: DB:instrument/description:141
 msgid ""
@@ -1286,11 +1299,27 @@ msgid ""
 "href=\"http://tickets.musicbrainz.org/browse/INST\">request it</a>."
 msgstr "Autres instruments. Si vous ne trouvez pas un instrument, veuillez <a href=\"http://tickets.musicbrainz.org/browse/INST\">le demander</a>."
 
+#. name:viol family
+#: DB:instrument/description:899
+msgid ""
+"PLEASE use "
+"\"<href\"=https://beta.musicbrainz.org/instrument/be34e4e5-6e77-46f5-ab56-c9641d3da213\">Viola"
+" da Gamba</a>\" with artist credit \"viol\" for generic / unspecified viols "
+"credits and NOT this one. Developed in the 15th century from Vihuelists "
+"starting to play with bows, viols have frets, flat backs, sloped shoulders, "
+"c-holes and are tuned in fourths."
+msgstr ""
+
 #. name:castanets
 #: DB:instrument/description:109
 msgid ""
 "Pair of concave wood, bone, shell or even fibreglass shells, they are "
 "combined by a string and are often used by dancers."
+msgstr ""
+
+#. name:pardessus de viole
+#: DB:instrument/description:924
+msgid "Pardessus or sopranino member of the viol family"
 msgstr ""
 
 #. name:body percussion
@@ -1488,6 +1517,13 @@ msgstr ""
 msgid "Small Polish traditional fiddle."
 msgstr "Petit violon traditionnel polonais."
 
+#. name:lyra viol
+#: DB:instrument/description:925
+msgid ""
+"Small bass viol, specialised for intricate polyphonics, it had a flatter "
+"bridge than the other bass viols."
+msgstr ""
+
 #. name:octoban
 #: DB:instrument/description:875
 msgid ""
@@ -1527,14 +1563,23 @@ msgstr ""
 #. name:struck idiophone
 #: DB:instrument/description:675
 msgid ""
-"Struck idiophones are idiophones where the sound is created by the "
-"instrument being struck. These are the most common type of idiophone."
-msgstr "Les idiophones frappés sont des idiophones dont le son est créé en frappant l’instrument. Ils sont les plus communs des idiophones."
+"Struck idiophone are ones where sound comes from striking the instrument and"
+" it as a whole vibrates, without the use of strings or membranes. Therefore "
+"these are most often made of sonorous material: metal, wood, glass and even "
+"stone."
+msgstr ""
 
 #. name:Swedish bagpipes
 #: DB:instrument/description:691
 msgid "Swedish bagpipes are a type of bagpipes from Sweden."
 msgstr "La säckpipa est une sorte de cornemuse suédoise."
+
+#. name:glass harmonica
+#: DB:instrument/description:285
+msgid ""
+"Taking the concept of musical glasses but mounting the incrementing bowls on"
+" a turnable spindle, it is played with damp fingers."
+msgstr ""
 
 #. name:tanbou ka
 #: DB:instrument/description:333
@@ -1547,6 +1592,11 @@ msgid ""
 "Tap dancing is a type of dance in which the dancer wears special shoes that "
 "make a clicking sound as the dancer's feet strike the floor."
 msgstr "Les claquettes sont un style de danse dans lequel le danseur porte des chaussures spéciales ferrées produisant un son quand les pieds du danseur frappent le sol."
+
+#. name:tenor viol
+#: DB:instrument/description:922
+msgid "Tenor member of the viol family"
+msgstr ""
 
 #. name:Cretan lyra
 #: DB:instrument/description:482
@@ -2211,14 +2261,6 @@ msgid ""
 "The geomungo is a traditional Korean zither, based on the Chinese guqin, "
 "which typically has 6 strings."
 msgstr "Le geomungo est une cithare traditionnelle coréenne habituellement à six cordes basée sur le guqin chinois."
-
-#. name:glass harmonica
-#: DB:instrument/description:285
-msgid ""
-"The glass harmonica is an instrument made of a series of glass bowls mounted"
-" on a spindle which is then turned. It is played by touching the rims of the"
-" bowls with a finger."
-msgstr "L’armonica de verre est un instrument constitué d’une série de bols de verre montés sur un axe qui est ensuite tourné. On en joue en touchant les rebords des bols avec un doigt mouillé."
 
 #. name:gralla
 #: DB:instrument/description:582
@@ -3190,6 +3232,11 @@ msgstr "Le tonkori est un instrument à cordes pincées joué par les Ainu du No
 msgid "The topshuur is a two-stringed lute from Mongolia and Tuva."
 msgstr "Le topshuur est un luth à deux cordes de Mongolie et de Touva."
 
+#. name:treble viol
+#: DB:instrument/description:921
+msgid "The treble, descant or soprano member of the viol family"
+msgstr ""
+
 #. name:tromboon
 #: DB:instrument/description:663
 msgid ""
@@ -3774,7 +3821,7 @@ msgid ""
 "also known as dangubica or kuterevka, it is similar to the bisernica and the"
 " ancestor of the entire tamburica ensemble. this plucked long-necked lute "
 "has two double strings and is played solo."
-msgstr ""
+msgstr "Luth à long manche doté de deux doubles cordes."
 
 #. name:repeater
 #: DB:instrument/description:882

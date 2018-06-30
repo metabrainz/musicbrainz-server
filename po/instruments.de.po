@@ -14,8 +14,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2018-04-26 20:27+0000\n"
-"Last-Translator: yvanz\n"
+"PO-Revision-Date: 2018-05-30 11:39+0000\n"
+"Last-Translator: nikki\n"
 "Language-Team: German (http://www.transifex.com/musicbrainz/musicbrainz/language/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -43,7 +43,7 @@ msgstr "Dulcimer"
 #: DB:instrument/name:421
 msgctxt "Family of Baltic box-zithers"
 msgid "Baltic psalteries"
-msgstr ""
+msgstr "baltische Psalter"
 
 #: DB:instrument/name:457
 msgid "Batá drum"
@@ -100,7 +100,7 @@ msgstr ""
 #: DB:instrument/name:7
 msgctxt "Transposing oboe"
 msgid "English horn"
-msgstr ""
+msgstr "Englischhorn"
 
 #: DB:instrument/name:30
 msgid "French horn"
@@ -127,7 +127,7 @@ msgstr "griechischer Baglamas"
 #: DB:instrument/name:795
 msgctxt "electric lamellophone"
 msgid "Guitaret"
-msgstr ""
+msgstr "Guitaret"
 
 #: DB:instrument/name:134
 msgid "Hammond organ"
@@ -268,7 +268,7 @@ msgstr "Xaphoon"
 #: DB:instrument/name:778
 msgctxt "harmonica/accordion hybrid"
 msgid "accordina"
-msgstr ""
+msgstr "Accordina"
 
 #: DB:instrument/name:41
 msgid "accordion"
@@ -309,7 +309,7 @@ msgstr "Ajaeng"
 #: DB:instrument/name:747
 msgctxt "set of Nyabinghi drums"
 msgid "akete"
-msgstr ""
+msgstr "Akete"
 
 #: DB:instrument/name:718
 msgid "alfaia"
@@ -335,10 +335,15 @@ msgstr "Altflöte"
 msgid "alto saxophone"
 msgstr "Altsaxophon"
 
+#: DB:instrument/name:923
+msgctxt "Alto member of the viol family"
+msgid "alto viol"
+msgstr ""
+
 #: DB:instrument/name:174
 msgctxt "Alto or vertical violin, for French \"alto\" credits, choose viola"
 msgid "alto violin"
-msgstr ""
+msgstr "Altvioline"
 
 #: DB:instrument/name:363
 msgid "amadinda"
@@ -449,7 +454,7 @@ msgstr "Bangu"
 #: DB:instrument/name:221
 msgctxt "northern coconut huqin"
 msgid "banhu"
-msgstr ""
+msgstr "Banhu"
 
 #: DB:instrument/name:396
 msgid "banjitar"
@@ -515,7 +520,7 @@ msgstr "Drehorgel / Leierkasten"
 #: DB:instrument/name:605
 msgctxt "Bowed with pluckable strings"
 msgid "baryton"
-msgstr ""
+msgstr "Baryton"
 
 #: DB:instrument/name:47
 msgid "bass"
@@ -628,6 +633,11 @@ msgstr ""
 msgid "berimbau"
 msgstr "Berimbau"
 
+#: DB:instrument/name:920
+msgctxt "Rajasthani string membranophone"
+msgid "bhapang"
+msgstr ""
+
 #: DB:instrument/name:743
 msgid "bicycle bell"
 msgstr "Fahrradklingel"
@@ -677,7 +687,7 @@ msgstr "Bombarde"
 #: DB:instrument/name:357
 msgctxt "Folk music idiophone"
 msgid "bones"
-msgstr ""
+msgstr "Knochen"
 
 #: DB:instrument/name:103
 msgid "bongos"
@@ -1169,7 +1179,7 @@ msgstr "Doshpuluur"
 #: DB:instrument/name:48
 msgctxt "Contrabass of modern violin family"
 msgid "double bass"
-msgstr ""
+msgstr "Kontrabass"
 
 #: DB:instrument/name:3
 msgid "double reed"
@@ -1192,7 +1202,7 @@ msgctxt ""
 "generic drums, for the set of drums typically used in modern music, use "
 "\"drumset\""
 msgid "drums"
-msgstr ""
+msgstr "Schlagzeug"
 
 #: DB:instrument/name:101
 msgctxt "Set of drums in modern music"
@@ -1384,7 +1394,7 @@ msgstr "Flügelhorn"
 #: DB:instrument/name:742
 msgctxt "Hybrid between trumpet and flugelhorn"
 msgid "flumpet"
-msgstr ""
+msgstr "Flumpet"
 
 #: DB:instrument/name:13
 msgid "flute"
@@ -1512,12 +1522,12 @@ msgstr ""
 #: DB:instrument/name:285
 msgctxt "Glass bowls mounted on spindle"
 msgid "glass harmonica"
-msgstr ""
+msgstr "Glasharmonika"
 
 #: DB:instrument/name:765
 msgctxt "Musical Glasses"
 msgid "glass harp"
-msgstr ""
+msgstr "Glasharfe (Gläserspiel)"
 
 #: DB:instrument/name:165
 msgid "glockenspiel"
@@ -1534,10 +1544,6 @@ msgstr "Gong"
 #: DB:instrument/name:639
 msgid "gong bass drum"
 msgstr "Bass-Gong (Trommel)"
-
-#: DB:instrument/name:269
-msgid "gongs"
-msgstr "Gongs"
 
 #: DB:instrument/name:582
 msgid "gralla"
@@ -1800,7 +1806,7 @@ msgstr ""
 #: DB:instrument/name:283
 msgctxt "Vietnamese Air Xylophone"
 msgid "k'lông pút"
-msgstr ""
+msgstr "K'lông pút"
 
 #: DB:instrument/name:849
 msgctxt "bamboo transverse flute"
@@ -1823,7 +1829,7 @@ msgstr "Kanjira"
 #: DB:instrument/name:422
 msgctxt "Traditional Lithuanian plucked psaltery"
 msgid "kanklės"
-msgstr ""
+msgstr "Kanklės"
 
 #: DB:instrument/name:872
 msgctxt "Traditional Estonian plucked psaltery"
@@ -2002,7 +2008,7 @@ msgstr "kös"
 #: DB:instrument/name:782
 msgctxt "Māori taonga pūoro small cross-blown flute"
 msgid "kōauau"
-msgstr ""
+msgstr "Koauau"
 
 #: DB:instrument/name:856
 msgctxt "Māori taonga pūoro tiny gourd nose flute"
@@ -2020,7 +2026,7 @@ msgstr "Langeleik"
 #: DB:instrument/name:704
 msgctxt "Greek long-neck lute"
 msgid "laouto"
-msgstr ""
+msgstr "Laouto"
 
 #: DB:instrument/name:886
 msgctxt "simplified zither"
@@ -2071,7 +2077,7 @@ msgstr "Lithophon"
 #: DB:instrument/name:609
 msgctxt "Small pearshaped chinese lute"
 msgid "liuqin"
-msgstr ""
+msgstr "Liuqin"
 
 #: DB:instrument/name:398
 msgid "low whistle"
@@ -2084,6 +2090,11 @@ msgstr "Laute"
 #: DB:instrument/name:737
 msgid "luthéal"
 msgstr "Luthéal"
+
+#: DB:instrument/name:925
+msgctxt "Small bass viol"
+msgid "lyra viol"
+msgstr ""
 
 #: DB:instrument/name:84
 msgid "lyre"
@@ -2195,7 +2206,7 @@ msgid "morin khuur"
 msgstr ""
 
 #: DB:instrument/name:533
-msgctxt "indian jew's harp"
+msgctxt "Indian mouth harp"
 msgid "morsing"
 msgstr ""
 
@@ -2210,7 +2221,7 @@ msgstr "Mridangam"
 #: DB:instrument/name:710
 msgctxt "Ainu jew's harp"
 msgid "mukkuri"
-msgstr ""
+msgstr "Mukkuri"
 
 #: DB:instrument/name:735
 msgid "musette de cour"
@@ -2259,7 +2270,7 @@ msgstr "Naturton-Blechblasinstrument"
 #: DB:instrument/name:522
 msgctxt "Valveless and keyless ancestor of the modern horn"
 msgid "natural horn"
-msgstr ""
+msgstr "Naturhorn"
 
 #: DB:instrument/name:913
 msgctxt "Valveless ancestor of the modern trumpet"
@@ -2302,7 +2313,7 @@ msgstr "Nyckelharpa"
 #: DB:instrument/name:566
 msgctxt "nylon-stringed acoustic guitar"
 msgid "nylon guitar"
-msgstr ""
+msgstr "Nylon-Gitarre"
 
 #: DB:instrument/name:272
 msgid "não bạt / chập chõa"
@@ -2409,6 +2420,11 @@ msgstr "Panflöte"
 
 #: DB:instrument/name:315
 msgid "pang gu ly hu hmông"
+msgstr ""
+
+#: DB:instrument/name:924
+msgctxt "Smallest member of the viol family"
+msgid "pardessus de viole"
 msgstr ""
 
 #: DB:instrument/name:606
@@ -2796,7 +2812,7 @@ msgstr ""
 
 #: DB:instrument/name:625
 msgid "saw u"
-msgstr ""
+msgstr "Sor U"
 
 #: DB:instrument/name:19
 msgid "saxophone"
@@ -3119,7 +3135,7 @@ msgstr "Tamburin"
 #: DB:instrument/name:391
 msgctxt "Macedonian/Bulgarian long-necked lute"
 msgid "tambura"
-msgstr ""
+msgstr "Tambura"
 
 #: DB:instrument/name:333
 msgid "tanbou ka"
@@ -3128,7 +3144,7 @@ msgstr ""
 #: DB:instrument/name:477
 msgctxt "Persian/Turkish ancient long-necked lute"
 msgid "tanbur"
-msgstr ""
+msgstr "Tanbur"
 
 #: DB:instrument/name:425
 msgid "tangent piano"
@@ -3221,6 +3237,11 @@ msgstr "Tenorsaxophon"
 #: DB:instrument/name:662
 msgid "tenor trombone"
 msgstr "Tenorposaune"
+
+#: DB:instrument/name:922
+msgctxt "Tenor member of the viol family"
+msgid "tenor viol"
+msgstr ""
 
 #: DB:instrument/name:615
 msgid "tenor violin"
@@ -3331,10 +3352,15 @@ msgstr ""
 msgid "treble recorder / alto recorder"
 msgstr "Altblockflöte"
 
+#: DB:instrument/name:921
+msgctxt "Treble/descant member of the viol family"
+msgid "treble viol"
+msgstr ""
+
 #: DB:instrument/name:209
 msgctxt "Smallest member of the new violin family"
 msgid "treble violin"
-msgstr ""
+msgstr "Diskantviola"
 
 #: DB:instrument/name:90
 msgid "tres"
@@ -3433,7 +3459,7 @@ msgstr ""
 #: DB:instrument/name:772
 msgctxt "Traditional Basque idiophone"
 msgid "txalaparta"
-msgstr ""
+msgstr "Txalaparta"
 
 #: DB:instrument/name:855
 msgctxt "Basque fipple flute"
@@ -3547,7 +3573,7 @@ msgid "viola d'amore"
 msgstr ""
 
 #: DB:instrument/name:93
-msgctxt "Generic member of the viol family"
+msgctxt "Generic member of the viol family, Use for \"Viol\" Credits"
 msgid "viola da gamba"
 msgstr ""
 
@@ -3581,7 +3607,7 @@ msgstr ""
 #: DB:instrument/name:693
 msgctxt "for violoncello use \"cello\""
 msgid "violoncello piccolo"
-msgstr ""
+msgstr "Violoncello piccolo"
 
 #: DB:instrument/name:420
 msgctxt "Contra/double-bass member of the viol family"

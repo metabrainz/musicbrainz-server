@@ -563,7 +563,9 @@ sub schema_fixup
 
     if ($type eq 'recording' && defined $data->{'isrcs'}) {
         $data->{isrcs} = [
-            map { MusicBrainz::Server::Entity::ISRC->new( isrc => $_->{id} ) } @{ $data->{'isrcs'} }
+            map { MusicBrainz::Server::Entity::ISRC->new(
+                isrc => (DBDefs->SEARCH_ENGINE eq 'LUCENE') ? $_->{id} : $_
+            ) } @{ $data->{'isrcs'} }
         ];
     }
 
@@ -1040,14 +1042,14 @@ sub xml_search
     $query = uri_escape_utf8($query);
 
     my $search_url_string;
-    if (DBDefs->SEARCH_ENGINE eq 'LUCENE') {
+    if ($version eq "1" or DBDefs->SEARCH_ENGINE eq 'LUCENE') {
         $search_url_string = "http://%s/ws/$version/%s/?query=%s&offset=%s&max=%s&fmt=xml";
     } else {
         $search_url_string = "http://%s/%s/edismax?q=%s&start=%s&rows=%s&wt=mbxml";
     }
 
     my $search_url = sprintf($search_url_string,
-                                 DBDefs->SEARCH_SERVER,
+                                 $version eq "1" ? DBDefs->OLD_SEARCH_SERVER : DBDefs->SEARCH_SERVER,
                                  $type,
                                  $query,
                                  $offset,

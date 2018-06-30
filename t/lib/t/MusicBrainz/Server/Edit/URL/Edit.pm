@@ -128,6 +128,16 @@ test 'Check conflicts (conflicting edits)' => sub {
     is($url->url, 'http://musicbrainz.org/rocks', 'url renamed');
 };
 
+test 'Changing URL scheme from HTTP to HTTPS is an auto-edit (MBS-9439)' => sub {
+    my $test = shift;
+
+    my $edit = _build_edit($test, 'https://musicbrainz.org/', 1);
+    is $edit->status, $STATUS_APPLIED;
+
+    my $edit = _build_edit($test, 'http://musicbrainz.org/', 1);
+    is $edit->status, $STATUS_OPEN, 'Moving from HTTPS to HTTP is not an auto edit';
+};
+
 sub _build_edit {
     my ($test, $url, $url_to_edit) = @_;
     $test->c->model('Edit')->create(

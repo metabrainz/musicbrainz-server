@@ -15,7 +15,8 @@
 # mai inoue, 2015
 # nikki, 2013-2014
 # Nozomu Kurasawa <email address hidden>, 2012
-# Nozomu Kurasawa <email address hidden>, 2012-2013,2015-2016
+# Nozomu KURASAWA <email address hidden>, 2012-2013,2015-2016
+# Nozomu KURASAWA <email address hidden>, 2018
 # nikki, 2013
 # PATATE12, 2014
 # Shunsuke Shimizu <email address hidden>, 2016
@@ -29,8 +30,8 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-05-29 14:45+0200\n"
-"PO-Revision-Date: 2018-05-29 13:20+0000\n"
-"Last-Translator: yvanz\n"
+"PO-Revision-Date: 2018-06-01 03:32+0000\n"
+"Last-Translator: Nozomu KURASAWA <email address hidden>\n"
 "Language-Team: Japanese (http://www.transifex.com/musicbrainz/musicbrainz/language/ja/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -3623,7 +3624,7 @@ msgstr ""
 msgid ""
 "If you have any questions, please review the {faq|FAQs} or "
 "{doc|documentation} before {con|contacting us}. "
-msgstr ""
+msgstr "ご不明な点があれば、{con|お問い合わせ}の前に {faq|FAQ} や {doc|ドキュメント}をご確認ください。 "
 
 #: ../root/main/401.tt:16
 msgid ""
@@ -5295,13 +5296,13 @@ msgstr ""
 
 #: ../root/user/report.tt:4
 msgid "Please review our {uri|Code of Conduct} before sending a report."
-msgstr ""
+msgstr "レポートを送信する前に {uri|行動規範} をご確認ください。"
 
 #: ../root/account/register.tt:42
 msgid ""
 "Please review the {coc|MusicBrainz Code of Conduct} before creating an "
 "account."
-msgstr ""
+msgstr "アカウントを作成する前に {coc|MusicBrainz 行動規範} をご確認ください。"
 
 #: ../root/entity/alias/delete.tt:6
 msgid "Please review the {doc|alias documentation} before entering this edit."
@@ -9925,7 +9926,7 @@ msgstr ""
 
 #: ../root/account/register.tt:27
 msgid "Your username will be publicly visible."
-msgstr ""
+msgstr "ユーザー名は全体に公開されます。"
 
 #: ../root/layout.tt:20
 msgid ""
@@ -12045,7 +12046,7 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Form/User/Report.pm:33
 msgid "Editor has violated some other part of our Code of Conduct"
-msgstr ""
+msgstr "編集者が行動規範に違反しています。"
 
 #: ../lib/MusicBrainz/Server/Form/User/WatchPreferences.pm:36
 msgid "A day"

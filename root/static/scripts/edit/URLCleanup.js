@@ -598,10 +598,10 @@ const CLEANUPS = {
     clean: function (url) {
       url = url.replace(/^(?:https?:\/\/)?(?:(?:classic|pro|www)\.)?beatport\.com\//, "https://www.beatport.com/");
       url = url.replace(/^(https:\/\/www\.beatport\.com)\/[\w-]+\/html\/content\/([\w-]+)\/0*([0-9]+)\/([\w-]+).*$/, "$1/$2/$4/$3");
-      url = url.replace(/^(https:\/\/www\.beatport\.com)\/[\w-]+\/html\/content\/([\w-]+)\/0*([0-9]+).*$/, "$1/$2/-/$3");
+      url = url.replace(/^(https:\/\/www\.beatport\.com)\/[\w-]+\/html\/content\/([\w-]+)\/0*([0-9]+)(?:[\/?#].*)?$/, "$1/$2/-/$3");
       url = url.replace(/^(https:\/\/www\.beatport\.com)\/([\w-]+)\/([\w-]+)\/0*([0-9]+).*$/, "$1/$2/$3/$4");
-      url = url.replace(/^(https:\/\/www\.beatport\.com)\/([\w-]+)\/\/*0*([0-9]+).*$/, "$1/$2/-/$3");
-      url = url.replace(/^(https:\/\/www\.beatport\.com)\/([\w-]+)\/0*([0-9]+).*$/, "$1/$2/$3");
+      url = url.replace(/^(https:\/\/www\.beatport\.com)\/([\w-]+)\/\/+0*([0-9]+)(?:[\/?#].*)?$/, "$1/$2/-/$3");
+      url = url.replace(/^(https:\/\/www\.beatport\.com)\/([\w-]+)\/0*([0-9]+)(?:[\/?#].*)?$/, "$1/$2/$3");
       return url;
     },
     validate: function (url, id) {
@@ -819,7 +819,7 @@ const CLEANUPS = {
     clean: function (url) {
       url = url.replace(/^(https?:\/\/)?([\w.-]*\.)?(facebook|fb)\.com(\/#!)?/, "https://www.facebook.com");
       // Remove ref (where the user came from), sk (subpages in a page, since we want the main link) and a couple others
-      url = url.replace(new RegExp("([&?])(__tn__|_fb_noscript|_rdr|acontext|em|entry_point|filter|focus_composer|fref|hc_location|pnref|qsefr|ref|ref_dashboard_filter|ref_type|refsrc|rf|sid_reminder|sk|tab|viewas)=([^?&]*)", "g"), "$1");
+      url = url.replace(new RegExp("([&?])(__tn__|_fb_noscript|_rdr|acontext|em|entry_point|filter|focus_composer|fref|hc_location|pnref|qsefr|ref|ref_dashboard_filter|ref_page_id|ref_type|refsrc|rf|sid_reminder|sk|tab|viewas)=([^?&]*)", "g"), "$1");
       // Ensure the first parameter left uses ? not to break the URL
       url = url.replace(/([&?])&+/, "$1");
       url = url.replace(/[&?]$/, "");
@@ -1089,15 +1089,23 @@ const CLEANUPS = {
   },
   bandcamp: {
     match: [new RegExp("^(https?://)?([^/]+)\\.bandcamp\\.com","i")],
-    type: LINK_TYPES.bandcamp,
+    type: _.defaults({}, LINK_TYPES.bandcamp, LINK_TYPES.review),
     clean: function (url) {
-      return url.replace(/^(?:https?:\/\/)?([^\/]+)\.bandcamp\.com(?:\/(((album|track)\/([^\/\?]+)))?)?.*$/, "https://$1.bandcamp.com/$2");
+      url = url.replace(/^(?:https?:\/\/)?([^\/]+)\.bandcamp\.com([\/?#].*)?$/, "https://$1.bandcamp.com$2");
+      if (/^https:\/\/daily\.bandcamp\.com/.test(url)) {
+        url = url.replace(/^(?:https?:\/\/)?daily\.bandcamp\.com\/(\d+\/\d+\/\d+\/[\w-]+)(?:[\/?#].*)?$/, "https://daily.bandcamp.com/$1/");
+      } else {
+        url = url.replace(/^(?:https?:\/\/)?([^\/]+)\.bandcamp\.com(?:\/(((album|track)\/([^\/\?]+)))?)?.*$/, "https://$1.bandcamp.com/$2");
+      }
+      return url;
     },
     validate: function (url, id) {
       switch (id) {
         case LINK_TYPES.bandcamp.artist:
         case LINK_TYPES.bandcamp.label:
           return /^https:\/\/[^\/]+\.bandcamp\.com\/$/.test(url);
+        case LINK_TYPES.review.release_group:
+          return /^https:\/\/daily\.bandcamp\.com\/\d+\/\d+\/\d+\/[\w-]+-review\/$/.test(url);
       }
       return false;
     }
@@ -1663,11 +1671,12 @@ const CLEANUPS = {
     match: [new RegExp("^(https?://)?id\\.loc\\.gov/", "i")],
     type: LINK_TYPES.otherdatabases,
     clean: function (url) {
-      return url.replace(/^(?:https?:\/\/)?(id\.loc\.gov\/authorities\/names\/n\d+)(?:[.#].*)?$/, "http://$1");
+      return url.replace(/^(?:https?:\/\/)?(id\.loc\.gov\/authorities\/names\/[a-z]+\d+)(?:[.#].*)?$/, "http://$1");
     },
     validate: function (url, id) {
-      return /^http:\/\/id\.loc\.gov\/authorities\/names\/n\d+$/.test(url)
-        && id === LINK_TYPES.otherdatabases.artist;
+      return /^http:\/\/id\.loc\.gov\/authorities\/names\/[a-z]+\d+$/.test(url)
+        && (id === LINK_TYPES.otherdatabases.artist
+          || id === LINK_TYPES.otherdatabases.work);
     }
   },
   livefans: {

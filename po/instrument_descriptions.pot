@@ -459,6 +459,11 @@ msgid ""
 "least one coil, it has an origin in military use."
 msgstr ""
 
+#. name:xiao 
+#: DB:instrument/description:484
+msgid "Ancient Chinese vertical, end-blown flute made of bamboo"
+msgstr ""
+
 #. name:gusli 
 #: DB:instrument/description:423
 msgid ""
@@ -473,6 +478,14 @@ msgstr ""
 msgid ""
 "Ancient pipe originating in Europe, with analogies all over the world, it is "
 "often combined with tabor drums."
+msgstr ""
+
+#. #-#-#-#-#  - (PACKAGE VERSION)  #-#-#-#-#
+#. name:error 
+#. #-#-#-#-#  - (PACKAGE VERSION)  #-#-#-#-#
+#. name:membranophone 
+#: DB:instrument/description:933 DB:instrument/description:100
+msgid "Any kind of idiophone with membranes, variously sized drums."
 msgstr ""
 
 #. name:flumpet 
@@ -875,6 +888,14 @@ msgid ""
 "harmonica"
 msgstr ""
 
+#. name:ghaychak 
+#: DB:instrument/description:931
+msgid ""
+"Having 4 metal strings, it is carved from a single piece of wood into a "
+"particular shape similar to the Sarinda, it has 3 soundholes, two on each "
+"side of the short neck and one under the bridge which is membrane-covered."
+msgstr ""
+
 #. name:gut guitar 
 #: DB:instrument/description:567
 msgid "Hollow-body acoustic guitar strung with gut-strings."
@@ -971,6 +992,15 @@ msgid ""
 "It has a short fretted neck originally with four silk but now usually nylon "
 "or steel strings, and large flat round body, earning it the nickname \"moon "
 "lute\""
+msgstr ""
+
+#. name:cimbasso 
+#: DB:instrument/description:929
+msgid ""
+"Its name variously used to describe the serpentone, the ophicleide and the "
+"bombardon, the modern cimbasso was developed by instrument making firm "
+"Pelitti under instruction guidance by Verdi; it had a forward facing bell "
+"and 3 to 6 valves. The modern instrument has a characteristic bend."
 msgstr ""
 
 #. name:taiko 
@@ -1090,6 +1120,15 @@ msgstr ""
 msgid ""
 "Made of bone or wood, these are paired sticks of sonorous material used in "
 "folk music."
+msgstr ""
+
+#. name:sasando 
+#: DB:instrument/description:928
+msgid ""
+"Made of palmyra leaves that act as a resonator and a bamboo-tube stuck with "
+"wooden pegs where the plucked strings are attached, this traditional "
+"Indonesian instrument has an important place in folk history. It is still "
+"being used and modernised."
 msgstr ""
 
 #. name:tumutumu 
@@ -1354,6 +1393,13 @@ msgid ""
 "accompaniment to belly dancing and dabke."
 msgstr ""
 
+#. name:plucked idiophone 
+#: DB:instrument/description:930
+msgid ""
+"Plucked idiophones have spikes, nails or flexible tongues (\"lamellae\") "
+"that are plucked in various ways to produce sound."
+msgstr ""
+
 #. name:ngɔni 
 #: DB:instrument/description:729
 msgid "Plucked string instrument made of wood or gourd from West Africa."
@@ -1418,7 +1464,7 @@ msgstr ""
 msgid "Santur, Middle Eastern"
 msgstr ""
 
-#. name:drumset 
+#. name:drums (drum set) 
 #: DB:instrument/description:101
 msgid ""
 "Set of drums developed from the 1930's onward, it is used in Jazz, Swing, "
@@ -2797,7 +2843,7 @@ msgstr ""
 
 #. name:reco-reco 
 #: DB:instrument/description:721
-msgid "The reco-reco is a scraped percussion instrument from Brazil."
+msgid "The reco-reco is a scraped"
 msgstr ""
 
 #. name:repinique 
@@ -3306,11 +3352,6 @@ msgid ""
 "Thailand."
 msgstr ""
 
-#. name:xiao 
-#: DB:instrument/description:484
-msgid "The xiao is a Chinese end-blown flute."
-msgstr ""
-
 #. name:xiaoluo 
 #: DB:instrument/description:550
 msgid ""
@@ -3632,6 +3673,14 @@ msgstr ""
 msgid ""
 "Up to 2,5 meters long, this wooden trumpet was used for a variety of "
 "announcements like war, welcoming people and kumara planting."
+msgstr ""
+
+#. name:danso 
+#: DB:instrument/description:927
+msgid ""
+"Used in folk music and educationally in Korean schools, it is a notched, "
+"vertically end-blown bamboo flute which, like its bigger cousin the Tungso, "
+"was derived from the Chinese xiao in the 19th century."
 msgstr ""
 
 #. name:hyoshigi 
@@ -4230,11 +4279,6 @@ msgstr ""
 #. name:fretless bass 
 #: DB:instrument/description:435
 msgid "variety of bass guitars without frets"
-msgstr ""
-
-#. name:drums 
-#: DB:instrument/description:100
-msgid "variously sized drums"
 msgstr ""
 
 #. name:flageolet 
