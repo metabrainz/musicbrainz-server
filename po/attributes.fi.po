@@ -15,8 +15,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2018-04-26 20:27+0000\n"
-"Last-Translator: yvanz\n"
+"PO-Revision-Date: 2018-05-30 11:40+0000\n"
+"Last-Translator: Jaakko Perttilä <email address hidden>\n"
 "Language-Team: Finnish (http://www.transifex.com/musicbrainz/musicbrainz/language/fi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -403,6 +403,11 @@ msgctxt "work_attribute_type_allowed_value"
 msgid "A-flat minor"
 msgstr "as-molli"
 
+#: DB:work_attribute_type_allowed_value/value:817
+msgctxt "work_attribute_type_allowed_value"
+msgid "A-sharp major"
+msgstr ""
+
 #: DB:work_attribute_type_allowed_value/value:30
 msgctxt "work_attribute_type_allowed_value"
 msgid "A-sharp minor"
@@ -656,7 +661,7 @@ msgstr ""
 #: DB:editor_collection_type/name:7
 msgctxt "collection_type"
 msgid "Area"
-msgstr ""
+msgstr "Alue"
 
 #: DB:area_alias_type/name:1
 msgctxt "alias_type"
@@ -827,6 +832,16 @@ msgstr "B-duuri"
 msgctxt "work_attribute_type_allowed_value"
 msgid "B-flat minor"
 msgstr "b-molli"
+
+#: DB:work_attribute_type_allowed_value/value:818
+msgctxt "work_attribute_type_allowed_value"
+msgid "B-sharp major"
+msgstr ""
+
+#: DB:work_attribute_type_allowed_value/value:819
+msgctxt "work_attribute_type_allowed_value"
+msgid "B-sharp minor"
+msgstr ""
 
 #: DB:work_attribute_type/name:7
 msgctxt "work_attribute_type"
@@ -1140,6 +1155,11 @@ msgctxt "work_attribute_type_allowed_value"
 msgid "C-flat major"
 msgstr "Ces-duuri"
 
+#: DB:work_attribute_type_allowed_value/value:812
+msgctxt "work_attribute_type_allowed_value"
+msgid "C-flat minor"
+msgstr ""
+
 #: DB:work_attribute_type_allowed_value/value:4
 msgctxt "work_attribute_type_allowed_value"
 msgid "C-sharp major"
@@ -1400,6 +1420,11 @@ msgstr "Des-duuri"
 msgctxt "work_attribute_type_allowed_value"
 msgid "D-flat minor"
 msgstr "des-molli"
+
+#: DB:work_attribute_type_allowed_value/value:813
+msgctxt "work_attribute_type_allowed_value"
+msgid "D-sharp major"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:10
 msgctxt "work_attribute_type_allowed_value"
@@ -1817,9 +1842,15 @@ msgid "E-flat major"
 msgstr "Es-duuri"
 
 #: DB:work_attribute_type_allowed_value/value:12
+#: DB:work_attribute_type_allowed_value/value:815
 msgctxt "work_attribute_type_allowed_value"
 msgid "E-flat minor"
 msgstr "es-molli"
+
+#: DB:work_attribute_type_allowed_value/value:814
+msgctxt "work_attribute_type_allowed_value"
+msgid "E-sharp major"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:15
 msgctxt "work_attribute_type_allowed_value"
@@ -2145,6 +2176,11 @@ msgstr "g-molli"
 msgctxt "work_attribute_type_allowed_value"
 msgid "G-flat major"
 msgstr "Ges-duuri"
+
+#: DB:work_attribute_type_allowed_value/value:816
+msgctxt "work_attribute_type_allowed_value"
+msgid "G-flat minor"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:24
 msgctxt "work_attribute_type_allowed_value"
@@ -2686,7 +2722,7 @@ msgstr "Sisähalli"
 #: DB:editor_collection_type/name:9
 msgctxt "collection_type"
 msgid "Instrument"
-msgstr ""
+msgstr "Soitin"
 
 #: DB:instrument_alias_type/name:1
 msgctxt "alias_type"
@@ -3144,7 +3180,7 @@ msgstr "Kōkilapriya"
 #: DB:editor_collection_type/name:10
 msgctxt "collection_type"
 msgid "Label"
-msgstr ""
+msgstr "Levymerkki"
 
 #: DB:label_alias_type/name:1
 msgctxt "alias_type"
@@ -4139,7 +4175,7 @@ msgstr "Pianorulla"
 #: DB:editor_collection_type/name:11
 msgctxt "collection_type"
 msgid "Place"
-msgstr ""
+msgstr "Paikka"
 
 #: DB:place_alias_type/name:1
 msgctxt "alias_type"
@@ -4354,7 +4390,7 @@ msgstr "Ravicandrika"
 #: DB:editor_collection_type/name:12
 msgctxt "collection_type"
 msgid "Recording"
-msgstr ""
+msgstr "Äänite"
 
 #: DB:series_type/name:3
 msgctxt "series_type"
@@ -4389,7 +4425,7 @@ msgstr ""
 #: DB:editor_collection_type/name:1
 msgctxt "collection_type"
 msgid "Release"
-msgstr ""
+msgstr "Julkaisu"
 
 #: DB:series_type/name:2
 msgctxt "series_type"
@@ -4399,7 +4435,7 @@ msgstr "Julkaisu"
 #: DB:editor_collection_type/name:13
 msgctxt "collection_type"
 msgid "Release group"
-msgstr ""
+msgstr "Julkaisuryhmä"
 
 #: DB:series_type/name:1
 msgctxt "series_type"
@@ -4754,7 +4790,7 @@ msgstr ""
 #: DB:editor_collection_type/name:14
 msgctxt "collection_type"
 msgid "Series"
-msgstr ""
+msgstr "Sarjat"
 
 #: DB:series_alias_type/name:1
 msgctxt "alias_type"
@@ -5514,7 +5550,7 @@ msgstr ""
 #: DB:editor_collection_type/name:15
 msgctxt "collection_type"
 msgid "Work"
-msgstr ""
+msgstr "Teos"
 
 #: DB:series_type/name:4
 msgctxt "series_type"

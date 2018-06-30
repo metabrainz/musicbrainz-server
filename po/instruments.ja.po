@@ -4,15 +4,15 @@
 # nikki2 <email address hidden>, 2012
 # john doe, 2016
 # mai inoue, 2015
-# Nozomu Kurasawa <email address hidden>, 2013,2016
+# Nozomu KURASAWA <email address hidden>, 2013,2016
 # Osamu Takahashi, 2014
 # Shunsuke Shimizu <email address hidden>, 2016
 # th1rtyf0ur, 2013
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2018-04-26 20:27+0000\n"
-"Last-Translator: yvanz\n"
+"PO-Revision-Date: 2018-05-30 11:39+0000\n"
+"Last-Translator: Shunsuke Shimizu <email address hidden>\n"
 "Language-Team: Japanese (http://www.transifex.com/musicbrainz/musicbrainz/language/ja/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -40,7 +40,7 @@ msgstr "アパラチアン・ダルシマー"
 #: DB:instrument/name:421
 msgctxt "Family of Baltic box-zithers"
 msgid "Baltic psalteries"
-msgstr ""
+msgstr "バルティック・プサルテリー"
 
 #: DB:instrument/name:457
 msgid "Batá drum"
@@ -97,7 +97,7 @@ msgstr ""
 #: DB:instrument/name:7
 msgctxt "Transposing oboe"
 msgid "English horn"
-msgstr ""
+msgstr "コーラングレ"
 
 #: DB:instrument/name:30
 msgid "French horn"
@@ -124,7 +124,7 @@ msgstr "バグラマ"
 #: DB:instrument/name:795
 msgctxt "electric lamellophone"
 msgid "Guitaret"
-msgstr ""
+msgstr "ギタレット"
 
 #: DB:instrument/name:134
 msgid "Hammond organ"
@@ -265,7 +265,7 @@ msgstr "ザフーン"
 #: DB:instrument/name:778
 msgctxt "harmonica/accordion hybrid"
 msgid "accordina"
-msgstr ""
+msgstr "アコーディナ"
 
 #: DB:instrument/name:41
 msgid "accordion"
@@ -331,6 +331,11 @@ msgstr "アルト・フルート"
 #: DB:instrument/name:21
 msgid "alto saxophone"
 msgstr "アルト・サクソフォン"
+
+#: DB:instrument/name:923
+msgctxt "Alto member of the viol family"
+msgid "alto viol"
+msgstr ""
 
 #: DB:instrument/name:174
 msgctxt "Alto or vertical violin, for French \"alto\" credits, choose viola"
@@ -433,7 +438,7 @@ msgstr "バンドーラ"
 #: DB:instrument/name:394
 msgctxt "Ukraininan lute-zither"
 msgid "bandura"
-msgstr ""
+msgstr "バンドゥーラ"
 
 #: DB:instrument/name:771
 msgid "bandurria"
@@ -446,7 +451,7 @@ msgstr "板鼓（バングー）"
 #: DB:instrument/name:221
 msgctxt "northern coconut huqin"
 msgid "banhu"
-msgstr ""
+msgstr "板胡（バンフー）"
 
 #: DB:instrument/name:396
 msgid "banjitar"
@@ -499,7 +504,7 @@ msgstr ""
 #: DB:instrument/name:521
 msgctxt "20th century reinvented natural trumpet"
 msgid "baroque trumpet"
-msgstr ""
+msgstr "バロック・トランペット"
 
 #: DB:instrument/name:587
 msgid "barrel drum"
@@ -512,7 +517,7 @@ msgstr "手回しオルガン"
 #: DB:instrument/name:605
 msgctxt "Bowed with pluckable strings"
 msgid "baryton"
-msgstr ""
+msgstr "バリトン"
 
 #: DB:instrument/name:47
 msgid "bass"
@@ -624,6 +629,11 @@ msgstr ""
 #: DB:instrument/name:69
 msgid "berimbau"
 msgstr "ビリンバウ"
+
+#: DB:instrument/name:920
+msgctxt "Rajasthani string membranophone"
+msgid "bhapang"
+msgstr ""
 
 #: DB:instrument/name:743
 msgid "bicycle bell"
@@ -902,7 +912,7 @@ msgstr "シターン"
 #: DB:instrument/name:218
 msgctxt "large huqin"
 msgid "cizhonghu"
-msgstr ""
+msgstr "小低胡（シャオディーフー）"
 
 #: DB:instrument/name:904
 msgctxt "egyptian anchient clappers"
@@ -1000,7 +1010,7 @@ msgstr ""
 #: DB:instrument/name:203
 msgctxt "Wooden medieval wind instrument"
 msgid "cornett"
-msgstr ""
+msgstr "ツィンク"
 
 #: DB:instrument/name:158
 msgid "cowbell"
@@ -1050,7 +1060,7 @@ msgstr ""
 #: DB:instrument/name:410
 msgctxt "Turkish oud like"
 msgid "cümbüş"
-msgstr ""
+msgstr "ジュンブシュ"
 
 #: DB:instrument/name:492
 msgid "daegeum"
@@ -1075,7 +1085,7 @@ msgstr "ダラブッカ"
 #: DB:instrument/name:546
 msgctxt "Bass ruan"
 msgid "daruan"
-msgstr ""
+msgstr "大阮（ダールアン）"
 
 #: DB:instrument/name:411
 msgid "davul"
@@ -1120,7 +1130,7 @@ msgstr "ディスクドライブ"
 #: DB:instrument/name:220
 msgctxt "bass gehu (huqin)"
 msgid "diyingehu"
-msgstr ""
+msgstr "低音革胡（ディーインゲイフー）"
 
 #: DB:instrument/name:460
 msgid "dizi"
@@ -1166,7 +1176,7 @@ msgstr "ドシプルール"
 #: DB:instrument/name:48
 msgctxt "Contrabass of modern violin family"
 msgid "double bass"
-msgstr ""
+msgstr "コントラバス"
 
 #: DB:instrument/name:3
 msgid "double reed"
@@ -1322,7 +1332,7 @@ msgstr "縦笛"
 #: DB:instrument/name:215
 msgctxt "Middle range huqin"
 msgid "erhu"
-msgstr ""
+msgstr "二胡（アルフー）"
 
 #: DB:instrument/name:529
 msgid "esraj"
@@ -1381,7 +1391,7 @@ msgstr "フリューゲルホルン"
 #: DB:instrument/name:742
 msgctxt "Hybrid between trumpet and flugelhorn"
 msgid "flumpet"
-msgstr ""
+msgstr "フランペット"
 
 #: DB:instrument/name:13
 msgid "flute"
@@ -1464,7 +1474,7 @@ msgstr "ガンザ"
 #: DB:instrument/name:216
 msgctxt "High pitched huqin"
 msgid "gaohu"
-msgstr ""
+msgstr "高胡（ガオフー）"
 
 #: DB:instrument/name:756
 msgid "garifuna drum"
@@ -1481,7 +1491,7 @@ msgstr "伽耶琴（カヤグム）"
 #: DB:instrument/name:219
 msgctxt "cello huqin"
 msgid "gehu"
-msgstr ""
+msgstr "革胡（ゲイフー）"
 
 #: DB:instrument/name:868
 msgctxt "Medieval chamois or goat horn"
@@ -1509,12 +1519,12 @@ msgstr ""
 #: DB:instrument/name:285
 msgctxt "Glass bowls mounted on spindle"
 msgid "glass harmonica"
-msgstr ""
+msgstr "グラス・ハーモニカ"
 
 #: DB:instrument/name:765
 msgctxt "Musical Glasses"
 msgid "glass harp"
-msgstr ""
+msgstr "グラス・ハープ"
 
 #: DB:instrument/name:165
 msgid "glockenspiel"
@@ -1531,10 +1541,6 @@ msgstr "ゴング"
 #: DB:instrument/name:639
 msgid "gong bass drum"
 msgstr "ゴング・ドラム"
-
-#: DB:instrument/name:269
-msgid "gongs"
-msgstr "ゴング類"
 
 #: DB:instrument/name:582
 msgid "gralla"
@@ -1606,7 +1612,7 @@ msgstr ""
 #: DB:instrument/name:567
 msgctxt "gut-stringed acoustic guitar"
 msgid "gut guitar"
-msgstr ""
+msgstr "ガットギター"
 
 #: DB:instrument/name:452
 msgid "guzheng"
@@ -1619,7 +1625,7 @@ msgstr "ギロ"
 #: DB:instrument/name:486
 msgctxt "Korean silk-string fiddle"
 msgid "haegeum"
-msgstr ""
+msgstr "奚琴（ヘグム）"
 
 #: DB:instrument/name:77
 msgid "hammered dulcimer"
@@ -1774,12 +1780,12 @@ msgstr "鉦（チン）"
 #: DB:instrument/name:549
 msgctxt "Beijing opera supporting erhu (huqin)"
 msgid "jing'erhu"
-msgstr ""
+msgstr "京二胡（ジンアルフー）"
 
 #: DB:instrument/name:214
 msgctxt "Beijing opera upmost small & high pitch huqin"
 msgid "jinghu"
-msgstr ""
+msgstr "京胡（ジンフー）"
 
 #: DB:instrument/name:695
 msgid "jouhikko"
@@ -1797,7 +1803,7 @@ msgstr ""
 #: DB:instrument/name:283
 msgctxt "Vietnamese Air Xylophone"
 msgid "k'lông pút"
-msgstr ""
+msgstr "クロン・プット"
 
 #: DB:instrument/name:849
 msgctxt "bamboo transverse flute"
@@ -1999,7 +2005,7 @@ msgstr "キョス"
 #: DB:instrument/name:782
 msgctxt "Māori taonga pūoro small cross-blown flute"
 msgid "kōauau"
-msgstr ""
+msgstr "コアウアウ"
 
 #: DB:instrument/name:856
 msgctxt "Māori taonga pūoro tiny gourd nose flute"
@@ -2017,7 +2023,7 @@ msgstr "ランゲレイク"
 #: DB:instrument/name:704
 msgctxt "Greek long-neck lute"
 msgid "laouto"
-msgstr ""
+msgstr "ラウト"
 
 #: DB:instrument/name:886
 msgctxt "simplified zither"
@@ -2068,7 +2074,7 @@ msgstr "石琴/リソフォン"
 #: DB:instrument/name:609
 msgctxt "Small pearshaped chinese lute"
 msgid "liuqin"
-msgstr ""
+msgstr "柳琴（リウチン）"
 
 #: DB:instrument/name:398
 msgid "low whistle"
@@ -2081,6 +2087,11 @@ msgstr "リュート"
 #: DB:instrument/name:737
 msgid "luthéal"
 msgstr "リュテアル"
+
+#: DB:instrument/name:925
+msgctxt "Small bass viol"
+msgid "lyra viol"
+msgstr ""
 
 #: DB:instrument/name:84
 msgid "lyre"
@@ -2192,9 +2203,9 @@ msgid "morin khuur"
 msgstr ""
 
 #: DB:instrument/name:533
-msgctxt "indian jew's harp"
+msgctxt "Indian mouth harp"
 msgid "morsing"
-msgstr ""
+msgstr "モールシン"
 
 #: DB:instrument/name:610
 msgid "mouth organ"
@@ -2207,7 +2218,7 @@ msgstr "ムリダンガム"
 #: DB:instrument/name:710
 msgctxt "Ainu jew's harp"
 msgid "mukkuri"
-msgstr ""
+msgstr "ムックリ"
 
 #: DB:instrument/name:735
 msgid "musette de cour"
@@ -2256,7 +2267,7 @@ msgstr "自然金管楽器"
 #: DB:instrument/name:522
 msgctxt "Valveless and keyless ancestor of the modern horn"
 msgid "natural horn"
-msgstr ""
+msgstr "ナチュラル・ホルン"
 
 #: DB:instrument/name:913
 msgctxt "Valveless ancestor of the modern trumpet"
@@ -2299,7 +2310,7 @@ msgstr "ニッケルハルパ"
 #: DB:instrument/name:566
 msgctxt "nylon-stringed acoustic guitar"
 msgid "nylon guitar"
-msgstr ""
+msgstr "ナイロン弦ギター"
 
 #: DB:instrument/name:272
 msgid "não bạt / chập chõa"
@@ -2408,6 +2419,11 @@ msgstr "パンパイプ"
 msgid "pang gu ly hu hmông"
 msgstr ""
 
+#: DB:instrument/name:924
+msgctxt "Smallest member of the viol family"
+msgid "pardessus de viole"
+msgstr ""
+
 #: DB:instrument/name:606
 msgid "pedal piano"
 msgstr "ペダル・ピアノ"
@@ -2465,7 +2481,7 @@ msgstr "ピッコロ・トランペット"
 #: DB:instrument/name:350
 msgctxt "Pearshaped chinese lute"
 msgid "pipa"
-msgstr ""
+msgstr "琵琶（ピーパー）"
 
 #: DB:instrument/name:807
 msgctxt "pair of flute and drum, each played by one hand"
@@ -3219,6 +3235,11 @@ msgstr "テナー・サクソフォン"
 msgid "tenor trombone"
 msgstr "テナー・トロンボーン"
 
+#: DB:instrument/name:922
+msgctxt "Tenor member of the viol family"
+msgid "tenor viol"
+msgstr ""
+
 #: DB:instrument/name:615
 msgid "tenor violin"
 msgstr "テナー・ヴァイオリン"
@@ -3327,6 +3348,11 @@ msgstr "ソプラノ・フルート"
 #: DB:instrument/name:291
 msgid "treble recorder / alto recorder"
 msgstr "アルト・リコーダー"
+
+#: DB:instrument/name:921
+msgctxt "Treble/descant member of the viol family"
+msgid "treble viol"
+msgstr ""
 
 #: DB:instrument/name:209
 msgctxt "Smallest member of the new violin family"
@@ -3544,7 +3570,7 @@ msgid "viola d'amore"
 msgstr ""
 
 #: DB:instrument/name:93
-msgctxt "Generic member of the viol family"
+msgctxt "Generic member of the viol family, Use for \"Viol\" Credits"
 msgid "viola da gamba"
 msgstr ""
 
@@ -3578,7 +3604,7 @@ msgstr ""
 #: DB:instrument/name:693
 msgctxt "for violoncello use \"cello\""
 msgid "violoncello piccolo"
-msgstr ""
+msgstr "ヴィオロンチェロ・ピッコロ"
 
 #: DB:instrument/name:420
 msgctxt "Contra/double-bass member of the viol family"
@@ -3630,7 +3656,7 @@ msgstr ""
 #: DB:instrument/name:274
 msgctxt "small, simple, singletoned flute"
 msgid "whistle"
-msgstr ""
+msgstr "笛"
 
 #: DB:instrument/name:196
 msgid "willow flute"
@@ -3709,7 +3735,7 @@ msgstr ""
 #: DB:instrument/name:222
 msgctxt "southern coconut huqin"
 msgid "yehu"
-msgstr ""
+msgstr "椰胡（イエフー）"
 
 #: DB:instrument/name:685
 msgid "yonggo"
@@ -3728,7 +3754,7 @@ msgstr ""
 #: DB:instrument/name:240
 msgctxt "Traditional Chinese lute"
 msgid "yueqin"
-msgstr ""
+msgstr " 月琴（ユエチン）"
 
 #: DB:instrument/name:715
 msgid "zabumba"
@@ -3745,7 +3771,7 @@ msgstr "ジャレイカ"
 #: DB:instrument/name:217
 msgctxt "Alto huqin"
 msgid "zhonghu"
-msgstr ""
+msgstr "中胡（チョンフー）"
 
 #: DB:instrument/name:241
 msgid "zhongruan"
@@ -3783,7 +3809,7 @@ msgstr ""
 
 #: DB:instrument/name:306
 msgid "đing buốt"
-msgstr ""
+msgstr "ディン・ナム"
 
 #: DB:instrument/name:319
 msgid "đing năm"
