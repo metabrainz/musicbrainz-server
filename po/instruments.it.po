@@ -13,8 +13,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2018-04-26 20:27+0000\n"
-"Last-Translator: yvanz\n"
+"PO-Revision-Date: 2018-05-30 11:39+0000\n"
+"Last-Translator: Davide Bardelli <email address hidden>\n"
 "Language-Team: Italian (http://www.transifex.com/musicbrainz/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -42,7 +42,7 @@ msgstr "Salterio appalachiano"
 #: DB:instrument/name:421
 msgctxt "Family of Baltic box-zithers"
 msgid "Baltic psalteries"
-msgstr ""
+msgstr "Salteri baltici"
 
 #: DB:instrument/name:457
 msgid "Batá drum"
@@ -99,7 +99,7 @@ msgstr ""
 #: DB:instrument/name:7
 msgctxt "Transposing oboe"
 msgid "English horn"
-msgstr ""
+msgstr "Corno inglese"
 
 #: DB:instrument/name:30
 msgid "French horn"
@@ -126,7 +126,7 @@ msgstr "Baglama greco"
 #: DB:instrument/name:795
 msgctxt "electric lamellophone"
 msgid "Guitaret"
-msgstr ""
+msgstr "Guitaret"
 
 #: DB:instrument/name:134
 msgid "Hammond organ"
@@ -267,7 +267,7 @@ msgstr ""
 #: DB:instrument/name:778
 msgctxt "harmonica/accordion hybrid"
 msgid "accordina"
-msgstr ""
+msgstr "acordina"
 
 #: DB:instrument/name:41
 msgid "accordion"
@@ -334,10 +334,15 @@ msgstr "flauto contralto"
 msgid "alto saxophone"
 msgstr "sassofono contralto"
 
+#: DB:instrument/name:923
+msgctxt "Alto member of the viol family"
+msgid "alto viol"
+msgstr ""
+
 #: DB:instrument/name:174
 msgctxt "Alto or vertical violin, for French \"alto\" credits, choose viola"
 msgid "alto violin"
-msgstr ""
+msgstr "Violino contralto"
 
 #: DB:instrument/name:363
 msgid "amadinda"
@@ -625,6 +630,11 @@ msgstr ""
 
 #: DB:instrument/name:69
 msgid "berimbau"
+msgstr ""
+
+#: DB:instrument/name:920
+msgctxt "Rajasthani string membranophone"
+msgid "bhapang"
 msgstr ""
 
 #: DB:instrument/name:743
@@ -1168,7 +1178,7 @@ msgstr ""
 #: DB:instrument/name:48
 msgctxt "Contrabass of modern violin family"
 msgid "double bass"
-msgstr ""
+msgstr "Contrabbasso"
 
 #: DB:instrument/name:3
 msgid "double reed"
@@ -1532,10 +1542,6 @@ msgstr ""
 
 #: DB:instrument/name:639
 msgid "gong bass drum"
-msgstr ""
-
-#: DB:instrument/name:269
-msgid "gongs"
 msgstr ""
 
 #: DB:instrument/name:582
@@ -2084,6 +2090,11 @@ msgstr ""
 msgid "luthéal"
 msgstr ""
 
+#: DB:instrument/name:925
+msgctxt "Small bass viol"
+msgid "lyra viol"
+msgstr ""
+
 #: DB:instrument/name:84
 msgid "lyre"
 msgstr "lira"
@@ -2194,7 +2205,7 @@ msgid "morin khuur"
 msgstr ""
 
 #: DB:instrument/name:533
-msgctxt "indian jew's harp"
+msgctxt "Indian mouth harp"
 msgid "morsing"
 msgstr ""
 
@@ -2258,7 +2269,7 @@ msgstr ""
 #: DB:instrument/name:522
 msgctxt "Valveless and keyless ancestor of the modern horn"
 msgid "natural horn"
-msgstr ""
+msgstr "Corno naturale"
 
 #: DB:instrument/name:913
 msgctxt "Valveless ancestor of the modern trumpet"
@@ -2301,7 +2312,7 @@ msgstr ""
 #: DB:instrument/name:566
 msgctxt "nylon-stringed acoustic guitar"
 msgid "nylon guitar"
-msgstr ""
+msgstr "chitarra con corde di nylon"
 
 #: DB:instrument/name:272
 msgid "não bạt / chập chõa"
@@ -2408,6 +2419,11 @@ msgstr ""
 
 #: DB:instrument/name:315
 msgid "pang gu ly hu hmông"
+msgstr ""
+
+#: DB:instrument/name:924
+msgctxt "Smallest member of the viol family"
+msgid "pardessus de viole"
 msgstr ""
 
 #: DB:instrument/name:606
@@ -3221,6 +3237,11 @@ msgstr ""
 msgid "tenor trombone"
 msgstr "Trombone tenore"
 
+#: DB:instrument/name:922
+msgctxt "Tenor member of the viol family"
+msgid "tenor viol"
+msgstr ""
+
 #: DB:instrument/name:615
 msgid "tenor violin"
 msgstr "Violino tenore"
@@ -3330,10 +3351,15 @@ msgstr ""
 msgid "treble recorder / alto recorder"
 msgstr ""
 
+#: DB:instrument/name:921
+msgctxt "Treble/descant member of the viol family"
+msgid "treble viol"
+msgstr ""
+
 #: DB:instrument/name:209
 msgctxt "Smallest member of the new violin family"
 msgid "treble violin"
-msgstr ""
+msgstr "Violino sopranino"
 
 #: DB:instrument/name:90
 msgid "tres"
@@ -3543,12 +3569,12 @@ msgstr "Viola caipira"
 #: DB:instrument/name:94
 msgctxt "Baroque fretless similar to both viols and violins."
 msgid "viola d'amore"
-msgstr ""
+msgstr "Viola d'amore"
 
 #: DB:instrument/name:93
-msgctxt "Generic member of the viol family"
+msgctxt "Generic member of the viol family, Use for \"Viol\" Credits"
 msgid "viola da gamba"
-msgstr ""
+msgstr "Viola da gamba"
 
 #: DB:instrument/name:227
 msgid "viola organista"
@@ -3580,7 +3606,7 @@ msgstr ""
 #: DB:instrument/name:693
 msgctxt "for violoncello use \"cello\""
 msgid "violoncello piccolo"
-msgstr ""
+msgstr "Violoncello piccolo"
 
 #: DB:instrument/name:420
 msgctxt "Contra/double-bass member of the viol family"

@@ -27,8 +27,8 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-05-29 14:45+0200\n"
-"PO-Revision-Date: 2018-05-29 13:20+0000\n"
-"Last-Translator: yvanz\n"
+"PO-Revision-Date: 2018-05-31 09:50+0000\n"
+"Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -293,7 +293,7 @@ msgstr "500px"
 
 #: ../root/admin/edit_user.tt:20
 msgid "<abbr title=\"MusicBrainz Identifier\">MBID</abbr> submitter"
-msgstr "<abbr title=\"MusicBrainz Identificator\">MBID</abbr> submitter"
+msgstr "<abbr title=\"MusicBrainz Identificator\">MBID</abbr>-indiener"
 
 #: ../root/edit/info.tt:50
 msgid "<em>Cancelling</em>"
@@ -326,7 +326,7 @@ msgid ""
 "license. Furthermore, you give the MetaBrainz Foundation the right to "
 "license this data for commercial use. Please read our {doc|license page} for"
 " more details.</strong>"
-msgstr "<strong>Let op dat elke bijdrage die je aan MusicBrainz maakt, wordt vrijgegeven in het Publiek Domein en/of onder een by-nc-sa licentie van Creative Commons. Daarnaast geef je de MetaBrainz Foundation het recht om de gegevens voor commercieel gebruik in licentie te geven. Lees onze {doc|licentiepagina} voor meer details.</strong>"
+msgstr "<strong>Let op dat elke bijdrage die je aan MusicBrainz maakt in het Publiek Domein en/of onder een by-nc-sa licentie van Creative Commons wordt vrijgegeven. Daarnaast geef je de MetaBrainz Foundation het recht om de gegevens voor commercieel gebruik in licentie te geven. Lees onze {doc|licentiepagina} voor meer details.</strong>"
 
 #: ../root/admin/wikidoc/index.tt:16
 msgid ""
@@ -1746,7 +1746,7 @@ msgstr "Cd-beginsels zijn een manier om anonieme gebruikers gegevens te laten to
 #: ../root/account/edit_application.tt:10
 #: ../root/account/register_application.tt:10
 msgid "Callback URL:"
-msgstr "Callback URL:"
+msgstr "Callback-URL:"
 
 #: ../root/doc/edit_type.tt:42
 msgid "Can be approved"
@@ -1814,7 +1814,7 @@ msgstr "De captcha is incorrect. Probeer het opnieuw."
 
 #: ../root/release/edit/information.tt:185
 msgid "Cat. No:"
-msgstr "Cat. Nr:"
+msgstr "Catalogusnr."
 
 #: ../root/edit/details/historic/add_release.tt:78
 #: ../root/report/cat_no_looks_like_asin.tt:18
@@ -2532,7 +2532,7 @@ msgstr "Bewerkingsnotitie"
 
 #: ../root/edit/search_macros.tt:360
 msgid "Edit Note Author"
-msgstr "Auteur van de bewerkingsnotitie"
+msgstr "Schrijver van de bewerkingsnotitie"
 
 #: ../root/account/edit.tt:1 ../root/account/edit.tt:4
 #: ../root/user/profile/layout.tt:38
@@ -3327,29 +3327,29 @@ msgstr "Aangemaakt op {date}"
 
 #: ../root/components/forms.tt:211 ../root/release/edit/information.tt:14
 msgid "Guess case"
-msgstr "Hoofdlettergebruik gokken"
+msgstr "Hoofdletters gokken"
 
 #: ../root/components/forms.tt:237
 msgctxt "button/menu"
 msgid "Guess case"
-msgstr "Hoofdlettergebruik gokken"
+msgstr "Hoofdletters gokken"
 
 #: ../root/components/forms.tt:232
 msgctxt "header"
 msgid "Guess case"
-msgstr "Hoofdlettergebruik gokken"
+msgstr "Hoofdletters gokken"
 
 #: ../root/release/edit/tracklist.tt:296
 msgid "Guess case disc title"
-msgstr "Hoofdlettergebruik van de mediumtitel gokken"
+msgstr "Hoofdletters van de mediumtitel gokken"
 
 #: ../root/components/forms.tt:215 ../root/release/edit/information.tt:16
 msgid "Guess case options"
-msgstr "Opties voor het gokken van hoofdlettergebruik"
+msgstr "Opties voor het gokken van hoofdletters"
 
 #: ../root/release/edit/tracklist.tt:200
 msgid "Guess case track"
-msgstr "Hoofdlettergebruik in de nummers gokken"
+msgstr "Hoofdletters in de nummers gokken"
 
 #: ../root/components/forms.tt:213 ../root/release/edit/information.tt:15
 #: ../root/release/edit/tracklist.tt:201
@@ -3798,7 +3798,7 @@ msgstr "Om deze pagina goed te laten functioneren, is Javascript nodig."
 
 #: ../root/components/forms.tt:249 ../root/components/forms.tt:273
 msgid "Keep all-uppercase words uppercased"
-msgstr "Woorden die geheel in bovenkast zijn onveranderd laten"
+msgstr "Woorden die geheel in hoofdletters staan onveranderd laten"
 
 #: ../root/user/login.tt:31
 msgid "Keep me logged in"
@@ -4141,7 +4141,7 @@ msgstr "Aan het zoeken naar voorgestelde opnames …"
 
 #: ../root/cdtoc/lookup.tt:1 ../root/cdtoc/lookup.tt:2
 msgid "Lookup CD"
-msgstr "cd opzoeken"
+msgstr "Cd opzoeken"
 
 #: ../root/cdstub/browse.tt:10
 msgid "Lookup count"
@@ -4388,7 +4388,7 @@ msgstr "Bericht:"
 #: ../root/report/set_in_different_rg.tt:1
 #: ../root/report/set_in_different_rg.tt:3
 msgid "Mismatched release groups"
-msgstr "Niet overeenkomende uitgavegroepen"
+msgstr "Niet-overeenkomende uitgavegroepen"
 
 #: ../root/cdstub/browse.tt:11
 msgid "Modify count"
