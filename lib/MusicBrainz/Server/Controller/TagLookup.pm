@@ -144,12 +144,7 @@ sub external : Private
     my @search_modifiers;
     for my $term (keys %terms) {
         my $value = escape_query($terms{$term});
-        if ($term eq 'artist') {
-            push @search_modifiers, alias_query('artist', $value);
-        }
-        else {
-            push @search_modifiers, "$term:" . q{"} . $value . q{"};
-        }
+        push @search_modifiers, "$term:" . q{"} . $value . q{"};
     }
 
     # Try and find the most exact search
