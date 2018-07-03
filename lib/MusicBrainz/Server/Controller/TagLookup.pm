@@ -3,7 +3,7 @@ use Moose;
 BEGIN { extends 'MusicBrainz::Server::Controller' }
 
 use MusicBrainz::Server::Form::TagLookup;
-use MusicBrainz::Server::Data::Search qw( alias_query escape_query );
+use MusicBrainz::Server::Data::Search qw( escape_query );
 
 use constant LOOKUPS_PER_NAG => 5;
 
@@ -144,12 +144,7 @@ sub external : Private
     my @search_modifiers;
     for my $term (keys %terms) {
         my $value = escape_query($terms{$term});
-        if ($term eq 'artist') {
-            push @search_modifiers, alias_query('artist', $value);
-        }
-        else {
-            push @search_modifiers, "$term:" . q{"} . $value . q{"};
-        }
+        push @search_modifiers, "$term:" . q{"} . $value . q{"};
     }
 
     # Try and find the most exact search
