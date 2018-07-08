@@ -9,7 +9,7 @@
 
 import noop from 'lodash/noop';
 import React from 'react';
-import {l, lp} from '../../static/scripts/common/i18n';
+import {l, N_l, N_lp} from '../../static/scripts/common/i18n';
 import DBDefs from '../../static/scripts/common/DBDefs';
 import FieldErrors from '../../components/FieldErrors';
 import FormRow from '../../components/FormRow';
@@ -26,47 +26,47 @@ type Props = {|
 const limitOptions = {
   grouped: false,
   options: [
-    {label: l('Up to {n}', {n: 25}), value: 25},
-    {label: l('Up to {n}', {n: 50}), value: 50},
-    {label: l('Up to {n}', {n: 100}), value: 100},
+    {label: N_l('Up to {n}', {n: 25}), value: 25},
+    {label: N_l('Up to {n}', {n: 50}), value: 50},
+    {label: N_l('Up to {n}', {n: 100}), value: 100},
   ],
 };
 
 const typeOptions = {
   grouped: false,
   options: [
-    {label: l('Artist'), value: 'artist'},
-    {label: l('Release Group'), value: 'release_group'},
-    {label: l('Release'), value: 'release'},
-    {label: l('Recording'), value: 'recording'},
-    {label: l('Work'), value: 'work'},
-    {label: l('Label'), value: 'label'},
-    {label: l('Area'), value: 'area'},
-    {label: l('Place'), value: 'place'},
-    {label: l('Annotation'), value: 'annotation'},
-    {label: l('CD Stub'), value: 'cdstub'},
-    {label: l('Editor'), value: 'editor'},
-    {label: lp('Tag', 'noun'), value: 'tag'},
-    {label: l('Instrument'), value: 'instrument'},
-    {label: lp('Series', 'singular'), value: 'series'},
-    {label: l('Event'), value: 'event'},
+    {label: N_l('Artist'), value: 'artist'},
+    {label: N_l('Release Group'), value: 'release_group'},
+    {label: N_l('Release'), value: 'release'},
+    {label: N_l('Recording'), value: 'recording'},
+    {label: N_l('Work'), value: 'work'},
+    {label: N_l('Label'), value: 'label'},
+    {label: N_l('Area'), value: 'area'},
+    {label: N_l('Place'), value: 'place'},
+    {label: N_l('Annotation'), value: 'annotation'},
+    {label: N_l('CD Stub'), value: 'cdstub'},
+    {label: N_l('Editor'), value: 'editor'},
+    {label: N_lp('Tag', 'noun'), value: 'tag'},
+    {label: N_l('Instrument'), value: 'instrument'},
+    {label: N_lp('Series', 'singular'), value: 'series'},
+    {label: N_l('Event'), value: 'event'},
   ],
 };
 
 if (DBDefs.GOOGLE_CUSTOM_SEARCH) {
-  typeOptions.options.push({label: l('Documentation'), value: 'doc'});
+  typeOptions.options.push({label: N_l('Documentation'), value: 'doc'});
 }
 
 const methodOptions = [
-  {label: l('Indexed search'), value: 'indexed'},
+  {label: N_l('Indexed search'), value: 'indexed'},
   {
-    label: l('Indexed search with {doc|advanced query syntax}', {
+    label: N_l('Indexed search with {doc|advanced query syntax}', {
       __react: true,
       doc: '/doc/Indexed_Search_Syntax',
     }),
     value: 'advanced',
   },
-  {label: l('Direct database search'), value: 'direct'},
+  {label: N_l('Direct database search'), value: 'direct'},
 ];
 
 const SearchForm = ({form}: Props) => {

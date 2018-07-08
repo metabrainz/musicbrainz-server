@@ -41,7 +41,7 @@ const FormRowRadio = ({
               value={option.value}
             />
             {' '}
-            {option.label}
+            {option.label.toLocaleString()}
           </label>
           {index < options.length - 1 ? <br /> : null}
         </Frag>
