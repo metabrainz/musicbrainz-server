@@ -3,7 +3,7 @@ package MusicBrainz::Server::Form::Field::DatePeriod;
 use HTML::FormHandler::Moose;
 use Date::Calc;
 use List::MoreUtils 'any';
-use MusicBrainz::Server::Translation qw( l ln );
+use MusicBrainz::Server::Translation qw( l );
 use aliased 'MusicBrainz::Server::Entity::PartialDate';
 extends 'HTML::FormHandler::Field::Compound';
 

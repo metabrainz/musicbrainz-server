@@ -2,7 +2,7 @@ package MusicBrainz::Server::Form::Field::Length;
 use Moose;
 
 use MusicBrainz::Server::Track;
-use MusicBrainz::Server::Translation qw( l ln );
+use MusicBrainz::Server::Translation qw( l );
 use Try::Tiny;
 
 extends 'HTML::FormHandler::Field::Text';

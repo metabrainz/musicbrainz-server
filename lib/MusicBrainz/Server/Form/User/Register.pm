@@ -2,7 +2,7 @@ package MusicBrainz::Server::Form::User::Register;
 
 use HTML::FormHandler::Moose;
 use MusicBrainz::Server::Form::Utils qw( validate_username );
-use MusicBrainz::Server::Translation qw( l ln );
+use MusicBrainz::Server::Translation qw( l N_l );
 
 extends 'MusicBrainz::Server::Form';
 
@@ -20,7 +20,8 @@ has_field 'password' => (
     required  => 1,
     minlength => 1,
     maxlength => 64,
-    messages  => { required => l('Please enter a password in this field') }
+    messages  => { required => N_l('Please enter a password in this field') },
+    localize_meth => sub { my ($self, @message) = @_; return l(@message); }
 );
 
 has_field 'confirm_password' => (
@@ -28,7 +29,8 @@ has_field 'confirm_password' => (
     password_field => 'password',
     required       => 1,
     minlength      => 1,
-    messages       => { pass_conf_not_matched => l('The password confirmation does not match the password') }
+    messages       => { pass_conf_not_matched => N_l('The password confirmation does not match the password') },
+    localize_meth => sub { my ($self, @message) = @_; return l(@message); }
 );
 
 has_field 'email' => (
