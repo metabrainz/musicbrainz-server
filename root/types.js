@@ -248,8 +248,15 @@ declare type EventT = {|
   ...CoreEntityRoleT,
   ...RatableRoleT,
   ...TypeRoleT<EventTypeT>,
+  +areas: $ReadOnlyArray<{|+entity: AreaT|}>,
   +cancelled: boolean,
   +entityType: 'event',
+  +performers: $ReadOnlyArray<{|
+    +entity: ArtistT,
+    +roles: $ReadOnlyArray<string>,
+  |}>,
+  +places: $ReadOnlyArray<{|+entity: PlaceT|}>,
+  +time: string,
 |};
 
 export opaque type EventTypeT: OptionTreeT = OptionTreeT;
