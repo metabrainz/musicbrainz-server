@@ -3,8 +3,6 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-const sliced = require('sliced');
-
 const expand = require('./i18n/expand');
 const NopArgs = require('./i18n/NopArgs');
 const wrapGettext = require('./i18n/wrapGettext');
@@ -13,16 +11,16 @@ const l = wrapGettext('dgettext', 'mb_server');
 const ln = wrapGettext('dngettext', 'mb_server');
 const lp = wrapGettext('dpgettext', 'mb_server');
 
-function noop() {
-    return new NopArgs(sliced(arguments));
+function noop(func) {
+    return (...args) => new NopArgs(func, args);
 }
 
 exports.l = l;
 exports.ln = ln;
 exports.lp = lp;
-exports.N_l = noop;
-exports.N_ln = noop;
-exports.N_lp = noop;
+exports.N_l = noop(l);
+exports.N_ln = noop(ln);
+exports.N_lp = noop(lp);
 exports.expand = expand;
 
 let documentLang = 'en';

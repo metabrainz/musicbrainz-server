@@ -7,6 +7,7 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
+import NopArgs from './static/scripts/common/i18n/NopArgs';
 
 /*
  * Types are in alphabetical order.
@@ -485,7 +486,7 @@ declare type SearchResultT<T> = {|
  * FIXME(michael): Consolidate with OptionListT.
  */
 declare type SelectOptionT = {|
-  +label: string,
+  +label: string | NopArgs,
   +value: number | string,
 |};
 
