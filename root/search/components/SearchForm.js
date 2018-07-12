@@ -53,6 +53,14 @@ const typeOptions = {
   ],
 };
 
+const sortOptions = {
+  grouped: false,
+  options: [
+    {label: N_l('Popularity'), value: 'popularity'},
+    {label: N_l('Relevance'), value: 'relevance'},
+  ],
+};
+
 if (DBDefs.GOOGLE_CUSTOM_SEARCH) {
   typeOptions.options.push({label: N_l('Documentation'), value: 'doc'});
 }
@@ -86,6 +94,12 @@ const SearchForm = ({form}: Props) => {
             label={l('Type:')}
             onChange={noop}
             options={typeOptions}
+          />
+          <FormRowSelect
+            field={form.field.sort_by}
+            label={l('Sort by:')}
+            onChange={noop}
+            options={sortOptions}
           />
           <FormRowSelect
             field={form.field.limit}

@@ -3,6 +3,7 @@
     <form action="[% c.uri_for('/search') %]" method="get">
         [% form_row_text_long(search, 'query', l('Query:')) %]
         [% form_row_select(search, 'type', l('Type:')) %]
+        [% form_row_select(search, 'sort_by', l('Sort by:')) %]
         [% WRAPPER form_row %]
             [% search.label('limit', l('Results per page:')) %]
             [% field = search.form.field('limit') %]
