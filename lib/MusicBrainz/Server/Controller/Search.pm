@@ -214,7 +214,8 @@ sub external : Private
                               type     => $type,
                               limit    => $form->field('limit')->value,
                               page     => $c->request->query_params->{page},
-                              advanced => $form->field('method')->value eq 'advanced');
+                              advanced => $form->field('method')->value eq 'advanced',
+                              popular  => $form->field('sort_by')->value eq 'popularity');
 
     $c->stash->{template} ="search/results-$type.tt";
 }
@@ -233,13 +234,14 @@ sub do_external_search {
 
     my $query = $opts{query};
     my $type  = $opts{type};
-
+    my $popular  = $opts{popular};
     my $search = $c->model('Search');
     my $ret = $search->external_search($type,
                                        $query,
                                        $limit,
                                        $page,
-                                       $advanced);
+                                       $advanced,
+                                       $popular);
 
     if (exists $ret->{error})
     {

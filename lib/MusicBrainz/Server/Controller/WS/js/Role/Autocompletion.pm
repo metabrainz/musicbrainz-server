@@ -79,7 +79,7 @@ sub _indexed_search {
     my $model = $self->model($c);
 
     my $no_redirect = 1;
-    my $response = $c->model('Search')->external_search($self->type, $query, $limit, $page, 0);
+    my $response = $c->model('Search')->external_search($self->type, $query, $limit, $page, 0, 1);
     my (@output, $pager);
 
     if ($response->{error}) {
