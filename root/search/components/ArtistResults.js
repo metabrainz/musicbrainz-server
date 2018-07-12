@@ -27,8 +27,7 @@ function buildResult(result, index) {
   const score = result.score;
 
   return (
-    <tr className={loopParity(index)} key={artist.id}>
-      <td>{result.score}</td>
+    <tr className={loopParity(index)} data-score={score} key={artist.id}>
       <td>
         <EntityLink entity={artist} />
       </td>
@@ -66,7 +65,6 @@ const ArtistResults = ({
     <PaginatedSearchResults
       buildResult={buildResult}
       columns={[
-        l('Score'),
         l('Name'),
         l('Sort Name'),
         l('Type'),
