@@ -12,7 +12,6 @@ import React from 'react';
 import {withCatalystContext} from '../../context';
 import {l} from '../../static/scripts/common/i18n';
 import {lp_attributes} from '../../static/scripts/common/i18n/attributes';
-import PaginatedResults from '../../components/PaginatedResults';
 import EntityLink from '../../static/scripts/common/components/EntityLink';
 import formatDate from '../../static/scripts/common/utility/formatDate';
 import formatEndDate from '../../static/scripts/common/utility/formatEndDate';
@@ -20,6 +19,7 @@ import primaryAreaCode from '../../static/scripts/common/utility/primaryAreaCode
 import loopParity from '../../utility/loopParity';
 import type {ResultsPropsT} from '../types';
 
+import PaginatedSearchResults from './PaginatedSearchResults';
 import ResultsLayout from './ResultsLayout';
 
 function buildResult(result, index) {
@@ -63,31 +63,24 @@ const ArtistResults = ({
   results,
 }: ResultsPropsT<ArtistT>) => (
   <ResultsLayout form={form} lastUpdated={lastUpdated}>
-    {results.length ? (
-      <PaginatedResults pager={pager} query={query} search>
-        <table className="tbl">
-          <thead>
-            <tr>
-              <th>{l('Score')}</th>
-              <th>{l('Name')}</th>
-              <th>{l('Sort Name')}</th>
-              <th>{l('Type')}</th>
-              <th>{l('Gender')}</th>
-              <th>{l('Area')}</th>
-              <th>{l('Begin')}</th>
-              <th>{l('Begin Area')}</th>
-              <th>{l('End')}</th>
-              <th>{l('End Area')}</th>
-            </tr>
-          </thead>
-          <tbody>
-            {results.map(buildResult)}
-          </tbody>
-        </table>
-      </PaginatedResults>
-    ) : (
-      <p>{l('No results found. Try refining your search query.')}</p>
-    )}
+    <PaginatedSearchResults
+      buildResult={buildResult}
+      columns={[
+        l('Score'),
+        l('Name'),
+        l('Sort Name'),
+        l('Type'),
+        l('Gender'),
+        l('Area'),
+        l('Begin'),
+        l('Begin Area'),
+        l('End'),
+        l('End Area'),
+      ]}
+      pager={pager}
+      query={query}
+      results={results}
+    />
     {$c.user && !$c.user.is_editing_disabled ? (
       <p>
         {l('Alternatively, you may {uri|add a new artist}.', {

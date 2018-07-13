@@ -14,13 +14,13 @@ import {withCatalystContext} from '../../context';
 import {l} from '../../static/scripts/common/i18n';
 import {lp_attributes} from '../../static/scripts/common/i18n/attributes';
 import commaOnlyList from '../../static/scripts/common/i18n/commaOnlyList';
-import PaginatedResults from '../../components/PaginatedResults';
 import DescriptiveLink from '../../static/scripts/common/components/DescriptiveLink';
 import EntityLink from '../../static/scripts/common/components/EntityLink';
 import formatDatePeriod from '../../static/scripts/common/utility/formatDatePeriod';
 import loopParity from '../../utility/loopParity';
 import type {ResultsPropsT} from '../types';
 
+import PaginatedSearchResults from './PaginatedSearchResults';
 import ResultsLayout from './ResultsLayout';
 
 function buildResult(result, index) {
@@ -79,28 +79,21 @@ const EventResults = ({
   results,
 }: ResultsPropsT<EventT>) => (
   <ResultsLayout form={form} lastUpdated={lastUpdated}>
-    {results.length ? (
-      <PaginatedResults pager={pager} query={query} search>
-        <table className="tbl">
-          <thead>
-            <tr>
-              <th>{l('Score')}</th>
-              <th>{l('Name')}</th>
-              <th>{l('Type')}</th>
-              <th>{l('Artists')}</th>
-              <th>{l('Location')}</th>
-              <th>{l('Date')}</th>
-              <th>{l('Time')}</th>
-            </tr>
-          </thead>
-          <tbody>
-            {results.map(buildResult)}
-          </tbody>
-        </table>
-      </PaginatedResults>
-    ) : (
-      <p>{l('No results found. Try refining your search query.')}</p>
-    )}
+    <PaginatedSearchResults
+      buildResult={buildResult}
+      columns={[
+        l('Score'),
+        l('Name'),
+        l('Type'),
+        l('Artists'),
+        l('Location'),
+        l('Date'),
+        l('Time'),
+      ]}
+      pager={pager}
+      query={query}
+      results={results}
+    />
     {$c.user && !$c.user.is_editing_disabled ? (
       <p>
         {l('Alternatively, you may {uri|add a new event}.', {

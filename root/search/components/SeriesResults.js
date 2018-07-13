@@ -12,11 +12,11 @@ import React from 'react';
 import {withCatalystContext} from '../../context';
 import {l} from '../../static/scripts/common/i18n';
 import {lp_attributes} from '../../static/scripts/common/i18n/attributes';
-import PaginatedResults from '../../components/PaginatedResults';
 import EntityLink from '../../static/scripts/common/components/EntityLink';
 import loopParity from '../../utility/loopParity';
 import type {ResultsPropsT} from '../types';
 
+import PaginatedSearchResults from './PaginatedSearchResults';
 import ResultsLayout from './ResultsLayout';
 
 function buildResult(result, index) {
@@ -45,24 +45,13 @@ const SeriesResults = ({
   results,
 }: ResultsPropsT<SeriesT>) => (
   <ResultsLayout form={form} lastUpdated={lastUpdated}>
-    {results.length ? (
-      <PaginatedResults pager={pager} query={query} search>
-        <table className="tbl">
-          <thead>
-            <tr>
-              <th>{l('Score')}</th>
-              <th>{l('Name')}</th>
-              <th>{l('Type')}</th>
-            </tr>
-          </thead>
-          <tbody>
-            {results.map(buildResult)}
-          </tbody>
-        </table>
-      </PaginatedResults>
-    ) : (
-      <p>{l('No results found. Try refining your search query.')}</p>
-    )}
+    <PaginatedSearchResults
+      buildResult={buildResult}
+      columns={[l('Score'), l('Name'), l('Type')]}
+      pager={pager}
+      query={query}
+      results={results}
+    />
     {$c.user && !$c.user.is_editing_disabled ? (
       <p>
         {l('Alternatively, you may {uri|add a new series}.', {
