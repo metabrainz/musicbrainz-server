@@ -11,7 +11,7 @@ import React from 'react';
 
 import {withCatalystContext} from '../../context';
 import {l} from '../../static/scripts/common/i18n';
-import {l_attributes} from '../../static/scripts/common/i18n/attributes';
+import {lp_attributes} from '../../static/scripts/common/i18n/attributes';
 import PaginatedResults from '../../components/PaginatedResults';
 import DescriptiveLink from '../../static/scripts/common/components/DescriptiveLink';
 import formatDate from '../../static/scripts/common/utility/formatDate';
@@ -33,7 +33,7 @@ function buildResult(result, index) {
         <DescriptiveLink entity={area} />
       </td>
       <td>
-        {area.typeName ? l_attributes(area.typeName) : null}
+        {area.typeName ? lp_attributes(area.typeName, 'area_type') : null}
       </td>
       <td>{primaryAreaCode(area)}</td>
       <td>{formatDate(area.begin_date)}</td>

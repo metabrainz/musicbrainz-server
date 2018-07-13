@@ -11,7 +11,7 @@ import React from 'react';
 
 import {withCatalystContext} from '../../context';
 import {l} from '../../static/scripts/common/i18n';
-import {l_attributes} from '../../static/scripts/common/i18n/attributes';
+import {lp_attributes} from '../../static/scripts/common/i18n/attributes';
 import PaginatedResults from '../../components/PaginatedResults';
 import EntityLink from '../../static/scripts/common/components/EntityLink';
 import formatDate from '../../static/scripts/common/utility/formatDate';
@@ -34,10 +34,10 @@ function buildResult(result, index) {
       </td>
       <td>{artist.sort_name}</td>
       <td>
-        {artist.typeName ? l_attributes(artist.typeName) : null}
+        {artist.typeName ? lp_attributes(artist.typeName, 'artist_type') : null}
       </td>
       <td>
-        {artist.gender ? l_attributes(artist.gender.name) : null}
+        {artist.gender ? lp_attributes(artist.gender.name, 'gender') : null}
       </td>
       <td>
         {artist.area ? <EntityLink entity={artist.area} /> : null}
