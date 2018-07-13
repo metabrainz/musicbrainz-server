@@ -723,8 +723,7 @@ sub escape_query
 
 sub external_search
 {
-    my ($self, $type, $query, $limit, $page, $adv) = @_;
-
+    my ($self, $type, $query, $limit, $page, $adv, $popular) = @_;
     my $entity_model = $self->c->model( type_to_model($type) )->_entity_class;
     load_class($entity_model);
     my $offset = ($page - 1) * $limit;
@@ -750,6 +749,10 @@ sub external_search
             }
         }
         $search_url_string = "http://%s/%s/$endpoint?q=%s&start=%s&rows=%s&wt=mbjson";
+        if (!$popular)
+        {
+            $search_url_string .= "&bf=1";
+        }
      }
 
     my $search_url = sprintf($search_url_string,
@@ -758,6 +761,7 @@ sub external_search
                                  $query,
                                  $offset,
                                  $limit);
+    print $search_url;
 
     # Dispatch the search request.
     my $response = get_chunked_with_retry($self->c->lwp, $search_url);

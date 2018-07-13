@@ -16,6 +16,12 @@ has_field 'type' => (
     required => 1
 );
 
+has_field 'sort_by' => (
+    type => 'Select',
+    required => 1,
+    default => 'popularity'
+);
+
 has_field 'method' => (
     type => 'Select',
     required => 1,
@@ -52,6 +58,15 @@ sub options_type
     push @options, ( 'doc' => l('Documentation') ) if DBDefs->GOOGLE_CUSTOM_SEARCH;
 
     return \@options;
+}
+
+sub options_sort_by
+{
+    return [
+        'popularity' => l('Popularity'),
+        'relevance' => l('Relevance')
+    ]
+
 }
 
 sub options_method
