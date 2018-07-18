@@ -1968,17 +1968,17 @@ const CLEANUPS = {
     }
   },
   utaitedbvocadbtouhoudb: {
-    match: [new RegExp("^(https?://)?(www\\.)?((utaite|voca)db\\.net)|(touhoudb\\.com)", "i")],
+    match: [new RegExp("^(https?://)?(www\\.)?((utaite|voca)db\\.net|touhoudb\\.com)", "i")],
     type: LINK_TYPES.otherdatabases,
     clean: function (url) {
-      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?(utaite|voca|touhou)db((?:\.net)|(?:\.com))\/((?:[A-Za-z]+\/){1,2}0*[1-9][0-9]*)(?:[\/?#].*)?$/, "https://$1db$2/$3");
+      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?(utaite|voca|touhou)db(\.net|\.com)\/((?:[A-Za-z]+\/){1,2}0*[1-9][0-9]*)(?:[\/?#].*)?$/, "https://$1db$2/$3");
       url = url.replace(/Artist\/(Details|Edit|Versions)/, "Ar");
       url = url.replace(/Album\/(Details|DownloadTags|Edit|Related|Versions)/, "Al");
       url = url.replace(/Event\/(Details|Edit|Versions)/, "E");
       return url.replace(/Song\/(Details|Edit|Related|Versions)/, "S");
     },
     validate: function (url, id) {
-      var m = /^https:\/\/(?:(?:(?:utaite|voca)db\.net)|(?:touhoudb\.com))\/([A-Za-z]+(?:\/[A-Za-z]+)?)\/[1-9][0-9]*$/.exec(url);
+      var m = /^https:\/\/(?:(?:utaite|voca)db\.net|touhoudb\.com)\/([A-Za-z]+(?:\/[A-Za-z]+)?)\/[1-9][0-9]*$/.exec(url);
       if (m) {
         var prefix = m[1];
         switch (id) {
