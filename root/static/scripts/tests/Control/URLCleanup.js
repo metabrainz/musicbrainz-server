@@ -2874,10 +2874,10 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
                only_valid_entity_types: ['artist', 'label']
         },
         {
-                             input_url: 'touhoudb.net/Al/4644',
+                             input_url: 'touhoudb.com/Al/4644',
                      input_entity_type: 'release',
             expected_relationship_type: 'otherdatabases',
-                    expected_clean_url: 'https://touhoudb.net/Al/4644',
+                    expected_clean_url: 'https://touhoudb.com/Al/4644',
                only_valid_entity_types: ['release_group']
         },
         {
