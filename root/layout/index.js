@@ -51,7 +51,7 @@ const ServerDetailsBanner = () => {
       <div className="banner server-details">
         <p>
           {l('This is a MusicBrainz mirror server. To edit or make changes to the data, please {uri|return to musicbrainz.org}.',
-             {uri: '//musicbrainz.org'})}
+             {__react: true, uri: '//musicbrainz.org'})}
         </p>
         <DismissBannerButton bannerName="server_details" />
       </div>
