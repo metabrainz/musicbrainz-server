@@ -503,8 +503,11 @@ declare type SeriesT = {|
   ...AnnotationRoleT,
   ...CommentRoleT,
   ...CoreEntityRoleT,
+  ...TypeRoleT<SeriesTypeT>,
   +entityType: 'series',
 |};
+
+export opaque type SeriesTypeT: OptionTreeT = OptionTreeT;
 
 declare type ServerLanguageT = {|
   +id: number,

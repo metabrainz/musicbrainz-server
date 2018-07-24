@@ -12,10 +12,7 @@ import React from 'react';
 import {withCatalystContext} from '../../context';
 import {l} from '../../static/scripts/common/i18n';
 import {lp_attributes} from '../../static/scripts/common/i18n/attributes';
-import DescriptiveLink from '../../static/scripts/common/components/DescriptiveLink';
-import formatDate from '../../static/scripts/common/utility/formatDate';
-import formatEndDate from '../../static/scripts/common/utility/formatEndDate';
-import primaryAreaCode from '../../static/scripts/common/utility/primaryAreaCode';
+import EntityLink from '../../static/scripts/common/components/EntityLink';
 import loopParity from '../../utility/loopParity';
 import type {ResultsPropsT} from '../types';
 
@@ -23,57 +20,47 @@ import PaginatedSearchResults from './PaginatedSearchResults';
 import ResultsLayout from './ResultsLayout';
 
 function buildResult(result, index) {
-  const area = result.entity;
+  const series = result.entity;
   const score = result.score;
 
   return (
-    <tr className={loopParity(index)} key={area.id}>
-      <td>{score}</td>
+    <tr className={loopParity(index)} key={series.id}>
+      <td>{result.score}</td>
       <td>
-        <DescriptiveLink entity={area} />
+        <EntityLink entity={series} />
       </td>
       <td>
-        {area.typeName ? lp_attributes(area.typeName, 'area_type') : null}
+        {series.typeName ? lp_attributes(series.typeName, 'series_type') : null}
       </td>
-      <td>{primaryAreaCode(area)}</td>
-      <td>{formatDate(area.begin_date)}</td>
-      <td>{formatEndDate(area)}</td>
     </tr>
   );
 }
 
-const AreaResults = ({
+const SeriesResults = ({
   $c,
   form,
   lastUpdated,
   pager,
   query,
   results,
-}: ResultsPropsT<AreaT>) => (
+}: ResultsPropsT<SeriesT>) => (
   <ResultsLayout form={form} lastUpdated={lastUpdated}>
     <PaginatedSearchResults
       buildResult={buildResult}
-      columns={[
-        l('Score'),
-        l('Name'),
-        l('Type'),
-        l('Code'),
-        l('Begin'),
-        l('End'),
-      ]}
+      columns={[l('Score'), l('Name'), l('Type')]}
       pager={pager}
       query={query}
       results={results}
     />
-    {$c.user && $c.user.is_location_editor ? (
+    {$c.user && !$c.user.is_editing_disabled ? (
       <p>
-        {l('Alternatively, you may {uri|add a new area}.', {
+        {l('Alternatively, you may {uri|add a new series}.', {
           __react: true,
-          uri: '/area/create?edit-area.name=' + encodeURIComponent(query),
+          uri: '/series/create?edit-series.name=' + encodeURIComponent(query),
         })}
       </p>
     ) : null}
   </ResultsLayout>
 );
 
-export default withCatalystContext(AreaResults);
+export default withCatalystContext(SeriesResults);
