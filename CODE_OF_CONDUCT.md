@@ -1,15 +1,9 @@
-MusicBrainz Code of Conduct
-===========================
+MetaBrainz Code of Conduct
+==========================
 
-This project follows the **[MusicBrainz Code of
-Conduct](https://musicbrainz.org/doc/Code_of_Conduct "Code of Conduct -
-MusicBrainz")**. The _Community members_ section applies to this and all other
-MetaBrainz-sponsored projects.
+This project follows the **[MetaBrainz code of conduct
+](https://metabrainz.org/code-of-conduct
+"Code of Conduct - MetaBrainz Foundation")**.
 
-The full MusicBrainz Code of Conduct is found here:
-
-    https://musicbrainz.org/doc/Code_of_Conduct
-
-For questions about the Code of Conduct or to get help, please email
-support@metabrainz.org.
-
+For questions about the code of conduct or to get help, please email
+support@metabrainz.org or post on https://community.metabrainz.org/
