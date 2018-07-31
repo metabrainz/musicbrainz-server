@@ -18,11 +18,16 @@ const EditorLink = ({editor, content, avatarSize, subPath}) => {
     avatarSize = 12;
   }
 
-  const gravatar = editor.gravatar + '&s=' + (avatarSize * 2);
+  let gravatar;
+  if (editor.gravatar) {
+    gravatar = editor.gravatar + '&s=' + (avatarSize * 2);
+  }
 
   return (
     <a href={entityHref(editor, subPath)}>
-      <img src={gravatar} height={avatarSize} width={avatarSize} className="gravatar" alt="" />
+      {gravatar ? (
+        <img src={gravatar} height={avatarSize} width={avatarSize} className="gravatar" alt="" />
+      ) : null}
       {isolateText(content)}
     </a>
   );
