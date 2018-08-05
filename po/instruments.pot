@@ -1188,6 +1188,11 @@ msgstr ""
 msgid "dramyin"
 msgstr ""
 
+#: DB:instrument/name:933
+msgctxt "Generic drums of any kind."
+msgid "drum"
+msgstr ""
+
 #: DB:instrument/name:120
 msgid "drum machine"
 msgstr ""
@@ -1323,11 +1328,6 @@ msgstr ""
 #: DB:instrument/name:215
 msgctxt "Middle range huqin"
 msgid "erhu"
-msgstr ""
-
-#: DB:instrument/name:933
-msgctxt "Generic drums of any kind"
-msgid "error"
 msgstr ""
 
 #: DB:instrument/name:529

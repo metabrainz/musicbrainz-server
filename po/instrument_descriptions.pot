@@ -480,12 +480,17 @@ msgid ""
 "often combined with tabor drums."
 msgstr ""
 
-#. #-#-#-#-#  - (PACKAGE VERSION)  #-#-#-#-#
-#. name:error 
-#. #-#-#-#-#  - (PACKAGE VERSION)  #-#-#-#-#
 #. name:membranophone 
-#: DB:instrument/description:933 DB:instrument/description:100
+#: DB:instrument/description:100
 msgid "Any kind of idiophone with membranes, variously sized drums."
+msgstr ""
+
+#. name:drum 
+#: DB:instrument/description:933
+msgid ""
+"Any kind of idiophone with membranes, variously sized drums. For the "
+"instrument commonly known as \"drums\" use <a href=\"https://beta."
+"musicbrainz.org/instrument/12092505-6ee1-46af-a15a-b5b468b6b155\">drumset</a>"
 msgstr ""
 
 #. name:flumpet 
@@ -1314,17 +1319,6 @@ msgid ""
 "tickets.musicbrainz.org/browse/INST\">request it</a>."
 msgstr ""
 
-#. name:viol family 
-#: DB:instrument/description:899
-msgid ""
-"PLEASE use \"<href\"=https://beta.musicbrainz.org/instrument/"
-"be34e4e5-6e77-46f5-ab56-c9641d3da213\">Viola da Gamba</a>\" with artist "
-"credit \"viol\" for generic / unspecified viols credits and NOT this one. "
-"Developed in the 15th century from Vihuelists starting to play with bows, "
-"viols have frets, flat backs, sloped shoulders, c-holes and are tuned in "
-"fourths."
-msgstr ""
-
 #. name:castanets 
 #: DB:instrument/description:109
 msgid ""
@@ -1391,6 +1385,16 @@ msgid ""
 "Played using circular breathing, it is made of twin bamboo reeds with five "
 "to six holes. From the middle-east, it is used in traditional music and as a "
 "accompaniment to belly dancing and dabke."
+msgstr ""
+
+#. name:viol family 
+#: DB:instrument/description:899
+msgid ""
+"Please use <a href=\"https://musicbrainz.org/instrument/be34e4e5-6e77-46f5-"
+"ab56-c9641d3da213\">Viola da Gamba</a> with credit \"viol\" for generic / "
+"unspecified viol credits, and not this one. Developed in the 15th century "
+"from vihuelists starting to play with bows, viols have frets, flat backs, "
+"sloped shoulders, c-holes and are tuned in fourths."
 msgstr ""
 
 #. name:plucked idiophone 

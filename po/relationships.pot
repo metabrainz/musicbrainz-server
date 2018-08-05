@@ -2598,8 +2598,8 @@ msgstr ""
 #: DB:link_type/description:528
 msgid ""
 "This relationship type can be used to link a place to the equivalent entry "
-"in YouTube. URLs should follow the format http://www.youtube.com/user/"
-"<username>"
+"in YouTube. URLs should follow the format http://www.youtube.com/user/&lt;"
+"username&gt;."
 msgstr ""
 
 #: DB:link_type/description:792
@@ -3033,13 +3033,13 @@ msgid "Wikipedia page for"
 msgstr ""
 
 #: DB:link_type/reverse_link_phrase:791 DB:link_type/reverse_link_phrase:792
-#: DB:link_type/reverse_link_phrase:193 DB:link_type/reverse_link_phrase:528
+#: DB:link_type/reverse_link_phrase:528 DB:link_type/reverse_link_phrase:193
 #: DB:link_type/reverse_link_phrase:225
 msgid "YouTube channel for"
 msgstr ""
 
 #: DB:link_type/link_phrase:791 DB:link_type/link_phrase:792
-#: DB:link_type/link_phrase:193 DB:link_type/link_phrase:528
+#: DB:link_type/link_phrase:528 DB:link_type/link_phrase:193
 #: DB:link_type/link_phrase:225
 msgid "YouTube channels"
 msgstr ""
@@ -3860,7 +3860,7 @@ msgid "has an interview at"
 msgstr ""
 
 #: DB:link_type/long_link_phrase:791 DB:link_type/long_link_phrase:792
-#: DB:link_type/long_link_phrase:193 DB:link_type/long_link_phrase:528
+#: DB:link_type/long_link_phrase:528 DB:link_type/long_link_phrase:193
 #: DB:link_type/long_link_phrase:225
 msgid "has an official YouTube channel at"
 msgstr ""
