@@ -20,8 +20,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-29 14:45+0200\n"
-"PO-Revision-Date: 2018-05-30 11:39+0000\n"
+"POT-Creation-Date: 2018-06-30 12:16+0200\n"
+"PO-Revision-Date: 2018-06-30 10:21+0000\n"
 "Last-Translator: yvanz\n"
 "Language-Team: Greek (http://www.transifex.com/musicbrainz/musicbrainz/language/el/)\n"
 "MIME-Version: 1.0\n"
@@ -70,7 +70,7 @@ msgid "\"YY\" is the last two digits of the year of registration."
 msgstr "Το \"YY\" είναι τα τελευταία δύο ψηφία του έτους εγγραφής."
 
 #: ../root/cdstub/cdstub.tt:4 ../root/components/events-list.tt:11
-#: ../root/components/medium.tt:76 ../root/components/recordings-list.tt:22
+#: ../root/components/medium.tt:79 ../root/components/recordings-list.tt:22
 #: ../root/components/release_groups-list.tt:6
 #: ../root/components/releases-list.tt:8 ../root/components/works-list.tt:10
 #: ../root/edit/details/add_medium.tt:49
@@ -850,10 +850,6 @@ msgstr "Έληξε ήδη"
 msgid "Also performs as"
 msgstr ""
 
-#: ../root/search/results-artist.tt:5
-msgid "Alternatively, you may {uri|add a new artist}."
-msgstr "Εναλλακτικά, μπορείτε να {uri|προσθέσετε ένα νέο καλλιτέχνη}."
-
 #: ../root/search/results-event.tt:54
 msgid "Alternatively, you may {uri|add a new event}."
 msgstr ""
@@ -1110,6 +1106,7 @@ msgstr ""
 #: ../lib/MusicBrainz/Server/Edit/Area.pm:7
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:41
 #: ../root/area/AreaHeader.js:22 ../root/layout/components/Search.js:29
+#: ../root/search/components/ArtistResults.js:76
 #: ../root/search/components/SearchForm.js:44
 #: ../root/static/scripts/common/i18n.js:53
 msgid "Area"
@@ -1148,7 +1145,7 @@ msgstr ""
 #: ../root/cdstub/browse.tt:9 ../root/cdstub/cdstub.tt:7
 #: ../root/cdtoc/attach_filter_release.tt:29 ../root/cdtoc/list.tt:6
 #: ../root/cdtoc/lookup.tt:39 ../root/components/artists-list.tt:5
-#: ../root/components/common-macros.tt:590 ../root/components/medium.tt:82
+#: ../root/components/common-macros.tt:590 ../root/components/medium.tt:85
 #: ../root/components/recordings-list.tt:29
 #: ../root/components/relationships-table.tt:28
 #: ../root/components/release_groups-list.tt:11
@@ -1579,11 +1576,13 @@ msgstr "Γίνε μέρος του MusicBrainz δημιουργώντας ένα
 #: ../root/label/merge.tt:16 ../root/place/merge.tt:15
 #: ../root/search/lib/inline-results-artist.tt:12
 #: ../root/search/results-label.tt:12 ../root/search/results-place.tt:12
-#: ../root/search/components/AreaResults.js:74
+#: ../root/search/components/AreaResults.js:63
+#: ../root/search/components/ArtistResults.js:77
 msgid "Begin"
 msgstr "Αρχή"
 
 #: ../root/search/lib/inline-results-artist.tt:13
+#: ../root/search/components/ArtistResults.js:78
 msgid "Begin Area"
 msgstr ""
 
@@ -1922,7 +1921,7 @@ msgid "Closed:"
 msgstr "Έκλεισε:"
 
 #: ../root/components/labels-list.tt:7 ../root/search/results-label.tt:10
-#: ../root/search/components/AreaResults.js:73
+#: ../root/search/components/AreaResults.js:62
 msgid "Code"
 msgstr "Κώδικας"
 
@@ -2143,7 +2142,7 @@ msgstr ""
 msgid "Data Quality:"
 msgstr "Ποιότητα δεδομένων:"
 
-#: ../root/components/medium.tt:96 ../root/medium/tracklist.tt:35
+#: ../root/components/medium.tt:99 ../root/medium/tracklist.tt:35
 #: ../root/release/edit/tracklist.tt:365
 msgid "Data Tracks"
 msgstr ""
@@ -2471,7 +2470,7 @@ msgstr "Κάθε κομμάτι στη βάση δεδομένων του MusicB
 #: ../root/release/discids.tt:12 ../root/release/edit/recordings.tt:58
 #: ../root/release/edit/recordings.tt:94 ../root/release/header.tt:15
 #: ../root/user/collections.tt:64
-#: ../root/components/Aliases/AliasTableRow.js:60
+#: ../root/components/Aliases/AliasTableRow.js:57
 #: ../root/components/EntityTabs.js:103
 #: ../root/static/scripts/edit/components/ArtistCreditEditor.js:389
 msgid "Edit"
@@ -2718,11 +2717,13 @@ msgstr "Ενεργοποίηση αριθμών κομματιών βινυλί�
 #: ../root/event/merge.tt:15 ../root/label/merge.tt:17
 #: ../root/place/merge.tt:16 ../root/search/lib/inline-results-artist.tt:14
 #: ../root/search/results-label.tt:13 ../root/search/results-place.tt:13
-#: ../root/search/components/AreaResults.js:75
+#: ../root/search/components/AreaResults.js:64
+#: ../root/search/components/ArtistResults.js:79
 msgid "End"
 msgstr "Λήξη"
 
 #: ../root/search/lib/inline-results-artist.tt:15
+#: ../root/search/components/ArtistResults.js:80
 msgid "End Area"
 msgstr ""
 
@@ -3064,7 +3065,8 @@ msgid ""
 msgstr ""
 
 #: ../root/event/edit_form.tt:4 ../root/label/edit_form.tt:4
-#: ../root/place/edit_form.tt:4 ../root/work/edit_form.tt:5
+#: ../root/place/edit_form.tt:4 ../root/search/form.tt:48
+#: ../root/work/edit_form.tt:5 ../root/search/components/SearchForm.js:108
 msgid "For more information, check the {doc_doc|documentation}."
 msgstr ""
 
@@ -3222,6 +3224,7 @@ msgstr "Πλήρες TOC:"
 
 #: ../root/components/artists-list.tt:7
 #: ../root/search/lib/inline-results-artist.tt:10
+#: ../root/search/components/ArtistResults.js:75
 msgid "Gender"
 msgstr ""
 
@@ -3989,7 +3992,7 @@ msgid "Legal name"
 msgstr ""
 
 #: ../root/cdstub/cdstub.tt:9 ../root/cdtoc/info.tt:33
-#: ../root/components/medium.tt:85 ../root/components/recordings-list.tt:33
+#: ../root/components/medium.tt:88 ../root/components/recordings-list.tt:33
 #: ../root/components/relationships-table.tt:31
 #: ../root/edit/details/edit_medium.tt:53
 #: ../root/edit/details/edit_medium.tt:57
@@ -4519,7 +4522,8 @@ msgstr ""
 #: ../root/search/results-label.tt:8 ../root/search/results-place.tt:8
 #: ../root/search/results-series.tt:8 ../root/search/results-tag.tt:8
 #: ../root/search/results-work.tt:8 ../root/user/subscriptions/table.tt:12
-#: ../root/search/components/AreaResults.js:71
+#: ../root/search/components/AreaResults.js:60
+#: ../root/search/components/ArtistResults.js:72
 msgid "Name"
 msgstr "Όνομα"
 
@@ -4805,7 +4809,8 @@ msgstr "Δε βρέθηκαν αποτελέσματα."
 #: ../root/search/results-place.tt:40
 #: ../root/search/results-release_group.tt:26
 #: ../root/search/results-series.tt:26 ../root/search/results-work.tt:64
-#: ../root/search/components/AreaResults.js:84
+#: ../root/search/components/AreaResults.js:73
+#: ../root/search/components/ArtistResults.js:89
 msgid "No results found. Try refining your search query."
 msgstr "Δε βρέθηκαν αποτελέσματα. Δοκιμάστε να επαναπροσδιορίσετε το ερώτημα αναζήτησής σας"
 
@@ -5295,10 +5300,6 @@ msgid ""
 "text here! "
 msgstr "Παρακαλούμε σημειώστε πως ότι περιεχόμενο υποβάλλεται στο MusicBrainz θα είναι διαθέσιμο δημόσια υπό {open|ανοικτές άδειες}, μην υποβάλετε κείμενο με πνευματικά δικαιώματα! "
 
-#: ../root/search/form.tt:49 ../root/search/components/SearchForm.js:107
-msgid "Please note:"
-msgstr "Σημειώστε:"
-
 #: ../root/user/report.tt:4
 msgid "Please review our {uri|Code of Conduct} before sending a report."
 msgstr ""
@@ -5468,7 +5469,7 @@ msgstr[0] "Βαθμολογήστε: {rating} αστέρι"
 msgstr[1] "Βαθμολογήστε: {rating} αστέρια"
 
 #: ../root/components/artists-list.tt:9 ../root/components/events-list.tt:29
-#: ../root/components/labels-list.tt:14 ../root/components/medium.tt:84
+#: ../root/components/labels-list.tt:14 ../root/components/medium.tt:87
 #: ../root/components/recordings-list.tt:32
 #: ../root/components/release_groups-list.tt:17
 #: ../root/components/releases-list.tt:24 ../root/components/works-list.tt:20
@@ -6226,7 +6227,7 @@ msgstr "Κυκλοφορίες:"
 #: ../root/release/add_cover_art.tt:70 ../root/release/cover_art.tt:29
 #: ../root/release/delete.tt:1 ../root/release/discids.tt:36
 #: ../root/series/delete.tt:1 ../root/user/collections.tt:65
-#: ../root/components/Aliases/AliasTableRow.js:64
+#: ../root/components/Aliases/AliasTableRow.js:61
 msgid "Remove"
 msgstr "Κατάργηση"
 
@@ -6478,7 +6479,8 @@ msgstr "Αποθήκευση"
 #: ../root/search/results-place.tt:7 ../root/search/results-release_group.tt:7
 #: ../root/search/results-series.tt:7 ../root/search/results-tag.tt:7
 #: ../root/search/results-work.tt:7
-#: ../root/search/components/AreaResults.js:70
+#: ../root/search/components/AreaResults.js:59
+#: ../root/search/components/ArtistResults.js:71
 msgid "Score"
 msgstr ""
 
@@ -6554,12 +6556,6 @@ msgstr "Αναζήτηση για τροποποιήσεις"
 
 #: ../root/edit/details/edit_url.tt:43
 msgid "Search for the target URL."
-msgstr ""
-
-#: ../root/search/form.tt:51 ../root/search/components/SearchForm.js:108
-msgid ""
-"Search indexes are updated every 3 hours, use the direct database search if "
-"you require up to the minute correct results."
 msgstr ""
 
 #: ../root/taglookup/results.tt:11
@@ -7009,6 +7005,7 @@ msgid "Sorry, “{id}” is not a valid documentation page."
 msgstr "Λυπούμαστε, το “{id}” δεν είναι έγκυρη σελίδα τεκμηρίωσης."
 
 #: ../root/search/lib/inline-results-artist.tt:8
+#: ../root/search/components/ArtistResults.js:73
 msgid "Sort Name"
 msgstr "Όνομα ταξινόμησης"
 
@@ -7966,7 +7963,7 @@ msgstr ""
 msgid "This recording does not have any associated AcoustIDs"
 msgstr "Αυτή η ηχογράφηση δεν έχει συνδεδεμένα AcoustIDs"
 
-#: ../root/components/medium.tt:48 ../root/components/recordings-list.tt:49
+#: ../root/components/medium.tt:51 ../root/components/recordings-list.tt:49
 #: ../root/components/recordings-list.tt:77 ../root/medium/tracklist.tt:46
 #: ../root/search/lib/inline-results-recording.tt:29
 #: ../root/search/lib/inline-results-recording.tt:54
@@ -8659,7 +8656,7 @@ msgid "Timezone:"
 msgstr "Ζώνη ώρας:"
 
 #: ../root/cdstub/browse.tt:8 ../root/cdstub/cdstub.tt:5
-#: ../root/cdtoc/list.tt:5 ../root/components/medium.tt:80
+#: ../root/cdtoc/list.tt:5 ../root/components/medium.tt:83
 #: ../root/components/relationships-table.tt:20
 #: ../root/components/release_groups-list.tt:9
 #: ../root/edit/details/edit_medium.tt:51
@@ -8998,7 +8995,8 @@ msgstr "Twitter"
 #: ../root/search/results-series.tt:9 ../root/search/results-work.tt:12
 #: ../root/series/merge.tt:13 ../root/user/collections.tt:45
 #: ../root/work/merge.tt:15 ../root/components/Aliases/AliasTable.js:28
-#: ../root/search/components/AreaResults.js:72
+#: ../root/search/components/AreaResults.js:61
+#: ../root/search/components/ArtistResults.js:74
 msgid "Type"
 msgstr "Τύπος"
 
@@ -9992,8 +9990,7 @@ msgstr "[αφαιρέθηκε]"
 #: ../root/place/layout.tt:34 ../root/place/merge.tt:35
 #: ../root/search/lib/inline-results-artist.tt:32
 #: ../root/search/results-label.tt:28 ../root/search/results-place.tt:28
-#: ../root/components/Aliases/AliasTableRow.js:40
-#: ../root/search/components/AreaResults.js:50
+#: ../root/static/scripts/common/utility/formatEndDate.js:17
 msgid "[unknown]"
 msgstr "[άγνωστο]"
 
@@ -10388,7 +10385,7 @@ msgstr ""
 msgid "track"
 msgstr "κομμάτι"
 
-#: ../root/components/medium.tt:119
+#: ../root/components/medium.tt:122
 msgid "track {tracks}"
 msgid_plural "tracks {tracks}"
 msgstr[0] ""
@@ -12317,7 +12314,7 @@ msgstr "Ημερομηνία έναρξης"
 msgid "End Date"
 msgstr "Ημερομηνία λήξης"
 
-#: ../root/components/Aliases/AliasTableRow.js:50
+#: ../root/components/Aliases/AliasTableRow.js:47
 msgid "primary"
 msgstr ""
 
@@ -12973,9 +12970,13 @@ msgstr "Λυπούμαστε, δεν μπορέσαμε να βρούμε ομά
 msgid "Release group by {artist}"
 msgstr "Ομάδα κυκλοφοριών από {artist}"
 
-#: ../root/search/components/AreaResults.js:88
+#: ../root/search/components/AreaResults.js:77
 msgid "Alternatively, you may {uri|add a new area}."
 msgstr ""
+
+#: ../root/search/components/ArtistResults.js:93
+msgid "Alternatively, you may {uri|add a new artist}."
+msgstr "Εναλλακτικά, μπορείτε να {uri|προσθέσετε ένα νέο καλλιτέχνη}."
 
 #: ../root/series/NotFound.js:15
 msgid "Series Not Found"
