@@ -1423,6 +1423,12 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
                only_valid_entity_types: ['artist']
         },
         {
+                             input_url: 'https://www.imdb.com/name/nm10024808/',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'imdb',
+               only_valid_entity_types: ['artist']
+        },
+        {
                              input_url: 'http://www.imdb.com/character/ch0003553/',
                      input_entity_type: 'artist',
             expected_relationship_type: 'imdb',
