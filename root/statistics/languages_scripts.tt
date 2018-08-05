@@ -4,14 +4,14 @@
   [% IF type == 'lang' %]
     <td>[% entity.entity.l_name || l('Unknown language') %]</td>
     <td class="t">
-      [%- link_searchable_property(type, entity.entity.iso_code_3 || 'unknown', 'release', add_commas(entity.releases)) -%]</td>
+      [%- link_searchable_property(type, entity.entity.iso_code_3 || '*', 'release', add_commas(entity.releases)) -%]</td>
     <td class="t">
-      [%- link_searchable_property(type, entity.entity.iso_code_3 || 'unknown', 'work', add_commas(entity.works)) -%]</td>
+      [%- link_searchable_property(type, entity.entity.iso_code_3 || '*', 'work', add_commas(entity.works)) -%]</td>
     <td class="t">[% add_commas(entity.total) %]</td>
   [% ELSIF type == 'script' %]
     <td>[% entity.entity.l_name || l('Unknown script') %]</td>
     <td class="t">
-      [%- link_searchable_property(type, entity.entity.iso_code || 'unknown', 'release', add_commas(entity.count)) -%]</td>
+      [%- link_searchable_property(type, entity.entity.iso_code || '*', 'release', add_commas(entity.count)) -%]</td>
   [% END %]
 </tr>
 [%- END -%]

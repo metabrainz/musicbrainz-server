@@ -3,9 +3,6 @@
   <table class="tbl">
     <thead>
       <tr>
-        [%- IF results.0.score.defined -%]
-          <th>[% l('Score') %]</th>
-        [%- END -%]
         <th>[% l('Name') %]</th>
         <th>[% l('Artist') %]</th>
         <th>[% l('Format') %]</th>
@@ -25,10 +22,7 @@
     </thead>
     <tbody>
       [%- FOR result=results -%]
-        <tr class="[% loop.parity %]">
-          [%- IF results.0.score.defined -%]
-            <td>[% result.score %]</td>
-          [%- END -%]
+        <tr class="[% loop.parity %]"[% ' data-score="' _ result.score _ '"' IF results.0.score.defined %]>
           <td>[% link_entity(result.entity) %]</td>
           <td>[% artist_credit(result.entity.artist_credit) %]</td>
           <td>[% html_escape(result.entity.combined_format_name) or "-" %]</td>

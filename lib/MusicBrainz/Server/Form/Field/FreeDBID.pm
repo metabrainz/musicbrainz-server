@@ -9,7 +9,7 @@ extends 'HTML::FormHandler::Field::Text';
 apply([
     {
         check => sub { is_freedb_id(shift) },
-        message => l('This is not a valid FreeDB ID')
+        message => sub { l('This is not a valid FreeDB ID') }
     }
 ]);
 

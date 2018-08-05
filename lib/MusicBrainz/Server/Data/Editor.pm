@@ -70,13 +70,30 @@ sub _entity_class
     return 'MusicBrainz::Server::Entity::Editor';
 }
 
+=item lc_name
+
+Return an editor name with ASCII characters lower-cased.
+
+For "case-insensitive" name lookups, we don't have proper case-folding,
+only a unique index on editor (lower(name)). Less obvious is that the
+LC_CTYPE of the database is 'C', so lower(name) effectively only
+changes the case of ASCII characters. Thus, we have to munge our editor
+name query parameters in the same way. The `lc` function on its own is
+affected by the current locale and other Unicode rules.
+
+=cut
+
+sub lc_name($) {
+    shift =~ s/([A-Z]+)/lc($1)/egr
+}
+
 sub get_by_name
 {
     my ($self, $name) = @_;
     my $query = 'SELECT ' . $self->_columns .
                 ' FROM ' . $self->_table .
                 ' WHERE lower(name) = ? LIMIT 1';
-    my $row = $self->sql->select_single_row_hash($query, lc $name);
+    my $row = $self->sql->select_single_row_hash($query, lc_name $name);
     my $editor = $self->_new_from_row($row);
     $self->load_preferences($editor);
     return $editor;
@@ -618,7 +635,7 @@ sub allocate_remember_me_token {
     if (
         my $normalized_name = $self->sql->select_single_value(
             'SELECT name FROM editor WHERE lower(name) = ?',
-            lc $user_name
+            lc_name $user_name
         )
     ) {
         my $token = generate_token();
@@ -639,7 +656,7 @@ sub allocate_remember_me_token {
 sub is_name_used {
     my ($self, $name) = @_;
 
-    $name = lc $name;
+    $name = lc_name $name;
     return 1 if $self->sql->select_single_value(
         'SELECT 1 FROM editor WHERE lower(name) = ?', $name);
     return 1 if $self->sql->select_single_value(

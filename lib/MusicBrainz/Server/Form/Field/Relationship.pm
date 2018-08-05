@@ -1,7 +1,6 @@
 package MusicBrainz::Server::Form::Field::Relationship;
 
 use HTML::FormHandler::Moose;
-use MusicBrainz::Server::Translation qw( l N_l );
 extends 'HTML::FormHandler::Field::Compound';
 
 has_field 'relationship_id' => (

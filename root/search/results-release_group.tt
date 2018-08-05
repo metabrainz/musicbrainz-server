@@ -4,7 +4,6 @@
                 <table class="tbl">
                     <thead>
                         <tr>
-                            <th>[% l('Score') %]</th>
                             <th>[% l('Release Group') %]</th>
                             <th>[% l('Artist') %]</th>
                             <th>[% l('Type') %]</th>
@@ -12,8 +11,7 @@
                     </thead>
                     <tbody>
                         [%- FOR result=results -%]
-                        <tr class="[% loop.parity %]">
-                            <td>[% result.score %]</td>
+                        <tr class="[% loop.parity %]" data-score="[% result.score %]">
                             <td>[% link_entity(result.entity) %]</td>
                             <td>[% artist_credit(result.entity.artist_credit) %]</td>
                             <td>[% result.entity.l_type_name %]</td>

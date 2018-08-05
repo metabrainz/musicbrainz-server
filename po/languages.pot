@@ -528,7 +528,7 @@ msgstr ""
 msgid "Cushitic languages"
 msgstr ""
 
-#. frequency:2 iso_code_3:ces 
+#. frequency:1 iso_code_3:ces 
 #: DB:language/name:98
 msgid "Czech"
 msgstr ""
@@ -1713,7 +1713,7 @@ msgstr ""
 msgid "North American Indian languages"
 msgstr ""
 
-#. frequency:1 iso_code_3:nor 
+#. frequency:2 iso_code_3:nor 
 #: DB:language/name:309
 msgid "Norwegian"
 msgstr ""

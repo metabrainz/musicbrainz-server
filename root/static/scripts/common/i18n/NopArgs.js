@@ -9,11 +9,27 @@
 
 type Args = $ReadOnlyArray<string>;
 
+type Func = (...Args) => string;
+
 class NopArgs {
   args: Args;
+  func: Func;
 
-  constructor(args: Args) {
+  constructor(func: Func, args: Args) {
+    this.func = func;
     this.args = args;
+  }
+
+  /*
+   * This is what `Object.prototype.toLocaleString` does, but it's
+   * also implemented here for clarity.
+   */
+  toLocaleString() {
+    return this.toString();
+  }
+
+  toString() {
+    return this.func.apply(null, this.args);
   }
 }
 

@@ -1,3 +1,8 @@
 [%- WRAPPER "$entity_type/layout.tt" full_width=1 title=l("Annotation") -%]
-    [% INCLUDE 'annotation/common.tt' full_annotation=1 show_change_log=1 %]
+    [% React.embed(c, 'components/Annotation', {
+        annotation => annotation,
+        entity => entity,
+        numberOfRevisions => number_of_revisions,
+        showChangeLog => 1,
+    }) %]
 [%- END -%]

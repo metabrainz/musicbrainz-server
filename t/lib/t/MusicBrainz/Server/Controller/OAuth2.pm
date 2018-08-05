@@ -4,6 +4,7 @@ use Test::More;
 use Test::Deep qw( cmp_set );
 use utf8;
 
+use Encode;
 use URI;
 use URI::QueryParam;
 use JSON;
@@ -507,7 +508,7 @@ test 'User info' => sub {
     $code = "Nlaa7v15QHm9g8rUOmT3dQ";
     $test->mech->get("/oauth2/userinfo?access_token=$code");
     is($test->mech->status, 200);
-    $response = from_json($test->mech->content);
+    $response = from_json(decode('utf8', $test->mech->content(raw => 1)));
     is_deeply($response, {
         sub => 'editor1',
         profile => 'http://localhost/user/editor1',
@@ -523,7 +524,7 @@ test 'User info' => sub {
     $code = "7Fjfp0ZBr1KtDRbnfVdmIw";
     $test->mech->get("/oauth2/userinfo?access_token=$code");
     is($test->mech->status, 200);
-    $response = from_json($test->mech->content);
+    $response = from_json(decode('utf8', $test->mech->content(raw => 1)));
     is_deeply($response, {
         sub => 'editor1',
         profile => 'http://localhost/user/editor1',
@@ -531,6 +532,18 @@ test 'User info' => sub {
         gender => 'male',
         zoneinfo => 'Europe/Bratislava',
         metabrainz_user_id => 1,
+    });
+
+    # MBS-9744
+    $code = 'h_UngEx7VcA6I-XybPS13Q';
+    $test->mech->get("/oauth2/userinfo?access_token=$code");
+    is($test->mech->status, 200);
+    $response = from_json(decode('utf8', $test->mech->content(raw => 1)));
+    is_deeply($response, {
+        metabrainz_user_id => 4,
+        profile => 'http://localhost/user/%C3%A6ditor%E2%85%A3',
+        sub => 'æditorⅣ',
+        zoneinfo => 'UTC',
     });
 };
 

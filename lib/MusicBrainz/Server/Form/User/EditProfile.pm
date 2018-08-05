@@ -26,7 +26,7 @@ has_field 'website' => (
     maxlength => 255,
     apply     => [ {
         check => sub { is_valid_url($_[0]) },
-        message => l('Invalid URL format'),
+        message => sub { l('Invalid URL format') },
     } ],
 );
 
@@ -93,7 +93,7 @@ sub validate_birth_date {
         $field->field('year')->add_error(l('Birth year must be after 1900'));
     }
 
-    return $field->add_error("invalid date") unless Date::Calc::check_date($year, $month, $day);
+    return $field->add_error(l("invalid date")) unless Date::Calc::check_date($year, $month, $day);
 }
 
 1;

@@ -1,6 +1,8 @@
 package MusicBrainz::Server::Form::Recording;
+use utf8;
 use HTML::FormHandler::Moose;
 use List::AllUtils qw( uniq );
+use MusicBrainz::Server::Translation qw( l );
 
 extends 'MusicBrainz::Server::Form';
 
@@ -56,10 +58,10 @@ after 'validate' => sub {
 
     if ($self->used_by_tracks && defined($length->value) &&
         $length->value != $length->init_value) {
-        $length->add_error(
-            "This recording's duration is determined by the tracks that are " .
-            "linked to it, and cannot be changed directly"
-        );
+        $length->add_error(l(
+            "This recording’s duration is determined by the tracks that are " .
+            "linked to it, and cannot be changed directly."
+        ));
     }
 };
 

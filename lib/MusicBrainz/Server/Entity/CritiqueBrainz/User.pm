@@ -18,6 +18,15 @@ sub href {
     return DBDefs->CRITIQUEBRAINZ_SERVER . '/user/' . $self->id;
 }
 
+sub TO_JSON {
+    my ($self) = @_;
+
+    return {
+        id => $self->id,
+        name => $self->name,
+    };
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 

@@ -12,4 +12,6 @@
     [%- show_wikipedia_extract() -%]
 
     [% INCLUDE "components/relationships.tt" source=place %]
+
+    [%- script_manifest('place/index.js', {async => 'async'}) -%]
 [% END %]

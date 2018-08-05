@@ -2,6 +2,7 @@ package MusicBrainz::Server::Entity::CritiqueBrainz::Review;
 
 use Moose;
 use DBDefs;
+use MusicBrainz::Server::Data::Utils qw( datetime_to_iso8601 );
 use MusicBrainz::Server::Types;
 
 has id => (
@@ -27,6 +28,17 @@ has author => (
 sub href {
     my ($self) = @_;
     return DBDefs->CRITIQUEBRAINZ_SERVER . '/review/' . $self->id;
+}
+
+sub TO_JSON {
+    my ($self) = @_;
+
+    return {
+        author => $self->author,
+        body => $self->body,
+        created => datetime_to_iso8601($self->created),
+        id => $self->id,
+    };
 }
 
 __PACKAGE__->meta->make_immutable;

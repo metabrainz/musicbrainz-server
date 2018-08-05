@@ -3,6 +3,7 @@ use Test::Routine;
 use Test::More;
 use utf8;
 
+use Encode qw( encode );
 use URI;
 use URI::QueryParam;
 use JSON;
@@ -75,12 +76,12 @@ test 'Deleted users (digest)' => sub {
 
     MusicBrainz::Server::Test->prepare_test_database($test->c, '+oauth');
 
-    $test->mech->credentials('localhost:80', 'musicbrainz.org', 'editor1', 'pass');
-    $test->mech->get_ok('/ws/1/user/?type=xml&name=editor1');
+    $test->mech->credentials('localhost:80', 'musicbrainz.org', encode('utf8', 'æditorⅣ'), 'pass');
+    $test->mech->get_ok('/ws/1/user/?type=xml&name=%C3%A6ditor%E2%85%A3');
 
-    $test->c->sql->do("UPDATE editor SET deleted = TRUE WHERE id = 1;");
+    $test->c->sql->do("UPDATE editor SET deleted = TRUE WHERE id = 4;");
 
-    $test->mech->get('/ws/1/user/?type=xml&name=editor1');
+    $test->mech->get('/ws/1/user/?type=xml&name=%C3%A6ditor%E2%85%A3');
     is(401, $test->mech->status);
 };
 

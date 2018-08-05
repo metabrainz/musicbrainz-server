@@ -58,8 +58,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-29 14:45+0200\n"
-"PO-Revision-Date: 2018-06-05 18:00+0000\n"
+"POT-Creation-Date: 2018-06-30 12:16+0200\n"
+"PO-Revision-Date: 2018-06-30 10:21+0000\n"
 "Last-Translator: yvanz\n"
 "Language-Team: French (http://www.transifex.com/musicbrainz/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -108,7 +108,7 @@ msgid "\"YY\" is the last two digits of the year of registration."
 msgstr "« YY » sont les 2 derniers chiffres de l’année d’inscription."
 
 #: ../root/cdstub/cdstub.tt:4 ../root/components/events-list.tt:11
-#: ../root/components/medium.tt:76 ../root/components/recordings-list.tt:22
+#: ../root/components/medium.tt:79 ../root/components/recordings-list.tt:22
 #: ../root/components/release_groups-list.tt:6
 #: ../root/components/releases-list.tt:8 ../root/components/works-list.tt:10
 #: ../root/edit/details/add_medium.tt:49
@@ -888,10 +888,6 @@ msgstr "Déjà expiré"
 msgid "Also performs as"
 msgstr "Se produit aussi comme"
 
-#: ../root/search/results-artist.tt:5
-msgid "Alternatively, you may {uri|add a new artist}."
-msgstr "Autrement, vous pouvez {uri|ajouter un nouvel artiste}."
-
 #: ../root/search/results-event.tt:54
 msgid "Alternatively, you may {uri|add a new event}."
 msgstr "Autrement, vous pouvez {uri|ajouter un nouvel événement}."
@@ -1148,6 +1144,7 @@ msgstr "Êtes-vous certain de vouloir supprimer la série {series} de MusicBrain
 #: ../lib/MusicBrainz/Server/Edit/Area.pm:7
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:41
 #: ../root/area/AreaHeader.js:22 ../root/layout/components/Search.js:29
+#: ../root/search/components/ArtistResults.js:76
 #: ../root/search/components/SearchForm.js:44
 #: ../root/static/scripts/common/i18n.js:53
 msgid "Area"
@@ -1186,7 +1183,7 @@ msgstr "Régions"
 #: ../root/cdstub/browse.tt:9 ../root/cdstub/cdstub.tt:7
 #: ../root/cdtoc/attach_filter_release.tt:29 ../root/cdtoc/list.tt:6
 #: ../root/cdtoc/lookup.tt:39 ../root/components/artists-list.tt:5
-#: ../root/components/common-macros.tt:590 ../root/components/medium.tt:82
+#: ../root/components/common-macros.tt:590 ../root/components/medium.tt:85
 #: ../root/components/recordings-list.tt:29
 #: ../root/components/relationships-table.tt:28
 #: ../root/components/release_groups-list.tt:11
@@ -1617,11 +1614,13 @@ msgstr "Devenez partie intégrante de MusicBrainz en créant un compte et en {ho
 #: ../root/label/merge.tt:16 ../root/place/merge.tt:15
 #: ../root/search/lib/inline-results-artist.tt:12
 #: ../root/search/results-label.tt:12 ../root/search/results-place.tt:12
-#: ../root/search/components/AreaResults.js:74
+#: ../root/search/components/AreaResults.js:63
+#: ../root/search/components/ArtistResults.js:77
 msgid "Begin"
 msgstr "Début (date)"
 
 #: ../root/search/lib/inline-results-artist.tt:13
+#: ../root/search/components/ArtistResults.js:78
 msgid "Begin Area"
 msgstr "Début (région)"
 
@@ -1960,7 +1959,7 @@ msgid "Closed:"
 msgstr "Fermé : "
 
 #: ../root/components/labels-list.tt:7 ../root/search/results-label.tt:10
-#: ../root/search/components/AreaResults.js:73
+#: ../root/search/components/AreaResults.js:62
 msgid "Code"
 msgstr "Code"
 
@@ -2181,7 +2180,7 @@ msgstr "JJ"
 msgid "Data Quality:"
 msgstr "Qualité des données :"
 
-#: ../root/components/medium.tt:96 ../root/medium/tracklist.tt:35
+#: ../root/components/medium.tt:99 ../root/medium/tracklist.tt:35
 #: ../root/release/edit/tracklist.tt:365
 msgid "Data Tracks"
 msgstr "Pistes de données"
@@ -2509,7 +2508,7 @@ msgstr "Chaque piste de la base de données de MusicBrainz doit être reliée à
 #: ../root/release/discids.tt:12 ../root/release/edit/recordings.tt:58
 #: ../root/release/edit/recordings.tt:94 ../root/release/header.tt:15
 #: ../root/user/collections.tt:64
-#: ../root/components/Aliases/AliasTableRow.js:60
+#: ../root/components/Aliases/AliasTableRow.js:57
 #: ../root/components/EntityTabs.js:103
 #: ../root/static/scripts/edit/components/ArtistCreditEditor.js:389
 msgid "Edit"
@@ -2756,11 +2755,13 @@ msgstr "Activer les numéros de pistes du vinyle"
 #: ../root/event/merge.tt:15 ../root/label/merge.tt:17
 #: ../root/place/merge.tt:16 ../root/search/lib/inline-results-artist.tt:14
 #: ../root/search/results-label.tt:13 ../root/search/results-place.tt:13
-#: ../root/search/components/AreaResults.js:75
+#: ../root/search/components/AreaResults.js:64
+#: ../root/search/components/ArtistResults.js:79
 msgid "End"
 msgstr "Fin (date)"
 
 #: ../root/search/lib/inline-results-artist.tt:15
+#: ../root/search/components/ArtistResults.js:80
 msgid "End Area"
 msgstr "Fin (région)"
 
@@ -3102,7 +3103,8 @@ msgid ""
 msgstr "Pour plus d’informations, consultez la {doc_doc|documentation} et les {doc_styleguide|directives de style}."
 
 #: ../root/event/edit_form.tt:4 ../root/label/edit_form.tt:4
-#: ../root/place/edit_form.tt:4 ../root/work/edit_form.tt:5
+#: ../root/place/edit_form.tt:4 ../root/search/form.tt:48
+#: ../root/work/edit_form.tt:5 ../root/search/components/SearchForm.js:108
 msgid "For more information, check the {doc_doc|documentation}."
 msgstr "Pour plus d’informations, consultez la {doc_doc|documentation}."
 
@@ -3260,6 +3262,7 @@ msgstr "TOC (table des matières) complète :"
 
 #: ../root/components/artists-list.tt:7
 #: ../root/search/lib/inline-results-artist.tt:10
+#: ../root/search/components/ArtistResults.js:75
 msgid "Gender"
 msgstr "Genre"
 
@@ -4027,7 +4030,7 @@ msgid "Legal name"
 msgstr "Nom légal"
 
 #: ../root/cdstub/cdstub.tt:9 ../root/cdtoc/info.tt:33
-#: ../root/components/medium.tt:85 ../root/components/recordings-list.tt:33
+#: ../root/components/medium.tt:88 ../root/components/recordings-list.tt:33
 #: ../root/components/relationships-table.tt:31
 #: ../root/edit/details/edit_medium.tt:53
 #: ../root/edit/details/edit_medium.tt:57
@@ -4557,7 +4560,8 @@ msgstr "S.O."
 #: ../root/search/results-label.tt:8 ../root/search/results-place.tt:8
 #: ../root/search/results-series.tt:8 ../root/search/results-tag.tt:8
 #: ../root/search/results-work.tt:8 ../root/user/subscriptions/table.tt:12
-#: ../root/search/components/AreaResults.js:71
+#: ../root/search/components/AreaResults.js:60
+#: ../root/search/components/ArtistResults.js:72
 msgid "Name"
 msgstr "Nom"
 
@@ -4843,7 +4847,8 @@ msgstr "Aucun résultat."
 #: ../root/search/results-place.tt:40
 #: ../root/search/results-release_group.tt:26
 #: ../root/search/results-series.tt:26 ../root/search/results-work.tt:64
-#: ../root/search/components/AreaResults.js:84
+#: ../root/search/components/AreaResults.js:73
+#: ../root/search/components/ArtistResults.js:89
 msgid "No results found. Try refining your search query."
 msgstr "Aucun résultat de trouvé. Essayez en affinant votre requête de recherche."
 
@@ -5333,10 +5338,6 @@ msgid ""
 "text here! "
 msgstr "Notez que tout contenu envoyés à MusicBrainz sera publié sous une licence {open|ouverte et libre}, ne publiez pas de texte protégé par copyright ici !"
 
-#: ../root/search/form.tt:49 ../root/search/components/SearchForm.js:107
-msgid "Please note:"
-msgstr "Veuillez prendre note :"
-
 #: ../root/user/report.tt:4
 msgid "Please review our {uri|Code of Conduct} before sending a report."
 msgstr "Veuillez passer en revue notre {uri|code de conduite} avant d’envoyer un signalement."
@@ -5506,7 +5507,7 @@ msgstr[0] "Évaluation : {rating} étoile"
 msgstr[1] "Évaluation : {rating} étoiles"
 
 #: ../root/components/artists-list.tt:9 ../root/components/events-list.tt:29
-#: ../root/components/labels-list.tt:14 ../root/components/medium.tt:84
+#: ../root/components/labels-list.tt:14 ../root/components/medium.tt:87
 #: ../root/components/recordings-list.tt:32
 #: ../root/components/release_groups-list.tt:17
 #: ../root/components/releases-list.tt:24 ../root/components/works-list.tt:20
@@ -6264,7 +6265,7 @@ msgstr "Parutions :"
 #: ../root/release/add_cover_art.tt:70 ../root/release/cover_art.tt:29
 #: ../root/release/delete.tt:1 ../root/release/discids.tt:36
 #: ../root/series/delete.tt:1 ../root/user/collections.tt:65
-#: ../root/components/Aliases/AliasTableRow.js:64
+#: ../root/components/Aliases/AliasTableRow.js:61
 msgid "Remove"
 msgstr "Enlever"
 
@@ -6516,7 +6517,8 @@ msgstr "Enregistrer"
 #: ../root/search/results-place.tt:7 ../root/search/results-release_group.tt:7
 #: ../root/search/results-series.tt:7 ../root/search/results-tag.tt:7
 #: ../root/search/results-work.tt:7
-#: ../root/search/components/AreaResults.js:70
+#: ../root/search/components/AreaResults.js:59
+#: ../root/search/components/ArtistResults.js:71
 msgid "Score"
 msgstr "Score"
 
@@ -6593,12 +6595,6 @@ msgstr "Rechercher des modifications"
 #: ../root/edit/details/edit_url.tt:43
 msgid "Search for the target URL."
 msgstr "Rechercher l’URL cible."
-
-#: ../root/search/form.tt:51 ../root/search/components/SearchForm.js:108
-msgid ""
-"Search indexes are updated every 3 hours, use the direct database search if "
-"you require up to the minute correct results."
-msgstr "Les indexes de recherche sont mis à jour toutes les 3 heures, utilisez la recherche directe en base si vous avez besoin de résultats corrects à la minute près."
 
 #: ../root/taglookup/results.tt:11
 msgid ""
@@ -7047,6 +7043,7 @@ msgid "Sorry, “{id}” is not a valid documentation page."
 msgstr "Désolé, « {id} » n’est pas une page de documentation valide."
 
 #: ../root/search/lib/inline-results-artist.tt:8
+#: ../root/search/components/ArtistResults.js:73
 msgid "Sort Name"
 msgstr "Nom de tri"
 
@@ -8004,7 +8001,7 @@ msgstr "Cet enregistrement ne peut pas être enlevé car il est encore utilisé 
 msgid "This recording does not have any associated AcoustIDs"
 msgstr "Cet enregistrement n’a aucun AcoustID associé."
 
-#: ../root/components/medium.tt:48 ../root/components/recordings-list.tt:49
+#: ../root/components/medium.tt:51 ../root/components/recordings-list.tt:49
 #: ../root/components/recordings-list.tt:77 ../root/medium/tracklist.tt:46
 #: ../root/search/lib/inline-results-recording.tt:29
 #: ../root/search/lib/inline-results-recording.tt:54
@@ -8697,7 +8694,7 @@ msgid "Timezone:"
 msgstr "Fuseau Horaire : "
 
 #: ../root/cdstub/browse.tt:8 ../root/cdstub/cdstub.tt:5
-#: ../root/cdtoc/list.tt:5 ../root/components/medium.tt:80
+#: ../root/cdtoc/list.tt:5 ../root/components/medium.tt:83
 #: ../root/components/relationships-table.tt:20
 #: ../root/components/release_groups-list.tt:9
 #: ../root/edit/details/edit_medium.tt:51
@@ -9036,7 +9033,8 @@ msgstr "Twitter"
 #: ../root/search/results-series.tt:9 ../root/search/results-work.tt:12
 #: ../root/series/merge.tt:13 ../root/user/collections.tt:45
 #: ../root/work/merge.tt:15 ../root/components/Aliases/AliasTable.js:28
-#: ../root/search/components/AreaResults.js:72
+#: ../root/search/components/AreaResults.js:61
+#: ../root/search/components/ArtistResults.js:74
 msgid "Type"
 msgstr "Type"
 
@@ -10030,8 +10028,7 @@ msgstr "[enlevé]"
 #: ../root/place/layout.tt:34 ../root/place/merge.tt:35
 #: ../root/search/lib/inline-results-artist.tt:32
 #: ../root/search/results-label.tt:28 ../root/search/results-place.tt:28
-#: ../root/components/Aliases/AliasTableRow.js:40
-#: ../root/search/components/AreaResults.js:50
+#: ../root/static/scripts/common/utility/formatEndDate.js:17
 msgid "[unknown]"
 msgstr "[inconnu]"
 
@@ -10426,7 +10423,7 @@ msgstr "tab ou 4 espaces et : * puces ; 1., a., A., i., I. articles numérotés
 msgid "track"
 msgstr "piste"
 
-#: ../root/components/medium.tt:119
+#: ../root/components/medium.tt:122
 msgid "track {tracks}"
 msgid_plural "tracks {tracks}"
 msgstr[0] "piste {tracks}"
@@ -12355,7 +12352,7 @@ msgstr "Début (date)"
 msgid "End Date"
 msgstr "Fin (date)"
 
-#: ../root/components/Aliases/AliasTableRow.js:50
+#: ../root/components/Aliases/AliasTableRow.js:47
 msgid "primary"
 msgstr "principal"
 
@@ -13011,9 +13008,13 @@ msgstr "Désolé, nous n’avons pas trouvé de groupe de parution avec cet ID M
 msgid "Release group by {artist}"
 msgstr "Groupe de parution par {artist}"
 
-#: ../root/search/components/AreaResults.js:88
+#: ../root/search/components/AreaResults.js:77
 msgid "Alternatively, you may {uri|add a new area}."
 msgstr "Autrement, vous pouvez {uri|ajouter une nouvelle région}."
+
+#: ../root/search/components/ArtistResults.js:93
+msgid "Alternatively, you may {uri|add a new artist}."
+msgstr "Autrement, vous pouvez {uri|ajouter un nouvel artiste}."
 
 #: ../root/series/NotFound.js:15
 msgid "Series Not Found"

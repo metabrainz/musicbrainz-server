@@ -3,17 +3,11 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-const crypto = require('crypto');
 const {trim} = require('lodash');
 const React = require('react');
 
 const entityHref = require('../utility/entityHref');
 const isolateText = require('../utility/isolateText');
-
-function gravatar(email) {
-  let hex = crypto.createHash('md5').update(trim(email).toLowerCase()).digest('hex');
-  return `//gravatar.com/avatar/${hex}?d=mm`;
-}
 
 const EditorLink = ({editor, content, avatarSize, subPath}) => {
   if (!content) {
@@ -24,16 +18,11 @@ const EditorLink = ({editor, content, avatarSize, subPath}) => {
     avatarSize = 12;
   }
 
-  let imageURL;
-  if (editor.preferences.show_gravatar) {
-    imageURL = gravatar(editor.email) + '&s=' + (avatarSize * 2);
-  } else {
-    imageURL = '//gravatar.com/avatar/placeholder?d=mm&s=' + (avatarSize * 2);
-  }
+  const gravatar = editor.gravatar + '&s=' + (avatarSize * 2);
 
   return (
     <a href={entityHref(editor, subPath)}>
-      <img src={imageURL} height={avatarSize} width={avatarSize} className="gravatar" alt="" />
+      <img src={gravatar} height={avatarSize} width={avatarSize} className="gravatar" alt="" />
       {isolateText(content)}
     </a>
   );

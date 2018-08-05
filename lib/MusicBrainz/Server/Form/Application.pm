@@ -1,6 +1,7 @@
 package MusicBrainz::Server::Form::Application;
 
 use HTML::FormHandler::Moose;
+use MusicBrainz::Server::Translation qw( l );
 
 extends 'MusicBrainz::Server::Form';
 
@@ -36,7 +37,7 @@ sub validate
 
     if ($self->field('oauth_type')->value eq 'web') {
         if (!$self->field('oauth_redirect_uri')->value) {
-            $self->field('oauth_redirect_uri')->add_error('Redirect URL must be entered for web applications.');
+            $self->field('oauth_redirect_uri')->add_error(l('Redirect URL must be entered for web applications.'));
         }
     }
 }

@@ -7,6 +7,7 @@ const net = require('net');
 const Raven = require('raven');
 
 const DBDefs = require('../static/scripts/common/DBDefs');
+const sanitizedContext = require('../utility/sanitizedContext').default;
 const {allocBuffer} = require('./buffer');
 const {badRequest, getResponse} = require('./response');
 const {clearRequireCache} = require('./utils');
@@ -58,6 +59,7 @@ const connectionListener = Raven.wrap(function (socket) {
 
       if (requestBody.begin) {
         context = requestBody.context;
+        context.toJSON = () => sanitizedContext(context);
 
         if (DBDefs.DEVELOPMENT_SERVER) {
           clearRequireCache();

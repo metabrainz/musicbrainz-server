@@ -9,7 +9,7 @@ extends 'HTML::FormHandler::Field::Text';
 apply([
     {
         check => sub { is_valid_discid(shift) },
-        message => l('This is not a valid disc ID')
+        message => sub { l('This is not a valid disc ID') }
     }
 ]);
 

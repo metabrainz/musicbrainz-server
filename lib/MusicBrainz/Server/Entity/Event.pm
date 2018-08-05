@@ -105,7 +105,17 @@ around TO_JSON => sub {
 
     return {
         %{ $self->$orig },
+        areas => [map +{
+            entity => $_->{entity},
+        }, $self->all_areas],
         cancelled => boolean_to_json($self->cancelled),
+        performers => [map +{
+            entity => $_->{entity},
+            roles => $_->{roles},
+        }, $self->all_performers],
+        places => [map +{
+            entity => $_->{entity},
+        }, $self->all_places],
         time => $self->formatted_time,
     };
 };

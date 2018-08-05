@@ -15,7 +15,7 @@ around TO_JSON => sub {
     my $annotation = $self->latest_annotation;
 
     if (defined $annotation) {
-        $json->{annotation} = $annotation->text;
+        $json->{latest_annotation} = $annotation->TO_JSON;
     }
 
     return $json;
