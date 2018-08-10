@@ -8,6 +8,7 @@ const _ = require('lodash');
 
 require('knockout-arraytransforms');
 
+const {addColon} = require('../../common/i18n');
 const typeInfo = require('../../common/typeInfo');
 const deferFocus = require('../../edit/utility/deferFocus');
 const mergeDates = require('./mergeDates');
@@ -147,6 +148,10 @@ function getDirection(relationship, source) {
                     return group;
                 });
         }),
+
+        groupedRelationshipsLabel: function (key) {
+            return addColon(key);
+        },
 
         // searches this entity's relationships for potential duplicate "rel"
         // if it is a duplicate, remove and merge it

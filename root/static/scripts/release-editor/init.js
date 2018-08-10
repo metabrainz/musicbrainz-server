@@ -27,6 +27,9 @@ _.extend(releaseEditor, {
     activeTabID: ko.observable("#information"),
     activeTabIndex: ko.observable(0),
     loadError: ko.observable(""),
+    loadErrorMessage: function () {
+        return i18n.l('Error loading release: {error}', {error: releaseEditor.loadError()});
+    },
     externalLinksEditData: ko.observable({}),
     hasInvalidLinks: validation.errorField(ko.observable(false))
 });

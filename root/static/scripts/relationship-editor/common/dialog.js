@@ -509,6 +509,25 @@ const PART_OF_SERIES_LINK_TYPE_GIDS = _.values(PART_OF_SERIES_LINK_TYPES);
                    this.dateError(relationship.end_date) ||
                    this.datePeriodError();
         }
+
+        changeOtherRelationshipCreditsLabel(entity) {
+            return i18n.l('Change credits for other {entity} relationships on the page.', {entity: entity.html()});
+        }
+
+        sameEntityTypesLabel($parent, relationship, entity) {
+            const entityType = relationship.target(entity).entityType;
+            return i18n.l('Only relationships to {entity_type} entities.', {
+                entity_type: i18n.strings.entityName[entityType].toLocaleLowerCase(),
+            });
+        }
+
+        sameRelationshipTypeLabel($parent, relationship, entity) {
+            const entityType = relationship.target(entity).entityType;
+            return i18n.l('Only “{relationship_type}” relationships to {entity_type} entities.', {
+                relationship_type: $parent.linkTypeName(),
+                entity_type: i18n.strings.entityName[entityType].toLocaleLowerCase(),
+            });
+        }
     }
 
     _.assign(Dialog.prototype, {
