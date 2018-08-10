@@ -427,6 +427,8 @@ sub DISCOURSE_SSO_SECRET { '' }
 # This is only useful if you're running Selenium tests locally.
 sub USE_SELENIUM_HEADER { 0 }
 
+sub WIKIMEDIA_COMMONS_IMAGES_ENABLED { 1 }
+
 ################################################################################
 # Profiling
 ################################################################################
