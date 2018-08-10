@@ -1,4 +1,5 @@
 package MusicBrainz::Server::Controller::Role::CommonsImage;
+use DBDefs;
 use Moose::Role -traits => 'MooseX::MethodAttributes::Role::Meta::Role';
 use List::UtilsBy qw( sort_by );
 use namespace::autoclean;
@@ -33,6 +34,8 @@ sub commons_image : Chained('load') PathPart('commons-image') {
 
 sub _get_commons_image {
     my ($self, $c, $cache_only) = @_;
+
+    return unless DBDefs->WIKIMEDIA_COMMONS_IMAGES_ENABLED;
 
     my $entity = $c->stash->{entity};
     my $title;
