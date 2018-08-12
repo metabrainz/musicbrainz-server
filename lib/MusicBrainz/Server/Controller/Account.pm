@@ -602,8 +602,13 @@ sub donation : Local RequireAuth HiddenOnSlaves
     $c->detach('/error_500') unless $result;
 
     $c->stash(
-        nag => $result->{nag},
-        days => sprintf("%.0f", $result->{days}),
+        current_view => 'Node',
+        component_path => 'account/Donation',
+        component_props => {
+            contactURL => $CONTACT_URL,
+            days => sprintf("%.0f", $result->{days}),
+            nag => $result->{nag} > 0,
+        }
     );
 }
 
