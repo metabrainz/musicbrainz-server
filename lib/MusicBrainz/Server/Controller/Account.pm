@@ -4,6 +4,7 @@ BEGIN { extends 'MusicBrainz::Server::Controller' }
 
 use namespace::autoclean;
 use Digest::SHA qw(sha1_base64);
+use MusicBrainz::Server::ControllerUtils::JSON qw( serialize_pager );
 use MusicBrainz::Server::Translation qw( l );
 use MusicBrainz::Server::Validation qw( encode_entities is_positive_integer );
 use Try::Tiny;
@@ -608,7 +609,16 @@ sub applications : Path('/account/applications') RequireAuth RequireSSL
         return ($applications, $hits);
     }, prefix => 'apps_');
 
-    $c->stash( tokens => $tokens, applications => $applications );
+    $c->stash(
+        current_view => 'Node',
+        component_path => 'account/applications/Index.js',
+        component_props => {
+            applications => $applications,
+            appsPager => serialize_pager($c->stash->{apps_pager}),
+            tokens => $tokens,
+            tokensPager => serialize_pager($c->stash->{tokens_pager}),
+        },
+    );
 }
 
 sub revoke_application_access : Path('/account/applications/revoke-access') Args(2) RequireAuth DenyWhenReadonly
