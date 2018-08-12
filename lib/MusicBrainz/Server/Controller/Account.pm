@@ -417,7 +417,10 @@ sub preferences : Path('/account/preferences') RequireAuth DenyWhenReadonly
     my ($self, $c) = @_;
 
     if (exists $c->request->params->{ok}) {
-        $c->stash(template => 'account/preferences_ok.tt');
+        $c->stash(
+            current_view => 'Node',
+            component_path => 'account/PreferencesSaved',
+        );
         $c->detach;
     }
 
