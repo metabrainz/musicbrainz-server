@@ -488,8 +488,11 @@ sub register : Path('/register') ForbiddenOnSlaves RequireSSL DenyWhenReadonly
 
             if ($redirect =~ /^\/discourse\/sso/) {
                 $c->stash(
-                    email_address => $email,
-                    template => 'account/registered_discourse.tt',
+                    current_view => 'Node',
+                    component_path => 'account/sso/DiscourseRegistered',
+                    component_props => {
+                        emailAddress => $email,
+                    }
                 );
                 $c->detach;
             }
