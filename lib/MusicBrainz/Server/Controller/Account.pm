@@ -44,46 +44,64 @@ sub verify_email : Path('/verify-email') ForbiddenOnSlaves DenyWhenReadonly
 
     unless (is_positive_integer($user_id) && $user_id) {
         $c->stash(
-            message => l('The user ID is missing or is in an invalid format.'),
-            template => 'account/verify_email_error.tt',
+            current_view => 'Node',
+            component_path => 'account/EmailVerificationStatus',
+            component_props => {
+                message => l('The user ID is missing or is in an invalid format.'),
+            }
         );
     }
 
     unless ($email) {
         $c->stash(
-            message => l('The email address is missing.'),
-            template => 'account/verify_email_error.tt',
+            current_view => 'Node',
+            component_path => 'account/EmailVerificationStatus',
+            component_props => {
+                message => l('The email address is missing.'),
+            }
         );
     }
 
     unless (is_positive_integer($time) && $time) {
         $c->stash(
-            message => l('The time is missing or is in an invalid format.'),
-            template => 'account/verify_email_error.tt',
+            current_view => 'Node',
+            component_path => 'account/EmailVerificationStatus',
+            component_props => {
+                message => l('The time is missing or is in an invalid format.'),
+            }
         );
         $c->detach;
     }
 
     unless ($key) {
         $c->stash(
-            message => l('The verification key is missing.'),
-            template => 'account/verify_email_error.tt',
+            current_view => 'Node',
+            component_path => 'account/EmailVerificationStatus',
+            component_props => {
+                message => l('The verification key is missing.'),
+            }
         );
         $c->detach;
     }
 
     unless ($self->_checksum($email, $user_id, $time) eq $key) {
         $c->stash(
-            message => l('The checksum is invalid, please double check your email.'),
-            template => 'account/verify_email_error.tt',
+            current_view => 'Node',
+            component_path => 'account/EmailVerificationStatus',
+            component_props => {
+                message => l('The checksum is invalid, please double check your email.'),
+            }
         );
         $c->detach;
     }
 
     if (($time + DBDefs->EMAIL_VERIFICATION_TIMEOUT) < time()) {
         $c->stash(
-            message => l('Sorry, this email verification link has expired.'),
-            template => 'account/verify_email_error.tt',
+            current_view => 'Node',
+            component_path => 'account/EmailVerificationStatus',
+            component_props => {
+                message => l('Sorry, this email verification link has expired.'),
+            }
         );
         $c->detach;
     }
@@ -91,9 +109,12 @@ sub verify_email : Path('/verify-email') ForbiddenOnSlaves DenyWhenReadonly
     my $editor = $c->model('Editor')->get_by_id($user_id);
     unless (defined $editor) {
         $c->stash(
-            message => l('The user with ID \'{user_id}\' could not be found.',
-                                   { user_id => $user_id }),
-            template => 'account/verify_email_error.tt',
+            current_view => 'Node',
+            component_path => 'account/EmailVerificationStatus',
+            component_props => {
+                message => l('The user with ID \'{user_id}\' could not be found.',
+                                                { user_id => $user_id }),
+            }
         );
         $c->detach;
     }
@@ -107,7 +128,10 @@ sub verify_email : Path('/verify-email') ForbiddenOnSlaves DenyWhenReadonly
     }
 
     $c->forward('/discourse/sync_sso', [$editor]);
-    $c->stash->{template} = 'account/verified.tt';
+    $c->stash(
+        current_view => 'Node',
+        component_path => 'account/EmailVerificationStatus',
+    );
 }
 
 sub _reset_password_checksum
