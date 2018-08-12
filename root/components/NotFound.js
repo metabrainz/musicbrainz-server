@@ -7,8 +7,8 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-const StatusPage = require('./StatusPage');
+import StatusPage from './StatusPage';
 
 const NotFound = StatusPage;
 
-module.exports = NotFound;
+export default NotFound;

@@ -7,9 +7,10 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-const React = require('react');
-const NotFound = require('../components/NotFound');
-const {l} = require('../static/scripts/common/i18n');
+import React from 'react';
+
+import NotFound from '../components/NotFound';
+import {l} from '../static/scripts/common/i18n';
 
 const CollectionNotFound = () => (
   <NotFound title={l('Collection Not Found')}>
@@ -17,4 +18,4 @@ const CollectionNotFound = () => (
   </NotFound>
 );
 
-module.exports = CollectionNotFound;
+export default CollectionNotFound;

@@ -7,9 +7,10 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-const React = require('react');
-const NotFound = require('../../components/NotFound');
-const {l} = require('../../static/scripts/common/i18n');
+import React from 'react';
+
+import NotFound from '../../components/NotFound';
+import {l} from '../../static/scripts/common/i18n';
 
 const RelationshipAttributeNotFound = () => (
   <NotFound title={l('Relationship Attributes')}>
@@ -19,4 +20,4 @@ const RelationshipAttributeNotFound = () => (
   </NotFound>
 );
 
-module.exports = RelationshipAttributeNotFound;
+export default RelationshipAttributeNotFound;

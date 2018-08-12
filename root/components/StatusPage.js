@@ -7,12 +7,14 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-const React = require('react');
-const Layout = require('../layout');
+import React from 'react';
+import type {Node as ReactNode} from 'react';
+
+import Layout from '../layout';
 
 type Props = {|
+  children: ReactNode,
   title: string,
-  children: React.Node,
 |};
 
 const StatusPage = ({title, children}: Props) => (
@@ -22,4 +24,4 @@ const StatusPage = ({title, children}: Props) => (
   </Layout>
 );
 
-module.exports = StatusPage;
+export default StatusPage;
