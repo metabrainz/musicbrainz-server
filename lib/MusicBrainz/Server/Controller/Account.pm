@@ -257,7 +257,13 @@ sub lost_username : Path('/lost-username') ForbiddenOnSlaves
     my ($self, $c) = @_;
 
     if (exists $c->request->params->{sent}) {
-        $c->stash(template => 'account/lost_username_sent.tt');
+        $c->stash(
+            current_view => 'Node',
+            component_path => 'account/LostUsernameSent',
+            component_props => {
+                contactURL => $CONTACT_URL,
+            }
+        );
         $c->detach;
     }
 
