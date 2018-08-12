@@ -92,7 +92,8 @@
     [% END %]
 [%- END -%]
 
-[%- MACRO form_row_url_long(r, field_name, label) BLOCK -%]
+[%- MACRO form_row_url_long(r, field_name, label) BLOCK # Converted to React at root/components/FormRowURLLong.js
+-%]
     [% WRAPPER form_row %]
       [% r.label(field_name, label || r.form.field(field_name).label) %]
       [% r.url(field_name, { size => 47 })  %]
