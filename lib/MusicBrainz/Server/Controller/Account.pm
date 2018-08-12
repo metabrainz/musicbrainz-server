@@ -4,6 +4,7 @@ BEGIN { extends 'MusicBrainz::Server::Controller' }
 
 use namespace::autoclean;
 use Digest::SHA qw(sha1_base64);
+use MusicBrainz::Server::Constants qw( $CONTACT_URL );
 use MusicBrainz::Server::ControllerUtils::JSON qw( serialize_pager );
 use MusicBrainz::Server::Translation qw( l );
 use MusicBrainz::Server::Validation qw( encode_entities is_positive_integer );
@@ -145,7 +146,13 @@ sub lost_password : Path('/lost-password') ForbiddenOnSlaves
     my ($self, $c) = @_;
 
     if (exists $c->request->params->{sent}) {
-        $c->stash(template => 'account/lost_password_sent.tt');
+        $c->stash(
+            current_view => 'Node',
+            component_path => 'account/LostPasswordSent',
+            component_props => {
+                contactURL => $CONTACT_URL,
+            }
+        );
         $c->detach;
     }
 
