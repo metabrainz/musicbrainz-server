@@ -1,25 +1,14 @@
 /*
  * @flow
- * Copyright (C) 2018 Shamroy Pellew
+ * Copyright (C) 2018 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
  * and is licensed under the GPL version 2, or (at your option) any
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-const React = require('react');
-const Layout = require('../layout');
+const StatusPage = require('./StatusPage');
 
-type Props = {|
-  title: string,
-  children: React.Node,
-|};
-
-const NotFound = ({title, children}: Props) => (
-  <Layout fullWidth title={title}>
-    <h1>{title}</h1>
-    {children}
-  </Layout>
-);
+const NotFound = StatusPage;
 
 module.exports = NotFound;
