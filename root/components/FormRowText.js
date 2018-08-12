@@ -17,12 +17,14 @@ type Props = {
   +field: FieldT<string>,
   +label: string,
   +required?: boolean,
+  +type?: string,
 };
 
 const FormRowText = ({
   field,
   label,
   required = false,
+  type = "text",
   ...inputProps
 }: Props) => (
   <FormRow>
@@ -31,7 +33,7 @@ const FormRowText = ({
       defaultValue={field.value}
       id={'id-' + field.html_name}
       name={field.html_name}
-      type="text"
+      type={type}
       {...inputProps}
     />
     <FieldErrors field={field} />

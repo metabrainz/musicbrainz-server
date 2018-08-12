@@ -15,6 +15,7 @@ type Props = {
   +field: FieldT<string>,
   +label: string,
   +required?: boolean,
+  +type?: string,
 };
 
 const FormRowTextLong = (props: Props) => (
