@@ -192,7 +192,13 @@ sub reset_password : Path('/reset-password') ForbiddenOnSlaves DenyWhenReadonly
     my ($self, $c) = @_;
 
     if (exists $c->request->params->{ok}) {
-        $c->stash(template => 'account/reset_password_ok.tt');
+        $c->stash(
+            current_view => 'Node',
+            component_path => 'account/ResetPasswordStatus',
+            component_props => {
+                message => l('Your password has been reset.'),
+            }
+        );
         $c->detach;
     }
 
@@ -202,24 +208,33 @@ sub reset_password : Path('/reset-password') ForbiddenOnSlaves DenyWhenReadonly
 
     if (!$editor_id || !$time || !$key) {
         $c->stash(
-            message => l('Missing one or more required parameters.'),
-            template => 'account/reset_password_error.tt',
+            current_view => 'Node',
+            component_path => 'account/ResetPasswordStatus',
+            component_props => {
+                message => l('Missing one or more required parameters.'),
+            }
         );
         $c->detach;
     }
 
     if ($time + DBDefs->EMAIL_VERIFICATION_TIMEOUT < time()) {
         $c->stash(
-            message => l('Sorry, this password reset link has expired.'),
-            template => 'account/reset_password_error.tt',
+            current_view => 'Node',
+            component_path => 'account/ResetPasswordStatus',
+            component_props => {
+                message => l('Sorry, this password reset link has expired.'),
+            }
         );
         $c->detach;
     }
 
     if ($self->_reset_password_checksum($editor_id, $time) ne $key) {
         $c->stash(
-            message => l('The checksum is invalid, please double check your email.'),
-            template => 'account/reset_password_error.tt',
+            current_view => 'Node',
+            component_path => 'account/ResetPasswordStatus',
+            component_props => {
+                message => l('The checksum is invalid, please double check your email.'),
+            }
         );
         $c->detach;
     }
@@ -227,9 +242,12 @@ sub reset_password : Path('/reset-password') ForbiddenOnSlaves DenyWhenReadonly
     my $editor = $c->model('Editor')->get_by_id($editor_id);
     if (!defined $editor) {
         $c->stash(
-            message => l('The user with ID \'{user_id}\' could not be found.',
-                                   { user_id => $editor_id }),
-            template => 'account/reset_password_error.tt',
+            current_view => 'Node',
+            component_path => 'account/ResetPasswordStatus',
+            component_props => {
+                message => l('The user with ID \'{user_id}\' could not be found.',
+                                                { user_id => $editor_id }),
+            }
         );
         $c->detach;
     }
