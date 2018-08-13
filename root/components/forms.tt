@@ -4,6 +4,7 @@
     </span>
 [%~ END -%]
 
+[%# Converted to React at root/components/EnterEdit.js %]
 [%- MACRO make_votable(ko) BLOCK -%]
     <div class="row no-label">
       <div class="auto-editor">
@@ -21,6 +22,7 @@
     </div>
 [%- END -%]
 
+[%# Converted to React at root/components/EnterEditNote.js %]
 [%- MACRO edit_note(hide_help, ko) BLOCK -%]
   [% UNLESS hide_help %]
     <p>
@@ -41,6 +43,7 @@
   [% END %]
 [%- END -%]
 
+[%# Converted to React at root/components/EnterEdit.js %]
 [%- MACRO enter_edit(extra) BLOCK -%]
     [%- make_votable() -%]
     <div class="row no-label buttons">
