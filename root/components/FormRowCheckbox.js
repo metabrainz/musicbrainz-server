@@ -19,7 +19,12 @@ type Props = {|
 const FormRowCheckbox = ({field, label}: Props) => (
   <div className="row no-label">
     <label className="inline">
-      <input checked={field.value} name={field.html_name} type="checkbox" />
+      <input
+        defaultChecked={field.value}
+        name={field.html_name}
+        type="checkbox"
+        value="1"
+      />
       {label}
     </label>
     <FieldErrors field={field} />
