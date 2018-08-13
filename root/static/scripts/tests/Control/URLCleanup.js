@@ -872,49 +872,49 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
                              input_url: 'http://creativecommons.org/licenses/by-nc-nd/2.5/es/deed.es',
                      input_entity_type: 'release',
             expected_relationship_type: 'license',
-                    expected_clean_url: 'http://creativecommons.org/licenses/by-nc-nd/2.5/es/',
+                    expected_clean_url: 'https://creativecommons.org/licenses/by-nc-nd/2.5/es/',
         },
         {
                              input_url: 'http://creativecommons.org/licenses/by-nc-sa/2.0/de//',
                      input_entity_type: 'release',
             expected_relationship_type: 'license',
-                    expected_clean_url: 'http://creativecommons.org/licenses/by-nc-sa/2.0/de/',
+                    expected_clean_url: 'https://creativecommons.org/licenses/by-nc-sa/2.0/de/',
         },
         {
                              input_url: 'http://creativecommons.org/licenses/by/2.0/scotland',
                      input_entity_type: 'release',
             expected_relationship_type: 'license',
-                    expected_clean_url: 'http://creativecommons.org/licenses/by/2.0/scotland/',
+                    expected_clean_url: 'https://creativecommons.org/licenses/by/2.0/scotland/',
         },
         {
                              input_url: 'http://creativecommons.org/licenses/publicdomain',
                      input_entity_type: 'release',
             expected_relationship_type: 'license',
-                    expected_clean_url: 'http://creativecommons.org/licenses/publicdomain/',
+                    expected_clean_url: 'https://creativecommons.org/licenses/publicdomain/',
         },
         {
                              input_url: 'http://creativecommons.org/licenses/publicdomain//',
                      input_entity_type: 'release',
             expected_relationship_type: 'license',
-                    expected_clean_url: 'http://creativecommons.org/licenses/publicdomain/',
+                    expected_clean_url: 'https://creativecommons.org/licenses/publicdomain/',
         },
         {
                              input_url: 'http://creativecommons.org/publicdomain/zero/1.0',
                      input_entity_type: 'release',
             expected_relationship_type: 'license',
-                    expected_clean_url: 'http://creativecommons.org/publicdomain/zero/1.0/',
+                    expected_clean_url: 'https://creativecommons.org/publicdomain/zero/1.0/',
         },
         {
                              input_url: 'http://creativecommons.org/publicdomain/zero/1.0//',
                      input_entity_type: 'release',
             expected_relationship_type: 'license',
-                    expected_clean_url: 'http://creativecommons.org/publicdomain/zero/1.0/',
+                    expected_clean_url: 'https://creativecommons.org/publicdomain/zero/1.0/',
         },
         {
                              input_url: 'http://creativecommons.org/publicdomain/zero/1.0/legalcode',
                      input_entity_type: 'release',
             expected_relationship_type: 'license',
-                    expected_clean_url: 'http://creativecommons.org/publicdomain/zero/1.0/',
+                    expected_clean_url: 'https://creativecommons.org/publicdomain/zero/1.0/',
         },
         // Dailymotion
         {
@@ -1418,6 +1418,12 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
         // IMDb (Internet Movie Database)
         {
                              input_url: 'http://www.imdb.com/name/nm1539156/',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'imdb',
+               only_valid_entity_types: ['artist']
+        },
+        {
+                             input_url: 'https://www.imdb.com/name/nm10024808/',
                      input_entity_type: 'artist',
             expected_relationship_type: 'imdb',
                only_valid_entity_types: ['artist']
