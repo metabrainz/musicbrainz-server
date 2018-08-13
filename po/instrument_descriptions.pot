@@ -647,6 +647,13 @@ msgid ""
 "sound when clacked together."
 msgstr ""
 
+#. name:octobass 
+#: DB:instrument/description:935
+msgid ""
+"Constructed as the uttermost largest member of the violin family, it is up "
+"towards 4 meters and has three strings operated by levers and pedals."
+msgstr ""
+
 #. name:cornett 
 #: DB:instrument/description:203
 msgid ""
@@ -1084,6 +1091,14 @@ msgstr ""
 msgid ""
 "Like (and developed from) the Northumbrian smallpipes, but with Great "
 "Highland Bagpipe fingering."
+msgstr ""
+
+#. name:The Great Stalacpipe Organ 
+#: DB:instrument/description:934
+msgid ""
+"Located in the Luray Caverns of Virginia USA, it is made of an electric "
+"console wired to mallets striking thirty-seven stalactites producing tones. "
+"This is a singular specific instrument, not an instrument <i>type</i>"
 msgstr ""
 
 #. name:pahū 
