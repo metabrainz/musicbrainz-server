@@ -537,7 +537,7 @@ msgstr "Luvio cuneiforme"
 msgid "Cushitic languages"
 msgstr "Lingue cuscitiche"
 
-#. frequency:2 iso_code_3:ces
+#. frequency:1 iso_code_3:ces
 #: DB:language/name:98
 msgid "Czech"
 msgstr "Ceco"
@@ -1722,7 +1722,7 @@ msgstr "Norreno antico"
 msgid "North American Indian languages"
 msgstr "Lingue native nordamericane"
 
-#. frequency:1 iso_code_3:nor
+#. frequency:2 iso_code_3:nor
 #: DB:language/name:309
 msgid "Norwegian"
 msgstr "Norvegese"

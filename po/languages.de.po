@@ -15,8 +15,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2017-09-19 12:55+0000\n"
-"Last-Translator: Michael Wiencek <email address hidden>\n"
+"PO-Revision-Date: 2018-05-22 09:16+0000\n"
+"Last-Translator: yvanz\n"
 "Language-Team: German (http://www.transifex.com/musicbrainz/musicbrainz/language/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -544,7 +544,7 @@ msgstr "Luwisch"
 msgid "Cushitic languages"
 msgstr "Kuschitische Sprachen"
 
-#. frequency:2 iso_code_3:ces
+#. frequency:1 iso_code_3:ces
 #: DB:language/name:98
 msgid "Czech"
 msgstr "Tschechisch"
@@ -1429,6 +1429,11 @@ msgstr "Lushai-Sprache"
 msgid "Luxembourgish"
 msgstr "Luxemburgisch"
 
+#. frequency:1 iso_code_3:luy
+#: DB:language/name:4018
+msgid "Luyia"
+msgstr ""
+
 #. frequency:1 iso_code_3:mkd
 #: DB:language/name:254
 msgid "Macedonian"
@@ -1724,7 +1729,7 @@ msgstr "Altnorwegisch"
 msgid "North American Indian languages"
 msgstr "Indianersprachen, Nordamerika"
 
-#. frequency:1 iso_code_3:nor
+#. frequency:2 iso_code_3:nor
 #: DB:language/name:309
 msgid "Norwegian"
 msgstr "Norwegisch"
@@ -2608,6 +2613,11 @@ msgstr "Zande-Sprachen"
 #: DB:language/name:466
 msgid "Zapotec"
 msgstr "Zapotekisch"
+
+#. frequency:1 iso_code_3:dje
+#: DB:language/name:2009
+msgid "Zarma"
+msgstr ""
 
 #. frequency:1 iso_code_3:zza
 #: DB:language/name:483
