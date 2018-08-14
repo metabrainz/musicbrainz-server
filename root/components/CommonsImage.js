@@ -1,30 +1,60 @@
-// @flow
-// Copyright (C) 2017 MetaBrainz Foundation
-//
-// This file is part of MusicBrainz, the open internet music database,
-// and is licensed under the GPL version 2, or (at your option) any
-// later version: http://www.gnu.org/licenses/gpl-2.0.txt
+/*
+ * @flow
+ * Copyright (C) 2017 MetaBrainz Foundation
+ *
+ * This file is part of MusicBrainz, the open internet music database,
+ * and is licensed under the GPL version 2, or (at your option) any
+ * later version: http://www.gnu.org/licenses/gpl-2.0.txt
+ */
 
-const React = require('react');
+import $ from 'jquery';
+import React from 'react';
 
-const {l} = require('../static/scripts/common/i18n');
+import {l} from '../static/scripts/common/i18n';
+import entityHref from '../static/scripts/common/utility/entityHref';
+import hydrate from '../utility/hydrate';
 
 type Props = {|
-  +image?: CommonsImageT | null,
+  +image: CommonsImageT | null,
+  +entity: CoreEntityT,
 |};
 
-const CommonsImage = ({image}: Props) => (
-  image ? (
-    <div className="picture">
-      <img src={image.thumb_url} />
-      <br />
-      <span className="picture-note">
-        <a href={image.page_url}>
-          {l('Image from Wikimedia Commons')}
-        </a>
-      </span>
-    </div>
-  ) : null
-);
+type State = {|
+  image: CommonsImageT | null,
+|};
 
-module.exports = CommonsImage;
+class CommonsImage extends React.Component<Props, State> {
+  constructor(props: Props) {
+    super(props);
+    this.state = {image: null};
+  }
+
+  static getDerivedStateFromProps(nextProps: Props) {
+    return {image: nextProps.image};
+  }
+
+  componentDidMount() {
+    if (!this.state.image) {
+      $.get(entityHref(this.props.entity, '/commons-image'), data => {
+        this.setState({image: data.image});
+      });
+    }
+  }
+
+  render() {
+    const {image} = this.state;
+    return image ? (
+      <div className="picture">
+        <img src={image.thumb_url} />
+        <br />
+        <span className="picture-note">
+          <a href={image.page_url}>
+            {l('Image from Wikimedia Commons')}
+          </a>
+        </span>
+      </div>
+    ) : null;
+  }
+}
+
+export default hydrate('commons-image', CommonsImage);

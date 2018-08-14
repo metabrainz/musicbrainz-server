@@ -11,8 +11,7 @@ import React from 'react';
 
 import {withCatalystContext} from '../../context';
 import {l} from '../../static/scripts/common/i18n';
-import {l_attributes} from '../../static/scripts/common/i18n/attributes';
-import PaginatedResults from '../../components/PaginatedResults';
+import {lp_attributes} from '../../static/scripts/common/i18n/attributes';
 import DescriptiveLink from '../../static/scripts/common/components/DescriptiveLink';
 import formatDate from '../../static/scripts/common/utility/formatDate';
 import formatEndDate from '../../static/scripts/common/utility/formatEndDate';
@@ -20,6 +19,7 @@ import primaryAreaCode from '../../static/scripts/common/utility/primaryAreaCode
 import loopParity from '../../utility/loopParity';
 import type {ResultsPropsT} from '../types';
 
+import PaginatedSearchResults from './PaginatedSearchResults';
 import ResultsLayout from './ResultsLayout';
 
 function buildResult(result, index) {
@@ -27,13 +27,12 @@ function buildResult(result, index) {
   const score = result.score;
 
   return (
-    <tr className={loopParity(index)} key={area.id}>
-      <td>{score}</td>
+    <tr className={loopParity(index)} data-score={score} key={area.id}>
       <td>
         <DescriptiveLink entity={area} />
       </td>
       <td>
-        {area.typeName ? l_attributes(area.typeName) : null}
+        {area.typeName ? lp_attributes(area.typeName, 'area_type') : null}
       </td>
       <td>{primaryAreaCode(area)}</td>
       <td>{formatDate(area.begin_date)}</td>
@@ -51,27 +50,19 @@ const AreaResults = ({
   results,
 }: ResultsPropsT<AreaT>) => (
   <ResultsLayout form={form} lastUpdated={lastUpdated}>
-    {results.length ? (
-      <PaginatedResults pager={pager} query={query} search>
-        <table className="tbl">
-          <thead>
-            <tr>
-              <th>{l('Score')}</th>
-              <th>{l('Name')}</th>
-              <th>{l('Type')}</th>
-              <th>{l('Code')}</th>
-              <th>{l('Begin')}</th>
-              <th>{l('End')}</th>
-            </tr>
-          </thead>
-          <tbody>
-            {results.map(buildResult)}
-          </tbody>
-        </table>
-      </PaginatedResults>
-    ) : (
-      <p>{l('No results found. Try refining your search query.')}</p>
-    )}
+    <PaginatedSearchResults
+      buildResult={buildResult}
+      columns={[
+        l('Name'),
+        l('Type'),
+        l('Code'),
+        l('Begin'),
+        l('End'),
+      ]}
+      pager={pager}
+      query={query}
+      results={results}
+    />
     {$c.user && $c.user.is_location_editor ? (
       <p>
         {l('Alternatively, you may {uri|add a new area}.', {

@@ -8,8 +8,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2018-05-23 10:22+0000\n"
-"Last-Translator: Maurits Meulenbelt <email address hidden>\n"
+"PO-Revision-Date: 2018-08-13 13:23+0000\n"
+"Last-Translator: yvanz\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -64,6 +64,10 @@ msgstr "Clavinet"
 #: DB:instrument/name:482
 msgid "Cretan lyra"
 msgstr "Kretenzische lier"
+
+#: DB:instrument/name:736
+msgid "Cristal Baschet"
+msgstr ""
 
 #: DB:instrument/name:118
 msgid "Denis d'or"
@@ -221,6 +225,11 @@ msgstr "violofoon"
 #: DB:instrument/name:691
 msgid "Swedish bagpipes"
 msgstr "Zweedse doedelzak"
+
+#: DB:instrument/name:934
+msgctxt "electrically actuated lithophone"
+msgid "The Great Stalacpipe Organ"
+msgstr ""
 
 #: DB:instrument/name:279
 msgid "Tibetan water drum"
@@ -898,6 +907,11 @@ msgstr "chuurqin"
 msgid "cimbalom"
 msgstr "cimbalom"
 
+#: DB:instrument/name:929
+msgctxt "19th century bass trombone"
+msgid "cimbasso"
+msgstr ""
+
 #: DB:instrument/name:761
 msgid "citole"
 msgstr "citole"
@@ -1018,10 +1032,6 @@ msgctxt "guitar/Viola caipira like plucked string instrument"
 msgid "craviola"
 msgstr "craviola"
 
-#: DB:instrument/name:736
-msgid "cristal Baschet"
-msgstr "cristal Baschet"
-
 #: DB:instrument/name:164
 msgid "crotales"
 msgstr "crotales / cymbales antiques"
@@ -1074,6 +1084,11 @@ msgstr "daire"
 #: DB:instrument/name:551
 msgid "daluo"
 msgstr "daluo"
+
+#: DB:instrument/name:927
+msgctxt "Korean educational end-blown bamboo flute"
+msgid "danso"
+msgstr ""
 
 #: DB:instrument/name:342
 msgid "darbuka"
@@ -1187,21 +1202,19 @@ msgstr "doyra"
 msgid "dramyin"
 msgstr "dramyen"
 
+#: DB:instrument/name:933
+msgctxt "Generic drums of any kind."
+msgid "drum"
+msgstr ""
+
 #: DB:instrument/name:120
 msgid "drum machine"
 msgstr "drumcomputer"
 
-#: DB:instrument/name:100
-msgctxt ""
-"generic drums, for the set of drums typically used in modern music, use "
-"\"drumset\""
-msgid "drums"
-msgstr "trommels"
-
 #: DB:instrument/name:101
 msgctxt "Set of drums in modern music"
-msgid "drumset"
-msgstr "drumstel"
+msgid "drums (drum set)"
+msgstr ""
 
 #: DB:instrument/name:649
 msgid "duck call"
@@ -1502,6 +1515,16 @@ msgstr "geomungo"
 #: DB:instrument/name:331
 msgid "ghatam"
 msgstr "ghatam"
+
+#: DB:instrument/name:931
+msgctxt "Perisan double-chambered bowl lute"
+msgid "ghaychak"
+msgstr ""
+
+#: DB:instrument/name:932
+msgctxt "Uyghur spike fiddle"
+msgid "ghijak"
+msgstr ""
 
 #: DB:instrument/name:802
 msgctxt "medieval lute-like guitar forerunner"
@@ -2169,6 +2192,11 @@ msgstr "mellotron"
 msgid "melodica"
 msgstr "melodica"
 
+#: DB:instrument/name:100
+msgctxt "generic drums of any kind"
+msgid "membranophone"
+msgstr ""
+
 #: DB:instrument/name:114
 msgid "mendoza"
 msgstr "kuttepiel"
@@ -2342,6 +2370,11 @@ msgctxt "racked 4 or 8 tom-toms"
 msgid "octoban"
 msgstr "octoban"
 
+#: DB:instrument/name:935
+msgctxt "Extralarge 3-string Bass"
+msgid "octobass"
+msgstr ""
+
 #: DB:instrument/name:759
 msgid "oktawka"
 msgstr "oktawka"
@@ -2496,6 +2529,10 @@ msgstr "piri"
 #: DB:instrument/name:700
 msgid "pkhachich"
 msgstr "pkhachich"
+
+#: DB:instrument/name:930
+msgid "plucked idiophone"
+msgstr ""
 
 #: DB:instrument/name:232
 msgid "plucked string instruments"
@@ -2792,6 +2829,11 @@ msgstr "saron"
 msgid "sarrusophone"
 msgstr "sarrusofoon"
 
+#: DB:instrument/name:928
+msgctxt "Indonesian tube zither"
+msgid "sasando"
+msgstr ""
+
 #: DB:instrument/name:580
 msgid "satsuma biwa"
 msgstr "satsuma biwa"
@@ -2996,6 +3038,7 @@ msgid "steelpan"
 msgstr "steeldrum / steelpan"
 
 #: DB:instrument/name:908
+msgctxt "ensemble of 1st violin, 2nd violin, viola and cello"
 msgid "string quartet"
 msgstr "strijkkwartet"
 
@@ -3697,8 +3740,9 @@ msgid "xalam"
 msgstr "xalam"
 
 #: DB:instrument/name:484
+msgctxt "Chinese end-blown flute"
 msgid "xiao"
-msgstr "xiao"
+msgstr ""
 
 #: DB:instrument/name:550
 msgid "xiaoluo"

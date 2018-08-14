@@ -6,23 +6,18 @@ use namespace::autoclean;
 after show => sub {
     my ($self, $c) = @_;
 
-    $self->_get_extract($c, 1);
+    $c->stash->{wikipedia_extract} = $self->_get_extract($c, 1);
 };
 
 sub wikipedia_extract : Chained('load') PathPart('wikipedia-extract')
 {
     my ($self, $c) = @_;
 
-    $self->_get_extract($c, 0);
+    my $wp_extract = $self->_get_extract($c, 0);
 
     $c->res->headers->header('X-Robots-Tag' => 'noindex');
-    $c->stash(
-        current_view => 'Node',
-        component_path => 'components/WikipediaExtract',
-        component_props => {
-            wikipediaExtract => $c->stash->{wikipedia_extract},
-        }
-    );
+    $c->res->content_type('application/json; charset=utf-8');
+    $c->res->{body} = $c->json_utf8->encode({wikipediaExtract => $wp_extract});
 }
 
 sub _get_extract
@@ -53,16 +48,12 @@ sub _get_extract
 
     if (scalar @links) {
         $c->model('EditorLanguage')->load_for_editor($c->user) if $c->user_exists;
-        my $wp_extract = $c->model('WikipediaExtract')->get_extract(\@links,
+        return $c->model('WikipediaExtract')->get_extract(\@links,
             $wanted_lang,
             editor => $c->user,
             cache_only => $cache_only);
-        if ($wp_extract) {
-            $c->stash->{wikipedia_extract} = $wp_extract;
-        } else {
-            $c->stash->{wikipedia_extract_url} = $c->uri_for_action($self->action_for('wikipedia_extract'), [ $entity->gid ]);
-        }
     }
+    return;
 }
 
 no Moose::Role;

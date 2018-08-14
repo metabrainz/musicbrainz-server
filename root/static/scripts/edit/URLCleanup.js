@@ -360,7 +360,7 @@ const CLEANUPS = {
       return url.replace(/^https?:\/\/([^.]+\.)?imdb\.(com|de|it|es|fr|pt)\/([a-z]+\/[a-z0-9]+)(\/.*)*$/, "http://www.imdb.com/$3/");
     },
     validate: function (url, id) {
-      var m = /^http:\/\/www\.imdb\.com\/(name\/nm|title\/tt|character\/ch|company\/co)[0-9]{7}\/$/.exec(url);
+      var m = /^http:\/\/www\.imdb\.com\/(name\/nm|title\/tt|character\/ch|company\/co)[0-9]{7,}\/$/.exec(url);
       if (m) {
         var prefix = m[1];
         switch (id) {
@@ -645,13 +645,13 @@ const CLEANUPS = {
     ],
     type: LINK_TYPES.license,
     clean: function (url) {
-      url = url.replace(/^(https?:\/\/)?([^\/]+\.)?creativecommons\.org\//, "http://creativecommons.org/");
-      url = url.replace(/^http:\/\/creativecommons\.org\/(licenses|publicdomain)\/(.+)\/((legalcode|deed)((\.|-)[A-Za-z_]+)?)?/, "http://creativecommons.org/$1/$2/");
+      url = url.replace(/^(https?:\/\/)?([^\/]+\.)?creativecommons\.org\//, "https://creativecommons.org/");
+      url = url.replace(/^https:\/\/creativecommons\.org\/(licenses|publicdomain)\/(.+)\/((legalcode|deed)((\.|-)[A-Za-z_]+)?)?/, "https://creativecommons.org/$1/$2/");
 
       // make sure there is exactly one terminating slash
-      url = url.replace(/^(http:\/\/creativecommons\.org\/licenses\/(?:by|(?:by-|)(?:nc|nc-nd|nc-sa|nd|sa)|(?:nc-|)sampling\+?)\/[0-9]+\.[0-9]+(?:\/(?:ar|au|at|be|br|bg|ca|cl|cn|co|cr|hr|cz|dk|ec|ee|fi|fr|de|gr|gt|hk|hu|in|ie|il|it|jp|lu|mk|my|mt|mx|nl|nz|no|pe|ph|pl|pt|pr|ro|rs|sg|si|za|kr|es|se|ch|tw|th|uk|scotland|us|vn)|))\/*$/, "$1/");
-      url = url.replace(/^(http:\/\/creativecommons\.org\/publicdomain\/zero\/[0-9]+\.[0-9]+)\/*$/, "$1/");
-      url = url.replace(/^(http:\/\/creativecommons\.org\/licenses\/publicdomain)\/*$/, "$1/");
+      url = url.replace(/^(https:\/\/creativecommons\.org\/licenses\/(?:by|(?:by-|)(?:nc|nc-nd|nc-sa|nd|sa)|(?:nc-|)sampling\+?)\/[0-9]+\.[0-9]+(?:\/(?:ar|au|at|be|br|bg|ca|cl|cn|co|cr|hr|cz|dk|ec|ee|fi|fr|de|gr|gt|hk|hu|in|ie|il|it|jp|lu|mk|my|mt|mx|nl|nz|no|pe|ph|pl|pt|pr|ro|rs|sg|si|za|kr|es|se|ch|tw|th|uk|scotland|us|vn)|))\/*$/, "$1/");
+      url = url.replace(/^(https:\/\/creativecommons\.org\/publicdomain\/zero\/[0-9]+\.[0-9]+)\/*$/, "$1/");
+      url = url.replace(/^(https:\/\/creativecommons\.org\/licenses\/publicdomain)\/*$/, "$1/");
 
       url = url.replace(/^(https?:\/\/)?([^\/]+\.)?artlibre\.org\//, "http://artlibre.org/");
       url = url.replace(/^http:\/\/artlibre\.org\/licence\.php\/lal\.html/, "http://artlibre.org/licence/lal");
@@ -1968,17 +1968,17 @@ const CLEANUPS = {
     }
   },
   utaitedbvocadbtouhoudb: {
-    match: [new RegExp("^(https?://)?(www\\.)?(utaite|voca|touhou)db\\.net", "i")],
+    match: [new RegExp("^(https?://)?(www\\.)?((utaite|voca)db\\.net|touhoudb\\.com)", "i")],
     type: LINK_TYPES.otherdatabases,
     clean: function (url) {
-      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?(utaite|voca|touhou)db\.net\/((?:[A-Za-z]+\/){1,2}0*[1-9][0-9]*)(?:[\/?#].*)?$/, "https://$1db.net/$2");
+      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?(utaite|voca|touhou)db(\.net|\.com)\/((?:[A-Za-z]+\/){1,2}0*[1-9][0-9]*)(?:[\/?#].*)?$/, "https://$1db$2/$3");
       url = url.replace(/Artist\/(Details|Edit|Versions)/, "Ar");
       url = url.replace(/Album\/(Details|DownloadTags|Edit|Related|Versions)/, "Al");
       url = url.replace(/Event\/(Details|Edit|Versions)/, "E");
       return url.replace(/Song\/(Details|Edit|Related|Versions)/, "S");
     },
     validate: function (url, id) {
-      var m = /^https:\/\/(?:utaite|voca|touhou)db\.net\/([A-Za-z]+(?:\/[A-Za-z]+)?)\/[1-9][0-9]*$/.exec(url);
+      var m = /^https:\/\/(?:(?:utaite|voca)db\.net|touhoudb\.com)\/([A-Za-z]+(?:\/[A-Za-z]+)?)\/[1-9][0-9]*$/.exec(url);
       if (m) {
         var prefix = m[1];
         switch (id) {

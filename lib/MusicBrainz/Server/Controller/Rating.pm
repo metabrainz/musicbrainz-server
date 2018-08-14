@@ -33,12 +33,14 @@ sub rate : Local RequireAuth DenyWhenReadonly
     my ($sum, $count) = $model->rating->update($c->user->id, $entity_id, $rating);
 
     if ($c->request->params->{json}) {
-        $c->stash->{json} = {
+        my $body = $c->json_utf8->encode({
             rating         => $rating,
             rating_average => $count > 0 ? ($sum / $count) : 0,
             rating_count   => $count,
-        };
-        $c->detach('View::JSON');
+        });
+        $c->response->body($body);
+        $c->response->content_type('application/json; charset=utf-8');
+        $c->detach;
     }
 
     my $redirect = $c->request->referer || $c->uri_for("/");

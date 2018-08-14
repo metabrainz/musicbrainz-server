@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2018-05-23 08:55+0000\n"
+"PO-Revision-Date: 2018-05-30 11:39+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -536,7 +536,7 @@ msgstr "Spijkerschrift-Luwisch"
 msgid "Cushitic languages"
 msgstr "Koesjitische talen"
 
-#. frequency:2 iso_code_3:ces
+#. frequency:1 iso_code_3:ces
 #: DB:language/name:98
 msgid "Czech"
 msgstr "Tsjechisch"
@@ -1721,7 +1721,7 @@ msgstr "Oudnoors"
 msgid "North American Indian languages"
 msgstr "Noord-Amerikaanse Indiaanse talen"
 
-#. frequency:1 iso_code_3:nor
+#. frequency:2 iso_code_3:nor
 #: DB:language/name:309
 msgid "Norwegian"
 msgstr "Noors"

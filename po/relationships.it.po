@@ -13,7 +13,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2018-05-30 11:39+0000\n"
+"PO-Revision-Date: 2018-08-05 21:10+0000\n"
 "Last-Translator: yvanz\n"
 "Language-Team: Italian (http://www.transifex.com/musicbrainz/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
@@ -192,14 +192,14 @@ msgstr ""
 msgid "Designates that one area is contained by another."
 msgstr "Designa che un'area è contenuta in un'altra."
 
-#: DB:link_type/link_phrase:747 DB:link_type/link_phrase:76
-#: DB:link_type/link_phrase:217 DB:link_type/link_phrase:180
+#: DB:link_type/link_phrase:747 DB:link_type/link_phrase:180
+#: DB:link_type/link_phrase:76 DB:link_type/link_phrase:217
 #: DB:link_type/link_phrase:90 DB:link_type/link_phrase:705
 msgid "Discogs"
 msgstr "Discogs"
 
-#: DB:link_type/reverse_link_phrase:747 DB:link_type/reverse_link_phrase:76
-#: DB:link_type/reverse_link_phrase:217 DB:link_type/reverse_link_phrase:180
+#: DB:link_type/reverse_link_phrase:747 DB:link_type/reverse_link_phrase:180
+#: DB:link_type/reverse_link_phrase:76 DB:link_type/reverse_link_phrase:217
 #: DB:link_type/reverse_link_phrase:90 DB:link_type/reverse_link_phrase:705
 msgid "Discogs page for"
 msgstr "Pagina Discogs per"
@@ -1051,6 +1051,12 @@ msgid ""
 "usually part of the band."
 msgstr "Questo attributo indica un'esibizione di un \"ospite\" che non fa parte della band."
 
+#: DB:link_attribute_type/description:1094
+msgid ""
+"This attribute indicates a member the band is named after and without which "
+"it wouldn't exist (e.g. Miles Davis -> Miles Davis Sextet)"
+msgstr ""
+
 #: DB:link_attribute_type/description:511
 msgid ""
 "This attribute indicates a version with satirical, ironic, or otherwise "
@@ -1493,6 +1499,10 @@ msgid ""
 "part."
 msgstr ""
 
+#: DB:link_type/description:962
+msgid "This indicates the artist was the director of this music video."
+msgstr ""
+
 #: DB:link_type/description:297 DB:link_type/description:298
 #: DB:link_type/description:296 DB:link_type/description:295
 #: DB:link_type/description:158 DB:link_type/description:41
@@ -1625,6 +1635,14 @@ msgid ""
 "This indicates the rights society associated with a release. The rights "
 "society is an organization which collects royalties on behalf of the "
 "artists."
+msgstr ""
+
+#: DB:link_type/description:963
+msgid "This indicates the video was shot at this place."
+msgstr ""
+
+#: DB:link_type/description:964
+msgid "This indicates the video was shot in this area."
 msgstr ""
 
 #: DB:link_type/description:914
@@ -2598,7 +2616,7 @@ msgstr ""
 msgid ""
 "This relationship type can be used to link a place to the equivalent entry "
 "in YouTube. URLs should follow the format "
-"http://www.youtube.com/user/<username>"
+"http://www.youtube.com/user/&lt;username&gt;."
 msgstr ""
 
 #: DB:link_type/description:792
@@ -3028,13 +3046,13 @@ msgid "Wikipedia page for"
 msgstr "Pagina Wikipedia per"
 
 #: DB:link_type/reverse_link_phrase:791 DB:link_type/reverse_link_phrase:792
-#: DB:link_type/reverse_link_phrase:193 DB:link_type/reverse_link_phrase:528
+#: DB:link_type/reverse_link_phrase:528 DB:link_type/reverse_link_phrase:193
 #: DB:link_type/reverse_link_phrase:225
 msgid "YouTube channel for"
 msgstr "Canale YouTube per"
 
 #: DB:link_type/link_phrase:791 DB:link_type/link_phrase:792
-#: DB:link_type/link_phrase:193 DB:link_type/link_phrase:528
+#: DB:link_type/link_phrase:528 DB:link_type/link_phrase:193
 #: DB:link_type/link_phrase:225
 msgid "YouTube channels"
 msgstr "Canali YouTube"
@@ -3430,6 +3448,14 @@ msgstr ""
 msgid "derived from"
 msgstr ""
 
+#: DB:link_type/long_link_phrase:962
+msgid "directed the video"
+msgstr ""
+
+#: DB:link_type/link_phrase:962
+msgid "directed video"
+msgstr ""
+
 #: DB:link_type/link_phrase:88 DB:link_type/link_phrase:171
 #: DB:link_type/reverse_link_phrase:88 DB:link_type/reverse_link_phrase:171
 #: DB:link_type/long_link_phrase:88 DB:link_type/long_link_phrase:171
@@ -3535,6 +3561,10 @@ msgstr ""
 
 #: DB:link_type/reverse_link_phrase:120 DB:link_type/reverse_link_phrase:701
 msgid "engineers"
+msgstr ""
+
+#: DB:link_attribute_type/name:1094
+msgid "eponymous"
 msgstr ""
 
 #: DB:link_attribute_type/name:425
@@ -3685,8 +3715,8 @@ msgstr "ha la pagina di Bandsintown"
 msgid "has a BookBrainz page at"
 msgstr "ha la pagina di BookBrainz"
 
-#: DB:link_type/long_link_phrase:747 DB:link_type/long_link_phrase:76
-#: DB:link_type/long_link_phrase:217 DB:link_type/long_link_phrase:180
+#: DB:link_type/long_link_phrase:747 DB:link_type/long_link_phrase:180
+#: DB:link_type/long_link_phrase:76 DB:link_type/long_link_phrase:217
 #: DB:link_type/long_link_phrase:90 DB:link_type/long_link_phrase:705
 msgid "has a Discogs page at"
 msgstr "ha la pagina di Discogs"
@@ -3843,7 +3873,7 @@ msgid "has an interview at"
 msgstr "ha un'intervista su"
 
 #: DB:link_type/long_link_phrase:791 DB:link_type/long_link_phrase:792
-#: DB:link_type/long_link_phrase:193 DB:link_type/long_link_phrase:528
+#: DB:link_type/long_link_phrase:528 DB:link_type/long_link_phrase:193
 #: DB:link_type/long_link_phrase:225
 msgid "has an official YouTube channel at"
 msgstr "ha il canale ufficiale di YouTube"
@@ -4197,7 +4227,7 @@ msgid "is/was the parent label of"
 msgstr ""
 
 #: DB:link_type/long_link_phrase:103
-msgid "is/was {additional:an|a} {additional} {original} member of"
+msgid "is/was {additional:an|a} {additional} {original} {eponymous} member of"
 msgstr ""
 
 #: DB:link_type/long_link_phrase:305
@@ -5271,7 +5301,8 @@ msgstr "tributo a"
 msgid "type of"
 msgstr ""
 
-#: DB:link_attribute_type/name:582
+#: DB:link_attribute_type/name:582 DB:link_type/link_phrase:961
+#: DB:link_type/reverse_link_phrase:961 DB:link_type/long_link_phrase:961
 msgid "video"
 msgstr "video"
 
@@ -5338,6 +5369,10 @@ msgstr ""
 #: DB:link_type/reverse_link_phrase:891 DB:link_type/reverse_link_phrase:890
 #: DB:link_type/reverse_link_phrase:889 DB:link_type/reverse_link_phrase:892
 msgid "was commissioned by"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:962
+msgid "was directed by"
 msgstr ""
 
 #: DB:link_type/long_link_phrase:794
@@ -5492,6 +5527,14 @@ msgstr ""
 
 #: DB:link_type/reverse_link_phrase:69 DB:link_type/reverse_link_phrase:231
 msgid "{additional:additionally} sampled by"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:963
+msgid "{additional:additionally} shot at"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:964
+msgid "{additional:additionally} shot in"
 msgstr ""
 
 #: DB:link_type/link_phrase:872 DB:link_type/long_link_phrase:871
@@ -5766,6 +5809,10 @@ msgstr ""
 msgid "{additional} samples from"
 msgstr ""
 
+#: DB:link_type/link_phrase:963 DB:link_type/link_phrase:964
+msgid "{additional} shooting location for"
+msgstr ""
+
 #: DB:link_type/link_phrase:883 DB:link_type/link_phrase:884
 msgid "{additional} translating location for"
 msgstr ""
@@ -5866,11 +5913,11 @@ msgid "{additional} {minor} collaborators"
 msgstr ""
 
 #: DB:link_type/link_phrase:103
-msgid "{additional} {original} member of"
+msgid "{additional} {original} {eponymous} member of"
 msgstr ""
 
 #: DB:link_type/reverse_link_phrase:103
-msgid "{additional} {original} members"
+msgid "{additional} {original} {eponymous} members"
 msgstr ""
 
 #: DB:link_type/link_phrase:697 DB:link_type/link_phrase:756
@@ -6153,6 +6200,14 @@ msgstr ""
 
 #: DB:link_type/long_link_phrase:830 DB:link_type/long_link_phrase:831
 msgid "{entity1} was {additional:additionally} remixed in {entity0}"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:963
+msgid "{entity1} was {additional:additionally} shot at {entity0}"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:964
+msgid "{entity1} was {additional:additionally} shot in {entity0}"
 msgstr ""
 
 #: DB:link_type/long_link_phrase:883

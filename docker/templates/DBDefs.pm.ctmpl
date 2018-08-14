@@ -191,7 +191,6 @@ sub GIT_SHA { {{executeTemplate "QUOTED_STRING" (env "GIT_SHA")}} }
 {{executeTemplate "BOOLEAN_DEF" "SEARCH_X_ACCEL_REDIRECT"}}
 {{executeTemplate "BOOLEAN_DEF" "SSL_REDIRECTS_ENABLED"}}
 {{executeTemplate "BOOLEAN_DEF" "WIKIMEDIA_COMMONS_IMAGES_ENABLED"}}
-{{executeTemplate "CODE_DEF" "DB_STAGING_SERVER_DESCRIPTION"}}
 {{executeTemplate "CODE_DEF" "ENTITY_CACHE_TTL"}}
 {{executeTemplate "CODE_DEF" "REPLICATION_TYPE"}}
 {{executeTemplate "STRING_DEF" "AMAZON_ASSOCIATE_TAG"}}
@@ -199,6 +198,7 @@ sub GIT_SHA { {{executeTemplate "QUOTED_STRING" (env "GIT_SHA")}} }
 {{executeTemplate "STRING_DEF" "AWS_PUBLIC"}}
 {{executeTemplate "STRING_DEF" "BETA_REDIRECT_HOSTNAME"}}
 {{executeTemplate "STRING_DEF" "DB_SCHEMA_SEQUENCE"}}
+{{executeTemplate "STRING_DEF" "DB_STAGING_SERVER_DESCRIPTION"}}
 {{executeTemplate "STRING_DEF" "DETERMINE_MAX_REQUEST_TIME"}}
 {{executeTemplate "STRING_DEF" "DISCOURSE_API_KEY"}}
 {{executeTemplate "STRING_DEF" "DISCOURSE_API_USERNAME"}}

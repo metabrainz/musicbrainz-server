@@ -22,7 +22,7 @@ const URLHeader = ({url, page}: Props) => (
     entity={url}
     headerClass="workheader"
     heading={
-      <EntityLink content={url.decoded} entity={url} subPath="show" />
+      <EntityLink content={url.decoded} entity={url} />
     }
     page={page}
     subHeading={l('URL')}

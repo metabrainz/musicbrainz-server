@@ -2,13 +2,13 @@
 # Translators:
 # Gioele <email address hidden>, 2012
 # leofiore <email address hidden>, 2012
-# Luca Salini <email address hidden>, 2016-2017
+# Luca Salini <email address hidden>, 2016-2018
 # Luca Salini <email address hidden>, 2013-2015
 # Luca Salini <email address hidden>, 2012
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2017-09-19 12:55+0000\n"
+"PO-Revision-Date: 2018-07-22 15:42+0000\n"
 "Last-Translator: Luca Salini <email address hidden>\n"
 "Language-Team: Italian (http://www.transifex.com/musicbrainz/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
@@ -537,7 +537,7 @@ msgstr "Luvio cuneiforme"
 msgid "Cushitic languages"
 msgstr "Lingue cuscitiche"
 
-#. frequency:2 iso_code_3:ces
+#. frequency:1 iso_code_3:ces
 #: DB:language/name:98
 msgid "Czech"
 msgstr "Ceco"
@@ -1422,6 +1422,11 @@ msgstr "Lushai"
 msgid "Luxembourgish"
 msgstr "Lussemburghese"
 
+#. frequency:1 iso_code_3:luy
+#: DB:language/name:4018
+msgid "Luyia"
+msgstr "Luyia"
+
 #. frequency:1 iso_code_3:mkd
 #: DB:language/name:254
 msgid "Macedonian"
@@ -1717,7 +1722,7 @@ msgstr "Norreno antico"
 msgid "North American Indian languages"
 msgstr "Lingue native nordamericane"
 
-#. frequency:1 iso_code_3:nor
+#. frequency:2 iso_code_3:nor
 #: DB:language/name:309
 msgid "Norwegian"
 msgstr "Norvegese"
@@ -2601,6 +2606,11 @@ msgstr "Lingue zande"
 #: DB:language/name:466
 msgid "Zapotec"
 msgstr "Zapoteco"
+
+#. frequency:1 iso_code_3:dje
+#: DB:language/name:2009
+msgid "Zarma"
+msgstr "Zarma"
 
 #. frequency:1 iso_code_3:zza
 #: DB:language/name:483

@@ -20,4 +20,5 @@
     </p>
     [%- END -%]
 
+    [%- script_manifest('event/index.js', {async => 'async'}) -%]
 [% END %]

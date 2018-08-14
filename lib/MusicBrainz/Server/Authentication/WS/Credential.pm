@@ -82,6 +82,14 @@ sub _authenticate_bearer
     return;
 }
 
+sub _build_auth_header_common {
+    my ($self, $c, $opts) = @_;
+    return (
+        $self->SUPER::_build_auth_header_common($c, $opts),
+        'charset=UTF-8',
+    );
+}
+
 1;
 
 =head1 DESCRIPTION

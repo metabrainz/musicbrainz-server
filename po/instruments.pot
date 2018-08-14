@@ -217,6 +217,11 @@ msgstr ""
 msgid "Swedish bagpipes"
 msgstr ""
 
+#: DB:instrument/name:934
+msgctxt "electrically actuated lithophone"
+msgid "The Great Stalacpipe Organ"
+msgstr ""
+
 #: DB:instrument/name:279
 msgid "Tibetan water drum"
 msgstr ""
@@ -1188,6 +1193,11 @@ msgstr ""
 msgid "dramyin"
 msgstr ""
 
+#: DB:instrument/name:933
+msgctxt "Generic drums of any kind."
+msgid "drum"
+msgstr ""
+
 #: DB:instrument/name:120
 msgid "drum machine"
 msgstr ""
@@ -1323,11 +1333,6 @@ msgstr ""
 #: DB:instrument/name:215
 msgctxt "Middle range huqin"
 msgid "erhu"
-msgstr ""
-
-#: DB:instrument/name:933
-msgctxt "Generic drums of any kind"
-msgid "error"
 msgstr ""
 
 #: DB:instrument/name:529
@@ -2356,6 +2361,11 @@ msgctxt "racked 4 or 8 tom-toms"
 msgid "octoban"
 msgstr ""
 
+#: DB:instrument/name:935
+msgctxt "Extralarge 3-string Bass"
+msgid "octobass"
+msgstr ""
+
 #: DB:instrument/name:759
 msgid "oktawka"
 msgstr ""
@@ -3019,6 +3029,7 @@ msgid "steelpan"
 msgstr ""
 
 #: DB:instrument/name:908
+msgctxt "ensemble of 1st violin, 2nd violin, viola and cello"
 msgid "string quartet"
 msgstr ""
 

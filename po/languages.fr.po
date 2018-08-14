@@ -1,14 +1,14 @@
 # 
 # Translators:
-# French language coordinator <email address hidden>, 2013
+# AO French coordinator <email address hidden>, 2013
 # Benjamin Sonntag <email address hidden>, 2011-2012
 # Benjamin Sonntag <email address hidden>, 2011
 # Dibou <email address hidden>, 2012
 # Laurent Monin <email address hidden>, 2016
 # murdos <email address hidden>, 2011-2012
 # Raphaël Fery <email address hidden>, 2017
-# French language coordinator <email address hidden>, 2015
-# French language coordinator <email address hidden>, 2014-2015
+# AO French coordinator <email address hidden>, 2015
+# AO French coordinator <email address hidden>, 2014-2015
 # yvanz, 2016-2018
 msgid ""
 msgstr ""
@@ -542,7 +542,7 @@ msgstr "Louvite cunéiforme"
 msgid "Cushitic languages"
 msgstr "Couchitiques, langues"
 
-#. frequency:2 iso_code_3:ces
+#. frequency:1 iso_code_3:ces
 #: DB:language/name:98
 msgid "Czech"
 msgstr "Tchèque"
@@ -1727,7 +1727,7 @@ msgstr "Norrois"
 msgid "North American Indian languages"
 msgstr "Nord-amérindiennes, langues"
 
-#. frequency:1 iso_code_3:nor
+#. frequency:2 iso_code_3:nor
 #: DB:language/name:309
 msgid "Norwegian"
 msgstr "Norvégien"

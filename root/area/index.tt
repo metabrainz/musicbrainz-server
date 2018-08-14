@@ -4,4 +4,6 @@
     [%- show_wikipedia_extract() -%]
 
     [%- INCLUDE "components/relationships.tt" source=area -%]
+
+    [%- script_manifest('area/index.js', {async => 'async'}) -%]
 [% END %]

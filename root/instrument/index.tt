@@ -10,5 +10,6 @@
 
     [%- INCLUDE "components/relationships.tt" source=instrument -%]
 
+    [%- script_manifest('instrument/index.js', {async => 'async'}) -%]
 [%- END -%]
 

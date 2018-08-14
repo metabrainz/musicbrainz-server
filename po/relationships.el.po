@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2018-04-23 16:37+0000\n"
+"PO-Revision-Date: 2018-08-05 21:10+0000\n"
 "Last-Translator: yvanz\n"
 "Language-Team: Greek (http://www.transifex.com/musicbrainz/musicbrainz/language/el/)\n"
 "MIME-Version: 1.0\n"
@@ -185,14 +185,14 @@ msgstr ""
 msgid "Designates that one area is contained by another."
 msgstr ""
 
-#: DB:link_type/link_phrase:747 DB:link_type/link_phrase:76
-#: DB:link_type/link_phrase:217 DB:link_type/link_phrase:180
+#: DB:link_type/link_phrase:747 DB:link_type/link_phrase:180
+#: DB:link_type/link_phrase:76 DB:link_type/link_phrase:217
 #: DB:link_type/link_phrase:90 DB:link_type/link_phrase:705
 msgid "Discogs"
 msgstr "Discogs"
 
-#: DB:link_type/reverse_link_phrase:747 DB:link_type/reverse_link_phrase:76
-#: DB:link_type/reverse_link_phrase:217 DB:link_type/reverse_link_phrase:180
+#: DB:link_type/reverse_link_phrase:747 DB:link_type/reverse_link_phrase:180
+#: DB:link_type/reverse_link_phrase:76 DB:link_type/reverse_link_phrase:217
 #: DB:link_type/reverse_link_phrase:90 DB:link_type/reverse_link_phrase:705
 msgid "Discogs page for"
 msgstr "Σελίδα του Discogs για"
@@ -280,6 +280,12 @@ msgstr ""
 msgid "Indicates a pictorial image (JPEG, GIF, PNG) of an artist."
 msgstr ""
 
+#: DB:link_type/description:943
+msgid ""
+"Indicates a place that moved from one location to another, while still being"
+" generally considered the same."
+msgstr ""
+
 #: DB:link_attribute_type/description:1019
 msgid "Indicates a sibling with whom the artist has only one parent in common"
 msgstr ""
@@ -290,6 +296,11 @@ msgstr ""
 
 #: DB:link_type/description:94
 msgid "Indicates a webpage that reviews the release (group) in question."
+msgstr ""
+
+#: DB:link_type/description:958
+msgid ""
+"Indicates a webpage where you can download a label's releases for free."
 msgstr ""
 
 #: DB:link_type/description:177
@@ -344,6 +355,11 @@ msgstr ""
 
 #: DB:link_type/description:45
 msgid "Indicates an orchestra that performed on this release."
+msgstr ""
+
+#: DB:link_attribute_type/description:1080
+msgid ""
+"Indicates how many of a specific instrument an ensemble usually includes."
 msgstr ""
 
 #: DB:link_type/description:844
@@ -416,6 +432,10 @@ msgstr ""
 
 #: DB:link_type/description:715
 msgid "Indicates the area where the work had its first performance"
+msgstr ""
+
+#: DB:link_type/description:956
+msgid "Indicates the artist(s) who gave the first performance of the work"
 msgstr ""
 
 #: DB:link_type/description:55
@@ -669,12 +689,22 @@ msgstr ""
 msgid "Links a release to the place it was engineered at."
 msgstr ""
 
+#: DB:link_type/description:953
+msgid ""
+"Links a release to the place it was manufactured at. Use a more specific "
+"credit if available"
+msgstr ""
+
 #: DB:link_type/description:697
 msgid "Links a release to the place it was mastered at."
 msgstr ""
 
 #: DB:link_type/description:696
 msgid "Links a release to the place it was mixed at."
+msgstr ""
+
+#: DB:link_type/description:941
+msgid "Links a release to the place it was pressed at."
 msgstr ""
 
 #: DB:link_type/description:824
@@ -687,6 +717,12 @@ msgstr ""
 
 #: DB:link_type/description:828
 msgid "Links a release to the place it was remixed at."
+msgstr ""
+
+#: DB:link_type/description:954
+msgid ""
+"Links a release to the place where the glass master for pressing was made. "
+"Not the same as mastered!"
 msgstr ""
 
 #: DB:link_type/description:796
@@ -935,12 +971,12 @@ msgid "Songkick page for"
 msgstr ""
 
 #: DB:link_type/link_phrase:870 DB:link_type/link_phrase:291
-#: DB:link_type/link_phrase:290
+#: DB:link_type/link_phrase:290 DB:link_type/link_phrase:940
 msgid "SoundCloud"
 msgstr "SoundCloud"
 
 #: DB:link_type/reverse_link_phrase:870 DB:link_type/reverse_link_phrase:291
-#: DB:link_type/reverse_link_phrase:290
+#: DB:link_type/reverse_link_phrase:290 DB:link_type/reverse_link_phrase:940
 msgid "SoundCloud page for"
 msgstr "Σελίδα στο SoundCloud για"
 
@@ -1007,6 +1043,12 @@ msgid ""
 "This attribute indicates a 'guest' performance where the performer is not "
 "usually part of the band."
 msgstr "Αυτό το χαρακτηριστικό υποδεικνύει μία 'guest' εκτέλεση, όπου ο εκτελεστής δεν είναι συνήθως μέλος του συγκροτήματος."
+
+#: DB:link_attribute_type/description:1094
+msgid ""
+"This attribute indicates a member the band is named after and without which "
+"it wouldn't exist (e.g. Miles Davis -> Miles Davis Sextet)"
+msgstr ""
 
 #: DB:link_attribute_type/description:511
 msgid ""
@@ -1450,11 +1492,15 @@ msgid ""
 "part."
 msgstr ""
 
-#: DB:link_type/description:293 DB:link_type/description:282
-#: DB:link_type/description:295 DB:link_type/description:297
-#: DB:link_type/description:296 DB:link_type/description:298
-#: DB:link_type/description:294 DB:link_type/description:158
-#: DB:link_type/description:41
+#: DB:link_type/description:962
+msgid "This indicates the artist was the director of this music video."
+msgstr ""
+
+#: DB:link_type/description:297 DB:link_type/description:298
+#: DB:link_type/description:296 DB:link_type/description:295
+#: DB:link_type/description:158 DB:link_type/description:41
+#: DB:link_type/description:294 DB:link_type/description:293
+#: DB:link_type/description:282
 msgid ""
 "This indicates the artist who arranged a tune into a form suitable for "
 "performance. 'Arrangement' is used as a catch-all term for all processes "
@@ -1471,6 +1517,13 @@ msgstr ""
 #: DB:link_type/description:53
 msgid ""
 "This indicates the chorus master of a choir which performed on this release."
+msgstr ""
+
+#: DB:link_type/description:955
+msgid ""
+"This indicates the company that made the glass master for a release. This is"
+" <strong>not</strong> the same concept as the <a href=\"/doc/Label\">record "
+"label</a>, nor as mastering engineering."
 msgstr ""
 
 #: DB:link_attribute_type/description:1018
@@ -1563,11 +1616,26 @@ msgid ""
 "href=\"/relationship/28338ee6-d578-485a-bb53-61dbfd7c6545\">DJ-mixer</a>."
 msgstr ""
 
+#: DB:link_type/description:942
+msgid ""
+"This indicates the pressing company that presses a release. This is "
+"<strong>not</strong> the same concept as the <a href=\"/doc/Label\">record "
+"label</a>."
+msgstr ""
+
 #: DB:link_type/description:349
 msgid ""
 "This indicates the rights society associated with a release. The rights "
 "society is an organization which collects royalties on behalf of the "
 "artists."
+msgstr ""
+
+#: DB:link_type/description:963
+msgid "This indicates the video was shot at this place."
+msgstr ""
+
+#: DB:link_type/description:964
+msgid "This indicates the video was shot in this area."
 msgstr ""
 
 #: DB:link_type/description:914
@@ -1732,6 +1800,12 @@ msgid ""
 "for download."
 msgstr ""
 
+#: DB:link_type/description:959
+msgid ""
+"This is used to link to a page where the label's releases can be purchased "
+"for download."
+msgstr ""
+
 #: DB:link_type/description:254
 msgid ""
 "This is used to link to a page where the recording can be purchased for "
@@ -1861,6 +1935,10 @@ msgstr ""
 msgid ""
 "This links a place to a site where the place or the organisation behind it "
 "can receive donations/patronage, such as Flattr or PayPal.me."
+msgstr ""
+
+#: DB:link_type/description:940
+msgid "This links a place to its profile at SoundCloud."
 msgstr ""
 
 #: DB:link_type/description:909
@@ -2013,6 +2091,10 @@ msgid ""
 "relationship type is the functional equivalent of the <a "
 "href=\"/relationship/5be4c609-9afa-4ea0-910b-12ffb71e3821\">member of band "
 "type</a> for group-group relationships."
+msgstr ""
+
+#: DB:link_type/description:939
+msgid "This links a work to a license under which it is available."
 msgstr ""
 
 #: DB:link_type/description:908
@@ -2181,10 +2263,11 @@ msgid ""
 msgstr ""
 
 #: DB:link_type/description:746 DB:link_type/description:803
-#: DB:link_type/description:96 DB:link_type/description:730
-#: DB:link_type/description:82 DB:link_type/description:306
-#: DB:link_type/description:222 DB:link_type/description:273
-#: DB:link_type/description:188 DB:link_type/description:561
+#: DB:link_type/description:753 DB:link_type/description:96
+#: DB:link_type/description:730 DB:link_type/description:82
+#: DB:link_type/description:306 DB:link_type/description:222
+#: DB:link_type/description:273 DB:link_type/description:188
+#: DB:link_type/description:561
 msgid ""
 "This links an entity to the equivalent entry in another database. Please "
 "respect the <a "
@@ -2526,7 +2609,7 @@ msgstr ""
 msgid ""
 "This relationship type can be used to link a place to the equivalent entry "
 "in YouTube. URLs should follow the format "
-"http://www.youtube.com/user/<username>"
+"http://www.youtube.com/user/&lt;username&gt;."
 msgstr ""
 
 #: DB:link_type/description:792
@@ -2625,6 +2708,12 @@ msgstr ""
 msgid ""
 "This relationship type is used to link to a page where the artist's releases"
 " can be purchased for mail order."
+msgstr ""
+
+#: DB:link_type/description:960
+msgid ""
+"This relationship type is used to link to a page where the label's releases "
+"can be purchased for mail order."
 msgstr ""
 
 #: DB:link_type/description:79
@@ -2828,6 +2917,47 @@ msgid ""
 "or other non-numbered parts)."
 msgstr ""
 
+#: DB:link_type/description:949
+msgid ""
+"Use this relationship for credits like \"Recording was arranged by X for "
+"Label\""
+msgstr ""
+
+#: DB:link_type/description:946
+msgid ""
+"Use this relationship for credits like \"Recording was mixed by X for "
+"Label\""
+msgstr ""
+
+#: DB:link_type/description:950
+msgid ""
+"Use this relationship for credits like \"Recording was produced by X for "
+"Label\""
+msgstr ""
+
+#: DB:link_type/description:948
+msgid ""
+"Use this relationship for credits like \"Release was arranged by X for "
+"Label\""
+msgstr ""
+
+#: DB:link_type/description:952
+msgid ""
+"Use this relationship for credits like \"Release was manufactured by X for "
+"Label\""
+msgstr ""
+
+#: DB:link_type/description:947
+msgid ""
+"Use this relationship for credits like \"Release was mixed by X for Label\""
+msgstr ""
+
+#: DB:link_type/description:951
+msgid ""
+"Use this relationship for credits like \"Release was produced by X for "
+"Label\""
+msgstr ""
+
 #: DB:link_attribute_type/description:1033
 msgid ""
 "Use this to indicate the parent work is not intended to be performed as a "
@@ -2909,13 +3039,13 @@ msgid "Wikipedia page for"
 msgstr "Σελίδα Wikipedia για"
 
 #: DB:link_type/reverse_link_phrase:791 DB:link_type/reverse_link_phrase:792
-#: DB:link_type/reverse_link_phrase:193 DB:link_type/reverse_link_phrase:528
+#: DB:link_type/reverse_link_phrase:528 DB:link_type/reverse_link_phrase:193
 #: DB:link_type/reverse_link_phrase:225
 msgid "YouTube channel for"
 msgstr "Κανάλι YouTube για"
 
 #: DB:link_type/link_phrase:791 DB:link_type/link_phrase:792
-#: DB:link_type/link_phrase:193 DB:link_type/link_phrase:528
+#: DB:link_type/link_phrase:528 DB:link_type/link_phrase:193
 #: DB:link_type/link_phrase:225
 msgid "YouTube channels"
 msgstr "Κανάλια YouTube"
@@ -2930,6 +3060,10 @@ msgstr "επιπλέον"
 
 #: DB:link_attribute_type/description:5 DB:link_attribute_type/name:5
 msgid "alto vocals"
+msgstr ""
+
+#: DB:link_attribute_type/name:1080
+msgid "amount"
 msgstr ""
 
 #: DB:link_attribute_type/name:1079
@@ -2950,6 +3084,10 @@ msgstr ""
 
 #: DB:link_type/reverse_link_phrase:865 DB:link_type/reverse_link_phrase:866
 msgid "arranged at"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:948 DB:link_type/reverse_link_phrase:949
+msgid "arranged for"
 msgstr ""
 
 #: DB:link_type/reverse_link_phrase:863 DB:link_type/reverse_link_phrase:864
@@ -3201,6 +3339,28 @@ msgstr "περιέχει {additional} δείγματα από"
 msgid "contract"
 msgstr "συμβόλαιο"
 
+#: DB:link_type/link_phrase:948 DB:link_type/link_phrase:949
+msgid "contracted arrangement for"
+msgstr ""
+
+#: DB:link_type/link_phrase:952
+msgid "contracted manufacturing for"
+msgstr ""
+
+#: DB:link_type/link_phrase:946 DB:link_type/link_phrase:947
+msgid "contracted mixing for"
+msgstr ""
+
+#: DB:link_type/link_phrase:950 DB:link_type/link_phrase:951
+msgid "contracted production for"
+msgstr ""
+
+#: DB:link_type/link_phrase:945 DB:link_type/link_phrase:944
+#: DB:link_type/reverse_link_phrase:945 DB:link_type/reverse_link_phrase:944
+#: DB:link_type/long_link_phrase:945 DB:link_type/long_link_phrase:944
+msgid "contracted tasks"
+msgstr ""
+
 #: DB:link_attribute_type/description:230 DB:link_attribute_type/name:230
 msgid "contralto vocals"
 msgstr ""
@@ -3281,6 +3441,14 @@ msgstr ""
 msgid "derived from"
 msgstr ""
 
+#: DB:link_type/long_link_phrase:962
+msgid "directed the video"
+msgstr ""
+
+#: DB:link_type/link_phrase:962
+msgid "directed video"
+msgstr ""
+
 #: DB:link_type/link_phrase:88 DB:link_type/link_phrase:171
 #: DB:link_type/reverse_link_phrase:88 DB:link_type/reverse_link_phrase:171
 #: DB:link_type/long_link_phrase:88 DB:link_type/long_link_phrase:171
@@ -3331,12 +3499,12 @@ msgstr ""
 msgid "download for free"
 msgstr "δωρεάν λήψη"
 
-#: DB:link_type/link_phrase:177
+#: DB:link_type/link_phrase:958 DB:link_type/link_phrase:177
 msgid "download music for free"
 msgstr "δωρεάν λήψη μουσικής"
 
-#: DB:link_type/reverse_link_phrase:254 DB:link_type/reverse_link_phrase:74
-#: DB:link_type/reverse_link_phrase:176
+#: DB:link_type/reverse_link_phrase:959 DB:link_type/reverse_link_phrase:254
+#: DB:link_type/reverse_link_phrase:74 DB:link_type/reverse_link_phrase:176
 msgid "download purchase page for"
 msgstr "σελίδα για κατέβασμα με πληρωμή για"
 
@@ -3356,21 +3524,8 @@ msgstr ""
 msgid "edit of"
 msgstr ""
 
-#: DB:link_type/reverse_link_phrase:820 DB:link_type/reverse_link_phrase:819
-msgid "edited at"
-msgstr ""
-
-#: DB:link_type/reverse_link_phrase:821 DB:link_type/reverse_link_phrase:822
-msgid "edited in"
-msgstr ""
-
 #: DB:link_type/long_link_phrase:929
 msgid "edited the booklet of"
-msgstr ""
-
-#: DB:link_type/link_phrase:820 DB:link_type/link_phrase:821
-#: DB:link_type/link_phrase:822 DB:link_type/link_phrase:819
-msgid "editing location for"
 msgstr ""
 
 #: DB:link_type/reverse_link_phrase:309
@@ -3397,22 +3552,13 @@ msgstr "θέση μηχανικού"
 msgid "engineer position at"
 msgstr ""
 
-#: DB:link_type/reverse_link_phrase:812 DB:link_type/reverse_link_phrase:813
-msgid "engineered at"
-msgstr ""
-
-#: DB:link_type/reverse_link_phrase:814 DB:link_type/reverse_link_phrase:815
-msgid "engineered in"
-msgstr ""
-
-#: DB:link_type/link_phrase:812 DB:link_type/link_phrase:814
-#: DB:link_type/link_phrase:813 DB:link_type/link_phrase:815
-msgid "engineering location for"
-msgstr ""
-
 #: DB:link_type/reverse_link_phrase:120 DB:link_type/reverse_link_phrase:701
 msgid "engineers"
 msgstr "μηχανικοί"
+
+#: DB:link_attribute_type/name:1094
+msgid "eponymous"
+msgstr ""
 
 #: DB:link_attribute_type/name:425
 msgid "executive"
@@ -3440,8 +3586,8 @@ msgstr ""
 msgid "founders"
 msgstr "ιδρυτές"
 
-#: DB:link_type/reverse_link_phrase:75 DB:link_type/reverse_link_phrase:177
-#: DB:link_type/reverse_link_phrase:255
+#: DB:link_type/reverse_link_phrase:958 DB:link_type/reverse_link_phrase:75
+#: DB:link_type/reverse_link_phrase:177 DB:link_type/reverse_link_phrase:255
 msgid "free download page for"
 msgstr "σελίδα δωρεάν λήψης για"
 
@@ -3461,17 +3607,34 @@ msgstr ""
 msgid "from"
 msgstr ""
 
-#: DB:link_type/link_phrase:257 DB:link_type/link_phrase:73
-#: DB:link_type/link_phrase:187 DB:link_type/reverse_link_phrase:257
+#: DB:link_type/link_phrase:957 DB:link_type/link_phrase:257
+#: DB:link_type/link_phrase:73 DB:link_type/link_phrase:187
+#: DB:link_type/reverse_link_phrase:957 DB:link_type/reverse_link_phrase:257
 #: DB:link_type/reverse_link_phrase:73 DB:link_type/reverse_link_phrase:187
-#: DB:link_type/long_link_phrase:257 DB:link_type/long_link_phrase:73
-#: DB:link_type/long_link_phrase:187
+#: DB:link_type/long_link_phrase:957 DB:link_type/long_link_phrase:257
+#: DB:link_type/long_link_phrase:73 DB:link_type/long_link_phrase:187
 msgid "get the music"
 msgstr "λήψη μουσικής"
 
 #: DB:link_type/link_phrase:911 DB:link_type/reverse_link_phrase:911
 #: DB:link_type/long_link_phrase:911
 msgid "get the score"
+msgstr ""
+
+#: DB:link_type/link_phrase:955 DB:link_type/long_link_phrase:955
+msgid "glass mastered"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:954
+msgid "glass mastered at"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:955
+msgid "glass mastered by"
+msgstr ""
+
+#: DB:link_type/link_phrase:954
+msgid "glass mastering location for"
 msgstr ""
 
 #: DB:link_attribute_type/name:194
@@ -3545,8 +3708,8 @@ msgstr ""
 msgid "has a BookBrainz page at"
 msgstr ""
 
-#: DB:link_type/long_link_phrase:747 DB:link_type/long_link_phrase:76
-#: DB:link_type/long_link_phrase:217 DB:link_type/long_link_phrase:180
+#: DB:link_type/long_link_phrase:747 DB:link_type/long_link_phrase:180
+#: DB:link_type/long_link_phrase:76 DB:link_type/long_link_phrase:217
 #: DB:link_type/long_link_phrase:90 DB:link_type/long_link_phrase:705
 msgid "has a Discogs page at"
 msgstr "έχει σελίδα Discogs στο"
@@ -3579,7 +3742,7 @@ msgid "has a Songkick page at"
 msgstr ""
 
 #: DB:link_type/long_link_phrase:870 DB:link_type/long_link_phrase:291
-#: DB:link_type/long_link_phrase:290
+#: DB:link_type/long_link_phrase:290 DB:link_type/long_link_phrase:940
 msgid "has a SoundCloud page at"
 msgstr "έχει σελίδα SoundCloud στο"
 
@@ -3647,9 +3810,10 @@ msgid "has a miscellaneous role on"
 msgstr "έχει γενικό ρόλο στο"
 
 #: DB:link_type/long_link_phrase:746 DB:link_type/long_link_phrase:803
-#: DB:link_type/long_link_phrase:96 DB:link_type/long_link_phrase:82
-#: DB:link_type/long_link_phrase:306 DB:link_type/long_link_phrase:222
-#: DB:link_type/long_link_phrase:188 DB:link_type/long_link_phrase:561
+#: DB:link_type/long_link_phrase:753 DB:link_type/long_link_phrase:96
+#: DB:link_type/long_link_phrase:82 DB:link_type/long_link_phrase:306
+#: DB:link_type/long_link_phrase:222 DB:link_type/long_link_phrase:188
+#: DB:link_type/long_link_phrase:561
 msgid "has a page in a database at"
 msgstr "έχει σελίδα σε μία βάση δεδομένων στο"
 
@@ -3702,7 +3866,7 @@ msgid "has an interview at"
 msgstr ""
 
 #: DB:link_type/long_link_phrase:791 DB:link_type/long_link_phrase:792
-#: DB:link_type/long_link_phrase:193 DB:link_type/long_link_phrase:528
+#: DB:link_type/long_link_phrase:528 DB:link_type/long_link_phrase:193
 #: DB:link_type/long_link_phrase:225
 msgid "has an official YouTube channel at"
 msgstr "έχει επίσημο κανάλι YouTube στο"
@@ -3940,7 +4104,7 @@ msgstr ""
 msgid "is a medley of"
 msgstr "είναι ποτ πουρί του"
 
-#: DB:link_type/long_link_phrase:753 DB:link_type/long_link_phrase:730
+#: DB:link_type/long_link_phrase:730
 msgid "is a page in a database for"
 msgstr "είναι σελίδα σε μια βάση δεδομένων για"
 
@@ -4056,7 +4220,7 @@ msgid "is/was the parent label of"
 msgstr "είναι/ήταν μητρική εταιρία της"
 
 #: DB:link_type/long_link_phrase:103
-msgid "is/was {additional:an|a} {additional} {original} member of"
+msgid "is/was {additional:an|a} {additional} {original} {eponymous} member of"
 msgstr ""
 
 #: DB:link_type/long_link_phrase:305
@@ -4110,10 +4274,12 @@ msgid "libretto {additional:additionally} written in"
 msgstr ""
 
 #: DB:link_type/link_phrase:302 DB:link_type/link_phrase:301
+#: DB:link_type/reverse_link_phrase:939
 msgid "license"
 msgstr "άδεια"
 
-#: DB:link_type/reverse_link_phrase:302 DB:link_type/reverse_link_phrase:301
+#: DB:link_type/link_phrase:939 DB:link_type/reverse_link_phrase:302
+#: DB:link_type/reverse_link_phrase:301
 msgid "license for"
 msgstr "άδεια για"
 
@@ -4163,7 +4329,8 @@ msgstr "σελίδα στίχων"
 msgid "lyrics page for"
 msgstr "σελίδα στίχων για"
 
-#: DB:link_type/reverse_link_phrase:175 DB:link_type/reverse_link_phrase:79
+#: DB:link_type/reverse_link_phrase:960 DB:link_type/reverse_link_phrase:175
+#: DB:link_type/reverse_link_phrase:79
 msgid "mail-order purchase page for"
 msgstr "σελίδα για αγορά μέσω αλληλογραφίας για"
 
@@ -4183,15 +4350,23 @@ msgstr ""
 msgid "manufactured"
 msgstr ""
 
+#: DB:link_type/reverse_link_phrase:953
+msgid "manufactured at"
+msgstr ""
+
 #: DB:link_type/reverse_link_phrase:360
 msgid "manufactured by"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:952
+msgid "manufactured for"
 msgstr ""
 
 #: DB:link_type/reverse_link_phrase:835
 msgid "manufactured in"
 msgstr ""
 
-#: DB:link_type/link_phrase:835
+#: DB:link_type/link_phrase:835 DB:link_type/link_phrase:953
 msgid "manufacturing location for"
 msgstr ""
 
@@ -4293,12 +4468,8 @@ msgstr "γενικοί ρόλοι"
 msgid "miscellaneous support"
 msgstr "γενική υποστήριξη"
 
-#: DB:link_type/reverse_link_phrase:696 DB:link_type/reverse_link_phrase:694
-msgid "mixed at"
-msgstr ""
-
-#: DB:link_type/reverse_link_phrase:757 DB:link_type/reverse_link_phrase:758
-msgid "mixed in"
+#: DB:link_type/reverse_link_phrase:946 DB:link_type/reverse_link_phrase:947
+msgid "mixed for"
 msgstr ""
 
 #: DB:link_type/link_phrase:703
@@ -4309,24 +4480,19 @@ msgstr ""
 msgid "mixing engineers"
 msgstr ""
 
-#: DB:link_type/link_phrase:757 DB:link_type/link_phrase:696
-#: DB:link_type/link_phrase:758 DB:link_type/link_phrase:694
-msgid "mixing location for"
-msgstr ""
-
 #: DB:link_attribute_type/name:1031
 msgid "movement"
 msgstr ""
 
-#: DB:link_type/long_link_phrase:177
+#: DB:link_type/long_link_phrase:958 DB:link_type/long_link_phrase:177
 msgid "music can be downloaded for free at"
 msgstr "η μουσική μπορεί να ληφθεί δωρεάν στο"
 
-#: DB:link_type/long_link_phrase:176
+#: DB:link_type/long_link_phrase:959 DB:link_type/long_link_phrase:176
 msgid "music can be purchased for download at"
 msgstr "η μουσική μπορεί να κατέβει με πληρωμή στο"
 
-#: DB:link_type/long_link_phrase:175
+#: DB:link_type/long_link_phrase:960 DB:link_type/long_link_phrase:175
 msgid "music can be purchased for mail-order at"
 msgstr "η μουσική μπορεί να αγοραστεί μέσω αλληλογραφίας στο"
 
@@ -4424,13 +4590,13 @@ msgstr ""
 msgid "originally scheduled as"
 msgstr ""
 
-#: DB:link_type/link_phrase:753 DB:link_type/link_phrase:746
-#: DB:link_type/link_phrase:803 DB:link_type/link_phrase:96
+#: DB:link_type/link_phrase:746 DB:link_type/link_phrase:803
+#: DB:link_type/link_phrase:753 DB:link_type/link_phrase:96
 #: DB:link_type/link_phrase:730 DB:link_type/link_phrase:82
 #: DB:link_type/link_phrase:306 DB:link_type/link_phrase:222
 #: DB:link_type/link_phrase:273 DB:link_type/link_phrase:188
-#: DB:link_type/link_phrase:561 DB:link_type/reverse_link_phrase:753
-#: DB:link_type/reverse_link_phrase:746 DB:link_type/reverse_link_phrase:803
+#: DB:link_type/link_phrase:561 DB:link_type/reverse_link_phrase:746
+#: DB:link_type/reverse_link_phrase:803 DB:link_type/reverse_link_phrase:753
 #: DB:link_type/reverse_link_phrase:96 DB:link_type/reverse_link_phrase:730
 #: DB:link_type/reverse_link_phrase:82 DB:link_type/reverse_link_phrase:306
 #: DB:link_type/reverse_link_phrase:222 DB:link_type/reverse_link_phrase:273
@@ -4579,6 +4745,10 @@ msgstr ""
 msgid "premiered at"
 msgstr ""
 
+#: DB:link_type/reverse_link_phrase:956
+msgid "premiered by"
+msgstr ""
+
 #: DB:link_type/reverse_link_phrase:715
 msgid "premiered in"
 msgstr ""
@@ -4589,6 +4759,22 @@ msgstr ""
 
 #: DB:link_type/link_phrase:716 DB:link_type/link_phrase:715
 msgid "premieres hosted"
+msgstr ""
+
+#: DB:link_type/link_phrase:942 DB:link_type/long_link_phrase:942
+msgid "pressed"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:941
+msgid "pressed at"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:942
+msgid "pressed by"
+msgstr ""
+
+#: DB:link_type/link_phrase:941
+msgid "pressing location for"
 msgstr ""
 
 #: DB:link_type/link_phrase:834
@@ -4623,12 +4809,8 @@ msgstr ""
 msgid "printing location for"
 msgstr ""
 
-#: DB:link_type/reverse_link_phrase:824 DB:link_type/reverse_link_phrase:825
-msgid "produced at"
-msgstr ""
-
-#: DB:link_type/reverse_link_phrase:826 DB:link_type/reverse_link_phrase:827
-msgid "produced in"
+#: DB:link_type/reverse_link_phrase:950 DB:link_type/reverse_link_phrase:951
+msgid "produced for"
 msgstr ""
 
 #: DB:link_type/link_phrase:154 DB:link_type/link_phrase:49
@@ -4642,11 +4824,6 @@ msgstr "θέση παραγωγού"
 #: DB:link_type/reverse_link_phrase:117
 msgid "producers"
 msgstr "παραγωγοί"
-
-#: DB:link_type/link_phrase:824 DB:link_type/link_phrase:825
-#: DB:link_type/link_phrase:826 DB:link_type/link_phrase:827
-msgid "producing location for"
-msgstr ""
 
 #: DB:link_type/link_phrase:256 DB:link_type/link_phrase:160
 #: DB:link_type/link_phrase:59 DB:link_type/link_phrase:72
@@ -4736,11 +4913,11 @@ msgstr "κατέβασμα με πληρωμή"
 msgid "purchase for mail-order"
 msgstr "αγορά μέσω αλληλογραφίας"
 
-#: DB:link_type/link_phrase:176
+#: DB:link_type/link_phrase:959 DB:link_type/link_phrase:176
 msgid "purchase music for download"
 msgstr "κατέβασμα μουσικής με πληρωμή"
 
-#: DB:link_type/link_phrase:175
+#: DB:link_type/link_phrase:960 DB:link_type/link_phrase:175
 msgid "purchase music for mail-order"
 msgstr "αγορά μουσικής μέσω αλληλογραφίας"
 
@@ -4769,12 +4946,7 @@ msgid "reconstructed by"
 msgstr ""
 
 #: DB:link_type/reverse_link_phrase:810 DB:link_type/reverse_link_phrase:809
-#: DB:link_type/reverse_link_phrase:695 DB:link_type/reverse_link_phrase:693
 msgid "recorded at"
-msgstr ""
-
-#: DB:link_type/reverse_link_phrase:699 DB:link_type/reverse_link_phrase:698
-msgid "recorded in"
 msgstr ""
 
 #: DB:link_type/link_phrase:702
@@ -4786,8 +4958,6 @@ msgid "recording engineers"
 msgstr ""
 
 #: DB:link_type/link_phrase:810 DB:link_type/link_phrase:809
-#: DB:link_type/link_phrase:695 DB:link_type/link_phrase:699
-#: DB:link_type/link_phrase:698 DB:link_type/link_phrase:693
 msgid "recording location for"
 msgstr ""
 
@@ -4811,6 +4981,14 @@ msgstr ""
 msgid "released in support of"
 msgstr ""
 
+#: DB:link_type/reverse_link_phrase:943
+msgid "relocated from"
+msgstr ""
+
+#: DB:link_type/link_phrase:943 DB:link_type/long_link_phrase:943
+msgid "relocated to"
+msgstr ""
+
 #: DB:link_type/link_phrase:6 DB:link_type/link_phrase:236
 msgid "remaster of"
 msgstr "remaster του"
@@ -4827,14 +5005,6 @@ msgstr "remasters"
 msgid "remix of"
 msgstr ""
 
-#: DB:link_type/reverse_link_phrase:828 DB:link_type/reverse_link_phrase:829
-msgid "remixed at"
-msgstr ""
-
-#: DB:link_type/reverse_link_phrase:830 DB:link_type/reverse_link_phrase:831
-msgid "remixed in"
-msgstr ""
-
 #: DB:link_type/reverse_link_phrase:230 DB:link_type/reverse_link_phrase:9
 msgid "remixes"
 msgstr ""
@@ -4846,11 +5016,6 @@ msgstr ""
 #: DB:link_type/long_link_phrase:50 DB:link_type/long_link_phrase:157
 #: DB:link_type/long_link_phrase:13 DB:link_type/long_link_phrase:234
 msgid "remixes and compilations"
-msgstr ""
-
-#: DB:link_type/link_phrase:830 DB:link_type/link_phrase:828
-#: DB:link_type/link_phrase:829 DB:link_type/link_phrase:831
-msgid "remixing location for"
 msgstr ""
 
 #: DB:link_type/reverse_link_phrase:202
@@ -5129,7 +5294,8 @@ msgstr "αφιέρωμα σε"
 msgid "type of"
 msgstr ""
 
-#: DB:link_attribute_type/name:582
+#: DB:link_attribute_type/name:582 DB:link_type/link_phrase:961
+#: DB:link_type/reverse_link_phrase:961 DB:link_type/long_link_phrase:961
 msgid "video"
 msgstr "βίντεο"
 
@@ -5198,6 +5364,10 @@ msgstr ""
 msgid "was commissioned by"
 msgstr ""
 
+#: DB:link_type/reverse_link_phrase:962
+msgid "was directed by"
+msgstr ""
+
 #: DB:link_type/long_link_phrase:794
 msgid "was held at"
 msgstr ""
@@ -5255,10 +5425,8 @@ msgstr ""
 msgid "works as an engineer at"
 msgstr ""
 
-#: DB:link_type/link_phrase:293 DB:link_type/link_phrase:295
-#: DB:link_type/link_phrase:297 DB:link_type/long_link_phrase:293
-#: DB:link_type/long_link_phrase:295 DB:link_type/long_link_phrase:297
-msgid "{additional:additionally} arranged"
+#: DB:link_type/link_phrase:956
+msgid "works premiered"
 msgstr ""
 
 #: DB:link_type/reverse_link_phrase:886
@@ -5267,16 +5435,6 @@ msgstr ""
 
 #: DB:link_type/reverse_link_phrase:885
 msgid "{additional:additionally} arranged in"
-msgstr ""
-
-#: DB:link_type/long_link_phrase:282 DB:link_type/long_link_phrase:158
-#: DB:link_type/long_link_phrase:41
-msgid "{additional:additionally} arranged {instrument:%|instruments} on"
-msgstr ""
-
-#: DB:link_type/long_link_phrase:296 DB:link_type/long_link_phrase:298
-#: DB:link_type/long_link_phrase:294
-msgid "{additional:additionally} arranged {vocal:%|vocals} on"
 msgstr ""
 
 #: DB:link_type/link_phrase:55 DB:link_type/link_phrase:168
@@ -5297,6 +5455,30 @@ msgstr ""
 msgid "{additional:additionally} conducted"
 msgstr "{additional:επιπλέον} διεύθυνε την ορχήστρα"
 
+#: DB:link_type/reverse_link_phrase:820 DB:link_type/reverse_link_phrase:819
+msgid "{additional:additionally} edited at"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:822 DB:link_type/reverse_link_phrase:821
+msgid "{additional:additionally} edited in"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:813 DB:link_type/reverse_link_phrase:812
+msgid "{additional:additionally} engineered at"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:814 DB:link_type/reverse_link_phrase:815
+msgid "{additional:additionally} engineered in"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:696 DB:link_type/reverse_link_phrase:694
+msgid "{additional:additionally} mixed at"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:757 DB:link_type/reverse_link_phrase:758
+msgid "{additional:additionally} mixed in"
+msgstr ""
+
 #: DB:link_type/link_phrase:40 DB:link_type/link_phrase:164
 #: DB:link_type/link_phrase:300 DB:link_type/long_link_phrase:40
 #: DB:link_type/long_link_phrase:164 DB:link_type/long_link_phrase:300
@@ -5307,13 +5489,45 @@ msgstr ""
 msgid "{additional:additionally} orchestrator"
 msgstr ""
 
+#: DB:link_type/reverse_link_phrase:824 DB:link_type/reverse_link_phrase:825
+msgid "{additional:additionally} produced at"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:826 DB:link_type/reverse_link_phrase:827
+msgid "{additional:additionally} produced in"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:693 DB:link_type/reverse_link_phrase:695
+msgid "{additional:additionally} recorded at"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:698 DB:link_type/reverse_link_phrase:699
+msgid "{additional:additionally} recorded in"
+msgstr ""
+
 #: DB:link_type/link_phrase:47 DB:link_type/link_phrase:153
 #: DB:link_type/long_link_phrase:47 DB:link_type/long_link_phrase:153
 msgid "{additional:additionally} remixed"
 msgstr ""
 
+#: DB:link_type/reverse_link_phrase:829 DB:link_type/reverse_link_phrase:828
+msgid "{additional:additionally} remixed at"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:830 DB:link_type/reverse_link_phrase:831
+msgid "{additional:additionally} remixed in"
+msgstr ""
+
 #: DB:link_type/reverse_link_phrase:69 DB:link_type/reverse_link_phrase:231
 msgid "{additional:additionally} sampled by"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:963
+msgid "{additional:additionally} shot at"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:964
+msgid "{additional:additionally} shot in"
 msgstr ""
 
 #: DB:link_type/link_phrase:872 DB:link_type/long_link_phrase:871
@@ -5402,25 +5616,45 @@ msgstr ""
 msgid "{additional:additionally} {assistant} {associate} {co:co-}{re}mastered"
 msgstr ""
 
+#: DB:link_type/link_phrase:297 DB:link_type/link_phrase:295
+#: DB:link_type/link_phrase:293 DB:link_type/long_link_phrase:297
+#: DB:link_type/long_link_phrase:295 DB:link_type/long_link_phrase:293
+msgid "{additional:additionally} {co:co-}arranged"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:158 DB:link_type/long_link_phrase:41
+#: DB:link_type/long_link_phrase:282
+msgid ""
+"{additional:additionally} {co:co-}arranged {instrument:%|instruments} on"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:298 DB:link_type/long_link_phrase:296
+#: DB:link_type/long_link_phrase:294
+msgid "{additional:additionally} {co:co-}arranged {vocal:%|vocals} on"
+msgstr ""
+
 #: DB:link_type/link_phrase:51 DB:link_type/link_phrase:156
 #: DB:link_type/long_link_phrase:51 DB:link_type/long_link_phrase:156
 msgid "{additional:additionally} {guest} {solo} performed"
 msgstr ""
 
-#: DB:link_type/link_phrase:282 DB:link_type/link_phrase:158
-#: DB:link_type/link_phrase:41
-msgid "{additional:additionally} {instrument:%|instruments} arranged"
+#: DB:link_type/link_phrase:158 DB:link_type/link_phrase:41
+#: DB:link_type/link_phrase:282
+msgid "{additional:additionally} {instrument:%|instruments} {co:co-}arranged"
 msgstr ""
 
-#: DB:link_type/link_phrase:296 DB:link_type/link_phrase:298
+#: DB:link_type/reverse_link_phrase:697
+msgid "{additional:additionally} {re}mastered at"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:756
+msgid "{additional:additionally} {re}mastered in"
+msgstr ""
+
+#: DB:link_type/link_phrase:298 DB:link_type/link_phrase:296
 #: DB:link_type/link_phrase:294
-msgid "{additional:additionally} {vocal:%|vocals} arranged"
+msgid "{additional:additionally} {vocal:%|vocals} {co:co-}arranged"
 msgstr ""
-
-#: DB:link_type/reverse_link_phrase:293 DB:link_type/reverse_link_phrase:295
-#: DB:link_type/reverse_link_phrase:297
-msgid "{additional} arranger"
-msgstr "{additional} ενορχηστρωτής"
 
 #: DB:link_type/link_phrase:885 DB:link_type/link_phrase:886
 msgid "{additional} arranging location for"
@@ -5461,6 +5695,16 @@ msgstr ""
 #: DB:link_type/reverse_link_phrase:19 DB:link_type/reverse_link_phrase:130
 msgid "{additional} design/illustration"
 msgstr "{additional} σχεδιασμός/παρουσίαση"
+
+#: DB:link_type/link_phrase:820 DB:link_type/link_phrase:822
+#: DB:link_type/link_phrase:819 DB:link_type/link_phrase:821
+msgid "{additional} editing location for"
+msgstr ""
+
+#: DB:link_type/link_phrase:813 DB:link_type/link_phrase:814
+#: DB:link_type/link_phrase:815 DB:link_type/link_phrase:812
+msgid "{additional} engineering location for"
+msgstr ""
 
 #: DB:link_type/link_phrase:125 DB:link_type/link_phrase:27
 #: DB:link_type/reverse_link_phrase:125 DB:link_type/reverse_link_phrase:27
@@ -5512,6 +5756,11 @@ msgstr ""
 msgid "{additional} lyrics written in"
 msgstr ""
 
+#: DB:link_type/link_phrase:757 DB:link_type/link_phrase:758
+#: DB:link_type/link_phrase:696 DB:link_type/link_phrase:694
+msgid "{additional} mixing location for"
+msgstr ""
+
 #: DB:link_type/link_phrase:150 DB:link_type/link_phrase:45
 #: DB:link_type/reverse_link_phrase:150 DB:link_type/reverse_link_phrase:45
 msgid "{additional} orchestra"
@@ -5521,13 +5770,28 @@ msgstr ""
 msgid "{additional} orchestrator"
 msgstr ""
 
-#: DB:link_type/link_phrase:123 DB:link_type/link_phrase:20
-#: DB:link_type/reverse_link_phrase:123 DB:link_type/reverse_link_phrase:20
+#: DB:link_type/link_phrase:20 DB:link_type/link_phrase:123
+#: DB:link_type/reverse_link_phrase:20 DB:link_type/reverse_link_phrase:123
 msgid "{additional} photography"
 msgstr "{additional} φωτογράφηση"
 
+#: DB:link_type/link_phrase:824 DB:link_type/link_phrase:825
+#: DB:link_type/link_phrase:826 DB:link_type/link_phrase:827
+msgid "{additional} producing location for"
+msgstr ""
+
+#: DB:link_type/link_phrase:698 DB:link_type/link_phrase:693
+#: DB:link_type/link_phrase:695 DB:link_type/link_phrase:699
+msgid "{additional} recording location for"
+msgstr ""
+
 #: DB:link_type/reverse_link_phrase:47 DB:link_type/reverse_link_phrase:153
 msgid "{additional} remixer"
+msgstr ""
+
+#: DB:link_type/link_phrase:829 DB:link_type/link_phrase:828
+#: DB:link_type/link_phrase:830 DB:link_type/link_phrase:831
+msgid "{additional} remixing location for"
 msgstr ""
 
 #: DB:link_type/link_phrase:231
@@ -5536,6 +5800,10 @@ msgstr "{additional} δείγματα"
 
 #: DB:link_type/link_phrase:69
 msgid "{additional} samples from"
+msgstr ""
+
+#: DB:link_type/link_phrase:963 DB:link_type/link_phrase:964
+msgid "{additional} shooting location for"
 msgstr ""
 
 #: DB:link_type/link_phrase:883 DB:link_type/link_phrase:884
@@ -5605,6 +5873,11 @@ msgstr ""
 msgid "{additional} {assistant} {associate} {instrument} programming"
 msgstr "{additional} {assistant} {associate} {instrument} προγραμματισμός"
 
+#: DB:link_type/reverse_link_phrase:297 DB:link_type/reverse_link_phrase:295
+#: DB:link_type/reverse_link_phrase:293
+msgid "{additional} {co:co-}arranger"
+msgstr ""
+
 #: DB:link_type/reverse_link_phrase:51 DB:link_type/reverse_link_phrase:156
 msgid "{additional} {guest} {solo} performer"
 msgstr ""
@@ -5619,9 +5892,9 @@ msgstr ""
 msgid "{additional} {guest} {solo} {vocal:%|vocals}"
 msgstr ""
 
-#: DB:link_type/reverse_link_phrase:282 DB:link_type/reverse_link_phrase:158
-#: DB:link_type/reverse_link_phrase:41
-msgid "{additional} {instrument:%|instruments} arranger"
+#: DB:link_type/reverse_link_phrase:158 DB:link_type/reverse_link_phrase:41
+#: DB:link_type/reverse_link_phrase:282
+msgid "{additional} {instrument:%|instruments} {co:co-}arranger"
 msgstr ""
 
 #: DB:link_type/link_phrase:102
@@ -5633,16 +5906,20 @@ msgid "{additional} {minor} collaborators"
 msgstr "{additional} {minor} συνεργάτες"
 
 #: DB:link_type/link_phrase:103
-msgid "{additional} {original} member of"
+msgid "{additional} {original} {eponymous} member of"
 msgstr ""
 
 #: DB:link_type/reverse_link_phrase:103
-msgid "{additional} {original} members"
+msgid "{additional} {original} {eponymous} members"
 msgstr ""
 
-#: DB:link_type/reverse_link_phrase:296 DB:link_type/reverse_link_phrase:298
+#: DB:link_type/link_phrase:697 DB:link_type/link_phrase:756
+msgid "{additional} {re}mastering location for"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:298 DB:link_type/reverse_link_phrase:296
 #: DB:link_type/reverse_link_phrase:294
-msgid "{additional} {vocal:%|vocals} arranger"
+msgid "{additional} {vocal:%|vocals} {co:co-}arranger"
 msgstr ""
 
 #: DB:link_type/reverse_link_phrase:888
@@ -5725,7 +6002,7 @@ msgstr ""
 msgid "{entity1} has lyrics available at {entity0}"
 msgstr ""
 
-#: DB:link_type/long_link_phrase:123 DB:link_type/long_link_phrase:20
+#: DB:link_type/long_link_phrase:20 DB:link_type/long_link_phrase:123
 msgid "{entity1} has {additional} photography by {entity0}"
 msgstr ""
 
@@ -5758,6 +6035,10 @@ msgstr ""
 msgid "{entity1} is dedicated to {entity0}"
 msgstr ""
 
+#: DB:link_type/long_link_phrase:939
+msgid "{entity1} is licensed under {entity0}"
+msgstr ""
+
 #: DB:link_type/long_link_phrase:357
 msgid "{entity1} is/was an anthem of {entity0}"
 msgstr ""
@@ -5770,6 +6051,10 @@ msgstr ""
 msgid "{entity1} was arranged at {entity0}"
 msgstr ""
 
+#: DB:link_type/long_link_phrase:948 DB:link_type/long_link_phrase:949
+msgid "{entity1} was arranged for {entity0}"
+msgstr ""
+
 #: DB:link_type/long_link_phrase:863 DB:link_type/long_link_phrase:864
 msgid "{entity1} was arranged in {entity0}"
 msgstr ""
@@ -5778,20 +6063,8 @@ msgstr ""
 msgid "{entity1} was available at {entity0}"
 msgstr ""
 
-#: DB:link_type/long_link_phrase:820 DB:link_type/long_link_phrase:819
-msgid "{entity1} was edited at {entity0}"
-msgstr ""
-
-#: DB:link_type/long_link_phrase:821 DB:link_type/long_link_phrase:822
-msgid "{entity1} was edited in {entity0}"
-msgstr ""
-
-#: DB:link_type/long_link_phrase:812 DB:link_type/long_link_phrase:813
-msgid "{entity1} was engineered at {entity0}"
-msgstr ""
-
-#: DB:link_type/long_link_phrase:814 DB:link_type/long_link_phrase:815
-msgid "{entity1} was engineered in {entity0}"
+#: DB:link_type/long_link_phrase:954
+msgid "{entity1} was glass mastered at {entity0}"
 msgstr ""
 
 #: DB:link_type/long_link_phrase:793
@@ -5802,24 +6075,36 @@ msgstr ""
 msgid "{entity1} was licensed to {entity0}"
 msgstr ""
 
+#: DB:link_type/long_link_phrase:953
+msgid "{entity1} was manufactured at {entity0}"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:952
+msgid "{entity1} was manufactured for {entity0}"
+msgstr ""
+
 #: DB:link_type/long_link_phrase:835
 msgid "{entity1} was manufactured in {entity0}"
 msgstr ""
 
-#: DB:link_type/long_link_phrase:696 DB:link_type/long_link_phrase:694
-msgid "{entity1} was mixed at {entity0}"
-msgstr ""
-
-#: DB:link_type/long_link_phrase:757 DB:link_type/long_link_phrase:758
-msgid "{entity1} was mixed in {entity0}"
+#: DB:link_type/long_link_phrase:946 DB:link_type/long_link_phrase:947
+msgid "{entity1} was mixed for {entity0}"
 msgstr ""
 
 #: DB:link_type/long_link_phrase:845 DB:link_type/long_link_phrase:716
 msgid "{entity1} was premiered at {entity0}"
 msgstr ""
 
+#: DB:link_type/long_link_phrase:956
+msgid "{entity1} was premiered by {entity0}"
+msgstr ""
+
 #: DB:link_type/long_link_phrase:715
 msgid "{entity1} was premiered in {entity0}"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:941
+msgid "{entity1} was pressed at {entity0}"
 msgstr ""
 
 #: DB:link_type/long_link_phrase:834
@@ -5830,32 +6115,12 @@ msgstr ""
 msgid "{entity1} was printed in {entity0}"
 msgstr ""
 
-#: DB:link_type/long_link_phrase:824 DB:link_type/long_link_phrase:825
-msgid "{entity1} was produced at {entity0}"
-msgstr ""
-
-#: DB:link_type/long_link_phrase:826 DB:link_type/long_link_phrase:827
-msgid "{entity1} was produced in {entity0}"
+#: DB:link_type/long_link_phrase:950 DB:link_type/long_link_phrase:951
+msgid "{entity1} was produced for {entity0}"
 msgstr ""
 
 #: DB:link_type/long_link_phrase:810 DB:link_type/long_link_phrase:809
 msgid "{entity1} was recorded at  {entity0}"
-msgstr ""
-
-#: DB:link_type/long_link_phrase:695 DB:link_type/long_link_phrase:693
-msgid "{entity1} was recorded at {entity0}"
-msgstr ""
-
-#: DB:link_type/long_link_phrase:699 DB:link_type/long_link_phrase:698
-msgid "{entity1} was recorded in {entity0}"
-msgstr ""
-
-#: DB:link_type/long_link_phrase:828 DB:link_type/long_link_phrase:829
-msgid "{entity1} was remixed at {entity0}"
-msgstr ""
-
-#: DB:link_type/long_link_phrase:830 DB:link_type/long_link_phrase:831
-msgid "{entity1} was remixed in {entity0}"
 msgstr ""
 
 #: DB:link_type/long_link_phrase:882
@@ -5882,6 +6147,62 @@ msgstr ""
 msgid "{entity1} was {additional:additionally} composed in {entity0}"
 msgstr ""
 
+#: DB:link_type/long_link_phrase:820 DB:link_type/long_link_phrase:819
+msgid "{entity1} was {additional:additionally} edited at {entity0}"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:822 DB:link_type/long_link_phrase:821
+msgid "{entity1} was {additional:additionally} edited in {entity0}"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:813 DB:link_type/long_link_phrase:812
+msgid "{entity1} was {additional:additionally} engineered at {entity0}"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:814 DB:link_type/long_link_phrase:815
+msgid "{entity1} was {additional:additionally} engineered in {entity0}"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:696 DB:link_type/long_link_phrase:694
+msgid "{entity1} was {additional:additionally} mixed at {entity0}"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:757 DB:link_type/long_link_phrase:758
+msgid "{entity1} was {additional:additionally} mixed in {entity0}"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:824 DB:link_type/long_link_phrase:825
+msgid "{entity1} was {additional:additionally} produced at {entity0}"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:826 DB:link_type/long_link_phrase:827
+msgid "{entity1} was {additional:additionally} produced in {entity0}"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:693 DB:link_type/long_link_phrase:695
+msgid "{entity1} was {additional:additionally} recorded at {entity0}"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:698 DB:link_type/long_link_phrase:699
+msgid "{entity1} was {additional:additionally} recorded in {entity0}"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:829 DB:link_type/long_link_phrase:828
+msgid "{entity1} was {additional:additionally} remixed at {entity0}"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:830 DB:link_type/long_link_phrase:831
+msgid "{entity1} was {additional:additionally} remixed in {entity0}"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:963
+msgid "{entity1} was {additional:additionally} shot at {entity0}"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:964
+msgid "{entity1} was {additional:additionally} shot in {entity0}"
+msgstr ""
+
 #: DB:link_type/long_link_phrase:883
 msgid "{entity1} was {additional:additionally} translated at {entity0}"
 msgstr ""
@@ -5898,18 +6219,18 @@ msgstr ""
 msgid "{entity1} was {additional:additionally} written in {entity0}"
 msgstr ""
 
+#: DB:link_type/long_link_phrase:697
+msgid "{entity1} was {additional:additionally} {re}mastered at {entity0}"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:756
+msgid "{entity1} was {additional:additionally} {re}mastered in {entity0}"
+msgstr ""
+
 #: DB:link_type/long_link_phrase:888
 msgid ""
 "{entity1} was {anniversary:an anniversary tour for|a tour in support of} "
 "{entity0}"
-msgstr ""
-
-#: DB:link_type/long_link_phrase:697
-msgid "{entity1} was {re}mastered at {entity0}"
-msgstr ""
-
-#: DB:link_type/long_link_phrase:756
-msgid "{entity1} was {re}mastered in {entity0}"
 msgstr ""
 
 #: DB:link_type/link_phrase:110 DB:link_type/reverse_link_phrase:110
@@ -5926,18 +6247,6 @@ msgstr ""
 msgid ""
 "{live} {medley:medleys including} {partial} {instrumental} {cover} "
 "recordings"
-msgstr ""
-
-#: DB:link_type/reverse_link_phrase:697
-msgid "{re}mastered at"
-msgstr ""
-
-#: DB:link_type/reverse_link_phrase:756
-msgid "{re}mastered in"
-msgstr ""
-
-#: DB:link_type/link_phrase:697 DB:link_type/link_phrase:756
-msgid "{re}mastering location for"
 msgstr ""
 
 #: DB:link_type/link_phrase:109

@@ -13,7 +13,7 @@ import getSelectValue from '../utility/getSelectValue';
 
 const buildOption = (option: SelectOptionT, index: number) => (
   <option key={index} value={option.value}>
-    {option.label}
+    {option.label.toLocaleString()}
   </option>
 );
 
