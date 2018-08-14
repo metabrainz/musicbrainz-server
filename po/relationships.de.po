@@ -15,8 +15,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2018-05-30 11:39+0000\n"
-"Last-Translator: nikki\n"
+"PO-Revision-Date: 2018-08-05 21:10+0000\n"
+"Last-Translator: yvanz\n"
 "Language-Team: German (http://www.transifex.com/musicbrainz/musicbrainz/language/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -194,14 +194,14 @@ msgstr "Gibt an, dass ein Werk die Nationalhymne für ein Gebiet ist oder war"
 msgid "Designates that one area is contained by another."
 msgstr "Gibt an, dass ein Gebiet in einem anderen enthalten ist."
 
-#: DB:link_type/link_phrase:747 DB:link_type/link_phrase:76
-#: DB:link_type/link_phrase:217 DB:link_type/link_phrase:180
+#: DB:link_type/link_phrase:747 DB:link_type/link_phrase:180
+#: DB:link_type/link_phrase:76 DB:link_type/link_phrase:217
 #: DB:link_type/link_phrase:90 DB:link_type/link_phrase:705
 msgid "Discogs"
 msgstr "Discogs"
 
-#: DB:link_type/reverse_link_phrase:747 DB:link_type/reverse_link_phrase:76
-#: DB:link_type/reverse_link_phrase:217 DB:link_type/reverse_link_phrase:180
+#: DB:link_type/reverse_link_phrase:747 DB:link_type/reverse_link_phrase:180
+#: DB:link_type/reverse_link_phrase:76 DB:link_type/reverse_link_phrase:217
 #: DB:link_type/reverse_link_phrase:90 DB:link_type/reverse_link_phrase:705
 msgid "Discogs page for"
 msgstr "Discogs-Seite für"
@@ -1053,6 +1053,12 @@ msgid ""
 "usually part of the band."
 msgstr "Dieses Attribut beschreibt einen Gastauftritt, d. h. der Interpret ist nicht üblicherweise Teil der Band."
 
+#: DB:link_attribute_type/description:1094
+msgid ""
+"This attribute indicates a member the band is named after and without which "
+"it wouldn't exist (e.g. Miles Davis -> Miles Davis Sextet)"
+msgstr ""
+
 #: DB:link_attribute_type/description:511
 msgid ""
 "This attribute indicates a version with satirical, ironic, or otherwise "
@@ -1495,6 +1501,10 @@ msgid ""
 "part."
 msgstr ""
 
+#: DB:link_type/description:962
+msgid "This indicates the artist was the director of this music video."
+msgstr ""
+
 #: DB:link_type/description:297 DB:link_type/description:298
 #: DB:link_type/description:296 DB:link_type/description:295
 #: DB:link_type/description:158 DB:link_type/description:41
@@ -1627,6 +1637,14 @@ msgid ""
 "This indicates the rights society associated with a release. The rights "
 "society is an organization which collects royalties on behalf of the "
 "artists."
+msgstr ""
+
+#: DB:link_type/description:963
+msgid "This indicates the video was shot at this place."
+msgstr ""
+
+#: DB:link_type/description:964
+msgid "This indicates the video was shot in this area."
 msgstr ""
 
 #: DB:link_type/description:914
@@ -2600,7 +2618,7 @@ msgstr ""
 msgid ""
 "This relationship type can be used to link a place to the equivalent entry "
 "in YouTube. URLs should follow the format "
-"http://www.youtube.com/user/<username>"
+"http://www.youtube.com/user/&lt;username&gt;."
 msgstr ""
 
 #: DB:link_type/description:792
@@ -3030,13 +3048,13 @@ msgid "Wikipedia page for"
 msgstr "Wikipedia-Seite für"
 
 #: DB:link_type/reverse_link_phrase:791 DB:link_type/reverse_link_phrase:792
-#: DB:link_type/reverse_link_phrase:193 DB:link_type/reverse_link_phrase:528
+#: DB:link_type/reverse_link_phrase:528 DB:link_type/reverse_link_phrase:193
 #: DB:link_type/reverse_link_phrase:225
 msgid "YouTube channel for"
 msgstr "YouTube-Kanal für"
 
 #: DB:link_type/link_phrase:791 DB:link_type/link_phrase:792
-#: DB:link_type/link_phrase:193 DB:link_type/link_phrase:528
+#: DB:link_type/link_phrase:528 DB:link_type/link_phrase:193
 #: DB:link_type/link_phrase:225
 msgid "YouTube channels"
 msgstr "YouTube-Kanäle"
@@ -3432,6 +3450,14 @@ msgstr "Ableitungen"
 msgid "derived from"
 msgstr "abgeleitet von"
 
+#: DB:link_type/long_link_phrase:962
+msgid "directed the video"
+msgstr ""
+
+#: DB:link_type/link_phrase:962
+msgid "directed video"
+msgstr ""
+
 #: DB:link_type/link_phrase:88 DB:link_type/link_phrase:171
 #: DB:link_type/reverse_link_phrase:88 DB:link_type/reverse_link_phrase:171
 #: DB:link_type/long_link_phrase:88 DB:link_type/long_link_phrase:171
@@ -3538,6 +3564,10 @@ msgstr "Techniker (Engineer) bei"
 #: DB:link_type/reverse_link_phrase:120 DB:link_type/reverse_link_phrase:701
 msgid "engineers"
 msgstr "Techniker (Engineers)"
+
+#: DB:link_attribute_type/name:1094
+msgid "eponymous"
+msgstr ""
 
 #: DB:link_attribute_type/name:425
 msgid "executive"
@@ -3687,8 +3717,8 @@ msgstr "hat eine Bandsintown-Seite unter"
 msgid "has a BookBrainz page at"
 msgstr "hat eine BookBrainz-Seite unter"
 
-#: DB:link_type/long_link_phrase:747 DB:link_type/long_link_phrase:76
-#: DB:link_type/long_link_phrase:217 DB:link_type/long_link_phrase:180
+#: DB:link_type/long_link_phrase:747 DB:link_type/long_link_phrase:180
+#: DB:link_type/long_link_phrase:76 DB:link_type/long_link_phrase:217
 #: DB:link_type/long_link_phrase:90 DB:link_type/long_link_phrase:705
 msgid "has a Discogs page at"
 msgstr "hat eine Discogs-Seite unter"
@@ -3845,7 +3875,7 @@ msgid "has an interview at"
 msgstr "hat ein Interview unter"
 
 #: DB:link_type/long_link_phrase:791 DB:link_type/long_link_phrase:792
-#: DB:link_type/long_link_phrase:193 DB:link_type/long_link_phrase:528
+#: DB:link_type/long_link_phrase:528 DB:link_type/long_link_phrase:193
 #: DB:link_type/long_link_phrase:225
 msgid "has an official YouTube channel at"
 msgstr "hat einen offiziellen YouTube-Kanal unter"
@@ -4199,7 +4229,7 @@ msgid "is/was the parent label of"
 msgstr "ist/war das Mutterlabel von"
 
 #: DB:link_type/long_link_phrase:103
-msgid "is/was {additional:an|a} {additional} {original} member of"
+msgid "is/was {additional:an|a} {additional} {original} {eponymous} member of"
 msgstr ""
 
 #: DB:link_type/long_link_phrase:305
@@ -5273,7 +5303,8 @@ msgstr "Hommage an"
 msgid "type of"
 msgstr "Typ von"
 
-#: DB:link_attribute_type/name:582
+#: DB:link_attribute_type/name:582 DB:link_type/link_phrase:961
+#: DB:link_type/reverse_link_phrase:961 DB:link_type/long_link_phrase:961
 msgid "video"
 msgstr "Video"
 
@@ -5340,6 +5371,10 @@ msgstr "war ein Orchester bei"
 #: DB:link_type/reverse_link_phrase:891 DB:link_type/reverse_link_phrase:890
 #: DB:link_type/reverse_link_phrase:889 DB:link_type/reverse_link_phrase:892
 msgid "was commissioned by"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:962
+msgid "was directed by"
 msgstr ""
 
 #: DB:link_type/long_link_phrase:794
@@ -5495,6 +5530,14 @@ msgstr ""
 #: DB:link_type/reverse_link_phrase:69 DB:link_type/reverse_link_phrase:231
 msgid "{additional:additionally} sampled by"
 msgstr "{additional:zusätzlich} gesampelt von"
+
+#: DB:link_type/reverse_link_phrase:963
+msgid "{additional:additionally} shot at"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:964
+msgid "{additional:additionally} shot in"
+msgstr ""
 
 #: DB:link_type/link_phrase:872 DB:link_type/long_link_phrase:871
 #: DB:link_type/long_link_phrase:872
@@ -5768,6 +5811,10 @@ msgstr "{additional:zusätzliche} Samples"
 msgid "{additional} samples from"
 msgstr "{additional:zusätzliche} Samples von"
 
+#: DB:link_type/link_phrase:963 DB:link_type/link_phrase:964
+msgid "{additional} shooting location for"
+msgstr ""
+
 #: DB:link_type/link_phrase:883 DB:link_type/link_phrase:884
 msgid "{additional} translating location for"
 msgstr "{additional} Übersetzungs-Örtlichkeit für"
@@ -5868,11 +5915,11 @@ msgid "{additional} {minor} collaborators"
 msgstr "{additional} {minor} Mitarbeiter"
 
 #: DB:link_type/link_phrase:103
-msgid "{additional} {original} member of"
+msgid "{additional} {original} {eponymous} member of"
 msgstr ""
 
 #: DB:link_type/reverse_link_phrase:103
-msgid "{additional} {original} members"
+msgid "{additional} {original} {eponymous} members"
 msgstr ""
 
 #: DB:link_type/link_phrase:697 DB:link_type/link_phrase:756
@@ -6155,6 +6202,14 @@ msgstr ""
 
 #: DB:link_type/long_link_phrase:830 DB:link_type/long_link_phrase:831
 msgid "{entity1} was {additional:additionally} remixed in {entity0}"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:963
+msgid "{entity1} was {additional:additionally} shot at {entity0}"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:964
+msgid "{entity1} was {additional:additionally} shot in {entity0}"
 msgstr ""
 
 #: DB:link_type/long_link_phrase:883

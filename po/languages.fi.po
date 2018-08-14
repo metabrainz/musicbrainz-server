@@ -543,7 +543,7 @@ msgstr "nuolenpää-luuvi"
 msgid "Cushitic languages"
 msgstr "kuušilaiset kielet"
 
-#. frequency:2 iso_code_3:ces
+#. frequency:1 iso_code_3:ces
 #: DB:language/name:98
 msgid "Czech"
 msgstr "tšekki"
@@ -1728,7 +1728,7 @@ msgstr "muinaisnorja"
 msgid "North American Indian languages"
 msgstr "pohjoisamerikkalaiset intiaanikielet"
 
-#. frequency:1 iso_code_3:nor
+#. frequency:2 iso_code_3:nor
 #: DB:language/name:309
 msgid "Norwegian"
 msgstr "norja"
