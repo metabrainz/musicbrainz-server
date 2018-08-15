@@ -9,18 +9,15 @@
 
 import React from 'react';
 
+import {CONTACT_URL} from '../constants';
 import {hyphenateTitle, l} from '../static/scripts/common/i18n';
 import StatusPage from '../components/StatusPage';
 
-type Props = {|
-  +contactURL: string,
-|};
-
-const LostPasswordSent = ({contactURL}: Props) => (
+const LostPasswordSent = () => (
   <StatusPage title={hyphenateTitle(l('Lost Password'), l('Email Sent!'))}>
     <p>
       {l('We\'ve sent you instructions on how to reset your password. If you don\'t receive this email or still have problems logging in, please {link|contact us}.',
-        {__react: true, link: contactURL})}
+        {__react: true, link: CONTACT_URL})}
     </p>
   </StatusPage>
 );

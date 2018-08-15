@@ -4,7 +4,6 @@ BEGIN { extends 'MusicBrainz::Server::Controller' }
 
 use namespace::autoclean;
 use Digest::SHA qw(sha1_base64);
-use MusicBrainz::Server::Constants qw( $CONTACT_URL );
 use MusicBrainz::Server::ControllerUtils::JSON qw( serialize_pager );
 use MusicBrainz::Server::Translation qw( l );
 use MusicBrainz::Server::Validation qw( encode_entities is_positive_integer );
@@ -173,9 +172,6 @@ sub lost_password : Path('/lost-password') ForbiddenOnSlaves
         $c->stash(
             current_view => 'Node',
             component_path => 'account/LostPasswordSent',
-            component_props => {
-                contactURL => $CONTACT_URL,
-            }
         );
         $c->detach;
     }
@@ -302,9 +298,6 @@ sub lost_username : Path('/lost-username') ForbiddenOnSlaves
         $c->stash(
             current_view => 'Node',
             component_path => 'account/LostUsernameSent',
-            component_props => {
-                contactURL => $CONTACT_URL,
-            }
         );
         $c->detach;
     }
@@ -650,7 +643,6 @@ sub donation : Local RequireAuth HiddenOnSlaves
         current_view => 'Node',
         component_path => 'account/Donation',
         component_props => {
-            contactURL => $CONTACT_URL,
             days => sprintf("%.0f", $result->{days}),
             nag => $result->{nag} > 0,
         }

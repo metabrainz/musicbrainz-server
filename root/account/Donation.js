@@ -9,17 +9,17 @@
 
 import React from 'react';
 
+import {CONTACT_URL} from '../constants';
 import {l} from '../static/scripts/common/i18n';
 import Frag from '../components/Frag';
 import StatusPage from '../components/StatusPage';
 
 type Props = {|
-  +contactURL: string,
   +days: number,
   +nag: boolean,
 |};
 
-const Donation = ({contactURL, days, nag}: Props) => (
+const Donation = ({days, nag}: Props) => (
   <StatusPage title={l('Donation Check')}>
     {nag
       ? (
@@ -29,7 +29,7 @@ const Donation = ({contactURL, days, nag}: Props) => (
           </p>
           <p>
             {l('If you would like to make a donation, {donate|you can do that here}. If you have donated, but you are still being nagged, please {contact|contact us}.',
-              {__react: true, contact: contactURL, donate: 'https://metabrainz.org/donate'})}
+              {__react: true, contact: CONTACT_URL, donate: 'https://metabrainz.org/donate'})}
           </p>
         </Frag>
       ) : (
