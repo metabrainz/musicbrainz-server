@@ -330,6 +330,8 @@ END -%]
                 content _ bracketedWithSpace(dates);
             CASE 'avatar'; # add. parameter: avatar
                 '<img src="' _ avatar _ '" height="' _ image_size _ '" width="' _ image_size _ '" class="gravatar" alt="" />' _ content;
+            CASE 'video';
+                '<span class="video" title="' _ html_escape(l('This recording is a video')) _ '"></span>' _ content;
         END;
     END;
     content;
@@ -372,6 +374,10 @@ END -%]
         options.unshift('info_link');
         infolink = link;
         link = entity.href_url;
+    END;
+
+    IF action == 'show' AND type == 'recording' AND entity.video;
+        options.unshift('video');
     END;
 
     INCLUDE _wrap_text options=options content=mod_content link=link hover=hover flag=flag infolink=infolink dates=dates;

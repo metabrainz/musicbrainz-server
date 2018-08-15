@@ -41,18 +41,11 @@
   [%- END %]
 [%~ END ~%]
 
-[%~ MACRO medium_track_row(track, show_video, show_artists) BLOCK ~%]
+[%~ MACRO medium_track_row(track, show_artists) BLOCK ~%]
   <tr class="[% loop.parity %][% ' mp' IF track.edits_pending %]" id="[% track.gid %]">
     <td class="pos t">
       <a href="[% c.uri_for_action('/track/show', [track.gid]) %]">[% track.number %]</a>
     </td>
-    [% IF show_video %]
-      [% IF track.recording.video %]
-        <td class="video c is-video" title="[% l('This recording is a video') %]"></td>
-      [% ELSE %]
-        <td class="video c"></td>
-      [% END %]
-    [% END %]
     <td>
       [%- link_recording(track.recording, 'show', track.name) -%]
       <br/>
@@ -73,13 +66,10 @@
 [%~ END ~%]
 
 [%~ MACRO medium_body(medium) BLOCK ~%]
-  [% show_video = medium.includes_video; show_artists = medium.has_multiple_artists %]
+  [% show_artists = medium.has_multiple_artists %]
   <tbody>
     <tr class="subh">
       <th class="pos t">[%~ l('#') ~%]</th>
-      [% IF show_video %]
-        <th class="video c"></th>
-      [% END %]
       <th>[% l('Title') %]</th>
       [% IF show_artists %]
         <th>[% l('Artist') %]</th>
@@ -89,7 +79,7 @@
     </tr>
 
     [% FOR track IN medium.audio_tracks %]
-      [% medium_track_row(track, show_video, show_artists) %]
+      [% medium_track_row(track, show_artists) %]
     [% END %]
 
     [% IF medium.data_tracks.size %]
@@ -100,7 +90,7 @@
         </td>
       </tr>
       [% FOR track IN medium.data_tracks %]
-        [% medium_track_row(track, show_video, show_artists) %]
+        [% medium_track_row(track, show_artists) %]
       [% END %]
     [% END %]
   </tbody>

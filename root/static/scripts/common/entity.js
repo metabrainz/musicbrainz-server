@@ -22,6 +22,7 @@ const {
     } = require('./immutable-entities');
 const MB = require('./MB');
 const linkTypeInfo = require('./typeInfo').link_type;
+const bracketed = require('./utility/bracketed').default;
 const clean = require('./utility/clean');
 const formatTrackLength = require('./utility/formatTrackLength');
 
@@ -162,6 +163,11 @@ const formatTrackLength = require('./utility/formatTrackLength');
             if (this.artistCredit) {
                 json.artistCredit = ko.unwrap(this.artistCredit);
             }
+
+            if (this.video) {
+                json.videoTooltip = _.escape(i18n.l('This recording is a video'));
+            }
+
             return json;
         }
 
@@ -182,6 +188,7 @@ const formatTrackLength = require('./utility/formatTrackLength');
     }
 
     CoreEntity.prototype.template = _.template(
+        "<% if (data.video) { %><span class=\"video\" title=\"<%- data.videoTooltip %>\"></span> <% } %>" +
         "<% if (data.editsPending) { %><span class=\"mp\"><% } %>" +
         "<% if (data.nameVariation) { %><span class=\"name-variation\" title=\"<%- data.name %>\"><% } %>" +
         "<a href=\"/<%= data.entityType %>/<%- data.gid %>\"" +
@@ -190,8 +197,6 @@ const formatTrackLength = require('./utility/formatTrackLength');
         "<% } %>><bdi><%- data.creditedAs || data.name %></bdi></a>" +
         "<% if (data.comment) { %> " +
         "<span class=\"comment\">(<%- data.comment %>)</span><% } %>" +
-        "<% if (data.video) { %> <span class=\"comment\">" +
-        "(<%- data.videoString %>)</span><% } %>" +
         "<% if (data.nameVariation) { %></span><% } %>" +
         "<% if (data.editsPending) { %></span><% } %>",
         {variable: "data"}
@@ -267,12 +272,6 @@ const formatTrackLength = require('./utility/formatTrackLength');
             if (this._afterRecordingCtor) {
                 this._afterRecordingCtor(data);
             }
-        }
-
-        html(params) {
-            params = params || {};
-            params.videoString = i18n.l("video");
-            return super.html(params);
         }
 
         toJSON() {
@@ -377,18 +376,10 @@ const formatTrackLength = require('./utility/formatTrackLength');
                 return super.html(renderParams);
             }
 
-            return this.template(
-                _.extend(
-                    renderParams || {},
-                    {
-                        entityType: "recording",
-                        gid: recording.gid,
-                        name: this.name,
-                        comment: recording.comment,
-                        editsPending: recording.editsPending
-                    }
-                )
-            );
+            const json = recording.toJSON();
+            json.name = this.name;
+
+            return this.template(_.extend(renderParams || {}, json));
         }
     }
 
