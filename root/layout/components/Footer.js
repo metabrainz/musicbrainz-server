@@ -8,6 +8,7 @@ const React = require('react');
 const Frag = require('../../components/Frag');
 const {withCatalystContext} = require('../../context');
 const DBDefs = require('../../static/scripts/common/DBDefs');
+const {DONATE_URL} = require ('../../constants');
 const {l} = require('../../static/scripts/common/i18n');
 const formatUserDate = require('../../utility/formatUserDate');
 
@@ -16,7 +17,7 @@ const Footer = ({$c, ...props}) => {
   return (
     <div id="footer">
       <p className="left">
-        <a href="http://metabrainz.org/donate" className="internal">{l('Donate')}</a>
+        <a href={DONATE_URL} className="internal">{l('Donate')}</a>
         {' | '}
         <a href="//wiki.musicbrainz.org/" className="internal">{l('Wiki')}</a>
         {' | '}

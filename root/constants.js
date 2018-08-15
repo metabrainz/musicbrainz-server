@@ -8,3 +8,5 @@
  */
 
 export const CONTACT_URL = 'https://metabrainz.org/contact';
+
+export const DONATE_URL = 'https://metabrainz.org/donate';
