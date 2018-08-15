@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import StatusPage from './StatusPage';
+export const CONTACT_URL = 'https://metabrainz.org/contact';
 
-const NotFound = StatusPage;
-
-export default NotFound;
+export const DONATE_URL = 'https://metabrainz.org/donate';

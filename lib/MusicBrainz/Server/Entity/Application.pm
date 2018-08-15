@@ -2,6 +2,7 @@ package MusicBrainz::Server::Entity::Application;
 use Moose;
 use namespace::autoclean;
 
+use MusicBrainz::Server::Data::Utils qw( boolean_to_json );
 use MusicBrainz::Server::Entity::Types;
 
 extends 'MusicBrainz::Server::Entity';
@@ -49,6 +50,20 @@ sub oauth_type
 
     return defined $self->oauth_redirect_uri ? 'web' : 'installed';
 }
+
+around TO_JSON => sub {
+    my ($orig, $self) = @_;
+
+    return {
+        %{ $self->$orig },
+        is_server           => boolean_to_json($self->is_server),
+        name                => $self->name,
+        oauth_id            => $self->oauth_id,
+        oauth_redirect_uri  => $self->oauth_redirect_uri,
+        oauth_secret        => $self->oauth_secret,
+        oauth_type          => $self->oauth_type,
+    };
+};
 
 no Moose;
 __PACKAGE__->meta->make_immutable;

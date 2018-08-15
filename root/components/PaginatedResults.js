@@ -16,19 +16,21 @@ import type {Node as ReactNode} from 'react';
 type Props = {|
   +children: ReactNode,
   +pager: PagerT,
-  +query: string,
+  +query?: string,
   +search?: boolean,
   +total?: boolean,
+  +pageVar?: string,
 |};
 
 const PaginatedResults = ({
   children,
   pager,
+  pageVar,
   query,
   search = false,
   total = false,
 }: Props) => {
-  const paginator = <Paginator pager={pager} />;
+  const paginator = <Paginator pager={pager} pageVar={pageVar} />;
   return (
     <Frag>
       {paginator}

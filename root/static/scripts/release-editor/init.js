@@ -167,15 +167,13 @@ releaseEditor.init = function (options) {
         var name = clean(release.name());
 
         if (self.action === "add") {
-            document.title = i18n.expand(
-                name ? i18n.l("{name} - Add Release") :
-                       i18n.l("Add Release"), { name: name }
-            );
+            document.title =
+                name ? i18n.hyphenateTitle(name, i18n.l("Add Release")) :
+                       i18n.l("Add Release");
         } else {
-            document.title = i18n.expand(
-                name ? i18n.l("{name} - Edit Release") :
-                       i18n.l("Edit Release"), { name: name }
-            );
+            document.title =
+                name ? i18n.hyphenateTitle(name, i18n.l("Edit Release")) :
+                       i18n.l("Edit Release");
         }
     });
 

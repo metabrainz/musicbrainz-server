@@ -45,6 +45,10 @@ exports.addColon = function (variable) {
     return exports.l("{variable}:", { variable: variable });
 };
 
+exports.hyphenateTitle = function (title, subtitle) {
+    return exports.l("{title} - {subtitle}", { title: title, subtitle: subtitle });
+};
+
 exports.strings = {};
 
 exports.strings.entityName = {

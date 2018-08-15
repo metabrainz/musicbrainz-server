@@ -35,6 +35,16 @@ declare type AnyFieldT<+F> =
   | FieldT<F>
   | StructFieldT<F>;
 
+declare type ApplicationT = {|
+  ...EntityRoleT,
+  +is_server: boolean,
+  +name: string,
+  +oauth_id: string,
+  +oauth_redirect_uri?: string,
+  +oauth_secret: string,
+  +oauth_type: string,
+|};
+
 declare type AreaT = {|
   ...AnnotationRoleT,
   ...CommentRoleT,
@@ -236,6 +246,16 @@ declare type EditorT = {|
   +is_wiki_transcluder: boolean,
   +name: string,
   +preferences: EditorPreferencesT,
+|};
+
+declare type EditorOAuthTokenT = {|
+  ...EntityRoleT,
+  +application: ApplicationT,
+  +editor: EditorT,
+  +granted: string,
+  +is_offline: boolean,
+  +permissions: $ReadOnlyArray<string>,
+  +scope: number,
 |};
 
 declare type EntityRoleT = {|
