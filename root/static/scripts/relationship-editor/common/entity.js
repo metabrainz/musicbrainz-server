@@ -116,6 +116,9 @@ function getDirection(relationship, source) {
                     group.canBeOrdered = ko.observable(false);
 
                     var relationships = group.values.peek();
+                    if (!relationships.length) {
+                        return group;
+                    }
                     var linkType = relationships[0].getLinkType();
 
                     if (linkType && linkType.orderableDirection > 0) {
