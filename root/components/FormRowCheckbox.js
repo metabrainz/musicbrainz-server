@@ -10,6 +10,7 @@
 import React from 'react';
 
 import FieldErrors from './FieldErrors';
+import FormRow from './FormRow';
 
 type Props = {|
   +field: FieldT<boolean>,
@@ -17,13 +18,13 @@ type Props = {|
 |};
 
 const FormRowCheckbox = ({field, label}: Props) => (
-  <div className="row no-label">
+  <FormRow hasNoLabel>
     <label className="inline">
       <input checked={field.value} name={field.html_name} type="checkbox" />
       {label}
     </label>
     <FieldErrors field={field} />
-  </div>
+  </FormRow>
 );
 
 export default FormRowCheckbox;
