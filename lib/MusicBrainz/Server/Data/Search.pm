@@ -383,7 +383,7 @@ sub schema_fixup
             if (defined $data->{'life-span'}->{begin});
         $data->{end_date} = MusicBrainz::Server::Entity::PartialDate->new($data->{'life-span'}->{end})
             if (defined $data->{'life-span'}->{end});
-        $data->{ended} = $data->{'life-span'}->{ended} eq 'true'
+        $data->{ended} = $data->{'life-span'}->{ended} == 1
             if defined $data->{'life-span'}->{ended};
     }
     if ($type eq 'area') {
@@ -570,7 +570,7 @@ sub schema_fixup
     }
 
     if ($type eq 'recording') {
-        $data->{video} = defined $data->{video} && $data->{video} eq 'true';
+        $data->{video} = defined $data->{video} && $data->{video} == 1;
     }
 
     if (defined $data->{"relations"} &&
