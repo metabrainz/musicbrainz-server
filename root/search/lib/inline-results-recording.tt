@@ -34,7 +34,7 @@
                   [% END %]
                 </td>
               [%- ELSE -%]
-                <td colspan="6">&#xa0;</td>
+                <td colspan="5">&#xa0;</td>
               [%- END -%]
               <td>[%- link_entity(release) -%]</td>
               [%- IF c.try_get_session('tport') -%]
