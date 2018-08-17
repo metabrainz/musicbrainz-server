@@ -661,6 +661,10 @@ class ReleaseLabel {
     labelHTML() {
         return this.label().html({ target: "_blank" });
     }
+
+    needsLabelMessage() {
+        return l('You haven’t selected a label for “{name}”.', {name: this.label().name});
+    }
 }
 
 fields.ReleaseLabel = ReleaseLabel;

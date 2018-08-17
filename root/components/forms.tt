@@ -313,7 +313,7 @@
 [%- MACRO area_bubble BLOCK -%]
     <div class="bubble" id="area-bubble">
       <!-- ko with: target() && target().area -->
-        <p data-bind="html: MB.i18n.expand('[% l('You selected {area}.') | js %]', { area: html({ target: '_blank' }) })"></p>
+        <p data-bind="html: $data.selectionMessage()"></p>
       <!-- /ko -->
     </div>
 [%- END -%]

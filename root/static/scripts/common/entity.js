@@ -65,6 +65,10 @@ const formatTrackLength = require('./utility/formatTrackLength');
             }
             return isCompleteArtistCredit(ac);
         }
+
+        entityTypeLabel() {
+            return i18n.addColon(i18n.strings.entityName[this.entityType]);
+        }
     }
 
     var primitiveTypes = /^(boolean|number|string)$/;
@@ -215,11 +219,19 @@ const formatTrackLength = require('./utility/formatTrackLength');
 
     Instrument.prototype.entityType = 'instrument';
 
-    class Label extends CoreEntity {}
+    class Label extends CoreEntity {
+        selectionMessage() {
+            return i18n.l('You selected {label}.', {label: this.html({target: '_blank'})});
+        }
+    }
 
     Label.prototype.entityType = 'label';
 
-    class Area extends CoreEntity {}
+    class Area extends CoreEntity {
+        selectionMessage() {
+            return i18n.l('You selected {area}.', {area: this.html({ target: '_blank'})});
+        }
+    }
 
     Area.prototype.entityType = 'area';
 
@@ -304,7 +316,13 @@ const formatTrackLength = require('./utility/formatTrackLength');
 
     Release.prototype.entityType = 'release';
 
-    class ReleaseGroup extends CoreEntity {}
+    class ReleaseGroup extends CoreEntity {
+        selectionMessage() {
+            return i18n.l('You selected {releasegroup}.', {
+                releasegroup: this.html({target: '_blank'}),
+            });
+        }
+    }
 
     ReleaseGroup.prototype.entityType = 'release_group';
 

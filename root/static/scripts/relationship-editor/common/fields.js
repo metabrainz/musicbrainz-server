@@ -308,6 +308,10 @@ const mergeDates = require('./mergeDates');
             return "";
         }
 
+        attributeLabel(attribute) {
+            return i18n.addColon(attribute.l_name);
+        }
+
         _phraseAndExtraAttributes() {
             const linkType = this.getLinkType();
             return linkPhrase.interpolate(linkType, this.attributes());
@@ -430,6 +434,13 @@ const mergeDates = require('./mergeDates');
 
         showLinkOrder(source) {
             return this.linkOrder() > 0 && this.entityCanBeReordered(this.target(source));
+        }
+
+        htmlWithLinkOrder(entity) {
+            return i18n.l('{num}. {relationship}', {
+                num: this.linkOrder(),
+                relationship: entity.html({target: '_blank', creditedAs: this.creditField(entity)()}),
+            });
         }
 
         isDuplicate(other) {

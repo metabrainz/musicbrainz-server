@@ -35,9 +35,6 @@ const MB: {[string]: *} = {
 
     // Hold constants for knockout templates that depend on globals.
     constants,
-
-    // Deprecated reference needed by knockout templates
-    i18n: require('./i18n')
 };
 
 global.MB = MB;

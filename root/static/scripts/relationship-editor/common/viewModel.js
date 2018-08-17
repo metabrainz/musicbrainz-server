@@ -7,6 +7,7 @@ const $ = require('jquery');
 const ko = require('knockout');
 const _ = require('lodash');
 
+const i18n = require('../../common/i18n');
 const MB = require('../../common/MB');
 const typeInfo = require('../../common/typeInfo');
 const parseDate = require('../../common/utility/parseDate');
@@ -95,6 +96,10 @@ const fields = require('./fields');
             return relationships
                 .sortBy(function (r) { return r.lowerCaseTargetName(source) })
                 .sortBy("linkOrder");
+        }
+
+        addAnotherEntityLabel(group, entity) {
+            return i18n.strings.addAnotherEntity[group.values.peek()[0].target(entity).entityType];
         }
     }
 
