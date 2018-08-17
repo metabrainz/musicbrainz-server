@@ -222,8 +222,8 @@ sub xml_search
         if ($dismax eq 'true')
         {
             # Solr has a bug where the dismax end point behaves differently
-            # from edismax when the query size is 1. This is a fix for that
-            # See https://issues.apache.org/jira/browse/SOLR-12409
+            # from edismax (advanced) when the query size is 1. This is a fix
+            # for that. See https://issues.apache.org/jira/browse/SOLR-12409
             if (split(/[\P{Word}_]+/, $query, 2) == 1) {
                 $endpoint = "basic";
             } else {
