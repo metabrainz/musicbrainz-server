@@ -7,6 +7,9 @@ use MusicBrainz::Server::Validation qw( is_valid_discid );
 use MusicBrainz::Server::Translation qw( l );
 use Readonly;
 
+# A duration lookup has to match within this many milliseconds
+use constant DURATION_LOOKUP_RANGE => 10000;
+
 my $ws_defs = Data::OptList::mkopt([
      discid => {
                          method   => 'GET',
@@ -82,7 +85,7 @@ sub discid : Chained('root') PathPart('discid') {
     }
 
     if (my $toc = $c->req->query_params->{toc}) {
-        my $results = $c->model('DurationLookup')->lookup($toc, 10000);
+        my $results = $c->model('DurationLookup')->lookup($toc, DURATION_LOOKUP_RANGE);
         if (!defined($results)) {
             $self->_error($c, l('Invalid TOC'));
         }

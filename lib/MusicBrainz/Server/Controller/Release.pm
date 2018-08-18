@@ -43,9 +43,6 @@ use Scalar::Util qw( looks_like_number );
 use MusicBrainz::Server::Data::Utils qw( partial_date_to_hash artist_credit_to_ref );
 use MusicBrainz::Server::Edit::Utils qw( calculate_recording_merges );
 
-# A duration lookup has to match within this many milliseconds
-use constant DURATION_LOOKUP_RANGE => 10000;
-
 =head1 NAME
 
 MusicBrainz::Server::Controller::Release - Catalyst Controller for
@@ -169,53 +166,6 @@ sub show : Chained('load') PathPart('') {
 
     $c->model('ArtistCredit')->load($release);
     $c->stash->{template} = 'release/index.tt';
-}
-
-=head2 show
-
-Lookup a CD
-
-Given a TOC, carry out a fuzzy TOC lookup and display the matches in a table
-
-=cut
-
-sub medium_sort {
-    ($a->medium->format_id || 99) <=> ($b->medium->format_id || 99)
-        or
-    ($a->medium->release->release_group->primary_type_id || 99) <=> ($b->medium->release->release_group->primary_type_id || 99)
-        or
-    ($a->medium->release->status_id || 99) <=> ($b->medium->release->status_id || 99)
-        or
-    ($a->medium->release->date->year || 9999) <=> ($b->medium->release->date->year || 9999)
-        or
-    ($a->medium->release->date->month || 12) <=> ($b->medium->release->date->month || 12)
-        or
-    ($a->medium->release->date->day || 31) <=> ($b->medium->release->date->day || 31)
-}
-
-sub lookup : Local {
-    my ($self, $c) = @_;
-
-    my $toc = $c->req->query_params->{toc};
-    $c->stash->{toc} = $toc;
-
-    my $results = $c->model('DurationLookup')->lookup($toc, DURATION_LOOKUP_RANGE);
-    if (defined $results) {
-        $c->model('Release')->load(map { $_->medium } @{$results});
-        if (scalar(@{$results}) == 1) {
-             $c->response->redirect($c->uri_for("/release/" . $results->[0]->medium->release->gid));
-        } else {
-            $c->model('ReleaseGroup')->load(map { $_->medium->release } @{$results});
-            $c->model('ReleaseGroupType')->load(map { $_->medium->release->release_group } @{$results});
-            $c->model('ReleaseStatus')->load(map { $_->medium->release } @{$results});
-            $c->model('MediumFormat')->load(map { $_->medium } @{$results});
-            $c->model('ArtistCredit')->load(map { $_->medium->release } @{$results});
-            my @sorted = sort medium_sort @{$results};
-            $c->stash->{results} = \@sorted;
-        }
-    } else {
-        $c->stash->{results} = [];
-    }
 }
 
 =head2 duplicate
