@@ -10,7 +10,7 @@ const guessFeat = require('../edit/utility/guessFeat');
 const fields = require('../release-editor/fields');
 
 test('guessing feat. artists', function (t) {
-    t.plan(17);
+    t.plan(19);
 
     var trackTests = [
         {
@@ -209,6 +209,32 @@ test('guessing feat. artists', function (t) {
                     {name: 'Blackstreet', joinPhrase: ' feat. '},
                     {name: 'Slash', joinPhrase: ' & '},
                     {name: 'Ol\' Dirty Bastard', joinPhrase: ''},
+                ]
+            }
+        },
+        {
+            input: {
+                name: 'ｆｒｏｚｅｎ ｆｔ.grèg',
+                artistCredit: [{name: 'cight', joinPhrase: ''}]
+            },
+            output: {
+                name: 'ｆｒｏｚｅｎ',
+                artistCredit: [
+                    {name: 'cight', joinPhrase: ' feat. '},
+                    {name: 'grèg', joinPhrase: ''}
+                ]
+            }
+        },
+        {
+            input: {
+                name: 'ｓｍｏｋｅ ｆｔ. ｅｐvｒ',
+                artistCredit: [{name: 'cight', joinPhrase: ''}]
+            },
+            output: {
+                name: 'ｓｍｏｋｅ',
+                artistCredit: [
+                    {name: 'cight', joinPhrase: ' feat. '},
+                    {name: 'ｅｐvｒ', joinPhrase: ''}
                 ]
             }
         }
