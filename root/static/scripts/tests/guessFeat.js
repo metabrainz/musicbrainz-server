@@ -86,7 +86,7 @@ test('guessing feat. artists', function (t) {
             output: {
                 name: 'Stormclouds',
                 artistCredit: [
-                    {name: 'Red Horizons', joinPhrase: ' feat. '},
+                    {name: 'Red Horizons', joinPhrase: ' ft. '},
                     {name: 'Landforge', joinPhrase: ''}
                 ]
             }
@@ -99,7 +99,7 @@ test('guessing feat. artists', function (t) {
             output: {
                 name: 'Montana',
                 artistCredit: [
-                    {name: 'Lil Bibby', joinPhrase: ' feat. '},
+                    {name: 'Lil Bibby', joinPhrase: ' ft '},
                     {name: 'Juicy J', joinPhrase: ''}
                 ]
             }
@@ -138,7 +138,7 @@ test('guessing feat. artists', function (t) {
             output: {
                 name: 'The Lion',
                 artistCredit: [
-                    {name: 'Dragon Fli Empire', joinPhrase: ' feat. '},
+                    {name: 'Dragon Fli Empire', joinPhrase: ' featuring '},
                     {name: 'Sphere720', joinPhrase: ' And '},
                     {name: 'Tariq', joinPhrase: ''}
                 ]
@@ -152,7 +152,7 @@ test('guessing feat. artists', function (t) {
             output: {
                 name: 'The Bell (Paranoia Network Remix)',
                 artistCredit: [
-                    {name: 'Stephan Smith', joinPhrase: ' feat. '},
+                    {name: 'Stephan Smith', joinPhrase: ' featuring '},
                     {name: 'Pete Seeger', joinPhrase: ' & '},
                     {name: 'DJ Spooky', joinPhrase: ''}
                 ]
@@ -220,7 +220,7 @@ test('guessing feat. artists', function (t) {
             output: {
                 name: 'ｆｒｏｚｅｎ',
                 artistCredit: [
-                    {name: 'cight', joinPhrase: ' feat. '},
+                    {name: 'cight', joinPhrase: '　ｆｔ．　'},
                     {name: 'grèg', joinPhrase: ''}
                 ]
             }
@@ -233,7 +233,7 @@ test('guessing feat. artists', function (t) {
             output: {
                 name: 'ｓｍｏｋｅ',
                 artistCredit: [
-                    {name: 'cight', joinPhrase: ' feat. '},
+                    {name: 'cight', joinPhrase: '　ｆｔ．　'},
                     {name: 'ｅｐvｒ', joinPhrase: ''}
                 ]
             }
