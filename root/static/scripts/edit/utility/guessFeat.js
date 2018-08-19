@@ -12,9 +12,9 @@ const MB = require('../../common/MB');
 const clean = require('../../common/utility/clean');
 const getSimilarity = require('./similarity');
 
-var featRegex = /(?:^\s*|[,\-]\s*|\s+)(?:(?:ft|feat)[.\s]|featuring\s+)/i;
-var collabRegex = /(,?\s+(?:&|and|et)\s+|,\s+|;\s+|\s*\/\s*|\s+vs\.\s+)/i;
-var bracketPairs = [['(', ')'], ['[', ']']];
+var featRegex = /(?:^\s*|[,，－\-]\s*|\s+)(?:(?:ft|feat|ｆｔ|ｆｅａｔ)[.．\s]|(?:featuring|ｆｅａｔｕｒｉｎｇ)\s+)/i;
+var collabRegex = /([,，]?\s+(?:&|and|et|＆|ａｎｄ|ｅｔ)\s+|[,，;；]\s+|\s*[\/／]\s*|\s+(?:vs|ｖｓ)[.．]\s+)/i;
+var bracketPairs = [['(', ')'], ['[', ']'], ['（', '）'], ['［', '］']];
 
 function extractNonBracketedFeatCredits(str, artists, isProbablyClassical) {
     var wrapped = _(str.split(featRegex)).map(clean);
