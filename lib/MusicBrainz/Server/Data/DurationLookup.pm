@@ -79,7 +79,8 @@ sub lookup
                JOIN medium m ON medium_index.medium = m.id
              WHERE  track_count_matches_cdtoc(m, ?)
                 AND toc <@ create_bounding_cube($dur_string, ?)
-           ORDER BY distance", $toc_info{tracks}, $fuzzy);
+           ORDER BY distance
+           LIMIT 25", $toc_info{tracks}, $fuzzy);
 
     my @results;
     foreach my $item (@{$list})
