@@ -3,7 +3,6 @@
   <table class="tbl">
     <thead>
       <tr>
-        <th class="video c"></th>
         <th>[% l('Name') %]</th>
         <th class="treleases">[% l('Length') %]</th>
         <th>[% l('Artist') %]</th>
@@ -24,7 +23,6 @@
           [%- FOR release=result.extra -%]
             <tr[% ' class="even"' IF linenum % 2 == 0 %][% ' data-score="' _ result.score _ '"' IF results.0.score.defined %]>
               [%- IF loop.count == 1 -%]
-                <td class="video c[%- IF result.entity.video %] is-video[%- END -%]"[% IF result.entity.video %] title="[% l("This recording is a video") %]"[% END %]></td>
                 <td>[% link_entity(result.entity) %]</td>
                 <td>[% result.entity.length | format_length %]</td>
                 <td>[% artist_credit(result.entity.artist_credit) %]</td>
@@ -34,7 +32,7 @@
                   [% END %]
                 </td>
               [%- ELSE -%]
-                <td colspan="6">&#xa0;</td>
+                <td colspan="4">&#xa0;</td>
               [%- END -%]
               <td>[%- link_entity(release) -%]</td>
               [%- IF c.try_get_session('tport') -%]
@@ -48,7 +46,6 @@
           [%- END -%]
         [% ELSE %]
           <tr[% ' class="even"' IF linenum % 2 == 0 %] data-score="[% result.score %]">
-            <td class="video c[%- IF result.entity.video %] is-video[%- END -%]"[% IF result.entity.video %] title="[% l("This recording is a video") %]"[% END %]></td>
             <td>[% link_entity(result.entity) %]</td>
             <td>[% result.entity.length | format_length %]</td>
             <td>[% artist_credit(result.entity.artist_credit) %]</td>
@@ -61,7 +58,7 @@
             [%- IF c.try_get_session('tport') -%]
               <td>[% tagger_icon(result.entity) %]</td>
             [%- END -%]
-            <td colspan="5">&#xa0;</td>
+            <td colspan="3">&#xa0;</td>
             [%- linenum = linenum + 1 -%]
           </tr>
         [% END %]

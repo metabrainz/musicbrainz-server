@@ -203,6 +203,15 @@ const EntityLink = ({
     }
   }
 
+  if (!subPath && entity.entityType === 'recording' && entity.video) {
+    content = (
+      <Frag>
+        <span className="video" title={l('This recording is a video')} />
+        {content}
+      </Frag>
+    );
+  }
+
   if (!showDisambiguation && !infoLink) {
     return content;
   }

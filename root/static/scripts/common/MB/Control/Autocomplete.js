@@ -610,10 +610,8 @@ MB.Control.autocomplete_formatters = {
 
         if (item.video)
         {
-            a.append(
-                $('<span class="autocomplete-video"></span>')
-                    .text("(" + i18n.l("video") + ")")
-            );
+            const title = _.escape(i18n.l('This recording is a video'));
+            a.prepend($(`<span class="video" title="${title}"></span>`));
         }
 
         a.append('<br /><span class="autocomplete-comment">by ' +

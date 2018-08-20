@@ -159,14 +159,6 @@ sub has_multiple_artists {
     return 0;
 }
 
-sub includes_video {
-    my ($self) = @_;
-    foreach my $track ($self->all_tracks) {
-        return 1 if $track->recording->video;
-    }
-    return 0;
-}
-
 has 'combined_track_relationships' => (
     is => 'ro',
     builder => '_build_combined_track_relationships',

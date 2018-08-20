@@ -568,6 +568,18 @@ tr.diff-changes {
     margin-left: -5px;
 }
 
+span.video {
+    background-image: data-uri('../images/icons/video.png');
+    background-repeat: no-repeat;
+    display: inline-block;
+    height: 14px;
+    vertical-align: middle;
+    width: 18px;
+}
+
+/* Don't try to add the video icon on the recording overview tab */
+.tabs .video { display: none; }
+
 /* The release information table */
 table.tbl {
     margin-top: 1em;
@@ -655,16 +667,6 @@ table.tbl {
     .rating { width: 50px; }
     .treleases { width: 3em; }
     .t { text-align: right; }
-
-    .video {
-        width: 15px;
-
-        &.is-video {
-            background-repeat: no-repeat;
-            background-position: 50% 2px;
-            background-image: data-uri('../images/icons/video.png');
-        }
-    }
 
     .data-track.icon {
         background: data-uri('../images/icons/page_white_cd.png');
