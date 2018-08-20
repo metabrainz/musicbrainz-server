@@ -41,7 +41,11 @@ sub TO_JSON {
             $json->{field}{$_->name} = TO_JSON($_) for $self->fields;
         }
     } else {
-        $json->{value} = $self->value;
+        if ($self->isa('HTML::FormHandler::Field::Checkbox')) {
+            $json->{value} = boolean_to_json($self->value);
+        } else {
+            $json->{value} = $self->value;
+        }
     }
 
     if ($is_form) {
