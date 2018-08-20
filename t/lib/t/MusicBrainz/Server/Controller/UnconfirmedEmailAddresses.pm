@@ -289,7 +289,6 @@ test 'Paths that allow browsing without a confirmed email address' => sub {
   "Controller::Release::details",
   "Controller::Release::edits",
   "Controller::Release::latest_annotation",
-  "Controller::Release::lookup",
   "Controller::Release::open_edits",
   "Controller::Release::show",
   "Controller::Release::downvote_tags",
