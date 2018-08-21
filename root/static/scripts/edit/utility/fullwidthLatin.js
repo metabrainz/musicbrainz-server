@@ -1,4 +1,5 @@
 /*
+ * @flow
  * Copyright (C) 2018 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -14,11 +15,11 @@
  */
 const fullwidthLatinRegexp = /[\u3000\uFF01-\uFF60\uFFE0-\uFFE6]/;
 
-exports.hasFullwidthLatin = function (str) {
+exports.hasFullwidthLatin = function (str: string): boolean {
   return fullwidthLatinRegexp.test(str || '');
 };
 
-exports.fromFullwidthLatin = function (str) {
+exports.fromFullwidthLatin = function (str: string): string {
   return (str || '')
     .replace(/\u3000/g, ' ')
     .replace(/[\uFF01-\uFF5E]/g, function (c) {
@@ -35,7 +36,7 @@ exports.fromFullwidthLatin = function (str) {
     .replace(/\uFFE6/g, '\u20A9');
 };
 
-exports.toFullwidthLatin = function (str) {
+exports.toFullwidthLatin = function (str: string): string {
   return (str || '')
     .replace(/\s/g, '\u3000')
     .replace(/[\x21-\x7E]/g, function (c) {
