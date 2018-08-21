@@ -5,7 +5,6 @@
 
 const React = require('react');
 
-const Frag = require('../../components/Frag');
 const {withCatalystContext} = require('../../context');
 const DBDefs = require('../../static/scripts/common/DBDefs');
 const {DONATE_URL} = require ('../../constants');
@@ -47,14 +46,14 @@ const Footer = ({$c, ...props}) => {
         ]}
 
         {stash.last_replication_date ? (
-          <Frag>
+          <>
             <br />
             {l('Last replication packet received at {datetime}', {
                 datetime: $c.user ?
                   formatUserDate($c.user, stash.last_replication_date) :
                   stash.last_replication_date
             })}
-          </Frag>
+          </>
         ) : null}
       </p>
 

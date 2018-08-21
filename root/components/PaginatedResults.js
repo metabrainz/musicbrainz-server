@@ -9,7 +9,6 @@
 
 import React from 'react';
 import {ln} from '../static/scripts/common/i18n';
-import Frag from './Frag';
 import Paginator from './Paginator';
 import type {Node as ReactNode} from 'react';
 
@@ -32,7 +31,7 @@ const PaginatedResults = ({
 }: Props) => {
   const paginator = <Paginator pager={pager} pageVar={pageVar} />;
   return (
-    <Frag>
+    <>
       {paginator}
       {(search || total) ? (
         <p className="pageselector-results">
@@ -49,7 +48,7 @@ const PaginatedResults = ({
       ) : null}
       {children}
       {paginator}
-    </Frag>
+    </>
   );
 };
 

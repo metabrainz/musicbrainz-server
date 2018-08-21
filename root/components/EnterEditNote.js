@@ -13,7 +13,6 @@ import {l} from '../static/scripts/common/i18n';
 
 import FieldErrors from './FieldErrors';
 import FormRow from './FormRow';
-import Frag from './Frag';
 
 type Props = {|
   +field: FieldT<string>,
@@ -27,7 +26,7 @@ const EnterEditNote = ({
   <fieldset className="editnote">
     <legend>{l('Edit Note')}</legend>
     {hideHelp ? null : (
-      <Frag>
+      <>
         <p>
           {l('Entering an {note|edit note} that describes where you got your information is highly recommended. Not only does it make it clear where you got your information, but it can also encourage other users to vote on your edit — thus making your edit get applied faster.', {
             __react: true,
@@ -35,7 +34,7 @@ const EnterEditNote = ({
           })}
         </p>
         <p>{l('Even just providing a URL or two is helpful!')}</p>
-      </Frag>
+      </>
     )}
     <FormRow>
       <label htmlFor="edit-note-text">{l('Edit note:')}</label>

@@ -9,7 +9,6 @@
 
 import React from 'react';
 
-import Frag from '../components/Frag';
 import {l, lp} from '../static/scripts/common/i18n';
 import EditorLink from '../static/scripts/common/components/EditorLink';
 import formatUserDate from '../utility/formatUserDate';
@@ -22,7 +21,7 @@ type PropsT = {
 };
 
 const ElectionDetails = ({election, user}: PropsT) => (
-  <Frag>
+  <>
     <h2>{l('Details')}</h2>
     <table className="properties">
       <tr>
@@ -51,7 +50,7 @@ const ElectionDetails = ({election, user}: PropsT) => (
       </tr>
       {votesVisible(election, user)
         ? (
-          <Frag>
+          <>
             <tr>
               <th>{l('Votes for:')}</th>
               <td>{election.yes_votes}</td>
@@ -60,7 +59,7 @@ const ElectionDetails = ({election, user}: PropsT) => (
               <th>{l('Votes against:')}</th>
               <td>{election.no_votes}</td>
             </tr>
-          </Frag>
+          </>
         ) : (
           election.is_open
             ? (
@@ -112,7 +111,7 @@ const ElectionDetails = ({election, user}: PropsT) => (
         </td>
       </tr>
     </table>
-  </Frag>
+  </>
 );
 
 export default ElectionDetails;

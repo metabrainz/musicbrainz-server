@@ -10,7 +10,6 @@
 import _ from 'lodash';
 import React from 'react';
 
-import Frag from '../../components/Frag';
 import {withCatalystContext} from '../../context';
 import {l, lp} from '../../static/scripts/common/i18n';
 
@@ -91,14 +90,14 @@ const AdminMenu = ({user}: UserProp) => (
       ) : null}
 
       {user.is_relationship_editor ? (
-        <Frag>
+        <>
           <li>
             <a href="/instrument/create">{lp('Add Instrument', 'button/menu')}</a>
           </li>
           <li>
             <a href="/relationships">{l('Edit Relationship Types')}</a>
           </li>
-        </Frag>
+        </>
       ) : null}
 
       {user.is_wiki_transcluder ? (
@@ -125,13 +124,13 @@ const AdminMenu = ({user}: UserProp) => (
 const UserMenu = ({$c}) => (
   <ul className="menu" tabIndex="-1">
     {$c.user ? (
-      <Frag>
+      <>
         <AccountMenu user={$c.user} />
         <DataMenu user={$c.user} />
         {$c.user.is_admin ? <AdminMenu user={$c.user} /> : null}
-      </Frag>
+      </>
     ) : (
-      <Frag>
+      <>
         <li>
           <a href={'/login?uri=' + encodeURIComponent($c.req.query_params.uri || $c.relative_uri)}>
             {l('Log In')}
@@ -142,7 +141,7 @@ const UserMenu = ({$c}) => (
             {l('Create Account')}
           </a>
         </li>
-      </Frag>
+      </>
     )}
   </ul>
 );

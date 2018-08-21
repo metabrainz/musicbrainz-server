@@ -11,7 +11,6 @@ import React from 'react';
 
 import {CONTACT_URL, DONATE_URL} from '../constants';
 import {l} from '../static/scripts/common/i18n';
-import Frag from '../components/Frag';
 import StatusPage from '../components/StatusPage';
 
 type Props = {|
@@ -23,7 +22,7 @@ const Donation = ({days, nag}: Props) => (
   <StatusPage title={l('Donation Check')}>
     {nag
       ? (
-        <Frag>
+        <>
           <p>
             {l('We have not received a donation from you recently. If you have just made a PayPal donation, then we have not received a notification from PayPal yet. Please wait a few minutes and reload this page to check again.')}
           </p>
@@ -31,9 +30,9 @@ const Donation = ({days, nag}: Props) => (
             {l('If you would like to make a donation, {donate|you can do that here}. If you have donated, but you are still being nagged, please {contact|contact us}.',
               {__react: true, contact: CONTACT_URL, donate: DONATE_URL})}
           </p>
-        </Frag>
+        </>
       ) : (
-        <Frag>
+        <>
           <p>
             {l('Thank you for contributing to MusicBrainz.')}
           </p>
@@ -47,7 +46,7 @@ const Donation = ({days, nag}: Props) => (
                 {l('You will never be nagged again!')}
               </p>
             )}
-        </Frag>
+        </>
       )}
   </StatusPage>
 );

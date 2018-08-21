@@ -10,7 +10,6 @@ const _ = require('lodash');
 const React = require('react');
 const URL = require('url');
 
-const Frag = require('../../components/Frag');
 const {withCatalystContext} = require('../../context');
 const EntityLink =
   require('../../static/scripts/common/components/EntityLink');
@@ -98,7 +97,7 @@ const ExternalLinks = ({$c, entity, empty, heading}) => {
   const entityType = entity.entityType;
 
   return (
-    <Frag>
+    <>
       <h2 className="external-links">
         {heading || l('External links')}
       </h2>
@@ -114,7 +113,7 @@ const ExternalLinks = ({$c, entity, empty, heading}) => {
           </li>
         ) : null}
       </ul>
-    </Frag>
+    </>
   );
 };
 

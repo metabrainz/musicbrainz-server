@@ -17,7 +17,6 @@ import formatUserDate from '../utility/formatUserDate';
 import hydrate from '../utility/hydrate';
 
 import Collapsible from './Collapsible';
-import Frag from './Frag';
 
 type Props = {|
   +$c: CatalystContextT | SanitizedCatalystContextT,
@@ -34,7 +33,7 @@ const reviewHref = review => (
 );
 
 const CritiqueBrainzReview = ({$c, review, title}: Props) => (
-  <Frag>
+  <>
     <h3>{title}</h3>
     <p className="review-metadata">
       {l('{review_link|Review} by {author} on {date}', {
@@ -49,7 +48,7 @@ const CritiqueBrainzReview = ({$c, review, title}: Props) => (
       })}
     </p>
     <Collapsible className="review" html={review.body} />
-  </Frag>
+  </>
 );
 
 export default withCatalystContext(hydrate(

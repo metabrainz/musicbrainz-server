@@ -19,7 +19,6 @@ import hydrate from '../utility/hydrate';
 import sanitizedEditor from '../utility/sanitizedEditor';
 
 import Collapsible from './Collapsible';
-import Frag from './Frag';
 
 type AnnotatedEntityT =
   | AreaT
@@ -56,7 +55,7 @@ const Annotation = ({
   }
   const latestAnnotation = entity.latest_annotation;
   return (
-    <Frag>
+    <>
       <h2 className="annotation">{l('Annotation')}</h2>
 
       {collapse
@@ -81,21 +80,21 @@ const Annotation = ({
       <div className="annotation-details">
         {$c.user_exists ? (
           latestAnnotation && (annotation.id === latestAnnotation.id) ? (
-            <Frag>
+            <>
               {l('Annotation last modified by {user} on {date}.', {
                 __react: true,
                 date: formatUserDate($c.user, annotation.creation_date),
                 user: <EditorLink editor={annotation.editor} />,
               })}
               {numberOfRevisions && numberOfRevisions > 1 ? (
-                <Frag>
+                <>
                   {' '}
                   <a href={entityHref(entity, '/annotations')}>
                     {l('View annotation history')}
                   </a>
-                </Frag>
+                </>
               ) : null}
-            </Frag>
+            </>
           ) : (
             l('This is an {history|old revision} of this annotation, as edited by {user} on {date}. {current|View current revision}.', {
               __react: true,
@@ -111,7 +110,7 @@ const Annotation = ({
           })
         )}
       </div>
-    </Frag>
+    </>
   );
 };
 

@@ -9,7 +9,6 @@ const _ = require('lodash');
 const React = require('react');
 const ReactDOMServer = require('react-dom/server');
 
-const Frag = require('../../../components/Frag');
 const i18n = require('../common/i18n');
 const {artistCreditFromArray, reduceArtistCredit} = require('../common/immutable-entities');
 const bracketed = require('../common/utility/bracketed').default;
@@ -139,10 +138,10 @@ class SearchResult {
         const parts = i18n.l('{entity} by {artist}', {
             __react: true,
             entity: (
-                <Frag>
+                <>
                     <bdi>{this.name}</bdi>
                     {formatString ? ' ' + bracketed(formatString) : null}
-                </Frag>
+                </>
             ),
             artist: <bdi>{this.artist}</bdi>,
         });
