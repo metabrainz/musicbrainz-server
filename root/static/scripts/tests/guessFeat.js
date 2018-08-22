@@ -10,7 +10,7 @@ const guessFeat = require('../edit/utility/guessFeat');
 const fields = require('../release-editor/fields');
 
 test('guessing feat. artists', function (t) {
-    t.plan(19);
+    t.plan(21);
 
     var trackTests = [
         {
@@ -235,6 +235,33 @@ test('guessing feat. artists', function (t) {
                 artistCredit: [
                     {name: 'cight', joinPhrase: '　ｆｔ．　'},
                     {name: 'ｅｐvｒ', joinPhrase: ''}
+                ]
+            }
+        },
+        {
+            input: {
+                name: 'lulu（feat. Predawn）',
+                artistCredit: [{name: '菅野よう子', joinPhrase: ''}]
+            },
+            output: {
+                name: 'lulu',
+                artistCredit: [
+                    {name: '菅野よう子', joinPhrase: ' feat. '},
+                    {name: 'Predawn', joinPhrase: ''}
+                ]
+            }
+        },
+        {
+            input: {
+                name: '本能の呼吸（カラオケ） feat．戦場ヶ原ひたぎ ＆ 貝木泥舟',
+                artistCredit: [{name: '凪宗一郎', joinPhrase: ''}]
+            },
+            output: {
+                name: '本能の呼吸（カラオケ）',
+                artistCredit: [
+                    {name: '凪宗一郎', joinPhrase: '　ｆｅａｔ．　'},
+                    {name: '戦場ヶ原ひたぎ', joinPhrase: ' ＆ '},
+                    {name: '貝木泥舟', joinPhrase: ''}
                 ]
             }
         }
