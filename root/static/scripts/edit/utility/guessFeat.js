@@ -143,7 +143,11 @@ function expandCredit(fullName, artists, isProbablyClassical) {
     var bestFullMatch = bestArtistMatch(artists, fullName, isProbablyClassical);
 
     var fixJoinPhrase = function (existing) {
-        return isProbablyClassical ? ', ' : (existing || ' & ');
+        var joinPhrase = isProbablyClassical ? ', ' : (existing || ' & ');
+
+        return hasFullwidthLatin(existing)
+            ? toFullwidthLatin(joinPhrase)
+            : joinPhrase;
     };
 
     var splitMatches = _(fullName.split(collabRegex))
