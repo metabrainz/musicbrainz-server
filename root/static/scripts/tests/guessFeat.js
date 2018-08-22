@@ -260,7 +260,7 @@ test('guessing feat. artists', function (t) {
                 name: '本能の呼吸（カラオケ）',
                 artistCredit: [
                     {name: '凪宗一郎', joinPhrase: '　ｆｅａｔ．　'},
-                    {name: '戦場ヶ原ひたぎ', joinPhrase: ' ＆ '},
+                    {name: '戦場ヶ原ひたぎ', joinPhrase: '　＆　'},
                     {name: '貝木泥舟', joinPhrase: ''}
                 ]
             }
