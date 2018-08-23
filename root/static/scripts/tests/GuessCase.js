@@ -220,12 +220,12 @@ test('Work', function (t) {
         },
         {
             input: "American Way ft. Kelis",
-            expected: "American Way (feat. Kelis)",
+            expected: "American Way (ft. Kelis)",
             mode: "English", roman: true, keepuppercase: false
         },
         {
             input: "Bring It All To Me (f. 50 Cent)",
-            expected: "Bring It All to Me (feat. 50 Cent)",
+            expected: "Bring It All to Me (f. 50 Cent)",
             mode: "English", roman: true, keepuppercase: false
         },
         {
@@ -284,7 +284,7 @@ test('BugFixes', function (t) {
             // Note: 'rap' used to be lowercased until MBS-8982. Ideally it
             // would still be, but we don't maintain a separate list for words
             // that should trigger brackets.
-            expected: "Megablast (Rap version) (feat. Merlin)",
+            expected: "Megablast (Rap version) (ft. Merlin)",
             bug: 'MBS-1313', mode: "English"
         },
         {
@@ -309,7 +309,7 @@ test('BugFixes', function (t) {
         },
         {
             input: "Contagious (The Isley Brothers f/ R. Kelly)",
-            expected: "Contagious (The Isley Brothers feat. R. Kelly)",
+            expected: "Contagious (The Isley Brothers f/ R. Kelly)",
             bug: "MBS-1316", mode: "English"
         },
         {

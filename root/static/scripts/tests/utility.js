@@ -11,6 +11,7 @@ const formatDatePeriod = require('../common/utility/formatDatePeriod');
 const formatTrackLength = require('../common/utility/formatTrackLength');
 const parseDate = require('../common/utility/parseDate');
 const dates = require('../edit/utility/dates');
+const fullwidthLatin = require('../edit/utility/fullwidthLatin');
 
 test('formatTrackLength', function (t) {
     t.plan(6);
@@ -160,4 +161,29 @@ test("validDatePeriod", function (t) {
     _.each(tests, function (test) {
         t.equal(dates.isDatePeriodValid(test.a, test.b), test.expected);
     });
+});
+
+test("fullwidthLatin", function (t) {
+    t.plan(17);
+
+    t.equal(fullwidthLatin.hasFullwidthLatin(undefined), false, 'undefined has no fullwidth Latin');
+    t.equal(fullwidthLatin.fromFullwidthLatin(undefined), '', 'undefined (fromFullwidthLatin) empty');
+    t.equal(fullwidthLatin.toFullwidthLatin(undefined), '', 'undefined (toFullwidthLatin) empty');
+
+    t.equal(fullwidthLatin.hasFullwidthLatin(null), false, 'null has no fullwidth Latin');
+    t.equal(fullwidthLatin.fromFullwidthLatin(null), '', 'null (fromFullwidthLatin) empty');
+    t.equal(fullwidthLatin.toFullwidthLatin(null), '', 'null (toFullwidthLatin) empty');
+
+    t.equal(fullwidthLatin.hasFullwidthLatin(''), false, 'empty has no fullwidth Latin');
+    t.equal(fullwidthLatin.fromFullwidthLatin(''), '', 'empty (fromFullwidthLatin) empty');
+    t.equal(fullwidthLatin.toFullwidthLatin(''), '', 'empty (toFullwidthLatin) empty');
+
+    t.equal(fullwidthLatin.hasFullwidthLatin('　ｆｅａｔ．　'), true, 'fully fullwidth Latin has fullwidth Latin');
+    t.equal(fullwidthLatin.hasFullwidthLatin(' ｆｅａｔ. '), true, 'fullwidth Latin letters are fullwidth Latin');
+    t.equal(fullwidthLatin.hasFullwidthLatin('　feat.　'), true, 'ideographic space is fullwidth Latin');
+    t.equal(fullwidthLatin.hasFullwidthLatin(' feat． '), true, 'fullwidth full stop is fullwidth Latin');
+    t.equal(fullwidthLatin.fromFullwidthLatin('　ｆｅａｔ．　'), ' feat. ', 'fully converted fromFullwidthLatin');
+    t.equal(fullwidthLatin.fromFullwidthLatin(' ｆｅａｔ. '), ' feat. ', 'partly converted fromFullwidthLatin');
+    t.equal(fullwidthLatin.toFullwidthLatin('　feat．　'), '　ｆｅａｔ．　', 'partly converted toFullwidthLatin');
+    t.equal(fullwidthLatin.toFullwidthLatin(' feat. '), '　ｆｅａｔ．　', 'fully converted toFullwidthLatin');
 });

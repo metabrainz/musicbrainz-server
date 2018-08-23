@@ -10,7 +10,7 @@ const guessFeat = require('../edit/utility/guessFeat');
 const fields = require('../release-editor/fields');
 
 test('guessing feat. artists', function (t) {
-    t.plan(17);
+    t.plan(21);
 
     var trackTests = [
         {
@@ -86,7 +86,7 @@ test('guessing feat. artists', function (t) {
             output: {
                 name: 'Stormclouds',
                 artistCredit: [
-                    {name: 'Red Horizons', joinPhrase: ' feat. '},
+                    {name: 'Red Horizons', joinPhrase: ' ft. '},
                     {name: 'Landforge', joinPhrase: ''}
                 ]
             }
@@ -99,7 +99,7 @@ test('guessing feat. artists', function (t) {
             output: {
                 name: 'Montana',
                 artistCredit: [
-                    {name: 'Lil Bibby', joinPhrase: ' feat. '},
+                    {name: 'Lil Bibby', joinPhrase: ' ft '},
                     {name: 'Juicy J', joinPhrase: ''}
                 ]
             }
@@ -138,7 +138,7 @@ test('guessing feat. artists', function (t) {
             output: {
                 name: 'The Lion',
                 artistCredit: [
-                    {name: 'Dragon Fli Empire', joinPhrase: ' feat. '},
+                    {name: 'Dragon Fli Empire', joinPhrase: ' featuring '},
                     {name: 'Sphere720', joinPhrase: ' And '},
                     {name: 'Tariq', joinPhrase: ''}
                 ]
@@ -152,7 +152,7 @@ test('guessing feat. artists', function (t) {
             output: {
                 name: 'The Bell (Paranoia Network Remix)',
                 artistCredit: [
-                    {name: 'Stephan Smith', joinPhrase: ' feat. '},
+                    {name: 'Stephan Smith', joinPhrase: ' featuring '},
                     {name: 'Pete Seeger', joinPhrase: ' & '},
                     {name: 'DJ Spooky', joinPhrase: ''}
                 ]
@@ -209,6 +209,59 @@ test('guessing feat. artists', function (t) {
                     {name: 'Blackstreet', joinPhrase: ' feat. '},
                     {name: 'Slash', joinPhrase: ' & '},
                     {name: 'Ol\' Dirty Bastard', joinPhrase: ''},
+                ]
+            }
+        },
+        {
+            input: {
+                name: 'ｆｒｏｚｅｎ ｆｔ.grèg',
+                artistCredit: [{name: 'cight', joinPhrase: ''}]
+            },
+            output: {
+                name: 'ｆｒｏｚｅｎ',
+                artistCredit: [
+                    {name: 'cight', joinPhrase: '　ｆｔ．　'},
+                    {name: 'grèg', joinPhrase: ''}
+                ]
+            }
+        },
+        {
+            input: {
+                name: 'ｓｍｏｋｅ ｆｔ. ｅｐvｒ',
+                artistCredit: [{name: 'cight', joinPhrase: ''}]
+            },
+            output: {
+                name: 'ｓｍｏｋｅ',
+                artistCredit: [
+                    {name: 'cight', joinPhrase: '　ｆｔ．　'},
+                    {name: 'ｅｐvｒ', joinPhrase: ''}
+                ]
+            }
+        },
+        {
+            input: {
+                name: 'lulu（feat. Predawn）',
+                artistCredit: [{name: '菅野よう子', joinPhrase: ''}]
+            },
+            output: {
+                name: 'lulu',
+                artistCredit: [
+                    {name: '菅野よう子', joinPhrase: ' feat. '},
+                    {name: 'Predawn', joinPhrase: ''}
+                ]
+            }
+        },
+        {
+            input: {
+                name: '本能の呼吸（カラオケ） feat．戦場ヶ原ひたぎ ＆ 貝木泥舟',
+                artistCredit: [{name: '凪宗一郎', joinPhrase: ''}]
+            },
+            output: {
+                name: '本能の呼吸（カラオケ）',
+                artistCredit: [
+                    {name: '凪宗一郎', joinPhrase: '　ｆｅａｔ．　'},
+                    {name: '戦場ヶ原ひたぎ', joinPhrase: '　＆　'},
+                    {name: '貝木泥舟', joinPhrase: ''}
                 ]
             }
         }

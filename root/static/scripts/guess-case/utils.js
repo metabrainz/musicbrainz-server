@@ -27,6 +27,8 @@ var preBracketSingleWordsList = [
     'early',
     'extended',
     'feat',
+    'featuring',
+    'ft',
     'instrumental',
     'live',
     'long',
