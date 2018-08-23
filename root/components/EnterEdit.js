@@ -12,15 +12,13 @@ import type {Node as ReactNode} from 'react';
 
 import {l} from '../static/scripts/common/i18n';
 
-import Frag from './Frag';
-
 type Props<F> = {|
   +children: ReactNode,
   +form: FormT<F & {+make_votable: FieldT<boolean>}>,
 |};
 
 const EnterEdit = <F>({children, form}: Props<F>) => (
-  <Frag>
+  <>
     <div className="row no-label">
       <div className="auto-editor">
         <label>
@@ -41,7 +39,7 @@ const EnterEdit = <F>({children, form}: Props<F>) => (
       </button>
       {children}
     </div>
-  </Frag>
+  </>
 );
 
 export default EnterEdit;

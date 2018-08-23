@@ -17,7 +17,6 @@ import FormRowRadio from '../../components/FormRowRadio';
 import FormRowSelect from '../../components/FormRowSelect';
 import FormRowTextLong from '../../components/FormRowTextLong';
 import FormSubmit from '../../components/FormSubmit';
-import Frag from '../../components/Frag';
 
 type Props = {|
   +form: SearchFormT,
@@ -73,7 +72,7 @@ const SearchForm = ({form}: Props) => {
   const limitField = form.field.limit;
   const methodField = form.field.method;
   return (
-    <Frag>
+    <>
       <div className="searchform">
         <form action="/search" method="get">
           <FormRowTextLong
@@ -111,7 +110,7 @@ const SearchForm = ({form}: Props) => {
           })}
         </p>
       </div>
-    </Frag>
+    </>
   );
 };
 

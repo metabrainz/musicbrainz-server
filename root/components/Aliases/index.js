@@ -9,7 +9,6 @@
 
 const React = require('react');
 const {withCatalystContext} = require('../../context');
-const Frag = require('../Frag');
 const {l} = require('../../static/scripts/common/i18n');
 const EntityLink = require('../../static/scripts/common/components/EntityLink');
 const entityHref = require('../../static/scripts/common/utility/entityHref');
@@ -24,7 +23,7 @@ type Props = {
 
 const Aliases = ({$c, aliases, allowEditing = $c.user ? !$c.user.is_editing_disabled : false, entity}: Props) => {
   return (
-    <Frag>
+    <>
       <h2>{l('Aliases')}</h2>
       <p>
         {l('An alias is an alternate name for an entity. They typically contain common mispellings or variations of the name and are also used to improve search results. View the {doc|alias documentation} for more details.',
@@ -42,7 +41,7 @@ const Aliases = ({$c, aliases, allowEditing = $c.user ? !$c.user.is_editing_disa
           </p>
         )
         : null}
-    </Frag>
+    </>
   );
 };
 

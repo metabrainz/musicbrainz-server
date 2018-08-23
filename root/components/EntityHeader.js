@@ -11,7 +11,6 @@ const React = require('react');
 const {l} = require('../static/scripts/common/i18n');
 const EntityLink = require('../static/scripts/common/components/EntityLink');
 const EntityTabs = require('./EntityTabs');
-const Frag = require('./Frag');
 const SubHeader = require('./SubHeader');
 
 type Props = {|
@@ -34,7 +33,7 @@ const EntityHeader = ({
   preHeader = null,
   subHeading,
 }: Props) => (
-  <Frag>
+  <>
     <div className={headerClass}>
       {preHeader}
       <h1>
@@ -47,7 +46,7 @@ const EntityHeader = ({
       entity={entity}
       page={page}
     />
-  </Frag>
+  </>
 );
 
 module.exports = EntityHeader;

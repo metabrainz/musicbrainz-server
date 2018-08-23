@@ -15,7 +15,6 @@ import entityHref from '../static/scripts/common/utility/entityHref';
 import hydrate from '../utility/hydrate';
 
 import Collapsible from './Collapsible';
-import Frag from './Frag';
 
 type Props = {|
   +entity: CoreEntityT,
@@ -47,7 +46,7 @@ class WikipediaExtract extends React.Component<Props, State> {
   render() {
     const {wikipediaExtract} = this.state;
     return wikipediaExtract ? (
-      <Frag>
+      <>
         <h2 className="wikipedia">{l('Wikipedia')}</h2>
         <Collapsible
           className="wikipedia-extract"
@@ -60,7 +59,7 @@ class WikipediaExtract extends React.Component<Props, State> {
           {l('Wikipedia content provided under the terms of the {license_link|Creative Commons BY-SA license}',
             {__react: true, license_link: 'https://creativecommons.org/licenses/by-sa/3.0/'})}
         </small>
-      </Frag>
+      </>
     ) : null;
   }
 }

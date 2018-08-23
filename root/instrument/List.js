@@ -9,7 +9,6 @@
 
 const React = require('react');
 
-const Frag = require('../components/Frag');
 const Layout = require('../layout');
 const EntityLink = require('../static/scripts/common/components/EntityLink');
 const {l} = require('../static/scripts/common/i18n');
@@ -29,13 +28,13 @@ const Instrument = ({instrument}) => (
     <EntityLink entity={instrument} />
     {instrument.description
       ? (
-        <Frag>
+        <>
           {' — '}
           <span
             className="description"
             dangerouslySetInnerHTML={{__html: l_instrument_descriptions(instrument.description)}}
           />
-        </Frag>
+        </>
       )
       : null}
   </li>
@@ -52,25 +51,25 @@ const InstrumentList = ({
       <div id="content">
         <h1>{l('Instrument List')}</h1>
         {instrumentTypes.map(type => (
-          <Frag key={type.id}>
+          <React.Fragment key={type.id}>
             <h2>{lp_attributes(type.name, 'instrument_type')}</h2>
             <ul>
               {(instrumentsByType[type.id] || []).map(instrument => (
                 <Instrument instrument={instrument} key={instrument.id} />
               ))}
             </ul>
-          </Frag>
+          </React.Fragment>
         ))}
         {(unknown && unknown.length)
           ? (
-            <Frag>
+            <>
               <h2>{l('Unclassified instrument')}</h2>
               <ul>
                 {unknown.map(instrument => (
                   <Instrument instrument={instrument} key={instrument.id} />
                 ))}
               </ul>
-            </Frag>
+            </>
           )
           : null}
       </div>

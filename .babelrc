@@ -14,13 +14,13 @@
         "node": "6",
         "safari": "9.0"
       }
-    }],
-    "@babel/preset-stage-2",
-    "@babel/preset-flow"
+    }]
   ],
   "plugins": [
+    "@babel/plugin-transform-flow-strip-types",
     "@babel/plugin-transform-react-jsx",
     "@babel/plugin-transform-react-constant-elements",
-    "@babel/plugin-transform-runtime"
+    "@babel/plugin-transform-runtime",
+    "@babel/plugin-proposal-class-properties"
   ]
 }

@@ -12,8 +12,6 @@ import type {ElementRef} from 'react';
 
 import {l} from '../static/scripts/common/i18n';
 
-import Frag from './Frag';
-
 type Props = {|
   +className: string,
   +html: string,
@@ -65,7 +63,7 @@ class Collapsible extends React.Component<Props, State> {
       className + (isCollapsed ? '-collapsed' : '-collapse');
 
     return (
-      <Frag>
+      <>
         <div
           className={_className}
           dangerouslySetInnerHTML={{__html: html}}
@@ -82,7 +80,7 @@ class Collapsible extends React.Component<Props, State> {
             </a>
           </p>
         ) : null}
-      </Frag>
+      </>
     );
   }
 }

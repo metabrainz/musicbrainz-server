@@ -7,7 +7,6 @@
 
 const React = require('react');
 
-const Frag = require('../../../components/Frag');
 import RatingStars from '../../../components/RatingStars';
 const {l} = require('../../../static/scripts/common/i18n');
 const EntityLink = require('../../../static/scripts/common/components/EntityLink');
@@ -18,12 +17,12 @@ type Props = {|
 |};
 
 const SidebarRating = ({entity, heading}: Props) => (
-  <Frag>
+  <>
     <h2 className="rating">{heading || l('Rating')}</h2>
     <p>
       <RatingStars entity={entity} />
       {entity.rating_count > 0 ?
-        <Frag>
+        <>
           {' ('}
           <EntityLink
             entity={entity}
@@ -31,10 +30,10 @@ const SidebarRating = ({entity, heading}: Props) => (
             content={l('see all ratings')}
           />
           {')'}
-        </Frag>
+        </>
       : null}
     </p>
-  </Frag>
+  </>
 );
 
 module.exports = SidebarRating;
