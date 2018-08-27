@@ -755,6 +755,15 @@ sub remove_application : Path('/account/applications/remove') Args(1) RequireAut
         });
         $c->response->redirect($c->uri_for_action('/account/applications'));
         $c->detach;
+    } else {
+        $c->stash(
+            current_view => 'Node',
+            component_path => 'account/applications/Remove',
+            component_props => {
+                form => $form,
+            },
+        );
+        $c->detach;
     }
 }
 
