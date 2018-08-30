@@ -1676,6 +1676,7 @@ const CLEANUPS = {
     validate: function (url, id) {
       return /^http:\/\/id\.loc\.gov\/authorities\/names\/[a-z]+\d+$/.test(url)
         && (id === LINK_TYPES.otherdatabases.artist
+          || id === LINK_TYPES.otherdatabases.place
           || id === LINK_TYPES.otherdatabases.work);
     }
   },
