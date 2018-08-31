@@ -746,6 +746,16 @@ sub edit_application : Path('/account/applications/edit') Args(1) RequireAuth Re
         });
         $c->response->redirect($c->uri_for_action('/account/applications'));
         $c->detach;
+    } else {
+        $form->field('oauth_type')->value($application->oauth_type),
+        $c->stash(
+            current_view => 'Node',
+            component_path => 'account/applications/Edit',
+            component_props => {
+                form => $form,
+            },
+        );
+        $c->detach;
     }
 }
 
