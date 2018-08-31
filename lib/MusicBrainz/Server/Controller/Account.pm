@@ -687,6 +687,15 @@ sub revoke_application_access : Path('/account/applications/revoke-access') Args
         });
         $c->response->redirect($c->uri_for_action('/account/applications'));
         $c->detach;
+    } else {
+        $c->stash(
+            current_view => 'Node',
+            component_path => 'account/applications/RevokeAccess',
+            component_props => {
+                form => $form,
+            },
+        );
+        $c->detach;
     }
 }
 
