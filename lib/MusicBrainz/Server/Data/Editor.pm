@@ -75,8 +75,8 @@ sub get_by_name
     my ($self, $name) = @_;
     my $query = 'SELECT ' . $self->_columns .
                 ' FROM ' . $self->_table .
-                ' WHERE lower(name) = ? LIMIT 1';
-    my $row = $self->sql->select_single_row_hash($query, lc $name);
+                ' WHERE lower(name) = lower(?) LIMIT 1';
+    my $row = $self->sql->select_single_row_hash($query, $name);
     my $editor = $self->_new_from_row($row);
     $self->load_preferences($editor);
     return $editor;
@@ -617,8 +617,8 @@ sub allocate_remember_me_token {
 
     if (
         my $normalized_name = $self->sql->select_single_value(
-            'SELECT name FROM editor WHERE lower(name) = ?',
-            lc $user_name
+            'SELECT name FROM editor WHERE lower(name) = lower(?)',
+            $user_name
         )
     ) {
         my $token = generate_token();
@@ -639,11 +639,10 @@ sub allocate_remember_me_token {
 sub is_name_used {
     my ($self, $name) = @_;
 
-    $name = lc $name;
     return 1 if $self->sql->select_single_value(
-        'SELECT 1 FROM editor WHERE lower(name) = ?', $name);
+        'SELECT 1 FROM editor WHERE lower(name) = lower(?)', $name);
     return 1 if $self->sql->select_single_value(
-        'SELECT 1 FROM old_editor_name WHERE lower(name) = ?', $name);
+        'SELECT 1 FROM old_editor_name WHERE lower(name) = lower(?)', $name);
     return 0;
 }
 
