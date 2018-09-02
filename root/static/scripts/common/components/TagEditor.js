@@ -359,9 +359,10 @@ class MainTagEditor extends TagEditor {
         ]}
 
         <h2>{l('Add Tags')}</h2>
-        <p dangerouslySetInnerHTML={{__html:
-          l('You can add your own {tagdocs|tags} below. Use commas to separate multiple tags.',
-            {tagdocs: '/doc/Folksonomy_Tagging'})}}></p>
+        <p>
+          {l('You can add your own {tagdocs|tags} below. Use commas to separate multiple tags.',
+            {__react: true, tagdocs: '/doc/Folksonomy_Tagging'})}
+        </p>
         <form id="tag-form" onSubmit={this.addTags}>
           <p>
             <textarea row="5" cols="50" ref={input => this._tagsInput = input}></textarea>

@@ -16,6 +16,7 @@ const {
     VIDEO_ATTRIBUTE_GID,
   } = require('../common/constants');
 const {compare, l} = require('../common/i18n');
+const expand2 = require('../common/i18n/expand2').default;
 const MB = require('../common/MB');
 const linkTypeInfo = require('../common/typeInfo').link_type;
 const {hasSessionStorage} = require('../common/utility/storage');
@@ -278,14 +279,21 @@ class ExternalLink extends React.Component<LinkProps> {
 
     if (linkType.description) {
       typeDescription = l('{description} ({url|more documentation})', {
-        description: linkType.description,
+        __react: true,
+        description: expand2(linkType.description),
         url: '/relationship/' + linkType.gid
       });
     }
 
     if (props.url && !props.errorMessage) {
-      var escapedURL = _.escape(props.url);
-      typeDescription = '<a href="' + escapedURL + '" target="_blank">' + escapedURL + '</a><br><br>' + typeDescription;
+      typeDescription = (
+        <>
+          <a href={props.url} target="_blank">{props.url}</a>
+          <br/>
+          <br/>
+          {typeDescription}
+        </>
+      );
     }
 
     var showTypeSelection = props.errorMessage ? true : !(props.urlMatchesType || isEmpty(props));
@@ -322,7 +330,7 @@ class ExternalLink extends React.Component<LinkProps> {
             </div>}
         </td>
         <td style={{minWidth: '34px'}}>
-          {typeDescription && <HelpIcon html={typeDescription} />}
+          {typeDescription && <HelpIcon content={typeDescription} />}
           {isEmpty(props) || <RemoveButton title={l('Remove Link')} callback={props.removeCallback} />}
         </td>
       </tr>

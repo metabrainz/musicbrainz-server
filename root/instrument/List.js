@@ -30,10 +30,7 @@ const Instrument = ({instrument}) => (
       ? (
         <>
           {' — '}
-          <span
-            className="description"
-            dangerouslySetInnerHTML={{__html: l_instrument_descriptions(instrument.description)}}
-          />
+          {l_instrument_descriptions(instrument.description, {__react: true})}
         </>
       )
       : null}

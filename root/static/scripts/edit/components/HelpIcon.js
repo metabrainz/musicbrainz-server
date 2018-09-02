@@ -21,7 +21,7 @@ class HelpIcon extends React.Component {
              onMouseLeave={() => this.setState({ hover: false })}>
         </div>
         {this.state.hover &&
-          <Tooltip html={this.props.html} hoverCallback={hover => this.setState({ hover })} />}
+          <Tooltip content={this.props.content} hoverCallback={hover => this.setState({ hover })} />}
       </div>
     );
   }

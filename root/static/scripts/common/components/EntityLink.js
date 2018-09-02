@@ -232,9 +232,8 @@ const EntityLink = ({
   }
 
   if (infoLink) {
-    parts.push(' ');
-    parts.push.apply(
-      parts,
+    parts.push(
+      ' ',
       bracketed(
         <a href={infoLink} key="info">{l('info')}</a>,
         {__react: true, type: '[]'}
