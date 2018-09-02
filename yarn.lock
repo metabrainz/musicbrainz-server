@@ -3572,21 +3572,21 @@ modify-filename@^1.0.0, modify-filename@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/modify-filename/-/modify-filename-1.1.0.tgz#9a2dec83806fbb2d975f22beec859ca26b393aa1"
 
-"moment-strftime@git://github.com/sambhav/moment-strftime.git#e8805b1":
-  version "0.2.3"
-  resolved "git://github.com/sambhav/moment-strftime.git#e8805b12ff07190c215c476d777169e584e809b0"
+moment-strftime@0.5.0:
+  version "0.5.0"
+  resolved "https://registry.yarnpkg.com/moment-strftime/-/moment-strftime-0.5.0.tgz#0cd395058cfabb2cbdbf49a2d3758aa22093d65a"
   dependencies:
-    moment "^2.10"
+    moment "^2.11.2"
 
-moment-timezone@0.4.1:
-  version "0.4.1"
-  resolved "https://registry.yarnpkg.com/moment-timezone/-/moment-timezone-0.4.1.tgz#81f598c3ad5e22cdad796b67ecd8d88d0f5baa06"
+moment-timezone@0.5.17:
+  version "0.5.17"
+  resolved "https://registry.yarnpkg.com/moment-timezone/-/moment-timezone-0.5.17.tgz#3c8fef32051d84c3af174d91dc52977dcb0ad7e5"
   dependencies:
-    moment ">= 2.6.0"
+    moment ">= 2.9.0"
 
-moment@2.20.1, "moment@>= 2.6.0", moment@^2.10:
-  version "2.20.1"
-  resolved "https://registry.yarnpkg.com/moment/-/moment-2.20.1.tgz#d6eb1a46cbcc14a2b2f9434112c1ff8907f313fd"
+moment@2.22.2, "moment@>= 2.9.0", moment@^2.11.2:
+  version "2.22.2"
+  resolved "https://registry.yarnpkg.com/moment/-/moment-2.22.2.tgz#3c257f9839fc0e93ff53149632239eb90783ff66"
 
 ms@2.0.0:
   version "2.0.0"
