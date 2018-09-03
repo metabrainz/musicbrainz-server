@@ -1270,8 +1270,9 @@ const CLEANUPS = {
     clean: function (url) {
       // Standardising ClassicalArchives.com
       url = url.replace(/^(?:https?:\/\/)?(?:www\.)?classicalarchives\.com\/(album|artist|composer|ensemble|work)\/([^\/?#]+)(?:.*)?$/, "http://www.classicalarchives.com/$1/$2");
-      // Removing cruft from Worldcat URLs
-      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?worldcat\.org(?:\/title\/[a-zA-Z0-9_-]+)?\/oclc\/([^&?]+)(?:.*)$/, "http://www.worldcat.org/oclc/$1");
+      // Removing cruft from Worldcat URLs and standardising to https
+      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?worldcat\.org/, "https://www.worldcat.org");
+      url = url.replace(/^https:\/\/www\.worldcat\.org(?:\/title\/[a-zA-Z0-9_-]+)?\/oclc\/([^&?]+)(?:.*)$/, "https://www.worldcat.org/oclc/$1");
       // Standardising IBDb not to use www
       url = url.replace(/^(https?:\/\/)?(www\.)?ibdb\.com/, "http://ibdb.com");
       // Standardising ESTER to their default parameters
@@ -1460,7 +1461,7 @@ const CLEANUPS = {
           case LINK_TYPES.otherdatabases.work:
             return prefix == 'works/work';
           case LINK_TYPES.otherdatabases.artist:
-            return prefix !== 'works/work';	
+            return prefix !== 'works/work';
         }
       }
       return false;
