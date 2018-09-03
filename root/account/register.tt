@@ -18,8 +18,8 @@
                   For full details, please read our {doc|Privacy Policy}.',
                   {doc => { href => 'https://metabrainz.org/privacy' } }) -%]</p>
 
-        <p>[%- l('If you so choose, you will be able to remove any personal information from our services by
-                  deleting your account. For more details, see our {doc|GDPR compliance statement}.',
+        <p>[%- l('You may remove your personal information from our services anytime by deleting your account.
+                  For more details, see our {doc|GDPR compliance statement}.',
                   {doc => { href => 'https://metabrainz.org/gdpr' } }) -%]</p>
 
 
