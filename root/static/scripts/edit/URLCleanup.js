@@ -1170,6 +1170,9 @@ const CLEANUPS = {
   setlistfm: {
     match: [new RegExp("^(https?://)?([^/]+\\.)?setlist\\.fm","i")],
     type: LINK_TYPES.setlistfm,
+    clean: function (url) {
+      return url.replace(/^http:\/\//, "https://");
+    },
     validate: function (url, id) {
       var m = /setlist\.fm\/([a-z]+)\//.exec(url);
       if (m) {
@@ -1460,7 +1463,7 @@ const CLEANUPS = {
           case LINK_TYPES.otherdatabases.work:
             return prefix == 'works/work';
           case LINK_TYPES.otherdatabases.artist:
-            return prefix !== 'works/work';	
+            return prefix !== 'works/work';
         }
       }
       return false;
