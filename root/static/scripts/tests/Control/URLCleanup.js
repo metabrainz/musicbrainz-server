@@ -3260,6 +3260,19 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
                      input_entity_type: 'release',
             expected_relationship_type: 'discographyentry',
         },
+        // Worldcat
+        {
+                             input_url: 'http://www.worldcat.org/title/sometimes-i-sit-and-think-and-sometimes-i-just-sit/oclc/903606316',
+                     input_entity_type: 'release',
+            expected_relationship_type: 'otherdatabases',
+                    expected_clean_url: 'https://www.worldcat.org/oclc/903606316',
+        },
+        {
+                             input_url: 'http://www.worldcat.org/identities/lccn-no2015052484/',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'otherdatabases',
+                    expected_clean_url: 'https://www.worldcat.org/identities/lccn-no2015052484/',
+        },
         // YouTube
         {
                              input_url: 'http://youtube.com/user/officialpsy/videos',
