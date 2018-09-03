@@ -227,6 +227,13 @@ Creating the database
         sudo make install
         cd ..
 
+    Note: if you have forgotten to clone the repository with the `--recursive` 
+    option, this won't work. In that case, you should run the following and 
+    then try again:
+
+        git submodule init
+        git submodule update
+        
 2.  Setup PostgreSQL authentication
 
     For normal operation, the server only needs to connect from one or two OS
@@ -259,9 +266,9 @@ Creating the database
 
 3.  Create the database
 
-    You have two options when it comes to the database. You can either opt for a
-    clean database with just the schema (useful for developers with limited disk
-    space), or you can import a full database dump.
+    You have three options when it comes to the database. You can opt for a
+    clean database with just the schema, a sample of database content (useful 
+    for developers with limited disk space), or you can import a full database dump.
 
     1.  Use a clean database
 
@@ -306,6 +313,15 @@ Creating the database
         an intermediate step. You may specify a different location with the
         `--tmp-dir` option.
 
+    3.  Import a database sample
+        
+        If a full dump is too large for your purposes, but you would like to have some
+        real data to test with for development, you can download our database sample,
+        published once a month at 
+        ftp://ftp.musicbrainz.org/pub/musicbrainz/data/sample/
+    
+        You can import this sample dump in the same way as the full dump above.
+        
     MusicBrainz Server doesn't enforce any statement timeouts on any SQL it runs.
     If this is an issue in your setup, you may want to set a timeout at the
     database level:
