@@ -2499,7 +2499,7 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
         },
         // setlist.fm
         {
-                             input_url: 'http://www.setlist.fm/setlists/foo-fighters-bd6893a.html',
+                             input_url: 'https://www.setlist.fm/setlists/foo-fighters-bd6893a.html',
                      input_entity_type: 'artist',
             expected_relationship_type: 'setlistfm',
                only_valid_entity_types: ['artist']
@@ -2508,16 +2508,17 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
                              input_url: 'http://www.setlist.fm/setlist/foo-fighters/2014/house-of-blues-new-orleans-la-13cda5b1.html',
                      input_entity_type: 'event',
             expected_relationship_type: 'setlistfm',
+                    expected_clean_url: 'https://www.setlist.fm/setlist/foo-fighters/2014/house-of-blues-new-orleans-la-13cda5b1.html',
                only_valid_entity_types: ['event']
         },
         {
-                             input_url: 'http://www.setlist.fm/venue/house-of-blues-new-orleans-la-usa-23d61c9f.html',
+                             input_url: 'https://www.setlist.fm/venue/house-of-blues-new-orleans-la-usa-23d61c9f.html',
                      input_entity_type: 'place',
             expected_relationship_type: 'setlistfm',
                only_valid_entity_types: ['place']
         },
         {
-                             input_url: 'http://www.setlist.fm/festivals/house-of-blues-new-orleans-la-usa-23d61c9f.html',
+                             input_url: 'https://www.setlist.fm/festivals/house-of-blues-new-orleans-la-usa-23d61c9f.html',
                      input_entity_type: 'series',
             expected_relationship_type: 'setlistfm',
                only_valid_entity_types: ['series']
