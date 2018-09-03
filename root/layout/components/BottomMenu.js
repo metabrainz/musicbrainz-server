@@ -119,6 +119,9 @@ const AboutMenu = () => (
       <li>
         <a href="https://metabrainz.org/privacy">{l('Privacy Policy')}</a>
       </li>
+      <li>
+        <a href="https://metabrainz.org/gdpr">{l('GDPR Compliance')}</a>
+      </li>
       <li className="separator">
         <a href="/elections">{l('Auto-editor Elections')}</a>
       </li>
