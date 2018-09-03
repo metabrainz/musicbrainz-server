@@ -318,6 +318,31 @@ sub find_related_entities
     return %map;
 }
 
+=method load_ids
+
+Load internal IDs for event objects that only have GIDs.
+
+=cut
+
+sub load_ids
+{
+    my ($self, @events) = @_;
+
+    my @gids = map { $_->gid } @events;
+    return () unless @gids;
+
+    my $query = "
+        SELECT gid, id FROM event
+        WHERE gid IN (" . placeholders(@gids) . ")
+    ";
+    my %map = map { $_->[0] => $_->[1] }
+        @{ $self->sql->select_list_of_lists($query, @gids) };
+
+    for my $event (@events) {
+        $event->id($map{$event->gid}) if exists $map{$event->gid};
+    }
+}
+
 =method load_performers
 
 This method will load the event's performers based on the event-artist

@@ -835,6 +835,14 @@ sub external_search
             $self->c->model('Work')->load_recording_artists(@entities);
         }
 
+        if ($type eq 'event')
+        {
+            my @entities = map { $_->entity } @results;
+            $self->c->model('Event')->load_ids(@entities);
+            $self->c->model('Event')->load_related_info(@entities);
+            $self->c->model('Event')->load_areas(@entities);
+        }
+
         my $pager = Data::Page->new;
         $pager->current_page($page);
         $pager->entries_per_page($limit);
