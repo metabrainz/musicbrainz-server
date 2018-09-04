@@ -28,22 +28,26 @@ const Footer = ({$c, ...props}) => {
         {' | '}
         <a href="https://twitter.com/MusicBrainz" className="internal">{l('Twitter')}</a>
 
-        {!!DBDefs.BETA_REDIRECT_HOSTNAME && [
-          ' | ',
-          <a href="/set-beta-preference" className="internal">
-            {DBDefs.IS_BETA ? l('Stop using beta site') : l('Use beta site')}
-          </a>
-        ]}
+        {DBDefs.BETA_REDIRECT_HOSTNAME ? (
+          <>
+            {' | '}
+            <a href="/set-beta-preference" className="internal">
+              {DBDefs.IS_BETA ? l('Stop using beta site') : l('Use beta site')}
+            </a>
+          </>
+        ) : null}
 
-        {!!DBDefs.GIT_BRANCH && [
-          <br />,
-          l('Running: {git_details}',
-            {__react: true,
-             git_details: <span className="tooltip" key='git_details' title={DBDefs.GIT_MSG}>
-                            {DBDefs.GIT_BRANCH} ({DBDefs.GIT_SHA})
-                          </span>
-            })
-        ]}
+        {DBDefs.GIT_BRANCH ? (
+          <>
+            <br />
+            {l('Running: {git_details}', {
+              __react: true,
+              git_details: <span className="tooltip" key='git_details' title={DBDefs.GIT_MSG}>
+                             {DBDefs.GIT_BRANCH} {' ('} {DBDefs.GIT_SHA} {' )'}
+                           </span>
+            })}
+          </>
+        ) : null}
 
         {stash.last_replication_date ? (
           <>
