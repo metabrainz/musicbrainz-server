@@ -434,7 +434,10 @@ declare type PlaceT = {|
   ...AnnotationRoleT,
   ...CommentRoleT,
   ...CoreEntityRoleT,
+  ...DatePeriodRoleT,
   ...TypeRoleT<PlaceTypeT>,
+  +address: string,
+  +area: AreaT | null,
   +entityType: 'place',
 |};
 
