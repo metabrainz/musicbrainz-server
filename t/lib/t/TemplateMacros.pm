@@ -4,6 +4,7 @@ use utf8;
 use Catalyst::Test 'MusicBrainz::Server';
 use JSON::XS;
 use MusicBrainz::Server::Entity::Preferences;
+use Scalar::Util qw( blessed );
 use String::ShellQuote qw( shell_quote );
 use Test::More;
 use Test::Routine;
@@ -479,9 +480,275 @@ test all => sub {
                 name => 'http://www.cdbaby.com/cd/shetler',
             ),
         ],
+        [
+            q(
+                USE Diff;
+                acdiff = Diff.diff_artist_credits(entity.old, entity.new);
+                '<div class="old">' _ acdiff.old _ '</div>';
+                '<div class="new">' _ acdiff.new _ '</div>';
+            ),
+
+            q((function () {
+                const acdiff = diffArtistCredits(entity['old'], entity['new']);
+                return React.createElement(
+                    React.Fragment,
+                    null,
+                    React.createElement('div', {className: 'old'}, acdiff.old),
+                    React.createElement('div', {className: 'new'}, acdiff.new),
+                );
+            }())),
+
+            '<div class="old">' .
+                '<a href="/artist/3215500f-f03e-4adf-94fe-5ca842e17f5b" title="Hoenig, Michael">' .
+                    '<bdi><span class="diff-only-a">Michael </span>Hoenig</bdi>' .
+                '</a>' .
+                ' <span class="diff-only-a">and</span> ' .
+                '<a href="/artist/00e3ab6b-4c4f-4ed6-991f-461a0ffa01b3" title="Göttsching, Manuel">' .
+                    '<bdi><span class="diff-only-a">Manuel </span>Göttsching</bdi>' .
+                '</a>' .
+            '</div>' .
+            '<div class="new">' .
+                '<span class="name-variation">' .
+                    '<a href="/artist/3215500f-f03e-4adf-94fe-5ca842e17f5b" title="Michael Hoenig – Hoenig, Michael">' .
+                        '<bdi>Hoenig</bdi>' .
+                    '</a>' .
+                '</span>' .
+                ' <span class="diff-only-b">•</span> ' .
+                '<span class="name-variation">' .
+                    '<a href="/artist/00e3ab6b-4c4f-4ed6-991f-461a0ffa01b3" title="Manuel Göttsching – Göttsching, Manuel">' .
+                        '<bdi>Göttsching</bdi>' .
+                    '</a>' .
+                '</span>' .
+            '</div>',
+
+            {
+                old => ArtistCredit->new(
+                    names => [
+                        ArtistCreditName->new(
+                            name => 'Michael Hoenig',
+                            artist => Artist->new(
+                                gid => '3215500f-f03e-4adf-94fe-5ca842e17f5b',
+                                id => 105321,
+                                name => 'Michael Hoenig',
+                                sort_name => 'Hoenig, Michael',
+                            ),
+                            join_phrase => ' and ',
+                        ),
+                        ArtistCreditName->new(
+                            name => 'Manuel Göttsching',
+                            artist => Artist->new(
+                                gid => '00e3ab6b-4c4f-4ed6-991f-461a0ffa01b3',
+                                id => 117488,
+                                name => 'Manuel Göttsching',
+                                sort_name => 'Göttsching, Manuel',
+                            ),
+                            join_phrase => '',
+                        ),
+                    ],
+                ),
+                new => ArtistCredit->new(
+                    names => [
+                        ArtistCreditName->new(
+                            name => 'Hoenig',
+                            artist => Artist->new(
+                                gid => '3215500f-f03e-4adf-94fe-5ca842e17f5b',
+                                id => 105321,
+                                name => 'Michael Hoenig',
+                                sort_name => 'Hoenig, Michael',
+                            ),
+                            join_phrase => ' • ',
+                        ),
+                        ArtistCreditName->new(
+                            name => 'Göttsching',
+                            artist => Artist->new(
+                                gid => '00e3ab6b-4c4f-4ed6-991f-461a0ffa01b3',
+                                id => 117488,
+                                name => 'Manuel Göttsching',
+                                sort_name => 'Göttsching, Manuel',
+                            ),
+                            join_phrase => '',
+                        ),
+                    ],
+                ),
+            },
+        ],
+        # MBS-8709
+        [
+            q(
+                USE Diff;
+                acdiff = Diff.diff_artist_credits(entity.old, entity.new);
+                '<div class="old">' _ acdiff.old _ '</div>';
+                '<div class="new">' _ acdiff.new _ '</div>';
+            ),
+
+            q((function () {
+                const acdiff = diffArtistCredits(entity['old'], entity['new']);
+                return React.createElement(
+                    React.Fragment,
+                    null,
+                    React.createElement('div', {className: 'old'}, acdiff.old),
+                    React.createElement('div', {className: 'new'}, acdiff.new),
+                );
+            }())),
+
+            '<div class="old">' .
+                '<a href="/artist/f27ec8db-af05-4f36-916e-3d57f91ecf5e" title="Jackson, Michael">' .
+                    '<bdi><span class="diff-only-a">Michael Jackson</span></bdi>' .
+                '</a>' .
+            '</div>' .
+            '<div class="new">' .
+                '<span class="deleted tooltip" title="This entity has been removed, and cannot be displayed correctly.">' .
+                    '<bdi><span class="diff-only-b">The Jacksons</span></bdi>' .
+                '</span>' .
+            '</div>',
+
+            {
+                old => ArtistCredit->new(
+                    names => [
+                        ArtistCreditName->new(
+                            name => 'Michael Jackson',
+                            artist => Artist->new(
+                                gid => 'f27ec8db-af05-4f36-916e-3d57f91ecf5e',
+                                id => 519,
+                                name => 'Michael Jackson',
+                                sort_name => 'Jackson, Michael',
+                            ),
+                            join_phrase => '',
+                        )
+                    ],
+                ),
+                new => ArtistCredit->new(
+                    names => [
+                        ArtistCreditName->new(
+                            name => 'The Jacksons',
+                            artist => Artist->new(
+                                id => 56345,
+                                name => 'The Jacksons',
+                                sort_name => 'Jacksons, The',
+                            ),
+                            join_phrase => '',
+                        )
+                    ],
+                ),
+            },
+        ],
+        # MBS-8709
+        [
+            q(
+                PROCESS 'edit/details/macros.tt';
+                display_word_diff('Name:', entity.old, entity.new);
+            ),
+
+            'React.createElement(WordDiff, {label: "Name:", oldText: entity.old, newText: entity.new})',
+
+            '<tr>' .
+                '<th>Name:</th>' .
+                '<td class="old">' .
+                    '<span class="diff-only-a">The Only Michael - </span>Someone Else&#x27;s Fur' .
+                '</td>' .
+                '<td class="new">' .
+                    'Someone Else&#x27;s Fur' .
+                '</td>' .
+            '</tr>',
+
+            {
+                old => "The Only Michael - Someone Else's Fur",
+                new => "Someone Else's Fur",
+            },
+        ],
+        [
+            q(
+                PROCESS 'edit/details/macros.tt';
+                display_word_diff('Name:', entity.old, entity.new);
+            ),
+
+            'React.createElement(WordDiff, {label: "Name:", oldText: entity.old, newText: entity.new})',
+
+            '<tr>' .
+                '<th>Name:</th>' .
+                '<td class="old">' .
+                    '<span class="diff-only-a">Some random</span> text' .
+                '</td>' .
+                '<td class="new">' .
+                    '<span class="diff-only-b">Other arbitrary</span> text' .
+                '</td>' .
+            '</tr>',
+
+            {
+                old => 'Some random text',
+                new => 'Other arbitrary text',
+            },
+        ],
+        [
+            q(
+                PROCESS 'edit/details/macros.tt';
+                display_word_diff('Name:', entity.old, entity.new);
+            ),
+
+            'React.createElement(WordDiff, {label: "Name:", oldText: entity.old, newText: entity.new})',
+
+            '<tr>' .
+                '<th>Name:</th>' .
+                '<td class="old">' .
+                    'Die <span class="diff-only-a">Diebische</span> ' .
+                    'Elster (La <span class="diff-only-a">Gazza Ladra)</span> ' .
+                    '(The Theiving Magpie · La <span class="diff-only-a">Pie Voleuse)</span>' .
+                '</td>' .
+                '<td class="new">' .
+                    'Die <span class="diff-only-b">diebische</span> ' .
+                    'Elster (La <span class="diff-only-b">gazza ladra)</span> ' .
+                    '(The Theiving Magpie · La <span class="diff-only-b">pie voleuse)</span>' .
+                '</td>' .
+            '</tr>',
+
+            {
+                old => 'Die Diebische Elster (La Gazza Ladra) (The Theiving Magpie · La Pie Voleuse)',
+                new => 'Die diebische Elster (La gazza ladra) (The Theiving Magpie · La pie voleuse)',
+            },
+        ],
+        [
+            q(
+                PROCESS 'edit/details/macros.tt';
+                display_full_change('Name:', entity.old, entity.new);
+            ),
+
+            'React.createElement(FullChangeDiff, {label: "Name:", oldText: entity.old, newText: entity.new})',
+
+            '<tr>' .
+                '<th>Name:</th>' .
+                '<td class="old">Old</td>' .
+                '<td class="new">New</td>' .
+            '</tr>',
+
+            {
+                old => 'Old',
+                new => 'New',
+            },
+        ],
+        [
+            q(
+                PROCESS 'edit/details/macros.tt';
+                display_diff('Codes:', entity.old, entity.new, ', ');
+            ),
+
+            'React.createElement(Diff, {label: "Codes:", oldText: entity.old, newText: entity.new, split: ", "})',
+
+            '<tr>' .
+                '<th>Codes:</th>' .
+                '<td class="old">A A, <span class="diff-only-a">B B, </span>C C</td>' .
+                '<td class="new">A A, C C<span class="diff-only-b">, D D</span></td>' .
+            '</tr>',
+
+            {
+                old => 'A A, B B, C C',
+                new => 'A A, C C, D D',
+            },
+        ],
     );
 
-    my $test_data = shell_quote(encode_json([
+    my $json = JSON::XS->new->allow_blessed->convert_blessed->utf8;
+
+    my $test_data = shell_quote($json->encode([
         map {
             my ($tt_macro, $react_element, $expected, $entity) = @{$_};
 
@@ -492,12 +759,12 @@ test all => sub {
                 tt_markup => trim($ctx->response->body),
                 react_element => $react_element,
                 expected_markup => $expected,
-                entity => $entity->TO_JSON,
+                entity => blessed($entity) ? $entity->TO_JSON : $entity,
             };
         } @tests
     ]));
 
-    my $test_results = decode_json(
+    my $test_results = $json->decode(
         `node ./root/static/build/react-macros-tests.js $test_data`
     );
 
