@@ -19,20 +19,14 @@ import {addColon, l, N_l} from '../../static/scripts/common/i18n';
 import {Lens, prop, set, compose3} from '../../static/scripts/common/utility/lens';
 import hydrate from '../../utility/hydrate';
 
-type OauthTypeT = 'installed' | 'web';
-
-type RegisterApplicationFormT = FormT<{|
-  +name: FieldT<string>,
-  +oauth_redirect_uri: FieldT<string>,
-  +oauth_type: FieldT<OauthTypeT>,
-|}>;
+import type {OauthTypeT, ApplicationFormT} from './types';
 
 type Props = {|
-  +form: RegisterApplicationFormT,
+  +form: ApplicationFormT,
 |};
 
 type State = {|
-  form: RegisterApplicationFormT,
+  form: ApplicationFormT,
 |};
 
 const oauthTypeOptions = {
@@ -43,10 +37,10 @@ const oauthTypeOptions = {
   ],
 };
 
-const oauthRedirectURIFieldLens: Lens<RegisterApplicationFormT, string> =
+const oauthRedirectURIFieldLens: Lens<ApplicationFormT, string> =
   compose3(prop('field'), prop('oauth_redirect_uri'), prop('value'));
 
-const oauthTypeFieldLens: Lens<RegisterApplicationFormT, OauthTypeT> =
+const oauthTypeFieldLens: Lens<ApplicationFormT, OauthTypeT> =
   compose3(prop('field'), prop('oauth_type'), prop('value'));
 
 class RegisterApplicationForm extends React.Component<Props, State> {

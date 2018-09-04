@@ -20,16 +20,10 @@ import {Lens, prop, set, compose3} from '../../static/scripts/common/utility/len
 import getSelectValue from '../../utility/getSelectValue';
 import hydrate from '../../utility/hydrate';
 
-type OauthTypeT = 'installed' | 'web';
-
-type EditApplicationFormT = FormT<{|
-  +name: FieldT<string>,
-  +oauth_redirect_uri: FieldT<string>,
-  +oauth_type: FieldT<OauthTypeT>,
-|}>;
+import type {OauthTypeT, ApplicationFormT} from './types';
 
 type Props = {|
-  +form: EditApplicationFormT,
+  +form: ApplicationFormT,
 |};
 
 const EditApplication = ({form}: Props) => (
