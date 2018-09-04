@@ -60,7 +60,7 @@ sub search : Path('')
             $c->forward($form->field('method')->value eq 'direct' ? 'direct' : 'external');
         }
 
-        if ($type =~ /^(?:area|artist|event|place|series)$/) {
+        if ($type =~ /^(?:area|artist|event|instrument|place|series)$/) {
             my $stash = $c->stash;
 
             my %props = (
