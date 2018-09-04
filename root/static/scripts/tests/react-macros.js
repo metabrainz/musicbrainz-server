@@ -21,6 +21,10 @@ const DescriptiveLink = require('../common/components/DescriptiveLink').default;
 const EditorLink = require('../common/components/EditorLink').default;
 const EntityLink = require('../common/components/EntityLink').default;
 const l = require('../common/i18n').l;
+const diffArtistCredits = require('../edit/utility/diffArtistCredits').default;
+const Diff = require('../edit/components/edit/Diff').default;
+const FullChangeDiff = require('../edit/components/edit/FullChangeDiff').default;
+const WordDiff = require('../edit/components/edit/WordDiff').default;
 
 function throwNotEquivalent(message, got, expected) {
   throw {message: message, got: got, expected: expected};
@@ -118,6 +122,12 @@ const testResults = [];
 testData.forEach(function (test) {
   let entity = test.entity;
 
+  let ttMarkup = test.tt_markup
+    .replace(/<tr>\s+<(td|th)>/g, '<tr><$1>')
+    .replace(/<\/(td|th)>\s+<(td|th)/g, '</$1><$2')
+    .replace(/<\/(td|th)>\s+<\/tr>/g, '</$1></tr>')
+    .replace('&#39;', '&#x27;');
+
   let reactMarkup =
     ReactDOMServer.renderToStaticMarkup(
       React.createElement('div', null, eval(test.react_element))
@@ -127,7 +137,7 @@ testData.forEach(function (test) {
 
   let testCases = [
     {
-      got: test.tt_markup,
+      got: ttMarkup,
       failMessage: 'TT markup does not match what was expected',
     },
     {

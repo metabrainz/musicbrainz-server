@@ -1,6 +1,6 @@
 [%- USE Diff -%]
 
-[%- MACRO display_diff(label, old, new, split) BLOCK -%]
+[%- MACRO display_diff(label, old, new, split) BLOCK # Converted to React at root/static/scripts/edit/components/edit/Diff.js -%]
   [%- IF old != new -%]
     [%- split = split || '' -%]
     <tr>
@@ -11,11 +11,11 @@
   [%- END -%]
 [%- END -%]
 
-[%- MACRO display_word_diff(label, old, new) BLOCK;
+[%- MACRO display_word_diff(label, old, new) BLOCK; # Converted to React at root/static/scripts/edit/components/edit/WordDiff.js
        display_diff(label, old, new, '\s+');
     END -%]
 
-[%- MACRO display_full_change(label, old, new) BLOCK -%]
+[%- MACRO display_full_change(label, old, new) BLOCK # Converted to React at root/static/scripts/edit/components/edit/FullChangeDiff.js -%]
   [%- IF old != new -%]
     <tr>
       <th>[% label %]</th>
