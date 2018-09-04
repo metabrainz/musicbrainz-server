@@ -364,9 +364,15 @@ declare type LabelT = {|
   ...AnnotationRoleT,
   ...CommentRoleT,
   ...CoreEntityRoleT,
+  ...DatePeriodRoleT,
   ...RatableRoleT,
+  ...TypeRoleT<LabelTypeT>,
+  +area: AreaT | null,
   +entityType: 'label',
+  +label_code: number,
 |};
+
+export opaque type LabelTypeT: OptionTreeT = OptionTreeT;
 
 declare type LinkTypeAttrTypeT = {|
   attribute: AttrInfoT,
