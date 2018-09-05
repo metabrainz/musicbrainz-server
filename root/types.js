@@ -374,6 +374,12 @@ declare type LabelT = {|
 
 export opaque type LabelTypeT: OptionTreeT = OptionTreeT;
 
+declare type LanguageT = {|
+  +id: number,
+  +iso_code_3: string | null,
+  +name: string,
+|};
+
 declare type LinkTypeAttrTypeT = {|
   attribute: AttrInfoT,
   +max: number | null,
@@ -595,10 +601,21 @@ declare type WorkT = {|
   ...CoreEntityRoleT,
   ...RatableRoleT,
   ...TypeRoleT<WorkTypeT>,
+  +artists: $ReadOnlyArray<ArtistCreditT>,
   +entityType: 'work',
+  +iswcs: $ReadOnlyArray<IswcT>,
+  +languages: $ReadOnlyArray<WorkLanguageT>,
+  +writers: $ReadOnlyArray<{|
+    +entity: ArtistT,
+    +roles: $ReadOnlyArray<string>,
+  |}>,
 |};
 
 export opaque type WorkTypeT: OptionTreeT = OptionTreeT;
+
+declare type WorkLanguageT = {|
+  +language: LanguageT,
+|};
 
 declare type WorkAttributeTypeAllowedValueT = {|
   ...EntityRoleT,

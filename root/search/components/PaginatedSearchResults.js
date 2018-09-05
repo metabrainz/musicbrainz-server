@@ -9,12 +9,14 @@
 
 import React from 'react';
 import type {Element as ReactElement} from 'react';
+import type {Node as ReactNode} from 'react';
+
 
 import PaginatedResults from '../../components/PaginatedResults';
 import {l} from '../../static/scripts/common/i18n';
 
 type Props<T> = {|
-  +buildResult: (SearchResultT<T>, number) => ReactElement<'tr'>,
+  +buildResult: (SearchResultT<T>, number) => ReactNode,
   +columns: $ReadOnlyArray<string>,
   +pager: PagerT,
   +query: string,
