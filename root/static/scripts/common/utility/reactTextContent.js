@@ -6,18 +6,32 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
+import * as React from 'react';
+
 import nonEmpty from './nonEmpty';
 
 function reactTextContent(reactElement, previous = '') {
-  if (!nonEmpty(reactElement.props)) {
+  if (!React.isValidElement(reactElement)) {
+    return previous + String(reactElement);
+  }
+
+  const props = reactElement.props;
+
+  if (!nonEmpty(props)) {
     return previous;
   }
 
-  let children = reactElement.props.children;
+  let children = props.children;
 
   if (nonEmpty(children)) {
     if (Array.isArray(children)) {
-      return children.reduce(reactTextContent, previous);
+      for (let i = 0; i < children.length; i++) {
+        previous = reactTextContent(children[i], previous);
+      }
+      return previous;
+    }
+    if (React.isValidElement(children)) {
+      return reactTextContent(children, previous);
     }
     return previous + children;
   }
