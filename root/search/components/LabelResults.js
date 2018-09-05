@@ -57,14 +57,16 @@ const LabelResults = ({
   <ResultsLayout form={form} lastUpdated={lastUpdated}>
     <PaginatedSearchResults
       buildResult={buildResult}
-      columns={[
-        l('Name'),
-        l('Type'),
-        l('Code'),
-        l('Area'),
-        l('Begin'),
-        l('End'),
-      ]}
+      columns={
+        <>
+          <th>{l('Name')}</th>
+          <th>{l('Type')}</th>
+          <th>{l('Code')}</th>
+          <th>{l('Area')}</th>
+          <th>{l('Begin')}</th>
+          <th>{l('End')}</th>
+        </>
+      }
       pager={pager}
       query={query}
       results={results}

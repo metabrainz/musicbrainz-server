@@ -44,14 +44,16 @@ const WorkResults = ({
   <ResultsLayout form={form} lastUpdated={lastUpdated}>
     <PaginatedSearchResults
       buildResult={buildResult}
-      columns={[
-        l('Name'),
-        l('Writers'),
-        l('Artists'),
-        l('ISWC'),
-        l('Type'),
-        l('Lyrics Languages'),
-      ]}
+      columns={
+        <>
+          <th>{l('Name')}</th>
+          <th>{l('Writers')}</th>
+          <th>{l('Artists')}</th>
+          <th>{l('ISWC')}</th>
+          <th>{l('Type')}</th>
+          <th>{l('Lyrics Languages')}</th>
+        </>
+      }
       pager={pager}
       query={query}
       results={results}

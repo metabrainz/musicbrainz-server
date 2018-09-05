@@ -65,14 +65,16 @@ const EventResults = ({
   <ResultsLayout form={form} lastUpdated={lastUpdated}>
     <PaginatedSearchResults
       buildResult={buildResult}
-      columns={[
-        l('Name'),
-        l('Type'),
-        l('Artists'),
-        l('Location'),
-        l('Date'),
-        l('Time'),
-      ]}
+      columns={
+        <>
+          <th>{l('Name')}</th>
+          <th>{l('Type')}</th>
+          <th>{l('Artists')}</th>
+          <th>{l('Location')}</th>
+          <th>{l('Date')}</th>
+          <th>{l('Time')}</th>
+        </>
+      }
       pager={pager}
       query={query}
       results={results}

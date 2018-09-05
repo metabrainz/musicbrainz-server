@@ -17,7 +17,7 @@ import {l} from '../../static/scripts/common/i18n';
 
 type Props<T> = {|
   +buildResult: (SearchResultT<T>, number) => ReactNode,
-  +columns: $ReadOnlyArray<string>,
+  +columns: ReactNode,
   +pager: PagerT,
   +query: string,
   +results: $ReadOnlyArray<SearchResultT<T>>,
@@ -34,7 +34,7 @@ const PaginatedSearchResults = <T>({
     <table className="tbl">
       <thead>
         <tr>
-          {columns.map((name, index) => <th key={index}>{name}</th>)}
+          {columns}
         </tr>
       </thead>
       <tbody>

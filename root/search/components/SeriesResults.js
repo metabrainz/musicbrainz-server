@@ -46,7 +46,12 @@ const SeriesResults = ({
   <ResultsLayout form={form} lastUpdated={lastUpdated}>
     <PaginatedSearchResults
       buildResult={buildResult}
-      columns={[l('Name'), l('Type')]}
+      columns={
+        <>
+          <th>{l('Name')}</th>
+          <th>{l('Type')}</th>
+        </>
+      }
       pager={pager}
       query={query}
       results={results}
