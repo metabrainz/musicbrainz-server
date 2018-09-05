@@ -481,8 +481,11 @@ declare type ReleaseGroupT = {|
   ...CommentRoleT,
   ...CoreEntityRoleT,
   ...RatableRoleT,
+  ...TypeRoleT<ReleaseGroupTypeT>,
   +entityType: 'release_group',
 |};
+
+export opaque type ReleaseGroupTypeT: OptionTreeT = OptionTreeT;
 
 declare type ReleaseT = {|
   ...AnnotationRoleT,
