@@ -11,6 +11,8 @@ export const ENTITIES = require('../../../../entities');
 
 export const AREA_TYPE_COUNTRY = 1;
 
+export const CONTACT_URL = 'https://metabrainz.org/contact';
+
 export const DARTIST_ID = 2;
 
 export const FAVICON_CLASSES: {[string]: string} = {

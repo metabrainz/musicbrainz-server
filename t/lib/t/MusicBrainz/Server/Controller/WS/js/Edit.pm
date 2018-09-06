@@ -258,6 +258,7 @@ test 'previewing/creating/editing a release group and release' => sub {
                 }
             ],
             editsPending => JSON::false,
+            cover_art_url => undef,
         },
         response => $WS_EDIT_RESPONSE_OK,
     }, 'ws response contains serialized release data');

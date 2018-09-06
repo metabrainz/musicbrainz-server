@@ -5,7 +5,6 @@
 // later version: http://www.gnu.org/licenses/gpl-2.0.txt
 
 const _ = require('lodash');
-const React = require('react');
 
 const escapeRegExp = require('../utility/escapeRegExp');
 
@@ -37,51 +36,23 @@ function textAnchor(props, text) {
   return `<a ${attributes}>${_.escape(text)}</a>`;
 }
 
-function reactAnchor(props, text) {
-  return <a key={props.href} {...props}>{text}</a>;
-}
-
 // Adapted from `sub _expand` in lib/MusicBrainz/Server/Translation.pm
-function expand(string, args, wantArray = false) {
+function expand(string, args) {
   if (!string) {
-    return wantArray ? [] : '';
+    return '';
   }
 
   const re = _(args).keys().map(escapeRegExp).join('|');
   const linksRegex = new RegExp(`\\{(${re})\\|(.*?)\\}`, 'g');
   const namesRegex = new RegExp(`\\{(${re})\\}`, 'g');
 
-  const func = wantArray ? _expandToArray : _expand;
-  return func(string, args, linksRegex, namesRegex);
+  return _expand(string, args, linksRegex, namesRegex);
 }
 
 function _expand(string, args, linksRegex, namesRegex) {
   return string
     .replace(linksRegex, (match, p1, p2) => anchor(args, p1, p2, textAnchor))
     .replace(namesRegex, (match, p1) => varReplacement(args, p1));
-}
-
-function _expandToArray(string, args, linksRegex, namesRegex) {
-  const parts = string.split(linksRegex);
-
-  function reduceName(accum, part, index) {
-    if (index % 2 === 0) {
-      return part ? accum.concat(part) : accum;
-    }
-    return accum.concat(varReplacement(args, part));
-  }
-
-  return parts.reduce(function (accum, part, index) {
-    if (index % 3 === 0) {
-      return accum.concat(part.split(namesRegex).reduce(reduceName, []));
-    }
-
-    if ((index - 1) % 3 === 0) {
-      return accum.concat(anchor(args, part, parts[index + 1], reactAnchor));
-    }
-
-    return accum;
-  }, []);
 }
 
 module.exports = expand;

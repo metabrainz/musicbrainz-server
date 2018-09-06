@@ -50,9 +50,12 @@ sub index : Path Args(0)
     $c->model('ArtistCredit')->load(map { $_->{release} } @newest_releases);
 
     $c->stash(
-        blog_entries => $c->model('Blog')->get_latest_entries,
-        template => 'main/index.tt',
-        releases => \@newest_releases
+        current_view => 'Node',
+        component_path => 'main/index.js',
+        component_props => {
+            blogEntries => $c->model('Blog')->get_latest_entries,
+            newestReleases => \@newest_releases,
+        },
     );
 }
 

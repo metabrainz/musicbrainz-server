@@ -30,6 +30,10 @@ test all => sub {
 
     my ($res, $ctx) = ctx_request('/');
 
+    # Requesting / sets current_view to Node, which is not what we want
+    # to render TT.
+    undef $ctx->stash->{current_view};
+
     my $chicago = Area->new(
         gid => '29a709d8-0320-493e-8d0c-f2c386662b7f',
         id => 5099,

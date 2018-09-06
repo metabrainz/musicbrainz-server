@@ -13,7 +13,7 @@ const ReactDOM = require('react-dom');
 
 type TooltipProps = {|
   +hoverCallback: (bool) => void,
-  +html: string,
+  +content: React.Node,
 |};
 
 class Tooltip extends React.Component<TooltipProps> {
@@ -32,7 +32,7 @@ class Tooltip extends React.Component<TooltipProps> {
            onMouseEnter={() => hoverCallback(true)}
            onMouseLeave={() => hoverCallback(false)}>
         <div className="tooltip-triangle" />
-        <div className="tooltip-content" dangerouslySetInnerHTML={{__html: this.props.html}} />
+        <div className="tooltip-content">{this.props.content}</div>
       </div>
     );
   }
