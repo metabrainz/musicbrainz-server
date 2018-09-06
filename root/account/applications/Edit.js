@@ -8,48 +8,26 @@
  */
 
 import * as React from 'react';
-import noop from 'lodash/noop';
 
-import FormRow from '../../components/FormRow';
-import FormRowText from '../../components/FormRowText';
-import FormRowURLLong from '../../components/FormRowURLLong';
-import FormSubmit from '../../components/FormSubmit';
 import Layout from '../../layout';
-import {addColon, l} from '../../static/scripts/common/i18n';
-import {Lens, prop, set, compose3} from '../../static/scripts/common/utility/lens';
-import getSelectValue from '../../utility/getSelectValue';
-import hydrate from '../../utility/hydrate';
+import * as manifest from '../../static/manifest';
+import {l} from '../../static/scripts/common/i18n';
 
-import type {OauthTypeT, ApplicationFormT} from './types';
+import ApplicationForm from '../components/ApplicationForm';
+import type {ApplicationFormT} from '../components/ApplicationForm';
 
 type Props = {|
   +form: ApplicationFormT,
 |};
 
-const EditApplication = ({form}: Props) => (
+const EditApplication = (props: Props) => (
   <Layout fullWidth title={l('Edit Application')}>
     <h1>{l('Edit Application')}</h1>
-    <form method="post">
-      <FormRowText
-        field={form.field.name}
-        label={addColon(l('Name'))}
-        required
-      />
-      {form.field.oauth_type.value === 'web' ? (
-        <FormRowURLLong
-          field={form.field.oauth_redirect_uri}
-          label={l('Callback URL:')}
-        />
-      ) : null}
-      <input
-        name="application.oauth_type"
-        type="hidden"
-        value={form.field.oauth_type.value}
-      />
-      <FormRow hasNoLabel>
-        <FormSubmit label={l('Update')} />
-      </FormRow>
-    </form>
+    <ApplicationForm
+      action="edit"
+      form={props.form}
+      submitLabel={l('Update')}
+    />
   </Layout>
 );
 

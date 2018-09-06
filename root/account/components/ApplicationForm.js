@@ -19,10 +19,18 @@ import {addColon, l, N_l} from '../../static/scripts/common/i18n';
 import {Lens, prop, set, compose3} from '../../static/scripts/common/utility/lens';
 import hydrate from '../../utility/hydrate';
 
-import type {OauthTypeT, ApplicationFormT} from './types';
+export type OauthTypeT = 'installed' | 'web';
+
+export type ApplicationFormT = FormT<{|
+  +name: FieldT<string>,
+  +oauth_redirect_uri: FieldT<string>,
+  +oauth_type: FieldT<OauthTypeT>,
+|}>;
 
 type Props = {|
+  +action: string,
   +form: ApplicationFormT,
+  +submitLabel: string,
 |};
 
 type State = {|
@@ -43,7 +51,7 @@ const oauthRedirectURIFieldLens: Lens<ApplicationFormT, string> =
 const oauthTypeFieldLens: Lens<ApplicationFormT, OauthTypeT> =
   compose3(prop('field'), prop('oauth_type'), prop('value'));
 
-class RegisterApplicationForm extends React.Component<Props, State> {
+class ApplicationForm extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = {form: props.form};
@@ -54,11 +62,11 @@ class RegisterApplicationForm extends React.Component<Props, State> {
   handleOauthRedirectURIChange: (e: SyntheticEvent<HTMLInputElement>) => void;
 
   handleOauthRedirectURIChange(e: SyntheticEvent<HTMLInputElement>) {
-    const currentOauthRedirectURI = e.currentTarget.value;
+    const selectedOauthRedirectURI = e.currentTarget.value;
     this.setState(prevState => ({
       form: set(
         oauthRedirectURIFieldLens,
-        (currentOauthRedirectURI: any),
+        ((selectedOauthRedirectURI: any): OauthTypeT),
         prevState.form,
       ),
     }));
@@ -67,11 +75,11 @@ class RegisterApplicationForm extends React.Component<Props, State> {
   handleOauthTypeChange: (e: SyntheticEvent<HTMLSelectElement>) => void;
 
   handleOauthTypeChange(e: SyntheticEvent<HTMLSelectElement>) {
-    const currentOauthType = e.currentTarget.value;
+    const selectedOauthType = e.currentTarget.value;
     this.setState(prevState => ({
       form: set(
         oauthTypeFieldLens,
-        (currentOauthType: any),
+        ((selectedOauthType: any): OauthTypeT),
         prevState.form,
       ),
     }));
@@ -79,13 +87,14 @@ class RegisterApplicationForm extends React.Component<Props, State> {
 
   render() {
     return (
-      <form action="/account/applications/register" method="post">
+      <form method="post">
         <FormRowText
           field={this.state.form.field.name}
           label={addColon(l('Name'))}
           required
         />
         <FormRowSelect
+          disabled={this.props.action === 'edit'}
           field={this.state.form.field.oauth_type}
           label={addColon(l('Type'))}
           onChange={this.handleOauthTypeChange}
@@ -99,12 +108,12 @@ class RegisterApplicationForm extends React.Component<Props, State> {
           />
         ) : null}
         <FormRow hasNoLabel>
-          <FormSubmit label={l('Register')} />
+          <FormSubmit label={this.props.submitLabel} />
         </FormRow>
       </form>
     );
   }
 }
 
-export type RegisterApplicationFormPropsT = Props;
-export default hydrate<Props>('register-application-form', RegisterApplicationForm);
+export type ApplicationFormPropsT = Props;
+export default hydrate<Props>('application-form', ApplicationForm);

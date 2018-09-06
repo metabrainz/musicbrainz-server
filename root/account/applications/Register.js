@@ -13,13 +13,21 @@ import Layout from '../../layout';
 import * as manifest from '../../static/manifest';
 import {l} from '../../static/scripts/common/i18n';
 
-import RegisterApplicationForm from '../components/ApplicationForm';
-import type {RegisterApplicationFormPropsT} from '../components/ApplicationForm';
+import ApplicationForm from '../components/ApplicationForm';
+import type {ApplicationFormT} from '../components/ApplicationForm';
 
-const RegisterApplication = (props: RegisterApplicationFormPropsT) => (
-  <Layout fullWidth title={l('Applications')}>
+type Props = {|
+  +form: ApplicationFormT,
+|};
+
+const RegisterApplication = (props: Props) => (
+  <Layout fullWidth title={l('Register Application')}>
     <h1>{l('Register Application')}</h1>
-    <RegisterApplicationForm {...props} />
+    <ApplicationForm
+      action="register"
+      form={props.form}
+      submitLabel={l('Register')}
+    />
     {manifest.js('account/applications/register.js', {async: 'async'})}
   </Layout>
 );
