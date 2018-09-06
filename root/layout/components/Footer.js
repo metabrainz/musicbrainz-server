@@ -11,6 +11,7 @@ import {withCatalystContext} from '../../context';
 import DBDefs from '../../static/scripts/common/DBDefs';
 import {DONATE_URL} from '../../constants';
 import {l} from '../../static/scripts/common/i18n';
+import bracketed from '../../static/scripts/common/utility/bracketed';
 import formatUserDate from '../../utility/formatUserDate';
 
 const Footer = ({$c, ...props}) => {
@@ -46,7 +47,7 @@ const Footer = ({$c, ...props}) => {
               __react: true,
               git_details: (
                 <span className="tooltip" key="git_details" title={DBDefs.GIT_MSG}>
-                  {DBDefs.GIT_BRANCH} {' ('} {DBDefs.GIT_SHA} {' )'}
+                  {DBDefs.GIT_BRANCH} {' '} {bracketed(DBDefs.GIT_SHA)}
                 </span>
               ),
             })}
