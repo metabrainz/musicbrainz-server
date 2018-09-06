@@ -17,6 +17,7 @@ import SelectField from './SelectField';
 type Props = {|
   // `allowEmpty` prepends an empty default option to the list.
   +allowEmpty?: boolean,
+  +disabled?: boolean,
   +field: FieldT<number | string>,
   +label: string,
   +onChange?: (event: SyntheticEvent<HTMLSelectElement>) => void,
@@ -28,6 +29,7 @@ type Props = {|
 
 const FormRowSelect = ({
   allowEmpty = false,
+  disabled = false,
   field,
   label,
   onChange,
@@ -43,6 +45,7 @@ const FormRowSelect = ({
       <FormLabel forField={field} label={label} required={required} />
       <SelectField
         allowEmpty={allowEmpty}
+        disabled={disabled}
         field={field}
         onChange={onChange}
         options={options}
