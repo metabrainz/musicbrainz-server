@@ -1,4 +1,5 @@
 /*
+ * @flow
  * Copyright (C) 2015 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -10,12 +11,15 @@ import * as React from 'react';
 
 import nonEmpty from './nonEmpty';
 
-function reactTextContent(reactElement, previous = '') {
+export default function reactTextContent(
+  reactElement: React.Node,
+  previous: string = '',
+): string {
   if (!React.isValidElement(reactElement)) {
     return previous + String(reactElement);
   }
 
-  const props = reactElement.props;
+  const props = ((reactElement: any): React.Element<any>).props;
 
   if (!nonEmpty(props)) {
     return previous;
@@ -38,5 +42,3 @@ function reactTextContent(reactElement, previous = '') {
 
   return previous;
 }
-
-export default reactTextContent;
