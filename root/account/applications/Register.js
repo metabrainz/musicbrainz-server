@@ -13,8 +13,8 @@ import Layout from '../../layout';
 import * as manifest from '../../static/manifest';
 import {l} from '../../static/scripts/common/i18n';
 
-import RegisterApplicationForm from './RegisterForm';
-import type {RegisterApplicationFormPropsT} from './RegisterForm';
+import RegisterApplicationForm from '../components/ApplicationForm';
+import type {RegisterApplicationFormPropsT} from '../components/ApplicationForm';
 
 const RegisterApplication = (props: RegisterApplicationFormPropsT) => (
   <Layout fullWidth title={l('Applications')}>
