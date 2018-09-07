@@ -919,7 +919,7 @@ Readonly our $EDITOR_SANITISED_COLUMNS => join(', ',
     'editor.deleted',
 );
 
-Readonly our $PASSPHRASE_BCRYPT_COST => 10;
+Readonly our $PASSPHRASE_BCRYPT_COST => 12;
 
 =head1 NAME
 
