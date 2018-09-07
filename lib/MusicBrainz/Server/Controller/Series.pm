@@ -16,7 +16,7 @@ with 'MusicBrainz::Server::Controller::Role::Load' => {
     entity_name     => 'series',
     relationships => {
         cardinal => ['edit'],
-        subset => {show => ['artist', 'series', 'url']},
+        subset => {show => ['artist', 'label', 'series', 'url']},
         default => ['url']
     },
 };
