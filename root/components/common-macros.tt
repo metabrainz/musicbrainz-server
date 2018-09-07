@@ -555,7 +555,7 @@ END -%]
     [%- END -%]
 [%- END -%]
 
-[%~ MACRO release_label_list(labels) BLOCK;
+[%~ MACRO release_label_list(labels) BLOCK; # Converted to React at root/components/ReleaseLabelList.js
     out = [];
     seen = {};
     FOR label=labels;
@@ -567,7 +567,7 @@ END -%]
     comma_only_list(out);
 END -%]
 
-[%~ MACRO release_catno_list(labels) BLOCK;
+[%~ MACRO release_catno_list(labels) BLOCK; # Converted to React at root/components/ReleaseCatnoList.js
     out = [];
     seen = {};
     FOR label=labels;
@@ -940,7 +940,7 @@ END ~%]
     '</span>' IF rel.edits_pending;
 END ~%]
 
-[%~ MACRO release_countries(release_events) BLOCK;
+[%~ MACRO release_countries(release_events) BLOCK; # Converted to React at root/components/ReleaseCountries.js
     IF release_events.size;
         '<ul class="links">';
         FOR event=release_events;
@@ -952,7 +952,7 @@ END ~%]
     END;
 END -%]
 
-[%~ MACRO release_dates(release_events) BLOCK;
+[%~ MACRO release_dates(release_events) BLOCK; # Converted to React at root/components/ReleaseDates.js
     IF release_events.size;
         '<ul class="links nowrap">';
         FOR event=release_events;

@@ -107,6 +107,7 @@ around TO_JSON => sub {
         iso_3166_1_codes => [$self->iso_3166_1_codes],
         iso_3166_2_codes => [$self->iso_3166_2_codes],
         iso_3166_3_codes => [$self->iso_3166_3_codes],
+        primary_code     => $self->primary_code,
     };
 
     my $containment = $self->containment;

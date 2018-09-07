@@ -56,6 +56,7 @@ declare type AreaT = {|
   +iso_3166_1_codes: $ReadOnlyArray<string>,
   +iso_3166_2_codes: $ReadOnlyArray<string>,
   +iso_3166_3_codes: $ReadOnlyArray<string>,
+  +primary_code: string,
 |};
 
 declare type AnnotationRoleT = {|
@@ -499,13 +500,33 @@ declare type ReleaseT = {|
   ...CommentRoleT,
   ...CoreEntityRoleT,
   +barcode: string | null,
+  +combined_format_name?: string,
+  +combined_track_count?: string,
   +cover_art_url: string | null,
   +entityType: 'release',
+  +events?: $ReadOnlyArray<ReleaseEventT>,
+  +labels?: $ReadOnlyArray<ReleaseLabelT>,
+  +language: LanguageT | null,
   +languageID: number | null,
   +packagingID: number | null,
+  +releaseGroup?: ReleaseGroupT,
+  +script: ScriptT | null,
   +scriptID: number | null,
+  +status: ReleaseStatusT | null,
   +statusID: number | null,
 |};
+
+declare type ReleaseEventT = {|
+  +country: AreaT | null,
+  +date: PartialDateT | null,
+|};
+
+declare type ReleaseLabelT = {|
+  +catalogNumber: string | null,
+  +label: LabelT | null,
+|};
+
+export opaque type ReleaseStatusT: OptionsTree = OptionsTree;
 
 declare type RepeatableFieldT<+F> = {|
   ...FieldRoleT,
@@ -528,6 +549,11 @@ declare type SanitizedEditorT = {|
   +gravatar: string,
   +name: string,
   +preferences: SanitizedEditorPreferencesT,
+|};
+
+declare type ScriptT = {|
+  +iso_code: string,
+  +name: string,
 |};
 
 declare type SearchFormT = FormT<{|

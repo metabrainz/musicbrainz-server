@@ -167,15 +167,18 @@ test 'previewing/creating/editing a release group and release' => sub {
     cmp_deeply($response->{edits}->[0], {
         edit_type => $EDIT_RELEASE_CREATE,
         entity => {
+            script => undef,
             scriptID => 112,
             name => 'Vision Creation Newsun',
             unaccented_name => undef,
+            status => undef,
             statusID => 1,
             barcode => '4943674011582',
             packagingID => undef,
             comment => 'limited edition',
             entityType => 'release',
             id => ignore(),
+            language => undef,
             languageID => 486,
             length => 0,
             gid => ignore(),
@@ -249,6 +252,7 @@ test 'previewing/creating/editing a release group and release' => sub {
                         iso_3166_1_codes => ['JP'],
                         iso_3166_2_codes => [],
                         iso_3166_3_codes => [],
+                        primary_code => 'JP'
                     },
                     date => {
                         day => 27,

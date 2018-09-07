@@ -839,7 +839,7 @@ class Release extends MB_entity.Release {
             utils.mapChild(this, data.mediums, Medium)
         );
 
-        this.formats = data.formats;
+        this.formats = data.combined_format_name;
         this.mediums.original = ko.observableArray([]);
         this.mediums.original(this.existingMediumData());
         this.original = ko.observable(MB_edit.fields.release(this));

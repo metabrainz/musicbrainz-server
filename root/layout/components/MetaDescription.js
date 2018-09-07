@@ -109,8 +109,8 @@ function placeDescription(place) {
 
 function releaseDescription(release) {
   const desc = entityDescription(release);
-  if (release.formats) {
-    desc.push(l('Format:') + ' ' + release.formats);
+  if (release.combined_format_name) {
+    desc.push(l('Format:') + ' ' + release.combined_format_name);
   }
   let year;
   if (release.events && release.events.length) {
