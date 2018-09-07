@@ -90,8 +90,13 @@ sub _perform_login {
             $c->detach;
         }
         else {
-            $c->model('Editor')->update_last_login_date($c->user->id)
-                unless DBDefs->DB_READ_ONLY;
+            unless (DBDefs->DB_READ_ONLY) {
+                if ($c->user->requires_password_rehash) {
+                    $c->model('Editor')->update_password($user_name, $password);
+                } else {
+                    $c->model('Editor')->update_last_login_date($c->user->id);
+                }
+            }
 
             return 1;
         }
