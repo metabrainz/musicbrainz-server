@@ -345,8 +345,19 @@ declare type EditableRoleT = {|
 declare type EditExpireActionT = 1 | 2;
 
 declare type EditorPreferencesT = {|
-  datetime_format: string,
-  timezone: string,
+  +datetime_format: string,
+  +email_on_no_vote: boolean,
+  +email_on_notes: boolean,
+  +email_on_vote: boolean,
+  +public_ratings: boolean,
+  +public_subscriptions: boolean,
+  +public_tags: boolean,
+  +show_gravatar: boolean,
+  +subscribe_to_created_artists: boolean,
+  +subscribe_to_created_labels: boolean,
+  +subscribe_to_created_series: boolean,
+  +subscriptions_email_period: string,
+  +timezone: string,
 |};
 
 declare type EditorT = {|
