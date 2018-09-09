@@ -351,6 +351,7 @@ declare type EditorPreferencesT = {|
 
 declare type EditorT = {|
   ...EntityRoleT,
+  +deleted: boolean,
   +email_confirmation_date: string | null,
   +entityType: 'editor',
   +gravatar: string,
