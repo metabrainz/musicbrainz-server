@@ -7,7 +7,7 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import React from 'react';
+import * as React from 'react';
 
 import FormRow from './FormRow';
 import FieldErrors from './FieldErrors';
@@ -20,6 +20,7 @@ type Props = {|
   +allowEmpty?: boolean,
   +frozen?: boolean,
   +field: FieldT<number | string>,
+  +helpers?: React.Node,
   +label: string,
   +onChange?: (event: SyntheticEvent<HTMLSelectElement>) => void,
   +options: MaybeGroupedOptionsT,
@@ -32,6 +33,7 @@ const FormRowSelect = ({
   allowEmpty = false,
   frozen = false,
   field,
+  helpers,
   label,
   onChange,
   options,
@@ -53,6 +55,7 @@ const FormRowSelect = ({
         required={required}
       />
       {frozen ? <HiddenField field={field} /> : null}
+      {helpers}
       <FieldErrors field={field} />
     </FormRow>
   );
