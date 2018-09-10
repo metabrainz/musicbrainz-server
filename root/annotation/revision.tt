@@ -1,5 +1,5 @@
 [%- WRAPPER "$entity_type/layout.tt" full_width=1 title=l("Annotation") -%]
-    [% React.embed(c, 'components/Annotation', {
+    [% React.embed(c, 'static/scripts/common/components/Annotation', {
         annotation => annotation,
         entity => entity,
         numberOfRevisions => number_of_revisions,

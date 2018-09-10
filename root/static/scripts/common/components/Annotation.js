@@ -9,16 +9,16 @@
 
 import React from 'react';
 
-import {withCatalystContext} from '../context';
-import EditorLink from '../static/scripts/common/components/EditorLink';
-import {l} from '../static/scripts/common/i18n';
-import entityHref from '../static/scripts/common/utility/entityHref';
-import * as lens from '../static/scripts/common/utility/lens';
-import formatUserDate from '../utility/formatUserDate';
-import hydrate from '../utility/hydrate';
-import sanitizedEditor from '../utility/sanitizedEditor';
+import {withCatalystContext} from '../../../../context';
+import formatUserDate from '../../../../utility/formatUserDate';
+import hydrate from '../../../../utility/hydrate';
+import sanitizedEditor from '../../../../utility/sanitizedEditor';
+import {l} from '../i18n';
+import entityHref from '../utility/entityHref';
+import * as lens from '../utility/lens';
 
 import Collapsible from './Collapsible';
+import EditorLink from './EditorLink';
 
 type AnnotatedEntityT =
   | AreaT

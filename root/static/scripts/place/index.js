@@ -7,6 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import '../../../components/Annotation';
-import '../../../components/CommonsImage';
-import '../../../components/WikipediaExtract';
+import '../common/components/Annotation';
+import '../common/components/CommonsImage';
+import '../common/components/WikipediaExtract';
