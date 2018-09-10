@@ -36,14 +36,14 @@ function buildResult(result, index) {
       </td>
       <td>
         <ul>
-          {event.places.map(r => (
-            <li key={r.entity.id}>
-              <DescriptiveLink entity={r.entity} />
+          {event.places.map(place => (
+            <li key={place.entity.id}>
+              <DescriptiveLink entity={place.entity} />
             </li>
           ))}
-          {event.areas.map(r => (
-            <li key={r.entity.id}>
-              <DescriptiveLink entity={r.entity} />
+          {event.areas.map(area => (
+            <li key={area.entity.id}>
+              <DescriptiveLink entity={area.entity} />
             </li>
           ))}
         </ul>
