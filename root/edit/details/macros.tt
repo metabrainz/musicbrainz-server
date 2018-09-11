@@ -68,7 +68,7 @@
     </span>
 [%~ END ~%]
 
-[%- MACRO display_relationship_differences(label, old_rel, new_rel) BLOCK -%]
+[%- MACRO display_relationship_differences(old_rel, new_rel) BLOCK -%]
   <tr>
     <th rowspan="2">[% l('Relationship:') %]</th>
 
