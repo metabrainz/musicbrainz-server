@@ -62,7 +62,7 @@ class Track {
         this.artistCredit = ko.observable(artistCreditFromArray(data.artistCredit || []));
         this.artistCredit.track = this;
 
-        this.formattedLength = ko.observable(formatTrackLength(data.length));
+        this.formattedLength = ko.observable(formatTrackLength(data.length, ''));
         this.position = ko.observable(data.position);
         this.number = ko.observable(data.number);
         this.isDataTrack = ko.observable(!!data.isDataTrack);
@@ -153,7 +153,7 @@ class Track {
 
         this.length(newLength);
 
-        var newFormattedLength = formatTrackLength(newLength);
+        var newFormattedLength = formatTrackLength(newLength, '');
         if (length !== newFormattedLength) {
             this.formattedLength(newFormattedLength);
         }
@@ -472,7 +472,7 @@ class Medium {
         _.each(tocTracks, function (track, index) {
             track.formattedLength(
                 formatTrackLength(
-                    ((toc[index + 4] || toc[2]) - toc[index + 3]) / 75 * 1000
+                    (((toc[index + 4] || toc[2]) - toc[index + 3]) / 75 * 1000), ''
                 )
             );
         });

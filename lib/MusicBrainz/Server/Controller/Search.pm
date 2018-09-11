@@ -60,7 +60,7 @@ sub search : Path('')
             $c->forward($form->field('method')->value eq 'direct' ? 'direct' : 'external');
         }
 
-        if ($type =~ /^(?:area|artist|editor|event|instrument|label|place|release|release_group|series|tag|work)$/) {
+        if ($type =~ /^(?:area|artist|editor|event|instrument|label|place|recording|release|release_group|series|tag|work)$/) {
             my $stash = $c->stash;
 
             my %props = (
@@ -141,11 +141,9 @@ sub direct : Private
             } @$results);
             my %result_map = map { $_->entity->id => $_ } @$results;
 
-            $result_map{$_}->extra(
-                [ map { $_->[0] } @{ $recording_releases_map{$_} } ]
-            ) for keys %recording_releases_map;
+            $result_map{$_}->extra($recording_releases_map{$_}) for keys %recording_releases_map;
 
-            my @releases = map { @{ $_->extra } } @$results;
+            my @releases = map { $_->{release} } map { @{ $_->extra } } @$results;
             $c->model('ReleaseGroup')->load(@releases);
             $c->model('ReleaseGroupType')->load(map { $_->release_group } @releases);
             $c->model('Medium')->load_for_releases(@releases);

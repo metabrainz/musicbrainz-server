@@ -552,12 +552,17 @@ sub schema_fixup
             my $release_group = MusicBrainz::Server::Entity::ReleaseGroup->new(
                 fixup_rg($release->{"release-group"})
             );
-            push @releases, MusicBrainz::Server::Entity::Release->new(
-                gid     => $release->{id},
-                name    => $release->{title},
-                mediums => [ $medium ],
-                release_group => $release_group
-            );
+            push @releases, {
+                release            => MusicBrainz::Server::Entity::Release->new(
+                    gid            => $release->{id},
+                    name           => $release->{title},
+                    mediums        => [ $medium ],
+                    release_group  => $release_group
+                ),
+                track_position      => $medium->{tracks}->[0]->{position},
+                medium_position     => $medium->{position},
+                medium_track_count  => $medium->{track_count}
+            };
         }
         $data->{_extra} = \@releases;
     }
@@ -618,6 +623,7 @@ sub schema_fixup
 
     foreach my $k (keys %{$data})
     {
+        next if $k eq '_extra';
         if (ref($data->{$k}) eq 'HASH')
         {
             $self->schema_fixup($data->{$k}, $type);

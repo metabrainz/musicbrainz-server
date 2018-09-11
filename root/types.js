@@ -565,6 +565,12 @@ declare type SearchFormT = FormT<{|
 
 declare type SearchResultT<T> = {|
   +entity: T,
+  +extra: $ReadOnlyArray<{|
+    +medium_position: number,
+    +medium_track_count: number,
+    +release: ReleaseT,
+    +track_position: number,
+  |}>,
   +position: number,
   +score: number,
 |};
