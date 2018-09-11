@@ -18,6 +18,7 @@ module.exports = {
   'account/applications/Remove': require('../account/applications/Remove'),
   'account/applications/RevokeAccess': require('../account/applications/RevokeAccess'),
   'account/Donation': require('../account/Donation'),
+  'account/EditProfile': require('../account/EditProfile'),
   'account/EmailVerificationStatus': require('../account/EmailVerificationStatus'),
   'account/LostPassword': require('../account/LostPassword'),
   'account/LostPasswordSent': require('../account/LostPasswordSent'),

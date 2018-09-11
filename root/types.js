@@ -50,6 +50,11 @@ declare type ApplicationT = {|
   +oauth_type: string,
 |};
 
+declare type AreaFieldT = CompoundFieldT<{|
+  +gid: FieldT<string | null>,
+  +name: FieldT<string>,
+|}>;
+
 declare type AreaT = {|
   ...AnnotationRoleT,
   ...CommentRoleT,
