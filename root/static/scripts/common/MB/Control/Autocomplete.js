@@ -639,7 +639,7 @@ MB.Control.autocomplete_formatters = {
         if (item.isrcs && item.isrcs.length)
         {
             a.append('<br /><span class="autocomplete-isrcs">ISRCs: ' +
-                     _.escape(commaOnlyList(item.isrcs)) + '</span>');
+                     _.escape(commaOnlyList(item.isrcs.map(isrc => isrc.isrc))) + '</span>');
         }
 
         return $("<li>").append(a).appendTo(ul);
