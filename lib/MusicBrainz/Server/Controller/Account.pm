@@ -328,7 +328,14 @@ sub lost_username : Path('/lost-username') ForbiddenOnSlaves
         }
     }
 
-    $c->stash->{form} = $form;
+    $c->stash(
+        current_view => 'Node',
+        component_path => 'account/LostUsername',
+        component_props => {
+            form => $form,
+        },
+    );
+    $c->detach;
 }
 
 =head2 edit
