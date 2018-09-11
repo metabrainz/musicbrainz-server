@@ -81,6 +81,7 @@ our @EXPORT_OK = (
         %ENTITIES_WITH_RELATIONSHIP_CREDITS
         %ENTITIES entities_with @RELATABLE_ENTITIES
         $EDITOR_SANITISED_COLUMNS
+        $PASSPHRASE_BCRYPT_COST
     ),
 );
 
@@ -917,6 +918,8 @@ Readonly our $EDITOR_SANITISED_COLUMNS => join(', ',
     "md5(editor.name || ':musicbrainz.org:mb') AS ha1",
     'editor.deleted',
 );
+
+Readonly our $PASSPHRASE_BCRYPT_COST => 12;
 
 =head1 NAME
 

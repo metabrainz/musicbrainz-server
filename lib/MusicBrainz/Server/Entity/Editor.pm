@@ -6,6 +6,7 @@ use Authen::Passphrase;
 use DateTime;
 use Digest::MD5 qw( md5_hex );
 use Encode;
+use MusicBrainz::Server::Constants qw( $PASSPHRASE_BCRYPT_COST );
 use MusicBrainz::Server::Data::Utils qw( boolean_to_json );
 use MusicBrainz::Server::Entity::Preferences;
 use MusicBrainz::Server::Entity::Types qw( Area );
@@ -243,6 +244,14 @@ has ha1 => (
     isa => 'Str',
     is => 'rw',
 );
+
+sub requires_password_rehash {
+    my $self = shift;
+    my $hash = Authen::Passphrase->from_rfc2307($self->password);
+    return blessed($hash)
+        && $hash->isa('Authen::Passphrase::BlowfishCrypt')
+        && $hash->cost < $PASSPHRASE_BCRYPT_COST;
+}
 
 sub match_password {
     my ($self, $password) = @_;
