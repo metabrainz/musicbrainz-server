@@ -118,7 +118,8 @@
     [% END %]
 [%- END -%]
 
-[%- MACRO form_row_textarea(r, field_name, label) BLOCK -%]
+[%- MACRO form_row_textarea(r, field_name, label) BLOCK # Converted to React at root/components/FormRowTextArea.js
+-%]
     [% WRAPPER form_row %]
       [% r.label(field_name, label || r.form.field(field_name).label) %]
       [% r.textarea(field_name) %]
