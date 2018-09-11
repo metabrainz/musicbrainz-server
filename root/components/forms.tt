@@ -87,7 +87,8 @@
     [% form_row_text(r, field_name, label, { size => 47 }) %]
 [%- END -%]
 
-[%- MACRO form_row_email_long(r, field_name, label) BLOCK -%]
+[%- MACRO form_row_email_long(r, field_name, label) BLOCK # Converted to React at root/components/FormRowEmailLong.js
+-%]
     [% WRAPPER form_row %]
       [% r.label(field_name, label || r.form.field(field_name).label) %]
       [% r.email(field_name, { size => 47 })  %]
