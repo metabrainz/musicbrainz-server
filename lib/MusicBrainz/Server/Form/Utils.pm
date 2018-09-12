@@ -39,7 +39,13 @@ sub language_options {
     my $skip = 0;
 
     my @languages = $c->model('Language')->get_all;
-    if ($context eq "work") {
+    if ($context eq "editor") {
+        for my $language (@languages) {
+            if ($language->iso_code_3 && $language->iso_code_3 =~ /mis|mul|qaa|und|zxx/) {
+                $language->frequency($skip);
+            }
+        }
+    } elsif ($context eq "work") {
         for my $language (@languages) {
             if ($language->iso_code_3 && $language->iso_code_3 eq "zxx") {
                 $language->name(l("[No lyrics]"));
