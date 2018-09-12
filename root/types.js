@@ -655,6 +655,12 @@ declare type PagerT = {|
   +total_entries: number,
 |};
 
+declare type PartialDateFieldT = CompoundFieldT<{|
+  +day: FieldT<number>,
+  +month: FieldT<number>,
+  +year: FieldT<number>,
+|}>;
+
 declare type PartialDateT = {|
   +day: number | null,
   +month: number | null,
