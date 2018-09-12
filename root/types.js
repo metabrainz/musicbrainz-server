@@ -69,6 +69,7 @@ declare type AnnotationT = {|
   +editor: EditorT,
   +html: string,
   +id: number,
+  +parent: CoreEntityT | null,
   +text: string,
 |};
 
