@@ -188,6 +188,14 @@ type CatalystStashT = {|
 
 type CatalystUserT = EditorT;
 
+declare type CDStubT = {|
+  ...EntityRoleT,
+  +artist: string,
+  +discid: string,
+  +title: string,
+  +track_count: number,
+|};
+
 type CommentRoleT = {|+comment: string|};
 
 declare type CommonsImageT = {|

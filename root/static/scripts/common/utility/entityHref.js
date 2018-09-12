@@ -17,7 +17,8 @@ const leadingSlash = /^\/?(.*)/;
 type LinkableEntity =
   | CoreEntityT
   | IsrcT
-  | IswcT;
+  | IswcT
+  | CDStubT;
 
 function entityHref(
   entity: LinkableEntity,
@@ -32,6 +33,8 @@ function entityHref(
     id = ko.unwrap((entity: any).gid);
   } else if (entityType === 'isrc' || entityType === 'iswc') {
     id = (entity: any)[entityType];
+  } else if (entityType === 'cdstub') {
+    id = (entity: any).discid;
   } else {
     id = (entity: any).name;
   }
