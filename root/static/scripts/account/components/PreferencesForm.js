@@ -1,0 +1,257 @@
+/*
+ * @flow
+ * Copyright (C) 2018 MetaBrainz Foundation
+ *
+ * This file is part of MusicBrainz, the open internet music database,
+ * and is licensed under the GPL version 2, or (at your option) any
+ * later version: http://www.gnu.org/licenses/gpl-2.0.txt
+ */
+
+import * as React from 'react';
+import moment from 'moment';
+import 'moment-strftime';
+import 'moment-timezone';
+import _ from 'lodash';
+
+import FormRow from '../../../../components/FormRow';
+import FormRowCheckbox from '../../../../components/FormRowCheckbox';
+import FormRowSelect from '../../../../components/FormRowSelect';
+import FormSubmit from '../../../../components/FormSubmit';
+import {l, N_l} from '../../common/i18n';
+import {Lens, prop, set, compose3} from '../../common/utility/lens';
+import hydrate from '../../../../utility/hydrate';
+
+type PreferencesFormT = FormT<{|
+  +datetime_format: FieldT<string>,
+  +email_on_no_vote: FieldT<boolean>,
+  +email_on_notes: FieldT<boolean>,
+  +email_on_vote: FieldT<boolean>,
+  +notify_via_email: FieldT<boolean>,
+  +public_ratings: FieldT<boolean>,
+  +public_subscriptions: FieldT<boolean>,
+  +public_tags: FieldT<boolean>,
+  +show_gravatar: FieldT<boolean>,
+  +subscribe_to_created_artists: FieldT<boolean>,
+  +subscribe_to_created_labels: FieldT<boolean>,
+  +subscribe_to_created_series: FieldT<boolean>,
+  +subscriptions_email_period: FieldT<string>,
+  +timezone: FieldT<string>,
+|}>;
+
+type Props = {|
+  +form: PreferencesFormT,
+  +timezone_options: MaybeGroupedOptionsT,
+|};
+
+type State = {|
+  form: PreferencesFormT,
+  timezoneOptions: MaybeGroupedOptionsT,
+|};
+
+const allowedDateTimeFormats = [
+  '%Y-%m-%d %H:%M %Z',
+  '%c',
+  '%x %X',
+  '%X %x',
+  '%A %B %e %Y, %H:%M',
+  '%d %B %Y %H:%M',
+  '%a %b %e %Y, %H:%M',
+  '%d %b %Y %H:%M',
+  '%d/%m/%Y %H:%M',
+  '%m/%d/%Y %H:%M',
+  '%d.%m.%Y %H:%M',
+  '%m.%d.%Y %H:%M',
+];
+
+function buildDateTimeFormatOptions(timezone) {
+  const hereAndNow = moment.tz(timezone);
+  return {
+    grouped: false,
+    options: allowedDateTimeFormats.map(a => ({
+      label: hereAndNow.strftime(a),
+      value: a,
+    })),
+  };
+}
+
+const subscriptionsEmailPeriodOptions = {
+  grouped: false,
+  options: [
+    {label: N_l('Daily'), value: 'daily'},
+    {label: N_l('Weekly'), value: 'weekly'},
+    {label: N_l('Never'), value: 'never'},
+  ],
+};
+
+const timezoneFieldLens: Lens<PreferencesFormT, string> =
+  compose3(prop('field'), prop('timezone'), prop('value'));
+
+const dateTimeFormatFieldLens: Lens<PreferencesFormT, string> =
+  compose3(prop('field'), prop('datetime_format'), prop('value'));
+
+const subscriptionsEmailPeriodFieldLens: Lens<PreferencesFormT, string> =
+  compose3(prop('field'), prop('subscriptions_email_period'), prop('value'));
+
+class PreferencesForm extends React.Component<Props, State> {
+  constructor(props: Props) {
+    super(props);
+    this.state = {form: props.form, timezoneOptions: props.timezone_options};
+    this.handleTimezoneChange = this.handleTimezoneChange.bind(this);
+    this.handleTimezoneGuess = this.handleTimezoneGuess.bind(this);
+    this.handleDateTimeFormatChange =
+      this.handleDateTimeFormatChange.bind(this);
+    this.handleSubscriptionsEmailPeriodChange =
+      this.handleSubscriptionsEmailPeriodChange.bind(this);
+  }
+
+  handleTimezoneChange: (e: SyntheticEvent<HTMLSelectElement>) => void;
+
+  handleTimezoneChange(e: SyntheticEvent<HTMLSelectElement>) {
+    const selectedTimezone = e.currentTarget.value;
+    this.setState(prevState => ({
+      form: set(
+        timezoneFieldLens,
+        selectedTimezone,
+        prevState.form,
+      ),
+    }));
+  }
+
+  handleTimezoneGuess: (e: SyntheticEvent<HTMLButtonElement>) => void;
+
+  handleTimezoneGuess(e: SyntheticEvent<HTMLButtonElement>) {
+    const guess = moment.tz.guess();
+    // $FlowFixMe - $ReadOnlyArray is incompatible with array type
+    if (_.some(this.state.timezoneOptions.options, {value: guess})) {
+      this.setState(prevState => ({
+        form: set(
+          timezoneFieldLens,
+          guess,
+          prevState.form,
+        ),
+      }));
+    }
+  }
+
+  handleDateTimeFormatChange: (e: SyntheticEvent<HTMLSelectElement>) => void;
+
+  handleDateTimeFormatChange(e: SyntheticEvent<HTMLSelectElement>) {
+    const selectedDateTimeFormat = e.currentTarget.value;
+    this.setState(prevState => ({
+      form: set(
+        dateTimeFormatFieldLens,
+        selectedDateTimeFormat,
+        prevState.form,
+      ),
+    }));
+  }
+
+  handleSubscriptionsEmailPeriodChange: (e: SyntheticEvent<HTMLSelectElement>)
+    => void;
+
+  handleSubscriptionsEmailPeriodChange(e: SyntheticEvent<HTMLSelectElement>) {
+    const selectedSubscriptionsEmailPeriod = e.currentTarget.value;
+    this.setState(prevState => ({
+      form: set(
+        subscriptionsEmailPeriodFieldLens,
+        selectedSubscriptionsEmailPeriod,
+        prevState.form,
+      ),
+    }));
+  }
+
+  render() {
+    const field = this.state.form.field;
+    return (
+      <form method="post">
+        <fieldset>
+          <legend>{l('Regional settings')}</legend>
+          <FormRowSelect
+            field={field.timezone}
+            helpers={
+              <>
+                {' '}
+                <button
+                  className="guess-timezone icon"
+                  onClick={this.handleTimezoneGuess}
+                  title={l('Guess timezone')}
+                  type="button"
+                />
+              </>
+            }
+            label={l('Timezone:')}
+            onChange={this.handleTimezoneChange}
+            options={this.state.timezoneOptions}
+          />
+          <FormRowSelect
+            field={field.datetime_format}
+            label={l('Date/time format:')}
+            onChange={this.handleDateTimeFormatChange}
+            options={buildDateTimeFormatOptions(field.timezone.value)}
+          />
+        </fieldset>
+        <fieldset>
+          <legend>{l('Privacy')}</legend>
+          <FormRowCheckbox
+            field={field.public_subscriptions}
+            label={l('Allow other users to see my subscriptions')}
+          />
+          <FormRowCheckbox
+            field={field.public_tags}
+            label={l('Allow other users to see my tags')}
+          />
+          <FormRowCheckbox
+            field={field.public_ratings}
+            label={l('Allow other users to see my ratings')}
+          />
+          <FormRowCheckbox
+            field={field.show_gravatar}
+            label={l('Show my Gravatar')}
+          />
+        </fieldset>
+        <fieldset>
+          <legend>{l('Email')}</legend>
+          <FormRowCheckbox
+            field={field.email_on_no_vote}
+            label={l('Mail me when one of my edits gets a "no" vote. (Note: the email is only sent for the first "no" vote, not each one)')}
+          />
+          <FormRowCheckbox
+            field={field.email_on_notes}
+            label={l('When I add a note to an edit, mail me all future notes for that edit.')}
+          />
+          <FormRowCheckbox
+            field={field.email_on_vote}
+            label={l('When I vote on an edit, mail me all future notes for that edit.')}
+          />
+          <FormRowSelect
+            field={field.subscriptions_email_period}
+            label={l('Send me mails with edits to my subscriptions:')}
+            onChange={this.handleSubscriptionsEmailPeriodChange}
+            options={subscriptionsEmailPeriodOptions}
+          />
+        </fieldset>
+        <fieldset>
+          <legend>{l('Editing')}</legend>
+          <FormRowCheckbox
+            field={field.subscribe_to_created_artists}
+            label={l('Automatically subscribe me to artists I create.')}
+          />
+          <FormRowCheckbox
+            field={field.subscribe_to_created_labels}
+            label={l('Automatically subscribe me to labels I create.')}
+          />
+          <FormRowCheckbox
+            field={field.subscribe_to_created_series}
+            label={l('Automatically subscribe me to series I create.')}
+          />
+        </fieldset>
+        <FormRow hasNoLabel>
+          <FormSubmit label={l('Save')} />
+        </FormRow>
+      </form>
+    );
+  }
+}
+
+export type PreferencesFormPropsT = Props;
+export default hydrate<Props>('preferences-form', PreferencesForm);
