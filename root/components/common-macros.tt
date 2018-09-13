@@ -881,14 +881,14 @@ END ~%]
 [%~ END -%]
 
 [%~ MACRO show_wikipedia_extract BLOCK -%]
-    [%- React.embed(c, 'components/WikipediaExtract.js', {
+    [%- React.embed(c, 'static/scripts/common/components/WikipediaExtract', {
         entity => {entityType => entity.entity_type, gid => entity.gid},
         wikipediaExtract => wikipedia_extract,
     }) -%]
 [%- END -%]
 
 [%~ MACRO show_image BLOCK -%]
-    [%- React.embed(c, 'components/CommonsImage', {
+    [%- React.embed(c, 'static/scripts/common/components/CommonsImage', {
             image => commons_image,
             entity => {entityType => entity.entity_type, gid => entity.gid},
         }) -%]

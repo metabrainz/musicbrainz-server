@@ -10,9 +10,9 @@
 import $ from 'jquery';
 import React from 'react';
 
-import {l} from '../static/scripts/common/i18n';
-import entityHref from '../static/scripts/common/utility/entityHref';
-import hydrate from '../utility/hydrate';
+import hydrate from '../../../../utility/hydrate';
+import {l} from '../i18n';
+import entityHref from '../utility/entityHref';
 
 import Collapsible from './Collapsible';
 

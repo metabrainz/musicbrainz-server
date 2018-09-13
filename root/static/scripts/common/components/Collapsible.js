@@ -10,7 +10,7 @@
 import React from 'react';
 import type {ElementRef} from 'react';
 
-import {l} from '../static/scripts/common/i18n';
+import {l} from '../i18n';
 
 type Props = {|
   +className: string,

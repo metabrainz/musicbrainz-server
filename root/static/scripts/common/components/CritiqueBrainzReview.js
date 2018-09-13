@@ -10,11 +10,11 @@
 import React from 'react';
 import type {ElementRef, Node as ReactNode} from 'react';
 
-import {withCatalystContext} from '../context';
-import DBDefs from '../static/scripts/common/DBDefs';
-import {l} from '../static/scripts/common/i18n';
-import formatUserDate from '../utility/formatUserDate';
-import hydrate from '../utility/hydrate';
+import {withCatalystContext} from '../../../../context';
+import formatUserDate from '../../../../utility/formatUserDate';
+import hydrate from '../../../../utility/hydrate';
+import DBDefs from '../DBDefs';
+import {l} from '../i18n';
 
 import Collapsible from './Collapsible';
 

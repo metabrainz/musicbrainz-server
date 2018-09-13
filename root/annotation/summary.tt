@@ -1,4 +1,4 @@
-[%- React.embed(c, 'components/Annotation', {
+[%- React.embed(c, 'static/scripts/common/components/Annotation', {
         annotation => entity.latest_annotation,
         collapse => 1,
         entity => entity,
