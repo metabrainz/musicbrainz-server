@@ -10,14 +10,14 @@
 import * as React from 'react';
 import noop from 'lodash/noop';
 
-import FormRow from '../../components/FormRow';
-import FormRowSelect from '../../components/FormRowSelect';
-import FormRowText from '../../components/FormRowText';
-import FormRowURLLong from '../../components/FormRowURLLong';
-import FormSubmit from '../../components/FormSubmit';
-import {addColon, l, N_l} from '../../static/scripts/common/i18n';
-import {Lens, prop, set, compose3} from '../../static/scripts/common/utility/lens';
-import hydrate from '../../utility/hydrate';
+import FormRow from '../../../../components/FormRow';
+import FormRowSelect from '../../../../components/FormRowSelect';
+import FormRowText from '../../../../components/FormRowText';
+import FormRowURLLong from '../../../../components/FormRowURLLong';
+import FormSubmit from '../../../../components/FormSubmit';
+import {addColon, l, N_l} from '../../common/i18n';
+import {Lens, prop, set, compose3} from '../../common/utility/lens';
+import hydrate from '../../../../utility/hydrate';
 
 export type OauthTypeT = 'installed' | 'web';
 

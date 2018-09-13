@@ -13,8 +13,8 @@ import Layout from '../../layout';
 import * as manifest from '../../static/manifest';
 import {l} from '../../static/scripts/common/i18n';
 
-import ApplicationForm from '../components/ApplicationForm';
-import type {ApplicationFormT} from '../components/ApplicationForm';
+import ApplicationForm from '../../static/scripts/account/components/ApplicationForm';
+import type {ApplicationFormT} from '../../static/scripts/account/components/ApplicationForm';
 
 type Props = {|
   +form: ApplicationFormT,
