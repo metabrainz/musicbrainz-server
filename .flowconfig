@@ -2,7 +2,6 @@
 <PROJECT_ROOT>/lib/.*
 <PROJECT_ROOT>/node_modules/jsx-control-statements/jsx-control-statements.flow.js
 <PROJECT_ROOT>/root/static/build/.*
-<PROJECT_ROOT>/root/static/lib/.*
 <PROJECT_ROOT>/t/.*
 /Volumes/.*
 
