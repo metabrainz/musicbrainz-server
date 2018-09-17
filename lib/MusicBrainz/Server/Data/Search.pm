@@ -463,15 +463,15 @@ sub schema_fixup
         if (defined $data->{"text-representation"} &&
             defined $data->{"text-representation"}->{language})
         {
-            $data->{language} = MusicBrainz::Server::Entity::Language->new( {
-                iso_code_3 => $data->{"text-representation"}->{language}
-            } );
+            $data->{language} = $self->c->model('Language')->find_by_code(
+                $data->{"text-representation"}{language}
+            );
         }
         if (defined $data->{"text-representation"} &&
             defined $data->{"text-representation"}->{script})
         {
-            $data->{script} = MusicBrainz::Server::Entity::Script->new(
-                    { iso_code => $data->{"text-representation"}->{script} }
+            $data->{script} = $self->c->model('Script')->find_by_code(
+                $data->{"text-representation"}{script}
             );
         }
 
