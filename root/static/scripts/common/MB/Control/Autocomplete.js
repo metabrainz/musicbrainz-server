@@ -638,7 +638,7 @@ MB.Control.autocomplete_formatters = {
 
         if (item.isrcs && item.isrcs.length)
         {
-            a.append('<br /><span class="autocomplete-isrcs">isrcs: ' +
+            a.append('<br /><span class="autocomplete-isrcs">ISRCs: ' +
                      _.escape(commaOnlyList(item.isrcs)) + '</span>');
         }
 
