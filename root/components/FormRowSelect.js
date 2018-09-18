@@ -50,6 +50,7 @@ const FormRowSelect = ({
         field={field}
         onChange={onChange}
         options={options}
+        required={required}
       />
       {frozen ? <HiddenField field={field} /> : null}
       <FieldErrors field={field} />

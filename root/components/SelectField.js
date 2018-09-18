@@ -29,6 +29,7 @@ type Props = {|
   +field: FieldT<number | string>,
   +onChange?: (event: SyntheticEvent<HTMLSelectElement>) => void,
   +options: MaybeGroupedOptionsT,
+  +required?: boolean
 |};
 
 const SelectField = ({
@@ -37,6 +38,7 @@ const SelectField = ({
   field,
   onChange,
   options,
+  required,
 }: Props) => (
   <select
     className="with-button"
@@ -44,6 +46,7 @@ const SelectField = ({
     id={'id-' + field.html_name}
     name={field.html_name}
     onChange={onChange}
+    required={required}
     value={getSelectValue(field, options, allowEmpty)}
   >
     {allowEmpty
