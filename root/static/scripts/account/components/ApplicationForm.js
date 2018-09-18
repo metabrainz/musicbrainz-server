@@ -99,12 +99,14 @@ class ApplicationForm extends React.Component<Props, State> {
           label={addColon(l('Type'))}
           onChange={this.handleOauthTypeChange}
           options={oauthTypeOptions}
+          required
         />
         {this.state.form.field.oauth_type.value === 'web' ? (
           <FormRowURLLong
             field={this.state.form.field.oauth_redirect_uri}
             label={addColon(l('Callback URL'))}
             onChange={this.handleOauthRedirectURIChange}
+            required
           />
         ) : null}
         <FormRow hasNoLabel>
