@@ -4,8 +4,8 @@
     [% tag.tag.name | html %]
     </a>
     [% END %]
-    [%- INCLUDE "components/tags.tt" tags=tags.tags -%]
-    [%- UNLESS tags.tags.size -%]
+    [%- INCLUDE "components/tags.tt" -%]
+    [%- UNLESS display_genres.size OR display_tags.size -%]
         <p>[% l('{user} has not tagged anything.', { user => html_escape(user.name) }) %]</p>
     [%- END -%]
 [% END %]

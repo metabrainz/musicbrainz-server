@@ -11,8 +11,10 @@ const React = require('react');
 const ReactDOM = require('react-dom');
 
 import loopParity from '../../../../utility/loopParity';
+import {GENRE_TAGS} from '../../common/constants';
 const {l, lp} = require('../i18n');
 const MB = require('../MB');
+import bracketed from '../utility/bracketed';
 const request = require('../utility/request');
 const TagLink = require('./TagLink');
 
@@ -38,6 +40,10 @@ function getTagsPath(entity) {
 
 function isAlwaysVisible(tag) {
   return tag.vote > 0 || (tag.vote === 0 && tag.count > 0);
+}
+
+function isGenre(tag) {
+  return GENRE_TAGS.has(tag.tag);
 }
 
 type VoteT = 1 | 0 | -1;
@@ -222,18 +228,27 @@ class TagEditor extends React.Component<TagEditorProps, TagEditorState> {
       };
 
       if (!this.state.positiveTagsOnly || isAlwaysVisible(t)) {
-        accum.push(
+        const genre = isGenre(t);
+
+        const tagRow = (
           <TagRow key={t.tag}
                   tag={t.tag}
                   count={t.count}
-                  index={index}
+                  index={genre ? accum.genres.length : accum.tags.length}
                   currentVote={t.vote}
-                  callback={callback} />
+                  callback={callback}
+          />
         );
+
+        if (genre) {
+          accum.genres.push(tagRow);
+        } else {
+          accum.tags.push(tagRow);
+        }
       }
 
       return accum;
-    }, []);
+    }, {tags: [], genres: []});
   }
 
   getNewCount(index, vote) {
@@ -342,12 +357,31 @@ class MainTagEditor extends TagEditor {
 
     return (
       <div>
-        {tags.length === 0 && <p>{l('Nobody has tagged this yet.')}</p>}
+        {tags.length ? (
+          <>
+            <h2>{l('Genres')}</h2>
 
-        {tagRows.length > 0 &&
-          <ul className="tag-list">
-            {tagRows}
-          </ul>}
+            {tagRows.genres.length ? (
+              <ul className="genre-list">
+                {tagRows.genres}
+              </ul>
+            ) : (
+              <p>{l('There are no genres to show.')}</p>
+            )}
+
+            <h2>{l('Other tags')}</h2>
+
+            {tagRows.tags.length ? (
+              <ul className="tag-list">
+                {tagRows.tags}
+              </ul>
+            ) : (
+              <p>{l('There are no other tags to show.')}</p>
+            )}
+          </>
+        ) : (
+          <p>{l('Nobody has tagged this yet.')}</p>
+        )}
 
         {(positiveTagsOnly && !tags.every(isAlwaysVisible)) && [
           <p key={1}>
@@ -378,19 +412,40 @@ class MainTagEditor extends TagEditor {
 
 class SidebarTagEditor extends TagEditor {
   render() {
+    const tagRows = this.createTagRows();
     return (
       <div>
-        <ul className="tag-list">
-          {this.createTagRows()}
-          {this.props.more
-            // createTagRows uses tags as keys; \0 is simply used here to
-            // guarantee that there isn't any conflict.
-            ? <li key="\0:more">
-                <a href={getTagsPath(this.props.entity)}>{l('more...')}</a>
-              </li>
-            : null}
-        </ul>
-        {!this.state.tags.length && <p>{lp('(none)', 'tag')}</p>}
+        <h2>{l('Genres')}</h2>
+
+        {tagRows.genres.length ? (
+          <ul className="genre-list">
+            {tagRows.genres}
+          </ul>
+        ) : (
+          <p>{lp('(none)', 'genre')}</p>
+        )}
+
+        <h2>{l('Other tags')}</h2>
+
+        {tagRows.tags.length ? (
+          <ul className="tag-list">
+            {tagRows.tags}
+          </ul>
+        ) : (
+          <p>{lp('(none)', 'tag')}</p>
+        )}
+
+        {this.props.more ? (
+          <p>
+            {bracketed(
+              <a href={getTagsPath(this.props.entity)} key="see-all">
+                {l('see all tags')}
+              </a>,
+              {__react: true},
+            )}
+          </p>
+        ) : null}
+
         <form id="tag-form" onSubmit={this.addTags}>
           <div style={{display: 'flex'}}>
             <input
