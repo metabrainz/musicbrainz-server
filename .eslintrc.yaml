@@ -66,7 +66,7 @@ rules:
   # Stylistic Issues
   array-bracket-newline: [warn, {multiline: true}]
   array-bracket-spacing: [warn, never]
-  array-element-newline: [warn, {multiline: true}]
+  array-element-newline: [warn, consistent]
   block-spacing: [warn, always]
   brace-style: [warn, 1tbs]
   camelcase: [warn, {properties: never}]
