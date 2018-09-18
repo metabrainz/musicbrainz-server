@@ -24,7 +24,7 @@ import ReleaseCatnoList from '../../components/ReleaseCatnoList';
 import ReleaseCountries from '../../components/ReleaseCountries';
 import ReleaseDates from '../../components/ReleaseDates';
 import ReleaseLabelList from '../../components/ReleaseLabelList';
-import type {ResultsPropsT} from '../types';
+import type {InlineResultsPropsT, ResultsPropsT} from '../types';
 
 import PaginatedSearchResults from './PaginatedSearchResults';
 import ResultsLayout from './ResultsLayout';
@@ -86,6 +86,37 @@ function buildResult(result, index) {
   );
 }
 
+export const ReleaseResultsInline = ({
+  $c,
+  pager,
+  query,
+  results,
+}: InlineResultsPropsT<ReleaseT>) => (
+  <PaginatedSearchResults
+    buildResult={buildResult}
+    columns={
+      <>
+        <th>{l('Name')}</th>
+        <th>{l('Artist')}</th>
+        <th>{l('Format')}</th>
+        <th>{l('Tracks')}</th>
+        <th>{l('Date')}</th>
+        <th>{l('Country')}</th>
+        <th>{l('Label')}</th>
+        <th>{l('Catalog#')}</th>
+        <th>{l('Barcode')}</th>
+        <th>{l('Language')}</th>
+        <th>{l('Type')}</th>
+        <th>{l('Status')}</th>
+        {$c.session && $c.session.tport ? <th>{l('Tagger')}</th> : null}
+      </>
+    }
+    pager={pager}
+    query={query}
+    results={results}
+  />
+);
+
 const ReleaseResults = ({
   $c,
   form,
@@ -95,25 +126,8 @@ const ReleaseResults = ({
   results,
 }: ResultsPropsT<ReleaseT>) => (
   <ResultsLayout form={form} lastUpdated={lastUpdated}>
-    <PaginatedSearchResults
-      buildResult={buildResult}
-      columns={
-        <>
-          <th>{l('Name')}</th>
-          <th>{l('Artist')}</th>
-          <th>{l('Format')}</th>
-          <th>{l('Tracks')}</th>
-          <th>{l('Date')}</th>
-          <th>{l('Country')}</th>
-          <th>{l('Label')}</th>
-          <th>{l('Catalog#')}</th>
-          <th>{l('Barcode')}</th>
-          <th>{l('Language')}</th>
-          <th>{l('Type')}</th>
-          <th>{l('Status')}</th>
-          {$c.session && $c.session.tport ? <th>{l('Tagger')}</th> : null}
-        </>
-      }
+    <ReleaseResultsInline
+      $c={$c}
       pager={pager}
       query={query}
       results={results}
