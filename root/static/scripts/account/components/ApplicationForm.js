@@ -94,8 +94,8 @@ class ApplicationForm extends React.Component<Props, State> {
           required
         />
         <FormRowSelect
-          disabled={this.props.action === 'edit'}
           field={this.state.form.field.oauth_type}
+          frozen={this.props.action === 'edit'}
           label={addColon(l('Type'))}
           onChange={this.handleOauthTypeChange}
           options={oauthTypeOptions}
