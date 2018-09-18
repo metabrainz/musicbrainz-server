@@ -14,6 +14,9 @@ env:
 settings:
   flowtype:
     onlyFilesWithFlowAnnotation: true
+  react:
+    version: 16.3.2
+    flowVersion: 0.81.0
 
 rules:
   # Possible Errors
