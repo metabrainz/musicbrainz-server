@@ -40,6 +40,7 @@ use MusicBrainz::Server::Data::Utils qw(
 );
 use MusicBrainz::Server::Translation qw( comma_list comma_only_list l );
 use MusicBrainz::Server::Validation qw( is_guid is_valid_url is_valid_partial_date );
+use MusicBrainz::Server::View::Base;
 use Readonly;
 use Scalar::Util qw( looks_like_number );
 use Try::Tiny;
@@ -710,6 +711,8 @@ sub preview : Chained('edit') PathPart('preview') Edit {
 
     $c->model('Edit')->load_all(@edits);
 
+    MusicBrainz::Server::View::Base->process($c);
+
     my @previews = map {
         my $edit = $_;
 
@@ -722,6 +725,8 @@ sub preview : Chained('edit') PathPart('preview') Edit {
 
         { preview => $preview, editName => $edit->l_edit_name };
     } @edits;
+
+    MusicBrainz::Server::View::Base->_post_process($c);
 
     $c->res->body(encode_json({ previews => \@previews }));
 }
