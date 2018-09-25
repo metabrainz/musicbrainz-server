@@ -34,6 +34,6 @@ COPY \
     docker/scripts/start_template_renderer.sh \
     /usr/local/bin/
 
-COPY docker/templates/DBDefs.pm.ctmpl lib/
+copy_mb(`docker/templates/DBDefs.pm.ctmpl lib/')
 
 git_info

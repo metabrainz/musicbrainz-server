@@ -42,17 +42,15 @@ RUN chmod 755 \
 
 git_info
 
-COPY docker/musicbrainz-tests/DBDefs.pm lib/
+copy_mb(`docker/musicbrainz-tests/DBDefs.pm lib/')
 
 # Depends on DBDefs.pm.
 RUN sudo_mb(`carton exec -- ./script/compile_resources.sh default web-tests')
 
-COPY docker/musicbrainz-tests/run_tests.sh /usr/local/bin/
-COPY flow-typed/ flow-typed/
-COPY script/ script/
-COPY t/ t/
-COPY .flowconfig .perlcriticrc ./
-
-RUN chown_mb(`MBS_ROOT')
+copy_mb(`docker/musicbrainz-tests/run_tests.sh /usr/local/bin/')
+copy_mb(`flow-typed/ flow-typed/')
+copy_mb(`script/ script/')
+copy_mb(`t/ t/')
+copy_mb(`.flowconfig .perlcriticrc ./')
 
 ENTRYPOINT ["run_tests.sh"]
