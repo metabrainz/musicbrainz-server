@@ -21,7 +21,7 @@ m4_define(
     `install_javascript',
     `m4_dnl
 COPY docker/yarn_pubkey.txt /tmp/
-COPY package.json yarn.lock ./
+copy_mb(``package.json yarn.lock ./'')
 RUN apt-key add /tmp/yarn_pubkey.txt && \
     rm /tmp/yarn_pubkey.txt && \
     echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list && \
@@ -31,22 +31,18 @@ RUN apt-key add /tmp/yarn_pubkey.txt && \
     dpkg -i NODEJS_DEB && \
     cd - && \
     sudo_mb(``yarn install$1'')
-COPY .babelrc ./')
+copy_mb(``.babelrc ./'')')
 
 m4_define(
     `install_javascript_and_templates',
     `m4_dnl
 install_javascript(`$1')
 
-COPY gulpfile.js ./
-COPY root/ root/
-COPY \
-    script/compile_resources.sh \
-    script/dbdefs_to_js.pl \
-    script/start_renderer.pl \
-    script/
+copy_mb(``gulpfile.js ./'')
+copy_mb(``root/ root/'')
+copy_mb(``script/compile_resources.sh script/dbdefs_to_js.pl script/start_renderer.pl script/'')
 
-RUN chown_mb(`MBS_ROOT `/tmp/ttc'')')
+RUN chown_mb(``/tmp/ttc'')')
 
 m4_define(
     `mbs_build_deps',
@@ -109,6 +105,11 @@ m4_define(
 mkdir -p $1 && \
     chown -R musicbrainz:musicbrainz $1')
 
+m4_define(
+    `copy_mb',
+    `m4_dnl
+COPY --chown=musicbrainz:musicbrainz $1')
+
 m4_define(`MBS_ROOT', `/home/musicbrainz/musicbrainz-server')
 
 m4_define(
@@ -122,24 +123,21 @@ RUN chown_mb(`MBS_ROOT')')
 m4_define(
     `install_translations',
     `m4_dnl
-COPY po/ po/
-RUN chown_mb(`MBS_ROOT') && \
-    apt_install(``gettext make'') && \
+copy_mb(``po/ po/'')
+RUN apt_install(``gettext make'') && \
     sudo_mb(``make -C po all_quiet'') && \
     sudo_mb(``make -C po deploy'')')
 
 m4_define(
     `copy_common_mbs_files',
     `m4_dnl
-COPY admin/ admin/
-COPY app.psgi entities.json ./
-COPY bin/ bin/
-COPY docker/scripts/mbs_constants.sh /etc/
-COPY docker/scripts/consul-template-dedup-prefix /usr/local/bin/
-COPY lib/ lib/
-COPY script/functions.sh script/`git_info' script/
-
-RUN chown_mb(`MBS_ROOT')')
+copy_mb(``admin/ admin/'')
+copy_mb(``app.psgi entities.json ./'')
+copy_mb(``bin/ bin/'')
+copy_mb(``docker/scripts/mbs_constants.sh /etc/'')
+copy_mb(``docker/scripts/consul-template-dedup-prefix /usr/local/bin/'')
+copy_mb(``lib/ lib/'')
+copy_mb(``script/functions.sh script/git_info script/'')')
 
 m4_define(
     `git_info',

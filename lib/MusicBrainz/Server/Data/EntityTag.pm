@@ -2,6 +2,11 @@ package MusicBrainz::Server::Data::EntityTag;
 use Moose;
 use namespace::autoclean;
 
+use MusicBrainz::Server::Constants qw( %ENTITIES );
+
+# Readonly values can't be passed as query arguments, for some unknown reason.
+our @GENRES = @{ $ENTITIES{tag}{genres} };
+
 use MusicBrainz::Server::Data::Utils qw(
     boolean_to_json
     placeholders
@@ -57,7 +62,7 @@ sub find_top_tags
 
 sub find_tags_for_entities
 {
-    my ($self, @ids) = @_;
+    my ($self, $genre_flag, @ids) = @_;
 
     return unless scalar @ids;
 
@@ -65,29 +70,32 @@ sub find_tags_for_entities
                         entity_tag.".$self->type." AS entity
                  FROM " . $self->tag_table . " entity_tag
                  JOIN tag ON tag.id = entity_tag.tag
-                 WHERE " . $self->type . " IN (" . placeholders(@ids) . ")
-                 ORDER BY entity_tag.count DESC, musicbrainz_collate(tag.name)";
+                 WHERE " . $self->type . " IN (" . placeholders(@ids) . ")"
+                 . ($genre_flag ? " AND tag.name = any(?) " : " ") .
+                 "ORDER BY entity_tag.count DESC, musicbrainz_collate(tag.name)";
 
-    $self->query_to_list($query, \@ids);
+    $self->query_to_list($query, [@ids, ($genre_flag ? \@GENRES : ())]);
 }
 
 sub find_user_tags_for_entities
 {
-    my ($self, $user_id, @ids) = @_;
+    my ($self, $user_id, $genre_flag, @ids) = @_;
 
     return unless scalar @ids;
 
     my $type = $self->type;
     my $table = $self->tag_table . '_raw';
-    my $query = "SELECT tag, $type AS entity, is_upvote
-                 FROM $table
+    my $query = "SELECT entity_tag.tag as tag_id, $type AS entity, is_upvote
+                 FROM $table entity_tag
+                 JOIN tag ON tag.id = entity_tag.tag
                  WHERE editor = ?
-                 AND $type IN (" . placeholders(@ids) . ")";
+                 AND $type IN (" . placeholders(@ids) . ")"
+                 . ($genre_flag ? " AND tag.name = any(?) " : " ");
 
-    my @tags = $self->query_to_list($query, [$user_id, @ids], sub {
+    my @tags = $self->query_to_list($query, [$user_id, @ids, ($genre_flag ? \@GENRES : ())], sub {
         my ($model, $row) = @_;
         return MusicBrainz::Server::Entity::UserTag->new(
-            tag_id => $row->{tag},
+            tag_id => $row->{tag_id},
             editor_id => $user_id,
             entity_id => $row->{entity},
             is_upvote => $row->{is_upvote},

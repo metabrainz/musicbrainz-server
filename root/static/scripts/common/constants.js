@@ -9,6 +9,8 @@
 
 export const ENTITIES = require('../../../../entities');
 
+export const GENRE_TAGS: Set<string> = new Set(ENTITIES.tag.genres);
+
 export const AREA_TYPE_COUNTRY = 1;
 
 export const CONTACT_URL = 'https://metabrainz.org/contact';

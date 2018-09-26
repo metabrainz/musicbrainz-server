@@ -16,10 +16,7 @@ RUN cd /tmp && \
 
 setup_mbs_root()
 
-COPY \
-    docker/musicbrainz-test-database/cpanfile \
-    docker/musicbrainz-test-database/cpanfile.snapshot \
-    ./
+copy_mb(`docker/musicbrainz-test-database/cpanfile docker/musicbrainz-test-database/cpanfile.snapshot ./')
 
 ENV PERL_CPANM_OPT --notest --no-interactive
 
@@ -27,17 +24,17 @@ RUN apt_install(`test_db_build_deps test_db_run_deps') && \
     sudo_mb(`carton install --deployment') && \
     apt_purge(`test_db_build_deps')
 
-COPY admin/ admin/
-COPY lib/ lib/
-COPY script/ script/
-COPY t/sql/initial.sql t/sql/
-COPY entities.json entities.json
+copy_mb(`admin/ admin/')
+copy_mb(`lib/ lib/')
+copy_mb(`script/ script/')
+copy_mb(`t/sql/initial.sql t/sql/')
+copy_mb(`entities.json entities.json')
 
 RUN mkdir -p '/home/musicbrainz/dumps' && \
     chown -R postgres:postgres /home/musicbrainz/dumps
 
-COPY docker/musicbrainz-test-database/DBDefs.pm lib/
-COPY docker/scripts/import_db.sh docker/scripts/
+copy_mb(`docker/musicbrainz-test-database/DBDefs.pm lib/')
+copy_mb(`docker/scripts/import_db.sh docker/scripts/')
 
 COPY \
     docker/musicbrainz-test-database/create_test_db.sh \

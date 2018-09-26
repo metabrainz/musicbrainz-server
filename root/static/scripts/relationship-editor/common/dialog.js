@@ -49,7 +49,7 @@ const PART_OF_SERIES_LINK_TYPE_GIDS = _.values(PART_OF_SERIES_LINK_TYPES);
             init: function (element, valueAccessor, allBindings, viewModel, bindingContext) {
                 dialog = valueAccessor();
 
-                dialog.autocomplete = $(element).autocomplete({
+                dialog.autocomplete = $(element).entitylookup({
                         entity: dialog.targetType(),
 
                         setEntity: function (type) {
@@ -76,7 +76,7 @@ const PART_OF_SERIES_LINK_TYPE_GIDS = _.values(PART_OF_SERIES_LINK_TYPES);
                                 return items;
                             }
                         }
-                    }).data("ui-autocomplete");
+                    }).data("mb-entitylookup");
 
                 dialog.autocomplete.currentSelection.subscribe(changeTarget);
 

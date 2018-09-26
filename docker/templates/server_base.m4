@@ -7,7 +7,7 @@ RUN apt_install(`rsync sudo')
 
 setup_mbs_root()
 
-COPY cpanfile cpanfile.snapshot ./
+copy_mb(`cpanfile cpanfile.snapshot ./')
 
 install_perl_modules(` --deployment')
 

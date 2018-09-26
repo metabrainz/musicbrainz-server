@@ -15,17 +15,17 @@ my $ws_defs = Data::OptList::mkopt([
     instrument => {
         method   => 'GET',
         linked   => [ qw(collection) ],
-        inc      => [ qw(aliases annotation _relations tags user-tags) ],
+        inc      => [ qw(aliases annotation _relations tags user-tags genres user-genres) ],
         optional => [ qw(fmt limit offset) ],
      },
     instrument => {
         method   => 'GET',
-        inc      => [ qw(aliases annotation _relations tags user-tags) ],
+        inc      => [ qw(aliases annotation _relations tags user-tags genres user-genres) ],
         optional => [ qw(fmt limit offset) ],
     },
     instrument => {
         method   => 'GET',
-        inc      => [ qw(aliases annotation _relations tags user-tags) ],
+        inc      => [ qw(aliases annotation _relations tags user-tags genres user-genres) ],
         optional => [ qw(fmt) ],
     }
 ]);

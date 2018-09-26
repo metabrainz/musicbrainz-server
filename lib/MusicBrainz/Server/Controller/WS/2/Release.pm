@@ -32,7 +32,7 @@ my $ws_defs = Data::OptList::mkopt([
      release => {
                          method   => 'GET',
                          inc      => [ qw(artists labels recordings release-groups aliases
-                                          tags user-tags ratings user-ratings collections user-collections
+                                          tags user-tags genres user-genres ratings user-ratings collections user-collections
                                           artist-credits discids media recording-level-rels
                                           work-level-rels _relations annotation) ],
                          optional => [ qw(fmt) ],

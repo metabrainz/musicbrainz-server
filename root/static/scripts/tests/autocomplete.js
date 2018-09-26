@@ -16,24 +16,24 @@ function autocompleteTest(name, callback) {
         var $input = $("<input>").attr("type", "text").appendTo($fixture);
 
         ko.applyBindingsToNode($input[0], { autocomplete: { entity: "artist" } });
-        var $menu = $input.autocomplete("widget");
+        var $menu = $input.entitylookup("widget");
 
         callback(t, $input, $menu);
 
-        $input.autocomplete("destroy");
+        $input.entitylookup("destroy");
         $fixture.add('.ui-widget').remove();
     });
 }
 
 $.ui.menu.prototype.delay = 0;
 
-$.ui.autocomplete.prototype.options.delay = 0;
+$.mb.entitylookup.prototype.options.delay = 0;
 
 $.Widget.prototype._delay = function (handler) {
     return (typeof handler === "string" ? this[handler] : handler).call(this);
 };
 
-$.ui.autocomplete.prototype.options.source = function (request, response) {
+$.mb.entitylookup.prototype.options.source = function (request, response) {
     var data = [
         {
             name: "Foo.",

@@ -1,6 +1,7 @@
 package MusicBrainz::Server::Entity::Tag;
 
 use Moose;
+use MusicBrainz::Server::Constants qw( %ENTITIES );
 
 extends 'MusicBrainz::Server::Entity';
 
@@ -11,6 +12,13 @@ has 'name' => (
 
 sub TO_JSON {
     return shift->name;
+}
+
+our %GENRES = map { $_ => 1 } @{ $ENTITIES{tag}{genres} };
+
+sub is_genre_tag {
+    my $self = shift;
+    exists $GENRES{$self->name};
 }
 
 __PACKAGE__->meta->make_immutable;

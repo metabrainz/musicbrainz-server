@@ -171,6 +171,7 @@ test 'Paths that allow browsing without a confirmed email address' => sub {
   "Controller::Event::withdraw_tags",
   "Controller::Event::tags",
   "Controller::Event::wikipedia_extract",
+  "Controller::Genre::list",
   "Controller::Instrument::alias",
   "Controller::Instrument::aliases",
   "Controller::Instrument::annotation_diff",

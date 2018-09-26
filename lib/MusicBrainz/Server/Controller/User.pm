@@ -430,10 +430,13 @@ sub tags : Chained('load') PathPart('tags')
     }
 
     my $tags = $c->model('Editor')->get_tags($user);
+    my @display_tags = grep { !$_->{tag}->is_genre_tag } @{ $tags->{tags} };
+    my @display_genres = grep { $_->{tag}->is_genre_tag } @{ $tags->{tags} };
 
     $c->stash(
         user => $user,
-        tags => $tags,
+        display_tags => \@display_tags,
+        display_genres => \@display_genres,
         tag_max_count => sum(map { $_->{count} } @{ $tags->{tags} }),
         template => 'user/tags.tt',
     );
