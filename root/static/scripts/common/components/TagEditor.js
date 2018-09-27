@@ -19,8 +19,6 @@ import isBlank from '../utility/isBlank';
 const request = require('../utility/request');
 const TagLink = require('./TagLink');
 
-require('../../../lib/jquery-ui');
-
 const GENRE_TAGS_ARRAY = Array.from(GENRE_TAGS.values());
 
 var VOTE_ACTIONS = {
@@ -239,6 +237,7 @@ class TagEditor extends React.Component<TagEditorProps, TagEditorState> {
   }
 
   componentDidMount() {
+    require('../../../lib/jquery-ui');
     window.addEventListener('beforeunload', this.onBeforeUnload);
   }
 
