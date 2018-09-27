@@ -11,6 +11,7 @@ const React = require('react');
 const ReactDOM = require('react-dom');
 import keyBy from 'terable/keyBy';
 
+import hydrate from '../../../../utility/hydrate';
 import loopParity from '../../../../utility/loopParity';
 import {GENRE_TAGS} from '../constants';
 const {l, lp} = require('../i18n');
@@ -484,7 +485,7 @@ class SidebarTagEditor extends TagEditor {
   render() {
     const tagRows = this.createTagRows();
     return (
-      <div>
+      <>
         <h2>{l('Genres')}</h2>
 
         {tagRows.genres.length ? (
@@ -530,7 +531,7 @@ class SidebarTagEditor extends TagEditor {
             </button>
           </div>
         </form>
-      </div>
+      </>
     );
   }
 }
@@ -582,7 +583,7 @@ function init_tag_editor(Component, mountPoint) {
 }
 
 exports.MainTagEditor = MainTagEditor;
-exports.SidebarTagEditor = SidebarTagEditor;
+exports.SidebarTagEditor = hydrate('sidebar-tags', SidebarTagEditor);
 
 MB.init_main_tag_editor = init_tag_editor(MainTagEditor, 'all-tags');
 MB.init_sidebar_tag_editor = init_tag_editor(SidebarTagEditor, 'sidebar-tags');
