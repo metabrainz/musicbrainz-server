@@ -1,4 +1,5 @@
-[%- MACRO form_submit(label, class) BLOCK ~%]
+[%- MACRO form_submit(label, class) BLOCK # Converted to React at root/components/FormSubmit.js
+~%]
     <span class="buttons[% ' ' _ class IF class %]">
         [%~ '<button type="submit">' _ label _ '</button>' ~%]
     </span>
@@ -52,7 +53,8 @@
     </div>
 [%- END -%]
 
-[%- MACRO field_errors(form, field_name) BLOCK -%]
+[%- MACRO field_errors(form, field_name) BLOCK # Converted to React at root/components/FieldErrors.js
+-%]
     [% field = form.field(field_name) || field_name %]
     [%- IF field.has_errors OR field.error_fields -%]
         <ul class="errors">
@@ -68,13 +70,15 @@
     [%- END -%]
 [%- END -%]
 
-[%- BLOCK form_row -%]
+[%- BLOCK form_row # Converted to React at root/components/FormRow.js
+-%]
     <div class="row" [% IF row_id %]id="[% row_id %]"[% END %]>
       [% content %]
     </div>
 [%- END -%]
 
-[%- MACRO form_row_text(r, field_name, label, attrs) BLOCK -%]
+[%- MACRO form_row_text(r, field_name, label, attrs) BLOCK # Converted to React at root/components/FormRowText.js
+-%]
     [% attrs = attrs ? attrs : {} %]
     [% WRAPPER form_row %]
       [% r.label(field_name, label || r.form.field(field_name).label) %]
@@ -83,7 +87,8 @@
     [% END %]
 [%- END -%]
 
-[%- MACRO form_row_text_long(r, field_name, label) BLOCK -%]
+[%- MACRO form_row_text_long(r, field_name, label) BLOCK # Converted to React at root/components/FormRowTextLong.js
+-%]
     [% form_row_text(r, field_name, label, { size => 47 }) %]
 [%- END -%]
 
@@ -128,7 +133,8 @@
     [% END %]
 [%- END -%]
 
-[%- MACRO form_row_checkbox(r, field_name, label) BLOCK -%]
+[%- MACRO form_row_checkbox(r, field_name, label) BLOCK # Converted to React at root/components/FormRowCheckbox.js
+-%]
     <div class="row no-label">
       [% r.checkbox(field_name) %]
       [% r.label(field_name, label || r.form.field(field_name).label, inline => 1) %]
@@ -136,7 +142,8 @@
     </div>
 [%- END -%]
 
-[%- MACRO form_row_select(r, field_name, label, class, attributes) BLOCK -%]
+[%- MACRO form_row_select(r, field_name, label, class, attributes) BLOCK # Converted to React at root/components/FormRowSelect.js
+-%]
     [% attributes = attributes || {}; attributes.class = class %]
     [% WRAPPER form_row %]
       [% r.label(field_name, label || r.form.field(field_name).label, { class => class }) %]

@@ -14,10 +14,12 @@
 [%~ MACRO uri_escape(text) BLOCK; text | uri; END ~%]
 [%~ MACRO html_escape(text) BLOCK; text | html; END ~%]
 [%~ MACRO html_unescape(text) BLOCK; text.replace('&quot;', '"').replace('&lt;', '<').replace('&gt;', '>').replace('&#39;', "'").replace('&amp;', '&'); END -%]
-[%~ MACRO bracketedWithSpace(text) BLOCK; text != '' ? l(' ({text})', { text => text }) : ''; END -%]
+[%~ MACRO bracketedWithSpace(text) BLOCK; text != '' ? l(' ({text})', { text => text }) : ''; END # Converted to React at root/static/scripts/common/utility/bracketed.js
+-%]
 [%~ MACRO js_escape(text) BLOCK; text | js; END ~%]
 [%~ MACRO closing_tag_escape(text) BLOCK; text.replace('</', '<\\/'); END ~%]
-[%- USE UserDate(c.user.preferences, current_language) -%]
+[%- USE UserDate(c.user.preferences, current_language) # Converted to React at root/utility/formatUserDate.js
+-%]
 [%- USE Countdown -%]
 [%~ MACRO doc_link(to) BLOCK -%][% c.uri_for('/doc', to) %][%- END -%]
 [%~ MACRO va_doc_link BLOCK -%]
@@ -36,11 +38,11 @@ END ~%]
 [%- END -%]
 
 [%- USE Translation('mb_server') -%]
-[%~ MACRO l(text, args) BLOCK;
+[%~ MACRO l(text, args) BLOCK; # Converted to React at root/static/scripts/common/i18n.js
     Translation.l(text, args);
 END; -%]
 
-[%~ MACRO lp(text, context, args) BLOCK;
+[%~ MACRO lp(text, context, args) BLOCK; # Converted to React at root/static/scripts/common/i18n.js
     Translation.lp(text, context, args);
 END; -%]
 [%#- There is a bug in this implementation fo ngettext that is easier to fix by policy that's why it's not fixed yet.
@@ -48,15 +50,15 @@ The problem surfaces when an unfinished translation file is used, in this case a
 apply language-specific plural construction rules to the untranslated english string. If a translation language has
 more than two plural forms, then the first plural form (germanic plural) is chosen for every form other than the first
 two. -%]
-[%~ MACRO ln(text, plural, num, args) BLOCK;
+[%~ MACRO ln(text, plural, num, args) BLOCK; # Converted to React at root/static/scripts/common/i18n.js
     Translation.ln(text, plural, num, args);
 END; -%]
 
-[%~ MACRO N_ln(text, plural) BLOCK;
+[%~ MACRO N_ln(text, plural) BLOCK; # Converted to React at root/static/scripts/common/i18n.js
     Translation.N_ln(text, plural);
 END; -%]
 
-[%~ MACRO expand(text, args) BLOCK;
+[%~ MACRO expand(text, args) BLOCK; # Converted to React at root/static/scripts/common/i18n/expand.js
     Translation.expand(text, args);
 END; -%]
 
@@ -230,7 +232,7 @@ END -%]
 
 [%~ MACRO entity_exists(entity) BLOCK; entity.gid.defined; END -%]
 
-[%~ MACRO link_entity(entity, action, text, credited_as, no_escape) BLOCK;
+[%~ MACRO link_entity(entity, action, text, credited_as, no_escape) BLOCK; # Converted to React at root/static/scripts/common/components/EntityLink.js
     # no_escape is only available for artists and recordings
     show_disambiguation = text == '';
     IF (NOT text.defined OR text == '');
@@ -276,7 +278,7 @@ END -%]
       '</span>';
     END; -%]
 
-[%~ MACRO descriptive_link(entity, credited_as)
+[%~ MACRO descriptive_link(entity, credited_as) # Converted to React at root/static/scripts/common/components/DescriptiveLink.js
     IF entity.artist_credit.defined;
         l('{entity} by {artist}', { entity => link_entity(entity, 'show', '', credited_as),
                                     artist => artist_credit(entity.artist_credit) });
@@ -800,7 +802,8 @@ END -%]
 //[%- server -%]/[%- id -%]
 [%- END -%]
 
-[%~ MACRO script_manifest(manifest, extra_attrs) BLOCK ~%]
+[%~ MACRO script_manifest(manifest, extra_attrs) BLOCK # Converted to React at root/static/manifest.js
+~%]
   [%~ attr_string = '';
       FOREACH attr IN extra_attrs;
         attr_string = "$attr_string ${attr.key}=\"" _ html_escape(attr.value) _ '"';
@@ -809,7 +812,8 @@ END -%]
   <script src="[% c.model('FileCache').path_to('scripts/' _ manifest) %]"[% attr_string %]></script>
 [%~ END ~%]
 
-[%~ MACRO css_manifest(manifest) BLOCK ~%]
+[%~ MACRO css_manifest(manifest) BLOCK # Converted to React at root/static/manifest.js
+~%]
   <link rel="stylesheet" type="text/css" href="[% c.model('FileCache').path_to('styles/' _ manifest) %]" />
 [%~ END ~%]
 
@@ -880,14 +884,16 @@ END ~%]
     [%~ type_id == 1 ? l('Died in:') : (type_id ==  2 || type_id == 5 || type_id == 6) ? l('Dissolved in:') : l('End area:') ~%]
 [%~ END -%]
 
-[%~ MACRO show_wikipedia_extract BLOCK -%]
+[%~ MACRO show_wikipedia_extract BLOCK # Converted to React at root/static/scripts/common/components/WikipediaExtract.js
+-%]
     [%- React.embed(c, 'static/scripts/common/components/WikipediaExtract', {
         entity => {entityType => entity.entity_type, gid => entity.gid},
         wikipediaExtract => wikipedia_extract,
     }) -%]
 [%- END -%]
 
-[%~ MACRO show_image BLOCK -%]
+[%~ MACRO show_image BLOCK # Converted to React at root/static/scripts/common/components/CommonsImage.js
+-%]
     [%- React.embed(c, 'static/scripts/common/components/CommonsImage', {
             image => commons_image,
             entity => {entityType => entity.entity_type, gid => entity.gid},
@@ -993,7 +999,7 @@ END -%]
 <html lang="[%- current_language_html -%]">
 [%- END -%]
 
-[%~ MACRO add_colon(variable) BLOCK;
+[%~ MACRO add_colon(variable) BLOCK; # Converted to React at root/static/scripts/common/i18n.js
       l('{variable}:', { variable => variable });
     END -%]
 
@@ -1030,7 +1036,8 @@ END -%]
   <div class="data-track icon img" title="[% l('This track is a data track.') %]"></div>
 [%~ END ~%]
 
-[%~ MACRO dismiss_banner_button(banner_name) BLOCK ~%]
+[%~ MACRO dismiss_banner_button(banner_name) BLOCK # Converted to React at root/layout/index.js
+~%]
     <button type="button" class="dismiss-banner remove-item icon" data-banner-name="[% banner_name %]"></button>
 [%~ END ~%]
 
@@ -1080,7 +1087,7 @@ note-[%- edit.id -%]-[%- loop.count() -%]
   </div>
 [%~ END ~%]
 
-[%~ MACRO bugtracker_url(description) BLOCK;
+[%~ MACRO bugtracker_url(description) BLOCK; # Converted to React at root/static/scripts/common/utility/bugTrackerURL.js
     'http://tickets.musicbrainz.org/secure/CreateIssueDetails!init.jspa?' _
     'pid=10000&issuetype=1' _
     (description == '' ? '' : '&description=' _ uri_escape(description));
