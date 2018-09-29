@@ -22,6 +22,20 @@ declare type CountryStatT = {|
   +release_count: number,
 |};
 
+export type EditorsStatsT = {|
+  +$c: CatalystContextT,
+  +dateCollected: string,
+  +topEditors: $ReadOnlyArray<EditorStatT>,
+  +topRecentlyActiveEditors: $ReadOnlyArray<EditorStatT>,
+  +topRecentlyActiveVoters: $ReadOnlyArray<EditorStatT>,
+  +topVoters: $ReadOnlyArray<EditorStatT>,
+|};
+
+declare type EditorStatT = {|
+  +count: number,
+  +entity: EditorT,
+|};
+
 export type FormatsStatsT = {|
   +$c: CatalystContextT,
   +dateCollected: string,

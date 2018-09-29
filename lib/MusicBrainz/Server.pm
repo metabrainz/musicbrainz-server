@@ -519,7 +519,11 @@ sub TO_JSON {
         statuses
         subscribed
         to_merge
+        top_editors
+        top_recently_active_editors
+        top_recently_active_voters
         top_tags
+        top_voters
         user_tags
         work_attribute_types
         work_types

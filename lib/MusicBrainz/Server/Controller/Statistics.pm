@@ -301,13 +301,18 @@ sub editors : Path('editors') {
         $data_point->{editor} = $editors->{ delete $data_point->{editor_id} };
     }
 
-    $c->stash(
-        stats => $stats,
-        top_recently_active_editors => $top_recently_active_editors,
-        top_editors => $top_active_editors,
+    my %props = (
+        dateCollected => $stats->{date_collected},
+        topRecentlyActiveEditors => $top_recently_active_editors,
+        topEditors => $top_active_editors,
+        topRecentlyActiveVoters => $top_recently_active_voters,
+        topVoters => $top_active_voters,
+    );
 
-        top_recently_active_voters => $top_recently_active_voters,
-        top_voters => $top_active_voters,
+    $c->stash(
+        current_view => 'Node',
+        component_path => 'statistics/Editors.js',
+        component_props => \%props,
     );
 }
 
