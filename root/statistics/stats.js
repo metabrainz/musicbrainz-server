@@ -772,7 +772,7 @@ for (let n = 0; n < 11; n++) {
 
 export default stats;
 
-export function getStat(name) {
+export function getStat(name: string) {
   let stat = stats[name];
   if (!stat) {
     stat = {

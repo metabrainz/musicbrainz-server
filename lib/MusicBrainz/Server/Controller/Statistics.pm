@@ -39,22 +39,27 @@ sub statistics : Path('')
     my @work_attribute_types = sort_by { $_->l_name }
         $c->model('WorkAttributeType')->get_all;
 
-    $c->stash(
-        current_view => 'Node',
-        component_path => 'statistics/Index.js',
+    my %props = (
+        dateCollected => $latest_stats->{date_collected},
         statuses => \%statuses,
         packagings => \%packagings,
-        primary_types => \%primary_types,
-        secondary_types => \%secondary_types,
-        label_types => \@label_types,
-        work_types => \@work_types,
-        area_types => \@area_types,
-        place_types => \@place_types,
-        series_types => \@series_types,
-        instrument_types => \@instrument_types,
-        event_types => \@event_types,
-        work_attribute_types => \@work_attribute_types,
-        stats => $latest_stats
+        primaryTypes => \%primary_types,
+        secondaryTypes => \%secondary_types,
+        labelTypes => \@label_types,
+        workTypes => \@work_types,
+        areaTypes => \@area_types,
+        placeTypes => \@place_types,
+        seriesTypes => \@series_types,
+        instrumentTypes => \@instrument_types,
+        eventTypes => \@event_types,
+        workAttributeTypes => \@work_attribute_types,
+        stats => $latest_stats,
+    );
+
+    $c->stash(
+        current_view    => 'Node',
+        component_path  => 'statistics/Index.js',
+        component_props => \%props,
     );
 }
 
@@ -136,11 +141,15 @@ sub countries : Local
         }
     }
 
+    my %props = (
+        dateCollected => $stats->{date_collected},
+        countryStats => $country_stats,
+    );
+
     $c->stash(
-        stats    => $country_stats,
-        date_collected => $stats->{date_collected},
         current_view => 'Node',
         component_path => 'statistics/Countries.js',
+        component_props => \%props,
     );
 }
 
@@ -221,12 +230,16 @@ sub languages_scripts : Path('languages-scripts')
         }
     }
 
+    my %props = (
+        dateCollected => $stats->{date_collected},
+        languageStats => [ rev_nsort_by { $_->{total} } @language_stats ],
+        scriptStats => $script_stats,
+    );
+
     $c->stash(
-        language_stats => [ rev_nsort_by { $_->{total} } @language_stats ],
-        script_stats => $script_stats,
-        date_collected => $stats->{date_collected},
         current_view => 'Node',
-        component_path => 'statistics/LanguagesScripts.js'
+        component_path => 'statistics/LanguagesScripts.js',
+        component_props => \%props,
     );
 }
 
@@ -249,11 +262,16 @@ sub formats : Path('formats')
         }
     }
 
-    $c->stash(
-        format_stats => $format_stats,
+    my %props = (
+        dateCollected => $stats->{date_collected},
+        formatStats => $format_stats,
         stats => $stats,
+    );
+
+    $c->stash(
         current_view => 'Node',
         component_path => 'statistics/Formats.js',
+        component_props => \%props,
     );
 }
 

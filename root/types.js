@@ -57,6 +57,7 @@ declare type AreaT = {|
   ...DatePeriodRoleT,
   ...TypeRoleT<AreaTypeT>,
   +containment: $ReadOnlyArray<AreaT> | null,
+  +country_code: string,
   +entityType: 'area',
   +iso_3166_1_codes: $ReadOnlyArray<string>,
   +iso_3166_2_codes: $ReadOnlyArray<string>,
@@ -551,6 +552,13 @@ declare type LanguageT = {|
 
 type LastUpdateRoleT = {|
   +last_updated: string,
+|}
+
+declare type LinkSearchablePropertyT = {|
+  +entityType: string,
+  +searchField: string,
+  +searchValue: string | null,
+  +text: string,
 |};
 
 declare type LinkTypeAttrTypeT = {|
@@ -579,6 +587,16 @@ declare type LinkTypeT = {|
 declare type MaybeGroupedOptionsT =
   | {|+grouped: true, +options: GroupedOptionsT|}
   | {|+grouped: false, +options: SelectOptionsT|};
+
+declare type MediumFormatT = {|
+  +childOrder: number,
+  +description: string,
+  +entityType: 'medium_format',
+  +gid: string,
+  +id: number,
+  +name: string,
+  +parentID: number | null,
+|};
 
 // See MB.forms.buildOptionsTree
 declare type OptionListT = $ReadOnlyArray<{|

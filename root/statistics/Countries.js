@@ -1,54 +1,61 @@
 /*
+ * @flow
  * Copyright (C) 2018 Shamroy Pellew
+ * Copyright (C) 2018 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
  * and is licensed under the GPL version 2, or (at your option) any
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-const React = require('react');
-const manifest = require('../static/manifest');
-const {formatCount} = require('./utilities');
-const {l} = require('../static/scripts/common/i18n');
-const Layout = require('./Layout');
-const EntityLink = require('../static/scripts/common/components/EntityLink');
+import React from 'react';
 
-const Countries = () => (
-  <Layout fullWidth page="countries" title={l('Countries')}>
+import manifest from '../static/manifest';
+import {l_statistics} from '../static/scripts/common/i18n/statistics';
+import EntityLink from '../static/scripts/common/components/EntityLink';
+import {withCatalystContext} from '../context';
+import loopParity from '../utility/loopParity';
+
+import {formatCount} from './utilities';
+import StatisticsLayout from './StatisticsLayout';
+import type {CountriesStatsT} from './types';
+
+const Countries = ({$c, countryStats, dateCollected}: CountriesStatsT) => (
+  <StatisticsLayout fullWidth page="countries" title={l_statistics('Countries')}>
     {manifest.css('statistics')}
-    <p>{l('Last updated: {date}',
-      {__react: true, date: $c.stash.date_collected})}
+    <p>{l_statistics('Last updated: {date}',
+      {__react: true, date: dateCollected})}
     </p>
     <table className="tbl">
       <thead>
         <tr>
-          <th className="pos">{l('Rank')}</th>
-          <th>{l('Country')}<div className="arrow" /></th>
-          <th>{l('Artists')}<div className="arrow" /></th>
-          <th>{l('Releases')}<div className="arrow" /></th>
-          <th>{l('Labels')}<div className="arrow" /></th>
-          <th>{l('Total')}<div className="arrow" /></th>
+          <th className="pos">{l_statistics('Rank')}</th>
+          <th>{l_statistics('Country')}<div className="arrow" /></th>
+          <th>{l_statistics('Artists')}<div className="arrow" /></th>
+          <th>{l_statistics('Releases')}<div className="arrow" /></th>
+          <th>{l_statistics('Labels')}<div className="arrow" /></th>
+          <th>{l_statistics('Total')}<div className="arrow" /></th>
         </tr>
       </thead>
       <tbody>
-        {$c.stash.stats.map((country, i) => (
-          <tr className={(i + 1) % 2 === 0 ? 'even' : 'odd'} key={country.entity.gid}>
-            <td className="t">{i + 1}</td>
+        {countryStats.map((country, index) => (
+          <tr className={loopParity(index)} key={country.entity.gid}>
+            <td className="t">{index + 1}</td>
             <td>
-              {country.entity.code
+              {country.entity.country_code
                 ? <EntityLink entity={country.entity} />
-                : l('Unknown Country')}
+                : l_statistics('Unknown Country')}
             </td>
-            <td className="t"><EntityLink content={formatCount(country.artist_count)} entity={country.entity} subPath="artists" /></td>
-            <td className="t"><EntityLink content={formatCount(country.release_count)} entity={country.entity} subPath="releases" /></td>
-            <td className="t"><EntityLink content={formatCount(country.label_count)} entity={country.entity} subPath="labels" /></td>
-            <td className="t">{formatCount(country.artist_count + country.release_count + country.label_count)}</td>
+            <td className="t">{country.entity.country_code ? <EntityLink content={formatCount(country.artist_count, $c)} entity={country.entity} subPath="artists" /> : formatCount(country.artist_count, $c)}</td>
+            <td className="t">{country.entity.country_code ? <EntityLink content={formatCount(country.release_count, $c)} entity={country.entity} subPath="releases" /> : formatCount(country.release_count, $c)}</td>
+            <td className="t">{country.entity.country_code ? <EntityLink content={formatCount(country.label_count, $c)} entity={country.entity} subPath="labels" /> : formatCount(country.label_count, $c)}</td>
+            <td className="t">{formatCount(country.artist_count + country.release_count + country.label_count, $c)}</td>
           </tr>
         ))}
       </tbody>
     </table>
     {manifest.js('statistics')}
-  </Layout>
+  </StatisticsLayout>
 );
 
-module.exports = Countries;
+export default withCatalystContext(Countries);
