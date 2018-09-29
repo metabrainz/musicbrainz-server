@@ -4,20 +4,25 @@
 [%- PROCESS 'components/rating-macros.tt' -%]
 [%-# This next could use localization for alternating comma/period use per locale -%]
 [%~ MACRO add_commas(n) GET n.chunk(-3).join(',') -%]
-[%~ MACRO replace(text, search, replace) BLOCK; text | replace(search, replace); END -%]
+[%~ MACRO replace(text, search, replace) BLOCK; text | replace(search, replace); END # Converted to React with standard String.replace
+-%]
 [%~# Use uri_escape for percent-encoding random text to be used as a parameter
    # in an external URL (use c.uri_for(_action) for making internal URLs).
    # A URL passed in from somewhere, on the other hand, should already be
    # percent-encoded and not be run through uri_escape; just use html_escape
    # for entity-encoding reserved characters (the ampersand, in particular).
    # ~%]
-[%~ MACRO uri_escape(text) BLOCK; text | uri; END ~%]
-[%~ MACRO html_escape(text) BLOCK; text | html; END ~%]
+[%~ MACRO uri_escape(text) BLOCK; text | uri; END # Converted to React with standard encodeURIComponent
+~%]
+[%~ MACRO html_escape(text) BLOCK; text | html; END # Converted to React (unneeded)
+~%]
 [%~ MACRO html_unescape(text) BLOCK; text.replace('&quot;', '"').replace('&lt;', '<').replace('&gt;', '>').replace('&#39;', "'").replace('&amp;', '&'); END -%]
 [%~ MACRO bracketedWithSpace(text) BLOCK; text != '' ? l(' ({text})', { text => text }) : ''; END # Converted to React at root/static/scripts/common/utility/bracketed.js
 -%]
-[%~ MACRO js_escape(text) BLOCK; text | js; END ~%]
-[%~ MACRO closing_tag_escape(text) BLOCK; text.replace('</', '<\\/'); END ~%]
+[%~ MACRO js_escape(text) BLOCK; text | js; END # Converted to React (unused)
+~%]
+[%~ MACRO closing_tag_escape(text) BLOCK; text.replace('</', '<\\/'); END # Converted to React at root/utility/escapeClosingTags.js
+~%]
 [%- USE UserDate(c.user.preferences, current_language) # Converted to React at root/utility/formatUserDate.js
 -%]
 [%- USE Countdown -%]
@@ -27,7 +32,7 @@
 [%- END -%]
 [%~ MACRO yesno(b) BLOCK; b ? l('Yes') : l('No'); END ~%]
 
-[%~ MACRO isolate_text(text) BLOCK;
+[%~ MACRO isolate_text(text) BLOCK; # Converted to React at root/static/scripts/common/utility/isolateText.js
     IF text != ''; INCLUDE _wrap_text options=['isolate', 'escape'] content=text;
     ELSE; '';
     END;
@@ -265,7 +270,7 @@ END -%]
     disambiguation(entity) IF show_disambiguation;
 END -%]
 
-[%~ BLOCK _link_deleted;
+[%~ BLOCK _link_deleted; # Converted to React at root/static/scripts/common/components/EntityLink.js
     # parameters: entity, text, no_escape
       SET text = html_escape(text) UNLESS no_escape;
       SET text = html_escape(entity.name) IF text == '';
