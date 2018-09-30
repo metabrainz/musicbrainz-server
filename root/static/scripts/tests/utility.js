@@ -10,7 +10,7 @@ import formatDate from '../common/utility/formatDate';
 const age = require('../../../utility/age');
 const formatDatePeriod = require('../common/utility/formatDatePeriod');
 const formatTrackLength = require('../common/utility/formatTrackLength');
-const parseDate = require('../common/utility/parseDate');
+import parseDate from '../common/utility/parseDate';
 const dates = require('../edit/utility/dates');
 const fullwidthLatin = require('../edit/utility/fullwidthLatin');
 

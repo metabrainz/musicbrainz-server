@@ -10,7 +10,7 @@ const _ = require('lodash');
 const i18n = require('../../common/i18n');
 const MB = require('../../common/MB');
 const typeInfo = require('../../common/typeInfo');
-const parseDate = require('../../common/utility/parseDate');
+import parseDate from '../../common/utility/parseDate';
 const request = require('../../common/utility/request');
 const {hasSessionStorage} = require('../../common/utility/storage');
 const fields = require('./fields');

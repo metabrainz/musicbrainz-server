@@ -7,7 +7,7 @@ const _ = require('lodash');
 
 import getDaysInMonth from '../../../../utility/getDaysInMonth';
 const nonEmpty = require('../../common/utility/nonEmpty');
-const parseInteger = require('../../common/utility/parseInteger');
+import parseInteger from '../../common/utility/parseInteger';
 
 exports.isDateValid = function (y, m, d) {
     y = nonEmpty(y) ? parseInteger(y) : null;
