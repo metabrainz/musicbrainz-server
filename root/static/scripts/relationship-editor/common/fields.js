@@ -314,7 +314,10 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
 
         _phraseAndExtraAttributes() {
             const linkType = this.getLinkType();
-            return linkPhrase.interpolate(linkType, this.attributes());
+            return linkPhrase.interpolate(
+                linkType,
+                this.attributes().map(x => x.toJS()),
+            );
         }
 
         _linkPhrase(source, clean) {

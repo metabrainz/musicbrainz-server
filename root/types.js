@@ -578,6 +578,14 @@ type LastUpdateRoleT = {|
   +last_updated: string | null,
 |};
 
+declare type LinkAttrT = {|
+  type: {|
+    +gid: string,
+  |},
+  +credited_as?: string,
+  +text_value?: string,
+|};
+
 declare type LinkTypeAttrTypeT = {|
   attribute: AttrInfoT,
   +max: number | null,

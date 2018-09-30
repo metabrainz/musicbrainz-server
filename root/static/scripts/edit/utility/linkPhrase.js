@@ -1,4 +1,5 @@
 /*
+ * @flow
  * This file is part of MusicBrainz, the open internet music database.
  * Copyright (C) 2015 MetaBrainz Foundation
  * Licensed under the GPL version 2, or (at your option) any later version:
@@ -9,7 +10,7 @@ import _ from 'lodash';
 
 import commaList from '../../common/i18n/commaList';
 import commaOnlyList from '../../common/i18n/commaOnlyList';
-import {link_type as linkTypeInfo} from '../../common/typeInfo';
+import typeInfo from '../../common/typeInfo';
 import clean from '../../common/utility/clean';
 
 const attributeRegex = /\{(.*?)(?::(.*?))?\}/g;
@@ -18,8 +19,11 @@ function mapNameToID(result, info, id) {
   result[info.attribute.name] = id;
 }
 
-export const stripAttributes = _.memoize(function (linkTypeID, backward) {
-  const linkType = linkTypeInfo.byId[linkTypeID];
+export const stripAttributes = _.memoize<[number, boolean], string>(function (
+  linkTypeID: number,
+  backward: boolean,
+) {
+  const linkType = typeInfo.link_type.byId[linkTypeID];
   const idsByName = _.transform(linkType.attributes, mapNameToID);
 
   // remove {foo} {bar} junk, unless it's for a required attribute.
@@ -29,8 +33,9 @@ export const stripAttributes = _.memoize(function (linkTypeID, backward) {
 
   return clean(phrase.replace(attributeRegex, function (match, name, alt) {
     const id = idsByName[name];
+    const attr = id && linkType.attributes ? linkType.attributes[id] : null;
 
-    if (id !== undefined && linkType.attributes[id].min < 1) {
+    if (attr && !attr.min) {
       return (alt ? alt.split('|')[1] : '') || '';
     }
 
@@ -38,7 +43,10 @@ export const stripAttributes = _.memoize(function (linkTypeID, backward) {
   }));
 }, (a, b) => a + String(b));
 
-export const interpolate = function (linkType, attributes) {
+export const interpolate = function (
+  linkType: LinkTypeT,
+  attributes: $ReadOnlyArray<LinkAttrT>,
+) {
   if (!linkType) {
     return ['', '', ''];
   }
@@ -51,19 +59,19 @@ export const interpolate = function (linkType, attributes) {
   const attributesByName = {};
   let usedAttributes = [];
 
-  _.each(attributes, function (attribute) {
-    const type = attribute.type;
+  for (const attribute of attributes) {
+    const type = typeInfo.link_attribute_type[attribute.type.gid];
     let value = type.l_name;
 
     if (type.freeText) {
-      value = clean(attribute.textValue());
+      value = clean(attribute.text_value);
       if (value) {
         value = texp.l('{attribute}: {value}', {attribute: type.l_name, value: value});
       }
     }
 
     if (type.creditable) {
-      const credit = clean(attribute.creditedAs());
+      const credit = clean(attribute.credited_as);
       if (credit) {
         value = texp.l('{attribute} [{credited_as}]', {attribute: type.l_name, credited_as: credit});
       }
@@ -74,7 +82,7 @@ export const interpolate = function (linkType, attributes) {
       (attributesByName[rootName] =
         attributesByName[rootName] || []).push(value);
     }
-  });
+  }
 
   function interpolate(match, name, alts) {
     usedAttributes.push(name);
