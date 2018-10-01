@@ -510,6 +510,10 @@ sub TO_JSON {
         packagings
         place_types
         primary_types
+        release_format_stats
+        release_status_stats
+        release_type_stats
+        type_stats
         script_stats
         secondary_types
         series_types

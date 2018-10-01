@@ -22,6 +22,36 @@ declare type CountryStatT = {|
   +release_count: number,
 |};
 
+export type CoverArtStatsT = {|
+  +$c: CatalystContextT,
+  +dateCollected: string,
+  +releaseFormatStats: $ReadOnlyArray<CoverArtReleaseFormatStatT>,
+  +releaseStatusStats: $ReadOnlyArray<CoverArtReleaseStatusStatT>,
+  +releaseTypeStats: $ReadOnlyArray<CoverArtReleaseTypeStatT>,
+  +stats: StatsT,
+  +typeStats: $ReadOnlyArray<CoverArtTypeStatT>,
+|};
+
+declare type CoverArtReleaseFormatStatT = {|
+  +format: string,
+  +stat_name: string,
+|};
+
+declare type CoverArtReleaseStatusStatT = {|
+  +stat_name: string,
+  +status: string,
+|};
+
+declare type CoverArtReleaseTypeStatT = {|
+  +stat_name: string,
+  +type: string,
+|};
+
+declare type CoverArtTypeStatT = {|
+  +stat_name: string,
+  +type: string,
+|};
+
 export type EditorsStatsT = {|
   +$c: CatalystContextT,
   +dateCollected: string,

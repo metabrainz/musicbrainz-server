@@ -181,13 +181,19 @@ sub coverart : Local
         }
     }
 
-    $c->stash(
-        template => 'statistics/coverart.tt',
+    my %props = (
+        dateCollected => $stats->{date_collected},
+        releaseFormatStats => $release_format_stats,
+        releaseStatusStats => $release_status_stats,
+        releaseTypeStats => $release_type_stats,
         stats => $stats,
-        release_type_stats => $release_type_stats,
-        release_status_stats => $release_status_stats,
-        release_format_stats => $release_format_stats,
-        type_stats => $type_stats
+        typeStats => $type_stats,
+    );
+
+    $c->stash(
+        current_view => 'Node',
+        component_path => 'statistics/CoverArt.js',
+        component_props => \%props,
     );
 }
 
