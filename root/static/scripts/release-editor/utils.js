@@ -13,6 +13,7 @@ const _ = require('lodash');
 
 const {rstr_sha1} = require('../../lib/sha1/sha1');
 const {MAX_LENGTH_DIFFERENCE, MIN_NAME_SIMILARITY} = require('../common/constants');
+import escapeLuceneValue from '../common/utility/escapeLuceneValue';
 const request = require('../common/utility/request');
 const similarity = require('../edit/utility/similarity');
 const releaseEditor = require('./viewModel');
@@ -65,11 +66,7 @@ utils.unformatTrackLength = function (duration) {
 
 // Webservice helpers
 
-var specialLuceneChars = /([+\-&|!(){}[\]^"~*?:\\\/])/g;
-
-utils.escapeLuceneValue = function (value) {
-    return String(value).replace(specialLuceneChars, "\\$1");
-};
+utils.escapeLuceneValue = escapeLuceneValue;
 
 utils.constructLuceneField = function (values, key) {
     return key + ":(" + values.join(" OR ") + ")";
