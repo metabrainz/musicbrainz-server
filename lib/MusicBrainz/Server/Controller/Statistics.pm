@@ -390,7 +390,10 @@ sub try_fetch_latest_statistics {
 
 sub no_statistics : Private {
     my ($self, $c) = @_;
-    $c->stash( template => 'statistics/no_statistics.tt' );
+    $c->stash(
+        current_view => 'Node',
+        component_path => 'statistics/NoStatistics.js',
+    );
 }
 
 =head1 LICENSE
