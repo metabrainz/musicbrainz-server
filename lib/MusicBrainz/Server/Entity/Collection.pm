@@ -41,6 +41,7 @@ around TO_JSON => sub {
 
     my $json = $self->$orig;
 
+    $json->{editor} = $self->editor ? $self->editor->TO_JSON : undef;
     $json->{public} = boolean_to_json($self->public);
     $json->{description} = $self->description;
 

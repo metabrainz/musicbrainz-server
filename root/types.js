@@ -266,12 +266,19 @@ declare type CDStubT = {|
 
 declare type CollectionT = {|
   ...EntityRoleT,
+  ...TypeRoleT<CollectionTypeT>,
   +description: string,
   +entity_count: number,
   +entityType: 'collection',
+  +editor: EditorT | null,
   +gid: string,
   +name: string,
   +public: boolean,
+|};
+
+export opaque type CollectionTypeT = {|
+  ...OptionTreeT,
+  item_entity_type: string,
 |};
 
 type CommentRoleT = {|+comment: string|};
@@ -760,7 +767,7 @@ type StructFieldT<+F> =
   | CompoundFieldT<F>
   | RepeatableFieldT<F>;
 
-declare type TypeRoleT<T: OptionTreeT> = {|
+declare type TypeRoleT<T: {...OptionTreeT}> = {|
   +typeID: number | null,
   +typeName?: string,
 |};
