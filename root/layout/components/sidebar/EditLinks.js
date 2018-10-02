@@ -9,10 +9,10 @@
 
 import * as React from 'react';
 
+import RequestLogin from '../../../components/RequestLogin';
 import {withCatalystContext} from '../../../context';
 import {l} from '../../../static/scripts/common/i18n';
 import EntityLink from '../../../static/scripts/common/components/EntityLink';
-import returnUri from '../../../utility/returnUri';
 
 type Props = {|
   +$c: CatalystContextT,
@@ -44,9 +44,7 @@ const EditLinks = ({$c, children, entity}: Props) => (
         </>
       ) : (
         <li>
-          <a href={returnUri($c, '/login')}>
-            {l('Log in to edit')}
-          </a>
+          <RequestLogin $c={$c} text={l('Log in to edit')} />
         </li>
       )}
     </ul>

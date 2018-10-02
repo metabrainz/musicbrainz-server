@@ -10,6 +10,7 @@
 import _ from 'lodash';
 import React from 'react';
 
+import RequestLogin from '../../components/RequestLogin';
 import {withCatalystContext} from '../../context';
 import {l, lp} from '../../static/scripts/common/i18n';
 import returnUri from '../../utility/returnUri';
@@ -133,9 +134,7 @@ const UserMenu = ({$c}) => (
     ) : (
       <>
         <li>
-          <a href={returnUri($c, '/login')}>
-            {l('Log In')}
-          </a>
+          <RequestLogin $c={$c} text={l('Log In')} />
         </li>
         <li>
           <a href={returnUri($c, '/register')}>

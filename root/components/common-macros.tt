@@ -536,7 +536,7 @@ END -%]
     INCLUDE _wrap_text options=['link', 'escape'] content=text link=url;
 END -%]
 
-[%~ MACRO request_login(text) BLOCK;
+[%~ MACRO request_login(text) BLOCK; # Converted to React at root/components/RequestLogin.js
     simple_link(login_url(), text || l('Log in'));
 END -%]
 
