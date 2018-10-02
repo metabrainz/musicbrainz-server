@@ -52,6 +52,11 @@ declare type CoverArtTypeStatT = {|
   +type: string,
 |};
 
+declare type EditCategoryT = {|
+  +edit_name: string,
+  +edit_type: string,
+|};
+
 export type EditorsStatsT = {|
   +$c: CatalystContextT,
   +dateCollected: string,
@@ -64,6 +69,13 @@ export type EditorsStatsT = {|
 declare type EditorStatT = {|
   +count: number,
   +entity: EditorT,
+|};
+
+export type EditsStatsT = {|
+  +$c: CatalystContextT,
+  +dateCollected: string,
+  +stats: StatsT,
+  +statsByCategory: {[string]: $ReadOnlyArray<EditCategoryT>},
 |};
 
 export type FormatsStatsT = {|

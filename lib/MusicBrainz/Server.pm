@@ -488,6 +488,7 @@ sub TO_JSON {
         commons_image
         containment
         area_types
+        by_category
         current_language
         current_language_html
         date_collected
