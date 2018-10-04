@@ -68,7 +68,7 @@ function buildLinks(
   user: ?EditorT,
   entity: CoreEntityT,
   page: string,
-  editTab: React.Node,
+  editTab: ?React.Node,
 ): React.Node {
   const links = [buildLink(l('Overview'), entity, '', page, 'index')];
 
@@ -108,7 +108,7 @@ function buildLinks(
 }
 
 type Props = {|
-  +editTab: React.Node,
+  +editTab: ?React.Node,
   +entity: CoreEntityT,
   +page: string,
 |};
