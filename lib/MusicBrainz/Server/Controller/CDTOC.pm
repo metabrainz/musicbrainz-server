@@ -212,7 +212,13 @@ sub attach : Local DenyWhenReadonly
             $c->model('Release')->find_for_cdtoc($artist_id, $cdtoc->track_count, shift, shift)
         });
         $c->model('Release')->load_related_info(@$releases);
-        $c->model('Track')->load_for_mediums(map { $_->all_mediums } @$releases);
+
+        my @mediums = map { $_->all_mediums } @$releases;
+        $c->model('Track')->load_for_mediums(@mediums);
+
+        my @tracks = map { $_->all_tracks } @mediums;
+        $c->model('Recording')->load(@tracks);
+
         my @rgs = $c->model('ReleaseGroup')->load(@$releases);
         $c->model('ReleaseGroup')->load_meta(@rgs);
 
