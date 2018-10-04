@@ -15,6 +15,7 @@ const {artistCreditFromArray, reduceArtistCredit} = require('../../immutable-ent
 const MB = require('../../MB');
 const clean = require('../../utility/clean');
 import formatDate from '../../utility/formatDate';
+import formatDatePeriod from '../../utility/formatDatePeriod';
 const formatTrackLength = require('../../utility/formatTrackLength');
 const isBlank = require('../../utility/isBlank');
 import primaryAreaCode from '../../utility/primaryAreaCode';
@@ -897,7 +898,7 @@ MB.Control.autocomplete_formatters = {
 
         if (item.begin_date || item.time)
         {
-            a.append('<br /><span class="autocomplete-comment">' + (item.begin_date ? (item.begin_date + ' ') : '') + (item.time ? item.time : '') + '</span>');
+            a.append('<br /><span class="autocomplete-comment">' + (item.begin_date ? (formatDatePeriod(item) + ' ') : '') + (item.time ? item.time : '') + '</span>');
         }
 
         var entityRenderer = function (prefix, related_entities) {
