@@ -5,6 +5,9 @@
     </div>
 
     [%~ IF !full_width ~%]
+        [%~ edit_links_add_entity = [] ~%]
+        [%~ edit_links_add_entity.push({ url => c.uri_for_action('/event/create', { 'rels.0.target' => place.gid, 'rels.0.type' => 'e2c6f697-07dc-38b1-be0b-83d740165532' }), text => l('Add event') }) ~%]
+
         [%~ WRAPPER 'layout/sidebar/shared-entity-sidebar.tt' entity=place ~%]
             [%~ show_image() ~%]
 
