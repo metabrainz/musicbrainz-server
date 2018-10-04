@@ -680,7 +680,7 @@ END -%]
     [%~ END ~%]
 [%~ END ~%]
 
-[%~ MACRO expiration_time(datetime) BLOCK -%]
+[%~ MACRO expiration_time(datetime) BLOCK # Converted to React at root/components/ExpirationTime.js -%]
     [%- IF Countdown.in_the_future(datetime) # Make sure datetime is a "countdownable" date -%]
         [%- IF Countdown.days(datetime) > 0 # If the date is far away, only display days -%]
             [%- ln('Expires in <span class="tooltip" title="{exactdate}">{num} day</span>',
