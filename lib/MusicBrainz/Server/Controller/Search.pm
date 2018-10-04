@@ -198,7 +198,6 @@ sub external : Private
     my ($self, $c) = @_;
 
     my $form = $c->stash->{form};
-    $c->stash->{template} = 'search/search.tt';
 
     return unless keys %{ $c->req->query_params } && $form->validate($c->req->query_params);
 
@@ -213,8 +212,6 @@ sub external : Private
                               limit    => $form->field('limit')->value,
                               page     => $c->request->query_params->{page},
                               advanced => $form->field('method')->value eq 'advanced');
-
-    $c->stash->{template} ="search/results-$type.tt";
 }
 
 sub do_external_search {
