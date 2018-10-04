@@ -1,14 +1,15 @@
 package MusicBrainz::Server::Controller::Statistics;
 use Digest::MD5 qw( md5_hex );
 use Moose;
+use Date::Calc qw( Today Add_Delta_Days Date_to_Time );
 use MusicBrainz::Server::Data::Statistics::ByDate;
 use MusicBrainz::Server::Data::Statistics::ByName;
 use MusicBrainz::Server::Data::CountryArea;
 use MusicBrainz::Server::Data::Area;
+use MusicBrainz::Server::Form::Utils qw( build_type_info );
 use MusicBrainz::Server::Translation::Statistics qw(l ln);
 use List::AllUtils qw( sum );
 use List::UtilsBy qw( rev_nsort_by sort_by );
-use Date::Calc qw( Today Add_Delta_Days Date_to_Time );
 
 use aliased 'MusicBrainz::Server::EditRegistry';
 
@@ -347,10 +348,18 @@ sub relationships : Path('relationships') {
     my ($self, $c) = @_;
     my $stats = try_fetch_latest_statistics($c);
     my $pairs = [ $c->model('Relationship')->all_pairs() ];
-    my $types = { map { (join '_', 'l', @$_) => { entity_types => \@$_, tree => $c->model('LinkType')->get_tree($_->[0], $_->[1]) } } @$pairs };
-    $c->stash(
+    my $types = { map { (join '_', 'l', @$_) => { entity_types => \@$_, tree => build_type_info($c, qr/.*/, $c->model('LinkType')->get_tree($_->[0], $_->[1])) } } @$pairs };
+
+    my %props = (
+        dateCollected => $stats->{date_collected},
+        stats => $stats,
         types => $types,
-        stats => $stats
+    );
+
+    $c->stash(
+        current_view => 'Node',
+        component_path => 'statistics/Relationships.js',
+        component_props => \%props,
     );
 }
 

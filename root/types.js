@@ -552,7 +552,7 @@ declare type LanguageT = {|
 
 type LastUpdateRoleT = {|
   +last_updated: string,
-|}
+|};
 
 declare type LinkSearchablePropertyT = {|
   +entityType: string,

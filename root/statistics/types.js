@@ -125,6 +125,18 @@ export type MainStatsT = {|
   +workTypes: $ReadOnlyArray<WorkTypeT>,
 |};
 
+export type RelationshipsStatsT = {|
+  +$c: CatalystContextT,
+  +dateCollected: string,
+  +stats: StatsT,
+  +types: {[string]: RelationshipTypeT},
+|};
+
+declare type RelationshipTypeT = {|
+  +entity_types: $ReadOnlyArray<string>,
+  +tree: {[string]: Array<LinkTypeInfoT>},
+|};
+
 export type StatisticsLayoutPropsT = {|
   +children: ReactNode,
   +fullWidth: boolean,
