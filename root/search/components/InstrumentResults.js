@@ -7,10 +7,11 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import React from 'react';
+import * as React from 'react';
 
 import {withCatalystContext} from '../../context';
 import {l} from '../../static/scripts/common/i18n';
+import {l_instrument_descriptions} from '../../static/scripts/common/i18n/instrument_descriptions';
 import {lp_attributes} from '../../static/scripts/common/i18n/attributes';
 import EntityLink from '../../static/scripts/common/components/EntityLink';
 import loopParity from '../../utility/loopParity';
@@ -20,29 +21,32 @@ import PaginatedSearchResults from './PaginatedSearchResults';
 import ResultsLayout from './ResultsLayout';
 
 function buildResult(result, index) {
-  const series = result.entity;
+  const instrument = result.entity;
   const score = result.score;
 
   return (
-    <tr className={loopParity(index)} data-score={score} key={series.id}>
+    <tr className={loopParity(index)} data-score={score} key={instrument.id}>
       <td>
-        <EntityLink entity={series} />
+        <EntityLink entity={instrument} />
       </td>
+      <td>{instrument.typeName ? lp_attributes(instrument.typeName, 'instrument_type') : null}</td>
       <td>
-        {series.typeName ? lp_attributes(series.typeName, 'series_type') : null}
+        {instrument.description
+          ? l_instrument_descriptions(instrument.description, {__react: true})
+          : null}
       </td>
     </tr>
   );
 }
 
-const SeriesResults = ({
+const InstrumentResults = ({
   $c,
   form,
   lastUpdated,
   pager,
   query,
   results,
-}: ResultsPropsT<SeriesT>) => (
+}: ResultsPropsT<InstrumentT>) => (
   <ResultsLayout form={form} lastUpdated={lastUpdated}>
     <PaginatedSearchResults
       buildResult={buildResult}
@@ -50,21 +54,14 @@ const SeriesResults = ({
         <>
           <th>{l('Name')}</th>
           <th>{l('Type')}</th>
+          <th>{l('Description')}</th>
         </>
       }
       pager={pager}
       query={query}
       results={results}
     />
-    {$c.user && !$c.user.is_editing_disabled ? (
-      <p>
-        {l('Alternatively, you may {uri|add a new series}.', {
-          __react: true,
-          uri: '/series/create?edit-series.name=' + encodeURIComponent(query),
-        })}
-      </p>
-    ) : null}
   </ResultsLayout>
 );
 
-export default withCatalystContext(SeriesResults);
+export default withCatalystContext(InstrumentResults);

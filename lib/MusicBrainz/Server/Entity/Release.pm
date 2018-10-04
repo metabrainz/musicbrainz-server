@@ -261,9 +261,12 @@ around TO_JSON => sub {
         %{ $self->$orig },
         barcode     => $self->barcode->code,
         languageID  => $self->language_id,
+        language    => $self->language,
         packagingID => $self->packaging_id,
         scriptID    => $self->script_id,
+        script      => $self->script,
         statusID    => $self->status_id,
+        status      => $self->status,
         cover_art_url => $self->cover_art_url,
     };
 
@@ -281,7 +284,8 @@ around TO_JSON => sub {
 
     if ($self->all_mediums) {
         $data->{mediums} = [map { $_->TO_JSON } $self->all_mediums];
-        $data->{formats} = $self->combined_format_name;
+        $data->{combined_format_name} = $self->combined_format_name;
+        $data->{combined_track_count} = $self->combined_track_count;
     }
 
     my $length = $self->length;

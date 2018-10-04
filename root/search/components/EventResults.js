@@ -8,14 +8,12 @@
  */
 
 import React from 'react';
-import uniq from 'lodash/uniq';
 
 import {withCatalystContext} from '../../context';
 import {l} from '../../static/scripts/common/i18n';
 import {lp_attributes} from '../../static/scripts/common/i18n/attributes';
-import commaOnlyList from '../../static/scripts/common/i18n/commaOnlyList';
+import ArtistRoles from '../../static/scripts/common/components/ArtistRoles';
 import DescriptiveLink from '../../static/scripts/common/components/DescriptiveLink';
-import EntityLink from '../../static/scripts/common/components/EntityLink';
 import formatDatePeriod from '../../static/scripts/common/utility/formatDatePeriod';
 import loopParity from '../../utility/loopParity';
 import type {ResultsPropsT} from '../types';
@@ -34,31 +32,18 @@ function buildResult(result, index) {
       </td>
       <td>{event.typeName ? lp_attributes(event.typeName, 'event_type') : null}</td>
       <td>
-        <ul>
-          {event.performers.map(r =>(
-            <li key={r.entity.id}>
-              {l('{artist} ({roles})', {
-                __react: true,
-                artist: <EntityLink entity={r.entity} />,
-                roles: r.roles.length > 1
-                  // $FlowFixMe
-                  ? commaOnlyList(uniq(r.roles))
-                  : r.roles[0],
-              })}
-            </li>
-          ))}
-        </ul>
+        <ArtistRoles relations={event.performers} />
       </td>
       <td>
         <ul>
-          {event.places.map(r => (
-            <li key={r.entity.id}>
-              <DescriptiveLink entity={r.entity} />
+          {event.places.map(place => (
+            <li key={place.entity.id}>
+              <DescriptiveLink entity={place.entity} />
             </li>
           ))}
-          {event.areas.map(r => (
-            <li key={r.entity.id}>
-              <DescriptiveLink entity={r.entity} />
+          {event.areas.map(area => (
+            <li key={area.entity.id}>
+              <DescriptiveLink entity={area.entity} />
             </li>
           ))}
         </ul>
@@ -80,14 +65,16 @@ const EventResults = ({
   <ResultsLayout form={form} lastUpdated={lastUpdated}>
     <PaginatedSearchResults
       buildResult={buildResult}
-      columns={[
-        l('Name'),
-        l('Type'),
-        l('Artists'),
-        l('Location'),
-        l('Date'),
-        l('Time'),
-      ]}
+      columns={
+        <>
+          <th>{l('Name')}</th>
+          <th>{l('Type')}</th>
+          <th>{l('Artists')}</th>
+          <th>{l('Location')}</th>
+          <th>{l('Date')}</th>
+          <th>{l('Time')}</th>
+        </>
+      }
       pager={pager}
       query={query}
       results={results}

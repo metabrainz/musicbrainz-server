@@ -56,6 +56,7 @@ declare type AreaT = {|
   +iso_3166_1_codes: $ReadOnlyArray<string>,
   +iso_3166_2_codes: $ReadOnlyArray<string>,
   +iso_3166_3_codes: $ReadOnlyArray<string>,
+  +primary_code: string,
 |};
 
 declare type AnnotationRoleT = {|
@@ -68,6 +69,7 @@ declare type AnnotationT = {|
   +editor: EditorT,
   +html: string,
   +id: number,
+  +parent: CoreEntityT | null,
   +text: string,
 |};
 
@@ -186,6 +188,14 @@ type CatalystStashT = {|
 |};
 
 type CatalystUserT = EditorT;
+
+declare type CDStubT = {|
+  ...EntityRoleT,
+  +artist: string,
+  +discid: string,
+  +title: string,
+  +track_count: number,
+|};
 
 type CommentRoleT = {|+comment: string|};
 
@@ -364,8 +374,20 @@ declare type LabelT = {|
   ...AnnotationRoleT,
   ...CommentRoleT,
   ...CoreEntityRoleT,
+  ...DatePeriodRoleT,
   ...RatableRoleT,
+  ...TypeRoleT<LabelTypeT>,
+  +area: AreaT | null,
   +entityType: 'label',
+  +label_code: number,
+|};
+
+export opaque type LabelTypeT: OptionTreeT = OptionTreeT;
+
+declare type LanguageT = {|
+  +id: number,
+  +iso_code_3: string | null,
+  +name: string,
 |};
 
 declare type LinkTypeAttrTypeT = {|
@@ -434,7 +456,10 @@ declare type PlaceT = {|
   ...AnnotationRoleT,
   ...CommentRoleT,
   ...CoreEntityRoleT,
+  ...DatePeriodRoleT,
   ...TypeRoleT<PlaceTypeT>,
+  +address: string,
+  +area: AreaT | null,
   +entityType: 'place',
 |};
 
@@ -472,8 +497,11 @@ declare type ReleaseGroupT = {|
   ...CommentRoleT,
   ...CoreEntityRoleT,
   ...RatableRoleT,
+  ...TypeRoleT<ReleaseGroupTypeT>,
   +entityType: 'release_group',
 |};
+
+export opaque type ReleaseGroupTypeT: OptionTreeT = OptionTreeT;
 
 declare type ReleaseT = {|
   ...AnnotationRoleT,
@@ -481,13 +509,33 @@ declare type ReleaseT = {|
   ...CommentRoleT,
   ...CoreEntityRoleT,
   +barcode: string | null,
+  +combined_format_name?: string,
+  +combined_track_count?: string,
   +cover_art_url: string | null,
   +entityType: 'release',
+  +events?: $ReadOnlyArray<ReleaseEventT>,
+  +labels?: $ReadOnlyArray<ReleaseLabelT>,
+  +language: LanguageT | null,
   +languageID: number | null,
   +packagingID: number | null,
+  +releaseGroup?: ReleaseGroupT,
+  +script: ScriptT | null,
   +scriptID: number | null,
+  +status: ReleaseStatusT | null,
   +statusID: number | null,
 |};
+
+declare type ReleaseEventT = {|
+  +country: AreaT | null,
+  +date: PartialDateT | null,
+|};
+
+declare type ReleaseLabelT = {|
+  +catalogNumber: string | null,
+  +label: LabelT | null,
+|};
+
+export opaque type ReleaseStatusT: OptionsTree = OptionsTree;
 
 declare type RepeatableFieldT<+F> = {|
   ...FieldRoleT,
@@ -512,6 +560,11 @@ declare type SanitizedEditorT = {|
   +preferences: SanitizedEditorPreferencesT,
 |};
 
+declare type ScriptT = {|
+  +iso_code: string,
+  +name: string,
+|};
+
 declare type SearchFormT = FormT<{|
   +limit: FieldT<number>,
   +method: FieldT<'advanced' | 'direct' | 'indexed'>,
@@ -521,6 +574,12 @@ declare type SearchFormT = FormT<{|
 
 declare type SearchResultT<T> = {|
   +entity: T,
+  +extra: $ReadOnlyArray<{|
+    +medium_position: number,
+    +medium_track_count: number,
+    +release: ReleaseT,
+    +track_position: number,
+  |}>,
   +position: number,
   +score: number,
 |};
@@ -583,10 +642,21 @@ declare type WorkT = {|
   ...CoreEntityRoleT,
   ...RatableRoleT,
   ...TypeRoleT<WorkTypeT>,
+  +artists: $ReadOnlyArray<ArtistCreditT>,
   +entityType: 'work',
+  +iswcs: $ReadOnlyArray<IswcT>,
+  +languages: $ReadOnlyArray<WorkLanguageT>,
+  +writers: $ReadOnlyArray<{|
+    +entity: ArtistT,
+    +roles: $ReadOnlyArray<string>,
+  |}>,
 |};
 
 export opaque type WorkTypeT: OptionTreeT = OptionTreeT;
+
+declare type WorkLanguageT = {|
+  +language: LanguageT,
+|};
 
 declare type WorkAttributeTypeAllowedValueT = {|
   ...EntityRoleT,

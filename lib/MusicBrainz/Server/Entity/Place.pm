@@ -34,6 +34,7 @@ around TO_JSON => sub {
 
     return {
         %{ $self->$orig },
+        address => $self->address,
         area => $self->area ? $self->area->TO_JSON : undef,
         coordinates => $self->coordinates ? $self->coordinates->TO_JSON : undef,
     };

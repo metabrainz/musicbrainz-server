@@ -84,6 +84,18 @@ has 'tracks' => (
     }
 );
 
+around TO_JSON => sub {
+    my ($orig, $self) = @_;
+
+    my $json = $self->$orig;
+    $json->{artist} = $self->artist;
+    $json->{discid} = $self->discid;
+    $json->{title} = $self->title;
+    $json->{track_count} = $self->track_count;
+
+    return $json;
+};
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;

@@ -108,7 +108,7 @@ around TO_JSON => sub {
 
     return {
         %{ $self->$orig },
-        firstReleaseDate    => $self->first_release_date->format,
+        firstReleaseDate    => $self->first_release_date ? $self->first_release_date->format : undef,
         secondaryTypeIDs    => [map { $_->id } $self->all_secondary_types],
         typeID              => $self->primary_type_id,
         typeName            => $self->type_name,

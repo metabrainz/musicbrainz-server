@@ -7,12 +7,10 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import React from 'react';
+import * as React from 'react';
 
-import {withCatalystContext} from '../../context';
 import {l} from '../../static/scripts/common/i18n';
-import {lp_attributes} from '../../static/scripts/common/i18n/attributes';
-import EntityLink from '../../static/scripts/common/components/EntityLink';
+import CDStubLink from '../../static/scripts/common/components/CDStubLink';
 import loopParity from '../../utility/loopParity';
 import type {ResultsPropsT} from '../types';
 
@@ -20,51 +18,43 @@ import PaginatedSearchResults from './PaginatedSearchResults';
 import ResultsLayout from './ResultsLayout';
 
 function buildResult(result, index) {
-  const series = result.entity;
+  const cdstub = result.entity;
   const score = result.score;
 
   return (
-    <tr className={loopParity(index)} data-score={score} key={series.id}>
+    <tr className={loopParity(index)} data-score={score} key={cdstub.discid}>
       <td>
-        <EntityLink entity={series} />
+        <CDStubLink cdstub={cdstub} />
       </td>
-      <td>
-        {series.typeName ? lp_attributes(series.typeName, 'series_type') : null}
-      </td>
+      <td>{cdstub.artist}</td>
+      <td>{cdstub.track_count}</td>
     </tr>
   );
 }
 
-const SeriesResults = ({
+const CDStubResults = ({
   $c,
   form,
   lastUpdated,
   pager,
   query,
   results,
-}: ResultsPropsT<SeriesT>) => (
+}: ResultsPropsT<CDStubT>) => (
   <ResultsLayout form={form} lastUpdated={lastUpdated}>
     <PaginatedSearchResults
       buildResult={buildResult}
       columns={
         <>
-          <th>{l('Name')}</th>
-          <th>{l('Type')}</th>
+          <th>{l('CD Stub')}</th>
+          <th>{l('Artist')}</th>
+          <th>{l('Tracks')}</th>
         </>
       }
       pager={pager}
       query={query}
       results={results}
     />
-    {$c.user && !$c.user.is_editing_disabled ? (
-      <p>
-        {l('Alternatively, you may {uri|add a new series}.', {
-          __react: true,
-          uri: '/series/create?edit-series.name=' + encodeURIComponent(query),
-        })}
-      </p>
-    ) : null}
   </ResultsLayout>
 );
 
-export default withCatalystContext(SeriesResults);
+export default CDStubResults;

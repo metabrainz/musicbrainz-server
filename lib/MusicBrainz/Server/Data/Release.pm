@@ -436,7 +436,8 @@ sub find_by_recordings
 
     my $query =
         "SELECT DISTINCT ON (release.id, track.recording) " . $self->_columns . ",
-                track.recording, track.position
+                track.recording, track.position AS track_position, medium.position AS medium_position,
+                medium.track_count as medium_track_count
            FROM release
            JOIN medium ON release.id = medium.release
            JOIN track ON track.medium = medium.id
@@ -445,11 +446,12 @@ sub find_by_recordings
     my %map;
     for my $row (@{ $self->sql->select_list_of_hashes($query, @ids) }) {
         $map{ $row->{recording} } ||= [];
-        push @{ $map{ $row->{recording} } },
-            [ $self->_new_from_row($row),
-              $self->c->model('Track')->_new_from_row({
-                  position => $row->{position}
-              }) ];
+        push @{ $map{ $row->{recording} } }, {
+            release             => $self->_new_from_row($row),
+            track_position      => $row->{track_position},
+            medium_position     => $row->{medium_position},
+            medium_track_count  => $row->{medium_track_count}
+        }
     }
 
     return %map;

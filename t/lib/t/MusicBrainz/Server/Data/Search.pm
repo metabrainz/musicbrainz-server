@@ -465,11 +465,11 @@ EOF
 
     ok(defined $extra);
     is(@$extra, 3);
-    is($extra->[0]->release_group->primary_type->name, "Album");
-    is($extra->[0]->name, "Bravo Black Hits, Volume 10");
-    is($extra->[0]->gid, "56f23fac-24e9-4883-b093-b4c94a001a96");
-    is($extra->[0]->mediums->[0]->tracks->[0]->position, 17);
-    is($extra->[0]->mediums->[0]->track_count, 19);
+    is($extra->[0]->{release}->release_group->primary_type->name, "Album");
+    is($extra->[0]->{release}->name, "Bravo Black Hits, Volume 10");
+    is($extra->[0]->{release}->gid, "56f23fac-24e9-4883-b093-b4c94a001a96");
+    is($extra->[0]->{track_position}, 17);
+    is($extra->[0]->{medium_track_count}, 19);
 
     # label search
     $data = load_data('label', $test->c,

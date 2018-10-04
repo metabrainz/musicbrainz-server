@@ -7,12 +7,13 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import React from 'react';
+import * as React from 'react';
 
 import {withCatalystContext} from '../../context';
 import {l} from '../../static/scripts/common/i18n';
 import {lp_attributes} from '../../static/scripts/common/i18n/attributes';
 import EntityLink from '../../static/scripts/common/components/EntityLink';
+import ArtistCreditLink from '../../static/scripts/common/components/ArtistCreditLink';
 import loopParity from '../../utility/loopParity';
 import type {ResultsPropsT} from '../types';
 
@@ -20,35 +21,45 @@ import PaginatedSearchResults from './PaginatedSearchResults';
 import ResultsLayout from './ResultsLayout';
 
 function buildResult(result, index) {
-  const series = result.entity;
+  const releaseGroup = result.entity;
   const score = result.score;
 
   return (
-    <tr className={loopParity(index)} data-score={score} key={series.id}>
+    <tr
+      className={loopParity(index)}
+      data-score={score}
+      key={releaseGroup.id}
+    >
       <td>
-        <EntityLink entity={series} />
+        <EntityLink entity={releaseGroup} />
       </td>
       <td>
-        {series.typeName ? lp_attributes(series.typeName, 'series_type') : null}
+        <ArtistCreditLink artistCredit={releaseGroup.artistCredit} />
+      </td>
+      <td>
+        {releaseGroup.typeName
+          ? lp_attributes(releaseGroup.typeName, 'release_group_primary_type')
+          : null}
       </td>
     </tr>
   );
 }
 
-const SeriesResults = ({
+const ReleaseGroupResults = ({
   $c,
   form,
   lastUpdated,
   pager,
   query,
   results,
-}: ResultsPropsT<SeriesT>) => (
+}: ResultsPropsT<ReleaseGroupT>) => (
   <ResultsLayout form={form} lastUpdated={lastUpdated}>
     <PaginatedSearchResults
       buildResult={buildResult}
       columns={
         <>
-          <th>{l('Name')}</th>
+          <th>{l('Release Group')}</th>
+          <th>{l('Artist')}</th>
           <th>{l('Type')}</th>
         </>
       }
@@ -58,13 +69,13 @@ const SeriesResults = ({
     />
     {$c.user && !$c.user.is_editing_disabled ? (
       <p>
-        {l('Alternatively, you may {uri|add a new series}.', {
+        {l('Alternatively, you may {uri|add a new release group}.', {
           __react: true,
-          uri: '/series/create?edit-series.name=' + encodeURIComponent(query),
+          uri: '/release-group/create?edit-release-group.name=' + encodeURIComponent(query),
         })}
       </p>
     ) : null}
   </ResultsLayout>
 );
 
-export default withCatalystContext(SeriesResults);
+export default withCatalystContext(ReleaseGroupResults);

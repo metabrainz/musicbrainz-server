@@ -7,12 +7,14 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import React from 'react';
+import * as React from 'react';
 
 import {withCatalystContext} from '../../context';
 import {l} from '../../static/scripts/common/i18n';
 import {lp_attributes} from '../../static/scripts/common/i18n/attributes';
 import EntityLink from '../../static/scripts/common/components/EntityLink';
+import formatDate from '../../static/scripts/common/utility/formatDate';
+import formatEndDate from '../../static/scripts/common/utility/formatEndDate';
 import loopParity from '../../utility/loopParity';
 import type {ResultsPropsT} from '../types';
 
@@ -20,29 +22,33 @@ import PaginatedSearchResults from './PaginatedSearchResults';
 import ResultsLayout from './ResultsLayout';
 
 function buildResult(result, index) {
-  const series = result.entity;
+  const place = result.entity;
   const score = result.score;
 
   return (
-    <tr className={loopParity(index)} data-score={score} key={series.id}>
+    <tr className={loopParity(index)} data-score={score} key={place.id}>
       <td>
-        <EntityLink entity={series} />
+        <EntityLink entity={place} />
       </td>
+      <td>{place.typeName ? lp_attributes(place.typeName, 'place_type') : null}</td>
+      <td>{place.address}</td>
       <td>
-        {series.typeName ? lp_attributes(series.typeName, 'series_type') : null}
+        {place.area ? <EntityLink entity={place.area} /> : null}
       </td>
+      <td>{formatDate(place.begin_date)}</td>
+      <td>{formatEndDate(place)}</td>
     </tr>
   );
 }
 
-const SeriesResults = ({
+const PlaceResults = ({
   $c,
   form,
   lastUpdated,
   pager,
   query,
   results,
-}: ResultsPropsT<SeriesT>) => (
+}: ResultsPropsT<PlaceT>) => (
   <ResultsLayout form={form} lastUpdated={lastUpdated}>
     <PaginatedSearchResults
       buildResult={buildResult}
@@ -50,6 +56,10 @@ const SeriesResults = ({
         <>
           <th>{l('Name')}</th>
           <th>{l('Type')}</th>
+          <th>{l('Address')}</th>
+          <th>{l('Area')}</th>
+          <th>{l('Begin')}</th>
+          <th>{l('End')}</th>
         </>
       }
       pager={pager}
@@ -58,13 +68,13 @@ const SeriesResults = ({
     />
     {$c.user && !$c.user.is_editing_disabled ? (
       <p>
-        {l('Alternatively, you may {uri|add a new series}.', {
+        {l('Alternatively, you may {uri|add a new place}.', {
           __react: true,
-          uri: '/series/create?edit-series.name=' + encodeURIComponent(query),
+          uri: '/place/create?edit-place.name=' + encodeURIComponent(query),
         })}
       </p>
     ) : null}
   </ResultsLayout>
 );
 
-export default withCatalystContext(SeriesResults);
+export default withCatalystContext(PlaceResults);

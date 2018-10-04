@@ -7,12 +7,15 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import React from 'react';
+import * as React from 'react';
 
 import {withCatalystContext} from '../../context';
 import {l} from '../../static/scripts/common/i18n';
 import {lp_attributes} from '../../static/scripts/common/i18n/attributes';
 import EntityLink from '../../static/scripts/common/components/EntityLink';
+import formatDate from '../../static/scripts/common/utility/formatDate';
+import formatEndDate from '../../static/scripts/common/utility/formatEndDate';
+import formatLabelCode from '../../utility/formatLabelCode';
 import loopParity from '../../utility/loopParity';
 import type {ResultsPropsT} from '../types';
 
@@ -20,29 +23,37 @@ import PaginatedSearchResults from './PaginatedSearchResults';
 import ResultsLayout from './ResultsLayout';
 
 function buildResult(result, index) {
-  const series = result.entity;
+  const label = result.entity;
   const score = result.score;
 
   return (
-    <tr className={loopParity(index)} data-score={score} key={series.id}>
+    <tr className={loopParity(index)} data-score={score} key={label.id}>
       <td>
-        <EntityLink entity={series} />
+        <EntityLink entity={label} />
       </td>
       <td>
-        {series.typeName ? lp_attributes(series.typeName, 'series_type') : null}
+        {label.typeName ? lp_attributes(label.typeName, 'label_type') : null}
       </td>
+      <td>
+        {label.label_code ? formatLabelCode(label.label_code) : null}
+      </td>
+      <td>
+        {label.area ? <EntityLink entity={label.area} /> : null}
+      </td>
+      <td>{formatDate(label.begin_date)}</td>
+      <td>{formatEndDate(label)}</td>
     </tr>
   );
 }
 
-const SeriesResults = ({
+const LabelResults = ({
   $c,
   form,
   lastUpdated,
   pager,
   query,
   results,
-}: ResultsPropsT<SeriesT>) => (
+}: ResultsPropsT<LabelT>) => (
   <ResultsLayout form={form} lastUpdated={lastUpdated}>
     <PaginatedSearchResults
       buildResult={buildResult}
@@ -50,6 +61,10 @@ const SeriesResults = ({
         <>
           <th>{l('Name')}</th>
           <th>{l('Type')}</th>
+          <th>{l('Code')}</th>
+          <th>{l('Area')}</th>
+          <th>{l('Begin')}</th>
+          <th>{l('End')}</th>
         </>
       }
       pager={pager}
@@ -58,13 +73,13 @@ const SeriesResults = ({
     />
     {$c.user && !$c.user.is_editing_disabled ? (
       <p>
-        {l('Alternatively, you may {uri|add a new series}.', {
+        {l('Alternatively, you may {uri|add a new label}.', {
           __react: true,
-          uri: '/series/create?edit-series.name=' + encodeURIComponent(query),
+          uri: '/label/create?edit-label.name=' + encodeURIComponent(query),
         })}
       </p>
     ) : null}
   </ResultsLayout>
 );
 
-export default withCatalystContext(SeriesResults);
+export default withCatalystContext(LabelResults);

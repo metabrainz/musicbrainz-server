@@ -63,6 +63,7 @@ around TO_JSON => sub {
 
     my $json = $self->$orig;
     $json->{name} = $self->name;
+    $json->{iso_code_3} = $self->iso_code_3;
     return $json;
 };
 

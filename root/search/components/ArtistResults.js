@@ -64,17 +64,19 @@ const ArtistResults = ({
   <ResultsLayout form={form} lastUpdated={lastUpdated}>
     <PaginatedSearchResults
       buildResult={buildResult}
-      columns={[
-        l('Name'),
-        l('Sort Name'),
-        l('Type'),
-        l('Gender'),
-        l('Area'),
-        l('Begin'),
-        l('Begin Area'),
-        l('End'),
-        l('End Area'),
-      ]}
+      columns={
+        <>
+          <th>{l('Name')}</th>
+          <th>{l('Sort Name')}</th>
+          <th>{l('Type')}</th>
+          <th>{l('Gender')}</th>
+          <th>{l('Area')}</th>
+          <th>{l('Begin')}</th>
+          <th>{l('Begin Area')}</th>
+          <th>{l('End')}</th>
+          <th>{l('End Area')}</th>
+        </>
+      }
       pager={pager}
       query={query}
       results={results}
