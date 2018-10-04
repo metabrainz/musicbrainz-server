@@ -7,7 +7,7 @@ use DateTime;
 use Digest::MD5 qw( md5_hex );
 use Encode;
 use MusicBrainz::Server::Constants qw( $PASSPHRASE_BCRYPT_COST );
-use MusicBrainz::Server::Data::Utils qw( boolean_to_json );
+use MusicBrainz::Server::Data::Utils qw( boolean_to_json datetime_to_iso8601 );
 use MusicBrainz::Server::Entity::Preferences;
 use MusicBrainz::Server::Entity::Types qw( Area );
 use MusicBrainz::Server::Constants qw( :privileges $EDITOR_MODBOT);
@@ -292,6 +292,7 @@ around TO_JSON => sub {
 
     return {
         %{$self->$orig},
+        email_confirmation_date => datetime_to_iso8601($self->email_confirmation_date),
         gravatar => $self->gravatar,
         is_account_admin => boolean_to_json($self->is_account_admin),
         is_admin => boolean_to_json($self->is_admin),
@@ -299,6 +300,7 @@ around TO_JSON => sub {
         is_banner_editor => boolean_to_json($self->is_banner_editor),
         is_bot => boolean_to_json($self->is_bot),
         is_editing_disabled => boolean_to_json($self->is_editing_disabled),
+        is_limited => boolean_to_json($self->is_limited),
         is_location_editor => boolean_to_json($self->is_location_editor),
         is_relationship_editor => boolean_to_json($self->is_relationship_editor),
         is_wiki_transcluder => boolean_to_json($self->is_wiki_transcluder),

@@ -4,6 +4,7 @@ use namespace::autoclean;
 
 use MusicBrainz::Server::Entity::Types;
 use MusicBrainz::Server::Constants qw( :vote );
+use MusicBrainz::Server::Data::Utils qw( boolean_to_json );
 use MusicBrainz::Server::Types qw( DateTime VoteOption );
 
 extends 'MusicBrainz::Server::Entity';
@@ -51,6 +52,17 @@ sub vote_name
     );
     return $names{$self->vote};
 }
+
+around TO_JSON => sub {
+    my ($orig, $self) = @_;
+
+    my $json = $self->$orig;
+    $json->{editor_id} = $self->editor_id + 0;
+    $json->{superseded} = boolean_to_json($self->superseded);
+    $json->{vote} = $self->vote + 0;
+
+    return $json;
+};
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

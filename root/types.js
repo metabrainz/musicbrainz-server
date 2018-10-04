@@ -342,6 +342,8 @@ declare type EditableRoleT = {|
   +editsPending: boolean,
 |};
 
+declare type EditExpireActionT = 1 | 2;
+
 declare type EditorPreferencesT = {|
   datetime_format: string,
   timezone: string,
@@ -349,6 +351,7 @@ declare type EditorPreferencesT = {|
 
 declare type EditorT = {|
   ...EntityRoleT,
+  +email_confirmation_date: string | null,
   +entityType: 'editor',
   +gravatar: string,
   +is_account_admin: boolean,
@@ -357,6 +360,7 @@ declare type EditorT = {|
   +is_banner_editor: boolean,
   +is_bot: boolean,
   +is_editing_disabled: boolean,
+  +is_limited: boolean,
   +is_location_editor: boolean,
   +is_relationship_editor: boolean,
   +is_wiki_transcluder: boolean,
@@ -372,6 +376,35 @@ declare type EditorOAuthTokenT = {|
   +is_offline: boolean,
   +permissions: $ReadOnlyArray<string>,
   +scope: number,
+|};
+
+declare type EditStatusT =
+  | 1 // OPEN
+  | 2 // APPLIED
+  | 3 // FAILEDVOTE
+  | 4 // FAILEDDEP
+  | 5 // ERROR
+  | 6 // FAILEDPREREQ
+  | 7 // NOVOTES
+  | 8 // TOBEDELETED
+  | 9 // DELETED
+  ;
+
+declare type EditT = {|
+  +close_time: string,
+  +conditions: {|
+    +duration: number,
+    +votes: number,
+    +expire_action: EditExpireActionT,
+    +auto_edit: boolean,
+  |},
+  +created_time: string,
+  +editor_id: number,
+  +expires_time: string,
+  +id: number,
+  +quality: QualityT,
+  +status: EditStatusT,
+  +votes: $ReadOnlyArray<VoteT>,
 |};
 
 declare type EntityRoleT = {|
@@ -786,6 +819,20 @@ declare type UserTagT = {|
   +count: number,
   +tag: string,
   +vote: 1 | 0 | -1,
+|};
+
+declare type VoteOptionT =
+  | -2   // None
+  | -1   // Abstain
+  |  0   // No
+  |  1   // Yes
+  |  2   // Approve
+  ;
+
+declare type VoteT = {|
+  +editor_id: number,
+  +superseded: boolean,
+  +vote: VoteOptionT,
 |};
 
 declare type WorkAttributeT = {|

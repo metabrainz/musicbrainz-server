@@ -25,7 +25,7 @@
                 <tr class="noborder">
                         <th>[% l('My vote:') %]</th>
                         <td class="vote">
-                            [% INCLUDE 'edit/vote.tt' %]
+                            [% React.embed(c, 'edit/components/Vote', {edit => edit}) %]
                         </td>
                 </tr>
             [% END %]
@@ -76,9 +76,6 @@
     </div>
 
   [%- IF !full_width -%]
-    [% WRAPPER 'layout/sidebar.tt' %]
-      [%- INCLUDE "edit/info.tt" -%]
-    [% END %]
+    [%- React.embed(c, 'edit/components/EditSidebar', {edit => edit}) -%]
   [%- END -%]
 [%- END -%]
-
