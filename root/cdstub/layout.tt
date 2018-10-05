@@ -1,7 +1,7 @@
 [% USE Age %]
 [% WRAPPER 'layout.tt' title=l('CD stub “{title}” by {artist}',
-                               { title => cdstubtoc.cdstub.title,
-                                 artist => cdstubtoc.cdstub.artist || l('Various Artists') }) %]
+                               { title => cdstub.title,
+                                 artist => cdstub.artist || l('Various Artists') }) %]
   <div id="content">
     [% INCLUDE 'cdstub/header.tt' %]
     [% content %]
@@ -11,27 +11,27 @@
     [% WRAPPER 'layout/sidebar.tt' %]
         [% WRAPPER 'layout/sidebar/properties.tt' %]
             [% INCLUDE 'layout/sidebar/property.tt' label=l('Added:')
-               content=display_age_ago(Age.age(cdstubtoc.cdstub.date_added)) -%]
+               content=display_age_ago(Age.age(cdstub.date_added)) -%]
             [% INCLUDE 'layout/sidebar/property.tt' label=l('Last modified:')
-               content=display_age_ago(Age.age(cdstubtoc.cdstub.last_modified)) -%]
+               content=display_age_ago(Age.age(cdstub.last_modified)) -%]
             [% INCLUDE 'layout/sidebar/property.tt' label=l('Lookup count:')
-               content=cdstubtoc.cdstub.lookup_count -%]
+               content=cdstub.lookup_count -%]
             [% INCLUDE 'layout/sidebar/property.tt' label=l('Modify count:')
-               content=cdstubtoc.cdstub.modify_count -%]
+               content=cdstub.modify_count -%]
             [% INCLUDE 'layout/sidebar/property.tt' label=l('Barcode:')
-               content=cdstubtoc.cdstub.barcode.format
-                   IF cdstubtoc.cdstub.barcode.format -%]
+               content=cdstub.barcode.format
+                   IF cdstub.barcode.format -%]
         [% END %]
 
         <ul class="links">
-          <li>[% link_cdstub(cdstubtoc, 'import', l('Import as MusicBrainz release')) %]</li>
-          <li><a href="[% c.uri_for_action('/cdtoc/attach', { toc => cdstubtoc.toc }) %]">
+          <li>[% link_cdstub(cdstub, 'import', l('Import as MusicBrainz release')) %]</li>
+          <li><a href="[% c.uri_for_action('/cdtoc/attach', { toc => cdstub.toc }) %]">
                 [%- l('Add disc ID to an existing release') %]</a></li>
           <li>
-            [% artist = 'artist:(' _ (cdstubtoc.cdstub.artist || l('Various Artists')) _ ')' %]
-            [% release = 'release:(' _ cdstubtoc.cdstub.title _ ')' %]
-            [% tracks = 'tracksmedium:(' _ cdstubtoc.track_count _ ')' %]
-            [% barcode = 'barcode:(' _ cdstubtoc.cdstub.barcode _ ')' IF cdstubtoc.cdstub.barcode %]
+            [% artist = 'artist:(' _ (cdstub.artist || l('Various Artists')) _ ')' %]
+            [% release = 'release:(' _ cdstub.title _ ')' %]
+            [% tracks = 'tracksmedium:(' _ cdstub.track_count _ ')' %]
+            [% barcode = 'barcode:(' _ cdstub.barcode _ ')' IF cdstub.barcode %]
             <a href="[% html_escape(c.uri_for_action('/search/search', {
                         query => artist _ ' ' _ release _ ' ' _ tracks _ ' ' _ barcode,
                         type => 'release',

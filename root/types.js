@@ -252,8 +252,15 @@ type CatalystUserT = EditorT;
 declare type CDStubT = {|
   ...EntityRoleT,
   +artist: string,
+  +barcode: string,
+  // null properties are not present in search indexes
+  +date_added: string | null,
   +discid: string,
+  +last_modified: string | null,
+  +lookup_count: number | null,
+  +modify_count: number | null,
   +title: string,
+  +toc: string | null,
   +track_count: number,
 |};
 

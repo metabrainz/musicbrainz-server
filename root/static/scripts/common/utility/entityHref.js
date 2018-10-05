@@ -15,11 +15,11 @@ const nonEmpty = require('./nonEmpty');
 const leadingSlash = /^\/?(.*)/;
 
 type LinkableEntity =
+  | CDStubT
   | CollectionT
   | CoreEntityT
   | IsrcT
-  | IswcT
-  | CDStubT;
+  | IswcT;
 
 function entityHref(
   entity: LinkableEntity,

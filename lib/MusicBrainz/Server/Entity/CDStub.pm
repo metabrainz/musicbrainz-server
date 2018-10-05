@@ -1,6 +1,7 @@
 package MusicBrainz::Server::Entity::CDStub;
 
 use Moose;
+use MusicBrainz::Server::Data::Utils qw( datetime_to_iso8601 );
 use MusicBrainz::Server::Entity::Barcode;
 use MusicBrainz::Server::Entity::Types;
 use MusicBrainz::Server::Types qw( DateTime );
@@ -9,9 +10,26 @@ use namespace::autoclean;
 
 extends 'MusicBrainz::Server::Entity';
 
+sub entity_type { 'cdstub' }
+
 has 'discid' => (
     is => 'rw',
     isa => 'Str'
+);
+
+has 'track_count' => (
+    is => 'rw',
+    isa => 'Int'
+);
+
+has 'leadout_offset' => (
+    is => 'rw',
+    isa => 'Int'
+);
+
+has 'track_offset' => (
+    is => 'rw',
+    isa => 'ArrayRef[Int]'
 );
 
 has 'title' => (
@@ -51,14 +69,6 @@ has 'source' => (
     isa => 'Int'
 );
 
-# Note: This property is used for searches ONLY (because the search results do not set up a full CD Stub TOC).
-#       In all other cases, the track_count property of the associated CDStubTOC applies.
-has 'track_count' => (
-    is => 'rw',
-    isa => 'Int'
-);
-
-
 has 'barcode' => (
     is => 'rw',
     isa => 'Barcode',
@@ -84,13 +94,40 @@ has 'tracks' => (
     }
 );
 
+with 'MusicBrainz::Server::Entity::Role::TOC';
+
+sub length {
+    my $self = shift;
+
+    return int(($self->leadout_offset / 75) * 1000);
+}
+
+# XXX This should be called automatically when loading tracks
+sub update_track_lengths {
+    my $self = shift;
+    my $index = 0;
+    my @offsets = @{$self->track_offset};
+    push @offsets, $self->leadout_offset;
+    foreach my $track (@{$self->tracks}) {
+        $track->length(int((($offsets[$index + 1] - $offsets[$index]) / 75) * 1000));
+        $index++;
+    }
+}
+
 around TO_JSON => sub {
     my ($orig, $self) = @_;
 
     my $json = $self->$orig;
     $json->{artist} = $self->artist;
+    $json->{barcode} = $self->barcode->format;
+    $json->{comment} = $self->comment;
+    $json->{date_added} = datetime_to_iso8601($self->date_added);
     $json->{discid} = $self->discid;
+    $json->{last_modified} = datetime_to_iso8601($self->last_modified);
+    $json->{lookup_count} = $self->lookup_count;
+    $json->{modify_count} = $self->modify_count;
     $json->{title} = $self->title;
+    $json->{toc} = $self->track_offset ? $self->toc : undef;
     $json->{track_count} = $self->track_count;
 
     return $json;

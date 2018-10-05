@@ -491,7 +491,7 @@ END -%]
     INCLUDE _link_other_entity content=text action=action type='cdtoc' default_content=cdtoc.discid;
 END -%]
 
-[%~ MACRO link_cdstub(cdstub, action, text) BLOCK;
+[%~ MACRO link_cdstub(cdstub, action, text) BLOCK; # Converted to React at root/static/scripts/common/components/CDStubLink.js
     INCLUDE _link_other_entity content=text action=action type='cdstub' default_content=cdstub.discid;
 END -%]
 

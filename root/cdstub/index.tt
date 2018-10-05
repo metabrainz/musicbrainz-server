@@ -1,7 +1,7 @@
 [%- WRAPPER 'cdstub/layout.tt' page='index' -%]
-    [% IF cdstubtoc.cdstub.comment %]
+    [% IF cdstub.comment %]
         <h2>[% l('Comment') %]</h2>
-        <p>[% cdstubtoc.cdstub.comment %]</p>
+        <p>[% cdstub.comment %]</p>
     [% END %]
 
     <h2>[% l('Tracklist') %]</h2>
@@ -11,17 +11,17 @@
     <table class="details">
       <tr>
         <th>[%- l('{doc|Disc ID}:', { doc => doc_link('Disc_ID') }) -%]</th>
-        <td><code>[% cdstubtoc.discid %]</code></td>
+        <td><code>[% cdstub.discid %]</code></td>
       </tr>
       <tr>
         <th>[%- l('Total tracks:') -%]</th>
-        <td>[% cdstubtoc.track_count %]</td>
+        <td>[% cdstub.track_count %]</td>
       </tr>
       <tr>
         <th>[%- l('Total length:') -%]</th>
         <td>
           [% total = 0 %]
-          [% FOREACH i IN cdstubtoc.cdstub.tracks;
+          [% FOREACH i IN cdstub.tracks;
               total = total + i.length;
           END %]
           [% total | format_length %]</td>
@@ -29,8 +29,8 @@
       <tr>
         <th>[%- l('Full TOC:') -%]</th>
         <td>
-            1 [% cdstubtoc.track_count %] [% cdstubtoc.leadout_offset %]
-            [% cdstubtoc.track_offset.join(' ') %]
+            1 [% cdstub.track_count %] [% cdstub.leadout_offset %]
+            [% cdstub.track_offset.join(' ') %]
         </td>
       </tr>
     </table>

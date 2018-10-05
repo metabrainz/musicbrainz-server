@@ -414,10 +414,12 @@ sub schema_fixup
     }
     if ($type eq 'cdstub' && defined $data->{gid})
     {
-        $data->{discid} = $data->{gid};
-        delete $data->{gid};
-        $data->{title} = $data->{name};
-        delete $data->{name};
+        $data->{barcode} = MusicBrainz::Server::Entity::Barcode->new($data->{barcode});
+        $data->{comment} = (delete $data->{comment}) // '';
+        $data->{discid} = delete $data->{gid};
+        $data->{title} = delete $data->{name};
+        $data->{track_count} = delete $data->{count};
+        delete $data->{id};
     }
     if ($type eq 'annotation' && defined $data->{entity})
     {
@@ -427,15 +429,6 @@ sub schema_fixup
         $data->{parent} = $entity_model->new( { name => $data->{name}, gid => $data->{entity} });
         delete $data->{entity};
         delete $data->{type};
-    }
-    if ($type eq 'cdstub' && defined $data->{count})
-    {
-        if (defined $data->{barcode})
-        {
-            $data->{barcode} = MusicBrainz::Server::Entity::Barcode->new( $data->{barcode} );
-        }
-
-        $data->{track_count} = delete $data->{count};
     }
     if ($type eq 'release')
     {

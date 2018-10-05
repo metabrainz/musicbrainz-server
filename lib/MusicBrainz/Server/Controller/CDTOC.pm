@@ -270,20 +270,19 @@ sub attach : Local DenyWhenReadonly
             $c->detach;
         }
         else {
-            my $stub_toc = $c->model('CDStubTOC')->get_by_discid($cdtoc->discid);
-            if ($stub_toc) {
-                $c->model('CDStub')->load($stub_toc);
-                $c->model('CDStubTrack')->load_for_cdstub($stub_toc->cdstub);
-                $stub_toc->update_track_lengths;
+            my $cdstub = $c->model('CDStub')->get_by_discid($cdtoc->discid);
+            if ($cdstub) {
+                $c->model('CDStubTrack')->load_for_cdstub($cdstub);
+                $cdstub->update_track_lengths;
 
-                $initial_artist  ||= $stub_toc->cdstub->artist;
-                $initial_release ||= $stub_toc->cdstub->title;
+                $initial_artist  ||= $cdstub->artist;
+                $initial_release ||= $cdstub->title;
 
-                my @mediums = $c->model('Medium')->find_for_cdstub($stub_toc);
+                my @mediums = $c->model('Medium')->find_for_cdstub($cdstub);
                 $c->model('ArtistCredit')->load(map { $_->release } @mediums);
                 $c->stash(
                     possible_mediums => [ @mediums  ],
-                    cdstubtoc => $stub_toc
+                    cdstub => $cdstub
                 );
             }
         }

@@ -1,4 +1,4 @@
-package t::MusicBrainz::Server::WebService::Serializer::JSON::2::CDStubTOC;
+package t::MusicBrainz::Server::WebService::Serializer::JSON::2::CDStub;
 use Test::Routine;
 use Test::Fatal;
 use Test::More;
@@ -7,13 +7,13 @@ use JSON qw( decode_json );
 use MusicBrainz::Server::Entity::Barcode;
 use MusicBrainz::Server::Entity::CDStub;
 use MusicBrainz::Server::Entity::CDStubTrack;
-use MusicBrainz::Server::Entity::CDStubTOC;
 use MusicBrainz::Server::WebService::JSONSerializer;
 
 test 'Can serialize CD stubs to JSON' => sub {
     my $serializer = MusicBrainz::Server::WebService::JSONSerializer->new;
 
     my $cdstub = MusicBrainz::Server::Entity::CDStub->new(
+        discid => 'i6hucXpnMSIhNF13L6M8Y2odGP4-',
         comment => "CD Stub comment",
         artist => "Artist",
         title => "Title",
@@ -27,13 +27,8 @@ test 'Can serialize CD stubs to JSON' => sub {
         ]
     );
 
-    my $cdstub_toc = MusicBrainz::Server::Entity::CDStubTOC->new(
-        cdstub => $cdstub,
-        discid => 'i6hucXpnMSIhNF13L6M8Y2odGP4-'
-    );
-
     is_deeply(
-        decode_json($serializer->serialize('cdstub', $cdstub_toc)),
+        decode_json($serializer->serialize('cdstub', $cdstub)),
         {
             disambiguation => $cdstub->comment,
             artist => $cdstub->artist,
@@ -45,12 +40,11 @@ test 'Can serialize CD stubs to JSON' => sub {
                     length => $_->length
                 }, $cdstub->all_tracks
             ],
-            "track-count" => $cdstub_toc->track_count,
-            id => $cdstub_toc->discid,
+            "track-count" => $cdstub->track_count,
+            id => $cdstub->discid,
             barcode => $cdstub->barcode
         }
     );
 };
 
 1;
-

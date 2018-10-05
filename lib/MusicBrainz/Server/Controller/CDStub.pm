@@ -9,8 +9,8 @@ use MusicBrainz::Server::Translation qw( l ln );
 use MusicBrainz::Server::ControllerUtils::CDTOC qw( add_dash );
 
 with 'MusicBrainz::Server::Controller::Role::Load' => {
-    model       => 'CDStubTOC',
-    entity_name => 'cdstubtoc',
+    model       => 'CDStub',
+    entity_name => 'cdstub',
 };
 
 sub base : Chained('/') PathPart('cdstub') CaptureArgs(0) { }
@@ -30,8 +30,8 @@ sub _load
         $c->detach;
         return;
     }
-    my $cdstubtoc = $c->model('CDStubTOC')->get_by_discid($id);
-    if (!$cdstubtoc) {
+    my $cdstub = $c->model('CDStub')->get_by_discid($id);
+    if (!$cdstub) {
         $c->stash(
                 template  => 'cdstub/error.tt',
                 not_found => 1,
@@ -40,13 +40,12 @@ sub _load
         $c->detach;
         return;
     }
-    $c->model('CDStub')->load($cdstubtoc);
-    $c->model('CDStubTrack')->load_for_cdstub($cdstubtoc->cdstub);
-    $cdstubtoc->update_track_lengths;
+    $c->model('CDStubTrack')->load_for_cdstub($cdstub);
+    $cdstub->update_track_lengths;
 
-    $c->stash->{show_artists} = !defined($cdstubtoc->cdstub->artist) ||
-                                $cdstubtoc->cdstub->artist eq '';
-    $c->stash->{cdstub} = $cdstubtoc;
+    $c->stash->{show_artists} = !defined($cdstub->artist) ||
+                                $cdstub->artist eq '';
+    $c->stash->{cdstub} = $cdstub;
 }
 
 sub add : Path('add') DenyWhenReadonly
@@ -119,15 +118,14 @@ sub browse : Path('browse')
 sub edit : Chained('load') DenyWhenReadonly
 {
     my ($self, $c) = @_;
-    my $cdstub_toc = $c->stash->{cdstub};
-    my $stub = $cdstub_toc->cdstub;
+    my $cdstub = $c->stash->{cdstub};
 
-    my $form = $c->form(form => 'CDStub', init_object => $stub);
+    my $form = $c->form(form => 'CDStub', init_object => $cdstub);
     if ($c->form_posted && $form->submitted_and_valid($c->req->params)) {
-        $c->model('CDStub')->update($stub, $form->value);
+        $c->model('CDStub')->update($cdstub, $form->value);
 
         $c->res->redirect(
-            $c->uri_for_action($self->action_for('show'), [ $cdstub_toc->discid ])
+            $c->uri_for_action($self->action_for('show'), [ $cdstub->discid ])
         );
     }
 }
@@ -135,10 +133,9 @@ sub edit : Chained('load') DenyWhenReadonly
 sub import : Chained('load') RequireAuth
 {
     my ($self, $c) = @_;
-    my $cdstub_toc = $c->stash->{cdstub};
-    my $stub = $cdstub_toc->cdstub;
+    my $cdstub = $c->stash->{cdstub};
 
-    my $search_query = $stub->artist || 'Various Artists';
+    my $search_query = $cdstub->artist || 'Various Artists';
     my $form = $c->form(
         form => 'Search::Query',
         item => { query => $search_query }
