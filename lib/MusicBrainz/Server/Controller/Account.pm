@@ -682,11 +682,16 @@ sub revoke_application_access : Path('/account/applications/revoke-access') Args
 
     my $form = $c->form( form => 'SubmitCancel' );
     if ($c->form_posted && $form->submitted_and_valid($c->req->params)) {
-        $c->model('MB')->with_transaction(sub {
-            $c->model('EditorOAuthToken')->revoke_access($c->user->id, $application_id, $scope);
-        });
-        $c->response->redirect($c->uri_for_action('/account/applications'));
-        $c->detach;
+        if ($form->field('cancel')->input) {
+            $c->response->redirect($c->uri_for_action('/account/applications'));
+            $c->detach;
+        } else {
+            $c->model('MB')->with_transaction(sub {
+                $c->model('EditorOAuthToken')->revoke_access($c->user->id, $application_id, $scope);
+            });
+            $c->response->redirect($c->uri_for_action('/account/applications'));
+            $c->detach;
+        }
     } else {
         $c->stash(
             current_view => 'Node',
@@ -769,11 +774,16 @@ sub remove_application : Path('/account/applications/remove') Args(1) RequireAut
 
     my $form = $c->form( form => 'SubmitCancel' );
     if ($c->form_posted && $form->submitted_and_valid($c->req->params)) {
-        $c->model('MB')->with_transaction(sub {
-            $c->model('Application')->delete($application->id);
-        });
-        $c->response->redirect($c->uri_for_action('/account/applications'));
-        $c->detach;
+        if ($form->field('cancel')->input) {
+            $c->response->redirect($c->uri_for_action('/account/applications'));
+            $c->detach;
+        } else {
+            $c->model('MB')->with_transaction(sub {
+                $c->model('Application')->delete($application->id);
+            });
+            $c->response->redirect($c->uri_for_action('/account/applications'));
+            $c->detach;
+        }
     } else {
         $c->stash(
             current_view => 'Node',
