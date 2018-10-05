@@ -17,6 +17,8 @@ m4_define(`CHROME_DRIVER', `chromedriver_linux64.zip')
 
 m4_define(`NODEJS_DEB', `nodejs_10.10.0-1nodesource1_amd64.deb')
 
+m4_define(`MMD_SCHEMA_COMMIT', `8eed188c557e7b51894b5a47dc37cc548135e607')
+
 m4_define(
     `install_javascript',
     `m4_dnl
