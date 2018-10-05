@@ -15,7 +15,7 @@ import EntityLink from '../../static/scripts/common/components/EntityLink';
 import TaggerIcon from '../../static/scripts/common/components/TaggerIcon';
 import formatTrackLength from '../../static/scripts/common/utility/formatTrackLength';
 import loopParity from '../../utility/loopParity';
-import type {ResultsPropsT} from '../types';
+import type {InlineResultsPropsT, ResultsPropsT} from '../types';
 import ArtistCreditLink
   from '../../static/scripts/common/components/ArtistCreditLink';
 import CodeLink from '../../static/scripts/common/components/CodeLink';
@@ -109,6 +109,33 @@ function buildResult(result, index) {
   );
 }
 
+export const RecordingResultsInline = ({
+  $c,
+  pager,
+  query,
+  results,
+}: InlineResultsPropsT<RecordingT>) => (
+  <PaginatedSearchResults
+    buildResult={buildResult}
+    columns={
+      <>
+        <th>{l('Name')}</th>
+        <th className="treleases">{l('Length')}</th>
+        <th>{l('Artist')}</th>
+        <th>{l('ISRCs')}</th>
+        <th>{l('Release')}</th>
+        {$c.session && $c.session.tport ? <th>{l('Tagger')}</th> : null}
+        <th className="t pos">{l('Track')}</th>
+        <th>{l('Medium')}</th>
+        <th>{l('Type')}</th>
+      </>
+    }
+    pager={pager}
+    query={query}
+    results={results}
+  />
+);
+
 const RecordingResults = ({
   $c,
   form,
@@ -120,21 +147,8 @@ const RecordingResults = ({
   linenum = 0;
   return (
     <ResultsLayout form={form} lastUpdated={lastUpdated}>
-      <PaginatedSearchResults
-        buildResult={buildResult}
-        columns={
-          <>
-            <th>{l('Name')}</th>
-            <th className="treleases">{l('Length')}</th>
-            <th>{l('Artist')}</th>
-            <th>{l('ISRCs')}</th>
-            <th>{l('Release')}</th>
-            {$c.session && $c.session.tport ? <th>{l('Tagger')}</th> : null}
-            <th className="t pos">{l('Track')}</th>
-            <th>{l('Medium')}</th>
-            <th>{l('Type')}</th>
-          </>
-        }
+      <RecordingResultsInline
+        $c={$c}
         pager={pager}
         query={query}
         results={results}

@@ -3,7 +3,9 @@ use Moose;
 BEGIN { extends 'MusicBrainz::Server::Controller' }
 
 use MusicBrainz::Server::Form::TagLookup;
+use MusicBrainz::Server::ControllerUtils::JSON qw( serialize_pager );
 use MusicBrainz::Server::Data::Search qw( escape_query );
+use MusicBrainz::Server::Data::Utils qw( type_to_model );
 
 use constant LOOKUPS_PER_NAG => 5;
 
@@ -184,7 +186,7 @@ sub index : Path('')
     my ($self, $c) = @_;
 
     my $form = $c->form( tag_lookup => 'TagLookup', name => 'tag-lookup' );
-    $c->stash( nag => $self->nag_check($c) );
+    my $nag = $self->nag_check($c);
 
     my $mapped_params = {
         map {
@@ -193,13 +195,34 @@ sub index : Path('')
         } qw( artist release tracknum track duration filename )
     };
 
+    $c->stash(
+        current_view => 'Node',
+        component_path => 'taglookup/Index.js',
+        component_props => {
+            form => $form,
+            nag => $nag,
+        },
+    );
+
     # All the fields are optional, but we shouldn't do anything unless at
     # least one of them has a value
     return unless grep { $_ } values %$mapped_params;
     return unless $form->submitted_and_valid( $mapped_params );
 
     $self->external($c, $form);
-    $c->stash( template => 'taglookup/results.tt' );
+
+    my $model = type_to_model($c->stash->{type});
+    $c->stash(
+        current_view => 'Node',
+        component_path => "taglookup/${model}Results.js",
+        component_props => {
+            form => $form,
+            nag => $nag,
+            pager => serialize_pager($c->stash->{pager}),
+            query => $c->stash->{query},
+            results => $c->stash->{results},
+        },
+    );
 }
 
 1;
