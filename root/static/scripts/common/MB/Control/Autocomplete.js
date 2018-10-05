@@ -11,6 +11,7 @@ const {ENTITIES, MAX_RECENT_ENTITIES} = require('../../constants');
 const MB_entity = require('../../entity');
 const i18n = require('../../i18n');
 const commaOnlyList = require('../../i18n/commaOnlyList');
+import {l_languages} from '../../i18n/languages';
 const {artistCreditFromArray, reduceArtistCredit} = require('../../immutable-entities');
 const MB = require('../../MB');
 const clean = require('../../utility/clean');
@@ -743,7 +744,7 @@ MB.Control.autocomplete_formatters = {
 
         if (item.languages && item.languages.length) {
             a.prepend('<span class="autocomplete-language">' +
-                      _.escape(commaOnlyList(item.languages)) +
+                      _.escape(commaOnlyList(item.languages.map(wl => l_languages(wl.language.name)))) +
                       '</span>');
         }
 

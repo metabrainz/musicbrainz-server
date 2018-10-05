@@ -9,6 +9,7 @@ const React = require('react');
 const {artistBeginLabel, artistEndLabel} = require('../../artist/utils');
 const {addColon, l} = require('../../static/scripts/common/i18n');
 const commaOnlyList = require('../../static/scripts/common/i18n/commaOnlyList');
+import {l_languages} from '../../static/scripts/common/i18n/languages';
 const formatBarcode = require('../../static/scripts/common/utility/formatBarcode');
 import formatDate from '../../static/scripts/common/utility/formatDate';
 const formatTrackLength = require('../../static/scripts/common/utility/formatTrackLength');
@@ -145,7 +146,7 @@ function workDescription(work) {
   if (work.languages.length) {
     desc.push(
       addColon(l('Lyrics Languages')) + ' ' +
-      commaOnlyList(work.languages)
+      commaOnlyList(work.languages.map(wl => l_languages(wl.language.name)))
     );
   }
   if (work.writers) {
