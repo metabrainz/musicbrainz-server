@@ -7,9 +7,9 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-const linkTypeInfoByTypes: {+[string]: $ReadOnlyArray<LinkTypeInfoT>} = {};
+const linkTypeInfoByTypes: {+[string]: $ReadOnlyArray<LinkTypeT>} = {};
 
-const linkTypeInfoById: {+[number | string]: LinkTypeInfoT} = {};
+const linkTypeInfoById: {+[number | string]: LinkTypeT} = {};
 
 const linkAttributeTypeInfoById: {+[number | string]: AttrInfoT} = {};
 

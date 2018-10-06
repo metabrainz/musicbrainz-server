@@ -1,6 +1,7 @@
 package MusicBrainz::Server::Entity::LinkType;
 use Moose;
 
+use MusicBrainz::Server::Data::Utils qw( boolean_to_json );
 use MusicBrainz::Server::Entity::Types;
 use MusicBrainz::Server::Translation::Relationships qw( l );
 
@@ -123,7 +124,26 @@ around TO_JSON => sub {
     my ($orig, $self) = @_;
 
     my $json = $self->$orig;
+
+    my %attrs = map {
+        $_->type_id => {
+            min => defined $_->min ? 0 + $_->min : undef,
+            max => defined $_->max ? 0 + $_->max : undef,
+        }
+    } $self->all_attributes;
+
+    $json->{attributes} = \%attrs;
+    $json->{cardinality0} = $self->entity0_cardinality;
+    $json->{cardinality1} = $self->entity1_cardinality;
+    $json->{deprecated} = boolean_to_json($self->is_deprecated);
+    $json->{hasDates} = boolean_to_json($self->has_dates);
+    $json->{id} = $self->id;
     $json->{link_phrase} = $self->link_phrase;
+    $json->{long_link_phrase} = $self->long_link_phrase;
+    $json->{orderableDirection} = $self->orderable_direction;
+    $json->{reverse_link_phrase} = $self->reverse_link_phrase;
+    $json->{type0} = $self->entity0_type;
+    $json->{type1} = $self->entity1_type;
 
     return $json;
 };
