@@ -10,7 +10,7 @@
 import $ from 'jquery';
 import React from 'react';
 
-import hydrate from '../../../../utility/hydrate';
+import hydrate, {minimalEntity} from '../../../../utility/hydrate';
 import {l} from '../i18n';
 import entityHref from '../utility/entityHref';
 
@@ -64,4 +64,4 @@ class WikipediaExtract extends React.Component<Props, State> {
   }
 }
 
-export default hydrate('wikipedia-extract', WikipediaExtract);
+export default hydrate('wikipedia-extract', WikipediaExtract, minimalEntity);

@@ -11,7 +11,7 @@ const React = require('react');
 const ReactDOM = require('react-dom');
 import keyBy from 'terable/keyBy';
 
-import hydrate from '../../../../utility/hydrate';
+import hydrate, {minimalEntity} from '../../../../utility/hydrate';
 import loopParity from '../../../../utility/loopParity';
 import {GENRE_TAGS} from '../constants';
 const {l, lp} = require('../i18n');
@@ -583,6 +583,7 @@ function init_tag_editor(Component, mountPoint) {
 }
 
 exports.MainTagEditor = MainTagEditor;
-exports.SidebarTagEditor = hydrate('sidebar-tags', SidebarTagEditor);
+
+exports.SidebarTagEditor = hydrate('sidebar-tags', SidebarTagEditor, minimalEntity);
 
 MB.init_main_tag_editor = init_tag_editor(MainTagEditor, 'all-tags');

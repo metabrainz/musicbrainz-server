@@ -119,6 +119,8 @@ const annotationLens = lens.compose2(
   lens.prop('editor'),
 );
 
+const entityLens = lens.prop('entity');
+
 export default withCatalystContext(
   hydrate('annotation', Annotation, function (props) {
     if (props.annotation) {
@@ -128,6 +130,12 @@ export default withCatalystContext(
         props,
       );
     }
-    return JSON.stringify(props);
+    const entity = props.entity;
+    props = lens.set(entityLens, {
+      entityType: entity.entityType,
+      gid: entity.gid,
+      latest_annotation: entity.latest_annotation,
+    }, props);
+    return props;
   })
 );
