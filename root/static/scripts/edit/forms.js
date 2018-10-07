@@ -54,7 +54,8 @@ MB.forms = {
 
     linkTypeOptions: function (root, backward) {
         function getText(data) {
-            return stripAttributes(data.gid, !!backward);
+            return stripAttributes(data, l_relationships(
+                backward ? data.reverse_link_phrase : data.link_phrase));
         }
 
         var options = MB.forms.buildOptionsTree(root, getText, 'id');

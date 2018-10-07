@@ -326,8 +326,18 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
         }
 
         linkTypeName() {
-            var linkTypeID = this.relationship().linkTypeID();
-            return linkTypeID ? stripAttributes(linkTypeID, this.backward()) : "";
+            var linkType = this.relationship().getLinkType();
+            if (!linkType) {
+                return '';
+            }
+            return stripAttributes(
+                linkType,
+                l_relationships(
+                  this.backward()
+                    ? linkType.reverse_link_phrase
+                    : linkType.link_phrase
+                ),
+            );
         }
 
         linkTypeDescription() {

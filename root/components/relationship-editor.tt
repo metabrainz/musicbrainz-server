@@ -182,7 +182,7 @@
       [% bracketedWithSpace(l('ended')) | html %]
     <!-- /ko -->
   <!-- /ko -->
-  <!-- ko with: relationship.phraseAndExtraAttributes()[2 + (forGrouping ? 3 : 0)] -->
+  <!-- ko with: relationship.phraseAndExtraAttributes('link_phrase', forGrouping)[1] -->
     (<!-- ko text: $data --><!-- /ko -->)
   <!-- /ko -->
 </script>

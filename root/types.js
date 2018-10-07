@@ -334,6 +334,21 @@ declare type CoreEntityT =
   | UrlT
   | WorkT;
 
+declare type CoreEntityTypeT =
+  | 'area'
+  | 'artist'
+  | 'event'
+  | 'instrument'
+  | 'label'
+  | 'place'
+  | 'recording'
+  | 'release_group'
+  | 'release'
+  | 'series'
+  | 'url'
+  | 'work'
+  ;
+
 declare type CoverArtTypeT = OptionTreeT<'cover_art_type'>;
 
 declare type CritiqueBrainzReviewT = {|
@@ -693,18 +708,15 @@ declare type RecordingT = {|
   +video: boolean,
 |};
 
-declare type RelationshipAttributeTypeT = {|
-  +gid: string,
-|};
-
-declare type RelationshipAttributeT = {|
-  +type: RelationshipAttributeTypeT,
-|};
-
 declare type RelationshipT = {|
+  ...DatePeriodRoleT,
   // `attributes` may not exist when seeding.
-  +attributes?: $ReadOnlyArray<RelationshipAttributeT>,
+  +attributes?: $ReadOnlyArray<LinkAttrT>,
+  +direction?: 'backward',
+  +entity0_credit: string,
+  +entity1_credit: string,
   +id: number,
+  +linkOrder: number,
   +linkTypeID: number,
   +target: CoreEntityT,
 |};

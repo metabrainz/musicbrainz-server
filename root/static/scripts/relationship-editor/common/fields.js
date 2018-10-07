@@ -106,10 +106,6 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
                 return MB_edit.fields.relationship(self);
             });
 
-            this.phraseAndExtraAttributes = ko.computed(function () {
-                return self._phraseAndExtraAttributes();
-            });
-
             if (data.id) {
                 this.original = this.editData.peek();
             }
@@ -312,18 +308,24 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
             return addColon(attribute.l_name);
         }
 
-        _phraseAndExtraAttributes() {
-            const linkType = this.getLinkType();
-            return linkPhrase.interpolate(
-                linkType,
-                this.attributes().map(x => x.toJS()),
+        phraseAndExtraAttributes(phraseProp, shouldStripAttributes) {
+            return linkPhrase.getPhraseAndExtraAttributes(
+                {
+                    attributes: this.attributes().map(x => x.toJS()),
+                    linkTypeID: this.linkTypeID(),
+                },
+                phraseProp,
+                shouldStripAttributes,
             );
         }
 
-        _linkPhrase(source, clean) {
-            const index = _.indexOf(this.entities(), source) +
-                (clean ? 3 : 0);
-            return this.phraseAndExtraAttributes()[index];
+        _linkPhrase(source, shouldStripAttributes) {
+            return this.phraseAndExtraAttributes(
+                source === this.entities()[0]
+                    ? 'link_phrase'
+                    : 'reverse_link_phrase',
+                shouldStripAttributes,
+            )[0];
         }
 
         linkPhrase(source) {

@@ -19,18 +19,13 @@ function mapNameToID(result, info, id) {
   result[info.attribute.name] = id;
 }
 
-export const stripAttributes = _.memoize<[number, boolean], string>(function (
-  linkTypeID: number,
-  backward: boolean,
+export const stripAttributes = _.memoize<[LinkTypeT, string], string>(function (
+  linkType: LinkTypeT,
+  phrase: string,
 ) {
-  const linkType = typeInfo.link_type.byId[linkTypeID];
   const idsByName = _.transform(linkType.attributes, mapNameToID);
 
   // remove {foo} {bar} junk, unless it's for a required attribute.
-  const phrase = backward
-    ? l_relationships(linkType.reverse_link_phrase)
-    : l_relationships(linkType.link_phrase);
-
   return clean(phrase.replace(attributeRegex, function (match, name, alt) {
     const id = idsByName[name];
     const attr = id && linkType.attributes ? linkType.attributes[id] : null;
@@ -41,25 +36,56 @@ export const stripAttributes = _.memoize<[number, boolean], string>(function (
 
     return match;
   }));
-}, (a, b) => a + String(b));
+}, (a, b) => String(a.id) + b);
 
-export const interpolate = function (
-  linkType: LinkTypeT,
-  attributes: $ReadOnlyArray<LinkAttrT>,
+const EMPTY_OBJECT = Object.freeze({});
+
+const emptyResult = Object.freeze(['', '']);
+
+type CachedResult = {|
+  attributeValues: ?{+[string]: Array<string>},
+  phraseAndExtraAttributes: {[string]: [string, string]},
+|};
+
+type RelationshipInfoT = {
+  +attributes?: $ReadOnlyArray<LinkAttrT>,
+  +linkTypeID: number,
+};
+
+type LinkPhraseProp =
+  | 'link_phrase'
+  | 'long_link_phrase'
+  | 'reverse_link_phrase'
+  ;
+
+const resultCache = new WeakMap<RelationshipInfoT, CachedResult>();
+
+function _getResultCache(relationship: RelationshipInfoT) {
+  let result = resultCache.get(relationship);
+  if (!result) {
+    result = {
+      attributeValues: null,
+      phraseAndExtraAttributes: {},
+    };
+    resultCache.set(relationship, result);
+  }
+  return result;
+}
+
+function _setAttributeValues(
+  relationship: RelationshipInfoT,
+  cache: CachedResult,
 ) {
-  if (!linkType) {
-    return ['', '', ''];
+  const attributes = relationship.attributes;
+  if (!attributes) {
+    cache.attributeValues = EMPTY_OBJECT;
+    return;
   }
 
-  let phrase = l_relationships(linkType.link_phrase);
-  let reversePhrase = l_relationships(linkType.reverse_link_phrase);
-  let cleanPhrase = '';
-  let cleanReversePhrase = '';
-  let cleanExtraAttributes;
-  const attributesByName = {};
-  let usedAttributes = [];
+  let values;
 
-  for (const attribute of attributes) {
+  for (let i = 0; i < attributes.length; i++) {
+    const attribute = attributes[i];
     const type = typeInfo.link_attribute_type[attribute.type.gid];
     let value = type.l_name;
 
@@ -79,55 +105,87 @@ export const interpolate = function (
 
     if (value) {
       const rootName = type.root.name;
-      (attributesByName[rootName] =
-        attributesByName[rootName] || []).push(value);
+      if (!values) {
+        values = {};
+      }
+      (values[rootName] = values[rootName] || []).push(values);
     }
   }
 
-  function interpolate(match, name, alts) {
-    usedAttributes.push(name);
+  cache.attributeValues = values || EMPTY_OBJECT;
+}
 
-    const values = attributesByName[name] || [];
+export function getPhraseAndExtraAttributes(
+  relationship: RelationshipInfoT,
+  phraseProp: LinkPhraseProp,
+  forGrouping?: boolean = false,
+): [string, string] {
+  const linkType = typeInfo.link_type.byId[relationship.linkTypeID];
+  if (!linkType) {
+    return emptyResult;
+  }
+
+  const cache = _getResultCache(relationship);
+  const key = phraseProp + '\0' + (forGrouping ? '1' : '0');
+
+  let result = cache.phraseAndExtraAttributes[key];
+  if (result) {
+    return result;
+  }
+
+  const phraseSource = l_relationships(linkType[phraseProp]);
+  if (!phraseSource) {
+    return emptyResult;
+  }
+
+  if (!cache.attributeValues) {
+    _setAttributeValues(relationship, cache);
+  }
+
+  const {attributeValues} = cache;
+  /* flow-include if (!attributeValues) throw 'impossible'; */
+  const usedAttributes = Object.create(null);
+
+  const _interpolate = function (match, name, alts) {
+    usedAttributes[name] = true;
+
+    const values = attributeValues[name] || [];
     let replacement = commaList(values);
 
-    if (alts && (alts = alts.split('|'))) {
+    if (alts) {
+      alts = alts.split('|');
       replacement = values.length ? alts[0].replace(/%/g, replacement) : alts[1] || '';
     }
 
     return replacement;
-  }
+  };
 
-  phrase = clean(phrase.replace(attributeRegex, interpolate));
-  reversePhrase = clean(reversePhrase.replace(attributeRegex, interpolate));
-  const extraAttributes = commaOnlyList(
-    _(attributesByName).omit(usedAttributes).values()
-      .flatten()
-      .value(),
+  const phrase = clean(
+    (forGrouping ? stripAttributes(linkType, phraseSource) : phraseSource)
+      .replace(attributeRegex, _interpolate),
   );
 
-  if (linkType.orderable_direction > 0) {
-    usedAttributes = [];
-    cleanPhrase = clean(
-      stripAttributes(linkType.id, false)
-        .replace(attributeRegex, interpolate),
-    );
-    cleanReversePhrase = clean(
-      stripAttributes(linkType.id, true)
-        .replace(attributeRegex, interpolate),
-    );
-    cleanExtraAttributes = commaOnlyList(
-      _(attributesByName).omit(usedAttributes).values()
-        .flatten()
-        .value(),
-    );
+  const extraAttributes: Array<string> = [];
+  for (const key in attributeValues) {
+    if (!usedAttributes[key]) {
+      const values = attributeValues[key];
+      extraAttributes.push(...values);
+    }
   }
 
-  return [
-    phrase,
-    reversePhrase,
-    extraAttributes,
-    cleanPhrase,
-    cleanReversePhrase,
-    cleanExtraAttributes,
-  ];
-};
+  result = [phrase, commaOnlyList(extraAttributes)];
+  cache.phraseAndExtraAttributes[key] = result;
+  return result;
+}
+
+export const interpolate = (
+  relationship: RelationshipInfoT,
+  phraseProp: LinkPhraseProp,
+  forGrouping?: boolean = false,
+) => getPhraseAndExtraAttributes(relationship, phraseProp, forGrouping)[0];
+
+export const getExtraAttributes = (
+  relationship: RelationshipInfoT,
+  phraseProp: LinkPhraseProp,
+  forGrouping?: boolean = false,
+) => getPhraseAndExtraAttributes(relationship, phraseProp, forGrouping)[1];
