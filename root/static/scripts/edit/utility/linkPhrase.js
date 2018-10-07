@@ -23,9 +23,11 @@ import displayLinkAttribute, {displayLinkAttributeText}
 const EMPTY_OBJECT = Object.freeze({});
 
 const emptyResult = Object.freeze(['', '']);
+const entity0Subst = /\{entity0\}/;
+const entity1Subst = /\{entity1\}/;
 
 type CachedResult<T> = {|
-  attributeValues: ?{+[string]: Array<T>},
+  attributeValues: ?{+[string]: Array<T> | T},
   phraseAndExtraAttributes: {[string]: [T, T]},
 |};
 
@@ -115,15 +117,19 @@ const textI18n: I18n<string> = {
 function _setAttributeValues<T>(
   i18n: I18n<T | string>,
   relationship: RelationshipInfoT,
+  entity0: ?T,
+  entity1: ?T,
   cache: CachedResult<T>,
 ) {
   const attributes = relationship.attributes;
+  const values = entity0 && entity1 ? {entity0, entity1} : {};
+
+  cache.attributeValues = values;
+
   if (!attributes) {
-    cache.attributeValues = EMPTY_OBJECT;
     return;
   }
 
-  let values;
   const linkType = linkedEntities.link_type[relationship.linkTypeID];
 
   for (let i = 0; i < attributes.length; i++) {
@@ -131,10 +137,6 @@ function _setAttributeValues<T>(
     const value = i18n.displayLinkAttribute(attribute);
 
     if (value) {
-      if (!values) {
-        values = {};
-      }
-
       const type = linkedEntities.link_attribute_type[attribute.typeID];
       const info = linkType.attributes[type.root_id];
       const rootName = linkedEntities.link_attribute_type[type.root_id].name;
@@ -146,8 +148,6 @@ function _setAttributeValues<T>(
       }
     }
   }
-
-  cache.attributeValues = values || EMPTY_OBJECT;
 }
 
 const requiredAttributesCache: {
@@ -176,6 +176,8 @@ function _getPhraseAndExtraAttributes<T>(
   relationship: RelationshipInfoT,
   phraseProp: LinkPhraseProp,
   forGrouping?: boolean = false,
+  entity0?: T,
+  entity1?: T,
 ): [T | string, T | string] {
   const cache = _getResultCache<T | string>(i18n.cache, relationship);
   const key = phraseProp + '\0' + (forGrouping ? '1' : '0');
@@ -190,13 +192,19 @@ function _getPhraseAndExtraAttributes<T>(
     return emptyResult;
   }
 
-  const phraseSource = l_relationships(linkType[phraseProp]);
+  let phraseSource = l_relationships(linkType[phraseProp]);
   if (!phraseSource) {
     return emptyResult;
   }
 
   if (!cache.attributeValues) {
-    _setAttributeValues<T | string>(i18n, relationship, cache);
+    _setAttributeValues<T | string>(
+      i18n,
+      relationship,
+      entity0,
+      entity1,
+      cache,
+    );
   }
 
   const attributeValues = cache.attributeValues;
@@ -220,6 +228,15 @@ function _getPhraseAndExtraAttributes<T>(
   const shouldStripAttributes =
     forGrouping &&
     linkType.orderable_direction > 0;
+
+  if (phraseProp === 'long_link_phrase' && entity0 && entity1) {
+    if (!entity0Subst.test(phraseSource)) {
+      phraseSource = '{entity0} ' + phraseSource;
+    }
+    if (!entity1Subst.test(phraseSource)) {
+      phraseSource += ' {entity1}';
+    }
+  }
 
   const varArgs = new PhraseVarArgs(
     shouldStripAttributes
@@ -270,11 +287,15 @@ export const interpolate = (
   relationship: RelationshipInfoT,
   phraseProp: LinkPhraseProp,
   forGrouping?: boolean = false,
+  entity0?: React$MixedElement,
+  entity1?: React$MixedElement,
 ) => _getPhraseAndExtraAttributes<Expand2ReactOutput, Expand2ReactInput>(
   reactI18n,
   relationship,
   phraseProp,
   forGrouping,
+  entity0,
+  entity1,
 )[0];
 
 export const interpolateText = (
