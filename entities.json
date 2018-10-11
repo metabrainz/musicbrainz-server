@@ -128,9 +128,6 @@
         "model": "CDStub",
         "url": "cdstub"
     },
-    "cdstubtoc": {
-        "model": "CDStubTOC"
-    },
     "cdtoc": {
         "model": "CDTOC"
     },

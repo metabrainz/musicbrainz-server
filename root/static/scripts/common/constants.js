@@ -7,6 +7,8 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
+import {l} from './i18n';
+
 export const ENTITIES = require('../../../../entities');
 
 export const GENRE_TAGS: Set<string> = new Set(ENTITIES.tag.genres);
@@ -174,3 +176,10 @@ export const ENTITIES_WITH_RELATIONSHIP_CREDITS: {[string]: boolean} = {
   label: true,
   place: true,
 };
+
+export const QUALITY_NAMES: Map<QualityT, string> = new Map([
+  [0, l('Low')],
+  [-1, l('Normal')],
+  [1, l('Normal')],
+  [2, l('High')],
+]);

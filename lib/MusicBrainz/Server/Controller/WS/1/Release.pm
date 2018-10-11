@@ -101,13 +101,12 @@ around 'search' => sub
             my @recordings = map { $_->recording } map { $_->all_tracks } @mediums;
         }
         elsif (!exists $c->req->query_params->{cdstubs} || $c->req->query_params->{cdstubs} eq 'yes') {
-            my $cd_stub_toc = $c->model('CDStubTOC')->get_by_discid($disc_id);
-            if ($cd_stub_toc) {
-                $c->model('CDStub')->load($cd_stub_toc);
-                $c->model('CDStub')->increment_lookup_count($cd_stub_toc->cdstub->id);
-                $c->model('CDStubTrack')->load_for_cdstub($cd_stub_toc->cdstub);
+            my $cdstub = $c->model('CDStub')->get_by_discid($disc_id);
+            if ($cdstub) {
+                $c->model('CDStub')->increment_lookup_count($cdstub->id);
+                $c->model('CDStubTrack')->load_for_cdstub($cdstub);
 
-                push @releases, $cd_stub_toc->cdstub;
+                push @releases, $cdstub;
             }
         }
 

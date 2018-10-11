@@ -1,11 +1,28 @@
-// This file is part of MusicBrainz, the open internet music database.
-// Copyright (C) 2017 MetaBrainz Foundation
-// Licensed under the GPL version 2, or (at your option) any later version:
-// http://www.gnu.org/licenses/gpl-2.0.txt
+/*
+ * @flow
+ * Copyright (C) 2017 MetaBrainz Foundation
+ *
+ * This file is part of MusicBrainz, the open internet music database,
+ * and is licensed under the GPL version 2, or (at your option) any
+ * later version: http://www.gnu.org/licenses/gpl-2.0.txt
+ */
 
-const {l} = require('../static/scripts/common/i18n');
+import {l} from '../static/scripts/common/i18n';
 
-function artistBeginLabel(typeId) {
+export function artistBeginAreaLabel(typeId: ?number) {
+  switch (typeId) {
+    case 1:
+      return l('Born in:');
+    case 2:
+    case 5:
+    case 6:
+      return l('Founded in:');
+    default:
+      return l('Begin area:');
+  }
+}
+
+export function artistBeginLabel(typeId: ?number) {
   switch (typeId) {
     case 1:
       return l('Born:');
@@ -18,7 +35,20 @@ function artistBeginLabel(typeId) {
   }
 }
 
-function artistEndLabel(typeId) {
+export function artistEndAreaLabel(typeId: ?number) {
+  switch (typeId) {
+    case 1:
+      return l('Died in:');
+    case 2:
+    case 5:
+    case 6:
+      return l('Dissolved in:');
+    default:
+      return l('End area:');
+  }
+}
+
+export function artistEndLabel(typeId: ?number) {
   switch (typeId) {
     case 1:
       return l('Died:');
@@ -30,6 +60,3 @@ function artistEndLabel(typeId) {
       return l('End date:');
   }
 }
-
-exports.artistBeginLabel = artistBeginLabel;
-exports.artistEndLabel = artistEndLabel;

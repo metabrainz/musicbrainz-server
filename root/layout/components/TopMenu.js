@@ -10,8 +10,10 @@
 import _ from 'lodash';
 import React from 'react';
 
+import RequestLogin from '../../components/RequestLogin';
 import {withCatalystContext} from '../../context';
 import {l, lp} from '../../static/scripts/common/i18n';
+import returnUri from '../../utility/returnUri';
 
 import Search from './Search';
 
@@ -132,12 +134,10 @@ const UserMenu = ({$c}) => (
     ) : (
       <>
         <li>
-          <a href={'/login?uri=' + encodeURIComponent($c.req.query_params.uri || $c.relative_uri)}>
-            {l('Log In')}
-          </a>
+          <RequestLogin $c={$c} text={l('Log In')} />
         </li>
         <li>
-          <a href={'/register?uri=' + encodeURIComponent($c.req.query_params.uri || $c.relative_uri)}>
+          <a href={returnUri($c, '/register')}>
             {l('Create Account')}
           </a>
         </li>

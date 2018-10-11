@@ -13,7 +13,6 @@ import {l, lp} from '../static/scripts/common/i18n';
 import EditorLink from '../static/scripts/common/components/EditorLink';
 import formatUserDate from '../utility/formatUserDate';
 import {canCancel, canSecond, canVote, isInvolved, votesVisible} from '../utility/voting';
-import ExpirationDate from '../components/ExpirationDate';
 
 type PropsT = {
   +election: AutoEditorElectionT,

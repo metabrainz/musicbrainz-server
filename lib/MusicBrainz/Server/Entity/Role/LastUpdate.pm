@@ -3,12 +3,30 @@ package MusicBrainz::Server::Entity::Role::LastUpdate;
 use Moose::Role;
 use MusicBrainz::Server::Types qw( PgDateStr );
 use namespace::autoclean;
+use DateTime::Format::Pg;
 
 has 'last_updated' => (
     is => 'rw',
     isa => PgDateStr,
     coerce => 1,
 );
+
+around TO_JSON => sub {
+    my ($orig, $self) = @_;
+
+    my $json = $self->$orig;
+
+    my $last_updated = $self->last_updated;
+    if (defined $last_updated) {
+        $last_updated = DateTime::Format::Pg->parse_datetime($self->last_updated);
+        $last_updated->set_time_zone('UTC');
+        $json->{last_updated} = $last_updated->iso8601 . 'Z';
+    } else {
+        $json->{last_updated} = undef;
+    }
+
+    return $json;
+};
 
 no Moose::Role;
 1;

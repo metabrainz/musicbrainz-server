@@ -33,7 +33,7 @@ my %serializers =
         Area
         Artist
         ArtistCredit
-        CDStubTOC
+        CDStub
         CDTOC
         Collection
         Event

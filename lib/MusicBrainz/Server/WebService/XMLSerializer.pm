@@ -740,9 +740,7 @@ sub _serialize_disc_offsets
 
 sub _serialize_cdstub
 {
-    my ($self, $data, $gen, $toc, $inc, $stash, $toplevel) = @_;
-
-    my $cdstub = $toc->cdstub;
+    my ($self, $data, $gen, $cdstub, $inc, $stash, $toplevel) = @_;
 
     my @contents = (
         $gen->title($cdstub->title),
@@ -762,9 +760,9 @@ sub _serialize_cdstub
         $gen->track(@track);
     } $cdstub->all_tracks;
 
-    push @contents, $gen->track_list({ count => $toc->track_count }, @tracks);
+    push @contents, $gen->track_list({ count => $cdstub->track_count }, @tracks);
 
-    push @$data, $gen->cdstub({ id => $toc->discid }, @contents);
+    push @$data, $gen->cdstub({ id => $cdstub->discid }, @contents);
 }
 
 sub _serialize_label_info_list

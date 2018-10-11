@@ -11,9 +11,10 @@ import React from 'react';
 
 import {l, lp} from '../static/scripts/common/i18n';
 import EditorLink from '../static/scripts/common/components/EditorLink';
+import bracketed from '../static/scripts/common/utility/bracketed';
 import formatUserDate from '../utility/formatUserDate';
 import {votesVisible} from '../utility/voting';
-import ExpirationDate from '../components/ExpirationDate';
+import ExpirationTime from '../components/ExpirationTime';
 
 type PropsT = {
   +election: AutoEditorElectionT,
@@ -85,11 +86,12 @@ const ElectionDetails = ({election, user}: PropsT) => (
             : null}
 
           {election.is_pending || election.is_open
-            ? (
-              <ExpirationDate
+            ? bracketed(
+              <ExpirationTime
                 date={election.current_expiration_time}
                 user={user}
-              />
+              />,
+              {__react: true},
             ) : null}
 
           {election.is_closed

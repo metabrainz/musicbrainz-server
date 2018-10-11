@@ -267,8 +267,25 @@ around TO_JSON => sub {
         script      => $self->script,
         statusID    => $self->status_id,
         status      => $self->status,
+        cover_art_presence => $self->cover_art_presence,
         cover_art_url => $self->cover_art_url,
     };
+
+    if (my $language = $self->language) {
+        $self->link_entity('language', $language->id, $language);
+    }
+
+    if (my $packaging = $self->packaging) {
+        $self->link_entity('release_packaging', $packaging->id, $packaging);
+    }
+
+    if (my $script = $self->script) {
+        $self->link_entity('script', $script->id, $script);
+    }
+
+    if (my $status = $self->status) {
+        $self->link_entity('release_status', $status->id, $status);
+    }
 
     if ($self->release_group) {
         $data->{releaseGroup} = $self->release_group->TO_JSON;

@@ -13,12 +13,14 @@ import entityHref from '../utility/entityHref';
 
 type Props = {|
   +cdstub: CDStubT,
+  +content: string,
+  +subPath?: string,
 |};
 
-const CDStubLink = ({cdstub}: Props) => (
-  <a href={entityHref(cdstub)}>
+const CDStubLink = ({cdstub, content, subPath}: Props) => (
+  <a href={entityHref(cdstub, subPath)}>
     <bdi>
-      {cdstub.title}
+      {content}
     </bdi>
   </a>
 );

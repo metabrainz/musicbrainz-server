@@ -112,6 +112,7 @@ ul.inline {
 li.separator {
     border-top: 1px @hr-color solid;
     margin-top: 1em;
+    &[role=separator] { list-style: none; }
 }
 
 /* See http://www.longren.org/2006/09/27/wrapping-text-inside-pre-tags/ */
@@ -421,6 +422,7 @@ div.warning img.warning {
 #sidebar ul.licenses li{
     display: inline-block;
     margin-bottom: 2px;
+    margin-right: 4px;
 }
 
 #sidebar .cover-art, #sidebar .picture {
@@ -437,7 +439,7 @@ div.warning img.warning {
     display: block;
 }
 
-#sidebar-tags {
+#sidebar-tags, .sidebar-tags {
     ul {
         padding-left: @form-margin;
     }

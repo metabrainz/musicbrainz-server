@@ -7,13 +7,11 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-const {DARTIST_ID, VARTIST_ID, VARTIST_GID} = require('../constants');
+import {DARTIST_ID, VARTIST_ID, VARTIST_GID} from '../constants';
 
-function isSpecialPurposeArtist(artist: ArtistT): boolean {
+export default function isSpecialPurposeArtist(artist: ArtistT): boolean {
   return !!(
     (artist.id && artist.id === DARTIST_ID || artist.id === VARTIST_ID) ||
     (artist.gid && artist.gid === VARTIST_GID)
   );
-};
-
-module.exports = isSpecialPurposeArtist;
+}

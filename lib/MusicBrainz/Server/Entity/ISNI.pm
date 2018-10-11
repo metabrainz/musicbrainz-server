@@ -2,7 +2,6 @@ package MusicBrainz::Server::Entity::ISNI;
 
 use Moose;
 
-extends 'MusicBrainz::Server::Entity';
 with 'MusicBrainz::Server::Entity::Role::Editable';
 
 has 'isni' => (
@@ -13,6 +12,14 @@ has 'isni' => (
 sub url {
     my ($self) = @_;
     return "http://isni-url.oclc.nl/isni/" . $self->isni;
+}
+
+sub TO_JSON {
+    my ($self) = @_;
+
+    return {
+        isni => $self->isni,
+    };
 }
 
 __PACKAGE__->meta->make_immutable;

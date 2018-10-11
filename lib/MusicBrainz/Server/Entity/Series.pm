@@ -46,6 +46,14 @@ sub display_relationships {
 around TO_JSON => sub {
     my ($orig, $self) = @_;
 
+    if (my $ordering_type = $self->ordering_type) {
+        $self->link_entity(
+            'series_ordering_type',
+            $ordering_type->id,
+            $ordering_type,
+        );
+    }
+
     my $json = $self->$orig;
     $json->{orderingTypeID} = $self->ordering_type_id;
 

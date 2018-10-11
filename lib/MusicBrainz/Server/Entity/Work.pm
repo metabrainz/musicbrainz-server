@@ -88,8 +88,15 @@ sub sorted_attributes {
 around TO_JSON => sub {
     my ($orig, $self) = @_;
 
+    for my $attr ($self->all_attributes) {
+        if (my $type = $attr->type) {
+            $self->link_entity('work_attribute_type', $type->id, $type);
+        }
+    }
+
     return {
         %{ $self->$orig },
+        attributes => [map { $_->TO_JSON } $self->sorted_attributes],
         languages => [map { $_->TO_JSON } $self->all_languages],
         iswcs => [map { $_->TO_JSON } $self->all_iswcs],
         artists => [map { $_->TO_JSON } $self->all_artists],

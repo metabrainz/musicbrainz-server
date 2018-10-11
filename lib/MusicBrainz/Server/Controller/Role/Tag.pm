@@ -21,7 +21,7 @@ after load => sub {
     $c->stash(
         top_tags => \@tags,
         more_tags => $count > @tags,
-        top_tags_json => $c->json->encode(\@tags),
+        user_tags => \@user_tags,
         user_tags_json => $c->json->encode(\@user_tags),
     );
 };

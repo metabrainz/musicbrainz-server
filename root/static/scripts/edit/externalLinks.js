@@ -380,28 +380,7 @@ function withOneEmptyLink(links, dontRemove) {
   }
 }
 
-type RelationshipTargetT = {
-  entityType: string,
-  name: string,
-  relationships?: Array<RelationshipT>,
-};
-
-type RelationshipAttributeTypeT = {
-  gid: string,
-};
-
-type RelationshipAttributeT = {
-  type: RelationshipAttributeTypeT,
-};
-
-type RelationshipT = {
-  attributes: Array<RelationshipAttributeT>,
-  id: number,
-  linkTypeID: number,
-  target: RelationshipTargetT,
-};
-
-function parseRelationships(relationships?: Array<RelationshipT>) {
+function parseRelationships(relationships?: $ReadOnlyArray<RelationshipT>) {
   return _.transform(relationships || [], function (accum, data) {
     var target = data.target;
 
@@ -475,7 +454,7 @@ function isShortened(url) {
 type InitialOptionsT = {
   errorObservable?: (boolean) => void,
   mountPoint: Element,
-  sourceData: RelationshipTargetT,
+  sourceData: CoreEntityT,
 };
 
 MB.createExternalLinksEditor = function (options: InitialOptionsT) {

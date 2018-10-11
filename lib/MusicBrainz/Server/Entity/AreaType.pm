@@ -9,6 +9,8 @@ with 'MusicBrainz::Server::Entity::Role::OptionsTree' => {
     type => 'AreaType',
 };
 
+sub entity_type { 'area_type' }
+
 sub l_name {
     my $self = shift;
     return lp($self->name, 'area_type')

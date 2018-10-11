@@ -19,13 +19,10 @@
 [%~ MACRO html_unescape(text) BLOCK; text.replace('&quot;', '"').replace('&lt;', '<').replace('&gt;', '>').replace('&#39;', "'").replace('&amp;', '&'); END -%]
 [%~ MACRO bracketedWithSpace(text) BLOCK; text != '' ? l(' ({text})', { text => text }) : ''; END # Converted to React at root/static/scripts/common/utility/bracketed.js
 -%]
-[%~ MACRO js_escape(text) BLOCK; text | js; END # Converted to React (unused)
-~%]
 [%~ MACRO closing_tag_escape(text) BLOCK; text.replace('</', '<\\/'); END # Converted to React at root/utility/escapeClosingTags.js
 ~%]
 [%- USE UserDate(c.user.preferences, current_language) # Converted to React at root/utility/formatUserDate.js
 -%]
-[%- USE Countdown -%]
 [%~ MACRO doc_link(to) BLOCK -%][% c.uri_for('/doc', to) %][%- END -%]
 [%~ MACRO va_doc_link BLOCK -%]
     [%- doc_link('Style/Unknown_and_untitled/Special_purpose_artist#List_of_official_SPAs') -%]
@@ -67,21 +64,7 @@ END; -%]
     Translation.expand(text, args);
 END; -%]
 
-[%~ MACRO display_age(age, person) BLOCK;
-      IF person AND age.0;
-        l('aged {num}', { num => age.0 });
-      ELSE;
-        IF age.0;
-          ln('{num} year', '{num} years', age.0, { num => age.0 });
-        ELSIF age.1;
-          ln('{num} month', '{num} months', age.1, { num => age.1 });
-        ELSE;
-          ln('{num} day', '{num} days', age.2, { num => age.2 });
-        END;
-      END;
-    END -%]
-
-[%~ MACRO display_age_ago(age) BLOCK;
+[%~ MACRO display_age_ago(age) BLOCK; # Converted to React at root/utility/age.js
         IF age.0;
           ln('{num} year ago', '{num} years ago', age.0, { num => age.0 });
         ELSIF age.1;
@@ -126,7 +109,7 @@ END; -%]
 <a href="[% artwork.image %]">[% l('original') %]</a>
 [%- END -%]
 
-[%~ MACRO cover_art_url(url) BLOCK;
+[%~ MACRO cover_art_url(url) BLOCK; # Converted to React at root/utility/coverArtUrl.js
     IF c.req.secure;
         url | coverart_https;
     ELSE;
@@ -491,7 +474,7 @@ END -%]
     INCLUDE _link_other_entity content=text action=action type='cdtoc' default_content=cdtoc.discid;
 END -%]
 
-[%~ MACRO link_cdstub(cdstub, action, text) BLOCK;
+[%~ MACRO link_cdstub(cdstub, action, text) BLOCK; # Converted to React at root/static/scripts/common/components/CDStubLink.js
     INCLUDE _link_other_entity content=text action=action type='cdstub' default_content=cdstub.discid;
 END -%]
 
@@ -517,7 +500,7 @@ END -%]
     INCLUDE _link_other_entity content=text action=action type='edit' default_content=edit.id;
 END -%]
 
-[%~ MACRO link_searchable_property(search_field, search_value, entity_type, text) BLOCK -%]
+[%~ MACRO link_searchable_property(search_field, search_value, entity_type, text) BLOCK # Converted to React at root/components/LinkSearchableProperty.js -%]
   [%- text = text == '' ? search_value : text -%]
   [%- search_field = search_value == '*' ? '-' _ search_field : search_field -%]
   [%- -%]<a href="[% c.uri_for('/search', {query => search_field _ ':' _ search_value, type => entity_type, limit => 25, method => 'advanced'}) | html %]">
@@ -536,7 +519,7 @@ END -%]
     INCLUDE _wrap_text options=['link', 'escape'] content=text link=url;
 END -%]
 
-[%~ MACRO request_login(text) BLOCK;
+[%~ MACRO request_login(text) BLOCK; # Converted to React at root/components/RequestLogin.js
     simple_link(login_url(), text || l('Log in'));
 END -%]
 
@@ -641,29 +624,6 @@ END -%]
     CASE 2;  l('High');
 END -%]
 
-[%~ MACRO edit_conditions(expire_action) SWITCH expire_action;
-    CASE 1; l('Accept upon expiration');
-    CASE 2; l('Reject upon expiration');
-END -%]
-
-[%-# See /lib/MusicBrainz/Server/Edit/Utils.pm for status names -%]
-[%~ MACRO edit_status_description(edit) SWITCH edit.status;
-        CASE 1; l('This edit is open and awaiting votes before it can be applied.');
-        CASE 2; l('This edit has been successfully applied.');
-        CASE 3; l('This edit failed because there were insufficient "yes" votes.');
-        CASE 4; l('This edit failed either because an entity it was modifying no longer
-                   exists, or the entity can not be modified in this manner anymore.');
-        CASE 5; l('This edit failed due to an internal error and may need to be
-                   entered again.');
-        CASE 6; l('This edit failed because the data it was changing was modified
-                   after this edit was created. This may happen when the same edit
-                   is entered in twice; one will pass but the other will fail.');
-        CASE 7; l('This edit failed because it affected high quality data and
-                   did not receive any votes.');
-        CASE 8; l('This edit was recently cancelled.');
-        CASE 9; l('This edit was cancelled.');
-END -%]
-
 [%~ MACRO edit_status_class(edit) BLOCK ~%]
     [%~ IF edit.status == 1 ~%]
         [%- " open" -%]
@@ -679,32 +639,6 @@ END -%]
         [%- " edit-error" -%]
     [%~ END ~%]
 [%~ END ~%]
-
-[%~ MACRO expiration_time(datetime) BLOCK -%]
-    [%- IF Countdown.in_the_future(datetime) # Make sure datetime is a "countdownable" date -%]
-        [%- IF Countdown.days(datetime) > 0 # If the date is far away, only display days -%]
-            [%- ln('Expires in <span class="tooltip" title="{exactdate}">{num} day</span>',
-                  'Expires in <span class="tooltip" title="{exactdate}">{num} days</span>',
-                  Countdown.days(datetime),
-                { num => Countdown.days(datetime),
-                  exactdate => UserDate.format(datetime) }) -%]
-        [%- ELSIF Countdown.hours(datetime) > 0 # Show hours -%]
-            [%- ln('Expires in <span class="tooltip" title="{exactdate}">{num} hour</span>',
-                  'Expires in <span class="tooltip" title="{exactdate}">{num} hours</span>',
-                  Countdown.hours(datetime),
-                { num => Countdown.hours(datetime),
-                  exactdate => UserDate.format(datetime) }) -%]
-        [%- ELSE # Only show minutes -%]
-            [%- ln('Expires in <span class="tooltip" title="{exactdate}">{num} minute</span>',
-                  'Expires in <span class="tooltip" title="{exactdate}">{num} minutes</span>',
-                  Countdown.minutes(datetime),
-                { num => Countdown.minutes(datetime),
-                  exactdate => UserDate.format(datetime) }) -%]
-        [%- END -%]
-    [%- ELSE -%]
-        [%- l('Already expired') -%]
-    [%- END -%]
-[%- END -%]
 
 [%~ MACRO vote_tally(edit) BLOCK -%]
     [%- IF edit.auto_edit; '<strong>' _ l('automatically applied') _ '</strong>';
@@ -758,22 +692,6 @@ END -%]
         ' (' _ relationship.${extra_attributes_field} _ ')';
     END; -%]
 [%- END -%]
-
-[%~ MACRO license_class(url)
-       IF url.url.as_string.search('creativecommons.org/publicdomain/zero/'); 'CC0';
-    ELSIF url.url.as_string.search('creativecommons.org/licenses/publicdomain/'); 'CCPD';
-    ELSIF url.url.as_string.search('creativecommons.org/licenses/by-nc-sa/'); 'CCBYNCSA';
-    ELSIF url.url.as_string.search('creativecommons.org/licenses/by-nc-nd/'); 'CCBYNCND';
-    ELSIF url.url.as_string.search('creativecommons.org/licenses/by-sa/'); 'CCBYSA';
-    ELSIF url.url.as_string.search('creativecommons.org/licenses/by-nc/'); 'CCBYNC';
-    ELSIF url.url.as_string.search('creativecommons.org/licenses/by-nd/'); 'CCBYND';
-    ELSIF url.url.as_string.search('creativecommons.org/licenses/by/'); 'CCBY';
-    ELSIF url.url.as_string.search('creativecommons.org/licenses/nc-sampling\\+/'); 'CCNCSamplingPlus';
-    ELSIF url.url.as_string.search('creativecommons.org/licenses/sampling\\+/'); 'CCSamplingPlus';
-    ELSIF url.url.as_string.search('creativecommons.org/licenses/sampling/'); 'CCSampling';
-    ELSIF url.url.as_string.search('artlibre.org/licence/lal'); 'ArtLibre';
-    ELSE; '';
-END -%]
 
 [%~ MACRO css_class_name(name) BLOCK;
     name | lower | replace('[^a-z]+', '-') | remove('^-|-$');
@@ -877,16 +795,8 @@ END ~%]
     [%~ type_id == 1 ? l('Born:') : (type_id ==  2 || type_id == 5 || type_id == 6) ? l('Founded:') : l('Begin date:') ~%]
 [%~ END -%]
 
-[%~ MACRO artist_begin_area_label_from_type(type_id) BLOCK ~%]
-    [%~ type_id == 1 ? l('Born in:') : (type_id ==  2 || type_id == 5 || type_id == 6) ? l('Founded in:') : l('Begin area:') ~%]
-[%~ END -%]
-
 [%~ MACRO artist_end_label_from_type(type_id) BLOCK ~%]
     [%~ type_id == 1 ? l('Died:') : (type_id ==  2 || type_id == 5 || type_id == 6) ? l('Dissolved:') : l('End date:') ~%]
-[%~ END -%]
-
-[%~ MACRO artist_end_area_label_from_type(type_id) BLOCK ~%]
-    [%~ type_id == 1 ? l('Died in:') : (type_id ==  2 || type_id == 5 || type_id == 6) ? l('Dissolved in:') : l('End area:') ~%]
 [%~ END -%]
 
 [%~ MACRO show_wikipedia_extract BLOCK # Converted to React at root/static/scripts/common/components/WikipediaExtract.js
@@ -895,14 +805,6 @@ END ~%]
         entity => {entityType => entity.entity_type, gid => entity.gid},
         wikipediaExtract => wikipedia_extract,
     }) -%]
-[%- END -%]
-
-[%~ MACRO show_image BLOCK # Converted to React at root/static/scripts/common/components/CommonsImage.js
--%]
-    [%- React.embed(c, 'static/scripts/common/components/CommonsImage', {
-            image => commons_image,
-            entity => {entityType => entity.entity_type, gid => entity.gid},
-        }) -%]
 [%- END -%]
 
 [%~ MACRO track_duration_changes(loop_over, old_base, new_base, old_prop, new_prop) BLOCK -%]
@@ -964,7 +866,7 @@ END -%]
     END;
 END -%]
 
-[%~ MACRO release_events(release_events) BLOCK;
+[%~ MACRO release_events(release_events) BLOCK; # Converted to React at root/components/ReleaseEvents.js
       IF release_events.size;
         '<ul class="links">';
         FOR event=release_events;
@@ -974,7 +876,7 @@ END -%]
       END;
     END -%]
 
-[%~ MACRO release_event(event) BLOCK;
+[%~ MACRO release_event(event) BLOCK; # Converted to React at root/components/ReleaseEvent.js
       date = event.date;
       country = event.country;
       parts = [];
@@ -986,12 +888,6 @@ END -%]
 [%~ MACRO format_isni(isni) BLOCK;
       isni.replace('(.{4})(.{4})(.{4})(.{4})', '$1 $2 $3 $4');
     END -%]
-
-[%~ MACRO link_isni(isni) BLOCK -%]
-    <a href="[% isni.url %]">
-        [%- format_isni(isni.isni) -%]
-    </a>
-[%- END -%]
 
 [%~ MACRO country_abbr(country) BLOCK -%]
     <span class="flag flag-[% country.primary_code %]">

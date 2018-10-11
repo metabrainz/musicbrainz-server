@@ -24,7 +24,7 @@ function buildResult(result, index) {
   return (
     <tr className={loopParity(index)} data-score={score} key={cdstub.discid}>
       <td>
-        <CDStubLink cdstub={cdstub} />
+        <CDStubLink cdstub={cdstub} content={cdstub.title} />
       </td>
       <td>{cdstub.artist}</td>
       <td>{cdstub.track_count}</td>

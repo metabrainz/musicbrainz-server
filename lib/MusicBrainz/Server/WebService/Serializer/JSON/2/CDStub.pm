@@ -1,4 +1,4 @@
-package MusicBrainz::Server::WebService::Serializer::JSON::2::CDStubTOC;
+package MusicBrainz::Server::WebService::Serializer::JSON::2::CDStub;
 use Moose;
 use JSON;
 use MusicBrainz::Server::WebService::Serializer::JSON::2::Utils qw(
@@ -9,11 +9,10 @@ extends 'MusicBrainz::Server::WebService::Serializer::JSON::2';
 
 sub serialize
 {
-    my ($self, $entity, $inc, $stash, $toplevel) = @_;
-    my $cdstub = $entity->cdstub;
+    my ($self, $cdstub, $inc, $stash, $toplevel) = @_;
 
     return {
-        id => $entity->discid,
+        id => $cdstub->discid,
         title => $cdstub->title,
         artist => $cdstub->artist,
         barcode => $cdstub->barcode->format || JSON::null,
@@ -25,7 +24,7 @@ sub serialize
                 length => $_->length
             }, $cdstub->all_tracks
         ],
-        "track-count" => $entity->track_count
+        "track-count" => $cdstub->track_count
     };
 };
 

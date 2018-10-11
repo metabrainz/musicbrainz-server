@@ -13,6 +13,7 @@ my ($output_path) = @ARGV;
 Readonly our @BOOLEAN_DEFS => qw(
     DB_READ_ONLY
     DB_STAGING_SERVER
+    DB_STAGING_TESTING_FEATURES
     DEVELOPMENT_SERVER
     IS_BETA
 );
@@ -48,6 +49,7 @@ Readonly our @QW_DEFS => qw(
 );
 
 Readonly our %CLIENT_DEFS => (
+    DB_STAGING_TESTING_FEATURES => 1,
     DEVELOPMENT_SERVER => 1,
     GIT_BRANCH => 1,
     GIT_SHA => 1,

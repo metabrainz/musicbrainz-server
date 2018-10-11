@@ -91,7 +91,7 @@ const NoInfoURL = ({url, allowNew}) => (
 type EntityLinkProps = {
   +allowNew?: boolean,
   +content?: React.Node,
-  +entity: CoreEntityT,
+  +entity: CoreEntityT | CollectionT,
   +hover?: string,
   +showDeleted?: boolean,
   +showDisambiguation?: boolean,

@@ -5,51 +5,6 @@
     </div>
 
     [%~ IF !full_width ~%]
-        [%~ edit_links_add_entity = [] ~%]
-        [%~ edit_links_add_entity.push({ url => c.uri_for_action('/event/create', { 'rels.0.target' => place.gid, 'rels.0.type' => 'e2c6f697-07dc-38b1-be0b-83d740165532' }), text => l('Add event') }) ~%]
-
-        [%~ WRAPPER 'layout/sidebar/shared-entity-sidebar.tt' entity=place ~%]
-            [%~ show_image() ~%]
-
-            <h2 class="place-information">[%~ l('Place information') ~%]</h2>
-            [%~ WRAPPER 'layout/sidebar/properties.tt' ~%]
-                [%~ INCLUDE 'layout/sidebar/property.tt' label=l('Type:')
-                     content=html_escape(place.l_type_name) class="type"
-                         IF place.type ~%]
-                    [%~ UNLESS place.begin_date.is_empty AND place.end_date.is_empty AND !place.ended ~%]
-                        [%~ IF place.begin_date.format ~%]
-                            [%~ WRAPPER 'layout/sidebar/property.tt' label=l("Opened:") class="opened" ~%]
-                                [%~ place.begin_date.format ~%]
-                                [%~ IF place.has_age AND not place.end_date.format ~%]
-                                    [%~ bracketedWithSpace(display_age_ago(place.age)) ~%]
-                                [%~ END ~%]
-                            [%~ END ~%]
-                        [%~ END ~%]
-                        [%~ IF place.end_date.format ~%]
-                            [%~ WRAPPER 'layout/sidebar/property.tt' label=l("Closed:") class="closed" ~%]
-                                [%~ place.end_date.format ~%]
-                                [%~ IF place.has_age ~%]
-                                    [%~ bracketedWithSpace(display_age(place.age)) ~%]
-                                [%~ END ~%]
-                            [%~ END ~%]
-                        [%~ ELSIF place.ended ~%]
-                            [%~ WRAPPER 'layout/sidebar/property.tt' label=l("Closed:") class="closed" ~%]
-                                [%~ l('[unknown]') ~%]
-                            [%~ END ~%]
-                        [%~ END ~%]
-                    [%~ END ~%]
-                    [%~ INCLUDE 'layout/sidebar/property.tt' label=l('Address:')
-                         content=html_escape(place.address) class="address"
-                             IF place.address ~%]
-                    [%~ INCLUDE 'layout/sidebar/property.tt' label=l('Area:')
-                         content=descriptive_link(place.area)
-                         class="area"
-                             IF place.area ~%]
-                    [%~ INCLUDE 'layout/sidebar/property.tt' label=l('Coordinates:')
-                         content=('<a href="' _ html_escape(place.coordinates.osm_url(16)) _ '">' _ html_escape(place.coordinates.format) _ '</a>')
-                         class="coordinates"
-                             IF place.coordinates ~%]
-            [%~ END ~%]
-        [%~ END ~%]
+        [%~ React.embed(c, 'layout/components/sidebar/PlaceSidebar', {place => place}) ~%]
     [%~ END ~%]
 [%~ END ~%]

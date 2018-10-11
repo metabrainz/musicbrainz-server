@@ -4,7 +4,6 @@ use Test::Moose;
 use Test::More;
 
 use MusicBrainz::Server::Data::CDStub;
-use MusicBrainz::Server::Data::CDStubTOC;
 use MusicBrainz::Server::Data::CDStubTrack;
 
 use MusicBrainz::Server::Context;
@@ -18,19 +17,17 @@ my $test = shift;
 
 MusicBrainz::Server::Test->prepare_raw_test_database($test->c, '+cdstub_raw');
 
-my $cdstubtoc = MusicBrainz::Server::Data::CDStubTOC->new(c => $test->c);
+my $cdstub_data = MusicBrainz::Server::Data::CDStub->new(c => $test->c);
 
-my $toc = $cdstubtoc->get_by_discid('YfSgiOEayqN77Irs.VNV.UNJ0Zs-');
-$test->c->model('CDStub')->load($toc);
-$test->c->model('CDStubTrack')->load_for_cdstub($toc->cdstub);
+my $cdstub = $cdstub_data->get_by_discid('YfSgiOEayqN77Irs.VNV.UNJ0Zs-');
+$test->c->model('CDStubTrack')->load_for_cdstub($cdstub);
 
-is ( $toc->discid, 'YfSgiOEayqN77Irs.VNV.UNJ0Zs-');
-is ( $toc->leadout_offset, 20000 );
-is ( $toc->track_count, 2 );
-is ( $toc->track_offset->[0], 150 );
-is ( $toc->track_offset->[1], 10000 );
+is ( $cdstub->discid, 'YfSgiOEayqN77Irs.VNV.UNJ0Zs-');
+is ( $cdstub->leadout_offset, 20000 );
+is ( $cdstub->track_count, 2 );
+is ( $cdstub->track_offset->[0], 150 );
+is ( $cdstub->track_offset->[1], 10000 );
 
-my $cdstub = $toc->cdstub;
 is ($cdstub->title, 'Test Stub');
 is ($cdstub->artist, 'Test Artist');
 is ($cdstub->date_added->year, 2000);

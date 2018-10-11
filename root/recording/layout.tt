@@ -8,20 +8,6 @@
     </div>
 
     [%~ IF !full_width ~%]
-        [%~ WRAPPER 'layout/sidebar/shared-entity-sidebar.tt' entity=recording ~%]
-            <h2 class="recording-information">[%~ l('Recording information') ~%]</h2>
-            [%~ WRAPPER 'layout/sidebar/properties.tt' ~%]
-                [%~ INCLUDE 'layout/sidebar/property.tt' label=l('Artist:')
-                    content=artist_credit(recording.artist_credit) class="artist" ~%]
-                [%~ INCLUDE 'layout/sidebar/property.tt' label=l('Length:')
-                    content=format_length(recording.length) class="length"
-                        IF recording.length ~%]
-                [%~ FOR isrc IN recording.isrcs ~%]
-                    [%~ WRAPPER 'layout/sidebar/property.tt' label=l('ISRC:') class="isrc" ~%]
-                        [%~ link_isrc(isrc) ~%]
-                    [%~ END ~%]
-                [%~ END ~%]
-            [%~ END ~%]
-        [%~ END ~%]
+        [%~ React.embed(c, 'layout/components/sidebar/RecordingSidebar', {recording => recording}) ~%]
     [%~ END ~%]
 [%~ END ~%]
