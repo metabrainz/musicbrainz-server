@@ -27,7 +27,7 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-08-05 23:03+0200\n"
-"PO-Revision-Date: 2018-08-05 21:10+0000\n"
+"PO-Revision-Date: 2018-09-18 10:56+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -10837,7 +10837,7 @@ msgid ""
 "We were unable to send login information to your email address.  Please try "
 "again, however if you continue to experience difficulty contact us at "
 "support@musicbrainz.org."
-msgstr ""
+msgstr "We konden geen aanmeldinformatie naar je e-mailadres sturen. Probeer het opnieuw, en neem als je problemen blijft houden contact met ons op via support@musicbrainz.org"
 
 #: ../lib/MusicBrainz/Server/Controller/Account.pm:160
 msgid "There is no user with this username"
@@ -10887,7 +10887,7 @@ msgid ""
 "you.</strong><br/>Please confirm that you have entered a valid address by "
 "editing your {settings|account settings}. If the problem still persists, "
 "please contact us at {mail|support@musicbrainz.org}."
-msgstr ""
+msgstr "<strong>We konden je geen bevestigingsmail sturen.</strong><br/>Bevestig dat je een geldig e-mailadres hebt ingevuld door je {settings|gebruikersinstellingen} te wijzigen. Neem contact op met {mail|support@musicbrainz.org} als het probleem zich blijft voordoen."
 
 #: ../lib/MusicBrainz/Server/Controller/Admin.pm:80
 msgid "User successfully edited."
@@ -11830,7 +11830,7 @@ msgstr "Filter opnames"
 msgid ""
 "Cannot add or edit instruments here; use the instrument editing forms "
 "instead."
-msgstr ""
+msgstr "Je kan hier geen instrumenten bewerken; gebruik hiervoor de desbetreffende formulieren."
 
 #: ../lib/MusicBrainz/Server/Form/Alias.pm:105
 msgid "This alias can only be a primary alias if a locale is selected"
@@ -11838,11 +11838,11 @@ msgstr "Deze alias kan alleen primair zijn als er een plaats is geselecteerd"
 
 #: ../lib/MusicBrainz/Server/Form/Alias.pm:118
 msgid "This alias already exists."
-msgstr ""
+msgstr "Deze alias bestaat al."
 
 #: ../lib/MusicBrainz/Server/Form/Application.pm:40
 msgid "Redirect URL must be entered for web applications."
-msgstr ""
+msgstr "Voor web-applicaties moet een omleidings-URL worden opgegeven."
 
 #: ../lib/MusicBrainz/Server/Form/Area.pm:85
 msgid "An area already exists with this ISO code"
@@ -11850,15 +11850,15 @@ msgstr "Een gebied met deze ISO-code bestaat al"
 
 #: ../lib/MusicBrainz/Server/Form/Artist.pm:72
 msgid "Group artists cannot have a gender."
-msgstr ""
+msgstr "Groepen kunnen geen geslacht hebben."
 
 #: ../lib/MusicBrainz/Server/Form/Artist.pm:79
 msgid "Orchestras cannot have a gender."
-msgstr ""
+msgstr "Orkesten kunnen geen geslacht hebben."
 
 #: ../lib/MusicBrainz/Server/Form/Artist.pm:86
 msgid "Choirs cannot have a gender."
-msgstr ""
+msgstr "Koren kunnen geen geslacht hebben."
 
 #: ../lib/MusicBrainz/Server/Form/CDStub.pm:38
 msgid "You must provide at least one track"
@@ -11875,12 +11875,12 @@ msgstr "De streepjescode moet geldig zijn"
 #: ../lib/MusicBrainz/Server/Form/CDStub.pm:81
 msgid ""
 "You may not specify a release artist while also specifying track artists."
-msgstr ""
+msgstr "Je kan geen uitgaveartiest opgeven als je ook nummerartiesten opgeeft."
 
 #: ../lib/MusicBrainz/Server/Form/CDStub.pm:96
 msgid ""
 "You may not specify a combination of track artists and a release artist."
-msgstr ""
+msgstr "Je kan geen combinatie van nummerartiesten en een uitgaveartiest opgeven."
 
 #: ../lib/MusicBrainz/Server/Form/Collection.pm:65
 msgid "The collection type must match the type of entities it contains."
@@ -11896,7 +11896,7 @@ msgstr "Voer alsjeblieft een artiestennaam in voor {credit}"
 msgid ""
 "Artist \"{artist}\" is unlinked, please select an existing artist. You may "
 "need to add a new artist to MusicBrainz first."
-msgstr ""
+msgstr "De artiest “{artist}” is niet gekoppeld. Je moet een bestaande artiest selecteren of, als die nog niet op MusicBrainz bestaat, een nieuwe artiest aanmaken."
 
 #: ../lib/MusicBrainz/Server/Form/Field/ArtistCredit.pm:61
 msgid "Please add an artist name for each credit."
@@ -12002,7 +12002,7 @@ msgstr "Posities moeten groter zijn dan 0"
 msgid ""
 "This recording’s duration is determined by the tracks that are linked to it,"
 " and cannot be changed directly."
-msgstr ""
+msgstr "De duur van deze opname wordt bepaald door de gekoppelde nummers, en kan niet direct worden gewijzigd."
 
 #: ../lib/MusicBrainz/Server/Form/Recording/Standalone.pm:8
 msgid "You must provide an edit note when adding a standalone recording"

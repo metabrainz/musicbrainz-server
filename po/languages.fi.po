@@ -14,7 +14,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2018-06-14 00:47+0000\n"
+"PO-Revision-Date: 2018-09-06 22:58+0000\n"
 "Last-Translator: Jaakko Perttilä <email address hidden>\n"
 "Language-Team: Finnish (http://www.transifex.com/musicbrainz/musicbrainz/language/fi/)\n"
 "MIME-Version: 1.0\n"

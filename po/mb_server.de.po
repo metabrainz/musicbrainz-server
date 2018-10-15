@@ -10,6 +10,7 @@
 # Beat Jörg <email address hidden>, 2016
 # Daniel Schury <email address hidden>, 2011
 # Daniel Schury <email address hidden>, 2011
+# Eckhard Henkel <email address hidden>, 2018
 # <email address hidden>, 2012
 #   <email address hidden>, 2012
 # Ettore Atalan <email address hidden>, 2014
@@ -63,8 +64,8 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-08-05 23:03+0200\n"
-"PO-Revision-Date: 2018-08-13 12:14+0000\n"
-"Last-Translator: yvanz\n"
+"PO-Revision-Date: 2018-10-13 13:50+0000\n"
+"Last-Translator: Eckhard Henkel <email address hidden>\n"
 "Language-Team: German (http://www.transifex.com/musicbrainz/musicbrainz/language/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -284,8 +285,8 @@ msgstr ""
 #: ../root/edit/info.tt:56
 msgid "1 vote"
 msgid_plural "{n} unanimous votes"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "1 Stimme"
+msgstr[1] "{n} Einstimmige Stimmen"
 
 #: ../root/user/profile.tt:262 ../root/user/profile.tt:266
 msgid "100%"
@@ -981,7 +982,7 @@ msgstr "Beim Erstellen der Werke ist ein Fehler aufgetreten."
 #: ../root/components/Annotation.js:60 ../root/layout/components/Search.js:35
 #: ../root/search/components/SearchForm.js:46
 msgid "Annotation"
-msgstr "Anmerkungen"
+msgstr "Anmerkung"
 
 #: ../root/annotation/edit.tt:37
 msgid "Annotation Formatting"
@@ -997,7 +998,7 @@ msgstr "Bearbeitungshistorie der Anmerkungen"
 
 #: ../root/annotation/edit.tt:18 ../root/release/edit/information.tt:242
 msgid "Annotation:"
-msgstr "Anmerkungen:"
+msgstr "Anmerkung:"
 
 #: ../root/annotation/edit.tt:38
 msgid "Annotations support a limited set of wiki formatting options:"
@@ -1241,7 +1242,7 @@ msgstr "Künstler-ISNI:"
 
 #: ../root/report/recordings_same_name_different_artists_same_name.tt:15
 msgid "Artist MBID"
-msgstr ""
+msgstr "Künstler MBID"
 
 #: ../root/user/subscriptions/artist.tt:1 ../root/user/subscriptions/menu.tt:3
 msgid "Artist Subscriptions"
@@ -1660,7 +1661,7 @@ msgstr "Unten befinden sich die Fehlerinformationen. Wenn du einen Fehlerbericht
 
 #: ../root/report/editor_list.tt:11
 msgid "Bio"
-msgstr ""
+msgstr "Über mich"
 
 #: ../root/account/edit.tt:46 ../root/admin/edit_user.tt:40
 #: ../root/user/profile.tt:137
@@ -3441,7 +3442,7 @@ msgstr "Ich bestätige, dass der Strichcode genau so auf der Veröffentlichung s
 
 #: ../root/release/edit/tracklist.tt:290
 msgid "I don’t know"
-msgstr ""
+msgstr "Ich weiß nicht"
 
 #: ../root/taglookup/nag.tt:25
 msgid "I just donated! Why am I seeing this?"
@@ -3779,7 +3780,7 @@ msgstr "Instrumente"
 #: ../root/report/index.tt:49 ../root/report/instruments_without_an_image.tt:1
 #: ../root/report/instruments_without_an_image.tt:3
 msgid "Instruments without an image"
-msgstr ""
+msgstr "Instrumente ohne Bild"
 
 #: ../root/main/info/environment.tt:13
 msgid "Interface language:"
@@ -4311,7 +4312,7 @@ msgstr "Medien:"
 
 #: ../root/report/editor_list.tt:8
 msgid "Member since"
-msgstr ""
+msgstr "Mitglied seit"
 
 #: ../root/user/profile.tt:86
 msgid "Member since:"
@@ -4876,7 +4877,7 @@ msgstr "Niemand hat in den letzten drei Monaten Bemerkungen zu einer deiner Bear
 #: ../root/entity/tags.tt:5
 #: ../root/static/scripts/common/components/TagEditor.js:345
 msgid "Nobody has tagged this yet."
-msgstr ""
+msgstr "Niemand hat dies bereits getaggt."
 
 #: ../root/report/index.tt:105
 #: ../root/report/releases_with_download_relationships.tt:1
@@ -9455,7 +9456,7 @@ msgstr "Web-Anwendung"
 
 #: ../root/report/editor_list.tt:9
 msgid "Website"
-msgstr ""
+msgstr "Website"
 
 #: ../root/account/edit.tt:21 ../root/admin/edit_user.tt:38
 msgid "Website:"
@@ -10083,7 +10084,7 @@ msgstr "genannt als"
 
 #: ../root/report/editor_list.tt:21
 msgid "delete"
-msgstr ""
+msgstr "löschen"
 
 #: ../root/admin/wikidoc/index.tt:53
 msgid "diff"
@@ -11179,7 +11180,7 @@ msgstr "Künstleralias hinzufügen"
 
 #: ../lib/MusicBrainz/Server/Edit/Artist/AddAnnotation.pm:11
 msgid "Add artist annotation"
-msgstr "Künstleranmerkungen hinzufügen"
+msgstr "Künstleranmerkung hinzufügen"
 
 #: ../lib/MusicBrainz/Server/Edit/Artist/Create.pm:26
 msgid "Add artist"
@@ -11249,7 +11250,7 @@ msgstr "Disc-ID hinzufügen"
 #: ../lib/MusicBrainz/Server/Edit/Historic/AddReleaseAnnotation.pm:13
 #: ../lib/MusicBrainz/Server/Edit/Release/AddAnnotation.pm:12
 msgid "Add release annotation"
-msgstr "Veröffentlichungsanmerkungen hinzufügen"
+msgstr "Veröffentlichungsanmerkung hinzufügen"
 
 #: ../lib/MusicBrainz/Server/Edit/Historic/AddReleaseEvents.pm:11
 msgid "Add release events (historic)"
@@ -11386,7 +11387,7 @@ msgstr "Labelalias hinzufügen"
 
 #: ../lib/MusicBrainz/Server/Edit/Label/AddAnnotation.pm:11
 msgid "Add label annotation"
-msgstr "Labelanmerkungen hinzufügen"
+msgstr "Labelanmerkung hinzufügen"
 
 #: ../lib/MusicBrainz/Server/Edit/Label/Create.pm:27
 msgid "Add label"
@@ -11462,7 +11463,7 @@ msgstr "Aufnahmealias hinzufügen"
 
 #: ../lib/MusicBrainz/Server/Edit/Recording/AddAnnotation.pm:12
 msgid "Add recording annotation"
-msgstr "Aufnahmeanmerkungen hinzufügen"
+msgstr "Aufnahmeanmerkung hinzufügen"
 
 #: ../lib/MusicBrainz/Server/Edit/Recording/AddISRCs.pm:23
 msgid "Add ISRCs"
@@ -11578,7 +11579,7 @@ msgstr "Veröffentlichungsgruppenalias hinzufügen"
 
 #: ../lib/MusicBrainz/Server/Edit/ReleaseGroup/AddAnnotation.pm:12
 msgid "Add release group annotation"
-msgstr "Veröffentlichungsgruppenanmerkungen hinzufügen"
+msgstr "Veröffentlichungsgruppenanmerkung hinzufügen"
 
 #: ../lib/MusicBrainz/Server/Edit/ReleaseGroup/Delete.pm:12
 msgid "Remove release group"
@@ -11874,7 +11875,7 @@ msgstr "Dieser Alias kann nur ein Primäralias werden, wenn eine Sprachumgebung 
 
 #: ../lib/MusicBrainz/Server/Form/Alias.pm:118
 msgid "This alias already exists."
-msgstr ""
+msgstr "Dieser Alias existiert bereits."
 
 #: ../lib/MusicBrainz/Server/Form/Application.pm:40
 msgid "Redirect URL must be entered for web applications."
@@ -12373,7 +12374,7 @@ msgstr "{entity} hat keine Aliasse."
 
 #: ../root/components/Annotation.js:85
 msgid "Annotation last modified by {user} on {date}."
-msgstr "Anmerkungen zuletzt geändert von {user} am {date}."
+msgstr "Anmerkung zuletzt geändert von {user} am {date}."
 
 #: ../root/components/Annotation.js:100
 msgid ""
@@ -12383,7 +12384,7 @@ msgstr "Dies ist eine {history|alte Revision} dieser Anmerkungen, bearbeitet von
 
 #: ../root/components/Annotation.js:109
 msgid "Annotation last modified on {date}."
-msgstr "Anmerkungen zuletzt geändert am {date}."
+msgstr "Anmerkung zuletzt geändert am {date}."
 
 #: ../root/components/Collapsible.js:81
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:417
@@ -12405,14 +12406,14 @@ msgstr "{review_link|Rezension} vom {date} von {author}"
 #: ../root/components/ExpirationDate.js:34
 msgid "{num} hour"
 msgid_plural "{num} hours"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "{num} Stunde"
+msgstr[1] "{num} Stunden"
 
 #: ../root/components/ExpirationDate.js:39
 msgid "{num} minute"
 msgid_plural "{num} minutes"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "{num} Minute"
+msgstr[1] "{num} Minuten"
 
 #: ../root/components/ExpirationDate.js:46
 msgid "Expires in {time}"
@@ -12630,7 +12631,7 @@ msgstr "Tut uns leid, wir konnten keine Veranstaltung mit dieser MusicBrainz-ID 
 
 #: ../root/instrument/InstrumentHeader.js:25
 msgid "instrument"
-msgstr ""
+msgstr "Instrument"
 
 #: ../root/instrument/List.js:51 ../root/instrument/List.js:53
 #: ../root/layout/components/BottomMenu.js:270
@@ -12713,7 +12714,7 @@ msgstr "Team"
 
 #: ../root/layout/components/BottomMenu.js:105
 msgid "Shop"
-msgstr ""
+msgstr "Shop"
 
 #: ../root/layout/components/BottomMenu.js:108
 msgid "Contact Us"
@@ -13258,11 +13259,11 @@ msgstr "Noch ein Werk hinzufügen"
 
 #: ../root/static/scripts/common/utility/bracketed.js:25
 msgid "[{text}]"
-msgstr ""
+msgstr "[{text}]"
 
 #: ../root/static/scripts/common/utility/bracketed.js:28
 msgid "({text})"
-msgstr ""
+msgstr "({text})"
 
 #: ../root/static/scripts/common/utility/formatDatePeriod.js:19
 msgid " – ????"

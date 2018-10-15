@@ -1,20 +1,20 @@
 # 
 # Translators:
-# AO French coordinator <email address hidden>, 2013
+# AO <email address hidden>, 2013
 # Benjamin Sonntag <email address hidden>, 2011-2012
 # Benjamin Sonntag <email address hidden>, 2011
 # Dibou <email address hidden>, 2012,2016
 # Dorian Soergel <email address hidden>, 2018
 # Frédéric Da Vitoria <email address hidden>, 2014
-# AO French coordinator <email address hidden>, 2013,2015
-# AO French coordinator <email address hidden>, 2013,2015
+# AO <email address hidden>, 2013,2015
+# AO <email address hidden>, 2013,2015
 # Jack, 2016
 # Jack Ruertnevel, 2016
 # Jack, 2016
 # Léonard Cardyn <email address hidden>, 2015
 # murdos <email address hidden>, 2011-2012
-# AO French coordinator <email address hidden>, 2015
-# AO French coordinator <email address hidden>, 2013-2015
+# AO <email address hidden>, 2015
+# AO <email address hidden>, 2013-2015
 # Youenn Piolet, 2015
 # Youenn Piolet, 2015
 # yvanz, 2016-2017

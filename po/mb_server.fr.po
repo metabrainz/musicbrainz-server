@@ -4,7 +4,7 @@
 # 
 # Translators:
 # nikki, 2013-2014
-# AO French coordinator <email address hidden>, 2013
+# AO <email address hidden>, 2013
 # murdos <email address hidden>, 2013,2015
 # Benjamin <email address hidden>, 2011
 # Benjamin Sonntag <email address hidden>, 2011
@@ -17,7 +17,7 @@
 # François F, 2015
 # François F, 2015
 # French language coordinator <email address hidden>, 2013,2015
-# AO French coordinator <email address hidden>, 2013,2015
+# AO <email address hidden>, 2013,2015
 # Ian McEwen <email address hidden>, 2013
 # Ian McEwen <email address hidden>, 2013
 # Jérôme Roy <email address hidden>, 2017
@@ -47,8 +47,8 @@
 # ShevAbam, 2016
 # ShevAbam, 2016
 # Trans-fr, 2013
-# AO French coordinator <email address hidden>, 2015
-# AO French coordinator <email address hidden>, 2013-2015
+# AO <email address hidden>, 2015
+# AO <email address hidden>, 2013-2015
 # Youenn Piolet, 2015
 # Youenn Piolet, 2015
 # yvanz, 2016-2018

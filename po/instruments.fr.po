@@ -1,8 +1,8 @@
 # 
 # Translators:
 # nikki, 2014
-# AO French coordinator <email address hidden>, 2013
-# AO French coordinator <email address hidden>, 2013,2015
+# AO <email address hidden>, 2013
+# AO <email address hidden>, 2013,2015
 # Laurent Hosch <email address hidden>, 2017
 # Yanuut, 2018
 # Lotheric <email address hidden>, 2012
@@ -11,8 +11,8 @@
 # Paul Tremberth <email address hidden>, 2013
 # Raphaël Fery <email address hidden>, 2017
 # Paul Tremberth <email address hidden>, 2013
-# AO French coordinator <email address hidden>, 2015
-# AO French coordinator <email address hidden>, 2013-2015
+# AO <email address hidden>, 2015
+# AO <email address hidden>, 2013-2015
 # Yohann Merly <email address hidden>, 2018
 # Youenn Piolet, 2015
 # Youenn Piolet, 2015

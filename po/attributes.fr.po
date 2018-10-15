@@ -1,6 +1,6 @@
 # 
 # Translators:
-# AO French coordinator <email address hidden>, 2013
+# AO <email address hidden>, 2013
 # murdos <email address hidden>, 2015
 # Benjamin <email address hidden>, 2011
 # Benjamin Sonntag <email address hidden>, 2011-2012
@@ -8,7 +8,7 @@
 # Dibou <email address hidden>, 2012
 # Dibou  <email address hidden>, 2012
 #   <email address hidden>, 2012
-# AO French coordinator <email address hidden>, 2013,2015
+# AO <email address hidden>, 2013,2015
 # kmartin <email address hidden>, 2013
 # Laurent Monin <email address hidden>, 2014,2018
 # Lotheric <email address hidden>, 2011-2012
@@ -18,8 +18,8 @@
 # Paul TREHIOU <email address hidden>, 2015
 # Paul Tremberth <email address hidden>, 2013
 # Paul Tremberth <email address hidden>, 2013
-# AO French coordinator <email address hidden>, 2015
-# AO French coordinator <email address hidden>, 2013-2015
+# AO <email address hidden>, 2015
+# AO <email address hidden>, 2013-2015
 # yvanz, 2016-2018
 # yvanz, 2016
 # yvanz, 2018
