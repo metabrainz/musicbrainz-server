@@ -4,6 +4,7 @@ BEGIN { extends 'MusicBrainz::Server::Controller' }
 
 use namespace::autoclean;
 use Digest::SHA qw(sha1_base64);
+use MusicBrainz::Server::ControllerUtils::JSON qw( serialize_pager );
 use MusicBrainz::Server::Translation qw( l );
 use MusicBrainz::Server::Validation qw( encode_entities is_positive_integer );
 use Try::Tiny;
@@ -42,46 +43,64 @@ sub verify_email : Path('/verify-email') ForbiddenOnSlaves DenyWhenReadonly
 
     unless (is_positive_integer($user_id) && $user_id) {
         $c->stash(
-            message => l('The user ID is missing or is in an invalid format.'),
-            template => 'account/verify_email_error.tt',
+            current_view => 'Node',
+            component_path => 'account/EmailVerificationStatus',
+            component_props => {
+                message => l('The user ID is missing or is in an invalid format.'),
+            }
         );
     }
 
     unless ($email) {
         $c->stash(
-            message => l('The email address is missing.'),
-            template => 'account/verify_email_error.tt',
+            current_view => 'Node',
+            component_path => 'account/EmailVerificationStatus',
+            component_props => {
+                message => l('The email address is missing.'),
+            }
         );
     }
 
     unless (is_positive_integer($time) && $time) {
         $c->stash(
-            message => l('The time is missing or is in an invalid format.'),
-            template => 'account/verify_email_error.tt',
+            current_view => 'Node',
+            component_path => 'account/EmailVerificationStatus',
+            component_props => {
+                message => l('The time is missing or is in an invalid format.'),
+            }
         );
         $c->detach;
     }
 
     unless ($key) {
         $c->stash(
-            message => l('The verification key is missing.'),
-            template => 'account/verify_email_error.tt',
+            current_view => 'Node',
+            component_path => 'account/EmailVerificationStatus',
+            component_props => {
+                message => l('The verification key is missing.'),
+            }
         );
         $c->detach;
     }
 
     unless ($self->_checksum($email, $user_id, $time) eq $key) {
         $c->stash(
-            message => l('The checksum is invalid, please double check your email.'),
-            template => 'account/verify_email_error.tt',
+            current_view => 'Node',
+            component_path => 'account/EmailVerificationStatus',
+            component_props => {
+                message => l('The checksum is invalid, please double check your email.'),
+            }
         );
         $c->detach;
     }
 
     if (($time + DBDefs->EMAIL_VERIFICATION_TIMEOUT) < time()) {
         $c->stash(
-            message => l('Sorry, this email verification link has expired.'),
-            template => 'account/verify_email_error.tt',
+            current_view => 'Node',
+            component_path => 'account/EmailVerificationStatus',
+            component_props => {
+                message => l('Sorry, this email verification link has expired.'),
+            }
         );
         $c->detach;
     }
@@ -89,9 +108,12 @@ sub verify_email : Path('/verify-email') ForbiddenOnSlaves DenyWhenReadonly
     my $editor = $c->model('Editor')->get_by_id($user_id);
     unless (defined $editor) {
         $c->stash(
-            message => l('The user with ID \'{user_id}\' could not be found.',
-                                   { user_id => $user_id }),
-            template => 'account/verify_email_error.tt',
+            current_view => 'Node',
+            component_path => 'account/EmailVerificationStatus',
+            component_props => {
+                message => l('The user with ID \'{user_id}\' could not be found.',
+                                                { user_id => $user_id }),
+            }
         );
         $c->detach;
     }
@@ -105,7 +127,10 @@ sub verify_email : Path('/verify-email') ForbiddenOnSlaves DenyWhenReadonly
     }
 
     $c->forward('/discourse/sync_sso', [$editor]);
-    $c->stash->{template} = 'account/verified.tt';
+    $c->stash(
+        current_view => 'Node',
+        component_path => 'account/EmailVerificationStatus',
+    );
 }
 
 sub _reset_password_checksum
@@ -144,7 +169,10 @@ sub lost_password : Path('/lost-password') ForbiddenOnSlaves
     my ($self, $c) = @_;
 
     if (exists $c->request->params->{sent}) {
-        $c->stash(template => 'account/lost_password_sent.tt');
+        $c->stash(
+            current_view => 'Node',
+            component_path => 'account/LostPasswordSent',
+        );
         $c->detach;
     }
 
@@ -184,7 +212,13 @@ sub reset_password : Path('/reset-password') ForbiddenOnSlaves DenyWhenReadonly
     my ($self, $c) = @_;
 
     if (exists $c->request->params->{ok}) {
-        $c->stash(template => 'account/reset_password_ok.tt');
+        $c->stash(
+            current_view => 'Node',
+            component_path => 'account/ResetPasswordStatus',
+            component_props => {
+                message => l('Your password has been reset.'),
+            }
+        );
         $c->detach;
     }
 
@@ -194,24 +228,33 @@ sub reset_password : Path('/reset-password') ForbiddenOnSlaves DenyWhenReadonly
 
     if (!$editor_id || !$time || !$key) {
         $c->stash(
-            message => l('Missing one or more required parameters.'),
-            template => 'account/reset_password_error.tt',
+            current_view => 'Node',
+            component_path => 'account/ResetPasswordStatus',
+            component_props => {
+                message => l('Missing one or more required parameters.'),
+            }
         );
         $c->detach;
     }
 
     if ($time + DBDefs->EMAIL_VERIFICATION_TIMEOUT < time()) {
         $c->stash(
-            message => l('Sorry, this password reset link has expired.'),
-            template => 'account/reset_password_error.tt',
+            current_view => 'Node',
+            component_path => 'account/ResetPasswordStatus',
+            component_props => {
+                message => l('Sorry, this password reset link has expired.'),
+            }
         );
         $c->detach;
     }
 
     if ($self->_reset_password_checksum($editor_id, $time) ne $key) {
         $c->stash(
-            message => l('The checksum is invalid, please double check your email.'),
-            template => 'account/reset_password_error.tt',
+            current_view => 'Node',
+            component_path => 'account/ResetPasswordStatus',
+            component_props => {
+                message => l('The checksum is invalid, please double check your email.'),
+            }
         );
         $c->detach;
     }
@@ -219,9 +262,12 @@ sub reset_password : Path('/reset-password') ForbiddenOnSlaves DenyWhenReadonly
     my $editor = $c->model('Editor')->get_by_id($editor_id);
     if (!defined $editor) {
         $c->stash(
-            message => l('The user with ID \'{user_id}\' could not be found.',
-                                   { user_id => $editor_id }),
-            template => 'account/reset_password_error.tt',
+            current_view => 'Node',
+            component_path => 'account/ResetPasswordStatus',
+            component_props => {
+                message => l('The user with ID \'{user_id}\' could not be found.',
+                                                { user_id => $editor_id }),
+            }
         );
         $c->detach;
     }
@@ -249,7 +295,10 @@ sub lost_username : Path('/lost-username') ForbiddenOnSlaves
     my ($self, $c) = @_;
 
     if (exists $c->request->params->{sent}) {
-        $c->stash(template => 'account/lost_username_sent.tt');
+        $c->stash(
+            current_view => 'Node',
+            component_path => 'account/LostUsernameSent',
+        );
         $c->detach;
     }
 
@@ -403,7 +452,10 @@ sub preferences : Path('/account/preferences') RequireAuth DenyWhenReadonly
     my ($self, $c) = @_;
 
     if (exists $c->request->params->{ok}) {
-        $c->stash(template => 'account/preferences_ok.tt');
+        $c->stash(
+            current_view => 'Node',
+            component_path => 'account/PreferencesSaved',
+        );
         $c->detach;
     }
 
@@ -488,8 +540,11 @@ sub register : Path('/register') ForbiddenOnSlaves RequireSSL DenyWhenReadonly
 
             if ($redirect =~ /^\/discourse\/sso/) {
                 $c->stash(
-                    email_address => $email,
-                    template => 'account/registered_discourse.tt',
+                    current_view => 'Node',
+                    component_path => 'account/sso/DiscourseRegistered',
+                    component_props => {
+                        emailAddress => $email,
+                    }
                 );
                 $c->detach;
             }
@@ -585,8 +640,12 @@ sub donation : Local RequireAuth HiddenOnSlaves
     $c->detach('/error_500') unless $result;
 
     $c->stash(
-        nag => $result->{nag},
-        days => sprintf("%.0f", $result->{days}),
+        current_view => 'Node',
+        component_path => 'account/Donation',
+        component_props => {
+            days => sprintf("%.0f", $result->{days}),
+            nag => $result->{nag} > 0,
+        }
     );
 }
 
@@ -605,7 +664,16 @@ sub applications : Path('/account/applications') RequireAuth RequireSSL
         return ($applications, $hits);
     }, prefix => 'apps_');
 
-    $c->stash( tokens => $tokens, applications => $applications );
+    $c->stash(
+        current_view => 'Node',
+        component_path => 'account/applications/Index.js',
+        component_props => {
+            applications => $applications,
+            appsPager => serialize_pager($c->stash->{apps_pager}),
+            tokens => $tokens,
+            tokensPager => serialize_pager($c->stash->{tokens_pager}),
+        },
+    );
 }
 
 sub revoke_application_access : Path('/account/applications/revoke-access') Args(2) RequireAuth DenyWhenReadonly
@@ -636,6 +704,15 @@ sub register_application : Path('/account/applications/register') RequireAuth Re
             });
         });
         $c->response->redirect($c->uri_for_action('/account/applications'));
+        $c->detach;
+    } else {
+        $c->stash(
+            current_view => 'Node',
+            component_path => 'account/applications/Register',
+            component_props => {
+                form => $form,
+            },
+        );
         $c->detach;
     }
 }

@@ -21,6 +21,7 @@ use MusicBrainz::Server::Data::Utils qw(
     type_to_model
 );
 use MusicBrainz::Server::Constants qw( :edit_status :privileges );
+use MusicBrainz::Server::Constants qw( $PASSPHRASE_BCRYPT_COST );
 
 extends 'MusicBrainz::Server::Data::Entity';
 with 'MusicBrainz::Server::Data::Role::Subscription' => {
@@ -260,7 +261,7 @@ sub update_password
     my ($self, $editor_name, $password) = @_;
 
     Sql::run_in_transaction(sub {
-        $self->sql->do('UPDATE editor SET password = ?, ha1 = md5(name || \':musicbrainz.org:\' || ?), last_login_date = now() WHERE name = ?',
+        $self->sql->do('UPDATE editor SET password = ?, ha1 = md5(name || \':musicbrainz.org:\' || ?), last_login_date = now() WHERE lower(name) = lower(?)',
                        hash_password($password),
                        $password,
                        $editor_name);
@@ -592,8 +593,8 @@ sub hash_password {
     my $password = shift;
     Authen::Passphrase::BlowfishCrypt->new(
         salt_random => 1,
-        cost => 10,
-        passphrase => encode('utf-8', $password)
+        cost => $PASSPHRASE_BCRYPT_COST,
+        passphrase => encode('utf-8', $password),
     )->as_rfc2307
 }
 

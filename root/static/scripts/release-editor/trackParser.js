@@ -18,6 +18,7 @@ const clean = require('../common/utility/clean');
 const isBlank = require('../common/utility/isBlank');
 const getCookie = require('../common/utility/getCookie');
 const setCookie = require('../common/utility/setCookie');
+const {fromFullwidthLatin} = require('../edit/utility/fullwidthLatin');
 const getSimilarity = require('../edit/utility/similarity');
 const fields = require('./fields');
 const utils = require('./utils');
@@ -288,7 +289,7 @@ releaseEditor.trackParser = {
 
         if (match !== null) {
             if (options.useTrackLengths && match[1] !== "?:??") {
-                data.formattedLength = fullWidthConverter(match[1]);
+                data.formattedLength = fromFullwidthLatin(match[1]);
                 data.length = utils.unformatTrackLength(data.formattedLength);
             }
             // Remove the track time from the line.
@@ -303,7 +304,7 @@ releaseEditor.trackParser = {
             if (match === null) return {};
 
             if (options.useTrackNumbers) {
-                data.number = fullWidthConverter(match[1]);
+                data.number = fromFullwidthLatin(match[1]);
 
                 if (/^\d+$/.test(data.number)) {
                     data.number = data.number.replace(/^0+(\d+)/, "$1");
@@ -418,26 +419,6 @@ function optionCookie(name, defaultValue) {
     });
 
     return observable;
-}
-
-/* Convert fullwidth characters to standard halfwidth Latin. */
-function fullWidthConverter(inputString) {
-    if (inputString === "") {
-        return "";
-    }
-
-    let i = inputString.length;
-    let newString = [];
-
-    do {
-        newString.push(
-            inputString[i-1].replace(/([\uFF01-\uFF5E])/g, function (str, p1) {
-                return String.fromCharCode(p1.charCodeAt(0) - 65248);
-            })
-        );
-    } while (--i);
-
-    return newString.reverse().join("");
 }
 
 module.exports = releaseEditor.trackParser;

@@ -9,27 +9,6 @@
     </div>
 
     [%- IF !full_width -%]
-        [%~ edit_links_add_entity = [] ~%]
-        [%~ edit_links_other = [] ~%]
-        [%~ edit_links_add_entity.push({ url => c.uri_for_action('/release_editor/add', { 'release-group' = rg.gid }), text => l('Add release') }) ~%]
-        [%~ edit_links_other.push({ url => c.uri_for_action('/release_group/set_cover_art', [ rg.gid ]), text => l('Set cover art') }) ~%]
-
-        [% WRAPPER 'layout/sidebar/shared-entity-sidebar.tt' entity=rg edit_links_add_entity=edit_links_add_entity edit_links_other=edit_links_other %]
-            [%- IF rg.cover_art -%]
-                <div class="cover-art">
-                [%- display_artwork(rg.cover_art) -%]
-                </div>
-            [%- END -%]
-
-            <h2 class="release-group-information">[% l('Release group information') %]</h2>
-
-            [% WRAPPER 'layout/sidebar/properties.tt' %]
-                [% INCLUDE 'layout/sidebar/property.tt' label=l('Artist:')
-                    content=artist_credit(rg.artist_credit) class="artist" %]
-                [% INCLUDE 'layout/sidebar/property.tt' label=l('Type:')
-                    content=html_escape(rg.l_type_name) class="type"
-                        IF rg.primary_type || rg.all_secondary_types -%]
-            [%- END -%]
-        [%~ END ~%]
+        [%~ React.embed(c, 'layout/components/sidebar/ReleaseGroupSidebar', {releaseGroup => rg}) ~%]
     [%~ END ~%]
 [%- END -%]

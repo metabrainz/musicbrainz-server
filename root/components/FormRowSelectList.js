@@ -12,6 +12,7 @@ import React from 'react';
 import {addColon} from '../static/scripts/common/i18n';
 
 import FieldErrors from './FieldErrors';
+import FormRow from './FormRow';
 import SelectField from './SelectField';
 
 type Props<S> = {|
@@ -41,7 +42,7 @@ const FormRowSelectList = <F, S: AnyFieldT<F>>({
   removeLabel,
   repeatable,
 }: Props<S>) => (
-  <div className="row">
+  <FormRow>
     <label>{addColon(label)}</label>
     <div className="form-row-select-list">
       {repeatable.field.map((subfield, index) => (
@@ -72,7 +73,7 @@ const FormRowSelectList = <F, S: AnyFieldT<F>>({
         </button>
       </div>
     </div>
-  </div>
+  </FormRow>
 );
 
 export default FormRowSelectList;

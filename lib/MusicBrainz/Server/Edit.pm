@@ -3,6 +3,7 @@ use Moose;
 
 use Carp qw( croak );
 use DateTime;
+use MusicBrainz::Server::Data::Utils qw( boolean_to_json datetime_to_iso8601 );
 use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Edit::Utils qw( edit_status_name );
 use MusicBrainz::Server::Entity::Types;
@@ -128,6 +129,7 @@ has 'votes' => (
     traits => [ 'Array' ],
     handles => {
         add_vote => 'push',
+        all_votes => 'elements',
         _grep_votes => 'grep'
     }
 );
@@ -319,6 +321,28 @@ sub initialize
 {
     my ($self, %opts) = @_;
     $self->data(\%opts);
+}
+
+sub TO_JSON {
+    my ($self) = @_;
+
+    my $conditions = $self->edit_conditions;
+    return {
+        close_time => datetime_to_iso8601($self->close_time),
+        conditions => {
+            duration => $conditions->{duration} + 0,
+            votes => $conditions->{votes} + 0,
+            expire_action => $conditions->{expire_action} + 0,
+            auto_edit => boolean_to_json($conditions->{auto_edit}),
+        },
+        created_time => datetime_to_iso8601($self->created_time),
+        editor_id => $self->editor_id + 0,
+        expires_time => datetime_to_iso8601($self->expires_time),
+        id => $self->id + 0,
+        quality => $self->quality + 0,
+        status => $self->status + 0,
+        votes => [map { $_->TO_JSON } $self->all_votes],
+    };
 }
 
 __PACKAGE__->meta->make_immutable;

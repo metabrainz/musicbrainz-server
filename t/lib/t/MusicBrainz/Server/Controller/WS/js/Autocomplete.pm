@@ -1,4 +1,5 @@
 package t::MusicBrainz::Server::Controller::WS::js::Autocomplete;
+use Test::Deep qw( ignore );
 use Test::Routine;
 
 with 't::Mechanize', 't::Context';
@@ -30,6 +31,9 @@ test all => sub {
                 "gender_id" => undef,
                 "gid" => "5441c29d-3602-4898-b1a1-b77fa23b8e50",
                 "id" => 5,
+                "ipi_codes" => [],
+                "isni_codes" => [],
+                "last_updated" => ignore,
                 "name" => "David Bowie",
                 "primaryAlias" => undef,
                 "rating" => undef,
@@ -44,15 +48,18 @@ test all => sub {
         '/label?q=Warp&direct=true' =>
             [ {
                 "area" => undef,
-                "begin_date" => undef,
+                "begin_date" => {"year" => 1989, "month" => 2, "day" => 3},
                 "comment" => 'Sheffield based electronica label',
                 "editsPending" => JSON::false,
-                "end_date" => undef,
-                "ended" => JSON::false,
+                "end_date" => {"year" => 2008, "month" => 5, "day" => 19},
+                "ended" => JSON::true,
                 "entityType" => 'label',
                 "gid" => '46f0f4cd-8aab-4b33-b698-f459faf64190',
                 "id" => 2,
+                "ipi_codes" => [],
+                "isni_codes" => [],
                 "label_code" => 2070,
+                "last_updated" => ignore,
                 "name" => 'Warp Records',
                 "primaryAlias" => undef,
                 "rating" => undef,

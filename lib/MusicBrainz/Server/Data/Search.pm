@@ -212,7 +212,8 @@ sub search
         $extra_columns .= 'entity.description,' if $type eq 'instrument';
         $extra_columns .= 'iso_3166_1s.codes AS iso_3166_1, iso_3166_2s.codes AS iso_3166_2, iso_3166_3s.codes AS iso_3166_3,
                 entity.end_date_year, entity.end_date_month, entity.end_date_day, entity.ended,' if $type eq 'area';
-        $extra_columns .= 'entity.label_code, entity.area,' if $type eq 'label';
+        $extra_columns .= 'entity.label_code, entity.area, entity.begin_date_year, entity.begin_date_month, entity.begin_date_day,
+                entity.end_date_year, entity.end_date_month, entity.end_date_day, entity.ended,' if $type eq 'label';
         $extra_columns .= 'entity.ordering_type,' if $type eq 'series';
         $extra_columns .= 'entity.time, entity.cancelled, entity.begin_date_year, entity.begin_date_month, entity.begin_date_day,
                 entity.end_date_year, entity.end_date_month, entity.end_date_day, entity.ended,' if $type eq 'event';
@@ -383,7 +384,7 @@ sub schema_fixup
             if (defined $data->{'life-span'}->{begin});
         $data->{end_date} = MusicBrainz::Server::Entity::PartialDate->new($data->{'life-span'}->{end})
             if (defined $data->{'life-span'}->{end});
-        $data->{ended} = $data->{'life-span'}->{ended} eq 'true'
+        $data->{ended} = $data->{'life-span'}->{ended} == 1
             if defined $data->{'life-span'}->{ended};
     }
     if ($type eq 'area') {
@@ -413,10 +414,12 @@ sub schema_fixup
     }
     if ($type eq 'cdstub' && defined $data->{gid})
     {
-        $data->{discid} = $data->{gid};
-        delete $data->{gid};
-        $data->{title} = $data->{name};
-        delete $data->{name};
+        $data->{barcode} = MusicBrainz::Server::Entity::Barcode->new($data->{barcode});
+        $data->{comment} = (delete $data->{comment}) // '';
+        $data->{discid} = delete $data->{gid};
+        $data->{title} = delete $data->{name};
+        $data->{track_count} = delete $data->{count};
+        delete $data->{id};
     }
     if ($type eq 'annotation' && defined $data->{entity})
     {
@@ -426,15 +429,6 @@ sub schema_fixup
         $data->{parent} = $entity_model->new( { name => $data->{name}, gid => $data->{entity} });
         delete $data->{entity};
         delete $data->{type};
-    }
-    if ($type eq 'cdstub' && defined $data->{count})
-    {
-        if (defined $data->{barcode})
-        {
-            $data->{barcode} = MusicBrainz::Server::Entity::Barcode->new( $data->{barcode} );
-        }
-
-        $data->{track_count} = delete $data->{count};
     }
     if ($type eq 'release')
     {
@@ -462,15 +456,15 @@ sub schema_fixup
         if (defined $data->{"text-representation"} &&
             defined $data->{"text-representation"}->{language})
         {
-            $data->{language} = MusicBrainz::Server::Entity::Language->new( {
-                iso_code_3 => $data->{"text-representation"}->{language}
-            } );
+            $data->{language} = $self->c->model('Language')->find_by_code(
+                $data->{"text-representation"}{language}
+            );
         }
         if (defined $data->{"text-representation"} &&
             defined $data->{"text-representation"}->{script})
         {
-            $data->{script} = MusicBrainz::Server::Entity::Script->new(
-                    { iso_code => $data->{"text-representation"}->{script} }
+            $data->{script} = $self->c->model('Script')->find_by_code(
+                $data->{"text-representation"}{script}
             );
         }
 
@@ -551,12 +545,17 @@ sub schema_fixup
             my $release_group = MusicBrainz::Server::Entity::ReleaseGroup->new(
                 fixup_rg($release->{"release-group"})
             );
-            push @releases, MusicBrainz::Server::Entity::Release->new(
-                gid     => $release->{id},
-                name    => $release->{title},
-                mediums => [ $medium ],
-                release_group => $release_group
-            );
+            push @releases, {
+                release            => MusicBrainz::Server::Entity::Release->new(
+                    gid            => $release->{id},
+                    name           => $release->{title},
+                    mediums        => [ $medium ],
+                    release_group  => $release_group
+                ),
+                track_position      => $medium->{tracks}->[0]->{position},
+                medium_position     => $medium->{position},
+                medium_track_count  => $medium->{track_count}
+            };
         }
         $data->{_extra} = \@releases;
     }
@@ -570,7 +569,7 @@ sub schema_fixup
     }
 
     if ($type eq 'recording') {
-        $data->{video} = defined $data->{video} && $data->{video} eq 'true';
+        $data->{video} = defined $data->{video} && $data->{video} == 1;
     }
 
     if (defined $data->{"relations"} &&
@@ -617,6 +616,7 @@ sub schema_fixup
 
     foreach my $k (keys %{$data})
     {
+        next if $k eq '_extra';
         if (ref($data->{$k}) eq 'HASH')
         {
             $self->schema_fixup($data->{$k}, $type);
@@ -741,8 +741,8 @@ sub external_search
         if (!$adv)
         {
             # Solr has a bug where the dismax end point behaves differently
-            # from edismax when the query size is 1. This is a fix for that
-            # See https://issues.apache.org/jira/browse/SOLR-12409
+            # from edismax (advanced) when the query size is 1. This is a fix
+            # for that. See https://issues.apache.org/jira/browse/SOLR-12409
             if (split(/[\P{Word}_]+/, $query, 2) == 1) {
                 $endpoint = "basic";
             } else {
@@ -833,6 +833,14 @@ sub external_search
             my @entities = map { $_->entity } @results;
             $self->c->model('Work')->load_ids(@entities);
             $self->c->model('Work')->load_recording_artists(@entities);
+        }
+
+        if ($type eq 'event')
+        {
+            my @entities = map { $_->entity } @results;
+            $self->c->model('Event')->load_ids(@entities);
+            $self->c->model('Event')->load_related_info(@entities);
+            $self->c->model('Event')->load_areas(@entities);
         }
 
         my $pager = Data::Page->new;
@@ -1032,7 +1040,7 @@ sub xml_search
     if ($version eq "1" or DBDefs->SEARCH_ENGINE eq 'LUCENE') {
         $search_url_string = "http://%s/ws/$version/%s/?query=%s&offset=%s&max=%s&fmt=xml";
     } else {
-        $search_url_string = "http://%s/%s/edismax?q=%s&start=%s&rows=%s&wt=mbxml";
+        $search_url_string = "http://%s/%s/advanced?q=%s&start=%s&rows=%s&wt=mbxml";
     }
 
     my $search_url = sprintf($search_url_string,

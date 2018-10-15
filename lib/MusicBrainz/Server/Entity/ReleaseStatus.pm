@@ -9,6 +9,8 @@ with 'MusicBrainz::Server::Entity::Role::OptionsTree' => {
     type => 'ReleaseStatus',
 };
 
+sub entity_type { 'release_status' }
+
 sub l_name {
     my $self = shift;
     return lp($self->name, 'release_status')

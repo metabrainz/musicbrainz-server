@@ -21,9 +21,6 @@
             [% IF series_item_numbers %]
               <th style="width: 1em">[% l('#') %]</th>
             [% END %]
-            [%- IF show_video -%]
-                <th class="video c"></th>
-            [%- END -%]
             <th>[%~ sortable ? sortable_table_header('name', l('Name')) : l('Name') ~%]</th>
             [%- IF show_artists -%]
                 <th>[%~ sortable ? sortable_table_header('artist', l('Artist')) : l('Artist') ~%]</th>
@@ -45,9 +42,6 @@
                   [% recording_id=recording.id; series_item_numbers.$recording_id %]
                 </td>
               [% END %]
-              [%- IF show_video -%]
-                  <td class="video c[%- IF recording.video %] is-video[%- END -%]"[% IF recording.video %] title="[% l("This recording is a video") %]"[% END %]></td>
-              [%- END -%]
               <td>
                 [%~ link_entity(recording) ~%]
               </td>
@@ -73,9 +67,6 @@
           [% ELSE %]
           <tr class="[% loop.parity %]">
               [% PROCESS recording_row_checkbox %]
-              [%- IF show_video -%]
-                  <td class="video c[%- IF recording.video %] is-video[%- END -%]"[% IF recording.video %] title="[% l("This recording is a video") %]"[% END %]></td>
-              [%- END -%]
               <td>
                 [% link_entity(recording) %]
               </td>

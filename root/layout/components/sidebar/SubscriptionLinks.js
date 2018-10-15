@@ -1,0 +1,57 @@
+/*
+ * @flow
+ * Copyright (C) 2018 MetaBrainz Foundation
+ *
+ * This file is part of MusicBrainz, the open internet music database,
+ * and is licensed under the GPL version 2, or (at your option) any
+ * later version: http://www.gnu.org/licenses/gpl-2.0.txt
+ */
+
+import * as React from 'react';
+
+import {withCatalystContext} from '../../../context';
+import {l} from '../../../static/scripts/common/i18n';
+import EntityLink from '../../../static/scripts/common/components/EntityLink';
+
+type Props = {|
+  +$c: CatalystContextT,
+  +entity: CoreEntityT,
+|};
+
+const SubscriptionLinks = ({$c, entity}: Props) => {
+  const entityType = entity.entityType;
+  const id = encodeURIComponent(String(entity.id));
+  const urlPrefix = `/account/subscriptions/${entityType}`;
+
+  return (
+    <>
+      <h2 className="subscriptions">
+        {l('Subscriptions')}
+      </h2>
+      <ul className="links">
+        {$c.stash.subscribed ? (
+          <li>
+            <a href={`${urlPrefix}/remove?id=${id}`}>
+              {l('Unsubscribe')}
+            </a>
+          </li>
+        ) : (
+          <li>
+            <a href={`${urlPrefix}/add?id=${id}`}>
+              {l('Subscribe')}
+            </a>
+          </li>
+        )}
+        <li>
+          <EntityLink
+            content={l('Subscribers')}
+            entity={entity}
+            subPath="subscribers"
+          />
+        </li>
+      </ul>
+    </>
+  );
+};
+
+export default withCatalystContext(SubscriptionLinks);

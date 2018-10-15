@@ -98,7 +98,7 @@ function sortDuplicates(type, duplicates) {
 }
 
 function getSelectedArea() {
-  return $('span.area.autocomplete > input.name').data('ui-autocomplete').currentSelection;
+  return $('span.area.autocomplete > input.name').data('mb-entitylookup').currentSelection;
 }
 
 function isPlaceCommentRequired(duplicates) {

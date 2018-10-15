@@ -21,9 +21,9 @@ window.$ = window.jQuery = require("jquery");
 
 require("../lib/jquery.ui/ui/jquery-ui.custom");
 
-require("../../components/Annotation");
-require("../../components/CommonsImage");
-require("../../components/WikipediaExtract");
+require("./common/components/Annotation");
+require("./common/components/CommonsImage");
+require("./common/components/WikipediaExtract");
 require("./common/i18n");
 require("./common/artworkViewer");
 require("./common/dialogs");

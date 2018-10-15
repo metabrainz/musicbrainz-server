@@ -1,6 +1,7 @@
 package MusicBrainz::Server::Entity::Collection;
 use Moose;
 
+use MusicBrainz::Server::Data::Utils qw( boolean_to_json );
 use MusicBrainz::Server::Entity::Types;
 
 extends 'MusicBrainz::Server::Entity::CoreEntity';
@@ -34,6 +35,22 @@ has entity_count => (
     isa => 'Int',
     predicate => 'loaded_entity_count'
 );
+
+around TO_JSON => sub {
+    my ($orig, $self) = @_;
+
+    my $json = $self->$orig;
+
+    $json->{editor} = $self->editor ? $self->editor->TO_JSON : undef;
+    $json->{public} = boolean_to_json($self->public);
+    $json->{description} = $self->description;
+
+    if ($self->loaded_entity_count) {
+        $json->{entity_count} = $self->entity_count;
+    }
+
+    return $json;
+};
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

@@ -42,9 +42,6 @@ dl.ars dt {
       <span style="display: none">[% track.position %]</span>
       [%- track.number -%]
     </td>
-    [%- IF show_video -%]
-        <td class="video c[%- IF recording.video %] is-video[%- END -%]"[% IF recording.video %] title="[% l("This recording is a video") %]"[% END %]></td>
-    [%- END -%]
     <td>
       [%~ link_entity(recording, 'show', track.name) ~%]
       [% IF recording.relationships.size %]

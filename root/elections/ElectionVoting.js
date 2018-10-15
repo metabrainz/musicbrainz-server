@@ -9,12 +9,10 @@
 
 import React from 'react';
 
-import Frag from '../components/Frag';
 import {l, lp} from '../static/scripts/common/i18n';
 import EditorLink from '../static/scripts/common/components/EditorLink';
 import formatUserDate from '../utility/formatUserDate';
 import {canCancel, canSecond, canVote, isInvolved, votesVisible} from '../utility/voting';
-import ExpirationDate from '../components/ExpirationDate';
 
 type PropsT = {
   +election: AutoEditorElectionT,
@@ -36,7 +34,7 @@ const ElectionVoting = ({election, user}: PropsT) => {
     }
   }
   return (
-    <Frag>
+    <>
       {canSecond(election, user) ? (
         <p>
           <form action={`/election/${election.id}/second`} method="post">
@@ -66,7 +64,7 @@ const ElectionVoting = ({election, user}: PropsT) => {
           </form>
         </p>
       ) : null}
-    </Frag>
+    </>
   );
 };
 

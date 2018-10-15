@@ -9,7 +9,6 @@ const _ = require('lodash');
 const React = require('react');
 const ReactDOM = require('react-dom');
 
-const Frag = require('../../../components/Frag');
 const {l} = require('../common/i18n');
 const {reduceArtistCredit} = require('../common/immutable-entities');
 const ArtistCreditEditor = require('../edit/components/ArtistCreditEditor');
@@ -42,14 +41,14 @@ const ChangeMatchingArtists = ({artistText, checked, onChange}) => (
 );
 
 const TrackButtons = ({nextTrack, previousTrack}) => (
-    <Frag>
+    <>
         <button type="button" style={{float: 'right'}} onClick={nextTrack}>
             {l('Next')}
         </button>
         <button type="button" style={{float: 'right'}} onClick={previousTrack}>
             {l('Previous')}
         </button>
-    </Frag>
+    </>
 );
 
 ko.bindingHandlers.artistCreditEditor = {

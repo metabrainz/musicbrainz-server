@@ -257,6 +257,10 @@ _(POSIX_LANGUAGES)
     });
   });
 
+runYarb('account/applications/register.js', function (b) {
+  b.external(commonBundle);
+});
+
 runYarb('area/index.js', function (b) {
   b.external(commonBundle);
 });

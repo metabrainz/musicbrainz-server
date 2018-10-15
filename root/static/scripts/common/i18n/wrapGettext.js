@@ -8,6 +8,7 @@ const isNodeJS = require('detect-node');
 const sliced = require('sliced');
 
 const expand = require('./expand');
+const expand2 = require('./expand2').default;
 const NopArgs = require('./NopArgs');
 
 let gettext;
@@ -53,7 +54,10 @@ function wrapGettext(method, domain) {
     const string = gettext[method].apply(gettext, args);
 
     if (expandArgs) {
-      return expand(string, expandArgs, !!expandArgs.__react);
+      if (expandArgs.__react) {
+        return expand2(string, expandArgs);
+      }
+      return expand(string, expandArgs);
     }
 
     return string;

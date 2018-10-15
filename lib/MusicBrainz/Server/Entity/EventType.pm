@@ -9,6 +9,8 @@ with 'MusicBrainz::Server::Entity::Role::OptionsTree' => {
     type => 'EventType',
 };
 
+sub entity_type { 'event_type' }
+
 sub l_name {
     my $self = shift;
     return lp($self->name, 'event_type')

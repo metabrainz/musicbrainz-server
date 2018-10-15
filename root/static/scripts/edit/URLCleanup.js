@@ -597,15 +597,29 @@ const CLEANUPS = {
     type: LINK_TYPES.downloadpurchase,
     clean: function (url) {
       url = url.replace(/^(?:https?:\/\/)?(?:(?:classic|pro|www)\.)?beatport\.com\//, "https://www.beatport.com/");
-      url = url.replace(/^(https:\/\/www\.beatport\.com)\/[\w-]+\/html\/content\/([\w-]+)\/0*([0-9]+)\/([\w-]+).*$/, "$1/$2/$4/$3");
-      url = url.replace(/^(https:\/\/www\.beatport\.com)\/[\w-]+\/html\/content\/([\w-]+)\/0*([0-9]+)(?:[\/?#].*)?$/, "$1/$2/-/$3");
-      url = url.replace(/^(https:\/\/www\.beatport\.com)\/([\w-]+)\/([\w-]+)\/0*([0-9]+).*$/, "$1/$2/$3/$4");
-      url = url.replace(/^(https:\/\/www\.beatport\.com)\/([\w-]+)\/\/+0*([0-9]+)(?:[\/?#].*)?$/, "$1/$2/-/$3");
-      url = url.replace(/^(https:\/\/www\.beatport\.com)\/([\w-]+)\/0*([0-9]+)(?:[\/?#].*)?$/, "$1/$2/$3");
+      var m = url.match(/^(https:\/\/www\.beatport\.com)\/[\w-]+\/html\/content\/([\w-]+)\/detail\/0*([0-9]+)\/([^\/?&#]*).*$/);
+      if (m) {
+        const slug = m[4].toLowerCase()
+          .replace(/%21/g, '!')
+          .replace(/%23/g, '-pound-')
+          .replace(/%24/g, '-money-').replace(/\$/g, '-money-')
+          .replace(/%25/g, '-percent-')
+          .replace(/%26/g, '-and-')
+          .replace(/%40/g, '-at-').replace(/@/g, '-at-')
+          .replace(/%[0-9a-f]{2}/g, '-')
+          .replace(/%/g, '-percent-')
+          .replace(/[^a-z0-9!]/g, '-')
+          .replace(/-+/g, '-')
+          .replace(/^-|-$/g, '')
+          .replace(/^$/, '---');
+        url = [m[1], m[2], slug, m[3]].join('/');
+      }
+      url = url.replace(/^(https:\/\/www\.beatport\.com)\/([\w-]+)\/([\w!-]+)\/0*([0-9]+).*$/, "$1/$2/$3/$4");
+      url = url.replace(/^(https:\/\/www\.beatport\.com)\/([\w-]+)\/\/0*([0-9]+)(?![\w!-]|\/[0-9]).*$/, "$1/$2/---/$3");
       return url;
     },
     validate: function (url, id) {
-      var m = /^https:\/\/(?:sounds|www)\.beatport\.com\/([\w-]+)\/[\w-]+\/[1-9][0-9]*$/.exec(url);
+      var m = /^https:\/\/(?:sounds|www)\.beatport\.com\/([\w-]+)\/[\w!-]+\/[1-9][0-9]*$/.exec(url);
       if (m) {
         var prefix = m[1];
         switch (id) {
@@ -1170,6 +1184,9 @@ const CLEANUPS = {
   setlistfm: {
     match: [new RegExp("^(https?://)?([^/]+\\.)?setlist\\.fm","i")],
     type: LINK_TYPES.setlistfm,
+    clean: function (url) {
+      return url.replace(/^http:\/\//, "https://");
+    },
     validate: function (url, id) {
       var m = /setlist\.fm\/([a-z]+)\//.exec(url);
       if (m) {
@@ -1270,8 +1287,9 @@ const CLEANUPS = {
     clean: function (url) {
       // Standardising ClassicalArchives.com
       url = url.replace(/^(?:https?:\/\/)?(?:www\.)?classicalarchives\.com\/(album|artist|composer|ensemble|work)\/([^\/?#]+)(?:.*)?$/, "http://www.classicalarchives.com/$1/$2");
-      // Removing cruft from Worldcat URLs
-      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?worldcat\.org(?:\/title\/[a-zA-Z0-9_-]+)?\/oclc\/([^&?]+)(?:.*)$/, "http://www.worldcat.org/oclc/$1");
+      // Removing cruft from Worldcat URLs and standardising to https
+      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?worldcat\.org/, "https://www.worldcat.org");
+      url = url.replace(/^https:\/\/www\.worldcat\.org(?:\/title\/[a-zA-Z0-9_-]+)?\/oclc\/([^&?]+)(?:.*)$/, "https://www.worldcat.org/oclc/$1");
       // Standardising IBDb not to use www
       url = url.replace(/^(https?:\/\/)?(www\.)?ibdb\.com/, "http://ibdb.com");
       // Standardising ESTER to their default parameters
@@ -1460,7 +1478,7 @@ const CLEANUPS = {
           case LINK_TYPES.otherdatabases.work:
             return prefix == 'works/work';
           case LINK_TYPES.otherdatabases.artist:
-            return prefix !== 'works/work';	
+            return prefix !== 'works/work';
         }
       }
       return false;
@@ -1676,6 +1694,7 @@ const CLEANUPS = {
     validate: function (url, id) {
       return /^http:\/\/id\.loc\.gov\/authorities\/names\/[a-z]+\d+$/.test(url)
         && (id === LINK_TYPES.otherdatabases.artist
+          || id === LINK_TYPES.otherdatabases.place
           || id === LINK_TYPES.otherdatabases.work);
     }
   },

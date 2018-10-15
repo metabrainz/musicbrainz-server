@@ -261,10 +261,31 @@ around TO_JSON => sub {
         %{ $self->$orig },
         barcode     => $self->barcode->code,
         languageID  => $self->language_id,
+        language    => $self->language,
         packagingID => $self->packaging_id,
         scriptID    => $self->script_id,
+        script      => $self->script,
         statusID    => $self->status_id,
+        status      => $self->status,
+        cover_art_presence => $self->cover_art_presence,
+        cover_art_url => $self->cover_art_url,
     };
+
+    if (my $language = $self->language) {
+        $self->link_entity('language', $language->id, $language);
+    }
+
+    if (my $packaging = $self->packaging) {
+        $self->link_entity('release_packaging', $packaging->id, $packaging);
+    }
+
+    if (my $script = $self->script) {
+        $self->link_entity('script', $script->id, $script);
+    }
+
+    if (my $status = $self->status) {
+        $self->link_entity('release_status', $status->id, $status);
+    }
 
     if ($self->release_group) {
         $data->{releaseGroup} = $self->release_group->TO_JSON;
@@ -280,7 +301,8 @@ around TO_JSON => sub {
 
     if ($self->all_mediums) {
         $data->{mediums} = [map { $_->TO_JSON } $self->all_mediums];
-        $data->{formats} = $self->combined_format_name;
+        $data->{combined_format_name} = $self->combined_format_name;
+        $data->{combined_track_count} = $self->combined_track_count;
     }
 
     my $length = $self->length;

@@ -4,6 +4,8 @@ use Test::Moose;
 use Test::More;
 
 use MusicBrainz::Server::Entity::Artist;
+use MusicBrainz::Server::Entity::Release;
+
 
 use MusicBrainz::Server::Entity::SearchResult;
 
@@ -16,7 +18,13 @@ my $artist = MusicBrainz::Server::Entity::Artist->new();
 $searchresult->entity($artist);
 ok( defined $searchresult->entity );
 
-$searchresult->extra( [ $artist ] );
+my $release = MusicBrainz::Server::Entity::Release->new();
+$searchresult->extra( [{
+    release => $release,
+    track_position      => 1,
+    medium_position     => 1,
+    medium_track_count  => 1,
+}] );
 ok( defined $searchresult->extra );
 
 };

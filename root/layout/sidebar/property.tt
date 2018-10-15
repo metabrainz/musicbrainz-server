@@ -1,2 +1,0 @@
-<dt>[% label %]</dt>
-<dd[% IF class %] class="[% class %]"[% END %]>[% content %]</dd>

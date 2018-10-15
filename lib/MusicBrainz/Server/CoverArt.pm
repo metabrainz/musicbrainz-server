@@ -32,4 +32,13 @@ sub cache_data
     return $data;
 }
 
+sub TO_JSON {
+    my ($self) = @_;
+
+    return {
+        image_uri => $self->image_uri->as_string,
+        information_uri => $self->information_uri->as_string,
+    };
+}
+
 1;

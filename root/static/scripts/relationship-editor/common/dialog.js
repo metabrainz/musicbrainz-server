@@ -49,7 +49,7 @@ const PART_OF_SERIES_LINK_TYPE_GIDS = _.values(PART_OF_SERIES_LINK_TYPES);
             init: function (element, valueAccessor, allBindings, viewModel, bindingContext) {
                 dialog = valueAccessor();
 
-                dialog.autocomplete = $(element).autocomplete({
+                dialog.autocomplete = $(element).entitylookup({
                         entity: dialog.targetType(),
 
                         setEntity: function (type) {
@@ -76,7 +76,7 @@ const PART_OF_SERIES_LINK_TYPE_GIDS = _.values(PART_OF_SERIES_LINK_TYPES);
                                 return items;
                             }
                         }
-                    }).data("ui-autocomplete");
+                    }).data("mb-entitylookup");
 
                 dialog.autocomplete.currentSelection.subscribe(changeTarget);
 
@@ -508,6 +508,25 @@ const PART_OF_SERIES_LINK_TYPE_GIDS = _.values(PART_OF_SERIES_LINK_TYPES);
                    this.dateError(relationship.begin_date) ||
                    this.dateError(relationship.end_date) ||
                    this.datePeriodError();
+        }
+
+        changeOtherRelationshipCreditsLabel(entity) {
+            return i18n.l('Change credits for other {entity} relationships on the page.', {entity: entity.html()});
+        }
+
+        sameEntityTypesLabel($parent, relationship, entity) {
+            const entityType = relationship.target(entity).entityType;
+            return i18n.l('Only relationships to {entity_type} entities.', {
+                entity_type: i18n.strings.entityName[entityType].toLocaleLowerCase(),
+            });
+        }
+
+        sameRelationshipTypeLabel($parent, relationship, entity) {
+            const entityType = relationship.target(entity).entityType;
+            return i18n.l('Only “{relationship_type}” relationships to {entity_type} entities.', {
+                relationship_type: $parent.linkTypeName(),
+                entity_type: i18n.strings.entityName[entityType].toLocaleLowerCase(),
+            });
         }
     }
 

@@ -60,6 +60,7 @@ const connectionListener = Raven.wrap(function (socket) {
       if (requestBody.begin) {
         context = requestBody.context;
         context.toJSON = () => sanitizedContext(context);
+        context.linked_entities = requestBody.linked_entities;
 
         if (DBDefs.DEVELOPMENT_SERVER) {
           clearRequireCache();

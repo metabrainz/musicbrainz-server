@@ -7,6 +7,12 @@ with 'MusicBrainz::Server::Entity::Role::Type' => { model => 'WorkAttributeType'
 
 sub entity_type { 'work_attribute' }
 
+has id => (
+    isa => 'Maybe[Int]',
+    required => 1,
+    is => 'ro',
+);
+
 has value_id => (
     isa => 'Maybe[Int]',
     required => 1,
@@ -31,7 +37,11 @@ sub l_value {
 
 sub TO_JSON {
     my ($self) = @_;
-    return { value_id => $self->value_id, value => $self->value };
+    return {
+        id => $self->id,
+        value_id => $self->value_id,
+        value => $self->value,
+    };
 }
 
 __PACKAGE__->meta->make_immutable;

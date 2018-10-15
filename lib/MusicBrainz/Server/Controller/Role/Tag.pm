@@ -21,7 +21,7 @@ after load => sub {
     $c->stash(
         top_tags => \@tags,
         more_tags => $count > @tags,
-        top_tags_json => $c->json->encode(\@tags),
+        user_tags => \@user_tags,
         user_tags_json => $c->json->encode(\@user_tags),
     );
 };
@@ -31,9 +31,12 @@ sub tags : Chained('load') PathPart('tags') {
 
     my $entity = $c->stash->{$self->{entity_name}};
     my @tags = $c->model($self->{model})->tags->find_tags($entity->id);
+    my @display_tags = grep { $_->count > 0 && !$_->tag->is_genre_tag } @tags;
+    my @display_genres = grep { $_->count > 0 && $_->tag->is_genre_tag } @tags;
 
     $c->stash(
-        tags => [grep { $_->count > 0 } @tags],
+        display_tags => \@display_tags,
+        display_genres => \@display_genres,
         tags_json => $c->json->encode(\@tags),
         template => 'entity/tags.tt',
     );

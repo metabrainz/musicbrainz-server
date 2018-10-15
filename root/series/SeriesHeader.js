@@ -9,6 +9,7 @@
 
 const React = require('react');
 const {lp} = require('../static/scripts/common/i18n');
+const {lp_attributes} = require('../static/scripts/common/i18n/attributes');
 const EntityHeader = require('../components/EntityHeader');
 
 type Props = {|
@@ -21,7 +22,7 @@ const SeriesHeader = ({series, page}: Props) => (
     entity={series}
     headerClass="seriesheader"
     page={page}
-    subHeading={lp('Series', 'singular')}
+    subHeading={series.typeName ? lp_attributes(series.typeName, 'series_type') : lp('Series', 'singular')}
   />
 );
 

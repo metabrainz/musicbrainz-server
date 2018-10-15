@@ -8,12 +8,12 @@
   </form>
 
   <form action="[% c.uri_for_action('/release_editor/add') %]" method="post">
-    <input type="hidden" name="name" value="[% cdstubtoc.cdstub.title | html %]" />
-    <input type="hidden" name="barcode" value="[% cdstubtoc.cdstub.barcode %]" />
-    <input type="hidden" name="mediums.0.toc" value="[% cdstubtoc.toc %]" />
+    <input type="hidden" name="name" value="[% cdstub.title | html %]" />
+    <input type="hidden" name="barcode" value="[% cdstub.barcode %]" />
+    <input type="hidden" name="mediums.0.toc" value="[% cdstub.toc %]" />
     <input type="hidden" name="mediums.0.format" value="CD" />
 
-    [% FOR track=cdstubtoc.cdstub.tracks %]
+    [% FOR track=cdstub.tracks %]
       <input type="hidden" name="mediums.0.track.[% loop.index %].name"
              value="[% track.title | html %]" />
       <input type="hidden" name="mediums.0.track.[% loop.index %].length"

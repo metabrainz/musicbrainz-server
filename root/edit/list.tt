@@ -51,7 +51,7 @@
                     <input type="hidden" value="[% edit.id %]" name="enter-vote.vote.[% loop.index %].edit_id" />
 
                     <div class="edit-actions c[%- edit_status_class(edit) -%]">
-                        [%- INCLUDE 'edit/info.tt' summary=1 -%]
+                        [%- React.embed(c, 'edit/components/EditSummary', {edit => edit, index => loop.index}) -%]
                     </div>
 
                     <div class="edit-details">

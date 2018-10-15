@@ -18,6 +18,9 @@
                   For full details, please read our {doc|Privacy Policy}.',
                   {doc => { href => 'https://metabrainz.org/privacy' } }) -%]</p>
 
+        <p>[%- l('You may remove your personal information from our services anytime by deleting your account.
+                  For more details, see our {doc|GDPR compliance statement}.',
+                  {doc => { href => 'https://metabrainz.org/gdpr' } }) -%]</p>
 
 
     [%- USE r = FormRenderer(register_form) -%]

@@ -9,7 +9,6 @@ const _ = require('lodash');
 const React = require('react');
 const ReactDOM = require('react-dom');
 
-const Frag = require('../../../../components/Frag');
 const Autocomplete = require('../../common/components/Autocomplete');
 const {l} = require('../../common/i18n');
 const {
@@ -356,7 +355,7 @@ class ArtistCreditEditor extends React.Component {
     }
 
     return (
-      <Frag>
+      <>
         <table key="artist-credit-editor" className="artist-credit-editor">
           <tbody>
             <tr>
@@ -395,7 +394,7 @@ class ArtistCreditEditor extends React.Component {
         {this.props.hiddenInputs
           ? this.getHiddenInputs().map(makeHiddenInput)
           : null}
-      </Frag>
+      </>
     );
   }
 }

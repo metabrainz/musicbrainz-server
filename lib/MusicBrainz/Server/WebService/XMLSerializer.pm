@@ -740,9 +740,7 @@ sub _serialize_disc_offsets
 
 sub _serialize_cdstub
 {
-    my ($self, $data, $gen, $toc, $inc, $stash, $toplevel) = @_;
-
-    my $cdstub = $toc->cdstub;
+    my ($self, $data, $gen, $cdstub, $inc, $stash, $toplevel) = @_;
 
     my @contents = (
         $gen->title($cdstub->title),
@@ -762,9 +760,9 @@ sub _serialize_cdstub
         $gen->track(@track);
     } $cdstub->all_tracks;
 
-    push @contents, $gen->track_list({ count => $toc->track_count }, @tracks);
+    push @contents, $gen->track_list({ count => $cdstub->track_count }, @tracks);
 
-    push @$data, $gen->cdstub({ id => $toc->discid }, @contents);
+    push @$data, $gen->cdstub({ id => $cdstub->discid }, @contents);
 }
 
 sub _serialize_label_info_list
@@ -1211,6 +1209,10 @@ sub _serialize_tags_and_ratings
         if $opts->{tags} && $inc->{tags};
     $self->_serialize_user_tag_list($data, $gen, $inc, $opts)
         if $opts->{user_tags} && $inc->{user_tags};
+    $self->_serialize_genre_list($data, $gen, $inc, $opts)
+        if $opts->{genres} && $inc->{genres};
+    $self->_serialize_user_genre_list($data, $gen, $inc, $opts)
+        if $opts->{user_genres} && $inc->{user_genres};
     $self->_serialize_rating($data, $gen, $inc, $opts)
         if $opts->{ratings} && $inc->{ratings};
     $self->_serialize_user_rating($data, $gen, $inc, $opts)
@@ -1237,6 +1239,26 @@ sub _serialize_tag
     push @$data, $gen->tag({ count => $tag->count }, $gen->name($tag->tag->name));
 }
 
+sub _serialize_genre_list
+{
+    my ($self, $data, $gen, $inc, $opts) = @_;
+    return if $in_relation_node;
+
+    my @list;
+    foreach my $tag (sort_by { $_->tag->name } @{$opts->{genres}})
+    {
+        $self->_serialize_genre(\@list, $gen, $tag, $inc, $opts);
+    }
+    push @$data, $gen->genre_list(@list);
+}
+
+sub _serialize_genre
+{
+    my ($self, $data, $gen, $tag, $inc, $opts, $modelname, $entity) = @_;
+
+    push @$data, $gen->genre({ count => $tag->count }, $gen->name($tag->tag->name));
+}
+
 sub _serialize_user_tag_list
 {
     my ($self, $data, $gen, $inc, $opts, $modelname, $entity) = @_;
@@ -1255,6 +1277,27 @@ sub _serialize_user_tag
 
     if ($tag->is_upvote) {
         push @$data, $gen->user_tag($gen->name($tag->tag->name));
+    }
+}
+
+sub _serialize_user_genre_list
+{
+    my ($self, $data, $gen, $inc, $opts, $modelname, $entity) = @_;
+
+    my @list;
+    foreach my $tag (sort_by { $_->tag->name } @{$opts->{user_genres}})
+    {
+        $self->_serialize_user_genre(\@list, $gen, $tag, $inc, $opts, $modelname, $entity);
+    }
+    push @$data, $gen->user_genre_list(@list);
+}
+
+sub _serialize_user_genre
+{
+    my ($self, $data, $gen, $tag, $inc, $opts, $modelname, $entity) = @_;
+
+    if ($tag->is_upvote) {
+        push @$data, $gen->user_genre($gen->name($tag->tag->name));
     }
 }
 

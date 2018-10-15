@@ -19,7 +19,7 @@ $mech->submit_form( with_fields => {
     'lostpassword.username' => 'new_editor',
     'lostpassword.email' => 'test@email.com'
 } );
-$mech->content_contains("We've sent you instructions on how to reset your password.");
+$mech->content_contains("We&#x27;ve sent you instructions on how to reset your password.");
 
 my $email_transport = MusicBrainz::Server::Email->get_test_transport;
 my $email = $email_transport->shift_deliveries->{email};

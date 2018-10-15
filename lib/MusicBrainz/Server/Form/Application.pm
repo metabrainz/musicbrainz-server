@@ -10,15 +10,18 @@ has '+name' => ( default => 'application' );
 has_field 'name' => (
     type => '+MusicBrainz::Server::Form::Field::Text',
     required => 1,
+    default => '',
 );
 
 has_field 'oauth_type' => (
     type => 'Select',
     required => 1,
+    default => 'web',
 );
 
 has_field 'oauth_redirect_uri' => (
-    type => '+MusicBrainz::Server::Form::Field::OAuthRedirectURI'
+    type => '+MusicBrainz::Server::Form::Field::OAuthRedirectURI',
+    default => '',
 );
 
 sub options_oauth_type

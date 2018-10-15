@@ -12,10 +12,12 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import type {ComponentType as ReactComponentType} from 'react';
 
+import * as lens from '../static/scripts/common/utility/lens';
+
 export default function hydrate<T>(
   rootClass: string,
   Component: ReactComponentType<T>,
-  stringifyProps: (T) => string = JSON.stringify,
+  mungeProps?: (T) => T,
 ): ReactComponentType<T> {
   if (typeof document !== 'undefined') {
     // This should only run on the client.
@@ -31,9 +33,25 @@ export default function hydrate<T>(
       }
     });
   }
-  return (props) => (
-    <div className={rootClass} data-props={stringifyProps(props)}>
-      <Component {...props} />
-    </div>
-  );
+  return (props: T) => {
+    let dataProps = props;
+    if (mungeProps) {
+      dataProps = mungeProps(dataProps);
+    }
+    return (
+      <div className={rootClass} data-props={JSON.stringify(dataProps)}>
+        <Component {...props} />
+      </div>
+    );
+  };
+}
+
+const entityLens = lens.prop('entity');
+
+export function minimalEntity(props: any) {
+  const entity = props.entity;
+  return lens.set(entityLens, {
+    entityType: entity.entityType,
+    gid: entity.gid,
+  }, props);
 }

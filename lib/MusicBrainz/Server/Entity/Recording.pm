@@ -63,7 +63,7 @@ around TO_JSON => sub {
 
     return {
         %{ $self->$orig },
-        isrcs   => [map { $_->isrc } $self->all_isrcs],
+        isrcs   => [map { $_->TO_JSON } $self->all_isrcs],
         length  => $self->length,
         video   => boolean_to_json($self->video),
     };

@@ -41,7 +41,7 @@ fieldTest("release group types being preserved after editing the name", function
     t.equal(releaseGroup().typeID(), 3, "primary type is preserved");
     t.deepEqual(releaseGroup().secondaryTypeIDs(), [1, 3, 5], "secondary types are preserved");
 
-    $autocomplete.autocomplete("destroy");
+    $autocomplete.entitylookup("destroy");
 });
 
 fieldTest("mediums having their \"loaded\" observable set correctly", function (t, release) {

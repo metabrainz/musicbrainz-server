@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Entity::Role::Type;
 use MooseX::Role::Parameterized;
+use MusicBrainz::Server::Entity::Util::JSON qw( add_linked_entity );
 
 parameter model => (
     isa => 'Str',
@@ -37,10 +38,16 @@ role {
     around TO_JSON => sub {
         my ($orig, $self) = @_;
 
+        my $type = $self->type;
+
+        if ($type) {
+            add_linked_entity($type->entity_type, $type->id, $type);
+        }
+
         return {
             %{ $self->$orig },
             typeID => $self->type_id,
-            $self->type ? (typeName => $self->type->name) : (),
+            $type ? (typeName => $type->name) : (),
         };
     };
 };

@@ -86,14 +86,13 @@ role {
         # Grrr. release_group => release-group.
         $form_name =~ s/_/-/;
 
-        my $json = JSON->new;
         my @link_type_tree = $c->model('LinkType')->get_full_tree;
         my $attr_tree = $c->model('LinkAttributeType')->get_tree;
 
         $c->stash(
-            source_entity   => $json->encode($source_entity),
-            attr_info       => $json->encode(build_attr_info($attr_tree)),
-            type_info       => $json->encode(build_type_info($c, qr/(^$source_type-|-$source_type$)/, @link_type_tree)),
+            source_entity   => $c->json->encode($source_entity),
+            attr_info       => $c->json->encode(build_attr_info($attr_tree)),
+            type_info       => $c->json->encode(build_type_info($c, qr/(^$source_type-|-$source_type$)/, @link_type_tree)),
         );
 
         my $post_creation = delete $opts{post_creation};
