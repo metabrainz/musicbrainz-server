@@ -56,7 +56,7 @@
     "shelljs": "0.5.3",
     "sliced": "1.0.1",
     "tablesorter": "git://github.com/Mottie/tablesorter.git#430f8c5",
-    "terable": "0.1.4",
+    "terable": "0.2.2",
     "uglifyify": "3.0.1",
     "vinyl": "1.1.0",
     "vinyl-source-stream": "1.1.0",
