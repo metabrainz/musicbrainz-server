@@ -120,7 +120,7 @@ export function getPhraseAndExtraAttributes(
   phraseProp: LinkPhraseProp,
   forGrouping?: boolean = false,
 ): [string, string] {
-  const linkType = typeInfo.link_type.byId[relationship.linkTypeID];
+  const linkType = typeInfo.link_type[relationship.linkTypeID];
   if (!linkType) {
     return emptyResult;
   }

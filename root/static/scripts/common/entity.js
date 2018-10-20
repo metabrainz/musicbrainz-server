@@ -22,7 +22,7 @@ import {
   isCompleteArtistCredit,
 } from './immutable-entities';
 import MB from './MB';
-import {link_type as linkTypeInfo} from './typeInfo';
+import typeInfo from './typeInfo';
 import clean from './utility/clean';
 import formatTrackLength from './utility/formatTrackLength';
 
@@ -349,7 +349,7 @@ import formatTrackLength from './utility/formatTrackLength';
             if (!type) return [];
 
             var gid = PART_OF_SERIES_LINK_TYPES[type.item_entity_type];
-            var linkTypeID = linkTypeInfo.byId[gid].id;
+            var linkTypeID = typeInfo.link_type[gid].id;
 
             return _.filter(this.displayableRelationships(viewModel)(), function (r) {
                 return r.linkTypeID() === linkTypeID;

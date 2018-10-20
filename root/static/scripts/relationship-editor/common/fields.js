@@ -169,7 +169,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
         }
 
         getLinkType() {
-            return typeInfo.link_type.byId[this.linkTypeID()];
+            return typeInfo.link_type[this.linkTypeID()];
         }
 
         hasDates() {

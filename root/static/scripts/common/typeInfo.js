@@ -15,8 +15,6 @@ const linkAttributeTypeInfoById: {+[number | string]: AttrInfoT} = {};
 
 module.exports = {
   link_attribute_type: linkAttributeTypeInfoById,
-  link_type: {
-    byId: linkTypeInfoById,
-    byTypes: linkTypeInfoByTypes,
-  },
+  link_type: linkTypeInfoById,
+  link_type_tree: linkTypeInfoByTypes,
 };

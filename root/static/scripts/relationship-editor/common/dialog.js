@@ -13,7 +13,7 @@ import '../../../lib/jquery-ui';
 import {ENTITY_NAMES, PART_OF_SERIES_LINK_TYPES} from '../../common/constants';
 import {compare} from '../../common/i18n';
 import MB from '../../common/MB';
-import {link_type as linkTypeInfo} from '../../common/typeInfo';
+import typeInfo from '../../common/typeInfo';
 import * as URLCleanup from '../../edit/URLCleanup';
 import * as dates from '../../edit/utility/dates';
 import {stripAttributes} from '../../edit/utility/linkPhrase';
@@ -182,7 +182,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
                 }, source);
 
                 options.relationship.linkTypeID(
-                    defaultLinkType({ children: linkTypeInfo.byTypes[options.relationship.entityTypes] })
+                    defaultLinkType({ children: typeInfo.link_type_tree[options.relationship.entityTypes] })
                 );
             }
 
@@ -364,14 +364,14 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
 
         linkTypeOptions(entityTypes) {
             var options = MB.forms.linkTypeOptions(
-                { children: linkTypeInfo.byTypes[entityTypes] }, this.backward()
+                { children: typeInfo.link_type_tree[entityTypes] }, this.backward()
             );
 
             if (this.source.entityType === "series") {
                 var itemType = MB.seriesTypesByID[this.source.typeID()].item_entity_type;
 
                 options = _.reject(options, function (opt) {
-                    var linkType = linkTypeInfo.byId[opt.value];
+                    var linkType = typeInfo.link_type[opt.value];
 
                     if (_.includes(PART_OF_SERIES_LINK_TYPE_GIDS, linkType.gid) &&
                             linkType.gid !== PART_OF_SERIES_LINK_TYPES[itemType]) {
@@ -431,7 +431,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
             delete data.entities;
 
             var entityTypes = [this.source.entityType, newType].sort().join("-");
-            data.linkTypeID = defaultLinkType({ children: linkTypeInfo.byTypes[entityTypes] });
+            data.linkTypeID = defaultLinkType({ children: typeInfo.link_type_tree[entityTypes] });
             data.attributes = [];
 
             var newRelationship = this.viewModel.getRelationship(data, this.source);

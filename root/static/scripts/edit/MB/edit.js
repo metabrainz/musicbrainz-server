@@ -141,7 +141,7 @@ import request from '../../common/utility/request';
                 .value();
 
             if (_.isNumber(data.linkTypeID)) {
-                if (typeInfo.link_type.byId[data.linkTypeID].orderable_direction !== 0) {
+                if (typeInfo.link_type[data.linkTypeID].orderable_direction !== 0) {
                     data.linkOrder = number(relationship.linkOrder) || 0;
                 }
             }

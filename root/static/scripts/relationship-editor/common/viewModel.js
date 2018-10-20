@@ -43,12 +43,11 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
 
 
     RE.exportTypeInfo = _.once(function (_typeInfo, _attrInfo) {
-        typeInfo.link_type.byTypes = _typeInfo;
-
-        typeInfo.link_type.byId = _(_typeInfo).values().flatten().transform(mapItems, {}).value();
+        typeInfo.link_type_tree = _typeInfo;
+        typeInfo.link_type = _(_typeInfo).values().flatten().transform(mapItems, {}).value();
         typeInfo.link_attribute_type = _(_attrInfo).values().transform(mapItems, {}).value();
 
-        _.each(typeInfo.link_type.byId, function (type) {
+        _.each(typeInfo.link_type, function (type) {
             _.each(type.attributes, function (typeAttr, id) {
                 typeAttr.attribute = typeInfo.link_attribute_type[id];
             });
@@ -201,7 +200,7 @@ function getRelationshipEditor(data, source) {
     }
 
     var target = data.target;
-    var linkType = typeInfo.link_type.byId[data.linkTypeID];
+    var linkType = typeInfo.link_type[data.linkTypeID];
 
     if ((target && target.entityType === 'url') ||
         (linkType && (linkType.type0 === 'url' || linkType.type1 === 'url'))) {
@@ -249,7 +248,7 @@ function addRelationshipsFromQueryString(source) {
     var fields = parseQueryString(window.location.search);
 
     _.each(fields.rels, function (rel) {
-        var linkType = typeInfo.link_type.byId[rel.type];
+        var linkType = typeInfo.link_type[rel.type];
         var targetIsUUID = uuidRegex.test(rel.target);
 
         if (!linkType && !targetIsUUID) {
