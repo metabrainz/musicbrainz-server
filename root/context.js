@@ -29,6 +29,7 @@ const defaultContext = {
     series: {},
     series_ordering_type: {},
     series_type: {},
+    work: {},
     work_attribute_type: {},
   },
   relative_uri: '',

@@ -230,6 +230,9 @@ type CatalystContextT = {|
     +series_type: {|
       +[number]: SeriesTypeT,
     |},
+    +work: {|
+      +[number]: WorkT,
+    |},
     +work_attribute_type: {|
       +[number]: WorkAttributeTypeT,
     |},
@@ -709,6 +712,7 @@ declare type RecordingT = {|
   ...RatableRoleT,
   +isrcs: $ReadOnlyArray<IsrcT>,
   +length: number,
+  +related_works: $ReadOnlyArray<number>,
   +video: boolean,
 |};
 
