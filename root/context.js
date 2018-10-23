@@ -26,6 +26,7 @@ const defaultContext = {
     release_packaging: {},
     release_status: {},
     script: {},
+    series: {},
     series_ordering_type: {},
     series_type: {},
     work_attribute_type: {},

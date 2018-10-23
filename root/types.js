@@ -221,6 +221,9 @@ type CatalystContextT = {|
     +script: {|
       +[number]: ScriptT,
     |},
+    +series: {|
+      +[number]: SeriesT,
+    |},
     +series_ordering_type: {|
       +[number]: SeriesOrderingTypeT,
     |},
@@ -476,6 +479,7 @@ declare type EventT = {|
     +roles: $ReadOnlyArray<string>,
   |}>,
   +places: $ReadOnlyArray<{|+entity: PlaceT|}>,
+  +related_series: $ReadOnlyArray<number>,
   +time: string,
 |};
 
