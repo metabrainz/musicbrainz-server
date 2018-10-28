@@ -151,18 +151,18 @@ my %URL_SPECIALIZATIONS = (
     'Yunisan'             => qr{^https?://(?:www22\.)?big\.or\.jp/}i,
 
     # License links
-    'CCBY'              => qr{^http://creativecommons\.org/licenses/by/}i,
-    'CCBYND'            => qr{^http://creativecommons\.org/licenses/by-nd/}i,
-    'CCBYNC'            => qr{^http://creativecommons\.org/licenses/by-nc/}i,
-    'CCBYNCND'          => qr{^http://creativecommons\.org/licenses/by-nc-nd/}i,
-    'CCBYNCSA'          => qr{^http://creativecommons\.org/licenses/by-nc-sa/}i,
-    'CCBYSA'            => qr{^http://creativecommons\.org/licenses/by-sa/}i,
-    'CC0'               => qr{^http://creativecommons\.org/publicdomain/zero/}i,
-    'CCPD'              => qr{^http://creativecommons\.org/licenses/publicdomain/}i,
-    'CCSampling'        => qr{^http://creativecommons\.org/licenses/sampling/}i,
-    'CCNCSamplingPlus'  => qr{^http://creativecommons\.org/licenses/nc-sampling\+/}i,
-    'CCSamplingPlus'    => qr{^http://creativecommons\.org/licenses/sampling\+/}i,
-    'ArtLibre'          => qr{^http://artlibre\.org/licence/lal}i,
+    'CCBY'              => qr{^https?://creativecommons\.org/licenses/by/}i,
+    'CCBYND'            => qr{^https?://creativecommons\.org/licenses/by-nd/}i,
+    'CCBYNC'            => qr{^https?://creativecommons\.org/licenses/by-nc/}i,
+    'CCBYNCND'          => qr{^https?://creativecommons\.org/licenses/by-nc-nd/}i,
+    'CCBYNCSA'          => qr{^https?://creativecommons\.org/licenses/by-nc-sa/}i,
+    'CCBYSA'            => qr{^https?://creativecommons\.org/licenses/by-sa/}i,
+    'CC0'               => qr{^https?://creativecommons\.org/publicdomain/zero/}i,
+    'CCPD'              => qr{^https?://creativecommons\.org/licenses/publicdomain/}i,
+    'CCSampling'        => qr{^https?://creativecommons\.org/licenses/sampling/}i,
+    'CCNCSamplingPlus'  => qr{^https?://creativecommons\.org/licenses/nc-sampling\+/}i,
+    'CCSamplingPlus'    => qr{^https?://creativecommons\.org/licenses/sampling\+/}i,
+    'ArtLibre'          => qr{^https?://artlibre\.org/licence/lal}i,
 
 );
 
