@@ -413,6 +413,13 @@ class TagEditor extends React.Component<TagEditorProps, TagEditorState> {
         return false;
       },
     });
+
+    /*
+     * MBS-9862: jQuery UI disables the browser's builtin autocomplete
+     * history in a non-configurable way, but we want it to show here
+     * if the user hasn't typed anything yet, so flip it back on.
+     */
+    input.setAttribute('autocomplete', 'on');
   }
 }
 
