@@ -20,7 +20,7 @@ const isolateText = require('../utility/isolateText');
 const nonEmpty = require('../utility/nonEmpty');
 const reactTextContent = require('../utility/reactTextContent');
 
-const DeletedLink = ({name, allowNew}) => {
+const DeletedLink = ({name, allowNew}: {|+name: React.Node, +allowNew: boolean|}) => {
   const caption = allowNew
     ? l('This entity will be created when edits are entered.')
     : l('This entity has been removed, and cannot be displayed correctly.');
@@ -32,7 +32,7 @@ const DeletedLink = ({name, allowNew}) => {
   );
 };
 
-const Comment = ({className, comment}) => (
+const Comment = ({className, comment}: {|+className: string, +comment: string|}) => (
   <>
     {' '}
     <span className={className}>
@@ -76,7 +76,7 @@ const AreaDisambiguation = ({area}: {|+area: AreaT|}) => {
   return <Comment className="historical" comment={comment} />;
 };
 
-const NoInfoURL = ({url, allowNew}) => (
+const NoInfoURL = ({url, allowNew}: {|+url: string, +allowNew: boolean|}) => (
   <>
     <a href={url}>{url}</a>
     {' '}

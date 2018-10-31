@@ -43,16 +43,16 @@ const defaultContext = {
   user_exists: false,
 };
 
-export const CatalystContext = React.createContext(defaultContext);
+export const CatalystContext = React.createContext<typeof defaultContext>(defaultContext);
 
 type ContextPropT = {
   +$c: CatalystContextT | SanitizedCatalystContextT,
 };
 
-export function withCatalystContext<P: ContextPropT, T: $Diff<P, ContextPropT>>(
+export function withCatalystContext<P: ContextPropT>(
   Component: ComponentType<P>,
-): ComponentType<T> {
-  return (props: T) => (
+): ComponentType<$Diff<P, ContextPropT>> {
+  return (props) => (
     <CatalystContext.Consumer>
       {($c: CatalystContextT) => <Component $c={$c} {...props} />}
     </CatalystContext.Consumer>

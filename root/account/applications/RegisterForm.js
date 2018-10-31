@@ -113,4 +113,4 @@ class RegisterApplicationForm extends React.Component<Props, State> {
 }
 
 export type RegisterApplicationFormPropsT = Props;
-export default hydrate('register-application-form', RegisterApplicationForm);
+export default hydrate<Props>('register-application-form', RegisterApplicationForm);

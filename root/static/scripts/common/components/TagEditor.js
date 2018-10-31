@@ -584,6 +584,6 @@ function init_tag_editor(Component, mountPoint) {
 
 exports.MainTagEditor = MainTagEditor;
 
-exports.SidebarTagEditor = hydrate('sidebar-tags', SidebarTagEditor, minimalEntity);
+exports.SidebarTagEditor = hydrate<TagEditorProps>('sidebar-tags', SidebarTagEditor, minimalEntity);
 
 MB.init_main_tag_editor = init_tag_editor(MainTagEditor, 'all-tags');
