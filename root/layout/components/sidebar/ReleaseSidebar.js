@@ -82,17 +82,19 @@ const ReleaseSidebar = ({$c, release}: Props) => {
             )}
           />
         ) : (
-          release.cover_art_presence !== 'darkened' && releaseCoverUrl ? (
+          release.cover_art_presence !== 'darkened'
+            && releaseCoverUrl
+            /* flow-include && releaseCoverHost */ ? (
             <>
               <img src={releaseCoverUrl} />
               <span className="cover-art-note">
-                {releaseCoverHost === 'images-amazon.com' ? (
+                {/(?:ssl-)?images-amazon\.com/.test(releaseCoverHost) ? (
                   l('Cover art from {cover|Amazon}', {
                     __react: true,
                     cover: releaseCoverUrl,
                   })
                 ) : (
-                  l('Cover art from {cover|host}', {
+                  l('Cover art from {cover|{host}}', {
                     __react: true,
                     cover: releaseCoverUrl,
                     host: releaseCoverHost,

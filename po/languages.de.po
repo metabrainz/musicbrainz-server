@@ -2,6 +2,7 @@
 # Translators:
 # nikki, 2014
 # Daniel Schury <email address hidden>, 2011
+# Eckhard Henkel <email address hidden>, 2018
 # Frank Matthiae <email address hidden>, 2017
 # happykraut, 2017
 # Wieland Hoffmann <email address hidden>, 2011
@@ -15,8 +16,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2018-05-22 09:16+0000\n"
-"Last-Translator: yvanz\n"
+"PO-Revision-Date: 2018-10-15 16:09+0000\n"
+"Last-Translator: Michael Wiencek <email address hidden>\n"
 "Language-Team: German (http://www.transifex.com/musicbrainz/musicbrainz/language/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -254,6 +255,11 @@ msgstr "Baskisch"
 msgid "Batak languages"
 msgstr "Batak-Sprachen"
 
+#. frequency:1 iso_code_3:bar
+#: DB:language/name:982
+msgid "Bavarian"
+msgstr ""
+
 #. frequency:1 iso_code_3:bej
 #: DB:language/name:44
 msgid "Beja"
@@ -313,6 +319,11 @@ msgstr "Bilin"
 #: DB:language/name:482
 msgid "Blissymbols"
 msgstr "Bliss-Symbole"
+
+#. frequency:1 iso_code_3:brx
+#: DB:language/name:1394
+msgid "Bodo (India)"
+msgstr ""
 
 #. frequency:1 iso_code_3:bos
 #: DB:language/name:56
@@ -607,7 +618,7 @@ msgstr "Niederländisch"
 #. frequency:1 iso_code_3:dum
 #: DB:language/name:112
 msgid "Dutch, Middle (ca.1050-1350)"
-msgstr "Mittelniederländisch (ca. 1050-1350)"
+msgstr "Mittelniederländisch (ca. 1050–1350)"
 
 #. frequency:1 iso_code_3:dyu
 #: DB:language/name:114
@@ -652,12 +663,12 @@ msgstr "Englisch"
 #. frequency:1 iso_code_3:enm
 #: DB:language/name:121
 msgid "English, Middle (1100-1500)"
-msgstr "Mittelenglisch (1100-1500)"
+msgstr "Mittelenglisch (1100–1500)"
 
 #. frequency:1 iso_code_3:ang
 #: DB:language/name:16
 msgid "English, Old (ca.450-1100)"
-msgstr "Altenglisch (ca. 450-1100)"
+msgstr "Altenglisch (ca. 450–1100)"
 
 #. frequency:1 iso_code_3:myv
 #: DB:language/name:290
@@ -732,12 +743,12 @@ msgstr "Französisch"
 #. frequency:0 iso_code_3:frm
 #: DB:language/name:135
 msgid "French, Middle (ca.1400-1600)"
-msgstr "Mittelfranzösisch (ca. 1400-1600)"
+msgstr "Mittelfranzösisch (ca. 1400–1600)"
 
 #. frequency:1 iso_code_3:fro
 #: DB:language/name:136
 msgid "French, Old (842-ca.1400)"
-msgstr "Altfranzösisch (842-ca. 1400)"
+msgstr "Altfranzösisch (842– ca. 1400)"
 
 #. frequency:1 iso_code_3:frs
 #: DB:language/name:485
@@ -822,12 +833,12 @@ msgstr "Niederdeutsch"
 #. frequency:1 iso_code_3:gmh
 #: DB:language/name:152
 msgid "German, Middle High (ca.1050-1500)"
-msgstr "Mittelhochdeutsch (ca. 1050-1500)"
+msgstr "Mittelhochdeutsch (ca. 1050–1500)"
 
 #. frequency:0 iso_code_3:goh
 #: DB:language/name:153
 msgid "German, Old High (ca.750-1050)"
-msgstr "Althochdeutsch (ca. 750-1050)"
+msgstr "Althochdeutsch (ca. 750–1050)"
 
 #. frequency:1 iso_code_3:gsw
 #: DB:language/name:476
@@ -1067,7 +1078,7 @@ msgstr "Irisch"
 #. frequency:0 iso_code_3:mga
 #: DB:language/name:270
 msgid "Irish, Middle (900-1200)"
-msgstr "Mittelirisch (900-1200)"
+msgstr "Mittelirisch (900–1200)"
 
 #. frequency:0 iso_code_3:sga
 #: DB:language/name:369
@@ -1102,7 +1113,7 @@ msgstr "Javanesisch"
 #. frequency:1 iso_code_3:tmr
 #: DB:language/name:6526
 msgid "Jewish Babylonian Aramaic (ca. 200-1200 CE)"
-msgstr "Jüdisch-babylonisch Aramäisch (ca. 200-1200 CE)"
+msgstr "Jüdisch-babylonisches Aramäisch (ca. 200–1200)"
 
 #. frequency:1 iso_code_3:jrb
 #: DB:language/name:200
@@ -1432,7 +1443,7 @@ msgstr "Luxemburgisch"
 #. frequency:1 iso_code_3:luy
 #: DB:language/name:4018
 msgid "Luyia"
-msgstr ""
+msgstr "Luhya"
 
 #. frequency:1 iso_code_3:mkd
 #: DB:language/name:254
@@ -1573,6 +1584,11 @@ msgstr "Mi'kmaq"
 #: DB:language/name:4663
 msgid "Min Nan Chinese"
 msgstr "Min-Nan-Chinesisch"
+
+#. frequency:1 iso_code_3:hna
+#: DB:language/name:2735
+msgid "Mina (Cameroon)"
+msgstr ""
 
 #. frequency:1 iso_code_3:min
 #: DB:language/name:272
@@ -1834,11 +1850,6 @@ msgstr "Kapampangan"
 msgid "Pangasinan"
 msgstr "Pangasinan-Sprache"
 
-#. frequency:1 iso_code_3:pan
-#: DB:language/name:330
-msgid "Panjabi"
-msgstr "Pandschabi"
-
 #. frequency:1 iso_code_3:pap
 #: DB:language/name:331
 msgid "Papiamento"
@@ -1857,7 +1868,7 @@ msgstr "Persisch"
 #. frequency:0 iso_code_3:peo
 #: DB:language/name:333
 msgid "Persian, Old (ca.600-400 B.C.)"
-msgstr "Altpersisch (ca. 600-400 v. Chr.)"
+msgstr "Altpersisch (ca. 600–400 v. Chr.)"
 
 #. frequency:0 iso_code_3:null
 #: DB:language/name:335
@@ -1898,6 +1909,11 @@ msgstr "Prakrit"
 #: DB:language/name:342
 msgid "Provençal, Old (to 1500)"
 msgstr "Altokzitanisch (bis 1500)"
+
+#. frequency:1 iso_code_3:pan
+#: DB:language/name:330
+msgid "Punjabi"
+msgstr ""
 
 #. frequency:1 iso_code_3:pus
 #: DB:language/name:343
@@ -2552,7 +2568,7 @@ msgstr "Wolof-Sprache"
 #. frequency:1 iso_code_3:wya
 #: DB:language/name:7181
 msgid "Wyandot"
-msgstr ""
+msgstr "Wyandot"
 
 #. frequency:1 iso_code_3:xho
 #: DB:language/name:460
@@ -2617,7 +2633,7 @@ msgstr "Zapotekisch"
 #. frequency:1 iso_code_3:dje
 #: DB:language/name:2009
 msgid "Zarma"
-msgstr ""
+msgstr "Zarma"
 
 #. frequency:1 iso_code_3:zza
 #: DB:language/name:483

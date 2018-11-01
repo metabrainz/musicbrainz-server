@@ -17,7 +17,7 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-04-23 18:29+0200\n"
-"PO-Revision-Date: 2018-05-30 11:39+0000\n"
+"PO-Revision-Date: 2018-09-06 22:58+0000\n"
 "Last-Translator: Jaakko Perttilä <email address hidden>\n"
 "Language-Team: Finnish (http://www.transifex.com/musicbrainz/musicbrainz/language/fi/)\n"
 "MIME-Version: 1.0\n"
@@ -788,7 +788,7 @@ msgstr "Muokkaukset:"
 
 #: ../root/statistics/index.tt:711 ../root/statistics/stats.js:314
 msgid "Events"
-msgstr ""
+msgstr "Tapahtumat"
 
 #: ../root/statistics/index.tt:68 ../root/statistics/index.tt:718
 msgid "Events:"

@@ -14,7 +14,7 @@ import Layout from '../../layout';
 import {GOOGLE_CUSTOM_SEARCH} from '../../static/scripts/common/DBDefs';
 
 const DocResults = () => (
-  <Layout fullWidth title={l('Documentation Results')}>
+  <Layout fullWidth title={l('Documentation Search')}>
     <div id="content" className="wikicontent">
       <h1>{l('Documentation Search')}</h1>
       <script

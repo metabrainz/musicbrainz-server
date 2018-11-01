@@ -11,6 +11,7 @@ import React from 'react';
 
 import {withCatalystContext} from '../../../context';
 import ArtistCreditLink from '../../../static/scripts/common/components/ArtistCreditLink';
+import CodeLink from '../../../static/scripts/common/components/CodeLink';
 import formatTrackLength from '../../../static/scripts/common/utility/formatTrackLength';
 import {l} from '../../../static/scripts/common/i18n';
 import ExternalLinks from '../ExternalLinks';
@@ -53,7 +54,7 @@ const RecordingSidebar = ({$c, recording}: Props) => {
 
         {recording.isrcs.map(isrc => (
           <SidebarProperty className="isrc" key={'isrc-' + isrc.isrc} label={l('ISRC:')}>
-            {isrc.isrc}
+            <CodeLink code={isrc} />
           </SidebarProperty>
         ))}
       </SidebarProperties>

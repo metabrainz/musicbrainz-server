@@ -135,7 +135,7 @@ class SearchResult {
                 (this.position ? ' ' + this.position : '');
         }
 
-        const parts = i18n.l('{entity} by {artist}', {
+        const link = i18n.l('{entity} by {artist}', {
             __react: true,
             entity: (
                 <>
@@ -146,9 +146,7 @@ class SearchResult {
             artist: <bdi>{this.artist}</bdi>,
         });
 
-        return ReactDOMServer.renderToStaticMarkup(
-            React.createElement(React.Fragment, null, ...parts)
-        );
+        return ReactDOMServer.renderToStaticMarkup(link);
     }
 }
 

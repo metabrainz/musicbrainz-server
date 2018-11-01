@@ -178,12 +178,14 @@ msgstr ""
 #: DB:link_type/link_phrase:747 DB:link_type/link_phrase:180
 #: DB:link_type/link_phrase:76 DB:link_type/link_phrase:217
 #: DB:link_type/link_phrase:90 DB:link_type/link_phrase:705
+#: DB:link_type/reverse_link_phrase:971
 msgid "Discogs"
 msgstr ""
 
-#: DB:link_type/reverse_link_phrase:747 DB:link_type/reverse_link_phrase:180
-#: DB:link_type/reverse_link_phrase:76 DB:link_type/reverse_link_phrase:217
-#: DB:link_type/reverse_link_phrase:90 DB:link_type/reverse_link_phrase:705
+#: DB:link_type/link_phrase:971 DB:link_type/reverse_link_phrase:747
+#: DB:link_type/reverse_link_phrase:180 DB:link_type/reverse_link_phrase:76
+#: DB:link_type/reverse_link_phrase:217 DB:link_type/reverse_link_phrase:90
+#: DB:link_type/reverse_link_phrase:705
 msgid "Discogs page for"
 msgstr ""
 
@@ -661,6 +663,16 @@ msgid ""
 "unknown!"
 msgstr ""
 
+#: DB:link_type/description:967
+msgid ""
+"Links a release to the area where the lacquer cutting took place. Use only "
+"when the place is unknown!"
+msgstr ""
+
+#: DB:link_type/description:969
+msgid "Links a release to the engineer who did the lacquer cutting for it."
+msgstr ""
+
 #: DB:link_type/description:810
 msgid "Links a release to the event it was recorded at."
 msgstr ""
@@ -711,6 +723,10 @@ msgstr ""
 msgid ""
 "Links a release to the place where the glass master for pressing was made. "
 "Not the same as mastered!"
+msgstr ""
+
+#: DB:link_type/description:968
+msgid "Links a release to the place where the lacquer cutting took place."
 msgstr ""
 
 #: DB:link_type/description:796
@@ -1312,6 +1328,12 @@ msgstr ""
 msgid "This indicates that a person is, or was, a conductor for a group."
 msgstr ""
 
+#: DB:link_type/description:965
+msgid ""
+"This indicates that a person is, or was, the artistic director of a group (e."
+"g. a ballet/opera company)."
+msgstr ""
+
 #: DB:link_type/description:137
 msgid ""
 "This indicates that a person or agency did the art direction for the "
@@ -1621,6 +1643,10 @@ msgstr ""
 msgid "This indicates the video was shot at this place."
 msgstr ""
 
+#: DB:link_type/description:966
+msgid "This indicates the video was shot at/during this event."
+msgstr ""
+
 #: DB:link_type/description:964
 msgid "This indicates the video was shot in this area."
 msgstr ""
@@ -1781,6 +1807,10 @@ msgstr ""
 
 #: DB:link_type/description:76
 msgid "This is used to link the Discogs page for this release."
+msgstr ""
+
+#: DB:link_type/description:971
+msgid "This is used to link the Discogs page for this work."
 msgstr ""
 
 #: DB:link_type/description:176
@@ -1972,6 +2002,16 @@ msgstr ""
 msgid ""
 "This links a recording to the relevant crowdfunding project at a "
 "crowdfunding site like Kickstarter or Indiegogo."
+msgstr ""
+
+#: DB:link_type/description:970
+msgid ""
+"This links a release group to a label, to indicate that it is a tribute "
+"album. Tribute albums often have a title in the form \"A Tribute to Label\" "
+"or \"A Tribute to Artists from Label\", and they consist of covers of songs "
+"put out by the label, played by other (sometimes very unknown) artists, to "
+"honor the label. Often they are various artist compilations, but a single "
+"artist can perform the entire tribute album."
 msgstr ""
 
 #: DB:link_type/description:868
@@ -3106,6 +3146,14 @@ msgstr ""
 msgid "artist & repertoire support"
 msgstr ""
 
+#: DB:link_type/reverse_link_phrase:965
+msgid "artistic director"
+msgstr ""
+
+#: DB:link_type/link_phrase:965
+msgid "artistic director for"
+msgstr ""
+
 #: DB:link_attribute_type/name:526
 msgid "assistant"
 msgstr ""
@@ -3292,14 +3340,6 @@ msgstr ""
 msgid "composition"
 msgstr ""
 
-#: DB:link_type/reverse_link_phrase:759 DB:link_type/reverse_link_phrase:760
-msgid "concertmaster"
-msgstr ""
-
-#: DB:link_type/link_phrase:759 DB:link_type/link_phrase:760
-msgid "concertmaster for"
-msgstr ""
-
 #: DB:link_type/link_phrase:806
 msgid "conductor at"
 msgstr ""
@@ -3411,6 +3451,10 @@ msgstr ""
 #: DB:link_type/reverse_link_phrase:907 DB:link_type/reverse_link_phrase:910
 #: DB:link_type/reverse_link_phrase:902
 msgid "crowdfunding page for"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:969
+msgid "cut the lacquer for"
 msgstr ""
 
 #: DB:link_type/reverse_link_phrase:868 DB:link_type/reverse_link_phrase:846
@@ -3952,6 +3996,10 @@ msgstr ""
 msgid "has poster at"
 msgstr ""
 
+#: DB:link_type/reverse_link_phrase:230
+msgid "has remixes"
+msgstr ""
+
 #: DB:link_type/link_phrase:315 DB:link_type/long_link_phrase:315
 msgid "has revision"
 msgstr ""
@@ -4193,6 +4241,10 @@ msgstr ""
 msgid "is/was a supporting artist for"
 msgstr ""
 
+#: DB:link_type/long_link_phrase:965
+msgid "is/was artistic director for"
+msgstr ""
+
 #: DB:link_type/long_link_phrase:203
 msgid "is/was distributing the catalog of"
 msgstr ""
@@ -4229,6 +4281,22 @@ msgstr ""
 
 #: DB:link_type/link_phrase:226
 msgid "karaoke versions"
+msgstr ""
+
+#: DB:link_type/link_phrase:969 DB:link_type/reverse_link_phrase:969
+msgid "lacquer cut"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:968
+msgid "lacquer cut at"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:967
+msgid "lacquer cut in"
+msgstr ""
+
+#: DB:link_type/link_phrase:967 DB:link_type/link_phrase:968
+msgid "lacquer cut location for"
 msgstr ""
 
 #: DB:link_type/link_phrase:238
@@ -4999,7 +5067,7 @@ msgstr ""
 msgid "remix of"
 msgstr ""
 
-#: DB:link_type/reverse_link_phrase:230 DB:link_type/reverse_link_phrase:9
+#: DB:link_type/reverse_link_phrase:9
 msgid "remixes"
 msgstr ""
 
@@ -5267,7 +5335,7 @@ msgstr ""
 msgid "treble vocals"
 msgstr ""
 
-#: DB:link_type/link_phrase:65
+#: DB:link_type/link_phrase:65 DB:link_type/link_phrase:970
 msgid "tribute albums"
 msgstr ""
 
@@ -5280,7 +5348,7 @@ msgid "tribute events"
 msgstr ""
 
 #: DB:link_type/link_phrase:728 DB:link_type/reverse_link_phrase:936
-#: DB:link_type/reverse_link_phrase:65
+#: DB:link_type/reverse_link_phrase:65 DB:link_type/reverse_link_phrase:970
 msgid "tribute to"
 msgstr ""
 
@@ -5382,12 +5450,12 @@ msgstr ""
 msgid "was rescheduled as"
 msgstr ""
 
-#: DB:link_type/long_link_phrase:759 DB:link_type/long_link_phrase:760
-msgid "was the concertmaster for"
-msgstr ""
-
 #: DB:link_type/long_link_phrase:930 DB:link_type/long_link_phrase:931
 msgid "was the piano technician for"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:760 DB:link_type/long_link_phrase:759
+msgid "was the {guest} concertmaster for"
 msgstr ""
 
 #: DB:link_type/long_link_phrase:36 DB:link_type/long_link_phrase:128
@@ -5515,8 +5583,12 @@ msgstr ""
 msgid "{additional:additionally} sampled by"
 msgstr ""
 
-#: DB:link_type/reverse_link_phrase:963
+#: DB:link_type/reverse_link_phrase:963 DB:link_type/reverse_link_phrase:966
 msgid "{additional:additionally} shot at"
+msgstr ""
+
+#: DB:link_type/link_phrase:966
+msgid "{additional:additionally} shot for"
 msgstr ""
 
 #: DB:link_type/reverse_link_phrase:964
@@ -5955,6 +6027,10 @@ msgstr ""
 msgid "{entity1} has a BookBrainz page at {entity0}"
 msgstr ""
 
+#: DB:link_type/long_link_phrase:971
+msgid "{entity1} has a Discogs page at {entity0}"
+msgstr ""
+
 #: DB:link_type/long_link_phrase:280
 msgid "{entity1} has a SecondHandSongs page at {entity0}"
 msgstr ""
@@ -6019,7 +6095,7 @@ msgstr ""
 msgid "{entity1} is a traditional instrument from {entity0}"
 msgstr ""
 
-#: DB:link_type/long_link_phrase:65
+#: DB:link_type/long_link_phrase:65 DB:link_type/long_link_phrase:970
 msgid "{entity1} is a tribute to {entity0}"
 msgstr ""
 
@@ -6188,7 +6264,7 @@ msgstr ""
 msgid "{entity1} was {additional:additionally} remixed in {entity0}"
 msgstr ""
 
-#: DB:link_type/long_link_phrase:963
+#: DB:link_type/long_link_phrase:963 DB:link_type/long_link_phrase:966
 msgid "{entity1} was {additional:additionally} shot at {entity0}"
 msgstr ""
 
@@ -6224,6 +6300,18 @@ msgstr ""
 msgid ""
 "{entity1} was {anniversary:an anniversary tour for|a tour in support of} "
 "{entity0}"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:967 DB:link_type/long_link_phrase:968
+msgid "{entity1}'s lacquer was cut in {entity0}"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:760 DB:link_type/reverse_link_phrase:759
+msgid "{guest} concertmaster"
+msgstr ""
+
+#: DB:link_type/link_phrase:760 DB:link_type/link_phrase:759
+msgid "{guest} concertmaster for"
 msgstr ""
 
 #: DB:link_type/link_phrase:110 DB:link_type/reverse_link_phrase:110
