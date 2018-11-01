@@ -3653,7 +3653,7 @@ msgstr ""
 msgid "Bauzi"
 msgstr ""
 
-#. frequency:0 iso_code_3:bar 
+#. frequency:1 iso_code_3:bar 
 #: DB:language/name:982
 msgid "Bavarian"
 msgstr ""
@@ -4558,7 +4558,7 @@ msgstr ""
 msgid "Bodo (Central African Republic)"
 msgstr ""
 
-#. frequency:0 iso_code_3:brx 
+#. frequency:1 iso_code_3:brx 
 #: DB:language/name:1394
 msgid "Bodo (India)"
 msgstr ""
@@ -21893,7 +21893,7 @@ msgstr ""
 msgid "Min Zhong Chinese"
 msgstr ""
 
-#. frequency:0 iso_code_3:hna 
+#. frequency:1 iso_code_3:hna 
 #: DB:language/name:2735
 msgid "Mina (Cameroon)"
 msgstr ""
@@ -26948,11 +26948,6 @@ msgstr ""
 msgid "Paniya"
 msgstr ""
 
-#. frequency:1 iso_code_3:pan 
-#: DB:language/name:330
-msgid "Panjabi"
-msgstr ""
-
 #. frequency:0 iso_code_3:pax 
 #: DB:language/name:5290
 msgid "Pankararé"
@@ -28156,6 +28151,11 @@ msgstr ""
 #. frequency:0 iso_code_3:xpu 
 #: DB:language/name:7364
 msgid "Punic"
+msgstr ""
+
+#. frequency:1 iso_code_3:pan 
+#: DB:language/name:330
+msgid "Punjabi"
 msgstr ""
 
 #. frequency:0 iso_code_3:qxp 

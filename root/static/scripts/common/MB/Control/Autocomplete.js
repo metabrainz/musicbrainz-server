@@ -11,18 +11,20 @@ const {ENTITIES, MAX_RECENT_ENTITIES} = require('../../constants');
 const MB_entity = require('../../entity');
 const i18n = require('../../i18n');
 const commaOnlyList = require('../../i18n/commaOnlyList');
+import {l_languages} from '../../i18n/languages';
 const {artistCreditFromArray, reduceArtistCredit} = require('../../immutable-entities');
 const MB = require('../../MB');
 const clean = require('../../utility/clean');
 import formatDate from '../../utility/formatDate';
+import formatDatePeriod from '../../utility/formatDatePeriod';
 const formatTrackLength = require('../../utility/formatTrackLength');
 const isBlank = require('../../utility/isBlank');
-const primaryAreaCode = require('../../utility/primaryAreaCode');
+import primaryAreaCode from '../../utility/primaryAreaCode';
 const {localStorage} = require('../../utility/storage');
 
 require('../../../../lib/jquery-ui');
 
-$.widget("ui.autocomplete", $.ui.autocomplete, {
+$.widget("mb.entitylookup", $.ui.autocomplete, {
 
     mbidRegex: /[a-f\d]{8}-[a-f\d]{4}-[a-f\d]{4}-[a-f\d]{4}-[a-f\d]{12}/,
 
@@ -610,10 +612,8 @@ MB.Control.autocomplete_formatters = {
 
         if (item.video)
         {
-            a.append(
-                $('<span class="autocomplete-video"></span>')
-                    .text("(" + i18n.l("video") + ")")
-            );
+            const title = _.escape(i18n.l('This recording is a video'));
+            a.prepend($(`<span class="video" title="${title}"></span>`));
         }
 
         a.append('<br /><span class="autocomplete-comment">by ' +
@@ -640,8 +640,8 @@ MB.Control.autocomplete_formatters = {
 
         if (item.isrcs && item.isrcs.length)
         {
-            a.append('<br /><span class="autocomplete-isrcs">isrcs: ' +
-                     _.escape(commaOnlyList(item.isrcs)) + '</span>');
+            a.append('<br /><span class="autocomplete-isrcs">ISRCs: ' +
+                     _.escape(commaOnlyList(item.isrcs.map(isrc => isrc.isrc))) + '</span>');
         }
 
         return $("<li>").append(a).appendTo(ul);
@@ -744,7 +744,7 @@ MB.Control.autocomplete_formatters = {
 
         if (item.languages && item.languages.length) {
             a.prepend('<span class="autocomplete-language">' +
-                      _.escape(commaOnlyList(item.languages)) +
+                      _.escape(commaOnlyList(item.languages.map(wl => l_languages(wl.language.name)))) +
                       '</span>');
         }
 
@@ -899,7 +899,7 @@ MB.Control.autocomplete_formatters = {
 
         if (item.begin_date || item.time)
         {
-            a.append('<br /><span class="autocomplete-comment">' + (item.begin_date ? (item.begin_date + ' ') : '') + (item.time ? item.time : '') + '</span>');
+            a.append('<br /><span class="autocomplete-comment">' + (item.begin_date ? (formatDatePeriod(item) + ' ') : '') + (item.time ? item.time : '') + '</span>');
         }
 
         var entityRenderer = function (prefix, related_entities) {
@@ -987,8 +987,8 @@ MB.Control.EntityAutocomplete = function (options) {
         });
     }
 
-    $name.autocomplete(options);
-    var autocomplete = $name.data("ui-autocomplete");
+    $name.entitylookup(options);
+    var autocomplete = $name.data("mb-entitylookup");
 
     autocomplete.currentSelection(MB_entity({
         name: $name.val(),
@@ -1019,8 +1019,8 @@ ko.bindingHandlers.autocomplete = {
         var options = valueAccessor();
 
         $(element)
-            .autocomplete(options)
-            .data('ui-autocomplete')
+            .entitylookup(options)
+            .data('mb-entitylookup')
             .menu.element[0]
             .setAttribute('data-input-id', element.id);
     }

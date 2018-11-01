@@ -14,7 +14,7 @@ const Tabs = require('./Tabs');
 const EntityTabLink = require('./EntityTabLink');
 const EntityLink = require('../static/scripts/common/components/EntityLink');
 const {ENTITIES} = require('../static/scripts/common/constants');
-const isSpecialPurposeArtist = require('../static/scripts/common/utility/isSpecialPurposeArtist');
+import isSpecialPurposeArtist from '../static/scripts/common/utility/isSpecialPurposeArtist';
 
 const tabLinkNames = {
   artists: N_l('Artists'),
@@ -68,7 +68,7 @@ function buildLinks(
   user: ?EditorT,
   entity: CoreEntityT,
   page: string,
-  editTab: React.Node,
+  editTab: ?React.Node,
 ): React.Node {
   const links = [buildLink(l('Overview'), entity, '', page, 'index')];
 
@@ -108,7 +108,7 @@ function buildLinks(
 }
 
 type Props = {|
-  +editTab: React.Node,
+  +editTab: ?React.Node,
   +entity: CoreEntityT,
   +page: string,
 |};

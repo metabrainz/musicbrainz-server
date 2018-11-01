@@ -2,13 +2,20 @@ package MusicBrainz::Server::Entity::IPI;
 
 use Moose;
 
-extends 'MusicBrainz::Server::Entity';
 with 'MusicBrainz::Server::Entity::Role::Editable';
 
 has 'ipi' => (
     is => 'rw',
     isa => 'Str'
 );
+
+sub TO_JSON {
+    my ($self) = @_;
+
+    return {
+        ipi => $self->ipi,
+    };
+}
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

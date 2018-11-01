@@ -10,24 +10,59 @@ const {MIN_NAME_SIMILARITY} = require('../../common/constants');
 const {artistCreditFromArray} = require('../../common/immutable-entities');
 const MB = require('../../common/MB');
 const clean = require('../../common/utility/clean');
+const {
+    fromFullwidthLatin,
+    hasFullwidthLatin,
+    toFullwidthLatin
+} = require('./fullwidthLatin');
 const getSimilarity = require('./similarity');
 
-var featRegex = /(?:^\s*|[,\-]\s*|\s+)(?:(?:ft|feat)[.\s]|featuring\s+)/i;
-var collabRegex = /(,?\s+(?:&|and|et)\s+|,\s+|;\s+|\s*\/\s*|\s+vs\.\s+)/i;
-var bracketPairs = [['(', ')'], ['[', ']']];
+var featRegex = /(?:^\s*|[,，－\-]\s*|\s+)((?:ft|feat|ｆｔ|ｆｅａｔ)(?:[.．]|(?=\s))|(?:featuring|ｆｅａｔｕｒｉｎｇ)(?=\s))\s*/i;
+var collabRegex = /([,，]?\s+(?:&|and|et|＆|ａｎｄ|ｅｔ)\s+|[,，;；]\s+|\s*[\/／]\s*|\s+(?:vs|ｖｓ)[.．]\s+)/i;
+var bracketPairs = [['(', ')'], ['[', ']'], ['（', '）'], ['［', '］']];
 
 function extractNonBracketedFeatCredits(str, artists, isProbablyClassical) {
     var wrapped = _(str.split(featRegex)).map(clean);
+
+    var fixFeatJoinPhrase = function (existing) {
+        var joinPhrase = isProbablyClassical ? '; ' : existing ? (
+            ' ' +
+            fromFullwidthLatin(existing)
+                .toLowerCase()
+                .replace(/^feat$/i, '$&.') +
+            ' '
+        ) : ' feat. ';
+
+        return hasFullwidthLatin(existing)
+            ? toFullwidthLatin(joinPhrase)
+            : joinPhrase;
+    };
+
+    var name = clean(wrapped.head());
+
+    var joinPhrase = (wrapped.size() < 2)
+        ? ''
+        : fixFeatJoinPhrase(wrapped.pullAt(1));
+
+    var artistCredit = wrapped
+        .splice(2)
+        .filter(function (value, key) { return key %2 == 0; })
+        .compact()
+        .map(c => expandCredit(c, artists, isProbablyClassical))
+        .flatten()
+        .value();
+
     return {
-        name: clean(wrapped.head()),
-        artistCredit: wrapped.tail().compact()
-            .map(c => expandCredit(c, artists, isProbablyClassical)).flatten().value()
+        name: name,
+        joinPhrase: joinPhrase,
+        artistCredit: artistCredit
     };
 }
 
 function extractBracketedFeatCredits(str, artists, isProbablyClassical) {
     return _.reduce(bracketPairs, function (accum, pair) {
         var name = '';
+        var joinPhrase = accum.joinPhrase;
         var credits = accum.artistCredit;
         var remainder = accum.name;
         var b, m;
@@ -49,6 +84,7 @@ function extractBracketedFeatCredits(str, artists, isProbablyClassical) {
                     }
                 }
 
+                joinPhrase = joinPhrase || m.joinPhrase;
                 credits = credits.concat(m.artistCredit);
                 remainder = b.post;
             } else {
@@ -57,15 +93,15 @@ function extractBracketedFeatCredits(str, artists, isProbablyClassical) {
             }
         }
 
-        return {name: clean(name), artistCredit: credits};
-    }, {name: str, artistCredit: []});
+        return {name: clean(name), joinPhrase: joinPhrase, artistCredit: credits};
+    }, {name: str, joinPhrase: '', artistCredit: []});
 }
 
 function extractFeatCredits(str, artists, isProbablyClassical, allowEmptyName) {
     var m1 = extractBracketedFeatCredits(str, artists, isProbablyClassical);
 
     if (!m1.name && !allowEmptyName) {
-        return {name: str, artistCredit: []};
+        return {name: str, joinPhrase: '', artistCredit: []};
     }
 
     var m2 = extractNonBracketedFeatCredits(m1.name, artists, isProbablyClassical);
@@ -74,7 +110,7 @@ function extractFeatCredits(str, artists, isProbablyClassical, allowEmptyName) {
         return m1;
     }
 
-    return {name: m2.name, artistCredit: m2.artistCredit.concat(m1.artistCredit)}
+    return {name: m2.name, joinPhrase: m2.joinPhrase || m1.joinPhrase, artistCredit: m2.artistCredit.concat(m1.artistCredit)}
 }
 
 function cleanCredit(name, isProbablyClassical) {
@@ -107,7 +143,11 @@ function expandCredit(fullName, artists, isProbablyClassical) {
     var bestFullMatch = bestArtistMatch(artists, fullName, isProbablyClassical);
 
     var fixJoinPhrase = function (existing) {
-        return isProbablyClassical ? ', ' : (existing || ' & ');
+        var joinPhrase = isProbablyClassical ? ', ' : (existing || ' & ');
+
+        return hasFullwidthLatin(existing)
+            ? toFullwidthLatin(joinPhrase)
+            : joinPhrase;
     };
 
     var splitMatches = _(fullName.split(collabRegex))
@@ -143,7 +183,7 @@ module.exports = function (entity) {
     entity.name(match.name);
 
     var artistCredit = entity.artistCredit().slice(0);
-    _.last(artistCredit).joinPhrase = isProbablyClassical ? '; ' : ' feat. ';
+    _.last(artistCredit).joinPhrase = match.joinPhrase;
     _.last(match.artistCredit).joinPhrase = '';
 
     entity.artistCredit(

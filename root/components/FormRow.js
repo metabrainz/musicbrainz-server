@@ -12,10 +12,11 @@ import type {Node as ReactNode} from 'react';
 
 type Props = {
   +children: ReactNode,
+  +hasNoLabel?: boolean,
 };
 
-const FormRow = ({children, ...props}: Props) => (
-  <div className="row" {...props}>
+const FormRow = ({children, hasNoLabel, ...props}: Props) => (
+  <div className={'row' + (hasNoLabel ? ' no-label' : '')} {...props}>
     {children}
   </div>
 );

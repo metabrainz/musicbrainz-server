@@ -9,12 +9,12 @@
 
 import React from 'react';
 
-import Frag from '../components/Frag';
 import {l, lp} from '../static/scripts/common/i18n';
 import EditorLink from '../static/scripts/common/components/EditorLink';
+import bracketed from '../static/scripts/common/utility/bracketed';
 import formatUserDate from '../utility/formatUserDate';
 import {votesVisible} from '../utility/voting';
-import ExpirationDate from '../components/ExpirationDate';
+import ExpirationTime from '../components/ExpirationTime';
 
 type PropsT = {
   +election: AutoEditorElectionT,
@@ -22,7 +22,7 @@ type PropsT = {
 };
 
 const ElectionDetails = ({election, user}: PropsT) => (
-  <Frag>
+  <>
     <h2>{l('Details')}</h2>
     <table className="properties">
       <tr>
@@ -51,7 +51,7 @@ const ElectionDetails = ({election, user}: PropsT) => (
       </tr>
       {votesVisible(election, user)
         ? (
-          <Frag>
+          <>
             <tr>
               <th>{l('Votes for:')}</th>
               <td>{election.yes_votes}</td>
@@ -60,7 +60,7 @@ const ElectionDetails = ({election, user}: PropsT) => (
               <th>{l('Votes against:')}</th>
               <td>{election.no_votes}</td>
             </tr>
-          </Frag>
+          </>
         ) : (
           election.is_open
             ? (
@@ -86,11 +86,12 @@ const ElectionDetails = ({election, user}: PropsT) => (
             : null}
 
           {election.is_pending || election.is_open
-            ? (
-              <ExpirationDate
+            ? bracketed(
+              <ExpirationTime
                 date={election.current_expiration_time}
                 user={user}
-              />
+              />,
+              {__react: true},
             ) : null}
 
           {election.is_closed
@@ -112,7 +113,7 @@ const ElectionDetails = ({election, user}: PropsT) => (
         </td>
       </tr>
     </table>
-  </Frag>
+  </>
 );
 
 export default ElectionDetails;

@@ -27,6 +27,9 @@ _.extend(releaseEditor, {
     activeTabID: ko.observable("#information"),
     activeTabIndex: ko.observable(0),
     loadError: ko.observable(""),
+    loadErrorMessage: function () {
+        return i18n.l('Error loading release: {error}', {error: releaseEditor.loadError()});
+    },
     externalLinksEditData: ko.observable({}),
     hasInvalidLinks: validation.errorField(ko.observable(false))
 });
@@ -167,15 +170,13 @@ releaseEditor.init = function (options) {
         var name = clean(release.name());
 
         if (self.action === "add") {
-            document.title = i18n.expand(
-                name ? i18n.l("{name} - Add Release") :
-                       i18n.l("Add Release"), { name: name }
-            );
+            document.title =
+                name ? i18n.hyphenateTitle(name, i18n.l("Add Release")) :
+                       i18n.l("Add Release");
         } else {
-            document.title = i18n.expand(
-                name ? i18n.l("{name} - Edit Release") :
-                       i18n.l("Edit Release"), { name: name }
-            );
+            document.title =
+                name ? i18n.hyphenateTitle(name, i18n.l("Edit Release")) :
+                       i18n.l("Edit Release");
         }
     });
 

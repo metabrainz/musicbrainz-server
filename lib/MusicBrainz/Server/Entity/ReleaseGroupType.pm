@@ -9,6 +9,8 @@ with 'MusicBrainz::Server::Entity::Role::OptionsTree' => {
     type => 'ReleaseGroupType',
 };
 
+sub entity_type { 'release_group_primary_type' }
+
 sub l_name {
     my $self = shift;
     return lp($self->name, 'release_group_primary_type')

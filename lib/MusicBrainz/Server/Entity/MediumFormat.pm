@@ -9,6 +9,8 @@ with 'MusicBrainz::Server::Entity::Role::OptionsTree' => {
     type => 'MediumFormat',
 };
 
+sub entity_type { 'medium_format' }
+
 sub l_name {
     my $self = shift;
     return lp($self->name, 'medium_format')

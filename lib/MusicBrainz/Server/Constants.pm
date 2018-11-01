@@ -81,6 +81,7 @@ our @EXPORT_OK = (
         %ENTITIES_WITH_RELATIONSHIP_CREDITS
         %ENTITIES entities_with @RELATABLE_ENTITIES
         $EDITOR_SANITISED_COLUMNS
+        $PASSPHRASE_BCRYPT_COST
     ),
 );
 
@@ -375,7 +376,7 @@ Readonly our $MAX_INITIAL_MEDIUMS => 10;
 Readonly our $MAX_POSTGRES_INT => 2147483647;
 Readonly our $MAX_POSTGRES_BIGINT => 9223372036854775807;
 
-Readonly our $CONTACT_URL => 'https://metabrainz.org/contact';
+Readonly our $CONTACT_URL => 'https://metabrainz.org/contact'; # Converted to React/JSX at root/static/scripts/common/constants.js
 
 Readonly our $WS_EDIT_RESPONSE_OK => 1;
 Readonly our $WS_EDIT_RESPONSE_NO_CHANGES => 2;
@@ -917,6 +918,8 @@ Readonly our $EDITOR_SANITISED_COLUMNS => join(', ',
     "md5(editor.name || ':musicbrainz.org:mb') AS ha1",
     'editor.deleted',
 );
+
+Readonly our $PASSPHRASE_BCRYPT_COST => 12;
 
 =head1 NAME
 

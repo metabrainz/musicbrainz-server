@@ -6,6 +6,7 @@ use aliased 'DateTime' => 'DT';
 use MusicBrainz::Server::Constants qw( :access_scope );
 use MusicBrainz::Server::Types qw( DateTime );
 use MusicBrainz::Server::Translation qw( N_l );
+use MusicBrainz::Server::Data::Utils qw( boolean_to_json datetime_to_iso8601 );
 use MusicBrainz::Server::Entity::Types;
 
 extends 'MusicBrainz::Server::Entity';
@@ -101,6 +102,20 @@ sub is_offline
 
     return defined $self->refresh_token;
 }
+
+around TO_JSON => sub {
+    my ($orig, $self) = @_;
+
+    return {
+        %{ $self->$orig },
+        application => $self->application,
+        editor      => $self->editor,
+        granted     => datetime_to_iso8601($self->granted),
+        is_offline  => boolean_to_json($self->is_offline),
+        permissions => $self->permissions,
+        scope       => $self->scope,
+    };
+};
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

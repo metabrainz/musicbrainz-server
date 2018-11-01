@@ -40,12 +40,6 @@ const PREPROCESS_FIXLIST = [
   [/(^|\s)([\(\{\[])\s+($|\b)/i, "$2"], // spaces after opening brackets
   [/(\b|^)\s+([\)\}\]])($|\b)/i, "$2"], // spaces before closing brackets
 
-  // featuring variant
-  [/(\s)[\/]w(\s)/i,       'ft.'],  // /w -> ft.
-  [/(\s)f\.(\s)/i,         'ft.'],  // f. -> ft.
-  [/(\s)f\/(\s)/i,         'ft.'],  // f/ -> ft.
-  [/(\s)featuring -(\s)/i, 'feat'], // 'featuring - ' -> feat
-
   // vinyl
   [/(\s|^|\()(\d+)''(\s|$)/i,      '$2"'], // 12'' -> 12"
   [/(\s|^|\()(\d+)in(ch)?(\s|$)/i, '$2"'], // 12in -> 12"
@@ -75,6 +69,7 @@ const POSTPROCESS_FIXLIST = [
   [/(\b|^)Djs(\b)/i,               'DJs'],
   [/(\s|^)Rock '?n'? Roll(\s|$)/i, "Rock 'n' Roll"],
   [/(\b)w([/／])o(\b)/i,           'w$2o'], // w/o should be lowercase
+  [/(\b)f([.．/／])(\b)/i,         'f$2'], // f. and f/ should be lowercase
 ];
 
 function replaceMatch(matches, is, regex, replacement) {

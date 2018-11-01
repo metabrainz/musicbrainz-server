@@ -9,7 +9,6 @@
 const ko = require('knockout');
 const React = require('react');
 
-const Frag = require('../../../../components/Frag');
 const {ENTITIES, AREA_TYPE_COUNTRY} = require('../constants');
 const {l} = require('../i18n');
 const {l_countries} = require('../i18n/countries');
@@ -34,12 +33,12 @@ const DeletedLink = ({name, allowNew}) => {
 };
 
 const Comment = ({className, comment}) => (
-  <Frag>
+  <>
     {' '}
     <span className={className}>
       {bracketed(<bdi key="comment">{comment}</bdi>, {__react: true})}
     </span>
-  </Frag>
+  </>
 );
 
 const EventDisambiguation = ({event}: {|+event: EventT|}) => {
@@ -48,12 +47,12 @@ const EventDisambiguation = ({event}: {|+event: EventT|}) => {
     return null;
   }
   return (
-    <Frag>
+    <>
       {dates ? ' ' + bracketed(dates) : null}
       {event.cancelled
         ? <Comment className="cancelled" comment={l('cancelled')} />
         : null}
-    </Frag>
+    </>
   );
 };
 
@@ -78,21 +77,21 @@ const AreaDisambiguation = ({area}: {|+area: AreaT|}) => {
 };
 
 const NoInfoURL = ({url, allowNew}) => (
-  <Frag>
+  <>
     <a href={url}>{url}</a>
     {' '}
     <DeletedLink
       allowNew={allowNew}
       name={bracketed(l('info'), {type: '[]'})}
     />
-  </Frag>
+  </>
 );
 
 /* eslint-disable sort-keys, flowtype/sort-keys */
 type EntityLinkProps = {
   +allowNew?: boolean,
   +content?: React.Node,
-  +entity: CoreEntityT,
+  +entity: CoreEntityT | CollectionT,
   +hover?: string,
   +showDeleted?: boolean,
   +showDisambiguation?: boolean,
@@ -203,6 +202,15 @@ const EntityLink = ({
     }
   }
 
+  if (!subPath && entity.entityType === 'recording' && entity.video) {
+    content = (
+      <>
+        <span className="video" title={l('This recording is a video')} />
+        {content}
+      </>
+    );
+  }
+
   if (!showDisambiguation && !infoLink) {
     return content;
   }
@@ -224,9 +232,8 @@ const EntityLink = ({
   }
 
   if (infoLink) {
-    parts.push(' ');
-    parts.push.apply(
-      parts,
+    parts.push(
+      ' ',
       bracketed(
         <a href={infoLink} key="info">{l('info')}</a>,
         {__react: true, type: '[]'}

@@ -28,10 +28,12 @@ class PossibleDuplicates extends React.Component {
             {i18n.l('Yes, I still want to enter “{entity_name}”.', {entity_name: this.props.name})}
           </label>
         </p>
-        <p dangerouslySetInnerHTML={{__html:
-          i18n.l('Please enter a {doc_disambiguation|disambiguation} to help distinguish this entity from the others.',
-                 {doc_disambiguation: {href: '/doc/Disambiguation_Comment', target: '_blank'}})
-          }}></p>
+        <p>
+          {i18n.l('Please enter a {doc_disambiguation|disambiguation} to help distinguish this entity from the others.', {
+            __react: true,
+            doc_disambiguation: {href: '/doc/Disambiguation_Comment', target: '_blank'},
+          })}
+        </p>
       </div>
     );
   }

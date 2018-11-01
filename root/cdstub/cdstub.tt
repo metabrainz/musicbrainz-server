@@ -10,7 +10,7 @@
             </tr>
         </thead>
         <tbody>
-            [%- FOR track=cdstubtoc.cdstub.tracks; %]
+            [%- FOR track=cdstub.tracks; %]
             <tr class="[% loop.parity %]">
                 <td>[% track.sequence %]</td>
                 <td>[% track.title %]</td>

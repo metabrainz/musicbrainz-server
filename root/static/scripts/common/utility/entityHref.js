@@ -15,6 +15,8 @@ const nonEmpty = require('./nonEmpty');
 const leadingSlash = /^\/?(.*)/;
 
 type LinkableEntity =
+  | CDStubT
+  | CollectionT
   | CoreEntityT
   | IsrcT
   | IswcT;
@@ -32,6 +34,8 @@ function entityHref(
     id = ko.unwrap((entity: any).gid);
   } else if (entityType === 'isrc' || entityType === 'iswc') {
     id = (entity: any)[entityType];
+  } else if (entityType === 'cdstub') {
+    id = (entity: any).discid;
   } else {
     id = (entity: any).name;
   }

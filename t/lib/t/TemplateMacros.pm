@@ -30,6 +30,10 @@ test all => sub {
 
     my ($res, $ctx) = ctx_request('/');
 
+    # Requesting / sets current_view to Node, which is not what we want
+    # to render TT.
+    undef $ctx->stash->{current_view};
+
     my $chicago = Area->new(
         gid => '29a709d8-0320-493e-8d0c-f2c386662b7f',
         id => 5099,
@@ -329,6 +333,22 @@ test all => sub {
                 id => 1,
                 gid => '6a77d9f9-1641-4fc9-98a8-9f29552b0d40',
                 name => 'Foo',
+            ),
+        ],
+        [
+            "link_entity(entity)",
+            "React.createElement(EntityLink, {entity: entity})",
+
+            '<span class="video" title="This recording is a video"></span>' .
+            '<a href="/recording/6a77d9f9-1641-4fc9-98a8-9f29552b0d40">' .
+                '<bdi>Foo</bdi>' .
+            '</a>',
+
+            Recording->new(
+                id => 1,
+                gid => '6a77d9f9-1641-4fc9-98a8-9f29552b0d40',
+                name => 'Foo',
+                video => 1,
             ),
         ],
         [

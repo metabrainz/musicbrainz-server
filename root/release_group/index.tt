@@ -84,10 +84,10 @@
 
     <div id="critiquebrainz-reviews">
       [%~ IF rg.most_recent_review ~%]
-        [% React.embed(c, 'components/CritiqueBrainzReview', {review => rg.most_recent_review, title => l('Most Recent')}) %]
+        [% React.embed(c, 'static/scripts/common/components/CritiqueBrainzReview', {review => rg.most_recent_review, title => l('Most Recent')}) %]
       [%~ END ~%]
       [%~ IF rg.most_popular_review && rg.most_popular_review.id != rg.most_recent_review.id ~%]
-        [% React.embed(c, 'components/CritiqueBrainzReview', {review => rg.most_popular_review, title => l('Most Popular')}) %]
+        [% React.embed(c, 'static/scripts/common/components/CritiqueBrainzReview', {review => rg.most_popular_review, title => l('Most Popular')}) %]
       [%~ END ~%]
     </div>
 

@@ -8,7 +8,6 @@
  */
 
 const React = require('react');
-const Frag = require('../Frag');
 const isolateText = require('../../static/scripts/common/utility/isolateText');
 import formatDate from '../../static/scripts/common/utility/formatDate';
 import formatEndDate from '../../static/scripts/common/utility/formatEndDate';
@@ -42,17 +41,17 @@ const AliasTableRow = ({alias, allowEditing, entity, row}: Props) => (
       {alias.locale ? locales[alias.locale] : null}
       {alias.primary_for_locale
         ? (
-          <Frag>
+          <>
             {' '}
             {bracketed(<span className="comment">{l('primary')}</span>, {__react: true})}
-          </Frag>
+          </>
         )
         : null}
     </td>
     <td>
       {allowEditing
         ? (
-          <Frag>
+          <>
             <a href={entityHref(entity, `/alias/${alias.id}/edit`)}>
               {l('Edit')}
             </a>
@@ -60,7 +59,7 @@ const AliasTableRow = ({alias, allowEditing, entity, row}: Props) => (
             <a href={entityHref(entity, `/alias/${alias.id}/delete`)}>
               {l('Remove')}
             </a>
-          </Frag>
+          </>
         )
         : null
       }

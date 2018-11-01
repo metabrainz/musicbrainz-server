@@ -12,7 +12,6 @@ import React from 'react';
 import FormRow from './FormRow';
 import FieldErrors from './FieldErrors';
 import FormLabel from './FormLabel';
-import Frag from './Frag';
 
 type Props = {|
   +field: FieldT<string>,
@@ -32,7 +31,7 @@ const FormRowRadio = ({
     <FormLabel label={label} required={required} />
     <div className="no-label">
       {options.map((option, index) => (
-        <Frag key={option.value}>
+        <React.Fragment key={option.value}>
           <label className="inline">
             <input
               defaultChecked={field.value === option.value}
@@ -44,7 +43,7 @@ const FormRowRadio = ({
             {option.label.toLocaleString()}
           </label>
           {index < options.length - 1 ? <br /> : null}
-        </Frag>
+        </React.Fragment>
       ))}
     </div>
     <FieldErrors field={field} />

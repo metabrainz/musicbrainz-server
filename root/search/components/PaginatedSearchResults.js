@@ -9,13 +9,15 @@
 
 import React from 'react';
 import type {Element as ReactElement} from 'react';
+import type {Node as ReactNode} from 'react';
+
 
 import PaginatedResults from '../../components/PaginatedResults';
 import {l} from '../../static/scripts/common/i18n';
 
 type Props<T> = {|
-  +buildResult: (SearchResultT<T>, number) => ReactElement<'tr'>,
-  +columns: $ReadOnlyArray<string>,
+  +buildResult: (SearchResultT<T>, number) => ReactNode,
+  +columns: ReactNode,
   +pager: PagerT,
   +query: string,
   +results: $ReadOnlyArray<SearchResultT<T>>,
@@ -32,7 +34,7 @@ const PaginatedSearchResults = <T>({
     <table className="tbl">
       <thead>
         <tr>
-          {columns.map((name, index) => <th key={index}>{name}</th>)}
+          {columns}
         </tr>
       </thead>
       <tbody>

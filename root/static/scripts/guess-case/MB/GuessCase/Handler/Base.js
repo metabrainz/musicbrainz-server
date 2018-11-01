@@ -801,16 +801,24 @@ MB.GuessCase.Handler.Base = function () {
         if (!gc.re.FEAT) {
             gc.re.FEAT = /^featuring$|^f$|^ft$|^feat$/i;
             gc.re.FEAT_F = /^f$/i; // match word "f"
+            gc.re.FEAT_FEAT = /^feat$/i; // match word "feat"
         }
         if (gc.i.matchCurrentWord(gc.re.FEAT)) {
-            // special case (f.), have to check if next word is a "."
-            if ((gc.i.getCurrentWord().match(gc.re.FEAT_F)) && !gc.i.isNextWord(".")) {
-                return false;
+            // special cases (f.) and (f/), have to check if next word is a "." or a "/"
+            if ((gc.i.matchCurrentWord(gc.re.FEAT_F)) &&
+                !gc.i.getNextWord().match(/^[\/.]$/)) {
+                    return false;
             }
 
             // only try to convert to feat. if there are
             // enough words after the keyword
             if (gc.i.getPos() < gc.i.getLength() - 2) {
+
+                const featWord = gc.i.getCurrentWord() + (
+                    gc.i.isNextWord(".") || gc.i.isNextWord("/") ? gc.i.getNextWord() :
+                    // special case (feat), fix typo by adding a "." if missing
+                    gc.i.matchCurrentWord(gc.re.FEAT_FEAT) ? "." : ""
+                );
 
                 if (!flags.context.openingBracket && !flags.isInsideBrackets()) {
                     if (flags.isInsideBrackets()) {
@@ -857,7 +865,7 @@ MB.GuessCase.Handler.Base = function () {
                 }
 
                 // gc.o.appendSpaceIfNeeded();
-                gc.o.appendWord("feat.");
+                gc.o.appendWord(featWord);
 
                 flags.resetContext();
                 flags.context.forceCaps = true;
@@ -865,8 +873,8 @@ MB.GuessCase.Handler.Base = function () {
                 flags.context.spaceNextWord = true;
                 flags.context.slurpExtraTitleInformation = true;
                 flags.context.feat = true;
-                if (gc.i.isNextWord(".")) {
-                    gc.i.nextIndex();  // skip trailing (.)
+                if (gc.i.isNextWord(".") || gc.i.isNextWord("/")) {
+                    gc.i.nextIndex();  // skip trailing (.) or (/)
                 }
                 return true;
             }

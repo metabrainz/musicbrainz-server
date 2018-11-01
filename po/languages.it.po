@@ -8,8 +8,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2018-07-22 15:42+0000\n"
-"Last-Translator: Luca Salini <email address hidden>\n"
+"PO-Revision-Date: 2018-10-15 16:09+0000\n"
+"Last-Translator: Michael Wiencek <email address hidden>\n"
 "Language-Team: Italian (http://www.transifex.com/musicbrainz/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -247,6 +247,11 @@ msgstr "Basco"
 msgid "Batak languages"
 msgstr "Lingue batak"
 
+#. frequency:1 iso_code_3:bar
+#: DB:language/name:982
+msgid "Bavarian"
+msgstr ""
+
 #. frequency:1 iso_code_3:bej
 #: DB:language/name:44
 msgid "Beja"
@@ -306,6 +311,11 @@ msgstr "Bilen"
 #: DB:language/name:482
 msgid "Blissymbols"
 msgstr "Linguaggio grafico Bliss"
+
+#. frequency:1 iso_code_3:brx
+#: DB:language/name:1394
+msgid "Bodo (India)"
+msgstr ""
 
 #. frequency:1 iso_code_3:bos
 #: DB:language/name:56
@@ -1567,6 +1577,11 @@ msgstr "Mi'kmaq"
 msgid "Min Nan Chinese"
 msgstr "Cinese min nan"
 
+#. frequency:1 iso_code_3:hna
+#: DB:language/name:2735
+msgid "Mina (Cameroon)"
+msgstr ""
+
 #. frequency:1 iso_code_3:min
 #: DB:language/name:272
 msgid "Minangkabau"
@@ -1827,11 +1842,6 @@ msgstr "Pampanga"
 msgid "Pangasinan"
 msgstr "Pangasinan"
 
-#. frequency:1 iso_code_3:pan
-#: DB:language/name:330
-msgid "Panjabi"
-msgstr "Panjabi"
-
 #. frequency:1 iso_code_3:pap
 #: DB:language/name:331
 msgid "Papiamento"
@@ -1891,6 +1901,11 @@ msgstr "Lingue pracrite"
 #: DB:language/name:342
 msgid "Provençal, Old (to 1500)"
 msgstr "Provenzale antico (fino al 1500)"
+
+#. frequency:1 iso_code_3:pan
+#: DB:language/name:330
+msgid "Punjabi"
+msgstr ""
 
 #. frequency:1 iso_code_3:pus
 #: DB:language/name:343

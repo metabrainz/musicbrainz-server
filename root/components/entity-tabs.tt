@@ -1,4 +1,4 @@
-[%~ MACRO tab_link_name(slug)
+[%~ MACRO tab_link_name(slug) # Converted to React at root/components/EntityTabs.js
     SWITCH slug;
         CASE 'artists';
             l('Artists');

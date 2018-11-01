@@ -2,6 +2,9 @@ package MusicBrainz::Server::Entity::SearchResult;
 
 use Moose;
 use MusicBrainz::Server::Entity::Types;
+use aliased 'MusicBrainz::Server::Entity::Release';
+use MooseX::Types::Structured qw( Dict );
+use MooseX::Types::Moose qw( ArrayRef Int );
 
 has 'position' => (
     is => 'rw',
@@ -20,7 +23,14 @@ has 'entity' => (
 
 has 'extra' => (
     is => 'rw',
-    isa => 'ArrayRef[Entity]',
+    isa => ArrayRef[
+        Dict[
+            release             => Release,
+            track_position      => Int,
+            medium_position     => Int,
+            medium_track_count  => Int,
+        ]
+    ],
     lazy => 1,
     default => sub { [] },
 );
@@ -32,6 +42,12 @@ sub TO_JSON {
         entity => $self->entity,
         position => $self->position,
         score => $self->score,
+        extra   => [map +{
+            release             => $_->{release}->TO_JSON,
+            track_position      => $_->{track_position},
+            medium_position     => $_->{medium_position},
+            medium_track_count  => $_->{medium_track_count}
+        }, @{ $self->extra }],
     };
 }
 

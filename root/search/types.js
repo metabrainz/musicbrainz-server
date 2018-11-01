@@ -7,11 +7,15 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-export type ResultsPropsT<T> = {|
+export type InlineResultsPropsT<T> = {|
   +$c: CatalystContextT,
-  +form: SearchFormT,
-  +lastUpdated?: string,
   +pager: PagerT,
   +query: string,
   +results: $ReadOnlyArray<SearchResultT<T>>,
+|};
+
+export type ResultsPropsT<T> = {|
+  ...InlineResultsPropsT<T>,
+  +form: SearchFormT,
+  +lastUpdated?: string,
 |};

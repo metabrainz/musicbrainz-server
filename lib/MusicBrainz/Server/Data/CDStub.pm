@@ -20,12 +20,27 @@ Readonly my $LIMIT_TOP_CDSTUBS => 1000;
 
 sub _table
 {
-    return 'release_raw';
+    return 'release_raw JOIN cdtoc_raw ON cdtoc_raw.release = release_raw.id';
 }
 
 sub _columns
 {
-    return 'id, title, artist, added, last_modified, lookup_count, modify_count, source, barcode, comment';
+    return join(', ', qw(
+        release_raw.id
+        title
+        artist
+        added
+        last_modified
+        lookup_count
+        modify_count
+        source
+        barcode
+        comment
+        discid
+        track_count
+        leadout_offset
+        track_offset
+    ));
 }
 
 sub _column_mapping
@@ -42,6 +57,9 @@ sub _column_mapping
         barcode => sub { MusicBrainz::Server::Entity::Barcode->new_from_row(shift, shift) },
         comment => 'comment',
         discid => 'discid',
+        track_count => 'track_count',
+        leadout_offset => 'leadout_offset',
+        track_offset => 'track_offset',
     };
 }
 
@@ -59,9 +77,8 @@ sub load
 sub load_top_cdstubs
 {
     my ($self, $limit, $offset) = @_;
-    my $query = "SELECT release_raw." . $self->_columns . ", discid
-                 FROM " . $self->_table . ", cdtoc_raw
-                 WHERE release_raw.id = cdtoc_raw.release
+    my $query = "SELECT " . $self->_columns . "
+                 FROM " . $self->_table . "
                  ORDER BY lookup_count desc, modify_count DESC";
     $self->query_to_list_limited($query, [], $LIMIT_TOP_CDSTUBS, $offset);
 }
@@ -77,11 +94,9 @@ sub increment_lookup_count
 
 sub get_by_discid {
     my ($self, $discid) = @_;
-    my $query = 'SELECT release_raw.' . $self->_columns . ', discid
-                   FROM ' . $self->_table . '
-                   JOIN cdtoc_raw ON cdtoc_raw.release = release_raw.id
-                  WHERE discid = ?';
-    $self->query_to_list($query, [$discid]);
+
+    my @cdstubs = $self->_get_by_keys('discid', $discid);
+    return $cdstubs[0];
 }
 
 sub insert

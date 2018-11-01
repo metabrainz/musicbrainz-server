@@ -144,6 +144,19 @@ role {
             form => $params->merge_form,
             $self->_merge_form_arguments($c, @entities)
         );
+
+        if ($c->namespace eq 'artist') {
+            my %props = (
+                form => $form,
+                toMerge => \@entities,
+            );
+            $c->stash(
+                component_path => $c->namespace . '/Merge.js',
+                component_props => \%props,
+                current_view => 'Node',
+            );
+        }
+
         if ($self->_validate_merge($c, $form)) {
             $self->_merge_submit($c, $form, \@entities);
         }

@@ -7,9 +7,10 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-const React = require('react');
-const NotFound = require('../components/NotFound');
-const {l} = require('../static/scripts/common/i18n');
+import React from 'react';
+
+import NotFound from '../components/NotFound';
+import {l} from '../static/scripts/common/i18n';
 
 const TagNotFound = ({tag}: {|+tag: string|}) => (
   <NotFound title={l('Tag Not Used')}>
@@ -23,4 +24,4 @@ const TagNotFound = ({tag}: {|+tag: string|}) => (
   </NotFound>
 );
 
-module.exports = TagNotFound;
+export default TagNotFound;

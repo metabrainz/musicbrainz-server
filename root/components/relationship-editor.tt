@@ -29,7 +29,7 @@
 
 <script type="text/html" id="template.dialog-source-entity">
   <tr>
-    <td class="section" data-bind="text: MB.i18n.addColon(MB.i18n.strings.entityName[source.entityType])"></td>
+    <td class="section" data-bind="text: source.entityTypeLabel()"></td>
     <td>
       <span data-bind="html: source.html({ 'target': '_blank', creditedAs: relationship().creditField(source)() })"></span>
       <!-- ko template: {name: "template.dialog-entity-credit", data: {entity: source, relationship: relationship(), role: "source"}} --><!-- /ko -->
@@ -48,7 +48,7 @@
     <div>
       <label>
         <input type="checkbox" data-bind="checked: $parent.changeOtherRelationshipCredits[role]" />
-        <span data-bind="html: MB.i18n.l('Change credits for other {entity} relationships on the page.', {entity: entity.html()})">
+        <span data-bind="html: $parent.changeOtherRelationshipCreditsLabel(entity)">
         </span>
       </label>
     </div>
@@ -62,17 +62,14 @@
       <div>
         <label>
           <input type="radio" value="same-entity-types" data-bind="checked: $parent.selectedRelationshipCredits[role]" />
-          <span data-bind="html: MB.i18n.l('Only relationships to {entity_type} entities.',
-                                           {entity_type: MB.i18n.strings.entityName[relationship.target(entity).entityType].toLocaleLowerCase()})">
+          <span data-bind="html: $parent.sameEntityTypesLabel($parent, relationship, entity)">
           </span>
         </label>
       </div>
       <div>
         <label>
           <input type="radio" value="same-relationship-type" data-bind="checked: $parent.selectedRelationshipCredits[role]" />
-          <span data-bind="html: MB.i18n.l('Only “{relationship_type}” relationships to {entity_type} entities.',
-                                           {relationship_type: $parent.linkTypeName(),
-                                            entity_type: MB.i18n.strings.entityName[relationship.target(entity).entityType].toLocaleLowerCase()})">
+          <span data-bind="html: $parent.sameRelationshipTypeLabel($parent, relationship, entity)">
           </span>
         </label>
       </div>
@@ -199,7 +196,7 @@
     </label>
     <!-- /ko -->
     <!-- ko if: attribute.id == 14 -->
-      <!-- ko text: MB.i18n.addColon(attribute.l_name) --><!-- /ko -->
+      <!-- ko text: relationship.attributeLabel(attribute) --><!-- /ko -->
       <div data-bind="instrumentSelect: relationship">
         <!-- ko foreach: instruments -->
           <div class="instrument-selection-credit">
@@ -221,7 +218,7 @@
       </div>
     <!-- /ko -->
     <!-- ko if: attribute.children && max !== 1 && attribute.id != 14 -->
-      <!-- ko text: MB.i18n.addColon(attribute.l_name) --><!-- /ko -->
+      <!-- ko text: relationship.attributeLabel(attribute) --><!-- /ko -->
       <div class="multiselect" data-bind="
               component: {
                 name: 'multiselect',
@@ -236,7 +233,7 @@
     <!-- /ko -->
     <!-- ko if: attribute.freeText -->
     <label>
-      <!-- ko text: MB.i18n.addColon(attribute.l_name) --><!-- /ko -->
+      <!-- ko text: relationship.attributeLabel(attribute) --><!-- /ko -->
       <input type="text" data-bind="textAttribute: { relationship: relationship, typeGID: attribute.gid }
                                     attr: { placeholder: attribute.l_name }" />
     </label>

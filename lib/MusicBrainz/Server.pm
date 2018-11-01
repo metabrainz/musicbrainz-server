@@ -450,29 +450,38 @@ sub TO_JSON {
 
     # Whitelist of keys that we use in the templates.
     my @stash_keys = qw(
+        all_collections
+        collections
+        commons_image
+        containment
         current_language
         current_language_html
         entity
         hide_merge_helper
         jsonld_data
         last_replication_date
-        linked_entities
         makes_no_changes
         merge_link
+        more_tags
         new_edit_notes
+        number_of_revisions
+        release_artwork
         server_details
         server_languages
+        subscribed
         to_merge
+        top_tags
+        user_tags
     );
 
     my %stash;
     for (@stash_keys) {
-        $stash{$_} = $self->stash->{$_};
+        $stash{$_} = $self->stash->{$_} if exists $self->stash->{$_};
     }
 
     if (my $entity = delete $stash{entity}) {
         if (ref($entity) =~ /^MusicBrainz::Server::Entity::/) {
-            $entity->serialize_with_linked_entities(\%stash);
+            $stash{entity} = $entity->TO_JSON;
         }
     }
 
@@ -504,6 +513,9 @@ sub TO_JSON {
     }
 
     return {
+        action => {
+            name => $self->action->name,
+        },
         user => ($self->user_exists ? $self->user : undef),
         user_exists => boolean_to_json($self->user_exists),
         debug => boolean_to_json($self->debug),
@@ -511,6 +523,7 @@ sub TO_JSON {
         req => {
             headers => \%headers,
             query_params => $req->query_params,
+            secure => boolean_to_json($req->secure),
             uri => $req->uri,
         },
         stash => \%stash,

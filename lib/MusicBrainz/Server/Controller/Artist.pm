@@ -230,9 +230,6 @@ sub show : PathPart('') Chained('load')
     $c->stash(
         recordings => $recordings,
         recordings_jsonld => {items => $recordings},
-        show_video => scalar(grep {
-            $_->video
-        } @$recordings),
         release_groups => $release_groups,
         release_groups_jsonld => {items => $release_groups},
         show_artists => scalar grep {
@@ -340,9 +337,6 @@ sub recordings : Chained('load')
         recordings_jsonld => {items => $recordings},
         show_artists => scalar(grep {
             $_->artist_credit->name ne $artist->name
-        } @$recordings),
-        show_video => scalar(grep {
-            $_->video
         } @$recordings),
     );
 }

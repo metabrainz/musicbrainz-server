@@ -73,19 +73,18 @@ sub medium : Chained('root') PathPart Args(1) {
 sub cdstub : Chained('root') PathPart Args(1) {
     my ($self, $c, $id) = @_;
 
-    my $cdstub_toc = $c->model('CDStubTOC')->get_by_discid($id);
+    my $cdstub = $c->model('CDStub')->get_by_discid($id);
     my $ret = {
         toc => "",
         tracks => []
     };
 
-    if ($cdstub_toc)
+    if ($cdstub)
     {
-        $c->model('CDStub')->load($cdstub_toc);
-        $c->model('CDStubTrack')->load_for_cdstub($cdstub_toc->cdstub);
-        $cdstub_toc->update_track_lengths;
+        $c->model('CDStubTrack')->load_for_cdstub($cdstub);
+        $cdstub->update_track_lengths;
 
-        $ret->{toc} = $cdstub_toc->toc;
+        $ret->{toc} = $cdstub->toc;
         $ret->{tracks} = [ map {
             {
                 name => $_->title,
@@ -93,7 +92,7 @@ sub cdstub : Chained('root') PathPart Args(1) {
                 length => $_->length,
                 artist => $_->artist,
             }
-        } $cdstub_toc->cdstub->all_tracks ];
+        } $cdstub->all_tracks ];
     }
 
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');

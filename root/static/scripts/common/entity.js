@@ -9,6 +9,8 @@ const React = require('react');
 const ReactDOMServer = require('react-dom/server');
 
 const ArtistCreditLink = require('./components/ArtistCreditLink');
+const EditorLink = require('./components/EditorLink');
+const EntityLink = require('./components/EntityLink');
 const {
     PART_OF_SERIES_LINK_TYPES,
     PROBABLY_CLASSICAL_LINK_TYPES,
@@ -22,6 +24,7 @@ const {
     } = require('./immutable-entities');
 const MB = require('./MB');
 const linkTypeInfo = require('./typeInfo').link_type;
+const bracketed = require('./utility/bracketed').default;
 const clean = require('./utility/clean');
 const formatTrackLength = require('./utility/formatTrackLength');
 
@@ -64,6 +67,10 @@ const formatTrackLength = require('./utility/formatTrackLength');
                 ac = artistCreditFromArray(ac);
             }
             return isCompleteArtistCredit(ac);
+        }
+
+        entityTypeLabel() {
+            return i18n.addColon(i18n.strings.entityName[this.entityType]);
         }
     }
 
@@ -143,12 +150,30 @@ const formatTrackLength = require('./utility/formatTrackLength');
         html(renderParams) {
             var json = this.toJSON();
 
-            json.entityType = json.entityType.replace("_", "-");
-            json.nameVariation = json.creditedAs && json.creditedAs !== json.name;
-
             if (this.gid) {
-                return this.template(_.extend(renderParams || {}, json));
+                // XXX needed by the relationship editor
+                if (renderParams && renderParams.creditedAs !== undefined) {
+                    json.creditedAs = renderParams.creditedAs;
+                    delete renderParams.creditedAs;
+                }
+
+                return ReactDOMServer.renderToStaticMarkup(
+                    <EntityLink
+                        content={json.creditedAs}
+                        entity={{
+                            comment: json.comment,
+                            editsPending: json.editsPending,
+                            entityType: json.entityType,
+                            gid: json.gid,
+                            name: json.name,
+                            sort_name: json.sort_name,
+                            video: json.video,
+                        }}
+                        {...renderParams}
+                    />
+                );
             }
+
             return json.name;
         }
 
@@ -158,6 +183,7 @@ const formatTrackLength = require('./utility/formatTrackLength');
             if (this.artistCredit) {
                 json.artistCredit = ko.unwrap(this.artistCredit);
             }
+
             return json;
         }
 
@@ -177,31 +203,15 @@ const formatTrackLength = require('./utility/formatTrackLength');
         }
     }
 
-    CoreEntity.prototype.template = _.template(
-        "<% if (data.editsPending) { %><span class=\"mp\"><% } %>" +
-        "<% if (data.nameVariation) { %><span class=\"name-variation\" title=\"<%- data.name %>\"><% } %>" +
-        "<a href=\"/<%= data.entityType %>/<%- data.gid %>\"" +
-        "<% if (data.target) { %> target=\"_blank\"<% } %>" +
-        "<% if (data.sort_name) { %> title=\"<%- data.sort_name %>\"" +
-        "<% } %>><bdi><%- data.creditedAs || data.name %></bdi></a>" +
-        "<% if (data.comment) { %> " +
-        "<span class=\"comment\">(<%- data.comment %>)</span><% } %>" +
-        "<% if (data.video) { %> <span class=\"comment\">" +
-        "(<%- data.videoString %>)</span><% } %>" +
-        "<% if (data.nameVariation) { %></span><% } %>" +
-        "<% if (data.editsPending) { %></span><% } %>",
-        {variable: "data"}
-    );
-
-    class Editor extends CoreEntity {}
+    class Editor extends CoreEntity {
+        html() {
+            return ReactDOMServer.renderToStaticMarkup(
+                <EditorLink editor={{entityType: 'editor', name: this.name}} />
+            );
+        }
+    }
 
     Editor.prototype.entityType = 'editor';
-
-    Editor.prototype.template = _.template(
-        "<a href=\"/<%= data.entityType %>/<%- data.name %>\">" +
-        "<bdi><%- data.name %></bdi></a>",
-        {variable: "data"}
-    );
 
     class Artist extends CoreEntity {}
 
@@ -215,11 +225,19 @@ const formatTrackLength = require('./utility/formatTrackLength');
 
     Instrument.prototype.entityType = 'instrument';
 
-    class Label extends CoreEntity {}
+    class Label extends CoreEntity {
+        selectionMessage() {
+            return i18n.l('You selected {label}.', {label: this.html({target: '_blank'})});
+        }
+    }
 
     Label.prototype.entityType = 'label';
 
-    class Area extends CoreEntity {}
+    class Area extends CoreEntity {
+        selectionMessage() {
+            return i18n.l('You selected {area}.', {area: this.html({ target: '_blank'})});
+        }
+    }
 
     Area.prototype.entityType = 'area';
 
@@ -255,12 +273,6 @@ const formatTrackLength = require('./utility/formatTrackLength');
             if (this._afterRecordingCtor) {
                 this._afterRecordingCtor(data);
             }
-        }
-
-        html(params) {
-            params = params || {};
-            params.videoString = i18n.l("video");
-            return super.html(params);
         }
 
         toJSON() {
@@ -304,7 +316,13 @@ const formatTrackLength = require('./utility/formatTrackLength');
 
     Release.prototype.entityType = 'release';
 
-    class ReleaseGroup extends CoreEntity {}
+    class ReleaseGroup extends CoreEntity {
+        selectionMessage() {
+            return i18n.l('You selected {releasegroup}.', {
+                releasegroup: this.html({target: '_blank'}),
+            });
+        }
+    }
 
     ReleaseGroup.prototype.entityType = 'release_group';
 
@@ -359,17 +377,16 @@ const formatTrackLength = require('./utility/formatTrackLength');
                 return super.html(renderParams);
             }
 
-            return this.template(
-                _.extend(
-                    renderParams || {},
-                    {
-                        entityType: "recording",
-                        gid: recording.gid,
-                        name: this.name,
-                        comment: recording.comment,
-                        editsPending: recording.editsPending
-                    }
-                )
+            const json = {
+                comment: recording.comment,
+                editsPending: recording.editsPending,
+                entityType: 'recording',
+                gid: recording.gid,
+                name: recording.name,
+                video: recording.video,
+            };
+            return ReactDOMServer.renderToStaticMarkup(
+                <EntityLink content={this.name} entity={json} {...renderParams} />
             );
         }
     }

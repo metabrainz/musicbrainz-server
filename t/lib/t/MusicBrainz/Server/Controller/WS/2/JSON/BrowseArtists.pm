@@ -113,12 +113,12 @@ test 'browse artists via recording' => sub {
         };
 };
 
-test 'browse artists via release, inc=tags+ratings' => sub {
+test 'browse artists via release, inc=tags+genres+ratings' => sub {
 
     MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
 
-    ws_test_json 'browse artists via release, inc=tags+ratings',
-    '/artist?release=aff4a693-5970-4e2e-bd46-e2ee49c22de7&inc=tags+ratings' =>
+    ws_test_json 'browse artists via release, inc=tags+genres+ratings',
+    '/artist?release=aff4a693-5970-4e2e-bd46-e2ee49c22de7&inc=tags+genres+ratings' =>
         {
             "artist-offset" => 0,
             "artist-count" => 3,
@@ -141,6 +141,7 @@ test 'browse artists via release, inc=tags+ratings' => sub {
                     'type-id' => 'e431f5f6-b5d2-343d-8b36-72607fffb74b',
                     rating => { "votes-count" => 3, "value" => 3 },
                     tags => [],
+                    genres => [],
                     ipis => [],
                     isnis => [],
                     gender => JSON::null,
@@ -164,6 +165,7 @@ test 'browse artists via release, inc=tags+ratings' => sub {
                     'type-id' => JSON::null,
                     rating => { "votes-count" => 0, "value" => JSON::null },
                     tags => [],
+                    genres => [],
                     ipis => [],
                     isnis => [],
                     gender => JSON::null,
@@ -193,6 +195,11 @@ test 'browse artists via release, inc=tags+ratings' => sub {
                         { count => 1, name => 'jpop' },
                         { count => 1, name => 'k-pop' },
                         { count => 1, name => 'kpop' },
+                        { count => 1, name => 'pop' },
+                        ],
+                    genres => [
+                        { count => 1, name => 'j-pop' },
+                        { count => 1, name => 'k-pop' },
                         { count => 1, name => 'pop' },
                         ],
                     ipis => [],

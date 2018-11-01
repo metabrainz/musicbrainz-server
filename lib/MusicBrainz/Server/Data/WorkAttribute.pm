@@ -51,6 +51,7 @@ sub load_for_works {
              work_attribute.work_attribute_text
            ) AS value,
            work,
+           work_attribute.id AS id,
            work_attribute.work_attribute_type_allowed_value AS value_id,
            work_attribute_type_allowed_value.gid AS value_gid,
            work_attribute.work_attribute_type AS type_id
@@ -71,6 +72,7 @@ sub load_for_works {
         for my $work (@{ $work_map{$attribute->{work}} }) {
             $work->add_attribute(
                 WorkAttribute->new(
+                    id => $attribute->{id},
                     type_id => $attribute->{type_id},
                     value => $attribute->{value},
                     value_gid => $attribute->{value_gid},

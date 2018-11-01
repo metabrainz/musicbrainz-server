@@ -1,6 +1,6 @@
 package t::MusicBrainz::Server::Controller::WS::js::Release;
 use Test::More;
-use Test::Deep qw( cmp_deeply );
+use Test::Deep qw( cmp_deeply ignore );
 use Test::Routine;
 use JSON;
 use MusicBrainz::Server::Test;
@@ -51,6 +51,9 @@ test all => sub {
             gender_id => undef,
             gid => 'a16d1433-ba89-4f72-a47b-a370add0bb55',
             id => 9496,
+            ipi_codes => [],
+            isni_codes => [],
+            last_updated => ignore,
             name => 'BoA',
             sort_name => 'BoA',
             unaccented_name => undef,

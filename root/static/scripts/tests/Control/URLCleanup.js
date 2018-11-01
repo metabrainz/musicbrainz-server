@@ -445,19 +445,19 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
                     expected_clean_url: 'http://www.bbc.co.uk/music/artists/b52dd210-909c-461a-a75d-19e85a522042'
         },
         // Beatport
-        {
+        {                               // Closed in Dec. 2017, replaced with www.beatport.com/chart
                              input_url: 'http://dj.beatport.com/thegoldenboyuk',
                      input_entity_type: 'artist',
             expected_relationship_type: 'downloadpurchase',
                only_valid_entity_types: []
         },
-        {
+        {                               // Closed in Dec. 2017, replaced with www.beatport.com/best-new-tracks
                              input_url: 'http://mixes.beatport.com/dj/lstunn/450603',
                      input_entity_type: 'artist',
             expected_relationship_type: 'downloadpurchase',
                only_valid_entity_types: []
         },
-        {
+        {                               // Not supported by MusicBrainz: midi, patches, presets, and so on.
                              input_url: 'http://sounds.beatport.com/publisher/Danyella/34462',
                      input_entity_type: 'artist',
             expected_relationship_type: 'downloadpurchase',
@@ -470,21 +470,21 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
                     expected_clean_url: 'https://www.beatport.com/artist/pryda/10554',
                only_valid_entity_types: ['artist']
         },
-        {
+        {                               // Nowadays display the same content with another UI
                              input_url: 'http://classic.beatport.com/artist/pryda/10554/tracks',
                      input_entity_type: 'artist',
             expected_relationship_type: 'downloadpurchase',
                     expected_clean_url: 'https://www.beatport.com/artist/pryda/10554',
                only_valid_entity_types: ['artist']
         },
-        {
+        {                               // Nowadays redirect to www.beatport.com
                              input_url: 'https://pro.beatport.com/artist/pryda/10554#',
                      input_entity_type: 'artist',
             expected_relationship_type: 'downloadpurchase',
                     expected_clean_url: 'https://www.beatport.com/artist/pryda/10554',
                only_valid_entity_types: ['artist']
         },
-        {
+        {                               // Used to fool the detection of missing slug (MBS-9743)
                              input_url: 'https://www.beatport.com/artist/4orcedj/208047',
                      input_entity_type: 'artist',
             expected_relationship_type: 'downloadpurchase',
@@ -496,6 +496,41 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
                      input_entity_type: 'release',
             expected_relationship_type: 'downloadpurchase',
                     expected_clean_url: 'https://www.beatport.com/release/pryda-10-vol-i/1563118',
+               only_valid_entity_types: ['release']
+        },
+        {                               // Used to fool the detection of missing slug (MBS-9846)
+                             input_url: 'http://classic.beatport.com/release/4/2361374',
+                     input_entity_type: 'release',
+            expected_relationship_type: 'downloadpurchase',
+                    expected_clean_url: 'https://www.beatport.com/release/4/2361374',
+               only_valid_entity_types: ['release']
+        },
+        {                               // Legacy URL format (real example)
+                             input_url: 'https://www.beatport.com/en-US/html/content/release/detail/161035/Back%20To%20The%20Future',
+                     input_entity_type: 'release',
+            expected_relationship_type: 'downloadpurchase',
+                    expected_clean_url: 'https://www.beatport.com/release/back-to-the-future/161035',
+               only_valid_entity_types: ['release']
+        },
+        {                               // Legacy URL format (made up to test slug conversion)
+                             input_url: 'https://www.beatport.com/en-US/html/content/release/detail/06130/%40@%26%25%24$%23%22%21!-&tracks#',
+                     input_entity_type: 'release',
+            expected_relationship_type: 'downloadpurchase',
+                    expected_clean_url: 'https://www.beatport.com/release/at-at-and-percent-money-money-pound-!!/6130',
+               only_valid_entity_types: ['release']
+        },
+        {                               // Legacy URL format missing slug (real example)
+                             input_url: 'https://www.beatport.com/en-US/html/content/release/detail/287442/',
+                     input_entity_type: 'release',
+            expected_relationship_type: 'downloadpurchase',
+                    expected_clean_url: 'https://www.beatport.com/release/---/287442',
+               only_valid_entity_types: ['release']
+        },
+        {                               // Nowadays erroneous redirect for legacy URL format missing slug (same example)
+                             input_url: 'https://www.beatport.com/release//287442',
+                     input_entity_type: 'release',
+            expected_relationship_type: 'downloadpurchase',
+                    expected_clean_url: 'https://www.beatport.com/release/---/287442',
                only_valid_entity_types: ['release']
         },
         {
@@ -1752,14 +1787,14 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
                      input_entity_type: 'artist',
             expected_relationship_type: 'otherdatabases',
                     expected_clean_url: 'http://id.loc.gov/authorities/names/n79018119',
-               only_valid_entity_types: ['artist', 'work']
+               only_valid_entity_types: ['artist', 'place', 'work']
         },
         {
                              input_url: 'https://id.loc.gov/authorities/names/no2016104748.html',
                      input_entity_type: 'artist',
             expected_relationship_type: 'otherdatabases',
                     expected_clean_url: 'http://id.loc.gov/authorities/names/no2016104748',
-               only_valid_entity_types: ['artist', 'work']
+               only_valid_entity_types: ['artist', 'place', 'work']
         },
         // LiederNet Archive
         {
@@ -2499,7 +2534,7 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
         },
         // setlist.fm
         {
-                             input_url: 'http://www.setlist.fm/setlists/foo-fighters-bd6893a.html',
+                             input_url: 'https://www.setlist.fm/setlists/foo-fighters-bd6893a.html',
                      input_entity_type: 'artist',
             expected_relationship_type: 'setlistfm',
                only_valid_entity_types: ['artist']
@@ -2508,16 +2543,17 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
                              input_url: 'http://www.setlist.fm/setlist/foo-fighters/2014/house-of-blues-new-orleans-la-13cda5b1.html',
                      input_entity_type: 'event',
             expected_relationship_type: 'setlistfm',
+                    expected_clean_url: 'https://www.setlist.fm/setlist/foo-fighters/2014/house-of-blues-new-orleans-la-13cda5b1.html',
                only_valid_entity_types: ['event']
         },
         {
-                             input_url: 'http://www.setlist.fm/venue/house-of-blues-new-orleans-la-usa-23d61c9f.html',
+                             input_url: 'https://www.setlist.fm/venue/house-of-blues-new-orleans-la-usa-23d61c9f.html',
                      input_entity_type: 'place',
             expected_relationship_type: 'setlistfm',
                only_valid_entity_types: ['place']
         },
         {
-                             input_url: 'http://www.setlist.fm/festivals/house-of-blues-new-orleans-la-usa-23d61c9f.html',
+                             input_url: 'https://www.setlist.fm/festivals/house-of-blues-new-orleans-la-usa-23d61c9f.html',
                      input_entity_type: 'series',
             expected_relationship_type: 'setlistfm',
                only_valid_entity_types: ['series']
@@ -3259,6 +3295,19 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
                              input_url: 'http://wmg.jp/artist/ayaka/WPCL000010415.html',
                      input_entity_type: 'release',
             expected_relationship_type: 'discographyentry',
+        },
+        // Worldcat
+        {
+                             input_url: 'http://www.worldcat.org/title/sometimes-i-sit-and-think-and-sometimes-i-just-sit/oclc/903606316',
+                     input_entity_type: 'release',
+            expected_relationship_type: 'otherdatabases',
+                    expected_clean_url: 'https://www.worldcat.org/oclc/903606316',
+        },
+        {
+                             input_url: 'http://www.worldcat.org/identities/lccn-no2015052484/',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'otherdatabases',
+                    expected_clean_url: 'https://www.worldcat.org/identities/lccn-no2015052484/',
         },
         // YouTube
         {

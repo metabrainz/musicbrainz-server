@@ -22,7 +22,7 @@ class Autocomplete extends React.Component {
     this._currentSelection = currentSelection;
     this._subscription = currentSelection.subscribe(this.props.onChange);
 
-    this._autocomplete = $(this._nameInput).autocomplete(options).data('ui-autocomplete');
+    this._autocomplete = $(this._nameInput).entitylookup(options).data('mb-entitylookup');
     currentSelection(this._autocomplete._dataToEntity(this.props.currentSelection));
   }
 
@@ -31,7 +31,7 @@ class Autocomplete extends React.Component {
     this._subscription = null;
     this._currentSelection = null;
     this._autocomplete = null;
-    $(this._nameInput).autocomplete('destroy');
+    $(this._nameInput).entitylookup('destroy');
   }
 
   componentDidUpdate(prevProps) {

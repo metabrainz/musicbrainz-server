@@ -67,6 +67,7 @@ sub TO_JSON {
         editor => $self->editor,
         html => format_wikitext($self->text),
         id => $self->id,
+        parent => $self->parent ? $self->parent->TO_JSON : undef,
         text => $self->text,
     };
 }

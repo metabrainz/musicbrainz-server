@@ -1,5 +1,12 @@
-// IE 11 doesn't support Object.assign.
+// IE 11 support.
 require('core-js/modules/es6.object.assign');
+require('core-js/modules/es6.array.from');
+require('core-js/modules/es6.array.iterator');
+require('core-js/modules/es6.string.iterator');
+require('core-js/es6/set');
+require('core-js/es6/map');
+require('core-js/es6/promise');
+require('core-js/es6/symbol');
 
 const DBDefs = require('./common/DBDefs');
 const MB = require('./common/MB');
@@ -21,9 +28,9 @@ window.$ = window.jQuery = require("jquery");
 
 require("../lib/jquery.ui/ui/jquery-ui.custom");
 
-require("../../components/Annotation");
-require("../../components/CommonsImage");
-require("../../components/WikipediaExtract");
+require("./common/components/Annotation");
+require("./common/components/CommonsImage");
+require("./common/components/WikipediaExtract");
 require("./common/i18n");
 require("./common/artworkViewer");
 require("./common/dialogs");

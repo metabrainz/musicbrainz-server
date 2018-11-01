@@ -60,7 +60,7 @@ sub search : Path('')
             $c->forward($form->field('method')->value eq 'direct' ? 'direct' : 'external');
         }
 
-        if ($type =~ /^(?:area|artist|event|series)$/) {
+        if ($type ne 'doc') {
             my $stash = $c->stash;
 
             my %props = (
@@ -89,8 +89,8 @@ sub doc : Private
     my ($self, $c) = @_;
 
     $c->stash(
-      google_custom_search => DBDefs->GOOGLE_CUSTOM_SEARCH,
-      template             => 'search/results-doc.tt'
+        component_path => 'search/components/DocResults.js',
+        current_view => 'Node',
     );
 }
 
@@ -141,11 +141,9 @@ sub direct : Private
             } @$results);
             my %result_map = map { $_->entity->id => $_ } @$results;
 
-            $result_map{$_}->extra(
-                [ map { $_->[0] } @{ $recording_releases_map{$_} } ]
-            ) for keys %recording_releases_map;
+            $result_map{$_}->extra($recording_releases_map{$_}) for keys %recording_releases_map;
 
-            my @releases = map { @{ $_->extra } } @$results;
+            my @releases = map { $_->{release} } map { @{ $_->extra } } @$results;
             $c->model('ReleaseGroup')->load(@releases);
             $c->model('ReleaseGroupType')->load(map { $_->release_group } @releases);
             $c->model('Medium')->load_for_releases(@releases);
@@ -200,7 +198,6 @@ sub external : Private
     my ($self, $c) = @_;
 
     my $form = $c->stash->{form};
-    $c->stash->{template} = 'search/search.tt';
 
     return unless keys %{ $c->req->query_params } && $form->validate($c->req->query_params);
 
@@ -215,8 +212,6 @@ sub external : Private
                               limit    => $form->field('limit')->value,
                               page     => $c->request->query_params->{page},
                               advanced => $form->field('method')->value eq 'advanced');
-
-    $c->stash->{template} ="search/results-$type.tt";
 }
 
 sub do_external_search {

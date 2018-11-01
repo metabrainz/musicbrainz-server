@@ -13,7 +13,7 @@ with 'MusicBrainz::Server::Entity::Role::Taggable';
 with 'MusicBrainz::Server::Entity::Role::Linkable';
 with 'MusicBrainz::Server::Entity::Role::Annotation';
 with 'MusicBrainz::Server::Entity::Role::LastUpdate';
-with 'MusicBrainz::Server::Entity::Role::Age';
+with 'MusicBrainz::Server::Entity::Role::DatePeriod';
 with 'MusicBrainz::Server::Entity::Role::Comment';
 with 'MusicBrainz::Server::Entity::Role::Type' => { model => 'AreaType' };
 
@@ -107,6 +107,7 @@ around TO_JSON => sub {
         iso_3166_1_codes => [$self->iso_3166_1_codes],
         iso_3166_2_codes => [$self->iso_3166_2_codes],
         iso_3166_3_codes => [$self->iso_3166_3_codes],
+        primary_code     => $self->primary_code,
     };
 
     my $containment = $self->containment;

@@ -20,6 +20,13 @@ has language => (
     isa => 'Language',
 );
 
+sub TO_JSON {
+    my ($self) = @_;
+    return {
+        language => $self->language->TO_JSON,
+    };
+}
+
 no Moose;
 
 1;

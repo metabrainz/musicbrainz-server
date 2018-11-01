@@ -160,7 +160,7 @@ sub _create_row
 }
 
 sub find_for_cdstub {
-    my ($self, $cdstub_toc, $limit, $offset) = @_;
+    my ($self, $cdstub, $limit, $offset) = @_;
     my $query =
         'SELECT ' . join(', ', $self->c->model('Release')->_columns,
                          map { "medium.$_ AS m_$_" } qw(
@@ -184,7 +184,7 @@ sub find_for_cdstub {
 
     $self->query_to_list(
         $query,
-        [$cdstub_toc->cdstub->title, 10, $cdstub_toc->track_count],
+        [$cdstub->title, 10, $cdstub->track_count],
         sub {
             my ($model, $row) = @_;
 

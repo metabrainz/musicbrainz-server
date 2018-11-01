@@ -29,16 +29,16 @@ test 'Adding a CDTOC to a medium removes CD stubs' => sub {
 EOSQL
 
     my $discid = 'YfSgiOEayqN77Irs.VNV.UNJ0Zs-';
-    my $toc = $test->c->model('CDStubTOC')->get_by_discid($discid);
-    ok($toc, 'cd stub exists');
+    my $cdstub = $test->c->model('CDStub')->get_by_discid($discid);
+    ok($cdstub, 'cd stub exists');
 
     $test->c->model('MediumCDTOC')->insert({
         medium => 1,
         cdtoc  => 3
     });
 
-    $toc = $test->c->model('CDStubTOC')->get_by_discid($discid);
-    ok(!$toc, 'cd stub no longer exists');
+    $cdstub = $test->c->model('CDStub')->get_by_discid($discid);
+    ok(!$cdstub, 'cd stub no longer exists');
 };
 
 test all => sub {

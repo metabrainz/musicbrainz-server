@@ -6,9 +6,12 @@
 const $ = require('jquery');
 const ko = require('knockout');
 const _ = require('lodash');
+const React = require('react');
+const ReactDOMServer = require('react-dom/server');
 
 const i18n = require('../common/i18n');
 const {artistCreditFromArray, reduceArtistCredit} = require('../common/immutable-entities');
+const bracketed = require('../common/utility/bracketed').default;
 const formatTrackLength = require('../common/utility/formatTrackLength');
 const isBlank = require('../common/utility/isBlank');
 const request = require('../common/utility/request');
@@ -124,6 +127,27 @@ class SearchResult {
             track.artistCredit = [{ name: track.artist }];
         }
     }
+
+    link() {
+        let formatString;
+        if (this.format) {
+            formatString = this.format +
+                (this.position ? ' ' + this.position : '');
+        }
+
+        const link = i18n.l('{entity} by {artist}', {
+            __react: true,
+            entity: (
+                <>
+                    <bdi>{this.name}</bdi>
+                    {formatString ? ' ' + bracketed(formatString) : null}
+                </>
+            ),
+            artist: <bdi>{this.artist}</bdi>,
+        });
+
+        return ReactDOMServer.renderToStaticMarkup(link);
+    }
 }
 
 
@@ -222,6 +246,13 @@ class SearchTab {
         }
 
         return medium;
+    }
+
+    pageText() {
+        return i18n.l('Page {page} of {total}', {
+            page: this.currentPage(),
+            total: this.totalPages(),
+        });
     }
 }
 

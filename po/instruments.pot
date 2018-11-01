@@ -13,7 +13,7 @@ msgid "12 string guitar"
 msgstr ""
 
 #: DB:instrument/name:516
-msgid "17-string koto"
+msgid "17-string bass koto"
 msgstr ""
 
 #: DB:instrument/name:839
@@ -190,6 +190,7 @@ msgid "Rhodes piano"
 msgstr ""
 
 #: DB:instrument/name:476
+msgctxt "Ancient Carnatic veena lute"
 msgid "Saraswati veena"
 msgstr ""
 
@@ -810,10 +811,6 @@ msgstr ""
 msgid "chacha"
 msgstr ""
 
-#: DB:instrument/name:769
-msgid "chainsaw"
-msgstr ""
-
 #: DB:instrument/name:627
 msgid "chakhe"
 msgstr ""
@@ -877,6 +874,11 @@ msgctxt "pair of double-reed and drum. from South America."
 msgid "chirimía and drum"
 msgstr ""
 
+#: DB:instrument/name:939
+msgctxt "Italian strumming 17th century guitar"
+msgid "chitarra battente"
+msgstr ""
+
 #: DB:instrument/name:744
 msgid "chitra veena"
 msgstr ""
@@ -917,7 +919,7 @@ msgid "cizhonghu"
 msgstr ""
 
 #: DB:instrument/name:904
-msgctxt "egyptian anchient clappers"
+msgctxt "egyptian ancient clappers"
 msgid "clapper"
 msgstr ""
 
@@ -947,7 +949,7 @@ msgid "claviola"
 msgstr ""
 
 #: DB:instrument/name:815
-msgctxt "electronic keyboard, forerunner to analogue syntheziers"
+msgctxt "electronic keyboard, forerunner to analogue synthesizers"
 msgid "clavioline"
 msgstr ""
 
@@ -1381,6 +1383,11 @@ msgctxt "french 16th century fipple flute"
 msgid "flageolet"
 msgstr ""
 
+#: DB:instrument/name:938
+msgctxt "Guitar used in flamenco"
+msgid "flamenco guitar"
+msgstr ""
+
 #: DB:instrument/name:604
 msgid "floppy disk drive"
 msgstr ""
@@ -1629,6 +1636,11 @@ msgstr ""
 msgid "guzheng"
 msgstr ""
 
+#: DB:instrument/name:937
+msgctxt "Dominican metal scraper"
+msgid "güira"
+msgstr ""
+
 #: DB:instrument/name:112
 msgid "güiro"
 msgstr ""
@@ -1643,7 +1655,8 @@ msgid "hammered dulcimer"
 msgstr ""
 
 #: DB:instrument/name:275
-msgid "handbells"
+msgctxt "Open hand-rung bell"
+msgid "handbell"
 msgstr ""
 
 #: DB:instrument/name:321
@@ -2180,6 +2193,7 @@ msgid "mellotron"
 msgstr ""
 
 #: DB:instrument/name:44
+msgctxt "Free-reed keyboard mouth-organ"
 msgid "melodica"
 msgstr ""
 
@@ -2303,6 +2317,11 @@ msgstr ""
 msgid "ngɔni"
 msgstr ""
 
+#: DB:instrument/name:936
+msgctxt "Malian single string gourd-fiddle"
+msgid "njarka"
+msgstr ""
+
 #: DB:instrument/name:493
 msgid "nohkan"
 msgstr ""
@@ -2354,6 +2373,16 @@ msgstr ""
 
 #: DB:instrument/name:601
 msgid "octave mandolin"
+msgstr ""
+
+#: DB:instrument/name:940
+msgctxt "Spanish melody & strumming guitar"
+msgid "octavilla"
+msgstr ""
+
+#: DB:instrument/name:941
+msgctxt "Filipino rondalla guitar"
+msgid "octavina"
 msgstr ""
 
 #: DB:instrument/name:875
@@ -2843,6 +2872,10 @@ msgstr ""
 
 #: DB:instrument/name:19
 msgid "saxophone"
+msgstr ""
+
+#: DB:instrument/name:942
+msgid "saxophone quartet"
 msgstr ""
 
 #: DB:instrument/name:472
@@ -3449,7 +3482,7 @@ msgid "tubax"
 msgstr ""
 
 #: DB:instrument/name:775
-msgctxt "Joh Mustad Tubon"
+msgctxt "analogue electronic monophonic Organ"
 msgid "tubon"
 msgstr ""
 
@@ -3543,6 +3576,11 @@ msgstr ""
 msgid "valved brass instruments"
 msgstr ""
 
+#: DB:instrument/name:943
+msgctxt "Family of ancient Indian chordophones"
+msgid "veena"
+msgstr ""
+
 #: DB:instrument/name:418
 msgid "venu"
 msgstr ""
@@ -3592,6 +3630,7 @@ msgid "viola"
 msgstr ""
 
 #: DB:instrument/name:660
+msgctxt "Brazilian música caipira guitar"
 msgid "viola caipira"
 msgstr ""
 

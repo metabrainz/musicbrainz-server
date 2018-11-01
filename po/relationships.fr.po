@@ -1,12 +1,12 @@
 # 
 # Translators:
 # nikki, 2014
-# AO French coordinator <email address hidden>, 2013
+# AO <email address hidden>, 2013
 # Benjamin Sonntag <email address hidden>, 2011-2012
 # Benjamin Sonntag <email address hidden>, 2011
 # Dibou <email address hidden>, 2012,2015
-# AO French coordinator <email address hidden>, 2013,2015
-# AO French coordinator <email address hidden>, 2013,2015
+# AO <email address hidden>, 2013,2015
+# AO <email address hidden>, 2013,2015
 # Laurent Hosch <email address hidden>, 2017
 # Laurent Monin <email address hidden>, 2016
 # Léonard Cardyn <email address hidden>, 2015
@@ -23,8 +23,8 @@
 # R. G. <email address hidden>, 2015
 # ShevAbam, 2016
 # ShevAbam, 2016
-# AO French coordinator <email address hidden>, 2015
-# AO French coordinator <email address hidden>, 2013-2015
+# AO <email address hidden>, 2015
+# AO <email address hidden>, 2013-2015
 # Youenn Piolet, 2015
 # Youenn Piolet, 2015
 # yvanz, 2016-2018
@@ -33,7 +33,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2018-08-13 11:29+0000\n"
+"PO-Revision-Date: 2018-11-01 15:07+0000\n"
 "Last-Translator: yvanz\n"
 "Language-Team: French (http://www.transifex.com/musicbrainz/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -700,6 +700,16 @@ msgid ""
 "unknown!"
 msgstr "Relie une parution à la région où elle a été remixée. À n’utiliser que lorsque le lieu est inconnu !"
 
+#: DB:link_type/description:967
+msgid ""
+"Links a release to the area where the lacquer cutting took place. Use only "
+"when the place is unknown!"
+msgstr "Relie une parution à la région où la matrice sur laque a été gravée. a été mixée. À n’utiliser que si le lieu est inconnu !"
+
+#: DB:link_type/description:969
+msgid "Links a release to the engineer who did the lacquer cutting for it."
+msgstr "Relie une parution au technicien qui a gravé sa matrice sur laque."
+
 #: DB:link_type/description:810
 msgid "Links a release to the event it was recorded at."
 msgstr "Relie une parution à l’événement où elle a été enregistrée."
@@ -751,6 +761,10 @@ msgid ""
 "Links a release to the place where the glass master for pressing was made. "
 "Not the same as mastered!"
 msgstr "Relie une parution au lieu où le matriçage en verre a été réalisé en vue du pressage. À ne pas confondre avec le processus plus global de matriçage !"
+
+#: DB:link_type/description:968
+msgid "Links a release to the place where the lacquer cutting took place."
+msgstr "Relie une parution au lieu où a été gravé sa matrice sur laque."
 
 #: DB:link_type/description:796
 msgid "Links a release with a launch event for it."
@@ -1353,6 +1367,12 @@ msgstr "Ceci indique qu’un festival (le plus souvent) a commandé l’œuvre. 
 msgid "This indicates that a person is, or was, a conductor for a group."
 msgstr "Ceci indique qu’une personne est, ou était, le chef d’un orchestre."
 
+#: DB:link_type/description:965
+msgid ""
+"This indicates that a person is, or was, the artistic director of a group "
+"(e.g. a ballet/opera company)."
+msgstr "Ceci indique qu’une personne est, ou était, le directeur artistique d’un groupe (par exemple une compagnie de ballet ou d’opéra)."
+
 #: DB:link_type/description:137
 msgid ""
 "This indicates that a person or agency did the art direction for the "
@@ -1660,6 +1680,10 @@ msgstr "Ceci indique la société de gestion des droits associé à cette paruti
 #: DB:link_type/description:963
 msgid "This indicates the video was shot at this place."
 msgstr "Ceci indique que la vidéo a été tournée dans ce lieu."
+
+#: DB:link_type/description:966
+msgid "This indicates the video was shot at/during this event."
+msgstr "Ceci indique que la vidéo a été tournée lors de cet événement."
 
 #: DB:link_type/description:964
 msgid "This indicates the video was shot in this area."
@@ -3139,6 +3163,14 @@ msgstr "lieu d’arrangement pour"
 msgid "artist & repertoire support"
 msgstr "soutien artiste & répertoire"
 
+#: DB:link_type/reverse_link_phrase:965
+msgid "artistic director"
+msgstr "directeur artistique"
+
+#: DB:link_type/link_phrase:965
+msgid "artistic director for"
+msgstr "directeur artistique de"
+
 #: DB:link_attribute_type/name:526
 msgid "assistant"
 msgstr "assistant"
@@ -3325,14 +3357,6 @@ msgstr "compositeurs en résidence"
 msgid "composition"
 msgstr "composition"
 
-#: DB:link_type/reverse_link_phrase:759 DB:link_type/reverse_link_phrase:760
-msgid "concertmaster"
-msgstr "premier violon"
-
-#: DB:link_type/link_phrase:759 DB:link_type/link_phrase:760
-msgid "concertmaster for"
-msgstr "premier violon pour"
-
 #: DB:link_type/link_phrase:806
 msgid "conductor at"
 msgstr "chef d’orchestre à"
@@ -3445,6 +3469,10 @@ msgstr "page de financement participatif"
 #: DB:link_type/reverse_link_phrase:902
 msgid "crowdfunding page for"
 msgstr "page de financement participatif pour"
+
+#: DB:link_type/long_link_phrase:969
+msgid "cut the lacquer for"
+msgstr "a gravé la matrice sur laque pour"
 
 #: DB:link_type/reverse_link_phrase:868 DB:link_type/reverse_link_phrase:846
 #: DB:link_type/reverse_link_phrase:922 DB:link_type/reverse_link_phrase:914
@@ -3985,6 +4013,10 @@ msgstr "a un éditeur personnel"
 msgid "has poster at"
 msgstr "a une affiche à"
 
+#: DB:link_type/reverse_link_phrase:230
+msgid "has remixes"
+msgstr "a comme remix"
+
 #: DB:link_type/link_phrase:315 DB:link_type/long_link_phrase:315
 msgid "has revision"
 msgstr "a une révision"
@@ -4226,6 +4258,10 @@ msgstr "est/était un sous-groupe de"
 msgid "is/was a supporting artist for"
 msgstr "est/était un artiste de soutien pour"
 
+#: DB:link_type/long_link_phrase:965
+msgid "is/was artistic director for"
+msgstr "est/était le directeur artistique de"
+
 #: DB:link_type/long_link_phrase:203
 msgid "is/was distributing the catalog of"
 msgstr "distribue/distribuait le catalogue de"
@@ -4263,6 +4299,22 @@ msgstr "version karaoké de"
 #: DB:link_type/link_phrase:226
 msgid "karaoke versions"
 msgstr "versions karaoké"
+
+#: DB:link_type/link_phrase:969 DB:link_type/reverse_link_phrase:969
+msgid "lacquer cut"
+msgstr "gravure de la matrice sur laque"
+
+#: DB:link_type/reverse_link_phrase:968
+msgid "lacquer cut at"
+msgstr "gravure de la matrice sur laque à"
+
+#: DB:link_type/reverse_link_phrase:967
+msgid "lacquer cut in"
+msgstr "gravure de la matrice sur laque en"
+
+#: DB:link_type/link_phrase:967 DB:link_type/link_phrase:968
+msgid "lacquer cut location for"
+msgstr "lieu de gravure de la matrice sur laque pour"
 
 #: DB:link_type/link_phrase:238
 msgid "later releases"
@@ -5032,7 +5084,7 @@ msgstr "rematriçages"
 msgid "remix of"
 msgstr "remix de"
 
-#: DB:link_type/reverse_link_phrase:230 DB:link_type/reverse_link_phrase:9
+#: DB:link_type/reverse_link_phrase:9
 msgid "remixes"
 msgstr "remixes"
 
@@ -5415,13 +5467,13 @@ msgstr "a été renommé en"
 msgid "was rescheduled as"
 msgstr "a été reprogrammé comme"
 
-#: DB:link_type/long_link_phrase:759 DB:link_type/long_link_phrase:760
-msgid "was the concertmaster for"
-msgstr "était le premier violon pour"
-
 #: DB:link_type/long_link_phrase:930 DB:link_type/long_link_phrase:931
 msgid "was the piano technician for"
 msgstr "était le technicien spécialisé en piano pour"
+
+#: DB:link_type/long_link_phrase:760 DB:link_type/long_link_phrase:759
+msgid "was the {guest} concertmaster for"
+msgstr "était le premier violon {guest:invité} pour"
 
 #: DB:link_type/long_link_phrase:36 DB:link_type/long_link_phrase:128
 msgid ""
@@ -5549,9 +5601,13 @@ msgstr "remixé {additional:supplémentairement} en"
 msgid "{additional:additionally} sampled by"
 msgstr "{additional:aussi} échantillonné par"
 
-#: DB:link_type/reverse_link_phrase:963
+#: DB:link_type/reverse_link_phrase:963 DB:link_type/reverse_link_phrase:966
 msgid "{additional:additionally} shot at"
 msgstr "a été {additional:supplémentairement} tourné à"
+
+#: DB:link_type/link_phrase:966
+msgid "{additional:additionally} shot for"
+msgstr "a été {additional:supplémentairement} tourné pour"
 
 #: DB:link_type/reverse_link_phrase:964
 msgid "{additional:additionally} shot in"
@@ -6222,7 +6278,7 @@ msgstr "{entity1} a été remixé {additional:supplémentairement} à {entity0}"
 msgid "{entity1} was {additional:additionally} remixed in {entity0}"
 msgstr "{entity1} a été remixé {additional:supplémentairement} en {entity0}"
 
-#: DB:link_type/long_link_phrase:963
+#: DB:link_type/long_link_phrase:963 DB:link_type/long_link_phrase:966
 msgid "{entity1} was {additional:additionally} shot at {entity0}"
 msgstr "{entity1} a été tourné {additional:supplémentairement} à {entity0}"
 
@@ -6259,6 +6315,18 @@ msgid ""
 "{entity1} was {anniversary:an anniversary tour for|a tour in support of} "
 "{entity0}"
 msgstr "{entity1} était {anniversary:une tournée anniversaire de|une tournée de lancement de} {entity0}"
+
+#: DB:link_type/long_link_phrase:967 DB:link_type/long_link_phrase:968
+msgid "{entity1}'s lacquer was cut in {entity0}"
+msgstr "La laque de {entity1} a été gravé en {entity0}"
+
+#: DB:link_type/reverse_link_phrase:760 DB:link_type/reverse_link_phrase:759
+msgid "{guest} concertmaster"
+msgstr "premier violon {guest:invité}"
+
+#: DB:link_type/link_phrase:760 DB:link_type/link_phrase:759
+msgid "{guest} concertmaster for"
+msgstr "premier violon {guest:invité} pour"
 
 #: DB:link_type/link_phrase:110 DB:link_type/reverse_link_phrase:110
 msgid "{half:half-}{step}siblings"

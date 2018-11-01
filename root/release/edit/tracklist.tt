@@ -96,8 +96,7 @@
   <!-- ko if: totalPages() > 1 -->
   <div style="text-align: center">
     <a href="#" data-click="previousPage">«</a>
-    <!-- ko text: MB.i18n.expand('[% l('Page {page} of {total}') | js %]', { page: currentPage(), total: totalPages() })
-    --><!-- /ko -->
+    <!-- ko text: pageText() --><!-- /ko -->
     <a href="#" data-click="nextPage">»</a>
   </div>
   <!-- /ko -->
@@ -120,14 +119,8 @@
         <span class="ui-icon" data-bind="css: { 'ui-icon-triangle-1-e': !expanded(), 'ui-icon-triangle-1-s': expanded() }">
           [%~ l("Expand") ~%]
         </span>
-        <bdi data-bind="text: name"></bdi>
+        <span data-bind="html: link()"></span>
       </a>
-
-      <!-- ko if: $data.format -->
-        (<!-- ko text: format + ($data.position ? " " + $data.position : "") --><!-- /ko -->)
-      <!-- /ko -->
-
-      <!-- ko text: MB.i18n.expand('[% l('by {artist}') | js %]', { artist: artist }) --><!-- /ko -->
     </div>
 
     <!-- ko if: expanded() && loaded() -->

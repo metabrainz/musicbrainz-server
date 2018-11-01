@@ -9,4 +9,12 @@ has 'quality' => (
     is  => 'rw',
 );
 
+around TO_JSON => sub {
+    my ($orig, $self) = @_;
+
+    my $json = $self->$orig;
+    $json->{quality} = $self->quality;
+    return $json;
+};
+
 1;

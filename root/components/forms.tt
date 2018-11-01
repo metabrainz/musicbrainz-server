@@ -1,10 +1,12 @@
-[%- MACRO form_submit(label, class) BLOCK ~%]
+[%- MACRO form_submit(label, class) BLOCK # Converted to React at root/components/FormSubmit.js
+~%]
     <span class="buttons[% ' ' _ class IF class %]">
         [%~ '<button type="submit">' _ label _ '</button>' ~%]
     </span>
 [%~ END -%]
 
-[%- MACRO make_votable(ko) BLOCK -%]
+[%- MACRO make_votable(ko) BLOCK # Converted to React at root/components/EnterEdit.js
+-%]
     <div class="row no-label">
       <div class="auto-editor">
         [% IF ko %]
@@ -21,7 +23,8 @@
     </div>
 [%- END -%]
 
-[%- MACRO edit_note(hide_help, ko) BLOCK -%]
+[%- MACRO edit_note(hide_help, ko) BLOCK # Converted to React at root/components/EnterEditNote.js
+-%]
   [% UNLESS hide_help %]
     <p>
       [% l('Entering an {note|edit note} that describes where you got your information is highly recommended. Not only does it make it clear where you got your information, but it can also encourage other users to vote on your edit &#x2014; thus making your edit get applied faster.', { note => { href => doc_link('Edit_Note'), target => '_blank' } }) %]
@@ -41,7 +44,8 @@
   [% END %]
 [%- END -%]
 
-[%- MACRO enter_edit(extra) BLOCK -%]
+[%- MACRO enter_edit(extra) BLOCK # Converted to React at root/components/EnterEdit.js
+-%]
     [%- make_votable() -%]
     <div class="row no-label buttons">
         <button type="submit" class="submit positive">[% l('Enter edit') %]</button>
@@ -49,7 +53,8 @@
     </div>
 [%- END -%]
 
-[%- MACRO field_errors(form, field_name) BLOCK -%]
+[%- MACRO field_errors(form, field_name) BLOCK # Converted to React at root/components/FieldErrors.js
+-%]
     [% field = form.field(field_name) || field_name %]
     [%- IF field.has_errors OR field.error_fields -%]
         <ul class="errors">
@@ -65,13 +70,15 @@
     [%- END -%]
 [%- END -%]
 
-[%- BLOCK form_row -%]
+[%- BLOCK form_row # Converted to React at root/components/FormRow.js
+-%]
     <div class="row" [% IF row_id %]id="[% row_id %]"[% END %]>
       [% content %]
     </div>
 [%- END -%]
 
-[%- MACRO form_row_text(r, field_name, label, attrs) BLOCK -%]
+[%- MACRO form_row_text(r, field_name, label, attrs) BLOCK # Converted to React at root/components/FormRowText.js
+-%]
     [% attrs = attrs ? attrs : {} %]
     [% WRAPPER form_row %]
       [% r.label(field_name, label || r.form.field(field_name).label) %]
@@ -80,7 +87,8 @@
     [% END %]
 [%- END -%]
 
-[%- MACRO form_row_text_long(r, field_name, label) BLOCK -%]
+[%- MACRO form_row_text_long(r, field_name, label) BLOCK # Converted to React at root/components/FormRowTextLong.js
+-%]
     [% form_row_text(r, field_name, label, { size => 47 }) %]
 [%- END -%]
 
@@ -92,7 +100,8 @@
     [% END %]
 [%- END -%]
 
-[%- MACRO form_row_url_long(r, field_name, label) BLOCK -%]
+[%- MACRO form_row_url_long(r, field_name, label) BLOCK # Converted to React at root/components/FormRowURLLong.js
+-%]
     [% WRAPPER form_row %]
       [% r.label(field_name, label || r.form.field(field_name).label) %]
       [% r.url(field_name, { size => 47 })  %]
@@ -124,7 +133,8 @@
     [% END %]
 [%- END -%]
 
-[%- MACRO form_row_checkbox(r, field_name, label) BLOCK -%]
+[%- MACRO form_row_checkbox(r, field_name, label) BLOCK # Converted to React at root/components/FormRowCheckbox.js
+-%]
     <div class="row no-label">
       [% r.checkbox(field_name) %]
       [% r.label(field_name, label || r.form.field(field_name).label, inline => 1) %]
@@ -132,7 +142,8 @@
     </div>
 [%- END -%]
 
-[%- MACRO form_row_select(r, field_name, label, class, attributes) BLOCK -%]
+[%- MACRO form_row_select(r, field_name, label, class, attributes) BLOCK # Converted to React at root/components/FormRowSelect.js
+-%]
     [% attributes = attributes || {}; attributes.class = class %]
     [% WRAPPER form_row %]
       [% r.label(field_name, label || r.form.field(field_name).label, { class => class }) %]
@@ -312,7 +323,7 @@
 [%- MACRO area_bubble BLOCK -%]
     <div class="bubble" id="area-bubble">
       <!-- ko with: target() && target().area -->
-        <p data-bind="html: MB.i18n.expand('[% l('You selected {area}.') | js %]', { area: html({ target: '_blank' }) })"></p>
+        <p data-bind="html: $data.selectionMessage()"></p>
       <!-- /ko -->
     </div>
 [%- END -%]

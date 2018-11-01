@@ -16,7 +16,7 @@ our @EXPORT_OK = qw(
 );
 
 #        ArtistCredit
-#        CDStubTOC
+#        CDStub
 #        CDTOC
 #        Collection
 #        Instrument

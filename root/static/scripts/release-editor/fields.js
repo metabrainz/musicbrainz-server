@@ -19,6 +19,7 @@ const {
     } = require('../common/immutable-entities');
 const clean = require('../common/utility/clean');
 const formatTrackLength = require('../common/utility/formatTrackLength');
+import releaseLabelKey from '../common/utility/releaseLabelKey';
 const request = require('../common/utility/request');
 const MB_edit = require('../edit/MB/edit');
 const dates = require('../edit/utility/dates');
@@ -62,7 +63,7 @@ class Track {
         this.artistCredit = ko.observable(artistCreditFromArray(data.artistCredit || []));
         this.artistCredit.track = this;
 
-        this.formattedLength = ko.observable(formatTrackLength(data.length));
+        this.formattedLength = ko.observable(formatTrackLength(data.length, ''));
         this.position = ko.observable(data.position);
         this.number = ko.observable(data.number);
         this.isDataTrack = ko.observable(!!data.isDataTrack);
@@ -153,7 +154,7 @@ class Track {
 
         this.length(newLength);
 
-        var newFormattedLength = formatTrackLength(newLength);
+        var newFormattedLength = formatTrackLength(newLength, '');
         if (length !== newFormattedLength) {
             this.formattedLength(newFormattedLength);
         }
@@ -472,7 +473,7 @@ class Medium {
         _.each(tocTracks, function (track, index) {
             track.formattedLength(
                 formatTrackLength(
-                    ((toc[index + 4] || toc[2]) - toc[index + 3]) / 75 * 1000
+                    (((toc[index + 4] || toc[2]) - toc[index + 3]) / 75 * 1000), ''
                 )
             );
         });
@@ -661,6 +662,10 @@ class ReleaseLabel {
     labelHTML() {
         return this.label().html({ target: "_blank" });
     }
+
+    needsLabelMessage() {
+        return l('You haven’t selected a label for “{name}”.', {name: this.label().name});
+    }
 }
 
 fields.ReleaseLabel = ReleaseLabel;
@@ -799,10 +804,6 @@ class Release extends MB_entity.Release {
             _.map(this.labels.peek(), MB_edit.fields.releaseLabel)
         );
 
-        function releaseLabelKey(releaseLabel) {
-            return ((releaseLabel.label() || {}).id || '') + '\0' + clean(releaseLabel.catalogNumber());
-        }
-
         function nonEmptyReleaseLabel(releaseLabel) {
             return releaseLabelKey(releaseLabel) !== '\0';
         }
@@ -835,7 +836,7 @@ class Release extends MB_entity.Release {
             utils.mapChild(this, data.mediums, Medium)
         );
 
-        this.formats = data.formats;
+        this.formats = data.combined_format_name;
         this.mediums.original = ko.observableArray([]);
         this.mediums.original(this.existingMediumData());
         this.original = ko.observable(MB_edit.fields.release(this));

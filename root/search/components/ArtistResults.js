@@ -17,7 +17,7 @@ import formatDate from '../../static/scripts/common/utility/formatDate';
 import formatEndDate from '../../static/scripts/common/utility/formatEndDate';
 import primaryAreaCode from '../../static/scripts/common/utility/primaryAreaCode';
 import loopParity from '../../utility/loopParity';
-import type {ResultsPropsT} from '../types';
+import type {InlineResultsPropsT, ResultsPropsT} from '../types';
 
 import PaginatedSearchResults from './PaginatedSearchResults';
 import ResultsLayout from './ResultsLayout';
@@ -53,6 +53,33 @@ function buildResult(result, index) {
   );
 }
 
+export const ArtistResultsInline = ({
+  $c,
+  pager,
+  query,
+  results,
+}: InlineResultsPropsT<ArtistT>) => (
+  <PaginatedSearchResults
+    buildResult={buildResult}
+    columns={
+      <>
+        <th>{l('Name')}</th>
+        <th>{l('Sort Name')}</th>
+        <th>{l('Type')}</th>
+        <th>{l('Gender')}</th>
+        <th>{l('Area')}</th>
+        <th>{l('Begin')}</th>
+        <th>{l('Begin Area')}</th>
+        <th>{l('End')}</th>
+        <th>{l('End Area')}</th>
+      </>
+    }
+    pager={pager}
+    query={query}
+    results={results}
+  />
+);
+
 const ArtistResults = ({
   $c,
   form,
@@ -62,19 +89,8 @@ const ArtistResults = ({
   results,
 }: ResultsPropsT<ArtistT>) => (
   <ResultsLayout form={form} lastUpdated={lastUpdated}>
-    <PaginatedSearchResults
-      buildResult={buildResult}
-      columns={[
-        l('Name'),
-        l('Sort Name'),
-        l('Type'),
-        l('Gender'),
-        l('Area'),
-        l('Begin'),
-        l('Begin Area'),
-        l('End'),
-        l('End Area'),
-      ]}
+    <ArtistResultsInline
+      $c={$c}
       pager={pager}
       query={query}
       results={results}
