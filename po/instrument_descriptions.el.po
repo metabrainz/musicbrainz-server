@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2018-08-13 13:23+0000\n"
-"Last-Translator: yvanz\n"
+"PO-Revision-Date: 2018-10-15 16:09+0000\n"
+"Last-Translator: Michael Wiencek <email address hidden>\n"
 "Language-Team: Greek (http://www.transifex.com/musicbrainz/musicbrainz/language/el/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -55,13 +55,6 @@ msgstr "Το μπάσο συνθεσάιζερ χρησιμοποιείται γ
 msgid ""
 "A bell tree is a percussion instrument, consisting of vertically nested "
 "inverted metal bowls."
-msgstr ""
-
-#. name:bicycle bell
-#: DB:instrument/description:743
-msgid ""
-"A bicycle bell is a percussive signaling instrument mounted on a bicycle for"
-" warning pedestrians and other cyclists."
 msgstr ""
 
 #. name:bullroarer
@@ -158,7 +151,7 @@ msgid ""
 "whistling, chattering sound that resembled birds"
 msgstr ""
 
-#. name:17-string koto
+#. name:17-string bass koto
 #: DB:instrument/description:516
 msgid ""
 "A koto with 17 rather than 13 strings, sometimes described as a bass koto."
@@ -253,11 +246,6 @@ msgstr ""
 msgid ""
 "A pole with bells and/or zills used in the traditional Ottoman military "
 "bands"
-msgstr ""
-
-#. name:chainsaw
-#: DB:instrument/description:769
-msgid "A powered tool primarily used in the cutting of wood"
 msgstr ""
 
 #. name:prepared piano
@@ -480,6 +468,11 @@ msgid ""
 "festivities."
 msgstr ""
 
+#. name:ravanahatha
+#: DB:instrument/description:754
+msgid "Ancient bowed fiddle, once popular in Western India and Sri Lanka."
+msgstr ""
+
 #. name:three-hole pipe
 #: DB:instrument/description:805
 msgid ""
@@ -566,6 +559,13 @@ msgstr ""
 msgid ""
 "Bass member of the Serbo-Croatian tamburica orchestra, it is contrabass "
 "like. it has four thick metal strings"
+msgstr ""
+
+#. name:bicycle bell
+#: DB:instrument/description:743
+msgid ""
+"Bell as found on bicycles, sound is made by internal spring loaded hammer, "
+"not unlike alarm-clock."
 msgstr ""
 
 #. name:bendir
@@ -699,11 +699,30 @@ msgid ""
 "metal cone, it is used in the traditional Cobla and Sardana music."
 msgstr ""
 
+#. name:flamenco guitar
+#: DB:instrument/description:938
+msgid ""
+"Deriving from the classical guitar, it has many modifications and playing "
+"techniques to create a more percussive sound. Originally having wooden "
+"tuning pegs like lutes and violins, it has a thinner, lighter build with "
+"\"golpeadores\" or tapping-plates and less sustain than the classical "
+"guitar."
+msgstr ""
+
 #. name:theorbo
 #: DB:instrument/description:395
 msgid ""
 "Developed as an extended range bass-lute in Italy during the late sixteenth "
 "century, it has an extended neck with a second pegbox."
+msgstr ""
+
+#. name:chitarra battente
+#: DB:instrument/description:939
+msgid ""
+"Developed chiefly as a folk instrument for accompanying singing and dancing,"
+" its front has a intricately carved soundhole and slants towards the bottom "
+"where the 5 double (sometimes triple courses) of thin steel strings are "
+"fastened with pins. The back can be rounded or flat."
 msgstr ""
 
 #. name:violin family
@@ -1150,6 +1169,20 @@ msgid ""
 "folk music."
 msgstr ""
 
+#. name:njarka
+#: DB:instrument/description:936
+msgid ""
+"Made of goatskin covered dried gourd, it has a single gut string bowed with "
+"a horsehair bow."
+msgstr ""
+
+#. name:güira
+#: DB:instrument/description:937
+msgid ""
+"Made of metal with many small notches scraped with a brush or hair pick, it "
+"is used in Merengue típico."
+msgstr ""
+
 #. name:sasando
 #: DB:instrument/description:928
 msgid ""
@@ -1284,6 +1317,11 @@ msgid ""
 "are strung."
 msgstr ""
 
+#. name:handbell
+#: DB:instrument/description:275
+msgid "Open in one end, it has a strap to hold while ringing."
+msgstr ""
+
 #. name:pipe and tabor
 #: DB:instrument/description:807
 msgid ""
@@ -1335,11 +1373,19 @@ msgid ""
 "string while pulling the it."
 msgstr ""
 
+#. name:octavina
+#: DB:instrument/description:941
+msgid ""
+"Originating with the Spanish influence on Filipino culture, it has 14 "
+"strings and a short neck with 16 to 20 frets. It is played with its close "
+"relative, the laúd."
+msgstr ""
+
 #. name:other instruments
 #: DB:instrument/description:141
 msgid ""
 "Other instruments. If you can't find an instrument, please <a "
-"href=\"http://tickets.musicbrainz.org/browse/INST\">request it</a>."
+"href=\"https://musicbrainz.org/doc/How_to_Add_Instruments\">request it</a>."
 msgstr ""
 
 #. name:castanets
@@ -1431,6 +1477,14 @@ msgstr ""
 #. name:ngɔni
 #: DB:instrument/description:729
 msgid "Plucked string instrument made of wood or gourd from West Africa."
+msgstr ""
+
+#. name:melodica
+#: DB:instrument/description:44
+msgid ""
+"Popular as a musical education tool, it is usually made of plastic with a "
+"keyboard, its free-reed mouthpiece can also have an optional air tube. It "
+"has many brandnames."
 msgstr ""
 
 #. name:claviorganum
@@ -2376,13 +2430,6 @@ msgid ""
 "strings and movable bridges."
 msgstr ""
 
-#. name:harmonica
-#: DB:instrument/description:43
-msgid ""
-"The harmonica or blues harp is a type of mouth organ commonly found in "
-"blues, American folk, jazz, country and rock and roll music."
-msgstr ""
-
 #. name:harp guitar
 #: DB:instrument/description:681
 msgid ""
@@ -2873,13 +2920,6 @@ msgid ""
 " ranat ek but lower in pitch."
 msgstr ""
 
-#. name:ravanahatha
-#: DB:instrument/description:754
-msgid ""
-"The ravanahatha is an ancient bowed violin, once popular in Western India "
-"and Sri Lanka."
-msgstr ""
-
 #. name:reco-reco
 #: DB:instrument/description:721
 msgid "The reco-reco is a scraped"
@@ -3355,13 +3395,6 @@ msgid ""
 "The vichitra veena is a plucked string instrument used in Hindustani music."
 msgstr ""
 
-#. name:viola caipira
-#: DB:instrument/description:660
-msgid ""
-"The viola caipira (or simply viola) is a steel-string guitar from Brazil "
-"which has ten strings in five courses."
-msgstr ""
-
 #. name:violino piccolo
 #: DB:instrument/description:661
 msgid ""
@@ -3709,11 +3742,36 @@ msgid ""
 "rhythm."
 msgstr ""
 
+#. name:veena
+#: DB:instrument/description:943
+msgid ""
+"Two subfamilies, The North Indian 2 gourd stick zither used in classical "
+"Hindustani music and the the South Indian single gourd lute used in "
+"classical Carnatic music."
+msgstr ""
+
 #. name:pūkaea
 #: DB:instrument/description:788
 msgid ""
 "Up to 2,5 meters long, this wooden trumpet was used for a variety of "
 "announcements like war, welcoming people and kumara planting."
+msgstr ""
+
+#. name:harmonica
+#: DB:instrument/description:43
+msgid ""
+"Used especially in blues, American folk and country, it consists of a "
+"rectangle shape with soundholes along the wide side, where air is blown and "
+"drawn across free reeds which are mounted on a plate inside."
+msgstr ""
+
+#. name:octavilla
+#: DB:instrument/description:940
+msgid ""
+"Used in Spanish classic and popular music during the late 19th and early "
+"20th century, it together with bandurria and laúd carried the melody in "
+"rondas and rondallas. It had six pairs of strings, tuned a fourth lower than"
+" bandurria, It fell out of use when contralto bandurria became common."
 msgstr ""
 
 #. name:danso
@@ -3722,6 +3780,11 @@ msgid ""
 "Used in folk music and educationally in Korean schools, it is a notched, "
 "vertically end-blown bamboo flute which, like its bigger cousin the Tungso, "
 "was derived from the Chinese xiao in the 19th century."
+msgstr ""
+
+#. name:viola caipira
+#: DB:instrument/description:660
+msgid "Used in folk-music, It has ten steel strings in five courses."
 msgstr ""
 
 #. name:hyoshigi
@@ -4005,6 +4068,11 @@ msgstr ""
 #. name:tubon
 #: DB:instrument/description:775
 msgid "electronic bass organ proto-keytar"
+msgstr ""
+
+#. name:saxophone quartet
+#: DB:instrument/description:942
+msgid "ensemble of four saxophones, generally SATBar"
 msgstr ""
 
 #. name:hmông flute

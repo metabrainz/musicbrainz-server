@@ -10,7 +10,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2018-10-01 12:46+0000\n"
+"PO-Revision-Date: 2018-10-22 14:43+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -677,6 +677,16 @@ msgid ""
 "unknown!"
 msgstr "Koppelt de uitgave aan het gebied waarin hij werd geremixt. Gebruik dit alleen als de plaats onbekend is."
 
+#: DB:link_type/description:967
+msgid ""
+"Links a release to the area where the lacquer cutting took place. Use only "
+"when the place is unknown!"
+msgstr ""
+
+#: DB:link_type/description:969
+msgid "Links a release to the engineer who did the lacquer cutting for it."
+msgstr ""
+
 #: DB:link_type/description:810
 msgid "Links a release to the event it was recorded at."
 msgstr "Koppelt de uitgave aan het evenement waarbij het werd opgenomen."
@@ -728,6 +738,10 @@ msgid ""
 "Links a release to the place where the glass master for pressing was made. "
 "Not the same as mastered!"
 msgstr "Deze relatie koppelt een uitgave aan het gebied waar de glasmaster voor het persen werd gemaakt. Dit is niet hetzelfde als masteren!"
+
+#: DB:link_type/description:968
+msgid "Links a release to the place where the lacquer cutting took place."
+msgstr ""
 
 #: DB:link_type/description:796
 msgid "Links a release with a launch event for it."
@@ -1330,6 +1344,12 @@ msgstr "Dit geeft aan dat (meestal) een festival opdracht heeft gegeven voor de 
 msgid "This indicates that a person is, or was, a conductor for a group."
 msgstr "Dit geeft aan dat een persoon de dirigent van een groep is of was."
 
+#: DB:link_type/description:965
+msgid ""
+"This indicates that a person is, or was, the artistic director of a group "
+"(e.g. a ballet/opera company)."
+msgstr ""
+
 #: DB:link_type/description:137
 msgid ""
 "This indicates that a person or agency did the art direction for the "
@@ -1637,6 +1657,10 @@ msgstr "Dit geeft de rechtenorganisatie aan die met een uitgave is geassocieerd.
 #: DB:link_type/description:963
 msgid "This indicates the video was shot at this place."
 msgstr "Deze relatie geeft aan dat de videoclip op deze locatie is opgenomen."
+
+#: DB:link_type/description:966
+msgid "This indicates the video was shot at/during this event."
+msgstr "Deze relatie geeft aan dat de video tijdens of bij dit evenement is opgenomen."
 
 #: DB:link_type/description:964
 msgid "This indicates the video was shot in this area."
@@ -3116,6 +3140,14 @@ msgstr "hier gearrangeerd"
 msgid "artist & repertoire support"
 msgstr "A&R-ondersteuning"
 
+#: DB:link_type/reverse_link_phrase:965
+msgid "artistic director"
+msgstr ""
+
+#: DB:link_type/link_phrase:965
+msgid "artistic director for"
+msgstr ""
+
 #: DB:link_attribute_type/name:526
 msgid "assistant"
 msgstr "assistent"
@@ -3302,14 +3334,6 @@ msgstr "huiscomponist"
 msgid "composition"
 msgstr "compositie"
 
-#: DB:link_type/reverse_link_phrase:759 DB:link_type/reverse_link_phrase:760
-msgid "concertmaster"
-msgstr "concertmeester"
-
-#: DB:link_type/link_phrase:759 DB:link_type/link_phrase:760
-msgid "concertmaster for"
-msgstr "concertmeester van"
-
 #: DB:link_type/link_phrase:806
 msgid "conductor at"
 msgstr "dirigent bij"
@@ -3422,6 +3446,10 @@ msgstr "crowdfundingpagina"
 #: DB:link_type/reverse_link_phrase:902
 msgid "crowdfunding page for"
 msgstr "crowdfundingpagina voor"
+
+#: DB:link_type/long_link_phrase:969
+msgid "cut the lacquer for"
+msgstr ""
 
 #: DB:link_type/reverse_link_phrase:868 DB:link_type/reverse_link_phrase:846
 #: DB:link_type/reverse_link_phrase:922 DB:link_type/reverse_link_phrase:914
@@ -3962,6 +3990,10 @@ msgstr "heeft de persoonlijke uitgever"
 msgid "has poster at"
 msgstr "heeft een affiche op"
 
+#: DB:link_type/reverse_link_phrase:230
+msgid "has remixes"
+msgstr ""
+
 #: DB:link_type/link_phrase:315 DB:link_type/long_link_phrase:315
 msgid "has revision"
 msgstr "heeft revisie"
@@ -4203,6 +4235,10 @@ msgstr "is/was een subgroep van"
 msgid "is/was a supporting artist for"
 msgstr "is/was een ondersteunende artiest voor"
 
+#: DB:link_type/long_link_phrase:965
+msgid "is/was artistic director for"
+msgstr ""
+
 #: DB:link_type/long_link_phrase:203
 msgid "is/was distributing the catalog of"
 msgstr "distribueert/distribueerde de catalogus van"
@@ -4240,6 +4276,22 @@ msgstr "karaokeversie van"
 #: DB:link_type/link_phrase:226
 msgid "karaoke versions"
 msgstr "karaokeversies"
+
+#: DB:link_type/link_phrase:969 DB:link_type/reverse_link_phrase:969
+msgid "lacquer cut"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:968
+msgid "lacquer cut at"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:967
+msgid "lacquer cut in"
+msgstr ""
+
+#: DB:link_type/link_phrase:967 DB:link_type/link_phrase:968
+msgid "lacquer cut location for"
+msgstr ""
 
 #: DB:link_type/link_phrase:238
 msgid "later releases"
@@ -5009,7 +5061,7 @@ msgstr "remasters"
 msgid "remix of"
 msgstr "remix van"
 
-#: DB:link_type/reverse_link_phrase:230 DB:link_type/reverse_link_phrase:9
+#: DB:link_type/reverse_link_phrase:9
 msgid "remixes"
 msgstr "remixes"
 
@@ -5392,13 +5444,13 @@ msgstr "werd hernoemd naar"
 msgid "was rescheduled as"
 msgstr "werd opnieuw gepland als"
 
-#: DB:link_type/long_link_phrase:759 DB:link_type/long_link_phrase:760
-msgid "was the concertmaster for"
-msgstr "was de concertmeester van"
-
 #: DB:link_type/long_link_phrase:930 DB:link_type/long_link_phrase:931
 msgid "was the piano technician for"
 msgstr "was de pianotechnicus voor"
+
+#: DB:link_type/long_link_phrase:760 DB:link_type/long_link_phrase:759
+msgid "was the {guest} concertmaster for"
+msgstr ""
 
 #: DB:link_type/long_link_phrase:36 DB:link_type/long_link_phrase:128
 msgid ""
@@ -5526,9 +5578,13 @@ msgstr "{additional:aanvullend} geremixt in"
 msgid "{additional:additionally} sampled by"
 msgstr "{additional:aanvullend} gesampeld in"
 
-#: DB:link_type/reverse_link_phrase:963
+#: DB:link_type/reverse_link_phrase:963 DB:link_type/reverse_link_phrase:966
 msgid "{additional:additionally} shot at"
 msgstr "video {additional:aanvullende} opgenomen bij"
+
+#: DB:link_type/link_phrase:966
+msgid "{additional:additionally} shot for"
+msgstr ""
 
 #: DB:link_type/reverse_link_phrase:964
 msgid "{additional:additionally} shot in"
@@ -6199,7 +6255,7 @@ msgstr "{entity1} werd {additional:aanvullend} geremixt bij {entity0}"
 msgid "{entity1} was {additional:additionally} remixed in {entity0}"
 msgstr "{entity1} werd {additional:aanvullend} geremixt in {entity0}"
 
-#: DB:link_type/long_link_phrase:963
+#: DB:link_type/long_link_phrase:963 DB:link_type/long_link_phrase:966
 msgid "{entity1} was {additional:additionally} shot at {entity0}"
 msgstr "de video van {entity1} werd {additional:aanvullend} opgenomen bij {entity0}"
 
@@ -6236,6 +6292,18 @@ msgid ""
 "{entity1} was {anniversary:an anniversary tour for|a tour in support of} "
 "{entity0}"
 msgstr "{entitiy1} was {anniversary:een jubileumtournee voor|een ondersteunende tournee voor} {entity0}"
+
+#: DB:link_type/long_link_phrase:967 DB:link_type/long_link_phrase:968
+msgid "{entity1}'s lacquer was cut in {entity0}"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:760 DB:link_type/reverse_link_phrase:759
+msgid "{guest} concertmaster"
+msgstr ""
+
+#: DB:link_type/link_phrase:760 DB:link_type/link_phrase:759
+msgid "{guest} concertmaster for"
+msgstr ""
 
 #: DB:link_type/link_phrase:110 DB:link_type/reverse_link_phrase:110
 msgid "{half:half-}{step}siblings"

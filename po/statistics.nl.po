@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-04-23 18:29+0200\n"
-"PO-Revision-Date: 2018-05-31 11:55+0000\n"
+"PO-Revision-Date: 2018-10-22 12:30+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -168,11 +168,11 @@ msgstr "Schoonmaakuitgave"
 
 #: DB:statistics.statistic_event/title:2008-11-24
 msgid "Collection, Ratings, CDStubs"
-msgstr "Collectie, Waarderingen, cd-beginsels"
+msgstr "Collectie, Waarderingen, cd-beginnetjes"
 
 #: DB:statistics.statistic_event/description:2008-11-24
 msgid "Collection, Ratings, CDStubs, LastUpdate released."
-msgstr "Collecties, waarderingen, cd-beginsels en LastUpdate worden uitgebracht."
+msgstr "Collecties, waarderingen, cd-beginnetjes en LastUpdate worden uitgebracht."
 
 #: DB:statistics.statistic_event/title:2013-08-05
 msgid "Cover Art Uploader"
@@ -234,12 +234,12 @@ msgstr "Het Grote Schisma"
 
 #: DB:statistics.statistic_event/title:2009-06-17
 msgid "Imported CD Baby catalog as CD Stubs"
-msgstr "Catalogus van CD Baby geïmporteerd als cd-beginsels"
+msgstr "Catalogus van CD Baby geïmporteerd als cd-beginnetjes"
 
 #: DB:statistics.statistic_event/description:2009-06-17
 msgid ""
 "Imported the metadata from the CD Baby catalog into our CD Stubs collection."
-msgstr "Metagegevens van de catalogus van CD Baby geïmporteerd in onze verzameling cd-beginsels."
+msgstr "Metagegevens van de catalogus van CD Baby geïmporteerd in onze verzameling cd-beginnetjes."
 
 #: DB:statistics.statistic_event/title:2004-07-24
 msgid "Improve voting"
@@ -443,7 +443,7 @@ msgstr "Relatiebewerker"
 
 #: DB:statistics.statistic_event/title:2009-05-24
 msgid "Release Groups, ISRCs, CDStub searching"
-msgstr "Uitgavegroepen, ISRC’s, zoeken naar cd-beginsels"
+msgstr "Uitgavegroepen, ISRC’s, zoeken naar cd-beginnetjes"
 
 #: DB:statistics.statistic_event/title:2003-10-19
 #: DB:statistics.statistic_event/title:2006-07-12
@@ -457,7 +457,7 @@ msgstr "De uitgavebewerker en het gokken van hoofdlettergebruik worden uitgebrac
 #: DB:statistics.statistic_event/description:2009-05-24
 msgid ""
 "Release groups, ISRC support, CDStub searching and search fixes released."
-msgstr "Uitgavegroepen, ondersteuning voor ISRC’s, zoeken in cd-beginsels en verbeteringen aan de zoekfunctie uitgebracht."
+msgstr "Uitgavegroepen, ondersteuning voor ISRC’s, zoeken in cd-beginnetjes en verbeteringen aan de zoekfunctie uitgebracht."
 
 #: DB:statistics.statistic_event/title:2015-09-04
 msgid "Roman Tsukanov joins the MetaBrainz team"
@@ -679,7 +679,7 @@ msgstr "CAA:"
 
 #: ../root/statistics/index.tt:87
 msgid "CD Stubs (all time / current):"
-msgstr "Cd-beginsels (altijd / nu):"
+msgstr "Cd-beginnetjes (altijd / nu):"
 
 #: ../root/statistics/index.tt:900
 msgid "Cancelled:"
@@ -1688,27 +1688,27 @@ msgstr "Streepjescodes"
 
 #: ../root/statistics/stats.js:163
 msgid "Count of all CDStubs"
-msgstr "Totaal aantal cd-beginsels"
+msgstr "Totaal aantal cd-beginnetjes"
 
 #: ../root/statistics/stats.js:164
 msgid "CDStubs (all)"
-msgstr "Cd-beginsels (totaal)"
+msgstr "Cd-beginnetjes (totaal)"
 
 #: ../root/statistics/stats.js:169
 msgid "Count of all CDStubs ever submitted"
-msgstr "Totaal aantal ooit ingediende cd-beginsels"
+msgstr "Totaal aantal ooit ingediende cd-beginnetjes"
 
 #: ../root/statistics/stats.js:170
 msgid "CDStubs (submitted)"
-msgstr "Cd-beginsels (ingevoerd)"
+msgstr "Cd-beginnetjes (ingevoerd)"
 
 #: ../root/statistics/stats.js:175
 msgid "Count of all CDStub tracks"
-msgstr "Totaal aantal nummers in cd-beginsels"
+msgstr "Totaal aantal nummers in cd-beginnetjes"
 
 #: ../root/statistics/stats.js:176
 msgid "CDStub tracks"
-msgstr "Nummers in cd-beginsels"
+msgstr "Nummers in cd-beginnetjes"
 
 #: ../root/statistics/stats.js:181 ../root/statistics/stats.js:182
 msgid "Pieces of Cover Art"

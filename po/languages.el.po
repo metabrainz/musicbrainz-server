@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2018-05-22 09:16+0000\n"
-"Last-Translator: yvanz\n"
+"PO-Revision-Date: 2018-10-15 16:09+0000\n"
+"Last-Translator: Michael Wiencek <email address hidden>\n"
 "Language-Team: Greek (http://www.transifex.com/musicbrainz/musicbrainz/language/el/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -244,6 +244,11 @@ msgstr "Βασκικά"
 msgid "Batak languages"
 msgstr ""
 
+#. frequency:1 iso_code_3:bar
+#: DB:language/name:982
+msgid "Bavarian"
+msgstr ""
+
 #. frequency:1 iso_code_3:bej
 #: DB:language/name:44
 msgid "Beja"
@@ -302,6 +307,11 @@ msgstr ""
 #. frequency:0 iso_code_3:zbl
 #: DB:language/name:482
 msgid "Blissymbols"
+msgstr ""
+
+#. frequency:1 iso_code_3:brx
+#: DB:language/name:1394
+msgid "Bodo (India)"
 msgstr ""
 
 #. frequency:1 iso_code_3:bos
@@ -1564,6 +1574,11 @@ msgstr ""
 msgid "Min Nan Chinese"
 msgstr "Κινέζικα Μινάν"
 
+#. frequency:1 iso_code_3:hna
+#: DB:language/name:2735
+msgid "Mina (Cameroon)"
+msgstr ""
+
 #. frequency:1 iso_code_3:min
 #: DB:language/name:272
 msgid "Minangkabau"
@@ -1824,11 +1839,6 @@ msgstr ""
 msgid "Pangasinan"
 msgstr ""
 
-#. frequency:1 iso_code_3:pan
-#: DB:language/name:330
-msgid "Panjabi"
-msgstr "Παντζάμπι"
-
 #. frequency:1 iso_code_3:pap
 #: DB:language/name:331
 msgid "Papiamento"
@@ -1888,6 +1898,11 @@ msgstr ""
 #: DB:language/name:342
 msgid "Provençal, Old (to 1500)"
 msgstr "Προβηγκιανά, Αρχαία (μέχρι το 1500)"
+
+#. frequency:1 iso_code_3:pan
+#: DB:language/name:330
+msgid "Punjabi"
+msgstr ""
 
 #. frequency:1 iso_code_3:pus
 #: DB:language/name:343
