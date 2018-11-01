@@ -190,6 +190,7 @@ msgid "Rhodes piano"
 msgstr ""
 
 #: DB:instrument/name:476
+msgctxt "Ancient Carnatic veena lute"
 msgid "Saraswati veena"
 msgstr ""
 
@@ -948,7 +949,7 @@ msgid "claviola"
 msgstr ""
 
 #: DB:instrument/name:815
-msgctxt "electronic keyboard, forerunner to analogue syntheziers"
+msgctxt "electronic keyboard, forerunner to analogue synthesizers"
 msgid "clavioline"
 msgstr ""
 
