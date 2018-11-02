@@ -107,6 +107,9 @@ role
         }
 
         if ($entity) {
+          if ($entity->gid != $id) {
+            $c->res->redirect($c->uri_for($c->action,[$entity->gid]), 301);
+          }        
             $c->model($model)->load_gid_redirects($entity) if exists $entity_properties->{mbid} && $entity_properties->{mbid}{multiple};
             return $entity;
         }
