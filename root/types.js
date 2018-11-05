@@ -203,6 +203,9 @@ type CatalystContextT = {|
     +language: {|
       +[number]: LanguageT,
     |},
+    +link_attribute_type: {|
+      +[number]: AttrInfoT,
+    |},
     +link_type: {|
       +[number]: LinkTypeT,
     |},

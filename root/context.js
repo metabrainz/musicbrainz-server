@@ -20,6 +20,7 @@ const defaultContext = {
   linked_entities: {
     artist_type: {},
     language: {},
+    link_attribute_type: {},
     link_type: {},
     release_group_primary_type: {},
     release_group_secondary_type: {},
