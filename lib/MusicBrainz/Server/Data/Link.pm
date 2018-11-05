@@ -83,10 +83,14 @@ sub _load_attributes
                     name => $row->{name},
                     free_text => $row->{free_text},
                     creditable => $row->{creditable},
+                    root_id => $row->{root_id},
+                    root_gid => $row->{root_gid},
                     root => MusicBrainz::Server::Entity::LinkAttributeType->new(
                         id => $row->{root_id},
                         gid => $row->{root_gid},
                         name => $row->{root_name},
+                        root_id => $row->{root_id},
+                        root_gid => $row->{root_gid},
                     ),
                 );
 
