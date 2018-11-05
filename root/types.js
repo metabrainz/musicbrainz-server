@@ -147,6 +147,7 @@ declare type AttrInfoT = {|
   +l_name: string,
   +name: string,
   root: AttrInfoT,
+  +root_gid: string,
   +rootID: number,
   +unaccented?: string,
 |};
@@ -609,6 +610,14 @@ declare type LinkAttrT = {|
   |},
   +credited_as?: string,
   +text_value?: string,
+|};
+
+declare type LinkAttrTypeT = {|
+  ...OptionTreeT<'link_attribute_type'>,
+  +creditable: boolean,
+  +freeText: boolean,
+  +root_gid: string,
+  +rootID: number,
 |};
 
 declare type LinkTypeAttrTypeT = {|

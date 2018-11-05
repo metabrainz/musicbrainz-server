@@ -1,6 +1,7 @@
 package MusicBrainz::Server::Entity::LinkAttributeType;
 use Moose;
 
+use MusicBrainz::Server::Data::Utils qw( boolean_to_json );
 use MusicBrainz::Server::Entity::Types;
 use MusicBrainz::Server::Translation::Relationships;
 use MusicBrainz::Server::Translation::Instruments;
@@ -64,10 +65,18 @@ has 'creditable' => (
 around TO_JSON => sub {
     my ($orig, $self) = @_;
 
+    my $root = $self->root;
+    if ($root) {
+        $self->link_entity('link_attribute_type', $root->gid, $root);
+    }
+
     return {
         %{ $self->$orig },
         gid => $self->gid,
-        $self->root ? (root => $self->root->TO_JSON) : (),
+        rootID => $self->root_id + 0,
+        root_gid => $self->root_gid,
+        freeText => boolean_to_json($self->free_text),
+        creditable => boolean_to_json($self->creditable),
     };
 };
 
