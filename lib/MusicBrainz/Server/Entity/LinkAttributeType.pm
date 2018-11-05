@@ -21,6 +21,11 @@ has 'root_id' => (
     isa => 'Int',
 );
 
+has 'root_gid' => (
+    is => 'rw',
+    isa => 'Str',
+);
+
 has 'root' => (
     is => 'rw',
     isa => 'LinkAttributeType',
