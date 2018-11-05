@@ -41,7 +41,12 @@ sub _columns
                 (SELECT true FROM link_creditable_attribute_type
                  WHERE attribute_type = link_attribute_type.id),
                 false
-            ) AS creditable';
+            ) AS creditable, ' .
+           'COALESCE(
+                (SELECT comment FROM instrument
+                 WHERE gid = link_attribute_type.gid),
+                \'\'
+            ) AS instrument_comment';
 }
 
 sub _column_mapping

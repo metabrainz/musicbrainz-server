@@ -144,6 +144,7 @@ declare type AttrInfoT = {|
   +freeText: boolean,
   +gid: string,
   +id: number,
+  +instrument_comment?: string,
   +l_name: string,
   +name: string,
   root: AttrInfoT,
@@ -616,6 +617,7 @@ declare type LinkAttrTypeT = {|
   ...OptionTreeT<'link_attribute_type'>,
   +creditable: boolean,
   +freeText: boolean,
+  +instrument_comment?: string,
   +root_gid: string,
   +rootID: number,
 |};

@@ -8,6 +8,7 @@
 
 import _ from 'lodash';
 
+import {INSTRUMENT_ROOT_ID} from '../../common/constants';
 import commaList from '../../common/i18n/commaList';
 import commaOnlyList from '../../common/i18n/commaOnlyList';
 import typeInfo from '../../common/typeInfo';
@@ -72,6 +73,16 @@ function _getResultCache(relationship: RelationshipInfoT) {
   return result;
 }
 
+function getAttributeLName(type: AttrInfoT) {
+  if (type.rootID === INSTRUMENT_ROOT_ID) {
+    if (type.instrument_comment) {
+      return lp_instruments(type.name, type.instrument_comment);
+    }
+    return l_instruments(type.name);
+  }
+  return l_relationships(type.name);
+}
+
 function _setAttributeValues(
   relationship: RelationshipInfoT,
   cache: CachedResult,
@@ -87,19 +98,23 @@ function _setAttributeValues(
   for (let i = 0; i < attributes.length; i++) {
     const attribute = attributes[i];
     const type = typeInfo.link_attribute_type[attribute.type.gid];
-    let value = type.l_name;
+    const typeName = getAttributeLName(type);
+    let value = typeName;
 
     if (type.freeText) {
       value = clean(attribute.text_value);
       if (value) {
-        value = texp.l('{attribute}: {value}', {attribute: type.l_name, value: value});
+        value = texp.l('{attribute}: {value}', {attribute: typeName, value: value});
       }
     }
 
     if (type.creditable) {
       const credit = clean(attribute.credited_as);
       if (credit) {
-        value = texp.l('{attribute} [{credited_as}]', {attribute: type.l_name, credited_as: credit});
+        value = texp.l('{attribute} [{credited_as}]', {
+          attribute: typeName,
+          credited_as: credit,
+        });
       }
     }
 

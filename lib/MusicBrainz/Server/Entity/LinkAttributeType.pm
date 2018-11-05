@@ -62,6 +62,11 @@ has 'creditable' => (
     isa => 'Bool',
 );
 
+has 'instrument_comment' => (
+    is => 'rw',
+    isa => 'Maybe[Str]',
+);
+
 around TO_JSON => sub {
     my ($orig, $self) = @_;
 
@@ -77,6 +82,7 @@ around TO_JSON => sub {
         root_gid => $self->root_gid,
         freeText => boolean_to_json($self->free_text),
         creditable => boolean_to_json($self->creditable),
+        $self->instrument_comment ? (instrument_comment => $self->instrument_comment) : (),
     };
 };
 

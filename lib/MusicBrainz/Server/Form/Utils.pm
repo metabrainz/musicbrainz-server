@@ -188,6 +188,7 @@ sub build_attr_info {
             creditable  => boolean_to_json($_->creditable),
         };
 
+        $attr->{instrument_comment} = $_->instrument_comment if $_->instrument_comment;
         $attr->{description} = $_->l_description if $_->description;
         $attr->{children} = build_child_info($_, \&build_attr) if $_->all_children;
 
