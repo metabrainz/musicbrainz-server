@@ -562,11 +562,13 @@ type LastUpdateRoleT = {|
 |};
 
 declare type LinkAttrT = {|
+  +credited_as?: string,
+  +text_value?: string,
   type: {|
     +gid: string,
   |},
-  +credited_as?: string,
-  +text_value?: string,
+  +typeID: number,
+  +typeName: string,
 |};
 
 declare type LinkAttrTypeT = {|
@@ -688,6 +690,7 @@ declare type RecordingT = {|
 
 declare type RelationshipT = {|
   ...DatePeriodRoleT,
+  ...EditableRoleT,
   // `attributes` may not exist when seeding.
   +attributes?: $ReadOnlyArray<LinkAttrT>,
   +direction?: 'backward',

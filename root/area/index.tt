@@ -3,7 +3,7 @@
 
     [%- show_wikipedia_extract() -%]
 
-    [%- INCLUDE "components/relationships.tt" source=area -%]
+    [% React.embed(c, 'components/Relationships', {source => area}) %]
 
     [%- script_manifest('area/index.js', {async => 'async'}) -%]
 [% END %]
