@@ -198,50 +198,6 @@ type CatalystContextT = {|
   +stash: CatalystStashT,
   +user?: CatalystUserT,
   +user_exists: boolean,
-  +linked_entities: {
-    +artist_type: {|
-      +[number]: ArtistTypeT,
-    |},
-    +language: {|
-      +[number]: LanguageT,
-    |},
-    +link_attribute_type: {|
-      +[number]: AttrInfoT,
-    |},
-    +link_type: {|
-      +[number]: LinkTypeT,
-    |},
-    +release_group_primary_type: {|
-      [number]: ReleaseGroupTypeT,
-    |},
-    +release_group_secondary_type: {|
-      [number]: ReleaseGroupSecondaryTypeT,
-    |},
-    +release_packaging: {|
-      +[number]: ReleasePackagingT,
-    |},
-    +release_status: {|
-      +[number]: ReleaseStatusT,
-    |},
-    +script: {|
-      +[number]: ScriptT,
-    |},
-    +series: {|
-      +[number]: SeriesT,
-    |},
-    +series_ordering_type: {|
-      +[number]: SeriesOrderingTypeT,
-    |},
-    +series_type: {|
-      +[number]: SeriesTypeT,
-    |},
-    +work: {|
-      +[number]: WorkT,
-    |},
-    +work_attribute_type: {|
-      +[number]: WorkAttributeTypeT,
-    |},
-  },
 |};
 
 type CatalystRequestContextT = {|

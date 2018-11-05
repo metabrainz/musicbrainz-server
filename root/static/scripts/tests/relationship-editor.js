@@ -10,8 +10,8 @@ import ko from 'knockout';
 import _ from 'lodash';
 import test from 'tape';
 
+import linkedEntities from '../common/linkedEntities';
 import MB from '../common/MB';
-import typeInfo from '../common/typeInfo';
 import fields from '../relationship-editor/common/fields';
 import {
   AddDialog,
@@ -109,7 +109,7 @@ var testRelease = {
     }
 };
 
-function id2attr(id) { return { type: typeInfo.link_attribute_type[id] } }
+function id2attr(id) { return { type: linkedEntities.link_attribute_type[id] } }
 
 function ids2attrs(ids) { return _.map(ids, id2attr) }
 

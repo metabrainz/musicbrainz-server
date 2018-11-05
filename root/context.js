@@ -17,22 +17,6 @@ const defaultContext = {
   action: {
     name: '',
   },
-  linked_entities: {
-    artist_type: {},
-    language: {},
-    link_attribute_type: {},
-    link_type: {},
-    release_group_primary_type: {},
-    release_group_secondary_type: {},
-    release_packaging: {},
-    release_status: {},
-    script: {},
-    series: {},
-    series_ordering_type: {},
-    series_type: {},
-    work: {},
-    work_attribute_type: {},
-  },
   relative_uri: '',
   req: {
     headers: {},

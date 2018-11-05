@@ -9,8 +9,8 @@ import _ from 'lodash';
 import {hex_sha1} from '../../../lib/sha1/sha1';
 import {VIDEO_ATTRIBUTE_GID} from '../../common/constants';
 import * as TYPES from '../../common/constants/editTypes';
+import linkedEntities from '../../common/linkedEntities';
 import MB from '../../common/MB';
-import typeInfo from '../../common/typeInfo';
 import clean from '../../common/utility/clean';
 import nonEmpty from '../../common/utility/nonEmpty';
 import request from '../../common/utility/request';
@@ -141,7 +141,7 @@ import request from '../../common/utility/request';
                 .value();
 
             if (_.isNumber(data.linkTypeID)) {
-                if (typeInfo.link_type[data.linkTypeID].orderable_direction !== 0) {
+                if (linkedEntities.link_type[data.linkTypeID].orderable_direction !== 0) {
                     data.linkOrder = number(relationship.linkOrder) || 0;
                 }
             }

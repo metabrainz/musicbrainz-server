@@ -15,6 +15,16 @@ const {dirs, PUBLIC_PATH} = require('./webpack/constants');
 const moduleConfig = require('./webpack/moduleConfig');
 const providePluginConfig = require('./webpack/providePluginConfig');
 
+/*
+* Components must use the same context, gettext, and linkedEntities
+* instances created in the server process, so those must be externals.
+*/
+const externals = [
+  'root/context',
+  'root/server/gettext',
+  'root/static/scripts/common/linkedEntities',
+];
+
 module.exports = {
   context: dirs.CHECKOUT,
 
@@ -24,14 +34,11 @@ module.exports = {
 
   externals: [
     nodeExternals({modulesFromFile: true}),
-     /*
-      * Components must use the same context and gettext instances
-      * created in the server process, so those must be externals.
-      */
+
     function (context, request, callback) {
       const resolvedRequest = path.resolve(context, request);
       const requestFromCheckout = path.relative(dirs.CHECKOUT, resolvedRequest);
-      if (/^root\/(context|server\/gettext)/.test(requestFromCheckout)) {
+      if (externals.includes(requestFromCheckout)) {
         /*
          * Output a path relative to the build dir, since that's where
          * the server-components bundle will be.

@@ -8,8 +8,8 @@ import _ from 'lodash';
 
 import 'knockout-arraytransforms';
 
+import linkedEntities from '../../common/linkedEntities';
 import MB from '../../common/MB';
-import typeInfo from '../../common/typeInfo';
 import deferFocus from '../../edit/utility/deferFocus';
 
 import mergeDates from './mergeDates';
@@ -205,7 +205,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
     }
 
     function isFreeText(linkAttribute) {
-        return typeInfo.link_attribute_type[linkAttribute.type.id].freeText;
+        return linkedEntities.link_attribute_type[linkAttribute.type.id].freeText;
     }
 
     function cacheByID(func) {

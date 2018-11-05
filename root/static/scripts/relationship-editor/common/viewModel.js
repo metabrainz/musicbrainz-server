@@ -7,8 +7,8 @@ import $ from 'jquery';
 import ko from 'knockout';
 import _ from 'lodash';
 
+import linkedEntities from '../../common/linkedEntities';
 import MB from '../../common/MB';
-import typeInfo from '../../common/typeInfo';
 import parseDate from '../../common/utility/parseDate';
 import request from '../../common/utility/request';
 import {hasSessionStorage} from '../../common/utility/storage';
@@ -42,20 +42,22 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
     }
 
 
-    RE.exportTypeInfo = _.once(function (_typeInfo, _attrInfo) {
-        typeInfo.link_type_tree = _typeInfo;
-        typeInfo.link_type = _(_typeInfo).values().flatten().transform(mapItems, {}).value();
-        typeInfo.link_attribute_type = _(_attrInfo).values().transform(mapItems, {}).value();
+    RE.exportTypeInfo = _.once(function (typeInfo, attrInfo) {
+        Object.assign(linkedEntities, {
+            link_type_tree: typeInfo,
+            link_type: _(typeInfo).values().flatten().transform(mapItems, {}).value(),
+            link_attribute_type: _(attrInfo).values().transform(mapItems, {}).value(),
+        });
 
-        _.each(typeInfo.link_type, function (type) {
+        _.each(linkedEntities.link_type, function (type) {
             _.each(type.attributes, function (typeAttr, id) {
-                typeAttr.attribute = typeInfo.link_attribute_type[id];
+                typeAttr.attribute = linkedEntities.link_attribute_type[id];
             });
         });
 
         MB.allowedRelations = {};
 
-        _(_typeInfo).keys().each(function (typeString) {
+        _(typeInfo).keys().each(function (typeString) {
             var types = typeString.split("-");
             var type0 = types[0];
             var type1 = types[1];
@@ -74,8 +76,8 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
         // Sort each list of types alphabetically.
         _(MB.allowedRelations).values().invokeMap('sort').value();
 
-        _.each(typeInfo.link_attribute_type, function (attr) {
-            attr.root = typeInfo.link_attribute_type[attr.rootID];
+        _.each(linkedEntities.link_attribute_type, function (attr) {
+            attr.root = linkedEntities.link_attribute_type[attr.rootID];
         });
     });
 
@@ -200,7 +202,7 @@ function getRelationshipEditor(data, source) {
     }
 
     var target = data.target;
-    var linkType = typeInfo.link_type[data.linkTypeID];
+    var linkType = linkedEntities.link_type[data.linkTypeID];
 
     if ((target && target.entityType === 'url') ||
         (linkType && (linkType.type0 === 'url' || linkType.type1 === 'url'))) {
@@ -248,7 +250,7 @@ function addRelationshipsFromQueryString(source) {
     var fields = parseQueryString(window.location.search);
 
     _.each(fields.rels, function (rel) {
-        var linkType = typeInfo.link_type[rel.type];
+        var linkType = linkedEntities.link_type[rel.type];
         var targetIsUUID = uuidRegex.test(rel.target);
 
         if (!linkType && !targetIsUUID) {
@@ -274,7 +276,7 @@ function addRelationshipsFromQueryString(source) {
 
         if (linkType) {
             data.attributes = _.transform(rel.attributes, function (accum, attr) {
-                var attrInfo = typeInfo.link_attribute_type[attr.type];
+                var attrInfo = linkedEntities.link_attribute_type[attr.type];
 
                 if (attrInfo && linkType.attributes[attrInfo.id]) {
                     accum.push({

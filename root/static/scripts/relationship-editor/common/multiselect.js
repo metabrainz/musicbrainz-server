@@ -7,7 +7,7 @@ import $ from 'jquery';
 import _ from 'lodash';
 import ko from 'knockout';
 
-import typeInfo from '../../common/typeInfo';
+import linkedEntities from '../../common/linkedEntities';
 import clean from '../../common/utility/clean';
 import deferFocus from '../../edit/utility/deferFocus';
 
@@ -92,7 +92,7 @@ import deferFocus from '../../edit/utility/deferFocus';
                 var typeGID = option.value;
 
                 var visible = matchIndex(option, term) >= 0 && (
-                    typeInfo.link_attribute_type[typeGID].creditable ||
+                    linkedEntities.link_attribute_type[typeGID].creditable ||
                     _.findIndex(selected, function (a) { return a.type.gid === typeGID }) < 0
                 );
 

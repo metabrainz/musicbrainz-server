@@ -11,7 +11,7 @@ import _ from 'lodash';
 import {INSTRUMENT_ROOT_ID} from '../../common/constants';
 import commaList from '../../common/i18n/commaList';
 import commaOnlyList from '../../common/i18n/commaOnlyList';
-import typeInfo from '../../common/typeInfo';
+import linkedEntities from '../../common/linkedEntities';
 import clean from '../../common/utility/clean';
 
 const attributeRegex = /\{(.*?)(?::(.*?))?\}/g;
@@ -73,7 +73,7 @@ function _getResultCache(relationship: RelationshipInfoT) {
   return result;
 }
 
-function getAttributeLName(type: AttrInfoT) {
+function getAttributeLName(type: AttrInfoT | LinkAttrTypeT) {
   if (type.rootID === INSTRUMENT_ROOT_ID) {
     if (type.instrument_comment) {
       return lp_instruments(type.name, type.instrument_comment);
@@ -97,7 +97,7 @@ function _setAttributeValues(
 
   for (let i = 0; i < attributes.length; i++) {
     const attribute = attributes[i];
-    const type = typeInfo.link_attribute_type[attribute.type.gid];
+    const type = linkedEntities.link_attribute_type[attribute.type.gid];
     const typeName = getAttributeLName(type);
     let value = typeName;
 
@@ -119,10 +119,10 @@ function _setAttributeValues(
     }
 
     if (value) {
-      const rootName = type.root.name;
       if (!values) {
         values = {};
       }
+      const rootName = linkedEntities.link_attribute_type[type.root_gid].name;
       (values[rootName] = values[rootName] || []).push(values);
     }
   }
@@ -135,7 +135,7 @@ export function getPhraseAndExtraAttributes(
   phraseProp: LinkPhraseProp,
   forGrouping?: boolean = false,
 ): [string, string] {
-  const linkType = typeInfo.link_type[relationship.linkTypeID];
+  const linkType = linkedEntities.link_type[relationship.linkTypeID];
   if (!linkType) {
     return emptyResult;
   }

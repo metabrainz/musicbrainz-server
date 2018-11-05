@@ -7,15 +7,16 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
+import linkedEntities from '../static/scripts/common/linkedEntities';
+
 export default function releaseGroupType(
-  $c: CatalystContextT,
   releaseGroup: ReleaseGroupT,
 ) {
   const types = [];
   let id = releaseGroup.typeID;
   if (id) {
     types.push(lp_attributes(
-      $c.linked_entities.release_group_primary_type[id].name,
+      linkedEntities.release_group_primary_type[id].name,
       'release_group_primary_type',
     ));
   }
@@ -23,7 +24,7 @@ export default function releaseGroupType(
   for (let i = 0; i < secondaryTypeIDs.length; i++) {
     id = secondaryTypeIDs[i];
     types.push(lp_attributes(
-      $c.linked_entities.release_group_secondary_type[id].name,
+      linkedEntities.release_group_secondary_type[id].name,
       'release_group_secondary_type',
     ));
   }

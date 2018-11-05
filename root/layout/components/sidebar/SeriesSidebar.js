@@ -11,6 +11,7 @@ import * as React from 'react';
 
 import {withCatalystContext} from '../../../context';
 import CommonsImage from '../../../static/scripts/common/components/CommonsImage';
+import linkedEntities from '../../../static/scripts/common/linkedEntities';
 import ExternalLinks from '../ExternalLinks';
 
 import AnnotationLinks from './AnnotationLinks';
@@ -48,8 +49,7 @@ const SeriesSidebar = ({$c, series}: Props) => {
 
         <SidebarProperty className="series-code" label={addColonText(l('Ordering Type'))}>
           {l_attributes(
-            $c.linked_entities
-              .series_ordering_type[series.orderingTypeID].name,
+            linkedEntities.series_ordering_type[series.orderingTypeID].name,
           )}
         </SidebarProperty>
       </SidebarProperties>

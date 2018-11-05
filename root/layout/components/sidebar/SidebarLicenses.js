@@ -16,6 +16,7 @@ import toArray from 'terable/toArray';
 
 import {withCatalystContext} from '../../../context';
 import * as manifest from '../../../static/manifest';
+import linkedEntities from '../../../static/scripts/common/linkedEntities';
 
 const LICENSE_CLASSES = {
   ArtLibre: {
@@ -96,11 +97,10 @@ const getLicenses = filter(r => (
 const buildLicenses = map(r => <LicenseDisplay key={r.id} url={r.target} />);
 
 type Props = {|
-  +$c: CatalystContextT,
   +entity: CoreEntityT,
 |};
 
-const SidebarLicenses = ({$c, entity}: Props) => {
+const SidebarLicenses = ({entity}: Props) => {
   let licenses = entity.relationships;
 
   if (!licenses) {
@@ -111,7 +111,7 @@ const SidebarLicenses = ({$c, entity}: Props) => {
     toArray,
     buildLicenses,
     sortBy(r => (
-      l_relationships($c.linked_entities.link_type[r.linkTypeID].link_phrase)
+      l_relationships(linkedEntities.link_type[r.linkTypeID].link_phrase)
     )),
     getLicenses,
   )(licenses);
@@ -124,4 +124,4 @@ const SidebarLicenses = ({$c, entity}: Props) => {
   ) : null;
 };
 
-export default withCatalystContext(SidebarLicenses);
+export default SidebarLicenses;

@@ -10,9 +10,9 @@ import {
   SERIES_ORDERING_ATTRIBUTE,
   SERIES_ORDERING_TYPE_AUTOMATIC,
 } from '../../common/constants';
+import linkedEntities from '../../common/linkedEntities';
 import MB_entity from '../../common/entity';
 import MB from '../../common/MB';
-import typeInfo from '../../common/typeInfo';
 import clean from '../../common/utility/clean';
 import formatDate from '../../common/utility/formatDate';
 import formatDatePeriod from '../../common/utility/formatDatePeriod';
@@ -169,7 +169,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
         }
 
         getLinkType() {
-            return typeInfo.link_type[this.linkTypeID()];
+            return linkedEntities.link_type[this.linkTypeID()];
         }
 
         hasDates() {
@@ -498,7 +498,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
     fields.Relationship = Relationship;
 
     fields.LinkAttribute = function (data) {
-        var type = this.type = typeInfo.link_attribute_type[data.type.gid];
+        var type = this.type = linkedEntities.link_attribute_type[data.type.gid];
 
         if (type.creditable) {
             this.creditedAs = ko.observable(ko.unwrap(data.credited_as) || "");
@@ -592,7 +592,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
             return [];
         } else {
             return _.transform(attributes, function (accum, data) {
-                var attrInfo = typeInfo.link_attribute_type[data.type.gid];
+                var attrInfo = linkedEntities.link_attribute_type[data.type.gid];
 
                 if (attrInfo && linkType.attributes[attrInfo.rootID]) {
                     accum.push(data);

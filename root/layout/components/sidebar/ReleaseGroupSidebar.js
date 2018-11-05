@@ -33,7 +33,7 @@ type Props = {|
 
 const ReleaseGroupSidebar = ({$c, releaseGroup}: Props) => {
   const gid = encodeURIComponent(releaseGroup.gid);
-  const typeName = releaseGroupType($c, releaseGroup);
+  const typeName = releaseGroupType(releaseGroup);
 
   return (
     <div id="sidebar">
