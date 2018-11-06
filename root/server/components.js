@@ -81,6 +81,7 @@ module.exports = {
   'relationship/linkattributetype/NotFound': require('../relationship/linkattributetype/NotFound'),
   'release/NotFound': require('../release/NotFound'),
   'release_group/NotFound': require('../release_group/NotFound'),
+  'release_group/ReleaseGroupIndex': require('../release_group/ReleaseGroupIndex'),
   'report/AnnotationsArtists': require('../report/AnnotationsArtists'),
   'report/AnnotationsLabels': require('../report/AnnotationsLabels'),
   'report/AnnotationsPlaces': require('../report/AnnotationsPlaces'),

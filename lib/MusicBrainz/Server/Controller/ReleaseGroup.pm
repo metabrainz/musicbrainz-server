@@ -10,6 +10,7 @@ use MusicBrainz::Server::Constants qw(
     $EDIT_RELEASEGROUP_SET_COVER_ART
     %ENTITIES
 );
+use MusicBrainz::Server::ControllerUtils::JSON qw( serialize_pager );
 use MusicBrainz::Server::Entity::Util::Release qw( group_by_release_status );
 
 with 'MusicBrainz::Server::Controller::Role::Load' => {
@@ -78,10 +79,21 @@ sub show : Chained('load') PathPart('') {
     $c->model('CritiqueBrainz')->load_display_reviews($rg)
         unless $self->should_return_jsonld($c);
 
+    my %props = (
+        numberOfRevisions => $c->stash->{number_of_revisions},
+        mostPopularReview => $rg->most_popular_review,
+        mostRecentReview  => $rg->most_recent_review,
+        pager             => serialize_pager($c->stash->{pager}),
+        releases          => group_by_release_status(@$releases),
+        releaseGroup      => $c->stash->{rg},
+        wikipediaExtract  => $c->stash->{wikipedia_extract},
+    );
+
     $c->stash(
-        template => 'release_group/index.tt',
-        releases_jsonld => {items => $releases},
-        releases => group_by_release_status(@$releases),
+        component_path => 'release_group/ReleaseGroupIndex.js',
+        component_props => \%props,
+        current_view => 'Node',
+        releases_jsonld   => { items => $releases },
     );
 }
 

@@ -815,8 +815,8 @@ declare type SanitizedCatalystContextT = {|
 |};
 
 declare type SanitizedEditorPreferencesT = {|
-  datetime_format: string,
-  timezone: string,
+  +datetime_format: string,
+  +timezone: string,
 |};
 
 declare type SanitizedEditorT = {|
