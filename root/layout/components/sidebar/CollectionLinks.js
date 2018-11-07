@@ -41,7 +41,7 @@ const CollectionLinks = ({$c, entity}: Props) => (
               {num: $c.stash.all_collections.length},
             )}
             entity={entity}
-            subPath="collection"
+            subPath="collections"
           />
         }
       />
