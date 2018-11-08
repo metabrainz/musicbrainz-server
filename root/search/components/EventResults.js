@@ -14,6 +14,7 @@ import {l} from '../../static/scripts/common/i18n';
 import {lp_attributes} from '../../static/scripts/common/i18n/attributes';
 import ArtistRoles from '../../static/scripts/common/components/ArtistRoles';
 import DescriptiveLink from '../../static/scripts/common/components/DescriptiveLink';
+import EntityLink from '../../static/scripts/common/components/EntityLink';
 import formatDatePeriod from '../../static/scripts/common/utility/formatDatePeriod';
 import loopParity from '../../utility/loopParity';
 import type {ResultsPropsT} from '../types';
@@ -28,8 +29,10 @@ function buildResult(result, index) {
   return (
     <tr className={loopParity(index)} data-score={score} key={event.id}>
       <td>
-        <DescriptiveLink entity={event} />
+        <EntityLink entity={event} showDisambiguation showEventDate={false} />
       </td>
+      <td>{formatDatePeriod(event)}</td>
+      <td>{event.time}</td>
       <td>{event.typeName ? lp_attributes(event.typeName, 'event_type') : null}</td>
       <td>
         <ArtistRoles relations={event.performers} />
@@ -48,8 +51,6 @@ function buildResult(result, index) {
           ))}
         </ul>
       </td>
-      <td>{formatDatePeriod(event)}</td>
-      <td>{event.time}</td>
     </tr>
   );
 }
@@ -68,11 +69,11 @@ const EventResults = ({
       columns={
         <>
           <th>{l('Name')}</th>
+          <th>{l('Date')}</th>
+          <th>{l('Time')}</th>
           <th>{l('Type')}</th>
           <th>{l('Artists')}</th>
           <th>{l('Location')}</th>
-          <th>{l('Date')}</th>
-          <th>{l('Time')}</th>
         </>
       }
       pager={pager}
