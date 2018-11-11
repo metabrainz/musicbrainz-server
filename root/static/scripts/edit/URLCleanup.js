@@ -434,7 +434,7 @@ const CLEANUPS = {
     }
   },
   amazon: {
-    match: [new RegExp("^(https?://)?([^/]+\\.)?(amazon\\.(com|ca|co\\.uk|fr|at|de|it|co\\.jp|jp|cn|es|in|com\\.br|com\\.mx)|amzn\\.com)","i")],
+    match: [new RegExp("^(https?://)?([^/]+\\.)?(amazon\\.(com|ca|co\\.uk|fr|at|de|it|co\\.jp|jp|cn|es|in|com\\.br|com\\.mx|com\\.au)|amzn\\.com)","i")],
     type: LINK_TYPES.amazon,
     clean: function (url) {
       // determine tld, asin from url, and build standard format [1],
@@ -470,7 +470,7 @@ const CLEANUPS = {
       }
     },
     validate: function (url, id) {
-      return /^https:\/\/www\.amazon\.(com|ca|co\.uk|fr|at|de|it|co\.jp|jp|cn|es|in|com\.br|com\.mx)\//.test(url);
+      return /^https:\/\/www\.amazon\.(com|ca|co\.uk|fr|at|de|it|co\.jp|jp|cn|es|in|com\.br|com\.mx|com\.au)\//.test(url);
     }
   },
   archive: {
