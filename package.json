@@ -72,7 +72,7 @@
     "eslint-plugin-import": "2.14.0",
     "eslint-plugin-react": "git://github.com/yannickcr/eslint-plugin-react#60b5642",
     "file-url": "2.0.2",
-    "flow-bin": "0.85.0",
+    "flow-bin": "0.86.0",
     "gulp-watch": "4.3.5",
     "http-proxy": "1.16.2",
     "jsdom": "11.1.0",
