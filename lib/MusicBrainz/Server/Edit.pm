@@ -336,6 +336,8 @@ sub TO_JSON {
             auto_edit => boolean_to_json($conditions->{auto_edit}),
         },
         created_time => datetime_to_iso8601($self->created_time),
+        data => $self->data,
+        edit_type => $self->edit_type + 0,
         editor_id => $self->editor_id + 0,
         expires_time => datetime_to_iso8601($self->expires_time),
         id => $self->id + 0,

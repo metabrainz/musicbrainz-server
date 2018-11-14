@@ -399,6 +399,8 @@ declare type EditT = {|
     +auto_edit: boolean,
   |},
   +created_time: string,
+  +data: Object,
+  +edit_type: number,
   +editor_id: number,
   +expires_time: string,
   +id: number,
