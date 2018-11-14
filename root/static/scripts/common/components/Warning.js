@@ -9,8 +9,6 @@
 
 import * as React from 'react';
 
-import {l} from '../i18n';
-
 import WarningIcon from '../../edit/components/WarningIcon';
 
 type Props = {|
@@ -26,7 +24,7 @@ const Warning = ({
   <div className={'warning' + (className ? ' ' + className : '')} {...divProps}>
     <WarningIcon />
     <p>
-      {l('<strong>Warning:</strong>', {__react: true})}
+      <strong>{addColon(l('Warning'))}</strong>
       {message}
     </p>
   </div>
