@@ -8,6 +8,7 @@ const _ = require('lodash');
 
 const {hex_sha1} = require('../../../lib/sha1/sha1');
 const {VIDEO_ATTRIBUTE_GID} = require('../../common/constants');
+import * as TYPES from '../../common/constants/editTypes';
 const MB = require('../../common/MB');
 const typeInfo = require('../../common/typeInfo');
 const clean = require('../../common/utility/clean');
@@ -16,26 +17,7 @@ const request = require('../../common/utility/request');
 
 (function (edit) {
 
-    var TYPES = edit.TYPES = {
-        EDIT_RELEASEGROUP_CREATE:                   20,
-        EDIT_RELEASEGROUP_EDIT:                     21,
-        EDIT_RELEASE_CREATE:                        31,
-        EDIT_RELEASE_EDIT:                          32,
-        EDIT_RELEASE_ADDRELEASELABEL:               34,
-        EDIT_RELEASE_ADD_ANNOTATION:                35,
-        EDIT_RELEASE_DELETERELEASELABEL:            36,
-        EDIT_RELEASE_EDITRELEASELABEL:              37,
-        EDIT_WORK_CREATE:                           41,
-        EDIT_MEDIUM_CREATE:                         51,
-        EDIT_MEDIUM_EDIT:                           52,
-        EDIT_MEDIUM_DELETE:                         53,
-        EDIT_MEDIUM_ADD_DISCID:                     55,
-        EDIT_RECORDING_EDIT:                        72,
-        EDIT_RELATIONSHIP_CREATE:                   90,
-        EDIT_RELATIONSHIP_EDIT:                     91,
-        EDIT_RELATIONSHIP_DELETE:                   92,
-        EDIT_RELEASE_REORDER_MEDIUMS:               313
-    };
+    edit.TYPES = TYPES;
 
 
     function value(arg) { return typeof arg === "function" ? arg() : arg }
