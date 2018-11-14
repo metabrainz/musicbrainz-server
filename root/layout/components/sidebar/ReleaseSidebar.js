@@ -233,12 +233,16 @@ const ReleaseSidebar = ({$c, release}: Props) => {
         heading={l('Release group rating')}
       />
 
-      <h2 className="reviews">
-        {l('Release group reviews')}
-      </h2>
-      <p>
-        <CritiqueBrainzLinks releaseGroup={releaseGroup} />
-      </p>
+      {releaseGroup.review_count != null ? (
+        <>
+          <h2 className="reviews">
+            {l('Release group reviews')}
+          </h2>
+          <p>
+            <CritiqueBrainzLinks releaseGroup={releaseGroup} />
+          </p>
+        </>
+      ) : null}
 
       <SidebarTags
         aggregatedTags={$c.stash.top_tags}
