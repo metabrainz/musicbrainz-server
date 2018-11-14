@@ -31,6 +31,9 @@ type Props = {|
 const CritiqueBrainzLinks = ({releaseGroup}: Props) => {
   const reviewCount = releaseGroup.review_count;
 
+  if (reviewCount == null) {
+    return null;
+  }
   if (reviewCount === 0) {
     return l('No one has reviewed this release group yet. Be the first to {write_link|write a review}.', {
       __react: true,
