@@ -226,6 +226,7 @@ sub find_by_artist
 
 sub _order_by {
     my ($self, $order) = @_;
+    $order = (($order // "") eq "") ? "-date" : $order;
 
     my $order_by = order_by($order, "date", {
         "date" => sub {
