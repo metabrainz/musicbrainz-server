@@ -33,6 +33,7 @@ const FormRowText = ({
       defaultValue={field.value}
       id={'id-' + field.html_name}
       name={field.html_name}
+      required={required}
       type={type}
       {...inputProps}
     />

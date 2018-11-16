@@ -65,7 +65,7 @@ declare type AreaT = {|
 |};
 
 declare type AnnotationRoleT = {|
-  +latest_annotation?: AnnotationT;
+  +latest_annotation?: AnnotationT,
 |};
 
 declare type AnnotationT = {|
@@ -552,7 +552,7 @@ declare type LinkTypeInfoT = {|
   +childOrder: number,
   +children?: $ReadOnlyArray<LinkTypeInfoT>,
   +deprecated: boolean,
-  +description?: string;
+  +description?: string,
   +gid: string,
   +hasDates: boolean,
   +id: number,

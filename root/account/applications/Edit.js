@@ -20,16 +20,15 @@ type Props = {|
   +form: ApplicationFormT,
 |};
 
-const RegisterApplication = (props: Props) => (
-  <Layout fullWidth title={l('Register Application')}>
-    <h1>{l('Register Application')}</h1>
+const EditApplication = (props: Props) => (
+  <Layout fullWidth title={l('Edit Application')}>
+    <h1>{l('Edit Application')}</h1>
     <ApplicationForm
-      action="register"
+      action="edit"
       form={props.form}
-      submitLabel={l('Register')}
+      submitLabel={l('Update')}
     />
-    {manifest.js('account/applications/register.js', {async: 'async'})}
   </Layout>
 );
 
-export default RegisterApplication;
+export default EditApplication;

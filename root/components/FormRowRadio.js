@@ -36,6 +36,7 @@ const FormRowRadio = ({
             <input
               defaultChecked={field.value === option.value}
               name={field.html_name}
+              required={required}
               type="radio"
               value={option.value}
             />

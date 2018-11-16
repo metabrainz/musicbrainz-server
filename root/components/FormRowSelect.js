@@ -12,11 +12,13 @@ import React from 'react';
 import FormRow from './FormRow';
 import FieldErrors from './FieldErrors';
 import FormLabel from './FormLabel';
+import HiddenField from './HiddenField';
 import SelectField from './SelectField';
 
 type Props = {|
   // `allowEmpty` prepends an empty default option to the list.
   +allowEmpty?: boolean,
+  +frozen?: boolean,
   +field: FieldT<number | string>,
   +label: string,
   +onChange?: (event: SyntheticEvent<HTMLSelectElement>) => void,
@@ -28,6 +30,7 @@ type Props = {|
 
 const FormRowSelect = ({
   allowEmpty = false,
+  frozen = false,
   field,
   label,
   onChange,
@@ -43,10 +46,13 @@ const FormRowSelect = ({
       <FormLabel forField={field} label={label} required={required} />
       <SelectField
         allowEmpty={allowEmpty}
+        disabled={frozen}
         field={field}
         onChange={onChange}
         options={options}
+        required={required}
       />
+      {frozen ? <HiddenField field={field} /> : null}
       <FieldErrors field={field} />
     </FormRow>
   );
