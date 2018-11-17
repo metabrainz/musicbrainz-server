@@ -1002,12 +1002,12 @@ const CLEANUPS = {
             afterSlash = new RegExp('^' + root + '/*$').test(path) ? root : afterSlash;
             break;
         }
-        return 'http://www.dailymotion.com/' + afterSlash;
+        return 'https://www.dailymotion.com/' + afterSlash;
       }
       return url;
     },
     validate: function (url, id) {
-      var m = /^http:\/\/www\.dailymotion\.com\/(?:(video\/)?[^\/?#]+)$/.exec(url);
+      var m = /^https:\/\/www\.dailymotion\.com\/(?:(video\/)?[^\/?#]+)$/.exec(url);
       if (m) {
         var prefix = m[1];
         if (_.includes(LINK_TYPES.videochannel, id)) {
