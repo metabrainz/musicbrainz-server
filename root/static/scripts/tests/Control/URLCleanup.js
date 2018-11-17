@@ -956,19 +956,19 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
                              input_url: 'https://dailymotion.com/who-knows#uploads',
                      input_entity_type: 'artist',
             expected_relationship_type: 'videochannel',
-                    expected_clean_url: 'http://www.dailymotion.com/who-knows',
+                    expected_clean_url: 'https://www.dailymotion.com/who-knows',
                only_valid_entity_types: ['artist', 'event', 'label', 'place', 'series']
         },
         {
                              input_url: 'http://www.dailymotion.com/video/xyztuvw_useless-slug?start=42',
                      input_entity_type: 'recording',
             expected_relationship_type: 'streamingmusic',
-                    expected_clean_url: 'http://www.dailymotion.com/video/xyztuvw',
+                    expected_clean_url: 'https://www.dailymotion.com/video/xyztuvw',
                only_valid_entity_types: ['recording', 'release']
         },
         {
                              input_url: 'http://www.dailymotion.com/playlist/xwvuts_who-knows_top/1#video=xyztuvw',
-                    expected_clean_url: 'http://www.dailymotion.com/video/xyztuvw',
+                    expected_clean_url: 'https://www.dailymotion.com/video/xyztuvw',
         },
         // Decoda
         {
