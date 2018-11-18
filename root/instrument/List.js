@@ -74,7 +74,7 @@ const InstrumentList = ({
           <a href="https://tickets.metabrainz.org/secure/Dashboard.jspa">
           {l(' ticket tracker, ')}
           </a> + 
-          {l('creating a new issue and selecting the project type as "Instrument Requests (INST)")}
+          {l('creating a new issue and selecting the project type as "Instrument Requests (INST)"')}
         </p>
       </div>
     </Layout>
