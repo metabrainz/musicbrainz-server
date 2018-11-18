@@ -33,7 +33,7 @@ const GenreList = ({genres}: PropsT) => (
         ))}
       </ul>
       <p>
-        {l('You cannot find a genre which exists on the list? Request it by')} + 
+        {l('Is a genre missing from the list? Request it by')} + 
          <a href="https://tickets.metabrainz.org/secure/CreateIssueDetails!init.jspa?pid=10032&issuetype=2&summary=Enter%20the%20genre%20name%20here!">
          {l(' adding a style ticket ')}
       </a> + 
