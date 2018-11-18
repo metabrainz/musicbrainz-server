@@ -136,12 +136,14 @@ class Track {
 
             if (lengthLength === 3) minutes = length[0];
             if (lengthLength === 4) minutes = length.slice(0, 2);
-            if (lengthLength === 5) minutes = length.slice(1,3); {
+            if (lengthLength === 5){ minutes = length.slice(1,3);
                 hours = length.slice(0);
             }
-            if (lengthLength === 6) minutes = length.slice(2,4);{
+            if (lengthLength === 6){ minutes = length.slice(2,4);
                 hours = length.slice(0,2);
             }
+
+            if (lengthLength > 6) length = '?:??';
 
             seconds = length.slice(-2);
 
