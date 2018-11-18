@@ -32,6 +32,13 @@ const GenreList = ({genres}: PropsT) => (
           </li>
         ))}
       </ul>
+      <p>
+        {l('You cannot find a genre which exists on the list? Request it by')} + 
+         <a href="https://tickets.metabrainz.org/secure/CreateIssueDetails!init.jspa?pid=10032&issuetype=2&summary=Enter%20the%20genre%20name%20here!">
+         {l(' adding a style ticket ')}
+      </a> + 
+      {l('with the "Genres" component')}
+      </p>
     </div>
   </Layout>
 );
