@@ -1126,6 +1126,12 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
             expected_relationship_type: 'discogs',
                     expected_clean_url: 'https://www.discogs.com/release/5578',
         },
+        {
+                             input_url: 'http://www.discogs.com/composition/27b17569-3e40-40b5-9819-409794c2d5d9-In-The-Hospital',
+                     input_entity_type: 'work',
+            expected_relationship_type: 'discogs',
+                    expected_clean_url: 'https://www.discogs.com/composition/27b17569-3e40-40b5-9819-409794c2d5d9',
+        },
         // DRAM
         {
                              input_url: 'http://www.dramonline.org/composers/buren-john-van',
