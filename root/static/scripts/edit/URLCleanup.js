@@ -24,7 +24,8 @@ const LINK_TYPES = {
     place: "1c140ac8-8dc2-449e-92cb-52c90d525640",
     release: "4a78823c-1c53-4176-a5f3-58026c76f2bc",
     release_group: "99e550f3-5ab4-3110-b5b9-fe01d970b126",
-    series: "338811ef-b1a9-449d-954e-115846f33a44"
+    series: "338811ef-b1a9-449d-954e-115846f33a44",
+    work: "d78b7280-eb9e-4a57-86c3-cedaa1aa2175"
   },
   imdb: {
     artist: "94c8b0cc-4477-4106-932c-da60e63de61c",
@@ -321,14 +322,14 @@ const CLEANUPS = {
     type: LINK_TYPES.discogs,
     clean: function (url) {
       url = url.replace(/\/viewimages\?release=([0-9]*)/, "/release/$1");
-      url = url.replace(/^https?:\/\/(?:[^.]+\.)?discogs\.com\/(?:.*\/)?(user\/[^\/#?]+|(?:artist|release|master(?:\/view)?|label)\/[0-9]+)(?:[\/#?-].*)?$/, "https://www.discogs.com/$1");
+      url = url.replace(/^https?:\/\/(?:[^.]+\.)?discogs\.com\/(?:.*\/)?(user\/[^\/#?]+|(?:composition\/[^-]+-[^-]+-[^-]+-[^-]+-[^-]+)|(?:artist|release|master(?:\/view)?|label)\/[0-9]+)(?:[\/#?-].*)?$/, "https://www.discogs.com/$1");
       url = url.replace(/^(https:\/\/www\.discogs\.com\/master)\/view\/([0-9]+)$/, "$1/$2");
       return url;
     },
     validate: function (url, id) {
-      var m = /^https:\/\/www\.discogs\.com\/(?:(artist|label|master|release)\/[1-9][0-9]*|(user)\/.+)$/.exec(url);
+      var m = /^https:\/\/www\.discogs\.com\/(?:(artist|label|master|release)\/[1-9][0-9]*|(user)\/.+|(composition)\/(?:[^-]*-){4}[^-]*)$/.exec(url);
       if (m) {
-        var prefix = m[1] || m[2];
+        var prefix = m[1] || m[2] || m[3];
         switch (id) {
           case LINK_TYPES.discogs.artist:
             return prefix === 'artist' || prefix === 'user';
@@ -341,6 +342,8 @@ const CLEANUPS = {
             return prefix === 'master';
           case LINK_TYPES.discogs.release:
             return prefix === 'release';
+          case LINK_TYPES.discogs.work:
+            return prefix === 'composition';
         }
       }
       return false;
