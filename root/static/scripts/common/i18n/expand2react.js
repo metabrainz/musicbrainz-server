@@ -19,7 +19,6 @@ import expand, {
   getString,
   getVarSubstArg,
   gotMatch,
-  hasArg,
   NO_MATCH_VALUE,
   parseContinuous,
   parseContinuousString,
@@ -84,12 +83,10 @@ function handleTextContentReact(text: string) {
   }
 }
 
-const parseRootTextContent = createTextContentParser<Output, VarSubstArg>(
+const parseRootTextContent = createTextContentParser<Output, Input>(
   textContent,
   handleTextContentReact,
 );
-
-
 
 const parseVarSubst = createVarSubstParser<Output, Input>(
   getVarSubstArg,
@@ -107,8 +104,8 @@ const parseLinkSubst = saveMatch<
   if (!gotMatch(accept(substEnd))) {
     throw error('expected }');
   }
-  if (args && hasArg(args, name)) {
-    let props = args[name];
+  if (args.has(name)) {
+    let props = args.get(name);
     if (typeof props === 'string') {
       props = ({href: props}: AnchorProps);
     }
@@ -154,7 +151,7 @@ function concatArrayMatch<T>(
 
 function parseContinuousArray<T, V>(
   parsers: $ReadOnlyArray<Parser<Array<T> | T | NO_MATCH, V>>,
-  args: ?VarArgs<V>,
+  args: VarArgs<V>,
 ): Array<T> {
   return parseContinuous<Array<T> | T, Array<T>, V>(
     parsers,
@@ -169,13 +166,13 @@ const parseHtmlAttrValue = args => (
 );
 
 const parseHtmlAttrValueCondSubst =
-  createCondSubstParser<string, StrOrNum>(
+  createCondSubstParser<string, Input>(
     args => parseContinuousString(htmlAttrCondSubstThenParsers, args),
     args => parseContinuousString(htmlAttrCondSubstElseParsers, args),
   );
 
 const htmlAttrCondSubstThenParsers = [
-  createTextContentParser<string, StrOrNum>(
+  createTextContentParser<string, Input>(
     condSubstThenTextContent,
     handleTextContentText,
   ),
@@ -184,7 +181,7 @@ const htmlAttrCondSubstThenParsers = [
 ];
 
 const htmlAttrCondSubstElseParsers = [
-  createTextContentParser<string, StrOrNum>(
+  createTextContentParser<string, Input>(
     textContent,
     handleTextContentText,
   ),
@@ -193,7 +190,7 @@ const htmlAttrCondSubstElseParsers = [
 ];
 
 const htmlAttrValueParsers = [
-  createTextContentParser<string, StrOrNum>(
+  createTextContentParser<string, Input>(
     htmlAttrTextContent,
     handleTextContentText,
   ),
@@ -242,7 +239,7 @@ function parseHtmlTag(args) {
 
   type HtmlAttr = {[string]: string};
 
-  const attributes = parseContinuousArray<HtmlAttr, Array<HtmlAttr>, Input>(
+  const attributes = parseContinuousArray<HtmlAttr, Input>(
     htmlAttrParsers,
     args,
   );
@@ -278,7 +275,7 @@ const parseCondSubst = createCondSubstParser<Array<Output>, Input>(
 );
 
 const condSubstThenParsers = [
-  createTextContentParser<Output, VarSubstArg>(
+  createTextContentParser<Output, Input>(
     condSubstThenTextContent,
     handleTextContentReact,
   ),
