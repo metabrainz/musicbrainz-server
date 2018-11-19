@@ -70,7 +70,7 @@ const InstrumentList = ({
           )
           : null}
         <p>
-          {l('Is this list missing an instrument? Request it by following the instructions in {link|this documentation}.', 
+          {l('Is this list missing an instrument? Request it by following {link|these instructions}.', 
             {
              __react: true,
             link: 'https://musicbrainz.org/doc/How_to_Add_Instruments'}
