@@ -2025,7 +2025,7 @@ const CLEANUPS = {
       new RegExp("^(https?://)?(www\\.)?flattr\\.com/profile/[^/?#]", "i"),
       new RegExp("^(https?://)?(www\\.)?patreon\\.com/[^/?#]", "i"),
       new RegExp("^(https?://)?(www\\.)?paypal\\.me/[^/?#]", "i"),
-      new RegExp("^(https?://)?(www\\.)?tipeee\\.com/[^/?#]", "i"),
+      new RegExp("^(https?://)?(?:[^/]+\\.)?tipeee\\.com/[^/?#]", "i"),
       new RegExp("^(https?://)?(www\\.)?d\\.rip/[^/?#]", "i"),
       new RegExp("^(https?://)?(www\\.)?drip\\.kickstarter.com/[^/?#]", "i"),
     ],
@@ -2037,7 +2037,7 @@ const CLEANUPS = {
       url = url.replace(/^((?:https?:\/\/)?(?:www\.)?patreon\.com\/user)\/(?:community|posts)(\?u=.*)$/, "$1$2");
       url = url.replace(/^(?:https?:\/\/)?(?:www\.)?patreon\.com\/((?:user\?u=)?[^\/?&#]+)(?:.*)?$/, "https://www.patreon.com/$1");
       url = url.replace(/^(?:https?:\/\/)?(?:www\.)?paypal\.me\/([^\/?#]+)(?:.*)?$/, "https://www.paypal.me/$1");
-      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?tipeee\.com\/([^\/?#]+)(?:.*)?$/, "https://www.tipeee.com/$1");
+      url = url.replace(/^(?:https?:\/\/)?(?:[^/]+\.)?tipeee\.com\/([^\/?#]+)(?:.*)?$/, "https://www.tipeee.com/$1");
       url = url.replace(/^(?:https?:\/\/)?(?:www\.)?d\.rip\/([^\/?#]+)(?:.*)?$/, "https://d.rip/$1");
       url = url.replace(/^(?:https?:\/\/)?(?:www\.)?drip\.kickstarter.com\/([^\/?#]+)(?:.*)?$/, "https://d.rip/$1");
       return url;
