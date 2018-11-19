@@ -6,46 +6,24 @@
  * http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import _ from 'lodash';
+import * as React from 'react';
 
 import {INSTRUMENT_ROOT_ID} from '../../common/constants';
-import commaList from '../../common/i18n/commaList';
-import commaOnlyList from '../../common/i18n/commaOnlyList';
+import commaList, {commaListText} from '../../common/i18n/commaList';
+import commaOnlyList, {commaOnlyListText} from '../../common/i18n/commaOnlyList';
+import {VarArgs, type VarArgsObject} from '../../common/i18n/expand2';
+import expand2react from '../../common/i18n/expand2react';
+import expand2text from '../../common/i18n/expand2text';
 import linkedEntities from '../../common/linkedEntities';
 import clean from '../../common/utility/clean';
-
-const attributeRegex = /\{(.*?)(?::(.*?))?\}/g;
-
-function mapNameToID(result, info, id) {
-  result[info.attribute.name] = id;
-}
-
-export const stripAttributes = _.memoize<[LinkTypeT, string], string>(function (
-  linkType: LinkTypeT,
-  phrase: string,
-) {
-  const idsByName = _.transform(linkType.attributes, mapNameToID);
-
-  // remove {foo} {bar} junk, unless it's for a required attribute.
-  return clean(phrase.replace(attributeRegex, function (match, name, alt) {
-    const id = idsByName[name];
-    const attr = id && linkType.attributes ? linkType.attributes[id] : null;
-
-    if (attr && !attr.min) {
-      return (alt ? alt.split('|')[1] : '') || '';
-    }
-
-    return match;
-  }));
-}, (a, b) => String(a.id) + b);
 
 const EMPTY_OBJECT = Object.freeze({});
 
 const emptyResult = Object.freeze(['', '']);
 
-type CachedResult = {|
-  attributeValues: ?{+[string]: Array<string>},
-  phraseAndExtraAttributes: {[string]: [string, string]},
+type CachedResult<T> = {|
+  attributeValues: ?{+[string]: Array<T>},
+  phraseAndExtraAttributes: {[string]: [T, T]},
 |};
 
 type RelationshipInfoT = {
@@ -59,9 +37,10 @@ type LinkPhraseProp =
   | 'reverse_link_phrase'
   ;
 
-const resultCache = new WeakMap<RelationshipInfoT, CachedResult>();
-
-function _getResultCache(relationship: RelationshipInfoT) {
+function _getResultCache<T>(
+  resultCache: WeakMap<RelationshipInfoT, CachedResult<T>>,
+  relationship: RelationshipInfoT,
+): CachedResult<T> {
   let result = resultCache.get(relationship);
   if (!result) {
     result = {
@@ -83,9 +62,89 @@ function getAttributeLName(type: AttrInfoT | LinkAttrTypeT) {
   return l_relationships(type.name);
 }
 
-function _setAttributeValues(
+type AttrValue<T> = Array<T | string> | T | string;
+
+class PhraseVarArgs<T> extends VarArgs<AttrValue<T>> {
+  +usedAttributes: Array<string>;
+
+  +makeCommaList: (Array<T | string>) => T | string;
+
+  constructor(
+    args: ?VarArgsObject<AttrValue<T>>,
+    makeCommaList: (Array<T | string>) => T | string,
+  ) {
+    super(args || EMPTY_OBJECT);
+    this.usedAttributes = [];
+    this.makeCommaList = makeCommaList;
+  }
+
+  get(name): T | string {
+    const value = super.get(name);
+    if (value == null) {
+      return '';
+    }
+    if (Array.isArray(value)) {
+      return this.makeCommaList(value);
+    }
+    return value;
+  }
+
+  has(name) {
+    this.usedAttributes.push(name);
+    return true;
+  }
+
+  getExtraAttributes(): Array<T | string> {
+    const extraAttributes = [];
+    for (const key in this.data) {
+      if (!this.usedAttributes.includes(key)) {
+        const values = this.data[key];
+        if (Array.isArray(values)) {
+          extraAttributes.push(...values);
+        } else {
+          extraAttributes.push(values);
+        }
+      }
+    }
+    return extraAttributes;
+  }
+}
+
+type I18n<T, V> = {
+  cache: WeakMap<RelationshipInfoT, CachedResult<T>>,
+  commaList: (Array<T>) => T,
+  commaOnlyList: (Array<T>) => T,
+  expand: (string, PhraseVarArgs<T>) => T,
+  getAttributeValue: (AttrInfoT | LinkAttrTypeT, string) => T,
+  l: (string, VarArgsObject<T | V>) => T,
+};
+
+const reactI18n: I18n<Expand2ReactOutput, Expand2ReactInput> = {
+  cache: new WeakMap<RelationshipInfoT, CachedResult<Expand2ReactOutput>>(),
+  commaList,
+  commaOnlyList,
+  expand: expand2react,
+  getAttributeValue: (type, typeName) => (
+    type.rootID === INSTRUMENT_ROOT_ID
+      ? <a href={'/instrument/' + type.gid}>{typeName}</a>
+      : typeName
+  ),
+  l: exp.l,
+};
+
+const textI18n: I18n<string, StrOrNum> = {
+  cache: new WeakMap<RelationshipInfoT, CachedResult<string>>(),
+  commaList: commaListText,
+  commaOnlyList: commaOnlyListText,
+  expand: expand2text,
+  getAttributeValue: (type, typeName) => typeName,
+  l: texp.l,
+};
+
+function _setAttributeValues<T, V>(
+  i18n: I18n<T | string, V | string>,
   relationship: RelationshipInfoT,
-  cache: CachedResult,
+  cache: CachedResult<T>,
 ) {
   const attributes = relationship.attributes;
   if (!attributes) {
@@ -94,25 +153,29 @@ function _setAttributeValues(
   }
 
   let values;
+  const linkType = linkedEntities.link_type[relationship.linkTypeID];
 
   for (let i = 0; i < attributes.length; i++) {
     const attribute = attributes[i];
     const type = linkedEntities.link_attribute_type[attribute.type.gid];
     const typeName = getAttributeLName(type);
-    let value = typeName;
+    let value = i18n.getAttributeValue(type, typeName);
 
     if (type.freeText) {
-      value = clean(attribute.text_value);
-      if (value) {
-        value = texp.l('{attribute}: {value}', {attribute: typeName, value: value});
+      const textValue = clean(attribute.text_value);
+      if (textValue) {
+        value = i18n.l('{attribute}: {value}', {
+          attribute: value,
+          value: textValue,
+        });
       }
     }
 
     if (type.creditable) {
       const credit = clean(attribute.credited_as);
       if (credit) {
-        value = texp.l('{attribute} [{credited_as}]', {
-          attribute: typeName,
+        value = i18n.l('{attribute} [{credited_as}]', {
+          attribute: value,
           credited_as: credit,
         });
       }
@@ -122,25 +185,48 @@ function _setAttributeValues(
       if (!values) {
         values = {};
       }
+
+      const info = linkType.attributes[type.rootID];
       const rootName = linkedEntities.link_attribute_type[type.root_gid].name;
-      (values[rootName] = values[rootName] || []).push(values);
+
+      if (info.max === 1) {
+        values[rootName] = value;
+      } else {
+        (values[rootName] = values[rootName] || []).push(value);
+      }
     }
   }
 
   cache.attributeValues = values || EMPTY_OBJECT;
 }
 
-export function getPhraseAndExtraAttributes(
+const requiredAttributesCache: {
+  __proto__: null,
+  [number]: {+[string]: string},
+} = Object.create(null);
+
+function _getRequiredAttributes(linkType: LinkTypeT) {
+  let required = requiredAttributesCache[linkType.id];
+  if (required) {
+    return required;
+  }
+  for (const [, info] of Object.entries(linkType.attributes)) {
+    const {attribute, min} = ((info: any): LinkTypeAttrTypeT);
+    if (min) {
+      required = required || {};
+      required[attribute.name] = `{${getAttributeLName(attribute)}}`;
+    }
+  }
+  return (requiredAttributesCache[linkType.id] = required || EMPTY_OBJECT);
+}
+
+function _getPhraseAndExtraAttributes<T, V>(
+  i18n: I18n<T | string, V | string>,
   relationship: RelationshipInfoT,
   phraseProp: LinkPhraseProp,
   forGrouping?: boolean = false,
-): [string, string] {
-  const linkType = linkedEntities.link_type[relationship.linkTypeID];
-  if (!linkType) {
-    return emptyResult;
-  }
-
-  const cache = _getResultCache(relationship);
+): [T | string, T | string] {
+  const cache = _getResultCache<T | string>(i18n.cache, relationship);
   const key = phraseProp + '\0' + (forGrouping ? '1' : '0');
 
   let result = cache.phraseAndExtraAttributes[key];
@@ -148,59 +234,97 @@ export function getPhraseAndExtraAttributes(
     return result;
   }
 
+  const linkType = linkedEntities.link_type[relationship.linkTypeID];
+  if (!linkType) {
+    return emptyResult;
+  }
+
   const phraseSource = l_relationships(linkType[phraseProp]);
   if (!phraseSource) {
     return emptyResult;
   }
 
-  if (!cache.attributeValues) {
-    _setAttributeValues(relationship, cache);
+  if (!forGrouping && !cache.attributeValues) {
+    _setAttributeValues<T | string, V>(i18n, relationship, cache);
   }
 
-  const {attributeValues} = cache;
-  /* flow-include if (!attributeValues) throw 'impossible'; */
-  const usedAttributes = Object.create(null);
+  /* flow-include if (!cache.attributeValues) throw 'impossible'; */
 
-  const _interpolate = function (match, name, alts) {
-    usedAttributes[name] = true;
-
-    const values = attributeValues[name] || [];
-    let replacement = commaList(values);
-
-    if (alts) {
-      alts = alts.split('|');
-      replacement = values.length ? alts[0].replace(/%/g, replacement) : alts[1] || '';
-    }
-
-    return replacement;
-  };
-
-  const phrase = clean(
-    (forGrouping ? stripAttributes(linkType, phraseSource) : phraseSource)
-      .replace(attributeRegex, _interpolate),
+  const varArgs = new PhraseVarArgs(
+    forGrouping ? _getRequiredAttributes(linkType) : cache.attributeValues,
+    i18n.commaList,
   );
 
-  const extraAttributes: Array<string> = [];
-  for (const key in attributeValues) {
-    if (!usedAttributes[key]) {
-      const values = attributeValues[key];
-      extraAttributes.push(...values);
-    }
+  let phrase = i18n.expand(phraseSource, varArgs);
+  if (typeof phrase === 'string') {
+    phrase = clean(phrase);
   }
 
-  result = [phrase, commaOnlyList(extraAttributes)];
+  result = [
+    phrase,
+    i18n.commaOnlyList(varArgs.getExtraAttributes()),
+  ];
+
   cache.phraseAndExtraAttributes[key] = result;
   return result;
 }
+
+export const getPhraseAndExtraAttributesText = (
+  relationship: RelationshipInfoT,
+  phraseProp: LinkPhraseProp,
+  forGrouping?: boolean = false,
+) => _getPhraseAndExtraAttributes<string, StrOrNum>(
+  textI18n,
+  relationship,
+  phraseProp,
+  forGrouping,
+);
 
 export const interpolate = (
   relationship: RelationshipInfoT,
   phraseProp: LinkPhraseProp,
   forGrouping?: boolean = false,
-) => getPhraseAndExtraAttributes(relationship, phraseProp, forGrouping)[0];
+) => _getPhraseAndExtraAttributes<Expand2ReactOutput, Expand2ReactInput>(
+  reactI18n,
+  relationship,
+  phraseProp,
+  forGrouping,
+)[0];
+
+export const interpolateText = (
+  relationship: RelationshipInfoT,
+  phraseProp: LinkPhraseProp,
+  forGrouping?: boolean = false,
+) => getPhraseAndExtraAttributesText(
+  relationship,
+  phraseProp,
+  forGrouping,
+)[0];
 
 export const getExtraAttributes = (
   relationship: RelationshipInfoT,
   phraseProp: LinkPhraseProp,
   forGrouping?: boolean = false,
-) => getPhraseAndExtraAttributes(relationship, phraseProp, forGrouping)[1];
+) => _getPhraseAndExtraAttributes<Expand2ReactOutput, Expand2ReactInput>(
+  reactI18n,
+  relationship,
+  phraseProp,
+  forGrouping,
+)[1];
+
+export const getExtraAttributesText = (
+  relationship: RelationshipInfoT,
+  phraseProp: LinkPhraseProp,
+  forGrouping?: boolean = false,
+) => getPhraseAndExtraAttributesText(
+  relationship,
+  phraseProp,
+  forGrouping,
+)[1];
+
+export const stripAttributes = (linkType: LinkTypeT, phrase: string) => {
+  return clean(textI18n.expand(phrase, new PhraseVarArgs(
+    _getRequiredAttributes(linkType),
+    textI18n.commaList,
+  )));
+};

@@ -69,6 +69,13 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
             this.setAttributes(data.attributes);
             this.attributes.original = {};
 
+            this.relationshipInfo = ko.computed(function () {
+                return {
+                    attributes: this.attributes().map(x => x.toJS()),
+                    linkTypeID: this.linkTypeID(),
+                };
+            }, this);
+
             if (data.id) {
                 _.each(this.attributes.peek(), function (attribute) {
                     self.attributes.original[attribute.type.gid] = attribute.toJS();
@@ -309,11 +316,8 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
         }
 
         phraseAndExtraAttributes(phraseProp, shouldStripAttributes) {
-            return linkPhrase.getPhraseAndExtraAttributes(
-                {
-                    attributes: this.attributes().map(x => x.toJS()),
-                    linkTypeID: this.linkTypeID(),
-                },
+            return linkPhrase.getPhraseAndExtraAttributesText(
+                this.relationshipInfo(),
                 phraseProp,
                 shouldStripAttributes,
             );
