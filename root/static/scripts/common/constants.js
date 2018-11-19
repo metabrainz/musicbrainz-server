@@ -65,6 +65,7 @@ export const FAVICON_CLASSES: {[string]: string} = {
   'itunes.apple.com': 'itunes',
   'junodownload.com': 'junodownload',
   'kickstarter.com': 'kickstarter',
+  'ko-fi.com': 'kofi',
   'last.fm': 'lastfm',
   'lieder.net': 'lieder',
   'linkedin.com': 'linkedin',
