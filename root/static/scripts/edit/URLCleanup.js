@@ -2028,6 +2028,7 @@ const CLEANUPS = {
       new RegExp("^(https?://)?(www\\.)?tipeee\\.com/[^/?#]", "i"),
       new RegExp("^(https?://)?(www\\.)?d\\.rip/[^/?#]", "i"),
       new RegExp("^(https?://)?(www\\.)?drip\\.kickstarter.com/[^/?#]", "i"),
+      new RegExp("^(https?://)?(www\\.)?ko-fi.com/[^/?#]", "i"),
     ],
     type: LINK_TYPES.patronage,
     clean: function (url) {
@@ -2040,6 +2041,7 @@ const CLEANUPS = {
       url = url.replace(/^(?:https?:\/\/)?(?:www\.)?tipeee\.com\/([^\/?#]+)(?:.*)?$/, "https://www.tipeee.com/$1");
       url = url.replace(/^(?:https?:\/\/)?(?:www\.)?d\.rip\/([^\/?#]+)(?:.*)?$/, "https://d.rip/$1");
       url = url.replace(/^(?:https?:\/\/)?(?:www\.)?drip\.kickstarter.com\/([^\/?#]+)(?:.*)?$/, "https://d.rip/$1");
+      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?ko-fi\.com\/([^\/?#]+)(?:.*)?$/, "https://ko-fi.com/$1");
       return url;
     }
   },
