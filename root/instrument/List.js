@@ -70,10 +70,10 @@ const InstrumentList = ({
           )
           : null}
         <p>
-          {l('Is this list missing an instrument? Request it by going to the {link|ticket tracker}, creating a new issue and selecting the project type as "Instrument Requests (INST)"', 
+          {l('Is this list missing an instrument? Request it by following the instructions in {link|this documentation}.', 
             {
              __react: true,
-            link: 'https://tickets.metabrainz.org/secure/Dashboard.jspa'}
+            link: 'https://musicbrainz.org/doc/How_to_Add_Instruments'}
            )}
         </p>
       </div>
