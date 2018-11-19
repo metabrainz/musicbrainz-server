@@ -70,11 +70,11 @@ const InstrumentList = ({
           )
           : null}
         <p>
-          {l('Is this list missing an instrument? Request it by going to the')} + 
-          <a href="https://tickets.metabrainz.org/secure/Dashboard.jspa">
-          {l(' ticket tracker, ')}
-          </a> + 
-          {l('creating a new issue and selecting the project type as "Instrument Requests (INST)"')}
+          {l('Is this list missing an instrument? Request it by going to the {link|ticket tracker}, creating a new issue and selecting the project type as "Instrument Requests (INST)"', 
+            {
+             __react: true,
+            link: 'https://tickets.metabrainz.org/secure/Dashboard.jspa'}
+           )}
         </p>
       </div>
     </Layout>
