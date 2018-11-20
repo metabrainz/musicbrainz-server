@@ -74,6 +74,7 @@ my %URL_SPECIALIZATIONS = (
     'Japameta'            => qr{^https?://(?:www\.)?japanesemetal\.gooside\.com/}i,
     'JunoDownload'        => qr{^https?://(?:www\.)?junodownload\.com/}i,
     'Kickstarter'         => qr{^https?://(?:www\.)?kickstarter\.com/}i,
+    'Kofi'                => qr{^https?://(?:www\.)?ko-fi\.com/}i,
     'LastFM'              => qr{^https?://(?:www\.)?last\.fm/}i,
     'Lieder'              => qr{^https?://(?:www\.)?lieder\.net/}i,
     'LinkedIn'            => qr{^https?://([^/]+\.)?linkedin\.com/}i,

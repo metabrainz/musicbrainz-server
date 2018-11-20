@@ -1742,6 +1742,13 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
                      input_entity_type: 'release',
             expected_relationship_type: 'discographyentry',
         },
+        // Ko-fi
+        {
+                             input_url: 'http://www.ko-fi.com/35MJZ8OL4IO',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'patronage',
+                    expected_clean_url: 'https://ko-fi.com/35MJZ8OL4IO',
+        },
         // Lantis
         {
                              input_url: 'http://www.lantis.jp/release-item2.php?id=326c88aa1cd230f96ef350e380a23078',
