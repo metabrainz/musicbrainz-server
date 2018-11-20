@@ -41,14 +41,14 @@ const Comment = ({className, comment}: {|+className: string, +comment: string|})
   </>
 );
 
-const EventDisambiguation = ({event}: {|+event: EventT|}) => {
+const EventDisambiguation = ({event, showDate}: {|+event: EventT, +showDate: boolean|}) => {
   const dates = formatDatePeriod(event);
-  if (!dates && !event.cancelled) {
+  if ((!dates || !showDate) && !event.cancelled) {
     return null;
   }
   return (
     <>
-      {dates ? ' ' + bracketed(dates) : null}
+      {dates && showDate ? ' ' + bracketed(dates) : null}
       {event.cancelled
         ? <Comment className="cancelled" comment={l('cancelled')} />
         : null}
@@ -93,6 +93,7 @@ type EntityLinkProps = {
   +content?: React.Node,
   +entity: CoreEntityT | CollectionT,
   +hover?: string,
+  +showEventDate?: boolean,
   +showDeleted?: boolean,
   +showDisambiguation?: boolean,
   +subPath?: string,
@@ -109,6 +110,7 @@ const EntityLink = ({
   content,
   entity,
   hover,
+  showEventDate = true,
   showDeleted = true,
   showDisambiguation,
   subPath,
@@ -219,7 +221,7 @@ const EntityLink = ({
 
   if (showDisambiguation) {
     if (entity.entityType === 'event') {
-      parts.push(<EventDisambiguation event={entity} key="eventdisambig" />);
+      parts.push(<EventDisambiguation event={entity} showDate={showEventDate} key="eventdisambig" />);
     }
     if (comment) {
       parts.push(
