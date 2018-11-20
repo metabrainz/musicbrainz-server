@@ -206,7 +206,14 @@ sub lost_password : Path('/lost-password') ForbiddenOnSlaves
         }
     }
 
-    $c->stash->{form} = $form;
+    $c->stash(
+        current_view => 'Node',
+        component_path => 'account/LostPassword',
+        component_props => {
+            form => $form,
+        },
+    );
+    $c->detach;
 }
 
 sub reset_password : Path('/reset-password') ForbiddenOnSlaves DenyWhenReadonly
@@ -323,7 +330,14 @@ sub lost_username : Path('/lost-username') ForbiddenOnSlaves
         }
     }
 
-    $c->stash->{form} = $form;
+    $c->stash(
+        current_view => 'Node',
+        component_path => 'account/LostUsername',
+        component_props => {
+            form => $form,
+        },
+    );
+    $c->detach;
 }
 
 =head2 edit
