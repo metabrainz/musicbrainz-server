@@ -4,6 +4,8 @@ BEGIN { extends 'MusicBrainz::Server::Controller' }
 
 use namespace::autoclean;
 use Digest::SHA qw(sha1_base64);
+use JSON;
+use List::MoreUtils qw( uniq );
 use MusicBrainz::Server::ControllerUtils::JSON qw( serialize_pager );
 use MusicBrainz::Server::Translation qw( l );
 use MusicBrainz::Server::Validation qw( encode_entities is_positive_integer );
@@ -472,6 +474,22 @@ sub preferences : Path('/account/preferences') RequireAuth DenyWhenReadonly
         $c->persist_user();
 
         $c->response->redirect($c->uri_for_action('/account/preferences', { ok => 1 }));
+        $c->detach;
+    } else {
+        $c->stash(
+            current_view => 'Node',
+            component_path => 'account/Preferences',
+            component_props => {
+                form => $form,
+                timezone_options => {
+                    grouped => JSON::false,
+                    options => [ map { {
+                        value => $_,
+                        label => $_
+                      } } uniq values @{ $form->options_timezone } ],
+                },
+            },
+        );
         $c->detach;
     }
 }

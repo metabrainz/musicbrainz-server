@@ -15,14 +15,16 @@ import FormRow from './FormRow';
 type Props = {|
   +field: FieldT<boolean>,
   +label: string,
+  +onChange?: (event: SyntheticEvent<HTMLInputElement>) => void,
 |};
 
-const FormRowCheckbox = ({field, label}: Props) => (
+const FormRowCheckbox = ({field, label, onChange}: Props) => (
   <FormRow hasNoLabel>
     <label className="inline">
       <input
         defaultChecked={field.value}
         name={field.html_name}
+        onChange={onChange}
         type="checkbox"
         value="1"
       />

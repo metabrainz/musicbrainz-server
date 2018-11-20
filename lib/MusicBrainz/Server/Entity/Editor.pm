@@ -292,6 +292,7 @@ around TO_JSON => sub {
 
     return {
         %{$self->$orig},
+        deleted => boolean_to_json($self->deleted),
         email_confirmation_date => datetime_to_iso8601($self->email_confirmation_date),
         gravatar => $self->gravatar,
         is_account_admin => boolean_to_json($self->is_account_admin),

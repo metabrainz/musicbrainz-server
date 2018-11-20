@@ -72,8 +72,18 @@ sub TO_JSON {
 
     return {
         datetime_format => $self->datetime_format,
-        show_gravatar => boolean_to_json($self->show_gravatar),
+        subscriptions_email_period => $self->subscriptions_email_period,
         timezone => $self->timezone,
+        email_on_no_vote => boolean_to_json($self->email_on_no_vote),
+        email_on_notes => boolean_to_json($self->email_on_notes),
+        email_on_vote => boolean_to_json($self->email_on_vote),
+        public_ratings => boolean_to_json($self->public_ratings),
+        public_subscriptions => boolean_to_json($self->public_subscriptions),
+        public_tags => boolean_to_json($self->public_tags),
+        show_gravatar => boolean_to_json($self->show_gravatar),
+        subscribe_to_created_artists => boolean_to_json($self->subscribe_to_created_artists),
+        subscribe_to_created_labels => boolean_to_json($self->subscribe_to_created_labels),
+        subscribe_to_created_series => boolean_to_json($self->subscribe_to_created_series),
     };
 }
 

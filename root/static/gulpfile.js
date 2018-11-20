@@ -261,6 +261,10 @@ runYarb('account/applications/register.js', function (b) {
   b.external(commonBundle);
 });
 
+runYarb('account/preferences.js', function (b) {
+  b.external(commonBundle);
+});
+
 runYarb('area/index.js', function (b) {
   b.external(commonBundle);
 });
