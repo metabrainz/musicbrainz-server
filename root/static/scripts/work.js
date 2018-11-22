@@ -21,7 +21,7 @@ import subfieldErrors from '../../utility/subfieldErrors';
 import getScriptArgs from './common/utility/getScriptArgs';
 import {buildOptionsTree} from './edit/forms';
 import {initializeBubble} from './edit/MB/Control/Bubble';
-import createField from './edit/utility/createField';
+import pushField from './edit/utility/pushField';
 import {initialize_guess_case} from './guess-case/MB/Control/GuessCase';
 
 const scriptArgs = getScriptArgs();
@@ -83,17 +83,6 @@ const store = createStore(function (state: WorkForm = form, action) {
 
   return state;
 });
-
-function pushField<F, R: ReadOnlyRepeatableFieldT<F>>(
-  repeatable: R,
-  value: mixed,
-) {
-  return createField(
-    repeatable,
-    String(repeatable.field.length),
-    value,
-  );
-}
 
 function addLanguageToState(form: WorkForm): WorkForm {
   return mutate<WritableWorkForm, _>(form, newForm => {
