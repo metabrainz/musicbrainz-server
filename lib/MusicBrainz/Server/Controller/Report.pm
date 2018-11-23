@@ -4,10 +4,18 @@ use Moose;
 BEGIN { extends 'MusicBrainz::Server::Controller'; }
 
 use DateTime;
+use MusicBrainz::Server::Filters qw( format_wikitext );
+use MusicBrainz::Server::ControllerUtils::JSON qw( serialize_pager );
 use MusicBrainz::Server::ReportFactory;
 
 sub index : Path('/reports') Args(0)
 {
+    my ($self, $c) = @_;
+
+    $c->stash(
+        current_view => 'Node',
+        component_path => 'report/ReportsIndex.js',
+    );
 }
 
 sub show : Path Args(1)
@@ -19,34 +27,49 @@ sub show : Path Args(1)
     ) or $c->detach('/error_404');
 
     if (!$report->generated) {
-        $c->stash( template => 'report/not_available.tt' );
+        $c->stash(
+            current_view => 'Node',
+            component_path => 'report/ReportNotAvailable.js',
+        );
         $c->detach;
     }
 
     my $filtered = $c->req->query_params->{filter};
-    $c->stash(
-        items => $self->_load_paged($c, sub {
-            if ($filtered) {
-                if ($report->does('MusicBrainz::Server::Report::FilterForEditor')) {
-                    if ($c->user_exists) {
-                        return $report->load_filtered($c->user->id, shift, shift);
+    my $can_be_filtered = $report->does('MusicBrainz::Server::Report::FilterForEditor');
+
+    my $items = $self->_load_paged($c, sub {
+                if ($filtered) {
+                    if ($can_be_filtered) {
+                        if ($c->user_exists) {
+                            return $report->load_filtered($c->user->id, shift, shift);
+                        }
+                        else {
+                            $c->forward('/user/login')
+                        }
                     }
                     else {
-                        $c->forward('/user/login')
+                        die 'This report does not support filtering';
                     }
                 }
                 else {
-                    die 'This report does not support filtering';
+                    $report->load(shift, shift);
                 }
-            }
-            else {
-                $report->load(shift, shift);
-            }
-        }),
-        filtered => $filtered,
-        report => $report,
-        generated => $report->generated_at,
-        template => $report->template,
+            });
+
+    $_->{text} = format_wikitext($_->{text}) for @$items;
+
+    my %props = (
+        items         => $items,
+        canBeFiltered => $can_be_filtered,
+        filtered      => $filtered,
+        generated     => $report->generated_at,
+        pager => serialize_pager($c->stash->{pager}),
+    );
+
+    $c->stash(
+        component_path => 'report/'. $name . '.js',
+        component_props => \%props,
+        current_view => 'Node',
     );
 }
 
