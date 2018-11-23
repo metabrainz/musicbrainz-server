@@ -15,7 +15,6 @@ import {lp_attributes} from '../../static/scripts/common/i18n/attributes';
 import EntityLink from '../../static/scripts/common/components/EntityLink';
 import formatDate from '../../static/scripts/common/utility/formatDate';
 import formatEndDate from '../../static/scripts/common/utility/formatEndDate';
-import primaryAreaCode from '../../static/scripts/common/utility/primaryAreaCode';
 import loopParity from '../../utility/loopParity';
 import type {InlineResultsPropsT, ResultsPropsT} from '../types';
 
