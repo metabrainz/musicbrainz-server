@@ -1,4 +1,4 @@
-package MusicBrainz::Server::Report::ArtistsWithMultipleOccurancesInArtistCredits;
+package MusicBrainz::Server::Report::ArtistsWithMultipleOccurrencesInArtistCredits;
 use Moose;
 
 with 'MusicBrainz::Server::Report::ArtistReport',
