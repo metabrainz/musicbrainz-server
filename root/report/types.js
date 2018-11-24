@@ -57,3 +57,17 @@ export type ReportDataT<T> = {|
   +items: $ReadOnlyArray<T>,
   +pager: PagerT,
 |};
+
+export type ReportEditorT = {|
+  +bio: string | null,
+  +deleted: boolean,
+  +email: string,
+  +email_confirm_date: string | null,
+  +entityType?: string,
+  +id: number,
+  +last_updated: string,
+  +member_since: string,
+  +name: string,
+  +row_number: number,
+  +website: string | null,
+|};
