@@ -71,3 +71,9 @@ export type ReportEditorT = {|
   +row_number: number,
   +website: string | null,
 |};
+
+export type ReportEventT = {|
+  +event: EventT,
+  +event_id: number,
+  +row_number: number,
+|};
