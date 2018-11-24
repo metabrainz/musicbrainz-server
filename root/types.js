@@ -362,7 +362,9 @@ declare type EditorPreferencesT = {|
 
 declare type EditorT = {|
   ...EntityRoleT,
+  +biography: string | null,
   +deleted: boolean,
+  +email: string,
   +email_confirmation_date: string | null,
   +entityType: 'editor',
   +gravatar: string,
@@ -378,6 +380,8 @@ declare type EditorT = {|
   +is_wiki_transcluder: boolean,
   +name: string,
   +preferences: EditorPreferencesT,
+  +registration_date: string,
+  +website: string | null,
 |};
 
 declare type EditorOAuthTokenT = {|

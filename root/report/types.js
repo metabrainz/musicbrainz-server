@@ -57,3 +57,9 @@ export type ReportDataT<T> = {|
   +items: $ReadOnlyArray<T>,
   +pager: PagerT,
 |};
+
+export type ReportEditorT = {|
+  +editor: EditorT,
+  +id: number,
+  +row_number: number,
+|};
