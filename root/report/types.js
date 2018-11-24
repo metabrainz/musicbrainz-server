@@ -77,3 +77,9 @@ export type ReportEventT = {|
   +event_id: number,
   +row_number: number,
 |};
+
+export type ReportInstrumentT = {|
+  +instrument: InstrumentT,
+  +instrument_id: number,
+  +row_number: number,
+|};
