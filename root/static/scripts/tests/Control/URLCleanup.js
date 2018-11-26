@@ -1930,6 +1930,13 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
                      input_entity_type: 'release_group',
             expected_relationship_type: 'review',
         },
+        // Mixcloud
+        {
+                             input_url: 'https://www.mixcloud.com/andrea_mi/',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'socialnetwork',
+                    expected_clean_url: 'https://www.mixcloud.com/andrea_mi/',
+        },
         // mora
         {
                              input_url: 'http://mora.jp/package/43000001/4534530058010/',
