@@ -566,7 +566,7 @@ declare type LinkTypeT = {|
   +cardinality1: number,
   +children?: $ReadOnlyArray<LinkTypeT>,
   +deprecated: boolean,
-  +hasDates: boolean,
+  +has_dates: boolean,
   +id: number,
   +link_phrase: string,
   +long_link_phrase: string,

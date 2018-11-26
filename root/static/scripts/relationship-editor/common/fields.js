@@ -178,7 +178,7 @@ const mergeDates = require('./mergeDates');
 
         hasDates() {
             var linkType = this.getLinkType();
-            return linkType ? (linkType.hasDates !== false) : true;
+            return linkType ? (linkType.has_dates !== false) : true;
         }
 
         added() { return !this.id }
