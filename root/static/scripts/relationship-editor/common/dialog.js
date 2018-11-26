@@ -69,7 +69,7 @@ const PART_OF_SERIES_LINK_TYPE_GIDS = _.values(PART_OF_SERIES_LINK_TYPES);
 
                         resultHook: function (items) {
                             if (dialog.autocomplete.entity === "series" &&
-                                    dialog.relationship().getLinkType().orderableDirection !== 0) {
+                                    dialog.relationship().getLinkType().orderable_direction !== 0) {
                                 return _.filter(items, function (item) {
                                     return item.type.item_entity_type === dialog.source.entityType;
                                 });
@@ -561,7 +561,7 @@ const PART_OF_SERIES_LINK_TYPE_GIDS = _.values(PART_OF_SERIES_LINK_TYPES);
                 return;
             }
 
-            if (relationship.getLinkType().orderableDirection) {
+            if (relationship.getLinkType().orderable_direction) {
                 var group = source.getRelationshipGroup(relationship, viewModel);
                 var maxLinkOrder = -Infinity;
 

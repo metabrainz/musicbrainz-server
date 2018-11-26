@@ -570,7 +570,7 @@ declare type LinkTypeT = {|
   +id: number,
   +link_phrase: string,
   +long_link_phrase: string,
-  +orderableDirection: number,
+  +orderable_direction: number,
   +reverse_link_phrase: string,
   +type0: string,
   +type1: string,
