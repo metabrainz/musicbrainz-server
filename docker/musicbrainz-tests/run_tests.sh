@@ -17,6 +17,12 @@ done
 
 (exec runsvdir /etc/service &>/dev/null &)
 
+sudo -E -H -u musicbrainz \
+    carton exec -- ./script/dump_js_type_info.pl
+
+sudo -E -H -u musicbrainz \
+    carton exec -- ./script/compile_resources.sh web-tests
+
 exec sudo -E -H -u musicbrainz carton exec -- prove \
     --pgtap-option dbname=musicbrainz_test \
     --pgtap-option host=musicbrainz-test-database \
