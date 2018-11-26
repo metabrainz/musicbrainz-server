@@ -85,6 +85,7 @@ my %URL_SPECIALIZATIONS = (
     'MainlyNorfolk'       => qr{^https?://(?:www\.)?mainlynorfolk\.info/}i,
     'Maniadb'             => qr{^https?://(?:www\.)?maniadb\.com/}i,
     'MetalArchives'       => qr{^https?://(?:www\.)?metal-archives\.com/}i,
+    'Mixcloud'            => qr{^https?://(?:www\.)?mixcloud\.com/}i,
     'MusicaPopularCl'     => qr{^https?://(?:www\.)?musicapopular\.cl/}i,
     'MusicMoz'            => qr{^https?://(?:www\.)?musicmoz\.org/}i,
     'MusikSammler'        => qr{^https?://(?:www\.)?musik-sammler\.de/}i,

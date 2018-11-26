@@ -74,6 +74,7 @@ export const FAVICON_CLASSES: {[string]: string} = {
   'loudr.fm': 'loudr',
   'mainlynorfolk.info': 'mainlynorfolk',
   'metal-archives.com': 'metalarchives',
+  'mixcloud.com': 'mixcloud',
   'musicapopular.cl': 'musicapopularcl',
   'musik-sammler.de': 'musiksammler',
   'musopen.org': 'musopen',
