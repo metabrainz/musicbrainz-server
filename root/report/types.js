@@ -112,3 +112,33 @@ export type ReportLabelURLT = {|
   +row_number: number,
   +url: UrlT,
 |};
+
+export type ReportReleaseGroupAnnotationT = {|
+  +created: string,
+  +release_group: ReleaseGroupT,
+  +release_group_id: number,
+  +row_number: number,
+  +text: string,
+|};
+
+export type ReportReleaseGroupRelationshipT = {|
+  +link_gid: string,
+  +link_name: string,
+  +release_group: ReleaseGroupT,
+  +release_group_id: number,
+  +row_number: number,
+|};
+
+export type ReportReleaseGroupT = {|
+  +key?: string,
+  +release_group: ReleaseGroupT,
+  +release_group_id: number,
+  +row_number: number,
+|};
+
+export type ReportReleaseGroupURLT = {|
+  +release_group: ReleaseGroupT,
+  +release_group_id: number,
+  +row_number: number,
+  +url: UrlT,
+|};
