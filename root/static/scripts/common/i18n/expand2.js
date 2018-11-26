@@ -113,6 +113,21 @@ function saveMatch(cb) {
   };
 }
 
+function pushChild<T>(
+  children: Array<T>,
+  match: T,
+) {
+  const size = children.length;
+  if (size &&
+      typeof match === 'string' &&
+      typeof children[size - 1] === 'string') {
+    // $FlowFixMe - Flow thinks the LHS can be a number here.
+    children[size - 1] += match;
+  } else {
+    children.push(match);
+  }
+}
+
 function parseContinous<T>(
   parsers: $ReadOnlyArray<() => T | typeof NO_MATCH>
 ): $ReadOnlyArray<T> {
@@ -124,21 +139,15 @@ function parseContinous<T>(
       const match = parsers[i]();
       if (match !== NO_MATCH) {
         if (Array.isArray(match)) {
-          children.push(...match);
-        } else {
-          const size = children.length;
-          if (size &&
-              typeof match === 'string' &&
-              typeof children[size - 1] === 'string') {
-            // $FlowFixMe - Flow thinks the LHS can be a number here.
-            children[size - 1] += match;
-          } else {
-            /*
-             * XXX We need to convince Flow that `match` will always be
-             * type T here, and not a Symbol.
-             */
-            children.push(((match: any): T));
+          for (let j = 0; j < match.length; j++) {
+            pushChild<T>(children, match[j]);
           }
+        } else {
+          /*
+            * XXX We need to convince Flow that `match` will always be
+            * type T here, and not a Symbol.
+            */
+          pushChild<T>(children, ((match: any): T));
         }
         if (state.remainder) {
           _continue = true;
