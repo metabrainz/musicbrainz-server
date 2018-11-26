@@ -17,10 +17,6 @@ sub query {
     ";
 }
 
-sub template {
-    return 'report/release_groups_without_va_link.tt';
-}
-
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;
