@@ -173,6 +173,7 @@ function parseTextContent() {
     return NO_MATCH;
   }
   if (state.replacement !== NO_MATCH) {
+    /* flow-include if (state.replacement instanceof Symbol) throw 'impossible' */
     text = text.replace(/%/g, he.encode(state.replacement));
   }
   text = he.decode(text);
