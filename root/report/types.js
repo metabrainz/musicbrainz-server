@@ -133,6 +133,22 @@ export type ReportLabelURLT = {|
   +url: UrlT,
 |};
 
+export type ReportPlaceAnnotationT = {|
+  +created: string,
+  +place: PlaceT,
+  +place_id: number,
+  +row_number: number,
+  +text: string,
+|};
+
+export type ReportPlaceRelationshipT = {|
+  +link_gid: string,
+  +link_name: string,
+  +place: PlaceT,
+  +place_id: number,
+  +row_number: number,
+|};
+
 export type ReportReleaseGroupAnnotationT = {|
   +created: string,
   +release_group: ReleaseGroupT,
