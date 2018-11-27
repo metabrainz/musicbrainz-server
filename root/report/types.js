@@ -170,3 +170,25 @@ export type ReportURLRelationshipT = {|
   +url: UrlT,
   +url_id: number,
 |};
+
+export type ReportWorkAnnotationT = {|
+  +created: string,
+  +row_number: number,
+  +text: string,
+  +work: WorkT,
+  +work_id: number,
+|};
+
+export type ReportWorkRelationshipT = {|
+  +link_gid: string,
+  +link_name: string,
+  +row_number: number,
+  +work: WorkT,
+  +work_id: number,
+|};
+
+export type ReportWorkT = {|
+  +row_number: number,
+  +work: WorkT,
+  +work_id: number,
+|};
