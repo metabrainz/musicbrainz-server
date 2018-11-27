@@ -271,6 +271,11 @@ const ReportsIndex = ({$c}: {$c: CatalystContextT}) => (
           </a>
         </li>
         <li>
+          <a href="/report/TracksNamedWithSequence">
+            {l('Tracks whose names include their sequence numbers')}
+          </a>
+        </li>
+        <li>
           <a href="/report/TracksWithSequenceIssues">
             {l('Releases with non-sequential track numbers')}
           </a>
@@ -393,11 +398,6 @@ const ReportsIndex = ({$c}: {$c: CatalystContextT}) => (
         <li>
           <a href="/report/RecordingsWithEarliestReleaseRelationships">
             {l('Recordings with earliest release relationships')}
-          </a>
-        </li>
-        <li>
-          <a href="/report/TracksNamedWithSequence">
-            {l('Tracks whose names include their sequence numbers')}
           </a>
         </li>
         <li>

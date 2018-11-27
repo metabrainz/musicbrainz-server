@@ -141,6 +141,28 @@ export type ReportPlaceRelationshipT = {|
   +row_number: number,
 |};
 
+export type ReportRecordingAnnotationT = {|
+  +created: string,
+  +recording: RecordingT,
+  +recording_id: number,
+  +row_number: number,
+  +text: string,
+|};
+
+export type ReportRecordingRelationshipT = {|
+  +link_gid: string,
+  +link_name: string,
+  +recording: RecordingT,
+  +recording_id: number,
+  +row_number: number,
+|};
+
+export type ReportRecordingT = {|
+  +recording: RecordingT,
+  +recording_id: number,
+  +row_number: number,
+|};
+
 export type ReportReleaseGroupAnnotationT = {|
   +created: string,
   +release_group: ReleaseGroupT,
