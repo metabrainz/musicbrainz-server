@@ -162,3 +162,11 @@ export type ReportReleaseGroupURLT = {|
   +row_number: number,
   +url: UrlT,
 |};
+
+export type ReportURLRelationshipT = {|
+  +link_gid: string,
+  +link_name: string,
+  +row_number: number,
+  +url: UrlT,
+  +url_id: number,
+|};
