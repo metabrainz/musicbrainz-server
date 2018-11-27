@@ -155,6 +155,14 @@ export type ReportReleaseGroupUrlT = {|
   +url: UrlT,
 |};
 
+export type ReportSeriesAnnotationT = {|
+  +created: string,
+  +row_number: number,
+  +series: SeriesT,
+  +series_id: number,
+  +text: string,
+|};
+
 export type ReportUrlRelationshipT = {|
   +link_gid: string,
   +link_name: string,
