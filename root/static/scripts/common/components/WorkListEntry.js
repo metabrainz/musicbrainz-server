@@ -9,7 +9,6 @@
 
 import * as React from 'react';
 
-import {l, ln} from '../i18n';
 import {lp_attributes} from '../i18n/attributes';
 import {l_languages} from '../i18n/languages';
 import loopParity from '../../../../utility/loopParity';
@@ -19,7 +18,13 @@ import ArtistRoles from './ArtistRoles';
 import CodeLink from './CodeLink';
 import EntityLink from './EntityLink';
 
-type Props = {|
+type WorkListRowProps = {|
+  +hasISWCColumn: boolean,
+  +hasMergeColumn: boolean,
+  +work: WorkT,
+|};
+
+type WorkListEntryProps = {|
   +hasISWCColumn: boolean,
   +hasMergeColumn: boolean,
   +index: number,
@@ -27,14 +32,12 @@ type Props = {|
   +work: WorkT,
 |};
 
-const WorkListEntry = ({
+export const WorkListRow = ({
   hasISWCColumn,
   hasMergeColumn,
-  index,
-  score,
   work,
-}: Props) => (
-  <tr className={loopParity(index)} data-score={score ? score : null}>
+}: WorkListRowProps) => (
+  <>
     {hasMergeColumn ? (
       <td>
         <input
@@ -80,6 +83,22 @@ const WorkListEntry = ({
         ))}
       </ul>
     </td>
+  </>
+);
+
+const WorkListEntry = ({
+  hasISWCColumn,
+  hasMergeColumn,
+  index,
+  score,
+  work,
+}: WorkListEntryProps) => (
+  <tr className={loopParity(index)} data-score={score ? score : null}>
+    <WorkListRow
+      hasISWCColumn={hasISWCColumn}
+      hasMergeColumn={hasMergeColumn}
+      work={work}
+    />
   </tr>
 );
 
