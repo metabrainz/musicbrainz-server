@@ -84,6 +84,15 @@ export type ReportInstrumentT = {|
   +row_number: number,
 |};
 
+export type ReportIswcT = {|
+  +iswc: string,
+  +row_number: number,
+  +text: string,
+  +work: WorkT,
+  +work_id: string,
+  +workcount: number,
+|};
+
 export type ReportLabelAnnotationT = {|
   +created: string,
   +label: LabelT,
