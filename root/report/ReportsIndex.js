@@ -105,6 +105,7 @@ const ReportsIndex = ({$c}: {$c: CatalystContextT}) => (
         <li><a href="/report/DiscogsLinksWithMultipleReleases">{l('Discogs URLs linked to multiple releases')}</a></li>
         <li><a href="/report/PartOfSetRelationships">{l('Releases which have part of set relationships')}</a></li>
         <li><a href="/report/SeparateDiscs">{l('Discs entered as separate releases')}</a></li>
+        <li><a href="/report/TracksNamedWithSequence">{l('Releases with tracks whose names include their sequence numbers')}</a></li>
         <li><a href="/report/TracksWithSequenceIssues">{l('Releases with non-sequential track numbers')}</a></li>
         <li><a href="/report/SuperfluousDataTracks">{l('Releases with superfluous data tracks')}</a></li>
         <li><a href="/report/FeaturingReleases">{l('Releases with titles containing featuring artists')}</a></li>
@@ -134,7 +135,6 @@ const ReportsIndex = ({$c}: {$c: CatalystContextT}) => (
 
       <ul>
         <li><a href="/report/RecordingsWithEarliestReleaseRelationships">{l('Recordings with earliest release relationships')}</a></li>
-        <li><a href="/report/TracksNamedWithSequence">{l('Tracks whose names include their sequence numbers')}</a></li>
         <li><a href="/report/FeaturingRecordings">{l('Recordings with titles containing featuring artists')}</a></li>
         <li><a href="/report/DuplicateRelationshipsRecordings">{l('Recordings with possible duplicate relationships')}</a></li>
         <li><a href="/report/RecordingsWithVaryingTrackLengths">{l('Recordings with varying track times')}</a></li>
