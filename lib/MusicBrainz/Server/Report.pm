@@ -75,6 +75,8 @@ sub generated_at {
     return $timestamp;
 }
 
+sub component_name {}
+
 1;
 
 =head1 COPYRIGHT

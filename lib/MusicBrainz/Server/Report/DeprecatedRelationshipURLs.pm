@@ -6,6 +6,7 @@ with 'MusicBrainz::Server::Report::URLReport',
 
 sub entity_type { 'url' }
 sub table { 'deprecated_relationship_urls' }
+sub component_name { 'DeprecatedRelationshipUrls' }
 
 __PACKAGE__->meta->make_immutable;
 no Moose;
