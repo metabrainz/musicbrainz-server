@@ -76,6 +76,17 @@ export type ReportInstrumentT = {|
   +row_number: number,
 |};
 
+export type ReportIsrcT = {|
+  +isrc: string,
+  +length: number,
+  +name: string,
+  +recording: RecordingT,
+  +recording_id: string,
+  +recordingcount: number,
+  +row_number: number,
+  +text: string,
+|};
+
 export type ReportIswcT = {|
   +iswc: string,
   +row_number: number,

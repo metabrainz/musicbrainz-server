@@ -89,6 +89,7 @@ module.exports = {
   'report/EventSequenceNotInSeries': require('../report/EventSequenceNotInSeries'),
   'report/FeaturingReleaseGroups': require('../report/FeaturingReleaseGroups'),
   'report/InstrumentsWithoutAnImage': require('../report/InstrumentsWithoutAnImage'),
+  'report/IsrcsWithManyRecordings': require('../report/IsrcsWithManyRecordings'),
   'report/IswcsWithManyWorks': require('../report/IswcsWithManyWorks'),
   'report/LabelsDisambiguationSameName': require('../report/LabelsDisambiguationSameName'),
   'report/LimitedEditors': require('../report/LimitedEditors'),

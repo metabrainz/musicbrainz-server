@@ -1,4 +1,4 @@
-package MusicBrainz::Server::Report::ISRCsWithManyRecordings;
+package MusicBrainz::Server::Report::IsrcsWithManyRecordings;
 use Moose;
 
 with 'MusicBrainz::Server::Report::RecordingReport',
