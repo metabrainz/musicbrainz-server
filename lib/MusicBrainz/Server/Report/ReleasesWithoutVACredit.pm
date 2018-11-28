@@ -27,10 +27,6 @@ sub query {
     ";
 }
 
-sub template {
-    return 'report/releases_without_va_credit.tt';
-}
-
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;

@@ -171,6 +171,21 @@ export type ReportRecordingT = {|
   +row_number: number,
 |};
 
+export type ReportReleaseAnnotationT = {|
+  +created: string,
+  +release: ReleaseT,
+  +release_id: number,
+  +row_number: number,
+  +text: string,
+|};
+
+export type ReportReleaseCatNoT = {|
+  +catalog_number: string,
+  +release: ReleaseT,
+  +release_id: number,
+  +row_number: number,
+|};
+
 export type ReportReleaseGroupAnnotationT = {|
   +created: string,
   +release_group: ReleaseGroupT,
@@ -197,6 +212,35 @@ export type ReportReleaseGroupT = {|
 export type ReportReleaseGroupURLT = {|
   +release_group: ReleaseGroupT,
   +release_group_id: number,
+  +row_number: number,
+  +url: UrlT,
+|};
+
+export type ReportReleaseLabelT = {|
+  +label_gid: string,
+  +label_name: string,
+  +release: ReleaseT,
+  +release_id: number,
+  +row_number: number,
+|};
+
+export type ReportReleaseRelationshipT = {|
+  +link_gid: string,
+  +link_name: string,
+  +release: ReleaseT,
+  +release_id: number,
+  +row_number: number,
+|};
+
+export type ReportReleaseT = {|
+  +release: ReleaseT,
+  +release_id: number,
+  +row_number: number,
+|};
+
+export type ReportReleaseURLT = {|
+  +release: ReleaseT,
+  +release_id: number,
   +row_number: number,
   +url: UrlT,
 |};
