@@ -9,7 +9,7 @@ BEGIN { extends 'Catalyst::Controller' }
 use DBDefs;
 use MusicBrainz::Server::Constants qw( $VARTIST_GID $CONTACT_URL );
 use MusicBrainz::Server::ControllerUtils::SSL qw( ensure_ssl );
-use MusicBrainz::Server::Data::Utils qw( model_to_type );
+use MusicBrainz::Server::Data::Utils qw( boolean_to_json model_to_type );
 use MusicBrainz::Server::Log qw( log_debug );
 use MusicBrainz::Server::Replication ':replication_type';
 use aliased 'MusicBrainz::Server::Translation';
@@ -55,6 +55,7 @@ sub index : Path Args(0)
         component_props => {
             blogEntries => $c->model('Blog')->get_latest_entries,
             newestReleases => \@newest_releases,
+            withSafeBrowsing => boolean_to_json(($c->req->user_agent // '') =~ /Chrome/),
         },
     );
 }
