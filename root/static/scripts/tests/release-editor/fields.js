@@ -183,3 +183,30 @@ fieldTest("tracks are set correctly when the cdtoc is changed", function (t, rel
     );
     t.ok(_.last(medium.tracks()).isDataTrack());
 });
+
+fieldTest("Tracks' time are changed correctly when inputting values in the medium tracklist editing form tab", function (t, release){
+    t.plan(8);
+
+    var medium = new fields.Medium({ tracks: [ {} ] }, release);
+    
+    var lengths = [
+        {5},
+        {69},
+        {174},
+        {6000},
+        {7400},
+        {10000},
+        {96900},
+        {3723494},
+    ];
+
+
+    t.equal(medium.tracks()[0].formattedLengthChange(lengths[0]), "0:05", );
+    t.equal(medium.tracks()[1].formattedLengthChange(lengths[1]), "1:09", );
+    t.equal(medium.tracks()[2].formattedLengthChange(lengths[2]), "2:54", );
+    t.equal(medium.tracks()[3].formattedLengthChange(lengths[3]), "1:00:00", );
+    t.equal(medium.tracks()[4].formattedLengthChange(lengths[4]), "1:14:00", );
+    t.equal(medium.tracks()[5].formattedLengthChange(lengths[5]), "1:00:00", );
+    t.equal(medium.tracks()[6].formattedLengthChange(lengths[6]), "10:09:00", );
+    t.equal(medium.tracks()[7].formattedLengthChange(lengths[7]), "?:??", );
+});
