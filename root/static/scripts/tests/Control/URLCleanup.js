@@ -2838,6 +2838,12 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
             expected_relationship_type: 'patronage',
                     expected_clean_url: 'https://www.tipeee.com/example',
         },
+        {
+                             input_url: 'http://fr.tipeee.com/example/news',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'patronage',
+                    expected_clean_url: 'https://www.tipeee.com/example',
+        },
         // triple j Unearthed
         {
                              input_url: 'https://www.triplejunearthed.com/artist/sampa-great',
