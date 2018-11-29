@@ -201,12 +201,12 @@ fieldTest("Tracks' time are changed correctly when inputting values in the mediu
     ];
 
 
-    t.equal(medium.tracks()[0].formattedLengthChange(lengths[0]), "0:05", );
-    t.equal(medium.tracks()[1].formattedLengthChange(lengths[1]), "1:09", );
-    t.equal(medium.tracks()[2].formattedLengthChange(lengths[2]), "2:54", );
-    t.equal(medium.tracks()[3].formattedLengthChange(lengths[3]), "1:00:00", );
-    t.equal(medium.tracks()[4].formattedLengthChange(lengths[4]), "1:14:00", );
-    t.equal(medium.tracks()[5].formattedLengthChange(lengths[5]), "1:00:00", );
-    t.equal(medium.tracks()[6].formattedLengthChange(lengths[6]), "10:09:00", );
-    t.equal(medium.tracks()[7].formattedLengthChange(lengths[7]), "?:??", );
+    t.equal(medium.tracks()[0].formattedLengthChanged(lengths[0]), "0:05", );
+    t.equal(medium.tracks()[1].formattedLengthChanged(lengths[1]), "1:09", );
+    t.equal(medium.tracks()[2].formattedLengthChanged(lengths[2]), "2:54", );
+    t.equal(medium.tracks()[3].formattedLengthChanged(lengths[3]), "1:00:00", );
+    t.equal(medium.tracks()[4].formattedLengthChanged(lengths[4]), "1:14:00", );
+    t.equal(medium.tracks()[5].formattedLengthChanged(lengths[5]), "1:00:00", );
+    t.equal(medium.tracks()[6].formattedLengthChanged(lengths[6]), "10:09:00", );
+    t.equal(medium.tracks()[7].formattedLengthChanged(lengths[7]), "?:??", );
 });
