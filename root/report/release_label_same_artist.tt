@@ -1,0 +1,15 @@
+[%- WRAPPER 'layout.tt' title=l('Releases with label the same as the artist') full_width=1 -%]
+
+<h1>[% l('Releases with label the same as the artist') %]</h1>
+
+<ul>
+    <li>[% l('This report lists releases that have their label set to be the same
+              as their artist.') %]</li>
+    <li>[% l('Total releases found: {count}', { count => pager.total_entries }) %]</li>
+    <li>[% l('Generated on {date}', { date => UserDate.format(generated) }) %]</li>
+    [%- INCLUDE 'report/filter_link.tt' -%]
+</ul>
+
+[%- INCLUDE 'report/release_list.tt' -%]
+
+[%- END -%]
