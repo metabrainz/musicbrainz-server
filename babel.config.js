@@ -32,5 +32,6 @@ module.exports = function (api) {
     presets,
     plugins,
     ignore,
+    sourceType: 'unambiguous',
   };
 };

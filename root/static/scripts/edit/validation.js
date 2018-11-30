@@ -3,9 +3,9 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-import ko from 'knockout';
+const ko = require('knockout');
 
-import MB from '../common/MB';
+const MB = require('../common/MB');
 
 exports.errorFields = ko.observableArray([]);
 
