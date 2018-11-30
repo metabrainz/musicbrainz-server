@@ -187,28 +187,28 @@ fieldTest("tracks are set correctly when the cdtoc is changed", function (t, rel
 fieldTest("Tracks' time are changed correctly when inputting values in the medium tracklist editing form tab", function (t, release){
     t.plan(8);
 
-    var medium = new fields.Medium({ tracks: [ ] }, release);
+    var medium = new fields.Medium({ tracks: [ {} ] }, release);
     
     var lengths = [
-        {5},
-        {69},
-        {174},
-        {6000},
-        {7400},
-        {10000},
-        {96900},
-        {3723494},
+        "5",
+        "69",
+        "174",
+        "6000",
+        "7400",
+        "10000",
+        "96900",
+        "3723494",
     ];
 
     var output = [
-        {"0.05"},
-        {"1.09"},
-        {"2:54"},
-        {"1:00:00"},
-        {"1:14:00"},
-        {"1:00:00"},
-        {"10:09:00"},
-        {"?:??"},
+        "0.05",
+        "1.09",
+        "2:54",
+        "1:00:00",
+        "1:14:00",
+        "1:00:00",
+        "10:09:00",
+        "?:??",
     ];
 
     medium.tracks()[0].formattedLengthChanged(lengths[0]);
