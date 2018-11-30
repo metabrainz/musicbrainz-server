@@ -1,7 +1,7 @@
 [% main_title = l("Collection “{collection}”", { collection => collection.name }) %]
 [%- WRAPPER "layout.tt" title=title ? main_title _ " - ${title}" : main_title -%]
   <div id="content">
-    [%- INCLUDE "collection/header.tt" -%]
+    [%~ React.embed(c, 'collection/CollectionHeader', { collection => collection, page => page }) ~%]
     [%- content -%]
   </div>
 

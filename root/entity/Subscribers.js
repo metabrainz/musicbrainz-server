@@ -14,7 +14,7 @@ import EditorLink from '../static/scripts/common/components/EditorLink';
 import chooseLayoutComponent from '../utility/chooseLayoutComponent';
 
 type Props = {|
-  +entity: CoreEntityT,
+  +entity: CoreEntityT | CollectionT,
   +privateEditors: number,
   +publicEditors: $ReadOnlyArray<EditorT>,
   +subscribed: boolean,
