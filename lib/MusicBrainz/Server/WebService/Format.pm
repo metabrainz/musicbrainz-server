@@ -36,7 +36,7 @@ role {
         else
         {
             # Default to application/xml when no accept header is specified.
-            # (Picard does this, http://tickets.musicbrainz.org/browse/PICARD-273).
+            # (Picard does this, http://tickets.metabrainz.org/browse/PICARD-273).
             my $accept = $c->req->header('Accept');
 
             if ((!$accept || $accept eq '*/*') && exists $accepted{'application/xml'}) {

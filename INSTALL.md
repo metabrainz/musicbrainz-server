@@ -421,6 +421,6 @@ Troubleshooting
 If you have any difficulties, feel free to ask in #metabrainz on irc.freenode.net,
 or ask on [our forums](https://community.metabrainz.org/c/musicbrainz).
 
-Please report any issues on our [bug tracker](http://tickets.musicbrainz.org/).
+Please report any issues on our [bug tracker](http://tickets.metabrainz.org/).
 
 Good luck, and happy hacking!

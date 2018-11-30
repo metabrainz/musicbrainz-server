@@ -86,7 +86,7 @@ def tag():
     tag = prompt("Tag name", default="-".join("v", year, month, day))
     blog_url = prompt(
             "Blog post URL", validate=r'^http.*',
-            default="https://blog.musicbrainz.org/" +
+            default="https://blog.metabrainz.org/" +
             "/".join(year, month, day) + "/" +
             "-".join("server", "update", year, month, day) + "/"
             )
