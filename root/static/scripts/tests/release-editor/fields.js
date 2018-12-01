@@ -233,5 +233,5 @@ fieldTest("Tracks' time are changed correctly when inputting values in the mediu
     t.equal(medium.tracks()[0].formattedLength(), output[6], "length " + lengths[6] + " is formatted as " + output[6]);
 
     medium.tracks()[0].formattedLengthChange(lengths[7]);
-    t.equal(medium.tracks()[0].formattedLength(), output[7], "length " + lengths[7] + " is formatted as " + output[7]);googe
+    t.equal(medium.tracks()[0].formattedLength(), output[7], "length " + lengths[7] + " is formatted as " + output[7]);
 });
