@@ -261,3 +261,7 @@ module.exports = {
 
   resolve: browserConfig.resolve,
 };
+
+if (String(process.env.WATCH_MODE) === '1') {
+  Object.assign(module.exports, require('./webpack/watchConfig'));
+}
