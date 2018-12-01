@@ -201,8 +201,8 @@ fieldTest("Tracks' time are changed correctly when inputting values in the mediu
     ];
 
     var output = [
-        "0.05",
-        "1.09",
+        "0:05",
+        "1:09",
         "2:54",
         "1:00:00",
         "1:14:00",
