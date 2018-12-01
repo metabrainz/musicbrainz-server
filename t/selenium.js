@@ -379,7 +379,19 @@ async function handleCommand(file, command, target, value, t) {
 
     case 'type':
       element = await findElement(target);
+      /*
+       * XXX *Both* of the next two lines are needed to clear the input
+       * in some cases. (Just one or the other won't suffice.) It's not
+       * known what module is at fault, but this combination is
+       * confirmed to misbehave:
+       *
+       * Chrome 70.0.3538.110
+       * ChromeDriver 2.44.609545
+       * chrome-remote-interface 0.27.0
+       * selenium-webdriver 3.6.0
+       */
       await element.clear();
+      await driver.executeScript('arguments[0].value = ""', element);
       return element.sendKeys(value);
 
     case 'uncheck':
