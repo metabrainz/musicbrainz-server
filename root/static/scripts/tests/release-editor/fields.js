@@ -60,9 +60,9 @@ fieldTest("mediums having their \"loaded\" observable set correctly", function (
 
     t.equal(mediums()[0].loaded(), true, "medium without id or tracks is considered loaded");
     t.equal(mediums()[1].loaded(), true, "medium without id but with tracks is considered loaded");
-    t.equal(mediums()[2].loaded(), false, "medium with id but without tracks is considered not loaded")
+    t.equal(mediums()[2].loaded(), false, "medium with id but without tracks is considered not loaded");
     t.equal(mediums()[3].loaded(), false, "medium with originalID but without tracks is considered not loaded");
-    t.equal(mediums()[4].loaded(), true, "medium with id and with tracks is considered loaded")
+    t.equal(mediums()[4].loaded(), true, "medium with id and with tracks is considered loaded");
     t.equal(mediums()[5].loaded(), true, "medium with originalID and with tracks is considered loaded");
 
 });
@@ -186,8 +186,6 @@ fieldTest("tracks are set correctly when the cdtoc is changed", function (t, rel
 
 fieldTest("Tracks' time are changed correctly when inputting values in the medium tracklist editing form tab", function (t, release){
     t.plan(8);
-
-    var medium = new fields.Medium({ tracks: [ {} ] }, release);
     
     var lengths = [
         "5",
@@ -210,6 +208,8 @@ fieldTest("Tracks' time are changed correctly when inputting values in the mediu
         "10:09:00",
         "?:??",
     ];
+
+    var medium = new fields.Medium({ tracks: [ {} ] }, release);
 
     medium.tracks()[0].formattedLengthChanged(lengths[0]);
     t.equal(medium.tracks()[0].formattedLength(), output[0], "length " + lengths[0] + " is formatted as " + output[0]);
