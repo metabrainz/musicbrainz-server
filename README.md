@@ -24,7 +24,7 @@ General Prerequisites:
 Reporting bugs
 --------------
 
-Please report issues on our [bug tracker](http://tickets.musicbrainz.org/).
+Please report issues on our [bug tracker](http://tickets.metabrainz.org/).
 
 Contributing
 ------------

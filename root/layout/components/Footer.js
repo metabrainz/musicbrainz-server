@@ -25,9 +25,9 @@ const Footer = ({$c, ...props}) => {
         {' | '}
         <a className="internal" href="https://community.metabrainz.org/">{l('Forums')}</a>
         {' | '}
-        <a className="internal" href="http://tickets.musicbrainz.org/">{l('Bug Tracker')}</a>
+        <a className="internal" href="http://tickets.metabrainz.org/">{l('Bug Tracker')}</a>
         {' | '}
-        <a className="internal" href="https://blog.musicbrainz.org/">{l('Blog')}</a>
+        <a className="internal" href="https://blog.metabrainz.org/">{l('Blog')}</a>
         {' | '}
         <a className="internal" href="https://twitter.com/MusicBrainz">{l('Twitter')}</a>
 
