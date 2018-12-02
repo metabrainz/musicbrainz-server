@@ -1,21 +1,34 @@
+# #-#-#-#-#  mb_server.pot (PACKAGE VERSION)  #-#-#-#-#
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#: ../root/static/gulpfile.js:21
 #, fuzzy
 msgid ""
 msgstr ""
+"#-#-#-#-#  mb_server.pot (PACKAGE VERSION)  #-#-#-#-#\n"
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-12-02 23:54-0600\n"
+"POT-Creation-Date: 2018-12-02 23:55-0600\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"#-#-#-#-#  javascript.pot (PACKAGE VERSION)  #-#-#-#-#\n"
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-12-02 23:55-0600\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
@@ -4242,6 +4255,7 @@ msgid "Non-digital releases with download relationships"
 msgstr ""
 
 #: ../root/components/common-macros.tt:925 ../root/edit/edit_header.tt:27
+#: ../root/edit/components/Vote.js:80
 msgid "None"
 msgstr ""
 
@@ -11612,6 +11626,10 @@ msgstr ""
 msgid "{entity} has no aliases."
 msgstr ""
 
+#: ../root/components/Aliases/index.js:39
+msgid "Add a new alias"
+msgstr ""
+
 #: ../root/components/ConfirmLayout.js:38
 msgid "Yes, I am sure"
 msgstr ""
@@ -11869,6 +11887,10 @@ msgstr ""
 #: ../root/elections/Nominate.js:17
 msgid ""
 "Are you sure you want to nominate the editor {editor} for auto-editor status?"
+msgstr ""
+
+#: ../root/elections/Nominate.js:21
+msgid "Nominate a candidate for auto-editor"
 msgstr ""
 
 #: ../root/elections/NotFound.js:16
@@ -12210,8 +12232,16 @@ msgstr ""
 msgid "Page {n}"
 msgstr ""
 
+#: ../root/layout/components/Head.js:64
+msgid "MusicBrainz: Artist"
+msgstr ""
+
 #: ../root/layout/components/Head.js:65
 msgid "MusicBrainz: Label"
+msgstr ""
+
+#: ../root/layout/components/Head.js:66
+msgid "MusicBrainz: Release"
 msgstr ""
 
 #: ../root/layout/components/Head.js:67
@@ -12971,6 +13001,10 @@ msgstr ""
 msgid "{review_link|Review} by {author} on {date}"
 msgstr ""
 
+#: ../root/static/scripts/common/components/TagEditor.js:89
+msgid "Withdraw vote"
+msgstr ""
+
 #: ../root/static/scripts/common/components/TagEditor.js:105
 msgid "Upvote"
 msgstr ""
@@ -13373,6 +13407,10 @@ msgstr ""
 
 #: ../root/static/scripts/release-editor/bindingHandlers.js:38
 msgid "Change all artists on this release that match “{name}”"
+msgstr ""
+
+#: ../root/static/scripts/release-editor/dialogs.js:252
+msgid "Page {page} of {total}"
 msgstr ""
 
 #: ../root/static/scripts/release-editor/fields.js:566

@@ -7,6 +7,7 @@
 const isNodeJS = require('detect-node');
 const sliced = require('sliced');
 
+const cleanMsgid = require('./cleanMsgid').default;
 const expand = require('./expand');
 const expand2 = require('./expand2').default;
 const NopArgs = require('./NopArgs');
@@ -24,6 +25,28 @@ if (isNodeJS) {
 }
 
 const canLoadDomain = typeof gettext.loadDomain === 'function';
+
+/*
+ * /script/xgettext.js will strip newlines and collapse adjacent
+ * whitespace when extracting strings into .pot files. Yet the string
+ * in the source code obviously remains unchanged. So to make sure we
+ * look up the correct key, we have to apply the same whitespace
+ * transformation here. The key/msgid's argument position depends on
+ * which method we're wrapping.
+ */
+const MSGID_ARG_POSITIONS = new Map([
+  ['gettext', 0],
+  ['dgettext', 1],
+  ['dcgettext', 1],
+  ['ngettext', 0],
+  ['dngettext', 1],
+  ['dcngettext', 1],
+  ['pgettext', 1],
+  ['dpgettext', 2],
+  ['npgettext', 1],
+  ['dnpgettext', 2],
+  ['dcnpgettext', 2],
+]);
 
 function wrapGettext(method, domain) {
   return function () {
@@ -51,6 +74,11 @@ function wrapGettext(method, domain) {
     }
 
     args.unshift(domain);
+
+    // See comment for MSGID_ARG_POSITIONS above.
+    const msgidArg = MSGID_ARG_POSITIONS.get(method);
+    args[msgidArg] = cleanMsgid(args[msgidArg]);
+
     const string = gettext[method].apply(gettext, args);
 
     if (expandArgs) {
