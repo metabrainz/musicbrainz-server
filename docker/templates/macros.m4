@@ -33,7 +33,7 @@ RUN apt-key add /tmp/yarn_pubkey.txt && \
     dpkg -i NODEJS_DEB && \
     cd - && \
     sudo_mb(``yarn install$1'')
-copy_mb(``.babelrc ./'')')
+copy_mb(``babel.config.js ./'')')
 
 m4_define(
     `install_javascript_and_templates',
