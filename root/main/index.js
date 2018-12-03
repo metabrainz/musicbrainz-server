@@ -7,6 +7,7 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
+import {omit} from 'lodash';
 import he from 'he';
 import React from 'react';
 
@@ -20,11 +21,13 @@ import entityHref from '../static/scripts/common/utility/entityHref';
 type Props = {|
   +blogEntries: $ReadOnlyArray<BlogEntryT> | null,
   +newestReleases: $ReadOnlyArray<ArtworkT>,
+  +withSafeBrowsing: boolean,
 |};
 
 const Homepage = ({
   blogEntries,
   newestReleases,
+  withSafeBrowsing,
 }: Props) => (
   <Layout fullWidth homepage title={l('MusicBrainz - The Open Music Encyclopedia')}>
     <div id="maincontent">
@@ -167,35 +170,59 @@ const Homepage = ({
 
     <div className="feature-column" style={{clear: 'both', paddingTop: '1%'}}>
       <h2>{l('Recent Additions')}</h2>
+      {withSafeBrowsing ? (
+        <div className="banner">
+          {l('Cover art on the homepage is disabled for Chrome-based browsers, which are known to issue an incorrect phishing warning since the 11th of November 2018; see {ticket_link|ticket CAA-116} for follow-up.<br/>A phishing warning may show up on any other page with cover art. You are encouraged to {report_link|report errors to Google Safe Browsing}. Sorry for the inconvenience!', {
+            __react: true,
+            report_link: 'https://safebrowsing.google.com/safebrowsing/report_error/',
+            ticket_link: 'https://tickets.metabrainz.org/browse/CAA-116',
+          })}
+        </div>
+      ) : null}
       <div style={{height: '160px', overflow: 'hidden'}}>
         {newestReleases.map((artwork, index) => (
-          <ReleaseArtwork artwork={artwork} key={index} />
+          <ReleaseArtwork
+            artwork={artwork}
+            key={index}
+            withSafeBrowsing={withSafeBrowsing}
+          />
         ))}
       </div>
     </div>
   </Layout>
 );
 
-const ReleaseArtwork = ({artwork}: {|+artwork: ArtworkT|}) => {
+const ReleaseArtwork = ({
+  artwork,
+  withSafeBrowsing,
+}: {|
+  +artwork: ArtworkT,
+  +withSafeBrowsing: boolean,
+|}) => {
   const release = artwork.release;
   if (!release) {
     return null;
   }
+  const releaseDescription = l('{entity} by {artist}', {
+    __react: true,
+    artist: reduceArtistCredit(release.artistCredit),
+    entity: release.name,
+  });
   return (
     <div className="artwork-cont" style={{textAlign: 'center'}}>
       <div className="artwork">
         <a
           href={entityHref(release)}
-          title={l('{entity} by {artist}', {
-            __react: true,
-            artist: reduceArtistCredit(release.artistCredit),
-            entity: release.name,
-          })}
+          title={releaseDescription}
         >
-          <ArtworkImage
-            artwork={artwork}
-            fallback={release.cover_art_url || ''}
-          />
+          {withSafeBrowsing ? (
+            <em>{releaseDescription}</em>
+          ) : (
+            <ArtworkImage
+              artwork={artwork}
+              fallback={release.cover_art_url || ''}
+            />
+          )}
         </a>
       </div>
     </div>
