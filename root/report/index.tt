@@ -131,6 +131,7 @@
         <ul>
             <li><a href="[% c.uri_for_action('/report/show', 'DeprecatedRelationshipPlaces') %]">[% l('Places with deprecated relationships') %]</a></li>
             <li><a href="[% c.uri_for_action('/report/show', 'AnnotationsPlaces') %]">[% l('Places with annotations') %]</a></li>
+            <li><a href="[% c.uri_for_action('/report/show', 'PlacesWithoutCoordinates') %]">[% l('Places without coordinates') %]</a></li>
         </ul>
 
         <h2>[% l('Series') %]</h2>
