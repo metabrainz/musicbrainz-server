@@ -9,9 +9,11 @@
     <li>[% l('Generated on {date}', { date => UserDate.format(generated) }) %]</li>
 </ul>
 
-[% BLOCK extra_header_end %]<th>[% l('Address') %]</th><th>[% l('Area') %]</th>[% END %]
+[% BLOCK extra_header_end %]<th>[% l('Address') %]</th><th>[% l('Area') %]</th><th style="width:5em">[% l('Find') %]</th>[% END %]
 [% BLOCK extra_row_end %]
-<td>[% item.place.address %]</td><td>[% IF item.place.area %][% descriptive_link(item.place.area) %][% END %]</td>
+  <td>[% item.place.address %]</td>
+  <td>[% IF item.place.area %][% descriptive_link(item.place.area) %][% END %]</td>
+  <td><input type="button" onclick="window.open('https://www.openstreetmap.org/search?query=[% uri_escape(item.place.name _ ' ' _ item.place.address _ ' ' _ item.place.area.name) %]', '_blank')" value="Search"></td>
 [% END %]
 [%- INCLUDE 'report/place_list.tt' -%]
 
