@@ -226,7 +226,7 @@ database.
 
 ### Generating reports
 
-You can generate all reports using the *[RunReports.sh](https://github.com/metabrainz/musicbrainz-server/blob/master/admin/RunReports.pl)*
+You can generate all reports using the *[RunReports.pl](https://github.com/metabrainz/musicbrainz-server/blob/master/admin/RunReports.pl)*
 script:
 
     $ ./admin/RunReports.pl
