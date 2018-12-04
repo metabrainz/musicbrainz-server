@@ -214,24 +214,24 @@ fieldTest("Tracks' time are changed correctly when inputting values in the mediu
     medium.tracks()[0].formattedLengthChanged(lengths[0]);
     t.equal(medium.tracks()[0].formattedLength(), output[0], "length " + lengths[0] + " is formatted as " + output[0]);
 
-    medium.tracks()[0].formattedLengthChange(lengths[1]);
+    medium.tracks()[0].formattedLengthChanged(lengths[1]);
     t.equal(medium.tracks()[0].formattedLength(), output[1], "length " + lengths[1] + " is formatted as " + output[1]);
 
     medium.tracks()[0].formattedLengthChanged(lengths[2]);
     t.equal(medium.tracks()[0].formattedLength(), output[2], "length " + lengths[2] + " is formatted as " + output[2]);
 
-    medium.tracks()[0].formattedLengthChange(lengths[3]);
+    medium.tracks()[0].formattedLengthChanged(lengths[3]);
     t.equal(medium.tracks()[0].formattedLength(), output[3], "length " + lengths[3] + " is formatted as " + output[3]);
 
     medium.tracks()[0].formattedLengthChanged(lengths[4]);
     t.equal(medium.tracks()[0].formattedLength(), output[4], "length " + lengths[4] + " is formatted as " + output[4]);
 
-    medium.tracks()[0].formattedLengthChange(lengths[5]);
+    medium.tracks()[0].formattedLengthChanged(lengths[5]);
     t.equal(medium.tracks()[0].formattedLength(), output[5], "length " + lengths[5] + " is formatted as " + output[5]);
 
     medium.tracks()[0].formattedLengthChanged(lengths[6]);
     t.equal(medium.tracks()[0].formattedLength(), output[6], "length " + lengths[6] + " is formatted as " + output[6]);
 
-    medium.tracks()[0].formattedLengthChange(lengths[7]);
+    medium.tracks()[0].formattedLengthChanged(lengths[7]);
     t.equal(medium.tracks()[0].formattedLength(), output[7], "length " + lengths[7] + " is formatted as " + output[7]);
 });
