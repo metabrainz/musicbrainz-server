@@ -94,6 +94,7 @@ my %URL_SPECIALIZATIONS = (
     'MySpace'             => qr{^https?://(?:www\.)?myspace\.com/}i,
     'NDL'                 => qr{^https?://(?:www\.)?iss\.ndl\.go\.jp/}i,
     'NDLAuthorities'      => qr{^https?://id\.ndl\.go\.jp/}i,
+    'NicoNicoVideo'       => qr{^https?://(?:www\.)?nicovideo\.jp/}i,
     'OCReMix'             => qr{^https?://(?:www\.)?ocremix\.org/}i,
     'OpenLibrary'         => qr{^https?://(?:www\.)?openlibrary\.org/}i,
     'Operabase'           => qr{^https?://(?:www\.)?operabase\.com/}i,
