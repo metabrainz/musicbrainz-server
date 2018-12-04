@@ -58,6 +58,7 @@ use MusicBrainz::Server::PagedReport;
     NoLanguage
     NoScript
     PartOfSetRelationships
+    PlacesWithoutCoordinates
     PossibleCollaborations
     RecordingsWithoutVACredit
     RecordingsWithoutVALink
@@ -134,6 +135,7 @@ use MusicBrainz::Server::Report::MultipleDiscogsLinks;
 use MusicBrainz::Server::Report::NoLanguage;
 use MusicBrainz::Server::Report::NoScript;
 use MusicBrainz::Server::Report::PartOfSetRelationships;
+use MusicBrainz::Server::Report::PlacesWithoutCoordinates;
 use MusicBrainz::Server::Report::PossibleCollaborations;
 use MusicBrainz::Server::Report::RecordingsWithoutVACredit;
 use MusicBrainz::Server::Report::RecordingsWithoutVALink;
