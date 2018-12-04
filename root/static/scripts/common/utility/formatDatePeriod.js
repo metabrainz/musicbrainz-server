@@ -3,10 +3,12 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-const ko = require('knockout');
+import ko from 'knockout';
 
-const {l} = require('../i18n');
+import {l} from '../i18n';
+
 import formatDate from './formatDate';
+import formatBarcode from './formatBarcode';
 
 function formatDatePeriod(entity) {
   let {begin_date, end_date, ended} = entity;
@@ -38,4 +40,4 @@ function formatDatePeriod(entity) {
   return '';
 }
 
-module.exports = formatDatePeriod;
+export default formatDatePeriod;

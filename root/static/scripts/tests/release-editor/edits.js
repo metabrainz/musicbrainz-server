@@ -3,19 +3,20 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-require('../typeInfo');
+import '../typeInfo';
 
-const $ = require('jquery');
-const ko = require('knockout');
-const _ = require('lodash');
-const test = require('tape');
-const ReactTestUtils = require('react-dom/test-utils');
-const ReactDOM = require('react-dom');
+import $ from 'jquery';
+import ko from 'knockout';
+import _ from 'lodash';
+import test from 'tape';
+import ReactTestUtils from 'react-dom/test-utils';
+import ReactDOM from 'react-dom';
 
-const validation = require('../../edit/validation');
-const fields = require('../../release-editor/fields');
-const {triggerChange, triggerClick, addURL} = require('../external-links-editor/utils');
-const common = require('./common');
+import validation from '../../edit/validation';
+import fields from '../../release-editor/fields';
+import {triggerChange, triggerClick, addURL} from '../external-links-editor/utils';
+
+import * as common from './common';
 
 var releaseEditor = MB.releaseEditor;
 MB.formatsWithDiscIDs = [1];

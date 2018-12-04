@@ -18,7 +18,7 @@ import {
   EDIT_VOTE_APPROVE,
 } from '../../constants';
 import {withCatalystContext} from '../../context';
-import DBDefs from '../../static/scripts/common/DBDefs';
+import * as DBDefs from '../../static/scripts/common/DBDefs';
 import {l, lp} from '../../static/scripts/common/i18n';
 import {
   editorMayVote,

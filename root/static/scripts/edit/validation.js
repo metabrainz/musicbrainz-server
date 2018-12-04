@@ -3,9 +3,9 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-const ko = require('knockout');
+import ko from 'knockout';
 
-const MB = require('../common/MB');
+import MB from '../common/MB';
 
 exports.errorFields = ko.observableArray([]);
 
@@ -33,7 +33,7 @@ MB.validation = exports;
 if (typeof document !== 'undefined') {
     const $ = require('jquery');
 
-    const clean = require('../common/utility/clean');
+    const clean = require('../common/utility/clean').default;
 
     exports.errorsExist.subscribe(function (value) {
         $('#page form button[type=submit]').prop('disabled', value);

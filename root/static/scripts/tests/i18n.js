@@ -3,11 +3,10 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-const test = require('tape');
+import test from 'tape';
 
-const commaList = require('../common/i18n/commaList');
-const commaOnlyList = require('../common/i18n/commaOnlyList');
-
+import commaList from '../common/i18n/commaList';
+import commaOnlyList from '../common/i18n/commaOnlyList';
 
 test("commaList", function (t) {
     t.plan(5);

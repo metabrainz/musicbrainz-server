@@ -3,15 +3,16 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-const _ = require('lodash');
-const $ = require('jquery');
-const ko = require('knockout');
-const React = require('react');
-const manifest = require('../../../manifest');
-const {l} = require('../../common/i18n');
+import _ from 'lodash';
+import $ from 'jquery';
+import ko from 'knockout';
+import React from 'react';
 
-require('../MB/Control/Autocomplete');
-require('../entity');
+import * as manifest from '../../../manifest';
+import {l} from '../../common/i18n';
+
+import '../MB/Control/Autocomplete';
+import '../entity';
 
 class Autocomplete extends React.Component {
   componentDidMount() {
@@ -74,10 +75,11 @@ class Autocomplete extends React.Component {
           disabled={disabled}
           id={inputID}
           ref={input => this._nameInput = input}
-          type="text" />
+          type="text"
+        />
       </span>
     );
   }
 }
 
-module.exports = Autocomplete;
+export default Autocomplete;

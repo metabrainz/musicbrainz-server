@@ -3,16 +3,16 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-const _ = require('lodash');
-const test = require('tape');
+import _ from 'lodash';
+import test from 'tape';
 
 import formatDate from '../common/utility/formatDate';
-const age = require('../../../utility/age');
-const formatDatePeriod = require('../common/utility/formatDatePeriod');
-const formatTrackLength = require('../common/utility/formatTrackLength');
+import * as age from '../../../utility/age';
+import formatDatePeriod from '../common/utility/formatDatePeriod';
+import formatTrackLength from '../common/utility/formatTrackLength';
 import parseDate from '../common/utility/parseDate';
-const dates = require('../edit/utility/dates');
-const fullwidthLatin = require('../edit/utility/fullwidthLatin');
+import * as dates from '../edit/utility/dates';
+import * as fullwidthLatin from '../edit/utility/fullwidthLatin';
 
 test('age', function (t) {
     t.plan(11);

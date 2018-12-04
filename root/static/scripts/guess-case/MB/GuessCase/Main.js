@@ -19,29 +19,32 @@
 
 */
 
-const MB = require('../../../common/MB');
-const getCookie = require('../../../common/utility/getCookie');
-const flags = require('../../flags');
+import MB from '../../../common/MB';
+import getCookie from '../../../common/utility/getCookie';
+import * as flags from '../../flags';
+import * as modes from '../../modes';
 
-require('./Handler/Base');
-require('./Handler/Area');
-require('./Handler/Artist');
-require('./Handler/Label');
-require('./Handler/Place');
-require('./Handler/Release');
-require('./Handler/Track');
-require('./Handler/Work');
+import Input from './Input';
+import Output from './Output';
+
+import './Handler/Base';
+import './Handler/Area';
+import './Handler/Artist';
+import './Handler/Label';
+import './Handler/Place';
+import './Handler/Release';
+import './Handler/Track';
+import './Handler/Work';
 
 MB.GuessCase = MB.GuessCase || {};
 
 /**
  * Main class of the GC functionality
  **/
-(function () {
     var self = {};
 
     self.modeName = getCookie("guesscase_mode") || "English";
-    self.mode = require('../../modes')[self.modeName];
+    self.mode = modes[self.modeName];
 
     /* config. */
     self.CFG_UC_UPPERCASED = getCookie("guesscase_keepuppercase") !== "false";
@@ -49,8 +52,8 @@ MB.GuessCase = MB.GuessCase || {};
     // ----------------------------------------------------------------------------
     // member variables
     // ----------------------------------------------------------------------------
-    self.i = require('./Input')(self);
-    self.o = require('./Output')(self);
+    self.i = Input(self);
+    self.o = Output(self);
 
     self.re = {
         // define commonly used RE's
@@ -142,5 +145,4 @@ MB.GuessCase = MB.GuessCase || {};
         }
     };
 
-    module.exports = self;
-}());
+export default self;

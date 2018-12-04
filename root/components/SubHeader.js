@@ -7,7 +7,7 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-const React = require('react');
+import React from 'react';
 
 const SubHeader = ({subHeading}: {subHeading: string}) => (
   <p className="subheader">
@@ -15,4 +15,4 @@ const SubHeader = ({subHeading}: {subHeading: string}) => (
   </p>
 );
 
-module.exports = SubHeader;
+export default SubHeader;

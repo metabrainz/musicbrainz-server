@@ -3,19 +3,20 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-const $ = require('jquery');
-const ko = require('knockout');
-const _ = require('lodash');
-
-const i18n = require('../common/i18n');
-const {
+import * as i18n from '../common/i18n';
+import {
         artistCreditFromArray,
         hasVariousArtists,
         isComplexArtistCredit,
         reduceArtistCredit,
-    } = require('../common/immutable-entities');
-const deferFocus = require('../edit/utility/deferFocus');
-const guessFeat = require('../edit/utility/guessFeat');
+    } from '../common/immutable-entities';
+import deferFocus from '../edit/utility/deferFocus';
+import guessFeat from '../edit/utility/guessFeat';
+
+const $ = require('jquery');
+const ko = require('knockout');
+const _ = require('lodash');
+
 const fields = require('./fields');
 const releaseEditor = require('./viewModel');
 

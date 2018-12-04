@@ -3,14 +3,15 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-const _ = require('lodash');
-const test = require('tape');
+import _ from 'lodash';
+import test from 'tape';
 
-const {reduceArtistCredit} = require('../../common/immutable-entities');
-const fields = require('../../release-editor/fields');
-const trackParser = require('../../release-editor/trackParser');
-const releaseEditor = require('../../release-editor/viewModel');
-const common = require('./common');
+import {reduceArtistCredit} from '../../common/immutable-entities';
+import fields from '../../release-editor/fields';
+import trackParser from '../../release-editor/trackParser';
+import releaseEditor from '../../release-editor/viewModel';
+
+import * as common from './common';
 
 function parserTest(name, callback) {
     test(name, function (t) {
@@ -49,7 +50,7 @@ parserTest("track numbers", function (t) {
     ]
     .join("\n");
 
-    common.trackParser(t, input, [
+    common.trackParserTest(t, input, [
         { position: 1, number: "a1", name: "Kermis" },
         { position: 2, number: "a2", name: "Glitch" },
         { position: 3, number: "a3", name: "Afrik Slang" },
@@ -78,7 +79,7 @@ parserTest("parsing track durations with trailing whitespace (MBS-1284)", functi
     ]
     .join("\n");
 
-    common.trackParser(t, input, [
+    common.trackParserTest(t, input, [
         { position: 1, name: "Forgotten Child", formattedLength: "3:39" },
         { position: 2, name: "Dirty Looks",     formattedLength: "4:34" },
         { position: 3, name: "Private Life",    formattedLength: "3:29" },
@@ -102,7 +103,7 @@ parserTest("numbers at the end of track names being wrongly interpreted as durat
     ]
     .join("\n");
 
-    common.trackParser(t, input, [
+    common.trackParserTest(t, input, [
         { position: 1, name: "Criminology 2.5", formattedLength: "" },
         { position: 2, name: "Love On A .45", formattedLength: "" }
     ]);
@@ -127,7 +128,7 @@ parserTest("ignoring lines that don't start with a number when the option is set
         4:51 \n\
     ";
 
-    common.trackParser(t, input, [
+    common.trackParserTest(t, input, [
         { position: 1, name: "Freeman Hardy & Willis Acid", formattedLength: "" },
         { position: 2, name: "Orange Romeda", formattedLength: "" }
     ]);
@@ -145,7 +146,7 @@ parserTest("XX:XX:XX track times (MBS-3353)", function (t) {
 
     var input = "1. Love On A .45  05:22:31";
 
-    common.trackParser(t, input, [
+    common.trackParserTest(t, input, [
         { position: 1, name: "Love On A .45", formattedLength: "5:22:31" }
     ]);
 });
@@ -376,7 +377,7 @@ parserTest("parsing fullwidth numbers", function (t) {
 
     var input = "１ Ｆｏｏ ２：３４";
 
-    common.trackParser(t, input, [
+    common.trackParserTest(t, input, [
         { position: 1, name: "Ｆｏｏ", formattedLength: "2:34" }
     ]);
 });

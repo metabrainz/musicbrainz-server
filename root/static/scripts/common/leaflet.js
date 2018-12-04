@@ -3,10 +3,11 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-const L = require('leaflet/dist/leaflet-src');
+import L from 'leaflet/dist/leaflet-src';
 
-const manifest = require('../../manifest');
-const DBDefs = require('./DBDefs');
+import * as manifest from '../../manifest';
+
+import * as DBDefs from './DBDefs';
 
 L.Icon.Default.prototype._getIconUrl = function (name) {
   return manifest.pathTo(
@@ -15,7 +16,7 @@ L.Icon.Default.prototype._getIconUrl = function (name) {
   );
 };
 
-function createMap(latitude, longitude, zoom) {
+export function createMap(latitude, longitude, zoom) {
   const map = L.map('largemap').setView([latitude, longitude], zoom);
 
   L.tileLayer('https://{s}.tiles.mapbox.com/v4/' + DBDefs.MAPBOX_MAP_ID + '/{z}/{x}/{y}.png?access_token=' + DBDefs.MAPBOX_ACCESS_TOKEN, {
@@ -27,5 +28,4 @@ function createMap(latitude, longitude, zoom) {
   return map;
 }
 
-exports.createMap = createMap;
-exports.L = L;
+export {L};

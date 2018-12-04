@@ -26,4 +26,4 @@ function getScriptArgs() {
   return {};
 }
 
-module.exports = getScriptArgs;
+export default getScriptArgs;

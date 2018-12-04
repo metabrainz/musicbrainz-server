@@ -3,30 +3,29 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-const ko = require('knockout');
-const _ = require('lodash');
-const React = require('react');
-const ReactDOMServer = require('react-dom/server');
+import ko from 'knockout';
+import _ from 'lodash';
+import React from 'react';
+import ReactDOMServer from 'react-dom/server';
 
-const ArtistCreditLink = require('./components/ArtistCreditLink');
-const EditorLink = require('./components/EditorLink');
-const EntityLink = require('./components/EntityLink');
-const {
-    PART_OF_SERIES_LINK_TYPES,
-    PROBABLY_CLASSICAL_LINK_TYPES,
-    VARTIST_GID,
-} = require('./constants');
-const i18n = require('./i18n');
-const {
-        artistCreditFromArray,
-        artistCreditsAreEqual,
-        isCompleteArtistCredit,
-    } = require('./immutable-entities');
-const MB = require('./MB');
-const linkTypeInfo = require('./typeInfo').link_type;
-const bracketed = require('./utility/bracketed').default;
-const clean = require('./utility/clean');
-const formatTrackLength = require('./utility/formatTrackLength');
+import ArtistCreditLink from './components/ArtistCreditLink';
+import EditorLink from './components/EditorLink';
+import EntityLink from './components/EntityLink';
+import {
+  PART_OF_SERIES_LINK_TYPES,
+  PROBABLY_CLASSICAL_LINK_TYPES,
+  VARTIST_GID,
+} from './constants';
+import * as i18n from './i18n';
+import {
+  artistCreditFromArray,
+  artistCreditsAreEqual,
+  isCompleteArtistCredit,
+} from './immutable-entities';
+import MB from './MB';
+import {link_type as linkTypeInfo} from './typeInfo';
+import clean from './utility/clean';
+import formatTrackLength from './utility/formatTrackLength';
 
 (function () {
 
@@ -487,4 +486,4 @@ const formatTrackLength = require('./utility/formatTrackLength');
     };
 }());
 
-module.exports = MB.entity;
+export default MB.entity;

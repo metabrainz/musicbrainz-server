@@ -7,12 +7,13 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-const React = require('react');
-const {l} = require('../static/scripts/common/i18n');
-const EntityHeader = require('../components/EntityHeader');
-const ArtistCreditLink = require('../static/scripts/common/components/ArtistCreditLink');
-const TaggerIcon = require('../static/scripts/common/components/TaggerIcon');
-const {artistCreditFromArray} = require('../static/scripts/common/immutable-entities');
+import React from 'react';
+
+import {l} from '../static/scripts/common/i18n';
+import EntityHeader from '../components/EntityHeader';
+import ArtistCreditLink from '../static/scripts/common/components/ArtistCreditLink';
+import TaggerIcon from '../static/scripts/common/components/TaggerIcon';
+import {artistCreditFromArray} from '../static/scripts/common/immutable-entities';
 
 type Props = {|
   +page: string,
@@ -39,4 +40,4 @@ const RecordingHeader = ({recording, page}: Props) => {
   );
 };
 
-module.exports = RecordingHeader;
+export default RecordingHeader;

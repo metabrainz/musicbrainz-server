@@ -3,9 +3,9 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-const React = require('react');
+import React from 'react';
 
-const Tooltip = require('./Tooltip');
+import Tooltip from './Tooltip';
 
 class HelpIcon extends React.Component {
   constructor(props) {
@@ -27,4 +27,4 @@ class HelpIcon extends React.Component {
   }
 }
 
-module.exports = HelpIcon;
+export default HelpIcon;

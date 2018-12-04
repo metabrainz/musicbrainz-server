@@ -3,9 +3,9 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-const ko = require('knockout');
+import MB from '../common/MB';
 
-const MB = require('../common/MB');
+const ko = require('knockout');
 
 MB.releaseEditor = {
     rootField: {

@@ -19,8 +19,8 @@
 
 */
 
-const flags = require('../../../flags');
-const utils = require('../../../utils');
+import * as flags from '../../../flags';
+import * as utils from '../../../utils';
 
 MB.GuessCase = (MB.GuessCase) ? MB.GuessCase : {};
 MB.GuessCase.Handler = (MB.GuessCase.Handler) ? MB.GuessCase.Handler : {};

@@ -3,7 +3,7 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-const {l, strings} = require('./i18n');
+import {l, strings} from './i18n';
 
 (function (MB) {
 

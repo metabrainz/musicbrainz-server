@@ -3,16 +3,16 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-const _ = require('lodash');
-const React = require('react');
+import _ from 'lodash';
+import React from 'react';
 
-const {artistBeginLabel, artistEndLabel} = require('../../artist/utils');
-const {addColon, l} = require('../../static/scripts/common/i18n');
-const commaOnlyList = require('../../static/scripts/common/i18n/commaOnlyList');
+import {artistBeginLabel, artistEndLabel} from '../../artist/utils';
+import {addColon, l} from '../../static/scripts/common/i18n';
+import commaOnlyList from '../../static/scripts/common/i18n/commaOnlyList';
 import {l_languages} from '../../static/scripts/common/i18n/languages';
-const formatBarcode = require('../../static/scripts/common/utility/formatBarcode');
+import formatBarcode from '../../static/scripts/common/utility/formatBarcode';
 import formatDate from '../../static/scripts/common/utility/formatDate';
-const formatTrackLength = require('../../static/scripts/common/utility/formatTrackLength');
+import formatTrackLength from '../../static/scripts/common/utility/formatTrackLength';
 
 function entityDescription(entity) {
   const desc = [];
@@ -198,4 +198,4 @@ const MetaDescription = ({entity}) => {
   }
 };
 
-module.exports = MetaDescription;
+export default MetaDescription;

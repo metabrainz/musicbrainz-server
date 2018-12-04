@@ -3,7 +3,8 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-const getCookie = require('./getCookie');
+import getCookie from './getCookie';
+import formatBarcode from './formatBarcode';
 
 function getBooleanCookie(name, defaultValue = false) {
   let value = getCookie(name);
@@ -19,4 +20,4 @@ function getBooleanCookie(name, defaultValue = false) {
   return defaultValue;
 }
 
-module.exports = getBooleanCookie;
+export default getBooleanCookie;

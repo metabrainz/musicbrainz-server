@@ -3,33 +3,34 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-const $ = require('jquery');
-const ko = require('knockout');
-const _ = require('lodash');
-const React = require('react');
-const ReactDOM = require('react-dom');
+import $ from 'jquery';
+import ko from 'knockout';
+import _ from 'lodash';
+import React from 'react';
+import ReactDOM from 'react-dom';
 
-const Autocomplete = require('../../common/components/Autocomplete');
-const {l} = require('../../common/i18n');
-const {
-    artistCreditFromArray,
-    artistCreditsAreEqual,
-    hasArtist,
-    hasVariousArtists,
-    isCompleteArtistCredit,
-    isComplexArtistCredit,
-    reduceArtistCredit,
-  } = require('../../common/immutable-entities');
-const {
+import Autocomplete from '../../common/components/Autocomplete';
+import {l} from '../../common/i18n';
+import {
+  artistCreditFromArray,
+  artistCreditsAreEqual,
+  hasArtist,
+  hasVariousArtists,
+  isCompleteArtistCredit,
+  isComplexArtistCredit,
+  reduceArtistCredit,
+} from '../../common/immutable-entities';
+import {
   compose2,
   deleteIndex,
   index,
   merge,
   prop,
-} = require('../../common/utility/lens');
-const nonEmpty = require('../../common/utility/nonEmpty');
-const {localStorage} = require('../../common/utility/storage');
-const ArtistCreditBubble = require('./ArtistCreditBubble');
+} from '../../common/utility/lens';
+import nonEmpty from '../../common/utility/nonEmpty';
+import {localStorage} from '../../common/utility/storage';
+
+import ArtistCreditBubble from './ArtistCreditBubble';
 
 function setAutoJoinPhrases(ac) {
   const size = ac.length;
@@ -412,4 +413,4 @@ class ArtistCreditEditor extends React.Component {
   }
 }
 
-module.exports = ArtistCreditEditor;
+export default ArtistCreditEditor;

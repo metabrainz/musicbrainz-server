@@ -7,13 +7,13 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-const React = require('react');
+import React from 'react';
 
-const Layout = require('../layout');
-const EntityLink = require('../static/scripts/common/components/EntityLink');
-const {l} = require('../static/scripts/common/i18n');
-const {lp_attributes} = require('../static/scripts/common/i18n/attributes');
-const {l_instrument_descriptions} = require('../static/scripts/common/i18n/instrument_descriptions');
+import Layout from '../layout';
+import EntityLink from '../static/scripts/common/components/EntityLink';
+import {l} from '../static/scripts/common/i18n';
+import {lp_attributes} from '../static/scripts/common/i18n/attributes';
+import {l_instrument_descriptions} from '../static/scripts/common/i18n/instrument_descriptions';
 
 type PropsT = {|
   +instrument_types: $ReadOnlyArray<InstrumentTypeT>,
@@ -79,4 +79,4 @@ const InstrumentList = ({
   );
 };
 
-module.exports = InstrumentList;
+export default InstrumentList;

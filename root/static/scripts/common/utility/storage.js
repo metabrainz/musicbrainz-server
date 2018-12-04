@@ -7,8 +7,8 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-let hasLocalStorage = false;
-let hasSessionStorage = false;
+export let hasLocalStorage = false;
+export let hasSessionStorage = false;
 
 // https://bugzilla.mozilla.org/show_bug.cgi?id=365772
 try {
@@ -21,7 +21,7 @@ try {
 // Holds data where localStorage isn't supported
 const store: {[string]: string} = {};
 
-function localStorage(name: string, value?: string): string | void {
+export function localStorage(name: string, value?: string): string | void {
   if (arguments.length > 1) {
     if (value) {
       let inLocalStorage = false;
@@ -60,8 +60,4 @@ function localStorage(name: string, value?: string): string | void {
     }
   }
   return store[name];
-};
-
-exports.hasLocalStorage = hasLocalStorage;
-exports.hasSessionStorage = hasSessionStorage;
-exports.localStorage = localStorage;
+}

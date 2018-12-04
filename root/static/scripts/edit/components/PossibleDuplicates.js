@@ -3,10 +3,10 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-const React = require('react');
+import React from 'react';
 
-const EntityLink = require('../../common/components/EntityLink');
-const i18n = require('../../common/i18n');
+import EntityLink from '../../common/components/EntityLink';
+import * as i18n from '../../common/i18n';
 
 class PossibleDuplicates extends React.Component {
   render() {
@@ -38,4 +38,4 @@ class PossibleDuplicates extends React.Component {
   }
 }
 
-module.exports = PossibleDuplicates;
+export default PossibleDuplicates;

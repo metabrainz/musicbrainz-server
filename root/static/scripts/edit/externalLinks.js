@@ -4,28 +4,29 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-const $ = require('jquery');
-const ko = require('knockout');
-const _ = require('lodash');
-const React = require('react');
-const ReactDOM = require('react-dom');
+import $ from 'jquery';
+import ko from 'knockout';
+import _ from 'lodash';
+import * as React from 'react';
+import ReactDOM from 'react-dom';
 
-const {
-    FAVICON_CLASSES,
-    VIDEO_ATTRIBUTE_ID,
-    VIDEO_ATTRIBUTE_GID,
-  } = require('../common/constants');
-const {compare, l} = require('../common/i18n');
+import {
+  FAVICON_CLASSES,
+  VIDEO_ATTRIBUTE_ID,
+  VIDEO_ATTRIBUTE_GID,
+} from '../common/constants';
+import {compare, l} from '../common/i18n';
 import {l_relationships} from '../common/i18n/relationships';
-const MB = require('../common/MB');
-const linkTypeInfo = require('../common/typeInfo').link_type;
-const {hasSessionStorage} = require('../common/utility/storage');
-const isPositiveInteger = require('./utility/isPositiveInteger');
-const HelpIcon = require('./components/HelpIcon');
-const RemoveButton = require('./components/RemoveButton');
-const {linkTypeOptions} = require('./forms');
-const URLCleanup = require('./URLCleanup');
-const validation = require('./validation');
+import MB from '../common/MB';
+import {link_type as linkTypeInfo} from '../common/typeInfo';
+import {hasSessionStorage} from '../common/utility/storage';
+
+import isPositiveInteger from './utility/isPositiveInteger';
+import HelpIcon from './components/HelpIcon';
+import RemoveButton from './components/RemoveButton';
+import forms from './forms';
+import * as URLCleanup from './URLCleanup';
+import validation from './validation';
 
 type LinkStateT = {
   url: string,
@@ -45,7 +46,7 @@ type LinksEditorState = {
   links: Array<LinkStateT>,
 };
 
-class ExternalLinksEditor extends React.Component<LinksEditorProps, LinksEditorState> {
+export class ExternalLinksEditor extends React.Component<LinksEditorProps, LinksEditorState> {
   constructor(props: LinksEditorProps) {
     super(props);
     this.state = {links: withOneEmptyLink(props.initialLinks)};
@@ -272,7 +273,7 @@ type LinkProps = {
   typeOptions: Array<React.Element<'option'>>,
 };
 
-class ExternalLink extends React.Component<LinkProps> {
+export class ExternalLink extends React.Component<LinkProps> {
   render() {
     var props = this.props;
     var linkType = props.type ? linkTypeInfo.byId[props.type] : null;
@@ -384,7 +385,7 @@ function withOneEmptyLink(links, dontRemove) {
 
 const isVideoAttribute = attr => attr.type.gid === VIDEO_ATTRIBUTE_GID;
 
-function parseRelationships(relationships?: $ReadOnlyArray<RelationshipT>) {
+export function parseRelationships(relationships?: $ReadOnlyArray<RelationshipT>) {
   if (!relationships) {
     return [];
   }
@@ -521,7 +522,7 @@ MB.createExternalLinksEditor = function (options: InitialOptionsT) {
   });
 
   var typeOptions = (
-    linkTypeOptions({children: linkTypeInfo.byTypes[entityTypes]}, /^url-/.test(entityTypes))
+    forms.linkTypeOptions({children: linkTypeInfo.byTypes[entityTypes]}, /^url-/.test(entityTypes))
       .map((data) => <option value={data.value} disabled={data.disabled} key={data.value}>{data.text}</option>)
   );
 
@@ -537,7 +538,4 @@ MB.createExternalLinksEditor = function (options: InitialOptionsT) {
   );
 };
 
-exports.ExternalLinksEditor = ExternalLinksEditor;
-exports.ExternalLink = ExternalLink;
-exports.parseRelationships = parseRelationships;
-exports.createExternalLinksEditor = MB.createExternalLinksEditor;
+export const createExternalLinksEditor = MB.createExternalLinksEditor;

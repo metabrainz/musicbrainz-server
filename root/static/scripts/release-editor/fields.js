@@ -3,27 +3,28 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
+import MB_entity from '../common/entity';
+import releaseLabelKey from '../common/utility/releaseLabelKey';
+import {l} from '../common/i18n';
+import {
+    artistCreditFromArray,
+    artistCreditsAreEqual,
+    hasVariousArtists,
+    isCompleteArtistCredit,
+    reduceArtistCredit
+} from '../common/immutable-entities';
+import clean from '../common/utility/clean';
+import formatTrackLength from '../common/utility/formatTrackLength';
+import request from '../common/utility/request';
+import MB_edit from '../edit/MB/edit';
+import * as dates from '../edit/utility/dates';
+import * as validation from '../edit/validation';
+
 const ko = require('knockout');
 const _ = require('lodash');
 
 require('knockout-arraytransforms');
 
-const MB_entity = require('../common/entity');
-const {l} = require('../common/i18n');
-const {
-        artistCreditFromArray,
-        artistCreditsAreEqual,
-        hasVariousArtists,
-        isCompleteArtistCredit,
-        reduceArtistCredit,
-    } = require('../common/immutable-entities');
-const clean = require('../common/utility/clean');
-const formatTrackLength = require('../common/utility/formatTrackLength');
-import releaseLabelKey from '../common/utility/releaseLabelKey';
-const request = require('../common/utility/request');
-const MB_edit = require('../edit/MB/edit');
-const dates = require('../edit/utility/dates');
-const validation = require('../edit/validation');
 const actions = require('./actions');
 const recordingAssociation = require('./recordingAssociation');
 const utils = require('./utils');

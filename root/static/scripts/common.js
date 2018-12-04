@@ -1,15 +1,15 @@
 // IE 11 support.
-require('core-js/modules/es6.object.assign');
-require('core-js/modules/es6.array.from');
-require('core-js/modules/es6.array.iterator');
-require('core-js/modules/es6.string.iterator');
-require('core-js/es6/set');
-require('core-js/es6/map');
-require('core-js/es6/promise');
-require('core-js/es6/symbol');
+import 'core-js/modules/es6.object.assign';
+import 'core-js/modules/es6.array.from';
+import 'core-js/modules/es6.array.iterator';
+import 'core-js/modules/es6.string.iterator';
+import 'core-js/es6/set';
+import 'core-js/es6/map';
+import 'core-js/es6/promise';
+import 'core-js/es6/symbol';
 
-const DBDefs = require('./common/DBDefs');
-const MB = require('./common/MB');
+import * as DBDefs from './common/DBDefs';
+import MB from './common/MB';
 
 if (DBDefs.DEVELOPMENT_SERVER) {
   // Used by the Selenium tests under /t/selenium/ to make sure that no errors

@@ -1,5 +1,6 @@
 import test from 'tape';
 import React from 'react';
+
 import expand2, {expand2html} from '../../common/i18n/expand2';
 
 test('expand2', function (t) {

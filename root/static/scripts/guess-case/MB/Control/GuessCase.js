@@ -3,10 +3,11 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-const i18n = require('../../../common/i18n');
-const getBooleanCookie = require('../../../common/utility/getBooleanCookie');
-const setCookie = require('../../../common/utility/setCookie');
-const gc = require('../GuessCase/Main');
+import * as i18n from '../../../common/i18n';
+import getBooleanCookie from '../../../common/utility/getBooleanCookie';
+import setCookie from '../../../common/utility/setCookie';
+import gc from '../GuessCase/Main';
+import * as modes from '../../modes';
 
 MB.Control.initialize_guess_case = function (type, formPrefix) {
     formPrefix = formPrefix ? (formPrefix + "\\.") : "";
@@ -61,7 +62,7 @@ var mode = ko.computed({
 
         if (modeName !== gc.modeName) {
             gc.modeName = modeName;
-            gc.mode = require('../../modes')[modeName];
+            gc.mode = modes[modeName];
             setCookie("guesscase_mode", modeName);
         }
         return gc.mode;
@@ -112,4 +113,4 @@ ko.bindingHandlers.guessCase = {
 
 ko.virtualElements.allowedBindings.guessCase = true;
 
-module.exports = MB.Control;
+export default MB.Control;

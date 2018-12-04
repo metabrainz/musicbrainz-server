@@ -1,15 +1,16 @@
-const $ = require('jquery');
-const _ = require('lodash');
-const ko = require('knockout');
+import $ from 'jquery';
+import _ from 'lodash';
+import ko from 'knockout';
 
-const debounce = require('./common/utility/debounce');
-import parseDate from './common/utility/parseDate';
 import stats, {buildTypeStats, getStat} from '../../statistics/stats';
 
-require('../lib/flot/jquery.flot');
-require('../lib/flot/jquery.flot.selection');
-require('../lib/flot/jquery.flot.time');
-require('./jquery.flot.musicbrainz_events');
+import debounce from './common/utility/debounce';
+import parseDate from './common/utility/parseDate';
+
+import '../lib/flot/jquery.flot';
+import '../lib/flot/jquery.flot.selection';
+import '../lib/flot/jquery.flot.time';
+import './jquery.flot.musicbrainz_events';
 
 const defaultLines = [
     'count.area',

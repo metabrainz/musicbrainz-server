@@ -9,7 +9,7 @@
 
 import React from 'react';
 
-import DBDefs from '../static/scripts/common/DBDefs';
+import * as DBDefs from '../static/scripts/common/DBDefs';
 import {l, ln} from '../static/scripts/common/i18n';
 
 const seeReviewsHref = (releaseGroup) => (

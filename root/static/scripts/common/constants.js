@@ -7,9 +7,11 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
+import ENTITIES from '../../../../entities';
+
 import {l} from './i18n';
 
-export const ENTITIES = require('../../../../entities');
+export {ENTITIES};
 
 export const GENRE_TAGS: Set<string> = new Set(ENTITIES.tag.genres);
 

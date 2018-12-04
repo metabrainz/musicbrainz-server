@@ -4,16 +4,19 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-require('leaflet.markercluster/dist/leaflet.markercluster-src');
-const _ = require('lodash');
-const React = require('react');
-const ReactDOMServer = require('react-dom/server');
+import 'leaflet.markercluster/dist/leaflet.markercluster-src';
 
-const manifest = require('../../manifest');
-const EntityLink = require('../common/components/EntityLink');
-const {l, ln} = require('../common/i18n');
-const {createMap, L} = require('../common/leaflet');
-const {places} = require('../common/utility/getScriptArgs')();
+import _ from 'lodash';
+import React from 'react';
+import ReactDOMServer from 'react-dom/server';
+
+import * as manifest from '../../manifest';
+import EntityLink from '../common/components/EntityLink';
+import {l, ln} from '../common/i18n';
+import {createMap, L} from '../common/leaflet';
+import getScriptArgs from '../common/utility/getScriptArgs';
+
+const {places} = getScriptArgs();
 
 const CLUSTER_POPUP_LIMIT = 10;
 

@@ -3,19 +3,20 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-const balanced = require('balanced-match');
-const _ = require('lodash');
+import balanced from 'balanced-match';
+import _ from 'lodash';
 
-const {MIN_NAME_SIMILARITY} = require('../../common/constants');
-const {artistCreditFromArray} = require('../../common/immutable-entities');
-const MB = require('../../common/MB');
-const clean = require('../../common/utility/clean');
-const {
-    fromFullwidthLatin,
-    hasFullwidthLatin,
-    toFullwidthLatin
-} = require('./fullwidthLatin');
-const getSimilarity = require('./similarity');
+import {MIN_NAME_SIMILARITY} from '../../common/constants';
+import {artistCreditFromArray} from '../../common/immutable-entities';
+import MB from '../../common/MB';
+import clean from '../../common/utility/clean';
+
+import {
+  fromFullwidthLatin,
+  hasFullwidthLatin,
+  toFullwidthLatin,
+} from './fullwidthLatin';
+import getSimilarity from './similarity';
 
 var featRegex = /(?:^\s*|[,，－\-]\s*|\s+)((?:ft|feat|ｆｔ|ｆｅａｔ)(?:[.．]|(?=\s))|(?:featuring|ｆｅａｔｕｒｉｎｇ)(?=\s))\s*/i;
 var collabRegex = /([,，]?\s+(?:&|and|et|＆|ａｎｄ|ｅｔ)\s+|[,，;；]\s+|\s*[\/／]\s*|\s+(?:vs|ｖｓ)[.．]\s+)/i;
@@ -169,7 +170,7 @@ function expandCredit(fullName, artists, isProbablyClassical) {
     return splitMatches.value();
 }
 
-module.exports = function (entity) {
+export default function guessFeat(entity) {
     var relatedArtists = _.result(entity, 'relatedArtists');
     var isProbablyClassical = _.result(entity, 'isProbablyClassical');
 
@@ -214,6 +215,6 @@ MB.Control.initGuessFeatButton = function (formName) {
     );
 
     $(document).on('click', 'button.guessfeat.icon', function () {
-        module.exports(augmentedEntity);
+        guessFeat(augmentedEntity);
     });
 };

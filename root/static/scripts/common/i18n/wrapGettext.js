@@ -4,12 +4,12 @@
 // and is licensed under the GPL version 2, or (at your option) any
 // later version: http://www.gnu.org/licenses/gpl-2.0.txt
 
-const isNodeJS = require('detect-node');
-const sliced = require('sliced');
+import isNodeJS from 'detect-node';
+import sliced from 'sliced';
 
-const cleanMsgid = require('./cleanMsgid').default;
-const expand2 = require('./expand2').default;
-const NopArgs = require('./NopArgs');
+import cleanMsgid from './cleanMsgid';
+import expand2 from './expand2';
+import NopArgs from './NopArgs';
 
 let gettext;
 if (isNodeJS) {
@@ -83,4 +83,4 @@ function wrapGettext(method, domain) {
   };
 }
 
-module.exports = wrapGettext;
+export default wrapGettext;

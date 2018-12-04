@@ -3,27 +3,27 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-const $ = require('jquery');
-const _ = require('lodash');
-const ko = require('knockout');
+import $ from 'jquery';
+import _ from 'lodash';
+import ko from 'knockout';
 
-const {ENTITIES, MAX_RECENT_ENTITIES} = require('../../constants');
-const MB_entity = require('../../entity');
-const i18n = require('../../i18n');
-const commaOnlyList = require('../../i18n/commaOnlyList');
+import {ENTITIES, MAX_RECENT_ENTITIES} from '../../constants';
+import MB_entity from '../../entity';
+import {l, strings as i18nStrings} from '../../i18n';
+import commaOnlyList from '../../i18n/commaOnlyList';
 import {l_languages} from '../../i18n/languages';
 import {lp_attributes} from '../../i18n/attributes';
-const {artistCreditFromArray, reduceArtistCredit} = require('../../immutable-entities');
-const MB = require('../../MB');
-const clean = require('../../utility/clean');
+import {artistCreditFromArray, reduceArtistCredit} from '../../immutable-entities';
+import MB from '../../MB';
+import clean from '../../utility/clean';
 import formatDate from '../../utility/formatDate';
 import formatDatePeriod from '../../utility/formatDatePeriod';
-const formatTrackLength = require('../../utility/formatTrackLength');
-const isBlank = require('../../utility/isBlank');
+import formatTrackLength from '../../utility/formatTrackLength';
+import isBlank from '../../utility/isBlank';
 import primaryAreaCode from '../../utility/primaryAreaCode';
-const {localStorage} = require('../../utility/storage');
+import {localStorage} from '../../utility/storage';
 
-require('../../../../lib/jquery-ui');
+import '../../../../lib/jquery-ui';
 
 $.widget("mb.entitylookup", $.ui.autocomplete, {
 
@@ -66,12 +66,12 @@ $.widget("mb.entitylookup", $.ui.autocomplete, {
                 success: $.proxy(this._lookupSuccess, this, response),
                 error: function () {
                     response([{
-                        label: i18n.l("An error occurred while searching. Click here to try again."),
+                        label: l("An error occurred while searching. Click here to try again."),
                         action: _.bind(self._searchAgain, self)
                     }, {
                         label: self.indexedSearch ?
-                               i18n.l("Try with direct search instead.") :
-                               i18n.l("Try with indexed search instead."),
+                               l("Try with direct search instead.") :
+                               l("Try with indexed search instead."),
                         action: _.bind(self._searchAgain, self, true)
 
                     }]);
@@ -103,7 +103,7 @@ $.widget("mb.entitylookup", $.ui.autocomplete, {
         this.$search = this.element
             .closest("span.autocomplete").find("img.search");
 
-        this.element.attr("placeholder",  i18n.l("Type to search, or paste an MBID"));
+        this.element.attr("placeholder",  l("Type to search, or paste an MBID"));
 
         var self = this;
 
@@ -175,7 +175,7 @@ $.widget("mb.entitylookup", $.ui.autocomplete, {
                 self.term = "";
 
                 recent.push({
-                    label: i18n.l("Clear recent items"),
+                    label: l("Clear recent items"),
                     action: function () {
                         self.recentEntities([]);
                         self.clear();
@@ -410,30 +410,30 @@ $.widget("mb.entitylookup", $.ui.autocomplete, {
 
         if (results.length === 0) {
             results.push({
-                label: "(" + i18n.l("No results") + ")",
+                label: "(" + l("No results") + ")",
                 action: _.bind(this.close, this)
             });
         }
 
         if (this.currentPage < this.totalPages) {
             results.push({
-                label: i18n.l("Show more..."),
+                label: l("Show more..."),
                 action: _.bind(this._showMore, this)
             });
         }
 
         results.push({
-            label: this.indexedSearch ? i18n.l("Not found? Try again with direct search.") :
-                                        i18n.l("Slow? Switch back to indexed search."),
+            label: this.indexedSearch ? l("Not found? Try again with direct search.") :
+                                        l("Slow? Switch back to indexed search."),
             action: _.bind(this._searchAgain, this, true)
         });
 
         var allowCreation = window === window.top,
             entity = this.entity.replace("-", "_");
 
-        if (allowCreation && i18n.strings.addANewEntity[entity]) {
+        if (allowCreation && i18nStrings.addANewEntity[entity]) {
             results.push({
-                label: i18n.strings.addANewEntity[entity],
+                label: i18nStrings.addANewEntity[entity],
                 action: function () {
                     $("<div>").appendTo("body").createEntityDialog({
                         name: self._value(),
@@ -613,7 +613,7 @@ MB.Control.autocomplete_formatters = {
 
         if (item.video)
         {
-            const title = _.escape(i18n.l('This recording is a video'));
+            const title = _.escape(l('This recording is a video'));
             a.prepend($(`<span class="video" title="${title}"></span>`));
         }
 

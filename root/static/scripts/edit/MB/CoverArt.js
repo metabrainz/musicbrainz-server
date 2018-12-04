@@ -18,12 +18,12 @@
 
 */
 
-const filesize = require('filesize');
-const $ = require('jquery');
-const ko = require('knockout');
-const _ = require('lodash');
+import filesize from 'filesize';
+import $ from 'jquery';
+import ko from 'knockout';
+import _ from 'lodash';
 
-const MB = require('../../common/MB');
+import MB from '../../common/MB';
 
 MB.CoverArt = {};
 
@@ -637,4 +637,4 @@ function iteratePromises(promises) {
     return deferred.promise();
 }
 
-module.exports = MB.CoverArt;
+export default MB.CoverArt;

@@ -3,24 +3,25 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-const $ = require('jquery');
-const _ = require('lodash');
-const test = require('tape');
+import $ from 'jquery';
+import _ from 'lodash';
+import test from 'tape';
 
-require('../../../lib/jquery-ui');
+import '../../../lib/jquery-ui';
 
-const {
-        addDiscDialog,
-        mediumSearchTab,
-        trackParserDialog,
-    } = require('../../release-editor/dialogs');
-const edits = require('../../release-editor/edits');
-const fields = require('../../release-editor/fields');
-const trackParser = require('../../release-editor/trackParser');
-const releaseEditor = require('../../release-editor/viewModel');
-const common = require('./common');
+import {
+  addDiscDialog,
+  mediumSearchTab,
+  trackParserDialog,
+} from '../../release-editor/dialogs';
+import edits from '../../release-editor/edits';
+import fields from '../../release-editor/fields';
+import trackParser from '../../release-editor/trackParser';
+import releaseEditor from '../../release-editor/viewModel';
 
-require('../../release-editor/init');
+import * as common from './common';
+
+import '../../release-editor/init';
 
 $.ui.dialog.prototype.options.appendTo = "#fixture";
 

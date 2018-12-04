@@ -5,8 +5,14 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-const wrapGettext = require('./wrapGettext');
+import wrapGettext from './wrapGettext';
 
-exports.l_instrument_descriptions = wrapGettext('dgettext', 'instrument_descriptions');
-exports.ln_instrument_descriptions = wrapGettext('dngettext', 'instrument_descriptions');
-exports.lp_instrument_descriptions = wrapGettext('dpgettext', 'instrument_descriptions');
+const l_instrument_descriptions = wrapGettext('dgettext', 'instrument_descriptions');
+const ln_instrument_descriptions = wrapGettext('dngettext', 'instrument_descriptions');
+const lp_instrument_descriptions = wrapGettext('dpgettext', 'instrument_descriptions');
+
+export {
+  l_instrument_descriptions,
+  ln_instrument_descriptions,
+  lp_instrument_descriptions,
+};

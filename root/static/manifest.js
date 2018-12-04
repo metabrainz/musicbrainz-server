@@ -3,15 +3,16 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-const isNodeJS = require('detect-node');
-const fs = require('fs');
-const path = require('path');
-const React = require('react');
+import fs from 'fs';
+import path from 'path';
 
-const {
-    STAT_TTL,
-    STATIC_RESOURCES_LOCATION,
-  } = require('./scripts/common/DBDefs');
+import isNodeJS from 'detect-node';
+import React from 'react';
+
+import {
+  STAT_TTL,
+  STATIC_RESOURCES_LOCATION,
+} from './scripts/common/DBDefs';
 
 function _pathTo(manifest, signatures) {
   manifest = manifest.replace(/^\//, '');
@@ -23,7 +24,7 @@ function _pathTo(manifest, signatures) {
   return STATIC_RESOURCES_LOCATION + '/' + signatures[manifest];
 }
 
-let pathTo;
+export let pathTo;
 
 if (isNodeJS) {
   let MANIFEST_MTIME = 0;
@@ -53,7 +54,7 @@ if (isNodeJS) {
 }
 
 const jsExt = /\.js(?:on)?$/;
-function js(manifest, extraAttrs={}) {
+export function js(manifest, extraAttrs={}) {
   if (!jsExt.test(manifest)) {
     manifest += '.js';
   }
@@ -65,10 +66,6 @@ function js(manifest, extraAttrs={}) {
   );
 }
 
-function css(manifest) {
+export function css(manifest) {
   return <link rel="stylesheet" type="text/css" href={pathTo('styles/' + manifest + '.css')} />;
 }
-
-exports.js = js;
-exports.css = css;
-exports.pathTo = pathTo;

@@ -5,21 +5,22 @@
 // and is licensed under the GPL version 2, or (at your option) any
 // later version: http://www.gnu.org/licenses/gpl-2.0.txt
 
-const $ = require('jquery');
-const _ = require('lodash');
-const React = require('react');
-const ReactDOM = require('react-dom');
+import $ from 'jquery';
+import _ from 'lodash';
+import React from 'react';
+import ReactDOM from 'react-dom';
 import keyBy from 'terable/keyBy';
 
 import hydrate, {minimalEntity} from '../../../../utility/hydrate';
 import loopParity from '../../../../utility/loopParity';
 import {GENRE_TAGS} from '../constants';
-const {l, lp} = require('../i18n');
-const MB = require('../MB');
+import {l, lp} from '../i18n';
+import MB from '../MB';
 import bracketed from '../utility/bracketed';
 import isBlank from '../utility/isBlank';
-const request = require('../utility/request');
-const TagLink = require('./TagLink');
+import request from '../utility/request';
+
+import TagLink from './TagLink';
 
 const GENRE_TAGS_ARRAY = Array.from(GENRE_TAGS.values());
 
@@ -423,7 +424,7 @@ class TagEditor extends React.Component<TagEditorProps, TagEditorState> {
   }
 }
 
-class MainTagEditor extends TagEditor {
+export class MainTagEditor extends TagEditor {
   showAllTags(event: SyntheticEvent<HTMLAnchorElement>) {
     event.preventDefault();
     this.setState({positiveTagsOnly: false});
@@ -488,59 +489,63 @@ class MainTagEditor extends TagEditor {
   }
 }
 
-class SidebarTagEditor extends TagEditor {
-  render() {
-    const tagRows = this.createTagRows();
-    return (
-      <>
-        <h2>{l('Genres')}</h2>
+export const SidebarTagEditor = hydrate<TagEditorProps>(
+  'sidebar-tags',
+  class extends TagEditor {
+    render() {
+      const tagRows = this.createTagRows();
+      return (
+        <>
+          <h2>{l('Genres')}</h2>
 
-        {tagRows.genres.length ? (
-          <ul className="genre-list">
-            {tagRows.genres}
-          </ul>
-        ) : (
-          <p>{lp('(none)', 'genre')}</p>
-        )}
+          {tagRows.genres.length ? (
+            <ul className="genre-list">
+              {tagRows.genres}
+            </ul>
+          ) : (
+            <p>{lp('(none)', 'genre')}</p>
+          )}
 
-        <h2>{l('Other tags')}</h2>
+          <h2>{l('Other tags')}</h2>
 
-        {tagRows.tags.length ? (
-          <ul className="tag-list">
-            {tagRows.tags}
-          </ul>
-        ) : (
-          <p>{lp('(none)', 'tag')}</p>
-        )}
+          {tagRows.tags.length ? (
+            <ul className="tag-list">
+              {tagRows.tags}
+            </ul>
+          ) : (
+            <p>{lp('(none)', 'tag')}</p>
+          )}
 
-        {this.props.more ? (
-          <p>
-            {bracketed(
-              <a href={getTagsPath(this.props.entity)} key="see-all">
-                {l('see all tags')}
-              </a>
-            )}
-          </p>
-        ) : null}
+          {this.props.more ? (
+            <p>
+              {bracketed(
+                <a href={getTagsPath(this.props.entity)} key="see-all">
+                  {l('see all tags')}
+                </a>,
+              )}
+            </p>
+          ) : null}
 
-        <form id="tag-form" onSubmit={this.addTags}>
-          <div style={{display: 'flex'}}>
-            <input
-              className="tag-input"
-              name="tags"
-              ref={this.setTagsInput}
-              style={{flexGrow: 2}}
-              type="text"
-            />
-            <button type="submit" className="styled-button">
-              {l('Tag', 'verb')}
-            </button>
-          </div>
-        </form>
-      </>
-    );
-  }
-}
+          <form id="tag-form" onSubmit={this.addTags}>
+            <div style={{display: 'flex'}}>
+              <input
+                className="tag-input"
+                name="tags"
+                ref={this.setTagsInput}
+                style={{flexGrow: 2}}
+                type="text"
+              />
+              <button type="submit" className="styled-button">
+                {l('Tag', 'verb')}
+              </button>
+            </div>
+          </form>
+        </>
+      );
+    }
+  },
+  minimalEntity,
+);
 
 const keyByTag = keyBy(t => t.tag);
 
@@ -587,9 +592,5 @@ function init_tag_editor(Component, mountPoint) {
     );
   };
 }
-
-exports.MainTagEditor = MainTagEditor;
-
-exports.SidebarTagEditor = hydrate<TagEditorProps>('sidebar-tags', SidebarTagEditor, minimalEntity);
 
 MB.init_main_tag_editor = init_tag_editor(MainTagEditor, 'all-tags');

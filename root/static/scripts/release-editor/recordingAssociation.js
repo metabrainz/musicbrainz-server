@@ -3,17 +3,18 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-const ko = require('knockout');
-const _ = require('lodash');
-
-const {MAX_LENGTH_DIFFERENCE} = require('../common/constants');
-const {
+import debounce from '../common/utility/debounce';
+import {MAX_LENGTH_DIFFERENCE} from '../common/constants';
+import {
         artistCreditFromArray,
         isCompleteArtistCredit,
         reduceArtistCredit,
-    } = require('../common/immutable-entities');
-const request = require('../common/utility/request');
-const debounce = require('../common/utility/debounce');
+    } from '../common/immutable-entities';
+import request from '../common/utility/request';
+
+const ko = require('knockout');
+const _ = require('lodash');
+
 const releaseEditor = require('./viewModel');
 const utils = require('./utils');
 

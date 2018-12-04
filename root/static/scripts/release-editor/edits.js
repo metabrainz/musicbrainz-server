@@ -3,15 +3,16 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
+import {VIDEO_ATTRIBUTE_GID} from '../common/constants';
+import {reduceArtistCredit} from '../common/immutable-entities';
+import clean from '../common/utility/clean';
+import debounce from '../common/utility/debounce';
+import isPositiveInteger from '../edit/utility/isPositiveInteger';
+import * as validation from '../edit/validation';
+
 const ko = require('knockout');
 const _ = require('lodash');
 
-const {VIDEO_ATTRIBUTE_GID} = require('../common/constants');
-const {reduceArtistCredit} = require('../common/immutable-entities');
-const clean = require('../common/utility/clean');
-const debounce = require('../common/utility/debounce');
-const isPositiveInteger = require('../edit/utility/isPositiveInteger');
-const validation = require('../edit/validation');
 const releaseEditor = require('./viewModel');
 const utils = require('./utils');
 

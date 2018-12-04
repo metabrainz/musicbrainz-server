@@ -10,7 +10,7 @@
 import noop from 'lodash/noop';
 import React from 'react';
 import {l, N_l, N_lp} from '../../static/scripts/common/i18n';
-import DBDefs from '../../static/scripts/common/DBDefs';
+import * as DBDefs from '../../static/scripts/common/DBDefs';
 import FieldErrors from '../../components/FieldErrors';
 import FormRow from '../../components/FormRow';
 import FormRowRadio from '../../components/FormRowRadio';

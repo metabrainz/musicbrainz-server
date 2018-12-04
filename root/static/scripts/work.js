@@ -7,24 +7,26 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-const $ = require('jquery');
-const _ = require('lodash');
-const ko = require('knockout');
-const React = require('react');
-const ReactDOM = require('react-dom');
-const {createStore} = require('redux');
+import $ from 'jquery';
+import _ from 'lodash';
+import ko from 'knockout';
+import React from 'react';
+import ReactDOM from 'react-dom';
+import {createStore} from 'redux';
 
-const {l} = require('./common/i18n');
-const {lp_attributes} = require('./common/i18n/attributes');
-const MB = require('./common/MB');
-const scriptArgs = require('./common/utility/getScriptArgs')();
-const {Lens, prop, index, set, compose3} = require('./common/utility/lens');
-const {buildOptionsTree} = require('./edit/forms');
-const {initializeBubble} = require('./edit/MB/Control/Bubble');
-const {initialize_guess_case} = require('./guess-case/MB/Control/GuessCase');
 import FormRowSelectList from '../../components/FormRowSelectList';
 import createField from '../../utility/createField';
 import subfieldErrors from '../../utility/subfieldErrors';
+
+import {l} from './common/i18n';
+import {lp_attributes} from './common/i18n/attributes';
+import getScriptArgs from './common/utility/getScriptArgs';
+import {Lens, prop, index, set, compose3} from './common/utility/lens';
+import forms from './edit/forms';
+import bubble from './edit/MB/Control/Bubble';
+import guessCase from './guess-case/MB/Control/GuessCase';
+
+const scriptArgs = getScriptArgs();
 
 type LanguageField = FieldT<number>;
 
@@ -194,7 +196,7 @@ class ViewModel {
     allowedValues: WorkAttributeTypeAllowedValueTreeRootT,
     attributes: $ReadOnlyArray<WorkAttributeField>,
   ) {
-    this.attributeTypes = buildOptionsTree(
+    this.attributeTypes = forms.buildOptionsTree(
       attributeTypes,
       x => lp_attributes(x.name, 'work_attribute_type'),
       'id',
@@ -205,7 +207,7 @@ class ViewModel {
     this.allowedValuesByTypeID = _(allowedValues.children)
       .groupBy(x => x.workAttributeTypeID)
       .mapValues(function (children) {
-        return buildOptionsTree(
+        return forms.buildOptionsTree(
           {children},
           x => lp_attributes(x.value, 'work_attribute_type_allowed_value'),
           'id',
@@ -254,7 +256,7 @@ ko.applyBindings(
   $('#work-attributes')[0],
 );
 
-initialize_guess_case('work', 'id-edit-work');
+guessCase.initialize_guess_case('work', 'id-edit-work');
 
 function addLanguage() {
   store.dispatch({type: 'ADD_LANGUAGE'});
@@ -302,10 +304,10 @@ function renderWorkLanguages() {
 store.subscribe(renderWorkLanguages);
 renderWorkLanguages();
 
-initializeBubble('#iswcs-bubble', 'input[name=edit-work\\.iswcs\\.0]');
+bubble.initializeBubble('#iswcs-bubble', 'input[name=edit-work\\.iswcs\\.0]');
 
 const typeIdField = 'select[name=edit-work\\.type_id]';
-initializeBubble('#type-bubble', typeIdField);
+bubble.initializeBubble('#type-bubble', typeIdField);
 $(typeIdField).on('change', function () {
   if (this.value.match(/\S/g)) {
     $('#type-bubble-default').hide();

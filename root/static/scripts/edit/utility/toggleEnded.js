@@ -21,4 +21,4 @@ MB.initializeToggleEnded = function (formID) {
     });
 };
 
-module.exports = MB.initializeToggleEnded;
+export default MB.initializeToggleEnded;

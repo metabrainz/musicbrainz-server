@@ -3,16 +3,17 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-const $ = require('jquery');
-const {assign} = require('lodash');
-const React = require('react');
+import $ from 'jquery';
+import {assign} from 'lodash';
+import React from 'react';
 
-const ArtistCreditLink = require('../../common/components/ArtistCreditLink');
-const DescriptiveLink = require('../../common/components/DescriptiveLink');
-const {l} = require('../../common/i18n');
-const {reduceArtistCredit} = require('../../common/immutable-entities');
-const clean = require('../../common/utility/clean');
-const ArtistCreditNameEditor = require('./ArtistCreditNameEditor');
+import ArtistCreditLink from '../../common/components/ArtistCreditLink';
+import DescriptiveLink from '../../common/components/DescriptiveLink';
+import {l} from '../../common/i18n';
+import {reduceArtistCredit} from '../../common/immutable-entities';
+import clean from '../../common/utility/clean';
+
+import ArtistCreditNameEditor from './ArtistCreditNameEditor';
 
 function onBubbleKeyDown(done, hide, event) {
   if (event.isDefaultPrevented()) {
@@ -117,4 +118,4 @@ const ArtistCreditBubble = ({
   </div>
 );
 
-module.exports = ArtistCreditBubble;
+export default ArtistCreditBubble;

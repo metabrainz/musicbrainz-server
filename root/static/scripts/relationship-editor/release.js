@@ -3,22 +3,23 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-const $ = require('jquery');
-const ko = require('knockout');
-const _ = require('lodash');
+import $ from 'jquery';
+import ko from 'knockout';
+import _ from 'lodash';
 
-const i18n = require('../common/i18n');
-const request = require('../common/utility/request');
-const {ViewModel} = require('./common/viewModel');
+import * as i18n from '../common/i18n';
+import request from '../common/utility/request';
 
-require('./common/entity');
+import {ViewModel} from './common/viewModel';
 
-(function (RE) {
+import './common/entity';
+
+const RE = MB.relationshipEditor = MB.relationshipEditor || {};
 
     var UI = RE.UI = RE.UI || {};
 
 
-    class ReleaseViewModel extends ViewModel {
+    export class ReleaseViewModel extends ViewModel {
 
         constructor(options) {
             super(options);
@@ -295,7 +296,6 @@ require('./common/entity');
     }
 
     RE.ReleaseViewModel = ReleaseViewModel;
-    exports.ReleaseViewModel = ReleaseViewModel;
 
     var recordingCheckboxes = "td.recording > input[type=checkbox]";
     var workCheckboxes = "td.works > div.ar > input[type=checkbox]";
@@ -366,5 +366,3 @@ require('./common/entity');
         range(recordingCheckboxes, checkboxes.recordingCount);
         range(workCheckboxes, checkboxes.workCount);
     }
-
-}(MB.relationshipEditor = MB.relationshipEditor || {}));

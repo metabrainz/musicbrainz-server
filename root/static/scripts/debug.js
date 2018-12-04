@@ -3,11 +3,11 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-const $ = require('jquery');
-const _ = require('lodash');
+import $ from 'jquery';
+import _ from 'lodash';
 
-const getBooleanCookie = require('./common/utility/getBooleanCookie');
-const setCookie = require('./common/utility/setCookie');
+import getBooleanCookie from './common/utility/getBooleanCookie';
+import setCookie from './common/utility/setCookie';
 
 if (getBooleanCookie('catalyst-stats-open')) {
     $('#catalyst-stats').show();

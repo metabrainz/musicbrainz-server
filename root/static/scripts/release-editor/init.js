@@ -3,21 +3,22 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-const $ = require('jquery');
-const ko = require('knockout');
-const _ = require('lodash');
-
-const i18n = require('../common/i18n');
-const {
+import * as i18n from '../common/i18n';
+import {
         artistCreditFromArray,
         artistCreditsAreEqual,
         hasVariousArtists,
         reduceArtistCredit,
-    } = require('../common/immutable-entities');
-const clean = require('../common/utility/clean');
-const request = require('../common/utility/request');
-const externalLinks = require('../edit/externalLinks');
-const validation = require('../edit/validation');
+    } from '../common/immutable-entities';
+import clean from '../common/utility/clean';
+import request from '../common/utility/request';
+import * as externalLinks from '../edit/externalLinks';
+import * as validation from '../edit/validation';
+
+const $ = require('jquery');
+const ko = require('knockout');
+const _ = require('lodash');
+
 const fields = require('./fields');
 const recordingAssociation = require('./recordingAssociation');
 const utils = require('./utils');

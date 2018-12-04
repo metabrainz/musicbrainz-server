@@ -8,12 +8,12 @@
 // be found in the original source code repository at
 // https://raw.githubusercontent.com/Khan/react-components/9984740/LICENSE
 
-const React = require('react');
-const ReactDOM = require('react-dom');
+import * as React from 'react';
+import ReactDOM from 'react-dom';
 
 type TooltipProps = {|
-  +hoverCallback: (bool) => void,
   +content: React.Node,
+  +hoverCallback: (boolean) => void,
 |};
 
 class Tooltip extends React.Component<TooltipProps> {
@@ -38,4 +38,4 @@ class Tooltip extends React.Component<TooltipProps> {
   }
 }
 
-module.exports = Tooltip;
+export default Tooltip;

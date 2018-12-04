@@ -3,26 +3,26 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-require('./typeInfo');
+import './typeInfo';
 
-const $ = require('jquery');
-const ko = require('knockout');
-const _ = require('lodash');
-const test = require('tape');
+import $ from 'jquery';
+import ko from 'knockout';
+import _ from 'lodash';
+import test from 'tape';
 
-const typeInfo = require('../common/typeInfo');
-const {LinkAttribute, Relationship} = require('../relationship-editor/common/fields');
-const {
-        AddDialog,
-        BatchCreateWorksDialog,
-        BatchRelationshipDialog,
-        EditDialog,
-    } = require('../relationship-editor/common/dialog');
-const {
-        GenericEntityViewModel,
-        prepareSubmission,
-    } = require('../relationship-editor/generic');
-const {ReleaseViewModel} = require('../relationship-editor/release');
+import typeInfo from '../common/typeInfo';
+import {LinkAttribute, Relationship} from '../relationship-editor/common/fields';
+import {
+  AddDialog,
+  BatchCreateWorksDialog,
+  BatchRelationshipDialog,
+  EditDialog,
+} from '../relationship-editor/common/dialog';
+import {
+  GenericEntityViewModel,
+  prepareSubmission,
+} from '../relationship-editor/generic';
+import {ReleaseViewModel} from '../relationship-editor/release';
 
 class FakeRelationship extends Relationship {}
 

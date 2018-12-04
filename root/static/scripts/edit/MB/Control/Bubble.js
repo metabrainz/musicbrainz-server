@@ -2,7 +2,7 @@
 // Copyright (C) 2013 MetaBrainz Foundation
 // Released under the GPLv2 license: http://www.gnu.org/licenses/gpl-2.0.txt
 
-const deferFocus = require('../../utility/deferFocus');
+import deferFocus from '../../utility/deferFocus';
 
 class BubbleBase {
 
@@ -327,4 +327,4 @@ MB.Control.initializeBubble = function (bubble, control, vm, canBeShown) {
     return bubbleDoc;
 };
 
-module.exports = MB.Control;
+export default MB.Control;

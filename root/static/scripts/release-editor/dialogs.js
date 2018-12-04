@@ -3,18 +3,19 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
+import * as i18n from '../common/i18n';
+import {artistCreditFromArray, reduceArtistCredit} from '../common/immutable-entities';
+import bracketed from '../common/utility/bracketed';
+import formatTrackLength from '../common/utility/formatTrackLength';
+import isBlank from '../common/utility/isBlank';
+import request from '../common/utility/request';
+
 const $ = require('jquery');
 const ko = require('knockout');
 const _ = require('lodash');
 const React = require('react');
 const ReactDOMServer = require('react-dom/server');
 
-const i18n = require('../common/i18n');
-const {artistCreditFromArray, reduceArtistCredit} = require('../common/immutable-entities');
-const bracketed = require('../common/utility/bracketed').default;
-const formatTrackLength = require('../common/utility/formatTrackLength');
-const isBlank = require('../common/utility/isBlank');
-const request = require('../common/utility/request');
 const fields = require('./fields');
 const trackParser = require('./trackParser');
 const utils = require('./utils');

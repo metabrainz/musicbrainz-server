@@ -3,17 +3,18 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-const ko = require('knockout');
-const _ = require('lodash');
+import ko from 'knockout';
+import _ from 'lodash';
 
-require('knockout-arraytransforms');
+import 'knockout-arraytransforms';
 
-const {addColon} = require('../../common/i18n');
-const typeInfo = require('../../common/typeInfo');
-const deferFocus = require('../../edit/utility/deferFocus');
-const mergeDates = require('./mergeDates');
+import {addColon} from '../../common/i18n';
+import typeInfo from '../../common/typeInfo';
+import deferFocus from '../../edit/utility/deferFocus';
 
-require('../../common/entity');
+import mergeDates from './mergeDates';
+
+import '../../common/entity';
 
 function getDirection(relationship, source) {
   let entities = relationship.entities();
@@ -27,7 +28,7 @@ function getDirection(relationship, source) {
   }
 }
 
-(function (RE) {
+const RE = MB.relationshipEditor = MB.relationshipEditor || {};
 
     const coreEntityPrototype = MB.entity.CoreEntity.prototype;
 
@@ -215,5 +216,3 @@ function getDirection(relationship, source) {
             return cache[vm.uniqueID] || (cache[vm.uniqueID] = func.call(this, vm));
         };
     }
-
-}(MB.relationshipEditor = MB.relationshipEditor || {}));

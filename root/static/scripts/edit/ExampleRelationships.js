@@ -1,5 +1,5 @@
-const i18n = require('../common/i18n');
-const request = require('../common/utility/request');
+import * as i18n from '../common/i18n';
+import request from '../common/utility/request';
 
 MB.ExampleRelationshipsEditor = (function (ERE) {
 

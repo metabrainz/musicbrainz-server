@@ -19,8 +19,8 @@
 
 */
 
-const flags = require('../../flags');
-const utils = require('../../utils');
+import * as flags from '../../flags';
+import * as utils from '../../utils';
 
 MB.GuessCase = MB.GuessCase ? MB.GuessCase : {};
 
@@ -255,4 +255,4 @@ MB.GuessCase.Output = function (gc) {
     return self;
 }
 
-module.exports = MB.GuessCase.Output;
+export default MB.GuessCase.Output;

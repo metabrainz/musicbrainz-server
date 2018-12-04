@@ -8,7 +8,6 @@
  */
 
 import * as React from 'react';
-import noop from 'lodash/noop';
 
 import FormRow from '../../../../components/FormRow';
 import FormRowSelect from '../../../../components/FormRowSelect';

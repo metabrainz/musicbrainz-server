@@ -3,12 +3,12 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-const ko = require('knockout');
-const _ = require('lodash');
+import ko from 'knockout';
+import _ from 'lodash';
 
-const i18n = require('../common/i18n');
-const MB = require('../common/MB');
-const linkPhrase = require('../edit/utility/linkPhrase');
+import * as i18n from '../common/i18n';
+import MB from '../common/MB';
+import * as linkPhrase from '../edit/utility/linkPhrase';
 
 const ELEMENT_NODE = window.Node.ELEMENT_NODE;
 const COMMENT_NODE = window.Node.COMMENT_NODE;
@@ -53,7 +53,7 @@ MB.forms = {
 
     linkTypeOptions: function (root, backward) {
         function getText(data) {
-            return linkPhrase.clean(data.gid, !!backward);
+            return linkPhrase.stripAttributes(data.gid, !!backward);
         }
 
         var options = MB.forms.buildOptionsTree(root, getText, 'id');
@@ -278,4 +278,4 @@ ko.bindingHandlers.withLabel = {
     }
 };
 
-module.exports = MB.forms;
+export default MB.forms;

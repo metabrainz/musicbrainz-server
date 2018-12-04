@@ -3,13 +3,13 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-const _ = require('lodash');
-const React = require('react');
+import _ from 'lodash';
+import React from 'react';
 
-const Autocomplete = require('../../common/components/Autocomplete');
-const {l} = require('../../common/i18n');
-const clean = require('../../common/utility/clean');
-const nonEmpty = require('../../common/utility/nonEmpty');
+import Autocomplete from '../../common/components/Autocomplete';
+import {l} from '../../common/i18n';
+import clean from '../../common/utility/clean';
+import nonEmpty from '../../common/utility/nonEmpty';
 
 class ArtistCreditNameEditor extends React.Component {
   constructor(props) {
@@ -122,14 +122,16 @@ class ArtistCreditNameEditor extends React.Component {
             value={nonEmpty(name.joinPhrase) ? name.joinPhrase : ''} />
         </td>
         <td style={{textAlign: 'right'}}>
-          <button className="icon remove-item remove-artist-credit"
-                  onClick={this.props.onRemove}
-                  title={l('Remove Artist Credit')}
-                  type="button" />
+          <button
+            className="icon remove-item remove-artist-credit"
+            onClick={this.props.onRemove}
+            title={l('Remove Artist Credit')}
+            type="button"
+          />
         </td>
       </tr>
     );
   }
 }
 
-module.exports = ArtistCreditNameEditor;
+export default ArtistCreditNameEditor;

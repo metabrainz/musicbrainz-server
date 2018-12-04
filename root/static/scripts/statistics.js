@@ -1,4 +1,4 @@
-const tablesorter = require('tablesorter');
+import tablesorter from 'tablesorter';
 
 tablesorter.addWidget({
     id: "indexFirstColumn",

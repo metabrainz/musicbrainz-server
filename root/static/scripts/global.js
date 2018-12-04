@@ -1,5 +1,9 @@
+let defaultExport;
+
 if (typeof global === 'undefined') {
-  module.exports = window;
+  defaultExport = window;
 } else {
-  module.exports = global;
+  defaultExport = global;
 }
+
+export default defaultExport;

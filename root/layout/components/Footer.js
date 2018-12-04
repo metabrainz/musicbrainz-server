@@ -8,7 +8,7 @@
 import * as React from 'react';
 
 import {withCatalystContext} from '../../context';
-import DBDefs from '../../static/scripts/common/DBDefs';
+import * as DBDefs from '../../static/scripts/common/DBDefs';
 import {DONATE_URL} from '../../constants';
 import {l} from '../../static/scripts/common/i18n';
 import bracketed from '../../static/scripts/common/utility/bracketed';

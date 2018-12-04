@@ -23,4 +23,4 @@ MB.Control.Area = function () {
     });
 };
 
-module.exports = MB.Control;
+export default MB.Control;

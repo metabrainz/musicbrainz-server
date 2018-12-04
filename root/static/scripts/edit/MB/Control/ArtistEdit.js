@@ -3,7 +3,7 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-const i18n = require('../../../common/i18n');
+import * as i18n from '../../../common/i18n';
 
 MB.Control.ArtistEdit = function () {
     var self = {};
