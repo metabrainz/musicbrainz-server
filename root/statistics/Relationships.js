@@ -9,6 +9,8 @@
 
 import React from 'react';
 
+import {compare} from '../static/scripts/common/i18n';
+import {l_relationships} from '../static/scripts/common/i18n/relationships';
 import {l_statistics} from '../static/scripts/common/i18n/statistics';
 import {withCatalystContext} from '../context';
 import manifest from '../static/manifest';
@@ -16,19 +18,35 @@ import formatEntityTypeName from '../static/scripts/common/utility/formatEntityT
 
 import {formatCount, formatPercentage} from './utilities';
 import StatisticsLayout from './StatisticsLayout';
-import type {RelationshipsStatsT} from './types';
+import type {StatsT} from './types';
+
+export type RelationshipsStatsT = {|
+  +$c: CatalystContextT,
+  +dateCollected: string,
+  +stats: StatsT,
+  +types: {[string]: RelationshipTypeT},
+|};
+
+declare type RelationshipTypeT = {|
+  +entity_types: $ReadOnlyArray<string>,
+  +tree: {[string]: Array<LinkTypeT>},
+|};
+
+function comparePhrases(a, b) {
+  return compare(a.long_link_phrase, b.long_link_phrase);
+}
 
 const TypeRows = withCatalystContext(({$c, base, indent, parent, stats, type}) => {
   return (
     <>
       <tr>
-        <th style={{paddingLeft: (indent - 1) + 'em'}}>{l_statistics(type.long_link_phrase)}</th>
+        <th style={{paddingLeft: (indent - 1) + 'em'}}>{l_relationships(type.long_link_phrase)}</th>
         <td>{formatCount(stats.data[base + '.' + type.name], $c)}</td>
         <td>{formatCount(stats.data[base + '.' + type.name + '.inclusive'], $c)}</td>
         <td>{formatPercentage(stats.data[base + '.' + type.name + '.inclusive'] / stats.data[parent], 1, $c)}</td>
       </tr>
       {type.children ? (
-        type.children.sort((a, b) => a.long_link_phrase.localeCompare(b.long_link_phrase)).map((child) => (
+        type.children.sort(comparePhrases).map((child) => (
           <TypeRows base={base} indent={indent + 1} key={child.id} parent={base + '.' + type.name + '.inclusive'} stats={stats} type={child} />
         ))
       ) : null}
@@ -40,7 +58,7 @@ const Relationships = ({$c, dateCollected, stats, types}: RelationshipsStatsT) =
   <StatisticsLayout fullWidth page="relationships" title={l_statistics('Relationships')}>
     {manifest.css('statistics')}
     <p>{l_statistics('Last updated: {date}',
-      {__react: true, date: stats.date_collected})}
+      {date: stats.date_collected})}
     </p>
     <h2>{l_statistics('Relationships')}</h2>
     {stats.data['count.ar.links'] < 1 ? (
@@ -69,20 +87,18 @@ const Relationships = ({$c, dateCollected, stats, types}: RelationshipsStatsT) =
             return (
               <>
                 <tr className="thead">
-                  <th colSpan="4">{l_statistics('{type0}-{type1}', {__react: true, type0: type0, type1: type1})}</th>
+                  <th colSpan="4">{l_statistics('{type0}-{type1}', {type0: type0, type1: type1})}</th>
                 </tr>
                 <tr>
-                  <th colSpan="2">{l_statistics('{type0}-{type1} relationships:', {__react: true, type0: type0, type1: type1})}</th>
+                  <th colSpan="2">{l_statistics('{type0}-{type1} relationships:', {type0: type0, type1: type1})}</th>
                   <td>{formatCount(stats.data['count.ar.links.' + typeKey], $c)}</td>
                   <td>{formatPercentage(stats.data['count.ar.links.' + typeKey] / stats.data['count.ar.links'], 1, $c)}</td>
                 </tr>
-                {Object.keys(type.tree).sort().map((child) => {
-                  console.log(type.tree);
-                  return (
-                  type.tree[child].sort((a, b) => a.long_link_phrase.localeCompare(b.long_link_phrase)).map((child2) => (
+                {Object.keys(type.tree).sort().map((child) => (
+                  type.tree[child].sort(comparePhrases).map((child2) => (
                     <TypeRows base={'count.ar.links.' + typeKey} indent={2} key={child2.id} parent={'count.ar.links.' + typeKey} stats={stats} type={child2} />
                   ))
-                );})}
+                ))}
               </>
             );
           })}

@@ -9,29 +9,58 @@
  */
 
 import React from 'react';
+import type {Node as ReactNode} from 'react';
 
 import Layout from '../layout';
 import Tabs from '../components/Tabs';
 import manifest from '../static/manifest';
 import {l_statistics} from '../static/scripts/common/i18n/statistics';
 
-import type {StatisticsLayoutPropsT} from './types';
+type StatisticsLayoutPropsT = {|
+  +children: ReactNode,
+  +fullWidth: boolean,
+  +page: string,
+  +sidebar?: ?ReactNode,
+  +title: string,
+|};
 
-const LinkStatisticsTab = (link: string, title: string) => (
-  <span className="mp"><a href={link}>{title}</a></span>
+type TabPropsT = {
+  +link: string,
+  +page: string,
+  +selected: string,
+  +title: string,
+};
+
+const LinkStatisticsTab = ({link, title, page, selected}: TabPropsT) => (
+  <li className={page === selected ? 'sel' : ''}>
+    <span className="mp"><a href={link}>{title}</a></span>
+  </li>
 );
 
-const StatisticsLayout = ({children, fullWidth, page, title}: StatisticsLayoutPropsT) => {
+const infoLinks = [
+  {link: '/statistics', page: 'index', title: l_statistics('Overview')},
+  {link: '/statistics/countries', page: 'countries', title: l_statistics('Countries')},
+  {link: '/statistics/languages-scripts', page: 'languages-scripts', title: l_statistics('Languages/Scripts')},
+  {link: '/statistics/coverart', page: 'coverart', title: l_statistics('Cover Art')},
+  {link: '/statistics/relationships', page: 'relationships', title: l_statistics('Relationships')},
+  {link: '/statistics/edits', page: 'edits', title: l_statistics('Edits')},
+  {link: '/statistics/formats', page: 'formats', title: l_statistics('Formats')},
+  {link: '/statistics/editors', page: 'editors', title: l_statistics('Editors')},
+  {link: '/statistics/timeline/main', page: 'timeline', title: l_statistics('Timeline')},
+];
+
+const StatisticsLayout = ({children, fullWidth, page, sidebar, title}: StatisticsLayoutPropsT) => {
   const htmlTitle = l_statistics('Database Statistics - {title}', {title: title});
-  const infoLinks = [['index', LinkStatisticsTab('/statistics', l_statistics('Overview'))], ['countries', LinkStatisticsTab('/statistics/countries', l_statistics('Countries'))], ['languages-scripts', LinkStatisticsTab('/statistics/languages-scripts', l_statistics('Languages/Scripts'))], ['coverart', LinkStatisticsTab('/statistics/coverart', l_statistics('Cover Art'))], ['relationships', LinkStatisticsTab('/statistics/relationships', l_statistics('Relationships'))], ['edits', LinkStatisticsTab('/statistics/edits', l_statistics('Edits'))], ['formats', LinkStatisticsTab('/statistics/formats', l_statistics('Formats'))], ['editors', LinkStatisticsTab('/statistics/editors', l_statistics('Editors'))], ['timeline', LinkStatisticsTab('/statistics/timeline/main', l_statistics('Timeline'))]].map(link => link && <li className={link[0] === page ? 'sel' : ''}>{link[1]}</li>);
   return fullWidth ? (
-    <Layout fullWidth title={htmlTitle}>
+    <Layout fullWidth gettext_domains={['attributes', 'relationships', 'statistics']} title={htmlTitle}>
       {manifest.css('statistics')}
       <div className="statisticsheader">
         <h1>{l_statistics('Database Statistics')}</h1>
       </div>
       <Tabs>
-        {infoLinks}
+        {infoLinks.map(props => (
+          <LinkStatisticsTab {...props} key={props.page} selected={page} />
+        ))}
       </Tabs>
       {children}
     </Layout>
@@ -43,15 +72,17 @@ const StatisticsLayout = ({children, fullWidth, page, title}: StatisticsLayoutPr
           <h1>{l_statistics('Database Statistics')}</h1>
         </div>
         <Tabs>
-          {infoLinks}
+          {infoLinks.map(props => (
+            <LinkStatisticsTab {...props} key={props.page} selected={page} />
+          ))}
         </Tabs>
         {children}
       </div>
       <div id="sidebar">
-        {/* [%- sidebar -%] */}
+        {sidebar}
       </div>
     </Layout>
   );
 };
 
-module.exports = StatisticsLayout;
+export default StatisticsLayout;

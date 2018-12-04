@@ -15,9 +15,21 @@ import {withCatalystContext} from '../context';
 import loopParity from '../utility/loopParity';
 import manifest from '../static/manifest';
 
-import {formatCount, LinkSearchableProperty} from './utilities';
+import {formatCount} from './utilities';
 import StatisticsLayout from './StatisticsLayout';
-import type {EditorsStatsT} from './types';
+
+type EditorsStatsT = {|
+  +dateCollected: string,
+  +topEditors: $ReadOnlyArray<EditorStatT>,
+  +topRecentlyActiveEditors: $ReadOnlyArray<EditorStatT>,
+  +topRecentlyActiveVoters: $ReadOnlyArray<EditorStatT>,
+  +topVoters: $ReadOnlyArray<EditorStatT>,
+|};
+
+type EditorStatT = {|
+  +count: number,
+  +entity: EditorT,
+|};
 
 const EditorStatsTable = withCatalystContext(({$c, countLabel, dataPoints, editorLabel, tableLabel}) => (
   <>
@@ -43,15 +55,13 @@ const EditorStatsTable = withCatalystContext(({$c, countLabel, dataPoints, edito
           <tr className="even">
             <td colSpan="3">{l_statistics('There is no data to display here.')}</td>
           </tr>
-        )
-}
+        )}
       </tbody>
     </table>
   </>
 ));
 
 const Editors = ({
-  $c,
   dateCollected,
   topEditors,
   topRecentlyActiveEditors,
@@ -61,7 +71,7 @@ const Editors = ({
   <StatisticsLayout fullWidth page="editors" title={l_statistics('Editors')}>
     {manifest.css('statistics')}
     <p>{l_statistics('Last updated: {date}',
-      {__react: true, date: dateCollected})}
+      {date: dateCollected})}
     </p>
     <p>
       {l_statistics('For the vote statistics, only yes or no votes are counted, abstain \
@@ -80,4 +90,4 @@ const Editors = ({
   </StatisticsLayout>
 );
 
-export default withCatalystContext(Editors);
+export default Editors;

@@ -18,7 +18,19 @@ import loopParity from '../utility/loopParity';
 
 import {formatCount} from './utilities';
 import StatisticsLayout from './StatisticsLayout';
-import type {CountriesStatsT} from './types';
+
+type CountriesStatsT = {|
+  +$c: CatalystContextT,
+  +countryStats: $ReadOnlyArray<CountryStatT>,
+  +dateCollected: string,
+|};
+
+type CountryStatT = {|
+  +artist_count: number,
+  +entity: AreaT,
+  +label_count: number,
+  +release_count: number,
+|};
 
 const Countries = ({$c, countryStats, dateCollected}: CountriesStatsT) => (
   <StatisticsLayout fullWidth page="countries" title={l_statistics('Countries')}>

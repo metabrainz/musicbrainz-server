@@ -487,20 +487,11 @@ sub TO_JSON {
         collections
         commons_image
         containment
-        area_types
-        by_category
         current_language
         current_language_html
-        date_collected
         entity
-        event_types
-        format_stats
         hide_merge_helper
-        instrument_types
-        instruments_by_type
         jsonld_data
-        label_types
-        language_stats
         last_replication_date
         makes_no_changes
         merge_link
@@ -508,31 +499,12 @@ sub TO_JSON {
         new_edit_notes
         number_of_revisions
         release_artwork
-        packagings
-        place_types
-        primary_types
-        release_format_stats
-        release_status_stats
-        release_type_stats
-        type_stats
-        script_stats
-        secondary_types
         series_types
         server_details
         server_languages
-        stats
-        statuses
         subscribed
         to_merge
-        top_editors
-        top_recently_active_editors
-        top_recently_active_voters
-        top_tags
-        top_voters
-        types
         user_tags
-        work_attribute_types
-        work_types
     );
 
     my %stash;

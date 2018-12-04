@@ -16,16 +16,35 @@ import {l_scripts} from '../static/scripts/common/i18n/scripts';
 import {l_statistics} from '../static/scripts/common/i18n/statistics';
 import {withCatalystContext} from '../context';
 import loopParity from '../utility/loopParity';
+import LinkSearchableProperty from '../components/LinkSearchableProperty';
 
-import type {LanguagesScriptsStatsT} from './types';
-import {formatCount, LinkSearchableProperty} from './utilities';
+import {formatCount} from './utilities';
 import StatisticsLayout from './StatisticsLayout';
+
+type LanguagesScriptsStatsT = {|
+  +$c: CatalystContextT,
+  +dateCollected: string,
+  +languageStats: $ReadOnlyArray<LanguageStatT>,
+  +scriptStats: $ReadOnlyArray<ScriptStatT>,
+|};
+
+type LanguageStatT = {|
+  +entity: LanguageT | null,
+  +releases: number,
+  +total: number,
+  +works: number,
+|};
+
+type ScriptStatT = {|
+  +count: number,
+  +entity: ScriptT | null,
+|};
 
 const LanguagesScripts = ({$c, dateCollected, languageStats, scriptStats}: LanguagesScriptsStatsT) => (
   <StatisticsLayout fullWidth page="languages-scripts" title={l_statistics('Languages and Scripts')}>
     {manifest.css('statistics')}
     <p>{l_statistics('Last updated: {date}',
-      {__react: true, date: dateCollected})}
+      {date: dateCollected})}
     </p>
     <p>{l_statistics('All other available languages and scripts have 0 releases and works.')}</p>
     <div style={{display: 'inline-block', float: 'left', marginRight: '50px'}}>
@@ -45,8 +64,20 @@ const LanguagesScripts = ({$c, dateCollected, languageStats, scriptStats}: Langu
             <tr className={loopParity(index)} key={'language' + index}>
               <td className="t">{index + 1}</td>
               <td>{languageStat.entity ? l_languages(languageStat.entity.name) : l_statistics('Unknown language')}</td>
-              <td className="t"><LinkSearchableProperty entityType="release" searchField="lang" searchValue={languageStat.entity ? languageStat.entity.iso_code_3 : null} text={formatCount(languageStat.releases, $c)} /></td>
-              <td className="t"><LinkSearchableProperty entityType="work" searchField="lang" searchValue={languageStat.entity ? languageStat.entity.iso_code_3 : null} text={formatCount(languageStat.works, $c)} /></td>
+              <td className="t">
+                {languageStat.entity && languageStat.entity.iso_code_3 ? (
+                  <LinkSearchableProperty entityType="release" searchField="lang" searchValue={languageStat.entity.iso_code_3} text={formatCount(languageStat.releases, $c)} />
+                ) : (
+                  formatCount(languageStat.releases, $c)
+                )}
+              </td>
+              <td className="t">
+                {languageStat.entity && languageStat.entity.iso_code_3 ? (
+                  <LinkSearchableProperty entityType="work" searchField="lang" searchValue={languageStat.entity.iso_code_3} text={formatCount(languageStat.works, $c)} />
+                ) : (
+                  formatCount(languageStat.releases, $c)
+                )}
+              </td>
               <td className="t">{formatCount(languageStat.total, $c)}</td>
             </tr>
           ))}
@@ -68,7 +99,13 @@ const LanguagesScripts = ({$c, dateCollected, languageStats, scriptStats}: Langu
             <tr className={loopParity(index)} key={'script' + index}>
               <td className="t">{index + 1}</td>
               <td>{scriptStat.entity ? l_scripts(scriptStat.entity.name) : l_statistics('Unknown script')}</td>
-              <td className="t"><LinkSearchableProperty entityType="release" searchField="script" searchValue={scriptStat.entity ? scriptStat.entity.iso_code : null} text={formatCount(scriptStat.count, $c)} /></td>
+              <td className="t">
+                {scriptStat.entity ? (
+                  <LinkSearchableProperty entityType="release" searchField="script" searchValue={scriptStat.entity.iso_code} text={formatCount(scriptStat.count, $c)} />
+                ) : (
+                  formatCount(scriptStat.count, $c)
+                )}
+              </td>
             </tr>
           ))}
         </tbody>

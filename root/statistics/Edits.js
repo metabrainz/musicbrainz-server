@@ -16,16 +16,28 @@ import manifest from '../static/manifest';
 
 import {formatCount, formatPercentage} from './utilities';
 import StatisticsLayout from './StatisticsLayout';
-import type {EditsStatsT} from './types';
+import type {StatsT} from './types';
+
+type EditCategoryT = {|
+  +edit_name: string,
+  +edit_type: string,
+|};
+
+type EditsStatsT = {|
+  +$c: CatalystContextT,
+  +dateCollected: string,
+  +stats: StatsT,
+  +statsByCategory: {[string]: $ReadOnlyArray<EditCategoryT>},
+|};
 
 const Edits = ({$c, dateCollected, stats, statsByCategory}: EditsStatsT) => (
   <StatisticsLayout fullWidth page="edits" title={l_statistics('Edits')}>
     {manifest.css('statistics')}
     <p>{l_statistics('Last updated: {date}',
-      {__react: true, date: stats.date_collected})}
+      {date: stats.date_collected})}
     </p>
     <h2>{l_statistics('Edits')}</h2>
-    {statsByCategory.length === 0 ? (
+    {Object.keys(statsByCategory).length === 0 ? (
       <p>
         {l_statistics('No edit statistics available.')}
       </p>

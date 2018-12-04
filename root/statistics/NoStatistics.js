@@ -20,7 +20,7 @@ const NoStatistics = () => (
       {l_statistics('Statistics have never been collected for this server. If you are the \
            administrator for this server, you should run \
            <code>./admin/CollectStats.pl</code> or import \
-           <code>mbdump-stats.tar.bz2</code>.', {__react: true})}
+           <code>mbdump-stats.tar.bz2</code>.')}
     </p>
   </StatisticsLayout>
 );

@@ -59,7 +59,7 @@ sub statistics : Path('')
 
     $c->stash(
         current_view    => 'Node',
-        component_path  => 'statistics/Index.js',
+        component_path  => 'statistics/Index',
         component_props => \%props,
     );
 }
@@ -149,7 +149,7 @@ sub countries : Local
 
     $c->stash(
         current_view => 'Node',
-        component_path => 'statistics/Countries.js',
+        component_path => 'statistics/Countries',
         component_props => \%props,
     );
 }
@@ -193,7 +193,7 @@ sub coverart : Local
 
     $c->stash(
         current_view => 'Node',
-        component_path => 'statistics/CoverArt.js',
+        component_path => 'statistics/CoverArt',
         component_props => \%props,
     );
 }
@@ -245,7 +245,7 @@ sub languages_scripts : Path('languages-scripts')
 
     $c->stash(
         current_view => 'Node',
-        component_path => 'statistics/LanguagesScripts.js',
+        component_path => 'statistics/LanguagesScripts',
         component_props => \%props,
     );
 }
@@ -277,7 +277,7 @@ sub formats : Path('formats')
 
     $c->stash(
         current_view => 'Node',
-        component_path => 'statistics/Formats.js',
+        component_path => 'statistics/Formats',
         component_props => \%props,
     );
 }
@@ -318,7 +318,7 @@ sub editors : Path('editors') {
 
     $c->stash(
         current_view => 'Node',
-        component_path => 'statistics/Editors.js',
+        component_path => 'statistics/Editors',
         component_props => \%props,
     );
 }
@@ -358,7 +358,7 @@ sub relationships : Path('relationships') {
 
     $c->stash(
         current_view => 'Node',
-        component_path => 'statistics/Relationships.js',
+        component_path => 'statistics/Relationships',
         component_props => \%props,
     );
 }
@@ -391,7 +391,7 @@ sub edits : Path('edits') {
 
     $c->stash(
         current_view => 'Node',
-        component_path => 'statistics/Edits.js',
+        component_path => 'statistics/Edits',
         component_props => \%props,
     );
 }
@@ -408,7 +408,7 @@ sub no_statistics : Private {
     my ($self, $c) = @_;
     $c->stash(
         current_view => 'Node',
-        component_path => 'statistics/NoStatistics.js',
+        component_path => 'statistics/NoStatistics',
     );
 }
 
