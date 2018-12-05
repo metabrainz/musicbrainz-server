@@ -8,6 +8,8 @@ sub query {
     q{
       SELECT DISTINCT
         r.id AS release_id,
+        l.name AS label_name,
+        l.gid AS label_gid,
         row_number() OVER (ORDER BY r.artist_credit, r.name)
       FROM
         release AS r
