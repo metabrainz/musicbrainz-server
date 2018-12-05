@@ -303,14 +303,6 @@ class ArtistCreditEditor extends React.Component {
     $('body').off('click.artist-credit-editor');
   }
 
-  static getDerivedStateFromProps(nextProps, prevState) {
-    const artistCredit = ko.unwrap(nextProps.entity.artistCredit);
-    if (!artistCreditsAreEqual(prevState.artistCredit, artistCredit)) {
-      return {artistCredit};
-    }
-    return null;
-  }
-
   componentDidUpdate(prevProps, prevState) {
     if (this.props.onChange &&
         !artistCreditsAreEqual(prevState.artistCredit, this.state.artistCredit)) {

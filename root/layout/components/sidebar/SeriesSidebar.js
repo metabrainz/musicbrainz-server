@@ -37,8 +37,8 @@ const SeriesSidebar = ({$c, series}: Props) => {
   return (
     <div id="sidebar">
       <CommonsImage
+        cachedImage={$c.stash.commons_image}
         entity={series}
-        image={$c.stash.commons_image}
       />
 
       <h2 className="series-information">

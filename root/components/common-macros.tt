@@ -803,7 +803,7 @@ END ~%]
 -%]
     [%- React.embed(c, 'static/scripts/common/components/WikipediaExtract', {
         entity => {entityType => entity.entity_type, gid => entity.gid},
-        wikipediaExtract => wikipedia_extract,
+        cachedWikipediaExtract => wikipedia_extract,
     }) -%]
 [%- END -%]
 

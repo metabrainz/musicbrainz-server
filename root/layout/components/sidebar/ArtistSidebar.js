@@ -53,8 +53,8 @@ const ArtistSidebar = ({$c, artist}: Props) => {
   return (
     <div id="sidebar">
       <CommonsImage
+        cachedImage={$c.stash.commons_image}
         entity={artist}
-        image={$c.stash.commons_image}
       />
 
       <h2 className="artist-information">

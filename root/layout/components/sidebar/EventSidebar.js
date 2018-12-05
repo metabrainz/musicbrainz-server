@@ -41,8 +41,8 @@ const EventSidebar = ({$c, event}: Props) => {
   return (
     <div id="sidebar">
       <CommonsImage
+        cachedImage={$c.stash.commons_image}
         entity={event}
-        image={$c.stash.commons_image}
       />
 
       <h2 className="event-information">
