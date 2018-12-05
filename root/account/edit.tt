@@ -1,4 +1,4 @@
-[% WRAPPER "user/profile/layout.tt" page="edit_profile" title=l("Edit Profile") %]
+[% WRAPPER "user/profile/layout.tt" page="edit_profile" title=l("Edit Profile") gettext_domains=['attributes', 'countries', 'languages'] %]
     [% script_manifest('edit.js') %]
 
     <h2>[% l("Edit Profile") %]</h2>
