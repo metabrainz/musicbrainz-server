@@ -41,6 +41,7 @@
 
         <ul>
             <li><a href="[% c.uri_for_action('/report/show', 'DuplicateEvents') %]">[% l('Possibly duplicate events') %]</a></li>
+            <li><a href="[% c.uri_for_action('/report/show', 'EventSequenceNotInSeries') %]">[% l('Events which should be part of series or larger event') %]</a></li>
         </ul>
 
         <h2>[% l('Instruments') %]</h2>
