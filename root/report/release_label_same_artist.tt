@@ -11,6 +11,8 @@
     [%- INCLUDE 'report/filter_link.tt' -%]
 </ul>
 
+[% BLOCK extra_header_end %]<th>[% l('Label') %]</th>[% END %]
+[% BLOCK extra_row_end %]<td><a href="[% c.uri_for('/label/' _ item.label_gid) %]">[% item.label_name %]</a></td>[% END %]
 [%- INCLUDE 'report/release_list.tt' -%]
 
 [%- END -%]

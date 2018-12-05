@@ -7,15 +7,20 @@ with 'MusicBrainz::Server::Report::ReleaseReport',
 sub query {
     q{
       SELECT DISTINCT
-        release.id AS release_id,
-        row_number() OVER (ORDER BY release.artist_credit, release.name)
+        r.id AS release_id,
+        l.name AS label_name,
+        l.gid AS label_gid,
+        row_number() OVER (ORDER BY r.artist_credit, r.name)
       FROM
-        release
-        INNER JOIN artist ON release.artist_credit=artist.id
-        INNER JOIN release_label ON release_label.release=release.id
-        INNER JOIN label ON release_label.label=label.id
+        release AS r
+        INNER JOIN artist AS a ON a.id = r.artist_credit
+        INNER JOIN artist_credit_name AS acn ON acn.artist_credit = r.artist_credit
+        INNER JOIN release_label AS rl ON rl.release=r.id
+        INNER JOIN label AS l ON rl.label=l.id
       WHERE
-        label.name=artist.name
+        l.name = acn.name
+      OR
+        l.name = a.name
     }
 }
 
