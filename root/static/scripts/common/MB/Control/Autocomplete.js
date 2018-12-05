@@ -12,6 +12,7 @@ const MB_entity = require('../../entity');
 const i18n = require('../../i18n');
 const commaOnlyList = require('../../i18n/commaOnlyList');
 import {l_languages} from '../../i18n/languages';
+import {lp_attributes} from '../../i18n/attributes';
 const {artistCreditFromArray, reduceArtistCredit} = require('../../immutable-entities');
 const MB = require('../../MB');
 const clean = require('../../utility/clean');
@@ -762,6 +763,11 @@ MB.Control.autocomplete_formatters = {
         {
             a.append(' <span class="autocomplete-comment">(' +
                      _.escape(commaOnlyList(comment)) + ')</span>');
+        }
+
+        if (item.typeName)
+        {
+            a.append('<br /><span class="autocomplete-comment">' + _.escape(i18n.addColon(i18n.l('Type')) + ' ' + lp_attributes(item.typeName, 'work_type')) + '</span>');
         }
 
         var artistRenderer = function (prefix, artists) {
