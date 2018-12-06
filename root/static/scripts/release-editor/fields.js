@@ -141,7 +141,7 @@ class Track {
                     minutes = length.slice(0, 2);
                     break;
                 case 5:
-                    minutes = length.slice(1,3);
+                    minutes = length.slice(1, 3);
                     hours = length.slice(0);
                     break;
                 case 6:
