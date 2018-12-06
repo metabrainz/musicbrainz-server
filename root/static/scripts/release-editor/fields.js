@@ -131,7 +131,7 @@ class Track {
         // Convert stuff like 111 into 1:11
 
         if (/^\d+$/.test(length) && (6 - lengthLength) <= 1) {
-            var minutes= null, seconds = null, hours = null;
+            var minutes = null, seconds = null, hours = null;
 
             switch (lengthLength) {
                 case 3:
