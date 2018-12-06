@@ -186,52 +186,22 @@ fieldTest("tracks are set correctly when the cdtoc is changed", function (t, rel
 
 fieldTest("Tracks' time are changed correctly when inputting values in the medium tracklist editing form tab", function (t, release){
     t.plan(8);
+
+    const tests = [
+        {input: "5", output: "0:05"},
+        {input: "69", output: "1:09"},
+        {input: "174", output: "2:54"},
+        {input: "6000", output: "1:00:00"},
+        {input: "7400", output: "1:14:00"},
+        {input: "10000", output: "1:00:00"},
+        {input: "96900", output: "10:09:00"},
+        {input: "3723494", output: "?:??"}
+    ];
+
+    tests.forEach(({input, output}) => {
+        medium.tracks()[0].formattedLengthChanged(input);
+        t.equal(medium.tracks()[0].formattedLength(), output, "length " + input + " is formatted as " + medium.tracks()[0].formattedLength());
+    });
     
-    var lengths = [
-        "5",
-        "69",
-        "174",
-        "6000",
-        "7400",
-        "10000",
-        "96900",
-        "3723494",
-    ];
-
-    var output = [
-        "0:05",
-        "1:09",
-        "2:54",
-        "1:00:00",
-        "1:14:00",
-        "1:00:00",
-        "10:09:00",
-        "?:??",
-    ];
-
-    var medium = new fields.Medium({ tracks: [ {} ] }, release);
-
-    medium.tracks()[0].formattedLengthChanged(lengths[0]);
-    t.equal(medium.tracks()[0].formattedLength(), output[0], "length " + lengths[0] + " is formatted as " + medium.tracks()[0].formattedLength());
-
-    medium.tracks()[0].formattedLengthChanged(lengths[1]);
-    t.equal(medium.tracks()[0].formattedLength(), output[1], "length " + lengths[1] + " is formatted as " + medium.tracks()[0].formattedLength());
-
-    medium.tracks()[0].formattedLengthChanged(lengths[2]);
-    t.equal(medium.tracks()[0].formattedLength(), output[2], "length " + lengths[2] + " is formatted as " + medium.tracks()[0].formattedLength());
-
-    medium.tracks()[0].formattedLengthChanged(lengths[3]);
-    t.equal(medium.tracks()[0].formattedLength(), output[3], "length " + lengths[3] + " is formatted as " + medium.tracks()[0].formattedLength());
-
-    medium.tracks()[0].formattedLengthChanged(lengths[4]);
-    t.equal(medium.tracks()[0].formattedLength(), output[4], "length " + lengths[4] + " is formatted as " + medium.tracks()[0].formattedLength());
-
-    medium.tracks()[0].formattedLengthChanged(lengths[5]);
-    t.equal(medium.tracks()[0].formattedLength(), output[5], "length " + lengths[5] + " is formatted as " + medium.tracks()[0].formattedLength());
-
-    medium.tracks()[0].formattedLengthChanged(lengths[6]);
-    t.equal(medium.tracks()[0].formattedLength(), output[6], "length " + lengths[6] + " is formatted as " + medium.tracks()[0].formattedLength());
-
-    medium.tracks()[0].formattedLengthChanged(lengths[7]);
-    t.equal(medium.tracks()[0].formattedLength(), output[7], "length " + lengths[7] + " is formatted as " + medium.tracks()[0].formattedLength());
+    
 });
