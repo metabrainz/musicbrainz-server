@@ -37,6 +37,7 @@ before build_display_data => sub {
     $self->c->model('Work')->load_recording_artists(@works);
     $self->c->model('WorkAttribute')->load_for_works(@works);
     $self->c->model('ISWC')->load_for_works(grep { $_->all_iswcs == 0 } @works);
+    $self->c->model('Language')->load_for_works(@works);
 };
 
 __PACKAGE__->meta->make_immutable;
