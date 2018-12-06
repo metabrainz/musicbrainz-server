@@ -159,7 +159,7 @@ class Track {
                 this.formattedLength(length);
             }
 
-            if (parseInt(minutes, 10) >= 60 )  {
+            if (parseInt(minutes, 10) >= 60)  {
                 minutes = minutes - 60;
                 hours += 1 ;
                 length = hours + ":" + minutes + ":" + seconds;
