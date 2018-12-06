@@ -133,7 +133,7 @@ class Track {
         if (/^\d+$/.test(length) && (6 - lengthLength) <= 1) {
             var minutes= null, seconds = null, hours = null;
 
-            switch(lengthLength) {
+            switch (lengthLength) {
                 case 3:
                     minutes = length[0];
                     break;
