@@ -1223,6 +1223,27 @@ const CLEANUPS = {
       return url;
     }
   },
+  niconicovideo: {
+    match: [new RegExp("^(https?://)?([^/]+\\.)?(nicovideo\\.jp/)","i")],
+    type: _.defaults({}, LINK_TYPES.videochannel, LINK_TYPES.streamingmusic),
+    clean: function(url) {
+      return url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?nicovideo\.jp\/(user\/[0-9]+|watch\/sm[0-9]+).*$/, "https://www.nicovideo.jp/$1");
+    },
+    validate: function (url, id) {
+      var m = /^(?:https?:\/\/)?(?:[^\/]+\.)?nicovideo\.jp\/(?:(user)\/[0-9]+|(watch)\/sm[0-9]+)$/.exec(url);
+      if (m){
+        var prefix = m[1] || m[2];
+        switch (id){
+          case LINK_TYPES.streamingmusic.recording:
+          case LINK_TYPES.streamingmusic.release:
+            return prefix === 'watch';
+          case LINK_TYPES.videochannel.artist:
+            return prefix === 'user';
+        }
+      }
+      return false;
+    }
+  },
   onlinecommunity: {
     match: [new RegExp("^(https?://)?([^/]+\\.)?(last\\.fm|lastfm\\.(com\\.br|com\\.tr|at|com|de|es|fr|it|jp|pl|pt|ru|se))/([a-z]{2}/)?group/", "i")],
     type: LINK_TYPES.onlinecommunity,
