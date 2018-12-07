@@ -13,6 +13,7 @@ import * as React from 'react';
 import LinkSearchableLanguage from '../../../components/LinkSearchableLanguage';
 import {withCatalystContext} from '../../../context';
 import CodeLink from '../../../static/scripts/common/components/CodeLink';
+import commaOnlyList from '../../../static/scripts/common/i18n/commaOnlyList';
 import CommonsImage from '../../../static/scripts/common/components/CommonsImage';
 import {addColon, l} from '../../../static/scripts/common/i18n';
 import {lp_attributes} from '../../../static/scripts/common/i18n/attributes';
@@ -61,13 +62,16 @@ const WorkSidebar = ({$c, work}: Props) => {
 
             {languages.length ? (
               <SidebarProperty className="lyrics-language" label={addColon(l('Lyrics Languages'))}>
-                {languages.map((wl, index) => (
-                  <LinkSearchableLanguage
-                    entityType="work"
-                    key={wl.language.id}
-                    language={wl.language}
-                  />
-                ))}
+                {commaOnlyList(
+                  languages.map((wl, index) => (
+                    <LinkSearchableLanguage
+                      entityType="work"
+                      key={wl.language.id}
+                      language={wl.language}
+                    />
+                  )),
+                  {react: true},
+                )}
               </SidebarProperty>
             ) : null}
 
