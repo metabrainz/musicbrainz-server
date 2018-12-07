@@ -71,6 +71,7 @@ use MusicBrainz::Server::PagedReport;
     ReleasesInCAAWithCoverArtRelationships
     ReleaseLabelSameArtist
     ReleasesToConvert
+    ReleasesWithCAANoTypes
     ReleasesWithDownloadRelationships
     ReleasesWithNoMediums
     ReleasesWithoutVACredit
@@ -148,6 +149,7 @@ use MusicBrainz::Server::Report::ReleaseGroupsWithoutVALink;
 use MusicBrainz::Server::Report::ReleasesInCAAWithCoverArtRelationships;
 use MusicBrainz::Server::Report::ReleaseLabelSameArtist;
 use MusicBrainz::Server::Report::ReleasesToConvert;
+use MusicBrainz::Server::Report::ReleasesWithCAANoTypes;
 use MusicBrainz::Server::Report::ReleasesWithDownloadRelationships;
 use MusicBrainz::Server::Report::ReleasesWithNoMediums;
 use MusicBrainz::Server::Report::ReleasesWithoutVACredit;
