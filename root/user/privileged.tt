@@ -1,15 +1,4 @@
-[% BLOCK results %]
-<p>
-  [% IF editors.size %]
-    [%- FOR editor=editors -%]
-      [%- link_entity(editor) -%]
-      [%- IF loop.count < editors.size -%], [%- END -%]
-    [%- END -%]
-  [% ELSE %]
-    [% l('No users found') %]
-  [% END %]
-</p>
-[% END %]
+[%- React.embed(c, 'components/UserInlineList', {editors => editors}) -%]
 
 [% WRAPPER "layout.tt" title=l("Privileged User Accounts") full_width=1 %]
   <div id="content">
