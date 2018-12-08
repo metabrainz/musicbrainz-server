@@ -32,3 +32,5 @@ const UserInlineList = ({editors}: Props) => (
     }
   </p>
 );
+
+export default UserInlineList;
