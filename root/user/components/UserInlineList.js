@@ -22,14 +22,10 @@ const UserInlineList = ({editors}: Props) => (
   <p>
     {editors.length ? (
       commaOnlyList(
-        editors.map((editor) => (
-          <EditorLink editor={editor} key={editor.id} />
-        )),
+        editors.map(editor => <EditorLink editor={editor} key={editor.id} />),
         {react: true},
       )
-    )
-      : l('No users found')
-    }
+    ) : l('No users found')}
   </p>
 );
 
