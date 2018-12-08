@@ -23,7 +23,7 @@ const UserInlineList = ({editors}: Props) => (
     {editors.length ? (
       commaOnlyList(
         editors.map((editor) => (
-          <EditorLink entity={editor} />
+          <EditorLink editor={editor} key={editor.id} />
         )),
         {react: true},
       )
