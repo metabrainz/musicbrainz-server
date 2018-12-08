@@ -10,23 +10,25 @@
 import * as React from 'react';
 
 import {l} from '../../static/scripts/common/i18n';
-import EntityLink from '../../static/scripts/common/components/EntityLink';
+import EditorLink from '../../static/scripts/common/components/EditorLink';
 import commaOnlyList from '../../static/scripts/common/i18n/commaOnlyList';
 
 type Props = {|
-  +editors: EditorT,
+  +editors: $ReadOnlyArray<EditorT>,
 |};
 
-const UserInlineList = ({editors}: Props) => {
+const UserInlineList = ({editors}: Props) => (
   <p>
-    {editors.size ? (
-      {commaOnList(
+    {editors.length ? (
+      commaOnlyList(
         editors.map((editor) => (
-          <EntityLink entity={editor} />
-        )),
+          <EditorLink entity={editor} />
+        ),
         {react: true},
-      )}
+        ),
+      )
+    )
       : l('No users found')
     }
   </p>
-};
+);

@@ -1,4 +1,4 @@
-[%- React.embed(c, 'components/UserInlineList', {editors => editors}) -%]
+[%- React.embed(c, 'user/components/UserInlineList', {editors => editors}) -%]
 
 [% WRAPPER "layout.tt" title=l("Privileged User Accounts") full_width=1 %]
   <div id="content">
