@@ -1108,13 +1108,13 @@ const CLEANUPS = {
   },
   bandcamp: {
     match: [new RegExp("^(https?://)?([^/]+)\\.bandcamp\\.com","i")],
-    type: _.defaults({}, LINK_TYPES.bandcamp, LINK_TYPES.review),
+    type: _.defaults({}, LINK_TYPES.bandcamp, LINK_TYPES.review, {work: LINK_TYPES.lyrics.work}),
     clean: function (url) {
-      url = url.replace(/^(?:https?:\/\/)?([^\/]+)\.bandcamp\.com([\/?#].*)?$/, "https://$1.bandcamp.com$2");
+      url = url.replace(/^(?:https?:\/\/)?([^\/]+)\.bandcamp\.com(?:\/([^?#]*))?.*$/, "https://$1.bandcamp.com/$2");
       if (/^https:\/\/daily\.bandcamp\.com/.test(url)) {
-        url = url.replace(/^(?:https?:\/\/)?daily\.bandcamp\.com\/(\d+\/\d+\/\d+\/[\w-]+)(?:[\/?#].*)?$/, "https://daily.bandcamp.com/$1/");
+        url = url.replace(/^https:\/\/daily\.bandcamp\.com\/(\d+\/\d+\/\d+\/[\w-]+)(?:\/.*)?$/, "https://daily.bandcamp.com/$1/");
       } else {
-        url = url.replace(/^(?:https?:\/\/)?([^\/]+)\.bandcamp\.com(?:\/(((album|track)\/([^\/\?]+)))?)?.*$/, "https://$1.bandcamp.com/$2");
+        url = url.replace(/^https:\/\/([^\/]+)\.bandcamp\.com\/(?:((?:album|track)\/[^\/]+))?.*$/, "https://$1.bandcamp.com/$2");
       }
       return url;
     },
@@ -1125,6 +1125,8 @@ const CLEANUPS = {
           return /^https:\/\/[^\/]+\.bandcamp\.com\/$/.test(url);
         case LINK_TYPES.review.release_group:
           return /^https:\/\/daily\.bandcamp\.com\/\d+\/\d+\/\d+\/[\w-]+-review\/$/.test(url);
+        case LINK_TYPES.lyrics.work:
+          return /^https:\/\/[^\/]+\.bandcamp\.com\/track\/[\w-]+$/.test(url);
       }
       return false;
     }

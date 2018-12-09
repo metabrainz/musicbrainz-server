@@ -401,6 +401,13 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
                     expected_clean_url: 'https://daily.bandcamp.com/2018/05/30/gnawa-bandcamp-list/',
                only_valid_entity_types: []
         },
+        {
+                             input_url: 'https://davidmandelberg.bandcamp.com/track/maybe-it-s#lyrics',
+                     input_entity_type: 'work',
+            expected_relationship_type: 'lyrics',
+                    expected_clean_url: 'https://davidmandelberg.bandcamp.com/track/maybe-it-s',
+               only_valid_entity_types: ['work']
+        },
         // Bandsintown
         {
                              input_url: "https://m.bandsintown.com/MattDobberteen's50thBirthday?came_from=178",
