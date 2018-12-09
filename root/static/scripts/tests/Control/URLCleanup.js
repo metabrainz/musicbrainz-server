@@ -2133,6 +2133,21 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
                      input_entity_type: 'work',
             expected_relationship_type: 'score',
         },
+        // Niconico Video
+        {
+                             input_url: 'https://www.nicovideo.jp/watch/sm2916956?',
+                     input_entity_type: 'recording',
+            expected_relationship_type: 'streamingmusic',
+                    expected_clean_url: 'https://www.nicovideo.jp/watch/sm2916956',
+               only_valid_entity_types: ['recording', 'release']
+        },
+        {
+                             input_url: 'https://www.nicovideo.jp/user/1050860/top',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'videochannel',
+                    expected_clean_url: 'https://www.nicovideo.jp/user/1050860',
+               only_valid_entity_types: ['artist']
+        },
         // NLA (National Library of Australia)
         {
                              input_url: 'https://nla.gov.au/nla.party-548358/',
