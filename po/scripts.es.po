@@ -1,7 +1,7 @@
 # 
 # Translators:
 # Alexander Dupuy <email address hidden>, 2012
-# gr0uch0mars <email address hidden>, 2011
+# 3b2b9b2970dff2223d07f096c7a072f3, 2011
 # Héctor Arroyo <email address hidden>, 2012
 # Nicolás Tamargo <email address hidden>, 2011, 2012
 # Kevin Doncam Demian López Brante <email address hidden>, 2012

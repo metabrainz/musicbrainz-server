@@ -4,6 +4,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
+# reneweesp <email address hidden>, 2018
 # Ian McEwen <email address hidden>, 2012
 # Maurits Meulenbelt <email address hidden>, 2012
 # Maurits Meulenbelt <email address hidden>, 2013-2018
@@ -13,7 +14,7 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-04-23 18:29+0200\n"
-"PO-Revision-Date: 2018-10-22 12:30+0000\n"
+"PO-Revision-Date: 2018-12-06 14:51+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -43,12 +44,12 @@ msgid ""
 "AcousticBrainz, which aims to crowd source acoustic information for music, "
 "is announced in cooperation with the Music Technology Group at Universitat "
 "Pompeu Fabra."
-msgstr "AcousticBrainz, een project dat als doel heeft om akoestische informatie over muziek te crowdsourcen, wordt in samenwerking met de Music Technology Group van de Universitat Pompeu Fabra in Barcelona aangekondigd."
+msgstr "AcousticBrainz, een project dat als doel heeft om akoestische informatie over muziek te crowdsourcen, wordt in samenwerking met de Music Technology Group van de Universiteit Pompeu Fabra in Barcelona aangekondigd."
 
 #: DB:statistics.statistic_event/description:2003-01-21
 msgid ""
 "Added support for improved TRM collision handling in the classic tagger."
-msgstr "Ondersteuning voor verbeterde afhandeling van TRM-botsingen toegevoegd aan de klassieke tagger."
+msgstr "Ondersteuning voor verbeterde afhandeling van TRM-botsingen wordt aan de klassieke tagger toegevoegd."
 
 #: DB:statistics.statistic_event/title:2005-04-10
 msgid "Advanced relationships"
@@ -59,11 +60,11 @@ msgid ""
 "Advanced relationships that allow users to connect basic data entities is "
 "relased and unused TRMs pruned from the database. Inline editing is turned "
 "off by default, causing a drop in voting activity."
-msgstr "Relaties waarmee gebruikers objecten kunnen verbinden, zijn uitgebracht en ongebruikte TRM’s zijn uit de database verwijderd. Bewerken op dezelfde pagina is standaard uitgeschakeld, waardoor er minder wordt gestemd."
+msgstr "Relaties waarmee gebruikers objecten kunnen verbinden, zijn uitgebracht en ongebruikte TRM’s zijn uit de databank verwijderd. Bewerken op dezelfde pagina is standaard uitgeschakeld, waardoor er minder wordt gestemd."
 
 #: DB:statistics.statistic_event/title:2005-05-22
 msgid "Album languages"
-msgstr "Albumtalen"
+msgstr "Album talen"
 
 #: DB:statistics.statistic_event/description:2005-05-22
 msgid ""
@@ -435,7 +436,7 @@ msgstr "Oliver Charles begint voltijds voor MusicBrainz te werken."
 
 #: DB:statistics.statistic_event/title:2010-06-18
 msgid "Oliver Charles joins MusicBrainz full-time"
-msgstr "Oliver Charles wordt voltijds werknemer van MusicBrainz"
+msgstr "Oliver Charles wordt voltijdwerknemer van MusicBrainz"
 
 #: DB:statistics.statistic_event/title:2012-10-15
 msgid "Relationship Editor"

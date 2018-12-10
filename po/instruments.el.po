@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2018-10-15 16:09+0000\n"
-"Last-Translator: Michael Wiencek <email address hidden>\n"
+"PO-Revision-Date: 2018-11-01 16:56+0000\n"
+"Last-Translator: yvanz\n"
 "Language-Team: Greek (http://www.transifex.com/musicbrainz/musicbrainz/language/el/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -197,6 +197,7 @@ msgid "Rhodes piano"
 msgstr "Πιάνο Rhodes"
 
 #: DB:instrument/name:476
+msgctxt "Ancient Carnatic veena lute"
 msgid "Saraswati veena"
 msgstr ""
 
@@ -955,7 +956,7 @@ msgid "claviola"
 msgstr ""
 
 #: DB:instrument/name:815
-msgctxt "electronic keyboard, forerunner to analogue syntheziers"
+msgctxt "electronic keyboard, forerunner to analogue synthesizers"
 msgid "clavioline"
 msgstr ""
 

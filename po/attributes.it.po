@@ -1,6 +1,7 @@
 # 
 # Translators:
 # Andrea Borio <email address hidden>, 2016
+# Dario Castellarin <email address hidden>, 2018
 #   <email address hidden>, 2012
 # Gioele  <email address hidden>, 2012
 # Gioele <email address hidden>, 2012
@@ -11,8 +12,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2018-10-15 16:09+0000\n"
-"Last-Translator: Michael Wiencek <email address hidden>\n"
+"PO-Revision-Date: 2018-12-06 18:05+0000\n"
+"Last-Translator: Dario Castellarin <email address hidden>\n"
 "Language-Team: Italian (http://www.transifex.com/musicbrainz/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -88,7 +89,7 @@ msgstr "LaserDisc 8\""
 #: DB:medium_format/name:78
 msgctxt "medium_format"
 msgid "8-Track Cartridge"
-msgstr "Cartuccia Stereo 8"
+msgstr "Cartuccia 8 Tracce"
 
 #: DB:medium_format/name:34
 msgctxt "medium_format"
@@ -1044,7 +1045,7 @@ msgstr "Blu-ray"
 #: DB:medium_format/name:79
 msgctxt "medium_format"
 msgid "Blu-ray-R"
-msgstr ""
+msgstr "Blu-ray-R"
 
 #: DB:medium_format/name:35
 msgctxt "medium_format"
@@ -1916,7 +1917,7 @@ msgstr "Nome evento"
 #: DB:series_type/name:6
 msgctxt "series_type"
 msgid "Event series"
-msgstr ""
+msgstr "Serie di eventi"
 
 #: DB:work_attribute_type_allowed_value/value:729
 msgctxt "work_attribute_type_allowed_value"
@@ -4406,7 +4407,7 @@ msgstr "Nome della registrazione"
 #: DB:series_type/name:3
 msgctxt "series_type"
 msgid "Recording series"
-msgstr ""
+msgstr "Serie di registrazioni"
 
 #: DB:medium_format/name:10
 msgctxt "medium_format"
@@ -4446,7 +4447,7 @@ msgstr "Nome del gruppo di pubblicazioni"
 #: DB:series_type/name:1
 msgctxt "series_type"
 msgid "Release group series"
-msgstr ""
+msgstr "Serie di gruppi di pubblicazioni"
 
 #: DB:release_alias_type/name:1
 msgctxt "alias_type"
@@ -4456,7 +4457,7 @@ msgstr "Nome della pubblicazione"
 #: DB:series_type/name:2
 msgctxt "series_type"
 msgid "Release series"
-msgstr ""
+msgstr "Serie di pubblicazioni"
 
 #: DB:place_type/name:6
 msgctxt "place_type"
@@ -5573,7 +5574,7 @@ msgstr "Nome opera"
 #: DB:series_type/name:4
 msgctxt "series_type"
 msgid "Work series"
-msgstr ""
+msgstr "Serie di opere"
 
 #: DB:work_attribute_type_allowed_value/value:277
 msgctxt "work_attribute_type_allowed_value"

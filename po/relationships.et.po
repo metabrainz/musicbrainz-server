@@ -7,8 +7,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2018-10-15 16:09+0000\n"
-"Last-Translator: Michael Wiencek <email address hidden>\n"
+"PO-Revision-Date: 2018-11-01 16:57+0000\n"
+"Last-Translator: yvanz\n"
 "Language-Team: Estonian (http://www.transifex.com/musicbrainz/musicbrainz/language/et/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -189,12 +189,14 @@ msgstr ""
 #: DB:link_type/link_phrase:747 DB:link_type/link_phrase:180
 #: DB:link_type/link_phrase:76 DB:link_type/link_phrase:217
 #: DB:link_type/link_phrase:90 DB:link_type/link_phrase:705
+#: DB:link_type/reverse_link_phrase:971
 msgid "Discogs"
 msgstr "Discogs"
 
-#: DB:link_type/reverse_link_phrase:747 DB:link_type/reverse_link_phrase:180
-#: DB:link_type/reverse_link_phrase:76 DB:link_type/reverse_link_phrase:217
-#: DB:link_type/reverse_link_phrase:90 DB:link_type/reverse_link_phrase:705
+#: DB:link_type/link_phrase:971 DB:link_type/reverse_link_phrase:747
+#: DB:link_type/reverse_link_phrase:180 DB:link_type/reverse_link_phrase:76
+#: DB:link_type/reverse_link_phrase:217 DB:link_type/reverse_link_phrase:90
+#: DB:link_type/reverse_link_phrase:705
 msgid "Discogs page for"
 msgstr ""
 
@@ -1819,6 +1821,10 @@ msgstr ""
 msgid "This is used to link the Discogs page for this release."
 msgstr ""
 
+#: DB:link_type/description:971
+msgid "This is used to link the Discogs page for this work."
+msgstr ""
+
 #: DB:link_type/description:176
 msgid ""
 "This is used to link to a page where the artist's releases can be purchased "
@@ -2009,6 +2015,16 @@ msgstr ""
 msgid ""
 "This links a recording to the relevant crowdfunding project at a "
 "crowdfunding site like Kickstarter or Indiegogo."
+msgstr ""
+
+#: DB:link_type/description:970
+msgid ""
+"This links a release group to a label, to indicate that it is a tribute "
+"album. Tribute albums often have a title in the form \"A Tribute to Label\" "
+"or \"A Tribute to Artists from Label\", and they consist of covers of songs "
+"put out by the label, played by other (sometimes very unknown) artists, to "
+"honor the label. Often they are various artist compilations, but a single "
+"artist can perform the entire tribute album."
 msgstr ""
 
 #: DB:link_type/description:868
@@ -5326,7 +5342,7 @@ msgstr ""
 msgid "treble vocals"
 msgstr ""
 
-#: DB:link_type/link_phrase:65
+#: DB:link_type/link_phrase:65 DB:link_type/link_phrase:970
 msgid "tribute albums"
 msgstr "Tribuutalbumid"
 
@@ -5339,7 +5355,7 @@ msgid "tribute events"
 msgstr ""
 
 #: DB:link_type/link_phrase:728 DB:link_type/reverse_link_phrase:936
-#: DB:link_type/reverse_link_phrase:65
+#: DB:link_type/reverse_link_phrase:65 DB:link_type/reverse_link_phrase:970
 msgid "tribute to"
 msgstr ""
 
@@ -6019,6 +6035,10 @@ msgstr ""
 msgid "{entity1} has a BookBrainz page at {entity0}"
 msgstr ""
 
+#: DB:link_type/long_link_phrase:971
+msgid "{entity1} has a Discogs page at {entity0}"
+msgstr ""
+
 #: DB:link_type/long_link_phrase:280
 msgid "{entity1} has a SecondHandSongs page at {entity0}"
 msgstr ""
@@ -6083,7 +6103,7 @@ msgstr ""
 msgid "{entity1} is a traditional instrument from {entity0}"
 msgstr ""
 
-#: DB:link_type/long_link_phrase:65
+#: DB:link_type/long_link_phrase:65 DB:link_type/long_link_phrase:970
 msgid "{entity1} is a tribute to {entity0}"
 msgstr ""
 
