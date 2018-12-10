@@ -19,6 +19,7 @@ type Props<S> = {|
   +addId: string,
   +addLabel: string,
   +getSelectField: (S) => FieldT<number | string>,
+  +hideAddButton?: boolean,
   +label: string,
   +onAdd: (event: SyntheticEvent<HTMLButtonElement>) => void,
   +onEdit: (index: number, value: string) => void,
@@ -33,6 +34,7 @@ const FormRowSelectList = <F, S: AnyFieldT<F>>({
   addId,
   addLabel,
   getSelectField,
+  hideAddButton,
   label,
   onAdd,
   onEdit,
@@ -62,16 +64,18 @@ const FormRowSelectList = <F, S: AnyFieldT<F>>({
           <FieldErrors field={getSelectField(subfield)} />
         </div>
       ))}
-      <div className="form-row-add">
-        <button
-          className="with-label add-item"
-          id={addId}
-          onClick={onAdd}
-          type="button"
-        >
-          {addLabel}
-        </button>
-      </div>
+      {hideAddButton ? null : (
+        <div className="form-row-add">
+          <button
+            className="with-label add-item"
+            id={addId}
+            onClick={onAdd}
+            type="button"
+          >
+            {addLabel}
+          </button>
+        </div>
+      )}
     </div>
   </FormRow>
 );
