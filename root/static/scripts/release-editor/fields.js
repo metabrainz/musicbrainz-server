@@ -142,7 +142,7 @@ class Track {
                     break;
                 case 5:
                     minutes = length.slice(1, 3);
-                    hours = length.slice(0);
+                    hours = length[0];
                     break;
                 case 6:
                     minutes = length.slice(2, 4);
@@ -150,9 +150,9 @@ class Track {
                     break;
             }
 
-            if (lengthLength > 6) length = '?:??';
-
             seconds = length.slice(-2);
+
+            
 
             if (parseInt(minutes, 10) < 60 && parseInt(seconds, 10) < 60) {
                 length = hours + ":" + minutes + ":" + seconds;
@@ -165,6 +165,8 @@ class Track {
                 length = hours + ":" + minutes + ":" + seconds;
                 this.formattedLength(length);
             }
+
+            if (lengthLength > 6) length = '?:??';
         }
 
         var oldLength = this.length();
