@@ -187,6 +187,8 @@ fieldTest("tracks are set correctly when the cdtoc is changed", function (t, rel
 fieldTest("Tracks' time are changed correctly when inputting values in the medium tracklist editing form tab", function (t, release){
     t.plan(8);
 
+    var medium = new fields.Medium({ tracks: [ {} ] }, release);
+
     const tests = [
         {input: "5", output: "0:05"},
         {input: "69", output: "1:09"},
