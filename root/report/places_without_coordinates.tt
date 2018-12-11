@@ -14,14 +14,35 @@
   <td>[% item.place.address %]</td>
   <td>[% IF item.place.area %][% descriptive_link(item.place.area) %][% END %]</td>
   <td class="search-links">
+      [% q = uri_escape(item.place.name
+                _ ' ' _ item.place.address
+                _ ' ' _ item.place.area.name) %]
       <span class="no-favicon"><a
-            href="https://www.openstreetmap.org/search?query=[%
-                uri_escape(item.place.name
-                   _ ' ' _ item.place.address
-                   _ ' ' _ item.place.area.name) %]"
+            href="https://www.openstreetmap.org/search?query=[% q %]"
             target="_blank"
             title="OpenStreetMap">
         OSM
+      </a></span>
+      |
+      <span><a
+            href="https://www.qwant.com/local/?q=[% q %]"
+            target="_blank"
+            title="Qwant Local">
+        QL
+      </a></span>
+      |
+      <span><a
+            href="https://www.mapquest.com/search/results/?query=[% q %]"
+            target="_blank"
+            title="MapQuest">
+        MQ
+      </a></span>
+      |
+      <span><a
+            href="https://www.google.com/maps/search/[% q %]"
+            target="_blank"
+            title="Google Maps">
+        GM
       </a></span>
   </td>
 [% END %]
