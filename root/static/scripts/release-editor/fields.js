@@ -139,14 +139,20 @@ class Track {
                     break;
                 case 4:
                     minutes = length.slice(0, 2);
+                    if (parseInt(minutes, 10) >= 60)  {
+                        minutes = minutes - 60;
+                        hours += 1;
+                        length = hours + ":" + minutes + ":" + seconds;
+                        this.formattedLength(length);
+                    }
                     break;
                 case 5:
                     minutes = length.slice(1, 3);
                     hours = length[0];
                     break;
                 case 6:
-                    minutes = length.slice(2, 4);
-                    hours = length.slice(0, 2);
+                    hours = length.slice(0,2);
+                    minutes = length.slice(2,4);
                     break;
             }
 
@@ -154,19 +160,13 @@ class Track {
 
             
 
-            if (parseInt(minutes, 10) < 60 && parseInt(seconds, 10) < 60) {
+            if (parseInt(minutes, 10) < 60 && parseInt(seconds, 10) < 60 && lengthLength <= 6) {
                 length = hours + ":" + minutes + ":" + seconds;
                 this.formattedLength(length);
             }
 
-            if (parseInt(minutes, 10) >= 60)  {
-                minutes = minutes - 60;
-                hours += 1;
-                length = hours + ":" + minutes + ":" + seconds;
-                this.formattedLength(length);
-            }
+            
 
-            if (lengthLength > 6) length = '?:??';
         }
 
         var oldLength = this.length();

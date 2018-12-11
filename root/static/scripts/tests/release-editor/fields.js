@@ -195,9 +195,12 @@ fieldTest("Tracks' time are changed correctly when inputting values in the mediu
         {input: "174", output: "2:54"},
         {input: "6000", output: "1:00:00"},
         {input: "7400", output: "1:14:00"},
+        {input: "7482", output: "2:04:42"},
         {input: "10000", output: "1:00:00"},
-        {input: "96900", output: "10:09:00"},
-        {input: "3723494", output: "?:??"}
+        {input: "96900", output: "26:55:00"},
+        {input: "160000", output: "16:00:00"},
+        {input: "166000", output: "46:06:40"},
+        {input: "3723494", output: "1034:18:14"}
     ];
 
     tests.forEach(({input, output}) => {
