@@ -731,6 +731,11 @@ msgctxt "work_type"
 msgid "Audio drama"
 msgstr ""
 
+#: DB:release_group_secondary_type/name:11
+msgctxt "release_group_secondary_type"
+msgid "Audio play"
+msgstr ""
+
 #: DB:release_group_secondary_type/name:5
 msgctxt "release_group_secondary_type"
 msgid "Audiobook"
