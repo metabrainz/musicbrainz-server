@@ -9,7 +9,7 @@
     <li>[% l('Generated on {date}', { date => UserDate.format(generated) }) %]</li>
 </ul>
 
-[% BLOCK extra_header_end %]<th>[% l('Address') %]</th><th>[% l('Area') %]</th><th style="width:5em">[% l('Find') %]</th>[% END %]
+[% BLOCK extra_header_end %]<th>[% l('Address') %]</th><th>[% l('Area') %]</th><th>[% l('Search for coordinates') %]</th>[% END %]
 [% BLOCK extra_row_end %]
   <td>[% item.place.address %]</td>
   <td>[% IF item.place.area %][% descriptive_link(item.place.area) %][% END %]</td>
