@@ -455,7 +455,7 @@ my %stats = (
             my ($self, $sql) = @_;
 
             my $data = $sql->select_list_of_lists(
-               'SELECT (cover_art_url ~ \'^http://.*.images-amazon.com\')::int AS is_amazon, COUNT(*) FROM release_coverart
+               'SELECT (cover_art_url ~ \'^https?://.*.images-amazon.com\')::int AS is_amazon, COUNT(*) FROM release_coverart
                   WHERE cover_art_url IS NOT NULL
                     AND NOT EXISTS (
                       SELECT TRUE FROM cover_art_archive.cover_art ca

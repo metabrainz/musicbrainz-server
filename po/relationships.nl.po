@@ -2,7 +2,7 @@
 # Translators:
 # nikki, 2013
 # nikki2 <email address hidden>, 2012
-# reneweesp <email address hidden>, 2017
+# reneweesp <email address hidden>, 2017-2018
 # Maurits Meulenbelt <email address hidden>, 2012
 # Maurits Meulenbelt <email address hidden>, 2013-2018
 # Nikolai Prokoschenko <email address hidden>, 2011
@@ -10,8 +10,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2018-10-22 14:43+0000\n"
-"Last-Translator: Maurits Meulenbelt <email address hidden>\n"
+"PO-Revision-Date: 2018-11-26 16:19+0000\n"
+"Last-Translator: reneweesp <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -192,12 +192,14 @@ msgstr "Geeft aan dat een gebied deel uitmaakt van een ander gebied."
 #: DB:link_type/link_phrase:747 DB:link_type/link_phrase:180
 #: DB:link_type/link_phrase:76 DB:link_type/link_phrase:217
 #: DB:link_type/link_phrase:90 DB:link_type/link_phrase:705
+#: DB:link_type/reverse_link_phrase:971
 msgid "Discogs"
 msgstr "Discogs"
 
-#: DB:link_type/reverse_link_phrase:747 DB:link_type/reverse_link_phrase:180
-#: DB:link_type/reverse_link_phrase:76 DB:link_type/reverse_link_phrase:217
-#: DB:link_type/reverse_link_phrase:90 DB:link_type/reverse_link_phrase:705
+#: DB:link_type/link_phrase:971 DB:link_type/reverse_link_phrase:747
+#: DB:link_type/reverse_link_phrase:180 DB:link_type/reverse_link_phrase:76
+#: DB:link_type/reverse_link_phrase:217 DB:link_type/reverse_link_phrase:90
+#: DB:link_type/reverse_link_phrase:705
 msgid "Discogs page for"
 msgstr "Discogspagina over"
 
@@ -681,11 +683,11 @@ msgstr "Koppelt de uitgave aan het gebied waarin hij werd geremixt. Gebruik dit 
 msgid ""
 "Links a release to the area where the lacquer cutting took place. Use only "
 "when the place is unknown!"
-msgstr ""
+msgstr "Koppelt een uitgave naar het gebied waar het scherp afsnijden plaatsvond. Gebruik alleen als de plaats onbekend is!"
 
 #: DB:link_type/description:969
 msgid "Links a release to the engineer who did the lacquer cutting for it."
-msgstr ""
+msgstr "Koppelt een uitgave naar de ingenieur die scherp heeft afgesneden."
 
 #: DB:link_type/description:810
 msgid "Links a release to the event it was recorded at."
@@ -741,7 +743,7 @@ msgstr "Deze relatie koppelt een uitgave aan het gebied waar de glasmaster voor 
 
 #: DB:link_type/description:968
 msgid "Links a release to the place where the lacquer cutting took place."
-msgstr ""
+msgstr "Koppelt een uitgave naar de plaats waar het scherp afsnijden plaatsvond"
 
 #: DB:link_type/description:796
 msgid "Links a release with a launch event for it."
@@ -1348,7 +1350,7 @@ msgstr "Dit geeft aan dat een persoon de dirigent van een groep is of was."
 msgid ""
 "This indicates that a person is, or was, the artistic director of a group "
 "(e.g. a ballet/opera company)."
-msgstr ""
+msgstr "Dit geeft aan dat een persoon de artistiek leider van een groep is (of was), bijvoorbeeld een ballet / opera-gezelschap."
 
 #: DB:link_type/description:137
 msgid ""
@@ -1822,6 +1824,10 @@ msgstr "Deze relatie de uitgavegroep aan zijn Discogs-pagina."
 msgid "This is used to link the Discogs page for this release."
 msgstr "Deze relatie koppelt een uitgave aan zijn Discogs-pagina."
 
+#: DB:link_type/description:971
+msgid "This is used to link the Discogs page for this work."
+msgstr "Dit wordt gebruikt om de Discogs-pagina voor dit werk te koppelen."
+
 #: DB:link_type/description:176
 msgid ""
 "This is used to link to a page where the artist's releases can be purchased "
@@ -2013,6 +2019,16 @@ msgid ""
 "This links a recording to the relevant crowdfunding project at a "
 "crowdfunding site like Kickstarter or Indiegogo."
 msgstr "Deze relatie koppelt een opname aan een gerelateerd project op een crowdfundingwebsite zoals Kickstarter of Indiegogo."
+
+#: DB:link_type/description:970
+msgid ""
+"This links a release group to a label, to indicate that it is a tribute "
+"album. Tribute albums often have a title in the form \"A Tribute to Label\" "
+"or \"A Tribute to Artists from Label\", and they consist of covers of songs "
+"put out by the label, played by other (sometimes very unknown) artists, to "
+"honor the label. Often they are various artist compilations, but a single "
+"artist can perform the entire tribute album."
+msgstr "Deze relatie koppelt een uitgavegroep aan een platenmaatschappij om aan te geven dat het daar een hommage aan is. Deze albums hebben vaak een titel in de vorm van “A Tribute to …”. Ze bestaan vaak uit nieuwe uitvoeringen van nummers die door de platenmaatschappij zijn uitgebracht, gespeeld door (soms hele onbekende) artiesten als eerbetoon aan de platenmaatschappij. Het zijn vaak compilaties door diverse artiesten, maar soms speelt er één artiest op het hele album."
 
 #: DB:link_type/description:868
 msgid ""
@@ -3142,11 +3158,11 @@ msgstr "A&R-ondersteuning"
 
 #: DB:link_type/reverse_link_phrase:965
 msgid "artistic director"
-msgstr ""
+msgstr "artistiek directeur"
 
 #: DB:link_type/link_phrase:965
 msgid "artistic director for"
-msgstr ""
+msgstr "artistiek directeur van"
 
 #: DB:link_attribute_type/name:526
 msgid "assistant"
@@ -3369,19 +3385,19 @@ msgstr "contract"
 
 #: DB:link_type/link_phrase:948 DB:link_type/link_phrase:949
 msgid "contracted arrangement for"
-msgstr ""
+msgstr "gecontracteerde regeling voor"
 
 #: DB:link_type/link_phrase:952
 msgid "contracted manufacturing for"
-msgstr ""
+msgstr "gecontracteerde productie voor"
 
 #: DB:link_type/link_phrase:946 DB:link_type/link_phrase:947
 msgid "contracted mixing for"
-msgstr ""
+msgstr "gecontracteerde mixen voor"
 
 #: DB:link_type/link_phrase:950 DB:link_type/link_phrase:951
 msgid "contracted production for"
-msgstr ""
+msgstr "gecontracteerde productie voor"
 
 #: DB:link_type/link_phrase:945 DB:link_type/link_phrase:944
 #: DB:link_type/reverse_link_phrase:945 DB:link_type/reverse_link_phrase:944
@@ -3449,7 +3465,7 @@ msgstr "crowdfundingpagina voor"
 
 #: DB:link_type/long_link_phrase:969
 msgid "cut the lacquer for"
-msgstr ""
+msgstr "scherp afsnijden voor"
 
 #: DB:link_type/reverse_link_phrase:868 DB:link_type/reverse_link_phrase:846
 #: DB:link_type/reverse_link_phrase:922 DB:link_type/reverse_link_phrase:914
@@ -3655,7 +3671,7 @@ msgstr "bladmuziek verkrijgen"
 
 #: DB:link_type/link_phrase:955 DB:link_type/long_link_phrase:955
 msgid "glass mastered"
-msgstr ""
+msgstr "glas mastered"
 
 #: DB:link_type/reverse_link_phrase:954
 msgid "glass mastered at"
@@ -3992,7 +4008,7 @@ msgstr "heeft een affiche op"
 
 #: DB:link_type/reverse_link_phrase:230
 msgid "has remixes"
-msgstr ""
+msgstr "is geremixed"
 
 #: DB:link_type/link_phrase:315 DB:link_type/long_link_phrase:315
 msgid "has revision"
@@ -4237,7 +4253,7 @@ msgstr "is/was een ondersteunende artiest voor"
 
 #: DB:link_type/long_link_phrase:965
 msgid "is/was artistic director for"
-msgstr ""
+msgstr "is/was artistiek directeur van"
 
 #: DB:link_type/long_link_phrase:203
 msgid "is/was distributing the catalog of"
@@ -4279,19 +4295,19 @@ msgstr "karaokeversies"
 
 #: DB:link_type/link_phrase:969 DB:link_type/reverse_link_phrase:969
 msgid "lacquer cut"
-msgstr ""
+msgstr "scherp gesneden"
 
 #: DB:link_type/reverse_link_phrase:968
 msgid "lacquer cut at"
-msgstr ""
+msgstr "scherp gesneden op"
 
 #: DB:link_type/reverse_link_phrase:967
 msgid "lacquer cut in"
-msgstr ""
+msgstr "Scherp gesneden in"
 
 #: DB:link_type/link_phrase:967 DB:link_type/link_phrase:968
 msgid "lacquer cut location for"
-msgstr ""
+msgstr "scherp gesneden locatie voor"
 
 #: DB:link_type/link_phrase:238
 msgid "later releases"
@@ -5329,7 +5345,7 @@ msgstr "getranscribeerde/vertaalde nummerlijsten"
 msgid "treble vocals"
 msgstr "jongenssopraanvocalen"
 
-#: DB:link_type/link_phrase:65
+#: DB:link_type/link_phrase:65 DB:link_type/link_phrase:970
 msgid "tribute albums"
 msgstr "hommagealbums"
 
@@ -5342,7 +5358,7 @@ msgid "tribute events"
 msgstr "hommage-evenementen"
 
 #: DB:link_type/link_phrase:728 DB:link_type/reverse_link_phrase:936
-#: DB:link_type/reverse_link_phrase:65
+#: DB:link_type/reverse_link_phrase:65 DB:link_type/reverse_link_phrase:970
 msgid "tribute to"
 msgstr "hommage aan"
 
@@ -5450,7 +5466,7 @@ msgstr "was de pianotechnicus voor"
 
 #: DB:link_type/long_link_phrase:760 DB:link_type/long_link_phrase:759
 msgid "was the {guest} concertmaster for"
-msgstr ""
+msgstr "was de {gast}concertmeester op"
 
 #: DB:link_type/long_link_phrase:36 DB:link_type/long_link_phrase:128
 msgid ""
@@ -5584,7 +5600,7 @@ msgstr "video {additional:aanvullende} opgenomen bij"
 
 #: DB:link_type/link_phrase:966
 msgid "{additional:additionally} shot for"
-msgstr ""
+msgstr "{additional:additionally} opname voor"
 
 #: DB:link_type/reverse_link_phrase:964
 msgid "{additional:additionally} shot in"
@@ -6022,6 +6038,10 @@ msgstr "{entity1} heeft een VIAF-ID op {entity0}"
 msgid "{entity1} has a BookBrainz page at {entity0}"
 msgstr "{entity1} heeft een BookBrainz-pagina op {entity0}"
 
+#: DB:link_type/long_link_phrase:971
+msgid "{entity1} has a Discogs page at {entity0}"
+msgstr "{entity1} heeft een Discogs-pagina op {entity0}"
+
 #: DB:link_type/long_link_phrase:280
 msgid "{entity1} has a SecondHandSongs page at {entity0}"
 msgstr "{entity1} heeft een SecondHandSongs-pagina op {entity0}"
@@ -6086,7 +6106,7 @@ msgstr "{entity1} is een tournee van {entity0}"
 msgid "{entity1} is a traditional instrument from {entity0}"
 msgstr "{entity1} is een traditioneel instrument uit {entity0}"
 
-#: DB:link_type/long_link_phrase:65
+#: DB:link_type/long_link_phrase:65 DB:link_type/long_link_phrase:970
 msgid "{entity1} is a tribute to {entity0}"
 msgstr "{entity1} is een eerbetoon aan {entity0}"
 
@@ -6295,15 +6315,15 @@ msgstr "{entitiy1} was {anniversary:een jubileumtournee voor|een ondersteunende 
 
 #: DB:link_type/long_link_phrase:967 DB:link_type/long_link_phrase:968
 msgid "{entity1}'s lacquer was cut in {entity0}"
-msgstr ""
+msgstr "{entity1}'s scherp gesneden was in {entity0}"
 
 #: DB:link_type/reverse_link_phrase:760 DB:link_type/reverse_link_phrase:759
 msgid "{guest} concertmaster"
-msgstr ""
+msgstr "{gast}concertmeester"
 
 #: DB:link_type/link_phrase:760 DB:link_type/link_phrase:759
 msgid "{guest} concertmaster for"
-msgstr ""
+msgstr "{gast}concertmeester op"
 
 #: DB:link_type/link_phrase:110 DB:link_type/reverse_link_phrase:110
 msgid "{half:half-}{step}siblings"

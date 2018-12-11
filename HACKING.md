@@ -226,7 +226,7 @@ database.
 
 ### Generating reports
 
-You can generate all reports using the *[RunReports.sh](https://github.com/metabrainz/musicbrainz-server/blob/master/admin/RunReports.pl)*
+You can generate all reports using the *[RunReports.pl](https://github.com/metabrainz/musicbrainz-server/blob/master/admin/RunReports.pl)*
 script:
 
     $ ./admin/RunReports.pl
@@ -340,7 +340,7 @@ The cache key for an entity is determined by its name in entities.json. For
 example, you can lookup artists under "artist:ROW_ID" or "artist:MBID". Here
 are the non-entity cache keys:
 
- * blog:entries -- The lastest entries from blog.musicbrainz.org
+ * blog:entries -- The lastest entries from blog.metabrainz.org
  * stats:* -- various different statistics
  * wikidoc:TEXT-INT -- wikidocs by page title and revision
  * wikidoc-index -- wikidocs index page

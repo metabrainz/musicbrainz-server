@@ -43,7 +43,7 @@ mb_server.pot: $(POTFILES) $(JSFILES) $(TT) $(wildcard extract_pot_templates)
 	@find ../root -path ../root/statistics -prune -o -type f -name \*.tt -print | sort | ./extract_pot_templates | msguniq -s > mb_server.pot;
 	@echo "- Update code .pot"
 	@xgettext --from-code utf-8 --keyword=__ --keyword=l --keyword=lp:1,2c --keyword=N_lp:1,2c --keyword=N_l --keyword=ln:1,2 --keyword=N_ln:1,2 --keyword=__x --keyword=__nx:1,2 --keyword=__n:1,2 -Lperl -o mb_server.pot --add-comments=translators -j $(POTFILES)
-	@xgettext --from-code utf-8 --keyword=l --keyword=lp:1,2c --keyword=ln:1,2 --keyword=N_lp:1,2c --keyword=N_l --keyword=ln:1,2 --keyword=N_ln:1,2 -L javascript -o javascript.pot --add-comments=translators $(JSFILES)
+	@../script/xgettext.js $(JSFILES) > javascript.pot
 	@msgcat -o mb_server.pot mb_server.pot javascript.pot
 	@rm javascript.pot
 
@@ -51,7 +51,7 @@ statistics.pot: $(STATTT) $(STATJS) $(wildcard extract_pot_db) $(wildcard extrac
 	@echo "Rebuilding the statistics.pot file";
 	@echo "- Update templates .pot";
 	@find ../root/statistics -type f -name \*.tt -print | sort | ./extract_pot_templates | msguniq -s > statistics_tmpl.pot;
-	@xgettext --from-code utf-8 --keyword=l --keyword=lp:1,2c --keyword=ln:1,2 -L javascript -o statistics_js.pot --add-comments=translators $(STATJS)
+	@../script/xgettext.js $(STATJS) > statistics_js.pot
 	@echo "- Update database .pot";
 	@./extract_pot_db statistics | msguniq -s > statistics_db.pot
 	@echo "- Merge";

@@ -101,7 +101,7 @@ const Homepage = ({
               </ul>
               <p style={{margin: '1em 0', textAlign: 'right'}}>
                 <strong>
-                  <a href="http://blog.musicbrainz.org">
+                  <a href="http://blog.metabrainz.org">
                     {l('Read more »')}
                   </a>
                 </strong>
@@ -144,7 +144,7 @@ const Homepage = ({
         <h2 className="community">{l('Community')}</h2>
         <ul>
           <li><a href="/doc/How_to_Contribute">{l('How to Contribute')}</a></li>
-          <li><a href="http://tickets.musicbrainz.org/">{l('Bug Tracker')}</a></li>
+          <li><a href="http://tickets.metabrainz.org/">{l('Bug Tracker')}</a></li>
           <li><a href="https://community.metabrainz.org/">{l('Forums')}</a></li>
         </ul>
       </div>

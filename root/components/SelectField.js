@@ -25,22 +25,28 @@ const buildOptGroup = (optgroup, index) => (
 
 type Props = {|
   +allowEmpty?: boolean,
+  +disabled?: boolean,
   +field: FieldT<number | string>,
   +onChange?: (event: SyntheticEvent<HTMLSelectElement>) => void,
   +options: MaybeGroupedOptionsT,
+  +required?: boolean
 |};
 
 const SelectField = ({
   allowEmpty = true,
+  disabled = false,
   field,
   onChange,
   options,
+  required,
 }: Props) => (
   <select
     className="with-button"
+    disabled={disabled}
     id={'id-' + field.html_name}
     name={field.html_name}
     onChange={onChange}
+    required={required}
     value={getSelectValue(field, options, allowEmpty)}
   >
     {allowEmpty

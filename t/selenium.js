@@ -397,6 +397,7 @@ const seleniumTests = [
   {name: 'Artist_Credit_Editor.html', login: true},
   {name: 'External_Links_Editor.html', login: true, timeout: 90000},
   {name: 'Work_Editor.html', login: true},
+  {name: 'Redirect_Merged_Entities.html', login: true},
   {name: 'release-editor/The_Downward_Spiral.html', login: true, timeout: 120000},
   {name: 'release-editor/Seeding.html', login: true, sql: 'vision_creation_newsun.sql'},
 ];

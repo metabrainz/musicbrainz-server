@@ -8,7 +8,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2018-10-22 14:31+0000\n"
+"PO-Revision-Date: 2018-11-01 16:56+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -199,6 +199,7 @@ msgid "Rhodes piano"
 msgstr "Rhodes-piano"
 
 #: DB:instrument/name:476
+msgctxt "Ancient Carnatic veena lute"
 msgid "Saraswati veena"
 msgstr "Saraswati-vina"
 
@@ -957,7 +958,7 @@ msgid "claviola"
 msgstr "claviola"
 
 #: DB:instrument/name:815
-msgctxt "electronic keyboard, forerunner to analogue syntheziers"
+msgctxt "electronic keyboard, forerunner to analogue synthesizers"
 msgid "clavioline"
 msgstr "clavioline"
 

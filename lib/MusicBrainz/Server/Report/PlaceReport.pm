@@ -13,6 +13,8 @@ around inflate_rows => sub {
         map { $_->{place_id} } @$items
     );
 
+    $self->c->model('Area')->load(values %$places);
+
     return [
         map +{
             %$_,

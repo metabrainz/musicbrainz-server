@@ -33,7 +33,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2018-11-01 15:07+0000\n"
+"PO-Revision-Date: 2018-11-01 16:57+0000\n"
 "Last-Translator: yvanz\n"
 "Language-Team: French (http://www.transifex.com/musicbrainz/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -215,12 +215,14 @@ msgstr "Indique qu’une région est comprise dans une autre."
 #: DB:link_type/link_phrase:747 DB:link_type/link_phrase:180
 #: DB:link_type/link_phrase:76 DB:link_type/link_phrase:217
 #: DB:link_type/link_phrase:90 DB:link_type/link_phrase:705
+#: DB:link_type/reverse_link_phrase:971
 msgid "Discogs"
 msgstr "Discogs"
 
-#: DB:link_type/reverse_link_phrase:747 DB:link_type/reverse_link_phrase:180
-#: DB:link_type/reverse_link_phrase:76 DB:link_type/reverse_link_phrase:217
-#: DB:link_type/reverse_link_phrase:90 DB:link_type/reverse_link_phrase:705
+#: DB:link_type/link_phrase:971 DB:link_type/reverse_link_phrase:747
+#: DB:link_type/reverse_link_phrase:180 DB:link_type/reverse_link_phrase:76
+#: DB:link_type/reverse_link_phrase:217 DB:link_type/reverse_link_phrase:90
+#: DB:link_type/reverse_link_phrase:705
 msgid "Discogs page for"
 msgstr "Page Discogs pour"
 
@@ -1845,6 +1847,10 @@ msgstr "Ceci est utilisé pour relier la page Discogs pour ce groupe de parution
 msgid "This is used to link the Discogs page for this release."
 msgstr "Ceci est utilisé pour relier la page Discogs pour cette parution."
 
+#: DB:link_type/description:971
+msgid "This is used to link the Discogs page for this work."
+msgstr ""
+
 #: DB:link_type/description:176
 msgid ""
 "This is used to link to a page where the artist's releases can be purchased "
@@ -2036,6 +2042,16 @@ msgid ""
 "This links a recording to the relevant crowdfunding project at a "
 "crowdfunding site like Kickstarter or Indiegogo."
 msgstr "Indique pour un enregistrement le projet correspondant sur un site de financement participatif tel que Kickstarter ou Indiegogo."
+
+#: DB:link_type/description:970
+msgid ""
+"This links a release group to a label, to indicate that it is a tribute "
+"album. Tribute albums often have a title in the form \"A Tribute to Label\" "
+"or \"A Tribute to Artists from Label\", and they consist of covers of songs "
+"put out by the label, played by other (sometimes very unknown) artists, to "
+"honor the label. Often they are various artist compilations, but a single "
+"artist can perform the entire tribute album."
+msgstr ""
 
 #: DB:link_type/description:868
 msgid ""
@@ -5352,7 +5368,7 @@ msgstr "listes translittérées/traduites des pistes"
 msgid "treble vocals"
 msgstr "voix d’enfant soprano"
 
-#: DB:link_type/link_phrase:65
+#: DB:link_type/link_phrase:65 DB:link_type/link_phrase:970
 msgid "tribute albums"
 msgstr "albums hommage"
 
@@ -5365,7 +5381,7 @@ msgid "tribute events"
 msgstr "événements hommage"
 
 #: DB:link_type/link_phrase:728 DB:link_type/reverse_link_phrase:936
-#: DB:link_type/reverse_link_phrase:65
+#: DB:link_type/reverse_link_phrase:65 DB:link_type/reverse_link_phrase:970
 msgid "tribute to"
 msgstr "hommage à"
 
@@ -6045,6 +6061,10 @@ msgstr "{entity1} a un ID VIAF à {entity0}"
 msgid "{entity1} has a BookBrainz page at {entity0}"
 msgstr "{entity1} a une page BookBrainz à {entity0}"
 
+#: DB:link_type/long_link_phrase:971
+msgid "{entity1} has a Discogs page at {entity0}"
+msgstr ""
+
 #: DB:link_type/long_link_phrase:280
 msgid "{entity1} has a SecondHandSongs page at {entity0}"
 msgstr "{entity1} a une page SecondHandSongs à {entity0}"
@@ -6109,7 +6129,7 @@ msgstr "{entity1} est une tournée de {entity0}"
 msgid "{entity1} is a traditional instrument from {entity0}"
 msgstr "{entity1} est un instrument traditionnel de {entity0}"
 
-#: DB:link_type/long_link_phrase:65
+#: DB:link_type/long_link_phrase:65 DB:link_type/long_link_phrase:970
 msgid "{entity1} is a tribute to {entity0}"
 msgstr "{entity1} est un hommage à {entity0}"
 

@@ -64,4 +64,4 @@ class WikipediaExtract extends React.Component<Props, State> {
   }
 }
 
-export default hydrate('wikipedia-extract', WikipediaExtract, minimalEntity);
+export default hydrate<Props>('wikipedia-extract', WikipediaExtract, minimalEntity);

@@ -69,6 +69,12 @@ const InstrumentList = ({
             </>
           )
           : null}
+        <p>
+          {l('Is this list missing an instrument? Request it by following {link|these instructions}.', {
+            __react: true,
+            link: '/doc/How_to_Add_Instruments',
+          })}
+        </p>
       </div>
     </Layout>
   );

@@ -15,7 +15,6 @@ test 'Delete account as a regular user' => sub {
     MusicBrainz::Server::Test->prepare_test_database($c, '+editor');
 
     $mech->get('/login');
-    $mech->tick('remember_me', '1');
     $mech->submit_form( with_fields => { username => 'Alice', password => 'secret1' } );
 
     $second_session->get('/account/edit');

@@ -43,7 +43,7 @@
     "merge-stream": "1.0.1",
     "moment": "2.22.2",
     "moment-strftime": "0.5.0",
-    "moment-timezone": "0.5.17",
+    "moment-timezone": "0.5.21",
     "po2json": "0.4.1",
     "q": "1.4.1",
     "querystring": "0.2.0",
@@ -72,13 +72,15 @@
     "eslint-plugin-import": "2.14.0",
     "eslint-plugin-react": "git://github.com/yannickcr/eslint-plugin-react#60b5642",
     "file-url": "2.0.2",
-    "flow-bin": "0.83.0",
+    "flow-bin": "0.87.0",
+    "gettext-parser": "3.1.0",
     "gulp-watch": "4.3.5",
     "http-proxy": "1.16.2",
     "jsdom": "11.1.0",
     "selenium-webdriver": "3.5.0",
     "tape": "4.7.0",
-    "utf8": "2.1.2"
+    "utf8": "2.1.2",
+    "xgettext-js": "2.0.0"
   },
   "private": true
 }

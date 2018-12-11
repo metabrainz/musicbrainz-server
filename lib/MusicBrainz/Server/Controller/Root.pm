@@ -383,7 +383,7 @@ sub end : ActionClass('RenderView')
         %{ $c->stash->{server_details} // {} },
         staging_server_description => DBDefs->DB_STAGING_SERVER_DESCRIPTION,
         is_sanitized               => DBDefs->DB_STAGING_SERVER_SANITIZED,
-        developement_server        => DBDefs->DEVELOPMENT_SERVER,
+        development_server         => DBDefs->DEVELOPMENT_SERVER,
         beta_redirect              => DBDefs->BETA_REDIRECT_HOSTNAME,
         is_beta                    => DBDefs->IS_BETA
     };

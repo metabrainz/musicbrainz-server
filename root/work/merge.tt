@@ -52,7 +52,13 @@
                       </ul>
                     </td>
                     <td>[% entity.l_type_name %]</td>
-                    <td><abbr title="[% entity.language.l_name %]">[% entity.language.iso_code_3 %]</abbr></td>
+                    <td>
+                      <ul>
+                        [% FOR language=entity.languages %]
+                        <li><abbr title="[% language.language.l_name | html %]">[% language.language.iso_code_3 %]</abbr></li>
+                        [% END %]
+                      </ul>
+                    </td>
                     <td>
                       [% work_attributes_list(entity) %]
                     </td>

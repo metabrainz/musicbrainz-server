@@ -989,7 +989,7 @@ note-[%- edit.id -%]-[%- loop.count() -%]
 [%~ END ~%]
 
 [%~ MACRO bugtracker_url(description) BLOCK; # Converted to React at root/static/scripts/common/utility/bugTrackerURL.js
-    'http://tickets.musicbrainz.org/secure/CreateIssueDetails!init.jspa?' _
+    'http://tickets.metabrainz.org/secure/CreateIssueDetails!init.jspa?' _
     'pid=10000&issuetype=1' _
     (description == '' ? '' : '&description=' _ uri_escape(description));
 END ~%]

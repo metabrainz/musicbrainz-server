@@ -401,6 +401,13 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
                     expected_clean_url: 'https://daily.bandcamp.com/2018/05/30/gnawa-bandcamp-list/',
                only_valid_entity_types: []
         },
+        {
+                             input_url: 'https://davidmandelberg.bandcamp.com/track/maybe-it-s#lyrics',
+                     input_entity_type: 'work',
+            expected_relationship_type: 'lyrics',
+                    expected_clean_url: 'https://davidmandelberg.bandcamp.com/track/maybe-it-s',
+               only_valid_entity_types: ['work']
+        },
         // Bandsintown
         {
                              input_url: "https://m.bandsintown.com/MattDobberteen's50thBirthday?came_from=178",
@@ -956,19 +963,19 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
                              input_url: 'https://dailymotion.com/who-knows#uploads',
                      input_entity_type: 'artist',
             expected_relationship_type: 'videochannel',
-                    expected_clean_url: 'http://www.dailymotion.com/who-knows',
+                    expected_clean_url: 'https://www.dailymotion.com/who-knows',
                only_valid_entity_types: ['artist', 'event', 'label', 'place', 'series']
         },
         {
                              input_url: 'http://www.dailymotion.com/video/xyztuvw_useless-slug?start=42',
                      input_entity_type: 'recording',
             expected_relationship_type: 'streamingmusic',
-                    expected_clean_url: 'http://www.dailymotion.com/video/xyztuvw',
+                    expected_clean_url: 'https://www.dailymotion.com/video/xyztuvw',
                only_valid_entity_types: ['recording', 'release']
         },
         {
                              input_url: 'http://www.dailymotion.com/playlist/xwvuts_who-knows_top/1#video=xyztuvw',
-                    expected_clean_url: 'http://www.dailymotion.com/video/xyztuvw',
+                    expected_clean_url: 'https://www.dailymotion.com/video/xyztuvw',
         },
         // Decoda
         {
@@ -1125,6 +1132,12 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
                      input_entity_type: 'release',
             expected_relationship_type: 'discogs',
                     expected_clean_url: 'https://www.discogs.com/release/5578',
+        },
+        {
+                             input_url: 'http://www.discogs.com/composition/27b17569-3e40-40b5-9819-409794c2d5d9-In-The-Hospital',
+                     input_entity_type: 'work',
+            expected_relationship_type: 'discogs',
+                    expected_clean_url: 'https://www.discogs.com/composition/27b17569-3e40-40b5-9819-409794c2d5d9',
         },
         // DRAM
         {
@@ -1736,6 +1749,13 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
                      input_entity_type: 'release',
             expected_relationship_type: 'discographyentry',
         },
+        // Ko-fi
+        {
+                             input_url: 'http://www.ko-fi.com/35MJZ8OL4IO',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'patronage',
+                    expected_clean_url: 'https://ko-fi.com/35MJZ8OL4IO',
+        },
         // Lantis
         {
                              input_url: 'http://www.lantis.jp/release-item2.php?id=326c88aa1cd230f96ef350e380a23078',
@@ -1916,6 +1936,13 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
                              input_url: 'http://www.metal-archives.com/reviews/Myrkwid/Part_I/36375/',
                      input_entity_type: 'release_group',
             expected_relationship_type: 'review',
+        },
+        // Mixcloud
+        {
+                             input_url: 'https://www.mixcloud.com/andrea_mi/',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'socialnetwork',
+                    expected_clean_url: 'https://www.mixcloud.com/andrea_mi/',
         },
         // mora
         {
@@ -2112,6 +2139,21 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
                              input_url: 'http://www.neyzen.com/nota_arsivi/02_klasik_eserler/054_mahur_buselik/mahur_buselik_ss_aydin_oran.pdf',
                      input_entity_type: 'work',
             expected_relationship_type: 'score',
+        },
+        // Niconico Video
+        {
+                             input_url: 'https://www.nicovideo.jp/watch/sm2916956?',
+                     input_entity_type: 'recording',
+            expected_relationship_type: 'streamingmusic',
+                    expected_clean_url: 'https://www.nicovideo.jp/watch/sm2916956',
+               only_valid_entity_types: ['recording', 'release']
+        },
+        {
+                             input_url: 'https://www.nicovideo.jp/user/1050860/top',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'videochannel',
+                    expected_clean_url: 'https://www.nicovideo.jp/user/1050860',
+               only_valid_entity_types: ['artist']
         },
         // NLA (National Library of Australia)
         {
@@ -2814,6 +2856,12 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
         // Tipeee
         {
                              input_url: 'https://www.tipeee.com/example/news',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'patronage',
+                    expected_clean_url: 'https://www.tipeee.com/example',
+        },
+        {
+                             input_url: 'http://fr.tipeee.com/example/news',
                      input_entity_type: 'artist',
             expected_relationship_type: 'patronage',
                     expected_clean_url: 'https://www.tipeee.com/example',

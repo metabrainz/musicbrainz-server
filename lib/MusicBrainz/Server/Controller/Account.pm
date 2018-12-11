@@ -4,6 +4,8 @@ BEGIN { extends 'MusicBrainz::Server::Controller' }
 
 use namespace::autoclean;
 use Digest::SHA qw(sha1_base64);
+use JSON;
+use List::MoreUtils qw( uniq );
 use MusicBrainz::Server::ControllerUtils::JSON qw( serialize_pager );
 use MusicBrainz::Server::Translation qw( l );
 use MusicBrainz::Server::Validation qw( encode_entities is_positive_integer );
@@ -204,7 +206,14 @@ sub lost_password : Path('/lost-password') ForbiddenOnSlaves
         }
     }
 
-    $c->stash->{form} = $form;
+    $c->stash(
+        current_view => 'Node',
+        component_path => 'account/LostPassword',
+        component_props => {
+            form => $form,
+        },
+    );
+    $c->detach;
 }
 
 sub reset_password : Path('/reset-password') ForbiddenOnSlaves DenyWhenReadonly
@@ -321,7 +330,14 @@ sub lost_username : Path('/lost-username') ForbiddenOnSlaves
         }
     }
 
-    $c->stash->{form} = $form;
+    $c->stash(
+        current_view => 'Node',
+        component_path => 'account/LostUsername',
+        component_props => {
+            form => $form,
+        },
+    );
+    $c->detach;
 }
 
 =head2 edit
@@ -472,6 +488,22 @@ sub preferences : Path('/account/preferences') RequireAuth DenyWhenReadonly
         $c->persist_user();
 
         $c->response->redirect($c->uri_for_action('/account/preferences', { ok => 1 }));
+        $c->detach;
+    } else {
+        $c->stash(
+            current_view => 'Node',
+            component_path => 'account/Preferences',
+            component_props => {
+                form => $form,
+                timezone_options => {
+                    grouped => JSON::false,
+                    options => [ map { {
+                        value => $_,
+                        label => $_
+                      } } uniq values @{ $form->options_timezone } ],
+                },
+            },
+        );
         $c->detach;
     }
 }
@@ -682,10 +714,24 @@ sub revoke_application_access : Path('/account/applications/revoke-access') Args
 
     my $form = $c->form( form => 'SubmitCancel' );
     if ($c->form_posted && $form->submitted_and_valid($c->req->params)) {
-        $c->model('MB')->with_transaction(sub {
-            $c->model('EditorOAuthToken')->revoke_access($c->user->id, $application_id, $scope);
-        });
-        $c->response->redirect($c->uri_for_action('/account/applications'));
+        if ($form->field('cancel')->input) {
+            $c->response->redirect($c->uri_for_action('/account/applications'));
+            $c->detach;
+        } else {
+            $c->model('MB')->with_transaction(sub {
+                $c->model('EditorOAuthToken')->revoke_access($c->user->id, $application_id, $scope);
+            });
+            $c->response->redirect($c->uri_for_action('/account/applications'));
+            $c->detach;
+        }
+    } else {
+        $c->stash(
+            current_view => 'Node',
+            component_path => 'account/applications/RevokeAccess',
+            component_props => {
+                form => $form,
+            },
+        );
         $c->detach;
     }
 }
@@ -737,6 +783,16 @@ sub edit_application : Path('/account/applications/edit') Args(1) RequireAuth Re
         });
         $c->response->redirect($c->uri_for_action('/account/applications'));
         $c->detach;
+    } else {
+        $form->field('oauth_type')->value($application->oauth_type),
+        $c->stash(
+            current_view => 'Node',
+            component_path => 'account/applications/Edit',
+            component_props => {
+                form => $form,
+            },
+        );
+        $c->detach;
     }
 }
 
@@ -750,10 +806,24 @@ sub remove_application : Path('/account/applications/remove') Args(1) RequireAut
 
     my $form = $c->form( form => 'SubmitCancel' );
     if ($c->form_posted && $form->submitted_and_valid($c->req->params)) {
-        $c->model('MB')->with_transaction(sub {
-            $c->model('Application')->delete($application->id);
-        });
-        $c->response->redirect($c->uri_for_action('/account/applications'));
+        if ($form->field('cancel')->input) {
+            $c->response->redirect($c->uri_for_action('/account/applications'));
+            $c->detach;
+        } else {
+            $c->model('MB')->with_transaction(sub {
+                $c->model('Application')->delete($application->id);
+            });
+            $c->response->redirect($c->uri_for_action('/account/applications'));
+            $c->detach;
+        }
+    } else {
+        $c->stash(
+            current_view => 'Node',
+            component_path => 'account/applications/Remove',
+            component_props => {
+                form => $form,
+            },
+        );
         $c->detach;
     }
 }

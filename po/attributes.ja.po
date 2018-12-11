@@ -17,7 +17,7 @@
 # Shunsuke Shimizu <email address hidden>, 2016-2017
 # th1rtyf0ur, 2013
 # th1rtyf0ur, 2013
-# wa2c <email address hidden>, 2018
+# 和田篤（wa2c） <email address hidden>, 2018
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"

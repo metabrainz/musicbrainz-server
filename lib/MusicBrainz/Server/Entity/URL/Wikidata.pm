@@ -21,7 +21,15 @@ sub pretty_name
     return $self->page_name;
 }
 
-sub sidebar_name { shift->pretty_name }
+sub sidebar_name
+{
+    my $self = shift;
+
+    my $name = $self->pretty_name;
+    $name = "Wikidata: $name";
+
+    return $name;
+}
 
 sub url_is_scheme_independent { 1 }
 
