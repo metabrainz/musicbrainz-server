@@ -13,7 +13,17 @@
 [% BLOCK extra_row_end %]
   <td>[% item.place.address %]</td>
   <td>[% IF item.place.area %][% descriptive_link(item.place.area) %][% END %]</td>
-  <td><input type="button" onclick="window.open('https://www.openstreetmap.org/search?query=[% uri_escape(item.place.name _ ' ' _ item.place.address _ ' ' _ item.place.area.name) %]', '_blank')" value="Search"></td>
+  <td class="search-links">
+      <span class="no-favicon"><a
+            href="https://www.openstreetmap.org/search?query=[%
+                uri_escape(item.place.name
+                   _ ' ' _ item.place.address
+                   _ ' ' _ item.place.area.name) %]"
+            target="_blank"
+            title="OpenStreetMap">
+        OSM
+      </a></span>
+  </td>
 [% END %]
 [%- INCLUDE 'report/place_list.tt' -%]
 
