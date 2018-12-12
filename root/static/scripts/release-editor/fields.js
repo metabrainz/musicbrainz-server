@@ -169,7 +169,7 @@ class Track {
                     hours = 1;
                     length = hours + ":" + minutes + ":" + seconds;
                     this.formattedLength(length);
-                    }
+                }
 
             }
 
