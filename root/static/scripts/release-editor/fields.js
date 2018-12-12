@@ -164,7 +164,7 @@ class Track {
                     }
                 }
                 
-                if (parseInt(minutes, 10) >= 60 && lengthLength == 4)  {
+                if (parseInt(minutes, 10) >= 60 && lengthLength == 4) {
                     minutes = minutes - 60;
                     hours = 1;
                     length = hours + ":" + minutes + ":" + seconds;
