@@ -130,7 +130,7 @@ class Track {
 
         // Convert stuff like 111 into 1:11
 
-        if (/^\d+$/.test(length)) {
+        if (/^\d+$/.test(length) && ((4 - lengthLength) <= 1 || (4 - lengthLength) <= -3)) {
             var minutes = null, seconds = null, hours = null;
 
             switch (lengthLength) {
@@ -139,33 +139,39 @@ class Track {
                     break;
                 case 4:
                     minutes = length.slice(0, 2);
-                    if (parseInt(minutes, 10) >= 60)  {
-                        minutes = minutes - 60;
-                        hours += 1;
-                        length = hours + ":" + minutes + ":" + seconds;
-                        this.formattedLength(length);
-                    }
                     break;
                 case 5:
                     minutes = length.slice(1, 3);
                     hours = length[0];
                     break;
                 case 6:
-                    hours = length.slice(0,2);
-                    minutes = length.slice(2,4);
+                    hours = length.slice(0, 2);
+                    minutes = length.slice(2, 4);
                     break;
             }
 
             seconds = length.slice(-2);
 
-            
+            if (seconds < 60){
+                if (parseInt(minutes, 10) < 60) {
+                    if (lengthLength <= 4){
+                    length = minutes + ":" + seconds;
+                    this.formattedLength(length);
+                    }
+                    else if (lengthLength > 4){
+                    length = hours + ":" + minutes + ":" + seconds;
+                    this.formattedLength(length);
+                    }
+                }
+                
+                if (parseInt(minutes, 10) >= 60 && lengthLength == 4)  {
+                    minutes = minutes - 60;
+                    hours += 1;
+                    length = hours + ":" + minutes + ":" + seconds;
+                    this.formattedLength(length);
+                    }
 
-            if (parseInt(minutes, 10) < 60 && parseInt(seconds, 10) < 60 && lengthLength <= 6) {
-                length = hours + ":" + minutes + ":" + seconds;
-                this.formattedLength(length);
             }
-
-            
 
         }
 
