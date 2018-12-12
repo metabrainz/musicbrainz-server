@@ -929,7 +929,7 @@ const CLEANUPS = {
           case LINK_TYPES.streamingmusic.release:
             return prefix === 'album';
           case LINK_TYPES.streamingmusic.recording:
-            return prefix === 'track';
+            return prefix === 'track' || prefix === 'episode';
         }
       }
       return false;
@@ -968,7 +968,7 @@ const CLEANUPS = {
           case LINK_TYPES.streamingmusic.release:
             return prefix === 'album';
           case LINK_TYPES.streamingmusic.recording:
-            return prefix === 'track';
+            return prefix === 'track' || prefix === 'episode';
         }
       }
       return false;

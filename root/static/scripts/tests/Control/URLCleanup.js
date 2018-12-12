@@ -1011,6 +1011,13 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
                only_valid_entity_types: ['recording']
         },
         {
+                             input_url: 'https://www.deezer.com/en/episode/3495945',
+                     input_entity_type: 'recording',
+            expected_relationship_type: 'streamingmusic',
+                    expected_clean_url: 'https://www.deezer.com/episode/3495945',
+               only_valid_entity_types: ['recording']
+        },
+        {
                              input_url: 'http://www.deezer.com/en/album/497382',
                      input_entity_type: 'release',
             expected_relationship_type: 'streamingmusic',
@@ -2744,6 +2751,19 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
                      input_entity_type: 'recording',
             expected_relationship_type: 'streamingmusic',
                     expected_clean_url: 'https://open.spotify.com/track/1SI5O5cu8AM19cninxf9RZ',
+               only_valid_entity_types: ['recording']
+        },
+        {
+                             input_url: 'https://open.spotify.com/episode/5yyMb4t3PWlikJNucu9A6Z',
+                     input_entity_type: 'recording',
+            expected_relationship_type: 'streamingmusic',
+               only_valid_entity_types: ['recording']
+        },
+        {
+                             input_url: 'https://embed.spotify.com/?uri=spotify:episode:5yyMb4t3PWlikJNucu9A6Z',
+                     input_entity_type: 'recording',
+            expected_relationship_type: 'streamingmusic',
+                    expected_clean_url: 'https://open.spotify.com/episode/5yyMb4t3PWlikJNucu9A6Z',
                only_valid_entity_types: ['recording']
         },
         {
