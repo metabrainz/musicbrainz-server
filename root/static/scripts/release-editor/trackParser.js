@@ -33,12 +33,13 @@ releaseEditor.trackParser = {
     trackNumber: /^(?:M[\.\-])?([０-９0-9]+(?:-[０-９0-9]+)?)(?:\.|．|\s?-|:|：|;|,|，|$)?/,
     vinylNumber: /^([０-９0-9a-z]+)(?:\/[０-９0-9a-z]+)?(?:\.|．|\s?-|:|：|;|,|，|$)?/i,
 
-    trackTime: /\(?((?:[0-9０-９]+[：，．':,.])?[0-9０-９\?]+[：，．':,.][0-5０-５\?][0-9０-９\?])\)?$/,
+    trackTime: new RegExp("\\(?((?:[0-9０-９]+[：，．':,.])?[0-9０-９\\?]+[：，．'\\+:,.][0-5０-５\\?][0-9０-９\\?])\\)?$"),
 
     options: {
         hasTrackNumbers: optionCookie("trackparser_tracknumbers", true),
         hasTrackArtists: optionCookie("trackparser_trackartists", true),
         hasVinylNumbers: optionCookie("trackparser_vinylnumbers", false),
+        timeDelimiter: optionCookie("trackparser_timeDelimiter", "", false),
         useTrackNumbers: optionCookie("trackparser_usetracknumbers", true),
         useTrackNames: optionCookie("trackparser_usetracknames", true),
         useTrackArtists: optionCookie("trackparser_usetrackartists", true),
@@ -285,6 +286,12 @@ releaseEditor.trackParser = {
         // numbers if the line only contains a time.
 
         // Assume the track time is at the end.
+        if (options.timeDelimiter != "") {
+          //Escape most regex characters
+          options.timeDelimiter = options.timeDelimiter.replace(/[.*?+^$(){}|[\]]/g, '\\$&');
+          this.trackTime = new RegExp("\\(?((?:[0-9０-９]+"+options.timeDelimiter+")?[0-9０-９\\?]+"+options.timeDelimiter+"[0-5０-５\\?][0-9０-９\\?])\\)?$");
+        }
+
         var match = line.match(this.trackTime);
 
         if (match !== null) {
@@ -407,12 +414,18 @@ releaseEditor.trackParser = {
     }
 };
 
-function optionCookie(name, defaultValue) {
+function optionCookie(name, defaultValue, checkbox=true) {
     var existingValue = getCookie(name);
 
-    var observable = ko.observable(
-        defaultValue ? existingValue !== "false" : existingValue === "true"
-    );
+    if (checkbox) {
+      var observable = ko.observable(
+          defaultValue ? existingValue !== "false" : existingValue === "true"
+      );
+    } else {
+      var observable = ko.observable(
+          existingValue ? existingValue : defaultValue
+      );
+    }
 
     observable.subscribe(function (newValue) {
         setCookie(name, newValue);

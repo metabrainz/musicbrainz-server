@@ -24,6 +24,12 @@
           [%= l('Use track numbers') %]
         </label>
       </td>
+      <td>
+        <label>
+          [%= l('Custom time delimiter') %]
+          <input type="text" name="time-delimiter" data-bind="value: timeDelimiter" />
+        </label>
+      </td>
     </tr>
     <tr>
       <td style="padding-left: 2em">
