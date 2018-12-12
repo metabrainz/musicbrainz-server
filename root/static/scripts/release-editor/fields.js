@@ -131,13 +131,11 @@ class Track {
         // Convert stuff like 111 into 1:11
 
         if (/^\d+$/.test(length) && lengthLength >= 3 && lengthLength <= 6) {
-            var minutes = null, seconds = null, hours = null;
-
             var hoursLength = Math.max(0, lengthLength - 4);
 
-            hours = length.slice(0, hoursLength);
-            minutes = length.slice(hoursLength, lengthLength - 2);
-            seconds = length.slice(-2);
+            var hours = length.slice(0, hoursLength);
+            var minutes = length.slice(hoursLength, lengthLength - 2);
+            var seconds = length.slice(-2);
 
             if (parseInt(seconds, 10) < 60) {
                 if (parseInt(minutes, 10) < 60) {
