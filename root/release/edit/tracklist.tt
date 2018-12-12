@@ -49,8 +49,13 @@
       </td>
     </tr>
     <tr>
-      <td></td>
       <td>
+        <label>
+        <input type="checkbox" name="use-custom-delimiter" data-bind="checked: useCustomDelimiter" />
+          [%= l('Use custom artist delimiter') %]
+        </label>
+       </td>
+       <td>
         <label>
           <input type="checkbox" name="use-titles" data-bind="checked: useTrackNames" />
           [%= l('Use track titles') %]
@@ -58,7 +63,19 @@
       </td>
     </tr>
     <tr>
-      <td></td>
+      <td style="padding-left: 2em">
+        <label data-bind="visible: useCustomDelimiter">
+          [%= add_colon(l('Custom delimiter')) %]
+          <input type="text" name="custom-delimiter" data-bind="value: customDelimiter" />
+          <span class="error" data-bind="text: customDelimiterError"></span>
+          (<a href="#" data-bind="click: toggleDelimiterHelp">[% l('help') %]</a>)
+          <p data-bind="visible: delimiterHelpVisible" style="max-width: 25em">
+            <i>[% l('Enter the delimiter that separates the track name from the artist name
+                     (valid {url|regular expressions} are accepted).',
+                     { url => 'https://developer.mozilla.org/docs/Web/JavaScript/Guide/Regular_Expressions' }) %]</i>
+          </p>
+        </label>
+      </td>
       <td>
         <label>
           <input type="checkbox" name="use-lengths" data-bind="checked: useTrackLengths" />

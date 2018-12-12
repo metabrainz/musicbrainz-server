@@ -40,10 +40,17 @@ releaseEditor.trackParser = {
         hasTrackNumbers: optionCookie("trackparser_tracknumbers", true),
         hasTrackArtists: optionCookie("trackparser_trackartists", true),
         hasVinylNumbers: optionCookie("trackparser_vinylnumbers", false),
+        customDelimiter: optionCookie("trackparser_customdelimiter", "", false),
+        customDelimiterError: ko.observable(''),
+        useCustomDelimiter: optionCookie("trackparser_usecustomdelimiter", false),
         useTrackNumbers: optionCookie("trackparser_usetracknumbers", true),
         useTrackNames: optionCookie("trackparser_usetracknames", true),
         useTrackArtists: optionCookie("trackparser_usetrackartists", true),
-        useTrackLengths: optionCookie("trackparser_tracktimes", true)
+        useTrackLengths: optionCookie("trackparser_tracktimes", true),
+        delimiterHelpVisible: ko.observable(false),
+        toggleDelimiterHelp: function () {
+          this.delimiterHelpVisible(!this.delimiterHelpVisible());
+        },
     },
 
     parse: function (str, medium) {
@@ -324,6 +331,16 @@ releaseEditor.trackParser = {
             return data;
         }
 
+        // Use custom delimiter as separator.
+        if (options.useCustomDelimiter && options.customDelimiter !== '') {
+            try {
+                this.separators = new RegExp('(' + options.customDelimiter + ')');
+                this.options.customDelimiterError('');
+            } catch(e) {
+                this.options.customDelimiterError(l('Invalid regular expression.'));
+            }
+        }
+
         // Split the string into parts, if there are any.
         var parts = line.split(this.separators),
             names = _.reject(parts, x => this.separatorOrBlank(x));
@@ -408,12 +425,18 @@ releaseEditor.trackParser = {
     }
 };
 
-function optionCookie(name, defaultValue) {
+function optionCookie(name, defaultValue, checkbox=true) {
     var existingValue = getCookie(name);
 
-    var observable = ko.observable(
-        defaultValue ? existingValue !== "false" : existingValue === "true"
-    );
+    if (checkbox) {
+      var observable = ko.observable(
+          defaultValue ? existingValue !== "false" : existingValue === "true"
+      );
+    } else {
+      var observable = ko.observable(
+          existingValue ? existingValue : defaultValue
+      );
+    }
 
     observable.subscribe(function (newValue) {
         setCookie(name, newValue);
