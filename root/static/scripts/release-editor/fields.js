@@ -130,7 +130,7 @@ class Track {
 
         // Convert stuff like 111 into 1:11
 
-        if (/^\d+$/.test(length) && ((4 - lengthLength) <= 1 || (4 - lengthLength) >= -2)) {
+        if (/^\d+$/.test(length) && lengthLength >= 3 && lengthLength <= 6) {
             var minutes = null, seconds = null, hours = null;
 
             switch (lengthLength) {
