@@ -24,12 +24,6 @@
           [%= l('Use track numbers') %]
         </label>
       </td>
-      <td>
-        <label>
-          [%= l('Custom time delimiter') %]
-          <input type="text" name="time-delimiter" data-bind="value: timeDelimiter" />
-        </label>
-      </td>
     </tr>
     <tr>
       <td style="padding-left: 2em">
@@ -72,6 +66,20 @@
         </label>
       </td>
     </tr>
+    <tr>
+    <td>
+      <label>
+      <input type="checkbox" name="use-custom-delimiter" data-bind="checked: useCustomDelimiter" />
+        [%= l('Use custom artist delimeter') %]
+      </label>
+    </td>
+      <td>
+        <label data-bind="visible: useCustomDelimiter">
+          [%= l('Custom delimiter') %]
+          <input type="text" name="custom-delimiter" data-bind="value: customDelimiter" />
+        </label>
+      </td>
+    <tr>
   </table>
 </script>
 

@@ -39,7 +39,8 @@ releaseEditor.trackParser = {
         hasTrackNumbers: optionCookie("trackparser_tracknumbers", true),
         hasTrackArtists: optionCookie("trackparser_trackartists", true),
         hasVinylNumbers: optionCookie("trackparser_vinylnumbers", false),
-        timeDelimiter: optionCookie("trackparser_timeDelimiter", "", false),
+        customDelimiter: optionCookie("trackparser_customdelimiter", "", false),
+        useCustomDelimiter: optionCookie("trackparser_usecustomdelimiter", false),
         useTrackNumbers: optionCookie("trackparser_usetracknumbers", true),
         useTrackNames: optionCookie("trackparser_usetracknames", true),
         useTrackArtists: optionCookie("trackparser_usetrackartists", true),
@@ -286,12 +287,6 @@ releaseEditor.trackParser = {
         // numbers if the line only contains a time.
 
         // Assume the track time is at the end.
-        if (options.timeDelimiter != "") {
-          //Escape most regex characters
-          options.timeDelimiter = options.timeDelimiter.replace(/[.*?+^$(){}|[\]]/g, '\\$&');
-          this.trackTime = new RegExp("\\(?((?:[0-9０-９]+"+options.timeDelimiter+")?[0-9０-９\\?]+"+options.timeDelimiter+"[0-5０-５\\?][0-9０-９\\?])\\)?$");
-        }
-
         var match = line.match(this.trackTime);
 
         if (match !== null) {
@@ -328,6 +323,13 @@ releaseEditor.trackParser = {
                 data.name = clean(line);
             }
             return data;
+        }
+
+        //Use custom delimeter as separator.
+        if (options.useCustomDelimiter && options.customDelimiter != "") {
+          //Escape most regex characters.
+          options.customDelimiter = options.customDelimiter.replace(/[.*?+^$(){}|[\]]/g, '\\$&');
+          this.separators = new RegExp("("+options.customDelimiter+")");
         }
 
         // Split the string into parts, if there are any.
