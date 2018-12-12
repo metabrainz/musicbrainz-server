@@ -331,7 +331,7 @@ releaseEditor.trackParser = {
 
         //Use custom delimeter as separator.
         if (options.useCustomDelimiter && options.customDelimiter != "") {
-          //Escape most regex characters.
+            // Escape most regex characters.
           options.customDelimiter = options.customDelimiter.replace(/[.*?+^$(){}|[\]]/g, '\\$&');
           this.separators = new RegExp("("+options.customDelimiter+")");
         }
