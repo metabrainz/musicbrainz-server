@@ -157,8 +157,7 @@ class Track {
                     if (lengthLength <= 4) {
                         length = minutes + ":" + seconds;
                         this.formattedLength(length);
-                    }
-                    else if (lengthLength > 4){
+                    } else if (lengthLength > 4) {
                         length = hours + ":" + minutes + ":" + seconds;
                         this.formattedLength(length);
                     }
