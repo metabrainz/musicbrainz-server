@@ -155,12 +155,12 @@ class Track {
             if (parseInt(seconds, 10) < 60) {
                 if (parseInt(minutes, 10) < 60) {
                     if (lengthLength <= 4) {
-                    length = minutes + ":" + seconds;
-                    this.formattedLength(length);
+                        length = minutes + ":" + seconds;
+                        this.formattedLength(length);
                     }
                     else if (lengthLength > 4){
-                    length = hours + ":" + minutes + ":" + seconds;
-                    this.formattedLength(length);
+                        length = hours + ":" + minutes + ":" + seconds;
+                        this.formattedLength(length);
                     }
                 }
                 
@@ -170,9 +170,7 @@ class Track {
                     length = hours + ":" + minutes + ":" + seconds;
                     this.formattedLength(length);
                 }
-
             }
-
         }
 
         var oldLength = this.length();
