@@ -133,8 +133,10 @@ class Track {
         if (/^\d+$/.test(length) && lengthLength >= 3 && lengthLength <= 6) {
             var minutes = null, seconds = null, hours = null;
 
-            hours = length.slice(0, Math.max(0, lengthLength - 4));
-            minutes = length.slice(Math.max(0, lengthLength - 4), lengthLength - 2);
+            var hoursLength = Math.max(0, lengthLength - 4);
+
+            hours = length.slice(0, hoursLength);
+            minutes = length.slice(hoursLength, lengthLength - 2);
             seconds = length.slice(-2);
 
             if (parseInt(seconds, 10) < 60) {
