@@ -44,7 +44,11 @@ releaseEditor.trackParser = {
         useTrackNumbers: optionCookie("trackparser_usetracknumbers", true),
         useTrackNames: optionCookie("trackparser_usetracknames", true),
         useTrackArtists: optionCookie("trackparser_usetrackartists", true),
-        useTrackLengths: optionCookie("trackparser_tracktimes", true)
+        useTrackLengths: optionCookie("trackparser_tracktimes", true),
+        delimiterHelpVisible: optionCookie("trackparser_delimiterhelpvisible", false),
+        toggleDelimiterHelp: function() {
+          this.delimiterHelpVisible(!this.delimiterHelpVisible());
+        }
     },
 
     parse: function (str, medium) {

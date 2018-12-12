@@ -77,6 +77,8 @@
         <label data-bind="visible: useCustomDelimiter">
           [%= l('Custom delimiter') %]
           <input type="text" name="custom-delimiter" data-bind="value: customDelimiter" />
+          (<a href="#" data-bind="click: toggleDelimiterHelp">[% l('help') %]</a>)
+          <div data-bind="visible: delimiterHelpVisible"><i>Enter the delimiter that separates the track name from the artist name (i.e. "," or "\t").</i></div>
         </label>
       </td>
     <tr>
