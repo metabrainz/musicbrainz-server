@@ -152,7 +152,7 @@ class Track {
 
             seconds = length.slice(-2);
 
-            if (seconds < 60){
+            if (parseInt(seconds, 10) < 60) {
                 if (parseInt(minutes, 10) < 60) {
                     if (lengthLength <= 4){
                     length = minutes + ":" + seconds;
