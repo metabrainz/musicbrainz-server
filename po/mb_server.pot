@@ -10,7 +10,7 @@ msgstr ""
 "#-#-#-#-#  mb_server.pot (PACKAGE VERSION)  #-#-#-#-#\n"
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-12-11 06:54+0100\n"
+"POT-Creation-Date: 2018-12-14 10:06+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22,7 +22,7 @@ msgstr ""
 "#-#-#-#-#  javascript.pot (PACKAGE VERSION)  #-#-#-#-#\n"
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-12-11 06:54+0100\n"
+"POT-Creation-Date: 2018-12-14 10:06+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2594,10 +2594,6 @@ msgstr ""
 
 #: ../root/components/common-macros.tt:781
 msgid "Filter"
-msgstr ""
-
-#: ../root/report/places_without_coordinates.tt:12
-msgid "Find"
 msgstr ""
 
 #: ../root/relationship/linktype/form.tt:126
@@ -5842,6 +5838,10 @@ msgstr ""
 
 #: ../root/cdtoc/attach_filter_artist.tt:3
 msgid "Search for an artist"
+msgstr ""
+
+#: ../root/report/places_without_coordinates.tt:12
+msgid "Search for coordinates"
 msgstr ""
 
 #: ../root/edit/list_header.tt:8
