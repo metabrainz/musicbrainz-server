@@ -384,7 +384,10 @@ function withOneEmptyLink(links, dontRemove) {
 }
 
 function parseRelationships(relationships?: $ReadOnlyArray<RelationshipT>) {
-  return _.transform(relationships || [], function (accum, data) {
+  if (!relationships) {
+    return [];
+  }
+  return relationships.reduce(function (accum, data) {
     var target = data.target;
 
     if (target.entityType === 'url') {
@@ -392,10 +395,12 @@ function parseRelationships(relationships?: $ReadOnlyArray<RelationshipT>) {
         relationship: data.id,
         url: target.name,
         type: data.linkTypeID,
-        video: _.some(data.attributes, (attr) => attr.type.gid === VIDEO_ATTRIBUTE_GID)
+        video: data.attributes.some((attr) => attr.type.gid === VIDEO_ATTRIBUTE_GID),
       });
     }
-  });
+
+    return accum;
+  }, []);
 }
 
 var protocolRegex = /^(https?|ftp):$/;
@@ -493,8 +498,8 @@ MB.createExternalLinksEditor = function (options: InitialOptionsT) {
   }
 
   initialLinks.sort(function (a, b) {
-    var typeA = linkTypeInfo.byId[a.type];
-    var typeB = linkTypeInfo.byId[b.type];
+    var typeA = a.type && linkTypeInfo.byId[a.type];
+    var typeB = b.type && linkTypeInfo.byId[b.type];
 
     return compare(typeA ? typeA.phrase.toLowerCase() : '',
                    typeB ? typeB.phrase.toLowerCase() : '');
