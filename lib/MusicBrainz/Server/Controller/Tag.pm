@@ -26,13 +26,15 @@ sub cloud : Path('/tags')
 
     my ($cloud, $hits) = $c->model('Tag')->get_cloud(200);
 
-    if ($hits)
-    {
-        $c->stash(
-            tag_max_count => $cloud->[0]->{count},
-            tags => [ sort { $a->{tag}->name cmp $b->{tag}->name } @$cloud ],
-        );
-    }
+    $c->stash(
+        current_view => 'Node',
+        component_path => 'tag/TagCloud.js',
+        component_props => {
+            %{$c->stash->{component_props}},
+            tagMaxCount => $hits ? $cloud->[0]->{count} : 0,
+            tags => $hits ? [sort { $a->{tag}->name cmp $b->{tag}->name } @$cloud] : [],
+        },
+    );
 }
 
 sub show : Chained('load') PathPart('')
