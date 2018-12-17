@@ -286,3 +286,67 @@ div.g-recaptcha {
     width: 100%;
     height: 100%;
 }
+
+/* Autocomplete2 */
+
+div.autocomplete2 {
+    display: inline-block;
+    position: relative;
+
+    div[role="combobox"] {
+        display: flex;
+        flex-direction: row;
+
+        input {
+            flex-grow: 1;
+        }
+
+        button.search {
+            background-color: transparent;
+            background-image: data-uri('../images/icons/search.svg');
+            background-repeat: no-repeat;
+            background-size: contain;
+            border: none;
+            height: 20px;
+            vertical-align: top;
+            width: 20px;
+
+            &.loading {
+                background-image: data-uri('../images/icons/loading.gif');
+            }
+        }
+    }
+
+    ul {
+        border: 1px @musicbrainz-orange solid;
+        list-style: none;
+        margin: 0;
+        max-width: 150%;
+        max-height: 400px;
+        overflow-y: auto;
+        padding: 0;
+        position: absolute;
+        width: max-content;
+        z-index: 100;
+
+        li {
+            background: @text-white;
+            border-width: 1px 0 1px 0;
+            border-color: @text-white;
+            border-style: solid;
+            cursor: pointer;
+            padding: 4px;
+            &.highlighted {
+                background: lighten(@musicbrainz-orange, 30%);
+                border-color: lighten(@musicbrainz-orange, 20%);
+            }
+            &.selected {
+                font-weight: bold;
+            }
+            &.separator {
+                border-top-color: @medium-grey;
+                margin-top: 0px;
+            }
+        }
+    }
+}

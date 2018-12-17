@@ -14,7 +14,7 @@ import getSelectValue from '../utility/getSelectValue';
 
 const buildOption = (option: SelectOptionT, index: number) => (
   <option key={index} value={option.value}>
-    {unwrapNl(option.label)}
+    {unwrapNl<string>(option.label)}
   </option>
 );
 

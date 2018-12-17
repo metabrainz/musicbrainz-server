@@ -33,7 +33,9 @@ type TabPropsT = {
 
 const LinkStatisticsTab = ({link, title, page, selected}: TabPropsT) => (
   <li className={page === selected ? 'sel' : ''}>
-    <a href={link}>{unwrapNl(title)}</a>
+    <a href={link}>
+      {unwrapNl<string | React$MixedElement>(title)}
+    </a>
   </li>
 );
 
