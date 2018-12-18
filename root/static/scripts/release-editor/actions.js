@@ -169,7 +169,7 @@ const actions = {
             underlyingTracks = tracks.peek(),
             offset = medium.hasPregap() ? 0 : 1,
             // Use _.indexOf instead of .position()
-            // http://tickets.musicbrainz.org/browse/MBS-7227
+            // http://tickets.metabrainz.org/browse/MBS-7227
             position1 = _.indexOf(underlyingTracks, track1) + offset,
             position2 = _.indexOf(underlyingTracks, track2) + offset,
             number1 = track1.number(),

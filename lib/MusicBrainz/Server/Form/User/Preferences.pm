@@ -69,7 +69,7 @@ sub options_datetime_format
 
 sub options_timezone
 {
-    my @timezones = ('UTC', DateTime::TimeZone->all_names);
+    my @timezones = DateTime::TimeZone->all_names;
 
     my @options;
     foreach my $timezone (sort @timezones) {

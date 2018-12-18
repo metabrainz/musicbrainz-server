@@ -119,7 +119,10 @@ class ExternalLinksEditor extends React.Component<LinksEditorProps, LinksEditorS
 
   getEditData() {
     var oldLinks = this.getOldLinksHash();
-    var newLinks = _.keyBy(this.state.links, 'relationship');
+    var newLinks = _.keyBy<
+      LinkStateT,
+      $ElementType<LinkStateT, 'relationship'>,
+    >(this.state.links, 'relationship');
 
     return {
       oldLinks: oldLinks,

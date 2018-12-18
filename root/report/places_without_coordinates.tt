@@ -1,0 +1,51 @@
+[%- WRAPPER 'layout.tt' title=l('Places without coordinates') full_width=1 -%]
+
+<h1>[% l('Places without coordinates') %]</h1>
+
+<ul>
+    <li>[% l('This report lists places without coordinates.') -%]
+    </li>
+    <li>[% l('Total places found: {count}', { count => pager.total_entries }) %]</li>
+    <li>[% l('Generated on {date}', { date => UserDate.format(generated) }) %]</li>
+</ul>
+
+[% BLOCK extra_header_end %]<th>[% l('Address') %]</th><th>[% l('Area') %]</th><th>[% l('Search for coordinates') %]</th>[% END %]
+[% BLOCK extra_row_end %]
+  <td>[% item.place.address %]</td>
+  <td>[% IF item.place.area %][% descriptive_link(item.place.area) %][% END %]</td>
+  <td class="search-links">
+      [% q = uri_escape(item.place.name
+                _ ' ' _ item.place.address
+                _ ' ' _ item.place.area.name) %]
+      <span class="no-favicon"><a
+            href="https://www.openstreetmap.org/search?query=[% q %]"
+            target="_blank"
+            title="OpenStreetMap">
+        OSM
+      </a></span>
+      |
+      <span><a
+            href="https://www.qwant.com/local/?q=[% q %]"
+            target="_blank"
+            title="Qwant Local">
+        QL
+      </a></span>
+      |
+      <span><a
+            href="https://www.mapquest.com/search/results/?query=[% q %]"
+            target="_blank"
+            title="MapQuest">
+        MQ
+      </a></span>
+      |
+      <span><a
+            href="https://www.google.com/maps/search/[% q %]"
+            target="_blank"
+            title="Google Maps">
+        GM
+      </a></span>
+  </td>
+[% END %]
+[%- INCLUDE 'report/place_list.tt' -%]
+
+[%- END -%]

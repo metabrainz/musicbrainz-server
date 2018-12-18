@@ -65,7 +65,7 @@ declare type AreaT = {|
 |};
 
 declare type AnnotationRoleT = {|
-  +latest_annotation?: AnnotationT;
+  +latest_annotation?: AnnotationT,
 |};
 
 declare type AnnotationT = {|
@@ -345,12 +345,24 @@ declare type EditableRoleT = {|
 declare type EditExpireActionT = 1 | 2;
 
 declare type EditorPreferencesT = {|
-  datetime_format: string,
-  timezone: string,
+  +datetime_format: string,
+  +email_on_no_vote: boolean,
+  +email_on_notes: boolean,
+  +email_on_vote: boolean,
+  +public_ratings: boolean,
+  +public_subscriptions: boolean,
+  +public_tags: boolean,
+  +show_gravatar: boolean,
+  +subscribe_to_created_artists: boolean,
+  +subscribe_to_created_labels: boolean,
+  +subscribe_to_created_series: boolean,
+  +subscriptions_email_period: string,
+  +timezone: string,
 |};
 
 declare type EditorT = {|
   ...EntityRoleT,
+  +deleted: boolean,
   +email_confirmation_date: string | null,
   +entityType: 'editor',
   +gravatar: string,
@@ -399,6 +411,8 @@ declare type EditT = {|
     +auto_edit: boolean,
   |},
   +created_time: string,
+  +data: Object,
+  +edit_type: number,
   +editor_id: number,
   +expires_time: string,
   +id: number,
@@ -552,7 +566,7 @@ declare type LinkTypeInfoT = {|
   +childOrder: number,
   +children?: $ReadOnlyArray<LinkTypeInfoT>,
   +deprecated: boolean,
-  +description?: string;
+  +description?: string,
   +gid: string,
   +hasDates: boolean,
   +id: number,

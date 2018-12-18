@@ -14,8 +14,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2018-10-15 16:09+0000\n"
-"Last-Translator: Michael Wiencek <email address hidden>\n"
+"PO-Revision-Date: 2018-12-10 15:10+0000\n"
+"Last-Translator: Jaakko Perttilä <email address hidden>\n"
 "Language-Team: Finnish (http://www.transifex.com/musicbrainz/musicbrainz/language/fi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -256,7 +256,7 @@ msgstr "batak"
 #. frequency:1 iso_code_3:bar
 #: DB:language/name:982
 msgid "Bavarian"
-msgstr ""
+msgstr "baijeri"
 
 #. frequency:1 iso_code_3:bej
 #: DB:language/name:44
@@ -321,7 +321,7 @@ msgstr "bliss-symbolit"
 #. frequency:1 iso_code_3:brx
 #: DB:language/name:1394
 msgid "Bodo (India)"
-msgstr ""
+msgstr "bodo"
 
 #. frequency:1 iso_code_3:bos
 #: DB:language/name:56
@@ -1586,7 +1586,7 @@ msgstr "min nan -kiina"
 #. frequency:1 iso_code_3:hna
 #: DB:language/name:2735
 msgid "Mina (Cameroon)"
-msgstr ""
+msgstr "mina"
 
 #. frequency:1 iso_code_3:min
 #: DB:language/name:272
@@ -1911,7 +1911,7 @@ msgstr "muinaisprovensaali"
 #. frequency:1 iso_code_3:pan
 #: DB:language/name:330
 msgid "Punjabi"
-msgstr ""
+msgstr "pandžabi"
 
 #. frequency:1 iso_code_3:pus
 #: DB:language/name:343

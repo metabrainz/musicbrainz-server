@@ -29,8 +29,8 @@ variables must be defined before use (really helps on typos).
 
 =head2 Flow control
 
-When using postfix if/unless stamements, these should B<only> be used if
-the preceeding code would cause the subroutine to terminate.
+When using postfix if/unless statements, these should B<only> be used if
+the preceding code would cause the subroutine to terminate.
 
 Examples:
 
@@ -40,7 +40,7 @@ Examples:
 When choosing to use C<if> or C<unless> statements, use this reasoning:
 if some code should happen in almost all cases, use C<unless>. If some code
 is only going to happen in edge cases, then use C<if>. This matches the way
-we speak, and makes scanning code much easier. So don't just use C<unless> to
+we speak and makes scanning code much easier. So don't just use C<unless> to
 save negating a boolean expression!
 
 =head1 NAMING CONVENTIONS
@@ -63,7 +63,7 @@ variables with their scope, using C<my>, C<our>, etc.
 
 =head2 Constants
 
-All constants should be strictly uppercase, and use C<_> for word separators.
+All constants should be strictly uppercase and use C<_> for word separators.
 
 At the moment, we use the L<constant> pragma to declare constants, but this
 may change to L<Readonly> in the future.
@@ -76,13 +76,13 @@ You should try and organise packages hierarchically where possible - grouping
 related packages. The C<MusicBrainz::Server::Form> namespace is a good
 example of this.
 
-Base packages should not be called Base, where possible, but simple use the
+Base packages should not be called Base, where possible, but simply use the
 namespace name. For example, the base for all forms is
 C<MusicBrainz::Server::Form> - the namespace that specific forms are placed in.
 
 =head2 Files
 
-Perl modules should be match their package name, relative to the C<lib>
+Perl modules should match their package name, relative to the C<lib>
 directory. So C<MusicBrainz::Server::Magic> would live in
 C<lib/MusicBrainz/Server/Magic>.
 
@@ -90,7 +90,7 @@ C<lib/MusicBrainz/Server/Magic>.
 
 =head2 Indenting
 
-We use 4 spaces for each indentation level, and do not use tabs anywhere.
+We use 4 spaces for each indentation level and do not use tabs anywhere.
 
 =head2 Bracket Placement
 
@@ -98,8 +98,8 @@ We use BSD/Allman style indenting. If you're unfamiliar with this, it
 essentially means that all curly braces are to be placed on the next line
 of keywords.
 
-For parenthesis, you should place them immediatly after method calls, with no
-leading space. If the parenthesis are following a control keyword, lead them
+For parenthesis, you should place them immediately after method calls, with no
+leading space. If the parenthesis is following a control keyword, lead them
 with one space.
 
 Examples:

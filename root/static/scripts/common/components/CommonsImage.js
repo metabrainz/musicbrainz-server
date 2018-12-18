@@ -57,4 +57,4 @@ class CommonsImage extends React.Component<Props, State> {
   }
 }
 
-export default hydrate('commons-image', CommonsImage, minimalEntity);
+export default hydrate<Props>('commons-image', CommonsImage, minimalEntity);

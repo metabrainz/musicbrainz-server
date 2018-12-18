@@ -7,6 +7,8 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
+import get from 'lodash/get';
+
 import {
   EDIT_EXPIRE_ACCEPT,
   EDIT_EXPIRE_REJECT,
@@ -21,6 +23,10 @@ import {
   EDIT_STATUS_DELETED,
 } from '../constants';
 
+import {
+  EDIT_RELATIONSHIP_DELETE,
+  EDIT_SERIES_EDIT,
+} from '../static/scripts/common/constants/editTypes';
 import {l, N_l} from '../static/scripts/common/i18n';
 
 const EXPIRE_ACTIONS = {
@@ -86,13 +92,41 @@ export function editorMayAddNote(edit: EditT, editor: ?EditorT): boolean {
 
 export function editorMayApprove(edit: EditT, editor: ?EditorT): boolean {
   const conditions = edit.conditions;
-  return (
+
+  const minimalRequirements = (
     editor != null &&
     edit.status === EDIT_STATUS_OPEN &&
-    conditions.auto_edit &&
     editor.is_auto_editor &&
     !editor.is_editing_disabled
   );
+
+  if (!minimalRequirements) {
+    return false;
+  }
+
+  switch (edit.edit_type) {
+    case EDIT_RELATIONSHIP_DELETE:
+      const linkType = get(edit, 'data.relationship.link.type');
+
+      if (linkType && typeof linkType === 'object') {
+        // MBS-8332
+        return (
+          linkType.entity0_type === 'url' ||
+          linkType.entity1_type === 'url'
+        );
+      }
+      break;
+
+    case EDIT_SERIES_EDIT:
+      const oldOrderingType = get(edit, 'data.old.ordering_type_id', 0);
+      const newOrderingType = get(edit, 'data.new.ordering_type_id', 0);
+      if (oldOrderingType != newOrderingType) {
+        return false;
+      }
+      break;
+  }
+
+  return conditions.auto_edit;
 }
 
 export function editorMayCancel(edit: EditT, editor: ?EditorT): boolean {

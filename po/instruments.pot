@@ -1296,6 +1296,7 @@ msgid "electric piano"
 msgstr ""
 
 #: DB:instrument/name:246
+msgctxt "electric guitar variant of sitar"
 msgid "electric sitar"
 msgstr ""
 

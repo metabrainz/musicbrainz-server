@@ -24,7 +24,8 @@ const LINK_TYPES = {
     place: "1c140ac8-8dc2-449e-92cb-52c90d525640",
     release: "4a78823c-1c53-4176-a5f3-58026c76f2bc",
     release_group: "99e550f3-5ab4-3110-b5b9-fe01d970b126",
-    series: "338811ef-b1a9-449d-954e-115846f33a44"
+    series: "338811ef-b1a9-449d-954e-115846f33a44",
+    work: "d78b7280-eb9e-4a57-86c3-cedaa1aa2175"
   },
   imdb: {
     artist: "94c8b0cc-4477-4106-932c-da60e63de61c",
@@ -321,14 +322,14 @@ const CLEANUPS = {
     type: LINK_TYPES.discogs,
     clean: function (url) {
       url = url.replace(/\/viewimages\?release=([0-9]*)/, "/release/$1");
-      url = url.replace(/^https?:\/\/(?:[^.]+\.)?discogs\.com\/(?:.*\/)?(user\/[^\/#?]+|(?:artist|release|master(?:\/view)?|label)\/[0-9]+)(?:[\/#?-].*)?$/, "https://www.discogs.com/$1");
+      url = url.replace(/^https?:\/\/(?:[^.]+\.)?discogs\.com\/(?:.*\/)?(user\/[^\/#?]+|(?:composition\/[^-]+-[^-]+-[^-]+-[^-]+-[^-]+)|(?:artist|release|master(?:\/view)?|label)\/[0-9]+)(?:[\/#?-].*)?$/, "https://www.discogs.com/$1");
       url = url.replace(/^(https:\/\/www\.discogs\.com\/master)\/view\/([0-9]+)$/, "$1/$2");
       return url;
     },
     validate: function (url, id) {
-      var m = /^https:\/\/www\.discogs\.com\/(?:(artist|label|master|release)\/[1-9][0-9]*|(user)\/.+)$/.exec(url);
+      var m = /^https:\/\/www\.discogs\.com\/(?:(artist|label|master|release)\/[1-9][0-9]*|(user)\/.+|(composition)\/(?:[^-]*-){4}[^-]*)$/.exec(url);
       if (m) {
-        var prefix = m[1] || m[2];
+        var prefix = m[1] || m[2] || m[3];
         switch (id) {
           case LINK_TYPES.discogs.artist:
             return prefix === 'artist' || prefix === 'user';
@@ -341,6 +342,8 @@ const CLEANUPS = {
             return prefix === 'master';
           case LINK_TYPES.discogs.release:
             return prefix === 'release';
+          case LINK_TYPES.discogs.work:
+            return prefix === 'composition';
         }
       }
       return false;
@@ -434,7 +437,7 @@ const CLEANUPS = {
     }
   },
   amazon: {
-    match: [new RegExp("^(https?://)?([^/]+\\.)?(amazon\\.(com|ca|co\\.uk|fr|at|de|it|co\\.jp|jp|cn|es|in|com\\.br|com\\.mx)|amzn\\.com)","i")],
+    match: [new RegExp("^(https?://)?([^/]+\\.)?(amazon\\.(com|ca|co\\.uk|fr|at|de|it|co\\.jp|jp|cn|es|in|com\\.br|com\\.mx|com\\.au)|amzn\\.com)","i")],
     type: LINK_TYPES.amazon,
     clean: function (url) {
       // determine tld, asin from url, and build standard format [1],
@@ -470,7 +473,7 @@ const CLEANUPS = {
       }
     },
     validate: function (url, id) {
-      return /^https:\/\/www\.amazon\.(com|ca|co\.uk|fr|at|de|it|co\.jp|jp|cn|es|in|com\.br|com\.mx)\//.test(url);
+      return /^https:\/\/www\.amazon\.(com|ca|co\.uk|fr|at|de|it|co\.jp|jp|cn|es|in|com\.br|com\.mx|com\.au)\//.test(url);
     }
   },
   archive: {
@@ -689,7 +692,7 @@ const CLEANUPS = {
     ],
     type: LINK_TYPES.lyrics,
     clean: function (url) {
-      url = url.replace(/^https?:\/\/(.+\.)?genius\.com/, "http://$1genius.com");
+      url = url.replace(/^https?:\/\/([^/]+\.)?genius\.com/, "http://$1genius.com");
       return url;
     }
   },
@@ -815,6 +818,7 @@ const CLEANUPS = {
       new RegExp("^(https?://)?([^/]+\\.)?weibo\\.com/", "i"),
       new RegExp("^(https?://)?([^/]+\\.)?linkedin\\.com/", "i"),
       new RegExp("^(https?://)?([^/]+\\.)?foursquare\\.com/", "i"),
+      new RegExp("^(https?://)?([^/]+\\.)?mixcloud\\.com/", "i"),
     ],
     type: LINK_TYPES.socialnetwork,
     clean: function (url) {
@@ -822,8 +826,9 @@ const CLEANUPS = {
       url = url.replace(/^(?:https?:\/\/)?(?:(?:www|mobile)\.)?twitter\.com(?:\/#!)?\/@?([^\/?#]+)(?:[\/?#].*)?$/, "https://twitter.com/$1");
       url = url.replace(/^(https?:\/\/)?((www|cn|m)\.)?(last\.fm|lastfm\.(com\.br|com\.tr|at|com|de|es|fr|it|jp|pl|pt|ru|se))/, "http://www.last.fm");
       url = url.replace(/^(?:https?:\/\/)?(?:[^/]+\.)?weibo\.com\/([^\/?#]+)(?:.*)$/, "http://www.weibo.com/$1");
-      url = url.replace(/^https?:\/\/(.+\.)?linkedin\.com/, "https://$1linkedin.com");
-      url = url.replace(/^https?:\/\/(.+\.)?foursquare\.com/, "https://foursquare.com");
+      url = url.replace(/^https?:\/\/([^/]+\.)?linkedin\.com/, "https://$1linkedin.com");
+      url = url.replace(/^https?:\/\/(?:[^/]+\.)?foursquare\.com/, "https://foursquare.com");
+      url = url.replace(/^https?:\/\/(?:[^/]+\.)?mixcloud\.com/, "https://www.mixcloud.com");
       return url;
     }
   },
@@ -924,7 +929,7 @@ const CLEANUPS = {
           case LINK_TYPES.streamingmusic.release:
             return prefix === 'album';
           case LINK_TYPES.streamingmusic.recording:
-            return prefix === 'track';
+            return prefix === 'track' || prefix === 'episode';
         }
       }
       return false;
@@ -963,7 +968,7 @@ const CLEANUPS = {
           case LINK_TYPES.streamingmusic.release:
             return prefix === 'album';
           case LINK_TYPES.streamingmusic.recording:
-            return prefix === 'track';
+            return prefix === 'track' || prefix === 'episode';
         }
       }
       return false;
@@ -1002,12 +1007,12 @@ const CLEANUPS = {
             afterSlash = new RegExp('^' + root + '/*$').test(path) ? root : afterSlash;
             break;
         }
-        return 'http://www.dailymotion.com/' + afterSlash;
+        return 'https://www.dailymotion.com/' + afterSlash;
       }
       return url;
     },
     validate: function (url, id) {
-      var m = /^http:\/\/www\.dailymotion\.com\/(?:(video\/)?[^\/?#]+)$/.exec(url);
+      var m = /^https:\/\/www\.dailymotion\.com\/(?:(video\/)?[^\/?#]+)$/.exec(url);
       if (m) {
         var prefix = m[1];
         if (_.includes(LINK_TYPES.videochannel, id)) {
@@ -1103,13 +1108,13 @@ const CLEANUPS = {
   },
   bandcamp: {
     match: [new RegExp("^(https?://)?([^/]+)\\.bandcamp\\.com","i")],
-    type: _.defaults({}, LINK_TYPES.bandcamp, LINK_TYPES.review),
+    type: _.defaults({}, LINK_TYPES.bandcamp, LINK_TYPES.review, {work: LINK_TYPES.lyrics.work}),
     clean: function (url) {
-      url = url.replace(/^(?:https?:\/\/)?([^\/]+)\.bandcamp\.com([\/?#].*)?$/, "https://$1.bandcamp.com$2");
+      url = url.replace(/^(?:https?:\/\/)?([^\/]+)\.bandcamp\.com(?:\/([^?#]*))?.*$/, "https://$1.bandcamp.com/$2");
       if (/^https:\/\/daily\.bandcamp\.com/.test(url)) {
-        url = url.replace(/^(?:https?:\/\/)?daily\.bandcamp\.com\/(\d+\/\d+\/\d+\/[\w-]+)(?:[\/?#].*)?$/, "https://daily.bandcamp.com/$1/");
+        url = url.replace(/^https:\/\/daily\.bandcamp\.com\/(\d+\/\d+\/\d+\/[\w-]+)(?:\/.*)?$/, "https://daily.bandcamp.com/$1/");
       } else {
-        url = url.replace(/^(?:https?:\/\/)?([^\/]+)\.bandcamp\.com(?:\/(((album|track)\/([^\/\?]+)))?)?.*$/, "https://$1.bandcamp.com/$2");
+        url = url.replace(/^https:\/\/([^\/]+)\.bandcamp\.com\/(?:((?:album|track)\/[^\/]+))?.*$/, "https://$1.bandcamp.com/$2");
       }
       return url;
     },
@@ -1120,6 +1125,8 @@ const CLEANUPS = {
           return /^https:\/\/[^\/]+\.bandcamp\.com\/$/.test(url);
         case LINK_TYPES.review.release_group:
           return /^https:\/\/daily\.bandcamp\.com\/\d+\/\d+\/\d+\/[\w-]+-review\/$/.test(url);
+        case LINK_TYPES.lyrics.work:
+          return /^https:\/\/[^\/]+\.bandcamp\.com\/track\/[\w-]+$/.test(url);
       }
       return false;
     }
@@ -1216,6 +1223,27 @@ const CLEANUPS = {
       url = url.replace(/^(https?:\/\/)?((www|cn|m)\.)?(last\.fm|lastfm\.(com\.br|com\.tr|at|com|de|es|fr|it|jp|pl|pt|ru|se))\/([a-z]{2}\/)?/, "http://www.last.fm/");
       url = url.replace(/^http:\/\/www\.last\.fm\/(?:[a-z]{2}\/)?([a-z]+)\/([^?#]+).*$/, "http://www.last.fm/$1/$2");
       return url;
+    }
+  },
+  niconicovideo: {
+    match: [new RegExp("^(https?://)?([^/]+\\.)?(nicovideo\\.jp/)","i")],
+    type: _.defaults({}, LINK_TYPES.videochannel, LINK_TYPES.streamingmusic),
+    clean: function(url) {
+      return url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?nicovideo\.jp\/(user\/[0-9]+|watch\/sm[0-9]+).*$/, "https://www.nicovideo.jp/$1");
+    },
+    validate: function (url, id) {
+      var m = /^(?:https?:\/\/)?(?:[^\/]+\.)?nicovideo\.jp\/(?:(user)\/[0-9]+|(watch)\/sm[0-9]+)$/.exec(url);
+      if (m){
+        var prefix = m[1] || m[2];
+        switch (id){
+          case LINK_TYPES.streamingmusic.recording:
+          case LINK_TYPES.streamingmusic.release:
+            return prefix === 'watch';
+          case LINK_TYPES.videochannel.artist:
+            return prefix === 'user';
+        }
+      }
+      return false;
     }
   },
   onlinecommunity: {
@@ -2025,9 +2053,10 @@ const CLEANUPS = {
       new RegExp("^(https?://)?(www\\.)?flattr\\.com/profile/[^/?#]", "i"),
       new RegExp("^(https?://)?(www\\.)?patreon\\.com/[^/?#]", "i"),
       new RegExp("^(https?://)?(www\\.)?paypal\\.me/[^/?#]", "i"),
-      new RegExp("^(https?://)?(www\\.)?tipeee\\.com/[^/?#]", "i"),
+      new RegExp("^(https?://)?(?:[^/]+\\.)?tipeee\\.com/[^/?#]", "i"),
       new RegExp("^(https?://)?(www\\.)?d\\.rip/[^/?#]", "i"),
       new RegExp("^(https?://)?(www\\.)?drip\\.kickstarter.com/[^/?#]", "i"),
+      new RegExp("^(https?://)?(www\\.)?ko-fi.com/[^/?#]", "i"),
     ],
     type: LINK_TYPES.patronage,
     clean: function (url) {
@@ -2037,9 +2066,10 @@ const CLEANUPS = {
       url = url.replace(/^((?:https?:\/\/)?(?:www\.)?patreon\.com\/user)\/(?:community|posts)(\?u=.*)$/, "$1$2");
       url = url.replace(/^(?:https?:\/\/)?(?:www\.)?patreon\.com\/((?:user\?u=)?[^\/?&#]+)(?:.*)?$/, "https://www.patreon.com/$1");
       url = url.replace(/^(?:https?:\/\/)?(?:www\.)?paypal\.me\/([^\/?#]+)(?:.*)?$/, "https://www.paypal.me/$1");
-      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?tipeee\.com\/([^\/?#]+)(?:.*)?$/, "https://www.tipeee.com/$1");
+      url = url.replace(/^(?:https?:\/\/)?(?:[^/]+\.)?tipeee\.com\/([^\/?#]+)(?:.*)?$/, "https://www.tipeee.com/$1");
       url = url.replace(/^(?:https?:\/\/)?(?:www\.)?d\.rip\/([^\/?#]+)(?:.*)?$/, "https://d.rip/$1");
       url = url.replace(/^(?:https?:\/\/)?(?:www\.)?drip\.kickstarter.com\/([^\/?#]+)(?:.*)?$/, "https://d.rip/$1");
+      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?ko-fi\.com\/([^\/?#]+)(?:.*)?$/, "https://ko-fi.com/$1");
       return url;
     }
   },

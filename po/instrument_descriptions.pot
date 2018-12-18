@@ -3933,6 +3933,13 @@ msgid ""
 "pass filtering to produce vibrato"
 msgstr ""
 
+#. name:electric sitar 
+#: DB:instrument/description:246
+msgid ""
+"an electric derivation of the sitar, it often features sympathetic strings "
+"and a more guitar shaped body."
+msgstr ""
+
 #. name:Cembalet 
 #: DB:instrument/description:794
 msgid ""

@@ -20,7 +20,7 @@ const isolateText = require('../utility/isolateText');
 const nonEmpty = require('../utility/nonEmpty');
 const reactTextContent = require('../utility/reactTextContent');
 
-const DeletedLink = ({name, allowNew}) => {
+const DeletedLink = ({name, allowNew}: {|+name: React.Node, +allowNew: boolean|}) => {
   const caption = allowNew
     ? l('This entity will be created when edits are entered.')
     : l('This entity has been removed, and cannot be displayed correctly.');
@@ -32,7 +32,7 @@ const DeletedLink = ({name, allowNew}) => {
   );
 };
 
-const Comment = ({className, comment}) => (
+const Comment = ({className, comment}: {|+className: string, +comment: string|}) => (
   <>
     {' '}
     <span className={className}>
@@ -41,14 +41,14 @@ const Comment = ({className, comment}) => (
   </>
 );
 
-const EventDisambiguation = ({event}: {|+event: EventT|}) => {
+const EventDisambiguation = ({event, showDate}: {|+event: EventT, +showDate: boolean|}) => {
   const dates = formatDatePeriod(event);
-  if (!dates && !event.cancelled) {
+  if ((!dates || !showDate) && !event.cancelled) {
     return null;
   }
   return (
     <>
-      {dates ? ' ' + bracketed(dates) : null}
+      {dates && showDate ? ' ' + bracketed(dates) : null}
       {event.cancelled
         ? <Comment className="cancelled" comment={l('cancelled')} />
         : null}
@@ -76,7 +76,7 @@ const AreaDisambiguation = ({area}: {|+area: AreaT|}) => {
   return <Comment className="historical" comment={comment} />;
 };
 
-const NoInfoURL = ({url, allowNew}) => (
+const NoInfoURL = ({url, allowNew}: {|+url: string, +allowNew: boolean|}) => (
   <>
     <a href={url}>{url}</a>
     {' '}
@@ -93,6 +93,7 @@ type EntityLinkProps = {
   +content?: React.Node,
   +entity: CoreEntityT | CollectionT,
   +hover?: string,
+  +showEventDate?: boolean,
   +showDeleted?: boolean,
   +showDisambiguation?: boolean,
   +subPath?: string,
@@ -109,6 +110,7 @@ const EntityLink = ({
   content,
   entity,
   hover,
+  showEventDate = true,
   showDeleted = true,
   showDisambiguation,
   subPath,
@@ -219,7 +221,7 @@ const EntityLink = ({
 
   if (showDisambiguation) {
     if (entity.entityType === 'event') {
-      parts.push(<EventDisambiguation event={entity} key="eventdisambig" />);
+      parts.push(<EventDisambiguation event={entity} showDate={showEventDate} key="eventdisambig" />);
     }
     if (comment) {
       parts.push(

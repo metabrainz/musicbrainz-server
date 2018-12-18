@@ -58,7 +58,7 @@
      ELSIF !relationship.link.end_date.is_empty;
        l('until {date}', { date => relationship.link.end_date.format });
      ELSIF relationship.link.ended;
-       bracketed(l('ended'));
+       bracketedWithSpace(l('ended'));
      END;
    END; -%]
 

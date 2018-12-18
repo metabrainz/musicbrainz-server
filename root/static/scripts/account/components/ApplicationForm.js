@@ -10,29 +10,31 @@
 import * as React from 'react';
 import noop from 'lodash/noop';
 
-import FormRow from '../../components/FormRow';
-import FormRowSelect from '../../components/FormRowSelect';
-import FormRowText from '../../components/FormRowText';
-import FormRowURLLong from '../../components/FormRowURLLong';
-import FormSubmit from '../../components/FormSubmit';
-import {addColon, l, N_l} from '../../static/scripts/common/i18n';
-import {Lens, prop, set, compose3} from '../../static/scripts/common/utility/lens';
-import hydrate from '../../utility/hydrate';
+import FormRow from '../../../../components/FormRow';
+import FormRowSelect from '../../../../components/FormRowSelect';
+import FormRowText from '../../../../components/FormRowText';
+import FormRowURLLong from '../../../../components/FormRowURLLong';
+import FormSubmit from '../../../../components/FormSubmit';
+import {addColon, l, N_l} from '../../common/i18n';
+import {Lens, prop, set, compose3} from '../../common/utility/lens';
+import hydrate from '../../../../utility/hydrate';
 
-type OauthTypeT = 'installed' | 'web';
+export type OauthTypeT = 'installed' | 'web';
 
-type RegisterApplicationFormT = FormT<{|
+export type ApplicationFormT = FormT<{|
   +name: FieldT<string>,
   +oauth_redirect_uri: FieldT<string>,
   +oauth_type: FieldT<OauthTypeT>,
 |}>;
 
 type Props = {|
-  +form: RegisterApplicationFormT,
+  +action: string,
+  +form: ApplicationFormT,
+  +submitLabel: string,
 |};
 
 type State = {|
-  form: RegisterApplicationFormT,
+  form: ApplicationFormT,
 |};
 
 const oauthTypeOptions = {
@@ -43,13 +45,13 @@ const oauthTypeOptions = {
   ],
 };
 
-const oauthRedirectURIFieldLens: Lens<RegisterApplicationFormT, string> =
+const oauthRedirectURIFieldLens: Lens<ApplicationFormT, string> =
   compose3(prop('field'), prop('oauth_redirect_uri'), prop('value'));
 
-const oauthTypeFieldLens: Lens<RegisterApplicationFormT, OauthTypeT> =
+const oauthTypeFieldLens: Lens<ApplicationFormT, OauthTypeT> =
   compose3(prop('field'), prop('oauth_type'), prop('value'));
 
-class RegisterApplicationForm extends React.Component<Props, State> {
+class ApplicationForm extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = {form: props.form};
@@ -60,11 +62,11 @@ class RegisterApplicationForm extends React.Component<Props, State> {
   handleOauthRedirectURIChange: (e: SyntheticEvent<HTMLInputElement>) => void;
 
   handleOauthRedirectURIChange(e: SyntheticEvent<HTMLInputElement>) {
-    const currentOauthRedirectURI = e.currentTarget.value;
+    const selectedOauthRedirectURI = e.currentTarget.value;
     this.setState(prevState => ({
       form: set(
         oauthRedirectURIFieldLens,
-        (currentOauthRedirectURI: any),
+        ((selectedOauthRedirectURI: any): OauthTypeT),
         prevState.form,
       ),
     }));
@@ -73,11 +75,11 @@ class RegisterApplicationForm extends React.Component<Props, State> {
   handleOauthTypeChange: (e: SyntheticEvent<HTMLSelectElement>) => void;
 
   handleOauthTypeChange(e: SyntheticEvent<HTMLSelectElement>) {
-    const currentOauthType = e.currentTarget.value;
+    const selectedOauthType = e.currentTarget.value;
     this.setState(prevState => ({
       form: set(
         oauthTypeFieldLens,
-        (currentOauthType: any),
+        ((selectedOauthType: any): OauthTypeT),
         prevState.form,
       ),
     }));
@@ -85,7 +87,7 @@ class RegisterApplicationForm extends React.Component<Props, State> {
 
   render() {
     return (
-      <form action="/account/applications/register" method="post">
+      <form method="post">
         <FormRowText
           field={this.state.form.field.name}
           label={addColon(l('Name'))}
@@ -93,24 +95,27 @@ class RegisterApplicationForm extends React.Component<Props, State> {
         />
         <FormRowSelect
           field={this.state.form.field.oauth_type}
+          frozen={this.props.action === 'edit'}
           label={addColon(l('Type'))}
           onChange={this.handleOauthTypeChange}
           options={oauthTypeOptions}
+          required
         />
         {this.state.form.field.oauth_type.value === 'web' ? (
           <FormRowURLLong
             field={this.state.form.field.oauth_redirect_uri}
             label={addColon(l('Callback URL'))}
             onChange={this.handleOauthRedirectURIChange}
+            required
           />
         ) : null}
         <FormRow hasNoLabel>
-          <FormSubmit label={l('Register')} />
+          <FormSubmit label={this.props.submitLabel} />
         </FormRow>
       </form>
     );
   }
 }
 
-export type RegisterApplicationFormPropsT = Props;
-export default hydrate('register-application-form', RegisterApplicationForm);
+export type ApplicationFormPropsT = Props;
+export default hydrate<Props>('application-form', ApplicationForm);

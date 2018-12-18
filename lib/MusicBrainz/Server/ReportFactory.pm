@@ -44,6 +44,7 @@ use MusicBrainz::Server::PagedReport;
     DuplicateRelationshipsWorks
     DuplicateRelationshipsLabels
     DuplicateReleaseGroups
+    EventSequenceNotInSeries
     FeaturingRecordings
     FeaturingReleaseGroups
     FeaturingReleases
@@ -58,6 +59,7 @@ use MusicBrainz::Server::PagedReport;
     NoLanguage
     NoScript
     PartOfSetRelationships
+    PlacesWithoutCoordinates
     PossibleCollaborations
     RecordingsWithoutVACredit
     RecordingsWithoutVALink
@@ -68,7 +70,9 @@ use MusicBrainz::Server::PagedReport;
     ReleaseGroupsWithoutVACredit
     ReleaseGroupsWithoutVALink
     ReleasesInCAAWithCoverArtRelationships
+    ReleaseLabelSameArtist
     ReleasesToConvert
+    ReleasesWithCAANoTypes
     ReleasesWithDownloadRelationships
     ReleasesWithNoMediums
     ReleasesWithoutVACredit
@@ -119,6 +123,7 @@ use MusicBrainz::Server::Report::DuplicateRelationshipsRecordings;
 use MusicBrainz::Server::Report::DuplicateRelationshipsWorks;
 use MusicBrainz::Server::Report::DuplicateRelationshipsLabels;
 use MusicBrainz::Server::Report::DuplicateReleaseGroups;
+use MusicBrainz::Server::Report::EventSequenceNotInSeries;
 use MusicBrainz::Server::Report::FeaturingRecordings;
 use MusicBrainz::Server::Report::FeaturingReleaseGroups;
 use MusicBrainz::Server::Report::FeaturingReleases;
@@ -133,6 +138,7 @@ use MusicBrainz::Server::Report::MultipleDiscogsLinks;
 use MusicBrainz::Server::Report::NoLanguage;
 use MusicBrainz::Server::Report::NoScript;
 use MusicBrainz::Server::Report::PartOfSetRelationships;
+use MusicBrainz::Server::Report::PlacesWithoutCoordinates;
 use MusicBrainz::Server::Report::PossibleCollaborations;
 use MusicBrainz::Server::Report::RecordingsWithoutVACredit;
 use MusicBrainz::Server::Report::RecordingsWithoutVALink;
@@ -143,7 +149,9 @@ use MusicBrainz::Server::Report::ReleasedTooEarly;
 use MusicBrainz::Server::Report::ReleaseGroupsWithoutVACredit;
 use MusicBrainz::Server::Report::ReleaseGroupsWithoutVALink;
 use MusicBrainz::Server::Report::ReleasesInCAAWithCoverArtRelationships;
+use MusicBrainz::Server::Report::ReleaseLabelSameArtist;
 use MusicBrainz::Server::Report::ReleasesToConvert;
+use MusicBrainz::Server::Report::ReleasesWithCAANoTypes;
 use MusicBrainz::Server::Report::ReleasesWithDownloadRelationships;
 use MusicBrainz::Server::Report::ReleasesWithNoMediums;
 use MusicBrainz::Server::Report::ReleasesWithoutVACredit;

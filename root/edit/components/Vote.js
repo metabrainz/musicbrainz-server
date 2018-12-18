@@ -77,7 +77,7 @@ const Vote = ({$c, edit, index = 0, summary = false}: VoteProps) => {
         <VoteCheckbox label={lp('Abstain', 'vote')} value={EDIT_VOTE_ABSTAIN} {...props} />
       </div>
       <div className="vote">
-        <VoteCheckbox label={lp('None')} value={EDIT_VOTE_NONE} {...props} />
+        <VoteCheckbox label={l('None')} value={EDIT_VOTE_NONE} {...props} />
       </div>
       {summary ? null : <FormSubmit label={l('Submit vote and note')} />}
     </div>

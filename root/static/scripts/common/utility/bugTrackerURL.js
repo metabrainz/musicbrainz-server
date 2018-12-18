@@ -5,7 +5,7 @@
 
 function bugTrackerURL(description) {
   return (
-    'http://tickets.musicbrainz.org/secure/CreateIssueDetails!init.jspa?' +
+    'http://tickets.metabrainz.org/secure/CreateIssueDetails!init.jspa?' +
     'pid=10000&issuetype=1' +
     (description ? '&description=' + encodeURIComponent(description) : '')
   );

@@ -11,8 +11,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2018-10-16 04:03+0000\n"
-"Last-Translator: Andrea Corinti <email address hidden>\n"
+"PO-Revision-Date: 2018-11-01 16:56+0000\n"
+"Last-Translator: yvanz\n"
 "Language-Team: Italian (http://www.transifex.com/musicbrainz/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1753,13 +1753,6 @@ msgstr ""
 msgid ""
 "The Reactable is an electronic musical instrument consisting of a round "
 "translucent table on which blocks are placed."
-msgstr ""
-
-#. name:Saraswati veena
-#: DB:instrument/description:476
-msgid ""
-"The Saraswati veena is an Indian plucked stringed instrument used in "
-"Carnatic music."
 msgstr ""
 
 #. name:Schwyzerörgeli
@@ -3771,6 +3764,14 @@ msgid ""
 "drawn across free reeds which are mounted on a plate inside."
 msgstr ""
 
+#. name:Saraswati veena
+#: DB:instrument/description:476
+msgid ""
+"Used in Carnatic tradition, named after goddess of art and music Saraswati, "
+"it is known since ancient times. Lute with a gourd sound resonator, it has "
+"24 fixed frets, 7 steel strings (4 main & 3 drone)"
+msgstr ""
+
 #. name:octavilla
 #: DB:instrument/description:940
 msgid ""
@@ -3957,7 +3958,7 @@ msgstr ""
 #. name:clavioline
 #: DB:instrument/description:815
 msgid ""
-"an early analogue synthezier, it had a vacuum tube oscillator and high/low "
+"an early analogue synthesizer, it had a vacuum tube oscillator and high/low "
 "pass filtering to produce vibrato"
 msgstr ""
 
