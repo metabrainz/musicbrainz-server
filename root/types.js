@@ -666,7 +666,8 @@ declare type RelationshipAttributeT = {|
 |};
 
 declare type RelationshipT = {|
-  +attributes: $ReadOnlyArray<RelationshipAttributeT>,
+  // `attributes` may not exist when seeding.
+  +attributes?: $ReadOnlyArray<RelationshipAttributeT>,
   +id: number,
   +linkTypeID: number,
   +target: CoreEntityT,

@@ -383,6 +383,8 @@ function withOneEmptyLink(links, dontRemove) {
   }
 }
 
+const isVideoAttribute = attr => attr.type.gid === VIDEO_ATTRIBUTE_GID;
+
 function parseRelationships(relationships?: $ReadOnlyArray<RelationshipT>) {
   if (!relationships) {
     return [];
@@ -395,7 +397,9 @@ function parseRelationships(relationships?: $ReadOnlyArray<RelationshipT>) {
         relationship: data.id,
         url: target.name,
         type: data.linkTypeID,
-        video: data.attributes.some((attr) => attr.type.gid === VIDEO_ATTRIBUTE_GID),
+        video: data.attributes
+          ? data.attributes.some(isVideoAttribute)
+          : false,
       });
     }
 
