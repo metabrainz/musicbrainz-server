@@ -205,6 +205,6 @@ fieldTest("Tracks' time are changed correctly when inputting values in the mediu
 
     tests.forEach(({input, output}) => {
         medium.tracks()[0].formattedLengthChanged(input);
-        t.equal(medium.tracks()[0].formattedLength(), output, "length " + input + " is formatted as " + medium.tracks()[0].formattedLength());
+        t.equal(medium.tracks()[0].formattedLength(), output, "length " + input + " is formatted as " + ouput);
     });
 });
