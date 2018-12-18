@@ -33,7 +33,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2018-11-01 16:57+0000\n"
+"PO-Revision-Date: 2018-12-14 15:52+0000\n"
 "Last-Translator: yvanz\n"
 "Language-Team: French (http://www.transifex.com/musicbrainz/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -1849,7 +1849,7 @@ msgstr "Ceci est utilisé pour relier la page Discogs pour cette parution."
 
 #: DB:link_type/description:971
 msgid "This is used to link the Discogs page for this work."
-msgstr ""
+msgstr "Ceci est utilisé pour relier la page Discogs pour cette œuvre."
 
 #: DB:link_type/description:176
 msgid ""
@@ -2051,7 +2051,7 @@ msgid ""
 "put out by the label, played by other (sometimes very unknown) artists, to "
 "honor the label. Often they are various artist compilations, but a single "
 "artist can perform the entire tribute album."
-msgstr ""
+msgstr "Relie un groupe de parution à un label pour indiquer que c’est un album hommage. Les albums hommage ont souvent un titre comme « Hommage à Label » ou « Hommage à Artistes de Label » et ils sont constitués de reprises de chansons parues par ce label, jouées par d’autres artistes (parfois vraiment inconnus) pour rendre hommage à ce label. Ce sont souvent des compilations d’artistes divers, mais un artiste seul peut interpréter l’album hommage en entier."
 
 #: DB:link_type/description:868
 msgid ""
@@ -2070,7 +2070,7 @@ msgid ""
 "by other (sometimes very unknown) bands, to honor the target artist. Often "
 "they are various artist compilations, but a single artist can perform the "
 "entire tribute album."
-msgstr "Relie un groupe de parution à un artiste pour indiquer que c’est un album hommage. Les albums hommage on souvent un titre comme « Hommage à Artiste » et ils sont constitués de reprises de chansons de l’artiste visé,  jouées par d’autres groupes (parfois vraiment inconnus) pour honorer l’artiste visé. Ce sont souvent des compilations d’artistes divers, mais un artiste seul peut interpréter l’album hommage en entier."
+msgstr "Relie un groupe de parution à un artiste pour indiquer que c’est un album hommage. Les albums hommage ont souvent un titre comme « Hommage à Artiste » et sont constitués de reprises de chansons de cet artiste, jouées par d’autres groupes (parfois vraiment inconnus) pour honorer l’artiste visé. Ce sont souvent des compilations d’artistes divers, mais un artiste seul peut interpréter l’album hommage en entier."
 
 #: DB:link_type/description:907
 msgid ""
@@ -6063,7 +6063,7 @@ msgstr "{entity1} a une page BookBrainz à {entity0}"
 
 #: DB:link_type/long_link_phrase:971
 msgid "{entity1} has a Discogs page at {entity0}"
-msgstr ""
+msgstr "{entity1} a une page Discogs à {entity0}"
 
 #: DB:link_type/long_link_phrase:280
 msgid "{entity1} has a SecondHandSongs page at {entity0}"

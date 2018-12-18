@@ -28,9 +28,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-12-11 06:54+0100\n"
-"PO-Revision-Date: 2018-12-11 06:04+0000\n"
-"Last-Translator: Maurits Meulenbelt <email address hidden>\n"
+"POT-Creation-Date: 2018-12-14 10:06+0100\n"
+"PO-Revision-Date: 2018-12-14 09:09+0000\n"
+"Last-Translator: yvanz\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -2612,10 +2612,6 @@ msgstr "Bestandsnaam:"
 #: ../root/components/common-macros.tt:781
 msgid "Filter"
 msgstr "Filter"
-
-#: ../root/report/places_without_coordinates.tt:12
-msgid "Find"
-msgstr ""
 
 #: ../root/relationship/linktype/form.tt:126
 msgid "Find Relationships"
@@ -5878,6 +5874,10 @@ msgstr "Naar bewerkingen zoeken"
 #: ../root/cdtoc/attach_filter_artist.tt:3
 msgid "Search for an artist"
 msgstr "Naar een artiest zoeken"
+
+#: ../root/report/places_without_coordinates.tt:12
+msgid "Search for coordinates"
+msgstr ""
 
 #: ../root/edit/list_header.tt:8
 msgid "Search for edits"

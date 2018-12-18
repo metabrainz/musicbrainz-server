@@ -5,14 +5,14 @@
 # 
 # Translators:
 # Mihkel Tõnnov <email address hidden>, 2008-2009,2011-2012
-# Mihkel Tõnnov <email address hidden>, 2015
+# Mihkel Tõnnov <email address hidden>, 2015,2018
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-04-23 18:29+0200\n"
-"PO-Revision-Date: 2018-05-30 11:39+0000\n"
-"Last-Translator: yvanz\n"
+"PO-Revision-Date: 2018-12-15 23:49+0000\n"
+"Last-Translator: Mihkel Tõnnov <email address hidden>\n"
 "Language-Team: Estonian (http://www.transifex.com/musicbrainz/musicbrainz/language/et/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -30,7 +30,7 @@ msgstr "Lisati varasemast palju mugavam AJAXi-põhine kaanepiltide üleslaadimis
 msgid ""
 "A new banner message now notifies users whenever they receive a new edit "
 "note."
-msgstr ""
+msgstr "Kasutajatele hakati uute toimetusmärgete saamisel märguannet näitama."
 
 #: DB:statistics.statistic_event/description:2006-08-15
 msgid "A rift in the MusicBrainz community leads to a Great Dispute."
@@ -188,7 +188,7 @@ msgstr "Parandati toimetuste kuvamist, lülitati välja RDF-andmetõmmised, aval
 
 #: DB:statistics.statistic_event/title:2015-12-28
 msgid "Edit note notifications"
-msgstr ""
+msgstr "Märguanded toimetusmärgete kohta"
 
 #: DB:statistics.statistic_event/title:2003-11-10
 msgid "Edit search"
@@ -214,7 +214,7 @@ msgstr "Lisati nn folksonoomiasildistamine ja toimetajate jälgimise võimalus."
 #: DB:statistics.statistic_event/description:2015-09-04
 msgid ""
 "Former GSoC student Roman Tsukanov begins working for MetaBrainz part-time."
-msgstr ""
+msgstr "Varasem GSoC tudeng Roman Tsukanov alustas osakoormusega tööd MetaBrainzi heaks."
 
 #: DB:statistics.statistic_event/description:2004-10-10
 msgid ""
@@ -352,7 +352,7 @@ msgstr "Leping MetaWebiga"
 
 #: DB:statistics.statistic_event/title:2015-11-30
 msgid "More auto-edits"
-msgstr ""
+msgstr "Rohkem kohetoimetusi"
 
 #: DB:statistics.statistic_event/description:2015-11-16
 msgid ""
@@ -413,7 +413,7 @@ msgstr "Avalikustati NGS (Next Generation Schema), MusicBrainzi suur ümberkorra
 
 #: DB:statistics.statistic_event/title:2016-02-22
 msgid "New MusicBrainz design"
-msgstr ""
+msgstr "MusicBrainzi uus kujundus"
 
 #: DB:statistics.statistic_event/title:2003-10-13
 msgid "Non album tracks"
@@ -459,7 +459,7 @@ msgstr "Lisati väljalaskerühmad ja ISRC-de tugi, lubati otsida pooleldi lisatu
 
 #: DB:statistics.statistic_event/title:2015-09-04
 msgid "Roman Tsukanov joins the MetaBrainz team"
-msgstr ""
+msgstr "Roman Tsukanov liitus MetaBrainzi meeskonnaga"
 
 #: DB:statistics.statistic_event/title:2006-01-08
 msgid "SG5 Fixes"
@@ -471,7 +471,7 @@ msgstr "Otsingutäiustused"
 
 #: DB:statistics.statistic_event/title:2015-11-16
 msgid "Several new auto-edit types and translations"
-msgstr ""
+msgstr "Mitu uut kohetoimetusetüüpi ja tõlget"
 
 #: DB:statistics.statistic_event/title:2008-04-21
 msgid "SoC 2008"
@@ -498,7 +498,7 @@ msgstr "Sildid"
 
 #: DB:statistics.statistic_event/title:2014-11-19
 msgid "The AcousticBrainz project goes live"
-msgstr ""
+msgstr "AcousticBrainzi projekt sai avalikuks"
 
 #: DB:statistics.statistic_event/description:2007-06-28
 msgid ""
@@ -515,11 +515,11 @@ msgstr "Kaanepildiarhiiv kuulutati ametlikult avatuks."
 
 #: DB:statistics.statistic_event/title:2014-05-19
 msgid "The CritiqueBrainz project goes live"
-msgstr ""
+msgstr "CritiqueBrainzi projekt sai avalikuks"
 
 #: DB:statistics.statistic_event/title:2015-09-17
 msgid "The ListenBrainz project goes live"
-msgstr ""
+msgstr "ListenBrainzi projekt sai avalikuks"
 
 #: DB:statistics.statistic_event/description:2005-04-19
 msgid ""
@@ -539,7 +539,7 @@ msgstr ""
 
 #: DB:statistics.statistic_event/title:2015-05-18
 msgid "The new MetaBrainz website goes live"
-msgstr ""
+msgstr "MetaBrainzi uus veebisait sai avalikuks"
 
 #: DB:statistics.statistic_event/description:2015-05-18
 msgid ""

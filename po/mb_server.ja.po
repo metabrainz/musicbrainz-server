@@ -31,8 +31,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-12-11 06:54+0100\n"
-"PO-Revision-Date: 2018-12-11 06:04+0000\n"
+"POT-Creation-Date: 2018-12-14 10:06+0100\n"
+"PO-Revision-Date: 2018-12-14 09:09+0000\n"
 "Last-Translator: yvanz\n"
 "Language-Team: Japanese (http://www.transifex.com/musicbrainz/musicbrainz/language/ja/)\n"
 "MIME-Version: 1.0\n"
@@ -2612,10 +2612,6 @@ msgstr "ファイル名:"
 #: ../root/components/common-macros.tt:781
 msgid "Filter"
 msgstr "フィルター"
-
-#: ../root/report/places_without_coordinates.tt:12
-msgid "Find"
-msgstr ""
 
 #: ../root/relationship/linktype/form.tt:126
 msgid "Find Relationships"
@@ -5873,6 +5869,10 @@ msgstr "編集を検索"
 #: ../root/cdtoc/attach_filter_artist.tt:3
 msgid "Search for an artist"
 msgstr "アーティストを検索"
+
+#: ../root/report/places_without_coordinates.tt:12
+msgid "Search for coordinates"
+msgstr ""
 
 #: ../root/edit/list_header.tt:8
 msgid "Search for edits"
