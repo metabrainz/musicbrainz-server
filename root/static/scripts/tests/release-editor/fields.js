@@ -183,3 +183,28 @@ fieldTest("tracks are set correctly when the cdtoc is changed", function (t, rel
     );
     t.ok(_.last(medium.tracks()).isDataTrack());
 });
+
+fieldTest("track times entered as integers are converted into HH:MM:SS", function (t, release){
+    t.plan(11);
+
+    var medium = new fields.Medium({ tracks: [ {} ] }, release);
+
+    const tests = [
+        {input: "5", output: "0:05"},
+        {input: "69", output: "1:09"},
+        {input: "174", output: "2:54"},
+        {input: "6000", output: "1:00:00"},
+        {input: "7400", output: "1:14:00"},
+        {input: "7482", output: "2:04:42"},
+        {input: "10000", output: "1:00:00"},
+        {input: "96900", output: "26:55:00"},
+        {input: "160000", output: "16:00:00"},
+        {input: "166000", output: "46:06:40"},
+        {input: "3723494", output: "1034:18:14"}
+    ];
+
+    tests.forEach(({input, output}) => {
+        medium.tracks()[0].formattedLengthChanged(input);
+        t.equal(medium.tracks()[0].formattedLength(), output, "length " + input + " is formatted as " + ouput);
+    });
+});

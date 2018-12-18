@@ -130,17 +130,23 @@ class Track {
 
         // Convert stuff like 111 into 1:11
 
-        if (/^\d+$/.test(length) && (4 - lengthLength) <= 1) {
-            var minutes, seconds;
+        if (/^\d+$/.test(length) && lengthLength >= 3 && lengthLength <= 6) {
+            var hoursLength = Math.max(0, lengthLength - 4);
 
-            if (lengthLength === 3) minutes = length[0];
-            if (lengthLength === 4) minutes = length.slice(0, 2);
+            var hours = length.slice(0, hoursLength);
+            var minutes = length.slice(hoursLength, lengthLength - 2);
+            var seconds = length.slice(-2);
 
-            seconds = length.slice(-2);
-
-            if (parseInt(minutes, 10) < 60 && parseInt(seconds, 10) < 60) {
-                length = minutes + ":" + seconds;
-                this.formattedLength(length);
+            if (parseInt(seconds, 10) < 60) {
+                if (parseInt(minutes, 10) < 60) {
+                    length = (hours ? hours + ":" : "") + minutes + ":" + seconds;
+                    this.formattedLength(length);
+                } else if (lengthLength == 4) {
+                    minutes = minutes - 60;
+                    hours = 1;
+                    length = hours + ":" + minutes + ":" + seconds;
+                    this.formattedLength(length);
+                }
             }
         }
 
