@@ -205,6 +205,6 @@ fieldTest("track times entered as integers are converted into HH:MM:SS", functio
 
     tests.forEach(({input, output}) => {
         medium.tracks()[0].formattedLengthChanged(input);
-        t.equal(medium.tracks()[0].formattedLength(), output, "length " + input + " is formatted as " + ouput);
+        t.equal(medium.tracks()[0].formattedLength(), output, "length " + input + " is formatted as " + output);
     });
 });
