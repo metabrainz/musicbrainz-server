@@ -60,8 +60,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-12-11 06:54+0100\n"
-"PO-Revision-Date: 2018-12-11 06:04+0000\n"
+"POT-Creation-Date: 2018-12-14 10:06+0100\n"
+"PO-Revision-Date: 2018-12-14 15:37+0000\n"
 "Last-Translator: yvanz\n"
 "Language-Team: French (http://www.transifex.com/musicbrainz/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -1481,7 +1481,7 @@ msgstr "Robots"
 msgid ""
 "Brought to you by {MeB|MetaBrainz Foundation} and our {spon|sponsors} and "
 "{supp|supporters}. Cover Art provided by the {caa|Cover Art Archive}."
-msgstr "Fourni par {MeB|MetaBrainz Foundation} et ses {spon|sponsors} et {supp|supporters}. Cover Art fourni par {caa|Cover Art Archive}."
+msgstr "Délivré pour vous par la {MeB|fondation MetaBrainz} et ses {spon|sponsors} et {supp|supporters}. Illustrations servies par la {caa|Cover Art Archive}."
 
 #: ../root/layout.tt:109 ../root/layout/components/Footer.js:28
 #: ../root/main/index.js:147
@@ -2571,7 +2571,7 @@ msgstr "Événements"
 #: ../root/report/event_sequence_not_in_series.tt:1
 #: ../root/report/event_sequence_not_in_series.tt:3 ../root/report/index.tt:44
 msgid "Events which should be part of series or larger event"
-msgstr ""
+msgstr "Événements qui devraient faire partie d’une série ou d’un événement plus grand"
 
 #: ../root/doc/relationship_type.tt:85
 #: ../root/relationship/linktype/form.tt:71
@@ -2644,10 +2644,6 @@ msgstr "Nom du fichier :"
 #: ../root/components/common-macros.tt:781
 msgid "Filter"
 msgstr "Filtrer"
-
-#: ../root/report/places_without_coordinates.tt:12
-msgid "Find"
-msgstr ""
 
 #: ../root/relationship/linktype/form.tt:126
 msgid "Find Relationships"
@@ -4686,7 +4682,7 @@ msgstr "Lieux avec des relations obsolètes"
 #: ../root/report/index.tt:138 ../root/report/places_without_coordinates.tt:1
 #: ../root/report/places_without_coordinates.tt:3
 msgid "Places without coordinates"
-msgstr ""
+msgstr "Lieux sans coordonnées"
 
 #: ../root/main/500.tt:31
 msgid ""
@@ -5458,7 +5454,7 @@ msgstr "Parutions dans la « Cover Art Archive » (archive d’illustrations) 
 #: ../root/report/index.tt:102 ../root/report/releases_with_caa_no_types.tt:1
 #: ../root/report/releases_with_caa_no_types.tt:3
 msgid "Releases in the Cover Art Archive where no cover art piece has types"
-msgstr ""
+msgstr "Parutions dans la « Cover Art Archive » (archive d’illustrations) sans le moindre type d’illustration"
 
 #: ../root/report/index.tt:114
 msgid "Releases missing disc IDs"
@@ -5481,7 +5477,7 @@ msgstr "Parutions sorties trop tôt"
 #: ../root/report/index.tt:115 ../root/report/release_label_same_artist.tt:1
 #: ../root/report/release_label_same_artist.tt:3
 msgid "Releases where artist name and label name are the same"
-msgstr ""
+msgstr "Parutions dont l’artiste et le label ont le même nom"
 
 #: ../root/report/index.tt:94
 msgid "Releases where some (but not all) mediums have no format set"
@@ -5910,6 +5906,10 @@ msgstr "Rechercher des modifications"
 #: ../root/cdtoc/attach_filter_artist.tt:3
 msgid "Search for an artist"
 msgstr "Rechercher un artiste"
+
+#: ../root/report/places_without_coordinates.tt:12
+msgid "Search for coordinates"
+msgstr "Rechercher des coordonnées"
 
 #: ../root/edit/list_header.tt:8
 msgid "Search for edits"
@@ -6537,7 +6537,7 @@ msgstr "La « Cover Art Archive » (archive d’illustrations) a reçu des req
 msgid ""
 "The Cover Art Archive is currently experiencing difficulties. Adding images "
 "for this release is unlikely to work at the moment."
-msgstr "L’archive des illustrations « Cover Art Archive » éprouve des difficultés. L’ajout d’images pour cette parution ne fonctionnera probablement pas pour l’instant."
+msgstr "L’archive d’illustrations « Cover Art Archive » éprouve des difficultés. L’ajout d’images pour cette parution ne fonctionnera probablement pas pour l’instant."
 
 #: ../root/user/profile.tt:88
 msgid "The Dawn of the Project"
@@ -6869,7 +6869,7 @@ msgid ""
 "text that you don't have the right to release under that license. While you "
 "can quote a source to support a point you're making, you should never enter "
 "promotional texts or other artist or label-owned texts into the annotation."
-msgstr ""
+msgstr "Cette annotation sera publiée sous les termes de la licence ouverte (<a href=\"{url}\" target=\"_blank\">CC BY-NC-SA 3.0</a>), et donc elle ne doit pas contenir de texte que vous ne seriez pas autorisé à diffuser avec cette licence. Vous pouvez bien sûr citer une source pour appuyer votre texte, mais vous ne devez jamais entrer de texte promotionnel ou tout autre texte appartenant à l’artiste ou au label dans cette annotation."
 
 #: ../root/area/delete.tt:14
 msgid ""
@@ -7403,7 +7403,7 @@ msgstr "Ce rapport liste les événements ayant lieu au même endroit et à la m
 msgid ""
 "This report lists events where the event name indicates that it may have to "
 "be part of a series or a larger event."
-msgstr ""
+msgstr "Ce rapport liste les événements où le nom de l’événement indique qu’il puisse faire partie d’une série ou d’un événement plus grand."
 
 #: ../root/report/labels_disambiguation_same_name.tt:6
 msgid ""
@@ -7439,7 +7439,7 @@ msgstr "Ce rapport liste les lieux avec des annotations."
 
 #: ../root/report/places_without_coordinates.tt:6
 msgid "This report lists places without coordinates."
-msgstr ""
+msgstr "Ce rapport liste les lieux sans coordonnées."
 
 #: ../root/report/duplicate_relationships_recordings.tt:6
 msgid ""
@@ -7489,7 +7489,7 @@ msgid ""
 "This report lists releases where the label name is the same as the artist "
 "name. Often this means the release is self-released, and the label "
 "{SpecialPurposeLabel|should be \"[no label]\" instead}."
-msgstr ""
+msgstr "Ce rapport liste les parutions dont l’artiste et le label ont le même nom. Cela signifie souvent que la parution est auto-produite, et le label {SpecialPurposeLabel|doit être \"[no label]\" à la place}."
 
 #: ../root/report/duplicate_relationships_releases.tt:6
 msgid ""
@@ -7769,7 +7769,7 @@ msgstr "Ce rapport montre les parutions qui ont (disc n) ou (bonus disc) dans le
 msgid ""
 "This report shows releases which have artwork in the Cover Art Archive, but "
 "still have a cover art relationship (pointing to a URL)."
-msgstr "Ce rapport montre les parutions qui ont des illustrations dans le « Cover Art Archive » (archive d’illustrations) mais qui ont encore une relation d’Illustration (qui pointe vers une URL)."
+msgstr "Ce rapport montre les parutions qui ont des illustrations dans la « Cover Art Archive » (archive d’illustrations) mais qui ont encore une relation d’Illustration (qui pointe vers une URL)."
 
 #: ../root/report/cat_no_looks_like_asin.tt:6
 msgid ""
@@ -7784,7 +7784,7 @@ msgid ""
 "This report shows releases which have cover art in the Cover Art Archive, "
 "but where none of it has any types set. This often means a front cover was "
 "added, but not marked as such."
-msgstr ""
+msgstr "Ce rapport montre les parutions qui ont des illustrations dans la « Cover Art Archive » (archive d’illustrations) mais dont aucune n’a de type défini. Cela signifie le plus souvent qu’une illustration de couverture a été ajoutée, mais n’a pas été marquée comme telle."
 
 #: ../root/report/released_too_early.tt:6
 msgid ""
@@ -10967,7 +10967,7 @@ msgstr "Partition sur IMSLP"
 
 #: ../lib/MusicBrainz/Server/Entity/URL/NicoNicoVideo.pm:9
 msgid "Niconico"
-msgstr ""
+msgstr "Niconico"
 
 #: ../lib/MusicBrainz/Server/FilterUtils.pm:22
 msgid "Filter release groups"
@@ -11493,7 +11493,7 @@ msgid ""
 "Enter your username and email below. We will send you an email with a link "
 "to reset your password. If you have forgotten your username, {link|retrieve "
 "it} first and then reset your password."
-msgstr ""
+msgstr "Saisissez votre nom d'utilisateur et votre adresse courriel ci-dessous. Nous vous enverrons un courriel incluant un lien pour réinitialiser votre mot de passe. Si vous avez oublié votre mot de passe, {lien|retrouvez-le} en premier et après réinitialisez votre mot de passe. "
 
 #: ../root/account/LostPasswordSent.js:17
 #: ../root/account/LostUsernameSent.js:17
@@ -12082,7 +12082,7 @@ msgstr "Ce sont tous les tags reconnus comme genres par le système."
 msgid ""
 "Is a genre missing from the list? Request it by {link|adding a style "
 "ticket}."
-msgstr ""
+msgstr "Un genre manque dans cette liste ? Demandez le en créant un {link|ticket de style}."
 
 #: ../root/instrument/InstrumentHeader.js:25
 msgid "instrument"
@@ -12097,7 +12097,7 @@ msgstr "Liste d’instruments"
 msgid ""
 "Is this list missing an instrument? Request it by following {link|these "
 "instructions}."
-msgstr ""
+msgstr "Un instrument manque dans cette liste ? Demandez le en suivant ces {link|instructions}."
 
 #: ../root/instrument/NotFound.js:16
 msgid "Instrument Not Found"
@@ -12372,19 +12372,19 @@ msgstr "Page {n}"
 
 #: ../root/layout/components/Head.js:64
 msgid "MusicBrainz: Artist"
-msgstr ""
+msgstr "MusicBrainz : Artiste"
 
 #: ../root/layout/components/Head.js:65
 msgid "MusicBrainz: Label"
-msgstr "MusicBrainz : Label"
+msgstr "MusicBrainz : Label"
 
 #: ../root/layout/components/Head.js:66
 msgid "MusicBrainz: Release"
-msgstr ""
+msgstr "MusicBrainz : Parution"
 
 #: ../root/layout/components/Head.js:67
 msgid "MusicBrainz: Track"
-msgstr "MusicBrainz : Piste"
+msgstr "MusicBrainz : Piste"
 
 #: ../root/layout/components/MetaDescription.js:60
 msgid "Start:"
@@ -12843,7 +12843,7 @@ msgid ""
 " may show up on any other page with cover art. You are encouraged to "
 "{report_link|report errors to Google Safe Browsing}. Sorry for the "
 "inconvenience!"
-msgstr ""
+msgstr "Les illustrations de la page d’accueil sont désactivées pour les navigateurs Chrome et dérivés, connus pour afficher des fausses alertes de hameçonnage depuis le 11 novembre 2018, voir le {ticket_link|ticket CAA-116}.<br/>Une alerte de hameçonnage peut apparaître sur n’importe quelle autre page contenant une illustration. Nous vous encourageons à {report_link|rapporter ces erreurs à Google Safe Browsing}."
 
 #: ../root/otherlookup/NotFound.js:16
 msgid "Entity Not Found"
@@ -12997,7 +12997,7 @@ msgstr "Paramètres régionaux"
 
 #: ../root/static/scripts/account/components/PreferencesForm.js:177
 msgid "Guess timezone"
-msgstr ""
+msgstr "Deviner le fuseau horaire"
 
 #: ../root/static/scripts/account/components/PreferencesForm.js:182
 msgid "Timezone:"
@@ -13152,7 +13152,7 @@ msgstr "{review_link|Critique} par {author} le {date}"
 
 #: ../root/static/scripts/common/components/TagEditor.js:89
 msgid "Withdraw vote"
-msgstr ""
+msgstr "Annuler le vote"
 
 #: ../root/static/scripts/common/components/TagEditor.js:105
 msgid "Upvote"
@@ -13354,7 +13354,7 @@ msgstr "Utiliser les champs suivants pour saisir les collaborations, voir la doc
 
 #: ../root/static/scripts/edit/components/ArtistCreditBubble.js:75
 msgid "Artist in MusicBrainz:"
-msgstr "Artiste dans MusicBrainz:"
+msgstr "Artiste dans MusicBrainz :"
 
 #: ../root/static/scripts/edit/components/ArtistCreditBubble.js:76
 msgid "Artist as credited:"
