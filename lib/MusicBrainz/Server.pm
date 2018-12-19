@@ -338,18 +338,54 @@ around dispatch => sub {
     $c->$orig(@args);
 };
 
-# Use a fresh database connection for every request, and remember to disconnect at the end
+my $ORIG_SEARCH_SERVER = DBDefs->can('SEARCH_SERVER');
+my $ORIG_ENTITY_CACHE_TTL = DBDefs->can('ENTITY_CACHE_TTL');
+my $ORIG_CACHE_NAMESPACE = DBDefs->can('CACHE_NAMESPACE');
+
 before dispatch => sub {
-    shift->model('MB')->context->connector->refresh;
+    my ($self) = @_;
+
+    my $ctx = $self->model('MB')->context;
+
+    # The selenium header is added by the http proxy in t/selenium.js,
+    # and instructs us to use the SELENIUM database instead of
+    # READWRITE. We ignore the header unless USE_SELENIUM_HEADER is
+    # also enabled.
+    if (DBDefs->USE_SELENIUM_HEADER && $self->req->headers->header('selenium')) {
+        no warnings 'redefine';
+        $ctx->database('SELENIUM');
+        $ctx->clear_connector;
+        my $cache_namespace = DBDefs->CACHE_NAMESPACE;
+        *DBDefs::CACHE_NAMESPACE = sub { $cache_namespace . 'Selenium:' };
+        *DBDefs::ENTITY_CACHE_TTL = sub { 1 };
+        *DBDefs::SEARCH_SERVER = sub { '' };
+    } else {
+        # Use a fresh database connection for every request, and
+        # remember to disconnect at the end.
+        $ctx->connector->refresh;
+    }
 };
+
 
 after dispatch => sub {
     my ($self) = @_;
 
-    my $c = $self->model('MB')->context;
-    $c->connector->disconnect;
-    $c->store->disconnect;
-    $c->cache->disconnect;
+    my $ctx = $self->model('MB')->context;
+
+    $ctx->connector->disconnect;
+    $ctx->store->disconnect;
+    $ctx->cache->disconnect;
+
+    if (DBDefs->USE_SELENIUM_HEADER && $self->req->headers->header('selenium')) {
+        no warnings 'redefine';
+        # Clear the connector and database handles, so that we revert
+        # back to the default (READWRITE, or READONLY for slaves).
+        $ctx->clear_connector;
+        $ctx->clear_database;
+        *DBDefs::CACHE_NAMESPACE = $ORIG_SEARCH_SERVER;
+        *DBDefs::ENTITY_CACHE_TTL = $ORIG_ENTITY_CACHE_TTL;
+        *DBDefs::SEARCH_SERVER = $ORIG_SEARCH_SERVER;
+    }
 };
 
 # Timeout long running requests

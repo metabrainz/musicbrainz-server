@@ -25,7 +25,9 @@ has 'connector' => (
 has 'database' => (
     is => 'rw',
     isa => 'Str',
-    default => sub { DBDefs->REPLICATION_TYPE == RT_SLAVE ? 'READONLY' : 'READWRITE' }
+    default => sub { DBDefs->REPLICATION_TYPE == RT_SLAVE ? 'READONLY' : 'READWRITE' },
+    lazy => 1,
+    clearer => 'clear_database',
 );
 
 has 'fresh_connector' => (
