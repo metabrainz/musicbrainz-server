@@ -485,7 +485,6 @@ test 'Paths that allow browsing without a confirmed email address' => sub {
   "Controller::WS::js::events",
   "Controller::WS::js::medium",
   "Controller::WS::js::medium_search",
-  "Controller::WS::js::LastUpdatedRecordings::recent",
   "Controller::WS::js::ParseCoordinates::parse_coordinates",
   "Controller::Watch::list",
   "Controller::Work::alias",
