@@ -12,7 +12,6 @@ const {
         isCompleteArtistCredit,
         reduceArtistCredit,
     } = require('../common/immutable-entities');
-const request = require('../common/utility/request');
 const debounce = require('../common/utility/debounce');
 const releaseEditor = require('./viewModel');
 const utils = require('./utils');
@@ -35,46 +34,10 @@ releaseEditor.recordingAssociation = recordingAssociation;
 //
 // Direct database search is terrible at matching titles (a single
 // apostrophe changes the entire set of results), so indexed search is
-// used. To get around the 3-hour delay of indexes updating, we also GET
-// the endpoint /ws/js/last-updated-recordings, which accepts an array of
-// artist IDs and returns all unique recordings for those artists that were
-// created/updated within the last 3 hours. (It just uses the last_updated
-// column to find these.)
+// used.
 
 var releaseGroupRecordings = ko.observable(),
-    recentRecordings = [],
-    trackArtistIDs = [],
     etiRegex = /(\([^)]+\) ?)*$/;
-
-debounce(utils.withRelease(function (release) {
-    var newIDs = _(release.mediums()).invokeMap("tracks").flatten()
-                  .map("artistCredit").flatten()
-                  .invokeMap("artist").map("id").uniq().compact().value();
-
-    // Check if the current set of ids is identical, to avoid triggering
-    // a superfluous request below.
-    var numInCommon = _.intersection(trackArtistIDs, newIDs).length;
-
-    if (numInCommon !== trackArtistIDs.length ||
-        numInCommon !== newIDs.length) {
-
-        trackArtistIDs = newIDs;
-
-        if (newIDs.length === 0) {
-            recentRecordings = [];
-            return;
-        }
-
-        var requestArgs = {
-            url: "/ws/js/last-updated-recordings",
-            data: $.param({ artists: newIDs }, true /* traditional */)
-        };
-
-        request(requestArgs).done(function (data) {
-            recentRecordings = data.recordings;
-        });
-    }
-}));
 
 
 recordingAssociation.getReleaseGroupRecordings = function (releaseGroup, offset, results) {
@@ -298,8 +261,6 @@ recordingAssociation.findRecordingSuggestions = function (track) {
 
     var recordings =
             matchAgainstRecordings(track, rgRecordings) ||
-            // Next try to match against one of the recent recordings.
-            matchAgainstRecordings(track, recentRecordings) ||
             // Or see if it still matches the current suggestion.
             matchAgainstRecordings(track, track.suggestedRecordings());
 
