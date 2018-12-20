@@ -95,23 +95,6 @@ sub find_by_area {
     $self->query_to_list_limited($query, [$area_id], $limit, $offset);
 }
 
-sub find_by_artist
-{
-    my ($self, $artist_id) = @_;
-    my $query = "SELECT " . $self->_columns . "
-                 FROM " . $self->_table . "
-                 WHERE label.id IN (
-                         SELECT rl.label
-                         FROM release_label rl
-                         JOIN release ON rl.release = release.id
-                         JOIN artist_credit_name acn ON acn.artist_credit = release.artist_credit
-                         WHERE acn.artist = ?
-                 )
-                 ORDER BY label.id";
-
-    $self->query_to_list($query, [$artist_id]);
-}
-
 sub find_by_release
 {
     my ($self, $release_id, $limit, $offset) = @_;

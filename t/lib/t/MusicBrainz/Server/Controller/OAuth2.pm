@@ -545,6 +545,13 @@ test 'User info' => sub {
         sub => 'æditorⅣ',
         zoneinfo => 'UTC',
     });
+
+    # Deleted users (bearer)
+    $test->c->sql->do('UPDATE editor SET deleted = true WHERE id = 4');
+    $test->mech->get("/oauth2/userinfo?access_token=$code");
+    is(401, $test->mech->status);
+    $test->mech->get('/oauth2/userinfo', {Authorization => "Bearer $code"});
+    is(401, $test->mech->status);
 };
 
 1;
