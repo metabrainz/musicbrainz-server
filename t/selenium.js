@@ -24,6 +24,7 @@ const argv = require('yargs')
 const child_process = require('child_process');
 const defined = require('defined');
 const fs = require('fs');
+const http = require('http');
 const httpProxy = require('http-proxy');
 const jsdom = require('jsdom');
 const isEqualWith = require('lodash/isEqualWith');
@@ -89,12 +90,15 @@ function execFile(...args) {
   });
 }
 
-const proxy = httpProxy.createProxyServer({
-  target: 'http://' + DBDefs.WEB_SERVER,
-});
+const proxy = httpProxy.createProxyServer({});
 
-proxy.on('proxyReq', function (proxyReq) {
-  proxyReq.setHeader('Selenium', '1');
+const customProxyServer = http.createServer(function (req, res) {
+  const host = req.headers.host;
+  if (host === DBDefs.WEB_SERVER) {
+    req.headers['Selenium'] = '1';
+    req.rawHeaders['Selenium'] = '1';
+  }
+  proxy.web(req, res, {target: 'http://' + host});
 });
 
 const driver = (x => {
@@ -118,6 +122,7 @@ const driver = (x => {
 
 function quit() {
   proxy.close();
+  customProxyServer.close();
   return driver.quit().catch(console.error);
 }
 
@@ -538,7 +543,7 @@ async function runCommands(commands, t) {
     ? seleniumTests.filter(x => testsPathsToRun.includes(x.path))
     : seleniumTests;
 
-  proxy.listen(5050);
+  customProxyServer.listen(5050);
 
   await testsToRun.reduce(function (accum, stest, index) {
     const {commands, plan, title} = getPlan(stest.path);
