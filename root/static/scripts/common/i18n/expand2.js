@@ -117,6 +117,9 @@ function pushChild<T>(
   children: Array<T>,
   match: T,
 ) {
+  if (typeof match === 'number') {
+    match = match.toString();
+  }
   const size = children.length;
   if (size &&
       typeof match === 'string' &&

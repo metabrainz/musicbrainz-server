@@ -3,7 +3,7 @@ import React from 'react';
 import expand2, {expand2html} from '../../common/i18n/expand2';
 
 test('expand2', function (t) {
-  t.plan(46);
+  t.plan(47);
 
   let error;
   const consoleError = console.error;
@@ -23,6 +23,7 @@ test('expand2', function (t) {
   expandText('Some &quot;plain&quot; text', null, 'Some "plain" text');
   expandText('An {apple_fruit}', null, 'An {apple_fruit}');
   expandText('An {apple_fruit}', {apple_fruit: 'apple'}, 'An apple');
+  expandText('A {number}', {number: 1}, 'A 1');
 
   expandHtml(
     'An {apple_fruit}',
