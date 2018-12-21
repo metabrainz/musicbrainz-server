@@ -61,6 +61,7 @@ type State = {
 };
 
 const EMPTY_OBJECT = Object.freeze({});
+const EMPTY_ARRAY = Object.freeze([]);
 
 const state: State = Object.seal({
   args: EMPTY_OBJECT,
@@ -134,13 +135,16 @@ function pushChild<T>(
 function parseContinous<T>(
   parsers: $ReadOnlyArray<() => T | typeof NO_MATCH>
 ): $ReadOnlyArray<T> {
-  const children = [];
+  let children;
   let _continue = true;
   while (_continue) {
     _continue = false;
     for (let i = 0; i < parsers.length; i++) {
       const match = parsers[i]();
       if (match !== NO_MATCH) {
+        if (!children) {
+          children = [];
+        }
         if (Array.isArray(match)) {
           for (let j = 0; j < match.length; j++) {
             pushChild<T>(children, match[j]);
@@ -160,7 +164,7 @@ function parseContinous<T>(
       }
     }
   }
-  return children;
+  return children || EMPTY_ARRAY;
 }
 
 function parseTextContent() {
