@@ -48,7 +48,7 @@ git_info
 copy_mb(`docker/musicbrainz-tests/DBDefs.pm lib/')
 
 # Depends on DBDefs.pm.
-RUN sudo_mb(`carton exec -- ./script/compile_resources.sh default web-tests')
+RUN sudo_mb(`carton exec -- ./script/compile_resources.sh')
 
 copy_mb(`docker/musicbrainz-tests/run_tests.sh /usr/local/bin/')
 copy_mb(`flow-typed/ flow-typed/')

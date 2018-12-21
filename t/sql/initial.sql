@@ -116,12 +116,15 @@ INSERT INTO link_attribute_type VALUES (40, 14, 14, 0, 'e798a2bd-a578-4c28-8eea-
 INSERT INTO link_attribute_type VALUES (46, 14, 14, 0, 'f6100277-c7b8-4c8d-aa26-d8cd014b6761', 'trombone', '', '2014-08-22 17:16:07.982204+00');
 INSERT INTO link_attribute_type VALUES (69, 14, 14, 0, '32eca297-dde6-45d0-9305-ae479947c2a8', 'strings', '', '2015-03-06 03:24:10.859287+00');
 INSERT INTO link_attribute_type VALUES (75, 14, 14, 0, 'f68936f2-194c-4bcd-94a9-81e1dd947b8d', 'guitars', '', '2014-08-22 17:24:11.020568+00');
+INSERT INTO link_attribute_type VALUES (109, 14, 14, 0, '21bd4d63-a75a-4022-abd3-52ba7487c2de', 'lyre', '', '2014-08-22 13:30:28.530344+00');
+INSERT INTO link_attribute_type VALUES (123, 14, 14, 0, 'c6a133d5-c1e0-47d6-bc30-30d102a78893', 'zither', '', '2014-08-22 17:12:46.536577+00');
 INSERT INTO link_attribute_type VALUES (125, 14, 14, 0, '3bccb7eb-cbca-42cd-b0ac-a5e959df7221', 'drums', '', '2014-08-22 17:09:23.855062+00');
 INSERT INTO link_attribute_type VALUES (194, NULL, 194, 0, 'b3045913-62ac-433e-9211-ac683cdf6b5c', 'guest', 'This attribute indicates a ''guest'' performance where the performer is not usually part of the band.', '2011-09-21 18:29:05.11911+00');
 INSERT INTO link_attribute_type VALUES (229, 14, 14, 0, '63021302-86cd-4aee-80df-2270d54f4978', 'guitar', '', '2014-08-22 17:24:01.678862+00');
 INSERT INTO link_attribute_type VALUES (232, 14, 14, 0, '95b0c3d2-9606-4ef5-a019-9b7437f3adda', 'keyboard', '', '2014-08-22 17:03:54.017921+00');
 INSERT INTO link_attribute_type VALUES (277, 14, 14, 0, '17f9f065-2312-4a24-8309-6f6dd63e2e33', 'bass guitar', 'Bass (modern, typically electrical, but not always)', '2014-08-22 17:21:00.771721+00');
 INSERT INTO link_attribute_type VALUES (302, 14, 14, 0, 'b879ca9a-bf4b-41f8-b1a3-aa109f2e3bea', 'plucked string instruments', '', '2014-08-22 17:15:36.19547+00');
+INSERT INTO link_attribute_type VALUES (333, 14, 14, 0, '4431f7b0-69a4-49ee-b84f-15dda19fb70c', 'tambourine', '', '2014-08-22 17:12:13.123199+00');
 INSERT INTO link_attribute_type VALUES (424, NULL, 424, 0, 'ac6f6b4c-a4ec-4483-a04e-9f425a914573', 'co', 'co-[role]', '2011-09-21 18:29:05.11911+00');
 INSERT INTO link_attribute_type VALUES (425, NULL, 425, 0, 'e0039285-6667-4f94-80d6-aa6520c6d359', 'executive', 'This attribute is to be used if the role was fulfilled in an executive capacity.', '2011-09-21 18:29:05.11911+00');
 INSERT INTO link_attribute_type VALUES (511, NULL, 511, 1, 'd73de9d3-934b-419c-8c83-2e48a5773b14', 'parody', 'This attribute indicates a version with satirical, ironic, or otherwise humorous intent. Parodies in most cases have altered lyrics.', '2011-09-21 18:29:05.11911+00');
@@ -857,6 +860,7 @@ INSERT INTO medium_format VALUES (59, 'VHD', 13, 0, 1983, false, 'Video High Den
 INSERT INTO medium_format VALUES (60, 'CED', 13, 0, 1981, false, 'The Capacitance Electronic Disc (CED) is an analog video disc playback system developed by RCA, in which video and audio could be played back on a TV set using a special needle and high-density groove system similar to phonograph records.', '38910592-1be4-371d-b34d-2df852c8b9ea');
 INSERT INTO medium_format VALUES (61, 'Copy Control CD', 1, 0, NULL, true, 'Copy Control CD (CCCD) is an umbrella term for CDs released circa 2001-2006 containing software that is ostensibly designed to prevent the CD from being ripped. There are a number of software variants: the most well-known are Macrovision''s Cactus Data Shield (CDS) and SunnComm''s MediaMax.', '1a648190-5c75-3b74-b8c5-8150c97af0f5');
 
+INSERT INTO orderable_link_type VALUES (281, 1);
 INSERT INTO orderable_link_type VALUES (740, 2);
 INSERT INTO orderable_link_type VALUES (741, 2);
 INSERT INTO orderable_link_type VALUES (742, 2);

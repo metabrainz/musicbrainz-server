@@ -28,5 +28,13 @@ fi
 
 ./script/dbdefs_to_js.pl
 
+if [[ "$@" == *tests* ]]; then
+    if ./script/database_exists TEST 2> /dev/null; then
+        ./script/dump_js_type_info.pl
+    else
+        echo 'Skipping typeInfo.js dump; no running TEST database?'
+    fi
+fi
+
 ./node_modules/.bin/gulp "$@" &
 trap_jobs
