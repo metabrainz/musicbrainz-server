@@ -27,16 +27,15 @@ const _404 = ({$c, ...props}) => (
         </p>}
       <p>
         {l('Looking for help? Check out our {doc|documentation} or {faq|FAQ}.',
-           {__react: true, doc: '/doc/MusicBrainz_Documentation', faq: '/doc/FAQ'})}
+           {doc: '/doc/MusicBrainz_Documentation', faq: '/doc/FAQ'})}
       </p>
       <p>
-        {l('Found a broken link on our site? Please {report|report a bug} and include any error message that is shown above.',
-           {__react: true,
-            report: bugTrackerURL(
-              'Nonexistent page: ' + $c.req.uri + '\n' +
-              'Referrer: ' + ($c.req.headers.referer || '')
-            )
-           })}
+        {l('Found a broken link on our site? Please {report|report a bug} and include any error message that is shown above.', {
+          report: bugTrackerURL(
+            'Nonexistent page: ' + $c.req.uri + '\n' +
+            'Referrer: ' + ($c.req.headers.referer || '')
+          )
+        })}
       </p>
     </div>
   </Layout>

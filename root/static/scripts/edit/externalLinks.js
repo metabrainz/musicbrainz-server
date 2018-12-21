@@ -16,7 +16,6 @@ const {
     VIDEO_ATTRIBUTE_GID,
   } = require('../common/constants');
 const {compare, l} = require('../common/i18n');
-const expand2 = require('../common/i18n/expand2').default;
 import {l_relationships} from '../common/i18n/relationships';
 const MB = require('../common/MB');
 const linkTypeInfo = require('../common/typeInfo').link_type;
@@ -206,7 +205,6 @@ class ExternalLinksEditor extends React.Component<LinksEditorProps, LinksEditorS
             } else if ((!isPositiveInteger(link.relationship) || (oldLink && link.url !== oldLink.url)) && /^(https?:\/\/)?([^.\/]+\.)?wikipedia\.org\/.*#/.test(link.url)) {
               // Kludge for MBS-9515 to be replaced with the more general MBS-9516
               error = l('Links to specific sections of Wikipedia articles are not allowed. Please remove “{fragment}” if still appropriate. See the {url|guidelines}.', {
-                __react: true,
                 fragment: <span className='url-quote' key='fragment'>{link.url.replace(/^(?:https?:\/\/)?(?:[^.\/]+\.)?wikipedia\.org\/[^#]*#(.*)$/, '#$1')}</span>,
                 url: { href: '/relationship/' + linkType.gid, target: '_blank' }
               });
@@ -283,8 +281,7 @@ class ExternalLink extends React.Component<LinkProps> {
 
     if (linkType && linkType.description) {
       typeDescription = l('{description} ({url|more documentation})', {
-        __react: true,
-        description: l_relationships(linkType.description, {__react: true}),
+        description: l_relationships(linkType.description),
         url: '/relationship/' + linkType.gid
       });
     }

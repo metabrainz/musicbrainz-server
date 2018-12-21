@@ -70,7 +70,6 @@ const ReleaseGroupResults = ({
     {$c.user && !$c.user.is_editing_disabled ? (
       <p>
         {l('Alternatively, you may {uri|add a new release group}.', {
-          __react: true,
           uri: '/release-group/create?edit-release-group.name=' + encodeURIComponent(query),
         })}
       </p>

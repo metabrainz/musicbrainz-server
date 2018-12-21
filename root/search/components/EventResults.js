@@ -83,7 +83,6 @@ const EventResults = ({
     {$c.user && !$c.user.is_editing_disabled ? (
       <p>
         {l('Alternatively, you may {uri|add a new event}.', {
-          __react: true,
           uri: '/event/create?edit-event.name=' + encodeURIComponent(query),
         })}
       </p>

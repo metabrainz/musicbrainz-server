@@ -16,7 +16,7 @@ const EditorNotFound = () => (
   <NotFound title={l('Editor Not Found')}>
     <p>
       {l('Sorry, we could not find an editor with that name. You may wish to try and {search_url|search for them} instead.',
-        {__react: true, search_url: '/search'})}
+        {search_url: '/search'})}
     </p>
   </NotFound>
 );

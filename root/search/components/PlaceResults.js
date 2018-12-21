@@ -69,7 +69,6 @@ const PlaceResults = ({
     {$c.user && !$c.user.is_editing_disabled ? (
       <p>
         {l('Alternatively, you may {uri|add a new place}.', {
-          __react: true,
           uri: '/place/create?edit-place.name=' + encodeURIComponent(query),
         })}
       </p>

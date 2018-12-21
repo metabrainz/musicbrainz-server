@@ -90,8 +90,7 @@ const ElectionDetails = ({election, user}: PropsT) => (
               <ExpirationTime
                 date={election.current_expiration_time}
                 user={user}
-              />,
-              {__react: true},
+              />
             ) : null}
 
           {election.is_closed

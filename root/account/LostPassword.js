@@ -30,7 +30,7 @@ const LostPassword = (props: Props) => (
     <h1>{l('Lost Password')}</h1>
     <p>
       {l('Enter your username and email below. We will send you an email with a link to reset your password. If you have forgotten your username, {link|retrieve it} first and then reset your password.',
-        {__react: true, link: '/account/lost-username'})}
+        {link: '/account/lost-username'})}
     </p>
     <form method="post">
       <FormRowText

@@ -96,7 +96,6 @@ const Index = ({applications, appsPager, tokens, tokensPager}: Props) => (
 
     <p>
       {l('Do you want to develop an application that uses the {ws|MusicBrainz web service}? {register|Register an application} to generate OAuth tokens. See our {oauth2|OAuth documentation} for more details.', {
-        __react: true,
         oauth2: '/doc/Development/OAuth2',
         register: '/account/applications/register',
         ws: '/doc/Development/XML_Web_Service/Version_2',

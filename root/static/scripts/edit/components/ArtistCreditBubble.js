@@ -52,7 +52,7 @@ const ArtistCreditBubble = ({
         <tr>
           <td colSpan="3" style={{paddingBottom: '1em'}}>
             {l('Use the following fields to enter collaborations. See the {ac|Artist Credit} documentation for more information.',
-             {__react: true, ac: '/doc/Artist_Credits'})}
+             {ac: '/doc/Artist_Credits'})}
           </td>
         </tr>
         {clean(reduceArtistCredit(artistCredit)) ? (

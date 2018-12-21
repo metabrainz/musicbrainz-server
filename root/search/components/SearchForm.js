@@ -60,7 +60,6 @@ const methodOptions = [
   {label: N_l('Indexed search'), value: 'indexed'},
   {
     label: N_l('Indexed search with {doc|advanced query syntax}', {
-      __react: true,
       doc: '/doc/Indexed_Search_Syntax',
     }),
     value: 'advanced',
@@ -105,7 +104,6 @@ const SearchForm = ({form}: Props) => {
       <div className="searchinfo">
         <p>
           {l('For more information, check the {doc_doc|documentation}.', {
-            __react: true,
             doc_doc: '/doc/Search',
           })}
         </p>

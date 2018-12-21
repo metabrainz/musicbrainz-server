@@ -69,8 +69,7 @@ const WorkSidebar = ({$c, work}: Props) => {
                       key={wl.language.id}
                       language={wl.language}
                     />
-                  )),
-                  {react: true},
+                  ))
                 )}
               </SidebarProperty>
             ) : null}

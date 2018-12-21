@@ -473,7 +473,7 @@ class MainTagEditor extends TagEditor {
         <h2>{l('Add Tags')}</h2>
         <p>
           {l('You can add your own {tagdocs|tags} below. Use commas to separate multiple tags.',
-            {__react: true, tagdocs: '/doc/Folksonomy_Tagging'})}
+            {tagdocs: '/doc/Folksonomy_Tagging'})}
         </p>
         <form id="tag-form" onSubmit={this.addTags}>
           <p>
@@ -518,8 +518,7 @@ class SidebarTagEditor extends TagEditor {
             {bracketed(
               <a href={getTagsPath(this.props.entity)} key="see-all">
                 {l('see all tags')}
-              </a>,
-              {__react: true},
+              </a>
             )}
           </p>
         ) : null}

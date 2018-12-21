@@ -16,7 +16,7 @@ const EditNotFound = () => (
   <NotFound title={l('Edit Not Found')}>
     <p>
       {l('Sorry, we could not find an edit with that edit ID. You may wish to try and perform an {search_url|edit search} instead.',
-        {__react: true, search_url: '/search/edits'})}
+        {search_url: '/search/edits'})}
     </p>
   </NotFound>
 );

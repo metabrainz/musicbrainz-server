@@ -82,7 +82,6 @@ const Annotation = ({
           latestAnnotation && (annotation.id === latestAnnotation.id) ? (
             <>
               {l('Annotation last modified by {user} on {date}.', {
-                __react: true,
                 date: formatUserDate($c.user, annotation.creation_date),
                 user: <EditorLink editor={annotation.editor} />,
               })}
@@ -97,7 +96,6 @@ const Annotation = ({
             </>
           ) : (
             l('This is an {history|old revision} of this annotation, as edited by {user} on {date}. {current|View current revision}.', {
-              __react: true,
               current: entityHref(entity, '/annotation'),
               date: formatUserDate($c.user, annotation.creation_date),
               history: entityHref(entity, '/annotations'),

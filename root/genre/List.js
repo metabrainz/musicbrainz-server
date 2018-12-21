@@ -34,7 +34,6 @@ const GenreList = ({genres}: PropsT) => (
       </ul>
       <p>
         {l('Is a genre missing from the list? Request it by {link|adding a style ticket}.', {
-          __react: true,
           link: 'https://tickets.metabrainz.org/secure/CreateIssueDetails!init.jspa?pid=10032&issuetype=2&summary=Enter%20the%20genre%20name%20here!&components=10699',
         })}
       </p>

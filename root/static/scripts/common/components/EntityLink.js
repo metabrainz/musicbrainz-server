@@ -36,7 +36,7 @@ const Comment = ({className, comment}: {|+className: string, +comment: string|})
   <>
     {' '}
     <span className={className}>
-      {bracketed(<bdi key="comment">{comment}</bdi>, {__react: true})}
+      {bracketed(<bdi key="comment">{comment}</bdi>)}
     </span>
   </>
 );
@@ -238,7 +238,7 @@ const EntityLink = ({
       ' ',
       bracketed(
         <a href={infoLink} key="info">{l('info')}</a>,
-        {__react: true, type: '[]'}
+        {type: '[]'}
       )
     );
   }

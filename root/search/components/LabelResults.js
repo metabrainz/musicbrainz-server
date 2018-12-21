@@ -74,7 +74,6 @@ const LabelResults = ({
     {$c.user && !$c.user.is_editing_disabled ? (
       <p>
         {l('Alternatively, you may {uri|add a new label}.', {
-          __react: true,
           uri: '/label/create?edit-label.name=' + encodeURIComponent(query),
         })}
       </p>
