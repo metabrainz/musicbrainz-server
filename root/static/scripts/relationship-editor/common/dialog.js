@@ -6,6 +6,7 @@
 const $ = require('jquery');
 const ko = require('knockout');
 const _ = require('lodash');
+const ReactDOMServer = require('react-dom/server');
 
 require('../../../lib/jquery-ui');
 
@@ -334,10 +335,12 @@ const PART_OF_SERIES_LINK_TYPE_GIDS = _.values(PART_OF_SERIES_LINK_TYPES);
             var description;
 
             if (linkType) {
-                description = i18n.l("{description} ({url|more documentation})", {
-                    description: l_relationships(linkType.description),
-                    url: { href: "/relationship/" + linkType.gid, target: "_blank" }
-                });
+                description = ReactDOMServer.renderToStaticMarkup(
+                    i18n.l("{description} ({url|more documentation})", {
+                        description: l_relationships(linkType.description),
+                        url: { href: "/relationship/" + linkType.gid, target: "_blank" }
+                    })
+                );
             }
 
             return description || "";
@@ -512,7 +515,9 @@ const PART_OF_SERIES_LINK_TYPE_GIDS = _.values(PART_OF_SERIES_LINK_TYPES);
         }
 
         changeOtherRelationshipCreditsLabel(entity) {
-            return i18n.l('Change credits for other {entity} relationships on the page.', {entity: entity.html()});
+            return ReactDOMServer.renderToStaticMarkup(
+                i18n.l('Change credits for other {entity} relationships on the page.', {entity: entity.reactElement()})
+            );
         }
 
         sameEntityTypesLabel($parent, relationship, entity) {

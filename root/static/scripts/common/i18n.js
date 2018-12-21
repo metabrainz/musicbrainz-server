@@ -3,7 +3,6 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-const expand = require('./i18n/expand');
 const NopArgs = require('./i18n/NopArgs');
 const wrapGettext = require('./i18n/wrapGettext');
 
@@ -21,7 +20,6 @@ exports.lp = lp;
 exports.N_l = noop(l);
 exports.N_ln = noop(ln);
 exports.N_lp = noop(lp);
-exports.expand = expand;
 
 let documentLang = 'en';
 if (typeof document !== 'undefined') {

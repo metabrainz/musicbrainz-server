@@ -122,14 +122,14 @@ utils.withRelease(function (release) {
         return;
     }
 
-    var checkDigitText = i18n.l("The check digit is {checkdigit}.");
+    var checkDigitText = i18n.N_l("The check digit is {checkdigit}.");
     var doubleCheckText = i18n.l("Please double-check the barcode on the release.");
 
     if (barcode.length === 11) {
         field.error(
             i18n.l("The barcode you entered looks like a UPC code with the check digit missing.") +
             " " +
-            i18n.expand(checkDigitText, { checkdigit: field.checkDigit("0" + barcode) })
+            i18n.l(checkDigitText, { checkdigit: field.checkDigit("0" + barcode) })
         );
     } else if (barcode.length === 12) {
         if (field.validateCheckDigit("0" + barcode)) {
@@ -140,7 +140,7 @@ utils.withRelease(function (release) {
                 " " +
                 doubleCheckText +
                 " " +
-                i18n.expand(checkDigitText, { checkdigit: field.checkDigit(barcode) })
+                i18n.l(checkDigitText, { checkdigit: field.checkDigit(barcode) })
             );
         }
     } else if (barcode.length === 13) {

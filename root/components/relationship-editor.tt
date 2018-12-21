@@ -62,14 +62,14 @@
       <div>
         <label>
           <input type="radio" value="same-entity-types" data-bind="checked: $parent.selectedRelationshipCredits[role]" />
-          <span data-bind="html: $parent.sameEntityTypesLabel($parent, relationship, entity)">
+          <span data-bind="text: $parent.sameEntityTypesLabel($parent, relationship, entity)">
           </span>
         </label>
       </div>
       <div>
         <label>
           <input type="radio" value="same-relationship-type" data-bind="checked: $parent.selectedRelationshipCredits[role]" />
-          <span data-bind="html: $parent.sameRelationshipTypeLabel($parent, relationship, entity)">
+          <span data-bind="text: $parent.sameRelationshipTypeLabel($parent, relationship, entity)">
           </span>
         </label>
       </div>
