@@ -386,7 +386,7 @@ export default function expand(source: string, args?: ?VarArgs): React.Node {
     result.length > 1
       ? React.createElement(React.Fragment, null, ...result)
       : result[0]
-  ) : null;
+  ) : '';
 }
 
 export function expand2html(source: string, args: VarArgs) {
