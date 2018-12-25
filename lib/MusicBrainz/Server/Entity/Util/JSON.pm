@@ -20,7 +20,8 @@ sub add_linked_entity {
     my ($entity_type, $id, $entity) = @_;
 
     my $entities = ($linked_entities->{$entity_type} //= {});
-    unless (defined $entities->{$id}) {
+    # schema fixup creates type instances without id
+    unless (!defined $id || defined $entities->{$id}) {
         $entities->{$id} = $entity;
     }
     return;
