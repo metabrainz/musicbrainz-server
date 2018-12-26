@@ -6,10 +6,23 @@
 const {trim} = require('lodash');
 const React = require('react');
 
+const {l} = require('../i18n');
 const entityHref = require('../utility/entityHref');
 const isolateText = require('../utility/isolateText');
 
+const MissingEditorLink = () => {
+  return (
+    <span className="deleted tooltip" title={l('This editor is missing from this server, and cannot be displayed correctly.')}>
+      {isolateText(l('[missing editor]'))}
+    </span>
+  );
+};
+
 const EditorLink = ({editor, content, avatarSize, subPath}) => {
+  if (!editor) {
+    return <MissingEditorLink />;
+  }
+
   if (!content) {
     content = editor.name;
   }

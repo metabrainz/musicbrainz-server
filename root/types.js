@@ -71,7 +71,7 @@ declare type AnnotationRoleT = {|
 declare type AnnotationT = {|
   +changelog: string,
   +creation_date: string,
-  +editor: EditorT,
+  +editor: EditorT | null,
   +html: string,
   +id: number,
   +parent: CoreEntityT | null,

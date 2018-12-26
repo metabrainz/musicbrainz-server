@@ -123,7 +123,8 @@ const entityLens = lens.prop('entity');
 
 export default withCatalystContext(
   hydrate('annotation', Annotation, function (props) {
-    if (props.annotation) {
+    // editor data is usually missing on mirror server
+    if (props.annotation && props.annotation.editor) {
       props = lens.set(
         annotationLens,
         sanitizedEditor(props.annotation.editor),
