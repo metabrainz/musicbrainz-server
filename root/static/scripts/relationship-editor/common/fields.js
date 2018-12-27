@@ -178,7 +178,7 @@ const mergeDates = require('./mergeDates');
 
         hasDates() {
             var linkType = this.getLinkType();
-            return linkType ? (linkType.hasDates !== false) : true;
+            return linkType ? (linkType.has_dates !== false) : true;
         }
 
         added() { return !this.id }
@@ -329,7 +329,7 @@ const mergeDates = require('./mergeDates');
 
         hasOrderableLinkType() {
             const linkType = this.getLinkType();
-            return !!(linkType && linkType.orderableDirection > 0);
+            return !!(linkType && linkType.orderable_direction > 0);
         }
 
         // Same as linkPhrase, but if the link type is orderable, then
@@ -377,7 +377,7 @@ const mergeDates = require('./mergeDates');
             var linkType = this.getLinkType();
             if (!linkType) return false;
 
-            var orderableDirection = linkType.orderableDirection;
+            var orderableDirection = linkType.orderable_direction;
             if (orderableDirection === 0) return false;
 
             var entities = this.entities();
