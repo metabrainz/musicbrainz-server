@@ -26,8 +26,8 @@ MB.GuessCase.Handler = (MB.GuessCase.Handler) ? MB.GuessCase.Handler : {};
 /**
  * Place specific GuessCase functionality
  **/
-MB.GuessCase.Handler.Place = function () {
-    var self = MB.GuessCase.Handler.Base();
+MB.GuessCase.Handler.Place = function (gc) {
+    var self = MB.GuessCase.Handler.Base(gc);
 
     /**
      * Checks special cases

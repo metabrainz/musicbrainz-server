@@ -33,7 +33,7 @@ MB.GuessCase.Handler = (MB.GuessCase.Handler) ? MB.GuessCase.Handler : {};
  * @see GcReleaseHandler
  * @see GcTrackHandler
  */
-MB.GuessCase.Handler.Base = function () {
+MB.GuessCase.Handler.Base = function (gc) {
     var self = {};
 
     // ----------------------------------------------------------------------------
