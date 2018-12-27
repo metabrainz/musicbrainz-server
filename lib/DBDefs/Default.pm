@@ -201,6 +201,13 @@ sub GOOGLE_CUSTOM_SEARCH { '' }
 # Cache Settings
 ################################################################################
 
+# A namespace prefix to be applied to all items in all caches, whether for
+# entities or user login sessions. Note that this is used by the default
+# PLUGIN_CACHE_OPTIONS, CACHE_MANAGER_OPTIONS, and DATASTORE_REDIS_ARGS
+# implementations; if you redefine those, CACHE_NAMESPACE will only be used if
+# you use it in your own definitions.
+sub CACHE_NAMESPACE { 'MB:' }
+
 # PLUGIN_CACHE_OPTIONS are the options configured for Plugin::Cache.  $c->cache
 # is provided by Plugin::Cache, and is required for HTTP Digest authentication
 # in the webservice (Catalyst::Authentication::Credential::HTTP).
@@ -209,7 +216,7 @@ sub PLUGIN_CACHE_OPTIONS {
     return {
         class => 'MusicBrainz::Server::CacheWrapper::Redis',
         server => '127.0.0.1:6379',
-        namespace => 'MB:Catalyst:',
+        namespace => $self->CACHE_NAMESPACE . 'Catalyst:',
     };
 }
 
@@ -224,7 +231,7 @@ sub CACHE_MANAGER_OPTIONS {
                 class => 'MusicBrainz::Server::CacheWrapper::Redis',
                 options => {
                     server => '127.0.0.1:6379',
-                    namespace => 'MB:',
+                    namespace => $self->CACHE_NAMESPACE,
                 },
             },
         },
@@ -270,7 +277,7 @@ sub DATASTORE_REDIS_ARGS {
     my $self = shift;
     return {
         database => 0,
-        namespace => 'MB:',
+        namespace => $self->CACHE_NAMESPACE,
         server => '127.0.0.1:6379',
         test_database => 1,
     };
