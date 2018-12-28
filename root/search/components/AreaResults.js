@@ -68,7 +68,6 @@ const AreaResults = ({
     {$c.user && $c.user.is_location_editor ? (
       <p>
         {l('Alternatively, you may {uri|add a new area}.', {
-          __react: true,
           uri: '/area/create?edit-area.name=' + encodeURIComponent(query),
         })}
       </p>

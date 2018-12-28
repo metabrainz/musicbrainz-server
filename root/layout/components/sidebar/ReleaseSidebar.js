@@ -90,12 +90,10 @@ const ReleaseSidebar = ({$c, release}: Props) => {
               <span className="cover-art-note">
                 {/(?:ssl-)?images-amazon\.com/.test(releaseCoverHost) ? (
                   l('Cover art from {cover|Amazon}', {
-                    __react: true,
                     cover: releaseCoverUrl,
                   })
                 ) : (
                   l('Cover art from {cover|{host}}', {
-                    __react: true,
                     cover: releaseCoverUrl,
                     host: releaseCoverHost,
                   })

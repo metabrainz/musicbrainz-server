@@ -156,7 +156,6 @@ const RecordingResults = ({
       {$c.user && !$c.user.is_editing_disabled ? (
         <p>
           {l('Alternatively, you may {uri|add a new recording}.', {
-            __react: true,
             uri: '/recording/create?edit-recording.name=' + encodeURIComponent(query),
           })}
         </p>

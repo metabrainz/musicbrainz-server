@@ -61,6 +61,7 @@ type State = {
 };
 
 const EMPTY_OBJECT = Object.freeze({});
+const EMPTY_ARRAY = Object.freeze([]);
 
 const state: State = Object.seal({
   args: EMPTY_OBJECT,
@@ -113,32 +114,47 @@ function saveMatch(cb) {
   };
 }
 
+function pushChild<T>(
+  children: Array<T>,
+  match: T,
+) {
+  if (typeof match === 'number') {
+    match = match.toString();
+  }
+  const size = children.length;
+  if (size &&
+      typeof match === 'string' &&
+      typeof children[size - 1] === 'string') {
+    // $FlowFixMe - Flow thinks the LHS can be a number here.
+    children[size - 1] += match;
+  } else {
+    children.push(match);
+  }
+}
+
 function parseContinous<T>(
   parsers: $ReadOnlyArray<() => T | typeof NO_MATCH>
 ): $ReadOnlyArray<T> {
-  const children = [];
+  let children;
   let _continue = true;
   while (_continue) {
     _continue = false;
     for (let i = 0; i < parsers.length; i++) {
       const match = parsers[i]();
       if (match !== NO_MATCH) {
+        if (!children) {
+          children = [];
+        }
         if (Array.isArray(match)) {
-          children.push(...match);
-        } else {
-          const size = children.length;
-          if (size &&
-              typeof match === 'string' &&
-              typeof children[size - 1] === 'string') {
-            // $FlowFixMe - Flow thinks the LHS can be a number here.
-            children[size - 1] += match;
-          } else {
-            /*
-             * XXX We need to convince Flow that `match` will always be
-             * type T here, and not a Symbol.
-             */
-            children.push(((match: any): T));
+          for (let j = 0; j < match.length; j++) {
+            pushChild<T>(children, match[j]);
           }
+        } else {
+          /*
+            * XXX We need to convince Flow that `match` will always be
+            * type T here, and not a Symbol.
+            */
+          pushChild<T>(children, ((match: any): T));
         }
         if (state.remainder) {
           _continue = true;
@@ -148,7 +164,7 @@ function parseContinous<T>(
       }
     }
   }
-  return children;
+  return children || EMPTY_ARRAY;
 }
 
 function parseTextContent() {
@@ -377,7 +393,7 @@ export default function expand(source: string, args?: ?VarArgs): React.Node {
     result.length > 1
       ? React.createElement(React.Fragment, null, ...result)
       : result[0]
-  ) : null;
+  ) : '';
 }
 
 export function expand2html(source: string, args: VarArgs) {

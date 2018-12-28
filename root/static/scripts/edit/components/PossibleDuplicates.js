@@ -30,7 +30,6 @@ class PossibleDuplicates extends React.Component {
         </p>
         <p>
           {i18n.l('Please enter a {doc_disambiguation|disambiguation} to help distinguish this entity from the others.', {
-            __react: true,
             doc_disambiguation: {href: '/doc/Disambiguation_Comment', target: '_blank'},
           })}
         </p>

@@ -61,7 +61,6 @@ const WorkResults = ({
     {$c.user && !$c.user.is_editing_disabled ? (
       <p>
         {l('Alternatively, you may {uri|add a new work}.', {
-          __react: true,
           uri: '/work/create?edit-work.name=' + encodeURIComponent(query),
         })}
       </p>

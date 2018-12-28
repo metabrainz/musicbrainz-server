@@ -19,7 +19,7 @@ const TagLookupNotFound = () => (
     </p>
     <p>
       {l('Please {search|try again}, providing at least one of these parameters',
-        {__react: true, search: '/taglookup'})}
+        {search: '/taglookup'})}
     </p>
   </NotFound>
 );

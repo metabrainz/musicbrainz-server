@@ -43,7 +43,7 @@ const AliasTableRow = ({alias, allowEditing, entity, row}: Props) => (
         ? (
           <>
             {' '}
-            {bracketed(<span className="comment">{l('primary')}</span>, {__react: true})}
+            {bracketed(<span className="comment">{l('primary')}</span>)}
           </>
         )
         : null}

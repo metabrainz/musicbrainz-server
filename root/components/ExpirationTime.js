@@ -28,25 +28,25 @@ const ExpirationTime = ({date, user}: PropsT) => {
         'Expires in <span class="tooltip" title="{exactdate}">{num} day</span>',
         'Expires in <span class="tooltip" title="{exactdate}">{num} days</span>',
         duration.days(),
-        {__react: true, exactdate: userDate, num: duration.days()},
+        {exactdate: userDate, num: duration.days()},
       );
     } else if (duration.hours() > 0) {
       return ln(
         'Expires in <span class="tooltip" title="{exactdate}">{num} hour</span>',
         'Expires in <span class="tooltip" title="{exactdate}">{num} hours</span>',
         duration.hours(),
-        {__react: true, exactdate: userDate, num: duration.hours()},
+        {exactdate: userDate, num: duration.hours()},
       );
     } else {
       return ln(
         'Expires in <span class="tooltip" title="{exactdate}">{num} minute</span>',
         'Expires in <span class="tooltip" title="{exactdate}">{num} minutes</span>',
         duration.minutes(),
-        {__react: true, exactdate: userDate, num: duration.minutes()},
+        {exactdate: userDate, num: duration.minutes()},
       );
     }
   }
-  return l('Already expired', {__react: true});
+  return l('Already expired');
 };
 
 export default ExpirationTime;

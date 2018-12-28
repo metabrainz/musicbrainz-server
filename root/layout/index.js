@@ -44,7 +44,6 @@ const ServerDetailsBanner = () => {
           {' '}
           {l('{uri|Return to musicbrainz.org}.',
             {
-              __react: true,
               uri: '//musicbrainz.org' + (DBDefs.BETA_REDIRECT_HOSTNAME === 'musicbrainz.org' ? '?unset_beta=1' : ''),
             })}
         </p>
@@ -58,7 +57,7 @@ const ServerDetailsBanner = () => {
       <div className="banner server-details">
         <p>
           {l('This is a MusicBrainz mirror server. To edit or make changes to the data, please {uri|return to musicbrainz.org}.',
-            {__react: true, uri: '//musicbrainz.org'})}
+            {uri: '//musicbrainz.org'})}
         </p>
         <DismissBannerButton bannerName="server_details" />
       </div>
@@ -96,7 +95,7 @@ const Layout = ({$c, ...props}) => (
           <div className="banner new-edit-notes">
             <p>
               {l('{link|New notes} have been left on some of your edits. Please make sure to read them and respond if necessary.',
-                {__react: true, link: '/edit/notes-received'})}
+                {link: '/edit/notes-received'})}
             </p>
             <DismissBannerButton bannerName="new_edit_notes" />
           </div>}

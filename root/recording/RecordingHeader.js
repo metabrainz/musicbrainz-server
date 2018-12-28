@@ -26,7 +26,6 @@ const RecordingHeader = ({recording, page}: Props) => {
     />
   );
   const lArgs = {
-    __react: true,
     artist: artistCredit,
   };
   return (

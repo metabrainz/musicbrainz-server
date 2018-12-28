@@ -97,7 +97,6 @@ const ArtistResults = ({
     {$c.user && !$c.user.is_editing_disabled ? (
       <p>
         {l('Alternatively, you may {uri|add a new artist}.', {
-          __react: true,
           uri: '/artist/create?edit-artist.name=' + encodeURIComponent(query),
         })}
       </p>

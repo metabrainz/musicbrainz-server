@@ -15,7 +15,7 @@ const makeLink = (x, i) => <EntityLink entity={x} key={i} />;
 
 const AreaContainmentLink = ({area, ...props}) => (
   area.containment
-    ? commaOnlyList(area.containment.map(makeLink), {react: true})
+    ? commaOnlyList(area.containment.map(makeLink))
     : null
 );
 

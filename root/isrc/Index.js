@@ -32,7 +32,7 @@ const Index = ({$c, isrcs, recordings}: PropsT) => {
     <Layout fullWidth title={l('ISRC “{isrc}”', {isrc: isrc.isrc})}>
       <h1>
         {l('ISRC “{isrc}”',
-          {__react: true, isrc: <CodeLink code={isrc} key="isrc" />})}
+          {isrc: <CodeLink code={isrc} key="isrc" />})}
       </h1>
       <h2>
         {ln(

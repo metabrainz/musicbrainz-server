@@ -27,11 +27,11 @@ const Aliases = ({$c, aliases, allowEditing = $c.user ? !$c.user.is_editing_disa
       <h2>{l('Aliases')}</h2>
       <p>
         {l('An alias is an alternate name for an entity. They typically contain common mispellings or variations of the name and are also used to improve search results. View the {doc|alias documentation} for more details.',
-          {__react: true, doc: '/doc/Aliases'})}
+          {doc: '/doc/Aliases'})}
       </p>
       {aliases && aliases.length
         ? <AliasTable aliases={aliases} allowEditing={allowEditing} entity={entity} />
-        : <p>{l('{entity} has no aliases.', {__react: true, entity: <EntityLink entity={entity} key='entity' />})}</p>}
+        : <p>{l('{entity} has no aliases.', {entity: <EntityLink entity={entity} key='entity' />})}</p>}
       {allowEditing
         ? (
           <p>

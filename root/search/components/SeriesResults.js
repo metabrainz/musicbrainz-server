@@ -59,7 +59,6 @@ const SeriesResults = ({
     {$c.user && !$c.user.is_editing_disabled ? (
       <p>
         {l('Alternatively, you may {uri|add a new series}.', {
-          __react: true,
           uri: '/series/create?edit-series.name=' + encodeURIComponent(query),
         })}
       </p>

@@ -30,7 +30,6 @@ const ReleaseGroupHeader = ({releaseGroup, page}: Props) => {
       headerClass="rgheader"
       page={page}
       subHeading={l('Release group by {artist}', {
-        __react: true,
         artist: artistCredit,
       })}
     />

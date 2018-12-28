@@ -28,7 +28,7 @@ const Index = ({$c, iswcs, works}: Props) => {
     <Layout fullWidth title={l('ISWC “{iswc}”', {iswc: iswc.iswc})}>
       <h1>
         {l('ISWC “{iswc}”',
-          {__react: true, iswc: <CodeLink code={iswc} key="iswc" />})}
+          {iswc: <CodeLink code={iswc} key="iswc" />})}
       </h1>
       <h2>
         {ln(

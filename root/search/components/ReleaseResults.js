@@ -135,7 +135,6 @@ const ReleaseResults = ({
     {$c.user && !$c.user.is_editing_disabled ? (
       <p>
         {l('Alternatively, you may {uri|add a new release}.', {
-          __react: true,
           uri: '/release/add',
         })}
       </p>

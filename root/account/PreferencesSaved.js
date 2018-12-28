@@ -21,7 +21,7 @@ const PreferencesSaved = ({$c}: Props) => (
   <StatusPage title={l('Preferences')}>
     <p>
       {l('Your preferences have been saved. Click {link|here} to continue to your user page.',
-        {__react: true, link: $c.user ? '/user/' + encodeURIComponent($c.user.name) : '/register'})}
+        {link: $c.user ? '/user/' + encodeURIComponent($c.user.name) : '/register'})}
     </p>
   </StatusPage>
 );

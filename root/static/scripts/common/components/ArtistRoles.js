@@ -27,7 +27,6 @@ const ArtistRoles = ({relations}: Props) => (
     {relations.map(r =>(
       <li key={r.entity.id}>
         {l('{artist} ({roles})', {
-          __react: true,
           artist: <EntityLink entity={r.entity} />,
           roles: r.roles.length > 1
             // $FlowFixMe
