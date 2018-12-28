@@ -18,8 +18,10 @@ type LinkableEntity =
   | CDStubT
   | CollectionT
   | CoreEntityT
+  | EditorT
   | IsrcT
-  | IswcT;
+  | IswcT
+  | SanitizedEditorT;
 
 function entityHref(
   entity: LinkableEntity,

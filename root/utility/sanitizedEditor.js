@@ -18,4 +18,4 @@ export default function sanitizedEditor(editor: EditorT): SanitizedEditorT {
       timezone: editor.preferences.timezone,
     },
   };
-};
+}
