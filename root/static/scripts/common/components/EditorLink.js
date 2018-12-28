@@ -1,7 +1,11 @@
-// This file is part of MusicBrainz, the open internet music database.
-// Copyright (C) 2015 MetaBrainz Foundation
-// Licensed under the GPL version 2, or (at your option) any later version:
-// http://www.gnu.org/licenses/gpl-2.0.txt
+/*
+ * @flow
+ * Copyright (C) 2015 MetaBrainz Foundation
+ *
+ * This file is part of MusicBrainz, the open internet music database,
+ * and is licensed under the GPL version 2, or (at your option) any
+ * later version: http://www.gnu.org/licenses/gpl-2.0.txt
+ */
 
 const {trim} = require('lodash');
 const React = require('react');
@@ -18,7 +22,14 @@ const MissingEditorLink = () => {
   );
 };
 
-const EditorLink = ({editor, content, avatarSize, subPath}) => {
+type Props = {|
+  +editor: EditorT | SanitizedEditorT | null,
+  +content?: string,
+  +avatarSize?: number,
+  +subPath?: string,
+|};
+
+const EditorLink = ({editor, content, avatarSize, subPath}: Props) => {
   if (!editor) {
     return <MissingEditorLink />;
   }
