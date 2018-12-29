@@ -11,8 +11,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2018-11-25 17:07+0000\n"
-"Last-Translator: Jaakko Perttilä <email address hidden>\n"
+"PO-Revision-Date: 2018-12-18 08:49+0000\n"
+"Last-Translator: yvanz\n"
 "Language-Team: Finnish (http://www.transifex.com/musicbrainz/musicbrainz/language/fi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1308,8 +1308,9 @@ msgid "electric piano"
 msgstr "sähköpiano"
 
 #: DB:instrument/name:246
+msgctxt "electric guitar variant of sitar"
 msgid "electric sitar"
-msgstr "sähkösitar"
+msgstr ""
 
 #: DB:instrument/name:49
 msgid "electric upright bass"
