@@ -43,21 +43,21 @@ const Paginator = ({
     <nav>
       <ul className="pagination">
         {pager.previous_page ? (
-          <li>
+          <li key="previous">
             <a href={uriWith(reqUri, {page: pager.previous_page})}>
               {l('Previous')}
             </a>
           </li>
         ) : (
-          <li>
+          <li key="no-previous">
             <span>{l('Previous')}</span>
           </li>
         )}
 
-        <li className="separator" />
+        <li className="separator" key="separate-previous" />
 
         {start > pager.first_page ? (
-          <li>
+          <li key="first">
             <a href={uriWith(reqUri, {page: pager.first_page})}>
               {pager.first_page}
             </a>
@@ -65,33 +65,33 @@ const Paginator = ({
         ) : null}
 
         {start > (pager.first_page + 1) ? (
-          <li>
+          <li key="after-first">
             <span>{l('…')}</span>
           </li>
         ) : null}
 
         {range(start, end + 1).map(page => (
           (pager.current_page === page) ? (
-            <li>
+            <li key={"number-" + page}>
               <a className="sel" href={uriWith(reqUri, {[pageVar]: page})}>
                 <strong>{page}</strong>
               </a>
             </li>
           ) : (
-            <li>
+            <li key={"number-" + page}>
               <a href={uriWith(reqUri, {[pageVar]: page})}>{page}</a>
             </li>
           )
         ))}
 
         {end < (pager.last_page - 1) ? (
-          <li>
+          <li key="before-last">
             <span>{l('…')}</span>
           </li>
         ) : null}
 
         {end < pager.last_page ? (
-          <li>
+          <li key="last">
             <a href={uriWith(reqUri, {page: pager.last_page})}>
               {pager.last_page}
             </a>
@@ -99,18 +99,18 @@ const Paginator = ({
         ) : null}
 
         {guessSearch ? (
-          <li>
+          <li key="guess">
             <span>{l('…')}</span>
           </li>
         ) : null}
 
-        <li className="separator">
+        <li className="separator" key="separate-next">
           {pager.next_page ? (
-            <li>
+            <li key="next">
               <a href={uriWith(reqUri, {page: pager.next_page})}>{l('Next')}</a>
             </li>
           ) : (
-            <li>
+            <li key="no-next">
               <span>{l('Next')}</span>
             </li>
           )}
