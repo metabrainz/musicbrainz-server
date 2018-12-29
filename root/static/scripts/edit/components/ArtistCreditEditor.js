@@ -76,6 +76,7 @@ class ArtistCreditEditor extends React.Component {
       artistCredit: ko.unwrap(this.props.entity.artistCredit)
     };
 
+    this.initialArtistText = '';
     this.addName = this.addName.bind(this);
     this.copyArtistCredit = this.copyArtistCredit.bind(this);
     this.done = this.done.bind(this);
@@ -174,8 +175,6 @@ class ArtistCreditEditor extends React.Component {
 
     $bubble
       .css('max-width', maxWidth)
-      .data('target', this.props.entity)
-      .data('componentInst', this)
       .find('.bubble')
         .removeClass('left-tail right-tail')
         .addClass(tailClass)
@@ -206,22 +205,26 @@ class ArtistCreditEditor extends React.Component {
       return;
     }
 
-    const props = this.props;
-    if (show && props.beforeShow) {
-      props.beforeShow(props, this.state);
+    if (show) {
+      this.initialArtistText = reduceArtistCredit(this.state.artistCredit);
     }
+
+    $bubble
+      .data('target', this.props.entity)
+      .data('componentInst', this);
 
     ReactDOM.render(
       <ArtistCreditBubble
         addName={this.addName}
         artistCredit={this.state.artistCredit}
+        initialArtistText={this.initialArtistText}
         copyArtistCredit={this.copyArtistCredit}
         done={this.done}
         hide={this.hide}
         onNameChange={this.onNameChange}
         pasteArtistCredit={this.pasteArtistCredit}
         removeName={this.removeName}
-        {...props}
+        {...this.props}
       />,
       $bubble[0],
       show ? (() => {
@@ -247,7 +250,8 @@ class ArtistCreditEditor extends React.Component {
 
   done(stealFocus = true, nextTrack = false) {
     if (this.props.doneCallback) {
-      this.props.doneCallback();
+      this.props.doneCallback(this.initialArtistText);
+      this.initialArtistText = '';
     }
 
     // XXX The release editor still uses knockout.
