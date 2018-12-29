@@ -8,7 +8,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2018-11-01 16:56+0000\n"
+"PO-Revision-Date: 2018-12-18 08:49+0000\n"
 "Last-Translator: yvanz\n"
 "Language-Team: Japanese (http://www.transifex.com/musicbrainz/musicbrainz/language/ja/)\n"
 "MIME-Version: 1.0\n"
@@ -3957,6 +3957,13 @@ msgstr ""
 msgid ""
 "an early analogue synthesizer, it had a vacuum tube oscillator and high/low "
 "pass filtering to produce vibrato"
+msgstr ""
+
+#. name:electric sitar
+#: DB:instrument/description:246
+msgid ""
+"an electric derivation of the sitar, it often features sympathetic strings "
+"and a more guitar shaped body."
 msgstr ""
 
 #. name:Cembalet
