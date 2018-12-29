@@ -89,7 +89,7 @@ const PlaceSidebar = ({$c, place}: Props) => {
 
       <EditLinks entity={place}>
         <li>
-          <a href={`/event/create?rels.0.target=${gid}?rels.0.type=e2c6f697-07dc-38b1-be0b-83d740165532`}>
+          <a href={`/event/create?rels.0.target=${gid}&rels.0.type=e2c6f697-07dc-38b1-be0b-83d740165532`}>
             {l('Add event')}
           </a>
         </li>
