@@ -43,7 +43,7 @@ function buildTabs(
     tabs.push(buildTab(page, l('Subscriptions'), userPath + '/subscriptions/artist', 'subscriptions'));
   }
 
-  tabs.push(buildTab(page, l('Subscribed'), userPath + '/subscribed', 'subscribed'));
+  tabs.push(buildTab(page, l('Subscribers'), userPath + '/subscribers', 'subscribers'));
   tabs.push(buildTab(page, l('Collections'), userPath + '/collections', 'collections'));
 
   if (showPrivate || user.preferences.public_tags) {
