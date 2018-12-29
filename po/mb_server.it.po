@@ -27,8 +27,8 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-12-14 10:06+0100\n"
-"PO-Revision-Date: 2018-12-14 09:09+0000\n"
-"Last-Translator: yvanz\n"
+"PO-Revision-Date: 2018-12-23 01:28+0000\n"
+"Last-Translator: Luca Salini <email address hidden>\n"
 "Language-Team: Italian (http://www.transifex.com/musicbrainz/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -2537,7 +2537,7 @@ msgstr "Eventi"
 #: ../root/report/event_sequence_not_in_series.tt:1
 #: ../root/report/event_sequence_not_in_series.tt:3 ../root/report/index.tt:44
 msgid "Events which should be part of series or larger event"
-msgstr ""
+msgstr "Eventi che dovrebbero essere parte di una serie o di un evento più grande"
 
 #: ../root/doc/relationship_type.tt:85
 #: ../root/relationship/linktype/form.tt:71
@@ -4648,7 +4648,7 @@ msgstr "Luoghi con relazioni obsolete"
 #: ../root/report/index.tt:138 ../root/report/places_without_coordinates.tt:1
 #: ../root/report/places_without_coordinates.tt:3
 msgid "Places without coordinates"
-msgstr ""
+msgstr "Luoghi senza coordinate"
 
 #: ../root/main/500.tt:31
 msgid ""
@@ -5420,7 +5420,7 @@ msgstr "Pubblicazioni nel Cover Art Archive che hanno ancora relazioni di copert
 #: ../root/report/index.tt:102 ../root/report/releases_with_caa_no_types.tt:1
 #: ../root/report/releases_with_caa_no_types.tt:3
 msgid "Releases in the Cover Art Archive where no cover art piece has types"
-msgstr ""
+msgstr "Pubblicazioni nel Cover Art Archive in cui nessuna immagine di copertina ha un tipo"
 
 #: ../root/report/index.tt:114
 msgid "Releases missing disc IDs"
@@ -5443,7 +5443,7 @@ msgstr "Pubblicazioni pubblicate troppo presto"
 #: ../root/report/index.tt:115 ../root/report/release_label_same_artist.tt:1
 #: ../root/report/release_label_same_artist.tt:3
 msgid "Releases where artist name and label name are the same"
-msgstr ""
+msgstr "Pubblicazioni in cui nome artista e nome etichetta sono uguali"
 
 #: ../root/report/index.tt:94
 msgid "Releases where some (but not all) mediums have no format set"
@@ -5875,7 +5875,7 @@ msgstr "Cerca un artista"
 
 #: ../root/report/places_without_coordinates.tt:12
 msgid "Search for coordinates"
-msgstr ""
+msgstr "Cerca coordinate"
 
 #: ../root/edit/list_header.tt:8
 msgid "Search for edits"
@@ -6835,7 +6835,7 @@ msgid ""
 "text that you don't have the right to release under that license. While you "
 "can quote a source to support a point you're making, you should never enter "
 "promotional texts or other artist or label-owned texts into the annotation."
-msgstr ""
+msgstr "Questa annotazione sarà pubblicata sotto una licenza aperta (<a href=\"{url}\" target=\"_blank\">CC BY-NC-SA 3.0</a>) e pertanto non deve contenere testo che non hai il diritto di rilasciare sotto quella licenza. Mentre puoi citare una fonte per sostenere le tue affermazioni, non devi inserire testi promozionali o altri testi di proprietà dell'artista o dell'etichetta nell'annotazione."
 
 #: ../root/area/delete.tt:14
 msgid ""
@@ -7369,7 +7369,7 @@ msgstr "Questo report elenca gli eventi tenutisi nello stesso luogo e nella stes
 msgid ""
 "This report lists events where the event name indicates that it may have to "
 "be part of a series or a larger event."
-msgstr ""
+msgstr "Questo report elenca gli eventi il cui nome evento indica che potrebbero essere parte di una serie o di un evento più grande."
 
 #: ../root/report/labels_disambiguation_same_name.tt:6
 msgid ""
@@ -7405,7 +7405,7 @@ msgstr "Questo report elenca i luoghi con annotazioni."
 
 #: ../root/report/places_without_coordinates.tt:6
 msgid "This report lists places without coordinates."
-msgstr ""
+msgstr "Questo report elenca i luoghi senza coordinate."
 
 #: ../root/report/duplicate_relationships_recordings.tt:6
 msgid ""
@@ -7455,7 +7455,7 @@ msgid ""
 "This report lists releases where the label name is the same as the artist "
 "name. Often this means the release is self-released, and the label "
 "{SpecialPurposeLabel|should be \"[no label]\" instead}."
-msgstr ""
+msgstr "Questo report elenca le pubblicazioni in cui il nome dell'etichetta è uguale al nome dell'artista. Spesso questo significa che la pubblicazione è pubblicata in proprio, e l'etichetta {SpecialPurposeLabel|dovrebbe essere \"[no label]\"}."
 
 #: ../root/report/duplicate_relationships_releases.tt:6
 msgid ""
@@ -7750,7 +7750,7 @@ msgid ""
 "This report shows releases which have cover art in the Cover Art Archive, "
 "but where none of it has any types set. This often means a front cover was "
 "added, but not marked as such."
-msgstr ""
+msgstr "Questo report mostra le pubblicazioni che hanno copertine nel Cover Art Archive, ma in cui nessuna di esse ha alcun tipo impostato. Spesso questo significa che una copertina frontale è stata aggiunta, ma non è stata impostata come tale."
 
 #: ../root/report/released_too_early.tt:6
 msgid ""
@@ -10933,7 +10933,7 @@ msgstr "Partitura su IMSLP"
 
 #: ../lib/MusicBrainz/Server/Entity/URL/NicoNicoVideo.pm:9
 msgid "Niconico"
-msgstr ""
+msgstr "Niconico"
 
 #: ../lib/MusicBrainz/Server/FilterUtils.pm:22
 msgid "Filter release groups"
@@ -11459,7 +11459,7 @@ msgid ""
 "Enter your username and email below. We will send you an email with a link "
 "to reset your password. If you have forgotten your username, {link|retrieve "
 "it} first and then reset your password."
-msgstr ""
+msgstr "Inserisci il tuo nome utente e la tua email qui sotto. Ti manderemo una email con un link per reimpostare la tua password. Se ti sei dimenticato il tuo nome utente, per prima cosa {link|recuperalo} e poi reimposta la tua password."
 
 #: ../root/account/LostPasswordSent.js:17
 #: ../root/account/LostUsernameSent.js:17
@@ -11731,7 +11731,7 @@ msgstr "{entity} non ha nessun alias."
 
 #: ../root/components/Aliases/index.js:39
 msgid "Add a new alias"
-msgstr ""
+msgstr "Aggiungi un nuovo alias"
 
 #: ../root/components/ConfirmLayout.js:38
 msgid "Yes, I am sure"
@@ -12048,7 +12048,7 @@ msgstr "Questi sono tutti i tag che il sistema dei tag riconosce come generi."
 msgid ""
 "Is a genre missing from the list? Request it by {link|adding a style "
 "ticket}."
-msgstr ""
+msgstr "Manca un genere nell'elenco? Richiedilo {link|aggiungendo un ticket di stile}."
 
 #: ../root/instrument/InstrumentHeader.js:25
 msgid "instrument"
@@ -12063,7 +12063,7 @@ msgstr "Elenco strumenti"
 msgid ""
 "Is this list missing an instrument? Request it by following {link|these "
 "instructions}."
-msgstr ""
+msgstr "Manca uno strumento in questo elenco? Richiedilo seguendo {link|queste istruzioni}."
 
 #: ../root/instrument/NotFound.js:16
 msgid "Instrument Not Found"
@@ -12338,7 +12338,7 @@ msgstr "Pagina {n}"
 
 #: ../root/layout/components/Head.js:64
 msgid "MusicBrainz: Artist"
-msgstr ""
+msgstr "MusicBrainz: Artista"
 
 #: ../root/layout/components/Head.js:65
 msgid "MusicBrainz: Label"
@@ -12346,7 +12346,7 @@ msgstr "MusicBrainz: Etichetta"
 
 #: ../root/layout/components/Head.js:66
 msgid "MusicBrainz: Release"
-msgstr ""
+msgstr "MusicBrainz: Pubblicazione"
 
 #: ../root/layout/components/Head.js:67
 msgid "MusicBrainz: Track"
@@ -12809,7 +12809,7 @@ msgid ""
 " may show up on any other page with cover art. You are encouraged to "
 "{report_link|report errors to Google Safe Browsing}. Sorry for the "
 "inconvenience!"
-msgstr ""
+msgstr "Le copertine in home page sono disabilitate sui browser basati su Chrome, che mostrano un errato avvertimento di phishing dall'11 novembre 2018; vedi il {ticket_link|ticket CAA-116} per aggiornamenti.<br/>Un avvertimento di phishing potrebbe essere visualizzato su qualsiasi pagina con copertine. Sei incoraggiato a {report_link|segnalare gli errori a Google Safe Browsing}. Ci scusiamo per l'inconveniente!"
 
 #: ../root/otherlookup/NotFound.js:16
 msgid "Entity Not Found"
@@ -12963,7 +12963,7 @@ msgstr "Impostazioni regionali"
 
 #: ../root/static/scripts/account/components/PreferencesForm.js:177
 msgid "Guess timezone"
-msgstr ""
+msgstr "Ipotizza fuso orario"
 
 #: ../root/static/scripts/account/components/PreferencesForm.js:182
 msgid "Timezone:"
@@ -13118,7 +13118,7 @@ msgstr "{review_link|Recensione} di {author} del {date}"
 
 #: ../root/static/scripts/common/components/TagEditor.js:89
 msgid "Withdraw vote"
-msgstr ""
+msgstr "Ritira voto"
 
 #: ../root/static/scripts/common/components/TagEditor.js:105
 msgid "Upvote"

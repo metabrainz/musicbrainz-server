@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2018-12-15 01:03+0000\n"
+"PO-Revision-Date: 2018-12-18 09:34+0000\n"
 "Last-Translator: Mihkel Tõnnov <email address hidden>\n"
 "Language-Team: Estonian (http://www.transifex.com/musicbrainz/musicbrainz/language/et/)\n"
 "MIME-Version: 1.0\n"
@@ -733,15 +733,15 @@ msgctxt "collection_type"
 msgid "Attending"
 msgstr "osaleb"
 
+#: DB:release_group_secondary_type/name:11
+msgctxt "release_group_secondary_type"
+msgid "Audio drama"
+msgstr "kuuldemäng"
+
 #: DB:work_type/name:25
 msgctxt "work_type"
 msgid "Audio drama"
 msgstr "kuuldemäng"
-
-#: DB:release_group_secondary_type/name:11
-msgctxt "release_group_secondary_type"
-msgid "Audio play"
-msgstr ""
 
 #: DB:release_group_secondary_type/name:5
 msgctxt "release_group_secondary_type"
