@@ -7,7 +7,7 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-type Args = $ReadOnlyArray<string>;
+type Args = $ReadOnlyArray<mixed>;
 
 type Func = (...Args) => string;
 
@@ -24,12 +24,12 @@ class NopArgs {
    * This is what `Object.prototype.toLocaleString` does, but it's
    * also implemented here for clarity.
    */
-  toLocaleString() {
-    return this.toString();
+  toLocaleString(...args: Array<mixed>) {
+    return this.toString(...args);
   }
 
-  toString() {
-    return this.func.apply(null, this.args);
+  toString(...args: Array<mixed>) {
+    return this.func(...this.args, ...args);
   }
 }
 

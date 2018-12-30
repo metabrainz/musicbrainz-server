@@ -57,7 +57,7 @@ function buildSection<T>(
           <li key="see-all">
             <em>
               <a href={'/tag/' + encodeURIComponent(props.tag) + '/' + url}>
-                {ln(seeAllMessage, tags.count, {num: tags.count})}
+                {seeAllMessage.toLocaleString(tags.count, {num: tags.count})}
               </a>
             </em>
           </li>

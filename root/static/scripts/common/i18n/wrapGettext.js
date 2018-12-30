@@ -9,7 +9,6 @@ const sliced = require('sliced');
 
 const cleanMsgid = require('./cleanMsgid').default;
 const expand2 = require('./expand2').default;
-const NopArgs = require('./NopArgs');
 
 let gettext;
 if (isNodeJS) {
@@ -54,12 +53,6 @@ function wrapGettext(method, domain) {
     }
 
     let args = sliced(arguments);
-    const firstArg = args[0];
-
-    if (typeof firstArg === 'object' && firstArg instanceof NopArgs) {
-      args = firstArg.args.concat(args.slice(1));
-    }
-
     let expandArgs = args[args.length - 1];
     if (expandArgs && typeof expandArgs === 'object') {
       args.pop();
