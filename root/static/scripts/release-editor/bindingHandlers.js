@@ -53,7 +53,13 @@ ko.bindingHandlers.artistCreditEditor = {
         const entity = this.currentTarget();
         const prev = entity.medium.tracks()[entity.position() - 2];
         if (prev) {
-            prev.artistCreditEditorInst.updateBubble(true, this.uncheckChangeMatchingArtists);
+            entity.artistCreditEditorInst.runDoneCallback();
+            // Defer until the setState calls in doneCallback finish,
+            // since initialArtistText (which is set in updateBubble)
+            // depends on the artist credit state.
+            _.defer(() => {
+                prev.artistCreditEditorInst.updateBubble(true, this.uncheckChangeMatchingArtists);
+            });
         }
     },
 
@@ -61,7 +67,10 @@ ko.bindingHandlers.artistCreditEditor = {
         const entity = this.currentTarget();
         const next = entity.medium.tracks()[entity.position()];
         if (next) {
-            next.artistCreditEditorInst.updateBubble(true, this.uncheckChangeMatchingArtists);
+            entity.artistCreditEditorInst.runDoneCallback();
+            _.defer(() => {
+                next.artistCreditEditorInst.updateBubble(true, this.uncheckChangeMatchingArtists);
+            });
         }
     },
 
@@ -75,10 +84,11 @@ ko.bindingHandlers.artistCreditEditor = {
         const artistCredit = track.artistCredit.peek();
 
         _(track.medium.release.mediums())
-            .invokeMap("tracks").flatten().without(track).map("artistCredit")
-            .each(function (ac) {
-                if (initialArtistText === reduceArtistCredit(ac.peek())) {
-                    ac(artistCredit);
+            .invokeMap("tracks").flatten().without(track)
+            .each(function (t) {
+                if (initialArtistText === reduceArtistCredit(t.artistCredit.peek())) {
+                    t.artistCredit(artistCredit);
+                    t.artistCreditEditorInst.setState({artistCredit});
                 }
             });
     },

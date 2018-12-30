@@ -253,11 +253,15 @@ class ArtistCreditEditor extends React.Component {
     });
   }
 
-  done(stealFocus = true, nextTrack = false) {
+  runDoneCallback() {
     if (this.props.doneCallback) {
       this.props.doneCallback(this.initialArtistText);
       this.initialArtistText = '';
     }
+  }
+
+  done(stealFocus = true, nextTrack = false) {
+    this.runDoneCallback();
 
     // XXX The release editor still uses knockout.
     if (nextTrack) {
