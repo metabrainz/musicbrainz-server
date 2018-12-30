@@ -187,7 +187,7 @@ class ArtistCreditEditor extends React.Component {
       .position(position);
   }
 
-  updateBubble(show = false) {
+  updateBubble(show = false, callback = null) {
     this.createBubble();
 
     const $bubble = $('#artist-credit-bubble');
@@ -232,6 +232,11 @@ class ArtistCreditEditor extends React.Component {
 
         if (!bubbleWasVisible) {
           $bubble.find(':input:eq(0)').focus();
+          $('#change-matching-artists').prop('checked', false);
+        }
+
+        if (callback) {
+          callback();
         }
       }) : null,
     );

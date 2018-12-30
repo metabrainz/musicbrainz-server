@@ -42,11 +42,18 @@ ko.bindingHandlers.artistCreditEditor = {
         return $('#artist-credit-bubble').data('target');
     },
 
+    uncheckChangeMatchingArtists: function () {
+        const input = document.getElementById('change-matching-artists');
+        if (input) {
+            input.checked = false;
+        }
+    },
+
     previousTrack: function () {
         const entity = this.currentTarget();
         const prev = entity.medium.tracks()[entity.position() - 2];
         if (prev) {
-            prev.artistCreditEditorInst.updateBubble(true);
+            prev.artistCreditEditorInst.updateBubble(true, this.uncheckChangeMatchingArtists);
         }
     },
 
@@ -54,7 +61,7 @@ ko.bindingHandlers.artistCreditEditor = {
         const entity = this.currentTarget();
         const next = entity.medium.tracks()[entity.position()];
         if (next) {
-            next.artistCreditEditorInst.updateBubble(true);
+            next.artistCreditEditorInst.updateBubble(true, this.uncheckChangeMatchingArtists);
         }
     },
 
@@ -107,5 +114,6 @@ _.bindAll(
     'doneCallback',
     'nextTrack',
     'previousTrack',
+    'uncheckChangeMatchingArtists',
     'update',
 );
