@@ -52,13 +52,10 @@ __PACKAGE__->config(
             comma_only_list
         )],
         FILTERS => {
-            'release_date' => \&MusicBrainz::Server::Filters::release_date,
             'format_length' => \&MusicBrainz::Server::Filters::format_length,
-            'format_distance' => \&MusicBrainz::Server::Filters::format_distance,
             'format_wikitext' => \&MusicBrainz::Server::Filters::format_wikitext,
             'format_editnote' => \&MusicBrainz::Server::Filters::format_editnote,
             'format_setlist' => \&MusicBrainz::Server::Filters::format_setlist,
-            'language' => \&MusicBrainz::Server::Filters::language,
             'locale' => \&MusicBrainz::Server::Filters::locale,
             'gravatar' => \&MusicBrainz::Server::Filters::gravatar,
             'coverart_https' => \&MusicBrainz::Server::Filters::coverart_https
