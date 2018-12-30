@@ -359,7 +359,11 @@ function parseRoot() {
  * substitution syntax. In order to display a character reserved by
  * either syntax, HTML character entities must be used.
  */
-export default function expand(source: string, args?: ?VarArgs): React.Node {
+export default function expand(source: ?string, args?: ?VarArgs): React.Node {
+  if (!source) {
+    return '';
+  }
+
   // Reset the global state.
   state.args = args;
   state.match = '';
