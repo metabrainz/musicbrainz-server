@@ -64,7 +64,7 @@ const EntityList = ({
 }: Props) => (
   <TagLayout page={page} tag={tag}>
     <h2>
-      {ln(headingsText[entityType], pager.total_entries, {
+      {headingsText[entityType].toLocaleString(pager.total_entries, {
         num: pager.total_entries.toLocaleString(),
       })}
     </h2>
@@ -81,7 +81,7 @@ const EntityList = ({
           ))}
         </ul>
       </PaginatedResults>
-    ) : <p>{l(noEntitiesText[entityType])}</p>}
+    ) : <p>{noEntitiesText[entityType].toLocaleString()}</p>}
   </TagLayout>
 );
 
