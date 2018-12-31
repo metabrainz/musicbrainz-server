@@ -25,55 +25,42 @@ if (isNodeJS) {
 const canLoadDomain = typeof gettext.loadDomain === 'function';
 
 /*
+ * On the usage of cleanMsgid:
+ *
  * /script/xgettext.js will strip newlines and collapse adjacent
  * whitespace when extracting strings into .pot files. Yet the string
  * in the source code obviously remains unchanged. So to make sure we
  * look up the correct key, we have to apply the same whitespace
- * transformation here. The key/msgid's argument position depends on
- * which method we're wrapping.
+ * transformation here.
  */
-const MSGID_ARG_POSITIONS = new Map([
-  ['gettext', 0],
-  ['dgettext', 1],
-  ['dcgettext', 1],
-  ['ngettext', 0],
-  ['dngettext', 1],
-  ['dcngettext', 1],
-  ['pgettext', 1],
-  ['dpgettext', 2],
-  ['npgettext', 1],
-  ['dnpgettext', 2],
-  ['dcnpgettext', 2],
-]);
 
-function wrapGettext(method, domain) {
-  return function () {
-    if (canLoadDomain && !gettext.options.locale_data[domain]) {
-      gettext.loadDomain(domain);
-    }
+function tryLoadDomain(domain) {
+  if (canLoadDomain && !gettext.options.locale_data[domain]) {
+    gettext.loadDomain(domain);
+  }
+}
 
-    let args = sliced(arguments);
-    let expandArgs = args[args.length - 1];
-    if (expandArgs && typeof expandArgs === 'object') {
-      args.pop();
-    } else {
-      expandArgs = null;
-    }
-
-    if (method === 'dpgettext') {
-      // Swap order of context, msgid.
-      [args[0], args[1]] = [args[1], args[0]];
-    }
-
-    args.unshift(domain);
-
-    // See comment for MSGID_ARG_POSITIONS above.
-    const msgidArg = MSGID_ARG_POSITIONS.get(method);
-    args[msgidArg] = cleanMsgid(args[msgidArg]);
-
-    const string = gettext[method].apply(gettext, args);
-    return expand2(string, expandArgs);
+export function dgettext(domain) {
+  tryLoadDomain(domain);
+  return function (key, args) {
+    key = cleanMsgid(key);
+    return expand2(gettext.dgettext(domain, key), args);
   };
 }
 
-module.exports = wrapGettext;
+export function dngettext(domain) {
+  tryLoadDomain(domain);
+  return function (skey, pkey, val, args) {
+    skey = cleanMsgid(skey);
+    pkey = cleanMsgid(pkey);
+    return expand2(gettext.dngettext(domain, skey, pkey, val), args);
+  };
+}
+
+export function dpgettext(domain) {
+  tryLoadDomain(domain);
+  return function (key, context, args) {
+    key = cleanMsgid(key);
+    return expand2(gettext.dpgettext(domain, context, key), args);
+  };
+}

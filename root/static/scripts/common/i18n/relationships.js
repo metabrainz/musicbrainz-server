@@ -7,11 +7,11 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import wrapGettext from './wrapGettext';
+import * as wrapGettext from './wrapGettext';
 
-const l_relationships = wrapGettext('dgettext', 'relationships');
-const ln_relationships = wrapGettext('dngettext', 'relationships');
-const lp_relationships = wrapGettext('dpgettext', 'relationships');
+const l_relationships = wrapGettext.dgettext('relationships');
+const ln_relationships = wrapGettext.dngettext('relationships');
+const lp_relationships = wrapGettext.dpgettext('relationships');
 
 export {
   l_relationships,

@@ -7,6 +7,6 @@
 
 const wrapGettext = require('./wrapGettext');
 
-exports.l_instrument_descriptions = wrapGettext('dgettext', 'instrument_descriptions');
-exports.ln_instrument_descriptions = wrapGettext('dngettext', 'instrument_descriptions');
-exports.lp_instrument_descriptions = wrapGettext('dpgettext', 'instrument_descriptions');
+exports.l_instrument_descriptions = wrapGettext.dgettext('instrument_descriptions');
+exports.ln_instrument_descriptions = wrapGettext.dngettext('instrument_descriptions');
+exports.lp_instrument_descriptions = wrapGettext.dpgettext('instrument_descriptions');

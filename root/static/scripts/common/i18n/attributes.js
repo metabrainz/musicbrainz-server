@@ -6,6 +6,6 @@
 
 const wrapGettext = require('./wrapGettext');
 
-exports.l_attributes = wrapGettext('dgettext', 'attributes');
-exports.ln_attributes = wrapGettext('dngettext', 'attributes');
-exports.lp_attributes = wrapGettext('dpgettext', 'attributes');
+exports.l_attributes = wrapGettext.dgettext('attributes');
+exports.ln_attributes = wrapGettext.dngettext('attributes');
+exports.lp_attributes = wrapGettext.dpgettext('attributes');
