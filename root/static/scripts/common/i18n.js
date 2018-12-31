@@ -1,48 +1,49 @@
-// This file is part of MusicBrainz, the open internet music database.
-// Copyright (C) 2015 MetaBrainz Foundation
-// Licensed under the GPL version 2, or (at your option) any later version:
-// http://www.gnu.org/licenses/gpl-2.0.txt
+/*
+ * Copyright (C) 2015 MetaBrainz Foundation
+ *
+ * This file is part of MusicBrainz, the open internet music database,
+ * and is licensed under the GPL version 2, or (at your option) any
+ * later version: http://www.gnu.org/licenses/gpl-2.0.txt
+ */
 
-const NopArgs = require('./i18n/NopArgs');
-const wrapGettext = require('./i18n/wrapGettext');
+import NopArgs from './i18n/NopArgs';
+import wrapGettext from './i18n/wrapGettext';
 
-const l = wrapGettext('dgettext', 'mb_server');
-const ln = wrapGettext('dngettext', 'mb_server');
-const lp = wrapGettext('dpgettext', 'mb_server');
+export const l = wrapGettext('dgettext', 'mb_server');
+export const ln = wrapGettext('dngettext', 'mb_server');
+export const lp = wrapGettext('dpgettext', 'mb_server');
 
 function noop(func) {
-    return (...args) => new NopArgs(func, args);
+  return (...args) => new NopArgs(func, args);
 }
 
-exports.l = l;
-exports.ln = ln;
-exports.lp = lp;
-exports.N_l = noop(l);
-exports.N_ln = noop(ln);
-exports.N_lp = noop(lp);
+export const N_l = noop(l);
+export const N_ln = noop(ln);
+export const N_lp = noop(lp);
 
 let documentLang = 'en';
 if (typeof document !== 'undefined') {
-    documentLang = document.documentElement.lang || documentLang;
+  documentLang = document.documentElement.lang || documentLang;
 }
 
-const collatorOptions = { numeric: true };
+const collatorOptions = {numeric: true};
 
-if (typeof Intl === "undefined") {
-    exports.compare = function (a, b) {
-        return a.localeCompare(b, documentLang, collatorOptions);
-    };
+export let compare;
+if (typeof Intl === 'undefined') {
+  compare = function (a, b) {
+    return a.localeCompare(b, documentLang, collatorOptions);
+  };
 } else {
-    const collator = new Intl.Collator(documentLang, collatorOptions);
-    exports.compare = function (a, b) {
-        return collator.compare(a, b);
-    };
+  const collator = new Intl.Collator(documentLang, collatorOptions);
+  compare = function (a, b) {
+    return collator.compare(a, b);
+  };
 }
 
-exports.addColon = function (variable) {
-    return exports.l("{variable}:", { variable: variable });
-};
+export function addColon(variable) {
+  return l('{variable}:', {variable});
+}
 
-exports.hyphenateTitle = function (title, subtitle) {
-    return exports.l("{title} - {subtitle}", { title: title, subtitle: subtitle });
-};
+export function hyphenateTitle(title, subtitle) {
+  return l('{title} - {subtitle}', {subtitle, title});
+}
