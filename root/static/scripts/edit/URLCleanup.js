@@ -495,7 +495,7 @@ const CLEANUPS = {
       if (m) {
         var subdomain = m[1];
         var product = m[2];
-        url = "http://" + subdomain + ".bigcartel.com";
+        url = "https://" + subdomain + ".bigcartel.com";
         if (product !== undefined) {
           url = url + "/product/" + product;
         }
@@ -503,7 +503,7 @@ const CLEANUPS = {
       return url;
     },
     validate: function (url, id) {
-      var m = /^http:\/\/([^\/]+)\.bigcartel\.com(\/product\/[^\/?#]+)?/.exec(url);
+      var m = /^https:\/\/([^\/]+)\.bigcartel\.com(\/product\/[^\/?#]+)?/.exec(url);
       if (m) {
         var subdomain = m[1];
         var product = m[2];

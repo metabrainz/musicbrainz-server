@@ -587,21 +587,21 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
                              input_url: 'www.musicofjunior.bigcartel.com/test',
                      input_entity_type: 'artist',
             expected_relationship_type: 'mailorder',
-                    expected_clean_url: 'http://www.musicofjunior.bigcartel.com',
+                    expected_clean_url: 'https://www.musicofjunior.bigcartel.com',
                only_valid_entity_types: ['artist']
         },
         {
                              input_url: 'http://www.musicofjunior.bigcartel.com?test',
                      input_entity_type: 'artist',
             expected_relationship_type: 'mailorder',
-                    expected_clean_url: 'http://www.musicofjunior.bigcartel.com',
+                    expected_clean_url: 'https://www.musicofjunior.bigcartel.com',
                only_valid_entity_types: ['artist']
         },
         {
                              input_url: 'https://www.musicofjunior.bigcartel.com/product/juniorland-ep#test',
                      input_entity_type: 'release',
             expected_relationship_type: 'mailorder',
-                    expected_clean_url: 'http://www.musicofjunior.bigcartel.com/product/juniorland-ep',
+                    expected_clean_url: 'https://www.musicofjunior.bigcartel.com/product/juniorland-ep',
                only_valid_entity_types: ['release']
         },
         {
