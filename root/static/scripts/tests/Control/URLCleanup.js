@@ -635,70 +635,70 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
                              input_url: 'http://ark.bnf.fr/ark:/12148/cb11923342r',
                      input_entity_type: 'artist',
             expected_relationship_type: 'otherdatabases',
-                    expected_clean_url: 'http://catalogue.bnf.fr/ark:/12148/cb11923342r',
+                    expected_clean_url: 'https://catalogue.bnf.fr/ark:/12148/cb11923342r',
                only_valid_entity_types: ['artist', 'instrument', 'label', 'place', 'series', 'work']
         },
         {
                              input_url: 'catalogue.bnf.fr/ark:/12148/cb11923342r',
                      input_entity_type: 'artist',
             expected_relationship_type: 'otherdatabases',
-                    expected_clean_url: 'http://catalogue.bnf.fr/ark:/12148/cb11923342r',
+                    expected_clean_url: 'https://catalogue.bnf.fr/ark:/12148/cb11923342r',
                only_valid_entity_types: ['artist', 'instrument', 'label', 'place', 'series', 'work']
         },
         {
                              input_url: 'http://data.bnf.fr/ark:/12148/cb11923342r',
                      input_entity_type: 'artist',
             expected_relationship_type: 'otherdatabases',
-                    expected_clean_url: 'http://catalogue.bnf.fr/ark:/12148/cb11923342r',
+                    expected_clean_url: 'https://catalogue.bnf.fr/ark:/12148/cb11923342r',
                only_valid_entity_types: ['artist', 'instrument', 'label', 'place', 'series', 'work']
         },
         {
                              input_url: 'https://data.bnf.fr/11923342/antoine_de_saint-exupery/',
                      input_entity_type: 'artist',
             expected_relationship_type: 'otherdatabases',
-                    expected_clean_url: 'http://catalogue.bnf.fr/ark:/12148/cb11923342r',
+                    expected_clean_url: 'https://catalogue.bnf.fr/ark:/12148/cb11923342r',
                only_valid_entity_types: ['artist', 'instrument', 'label', 'place', 'series', 'work']
         },
         {
                              input_url: 'http://data.bnf.fr/linked-authors/11923342/r/220',
                      input_entity_type: 'artist',
             expected_relationship_type: 'otherdatabases',
-                    expected_clean_url: 'http://catalogue.bnf.fr/ark:/12148/cb11923342r',
+                    expected_clean_url: 'https://catalogue.bnf.fr/ark:/12148/cb11923342r',
                only_valid_entity_types: ['artist', 'instrument', 'label', 'place', 'series', 'work']
         },
         {
                              input_url: 'catalogue.bnf.fr/ark:/12148/cb394875737.unimarc',
                      input_entity_type: 'event',
             expected_relationship_type: 'otherdatabases',
-                    expected_clean_url: 'http://catalogue.bnf.fr/ark:/12148/cb394875737',
+                    expected_clean_url: 'https://catalogue.bnf.fr/ark:/12148/cb394875737',
                only_valid_entity_types: ['event', 'release', 'series']
         },
         {
                              input_url: 'http://data.bnf.fr/43854245/concerto_en_re_spectacle_2014/',
                      input_entity_type: 'event',
             expected_relationship_type: 'otherdatabases',
-                    expected_clean_url: 'http://catalogue.bnf.fr/ark:/12148/cb43854245s',
+                    expected_clean_url: 'https://catalogue.bnf.fr/ark:/12148/cb43854245s',
                only_valid_entity_types: ['event', 'release', 'series']
         },
         {
                              input_url: 'http://n2t.net/ark:/12148/cb119983474',
                      input_entity_type: 'instrument',
             expected_relationship_type: 'otherdatabases',
-                    expected_clean_url: 'http://catalogue.bnf.fr/ark:/12148/cb119983474',
+                    expected_clean_url: 'https://catalogue.bnf.fr/ark:/12148/cb119983474',
                only_valid_entity_types: ['artist', 'instrument', 'label', 'place', 'series', 'work']
         },
         {
                              input_url: 'http://catalogue.bnf.fr/ark:/12148/cb13875048m/PUBLIC',
                      input_entity_type: 'label',
             expected_relationship_type: 'otherdatabases',
-                    expected_clean_url: 'http://catalogue.bnf.fr/ark:/12148/cb13875048m',
+                    expected_clean_url: 'https://catalogue.bnf.fr/ark:/12148/cb13875048m',
                only_valid_entity_types: ['artist', 'instrument', 'label', 'place', 'series', 'work']
         },
         {
                              input_url: 'http://catalogue.bnf.fr/ark:/12148/cb16215568r#noticeNum',
                      input_entity_type: 'place',
             expected_relationship_type: 'otherdatabases',
-                    expected_clean_url: 'http://catalogue.bnf.fr/ark:/12148/cb16215568r',
+                    expected_clean_url: 'https://catalogue.bnf.fr/ark:/12148/cb16215568r',
                only_valid_entity_types: ['artist', 'instrument', 'label', 'place', 'series', 'work']
         },
         {
@@ -724,14 +724,14 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
                              input_url: 'http://catalogue.bnf.fr/ark:/12148/cb442156144',
                      input_entity_type: 'series',
             expected_relationship_type: 'otherdatabases',
-                    expected_clean_url: 'http://catalogue.bnf.fr/ark:/12148/cb442156144',
+                    expected_clean_url: 'https://catalogue.bnf.fr/ark:/12148/cb442156144',
                only_valid_entity_types: ['event', 'release', 'series']
         },
         {
                              input_url: 'http://catalogue.bnf.fr/ark:/12148/cb11962706k',
                      input_entity_type: 'work',
             expected_relationship_type: 'otherdatabases',
-                    expected_clean_url: 'http://catalogue.bnf.fr/ark:/12148/cb11962706k',
+                    expected_clean_url: 'https://catalogue.bnf.fr/ark:/12148/cb11962706k',
                only_valid_entity_types: ['artist', 'instrument', 'label', 'place', 'series', 'work']
         },
         // BookBrainz

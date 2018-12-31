@@ -1461,18 +1461,18 @@ const CLEANUPS = {
         var controlChar = phbt[_.reduce(frBnF, function(sum, c, i) {
           return sum + phbt.indexOf(c) * (i + 3);
         }, 2) % 29];
-        url = 'http://catalogue.bnf.fr/ark:/12148/cb' + frBnF + controlChar;
+        url = 'https://catalogue.bnf.fr/ark:/12148/cb' + frBnF + controlChar;
       } else {
         m = /^(?:https?:\/\/)?(?:n2t\.net|(?:ark|catalogue|data)\.bnf\.fr)\/(ark:\/12148\/cb[1-4][0-9]{7}[0-9b-z])(?:[.\/?#].*)?$/.exec(url);
         if (m) {
           var persistentARK = m[1];
-          url = 'http://catalogue.bnf.fr/' + persistentARK;
+          url = 'https://catalogue.bnf.fr/' + persistentARK;
         }
       }
       return url;
     },
     validate: function (url, id) {
-      var m = /^http:\/\/catalogue\.bnf\.fr\/ark:\/12148\/cb([1-4])[0-9]{7}[0-9b-z]$/.exec(url);
+      var m = /^https:\/\/catalogue\.bnf\.fr\/ark:\/12148\/cb([1-4])[0-9]{7}[0-9b-z]$/.exec(url);
       if (m) {
         var digit = m[1];
         switch (id) {
