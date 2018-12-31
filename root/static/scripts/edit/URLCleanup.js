@@ -906,7 +906,7 @@ const CLEANUPS = {
     ],
     type: LINK_TYPES.blog,
     clean: function (url) {
-      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?ameblo\.jp\/([^\/]+).*$/, "http://ameblo.jp/$1/");
+      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?ameblo\.jp\/([^\/]+).*$/, "https://ameblo.jp/$1/");
       return url;
     }
   },

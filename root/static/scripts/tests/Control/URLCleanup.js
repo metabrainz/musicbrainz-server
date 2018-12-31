@@ -243,15 +243,16 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
         },
         // Ameba
         {
-                             input_url: 'http://ameblo.jp/murataayumi',
+                             input_url: 'https://ameblo.jp/murataayumi',
                      input_entity_type: 'artist',
             expected_relationship_type: 'blog',
-                    expected_clean_url: 'http://ameblo.jp/murataayumi/',
+                    expected_clean_url: 'https://ameblo.jp/murataayumi/',
         },
         {
                              input_url: 'http://ameblo.jp/murataayumi/',
                      input_entity_type: 'label',
             expected_relationship_type: 'blog',
+                    expected_clean_url: 'https://ameblo.jp/murataayumi/',
         },
         // Animationsong.com
         {
