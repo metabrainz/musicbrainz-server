@@ -264,16 +264,16 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
         },
         // Anime News Network
         {
-                             input_url: 'http://animenewsnetwork.com/encyclopedia/people.php?id=59062',
+                             input_url: 'https://animenewsnetwork.com/encyclopedia/people.php?id=59062',
                      input_entity_type: 'artist',
             expected_relationship_type: 'otherdatabases',
-                    expected_clean_url: 'http://www.animenewsnetwork.com/encyclopedia/people.php?id=59062',
+                    expected_clean_url: 'https://www.animenewsnetwork.com/encyclopedia/people.php?id=59062',
         },
         {
                              input_url: 'http://www.animenewsnetwork.com/encyclopedia/company.php?id=10510#page_header',
                      input_entity_type: 'label',
             expected_relationship_type: 'otherdatabases',
-                    expected_clean_url: 'http://www.animenewsnetwork.com/encyclopedia/company.php?id=10510',
+                    expected_clean_url: 'https://www.animenewsnetwork.com/encyclopedia/company.php?id=10510',
         },
         // Anison Generation
         {
