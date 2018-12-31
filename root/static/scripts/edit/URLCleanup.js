@@ -1668,12 +1668,12 @@ const CLEANUPS = {
         var tail = m[1];
         tail = tail.replace(/^(song_view\.html\?\d+).*$/, "$1");
         tail = tail.replace(/^(kashu\.php\?).*(artist=\d+).*$/, "$1$2");
-        url = "http://kashinavi.com/" + tail;
+        url = "https://kashinavi.com/" + tail;
       }
       return url;
     },
     validate: function (url, id) {
-      var m = /^http:\/\/kashinavi\.com\/(.+)$/.exec(url);
+      var m = /^https:\/\/kashinavi\.com\/(.+)$/.exec(url);
       if (m) {
         var tail = m[1];
         switch (id) {
