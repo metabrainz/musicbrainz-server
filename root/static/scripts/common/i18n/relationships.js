@@ -9,12 +9,6 @@
 
 import * as wrapGettext from './wrapGettext';
 
-const l_relationships = wrapGettext.dgettext('relationships');
-const ln_relationships = wrapGettext.dngettext('relationships');
-const lp_relationships = wrapGettext.dpgettext('relationships');
-
-export {
-  l_relationships,
-  ln_relationships,
-  lp_relationships,
-};
+export const l_relationships = wrapGettext.dgettext('relationships');
+export const ln_relationships = wrapGettext.dngettext('relationships');
+export const lp_relationships = wrapGettext.dpgettext('relationships');

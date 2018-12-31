@@ -9,12 +9,6 @@
 
 import * as wrapGettext from './wrapGettext';
 
-const l_scripts = wrapGettext.dgettext('scripts');
-const ln_scripts = wrapGettext.dngettext('scripts');
-const lp_scripts = wrapGettext.dpgettext('scripts');
-
-export {
-  l_scripts,
-  ln_scripts,
-  lp_scripts,
-};
+export const l_scripts = wrapGettext.dgettext('scripts');
+export const ln_scripts = wrapGettext.dngettext('scripts');
+export const lp_scripts = wrapGettext.dpgettext('scripts');
