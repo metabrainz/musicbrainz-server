@@ -281,12 +281,12 @@ test 'Embedded JSON-LD dates & origins for people' => sub {
             'http://vgmdb.net/artist/174',
             'http://viaf.org/viaf/263782738',
             'http://viaf.org/viaf/32197206',
-            'http://www.bbc.co.uk/music/artists/b972f589-fb0e-474e-b64a-803b0364fa75',
             'http://www.discogs.com/artist/95546',
             'http://www.imdb.com/name/nm0003665/',
             'http://www.last.fm/music/Wolfgang+Amadeus+Mozart',
             'http://www.wikidata.org/wiki/Q254',
             'https://www.allmusic.com/artist/mn0000026350',
+            'https://www.bbc.co.uk/music/artists/b972f589-fb0e-474e-b64a-803b0364fa75',
         ],
     };
 };
@@ -389,7 +389,6 @@ test 'Embedded JSON-LD for groups' => sub {
             'http://rateyourmusic.com/artist/the_beatles',
             'http://viaf.org/viaf/141205608',
             'http://www.45cat.com/artist/the-beatles',
-            'http://www.bbc.co.uk/music/artists/b10bbbfc-cf9e-42e0-be17-e2c3e1d2600d',
             'http://www.discogs.com/artist/82730',
             'http://www.imdb.com/name/nm1397313/',
             'http://www.last.fm/music/The+Beatles',
@@ -398,6 +397,7 @@ test 'Embedded JSON-LD for groups' => sub {
             'http://www.whosampled.com/The-Beatles/',
             'http://www.wikidata.org/wiki/Q1299',
             'https://www.allmusic.com/artist/mn0000754032',
+            'https://www.bbc.co.uk/music/artists/b10bbbfc-cf9e-42e0-be17-e2c3e1d2600d',
         ],
     };
 };

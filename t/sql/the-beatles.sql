@@ -327,7 +327,7 @@ INSERT INTO url (edits_pending, gid, id, last_updated, url) VALUES
 	(0, '00788bbc-11f2-4445-a53e-d2ce36128822', 300145, '2011-05-16 16:31:52+00', 'http://www.imdb.com/name/nm1397313/'),
 	(0, '45db1b46-1848-456f-bb27-7f72b66ffe11', 530568, '2011-05-16 16:31:52+00', 'http://www.dmbeatles.com/'),
 	(0, 'f57c02f1-4e21-49a9-82f7-b9735279b147', 547632, '2013-08-15 03:00:47.122626+00', 'https://myspace.com/thebeatles'),
-	(0, '85e5480a-f7ae-4d03-bbd2-d0c372bd2dc4', 584325, '2011-05-16 16:31:52+00', 'http://www.bbc.co.uk/music/artists/b10bbbfc-cf9e-42e0-be17-e2c3e1d2600d'),
+	(0, '85e5480a-f7ae-4d03-bbd2-d0c372bd2dc4', 584325, '2011-05-16 16:31:52+00', 'https://www.bbc.co.uk/music/artists/b10bbbfc-cf9e-42e0-be17-e2c3e1d2600d'),
 	(0, '6eb6e76f-3954-4c5f-a745-dc241d13585f', 756042, '2012-10-07 20:31:27.399043+00', 'http://www.britishbeatlesfanclub.co.uk/'),
 	(0, '2d8ccf0f-9840-4cb8-9f17-5e79812c9186', 832353, '2013-08-04 10:36:58.912236+00', 'https://twitter.com/thebeatles'),
 	(0, '82a6b2f6-7d0a-4777-b7bd-44ab4b6ce26f', 832356, '2011-05-16 16:31:52+00', 'http://www.youtube.com/user/thebeatles'),

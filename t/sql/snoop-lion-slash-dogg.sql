@@ -78,7 +78,7 @@ INSERT INTO url (edits_pending, gid, id, last_updated, url) VALUES
 	(0, 'e93fe5ab-9783-47bc-a8d6-a2c235debd59', 28335, '2011-05-16 11:31:52-05', 'http://www.imdb.com/name/nm0004879/'),
 	(0, '71f152f2-8cca-482a-bc25-8045461f7e1a', 135938, '2014-01-21 03:14:41.284747-06', 'http://www.discogs.com/artist/132084'),
 	(0, 'bf09ffbc-b764-4dba-9b29-9c8c646018a3', 135939, '2013-08-14 01:34:12.721194-05', 'https://myspace.com/snoopdogg'),
-	(0, '4a4cbf56-e419-4ce8-a691-55053ee0ce2b', 585101, '2011-05-16 11:31:52-05', 'http://www.bbc.co.uk/music/artists/f90e8b26-9e52-4669-a5c9-e28529c47894'),
+	(0, '4a4cbf56-e419-4ce8-a691-55053ee0ce2b', 585101, '2011-05-16 11:31:52-05', 'https://www.bbc.co.uk/music/artists/f90e8b26-9e52-4669-a5c9-e28529c47894'),
 	(0, 'cb65a4c7-37db-4fe9-963d-e397fc5c1bf6', 685553, '2013-08-04 04:47:07.675952-05', 'https://twitter.com/snoopdogg'),
 	(0, '09c3d062-55c2-4bb7-8ce7-e920ea117c6f', 950156, '2013-03-11 05:41:19.165627-05', 'https://www.facebook.com/snoopdogg'),
 	(0, '6d31d1e0-9aab-4829-a2ee-0c937bc87feb', 1025694, '2012-11-01 19:27:36.426054-05', 'https://www.allmusic.com/artist/mn0000029086'),

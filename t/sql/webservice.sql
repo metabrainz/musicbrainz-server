@@ -190,10 +190,10 @@ INSERT INTO url (id, edits_pending, gid, last_updated, url) VALUES (573314, 0, '
 INSERT INTO url (id, edits_pending, gid, last_updated, url) VALUES (575949, 0, '6ab5e8bf-879a-49bf-aafd-ec9e55cf371d', '2011-01-18 16:23:38+00', 'http://www.discogs.com/label/Warner+Music+(Japan)');
 INSERT INTO url (id, edits_pending, gid, last_updated, url) VALUES (576270, 0, '708e91cc-7d98-4288-9e34-b6d73ff6bbb7', '2011-01-18 16:23:38+00', 'http://warp.net/');
 INSERT INTO url (id, edits_pending, gid, last_updated, url) VALUES (578123, 0, '1f7ae016-0374-4aa5-a46e-ed16b6b8a156', '2011-01-18 16:23:38+00', 'http://www.youtube.com/user/EpitaphRecords');
-INSERT INTO url (id, edits_pending, gid, last_updated, url) VALUES (583417, 0, '0efa48b3-81d8-4d79-9fd9-2a2b6a2d2841', '2011-01-18 16:23:38+00', 'http://www.bbc.co.uk/music/artists/149e6720-4e4a-41a4-afca-6d29083fc091');
-INSERT INTO url (id, edits_pending, gid, last_updated, url) VALUES (583587, 0, '27e1303d-e2c0-4395-982d-02a764331f0d', '2011-01-18 16:23:38+00', 'http://www.bbc.co.uk/music/artists/678d88b2-87b0-403b-b63d-5da7465aecc3');
-INSERT INTO url (id, edits_pending, gid, last_updated, url) VALUES (583680, 0, '98318d8b-249d-4ed8-a0af-83343e4227ad', '2011-01-18 16:23:38+00', 'http://www.bbc.co.uk/music/artists/1946a82a-f927-40c2-8235-38d64f50d043');
-INSERT INTO url (id, edits_pending, gid, last_updated, url) VALUES (584827, 0, 'e9c4ca48-a3e8-45f0-8e2c-213a9451056a', '2011-01-18 16:23:38+00', 'http://www.bbc.co.uk/music/artists/dcb03ce3-67a5-4eb3-b2d1-2a12d93a38f3');
+INSERT INTO url (id, edits_pending, gid, last_updated, url) VALUES (583417, 0, '0efa48b3-81d8-4d79-9fd9-2a2b6a2d2841', '2011-01-18 16:23:38+00', 'https://www.bbc.co.uk/music/artists/149e6720-4e4a-41a4-afca-6d29083fc091');
+INSERT INTO url (id, edits_pending, gid, last_updated, url) VALUES (583587, 0, '27e1303d-e2c0-4395-982d-02a764331f0d', '2011-01-18 16:23:38+00', 'https://www.bbc.co.uk/music/artists/678d88b2-87b0-403b-b63d-5da7465aecc3');
+INSERT INTO url (id, edits_pending, gid, last_updated, url) VALUES (583680, 0, '98318d8b-249d-4ed8-a0af-83343e4227ad', '2011-01-18 16:23:38+00', 'https://www.bbc.co.uk/music/artists/1946a82a-f927-40c2-8235-38d64f50d043');
+INSERT INTO url (id, edits_pending, gid, last_updated, url) VALUES (584827, 0, 'e9c4ca48-a3e8-45f0-8e2c-213a9451056a', '2011-01-18 16:23:38+00', 'https://www.bbc.co.uk/music/artists/dcb03ce3-67a5-4eb3-b2d1-2a12d93a38f3');
 INSERT INTO url (id, edits_pending, gid, last_updated, url) VALUES (610808, 0, 'f87a88fe-3b43-45b0-be90-0e3f288341c8', '2011-01-18 16:23:38+00', 'http://www.discogs.com/label/Epitaph+Records');
 INSERT INTO url (id, edits_pending, gid, last_updated, url) VALUES (612649, 0, '6a868be3-e84b-40d8-b461-3d55bf8508c1', '2011-01-18 16:23:38+00', 'http://www.discogs.com/label/Mobile+Fidelity+Sound+Lab');
 INSERT INTO url (id, edits_pending, gid, last_updated, url) VALUES (612805, 0, 'a2fe1e6d-700e-4d68-b30e-56d8d64779e7', '2011-01-18 16:23:38+00', 'http://musicmoz.org/Bands_and_Artists/B/Bad_Religion/Discography/Recipe_For_Hate/');
@@ -203,7 +203,7 @@ INSERT INTO url (id, edits_pending, gid, last_updated, url) VALUES (639380, 0, '
 INSERT INTO url (id, edits_pending, gid, last_updated, url) VALUES (639381, 0, '1f2cc313-4b57-44af-95b2-fe8154840c4e', '2011-01-18 16:23:38+00', 'http://www.discogs.com/master/11418');
 INSERT INTO url (id, edits_pending, gid, last_updated, url) VALUES (657961, 0, '7f19d1cd-c778-4e95-9c3d-36a4217fd2bf', '2011-01-18 16:23:38+00', 'http://en.wikipedia.org/wiki/East_West_Records');
 INSERT INTO url (id, edits_pending, gid, last_updated, url) VALUES (662311, 0, '647f7e60-6ff2-489c-b9a5-d2c7638d57c0', '2011-01-18 16:23:38+00', 'http://www.myspace.com/hospitalrecords');
-INSERT INTO url (id, edits_pending, gid, last_updated, url) VALUES (663949, 0, '3fb37a97-10e9-422c-b87e-b2e7f94212b6', '2011-01-18 16:23:38+00', 'http://www.bbc.co.uk/music/artists/8cf49f40-b8fe-4a63-b4ea-f922d6145bb4');
+INSERT INTO url (id, edits_pending, gid, last_updated, url) VALUES (663949, 0, '3fb37a97-10e9-422c-b87e-b2e7f94212b6', '2011-01-18 16:23:38+00', 'https://www.bbc.co.uk/music/artists/8cf49f40-b8fe-4a63-b4ea-f922d6145bb4');
 INSERT INTO url (id, edits_pending, gid, last_updated, url) VALUES (669770, 0, '6a0ec21e-817b-474d-8a94-87f1f1fae7fc', '2011-01-18 16:23:38+00', 'http://www.myspace.com/eastwestrecords');
 INSERT INTO url (id, edits_pending, gid, last_updated, url) VALUES (670179, 0, '63854ab2-4804-481f-8b07-e2cbe8192c0f', '2011-01-18 16:23:38+00', 'http://www.myspace.com/djdistancedub');
 INSERT INTO url (id, edits_pending, gid, last_updated, url) VALUES (670180, 0, '5eb2c075-3c3b-4cf7-ab77-2dacaee19366', '2011-01-18 16:23:38+00', 'http://dj-distance.blogspot.com/');

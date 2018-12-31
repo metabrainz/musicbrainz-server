@@ -450,7 +450,7 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
                              input_url: 'http://www.bbc.co.uk/music/artists/b52dd210-909c-461a-a75d-19e85a522042#tracks',
                      input_entity_type: 'artist',
             expected_relationship_type: 'bbcmusic',
-                    expected_clean_url: 'http://www.bbc.co.uk/music/artists/b52dd210-909c-461a-a75d-19e85a522042'
+                    expected_clean_url: 'https://www.bbc.co.uk/music/artists/b52dd210-909c-461a-a75d-19e85a522042'
         },
         // Beatport
         {                               // Closed in Dec. 2017, replaced with www.beatport.com/chart
