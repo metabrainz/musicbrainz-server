@@ -1962,26 +1962,26 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
         },
         // mora
         {
-                             input_url: 'http://mora.jp/package/43000001/4534530058010/',
+                             input_url: 'https://mora.jp/package/43000001/4534530058010/',
                      input_entity_type: 'release',
             expected_relationship_type: 'downloadpurchase',
         },
         {
-                             input_url: 'http://mora.jp/package/43000014/KIZC-211/',
+                             input_url: 'https://mora.jp/package/43000014/KIZC-211/',
                      input_entity_type: 'release',
             expected_relationship_type: 'downloadpurchase',
         },
         {
                              input_url: 'http://mora.jp/package/43000021/SQEX-20016_F/#',
-                    expected_clean_url: 'http://mora.jp/package/43000021/SQEX-20016_F/',
+                    expected_clean_url: 'https://mora.jp/package/43000021/SQEX-20016_F/',
         },
         {
                              input_url: 'https://www.mora.jp/package/43000002/ANTCD-3106?test',
-                    expected_clean_url: 'http://mora.jp/package/43000002/ANTCD-3106/',
+                    expected_clean_url: 'https://mora.jp/package/43000002/ANTCD-3106/',
         },
         {
                              input_url: 'mora.jp/package/43000002/ANTCD-3106/',
-                    expected_clean_url: 'http://mora.jp/package/43000002/ANTCD-3106/',
+                    expected_clean_url: 'https://mora.jp/package/43000002/ANTCD-3106/',
         },
         // Musa24
         {
