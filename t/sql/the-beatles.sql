@@ -334,7 +334,7 @@ INSERT INTO url (edits_pending, gid, id, last_updated, url) VALUES
 	(0, 'a6080060-611f-4dff-a91d-d0cc61fb74b9', 832357, '2013-03-11 11:26:27.363998+00', 'https://www.facebook.com/thebeatles'),
 	(0, 'b1e3f0b8-eee0-4ced-87b9-d7088481ae10', 948298, '2011-08-13 18:06:45.386922+00', 'http://lyrics.wikia.com/The_Beatles'),
 	(0, 'b1e974fb-3872-4344-abc2-6abd6a9e4b46', 955556, '2012-11-01 01:56:53.376067+00', 'https://www.allmusic.com/artist/mn0000754032'),
-	(0, '3307c5e9-b873-4f70-a516-08df0cb4f54c', 1447659, '2012-07-25 13:41:55.167607+00', 'http://www.last.fm/music/The+Beatles'),
+	(0, '3307c5e9-b873-4f70-a516-08df0cb4f54c', 1447659, '2012-07-25 13:41:55.167607+00', 'https://www.last.fm/music/The+Beatles'),
 	(0, '7ccb2b9e-88f7-4030-bdde-f3eb81d16aa5', 1492954, '2013-07-14 13:44:25.594996+00', 'http://decoda.com/the-beatles-lyrics'),
 	(0, '91c7742e-cb41-4bf6-8ae5-e4dd9634899d', 1575371, '2013-01-02 06:27:41.792618+00', 'http://www.beatlesfanclub.nl/'),
 	(0, '787c5ab9-5546-4753-8280-fb4eec8df66b', 1598325, '2013-01-30 22:38:20.049699+00', 'http://viaf.org/viaf/141205608'),

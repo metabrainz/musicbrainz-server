@@ -1780,42 +1780,42 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
         },
         // Last.fm
         {
-                             input_url: 'http://www.last.fm/music/Bj%C3%B6rk',
+                             input_url: 'https://www.last.fm/music/Bj%C3%B6rk',
                      input_entity_type: 'artist',
             expected_relationship_type: 'lastfm',
         },
         {
-                             input_url: 'http://www.last.fm/event/3291943+Pori+jazz',
+                             input_url: 'https://www.last.fm/event/3291943+Pori+jazz',
                      input_entity_type: 'event',
             expected_relationship_type: 'lastfm',
         },
         {
-                             input_url: 'http://www.lastfm.de/event/671822+Ruhrpott+rodeo+at+Flugplatz+Schwarze+Heide+on+27+June+2008',
+                             input_url: 'https://www.lastfm.de/event/671822+Ruhrpott+rodeo+at+Flugplatz+Schwarze+Heide+on+27+June+2008',
                      input_entity_type: 'event',
             expected_relationship_type: 'lastfm',
-                    expected_clean_url: 'http://www.last.fm/event/671822+Ruhrpott+rodeo+at+Flugplatz+Schwarze+Heide+on+27+June+2008',
+                    expected_clean_url: 'https://www.last.fm/event/671822+Ruhrpott+rodeo+at+Flugplatz+Schwarze+Heide+on+27+June+2008',
         },
         {
-                             input_url: 'http://www.lastfm.de/festival/297838+Death+Feast+2008',
+                             input_url: 'https://www.lastfm.de/festival/297838+Death+Feast+2008',
                      input_entity_type: 'event',
             expected_relationship_type: 'lastfm',
-                    expected_clean_url: 'http://www.last.fm/festival/297838+Death+Feast+2008',
+                    expected_clean_url: 'https://www.last.fm/festival/297838+Death+Feast+2008',
         },
         {
-                             input_url: 'http://userserve-ak.last.fm/serve/_/13629495/Lab+Beat+Lab_Beat_Logo_500.gif',
-                    expected_clean_url: 'http://userserve-ak.last.fm/serve/_/13629495/Lab+Beat+Lab_Beat_Logo_500.gif',
+                             input_url: 'https://userserve-ak.last.fm/serve/_/13629495/Lab+Beat+Lab_Beat_Logo_500.gif',
+                    expected_clean_url: 'https://userserve-ak.last.fm/serve/_/13629495/Lab+Beat+Lab_Beat_Logo_500.gif',
         },
         {
-                             input_url: 'http://www.lastfm.com.br/venue/8803923+Gigantinho',
-                    expected_clean_url: 'http://www.last.fm/venue/8803923+Gigantinho',
+                             input_url: 'https://www.lastfm.com.br/venue/8803923+Gigantinho',
+                    expected_clean_url: 'https://www.last.fm/venue/8803923+Gigantinho',
         },
         {
-                             input_url: 'http://www.lastfm.com/music/Carving+Colours',
-                    expected_clean_url: 'http://www.last.fm/music/Carving+Colours',
+                             input_url: 'https://www.lastfm.com/music/Carving+Colours',
+                    expected_clean_url: 'https://www.last.fm/music/Carving+Colours',
         },
         {
-                             input_url: 'https://www.last.fm/it/label/Shyrec#shoutbox',
-                    expected_clean_url: 'http://www.last.fm/label/Shyrec',
+                             input_url: 'http://www.last.fm/it/label/Shyrec#shoutbox',
+                    expected_clean_url: 'https://www.last.fm/label/Shyrec',
         },
         // Library of Congress Linked Data Service
         {

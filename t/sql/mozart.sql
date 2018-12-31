@@ -147,7 +147,7 @@ INSERT INTO url (edits_pending, gid, id, last_updated, url) VALUES
 	(0, '7c4aee9f-02bd-45e0-a473-867c56ceca1a', 1709986, '2013-05-15 21:44:14.701946+00', 'http://www.wikidata.org/wiki/Q254'),
 	(0, '4dc4d521-d284-40a3-9d4a-7608abd01682', 1780932, '2013-06-19 09:59:24.209248+00', 'http://vgmdb.net/artist/174'),
 	(0, '6ee379fe-41a7-486f-8454-ca0c5e5a1a57', 1780933, '2013-06-19 09:59:48.837367+00', 'http://rateyourmusic.com/artist/wolfgang_amadeus_mozart'),
-	(0, 'a1a9b941-dad5-4977-93a6-51dbc966c306', 1814202, '2013-07-10 08:57:12.691618+00', 'http://www.last.fm/music/Wolfgang+Amadeus+Mozart'),
+	(0, 'a1a9b941-dad5-4977-93a6-51dbc966c306', 1814202, '2013-07-10 08:57:12.691618+00', 'https://www.last.fm/music/Wolfgang+Amadeus+Mozart'),
 	(0, 'c4c3ea4f-44c1-4139-8467-b960fac69515', 2212776, '2013-11-19 03:00:05.396745+00', 'https://commons.wikimedia.org/wiki/File:Croce-Mozart-Detail.jpg'),
 	(0, 'ebc7f6b0-3ecc-49e8-8f1e-ed458c9ce1b1', 2323468, '2013-12-22 22:40:40.987781+00', 'http://viaf.org/viaf/263782738'),
 	(0, 'b76c8278-6926-4988-82cc-4ca40ba04a98', 3135602, '2015-06-07 10:09:19.374568+00', 'http://open.spotify.com/artist/4NJhFmfw43RLBLjQvxDuRS'),

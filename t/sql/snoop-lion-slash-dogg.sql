@@ -82,7 +82,7 @@ INSERT INTO url (edits_pending, gid, id, last_updated, url) VALUES
 	(0, 'cb65a4c7-37db-4fe9-963d-e397fc5c1bf6', 685553, '2013-08-04 04:47:07.675952-05', 'https://twitter.com/snoopdogg'),
 	(0, '09c3d062-55c2-4bb7-8ce7-e920ea117c6f', 950156, '2013-03-11 05:41:19.165627-05', 'https://www.facebook.com/snoopdogg'),
 	(0, '6d31d1e0-9aab-4829-a2ee-0c937bc87feb', 1025694, '2012-11-01 19:27:36.426054-05', 'https://www.allmusic.com/artist/mn0000029086'),
-	(0, '076ca1e1-fddf-4b99-bb64-1352d07db17f', 1354400, '2012-05-28 09:02:17.284797-05', 'http://www.last.fm/music/Snoop+Dogg'),
+	(0, '076ca1e1-fddf-4b99-bb64-1352d07db17f', 1354400, '2012-05-28 09:02:17.284797-05', 'https://www.last.fm/music/Snoop+Dogg'),
 	(0, 'e36778ad-e619-4d7d-9b0f-e91edad181af', 1354407, '2012-05-28 09:03:11.967426-05', 'http://www.youtube.com/user/westfesttv'),
 	(0, '494ef911-ee1f-4ddb-9215-4e4a165171d8', 1364164, '2013-08-17 15:45:12.541413-05', 'https://soundcloud.com/snoopdogg'),
 	(0, '47cd6b41-8b4f-4304-a5b5-5a78f1e81179', 1453869, '2014-03-31 02:14:27.347801-05', 'http://www.discogs.com/artist/2859872'),

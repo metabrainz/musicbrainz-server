@@ -175,7 +175,7 @@ INSERT INTO url (id, edits_pending, gid, last_updated, url) VALUES (458872, 0, '
 INSERT INTO url (id, edits_pending, gid, last_updated, url) VALUES (464482, 0, '5b84fdc3-2247-4835-a31f-d898261fe05f', '2011-01-18 16:23:38+00', 'http://www.amazon.co.uk/gp/product/B00000GAII');
 INSERT INTO url (id, edits_pending, gid, last_updated, url) VALUES (483688, 0, '506b9767-cf18-4180-aec1-0cb36834ee64', '2011-01-18 16:23:38+00', 'http://kounterfeit.com/');
 INSERT INTO url (id, edits_pending, gid, last_updated, url) VALUES (483691, 0, '015b61d8-ba16-4e6e-877b-fef8d92595a2', '2011-01-18 16:23:38+00', 'http://www.kounterfeit.com/');
-INSERT INTO url (id, edits_pending, gid, last_updated, url) VALUES (483703, 0, '85c7767d-2527-4129-9a41-4c08ff92ce79', '2011-01-18 16:23:38+00', 'http://www.last.fm/label/KOUNTERFEIT+RECORDS');
+INSERT INTO url (id, edits_pending, gid, last_updated, url) VALUES (483703, 0, '85c7767d-2527-4129-9a41-4c08ff92ce79', '2011-01-18 16:23:38+00', 'https://www.last.fm/label/KOUNTERFEIT+RECORDS');
 INSERT INTO url (id, edits_pending, gid, last_updated, url) VALUES (485359, 0, '4f9bc980-b8ee-4738-9625-3e7931d88cbc', '2011-01-18 16:23:38+00', 'http://www.amazon.com/gp/product/B000XULO2A');
 INSERT INTO url (id, edits_pending, gid, last_updated, url) VALUES (493018, 0, 'aff3ee3a-6b99-4139-a29c-3daf9e340228', '2011-01-18 16:23:38+00', 'http://cdbaby.com/cd/wedlock4');
 INSERT INTO url (id, edits_pending, gid, last_updated, url) VALUES (493020, 0, '8155de98-0085-453d-89e1-677c04b1f2f9', '2011-01-18 16:23:38+00', 'http://www.amazon.com/gp/product/B00195BC48');
