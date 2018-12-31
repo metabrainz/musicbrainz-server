@@ -1319,7 +1319,7 @@ const CLEANUPS = {
       url = url.replace(/^(?:https?:\/\/)?(?:www\.)?worldcat\.org/, "https://www.worldcat.org");
       url = url.replace(/^https:\/\/www\.worldcat\.org(?:\/title\/[a-zA-Z0-9_-]+)?\/oclc\/([^&?]+)(?:.*)$/, "https://www.worldcat.org/oclc/$1");
       // Standardising IBDb not to use www
-      url = url.replace(/^(https?:\/\/)?(www\.)?ibdb\.com/, "http://ibdb.com");
+      url = url.replace(/^(https?:\/\/)?(www\.)?ibdb\.com/, "https://ibdb.com");
       // Standardising ESTER to their default parameters
       url = url.replace(/^(?:https?:\/\/)?(?:www\.)?ester\.ee\/record=([^~]+)(?:.*)?$/, "http://www.ester.ee/record=$1~S1*est");
       // Standardising Trove
