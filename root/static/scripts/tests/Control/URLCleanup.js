@@ -333,28 +333,28 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
                              input_url: 'baike.baidu.com/view/6458423.htm#1',
                      input_entity_type: 'artist',
             expected_relationship_type: 'otherdatabases',
-                    expected_clean_url: 'http://baike.baidu.com/view/6458423.htm',
+                    expected_clean_url: 'https://baike.baidu.com/view/6458423.htm',
                only_valid_entity_types: ['artist', 'release_group', 'work']
         },
         {
                              input_url: 'http://baike.baidu.com/subview/738269/15973629.htm',
                      input_entity_type: 'artist',
             expected_relationship_type: 'otherdatabases',
-                    expected_clean_url: 'http://baike.baidu.com/subview/738269/15973629.htm',
+                    expected_clean_url: 'https://baike.baidu.com/subview/738269/15973629.htm',
                only_valid_entity_types: ['artist', 'release_group', 'work']
         },
         {
-                             input_url: 'http://baike.baidu.com/item/Summer%20Romance%2787/16598351?fromtitle=Summer+Romance&fromid=8735297&type=syn#2',
+                             input_url: 'https://baike.baidu.com/item/Summer%20Romance%2787/16598351?fromtitle=Summer+Romance&fromid=8735297&type=syn#2',
                      input_entity_type: 'release',
             expected_relationship_type: 'otherdatabases',
-                    expected_clean_url: 'http://baike.baidu.com/item/Summer%20Romance%2787/16598351',
+                    expected_clean_url: 'https://baike.baidu.com/item/Summer%20Romance%2787/16598351',
                only_valid_entity_types: ['artist', 'release_group', 'work']
         },
         {
-                             input_url: 'http://baike.baidu.com/item/王婷萱#1',
+                             input_url: 'https://baike.baidu.com/item/王婷萱#1',
                      input_entity_type: 'release_group',
             expected_relationship_type: 'otherdatabases',
-                    expected_clean_url: 'http://baike.baidu.com/item/王婷萱',
+                    expected_clean_url: 'https://baike.baidu.com/item/王婷萱',
                only_valid_entity_types: ['artist', 'release_group', 'work']
         },
         // Bandcamp

@@ -1428,10 +1428,10 @@ const CLEANUPS = {
     match: [new RegExp("^(https?://)?baike\\.baidu\\.com/", "i")],
     type: LINK_TYPES.otherdatabases,
     clean: function (url) {
-      return url.replace(/^(?:https?:\/\/)?baike\.baidu\.com\/([^?#]+)(?:[?#].*)?$/, "http://baike.baidu.com/$1");
+      return url.replace(/^(?:https?:\/\/)?baike\.baidu\.com\/([^?#]+)(?:[?#].*)?$/, "https://baike.baidu.com/$1");
     },
     validate: function (url, id) {
-      var m = /^http:\/\/baike\.baidu\.com\/(.+)$/.exec(url);
+      var m = /^https:\/\/baike\.baidu\.com\/(.+)$/.exec(url);
       if (m) {
         var path = m[1];
         switch (id) {
