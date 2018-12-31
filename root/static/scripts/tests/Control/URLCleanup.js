@@ -2173,28 +2173,28 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
         },
         // NLA (National Library of Australia)
         {
-                             input_url: 'https://nla.gov.au/nla.party-548358/',
+                             input_url: 'http://nla.gov.au/nla.party-548358/',
                      input_entity_type: 'artist',
             expected_relationship_type: 'otherdatabases',
-                    expected_clean_url: 'http://nla.gov.au/nla.party-548358',
+                    expected_clean_url: 'https://nla.gov.au/nla.party-548358',
         },
         {
-                             input_url: 'http://trove.nla.gov.au/people/1448035?c=people',
+                             input_url: 'https://trove.nla.gov.au/people/1448035?c=people',
                      input_entity_type: 'label',
             expected_relationship_type: 'otherdatabases',
-                    expected_clean_url: 'http://nla.gov.au/nla.party-1448035',
+                    expected_clean_url: 'https://nla.gov.au/nla.party-1448035',
         },
         {
-                             input_url: 'http://nla.gov.au/anbd.bib-an11701020#',
+                             input_url: 'https://nla.gov.au/anbd.bib-an11701020#',
                      input_entity_type: 'release',
             expected_relationship_type: 'otherdatabases',
-                    expected_clean_url: 'http://nla.gov.au/anbd.bib-an11701020',
+                    expected_clean_url: 'https://nla.gov.au/anbd.bib-an11701020',
         },
         {
                              input_url: 'trove.nla.gov.au/work/9438679',
                      input_entity_type: 'release_group',
             expected_relationship_type: 'otherdatabases',
-                    expected_clean_url: 'http://trove.nla.gov.au/work/9438679',
+                    expected_clean_url: 'https://trove.nla.gov.au/work/9438679',
         },
         // Online-Bijbel.nl
         {

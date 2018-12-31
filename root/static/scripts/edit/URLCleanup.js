@@ -1323,9 +1323,9 @@ const CLEANUPS = {
       // Standardising ESTER to their default parameters
       url = url.replace(/^(?:https?:\/\/)?(?:www\.)?ester\.ee\/record=([^~]+)(?:.*)?$/, "http://www.ester.ee/record=$1~S1*est");
       // Standardising Trove
-      url = url.replace(/^(?:https?:\/\/)?trove\.nla\.gov\.au\/work\/([^\/?#]+)(?:.*)?$/, "http://trove.nla.gov.au/work/$1");
-      url = url.replace(/^(?:https?:\/\/)?trove\.nla\.gov\.au\/people\/([^\/?#]+)(?:.*)?$/, "http://nla.gov.au/nla.party-$1");
-      url = url.replace(/^(?:https?:\/\/)?nla\.gov\.au\/(nla\.party-|anbd\.bib-an)([^\/?#]+)(?:.*)?$/, "http://nla.gov.au/$1$2");
+      url = url.replace(/^(?:https?:\/\/)?trove\.nla\.gov\.au\/work\/([^\/?#]+)(?:.*)?$/, "https://trove.nla.gov.au/work/$1");
+      url = url.replace(/^(?:https?:\/\/)?trove\.nla\.gov\.au\/people\/([^\/?#]+)(?:.*)?$/, "https://nla.gov.au/nla.party-$1");
+      url = url.replace(/^(?:https?:\/\/)?nla\.gov\.au\/(nla\.party-|anbd\.bib-an)([^\/?#]+)(?:.*)?$/, "https://nla.gov.au/$1$2");
       // Standardising Musik-Sammler.de
       url = url.replace(/^(?:https?:\/\/)?(?:www\.)?musik-sammler\.de\/(album|artist|media)\/([0-9a-z-]+)(?:[\/?#].*)?$/, "https://www.musik-sammler.de/$1/$2/");
       // Standardising Rockens Danmarkskort
