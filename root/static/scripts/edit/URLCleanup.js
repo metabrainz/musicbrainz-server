@@ -1529,10 +1529,10 @@ const CLEANUPS = {
     match: [new RegExp("^(https?://)?(www\\.)?cbfiddle\\.com/rx/","i")],
     type: LINK_TYPES.otherdatabases,
     clean: function (url) {
-      return url.replace(/^(?:https?:\/\/)?(?:www\.)?cbfiddle\.com\/rx\/(rec\/r|tune\/t)(\d+\.html)(?:#.*$)?$/, "http://www.cbfiddle.com/rx/$1$2");
+      return url.replace(/^(?:https?:\/\/)?(?:www\.)?cbfiddle\.com\/rx\/(rec\/r|tune\/t)(\d+\.html)(?:#.*$)?$/, "https://www.cbfiddle.com/rx/$1$2");
     },
     validate: function (url, id) {
-      var m = /^http:\/\/www\.cbfiddle\.com\/rx\/(rec\/r|tune\/t)\d+\.html$/.exec(url);
+      var m = /^https:\/\/www\.cbfiddle\.com\/rx\/(rec\/r|tune\/t)\d+\.html$/.exec(url);
       if (m) {
         var prefix = m[1];
         switch (id) {

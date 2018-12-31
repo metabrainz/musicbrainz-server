@@ -831,14 +831,14 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
                              input_url: 'http://cbfiddle.com/rx/rec/r55.html',
                      input_entity_type: 'release_group',
             expected_relationship_type: 'otherdatabases',
-                    expected_clean_url: 'http://www.cbfiddle.com/rx/rec/r55.html',
+                    expected_clean_url: 'https://www.cbfiddle.com/rx/rec/r55.html',
                only_valid_entity_types: ['release_group']
         },
         {
                              input_url: 'www.cbfiddle.com/rx/tune/t4003.html',
                      input_entity_type: 'work',
             expected_relationship_type: 'otherdatabases',
-                    expected_clean_url: 'http://www.cbfiddle.com/rx/tune/t4003.html',
+                    expected_clean_url: 'https://www.cbfiddle.com/rx/tune/t4003.html',
                only_valid_entity_types: ['work']
         },
         // CDJapan
