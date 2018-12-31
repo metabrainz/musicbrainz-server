@@ -7,9 +7,24 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import {l} from './i18n';
+import {l, N_l, N_lp} from './i18n';
 
 export const ENTITIES = require('../../../../entities');
+
+export const ENTITY_NAMES = {
+  area: N_l('Area'),
+  artist: N_l('Artist'),
+  event: N_l('Event'),
+  instrument: N_l('Instrument'),
+  label: N_l('Label'),
+  place: N_l('Place'),
+  recording: N_l('Recording'),
+  release: N_l('Release'),
+  release_group: N_l('Release group'),
+  series: N_lp('Series', 'singular'),
+  url: N_l('URL'),
+  work: N_l('Work'),
+};
 
 export const GENRE_TAGS: Set<string> = new Set(ENTITIES.tag.genres);
 

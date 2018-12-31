@@ -10,7 +10,7 @@ const ReactDOMServer = require('react-dom/server');
 
 require('../../../lib/jquery-ui');
 
-const {PART_OF_SERIES_LINK_TYPES} = require('../../common/constants');
+const {ENTITY_NAMES, PART_OF_SERIES_LINK_TYPES} = require('../../common/constants');
 const i18n = require('../../common/i18n');
 import {l_relationships} from '../../common/i18n/relationships';
 const MB = require('../../common/MB');
@@ -391,7 +391,7 @@ const PART_OF_SERIES_LINK_TYPE_GIDS = _.values(PART_OF_SERIES_LINK_TYPES);
             }
 
             var options = _.map(targetTypes, function (type) {
-                return { value: type, text: i18n.strings.entityName[type] };
+                return { value: type, text: ENTITY_NAMES[type].toLocaleString() };
             });
 
             options.sort(function (a, b) {
@@ -524,7 +524,7 @@ const PART_OF_SERIES_LINK_TYPE_GIDS = _.values(PART_OF_SERIES_LINK_TYPES);
         sameEntityTypesLabel($parent, relationship, entity) {
             const entityType = relationship.target(entity).entityType;
             return i18n.l('Only relationships to {entity_type} entities.', {
-                entity_type: i18n.strings.entityName[entityType].toLocaleLowerCase(),
+                entity_type: ENTITY_NAMES[entityType].toLocaleLowerCase(),
             });
         }
 
@@ -532,7 +532,7 @@ const PART_OF_SERIES_LINK_TYPE_GIDS = _.values(PART_OF_SERIES_LINK_TYPES);
             const entityType = relationship.target(entity).entityType;
             return i18n.l('Only “{relationship_type}” relationships to {entity_type} entities.', {
                 relationship_type: $parent.linkTypeName(),
-                entity_type: i18n.strings.entityName[entityType].toLocaleLowerCase(),
+                entity_type: ENTITY_NAMES[entityType].toLocaleLowerCase(),
             });
         }
     }

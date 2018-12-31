@@ -2,7 +2,7 @@ const $ = require('jquery');
 const _ = require('lodash');
 const ko = require('knockout');
 
-const i18n = require('../common/i18n');
+const {ENTITY_NAMES} = require('../common/constants');
 const MB = require('../common/MB');
 const request = require('../common/utility/request');
 
@@ -36,7 +36,7 @@ ERE.init = function (config) {
     ERE.viewModel.selectedEntityType.subscribe(autocomplete.changeEntity);
     ERE.viewModel.availableEntityTypes(
         _.chain([ type0, type1 ]).uniq().map(function (value) {
-            return { 'value': value, 'text': i18n.strings.entityName[value] };
+            return { 'value': value, 'text': ENTITY_NAMES[value].toLocaleString() };
         }).value());
 
     ko.bindingHandlers.checkObject = {

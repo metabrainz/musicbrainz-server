@@ -28,6 +28,10 @@ class NopArgs {
     return this.toString(...args);
   }
 
+  toLocaleLowerCase() {
+    return this.toString().toLowerCase();
+  }
+
   toString(...args: Array<mixed>) {
     return this.func(...this.args, ...args);
   }

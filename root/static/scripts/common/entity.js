@@ -12,6 +12,7 @@ const ArtistCreditLink = require('./components/ArtistCreditLink');
 const EditorLink = require('./components/EditorLink');
 const EntityLink = require('./components/EntityLink');
 const {
+    ENTITY_NAMES,
     PART_OF_SERIES_LINK_TYPES,
     PROBABLY_CLASSICAL_LINK_TYPES,
     VARTIST_GID,
@@ -70,7 +71,7 @@ const formatTrackLength = require('./utility/formatTrackLength');
         }
 
         entityTypeLabel() {
-            return i18n.addColon(i18n.strings.entityName[this.entityType]);
+            return i18n.addColon(ENTITY_NAMES[this.entityType].toLocaleString());
         }
 
         html(...args) {

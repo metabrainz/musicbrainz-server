@@ -26,6 +26,17 @@ import bracketed from '../../utility/bracketed';
 
 require('../../../../lib/jquery-ui');
 
+const addNewEntityLabels = {
+    artist: i18n.N_l('Add a new artist'),
+    event: i18n.N_l('Add a new event'),
+    label: i18n.N_l('Add a new label'),
+    place: i18n.N_l('Add a new place'),
+    recording: i18n.N_l('Add a new recording'),
+    release_group: i18n.N_l('Add a new release group'),
+    series: i18n.N_l('Add a new series'),
+    work: i18n.N_l('Add a new work'),
+};
+
 $.widget("mb.entitylookup", $.ui.autocomplete, {
 
     mbidRegex: /[a-f\d]{8}-[a-f\d]{4}-[a-f\d]{4}-[a-f\d]{4}-[a-f\d]{12}/,
@@ -432,13 +443,15 @@ $.widget("mb.entitylookup", $.ui.autocomplete, {
         var allowCreation = window === window.top,
             entity = this.entity.replace("-", "_");
 
-        if (allowCreation && i18n.strings.addANewEntity[entity]) {
+        if (allowCreation && addNewEntityLabels[entity]) {
+            const label = addNewEntityLabels[entity].toLocaleString();
             results.push({
-                label: i18n.strings.addANewEntity[entity],
+                label,
                 action: function () {
                     $("<div>").appendTo("body").createEntityDialog({
                         name: self._value(),
                         entity: entity,
+                        title: label,
                         callback: function (item) {
                             self.options.select(null, { item: item });
                         }

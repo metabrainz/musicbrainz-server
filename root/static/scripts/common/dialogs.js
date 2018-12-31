@@ -6,7 +6,7 @@
 const $ = require('jquery');
 const _ = require('lodash');
 
-const {l, strings} = require('./i18n');
+const {l} = require('./i18n');
 const MB = require('./MB');
 
     $.widget("mb.iframeDialog", $.ui.dialog, {
@@ -91,7 +91,6 @@ const MB = require('./MB');
             }
 
             var entity = this.options.entity;
-            this.options.title = strings.addANewEntity[entity];
             this._super(event);
 
             if (this.options.name) {
