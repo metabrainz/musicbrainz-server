@@ -1314,7 +1314,7 @@ const CLEANUPS = {
     type: LINK_TYPES.otherdatabases,
     clean: function (url) {
       // Standardising ClassicalArchives.com
-      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?classicalarchives\.com\/(album|artist|composer|ensemble|work)\/([^\/?#]+)(?:.*)?$/, "http://www.classicalarchives.com/$1/$2");
+      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?classicalarchives\.com\/(album|artist|composer|ensemble|work)\/([^\/?#]+)(?:.*)?$/, "https://www.classicalarchives.com/$1/$2");
       // Removing cruft from Worldcat URLs and standardising to https
       url = url.replace(/^(?:https?:\/\/)?(?:www\.)?worldcat\.org/, "https://www.worldcat.org");
       url = url.replace(/^https:\/\/www\.worldcat\.org(?:\/title\/[a-zA-Z0-9_-]+)?\/oclc\/([^&?]+)(?:.*)$/, "https://www.worldcat.org/oclc/$1");
