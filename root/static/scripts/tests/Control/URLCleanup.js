@@ -1337,7 +1337,7 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
                              input_url: 'http://generasia.com/wiki/Wink',
                      input_entity_type: 'artist',
             expected_relationship_type: 'otherdatabases',
-                    expected_clean_url: 'http://www.generasia.com/wiki/Wink',
+                    expected_clean_url: 'https://www.generasia.com/wiki/Wink',
                only_valid_entity_types: ['artist', 'label', 'release_group', 'work']
         },
         {
@@ -1354,7 +1354,7 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
                              input_url: 'https://www.generasia.com/wiki/Ding_Ding_~Koi_Kara_Hajimaru_Futari_no_Train~',
                      input_entity_type: 'work',
             expected_relationship_type: 'otherdatabases',
-                    expected_clean_url: 'http://www.generasia.com/wiki/Ding_Ding_~Koi_Kara_Hajimaru_Futari_no_Train~',
+                    expected_clean_url: 'https://www.generasia.com/wiki/Ding_Ding_~Koi_Kara_Hajimaru_Futari_no_Train~',
         },
         // Genius
         {

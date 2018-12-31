@@ -1573,7 +1573,7 @@ const CLEANUPS = {
     match: [new RegExp("^(https?://)?(www\\.)?generasia\\.com/wiki/", "i")],
     type: LINK_TYPES.otherdatabases,
     clean: function (url) {
-      return url.replace(/^(?:https?:\/\/)?(?:www\.)?generasia\.com\/wiki\/(.*)$/, "http://www.generasia.com/wiki/$1");
+      return url.replace(/^(?:https?:\/\/)?(?:www\.)?generasia\.com\/wiki\/(.*)$/, "https://www.generasia.com/wiki/$1");
     },
     validate: function (url, id) {
       return id === LINK_TYPES.otherdatabases.artist

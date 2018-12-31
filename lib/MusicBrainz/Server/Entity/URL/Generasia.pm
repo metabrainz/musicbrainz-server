@@ -8,7 +8,7 @@ with 'MusicBrainz::Server::Entity::URL::Sidebar';
 sub sidebar_name {
     my $self = shift;
 
-    # http://www.generasia.com/about/ consequently uses lower case
+    # https://www.generasia.com/about/ consequently uses lower case
     return "generasia";
 }
 

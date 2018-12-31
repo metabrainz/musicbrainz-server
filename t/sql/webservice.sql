@@ -216,8 +216,8 @@ INSERT INTO url (id, edits_pending, gid, last_updated, url) VALUES (718203, 0, '
 INSERT INTO url (id, edits_pending, gid, last_updated, url) VALUES (722911, 0, '845e5f3c-52cd-4f87-bcd4-316ad64151a7', '2011-01-18 16:23:38+00', 'http://www.youtube.com/user/LedZepBoots');
 INSERT INTO url (id, edits_pending, gid, last_updated, url) VALUES (722912, 0, '945bde63-e925-4743-88c0-d9d711d4fed9', '2011-01-18 16:23:38+00', 'http://www.facebook.com/group.php?gid=354144225707');
 INSERT INTO url (id, edits_pending, gid, last_updated, url) VALUES (727332, 0, 'e0500ac3-f90c-43db-92fc-85fbd3f12b04', '2011-01-18 16:23:38+00', 'http://www.discogs.com/release/577498');
-INSERT INTO url (id, edits_pending, gid, last_updated, url) VALUES (729246, 0, '6ed2a10a-167a-47aa-b3ed-57c9220a2f4e', '2011-01-18 16:23:38+00', 'http://www.generasia.com/wiki/BoA');
-INSERT INTO url (id, edits_pending, gid, last_updated, url) VALUES (729251, 0, '8451ab08-8ab6-48d7-8335-e92bd4e252af', '2011-01-18 16:23:38+00', 'http://www.generasia.com/w/images/7/74/identity.png');
+INSERT INTO url (id, edits_pending, gid, last_updated, url) VALUES (729246, 0, '6ed2a10a-167a-47aa-b3ed-57c9220a2f4e', '2011-01-18 16:23:38+00', 'https://www.generasia.com/wiki/BoA');
+INSERT INTO url (id, edits_pending, gid, last_updated, url) VALUES (729251, 0, '8451ab08-8ab6-48d7-8335-e92bd4e252af', '2011-01-18 16:23:38+00', 'https://www.generasia.com/w/images/7/74/identity.png');
 INSERT INTO url (id, edits_pending, gid, last_updated, url) VALUES (748185, 0, '5855c1ff-5a05-4f32-a7c7-cbf83758fae0', '2011-01-18 16:23:38+00', 'http://www.amazon.co.uk/gp/product/B001IKWNCE');
 INSERT INTO url (id, edits_pending, gid, last_updated, url) VALUES (748186, 0, '239d7a4e-6c19-43e5-8493-875badf02246', '2011-01-18 16:23:38+00', 'http://www.discogs.com/release/1541060');
 INSERT INTO url (id, edits_pending, gid, last_updated, url) VALUES (755940, 0, '057bdf29-c255-45b8-8da2-941a307b09c0', '2011-01-18 16:23:38+00', 'http://www.led-zeppelin.org/');
