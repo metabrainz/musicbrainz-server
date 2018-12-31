@@ -137,38 +137,38 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
         },
         // AllMusic
         {
-                             input_url: 'http://www.allmusic.com/artist/the-beatles-mn0000754032/credits',
+                             input_url: 'https://www.allmusic.com/artist/the-beatles-mn0000754032/credits',
                      input_entity_type: 'artist',
             expected_relationship_type: 'allmusic',
-                    expected_clean_url: 'http://www.allmusic.com/artist/mn0000754032',
+                    expected_clean_url: 'https://www.allmusic.com/artist/mn0000754032',
                only_valid_entity_types: ['artist']
         },
         {
                              input_url: 'http://www.allmusic.com/performance/le-nozze-di-figaro-the-marriage-of-figaro-opera-k-492-mq0000061129/credits',
                      input_entity_type: 'recording',
             expected_relationship_type: 'allmusic',
-                    expected_clean_url: 'http://www.allmusic.com/performance/mq0000061129',
+                    expected_clean_url: 'https://www.allmusic.com/performance/mq0000061129',
                only_valid_entity_types: ['recording']
         },
         {
                              input_url: 'http://www.allmusic.com/album/here-comes-the-sun-mw0002303439/releases',
                      input_entity_type: 'release_group',
             expected_relationship_type: 'allmusic',
-                    expected_clean_url: 'http://www.allmusic.com/album/mw0002303439',
+                    expected_clean_url: 'https://www.allmusic.com/album/mw0002303439',
                only_valid_entity_types: ['release_group']
         },
         {
                              input_url: 'http://www.allmusic.com/composition/le-nozze-di-figaro-the-marriage-of-figaro-opera-k-492-mc0002367338',
                      input_entity_type: 'work',
             expected_relationship_type: 'allmusic',
-                    expected_clean_url: 'http://www.allmusic.com/composition/mc0002367338',
+                    expected_clean_url: 'https://www.allmusic.com/composition/mc0002367338',
                only_valid_entity_types: ['work']
         },
         {
                              input_url: 'http://www.allmusic.com/song/help!-mt0043064796',
                      input_entity_type: 'work',
             expected_relationship_type: 'allmusic',
-                    expected_clean_url: 'http://www.allmusic.com/song/mt0043064796',
+                    expected_clean_url: 'https://www.allmusic.com/song/mt0043064796',
                only_valid_entity_types: ['work']
         },
         // Amazon

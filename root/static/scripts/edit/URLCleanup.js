@@ -414,10 +414,10 @@ const CLEANUPS = {
     match: [new RegExp("^(https?://)?([^/]+\\.)?allmusic\\.com","i")],
     type: LINK_TYPES.allmusic,
     clean: function (url) {
-      return url.replace(/^https?:\/\/(?:[^.]+\.)?allmusic\.com\/(artist|album(?:\/release)?|composition|song|performance)\/(?:[^\/]*-)?((?:mn|mw|mc|mt|mq|mr)[0-9]+).*/, "http://www.allmusic.com/$1/$2");
+      return url.replace(/^https?:\/\/(?:[^.]+\.)?allmusic\.com\/(artist|album(?:\/release)?|composition|song|performance)\/(?:[^\/]*-)?((?:mn|mw|mc|mt|mq|mr)[0-9]+).*/, "https://www.allmusic.com/$1/$2");
     },
     validate: function (url, id) {
-      var m = /^http:\/\/www\.allmusic\.com\/([a-z\/]+)[0-9]{10}$/.exec(url);
+      var m = /^https:\/\/www\.allmusic\.com\/([a-z\/]+)[0-9]{10}$/.exec(url);
       if (m) {
         var prefix = m[1];
         switch (id) {

@@ -142,7 +142,7 @@ INSERT INTO url (edits_pending, gid, id, last_updated, url) VALUES
 	(0, '68bdea58-aee0-4bc3-9aa5-4a2ac43cecb3', 307776, '2014-01-17 16:26:30.650232+00', 'http://www.discogs.com/artist/95546'),
 	(0, '22e26c8e-16c4-4ee3-9286-9a3307aa6562', 581105, '2011-05-16 16:31:52+00', 'http://www.pbs.org/wnet/gperf/education/mozart.html'),
 	(0, '7cde31b5-1107-4b30-a31a-56c95504564d', 584364, '2011-05-16 16:31:52+00', 'http://www.bbc.co.uk/music/artists/b972f589-fb0e-474e-b64a-803b0364fa75'),
-	(0, 'af8d2f64-0a2b-4cf2-b186-7355fd15f9d8', 944664, '2012-11-03 01:40:52.561713+00', 'http://www.allmusic.com/artist/mn0000026350'),
+	(0, 'af8d2f64-0a2b-4cf2-b186-7355fd15f9d8', 944664, '2012-11-03 01:40:52.561713+00', 'https://www.allmusic.com/artist/mn0000026350'),
 	(0, 'fc052e4e-2247-4fa3-82bc-e7b90a47dc7f', 1598278, '2013-01-30 22:16:55.205991+00', 'http://viaf.org/viaf/32197206'),
 	(0, '7c4aee9f-02bd-45e0-a473-867c56ceca1a', 1709986, '2013-05-15 21:44:14.701946+00', 'http://www.wikidata.org/wiki/Q254'),
 	(0, '4dc4d521-d284-40a3-9d4a-7608abd01682', 1780932, '2013-06-19 09:59:24.209248+00', 'http://vgmdb.net/artist/174'),
