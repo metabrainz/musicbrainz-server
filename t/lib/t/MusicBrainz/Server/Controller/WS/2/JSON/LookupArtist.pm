@@ -158,7 +158,7 @@ test 'basic artist lookup, inc=url-rels' => sub {
                     direction => "forward",
                     url => {
                         id => '37ad368b-d37d-46d4-be3a-349f78355253',
-                        resource => 'http://www.imdb.com/name/nm4057169/'
+                        resource => 'https://www.imdb.com/name/nm4057169/'
                     },
                     type => "IMDb",
                     'type-id' => '94c8b0cc-4477-4106-932c-da60e63de61c',

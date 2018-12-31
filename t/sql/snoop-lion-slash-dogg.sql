@@ -75,7 +75,7 @@ INSERT INTO url (edits_pending, gid, id, last_updated, url) VALUES
 	(0, 'fa4a8fc6-3735-40b2-b756-d93bc7d4c56d', 2867, '2014-04-21 03:59:55.007119-05', 'http://snoopdogg.com/'),
 	(0, 'faa5dfde-719f-4db3-9a0d-071e612e80a8', 2869, '2012-08-10 05:11:50.345284-05', 'http://en.wikipedia.org/wiki/Snoop_Dogg'),
 	(0, '834ba9c0-2330-4948-9e85-763afdb22137', 4290, '2011-05-16 11:31:52-05', 'http://musicmoz.org/Bands_and_Artists/S/Snoop_Dogg/'),
-	(0, 'e93fe5ab-9783-47bc-a8d6-a2c235debd59', 28335, '2011-05-16 11:31:52-05', 'http://www.imdb.com/name/nm0004879/'),
+	(0, 'e93fe5ab-9783-47bc-a8d6-a2c235debd59', 28335, '2011-05-16 11:31:52-05', 'https://www.imdb.com/name/nm0004879/'),
 	(0, '71f152f2-8cca-482a-bc25-8045461f7e1a', 135938, '2014-01-21 03:14:41.284747-06', 'http://www.discogs.com/artist/132084'),
 	(0, 'bf09ffbc-b764-4dba-9b29-9c8c646018a3', 135939, '2013-08-14 01:34:12.721194-05', 'https://myspace.com/snoopdogg'),
 	(0, '4a4cbf56-e419-4ce8-a691-55053ee0ce2b', 585101, '2011-05-16 11:31:52-05', 'https://www.bbc.co.uk/music/artists/f90e8b26-9e52-4669-a5c9-e28529c47894'),

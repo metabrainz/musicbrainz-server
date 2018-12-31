@@ -138,7 +138,7 @@ INSERT INTO l_artist_series (edits_pending, entity0, entity0_credit, entity1, en
 INSERT INTO url (edits_pending, gid, id, last_updated, url) VALUES
 	(0, 'c53f888b-c808-48c8-93bb-ad3f2bd630cb', 549, '2011-05-16 16:31:52+00', 'http://en.wikipedia.org/wiki/Wolfgang_Amadeus_Mozart'),
 	(0, 'a6320f0d-424b-4a49-b6ca-61e30389ad1d', 111409, '2011-05-16 16:31:52+00', 'http://musicmoz.org/Composition/Composers/M/Mozart,_Wolfgang_Amadeus/'),
-	(0, 'f73e9633-858b-4d72-b570-d1eb536e96ce', 111410, '2011-05-16 16:31:52+00', 'http://www.imdb.com/name/nm0003665/'),
+	(0, 'f73e9633-858b-4d72-b570-d1eb536e96ce', 111410, '2011-05-16 16:31:52+00', 'https://www.imdb.com/name/nm0003665/'),
 	(0, '68bdea58-aee0-4bc3-9aa5-4a2ac43cecb3', 307776, '2014-01-17 16:26:30.650232+00', 'http://www.discogs.com/artist/95546'),
 	(0, '22e26c8e-16c4-4ee3-9286-9a3307aa6562', 581105, '2011-05-16 16:31:52+00', 'http://www.pbs.org/wnet/gperf/education/mozart.html'),
 	(0, '7cde31b5-1107-4b30-a31a-56c95504564d', 584364, '2011-05-16 16:31:52+00', 'https://www.bbc.co.uk/music/artists/b972f589-fb0e-474e-b64a-803b0364fa75'),

@@ -129,7 +129,7 @@ INSERT INTO track_gid_redirect (gid, new_id, created) VALUES
     ('a5f68741-9aa0-5c24-d82a-ce0907744910', 18674665, '2012-04-09 20:07:05.161415+00');
 
 INSERT INTO url (id, gid, url, edits_pending, last_updated) VALUES
-    (29540, 'bf309ba1-b07c-426e-90df-ca5d651ae7a0', 'http://www.imdb.com/name/nm0195982/', 0, '2011-05-16 16:31:52+00'),
+    (29540, 'bf309ba1-b07c-426e-90df-ca5d651ae7a0', 'https://www.imdb.com/name/nm0195982/', 0, '2011-05-16 16:31:52+00'),
     (4948549, '86d65e08-8331-4614-a387-816abdba0045', 'http://thedavidbowieknives.bandcamp.com/album/weapons-of-mass-seduction', 0, '2018-04-11 10:09:59.527876+00');
 
 INSERT INTO url_gid_redirect (gid, new_id, created) VALUES

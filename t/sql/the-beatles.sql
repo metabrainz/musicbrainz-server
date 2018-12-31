@@ -324,7 +324,7 @@ INSERT INTO url (edits_pending, gid, id, last_updated, url) VALUES
 	(0, '7c3c8677-b843-4300-8002-62d4a2a9f969', 144, '2011-05-16 16:31:52+00', 'http://musicmoz.org/Bands_and_Artists/B/Beatles,_The/'),
 	(0, '4327d342-5545-4168-a4c9-f8a740099d5d', 14999, '2014-02-09 22:33:45.219526+00', 'http://www.discogs.com/artist/82730'),
 	(0, '3aeb82b2-2a1c-474e-abb2-bf4f67316cf2', 145314, '2011-05-16 16:31:52+00', 'http://www.aboutthebeatles.com/'),
-	(0, '00788bbc-11f2-4445-a53e-d2ce36128822', 300145, '2011-05-16 16:31:52+00', 'http://www.imdb.com/name/nm1397313/'),
+	(0, '00788bbc-11f2-4445-a53e-d2ce36128822', 300145, '2011-05-16 16:31:52+00', 'https://www.imdb.com/name/nm1397313/'),
 	(0, '45db1b46-1848-456f-bb27-7f72b66ffe11', 530568, '2011-05-16 16:31:52+00', 'http://www.dmbeatles.com/'),
 	(0, 'f57c02f1-4e21-49a9-82f7-b9735279b147', 547632, '2013-08-15 03:00:47.122626+00', 'https://myspace.com/thebeatles'),
 	(0, '85e5480a-f7ae-4d03-bbd2-d0c372bd2dc4', 584325, '2011-05-16 16:31:52+00', 'https://www.bbc.co.uk/music/artists/b10bbbfc-cf9e-42e0-be17-e2c3e1d2600d'),

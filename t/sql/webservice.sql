@@ -65,7 +65,7 @@ INSERT INTO url (id, edits_pending, gid, last_updated, url) VALUES (151488, 0, '
 INSERT INTO url (id, edits_pending, gid, last_updated, url) VALUES (151489, 0, '440e9a25-aec5-48ff-8579-c82d320971ac', '2011-01-18 16:23:38+00', 'http://www.discogs.com/artist/Plone');
 INSERT INTO url (id, edits_pending, gid, last_updated, url) VALUES (151497, 0, 'b8dcbe2e-95ed-433e-9f70-3ec373ea19b0', '2011-01-18 16:23:38+00', 'http://www.discogs.com/release/30895');
 INSERT INTO url (id, edits_pending, gid, last_updated, url) VALUES (151929, 0, '187960af-c1b1-4220-ae94-9b92ff6b7a04', '2011-01-18 16:23:38+00', 'http://ja.wikipedia.org/wiki/M-flo');
-INSERT INTO url (id, edits_pending, gid, last_updated, url) VALUES (164730, 0, 'dba4407e-275b-46a3-94b7-addd279137a3', '2011-01-18 16:23:38+00', 'http://www.imdb.com/name/nm0454475/');
+INSERT INTO url (id, edits_pending, gid, last_updated, url) VALUES (164730, 0, 'dba4407e-275b-46a3-94b7-addd279137a3', '2011-01-18 16:23:38+00', 'https://www.imdb.com/name/nm0454475/');
 INSERT INTO url (id, edits_pending, gid, last_updated, url) VALUES (164731, 0, '49c9a51b-22f5-43d9-a50b-f42c49232a47', '2011-01-18 16:23:38+00', 'http://www.discogs.com/artist/B.B.+King');
 INSERT INTO url (id, edits_pending, gid, last_updated, url) VALUES (164732, 0, 'c8c600e5-a993-4671-9210-e07dedf84d27', '2011-01-18 16:23:38+00', 'http://www.bbking.com/');
 INSERT INTO url (id, edits_pending, gid, last_updated, url) VALUES (172029, 0, 'c428631a-30c2-4d22-95e9-6de3934d196f', '2011-01-18 16:23:38+00', 'http://www.discogs.com/release/1480');
@@ -144,10 +144,10 @@ INSERT INTO url (id, edits_pending, gid, last_updated, url) VALUES (293951, 0, '
 INSERT INTO url (id, edits_pending, gid, last_updated, url) VALUES (293952, 0, '38afae11-d1ea-4378-8d70-3a979b52c2a8', '2011-01-18 16:23:38+00', 'http://www.discogs.com/release/6390');
 INSERT INTO url (id, edits_pending, gid, last_updated, url) VALUES (304383, 0, '7320f9ca-85ed-4b56-98c3-ea7a9891a48b', '2011-01-18 16:23:38+00', 'http://www.matadorrecords.com/releases/discography.html');
 INSERT INTO url (id, edits_pending, gid, last_updated, url) VALUES (312133, 0, '27bbe3aa-111e-42ec-8b1e-f38e09bdb410', '2011-01-18 16:23:38+00', 'http://www.discogs.com/label/Commercial+Suicide');
-INSERT INTO url (id, edits_pending, gid, last_updated, url) VALUES (314780, 0, 'b1011050-812e-4dd9-bf7f-3cb5880a269e', '2011-01-18 16:23:38+00', 'http://www.imdb.com/name/nm0496389/');
+INSERT INTO url (id, edits_pending, gid, last_updated, url) VALUES (314780, 0, 'b1011050-812e-4dd9-bf7f-3cb5880a269e', '2011-01-18 16:23:38+00', 'https://www.imdb.com/name/nm0496389/');
 INSERT INTO url (id, edits_pending, gid, last_updated, url) VALUES (315339, 0, '7826c740-8483-4df3-8784-169228bf90b5', '2011-01-18 16:23:38+00', 'http://www.myspace.com/badreligion');
 INSERT INTO url (id, edits_pending, gid, last_updated, url) VALUES (315340, 0, '1b2479c6-c056-443b-bd97-beecf9931ab8', '2011-01-18 16:23:38+00', 'http://www.purevolume.com/badreligion');
-INSERT INTO url (id, edits_pending, gid, last_updated, url) VALUES (315341, 0, 'd433def5-3316-42d0-9b8f-6d6e0d16bcdb', '2011-01-18 16:23:38+00', 'http://www.imdb.com/name/nm1137815/');
+INSERT INTO url (id, edits_pending, gid, last_updated, url) VALUES (315341, 0, 'd433def5-3316-42d0-9b8f-6d6e0d16bcdb', '2011-01-18 16:23:38+00', 'https://www.imdb.com/name/nm1137815/');
 INSERT INTO url (id, edits_pending, gid, last_updated, url) VALUES (323033, 0, '8d192e68-5b82-4d40-a185-0f12f1a6d772', '2011-01-18 16:23:38+00', 'http://www.discogs.com/release/229361');
 INSERT INTO url (id, edits_pending, gid, last_updated, url) VALUES (329915, 0, '88a86917-4a07-4c3e-a178-66336da53a9e', '2011-01-18 16:23:38+00', 'http://en.wikipedia.org/wiki/Andy_C');
 INSERT INTO url (id, edits_pending, gid, last_updated, url) VALUES (336227, 0, 'd50a6a58-837e-4d6f-80fb-921bc637f31c', '2011-01-18 16:23:38+00', 'http://www.discogs.com/release/388694');
@@ -185,7 +185,7 @@ INSERT INTO url (id, edits_pending, gid, last_updated, url) VALUES (537138, 0, '
 INSERT INTO url (id, edits_pending, gid, last_updated, url) VALUES (537139, 0, '91bc766e-3d9d-4260-9412-8af4d551c10e', '2011-01-18 16:23:38+00', 'http://www.boaamerica.com/');
 INSERT INTO url (id, edits_pending, gid, last_updated, url) VALUES (543359, 0, '630ebc87-5ff0-45a0-b705-3eb64614d243', '2011-01-18 16:23:38+00', 'http://www.youtube.com/user/avexnetwork');
 INSERT INTO url (id, edits_pending, gid, last_updated, url) VALUES (546973, 0, '87282994-4a55-4477-bf92-10d963fba67f', '2011-01-18 16:23:38+00', 'http://www.purevolume.com/thechemicalbrothers');
-INSERT INTO url (id, edits_pending, gid, last_updated, url) VALUES (546974, 0, '272424cf-77c4-48a0-af6b-8d1e65f06771', '2011-01-18 16:23:38+00', 'http://www.imdb.com/name/nm1739242/');
+INSERT INTO url (id, edits_pending, gid, last_updated, url) VALUES (546974, 0, '272424cf-77c4-48a0-af6b-8d1e65f06771', '2011-01-18 16:23:38+00', 'https://www.imdb.com/name/nm1739242/');
 INSERT INTO url (id, edits_pending, gid, last_updated, url) VALUES (573314, 0, '02c14af2-5ce0-41ca-acd7-ee9913692558', '2011-01-18 16:23:38+00', 'http://www.amazon.co.jp/gp/product/B0001FAD2O');
 INSERT INTO url (id, edits_pending, gid, last_updated, url) VALUES (575949, 0, '6ab5e8bf-879a-49bf-aafd-ec9e55cf371d', '2011-01-18 16:23:38+00', 'http://www.discogs.com/label/Warner+Music+(Japan)');
 INSERT INTO url (id, edits_pending, gid, last_updated, url) VALUES (576270, 0, '708e91cc-7d98-4288-9e34-b6d73ff6bbb7', '2011-01-18 16:23:38+00', 'http://warp.net/');
@@ -225,7 +225,7 @@ INSERT INTO url (id, edits_pending, gid, last_updated, url) VALUES (759131, 0, '
 INSERT INTO url (id, edits_pending, gid, last_updated, url) VALUES (759133, 0, '703e60f8-313c-4234-b64a-1b5599a505c1', '2011-01-18 16:23:38+00', 'http://twitter.com/ChemBros');
 INSERT INTO url (id, edits_pending, gid, last_updated, url) VALUES (759135, 0, 'affd93c2-04e6-40a5-9c8c-6cb0bb621287', '2011-01-18 16:23:38+00', 'http://www.bebo.com/ChemicalBrothers');
 INSERT INTO url (id, edits_pending, gid, last_updated, url) VALUES (779346, 0, 'ded303b3-1013-4429-9c12-05e0b061e273', '2011-01-18 16:23:38+00', 'http://www.discogs.com/label/Ace+Records+(UK)');
-INSERT INTO url (id, edits_pending, gid, last_updated, url) VALUES (788379, 0, '37ad368b-d37d-46d4-be3a-349f78355253', '2011-01-18 16:23:38+00', 'http://www.imdb.com/name/nm4057169/');
+INSERT INTO url (id, edits_pending, gid, last_updated, url) VALUES (788379, 0, '37ad368b-d37d-46d4-be3a-349f78355253', '2011-01-18 16:23:38+00', 'https://www.imdb.com/name/nm4057169/');
 INSERT INTO url (id, edits_pending, gid, last_updated, url) VALUES (788381, 0, 'daa73242-f491-4d94-bbd0-b08a03a4a69b', '2011-01-18 16:23:38+00', 'http://www.paulallgood.com/');
 INSERT INTO url (id, edits_pending, gid, last_updated, url) VALUES (788382, 0, 'e0a79771-e9f0-4127-b58a-f5e6869c8e96', '2011-01-18 16:23:38+00', 'http://www.discogs.com/artist/Paul+Allgood');
 INSERT INTO url (id, edits_pending, gid, last_updated, url) VALUES (788384, 0, '6f0fce21-abd4-4ef7-a7cf-d9ec9830b350', '2011-01-18 16:23:38+00', 'http://farm4.static.flickr.com/3652/3334818186_6e19173c33_b.jpg');

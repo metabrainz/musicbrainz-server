@@ -360,10 +360,10 @@ const CLEANUPS = {
     match: [new RegExp("^(https?://)?([^/]+\\.)?imdb\\.","i")],
     type: LINK_TYPES.imdb,
     clean: function (url) {
-      return url.replace(/^https?:\/\/([^.]+\.)?imdb\.(com|de|it|es|fr|pt)\/([a-z]+\/[a-z0-9]+)(\/.*)*$/, "http://www.imdb.com/$3/");
+      return url.replace(/^https?:\/\/([^.]+\.)?imdb\.(com|de|it|es|fr|pt)\/([a-z]+\/[a-z0-9]+)(\/.*)*$/, "https://www.imdb.com/$3/");
     },
     validate: function (url, id) {
-      var m = /^http:\/\/www\.imdb\.com\/(name\/nm|title\/tt|character\/ch|company\/co)[0-9]{7,}\/$/.exec(url);
+      var m = /^https:\/\/www\.imdb\.com\/(name\/nm|title\/tt|character\/ch|company\/co)[0-9]{7,}\/$/.exec(url);
       if (m) {
         var prefix = m[1];
         switch (id) {
