@@ -1471,6 +1471,13 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
                      input_entity_type: 'release',
             expected_relationship_type: 'downloadpurchase',
         },
+        // IBDB (Internet Broadway Database)
+        {
+                             input_url: 'http://www.ibdb.com/broadway-cast-staff/antonin-leopold-dvorak-447817',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'otherdatabases',
+                    expected_clean_url: 'https://www.ibdb.com/broadway-cast-staff/antonin-leopold-dvorak-447817',
+        },
         // IMDb (Internet Movie Database)
         {
                              input_url: 'http://www.imdb.com/name/nm1539156/',
