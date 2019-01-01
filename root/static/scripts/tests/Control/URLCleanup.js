@@ -2534,18 +2534,18 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
         },
         // Rockipedia
         {
-                             input_url: 'https://www.rockipedia.no/artister/knutsen_og_ludvigsen-31599/?test',
+                             input_url: 'http://www.rockipedia.no/artister/knutsen_og_ludvigsen-31599/?test',
                      input_entity_type: 'artist',
             expected_relationship_type: 'otherdatabases',
-                    expected_clean_url: 'http://www.rockipedia.no/artister/knutsen_og_ludvigsen-31599/',
+                    expected_clean_url: 'https://www.rockipedia.no/artister/knutsen_og_ludvigsen-31599/',
         },
         {
-                             input_url: 'http://www.rockipedia.no/plateselskap/universal_music-1719/',
+                             input_url: 'https://www.rockipedia.no/plateselskap/universal_music-1719/',
                      input_entity_type: 'label',
             expected_relationship_type: 'otherdatabases',
         },
         {
-                             input_url: 'http://www.rockipedia.no/utgivelser/hunting_high_and_low_-_remastered_and_ex-7991/',
+                             input_url: 'https://www.rockipedia.no/utgivelser/hunting_high_and_low_-_remastered_and_ex-7991/',
                      input_entity_type: 'release',
             expected_relationship_type: 'otherdatabases',
         },
