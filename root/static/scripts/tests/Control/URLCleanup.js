@@ -2378,46 +2378,46 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
         },
         // ReverbNation
         {
-                             input_url: 'http://reverbnation.com/negator',
+                             input_url: 'https://reverbnation.com/negator',
                      input_entity_type: 'artist',
             expected_relationship_type: 'socialnetwork',
-                    expected_clean_url: 'http://www.reverbnation.com/negator',
+                    expected_clean_url: 'https://www.reverbnation.com/negator',
         },
         {
-                             input_url: 'http://www.reverbnation.com/#!/benwebbmusic',
+                             input_url: 'https://www.reverbnation.com/#!/benwebbmusic',
                      input_entity_type: 'artist',
             expected_relationship_type: 'socialnetwork',
-                    expected_clean_url: 'http://www.reverbnation.com/benwebbmusic',
+                    expected_clean_url: 'https://www.reverbnation.com/benwebbmusic',
         },
         {
-                             input_url: 'https://www.reverbnation.com/littlesparrow',
+                             input_url: 'http://www.reverbnation.com/littlesparrow',
                      input_entity_type: 'artist',
             expected_relationship_type: 'socialnetwork',
-                    expected_clean_url: 'http://www.reverbnation.com/littlesparrow',
+                    expected_clean_url: 'https://www.reverbnation.com/littlesparrow',
         },
         {
                              input_url: 'http://m.reverbnation.com/venue/602562',
                      input_entity_type: 'place',
             expected_relationship_type: 'socialnetwork',
-                    expected_clean_url: 'http://www.reverbnation.com/venue/602562',
+                    expected_clean_url: 'https://www.reverbnation.com/venue/602562',
         },
         {
-                             input_url: 'http://www.reverbnation.com/sidneybowen?profile_view_source=profile_box',
+                             input_url: 'https://www.reverbnation.com/sidneybowen?profile_view_source=profile_box',
                      input_entity_type: 'place',
             expected_relationship_type: 'socialnetwork',
-                    expected_clean_url: 'http://www.reverbnation.com/sidneybowen',
+                    expected_clean_url: 'https://www.reverbnation.com/sidneybowen',
         },
         {
-                             input_url: 'http://www.reverbnation.com/sidneybowen?profile_tour=true&profile_view_source=profile_box&kick=179811',
+                             input_url: 'https://www.reverbnation.com/sidneybowen?profile_tour=true&profile_view_source=profile_box&kick=179811',
                      input_entity_type: 'place',
             expected_relationship_type: 'socialnetwork',
-                    expected_clean_url: 'http://www.reverbnation.com/sidneybowen',
+                    expected_clean_url: 'https://www.reverbnation.com/sidneybowen',
         },
         {
                              input_url: 'https://www.reverbnation.com/tomorrowsyesterdayband?fb_og_action=reverbnation_fb:unknown&fb_og_object=reverbnation_fb:artist&player_client_id=j29dsi7kl&utm_campaign=a_profile_page&utm_content=reverbnation_fb:artist&utm_medium=facebook_og&utm_source=reverbnation_fb:unknown',
                      input_entity_type: 'artist',
             expected_relationship_type: 'socialnetwork',
-                    expected_clean_url: 'http://www.reverbnation.com/tomorrowsyesterdayband',
+                    expected_clean_url: 'https://www.reverbnation.com/tomorrowsyesterdayband',
         },
         // Prog Archives
         {
