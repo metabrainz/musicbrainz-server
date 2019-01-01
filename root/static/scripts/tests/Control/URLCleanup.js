@@ -3159,7 +3159,7 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
                              input_url: 'http://www.vimeo.com/1109226?pg=embed&sec=1109226',
                      input_entity_type: 'recording',
             expected_relationship_type: 'streamingmusic',
-                    expected_clean_url: 'http://vimeo.com/1109226',
+                    expected_clean_url: 'https://vimeo.com/1109226',
         },
         // Vine
         {

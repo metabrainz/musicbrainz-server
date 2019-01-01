@@ -1048,7 +1048,7 @@ const CLEANUPS = {
     match: [new RegExp("^(https?://)?([^/]+\\.)?(vimeo\\.com/)", "i")],
     type: _.defaults({}, LINK_TYPES.videochannel, LINK_TYPES.streamingmusic),
     clean: function (url) {
-      url = url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?vimeo\.com/, "http://vimeo.com");
+      url = url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?vimeo\.com/, "https://vimeo.com");
       // Remove query string, just the video id should be enough.
       url = url.replace(/\?.*/, "");
       return url;
