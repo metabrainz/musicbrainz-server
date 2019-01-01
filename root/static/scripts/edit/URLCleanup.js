@@ -1994,10 +1994,10 @@ const CLEANUPS = {
     match: [new RegExp("^(https?://)?(www\\.)?thesession\\.org", "i")],
     type: LINK_TYPES.otherdatabases,
     clean: function (url) {
-      return url.replace(/^(?:https?:\/\/)?(?:www\.)?thesession\.org\/(tunes|events|recordings(?:\/artists)?)(?:\/.*)?\/([0-9]+)(?:.*)?$/, "http://thesession.org/$1/$2");
+      return url.replace(/^(?:https?:\/\/)?(?:www\.)?thesession\.org\/(tunes|events|recordings(?:\/artists)?)(?:\/.*)?\/([0-9]+)(?:.*)?$/, "https://thesession.org/$1/$2");
     },
     validate: function (url, id) {
-      var m = /^http:\/\/thesession\.org\/([a-z\/]+)\/[0-9]+$/.exec(url);
+      var m = /^https:\/\/thesession\.org\/([a-z\/]+)\/[0-9]+$/.exec(url);
       if (m) {
         var prefix = m[1];
         switch (id) {
