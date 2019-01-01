@@ -2220,7 +2220,7 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
         },
         // Open Library
         {
-                             input_url: 'http://openlibrary.org/authors/OL23919A/',
+                             input_url: 'https://openlibrary.org/authors/OL23919A/',
                      input_entity_type: 'artist',
             expected_relationship_type: 'otherdatabases',
         },
@@ -2228,10 +2228,10 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
                              input_url: 'http://openlibrary.org/books/OL8993487M/Harry_Potter_and_the_Philosopher\'s_Stone',
                      input_entity_type: 'release',
             expected_relationship_type: 'otherdatabases',
-                    expected_clean_url: 'http://openlibrary.org/books/OL8993487M/',
+                    expected_clean_url: 'https://openlibrary.org/books/OL8993487M/',
         },
         {
-                             input_url: 'http://openlibrary.org/works/OL82592W/',
+                             input_url: 'https://openlibrary.org/works/OL82592W/',
                      input_entity_type: 'work',
             expected_relationship_type: 'otherdatabases',
         },
