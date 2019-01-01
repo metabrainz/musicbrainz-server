@@ -2240,7 +2240,7 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
                              input_url: 'www.operabase.com/a/Risto_Joost/21715/future',
                      input_entity_type: 'label',
             expected_relationship_type: 'otherdatabases',
-                    expected_clean_url: 'http://operabase.com/a/Risto_Joost/21715',
+                    expected_clean_url: 'https://operabase.com/a/Risto_Joost/21715',
                only_valid_entity_types: ['artist']
         },
         {

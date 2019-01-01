@@ -1849,10 +1849,10 @@ const CLEANUPS = {
     match: [new RegExp("^(https?://)?(www\\.)?operabase\\.com", "i")],
     type: LINK_TYPES.otherdatabases,
     clean: function (url) {
-      return url.replace(/^(?:https?:\/\/)?(?:www\.)?operabase\.com\/a\/([^\/?#]+)\/([0-9]+).*$/, "http://operabase.com/a/$1/$2");
+      return url.replace(/^(?:https?:\/\/)?(?:www\.)?operabase\.com\/a\/([^\/?#]+)\/([0-9]+).*$/, "https://operabase.com/a/$1/$2");
     },
     validate: function (url, id) {
-      return id === LINK_TYPES.otherdatabases.artist && /^http:\/\/operabase\.com\/a\/[^\/?#]+\/[0-9]+$/.test(url);
+      return id === LINK_TYPES.otherdatabases.artist && /^https:\/\/operabase\.com\/a\/[^\/?#]+\/[0-9]+$/.test(url);
     }
   },
   petitlyrics: {
