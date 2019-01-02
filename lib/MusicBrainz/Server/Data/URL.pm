@@ -104,6 +104,7 @@ my %URL_SPECIALIZATIONS = (
     'MusikSammler'        => qr{^https?://(?:www\.)?musik-sammler\.de/}i,
     'Musixmatch'          => qr{^https?://(?:www\.)?musixmatch\.com/}i,
     'Musopen'             => qr{^https?://(?:www\.)?musopen\.org/}i,
+    'Muzikum'             => qr{^https?://(?:www\.)?muzikum\.eu/}i,
     'MVDbase'             => qr{^https?://(?:www\.)?mvdbase\.com/}i,
     'MySpace'             => qr{^https?://(?:www\.)?myspace\.com/}i,
     'NDL'                 => qr{^https?://(?:www\.)?iss\.ndl\.go\.jp/}i,
