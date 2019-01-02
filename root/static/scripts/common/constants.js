@@ -76,6 +76,7 @@ export const FAVICON_CLASSES: {[string]: string} = {
   'kickstarter.com': 'kickstarter',
   'ko-fi.com': 'kofi',
   'last.fm': 'lastfm',
+  'laboiteauxparoles.com': 'laboiteauxparoles',
   'lieder.net': 'lieder',
   'linkedin.com': 'linkedin',
   'livefans.jp': 'livefans',

@@ -85,6 +85,7 @@ my %URL_SPECIALIZATIONS = (
     'Kget'                => qr{^https?://(?:www\.)?kget\.jp/}i,
     'Kickstarter'         => qr{^https?://(?:www\.)?kickstarter\.com/}i,
     'Kofi'                => qr{^https?://(?:www\.)?ko-fi\.com/}i,
+    'LaBoiteAuxParoles'   => qr{^https?://(?:www\.)?laboiteauxparoles\.com/}i,
     'LastFM'              => qr{^https?://(?:www\.)?last\.fm/}i,
     'Lieder'              => qr{^https?://(?:www\.)?lieder\.net/}i,
     'LinkedIn'            => qr{^https?://([^/]+\.)?linkedin\.com/}i,
