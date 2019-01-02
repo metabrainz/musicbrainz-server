@@ -14,7 +14,6 @@ import * as React from 'react';
 import {QUALITY_UNKNOWN} from '../../../constants';
 import {withCatalystContext} from '../../../context';
 import EntityLink from '../../../static/scripts/common/components/EntityLink';
-import {QUALITY_NAMES} from '../../../static/scripts/common/constants';
 import {l, lp} from '../../../static/scripts/common/i18n';
 import {l_attributes} from '../../../static/scripts/common/i18n/attributes';
 import {l_languages} from '../../../static/scripts/common/i18n/languages';
@@ -37,6 +36,7 @@ import EditLinks from './EditLinks';
 import LastUpdated from './LastUpdated';
 import MergeLink from './MergeLink';
 import RemoveLink from './RemoveLink';
+import SidebarDataQuality from './SidebarDataQuality';
 import SidebarLicenses from './SidebarLicenses';
 import {SidebarProperty, SidebarProperties} from './SidebarProperties';
 import SidebarRating from './SidebarRating';
@@ -185,9 +185,7 @@ const ReleaseSidebar = ({$c, release}: Props) => {
         ) : null}
 
         {release.quality === QUALITY_UNKNOWN ? null : (
-          <SidebarProperty className="data-quality" label={l('Data Quality:')}>
-            {QUALITY_NAMES.get(release.quality) || ''}
-          </SidebarProperty>
+          <SidebarDataQuality quality={release.quality} />
         )}
       </SidebarProperties>
 

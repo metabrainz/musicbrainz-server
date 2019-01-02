@@ -15,11 +15,11 @@ import {
   EDIT_STATUS_TOBEDELETED,
 } from '../../constants';
 import {withCatalystContext} from '../../context';
+import SidebarDataQuality from '../../layout/components/sidebar/SidebarDataQuality';
 import {
   SidebarProperties,
   SidebarProperty,
 } from '../../layout/components/sidebar/SidebarProperties';
-import {QUALITY_NAMES} from '../../static/scripts/common/constants';
 import {addColon, l, ln, lp} from '../../static/scripts/common/i18n';
 import {
   getEditExpireAction,
@@ -64,9 +64,7 @@ const EditSidebar = ({$c, edit}: Props) => (
         </SidebarProperty>
       )}
 
-      <SidebarProperty className="" label={l('Data Quality:')}>
-        {QUALITY_NAMES.get(edit.quality) || ''}
-      </SidebarProperty>
+      <SidebarDataQuality quality={edit.quality} />
 
       <SidebarProperty className="" label={l('Requires:')}>
         {ln(
