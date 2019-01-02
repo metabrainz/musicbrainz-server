@@ -21,6 +21,7 @@ my %URL_SPECIALIZATIONS = (
     '45cat'               => qr{^https?://(?:www\.)?45cat\.com/}i,
     '45worlds'            => qr{^https?://(?:www\.)?45worlds\.com/}i,
     'Allmusic'            => qr{^https?://(?:www\.)?allmusic\.com/}i,
+    'Animationsong'       => qr{^https?://(?:www\.)?animationsong\.com/}i,
     'AnimeNewsNetwork'    => qr{^https?://(?:www\.)?animenewsnetwork\.com/}i,
     'ASIN'                => qr{^https?://(?:www\.)?amazon(.*?)(?:\:[0-9]+)?/.*/([0-9B][0-9A-Z]{9})(?:[^0-9A-Z]|$)}i,
     'BBCMusic'            => qr{^https?://(?:www\.)?bbc\.co\.uk/music/}i,
