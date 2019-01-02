@@ -82,6 +82,7 @@ my %URL_SPECIALIZATIONS = (
     'JunoDownload'        => qr{^https?://(?:www\.)?junodownload\.com/}i,
     'Kashinavi'           => qr{^https?://(?:www\.)?kashinavi\.com/}i,
     'KasiTime'            => qr{^https?://(?:www\.)?kasi-time\.com/}i,
+    'Kget'                => qr{^https?://(?:www\.)?kget\.jp/}i,
     'Kickstarter'         => qr{^https?://(?:www\.)?kickstarter\.com/}i,
     'Kofi'                => qr{^https?://(?:www\.)?ko-fi\.com/}i,
     'LastFM'              => qr{^https?://(?:www\.)?last\.fm/}i,
