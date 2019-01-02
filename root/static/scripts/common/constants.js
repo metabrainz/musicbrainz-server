@@ -96,6 +96,7 @@ export const FAVICON_CLASSES: {[string]: string} = {
   'nicovideo.jp': 'niconicovideo',
   'nla.gov.au': 'trove',
   'ocremix.org': 'ocremix',
+  'online-bijbel.nl': 'onlinebijbel',
   'openlibrary.org': 'openlibrary',
   'operabase.com': 'operabase',
   'patreon.com': 'patreon',

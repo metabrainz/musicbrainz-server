@@ -111,6 +111,7 @@ my %URL_SPECIALIZATIONS = (
     'NDLAuthorities'      => qr{^https?://id\.ndl\.go\.jp/}i,
     'NicoNicoVideo'       => qr{^https?://(?:www\.)?nicovideo\.jp/}i,
     'OCReMix'             => qr{^https?://(?:www\.)?ocremix\.org/}i,
+    'OnlineBijbel'        => qr{^https?://(?:www\.)?onlinebijbel\.nl/}i,
     'OpenLibrary'         => qr{^https?://(?:www\.)?openlibrary\.org/}i,
     'Operabase'           => qr{^https?://(?:www\.)?operabase\.com/}i,
     'Operadis'            => qr{^https?://(?:www\.)?operadis-opera-discography\.org\.uk/}i,
