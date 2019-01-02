@@ -45,6 +45,7 @@ export const FAVICON_CLASSES: {[string]: string} = {
   'dailymotion.com': 'dailymotion',
   'decoda.com': 'decoda',
   'dhhu.dk': 'dhhu',
+  'directlyrics.com': 'directlyrics',
   'discogs.com': 'discogs',
   'encyclopedisque.fr': 'encyclopedisque',
   'ester.ee': 'ester',

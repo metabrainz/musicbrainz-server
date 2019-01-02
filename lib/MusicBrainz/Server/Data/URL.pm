@@ -44,6 +44,7 @@ my %URL_SPECIALIZATIONS = (
     'DanceDB'             => qr{^https?://(?:www\.)?tedcrane\.com/DanceDB/}i,
     'Decoda'              => qr{^https?://(?:www\.)?decoda\.com/}i,
     'DHHU'                => qr{^https?://(?:www\.)?dhhu\.dk/}i,
+    'Directlyrics'        => qr{^https?://(?:www\.)?directlyrics\.com/}i,
     'Discogs'             => qr{^https?://(?:www\.)?discogs\.com/}i,
     'DiscosDoBrasil'      => qr{^https?://(?:www\.)?discosdobrasil\.com\.br/}i,
     'DNB'                 => qr{^https?://(?:www\.)?d-nb\.info/}i,
