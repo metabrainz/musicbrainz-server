@@ -43,6 +43,7 @@ export const FAVICON_CLASSES: {[string]: string} = {
   'd-nb.info': 'dnb',
   'dramonline.org': 'dram',
   'dailymotion.com': 'dailymotion',
+  'decoda.com': 'decoda',
   'dhhu.dk': 'dhhu',
   'discogs.com': 'discogs',
   'encyclopedisque.fr': 'encyclopedisque',

@@ -42,6 +42,7 @@ my %URL_SPECIALIZATIONS = (
     'CPDL'                => qr{^https?://cpdl\.org/wiki/}i,
     'Dailymotion'         => qr{^https?://(?:www\.)?dailymotion\.com/}i,
     'DanceDB'             => qr{^https?://(?:www\.)?tedcrane\.com/DanceDB/}i,
+    'Decoda'              => qr{^https?://(?:www\.)?decoda\.com/}i,
     'DHHU'                => qr{^https?://(?:www\.)?dhhu\.dk/}i,
     'Discogs'             => qr{^https?://(?:www\.)?discogs\.com/}i,
     'DiscosDoBrasil'      => qr{^https?://(?:www\.)?discosdobrasil\.com\.br/}i,
