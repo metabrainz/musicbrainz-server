@@ -25,6 +25,7 @@ export const FAVICON_CLASSES: {[string]: string} = {
   'allmusic.com': 'allmusic',
   'amazon': 'amazon',
   'animenewsnetwork.com': 'animenewsnetwork',
+  'anison.info': 'anisongeneration',
   'baidu.com': 'baidu',
   'bandcamp.com': 'bandcamp',
   'bandsintown.com': 'bandsintown',

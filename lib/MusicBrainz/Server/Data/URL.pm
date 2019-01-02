@@ -23,6 +23,7 @@ my %URL_SPECIALIZATIONS = (
     'Allmusic'            => qr{^https?://(?:www\.)?allmusic\.com/}i,
     'Animationsong'       => qr{^https?://(?:www\.)?animationsong\.com/}i,
     'AnimeNewsNetwork'    => qr{^https?://(?:www\.)?animenewsnetwork\.com/}i,
+    'AnisonGeneration'    => qr{^https?://anison\.info/}i,
     'ASIN'                => qr{^https?://(?:www\.)?amazon(.*?)(?:\:[0-9]+)?/.*/([0-9B][0-9A-Z]{9})(?:[^0-9A-Z]|$)}i,
     'BBCMusic'            => qr{^https?://(?:www\.)?bbc\.co\.uk/music/}i,
     'BaiduBaike'          => qr{^https?://baike\.baidu\.com/}i,
