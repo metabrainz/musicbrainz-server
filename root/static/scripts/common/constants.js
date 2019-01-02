@@ -40,6 +40,7 @@ export const FAVICON_CLASSES: {[string]: string} = {
   'cdbaby.com': 'cdbaby',
   'changetip.com': 'changetip',
   'ci.nii.ac.jp': 'cinii',
+  'classicalarchives.com': 'classicalarchives',
   'cpdl.org': 'cpdl',
   'd-nb.info': 'dnb',
   'dramonline.org': 'dram',
