@@ -68,6 +68,7 @@ export const FAVICON_CLASSES: {[string]: string} = {
   'iss.ndl.go.jp': 'ndl',
   'itunes.apple.com': 'itunes',
   'j-lyric.net': 'jlyric',
+  'joysound.com': 'joysound',
   'junodownload.com': 'junodownload',
   'kickstarter.com': 'kickstarter',
   'ko-fi.com': 'kofi',
