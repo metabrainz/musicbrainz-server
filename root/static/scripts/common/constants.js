@@ -71,6 +71,7 @@ export const FAVICON_CLASSES: {[string]: string} = {
   'joysound.com': 'joysound',
   'junodownload.com': 'junodownload',
   'kashinavi.com': 'kashinavi',
+  'kasi-time.com': 'kasitime',
   'kickstarter.com': 'kickstarter',
   'ko-fi.com': 'kofi',
   'last.fm': 'lastfm',
