@@ -65,6 +65,7 @@ export const FAVICON_CLASSES: {[string]: string} = {
   'imvdb.com': 'imvdb',
   'indiegogo.com': 'indiegogo',
   'instagram.com': 'instagram',
+  'ircam.fr': 'ircam',
   'irishtune.info': 'irishtune',
   'iss.ndl.go.jp': 'ndl',
   'itunes.apple.com': 'itunes',
