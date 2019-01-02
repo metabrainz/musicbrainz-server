@@ -157,6 +157,7 @@ my %URL_SPECIALIZATIONS = (
     'Twitch'              => qr{^https?://(?:www\.)?twitch\.tv/}i,
     'Twitter'             => qr{^https?://(?:www\.)?twitter\.com/}i,
     'UtaiteDB'            => qr{^https?://(?:www\.)?utaitedb\.net/}i,
+    'UtaNet'              => qr{^https?://(?:www\.)?uta-net\.com/}i,
     'VGMdb'               => qr{^https?://(?:www\.)?vgmdb\.net/}i,
     'VIAF'                => qr{^https?://(?:www\.)?viaf\.org/}i,
     'Videogamin'          => qr{^https?://(?:www\.)?videogam\.in/}i,
