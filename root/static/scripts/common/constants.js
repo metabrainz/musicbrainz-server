@@ -138,6 +138,7 @@ export const FAVICON_CLASSES: {[string]: string} = {
   'twitch.tv': 'twitch',
   'twitter.com': 'twitter',
   'utaitedb.net': 'utaitedb',
+  'utamap.com': 'utamap',
   'uta-net.com': 'utanet',
   'vgmdb.net': 'vgmdb',
   'viaf.org': 'viaf',
