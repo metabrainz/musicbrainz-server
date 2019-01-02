@@ -115,6 +115,7 @@ export const FAVICON_CLASSES: {[string]: string} = {
   'rockinchina.com': 'ric',
   'rockipedia.no': 'rockipedia',
   'rolldabeats.com': 'rolldabeats',
+  'runeberg.org': 'runeberg',
   'secondhandsongs.com': 'secondhandsongs',
   'setlist.fm': 'setlistfm',
   'smdb.kb.se': 'smdb',

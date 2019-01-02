@@ -133,6 +133,7 @@ my %URL_SPECIALIZATIONS = (
     'RockInChina'         => qr{^https?://(?:www\.)?rockinchina\.com/}i,
     'Rockipedia'          => qr{^https?://(?:www\.)?rockipedia\.no/}i,
     'Rolldabeats'         => qr{^https?://(?:www\.)?rolldabeats\.com/}i,
+    'Runeberg'            => qr{^https?://(?:www\.)?runeberg\.org/}i,
     'SecondHandSongs'     => qr{^https?://(?:www\.)?secondhandsongs\.com/}i,
     'SetlistFM'           => qr{^https?://(?:www\.)?setlist\.fm/}i,
     'SMDB'                => qr{^https?://(?:www\.)?smdb\.kb\.se/}i,
