@@ -63,6 +63,7 @@ my %URL_SPECIALIZATIONS = (
     'GooglePlus'          => qr{^https?://(?:www\.)?plus\.google\.com/}i,
     'Gutenberg'           => qr{^https?://(?:www\.)?gutenberg\.org/}i,
     'HMikuWiki'           => qr{^https?://www5\.atwiki\.jp/hmiku/}i,
+    'Hoick'               => qr{^https?://(?:www\.)?hoick\.jp/}i,
     'IBDb'                => qr{^https?://(?:www\.)?ibdb\.com/}i,
     'IMDb'                => qr{^https?://(?:www\.)?imdb\.com/}i,
     'IMSLP'               => qr{^https?://(?:www\.)?imslp\.org/wiki/}i,
