@@ -80,6 +80,7 @@ my %URL_SPECIALIZATIONS = (
     'JLyric'              => qr{^https?://(?:www\.)?j-lyric\.net/}i,
     'Joysound'            => qr{^https?://(?:www\.)?joysound\.com/}i,
     'JunoDownload'        => qr{^https?://(?:www\.)?junodownload\.com/}i,
+    'Kashinavi'           => qr{^https?://(?:www\.)?kashinavi\.com/}i,
     'Kickstarter'         => qr{^https?://(?:www\.)?kickstarter\.com/}i,
     'Kofi'                => qr{^https?://(?:www\.)?ko-fi\.com/}i,
     'LastFM'              => qr{^https?://(?:www\.)?last\.fm/}i,
