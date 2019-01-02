@@ -61,6 +61,7 @@ my %URL_SPECIALIZATIONS = (
     'Genius'              => qr{^https?://(?:[^/]+\.)?genius\.com/}i,
     'GooglePlay'          => qr{^https?://play\.google\.com/}i,
     'GooglePlus'          => qr{^https?://(?:www\.)?plus\.google\.com/}i,
+    'Gutenberg'           => qr{^https?://(?:www\.)?gutenberg\.org/}i,
     'HMikuWiki'           => qr{^https?://www5\.atwiki\.jp/hmiku/}i,
     'IBDb'                => qr{^https?://(?:www\.)?ibdb\.com/}i,
     'IMDb'                => qr{^https?://(?:www\.)?imdb\.com/}i,

@@ -56,6 +56,7 @@ export const FAVICON_CLASSES: {[string]: string} = {
   'fono.fi': 'fonofi',
   'generasia.com': 'generasia',
   'genius.com': 'genius',
+  'gutenberg.org': 'gutenberg',
   'ibdb.com': 'ibdb',
   'imdb.com': 'imdb',
   'imslp.org': 'imslp',
