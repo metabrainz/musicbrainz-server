@@ -151,6 +151,7 @@ export const FAVICON_CLASSES: {[string]: string} = {
   'whosampled.com': 'whosampled',
   'wikidata.org': 'wikidata',
   'wikipedia.org': 'wikipedia',
+  'wikisource.org': 'wikisource',
   'worldcat.org': 'worldcat',
   'www5.atwiki.jp/hmiku/': 'hmikuwiki',
   'youtube.com': 'youtube',

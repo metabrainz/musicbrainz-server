@@ -170,6 +170,7 @@ my %URL_SPECIALIZATIONS = (
     'WhoSampled'          => qr{^https?://(?:www\.)?whosampled\.com/}i,
     'Wikidata'            => qr{^https?://(?:www\.)?wikidata\.org/wiki/}i,
     'Wikipedia'           => qr{^https?://([\w-]{2,})\.wikipedia\.org/wiki/}i,
+    'Wikisource'          => qr{^https?://([\w-]{2,})\.wikisource\.org/wiki/}i,
     'Worldcat'            => qr{^https?://(?:www\.)?worldcat\.org/}i,
     'YouTube'             => qr{^https?://(?:www\.)?youtube\.com/}i,
     'Yunisan'             => qr{^https?://(?:www22\.)?big\.or\.jp/}i,
