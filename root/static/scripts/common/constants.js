@@ -101,6 +101,7 @@ export const FAVICON_CLASSES: {[string]: string} = {
   'operabase.com': 'operabase',
   'patreon.com': 'patreon',
   'paypal.me': 'paypal',
+  'petitlyrics.com': 'petitlyrics',
   'play.google.com': 'googleplay',
   'plus.google.com': 'googleplus',
   'progarchives.com': 'progarchives',
