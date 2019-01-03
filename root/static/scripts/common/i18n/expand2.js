@@ -12,8 +12,6 @@ import Raven from 'raven-js';
 import * as React from 'react';
 import ReactDOMServer from 'react-dom/server';
 
-const NO_MATCH = Symbol();
-
 const textContent = /^[^<>{}]+/;
 const varSubst = /^\{([0-9A-z_]+)\}/;
 const linkSubstStart = /^\{([0-9A-z_]+)\|/;
@@ -48,7 +46,7 @@ type State = {
   // Portion of the source string that hasn't been parsed yet.
   remainder: string,
   // The value of % in conditional substitutions, from `args`.
-  replacement: string | typeof NO_MATCH,
+  replacement: string | null,
   // A copy of the source string, used in error messages.
   source: string,
   /*
@@ -68,7 +66,7 @@ const state: State = Object.seal({
   match: '',
   position: 0,
   remainder: '',
-  replacement: NO_MATCH,
+  replacement: null,
   source: '',
   textPattern: textContent,
 });
@@ -84,9 +82,10 @@ function accept(pattern) {
     state.match += entireMatch;
     state.position += entireMatch.length;
     state.remainder = state.remainder.slice(entireMatch.length);
+    // m[1] can be undefined if the capture group is optional.
     return m.length > 1 ? m[1] : entireMatch;
   }
-  return NO_MATCH;
+  return null;
 }
 
 function error(message) {
@@ -133,7 +132,7 @@ function pushChild<T>(
 }
 
 function parseContinous<T>(
-  parsers: $ReadOnlyArray<() => T | typeof NO_MATCH>
+  parsers: $ReadOnlyArray<() => T | null>
 ): $ReadOnlyArray<T> {
   let children;
   let _continue = true;
@@ -141,7 +140,7 @@ function parseContinous<T>(
     _continue = false;
     for (let i = 0; i < parsers.length; i++) {
       const match = parsers[i]();
-      if (match !== NO_MATCH) {
+      if (match !== null) {
         if (!children) {
           children = [];
         }
@@ -150,11 +149,7 @@ function parseContinous<T>(
             pushChild<T>(children, match[j]);
           }
         } else {
-          /*
-            * XXX We need to convince Flow that `match` will always be
-            * type T here, and not a Symbol.
-            */
-          pushChild<T>(children, ((match: any): T));
+          pushChild<T>(children, match);
         }
         if (state.remainder) {
           _continue = true;
@@ -170,10 +165,9 @@ function parseContinous<T>(
 function parseTextContent() {
   let text = accept(state.textPattern);
   if (typeof text !== 'string') {
-    return NO_MATCH;
+    return null;
   }
-  if (state.replacement !== NO_MATCH) {
-    /* flow-include if (state.replacement instanceof Symbol) throw 'impossible' */
+  if (state.replacement !== null) {
     text = text.replace(/%/g, he.encode(state.replacement));
   }
   text = he.decode(text);
@@ -196,7 +190,7 @@ function withTextPattern(textPattern, cb) {
 const parseVarSubst = saveMatch(function () {
   const name = accept(varSubst);
   if (typeof name !== 'string') {
-    return NO_MATCH;
+    return null;
   }
   if (state.args && hasArg(name)) {
     return state.args[name];
@@ -207,10 +201,10 @@ const parseVarSubst = saveMatch(function () {
 const parseLinkSubst = saveMatch(function () {
   const name = accept(linkSubstStart);
   if (typeof name !== 'string') {
-    return NO_MATCH;
+    return null;
   }
   const children = withTextPattern(textContent, parseRoot);
-  if (accept(substEnd) === NO_MATCH) {
+  if (accept(substEnd) === null) {
     throw error('expected }');
   }
   if (state.args && hasArg(name)) {
@@ -226,7 +220,7 @@ const parseLinkSubst = saveMatch(function () {
 const parseCondSubst = saveMatch(function () {
   const name = accept(condSubstStart);
   if (typeof name !== 'string') {
-    return NO_MATCH;
+    return null;
   }
 
   const savedReplacement = state.replacement;
@@ -237,13 +231,13 @@ const parseCondSubst = saveMatch(function () {
   const thenChildren = withTextPattern(condSubstThenTextContent, parseRoot);
 
   let elseChildren = '';
-  if (accept(verticalPipe) !== NO_MATCH) {
+  if (accept(verticalPipe) !== null) {
     elseChildren = withTextPattern(textContent, parseRoot);
   }
 
   state.replacement = savedReplacement;
 
-  if (accept(substEnd) === NO_MATCH) {
+  if (accept(substEnd) === null) {
     throw error('expected }');
   }
 
@@ -268,8 +262,8 @@ function parseHtmlAttrValue() {
 }
 
 function parseHtmlAttr() {
-  if (accept(htmlAttrStart) === NO_MATCH) {
-    return NO_MATCH;
+  if (accept(htmlAttrStart) === null) {
+    return null;
   }
 
   let name = accept(htmlAttrName);
@@ -283,7 +277,7 @@ function parseHtmlAttr() {
 
   let value = withTextPattern(htmlAttrTextContent, parseHtmlAttrValue);
 
-  if (accept(/^"/) === NO_MATCH) {
+  if (accept(/^"/) === null) {
     throw error('expected "');
   }
 
@@ -299,8 +293,8 @@ function parseHtmlAttr() {
 const htmlAttrParsers = [parseHtmlAttr];
 
 function parseHtmlTag() {
-  if (accept(htmlTagStart) === NO_MATCH) {
-    return NO_MATCH;
+  if (accept(htmlTagStart) === null) {
+    return null;
   }
 
   const name = accept(htmlTagName);
@@ -310,7 +304,7 @@ function parseHtmlTag() {
 
   const attributes = parseContinous<{[string]: string}>(htmlAttrParsers);
 
-  if (accept(htmlSelfClosingTagEnd) !== NO_MATCH) {
+  if (accept(htmlSelfClosingTagEnd) !== null) {
     // Self-closing tag
     return React.createElement(
       name,
@@ -318,13 +312,13 @@ function parseHtmlTag() {
     );
   }
 
-  if (accept(htmlTagEnd) === NO_MATCH) {
+  if (accept(htmlTagEnd) === null) {
     throw error('expected >');
   }
 
   const children = withTextPattern(textContent, parseRoot);
 
-  if (accept(new RegExp('^</' + name + '>')) === NO_MATCH) {
+  if (accept(new RegExp('^</' + name + '>')) === null) {
     throw error('expected </' + name + '>');
   }
 
@@ -369,7 +363,7 @@ export default function expand(source: ?string, args?: ?VarArgs): React.Node {
   state.match = '';
   state.position = 0;
   state.remainder = source;
-  state.replacement = NO_MATCH;
+  state.replacement = null;
   state.source = source;
   state.textPattern = textContent;
 
