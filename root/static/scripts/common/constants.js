@@ -140,6 +140,7 @@ export const FAVICON_CLASSES: {[string]: string} = {
   'utaitedb.net': 'utaitedb',
   'utamap.com': 'utamap',
   'uta-net.com': 'utanet',
+  'utaten.com': 'utaten',
   'vgmdb.net': 'vgmdb',
   'viaf.org': 'viaf',
   'videogam.in': 'videogamin',

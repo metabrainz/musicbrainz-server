@@ -159,6 +159,7 @@ my %URL_SPECIALIZATIONS = (
     'UtaiteDB'            => qr{^https?://(?:www\.)?utaitedb\.net/}i,
     'Utamap'              => qr{^https?://(?:www\.)?utamap\.com/}i,
     'UtaNet'              => qr{^https?://(?:www\.)?uta-net\.com/}i,
+    'Utaten'              => qr{^https?://(?:www\.)?utaten\.com/}i,
     'VGMdb'               => qr{^https?://(?:www\.)?vgmdb\.net/}i,
     'VIAF'                => qr{^https?://(?:www\.)?viaf\.org/}i,
     'Videogamin'          => qr{^https?://(?:www\.)?videogam\.in/}i,
