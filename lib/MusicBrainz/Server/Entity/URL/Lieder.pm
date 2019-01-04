@@ -8,7 +8,7 @@ with 'MusicBrainz::Server::Entity::URL::Sidebar';
 sub sidebar_name {
     my $self = shift;
 
-    return "Lyrics at lieder.net";
+    return "LiederNet Archive";
 }
 
 __PACKAGE__->meta->make_immutable;
