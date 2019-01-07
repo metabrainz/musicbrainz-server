@@ -137,38 +137,38 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
         },
         // AllMusic
         {
-                             input_url: 'http://www.allmusic.com/artist/the-beatles-mn0000754032/credits',
+                             input_url: 'https://www.allmusic.com/artist/the-beatles-mn0000754032/credits',
                      input_entity_type: 'artist',
             expected_relationship_type: 'allmusic',
-                    expected_clean_url: 'http://www.allmusic.com/artist/mn0000754032',
+                    expected_clean_url: 'https://www.allmusic.com/artist/mn0000754032',
                only_valid_entity_types: ['artist']
         },
         {
                              input_url: 'http://www.allmusic.com/performance/le-nozze-di-figaro-the-marriage-of-figaro-opera-k-492-mq0000061129/credits',
                      input_entity_type: 'recording',
             expected_relationship_type: 'allmusic',
-                    expected_clean_url: 'http://www.allmusic.com/performance/mq0000061129',
+                    expected_clean_url: 'https://www.allmusic.com/performance/mq0000061129',
                only_valid_entity_types: ['recording']
         },
         {
                              input_url: 'http://www.allmusic.com/album/here-comes-the-sun-mw0002303439/releases',
                      input_entity_type: 'release_group',
             expected_relationship_type: 'allmusic',
-                    expected_clean_url: 'http://www.allmusic.com/album/mw0002303439',
+                    expected_clean_url: 'https://www.allmusic.com/album/mw0002303439',
                only_valid_entity_types: ['release_group']
         },
         {
                              input_url: 'http://www.allmusic.com/composition/le-nozze-di-figaro-the-marriage-of-figaro-opera-k-492-mc0002367338',
                      input_entity_type: 'work',
             expected_relationship_type: 'allmusic',
-                    expected_clean_url: 'http://www.allmusic.com/composition/mc0002367338',
+                    expected_clean_url: 'https://www.allmusic.com/composition/mc0002367338',
                only_valid_entity_types: ['work']
         },
         {
                              input_url: 'http://www.allmusic.com/song/help!-mt0043064796',
                      input_entity_type: 'work',
             expected_relationship_type: 'allmusic',
-                    expected_clean_url: 'http://www.allmusic.com/song/mt0043064796',
+                    expected_clean_url: 'https://www.allmusic.com/song/mt0043064796',
                only_valid_entity_types: ['work']
         },
         // Amazon
@@ -243,15 +243,16 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
         },
         // Ameba
         {
-                             input_url: 'http://ameblo.jp/murataayumi',
+                             input_url: 'https://ameblo.jp/murataayumi',
                      input_entity_type: 'artist',
             expected_relationship_type: 'blog',
-                    expected_clean_url: 'http://ameblo.jp/murataayumi/',
+                    expected_clean_url: 'https://ameblo.jp/murataayumi/',
         },
         {
                              input_url: 'http://ameblo.jp/murataayumi/',
                      input_entity_type: 'label',
             expected_relationship_type: 'blog',
+                    expected_clean_url: 'https://ameblo.jp/murataayumi/',
         },
         // Animationsong.com
         {
@@ -263,16 +264,16 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
         },
         // Anime News Network
         {
-                             input_url: 'http://animenewsnetwork.com/encyclopedia/people.php?id=59062',
+                             input_url: 'https://animenewsnetwork.com/encyclopedia/people.php?id=59062',
                      input_entity_type: 'artist',
             expected_relationship_type: 'otherdatabases',
-                    expected_clean_url: 'http://www.animenewsnetwork.com/encyclopedia/people.php?id=59062',
+                    expected_clean_url: 'https://www.animenewsnetwork.com/encyclopedia/people.php?id=59062',
         },
         {
                              input_url: 'http://www.animenewsnetwork.com/encyclopedia/company.php?id=10510#page_header',
                      input_entity_type: 'label',
             expected_relationship_type: 'otherdatabases',
-                    expected_clean_url: 'http://www.animenewsnetwork.com/encyclopedia/company.php?id=10510',
+                    expected_clean_url: 'https://www.animenewsnetwork.com/encyclopedia/company.php?id=10510',
         },
         // Anison Generation
         {
@@ -332,28 +333,28 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
                              input_url: 'baike.baidu.com/view/6458423.htm#1',
                      input_entity_type: 'artist',
             expected_relationship_type: 'otherdatabases',
-                    expected_clean_url: 'http://baike.baidu.com/view/6458423.htm',
+                    expected_clean_url: 'https://baike.baidu.com/view/6458423.htm',
                only_valid_entity_types: ['artist', 'release_group', 'work']
         },
         {
                              input_url: 'http://baike.baidu.com/subview/738269/15973629.htm',
                      input_entity_type: 'artist',
             expected_relationship_type: 'otherdatabases',
-                    expected_clean_url: 'http://baike.baidu.com/subview/738269/15973629.htm',
+                    expected_clean_url: 'https://baike.baidu.com/subview/738269/15973629.htm',
                only_valid_entity_types: ['artist', 'release_group', 'work']
         },
         {
-                             input_url: 'http://baike.baidu.com/item/Summer%20Romance%2787/16598351?fromtitle=Summer+Romance&fromid=8735297&type=syn#2',
+                             input_url: 'https://baike.baidu.com/item/Summer%20Romance%2787/16598351?fromtitle=Summer+Romance&fromid=8735297&type=syn#2',
                      input_entity_type: 'release',
             expected_relationship_type: 'otherdatabases',
-                    expected_clean_url: 'http://baike.baidu.com/item/Summer%20Romance%2787/16598351',
+                    expected_clean_url: 'https://baike.baidu.com/item/Summer%20Romance%2787/16598351',
                only_valid_entity_types: ['artist', 'release_group', 'work']
         },
         {
-                             input_url: 'http://baike.baidu.com/item/王婷萱#1',
+                             input_url: 'https://baike.baidu.com/item/王婷萱#1',
                      input_entity_type: 'release_group',
             expected_relationship_type: 'otherdatabases',
-                    expected_clean_url: 'http://baike.baidu.com/item/王婷萱',
+                    expected_clean_url: 'https://baike.baidu.com/item/王婷萱',
                only_valid_entity_types: ['artist', 'release_group', 'work']
         },
         // Bandcamp
@@ -449,7 +450,7 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
                              input_url: 'http://www.bbc.co.uk/music/artists/b52dd210-909c-461a-a75d-19e85a522042#tracks',
                      input_entity_type: 'artist',
             expected_relationship_type: 'bbcmusic',
-                    expected_clean_url: 'http://www.bbc.co.uk/music/artists/b52dd210-909c-461a-a75d-19e85a522042'
+                    expected_clean_url: 'https://www.bbc.co.uk/music/artists/b52dd210-909c-461a-a75d-19e85a522042'
         },
         // Beatport
         {                               // Closed in Dec. 2017, replaced with www.beatport.com/chart
@@ -586,21 +587,21 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
                              input_url: 'www.musicofjunior.bigcartel.com/test',
                      input_entity_type: 'artist',
             expected_relationship_type: 'mailorder',
-                    expected_clean_url: 'http://www.musicofjunior.bigcartel.com',
+                    expected_clean_url: 'https://www.musicofjunior.bigcartel.com',
                only_valid_entity_types: ['artist']
         },
         {
                              input_url: 'http://www.musicofjunior.bigcartel.com?test',
                      input_entity_type: 'artist',
             expected_relationship_type: 'mailorder',
-                    expected_clean_url: 'http://www.musicofjunior.bigcartel.com',
+                    expected_clean_url: 'https://www.musicofjunior.bigcartel.com',
                only_valid_entity_types: ['artist']
         },
         {
                              input_url: 'https://www.musicofjunior.bigcartel.com/product/juniorland-ep#test',
                      input_entity_type: 'release',
             expected_relationship_type: 'mailorder',
-                    expected_clean_url: 'http://www.musicofjunior.bigcartel.com/product/juniorland-ep',
+                    expected_clean_url: 'https://www.musicofjunior.bigcartel.com/product/juniorland-ep',
                only_valid_entity_types: ['release']
         },
         {
@@ -634,70 +635,70 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
                              input_url: 'http://ark.bnf.fr/ark:/12148/cb11923342r',
                      input_entity_type: 'artist',
             expected_relationship_type: 'otherdatabases',
-                    expected_clean_url: 'http://catalogue.bnf.fr/ark:/12148/cb11923342r',
+                    expected_clean_url: 'https://catalogue.bnf.fr/ark:/12148/cb11923342r',
                only_valid_entity_types: ['artist', 'instrument', 'label', 'place', 'series', 'work']
         },
         {
                              input_url: 'catalogue.bnf.fr/ark:/12148/cb11923342r',
                      input_entity_type: 'artist',
             expected_relationship_type: 'otherdatabases',
-                    expected_clean_url: 'http://catalogue.bnf.fr/ark:/12148/cb11923342r',
+                    expected_clean_url: 'https://catalogue.bnf.fr/ark:/12148/cb11923342r',
                only_valid_entity_types: ['artist', 'instrument', 'label', 'place', 'series', 'work']
         },
         {
                              input_url: 'http://data.bnf.fr/ark:/12148/cb11923342r',
                      input_entity_type: 'artist',
             expected_relationship_type: 'otherdatabases',
-                    expected_clean_url: 'http://catalogue.bnf.fr/ark:/12148/cb11923342r',
+                    expected_clean_url: 'https://catalogue.bnf.fr/ark:/12148/cb11923342r',
                only_valid_entity_types: ['artist', 'instrument', 'label', 'place', 'series', 'work']
         },
         {
                              input_url: 'https://data.bnf.fr/11923342/antoine_de_saint-exupery/',
                      input_entity_type: 'artist',
             expected_relationship_type: 'otherdatabases',
-                    expected_clean_url: 'http://catalogue.bnf.fr/ark:/12148/cb11923342r',
+                    expected_clean_url: 'https://catalogue.bnf.fr/ark:/12148/cb11923342r',
                only_valid_entity_types: ['artist', 'instrument', 'label', 'place', 'series', 'work']
         },
         {
                              input_url: 'http://data.bnf.fr/linked-authors/11923342/r/220',
                      input_entity_type: 'artist',
             expected_relationship_type: 'otherdatabases',
-                    expected_clean_url: 'http://catalogue.bnf.fr/ark:/12148/cb11923342r',
+                    expected_clean_url: 'https://catalogue.bnf.fr/ark:/12148/cb11923342r',
                only_valid_entity_types: ['artist', 'instrument', 'label', 'place', 'series', 'work']
         },
         {
                              input_url: 'catalogue.bnf.fr/ark:/12148/cb394875737.unimarc',
                      input_entity_type: 'event',
             expected_relationship_type: 'otherdatabases',
-                    expected_clean_url: 'http://catalogue.bnf.fr/ark:/12148/cb394875737',
+                    expected_clean_url: 'https://catalogue.bnf.fr/ark:/12148/cb394875737',
                only_valid_entity_types: ['event', 'release', 'series']
         },
         {
                              input_url: 'http://data.bnf.fr/43854245/concerto_en_re_spectacle_2014/',
                      input_entity_type: 'event',
             expected_relationship_type: 'otherdatabases',
-                    expected_clean_url: 'http://catalogue.bnf.fr/ark:/12148/cb43854245s',
+                    expected_clean_url: 'https://catalogue.bnf.fr/ark:/12148/cb43854245s',
                only_valid_entity_types: ['event', 'release', 'series']
         },
         {
                              input_url: 'http://n2t.net/ark:/12148/cb119983474',
                      input_entity_type: 'instrument',
             expected_relationship_type: 'otherdatabases',
-                    expected_clean_url: 'http://catalogue.bnf.fr/ark:/12148/cb119983474',
+                    expected_clean_url: 'https://catalogue.bnf.fr/ark:/12148/cb119983474',
                only_valid_entity_types: ['artist', 'instrument', 'label', 'place', 'series', 'work']
         },
         {
                              input_url: 'http://catalogue.bnf.fr/ark:/12148/cb13875048m/PUBLIC',
                      input_entity_type: 'label',
             expected_relationship_type: 'otherdatabases',
-                    expected_clean_url: 'http://catalogue.bnf.fr/ark:/12148/cb13875048m',
+                    expected_clean_url: 'https://catalogue.bnf.fr/ark:/12148/cb13875048m',
                only_valid_entity_types: ['artist', 'instrument', 'label', 'place', 'series', 'work']
         },
         {
                              input_url: 'http://catalogue.bnf.fr/ark:/12148/cb16215568r#noticeNum',
                      input_entity_type: 'place',
             expected_relationship_type: 'otherdatabases',
-                    expected_clean_url: 'http://catalogue.bnf.fr/ark:/12148/cb16215568r',
+                    expected_clean_url: 'https://catalogue.bnf.fr/ark:/12148/cb16215568r',
                only_valid_entity_types: ['artist', 'instrument', 'label', 'place', 'series', 'work']
         },
         {
@@ -723,14 +724,14 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
                              input_url: 'http://catalogue.bnf.fr/ark:/12148/cb442156144',
                      input_entity_type: 'series',
             expected_relationship_type: 'otherdatabases',
-                    expected_clean_url: 'http://catalogue.bnf.fr/ark:/12148/cb442156144',
+                    expected_clean_url: 'https://catalogue.bnf.fr/ark:/12148/cb442156144',
                only_valid_entity_types: ['event', 'release', 'series']
         },
         {
                              input_url: 'http://catalogue.bnf.fr/ark:/12148/cb11962706k',
                      input_entity_type: 'work',
             expected_relationship_type: 'otherdatabases',
-                    expected_clean_url: 'http://catalogue.bnf.fr/ark:/12148/cb11962706k',
+                    expected_clean_url: 'https://catalogue.bnf.fr/ark:/12148/cb11962706k',
                only_valid_entity_types: ['artist', 'instrument', 'label', 'place', 'series', 'work']
         },
         // BookBrainz
@@ -830,14 +831,14 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
                              input_url: 'http://cbfiddle.com/rx/rec/r55.html',
                      input_entity_type: 'release_group',
             expected_relationship_type: 'otherdatabases',
-                    expected_clean_url: 'http://www.cbfiddle.com/rx/rec/r55.html',
+                    expected_clean_url: 'https://www.cbfiddle.com/rx/rec/r55.html',
                only_valid_entity_types: ['release_group']
         },
         {
                              input_url: 'www.cbfiddle.com/rx/tune/t4003.html',
                      input_entity_type: 'work',
             expected_relationship_type: 'otherdatabases',
-                    expected_clean_url: 'http://www.cbfiddle.com/rx/tune/t4003.html',
+                    expected_clean_url: 'https://www.cbfiddle.com/rx/tune/t4003.html',
                only_valid_entity_types: ['work']
         },
         // CDJapan
@@ -871,31 +872,31 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
                              input_url: 'http://www.classicalarchives.com/artist/27956.html',
                      input_entity_type: 'release',
             expected_relationship_type: 'otherdatabases',
-                    expected_clean_url: 'http://www.classicalarchives.com/artist/27956.html',
+                    expected_clean_url: 'https://www.classicalarchives.com/artist/27956.html',
         },
         {
                              input_url: 'www.classicalarchives.com/composer/2806.html#tvf=tracks&tv=albums',
                      input_entity_type: 'artist',
             expected_relationship_type: 'otherdatabases',
-                    expected_clean_url: 'http://www.classicalarchives.com/composer/2806.html',
+                    expected_clean_url: 'https://www.classicalarchives.com/composer/2806.html',
         },
         {
-                             input_url: 'http://www.classicalarchives.com/ensemble/10.html',
+                             input_url: 'https://www.classicalarchives.com/ensemble/10.html',
                      input_entity_type: 'release',
             expected_relationship_type: 'otherdatabases',
-                    expected_clean_url: 'http://www.classicalarchives.com/ensemble/10.html',
+                    expected_clean_url: 'https://www.classicalarchives.com/ensemble/10.html',
         },
         {
                              input_url: 'http://classicalarchives.com/album/menlo-201409.html?test',
                      input_entity_type: 'release',
             expected_relationship_type: 'otherdatabases',
-                    expected_clean_url: 'http://www.classicalarchives.com/album/menlo-201409.html',
+                    expected_clean_url: 'https://www.classicalarchives.com/album/menlo-201409.html',
         },
         {
                              input_url: 'https://www.classicalarchives.com/work/1119282.html',
                      input_entity_type: 'work',
             expected_relationship_type: 'otherdatabases',
-                    expected_clean_url: 'http://www.classicalarchives.com/work/1119282.html',
+                    expected_clean_url: 'https://www.classicalarchives.com/work/1119282.html',
         },
         // CPDL (Choral Public Domain Library)
         {
@@ -1336,7 +1337,7 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
                              input_url: 'http://generasia.com/wiki/Wink',
                      input_entity_type: 'artist',
             expected_relationship_type: 'otherdatabases',
-                    expected_clean_url: 'http://www.generasia.com/wiki/Wink',
+                    expected_clean_url: 'https://www.generasia.com/wiki/Wink',
                only_valid_entity_types: ['artist', 'label', 'release_group', 'work']
         },
         {
@@ -1353,7 +1354,7 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
                              input_url: 'https://www.generasia.com/wiki/Ding_Ding_~Koi_Kara_Hajimaru_Futari_no_Train~',
                      input_entity_type: 'work',
             expected_relationship_type: 'otherdatabases',
-                    expected_clean_url: 'http://www.generasia.com/wiki/Ding_Ding_~Koi_Kara_Hajimaru_Futari_no_Train~',
+                    expected_clean_url: 'https://www.generasia.com/wiki/Ding_Ding_~Koi_Kara_Hajimaru_Futari_no_Train~',
         },
         // Genius
         {
@@ -1470,11 +1471,19 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
                      input_entity_type: 'release',
             expected_relationship_type: 'downloadpurchase',
         },
+        // IBDB (Internet Broadway Database)
+        {
+                             input_url: 'http://www.ibdb.com/broadway-cast-staff/antonin-leopold-dvorak-447817',
+                     input_entity_type: 'artist',
+            expected_relationship_type: 'otherdatabases',
+                    expected_clean_url: 'https://www.ibdb.com/broadway-cast-staff/antonin-leopold-dvorak-447817',
+        },
         // IMDb (Internet Movie Database)
         {
                              input_url: 'http://www.imdb.com/name/nm1539156/',
                      input_entity_type: 'artist',
             expected_relationship_type: 'imdb',
+                    expected_clean_url: 'https://www.imdb.com/name/nm1539156/',
                only_valid_entity_types: ['artist']
         },
         {
@@ -1484,19 +1493,19 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
                only_valid_entity_types: ['artist']
         },
         {
-                             input_url: 'http://www.imdb.com/character/ch0003553/',
+                             input_url: 'https://www.imdb.com/character/ch0003553/',
                      input_entity_type: 'artist',
             expected_relationship_type: 'imdb',
                only_valid_entity_types: ['artist']
         },
         {
-                             input_url: 'http://www.imdb.com/company/co0109498/',
+                             input_url: 'https://www.imdb.com/company/co0109498/',
                      input_entity_type: 'label',
             expected_relationship_type: 'imdb',
                only_valid_entity_types: ['artist', 'label', 'place']
         },
         {
-                             input_url: 'http://www.imdb.com/title/tt0421082/',
+                             input_url: 'https://www.imdb.com/title/tt0421082/',
                      input_entity_type: 'release_group',
             expected_relationship_type: 'imdb',
                only_valid_entity_types: ['recording', 'release', 'release_group', 'work']
@@ -1712,14 +1721,14 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
                              input_url: 'http://kashinavi.com/kashu.php?artist=103530&kashu=%8A%99%93c%8F%CD%8C%E1&start=1',
                      input_entity_type: 'artist',
             expected_relationship_type: 'lyrics',
-                    expected_clean_url: 'http://kashinavi.com/kashu.php?artist=103530',
+                    expected_clean_url: 'https://kashinavi.com/kashu.php?artist=103530',
                only_valid_entity_types: ['artist']
         },
         {
                              input_url: 'www.kashinavi.com/song_view.html?68574',
                      input_entity_type: 'work',
             expected_relationship_type: 'lyrics',
-                    expected_clean_url: 'http://kashinavi.com/song_view.html?68574',
+                    expected_clean_url: 'https://kashinavi.com/song_view.html?68574',
                only_valid_entity_types: ['work']
         },
         // Kget.jp
@@ -1771,42 +1780,42 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
         },
         // Last.fm
         {
-                             input_url: 'http://www.last.fm/music/Bj%C3%B6rk',
+                             input_url: 'https://www.last.fm/music/Bj%C3%B6rk',
                      input_entity_type: 'artist',
             expected_relationship_type: 'lastfm',
         },
         {
-                             input_url: 'http://www.last.fm/event/3291943+Pori+jazz',
+                             input_url: 'https://www.last.fm/event/3291943+Pori+jazz',
                      input_entity_type: 'event',
             expected_relationship_type: 'lastfm',
         },
         {
-                             input_url: 'http://www.lastfm.de/event/671822+Ruhrpott+rodeo+at+Flugplatz+Schwarze+Heide+on+27+June+2008',
+                             input_url: 'https://www.lastfm.de/event/671822+Ruhrpott+rodeo+at+Flugplatz+Schwarze+Heide+on+27+June+2008',
                      input_entity_type: 'event',
             expected_relationship_type: 'lastfm',
-                    expected_clean_url: 'http://www.last.fm/event/671822+Ruhrpott+rodeo+at+Flugplatz+Schwarze+Heide+on+27+June+2008',
+                    expected_clean_url: 'https://www.last.fm/event/671822+Ruhrpott+rodeo+at+Flugplatz+Schwarze+Heide+on+27+June+2008',
         },
         {
-                             input_url: 'http://www.lastfm.de/festival/297838+Death+Feast+2008',
+                             input_url: 'https://www.lastfm.de/festival/297838+Death+Feast+2008',
                      input_entity_type: 'event',
             expected_relationship_type: 'lastfm',
-                    expected_clean_url: 'http://www.last.fm/festival/297838+Death+Feast+2008',
+                    expected_clean_url: 'https://www.last.fm/festival/297838+Death+Feast+2008',
         },
         {
-                             input_url: 'http://userserve-ak.last.fm/serve/_/13629495/Lab+Beat+Lab_Beat_Logo_500.gif',
-                    expected_clean_url: 'http://userserve-ak.last.fm/serve/_/13629495/Lab+Beat+Lab_Beat_Logo_500.gif',
+                             input_url: 'https://userserve-ak.last.fm/serve/_/13629495/Lab+Beat+Lab_Beat_Logo_500.gif',
+                    expected_clean_url: 'https://userserve-ak.last.fm/serve/_/13629495/Lab+Beat+Lab_Beat_Logo_500.gif',
         },
         {
-                             input_url: 'http://www.lastfm.com.br/venue/8803923+Gigantinho',
-                    expected_clean_url: 'http://www.last.fm/venue/8803923+Gigantinho',
+                             input_url: 'https://www.lastfm.com.br/venue/8803923+Gigantinho',
+                    expected_clean_url: 'https://www.last.fm/venue/8803923+Gigantinho',
         },
         {
-                             input_url: 'http://www.lastfm.com/music/Carving+Colours',
-                    expected_clean_url: 'http://www.last.fm/music/Carving+Colours',
+                             input_url: 'https://www.lastfm.com/music/Carving+Colours',
+                    expected_clean_url: 'https://www.last.fm/music/Carving+Colours',
         },
         {
-                             input_url: 'https://www.last.fm/it/label/Shyrec#shoutbox',
-                    expected_clean_url: 'http://www.last.fm/label/Shyrec',
+                             input_url: 'http://www.last.fm/it/label/Shyrec#shoutbox',
+                    expected_clean_url: 'https://www.last.fm/label/Shyrec',
         },
         // Library of Congress Linked Data Service
         {
@@ -1953,26 +1962,26 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
         },
         // mora
         {
-                             input_url: 'http://mora.jp/package/43000001/4534530058010/',
+                             input_url: 'https://mora.jp/package/43000001/4534530058010/',
                      input_entity_type: 'release',
             expected_relationship_type: 'downloadpurchase',
         },
         {
-                             input_url: 'http://mora.jp/package/43000014/KIZC-211/',
+                             input_url: 'https://mora.jp/package/43000014/KIZC-211/',
                      input_entity_type: 'release',
             expected_relationship_type: 'downloadpurchase',
         },
         {
                              input_url: 'http://mora.jp/package/43000021/SQEX-20016_F/#',
-                    expected_clean_url: 'http://mora.jp/package/43000021/SQEX-20016_F/',
+                    expected_clean_url: 'https://mora.jp/package/43000021/SQEX-20016_F/',
         },
         {
                              input_url: 'https://www.mora.jp/package/43000002/ANTCD-3106?test',
-                    expected_clean_url: 'http://mora.jp/package/43000002/ANTCD-3106/',
+                    expected_clean_url: 'https://mora.jp/package/43000002/ANTCD-3106/',
         },
         {
                              input_url: 'mora.jp/package/43000002/ANTCD-3106/',
-                    expected_clean_url: 'http://mora.jp/package/43000002/ANTCD-3106/',
+                    expected_clean_url: 'https://mora.jp/package/43000002/ANTCD-3106/',
         },
         // Musa24
         {
@@ -2164,28 +2173,28 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
         },
         // NLA (National Library of Australia)
         {
-                             input_url: 'https://nla.gov.au/nla.party-548358/',
+                             input_url: 'http://nla.gov.au/nla.party-548358/',
                      input_entity_type: 'artist',
             expected_relationship_type: 'otherdatabases',
-                    expected_clean_url: 'http://nla.gov.au/nla.party-548358',
+                    expected_clean_url: 'https://nla.gov.au/nla.party-548358',
         },
         {
-                             input_url: 'http://trove.nla.gov.au/people/1448035?c=people',
+                             input_url: 'https://trove.nla.gov.au/people/1448035?c=people',
                      input_entity_type: 'label',
             expected_relationship_type: 'otherdatabases',
-                    expected_clean_url: 'http://nla.gov.au/nla.party-1448035',
+                    expected_clean_url: 'https://nla.gov.au/nla.party-1448035',
         },
         {
-                             input_url: 'http://nla.gov.au/anbd.bib-an11701020#',
+                             input_url: 'https://nla.gov.au/anbd.bib-an11701020#',
                      input_entity_type: 'release',
             expected_relationship_type: 'otherdatabases',
-                    expected_clean_url: 'http://nla.gov.au/anbd.bib-an11701020',
+                    expected_clean_url: 'https://nla.gov.au/anbd.bib-an11701020',
         },
         {
                              input_url: 'trove.nla.gov.au/work/9438679',
                      input_entity_type: 'release_group',
             expected_relationship_type: 'otherdatabases',
-                    expected_clean_url: 'http://trove.nla.gov.au/work/9438679',
+                    expected_clean_url: 'https://trove.nla.gov.au/work/9438679',
         },
         // Online-Bijbel.nl
         {
@@ -2211,7 +2220,7 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
         },
         // Open Library
         {
-                             input_url: 'http://openlibrary.org/authors/OL23919A/',
+                             input_url: 'https://openlibrary.org/authors/OL23919A/',
                      input_entity_type: 'artist',
             expected_relationship_type: 'otherdatabases',
         },
@@ -2219,10 +2228,10 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
                              input_url: 'http://openlibrary.org/books/OL8993487M/Harry_Potter_and_the_Philosopher\'s_Stone',
                      input_entity_type: 'release',
             expected_relationship_type: 'otherdatabases',
-                    expected_clean_url: 'http://openlibrary.org/books/OL8993487M/',
+                    expected_clean_url: 'https://openlibrary.org/books/OL8993487M/',
         },
         {
-                             input_url: 'http://openlibrary.org/works/OL82592W/',
+                             input_url: 'https://openlibrary.org/works/OL82592W/',
                      input_entity_type: 'work',
             expected_relationship_type: 'otherdatabases',
         },
@@ -2231,7 +2240,7 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
                              input_url: 'www.operabase.com/a/Risto_Joost/21715/future',
                      input_entity_type: 'label',
             expected_relationship_type: 'otherdatabases',
-                    expected_clean_url: 'http://operabase.com/a/Risto_Joost/21715',
+                    expected_clean_url: 'https://operabase.com/a/Risto_Joost/21715',
                only_valid_entity_types: ['artist']
         },
         {
@@ -2369,46 +2378,46 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
         },
         // ReverbNation
         {
-                             input_url: 'http://reverbnation.com/negator',
+                             input_url: 'https://reverbnation.com/negator',
                      input_entity_type: 'artist',
             expected_relationship_type: 'socialnetwork',
-                    expected_clean_url: 'http://www.reverbnation.com/negator',
+                    expected_clean_url: 'https://www.reverbnation.com/negator',
         },
         {
-                             input_url: 'http://www.reverbnation.com/#!/benwebbmusic',
+                             input_url: 'https://www.reverbnation.com/#!/benwebbmusic',
                      input_entity_type: 'artist',
             expected_relationship_type: 'socialnetwork',
-                    expected_clean_url: 'http://www.reverbnation.com/benwebbmusic',
+                    expected_clean_url: 'https://www.reverbnation.com/benwebbmusic',
         },
         {
-                             input_url: 'https://www.reverbnation.com/littlesparrow',
+                             input_url: 'http://www.reverbnation.com/littlesparrow',
                      input_entity_type: 'artist',
             expected_relationship_type: 'socialnetwork',
-                    expected_clean_url: 'http://www.reverbnation.com/littlesparrow',
+                    expected_clean_url: 'https://www.reverbnation.com/littlesparrow',
         },
         {
                              input_url: 'http://m.reverbnation.com/venue/602562',
                      input_entity_type: 'place',
             expected_relationship_type: 'socialnetwork',
-                    expected_clean_url: 'http://www.reverbnation.com/venue/602562',
+                    expected_clean_url: 'https://www.reverbnation.com/venue/602562',
         },
         {
-                             input_url: 'http://www.reverbnation.com/sidneybowen?profile_view_source=profile_box',
+                             input_url: 'https://www.reverbnation.com/sidneybowen?profile_view_source=profile_box',
                      input_entity_type: 'place',
             expected_relationship_type: 'socialnetwork',
-                    expected_clean_url: 'http://www.reverbnation.com/sidneybowen',
+                    expected_clean_url: 'https://www.reverbnation.com/sidneybowen',
         },
         {
-                             input_url: 'http://www.reverbnation.com/sidneybowen?profile_tour=true&profile_view_source=profile_box&kick=179811',
+                             input_url: 'https://www.reverbnation.com/sidneybowen?profile_tour=true&profile_view_source=profile_box&kick=179811',
                      input_entity_type: 'place',
             expected_relationship_type: 'socialnetwork',
-                    expected_clean_url: 'http://www.reverbnation.com/sidneybowen',
+                    expected_clean_url: 'https://www.reverbnation.com/sidneybowen',
         },
         {
                              input_url: 'https://www.reverbnation.com/tomorrowsyesterdayband?fb_og_action=reverbnation_fb:unknown&fb_og_object=reverbnation_fb:artist&player_client_id=j29dsi7kl&utm_campaign=a_profile_page&utm_content=reverbnation_fb:artist&utm_medium=facebook_og&utm_source=reverbnation_fb:unknown',
                      input_entity_type: 'artist',
             expected_relationship_type: 'socialnetwork',
-                    expected_clean_url: 'http://www.reverbnation.com/tomorrowsyesterdayband',
+                    expected_clean_url: 'https://www.reverbnation.com/tomorrowsyesterdayband',
         },
         // Prog Archives
         {
@@ -2525,18 +2534,18 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
         },
         // Rockipedia
         {
-                             input_url: 'https://www.rockipedia.no/artister/knutsen_og_ludvigsen-31599/?test',
+                             input_url: 'http://www.rockipedia.no/artister/knutsen_og_ludvigsen-31599/?test',
                      input_entity_type: 'artist',
             expected_relationship_type: 'otherdatabases',
-                    expected_clean_url: 'http://www.rockipedia.no/artister/knutsen_og_ludvigsen-31599/',
+                    expected_clean_url: 'https://www.rockipedia.no/artister/knutsen_og_ludvigsen-31599/',
         },
         {
-                             input_url: 'http://www.rockipedia.no/plateselskap/universal_music-1719/',
+                             input_url: 'https://www.rockipedia.no/plateselskap/universal_music-1719/',
                      input_entity_type: 'label',
             expected_relationship_type: 'otherdatabases',
         },
         {
-                             input_url: 'http://www.rockipedia.no/utgivelser/hunting_high_and_low_-_remastered_and_ex-7991/',
+                             input_url: 'https://www.rockipedia.no/utgivelser/hunting_high_and_low_-_remastered_and_ex-7991/',
                      input_entity_type: 'release',
             expected_relationship_type: 'otherdatabases',
         },
@@ -2833,14 +2842,14 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
         },
         // The Session
         {
-                             input_url: 'http://thesession.org/recordings/artists/793?test',
+                             input_url: 'https://thesession.org/recordings/artists/793?test',
                      input_entity_type: 'artist',
             expected_relationship_type: 'otherdatabases',
-                    expected_clean_url: 'http://thesession.org/recordings/artists/793',
+                    expected_clean_url: 'https://thesession.org/recordings/artists/793',
                only_valid_entity_types: ['artist']
         },
         {
-                             input_url: 'http://thesession.org/members/01234',
+                             input_url: 'https://thesession.org/members/01234',
                      input_entity_type: 'artist',
             expected_relationship_type: undefined,
                input_relationship_type: 'otherdatabases',
@@ -2850,27 +2859,27 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
                              input_url: 'thesession.org/events/3811#comment748363',
                      input_entity_type: 'event',
             expected_relationship_type: 'otherdatabases',
-                    expected_clean_url: 'http://thesession.org/events/3811',
+                    expected_clean_url: 'https://thesession.org/events/3811',
                only_valid_entity_types: ['event']
         },
         {
-                             input_url: 'https://www.thesession.org/recordings/display/1488',
+                             input_url: 'http://www.thesession.org/recordings/display/1488',
                      input_entity_type: 'release_group',
             expected_relationship_type: 'otherdatabases',
-                    expected_clean_url: 'http://thesession.org/recordings/1488',
+                    expected_clean_url: 'https://thesession.org/recordings/1488',
         },
         {
-                             input_url: 'http://thesession.org/recordings/4740/edit',
+                             input_url: 'https://thesession.org/recordings/4740/edit',
                      input_entity_type: 'release_group',
             expected_relationship_type: 'otherdatabases',
-                    expected_clean_url: 'http://thesession.org/recordings/4740',
+                    expected_clean_url: 'https://thesession.org/recordings/4740',
                only_valid_entity_types: ['release_group']
         },
         {
-                             input_url: 'http://www.thesession.org/tunes/display/2305',
+                             input_url: 'https://www.thesession.org/tunes/display/2305',
                      input_entity_type: 'work',
             expected_relationship_type: 'otherdatabases',
-                    expected_clean_url: 'http://thesession.org/tunes/2305',
+                    expected_clean_url: 'https://thesession.org/tunes/2305',
                only_valid_entity_types: ['work']
         },
         // Tipeee
@@ -3150,7 +3159,7 @@ const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/U
                              input_url: 'http://www.vimeo.com/1109226?pg=embed&sec=1109226',
                      input_entity_type: 'recording',
             expected_relationship_type: 'streamingmusic',
-                    expected_clean_url: 'http://vimeo.com/1109226',
+                    expected_clean_url: 'https://vimeo.com/1109226',
         },
         // Vine
         {
