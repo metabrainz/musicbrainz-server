@@ -92,7 +92,7 @@ exports.interpolate = function (linkType, attributes) {
     reversePhrase = clean(reversePhrase.replace(attributeRegex, interpolate));
     const extraAttributes = commaOnlyList(_(attributesByName).omit(usedAttributes).values().flatten().value());
 
-    if (linkType.orderableDirection > 0) {
+    if (linkType.orderable_direction > 0) {
         usedAttributes = [];
         cleanPhrase = clean(exports.clean(linkType.id, false).replace(attributeRegex, interpolate));
         cleanReversePhrase = clean(exports.clean(linkType.id, true).replace(attributeRegex, interpolate));
