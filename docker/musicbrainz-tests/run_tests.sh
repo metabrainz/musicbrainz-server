@@ -4,6 +4,9 @@ source /etc/mbs_constants.sh
 
 cd "$MBS_ROOT"
 
+carton exec -- \
+    perl -Ilib /usr/local/bin/install_language_packs.pl
+
 while true; do
     chpst -u musicbrainz:musicbrainz \
         carton exec -- ./script/database_exists SYSTEM > /dev/null 2>&1

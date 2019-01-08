@@ -80,7 +80,7 @@
 <script type="text/html" id="template.dialog-target-entity">
   <tr>
     <td class="section">
-      <select data-bind="disable: disableTypeSelection, value: targetType, options: targetTypeOptions(), optionsValue: 'value', optionsText: 'text'"></select>
+      <select class="entity-type" data-bind="disable: disableTypeSelection, value: targetType, options: targetTypeOptions(), optionsValue: 'value', optionsText: 'text'"></select>
     </td>
     <td>
       <span class="autocomplete">
