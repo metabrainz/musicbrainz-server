@@ -277,10 +277,6 @@ runYarb('artist/index.js', function (b) {
   b.external(commonBundle);
 });
 
-runYarb('debug.js', function (b) {
-  b.external(commonBundle);
-});
-
 const editBundle = runYarb('edit.js', function (b) {
   b.external(commonBundle);
 });
