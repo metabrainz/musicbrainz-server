@@ -56,6 +56,7 @@ test 'basic series lookup' => sub {
             id => 'd977f7fd-96c9-4e3e-83b5-eb484a9e6582',
             relations => [
                 {
+                    'attribute-ids' => {number => 'a59c5830-5ec7-38fe-9a21-c7ea54f6650a'},
                     'attribute-values' => {number => 'BWV 1'},
                     attributes => ['number'],
                     begin => JSON::null,
@@ -81,6 +82,7 @@ test 'basic series lookup' => sub {
                     'target-type' => 'work',
                 },
                 {
+                    'attribute-ids' => {number => 'a59c5830-5ec7-38fe-9a21-c7ea54f6650a'},
                     'attribute-values' => {number => 'BWV 2'},
                     attributes => ['number'],
                     begin => JSON::null,
@@ -106,6 +108,7 @@ test 'basic series lookup' => sub {
                     'target-type' => 'work',
                 },
                 {
+                    'attribute-ids' => {number => 'a59c5830-5ec7-38fe-9a21-c7ea54f6650a'},
                     'attribute-values' => {number => 'BWV 3'},
                     attributes => ['number'],
                     begin => JSON::null,
