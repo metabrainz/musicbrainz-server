@@ -258,8 +258,6 @@ async function handleCommand(file, command, target, value, t) {
 
   // The CATALYST_DEBUG views interfere with our tests. Remove them.
   await driver.executeScript(`
-    var node = document.getElementById('catalyst-stats');
-    if (node) node.remove();
     node = document.getElementById('plDebug');
     if (node) node.remove();
   `);

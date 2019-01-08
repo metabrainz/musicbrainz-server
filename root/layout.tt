@@ -10,8 +10,6 @@
         })
     -%]
     <body>
-        [%- IF c.debug -%][%- INCLUDE 'debug/stats.tt' -%][%- END ~%]
-
         [%- React.embed(c, 'layout/components/Header') -%]
 
         [%- IF c.user.is_editing_disabled -%]
