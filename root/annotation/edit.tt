@@ -50,12 +50,12 @@
     <tr>
       <th>[% l('Lists:') %]</th>
       <td>
-        [%- l("tab or 4 spaces and: * bullets; 1., a., A., i., I. numbered items; spaces alone indent") %]</td>
+        [%- l("tab or 4 spaces and: * bullets or 1., a., A., i., I. numbered items (rendered with 1.)") %]</td>
     </tr>
     <tr>
       <th>[% l('Links:') %]</th>
       <td>
-        [% l("URL; [URL]; [URL|label]") %]</td>
+        [% l("URL; [URL]; [URL|label]; [<entity_type>:<mbid>|<name>]") %]</td>
     </tr>
   </tbody>
 </table>

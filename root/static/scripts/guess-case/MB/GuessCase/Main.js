@@ -21,7 +21,6 @@
 
 const MB = require('../../../common/MB');
 const getCookie = require('../../../common/utility/getCookie');
-const global = require('../../../global');
 const flags = require('../../flags');
 
 require('./Handler/Base');
@@ -50,8 +49,8 @@ MB.GuessCase = MB.GuessCase || {};
     // ----------------------------------------------------------------------------
     // member variables
     // ----------------------------------------------------------------------------
-    self.i = require('./Input')();
-    self.o = require('./Output')();
+    self.i = require('./Input')(self);
+    self.o = require('./Output')(self);
 
     self.re = {
         // define commonly used RE's
@@ -76,7 +75,7 @@ MB.GuessCase = MB.GuessCase || {};
             // Initialise flags for another run.
             flags.init();
 
-            handler = handler || MB.GuessCase.Handler[handlerName]();
+            handler = handler || MB.GuessCase.Handler[handlerName](self);
 
             // we need to query the handler if the input string is
             // a special case, fetch the correct format, if the
@@ -142,9 +141,6 @@ MB.GuessCase = MB.GuessCase || {};
             return string.toLowerCase();
         }
     };
-
-    /* FIXME: ugly hack, need to get rid of using a global 'gc' everywhere. */
-    global.gc = self;
 
     module.exports = self;
 }());

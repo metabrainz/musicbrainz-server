@@ -5,13 +5,15 @@ use Moose;
 extends 'MusicBrainz::Server::Entity::URL';
 with 'MusicBrainz::Server::Entity::URL::Sidebar';
 
+override href_url => sub {
+    shift->url->as_string =~ s{^http:}{https:}r;
+};
+
 sub sidebar_name {
     my $self = shift;
 
     return "Anime News Network";
 }
-
-sub url_is_scheme_independent { 1 }
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

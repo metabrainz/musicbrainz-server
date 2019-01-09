@@ -16,7 +16,7 @@ const InstrumentNotFound = () => (
   <NotFound title={l('Instrument Not Found')}>
     <p>
       {l('Sorry, we could not find an instrument with that MusicBrainz ID. You may wish to try and {search_url|search for it} instead.',
-        {__react: true, search_url: '/search'})}
+        {search_url: '/search'})}
     </p>
   </NotFound>
 );

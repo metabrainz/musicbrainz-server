@@ -143,7 +143,7 @@ cmp_deeply($edits[2]->data, {
             'attributes' => [],
         },
         'entity1' => {
-            'name' => 'http://www.allmusic.com/artist/faye-wong-mn0000515659',
+            'name' => 'https://www.allmusic.com/artist/faye-wong-mn0000515659',
             'id' => 4,
             'gid' => '7bd45cc7-6189-4712-35e1-cdf3632cf1a9'
         },

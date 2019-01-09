@@ -136,7 +136,6 @@ class SearchResult {
         }
 
         const link = i18n.l('{entity} by {artist}', {
-            __react: true,
             entity: (
                 <>
                     <bdi>{this.name}</bdi>

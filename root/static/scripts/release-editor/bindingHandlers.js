@@ -26,20 +26,6 @@ ko.bindingHandlers.disableBecauseDiscIDs = {
     }
 };
 
-const ChangeMatchingArtists = ({artistText, checked, onChange}) => (
-    <div>
-        <label>
-            <input
-                checked={checked}
-                id="change-matching-artists"
-                onChange={onChange}
-                type="checkbox"
-            />
-            {l('Change all artists on this release that match “{name}”', {name: artistText})}
-        </label>
-    </div>
-);
-
 const TrackButtons = ({nextTrack, previousTrack}) => (
     <>
         <button type="button" style={{float: 'right'}} onClick={nextTrack}>
@@ -52,22 +38,28 @@ const TrackButtons = ({nextTrack, previousTrack}) => (
 );
 
 ko.bindingHandlers.artistCreditEditor = {
-    changeMatchingArtists: ko.observable(false),
-    initialArtistText: ko.observable(''),
-
-    onChangeMatchingArtists: function (event) {
-        this.changeMatchingArtists(event.target.checked);
-    },
-
     currentTarget: function () {
         return $('#artist-credit-bubble').data('target');
+    },
+
+    uncheckChangeMatchingArtists: function () {
+        const input = document.getElementById('change-matching-artists');
+        if (input) {
+            input.checked = false;
+        }
     },
 
     previousTrack: function () {
         const entity = this.currentTarget();
         const prev = entity.medium.tracks()[entity.position() - 2];
         if (prev) {
-            prev.artistCreditEditorInst.updateBubble(true);
+            entity.artistCreditEditorInst.runDoneCallback();
+            // Defer until the setState calls in doneCallback finish,
+            // since initialArtistText (which is set in updateBubble)
+            // depends on the artist credit state.
+            _.defer(() => {
+                prev.artistCreditEditorInst.updateBubble(true, this.uncheckChangeMatchingArtists);
+            });
         }
     },
 
@@ -75,56 +67,49 @@ ko.bindingHandlers.artistCreditEditor = {
         const entity = this.currentTarget();
         const next = entity.medium.tracks()[entity.position()];
         if (next) {
-            next.artistCreditEditorInst.updateBubble(true);
+            entity.artistCreditEditorInst.runDoneCallback();
+            _.defer(() => {
+                next.artistCreditEditorInst.updateBubble(true, this.uncheckChangeMatchingArtists);
+            });
         }
     },
 
-    beforeShow: function (props, state) {
-        this.initialArtistText(reduceArtistCredit(state.artistCredit));
-    },
-
-    doneCallback: function () {
-        if (!this.changeMatchingArtists.peek()) {
+    doneCallback: function (initialArtistText) {
+        const input = document.getElementById('change-matching-artists');
+        if (!input || !input.checked) {
             return;
         }
 
         const track = this.currentTarget();
-        const matchWith = this.initialArtistText.peek();
         const artistCredit = track.artistCredit.peek();
 
         _(track.medium.release.mediums())
-            .invokeMap("tracks").flatten().without(track).map("artistCredit")
-            .each(function (ac) {
-                if (matchWith === reduceArtistCredit(ac.peek())) {
-                    ac(artistCredit);
+            .invokeMap("tracks").flatten().without(track)
+            .each(function (t) {
+                if (initialArtistText === reduceArtistCredit(t.artistCredit.peek())) {
+                    t.artistCredit(artistCredit);
+                    t.artistCreditEditorInst.setState({artistCredit});
                 }
             });
-
-        this.initialArtistText('');
     },
 
     update: function (element, valueAccessor) {
         const bindingHandler = ko.bindingHandlers.artistCreditEditor;
         const entity = valueAccessor();
+        // Subscribe to the artistCredit observable so that we
+        // re-render the ArtistCreditEditor when it changes.
+        entity.artistCredit();
         const props = {
             entity: entity,
             hiddenInputs: false,
             onChange: entity.artistCredit,
         };
         if (entity instanceof fields.Track) {
-            props.beforeShow = this.beforeShow;
             props.doneCallback = this.doneCallback;
             props.extraButtons = (
                 <TrackButtons
                     nextTrack={this.nextTrack}
                     previousTrack={this.previousTrack}
-                />
-            );
-            props.extraContent = (
-                <ChangeMatchingArtists
-                    artistText={this.initialArtistText()}
-                    checked={this.changeMatchingArtists()}
-                    onChange={this.onChangeMatchingArtists}
                 />
             );
             props.orientation = 'left';
@@ -136,10 +121,9 @@ ko.bindingHandlers.artistCreditEditor = {
 
 _.bindAll(
     ko.bindingHandlers.artistCreditEditor,
-    'beforeShow',
     'doneCallback',
     'nextTrack',
-    'onChangeMatchingArtists',
     'previousTrack',
+    'uncheckChangeMatchingArtists',
     'update',
 );

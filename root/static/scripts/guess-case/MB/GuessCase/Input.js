@@ -28,7 +28,7 @@ MB.GuessCase = MB.GuessCase ? MB.GuessCase : {};
 /**
  * Holds the input variables
  **/
-MB.GuessCase.Input = function () {
+MB.GuessCase.Input = function (gc) {
     var self = {};
 
     // ----------------------------------------------------------------------------
@@ -188,7 +188,7 @@ MB.GuessCase.Input = function () {
     self.capitalizeCurrentWord = function () {
         var w;
         if ((w = self.getCurrentWord()) != null) {
-            var o = utils.titleString(w);
+            var o = utils.titleString(gc, w);
             if (w != o) {
                 self.updateCurrentWord(o);
             }

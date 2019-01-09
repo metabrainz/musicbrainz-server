@@ -32,7 +32,7 @@ function buildResult(result, index) {
       <td>{instrument.typeName ? lp_attributes(instrument.typeName, 'instrument_type') : null}</td>
       <td>
         {instrument.description
-          ? l_instrument_descriptions(instrument.description, {__react: true})
+          ? l_instrument_descriptions(instrument.description)
           : null}
       </td>
     </tr>

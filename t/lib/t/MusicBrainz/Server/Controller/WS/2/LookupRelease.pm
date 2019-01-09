@@ -647,7 +647,7 @@ ws_test 'release lookup, relation attributes',
                 <target>4d5ec626-2251-4bb1-b62a-f24f471e3f2c</target>
                 <direction>backward</direction>
                 <attribute-list>
-                    <attribute>executive</attribute>
+                    <attribute type-id="e0039285-6667-4f94-80d6-aa6520c6d359">executive</attribute>
                 </attribute-list>
                 <artist id="4d5ec626-2251-4bb1-b62a-f24f471e3f2c">
                     <name>이수만</name>
@@ -985,7 +985,7 @@ ws_test 'release lookup, track artists have no aliases',
                 <relation type-id="0fdbe3c6-7700-4a31-ae54-b53f06ae1cfa" type="vocal">
                   <target>a16d1433-ba89-4f72-a47b-a370add0bb55</target><direction>backward</direction>
                   <attribute-list>
-                    <attribute>guest</attribute>
+                    <attribute type-id="b3045913-62ac-433e-9211-ac683cdf6b5c">guest</attribute>
                   </attribute-list>
                   <artist id="a16d1433-ba89-4f72-a47b-a370add0bb55">
                     <name>BoA</name><sort-name>BoA</sort-name>

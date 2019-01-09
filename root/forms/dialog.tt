@@ -9,10 +9,7 @@
     </head>
   [% ELSE %]
     [%- IF !gettext_domains;
-          SET gettext_domains = [];
-        END;
-        IF dialog_template == "work/edit_form.tt";
-          gettext_domains.push('attributes');
+          SET gettext_domains = ['attributes', 'countries', 'languages', 'relationships'];
         END;
         React.embed(c, 'layout/components/Head', {
             canonical_url => canonical_url,

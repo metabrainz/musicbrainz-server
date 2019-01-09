@@ -35,6 +35,13 @@ sub serialize
         @attributes
     };
 
+    $body->{"attribute-ids"} = {
+        map {
+            $_->type->name => $_->type->gid
+        }
+        @attributes
+    };
+
     $body->{"attribute-credits"} = {
         map {
             non_empty($_->credited_as) ? ($_->type->name => $_->credited_as) : ()

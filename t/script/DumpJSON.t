@@ -262,6 +262,7 @@ EOF
 
     $artist1{relations} = [
         {
+            'attribute-ids' => {},
             'attribute-values' => {},
             attributes => [],
             begin => undef,
@@ -304,6 +305,7 @@ EOF
                 name => 'Blues Guy',
                 'sort-name' => 'Blues Guy',
             },
+            'attribute-ids' => {},
             'attribute-values' => {},
             attributes => [],
             begin => undef,

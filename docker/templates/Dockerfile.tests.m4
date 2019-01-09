@@ -2,6 +2,8 @@ m4_include(`server_base.m4')m4_dnl
 
 install_javascript_and_templates()
 
+install_translations()
+
 RUN apt_install(`build-essential libexpat1 libexpat1-dev libxml2 libxml2-dev') && \
     cpanm TAP::Harness::JUnit && \
     apt_purge(`libexpat1-dev libxml2-dev')
@@ -13,7 +15,7 @@ RUN cd /tmp && \
     cd -
 
 RUN cd /tmp && \
-    curl -sLO http://chromedriver.storage.googleapis.com/2.38/CHROME_DRIVER && \
+    curl -sLO http://chromedriver.storage.googleapis.com/2.45/CHROME_DRIVER && \
     apt_install(`unzip') && \
     unzip CHROME_DRIVER -d /usr/local/bin && \
     rm CHROME_DRIVER && \
@@ -48,9 +50,9 @@ git_info
 copy_mb(`docker/musicbrainz-tests/DBDefs.pm lib/')
 
 # Depends on DBDefs.pm.
-RUN sudo_mb(`carton exec -- ./script/compile_resources.sh default web-tests')
+RUN sudo_mb(`carton exec -- ./script/compile_resources.sh')
 
-copy_mb(`docker/musicbrainz-tests/run_tests.sh /usr/local/bin/')
+copy_mb(`docker/musicbrainz-tests/run_tests.sh docker/musicbrainz-website/install_language_packs.pl /usr/local/bin/')
 copy_mb(`flow-typed/ flow-typed/')
 copy_mb(`script/ script/')
 copy_mb(`t/ t/')

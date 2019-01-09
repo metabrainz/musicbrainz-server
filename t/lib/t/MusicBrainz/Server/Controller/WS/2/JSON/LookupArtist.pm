@@ -154,11 +154,12 @@ test 'basic artist lookup, inc=url-rels' => sub {
             relations => [
                 {
                     attributes => [],
+                    "attribute-ids" => {},
                     "attribute-values" => {},
                     direction => "forward",
                     url => {
                         id => '37ad368b-d37d-46d4-be3a-349f78355253',
-                        resource => 'http://www.imdb.com/name/nm4057169/'
+                        resource => 'https://www.imdb.com/name/nm4057169/'
                     },
                     type => "IMDb",
                     'type-id' => '94c8b0cc-4477-4106-932c-da60e63de61c',
@@ -171,6 +172,7 @@ test 'basic artist lookup, inc=url-rels' => sub {
                 },
                 {
                     attributes => [],
+                    "attribute-ids" => {},
                     "attribute-values" => {},
                     direction => "forward",
                     url => {
@@ -188,6 +190,7 @@ test 'basic artist lookup, inc=url-rels' => sub {
                 },
                 {
                     attributes => [],
+                    "attribute-ids" => {},
                     "attribute-values" => {},
                     direction => "forward",
                     url => {
@@ -205,6 +208,7 @@ test 'basic artist lookup, inc=url-rels' => sub {
                 },
                 {
                     attributes => [],
+                    "attribute-ids" => {},
                     "attribute-values" => {},
                     direction => "forward",
                     url => {
@@ -222,6 +226,7 @@ test 'basic artist lookup, inc=url-rels' => sub {
                 },
                 {
                     attributes => [],
+                    "attribute-ids" => {},
                     "attribute-values" => {},
                     direction => "forward",
                     url => {
@@ -1047,6 +1052,7 @@ test 'artist lookup with artist relations' => sub {
             relations => [
                 {
                     attributes => [],
+                    "attribute-ids" => {},
                     "attribute-values" => {},
                     type => 'member of band',
                     'type-id' => '5be4c609-9afa-4ea0-910b-12ffb71e3821',

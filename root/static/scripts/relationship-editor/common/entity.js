@@ -122,7 +122,7 @@ function getDirection(relationship, source) {
                     }
                     var linkType = relationships[0].getLinkType();
 
-                    if (linkType && linkType.orderableDirection > 0) {
+                    if (linkType && linkType.orderable_direction > 0) {
                         group.canBeOrdered = group.values.all(function (r) {
                             return r.entityCanBeReordered(r.target(self));
                         });

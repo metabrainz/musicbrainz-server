@@ -81,6 +81,24 @@ CREATE TRIGGER caa_reindex AFTER UPDATE OR INSERT OR DELETE
 ON cover_art_archive.cover_art FOR EACH ROW
 EXECUTE PROCEDURE reindex_caa();
 
+CREATE OR REPLACE FUNCTION reindex_caa_type() RETURNS trigger AS $$
+    BEGIN
+        PERFORM amqp.publish(1, 'cover-art-archive', 'index', r.gid::text)
+        FROM musicbrainz.release r
+        JOIN cover_art_archive.cover_art ca ON r.id = ca.release
+        WHERE ca.id = coalesce((
+                     CASE TG_OP
+                         WHEN 'DELETE' THEN OLD.id
+                         ELSE NEW.id
+                     END));
+        RETURN NULL;
+    END;
+$$ LANGUAGE 'plpgsql';
+
+CREATE TRIGGER caa_reindex AFTER UPDATE OR INSERT OR DELETE
+ON cover_art_archive.cover_art_type FOR EACH ROW
+EXECUTE PROCEDURE reindex_caa_type();
+
 CREATE OR REPLACE FUNCTION caa_move() RETURNS trigger AS $$
     BEGIN
         IF OLD.release != NEW.release THEN

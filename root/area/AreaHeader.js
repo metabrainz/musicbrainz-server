@@ -24,7 +24,6 @@ const AreaHeader = ({area, page}: Props) => {
   if (area.containment && area.containment.length) {
     const parentAreas = <AreaContainmentLink area={area} />;
     subHeading = l('{area_type} in {parent_areas}', {
-      __react: true,
       area_type: areaType,
       parent_areas: parentAreas,
     });

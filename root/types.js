@@ -71,7 +71,7 @@ declare type AnnotationRoleT = {|
 declare type AnnotationT = {|
   +changelog: string,
   +creation_date: string,
-  +editor: EditorT,
+  +editor: EditorT | null,
   +html: string,
   +id: number,
   +parent: CoreEntityT | null,
@@ -189,7 +189,7 @@ type CatalystContextT = {|
       +[number]: LanguageT,
     |},
     +link_type: {|
-      +[number]: LinkTypeInfoT,
+      +[number]: LinkTypeT,
     |},
     +release_group_primary_type: {|
       [number]: ReleaseGroupTypeT,
@@ -559,20 +559,19 @@ declare type LinkTypeAttrTypeT = {|
   +min: number | null,
 |};
 
-declare type LinkTypeInfoT = {|
-  +attributes?: {+[number]: LinkTypeAttrTypeT},
+declare type LinkTypeT = {|
+  ...OptionTreeT,
+  +attributes: {+[number]: LinkTypeAttrTypeT},
   +cardinality0: number,
   +cardinality1: number,
-  +childOrder: number,
-  +children?: $ReadOnlyArray<LinkTypeInfoT>,
+  +children?: $ReadOnlyArray<LinkTypeT>,
   +deprecated: boolean,
-  +description?: string,
-  +gid: string,
-  +hasDates: boolean,
+  +has_dates: boolean,
   +id: number,
-  +orderableDirection: number,
-  +phrase: string,
-  +reversePhrase: string,
+  +link_phrase: string,
+  +long_link_phrase: string,
+  +orderable_direction: number,
+  +reverse_link_phrase: string,
   +type0: string,
   +type1: string,
 |};
@@ -666,7 +665,8 @@ declare type RelationshipAttributeT = {|
 |};
 
 declare type RelationshipT = {|
-  +attributes: $ReadOnlyArray<RelationshipAttributeT>,
+  // `attributes` may not exist when seeding.
+  +attributes?: $ReadOnlyArray<RelationshipAttributeT>,
   +id: number,
   +linkTypeID: number,
   +target: CoreEntityT,

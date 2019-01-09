@@ -5,7 +5,7 @@
 
 const {l} = require('../i18n');
 
-function commaList(items, props = {}) {
+function commaList(items) {
   let count = items.length;
 
   if (count <= 1) {
@@ -13,7 +13,6 @@ function commaList(items, props = {}) {
   }
 
   let output = l('{almost_last_list_item} and {last_list_item}', {
-    __react: props.react,
     almost_last_list_item: items[count - 2],
     last_list_item: items[count - 1],
   });
@@ -23,7 +22,6 @@ function commaList(items, props = {}) {
 
   for (let i = 0; i < count; i++) {
     output = l('{list_item}, {rest}', {
-      __react: props.react,
       list_item: items[i],
       rest: output,
     });

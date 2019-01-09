@@ -99,6 +99,7 @@ test 'work lookup with recording relationships' => sub {
             relations => [
                 {
                     attributes => [],
+                    "attribute-ids" => {},
                     "attribute-values" => {},
                     type => "performance",
                     'type-id' => 'a3005666-a872-32c3-ad06-98af558e99b0',
@@ -119,6 +120,7 @@ test 'work lookup with recording relationships' => sub {
                 },
                 {
                     attributes => [],
+                    "attribute-ids" => {},
                     "attribute-values" => {},
                     type => "performance",
                     'type-id' => 'a3005666-a872-32c3-ad06-98af558e99b0',

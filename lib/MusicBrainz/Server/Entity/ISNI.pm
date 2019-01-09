@@ -11,7 +11,7 @@ has 'isni' => (
 
 sub url {
     my ($self) = @_;
-    return "http://isni-url.oclc.nl/isni/" . $self->isni;
+    return "http://www.isni.org/" . $self->isni;
 }
 
 sub TO_JSON {

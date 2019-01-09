@@ -44,7 +44,7 @@ var fakeGID2 = "c4804cb2-bf33-4394-bb5f-3fac972fa7a5";
 
 var testRelease = {
     entityType: "release",
-    relationships: {},
+    relationships: [],
     name: "Love Me Do / I Saw Her Standing There",
     artistCredit: [
         {
@@ -68,7 +68,7 @@ var testRelease = {
                     recording: {
                         entityType: "recording",
                         length: 143000,
-                        relationships: {},
+                        relationships: [],
                         name: "Love Me Do",
                         id: 6393661,
                         gid: "87ec065e-f139-41b9-b3b9-f746addf5b1e"
@@ -83,7 +83,7 @@ var testRelease = {
                     recording: {
                         entityType: "recording",
                         length: 176000,
-                        relationships: {},
+                        relationships: [],
                         name: "I Saw Her Standing There",
                         id: 6393662,
                         gid: "6de731d6-7a8f-43a0-8cb0-1dca5a40d04e"
@@ -104,7 +104,7 @@ var testRelease = {
         name: "Love Me Do",
         id: 564256,
         gid: "5db85281-934d-36e5-865c-1922ad82a948",
-        relationships: {}
+        relationships: []
     }
 };
 

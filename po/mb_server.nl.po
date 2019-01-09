@@ -14,7 +14,7 @@
 # Ian McEwen <email address hidden>, 2012
 # Maurits Meulenbelt <email address hidden>, 2012
 # Maurits Meulenbelt <email address hidden>, 2012
-# Maurits Meulenbelt <email address hidden>, 2013-2018
+# Maurits Meulenbelt <email address hidden>, 2013-2019
 # Nathan Follens, 2016
 # Nathan Follens, 2016
 # nikki, 2012-2013
@@ -29,8 +29,8 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-12-14 10:06+0100\n"
-"PO-Revision-Date: 2018-12-14 09:09+0000\n"
-"Last-Translator: yvanz\n"
+"PO-Revision-Date: 2019-01-04 13:02+0000\n"
+"Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -2539,7 +2539,7 @@ msgstr "Evenementen"
 #: ../root/report/event_sequence_not_in_series.tt:1
 #: ../root/report/event_sequence_not_in_series.tt:3 ../root/report/index.tt:44
 msgid "Events which should be part of series or larger event"
-msgstr ""
+msgstr "Evenementen die in een serie of een groter evenement thuishoren"
 
 #: ../root/doc/relationship_type.tt:85
 #: ../root/relationship/linktype/form.tt:71
@@ -4650,7 +4650,7 @@ msgstr "Plaatsen met verouderde relaties"
 #: ../root/report/index.tt:138 ../root/report/places_without_coordinates.tt:1
 #: ../root/report/places_without_coordinates.tt:3
 msgid "Places without coordinates"
-msgstr ""
+msgstr "Plaatsen zonder coördinaten"
 
 #: ../root/main/500.tt:31
 msgid ""
@@ -4665,7 +4665,7 @@ msgid ""
 "original passwords from this mishap, we are requiring all of our users to "
 "change their passwords. Sorry for the inconvenience. For more information "
 "see {blog|the recent blog post}."
-msgstr "Verander a.u.b. je wachtwoord. We hebben helaas ontdekt dat de gehashte gebruikerswachtwoorden tijdelijk te downloaden waren van onze FTP-site. Hoewel het zeer onwaarschijnlijk is dat iemand in staat zal zijn om hieruit de originele wachtwoorden te achterhalen, moeten alle gebruikers hun wachtwoord veranderen. Onze excuses voor het ongemak. Zie {blog|ons weblog} voor meer informatie."
+msgstr "Verander a.u.b. je wachtwoord. We hebben helaas ontdekt dat de gehashte gebruikerswachtwoorden tijdelijk te downloaden waren van onze ftp-site. Hoewel het zeer onwaarschijnlijk is dat iemand in staat zal zijn om hieruit de originele wachtwoorden te achterhalen, moeten alle gebruikers hun wachtwoord veranderen. Onze excuses voor het ongemak. Zie {blog|ons weblog} voor meer informatie."
 
 #: ../root/edit/search_macros.tt:358
 msgid "Please choose a condition"
@@ -5422,7 +5422,7 @@ msgstr "Uitgaves in het Cover Art Archive die nog steeds relaties hebben voor af
 #: ../root/report/index.tt:102 ../root/report/releases_with_caa_no_types.tt:1
 #: ../root/report/releases_with_caa_no_types.tt:3
 msgid "Releases in the Cover Art Archive where no cover art piece has types"
-msgstr ""
+msgstr "Uitgaves met afbeeldingen in het Cover Art Archive die allemaal geen ingesteld type hebben"
 
 #: ../root/report/index.tt:114
 msgid "Releases missing disc IDs"
@@ -5445,7 +5445,7 @@ msgstr "Uitgaves die te vroeg zijn uitgegeven"
 #: ../root/report/index.tt:115 ../root/report/release_label_same_artist.tt:1
 #: ../root/report/release_label_same_artist.tt:3
 msgid "Releases where artist name and label name are the same"
-msgstr ""
+msgstr "Uitgaves waarvan de platenmaatschappij hetzelfde is als de artiestennaam"
 
 #: ../root/report/index.tt:94
 msgid "Releases where some (but not all) mediums have no format set"
@@ -5877,7 +5877,7 @@ msgstr "Naar een artiest zoeken"
 
 #: ../root/report/places_without_coordinates.tt:12
 msgid "Search for coordinates"
-msgstr ""
+msgstr "Naar coördinaten zoeken"
 
 #: ../root/edit/list_header.tt:8
 msgid "Search for edits"
@@ -6837,7 +6837,7 @@ msgid ""
 "text that you don't have the right to release under that license. While you "
 "can quote a source to support a point you're making, you should never enter "
 "promotional texts or other artist or label-owned texts into the annotation."
-msgstr ""
+msgstr "Deze aantekening wordt onder een open licentie (<a href=\"{url}\" target=\"_blank\">CC BY-NC-SA 3.0</a>) gepubliceerd, en mag daarom geen tekst bevatten waarvoor je niet het recht hebt om onder deze licentie te publiceren. Hoewel je een bron mag citeren om je punt te ondersteunen, moet je nooit promotieteksten of andere teksten die eigendom van een artiest of platenmaatschappij zijn in de aantekening verwerken."
 
 #: ../root/area/delete.tt:14
 msgid ""
@@ -7371,7 +7371,7 @@ msgstr "In dit rapport staan evenementen die op dezelfde plaats en op dezelfde d
 msgid ""
 "This report lists events where the event name indicates that it may have to "
 "be part of a series or a larger event."
-msgstr ""
+msgstr "In dit rapport staan evenementen met een naam waaruit blijkt dat het misschien deel uitmaakt van een serie of overkoepelend evenement."
 
 #: ../root/report/labels_disambiguation_same_name.tt:6
 msgid ""
@@ -7407,7 +7407,7 @@ msgstr "In dit rapport staan plaatsen met aantekeningen."
 
 #: ../root/report/places_without_coordinates.tt:6
 msgid "This report lists places without coordinates."
-msgstr ""
+msgstr "In dit rapport staan plaatsen zonder coördinaten."
 
 #: ../root/report/duplicate_relationships_recordings.tt:6
 msgid ""
@@ -7457,7 +7457,7 @@ msgid ""
 "This report lists releases where the label name is the same as the artist "
 "name. Often this means the release is self-released, and the label "
 "{SpecialPurposeLabel|should be \"[no label]\" instead}."
-msgstr ""
+msgstr "In dit rapport staan uitgaves met een platenmaatschappij die dezelfde naam heeft als de artiest. Vaak betekent dit dat de uitgave in eigen beheer is uitgegeven, en dat de platenmaatschappij {SpecialPurposeLabel|“[geen platenmaatschappij]”} zou moeten zijn."
 
 #: ../root/report/duplicate_relationships_releases.tt:6
 msgid ""
@@ -7752,7 +7752,7 @@ msgid ""
 "This report shows releases which have cover art in the Cover Art Archive, "
 "but where none of it has any types set. This often means a front cover was "
 "added, but not marked as such."
-msgstr ""
+msgstr "In dit rapport staan uitgaves met afbeeldingen in het Cover Art Archive, maar waarbij geen type voor de afbeeldingen is ingesteld. Dit betekent vaak dat er een afbeelding van de voorkant aanwezig is, maar dat die niet als zodanig is gemarkeerd."
 
 #: ../root/report/released_too_early.tt:6
 msgid ""
@@ -10935,7 +10935,7 @@ msgstr "Bladmuziek op IMSLP"
 
 #: ../lib/MusicBrainz/Server/Entity/URL/NicoNicoVideo.pm:9
 msgid "Niconico"
-msgstr ""
+msgstr "Niconico"
 
 #: ../lib/MusicBrainz/Server/FilterUtils.pm:22
 msgid "Filter release groups"
@@ -11107,7 +11107,7 @@ msgstr "Voer een geldige URL in, bijv. ‘http://google.nl/’"
 
 #: ../lib/MusicBrainz/Server/Form/Field/URL.pm:24
 msgid "URL protocol must be HTTP, HTTPS or FTP"
-msgstr "Het protocol van de URL moet HTTP, HTTPS of FTP zijn."
+msgstr "Het protocol van de URL moet http, https of ftp zijn."
 
 #: ../lib/MusicBrainz/Server/Form/Merge.pm:18
 msgid "Please pick the entity you want the others merged into."
@@ -11461,7 +11461,7 @@ msgid ""
 "Enter your username and email below. We will send you an email with a link "
 "to reset your password. If you have forgotten your username, {link|retrieve "
 "it} first and then reset your password."
-msgstr ""
+msgstr "Voer hieronder je gebruikersnaam en wachtwoord in. We zullen je een e-mail sturen met een link om je wachtwoord opnieuw in te stellen. Als je je gebruikersnaam bent vergeten, moet je die eerst {link|opvragen} en daarna je wachtwoord opnieuw instellen."
 
 #: ../root/account/LostPasswordSent.js:17
 #: ../root/account/LostUsernameSent.js:17
@@ -11576,7 +11576,7 @@ msgstr "OAuth Client-ID"
 
 #: ../root/account/applications/Index.js:115
 msgid "OAuth Client Secret"
-msgstr "OAuth client-ID"
+msgstr "OAuth-clientgeheim"
 
 #: ../root/account/applications/Index.js:125
 msgid "You do not have any registered applications."
@@ -11733,7 +11733,7 @@ msgstr "{entity} heeft geen aliassen."
 
 #: ../root/components/Aliases/index.js:39
 msgid "Add a new alias"
-msgstr ""
+msgstr "Nieuwe alias toevoegen"
 
 #: ../root/components/ConfirmLayout.js:38
 msgid "Yes, I am sure"
@@ -12050,7 +12050,7 @@ msgstr "Dit zijn alle etiketten die door het systeem als genre worden beschouwd.
 msgid ""
 "Is a genre missing from the list? Request it by {link|adding a style "
 "ticket}."
-msgstr ""
+msgstr "Ontbreekt er een genre op deze lijst? Dan kan je het aanvragen door een {link|stijlticket} aan te maken."
 
 #: ../root/instrument/InstrumentHeader.js:25
 msgid "instrument"
@@ -12065,7 +12065,7 @@ msgstr "Instrumentenlijst"
 msgid ""
 "Is this list missing an instrument? Request it by following {link|these "
 "instructions}."
-msgstr ""
+msgstr "Ontbreekt er een instrument in deze lijst? {link|Lees hier} hoe je het kan aanvragen."
 
 #: ../root/instrument/NotFound.js:16
 msgid "Instrument Not Found"
@@ -12340,7 +12340,7 @@ msgstr "Pagina {n}"
 
 #: ../root/layout/components/Head.js:64
 msgid "MusicBrainz: Artist"
-msgstr ""
+msgstr "MusicBrainz: Artiest"
 
 #: ../root/layout/components/Head.js:65
 msgid "MusicBrainz: Label"
@@ -12811,7 +12811,7 @@ msgid ""
 " may show up on any other page with cover art. You are encouraged to "
 "{report_link|report errors to Google Safe Browsing}. Sorry for the "
 "inconvenience!"
-msgstr ""
+msgstr "In Chrome en daarop gebaseerde browsers zijn hoesafbeeldingen op de hoofdpagina uitgeschakeld. Dit komt omdat er sinds 11 november 2018 een onterechte phishingwaarschuwing wordt weergegeven (zie {ticket_link|CAA-116}).<br/>Deze waarschuwingen kunnen ook op andere pagina’s met hoesafbeeldingen te zien zijn. We raden je aan om dit probleem {report_link|bij Google Safe Browsing te melden}. Excuses voor het ongemak!"
 
 #: ../root/otherlookup/NotFound.js:16
 msgid "Entity Not Found"
@@ -12965,7 +12965,7 @@ msgstr "Regionale instellingen"
 
 #: ../root/static/scripts/account/components/PreferencesForm.js:177
 msgid "Guess timezone"
-msgstr ""
+msgstr "Tijdzone gokken"
 
 #: ../root/static/scripts/account/components/PreferencesForm.js:182
 msgid "Timezone:"
@@ -13120,7 +13120,7 @@ msgstr "{review_link|Recensie} door {author} van {date}"
 
 #: ../root/static/scripts/common/components/TagEditor.js:89
 msgid "Withdraw vote"
-msgstr ""
+msgstr "Stem intrekken"
 
 #: ../root/static/scripts/common/components/TagEditor.js:105
 msgid "Upvote"

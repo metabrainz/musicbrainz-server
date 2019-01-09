@@ -60,6 +60,12 @@ function extractStringLiteral(node) {
     case 'StringLiteral':
       return node.value;
 
+    case 'TemplateLiteral':
+      if (node.expressions.length) {
+        throw new Error('Error: Template literals are not allowed to contain expressions');
+      }
+      return node.quasis[0].value.cooked;
+
     // Handle string concatenation
     case 'BinaryExpression':
       if (node.operator !== '+') {

@@ -28,7 +28,7 @@ const Donation = ({days, nag}: Props) => (
           </p>
           <p>
             {l('If you would like to make a donation, {donate|you can do that here}. If you have donated, but you are still being nagged, please {contact|contact us}.',
-              {__react: true, contact: CONTACT_URL, donate: DONATE_URL})}
+              {contact: CONTACT_URL, donate: DONATE_URL})}
           </p>
         </>
       ) : (
@@ -39,7 +39,7 @@ const Donation = ({days, nag}: Props) => (
           {days > 0
             ? (
               <p>
-                {l('You will not be nagged for another {days} days.', {__react: true, days: days})}
+                {l('You will not be nagged for another {days} days.', {days: days})}
               </p>
             ) : (
               <p>

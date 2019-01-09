@@ -24,7 +24,7 @@ type ReleaseLabelsProps = {|
 const ReleaseLabelList = ({labels}: ReleaseLabelsProps) => (
   labels && labels.length ? (
     // $FlowFixMe
-    commaOnlyList(uniqBy(labels, 'label.gid').map(ReleaseLabel), {react: true})
+    commaOnlyList(uniqBy(labels, 'label.gid').map(ReleaseLabel))
   ) : null
 );
 

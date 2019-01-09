@@ -16,7 +16,7 @@ const ReleaseGroupNotFound = () => (
   <NotFound title={l('Release Group Not Found')}>
     <p>
       {l('Sorry, we could not find a release group with that MusicBrainz ID. You may wish to try and {search_url|search for it} instead.',
-        {__react: true, search_url: '/search'})}
+        {search_url: '/search'})}
     </p>
   </NotFound>
 );

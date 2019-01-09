@@ -133,7 +133,7 @@ exports.trim = function (is) {
 };
 
 // Upper case first letter of word unless it's one of the words in the lowercase words array.
-exports.titleString = function (is, forceCaps) {
+exports.titleString = function (gc, is, forceCaps) {
     if (!is) {
         return '';
     }
@@ -183,7 +183,7 @@ exports.titleString = function (is, forceCaps) {
     } else if (lc.match(/^(o|y)$/i) && exports.isApostrophe(gc.i.getNextWord())) {
         os = uc;
     } else {
-        os = exports.titleStringByMode(lc, forceCaps);
+        os = exports.titleStringByMode(gc, lc, forceCaps);
         lc = gc.mode.toLowerCase(os);
         uc = gc.mode.toUpperCase(os);
 
@@ -204,7 +204,7 @@ exports.titleString = function (is, forceCaps) {
 };
 
 // Capitalize the string, but check if some characters inside the word need to be uppercased as well.
-exports.titleStringByMode = function (is, forceCaps) {
+exports.titleStringByMode = function (gc, is, forceCaps) {
     if (!is) {
         return '';
     }

@@ -72,7 +72,20 @@ rules:
   array-element-newline: [warn, consistent]
   block-spacing: [warn, always]
   brace-style: [warn, 1tbs]
-  camelcase: [warn, {properties: never}]
+  camelcase: [warn, {properties: never,
+                     allow: [
+                       "l_attributes",
+                       "l_countries",
+                       "l_instrument_descriptions",
+                       "l_instruments",
+                       "l_languages",
+                       "l_relationships",
+                       "l_scripts",
+                       "l_statistics",
+                       "N_l",
+                       "N_ln",
+                       "N_lp",
+                     ]}]
   comma-dangle: [warn, {arrays: always-multiline,
                         objects: always-multiline,
                         imports: always-multiline,
