@@ -880,6 +880,7 @@ msgid "chitarra battente"
 msgstr ""
 
 #: DB:instrument/name:744
+msgctxt "Ancient South Indian fretless Carnatic slide lute"
 msgid "chitra veena"
 msgstr ""
 
@@ -897,6 +898,7 @@ msgid "chuurqin"
 msgstr ""
 
 #: DB:instrument/name:256
+msgctxt "European hammered dulcimer"
 msgid "cimbalom"
 msgstr ""
 
@@ -1913,6 +1915,7 @@ msgid "khene"
 msgstr ""
 
 #: DB:instrument/name:287
+msgctxt "Thai and Cambodian hammered dulcimer"
 msgid "khim"
 msgstr ""
 
@@ -2781,6 +2784,7 @@ msgid "rubab"
 msgstr ""
 
 #: DB:instrument/name:501
+msgctxt "Ancient large North Indian tube zither"
 msgid "rudra veena"
 msgstr ""
 
@@ -2823,10 +2827,12 @@ msgid "sanshin"
 msgstr ""
 
 #: DB:instrument/name:286
+msgctxt "Traditional Indian dulcimer"
 msgid "santoor"
 msgstr ""
 
 #: DB:instrument/name:255
+msgctxt "Persian/Iran hammered dulcimer"
 msgid "santur"
 msgstr ""
 
@@ -3482,6 +3488,10 @@ msgstr ""
 msgid "tubax"
 msgstr ""
 
+#: DB:instrument/name:944
+msgid "tube zither"
+msgstr ""
+
 #: DB:instrument/name:775
 msgctxt "analogue electronic monophonic Organ"
 msgid "tubon"
@@ -3792,6 +3802,7 @@ msgid "xylorimba"
 msgstr ""
 
 #: DB:instrument/name:254
+msgctxt "Chinese hammered dulcimer"
 msgid "yangqin"
 msgstr ""
 
@@ -3904,6 +3915,7 @@ msgid "đàn tam"
 msgstr ""
 
 #: DB:instrument/name:257
+msgctxt "Vietnamese hammered dulcimer"
 msgid "đàn tam thập lục"
 msgstr ""
 
