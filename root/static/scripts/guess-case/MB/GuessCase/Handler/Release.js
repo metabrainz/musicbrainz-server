@@ -80,5 +80,10 @@ MB.GuessCase.Handler.Release = function (gc) {
         return null;
     };
 
+    /**
+     * Guesses the sortname for releases (for aliases)
+     **/
+    self.guessSortName = self.moveArticleToEnd;
+
     return self;
 };

@@ -136,5 +136,10 @@ MB.GuessCase.Handler.Track = function (gc) {
         return null;
     };
 
+    /**
+     * Guesses the sortname for recordings (for aliases)
+     **/
+    self.guessSortName = self.moveArticleToEnd;
+
     return self;
 };

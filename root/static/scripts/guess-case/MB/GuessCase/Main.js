@@ -113,14 +113,16 @@ MB.GuessCase = MB.GuessCase || {};
     };
 
     MB.GuessCase.release = {
-        guess: guess("Release", "process")
+        guess: guess("Release", "process"),
+        sortname: guess("Release", "guessSortName")
     };
 
     MB.GuessCase["release_group"] = MB.GuessCase.release;
     MB.GuessCase["release-group"] = MB.GuessCase.release;
 
     MB.GuessCase.track = {
-        guess: guess("Track", "process")
+        guess: guess("Track", "process"),
+        sortname: guess("Track", "guessSortName")
     };
 
     MB.GuessCase.recording = MB.GuessCase.track;
