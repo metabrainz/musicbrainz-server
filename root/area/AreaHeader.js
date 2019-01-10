@@ -7,11 +7,12 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-const React = require('react');
-const {l} = require('../static/scripts/common/i18n');
-const {lp_attributes} = require('../static/scripts/common/i18n/attributes');
-const AreaContainmentLink = require('../static/scripts/common/components/AreaContainmentLink');
-const EntityHeader = require('../components/EntityHeader');
+import React from 'react';
+
+import {l} from '../static/scripts/common/i18n';
+import {lp_attributes} from '../static/scripts/common/i18n/attributes';
+import AreaContainmentLink from '../static/scripts/common/components/AreaContainmentLink';
+import EntityHeader from '../components/EntityHeader';
 
 type Props = {|
   +area: AreaT,
