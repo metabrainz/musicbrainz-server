@@ -495,9 +495,16 @@ async function runCommands(commands, t) {
 
   const hostPort = ['-h', testDb.host, '-p', testDb.port];
 
+  /*
+   * In our production tests setup, there exists a musicbrainz_test_template
+   * database based on a pristine musicbrainz_test, so that we can run
+   * t/tests.t in parallel without having to worry about modifications to
+   * musicbrainz_test.
+   */
+  const testTemplateExists = await dbExists('musicbrainz_test_template');
   const createdbArgs = [
     '-O', testDb.user,
-    '-T', testDb.database,
+    '-T', testTemplateExists ? 'musicbrainz_test_template' : testDb.database,
     '-U', sysDb.user,
     ...hostPort,
     'musicbrainz_selenium',
@@ -523,16 +530,23 @@ async function runCommands(commands, t) {
     return execFile('dropdb', dropdbArgs, pgPasswordEnv(sysDb));
   }
 
-  const seleniumDbCheck = await execFile(
-    'psql', [...hostPort, '-U', testDb.user, '-c', 'SELECT 1', 'musicbrainz_selenium'],
-    pgPasswordEnv(testDb),
-  ).catch(x => x);
+  async function dbExists(name) {
+    const result = await execFile(
+      'psql', [...hostPort, '-U', sysDb.user, '-c', 'SELECT 1', name],
+      pgPasswordEnv(sysDb),
+    ).catch(x => x);
 
-  if (seleniumDbCheck.code === 0) {
+    if (result.code === 0) {
+      return true;
+    } else if (result.code !== 2) {
+      // An error other than the database not existing occurred.
+      throw result.error;
+    }
+    return false;
+  }
+
+  if (await dbExists('musicbrainz_selenium')) {
     await dropSeleniumDb();
-  } else if (seleniumDbCheck.code !== 2) {
-    // An error other than the database not existing occurred.
-    throw seleniumDbCheck.error;
   }
 
   const loginPlan = getPlan(testPath('Log_In.html'));

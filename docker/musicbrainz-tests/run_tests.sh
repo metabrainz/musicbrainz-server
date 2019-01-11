@@ -26,6 +26,15 @@ sudo -E -H -u musicbrainz \
 sudo -E -H -u musicbrainz \
     carton exec -- ./script/compile_resources.sh web-tests
 
+sudo -E -H -u musicbrainz \
+    createdb \
+        -O musicbrainz \
+        -T musicbrainz_test \
+        -U postgres \
+        -h musicbrainz-test-database \
+        -p 5432 \
+        musicbrainz_test_template
+
 exec sudo -E -H -u musicbrainz carton exec -- prove \
     --pgtap-option dbname=musicbrainz_test \
     --pgtap-option host=musicbrainz-test-database \
