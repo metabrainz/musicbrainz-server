@@ -32,13 +32,10 @@ test all => sub {
     my $schema_seq = DBDefs->DB_SCHEMA_SEQUENCE;
     my $psql = File::Spec->catfile($root, 'admin/psql');
 
-    # Test requires a clean database
-    system File::Spec->catfile($root, 'script/create_test_db.sh');
-
     my $exec_sql = sub {
         my $sql = shell_quote(shift);
 
-        system 'sh', '-c' => "echo $sql | $psql TEST";
+        system 'sh', '-c' => "echo $sql | $psql TEST_JSON_DUMP";
     };
 
     $exec_sql->(<<EOSQL);
@@ -64,7 +61,7 @@ EOSQL
         $new_output_dir->();
         system (
             File::Spec->catfile($root, 'admin/DumpJSON'),
-            '--database' => 'TEST',
+            '--database' => 'TEST_JSON_DUMP',
             '--no-compress',
             '--output-dir' => $output_dir,
         );
@@ -74,7 +71,7 @@ EOSQL
         $new_output_dir->();
         system (
             File::Spec->catfile($root, 'admin/DumpIncrementalJSON'),
-            '--database' => 'TEST',
+            '--database' => 'TEST_JSON_DUMP',
             '--no-compress',
             '--output-dir' => $output_dir,
             '--replication-access-uri' => "file://$rep_dir",

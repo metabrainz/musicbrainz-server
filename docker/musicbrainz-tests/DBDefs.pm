@@ -33,6 +33,20 @@ MusicBrainz::Server::DatabaseConnectionFactory->register_databases(
         port        => 5432,
         username    => 'musicbrainz',
     },
+    TEST_JSON_DUMP => {
+        database    => 'musicbrainz_test_json_dump',
+        host        => 'musicbrainz-test-database',
+        password    => '',
+        port        => 5432,
+        username    => 'musicbrainz',
+    },
+    TEST_FULL_EXPORT => {
+        database    => 'musicbrainz_test_full_export',
+        host        => 'musicbrainz-test-database',
+        password    => '',
+        port        => 5432,
+        username    => 'musicbrainz',
+    },
 );
 
 sub CACHE_MANAGER_OPTIONS {
