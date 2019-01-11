@@ -1,4 +1,3 @@
 #!/bin/bash
 
-cd /home/musicbrainz/musicbrainz-server
-exec sudo -E -H -u musicbrainz carton exec -- plackup -Ilib
+exec /usr/local/bin/start_musicbrainz_server.sh
