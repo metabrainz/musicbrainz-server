@@ -95,8 +95,8 @@ const proxy = httpProxy.createProxyServer({});
 const customProxyServer = http.createServer(function (req, res) {
   const host = req.headers.host;
   if (host === DBDefs.WEB_SERVER) {
-    req.headers['Selenium'] = '1';
-    req.rawHeaders['Selenium'] = '1';
+    req.headers['mb-set-database'] = 'SELENIUM';
+    req.rawHeaders['mb-set-database'] = 'SELENIUM';
   }
   proxy.web(req, res, {target: 'http://' + host});
 });

@@ -28,27 +28,14 @@ my %INDEXABLE_ENTITIES = map { $_ => 1 } entities_with(['mbid', 'indexable']);
 my @LASTMOD_ENTITIES = grep { exists $INDEXABLE_ENTITIES{$_} }
                        entities_with('sitemaps_lastmod_table');
 
-BEGIN {
+sub make_jsonld_request {
+    my ($c, $url) = @_;
+
+    my %extra_headers;
     if ($ENV{MUSICBRAINZ_RUNNING_TESTS}) {
-        use Catalyst::Test 'MusicBrainz::Server';
-        use HTTP::Headers;
-        use HTTP::Request;
-
-        *make_jsonld_request = sub {
-            my ($c, $url) = @_;
-
-            request(HTTP::Request->new(
-                GET => $url,
-                HTTP::Headers->new(Accept => 'application/ld+json'),
-            ));
-        };
-    } else {
-        *make_jsonld_request = sub {
-            my ($c, $url) = @_;
-
-            $c->lwp->get($url, Accept => 'application/ld+json');
-        };
+        $extra_headers{'mb-set-database'} = 'TEST';
     }
+    $c->lwp->get($url, Accept => 'application/ld+json', %extra_headers);
 }
 
 sub dump_schema { 'sitemaps' }

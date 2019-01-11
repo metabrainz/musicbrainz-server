@@ -410,6 +410,10 @@ sub WEB_SERVER                { "www.musicbrainz.example.com" }
 # sub HTML_VALIDATOR { 'http://validator.w3.org/nu/?out=json' }
 # local use example: sub HTML_VALIDATOR { 'http://localhost:8888?out=json' }
 
+# Set to 1 if you're a developer and plan to run tests locally. Never
+# enable in production.
+# sub USE_SET_DATABASE_HEADER { 0 }
+
 ################################################################################
 # Profiling
 ################################################################################
