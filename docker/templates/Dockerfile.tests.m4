@@ -52,7 +52,7 @@ copy_mb(`docker/musicbrainz-tests/DBDefs.pm lib/')
 # Depends on DBDefs.pm.
 RUN sudo_mb(`carton exec -- ./script/compile_resources.sh')
 
-copy_mb(`docker/musicbrainz-tests/run_tests.sh docker/musicbrainz-website/install_language_packs.pl docker/scripts/start_musicbrainz_server.sh /usr/local/bin/')
+copy_mb(`docker/musicbrainz-tests/run_tests.sh docker/scripts/start_musicbrainz_server.sh /usr/local/bin/')
 copy_mb(`flow-typed/ flow-typed/')
 copy_mb(`script/ script/')
 copy_mb(`t/ t/')
