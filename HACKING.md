@@ -183,7 +183,7 @@ These are a bit more involved to set up:
    Just make sure the connection options match what you're using for the
    `TEST` database.
 
- * Set USE_SELENIUM_HEADER to 1 in lib/DBDefs.pm.
+ * Set USE_SET_DATABASE_HEADER to 1 in lib/DBDefs.pm.
 
  * Run ./script/create_test_db.sh and ./script/compile_resources.sh again.
 

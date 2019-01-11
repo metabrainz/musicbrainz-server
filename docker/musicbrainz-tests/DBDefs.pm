@@ -106,6 +106,6 @@ sub PLUGIN_CACHE_OPTIONS {
     };
 }
 
-sub USE_SELENIUM_HEADER { 1 }
+sub USE_SET_DATABASE_HEADER { 1 }
 
 1;
