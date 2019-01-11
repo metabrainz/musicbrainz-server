@@ -39,7 +39,6 @@ exec sudo -E -H -u musicbrainz carton exec -- prove \
     t/js.t \
     t/web.js \
     t/selenium.js \
-    t/create_test_db.t \
     t/pgtap/* \
     t/pgtap/unused-tags/* \
     t/script/*.t \
