@@ -411,10 +411,10 @@ const seleniumTests = [
   {name: 'MBS-9548.html'},
   {name: 'MBS-9941.html', login: true},
   {name: 'Artist_Credit_Editor.html', login: true},
-  {name: 'External_Links_Editor.html', login: true, timeout: 90000},
+  {name: 'External_Links_Editor.html', login: true},
   {name: 'Work_Editor.html', login: true},
   {name: 'Redirect_Merged_Entities.html', login: true},
-  {name: 'release-editor/The_Downward_Spiral.html', login: true, timeout: 120000},
+  {name: 'release-editor/The_Downward_Spiral.html', login: true},
   {name: 'release-editor/Seeding.html', login: true, sql: 'vision_creation_newsun.sql'},
 ];
 
@@ -455,7 +455,7 @@ async function runCommands(commands, t) {
 }
 
 (async function runTests() {
-  const TEST_TIMEOUT = 75000; // 75 seconds
+  const TEST_TIMEOUT = 200000; // 200 seconds
 
   const cartonPrefix = process.env.PERL_CARTON_PATH
     ? 'carton exec -- '
@@ -561,14 +561,13 @@ async function runCommands(commands, t) {
   await testsToRun.reduce(function (accum, stest, index) {
     const {commands, plan, title} = getPlan(stest.path);
 
-    const testTimeout = stest.timeout || TEST_TIMEOUT;
     const isLastTest = index === testsToRun.length - 1;
 
     return new Promise(function (resolve) {
-      test(title, {timeout: testTimeout}, function (t) {
+      test(title, {timeout: TEST_TIMEOUT}, function (t) {
         t.plan(plan);
 
-        const timeout = setTimeout(resolve, testTimeout);
+        const timeout = setTimeout(resolve, TEST_TIMEOUT);
 
         accum.then(async function () {
           try {
