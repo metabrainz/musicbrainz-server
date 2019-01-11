@@ -36,6 +36,7 @@ clone_test_db() {
 
 clone_test_db 'musicbrainz_test_json_dump'
 clone_test_db 'musicbrainz_test_full_export'
+clone_test_db 'musicbrainz_test_sitemaps'
 clone_test_db 'musicbrainz_test_template'
 
 exec sudo -E -H -u musicbrainz carton exec -- prove \
