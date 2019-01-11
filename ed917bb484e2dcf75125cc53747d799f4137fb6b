@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b93bbc12_33a17d42",
+        "filename": "root/entity/Details.js",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1015732
+      },
+      "writtenOn": "2019-01-11T16:39:09Z",
+      "side": 1,
+      "message": "I would just remove the sort. There\u0027s no particular reason to sort them (not to make the output stable, since they\u0027re always pushed in the same order regardless).",
+      "range": {
+        "startLine": 34,
+        "startChar": 80,
+        "endLine": 34,
+        "endChar": 86
+      },
+      "revId": "ed917bb484e2dcf75125cc53747d799f4137fb6b",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "21033be3_08720d4a",
+        "filename": "root/entity/Details.js",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1015732
+      },
+      "writtenOn": "2019-01-11T16:39:09Z",
+      "side": 1,
+      "message": "My WEB_SERVER doesn\u0027t support https, at least. :) You can check if the connection is secure with $c.req.secure and conditionally display http or https based on that.",
+      "range": {
+        "startLine": 36,
+        "startChar": 21,
+        "endLine": 36,
+        "endChar": 26
+      },
+      "revId": "ed917bb484e2dcf75125cc53747d799f4137fb6b",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fc33a078_7763003c",
+        "filename": "root/entity/Details.js",
+        "patchSetId": 2
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1015732
+      },
+      "writtenOn": "2019-01-11T16:39:09Z",
+      "side": 1,
+      "message": "delete",
+      "range": {
+        "startLine": 64,
+        "startChar": 13,
+        "endLine": 64,
+        "endChar": 28
+      },
+      "revId": "ed917bb484e2dcf75125cc53747d799f4137fb6b",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f3914769_a9ce54f3",
+        "filename": "root/entity/Details.js",
+        "patchSetId": 2
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1015732
+      },
+      "writtenOn": "2019-01-11T16:39:09Z",
+      "side": 1,
+      "message": "Fixing some of these long lines that eslint complains about would be nice\n\n\u003cXMLLink\n  entityGid\u003d{entity.gid}\n  entityProperties\u003d{entityProperties}\n  entityType\u003d{entityType}\n/\u003e",
+      "revId": "ed917bb484e2dcf75125cc53747d799f4137fb6b",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    }
+  ]
+}
