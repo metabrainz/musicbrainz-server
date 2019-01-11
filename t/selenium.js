@@ -590,7 +590,10 @@ async function runCommands(commands, t) {
               await dropSeleniumDb();
             }
           } catch (error) {
-            t.fail('caught exception');
+            t.fail(
+              'caught exception: ' +
+              (error && error.stack ? error.stack : error.toString())
+            );
             throw error;
           }
 
