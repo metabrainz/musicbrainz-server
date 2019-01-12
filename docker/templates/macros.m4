@@ -75,20 +75,6 @@ postgresql-client-9.5 m4_dnl
 postgresql-server-dev-9.5')
 
 m4_define(
-    `test_db_run_deps',
-    `m4_dnl
-carton m4_dnl
-postgresql-9.5-pgtap')
-
-m4_define(
-    `test_db_build_deps',
-    `m4_dnl
-gcc m4_dnl
-libc6-dev m4_dnl
-make m4_dnl
-postgresql-server-dev-9.5')
-
-m4_define(
     `install_perl_modules',
     `m4_dnl
 ENV PERL_CARTON_PATH /home/musicbrainz/carton-local
