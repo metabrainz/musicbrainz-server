@@ -6,7 +6,6 @@ use warnings;
 use FindBin;
 use lib "$FindBin::Bin/../lib";
 use String::ShellQuote qw( shell_quote );
-use Text::Trim;
 use DBDefs;
 use MusicBrainz::Server::DatabaseConnectionFactory;
 
