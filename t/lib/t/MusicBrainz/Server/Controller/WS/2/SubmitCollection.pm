@@ -68,7 +68,7 @@ test all => sub {
         },
         {
             collection => 'dadae81b-ff9e-464e-8c38-51156557bc36',
-            entity => '9b5006e5-b276-3a05-bcdd-8d986842320b',
+            entity => '153f0a09-fead-3370-9b17-379ebd09446b',
             entity_type => 'release_group',
         },
         {
