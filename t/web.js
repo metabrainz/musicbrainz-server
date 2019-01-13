@@ -22,15 +22,18 @@ CDP((client) => {
     Runtime.enable(),
   ]).then(() => {
     let timeout;
+    let done = false;
 
     function exit(code) {
+      process.exitCode = code;
       client.close();
-      process.exit(code);
     }
 
     function onTimeout() {
-      console.error('ERROR: Test timed out');
-      exit(2);
+      if (!done) {
+        console.error('ERROR: Test timed out');
+        exit(2);
+      }
     }
 
     Runtime.consoleAPICalled(function (event) {
@@ -40,6 +43,7 @@ CDP((client) => {
       (console[event.type] || console.log).apply(console, args);
 
       if (args[0] === '# ok') {
+        done = true;
         exit(0);
       } else {
         timeout = setTimeout(onTimeout, 1000);
