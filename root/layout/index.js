@@ -9,15 +9,14 @@ import React from 'react';
 
 import {withCatalystContext} from '../context';
 import getRequestCookie from '../utility/getRequestCookie';
+import {RT_SLAVE} from '../static/scripts/common/constants';
+import * as DBDefs from '../static/scripts/common/DBDefs';
+import {l} from '../static/scripts/common/i18n';
 
 import Footer from './components/Footer';
 import Header from './components/Header';
-
-const Head = require('./components/Head');
-const MergeHelper = require('./components/MergeHelper');
-const {RT_SLAVE} = require('../static/scripts/common/constants');
-const DBDefs = require('../static/scripts/common/DBDefs');
-const {l} = require('../static/scripts/common/i18n');
+import Head from './components/Head';
+import MergeHelper from './components/MergeHelper';
 
 const DismissBannerButton = ({bannerName}) => (
   <button
@@ -122,4 +121,4 @@ const Layout = ({$c, ...props}) => (
   </html>
 );
 
-module.exports = withCatalystContext(Layout);
+export default withCatalystContext(Layout);

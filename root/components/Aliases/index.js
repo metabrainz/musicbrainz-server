@@ -7,12 +7,13 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-const React = require('react');
-const {withCatalystContext} = require('../../context');
-const {l} = require('../../static/scripts/common/i18n');
-const EntityLink = require('../../static/scripts/common/components/EntityLink');
-const entityHref = require('../../static/scripts/common/utility/entityHref');
-const AliasTable = require('./AliasTable');
+import React from 'react';
+
+import {withCatalystContext} from '../../context';
+import {l} from '../../static/scripts/common/i18n';
+import EntityLink from '../../static/scripts/common/components/EntityLink';
+import entityHref from '../../static/scripts/common/utility/entityHref';
+import AliasTable from './AliasTable';
 
 type Props = {
   +$c: CatalystContextT,
