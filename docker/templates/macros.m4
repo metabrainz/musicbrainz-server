@@ -111,9 +111,9 @@ RUN chown_mb(`MBS_ROOT')')
 m4_define(
     `install_translations',
     `m4_dnl
+RUN apt_install(``gettext language-pack-de language-pack-el language-pack-es language-pack-et language-pack-fi language-pack-fr language-pack-it language-pack-ja language-pack-nl make'')
 copy_mb(``po/ po/'')
-RUN apt_install(``gettext language-pack-de language-pack-el language-pack-es language-pack-et language-pack-fi language-pack-fr language-pack-it language-pack-ja language-pack-nl make'') && \
-    sudo_mb(``make -C po all_quiet'') && \
+RUN sudo_mb(``make -C po all_quiet'') && \
     sudo_mb(``make -C po deploy'')')
 
 m4_define(
