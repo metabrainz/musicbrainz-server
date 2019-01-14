@@ -57,7 +57,7 @@ sub CACHE_MANAGER_OPTIONS {
                 class => 'MusicBrainz::Server::CacheWrapper::Redis',
                 options => {
                     server => 'musicbrainz-redis-cache:6379',
-                    namespace => 'MB:',
+                    namespace => $self->CACHE_NAMESPACE,
                 },
             },
         },
@@ -73,7 +73,7 @@ sub DATASTORE_REDIS_ARGS {
     my $self = shift;
     return {
         database => 0,
-        namespace => 'MB:',
+        namespace => $self->CACHE_NAMESPACE,
         server => 'musicbrainz-redis-store:6379',
         test_database => 1,
     };
@@ -102,7 +102,7 @@ sub PLUGIN_CACHE_OPTIONS {
     return {
         class => 'MusicBrainz::Server::CacheWrapper::Redis',
         server => 'musicbrainz-redis-cache:6379',
-        namespace => 'MB:Catalyst:',
+        namespace => $self->CACHE_NAMESPACE . 'Catalyst:',
     };
 }
 
