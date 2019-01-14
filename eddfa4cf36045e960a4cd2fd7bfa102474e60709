@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "587fac02_76ab4edd",
+        "filename": "root/entity/details.tt",
+        "patchSetId": 4
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1015737
+      },
+      "writtenOn": "2019-01-14T15:05:33Z",
+      "side": 1,
+      "message": "`|| entity_type \u003d\u003d \u0027release_group\u0027` is not needed anymore",
+      "revId": "eddfa4cf36045e960a4cd2fd7bfa102474e60709",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    }
+  ]
+}
