@@ -22,6 +22,7 @@ extends 'MusicBrainz::Server::Sitemap::Builder';
 
 with 'MooseX::Runnable';
 with 'MusicBrainz::Script::Role::IncrementalDump';
+with 'MusicBrainz::Script::Role::TestCacheNamespace';
 
 my %INDEXABLE_ENTITIES = map { $_ => 1 } entities_with(['mbid', 'indexable']);
 my @LASTMOD_ENTITIES = grep { exists $INDEXABLE_ENTITIES{$_} }
