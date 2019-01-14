@@ -22,6 +22,7 @@ use Sql;
 extends 'MusicBrainz::Server::Sitemap::Builder';
 
 with 'MooseX::Runnable';
+with 'MusicBrainz::Script::Role::CacheNamespace';
 
 =head2 create_temporary_tables, fill_temporary_tables, drop_temporary_tables
 
