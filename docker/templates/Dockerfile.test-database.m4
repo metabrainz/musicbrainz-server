@@ -19,18 +19,6 @@ ENV PERL_CPANM_OPT --notest --no-interactive
 RUN sudo_mb(`carton install --deployment') && \
     apt_purge(`gcc libc6-dev make postgresql-server-dev-10')
 
-copy_mb(`admin/ admin/')
-copy_mb(`lib/ lib/')
-copy_mb(`script/ script/')
-copy_mb(`t/sql/initial.sql t/sql/')
-copy_mb(`entities.json entities.json')
-
-RUN mkdir -p '/home/musicbrainz/dumps' && \
-    chown -R postgres:postgres /home/musicbrainz/dumps
-
-copy_mb(`docker/musicbrainz-test-database/DBDefs.pm lib/')
-copy_mb(`docker/scripts/import_db.sh docker/scripts/')
-
 ENV PGDATA /var/lib/postgresql/10/main
 
 RUN pg_dropcluster --stop 10 main && \
@@ -44,9 +32,17 @@ COPY --chown=postgres:postgres \
 RUN sudo -E -H -u postgres touch \
     $PGDATA/pg_ident.conf
 
-COPY \
-    docker/musicbrainz-test-database/docker-entrypoint.sh \
-    /usr/local/bin/
+# Only copy the minimal set of files needed to run create_test_db, to take
+# advantage of Docker's image cache.
+copy_mb(`admin/functions.sh admin/InitDb.pl admin/psql admin/')
+copy_mb(`admin/sql/ admin/sql/')
+copy_mb(`docker/musicbrainz-test-database/DBDefs.pm lib/Sql.pm lib/')
+copy_mb(`entities.json entities.json')
+copy_mb(`lib/DBDefs/Default.pm lib/DBDefs/')
+copy_mb(`lib/MusicBrainz/Server/Connector.pm lib/MusicBrainz/Server/Database.pm lib/MusicBrainz/Server/DatabaseConnectionFactory.pm lib/MusicBrainz/Server/Exceptions.pm lib/MusicBrainz/Server/Replication.pm lib/MusicBrainz/Server/')
+copy_mb(`lib/MusicBrainz/Server/Exceptions/ lib/MusicBrainz/Server/Exceptions/')
+copy_mb(`script/create_test_db.sh script/database_configuration script/database_exists script/')
+copy_mb(`t/sql/initial.sql t/sql/')
 
 RUN sudo -E -H -u postgres /usr/lib/postgresql/10/bin/pg_ctl -D /var/lib/postgresql/10/main start && \
     sudo -E -H -u musicbrainz carton exec -- ./script/create_test_db.sh && \
@@ -55,5 +51,14 @@ RUN sudo -E -H -u postgres /usr/lib/postgresql/10/bin/pg_ctl -D /var/lib/postgre
     sudo -E -H -u postgres createdb -O musicbrainz -T musicbrainz_test -U postgres musicbrainz_test_sitemaps && \
     sudo -E -H -u postgres createdb -O musicbrainz -T musicbrainz_test -U postgres musicbrainz_test_template && \
     sudo -E -H -u postgres /usr/lib/postgresql/10/bin/pg_ctl -D /var/lib/postgresql/10/main -m fast stop
+
+copy_mb(`docker/scripts/import_db.sh docker/scripts/')
+
+COPY \
+    docker/musicbrainz-test-database/docker-entrypoint.sh \
+    /usr/local/bin/
+
+RUN mkdir -p '/home/musicbrainz/dumps' && \
+    chown -R postgres:postgres /home/musicbrainz/dumps
 
 ENTRYPOINT ["/usr/local/bin/docker-entrypoint.sh"]
