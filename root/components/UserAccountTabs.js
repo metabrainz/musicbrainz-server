@@ -32,7 +32,8 @@ function buildTabs(
   page: string,
 ): React.Node {
   const viewingOwnProfile = $c.user && $c.user.id === user.id;
-  const showPrivate = $c.user && $c.user.is_account_admin || viewingOwnProfile;
+  const showAdmin = $c.user && $c.user.is_account_admin;
+  const showPrivate = showAdmin || viewingOwnProfile;
 
   const userName = encodeURIComponent(user.name);
   const userPath = '/user/' + userName;
@@ -61,7 +62,7 @@ function buildTabs(
     tabs.push(buildTab(page, l('Donation Check'), '/account/donation', 'donation'));
   }
 
-  if (showPrivate || DBDefs.DB_STAGING_TESTING_FEATURES && $c.user_exists) {
+  if (showAdmin || DBDefs.DB_STAGING_TESTING_FEATURES && $c.user_exists) {
     tabs.push(buildTab(page, l('Edit User'), '/admin/user/edit/' + userName, 'edit_user'));
   }
 
