@@ -3,14 +3,15 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-const React = require('react');
+import React from 'react';
 
-const {withCatalystContext} = require('../../context');
-const manifest = require('../../static/manifest');
-const DBDefs = require('../../static/scripts/common/DBDefs');
-const {l} = require('../../static/scripts/common/i18n');
-const escapeClosingTags = require('../../utility/escapeClosingTags');
-const MetaDescription = require('./MetaDescription');
+import {withCatalystContext} from '../../context';
+import * as manifest from '../../static/manifest';
+import * as DBDefs from '../../static/scripts/common/DBDefs';
+import {l} from '../../static/scripts/common/i18n';
+import escapeClosingTags from '../../utility/escapeClosingTags';
+
+import MetaDescription from './MetaDescription';
 
 let canonRegexp = new RegExp('^(https?:)?//' + DBDefs.WEB_SERVER);
 function canonicalize(url) {
@@ -99,4 +100,4 @@ const Head = ({$c, ...props}) => (
   </head>
 );
 
-module.exports = withCatalystContext(Head);
+export default withCatalystContext(Head);

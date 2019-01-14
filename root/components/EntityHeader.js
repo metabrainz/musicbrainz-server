@@ -7,11 +7,12 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-const React = require('react');
-const {l} = require('../static/scripts/common/i18n');
-const EntityLink = require('../static/scripts/common/components/EntityLink');
-const EntityTabs = require('./EntityTabs');
-const SubHeader = require('./SubHeader');
+import * as React from 'react';
+
+import EntityLink from '../static/scripts/common/components/EntityLink';
+
+import EntityTabs from './EntityTabs';
+import SubHeader from './SubHeader';
 
 type Props = {|
   +editTab?: React.Node,
@@ -49,4 +50,4 @@ const EntityHeader = ({
   </>
 );
 
-module.exports = EntityHeader;
+export default EntityHeader;

@@ -3,11 +3,11 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-const React = require('react');
+import React from 'react';
 
-const {withCatalystContext} = require('../../context');
-const {l} = require('../../static/scripts/common/i18n');
-const DescriptiveLink = require('../../static/scripts/common/components/DescriptiveLink');
+import {withCatalystContext} from '../../context';
+import {l} from '../../static/scripts/common/i18n';
+import DescriptiveLink from '../../static/scripts/common/components/DescriptiveLink';
 
 const MergeHelper = ({$c}) => (
   <div id="current-editing">
@@ -42,4 +42,4 @@ const MergeHelper = ({$c}) => (
   </div>
 );
 
-module.exports = withCatalystContext(MergeHelper);
+export default withCatalystContext(MergeHelper);

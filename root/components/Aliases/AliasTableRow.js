@@ -7,15 +7,16 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-const React = require('react');
-const isolateText = require('../../static/scripts/common/utility/isolateText');
+import React from 'react';
+
+import isolateText from '../../static/scripts/common/utility/isolateText';
 import formatDate from '../../static/scripts/common/utility/formatDate';
 import formatEndDate from '../../static/scripts/common/utility/formatEndDate';
-const entityHref = require('../../static/scripts/common/utility/entityHref');
+import entityHref from '../../static/scripts/common/utility/entityHref';
 import bracketed from '../../static/scripts/common/utility/bracketed';
-const locales = require('../../static/scripts/common/constants/locales');
-const {l} = require('../../static/scripts/common/i18n');
-const {lp_attributes} = require('../../static/scripts/common/i18n/attributes');
+import locales from '../../static/scripts/common/constants/locales';
+import {l} from '../../static/scripts/common/i18n';
+import {lp_attributes} from '../../static/scripts/common/i18n/attributes';
 
 type Props = {
   +alias: AliasT,
@@ -67,4 +68,4 @@ const AliasTableRow = ({alias, allowEditing, entity, row}: Props) => (
   </tr>
 );
 
-module.exports = AliasTableRow;
+export default AliasTableRow;
