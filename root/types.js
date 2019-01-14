@@ -684,6 +684,7 @@ declare type ReleaseGroupT = {|
   +cover_art?: ArtworkT,
   +entityType: 'release_group',
   +firstReleaseDate: string | null,
+  +l_type_name: string | null,
   +release_group?: ReleaseGroupT,
   +review_count: ?number,
   +secondaryTypeIDs: $ReadOnlyArray<number>,
