@@ -75,6 +75,7 @@ GetOptions(
     or die "This is not a slave server!\n";
 
 if ($database ne 'READWRITE') {
+    $lockfile .= "-$database";
     push @process_opts, '--database=' . shell_quote($database);
 }
 
