@@ -175,13 +175,6 @@ EOSQL
             ref_count => 1,
         },
     ]);
-
-    $exec_sql->(<<EOSQL);
-    SET client_min_messages TO WARNING;
-    TRUNCATE artist CASCADE;
-    TRUNCATE artist_tag CASCADE;
-    TRUNCATE tag CASCADE;
-EOSQL
 };
 
 run_me;

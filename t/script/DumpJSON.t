@@ -572,20 +572,6 @@ EOF
         },
     ]);
     $test_dumps_empty_except->($output_dir, qw( artist recording release-group work ));
-
-    $exec_sql->(<<EOSQL);
-TRUNCATE artist CASCADE;
-TRUNCATE artist_credit CASCADE;
-TRUNCATE artist_credit_name CASCADE;
-TRUNCATE medium CASCADE;
-TRUNCATE recording CASCADE;
-TRUNCATE release CASCADE;
-TRUNCATE release_group CASCADE;
-TRUNCATE track CASCADE;
-TRUNCATE work CASCADE;
-TRUNCATE json_dump.control;
-TRUNCATE json_dump.tmp_checked_entities;
-EOSQL
 };
 
 run_me;

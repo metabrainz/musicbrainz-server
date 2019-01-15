@@ -531,13 +531,6 @@ EOSQL
         {loc => 'https://musicbrainz.org/sitemap-work-1.xml', lastmod => $build_time5},
         {loc => 'https://musicbrainz.org/sitemap-work-1-details.xml', lastmod => $build_time5},
     ]);
-
-    $exec_sql->(<<EOSQL);
-TRUNCATE artist CASCADE;
-TRUNCATE work CASCADE;
-TRUNCATE sitemaps.control;
-TRUNCATE sitemaps.tmp_checked_entities;
-EOSQL
 };
 
 run_me;
