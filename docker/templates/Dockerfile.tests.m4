@@ -41,7 +41,7 @@ COPY \
     docker/musicbrainz-tests/chrome.service \
     /etc/service/chrome/run
 COPY \
-    docker/scripts/start_template_renderer.sh \
+    docker/musicbrainz-tests/template-renderer.service \
     /etc/service/template-renderer/run
 COPY \
     docker/musicbrainz-tests/website.service \
@@ -51,7 +51,7 @@ RUN chmod 755 \
         /etc/service/template-renderer/run \
         /etc/service/website/run
 
-copy_mb(`docker/musicbrainz-tests/run_tests.sh docker/scripts/start_musicbrainz_server.sh /usr/local/bin/')
+copy_mb(`docker/musicbrainz-tests/run_tests.sh docker/scripts/start_musicbrainz_server.sh docker/scripts/start_template_renderer.sh /usr/local/bin/')
 copy_mb(`flow-typed/ flow-typed/')
 copy_mb(`script/ script/')
 copy_mb(`t/ t/')

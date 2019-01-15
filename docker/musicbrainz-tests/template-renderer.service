@@ -1,0 +1,4 @@
+#!/bin/bash
+
+export RENDERER_WORKERS=5
+exec /usr/local/bin/start_template_renderer.sh
