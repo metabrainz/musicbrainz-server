@@ -17,8 +17,8 @@
 	<td></td>
 </tr>
 <tr>
-	<td>pause</td>
-	<td>1000</td>
+	<td>waitUntil</td>
+	<td>window.MB.releaseEditor.rootField.release() != null</td>
 	<td></td>
 </tr>
 <tr>
@@ -42,13 +42,8 @@
 	<td>nine inch nails</td>
 </tr>
 <tr>
-	<td>fireEvent</td>
-	<td>xpath=//td[contains(@class, 'release-artist')]//input[contains(@class, 'name')]</td>
-	<td>input</td>
-</tr>
-<tr>
-	<td>pause</td>
-	<td>1000</td>
+	<td>waitUntil</td>
+	<td>Array.from(document.querySelectorAll('ul.ui-autocomplete')).some(x =&gt; x.style.display === 'block')</td>
 	<td></td>
 </tr>
 <tr>
@@ -57,8 +52,8 @@
 	<td></td>
 </tr>
 <tr>
-	<td>pause</td>
-	<td>1000</td>
+	<td>waitUntil</td>
+	<td>!document.querySelector('input.ui-autocomplete-loading')</td>
 	<td></td>
 </tr>
 <tr>
@@ -153,11 +148,6 @@
 	<td>2182a316-c4bd-4605-936a-5e2fac52bdd2</td>
 </tr>
 <tr>
-	<td>fireEvent</td>
-	<td>id=label-0</td>
-	<td>input</td>
-</tr>
-<tr>
 	<td>type</td>
 	<td>id=catno-0</td>
 	<td>INTD‐92346</td>
@@ -179,13 +169,8 @@
 	<td>nothing</td>
 </tr>
 <tr>
-	<td>fireEvent</td>
-	<td>id=label-1</td>
-	<td>input</td>
-</tr>
-<tr>
-	<td>pause</td>
-	<td>1000</td>
+	<td>waitUntil</td>
+	<td>Array.from(document.querySelectorAll('ul.ui-autocomplete')).some(x =&gt; x.style.display === 'block')</td>
 	<td></td>
 </tr>
 <tr>
@@ -194,8 +179,8 @@
 	<td></td>
 </tr>
 <tr>
-	<td>pause</td>
-	<td>1000</td>
+	<td>waitUntil</td>
+	<td>!document.querySelector('input.ui-autocomplete-loading')</td>
 	<td></td>
 </tr>
 <tr>
@@ -305,23 +290,13 @@ A7 The Becoming - nin 5:32</td>
 	<td></td>
 </tr>
 <tr>
-	<td>pause</td>
-	<td>1000</td>
-	<td></td>
-</tr>
-<tr>
 	<td>type</td>
 	<td>xpath=//div[@id='artist-credit-bubble']//input[contains(@id, 'artist')]</td>
 	<td>b7ffd2af-418f-4be2-bdd1-22f8b48613da</td>
 </tr>
 <tr>
-	<td>fireEvent</td>
-	<td>xpath=//div[@id='artist-credit-bubble']//input[contains(@id, 'artist')]</td>
-	<td>input</td>
-</tr>
-<tr>
-	<td>pause</td>
-	<td>500</td>
+	<td>waitUntil</td>
+	<td>window.document.getElementById('artist-credit-bubble').querySelector('input.name.lookup-performed') != null</td>
 	<td></td>
 </tr>
 <tr>
@@ -443,8 +418,8 @@ A7 The Becoming - nin 5:32</td>
 	<td></td>
 </tr>
 <tr>
-	<td>pause</td>
-	<td>1000</td>
+	<td>waitUntil</td>
+	<td>Array.from(document.querySelectorAll('ul.ui-autocomplete')).some(x =&gt; x.style.display === 'block')</td>
 	<td></td>
 </tr>
 <tr>
@@ -453,8 +428,8 @@ A7 The Becoming - nin 5:32</td>
 	<td></td>
 </tr>
 <tr>
-	<td>pause</td>
-	<td>1000</td>
+	<td>waitUntil</td>
+	<td>!document.querySelector('input.ui-autocomplete-loading')</td>
 	<td></td>
 </tr>
 <tr>
@@ -478,6 +453,11 @@ A7 The Becoming - nin 5:32</td>
 <tr>
 	<td>click</td>
 	<td>xpath=//a[@href='#edit-note']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitUntil</td>
+	<td>window.document.getElementsByClassName('edit-list').length === 9</td>
 	<td></td>
 </tr>
 <tr>
@@ -1396,11 +1376,6 @@ B4. Eraser (4:54)
 	<td></td>
 </tr>
 <tr>
-	<td>pause</td>
-	<td>500</td>
-	<td></td>
-</tr>
-<tr>
 	<td>type</td>
 	<td>xpath=//div[@id='artist-credit-bubble']//input[contains(@id, 'credited-as')]</td>
 	<td>Nine Inch Nails</td>
@@ -1423,6 +1398,11 @@ B4. Eraser (4:54)
 <tr>
 	<td>click</td>
 	<td>xpath=//a[@href='#edit-note']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitUntil</td>
+	<td>window.document.getElementsByClassName('edit-list').length === 9</td>
 	<td></td>
 </tr>
 <tr>
@@ -2553,8 +2533,8 @@ Nothing Records</td>
 	<td></td>
 </tr>
 <tr>
-	<td>pause</td>
-	<td>1000</td>
+	<td>waitUntil</td>
+	<td>window.MB.releaseEditor.rootField.release().loadedMediums().length &gt; 0</td>
 	<td></td>
 </tr>
 <tr>
@@ -2565,6 +2545,11 @@ Nothing Records</td>
 <tr>
 	<td>click</td>
 	<td>xpath=//a[@href='#edit-note']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitUntil</td>
+	<td>window.document.getElementsByClassName('edit-list').length === 1</td>
 	<td></td>
 </tr>
 <tr>

@@ -45,6 +45,7 @@ const DBDefs = require('../root/static/scripts/common/DBDefs');
 const escapeRegExp = require('../root/static/scripts/common/utility/escapeRegExp');
 
 const IGNORE = Symbol();
+const CMD_TIMEOUT = 30000; // 30 seconds
 
 function skipIgnored(a, b) {
   return (a === IGNORE || b === IGNORE) ? true : undefined;
@@ -151,7 +152,7 @@ function makeLocator(locatorStr) {
 function findElement(locatorStr) {
   return driver.wait(
     until.elementLocated(makeLocator(locatorStr)),
-    30000, // 30 seconds
+    CMD_TIMEOUT, // 30 seconds
   );
 }
 
@@ -222,7 +223,7 @@ async function handleCommandAndWait(file, command, target, value, t) {
 
   const html = await findElement('css=html');
   await handleCommand(file, command, target, value, t);
-  return driver.wait(until.stalenessOf(html), 30000);
+  return driver.wait(until.stalenessOf(html), CMD_TIMEOUT);
 }
 
 async function handleCommand(file, command, target, value, t) {
@@ -337,13 +338,8 @@ async function handleCommand(file, command, target, value, t) {
     case 'click':
       element = await findElement(target);
       await driver.executeScript('arguments[0].scrollIntoView()', element);
+      await driver.wait(until.elementIsVisible(element), CMD_TIMEOUT);
       return element.click();
-
-    case 'fireEvent':
-      return driver.executeScript(
-        `arguments[0].dispatchEvent(new Event('${value}'))`,
-        await findElement(target)
-      );
 
     case 'focus':
       return driver.executeScript(
@@ -399,6 +395,12 @@ async function handleCommand(file, command, target, value, t) {
 
     case 'uncheck':
       return setChecked(findElement(target), false);
+
+    case 'waitUntil':
+      return driver.wait(
+        driver.executeScript(`try { return ${target} } catch (e) { return false }`),
+        CMD_TIMEOUT,
+      );
 
     default:
       throw 'Unsupported command: ' + command;
