@@ -59,6 +59,7 @@ const SidebarTags = ({
     <>
       {($c.user_exists && aggregatedTags && userTags) ? (
         <SidebarTagEditor
+          $c={$c}
           aggregatedTags={aggregatedTags}
           entity={entity}
           more={more}

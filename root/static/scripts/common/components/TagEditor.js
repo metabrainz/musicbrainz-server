@@ -19,6 +19,7 @@ const MB = require('../MB');
 import bracketed from '../utility/bracketed';
 import isBlank from '../utility/isBlank';
 const request = require('../utility/request');
+
 const TagLink = require('./TagLink');
 
 const GENRE_TAGS_ARRAY = Array.from(GENRE_TAGS.values());
@@ -35,7 +36,7 @@ var VOTE_ACTIONS = {
 var VOTE_DELAY = 1000;
 
 function sortedTags(tags) {
-  return _.sortBy(tags, t => t.tag, t => -t.count);
+  return _.sortBy(tags, t => -t.count, t => t.tag);
 }
 
 function getTagsPath(entity) {
@@ -118,6 +119,7 @@ class DownvoteButton extends VoteButton {
 }
 
 type VoteButtonsProps = {
+  $c: CatalystContextT,
   callback: (VoteT) => void,
   count: number,
   currentVote: VoteT,
@@ -136,8 +138,12 @@ class VoteButtons extends React.Component<VoteButtonsProps> {
 
     return (
       <span className={'tag-vote-buttons' + className}>
-        <UpvoteButton {...this.props} />
-        <DownvoteButton {...this.props} />
+        {this.props.$c.user_exists ? (
+          <>
+            <UpvoteButton {...this.props} />
+            <DownvoteButton {...this.props} />
+          </>
+        ) : null}
         <span className="tag-count">{this.props.count}</span>
       </span>
     );
@@ -145,6 +151,7 @@ class VoteButtons extends React.Component<VoteButtonsProps> {
 }
 
 type TagRowProps = {
+  $c: CatalystContextT,
   callback: (VoteT) => void,
   count: number,
   currentVote: VoteT,
@@ -166,6 +173,7 @@ class TagRow extends React.Component<TagRowProps> {
 }
 
 type TagEditorProps = {|
+  +$c: CatalystContextT,
   +aggregatedTags: $ReadOnlyArray<AggregatedTagT>,
   +entity: CoreEntityT,
   +more: boolean,
@@ -266,12 +274,14 @@ class TagEditor extends React.Component<TagEditorProps, TagEditorState> {
         const genre = isGenre(t);
 
         const tagRow = (
-          <TagRow key={t.tag}
-                  tag={t.tag}
-                  count={t.count}
-                  index={genre ? accum.genres.length : accum.tags.length}
-                  currentVote={t.vote}
-                  callback={callback}
+          <TagRow
+            $c={this.props.$c}
+            count={t.count}
+            currentVote={t.vote}
+            callback={callback}
+            index={genre ? accum.genres.length : accum.tags.length}
+            key={t.tag}
+            tag={t.tag}
           />
         );
 
@@ -461,28 +471,40 @@ class MainTagEditor extends TagEditor {
           <p>{l('Nobody has tagged this yet.')}</p>
         )}
 
-        {(positiveTagsOnly && !tags.every(isAlwaysVisible)) && [
-          <p key={1}>
-            {l('Tags with a score of zero or below, and tags that you’ve downvoted are hidden.')}
-          </p>,
-          <p key={2}>
-            <a href="#" onClick={this.showAllTags.bind(this)}>{l('Show all tags.')}</a>
-          </p>
-        ]}
+        {(positiveTagsOnly && !tags.every(isAlwaysVisible)) ? (
+          <>
+            {this.props.$c.user_exists ? (
+              <p>
+                {l('Tags with a score of zero or below, and tags that you’ve downvoted are hidden.')}
+              </p>
+            ) : (
+              <p>
+                {l('Tags with a score of zero or below are hidden.') + ' '}
+              </p>
+            )}
+            <p>
+              <a href="#" onClick={this.showAllTags.bind(this)}>{l('Show all tags.')}</a>
+            </p>
+          </>
+        ) : null}
 
-        <h2>{l('Add Tags')}</h2>
-        <p>
-          {l('You can add your own {tagdocs|tags} below. Use commas to separate multiple tags.',
-            {tagdocs: '/doc/Folksonomy_Tagging'})}
-        </p>
-        <form id="tag-form" onSubmit={this.addTags}>
-          <p>
-            <textarea row="5" cols="50" ref={this.setTagsInput}></textarea>
-          </p>
-          <button type="submit" className="styled-button">
-            {l('Submit tags')}
-          </button>
-        </form>
+        {this.props.$c.user_exists ? (
+          <>
+            <h2>{l('Add Tags')}</h2>
+            <p>
+              {l('You can add your own {tagdocs|tags} below. Use commas to separate multiple tags.',
+                {tagdocs: '/doc/Folksonomy_Tagging'})}
+            </p>
+            <form id="tag-form" onSubmit={this.addTags}>
+              <p>
+                <textarea rows="5" cols="50" ref={this.setTagsInput}></textarea>
+              </p>
+              <button type="submit" className="styled-button">
+                {l('Submit tags')}
+              </button>
+            </form>
+          </>
+        ) : null}
       </div>
     );
   }
@@ -575,9 +597,10 @@ function createInitialTagState(
 }
 
 function init_tag_editor(Component, mountPoint) {
-  return function (entity, aggregatedTags, userTags, more) {
+  return function ($c, entity, aggregatedTags, userTags, more) {
     ReactDOM.render(
       <Component
+        $c={$c}
         aggregatedTags={aggregatedTags}
         entity={entity}
         more={more}
@@ -588,7 +611,7 @@ function init_tag_editor(Component, mountPoint) {
   };
 }
 
-exports.MainTagEditor = MainTagEditor;
+exports.MainTagEditor = hydrate<TagEditorProps>('all-tags', MainTagEditor, minimalEntity);
 
 exports.SidebarTagEditor = hydrate<TagEditorProps>('sidebar-tags', SidebarTagEditor, minimalEntity);
 
