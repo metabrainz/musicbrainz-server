@@ -110,7 +110,9 @@ EOSQL
 
     system (
         File::Spec->catfile($root, 'admin/replication/LoadReplicationChanges'),
-        '--base-uri', 'file://' . $output_dir, '--database', 'TEST_FULL_EXPORT',
+        '--base-uri', 'file://' . $output_dir,
+        '--database', 'TEST_FULL_EXPORT',
+        '--lockfile', '/tmp/.mb-LoadReplicationChanges-TEST_FULL_EXPORT',
     );
 
     my $c = MusicBrainz::Server::Context->create_script_context(database => 'TEST_FULL_EXPORT');
