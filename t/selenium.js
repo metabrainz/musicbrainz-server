@@ -457,8 +457,6 @@ async function runCommands(commands, t) {
 }
 
 (async function runTests() {
-  const TEST_TIMEOUT = 200000; // 200 seconds
-
   const cartonPrefix = process.env.PERL_CARTON_PATH
     ? 'carton exec -- '
     : '';
@@ -566,10 +564,8 @@ async function runCommands(commands, t) {
     const isLastTest = index === testsToRun.length - 1;
 
     return new Promise(function (resolve) {
-      test(title, {timeout: TEST_TIMEOUT}, function (t) {
+      test(title, function (t) {
         t.plan(plan);
-
-        const timeout = setTimeout(resolve, TEST_TIMEOUT);
 
         accum.then(async function () {
           try {
@@ -600,7 +596,6 @@ async function runCommands(commands, t) {
           }
 
           t.end();
-          clearTimeout(timeout);
           resolve();
         });
       });
