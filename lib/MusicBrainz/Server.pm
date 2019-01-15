@@ -379,7 +379,7 @@ after dispatch => sub {
         # back to the default (READWRITE, or READONLY for slaves).
         $ctx->clear_connector;
         $ctx->clear_database;
-        *DBDefs::CACHE_NAMESPACE = $ORIG_SEARCH_SERVER;
+        *DBDefs::CACHE_NAMESPACE = $ORIG_CACHE_NAMESPACE;
         *DBDefs::ENTITY_CACHE_TTL = $ORIG_ENTITY_CACHE_TTL;
         *DBDefs::SEARCH_SERVER = $ORIG_SEARCH_SERVER;
     }
