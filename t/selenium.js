@@ -203,6 +203,15 @@ async function selectOption(select, optionLocator) {
   return option.click();
 }
 
+function waitUntil(test) {
+  driver.wait(
+    () => driver.executeScript(
+      `try { ${test} } catch (e) { return false }`,
+    ),
+    CMD_TIMEOUT,
+  );
+}
+
 const KEY_CODES = {
   '${KEY_BKSP}': Key.BACK_SPACE,
   '${KEY_END}': Key.END,
@@ -343,12 +352,6 @@ async function handleCommand(file, command, target, value, t) {
       await driver.wait(until.elementIsVisible(element), CMD_TIMEOUT);
       return element.click();
 
-    case 'fireEvent':
-      return driver.executeScript(
-        `arguments[0].dispatchEvent(new Event('${value}'))`,
-        await findElement(target)
-      );
-
     case 'focus':
       return driver.executeScript(
         'arguments[0].focus()',
@@ -405,6 +408,31 @@ async function handleCommand(file, command, target, value, t) {
 
     case 'uncheck':
       return setChecked(findElement(target), false);
+
+    case 'waitUntil':
+      return waitUntil(`return Boolean(${target})`);
+
+    case 'waitUntilElementNotPresent':
+      return waitUntil(
+        `return $(${JSON.stringify(target)}).length === 0`
+      );
+
+    case 'waitUntilElementNotVisible':
+      return waitUntil(
+        `var $e = $(${JSON.stringify(target)});
+         return $e.length > 0 && $e.eq(0).is(':not(:visible)')`
+      );
+
+    case 'waitUntilElementPresent':
+      return waitUntil(
+        `return $(${JSON.stringify(target)}).length > 0`
+      );
+
+    case 'waitUntilElementVisible':
+      return waitUntil(
+        `var $e = $(${JSON.stringify(target)});
+         return $e.length > 0 && $e.eq(0).is(':visible')`
+      );
 
     default:
       throw 'Unsupported command: ' + command;
