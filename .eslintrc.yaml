@@ -261,7 +261,7 @@ rules:
   react/jsx-no-literals: warn
   react/jsx-no-target-blank: error
   react/jsx-no-undef: [error, {allowGlobals: true}]
-  react/jsx-one-expression-per-line: off
+  react/jsx-one-expression-per-line: [warn, {allow: single-child}]
   react/jsx-curly-brace-presence: [error, {props: never, children: ignore}]
   react/jsx-pascal-case: error
   react/jsx-sort-default-props: warn
