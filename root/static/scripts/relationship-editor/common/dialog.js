@@ -334,7 +334,7 @@ const PART_OF_SERIES_LINK_TYPE_GIDS = _.values(PART_OF_SERIES_LINK_TYPES);
             var linkType = this.relationship().getLinkType();
             var description;
 
-            if (linkType) {
+            if (linkType && linkType.description) {
                 description = ReactDOMServer.renderToStaticMarkup(
                     i18n.l("{description} ({url|more documentation})", {
                         description: l_relationships(linkType.description),
