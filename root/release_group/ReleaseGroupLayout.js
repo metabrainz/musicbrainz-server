@@ -18,7 +18,6 @@ import {artistCreditFromArray, reduceArtistCredit} from '../static/scripts/commo
 import ReleaseGroupHeader from './ReleaseGroupHeader';
 
 type Props = {|
-  +canonicalURL: string,
   +children: ReactNode,
   +fullWidth?: boolean,
   +page: string,
@@ -27,7 +26,6 @@ type Props = {|
 |};
 
 const ReleaseGroupLayout = ({
-  canonicalURL,
   children,
   fullWidth,
   page,
@@ -39,7 +37,7 @@ const ReleaseGroupLayout = ({
     name: releaseGroup.name,
   });
   return (
-    <Layout canonical_url={canonicalURL} title={title ? hyphenateTitle(mainTitle, title) : mainTitle}>
+    <Layout title={title ? hyphenateTitle(mainTitle, title) : mainTitle}>
       <div id="content">
         <ReleaseGroupHeader page={page} releaseGroup={releaseGroup} />
         {children}

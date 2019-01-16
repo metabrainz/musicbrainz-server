@@ -12,7 +12,6 @@
           SET gettext_domains = ['attributes', 'countries', 'languages', 'relationships'];
         END;
         React.embed(c, 'layout/components/Head', {
-            canonical_url => canonical_url,
             gettext_domains => gettext_domains,
             homepage => homepage,
             no_icons => no_icons,

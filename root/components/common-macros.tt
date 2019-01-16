@@ -928,11 +928,6 @@ END -%]
   END %] ([% direction %])
 [%~ END ~%]
 
-[%~ USE Canonicalize ~%]
-[%~ MACRO replace_gid(new_gid) BLOCK ~%]
-  [%~ Canonicalize.replace_gid(c, new_gid) ~%]
-[%~ END ~%]
-
 [%~ MACRO data_track_icon BLOCK ~%]
   <div class="data-track icon img" title="[% l('This track is a data track.') %]"></div>
 [%~ END ~%]
