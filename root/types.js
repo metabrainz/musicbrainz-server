@@ -550,7 +550,7 @@ declare type LanguageT = {|
 |};
 
 type LastUpdateRoleT = {|
-  +last_updated: string,
+  +last_updated: string | null,
 |};
 
 declare type LinkTypeAttrTypeT = {|
