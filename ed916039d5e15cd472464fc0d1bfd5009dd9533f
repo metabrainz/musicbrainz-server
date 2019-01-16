@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "94fb3721_a0e2a18d",
+        "filename": "root/static/scripts/common/MB/Control/Autocomplete.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 636,
+      "author": {
+        "id": 1015732
+      },
+      "writtenOn": "2019-01-16T07:49:11Z",
+      "side": 1,
+      "message": "Wrap the translated parts in _.escape, here and the two lines below where you\u0027re concatenating with HTML.",
+      "range": {
+        "startLine": 636,
+        "startChar": 67,
+        "endLine": 636,
+        "endChar": 102
+      },
+      "revId": "ed916039d5e15cd472464fc0d1bfd5009dd9533f",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "793e6da8_dc2a39a6",
+        "filename": "root/static/scripts/common/MB/Control/Autocomplete.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 723,
+      "author": {
+        "id": 1015732
+      },
+      "writtenOn": "2019-01-16T07:49:11Z",
+      "side": 1,
+      "message": "release_group_type might be a more descriptive placeholder? (Nitpick, I\u0027m pretty sure all our var arg names use snake_case too)",
+      "range": {
+        "startLine": 723,
+        "startChar": 32,
+        "endLine": 723,
+        "endChar": 40
+      },
+      "revId": "ed916039d5e15cd472464fc0d1bfd5009dd9533f",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ec7b27b4_13005c51",
+        "filename": "root/static/scripts/common/MB/Control/Autocomplete.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 877,
+      "author": {
+        "id": 1015732
+      },
+      "writtenOn": "2019-01-16T07:49:11Z",
+      "side": 1,
+      "message": "I guess all these places where it\u0027s doing ( + foo + ) should be using bracketed()",
+      "range": {
+        "startLine": 877,
+        "startChar": 58,
+        "endLine": 877,
+        "endChar": 59
+      },
+      "revId": "ed916039d5e15cd472464fc0d1bfd5009dd9533f",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    }
+  ]
+}
