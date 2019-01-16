@@ -31,7 +31,7 @@ exec sudo -E -H -u musicbrainz carton exec -- prove \
     --source Perl \
     --source pgTAP \
     -I lib \
-    -j 9 \
+    -j 2 \
     t/flow.sh \
     t/js.t \
     t/web.js \
