@@ -434,6 +434,11 @@ class TagEditor extends React.Component<TagEditorProps, TagEditorState> {
 }
 
 class MainTagEditor extends TagEditor {
+  hideNegativeTags(event: SyntheticEvent<HTMLAnchorElement>) {
+    event.preventDefault();
+    this.setState({positiveTagsOnly: true});
+  }
+
   showAllTags(event: SyntheticEvent<HTMLAnchorElement>) {
     event.preventDefault();
     this.setState({positiveTagsOnly: false});
@@ -485,6 +490,23 @@ class MainTagEditor extends TagEditor {
             <p>
               <a href="#" onClick={this.showAllTags.bind(this)}>{l('Show all tags.')}</a>
             </p>
+          </>
+        ) : null}
+
+        {positiveTagsOnly === false ? (
+          <>
+            <p>
+              {l('All tags are being shown.')}
+            </p>
+            {this.props.$c.user_exists ? (
+              <p>
+                <a href="#" onClick={this.hideNegativeTags.bind(this)}>{l('Hide tags with a score of zero or below, and tags that you’ve downvoted.')}</a>
+              </p>
+            ) : (
+              <p>
+                <a href="#" onClick={this.hideNegativeTags.bind(this)}>{l('Hide tags with a score of zero or below.')}</a>
+              </p>
+            )}
           </>
         ) : null}
 
