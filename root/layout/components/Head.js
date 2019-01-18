@@ -39,8 +39,8 @@ function getTitle(props) {
   return title;
 }
 
-const CanonicalLink = ({href, requestUri}) => {
-  const canonUri = canonicalize(href || requestUri);
+const CanonicalLink = ({requestUri}) => {
+  const canonUri = canonicalize(requestUri);
   if (requestUri !== canonUri) {
     return <link rel="canonical" href={canonUri} />;
   }
@@ -56,7 +56,7 @@ const Head = ({$c, ...props}) => (
 
     <title>{getTitle(props)}</title>
 
-    <CanonicalLink href={props.canonical_url} requestUri={$c.req.uri} />
+    <CanonicalLink requestUri={$c.req.uri} />
 
     {manifest.css('common')}
 

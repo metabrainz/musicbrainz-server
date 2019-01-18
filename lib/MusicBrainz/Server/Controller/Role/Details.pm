@@ -1,6 +1,5 @@
 package MusicBrainz::Server::Controller::Role::Details;
 use Moose::Role -traits => 'MooseX::MethodAttributes::Role::Meta::Role';
-use MusicBrainz::Server::Plugin::Canonicalize qw ( replace_gid );
 
 sub details : Chained('load') PathPart {
     my ($self, $c) = @_;
@@ -9,7 +8,6 @@ sub details : Chained('load') PathPart {
 
     if ($entity->entity_type eq 'release_group') {
         my %props = (
-            canonicalURL => MusicBrainz::Server::Plugin::Canonicalize::replace_gid($self, $c, $entity->gid),
             entity       => $entity,
             lastUpdated  => $entity->{last_updated},
         );

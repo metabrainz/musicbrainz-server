@@ -2,7 +2,7 @@
         type => work.l_type_name or l('Work'),
         work => work.name
 }) ~%]
-[%~ WRAPPER "layout.tt" title=title ? main_title _ " - ${title}" : main_title canonical_url=replace_gid(entity.gid) ~%]
+[%~ WRAPPER "layout.tt" title=title ? main_title _ " - ${title}" : main_title ~%]
     <div id="content">
         [%~ React.embed(c, 'work/WorkHeader', { work => work, page => page }) ~%]
         [%~ content ~%]

@@ -19,7 +19,6 @@ import formatUserDate from '../utility/formatUserDate';
 
 type Props = {|
   +$c: CatalystContextT,
-  +canonicalURL: string,
   +entity: CoreEntityT,
   +lastUpdated: string,
 |};
@@ -46,7 +45,6 @@ const XMLLink = ({
 
 const Details = ({
   $c,
-  canonicalURL,
   entity,
   lastUpdated,
 }: Props) => {
@@ -59,7 +57,7 @@ const Details = ({
   const LayoutComponent = chooseLayoutComponent(entityType);
 
   return (
-    <LayoutComponent canonicalURL={canonicalURL} page="details" releaseGroup={entity} title={l('Details')}>
+    <LayoutComponent page="details" releaseGroup={entity} title={l('Details')}>
       <h2>{l('Details')}</h2>
       <table className="details">
         <tr>
