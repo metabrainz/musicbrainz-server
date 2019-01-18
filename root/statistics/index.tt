@@ -206,38 +206,38 @@
 </tr>
 <tr>
     <th colspan="2">[% l('Non-group artists:') %]</th>
-    <td>[% add_commas(stats.statistic('count.artist.type.null') + stats.statistic('count.artist.type.person') + stats.statistic('count.artist.type.other')) %]</td>
+    <td>[% add_commas(stats.statistic('count.artist.type.null') + stats.statistic('count.artist.type.person') + stats.statistic('count.artist.type.character') + stats.statistic('count.artist.type.other')) %]</td>
     <td></td>
 </tr>
 <tr>
     <th></th>
     <th>[% l('Male:') %]</th>
     <td>[% add_commas(stats.statistic('count.artist.gender.male')) %]</td>
-    <td>[% l('{n}%', { n => round1(stats.ratio('count.artist.gender.male', ['count.artist.type.person', 'count.artist.type.other', 'count.artist.type.null'])) }) %]</td>
+    <td>[% l('{n}%', { n => round1(stats.ratio('count.artist.gender.male', ['count.artist.type.person', 'count.artist.type.character', 'count.artist.type.other', 'count.artist.type.null'])) }) %]</td>
 </tr>
 <tr>
     <th></th>
     <th>[% l('Female:') %]</th>
     <td>[% add_commas(stats.statistic('count.artist.gender.female')) %]</td>
-    <td>[% l('{n}%', { n => round1(stats.ratio('count.artist.gender.female', ['count.artist.type.person', 'count.artist.type.other', 'count.artist.type.null'])) }) %]</td>
+    <td>[% l('{n}%', { n => round1(stats.ratio('count.artist.gender.female', ['count.artist.type.person', 'count.artist.type.character', 'count.artist.type.other', 'count.artist.type.null'])) }) %]</td>
 </tr>
 <tr>
     <th></th>
     <th>[% l('Other gender:') %]</th>
     <td>[% add_commas(stats.statistic('count.artist.gender.other')) %]</td>
-    <td>[% l('{n}%', { n => round1(stats.ratio('count.artist.gender.other', ['count.artist.type.person', 'count.artist.type.other', 'count.artist.type.null'])) }) %]</td>
+    <td>[% l('{n}%', { n => round1(stats.ratio('count.artist.gender.other', ['count.artist.type.person', 'count.artist.type.character', 'count.artist.type.other', 'count.artist.type.null'])) }) %]</td>
 </tr>
 <tr>
     <th></th>
     <th>[% l('Gender not applicable:') %]</th>
     <td>[% add_commas(stats.statistic('count.artist.gender.not_applicable')) %]</td>
-    <td>[% l('{n}%', { n => round1(stats.ratio('count.artist.gender.not_applicable', ['count.artist.type.person', 'count.artist.type.other', 'count.artist.type.null'])) }) %]</td>
+    <td>[% l('{n}%', { n => round1(stats.ratio('count.artist.gender.not_applicable', ['count.artist.type.person', 'count.artist.type.character', 'count.artist.type.other', 'count.artist.type.null'])) }) %]</td>
 </tr>
 <tr>
     <th></th>
     <th>[% l('with no gender set:') %]</th>
     <td>[% add_commas(stats.statistic('count.artist.gender.null')) %]</td>
-    <td>[% l('{n}%', { n => round1(stats.ratio('count.artist.gender.null', ['count.artist.type.person', 'count.artist.type.other', 'count.artist.type.null'])) }) %]</td>
+    <td>[% l('{n}%', { n => round1(stats.ratio('count.artist.gender.null', ['count.artist.type.person', 'count.artist.type.character', 'count.artist.type.other', 'count.artist.type.null'])) }) %]</td>
 </tr>
 </tbody>
 </table>
