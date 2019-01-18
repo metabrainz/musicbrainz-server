@@ -19,9 +19,9 @@ import ReleaseGroupHeader from './ReleaseGroupHeader';
 
 type Props = {|
   +children: ReactNode,
+  +entity: ReleaseGroupT,
   +fullWidth?: boolean,
   +page: string,
-  +releaseGroup: ReleaseGroupT,
   +title?: string,
 |};
 
@@ -29,7 +29,7 @@ const ReleaseGroupLayout = ({
   children,
   fullWidth,
   page,
-  releaseGroup,
+  entity: releaseGroup,
   title,
 }: Props) => {
   const mainTitle = l('Release group “{name}” by {artist}', {

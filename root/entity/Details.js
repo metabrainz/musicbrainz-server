@@ -57,7 +57,7 @@ const Details = ({
   const LayoutComponent = chooseLayoutComponent(entityType);
 
   return (
-    <LayoutComponent page="details" releaseGroup={entity} title={l('Details')}>
+    <LayoutComponent page="details" entity={entity} title={l('Details')}>
       <h2>{l('Details')}</h2>
       <table className="details">
         <tr>
