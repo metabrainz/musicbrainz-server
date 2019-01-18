@@ -27,13 +27,15 @@ type Props = {|
 
 const ReleaseGroupLayout = ({
   children,
+  entity: releaseGroup,
   fullWidth,
   page,
-  entity: releaseGroup,
   title,
 }: Props) => {
   const mainTitle = l('Release group “{name}” by {artist}', {
-    artist: reduceArtistCredit(artistCreditFromArray(releaseGroup.artistCredit)),
+    artist: reduceArtistCredit(
+      artistCreditFromArray(releaseGroup.artistCredit),
+    ),
     name: releaseGroup.name,
   });
   return (
