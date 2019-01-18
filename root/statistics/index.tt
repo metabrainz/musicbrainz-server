@@ -229,6 +229,12 @@
 </tr>
 <tr>
     <th></th>
+    <th>[% l('Gender not applicable:') %]</th>
+    <td>[% add_commas(stats.statistic('count.artist.gender.not_applicable')) %]</td>
+    <td>[% l('{n}%', { n => round1(stats.ratio('count.artist.gender.not_applicable', ['count.artist.type.person', 'count.artist.type.other', 'count.artist.type.null'])) }) %]</td>
+</tr>
+<tr>
+    <th></th>
     <th>[% l('with no gender set:') %]</th>
     <td>[% add_commas(stats.statistic('count.artist.gender.null')) %]</td>
     <td>[% l('{n}%', { n => round1(stats.ratio('count.artist.gender.null', ['count.artist.type.person', 'count.artist.type.other', 'count.artist.type.null'])) }) %]</td>
