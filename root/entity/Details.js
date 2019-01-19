@@ -57,7 +57,7 @@ const Details = ({
   const LayoutComponent = chooseLayoutComponent(entityType);
 
   return (
-    <LayoutComponent page="details" entity={entity} title={l('Details')}>
+    <LayoutComponent entity={entity} page="details" title={l('Details')}>
       <h2>{l('Details')}</h2>
       <table className="details">
         <tr>
@@ -67,14 +67,16 @@ const Details = ({
           </td>
         </tr>
         <tr>
-          <th>{l('{mbid|<abbr title="MusicBrainz Identifier">MBID</abbr>}:',
-            {mbid: '/doc/MusicBrainz_Identifier'})}
+          <th>
+            {l('{mbid|<abbr title="MusicBrainz Identifier">MBID</abbr>}:',
+              {mbid: '/doc/MusicBrainz_Identifier'})}
           </th>
           <td><code>{entity.gid}</code></td>
         </tr>
         <tr>
           <th>{l('Last updated:')}</th>
-          <td>{lastUpdated ? formatUserDate($c.user, lastUpdated) : l('(unknown)')}
+          <td>
+            {lastUpdated ? formatUserDate($c.user, lastUpdated) : l('(unknown)')}
           </td>
         </tr>
         <tr>

@@ -8,6 +8,7 @@
     [% IF c.user_exists %]
         <script>
           MB.init_main_tag_editor(
+            {user_exists: true},
             {entityType: '[% entity_type %]', gid: '[% entity.gid %]'},
             [% closing_tag_escape(tags_json) %],
             [% closing_tag_escape(user_tags_json) %],

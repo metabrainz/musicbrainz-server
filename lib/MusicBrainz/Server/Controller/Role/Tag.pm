@@ -34,12 +34,27 @@ sub tags : Chained('load') PathPart('tags') {
     my @display_tags = grep { $_->count > 0 && !$_->tag->is_genre_tag } @tags;
     my @display_genres = grep { $_->count > 0 && $_->tag->is_genre_tag } @tags;
 
-    $c->stash(
-        display_tags => \@display_tags,
-        display_genres => \@display_genres,
-        tags_json => $c->json->encode(\@tags),
-        template => 'entity/tags.tt',
-    );
+    if ($entity->entity_type eq 'release_group') {
+        my %props = (
+            entity        => $entity,
+            allTags       => \@tags,
+            userTags      => $c->stash->{user_tags},
+            moreTags      => $c->stash->{more_tags},
+        );
+
+        $c->stash(
+            component_path  => 'entity/Tags.js',
+            component_props => \%props,
+            current_view    => 'Node',
+        );
+    } else {
+        $c->stash(
+            display_tags   => \@display_tags,
+            display_genres => \@display_genres,
+            tags_json      => $c->json->encode(\@tags),
+            template       => 'entity/tags.tt',
+        );
+    }
 }
 
 sub parse_tags {
