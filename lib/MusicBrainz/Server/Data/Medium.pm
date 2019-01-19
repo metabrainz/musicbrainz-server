@@ -196,30 +196,6 @@ sub find_for_cdstub {
     );
 }
 
-sub perfect_match_cdtoc
-{
-    my ($self, $medium_id, $cdtoc_id) = @_;
-    my $cdtoc = $self->c->model('CDTOC')->get_by_id($cdtoc_id)
-        or die "Could not load CDTOC";
-
-    my $medium = $self->get_by_id($medium_id)
-        or die "Could not load tracklist";
-
-    $self->c->model('Track')->load_for_mediums($medium);
-
-    my @info = @{ $cdtoc->track_details };
-    my @medium_tracks = @{ $medium->cdtoc_tracks };
-
-    return 0 unless $#info == $#medium_tracks;
-
-    for my $i (0..$#info) {
-        return 0 unless defined $medium_tracks[$i] && $medium_tracks[$i]->length == $info[$i]->{length_time};
-        $i++;
-    }
-
-    return 1;
-}
-
 sub set_lengths_to_cdtoc
 {
     my ($self, $medium_id, $cdtoc_id) = @_;

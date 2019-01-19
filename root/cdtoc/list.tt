@@ -42,7 +42,7 @@
             [% END %]
             [% IF edit_links AND c.user_exists %]
             <td>
-            [%- IF !medium_cdtoc.perfect_match %]
+            [%- IF !medium_cdtoc.is_perfect_match %]
               <a href="[% c.uri_for_action('/cdtoc/set_durations',
                               [ cdtoc.discid ], { medium => medium.id }) %]">
                 [% l('Set track durations') %]
