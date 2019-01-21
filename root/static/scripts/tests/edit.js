@@ -3,12 +3,12 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-const ko = require('knockout');
-const test = require('tape');
+import ko from 'knockout';
+import test from 'tape';
 
-const MB_edit = require('../edit/MB/edit');
+import MB_edit from '../edit/MB/edit';
 
-require('../edit/forms');
+import '../edit/forms';
 
 test("missing track numbers should be empty strings, not null (MBS-7246)", function (t) {
     t.plan(1);
