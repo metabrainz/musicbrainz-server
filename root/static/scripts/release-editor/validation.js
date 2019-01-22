@@ -3,20 +3,22 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-const $ = require('jquery');
-const _ = require('lodash');
-const ko = require('knockout');
+import $ from 'jquery';
+import ko from 'knockout';
+import _ from 'lodash';
 
-const i18n = require('../common/i18n');
-const releaseEditor = require('./viewModel');
-const utils = require('./utils');
+import i18n from '../common/i18n';
+import {errorsExist} from '../edit/validation';
 
-const validation = exports;
+import utils from './utils';
+import releaseEditor from './viewModel';
+
+const validation = {};
 
 releaseEditor.validation = validation;
 
 // Allow for access in ko templates
-validation.errorsExist = require('../edit/validation').errorsExist;
+validation.errorsExist = errorsExist;
 
 function markTabWithErrors($panel) {
     // Don't mark the edit note tab, because it's the last one and only

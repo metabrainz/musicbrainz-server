@@ -3,22 +3,23 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-const $ = require('jquery');
-const ko = require('knockout');
-const _ = require('lodash');
-const React = require('react');
-const ReactDOMServer = require('react-dom/server');
+import $ from 'jquery';
+import ko from 'knockout';
+import _ from 'lodash';
+import React from 'react';
+import ReactDOMServer from 'react-dom/server';
 
-const i18n = require('../common/i18n');
-const {artistCreditFromArray, reduceArtistCredit} = require('../common/immutable-entities');
-const bracketed = require('../common/utility/bracketed').default;
-const formatTrackLength = require('../common/utility/formatTrackLength');
-const isBlank = require('../common/utility/isBlank');
-const request = require('../common/utility/request');
-const fields = require('./fields');
-const trackParser = require('./trackParser');
-const utils = require('./utils');
-const releaseEditor = require('./viewModel');
+import * as i18n from '../common/i18n';
+import {artistCreditFromArray, reduceArtistCredit} from '../common/immutable-entities';
+import bracketed from '../common/utility/bracketed';
+import formatTrackLength from '../common/utility/formatTrackLength';
+import isBlank from '../common/utility/isBlank';
+import request from '../common/utility/request';
+
+import fields from './fields';
+import trackParser from './trackParser';
+import utils from './utils';
+import releaseEditor from './viewModel';
 
 class Dialog {
 
@@ -32,7 +33,7 @@ class Dialog {
 }
 
 
-var trackParserDialog = exports.trackParserDialog = new Dialog();
+export const trackParserDialog = releaseEditor.trackParserDialog = new Dialog();
 
 _.assign(trackParserDialog, {
     element: "#track-parser-dialog",
@@ -258,7 +259,7 @@ class SearchTab {
 SearchTab.prototype.tracksRequestData = {};
 
 
-var mediumSearchTab = exports.mediumSearchTab = new SearchTab();
+export const mediumSearchTab = releaseEditor.mediumSearchTab = new SearchTab();
 
 _.assign(mediumSearchTab, {
     endpoint: "/ws/js/medium",
@@ -287,7 +288,7 @@ _.assign(cdstubSearchTab, {
 });
 
 
-var addDiscDialog = exports.addDiscDialog = new Dialog();
+export const addDiscDialog = releaseEditor.addDiscDialog = new Dialog();
 
 _.assign(addDiscDialog, {
     element: "#add-disc-dialog",
@@ -358,5 +359,3 @@ $(function () {
         }
     });
 });
-
-_.assign(releaseEditor, exports);

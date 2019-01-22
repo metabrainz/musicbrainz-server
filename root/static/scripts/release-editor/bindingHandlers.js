@@ -3,16 +3,17 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-const $ = require('jquery');
-const ko = require('knockout');
-const _ = require('lodash');
-const React = require('react');
-const ReactDOM = require('react-dom');
+import $ from 'jquery';
+import ko from 'knockout';
+import _ from 'lodash';
+import React from 'react';
+import ReactDOM from 'react-dom';
 
-const {l} = require('../common/i18n');
-const {reduceArtistCredit} = require('../common/immutable-entities');
-const ArtistCreditEditor = require('../edit/components/ArtistCreditEditor');
-const fields = require('./fields');
+import {l} from '../common/i18n';
+import {reduceArtistCredit} from '../common/immutable-entities';
+import ArtistCreditEditor from '../edit/components/ArtistCreditEditor';
+
+import fields from './fields';
 
 ko.bindingHandlers.disableBecauseDiscIDs = {
 

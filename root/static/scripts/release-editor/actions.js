@@ -3,22 +3,23 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-const $ = require('jquery');
-const ko = require('knockout');
-const _ = require('lodash');
+import $ from 'jquery';
+import ko from 'knockout';
+import _ from 'lodash';
 
-const i18n = require('../common/i18n');
-const {
-        artistCreditFromArray,
-        hasVariousArtists,
-        isComplexArtistCredit,
-        reduceArtistCredit,
-    } = require('../common/immutable-entities');
-const MB = require('../common/MB');
-const deferFocus = require('../edit/utility/deferFocus');
-const guessFeat = require('../edit/utility/guessFeat');
-const fields = require('./fields');
-const releaseEditor = require('./viewModel');
+import * as i18n from '../common/i18n';
+import {
+  artistCreditFromArray,
+  hasVariousArtists,
+  isComplexArtistCredit,
+  reduceArtistCredit,
+} from '../common/immutable-entities';
+import MB from '../common/MB';
+import deferFocus from '../edit/utility/deferFocus';
+import guessFeat from '../edit/utility/guessFeat';
+
+import fields from './fields';
+import releaseEditor from './viewModel';
 
 const actions = {
 
@@ -310,4 +311,4 @@ const actions = {
 
 _.extend(releaseEditor, actions);
 
-module.exports = actions;
+export default actions;

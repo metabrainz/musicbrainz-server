@@ -3,21 +3,22 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-const ko = require('knockout');
-const _ = require('lodash');
+import ko from 'knockout';
+import _ from 'lodash';
 
-const {MAX_LENGTH_DIFFERENCE} = require('../common/constants');
-const {
-        artistCreditFromArray,
-        isCompleteArtistCredit,
-        reduceArtistCredit,
-    } = require('../common/immutable-entities');
-const MB = require('../common/MB');
-const debounce = require('../common/utility/debounce');
-const releaseEditor = require('./viewModel');
-const utils = require('./utils');
+import {MAX_LENGTH_DIFFERENCE} from '../common/constants';
+import {
+  artistCreditFromArray,
+  isCompleteArtistCredit,
+  reduceArtistCredit,
+} from '../common/immutable-entities';
+import MB from '../common/MB';
+import debounce from '../common/utility/debounce';
 
-const recordingAssociation = exports;
+import releaseEditor from './viewModel';
+import utils from './utils';
+
+const recordingAssociation = {};
 
 releaseEditor.recordingAssociation = recordingAssociation;
 
@@ -339,4 +340,4 @@ recordingAssociation.track = function (track) {
     debounce(function () { watchTrackForChanges(track) });
 };
 
-module.exports = recordingAssociation;
+export default recordingAssociation;

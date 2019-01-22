@@ -3,16 +3,17 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-const $ = require('jquery');
-const _ = require('lodash');
-const ko = require('knockout');
+import $ from 'jquery';
+import ko from 'knockout';
+import _ from 'lodash';
 
-const {isCompleteArtistCredit} = require('../common/immutable-entities');
-const MB = require('../common/MB');
-const debounce = require('../common/utility/debounce');
-const request = require('../common/utility/request');
-const releaseEditor = require('./viewModel');
-const utils = require('./utils');
+import {isCompleteArtistCredit} from '../common/immutable-entities';
+import MB from '../common/MB';
+import debounce from '../common/utility/debounce';
+import request from '../common/utility/request';
+
+import releaseEditor from './viewModel';
+import utils from './utils';
 
 
 var releaseGroupReleases = ko.observableArray([]);
