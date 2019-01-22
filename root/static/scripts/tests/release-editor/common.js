@@ -3,56 +3,56 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-const ko = require('knockout');
-const _ = require('lodash');
+import ko from 'knockout';
+import _ from 'lodash';
 
-const fields = require('../../release-editor/fields');
-const trackParser = require('../../release-editor/trackParser');
-const releaseEditor = require('../../release-editor/viewModel');
+import fields from '../../release-editor/fields';
+import trackParser from '../../release-editor/trackParser';
+import releaseEditor from '../../release-editor/viewModel';
 
-require('../../release-editor/edits');
-require('../../release-editor/seeding');
+import '../../release-editor/edits';
+import '../../release-editor/seeding';
 
-exports.setupReleaseAdd = function (data) {
-    releaseEditor.action = "add";
-    // seed() sets rootField.release() for us when action === 'add'
-    releaseEditor.seed({ seed: data || {} });
-    return releaseEditor.rootField.release();
-};
+export function setupReleaseAdd(data) {
+  releaseEditor.action = "add";
+  // seed() sets rootField.release() for us when action === 'add'
+  releaseEditor.seed({ seed: data || {} });
+  return releaseEditor.rootField.release();
+}
 
-exports.setupReleaseEdit = function () {
-    releaseEditor.action = "edit";
-    var release = new fields.Release(exports.testRelease);
-    releaseEditor.rootField.release(release);
-    return release;
-};
+export function setupReleaseEdit() {
+  releaseEditor.action = "edit";
+  var release = new fields.Release(testRelease);
+  releaseEditor.rootField.release(release);
+  return release;
+}
 
-exports.trackParser = function (t, input, expected) {
-    var result = trackParser.parse(input);
+export function trackParserTest(t, input, expected) {
+  var result = trackParser.parse(input);
 
-    function getProps(track) {
-        return _.pick.apply(_, [track].concat(_.keys(expected[0])));
-    }
+  function getProps(track) {
+    return _.pick.apply(_, [track].concat(_.keys(expected[0])));
+  }
 
-    t.deepEqual(ko.toJS(_.map(result, getProps)), expected);
-};
+  t.deepEqual(ko.toJS(_.map(result, getProps)), expected);
+}
 
-exports.createMediums = function (release) {
-    var submission = _.find(releaseEditor.orderedEditSubmissions, function (sub) {
-        return sub.edits === releaseEditor.edits.medium;
-    });
+export function createMediums(release) {
+  var submission = _.find(releaseEditor.orderedEditSubmissions, function (sub) {
+    return sub.edits === releaseEditor.edits.medium;
+  });
 
-    // Simulate edit submission.
-    var createEdits = submission.edits(release);
+  // Simulate edit submission.
+  var createEdits = submission.edits(release);
 
-    var nextID = 666;
+  var nextID = 666;
 
-    submission.callback(release, _.map(createEdits, function (data) {
-        return { entity: { id: nextID++, position: data.position } };
-    }));
-};
+  submission.callback(release, _.map(createEdits, function (data) {
+    return { entity: { id: nextID++, position: data.position } };
+  }));
+}
 
-exports.testArtistCredit = [
+export const testArtistCredit = [
   {
     artist: {
       sort_name: "Boredoms",
@@ -66,7 +66,7 @@ exports.testArtistCredit = [
   }
 ];
 
-exports.testRelease = {
+export const testRelease = {
   entityType: "release",
   releaseGroup: {
     typeName: null,
@@ -167,7 +167,7 @@ exports.testRelease = {
   annotation: "foobar123"
 };
 
-exports.testMedium = {
+export const testMedium = {
   tracks: [
     {
       number: "1",

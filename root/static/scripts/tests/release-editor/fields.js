@@ -3,15 +3,16 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-const $ = require('jquery');
-const ko = require('knockout');
-const _ = require('lodash');
-const test = require('tape');
+import $ from 'jquery';
+import ko from 'knockout';
+import _ from 'lodash';
+import test from 'tape';
 
-const fields = require('../../release-editor/fields');
-const common = require('./common');
+import fields from '../../release-editor/fields';
 
-require('../../common/MB/Control/Autocomplete');
+import * as common from './common';
+
+import '../../common/MB/Control/Autocomplete';
 
 function fieldTest(name, callback) {
     test(name, function (t) {

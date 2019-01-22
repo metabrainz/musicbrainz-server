@@ -3,11 +3,10 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-const test = require('tape');
+import test from 'tape';
+import _ from 'lodash';
 
-const _ = require('lodash');
-
-const {LINK_TYPES, cleanURL, guessType, validationRules} = require('../../edit/URLCleanup');
+import {LINK_TYPES, cleanURL, guessType, validationRules} from '../../edit/URLCleanup';
 
     const test_data = [
         // 45cat

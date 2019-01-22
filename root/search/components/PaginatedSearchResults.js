@@ -8,7 +8,6 @@
  */
 
 import React from 'react';
-import type {Element as ReactElement} from 'react';
 import type {Node as ReactNode} from 'react';
 
 

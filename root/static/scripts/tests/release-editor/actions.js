@@ -3,12 +3,12 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-const _ = require('lodash');
-const test = require('tape');
+import _ from 'lodash';
+import test from 'tape';
 
-const actions = require('../../release-editor/actions');
-const fields = require('../../release-editor/fields');
-const common = require('./common');
+import actions from '../../release-editor/actions';
+import fields from '../../release-editor/fields';
+import * as common from './common';
 
 test("removing a track should change the track numbers", function (t) {
     t.plan(3);

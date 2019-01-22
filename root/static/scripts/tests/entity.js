@@ -3,9 +3,9 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-const test = require('tape');
+import test from 'tape';
 
-const MB_entity = require('../common/entity');
+import MB_entity from '../common/entity';
 
 test("CoreEntity", function (t) {
     t.plan(2);

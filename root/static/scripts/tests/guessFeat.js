@@ -3,11 +3,11 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-const _ = require('lodash');
-const test = require('tape');
+import _ from 'lodash';
+import test from 'tape';
 
-const guessFeat = require('../edit/utility/guessFeat');
-const fields = require('../release-editor/fields');
+import guessFeat from '../edit/utility/guessFeat';
+import fields from '../release-editor/fields';
 
 test('guessing feat. artists', function (t) {
     t.plan(21);
