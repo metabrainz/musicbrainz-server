@@ -7,7 +7,6 @@ use warnings;
 
 use Digest::MD5 qw( md5_hex );
 use Encode;
-use Locale::Language;
 use MusicBrainz::Server::Track;
 use MusicBrainz::Server::Validation qw( encode_entities );
 use MusicBrainz::Server::Constants qw( %ENTITIES entities_with );
@@ -20,32 +19,9 @@ use Sub::Exporter -setup => {
     exports => [qw( format_editnote format_setlist format_wikitext )]
 };
 
-sub release_date
-{
-    my $date = shift;
-
-    my ($y, $m, $d) = split /-/, $date;
-
-    my $str = "";
-
-    $str .= $y     if ($y && 0 + $y);
-    $str .= "-".$m if ($m && 0 + $m);
-    $str .= "-".$d if ($d && 0 + $d);
-
-    return $str;
-
-}
-
 sub format_length
 {
     my $ms = shift;
-    return MusicBrainz::Server::Track::FormatTrackLength($ms);
-}
-
-sub format_distance
-{
-    my $ms = shift;
-    return "0 s" if (!$ms);
     return MusicBrainz::Server::Track::FormatTrackLength($ms);
 }
 
@@ -232,11 +208,6 @@ sub format_editnote
     $html =~ s/(\015\012|\012\015|\012|\015)/<br\/>/g;
 
     return $html;
-}
-
-sub language
-{
-    return code2language(shift);
 }
 
 sub locale

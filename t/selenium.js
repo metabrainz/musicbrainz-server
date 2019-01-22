@@ -24,6 +24,7 @@ const argv = require('yargs')
 const child_process = require('child_process');
 const defined = require('defined');
 const fs = require('fs');
+const http = require('http');
 const httpProxy = require('http-proxy');
 const jsdom = require('jsdom');
 const isEqualWith = require('lodash/isEqualWith');
@@ -89,12 +90,15 @@ function execFile(...args) {
   });
 }
 
-const proxy = httpProxy.createProxyServer({
-  target: 'http://' + DBDefs.WEB_SERVER,
-});
+const proxy = httpProxy.createProxyServer({});
 
-proxy.on('proxyReq', function (proxyReq) {
-  proxyReq.setHeader('Selenium', '1');
+const customProxyServer = http.createServer(function (req, res) {
+  const host = req.headers.host;
+  if (host === DBDefs.WEB_SERVER) {
+    req.headers['Selenium'] = '1';
+    req.rawHeaders['Selenium'] = '1';
+  }
+  proxy.web(req, res, {target: 'http://' + host});
 });
 
 const driver = (x => {
@@ -118,6 +122,7 @@ const driver = (x => {
 
 function quit() {
   proxy.close();
+  customProxyServer.close();
   return driver.quit().catch(console.error);
 }
 
@@ -253,8 +258,6 @@ async function handleCommand(file, command, target, value, t) {
 
   // The CATALYST_DEBUG views interfere with our tests. Remove them.
   await driver.executeScript(`
-    var node = document.getElementById('catalyst-stats');
-    if (node) node.remove();
     node = document.getElementById('plDebug');
     if (node) node.remove();
   `);
@@ -379,7 +382,19 @@ async function handleCommand(file, command, target, value, t) {
 
     case 'type':
       element = await findElement(target);
+      /*
+       * XXX *Both* of the next two lines are needed to clear the input
+       * in some cases. (Just one or the other won't suffice.) It's not
+       * known what module is at fault, but this combination is
+       * confirmed to misbehave:
+       *
+       * Chrome 70.0.3538.110
+       * ChromeDriver 2.44.609545
+       * chrome-remote-interface 0.27.0
+       * selenium-webdriver 3.6.0
+       */
       await element.clear();
+      await driver.executeScript('arguments[0].value = ""', element);
       return element.sendKeys(value);
 
     case 'uncheck':
@@ -394,6 +409,7 @@ const seleniumTests = [
   {name: 'Create_Account.html'},
   {name: 'MBS-7456.html', login: true},
   {name: 'MBS-9548.html'},
+  {name: 'MBS-9941.html', login: true},
   {name: 'Artist_Credit_Editor.html', login: true},
   {name: 'External_Links_Editor.html', login: true, timeout: 90000},
   {name: 'Work_Editor.html', login: true},
@@ -526,7 +542,7 @@ async function runCommands(commands, t) {
     ? seleniumTests.filter(x => testsPathsToRun.includes(x.path))
     : seleniumTests;
 
-  proxy.listen(5050);
+  customProxyServer.listen(5050);
 
   await testsToRun.reduce(function (accum, stest, index) {
     const {commands, plan, title} = getPlan(stest.path);

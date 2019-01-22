@@ -38,8 +38,8 @@ const ArtistCreditBubble = ({
   done,
   entity,
   extraButtons,
-  extraContent,
   hide,
+  initialArtistText,
   onNameChange,
   pasteArtistCredit,
   removeName,
@@ -52,7 +52,7 @@ const ArtistCreditBubble = ({
         <tr>
           <td colSpan="3" style={{paddingBottom: '1em'}}>
             {l('Use the following fields to enter collaborations. See the {ac|Artist Credit} documentation for more information.',
-             {__react: true, ac: '/doc/Artist_Credits'})}
+             {ac: '/doc/Artist_Credits'})}
           </td>
         </tr>
         {clean(reduceArtistCredit(artistCredit)) ? (
@@ -98,7 +98,16 @@ const ArtistCreditBubble = ({
         </tr>
       </tbody>
     </table>
-    {extraContent ? extraContent : null}
+    {(initialArtistText && entity.entityType === 'track') ? (
+      <div>
+        <label>
+          <input id="change-matching-artists" type="checkbox" />
+          {l('Change all artists on this release that match “{name}”', {
+            name: initialArtistText,
+          })}
+        </label>
+      </div>
+    ) : null}
     <div className="buttons">
       <button type="button" style={{float: 'left'}} onClick={copyArtistCredit}>{l('Copy Credits')}</button>
       <button type="button" style={{float: 'left'}} onClick={pasteArtistCredit}>{l('Paste Credits')}</button>

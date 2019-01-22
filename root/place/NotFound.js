@@ -16,7 +16,7 @@ const PlaceNotFound = () => (
   <NotFound title={l('Place Not Found')}>
     <p>
       {l('Sorry, we could not find a place with that MusicBrainz ID. You may wish to try and {search_url|search for it} instead.',
-        {__react: true, search_url: '/search'})}
+        {search_url: '/search'})}
     </p>
   </NotFound>
 );

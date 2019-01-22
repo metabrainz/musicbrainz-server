@@ -17,7 +17,7 @@ const DiscourseUnconfirmedEmailAddress = () => (
     <h2>{l('Unconfirmed Email Address')}</h2>
     <p>
       {l('You must verify your email address before you can log in to {discourse|MetaBrainz Community Discourse}.',
-        {__react: true, discourse: 'https://community.metabrainz.org/'})}
+        {discourse: 'https://community.metabrainz.org/'})}
     </p>
   </Layout>
 );

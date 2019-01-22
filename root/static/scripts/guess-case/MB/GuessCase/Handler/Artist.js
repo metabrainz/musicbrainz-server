@@ -30,8 +30,8 @@ MB.GuessCase.Handler = (MB.GuessCase.Handler) ? MB.GuessCase.Handler : {};
 /**
  * Artist specific GuessCase functionality
  **/
-MB.GuessCase.Handler.Artist = function () {
-    var self = MB.GuessCase.Handler.Base();
+MB.GuessCase.Handler.Artist = function (gc) {
+    var self = MB.GuessCase.Handler.Base(gc);
 
     /**
      * Checks special cases of artists

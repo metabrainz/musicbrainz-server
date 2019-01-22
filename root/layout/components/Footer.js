@@ -44,7 +44,6 @@ const Footer = ({$c, ...props}) => {
           <>
             <br />
             {l('Running: {git_details}', {
-              __react: true,
               git_details: (
                 <span className="tooltip" key="git_details" title={DBDefs.GIT_MSG}>
                   {DBDefs.GIT_BRANCH} {' '} {bracketed(DBDefs.GIT_SHA)}
@@ -69,7 +68,6 @@ const Footer = ({$c, ...props}) => {
       <p className="right">
         {l('Brought to you by {MeB|MetaBrainz Foundation} and our {spon|sponsors} and {supp|supporters}. Cover Art provided by the {caa|Cover Art Archive}.',
           {
-            __react: true,
             MeB: 'https://metabrainz.org/',
             caa: '//coverartarchive.org/',
             spon: 'https://metabrainz.org/sponsors',

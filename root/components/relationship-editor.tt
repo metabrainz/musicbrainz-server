@@ -62,14 +62,14 @@
       <div>
         <label>
           <input type="radio" value="same-entity-types" data-bind="checked: $parent.selectedRelationshipCredits[role]" />
-          <span data-bind="html: $parent.sameEntityTypesLabel($parent, relationship, entity)">
+          <span data-bind="text: $parent.sameEntityTypesLabel($parent, relationship, entity)">
           </span>
         </label>
       </div>
       <div>
         <label>
           <input type="radio" value="same-relationship-type" data-bind="checked: $parent.selectedRelationshipCredits[role]" />
-          <span data-bind="html: $parent.sameRelationshipTypeLabel($parent, relationship, entity)">
+          <span data-bind="text: $parent.sameRelationshipTypeLabel($parent, relationship, entity)">
           </span>
         </label>
       </div>
@@ -80,7 +80,7 @@
 <script type="text/html" id="template.dialog-target-entity">
   <tr>
     <td class="section">
-      <select data-bind="disable: disableTypeSelection, value: targetType, options: targetTypeOptions(), optionsValue: 'value', optionsText: 'text'"></select>
+      <select class="entity-type" data-bind="disable: disableTypeSelection, value: targetType, options: targetTypeOptions(), optionsValue: 'value', optionsText: 'text'"></select>
     </td>
     <td>
       <span class="autocomplete">

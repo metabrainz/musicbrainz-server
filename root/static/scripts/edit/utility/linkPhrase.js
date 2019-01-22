@@ -8,6 +8,7 @@ const _ = require('lodash');
 const {l} = require('../../common/i18n');
 const commaList = require('../../common/i18n/commaList');
 const commaOnlyList = require('../../common/i18n/commaOnlyList');
+const {l_relationships} = require('../../common/i18n/relationships');
 const linkTypeInfo = require('../../common/typeInfo').link_type;
 const clean = require('../../common/utility/clean');
 
@@ -22,7 +23,9 @@ exports.clean = _.memoize(function (linkTypeID, backward) {
     var idsByName = _.transform(linkType.attributes, mapNameToID);
 
     // remove {foo} {bar} junk, unless it's for a required attribute.
-    var phrase = backward ? linkType.reversePhrase : linkType.phrase;
+    const phrase = backward
+        ? l_relationships(linkType.reverse_link_phrase)
+        : l_relationships(linkType.link_phrase);
 
     return clean(phrase.replace(attributeRegex, function (match, name, alt) {
         var id = idsByName[name];
@@ -40,8 +43,8 @@ exports.interpolate = function (linkType, attributes) {
         return ['', '', ''];
     }
 
-    var phrase = linkType.phrase;
-    var reversePhrase = linkType.reversePhrase;
+    var phrase = l_relationships(linkType.link_phrase);
+    var reversePhrase = l_relationships(linkType.reverse_link_phrase);
     var cleanPhrase = '';
     var cleanReversePhrase = '';
     var cleanExtraAttributes;
@@ -89,7 +92,7 @@ exports.interpolate = function (linkType, attributes) {
     reversePhrase = clean(reversePhrase.replace(attributeRegex, interpolate));
     const extraAttributes = commaOnlyList(_(attributesByName).omit(usedAttributes).values().flatten().value());
 
-    if (linkType.orderableDirection > 0) {
+    if (linkType.orderable_direction > 0) {
         usedAttributes = [];
         cleanPhrase = clean(exports.clean(linkType.id, false).replace(attributeRegex, interpolate));
         cleanReversePhrase = clean(exports.clean(linkType.id, true).replace(attributeRegex, interpolate));

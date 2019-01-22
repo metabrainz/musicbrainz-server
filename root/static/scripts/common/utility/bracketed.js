@@ -11,7 +11,6 @@ import {l} from '../i18n';
 import type {Node as ReactNode} from 'react';
 
 type Args = $Shape<{
-  __react: boolean,
   text: ReactNode,
   type: '()' | '[]',
 }>;

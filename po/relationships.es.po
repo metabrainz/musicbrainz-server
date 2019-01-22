@@ -1,6 +1,6 @@
 # 
 # Translators:
-# Adolfo Jayme-Barrientos, 2014
+# Adolfo Jayme Barrientos, 2014
 # Alexander Dupuy <email address hidden>, 2012
 # Antony Duran <email address hidden>, 2017
 # daniel plinplon <email address hidden>, 2015

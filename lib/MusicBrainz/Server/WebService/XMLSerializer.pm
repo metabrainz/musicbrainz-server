@@ -1061,11 +1061,11 @@ sub _serialize_relation
     push @list, $gen->attribute_list(
         map {
             if (non_empty($_->text_value)) {
-                $gen->attribute({ value => $_->text_value }, $_->type->name);
+                $gen->attribute({ value => $_->text_value, 'type-id' => $_->type->gid }, $_->type->name);
             } elsif (non_empty($_->credited_as)) {
-                $gen->attribute({ 'credited-as' => $_->credited_as }, $_->type->name);
+                $gen->attribute({ 'credited-as' => $_->credited_as, 'type-id' => $_->type->gid }, $_->type->name);
             } else {
-                $gen->attribute($_->type->name)
+                $gen->attribute({ 'type-id' => $_->type->gid }, $_->type->name);
             }
         } $rel->link->all_attributes
     ) if ($rel->link->all_attributes);

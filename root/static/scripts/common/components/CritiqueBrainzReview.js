@@ -37,7 +37,6 @@ const CritiqueBrainzReview = ({$c, review, title}: Props) => (
     <h3>{title}</h3>
     <p className="review-metadata">
       {l('{review_link|Review} by {author} on {date}', {
-        __react: true,
         author: (
           <a href={authorHref(review.author)} key="author">
             {review.author.name}

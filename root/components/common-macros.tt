@@ -60,7 +60,7 @@ END; -%]
     Translation.N_ln(text, plural);
 END; -%]
 
-[%~ MACRO expand(text, args) BLOCK; # Converted to React at root/static/scripts/common/i18n/expand.js
+[%~ MACRO expand(text, args) BLOCK; # Converted to React at root/static/scripts/common/i18n/expand2.js
     Translation.expand(text, args);
 END; -%]
 

@@ -14,13 +14,17 @@ import formatIsni from '../../../utility/formatIsni';
 
 import {SidebarProperty} from './SidebarProperties';
 
+const isniUrl = 'http://www.isni.org/';
+
 const buildSidebarIsni = (isni, index) => (
   <SidebarProperty
     className="isni-code"
     key={'isni-code-' + isni.isni}
     label={l('ISNI code:')}
   >
-    {formatIsni(isni.isni)}
+    <a href={isniUrl + isni.isni}>
+      {formatIsni(isni.isni)}
+    </a>
   </SidebarProperty>
 );
 

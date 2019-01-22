@@ -45,7 +45,7 @@ const TagList = ({
   if (!links || !links.length) {
     return isGenreList ? lp('(none)', 'genre') : lp('(none)', 'tag');
   }
-  return commaOnlyList(links, {react: true});
+  return commaOnlyList(links);
 };
 
 const SidebarTags = ({

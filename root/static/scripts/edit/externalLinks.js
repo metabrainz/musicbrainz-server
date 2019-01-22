@@ -16,7 +16,7 @@ const {
     VIDEO_ATTRIBUTE_GID,
   } = require('../common/constants');
 const {compare, l} = require('../common/i18n');
-const expand2 = require('../common/i18n/expand2').default;
+import {l_relationships} from '../common/i18n/relationships';
 const MB = require('../common/MB');
 const linkTypeInfo = require('../common/typeInfo').link_type;
 const {hasSessionStorage} = require('../common/utility/storage');
@@ -205,7 +205,6 @@ class ExternalLinksEditor extends React.Component<LinksEditorProps, LinksEditorS
             } else if ((!isPositiveInteger(link.relationship) || (oldLink && link.url !== oldLink.url)) && /^(https?:\/\/)?([^.\/]+\.)?wikipedia\.org\/.*#/.test(link.url)) {
               // Kludge for MBS-9515 to be replaced with the more general MBS-9516
               error = l('Links to specific sections of Wikipedia articles are not allowed. Please remove “{fragment}” if still appropriate. See the {url|guidelines}.', {
-                __react: true,
                 fragment: <span className='url-quote' key='fragment'>{link.url.replace(/^(?:https?:\/\/)?(?:[^.\/]+\.)?wikipedia\.org\/[^#]*#(.*)$/, '#$1')}</span>,
                 url: { href: '/relationship/' + linkType.gid, target: '_blank' }
               });
@@ -276,14 +275,13 @@ type LinkProps = {
 class ExternalLink extends React.Component<LinkProps> {
   render() {
     var props = this.props;
-    var linkType = props.type ? linkTypeInfo.byId[props.type] : {};
+    var linkType = props.type ? linkTypeInfo.byId[props.type] : null;
     var typeDescription = '';
     var faviconClass: string | void;
 
-    if (linkType.description) {
+    if (linkType && linkType.description) {
       typeDescription = l('{description} ({url|more documentation})', {
-        __react: true,
-        description: expand2(linkType.description),
+        description: l_relationships(linkType.description),
         url: '/relationship/' + linkType.gid
       });
     }
@@ -315,7 +313,8 @@ class ExternalLink extends React.Component<LinkProps> {
               </LinkTypeSelect>
             : <label>
                 {faviconClass && <span className={'favicon ' + faviconClass + '-favicon'}></span>}
-                {linkType.phrase || (props.isOnlyLink ? l('Add link:') : l('Add another link:'))}
+                {(linkType ? l_relationships(linkType.link_phrase) : null) ||
+                  (props.isOnlyLink ? l('Add link:') : l('Add another link:'))}
               </label>}
         </td>
         <td>
@@ -325,7 +324,7 @@ class ExternalLink extends React.Component<LinkProps> {
                  onChange={props.urlChangeCallback}
                  onBlur={props.urlBlurCallback} />
           {props.errorMessage && <div className="error field-error" data-visible="1">{props.errorMessage}</div>}
-          {_.has(linkType.attributes, String(VIDEO_ATTRIBUTE_ID)) &&
+          {linkType && _.has(linkType.attributes, String(VIDEO_ATTRIBUTE_ID)) &&
             <div className="attribute-container">
               <label>
                 <input type="checkbox" checked={props.video} onChange={props.videoChangeCallback} /> {l('video')}
@@ -383,8 +382,13 @@ function withOneEmptyLink(links, dontRemove) {
   }
 }
 
+const isVideoAttribute = attr => attr.type.gid === VIDEO_ATTRIBUTE_GID;
+
 function parseRelationships(relationships?: $ReadOnlyArray<RelationshipT>) {
-  return _.transform(relationships || [], function (accum, data) {
+  if (!relationships) {
+    return [];
+  }
+  return relationships.reduce(function (accum, data) {
     var target = data.target;
 
     if (target.entityType === 'url') {
@@ -392,10 +396,14 @@ function parseRelationships(relationships?: $ReadOnlyArray<RelationshipT>) {
         relationship: data.id,
         url: target.name,
         type: data.linkTypeID,
-        video: _.some(data.attributes, (attr) => attr.type.gid === VIDEO_ATTRIBUTE_GID)
+        video: data.attributes
+          ? data.attributes.some(isVideoAttribute)
+          : false,
       });
     }
-  });
+
+    return accum;
+  }, []);
 }
 
 var protocolRegex = /^(https?|ftp):$/;
@@ -493,11 +501,11 @@ MB.createExternalLinksEditor = function (options: InitialOptionsT) {
   }
 
   initialLinks.sort(function (a, b) {
-    var typeA = linkTypeInfo.byId[a.type];
-    var typeB = linkTypeInfo.byId[b.type];
+    var typeA = a.type && linkTypeInfo.byId[a.type];
+    var typeB = b.type && linkTypeInfo.byId[b.type];
 
-    return compare(typeA ? typeA.phrase.toLowerCase() : '',
-                   typeB ? typeB.phrase.toLowerCase() : '');
+    return compare(typeA ? l_relationships(typeA.link_phrase).toLowerCase() : '',
+                   typeB ? l_relationships(typeB.link_phrase).toLowerCase() : '');
   });
 
   initialLinks = initialLinks.map(function (link) {

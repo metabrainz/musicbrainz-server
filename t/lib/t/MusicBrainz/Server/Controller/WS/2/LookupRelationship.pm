@@ -56,7 +56,7 @@ ws_test 'artist lookup with non-url relationships',
         <relation-list target-type="recording">
             <relation type-id="0fdbe3c6-7700-4a31-ae54-b53f06ae1cfa" type="vocal">
                 <target>0cf3008f-e246-428f-abc1-35f87d584d60</target>
-                <attribute-list><attribute>guest</attribute></attribute-list>
+                <attribute-list><attribute type-id="b3045913-62ac-433e-9211-ac683cdf6b5c">guest</attribute></attribute-list>
                 <recording id="0cf3008f-e246-428f-abc1-35f87d584d60">
                     <title>the Love Bug</title><length>243000</length>
                 </recording>
@@ -164,7 +164,7 @@ ws_test 'recording lookup with artist relationships and credits',
             <relation type-id="0fdbe3c6-7700-4a31-ae54-b53f06ae1cfa" type="vocal">
                 <target>a16d1433-ba89-4f72-a47b-a370add0bb55</target>
                 <direction>backward</direction>
-                <attribute-list><attribute>guest</attribute></attribute-list>
+                <attribute-list><attribute type-id="b3045913-62ac-433e-9211-ac683cdf6b5c">guest</attribute></attribute-list>
                 <artist id="a16d1433-ba89-4f72-a47b-a370add0bb55">
                     <name>BoA</name><sort-name>BoA</sort-name>
                 </artist>
@@ -458,7 +458,7 @@ ws_test 'recording lookup with instrument credit',
                 <target>97fa3f6e-557c-4227-bc0e-95a7f9f3285d</target>
                 <direction>backward</direction>
                 <attribute-list>
-                    <attribute credited-as="crazy guitar">guitar</attribute>
+                    <attribute credited-as="crazy guitar" type-id="63021302-86cd-4aee-80df-2270d54f4978">guitar</attribute>
                 </attribute-list>
                 <artist id="97fa3f6e-557c-4227-bc0e-95a7f9f3285d">
                     <name>BAGDAD CAFE THE trench town</name>

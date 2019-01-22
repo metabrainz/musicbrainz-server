@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2018-12-18 08:49+0000\n"
+"PO-Revision-Date: 2019-01-09 17:37+0000\n"
 "Last-Translator: yvanz\n"
 "Language-Team: Estonian (http://www.transifex.com/musicbrainz/musicbrainz/language/et/)\n"
 "MIME-Version: 1.0\n"
@@ -14,6 +14,16 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: et\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. name:chitra veena
+#: DB:instrument/description:744
+msgid ""
+"13th century or earlier South Indian fretless slide lute used in Carnatic "
+"music. Hollow body made of jack-fruit with a secondary resonator of hollowed"
+" out gourd, it has 6 main, 3 drone and 11-12 sympathetic strings with a "
+"sliding block of hardwood to vary pitch much like the North Indian vichitra "
+"veena and the Hawaiian guitar."
+msgstr ""
 
 #. name:Batá drum
 #: DB:instrument/description:457
@@ -474,6 +484,14 @@ msgstr ""
 msgid "Ancient bowed fiddle, once popular in Western India and Sri Lanka."
 msgstr ""
 
+#. name:santoor
+#: DB:instrument/description:286
+msgid ""
+"Ancient hammered dulcimer with trapezoid walnut or maple soundbox, 25 "
+"bridges each with 4 strings that are hit by special mallets called mezrab. "
+"Used in traditional, folk and mystic Sufi music."
+msgstr ""
+
 #. name:three-hole pipe
 #: DB:instrument/description:805
 msgid ""
@@ -647,6 +665,15 @@ msgstr ""
 #: DB:instrument/description:618
 msgid ""
 "Ching are a pair of small hand cymbals used in Thai and Cambodian music."
+msgstr ""
+
+#. name:rudra veena
+#: DB:instrument/description:501
+msgid ""
+"Considered the originator of all Indian strings (veena) it was used for "
+"ritual and meditation, North Indian raga and Dhrupad music. It has two dried"
+" gourd resonators and a body of bamboo with 24 wooden frets and 4 main, 2-3 "
+"secondary and one drone string."
 msgstr ""
 
 #. name:whip / slapstick
@@ -915,6 +942,11 @@ msgstr ""
 msgid "Greek Panflute"
 msgstr "kreeka paaniflööt"
 
+#. name:khim
+#: DB:instrument/description:287
+msgid "Hammered dulcimer of Thailand and Cambodia it was imported via China."
+msgstr ""
+
 #. name:hard disk drive
 #: DB:instrument/description:603
 msgid "Harddisk configured to produce tones in pattern."
@@ -1032,6 +1064,13 @@ msgid ""
 "It has a short fretted neck originally with four silk but now usually nylon "
 "or steel strings, and large flat round body, earning it the nickname \"moon "
 "lute\""
+msgstr ""
+
+#. name:yangqin
+#: DB:instrument/description:254
+msgid ""
+"It is related to similar hammered dulcimers in India, middle east and "
+"Europe."
 msgstr ""
 
 #. name:cimbasso
@@ -1516,6 +1555,14 @@ msgstr ""
 msgid "Pí thiu or Pí khui vertical flute"
 msgstr ""
 
+#. name:đàn tam thập lục
+#: DB:instrument/description:257
+msgid ""
+"Recently imported into Vietnamese instruments, this thirty-six stringed "
+"dulcimer has many counterparts in various countries, such as \"santoor\" in "
+"India and \"cimbalon\" in Europe."
+msgstr ""
+
 #. name:rubab
 #: DB:instrument/description:883
 msgid ""
@@ -1536,11 +1583,6 @@ msgid ""
 "with straps or placed on a stand and played horizontally while walking to "
 "battle, on special state occasions and religious ceremonies."
 msgstr ""
-
-#. name:santoor
-#: DB:instrument/description:286
-msgid "Santoor, Indian dulcimer"
-msgstr "india dultsimer"
 
 #. name:santur
 #: DB:instrument/description:255
@@ -2115,23 +2157,11 @@ msgid ""
 "strings and frets popularised during the Meiji period."
 msgstr ""
 
-#. name:chitra veena
-#: DB:instrument/description:744
-msgid "The chitra veena is a 20 or 21-string fretless lute in Carnatic music."
-msgstr ""
-
 #. name:citole
 #: DB:instrument/description:761
 msgid ""
 "The citole is an archaic musical instrument, similar and a distant ancestor "
 "of the modern guitar."
-msgstr ""
-
-#. name:concert flute
-#: DB:instrument/description:414
-msgid ""
-"The concert flute is the most common variant of the flute and is commonly "
-"referred to as just \"flute\"."
 msgstr ""
 
 #. name:cornamuse
@@ -2534,11 +2564,6 @@ msgid ""
 "hollowed-out hardwood windchest."
 msgstr ""
 
-#. name:khim
-#: DB:instrument/description:287
-msgid "The khim is a hammered dulcimer from Thailand and Cambodia."
-msgstr ""
-
 #. name:khlui
 #: DB:instrument/description:666
 msgid ""
@@ -2939,13 +2964,6 @@ msgstr ""
 #. name:rototom
 #: DB:instrument/description:731
 msgid "The rototom is a drum which has no shell and is tuned by rotating."
-msgstr ""
-
-#. name:rudra veena
-#: DB:instrument/description:501
-msgid ""
-"The rudra veena is a large plucked string instrument used in Hindustani "
-"classical music."
 msgstr ""
 
 #. name:ryuteki
@@ -3436,11 +3454,6 @@ msgstr ""
 msgid "The xylorimba is an extended-range xylophone."
 msgstr ""
 
-#. name:yangqin
-#: DB:instrument/description:254
-msgid "The yangqin is a Chinese hammered dulcimer."
-msgstr ""
-
 #. name:yatga
 #: DB:instrument/description:564
 msgid ""
@@ -3541,15 +3554,6 @@ msgstr ""
 #: DB:instrument/description:337
 msgid "The đàn tam is a three-stringed fretless lute from Vietnam."
 msgstr "vietnami kolmekeelne astmetraatideta lauto"
-
-#. name:đàn tam thập lục
-#: DB:instrument/description:257
-msgid ""
-"The đàn tam thập lục is a relatively recent imported addition to Vietnamese "
-"instruments. A dulcimer with thirty-six strings, struck with two small "
-"rubber-clad dubs. It has many counterparts in various countries, such as the"
-" \"santoor\" in India and also the \"cimbalon\" in Hungary."
-msgstr ""
 
 #. name:đàn tranh
 #: DB:instrument/description:250
@@ -3847,6 +3851,13 @@ msgstr ""
 #. name:violone
 #: DB:instrument/description:420
 msgid "Violone, The largest/deepest member of the Viol family"
+msgstr ""
+
+#. name:concert flute
+#: DB:instrument/description:414
+msgid ""
+"Western concert flute is the most common variant of the flute and is "
+"commonly referred to as just \"flute\"."
 msgstr ""
 
 #. name:English horn
@@ -4429,4 +4440,9 @@ msgstr ""
 msgid ""
 "working to improve on its design, the English flageolet had 6 finger holes "
 "in front and one thumb hole in the back."
+msgstr ""
+
+#. name:tube zither
+#: DB:instrument/description:944
+msgid "zither with a hollow or vaulted body, it can have several resonators"
 msgstr ""

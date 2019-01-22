@@ -57,7 +57,7 @@ class WikipediaExtract extends React.Component<Props, State> {
         </a>
         <small>
           {l('Wikipedia content provided under the terms of the {license_link|Creative Commons BY-SA license}',
-            {__react: true, license_link: 'https://creativecommons.org/licenses/by-sa/3.0/'})}
+            {license_link: 'https://creativecommons.org/licenses/by-sa/3.0/'})}
         </small>
       </>
     ) : null;

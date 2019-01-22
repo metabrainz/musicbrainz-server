@@ -15,8 +15,8 @@ if (DBDefs.DEVELOPMENT_SERVER) {
   // Used by the Selenium tests under /t/selenium/ to make sure that no errors
   // occurred on the page.
   MB.js_errors = [];
-  window.onerror = function (err) {
-    MB.js_errors.push(err);
+  window.onerror = function (message, source, lineno, colno, error) {
+    MB.js_errors.push(error && error.stack ? error.stack : message);
   };
 }
 

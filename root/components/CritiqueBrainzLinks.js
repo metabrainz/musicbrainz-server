@@ -36,7 +36,6 @@ const CritiqueBrainzLinks = ({releaseGroup}: Props) => {
   }
   if (reviewCount === 0) {
     return l('No one has reviewed this release group yet. Be the first to {write_link|write a review}.', {
-      __react: true,
       write_link: writeReviewLink(releaseGroup),
     });
   }
@@ -45,7 +44,6 @@ const CritiqueBrainzLinks = ({releaseGroup}: Props) => {
     'There are {reviews_link|{review_count} reviews} on CritiqueBrainz. You can also {write_link|write your own}.',
     reviewCount,
     {
-      __react: true,
       review_count: reviewCount,
       reviews_link: seeReviewsHref(releaseGroup),
       write_link: writeReviewLink(releaseGroup),

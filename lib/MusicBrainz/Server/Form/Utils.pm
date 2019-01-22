@@ -157,30 +157,8 @@ sub build_type_info {
     sub build_type {
         my $root = shift;
 
-        my %attrs = map {
-            $_->type_id => {
-                min     => defined $_->min ? 0 + $_->min : undef,
-                max     => defined $_->max ? 0 + $_->max : undef,
-            }
-        } $root->all_attributes;
+        my $result = $root->TO_JSON;
 
-        my $result = {
-            id                  => $root->id,
-            gid                 => $root->gid,
-            phrase              => $root->l_link_phrase,
-            reversePhrase       => $root->l_reverse_link_phrase,
-            deprecated          => boolean_to_json($root->is_deprecated),
-            hasDates            => boolean_to_json($root->has_dates),
-            type0               => $root->entity0_type,
-            type1               => $root->entity1_type,
-            cardinality0        => $root->entity0_cardinality,
-            cardinality1        => $root->entity1_cardinality,
-            orderableDirection  => $root->orderable_direction,
-            childOrder          => $root->child_order,
-        };
-
-        $result->{description} = $root->l_description if $root->description;
-        $result->{attributes} = \%attrs if %attrs;
         $result->{children} = build_child_info($root, \&build_type) if $root->all_children;
 
         return $result;

@@ -2,7 +2,6 @@ package MusicBrainz::Server::Data::EntityAnnotation;
 use Moose;
 use namespace::autoclean;
 
-use HTML::Entities qw( decode_entities );
 use List::MoreUtils qw( uniq );
 
 use MusicBrainz::Server::Constants qw( $EDITOR_MODBOT %ENTITIES );
@@ -46,19 +45,6 @@ sub get_history
                 ' WHERE ' . $self->type . ' = ?' .
                 ' ORDER BY created DESC';
     $self->query_to_list_limited($query, [$id], $limit, $offset);
-}
-
-sub _column_mapping {
-    return {
-        id => 'id',
-        text => sub {
-            my $row = shift;
-            $row->{text} && decode_entities($row->{text});
-        },
-        changelog => 'changelog',
-        editor_id => 'editor_id',
-        creation_date => 'creation_date'
-    }
 }
 
 sub get_latest

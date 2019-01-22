@@ -19,7 +19,7 @@ const TagNotFound = ({tag}: {|+tag: string|}) => (
     </p>
     <p>
       {l('If you wish to use this tag, please {url|search} for the entity first and apply the tag using the sidebar.',
-        {__react: true, url: '/search'})}
+        {url: '/search'})}
     </p>
   </NotFound>
 );

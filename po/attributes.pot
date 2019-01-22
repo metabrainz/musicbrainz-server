@@ -726,14 +726,14 @@ msgctxt "collection_type"
 msgid "Attending"
 msgstr ""
 
-#: DB:work_type/name:25
-msgctxt "work_type"
+#: DB:release_group_secondary_type/name:11
+msgctxt "release_group_secondary_type"
 msgid "Audio drama"
 msgstr ""
 
-#: DB:release_group_secondary_type/name:11
-msgctxt "release_group_secondary_type"
-msgid "Audio play"
+#: DB:work_type/name:25
+msgctxt "work_type"
+msgid "Audio drama"
 msgstr ""
 
 #: DB:release_group_secondary_type/name:5
@@ -2402,6 +2402,13 @@ msgstr ""
 #: DB:medium_format/name:76
 msgctxt "medium_format"
 msgid "Floppy Disk"
+msgstr ""
+
+#: DB:gender/description:4
+msgctxt "gender"
+msgid ""
+"For cases where gender just doesn't apply at all (like companies entered as "
+"artists)."
 msgstr ""
 
 #: DB:work_attribute_type/name:16
@@ -4635,6 +4642,11 @@ msgstr ""
 #: DB:release_packaging/name:7
 msgctxt "release_packaging"
 msgid "None"
+msgstr ""
+
+#: DB:gender/name:4
+msgctxt "gender"
+msgid "Not applicable"
 msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:491

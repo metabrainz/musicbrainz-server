@@ -16,7 +16,7 @@ const TrackNotFound = () => (
   <NotFound title={l('Track Not Found')}>
     <p>
       {l('Sorry, we could find neither a recording nor a track with that MusicBrainz ID. You may wish to try and {search_url|search for it} instead.',
-        {__react: true, search_url: '/search'})}
+        {search_url: '/search'})}
     </p>
   </NotFound>
 );

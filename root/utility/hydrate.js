@@ -8,17 +8,16 @@
  */
 
 import $ from 'jquery';
-import React from 'react';
+import * as React from 'react';
 import ReactDOM from 'react-dom';
-import type {ComponentType as ReactComponentType} from 'react';
 
 import * as lens from '../static/scripts/common/utility/lens';
 
-export default function hydrate<T>(
+export default function hydrate<Config: {}>(
   rootClass: string,
-  Component: ReactComponentType<T>,
-  mungeProps?: (T) => T,
-): ReactComponentType<T> {
+  Component: React.AbstractComponent<Config>,
+  mungeProps?: (Config) => Config,
+): React.AbstractComponent<Config, void> {
   if (typeof document !== 'undefined') {
     // This should only run on the client.
     $(function () {
@@ -27,13 +26,13 @@ export default function hydrate<T>(
         const propString = root.getAttribute('data-props');
         root.removeAttribute('data-props');
         if (propString) {
-          const props: T = JSON.parse(propString);
+          const props: Config = JSON.parse(propString);
           ReactDOM.hydrate(<Component {...props} />, root);
         }
       }
     });
   }
-  return (props: T) => {
+  return (props) => {
     let dataProps = props;
     if (mungeProps) {
       dataProps = mungeProps(dataProps);

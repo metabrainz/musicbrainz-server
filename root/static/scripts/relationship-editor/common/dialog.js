@@ -6,11 +6,13 @@
 const $ = require('jquery');
 const ko = require('knockout');
 const _ = require('lodash');
+const ReactDOMServer = require('react-dom/server');
 
 require('../../../lib/jquery-ui');
 
 const {PART_OF_SERIES_LINK_TYPES} = require('../../common/constants');
 const i18n = require('../../common/i18n');
+import {l_relationships} from '../../common/i18n/relationships';
 const linkTypeInfo = require('../../common/typeInfo').link_type;
 const URLCleanup = require('../../edit/URLCleanup');
 const dates = require('../../edit/utility/dates');
@@ -68,7 +70,7 @@ const PART_OF_SERIES_LINK_TYPE_GIDS = _.values(PART_OF_SERIES_LINK_TYPES);
 
                         resultHook: function (items) {
                             if (dialog.autocomplete.entity === "series" &&
-                                    dialog.relationship().getLinkType().orderableDirection !== 0) {
+                                    dialog.relationship().getLinkType().orderable_direction !== 0) {
                                 return _.filter(items, function (item) {
                                     return item.type.item_entity_type === dialog.source.entityType;
                                 });
@@ -332,11 +334,13 @@ const PART_OF_SERIES_LINK_TYPE_GIDS = _.values(PART_OF_SERIES_LINK_TYPES);
             var linkType = this.relationship().getLinkType();
             var description;
 
-            if (linkType) {
-                description = i18n.l("{description} ({url|more documentation})", {
-                    description: linkType.description,
-                    url: { href: "/relationship/" + linkType.gid, target: "_blank" }
-                });
+            if (linkType && linkType.description) {
+                description = ReactDOMServer.renderToStaticMarkup(
+                    i18n.l("{description} ({url|more documentation})", {
+                        description: l_relationships(linkType.description),
+                        url: { href: "/relationship/" + linkType.gid, target: "_blank" }
+                    })
+                );
             }
 
             return description || "";
@@ -511,7 +515,9 @@ const PART_OF_SERIES_LINK_TYPE_GIDS = _.values(PART_OF_SERIES_LINK_TYPES);
         }
 
         changeOtherRelationshipCreditsLabel(entity) {
-            return i18n.l('Change credits for other {entity} relationships on the page.', {entity: entity.html()});
+            return ReactDOMServer.renderToStaticMarkup(
+                i18n.l('Change credits for other {entity} relationships on the page.', {entity: entity.reactElement()})
+            );
         }
 
         sameEntityTypesLabel($parent, relationship, entity) {
@@ -560,7 +566,7 @@ const PART_OF_SERIES_LINK_TYPE_GIDS = _.values(PART_OF_SERIES_LINK_TYPES);
                 return;
             }
 
-            if (relationship.getLinkType().orderableDirection) {
+            if (relationship.getLinkType().orderable_direction) {
                 var group = source.getRelationshipGroup(relationship, viewModel);
                 var maxLinkOrder = -Infinity;
 

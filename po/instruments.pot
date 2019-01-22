@@ -147,6 +147,10 @@ msgstr ""
 msgid "Lyricon"
 msgstr ""
 
+#: DB:instrument/name:442
+msgid "Marxophone"
+msgstr ""
+
 #: DB:instrument/name:92
 msgid "Mexican vihuela"
 msgstr ""
@@ -880,6 +884,7 @@ msgid "chitarra battente"
 msgstr ""
 
 #: DB:instrument/name:744
+msgctxt "Ancient South Indian fretless Carnatic slide lute"
 msgid "chitra veena"
 msgstr ""
 
@@ -897,6 +902,7 @@ msgid "chuurqin"
 msgstr ""
 
 #: DB:instrument/name:256
+msgctxt "European hammered dulcimer"
 msgid "cimbalom"
 msgstr ""
 
@@ -1913,6 +1919,7 @@ msgid "khene"
 msgstr ""
 
 #: DB:instrument/name:287
+msgctxt "Thai and Cambodian hammered dulcimer"
 msgid "khim"
 msgstr ""
 
@@ -2170,10 +2177,6 @@ msgstr ""
 
 #: DB:instrument/name:637
 msgid "mark tree"
-msgstr ""
-
-#: DB:instrument/name:442
-msgid "marxophone"
 msgstr ""
 
 #: DB:instrument/name:633
@@ -2781,6 +2784,7 @@ msgid "rubab"
 msgstr ""
 
 #: DB:instrument/name:501
+msgctxt "Ancient large North Indian tube zither"
 msgid "rudra veena"
 msgstr ""
 
@@ -2823,10 +2827,12 @@ msgid "sanshin"
 msgstr ""
 
 #: DB:instrument/name:286
+msgctxt "Traditional Indian dulcimer"
 msgid "santoor"
 msgstr ""
 
 #: DB:instrument/name:255
+msgctxt "Persian/Iran hammered dulcimer"
 msgid "santur"
 msgstr ""
 
@@ -2883,10 +2889,6 @@ msgstr ""
 msgid "saz"
 msgstr ""
 
-#: DB:instrument/name:310
-msgid "saó ôi flute"
-msgstr ""
-
 #: DB:instrument/name:757
 msgid "segunda"
 msgstr ""
@@ -2896,6 +2898,7 @@ msgid "serpent"
 msgstr ""
 
 #: DB:instrument/name:630
+msgctxt "Persian three-stringed long-necked lute"
 msgid "setar"
 msgstr ""
 
@@ -3437,6 +3440,11 @@ msgctxt "Basque button accordion"
 msgid "trikiti"
 msgstr ""
 
+#: DB:instrument/name:945
+msgctxt "Indian three-stringed long-necked lute"
+msgid "tritantri veena"
+msgstr ""
+
 #: DB:instrument/name:698
 msgid "tromba marina"
 msgstr ""
@@ -3480,6 +3488,10 @@ msgstr ""
 
 #: DB:instrument/name:694
 msgid "tubax"
+msgstr ""
+
+#: DB:instrument/name:944
+msgid "tube zither"
 msgstr ""
 
 #: DB:instrument/name:775
@@ -3792,6 +3804,7 @@ msgid "xylorimba"
 msgstr ""
 
 #: DB:instrument/name:254
+msgctxt "Chinese hammered dulcimer"
 msgid "yangqin"
 msgstr ""
 
@@ -3904,6 +3917,7 @@ msgid "đàn tam"
 msgstr ""
 
 #: DB:instrument/name:257
+msgctxt "Vietnamese hammered dulcimer"
 msgid "đàn tam thập lục"
 msgstr ""
 

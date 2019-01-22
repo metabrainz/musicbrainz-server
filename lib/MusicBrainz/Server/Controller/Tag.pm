@@ -6,6 +6,7 @@ BEGIN { extends 'MusicBrainz::Server::Controller' }
 
 use MusicBrainz::Server::Data::Utils qw( type_to_model );
 use MusicBrainz::Server::Constants qw( %ENTITIES entities_with );
+use MusicBrainz::Server::ControllerUtils::JSON qw( serialize_pager );
 
 with 'MusicBrainz::Server::Controller::Role::Load' => {
     model       => 'Tag',
@@ -26,13 +27,15 @@ sub cloud : Path('/tags')
 
     my ($cloud, $hits) = $c->model('Tag')->get_cloud(200);
 
-    if ($hits)
-    {
-        $c->stash(
-            tag_max_count => $cloud->[0]->{count},
-            tags => [ sort { $a->{tag}->name cmp $b->{tag}->name } @$cloud ],
-        );
-    }
+    $c->stash(
+        current_view => 'Node',
+        component_path => 'tag/TagCloud.js',
+        component_props => {
+            %{$c->stash->{component_props}},
+            tagMaxCount => $hits ? $cloud->[0]->{count} : 0,
+            tags => $hits ? [sort { $a->{tag}->name cmp $b->{tag}->name } @$cloud] : [],
+        },
+    );
 }
 
 sub show : Chained('load') PathPart('')
@@ -40,20 +43,35 @@ sub show : Chained('load') PathPart('')
     my ($self, $c) = @_;
     my $tag = $c->stash->{tag};
     $c->stash(
-        template => 'tag/index.tt',
-        map {
-            my ($entities, $total) = $c->model(type_to_model($_))->tags->find_entities(
-                $tag->id, 10, 0);
-            $c->model('ArtistCredit')->load(map { $_->entity } @$entities);
+        current_view => 'Node',
+        component_path => 'tag/TagIndex.js',
+        component_props => {
+            %{$c->stash->{component_props}},
+            tag => $tag,
+            taggedEntities => {
+                map {
+                    my ($entities, $total) = $c->model(type_to_model($_))->tags->find_entities(
+                        $tag->id, 10, 0);
+                    $c->model('ArtistCredit')->load(map { $_->entity } @$entities);
 
-            ($_ . '_tags' => $entities,
-             $_ . '_count' => $total)
-        } entities_with('tags')
+                    ("$_" => {
+                        count => $total,
+                        tags => [map +{
+                            count => $_->{count},
+                            entity => $_->{entity},
+                            entity_id => $_->{entity_id},
+                        }, @$entities],
+                    })
+                } entities_with('tags')
+            },
+        },
+
     );
 }
 
 map {
-    my $entity_properties = $ENTITIES{$_};
+    my $entity_type = $_;
+    my $entity_properties = $ENTITIES{$entity_type};
     my $url = $entity_properties->{url};
 
     my $method = sub {
@@ -64,7 +82,22 @@ map {
         });
 
         $c->model('ArtistCredit')->load(map { $_->entity } @$entity_tags) if $entity_properties->{artist_credits};
-        $c->stash(entity_tags => $entity_tags);
+        $c->stash(
+            current_view => 'Node',
+            component_path => 'tag/EntityList.js',
+            component_props => {
+                %{$c->stash->{component_props}},
+                entityTags => [map +{
+                    count => $_->{count},
+                    entity => $_->{entity},
+                    entity_id => $_->{entity_id},
+                }, @$entity_tags],
+                entityType => $entity_type,
+                page => "/$url",
+                pager => serialize_pager($c->stash->{pager}),
+                tag => $c->stash->{tag}->name,
+            },
+        );
     };
 
     find_meta(__PACKAGE__)->add_method($_ => $method);

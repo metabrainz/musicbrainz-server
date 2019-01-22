@@ -4,6 +4,9 @@ source /etc/mbs_constants.sh
 
 cd "$MBS_ROOT"
 
+carton exec -- \
+    perl -Ilib /usr/local/bin/install_language_packs.pl
+
 while true; do
     chpst -u musicbrainz:musicbrainz \
         carton exec -- ./script/database_exists SYSTEM > /dev/null 2>&1
@@ -16,6 +19,12 @@ while true; do
 done
 
 (exec runsvdir /etc/service &>/dev/null &)
+
+sudo -E -H -u musicbrainz \
+    carton exec -- ./script/dump_js_type_info.pl
+
+sudo -E -H -u musicbrainz \
+    carton exec -- ./script/compile_resources.sh web-tests
 
 exec sudo -E -H -u musicbrainz carton exec -- prove \
     --pgtap-option dbname=musicbrainz_test \

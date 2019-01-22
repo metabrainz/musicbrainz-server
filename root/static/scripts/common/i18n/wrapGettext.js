@@ -8,7 +8,6 @@ const isNodeJS = require('detect-node');
 const sliced = require('sliced');
 
 const cleanMsgid = require('./cleanMsgid').default;
-const expand = require('./expand');
 const expand2 = require('./expand2').default;
 const NopArgs = require('./NopArgs');
 
@@ -80,15 +79,7 @@ function wrapGettext(method, domain) {
     args[msgidArg] = cleanMsgid(args[msgidArg]);
 
     const string = gettext[method].apply(gettext, args);
-
-    if (expandArgs) {
-      if (expandArgs.__react) {
-        return expand2(string, expandArgs);
-      }
-      return expand(string, expandArgs);
-    }
-
-    return string;
+    return expand2(string, expandArgs);
   };
 }
 

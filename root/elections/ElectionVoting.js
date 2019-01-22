@@ -21,7 +21,7 @@ type PropsT = {
 
 const ElectionVoting = ({election, user}: PropsT) => {
   let message = l('To find out if you can vote for this candidate, please {url|log in}.',
-    {__react: true, url: '/login'});
+    {url: '/login'});
   if (user) {
     if (!user.is_auto_editor) {
       message = l('You cannot vote for this candidate, because you are not an auto-editor.');

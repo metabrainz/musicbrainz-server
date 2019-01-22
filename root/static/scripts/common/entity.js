@@ -72,6 +72,10 @@ const formatTrackLength = require('./utility/formatTrackLength');
         entityTypeLabel() {
             return i18n.addColon(i18n.strings.entityName[this.entityType]);
         }
+
+        html(...args) {
+            return ReactDOMServer.renderToStaticMarkup(this.reactElement(...args));
+        }
     }
 
     var primitiveTypes = /^(boolean|number|string)$/;
@@ -147,7 +151,7 @@ const formatTrackLength = require('./utility/formatTrackLength');
             }
         }
 
-        html(renderParams) {
+        reactElement(renderParams) {
             var json = this.toJSON();
 
             if (this.gid) {
@@ -157,7 +161,7 @@ const formatTrackLength = require('./utility/formatTrackLength');
                     delete renderParams.creditedAs;
                 }
 
-                return ReactDOMServer.renderToStaticMarkup(
+                return (
                     <EntityLink
                         content={json.creditedAs}
                         entity={{
@@ -204,8 +208,8 @@ const formatTrackLength = require('./utility/formatTrackLength');
     }
 
     class Editor extends CoreEntity {
-        html() {
-            return ReactDOMServer.renderToStaticMarkup(
+        reactElement() {
+            return (
                 <EditorLink editor={{entityType: 'editor', name: this.name}} />
             );
         }
@@ -227,7 +231,9 @@ const formatTrackLength = require('./utility/formatTrackLength');
 
     class Label extends CoreEntity {
         selectionMessage() {
-            return i18n.l('You selected {label}.', {label: this.html({target: '_blank'})});
+            return ReactDOMServer.renderToStaticMarkup(
+                i18n.l('You selected {label}.', {label: this.reactElement({target: '_blank'})})
+            );
         }
     }
 
@@ -235,7 +241,9 @@ const formatTrackLength = require('./utility/formatTrackLength');
 
     class Area extends CoreEntity {
         selectionMessage() {
-            return i18n.l('You selected {area}.', {area: this.html({ target: '_blank'})});
+            return ReactDOMServer.renderToStaticMarkup(
+                i18n.l('You selected {area}.', {area: this.reactElement({ target: '_blank'})})
+            );
         }
     }
 
@@ -318,9 +326,11 @@ const formatTrackLength = require('./utility/formatTrackLength');
 
     class ReleaseGroup extends CoreEntity {
         selectionMessage() {
-            return i18n.l('You selected {releasegroup}.', {
-                releasegroup: this.html({target: '_blank'}),
-            });
+            return ReactDOMServer.renderToStaticMarkup(
+                i18n.l('You selected {releasegroup}.', {
+                    releasegroup: this.reactElement({target: '_blank'}),
+                })
+            );
         }
     }
 
@@ -370,11 +380,11 @@ const formatTrackLength = require('./utility/formatTrackLength');
             }
         }
 
-        html(renderParams) {
+        reactElement(renderParams) {
             var recording = this.recording;
 
             if (!recording) {
-                return super.html(renderParams);
+                return super.reactElement(renderParams);
             }
 
             const json = {
@@ -385,7 +395,7 @@ const formatTrackLength = require('./utility/formatTrackLength');
                 name: recording.name,
                 video: recording.video,
             };
-            return ReactDOMServer.renderToStaticMarkup(
+            return (
                 <EntityLink content={this.name} entity={json} {...renderParams} />
             );
         }

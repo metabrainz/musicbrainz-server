@@ -5,13 +5,12 @@
 
 const {l} = require('../i18n');
 
-function commaOnlyList(items, props = {}) {
+function commaOnlyList(items) {
   if (!items.length) {
     return '';
   }
 
   let output = l('{last_list_item}', {
-    __react: props.react,
     last_list_item: items.pop(),
   });
 
@@ -19,7 +18,6 @@ function commaOnlyList(items, props = {}) {
 
   for (let i = 0; i < items.length; i++) {
     output = l('{commas_only_list_item}, {rest}', {
-      __react: props.react,
       commas_only_list_item: items[i],
       rest: output,
     });
