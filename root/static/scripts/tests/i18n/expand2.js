@@ -3,7 +3,7 @@ import React from 'react';
 import expand2, {expand2html} from '../../common/i18n/expand2';
 
 test('expand2', function (t) {
-  t.plan(47);
+  t.plan(50);
 
   let error;
   const consoleError = console.error;
@@ -19,6 +19,9 @@ test('expand2', function (t) {
     t.equal(expand2html(input, args), output);
   }
 
+  expandText('', null, '');
+  expandText(null, null, '');
+  expandText(undefined, null, '');
   expandText('Some plain text', null, 'Some plain text');
   expandText('Some &quot;plain&quot; text', null, 'Some "plain" text');
   expandText('An {apple_fruit}', null, 'An {apple_fruit}');
