@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2018-12-18 08:49+0000\n"
+"PO-Revision-Date: 2019-01-09 17:37+0000\n"
 "Last-Translator: yvanz\n"
 "Language-Team: Greek (http://www.transifex.com/musicbrainz/musicbrainz/language/el/)\n"
 "MIME-Version: 1.0\n"
@@ -887,6 +887,7 @@ msgid "chitarra battente"
 msgstr ""
 
 #: DB:instrument/name:744
+msgctxt "Ancient South Indian fretless Carnatic slide lute"
 msgid "chitra veena"
 msgstr ""
 
@@ -904,6 +905,7 @@ msgid "chuurqin"
 msgstr ""
 
 #: DB:instrument/name:256
+msgctxt "European hammered dulcimer"
 msgid "cimbalom"
 msgstr ""
 
@@ -1920,6 +1922,7 @@ msgid "khene"
 msgstr ""
 
 #: DB:instrument/name:287
+msgctxt "Thai and Cambodian hammered dulcimer"
 msgid "khim"
 msgstr ""
 
@@ -2788,6 +2791,7 @@ msgid "rubab"
 msgstr ""
 
 #: DB:instrument/name:501
+msgctxt "Ancient large North Indian tube zither"
 msgid "rudra veena"
 msgstr ""
 
@@ -2830,12 +2834,14 @@ msgid "sanshin"
 msgstr ""
 
 #: DB:instrument/name:286
+msgctxt "Traditional Indian dulcimer"
 msgid "santoor"
 msgstr ""
 
 #: DB:instrument/name:255
+msgctxt "Persian/Iran hammered dulcimer"
 msgid "santur"
-msgstr "σαντούρι"
+msgstr ""
 
 #: DB:instrument/name:244
 msgid "sanxian"
@@ -3489,6 +3495,10 @@ msgstr "τούμπα"
 msgid "tubax"
 msgstr ""
 
+#: DB:instrument/name:944
+msgid "tube zither"
+msgstr ""
+
 #: DB:instrument/name:775
 msgctxt "analogue electronic monophonic Organ"
 msgid "tubon"
@@ -3799,6 +3809,7 @@ msgid "xylorimba"
 msgstr ""
 
 #: DB:instrument/name:254
+msgctxt "Chinese hammered dulcimer"
 msgid "yangqin"
 msgstr ""
 
@@ -3911,6 +3922,7 @@ msgid "đàn tam"
 msgstr ""
 
 #: DB:instrument/name:257
+msgctxt "Vietnamese hammered dulcimer"
 msgid "đàn tam thập lục"
 msgstr ""
 

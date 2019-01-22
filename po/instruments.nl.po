@@ -8,7 +8,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2019-01-04 12:27+0000\n"
+"PO-Revision-Date: 2019-01-09 21:32+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -889,8 +889,9 @@ msgid "chitarra battente"
 msgstr "chitarra battente"
 
 #: DB:instrument/name:744
+msgctxt "Ancient South Indian fretless Carnatic slide lute"
 msgid "chitra veena"
-msgstr "gottuvadhyam"
+msgstr "chitra-vina"
 
 #: DB:instrument/name:433
 msgid "chromatic button accordion"
@@ -906,6 +907,7 @@ msgid "chuurqin"
 msgstr "chuurqin"
 
 #: DB:instrument/name:256
+msgctxt "European hammered dulcimer"
 msgid "cimbalom"
 msgstr "cimbalom"
 
@@ -1922,6 +1924,7 @@ msgid "khene"
 msgstr "khene"
 
 #: DB:instrument/name:287
+msgctxt "Thai and Cambodian hammered dulcimer"
 msgid "khim"
 msgstr "khim"
 
@@ -2790,6 +2793,7 @@ msgid "rubab"
 msgstr "roebab"
 
 #: DB:instrument/name:501
+msgctxt "Ancient large North Indian tube zither"
 msgid "rudra veena"
 msgstr "rudra-vina"
 
@@ -2832,10 +2836,12 @@ msgid "sanshin"
 msgstr "sanshin"
 
 #: DB:instrument/name:286
+msgctxt "Traditional Indian dulcimer"
 msgid "santoor"
 msgstr "santoor"
 
 #: DB:instrument/name:255
+msgctxt "Persian/Iran hammered dulcimer"
 msgid "santur"
 msgstr "santur"
 
@@ -3491,6 +3497,10 @@ msgstr "tuba"
 msgid "tubax"
 msgstr "tubax"
 
+#: DB:instrument/name:944
+msgid "tube zither"
+msgstr "buisciter"
+
 #: DB:instrument/name:775
 msgctxt "analogue electronic monophonic Organ"
 msgid "tubon"
@@ -3614,7 +3624,7 @@ msgstr "vibraslap"
 
 #: DB:instrument/name:612
 msgid "vichitra veena"
-msgstr "vichitra-veena"
+msgstr "vichitra-vina"
 
 #: DB:instrument/name:853
 msgctxt "sound chip from gaming consoles"
@@ -3801,6 +3811,7 @@ msgid "xylorimba"
 msgstr "xylorimba"
 
 #: DB:instrument/name:254
+msgctxt "Chinese hammered dulcimer"
 msgid "yangqin"
 msgstr "yangqin"
 
@@ -3913,6 +3924,7 @@ msgid "đàn tam"
 msgstr "đàn tam"
 
 #: DB:instrument/name:257
+msgctxt "Vietnamese hammered dulcimer"
 msgid "đàn tam thập lục"
 msgstr "đàn tam thập lục"
 

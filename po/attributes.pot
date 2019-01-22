@@ -2404,6 +2404,13 @@ msgctxt "medium_format"
 msgid "Floppy Disk"
 msgstr ""
 
+#: DB:gender/description:4
+msgctxt "gender"
+msgid ""
+"For cases where gender just doesn't apply at all (like companies entered as "
+"artists)."
+msgstr ""
+
 #: DB:work_attribute_type/name:16
 msgctxt "work_attribute_type"
 msgid "Form (Ottoman, Turkish)"
@@ -4635,6 +4642,11 @@ msgstr ""
 #: DB:release_packaging/name:7
 msgctxt "release_packaging"
 msgid "None"
+msgstr ""
+
+#: DB:gender/name:4
+msgctxt "gender"
+msgid "Not applicable"
 msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:491

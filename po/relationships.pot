@@ -4118,10 +4118,6 @@ msgstr ""
 msgid "invented by"
 msgstr ""
 
-#: DB:link_type/link_phrase:112 DB:link_type/reverse_link_phrase:112
-msgid "involved with"
-msgstr ""
-
 #: DB:link_type/long_link_phrase:8 DB:link_type/long_link_phrase:227
 msgid "is a DJ-mix of"
 msgstr ""
@@ -4249,16 +4245,16 @@ msgstr ""
 msgid "is/was distributing the catalog of"
 msgstr ""
 
-#: DB:link_type/long_link_phrase:112
-msgid "is/was involved with"
-msgstr ""
-
 #: DB:link_type/long_link_phrase:111
 msgid "is/was married to"
 msgstr ""
 
 #: DB:link_type/long_link_phrase:201
 msgid "is/was reissuing the catalog of"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:112
+msgid "is/was romantically involved with"
 msgstr ""
 
 #: DB:link_type/long_link_phrase:200
@@ -5130,6 +5126,10 @@ msgstr ""
 
 #: DB:link_type/link_phrase:349
 msgid "rights society associated with"
+msgstr ""
+
+#: DB:link_type/link_phrase:112 DB:link_type/reverse_link_phrase:112
+msgid "romantically involved with"
 msgstr ""
 
 #: DB:link_type/link_phrase:83 DB:link_type/link_phrase:258

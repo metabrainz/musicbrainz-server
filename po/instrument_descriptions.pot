@@ -323,7 +323,7 @@ msgid ""
 "truncated cone resting on a triangular base."
 msgstr ""
 
-#. name:marxophone 
+#. name:Marxophone 
 #: DB:instrument/description:442
 msgid "A type of fretless zither."
 msgstr ""
@@ -708,6 +708,14 @@ msgstr ""
 #. name:davul 
 #: DB:instrument/description:411
 msgid "Davul, turkish drum"
+msgstr ""
+
+#. name:setar 
+#: DB:instrument/description:630
+msgid ""
+"Derived from the Indian tritantri veena by the Persian poet Amir Khusro "
+"sometime in 13th century, it had 3 (now 4) strings and a long neck. It later "
+"gave name to the Indian sitar."
 msgstr ""
 
 #. name:tenora 
@@ -1366,6 +1374,15 @@ msgid ""
 "Originally introduced to Mongolia from China, it has 13 double wire-strings "
 "and a black lacquered wooden soundboard. Traditionally it was only played by "
 "townspeople."
+msgstr ""
+
+#. name:tritantri veena 
+#: DB:instrument/description:945
+msgid ""
+"Originally played in court, it consists of a 1m long piece of wood with a "
+"small intricately carved soundbox. It has 16 frets and 3 metal strings. "
+"Legend has it, the Persian Ameer Khusrau made some alterations and created "
+"the Persian sehtara (setar)."
 msgstr ""
 
 #. name:renaissance rackett 
@@ -3033,13 +3050,6 @@ msgstr ""
 msgid "The segunda is a bass garifuna drum."
 msgstr ""
 
-#. name:setar 
-#: DB:instrument/description:630
-msgid ""
-"The setar is a long-necked three-stringed lute found in Iran and Central "
-"Asia."
-msgstr ""
-
 #. name:shakuhachi 
 #: DB:instrument/description:173
 msgid "The shakuhachi is a Japanese end-blown flute."
@@ -4245,8 +4255,8 @@ msgid ""
 "of mandolin, it is tuned like it and the violin."
 msgstr ""
 
-#. name:saó ôi flute 
-#: DB:instrument/description:310
+#. name:sáo meò 
+#: DB:instrument/description:316
 msgid "saó ôi (flute of the Muong)"
 msgstr ""
 
