@@ -147,6 +147,10 @@ msgstr ""
 msgid "Lyricon"
 msgstr ""
 
+#: DB:instrument/name:442
+msgid "Marxophone"
+msgstr ""
+
 #: DB:instrument/name:92
 msgid "Mexican vihuela"
 msgstr ""
@@ -2175,10 +2179,6 @@ msgstr ""
 msgid "mark tree"
 msgstr ""
 
-#: DB:instrument/name:442
-msgid "marxophone"
-msgstr ""
-
 #: DB:instrument/name:633
 msgid "marímbula"
 msgstr ""
@@ -2889,10 +2889,6 @@ msgstr ""
 msgid "saz"
 msgstr ""
 
-#: DB:instrument/name:310
-msgid "saó ôi flute"
-msgstr ""
-
 #: DB:instrument/name:757
 msgid "segunda"
 msgstr ""
@@ -2902,6 +2898,7 @@ msgid "serpent"
 msgstr ""
 
 #: DB:instrument/name:630
+msgctxt "Persian three-stringed long-necked lute"
 msgid "setar"
 msgstr ""
 
@@ -3441,6 +3438,11 @@ msgstr ""
 #: DB:instrument/name:847
 msgctxt "Basque button accordion"
 msgid "trikiti"
+msgstr ""
+
+#: DB:instrument/name:945
+msgctxt "Indian three-stringed long-necked lute"
+msgid "tritantri veena"
 msgstr ""
 
 #: DB:instrument/name:698
