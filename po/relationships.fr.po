@@ -27,13 +27,13 @@
 # AO <email address hidden>, 2013-2015
 # Youenn Piolet, 2015
 # Youenn Piolet, 2015
-# yvanz, 2016-2018
+# yvanz, 2016-2019
 # yvanz, 2016
 # yvanz, 2018
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2018-12-29 18:23+0000\n"
+"PO-Revision-Date: 2019-01-22 21:05+0000\n"
 "Last-Translator: yvanz\n"
 "Language-Team: French (http://www.transifex.com/musicbrainz/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -4151,10 +4151,6 @@ msgstr "inventa"
 msgid "invented by"
 msgstr "inventé par"
 
-#: DB:link_type/link_phrase:112 DB:link_type/reverse_link_phrase:112
-msgid "involved with"
-msgstr "impliqué avec"
-
 #: DB:link_type/long_link_phrase:8 DB:link_type/long_link_phrase:227
 msgid "is a DJ-mix of"
 msgstr "est un DJ-mix de"
@@ -4282,10 +4278,6 @@ msgstr "est/était le directeur artistique de"
 msgid "is/was distributing the catalog of"
 msgstr "distribue/distribuait le catalogue de"
 
-#: DB:link_type/long_link_phrase:112
-msgid "is/was involved with"
-msgstr "es/était impliqué avec"
-
 #: DB:link_type/long_link_phrase:111
 msgid "is/was married to"
 msgstr "est/était marié(e) à"
@@ -4293,6 +4285,10 @@ msgstr "est/était marié(e) à"
 #: DB:link_type/long_link_phrase:201
 msgid "is/was reissuing the catalog of"
 msgstr "réédite/rééditait les catalogues de"
+
+#: DB:link_type/long_link_phrase:112
+msgid "is/was romantically involved with"
+msgstr "est/était en relation romantique avec"
 
 #: DB:link_type/long_link_phrase:200
 msgid "is/was the parent label of"
@@ -5164,6 +5160,10 @@ msgstr "société de gestion des droits"
 #: DB:link_type/link_phrase:349
 msgid "rights society associated with"
 msgstr "société de gestion des droits associé avec"
+
+#: DB:link_type/link_phrase:112 DB:link_type/reverse_link_phrase:112
+msgid "romantically involved with"
+msgstr "en relation romantique avec"
 
 #: DB:link_type/link_phrase:83 DB:link_type/link_phrase:258
 msgid "samples IMDb entry"
