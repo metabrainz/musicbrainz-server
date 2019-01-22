@@ -10,7 +10,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2019-01-05 10:52+0000\n"
+"PO-Revision-Date: 2019-01-15 20:40+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -1732,7 +1732,7 @@ msgstr "Dit wordt gebruikt om een <a href=\"/doc/Mix_Terminology#DJ_mix\">door e
 msgid ""
 "This is used to link a karaoke version of a song to the original song.<br/><br/>\n"
 "A karaoke version is a version of the song with the main vocals removed, designed to be used for karaoke. These are generally produced from the original masters by muting the main vocal track or by using post-processing filters to remove the vocals. Karaoke versions can be found labelled in numerous different ways other than \"karaoke\": instrumental (even if backing vocals are still present), off vocal, backing track, etc."
-msgstr "Dit wordt gebruikt om een karaokeversie van een lied aan het origineel te koppelen.<br/><br/>\nEen karaokeversie is een versie van een lied waarvan de belangrijkste vocalen zijn verwijderd zodat het voor karaoke kan worden gebruikt. Deze versies worden meestal geproduceerd door de originele masters door het vocale spoor te dempen, of door de vocalen met filters te verwijderen. Karaokeversies kunnen op verschillende manieren worden aangeduid, zoals instrumentaal (zelfs als de achtergrondvocalen nog aanwezig zijn), off vocal, backing track, etc."
+msgstr "Dit wordt gebruikt om een karaokeversie van een lied aan het origineel te koppelen.<br/><br/>\nEen karaokeversie is een versie van een lied waarvan de belangrijkste vocalen zijn verwijderd zodat het voor karaoke kan worden gebruikt. Deze versies worden meestal geproduceerd door het vocale spoor van de originele masters te dempen of door de vocalen met filters te verwijderen. Karaokeversies kunnen op verschillende manieren worden aangeduid, zoals instrumentaal (zelfs als de achtergrondvocalen nog aanwezig zijn), off vocal, backing track, etc."
 
 #: DB:link_type/description:213
 msgid "This is used to link a label to an image of its logo."

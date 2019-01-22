@@ -14,8 +14,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2018-12-18 08:49+0000\n"
-"Last-Translator: S.Brandt <email address hidden>\n"
+"PO-Revision-Date: 2019-01-09 17:37+0000\n"
+"Last-Translator: TL\n"
 "Language-Team: German (http://www.transifex.com/musicbrainz/musicbrainz/language/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -895,6 +895,7 @@ msgid "chitarra battente"
 msgstr ""
 
 #: DB:instrument/name:744
+msgctxt "Ancient South Indian fretless Carnatic slide lute"
 msgid "chitra veena"
 msgstr "Vichitra Vina"
 
@@ -912,6 +913,7 @@ msgid "chuurqin"
 msgstr ""
 
 #: DB:instrument/name:256
+msgctxt "European hammered dulcimer"
 msgid "cimbalom"
 msgstr ""
 
@@ -1928,6 +1930,7 @@ msgid "khene"
 msgstr "Khaen"
 
 #: DB:instrument/name:287
+msgctxt "Thai and Cambodian hammered dulcimer"
 msgid "khim"
 msgstr ""
 
@@ -2796,8 +2799,9 @@ msgid "rubab"
 msgstr ""
 
 #: DB:instrument/name:501
+msgctxt "Ancient large North Indian tube zither"
 msgid "rudra veena"
-msgstr "Rudra Vina"
+msgstr ""
 
 #: DB:instrument/name:617
 msgid "ryuteki"
@@ -2838,12 +2842,14 @@ msgid "sanshin"
 msgstr "Sanshin"
 
 #: DB:instrument/name:286
+msgctxt "Traditional Indian dulcimer"
 msgid "santoor"
-msgstr "Santur (Kaschmir)"
+msgstr ""
 
 #: DB:instrument/name:255
+msgctxt "Persian/Iran hammered dulcimer"
 msgid "santur"
-msgstr "Santur (Persien)"
+msgstr ""
 
 #: DB:instrument/name:244
 msgid "sanxian"
@@ -3497,6 +3503,10 @@ msgstr "Tuba"
 msgid "tubax"
 msgstr "Tubax"
 
+#: DB:instrument/name:944
+msgid "tube zither"
+msgstr ""
+
 #: DB:instrument/name:775
 msgctxt "analogue electronic monophonic Organ"
 msgid "tubon"
@@ -3807,8 +3817,9 @@ msgid "xylorimba"
 msgstr "Xylorimba"
 
 #: DB:instrument/name:254
+msgctxt "Chinese hammered dulcimer"
 msgid "yangqin"
-msgstr "Yangqin"
+msgstr ""
 
 #: DB:instrument/name:564
 msgid "yatga"
@@ -3919,6 +3930,7 @@ msgid "đàn tam"
 msgstr ""
 
 #: DB:instrument/name:257
+msgctxt "Vietnamese hammered dulcimer"
 msgid "đàn tam thập lục"
 msgstr ""
 
