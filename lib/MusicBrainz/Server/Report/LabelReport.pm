@@ -21,8 +21,7 @@ around inflate_rows => sub {
         map +{
             %$_,
             label => $labels->{ $_->{label_id} }
-        },
-            @$items
+        }, @$items
     ];
 };
 

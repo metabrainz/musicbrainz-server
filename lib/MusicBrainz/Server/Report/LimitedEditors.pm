@@ -3,11 +3,10 @@ use Moose;
 
 use MusicBrainz::Server::Constants qw( $EDITOR_MODBOT );
 
-with 'MusicBrainz::Server::Report::QueryReport';
+with 'MusicBrainz::Server::Report::EditorReport';
 
 sub query { "
-SELECT id, name, email, website, bio, member_since, email_confirm_date,
-       last_login_date, last_updated, deleted,
+SELECT id,
        row_number() OVER (ORDER BY id DESC)
   FROM editor eor
  WHERE id != $EDITOR_MODBOT

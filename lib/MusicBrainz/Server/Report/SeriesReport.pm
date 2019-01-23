@@ -17,8 +17,7 @@ around inflate_rows => sub {
         map +{
             %$_,
             series => $series->{ $_->{series_id} }
-        },
-            @$items
+        }, @$items
     ];
 };
 

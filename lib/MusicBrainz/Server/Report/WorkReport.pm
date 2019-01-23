@@ -7,18 +7,17 @@ around inflate_rows => sub {
     my $orig = shift;
     my $self = shift;
 
-    my $rows = $self->$orig(@_);
+    my $items = $self->$orig(@_);
 
     my $works = $self->c->model('Work')->get_by_ids(
-        map { $_->{work_id} } @$rows
+        map { $_->{work_id} } @$items
     );
 
     return [
         map +{
             %$_,
             work => $works->{ $_->{work_id} },
-        },
-            @$rows
+        }, @$items
     ];
 };
 
