@@ -46,8 +46,8 @@ const LabelSidebar = ({$c, label}: Props) => {
   return (
     <div id="sidebar">
       <CommonsImage
+        cachedImage={$c.stash.commons_image}
         entity={label}
-        image={$c.stash.commons_image}
       />
 
       <h2 className="label-information">

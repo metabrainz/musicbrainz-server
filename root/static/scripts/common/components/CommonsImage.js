@@ -15,22 +15,18 @@ import {l} from '../i18n';
 import entityHref from '../utility/entityHref';
 
 type Props = {|
-  +image: ?CommonsImageT,
+  +cachedImage: ?CommonsImageT,
   +entity: CoreEntityT,
 |};
 
 type State = {|
-  image: CommonsImageT | null,
+  image: ?CommonsImageT,
 |};
 
 class CommonsImage extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
-    this.state = {image: null};
-  }
-
-  static getDerivedStateFromProps(nextProps: Props) {
-    return {image: nextProps.image};
+    this.state = {image: props.cachedImage};
   }
 
   componentDidMount() {

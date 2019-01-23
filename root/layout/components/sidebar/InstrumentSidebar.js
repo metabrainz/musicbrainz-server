@@ -35,8 +35,8 @@ const InstrumentSidebar = ({$c, instrument}: Props) => {
   return (
     <div id="sidebar">
       <CommonsImage
+        cachedImage={$c.stash.commons_image}
         entity={instrument}
-        image={$c.stash.commons_image}
       />
 
       {instrument.typeID ? (

@@ -47,8 +47,8 @@ const WorkSidebar = ({$c, work}: Props) => {
   return (
     <div id="sidebar">
       <CommonsImage
+        cachedImage={$c.stash.commons_image}
         entity={work}
-        image={$c.stash.commons_image}
       />
 
       {showInfo ? (

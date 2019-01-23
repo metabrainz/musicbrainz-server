@@ -41,8 +41,8 @@ const PlaceSidebar = ({$c, place}: Props) => {
   return (
     <div id="sidebar">
       <CommonsImage
+        cachedImage={$c.stash.commons_image}
         entity={place}
-        image={$c.stash.commons_image}
       />
 
       <h2 className="place-information">

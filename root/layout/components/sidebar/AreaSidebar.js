@@ -40,8 +40,8 @@ const AreaSidebar = ({$c, area}: Props) => {
   return (
     <div id="sidebar">
       <CommonsImage
+        cachedImage={$c.stash.commons_image}
         entity={area}
-        image={$c.stash.commons_image}
       />
 
       <h2 className="area-information">

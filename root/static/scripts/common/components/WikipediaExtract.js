@@ -18,7 +18,7 @@ import Collapsible from './Collapsible';
 
 type Props = {|
   +entity: CoreEntityT,
-  +wikipediaExtract: WikipediaExtractT | null,
+  +cachedWikipediaExtract: WikipediaExtractT | null,
 |};
 
 type State = {|
@@ -28,11 +28,7 @@ type State = {|
 class WikipediaExtract extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
-    this.state = {wikipediaExtract: null};
-  }
-
-  static getDerivedStateFromProps(nextProps: Props) {
-    return {wikipediaExtract: nextProps.wikipediaExtract};
+    this.state = {wikipediaExtract: props.cachedWikipediaExtract};
   }
 
   componentDidMount() {
