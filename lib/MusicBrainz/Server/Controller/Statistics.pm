@@ -24,10 +24,10 @@ sub statistics : Path('')
 #       ALTER TABLE statistic ADD CONSTRAINT statistic_pkey PRIMARY KEY (id); fails
 #       for duplicate key 1
 #       count.quality.release.unknown is too high
-    my %statuses = map { $_->id => $_ } $c->model('ReleaseStatus')->get_all();
-    my %packagings = map { $_->id => $_ } $c->model('ReleasePackaging')->get_all();
-    my %primary_types = map { $_->id => $_ } $c->model('ReleaseGroupType')->get_all();
-    my %secondary_types = map { $_->id => $_ } $c->model('ReleaseGroupSecondaryType')->get_all();
+    my @statuses = $c->model('ReleaseStatus')->get_all();
+    my @packagings = $c->model('ReleasePackaging')->get_all();
+    my @primary_types = $c->model('ReleaseGroupType')->get_all();
+    my @secondary_types = $c->model('ReleaseGroupSecondaryType')->get_all();
     my @label_types = sort_by { $_->l_name } $c->model('LabelType')->get_all();
     my @work_types = sort_by { $_->l_name } $c->model('WorkType')->get_all();
     my @area_types = sort_by { $_->l_name } $c->model('AreaType')->get_all();
@@ -39,21 +39,27 @@ sub statistics : Path('')
     my @work_attribute_types = sort_by { $_->l_name }
         $c->model('WorkAttributeType')->get_all;
 
+    my %props = (
+        dateCollected => $latest_stats->{date_collected},
+        statuses => \@statuses,
+        packagings => \@packagings,
+        primaryTypes => \@primary_types,
+        secondaryTypes => \@secondary_types,
+        labelTypes => \@label_types,
+        workTypes => \@work_types,
+        areaTypes => \@area_types,
+        placeTypes => \@place_types,
+        seriesTypes => \@series_types,
+        instrumentTypes => \@instrument_types,
+        eventTypes => \@event_types,
+        workAttributeTypes => \@work_attribute_types,
+        stats => $latest_stats->{data},
+    );
+
     $c->stash(
-        template => 'statistics/index.tt',
-        statuses => \%statuses,
-        packagings => \%packagings,
-        primary_types => \%primary_types,
-        secondary_types => \%secondary_types,
-        label_types => \@label_types,
-        work_types => \@work_types,
-        area_types => \@area_types,
-        place_types => \@place_types,
-        series_types => \@series_types,
-        instrument_types => \@instrument_types,
-        event_types => \@event_types,
-        work_attribute_types => \@work_attribute_types,
-        stats => $latest_stats
+        current_view    => 'Node',
+        component_path  => 'statistics/Index',
+        component_props => \%props,
     );
 }
 
