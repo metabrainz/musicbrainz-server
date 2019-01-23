@@ -9,6 +9,7 @@ const _ = require('lodash');
 require('knockout-arraytransforms');
 
 const {addColon} = require('../../common/i18n');
+const MB = require('../../common/MB');
 const typeInfo = require('../../common/typeInfo');
 const deferFocus = require('../../edit/utility/deferFocus');
 const mergeDates = require('./mergeDates');

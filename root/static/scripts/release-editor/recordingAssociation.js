@@ -12,6 +12,7 @@ const {
         isCompleteArtistCredit,
         reduceArtistCredit,
     } = require('../common/immutable-entities');
+const MB = require('../common/MB');
 const debounce = require('../common/utility/debounce');
 const releaseEditor = require('./viewModel');
 const utils = require('./utils');

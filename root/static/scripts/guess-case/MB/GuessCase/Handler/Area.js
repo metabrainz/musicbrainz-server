@@ -18,6 +18,7 @@
 
 */
 
+const MB = require('../../../../common/MB');
 const flags = require('../../../flags');
 const utils = require('../../../utils');
 

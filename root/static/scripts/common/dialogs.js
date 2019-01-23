@@ -3,9 +3,11 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-const {l, strings} = require('./i18n');
+const $ = require('jquery');
+const _ = require('lodash');
 
-(function (MB) {
+const {l, strings} = require('./i18n');
+const MB = require('./MB');
 
     $.widget("mb.iframeDialog", $.ui.dialog, {
 
@@ -118,5 +120,3 @@ const {l, strings} = require('./i18n');
             event.stopPropagation();
         });
     });
-
-}(MB = MB || {}));

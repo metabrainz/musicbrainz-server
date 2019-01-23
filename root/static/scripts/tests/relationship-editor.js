@@ -10,6 +10,7 @@ import ko from 'knockout';
 import _ from 'lodash';
 import test from 'tape';
 
+import MB from '../common/MB';
 import typeInfo from '../common/typeInfo';
 import {LinkAttribute, Relationship} from '../relationship-editor/common/fields';
 import {

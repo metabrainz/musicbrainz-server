@@ -8,6 +8,7 @@ const ReactDOM = require('react-dom');
 
 const {l} = require('../../common/i18n');
 const {artistCreditFromArray} = require('../../common/immutable-entities');
+const MB = require('../../common/MB');
 const ArtistCreditEditor = require('./ArtistCreditEditor');
 import FieldErrors from '../../../../components/FieldErrors';
 import FormRow from '../../../../components/FormRow';

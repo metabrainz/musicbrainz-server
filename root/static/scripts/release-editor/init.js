@@ -14,6 +14,7 @@ const {
         hasVariousArtists,
         reduceArtistCredit,
     } = require('../common/immutable-entities');
+const MB = require('../common/MB');
 const clean = require('../common/utility/clean');
 const request = require('../common/utility/request');
 const externalLinks = require('../edit/externalLinks');

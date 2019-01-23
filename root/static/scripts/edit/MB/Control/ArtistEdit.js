@@ -3,7 +3,10 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
+const $ = require('jquery');
+
 const i18n = require('../../../common/i18n');
+const MB = require('../../../common/MB');
 
 MB.Control.ArtistEdit = function () {
     var self = {};

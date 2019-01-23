@@ -3,12 +3,14 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
+const $ = require('jquery');
 const ko = require('knockout');
 const _ = require('lodash');
 const React = require('react');
 const ReactDOM = require('react-dom');
 
 const {l} = require('../common/i18n');
+const MB = require('../common/MB');
 const clean = require('../common/utility/clean');
 const isBlank = require('../common/utility/isBlank');
 const request = require('../common/utility/request');

@@ -8,6 +8,7 @@ const ko = require('knockout');
 const _ = require('lodash');
 
 const i18n = require('../common/i18n');
+const MB = require('../common/MB');
 const request = require('../common/utility/request');
 const {ViewModel} = require('./common/viewModel');
 

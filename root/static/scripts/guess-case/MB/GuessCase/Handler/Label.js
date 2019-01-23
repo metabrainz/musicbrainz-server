@@ -19,6 +19,7 @@
 
 */
 
+const MB = require('../../../../common/MB');
 const flags = require('../../../flags');
 
 MB.GuessCase = (MB.GuessCase) ? MB.GuessCase : {};

@@ -18,6 +18,10 @@
 
 */
 
+const $ = require('jquery');
+
+const MB = require('../../MB');
+
 MB.Control.SelectAll = function (table) {
     var self = {};
 

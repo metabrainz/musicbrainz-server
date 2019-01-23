@@ -13,6 +13,7 @@ require('../../../lib/jquery-ui');
 const {PART_OF_SERIES_LINK_TYPES} = require('../../common/constants');
 const i18n = require('../../common/i18n');
 import {l_relationships} from '../../common/i18n/relationships';
+const MB = require('../../common/MB');
 const linkTypeInfo = require('../../common/typeInfo').link_type;
 const URLCleanup = require('../../edit/URLCleanup');
 const dates = require('../../edit/utility/dates');

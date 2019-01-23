@@ -1,3 +1,4 @@
+const $ = require('jquery');
 const tablesorter = require('tablesorter');
 
 tablesorter.addWidget({

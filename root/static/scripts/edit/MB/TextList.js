@@ -18,6 +18,10 @@
 
 */
 
+const $ = require('jquery');
+
+const MB = require('../../common/MB');
+
 MB.Form = (MB.Form) ? MB.Form : {};
 
 MB.Form.TextList = function (input) {

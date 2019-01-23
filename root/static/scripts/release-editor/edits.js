@@ -3,11 +3,13 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
+const $ = require('jquery');
 const ko = require('knockout');
 const _ = require('lodash');
 
 const {VIDEO_ATTRIBUTE_GID} = require('../common/constants');
 const {reduceArtistCredit} = require('../common/immutable-entities');
+const MB = require('../common/MB');
 const clean = require('../common/utility/clean');
 const debounce = require('../common/utility/debounce');
 const isPositiveInteger = require('../edit/utility/isPositiveInteger');

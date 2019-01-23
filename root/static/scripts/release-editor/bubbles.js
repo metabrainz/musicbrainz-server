@@ -4,7 +4,9 @@
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
 const _ = require('lodash');
+const ko = require('knockout');
 
+const MB = require('../common/MB');
 const releaseEditor = require('./viewModel');
 
 function bubbleDoc(options) {

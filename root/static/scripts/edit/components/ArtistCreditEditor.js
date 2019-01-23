@@ -20,6 +20,7 @@ const {
     isComplexArtistCredit,
     reduceArtistCredit,
   } = require('../../common/immutable-entities');
+const MB = require('../../common/MB');
 const {
   compose2,
   deleteIndex,
