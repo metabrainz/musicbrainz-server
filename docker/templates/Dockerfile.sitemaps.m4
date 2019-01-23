@@ -23,3 +23,5 @@ copy_mb(`docker/templates/DBDefs.pm.ctmpl lib/')
 RUN chown_mb(`/home/musicbrainz/log MBS_ROOT/root/static/sitemaps')
 
 git_info
+
+RUN chmod 644 /etc/container_environment.sh
