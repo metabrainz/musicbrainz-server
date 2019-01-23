@@ -28,7 +28,6 @@ INSERT INTO release (id, gid, name, artist_credit, release_group)
 
 INSERT INTO edit (id, editor, type, status, expire_time) VALUES (1, 1, 316, 2, now());
 INSERT INTO edit_data (edit, data) VALUES (1, '{}');
-INSERT INTO cover_art_archive.image_type (mime_type, suffix) VALUES ('image/jpeg', 'jpg');
 INSERT INTO cover_art_archive.cover_art (id, release, mime_type, edit, ordering)
   VALUES (12345, 1, 'image/jpeg', 1, 1), (12346, 1, 'image/jpeg', 1, 2);
 EOSQL

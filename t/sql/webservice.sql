@@ -17,8 +17,6 @@ INSERT INTO area (id, gid, name, type) VALUES
 INSERT INTO country_area (area) VALUES ( 13), ( 81), (107), (150), (221), (222), (241);
 INSERT INTO iso_3166_1 (area, code) VALUES ( 13, 'AU'), ( 81, 'DE'), (107, 'JP'), (150, 'NL'), (221, 'GB'), (222, 'US'), (241, 'XE');
 
-INSERT INTO cover_art_archive.image_type (mime_type, suffix) VALUES ('image/jpeg', 'jpg');
-
 -- URLs
 
 INSERT INTO url (id, edits_pending, gid, last_updated, url) VALUES (151, 0, '4d4e9596-bde1-4f0c-93d5-16377ce7e89d', '2011-01-18 16:23:38+00', 'http://www.corporationblend.com/');

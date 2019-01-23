@@ -9,11 +9,6 @@ with 't::Context';
 test 'Calculates S3 policy/signature fields correctly' => sub {
     my $test = shift;
 
-    $test->c->sql->do(<<'EOSQL');
-INSERT INTO cover_art_archive.image_type (mime_type, suffix)
-VALUES ('image/jpeg', 'jpg');
-EOSQL
-
     my $post_fields = $test->c->model('CoverArtArchive')->post_fields(
         'mbid-cdbe40c5-192a-440c-8e68-888dcf884a60',
         'cdbe40c5-192a-440c-8e68-888dcf884a60',
