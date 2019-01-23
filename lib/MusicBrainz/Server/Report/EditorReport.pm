@@ -17,8 +17,7 @@ around inflate_rows => sub {
         map +{
             %$_,
             editor => $editors->{ $_->{id} }
-        },
-        @$items
+        }, @$items
     ];
 };
 
