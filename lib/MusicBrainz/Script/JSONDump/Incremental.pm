@@ -175,6 +175,13 @@ sub run_impl {
                    '--limit', '1'
                 );
 
+                if ($ENV{MUSICBRAINZ_RUNNING_TESTS}) {
+                    push @replicate_args, (
+                        '--lockfile',
+                        '/tmp/.mb-LoadReplicationChanges-' . $self->database,
+                    );
+                }
+
                 my $replication_uri = $self->replication_access_uri;
                 if ($replication_uri) {
                     push @replicate_args, '--base-uri', $replication_uri;
