@@ -5,6 +5,7 @@ use Test::Deep qw( cmp_set );
 use utf8;
 
 use Encode;
+use HTTP::Request;
 use URI;
 use URI::QueryParam;
 use JSON;
@@ -238,6 +239,13 @@ test 'Exchange authorization code' => sub {
 
     my ($code, $response);
 
+    # CORS preflight
+    $test->mech->request(HTTP::Request->new(OPTIONS => '/oauth2/token'));
+    $response = $test->mech->response;
+    is($response->code, 200);
+    is($response->header('allow'), 'POST, OPTIONS');
+    is($response->header('access-control-allow-origin'), '*');
+
     # Unknown authorization code
     $code = "xxxxxxxxxxxxxxxxxxxxxx";
     $test->mech->post('/oauth2/token', {
@@ -447,6 +455,7 @@ test 'Exchange refresh code' => sub {
     ok($response->{access_token});
     ok($response->{refresh_token});
     ok($response->{expires_in});
+    $test->mech->header_is('access-control-allow-origin', '*');
 };
 
 test 'Token info' => sub {
@@ -455,6 +464,13 @@ test 'Token info' => sub {
     MusicBrainz::Server::Test->prepare_test_database($test->c, '+oauth');
 
     my ($code, $response);
+
+    # CORS preflight
+    $test->mech->request(HTTP::Request->new(OPTIONS => '/oauth2/tokeninfo'));
+    $response = $test->mech->response;
+    is($response->code, 200);
+    is($response->header('allow'), 'GET, OPTIONS');
+    is($response->header('access-control-allow-origin'), '*');
 
     # Unknown token
     $code = "xxxxxxxxxxxxxxxxxxxxxx";
@@ -485,6 +501,7 @@ test 'Token info' => sub {
         [ split /\s+/, $response->{scope} ],
         [ qw( profile collection rating email tag submit_barcode submit_isrc ) ]
     );
+    $test->mech->header_is('access-control-allow-origin', '*');
 };
 
 test 'User info' => sub {
@@ -493,6 +510,14 @@ test 'User info' => sub {
     MusicBrainz::Server::Test->prepare_test_database($test->c, '+oauth');
 
     my ($code, $response);
+
+    # CORS preflight
+    $test->mech->request(HTTP::Request->new(OPTIONS => '/oauth2/userinfo'));
+    $response = $test->mech->response;
+    is($response->code, 200);
+    is($response->header('allow'), 'GET, OPTIONS');
+    is($response->header('access-control-allow-headers'), 'authorization');
+    is($response->header('access-control-allow-origin'), '*');
 
     # Unknown token
     $code = "xxxxxxxxxxxxxxxxxxxxxx";
@@ -519,6 +544,7 @@ test 'User info' => sub {
         email_verified => JSON::true,
         metabrainz_user_id => 1,
     });
+    $test->mech->header_is('access-control-allow-origin', '*');
 
     # Valid token without email
     $code = "7Fjfp0ZBr1KtDRbnfVdmIw";
