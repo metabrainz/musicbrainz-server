@@ -14,7 +14,8 @@ import keyBy from 'terable/keyBy';
 import hydrate, {minimalEntity} from '../../../../utility/hydrate';
 import loopParity from '../../../../utility/loopParity';
 import {GENRE_TAGS} from '../constants';
-const {l, lp} = require('../i18n');
+const {l, lp, N_l} = require('../i18n');
+import NopArgs from '../i18n/NopArgs';
 const MB = require('../MB');
 import bracketed from '../utility/bracketed';
 import isBlank from '../utility/isBlank';
@@ -65,11 +66,11 @@ function splitTags(tags) {
 type VoteT = 1 | 0 | -1;
 
 type VoteButtonProps = {
-  activeTitle: string,
+  activeTitle: string | NopArgs,
   callback: (VoteT) => void,
   currentVote: VoteT,
   text: string,
-  title: string,
+  title: string | NopArgs,
   vote: VoteT,
 };
 
@@ -87,7 +88,9 @@ class VoteButton extends React.Component<VoteButtonProps> {
 
     var buttonProps = {
       type: 'button',
-      title: isActive ? activeTitle : (currentVote === 0 ? title : l('Withdraw vote')),
+      title: isActive
+        ? activeTitle.toString()
+        : (currentVote === 0 ? title.toString() : l('Withdraw vote')),
       disabled: isActive,
       className: 'tag-vote tag-' + VOTE_ACTIONS[vote],
     };
@@ -103,8 +106,8 @@ class VoteButton extends React.Component<VoteButtonProps> {
 class UpvoteButton extends VoteButton {
   static defaultProps = {
     text: '+',
-    title: l('Upvote'),
-    activeTitle: l('You’ve upvoted this tag'),
+    title: N_l('Upvote'),
+    activeTitle: N_l('You’ve upvoted this tag'),
     vote: 1,
   }
 }
@@ -112,8 +115,8 @@ class UpvoteButton extends VoteButton {
 class DownvoteButton extends VoteButton {
   static defaultProps = {
     text: '\u2212',
-    title: l('Downvote'),
-    activeTitle: l('You’ve downvoted this tag'),
+    title: N_l('Downvote'),
+    activeTitle: N_l('You’ve downvoted this tag'),
     vote: -1,
   }
 }
