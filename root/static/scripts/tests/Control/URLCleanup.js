@@ -10,8 +10,8 @@ import _ from 'lodash';
 
 import {LINK_TYPES, cleanURL, guessType, validationRules} from '../../edit/URLCleanup';
 
-/* eslint-disable indent, sort-keys */
-const test_data = [
+/* eslint-disable indent, max-len, sort-keys */
+const testData = [
   // 45cat
   {
                      input_url: 'https://www.45cat.com/artist/edwin-starr',
@@ -455,19 +455,19 @@ const test_data = [
             expected_clean_url: 'https://www.bbc.co.uk/music/artists/b52dd210-909c-461a-a75d-19e85a522042',
   },
   // Beatport
-  {                               // Closed in Dec. 2017, replaced with www.beatport.com/chart
+  {                             // Closed in Dec. 2017, replaced with www.beatport.com/chart
                      input_url: 'http://dj.beatport.com/thegoldenboyuk',
              input_entity_type: 'artist',
     expected_relationship_type: 'downloadpurchase',
        only_valid_entity_types: [],
   },
-  {                               // Closed in Dec. 2017, replaced with www.beatport.com/best-new-tracks
+  {                             // Closed in Dec. 2017, replaced with www.beatport.com/best-new-tracks
                      input_url: 'http://mixes.beatport.com/dj/lstunn/450603',
              input_entity_type: 'artist',
     expected_relationship_type: 'downloadpurchase',
        only_valid_entity_types: [],
   },
-  {                               // Not supported by MusicBrainz: midi, patches, presets, and so on.
+  {                             // Not supported by MusicBrainz: midi, patches, presets, and so on.
                      input_url: 'http://sounds.beatport.com/publisher/Danyella/34462',
              input_entity_type: 'artist',
     expected_relationship_type: 'downloadpurchase',
@@ -480,21 +480,21 @@ const test_data = [
             expected_clean_url: 'https://www.beatport.com/artist/pryda/10554',
        only_valid_entity_types: ['artist'],
   },
-  {                               // Nowadays display the same content with another UI
+  {                             // Nowadays display the same content with another UI
                      input_url: 'http://classic.beatport.com/artist/pryda/10554/tracks',
              input_entity_type: 'artist',
     expected_relationship_type: 'downloadpurchase',
             expected_clean_url: 'https://www.beatport.com/artist/pryda/10554',
        only_valid_entity_types: ['artist'],
   },
-  {                               // Nowadays redirect to www.beatport.com
+  {                             // Nowadays redirect to www.beatport.com
                      input_url: 'https://pro.beatport.com/artist/pryda/10554#',
              input_entity_type: 'artist',
     expected_relationship_type: 'downloadpurchase',
             expected_clean_url: 'https://www.beatport.com/artist/pryda/10554',
        only_valid_entity_types: ['artist'],
   },
-  {                               // Used to fool the detection of missing slug (MBS-9743)
+  {                             // Used to fool the detection of missing slug (MBS-9743)
                      input_url: 'https://www.beatport.com/artist/4orcedj/208047',
              input_entity_type: 'artist',
     expected_relationship_type: 'downloadpurchase',
@@ -508,35 +508,35 @@ const test_data = [
             expected_clean_url: 'https://www.beatport.com/release/pryda-10-vol-i/1563118',
        only_valid_entity_types: ['release'],
   },
-  {                               // Used to fool the detection of missing slug (MBS-9846)
+  {                             // Used to fool the detection of missing slug (MBS-9846)
                      input_url: 'http://classic.beatport.com/release/4/2361374',
              input_entity_type: 'release',
     expected_relationship_type: 'downloadpurchase',
             expected_clean_url: 'https://www.beatport.com/release/4/2361374',
        only_valid_entity_types: ['release'],
   },
-  {                               // Legacy URL format (real example)
+  {                             // Legacy URL format (real example)
                      input_url: 'https://www.beatport.com/en-US/html/content/release/detail/161035/Back%20To%20The%20Future',
              input_entity_type: 'release',
     expected_relationship_type: 'downloadpurchase',
             expected_clean_url: 'https://www.beatport.com/release/back-to-the-future/161035',
        only_valid_entity_types: ['release'],
   },
-  {                               // Legacy URL format (made up to test slug conversion)
+  {                             // Legacy URL format (made up to test slug conversion)
                      input_url: 'https://www.beatport.com/en-US/html/content/release/detail/06130/%40@%26%25%24$%23%22%21!-&tracks#',
              input_entity_type: 'release',
     expected_relationship_type: 'downloadpurchase',
             expected_clean_url: 'https://www.beatport.com/release/at-at-and-percent-money-money-pound-!!/6130',
        only_valid_entity_types: ['release'],
   },
-  {                               // Legacy URL format missing slug (real example)
+  {                             // Legacy URL format missing slug (real example)
                      input_url: 'https://www.beatport.com/en-US/html/content/release/detail/287442/',
              input_entity_type: 'release',
     expected_relationship_type: 'downloadpurchase',
             expected_clean_url: 'https://www.beatport.com/release/---/287442',
        only_valid_entity_types: ['release'],
   },
-  {                               // Nowadays erroneous redirect for legacy URL format missing slug (same example)
+  {                             // Nowadays erroneous redirect for legacy URL format missing slug (same example)
                      input_url: 'https://www.beatport.com/release//287442',
              input_entity_type: 'release',
     expected_relationship_type: 'downloadpurchase',
@@ -1058,9 +1058,8 @@ const test_data = [
     expected_relationship_type: 'discogs',
             expected_clean_url: 'https://www.discogs.com/artist/301',
   },
-  {
+  {                             // old-style URL without numerical ID
                      input_url: 'http://www.discogs.com/artist/Source+Direct',
-                                // old-style URL without numerical ID
              input_entity_type: 'artist',
     expected_relationship_type: 'discogs',
        only_valid_entity_types: [],
@@ -1096,9 +1095,8 @@ const test_data = [
     expected_relationship_type: 'discogs',
             expected_clean_url: 'https://www.discogs.com/label/2262',
   },
-  {
+  {                             // old-style URL without numerical ID
                      input_url: 'http://www.discogs.com/label/Demonic',
-                                // old-style URL without numerical ID
              input_entity_type: 'label',
     expected_relationship_type: 'discogs',
        only_valid_entity_types: [],
@@ -3290,9 +3288,8 @@ const test_data = [
     expected_relationship_type: 'score',
             expected_clean_url: 'https://commons.wikimedia.org/wiki/File:$%26%2B,/:;%3D@%5B%5D_%23$%25%2B,/:;%3F@',
   },
-  {
+  {                             // gallery page
                      input_url: 'https://commons.wikimedia.org/wiki/Within_Temptation',
-                                // gallery page
              input_entity_type: 'artist',
     expected_relationship_type: 'image',
        only_valid_entity_types: [],
@@ -3361,9 +3358,8 @@ const test_data = [
     expected_relationship_type: 'lyrics',
             expected_clean_url: 'https://pt.wikisource.org/wiki/A_Portuguesa',
   },
-  {
+  {                             // rare languages are on wikisource.org directly
                      input_url: 'http://wikisource.org/wiki/Reise,_Reise',
-                                // rare languages are on wikisource.org directly
              input_entity_type: 'work',
     expected_relationship_type: 'lyrics',
             expected_clean_url: 'https://wikisource.org/wiki/Reise,_Reise',
@@ -3431,27 +3427,38 @@ const test_data = [
             expected_clean_url: 'https://www.youtube.com/watch?v=4eUqsUZBluA',
   },
 ];
-/* eslint-enable indent, sort-keys */
+/* eslint-enable indent, max-len, sort-keys */
 
-const relationship_types_by_uuid = _.reduce(LINK_TYPES, function (results, rel_uuid_by_entity_type, relationship_type) {
-  _.each(rel_uuid_by_entity_type, function (rel_uuid) {
-    (results[rel_uuid] || (results[rel_uuid] = [])).push(relationship_type);
+const relationshipTypesByUuid = _.reduce(LINK_TYPES, function (
+  results,
+  relUuidByEntityType,
+  relationshipType,
+) {
+  _.each(relUuidByEntityType, function (relUuid) {
+    (results[relUuid] || (results[relUuid] = [])).push(relationshipType);
   });
   return results;
 }, {});
 
-const previous_match_tests = [];
+const previousMatchTests = [];
 
-function doMatchSubtest(st, entity_type, url, label, expected_relationship_type) {
-  const rel_uuid = guessType(entity_type, url);
-  const actual_relationship_type = _.find(relationship_types_by_uuid[rel_uuid], function (s) {
-    return s === expected_relationship_type;
-  });
-  st.equal(actual_relationship_type, expected_relationship_type, 'Match ' + label + ' URL relationship type for ' + entity_type + ' entities');
-  previous_match_tests.push(entity_type + '+' + url);
+function doMatchSubtest(
+  st,
+  entityType,
+  url,
+  label,
+  expectedRelationshipType,
+) {
+  const relUuid = guessType(entityType, url);
+  const actualRelationshipType = _.find(relationshipTypesByUuid[relUuid],
+    function (s) {
+      return s === expectedRelationshipType;
+    });
+  st.equal(actualRelationshipType, expectedRelationshipType, 'Match ' + label + ' URL relationship type for ' + entityType + ' entities');
+  previousMatchTests.push(entityType + '+' + url);
 }
 
-_.each(test_data, function (subtest, i) {
+_.each(testData, function (subtest, i) {
   test('input URL [' + i + '] = ' + subtest.input_url, {}, function (st) {
     let tested = false;
     if (!subtest.input_url) {
@@ -3460,8 +3467,8 @@ _.each(test_data, function (subtest, i) {
       return;
     }
     if (subtest.input_entity_type) {
-      if (subtest.hasOwnProperty('expected_relationship_type')) {
-        if (previous_match_tests.indexOf(subtest.input_entity_type + '+' + subtest.input_url) !== -1) {
+      if ('expected_relationship_type' in subtest) {
+        if (previousMatchTests.indexOf(subtest.input_entity_type + '+' + subtest.input_url) !== -1) {
           st.fail('Match test is worthless: Duplication has been detected: ' + JSON.stringify(subtest));
         }
         doMatchSubtest(st, subtest.input_entity_type, subtest.input_url, 'input', subtest.expected_relationship_type);
@@ -3471,16 +3478,16 @@ _.each(test_data, function (subtest, i) {
         st.end();
         return;
       }
-    } else if (subtest.hasOwnProperty('expected_relationship_type')) {
+    } else if ('expected_relationship_type' in subtest) {
       st.fail('Test is invalid: "expected_relationship_type" is specified without "input_entity_type".');
       st.end();
       return;
     }
-    const actual_clean_url = cleanURL(subtest.input_url);
+    const actualCleanUrl = cleanURL(subtest.input_url);
     if (subtest.expected_clean_url) {
-      st.equal(actual_clean_url, subtest.expected_clean_url, 'Clean up');
-      if (subtest.input_entity_type && subtest.hasOwnProperty('expected_relationship_type') &&
-                        previous_match_tests.indexOf(subtest.input_entity_type + '+' + subtest.expected_clean_url) === -1) {
+      st.equal(actualCleanUrl, subtest.expected_clean_url, 'Clean up');
+      if (subtest.input_entity_type && 'expected_relationship_type' in subtest &&
+                        previousMatchTests.indexOf(subtest.input_entity_type + '+' + subtest.expected_clean_url) === -1) {
         doMatchSubtest(st, subtest.input_entity_type, subtest.expected_clean_url, 'clean', subtest.expected_relationship_type);
       }
       tested = true;
@@ -3491,27 +3498,34 @@ _.each(test_data, function (subtest, i) {
       return;
     }
     if (subtest.only_valid_entity_types) {
-      const relationship_type = subtest.input_relationship_type || subtest.expected_relationship_type;
-      const clean_url = subtest.expected_clean_url || actual_clean_url;
-      if (!relationship_type) {
+      const relationshipType = subtest.input_relationship_type ||
+        subtest.expected_relationship_type;
+      const cleanUrl = subtest.expected_clean_url || actualCleanUrl;
+      if (!relationshipType) {
         st.fail('Test is invalid: "only_valid_entity_types" are specified with neither "expected_relationship_type" nor "input_relationship_type".');
         st.end();
         return;
       }
-      let nb_tested_rules = 0;
-      const validation_results = _.reduce(LINK_TYPES[relationship_type], function (results, rel_uuid, entity_type) {
-        const rule = validationRules[rel_uuid];
-        const is_valid = rule ? rule(clean_url) || false : true;
-        results[is_valid].splice(_.sortedIndex(results[is_valid], entity_type), 0, entity_type);
-        nb_tested_rules += rule ? 1 : 0;
-        return results;
-      }, {true: [], false: []});
-      if (nb_tested_rules === 0) {
+      let nbTestedRules = 0;
+      const validationResults = _.reduce(LINK_TYPES[relationshipType],
+        function (results, relUuid, entityType) {
+          const rule = validationRules[relUuid];
+          const isValid = rule ? rule(cleanUrl) || false : true;
+          results[isValid].splice(
+            _.sortedIndex(results[isValid], entityType),
+            0,
+            entityType,
+          );
+          nbTestedRules += rule ? 1 : 0;
+          return results;
+        }, {false: [], true: []});
+      if (nbTestedRules === 0) {
         st.fail('Validation test is worthless: No validation rule has been actually tested.');
       } else {
-        st.deepEqual(validation_results.true, subtest.only_valid_entity_types.sort(),
+        st.deepEqual(validationResults.true,
+          subtest.only_valid_entity_types.sort(),
           'Validate clean URL by exactly ' + subtest.only_valid_entity_types.length +
-                            ' among ' + nb_tested_rules + ' ' + relationship_type + '.* rules');
+                            ' among ' + nbTestedRules + ' ' + relationshipType + '.* rules');
         tested = true;
       }
     }
