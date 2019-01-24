@@ -243,7 +243,7 @@
   <fieldset class="guesscase">
     <legend>[% lp('Guess case', 'header') %]</legend>
     [% IF show_icon %]
-      <img src="[% c.model('FileCache').path_to('/images/icons/guesscase.32x32.png') %]" style="float: left; margin: 1em;" alt="" />
+      [% React.embed(c, 'static/scripts/edit/components/GuessCaseIcon') %]
     [% END %]
     <div style="float: right; margin: 10px;" class="buttons">
       <button id="guess-case-button" type="button" data-bind="click: guessCase">[% lp('Guess case', 'button/menu') %]</button>

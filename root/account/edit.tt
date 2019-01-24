@@ -24,7 +24,7 @@
         [% area_field = form.field('area.name') %]
         <label for="id-profile.area.name">[% l('Location:') %]</label>
         <span class="area autocomplete">
-          <img class="search" src="[% c.model('FileCache').path_to('/images/icons/search.png') %]" alt="[% l('Search') %]" />
+          [% React.embed(c, 'static/scripts/common/components/SearchIcon') %]
           [% r.hidden(form.field('area').field('gid'), class => 'gid') %]
           [% r.hidden('area_id', class => 'id') %]
           [% r.text(area_field, class => 'name') %]
