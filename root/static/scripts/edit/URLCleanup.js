@@ -401,7 +401,7 @@ const CLEANUPS = {
       let asin = '';
       let m;
 
-      if ((m = url.match(/(?:amazon|amzn)\.([a-z\.]+)\//))) {
+      if ((m = url.match(/(?:amazon|amzn)\.([a-z.]+)\//))) {
         tld = m[1];
         if (tld === 'jp') {
           tld = 'co.jp';
@@ -536,7 +536,7 @@ const CLEANUPS = {
       return url;
     },
     validate: function (url, id) {
-      const m = /^https:\/\/www.bandsintown\.com\/(?:(a|e|v)\/)?([^\/?#]+)$/.exec(url);
+      const m = /^https:\/\/www.bandsintown\.com\/(?:([aev])\/)?([^\/?#]+)$/.exec(url);
       if (m) {
         const prefix = m[1];
         const target = m[2];
@@ -1245,8 +1245,7 @@ const CLEANUPS = {
     type: LINK_TYPES.license,
     clean: function (url) {
       url = url.replace(/^(https?:\/\/)?([^\/]+\.)?creativecommons\.org\//, 'https://creativecommons.org/');
-      url = url.replace(/^https:\/\/creativecommons\.org\/(licenses|publicdomain)\/(.+)\/((legalcode|deed)((\.|-)[A-Za-z_]+)?)?/, 'https://creativecommons.org/$1/$2/');
-
+      url = url.replace(/^https:\/\/creativecommons\.org\/(licenses|publicdomain)\/(.+)\/(?:(?:legalcode|deed)(?:[.-][A-Za-z_]+)?)?/, 'https://creativecommons.org/$1/$2/');
       // make sure there is exactly one terminating slash
       url = url.replace(/^(https:\/\/creativecommons\.org\/licenses\/(?:by|(?:by-|)(?:nc|nc-nd|nc-sa|nd|sa)|(?:nc-|)sampling\+?)\/[0-9]+\.[0-9]+(?:\/(?:ar|au|at|be|br|bg|ca|cl|cn|co|cr|hr|cz|dk|ec|ee|fi|fr|de|gr|gt|hk|hu|in|ie|il|it|jp|lu|mk|my|mt|mx|nl|nz|no|pe|ph|pl|pt|pr|ro|rs|sg|si|za|kr|es|se|ch|tw|th|uk|scotland|us|vn)|))\/*$/, '$1/');
       url = url.replace(/^(https:\/\/creativecommons\.org\/publicdomain\/zero\/[0-9]+\.[0-9]+)\/*$/, '$1/');
@@ -1290,7 +1289,7 @@ const CLEANUPS = {
       return url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?lyric\.evesta\.jp\/([al]\w+\.html).*$/, 'http://lyric.evesta.jp/$1');
     },
     validate: function (url, id) {
-      const m = /^http:\/\/lyric\.evesta\.jp\/(a|l)\w+\.html$/.exec(url);
+      const m = /^http:\/\/lyric\.evesta\.jp\/([al])\w+\.html$/.exec(url);
       if (m) {
         const prefix = m[1];
         switch (id) {
@@ -1470,7 +1469,7 @@ const CLEANUPS = {
       new RegExp('^(https?://)?(www\\.)?metal-archives\\.com/(bands?|albums|artists|labels)', 'i'),
       new RegExp('^(https?://)?(www\\.)?spirit-of-metal\\.com/', 'i'),
       new RegExp('^(https?://)?(www\\.)?ibdb\\.com/', 'i'),
-      new RegExp('^(https?://)?(www\\.)?lortel.\\org/', 'i'),
+      new RegExp('^(https?://)?(www\\.)?lortel\\.org/', 'i'),
       new RegExp('^(https?://)?(www\\.)?theatricalia\\.com/', 'i'),
       new RegExp('^(https?://)?(www\\.)?ocremix\\.org/', 'i'),
       new RegExp('^(https?://)?(www\\.)?(trove\\.)?nla\\.gov\\.au/', 'i'),
@@ -2128,7 +2127,7 @@ const CLEANUPS = {
       url = url.replace(/^https:\/\/www\.youtube\.com\/.*[?&](v=[a-zA-Z0-9_-]+).*$/, 'https://www.youtube.com/watch?$1');
       // YouTube embeds
       url = url.replace(/^https:\/\/www\.youtube\.com\/(?:embed|v)\/([a-zA-Z0-9_-]+).*$/, 'https://www.youtube.com/watch?v=$1');
-      url = url.replace(/\/user\/([^\/\?#]+).*$/, '/user/$1');
+      url = url.replace(/\/user\/([^\/?#]+).*$/, '/user/$1');
       return url;
     },
     validate: function (url, id) {
