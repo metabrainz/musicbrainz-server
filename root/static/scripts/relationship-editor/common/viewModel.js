@@ -7,13 +7,27 @@ const $ = require('jquery');
 const ko = require('knockout');
 const _ = require('lodash');
 
-const i18n = require('../../common/i18n');
+const {N_l} = require('../../common/i18n');
 const MB = require('../../common/MB');
 const typeInfo = require('../../common/typeInfo');
 import parseDate from '../../common/utility/parseDate';
 const request = require('../../common/utility/request');
 const {hasSessionStorage} = require('../../common/utility/storage');
 const fields = require('./fields');
+
+const addAnotherEntityLabels = {
+    area: N_l('Add another area'),
+    artist: N_l('Add another artist'),
+    event: N_l('Add another event'),
+    instrument: N_l('Add another instrument'),
+    label: N_l('Add another label'),
+    place: N_l('Add another place'),
+    recording: N_l('Add another recording'),
+    release: N_l('Add another release'),
+    release_group: N_l('Add another release group'),
+    series: N_l('Add another series'),
+    work: N_l('Add another work'),
+};
 
 (function (RE) {
 
@@ -99,7 +113,8 @@ const fields = require('./fields');
         }
 
         addAnotherEntityLabel(group, entity) {
-            return i18n.strings.addAnotherEntity[group.values.peek()[0].target(entity).entityType];
+            const entityType = group.values.peek()[0].target(entity).entityType;
+            return addAnotherEntityLabels[entityType].toLocaleString();
         }
     }
 
