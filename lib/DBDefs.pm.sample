@@ -248,7 +248,7 @@ sub WEB_SERVER                { "www.musicbrainz.example.com" }
 #     return {
 #         class => 'MusicBrainz::Server::CacheWrapper::Redis',
 #         server => '127.0.0.1:6379',
-#         namespace => 'MB:Catalyst:',
+#         namespace => $self->CACHE_NAMESPACE . 'Catalyst:',
 #     };
 # }
 
@@ -263,7 +263,7 @@ sub WEB_SERVER                { "www.musicbrainz.example.com" }
 #                 class => 'MusicBrainz::Server::CacheWrapper::Redis',
 #                 options => {
 #                     server => '127.0.0.1:6379',
-#                     namespace => 'MB:',
+#                     namespace => $self->CACHE_NAMESPACE,
 #                 },
 #             },
 #         },
@@ -300,7 +300,7 @@ sub WEB_SERVER                { "www.musicbrainz.example.com" }
 #     my $self = shift;
 #     return {
 #         database => 0,
-#         namespace => 'MB:',
+#         namespace => $self->CACHE_NAMESPACE,
 #         server => '127.0.0.1:6379',
 #         test_database => 1,
 #     };
