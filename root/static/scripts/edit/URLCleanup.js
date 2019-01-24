@@ -281,7 +281,7 @@ const RESTRICTED_LINK_TYPES = _.reduce([
   return result.concat(_.values(linkType));
 }, []);
 
-function reencode_mediawiki_localpart(url) {
+function reencodeMediawikiLocalPart(url) {
   const m = url.match(/^(https?:\/\/[^\/]+\/wiki\/)([^?#]+)(.*)$/);
   if (m) {
     url = m[1] + encodeURIComponent(decodeURIComponent(m[2])).replace(/%20/g, '_').replace(/%24/g, '$')
@@ -319,7 +319,7 @@ const CLEANUPS = {
       url = url.replace(/\.wikipedia\.org\/w\/index\.php\?title=([^&]+).*/, '.wikipedia.org/wiki/$1');
       url = url.replace(/\?oldformat=true$/, '');
       url = url.replace(/^(?:https?:\/\/)?([a-z-]+)(?:\.m)?\.wikipedia\.org\/[a-z-]+\/([^?]+)$/, 'https://$1.wikipedia.org/wiki/$2');
-      url = reencode_mediawiki_localpart(url);
+      url = reencodeMediawikiLocalPart(url);
       return url;
     },
     validate: function (url, id) {
@@ -725,7 +725,7 @@ const CLEANUPS = {
     type: LINK_TYPES.lyrics,
     clean: function (url) {
       url = url.replace(/^http:\/\/([a-z-]+\.)?wikisource\.org/, 'https://$1wikisource.org');
-      url = reencode_mediawiki_localpart(url);
+      url = reencodeMediawikiLocalPart(url);
       return url;
     },
     validate: function (url, id) {
@@ -740,7 +740,7 @@ const CLEANUPS = {
       url = url.replace(/^https?:\/\/upload\.wikimedia\.org\/wikipedia\/commons\/(thumb\/)?[0-9a-z]\/[0-9a-z]{2}\/([^\/]+)(\/[^\/]+)?$/, 'https://commons.wikimedia.org/wiki/File:$2');
       url = url.replace(/\?uselang=[a-z-]+$/, '');
       url = url.replace(/#.*$/, '');
-      url = reencode_mediawiki_localpart(url);
+      url = reencodeMediawikiLocalPart(url);
       return url.replace(/^https?:\/\/commons\.(?:m\.)?wikimedia\.org\/wiki\/(?:File|Image):/, 'https://commons.wikimedia.org/wiki/File:');
     },
     validate: function (url, id) {
