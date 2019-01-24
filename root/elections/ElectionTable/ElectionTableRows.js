@@ -22,7 +22,11 @@ type RowProps = {|
   +index: number,
 |};
 
-const ElectionTableRow = withCatalystContext(({$c, election, index}: RowProps) => (
+const ElectionTableRow = withCatalystContext(({
+  $c,
+  election,
+  index,
+}: RowProps) => (
   <tr className={index % 2 ? 'even' : 'odd'}>
     <td><EditorLink editor={election.candidate} /></td>
     <td>{lp(election.status_name_short, 'autoeditor election status (short)')}</td>

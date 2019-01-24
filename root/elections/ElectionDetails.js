@@ -86,11 +86,16 @@ const ElectionDetails = ({election, user}: PropsT) => (
             : null}
 
           {election.is_pending || election.is_open
-            ? bracketed(
-              <ExpirationTime
-                date={election.current_expiration_time}
-                user={user}
-              />
+            ? (
+              <>
+                {' '}
+                {bracketed(
+                  <ExpirationTime
+                    date={election.current_expiration_time}
+                    user={user}
+                  />,
+                )}
+              </>
             ) : null}
 
           {election.is_closed
