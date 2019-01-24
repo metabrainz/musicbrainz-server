@@ -63,3 +63,9 @@ export type ReportEditorT = {|
   +id: number,
   +row_number: number,
 |};
+
+export type ReportEventT = {|
+  +event: EventT,
+  +event_id: number,
+  +row_number: number,
+|};
