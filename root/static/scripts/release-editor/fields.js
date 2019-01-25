@@ -3,34 +3,35 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-const ko = require('knockout');
-const _ = require('lodash');
+import ko from 'knockout';
+import _ from 'lodash';
 
-require('knockout-arraytransforms');
-
-const MB_entity = require('../common/entity');
-const {l} = require('../common/i18n');
-const {
-        artistCreditFromArray,
-        artistCreditsAreEqual,
-        hasVariousArtists,
-        isCompleteArtistCredit,
-        reduceArtistCredit,
-    } = require('../common/immutable-entities');
-const MB = require('../common/MB');
-const clean = require('../common/utility/clean');
-const formatTrackLength = require('../common/utility/formatTrackLength');
+import MB_entity from '../common/entity';
 import releaseLabelKey from '../common/utility/releaseLabelKey';
-const request = require('../common/utility/request');
-const MB_edit = require('../edit/MB/edit');
-const dates = require('../edit/utility/dates');
-const validation = require('../edit/validation');
-const actions = require('./actions');
-const recordingAssociation = require('./recordingAssociation');
-const utils = require('./utils');
-const releaseEditor = require('./viewModel');
+import {l} from '../common/i18n';
+import {
+  artistCreditFromArray,
+  artistCreditsAreEqual,
+  hasVariousArtists,
+  isCompleteArtistCredit,
+  reduceArtistCredit,
+} from '../common/immutable-entities';
+import MB from '../common/MB';
+import clean from '../common/utility/clean';
+import formatTrackLength from '../common/utility/formatTrackLength';
+import request from '../common/utility/request';
+import MB_edit from '../edit/MB/edit';
+import * as dates from '../edit/utility/dates';
+import * as validation from '../edit/validation';
 
-const fields = exports;
+import 'knockout-arraytransforms';
+
+import actions from './actions';
+import recordingAssociation from './recordingAssociation';
+import utils from './utils';
+import releaseEditor from './viewModel';
+
+const fields = {};
 
 releaseEditor.fields = fields;
 
@@ -914,3 +915,5 @@ class Release extends MB_entity.Release {
 }
 
 fields.Release = Release;
+
+export default fields;

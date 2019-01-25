@@ -3,13 +3,14 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-const ko = require('knockout');
-const _ = require('lodash');
+import ko from 'knockout';
+import _ from 'lodash';
 
-const {artistCreditFromArray} = require('../common/immutable-entities');
-const fields = require('./fields');
-const utils = require('./utils');
-const releaseEditor = require('./viewModel');
+import {artistCreditFromArray} from '../common/immutable-entities';
+
+import fields from './fields';
+import utils from './utils';
+import releaseEditor from './viewModel';
 
 releaseEditor.seedErrors = ko.observable(null);
 

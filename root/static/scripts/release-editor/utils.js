@@ -8,17 +8,18 @@
 // Original version Copyright (C) 2010 Nick Galbreath, and released under
 // the MIT license: http://opensource.org/licenses/MIT
 
-const ko = require('knockout');
-const _ = require('lodash');
+import ko from 'knockout';
+import _ from 'lodash';
 
-const {rstr_sha1} = require('../../lib/sha1/sha1');
-const {MAX_LENGTH_DIFFERENCE, MIN_NAME_SIMILARITY} = require('../common/constants');
+import {rstr_sha1} from '../../lib/sha1/sha1';
+import {MAX_LENGTH_DIFFERENCE, MIN_NAME_SIMILARITY} from '../common/constants';
 import escapeLuceneValue from '../common/utility/escapeLuceneValue';
-const request = require('../common/utility/request');
-const similarity = require('../edit/utility/similarity');
-const releaseEditor = require('./viewModel');
+import request from '../common/utility/request';
+import similarity from '../edit/utility/similarity';
 
-const utils = exports;
+import releaseEditor from './viewModel';
+
+const utils = {};
 
 releaseEditor.utils = utils;
 
@@ -41,8 +42,7 @@ utils.withRelease = function (read, defaultValue) {
     return utils.computedWith(read, releaseEditor.rootField.release, defaultValue);
 };
 
-
-utils.unformatTrackLength = function (duration) {
+export function unformatTrackLength(duration) {
     if (!duration) {
         return null;
     }
@@ -63,6 +63,7 @@ utils.unformatTrackLength = function (duration) {
     return (hours + minutes + seconds) * 1000;
 };
 
+utils.unformatTrackLength = unformatTrackLength;
 
 // Webservice helpers
 
@@ -163,7 +164,7 @@ utils.similarLengths = function (oldLength, newLength) {
 };
 
 
-utils.calculateDiscID = function (toc) {
+export function calculateDiscID(toc) {
     var info = toc.split(/\s/);
 
     var temp = paddedHex(info.shift(), 2) + paddedHex(info.shift(), 2);
@@ -174,6 +175,8 @@ utils.calculateDiscID = function (toc) {
 
     return base64(rstr_sha1(temp));
 };
+
+utils.calculateDiscID = calculateDiscID;
 
 function paddedHex(str, length) {
     return _.padStart((parseInt(str, 10) || 0).toString(16).toUpperCase(), length, '0');
@@ -213,3 +216,5 @@ function base64(s) {
 
     return x.join("");
 }
+
+export default utils;

@@ -8,6 +8,7 @@ import test from 'tape';
 
 import actions from '../../release-editor/actions';
 import fields from '../../release-editor/fields';
+
 import * as common from './common';
 
 test("removing a track should change the track numbers", function (t) {
