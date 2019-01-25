@@ -1,5 +1,3 @@
-package t::MusicBrainz::Server::Sitemap;
-
 use DBDefs;
 use File::Spec;
 use File::Temp qw( tempdir );
@@ -7,9 +5,12 @@ use List::UtilsBy qw( sort_by );
 use String::ShellQuote;
 use Test::Deep qw( cmp_deeply );
 use Test::Routine;
+use Test::Routine::Util;
 use Test::More;
 use WWW::Sitemap::XML;
 use WWW::SitemapIndex::XML;
+
+$ENV{MUSICBRAINZ_RUNNING_TESTS} = 1;
 
 test 'Sitemap build scripts' => sub {
     # Because this test invokes external scripts that rely on certain test data
@@ -22,7 +23,7 @@ test 'Sitemap build scripts' => sub {
     my $exec_sql = sub {
         my $sql = shell_quote(shift);
 
-        system 'sh', '-c' => "echo $sql | $psql TEST";
+        system 'sh', '-c' => "echo $sql | $psql TEST_SITEMAPS";
     };
 
     $exec_sql->(<<EOSQL);
@@ -40,7 +41,7 @@ EOSQL
         system (
             File::Spec->catfile($root, 'admin/BuildSitemaps.pl'),
             '--nocompress',
-            '--database' => 'TEST',
+            '--database' => 'TEST_SITEMAPS',
             '--output-dir' => $output_dir,
             '--current-time' => $current_time,
         );
@@ -52,7 +53,7 @@ EOSQL
         system (
             File::Spec->catfile($root, 'admin/BuildIncrementalSitemaps.pl'),
             '--nocompress',
-            '--database' => 'TEST',
+            '--database' => 'TEST_SITEMAPS',
             '--output-dir' => $output_dir,
             '--replication-access-uri' => "file://$tmp",
             '--current-time' => $current_time,
@@ -539,4 +540,5 @@ TRUNCATE sitemaps.tmp_checked_entities;
 EOSQL
 };
 
-1;
+run_me;
+done_testing;

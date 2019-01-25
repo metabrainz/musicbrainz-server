@@ -47,6 +47,13 @@ MusicBrainz::Server::DatabaseConnectionFactory->register_databases(
         port        => 5432,
         username    => 'musicbrainz',
     },
+    TEST_SITEMAPS => {
+        database    => 'musicbrainz_test_sitemaps',
+        host        => 'musicbrainz-test-database',
+        password    => '',
+        port        => 5432,
+        username    => 'musicbrainz',
+    },
 );
 
 sub CACHE_MANAGER_OPTIONS {
@@ -106,6 +113,6 @@ sub PLUGIN_CACHE_OPTIONS {
     };
 }
 
-sub USE_SELENIUM_HEADER { 1 }
+sub USE_SET_DATABASE_HEADER { 1 }
 
 1;
