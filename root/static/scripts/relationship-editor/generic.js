@@ -3,23 +3,23 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-const $ = require('jquery');
-const ko = require('knockout');
-const _ = require('lodash');
+import $ from 'jquery';
+import ko from 'knockout';
+import _ from 'lodash';
 
-const {SERIES_ORDERING_TYPE_AUTOMATIC} = require('../common/constants');
-const MB = require('../common/MB');
-const clean = require('../common/utility/clean');
+import {SERIES_ORDERING_TYPE_AUTOMATIC} from '../common/constants';
+import MB from '../common/MB';
 import formatDate from '../common/utility/formatDate';
-const {hasSessionStorage} = require('../common/utility/storage');
-const validation = require('../edit/validation');
-const {ViewModel} = require('./common/viewModel');
+import {hasSessionStorage} from '../common/utility/storage';
+import validation from '../edit/validation';
 
-(function (RE) {
+import {ViewModel} from './common/viewModel';
+
+const RE = MB.relationshipEditor = MB.relationshipEditor || {};
 
     var UI = RE.UI = RE.UI || {};
 
-    class GenericEntityViewModel extends ViewModel {
+    export class GenericEntityViewModel extends ViewModel {
 
         constructor(options) {
             super(options);
@@ -84,8 +84,6 @@ const {ViewModel} = require('./common/viewModel');
     }
 
     GenericEntityViewModel.prototype.fieldName = 'rel';
-
-    exports.GenericEntityViewModel = GenericEntityViewModel;
 
     var seriesOrdering = {
         event: function (relationships, series) {
@@ -214,7 +212,7 @@ const {ViewModel} = require('./common/viewModel');
         }
     }
 
-    function prepareSubmission(formName) {
+    export function prepareSubmission(formName) {
         var submitted = [];
         var submittedLinks;
         var vm;
@@ -272,6 +270,3 @@ const {ViewModel} = require('./common/viewModel');
     }));
 
     RE.prepareSubmission = prepareSubmission;
-    exports.prepareSubmission = prepareSubmission;
-
-}(MB.relationshipEditor = MB.relationshipEditor || {}));

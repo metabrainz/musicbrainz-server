@@ -3,10 +3,10 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-const ko = require('knockout');
-const _ = require('lodash');
+import ko from 'knockout';
+import _ from 'lodash';
 
-const nonEmpty = require('../../common/utility/nonEmpty');
+import nonEmpty from '../../common/utility/nonEmpty';
 import parseIntegerOrNull from '../../common/utility/parseIntegerOrNull';
 
 function conflict(a, b, prop) {
@@ -30,4 +30,4 @@ function mergeDates(a, b) {
     };
 }
 
-module.exports = mergeDates;
+export default mergeDates;

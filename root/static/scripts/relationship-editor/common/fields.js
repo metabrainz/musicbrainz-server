@@ -3,26 +3,27 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-const ko = require('knockout');
-const _ = require('lodash');
+import ko from 'knockout';
+import _ from 'lodash';
 
-const {
-    SERIES_ORDERING_ATTRIBUTE,
-    SERIES_ORDERING_TYPE_AUTOMATIC
-} = require('../../common/constants');
-const MB_entity = require('../../common/entity');
-const i18n = require('../../common/i18n');
-const MB = require('../../common/MB');
-const typeInfo = require('../../common/typeInfo');
-const clean = require('../../common/utility/clean');
+import {
+  SERIES_ORDERING_ATTRIBUTE,
+  SERIES_ORDERING_TYPE_AUTOMATIC,
+} from '../../common/constants';
+import MB_entity from '../../common/entity';
+import * as i18n from '../../common/i18n';
+import MB from '../../common/MB';
+import typeInfo from '../../common/typeInfo';
+import clean from '../../common/utility/clean';
 import formatDate from '../../common/utility/formatDate';
-const formatDatePeriod = require('../../common/utility/formatDatePeriod');
-const request = require('../../common/utility/request');
-const MB_edit = require('../../edit/MB/edit');
-const linkPhrase = require('../../edit/utility/linkPhrase');
-const mergeDates = require('./mergeDates');
+import formatDatePeriod from '../../common/utility/formatDatePeriod';
+import request from '../../common/utility/request';
+import MB_edit from '../../edit/MB/edit';
+import * as linkPhrase from '../../edit/utility/linkPhrase';
 
-(function (RE) {
+import mergeDates from './mergeDates';
+
+const RE = MB.relationshipEditor = MB.relationshipEditor || {};
 
     var fields = RE.fields = RE.fields || {};
 
@@ -596,6 +597,5 @@ const mergeDates = require('./mergeDates');
         }
     }
 
-}(MB.relationshipEditor = MB.relationshipEditor || {}));
 
-module.exports = MB.relationshipEditor.fields;
+export default MB.relationshipEditor.fields;
