@@ -30,9 +30,8 @@ const InstrumentsWithoutAnImage = ({
 
     <ul>
       <li>
-        {l(`This report shows instruments without {image_rel}
-              relationships or {wikidata_rel} relationships.`,
-        {image_rel: 'image', wikidata_rel: 'wikidata'})}
+        {l(`This report shows instruments without image
+            relationships nor Wikidata relationships.`)}
       </li>
       <li>{l('Total instruments found: {count}', {count: pager.total_entries})}</li>
       <li>{l('Generated on {date}', {date: formatUserDate($c.user, generated)})}</li>
