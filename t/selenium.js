@@ -340,6 +340,7 @@ async function handleCommand(file, command, target, value, t) {
     case 'click':
       element = await findElement(target);
       await driver.executeScript('arguments[0].scrollIntoView()', element);
+      await driver.wait(until.elementIsVisible(element), CMD_TIMEOUT);
       return element.click();
 
     case 'fireEvent':
@@ -381,10 +382,12 @@ async function handleCommand(file, command, target, value, t) {
         .filter(x => x)
         .map(x => KEY_CODES[x] || x);
       element = await findElement(target);
+      await driver.wait(until.elementIsVisible(element), CMD_TIMEOUT);
       return element.sendKeys.apply(element, value);
 
     case 'type':
       element = await findElement(target);
+      await driver.wait(until.elementIsVisible(element), CMD_TIMEOUT);
       /*
        * XXX *Both* of the next two lines are needed to clear the input
        * in some cases. (Just one or the other won't suffice.) It's not
