@@ -45,7 +45,7 @@ const DBDefs = require('../root/static/scripts/common/DBDefs');
 const escapeRegExp = require('../root/static/scripts/common/utility/escapeRegExp');
 
 const IGNORE = Symbol();
-const CMD_TIMEOUT = 30000; // 30 seconds
+const CMD_TIMEOUT = 60000; // 1 minute
 
 function skipIgnored(a, b) {
   return (a === IGNORE || b === IGNORE) ? true : undefined;
@@ -489,7 +489,14 @@ async function runCommands(commands, t) {
 }
 
 (async function runTests() {
-  const TEST_TIMEOUT = 200000; // 200 seconds
+  /*
+   * We have a very long timeout in place because, as the Selenium
+   * tests run concurrently with all other tests, they sometimes do
+   * take an unexpected amount of time to complete. It doesn't fully
+   * matter what the exact value is here, as long as it ensures the
+   * tests don't run forever.
+   */
+  const TEST_TIMEOUT = 600000; // 10 minutes
 
   const cartonPrefix = process.env.PERL_CARTON_PATH
     ? 'carton exec -- '
