@@ -355,17 +355,17 @@ async function handleCommand(file, command, target, value, t) {
       );
 
     case 'mouseOver':
-      return driver.actions()
-        .mouseMove(await findElement(target))
+      return driver.actions({bridge: true})
+        .move({origin: await findElement(target)})
         .perform();
 
     case 'open':
       await driver.get('http://' + DBDefs.WEB_SERVER + target);
-      return driver.manage().window().setSize(1024, 768);
+      return driver.manage().window().setRect({width: 1024, height: 768});
 
     case 'openFile':
       await driver.get('file://' + path.resolve(path.dirname(file), target));
-      return driver.manage().window().setSize(1024, 768);
+      return driver.manage().window().setRect({width: 1024, height: 768});
 
     case 'pause':
       return driver.sleep(target);
