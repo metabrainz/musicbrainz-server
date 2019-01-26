@@ -292,8 +292,8 @@ async function handleCommand(file, command, target, value, t) {
       return;
 
     case 'assertElementPresent':
-      const elements = await driver.findElements(makeLocator(target));
-      t.ok(elements.length > 0);
+      element = await findElement(target);
+      t.ok(element != null);
       return;
 
     case 'assertEval':
