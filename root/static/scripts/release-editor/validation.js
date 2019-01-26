@@ -7,7 +7,7 @@ import $ from 'jquery';
 import ko from 'knockout';
 import _ from 'lodash';
 
-import i18n from '../common/i18n';
+import * as i18n from '../common/i18n';
 import {errorsExist} from '../edit/validation';
 
 import utils from './utils';
