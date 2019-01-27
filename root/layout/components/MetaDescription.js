@@ -1,7 +1,9 @@
-// This file is part of MusicBrainz, the open internet music database.
-// Copyright (C) 2017 MetaBrainz Foundation
-// Licensed under the GPL version 2, or (at your option) any later version:
-// http://www.gnu.org/licenses/gpl-2.0.txt
+/*
+ * This file is part of MusicBrainz, the open internet music database.
+ * Copyright (C) 2017 MetaBrainz Foundation
+ * Licensed under the GPL version 2, or (at your option) any later version:
+ * http://www.gnu.org/licenses/gpl-2.0.txt
+ */
 
 import _ from 'lodash';
 import React from 'react';
@@ -36,14 +38,14 @@ function artistDescription(artist) {
     desc.push(
       artistBeginLabel(artist.typeID) + ' ' +
       beginDate +
-      (artist.begin_area ? ' in ' + artist.begin_area.name : '')
+      (artist.begin_area ? ' in ' + artist.begin_area.name : ''),
     );
   }
   if (endDate || artist.end_area) {
     desc.push(
       artistEndLabel(artist.typeID) + ' ' +
       endDate +
-      (artist.end_area ? ' in ' + artist.end_area.name : '')
+      (artist.end_area ? ' in ' + artist.end_area.name : ''),
     );
   }
   if (artist.area) {
@@ -129,7 +131,7 @@ function releaseDescription(release) {
     });
     desc.push(
       (labels.length > 1 ? l('Labels:') : l('Label:')) + ' ' +
-      commaOnlyList(labels)
+      commaOnlyList(labels),
     );
   }
   if (release.barcode) {
@@ -146,18 +148,18 @@ function workDescription(work) {
   if (work.languages.length) {
     desc.push(
       addColon(l('Lyrics Languages')) + ' ' +
-      commaOnlyList(work.languages.map(wl => l_languages(wl.language.name)))
+      commaOnlyList(work.languages.map(wl => l_languages(wl.language.name))),
     );
   }
   if (work.writers) {
     desc.push(
       l('Writers:') + ' ' +
-      commaOnlyList(_.map(work.writers, 'entity.name'))
+      commaOnlyList(_.map(work.writers, 'entity.name')),
     );
   }
   if (work.iswcs) {
     desc.push(
-      l('ISWCs:') + ' ' + commaOnlyList(_.map(work.iswcs, 'iswc'))
+      l('ISWCs:') + ' ' + commaOnlyList(_.map(work.iswcs, 'iswc')),
     );
   }
   return desc;
@@ -193,9 +195,8 @@ const MetaDescription = ({entity}) => {
   }
   if (desc && desc.length) {
     return <meta content={commaOnlyList(desc)} name="description" />;
-  } else {
-    return null;
   }
+  return null;
 };
 
 export default MetaDescription;

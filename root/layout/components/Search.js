@@ -80,7 +80,9 @@ const Search = () => (
       required
       type="text"
     />
-    {' '}<SearchOptions />{' '}
+    {' '}
+    <SearchOptions />
+    {' '}
     <input
       id="headerid-method"
       name="method"
