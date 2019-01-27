@@ -1,9 +1,11 @@
-// @flow
-// Copyright (C) 2017 MetaBrainz Foundation
-//
-// This file is part of MusicBrainz, the open internet music database,
-// and is licensed under the GPL version 2, or (at your option) any
-// later version: http://www.gnu.org/licenses/gpl-2.0.txt
+/*
+ * @flow
+ * Copyright (C) 2017 MetaBrainz Foundation
+ *
+ * This file is part of MusicBrainz, the open internet music database,
+ * and is licensed under the GPL version 2, or (at your option) any
+ * later version: http://www.gnu.org/licenses/gpl-2.0.txt
+ */
 
 import React from 'react';
 
@@ -21,17 +23,17 @@ const SidebarRating = ({entity, heading}: Props) => (
     <h2 className="rating">{heading || l('Rating')}</h2>
     <p>
       <RatingStars entity={entity} />
-      {entity.rating_count > 0 ?
+      {entity.rating_count > 0 ? (
         <>
           {' ('}
           <EntityLink
+            content={l('see all ratings')}
             entity={entity}
             subPath="ratings"
-            content={l('see all ratings')}
           />
           {')'}
         </>
-      : null}
+      ) : null}
     </p>
   </>
 );
