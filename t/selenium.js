@@ -256,6 +256,8 @@ async function handleCommand(file, command, target, value, t) {
     return handleCommandAndWait.apply(null, arguments);
   }
 
+  await driver.executeScript('window.MUSICBRAINZ_RUNNING_TESTS = true');
+
   // The CATALYST_DEBUG views interfere with our tests. Remove them.
   await driver.executeScript(`
     node = document.getElementById('plDebug');

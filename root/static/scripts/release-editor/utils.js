@@ -77,8 +77,17 @@ utils.constructLuceneFieldConjunction = function (params) {
     return _.map(params, utils.constructLuceneField).join(" AND ");
 };
 
+const noopSearch = {
+    abort: () => noopSearch,
+    done: () => noopSearch,
+    fail: () => noopSearch,
+};
 
 utils.search = function (resource, query, limit, offset) {
+    if (window.MUSICBRAINZ_RUNNING_TESTS) {
+        return noopSearch;
+    }
+
     var requestArgs = {
         url: "/ws/2/" + resource,
         data: {
