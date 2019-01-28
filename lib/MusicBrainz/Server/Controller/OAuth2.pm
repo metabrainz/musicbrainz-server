@@ -119,7 +119,12 @@ sub token : Local Args(0)
 {
     my ($self, $c) = @_;
 
+    $c->res->header('Access-Control-Allow-Origin' => '*');
+
     $self->_enforce_tls($c);
+
+    $self->_send_options_response($c, 'POST')
+        if $c->request->method eq 'OPTIONS';
 
     $self->_send_error($c, 'invalid_request', 'Only POST requests are allowed')
         if $c->request->method ne 'POST';
@@ -228,6 +233,13 @@ sub _send_error
     });
 }
 
+sub _send_options_response {
+    my ($self, $c, $allow) = @_;
+
+    $c->res->headers->header('Allow' => "$allow, OPTIONS");
+    $self->_send_response($c, {message => 'OK'});
+}
+
 sub _send_response
 {
     my ($self, $c, $response) = @_;
@@ -312,7 +324,12 @@ sub tokeninfo : Local
 {
     my ($self, $c) = @_;
 
+    $c->res->header('Access-Control-Allow-Origin' => '*');
+
     $self->_enforce_tls($c);
+
+    $self->_send_options_response($c, 'GET')
+        if $c->request->method eq 'OPTIONS';
 
     my $access_token = $c->request->params->{access_token};
     my $token = $c->model('EditorOAuthToken')->get_by_access_token($access_token);
@@ -344,7 +361,14 @@ sub userinfo : Local
 {
     my ($self, $c) = @_;
 
+    $c->res->header('Access-Control-Allow-Origin' => '*');
+
     $self->_enforce_tls($c);
+
+    if ($c->request->method eq 'OPTIONS') {
+        $c->res->headers->header('Access-Control-Allow-Headers' => 'authorization');
+        $self->_send_options_response($c, 'GET');
+    }
 
     $c->authenticate({}, 'musicbrainz.org');
     $self->_send_error($c, 'invalid_token', 'Invalid value')
