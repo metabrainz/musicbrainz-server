@@ -1,3 +1,4 @@
+// @flow
 // This file is part of MusicBrainz, the open internet music database.
 // Copyright (C) 2015–2016 MetaBrainz Foundation
 // Licensed under the GPL version 2, or (at your option) any later version:
@@ -8,12 +9,12 @@ const ko = require('knockout');
 const {l} = require('../i18n');
 import formatDate from './formatDate';
 
-function formatDatePeriod(entity) {
+function formatDatePeriod<+T: {...DatePeriodRoleT}>(entity: T) {
   let {begin_date, end_date, ended} = entity;
 
   begin_date = formatDate(begin_date);
   end_date = formatDate(end_date);
-  ended = ko.unwrap(ended);
+  ended = (ko.unwrap(ended): boolean);
 
   if (!begin_date && !end_date) {
     return ended ? l(' \u2013 ????') : '';
