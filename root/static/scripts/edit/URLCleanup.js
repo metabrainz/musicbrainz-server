@@ -12,13 +12,13 @@ const LINK_TYPES = {
   wikipedia: {
     area: '9228621d-9720-35c3-ad3f-327d789464ec',
     artist: '29651736-fa6d-48e4-aadc-a557c6add1cb',
-    label: '51e9db21-8864-49b3-aa58-470d7b81fa50',
-    release_group: '6578f0e9-1ace-4095-9de8-6e517ddb1ceb',
-    work: 'b45a88d6-851e-4a6e-9ec8-9a5f4ebe76ab',
-    place: '82680bbb-0391-4344-9687-4f419df4b97a',
-    instrument: 'b21fd997-c813-3bc6-99cc-c64323bd15d3',
-    series: 'b2b9407a-dd32-30f4-aa48-b2fd2077d1d2',
     event: '08a982f7-d754-39b2-8315-d7cae474c641',
+    instrument: 'b21fd997-c813-3bc6-99cc-c64323bd15d3',
+    label: '51e9db21-8864-49b3-aa58-470d7b81fa50',
+    place: '82680bbb-0391-4344-9687-4f419df4b97a',
+    release_group: '6578f0e9-1ace-4095-9de8-6e517ddb1ceb',
+    series: 'b2b9407a-dd32-30f4-aa48-b2fd2077d1d2',
+    work: 'b45a88d6-851e-4a6e-9ec8-9a5f4ebe76ab',
   },
   discogs: {
     artist: '04a5b104-a4c2-4bac-99a1-7b837c37d9e4',
@@ -65,8 +65,8 @@ const LINK_TYPES = {
     work: '0ea7cf4e-93dd-4bc4-b748-0f1073cf951c',
   },
   license: {
-    release: '004bd0c3-8a45-4309-ba52-fa99f3aa3d50',
     recording: 'f25e301d-b87b-4561-86a0-5d2df6d26c0a',
+    release: '004bd0c3-8a45-4309-ba52-fa99f3aa3d50',
     work: '770ea9f4-cba0-4194-b77f-fe2740055e34',
   },
   lyrics: {
@@ -82,9 +82,9 @@ const LINK_TYPES = {
   },
   image: {
     artist: '221132e9-e30e-43f2-a741-15afc4c5fa7c',
+    instrument: 'f64eacbd-1ea1-381e-9886-2cfb552b7d90',
     label: 'b35f7822-bf3c-4148-b306-fb723c63ee8b',
     place: '68a4537c-f2a6-49b8-81c5-82a62b0976b7',
-    instrument: 'f64eacbd-1ea1-381e-9886-2cfb552b7d90',
   },
   discographyentry: {
     release: '823656dd-0309-4247-b282-b92d287d59c5',
@@ -122,10 +122,10 @@ const LINK_TYPES = {
   },
   socialnetwork: {
     artist: '99429741-f3f6-484b-84f8-23af51991770',
+    event: '68f5fcaa-b58c-3bfe-9b7c-75c2b56e839a',
     label: '5d217d99-bc05-4a76-836d-c91eec4ba818',
     place: '040de4d5-ace5-4cfb-8a45-95c5c73bce01',
     series: '80d5e037-9aa7-3d80-80da-fb01d6dbc25b',
-    event: '68f5fcaa-b58c-3bfe-9b7c-75c2b56e839a',
   },
   soundcloud: {
     artist: '89e4a949-0976-440d-bda1-5f772c1e5710',
@@ -152,19 +152,20 @@ const LINK_TYPES = {
   },
   vgmdb: {
     artist: '0af15ab3-c615-46d6-b95b-a5fcd2a92ed9',
+    event: '5d3e0348-71a8-3dc1-b847-3a8f1d5de688',
     label: '8a2d3e55-d291-4b99-87a0-c59c6b121762',
     release: '6af0134a-df6a-425a-96e2-895f9cd342ba',
-    event: '5d3e0348-71a8-3dc1-b847-3a8f1d5de688',
   },
   youtube: {
     artist: '6a540e5b-58c6-4192-b6ba-dbc71ec8fcf0',
+    event: 'fea46163-dc45-3af9-917e-1798f325d21a',
     label: 'd9c71059-ba9d-4135-b909-481d12cf84e3',
     place: '22ec436d-bb65-4c83-a268-0fdb0dbd8834',
     series: 'f23802a4-36be-3751-8e4d-93422e08b3e8',
-    event: 'fea46163-dc45-3af9-917e-1798f325d21a',
   },
   otherdatabases: {
     artist: 'd94fb61c-fa20-4e3c-a19a-71a949fb2c55',
+    event: '1e06fb0b-831d-49cf-abfd-52acb5b56e05',
     instrument: '41930af2-cb94-488d-a4f0-d232f6ef391a',
     label: '83eca2b3-5ae1-43f5-a732-56fa9a8591b1',
     place: '87a0a644-0a69-46c0-9e48-0656b8240d89',
@@ -173,7 +174,6 @@ const LINK_TYPES = {
     release_group: '38320e40-9f4a-3ae7-8cb2-3f3c9c5d856d',
     series: '8a08d0f5-c7c4-4572-9d22-cee92693d820',
     work: '190ea031-4355-405d-a43e-53eb4c5c4ada',
-    event: '1e06fb0b-831d-49cf-abfd-52acb5b56e05',
   },
   viaf: {
     artist: 'e8571dcc-35d4-4e91-a577-a3382fd84460',
@@ -184,13 +184,13 @@ const LINK_TYPES = {
   wikidata: {
     area: '85c5256f-aef1-484f-979a-42007218a1c2',
     artist: '689870a4-a1e4-4912-b17f-7b2664215698',
-    label: '75d87e83-d927-4580-ba63-44dc76256f98',
-    release_group: 'b988d08c-5d86-4a57-9557-c83b399e3580',
-    work: '587fdd8f-080e-46a9-97af-6425ebbcb3a2',
-    place: 'e6826618-b410-4b8d-b3b5-52e29eac5e1f',
-    instrument: '1486fccd-cf59-35e4-9399-b50e2b255877',
-    series: 'a1eecd98-f2f2-420b-ba8e-e5bc61697869',
     event: 'b022d060-e6a8-340f-8c73-6b21b1d090b9',
+    instrument: '1486fccd-cf59-35e4-9399-b50e2b255877',
+    label: '75d87e83-d927-4580-ba63-44dc76256f98',
+    place: 'e6826618-b410-4b8d-b3b5-52e29eac5e1f',
+    release_group: 'b988d08c-5d86-4a57-9557-c83b399e3580',
+    series: 'a1eecd98-f2f2-420b-ba8e-e5bc61697869',
+    work: '587fdd8f-080e-46a9-97af-6425ebbcb3a2',
   },
   bandcamp: {
     artist: 'c550166e-0548-4a18-b1d4-e2ae423a3e88',
@@ -224,9 +224,9 @@ const LINK_TYPES = {
   },
   lastfm: {
     artist: '08db8098-c0df-4b78-82c3-c8697b4bba7f',
+    event: 'fd86b01d-c8f7-4f0a-a077-81855a9cfeef',
     label: 'e3390a1d-3083-4bc9-9295-aff9da18612c',
     place: 'c3ddb53d-a7df-4486-8cc7-c1b7baec994e',
-    event: 'fd86b01d-c8f7-4f0a-a077-81855a9cfeef',
   },
   onlinecommunity: {
     artist: '35b3a50f-bf0e-4309-a3b4-58eeed8cee6a',
