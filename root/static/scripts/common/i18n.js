@@ -7,11 +7,11 @@
  */
 
 import NopArgs from './i18n/NopArgs';
-import wrapGettext from './i18n/wrapGettext';
+import * as wrapGettext from './i18n/wrapGettext';
 
-export const l = wrapGettext('dgettext', 'mb_server');
-export const ln = wrapGettext('dngettext', 'mb_server');
-export const lp = wrapGettext('dpgettext', 'mb_server');
+export const l = wrapGettext.dgettext('mb_server');
+export const ln = wrapGettext.dngettext('mb_server');
+export const lp = wrapGettext.dpgettext('mb_server');
 
 function noop(func) {
   return (...args) => new NopArgs(func, args);

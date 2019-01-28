@@ -7,11 +7,11 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import wrapGettext from './wrapGettext';
+import * as wrapGettext from './wrapGettext';
 
-const l_scripts = wrapGettext('dgettext', 'scripts');
-const ln_scripts = wrapGettext('dngettext', 'scripts');
-const lp_scripts = wrapGettext('dpgettext', 'scripts');
+const l_scripts = wrapGettext.dgettext('scripts');
+const ln_scripts = wrapGettext.dngettext('scripts');
+const lp_scripts = wrapGettext.dpgettext('scripts');
 
 export {
   l_scripts,

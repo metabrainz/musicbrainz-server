@@ -7,11 +7,11 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import wrapGettext from './wrapGettext';
+import * as wrapGettext from './wrapGettext';
 
-const l_instruments = wrapGettext('dgettext', 'instruments');
-const ln_instruments = wrapGettext('dngettext', 'instruments');
-const lp_instruments = wrapGettext('dpgettext', 'instruments');
+const l_instruments = wrapGettext.dgettext('instruments');
+const ln_instruments = wrapGettext.dngettext('instruments');
+const lp_instruments = wrapGettext.dpgettext('instruments');
 
 export {
   l_instruments,

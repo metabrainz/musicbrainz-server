@@ -6,11 +6,11 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import wrapGettext from './wrapGettext';
+import * as wrapGettext from './wrapGettext';
 
-const l_statistics = wrapGettext('dgettext', 'statistics');
-const ln_statistics = wrapGettext('dngettext', 'statistics');
-const lp_statistics = wrapGettext('dpgettext', 'statistics');
+const l_statistics = wrapGettext.dgettext('statistics');
+const ln_statistics = wrapGettext.dngettext('statistics');
+const lp_statistics = wrapGettext.dpgettext('statistics');
 
 export {
   l_statistics,
