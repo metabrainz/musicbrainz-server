@@ -72,7 +72,7 @@ const StatisticsLayout = ({
         </Tabs>
         {children}
       </div>
-      {fullWidth ? <div id="sidebar">{sidebar}</div> : null}
+      {fullWidth ? null: <div id="sidebar">{sidebar}</div>}
     </Layout>
   );
 };
