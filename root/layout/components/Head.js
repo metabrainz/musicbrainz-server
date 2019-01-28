@@ -1,7 +1,9 @@
-// This file is part of MusicBrainz, the open internet music database.
-// Copyright (C) 2015 MetaBrainz Foundation
-// Licensed under the GPL version 2, or (at your option) any later version:
-// http://www.gnu.org/licenses/gpl-2.0.txt
+/*
+ * This file is part of MusicBrainz, the open internet music database.
+ * Copyright (C) 2015 MetaBrainz Foundation
+ * Licensed under the GPL version 2, or (at your option) any later version:
+ * http://www.gnu.org/licenses/gpl-2.0.txt
+ */
 
 import React from 'react';
 
@@ -13,16 +15,18 @@ import escapeClosingTags from '../../utility/escapeClosingTags';
 
 import MetaDescription from './MetaDescription';
 
-let canonRegexp = new RegExp('^(https?:)?//' + DBDefs.WEB_SERVER);
+const canonRegexp = new RegExp('^(https?:)?//' + DBDefs.WEB_SERVER);
 function canonicalize(url) {
-  return DBDefs.CANONICAL_SERVER ? url.replace(canonRegexp, DBDefs.CANONICAL_SERVER) : url;
+  return DBDefs.CANONICAL_SERVER
+    ? url.replace(canonRegexp, DBDefs.CANONICAL_SERVER)
+    : url;
 }
 
 function getTitle(props) {
   let {title, pager} = props;
 
   if (!props.homepage) {
-    let parts = [];
+    const parts = [];
 
     if (title) {
       parts.push(title);
@@ -42,7 +46,7 @@ function getTitle(props) {
 const CanonicalLink = ({requestUri}) => {
   const canonUri = canonicalize(requestUri);
   if (requestUri !== canonUri) {
-    return <link rel="canonical" href={canonUri} />;
+    return <link href={canonUri} rel="canonical" />;
   }
   return null;
 };
@@ -50,8 +54,8 @@ const CanonicalLink = ({requestUri}) => {
 const Head = ({$c, ...props}) => (
   <head>
     <meta charSet="utf-8" />
-    <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta content="IE=edge" httpEquiv="X-UA-Compatible" />
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
     <MetaDescription entity={$c.stash.entity} />
 
     <title>{getTitle(props)}</title>
@@ -62,10 +66,30 @@ const Head = ({$c, ...props}) => (
 
     {props.no_icons ? null : manifest.css('icons')}
 
-    <link rel="search" type="application/opensearchdescription+xml" title={l('MusicBrainz: Artist')} href="/static/search_plugins/opensearch/musicbrainz_artist.xml" />
-    <link rel="search" type="application/opensearchdescription+xml" title={l('MusicBrainz: Label')} href="/static/search_plugins/opensearch/musicbrainz_label.xml" />
-    <link rel="search" type="application/opensearchdescription+xml" title={l('MusicBrainz: Release')} href="/static/search_plugins/opensearch/musicbrainz_release.xml" />
-    <link rel="search" type="application/opensearchdescription+xml" title={l('MusicBrainz: Track')} href="/static/search_plugins/opensearch/musicbrainz_track.xml" />
+    <link
+      href="/static/search_plugins/opensearch/musicbrainz_artist.xml"
+      rel="search"
+      title={l('MusicBrainz: Artist')}
+      type="application/opensearchdescription+xml"
+    />
+    <link
+      href="/static/search_plugins/opensearch/musicbrainz_label.xml"
+      rel="search"
+      title={l('MusicBrainz: Label')}
+      type="application/opensearchdescription+xml"
+    />
+    <link
+      href="/static/search_plugins/opensearch/musicbrainz_release.xml"
+      rel="search"
+      title={l('MusicBrainz: Release')}
+      type="application/opensearchdescription+xml"
+    />
+    <link
+      href="/static/search_plugins/opensearch/musicbrainz_track.xml"
+      rel="search"
+      title={l('MusicBrainz: Track')}
+      type="application/opensearchdescription+xml"
+    />
 
     <noscript>
       <style
@@ -80,9 +104,9 @@ const Head = ({$c, ...props}) => (
 
     {$c.stash.current_language !== 'en'
       ? ['mb_server'].concat(props.gettext_domains || []).map(function (domain) {
-          const name = 'jed-' + $c.stash.current_language + '-' + domain;
-          return manifest.js(name, {key: name});
-        })
+        const name = 'jed-' + $c.stash.current_language + '-' + domain;
+        return manifest.js(name, {key: name});
+      })
       : null}
 
     {manifest.js('common', {
@@ -93,7 +117,9 @@ const Head = ({$c, ...props}) => (
 
     {$c.stash.jsonld_data ? (
       <script
-        dangerouslySetInnerHTML={{__html: escapeClosingTags(JSON.stringify($c.stash.jsonld_data))}}
+        dangerouslySetInnerHTML={
+          {__html: escapeClosingTags(JSON.stringify($c.stash.jsonld_data))}
+        }
         type="application/ld+json"
       />
     ) : null}

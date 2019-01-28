@@ -48,16 +48,16 @@ const CollectionSidebar = ({$c, collection}: Props) => (
         <>
           <li>
             <EntityLink
+              content={l('Open edits')}
               entity={collection}
               subPath="open_edits"
-              content={l('Open edits')}
             />
           </li>
           <li>
             <EntityLink
+              content={l('Editing history')}
               entity={collection}
               subPath="edits"
-              content={l('Editing history')}
             />
           </li>
         </>
@@ -70,7 +70,7 @@ const CollectionSidebar = ({$c, collection}: Props) => (
 
     {$c.user_exists ? (
       <>
-        <h2 className="subscriptions">{l("Subscriptions")}</h2>
+        <h2 className="subscriptions">{l('Subscriptions')}</h2>
         <ul className="links">
           {$c.stash.subscribed ? (
             <li>
@@ -87,9 +87,9 @@ const CollectionSidebar = ({$c, collection}: Props) => (
           )}
           <li>
             <EntityLink
+              content={l('Subscribers')}
               entity={collection}
               subPath="subscribers"
-              content={l('Subscribers')}
             />
           </li>
         </ul>

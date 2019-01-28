@@ -90,7 +90,10 @@ const LanguageMenu = ({
 
 const AboutMenu = () => (
   <li className="about" tabIndex="-1">
-    <span className="menu-header">{l('About Us')}{'\xA0\u25BE'}</span>
+    <span className="menu-header">
+      {l('About Us')}
+      {'\xA0\u25BE'}
+    </span>
     <ul>
       <li>
         <a href="/doc/About">{l('About MusicBrainz')}</a>
@@ -140,7 +143,10 @@ const AboutMenu = () => (
 
 const ProductsMenu = () => (
   <li className="products" tabIndex="-1">
-    <span className="menu-header">{l('Products')}{'\xA0\u25BE'}</span>
+    <span className="menu-header">
+      {l('Products')}
+      {'\xA0\u25BE'}
+    </span>
     <ul>
       <li>
         <a href="//picard.musicbrainz.org">{l('MusicBrainz Picard')}</a>
@@ -178,7 +184,10 @@ const ProductsMenu = () => (
 
 const SearchMenu = withCatalystContext(({$c}: {+$c: CatalystContextT}) => (
   <li className="search" tabIndex="-1">
-    <span className="menu-header">{l('Search')}{'\xA0\u25BE'}</span>
+    <span className="menu-header">
+      {l('Search')}
+      {'\xA0\u25BE'}
+    </span>
     <ul>
       <li>
         <a href="/search">{l('Search Entities')}</a>
@@ -200,7 +209,10 @@ const SearchMenu = withCatalystContext(({$c}: {+$c: CatalystContextT}) => (
 
 const EditingMenu = () => (
   <li className="editing" tabIndex="-1">
-    <span className="menu-header">{l('Editing')}{'\xA0\u25BE'}</span>
+    <span className="menu-header">
+      {l('Editing')}
+      {'\xA0\u25BE'}
+    </span>
     <ul>
       <li>
         <a href="/artist/create">{lp('Add Artist', 'button/menu')}</a>
@@ -246,7 +258,10 @@ const EditingMenu = () => (
 
 const DocumentationMenu = () => (
   <li className="documentation" tabIndex="-1">
-    <span className="menu-header">{l('Documentation')}{'\xA0\u25BE'}</span>
+    <span className="menu-header">
+      {l('Documentation')}
+      {'\xA0\u25BE'}
+    </span>
     <ul>
       <li>
         <a href="/doc/Beginners_Guide">{l('Beginners Guide')}</a>

@@ -82,37 +82,37 @@ const ReleaseSidebar = ({$c, release}: Props) => {
             )}
           />
         ) : (
-          release.cover_art_presence !== 'darkened'
-            && releaseCoverUrl
+          release.cover_art_presence !== 'darkened' &&
+            releaseCoverUrl
             /* flow-include && releaseCoverHost */ ? (
-            <>
-              <img src={releaseCoverUrl} />
-              <span className="cover-art-note">
-                {/(?:ssl-)?images-amazon\.com/.test(releaseCoverHost) ? (
-                  l('Cover art from {cover|Amazon}', {
-                    cover: releaseCoverUrl,
-                  })
-                ) : (
-                  l('Cover art from {cover|{host}}', {
-                    cover: releaseCoverUrl,
-                    host: releaseCoverHost,
-                  })
-                )}
-              </span>
-            </>
-          ) : (
-            <p className="cover-art-note" style={{textAlign: 'left'}}>
-              {release.cover_art_presence === 'present' ? (
-                <>
-                  {l('No front cover image available.')}
-                  <br />
-                  <a href={entityHref(release, 'cover-art')}>
-                    {l('View all artwork')}
-                  </a>
-                </>
-              ) : l('No cover art available.')}
-            </p>
-          )
+              <>
+                <img src={releaseCoverUrl} />
+                <span className="cover-art-note">
+                  {/(?:ssl-)?images-amazon\.com/.test(releaseCoverHost) ? (
+                    l('Cover art from {cover|Amazon}', {
+                      cover: releaseCoverUrl,
+                    })
+                  ) : (
+                    l('Cover art from {cover|{host}}', {
+                      cover: releaseCoverUrl,
+                      host: releaseCoverHost,
+                    })
+                  )}
+                </span>
+              </>
+            ) : (
+              <p className="cover-art-note" style={{textAlign: 'left'}}>
+                {release.cover_art_presence === 'present' ? (
+                  <>
+                    {l('No front cover image available.')}
+                    <br />
+                    <a href={entityHref(release, 'cover-art')}>
+                      {l('View all artwork')}
+                    </a>
+                  </>
+                ) : l('No cover art available.')}
+              </p>
+            )
         )}
       </div>
 

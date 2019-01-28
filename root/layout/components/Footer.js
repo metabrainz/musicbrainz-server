@@ -46,7 +46,9 @@ const Footer = ({$c, ...props}) => {
             {l('Running: {git_details}', {
               git_details: (
                 <span className="tooltip" key="git_details" title={DBDefs.GIT_MSG}>
-                  {DBDefs.GIT_BRANCH} {' '} {bracketed(DBDefs.GIT_SHA)}
+                  {DBDefs.GIT_BRANCH}
+                  {' '}
+                  {bracketed(DBDefs.GIT_SHA)}
                 </span>
               ),
             })}
