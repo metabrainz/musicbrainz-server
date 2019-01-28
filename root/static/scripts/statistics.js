@@ -1,4 +1,3 @@
-const $ = require('jquery');
 const tablesorter = require('tablesorter');
 
 tablesorter.addWidget({
@@ -32,4 +31,15 @@ tablesorter.addParser({
         return tablesorter.formatFloat( s.replace(/,/g,'') );
     },
     type: "numeric"
+});
+
+$('#languages-table').tablesorter({
+    widgets: [ 'indexFirstColumn', 'evenRowClasses' ],
+    headers: { 0: {sorter: false}, 2: { sorter: 'fancyNumber' }, 3: { sorter: 'fancyNumber' }, 4: { sorter: 'fancyNumber' } },
+    sortList: [ [4,1], [1,0] ] // order by descending number of entities, then name
+});
+$('#scripts-table').tablesorter({
+    widgets: [ 'indexFirstColumn', 'evenRowClasses' ],
+    headers: { 0: {sorter: false}, 2: { sorter: 'fancyNumber' } },
+    sortList: [ [2,1], [1,0] ] // order by descending number of entities, then name
 });
