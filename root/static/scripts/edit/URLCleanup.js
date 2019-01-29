@@ -9,16 +9,58 @@ const _ = require('lodash');
 
 // See https://musicbrainz.org/relationships (but deprecated ones)
 const LINK_TYPES = {
-  wikipedia: {
-    area: '9228621d-9720-35c3-ad3f-327d789464ec',
-    artist: '29651736-fa6d-48e4-aadc-a557c6add1cb',
-    event: '08a982f7-d754-39b2-8315-d7cae474c641',
-    instrument: 'b21fd997-c813-3bc6-99cc-c64323bd15d3',
-    label: '51e9db21-8864-49b3-aa58-470d7b81fa50',
-    place: '82680bbb-0391-4344-9687-4f419df4b97a',
-    release_group: '6578f0e9-1ace-4095-9de8-6e517ddb1ceb',
-    series: 'b2b9407a-dd32-30f4-aa48-b2fd2077d1d2',
-    work: 'b45a88d6-851e-4a6e-9ec8-9a5f4ebe76ab',
+  allmusic: {
+    artist: '6b3e3c85-0002-4f34-aca6-80ace0d7e846',
+    recording: '54482490-5ff1-4b1c-9382-b4d0ef8e0eac',
+    release: '90ff18ad-3e9d-4472-a3d1-71d4df7e8484',
+    release_group: 'a50a1d20-2b20-4d2c-9a29-eb771dd78386',
+    work: 'ca9c9f46-11bd-423a-b134-9109cbebe9d7',
+  },
+  amazon: {
+    release: '4f2e710d-166c-480c-a293-2e2c8d658d87',
+  },
+  bandcamp: {
+    artist: 'c550166e-0548-4a18-b1d4-e2ae423a3e88',
+    label: 'c535de4c-a112-4974-b138-5e0daa56eab5',
+  },
+  bandsintown: {
+    artist: 'ea45ed3d-2d5e-456e-8c32-94b6f51426e2',
+    event: '81bc32b3-7039-486a-a92f-52486fb7e162',
+    place: '0e41b9de-20d8-4d1a-869d-7018e1045439',
+  },
+  bbcmusic: {
+    artist: 'd028a975-000c-4525-9333-d3c8425e4b54',
+  },
+  blog: {
+    artist: 'eb535226-f8ca-499d-9b18-6a144df4ae6f',
+    label: '1b431eba-0d25-4f27-9151-1bb607f5c8f8',
+    place: 'e3051f32-527b-4c47-9993-71250a6cd99c',
+  },
+  bookbrainz: {
+    artist: 'f82f9342-a08d-46b7-ab7a-d8b6330c805d',
+    label: 'b7be2ca4-bdb7-4d87-9619-f2fa50120409',
+    release: '63b84620-ba52-4630-9bfe-8ad3b5504dff',
+    release_group: '27cfc95c-d368-45a9-ae0d-308c274c2017',
+    work: '0ea7cf4e-93dd-4bc4-b748-0f1073cf951c',
+  },
+  cdbaby: {
+    artist: '4c21e5f5-2960-4abc-88a1-62ce491bb96e',
+  },
+  crowdfunding: {
+    artist: '93883cf6-e818-4938-990e-75863f8db2d3',
+    event: '61187747-04d3-4d15-889a-0ceedaecf0aa',
+    label: '16f681e4-93c9-4888-ae5e-3163f01269ab',
+    place: '09328447-f070-463e-a760-a419ffc115bf',
+    recording: 'f9d9946e-0cea-4e47-9d3b-be4be55397a8',
+    release: 'e1434bc9-5e54-4b10-b3f6-db09e6f0cb44',
+    release_group: '6aec99c1-8817-4d91-8fd0-1028cb467b62',
+    series: 'b4894e57-5e32-479f-b1e7-bc561048ce48',
+  },
+  discography: {
+    artist: '4fb0eeec-a6eb-4ae3-ad52-b55765b94e8f',
+  },
+  discographyentry: {
+    release: '823656dd-0309-4247-b282-b92d287d59c5',
   },
   discogs: {
     artist: '04a5b104-a4c2-4bac-99a1-7b837c37d9e4',
@@ -28,6 +70,28 @@ const LINK_TYPES = {
     release_group: '99e550f3-5ab4-3110-b5b9-fe01d970b126',
     series: '338811ef-b1a9-449d-954e-115846f33a44',
     work: 'd78b7280-eb9e-4a57-86c3-cedaa1aa2175',
+  },
+  downloadfree: {
+    artist: '34ae77fe-defb-43ea-95d4-63c7540bac78',
+    label: '46505eea-05d6-48cc-ad78-1f79abc556e1',
+    recording: '45d0cbc5-d65b-4e77-bdfd-8a75207cb5c5',
+    release: '9896ecd0-6d29-482d-a21e-bd5d1b5e3425',
+  },
+  downloadpurchase: {
+    artist: 'f8319a2f-f824-4617-81c8-be6560b3b203',
+    label: 'dc1a65f4-6458-4f3d-bbb1-57e58668d6e7',
+    recording: '92777657-504c-4acb-bd33-51a201bd57e1',
+    release: '98e08c20-8402-4163-8970-53504bb6a1e4',
+  },
+  geonames: {
+    area: 'c52f14c0-e9ac-4a8a-8f7a-c47328de168f',
+    place: 'c4c6356f-9cbc-4e26-ae76-63eef96d059d',
+  },
+  image: {
+    artist: '221132e9-e30e-43f2-a741-15afc4c5fa7c',
+    instrument: 'f64eacbd-1ea1-381e-9886-2cfb552b7d90',
+    label: 'b35f7822-bf3c-4148-b306-fb723c63ee8b',
+    place: '68a4537c-f2a6-49b8-81c5-82a62b0976b7',
   },
   imdb: {
     artist: '94c8b0cc-4477-4106-932c-da60e63de61c',
@@ -39,30 +103,14 @@ const LINK_TYPES = {
     release_group: '85b0a010-3237-47c7-8476-6fcefd4761af',
     work: 'e5c75559-4dda-452e-a900-ae375935164c',
   },
-  myspace: {
-    artist: 'bac47923-ecde-4b59-822e-d08f0cd10156',
-    label: '240ba9dc-9898-4505-9bf7-32a53a695612',
-    place: 'c809cb4a-2835-44fb-bc64-fd4882bd389c',
+  imslp: {
+    artist: '8147b6a2-ad14-4ce7-8f0a-697f9a31f68f',
   },
-  purevolume: {
-    artist: 'b6f02157-a9d3-4f24-9057-0675b2dbc581',
-  },
-  allmusic: {
-    artist: '6b3e3c85-0002-4f34-aca6-80ace0d7e846',
-    recording: '54482490-5ff1-4b1c-9382-b4d0ef8e0eac',
-    release: '90ff18ad-3e9d-4472-a3d1-71d4df7e8484',
-    release_group: 'a50a1d20-2b20-4d2c-9a29-eb771dd78386',
-    work: 'ca9c9f46-11bd-423a-b134-9109cbebe9d7',
-  },
-  amazon: {
-    release: '4f2e710d-166c-480c-a293-2e2c8d658d87',
-  },
-  bookbrainz: {
-    artist: 'f82f9342-a08d-46b7-ab7a-d8b6330c805d',
-    label: 'b7be2ca4-bdb7-4d87-9619-f2fa50120409',
-    release: '63b84620-ba52-4630-9bfe-8ad3b5504dff',
-    release_group: '27cfc95c-d368-45a9-ae0d-308c274c2017',
-    work: '0ea7cf4e-93dd-4bc4-b748-0f1073cf951c',
+  lastfm: {
+    artist: '08db8098-c0df-4b78-82c3-c8697b4bba7f',
+    event: 'fd86b01d-c8f7-4f0a-a077-81855a9cfeef',
+    label: 'e3390a1d-3083-4bc9-9295-aff9da18612c',
+    place: 'c3ddb53d-a7df-4486-8cc7-c1b7baec994e',
   },
   license: {
     recording: 'f25e301d-b87b-4561-86a0-5d2df6d26c0a',
@@ -74,94 +122,18 @@ const LINK_TYPES = {
     release_group: '156344d3-da8b-40c6-8b10-7b1c22727124',
     work: 'e38e65aa-75e0-42ba-ace0-072aeb91a538',
   },
-  bbcmusic: {
-    artist: 'd028a975-000c-4525-9333-d3c8425e4b54',
-  },
-  discography: {
-    artist: '4fb0eeec-a6eb-4ae3-ad52-b55765b94e8f',
-  },
-  image: {
-    artist: '221132e9-e30e-43f2-a741-15afc4c5fa7c',
-    instrument: 'f64eacbd-1ea1-381e-9886-2cfb552b7d90',
-    label: 'b35f7822-bf3c-4148-b306-fb723c63ee8b',
-    place: '68a4537c-f2a6-49b8-81c5-82a62b0976b7',
-  },
-  discographyentry: {
-    release: '823656dd-0309-4247-b282-b92d287d59c5',
-  },
   mailorder: {
     artist: '611b1862-67af-4253-a64f-34adba305d1d',
     label: '607deff9-31a8-4b8c-a971-d873cf59ef16',
     release: '3ee51e05-a06a-415e-b40c-b3f740dedfd7',
   },
-  downloadpurchase: {
-    artist: 'f8319a2f-f824-4617-81c8-be6560b3b203',
-    label: 'dc1a65f4-6458-4f3d-bbb1-57e58668d6e7',
-    recording: '92777657-504c-4acb-bd33-51a201bd57e1',
-    release: '98e08c20-8402-4163-8970-53504bb6a1e4',
+  myspace: {
+    artist: 'bac47923-ecde-4b59-822e-d08f0cd10156',
+    label: '240ba9dc-9898-4505-9bf7-32a53a695612',
+    place: 'c809cb4a-2835-44fb-bc64-fd4882bd389c',
   },
-  downloadfree: {
-    artist: '34ae77fe-defb-43ea-95d4-63c7540bac78',
-    label: '46505eea-05d6-48cc-ad78-1f79abc556e1',
-    recording: '45d0cbc5-d65b-4e77-bdfd-8a75207cb5c5',
-    release: '9896ecd0-6d29-482d-a21e-bd5d1b5e3425',
-  },
-  review: {
-    release_group: 'c3ac9c3b-f546-4d15-873f-b294d2c1b708',
-  },
-  score: {
-    work: '0cc8527e-ea40-40dd-b144-3b7588e759bf',
-  },
-  secondhandsongs: {
-    artist: '79c5b84d-a206-4f4c-9832-78c028c312c3',
-    release: '0e555925-1b7d-475c-9b25-b9c349dcc3f3',
-    work: 'b80dff64-9560-445a-b824-c8b432d77a52',
-  },
-  songfacts: {
-    work: '80402bbc-1aec-41d1-a5be-b599b89bc3c3',
-  },
-  socialnetwork: {
-    artist: '99429741-f3f6-484b-84f8-23af51991770',
-    event: '68f5fcaa-b58c-3bfe-9b7c-75c2b56e839a',
-    label: '5d217d99-bc05-4a76-836d-c91eec4ba818',
-    place: '040de4d5-ace5-4cfb-8a45-95c5c73bce01',
-    series: '80d5e037-9aa7-3d80-80da-fb01d6dbc25b',
-  },
-  soundcloud: {
-    artist: '89e4a949-0976-440d-bda1-5f772c1e5710',
-    label: 'a31d05ba-3b82-47b2-ab8b-1fe73b5459e2',
-    place: '1cd2eb89-2997-4901-87e9-838ac9a68da9',
-    series: '4789521b-57b9-4689-9644-46de63190f66',
-  },
-  blog: {
-    artist: 'eb535226-f8ca-499d-9b18-6a144df4ae6f',
-    label: '1b431eba-0d25-4f27-9151-1bb607f5c8f8',
-    place: 'e3051f32-527b-4c47-9993-71250a6cd99c',
-  },
-  streamingmusic: {
-    artist: '769085a1-c2f7-4c24-a532-2375a77693bd',
-    recording: '7e41ef12-a124-4324-afdb-fdbae687a89c',
-    release: '08445ccf-7b99-4438-9f9a-fb9ac18099ee',
-  },
-  videochannel: {
-    artist: 'd86c9450-b6d0-4760-a275-e7547495b48b',
-    event: '1f3df2eb-3d0b-44f1-9599-1309c692bc7c',
-    label: '20ad367c-cba0-4c02-bd61-2df3ae8cc799',
-    place: 'e5c5a0f6-9581-44d8-a5fb-d3688254dc9f',
-    series: '71774032-781b-468c-9cbf-8a9a2f8eda13',
-  },
-  vgmdb: {
-    artist: '0af15ab3-c615-46d6-b95b-a5fcd2a92ed9',
-    event: '5d3e0348-71a8-3dc1-b847-3a8f1d5de688',
-    label: '8a2d3e55-d291-4b99-87a0-c59c6b121762',
-    release: '6af0134a-df6a-425a-96e2-895f9cd342ba',
-  },
-  youtube: {
-    artist: '6a540e5b-58c6-4192-b6ba-dbc71ec8fcf0',
-    event: 'fea46163-dc45-3af9-917e-1798f325d21a',
-    label: 'd9c71059-ba9d-4135-b909-481d12cf84e3',
-    place: '22ec436d-bb65-4c83-a268-0fdb0dbd8834',
-    series: 'f23802a4-36be-3751-8e4d-93422e08b3e8',
+  onlinecommunity: {
+    artist: '35b3a50f-bf0e-4309-a3b4-58eeed8cee6a',
   },
   otherdatabases: {
     artist: 'd94fb61c-fa20-4e3c-a19a-71a949fb2c55',
@@ -175,11 +147,77 @@ const LINK_TYPES = {
     series: '8a08d0f5-c7c4-4572-9d22-cee92693d820',
     work: '190ea031-4355-405d-a43e-53eb4c5c4ada',
   },
+  patronage: {
+    artist: '6f77d54e-1d81-4e1a-9ea5-37947577151b',
+    event: 'f0f05915-64ac-45fb-a9b3-1bf24cd191d9',
+    label: 'e3d9c283-0146-4d91-9471-1b491a9c17ef',
+    place: 'f14b4e5f-0884-4bb0-b3fa-134cc2734f0e',
+    series: '492a4e07-0ea9-4e82-870b-cab942b0576f',
+  },
+  purevolume: {
+    artist: 'b6f02157-a9d3-4f24-9057-0675b2dbc581',
+  },
+  review: {
+    release_group: 'c3ac9c3b-f546-4d15-873f-b294d2c1b708',
+  },
+  score: {
+    work: '0cc8527e-ea40-40dd-b144-3b7588e759bf',
+  },
+  secondhandsongs: {
+    artist: '79c5b84d-a206-4f4c-9832-78c028c312c3',
+    release: '0e555925-1b7d-475c-9b25-b9c349dcc3f3',
+    work: 'b80dff64-9560-445a-b824-c8b432d77a52',
+  },
+  setlistfm: {
+    artist: 'bf5d0d5e-27a1-4e94-9df7-3cdc67b3b207',
+    event: '027fce0c-c621-4fd1-b728-1678ae08f280',
+    place: '751e8fb1-ed8d-4a94-b71b-a38065054f5d',
+    series: 'de143a8b-ea80-4b26-9246-f1ce498d4b01',
+  },
+  socialnetwork: {
+    artist: '99429741-f3f6-484b-84f8-23af51991770',
+    event: '68f5fcaa-b58c-3bfe-9b7c-75c2b56e839a',
+    label: '5d217d99-bc05-4a76-836d-c91eec4ba818',
+    place: '040de4d5-ace5-4cfb-8a45-95c5c73bce01',
+    series: '80d5e037-9aa7-3d80-80da-fb01d6dbc25b',
+  },
+  songfacts: {
+    work: '80402bbc-1aec-41d1-a5be-b599b89bc3c3',
+  },
+  songkick: {
+    artist: 'aac9c4bc-a5b9-30b8-9839-e3ac314c6e58',
+    event: '125afc57-4d33-3b63-ab41-848a3a18d3a6',
+    place: '3eb58d3e-6f00-36a8-a115-3dad616b7391',
+  },
+  soundcloud: {
+    artist: '89e4a949-0976-440d-bda1-5f772c1e5710',
+    label: 'a31d05ba-3b82-47b2-ab8b-1fe73b5459e2',
+    place: '1cd2eb89-2997-4901-87e9-838ac9a68da9',
+    series: '4789521b-57b9-4689-9644-46de63190f66',
+  },
+  streamingmusic: {
+    artist: '769085a1-c2f7-4c24-a532-2375a77693bd',
+    recording: '7e41ef12-a124-4324-afdb-fdbae687a89c',
+    release: '08445ccf-7b99-4438-9f9a-fb9ac18099ee',
+  },
+  vgmdb: {
+    artist: '0af15ab3-c615-46d6-b95b-a5fcd2a92ed9',
+    event: '5d3e0348-71a8-3dc1-b847-3a8f1d5de688',
+    label: '8a2d3e55-d291-4b99-87a0-c59c6b121762',
+    release: '6af0134a-df6a-425a-96e2-895f9cd342ba',
+  },
   viaf: {
     artist: 'e8571dcc-35d4-4e91-a577-a3382fd84460',
     label: 'c4bee4f4-e622-4c74-b80b-585989de27f4',
     place: '49a08641-0aed-4e10-8311-ec220b8c50ad',
     work: 'b6eaef52-68a0-4b50-b875-8acd7d9212ba',
+  },
+  videochannel: {
+    artist: 'd86c9450-b6d0-4760-a275-e7547495b48b',
+    event: '1f3df2eb-3d0b-44f1-9599-1309c692bc7c',
+    label: '20ad367c-cba0-4c02-bd61-2df3ae8cc799',
+    place: 'e5c5a0f6-9581-44d8-a5fb-d3688254dc9f',
+    series: '71774032-781b-468c-9cbf-8a9a2f8eda13',
   },
   wikidata: {
     area: '85c5256f-aef1-484f-979a-42007218a1c2',
@@ -192,61 +230,23 @@ const LINK_TYPES = {
     series: 'a1eecd98-f2f2-420b-ba8e-e5bc61697869',
     work: '587fdd8f-080e-46a9-97af-6425ebbcb3a2',
   },
-  bandcamp: {
-    artist: 'c550166e-0548-4a18-b1d4-e2ae423a3e88',
-    label: 'c535de4c-a112-4974-b138-5e0daa56eab5',
+  wikipedia: {
+    area: '9228621d-9720-35c3-ad3f-327d789464ec',
+    artist: '29651736-fa6d-48e4-aadc-a557c6add1cb',
+    event: '08a982f7-d754-39b2-8315-d7cae474c641',
+    instrument: 'b21fd997-c813-3bc6-99cc-c64323bd15d3',
+    label: '51e9db21-8864-49b3-aa58-470d7b81fa50',
+    place: '82680bbb-0391-4344-9687-4f419df4b97a',
+    release_group: '6578f0e9-1ace-4095-9de8-6e517ddb1ceb',
+    series: 'b2b9407a-dd32-30f4-aa48-b2fd2077d1d2',
+    work: 'b45a88d6-851e-4a6e-9ec8-9a5f4ebe76ab',
   },
-  bandsintown: {
-    artist: 'ea45ed3d-2d5e-456e-8c32-94b6f51426e2',
-    event: '81bc32b3-7039-486a-a92f-52486fb7e162',
-    place: '0e41b9de-20d8-4d1a-869d-7018e1045439',
-  },
-  cdbaby: {
-    artist: '4c21e5f5-2960-4abc-88a1-62ce491bb96e',
-  },
-  songkick: {
-    artist: 'aac9c4bc-a5b9-30b8-9839-e3ac314c6e58',
-    event: '125afc57-4d33-3b63-ab41-848a3a18d3a6',
-    place: '3eb58d3e-6f00-36a8-a115-3dad616b7391',
-  },
-  setlistfm: {
-    artist: 'bf5d0d5e-27a1-4e94-9df7-3cdc67b3b207',
-    event: '027fce0c-c621-4fd1-b728-1678ae08f280',
-    place: '751e8fb1-ed8d-4a94-b71b-a38065054f5d',
-    series: 'de143a8b-ea80-4b26-9246-f1ce498d4b01',
-  },
-  geonames: {
-    area: 'c52f14c0-e9ac-4a8a-8f7a-c47328de168f',
-    place: 'c4c6356f-9cbc-4e26-ae76-63eef96d059d',
-  },
-  imslp: {
-    artist: '8147b6a2-ad14-4ce7-8f0a-697f9a31f68f',
-  },
-  lastfm: {
-    artist: '08db8098-c0df-4b78-82c3-c8697b4bba7f',
-    event: 'fd86b01d-c8f7-4f0a-a077-81855a9cfeef',
-    label: 'e3390a1d-3083-4bc9-9295-aff9da18612c',
-    place: 'c3ddb53d-a7df-4486-8cc7-c1b7baec994e',
-  },
-  onlinecommunity: {
-    artist: '35b3a50f-bf0e-4309-a3b4-58eeed8cee6a',
-  },
-  patronage: {
-    artist: '6f77d54e-1d81-4e1a-9ea5-37947577151b',
-    event: 'f0f05915-64ac-45fb-a9b3-1bf24cd191d9',
-    label: 'e3d9c283-0146-4d91-9471-1b491a9c17ef',
-    place: 'f14b4e5f-0884-4bb0-b3fa-134cc2734f0e',
-    series: '492a4e07-0ea9-4e82-870b-cab942b0576f',
-  },
-  crowdfunding: {
-    artist: '93883cf6-e818-4938-990e-75863f8db2d3',
-    event: '61187747-04d3-4d15-889a-0ceedaecf0aa',
-    label: '16f681e4-93c9-4888-ae5e-3163f01269ab',
-    place: '09328447-f070-463e-a760-a419ffc115bf',
-    recording: 'f9d9946e-0cea-4e47-9d3b-be4be55397a8',
-    release: 'e1434bc9-5e54-4b10-b3f6-db09e6f0cb44',
-    release_group: '6aec99c1-8817-4d91-8fd0-1028cb467b62',
-    series: 'b4894e57-5e32-479f-b1e7-bc561048ce48',
+  youtube: {
+    artist: '6a540e5b-58c6-4192-b6ba-dbc71ec8fcf0',
+    event: 'fea46163-dc45-3af9-917e-1798f325d21a',
+    label: 'd9c71059-ba9d-4135-b909-481d12cf84e3',
+    place: '22ec436d-bb65-4c83-a268-0fdb0dbd8834',
+    series: 'f23802a4-36be-3751-8e4d-93422e08b3e8',
   },
 };
 
@@ -281,7 +281,7 @@ const RESTRICTED_LINK_TYPES = _.reduce([
   return result.concat(_.values(linkType));
 }, []);
 
-function reencode_mediawiki_localpart(url) {
+function reencodeMediawikiLocalPart(url) {
   const m = url.match(/^(https?:\/\/[^\/]+\/wiki\/)([^?#]+)(.*)$/);
   if (m) {
     url = m[1] + encodeURIComponent(decodeURIComponent(m[2])).replace(/%20/g, '_').replace(/%24/g, '$')
@@ -319,7 +319,7 @@ const CLEANUPS = {
       url = url.replace(/\.wikipedia\.org\/w\/index\.php\?title=([^&]+).*/, '.wikipedia.org/wiki/$1');
       url = url.replace(/\?oldformat=true$/, '');
       url = url.replace(/^(?:https?:\/\/)?([a-z-]+)(?:\.m)?\.wikipedia\.org\/[a-z-]+\/([^?]+)$/, 'https://$1.wikipedia.org/wiki/$2');
-      url = reencode_mediawiki_localpart(url);
+      url = reencodeMediawikiLocalPart(url);
       return url;
     },
     validate: function (url, id) {
@@ -725,7 +725,7 @@ const CLEANUPS = {
     type: LINK_TYPES.lyrics,
     clean: function (url) {
       url = url.replace(/^http:\/\/([a-z-]+\.)?wikisource\.org/, 'https://$1wikisource.org');
-      url = reencode_mediawiki_localpart(url);
+      url = reencodeMediawikiLocalPart(url);
       return url;
     },
     validate: function (url, id) {
@@ -740,7 +740,7 @@ const CLEANUPS = {
       url = url.replace(/^https?:\/\/upload\.wikimedia\.org\/wikipedia\/commons\/(thumb\/)?[0-9a-z]\/[0-9a-z]{2}\/([^\/]+)(\/[^\/]+)?$/, 'https://commons.wikimedia.org/wiki/File:$2');
       url = url.replace(/\?uselang=[a-z-]+$/, '');
       url = url.replace(/#.*$/, '');
-      url = reencode_mediawiki_localpart(url);
+      url = reencodeMediawikiLocalPart(url);
       return url.replace(/^https?:\/\/commons\.(?:m\.)?wikimedia\.org\/wiki\/(?:File|Image):/, 'https://commons.wikimedia.org/wiki/File:');
     },
     validate: function (url, id) {
