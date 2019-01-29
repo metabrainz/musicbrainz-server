@@ -1300,6 +1300,12 @@ const testData = [
     expected_relationship_type: 'socialnetwork',
             expected_clean_url: 'https://www.facebook.com/bradpot187',
   },
+  {
+                     input_url: 'https://www.facebook.com/pg/TheSullivanSees/',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'socialnetwork',
+            expected_clean_url: 'https://www.facebook.com/TheSullivanSees',
+  },
   // Finna.fi
   {
                      input_url: 'https://www.finna.fi/Record/viola.163990',

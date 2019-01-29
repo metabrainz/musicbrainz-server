@@ -850,6 +850,8 @@ const CLEANUPS = {
     type: LINK_TYPES.socialnetwork,
     clean: function (url) {
       url = url.replace(/^(https?:\/\/)?([\w.-]*\.)?(facebook|fb)\.com(\/#!)?/, 'https://www.facebook.com');
+      // Remove unneeded pg section
+      url = url.replace(/(facebook\.com\/)pg\//, '$1');
       // Remove ref (where the user came from), sk (subpages in a page, since we want the main link) and a couple others
       url = url.replace(new RegExp('([&?])(__tn__|_fb_noscript|_rdr|acontext|em|entry_point|filter|focus_composer|fref|hc_location|pnref|qsefr|ref|ref_dashboard_filter|ref_page_id|ref_type|refsrc|rf|sid_reminder|sk|tab|viewas)=([^?&]*)', 'g'), '$1');
       // Ensure the first parameter left uses ? not to break the URL
