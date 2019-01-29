@@ -93,6 +93,11 @@ function execFile(...args) {
 }
 
 const proxy = httpProxy.createProxyServer({});
+let pendingReqs = [];
+
+proxy.on('proxyReq', function (req) {
+  pendingReqs.push(req);
+});
 
 const customProxyServer = http.createServer(function (req, res) {
   const host = req.headers.host;
@@ -263,6 +268,12 @@ async function handleCommand(file, command, target, value, t) {
     node = document.getElementById('plDebug');
     if (node) node.remove();
   `);
+
+  // Wait for all pending network requests before running the next command.
+  await driver.wait(function () {
+    pendingReqs = pendingReqs.filter(req => !(req.aborted || req.finished));
+    return pendingReqs.length === 0;
+  });
 
   let commentValue;
   switch (command) {
