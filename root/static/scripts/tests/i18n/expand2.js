@@ -4,19 +4,21 @@ import React from 'react';
 import expand2, {expand2html} from '../../common/i18n/expand2';
 
 test('expand2', function (t) {
-  t.plan(50);
+  t.plan(54);
 
-  let error;
+  let error = '';
   const consoleError = console.error;
   console.error = function () {
     error = arguments[0];
   };
 
   function expandText(input, args, output) {
+    error = '';
     t.equal(expand2(input, args), output);
   }
 
   function expandHtml(input, args, output) {
+    error = '';
     t.equal(expand2html(input, args), output);
   }
 
@@ -28,6 +30,10 @@ test('expand2', function (t) {
   expandText('An {apple_fruit}', null, 'An {apple_fruit}');
   expandText('An {apple_fruit}', {apple_fruit: 'apple'}, 'An apple');
   expandText('A {number}', {number: 1}, 'A 1');
+  expandHtml('{null} value', {null: null}, ' value');
+  t.equal(error, '');
+  expandHtml('{undefined} value', {undefined: undefined}, ' value');
+  t.equal(error, '');
 
   expandHtml(
     'An {apple_fruit}',
