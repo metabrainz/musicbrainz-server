@@ -1,4 +1,5 @@
 /*
+ * @flow
  * Copyright (C) 2018 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -8,12 +9,6 @@
 
 import * as wrapGettext from './wrapGettext';
 
-const l_statistics = wrapGettext.dgettext('statistics');
-const ln_statistics = wrapGettext.dngettext('statistics');
-const lp_statistics = wrapGettext.dpgettext('statistics');
-
-export {
-  l_statistics,
-  ln_statistics,
-  lp_statistics,
-};
+export const l_statistics = wrapGettext.dgettext('statistics');
+export const ln_statistics = wrapGettext.dngettext('statistics');
+export const lp_statistics = wrapGettext.dpgettext('statistics');
