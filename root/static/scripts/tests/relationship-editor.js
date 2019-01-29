@@ -198,7 +198,7 @@ relationshipEditorTest("link phrase interpolation", function (t) {
             linkTypeID: 154,
             attributes: ids2attrs([1, 69, 75, 109, 302]),
             expected: "contains additional samples by",
-            expectedExtra: "strings, guitars, lyre, plucked string instruments"
+            expectedExtra: "strings, guitar family, lyre, plucked string instruments"
         },
         // MBS-6129
         {
