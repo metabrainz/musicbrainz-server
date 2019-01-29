@@ -7,7 +7,8 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import {l, N_l, N_lp} from './i18n';
+import {N_l, N_lp} from './i18n';
+import NopArgs from './i18n/NopArgs';
 
 export const ENTITIES = require('../../../../entities');
 
@@ -219,9 +220,9 @@ export const ENTITIES_WITH_RELATIONSHIP_CREDITS: {[string]: boolean} = {
   place: true,
 };
 
-export const QUALITY_NAMES: Map<QualityT, string> = new Map([
-  [0, l('Low')],
-  [-1, l('Normal')],
-  [1, l('Normal')],
-  [2, l('High')],
+export const QUALITY_NAMES: Map<QualityT, NopArgs> = new Map([
+  [0, N_l('Low')],
+  [-1, N_l('Normal')],
+  [1, N_l('Normal')],
+  [2, N_l('High')],
 ]);
