@@ -9,6 +9,7 @@
 
 import AreaLayout from '../area/AreaLayout';
 import ArtistLayout from '../artist/ArtistLayout';
+import EventLayout from '../event/EventLayout';
 import LabelLayout from '../label/LabelLayout';
 import ReleaseGroupLayout from '../release_group/ReleaseGroupLayout';
 import SeriesLayout from '../series/SeriesLayout';
@@ -16,6 +17,7 @@ import SeriesLayout from '../series/SeriesLayout';
 const layoutPicker = {
   area: AreaLayout,
   artist: ArtistLayout,
+  event: EventLayout,
   label: LabelLayout,
   release_group: ReleaseGroupLayout,
   series: SeriesLayout,
