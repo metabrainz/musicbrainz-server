@@ -691,6 +691,7 @@ declare type ReleaseGroupT = {|
   +entityType: 'release_group',
   +firstReleaseDate: string | null,
   +l_type_name: string | null,
+  +release_count: number,
   +release_group?: ReleaseGroupT,
   +review_count: ?number,
   +secondaryTypeIDs: $ReadOnlyArray<number>,

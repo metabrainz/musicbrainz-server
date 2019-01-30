@@ -4,7 +4,7 @@
     [% PROCESS 'components/relationship-editor.tt' %]
 
     <div id="content" class="rel-editor" data-bind="delegatedHandler: 'click'">
-      [%- INCLUDE "release/header.tt" page='edit_relationships' -%]
+      [%- React.embed(c, 'release/ReleaseHeader', { release => release, page => 'edit_relationships' }) -%]
 
       <p>
         [% l('Relationships highlighted <span class="rel-edit">yellow</span> will be edited,
