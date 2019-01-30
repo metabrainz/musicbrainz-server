@@ -6,7 +6,7 @@ sub details : Chained('load') PathPart {
 
     my $entity = $c->stash->{$self->{entity_name}};
 
-    if ($entity->entity_type =~ /^(?:area|artist|label|release_group)$/) {
+    if ($entity->entity_type =~ /^(?:area|artist|label|release_group|series)$/) {
         my %props = (
             entity       => $entity,
             lastUpdated  => $entity->{last_updated},
