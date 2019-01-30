@@ -9,12 +9,14 @@
 
 import ArtistLayout from '../artist/ArtistLayout';
 import LabelLayout from '../label/LabelLayout';
+import PlaceLayout from '../place/PlaceLayout';
 import ReleaseGroupLayout from '../release_group/ReleaseGroupLayout';
 import SeriesLayout from '../series/SeriesLayout';
 
 const layoutPicker = {
   artist: ArtistLayout,
   label: LabelLayout,
+  place: PlaceLayout,
   release_group: ReleaseGroupLayout,
   series: SeriesLayout,
 };
