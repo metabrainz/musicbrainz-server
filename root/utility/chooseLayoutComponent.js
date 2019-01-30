@@ -8,12 +8,14 @@
  */
 
 import ArtistLayout from '../artist/ArtistLayout';
+import InstrumentLayout from '../instrument/InstrumentLayout';
 import LabelLayout from '../label/LabelLayout';
 import ReleaseGroupLayout from '../release_group/ReleaseGroupLayout';
 import SeriesLayout from '../series/SeriesLayout';
 
 const layoutPicker = {
   artist: ArtistLayout,
+  instrument: InstrumentLayout,
   label: LabelLayout,
   release_group: ReleaseGroupLayout,
   series: SeriesLayout,
