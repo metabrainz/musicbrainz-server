@@ -1,7 +1,6 @@
 package MusicBrainz::Server::Controller::Role::Alias;
 use Moose::Role -traits => 'MooseX::MethodAttributes::Role::Meta::Role';
 use MusicBrainz::Server::ControllerUtils::Delete qw( cancel_or_action );
-use MusicBrainz::Server::Data::Utils qw( type_to_model );
 
 requires 'load';
 
@@ -55,7 +54,7 @@ sub aliases : Chained('load') PathPart('aliases')
         );
 
         $c->stash(
-            component_path => $entity->entity_type . '/' . type_to_model($entity->entity_type) . 'Aliases.js',
+            component_path => 'entity/Aliases.js',
             component_props => \%props,
             current_view => 'Node',
         );
