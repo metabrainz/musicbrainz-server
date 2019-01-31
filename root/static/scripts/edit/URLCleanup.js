@@ -494,7 +494,12 @@ const CLEANUPS = {
   },
   'bandcamp': {
     match: [new RegExp('^(https?://)?([^/]+)\\.bandcamp\\.com', 'i')],
-    type: _.defaults({}, LINK_TYPES.bandcamp, LINK_TYPES.review, {work: LINK_TYPES.lyrics.work}),
+    type: _.defaults(
+      {},
+      LINK_TYPES.bandcamp,
+      LINK_TYPES.review,
+      {work: LINK_TYPES.lyrics.work},
+    ),
     clean: function (url) {
       url = url.replace(/^(?:https?:\/\/)?([^\/]+)\.bandcamp\.com(?:\/([^?#]*))?.*$/, 'https://$1.bandcamp.com/$2');
       if (/^https:\/\/daily\.bandcamp\.com/.test(url)) {
@@ -2174,7 +2179,8 @@ validationRules[LINK_TYPES.discographyentry.release] = function (url) {
 
 function guessType(sourceType, currentURL) {
   const cleanup = _.find(CLEANUPS, function (cleanup) {
-    return (cleanup.type || {})[sourceType] && testAll(cleanup.match, currentURL);
+    return (cleanup.type || {})[sourceType] &&
+      testAll(cleanup.match, currentURL);
   });
 
   return cleanup && cleanup.type[sourceType];
