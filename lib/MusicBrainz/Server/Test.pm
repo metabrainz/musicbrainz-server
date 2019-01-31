@@ -320,8 +320,6 @@ sub schema_validator
 
         $message ||= "Validate against schema";
 
-        xml_ok($xml, "$message (xml_ok)");
-
       SKIP: {
 
           skip "schema not found", 1 unless $rngschema;
@@ -361,7 +359,7 @@ sub _build_ws_test_xml {
                 $Test->plan(tests => 2);
                 is($mech->res->code, $opts->{response_code});
             } else {
-                $Test->plan(tests => 4);
+                $Test->plan(tests => 3);
                 ok($mech->success);
                 # only do this on success, there's no schema for error messages
                 $validator->($mech->content, 'validating');
