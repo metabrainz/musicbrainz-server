@@ -5,7 +5,6 @@ use Test::More;
 with 't::Mechanize', 't::Context';
 
 use utf8;
-use XML::SemanticDiff;
 use Test::XML::SemanticCompare;
 use MusicBrainz::Server::Test ws_test => {
     version => 2

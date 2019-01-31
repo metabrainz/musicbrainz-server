@@ -7,8 +7,6 @@ use MusicBrainz::Server::Test qw( html_ok );
 with 't::Mechanize', 't::Context';
 
 use utf8;
-use XML::SemanticDiff;
-use MusicBrainz::Server::Test qw( xml_ok schema_validator );
 use MusicBrainz::Server::Test::WS qw(
     ws2_test_xml
     ws2_test_xml_forbidden
@@ -19,8 +17,6 @@ test all => sub {
 
 my $test = shift;
 my $c = $test->c;
-my $v2 = schema_validator;
-my $diff = XML::SemanticDiff->new;
 
 MusicBrainz::Server::Test->prepare_test_database($c, '+webservice');
 

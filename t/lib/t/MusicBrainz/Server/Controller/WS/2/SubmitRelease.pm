@@ -7,10 +7,8 @@ with 't::Mechanize', 't::Context';
 
 use utf8;
 use HTTP::Status qw( :constants );
-use XML::SemanticDiff;
-use XML::XPath;
 
-use MusicBrainz::Server::Test qw( xml_ok schema_validator xml_post capture_edits );
+use MusicBrainz::Server::Test qw( xml_ok xml_post capture_edits );
 use MusicBrainz::Server::Test ws_test => {
     version => 2
 };
@@ -18,7 +16,6 @@ use MusicBrainz::Server::Test ws_test => {
 test all => sub {
     my $test = shift;
     my $c = $test->c;
-    my $v2 = schema_validator;
     my $mech = $test->mech;
     $mech->default_header("Accept" => "application/xml");
 

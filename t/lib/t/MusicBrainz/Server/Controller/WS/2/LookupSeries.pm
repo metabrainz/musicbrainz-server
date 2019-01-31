@@ -5,9 +5,7 @@ use Test::More;
 with 't::Mechanize', 't::Context';
 
 use utf8;
-use XML::SemanticDiff;
 use Test::XML::SemanticCompare;
-use MusicBrainz::Server::Test qw( xml_ok schema_validator );
 use MusicBrainz::Server::Test ws_test => {
     version => 2
 };
@@ -16,8 +14,6 @@ test all => sub {
 
 my $test = shift;
 my $c = $test->c;
-my $v2 = schema_validator;
-my $diff = XML::SemanticDiff->new;
 my $mech = $test->mech;
 $mech->default_header("Accept" => "application/xml");
 

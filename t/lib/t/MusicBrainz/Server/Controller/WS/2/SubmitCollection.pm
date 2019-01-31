@@ -9,8 +9,6 @@ use utf8;
 use HTTP::Status qw( :constants );
 use HTTP::Request::Common qw( DELETE );
 use Test::XML::SemanticCompare;
-use XML::SemanticDiff;
-use XML::XPath;
 
 use MusicBrainz::Server::Constants qw( %ENTITIES entities_with );
 use MusicBrainz::Server::Test qw( xml_ok xml_post );
