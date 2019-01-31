@@ -328,6 +328,7 @@ sub initialize
 sub TO_JSON {
     my ($self) = @_;
 
+    my $can_preview = $self->does('MusicBrainz::Server::Edit::Role::Preview');
     my $conditions = $self->edit_conditions;
     return {
         close_time => datetime_to_iso8601($self->close_time),
@@ -344,6 +345,7 @@ sub TO_JSON {
         editor_id => $self->editor_id + 0,
         expires_time => datetime_to_iso8601($self->expires_time),
         id => $self->id + 0,
+        $can_preview ? (preview => boolean_to_json($self->preview)) : (),
         quality => $self->quality + 0,
         status => $self->status + 0,
         votes => [map { $_->TO_JSON } $self->all_votes],
