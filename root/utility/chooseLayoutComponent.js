@@ -7,12 +7,14 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
+import AreaLayout from '../area/AreaLayout';
 import ArtistLayout from '../artist/ArtistLayout';
 import LabelLayout from '../label/LabelLayout';
 import ReleaseGroupLayout from '../release_group/ReleaseGroupLayout';
 import SeriesLayout from '../series/SeriesLayout';
 
 const layoutPicker = {
+  area: AreaLayout,
   artist: ArtistLayout,
   label: LabelLayout,
   release_group: ReleaseGroupLayout,
