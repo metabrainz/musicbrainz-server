@@ -85,7 +85,7 @@ const ReportsIndex = ({$c}: {$c: CatalystContextT}) => (
         <li><a href="/report/FeaturingReleaseGroups">{l('Release groups with titles containing featuring artists')}</a></li>
         <li><a href="/report/DiscogsLinksWithMultipleReleaseGroups">{l('Discogs URLs linked to multiple release groups')}</a></li>
         <li><a href="/report/DuplicateRelationshipsReleaseGroups">{l('Release groups with possible duplicate relationships')}</a></li>
-        <li><a href="/report/DeprecatedRelationshipReleaseGroups">{l('Release Groups with deprecated relationships')}</a></li>
+        <li><a href="/report/DeprecatedRelationshipReleaseGroups">{l('Release groups with deprecated relationships')}</a></li>
         <li><a href="/report/DuplicateReleaseGroups">{l('Possible duplicate release groups')}</a></li>
         <li><a href="/report/AnnotationsReleaseGroups">{l('Release groups with annotations')}</a></li>
         <li><a href="/report/ReleaseGroupsWithoutVACredit">{l('Release groups not credited to "Various Artists" but linked to VA')}</a></li>
