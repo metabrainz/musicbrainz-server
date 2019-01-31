@@ -18,7 +18,7 @@ type Props = {|
   url: UrlT,
 |};
 
-const URLHeader = ({url, page}: Props) => (
+const UrlHeader = ({url, page}: Props) => (
   <EntityHeader
     entity={url}
     headerClass="workheader"
@@ -30,4 +30,4 @@ const URLHeader = ({url, page}: Props) => (
   />
 );
 
-export default URLHeader;
+export default UrlHeader;

@@ -13,7 +13,7 @@ import type {Node as ReactNode} from 'react';
 import Layout from '../layout';
 import UrlSidebar from '../layout/components/sidebar/UrlSidebar';
 
-import URLHeader from './URLHeader';
+import UrlHeader from './UrlHeader';
 
 type Props = {|
   +children: ReactNode,
@@ -34,7 +34,7 @@ const UrlLayout = ({
     title={title}
   >
     <div id="content">
-      <URLHeader page={page} url={url} />
+      <UrlHeader page={page} url={url} />
       {children}
     </div>
     {fullWidth ? null : <UrlSidebar url={url} />}

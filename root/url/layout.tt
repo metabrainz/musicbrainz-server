@@ -1,6 +1,6 @@
 [% WRAPPER 'layout.tt' %]
     <div id="content">
-        [%~ React.embed(c, 'url/URLHeader', { url => url, page => page }) ~%]
+        [%~ React.embed(c, 'url/UrlHeader', { url => url, page => page }) ~%]
         [% content %]
     </div>
 
