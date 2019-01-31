@@ -30,6 +30,8 @@ sub edit_template {
     lc(shift->edit_name) =~ s/\s+/_/gr
 }
 
+sub edit_template_react { '' }
+
 has 'c' => (
     isa => 'Object',
     is => 'rw'
@@ -336,6 +338,7 @@ sub TO_JSON {
             auto_edit => boolean_to_json($conditions->{auto_edit}),
         },
         created_time => datetime_to_iso8601($self->created_time),
+        display_data => $self->display_data,
         data => $self->data,
         edit_type => $self->edit_type + 0,
         editor_id => $self->editor_id + 0,
