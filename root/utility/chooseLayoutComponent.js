@@ -18,6 +18,7 @@ import RecordingLayout from '../recording/RecordingLayout';
 import ReleaseGroupLayout from '../release_group/ReleaseGroupLayout';
 import ReleaseLayout from '../release/ReleaseLayout';
 import SeriesLayout from '../series/SeriesLayout';
+import WorkLayout from '../work/WorkLayout';
 
 const layoutPicker = {
   area: AreaLayout,
@@ -31,6 +32,7 @@ const layoutPicker = {
   release_group: ReleaseGroupLayout,
   release: ReleaseLayout,
   series: SeriesLayout,
+  work: WorkLayout,
 };
 
 export default function chooseLayoutComponent(typeName: string) {
