@@ -133,7 +133,8 @@ test_requires 'Test::Differences';
 test_requires 'Test::Fatal' => '0.006';
 test_requires 'Test::JSON';
 test_requires 'Test::LongString';
-test_requires 'Test::Magpie' => '0.04';
+# Depends on UNIVERSAL::ref, which fails to build against recent versions of Perl.
+# test_requires 'Test::Magpie' => '0.04';
 test_requires 'Test::Memory::Cycle';
 test_requires 'Test::Mock::Class';
 test_requires 'Test::Routine';

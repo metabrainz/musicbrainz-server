@@ -54,7 +54,9 @@ exec sudo -E -H -u musicbrainz carton exec -- prove \
     t/selenium.js \
     t/pgtap/* \
     t/pgtap/unused-tags/* \
-    t/script/*.t \
+    t/script/BuildSitemaps.t \
+    t/script/DumpJSON.t \
+    t/script/ExportAllTables.t \
     t/tests.t \
     --harness=TAP::Harness::JUnit \
     -v
