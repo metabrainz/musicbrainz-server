@@ -810,14 +810,6 @@ DISTRIBUTIONS
       Module::Build::Tiny 0.035
       URI::Escape 0
       perl 5.008001
-  Cpanel-JSON-XS-4.08
-    pathname: R/RU/RURBAN/Cpanel-JSON-XS-4.08.tar.gz
-    provides:
-      Cpanel::JSON::XS 4.08
-      Cpanel::JSON::XS::Type undef
-    requirements:
-      ExtUtils::MakeMaker 0
-      Pod::Text 2.08
   Crypt-Blowfish-2.14
     pathname: D/DP/DPARIS/Crypt-Blowfish-2.14.tar.gz
     provides:
@@ -3245,7 +3237,6 @@ DISTRIBUTIONS
       JSON::MaybeXS 1.004000
     requirements:
       Carp 0
-      Cpanel::JSON::XS 2.3310
       ExtUtils::MakeMaker 0
       JSON::PP 2.27300
       Scalar::Util 0
@@ -6194,6 +6185,22 @@ DISTRIBUTIONS
       Symbol::Util 0.0203
     requirements:
       perl 5.006
+  TAP-Harness-JUnit-0.42
+    pathname: J/JL/JLAVALLEE/TAP-Harness-JUnit-0.42.tar.gz
+    provides:
+      TAP::Harness::JUnit 0.42
+      TAP::Harness::JUnit::Parser undef
+    requirements:
+      Encode 0
+      File::Temp 0
+      Module::Build 0.42
+      Scalar::Util 0
+      TAP::Harness 3.05
+      TAP::Parser 0
+      Test::Deep 0
+      Test::More 0
+      Time::HiRes 0
+      XML::Simple 0
   TAP-Parser-SourceHandler-pgTAP-3.34
     pathname: D/DW/DWHEELER/TAP-Parser-SourceHandler-pgTAP-3.34.tar.gz
     provides:
@@ -6328,7 +6335,6 @@ DISTRIBUTIONS
       Test::Aggregate::Builder 0.375
       Test::Aggregate::Nested 0.375
     requirements:
-      ExtUtils::MakeMaker 0
       FindBin 1.47
       Test::Harness 3.09
       Test::Most 0.21

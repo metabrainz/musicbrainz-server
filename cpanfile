@@ -127,6 +127,7 @@ test_requires 'HTML::HTML5::Sanity';
 test_requires 'HTML::Selector::XPath';
 test_requires 'LWP::UserAgent::Mockable';
 test_requires 'Perl::Critic';
+test_requires 'TAP::Harness::JUnit';
 test_requires 'TAP::Parser::SourceHandler::pgTAP';
 test_requires 'Test::Aggregate';
 test_requires 'Test::Differences';
