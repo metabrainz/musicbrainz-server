@@ -64,6 +64,19 @@ declare type AreaT = {|
   +primary_code: string,
 |};
 
+declare type AnnotatedEntityT =
+  | AreaT
+  | ArtistT
+  | EventT
+  | InstrumentT
+  | LabelT
+  | PlaceT
+  | RecordingT
+  | ReleaseGroupT
+  | ReleaseT
+  | SeriesT
+  | WorkT;
+
 declare type AnnotationRoleT = {|
   +latest_annotation?: AnnotationT,
 |};
@@ -416,7 +429,6 @@ declare type EditT = {|
   |},
   +created_time: string,
   +data: Object,
-  +display_data: Object,
   +edit_type: number,
   +editor_id: number,
   +expires_time: string,

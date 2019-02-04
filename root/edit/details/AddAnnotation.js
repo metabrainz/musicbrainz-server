@@ -13,7 +13,21 @@ import {addColon, l} from '../../static/scripts/common/i18n';
 import DescriptiveLink from '../../static/scripts/common/components/DescriptiveLink';
 import formatEntityTypeName from '../../static/scripts/common/utility/formatEntityTypeName';
 
-const AddAnnotation = ({edit}: {edit: EditT}) => {
+type AnnotatedEntityTypeT = $ElementType<AnnotatedEntityT, 'entityType'>;
+
+type AddAnnotationEditT = {|
+  ...EditT,
+  +display_data: {|
+    +annotation_id: number,
+    +changelog: string,
+    +entity_type: AnnotatedEntityTypeT,
+    [AnnotatedEntityTypeT]: AnnotatedEntityT,
+    +html: string,
+    +text: string,
+  |},
+|};
+
+const AddAnnotation = ({edit}: {edit: AddAnnotationEditT}) => {
   const display = edit.display_data;
   const entityType = display.entity_type;
 
