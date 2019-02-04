@@ -12,7 +12,7 @@ import test from 'tape';
 
 import MB from '../common/MB';
 import typeInfo from '../common/typeInfo';
-import {LinkAttribute, Relationship} from '../relationship-editor/common/fields';
+import fields from '../relationship-editor/common/fields';
 import {
   AddDialog,
   BatchCreateWorksDialog,
@@ -25,7 +25,7 @@ import {
 } from '../relationship-editor/generic';
 import {ReleaseViewModel} from '../relationship-editor/release';
 
-class FakeRelationship extends Relationship {}
+class FakeRelationship extends fields.Relationship {}
 
 FakeRelationship.prototype.loadWorkRelationships = _.noop;
 
@@ -926,7 +926,7 @@ relationshipEditorTest("invalid attributes can’t be set on a relationship (MBS
     t.equal(relationship.attributes().length, 1);
 
     relationship.attributes.push(
-        new LinkAttribute(
+        new fields.LinkAttribute(
             { type: { gid: "ed11fcb1-5a18-4e1d-b12c-633ed19c8ee1" } }
         )
     );

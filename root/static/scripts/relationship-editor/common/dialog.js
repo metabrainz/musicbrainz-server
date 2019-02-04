@@ -3,35 +3,35 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-const $ = require('jquery');
-const ko = require('knockout');
-const _ = require('lodash');
-const ReactDOMServer = require('react-dom/server');
+import $ from 'jquery';
+import ko from 'knockout';
+import _ from 'lodash';
+import ReactDOMServer from 'react-dom/server';
 
-require('../../../lib/jquery-ui');
+import '../../../lib/jquery-ui';
 
-const {ENTITY_NAMES, PART_OF_SERIES_LINK_TYPES} = require('../../common/constants');
-const i18n = require('../../common/i18n');
+import {ENTITY_NAMES, PART_OF_SERIES_LINK_TYPES} from '../../common/constants';
+import {compare, l} from '../../common/i18n';
 import {l_relationships} from '../../common/i18n/relationships';
-const MB = require('../../common/MB');
-const linkTypeInfo = require('../../common/typeInfo').link_type;
-const URLCleanup = require('../../edit/URLCleanup');
-const dates = require('../../edit/utility/dates');
-const linkPhrase = require('../../edit/utility/linkPhrase');
-const isBlank = require('../../common/utility/isBlank');
+import MB from '../../common/MB';
+import {link_type as linkTypeInfo} from '../../common/typeInfo';
+import * as URLCleanup from '../../edit/URLCleanup';
+import * as dates from '../../edit/utility/dates';
+import * as linkPhrase from '../../edit/utility/linkPhrase';
+import isBlank from '../../common/utility/isBlank';
 
 const PART_OF_SERIES_LINK_TYPE_GIDS = _.values(PART_OF_SERIES_LINK_TYPES);
 
-(function (RE) {
+const RE = MB.relationshipEditor = MB.relationshipEditor || {};
 
     var UI = RE.UI = RE.UI || {};
     var fields = RE.fields = RE.fields || {};
 
     var incorrectEntityForSeries = {
-        recording:      i18n.l("The series you’ve selected is for recordings."),
-        release:        i18n.l("The series you’ve selected is for releases."),
-        release_group:  i18n.l("The series you’ve selected is for release groups."),
-        work:           i18n.l("The series you’ve selected is for works.")
+        recording:      l("The series you’ve selected is for recordings."),
+        release:        l("The series you’ve selected is for releases."),
+        release_group:  l("The series you’ve selected is for release groups."),
+        work:           l("The series you’ve selected is for works.")
     };
 
     ko.bindingHandlers.relationshipEditorAutocomplete = (function () {
@@ -337,7 +337,7 @@ const PART_OF_SERIES_LINK_TYPE_GIDS = _.values(PART_OF_SERIES_LINK_TYPES);
 
             if (linkType && linkType.description) {
                 description = ReactDOMServer.renderToStaticMarkup(
-                    i18n.l("{description} ({url|more documentation})", {
+                    l("{description} ({url|more documentation})", {
                         description: l_relationships(linkType.description),
                         url: { href: "/relationship/" + linkType.gid, target: "_blank" }
                     })
@@ -395,7 +395,7 @@ const PART_OF_SERIES_LINK_TYPE_GIDS = _.values(PART_OF_SERIES_LINK_TYPES);
             });
 
             options.sort(function (a, b) {
-                return i18n.compare(a.text, b.text);
+                return compare(a.text, b.text);
             });
 
             return options;
@@ -447,16 +447,16 @@ const PART_OF_SERIES_LINK_TYPE_GIDS = _.values(PART_OF_SERIES_LINK_TYPES);
             var linkType = this.relationship().getLinkType();
 
             if (!linkType) {
-                return i18n.l("Please select a relationship type.");
+                return l("Please select a relationship type.");
             } else if (!linkType.description) {
-                return i18n.l("Please select a subtype of the currently selected relationship type. The selected relationship type is only used for grouping subtypes.");
+                return l("Please select a subtype of the currently selected relationship type. The selected relationship type is only used for grouping subtypes.");
             } else if (linkType.deprecated) {
-                return i18n.l("This relationship type is deprecated and should not be used.");
+                return l("This relationship type is deprecated and should not be used.");
             } else if (this.source.entityType === "url") {
                 var checker = URLCleanup.validationRules[linkType.gid];
 
                 if (checker && !checker(this.source.name())) {
-                    return i18n.l("This URL is not allowed for the selected link type, or is incorrectly formatted.");
+                    return l("This URL is not allowed for the selected link type, or is incorrectly formatted.");
                 }
             }
 
@@ -469,9 +469,9 @@ const PART_OF_SERIES_LINK_TYPE_GIDS = _.values(PART_OF_SERIES_LINK_TYPES);
             var linkType = relationship.getLinkType() || {};
 
             if (!target.gid) {
-                return i18n.l("Required field.");
+                return l("Required field.");
             } else if (this.source === target) {
-                return i18n.l("Entities in a relationship cannot be the same.");
+                return l("Entities in a relationship cannot be the same.");
             }
 
             if (target.entityType === "series" &&
@@ -485,7 +485,7 @@ const PART_OF_SERIES_LINK_TYPE_GIDS = _.values(PART_OF_SERIES_LINK_TYPES);
 
         dateError(date) {
             var valid = dates.isDateValid(date.year(), date.month(), date.day());
-            return valid ? "" : i18n.l("The date you've entered is not valid.");
+            return valid ? "" : l("The date you've entered is not valid.");
         }
 
         datePeriodError() {
@@ -496,7 +496,7 @@ const PART_OF_SERIES_LINK_TYPE_GIDS = _.values(PART_OF_SERIES_LINK_TYPES);
 
             if (!this.dateError(a) && !this.dateError(b)) {
                 if (!dates.isDatePeriodValid(ko.toJS(a), ko.toJS(b))) {
-                    return i18n.l("The end date cannot precede the begin date.");
+                    return l("The end date cannot precede the begin date.");
                 }
             }
 
@@ -517,20 +517,20 @@ const PART_OF_SERIES_LINK_TYPE_GIDS = _.values(PART_OF_SERIES_LINK_TYPES);
 
         changeOtherRelationshipCreditsLabel(entity) {
             return ReactDOMServer.renderToStaticMarkup(
-                i18n.l('Change credits for other {entity} relationships on the page.', {entity: entity.reactElement()})
+                l('Change credits for other {entity} relationships on the page.', {entity: entity.reactElement()})
             );
         }
 
         sameEntityTypesLabel($parent, relationship, entity) {
             const entityType = relationship.target(entity).entityType;
-            return i18n.l('Only relationships to {entity_type} entities.', {
+            return l('Only relationships to {entity_type} entities.', {
                 entity_type: ENTITY_NAMES[entityType].toLocaleLowerCase(),
             });
         }
 
         sameRelationshipTypeLabel($parent, relationship, entity) {
             const entityType = relationship.target(entity).entityType;
-            return i18n.l('Only “{relationship_type}” relationships to {entity_type} entities.', {
+            return l('Only “{relationship_type}” relationships to {entity_type} entities.', {
                 relationship_type: $parent.linkTypeName(),
                 entity_type: ENTITY_NAMES[entityType].toLocaleLowerCase(),
             });
@@ -587,7 +587,7 @@ const PART_OF_SERIES_LINK_TYPE_GIDS = _.values(PART_OF_SERIES_LINK_TYPES);
         });
     }
 
-    class AddDialog extends Dialog {
+    export class AddDialog extends Dialog {
 
         _accept() {
             addRelationships(splitByCreditableAttributes(this.relationship()), this.source, this.viewModel);
@@ -606,7 +606,7 @@ const PART_OF_SERIES_LINK_TYPE_GIDS = _.values(PART_OF_SERIES_LINK_TYPES);
         disableTypeSelection: false,
     });
 
-    class EditDialog extends Dialog {
+    export class EditDialog extends Dialog {
 
         constructor(options) {
             // originalRelationship is a copy of the relationship when the dialog
@@ -647,7 +647,7 @@ const PART_OF_SERIES_LINK_TYPE_GIDS = _.values(PART_OF_SERIES_LINK_TYPES);
         disableTypeSelection: true,
     });
 
-    class BatchRelationshipDialog extends Dialog {
+    export class BatchRelationshipDialog extends Dialog {
 
         constructor(options) {
             options.source = MB.entity({}, options.sources[0].entityType);
@@ -680,7 +680,7 @@ const PART_OF_SERIES_LINK_TYPE_GIDS = _.values(PART_OF_SERIES_LINK_TYPES);
         disableTypeSelection: false,
     });
 
-    class BatchCreateWorksDialog extends BatchRelationshipDialog {
+    export class BatchCreateWorksDialog extends BatchRelationshipDialog {
 
         constructor(options) {
             super(_.assign(options, { target: new MB.entity.Work({}) }));
@@ -787,9 +787,3 @@ const PART_OF_SERIES_LINK_TYPE_GIDS = _.values(PART_OF_SERIES_LINK_TYPES);
     UI.BatchRelationshipDialog = BatchRelationshipDialog;
     UI.BatchCreateWorksDialog = BatchCreateWorksDialog;
 
-    exports.AddDialog = AddDialog;
-    exports.EditDialog = EditDialog;
-    exports.BatchRelationshipDialog = BatchRelationshipDialog;
-    exports.BatchCreateWorksDialog = BatchCreateWorksDialog;
-
-}(MB.relationshipEditor = MB.relationshipEditor || {}));
