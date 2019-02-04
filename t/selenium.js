@@ -526,7 +526,22 @@ async function runCommands(commands, t) {
     await execSql('selenium.sql');
   }
 
-  function dropSeleniumDb() {
+  async function dropSeleniumDb() {
+    // Close active sessions before dropping the database.
+    await execFile(
+      'psql',
+      [
+        ...hostPort,
+        '-U', sysDb.user,
+        '-c', `
+          SELECT pg_terminate_backend(pg_stat_activity.pid)
+            FROM pg_stat_activity
+           WHERE datname = 'musicbrainz_selenium'
+        `,
+        'template1',
+      ],
+      pgPasswordEnv(sysDb),
+    );
     return execFile('dropdb', dropdbArgs, pgPasswordEnv(sysDb));
   }
 

@@ -62,5 +62,5 @@ CDP((client) => {
     });
   });
 }).on('error', (err) => {
-  console.error('Cannot connect to browser:', err);
+  throw err;
 });

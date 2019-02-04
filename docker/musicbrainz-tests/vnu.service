@@ -1,0 +1,3 @@
+#!/bin/sh
+
+exec java -cp /home/musicbrainz/vnu/vnu.jar nu.validator.servlet.Main 8888

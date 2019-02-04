@@ -1,3 +1,4 @@
 #!/bin/bash
 
-exec /usr/local/bin/start_musicbrainz_server.sh
+MBS_ROOT=/home/musicbrainz/musicbrainz-server
+exec $MBS_ROOT/docker/scripts/start_musicbrainz_server.sh

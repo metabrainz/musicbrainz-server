@@ -4,7 +4,6 @@ use Test::Deep qw( cmp_deeply ignore );
 use Test::Routine;
 use JSON;
 use MusicBrainz::Server::Test;
-use Test::JSON import => [ 'is_valid_json' ];
 
 with 't::Mechanize', 't::Context';
 
@@ -21,7 +20,6 @@ test all => sub {
     my $url = '/ws/js/release/aff4a693-5970-4e2e-bd46-e2ee49c22de7?inc=recordings+rels';
 
     $mech->get_ok($url, 'fetching');
-    is_valid_json($mech->content, "validating (is_valid_json)");
 
     my $data = $json->decode($mech->content);
 

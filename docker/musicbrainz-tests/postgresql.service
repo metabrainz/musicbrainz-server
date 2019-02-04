@@ -1,0 +1,4 @@
+#!/bin/sh
+
+exec chpst -u postgres:postgres \
+    /usr/lib/postgresql/10/bin/postgres -D /home/musicbrainz/pgdata

@@ -7,49 +7,49 @@ MusicBrainz::Server::DatabaseConnectionFactory->register_databases(
     # Selenium tests require READWRITE access.
     READWRITE => {
         database    => 'musicbrainz_test',
-        host        => 'musicbrainz-test-database',
+        host        => 'localhost',
         password    => '',
         port        => 5432,
         username    => 'musicbrainz',
     },
     SYSTEM => {
         database    => 'template1',
-        host        => 'musicbrainz-test-database',
+        host        => 'localhost',
         password    => '',
         port        => 5432,
         username    => 'postgres',
     },
     TEST => {
         database    => 'musicbrainz_test',
-        host        => 'musicbrainz-test-database',
+        host        => 'localhost',
         password    => '',
         port        => 5432,
         username    => 'musicbrainz',
     },
     SELENIUM => {
         database    => 'musicbrainz_selenium',
-        host        => 'musicbrainz-test-database',
+        host        => 'localhost',
         password    => '',
         port        => 5432,
         username    => 'musicbrainz',
     },
     TEST_JSON_DUMP => {
         database    => 'musicbrainz_test_json_dump',
-        host        => 'musicbrainz-test-database',
+        host        => 'localhost',
         password    => '',
         port        => 5432,
         username    => 'musicbrainz',
     },
     TEST_FULL_EXPORT => {
         database    => 'musicbrainz_test_full_export',
-        host        => 'musicbrainz-test-database',
+        host        => 'localhost',
         password    => '',
         port        => 5432,
         username    => 'musicbrainz',
     },
     TEST_SITEMAPS => {
         database    => 'musicbrainz_test_sitemaps',
-        host        => 'musicbrainz-test-database',
+        host        => 'localhost',
         password    => '',
         port        => 5432,
         username    => 'musicbrainz',
@@ -63,7 +63,7 @@ sub CACHE_MANAGER_OPTIONS {
             external => {
                 class => 'MusicBrainz::Server::CacheWrapper::Redis',
                 options => {
-                    server => 'musicbrainz-redis-cache:6379',
+                    server => 'localhost:6379',
                     namespace => $self->CACHE_NAMESPACE,
                 },
             },
@@ -81,7 +81,7 @@ sub DATASTORE_REDIS_ARGS {
     return {
         database => 0,
         namespace => $self->CACHE_NAMESPACE,
-        server => 'musicbrainz-redis-store:6379',
+        server => 'localhost:6379',
         test_database => 1,
     };
 }
@@ -100,7 +100,7 @@ sub GIT_MSG { return }
 
 sub GIT_SHA { return }
 
-sub HTML_VALIDATOR { 'http://html5-validator:8888?out=json' }
+sub HTML_VALIDATOR { 'http://localhost:8888?out=json' }
 
 sub MB_LANGUAGES { qw( de el-gr es-es et fi fr it ja nl en ) }
 
@@ -108,11 +108,17 @@ sub PLUGIN_CACHE_OPTIONS {
     my $self = shift;
     return {
         class => 'MusicBrainz::Server::CacheWrapper::Redis',
-        server => 'musicbrainz-redis-cache:6379',
+        server => 'localhost:6379',
         namespace => $self->CACHE_NAMESPACE . 'Catalyst:',
     };
 }
 
 sub USE_SET_DATABASE_HEADER { 1 }
+
+# CircleCI sets `NO_PROXY=127.0.0.1,localhost` in every container,
+# so the Selenium proxy doesn't work unless we make requests against
+# a different hostname alias.
+sub WEB_SERVER { 'mbtest:5000' }
+sub STATIC_RESOURCES_LOCATION { '//mbtest:5000/static/build' }
 
 1;
