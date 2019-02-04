@@ -264,7 +264,7 @@ const ReleaseSidebar = ({$c, release}: Props) => {
 
         <li>
           <a href={entityHref(release, 'change-quality')}>
-            {l('Change release quality')}
+            {l('Change data quality')}
           </a>
         </li>
 

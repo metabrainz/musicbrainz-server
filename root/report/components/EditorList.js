@@ -53,4 +53,3 @@ const EditorList = ({
   </PaginatedResults>
 );
 export default EditorList;
-

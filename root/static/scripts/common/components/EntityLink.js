@@ -11,8 +11,8 @@ const React = require('react');
 
 const {ENTITIES, AREA_TYPE_COUNTRY} = require('../constants');
 const {l} = require('../i18n');
-const {l_countries} = require('../i18n/countries');
-const {l_instruments} = require('../i18n/instruments');
+import localizeAreaName from '../i18n/localizeAreaName';
+import localizeInstrumentName from '../i18n/localizeInstrumentName';
 import bracketed from '../utility/bracketed';
 const entityHref = require('../utility/entityHref');
 const formatDatePeriod = require('../utility/formatDatePeriod');
@@ -128,9 +128,9 @@ const EntityLink = ({
   }
 
   if (entity.entityType === 'area') {
-    content = content || l_countries(entity.name);
+    content = content || localizeAreaName(entity);
   } else if (entity.entityType === 'instrument') {
-    content = content || l_instruments(entity.name);
+    content = content || localizeInstrumentName(entity);
   }
 
   content = content || ko.unwrap(entity.name);

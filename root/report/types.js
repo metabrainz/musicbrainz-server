@@ -75,3 +75,32 @@ export type ReportInstrumentT = {|
   +instrument_id: number,
   +row_number: number,
 |};
+
+export type ReportLabelAnnotationT = {|
+  +created: string,
+  +label: LabelT,
+  +label_id: number,
+  +row_number: number,
+  +text: string,
+|};
+
+export type ReportLabelRelationshipT = {|
+  +label: LabelT,
+  +label_id: number,
+  +link_gid: string,
+  +link_name: string,
+  +row_number: number,
+|};
+
+export type ReportLabelT = {|
+  +label: LabelT,
+  +label_id: number,
+  +row_number: number,
+|};
+
+export type ReportLabelURLT = {|
+  +label: LabelT,
+  +label_id: number,
+  +row_number: number,
+  +url: UrlT,
+|};

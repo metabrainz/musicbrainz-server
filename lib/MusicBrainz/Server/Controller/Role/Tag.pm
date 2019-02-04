@@ -34,7 +34,7 @@ sub tags : Chained('load') PathPart('tags') {
     my @display_tags = grep { $_->count > 0 && !$_->tag->is_genre_tag } @tags;
     my @display_genres = grep { $_->count > 0 && $_->tag->is_genre_tag } @tags;
 
-    if ($entity->entity_type =~ /^(?:recording|release_group)$/) {
+    if ($entity->entity_type =~ /^(?:area|artist|event|instrument|label|place|recording|release_group|series)$/) {
         my %props = (
             entity        => $entity,
             allTags       => \@tags,

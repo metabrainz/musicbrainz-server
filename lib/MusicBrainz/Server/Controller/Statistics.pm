@@ -225,11 +225,16 @@ sub languages_scripts : Path('languages-scripts')
         }
     }
 
+    my %props = (
+        dateCollected => $stats->{date_collected},
+        languageStats => [ rev_nsort_by { $_->{total} } @language_stats ],
+        scriptStats => $script_stats,
+    );
+
     $c->stash(
-        template => 'statistics/languages_scripts.tt',
-        language_stats => [ rev_nsort_by { $_->{total} } @language_stats ],
-        script_stats => $script_stats,
-        date_collected => $stats->{date_collected}
+        current_view => 'Node',
+        component_path => 'statistics/LanguagesScripts',
+        component_props => \%props,
     );
 }
 
