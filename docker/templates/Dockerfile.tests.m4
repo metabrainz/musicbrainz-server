@@ -24,7 +24,7 @@ RUN cd /tmp && \
 RUN cd /home/musicbrainz && \
     git clone https://github.com/metabrainz/mmd-schema && \
     cd mmd-schema && \
-    git reset --hard MMD_SCHEMA_COMMIT && \
+    git reset --hard MMD_SCHEMA_TAG && \
     cd ../
 
 ENV MMDSCHEMA /home/musicbrainz/mmd-schema

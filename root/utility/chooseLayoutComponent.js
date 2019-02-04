@@ -7,14 +7,20 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
+import AreaLayout from '../area/AreaLayout';
 import ArtistLayout from '../artist/ArtistLayout';
+import EventLayout from '../event/EventLayout';
+import InstrumentLayout from '../instrument/InstrumentLayout';
 import LabelLayout from '../label/LabelLayout';
 import PlaceLayout from '../place/PlaceLayout';
 import ReleaseGroupLayout from '../release_group/ReleaseGroupLayout';
 import SeriesLayout from '../series/SeriesLayout';
 
 const layoutPicker = {
+  area: AreaLayout,
   artist: ArtistLayout,
+  event: EventLayout,
+  instrument: InstrumentLayout,
   label: LabelLayout,
   place: PlaceLayout,
   release_group: ReleaseGroupLayout,
