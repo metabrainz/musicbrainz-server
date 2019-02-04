@@ -172,6 +172,7 @@ const formatTrackLength = require('./utility/formatTrackLength');
                             gid: json.gid,
                             name: json.name,
                             sort_name: json.sort_name,
+                            typeID: json.typeID,
                             video: json.video,
                         }}
                         {...renderParams}

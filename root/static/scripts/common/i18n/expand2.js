@@ -27,6 +27,7 @@ const htmlSelfClosingTagEnd = /^\s*\/>/;
 const htmlAttrStart = /^\s+(?=[a-z])/;
 const htmlAttrName = /^(class|href|id|key|target|title)="/;
 const htmlAttrTextContent = /^[^{}"]+/;
+const percentSign = /(%)/;
 const verticalPipe = /^\|/;
 const hrefValueStart = /^(?:\/|https?:\/\/)/;
 
@@ -48,7 +49,7 @@ type State = {
   // Portion of the source string that hasn't been parsed yet.
   remainder: string,
   // The value of % in conditional substitutions, from `args`.
-  replacement: string | typeof NO_MATCH,
+  replacement: React.Node | typeof NO_MATCH,
   // A copy of the source string, used in error messages.
   source: string,
   /*
@@ -172,11 +173,22 @@ function parseTextContent() {
   if (typeof text !== 'string') {
     return NO_MATCH;
   }
-  if (state.replacement !== NO_MATCH) {
-    /* flow-include if (state.replacement instanceof Symbol) throw 'impossible' */
-    text = text.replace(/%/g, he.encode(state.replacement));
+  if (state.replacement !== NO_MATCH && percentSign.test(text)) {
+    const parts = text.split(percentSign);
+    const result: Array<React.Node> = [];
+    for (let i = 0; i < parts.length; i++) {
+      const part = parts[i];
+      if (part === '%') {
+        /* flow-include if (state.replacement instanceof Symbol) throw 'impossible' */
+        result.push(state.replacement);
+      } else {
+        result.push(he.decode(part));
+      }
+    }
+    return result;
+  } else {
+    text = he.decode(text);
   }
-  text = he.decode(text);
   return text;
 }
 
@@ -231,7 +243,7 @@ const parseCondSubst = saveMatch(function () {
 
   const savedReplacement = state.replacement;
   if (state.args && hasArg(name)) {
-    state.replacement = String(state.args[name]);
+    state.replacement = state.args[name];
   }
 
   const thenChildren = withTextPattern(condSubstThenTextContent, parseRoot);

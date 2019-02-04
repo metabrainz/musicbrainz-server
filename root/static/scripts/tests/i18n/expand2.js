@@ -4,7 +4,7 @@ import React from 'react';
 import expand2, {expand2html} from '../../common/i18n/expand2';
 
 test('expand2', function (t) {
-  t.plan(54);
+  t.plan(55);
 
   let error = '';
   const consoleError = console.error;
@@ -118,6 +118,7 @@ test('expand2', function (t) {
   expandText('{x:%|}', {x: ''}, '');
   expandText('{x:%|}', {x: '%'}, '%');
   expandText('{x:%|}', {x: '&percnt;'}, '&percnt;');
+  expandHtml('{x:%|}', {x: <p>hi</p>}, '<p>hi</p>');
   expandText('{x:a%c|}', {x: 'b'}, 'abc');
   expandText('{x:a&percnt;c|}', {x: 'b'}, 'a%c');
 
