@@ -11,6 +11,13 @@ $(function () {
     $('.dismiss-banner').on('click', function () {
         var bannerName = $(this).parent().remove().end().data('banner-name');
 
-        setCookie(bannerName + '_dismissed_mtime', Math.ceil(Date.now() / 1000));
+        if (bannerName === 'birthday_message') {
+            var oneDayFromNow = new Date(Date.now() + (1000 * 60 * 60 * 24));
+            setCookie(bannerName + '_dismissed_mtime', Math.ceil(Date.now() / 1000), oneDayFromNow);
+
+        } else {
+            setCookie(bannerName + '_dismissed_mtime', Math.ceil(Date.now() / 1000));
+        }
+
     });
 });

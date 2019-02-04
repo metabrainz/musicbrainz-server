@@ -10,8 +10,8 @@ function setCookieFallback(name, value) {
     _cookies[name] = value;
 }
 
-function setCookie(name, value) {
-    document.cookie = cookie.serialize(name, value, {path: '/', expires: oneYearFromNow()});
+function setCookie(name, value, expiration = oneYearFromNow()) {
+    document.cookie = cookie.serialize(name, value, {path: '/', expires: expiration});
 }
 
 if (typeof document === 'undefined' ||

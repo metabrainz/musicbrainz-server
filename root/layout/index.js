@@ -26,6 +26,25 @@ const DismissBannerButton = ({bannerName}) => (
   />
 );
 
+const BirthdayCakes = () => (
+  <span aria-label={l('Birthday cakes')} role="img">
+    {String.fromCodePoint(0x1F382)}
+    {String.fromCodePoint(0x1F382)}
+    {String.fromCodePoint(0x1F382)}
+  </span>
+);
+
+function showBirthdayBanner($c) {
+  const birthDate = $c.user ? $c.user.birth_date : null;
+  if (!birthDate) {
+    return false;
+  }
+  const now = new Date();
+  return (birthDate.month === now.getMonth() + 1 &&
+          birthDate.day === now.getDate() &&
+          !getRequestCookie($c.req, 'birthday_message_dismissed_mtime'));
+}
+
 const ServerDetailsBanner = () => {
   if (DBDefs.DB_STAGING_SERVER) {
     let description = DBDefs.DB_STAGING_SERVER_DESCRIPTION;
@@ -86,6 +105,18 @@ const Layout = ({$c, ...props}) => (
           <p>
             {l('The server is temporarily in read-only mode for database maintenance.')}
           </p>
+        </div>}
+
+      {showBirthdayBanner($c) &&
+        <div className="banner birthday-message">
+          <p>
+            <BirthdayCakes />
+            {' '}
+            {l('Happy birthday, and thanks for contributing to MusicBrainz!')}
+            {' '}
+            <BirthdayCakes />
+          </p>
+          <DismissBannerButton bannerName="birthday_message" />
         </div>}
 
       {!!($c.stash.new_edit_notes &&
