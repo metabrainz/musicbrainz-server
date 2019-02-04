@@ -13,7 +13,7 @@ sub pretty_name
 
     if ($self->url =~ m{^(?:https?:)?//(?:www.)?(.*?\.)([a-z]+)(?:\:[0-9]+)?/.*/([0-9B][0-9A-Z]{9})(?:[^0-9A-Z]|$)}i) {
         my $country = $2;
-        $country = "US" if $country eq "com";
+        $country = 'US' if $country eq 'com';
         $country =~ tr/a-z/A-Z/;
 
         return "$country: $3";

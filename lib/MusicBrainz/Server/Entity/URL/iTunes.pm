@@ -12,7 +12,7 @@ sub sidebar_name {
         $country =~ tr/a-z/A-Z/;
         return "iTunes $country";
     } else {
-        return "iTunes US";
+        return 'iTunes US';
     }
 }
 

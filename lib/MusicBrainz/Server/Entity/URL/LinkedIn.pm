@@ -5,7 +5,7 @@ use Moose;
 extends 'MusicBrainz::Server::Entity::URL';
 with 'MusicBrainz::Server::Entity::URL::Sidebar';
 
-sub sidebar_name { "LinkedIn" }
+sub sidebar_name { 'LinkedIn' }
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

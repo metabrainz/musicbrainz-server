@@ -6,7 +6,7 @@ use utf8;
 extends 'MusicBrainz::Server::Entity::URL';
 with 'MusicBrainz::Server::Entity::URL::Sidebar';
 
-sub sidebar_name { "ジャパメタ" }
+sub sidebar_name { 'ジャパメタ' }
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

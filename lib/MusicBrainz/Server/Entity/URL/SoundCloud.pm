@@ -15,7 +15,7 @@ sub sidebar_name {
     $name =~ s{^/}{};
     # only show "SoundCloud" for URI parts containing slashes (e.g. songs),
     # since they are too long for the sidebar
-    return "SoundCloud" if $name =~ /\//;
+    return 'SoundCloud' if $name =~ /\//;
 
     return $name;
 }

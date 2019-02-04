@@ -11,7 +11,7 @@ sub sidebar_name {
     if ($self->decoded =~ m{^https?://(?:www.)?vk.com/([^/]+)$}) {
         return $1;
     } else {
-        return "VK";
+        return 'VK';
     }
 }
 

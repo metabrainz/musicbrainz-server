@@ -12,7 +12,7 @@ sub sidebar_name {
         $self->decoded_local_part =~ m{^/(?:pages/)?([^/]+)(?:/[^/]+)?/?$}i) {
         return $1;
     } else {
-        return "Facebook";
+        return 'Facebook';
     }
 }
 

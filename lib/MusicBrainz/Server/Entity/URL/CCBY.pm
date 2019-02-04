@@ -5,7 +5,7 @@ use Moose;
 extends 'MusicBrainz::Server::Entity::URL';
 with 'MusicBrainz::Server::Entity::URL::License';
 
-sub sidebar_name { "CC-BY" }
+sub sidebar_name { 'CC-BY' }
 
 sub url_is_scheme_independent { 1 }
 

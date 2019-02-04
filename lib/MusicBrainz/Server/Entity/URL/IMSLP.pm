@@ -26,9 +26,9 @@ sub sidebar_name {
     my $self = shift;
 
     if ($self->url =~ m{^https?://(?:www.)?imslp.org/wiki/Category(.*)$}i) {
-        return "IMSLP";
+        return 'IMSLP';
     } else {
-        return l("Score at IMSLP");
+        return l('Score at IMSLP');
     }
 }
 

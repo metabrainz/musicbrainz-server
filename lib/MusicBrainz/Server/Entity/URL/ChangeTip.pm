@@ -12,7 +12,7 @@ sub sidebar_name {
         return $1 . '.tip.me';
     }
     else {
-        return "ChangeTip";
+        return 'ChangeTip';
     }
 };
 

@@ -10,7 +10,7 @@ override href_url => sub {
 };
 
 # https://www.generasia.com/about/ consequently uses lower case
-sub sidebar_name { "generasia" }
+sub sidebar_name { 'generasia' }
 
 __PACKAGE__->meta->make_immutable;
 no Moose;
