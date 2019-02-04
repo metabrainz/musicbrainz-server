@@ -61,7 +61,7 @@ const ReleaseSidebar = ({$c, release}: Props) => {
     ? new URL(releaseCoverUrl).host
     : null;
   const barcode = formatBarcode(release.barcode);
-  const typeName = releaseGroup.typeName;
+  const typeName = releaseGroup.l_type_name;
   const language = release.languageID
     ? $c.linked_entities.language[release.languageID]
     : null;
@@ -147,7 +147,7 @@ const ReleaseSidebar = ({$c, release}: Props) => {
       <SidebarProperties>
         {typeName ? (
           <SidebarProperty className="type" label={l('Type:')}>
-            {l_attributes(typeName)}
+            {typeName}
           </SidebarProperty>
         ) : null}
 
