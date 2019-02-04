@@ -336,7 +336,6 @@ around TO_JSON => sub {
     my ($orig, $self) = @_;
 
     my $link = $self->link;
-    my $target_type = $self->target_type;
 
     my $json = {
         attributes      => [map +{ (%{ $_->TO_JSON }, type => { gid => $_->type->gid }) }, $link->all_attributes],
