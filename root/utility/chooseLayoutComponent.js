@@ -13,6 +13,7 @@ import EventLayout from '../event/EventLayout';
 import InstrumentLayout from '../instrument/InstrumentLayout';
 import LabelLayout from '../label/LabelLayout';
 import PlaceLayout from '../place/PlaceLayout';
+import RecordingLayout from '../recording/RecordingLayout';
 import ReleaseGroupLayout from '../release_group/ReleaseGroupLayout';
 import SeriesLayout from '../series/SeriesLayout';
 
@@ -23,6 +24,7 @@ const layoutPicker = {
   instrument: InstrumentLayout,
   label: LabelLayout,
   place: PlaceLayout,
+  recording: RecordingLayout,
   release_group: ReleaseGroupLayout,
   series: SeriesLayout,
 };
