@@ -56,7 +56,11 @@
 
                     <div class="edit-details">
                         [% IF edit.data.defined %]
-                           [%-INCLUDE "edit/details/${edit.edit_template}.tt" %]
+                          [% IF edit.edit_template_react %]
+                            [%~ React.embed(c, "edit/details/${edit.edit_template_react}.js", {edit => edit}) ~%]
+                          [% ELSE %]
+                            [%-INCLUDE "edit/details/${edit.edit_template}.tt" %]
+                          [% END %]
                         [% ELSE %]
                            <p>[% l('An error occured while loading this edit') %]</p>
                         [% END %]
