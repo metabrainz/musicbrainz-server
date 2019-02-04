@@ -5,11 +5,7 @@ use Moose;
 extends 'MusicBrainz::Server::Entity::URL';
 with 'MusicBrainz::Server::Entity::URL::License';
 
-sub sidebar_name {
-    my $self = shift;
-
-    return "CC-BY-SA";
-}
+sub sidebar_name { "CC-BY-SA" }
 
 sub url_is_scheme_independent { 1 }
 

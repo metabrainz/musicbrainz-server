@@ -6,11 +6,7 @@ use utf8;
 extends 'MusicBrainz::Server::Entity::URL';
 with 'MusicBrainz::Server::Entity::URL::Sidebar';
 
-sub sidebar_name {
-    my $self = shift;
-
-    return "Québec Info Musique";
-}
+sub sidebar_name { "Québec Info Musique" }
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

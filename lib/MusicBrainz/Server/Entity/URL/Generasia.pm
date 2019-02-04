@@ -9,12 +9,8 @@ override href_url => sub {
     shift->url->as_string =~ s{^http:}{https:}r;
 };
 
-sub sidebar_name {
-    my $self = shift;
-
-    # https://www.generasia.com/about/ consequently uses lower case
-    return "generasia";
-}
+# https://www.generasia.com/about/ consequently uses lower case
+sub sidebar_name { "generasia" }
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

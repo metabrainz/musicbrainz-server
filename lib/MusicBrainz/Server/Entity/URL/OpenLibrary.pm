@@ -9,9 +9,7 @@ override href_url => sub {
     shift->url->as_string =~ s{^http:}{https:}r;
 };
 
-sub sidebar_name {
-    return "Open Library";
-}
+sub sidebar_name { "Open Library" }
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

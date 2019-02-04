@@ -1,15 +1,12 @@
 package MusicBrainz::Server::Entity::URL::Encyclopedisque;
 
 use Moose;
+use utf8;
 
 extends 'MusicBrainz::Server::Entity::URL';
 with 'MusicBrainz::Server::Entity::URL::Sidebar';
 
-sub sidebar_name {
-    my $self = shift;
-
-    return "Encyclop\N{U+E9}disque";
-}
+sub sidebar_name { 'Encyclopédisque' }
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

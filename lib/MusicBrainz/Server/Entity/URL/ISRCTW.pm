@@ -1,15 +1,12 @@
 package MusicBrainz::Server::Entity::URL::ISRCTW;
 
 use Moose;
+use utf8;
 
 extends 'MusicBrainz::Server::Entity::URL';
 with 'MusicBrainz::Server::Entity::URL::Sidebar';
 
-sub sidebar_name {
-    my $self = shift;
-
-    return "ISRC\N{U+67E5}\N{U+8A62}\N{U+7CFB}\N{U+7D71}";
-}
+sub sidebar_name { 'ISRC查詢系統' }
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

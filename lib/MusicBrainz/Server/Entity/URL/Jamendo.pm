@@ -5,11 +5,7 @@ use Moose;
 extends 'MusicBrainz::Server::Entity::URL';
 with 'MusicBrainz::Server::Entity::URL::Sidebar';
 
-sub sidebar_name {
-    my $self = shift;
-
-    return "Jamendo";
-}
+sub sidebar_name { "Jamendo" }
 
 sub url_is_scheme_independent { 1 }
 

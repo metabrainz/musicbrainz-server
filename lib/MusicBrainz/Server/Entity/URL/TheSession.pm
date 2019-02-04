@@ -9,11 +9,7 @@ override href_url => sub {
     shift->url->as_string =~ s{^http:}{https:}r;
 };
 
-sub sidebar_name {
-    my $self = shift;
-
-    return "The Session";
-}
+sub sidebar_name { "The Session" }
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

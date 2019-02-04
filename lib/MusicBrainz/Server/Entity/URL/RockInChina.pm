@@ -5,11 +5,7 @@ use Moose;
 extends 'MusicBrainz::Server::Entity::URL';
 with 'MusicBrainz::Server::Entity::URL::Sidebar';
 
-sub sidebar_name {
-    my $self = shift;
-
-    return "Rock in China";
-}
+sub sidebar_name { "Rock in China" }
 
 __PACKAGE__->meta->make_immutable;
 no Moose;
