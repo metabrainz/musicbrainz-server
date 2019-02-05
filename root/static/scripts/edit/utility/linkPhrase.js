@@ -3,14 +3,14 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-const _ = require('lodash');
+import _ from 'lodash';
 
-const {l} = require('../../common/i18n');
-const commaList = require('../../common/i18n/commaList');
-const commaOnlyList = require('../../common/i18n/commaOnlyList');
-const {l_relationships} = require('../../common/i18n/relationships');
-const linkTypeInfo = require('../../common/typeInfo').link_type;
-const clean = require('../../common/utility/clean');
+import {l} from '../../common/i18n';
+import commaList from '../../common/i18n/commaList';
+import commaOnlyList from '../../common/i18n/commaOnlyList';
+import {l_relationships} from '../../common/i18n/relationships';
+import {link_type as linkTypeInfo} from '../../common/typeInfo';
+import clean from '../../common/utility/clean';
 
 var attributeRegex = /\{(.*?)(?::(.*?))?\}/g;
 
@@ -18,7 +18,7 @@ function mapNameToID(result, info, id) {
     result[info.attribute.name] = id;
 }
 
-exports.clean = _.memoize(function (linkTypeID, backward) {
+export const stripAttributes = _.memoize(function (linkTypeID, backward) {
     var linkType = linkTypeInfo.byId[linkTypeID];
     var idsByName = _.transform(linkType.attributes, mapNameToID);
 
@@ -38,7 +38,7 @@ exports.clean = _.memoize(function (linkTypeID, backward) {
     }));
 }, (a, b) => a + String(b));
 
-exports.interpolate = function (linkType, attributes) {
+export const interpolate = function (linkType, attributes) {
     if (!linkType) {
         return ['', '', ''];
     }
@@ -94,8 +94,8 @@ exports.interpolate = function (linkType, attributes) {
 
     if (linkType.orderable_direction > 0) {
         usedAttributes = [];
-        cleanPhrase = clean(exports.clean(linkType.id, false).replace(attributeRegex, interpolate));
-        cleanReversePhrase = clean(exports.clean(linkType.id, true).replace(attributeRegex, interpolate));
+        cleanPhrase = clean(stripAttributes(linkType.id, false).replace(attributeRegex, interpolate));
+        cleanReversePhrase = clean(stripAttributes(linkType.id, true).replace(attributeRegex, interpolate));
         cleanExtraAttributes = commaOnlyList(_(attributesByName).omit(usedAttributes).values().flatten().value());
     }
 

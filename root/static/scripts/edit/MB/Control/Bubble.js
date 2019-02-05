@@ -2,12 +2,12 @@
 // Copyright (C) 2013 MetaBrainz Foundation
 // Released under the GPLv2 license: http://www.gnu.org/licenses/gpl-2.0.txt
 
-const $ = require('jquery');
-const _ = require('lodash');
-const ko = require('knockout');
+import $ from 'jquery';
+import _ from 'lodash';
+import ko from 'knockout';
 
-const MB = require('../../../common/MB');
-const deferFocus = require('../../utility/deferFocus');
+import MB from '../../../common/MB';
+import deferFocus from '../../utility/deferFocus';
 
 class BubbleBase {
 
@@ -332,4 +332,4 @@ MB.Control.initializeBubble = function (bubble, control, vm, canBeShown) {
     return bubbleDoc;
 };
 
-module.exports = MB.Control;
+export const initializeBubble = MB.Control.initializeBubble;

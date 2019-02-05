@@ -1,10 +1,10 @@
-const $ = require('jquery');
-const _ = require('lodash');
-const ko = require('knockout');
+import $ from 'jquery';
+import _ from 'lodash';
+import ko from 'knockout';
 
-const {ENTITY_NAMES} = require('../common/constants');
-const MB = require('../common/MB');
-const request = require('../common/utility/request');
+import {ENTITY_NAMES} from '../common/constants';
+import MB from '../common/MB';
+import request from '../common/utility/request';
 
 MB.ExampleRelationshipsEditor = (function (ERE) {
 

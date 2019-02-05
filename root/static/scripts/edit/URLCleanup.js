@@ -5,10 +5,10 @@
  * http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-const _ = require('lodash');
+import _ from 'lodash';
 
 // See https://musicbrainz.org/relationships (but deprecated ones)
-const LINK_TYPES = {
+export const LINK_TYPES = {
   allmusic: {
     artist: '6b3e3c85-0002-4f34-aca6-80ace0d7e846',
     recording: '54482490-5ff1-4b1c-9382-b4d0ef8e0eac',
@@ -2145,7 +2145,7 @@ function testAll(tests, text) {
   }
 }
 
-const validationRules = {};
+export const validationRules = {};
 
 _.each(LINK_TYPES, function (linkType) {
   _.each(linkType, function (id, entityType) {
@@ -2173,7 +2173,7 @@ validationRules[LINK_TYPES.discographyentry.release] = function (url) {
   return originalRule(url);
 };
 
-function guessType(sourceType, currentURL) {
+export function guessType(sourceType, currentURL) {
   const cleanup = _.find(CLEANUPS, function (cleanup) {
     return (cleanup.type || {})[sourceType] && testAll(cleanup.match, currentURL);
   });
@@ -2181,7 +2181,7 @@ function guessType(sourceType, currentURL) {
   return cleanup && cleanup.type[sourceType];
 }
 
-function cleanURL(dirtyURL) {
+export function cleanURL(dirtyURL) {
   dirtyURL = dirtyURL.trim().replace(/(%E2%80%8E|\u200E)$/, '');
 
   const cleanup = _.find(CLEANUPS, function (cleanup) {
@@ -2191,7 +2191,7 @@ function cleanURL(dirtyURL) {
   return cleanup ? cleanup.clean(dirtyURL) : dirtyURL;
 }
 
-function registerEvents($url) {
+export function registerEvents($url) {
   function urlChanged(event) {
     const url = $url.val();
     const clean = cleanURL(url) || url;
@@ -2214,9 +2214,3 @@ function registerEvents($url) {
     .parents('form')
     .on('submit', urlChanged);
 }
-
-exports.LINK_TYPES = LINK_TYPES;
-exports.validationRules = validationRules;
-exports.guessType = guessType;
-exports.cleanURL = cleanURL;
-exports.registerEvents = registerEvents;

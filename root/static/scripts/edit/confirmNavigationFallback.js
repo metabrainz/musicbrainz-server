@@ -3,8 +3,8 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-const {l} = require('../common/i18n');
-const MB = require('../common/MB');
+import {l} from '../common/i18n';
+import MB from '../common/MB';
 
 MB.confirmNavigationFallback = function () {
     /* Every major browser supports onbeforeunload expect Opera. (This says

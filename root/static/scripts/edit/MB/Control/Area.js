@@ -3,11 +3,11 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-const $ = require('jquery');
-const _ = require('lodash');
-const ko = require('knockout');
+import $ from 'jquery';
+import _ from 'lodash';
+import ko from 'knockout';
 
-const MB = require('../../../common/MB');
+import MB from '../../../common/MB';
 
 MB.Control.Area = function () {
     var bubble = new MB.Control.BubbleDoc();
@@ -29,4 +29,4 @@ MB.Control.Area = function () {
     });
 };
 
-module.exports = MB.Control;
+export const initializeArea = MB.Control.Area;

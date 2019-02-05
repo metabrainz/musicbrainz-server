@@ -3,19 +3,20 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-const $ = require('jquery');
-const ko = require('knockout');
-const _ = require('lodash');
-const React = require('react');
-const ReactDOM = require('react-dom');
+import $ from 'jquery';
+import ko from 'knockout';
+import _ from 'lodash';
+import React from 'react';
+import ReactDOM from 'react-dom';
 
-const {l} = require('../common/i18n');
-const MB = require('../common/MB');
-const clean = require('../common/utility/clean');
-const isBlank = require('../common/utility/isBlank');
-const request = require('../common/utility/request');
-const PossibleDuplicates = require('./components/PossibleDuplicates');
-const validation = require('./validation');
+import {l} from '../common/i18n';
+import MB from '../common/MB';
+import clean from '../common/utility/clean';
+import isBlank from '../common/utility/isBlank';
+import request from '../common/utility/request';
+
+import PossibleDuplicates from './components/PossibleDuplicates';
+import validation from './validation';
 
 var commentRequired = ko.observable(false);
 var commentEmpty = ko.observable(false);
@@ -249,4 +250,4 @@ MB.initializeDuplicateChecker = function (type) {
   }
 };
 
-module.exports = MB.initializeDuplicateChecker;
+export default MB.initializeDuplicateChecker;

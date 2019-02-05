@@ -17,7 +17,7 @@ import MB from '../../common/MB';
 import {link_type as linkTypeInfo} from '../../common/typeInfo';
 import * as URLCleanup from '../../edit/URLCleanup';
 import * as dates from '../../edit/utility/dates';
-import * as linkPhrase from '../../edit/utility/linkPhrase';
+import {stripAttributes} from '../../edit/utility/linkPhrase';
 import isBlank from '../../common/utility/isBlank';
 
 const PART_OF_SERIES_LINK_TYPE_GIDS = _.values(PART_OF_SERIES_LINK_TYPES);
@@ -328,7 +328,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
 
         linkTypeName() {
             var linkTypeID = this.relationship().linkTypeID();
-            return linkTypeID ? linkPhrase.clean(linkTypeID, this.backward()) : "";
+            return linkTypeID ? stripAttributes(linkTypeID, this.backward()) : "";
         }
 
         linkTypeDescription() {

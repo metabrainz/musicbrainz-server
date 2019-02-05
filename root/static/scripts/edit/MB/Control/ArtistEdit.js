@@ -3,10 +3,10 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-const $ = require('jquery');
+import $ from 'jquery';
 
-const i18n = require('../../../common/i18n');
-const MB = require('../../../common/MB');
+import {l} from '../../../common/i18n';
+import MB from '../../../common/MB';
 
 MB.Control.ArtistEdit = function () {
     var self = {};
@@ -44,22 +44,22 @@ MB.Control.ArtistEdit = function () {
         switch (self.$type.val()) {
             default:
             case '0':
-                self.changeDateText(i18n.l("Began:"), i18n.l("Ended:"), i18n.l("This artist has ended."));
-                self.changeAreaText(i18n.l("Begin area:"), i18n.l("End area:"));
+                self.changeDateText(l("Began:"), l("Ended:"), l("This artist has ended."));
+                self.changeAreaText(l("Begin area:"), l("End area:"));
                 self.enableGender();
                 break;
 
             case '1':
-                self.changeDateText(i18n.l("Born:"), i18n.l("Died:"), i18n.l("This person is deceased."));
-                self.changeAreaText(i18n.l("Born in:"), i18n.l("Died in:"));
+                self.changeDateText(l("Born:"), l("Died:"), l("This person is deceased."));
+                self.changeAreaText(l("Born in:"), l("Died in:"));
                 self.enableGender();
                 break;
 
             case '2':
             case '5':
             case '6':
-                self.changeDateText(i18n.l("Founded:"), i18n.l("Dissolved:"), i18n.l("This group has dissolved."));
-                self.changeAreaText(i18n.l("Founded in:"), i18n.l("Dissolved in:"));
+                self.changeDateText(l("Founded:"), l("Dissolved:"), l("This group has dissolved."));
+                self.changeAreaText(l("Founded in:"), l("Dissolved in:"));
                 self.disableGender();
                 break;
         }
