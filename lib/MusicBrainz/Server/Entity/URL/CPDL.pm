@@ -1,15 +1,12 @@
 package MusicBrainz::Server::Entity::URL::CPDL;
 
 use Moose;
+use MusicBrainz::Server::Translation qw( l );
 
 extends 'MusicBrainz::Server::Entity::URL';
 with 'MusicBrainz::Server::Entity::URL::Sidebar';
 
-sub sidebar_name {
-    my $self = shift;
-
-    return "Score at CPDL";
-}
+sub sidebar_name { l('Score(s) at CPDL') }
 
 __PACKAGE__->meta->make_immutable;
 no Moose;
