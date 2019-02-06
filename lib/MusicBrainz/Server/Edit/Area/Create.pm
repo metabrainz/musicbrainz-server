@@ -2,6 +2,7 @@ package MusicBrainz::Server::Edit::Area::Create;
 use Moose;
 
 use MusicBrainz::Server::Constants qw( $EDIT_AREA_CREATE );
+use MusicBrainz::Server::Data::Utils qw( boolean_to_json );
 use MusicBrainz::Server::Edit::Types qw( Nullable PartialDateHash );
 use MusicBrainz::Server::Translation qw( N_l );
 use aliased 'MusicBrainz::Server::Entity::PartialDate';
@@ -69,7 +70,7 @@ sub build_display_data
         end_date   => PartialDate->new($self->data->{end_date}),
         area       => ($self->entity_id && $loaded->{Area}->{ $self->entity_id }) ||
             Area->new( name => $self->data->{name} ),
-        ended      => $self->data->{ended} // 0,
+        ended      => boolean_to_json($self->data->{ended}),
         iso_3166_1 => @{ $self->data->{iso_3166_1} } ? $self->data->{iso_3166_1} : undef,
         iso_3166_2 => @{ $self->data->{iso_3166_2} } ? $self->data->{iso_3166_2} : undef,
         iso_3166_3 => @{ $self->data->{iso_3166_3} } ? $self->data->{iso_3166_3} : undef,
@@ -81,6 +82,8 @@ sub _insert_hash
     my ($self, $data) = @_;
     return $data;
 };
+
+sub edit_template_react { 'AddArea' };
 
 __PACKAGE__->meta->make_immutable;
 no Moose;
