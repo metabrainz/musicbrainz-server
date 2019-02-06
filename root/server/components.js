@@ -155,6 +155,7 @@ module.exports = {
   'edit/components/Vote': require('../edit/components/Vote'),
   'edit/details/AddAnnotation': require('../edit/details/AddAnnotation'),
   'edit/details/AddArea': require('../edit/details/AddArea'),
+  'edit/details/AddArtist': require('../edit/details/AddArtist'),
   'edit/details/AddEvent': require('../edit/details/AddEvent'),
   'event/EventHeader': require('../event/EventHeader'),
   'instrument/InstrumentHeader': require('../instrument/InstrumentHeader'),
