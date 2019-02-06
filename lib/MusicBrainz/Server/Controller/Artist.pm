@@ -562,7 +562,14 @@ around $_ => sub {
 
     my $artist = $c->stash->{artist};
     if ($artist->is_special_purpose) {
-        $c->stash( template => 'artist/special_purpose.tt' );
+        my %props = (
+            artist => $artist,
+        );
+        $c->stash(
+            component_path => 'artist/SpecialPurpose.js',
+            component_props => \%props,
+            current_view => 'Node',
+        );
         $c->response->status(HTTP_FORBIDDEN);
         $c->detach;
     }
