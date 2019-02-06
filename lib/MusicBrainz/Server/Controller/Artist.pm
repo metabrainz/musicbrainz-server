@@ -602,7 +602,14 @@ sub split : Chained('load') Edit {
     my $artist = $c->stash->{artist};
 
     if (!can_split($artist)) {
-        $c->stash( template => 'artist/cannot_split.tt' );
+        my %props = (
+            artist => $artist,
+        );
+        $c->stash(
+            component_path => 'artist/CannotSplit.js',
+            component_props => \%props,
+            current_view => 'Node',
+        );
         $c->detach;
     }
 
