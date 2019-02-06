@@ -2,6 +2,7 @@ package MusicBrainz::Server::Edit::Event::Create;
 use Moose;
 
 use MusicBrainz::Server::Constants qw( $EDIT_EVENT_CREATE );
+use MusicBrainz::Server::Data::Utils qw( boolean_to_json );
 use MusicBrainz::Server::Edit::Types qw( Nullable PartialDateHash );
 use MusicBrainz::Server::Translation qw( N_l );
 use aliased 'MusicBrainz::Server::Entity::PartialDate';
@@ -58,13 +59,15 @@ sub build_display_data
         end_date    => PartialDate->new($self->data->{end_date}),
         event       => ($self->entity_id && $loaded->{Event}->{ $self->entity_id }) ||
             Event->new( name => $self->data->{name} ),
-        ended       => $self->data->{ended} // 0,
-        cancelled   => $self->data->{cancelled} // 0,
+        ended       => boolean_to_json($self->data->{ended}),
+        cancelled   => boolean_to_json($self->data->{cancelled}),
         comment     => $self->data->{comment},
         time        => $self->data->{time},
         setlist     => $self->data->{setlist}
     };
 }
+
+sub edit_template_react { 'AddEvent' };
 
 __PACKAGE__->meta->make_immutable;
 no Moose;
