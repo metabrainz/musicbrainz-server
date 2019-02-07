@@ -35,6 +35,7 @@ use Data::Page;
 use HTTP::Status qw( :constants );
 use MusicBrainz::Server::Translation qw( l );
 use MusicBrainz::Server::Constants qw( $EDIT_PLACE_CREATE $EDIT_PLACE_EDIT $EDIT_PLACE_MERGE );
+use MusicBrainz::Server::ControllerUtils::JSON qw( serialize_pager );
 use Sql;
 
 =head1 NAME
@@ -104,7 +105,18 @@ sub events : Chained('load')
     });
     $c->model('Event')->load_related_info(@$events);
     $c->model('Event')->rating->load_user_ratings($c->user->id, @$events) if $c->user_exists;
-    $c->stash( events => $events );
+
+    my %props = (
+        events      => $events,
+        place       => $c->stash->{place},
+        pager       => serialize_pager($c->stash->{pager}),
+    );
+
+    $c->stash(
+        component_path  => 'place/PlaceEvents.js',
+        component_props => \%props,
+        current_view    => 'Node',
+    );
 }
 
 =head2 performances
