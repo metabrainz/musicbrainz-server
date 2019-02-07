@@ -1,10 +1,10 @@
-[%- WRAPPER 'artist/layout.tt' title=l('Events') page='events' -%]
+[%- WRAPPER 'artist/layout.tt' title=l('Events') page='events' gettext_domains=['attributes','relationships'] -%]
     <h2>[% l('Events') %]</h2>
 
     [% IF events.size %]
       <form action="[% c.uri_for_action('/event/merge_queue') %]"
             method="post">
-        [% INCLUDE 'components/events-list.tt' checkboxes='add-to-merge' no_artists=1 artist_roles=1 WRAPPER 'components/with-pager.tt' %]
+        [% React.embed(c, 'components/EventsList', { artist => artist, events => events, checkboxes => 'add-to-merge', noArtists => 1, artistRoles => 1}) WRAPPER 'components/with-pager.tt' %]
         [% form_submit(l('Add selected events for merging')) WRAPPER form_row IF c.user_exists %]
       </form>
     [% ELSE %]
