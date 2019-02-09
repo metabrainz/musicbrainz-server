@@ -1,9 +1,0 @@
-[%- WRAPPER 'area/layout.tt' title=l('Labels') page='labels' -%]
-    <h2>[% l('Labels') %]</h2>
-
-    [% IF labels.size %]
-      [% React.embed(c, 'components/LabelsList', { labels => labels, noAreas => 1}) %]
-    [% ELSE %]
-      [% l('This area is not currently associated with any labels.') %]
-    [% END %]
-[%- END -%]
