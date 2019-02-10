@@ -33,7 +33,7 @@ type VoteCheckboxProps = {|
   +value: number,
 |};
 
-const VoteCheckbox = ({edit, user, label, ...props}: VoteCheckboxProps) => {
+const VoteCheckbox = ({edit, user, label, name, ...props}: VoteCheckboxProps) => {
   const latestVote = user
     ? getLatestVoteForEditor(edit, user)
     : null;
@@ -41,8 +41,8 @@ const VoteCheckbox = ({edit, user, label, ...props}: VoteCheckboxProps) => {
     (latestVote && latestVote.vote == props.value) ||
     (!latestVote && props.value === EDIT_VOTE_NONE);
   return (
-    <label>
-      <input defaultChecked={checked} type="radio" {...props} />
+    <label htmlFor={`id-${name}-${label}`}>
+      <input defaultChecked={checked} id={`id-${name}-${label}`} name={name} type="radio" {...props} />
       {label}
     </label>
   );
