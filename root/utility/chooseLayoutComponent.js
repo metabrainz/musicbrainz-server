@@ -9,6 +9,7 @@
 
 import AreaLayout from '../area/AreaLayout';
 import ArtistLayout from '../artist/ArtistLayout';
+import CollectionLayout from '../collection/CollectionLayout';
 import EventLayout from '../event/EventLayout';
 import InstrumentLayout from '../instrument/InstrumentLayout';
 import LabelLayout from '../label/LabelLayout';
@@ -20,6 +21,7 @@ import SeriesLayout from '../series/SeriesLayout';
 const layoutPicker = {
   area: AreaLayout,
   artist: ArtistLayout,
+  collection: CollectionLayout,
   event: EventLayout,
   instrument: InstrumentLayout,
   label: LabelLayout,
