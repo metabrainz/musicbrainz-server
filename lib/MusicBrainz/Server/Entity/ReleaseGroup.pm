@@ -128,6 +128,7 @@ around TO_JSON => sub {
         firstReleaseDate    => $self->first_release_date ? $self->first_release_date->format : undef,
         # TODO: remove this once Autocomplete.js can use $c and releaseGroupType.js
         l_type_name         => $self->l_type_name,
+        release_count       => $self->release_count,
         review_count        => $self->review_count,
         secondaryTypeIDs    => [map { $_->id } $self->all_secondary_types],
         typeID              => $self->primary_type_id,

@@ -18,10 +18,10 @@ type Props = {|
   +editTab?: React.Node,
   +entity: CoreEntityT,
   +headerClass: string,
-  +heading?: string | React.Node,
+  +heading?: React.Node,
   +page: string,
   +preHeader?: React.Node,
-  +subHeading: string,
+  +subHeading: React.Node,
 |};
 
 const EntityHeader = ({

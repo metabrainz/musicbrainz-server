@@ -16,6 +16,7 @@ import LabelLayout from '../label/LabelLayout';
 import PlaceLayout from '../place/PlaceLayout';
 import RecordingLayout from '../recording/RecordingLayout';
 import ReleaseGroupLayout from '../release_group/ReleaseGroupLayout';
+import ReleaseLayout from '../release/ReleaseLayout';
 import SeriesLayout from '../series/SeriesLayout';
 
 const layoutPicker = {
@@ -28,6 +29,7 @@ const layoutPicker = {
   place: PlaceLayout,
   recording: RecordingLayout,
   release_group: ReleaseGroupLayout,
+  release: ReleaseLayout,
   series: SeriesLayout,
 };
 
