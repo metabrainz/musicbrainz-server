@@ -290,9 +290,17 @@ sub gravatar {
 around TO_JSON => sub {
     my ($orig, $self) = @_;
 
+    my $birth_partial_date;
+
+    if ($self->birth_date) {
+        my $bd = $self->birth_date;
+        $birth_partial_date = { year => $bd->year, month => $bd->month, day => $bd->day };
+    }
+
     return {
         %{$self->$orig},
         biography               => $self->biography,
+        birth_date              => $birth_partial_date,
         deleted                 => boolean_to_json($self->deleted),
         email                   => $self->email,
         email_confirmation_date => datetime_to_iso8601($self->email_confirmation_date),

@@ -376,6 +376,7 @@ declare type EditorPreferencesT = {|
 declare type EditorT = {|
   ...EntityRoleT,
   +biography: string | null,
+  +birth_date: PartialDateT | null,
   +deleted: boolean,
   +email: string,
   +email_confirmation_date: string | null,
