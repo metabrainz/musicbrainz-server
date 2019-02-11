@@ -27,6 +27,7 @@ use Data::Page;
 use HTTP::Status qw( :constants );
 use MusicBrainz::Server::Translation qw( l );
 use MusicBrainz::Server::Constants qw( $EDIT_AREA_CREATE $EDIT_AREA_EDIT $EDIT_AREA_DELETE $EDIT_AREA_MERGE );
+use MusicBrainz::Server::ControllerUtils::JSON qw( serialize_pager );
 use Sql;
 
 =head1 NAME
@@ -120,7 +121,18 @@ sub labels : Chained('load')
     if ($c->user_exists) {
         $c->model('Label')->rating->load_user_ratings($c->user->id, @$labels);
     }
-    $c->stash( labels => $labels );
+
+    my %props = (
+        area         => $c->stash->{area},
+        labels       => $labels,
+        pager        => serialize_pager($c->stash->{pager}),
+    );
+
+    $c->stash(
+        component_path  => 'area/AreaLabels.js',
+        component_props => \%props,
+        current_view    => 'Node',
+    );
 }
 
 =head2 releases

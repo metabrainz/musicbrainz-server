@@ -2,15 +2,13 @@
   <tr>
     <th>[% l('Merge:') %]</th>
     <td>
-      [% INCLUDE 'components/labels-list.tt' labels=edit.display_data.old
-           checkboxes='' no_ratings=1 %]
+      [% React.embed(c, 'components/LabelsList', { labels => edit.display_data.old, noRatings => 1}) %]
     </td>
   </tr>
   <tr>
     <th>[% l('Into:') %]</th>
     <td>
-      [% INCLUDE 'components/labels-list.tt' labels=edit.display_data.new
-           checkboxes='' no_ratings=1 %]
+      [% React.embed(c, 'components/LabelsList', { labels => [edit.display_data.new], noRatings => 1}) %]
     </td>
   </tr>
 </table>
