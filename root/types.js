@@ -36,9 +36,18 @@ declare type AliasT = {|
 
 export opaque type AliasTypeT: OptionTreeT = OptionTreeT;
 
+declare type AnchorProps = {|
+  +href: string,
+  +key?: number | string,
+  +target?: '_blank',
+  +title?: string,
+|};
+
 declare type AnyFieldT<+F> =
   | FieldT<F>
   | StructFieldT<F>;
+
+declare type AnyReactElem = React.Element<any>;
 
 declare type ApplicationT = {|
   ...EntityRoleT,
@@ -831,6 +840,8 @@ declare type ServerLanguageT = {|
   +native_territory: string,
 |};
 
+declare type StrOrNum = string | number;
+
 type StructFieldT<+F> =
   | CompoundFieldT<F>
   | RepeatableFieldT<F>;
@@ -855,6 +866,10 @@ declare type UserTagT = {|
   +tag: string,
   +vote: 1 | 0 | -1,
 |};
+
+declare type VarSubstArg =
+  | StrOrNum
+  | AnyReactElem;
 
 declare type VoteOptionT =
   | -2   // None

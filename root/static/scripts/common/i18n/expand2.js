@@ -49,7 +49,10 @@ const percentSign = /(%)/;
 const verticalPipe = /^\|/;
 const hrefValueStart = /^(?:\/|https?:\/\/)/;
 
-type VarArgs = {[string]: React.Node};
+export type Input = VarSubstArg | AnchorProps;
+export type Output = string | AnyReactElem;
+
+type VarArgs = {+[string]: Input};
 
 type State = {
   /*
@@ -67,7 +70,7 @@ type State = {
   // Portion of the source string that hasn't been parsed yet.
   remainder: string,
   // The value of % in conditional substitutions, from `args`.
-  replacement: React.Node | NO_MATCH,
+  replacement: VarSubstArg | NO_MATCH,
   // A copy of the source string, used in error messages.
   source: string,
   /*
@@ -190,7 +193,7 @@ function parseTextContent() {
   const replacement = state.replacement;
   if (gotMatch(replacement) && percentSign.test(text)) {
     const parts = text.split(percentSign);
-    const result: Array<React.Node> = [];
+    const result: Array<Output> = [];
     for (let i = 0; i < parts.length; i++) {
       const part = parts[i];
       if (part === '%') {
@@ -370,7 +373,7 @@ const rootParsers = [
 ];
 
 function parseRoot() {
-  return parseContinous<React.Node>(rootParsers);
+  return parseContinous<Output>(rootParsers);
 }
 
 /*
@@ -385,7 +388,7 @@ function parseRoot() {
  * substitution syntax. In order to display a character reserved by
  * either syntax, HTML character entities must be used.
  */
-export default function expand(source: ?string, args?: ?VarArgs): React.Node {
+export default function expand(source: ?string, args?: ?VarArgs): Output {
   if (!source) {
     return '';
   }
