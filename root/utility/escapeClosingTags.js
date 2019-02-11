@@ -7,4 +7,4 @@ function escapeClosingTags(jsonText) {
   return jsonText.replace(/<\//g, '<\\/');
 }
 
-module.exports = escapeClosingTags;
+export default escapeClosingTags;
