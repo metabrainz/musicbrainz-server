@@ -20,19 +20,6 @@ import * as lens from '../utility/lens';
 import Collapsible from './Collapsible';
 import EditorLink from './EditorLink';
 
-type AnnotatedEntityT =
-  | AreaT
-  | ArtistT
-  | EventT
-  | InstrumentT
-  | LabelT
-  | PlaceT
-  | RecordingT
-  | ReleaseGroupT
-  | ReleaseT
-  | SeriesT
-  | WorkT;
-
 type Props = {|
   +$c: CatalystContextT | SanitizedCatalystContextT,
   +annotation: ?AnnotationT,
