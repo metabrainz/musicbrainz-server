@@ -19,10 +19,10 @@
 
 */
 
-const _ = require('lodash');
+import _ from 'lodash';
 
-const MB = require('../../../../common/MB');
-const flags = require('../../../flags');
+import MB from '../../../../common/MB';
+import * as flags from '../../../flags';
 
 MB.GuessCase = (MB.GuessCase) ? MB.GuessCase : {};
 MB.GuessCase.Handler = (MB.GuessCase.Handler) ? MB.GuessCase.Handler : {};
