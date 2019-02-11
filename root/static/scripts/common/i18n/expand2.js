@@ -12,7 +12,25 @@ import Raven from 'raven-js';
 import * as React from 'react';
 import ReactDOMServer from 'react-dom/server';
 
-const NO_MATCH = Symbol();
+/*
+ * Flow doesn't have very good support for Symbols, so we use a unique
+ * singleton class to fill its role.
+ */
+export class NO_MATCH {
+  static instance: ?NO_MATCH;
+  constructor() {
+    return NO_MATCH.instance || (NO_MATCH.instance = this);
+  }
+}
+
+export const NO_MATCH_VALUE: NO_MATCH = new NO_MATCH();
+Object.freeze(NO_MATCH);
+
+export function gotMatch(x: mixed): boolean %checks {
+  return (
+    x !== NO_MATCH_VALUE /* flow-include && !(x instanceof NO_MATCH) */
+  );
+}
 
 const textContent = /^[^<>{}]+/;
 const varSubst = /^\{([0-9A-z_]+)\}/;
@@ -49,7 +67,7 @@ type State = {
   // Portion of the source string that hasn't been parsed yet.
   remainder: string,
   // The value of % in conditional substitutions, from `args`.
-  replacement: React.Node | typeof NO_MATCH,
+  replacement: React.Node | NO_MATCH,
   // A copy of the source string, used in error messages.
   source: string,
   /*
@@ -69,7 +87,7 @@ const state: State = Object.seal({
   match: '',
   position: 0,
   remainder: '',
-  replacement: NO_MATCH,
+  replacement: NO_MATCH_VALUE,
   source: '',
   textPattern: textContent,
 });
@@ -87,7 +105,7 @@ function accept(pattern) {
     state.remainder = state.remainder.slice(entireMatch.length);
     return m.length > 1 ? m[1] : entireMatch;
   }
-  return NO_MATCH;
+  return NO_MATCH_VALUE;
 }
 
 function error(message) {
@@ -134,7 +152,7 @@ function pushChild<T>(
 }
 
 function parseContinous<T>(
-  parsers: $ReadOnlyArray<() => T | typeof NO_MATCH>
+  parsers: $ReadOnlyArray<() => T | NO_MATCH>
 ): $ReadOnlyArray<T> {
   let children;
   let _continue = true;
@@ -142,7 +160,7 @@ function parseContinous<T>(
     _continue = false;
     for (let i = 0; i < parsers.length; i++) {
       const match = parsers[i]();
-      if (match !== NO_MATCH) {
+      if (gotMatch(match)) {
         if (!children) {
           children = [];
         }
@@ -151,11 +169,7 @@ function parseContinous<T>(
             pushChild<T>(children, match[j]);
           }
         } else {
-          /*
-            * XXX We need to convince Flow that `match` will always be
-            * type T here, and not a Symbol.
-            */
-          pushChild<T>(children, ((match: any): T));
+          pushChild<T>(children, match);
         }
         if (state.remainder) {
           _continue = true;
@@ -171,16 +185,16 @@ function parseContinous<T>(
 function parseTextContent() {
   let text = accept(state.textPattern);
   if (typeof text !== 'string') {
-    return NO_MATCH;
+    return NO_MATCH_VALUE;
   }
-  if (state.replacement !== NO_MATCH && percentSign.test(text)) {
+  const replacement = state.replacement;
+  if (gotMatch(replacement) && percentSign.test(text)) {
     const parts = text.split(percentSign);
     const result: Array<React.Node> = [];
     for (let i = 0; i < parts.length; i++) {
       const part = parts[i];
       if (part === '%') {
-        /* flow-include if (state.replacement instanceof Symbol) throw 'impossible' */
-        result.push(state.replacement);
+        result.push(replacement);
       } else {
         result.push(he.decode(part));
       }
@@ -208,7 +222,7 @@ function withTextPattern(textPattern, cb) {
 const parseVarSubst = saveMatch(function () {
   const name = accept(varSubst);
   if (typeof name !== 'string') {
-    return NO_MATCH;
+    return NO_MATCH_VALUE;
   }
   if (state.args && hasArg(name)) {
     return state.args[name];
@@ -219,10 +233,10 @@ const parseVarSubst = saveMatch(function () {
 const parseLinkSubst = saveMatch(function () {
   const name = accept(linkSubstStart);
   if (typeof name !== 'string') {
-    return NO_MATCH;
+    return NO_MATCH_VALUE;
   }
   const children = withTextPattern(textContent, parseRoot);
-  if (accept(substEnd) === NO_MATCH) {
+  if (!gotMatch(accept(substEnd))) {
     throw error('expected }');
   }
   if (state.args && hasArg(name)) {
@@ -238,7 +252,7 @@ const parseLinkSubst = saveMatch(function () {
 const parseCondSubst = saveMatch(function () {
   const name = accept(condSubstStart);
   if (typeof name !== 'string') {
-    return NO_MATCH;
+    return NO_MATCH_VALUE;
   }
 
   const savedReplacement = state.replacement;
@@ -249,13 +263,13 @@ const parseCondSubst = saveMatch(function () {
   const thenChildren = withTextPattern(condSubstThenTextContent, parseRoot);
 
   let elseChildren = '';
-  if (accept(verticalPipe) !== NO_MATCH) {
+  if (gotMatch(accept(verticalPipe))) {
     elseChildren = withTextPattern(textContent, parseRoot);
   }
 
   state.replacement = savedReplacement;
 
-  if (accept(substEnd) === NO_MATCH) {
+  if (!gotMatch(accept(substEnd))) {
     throw error('expected }');
   }
 
@@ -280,8 +294,8 @@ function parseHtmlAttrValue() {
 }
 
 function parseHtmlAttr() {
-  if (accept(htmlAttrStart) === NO_MATCH) {
-    return NO_MATCH;
+  if (!gotMatch(accept(htmlAttrStart))) {
+    return NO_MATCH_VALUE;
   }
 
   let name = accept(htmlAttrName);
@@ -295,7 +309,7 @@ function parseHtmlAttr() {
 
   let value = withTextPattern(htmlAttrTextContent, parseHtmlAttrValue);
 
-  if (accept(/^"/) === NO_MATCH) {
+  if (!gotMatch(accept(/^"/))) {
     throw error('expected "');
   }
 
@@ -311,8 +325,8 @@ function parseHtmlAttr() {
 const htmlAttrParsers = [parseHtmlAttr];
 
 function parseHtmlTag() {
-  if (accept(htmlTagStart) === NO_MATCH) {
-    return NO_MATCH;
+  if (!gotMatch(accept(htmlTagStart))) {
+    return NO_MATCH_VALUE;
   }
 
   const name = accept(htmlTagName);
@@ -322,7 +336,7 @@ function parseHtmlTag() {
 
   const attributes = parseContinous<{[string]: string}>(htmlAttrParsers);
 
-  if (accept(htmlSelfClosingTagEnd) !== NO_MATCH) {
+  if (gotMatch(accept(htmlSelfClosingTagEnd))) {
     // Self-closing tag
     return React.createElement(
       name,
@@ -330,13 +344,13 @@ function parseHtmlTag() {
     );
   }
 
-  if (accept(htmlTagEnd) === NO_MATCH) {
+  if (!gotMatch(accept(htmlTagEnd))) {
     throw error('expected >');
   }
 
   const children = withTextPattern(textContent, parseRoot);
 
-  if (accept(new RegExp('^</' + name + '>')) === NO_MATCH) {
+  if (!gotMatch(accept(new RegExp('^</' + name + '>')))) {
     throw error('expected </' + name + '>');
   }
 
@@ -381,7 +395,7 @@ export default function expand(source: ?string, args?: ?VarArgs): React.Node {
   state.match = '';
   state.position = 0;
   state.remainder = source;
-  state.replacement = NO_MATCH;
+  state.replacement = NO_MATCH_VALUE;
   state.source = source;
   state.textPattern = textContent;
 
