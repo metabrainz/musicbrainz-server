@@ -3,7 +3,7 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-const ko = require('knockout');
+import ko from 'knockout';
 
 // Supports loading a component template from a <script type="text/html">
 ko.components.loaders.unshift({

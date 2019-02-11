@@ -3,9 +3,9 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-const $ = require('jquery');
+import $ from 'jquery';
 
-const MB = require('../../common/MB');
+import MB from '../../common/MB';
 
 MB.initializeToggleEnded = function (formID) {
     $(function () {
@@ -25,4 +25,4 @@ MB.initializeToggleEnded = function (formID) {
     });
 };
 
-module.exports = MB.initializeToggleEnded;
+export default MB.initializeToggleEnded;

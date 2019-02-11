@@ -9,8 +9,8 @@ const ko = require('knockout');
 const _ = require('lodash');
 
 const isBlank = require('./common/utility/isBlank');
-const initializeDuplicateChecker = require('./edit/check-duplicates');
-const initializeArea = require('./edit/MB/Control/Area').Area;
+const initializeDuplicateChecker = require('./edit/check-duplicates').default;
+const {initializeArea} = require('./edit/MB/Control/Area');
 const {initializeBubble} = require('./edit/MB/Control/Bubble');
 const {errorField} = require('./edit/validation');
 const {initialize_guess_case} = require('./guess-case/MB/Control/GuessCase');

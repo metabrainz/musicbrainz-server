@@ -18,9 +18,9 @@
 
 */
 
-const $ = require('jquery');
+import $ from 'jquery';
 
-const MB = require('../../common/MB');
+import MB from '../../common/MB';
 
 MB.Form = (MB.Form) ? MB.Form : {};
 
