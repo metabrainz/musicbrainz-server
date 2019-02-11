@@ -13,7 +13,7 @@ import {withCatalystContext} from '../../../../context';
 import formatUserDate from '../../../../utility/formatUserDate';
 import hydrate from '../../../../utility/hydrate';
 import sanitizedEditor from '../../../../utility/sanitizedEditor';
-import {l} from '../i18n';
+import {l, TEXT} from '../i18n';
 import entityHref from '../utility/entityHref';
 import * as lens from '../utility/lens';
 
@@ -94,7 +94,7 @@ const Annotation = ({
         ) : (
           l('Annotation last modified on {date}.', {
             date: formatUserDate($c.user, annotation.creation_date),
-          })
+          }, TEXT)
         )}
       </div>
     </>

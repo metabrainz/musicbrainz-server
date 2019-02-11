@@ -9,7 +9,7 @@
 
 import React from 'react';
 
-import {addColon, l} from '../static/scripts/common/i18n';
+import {addColonText, l} from '../static/scripts/common/i18n';
 import FormRow from '../components/FormRow';
 import FormRowText from '../components/FormRowText';
 import FormRowTextLong from '../components/FormRowTextLong';
@@ -22,27 +22,27 @@ const TagLookupForm = ({form}: {|+form: TagLookupFormT|}) => (
     <form action="/taglookup/index" method="get">
       <FormRowTextLong
         field={form.field.artist}
-        label={addColon(l('Artist'))}
+        label={addColonText(l('Artist'))}
       />
       <FormRowTextLong
         field={form.field.release}
-        label={addColon(l('Release'))}
+        label={addColonText(l('Release'))}
       />
       <FormRowText
         field={form.field.tracknum}
-        label={addColon(l('Track number'))}
+        label={addColonText(l('Track number'))}
       />
       <FormRowTextLong
         field={form.field.track}
-        label={addColon(l('Track'))}
+        label={addColonText(l('Track'))}
       />
       <FormRowText
         field={form.field.duration}
-        label={addColon(l('Duration'))}
+        label={addColonText(l('Duration'))}
       />
       <FormRowTextLong
         field={form.field.filename}
-        label={addColon(l('Filename'))}
+        label={addColonText(l('Filename'))}
       />
       <FormRow hasNoLabel>
         <FormSubmit label={l('Search')} />

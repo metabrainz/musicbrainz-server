@@ -391,7 +391,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
             }
 
             var options = _.map(targetTypes, function (type) {
-                return { value: type, text: ENTITY_NAMES[type].toLocaleString() };
+                return { value: type, text: ENTITY_NAMES[type]() };
             });
 
             options.sort(function (a, b) {
@@ -524,7 +524,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
         sameEntityTypesLabel($parent, relationship, entity) {
             const entityType = relationship.target(entity).entityType;
             return l('Only relationships to {entity_type} entities.', {
-                entity_type: ENTITY_NAMES[entityType].toLocaleLowerCase(),
+                entity_type: ENTITY_NAMES[entityType](),
             });
         }
 
@@ -532,7 +532,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
             const entityType = relationship.target(entity).entityType;
             return l('Only “{relationship_type}” relationships to {entity_type} entities.', {
                 relationship_type: $parent.linkTypeName(),
-                entity_type: ENTITY_NAMES[entityType].toLocaleLowerCase(),
+                entity_type: ENTITY_NAMES[entityType](),
             });
         }
     }

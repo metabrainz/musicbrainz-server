@@ -19,6 +19,7 @@
 
 import padStart from 'lodash/padStart';
 
+import {TEXT} from '../static/scripts/common/i18n';
 import {l_attributes} from '../static/scripts/common/i18n/attributes';
 import {
   l_statistics as l,
@@ -750,29 +751,29 @@ for (let n = 0; n < 11; n++) {
   stats[`count.release.${n}discids`] = {
     category: 'other',
     color: '#ff0000',
-    description: l('Count of all Releases with {n} Disc IDs', no),
-    label: ln('Releases with 1 Disc ID', 'Releases with {n} Disc IDs', n, no),
+    description: l('Count of all Releases with {n} Disc IDs', no, TEXT),
+    label: ln('Releases with 1 Disc ID', 'Releases with {n} Disc IDs', n, no, TEXT),
   };
 
   stats[`count.medium.${n}discids`] = {
     category: 'other',
     color: '#ff0000',
-    description: l('Count of all Mediums with {n} Disc IDs', no),
-    label: ln('Mediums with 1 Disc ID', 'Mediums with {n} Disc IDs', n, no),
+    description: l('Count of all Mediums with {n} Disc IDs', no, TEXT),
+    label: ln('Mediums with 1 Disc ID', 'Mediums with {n} Disc IDs', n, no, TEXT),
   };
 
   stats[`count.recording.${n}releases`] = {
     category: 'other',
     color: '#ff0000',
-    description: l('Count of all Recordings with {n} Releases', no),
-    label: ln('Recordings with 1 Release', 'Recordings with {n} Releases', n, no),
+    description: l('Count of all Recordings with {n} Releases', no, TEXT),
+    label: ln('Recordings with 1 Release', 'Recordings with {n} Releases', n, no, TEXT),
   };
 
   stats[`count.releasegroup.${n}releases`] = {
     category: 'other',
     color: '#ff0000',
-    description: l('Count of all Release Groups with {n} Releases', no),
-    label: ln('Release Groups with 1 Release', 'Release Groups with {n} Releases', n, no),
+    description: l('Count of all Release Groups with {n} Releases', no, TEXT),
+    label: ln('Release Groups with 1 Release', 'Release Groups with {n} Releases', n, no, TEXT),
   };
 }
 
@@ -810,21 +811,21 @@ export function buildTypeStats(typeData) {
       category: 'artist-countries',
       color: '#ff0000',
       description: countryName,
-      label: l('{country} artists', countryArg),
+      label: l('{country} artists', countryArg, TEXT),
     };
 
     stats[`count.label.country.${key}`] = {
       category: 'label-countries',
       color: '#ff0000',
       description: countryName,
-      label: l('{country} labels', countryArg),
+      label: l('{country} labels', countryArg, TEXT),
     };
 
     stats[`count.release.country.${key}`] = {
       category: 'release-countries',
       color: '#ff0000',
       description: countryName,
-      label: l('{country} releases', countryArg),
+      label: l('{country} releases', countryArg, TEXT),
     };
   }
 
@@ -836,14 +837,14 @@ export function buildTypeStats(typeData) {
       category: 'formats',
       color: '#ff0000',
       description: '',
-      label: l('{name} releases', formatArg),
+      label: l('{name} releases', formatArg, TEXT),
     };
 
     stats[`count.medium.format.${key}`] = {
       category: 'formats',
       color: '#ff0000',
       description: '',
-      label: l('{name} mediums', formatArg),
+      label: l('{name} mediums', formatArg, TEXT),
     };
   }
 
@@ -855,7 +856,7 @@ export function buildTypeStats(typeData) {
       category: 'release-languages',
       color: '#ff0000',
       description: languageName,
-      label: l('{language} releases', {language: languageName}),
+      label: l('{language} releases', {language: languageName}, TEXT),
     };
   }
 
@@ -865,7 +866,7 @@ export function buildTypeStats(typeData) {
     const label = l('l_{first}_{second} Relationships', {
       first: pair[0],
       second: pair[1],
-    });
+    }, TEXT);
 
     stats[`count.ar.links.l_${pair[0]}_${pair[1]}`] = {
       category: 'relationships',
@@ -883,7 +884,7 @@ export function buildTypeStats(typeData) {
       category: 'release-scripts',
       color: '#ff0000',
       description: scriptName,
-      label: l('{script} releases', {script: scriptName}),
+      label: l('{script} releases', {script: scriptName}, TEXT),
     };
   }
 }

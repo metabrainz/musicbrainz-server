@@ -14,6 +14,7 @@ import React from 'react';
 import {ArtworkImage} from '../components/Artwork';
 import Layout from '../layout';
 import {CONTACT_URL} from '../static/scripts/common/constants';
+import expand2react from '../static/scripts/common/i18n/expand2react';
 import {l} from '../static/scripts/common/i18n';
 import {reduceArtistCredit} from '../static/scripts/common/immutable-entities';
 import entityHref from '../static/scripts/common/utility/entityHref';
@@ -148,7 +149,7 @@ const Homepage = ({
         <h2 className="products">{l('MusicBrainz Database')}</h2>
         <p>
           <a href="/doc/MusicBrainz_Database">
-            {l('The majority of the data in the <strong>MusicBrainz Database</strong> is released into the <strong>Public Domain</strong> and can be downloaded and used <strong>for free</strong>.')}
+            {expand2react(l('The majority of the data in the <strong>MusicBrainz Database</strong> is released into the <strong>Public Domain</strong> and can be downloaded and used <strong>for free</strong>.'))}
           </a>
         </p>
       </div>
@@ -157,7 +158,7 @@ const Homepage = ({
         <h2 className="developers">{l('Developers')}</h2>
         <p>
           <a href="/doc/Developer_Resources">
-            {l('Use our <strong>XML web service</strong> or <strong>development libraries</strong> to create your own MusicBrainz-enabled applications.')}
+            {expand2react(l('Use our <strong>XML web service</strong> or <strong>development libraries</strong> to create your own MusicBrainz-enabled applications.'))}
           </a>
         </p>
       </div>

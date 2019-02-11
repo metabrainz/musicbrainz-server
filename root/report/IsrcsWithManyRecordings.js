@@ -12,14 +12,14 @@ import * as React from 'react';
 import {withCatalystContext} from '../context';
 import Layout from '../layout';
 import formatUserDate from '../utility/formatUserDate';
-import {l} from '../static/scripts/common/i18n';
+import {l, TEXT} from '../static/scripts/common/i18n';
 import PaginatedResults from '../components/PaginatedResults';
 import ArtistCreditLink
   from '../static/scripts/common/components/ArtistCreditLink';
 import EntityLink from '../static/scripts/common/components/EntityLink';
 import formatTrackLength
   from '../static/scripts/common/utility/formatTrackLength';
-import bracketed from '../static/scripts/common/utility/bracketed';
+import {bracketedText} from '../static/scripts/common/utility/bracketed';
 
 import FilterLink from './FilterLink';
 import type {ReportDataT, ReportIsrcT} from './types';
@@ -53,8 +53,8 @@ const IsrcsWithManyRecordings = ({
               the disc.`,
           {isrc: '/doc/ISRC'})}
         </li>
-        <li>{l('Total ISRCs found: {count}', {count: pager.total_entries})}</li>
-        <li>{l('Generated on {date}', {date: formatUserDate($c.user, generated)})}</li>
+        <li>{l('Total ISRCs found: {count}', {count: pager.total_entries}, TEXT)}</li>
+        <li>{l('Generated on {date}', {date: formatUserDate($c.user, generated)}, TEXT)}</li>
 
         {canBeFiltered ? <FilterLink filtered={filtered} /> : null}
       </ul>
@@ -80,7 +80,7 @@ const IsrcsWithManyRecordings = ({
                     <tr className="even">
                       <td>
                         <a href={'/isrc/' + item.isrc}>{item.isrc}</a>
-                        <span>{' ' + bracketed(item.recordingcount)}</span>
+                        {' ' + bracketedText(item.recordingcount)}
                       </td>
                       <td colSpan="5" />
                     </tr>

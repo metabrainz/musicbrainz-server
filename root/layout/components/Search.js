@@ -48,7 +48,7 @@ const TYPE_OPTION_GROUPS = [
 
 function localizedTypeOption(group, key) {
   const option = group[key];
-  return option ? option.toLocaleString() : null;
+  return option ? option() : '';
 }
 
 const SearchOptions = () => (

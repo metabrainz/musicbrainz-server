@@ -10,7 +10,7 @@ import React from 'react';
 import {withCatalystContext} from '../../context';
 import * as manifest from '../../static/manifest';
 import * as DBDefs from '../../static/scripts/common/DBDefs';
-import {l} from '../../static/scripts/common/i18n';
+import {l, TEXT} from '../../static/scripts/common/i18n';
 import escapeClosingTags from '../../utility/escapeClosingTags';
 
 import MetaDescription from './MetaDescription';
@@ -33,7 +33,7 @@ function getTitle(props) {
     }
 
     if (pager && pager.current_page && pager.current_page > 1) {
-      parts.push(l('Page {n}', {n: pager.current_page}));
+      parts.push(l('Page {n}', {n: pager.current_page}, TEXT));
     }
 
     parts.push('MusicBrainz');

@@ -115,7 +115,7 @@ export class ViewModel {
 
         addAnotherEntityLabel(group, entity) {
             const entityType = group.values.peek()[0].target(entity).entityType;
-            return addAnotherEntityLabels[entityType].toLocaleString();
+            return addAnotherEntityLabels[entityType]();
         }
     }
 

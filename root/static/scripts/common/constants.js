@@ -10,7 +10,6 @@
 import ENTITIES from '../../../../entities';
 
 import {N_l, N_lp} from './i18n';
-import NopArgs from './i18n/NopArgs';
 
 export {ENTITIES};
 
@@ -223,7 +222,7 @@ export const ENTITIES_WITH_RELATIONSHIP_CREDITS: {[string]: boolean} = {
   place: true,
 };
 
-export const QUALITY_NAMES: Map<QualityT, NopArgs> = new Map([
+export const QUALITY_NAMES: Map<QualityT, () => string> = new Map([
   [0, N_l('Low')],
   [-1, N_l('Normal')],
   [1, N_l('Normal')],

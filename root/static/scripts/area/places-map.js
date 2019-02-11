@@ -10,7 +10,7 @@ const React = require('react');
 const ReactDOMServer = require('react-dom/server');
 
 const EntityLink = require('../common/components/EntityLink').default;
-const {l, ln} = require('../common/i18n');
+const {l, ln, TEXT} = require('../common/i18n');
 const {createMap, L} = require('../common/leaflet');
 import getScriptArgs from '../common/utility/getScriptArgs';
 
@@ -75,7 +75,8 @@ if (places.length) {
         '… and {place_count} other',
         '… and {place_count} others',
         markers.length - CLUSTER_POPUP_LIMIT,
-        {place_count: markers.length - CLUSTER_POPUP_LIMIT}
+        {place_count: markers.length - CLUSTER_POPUP_LIMIT},
+        TEXT,
       ));
     }
 

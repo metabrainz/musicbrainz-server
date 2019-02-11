@@ -9,7 +9,7 @@
 
 import React from 'react';
 
-import {l, lp} from '../static/scripts/common/i18n';
+import {l, lp, TEXT} from '../static/scripts/common/i18n';
 import EditorLink from '../static/scripts/common/components/EditorLink';
 import bracketed from '../static/scripts/common/utility/bracketed';
 import formatUserDate from '../utility/formatUserDate';
@@ -74,15 +74,11 @@ const ElectionDetails = ({election, user}: PropsT) => (
       <tr>
         <th>{lp('Status:', 'election status')}</th>
         <td>
-          {election.is_open
+          {election.is_open && election.open_time
             ? (
               lp(election.status_name, 'autoeditor election status', {
-                date: (
-                  election.open_time
-                    ? formatUserDate(user, election.open_time)
-                    : null
-                ),
-              })
+                date: formatUserDate(user, election.open_time),
+              }, TEXT)
             ) : null}
 
           {election.is_pending
@@ -108,7 +104,7 @@ const ElectionDetails = ({election, user}: PropsT) => (
                 ? (
                   lp(election.status_name, 'autoeditor election status', {
                     date: formatUserDate(user, election.close_time),
-                  })
+                  }, TEXT)
                 ) : (
                   lp(election.status_name_short,
                     'autoeditor election status (short)')

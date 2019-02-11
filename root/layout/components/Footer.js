@@ -10,7 +10,7 @@ import * as React from 'react';
 import {withCatalystContext} from '../../context';
 import * as DBDefs from '../../static/scripts/common/DBDefs';
 import {DONATE_URL} from '../../constants';
-import {l} from '../../static/scripts/common/i18n';
+import {l, TEXT} from '../../static/scripts/common/i18n';
 import bracketed from '../../static/scripts/common/utility/bracketed';
 import formatUserDate from '../../utility/formatUserDate';
 
@@ -62,7 +62,7 @@ const Footer = ({$c, ...props}) => {
               datetime: $c.user
                 ? formatUserDate($c.user, stash.last_replication_date)
                 : stash.last_replication_date,
-            })}
+            }, TEXT)}
           </>
         ) : null}
       </p>

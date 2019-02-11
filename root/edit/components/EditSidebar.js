@@ -20,7 +20,8 @@ import {
   SidebarProperties,
   SidebarProperty,
 } from '../../layout/components/sidebar/SidebarProperties';
-import {addColon, l, ln, lp} from '../../static/scripts/common/i18n';
+import expand2react from '../../static/scripts/common/i18n/expand2react';
+import {addColonText, l, ln, lp, TEXT} from '../../static/scripts/common/i18n';
 import {
   getEditExpireAction,
   getEditStatusName,
@@ -49,7 +50,7 @@ const EditSidebar = ({$c, edit}: Props) => (
       </SidebarProperty>
 
       {edit.status === EDIT_STATUS_OPEN ? (
-        <SidebarProperty className="" label={addColon(l('Expiration'))}>
+        <SidebarProperty className="" label={addColonText(l('Expiration'))}>
           <div className="edit-expiration">
             <ExpirationTime date={edit.expires_time} user={$c.user} />
           </div>
@@ -58,7 +59,7 @@ const EditSidebar = ({$c, edit}: Props) => (
         <SidebarProperty className="" label={l('Closed:')}>
           <div className="edit-expiration">
             {edit.status === EDIT_STATUS_TOBEDELETED
-              ? l('<em>Cancelling</em>')
+              ? expand2react(l('<em>Cancelling</em>'))
               : formatUserDate($c.user, edit.close_time)}
           </div>
         </SidebarProperty>
@@ -72,6 +73,7 @@ const EditSidebar = ({$c, edit}: Props) => (
           '{n} unanimous votes',
           edit.conditions.votes,
           {n: edit.conditions.votes},
+          TEXT,
         )}
       </SidebarProperty>
 

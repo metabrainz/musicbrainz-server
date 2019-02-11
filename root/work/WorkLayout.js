@@ -12,7 +12,7 @@ import type {Node as ReactNode} from 'react';
 
 import Layout from '../layout';
 import WorkSidebar from '../layout/components/sidebar/WorkSidebar';
-import {hyphenateTitle, l} from '../static/scripts/common/i18n';
+import {hyphenateTitle, l, TEXT} from '../static/scripts/common/i18n';
 import {lp_attributes} from '../static/scripts/common/i18n/attributes';
 
 import WorkHeader from './WorkHeader';
@@ -35,7 +35,7 @@ const WorkLayout = ({
   const mainTitle = l('{type} “{work}”', {
     type: work.typeName ? lp_attributes(work.typeName, 'work_type') : l('Work'),
     work: work.name,
-  });
+  }, TEXT);
   return (
     <Layout
       title={title ? hyphenateTitle(mainTitle, title) : mainTitle}

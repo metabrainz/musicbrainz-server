@@ -6,7 +6,7 @@
 
 import ko from 'knockout';
 
-import {l} from '../i18n';
+import {l, TEXT} from '../i18n';
 
 import formatDate from './formatDate';
 
@@ -26,15 +26,17 @@ function formatDatePeriod<+T: {...DatePeriodRoleT}>(entity: T) {
   }
 
   if (begin_date && end_date) {
-    return l('{begin_date} \u2013 {end_date}', {begin_date, end_date});
+    return l('{begin_date} \u2013 {end_date}', {begin_date, end_date}, TEXT);
   }
 
   if (!begin_date) {
-    return l('\u2013 {end_date}', {end_date});
+    return l('\u2013 {end_date}', {end_date}, TEXT);
   }
 
   if (!end_date) {
-    return ended ? l('{begin_date} \u2013 ????', {begin_date}) : l('{begin_date} \u2013', {begin_date});
+    return ended
+      ? l('{begin_date} \u2013 ????', {begin_date}, TEXT)
+      : l('{begin_date} \u2013', {begin_date}, TEXT);
   }
 
   return '';

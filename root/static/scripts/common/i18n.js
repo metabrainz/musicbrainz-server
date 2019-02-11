@@ -1,4 +1,5 @@
 /*
+ * @flow
  * Copyright (C) 2015 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -6,44 +7,73 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import NopArgs from './i18n/NopArgs';
+import expand2react from './i18n/expand2react';
+import expand2text from './i18n/expand2text';
 import * as wrapGettext from './i18n/wrapGettext';
 
 export const l = wrapGettext.dgettext('mb_server');
 export const ln = wrapGettext.dngettext('mb_server');
 export const lp = wrapGettext.dpgettext('mb_server');
 
-function noop(func) {
-  return (...args) => new NopArgs(func, args);
-}
+export const TEXT: {text: true} = Object.freeze({text: true});
 
-export const N_l = noop(l);
-export const N_ln = noop(ln);
-export const N_lp = noop(lp);
+type Nl = (string) => (
+  & (() => string)
+  & ((wrapGettext.ReactArgs) => AnyReactElem)
+  & ((wrapGettext.TextArgs, typeof TEXT) => string)
+);
+
+type Nln = (string, string) => (
+  & ((number) => string)
+  & ((number, wrapGettext.ReactArgs) => AnyReactElem)
+  & ((number, wrapGettext.TextArgs, typeof TEXT) => string)
+);
+
+type Nlp = (string, string) => (
+  & (() => string)
+  & ((wrapGettext.ReactArgs) => AnyReactElem)
+  & ((wrapGettext.TextArgs, typeof TEXT) => string)
+);
+
+export const N_l: Nl = (((key) => (...args) => l(key, ...args)): any);
+export const N_ln: Nln = (((skey, pkey) => (...args) => ln(skey, pkey, ...args)): any);
+export const N_lp: Nlp = (((key, context) => (...args) => lp(key, context, ...args)): any);
+
+export const unwrapNl = (value: string | () => string) => (
+  typeof value === 'string' ? value : value()
+);
 
 let documentLang = 'en';
 if (typeof document !== 'undefined') {
-  documentLang = document.documentElement.lang || documentLang;
+  const documentElement = document.documentElement;
+  if (documentElement) {
+    documentLang = documentElement.lang || documentLang;
+  }
 }
 
 const collatorOptions = {numeric: true};
 
-export let compare;
+let compare;
 if (typeof Intl === 'undefined') {
-  compare = function (a, b) {
+  compare = function (a: string, b: string) {
     return a.localeCompare(b, documentLang, collatorOptions);
   };
 } else {
   const collator = new Intl.Collator(documentLang, collatorOptions);
-  compare = function (a, b) {
+  compare = function (a: string, b: string) {
     return collator.compare(a, b);
   };
 }
+export {compare};
 
-export function addColon(variable) {
+export function addColon(variable: React$Node) {
   return l('{variable}:', {variable});
 }
 
-export function hyphenateTitle(title, subtitle) {
-  return l('{title} - {subtitle}', {subtitle, title});
+export function addColonText(variable: string) {
+  return l('{variable}:', {variable}, TEXT);
+}
+
+export function hyphenateTitle(title: string, subtitle: string) {
+  return l('{title} - {subtitle}', {subtitle, title}, TEXT);
 }

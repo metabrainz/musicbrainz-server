@@ -252,7 +252,7 @@ class SearchTab {
         return i18n.l('Page {page} of {total}', {
             page: this.currentPage(),
             total: this.totalPages(),
-        });
+        }, i18n.TEXT);
     }
 }
 

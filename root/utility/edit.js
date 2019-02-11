@@ -46,11 +46,11 @@ const STATUS_NAMES = {
 };
 
 export function getEditExpireAction(edit: EditT) {
-  return EXPIRE_ACTIONS[edit.conditions.expire_action].toLocaleString();
+  return EXPIRE_ACTIONS[edit.conditions.expire_action]();
 }
 
 export function getEditStatusName(edit: EditT) {
-  return STATUS_NAMES[edit.status].toLocaleString();
+  return STATUS_NAMES[edit.status]();
 }
 
 export function getEditStatusDescription(edit: EditT) {

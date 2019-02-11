@@ -15,7 +15,7 @@ import {withCatalystContext} from '../../../context';
 import CodeLink from '../../../static/scripts/common/components/CodeLink';
 import commaOnlyList from '../../../static/scripts/common/i18n/commaOnlyList';
 import CommonsImage from '../../../static/scripts/common/components/CommonsImage';
-import {addColon, l} from '../../../static/scripts/common/i18n';
+import {addColonText, l} from '../../../static/scripts/common/i18n';
 import {lp_attributes} from '../../../static/scripts/common/i18n/attributes';
 import ExternalLinks from '../ExternalLinks';
 
@@ -61,7 +61,7 @@ const WorkSidebar = ({$c, work}: Props) => {
             <SidebarType entity={work} typeType="work_type" />
 
             {languages.length ? (
-              <SidebarProperty className="lyrics-language" label={addColon(l('Lyrics Languages'))}>
+              <SidebarProperty className="lyrics-language" label={addColonText(l('Lyrics Languages'))}>
                 {commaOnlyList(
                   languages.map((wl, index) => (
                     <LinkSearchableLanguage
@@ -90,7 +90,7 @@ const WorkSidebar = ({$c, work}: Props) => {
                   <SidebarProperty
                     className={'work-attribute work-attribute-' + kebabCase(type.name)}
                     key={attr.id}
-                    label={addColon(lp_attributes(type.name, 'work_attribute_type'))}
+                    label={addColonText(lp_attributes(type.name, 'work_attribute_type'))}
                   >
                     {attr.value_id
                       ? lp_attributes(attr.value, 'work_attribute_type_allowed_value')

@@ -41,12 +41,12 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
 
                 recordingMessage: function () {
                     var n = this.recordingCount();
-                    return "(" + i18n.ln("{n} recording selected", "{n} recordings selected", n, { n: n }) + ")";
+                    return "(" + i18n.ln("{n} recording selected", "{n} recordings selected", n, { n: n }, i18n.TEXT) + ")";
                 },
 
                 workMessage: function () {
                     var n = this.workCount();
-                    return "(" + i18n.ln("{n} work selected", "{n} works selected", n, { n: n }) + ")";
+                    return "(" + i18n.ln("{n} work selected", "{n} works selected", n, { n: n }, i18n.TEXT) + ")";
                 }
             };
 

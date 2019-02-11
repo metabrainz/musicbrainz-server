@@ -8,24 +8,32 @@
  */
 
 import {l} from '../i18n';
-import type {Node as ReactNode} from 'react';
+import expand2react from '../i18n/expand2react';
+import expand2text from '../i18n/expand2text';
 
-type Args = $Shape<{
-  text: ReactNode,
-  type: '()' | '[]',
-}>;
+type Args = {|+type: '()' | '[]'|};
 
-export default function bracketed(text: ?ReactNode, args: Args = {}) {
+function _bracketed(args?: Args) {
+  const type = args ? args.type : undefined;
+  switch (type) {
+    case '[]':
+      return l('[{text}]');
+    case '()':
+    default:
+      return l('({text})');
+  }
+}
+
+export default function bracketed(text: ?VarSubstArg, args?: Args) {
   if (text) {
-    const {type, ...largs} = args;
-    largs.text = text;
-    switch (type) {
-      case '[]':
-        return l('[{text}]', largs);
-      case '()':
-      case undefined:
-        return l('({text})', largs);
-    }
+    return expand2react(_bracketed(args), {text});
+  }
+  return '';
+}
+
+export function bracketedText(text: ?StrOrNum, args?: Args) {
+  if (text) {
+    return expand2text(_bracketed(args), {text});
   }
   return '';
 }

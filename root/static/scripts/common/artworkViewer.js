@@ -6,7 +6,7 @@
 import $ from 'jquery';
 import _ from 'lodash';
 
-import {l} from './i18n';
+import {l, TEXT} from './i18n';
 
 $.widget("mb.artworkViewer", $.ui.dialog, {
 
@@ -70,7 +70,7 @@ $.widget("mb.artworkViewer", $.ui.dialog, {
         this.$pager.text(
             l("Image {current} of {total}", {
                 current: index + 1, total: this.$artwork.length
-            })
+            }, TEXT)
         );
 
         this._super();

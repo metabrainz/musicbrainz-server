@@ -11,7 +11,7 @@ import React from 'react';
 
 import {withCatalystContext} from '../context';
 import Layout from '../layout';
-import {l} from '../static/scripts/common/i18n';
+import {l, TEXT} from '../static/scripts/common/i18n';
 
 import ElectionDetails from './ElectionDetails';
 import ElectionVotes from './ElectionVotes';
@@ -27,7 +27,7 @@ const Show = ({$c, election}: Props) => {
   if (!election) {
     return null;
   }
-  const title = l('Auto-editor election #{no}', {no: election.id});
+  const title = l('Auto-editor election #{no}', {no: election.id}, TEXT);
   return (
     <Layout fullWidth title={title}>
       <h1>{title}</h1>

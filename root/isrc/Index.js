@@ -14,7 +14,7 @@ import Layout from '../layout';
 import ArtistCreditLink from '../static/scripts/common/components/ArtistCreditLink';
 import CodeLink from '../static/scripts/common/components/CodeLink';
 import EntityLink from '../static/scripts/common/components/EntityLink';
-import {l, ln} from '../static/scripts/common/i18n';
+import {l, ln, TEXT} from '../static/scripts/common/i18n';
 import {artistCreditFromArray} from '../static/scripts/common/immutable-entities';
 import formatTrackLength from '../static/scripts/common/utility/formatTrackLength';
 import loopParity from '../utility/loopParity';
@@ -29,7 +29,7 @@ const Index = ({$c, isrcs, recordings}: PropsT) => {
   const userExists = $c.user_exists;
   const isrc = isrcs[0];
   return (
-    <Layout fullWidth title={l('ISRC “{isrc}”', {isrc: isrc.isrc})}>
+    <Layout fullWidth title={l('ISRC “{isrc}”', {isrc: isrc.isrc}, TEXT)}>
       <h1>
         {l('ISRC “{isrc}”',
           {isrc: <CodeLink code={isrc} key="isrc" />})}
@@ -40,6 +40,7 @@ const Index = ({$c, isrcs, recordings}: PropsT) => {
           'Associated with {num} recordings',
           recordings.length,
           {num: recordings.length},
+          TEXT,
         )}
       </h2>
       <form action="/recording/merge_queue" method="post">

@@ -12,7 +12,7 @@ import type {Node as ReactNode} from 'react';
 
 import Layout from '../layout';
 import RecordingSidebar from '../layout/components/sidebar/RecordingSidebar';
-import {hyphenateTitle, l} from '../static/scripts/common/i18n';
+import {hyphenateTitle, l, TEXT} from '../static/scripts/common/i18n';
 import {
   artistCreditFromArray,
   reduceArtistCredit,
@@ -42,8 +42,8 @@ const RecordingLayout = ({
     name: recording.name,
   };
   const mainTitle = recording.video
-    ? l('Video “{name}” by {artist}', titleArgs)
-    : l('Recording “{name}” by {artist}', titleArgs);
+    ? l('Video “{name}” by {artist}', titleArgs, TEXT)
+    : l('Recording “{name}” by {artist}', titleArgs, TEXT);
   return (
     <Layout
       title={title ? hyphenateTitle(mainTitle, title) : mainTitle}

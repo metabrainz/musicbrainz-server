@@ -1,3 +1,4 @@
+// @flow
 // Copyright (C) 2015 MetaBrainz Foundation
 //
 // This file is part of MusicBrainz, the open internet music database,
@@ -7,10 +8,13 @@
 import isNodeJS from 'detect-node';
 
 import cleanMsgid from './cleanMsgid';
-import expand2 from './expand2';
+import {type VarArgs} from './expand2';
+import expand2react, {type Input} from './expand2react';
+import expand2text from './expand2text';
 
+import {type default as Jed} from 'jed';
 
-let gettext;
+let gettext: Jed;
 if (isNodeJS) {
   gettext = require('../../../../server/gettext');
 } else {
@@ -20,7 +24,7 @@ if (isNodeJS) {
   gettext = new Jed(jedData[jedData.locale]);
 }
 
-const canLoadDomain = typeof gettext.loadDomain === 'function';
+const canLoadDomain = typeof (gettext: any).loadDomain === 'function';
 
 /*
  * On the usage of cleanMsgid:
@@ -32,39 +36,91 @@ const canLoadDomain = typeof gettext.loadDomain === 'function';
  * transformation here.
  */
 
+type Domain =
+  | 'attributes'
+  | 'countries'
+  | 'instrument_descriptions'
+  | 'instruments'
+  | 'languages'
+  | 'mb_server'
+  | 'relationships'
+  | 'scripts'
+  | 'statistics'
+  ;
+
 function tryLoadDomain(domain) {
   if (!gettext.options.locale_data[domain]) {
-    gettext.loadDomain(domain);
+    (gettext: any).loadDomain(domain);
   }
 }
 
-export function dgettext(domain) {
-  return function (key, args) {
+export type ReactArgs = VarArgs<Input>;
+export type TextArgs = VarArgs<StrOrNum>;
+
+function _maybeExpand(result, args, flags) {
+  return args ? (
+    flags && flags.$text
+      ? expand2text(result, args)
+      : expand2react(result, args)
+  ) : result;
+}
+
+export function dgettext(domain: Domain) {
+  type F1 = (string) => string;
+  type F2 = (string, args: ReactArgs) => React$Element<any>;
+  type F3 = (string, args: TextArgs, {text: true}) => string;
+
+  /*
+   * Flow cannot infer that the function conforms to F1 & F2 & F3, so
+   * we first must cast to `any`. See:
+   * https://github.com/facebook/flow/issues/3021
+   */
+  return ((function (key, args, flags) {
     if (canLoadDomain) {
       tryLoadDomain(domain);
     }
     key = cleanMsgid(key);
-    return expand2react(gettext.dgettext(domain, key), args);
-  };
+    return _maybeExpand(
+      gettext.dgettext(domain, key),
+      args,
+      flags,
+    );
+  }: any): F1 & F2 & F3);
 }
 
-export function dngettext(domain) {
-  return function (skey, pkey, val, args) {
+export function dngettext(domain: Domain) {
+  type F1 = (string, string, number) => string;
+  type F2 = (string, string, number, args: ReactArgs) => React$Element<any>;
+  type F3 = (string, string, number, args: TextArgs, {text: true}) => string;
+
+  return ((function (skey, pkey, val, args, flags) {
     if (canLoadDomain) {
       tryLoadDomain(domain);
     }
     skey = cleanMsgid(skey);
     pkey = cleanMsgid(pkey);
-    return expand2react(gettext.dngettext(domain, skey, pkey, val), args);
-  };
+    return _maybeExpand(
+      gettext.dngettext(domain, skey, pkey, val),
+      args,
+      flags,
+    );
+  }: any): F1 & F2 & F3);
 }
 
-export function dpgettext(domain) {
-  return function (key, context, args) {
+export function dpgettext(domain: Domain) {
+  type F1 = (string, string) => string;
+  type F2 = (string, string, args: ReactArgs) => React$Element<any>;
+  type F3 = (string, string, args: TextArgs, {text: true}) => string;
+
+  return ((function (key, context, args, flags) {
     if (canLoadDomain) {
       tryLoadDomain(domain);
     }
     key = cleanMsgid(key);
-    return expand2react(gettext.dpgettext(domain, context, key), args);
-  };
+    return _maybeExpand(
+      gettext.dpgettext(domain, context, key),
+      args,
+      flags,
+    );
+  }: any): F1 & F2 & F3);
 }

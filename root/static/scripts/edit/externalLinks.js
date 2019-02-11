@@ -262,7 +262,7 @@ type LinkProps = {
   url: string,
   type: number|null,
   video: boolean,
-  errorMessage: string,
+  errorMessage: React.Node,
   isOnlyLink: boolean,
   urlMatchesType: boolean,
   removeCallback: (number) => void,

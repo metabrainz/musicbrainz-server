@@ -12,7 +12,7 @@ import type {Node as ReactNode} from 'react';
 
 import {withCatalystContext} from '../../context';
 import Layout from '../../layout';
-import {l} from '../../static/scripts/common/i18n';
+import {l, TEXT} from '../../static/scripts/common/i18n';
 import formatUserDate from '../../utility/formatUserDate';
 
 import SearchForm from './SearchForm';
@@ -32,7 +32,8 @@ const ResultsLayout = ({$c, children, form, lastUpdated}: Props) => {
         {lastUpdated ? (
           <p>
             {l('Last updated: {date}',
-               {date: formatUserDate($c.user, lastUpdated)})}
+               {date: formatUserDate($c.user, lastUpdated)},
+               TEXT)}
           </p>
         ) : null}
         {children}

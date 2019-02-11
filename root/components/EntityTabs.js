@@ -77,7 +77,7 @@ function buildLinks(
 
   if (entityProperties.custom_tabs) {
     entityProperties.custom_tabs.forEach((tab) => {
-      links.push(buildLink(tabLinkNames[tab].toLocaleString(), entity, tab, page));
+      links.push(buildLink(tabLinkNames[tab](), entity, tab, page));
     });
   }
 

@@ -444,7 +444,7 @@ $.widget("mb.entitylookup", $.ui.autocomplete, {
             entity = this.entity.replace("-", "_");
 
         if (allowCreation && addNewEntityLabels[entity]) {
-            const label = addNewEntityLabels[entity].toLocaleString();
+            const label = addNewEntityLabels[entity]();
             results.push({
                 label,
                 action: function () {

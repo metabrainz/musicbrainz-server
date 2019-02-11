@@ -10,6 +10,7 @@
 import {URL} from 'url';
 
 import * as React from 'react';
+import * as ReactDOMServer from 'react-dom/server';
 
 import {QUALITY_UNKNOWN} from '../../../constants';
 import {withCatalystContext} from '../../../context';
@@ -76,10 +77,10 @@ const ReleaseSidebar = ({$c, release}: Props) => {
           <Artwork
             artwork={releaseArtwork}
             fallback={releaseCoverUrl}
-            message={l(
+            message={ReactDOMServer.renderToStaticMarkup(l(
               'Front cover image failed to load correctly.<br/>{all|View all artwork}.',
               {all: entityHref(release, 'cover-art')},
-            )}
+            ))}
           />
         ) : (
           release.cover_art_presence !== 'darkened' &&

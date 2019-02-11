@@ -8,7 +8,7 @@ import _ from 'lodash';
 
 import MB_entity from '../common/entity';
 import releaseLabelKey from '../common/utility/releaseLabelKey';
-import {l} from '../common/i18n';
+import {l, TEXT} from '../common/i18n';
 import {
   artistCreditFromArray,
   artistCreditsAreEqual,
@@ -571,13 +571,13 @@ class Medium {
 
         if (name) {
             if (multidisc) {
-                return l("Medium {position}: {title}", { position: position, title: name });
+                return l("Medium {position}: {title}", { position: position, title: name }, TEXT);
             }
             return name;
 
         }
         else if (multidisc) {
-            return l("Medium {position}", { position: position });
+            return l("Medium {position}", { position: position }, TEXT);
         }
         return l("Tracklist");
     }
@@ -672,7 +672,7 @@ class ReleaseLabel {
     }
 
     needsLabelMessage() {
-        return l('You haven’t selected a label for “{name}”.', {name: this.label().name});
+        return l('You haven’t selected a label for “{name}”.', {name: this.label().name}, TEXT);
     }
 }
 

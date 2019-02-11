@@ -10,7 +10,7 @@
 import noop from 'lodash/noop';
 import React from 'react';
 
-import {l, N_l, N_lp} from '../../static/scripts/common/i18n';
+import {l, N_l, N_lp, TEXT} from '../../static/scripts/common/i18n';
 import * as DBDefs from '../../static/scripts/common/DBDefs';
 import FormRowRadio from '../../components/FormRowRadio';
 import FormRowSelect from '../../components/FormRowSelect';
@@ -24,9 +24,9 @@ type Props = {|
 const limitOptions = {
   grouped: false,
   options: [
-    {label: N_l('Up to {n}', {n: 25}), value: 25},
-    {label: N_l('Up to {n}', {n: 50}), value: 50},
-    {label: N_l('Up to {n}', {n: 100}), value: 100},
+    {label: () => l('Up to {n}', {n: 25}, TEXT), value: 25},
+    {label: () => l('Up to {n}', {n: 50}, TEXT), value: 50},
+    {label: () => l('Up to {n}', {n: 100}, TEXT), value: 100},
   ],
 };
 
@@ -58,7 +58,7 @@ if (DBDefs.GOOGLE_CUSTOM_SEARCH) {
 const methodOptions = [
   {label: N_l('Indexed search'), value: 'indexed'},
   {
-    label: N_l('Indexed search with {doc|advanced query syntax}', {
+    label: () => l('Indexed search with {doc|advanced query syntax}', {
       doc: '/doc/Indexed_Search_Syntax',
     }),
     value: 'advanced',

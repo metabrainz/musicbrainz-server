@@ -69,7 +69,7 @@ import formatTrackLength from './utility/formatTrackLength';
         }
 
         entityTypeLabel() {
-            return addColon(ENTITY_NAMES[this.entityType].toLocaleString());
+            return addColon(ENTITY_NAMES[this.entityType]());
         }
 
         html(...args) {

@@ -11,7 +11,7 @@ import * as React from 'react';
 
 import {withCatalystContext} from '../../../context';
 import EntityLink from '../../../static/scripts/common/components/EntityLink';
-import {l, ln} from '../../../static/scripts/common/i18n';
+import {l, ln, TEXT} from '../../../static/scripts/common/i18n';
 
 import CollectionList from './CollectionList';
 
@@ -39,6 +39,7 @@ const AttendanceLinks = ({$c, event}: Props) => (
               $c.stash.all_collections.length,
               // $FlowFixMe
               {num: $c.stash.all_collections.length},
+              TEXT,
             )}
             entity={event}
             subPath="attendance"

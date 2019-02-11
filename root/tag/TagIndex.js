@@ -11,8 +11,7 @@ import * as React from 'react';
 
 import ENTITIES from '../../entities';
 import DescriptiveLink from '../static/scripts/common/components/DescriptiveLink';
-import {l, ln, N_ln} from '../static/scripts/common/i18n';
-import NopArgs from '../static/scripts/common/i18n/NopArgs';
+import {l, N_ln, TEXT} from '../static/scripts/common/i18n';
 
 import TagLayout from './TagLayout';
 
@@ -34,7 +33,7 @@ function buildSection<T>(
   props: Props,
   entityType: string,
   title: string,
-  seeAllMessage: NopArgs,
+  seeAllMessage: $Call<typeof N_ln, string, string>,
 ) {
   const tags = props.taggedEntities[entityType];
 
@@ -57,7 +56,7 @@ function buildSection<T>(
           <li key="see-all">
             <em>
               <a href={'/tag/' + encodeURIComponent(props.tag) + '/' + url}>
-                {seeAllMessage.toLocaleString(tags.count, {num: tags.count})}
+                {seeAllMessage(tags.count, {num: tags.count}, TEXT)}
               </a>
             </em>
           </li>

@@ -12,7 +12,7 @@ import * as React from 'react';
 import Layout from '../layout';
 import * as manifest from '../static/manifest';
 import EditorLink from '../static/scripts/common/components/EditorLink';
-import {hyphenateTitle, l} from '../static/scripts/common/i18n';
+import {hyphenateTitle, l, TEXT} from '../static/scripts/common/i18n';
 
 import UserAccountTabs from './UserAccountTabs';
 
@@ -33,8 +33,8 @@ const UserAccountLayout = ({
   <Layout
     fullWidth
     title={title
-      ? hyphenateTitle(l('Editor “{user}”', {user: user.name}), title)
-      : l('Editor “{user}”', {user: user.name})}
+      ? hyphenateTitle(l('Editor “{user}”', {user: user.name}, TEXT), title)
+      : l('Editor “{user}”', {user: user.name}, TEXT)}
     {...layoutProps}
   >
     <h1>

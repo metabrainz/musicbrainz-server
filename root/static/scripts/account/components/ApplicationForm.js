@@ -14,7 +14,7 @@ import FormRowSelect from '../../../../components/FormRowSelect';
 import FormRowText from '../../../../components/FormRowText';
 import FormRowURLLong from '../../../../components/FormRowURLLong';
 import FormSubmit from '../../../../components/FormSubmit';
-import {addColon, l, N_l} from '../../common/i18n';
+import {addColonText, l, N_l} from '../../common/i18n';
 import {Lens, prop, set, compose3} from '../../common/utility/lens';
 import hydrate from '../../../../utility/hydrate';
 
@@ -89,30 +89,32 @@ class ApplicationForm extends React.Component<Props, State> {
       <form method="post">
         <FormRowText
           field={this.state.form.field.name}
-          label={addColon(l('Name'))}
+          label={addColonText(l('Name'))}
           required
         />
         <FormRowSelect
           field={this.state.form.field.oauth_type}
           frozen={this.props.action === 'edit'}
-          label={addColon(l('Type'))}
+          label={addColonText(l('Type'))}
           onChange={this.handleOauthTypeChange}
           options={oauthTypeOptions}
           required
         />
         <FormRowURLLong
           field={this.state.form.field.oauth_redirect_uri}
-          label={addColon(l('Callback URL'))}
+          label={addColonText(l('Callback URL'))}
           onChange={this.handleOauthRedirectURIChange}
           required={this.state.form.field.oauth_type.value === 'web'}
         />
         {this.state.form.field.oauth_type.value === 'web' ? null : (
           <FormRow hasNoLabel>
             <span className="input-note">
-              {l(`Callback URI is optional for installed applications.
-                  If set, its scheme must be a custom reverse-DNS string,
-                  as in <code>org.example.app://auth</code>,
-                  for installed applications.`)}
+              {exp.l(
+                `Callback URI is optional for installed applications.
+                 If set, its scheme must be a custom reverse-DNS string,
+                 as in <code>org.example.app://auth</code>,
+                 for installed applications.`,
+              )}
             </span>
           </FormRow>
         )}

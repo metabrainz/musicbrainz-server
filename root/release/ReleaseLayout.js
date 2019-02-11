@@ -11,7 +11,7 @@ import React from 'react';
 import type {Node as ReactNode} from 'react';
 
 import Layout from '../layout';
-import {hyphenateTitle, l} from '../static/scripts/common/i18n';
+import {hyphenateTitle, l, TEXT} from '../static/scripts/common/i18n';
 import ReleaseSidebar from '../layout/components/sidebar/ReleaseSidebar';
 import {artistCreditFromArray, reduceArtistCredit} from '../static/scripts/common/immutable-entities';
 
@@ -37,7 +37,7 @@ const ReleaseLayout = ({
       artistCreditFromArray(release.artistCredit),
     ),
     name: release.name,
-  });
+  }, TEXT);
   return (
     <Layout title={title ? hyphenateTitle(mainTitle, title) : mainTitle}>
       <div id="content">

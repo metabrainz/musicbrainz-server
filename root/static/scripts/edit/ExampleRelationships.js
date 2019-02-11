@@ -36,7 +36,7 @@ ERE.init = function (config) {
     ERE.viewModel.selectedEntityType.subscribe(autocomplete.changeEntity);
     ERE.viewModel.availableEntityTypes(
         _.chain([ type0, type1 ]).uniq().map(function (value) {
-            return { 'value': value, 'text': ENTITY_NAMES[value].toLocaleString() };
+            return { 'value': value, 'text': ENTITY_NAMES[value]() };
         }).value());
 
     ko.bindingHandlers.checkObject = {
