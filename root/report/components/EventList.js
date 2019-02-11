@@ -17,8 +17,7 @@ import formatDatePeriod
   from '../../static/scripts/common/utility/formatDatePeriod';
 import {lp_attributes} from '../../static/scripts/common/i18n/attributes';
 import ArtistRoles from '../../static/scripts/common/components/ArtistRoles';
-import DescriptiveLink
-  from '../../static/scripts/common/components/DescriptiveLink';
+import EventLocations from '../../static/scripts/common/components/EventLocations';
 import type {ReportEventT} from '../types';
 
 const EventList = ({
@@ -52,18 +51,7 @@ const EventList = ({
               <ArtistRoles relations={item.event.performers} />
             </td>
             <td>
-              <ul>
-                {item.event.places.map(place => (
-                  <li key={place.entity.id}>
-                    <DescriptiveLink entity={place.entity} />
-                  </li>
-                ))}
-                {item.event.areas.map(area => (
-                  <li key={area.entity.id}>
-                    <DescriptiveLink entity={area.entity} />
-                  </li>
-                ))}
-              </ul>
+              <EventLocations event={item.event} />
             </td>
             <td>{formatDatePeriod(item.event)}</td>
             <td>{item.event.time}</td>

@@ -16,9 +16,13 @@
 
     [%- IF entities.size -%]
     <form action="[% c.req.uri %]" method="post">
-      [%- INCLUDE $entity_list_template show_artists=1 show_ratings=1 checkboxes=(my_collection ? 'remove' : '') sortable=1
+      [%- IF collection.type.item_entity_type == 'event' -%]
+        [% React.embed(c, 'components/EventsList', { events => entities, checkboxes => my_collection ? 'remove' : '', order => order, sortable => 1})
+            WRAPPER 'components/with-pager.tt' %]
+      [%- ELSE -%]
+        [%- INCLUDE $entity_list_template show_artists=1 show_ratings=1 checkboxes=(my_collection ? 'remove' : '') sortable=1
             WRAPPER 'components/with-pager.tt' -%]
-
+      [%- END -%]
       [% form_submit(l('Remove selected items from collection')) WRAPPER form_row IF my_collection %]
     </form>
     [%- ELSE -%]

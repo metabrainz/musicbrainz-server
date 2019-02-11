@@ -57,6 +57,7 @@ use MusicBrainz::Server::Constants qw(
     $EDIT_RELATIONSHIP_DELETE
     $ARTIST_ARTIST_COLLABORATION
 );
+use MusicBrainz::Server::ControllerUtils::JSON qw( serialize_pager );
 use MusicBrainz::Server::Form::Artist;
 use MusicBrainz::Server::Form::Confirm;
 use MusicBrainz::Server::Translation qw( l );
@@ -357,7 +358,17 @@ sub events : Chained('load')
     $c->model('Event')->load_areas(@$events);
     $c->model('Event')->rating->load_user_ratings($c->user->id, @$events) if $c->user_exists;
 
-    $c->stash( events => $events );
+    my %props = (
+        artist       => $c->stash->{artist},
+        events       => $events,
+        pager        => serialize_pager($c->stash->{pager}),
+    );
+
+    $c->stash(
+        component_path  => 'artist/ArtistEvents.js',
+        component_props => \%props,
+        current_view    => 'Node',
+    );
 }
 
 =head2 releases
