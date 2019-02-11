@@ -11,7 +11,7 @@ import * as React from 'react';
 
 import {withCatalystContext} from '../../../context';
 import {l} from '../../../static/scripts/common/i18n';
-import {l_attributes} from '../../../static/scripts/common/i18n/attributes';
+import {lp_attributes} from '../../../static/scripts/common/i18n/attributes';
 
 import {SidebarProperty} from './SidebarProperties';
 
@@ -24,7 +24,10 @@ type Props = {|
 const SidebarType = ({$c, entity, typeType}: Props) => (
   entity.typeID ? (
     <SidebarProperty className="type" label={l('Type:')}>
-      {l_attributes($c.linked_entities[typeType][entity.typeID].name)}
+      {lp_attributes(
+        $c.linked_entities[typeType][entity.typeID].name,
+        typeType,
+      )}
     </SidebarProperty>
   ) : null
 );
