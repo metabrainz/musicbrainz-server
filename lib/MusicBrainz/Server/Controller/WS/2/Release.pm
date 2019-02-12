@@ -138,7 +138,7 @@ sub release_toplevel {
             $c->model('ArtistCredit')->load(@tracks);
             my @acns = map { $_->artist_credit->all_names } @tracks;
             $c->model('Artist')->load(@acns);
-            $self->_aliases($c, 'Artist', [uniq_by { $_->id } map { $_->artist } @acns], $stash);
+            $self->linked_artists($c, $stash, [uniq_by { $_->id } map { $_->artist } @acns]);
         }
 
         my @recordings = $c->model('Recording')->load(@tracks);

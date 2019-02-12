@@ -918,11 +918,11 @@ test 'release lookup, relation attributes' => sub {
         };
 };
 
-test 'release lookup, track artists have no tags' => sub {
+test 'release lookup, related artists have no tags/genres' => sub {
 
     MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
 
-    ws2_test_json 'release lookup, track artists have no tags/genres',
+    ws2_test_json 'release lookup, related artists have no tags/genres',
     '/release/4f5a6b97-a09b-4893-80d1-eae1f3bfa221?inc=artists+recordings+tags+genres+artist-rels+recording-level-rels'
     => {
         'artist-credit' => [ {
@@ -930,7 +930,21 @@ test 'release lookup, track artists have no tags' => sub {
                 disambiguation => '',
                 id => '3088b672-fba9-4b4b-8ae0-dce13babfbb4',
                 name => 'Plone',
-                'sort-name' => 'Plone'
+                'sort-name' => 'Plone',
+                tags => [
+                    { count => 1, name => 'british' },
+                    { count => 1, name => 'electronic' },
+                    { count => 1, name => 'electronica' },
+                    { count => 1, name => 'english' },
+                    { count => 1, name => 'glitch' },
+                    { count => 1, name => 'uk' },
+                    { count => 1, name => 'warp' },
+                ],
+                genres => [
+                    { count => 1, name => 'electronic' },
+                    { count => 1, name => 'electronica' },
+                    { count => 1, name => 'glitch' },
+                ],
             },
             joinphrase => '',
             name => 'Plone'
@@ -988,6 +1002,8 @@ test 'release lookup, track artists have no tags' => sub {
                                 'target-type' => 'artist',
                             }
                         ],
+                        tags => [],
+                        genres => [],
                         title => 'On My Bus'
                     },
                     title => 'On My Bus'
@@ -1022,6 +1038,8 @@ test 'release lookup, track artists have no tags' => sub {
                                 'target-credit' => '',
                                 'target-type' => 'artist',
                         } ],
+                        tags => [],
+                        genres => [],
                         title => 'Top & Low Rent'
                     },
                     title => 'Top & Low Rent'
@@ -1056,6 +1074,8 @@ test 'release lookup, track artists have no tags' => sub {
                             'target-credit' => '',
                             'target-type' => 'artist',
                         } ],
+                        tags => [],
+                        genres => [],
                         title => 'Plock'
                     },
                     title => 'Plock'
@@ -1090,6 +1110,8 @@ test 'release lookup, track artists have no tags' => sub {
                             'target-credit' => '',
                             'target-type' => 'artist',
                         } ],
+                        tags => [],
+                        genres => [],
                         title => 'Marbles'
                     },
                     title => 'Marbles'
@@ -1124,6 +1146,8 @@ test 'release lookup, track artists have no tags' => sub {
                             'target-credit' => '',
                             'target-type' => 'artist',
                         } ],
+                        tags => [],
+                        genres => [],
                         title => 'Busy Working'
                     },
                     title => 'Busy Working'
@@ -1158,6 +1182,8 @@ test 'release lookup, track artists have no tags' => sub {
                             'target-credit' => '',
                             'target-type' => 'artist',
                         } ],
+                        tags => [],
+                        genres => [],
                         title => 'The Greek Alphabet'
                     },
                     title => 'The Greek Alphabet'
@@ -1192,6 +1218,8 @@ test 'release lookup, track artists have no tags' => sub {
                             'target-credit' => '',
                             'target-type' => 'artist',
                         } ],
+                        tags => [],
+                        genres => [],
                         title => 'Press a Key'
                     },
                     title => 'Press a Key'
@@ -1226,6 +1254,8 @@ test 'release lookup, track artists have no tags' => sub {
                             'target-credit' => '',
                             'target-type' => 'artist',
                         } ],
+                        tags => [],
+                        genres => [],
                         title => 'Bibi Plone'
                     },
                     title => 'Bibi Plone'
@@ -1260,6 +1290,8 @@ test 'release lookup, track artists have no tags' => sub {
                             'target-credit' => '',
                             'target-type' => 'artist',
                         } ],
+                        tags => [],
+                        genres => [],
                         title => 'Be Rude to Your School'
                     },
                     title => 'Be Rude to Your School'
@@ -1294,6 +1326,8 @@ test 'release lookup, track artists have no tags' => sub {
                             'target-credit' => '',
                             'target-type' => 'artist',
                         } ],
+                        tags => [],
+                        genres => [],
                         title => 'Summer Plays Out'
                     },
                     title => 'Summer Plays Out'
@@ -1445,7 +1479,6 @@ test 'release lookup, pregap track' => sub {
     };
 };
 
-
 test 'MBS-7914' => sub {
     my $test = shift;
     my $c = $test->c;
@@ -1548,6 +1581,273 @@ test 'MBS-7914' => sub {
         "status-id" => JSON::null,
         'text-representation' => { language => JSON::null, script => JSON::null },
         title => 'Symphony no. 2'
+    };
+};
+
+test 'tags and genres on associated entities' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+lori_cooke');
+
+    ws2_test_json
+        'tags and genres are outputted for the release group, recordings, and associated artists',
+        # N.B. tags and genres are only included in release group and
+        # track/recording artists where they don't already appear in
+        # the release artist credit, or in the case of recordings, in
+        # the track artist credit.
+    '/release/ceb0edd0-550c-4543-8e83-edc92f8ed70c?inc=artists+artist-credits+release-groups+media+recordings+tags+genres' => {
+        'artist-credit' => [
+            {
+                artist => {
+                    disambiguation => '',
+                    genres => [
+                        {
+                            count => 1,
+                            name => 'psychobilly',
+                        },
+                    ],
+                    id => 'c369975a-7381-4afd-9c36-1d8fe5115e28',
+                    name => 'Lori Cooke',
+                    'sort-name' => 'Cooke, Lori',
+                    tags => [
+                        {
+                            count => 1,
+                            name => 'psychobilly',
+                        },
+                    ],
+                },
+                joinphrase => '',
+                name => 'Lori Cooke',
+            },
+        ],
+        asin => JSON::null,
+        barcode => JSON::null,
+        'cover-art-archive' => {
+            artwork => JSON::false,
+            back => JSON::false,
+            count => 0,
+            darkened => JSON::false,
+            front => JSON::false,
+        },
+        disambiguation => '',
+        genres => [
+            {
+                count => 1,
+                name => 'hard bop',
+            },
+        ],
+        id => 'ceb0edd0-550c-4543-8e83-edc92f8ed70c',
+        media => [
+            {
+                format => JSON::null,
+                'format-id' => JSON::null,
+                position => 1,
+                title => '',
+                'track-count' => 1,
+                'track-offset' => 0,
+                tracks => [
+                    {
+                        'artist-credit' => [
+                            {
+                                artist => {
+                                    disambiguation => '',
+                                    id => 'c369975a-7381-4afd-9c36-1d8fe5115e28',
+                                    name => 'Lori Cooke',
+                                    'sort-name' => 'Cooke, Lori',
+                                },
+                                joinphrase => ', ',
+                                name => 'Lori Cooke',
+                            },
+                            {
+                                artist => {
+                                    disambiguation => '',
+                                    genres => [
+                                        {
+                                            count => 1,
+                                            name => 'britpop',
+                                        },
+                                    ],
+                                    id => '561e53a1-9ae6-4d85-95c0-a39b028eabe4',
+                                    name => 'Frances Jones',
+                                    'sort-name' => 'Jones, Frances',
+                                    tags => [
+                                        {
+                                            count => 1,
+                                            name => 'britpop',
+                                        },
+                                    ],
+                                },
+                                joinphrase => ' & ',
+                                name => 'Frances Jones',
+                            },
+                            {
+                                artist => {
+                                    disambiguation => '',
+                                    genres => [
+                                        {
+                                            count => 1,
+                                            name => 'blackened death metal',
+                                        },
+                                    ],
+                                    id => '95ffd873-9901-4ebd-b07d-eb1fe4485baf',
+                                    name => 'Lavone Grimm',
+                                    'sort-name' => 'Grimm, Lavone',
+                                    tags => [
+                                        {
+                                            count => 1,
+                                            name => 'blackened death metal',
+                                        },
+                                    ],
+                                },
+                                joinphrase => '',
+                                name => 'Lavone Grimm',
+                            },
+                        ],
+                        id => 'ee78f26a-f14c-44b4-95a6-b3a312985f30',
+                        length => 36000000,
+                        number => '1',
+                        position => 1,
+                        recording => {
+                            'artist-credit' => [
+                                {
+                                    artist => {
+                                        disambiguation => '',
+                                        id => 'c369975a-7381-4afd-9c36-1d8fe5115e28',
+                                        name => 'Lori Cooke',
+                                        'sort-name' => 'Cooke, Lori',
+                                    },
+                                    joinphrase => ', ',
+                                    name => 'Lori Cooke',
+                                },
+                                {
+                                    artist => {
+                                        disambiguation => '',
+                                        id => '561e53a1-9ae6-4d85-95c0-a39b028eabe4',
+                                        name => 'Frances Jones',
+                                        'sort-name' => 'Jones, Frances',
+                                    },
+                                    joinphrase => ' & ',
+                                    name => 'Frances Jones',
+                                },
+                                {
+                                    artist => {
+                                        disambiguation => '',
+                                        genres => [
+                                            {
+                                                count => 1,
+                                                name => 'post-classical',
+                                            },
+                                        ],
+                                        id => '9084ad69-7e81-44f9-a195-a522a9b7b08b',
+                                        name => 'Leslie Rice',
+                                        'sort-name' => 'Rice, Leslie',
+                                        tags => [
+                                            {
+                                                count => 1,
+                                                name => 'post-classical',
+                                            },
+                                        ],
+                                    },
+                                    joinphrase => '',
+                                    name => 'Leslie Rice',
+                                },
+                            ],
+                            disambiguation => '',
+                            genres => [
+                                {
+                                    count => 1,
+                                    name => 'freak folk',
+                                },
+                            ],
+                            id => 'a3494070-d758-48d4-84c2-80948f5a810b',
+                            length => 36000000,
+                            tags => [
+                                {
+                                    count => 1,
+                                    name => 'freak folk',
+                                },
+                            ],
+                            title => '10 hours of horn',
+                            video => JSON::false,
+                        },
+                        title => '10 hours of horn',
+                    },
+                ],
+            },
+        ],
+        packaging => JSON::null,
+        'packaging-id' => JSON::null,
+        quality => 'normal',
+        'release-group' => {
+            'artist-credit' => [
+                {
+                    artist => {
+                        disambiguation => '',
+                        id => 'c369975a-7381-4afd-9c36-1d8fe5115e28',
+                        name => 'Lori Cooke',
+                        'sort-name' => 'Cooke, Lori',
+                    },
+                    joinphrase => ' & ',
+                    name => 'Lori Cooke',
+                },
+                {
+                    artist => {
+                        disambiguation => '',
+                        genres => [
+                            {
+                                count => 1,
+                                name => 'britpop',
+                            },
+                        ],
+                        id => '561e53a1-9ae6-4d85-95c0-a39b028eabe4',
+                        name => 'Frances Jones',
+                        'sort-name' => 'Jones, Frances',
+                        tags => [
+                            {
+                                count => 1,
+                                name => 'britpop',
+                            },
+                        ],
+                    },
+                    joinphrase => '',
+                    name => 'Frances Jones',
+                },
+            ],
+            disambiguation => '',
+            'first-release-date' => '',
+            genres => [
+                {
+                    count => 1,
+                    name => 'doo-wop',
+                },
+            ],
+            id => '9792a49e-f1e1-4848-8546-82bae03206f6',
+            'primary-type' => JSON::null,
+            'primary-type-id' => JSON::null,
+            'secondary-type-ids' => [],
+            'secondary-types' => [],
+            tags => [
+                {
+                    count => 1,
+                    name => 'doo-wop',
+                },
+            ],
+            title => 'Greatest Hits',
+        },
+        status => JSON::null,
+        'status-id' => JSON::null,
+        tags => [
+            {
+                count => 1,
+                name => 'hard bop',
+            },
+        ],
+        'text-representation' => {
+            language => JSON::null,
+            script => JSON::null,
+        },
+        title => 'Greatest Hits',
     };
 };
 
