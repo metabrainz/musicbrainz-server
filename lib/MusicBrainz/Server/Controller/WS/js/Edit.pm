@@ -38,7 +38,7 @@ use MusicBrainz::Server::Data::Utils qw(
     trim
     non_empty
 );
-use MusicBrainz::Server::Translation qw( l );
+use MusicBrainz::Server::Translation qw( comma_list comma_only_list l );
 use MusicBrainz::Server::Validation qw( is_guid is_valid_url is_valid_partial_date );
 use Readonly;
 use Scalar::Util qw( looks_like_number );
@@ -78,7 +78,13 @@ our $ALLOWED_EDIT_TYPES = [
 our $TT = Template->new(
     INCLUDE_PATH => catdir(DBDefs->MB_SERVER_ROOT, 'root'),
 
-    %{ MusicBrainz::Server->config->{'View::Default'} }
+    VARIABLES => {
+        comma_list => sub { my $items = shift; comma_list(@$items) },
+        comma_only_list => sub { my $items = shift; comma_only_list(@$items) }
+    },
+
+    %{ MusicBrainz::Server->config->{'View::Default'} },
+
 );
 
 
