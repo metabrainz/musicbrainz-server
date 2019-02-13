@@ -183,7 +183,7 @@ const ReportsIndex = ({$c}: {$c: CatalystContextT}) => (
       <h2>{l('ISWCs')}</h2>
 
       <ul>
-        <li><a href="/report/ISWCsWithManyWorks">{l('ISWCs with multiple works')}</a></li>
+        <li><a href="/report/IswcsWithManyWorks">{l('ISWCs with multiple works')}</a></li>
       </ul>
     </div>
   </Layout>

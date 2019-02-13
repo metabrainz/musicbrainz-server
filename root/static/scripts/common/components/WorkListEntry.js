@@ -19,13 +19,13 @@ import CodeLink from './CodeLink';
 import EntityLink from './EntityLink';
 
 type WorkListRowProps = {|
-  +hasISWCColumn: boolean,
+  +hasIswcColumn: boolean,
   +hasMergeColumn: boolean,
   +work: WorkT,
 |};
 
 type WorkListEntryProps = {|
-  +hasISWCColumn: boolean,
+  +hasIswcColumn: boolean,
   +hasMergeColumn: boolean,
   +index: number,
   +score?: number,
@@ -33,7 +33,7 @@ type WorkListEntryProps = {|
 |};
 
 export const WorkListRow = ({
-  hasISWCColumn,
+  hasIswcColumn,
   hasMergeColumn,
   work,
 }: WorkListRowProps) => (
@@ -60,7 +60,7 @@ export const WorkListRow = ({
         ))}
       </ul>
     </td>
-    {hasISWCColumn ? (
+    {hasIswcColumn ? (
       <td>
         <ul>
           {work.iswcs.map((iswc, i) => (
@@ -87,7 +87,7 @@ export const WorkListRow = ({
 );
 
 const WorkListEntry = ({
-  hasISWCColumn,
+  hasIswcColumn,
   hasMergeColumn,
   index,
   score,
@@ -95,7 +95,7 @@ const WorkListEntry = ({
 }: WorkListEntryProps) => (
   <tr className={loopParity(index)} data-score={score ? score : null}>
     <WorkListRow
-      hasISWCColumn={hasISWCColumn}
+      hasIswcColumn={hasIswcColumn}
       hasMergeColumn={hasMergeColumn}
       work={work}
     />

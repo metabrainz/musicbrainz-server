@@ -21,7 +21,7 @@ import FilterLink from './FilterLink';
 import type {ReportDataT, ReportIswcT} from './types';
 
 
-const ISWCsWithManyWorks = ({
+const IswcsWithManyWorks = ({
   $c,
   canBeFiltered,
   filtered,
@@ -29,8 +29,8 @@ const ISWCsWithManyWorks = ({
   items,
   pager,
 }: ReportDataT<ReportIswcT>) => {
-  let lastISWC = 0;
-  let currentISWC = 0;
+  let lastIswc = 0;
+  let currentIswc = 0;
 
   return (
     <Layout fullWidth title={l('ISWCs with multiple works')}>
@@ -63,12 +63,12 @@ const ISWCsWithManyWorks = ({
           </thead>
           <tbody>
             {items.map((item, index) => {
-              lastISWC = currentISWC;
-              currentISWC = item.iswc;
+              lastIswc = currentIswc;
+              currentIswc = item.iswc;
 
               return (
                 <>
-                  {lastISWC === item.iswc ? null : (
+                  {lastIswc === item.iswc ? null : (
                     <tr className="even" key={item.iswc}>
                       <td>
                         <a href={'/iswc/' + item.iswc}>{item.iswc}</a>
@@ -80,7 +80,7 @@ const ISWCsWithManyWorks = ({
                   <tr key={item.work.gid}>
                     <td />
                     <WorkListRow
-                      hasISWCColumn={false}
+                      hasIswcColumn={false}
                       hasMergeColumn={false}
                       work={item.work}
                     />
@@ -95,4 +95,4 @@ const ISWCsWithManyWorks = ({
   );
 };
 
-export default withCatalystContext(ISWCsWithManyWorks);
+export default withCatalystContext(IswcsWithManyWorks);

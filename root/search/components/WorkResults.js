@@ -23,7 +23,7 @@ function buildResult(result, index) {
 
   return (
     <WorkListEntry
-      hasISWCColumn
+      hasIswcColumn
       hasMergeColumn={false}
       index={index}
       key={work.id}

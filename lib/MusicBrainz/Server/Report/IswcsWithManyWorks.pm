@@ -1,4 +1,4 @@
-package MusicBrainz::Server::Report::ISWCsWithManyWorks;
+package MusicBrainz::Server::Report::IswcsWithManyWorks;
 use Moose;
 
 with 'MusicBrainz::Server::Report::WorkReport',
