@@ -31,8 +31,8 @@ const ArtistsContainingDisambiguationComments = ({
 
     <ul>
       <li>
-        {l('This report lists artists that may have disambiguation comments in \
-            their name, rather than the actual disambiguation comment field.')}
+        {l(`This report lists artists that may have disambiguation comments in
+            their name, rather than the actual disambiguation comment field.`)}
       </li>
       <li>{l('Total artists found: {count}', {count: pager.total_entries})}</li>
       <li>{l('Generated on {date}', {date: formatUserDate($c.user, generated)})}</li>

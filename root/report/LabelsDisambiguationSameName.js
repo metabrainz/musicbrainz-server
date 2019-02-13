@@ -31,8 +31,9 @@ const LabelsDisambiguationSameName = ({
 
     <ul>
       <li>
-        {l(`This report lists labels that have their disambiguation set to be the same
-            as their name. Disambiguation should not be filled in this case.`)}
+        {l(`This report lists labels that have their disambiguation
+            set to be the same as their name.
+            Disambiguation should not be filled in this case.`)}
       </li>
       <li>{l('Total labels found: {count}', {count: pager.total_entries})}</li>
       <li>{l('Generated on {date}', {date: formatUserDate($c.user, generated)})}</li>

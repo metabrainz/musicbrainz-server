@@ -34,8 +34,8 @@ const ArtistsWithMultipleOccurrencesInArtistCredits = ({
 
     <ul>
       <li>
-        {l('This report lists artists that appear more than once in different \
-            positions within the same artist credit.')}
+        {l(`This report lists artists that appear more than once in different
+            positions within the same artist credit.`)}
       </li>
       <li>{l('Total artists found: {count}', {count: pager.total_entries})}</li>
       <li>{l('Generated on {date}', {date: formatUserDate($c.user, generated)})}</li>
