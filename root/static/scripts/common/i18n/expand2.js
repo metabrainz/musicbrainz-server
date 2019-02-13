@@ -51,14 +51,15 @@ const hrefValueStart = /^(?:\/|https?:\/\/)/;
 export type Input = VarSubstArg | AnchorProps;
 export type Output = string | AnyReactElem;
 
-type VarArgs = {+[string]: Input};
+export type VarArgs<+T> = {+[string]: T};
+export type Parser<+T, -V> = (?VarArgs<V>) => T;
 
 type State = {
   /*
    * Values to be substituted into the source string, passed as the
    * second argument to `expand`.
    */
-  args: ?VarArgs,
+  args: ?VarArgs<Input>,
   /*
    * A slice of the source string containing an in-progress match; used
    * as a fallback if there's no substitution value in `args`.
@@ -387,7 +388,7 @@ function parseRoot() {
  * substitution syntax. In order to display a character reserved by
  * either syntax, HTML character entities must be used.
  */
-export default function expand(source: ?string, args?: ?VarArgs): Output {
+export default function expand(source: ?string, args?: ?VarArgs<Input>): Output {
   if (!source) {
     return '';
   }
