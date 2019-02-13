@@ -9,7 +9,24 @@
 
 import * as React from 'react';
 
-import expand from './expand2';
+import expand, {
+  createTextContentParser,
+  state,
+} from './expand2';
+
+const textContent = /^[^{}]+/;
+
+function handleTextContentText(text: string) {
+  if (typeof state.replacement === 'string') {
+    text = text.replace(/%/g, state.replacement);
+  }
+  return text;
+}
+
+const parseRootTextContent = createTextContentParser(
+  textContent,
+  handleTextContentText,
+);
 
 /*
  * TODO: This isn't implemented yet.

@@ -79,7 +79,7 @@ type State = {
 const EMPTY_OBJECT = Object.freeze({});
 const EMPTY_ARRAY: Array<any> = Object.freeze([]);
 
-const state: State = Object.seal({
+export const state: State = Object.seal({
   args: EMPTY_OBJECT,
   match: '',
   position: 0,
@@ -214,6 +214,17 @@ function parseContinuousArray<-T, -V>(
     EMPTY_ARRAY,
   );
 }
+
+export const createTextContentParser = <+T, -V>(
+  textPattern: RegExp,
+  mapValue: (string) => T,
+): Parser<T | string | NO_MATCH, V> => () => {
+  const text = accept(textPattern);
+  if (typeof text !== 'string') {
+    return NO_MATCH_VALUE;
+  }
+  return mapValue(text);
+};
 
 function parseTextContent(args) {
   let text = accept(state.textPattern);
