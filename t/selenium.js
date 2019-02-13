@@ -414,6 +414,7 @@ const seleniumTests = [
   {name: 'External_Links_Editor.html', login: true},
   {name: 'Work_Editor.html', login: true},
   {name: 'Redirect_Merged_Entities.html', login: true},
+  {name: 'admin/Edit_Banner.html', login: true},
   {name: 'release-editor/The_Downward_Spiral.html', login: true},
   {name: 'release-editor/Seeding.html', login: true, sql: 'vision_creation_newsun.sql'},
 ];
