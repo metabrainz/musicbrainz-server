@@ -33,5 +33,13 @@ export default function expand2react(
   source: string,
   args?: ?{+[string]: Input},
 ) {
-  return expand(source, args);
+  const result = expand(source, args);
+  if (typeof result === 'string') {
+    return result;
+  }
+  return result.length ? (
+    result.length > 1
+      ? React.createElement(React.Fragment, null, ...result)
+      : result[0]
+  ) : '';
 }

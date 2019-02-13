@@ -44,7 +44,7 @@ export function dgettext(domain) {
       tryLoadDomain(domain);
     }
     key = cleanMsgid(key);
-    return expand2(gettext.dgettext(domain, key), args);
+    return expand2react(gettext.dgettext(domain, key), args);
   };
 }
 
@@ -55,7 +55,7 @@ export function dngettext(domain) {
     }
     skey = cleanMsgid(skey);
     pkey = cleanMsgid(pkey);
-    return expand2(gettext.dngettext(domain, skey, pkey, val), args);
+    return expand2react(gettext.dngettext(domain, skey, pkey, val), args);
   };
 }
 
@@ -65,6 +65,6 @@ export function dpgettext(domain) {
       tryLoadDomain(domain);
     }
     key = cleanMsgid(key);
-    return expand2(gettext.dpgettext(domain, context, key), args);
+    return expand2react(gettext.dpgettext(domain, context, key), args);
   };
 }

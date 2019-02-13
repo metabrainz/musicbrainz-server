@@ -422,9 +422,5 @@ export default function expand(source: ?string, args?: ?VarArgs): Output {
     state.args = EMPTY_OBJECT;
   }
 
-  return result.length ? (
-    result.length > 1
-      ? React.createElement(React.Fragment, null, ...result)
-      : result[0]
-  ) : '';
+  return result;
 }

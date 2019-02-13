@@ -28,5 +28,6 @@ export default function expand2text(
   source: string,
   args?: ?{+[string]: StrOrNum},
 ) {
-  return expand(source, args);
+  const result = expand(source, args);
+  return result[0] || '';
 }
