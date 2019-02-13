@@ -38,7 +38,6 @@ const AreaEvents = ({
           <EventsList
             checkboxes="add-to-merge"
             events={events}
-            noLocation
           />
         </PaginatedResults>
         {$c.user_exists ? (

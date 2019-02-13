@@ -123,6 +123,9 @@ sub events : Chained('load')
         $c->model('Event')->find_by_area($c->stash->{area}->id, shift, shift);
     });
     $c->model('Event')->load_related_info(@$events);
+    $c->model('Area')->load(map { $_->{entity} } map { $_->all_places } @$events);
+    $c->model('Area')->load_containment(map { (map { $_->{entity} } $_->all_areas),
+                                              (map { $_->{entity}->area } $_->all_places) } @$events);
     $c->model('Event')->rating->load_user_ratings($c->user->id, @$events) if $c->user_exists;
 
     my %props = (
