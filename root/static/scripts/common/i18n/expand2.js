@@ -10,7 +10,6 @@
 import he from 'he';
 import Raven from 'raven-js';
 import * as React from 'react';
-import ReactDOMServer from 'react-dom/server';
 
 /*
  * Flow doesn't have very good support for Symbols, so we use a unique
@@ -428,8 +427,4 @@ export default function expand(source: ?string, args?: ?VarArgs): Output {
       ? React.createElement(React.Fragment, null, ...result)
       : result[0]
   ) : '';
-}
-
-export function expand2html(source: string, args: VarArgs) {
-  return ReactDOMServer.renderToStaticMarkup(expand(source, args));
 }
