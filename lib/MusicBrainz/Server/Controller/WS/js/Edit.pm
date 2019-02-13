@@ -80,11 +80,10 @@ our $TT = Template->new(
 
     VARIABLES => {
         comma_list => sub { my $items = shift; comma_list(@$items) },
-        comma_only_list => sub { my $items = shift; comma_only_list(@$items) }
+        comma_only_list => sub { my $items = shift; comma_only_list(@$items) },
     },
 
-    %{ MusicBrainz::Server->config->{'View::Default'} },
-
+    %{ MusicBrainz::Server->config->{'View::Default'} }
 );
 
 
