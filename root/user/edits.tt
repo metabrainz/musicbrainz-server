@@ -5,23 +5,23 @@
             page_title = l('Votes by {name}', title_param);
             page_heading = l('Votes by {name}', heading_param);
         CASE 'open';
-            page_title = l('Open Edits by {name}', title_param);
-            page_heading = l('Open Edits by {name}', heading_param);
+            page_title = l('Open edits by {name}', title_param);
+            page_heading = l('Open edits by {name}', heading_param);
         CASE 'cancelled';
-            page_title = l('Cancelled Edits by {name}', title_param);
-            page_heading = l('Cancelled Edits by {name}', heading_param);
+            page_title = l('Cancelled edits by {name}', title_param);
+            page_heading = l('Cancelled edits by {name}', heading_param);
         CASE 'accepted';
-            page_title = l('Accepted Edits by {name}', title_param);
-            page_heading = l('Accepted Edits by {name}', heading_param);
+            page_title = l('Accepted edits by {name}', title_param);
+            page_heading = l('Accepted edits by {name}', heading_param);
         CASE 'failed';
-            page_title = l('Failed Edits by {name}', title_param);
-            page_heading = l('Failed Edits by {name}', heading_param);
+            page_title = l('Failed edits by {name}', title_param);
+            page_heading = l('Failed edits by {name}', heading_param);
         CASE 'rejected';
-            page_title = l('Rejected Edits by {name}', title_param)
-            page_heading = l('Rejected Edits by {name}', heading_param);
+            page_title = l('Rejected edits by {name}', title_param)
+            page_heading = l('Rejected edits by {name}', heading_param);
         CASE 'autoedits';
-            page_title = l('Auto-Edits by {name}', title_param);
-            page_heading = l('Auto-Edits by {name}', heading_param);
+            page_title = l('Auto-edits by {name}', title_param);
+            page_heading = l('Auto-edits by {name}', heading_param);
         CASE DEFAULT;
             page_title = l('Edits by {name}', title_param);
             page_heading = l('Edits by {name}', heading_param);
