@@ -7,7 +7,7 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-const url = require('url');
+import url from 'url';
 
 export default function uriWith(
   uriString: string,
