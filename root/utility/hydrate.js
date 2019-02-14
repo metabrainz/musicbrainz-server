@@ -7,7 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import $ from 'jquery';
 import * as React from 'react';
 import ReactDOM from 'react-dom';
 
@@ -20,6 +19,7 @@ export default function hydrate<Config: {}>(
 ): React.AbstractComponent<Config, void> {
   if (typeof document !== 'undefined') {
     // This should only run on the client.
+    const $ = require('jquery');
     $(function () {
       const roots = document.querySelectorAll('div.' + rootClass);
       for (const root of roots) {

@@ -7,6 +7,7 @@
  */
 
 const path = require('path');
+const webpack = require('webpack');
 const nodeExternals = require('webpack-node-externals');
 
 const DBDefs = require('./root/static/scripts/common/DBDefs');
@@ -55,6 +56,10 @@ module.exports = {
     path: dirs.BUILD,
     publicPath: PUBLIC_PATH,
   },
+
+  plugins: [
+    new webpack.IgnorePlugin({resourceRegExp: /jquery/}),
+  ],
 
   resolve: {
     alias: {
