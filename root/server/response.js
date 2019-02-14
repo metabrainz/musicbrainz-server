@@ -3,6 +3,8 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
+/* eslint-disable import/no-commonjs */
+
 const _ = require('lodash');
 const path = require('path');
 const Raven = require('raven');
@@ -10,7 +12,7 @@ const React = require('react');
 const ReactDOMServer = require('react-dom/server');
 
 const DBDefs = require('../static/scripts/common/DBDefs');
-const getRequestCookie = require('../utility/getRequestCookie').default;
+const getRequestCookie = require('../utility/getRequestCookie');
 const {bufferFrom} = require('./buffer');
 
 function pathFromRoot(fpath) {

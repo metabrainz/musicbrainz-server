@@ -1,6 +1,6 @@
 const isNodeJS = require('detect-node');
 
-const parseCookie = require('./parseCookie').default;
+const parseCookie = require('./parseCookie');
 const _cookies = require('./_cookies');
 
 function getCookieFallback(name, defaultValue = undefined) {

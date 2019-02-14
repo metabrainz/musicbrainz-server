@@ -7,12 +7,15 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import parseCookie from '../static/scripts/common/utility/parseCookie';
+// NOTE: Don't convert to an ES module; this is used by root/server.js.
+/* eslint-disable import/no-commonjs */
 
-export default function getRequestCookie(
-  req: CatalystRequestContextT,
-  name: string,
-  defaultValue: mixed = undefined,
+const parseCookie = require('../static/scripts/common/utility/parseCookie');
+
+function getRequestCookie(
+  req /*: CatalystRequestContextT */,
+  name /*: string */,
+  defaultValue /*: mixed */ = undefined,
 ) {
   const headers = req.headers;
   const cookie = (
@@ -22,3 +25,5 @@ export default function getRequestCookie(
   );
   return parseCookie(cookie, name, defaultValue);
 }
+
+module.exports = getRequestCookie;
