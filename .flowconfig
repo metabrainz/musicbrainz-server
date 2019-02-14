@@ -14,3 +14,4 @@
 [lints]
 
 [options]
+module.name_mapper.extension='less' -> '<PROJECT_ROOT>/root/flowstub.js.flow'
