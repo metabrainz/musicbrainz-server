@@ -783,6 +783,27 @@ const CLEANUPS = {
       return false;
     },
   },
+  'ccmixter': {
+    match: [new RegExp('^(https?://)?(www\\.)?ccmixter\\.org/', 'i')],
+    type: LINK_TYPES.otherdatabases,
+    clean: function (url) {
+      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?ccmixter\.org/, 'http://ccmixter.org');
+      return url;
+    },
+    validate: function (url, id) {
+      const m = /^http:\/\/ccmixter\.org\/(files|people)\/\w+(?:\/\d+)?$/.exec(url);
+      if (m) {
+        const prefix = m[1];
+        switch (id) {
+          case LINK_TYPES.otherdatabases.artist:
+            return prefix === 'people';
+          case LINK_TYPES.otherdatabases.recording:
+            return prefix === 'files';
+        }
+      }
+      return false;
+    },
+  },
   'cdbaby': {
     match: [new RegExp('^(https?://)?([^/]+\\.)?cdbaby\\.(com|name)/(?!Artist/)', 'i')],
     clean: function (url) {
