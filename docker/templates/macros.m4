@@ -3,8 +3,10 @@ m4_divert(-1)
 m4_define(
     `apt_install',
     `m4_dnl
-apt-get update && \
-    apt-get install --no-install-suggests --no-install-recommends -y $1 && \
+apt-get update && ( \
+    apt-get install --no-install-suggests --no-install-recommends -y $1 || ( \
+        apt-key adv --keyserver hkps.pool.sks-keyservers.net --refresh-keys && \
+        apt-get install --no-install-suggests --no-install-recommends -y $1 ) ) && \
     rm -rf /var/lib/apt/lists/*')
 
 m4_define(`apt_purge', `apt-get purge --auto-remove -y $1')
