@@ -521,13 +521,11 @@ sub report : Chained('load') RequireAuth HiddenOnSlaves {
 
     my $form = $c->form(form => 'User::Report');
     if ($c->form_posted && $form->process(params => $c->req->params)) {
-        my @account_admins = $c->model('Editor')->find_by_privileges($ACCOUNT_ADMIN_FLAG);
         my $result;
         try {
             $result = $c->model('Email')->send_editor_report(
                 reporter        => $reporter,
                 reported_user   => $reported_user,
-                admins          => \@account_admins,
                 reason          => $form->value->{reason},
                 message         => $form->value->{message},
                 reveal_address  => $form->value->{reveal_address},
