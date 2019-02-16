@@ -12,6 +12,7 @@ import React from 'react';
 import {l} from '../static/scripts/common/i18n';
 import {lp_attributes} from '../static/scripts/common/i18n/attributes';
 import commaOnlyList from '../static/scripts/common/i18n/commaOnlyList';
+import localizeArtistRoles from '../static/scripts/common/i18n/localizeArtistRoles';
 import {withCatalystContext} from '../context';
 import loopParity from '../utility/loopParity';
 import ArtistRoles from '../static/scripts/common/components/ArtistRoles';
@@ -138,7 +139,7 @@ const EventsList = ({
             <td>
               {event.performers.map(performer => (
                 performer.entity.id === artist.id ? (
-                  commaOnlyList(performer.roles)
+                  commaOnlyList(localizeArtistRoles(performer.roles))
                 ) : null
               ))}
             </td>
