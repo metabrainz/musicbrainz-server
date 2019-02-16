@@ -92,7 +92,7 @@ ENV PERL_CPANM_OPT --notest --no-interactive
 
 RUN apt_install(`mbs_build_deps mbs_run_deps') && \
     wget -q -O - https://cpanmin.us | perl - App::cpanminus && \
-    cpanm Carton && \
+    cpanm Carton JSON::XS && \
     chown_mb(``$PERL_CARTON_PATH'') && \
     sudo_mb(``carton install$1'') && \
     apt_purge(`mbs_build_deps')')
