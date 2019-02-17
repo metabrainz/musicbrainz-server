@@ -392,7 +392,7 @@ sub _find_performers
         $map->{$event_id} ||= [];
         push @{ $map->{$event_id} }, {
             entity => $artists->{$artist_id},
-            roles => $roles
+            roles => [ uniq @{ $roles } ]
         }
     }
 }

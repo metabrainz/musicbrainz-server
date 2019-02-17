@@ -29,7 +29,7 @@ const ArtistRoles = ({relations}: Props) => (
       <li key={r.entity.id}>
         {l('{artist} ({roles})', {
           artist: <EntityLink entity={r.entity} />,
-          roles: commaOnlyList(uniq(localizeArtistRoles(r.roles))),
+          roles: commaOnlyList(localizeArtistRoles(r.roles)),
         })}
       </li>
     ))}
