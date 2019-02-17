@@ -51,6 +51,7 @@ class WikipediaExtract extends React.Component<Props, State> {
         <a href={wikipediaExtract.url}>
           {l('Continue reading at Wikipedia...')}
         </a>
+        {' '}
         <small>
           {l('Wikipedia content provided under the terms of the {license_link|Creative Commons BY-SA license}',
             {license_link: 'https://creativecommons.org/licenses/by-sa/3.0/'})}
