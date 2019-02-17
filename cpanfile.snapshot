@@ -122,10 +122,10 @@ DISTRIBUTIONS
       perl 5.008001
       strict 0
       warnings 0
-  B-Keywords-1.19
-    pathname: R/RU/RURBAN/B-Keywords-1.19.tar.gz
+  B-Keywords-1.20
+    pathname: R/RU/RURBAN/B-Keywords-1.20.tar.gz
     provides:
-      B::Keywords 1.19
+      B::Keywords 1.20
     requirements:
       B 0
       ExtUtils::MakeMaker 0
@@ -775,6 +775,7 @@ DISTRIBUTIONS
       Config::Any::XML undef
       Config::Any::YAML undef
     requirements:
+      Config::General 2.47
       Module::Pluggable::Object 3.6
   Config-General-2.63
     pathname: T/TL/TLINDEN/Config-General-2.63.tar.gz
@@ -1332,21 +1333,20 @@ DISTRIBUTIONS
       ExtUtils::MakeMaker 6.36
       Module::Build::Tiny 0.035
       Test::More 0
-  DateTime-Format-Strptime-1.75
-    pathname: D/DR/DROLSKY/DateTime-Format-Strptime-1.75.tar.gz
+  DateTime-Format-Strptime-1.76
+    pathname: D/DR/DROLSKY/DateTime-Format-Strptime-1.76.tar.gz
     provides:
-      DateTime::Format::Strptime 1.75
-      DateTime::Format::Strptime::Types 1.75
+      DateTime::Format::Strptime 1.76
+      DateTime::Format::Strptime::Types 1.76
     requirements:
       Carp 0
       DateTime 1.00
-      DateTime::Locale 1.05
+      DateTime::Locale 1.23
       DateTime::Locale::Base 0
       DateTime::Locale::FromData 0
       DateTime::TimeZone 2.09
       Exporter 0
       ExtUtils::MakeMaker 0
-      Package::DeprecationManager 0.15
       Params::ValidationCompiler 0
       Specio 0.33
       Specio::Declare 0
@@ -2506,10 +2506,10 @@ DISTRIBUTIONS
       perl 5.006
       strict 0
       warnings 0
-  File-Slurp-9999.25
-    pathname: C/CA/CAPOEIRAB/File-Slurp-9999.25.tar.gz
+  File-Slurp-9999.26
+    pathname: C/CA/CAPOEIRAB/File-Slurp-9999.26.tar.gz
     provides:
-      File::Slurp 9999.25
+      File::Slurp 9999.26
     requirements:
       B 0
       Carp 0
@@ -2517,6 +2517,10 @@ DISTRIBUTIONS
       Exporter 5.57
       ExtUtils::MakeMaker 0
       Fcntl 0
+      File::Basename 0
+      File::Spec 3.01
+      File::Temp 0
+      IO::Handle 0
       POSIX 0
       strict 0
       warnings 0
@@ -6335,6 +6339,7 @@ DISTRIBUTIONS
       Test::Aggregate::Builder 0.375
       Test::Aggregate::Nested 0.375
     requirements:
+      ExtUtils::MakeMaker 0
       FindBin 1.47
       Test::Harness 3.09
       Test::Most 0.21
@@ -6654,76 +6659,76 @@ DISTRIBUTIONS
       Test::Builder::Module 0
       Test::More 0.88
       perl 5.008_001
-  Test-Simple-1.302160
-    pathname: E/EX/EXODIST/Test-Simple-1.302160.tar.gz
+  Test-Simple-1.302162
+    pathname: E/EX/EXODIST/Test-Simple-1.302162.tar.gz
     provides:
-      Test2 1.302160
-      Test2::API 1.302160
-      Test2::API::Breakage 1.302160
-      Test2::API::Context 1.302160
-      Test2::API::Instance 1.302160
-      Test2::API::Stack 1.302160
-      Test2::Event 1.302160
-      Test2::Event::Bail 1.302160
-      Test2::Event::Diag 1.302160
-      Test2::Event::Encoding 1.302160
-      Test2::Event::Exception 1.302160
-      Test2::Event::Fail 1.302160
-      Test2::Event::Generic 1.302160
-      Test2::Event::Note 1.302160
-      Test2::Event::Ok 1.302160
-      Test2::Event::Pass 1.302160
-      Test2::Event::Plan 1.302160
-      Test2::Event::Skip 1.302160
-      Test2::Event::Subtest 1.302160
-      Test2::Event::TAP::Version 1.302160
-      Test2::Event::V2 1.302160
-      Test2::Event::Waiting 1.302160
-      Test2::EventFacet 1.302160
-      Test2::EventFacet::About 1.302160
-      Test2::EventFacet::Amnesty 1.302160
-      Test2::EventFacet::Assert 1.302160
-      Test2::EventFacet::Control 1.302160
-      Test2::EventFacet::Error 1.302160
-      Test2::EventFacet::Hub 1.302160
-      Test2::EventFacet::Info 1.302160
+      Test2 1.302162
+      Test2::API 1.302162
+      Test2::API::Breakage 1.302162
+      Test2::API::Context 1.302162
+      Test2::API::Instance 1.302162
+      Test2::API::Stack 1.302162
+      Test2::Event 1.302162
+      Test2::Event::Bail 1.302162
+      Test2::Event::Diag 1.302162
+      Test2::Event::Encoding 1.302162
+      Test2::Event::Exception 1.302162
+      Test2::Event::Fail 1.302162
+      Test2::Event::Generic 1.302162
+      Test2::Event::Note 1.302162
+      Test2::Event::Ok 1.302162
+      Test2::Event::Pass 1.302162
+      Test2::Event::Plan 1.302162
+      Test2::Event::Skip 1.302162
+      Test2::Event::Subtest 1.302162
+      Test2::Event::TAP::Version 1.302162
+      Test2::Event::V2 1.302162
+      Test2::Event::Waiting 1.302162
+      Test2::EventFacet 1.302162
+      Test2::EventFacet::About 1.302162
+      Test2::EventFacet::Amnesty 1.302162
+      Test2::EventFacet::Assert 1.302162
+      Test2::EventFacet::Control 1.302162
+      Test2::EventFacet::Error 1.302162
+      Test2::EventFacet::Hub 1.302162
+      Test2::EventFacet::Info 1.302162
       Test2::EventFacet::Info::Table undef
-      Test2::EventFacet::Meta 1.302160
-      Test2::EventFacet::Parent 1.302160
-      Test2::EventFacet::Plan 1.302160
-      Test2::EventFacet::Render 1.302160
-      Test2::EventFacet::Trace 1.302160
-      Test2::Formatter 1.302160
-      Test2::Formatter::TAP 1.302160
-      Test2::Hub 1.302160
-      Test2::Hub::Interceptor 1.302160
-      Test2::Hub::Interceptor::Terminator 1.302160
-      Test2::Hub::Subtest 1.302160
-      Test2::IPC 1.302160
-      Test2::IPC::Driver 1.302160
-      Test2::IPC::Driver::Files 1.302160
-      Test2::Tools::Tiny 1.302160
-      Test2::Util 1.302160
-      Test2::Util::ExternalMeta 1.302160
-      Test2::Util::Facets2Legacy 1.302160
-      Test2::Util::HashBase 1.302160
-      Test2::Util::Trace 1.302160
-      Test::Builder 1.302160
-      Test::Builder::Formatter 1.302160
+      Test2::EventFacet::Meta 1.302162
+      Test2::EventFacet::Parent 1.302162
+      Test2::EventFacet::Plan 1.302162
+      Test2::EventFacet::Render 1.302162
+      Test2::EventFacet::Trace 1.302162
+      Test2::Formatter 1.302162
+      Test2::Formatter::TAP 1.302162
+      Test2::Hub 1.302162
+      Test2::Hub::Interceptor 1.302162
+      Test2::Hub::Interceptor::Terminator 1.302162
+      Test2::Hub::Subtest 1.302162
+      Test2::IPC 1.302162
+      Test2::IPC::Driver 1.302162
+      Test2::IPC::Driver::Files 1.302162
+      Test2::Tools::Tiny 1.302162
+      Test2::Util 1.302162
+      Test2::Util::ExternalMeta 1.302162
+      Test2::Util::Facets2Legacy 1.302162
+      Test2::Util::HashBase 1.302162
+      Test2::Util::Trace 1.302162
+      Test::Builder 1.302162
+      Test::Builder::Formatter 1.302162
       Test::Builder::IO::Scalar 2.114
-      Test::Builder::Module 1.302160
-      Test::Builder::Tester 1.302160
-      Test::Builder::Tester::Color 1.302160
-      Test::Builder::Tester::Tie 1.302160
-      Test::Builder::TodoDiag 1.302160
-      Test::More 1.302160
-      Test::Simple 1.302160
-      Test::Tester 1.302160
-      Test::Tester::Capture 1.302160
-      Test::Tester::CaptureRunner 1.302160
-      Test::Tester::Delegate 1.302160
-      Test::use::ok 1.302160
-      ok 1.302160
+      Test::Builder::Module 1.302162
+      Test::Builder::Tester 1.302162
+      Test::Builder::Tester::Color 1.302162
+      Test::Builder::Tester::Tie 1.302162
+      Test::Builder::TodoDiag 1.302162
+      Test::More 1.302162
+      Test::Simple 1.302162
+      Test::Tester 1.302162
+      Test::Tester::Capture 1.302162
+      Test::Tester::CaptureRunner 1.302162
+      Test::Tester::Delegate 1.302162
+      Test::use::ok 1.302162
+      ok 1.302162
     requirements:
       ExtUtils::MakeMaker 0
       File::Spec 0
@@ -7396,45 +7401,45 @@ DISTRIBUTIONS
       XML::LibXML 1.70
       strict 0
       warnings 0
-  XML-LibXML-2.0132
-    pathname: S/SH/SHLOMIF/XML-LibXML-2.0132.tar.gz
+  XML-LibXML-2.0134
+    pathname: S/SH/SHLOMIF/XML-LibXML-2.0134.tar.gz
     provides:
-      XML::LibXML 2.0132
-      XML::LibXML::Attr 2.0132
-      XML::LibXML::AttributeHash 2.0132
-      XML::LibXML::Boolean 2.0132
-      XML::LibXML::CDATASection 2.0132
-      XML::LibXML::Comment 2.0132
-      XML::LibXML::Common 2.0132
-      XML::LibXML::Devel 2.0132
-      XML::LibXML::Document 2.0132
-      XML::LibXML::DocumentFragment 2.0132
-      XML::LibXML::Dtd 2.0132
-      XML::LibXML::Element 2.0132
-      XML::LibXML::ErrNo 2.0132
-      XML::LibXML::Error 2.0132
-      XML::LibXML::InputCallback 2.0132
-      XML::LibXML::Literal 2.0132
-      XML::LibXML::NamedNodeMap 2.0132
-      XML::LibXML::Namespace 2.0132
-      XML::LibXML::Node 2.0132
-      XML::LibXML::NodeList 2.0132
-      XML::LibXML::Number 2.0132
-      XML::LibXML::PI 2.0132
-      XML::LibXML::Pattern 2.0132
-      XML::LibXML::Reader 2.0132
-      XML::LibXML::RegExp 2.0132
-      XML::LibXML::RelaxNG 2.0132
-      XML::LibXML::SAX 2.0132
-      XML::LibXML::SAX::AttributeNode 2.0132
-      XML::LibXML::SAX::Builder 2.0132
-      XML::LibXML::SAX::Generator 2.0132
-      XML::LibXML::SAX::Parser 2.0132
-      XML::LibXML::Schema 2.0132
-      XML::LibXML::Text 2.0132
-      XML::LibXML::XPathContext 2.0132
-      XML::LibXML::XPathExpression 2.0132
-      XML::LibXML::_SAXParser 2.0132
+      XML::LibXML 2.0134
+      XML::LibXML::Attr 2.0134
+      XML::LibXML::AttributeHash 2.0134
+      XML::LibXML::Boolean 2.0134
+      XML::LibXML::CDATASection 2.0134
+      XML::LibXML::Comment 2.0134
+      XML::LibXML::Common 2.0134
+      XML::LibXML::Devel 2.0134
+      XML::LibXML::Document 2.0134
+      XML::LibXML::DocumentFragment 2.0134
+      XML::LibXML::Dtd 2.0134
+      XML::LibXML::Element 2.0134
+      XML::LibXML::ErrNo 2.0134
+      XML::LibXML::Error 2.0134
+      XML::LibXML::InputCallback 2.0134
+      XML::LibXML::Literal 2.0134
+      XML::LibXML::NamedNodeMap 2.0134
+      XML::LibXML::Namespace 2.0134
+      XML::LibXML::Node 2.0134
+      XML::LibXML::NodeList 2.0134
+      XML::LibXML::Number 2.0134
+      XML::LibXML::PI 2.0134
+      XML::LibXML::Pattern 2.0134
+      XML::LibXML::Reader 2.0134
+      XML::LibXML::RegExp 2.0134
+      XML::LibXML::RelaxNG 2.0134
+      XML::LibXML::SAX 2.0134
+      XML::LibXML::SAX::AttributeNode 2.0134
+      XML::LibXML::SAX::Builder 2.0134
+      XML::LibXML::SAX::Generator 2.0134
+      XML::LibXML::SAX::Parser 2.0134
+      XML::LibXML::Schema 2.0134
+      XML::LibXML::Text 2.0134
+      XML::LibXML::XPathContext 2.0134
+      XML::LibXML::XPathExpression 2.0134
+      XML::LibXML::_SAXParser 2.0134
     requirements:
       ExtUtils::MakeMaker 0
       Test::More 0
@@ -7648,10 +7653,10 @@ DISTRIBUTIONS
     requirements:
       Symbol::Util 0.02
       perl 5.006
-  libintl-perl-1.30
-    pathname: G/GU/GUIDO/libintl-perl-1.30.tar.gz
+  libintl-perl-1.31
+    pathname: G/GU/GUIDO/libintl-perl-1.31.tar.gz
     provides:
-      Locale::Messages 1.30
+      Locale::Messages 1.31
       Locale::Recode undef
       Locale::Recode::_Aliases undef
       Locale::Recode::_Conversions undef
@@ -7794,7 +7799,7 @@ DISTRIBUTIONS
       Locale::RecodeData::UTF_8 undef
       Locale::RecodeData::VISCII undef
       Locale::RecodeData::_Encode undef
-      Locale::TextDomain 1.30
+      Locale::TextDomain 1.31
       Locale::Util undef
       Locale::gettext_dumb undef
       Locale::gettext_pp undef
@@ -7895,7 +7900,7 @@ DISTRIBUTIONS
       HTTP::Request 6
       HTTP::Request::Common 6
       HTTP::Response 6
-      HTTP::Status 6
+      HTTP::Status 6.18
       IO::Select 0
       IO::Socket 0
       LWP::MediaTypes 6
