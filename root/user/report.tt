@@ -9,6 +9,20 @@
 
     <p>[%- l('If you’d like us to be able to easily respond to your report, please check “Reveal my email address” below.') -%]</p>
 
+    <p>
+        <strong>[%- add_colon(l('Note')) -%]</strong>
+        [%- l('Be sure to provide direct links to examples of the behaviour
+               you’re reporting (for example, use
+               “https://musicbrainz.org/edit/23” instead of “edit #23”, and
+               use “https://musicbrainz.org/edit/42 and
+               https://musicbrainz.org/edit/43” instead of
+               “https://musicbrainz.org/user/SomeUser/edits”).
+               Providing links makes it much easier for the recipients of the
+               report to look into the issues; a report without links is
+               unlikely to be acted on fast, since it will require a lot of
+               additional research.') -%]
+    </p>
+
     [%- USE r = FormRenderer(form) -%]
 
     <form action="[% c.req.uri %]" method="post" class="report-form">
