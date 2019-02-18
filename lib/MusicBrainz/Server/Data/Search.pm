@@ -591,10 +591,11 @@ sub schema_fixup
 
             my %entity = %{ $rel->{$entity_type} };
 
+            $self->schema_fixup(\%entity, $entity_type);
+
             # The search server returns the MBID in the 'id' attribute, so we
-            # need to rename that.
-            $entity{gid} = delete $entity{id};
-            %entity = %{ $self->schema_fixup_type(\%entity, $entity_type) };
+            # need to delete that. (`schema_fixup` copies it to gid.)
+            delete $entity{id};
 
             my $entity = $self->c->model( type_to_model ($entity_type) )->
                 _entity_class->new(%entity);
