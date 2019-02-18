@@ -843,6 +843,23 @@ const testData = [
             expected_clean_url: 'https://www.cbfiddle.com/rx/tune/t4003.html',
        only_valid_entity_types: ['work'],
   },
+  // ccmixter
+  {
+                     input_url: 'http://www.ccmixter.org/people/Snowflake',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'http://ccmixter.org/people/Snowflake',
+       only_valid_entity_types: ['artist'],
+
+  },
+  {
+                     input_url: 'http://ccmixter.org/files/Loveshadow/45199',
+             input_entity_type: 'recording',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'http://ccmixter.org/files/Loveshadow/45199',
+       only_valid_entity_types: ['recording'],
+
+  },
   // CDJapan
   {
                      input_url: 'www.cdjapan.co.jp/person/76324#test',

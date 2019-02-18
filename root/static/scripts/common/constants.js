@@ -53,6 +53,7 @@ export const FAVICON_CLASSES: {[string]: string} = {
   'castalbums.org': 'castalbums',
   'catalogue.bnf.fr': 'bnfcatalogue',
   'cbfiddle.com/rx/': 'cbfiddlerx',
+  'ccmixter.org': 'ccmixter',
   'cdbaby.com': 'cdbaby',
   'changetip.com': 'changetip',
   'ci.nii.ac.jp': 'cinii',

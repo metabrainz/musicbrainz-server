@@ -37,6 +37,7 @@ my %URL_SPECIALIZATIONS = (
     'Cancioneros'         => qr{^https?://(?:www\.)?cancioneros\.si/}i,
     'Castalbums'          => qr{^https?://(?:www\.)?castalbums\.org/}i,
     'CBFiddleRx'          => qr{^https?://(?:www\.)?cbfiddle\.com/rx/}i,
+    'CcMixter'            => qr{^https?://(?:www\.)?ccmixter\.org/}i,
     'CDBaby'              => qr{^https?://(?:(?:store|www)\.)?cdbaby\.com/}i,
     'ChangeTip'           => qr{^https?://(?:www\.)?changetip\.com/tipme/}i,
     'CiNii'               => qr{^https?://(?:www\.)?ci\.nii\.ac\.jp/}i,
