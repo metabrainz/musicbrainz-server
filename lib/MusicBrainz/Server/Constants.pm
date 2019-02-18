@@ -45,6 +45,9 @@ our %EXPORT_TAGS = (
     email_addresses => [
         qw( $EMAIL_NOREPLY_ADDR_SPEC $EMAIL_NOREPLY_ADDRESS $EMAIL_SUPPORT_ADDRESS )
     ],
+    oauth_redirect_uri_re => [
+        qw( $OAUTH_INSTALLED_APP_REDIRECT_URI_RE $OAUTH_WEB_APP_REDIRECT_URI_RE )
+    ],
 );
 
 our @EXPORT_OK = (
@@ -920,6 +923,9 @@ Readonly our $EDITOR_SANITISED_COLUMNS => join(', ',
 );
 
 Readonly our $PASSPHRASE_BCRYPT_COST => 12;
+
+Readonly our $OAUTH_INSTALLED_APP_REDIRECT_URI_RE => qr/^(?![_-])[\w-]+(?:\.(?![_-])[\w-]+)+:/;
+Readonly our $OAUTH_WEB_APP_REDIRECT_URI_RE => qr/^https?:\/\//;
 
 =head1 NAME
 

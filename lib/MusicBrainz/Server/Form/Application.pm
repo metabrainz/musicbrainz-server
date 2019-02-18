@@ -1,6 +1,7 @@
 package MusicBrainz::Server::Form::Application;
 
 use HTML::FormHandler::Moose;
+use MusicBrainz::Server::Constants qw( :oauth_redirect_uri_re );
 use MusicBrainz::Server::Translation qw( l );
 
 extends 'MusicBrainz::Server::Form';
@@ -40,7 +41,21 @@ sub validate
 
     if ($self->field('oauth_type')->value eq 'web') {
         if (!$self->field('oauth_redirect_uri')->value) {
-            $self->field('oauth_redirect_uri')->add_error(l('Redirect URL must be entered for web applications.'));
+            $self->field('oauth_redirect_uri')->add_error(
+                l('Redirect URL must be entered for web applications.')
+            );
+        } elsif ($self->field('oauth_redirect_uri')->value !~ $OAUTH_WEB_APP_REDIRECT_URI_RE) {
+            $self->field('oauth_redirect_uri')->add_error(
+                l('Redirect URL scheme must be either <code>http</code> or ' .
+                  '<code>https</code> for web applications.')
+            );
+        }
+    } elsif ($self->field('oauth_redirect_uri')->value) {
+        if ($self->field('oauth_redirect_uri')->value !~ $OAUTH_INSTALLED_APP_REDIRECT_URI_RE) {
+            $self->field('oauth_redirect_uri')->add_error(
+                l('Redirect URL scheme must be a reverse-DNS string, as in ' .
+                  '<code>org.example.app://auth</code>, for installed applications.')
+            );
         }
     }
 }

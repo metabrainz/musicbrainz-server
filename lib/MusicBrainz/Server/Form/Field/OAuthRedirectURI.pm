@@ -6,8 +6,6 @@ use MusicBrainz::Server::Translation qw( l );
 
 extends 'HTML::FormHandler::Field::Text';
 
-my %ALLOWED_PROTOCOLS = map { $_ => 1 } qw( http https );
-
 sub validate
 {
     my $self = shift;
@@ -16,9 +14,6 @@ sub validate
 
     my $url = $self->value;
     $url = URI->new($url)->canonical;
-
-    return $self->add_error(l('URL protocol must be HTTP or HTTPS'))
-        unless exists $ALLOWED_PROTOCOLS{ lc($url->scheme) };
 
     $self->_set_value($url->as_string);
 }
