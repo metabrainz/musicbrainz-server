@@ -41,6 +41,7 @@ rules:
   no-unreachable: error
   no-unsafe-finally: error
   no-unsafe-negation: error
+  no-unused-vars: error
   use-isnan: error
   valid-typeof: error
 
