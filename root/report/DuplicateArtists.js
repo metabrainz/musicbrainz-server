@@ -75,13 +75,13 @@ const DuplicateArtists = ({
                 lastKey = currentKey;
                 currentKey = item.key;
                 return (
-                  <>
+                  <React.Fragment key={item.artist.gid}>
                     {lastKey === item.key ? null : (
                       <tr className="subh">
                         <td colSpan="4" />
                       </tr>
                     )}
-                    <tr className={loopParity(index)} key={item.artist.gid}>
+                    <tr className={loopParity(index)}>
                       <td>
                         <input name="add-to-merge" type="checkbox" value={item.artist.id} />
                       </td>
@@ -94,7 +94,7 @@ const DuplicateArtists = ({
                       <td>{item.artist.sort_name}</td>
                       <td>{item.artist.typeName ? lp_attributes(item.artist.typeName, 'artist_type') : l('Unknown')}</td>
                     </tr>
-                  </>
+                  </React.Fragment>
                 );
               })}
             </tbody>

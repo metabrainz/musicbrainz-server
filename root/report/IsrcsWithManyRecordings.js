@@ -75,9 +75,9 @@ const IsrcsWithManyRecordings = ({
               currentIsrc = item.isrc;
 
               return (
-                <>
+                <React.Fragment key={item.isrc + '-' + item.recording.gid}>
                   {lastIsrc === item.isrc ? null : (
-                    <tr className="even" key={item.isrc}>
+                    <tr className="even">
                       <td>
                         <a href={'/isrc/' + item.isrc}>{item.isrc}</a>
                         <span>{bracketed(item.recordingcount)}</span>
@@ -85,7 +85,7 @@ const IsrcsWithManyRecordings = ({
                       <td colSpan="5" />
                     </tr>
                   )}
-                  <tr key={item.recording.gid}>
+                  <tr>
                     <td />
                     <td>
                       <ArtistCreditLink
@@ -97,7 +97,7 @@ const IsrcsWithManyRecordings = ({
                     </td>
                     <td>{formatTrackLength(item.length)}</td>
                   </tr>
-                </>
+                </React.Fragment>
               );
             })}
           </tbody>

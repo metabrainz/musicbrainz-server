@@ -63,21 +63,21 @@ const CollaborationRelationships = ({
               currentID = item.id1;
 
               return (
-                <>
+                <React.Fragment key={item.artist1.gid + '-' + item.artist0.gid}>
                   {lastID === item.id1 ? null : (
-                    <tr className="even" key={item.artist1.gid}>
+                    <tr className="even">
                       <td colSpan="2">
                         <EntityLink entity={item.artist1} />
                       </td>
                     </tr>
                   )}
-                  <tr key={item.artist0.gid}>
+                  <tr>
                     <td />
                     <td>
                       <EntityLink entity={item.artist0} />
                     </td>
                   </tr>
-                </>
+                </React.Fragment>
               );
             })}
           </tbody>
