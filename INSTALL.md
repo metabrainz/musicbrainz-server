@@ -184,21 +184,20 @@ Below outlines how to setup MusicBrainz server with local::lib.
 
     (Do not overlook the dot at the end of that command.)
 
-Installing Node.js dependencies
+Building static web resources
 -------------------------------
-
-Node dependencies are managed using `yarn`. To install these dependencies, run
-the following inside the musicbrainz-server/ checkout:
-
-    yarn install
-
-Node dependencies are installed under ./node\_modules.
 
 To build everything necessary to access the server in a web browser (CSS,
 JavaScript), run the following command:
 
     ./script/compile_resources.sh
 
+This command takes care of installing Node.js dependencies for you, including
+development dependencies. If you're just setting up a mirror and don't plan
+to hack on any code, you can save a bit of time and space by excluding the
+devDependencies (listed in package.json):
+
+    NODE_ENV=production ./script/compile_resources.sh
 
 Creating the database
 ---------------------
