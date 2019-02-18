@@ -19,10 +19,11 @@
 
 */
 
-const _ = require('lodash');
+import _ from 'lodash';
 
-const MB = require('../../../common/MB');
-const utils = require('../../utils');
+import MB from '../../../common/MB';
+import * as utils from '../../utils';
+
 
 MB.GuessCase = MB.GuessCase ? MB.GuessCase : {};
 
@@ -258,4 +259,4 @@ MB.GuessCase.Input = function (gc) {
     return self;
 }
 
-module.exports = MB.GuessCase.Input;
+export default MB.GuessCase.Input;

@@ -21,7 +21,7 @@ const scriptArgs = require('./common/utility/getScriptArgs')();
 const {Lens, prop, index, set, compose3} = require('./common/utility/lens');
 import {buildOptionsTree} from './edit/forms';
 import {initializeBubble} from './edit/MB/Control/Bubble';
-const {initialize_guess_case} = require('./guess-case/MB/Control/GuessCase');
+import {initialize_guess_case} from './guess-case/MB/Control/GuessCase';
 import FormRowSelectList from '../../components/FormRowSelectList';
 import createField from '../../utility/createField';
 import subfieldErrors from '../../utility/subfieldErrors';

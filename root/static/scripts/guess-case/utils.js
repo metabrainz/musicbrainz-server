@@ -4,8 +4,9 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-const clean = require('../common/utility/clean');
-const flags = require('./flags');
+import clean from '../common/utility/clean';
+
+import * as flags from './flags';
 
 // Words which are *not* converted if they are matched as a single pre-processor word at the end of the sentence.
 var preBracketSingleWordsList = [
@@ -51,9 +52,9 @@ var preBracketSingleWordsList = [
 
 var preBracketSingleWords = new RegExp('^(' + preBracketSingleWordsList.join('|') + ')$', 'i');
 
-exports.isPrepBracketSingleWord = function (w) {
+export function isPrepBracketSingleWord(w) {
     return preBracketSingleWords.test(w);
-};
+}
 
 // Words which are written lowercase if in brackets.
 var lowerCaseBracketWordsList = [
@@ -89,51 +90,51 @@ var lowerCaseBracketWordsList = [
 
 var lowerCaseBracketWords = new RegExp('^(' + lowerCaseBracketWordsList.join('|') + ')$', 'i');
 
-exports.turkishUpperCase = function(str) {
+export function turkishUpperCase(str) {
   return str.replace(/i/g, 'İ').toUpperCase();
-};
+}
 
-exports.turkishLowerCase = function(str) {
+export function turkishLowerCase(str) {
   return str.replace(/I\u0307/g, 'i').replace(/I/g, 'ı').replace(/İ/g, 'i').toLowerCase();
-};
+}
 
-exports.isLowerCaseBracketWord = function (w) {
+export function isLowerCaseBracketWord(w) {
     return lowerCaseBracketWords.test(w);
-};
+}
 
 // Words which the pre-processor looks for and puts them into brackets if they arent yet.
 var prepBracketWords = /^(cd|disk|12["”]|7["”]|a_cappella|re_edit)$/i;
 
-exports.isPrepBracketWord = function (w) {
-    return prepBracketWords.test(w) || exports.isLowerCaseBracketWord(w);
-};
+export function isPrepBracketWord(w) {
+    return prepBracketWords.test(w) || isLowerCaseBracketWord(w);
+}
 
 var sentenceStopChars = /^[:.;?!\/]$/;
 
-exports.isSentenceStopChar = function (w) {
+export function isSentenceStopChar(w) {
     return sentenceStopChars.test(w);
-};
+}
 
 var apostropheChars = /^['’]$/;
 
-exports.isApostrophe = function (w) {
+export function isApostrophe(w) {
     return apostropheChars.test(w);
-};
+}
 
 var punctuationChars = /^[:.;?!,]$/;
 
-exports.isPunctuationChar = function (w) {
+export function isPunctuationChar(w) {
     return punctuationChars.test(w);
-};
+}
 
 // Trim leading, trailing and running-line whitespace from the given string.
-exports.trim = function (is) {
+export function trim(is) {
     is = clean(is);
     return is.replace(/([\(\[])\s+/, "$1").replace(/\s+([\)\]])/, "$1");
-};
+}
 
 // Upper case first letter of word unless it's one of the words in the lowercase words array.
-exports.titleString = function (gc, is, forceCaps) {
+export function titleString(gc, is, forceCaps) {
     if (!is) {
         return '';
     }
@@ -160,7 +161,7 @@ exports.titleString = function (gc, is, forceCaps) {
     if (is === uc && is.length > 1 && gc.CFG_UC_UPPERCASED) {
         os = uc;
     // we got an 'x (apostrophe),keep the text lowercased
-    } else if (lc.length === 1 && exports.isApostrophe(gc.i.getPreviousWord())) {
+    } else if (lc.length === 1 && isApostrophe(gc.i.getPreviousWord())) {
         os = lc;
     // we got an 's (It is = It's), lowercased
     // we got an 'all (Y'all = You all), lowercased
@@ -172,30 +173,30 @@ exports.titleString = function (gc, is, forceCaps) {
     // we got an 'til (Until = 'til), lowercase.
     // we got an 'way (Away = 'way), lowercase.
     // we got an 'round (Around = 'round), lowercased
-    } else if (exports.isApostrophe(gc.i.getPreviousWord()) && lc.match(/^(s|round|em|ve|ll|d|cha|re|til|way|all)$/i)) {
+    } else if (isApostrophe(gc.i.getPreviousWord()) && lc.match(/^(s|round|em|ve|ll|d|cha|re|til|way|all)$/i)) {
         os = lc;
     // we got an Ev'..
     // Every = Ev'ry, lowercase
     // Everything = Ev'rything, lowercase (more cases?)
-    } else if (exports.isApostrophe(gc.i.getPreviousWord()) && gc.i.getWordAtIndex(pos - 2) === "Ev") {
+    } else if (isApostrophe(gc.i.getPreviousWord()) && gc.i.getWordAtIndex(pos - 2) === "Ev") {
         os = lc;
     // Make it O'Titled, Y'All
-    } else if (lc.match(/^(o|y)$/i) && exports.isApostrophe(gc.i.getNextWord())) {
+    } else if (lc.match(/^(o|y)$/i) && isApostrophe(gc.i.getNextWord())) {
         os = uc;
     } else {
-        os = exports.titleStringByMode(gc, lc, forceCaps);
+        os = titleStringByMode(gc, lc, forceCaps);
         lc = gc.mode.toLowerCase(os);
         uc = gc.mode.toUpperCase(os);
 
         var nextWord = gc.i.getNextWord();
-        var followedByPunctuation = nextWord && nextWord.length === 1 && exports.isPunctuationChar(nextWord);
+        var followedByPunctuation = nextWord && nextWord.length === 1 && isPunctuationChar(nextWord);
 
         // Unless forceCaps is enabled, lowercase the word if it's not followed by punctuation.
         if (!forceCaps && gc.mode.isLowerCaseWord(lc) && !followedByPunctuation) {
             os = lc;
         } else if (gc.mode.isUpperCaseWord(lc)) {
             os = uc;
-        } else if (flags.isInsideBrackets() && exports.isLowerCaseBracketWord(lc)) {
+        } else if (flags.isInsideBrackets() && isLowerCaseBracketWord(lc)) {
             os = lc;
         }
     }
@@ -204,7 +205,7 @@ exports.titleString = function (gc, is, forceCaps) {
 };
 
 // Capitalize the string, but check if some characters inside the word need to be uppercased as well.
-exports.titleStringByMode = function (gc, is, forceCaps) {
+export function titleStringByMode(gc, is, forceCaps) {
     if (!is) {
         return '';
     }
@@ -224,7 +225,7 @@ exports.titleStringByMode = function (gc, is, forceCaps) {
     var doCaps = (
         forceCaps || !gc.mode.isSentenceCaps() ||
         flags.context.slurpExtraTitleInformation || flags.context.openingBracket ||
-        gc.i.isFirstWord() || exports.isSentenceStopChar(wordBefore)
+        gc.i.isFirstWord() || isSentenceStopChar(wordBefore)
     );
 
     if (doCaps) {
@@ -240,4 +241,4 @@ exports.titleStringByMode = function (gc, is, forceCaps) {
     }
 
     return os;
-};
+}
