@@ -355,21 +355,28 @@ sub edits : Path('edits') {
     my %by_category;
     for my $class (EditRegistry->get_all_classes) {
         $by_category{$class->edit_category} ||= [];
-        push @{ $by_category{$class->edit_category} }, $class;
+        push @{ $by_category{$class->edit_category} }, {edit_type => $class->edit_type, edit_name => $class->edit_name};
     }
 
     for my $category (keys %by_category) {
         $by_category{$category} = [
             reverse sort {
-                ($stats->statistic('count.edit.type.' . $a->edit_type) // 0) <=>
-                    ($stats->statistic('count.edit.type.' . $b->edit_type) // 0)
+                ($stats->statistic('count.edit.type.' . $a->{edit_type}) // 0) <=>
+                    ($stats->statistic('count.edit.type.' . $b->{edit_type}) // 0)
                 } @{ $by_category{$category} }
             ];
     }
 
+    my %props = (
+        dateCollected => $stats->{date_collected},
+        stats => $stats->{data},
+        statsByCategory => \%by_category,
+    );
+
     $c->stash(
-        by_category => \%by_category,
-        stats => $stats
+        current_view => 'Node',
+        component_path => 'statistics/Edits',
+        component_props => \%props,
     );
 }
 

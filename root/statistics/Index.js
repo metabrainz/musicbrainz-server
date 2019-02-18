@@ -11,7 +11,6 @@
 import React from 'react';
 import {range} from 'lodash';
 
-import manifest from '../static/manifest';
 import {addColon} from '../static/scripts/common/i18n';
 import {lp_attributes} from '../static/scripts/common/i18n/attributes';
 import {l_statistics as l, ln_statistics as ln, lp_statistics as lp} from '../static/scripts/common/i18n/statistics';
@@ -64,7 +63,6 @@ const Index = ({
 
   return (
     <StatisticsLayout fullWidth page="index" title={l('Overview')}>
-      {manifest.css('statistics')}
       <p>
         {l('Last updated: {date}',
           {date: dateCollected})}
