@@ -12,7 +12,6 @@ import React from 'react';
 import {addColon, l as lMbServer} from '../static/scripts/common/i18n';
 import {l_statistics as l} from '../static/scripts/common/i18n/statistics';
 import {withCatalystContext} from '../context';
-import manifest from '../static/manifest';
 
 import {formatCount, formatPercentage} from './utilities';
 import StatisticsLayout from './StatisticsLayout';
@@ -31,7 +30,6 @@ type EditsStatsT = {|
 
 const Edits = ({$c, dateCollected, stats, statsByCategory}: EditsStatsT) => (
   <StatisticsLayout fullWidth page="edits" title={l('Edits')}>
-    {manifest.css('statistics')}
     <p>
       {l('Last updated: {date}',
         {date: dateCollected})}

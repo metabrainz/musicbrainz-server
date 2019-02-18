@@ -13,7 +13,6 @@ import {compare} from '../static/scripts/common/i18n';
 import {l_relationships} from '../static/scripts/common/i18n/relationships';
 import {l_statistics as l} from '../static/scripts/common/i18n/statistics';
 import {withCatalystContext} from '../context';
-import manifest from '../static/manifest';
 import formatEntityTypeName from '../static/scripts/common/utility/formatEntityTypeName';
 
 import {formatCount, formatPercentage} from './utilities';
@@ -77,7 +76,6 @@ const Relationships = ({
   types,
 }: RelationshipsStatsT) => (
   <StatisticsLayout fullWidth page="relationships" title={l('Relationships')}>
-    {manifest.css('statistics')}
     <p>
       {l('Last updated: {date}', {date: dateCollected})}
     </p>

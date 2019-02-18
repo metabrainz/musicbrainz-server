@@ -47,7 +47,6 @@ const LanguagesScripts = ({
   scriptStats,
 }: LanguagesScriptsStatsT) => (
   <StatisticsLayout fullWidth page="languages-scripts" title={l('Languages and Scripts')}>
-    {manifest.css('statistics')}
     <p>
       {l('Last updated: {date}',
         {date: dateCollected})}
