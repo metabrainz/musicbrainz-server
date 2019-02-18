@@ -76,11 +76,11 @@ const DuplicateArtists = ({
                 currentKey = item.key;
                 return (
                   <>
-                    {lastKey !== item.key ? (
+                    {lastKey === item.key ? null : (
                       <tr className="subh">
                         <td colSpan="4" />
                       </tr>
-                    ) : null}
+                    )}
                     <tr className={loopParity(index)} key={item.artist.gid}>
                       <td>
                         <input name="add-to-merge" type="checkbox" value={item.artist.id} />

@@ -64,13 +64,13 @@ const CollaborationRelationships = ({
 
               return (
                 <>
-                  {lastID !== item.id1 ? (
+                  {lastID === item.id1 ? null : (
                     <tr className="even" key={item.artist1.gid}>
                       <td colSpan="2">
                         <EntityLink entity={item.artist1} />
                       </td>
                     </tr>
-                  ) : null}
+                  )}
                   <tr key={item.artist0.gid}>
                     <td />
                     <td>
