@@ -52,7 +52,7 @@
     "react": "16.7.0",
     "react-dom": "16.3.2",
     "redux": "3.6.0",
-    "shell-quote": "1.4.3",
+    "shell-quote": "1.6.1",
     "shelljs": "0.5.3",
     "sliced": "1.0.1",
     "tablesorter": "git://github.com/Mottie/tablesorter.git#430f8c5",
