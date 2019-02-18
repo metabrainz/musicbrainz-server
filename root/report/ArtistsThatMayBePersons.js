@@ -31,11 +31,12 @@ const ArtistsThatMayBePersons = ({
 
     <ul>
       <li>
-        {l('This report lists artists that have their type set to other than Person, \
-            but may be a person, based on their relationships. For example, an \
-            artist will appear here if it is listed as a member of another. If you find \
-            that an artist here is indeed a person, change its type. If it is not, \
-            please make sure that all the relationships are correct and make sense.')}
+        {l(`This report lists artists that have their type set to other
+            than Person, but may be a person, based on their relationships.
+            For example, an artist will appear here if it is listed
+            as a member of another. If you find that an artist here is indeed
+            a person, change its type. If it is not, please make sure that
+            all the relationships are correct and make sense.`)}
       </li>
       <li>{l('Total artists found: {count}', {count: pager.total_entries})}</li>
       <li>{l('Generated on {date}', {date: formatUserDate($c.user, generated)})}</li>

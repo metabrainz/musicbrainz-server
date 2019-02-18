@@ -40,12 +40,13 @@ const DuplicateArtists = ({
 
       <ul>
         <li>
-          {l('This report aims to identify artists with very similar names. If \
-              two artists are actually the same, please merge them (remember to \
-              {how_to_write_edit_notes|write an edit note} and give your proof). \
-              If they\'re different, add {disambiguation_comment|disambiguation \
-              comments} to them (and once a group of similarly named artists have \
-              disambiguation comments, they will stop appearing here).',
+          {l(`This report aims to identify artists with very similar names.
+              If two artists are actually the same, please merge them
+              (remember to {how_to_write_edit_notes|write an edit note}
+              and give your proof). If they\'re different, add
+              {disambiguation_comment|disambiguation comments} to them
+              (and once a group of similarly named artists have
+              disambiguation comments, they will stop appearing here).`,
           {
             disambiguation_comment: '/doc/Disambiguation_Comment',
             how_to_write_edit_notes: '/doc/How_to_Write_Edit_Notes',
@@ -75,11 +76,11 @@ const DuplicateArtists = ({
                 currentKey = item.key;
                 return (
                   <>
-                    {lastKey !== item.key ? (
+                    {lastKey === item.key ? null : (
                       <tr className="subh">
                         <td colSpan="4" />
                       </tr>
-                    ) : null}
+                    )}
                     <tr className={loopParity(index)} key={item.artist.gid}>
                       <td>
                         <input name="add-to-merge" type="checkbox" value={item.artist.id} />

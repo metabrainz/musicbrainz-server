@@ -31,9 +31,10 @@ const DuplicateEvents = ({
 
     <ul>
       <li>
-        {l(`This report lists events happening at the same place on the same date.
-            If there are duplicates (for example, if there are separate events for headliner
-            and supporting artist) please merge them.`)}
+        {l(`This report lists events happening at the same place
+            on the same date. If there are duplicates (for example,
+            if there are separate events for headliner and supporting artist)
+            please merge them.`)}
       </li>
       <li>{l('Total events found: {count}', {count: pager.total_entries})}</li>
       <li>{l('Generated on {date}', {date: formatUserDate($c.user, generated)})}</li>

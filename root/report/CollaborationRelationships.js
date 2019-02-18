@@ -36,9 +36,11 @@ const CollaborationRelationships = ({
 
       <ul>
         <li>
-          {l('This report lists artists which have collaboration relationships but no URL relationships. \
-              If the collaboration has its own independent name, do nothing. If it is in a format like \
-              "X with Y" or "X & Y", you should probably split it. See {how_to_split_artists|How to Split Artists}.',
+          {l(`This report lists artists which have collaboration relationships
+              but no URL relationships. If the collaboration has its own
+              independent name, do nothing. If it is in a format like
+              "X with Y" or "X & Y", you should probably split it.
+              See {how_to_split_artists|How to Split Artists}.`,
           {how_to_split_artists: '/doc/How_to_Split_Artists'})}
         </li>
         <li>{l('Total artists found: {count}', {count: pager.total_entries})}</li>
@@ -62,13 +64,13 @@ const CollaborationRelationships = ({
 
               return (
                 <>
-                  {lastID !== item.id1 ? (
+                  {lastID === item.id1 ? null : (
                     <tr className="even" key={item.artist1.gid}>
                       <td colSpan="2">
                         <EntityLink entity={item.artist1} />
                       </td>
                     </tr>
-                  ) : null}
+                  )}
                   <tr key={item.artist0.gid}>
                     <td />
                     <td>

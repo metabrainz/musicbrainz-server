@@ -31,9 +31,9 @@ const ArtistsWithNoSubscribers = ({
 
     <ul>
       <li>
-        {l('This report lists artists that have no editors subscribed to them, \
-            and whose changes may therefore be under-reviewed. Artists with more \
-            release groups and more open edits are listed first.')}
+        {l(`This report lists artists that have no editors subscribed to them,
+            and whose changes may therefore be under-reviewed. Artists with
+            more release groups and more open edits are listed first.`)}
       </li>
       <li>{l('Total artists found: {count}', {count: pager.total_entries})}</li>
       <li>{l('Generated on {date}', {date: formatUserDate($c.user, generated)})}</li>

@@ -57,7 +57,7 @@ const Index = ({$c, iswcs, works}: Props) => {
           <tbody>
             {works.map((work, index) => (
               <WorkListEntry
-                hasISWCColumn={false}
+                hasIswcColumn={false}
                 hasMergeColumn
                 index={index}
                 key={work.id}

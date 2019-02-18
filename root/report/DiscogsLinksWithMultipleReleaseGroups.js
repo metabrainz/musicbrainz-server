@@ -31,7 +31,8 @@ const DiscogsLinksWithMultipleReleaseGroups = ({
 
     <ul>
       <li>
-        {l('This report shows Discogs URLs which are linked to multiple release groups.')}
+        {l(`This report shows Discogs URLs which are linked
+            to multiple release groups.`)}
       </li>
       <li>{l('Total release groups found: {count}', {count: pager.total_entries})}</li>
       <li>{l('Generated on {date}', {date: formatUserDate($c.user, generated)})}</li>

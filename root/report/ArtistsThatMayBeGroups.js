@@ -31,11 +31,12 @@ const ArtistsThatMayBeGroups = ({
 
     <ul>
       <li>
-        {l('This report lists artists that have their type set to other than Group (or a subtype of Group) \
-            but may be a group, because they have other artists listed as members \
-            If you find that an artist here is indeed a group, change its type. If it is \
-            not, please make sure that the "member of" relationships are in the right \
-            direction and are correct.')}
+        {l(`This report lists artists that have their type set to other
+            than Group (or a subtype of Group) but may be a group,
+            because they have other artists listed as members. If you find
+            that an artist here is indeed a group, change its type. If it is
+            not, please make sure that the "member of" relationships are
+            in the right direction and are correct.`)}
       </li>
       <li>{l('Total artists found: {count}', {count: pager.total_entries})}</li>
       <li>{l('Generated on {date}', {date: formatUserDate($c.user, generated)})}</li>

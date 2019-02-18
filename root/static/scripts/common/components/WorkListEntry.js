@@ -9,7 +9,6 @@
 
 import * as React from 'react';
 
-import {l, ln} from '../i18n';
 import {lp_attributes} from '../i18n/attributes';
 import {l_languages} from '../i18n/languages';
 import loopParity from '../../../../utility/loopParity';
@@ -19,22 +18,26 @@ import ArtistRoles from './ArtistRoles';
 import CodeLink from './CodeLink';
 import EntityLink from './EntityLink';
 
-type Props = {|
-  +hasISWCColumn: boolean,
+type WorkListRowProps = {|
+  +hasIswcColumn: boolean,
+  +hasMergeColumn: boolean,
+  +work: WorkT,
+|};
+
+type WorkListEntryProps = {|
+  +hasIswcColumn: boolean,
   +hasMergeColumn: boolean,
   +index: number,
   +score?: number,
   +work: WorkT,
 |};
 
-const WorkListEntry = ({
-  hasISWCColumn,
+export const WorkListRow = ({
+  hasIswcColumn,
   hasMergeColumn,
-  index,
-  score,
   work,
-}: Props) => (
-  <tr className={loopParity(index)} data-score={score ? score : null}>
+}: WorkListRowProps) => (
+  <>
     {hasMergeColumn ? (
       <td>
         <input
@@ -57,7 +60,7 @@ const WorkListEntry = ({
         ))}
       </ul>
     </td>
-    {hasISWCColumn ? (
+    {hasIswcColumn ? (
       <td>
         <ul>
           {work.iswcs.map((iswc, i) => (
@@ -80,6 +83,22 @@ const WorkListEntry = ({
         ))}
       </ul>
     </td>
+  </>
+);
+
+const WorkListEntry = ({
+  hasIswcColumn,
+  hasMergeColumn,
+  index,
+  score,
+  work,
+}: WorkListEntryProps) => (
+  <tr className={loopParity(index)} data-score={score ? score : null}>
+    <WorkListRow
+      hasIswcColumn={hasIswcColumn}
+      hasMergeColumn={hasMergeColumn}
+      work={work}
+    />
   </tr>
 );
 

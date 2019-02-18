@@ -31,8 +31,10 @@ const DuplicateRelationshipsArtists = ({
 
     <ul>
       <li>
-        {l('This report lists artists which have multiple relatonships to the same artist, label or URL using the same relationship type. \
-            For multiple relationships to release groups, recordings or works, see the reports for those entities.')}
+        {l(`This report lists artists which have multiple relatonships to
+            the same artist, label or URL using the same relationship type.
+            For multiple relationships to release groups, recordings or works,
+            see the reports for those entities.`)}
       </li>
       <li>{l('Total artists found: {count}', {count: pager.total_entries})}</li>
       <li>{l('Generated on {date}', {date: formatUserDate($c.user, generated)})}</li>
