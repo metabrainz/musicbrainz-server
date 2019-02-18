@@ -5,7 +5,7 @@
 
 const Raven = require('raven-js');
 
-const DBDefs = require('./DBDefs');
+const DBDefs = require('./DBDefs-client');
 const {user} = require('./utility/getScriptArgs')();
 
 if (user && user.id) {

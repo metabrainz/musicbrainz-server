@@ -9,12 +9,10 @@
 
 import * as React from 'react';
 
-import * as manifest from '../../../manifest';
-
 const FilterIcon = () => (
   <img
     alt=""
-    src={manifest.pathTo('/images/icons/filter.png')}
+    src={require('../../../images/icons/filter.png')}
   />
 );
 

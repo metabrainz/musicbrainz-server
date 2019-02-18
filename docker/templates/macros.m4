@@ -36,9 +36,10 @@ m4_define(
     `m4_dnl
 install_javascript(`$1')
 
-copy_mb(``gulpfile.js ./'')
 copy_mb(``root/ root/'')
 copy_mb(``script/compile_resources.sh script/dbdefs_to_js.pl script/start_renderer.pl script/xgettext.js script/'')
+copy_mb(``webpack.client.config.js webpack.server.config.js webpack.tests.config.js ./'')
+copy_mb(``webpack/ webpack/'')
 
 RUN chown_mb(``/tmp/ttc'')')
 

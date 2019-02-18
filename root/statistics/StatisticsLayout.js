@@ -60,7 +60,11 @@ const StatisticsLayout = ({
   const htmlTitle = hyphenateTitle(l('Database Statistics'), title);
   return (
     <Layout fullWidth={fullWidth} gettext_domains={['attributes', 'relationships', 'statistics']} title={htmlTitle}>
-      {manifest.css('statistics')}
+      <link
+        href={require('../static/styles/statistics.less')}
+        rel="stylesheet"
+        type="text/css"
+      />
       <div id="content">
         <div className="statisticsheader">
           <h1>{l('Database Statistics')}</h1>

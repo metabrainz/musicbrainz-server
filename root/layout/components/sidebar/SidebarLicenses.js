@@ -21,51 +21,51 @@ import {l_relationships} from '../../../static/scripts/common/i18n/relationships
 
 const LICENSE_CLASSES = {
   ArtLibre: {
-    icon: manifest.pathTo('/images/licenses/ArtLibre.png'),
+    icon: require('../../../static/images/licenses/ArtLibre.png'),
     pattern: /artlibre\.org\/licence\/lal/,
   },
   CC0: {
-    icon: manifest.pathTo('/images/licenses/CC0.png'),
+    icon: require('../../../static/images/licenses/CC0.png'),
     pattern: /creativecommons\.org\/publicdomain\/zero\//,
   },
   CCBY: {
-    icon: manifest.pathTo('/images/licenses/CCBY.png'),
+    icon: require('../../../static/images/licenses/CCBY.png'),
     pattern: /creativecommons\.org\/licenses\/by\//,
   },
   CCBYNC: {
-    icon: manifest.pathTo('/images/licenses/CCBYNC.png'),
+    icon: require('../../../static/images/licenses/CCBYNC.png'),
     pattern: /creativecommons\.org\/licenses\/by-nc\//,
   },
   CCBYNCND: {
-    icon: manifest.pathTo('/images/licenses/CCBYNCND.png'),
+    icon: require('../../../static/images/licenses/CCBYNCND.png'),
     pattern: /creativecommons\.org\/licenses\/by-nc-nd\//,
   },
   CCBYNCSA: {
-    icon: manifest.pathTo('/images/licenses/CCBYNCSA.png'),
+    icon: require('../../../static/images/licenses/CCBYNCSA.png'),
     pattern: /creativecommons\.org\/licenses\/by-nc-sa\//,
   },
   CCBYND: {
-    icon: manifest.pathTo('/images/licenses/CCBYND.png'),
+    icon: require('../../../static/images/licenses/CCBYND.png'),
     pattern: /creativecommons\.org\/licenses\/by-nd\//,
   },
   CCBYSA: {
-    icon: manifest.pathTo('/images/licenses/CCBYSA.png'),
+    icon: require('../../../static/images/licenses/CCBYSA.png'),
     pattern: /creativecommons\.org\/licenses\/by-sa\//,
   },
   CCNCSamplingPlus: {
-    icon: manifest.pathTo('/images/licenses/CCNCSamplingPlus.png'),
+    icon: require('../../../static/images/licenses/CCNCSamplingPlus.png'),
     pattern: /creativecommons\.org\/licenses\/nc-sampling\+\//,
   },
   CCPD: {
-    icon: manifest.pathTo('/images/licenses/CCPD.png'),
+    icon: require('../../../static/images/licenses/CCPD.png'),
     pattern: /creativecommons\.org\/licenses\/publicdomain\//,
   },
   CCSampling: {
-    icon: manifest.pathTo('/images/licenses/CCSampling.png'),
+    icon: require('../../../static/images/licenses/CCSampling.png'),
     pattern: /creativecommons\.org\/licenses\/sampling\//,
   },
   CCSamplingPlus: {
-    icon: manifest.pathTo('/images/licenses/CCSamplingPlus.png'),
+    icon: require('../../../static/images/licenses/CCSamplingPlus.png'),
     pattern: /creativecommons\.org\/licenses\/sampling\+\//,
   },
 };

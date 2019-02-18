@@ -42,7 +42,7 @@ CDP((client) => {
       let args = event.args.map(getValue);
       (console[event.type] || console.log).apply(console, args);
 
-      if (args[0] === '# ok') {
+      if (/^\s*# ok\s*$/.test(args[0])) {
         done = true;
         exit(0);
       } else {

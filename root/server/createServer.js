@@ -3,11 +3,13 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
+/* eslint-disable import/no-commonjs */
+
 const net = require('net');
 const Raven = require('raven');
 
 const DBDefs = require('../static/scripts/common/DBDefs');
-const sanitizedContext = require('../utility/sanitizedContext').default;
+const sanitizedContext = require('../utility/sanitizedContext');
 const {allocBuffer} = require('./buffer');
 const {badRequest, getResponse} = require('./response');
 const {clearRequireCache} = require('./utils');

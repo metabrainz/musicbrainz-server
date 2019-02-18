@@ -11,9 +11,9 @@ const React = require('react');
 
 const {ENTITIES, AREA_TYPE_COUNTRY} = require('../constants');
 const {l} = require('../i18n');
-import localizeAreaName from '../i18n/localizeAreaName';
-import localizeInstrumentName from '../i18n/localizeInstrumentName';
-import bracketed from '../utility/bracketed';
+const localizeAreaName = require('../i18n/localizeAreaName').default;
+const localizeInstrumentName = require('../i18n/localizeInstrumentName').default;
+const bracketed = require('../utility/bracketed').default;
 const entityHref = require('../utility/entityHref');
 const formatDatePeriod = require('../utility/formatDatePeriod');
 const isolateText = require('../utility/isolateText');

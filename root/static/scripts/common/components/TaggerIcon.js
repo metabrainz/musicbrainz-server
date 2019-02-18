@@ -9,7 +9,6 @@
 
 const React = require('react');
 const {withCatalystContext} = require('../../../../context');
-const {pathTo} = require('../../../manifest');
 const {l} = require('../i18n');
 
 function buildTaggerLink(entity, tport: number): string {
@@ -42,7 +41,7 @@ const TaggerIcon = ({$c, entity}: Props) => {
     >
       <img
         alt={l('Tagger')}
-        src={pathTo('/images/icons/mblookup-tagger.png')}
+        src={require('../../../images/icons/mblookup-tagger.png')}
       />
     </a>
   );

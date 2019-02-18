@@ -13,7 +13,7 @@ _compile_static_resources() {
 
     pushd "$MBS_ROOT" > /dev/null
     HOME="$MBS_HOME" MBS_STATIC_BUILD_DIR="$TMP_BUILD_DIR" \
-        eval 'chpst -u musicbrainz:musicbrainz carton exec -- ./script/compile_resources.sh &'
+        eval 'chpst -u musicbrainz:musicbrainz carton exec -- ./script/compile_resources.sh client &'
     trap_jobs
     popd > /dev/null
 }
@@ -43,6 +43,7 @@ _deploy_static_resources() {
         rsync-staticbrainz-mb \
         "$BUILD_DIR/" \
         ./ \
+        '--exclude', 'server*',
         '--recursive' \
         &
     trap_jobs

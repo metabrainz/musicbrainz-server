@@ -62,7 +62,7 @@ MB.CoverArt.image_error = function ($img, image) {
            between requesting the index and loading the image.
            FIXME: start over if this happens?  obviously the
            data in the index is incorrect. */
-        $img.attr("src", "/static/images/image404-125.png")
+        $img.attr("src", require('../../../images/image404-125.png'));
     }
 };
 

@@ -28,13 +28,83 @@ fi
 
 ./script/dbdefs_to_js.pl
 
-if [[ "$@" == *tests* ]]; then
+BUILD_CLIENT=0
+BUILD_SERVER=0
+BUILD_TESTS=0
+WATCH_MODE=0
+JOBS_TRAPPED=0
+
+check_trap_jobs() {
+    if [[ "$JOBS_TRAPPED" == "0" ]]; then
+        trap_jobs_nowait
+        JOBS_TRAPPED=1
+    fi
+    # For watch mode, we only want to wait once at the end.
+    if [[ "$WATCH_MODE" == "0" ]]; then wait; fi
+}
+
+# Handle the default case when --watch is the only argument provided.
+if [[ "$#" == 1 && "$1" == '--watch' ]]; then export WATCH_MODE=1; fi
+
+if [[ "$#" == "0" || "$WATCH_MODE" == "1" ]]; then
+    BUILD_CLIENT=1
+    BUILD_SERVER=1
+else
+    while (( "$#" )); do
+        case "$1" in
+            --watch)
+                export WATCH_MODE=1
+                ;;
+            default)
+                BUILD_CLIENT=1
+                BUILD_SERVER=1
+                ;;
+            client)
+                BUILD_CLIENT=1
+                ;;
+            server)
+                BUILD_SERVER=1
+                ;;
+            tests)
+                BUILD_TESTS=1
+                ;;
+            web-tests) # for backwards-compat. only
+                BUILD_TESTS=1
+                ;;
+            *)
+                echo $"Usage: $0 [--watch] {default|client|server|tests}"
+                exit 1
+        esac
+        shift
+    done
+fi
+
+if [[ "$BUILD_CLIENT" == "1" ]]; then
+    ./node_modules/.bin/webpack --config webpack.client.config.js &
+    check_trap_jobs
+
+    if [[ "$BUILD_SERVER" == "1" ]]; then
+        sleep 5
+        while [[ ! -f "$BUILD_DIR/rev-manifest.json" ]]; do
+            echo 'Waiting for rev-manifest.json before building server JS ...'
+            sleep 3
+        done
+    fi
+fi
+
+if [[ "$BUILD_SERVER" == "1" ]]; then
+    ./node_modules/.bin/webpack --config webpack.server.config.js &
+    check_trap_jobs
+fi
+
+if [[ "$BUILD_TESTS" == "1" ]]; then
     if ./script/database_exists TEST 2> /dev/null; then
         ./script/dump_js_type_info.pl
     else
         echo 'Skipping typeInfo.js dump; no running TEST database?'
     fi
+    ./node_modules/.bin/webpack --config webpack.tests.config.js &
+    check_trap_jobs
 fi
 
-./node_modules/.bin/gulp "$@" &
-trap_jobs
+if [[ "$WATCH_MODE" == "1" ]]; then wait; fi

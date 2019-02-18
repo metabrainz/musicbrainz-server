@@ -74,7 +74,7 @@ export const testRelease = {
     artist: "Boredoms",
     typeID: 1,
     comment: "",
-    artistCredit: exports.testArtistCredit,
+    artistCredit: testArtistCredit,
     id: 83146,
     secondaryTypeIDs: [],
     firstReleaseDate: "1999-10-27",
@@ -102,7 +102,7 @@ export const testRelease = {
           name: "\u25cb",
           length: 822093,
           id: 564394,
-          artistCredit: exports.testArtistCredit,
+          artistCredit: testArtistCredit,
           gid: "aaed3498-cb14-3c2b-8c08-ad03bf46ab61"
         },
         {
@@ -120,7 +120,7 @@ export const testRelease = {
           name: "\u2606",
           length: 322933,
           id: 564395,
-          artistCredit: exports.testArtistCredit,
+          artistCredit: testArtistCredit,
           gid: "cce78f39-a1a0-32d5-b921-091757f28586"
         }
       ],
@@ -138,7 +138,7 @@ export const testRelease = {
   formats: "2\u00d7CD",
   packagingID: null,
   comment: "limited edition",
-  artistCredit: exports.testArtistCredit,
+  artistCredit: testArtistCredit,
   id: 249113,
   labels: [
     {
@@ -184,7 +184,7 @@ export const testMedium = {
       name: "\u2609",
       length: 92666,
       id: 892996,
-      artistCredit: exports.testArtistCredit,
+      artistCredit: testArtistCredit,
       gid: "2e8e2c89-d2ac-3e78-b8b9-b09f3fcf8c98"
     }
   ],

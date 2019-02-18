@@ -1,3 +1,5 @@
+require('./common');
+
 require("knockout-arraytransforms");
 require("../lib/knockout/knockout-delegatedEvents");
 
@@ -28,3 +30,5 @@ require("./edit/MB/edit");
 require("./edit/MB/reltypeslist");
 require("./edit/MB/TextList");
 require("./edit/check-duplicates");
+
+require('./guess-case/MB/Control/GuessCase');

@@ -18,7 +18,7 @@
 
 'use strict';
 
-import * as constants from './constants';
+const constants = require('./constants');
 
 const global = require('../global');
 

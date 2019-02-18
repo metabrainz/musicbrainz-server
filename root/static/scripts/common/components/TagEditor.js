@@ -5,7 +5,6 @@
 // and is licensed under the GPL version 2, or (at your option) any
 // later version: http://www.gnu.org/licenses/gpl-2.0.txt
 
-const $ = require('jquery');
 const _ = require('lodash');
 const React = require('react');
 const ReactDOM = require('react-dom');
@@ -19,7 +18,6 @@ import NopArgs from '../i18n/NopArgs';
 const MB = require('../MB');
 import bracketed from '../utility/bracketed';
 import isBlank from '../utility/isBlank';
-const request = require('../utility/request');
 
 const TagLink = require('./TagLink');
 
@@ -237,9 +235,12 @@ class TagEditor extends React.Component<TagEditorProps, TagEditorState> {
 
     this.pendingVotes = {};
 
-    var doRequest = request;
+    let doRequest;
     if (asap) {
+      const $ = require('jquery');
       doRequest = args => $.ajax(_.assign({dataType: 'json'}, args));
+    } else {
+      doRequest = require('../utility/request');
     }
 
     _.each(actions, (items, action) => {
@@ -336,6 +337,7 @@ class TagEditor extends React.Component<TagEditorProps, TagEditorState> {
       })
     );
 
+    const $ = require('jquery');
     var tagsPath = getTagsPath(this.props.entity);
     $.get(`${tagsPath}/upvote?tags=${encodeURIComponent(tags)}`, data => {
       this.updateTags(JSON.parse(data).updates);
@@ -387,6 +389,8 @@ class TagEditor extends React.Component<TagEditorProps, TagEditorState> {
   }
 
   setTagsInput(input: TagsInputT) {
+    const $ = require('jquery');
+
     if (!input) {
       $(this.tagsInput).autocomplete('destroy');
       this.tagsInput = null;
@@ -436,7 +440,7 @@ class TagEditor extends React.Component<TagEditorProps, TagEditorState> {
   }
 }
 
-class MainTagEditor extends TagEditor {
+export const MainTagEditor = hydrate<TagEditorProps>('all-tags', class extends TagEditor {
   hideNegativeTags(event: SyntheticEvent<HTMLAnchorElement>) {
     event.preventDefault();
     this.setState({positiveTagsOnly: true});
@@ -533,9 +537,9 @@ class MainTagEditor extends TagEditor {
       </div>
     );
   }
-}
+}, minimalEntity);
 
-class SidebarTagEditor extends TagEditor {
+export const SidebarTagEditor = hydrate<TagEditorProps>('sidebar-tags', class extends TagEditor {
   render() {
     const tagRows = this.createTagRows();
     return (
@@ -587,7 +591,7 @@ class SidebarTagEditor extends TagEditor {
       </>
     );
   }
-}
+}, minimalEntity);
 
 const keyByTag = keyBy(t => t.tag);
 
@@ -635,9 +639,5 @@ function init_tag_editor(Component, mountPoint) {
     );
   };
 }
-
-exports.MainTagEditor = hydrate<TagEditorProps>('all-tags', MainTagEditor, minimalEntity);
-
-exports.SidebarTagEditor = hydrate<TagEditorProps>('sidebar-tags', SidebarTagEditor, minimalEntity);
 
 MB.init_main_tag_editor = init_tag_editor(MainTagEditor, 'all-tags');

@@ -9,7 +9,6 @@ const _ = require('lodash');
 const React = require('react');
 const ReactDOMServer = require('react-dom/server');
 
-const manifest = require('../../manifest');
 const EntityLink = require('../common/components/EntityLink');
 const {l, ln} = require('../common/i18n');
 const {createMap, L} = require('../common/leaflet');
@@ -33,18 +32,14 @@ if (places.length) {
   });
 
   const iconNames = {
-    '1': 'studio-marker',
-    '2': 'venue-marker',
-    '3': 'marker',
-    '4': 'stadium-marker',
-    '5': 'arena-marker',
-    '6': 'religious-marker',
+    '1': require('../../images/leaflet/studio-marker-icon.png'),
+    '2': require('../../images/leaflet/venue-marker-icon.png'),
+    '3': require('../../images/leaflet/marker-icon.png'),
+    '4': require('../../images/leaflet/stadium-marker-icon.png'),
+    '5': require('../../images/leaflet/arena-marker-icon.png'),
+    '6': require('../../images/leaflet/religious-marker-icon.png'),
   };
-  const icons = _.mapValues(iconNames, function (name) {
-    return new LeafIcon({
-      iconUrl: manifest.pathTo('/images/leaflet/' + name + '-icon.png'),
-    });
-  });
+  const icons = _.mapValues(iconNames, iconUrl => new LeafIcon({iconUrl}));
 
   const markers = L.markerClusterGroup({
     maxClusterRadius: 50,
@@ -52,7 +47,7 @@ if (places.length) {
     showCoverageOnHover: false,
     zoomToBoundsOnClick: false,
     iconCreateFunction: function (cluster) {
-      const iconURL = manifest.pathTo('/images/leaflet/cluster-marker-icon.png');
+      const iconURL = require('../../images/leaflet/cluster-marker-icon.png');
 
       return L.divIcon({
         html: '<img src="' + _.escape(iconURL) + '" />'

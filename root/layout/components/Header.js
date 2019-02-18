@@ -9,8 +9,6 @@
 
 import React from 'react';
 
-import * as manifest from '../../static/manifest';
-
 import HeaderLogo from './HeaderLogo';
 import TopMenu from './TopMenu';
 import BottomMenu from './BottomMenu';

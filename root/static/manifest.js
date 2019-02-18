@@ -3,53 +3,29 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-const isNodeJS = require('detect-node');
-const fs = require('fs');
-const path = require('path');
+/*
+ * This module is used to look up assets in webpack's manifest, which maps
+ * asset names to their public URLs (which include a hash in the filename
+ * in production). This is really only useful for looking up JavaScript
+ * bundles; for other types of assets, we use webpack's file-loader. This
+ * module shouldn't be used in any client scripts, as it makes no sense
+ * there. The actual manifest file (./build/rev-manifest) doesn't exist
+ * until after the client scripts are bundled.
+ */
 const React = require('react');
 
-const {
-    STAT_TTL,
-    STATIC_RESOURCES_LOCATION,
-  } = require('./scripts/common/DBDefs');
+const revManifest = require('./build/rev-manifest');
 
-function _pathTo(manifest, signatures) {
+function pathTo(manifest) {
   manifest = manifest.replace(/^\//, '');
 
-  if (!signatures[manifest]) {
-    return STATIC_RESOURCES_LOCATION + '/' + manifest;
+  const publicPath = revManifest[manifest];
+
+  if (!publicPath) {
+    return manifest;
   }
 
-  return STATIC_RESOURCES_LOCATION + '/' + signatures[manifest];
-}
-
-let pathTo;
-
-if (isNodeJS) {
-  let MANIFEST_MTIME = 0;
-  let MANIFEST_LAST_CHECKED = 0;
-  let MANIFEST_SIGNAUTRES = {};
-  const REV_MANIFEST_PATH = path.join(__dirname, 'build/rev-manifest.json');
-
-  pathTo = function (manifest) {
-    let now = Date.now();
-
-    if ((now - MANIFEST_LAST_CHECKED) > (STAT_TTL || 0)) {
-      MANIFEST_LAST_CHECKED = now;
-
-      let stats = fs.statSync(REV_MANIFEST_PATH);
-      if (stats.mtime > MANIFEST_MTIME) {
-        MANIFEST_MTIME = stats.mtime;
-        MANIFEST_SIGNAUTRES = JSON.parse(fs.readFileSync(REV_MANIFEST_PATH));
-      }
-    }
-
-    return _pathTo(manifest, MANIFEST_SIGNAUTRES);
-  };
-} else {
-  pathTo = function (manifest) {
-    return _pathTo(manifest, require('rev-manifest.json'));
-  };
+  return publicPath;
 }
 
 const jsExt = /\.js(?:on)?$/;
@@ -59,16 +35,10 @@ function js(manifest, extraAttrs={}) {
   }
   return (
     <script
-      src={pathTo('scripts/' + manifest)}
+      src={pathTo(manifest)}
       {...extraAttrs}>
     </script>
   );
 }
 
-function css(manifest) {
-  return <link rel="stylesheet" type="text/css" href={pathTo('styles/' + manifest + '.css')} />;
-}
-
 exports.js = js;
-exports.css = css;
-exports.pathTo = pathTo;

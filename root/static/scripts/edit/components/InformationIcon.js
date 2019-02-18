@@ -9,15 +9,13 @@
 
 import * as React from 'react';
 
-import * as manifest from '../../../manifest';
-
 type Props = {|
   title?: string,
 |};
 
 const InformationIcon = (props: Props) => (
   <img
-    src={manifest.pathTo('/images/icons/information.png')}
+    src={require('../../../images/icons/information.png')}
     {...props}
   />
 );

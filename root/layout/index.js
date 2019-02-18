@@ -145,7 +145,7 @@ const Layout = ({$c, ...props}) => (
         <div style={{clear: 'both'}} />
       </div>
 
-      {($c.session.merger && !$c.stash.hide_merge_helper) && <MergeHelper />}
+      {($c.session && $c.session.merger && !$c.stash.hide_merge_helper) && <MergeHelper />}
 
       <Footer {...props} />
     </body>

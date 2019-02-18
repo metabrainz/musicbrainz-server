@@ -62,9 +62,19 @@ const Head = ({$c, ...props}) => (
 
     <CanonicalLink requestUri={$c.req.uri} />
 
-    {manifest.css('common')}
+    <link
+      href={require('../../static/styles/common.less')}
+      rel="stylesheet"
+      type="text/css"
+    />
 
-    {props.no_icons ? null : manifest.css('icons')}
+    {props.no_icons
+      ? null
+      : <link
+          href={require('../../static/styles/icons.less')}
+          rel="stylesheet"
+          type="text/css"
+        />}
 
     <link
       href="/static/search_plugins/opensearch/musicbrainz_artist.xml"
@@ -98,9 +108,11 @@ const Head = ({$c, ...props}) => (
       />
     </noscript>
 
-    {manifest.js('rev-manifest')}
+    {manifest.js('runtime')}
 
-    {manifest.js('common/i18n/jedData.json')}
+    {manifest.js('common-chunks')}
+
+    {manifest.js('jed-data')}
 
     {$c.stash.current_language !== 'en'
       ? ['mb_server'].concat(props.gettext_domains || []).map(function (domain) {

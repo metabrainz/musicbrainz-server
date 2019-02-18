@@ -1,5 +1,4 @@
 [%- USE JSON.Escape %]
-[% script_manifest('guess-case.js') %]
 [% script_manifest('edit.js') %]
 
 <p>[%- l('For more information, check the {doc_doc|documentation}.', {doc_doc => doc_link('Work')}) -%]</p>
