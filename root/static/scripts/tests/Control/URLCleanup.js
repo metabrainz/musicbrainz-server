@@ -1610,6 +1610,13 @@ const testData = [
        only_valid_entity_types: ['artist'],
   },
   {
+                     input_url: 'https://itunes.apple.com/us/author/paige-lewis/id348965238#',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'downloadpurchase',
+            expected_clean_url: 'https://itunes.apple.com/us/artist/paige-lewis/id348965238#',
+       only_valid_entity_types: [],
+  },
+  {
                      input_url: 'http://itunes.apple.com/music-video/gangnam-style/id564322420?v0=WWW-NAUS-ITSTOP100-MUSICVIDEOS&ign-mpt=uo%3D2',
              input_entity_type: 'recording',
     expected_relationship_type: 'downloadpurchase',
