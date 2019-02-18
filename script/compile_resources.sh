@@ -6,6 +6,8 @@ shopt -s failglob
 MB_SERVER_ROOT=$(cd "$(dirname "${BASH_SOURCE[0]}")/../" && pwd)
 cd "$MB_SERVER_ROOT"
 
+yarn
+
 source script/functions.sh
 
 BUILD_DIR=${MBS_STATIC_BUILD_DIR:-root/static/build/}
