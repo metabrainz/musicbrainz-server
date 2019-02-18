@@ -1,6 +1,6 @@
-const $ = require('jquery');
+import $ from 'jquery';
 
-const MB = require('../MB');
+import MB from '../MB';
 
 $(function () {
 

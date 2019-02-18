@@ -18,9 +18,9 @@
 
 'use strict';
 
-const constants = require('./constants');
+import global from '../global';
 
-const global = require('../global');
+import * as constants from './constants';
 
 // Namespaces
 const MB: {[string]: *} = {
@@ -39,4 +39,4 @@ const MB: {[string]: *} = {
 
 global.MB = MB;
 
-module.exports = MB;
+export default MB;

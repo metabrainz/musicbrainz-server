@@ -2,7 +2,7 @@ const $ = require('jquery');
 const _ = require('lodash');
 const ko = require('knockout');
 
-const debounce = require('./common/utility/debounce');
+const debounce = require('./common/utility/debounce').default;
 import parseDate from './common/utility/parseDate';
 import stats, {buildTypeStats, getStat} from '../../statistics/stats';
 

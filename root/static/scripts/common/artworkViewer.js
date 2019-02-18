@@ -3,10 +3,10 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-const $ = require('jquery');
-const _ = require('lodash');
+import $ from 'jquery';
+import _ from 'lodash';
 
-const {l} = require('./i18n');
+import {l} from './i18n';
 
 $.widget("mb.artworkViewer", $.ui.dialog, {
 

@@ -1,6 +1,8 @@
-const cookie = require('cookie');
+import cookie from 'cookie';
 
-const _cookies = require('./_cookies');
+import _cookies from './_cookies';
+
+let defaultExport;
 
 function oneYearFromNow() {
   return new Date(Date.now() + (1000 * 60 * 60 * 24 * 365));
@@ -16,7 +18,9 @@ function setCookie(name, value, expiration = oneYearFromNow()) {
 
 if (typeof document === 'undefined' ||
     window.location.protocol === 'file:') {
-  module.exports = setCookieFallback;
+  defaultExport = setCookieFallback;
 } else {
-  module.exports = setCookie;
+  defaultExport = setCookie;
 }
+
+export default defaultExport;

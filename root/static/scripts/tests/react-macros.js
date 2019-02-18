@@ -19,9 +19,9 @@ if (!document) {
 const React = require('react');
 const ReactDOMServer  = require('react-dom/server');
 
-const DescriptiveLink = require('../common/components/DescriptiveLink');
-const EditorLink = require('../common/components/EditorLink');
-const EntityLink = require('../common/components/EntityLink');
+const DescriptiveLink = require('../common/components/DescriptiveLink').default;
+const EditorLink = require('../common/components/EditorLink').default;
+const EntityLink = require('../common/components/EntityLink').default;
 const l = require('../common/i18n').l;
 const entities = require('../common/immutable-entities');
 

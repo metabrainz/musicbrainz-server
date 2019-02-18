@@ -6,19 +6,18 @@
  * http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-const ko = require('knockout');
-const React = require('react');
+import ko from 'knockout';
+import * as React from 'react';
 
-const {ENTITIES, AREA_TYPE_COUNTRY} = require('../constants');
-const {l} = require('../i18n');
-const localizeAreaName = require('../i18n/localizeAreaName').default;
-const localizeInstrumentName = require('../i18n/localizeInstrumentName').default;
-const bracketed = require('../utility/bracketed').default;
-const entityHref = require('../utility/entityHref');
-const formatDatePeriod = require('../utility/formatDatePeriod');
-const isolateText = require('../utility/isolateText');
-const nonEmpty = require('../utility/nonEmpty');
-const reactTextContent = require('../utility/reactTextContent');
+import {l} from '../i18n';
+import localizeAreaName from '../i18n/localizeAreaName';
+import localizeInstrumentName from '../i18n/localizeInstrumentName';
+import bracketed from '../utility/bracketed';
+import entityHref from '../utility/entityHref';
+import formatDatePeriod from '../utility/formatDatePeriod';
+import isolateText from '../utility/isolateText';
+import nonEmpty from '../utility/nonEmpty';
+import reactTextContent from '../utility/reactTextContent';
 
 const DeletedLink = ({name, allowNew}: {|+name: React.Node, +allowNew: boolean|}) => {
   const caption = allowNew
@@ -246,4 +245,4 @@ const EntityLink = ({
   return parts;
 };
 
-module.exports = EntityLink;
+export default EntityLink;

@@ -7,9 +7,9 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-const React = require('react');
+import React from 'react';
 
-const entityHref = require('../utility/entityHref');
+import entityHref from '../utility/entityHref';
 
 type Props = {|
   +code: IsrcT | IswcT,
@@ -30,4 +30,4 @@ const CodeLink = ({code}: Props) => {
   return link;
 };
 
-module.exports = CodeLink;
+export default CodeLink;

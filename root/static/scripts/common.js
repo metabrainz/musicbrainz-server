@@ -14,7 +14,7 @@ require('core-js/es6/promise');
 require('core-js/es6/symbol');
 
 const DBDefs = require('./common/DBDefs-client');
-const MB = require('./common/MB');
+import MB from './common/MB';
 
 if (DBDefs.DEVELOPMENT_SERVER) {
   // Used by the Selenium tests under /t/selenium/ to make sure that no errors

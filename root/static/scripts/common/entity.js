@@ -3,31 +3,29 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-const ko = require('knockout');
-const _ = require('lodash');
-const React = require('react');
-const ReactDOMServer = require('react-dom/server');
+import ko from 'knockout';
+import _ from 'lodash';
+import React from 'react';
+import ReactDOMServer from 'react-dom/server';
 
-const ArtistCreditLink = require('./components/ArtistCreditLink');
-const EditorLink = require('./components/EditorLink');
-const EntityLink = require('./components/EntityLink');
-const {
-    ENTITY_NAMES,
-    PART_OF_SERIES_LINK_TYPES,
-    PROBABLY_CLASSICAL_LINK_TYPES,
-    VARTIST_GID,
-} = require('./constants');
-const i18n = require('./i18n');
-const {
-        artistCreditFromArray,
-        artistCreditsAreEqual,
-        isCompleteArtistCredit,
-    } = require('./immutable-entities');
-const MB = require('./MB');
-const linkTypeInfo = require('./typeInfo').link_type;
-const bracketed = require('./utility/bracketed').default;
-const clean = require('./utility/clean');
-const formatTrackLength = require('./utility/formatTrackLength');
+import ArtistCreditLink from './components/ArtistCreditLink';
+import EditorLink from './components/EditorLink';
+import EntityLink from './components/EntityLink';
+import {
+  ENTITY_NAMES,
+  PART_OF_SERIES_LINK_TYPES,
+  PROBABLY_CLASSICAL_LINK_TYPES,
+} from './constants';
+import {addColon, l} from './i18n';
+import {
+  artistCreditFromArray,
+  artistCreditsAreEqual,
+  isCompleteArtistCredit,
+} from './immutable-entities';
+import MB from './MB';
+import {link_type as linkTypeInfo} from './typeInfo';
+import clean from './utility/clean';
+import formatTrackLength from './utility/formatTrackLength';
 
 (function () {
 
@@ -71,7 +69,7 @@ const formatTrackLength = require('./utility/formatTrackLength');
         }
 
         entityTypeLabel() {
-            return i18n.addColon(ENTITY_NAMES[this.entityType].toLocaleString());
+            return addColon(ENTITY_NAMES[this.entityType].toLocaleString());
         }
 
         html(...args) {
@@ -234,7 +232,7 @@ const formatTrackLength = require('./utility/formatTrackLength');
     class Label extends CoreEntity {
         selectionMessage() {
             return ReactDOMServer.renderToStaticMarkup(
-                i18n.l('You selected {label}.', {label: this.reactElement({target: '_blank'})})
+                l('You selected {label}.', {label: this.reactElement({target: '_blank'})})
             );
         }
     }
@@ -244,7 +242,7 @@ const formatTrackLength = require('./utility/formatTrackLength');
     class Area extends CoreEntity {
         selectionMessage() {
             return ReactDOMServer.renderToStaticMarkup(
-                i18n.l('You selected {area}.', {area: this.reactElement({ target: '_blank'})})
+                l('You selected {area}.', {area: this.reactElement({ target: '_blank'})})
             );
         }
     }
@@ -329,7 +327,7 @@ const formatTrackLength = require('./utility/formatTrackLength');
     class ReleaseGroup extends CoreEntity {
         selectionMessage() {
             return ReactDOMServer.renderToStaticMarkup(
-                i18n.l('You selected {releasegroup}.', {
+                l('You selected {releasegroup}.', {
                     releasegroup: this.reactElement({target: '_blank'}),
                 })
             );
@@ -430,7 +428,7 @@ const formatTrackLength = require('./utility/formatTrackLength');
                 positionName = this.format ? "{medium_format} {position}" : "Medium {position}";
             }
 
-            this.positionName = i18n.l(positionName, {
+            this.positionName = l(positionName, {
                 medium_format: this.format,
                 position: this.position,
                 title: this.name
@@ -489,4 +487,4 @@ const formatTrackLength = require('./utility/formatTrackLength');
     };
 }());
 
-module.exports = MB.entity;
+export default MB.entity;

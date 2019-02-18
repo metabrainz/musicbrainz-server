@@ -7,10 +7,12 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
+import ENTITIES from '../../../../entities';
+
 import {N_l, N_lp} from './i18n';
 import NopArgs from './i18n/NopArgs';
 
-export const ENTITIES = require('../../../../entities');
+export {ENTITIES};
 
 export const ENTITY_NAMES = {
   area: N_l('Area'),

@@ -3,14 +3,15 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-const ko = require('knockout');
-const React = require('react');
+import ko from 'knockout';
+import React from 'react';
 
-const {l} = require('../i18n');
-const {artistCreditFromArray} = require('../immutable-entities');
-const AreaWithContainmentLink = require('./AreaWithContainmentLink');
-const ArtistCreditLink = require('./ArtistCreditLink');
-const EntityLink = require('./EntityLink');
+import {l} from '../i18n';
+import {artistCreditFromArray} from '../immutable-entities';
+
+import AreaWithContainmentLink from './AreaWithContainmentLink';
+import ArtistCreditLink from './ArtistCreditLink';
+import EntityLink from './EntityLink';
 
 const DescriptiveLink = ({entity, content, showDeletedArtists = true}) => {
   let props = {content, showDisambiguation: true};
@@ -48,4 +49,4 @@ const DescriptiveLink = ({entity, content, showDeletedArtists = true}) => {
   return link;
 };
 
-module.exports = DescriptiveLink;
+export default DescriptiveLink;

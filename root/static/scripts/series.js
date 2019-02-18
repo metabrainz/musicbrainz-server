@@ -4,7 +4,7 @@ const ko = require('knockout');
 
 const {SERIES_ORDERING_TYPE_AUTOMATIC} = require('./common/constants');
 const {lp_attributes} = require('./common/i18n/attributes');
-const MB = require('./common/MB');
+import MB from './common/MB';
 const initializeDuplicateChecker = require('./edit/check-duplicates').default;
 
 $(function () {

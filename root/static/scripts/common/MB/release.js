@@ -3,11 +3,11 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-const $ = require('jquery');
+import $ from 'jquery';
 
-const i18n = require('../i18n');
-const getBooleanCookie = require('../utility/getBooleanCookie');
-const setCookie = require('../utility/setCookie');
+import {l} from '../i18n';
+import getBooleanCookie from '../utility/getBooleanCookie';
+import setCookie from '../utility/setCookie';
 
 $(function () {
   var $bottomCredits = $('#bottom-credits');
@@ -19,7 +19,7 @@ $(function () {
     $('table.tbl div.ars').show();
     $bottomCredits.toggle(hasReleaseCredits);
 
-    $toggle.text(i18n.l('Display Credits at Bottom'));
+    $toggle.text(l('Display Credits at Bottom'));
     setCookie('bottom-credits', 0);
   }
 
@@ -28,7 +28,7 @@ $(function () {
     $('.bottom-credits').show();
     $bottomCredits.show();
 
-    $toggle.text(i18n.l('Display Credits Inline'));
+    $toggle.text(l('Display Credits Inline'));
     setCookie('bottom-credits', 1);
   }
 
@@ -56,7 +56,7 @@ $(function () {
     var $message = $('<div>')
       .appendTo($tbody.find('td'))
       .addClass('loading-message')
-      .text(i18n.l('Loading...'));
+      .text(l('Loading...'));
 
     var mediumId = this.getAttribute('data-medium-id');
 
@@ -88,7 +88,7 @@ $(function () {
         }
       })
       .fail(function () {
-        $message.removeClass('loading-message').text(i18n.l('Failed to load the medium.'));
+        $message.removeClass('loading-message').text(l('Failed to load the medium.'));
       });
 
     // Prevent browser from following link

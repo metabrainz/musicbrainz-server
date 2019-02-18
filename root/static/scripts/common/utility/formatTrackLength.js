@@ -3,7 +3,7 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-function formatTrackLength(milliseconds, placeholder='?:??') {
+export default function formatTrackLength(milliseconds, placeholder='?:??') {
     if (!milliseconds) {
         return placeholder;
     }
@@ -32,5 +32,3 @@ function formatTrackLength(milliseconds, placeholder='?:??') {
 
     return result;
 }
-
-module.exports = formatTrackLength;
