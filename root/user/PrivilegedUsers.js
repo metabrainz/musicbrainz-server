@@ -58,10 +58,10 @@ const PrivilegedUsers = ({
       <p>
         {l(`Relationship editors are users who can add or modify relationship
             types in the database. If you would like to propose a new
-            relationship, please do so through the {url|Style Council}.
+            relationship, you must follow our {url|proposal system}.
             Relationship editors will only make changes that have
-            been approved by the Style Council.`,
-        {url: 'doc/Style_Council'})}
+            been accepted through the proposal system.`,
+        {url: 'doc/Proposals'})}
       </p>
       <p>
         {l(
