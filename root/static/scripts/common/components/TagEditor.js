@@ -7,7 +7,6 @@
 
 import _ from 'lodash';
 import React from 'react';
-import ReactDOM from 'react-dom';
 import keyBy from 'terable/keyBy';
 
 import hydrate, {minimalEntity} from '../../../../utility/hydrate';
@@ -15,7 +14,6 @@ import loopParity from '../../../../utility/loopParity';
 import {GENRE_TAGS} from '../constants';
 import {l, lp, N_l} from '../i18n';
 import NopArgs from '../i18n/NopArgs';
-import MB from '../MB';
 import bracketed from '../utility/bracketed';
 import isBlank from '../utility/isBlank';
 
@@ -624,20 +622,3 @@ function createInitialTagState(
 
   return sortedTags(combined);
 }
-
-function init_tag_editor(Component, mountPoint) {
-  return function ($c, entity, aggregatedTags, userTags, more) {
-    ReactDOM.render(
-      <Component
-        $c={$c}
-        aggregatedTags={aggregatedTags}
-        entity={entity}
-        more={more}
-        userTags={userTags}
-      />,
-      (document.getElementById(mountPoint): any)
-    );
-  };
-}
-
-MB.init_main_tag_editor = init_tag_editor(MainTagEditor, 'all-tags');
