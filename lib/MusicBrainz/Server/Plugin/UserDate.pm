@@ -48,13 +48,4 @@ sub format {
     return $dt->strftime($format);
 }
 
-sub format_pg_string {
-    my ($self, $str, $opts) = @_;
-
-    return unless $str;
-
-    my $dt = DateTime::Format::Pg->parse_datetime($str);
-    return $self->format($dt, $opts);
-}
-
 1;

@@ -6,20 +6,16 @@ sub details : Chained('load') PathPart {
 
     my $entity = $c->stash->{$self->{entity_name}};
 
-    if ($entity->entity_type =~ /^(?:area|artist|event|instrument|label|place|recording|release|release_group|series|work)$/) {
-        my %props = (
-            entity       => $entity,
-            lastUpdated  => $entity->{last_updated},
-        );
+    my %props = (
+        entity       => $entity,
+        lastUpdated  => $entity->{last_updated},
+    );
 
-        $c->stash(
-            component_path  => 'entity/Details.js',
-            component_props => \%props,
-            current_view    => 'Node',
-        );
-    } else {
-        $c->stash( template => 'entity/details.tt' );
-    }
+    $c->stash(
+        component_path  => 'entity/Details.js',
+        component_props => \%props,
+        current_view    => 'Node',
+    );
 }
 
 no Moose::Role;

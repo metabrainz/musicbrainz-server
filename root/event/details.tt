@@ -1,3 +1,0 @@
-[% WRAPPER "event/layout.tt" title=l('Details') page='details' %]
-    [%- INCLUDE "components/details.tt" entity=event xml_inc='aliases' -%]
-[% END %]
