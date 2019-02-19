@@ -33,9 +33,9 @@ const PrivilegedUsers = ({
   relationshipEditors,
   transclusionEditors,
 }: Props) => (
-  <Layout fullwidth title={l('Privileged User Accounts')}>
+  <Layout fullwidth title={l('Privileged user accounts')}>
     <div id="content">
-      <h1>{l('Privileged User Accounts')}</h1>
+      <h1>{l('Privileged user accounts')}</h1>
 
       <h2>{l('Auto-editors')}</h2>
       <p>
