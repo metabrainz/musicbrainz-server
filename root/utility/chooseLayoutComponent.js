@@ -29,8 +29,8 @@ const layoutPicker = {
   label: LabelLayout,
   place: PlaceLayout,
   recording: RecordingLayout,
-  release_group: ReleaseGroupLayout,
   release: ReleaseLayout,
+  release_group: ReleaseGroupLayout,
   series: SeriesLayout,
   work: WorkLayout,
 };
