@@ -135,6 +135,7 @@ module.exports = {
   'track/NotFound': require('../track/NotFound'),
   'url/NotFound': require('../url/NotFound'),
   'user/NotFound': require('../user/NotFound'),
+  'user/PrivilegedUsers': require('../user/PrivilegedUsers'),
   'work/NotFound': require('../work/NotFound'),
 
   /*
@@ -191,6 +192,5 @@ module.exports = {
   'static/scripts/edit/components/InformationIcon': require('../static/scripts/edit/components/InformationIcon'),
   'static/scripts/edit/components/WarningIcon': require('../static/scripts/edit/components/WarningIcon'),
   'url/UrlHeader': require('../url/UrlHeader'),
-  'user/components/UserInlineList': require('../user/components/UserInlineList'),
   'work/WorkHeader': require('../work/WorkHeader'),
 };
