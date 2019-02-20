@@ -105,6 +105,7 @@ sub show : Chained('load') PathPart('') {
 
     if ($entity_type eq 'area') {
         $c->model('AreaType')->load(@$entities);
+        $c->model('Area')->load_containment(@$entities);
     } elsif ($entity_type eq 'artist') {
         $c->model('ArtistType')->load(@$entities);
         $c->model('Gender')->load(@$entities);
