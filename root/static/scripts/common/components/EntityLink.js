@@ -19,7 +19,7 @@ import isolateText from '../utility/isolateText';
 import nonEmpty from '../utility/nonEmpty';
 import reactTextContent from '../utility/reactTextContent';
 
-const DeletedLink = ({name, allowNew}: {|+name: React.Node, +allowNew: boolean|}) => {
+export const DeletedLink = ({name, allowNew}: {|+name: React.Node, +allowNew: boolean|}) => {
   const caption = allowNew
     ? l('This entity will be created when edits are entered.')
     : l('This entity has been removed, and cannot be displayed correctly.');
