@@ -212,6 +212,7 @@ module.exports = {
   'components/Aliases': require('../components/Aliases'),
   'components/EventsList': require('../components/EventsList'),
   'components/ExpirationTime': require('../components/ExpirationTime'),
+  'components/InstrumentsList': require('../components/InstrumentsList'),
   'components/LabelsList': require('../components/LabelsList'),
   'components/PlacesList': require('../components/PlacesList'),
   'components/Relationships': require('../components/Relationships'),

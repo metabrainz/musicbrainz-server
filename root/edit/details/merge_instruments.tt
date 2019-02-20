@@ -2,13 +2,13 @@
   <tr>
     <th>[% l('Merge:') %]</th>
     <td>
-      [%~ INCLUDE 'components/instruments-list.tt' instruments=edit.display_data.old checkboxes='' ~%]
+      [%~ React.embed(c, 'components/InstrumentsList', { instruments => edit.display_data.old }) ~%]
     </td>
   </tr>
   <tr>
     <th>[% l('Into:') %]</th>
     <td>
-      [%~ INCLUDE 'components/instruments-list.tt' instruments=edit.display_data.new checkboxes='' ~%]
+      [%~ React.embed(c, 'components/InstrumentsList', { instruments => [edit.display_data.new] }) ~%]
     </td>
   </tr>
 </table>
