@@ -1,3 +1,0 @@
-[%- WRAPPER "place/layout.tt" title=l('Aliases') page='aliases' -%]
-    [%~ React.embed(c, 'components/Aliases', { aliases => aliases, entity => place }) ~%]
-[%- END -%]
