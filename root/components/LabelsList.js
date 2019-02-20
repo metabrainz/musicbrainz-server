@@ -14,7 +14,8 @@ import {lp_attributes} from '../static/scripts/common/i18n/attributes';
 import {withCatalystContext} from '../context';
 import formatLabelCode from '../utility/formatLabelCode';
 import loopParity from '../utility/loopParity';
-import DescriptiveLink from '../static/scripts/common/components/DescriptiveLink';
+import DescriptiveLink
+  from '../static/scripts/common/components/DescriptiveLink';
 import formatDate from '../static/scripts/common/utility/formatDate';
 import formatEndDate from '../static/scripts/common/utility/formatEndDate';
 
