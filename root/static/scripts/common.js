@@ -5,16 +5,6 @@
  */
 require('../styles/common.less');
 
-// IE 11 support.
-require('core-js/modules/es6.object.assign');
-require('core-js/modules/es6.array.from');
-require('core-js/modules/es6.array.iterator');
-require('core-js/modules/es6.string.iterator');
-require('core-js/es6/set');
-require('core-js/es6/map');
-require('core-js/es6/promise');
-require('core-js/es6/symbol');
-
 const DBDefs = require('./common/DBDefs-client');
 import MB from './common/MB';
 

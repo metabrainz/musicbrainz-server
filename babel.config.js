@@ -3,6 +3,7 @@ module.exports = function (api) {
 
   const presets = [
     ['@babel/preset-env', {
+      corejs: 3,
       targets: {
         chrome: '49',
         edge: '14',
@@ -10,7 +11,8 @@ module.exports = function (api) {
         ie: '11',
         node: '6',
         safari: '9.0',
-      }
+      },
+      useBuiltIns: 'usage',
     }],
   ];
 
@@ -19,8 +21,9 @@ module.exports = function (api) {
     '@babel/plugin-transform-react-jsx',
     '@babel/plugin-transform-react-constant-elements',
     ['@babel/plugin-transform-runtime', {
-      corejs: 2,
+      corejs: 3,
       helpers: true,
+      proposals: true,
       regenerator: true,
       useESModules: false,
     }],
