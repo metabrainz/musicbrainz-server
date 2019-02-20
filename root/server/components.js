@@ -213,6 +213,7 @@ module.exports = {
   'components/EventsList': require('../components/EventsList'),
   'components/ExpirationTime': require('../components/ExpirationTime'),
   'components/LabelsList': require('../components/LabelsList'),
+  'components/PlacesList': require('../components/PlacesList'),
   'components/Relationships': require('../components/Relationships'),
   'components/UserAccountTabs': require('../components/UserAccountTabs'),
   'edit/components/EditSidebar': require('../edit/components/EditSidebar'),
