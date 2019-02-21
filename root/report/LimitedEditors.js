@@ -19,8 +19,6 @@ import type {ReportDataT, ReportEditorT} from './types';
 
 const LimitedEditors = ({
   $c,
-  canBeFiltered,
-  filtered,
   generated,
   items,
   pager,

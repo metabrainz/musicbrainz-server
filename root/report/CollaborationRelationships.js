@@ -58,7 +58,7 @@ const CollaborationRelationships = ({
             </tr>
           </thead>
           <tbody>
-            {items.map((item, index) => {
+            {items.map((item) => {
               lastID = currentID;
               currentID = item.id1;
 

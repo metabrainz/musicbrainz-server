@@ -62,7 +62,7 @@ const IswcsWithManyWorks = ({
             </tr>
           </thead>
           <tbody>
-            {items.map((item, index) => {
+            {items.map((item) => {
               lastIswc = currentIswc;
               currentIswc = item.iswc;
 

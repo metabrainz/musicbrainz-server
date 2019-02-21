@@ -34,7 +34,7 @@ const ReleaseGroupUrlList = ({
           </tr>
         </thead>
         <tbody>
-          {items.map((item, index) => {
+          {items.map((item) => {
             lastGID = currentGID;
             currentGID = item.url.gid;
 
