@@ -40,7 +40,7 @@ const ReleaseGroupUrlList = ({
 
             return (
               <>
-                {lastGID !== item.url.gid ? (
+                {lastGID === item.url.gid ? null : (
                   <tr className="even" key={item.url.gid}>
                     <td colSpan="3">
                       <EntityLink
@@ -49,7 +49,7 @@ const ReleaseGroupUrlList = ({
                       />
                     </td>
                   </tr>
-                ) : null}
+                )}
                 <tr key={item.release_group.gid}>
                   <td />
                   <td>
