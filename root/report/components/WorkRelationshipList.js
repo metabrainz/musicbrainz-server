@@ -30,7 +30,9 @@ const WorkRelationshipList = ({
         {items.map((item, index) => (
           <tr className={loopParity(index)} key={item.work.gid}>
             <td>
-              <a href={'/relationship/' + item.link_gid}>{l_relationships(item.link_name)}</a>
+              <a href={'/relationship/' + encodeURIComponent(item.link_gid)}>
+                {l_relationships(item.link_name)}
+              </a>
             </td>
             <td>
               <EntityLink entity={item.work} />
