@@ -53,7 +53,7 @@ const LabelsList = ({
               <SortableTableHeader
                 label={l('Label')}
                 name="name"
-                order={order ? order : null}
+                order={order}
               />
             )
             : l('Label')}
@@ -64,7 +64,7 @@ const LabelsList = ({
               <SortableTableHeader
                 label={l('Type')}
                 name="type"
-                order={order ? order : null}
+                order={order}
               />
             )
             : l('Type')}
@@ -75,7 +75,7 @@ const LabelsList = ({
               <SortableTableHeader
                 label={l('Code')}
                 name="code"
-                order={order ? order : null}
+                order={order}
               />
             )
             : l('Code')}
@@ -87,7 +87,7 @@ const LabelsList = ({
               <SortableTableHeader
                 label={l('Begin')}
                 name="begin_date"
-                order={order ? order : null}
+                order={order}
               />
             )
             : l('Begin')}
@@ -98,7 +98,7 @@ const LabelsList = ({
               <SortableTableHeader
                 label={l('End')}
                 name="end_date"
-                order={order ? order : null}
+                order={order}
               />
             )
             : l('End')}

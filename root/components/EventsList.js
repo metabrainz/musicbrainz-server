@@ -71,7 +71,7 @@ const EventsList = ({
               <SortableTableHeader
                 label={l('Event')}
                 name="name"
-                order={order ? order : null}
+                order={order}
               />
             )
             : l('Event')}
@@ -83,7 +83,7 @@ const EventsList = ({
                 <SortableTableHeader
                   label={l('Type')}
                   name="type"
-                  order={order ? order : null}
+                  order={order}
                 />
               )
               : l('Type')}
@@ -98,7 +98,7 @@ const EventsList = ({
               <SortableTableHeader
                 label={l('Date')}
                 name="date"
-                order={order ? order : null}
+                order={order}
               />
             )
             : l('Date')}
