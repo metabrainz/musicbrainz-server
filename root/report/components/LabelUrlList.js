@@ -12,12 +12,12 @@ import * as React from 'react';
 import {l} from '../../static/scripts/common/i18n';
 import PaginatedResults from '../../components/PaginatedResults';
 import EntityLink from '../../static/scripts/common/components/EntityLink';
-import type {ReportLabelURLT} from '../types';
+import type {ReportLabelUrlT} from '../types';
 
-const LabelURLList = ({
+const LabelUrlList = ({
   items,
   pager,
-}: {items: $ReadOnlyArray<ReportLabelURLT>, pager: PagerT}) => {
+}: {items: $ReadOnlyArray<ReportLabelUrlT>, pager: PagerT}) => {
   let lastGID = 0;
   let currentGID = 0;
 
@@ -62,4 +62,4 @@ const LabelURLList = ({
   );
 };
 
-export default LabelURLList;
+export default LabelUrlList;

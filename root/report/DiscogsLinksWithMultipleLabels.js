@@ -14,9 +14,9 @@ import Layout from '../layout';
 import formatUserDate from '../utility/formatUserDate';
 import {l} from '../static/scripts/common/i18n';
 
-import LabelURLList from './components/LabelURLList';
+import LabelUrlList from './components/LabelUrlList';
 import FilterLink from './FilterLink';
-import type {ReportDataT, ReportLabelURLT} from './types';
+import type {ReportDataT, ReportLabelUrlT} from './types';
 
 const DiscogsLinksWithMultipleLabels = ({
   $c,
@@ -25,7 +25,7 @@ const DiscogsLinksWithMultipleLabels = ({
   generated,
   items,
   pager,
-}: ReportDataT<ReportLabelURLT>) => (
+}: ReportDataT<ReportLabelUrlT>) => (
   <Layout fullWidth title={l('Discogs URLs linked to multiple labels')}>
     <h1>{l('Discogs URLs linked to multiple labels')}</h1>
 
@@ -40,7 +40,7 @@ const DiscogsLinksWithMultipleLabels = ({
       {canBeFiltered ? <FilterLink filtered={filtered} /> : null}
     </ul>
 
-    <LabelURLList items={items} pager={pager} />
+    <LabelUrlList items={items} pager={pager} />
 
   </Layout>
 );
