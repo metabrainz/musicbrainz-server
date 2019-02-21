@@ -11,6 +11,8 @@ import React from 'react';
 
 import {withCatalystContext} from '../context';
 import loopParity from '../utility/loopParity';
+import DescriptiveLink
+  from '../static/scripts/common/components/DescriptiveLink';
 import EntityLink from '../static/scripts/common/components/EntityLink';
 import SortableTableHeader from '../components/SortableTableHeader';
 import formatDatePeriod
@@ -76,6 +78,17 @@ const PlacesList = ({
           {sortable
             ? (
               <SortableTableHeader
+                label={l('Area')}
+                name="area"
+                order={order}
+              />
+            )
+            : l('Area')}
+        </th>
+        <th>
+          {sortable
+            ? (
+              <SortableTableHeader
                 label={l('Date')}
                 name="date"
                 order={order}
@@ -106,6 +119,9 @@ const PlacesList = ({
               : null}
           </td>
           <td>{place.address}</td>
+          <td>
+            {place.area ? <DescriptiveLink entity={place.area} /> : null}
+          </td>
           <td>{formatDatePeriod(place)}</td>
         </tr>
       ))}
