@@ -78,7 +78,7 @@ type State = {
 };
 
 const EMPTY_OBJECT = Object.freeze({});
-const EMPTY_ARRAY = Object.freeze([]);
+const EMPTY_ARRAY: Array<any> = Object.freeze([]);
 
 const state: State = Object.seal({
   args: EMPTY_OBJECT,
@@ -149,27 +149,20 @@ function pushChild<T>(
   }
 }
 
-function parseContinuous<T>(
-  parsers: $ReadOnlyArray<Parser<T | NO_MATCH, Input>>,
-  args: ?VarArgs<Input>,
-): $ReadOnlyArray<T> {
-  let children;
+export function parseContinuous<-T, U, -V>(
+  parsers: $ReadOnlyArray<Parser<T | NO_MATCH, V>>,
+  args: ?VarArgs<V>,
+  matchCallback: (U | NO_MATCH, T) => U,
+  defaultValue: U,
+): U {
+  let children: U | NO_MATCH = NO_MATCH_VALUE;
   let _continue = true;
   while (_continue) {
     _continue = false;
     for (let i = 0; i < parsers.length; i++) {
       const match = parsers[i](args);
       if (gotMatch(match)) {
-        if (!children) {
-          children = [];
-        }
-        if (Array.isArray(match)) {
-          for (let j = 0; j < match.length; j++) {
-            pushChild<T>(children, match[j]);
-          }
-        } else {
-          pushChild<T>(children, match);
-        }
+        children = matchCallback(children, match);
         if (state.remainder) {
           _continue = true;
         } else {
@@ -178,7 +171,39 @@ function parseContinuous<T>(
       }
     }
   }
-  return children || EMPTY_ARRAY;
+  if (!gotMatch(children)) {
+    return defaultValue;
+  }
+  return children;
+}
+
+function concatArrayMatch<-T>(
+  children: Array<T> | NO_MATCH,
+  match: Array<T> | T,
+): Array<T> {
+  if (!gotMatch(children)) {
+    children = [];
+  }
+  if (Array.isArray(match)) {
+    for (let j = 0; j < match.length; j++) {
+      pushChild(children, match[j]);
+    }
+  } else {
+    pushChild(children, match);
+  }
+  return children;
+}
+
+function parseContinuousArray<-T, -V>(
+  parsers: $ReadOnlyArray<Parser<Array<T> | T | NO_MATCH, V>>,
+  args: ?VarArgs<V>,
+): $ReadOnlyArray<T> {
+  return parseContinuous<Array<T> | T, Array<T>, V>(
+    parsers,
+    args,
+    concatArrayMatch,
+    EMPTY_ARRAY,
+  );
 }
 
 function parseTextContent(args) {
@@ -289,7 +314,7 @@ const htmlAttrValueParsers = [
 ];
 
 function parseHtmlAttrValue(args) {
-  return parseContinuous(htmlAttrValueParsers, args);
+  return parseContinuousArray(htmlAttrValueParsers, args);
 }
 
 function parseHtmlAttr(args) {
@@ -333,7 +358,9 @@ function parseHtmlTag(args) {
     throw error('bad HTML tag');
   }
 
-  const attributes = parseContinuous<{[string]: string}>(htmlAttrParsers, args);
+  type HtmlAttr = {[string]: string};
+
+  const attributes = parseContinuousArray<HtmlAttr, Input>(htmlAttrParsers, args);
 
   if (gotMatch(accept(htmlSelfClosingTagEnd))) {
     // Self-closing tag
@@ -369,7 +396,7 @@ const rootParsers = [
 ];
 
 function parseRoot(args) {
-  return parseContinuous<Output>(rootParsers, args);
+  return parseContinuousArray<Output, Input>(rootParsers, args);
 }
 
 /*
