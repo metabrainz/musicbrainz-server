@@ -25,11 +25,7 @@ const DeprecatedRelationshipArtists = ({
   items,
   pager,
 }: ReportDataT<ReportArtistRelationshipT>) => (
-  <Layout
-    fullWidth
-    gettext_domains={['relationships']}
-    title={l('Artists with deprecated relationships')}
-  >
+  <Layout fullWidth title={l('Artists with deprecated relationships')}>
     <h1>{l('Artists with deprecated relationships')}</h1>
 
     <ul>
