@@ -14,6 +14,7 @@ around inflate_rows => sub {
     );
 
     $self->c->model('Area')->load(values %$places);
+    $self->c->model('Area')->load_containment(map { $_->area } values %$places);
 
     return [
         map +{

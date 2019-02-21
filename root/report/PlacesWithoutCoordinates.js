@@ -14,6 +14,8 @@ import Layout from '../layout';
 import formatUserDate from '../utility/formatUserDate';
 import PaginatedResults from '../components/PaginatedResults';
 import loopParity from '../utility/loopParity';
+import DescriptiveLink
+  from '../static/scripts/common/components/DescriptiveLink';
 import EntityLink from '../static/scripts/common/components/EntityLink';
 
 import FilterLink from './FilterLink';
@@ -66,7 +68,7 @@ const PlacesWithoutCoordinates = ({
                 <td>{item.place.address}</td>
                 <td>
                   {item.place.area
-                    ? <EntityLink entity={item.place.area} />
+                    ? <DescriptiveLink entity={item.place.area} />
                     : null}
                 </td>
                 <td className="search-links">
