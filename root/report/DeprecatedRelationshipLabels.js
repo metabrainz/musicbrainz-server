@@ -31,7 +31,7 @@ const DeprecatedRelationshipLabels = ({
     <ul>
       <li>
         {l(`This report lists labels which have relationships using
-            deprecated and grouping-only relationship types`)}
+            deprecated and grouping-only relationship types.`)}
       </li>
       <li>{texp.l('Total labels found: {count}', {count: pager.total_entries})}</li>
       <li>{texp.l('Generated on {date}', {date: formatUserDate($c.user, generated)})}</li>
