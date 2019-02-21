@@ -25,7 +25,10 @@ const ArtistsDisambiguationSameName = ({
   items,
   pager,
 }: ReportDataT<ReportArtistT>) => (
-  <Layout fullWidth title={l('Artists with disambiguation the same as the name')}>
+  <Layout
+    fullWidth
+    title={l('Artists with disambiguation the same as the name')}
+  >
     <h1>{l('Artists with disambiguation the same as the name')}</h1>
 
     <ul>
@@ -34,8 +37,14 @@ const ArtistsDisambiguationSameName = ({
             to be the same as their name. Disambiguation should
             not be filled in this case.`)}
       </li>
-      <li>{texp.l('Total artists found: {count}', {count: pager.total_entries})}</li>
-      <li>{texp.l('Generated on {date}', {date: formatUserDate($c.user, generated)})}</li>
+      <li>
+        {texp.l('Total artists found: {count}',
+                {count: pager.total_entries})}
+      </li>
+      <li>
+        {texp.l('Generated on {date}',
+                {date: formatUserDate($c.user, generated)})}
+      </li>
 
       {canBeFiltered ? <FilterLink filtered={filtered} /> : null}
     </ul>

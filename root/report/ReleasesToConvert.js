@@ -25,7 +25,10 @@ const ReleasesToConvert = ({
   items,
   pager,
 }: ReportDataT<ReportReleaseT>) => (
-  <Layout fullWidth title={l('Releases which might need converting to "multiple artists"')}>
+  <Layout
+    fullWidth
+    title={l('Releases which might need converting to "multiple artists"')}
+  >
     <h1>{l('Releases which might need converting to "multiple artists"')}</h1>
 
     <ul>
@@ -35,8 +38,14 @@ const ReleasesToConvert = ({
             field, for example). Currently it does this by looking for
             releases where every track contains "/" or "-".`)}
       </li>
-      <li>{texp.l('Total releases found: {count}', {count: pager.total_entries})}</li>
-      <li>{texp.l('Generated on {date}', {date: formatUserDate($c.user, generated)})}</li>
+      <li>
+        {texp.l('Total releases found: {count}',
+                {count: pager.total_entries})}
+      </li>
+      <li>
+        {texp.l('Generated on {date}',
+                {date: formatUserDate($c.user, generated)})}
+      </li>
 
       {canBeFiltered ? <FilterLink filtered={filtered} /> : null}
     </ul>

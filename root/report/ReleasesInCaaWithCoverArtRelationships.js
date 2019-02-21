@@ -25,8 +25,15 @@ const ReleasesInCaaWithCoverArtRelationships = ({
   items,
   pager,
 }: ReportDataT<ReportReleaseT>) => (
-  <Layout fullWidth title={l('Releases in the Cover Art Archive that still have cover art relationships')}>
-    <h1>{l('Releases in the Cover Art Archive that still have cover art relationships')}</h1>
+  <Layout
+    fullWidth
+    title={l(`Releases in the Cover Art Archive that still have cover art
+              relationships`)}
+  >
+    <h1>
+      {l(`Releases in the Cover Art Archive that still have cover art
+          relationships`)}
+    </h1>
 
     <ul>
       <li>
@@ -34,8 +41,14 @@ const ReleasesInCaaWithCoverArtRelationships = ({
             Archive, but still have a cover art relationship
             (pointing to a URL).`)}
       </li>
-      <li>{texp.l('Total releases found: {count}', {count: pager.total_entries})}</li>
-      <li>{texp.l('Generated on {date}', {date: formatUserDate($c.user, generated)})}</li>
+      <li>
+        {texp.l('Total releases found: {count}',
+                {count: pager.total_entries})}
+      </li>
+      <li>
+        {texp.l('Generated on {date}',
+                {date: formatUserDate($c.user, generated)})}
+      </li>
 
       {canBeFiltered ? <FilterLink filtered={filtered} /> : null}
     </ul>

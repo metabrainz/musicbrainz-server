@@ -16,7 +16,10 @@ const ReportNotAvailable = () => (
     <div id="content">
       <h1>{l('Error')}</h1>
 
-      <p>{l('We are sorry, but data for this report is not available right now.')}</p>
+      <p>
+        {l(`We are sorry, but data for this report is not available
+            right now.`)}
+      </p>
     </div>
   </Layout>
 );

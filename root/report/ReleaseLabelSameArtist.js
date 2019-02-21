@@ -29,7 +29,10 @@ const ReleaseLabelSameArtist = ({
   items,
   pager,
 }: ReportDataT<ReportReleaseLabelT>) => (
-  <Layout fullWidth title={l('Releases where artist name and label name are the same')}>
+  <Layout
+    fullWidth
+    title={l('Releases where artist name and label name are the same')}
+  >
     <h1>{l('Releases where artist name and label name are the same')}</h1>
 
     <ul>
@@ -38,13 +41,19 @@ const ReleaseLabelSameArtist = ({
             the artist name. Often this means the release is self-released,
             and the label
             {SpecialPurposeLabel|should be "[no label]" instead}.`,
-        {
-          SpecialPurposeLabel:
+               {
+                 SpecialPurposeLabel:
             '/doc/Style/Unknown_and_untitled/Special_purpose_label',
-        })}
+               })}
       </li>
-      <li>{texp.l('Total releases found: {count}', {count: pager.total_entries})}</li>
-      <li>{texp.l('Generated on {date}', {date: formatUserDate($c.user, generated)})}</li>
+      <li>
+        {texp.l('Total releases found: {count}',
+                {count: pager.total_entries})}
+      </li>
+      <li>
+        {texp.l('Generated on {date}',
+                {date: formatUserDate($c.user, generated)})}
+      </li>
 
       {canBeFiltered ? <FilterLink filtered={filtered} /> : null}
     </ul>

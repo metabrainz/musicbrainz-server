@@ -40,13 +40,18 @@ const InstrumentList = ({
             <td>
               <EntityLink entity={item.instrument} />
             </td>
-            <td>{item.instrument.typeName ? lp_attributes(item.instrument.typeName, 'instrument_type') : l('Unclassified instrument')}</td>
+            <td>
+              {item.instrument.typeName
+                ? lp_attributes(item.instrument.typeName, 'instrument_type')
+                : l('Unclassified instrument')}
+            </td>
             <td>
               {item.instrument.last_updated
                 ? formatUserDate($c.user, item.instrument.last_updated)
                 : null
               }
             </td>
+
           </tr>
         ))}
       </tbody>

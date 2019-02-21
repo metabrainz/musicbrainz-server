@@ -37,10 +37,16 @@ const MultipleDiscogsLinks = ({
             different number of tracks, etc). Any "master" Discogs page
             belongs at the {release_group|release group level}, not at the
             release level, and should be removed from releases too.`,
-        {release_group: '/doc/Release_Group'})}
+               {release_group: '/doc/Release_Group'})}
       </li>
-      <li>{texp.l('Total releases found: {count}', {count: pager.total_entries})}</li>
-      <li>{texp.l('Generated on {date}', {date: formatUserDate($c.user, generated)})}</li>
+      <li>
+        {texp.l('Total releases found: {count}',
+                {count: pager.total_entries})}
+      </li>
+      <li>
+        {texp.l('Generated on {date}',
+                {date: formatUserDate($c.user, generated)})}
+      </li>
 
       {canBeFiltered ? <FilterLink filtered={filtered} /> : null}
     </ul>

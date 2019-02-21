@@ -34,7 +34,11 @@ const ArtistAnnotationList = ({
             <td>
               <EntityLink entity={item.artist} />
             </td>
-            <td>{item.artist.typeName ? lp_attributes(item.artist.typeName, 'artist_type') : l('Unknown')}</td>
+            <td>
+              {item.artist.typeName
+                ? lp_attributes(item.artist.typeName, 'artist_type')
+                : l('Unknown')}
+            </td>
             <td dangerouslySetInnerHTML={{__html: item.text}} />
             <td>{item.created}</td>
           </tr>

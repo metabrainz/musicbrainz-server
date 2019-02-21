@@ -25,7 +25,10 @@ const DuplicateRelationshipsReleases = ({
   items,
   pager,
 }: ReportDataT<ReportReleaseT>) => (
-  <Layout fullWidth title={l('Releases with possible duplicate relationships')}>
+  <Layout
+    fullWidth
+    title={l('Releases with possible duplicate relationships')}
+  >
     <h1>{l('Releases with possible duplicate relationships')}</h1>
 
     <ul>
@@ -33,8 +36,14 @@ const DuplicateRelationshipsReleases = ({
         {l(`This report lists releases which have multiple relationships
             to the same entity using the same relationship type.`)}
       </li>
-      <li>{texp.l('Total releases found: {count}', {count: pager.total_entries})}</li>
-      <li>{texp.l('Generated on {date}', {date: formatUserDate($c.user, generated)})}</li>
+      <li>
+        {texp.l('Total releases found: {count}',
+                {count: pager.total_entries})}
+      </li>
+      <li>
+        {texp.l('Generated on {date}',
+                {date: formatUserDate($c.user, generated)})}
+      </li>
 
       {canBeFiltered ? <FilterLink filtered={filtered} /> : null}
     </ul>

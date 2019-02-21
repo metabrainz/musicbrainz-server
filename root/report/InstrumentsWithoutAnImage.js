@@ -30,8 +30,14 @@ const InstrumentsWithoutAnImage = ({
         {l(`This report shows instruments without image
             relationships nor Wikidata relationships.`)}
       </li>
-      <li>{texp.l('Total instruments found: {count}', {count: pager.total_entries})}</li>
-      <li>{texp.l('Generated on {date}', {date: formatUserDate($c.user, generated)})}</li>
+      <li>
+        {texp.l('Total instruments found: {count}',
+                {count: pager.total_entries})}
+      </li>
+      <li>
+        {texp.l('Generated on {date}',
+                {date: formatUserDate($c.user, generated)})}
+      </li>
 
     </ul>
 
