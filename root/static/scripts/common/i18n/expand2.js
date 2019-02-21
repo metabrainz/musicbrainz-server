@@ -56,11 +56,6 @@ export type Parser<+T, -V> = (?VarArgs<V>) => T;
 
 type State = {
   /*
-   * Values to be substituted into the source string, passed as the
-   * second argument to `expand`.
-   */
-  args: ?VarArgs<Input>,
-  /*
    * A slice of the source string containing an in-progress match; used
    * as a fallback if there's no substitution value in `args`.
    */
@@ -95,8 +90,8 @@ const state: State = Object.seal({
   textPattern: textContent,
 });
 
-function hasArg(name) {
-  return Object.prototype.hasOwnProperty.call(state.args, name);
+function hasArg(args, name) {
+  return Object.prototype.hasOwnProperty.call(args, name);
 }
 
 function accept(pattern) {
@@ -127,10 +122,10 @@ function error(message) {
  * performing no substitution in that case.
  */
 function saveMatch(cb) {
-  return function () {
+  return function (args) {
     const savedMatch = state.match;
     state.match = '';
-    const result = cb.apply(null, arguments);
+    const result = cb(args);
     state.match = savedMatch + state.match;
     return result;
   };
@@ -155,14 +150,15 @@ function pushChild<T>(
 }
 
 function parseContinous<T>(
-  parsers: $ReadOnlyArray<() => T | NO_MATCH>
+  parsers: $ReadOnlyArray<Parser<T | NO_MATCH, Input>>,
+  args: ?VarArgs<Input>,
 ): $ReadOnlyArray<T> {
   let children;
   let _continue = true;
   while (_continue) {
     _continue = false;
     for (let i = 0; i < parsers.length; i++) {
-      const match = parsers[i]();
+      const match = parsers[i](args);
       if (gotMatch(match)) {
         if (!children) {
           children = [];
@@ -185,7 +181,7 @@ function parseContinous<T>(
   return children || EMPTY_ARRAY;
 }
 
-function parseTextContent() {
+function parseTextContent(args) {
   let text = accept(state.textPattern);
   if (typeof text !== 'string') {
     return NO_MATCH_VALUE;
@@ -214,36 +210,36 @@ function parseTextContent() {
  * back to its previous value. Used to parse text in different
  * contexts.
  */
-function withTextPattern(textPattern, cb) {
+function withTextPattern(textPattern, cb, args) {
   const savedTextPattern = state.textPattern;
   state.textPattern = textPattern;
-  const result = cb();
+  const result = cb(args);
   state.textPattern = savedTextPattern;
   return result;
 }
 
-const parseVarSubst = saveMatch(function () {
+const parseVarSubst = saveMatch(function (args) {
   const name = accept(varSubst);
   if (typeof name !== 'string') {
     return NO_MATCH_VALUE;
   }
-  if (state.args && hasArg(name)) {
-    return state.args[name];
+  if (args && hasArg(args, name)) {
+    return args[name];
   }
   return state.match;
 });
 
-const parseLinkSubst = saveMatch(function () {
+const parseLinkSubst = saveMatch(function (args) {
   const name = accept(linkSubstStart);
   if (typeof name !== 'string') {
     return NO_MATCH_VALUE;
   }
-  const children = withTextPattern(textContent, parseRoot);
+  const children = withTextPattern(textContent, parseRoot, args);
   if (!gotMatch(accept(substEnd))) {
     throw error('expected }');
   }
-  if (state.args && hasArg(name)) {
-    let props: any = state.args[name];
+  if (args && hasArg(args, name)) {
+    let props: any = args[name];
     if (typeof props === 'string') {
       props = {href: props};
     }
@@ -252,22 +248,22 @@ const parseLinkSubst = saveMatch(function () {
   return state.match;
 });
 
-const parseCondSubst = saveMatch(function () {
+const parseCondSubst = saveMatch(function (args) {
   const name = accept(condSubstStart);
   if (typeof name !== 'string') {
     return NO_MATCH_VALUE;
   }
 
   const savedReplacement = state.replacement;
-  if (state.args && hasArg(name)) {
-    state.replacement = state.args[name];
+  if (args && hasArg(args, name)) {
+    state.replacement = args[name];
   }
 
-  const thenChildren = withTextPattern(condSubstThenTextContent, parseRoot);
+  const thenChildren = withTextPattern(condSubstThenTextContent, parseRoot, args);
 
   let elseChildren = '';
   if (gotMatch(accept(verticalPipe))) {
-    elseChildren = withTextPattern(textContent, parseRoot);
+    elseChildren = withTextPattern(textContent, parseRoot, args);
   }
 
   state.replacement = savedReplacement;
@@ -276,8 +272,8 @@ const parseCondSubst = saveMatch(function () {
     throw error('expected }');
   }
 
-  if (state.args && hasArg(name)) {
-    const value = state.args[name];
+  if (args && hasArg(args, name)) {
+    const value = args[name];
     if (value) {
       return thenChildren;
     }
@@ -292,11 +288,11 @@ const htmlAttrValueParsers = [
   parseCondSubst,
 ];
 
-function parseHtmlAttrValue() {
-  return parseContinous(htmlAttrValueParsers);
+function parseHtmlAttrValue(args) {
+  return parseContinous(htmlAttrValueParsers, args);
 }
 
-function parseHtmlAttr() {
+function parseHtmlAttr(args) {
   if (!gotMatch(accept(htmlAttrStart))) {
     return NO_MATCH_VALUE;
   }
@@ -310,7 +306,7 @@ function parseHtmlAttr() {
     name = 'className';
   }
 
-  let value = withTextPattern(htmlAttrTextContent, parseHtmlAttrValue);
+  let value = withTextPattern(htmlAttrTextContent, parseHtmlAttrValue, args);
 
   if (!gotMatch(accept(/^"/))) {
     throw error('expected "');
@@ -327,7 +323,7 @@ function parseHtmlAttr() {
 
 const htmlAttrParsers = [parseHtmlAttr];
 
-function parseHtmlTag() {
+function parseHtmlTag(args) {
   if (!gotMatch(accept(htmlTagStart))) {
     return NO_MATCH_VALUE;
   }
@@ -337,7 +333,7 @@ function parseHtmlTag() {
     throw error('bad HTML tag');
   }
 
-  const attributes = parseContinous<{[string]: string}>(htmlAttrParsers);
+  const attributes = parseContinous<{[string]: string}>(htmlAttrParsers, args);
 
   if (gotMatch(accept(htmlSelfClosingTagEnd))) {
     // Self-closing tag
@@ -351,7 +347,7 @@ function parseHtmlTag() {
     throw error('expected >');
   }
 
-  const children = withTextPattern(textContent, parseRoot);
+  const children = withTextPattern(textContent, parseRoot, args);
 
   if (!gotMatch(accept(new RegExp('^</' + name + '>')))) {
     throw error('expected </' + name + '>');
@@ -372,8 +368,8 @@ const rootParsers = [
   parseHtmlTag,
 ];
 
-function parseRoot() {
-  return parseContinous<Output>(rootParsers);
+function parseRoot(args) {
+  return parseContinous<Output>(rootParsers, args);
 }
 
 /*
@@ -394,7 +390,6 @@ export default function expand(source: ?string, args?: ?VarArgs<Input>): Output 
   }
 
   // Reset the global state.
-  state.args = args;
   state.match = '';
   state.position = 0;
   state.remainder = source;
@@ -404,7 +399,7 @@ export default function expand(source: ?string, args?: ?VarArgs<Input>): Output 
 
   let result;
   try {
-    result = parseRoot();
+    result = parseRoot(args);
 
     if (state.remainder) {
       throw error('unexpected token');
@@ -418,9 +413,6 @@ export default function expand(source: ?string, args?: ?VarArgs<Input>): Output 
     console.error(e);
     Raven.captureException(e);
     return source;
-  } finally {
-    // Remove reference to the args object, so it can be GC'd.
-    state.args = EMPTY_OBJECT;
   }
 
   return result;
