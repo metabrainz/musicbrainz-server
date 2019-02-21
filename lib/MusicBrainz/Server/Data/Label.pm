@@ -87,12 +87,21 @@ sub find_by_subscribed_editor
 
 sub find_by_area {
     my ($self, $area_id, $limit, $offset) = @_;
+    my (
+        $containment_query,
+        @containment_query_args,
+    ) = $self->c->model('Area')->get_containment_query('$2', 'area');
     my $query = "SELECT " . $self->_columns . "
                  FROM " . $self->_table . "
-                    JOIN area ON label.area = area.id
-                 WHERE area.id = ?
+                 WHERE area = \$1 OR EXISTS (
+                    SELECT 1 FROM ($containment_query) ac
+                     WHERE ac.descendant = area AND ac.parent = \$1
+                 )
                  ORDER BY musicbrainz_collate(label.name), label.id";
-    $self->query_to_list_limited($query, [$area_id], $limit, $offset);
+    $self->query_to_list_limited(
+        $query, [$area_id, @containment_query_args], $limit, $offset, undef,
+        dollar_placeholders => 1,
+    );
 }
 
 sub find_by_release
