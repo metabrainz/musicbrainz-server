@@ -32,7 +32,6 @@ export function gotMatch(x: mixed): boolean %checks {
 }
 
 const textContent = /^[^<>{}]+/;
-const varSubst = /^\{([0-9A-z_]+)\}/;
 const linkSubstStart = /^\{([0-9A-z_]+)\|/;
 const condSubstStart = /^\{([0-9A-z_]+):/;
 const condSubstThenTextContent = /^[^<>{}|]+/;
@@ -94,6 +93,16 @@ function hasArg(args, name) {
   return Object.prototype.hasOwnProperty.call(args, name);
 }
 
+export function getString(x: mixed) {
+  if (typeof x === 'string') {
+    return x;
+  }
+  if (typeof x === 'number') {
+    return String(x);
+  }
+  return '';
+}
+
 function accept(pattern) {
   const m = state.remainder.match(pattern);
   if (m) {
@@ -121,7 +130,7 @@ function error(message) {
  * `state.match` if there's no `foo` or `bar` variable in `args`, thus
  * performing no substitution in that case.
  */
-function saveMatch(cb) {
+export function saveMatch<-T, -V>(cb: Parser<T, V>): Parser<T, V> {
   return function (args) {
     const savedMatch = state.match;
     state.match = '';
@@ -243,16 +252,30 @@ function withTextPattern(textPattern, cb, args) {
   return result;
 }
 
-const parseVarSubst = saveMatch(function (args) {
+const varSubst = /^\{([0-9A-z_]+)\}/;
+export const createVarSubstParser = <T, -V>(
+  argFilter: (V) => T,
+): Parser<T | string | NO_MATCH, V> => saveMatch(function (args: ?VarArgs<V>) {
   const name = accept(varSubst);
   if (typeof name !== 'string') {
     return NO_MATCH_VALUE;
   }
   if (args && hasArg(args, name)) {
-    return args[name];
+    return argFilter(args[name]);
   }
   return state.match;
 });
+
+export function getVarSubstArg(x: mixed): Output {
+  if (React.isValidElement(x)) {
+    return ((x: any): AnyReactElem);
+  }
+  return getString(x);
+}
+
+const parseVarSubst = createVarSubstParser<Output, Input>(
+  getVarSubstArg,
+);
 
 const parseLinkSubst = saveMatch(function (args) {
   const name = accept(linkSubstStart);
