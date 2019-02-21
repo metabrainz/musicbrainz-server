@@ -15,6 +15,7 @@ use MusicBrainz::Server::Constants qw(
     $STATUS_OPEN
     $UNTRUSTED_FLAG
 );
+use MusicBrainz::Server::Data::Utils qw( boolean_to_json );
 use MusicBrainz::Server::Test qw( reject_edit );
 
 test all => sub {
@@ -68,7 +69,7 @@ SQL
     is($edit->display_data->{gender}->{name}, 'Male', "Gender is correct in display data.");
     is($edit->display_data->{comment}, 'Canadian electronica duo', "Comment is correct in display data.");
     is($edit->display_data->{begin_date}->format, "1981-05", "Begin date is correct in display data." );
-    is($edit->display_data->{ended}, 1, "Has 'ended' set in display data.");
+    is($edit->display_data->{ended}, boolean_to_json(1), "Has 'ended' set in display data.");
 
     is($edit->status, $STATUS_APPLIED, 'add artist edits should be autoedits');
     is($artist->edits_pending, 0, 'add artist edits should be autoedits');
