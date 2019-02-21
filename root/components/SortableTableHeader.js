@@ -30,7 +30,7 @@ type Props = {|
   +$c: CatalystContextT,
   +label: string,
   +name: string,
-  +order: string | null,
+  +order: ?string,
 |};
 
 const SortableTableHeader = ({$c, label, name, order}: Props) => (

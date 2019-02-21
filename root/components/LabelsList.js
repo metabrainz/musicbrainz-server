@@ -14,10 +14,13 @@ import {lp_attributes} from '../static/scripts/common/i18n/attributes';
 import {withCatalystContext} from '../context';
 import formatLabelCode from '../utility/formatLabelCode';
 import loopParity from '../utility/loopParity';
-import DescriptiveLink from '../static/scripts/common/components/DescriptiveLink';
-import RatingStars from '../components/RatingStars';
+import DescriptiveLink
+  from '../static/scripts/common/components/DescriptiveLink';
 import formatDate from '../static/scripts/common/utility/formatDate';
 import formatEndDate from '../static/scripts/common/utility/formatEndDate';
+
+import RatingStars from './RatingStars';
+import SortableTableHeader from './SortableTableHeader';
 
 type Props = {|
   +$c: CatalystContextT,
@@ -25,6 +28,8 @@ type Props = {|
   +labels: $ReadOnlyArray<LabelT>,
   +noAreas?: boolean,
   +noRatings?: boolean,
+  +order?: string,
+  +sortable?: boolean,
 |};
 
 const LabelsList = ({
@@ -33,6 +38,8 @@ const LabelsList = ({
   labels,
   noAreas,
   noRatings,
+  order,
+  sortable,
 }: Props) => (
   <table className="tbl">
     <thead>
@@ -40,12 +47,62 @@ const LabelsList = ({
         {$c.user_exists && checkboxes ? (
           <th className="pos" />
         ) : null}
-        <th>{l('Label')}</th>
-        <th>{l('Type')}</th>
-        <th>{l('Code')}</th>
+        <th>
+          {sortable
+            ? (
+              <SortableTableHeader
+                label={l('Label')}
+                name="name"
+                order={order}
+              />
+            )
+            : l('Label')}
+        </th>
+        <th>
+          {sortable
+            ? (
+              <SortableTableHeader
+                label={l('Type')}
+                name="type"
+                order={order}
+              />
+            )
+            : l('Type')}
+        </th>
+        <th>
+          {sortable
+            ? (
+              <SortableTableHeader
+                label={l('Code')}
+                name="code"
+                order={order}
+              />
+            )
+            : l('Code')}
+        </th>
         {noAreas ? null : <th>{l('Area')}</th>}
-        <th>{l('Begin')}</th>
-        <th>{l('End')}</th>
+        <th>
+          {sortable
+            ? (
+              <SortableTableHeader
+                label={l('Begin')}
+                name="begin_date"
+                order={order}
+              />
+            )
+            : l('Begin')}
+        </th>
+        <th>
+          {sortable
+            ? (
+              <SortableTableHeader
+                label={l('End')}
+                name="end_date"
+                order={order}
+              />
+            )
+            : l('End')}
+        </th>
         {noRatings ? null : <th>{l('Rating')}</th>}
       </tr>
     </thead>

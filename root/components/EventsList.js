@@ -12,16 +12,20 @@ import React from 'react';
 import {l} from '../static/scripts/common/i18n';
 import {lp_attributes} from '../static/scripts/common/i18n/attributes';
 import commaOnlyList from '../static/scripts/common/i18n/commaOnlyList';
-import localizeArtistRoles from '../static/scripts/common/i18n/localizeArtistRoles';
+import localizeArtistRoles
+  from '../static/scripts/common/i18n/localizeArtistRoles';
 import {withCatalystContext} from '../context';
 import loopParity from '../utility/loopParity';
 import ArtistRoles from '../static/scripts/common/components/ArtistRoles';
-import DescriptiveLink from '../static/scripts/common/components/DescriptiveLink';
-import EventLocations from '../static/scripts/common/components/EventLocations';
-import RatingStars from '../components/RatingStars';
-import SortableTableHeader from '../components/SortableTableHeader';
+import DescriptiveLink
+  from '../static/scripts/common/components/DescriptiveLink';
+import EventLocations
+  from '../static/scripts/common/components/EventLocations';
 import formatDatePeriod
   from '../static/scripts/common/utility/formatDatePeriod';
+
+import RatingStars from './RatingStars';
+import SortableTableHeader from './SortableTableHeader';
 
 type Props = {|
   +$c: CatalystContextT,
@@ -67,7 +71,7 @@ const EventsList = ({
               <SortableTableHeader
                 label={l('Event')}
                 name="name"
-                order={order ? order : null}
+                order={order}
               />
             )
             : l('Event')}
@@ -79,7 +83,7 @@ const EventsList = ({
                 <SortableTableHeader
                   label={l('Type')}
                   name="type"
-                  order={order ? order : null}
+                  order={order}
                 />
               )
               : l('Type')}
@@ -94,7 +98,7 @@ const EventsList = ({
               <SortableTableHeader
                 label={l('Date')}
                 name="date"
-                order={order ? order : null}
+                order={order}
               />
             )
             : l('Date')}

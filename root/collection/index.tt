@@ -19,6 +19,9 @@
       [%- IF collection.type.item_entity_type == 'event' -%]
         [% React.embed(c, 'components/EventsList', { events => entities, checkboxes => my_collection ? 'remove' : '', order => order, sortable => 1})
             WRAPPER 'components/with-pager.tt' %]
+      [%- ELSIF collection.type.item_entity_type == 'label' -%]
+        [% React.embed(c, 'components/LabelsList', { labels => entities, checkboxes => my_collection ? 'remove' : '', order => order, sortable => 1})
+            WRAPPER 'components/with-pager.tt' %]
       [%- ELSE -%]
         [%- INCLUDE $entity_list_template show_artists=1 show_ratings=1 checkboxes=(my_collection ? 'remove' : '') sortable=1
             WRAPPER 'components/with-pager.tt' -%]
