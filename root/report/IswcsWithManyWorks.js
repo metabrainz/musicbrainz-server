@@ -72,7 +72,7 @@ const IswcsWithManyWorks = ({
                     <tr className="even">
                       <td>
                         <a href={'/iswc/' + item.iswc}>{item.iswc}</a>
-                        <span>{bracketed(item.workcount)}</span>
+                        <span>{' ' + bracketed(item.workcount)}</span>
                       </td>
                       <td colSpan="5" />
                     </tr>

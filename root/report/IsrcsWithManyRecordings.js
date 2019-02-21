@@ -80,7 +80,7 @@ const IsrcsWithManyRecordings = ({
                     <tr className="even">
                       <td>
                         <a href={'/isrc/' + item.isrc}>{item.isrc}</a>
-                        <span>{bracketed(item.recordingcount)}</span>
+                        <span>{' ' + bracketed(item.recordingcount)}</span>
                       </td>
                       <td colSpan="5" />
                     </tr>
