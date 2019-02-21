@@ -16,8 +16,7 @@ const {createStore} = require('redux');
 
 const {l} = require('./common/i18n');
 const {lp_attributes} = require('./common/i18n/attributes');
-const MB = require('./common/MB');
-const scriptArgs = require('./common/utility/getScriptArgs')();
+import getScriptArgs from './common/utility/getScriptArgs';
 const {Lens, prop, index, set, compose3} = require('./common/utility/lens');
 import {buildOptionsTree} from './edit/forms';
 import {initializeBubble} from './edit/MB/Control/Bubble';
@@ -25,6 +24,8 @@ import {initialize_guess_case} from './guess-case/MB/Control/GuessCase';
 import FormRowSelectList from '../../components/FormRowSelectList';
 import createField from '../../utility/createField';
 import subfieldErrors from '../../utility/subfieldErrors';
+
+const scriptArgs = getScriptArgs();
 
 type LanguageField = FieldT<number>;
 

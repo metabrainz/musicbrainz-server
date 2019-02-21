@@ -9,10 +9,12 @@ const _ = require('lodash');
 const React = require('react');
 const ReactDOMServer = require('react-dom/server');
 
-const EntityLink = require('../common/components/EntityLink');
+const EntityLink = require('../common/components/EntityLink').default;
 const {l, ln} = require('../common/i18n');
 const {createMap, L} = require('../common/leaflet');
-const {places} = require('../common/utility/getScriptArgs')();
+import getScriptArgs from '../common/utility/getScriptArgs';
+
+const {places} = getScriptArgs();
 
 const CLUSTER_POPUP_LIMIT = 10;
 

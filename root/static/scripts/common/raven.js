@@ -3,10 +3,12 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-const Raven = require('raven-js');
+import Raven from 'raven-js';
 
-const DBDefs = require('./DBDefs-client');
-const {user} = require('./utility/getScriptArgs')();
+import * as DBDefs from './DBDefs-client';
+import getScriptArgs from './utility/getScriptArgs';
+
+const {user} = getScriptArgs();
 
 if (user && user.id) {
   Raven.setUserContext({

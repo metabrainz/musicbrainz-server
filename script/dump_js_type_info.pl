@@ -31,7 +31,7 @@ open(my $fh, ">", $out_file);
 print $fh <<EOF;
 // Automatically generated, do not edit.
 require('../relationship-editor/common/viewModel');
-const MB = require('../common/MB');
+const MB = require('../common/MB').default;
 MB.relationshipEditor.exportTypeInfo($type_info, $attr_info);
 EOF
 close $fh;

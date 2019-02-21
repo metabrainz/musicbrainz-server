@@ -5,9 +5,9 @@
  * http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-const $ = require('jquery');
+import $ from 'jquery';
 
-const setCookie = require('./utility/setCookie');
+import setCookie from './utility/setCookie';
 
 $(function () {
   $('.dismiss-banner').on('click', function () {

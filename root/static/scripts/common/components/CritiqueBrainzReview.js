@@ -13,7 +13,7 @@ import type {ElementRef, Node as ReactNode} from 'react';
 import {withCatalystContext} from '../../../../context';
 import formatUserDate from '../../../../utility/formatUserDate';
 import hydrate from '../../../../utility/hydrate';
-import DBDefs from '../DBDefs';
+import * as DBDefs from '../DBDefs';
 import {l} from '../i18n';
 
 import Collapsible from './Collapsible';

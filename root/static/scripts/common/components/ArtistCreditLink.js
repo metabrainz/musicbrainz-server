@@ -5,9 +5,9 @@
  * http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-const React = require('react');
+import React from 'react';
 
-const EntityLink = require('./EntityLink');
+import EntityLink from './EntityLink';
 
 const ArtistCreditLink = ({artistCredit, showDeleted = true, ...props}) => {
   const parts = [];
@@ -35,4 +35,4 @@ const ArtistCreditLink = ({artistCredit, showDeleted = true, ...props}) => {
   return parts;
 };
 
-module.exports = ArtistCreditLink;
+export default ArtistCreditLink;

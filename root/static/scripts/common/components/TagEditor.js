@@ -5,21 +5,21 @@
 // and is licensed under the GPL version 2, or (at your option) any
 // later version: http://www.gnu.org/licenses/gpl-2.0.txt
 
-const _ = require('lodash');
-const React = require('react');
-const ReactDOM = require('react-dom');
+import _ from 'lodash';
+import React from 'react';
+import ReactDOM from 'react-dom';
 import keyBy from 'terable/keyBy';
 
 import hydrate, {minimalEntity} from '../../../../utility/hydrate';
 import loopParity from '../../../../utility/loopParity';
 import {GENRE_TAGS} from '../constants';
-const {l, lp, N_l} = require('../i18n');
+import {l, lp, N_l} from '../i18n';
 import NopArgs from '../i18n/NopArgs';
-const MB = require('../MB');
+import MB from '../MB';
 import bracketed from '../utility/bracketed';
 import isBlank from '../utility/isBlank';
 
-const TagLink = require('./TagLink');
+import TagLink from './TagLink';
 
 const GENRE_TAGS_ARRAY = Array.from(GENRE_TAGS.values());
 
@@ -240,7 +240,7 @@ class TagEditor extends React.Component<TagEditorProps, TagEditorState> {
       const $ = require('jquery');
       doRequest = args => $.ajax(_.assign({dataType: 'json'}, args));
     } else {
-      doRequest = require('../utility/request');
+      doRequest = require('../utility/request').default;
     }
 
     _.each(actions, (items, action) => {

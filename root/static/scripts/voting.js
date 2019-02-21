@@ -6,7 +6,7 @@
 const $ = require('jquery');
 const querystring = require('querystring');
 
-const MB = require('./common/MB');
+import MB from './common/MB';
 require('./common/MB/Control/EditList');
 require('./common/MB/Control/EditSummary');
 

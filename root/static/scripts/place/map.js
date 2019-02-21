@@ -3,8 +3,10 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-const {createMap, L} = require('../common/leaflet');
-const {draggable, place, title} = require('../common/utility/getScriptArgs')();
+import {createMap, L} from '../common/leaflet';
+import getScriptArgs from '../common/utility/getScriptArgs';
+
+const {draggable, place, title} = getScriptArgs();
 
 let latitude = 0;
 let longitude = 0;
@@ -15,12 +17,9 @@ if (place && place.coordinates) {
   zoom = 16;
 }
 
-const map = createMap(latitude, longitude, zoom);
-const marker = L.marker(
+export const map = createMap(latitude, longitude, zoom);
+export const marker = L.marker(
   [latitude, longitude],
   {draggable: false, title: title || (place ? place.name : '')},
 );
 marker.addTo(map);
-
-exports.map = map;
-exports.marker = marker;

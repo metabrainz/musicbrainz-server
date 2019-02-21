@@ -7,12 +7,11 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-const {trim} = require('lodash');
-const React = require('react');
+import React from 'react';
 
-const {l} = require('../i18n');
-const entityHref = require('../utility/entityHref');
-const isolateText = require('../utility/isolateText');
+import {l} from '../i18n';
+import entityHref from '../utility/entityHref';
+import isolateText from '../utility/isolateText';
 
 const MissingEditorLink = () => {
   return (
@@ -57,4 +56,4 @@ const EditorLink = ({editor, content, avatarSize, subPath}: Props) => {
   );
 };
 
-module.exports = EditorLink;
+export default EditorLink;

@@ -3,15 +3,15 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-const _ = require('lodash');
-const $ = require('jquery');
-const ko = require('knockout');
-const React = require('react');
-const {l} = require('../../common/i18n');
-const SearchIcon = require('./SearchIcon').default;
+import _ from 'lodash';
+import $ from 'jquery';
+import ko from 'knockout';
+import React from 'react';
 
-require('../MB/Control/Autocomplete');
-require('../entity');
+import SearchIcon from './SearchIcon';
+
+import '../MB/Control/Autocomplete';
+import '../entity';
 
 class Autocomplete extends React.Component {
   componentDidMount() {
@@ -80,4 +80,4 @@ class Autocomplete extends React.Component {
   }
 }
 
-module.exports = Autocomplete;
+export default Autocomplete;

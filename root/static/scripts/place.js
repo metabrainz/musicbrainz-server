@@ -8,7 +8,7 @@ const L = require('leaflet/dist/leaflet-src');
 const ko = require('knockout');
 const _ = require('lodash');
 
-const isBlank = require('./common/utility/isBlank');
+const isBlank = require('./common/utility/isBlank').default;
 const initializeDuplicateChecker = require('./edit/check-duplicates').default;
 const {initializeArea} = require('./edit/MB/Control/Area');
 const {initializeBubble} = require('./edit/MB/Control/Bubble');

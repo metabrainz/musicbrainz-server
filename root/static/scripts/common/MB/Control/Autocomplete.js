@@ -3,38 +3,38 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-const $ = require('jquery');
-const _ = require('lodash');
-const ko = require('knockout');
+import $ from 'jquery';
+import _ from 'lodash';
+import ko from 'knockout';
 
-const {ENTITIES, MAX_RECENT_ENTITIES} = require('../../constants');
-const MB_entity = require('../../entity');
-const i18n = require('../../i18n');
-const commaOnlyList = require('../../i18n/commaOnlyList');
+import {ENTITIES, MAX_RECENT_ENTITIES} from '../../constants';
+import MB_entity from '../../entity';
+import {addColon, l, N_l} from '../../i18n';
+import commaOnlyList from '../../i18n/commaOnlyList';
 import {l_languages} from '../../i18n/languages';
 import {lp_attributes} from '../../i18n/attributes';
-const {artistCreditFromArray, reduceArtistCredit} = require('../../immutable-entities');
-const MB = require('../../MB');
-const clean = require('../../utility/clean');
+import {artistCreditFromArray, reduceArtistCredit} from '../../immutable-entities';
+import MB from '../../MB';
+import clean from '../../utility/clean';
 import formatDate from '../../utility/formatDate';
 import formatDatePeriod from '../../utility/formatDatePeriod';
-const formatTrackLength = require('../../utility/formatTrackLength');
-const isBlank = require('../../utility/isBlank');
+import formatTrackLength from '../../utility/formatTrackLength';
+import isBlank from '../../utility/isBlank';
 import primaryAreaCode from '../../utility/primaryAreaCode';
-const {localStorage} = require('../../utility/storage');
+import {localStorage} from '../../utility/storage';
 import bracketed from '../../utility/bracketed';
 
 require('../../../../lib/jquery-ui');
 
 const addNewEntityLabels = {
-    artist: i18n.N_l('Add a new artist'),
-    event: i18n.N_l('Add a new event'),
-    label: i18n.N_l('Add a new label'),
-    place: i18n.N_l('Add a new place'),
-    recording: i18n.N_l('Add a new recording'),
-    release_group: i18n.N_l('Add a new release group'),
-    series: i18n.N_l('Add a new series'),
-    work: i18n.N_l('Add a new work'),
+    artist: N_l('Add a new artist'),
+    event: N_l('Add a new event'),
+    label: N_l('Add a new label'),
+    place: N_l('Add a new place'),
+    recording: N_l('Add a new recording'),
+    release_group: N_l('Add a new release group'),
+    series: N_l('Add a new series'),
+    work: N_l('Add a new work'),
 };
 
 $.widget("mb.entitylookup", $.ui.autocomplete, {
@@ -78,12 +78,12 @@ $.widget("mb.entitylookup", $.ui.autocomplete, {
                 success: $.proxy(this._lookupSuccess, this, response),
                 error: function () {
                     response([{
-                        label: i18n.l("An error occurred while searching. Click here to try again."),
+                        label: l("An error occurred while searching. Click here to try again."),
                         action: _.bind(self._searchAgain, self)
                     }, {
                         label: self.indexedSearch ?
-                               i18n.l("Try with direct search instead.") :
-                               i18n.l("Try with indexed search instead."),
+                               l("Try with direct search instead.") :
+                               l("Try with indexed search instead."),
                         action: _.bind(self._searchAgain, self, true)
 
                     }]);
@@ -115,7 +115,7 @@ $.widget("mb.entitylookup", $.ui.autocomplete, {
         this.$search = this.element
             .closest("span.autocomplete").find("img.search");
 
-        this.element.attr("placeholder", i18n.l("Type to search, or paste an MBID"));
+        this.element.attr("placeholder", l("Type to search, or paste an MBID"));
 
         var self = this;
 
@@ -187,7 +187,7 @@ $.widget("mb.entitylookup", $.ui.autocomplete, {
                 self.term = "";
 
                 recent.push({
-                    label: i18n.l("Clear recent items"),
+                    label: l("Clear recent items"),
                     action: function () {
                         self.recentEntities([]);
                         self.clear();
@@ -422,21 +422,21 @@ $.widget("mb.entitylookup", $.ui.autocomplete, {
 
         if (results.length === 0) {
             results.push({
-                label: "(" + i18n.l("No results") + ")",
+                label: "(" + l("No results") + ")",
                 action: _.bind(this.close, this)
             });
         }
 
         if (this.currentPage < this.totalPages) {
             results.push({
-                label: i18n.l("Show more..."),
+                label: l("Show more..."),
                 action: _.bind(this._showMore, this)
             });
         }
 
         results.push({
-            label: this.indexedSearch ? i18n.l("Not found? Try again with direct search.") :
-                                        i18n.l("Slow? Switch back to indexed search."),
+            label: this.indexedSearch ? l("Not found? Try again with direct search.") :
+                                        l("Slow? Switch back to indexed search."),
             action: _.bind(this._searchAgain, this, true)
         });
 
@@ -627,7 +627,7 @@ MB.Control.autocomplete_formatters = {
 
         if (item.video)
         {
-            const title = _.escape(i18n.l('This recording is a video'));
+            const title = _.escape(l('This recording is a video'));
             a.prepend($(`<span class="video" title="${title}"></span>`));
         }
 
@@ -646,16 +646,16 @@ MB.Control.autocomplete_formatters = {
                 rgs.push('...');
             }
 
-            a.append('<br /><span class="autocomplete-appears">' + _.escape(i18n.addColon(i18n.l('appears on'))) + ' ' +
+            a.append('<br /><span class="autocomplete-appears">' + _.escape(addColon(l('appears on'))) + ' ' +
                      _.escape(commaOnlyList(rgs)) + '</span>');
         }
         else if (item.appearsOn && item.appearsOn.hits === 0) {
-            a.append('<br /><span class="autocomplete-appears">' + _.escape(i18n.l('standalone recording')) + '</span>');
+            a.append('<br /><span class="autocomplete-appears">' + _.escape(l('standalone recording')) + '</span>');
         }
 
         if (item.isrcs && item.isrcs.length)
         {
-            a.append('<br /><span class="autocomplete-isrcs">' + _.escape(i18n.addColon(i18n.l('ISRCs'))) + ' ' +
+            a.append('<br /><span class="autocomplete-isrcs">' + _.escape(addColon(l('ISRCs'))) + ' ' +
                      _.escape(commaOnlyList(item.isrcs.map(isrc => isrc.isrc))) + '</span>');
         }
 
@@ -733,7 +733,7 @@ MB.Control.autocomplete_formatters = {
 
         if (item.typeName) {
             a.append('<br /><span class="autocomplete-comment">' +
-              _.escape(i18n.l('{release_group_type} by {artist}', {
+              _.escape(l('{release_group_type} by {artist}', {
                 artist: item.artist,
                 release_group_type: item.l_type_name,
              })) + '</span>');
@@ -784,7 +784,7 @@ MB.Control.autocomplete_formatters = {
 
         if (item.typeName)
         {
-            a.append('<br /><span class="autocomplete-comment">' + _.escape(i18n.addColon(i18n.l('Type')) + ' ' + lp_attributes(item.typeName, 'work_type')) + '</span>');
+            a.append('<br /><span class="autocomplete-comment">' + _.escape(addColon(l('Type')) + ' ' + lp_attributes(item.typeName, 'work_type')) + '</span>');
         }
 
         var artistRenderer = function (prefix, artists) {
@@ -802,8 +802,8 @@ MB.Control.autocomplete_formatters = {
         };
 
         if (item.artists) {
-            artistRenderer(i18n.l('Writers'), item.artists.writers);
-            artistRenderer(i18n.l('Artists'), item.artists.artists);
+            artistRenderer(l('Writers'), item.artists.writers);
+            artistRenderer(l('Artists'), item.artists.artists);
         }
 
         return $("<li>").append(a).appendTo(ul);
@@ -949,8 +949,8 @@ MB.Control.autocomplete_formatters = {
         };
 
         if (item.related_entities) {
-            entityRenderer(i18n.l('Performers'), item.related_entities.performers);
-            entityRenderer(i18n.l('Location'), item.related_entities.places);
+            entityRenderer(l('Performers'), item.related_entities.performers);
+            entityRenderer(l('Location'), item.related_entities.places);
         }
 
         return $("<li>").append(a).appendTo(ul);

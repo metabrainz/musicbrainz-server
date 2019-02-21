@@ -3,9 +3,9 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-const L = require('leaflet/dist/leaflet-src');
+import L from 'leaflet/dist/leaflet-src';
 
-const DBDefs = require('./DBDefs-client');
+import * as DBDefs from './DBDefs-client';
 
 const iconsUrls = {
   'arena-marker-icon-2x.png': require('../../images/leaflet/arena-marker-icon-2x.png'),
@@ -31,7 +31,7 @@ L.Icon.Default.prototype._getIconUrl = function (name) {
   return url;
 };
 
-function createMap(latitude, longitude, zoom) {
+export function createMap(latitude, longitude, zoom) {
   const map = L.map('largemap').setView([latitude, longitude], zoom);
 
   L.tileLayer('https://{s}.tiles.mapbox.com/v4/' + DBDefs.MAPBOX_MAP_ID + '/{z}/{x}/{y}.png?access_token=' + DBDefs.MAPBOX_ACCESS_TOKEN, {
@@ -43,5 +43,4 @@ function createMap(latitude, longitude, zoom) {
   return map;
 }
 
-exports.createMap = createMap;
-exports.L = L;
+export {L};

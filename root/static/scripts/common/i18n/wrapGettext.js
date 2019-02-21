@@ -4,11 +4,11 @@
 // and is licensed under the GPL version 2, or (at your option) any
 // later version: http://www.gnu.org/licenses/gpl-2.0.txt
 
-const isNodeJS = require('detect-node');
-const sliced = require('sliced');
+import isNodeJS from 'detect-node';
 
-const cleanMsgid = require('./cleanMsgid').default;
-const expand2 = require('./expand2').default;
+import cleanMsgid from './cleanMsgid';
+import expand2 from './expand2';
+
 
 let gettext;
 if (isNodeJS) {

@@ -37,4 +37,4 @@ class NopArgs {
   }
 }
 
-module.exports = NopArgs;
+export default NopArgs;

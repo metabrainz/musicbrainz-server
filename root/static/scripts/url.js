@@ -1,7 +1,7 @@
 const $ = require('jquery');
 const ko = require('knockout');
 
-const MB = require('./common/MB');
+import MB from './common/MB';
 const {registerEvents} = require('./edit/URLCleanup');
 
 $(function () {
