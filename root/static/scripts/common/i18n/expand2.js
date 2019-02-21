@@ -149,7 +149,7 @@ function pushChild<T>(
   }
 }
 
-function parseContinous<T>(
+function parseContinuous<T>(
   parsers: $ReadOnlyArray<Parser<T | NO_MATCH, Input>>,
   args: ?VarArgs<Input>,
 ): $ReadOnlyArray<T> {
@@ -289,7 +289,7 @@ const htmlAttrValueParsers = [
 ];
 
 function parseHtmlAttrValue(args) {
-  return parseContinous(htmlAttrValueParsers, args);
+  return parseContinuous(htmlAttrValueParsers, args);
 }
 
 function parseHtmlAttr(args) {
@@ -333,7 +333,7 @@ function parseHtmlTag(args) {
     throw error('bad HTML tag');
   }
 
-  const attributes = parseContinous<{[string]: string}>(htmlAttrParsers, args);
+  const attributes = parseContinuous<{[string]: string}>(htmlAttrParsers, args);
 
   if (gotMatch(accept(htmlSelfClosingTagEnd))) {
     // Self-closing tag
@@ -369,7 +369,7 @@ const rootParsers = [
 ];
 
 function parseRoot(args) {
-  return parseContinous<Output>(rootParsers, args);
+  return parseContinuous<Output>(rootParsers, args);
 }
 
 /*
