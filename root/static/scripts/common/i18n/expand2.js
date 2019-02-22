@@ -33,9 +33,7 @@ export function gotMatch(x: mixed): boolean %checks {
 
 const textContent = /^[^<>{}]+/;
 const linkSubstStart = /^\{([0-9A-z_]+)\|/;
-const condSubstStart = /^\{([0-9A-z_]+):/;
 const condSubstThenTextContent = /^[^<>{}|]+/;
-const substEnd = /^}/;
 const htmlTagStart = /^<(?=[a-z])/;
 const htmlTagName = /^(a|abbr|b|br|code|em|li|span|strong|ul)(?=[\s\/>])/;
 const htmlTagEnd = /^>/;
@@ -44,7 +42,6 @@ const htmlAttrStart = /^\s+(?=[a-z])/;
 const htmlAttrName = /^(class|href|id|key|target|title)="/;
 const htmlAttrTextContent = /^[^{}"]+/;
 const percentSign = /(%)/;
-const verticalPipe = /^\|/;
 const hrefValueStart = /^(?:\/|https?:\/\/)/;
 
 export type Input = VarSubstArg | AnchorProps;
@@ -332,7 +329,13 @@ const parseLinkSubst = saveMatch(function (args) {
   return state.match;
 });
 
-const parseCondSubst = saveMatch(function (args) {
+const condSubstStart = /^\{([0-9A-z_]+):/;
+const verticalPipe = /^\|/;
+export const substEnd = /^}/;
+export const createCondSubstParser = <-T, -V>(
+  thenParser: Parser<T, V>,
+  elseParser: Parser<T, V>,
+): Parser<T | string | NO_MATCH, V> => saveMatch(function (args) {
   const name = accept(condSubstStart);
   if (typeof name !== 'string') {
     return NO_MATCH_VALUE;
@@ -343,11 +346,11 @@ const parseCondSubst = saveMatch(function (args) {
     state.replacement = args[name];
   }
 
-  const thenChildren = withTextPattern(condSubstThenTextContent, parseRoot, args);
+  const thenChildren = thenParser(args);
 
   let elseChildren = '';
   if (gotMatch(accept(verticalPipe))) {
-    elseChildren = withTextPattern(textContent, parseRoot, args);
+    elseChildren = elseParser(args);
   }
 
   state.replacement = savedReplacement;
@@ -365,6 +368,11 @@ const parseCondSubst = saveMatch(function (args) {
   }
   return state.match;
 });
+
+const parseCondSubst = createCondSubstParser(
+  args => withTextPattern(condSubstThenTextContent, parseRoot, args),
+  args => withTextPattern(textContent, parseRoot, args),
+);
 
 const htmlAttrValueParsers = [
   parseTextContent,
