@@ -299,6 +299,9 @@ export const createVarSubstParser = <T, -V>(
   return state.match;
 });
 
+export const parseStringVarSubst =
+  createVarSubstParser<string, StrOrNum>(getString);
+
 export function getVarSubstArg(x: mixed): Output {
   if (React.isValidElement(x)) {
     return ((x: any): AnyReactElem);
