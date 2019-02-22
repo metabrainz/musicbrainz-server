@@ -12,7 +12,7 @@ import releaseEditor from './viewModel';
 
 function bubbleDoc(options) {
     var bubble = new MB.Control.BubbleDoc("Information");
-    _.assign(bubble, options);
+    Object.assign(bubble, options);
     return bubble;
 }
 

@@ -78,7 +78,7 @@ releaseEditor.edits = {
             edits.push(MB.edit.releaseCreate(newData));
         }
         else if (!_.isEqual(newData, oldData)) {
-            newData = _.extend(_.clone(newData), { to_edit: release.gid() });
+            newData = {...newData, to_edit: release.gid()};
             edits.push(MB.edit.releaseEdit(newData, oldData));
         }
         return edits;

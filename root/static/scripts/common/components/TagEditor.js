@@ -247,7 +247,7 @@ class TagEditor extends React.Component<TagEditorProps, TagEditorState> {
     let doRequest;
     if (asap) {
       const $ = require('jquery');
-      doRequest = args => $.ajax(_.assign({dataType: 'json'}, args));
+      doRequest = args => $.ajax({...args, dataType: 'json'});
     } else {
       doRequest = require('../utility/request').default;
     }
@@ -356,7 +356,7 @@ class TagEditor extends React.Component<TagEditorProps, TagEditorState> {
   updateVote(index: number, vote: VoteT) {
     const newCount = this.getNewCount(index, vote);
     const tags = this.state.tags.slice(0);
-    tags[index] = _.assign({}, tags[index], {count: newCount, vote: vote});
+    tags[index] = {...tags[index], count: newCount, vote};
     this.setState({tags});
   }
 

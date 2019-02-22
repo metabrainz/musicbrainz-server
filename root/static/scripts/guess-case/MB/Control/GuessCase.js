@@ -105,7 +105,7 @@ ko.bindingHandlers.guessCase = {
             guessCaseOptions.upperCaseRoman(getBooleanCookie('guesscase_roman'));
         }
 
-        var bindings = _.assign({}, guessCaseOptions);
+        var bindings = {...guessCaseOptions};
         bindings.guessCase = _.bind(valueAccessor(), bindings);
 
         var context = bindingContext.createChildContext(bindings);

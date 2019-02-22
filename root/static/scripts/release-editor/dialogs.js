@@ -34,7 +34,7 @@ class Dialog {
 
 export const trackParserDialog = releaseEditor.trackParserDialog = new Dialog();
 
-_.assign(trackParserDialog, {
+Object.assign(trackParserDialog, {
     element: "#track-parser-dialog",
     title: l("Track Parser"),
 
@@ -73,7 +73,7 @@ _.assign(trackParserDialog, {
 class SearchResult {
 
     constructor(tab, data) {
-        _.extend(this, data);
+        Object.assign(this, data);
 
         this.tab = tab;
         this.loaded = ko.observable(false);
@@ -109,7 +109,7 @@ class SearchResult {
 
     requestDone(data) {
         _.each(data.tracks, (track, index) => this.parseTrack(track, index));
-        _.extend(this, utils.reuseExistingMediumData(data));
+        Object.assign(this, utils.reuseExistingMediumData(data));
 
         this.loaded(true);
     }
@@ -260,7 +260,7 @@ SearchTab.prototype.tracksRequestData = {};
 
 export const mediumSearchTab = releaseEditor.mediumSearchTab = new SearchTab();
 
-_.assign(mediumSearchTab, {
+Object.assign(mediumSearchTab, {
     endpoint: "/ws/js/medium",
 
     tracksRequestData: { inc: "recordings" },
@@ -278,7 +278,7 @@ _.assign(mediumSearchTab, {
 
 var cdstubSearchTab = new SearchTab();
 
-_.assign(cdstubSearchTab, {
+Object.assign(cdstubSearchTab, {
     endpoint: "/ws/js/cdstub",
 
     tracksRequestURL: function (result) {
@@ -289,7 +289,7 @@ _.assign(cdstubSearchTab, {
 
 export const addDiscDialog = releaseEditor.addDiscDialog = new Dialog();
 
-_.assign(addDiscDialog, {
+Object.assign(addDiscDialog, {
     element: "#add-disc-dialog",
     title: l("Add Medium"),
 

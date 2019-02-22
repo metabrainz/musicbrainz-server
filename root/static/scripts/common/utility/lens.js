@@ -28,8 +28,6 @@
  * https://github.com/gcanti/monocle-ts/tree/d1ebe6b with heavy modifications.
  */
 
-import assign from 'lodash/assign';
-
 const hasOwnProperty = Object.prototype.hasOwnProperty;
 
 type MapT = {+[string]: *};
@@ -117,7 +115,7 @@ export function update<S: *, A>(lens: Lens<S, A>, f: (a: A) => A, s: S): S {
 }
 
 function _merge<T: MapT>(a: T, b: T): T {
-  return ((assign({}, a, b): any): T);
+  return ((Object.assign({}, a, b): any): T);
 }
 
 export function merge<S: *, A: MapT>(lens: Lens<S, A>, values: A, s: S): S {

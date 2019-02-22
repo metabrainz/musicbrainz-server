@@ -360,7 +360,7 @@ relationshipEditorTest("dialog backwardness", function (t) {
     ];
 
     _.each(tests, function (test) {
-        var options = _.assign({ viewModel: vm }, test.input);
+        var options = {...test.input, viewModel: vm};
         var dialog = new AddDialog(options);
 
         t.equal(dialog.backward(), test.expected.backward)
@@ -946,7 +946,7 @@ relationshipEditorTest('relationships with different link orders are not duplica
     var relationship = vm.source.relationships()[0];
 
     var newRelationship = vm.getRelationship(
-        _.assign(_.clone(sourceData.relationships[0]), { linkOrder: 1 }),
+        {...sourceData.relationships[0], linkOrder: 1},
         vm.source
     );
 

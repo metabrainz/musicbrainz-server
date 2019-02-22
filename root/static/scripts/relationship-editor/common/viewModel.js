@@ -118,7 +118,7 @@ export class ViewModel {
         }
     }
 
-    _.assign(ViewModel.prototype, {
+    Object.assign(ViewModel.prototype, {
         relationshipClass: fields.Relationship,
         activeDialog: ko.observable(),
     });

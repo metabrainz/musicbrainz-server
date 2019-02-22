@@ -126,7 +126,7 @@ dialogTest("adding a new medium does not cause reorder edits (MBS-7412)", functi
 
     release.mediums([
         new fields.Medium(
-            _.assign(_.omit(common.testMedium, "id"), { position: 1 })
+            Object.assign(_.omit(common.testMedium, "id"), { position: 1 })
         )
     ]);
 

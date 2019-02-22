@@ -31,7 +31,7 @@ function parserTest(name, callback) {
 parserTest("track numbers", function (t) {
     t.plan(1);
 
-    _.assign(trackParser.options, {
+    Object.assign(trackParser.options, {
         hasTrackNumbers: true,
         hasVinylNumbers: true,
         useTrackNumbers: true,
@@ -64,7 +64,7 @@ parserTest("track numbers", function (t) {
 parserTest("parsing track durations with trailing whitespace (MBS-1284)", function (t) {
     t.plan(1);
 
-    _.assign(trackParser.options, {
+    Object.assign(trackParser.options, {
         hasTrackNumbers: true,
         useTrackNumbers: true,
         useTrackNames: true,
@@ -90,7 +90,7 @@ parserTest("parsing track durations with trailing whitespace (MBS-1284)", functi
 parserTest("numbers at the end of track names being wrongly interpreted as durations (MBS-2511, MBS-2902)", function (t) {
     t.plan(1);
 
-    _.assign(trackParser.options, {
+    Object.assign(trackParser.options, {
         hasTrackNumbers: true,
         useTrackNumbers: true,
         useTrackNames: true,
@@ -112,7 +112,7 @@ parserTest("numbers at the end of track names being wrongly interpreted as durat
 parserTest("ignoring lines that don't start with a number when the option is set (MBS-2540)", function (t) {
     t.plan(1);
 
-    _.assign(trackParser.options, {
+    Object.assign(trackParser.options, {
         hasTrackNumbers: true,
         useTrackNumbers: true,
         useTrackNames: true,
@@ -137,7 +137,7 @@ parserTest("ignoring lines that don't start with a number when the option is set
 parserTest("XX:XX:XX track times (MBS-3353)", function (t) {
     t.plan(1);
 
-    _.assign(trackParser.options, {
+    Object.assign(trackParser.options, {
         hasTrackNumbers: true,
         useTrackNumbers: true,
         useTrackNames: true,
@@ -154,7 +154,7 @@ parserTest("XX:XX:XX track times (MBS-3353)", function (t) {
 parserTest("internal track positions are updated appropriately after being reused", function (t) {
     t.plan(2);
 
-    _.assign(trackParser.options, {
+    Object.assign(trackParser.options, {
         hasTrackNumbers: true,
         useTrackNames: true,
         useTrackLengths: true
@@ -212,7 +212,7 @@ parserTest("MBS-7451: track parser can clear TOC track lengths", function (t) {
 parserTest("can parse only numbers, titles, artists, or lengths (MBS-3730, MBS-3732)", function (t) {
     t.plan(16);
 
-    _.assign(trackParser.options, {
+    Object.assign(trackParser.options, {
         hasTrackNumbers: true,
         hasVinylNumbers: true,
         hasTrackArtists: true,
@@ -243,7 +243,7 @@ parserTest("can parse only numbers, titles, artists, or lengths (MBS-3730, MBS-3
     t.equal(track.formattedLength(), "3:00", "length was not used");
 
     // Parse only titles
-    _.assign(trackParser.options, {
+    Object.assign(trackParser.options, {
         useTrackNumbers: false,
         useTrackNames: true
     });
@@ -257,7 +257,7 @@ parserTest("can parse only numbers, titles, artists, or lengths (MBS-3730, MBS-3
     t.equal(track.formattedLength(), "3:00", "length was not used");
 
     // Parse only artists
-    _.assign(trackParser.options, {
+    Object.assign(trackParser.options, {
         useTrackNames: false,
         useTrackArtists: true
     });
@@ -271,7 +271,7 @@ parserTest("can parse only numbers, titles, artists, or lengths (MBS-3730, MBS-3
     t.equal(track.formattedLength(), "3:00", "length was not used");
 
     // Parse only lengths
-    _.assign(trackParser.options, {
+    Object.assign(trackParser.options, {
         useTrackArtists: false,
         useTrackLengths: true
     });
@@ -290,7 +290,7 @@ parserTest("Does not lose previous recordings (MBS-7719)", function (t) {
 
     var trackParser = releaseEditor.trackParser;
 
-    _.assign(trackParser.options, {
+    Object.assign(trackParser.options, {
         hasTrackNumbers: true,
         useTrackNumbers: true,
         useTrackNames: true
@@ -368,7 +368,7 @@ parserTest("Does not lose previous recordings (MBS-7719)", function (t) {
 parserTest("parsing fullwidth numbers", function (t) {
     t.plan(1);
 
-    _.assign(releaseEditor.trackParser.options, {
+    Object.assign(releaseEditor.trackParser.options, {
         hasTrackNumbers: true,
         useTrackNumbers: true,
         useTrackNames: true,
@@ -386,7 +386,7 @@ parserTest("parses track times for data tracks if there's a disc ID (MBS-8409)",
     t.plan(2);
 
     var trackParser = releaseEditor.trackParser;
-    _.assign(trackParser.options, {useTrackLengths: true});
+    Object.assign(trackParser.options, {useTrackLengths: true});
 
     var release = new fields.Release({
         id: 1,

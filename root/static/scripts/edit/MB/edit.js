@@ -277,7 +277,7 @@ import request from '../../common/utility/request';
 
     function editConstructor(type, callback) {
         return function (args, ...rest) {
-            args = _.extend({ edit_type: type }, args);
+            args = {...args, edit_type: type};
 
             callback && callback.apply(null, [args].concat(rest));
             args.hash = editHash(args);
