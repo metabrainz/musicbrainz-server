@@ -19,8 +19,6 @@ import type {ReportDataT, ReportInstrumentT} from './types';
 
 const InstrumentsWithoutAnImage = ({
   $c,
-  canBeFiltered,
-  filtered,
   generated,
   items,
   pager,

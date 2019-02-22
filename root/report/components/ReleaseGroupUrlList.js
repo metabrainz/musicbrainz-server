@@ -12,14 +12,14 @@ import * as React from 'react';
 import {l} from '../../static/scripts/common/i18n';
 import PaginatedResults from '../../components/PaginatedResults';
 import EntityLink from '../../static/scripts/common/components/EntityLink';
-import type {ReportReleaseGroupURLT} from '../types';
+import type {ReportReleaseGroupUrlT} from '../types';
 import ArtistCreditLink
   from '../../static/scripts/common/components/ArtistCreditLink';
 
 const ReleaseGroupUrlList = ({
   items,
   pager,
-}: {items: $ReadOnlyArray<ReportReleaseGroupURLT>, pager: PagerT}) => {
+}: {items: $ReadOnlyArray<ReportReleaseGroupUrlT>, pager: PagerT}) => {
   let lastGID = 0;
   let currentGID = 0;
 
@@ -34,13 +34,13 @@ const ReleaseGroupUrlList = ({
           </tr>
         </thead>
         <tbody>
-          {items.map((item, index) => {
+          {items.map((item) => {
             lastGID = currentGID;
             currentGID = item.url.gid;
 
             return (
               <>
-                {lastGID !== item.url.gid ? (
+                {lastGID === item.url.gid ? null : (
                   <tr className="even" key={item.url.gid}>
                     <td colSpan="3">
                       <EntityLink
@@ -49,7 +49,7 @@ const ReleaseGroupUrlList = ({
                       />
                     </td>
                   </tr>
-                ) : null}
+                )}
                 <tr key={item.release_group.gid}>
                   <td />
                   <td>

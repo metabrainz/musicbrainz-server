@@ -49,7 +49,7 @@ use MusicBrainz::Server::PagedReport;
     FeaturingReleaseGroups
     FeaturingReleases
     InstrumentsWithoutAnImage
-    ISRCsWithManyRecordings
+    IsrcsWithManyRecordings
     IswcsWithManyWorks
     LabelsDisambiguationSameName
     LimitedEditors
@@ -128,7 +128,7 @@ use MusicBrainz::Server::Report::FeaturingRecordings;
 use MusicBrainz::Server::Report::FeaturingReleaseGroups;
 use MusicBrainz::Server::Report::FeaturingReleases;
 use MusicBrainz::Server::Report::InstrumentsWithoutAnImage;
-use MusicBrainz::Server::Report::ISRCsWithManyRecordings;
+use MusicBrainz::Server::Report::IsrcsWithManyRecordings;
 use MusicBrainz::Server::Report::IswcsWithManyWorks;
 use MusicBrainz::Server::Report::LabelsDisambiguationSameName;
 use MusicBrainz::Server::Report::LimitedEditors;

@@ -12,12 +12,12 @@ import * as React from 'react';
 import {l} from '../../static/scripts/common/i18n';
 import PaginatedResults from '../../components/PaginatedResults';
 import EntityLink from '../../static/scripts/common/components/EntityLink';
-import type {ReportArtistURLT} from '../types';
+import type {ReportArtistUrlT} from '../types';
 
-const ArtistURLList = ({
+const ArtistUrlList = ({
   items,
   pager,
-}: {items: $ReadOnlyArray<ReportArtistURLT>, pager: PagerT}) => {
+}: {items: $ReadOnlyArray<ReportArtistUrlT>, pager: PagerT}) => {
   let lastGID = 0;
   let currentGID = 0;
 
@@ -31,13 +31,13 @@ const ArtistURLList = ({
           </tr>
         </thead>
         <tbody>
-          {items.map((item, index) => {
+          {items.map((item) => {
             lastGID = currentGID;
             currentGID = item.url.gid;
 
             return (
               <>
-                {lastGID !== item.url.gid ? (
+                {lastGID === item.url.gid ? null : (
                   <tr className="even" key={item.url.gid}>
                     <td colSpan="2">
                       <EntityLink
@@ -46,7 +46,7 @@ const ArtistURLList = ({
                       />
                     </td>
                   </tr>
-                ) : null}
+                )}
                 <tr key={item.artist.gid}>
                   <td />
                   <td>
@@ -62,4 +62,4 @@ const ArtistURLList = ({
   );
 };
 
-export default ArtistURLList;
+export default ArtistUrlList;

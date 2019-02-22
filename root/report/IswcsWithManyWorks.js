@@ -62,22 +62,22 @@ const IswcsWithManyWorks = ({
             </tr>
           </thead>
           <tbody>
-            {items.map((item, index) => {
+            {items.map((item) => {
               lastIswc = currentIswc;
               currentIswc = item.iswc;
 
               return (
-                <>
+                <React.Fragment key={item.iswc + '-' + item.work.gid}>
                   {lastIswc === item.iswc ? null : (
-                    <tr className="even" key={item.iswc}>
+                    <tr className="even">
                       <td>
                         <a href={'/iswc/' + item.iswc}>{item.iswc}</a>
-                        <span>{bracketed(item.workcount)}</span>
+                        <span>{' ' + bracketed(item.workcount)}</span>
                       </td>
                       <td colSpan="5" />
                     </tr>
                   )}
-                  <tr key={item.work.gid}>
+                  <tr>
                     <td />
                     <WorkListRow
                       hasIswcColumn={false}
@@ -85,7 +85,7 @@ const IswcsWithManyWorks = ({
                       work={item.work}
                     />
                   </tr>
-                </>
+                </React.Fragment>
               );
             })}
           </tbody>

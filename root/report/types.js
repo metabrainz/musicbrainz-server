@@ -32,7 +32,7 @@ export type ReportArtistT = {|
   +row_number: number,
 |};
 
-export type ReportArtistURLT = {|
+export type ReportArtistUrlT = {|
   +artist: ArtistT,
   +artist_id: number,
   +row_number: number,
@@ -76,6 +76,17 @@ export type ReportInstrumentT = {|
   +row_number: number,
 |};
 
+export type ReportIsrcT = {|
+  +isrc: string,
+  +length: number,
+  +name: string,
+  +recording: RecordingT,
+  +recording_id: string,
+  +recordingcount: number,
+  +row_number: number,
+  +text: string,
+|};
+
 export type ReportIswcT = {|
   +iswc: string,
   +row_number: number,
@@ -107,7 +118,7 @@ export type ReportLabelT = {|
   +row_number: number,
 |};
 
-export type ReportLabelURLT = {|
+export type ReportLabelUrlT = {|
   +label: LabelT,
   +label_id: number,
   +row_number: number,
@@ -137,7 +148,7 @@ export type ReportReleaseGroupT = {|
   +row_number: number,
 |};
 
-export type ReportReleaseGroupURLT = {|
+export type ReportReleaseGroupUrlT = {|
   +release_group: ReleaseGroupT,
   +release_group_id: number,
   +row_number: number,

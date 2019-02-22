@@ -14,9 +14,9 @@ import Layout from '../layout';
 import formatUserDate from '../utility/formatUserDate';
 import {l} from '../static/scripts/common/i18n';
 
-import ArtistURLList from './components/ArtistURLList';
+import ArtistUrlList from './components/ArtistUrlList';
 import FilterLink from './FilterLink';
-import type {ReportArtistURLT, ReportDataT} from './types';
+import type {ReportArtistUrlT, ReportDataT} from './types';
 
 const DiscogsLinksWithMultipleArtists = ({
   $c,
@@ -25,7 +25,7 @@ const DiscogsLinksWithMultipleArtists = ({
   generated,
   items,
   pager,
-}: ReportDataT<ReportArtistURLT>) => (
+}: ReportDataT<ReportArtistUrlT>) => (
   <Layout fullWidth title={l('Discogs URLs linked to multiple artists')}>
     <h1>{l('Discogs URLs linked to multiple artists')}</h1>
 
@@ -40,7 +40,7 @@ const DiscogsLinksWithMultipleArtists = ({
       {canBeFiltered ? <FilterLink filtered={filtered} /> : null}
     </ul>
 
-    <ArtistURLList items={items} pager={pager} />
+    <ArtistUrlList items={items} pager={pager} />
 
   </Layout>
 );

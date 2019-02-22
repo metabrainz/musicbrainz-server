@@ -16,7 +16,7 @@ import {l} from '../static/scripts/common/i18n';
 
 import ReleaseGroupUrlList from './components/ReleaseGroupUrlList';
 import FilterLink from './FilterLink';
-import type {ReportDataT, ReportReleaseGroupURLT} from './types';
+import type {ReportDataT, ReportReleaseGroupUrlT} from './types';
 
 const DiscogsLinksWithMultipleReleaseGroups = ({
   $c,
@@ -25,7 +25,7 @@ const DiscogsLinksWithMultipleReleaseGroups = ({
   generated,
   items,
   pager,
-}: ReportDataT<ReportReleaseGroupURLT>) => (
+}: ReportDataT<ReportReleaseGroupUrlT>) => (
   <Layout fullWidth title={l('Discogs URLs linked to multiple release groups')}>
     <h1>{l('Discogs URLs linked to multiple release groups')}</h1>
 
