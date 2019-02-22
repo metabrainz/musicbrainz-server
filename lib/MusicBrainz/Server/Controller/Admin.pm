@@ -146,6 +146,12 @@ sub edit_banner : Path('/admin/banner/edit') Args(0) RequireAuth(banner_editor) 
         $c->flash->{message} = l('Banner updated. Remember that each server has its own, independent banner.');
         $c->response->redirect($c->uri_for('/'));
         $c->detach;
+    } else {
+        $c->stash(
+            current_view => 'Node',
+            component_path => 'admin/EditBanner',
+            component_props => {form => $form},
+        );
     }
 }
 
