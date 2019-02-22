@@ -24,7 +24,6 @@ type Props = {|
   +$c: CatalystContextT,
   +checkboxes?: string,
   +labels: $ReadOnlyArray<LabelT>,
-  +noAreas?: boolean,
   +noRatings?: boolean,
   +order?: string,
   +sortable?: boolean,
@@ -34,7 +33,6 @@ const LabelsList = ({
   $c,
   checkboxes,
   labels,
-  noAreas,
   noRatings,
   order,
   sortable,
@@ -78,7 +76,17 @@ const LabelsList = ({
             )
             : l('Code')}
         </th>
-        {noAreas ? null : <th>{l('Area')}</th>}
+        <th>
+          {sortable
+            ? (
+              <SortableTableHeader
+                label={l('Area')}
+                name="area"
+                order={order}
+              />
+            )
+            : l('Area')}
+        </th>
         <th>
           {sortable
             ? (
@@ -127,11 +135,9 @@ const LabelsList = ({
           <td>
             {label.label_code ? formatLabelCode(label.label_code) : null}
           </td>
-          {noAreas || !label.area ? null : (
-            <td>
-              <DescriptiveLink entity={label.area} />
-            </td>
-          )}
+          <td>
+            {label.area ? <DescriptiveLink entity={label.area} /> : null}
+          </td>
           <td>{formatDate(label.begin_date)}</td>
           <td>{formatEndDate(label)}</td>
           {noRatings ? null : (

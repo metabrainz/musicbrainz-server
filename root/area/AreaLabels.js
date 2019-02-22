@@ -32,7 +32,6 @@ const AreaLabels = ({
       <PaginatedResults pager={pager}>
         <LabelsList
           labels={labels}
-          noAreas
         />
       </PaginatedResults>
     ) : (

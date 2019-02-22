@@ -126,6 +126,9 @@ sub _order_by {
         "code" => sub {
             return "label_code, musicbrainz_collate(name)"
         },
+        "area" => sub {
+            return "area, musicbrainz_collate(name)"
+        },
         "begin_date" => sub {
             return "begin_date_year, begin_date_month, begin_date_day, musicbrainz_collate(name)"
         },
