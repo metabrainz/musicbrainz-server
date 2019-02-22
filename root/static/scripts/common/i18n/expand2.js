@@ -215,6 +215,28 @@ function parseContinuousArray<-T, -V>(
   );
 }
 
+function concatStringMatch(
+  accum: string | NO_MATCH,
+  match: string | NO_MATCH,
+): string {
+  return (
+    (gotMatch(accum) ? accum : '') +
+    (gotMatch(match) ? match : '')
+  );
+}
+
+export function parseContinuousString<-V>(
+  parsers: $ReadOnlyArray<Parser<string | NO_MATCH, V>>,
+  args: ?VarArgs<V>,
+): string {
+  return parseContinuous<string, string, V>(
+    parsers,
+    args,
+    concatStringMatch,
+    '',
+  );
+}
+
 export const createTextContentParser = <+T, -V>(
   textPattern: RegExp,
   mapValue: (string) => T,
