@@ -42,11 +42,13 @@ const Aliases = ({$c, aliases, entity}: Props) => {
     <>
       <h2>{l('Aliases')}</h2>
       <p>
-        {exp.l(`An alias is an alternate name for an entity. They typically
-                contain common mispellings or variations of the name and are
-                also used to improve search results. View the
-                {doc|alias documentation} for more details.`,
-               {doc: '/doc/Aliases'})}
+        {exp.l(
+          `An alias is an alternate name for an entity. They typically
+           contain common mispellings or variations of the name and are also 
+           used to improve search results. View the {doc|alias documentation}
+           for more details.`,
+          {doc: '/doc/Aliases'},
+        )}
       </p>
       {aliases && aliases.length ? (
         <AliasTable

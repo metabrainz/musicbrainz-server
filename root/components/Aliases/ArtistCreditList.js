@@ -29,13 +29,15 @@ const ArtistCreditList = ({$c, artistCredits, entity}: Props) => {
     <>
       <h2>{l('Artist credits')}</h2>
       <p>
-        {exp.l(`This is a list of all the different ways {artist} is credited
-                in the database. View the {doc|artist credit documentation}
-                for more details.`,
-               {
-                 artist: <EntityLink entity={entity} />,
-                 doc: '/doc/Artist_Credits',
-               })}
+        {exp.l(
+          `This is a list of all the different ways {artist} is credited
+           in the database. View the {doc|artist credit documentation}
+           for more details.`,
+          {
+            artist: <EntityLink entity={entity} />,
+            doc: '/doc/Artist_Credits',
+          },
+        )}
       </p>
 
       <table className="tbl">
