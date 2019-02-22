@@ -5,8 +5,13 @@ BEGIN { extends 'MusicBrainz::Server::Controller'; }
 
 with 'MusicBrainz::Server::Controller::Role::Load' => {
     model           => 'Area',
-    relationships   => { all => ['show'], cardinal => ['edit'], default => ['url'] },
-};
+    relationships   => {
+        cardinal    => ['edit'],
+        default     => ['url'],
+        subset      => {
+            show => [qw( area artist label place url work series instrument release release_group recording work url )],
+        }
+    },};
 with 'MusicBrainz::Server::Controller::Role::LoadWithRowID';
 with 'MusicBrainz::Server::Controller::Role::Annotation';
 with 'MusicBrainz::Server::Controller::Role::Alias';
@@ -103,6 +108,37 @@ sub artists : Chained('load')
         $c->model('Artist')->rating->load_user_ratings($c->user->id, @$artists);
     }
     $c->stash( artists => $artists );
+}
+
+=head2 events
+
+Shows all events for an area.
+
+=cut
+
+sub events : Chained('load')
+{
+    my ($self, $c) = @_;
+    my $events = $self->_load_paged($c, sub {
+        $c->model('Event')->find_by_area($c->stash->{area}->id, shift, shift);
+    });
+    $c->model('Event')->load_related_info(@$events);
+    $c->model('Area')->load(map { $_->{entity} } map { $_->all_places } @$events);
+    $c->model('Area')->load_containment(map { (map { $_->{entity} } $_->all_areas),
+                                              (map { $_->{entity}->area } $_->all_places) } @$events);
+    $c->model('Event')->rating->load_user_ratings($c->user->id, @$events) if $c->user_exists;
+
+    my %props = (
+        area       => $c->stash->{area},
+        events      => $events,
+        pager       => serialize_pager($c->stash->{pager}),
+    );
+
+    $c->stash(
+        component_path  => 'area/AreaEvents.js',
+        component_props => \%props,
+        current_view    => 'Node',
+    );
 }
 
 =head2 labels
