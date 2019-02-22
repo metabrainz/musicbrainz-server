@@ -10,11 +10,15 @@
 import * as React from 'react';
 
 import expand, {
+  createCondSubstParser,
   createTextContentParser,
+  parseContinuousString,
+  parseStringVarSubst,
   state,
 } from './expand2';
 
 const textContent = /^[^{}]+/;
+const condSubstThenTextContent = /^[^{}|]+/;
 
 function handleTextContentText(text: string) {
   if (typeof state.replacement === 'string') {
@@ -28,9 +32,39 @@ const parseRootTextContent = createTextContentParser(
   handleTextContentText,
 );
 
+const parseCondSubst = createCondSubstParser<string, StrOrNum>(
+  args => parseContinuousString<StrOrNum>(condSubstThenParsers, args),
+  args => parseContinuousString<StrOrNum>(condSubstElseParsers, args),
+);
+
+const parseCondSubstThenTextContent = createTextContentParser(
+  condSubstThenTextContent,
+  handleTextContentText,
+);
+
+const condSubstThenParsers = [
+  parseCondSubstThenTextContent,
+  parseStringVarSubst,
+  parseCondSubst,
+];
+
+const condSubstElseParsers = [
+  parseRootTextContent,
+  parseStringVarSubst,
+  parseCondSubst,
+];
+
+const rootParsers = [
+  parseRootTextContent,
+  parseStringVarSubst,
+  parseCondSubst,
+];
+
+function parseRoot(args) {
+  return parseContinuousString<StrOrNum>(rootParsers, args);
+}
+
 /*
- * TODO: This isn't implemented yet.
- *
  * Like expand2react, but can only interpolate and produce plain text
  * values. To be more specific: HTML isn't parsed, link interpolation
  * syntax isn't supported, and only strings and numbers can be used
@@ -45,6 +79,5 @@ export default function expand2text(
   source: string,
   args?: ?{+[string]: StrOrNum},
 ) {
-  const result = expand(source, args);
-  return result[0] || '';
+  return expand<string, StrOrNum>(parseRoot, source, args);
 }

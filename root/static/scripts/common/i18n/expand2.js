@@ -7,7 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import he from 'he';
 import Raven from 'raven-js';
 import * as React from 'react';
 
@@ -31,22 +30,6 @@ export function gotMatch(x: mixed): boolean %checks {
   );
 }
 
-const textContent = /^[^<>{}]+/;
-const linkSubstStart = /^\{([0-9A-z_]+)\|/;
-const condSubstThenTextContent = /^[^<>{}|]+/;
-const htmlTagStart = /^<(?=[a-z])/;
-const htmlTagName = /^(a|abbr|b|br|code|em|li|span|strong|ul)(?=[\s\/>])/;
-const htmlTagEnd = /^>/;
-const htmlSelfClosingTagEnd = /^\s*\/>/;
-const htmlAttrStart = /^\s+(?=[a-z])/;
-const htmlAttrName = /^(class|href|id|key|target|title)="/;
-const htmlAttrTextContent = /^[^{}"]+/;
-const percentSign = /(%)/;
-const hrefValueStart = /^(?:\/|https?:\/\/)/;
-
-export type Input = VarSubstArg | AnchorProps;
-export type Output = string | AnyReactElem;
-
 export type VarArgs<+T> = {+[string]: T};
 export type Parser<+T, -V> = (?VarArgs<V>) => T;
 
@@ -64,29 +47,19 @@ type State = {
   replacement: VarSubstArg | NO_MATCH,
   // A copy of the source string, used in error messages.
   source: string,
-  /*
-   * RegExp used by `parseTextContent` to parse text, which is anything
-   * that isn't HTML or a substitution. The pattern varies in different
-   * contexts due to symbols having different meanings inside
-   * substitutions, HTML attributes, etc.
-   */
-  textPattern: RegExp,
 };
 
 const EMPTY_OBJECT = Object.freeze({});
-const EMPTY_ARRAY: Array<any> = Object.freeze([]);
 
 export const state: State = Object.seal({
-  args: EMPTY_OBJECT,
   match: '',
   position: 0,
   remainder: '',
   replacement: NO_MATCH_VALUE,
   source: '',
-  textPattern: textContent,
 });
 
-function hasArg(args, name) {
+export function hasArg<-T>(args: VarArgs<T>, name: string): boolean {
   return Object.prototype.hasOwnProperty.call(args, name);
 }
 
@@ -100,7 +73,7 @@ export function getString(x: mixed) {
   return '';
 }
 
-function accept(pattern) {
+export function accept(pattern: RegExp) {
   const m = state.remainder.match(pattern);
   if (m) {
     const entireMatch = m[0];
@@ -112,10 +85,10 @@ function accept(pattern) {
   return NO_MATCH_VALUE;
 }
 
-function error(message) {
+export function error(message: string) {
   return new Error(
     `Failed to parse string ${JSON.stringify(state.source)} at position ` +
-    `${state.position}: ${message}`
+    `${state.position}: ${message}`,
   );
 }
 
@@ -135,24 +108,6 @@ export function saveMatch<-T, -V>(cb: Parser<T, V>): Parser<T, V> {
     state.match = savedMatch + state.match;
     return result;
   };
-}
-
-function pushChild<T>(
-  children: Array<T>,
-  match: T,
-) {
-  if (typeof match === 'number') {
-    match = match.toString();
-  }
-  const size = children.length;
-  if (size &&
-      typeof match === 'string' &&
-      typeof children[size - 1] === 'string') {
-    // $FlowFixMe - Flow thinks the LHS can be a number here.
-    children[size - 1] += match;
-  } else {
-    children.push(match);
-  }
 }
 
 export function parseContinuous<-T, U, -V>(
@@ -181,35 +136,6 @@ export function parseContinuous<-T, U, -V>(
     return defaultValue;
   }
   return children;
-}
-
-function concatArrayMatch<-T>(
-  children: Array<T> | NO_MATCH,
-  match: Array<T> | T,
-): Array<T> {
-  if (!gotMatch(children)) {
-    children = [];
-  }
-  if (Array.isArray(match)) {
-    for (let j = 0; j < match.length; j++) {
-      pushChild(children, match[j]);
-    }
-  } else {
-    pushChild(children, match);
-  }
-  return children;
-}
-
-function parseContinuousArray<-T, -V>(
-  parsers: $ReadOnlyArray<Parser<Array<T> | T | NO_MATCH, V>>,
-  args: ?VarArgs<V>,
-): $ReadOnlyArray<T> {
-  return parseContinuous<Array<T> | T, Array<T>, V>(
-    parsers,
-    args,
-    concatArrayMatch,
-    EMPTY_ARRAY,
-  );
 }
 
 function concatStringMatch(
@@ -245,43 +171,6 @@ export const createTextContentParser = <+T, -V>(
   return mapValue(text);
 };
 
-function parseTextContent(args) {
-  let text = accept(state.textPattern);
-  if (typeof text !== 'string') {
-    return NO_MATCH_VALUE;
-  }
-  const replacement = state.replacement;
-  if (gotMatch(replacement) && percentSign.test(text)) {
-    const parts = text.split(percentSign);
-    const result: Array<Output> = [];
-    for (let i = 0; i < parts.length; i++) {
-      const part = parts[i];
-      if (part === '%') {
-        result.push(replacement);
-      } else {
-        result.push(he.decode(part));
-      }
-    }
-    return result;
-  } else {
-    text = he.decode(text);
-  }
-  return text;
-}
-
-/*
- * Sets `state.textPattern` while `cb` is executing, then returns it
- * back to its previous value. Used to parse text in different
- * contexts.
- */
-function withTextPattern(textPattern, cb, args) {
-  const savedTextPattern = state.textPattern;
-  state.textPattern = textPattern;
-  const result = cb(args);
-  state.textPattern = savedTextPattern;
-  return result;
-}
-
 const varSubst = /^\{([0-9A-z_]+)\}/;
 export const createVarSubstParser = <T, -V>(
   argFilter: (V) => T,
@@ -298,36 +187,6 @@ export const createVarSubstParser = <T, -V>(
 
 export const parseStringVarSubst =
   createVarSubstParser<string, StrOrNum>(getString);
-
-export function getVarSubstArg(x: mixed): Output {
-  if (React.isValidElement(x)) {
-    return ((x: any): AnyReactElem);
-  }
-  return getString(x);
-}
-
-const parseVarSubst = createVarSubstParser<Output, Input>(
-  getVarSubstArg,
-);
-
-const parseLinkSubst = saveMatch(function (args) {
-  const name = accept(linkSubstStart);
-  if (typeof name !== 'string') {
-    return NO_MATCH_VALUE;
-  }
-  const children = withTextPattern(textContent, parseRoot, args);
-  if (!gotMatch(accept(substEnd))) {
-    throw error('expected }');
-  }
-  if (args && hasArg(args, name)) {
-    let props: any = args[name];
-    if (typeof props === 'string') {
-      props = {href: props};
-    }
-    return React.createElement('a', props, ...children);
-  }
-  return state.match;
-});
 
 const condSubstStart = /^\{([0-9A-z_]+):/;
 const verticalPipe = /^\|/;
@@ -369,116 +228,25 @@ export const createCondSubstParser = <-T, -V>(
   return state.match;
 });
 
-const parseCondSubst = createCondSubstParser(
-  args => withTextPattern(condSubstThenTextContent, parseRoot, args),
-  args => withTextPattern(textContent, parseRoot, args),
-);
-
-const htmlAttrValueParsers = [
-  parseTextContent,
-  parseVarSubst,
-  parseCondSubst,
-];
-
-function parseHtmlAttrValue(args) {
-  return parseContinuousArray(htmlAttrValueParsers, args);
-}
-
-function parseHtmlAttr(args) {
-  if (!gotMatch(accept(htmlAttrStart))) {
-    return NO_MATCH_VALUE;
-  }
-
-  let name = accept(htmlAttrName);
-  if (typeof name !== 'string') {
-    throw error('bad HTML attribute');
-  }
-
-  if (name === 'class') {
-    name = 'className';
-  }
-
-  let value = withTextPattern(htmlAttrTextContent, parseHtmlAttrValue, args);
-
-  if (!gotMatch(accept(/^"/))) {
-    throw error('expected "');
-  }
-
-  value = value.join('');
-
-  if (name === 'href' && !hrefValueStart.test(value)) {
-    throw error('bad href value');
-  }
-
-  return {[name]: value};
-}
-
-const htmlAttrParsers = [parseHtmlAttr];
-
-function parseHtmlTag(args) {
-  if (!gotMatch(accept(htmlTagStart))) {
-    return NO_MATCH_VALUE;
-  }
-
-  const name = accept(htmlTagName);
-  if (typeof name !== 'string') {
-    throw error('bad HTML tag');
-  }
-
-  type HtmlAttr = {[string]: string};
-
-  const attributes = parseContinuousArray<HtmlAttr, Input>(htmlAttrParsers, args);
-
-  if (gotMatch(accept(htmlSelfClosingTagEnd))) {
-    // Self-closing tag
-    return React.createElement(
-      name,
-      Object.assign.call(Object, {}, ...attributes),
-    );
-  }
-
-  if (!gotMatch(accept(htmlTagEnd))) {
-    throw error('expected >');
-  }
-
-  const children = withTextPattern(textContent, parseRoot, args);
-
-  if (!gotMatch(accept(new RegExp('^</' + name + '>')))) {
-    throw error('expected </' + name + '>');
-  }
-
-  return React.createElement(
-    name,
-    Object.assign.call(Object, {}, ...attributes),
-    ...children,
-  );
-}
-
-const rootParsers = [
-  parseTextContent,
-  parseVarSubst,
-  parseLinkSubst,
-  parseCondSubst,
-  parseHtmlTag,
-];
-
-function parseRoot(args) {
-  return parseContinuousArray<Output, Input>(rootParsers, args);
-}
-
 /*
- * `expand` takes a translated string and
- *  (1) interpolates values (React nodes) into it,
- *  (2) converts HTML to React elements.
+ * This is not meant to be called directly, except by expand2react and
+ * expand2text. These functions accept an args hash containing values
+ * of type V, and produce an expansion result of type T.
  *
- * The output is intended for use with React, so the result is a valid
- * React node (a string, a React element, or null).
+ * So in the case of expand2react, the types would be:
+ * expand<string | React.Element<any>, string | number | React.Element<any>>;
  *
- * A (safe) subset of HTML is supported, in addition to the variable
- * substitution syntax. In order to display a character reserved by
- * either syntax, HTML character entities must be used.
+ * And for expand2text they'd be:
+ * expand<string, string | number>;
+ *
+ * Thus these signatures provide type safety on both the return value
+ * and input arg values.
  */
-export default function expand(source: ?string, args?: ?VarArgs<Input>): Output {
+export default function expand<+T, -V>(
+  rootParser: (?VarArgs<V>) => T,
+  source: ?string,
+  args: ?VarArgs<V>,
+): T | string {
   if (!source) {
     return '';
   }
@@ -489,11 +257,10 @@ export default function expand(source: ?string, args?: ?VarArgs<Input>): Output 
   state.remainder = source;
   state.replacement = NO_MATCH_VALUE;
   state.source = source;
-  state.textPattern = textContent;
 
   let result;
   try {
-    result = parseRoot(args);
+    result = rootParser(args);
 
     if (state.remainder) {
       throw error('unexpected token');
