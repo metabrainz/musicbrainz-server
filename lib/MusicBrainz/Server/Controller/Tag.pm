@@ -21,6 +21,16 @@ sub _load
     return $c->model('Tag')->get_by_name($name);
 }
 
+sub no_tag_provided : Path('/tag') Args(0)
+{
+    my ($self, $c, $name) = @_;
+
+    # If no tag is passed, redirect to the tag cloud
+    $c->response->redirect(
+        $c->uri_for_action('/tag/cloud'));
+    $c->detach;
+}
+
 sub cloud : Path('/tags')
 {
     my ($self, $c, $name) = @_;
