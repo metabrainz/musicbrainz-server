@@ -25,7 +25,9 @@ class Autocomplete extends React.Component {
     this._subscription = currentSelection.subscribe(this.props.onChange);
 
     this._autocomplete = $(this._nameInput).entitylookup(options).data('mb-entitylookup');
-    currentSelection(this._autocomplete._dataToEntity(this.props.currentSelection));
+    currentSelection(
+      this._autocomplete._dataToEntity(this.props.currentSelection),
+    );
   }
 
   componentWillUnmount() {
@@ -49,7 +51,9 @@ class Autocomplete extends React.Component {
     if (!next) {
       autocomplete.clearSelection(true);
     } else if (!prev || prev.gid !== next.gid || prev.name !== next.name) {
-      autocomplete.currentSelection(autocomplete._dataToEntity(nextProps.currentSelection));
+      autocomplete.currentSelection(
+        autocomplete._dataToEntity(nextProps.currentSelection),
+      );
     }
 
     autocomplete.element.prop('disabled', !!nextProps.disabled);

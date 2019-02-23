@@ -96,7 +96,10 @@ class VoteButton extends React.Component<VoteButtonProps> {
     };
 
     if (!isActive) {
-      (buttonProps: any).onClick = _.partial(callback, currentVote === 0 ? vote : 0);
+      (buttonProps: any).onClick = _.partial(
+        callback,
+        currentVote === 0 ? vote : 0,
+      );
     }
 
     return <button {...buttonProps}>{text}</button>;
@@ -226,7 +229,9 @@ class TagEditor extends React.Component<TagEditorProps, TagEditorState> {
     );
 
     this.pendingVotes = {};
-    this.debouncePendingVotes = _.debounce(this.flushPendingVotes, VOTE_DELAY);
+    this.debouncePendingVotes = _.debounce(
+      this.flushPendingVotes, VOTE_DELAY,
+    );
   }
 
   flushPendingVotes(asap?: boolean) {

@@ -19,7 +19,10 @@ import isolateText from '../utility/isolateText';
 import nonEmpty from '../utility/nonEmpty';
 import reactTextContent from '../utility/reactTextContent';
 
-export const DeletedLink = ({name, allowNew}: {|+allowNew: boolean, +name: React.Node|}) => {
+export const DeletedLink = ({
+  name,
+  allowNew,
+}: {|+allowNew: boolean, +name: React.Node|}) => {
   const caption = allowNew
     ? l('This entity will be created when edits are entered.')
     : l('This entity has been removed, and cannot be displayed correctly.');
@@ -31,7 +34,10 @@ export const DeletedLink = ({name, allowNew}: {|+allowNew: boolean, +name: React
   );
 };
 
-const Comment = ({className, comment}: {|+className: string, +comment: string|}) => (
+const Comment = ({
+  className,
+  comment,
+}: {|+className: string, +comment: string|}) => (
   <>
     {' '}
     <span className={className}>
@@ -40,7 +46,10 @@ const Comment = ({className, comment}: {|+className: string, +comment: string|})
   </>
 );
 
-const EventDisambiguation = ({event, showDate}: {|+event: EventT, +showDate: boolean|}) => {
+const EventDisambiguation = ({
+  event,
+  showDate,
+}: {|+event: EventT, +showDate: boolean|}) => {
   const dates = formatDatePeriod(event);
   if ((!dates || !showDate) && !event.cancelled) {
     return null;
@@ -65,7 +74,10 @@ const AreaDisambiguation = ({area}: {|+area: AreaT|}) => {
   const endYear = area.end_date ? area.end_date.year : null;
 
   if (beginYear && endYear) {
-    comment = l('historical, {begin}-{end}', {begin: beginYear, end: endYear});
+    comment = l(
+      'historical, {begin}-{end}',
+      {begin: beginYear, end: endYear},
+    );
   } else if (endYear) {
     comment = l('historical, until {end}', {end: endYear});
   } else {
@@ -155,7 +167,8 @@ const EntityLink = ({
   }
 
   // TODO: support name variations for all entity types?
-  if (!subPath && (entity.entityType === 'artist' || entity.entityType === 'recording')) {
+  if (!subPath &&
+      (entity.entityType === 'artist' || entity.entityType === 'recording')) {
     nameVariation = (
       React.isValidElement(content)
         ? reactTextContent(content)
@@ -220,7 +233,13 @@ const EntityLink = ({
 
   if (showDisambiguation) {
     if (entity.entityType === 'event') {
-      parts.push(<EventDisambiguation event={entity} key="eventdisambig" showDate={showEventDate} />);
+      parts.push(
+        <EventDisambiguation
+          event={entity}
+          key="eventdisambig"
+          showDate={showEventDate}
+        />,
+      );
     }
     if (comment) {
       parts.push(
