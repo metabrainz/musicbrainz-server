@@ -136,7 +136,7 @@ test 'Authorize web workflow offline' => sub {
     html_ok($test->mech->content);
     $test->mech->content_like(qr{Test Web is requesting permission});
     $test->mech->content_like(qr{View your public account information});
-    $test->mech->content_like(qr{Perform the above operations when I'm not using the application});
+    $test->mech->content_like(qr{Perform the above operations when I&#x27;m not using the application});
     $test->mech->submit_form( form_name => 'confirm', button => 'confirm.submit' );
     my $code = oauth_redirect_ok($test->mech, 'www.example.com', '/callback', 'xxx');
     oauth_authorization_code_ok($test, $code, 2, 1, 1);
@@ -152,7 +152,7 @@ test 'Authorize web workflow offline' => sub {
     html_ok($test->mech->content);
     $test->mech->content_like(qr{Test Web is requesting permission});
     $test->mech->content_like(qr{View your public account information});
-    $test->mech->content_like(qr{Perform the above operations when I'm not using the application});
+    $test->mech->content_like(qr{Perform the above operations when I&#x27;m not using the application});
     $test->mech->submit_form( form_name => 'confirm', button => 'confirm.submit' );
     my $code3 = oauth_redirect_ok($test->mech, 'www.example.com', '/callback', 'yyy');
     isnt($code, $code3);
