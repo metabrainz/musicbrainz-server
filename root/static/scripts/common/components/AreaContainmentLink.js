@@ -14,7 +14,7 @@ import EntityLink from './EntityLink';
 
 const makeLink = (x, i) => <EntityLink entity={x} key={i} />;
 
-const AreaContainmentLink = ({area, ...props}) => (
+const AreaContainmentLink = ({area}) => (
   area.containment
     ? commaOnlyList(area.containment.map(makeLink))
     : null

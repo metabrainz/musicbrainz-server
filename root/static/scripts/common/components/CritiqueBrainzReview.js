@@ -8,7 +8,6 @@
  */
 
 import React from 'react';
-import type {ElementRef, Node as ReactNode} from 'react';
 
 import {withCatalystContext} from '../../../../context';
 import formatUserDate from '../../../../utility/formatUserDate';
