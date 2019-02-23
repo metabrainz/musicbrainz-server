@@ -20,8 +20,8 @@ import nonEmpty from '../utility/nonEmpty';
 import reactTextContent from '../utility/reactTextContent';
 
 export const DeletedLink = ({
-  name,
   allowNew,
+  name,
 }: {|+allowNew: boolean, +name: React.Node|}) => {
   const caption = allowNew
     ? l('This entity will be created when edits are entered.')
@@ -87,7 +87,7 @@ const AreaDisambiguation = ({area}: {|+area: AreaT|}) => {
   return <Comment className="historical" comment={comment} />;
 };
 
-const NoInfoURL = ({url, allowNew}: {|+allowNew: boolean, +url: string|}) => (
+const NoInfoURL = ({allowNew, url}: {|+allowNew: boolean, +url: string|}) => (
   <>
     <a href={url}>{url}</a>
     {' '}

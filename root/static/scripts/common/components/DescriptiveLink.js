@@ -31,7 +31,6 @@ const DescriptiveLink = ({entity, content, showDeletedArtists = true}) => {
       artistCredit = artistCreditFromArray(artistCredit);
     }
     return l('{entity} by {artist}', {
-      entity: link,
       artist: (
         <ArtistCreditLink
           artistCredit={artistCredit}
@@ -39,13 +38,14 @@ const DescriptiveLink = ({entity, content, showDeletedArtists = true}) => {
           showDeleted={showDeletedArtists}
         />
       ),
+      entity: link,
     });
   }
 
   if (entity.entityType === 'place' && entity.area) {
     return l('{place} in {area}', {
-      place: link,
       area: <AreaWithContainmentLink area={entity.area} key="area" />,
+      place: link,
     });
   }
 

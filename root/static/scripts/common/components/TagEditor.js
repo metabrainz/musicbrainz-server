@@ -24,9 +24,9 @@ import TagLink from './TagLink';
 const GENRE_TAGS_ARRAY = Array.from(GENRE_TAGS.values());
 
 const VOTE_ACTIONS = {
+  '-1': 'downvote',
   '0': 'withdraw',
   '1': 'upvote',
-  '-1': 'downvote',
 };
 
 /*
@@ -87,12 +87,12 @@ class VoteButton extends React.Component<VoteButtonProps> {
     const isActive = vote === currentVote;
 
     const buttonProps = {
-      type: 'button',
+      className: 'tag-vote tag-' + VOTE_ACTIONS[vote],
+      disabled: isActive,
       title: isActive
         ? activeTitle.toString()
         : (currentVote === 0 ? title.toString() : l('Withdraw vote')),
-      disabled: isActive,
-      className: 'tag-vote tag-' + VOTE_ACTIONS[vote],
+      type: 'button',
     };
 
     if (!isActive) {
@@ -108,18 +108,18 @@ class VoteButton extends React.Component<VoteButtonProps> {
 
 class UpvoteButton extends VoteButton {
   static defaultProps = {
+    activeTitle: N_l('You’ve upvoted this tag'),
     text: '+',
     title: N_l('Upvote'),
-    activeTitle: N_l('You’ve upvoted this tag'),
     vote: 1,
   }
 }
 
 class DownvoteButton extends VoteButton {
   static defaultProps = {
+    activeTitle: N_l('You’ve downvoted this tag'),
     text: '\u2212',
     title: N_l('Downvote'),
-    activeTitle: N_l('You’ve downvoted this tag'),
     vote: -1,
   }
 }
@@ -307,7 +307,7 @@ class TagEditor extends React.Component<TagEditorProps, TagEditorState> {
       }
 
       return accum;
-    }, {tags: [], genres: []});
+    }, {genres: [], tags: []});
   }
 
   getNewCount(index: number, vote: VoteT) {
@@ -339,9 +339,9 @@ class TagEditor extends React.Component<TagEditorProps, TagEditorState> {
       splitTags(tags).map(name => {
         const index = _.findIndex(this.state.tags, t => t.tag === name);
         if (index >= 0) {
-          return {tag: name, count: this.getNewCount(index, 1), vote: 1};
+          return {count: this.getNewCount(index, 1), tag: name, vote: 1};
         }
-        return {tag: name, count: 1, vote: 1};
+        return {count: 1, tag: name, vote: 1};
       }),
     );
 
@@ -389,9 +389,9 @@ class TagEditor extends React.Component<TagEditorProps, TagEditorState> {
 
   addPendingVote(tag: string, vote: VoteT, index: number) {
     this.pendingVotes[tag] = {
+      fail: () => this.updateVote(index, vote),
       tag: tag,
       vote: vote,
-      fail: () => this.updateVote(index, vote),
     };
     this.debouncePendingVotes();
   }
@@ -408,6 +408,18 @@ class TagEditor extends React.Component<TagEditorProps, TagEditorState> {
     this.tagsInput = input;
 
     $(input).autocomplete({
+      focus: function () {
+        return false;
+      },
+
+      select: function (event, ui) {
+        const terms = splitTags(this.value);
+        terms.pop();
+        terms.push(ui.item.value, '');
+        this.value = terms.join(', ');
+        return false;
+      },
+
       source: function (request, response) {
         const terms = splitTags(request.term);
         const last = terms.pop();
@@ -424,18 +436,6 @@ class TagEditor extends React.Component<TagEditorProps, TagEditorState> {
             [x => x.startsWith(last) ? 0 : 1, _.identity],
           ),
         );
-      },
-
-      focus: function () {
-        return false;
-      },
-
-      select: function (event, ui) {
-        const terms = splitTags(this.value);
-        terms.pop();
-        terms.push(ui.item.value, '');
-        this.value = terms.join(', ');
-        return false;
       },
     });
 
@@ -617,8 +617,8 @@ function createInitialTagState(
     used.add(t.tag);
 
     return {
-      tag: t.tag,
       count: t.count,
+      tag: t.tag,
       vote: userTag ? userTag.vote : 0,
     };
   });
