@@ -6,7 +6,6 @@
 import $ from 'jquery';
 import _ from 'lodash';
 
-import {l} from './i18n';
 import MB from './MB';
 
     $.widget("mb.iframeDialog", $.ui.dialog, {

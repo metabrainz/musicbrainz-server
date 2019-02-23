@@ -9,9 +9,6 @@
 
 import * as React from 'react';
 
-import {l} from '../../static/scripts/common/i18n';
-import {l_instrument_descriptions} from '../../static/scripts/common/i18n/instrument_descriptions';
-import {lp_attributes} from '../../static/scripts/common/i18n/attributes';
 import EntityLink from '../../static/scripts/common/components/EntityLink';
 import loopParity from '../../utility/loopParity';
 import type {ResultsPropsT} from '../types';

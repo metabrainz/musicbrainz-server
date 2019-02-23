@@ -10,7 +10,6 @@
 import * as React from 'react';
 
 import {CatalystContext} from '../context';
-import {l, N_l} from '../static/scripts/common/i18n';
 import {ENTITIES} from '../static/scripts/common/constants';
 import isSpecialPurposeArtist from '../static/scripts/common/utility/isSpecialPurposeArtist';
 

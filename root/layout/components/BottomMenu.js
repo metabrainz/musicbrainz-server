@@ -12,7 +12,6 @@ import React from 'react';
 
 import {withCatalystContext} from '../../context';
 import {VARTIST_GID} from '../../static/scripts/common/constants';
-import {l, lp} from '../../static/scripts/common/i18n';
 
 function languageName(language, selected) {
   if (!language) {

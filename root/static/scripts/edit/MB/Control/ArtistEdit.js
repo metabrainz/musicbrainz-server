@@ -5,7 +5,6 @@
 
 import $ from 'jquery';
 
-import {l} from '../../../common/i18n';
 import MB from '../../../common/MB';
 
 MB.Control.ArtistEdit = function () {

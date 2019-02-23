@@ -10,7 +10,6 @@
 import React from 'react';
 
 import Layout from '../layout';
-import {l} from '../static/scripts/common/i18n';
 
 import TagLookupForm from './Form';
 import type {TagLookupPropsT} from './types';

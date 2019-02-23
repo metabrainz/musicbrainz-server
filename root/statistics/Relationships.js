@@ -10,7 +10,6 @@
 import React from 'react';
 
 import {compare} from '../static/scripts/common/i18n';
-import {l_relationships} from '../static/scripts/common/i18n/relationships';
 import {l_statistics as l} from '../static/scripts/common/i18n/statistics';
 import {withCatalystContext} from '../context';
 import formatEntityTypeName from '../static/scripts/common/utility/formatEntityTypeName';
@@ -77,7 +76,7 @@ const Relationships = ({
 }: RelationshipsStatsT) => (
   <StatisticsLayout fullWidth page="relationships" title={l('Relationships')}>
     <p>
-      {l('Last updated: {date}', {date: dateCollected})}
+      {texp.l('Last updated: {date}', {date: dateCollected})}
     </p>
     <h2>{l('Relationships')}</h2>
     {stats['count.ar.links'] < 1 ? (
@@ -107,12 +106,12 @@ const Relationships = ({
               <>
                 <tr className="thead">
                   <th colSpan="4">
-                    {l('{type0}-{type1}', {type0: type0, type1: type1})}
+                    {texp.l('{type0}-{type1}', {type0: type0, type1: type1})}
                   </th>
                 </tr>
                 <tr>
                   <th colSpan="2">
-                    {l(
+                    {texp.l(
                       '{type0}-{type1} relationships:',
                       {type0: type0, type1: type1},
                     )}

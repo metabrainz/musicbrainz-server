@@ -11,7 +11,6 @@ import * as React from 'react';
 
 import RequestLogin from '../../../components/RequestLogin';
 import {withCatalystContext} from '../../../context';
-import {l} from '../../../static/scripts/common/i18n';
 import EntityLink from '../../../static/scripts/common/components/EntityLink';
 
 type Props = {|

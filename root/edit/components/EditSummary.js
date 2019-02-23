@@ -15,7 +15,6 @@ import {
 } from '../../constants';
 import {withCatalystContext} from '../../context';
 import * as DBDefs from '../../static/scripts/common/DBDefs';
-import {l} from '../../static/scripts/common/i18n';
 import {
   editorMayAddNote,
   editorMayApprove,

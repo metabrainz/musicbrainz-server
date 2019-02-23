@@ -6,7 +6,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import {l} from '../../common/i18n';
 import {artistCreditFromArray} from '../../common/immutable-entities';
 import MB from '../../common/MB';
 import FieldErrors from '../../../../components/FieldErrors';

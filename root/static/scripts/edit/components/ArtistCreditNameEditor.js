@@ -7,7 +7,6 @@ import _ from 'lodash';
 import React from 'react';
 
 import Autocomplete from '../../common/components/Autocomplete';
-import {l} from '../../common/i18n';
 import clean from '../../common/utility/clean';
 import nonEmpty from '../../common/utility/nonEmpty';
 

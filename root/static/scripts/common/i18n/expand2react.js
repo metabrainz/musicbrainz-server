@@ -30,9 +30,14 @@ import expand, {
   type Parser,
   type VarArgs,
 } from './expand2';
+import {
+  l as lActual,
+  ln as lnActual,
+  lp as lpActual,
+} from '../i18n';
 
-export type Input = VarSubstArg | AnchorProps;
-export type Output = string | AnyReactElem;
+type Input = Expand2ReactInput;
+type Output = Expand2ReactOutput;
 
 const EMPTY_ARRAY: Array<any> = Object.freeze([]);
 
@@ -314,7 +319,7 @@ const parseRoot = args => parseContinuousArray(rootParsers, args);
 export default function expand2react(
   source: string,
   args?: ?{+[string]: Input},
-) {
+): Output {
   const result = expand<$ReadOnlyArray<Output>, Input>(
     parseRoot,
     source,
@@ -329,3 +334,21 @@ export default function expand2react(
       : result[0]
   ) : '';
 }
+
+export const l = (
+  key: string,
+  args?: ?{+[string]: Input},
+) => expand2react(lActual(key), args);
+
+export const ln = (
+  skey: string,
+  pkey: string,
+  val: number,
+  args?: ?{+[string]: Input},
+) => expand2react(lnActual(skey, pkey, val), args);
+
+export const lp = (
+  key: string,
+  context: string,
+  args?: ?{+[string]: Input},
+) => expand2react(lpActual(key, context), args);

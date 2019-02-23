@@ -11,8 +11,7 @@ import * as React from 'react';
 
 import ENTITIES from '../../entities';
 import DescriptiveLink from '../static/scripts/common/components/DescriptiveLink';
-import {l, N_ln, TEXT} from '../static/scripts/common/i18n';
-
+import expand2text from '../static/scripts/common/i18n/expand2text';
 import TagLayout from './TagLayout';
 
 type Props = {|
@@ -56,7 +55,7 @@ function buildSection<T>(
           <li key="see-all">
             <em>
               <a href={'/tag/' + encodeURIComponent(props.tag) + '/' + url}>
-                {seeAllMessage(tags.count, {num: tags.count}, TEXT)}
+                {expand2text(seeAllMessage(tags.count), {num: tags.count})}
               </a>
             </em>
           </li>

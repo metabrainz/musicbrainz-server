@@ -12,7 +12,6 @@ import * as React from 'react';
 import {withCatalystContext} from '../context';
 import Layout from '../layout';
 import formatUserDate from '../utility/formatUserDate';
-import {l, TEXT} from '../static/scripts/common/i18n';
 import PaginatedResults from '../components/PaginatedResults';
 import ArtistCreditLink
   from '../static/scripts/common/components/ArtistCreditLink';
@@ -23,7 +22,6 @@ import {bracketedText} from '../static/scripts/common/utility/bracketed';
 
 import FilterLink from './FilterLink';
 import type {ReportDataT, ReportIsrcT} from './types';
-
 
 const IsrcsWithManyRecordings = ({
   $c,
@@ -42,19 +40,21 @@ const IsrcsWithManyRecordings = ({
 
       <ul>
         <li>
-          {l(`This report lists {isrc|ISRCs} that are attached to more than
-              one recording. If the recordings are the same, this usually
-              means they should be merged (ISRCs can be wrongly assigned
-              so care should still be taken to make sure they really are
-              the same). If the recordings are parts of a larger recording,
-              the ISRCs are probably correct and should be left alone. If the
-              same ISRC appears on two unrelated recordings on the same
-              release, this is usually means there was an error when reading
-              the disc.`,
-          {isrc: '/doc/ISRC'})}
+          {exp.l(
+            `This report lists {isrc|ISRCs} that are attached to more than
+             one recording. If the recordings are the same, this usually
+             means they should be merged (ISRCs can be wrongly assigned
+             so care should still be taken to make sure they really are
+             the same). If the recordings are parts of a larger recording,
+             the ISRCs are probably correct and should be left alone. If the
+             same ISRC appears on two unrelated recordings on the same
+             release, this is usually means there was an error when reading
+             the disc.`,
+            {isrc: '/doc/ISRC'},
+          )}
         </li>
-        <li>{l('Total ISRCs found: {count}', {count: pager.total_entries}, TEXT)}</li>
-        <li>{l('Generated on {date}', {date: formatUserDate($c.user, generated)}, TEXT)}</li>
+        <li>{texp.l('Total ISRCs found: {count}', {count: pager.total_entries})}</li>
+        <li>{texp.l('Generated on {date}', {date: formatUserDate($c.user, generated)})}</li>
 
         {canBeFiltered ? <FilterLink filtered={filtered} /> : null}
       </ul>

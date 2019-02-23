@@ -9,7 +9,6 @@
 
 import React from 'react';
 
-import {l} from '../static/scripts/common/i18n';
 import LabelsList from '../components/LabelsList';
 import PaginatedResults from '../components/PaginatedResults';
 

@@ -9,7 +9,6 @@
 
 import React from 'react';
 
-import {addColonText, l} from '../static/scripts/common/i18n';
 import FormRow from '../components/FormRow';
 import FormRowText from '../components/FormRowText';
 import FormRowTextLong from '../components/FormRowTextLong';

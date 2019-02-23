@@ -5,10 +5,8 @@
 
 import _ from 'lodash';
 
-import {l, TEXT} from '../../common/i18n';
 import commaList from '../../common/i18n/commaList';
 import commaOnlyList from '../../common/i18n/commaOnlyList';
-import {l_relationships} from '../../common/i18n/relationships';
 import {link_type as linkTypeInfo} from '../../common/typeInfo';
 import clean from '../../common/utility/clean';
 
@@ -58,14 +56,14 @@ export const interpolate = function (linkType, attributes) {
         if (type.freeText) {
             value = clean(attribute.textValue());
             if (value) {
-                value = l('{attribute}: {value}', {attribute: type.l_name, value: value}, TEXT);
+                value = texp.l('{attribute}: {value}', {attribute: type.l_name, value: value});
             }
         }
 
         if (type.creditable) {
             var credit = clean(attribute.creditedAs());
             if (credit) {
-                value = l('{attribute} [{credited_as}]', {attribute: type.l_name, credited_as: credit}, TEXT);
+                value = texp.l('{attribute} [{credited_as}]', {attribute: type.l_name, credited_as: credit});
             }
         }
 

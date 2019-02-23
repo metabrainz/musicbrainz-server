@@ -8,9 +8,6 @@
 import isNodeJS from 'detect-node';
 
 import cleanMsgid from './cleanMsgid';
-import {type VarArgs} from './expand2';
-import expand2react, {type Input} from './expand2react';
-import expand2text from './expand2text';
 
 import {type default as Jed} from 'jed';
 
@@ -54,73 +51,33 @@ function tryLoadDomain(domain) {
   }
 }
 
-export type ReactArgs = VarArgs<Input>;
-export type TextArgs = VarArgs<StrOrNum>;
-
-function _maybeExpand(result, args, flags) {
-  return args ? (
-    flags && flags.$text
-      ? expand2text(result, args)
-      : expand2react(result, args)
-  ) : result;
-}
-
 export function dgettext(domain: Domain) {
-  type F1 = (string) => string;
-  type F2 = (string, args: ReactArgs) => React$Element<any>;
-  type F3 = (string, args: TextArgs, {text: true}) => string;
-
-  /*
-   * Flow cannot infer that the function conforms to F1 & F2 & F3, so
-   * we first must cast to `any`. See:
-   * https://github.com/facebook/flow/issues/3021
-   */
-  return ((function (key, args, flags) {
+  return function (key: string) {
     if (canLoadDomain) {
       tryLoadDomain(domain);
     }
     key = cleanMsgid(key);
-    return _maybeExpand(
-      gettext.dgettext(domain, key),
-      args,
-      flags,
-    );
-  }: any): F1 & F2 & F3);
+    return  gettext.dgettext(domain, key);
+  };
 }
 
 export function dngettext(domain: Domain) {
-  type F1 = (string, string, number) => string;
-  type F2 = (string, string, number, args: ReactArgs) => React$Element<any>;
-  type F3 = (string, string, number, args: TextArgs, {text: true}) => string;
-
-  return ((function (skey, pkey, val, args, flags) {
+  return function (skey: string, pkey: string, val: number) {
     if (canLoadDomain) {
       tryLoadDomain(domain);
     }
     skey = cleanMsgid(skey);
     pkey = cleanMsgid(pkey);
-    return _maybeExpand(
-      gettext.dngettext(domain, skey, pkey, val),
-      args,
-      flags,
-    );
-  }: any): F1 & F2 & F3);
+    return gettext.dngettext(domain, skey, pkey, val);
+  };
 }
 
 export function dpgettext(domain: Domain) {
-  type F1 = (string, string) => string;
-  type F2 = (string, string, args: ReactArgs) => React$Element<any>;
-  type F3 = (string, string, args: TextArgs, {text: true}) => string;
-
-  return ((function (key, context, args, flags) {
+  return function (key: string, context: string) {
     if (canLoadDomain) {
       tryLoadDomain(domain);
     }
     key = cleanMsgid(key);
-    return _maybeExpand(
-      gettext.dpgettext(domain, context, key),
-      args,
-      flags,
-    );
-  }: any): F1 & F2 & F3);
+    return gettext.dpgettext(domain, context, key);
+  };
 }

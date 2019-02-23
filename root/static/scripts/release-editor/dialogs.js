@@ -9,7 +9,6 @@ import _ from 'lodash';
 import React from 'react';
 import ReactDOMServer from 'react-dom/server';
 
-import * as i18n from '../common/i18n';
 import {artistCreditFromArray, reduceArtistCredit} from '../common/immutable-entities';
 import bracketed from '../common/utility/bracketed';
 import formatTrackLength from '../common/utility/formatTrackLength';
@@ -37,7 +36,7 @@ export const trackParserDialog = releaseEditor.trackParserDialog = new Dialog();
 
 _.assign(trackParserDialog, {
     element: "#track-parser-dialog",
-    title: i18n.l("Track Parser"),
+    title: l("Track Parser"),
 
     toBeParsed: ko.observable(""),
     result: ko.observable(null),
@@ -136,7 +135,7 @@ class SearchResult {
                 (this.position ? ' ' + this.position : '');
         }
 
-        const link = i18n.l('{entity} by {artist}', {
+        const link = exp.l('{entity} by {artist}', {
             entity: (
                 <>
                     <bdi>{this.name}</bdi>
@@ -249,10 +248,10 @@ class SearchTab {
     }
 
     pageText() {
-        return i18n.l('Page {page} of {total}', {
+        return texp.l('Page {page} of {total}', {
             page: this.currentPage(),
             total: this.totalPages(),
-        }, i18n.TEXT);
+        });
     }
 }
 
@@ -292,7 +291,7 @@ export const addDiscDialog = releaseEditor.addDiscDialog = new Dialog();
 
 _.assign(addDiscDialog, {
     element: "#add-disc-dialog",
-    title: i18n.l("Add Medium"),
+    title: l("Add Medium"),
 
     trackParser: trackParserDialog,
     mediumSearch: mediumSearchTab,

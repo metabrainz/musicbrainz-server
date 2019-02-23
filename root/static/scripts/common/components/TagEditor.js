@@ -14,7 +14,7 @@ import keyBy from 'terable/keyBy';
 import hydrate, {minimalEntity} from '../../../../utility/hydrate';
 import loopParity from '../../../../utility/loopParity';
 import {GENRE_TAGS} from '../constants';
-import {l, lp, N_l, unwrapNl} from '../i18n';
+import {unwrapNl} from '../i18n';
 import bracketed from '../utility/bracketed';
 import isBlank from '../utility/isBlank';
 
@@ -528,7 +528,7 @@ export const MainTagEditor = hydrate<TagEditorProps>('all-tags', class extends T
           <>
             <h2>{l('Add Tags')}</h2>
             <p>
-              {l('You can add your own {tagdocs|tags} below. Use commas to separate multiple tags.',
+              {exp.l('You can add your own {tagdocs|tags} below. Use commas to separate multiple tags.',
                 {tagdocs: '/doc/Folksonomy_Tagging'})}
             </p>
             <form id="tag-form" onSubmit={this.addTags}>

@@ -9,7 +9,6 @@
 
 import * as React from 'react';
 
-import {l} from '../i18n';
 import commaOnlyList from '../i18n/commaOnlyList';
 import localizeArtistRoles from '../i18n/localizeArtistRoles';
 
@@ -26,7 +25,7 @@ const ArtistRoles = ({relations}: Props) => (
   <ul>
     {relations.map(r => (
       <li key={r.entity.id}>
-        {l('{artist} ({roles})', {
+        {exp.l('{artist} ({roles})', {
           artist: <EntityLink entity={r.entity} />,
           roles: commaOnlyList(localizeArtistRoles(r.roles)),
         })}

@@ -9,7 +9,6 @@
 
 import React from 'react';
 
-import {l} from '../static/scripts/common/i18n';
 import Layout from '../layout';
 
 import UserInlineList from './components/UserInlineList';
@@ -39,15 +38,17 @@ const PrivilegedUsers = ({
 
       <h2>{l('Auto-editors')}</h2>
       <p>
-        {l(`Auto-editors are trusted users who have been given
-            {url|auto-editor} privileges.  These privileges allow them
-            to make select edits that are automatically approved without
-            going through the normal voting process, as well as the ability
-            to instantly approve other users' edits.`,
-        {url: 'doc/Editor'})}
+        {exp.l(
+          `Auto-editors are trusted users who have been given
+           {url|auto-editor} privileges.  These privileges allow them
+           to make select edits that are automatically approved without
+           going through the normal voting process, as well as the ability
+           to instantly approve other users' edits.`,
+          {url: 'doc/Editor'},
+        )}
       </p>
       <p>
-        {l(
+        {texp.l(
           'The following {count} users have auto-editor privileges:',
           {count: autoEditors.length},
         )}
@@ -56,15 +57,17 @@ const PrivilegedUsers = ({
 
       <h2>{l('Relationship editors')}</h2>
       <p>
-        {l(`Relationship editors are users who can add or modify relationship
-            types in the database. If you would like to propose a new
-            relationship, you must follow our {url|proposal system}.
-            Relationship editors will only make changes that have
-            been accepted through the proposal system.`,
-        {url: 'doc/Proposals'})}
+        {exp.l(
+          `Relationship editors are users who can add or modify relationship
+           types in the database. If you would like to propose a new
+           relationship, you must follow our {url|proposal system}.
+           Relationship editors will only make changes that have
+           been accepted through the proposal system.`,
+          {url: 'doc/Proposals'},
+        )}
       </p>
       <p>
-        {l(
+        {texp.l(
           'The following {count} users are relationship editors:',
           {count: relationshipEditors.length},
         )}
@@ -73,12 +76,14 @@ const PrivilegedUsers = ({
 
       <h2>{l('Transclusion editors')}</h2>
       <p>
-        {l(`Transclusion editors are users who add and maintain entries in
-            the {uri|WikiDocs} transclusion table.`,
-        {uri: 'doc/WikiDocs'})}
+        {exp.l(
+          `Transclusion editors are users who add and maintain entries in
+           the {uri|WikiDocs} transclusion table.`,
+          {uri: 'doc/WikiDocs'},
+        )}
       </p>
       <p>
-        {l(
+        {texp.l(
           'The following {count} users are transclusion editors:',
           {count: transclusionEditors.length},
         )}
@@ -87,11 +92,11 @@ const PrivilegedUsers = ({
 
       <h2>{l('Location editors')}</h2>
       <p>
-        {l('Location editors are users who can add or modify {uri|areas}.',
+        {exp.l('Location editors are users who can add or modify {uri|areas}.',
           {uri: 'doc/Area'})}
       </p>
       <p>
-        {l(
+        {texp.l(
           'The following {count} users are location editors:',
           {count: locationEditors.length},
         )}
@@ -105,16 +110,17 @@ const PrivilegedUsers = ({
             upcoming site maintenance.`)}
       </p>
       <p>
-        {l('' +
-        'The following {count} users are banner message editors:',
-        {count: bannerEditors.length})}
+        {texp.l(
+          'The following {count} users are banner message editors:',
+          {count: bannerEditors.length},
+        )}
       </p>
       <UserInlineList editors={bannerEditors} />
 
       <h2>{l('Account administrators')}</h2>
       <p>{l('Account administrators can edit and delete user accounts.')}</p>
       <p>
-        {l(
+        {texp.l(
           'The following {count} users are account administrators:',
           {count: accountAdmins.length},
         )}
@@ -123,7 +129,7 @@ const PrivilegedUsers = ({
 
       <h2>{l('Bots')}</h2>
       <p>
-        {l(
+        {texp.l(
           'The following {count} user accounts are bots:',
           {count: bots.length},
         )}

@@ -13,6 +13,7 @@ const nodeExternals = require('webpack-node-externals');
 const DBDefs = require('./root/static/scripts/common/DBDefs');
 const {dirs, PUBLIC_PATH} = require('./webpack/constants');
 const moduleConfig = require('./webpack/moduleConfig');
+const providePluginConfig = require('./webpack/providePluginConfig');
 
 module.exports = {
   context: dirs.CHECKOUT,
@@ -59,6 +60,7 @@ module.exports = {
 
   plugins: [
     new webpack.IgnorePlugin({resourceRegExp: /jquery/}),
+    new webpack.ProvidePlugin(providePluginConfig),
   ],
 
   resolve: {

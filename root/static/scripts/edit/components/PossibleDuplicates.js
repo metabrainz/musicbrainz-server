@@ -6,7 +6,6 @@
 import React from 'react';
 
 import EntityLink from '../../common/components/EntityLink';
-import {l} from '../../common/i18n';
 
 class PossibleDuplicates extends React.Component {
   render() {
@@ -25,11 +24,11 @@ class PossibleDuplicates extends React.Component {
           <label>
             <input type="checkbox" onChange={this.props.checkboxCallback} />
             {' '}
-            {l('Yes, I still want to enter “{entity_name}”.', {entity_name: this.props.name})}
+            {texp.l('Yes, I still want to enter “{entity_name}”.', {entity_name: this.props.name})}
           </label>
         </p>
         <p>
-          {l('Please enter a {doc_disambiguation|disambiguation} to help distinguish this entity from the others.', {
+          {exp.l('Please enter a {doc_disambiguation|disambiguation} to help distinguish this entity from the others.', {
             doc_disambiguation: {href: '/doc/Disambiguation_Comment', target: '_blank'},
           })}
         </p>

@@ -9,8 +9,6 @@
 
 import React from 'react';
 
-import {l} from '../static/scripts/common/i18n';
-import {lp_attributes} from '../static/scripts/common/i18n/attributes';
 import AreaContainmentLink from '../static/scripts/common/components/AreaContainmentLink';
 import EntityHeader from '../components/EntityHeader';
 
@@ -24,7 +22,7 @@ const AreaHeader = ({area, page}: Props) => {
   let subHeading = areaType;
   if (area.containment && area.containment.length) {
     const parentAreas = <AreaContainmentLink area={area} />;
-    subHeading = l('{area_type} in {parent_areas}', {
+    subHeading = exp.l('{area_type} in {parent_areas}', {
       area_type: areaType,
       parent_areas: parentAreas,
     });

@@ -11,7 +11,6 @@ import React from 'react';
 import type {Node as ReactNode} from 'react';
 
 import {withCatalystContext} from '../../../context';
-import {l, TEXT} from '../../../static/scripts/common/i18n';
 import entityHref from '../../../static/scripts/common/utility/entityHref';
 
 function entityArg(entity) {
@@ -50,11 +49,11 @@ const CollectionList = ({
         <li key={collection.id}>
           {hasEntity($c, collection) ? (
             <a href={collectionUrl(collection, entity, 'remove')}>
-              {l('Remove from {collection}', {collection: collection.name}, TEXT)}
+              {texp.l('Remove from {collection}', {collection: collection.name})}
             </a>
           ) : (
             <a href={collectionUrl(collection, entity, 'add')}>
-              {l('Add to {collection}', {collection: collection.name}, TEXT)}
+              {texp.l('Add to {collection}', {collection: collection.name})}
             </a>
           )}
         </li>

@@ -10,7 +10,6 @@
 import React from 'react';
 
 import {CONTACT_URL, DONATE_URL} from '../constants';
-import {l} from '../static/scripts/common/i18n';
 import StatusPage from '../components/StatusPage';
 
 type Props = {|
@@ -30,10 +29,12 @@ const Donation = ({days, nag}: Props) => (
                 reload this page to check again.`)}
           </p>
           <p>
-            {l(`If you would like to make a donation, {donate|you can do that
-                here}. If you have donated, but you are still being nagged,
-                please {contact|contact us}.`,
-               {contact: CONTACT_URL, donate: DONATE_URL})}
+            {exp.l(
+              `If you would like to make a donation,
+               {donate|you can do that here}. If you have donated, but
+               you are still being nagged, please {contact|contact us}.`,
+              {contact: CONTACT_URL, donate: DONATE_URL},
+            )}
           </p>
         </>
       ) : (
@@ -44,7 +45,7 @@ const Donation = ({days, nag}: Props) => (
           {days > 0
             ? (
               <p>
-                {l(
+                {texp.l(
                   'You will not be nagged for another {days} days.',
                   {days: days},
                 )}

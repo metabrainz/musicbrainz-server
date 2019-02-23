@@ -11,7 +11,6 @@ import * as React from 'react';
 
 import {withCatalystContext} from '../../../context';
 import EntityLink from '../../../static/scripts/common/components/EntityLink';
-import {l, ln, TEXT} from '../../../static/scripts/common/i18n';
 
 import CollectionList from './CollectionList';
 
@@ -32,14 +31,13 @@ const CollectionLinks = ({$c, entity}: Props) => (
         noneText={l('You have no collections!')}
         usersLink={
           <EntityLink
-            content={ln(
+            content={texp.ln(
               'Found in {num} user collection',
               'Found in {num} user collections',
               // $FlowFixMe
               $c.stash.all_collections.length,
               // $FlowFixMe
               {num: $c.stash.all_collections.length},
-              TEXT,
             )}
             entity={entity}
             subPath="collections"

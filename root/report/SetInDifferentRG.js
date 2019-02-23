@@ -12,7 +12,6 @@ import * as React from 'react';
 import {withCatalystContext} from '../context';
 import Layout from '../layout';
 import formatUserDate from '../utility/formatUserDate';
-import {l} from '../static/scripts/common/i18n';
 
 import ReleaseGroupList from './components/ReleaseGroupList';
 import FilterLink from './FilterLink';
@@ -31,7 +30,7 @@ const SetInDifferentRG = ({
 
     <ul>
       <li>
-        {l(
+        {exp.l(
           `This report shows release groups with releases that are linked to
            releases in different release groups by part-of-set or
            transliteration relationships. If a pair of release groups are
@@ -42,8 +41,8 @@ const SetInDifferentRG = ({
           {how_to_merge_releases: '/doc/How_to_Merge_Releases'},
         )}
       </li>
-      <li>{l('Total release groups found: {count}', {count: pager.total_entries})}</li>
-      <li>{l('Generated on {date}', {date: formatUserDate($c.user, generated)})}</li>
+      <li>{texp.l('Total release groups found: {count}', {count: pager.total_entries})}</li>
+      <li>{texp.l('Generated on {date}', {date: formatUserDate($c.user, generated)})}</li>
 
       {canBeFiltered ? <FilterLink filtered={filtered} /> : null}
     </ul>

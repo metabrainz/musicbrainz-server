@@ -13,7 +13,6 @@ import {withCatalystContext} from '../context';
 import Layout from '../layout';
 import CodeLink from '../static/scripts/common/components/CodeLink';
 import WorkListEntry from '../static/scripts/common/components/WorkListEntry';
-import {l, ln, TEXT} from '../static/scripts/common/i18n';
 
 type Props = {|
   +$c: CatalystContextT,
@@ -25,18 +24,17 @@ const Index = ({$c, iswcs, works}: Props) => {
   const userExists = $c.user_exists;
   const iswc = iswcs[0];
   return (
-    <Layout fullWidth title={l('ISWC “{iswc}”', {iswc: iswc.iswc}, TEXT)}>
+    <Layout fullWidth title={texp.l('ISWC “{iswc}”', {iswc: iswc.iswc})}>
       <h1>
-        {l('ISWC “{iswc}”',
+        {exp.l('ISWC “{iswc}”',
           {iswc: <CodeLink code={iswc} key="iswc" />})}
       </h1>
       <h2>
-        {ln(
+        {texp.ln(
           'Associated with {num} work',
           'Associated with {num} works',
           works.length,
           {num: works.length},
-          TEXT,
         )}
       </h2>
       <form action="/work/merge_queue" method="post">

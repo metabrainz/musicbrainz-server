@@ -7,7 +7,6 @@ import $ from 'jquery';
 import ko from 'knockout';
 import _ from 'lodash';
 
-import * as i18n from '../common/i18n';
 import {
   artistCreditFromArray,
   artistCreditsAreEqual,
@@ -30,7 +29,7 @@ _.extend(releaseEditor, {
     activeTabIndex: ko.observable(0),
     loadError: ko.observable(""),
     loadErrorMessage: function () {
-        return i18n.l('Error loading release: {error}', {error: releaseEditor.loadError()}, i18n.TEXT);
+        return texp.l('Error loading release: {error}', {error: releaseEditor.loadError()});
     },
     externalLinksEditData: ko.observable({}),
     hasInvalidLinks: validation.errorField(ko.observable(false))
@@ -173,12 +172,12 @@ releaseEditor.init = function (options) {
 
         if (self.action === "add") {
             document.title =
-                name ? i18n.hyphenateTitle(name, i18n.l("Add Release")) :
-                       i18n.l("Add Release");
+                name ? hyphenateTitle(name, l("Add Release")) :
+                       l("Add Release");
         } else {
             document.title =
-                name ? i18n.hyphenateTitle(name, i18n.l("Edit Release")) :
-                       i18n.l("Edit Release");
+                name ? hyphenateTitle(name, l("Edit Release")) :
+                       l("Edit Release");
         }
     });
 
@@ -217,7 +216,7 @@ releaseEditor.init = function (options) {
 
     window.addEventListener('beforeunload', event => {
         if (hasEdits() && !this.rootField.redirecting) {
-            event.returnValue = i18n.l("All of your changes will be lost if you leave this page.");
+            event.returnValue = l("All of your changes will be lost if you leave this page.");
             return event.returnValue;
         }
     });

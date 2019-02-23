@@ -10,7 +10,6 @@
 import React from 'react';
 
 import NotFound from '../components/NotFound';
-import {l} from '../static/scripts/common/i18n';
 
 const CDTOCNotFound = () => (
   <NotFound title={l('CD TOC Not Found')}>

@@ -9,7 +9,6 @@
 import ko from 'knockout';
 import * as React from 'react';
 
-import {l, TEXT} from '../i18n';
 import localizeAreaName from '../i18n/localizeAreaName';
 import localizeInstrumentName from '../i18n/localizeInstrumentName';
 import bracketed, {bracketedText} from '../utility/bracketed';
@@ -74,13 +73,12 @@ const AreaDisambiguation = ({area}: {|+area: AreaT|}) => {
   const endYear = area.end_date ? area.end_date.year : null;
 
   if (beginYear && endYear) {
-    comment = l(
+    comment = texp.l(
       'historical, {begin}-{end}',
       {begin: beginYear, end: endYear},
-      TEXT,
     );
   } else if (endYear) {
-    comment = l('historical, until {end}', {end: endYear}, TEXT);
+    comment = texp.l('historical, until {end}', {end: endYear});
   } else {
     comment = l('historical');
   }
@@ -178,10 +176,10 @@ const EntityLink = ({
 
     if (nameVariation) {
       if (hover) {
-        hover = l('{name} – {additional_info}', {
+        hover = texp.l('{name} – {additional_info}', {
           additional_info: hover,
           name: entity.name,
-        }, TEXT);
+        });
       } else {
         hover = ko.unwrap(entity.name);
       }

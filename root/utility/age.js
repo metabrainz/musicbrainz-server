@@ -8,7 +8,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import {l, ln, TEXT} from '../static/scripts/common/i18n';
 import isDateEmpty from '../static/scripts/common/utility/isDateEmpty';
 
 import getDaysInMonth from './getDaysInMonth';
@@ -141,22 +140,22 @@ export function displayAge(age: [number, number, number], isPerson: bool) {
   const [years, months, days] = age;
 
   if (isPerson && years) {
-    return l('aged {num}', {num: years}, TEXT);
+    return texp.l('aged {num}', {num: years});
   } else if (years) {
-    return ln('{num} year', '{num} years', years, {num: years}, TEXT);
+    return texp.ln('{num} year', '{num} years', years, {num: years});
   } else if (months) {
-    return ln('{num} month', '{num} months', months, {num: months}, TEXT);
+    return texp.ln('{num} month', '{num} months', months, {num: months});
   }
-  return ln('{num} day', '{num} days', days, {num: days}, TEXT);
+  return texp.ln('{num} day', '{num} days', days, {num: days});
 }
 
 export function displayAgeAgo(age: [number, number, number]) {
   const [years, months, days] = age;
 
   if (years) {
-    return ln('{num} year ago', '{num} years ago', years, {num: years}, TEXT);
+    return texp.ln('{num} year ago', '{num} years ago', years, {num: years});
   } else if (months) {
-    return ln('{num} month ago', '{num} months ago', months, {num: months}, TEXT);
+    return texp.ln('{num} month ago', '{num} months ago', months, {num: months});
   }
-  return ln('{num} day ago', '{num} days ago', days, {num: days}, TEXT);
+  return texp.ln('{num} day ago', '{num} days ago', days, {num: days});
 }

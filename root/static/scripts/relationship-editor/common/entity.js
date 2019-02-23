@@ -8,7 +8,6 @@ import _ from 'lodash';
 
 import 'knockout-arraytransforms';
 
-import {addColon} from '../../common/i18n';
 import MB from '../../common/MB';
 import typeInfo from '../../common/typeInfo';
 import deferFocus from '../../edit/utility/deferFocus';

@@ -10,7 +10,6 @@
 import * as React from 'react';
 
 import {QUALITY_NAMES} from '../../../static/scripts/common/constants';
-import {addColonText, l} from '../../../static/scripts/common/i18n';
 
 import {SidebarProperty} from './SidebarProperties';
 

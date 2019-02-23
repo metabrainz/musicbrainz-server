@@ -5,7 +5,6 @@
 
 import $ from 'jquery';
 
-import {l} from '../i18n';
 import getBooleanCookie from '../utility/getBooleanCookie';
 import setCookie from '../utility/setCookie';
 

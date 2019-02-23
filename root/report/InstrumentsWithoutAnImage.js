@@ -12,7 +12,6 @@ import * as React from 'react';
 import {withCatalystContext} from '../context';
 import Layout from '../layout';
 import formatUserDate from '../utility/formatUserDate';
-import {l} from '../static/scripts/common/i18n';
 
 import InstrumentList from './components/InstrumentList';
 import type {ReportDataT, ReportInstrumentT} from './types';
@@ -31,8 +30,8 @@ const InstrumentsWithoutAnImage = ({
         {l(`This report shows instruments without image
             relationships nor Wikidata relationships.`)}
       </li>
-      <li>{l('Total instruments found: {count}', {count: pager.total_entries})}</li>
-      <li>{l('Generated on {date}', {date: formatUserDate($c.user, generated)})}</li>
+      <li>{texp.l('Total instruments found: {count}', {count: pager.total_entries})}</li>
+      <li>{texp.l('Generated on {date}', {date: formatUserDate($c.user, generated)})}</li>
 
     </ul>
 

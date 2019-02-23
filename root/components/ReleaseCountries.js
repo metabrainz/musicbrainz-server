@@ -9,8 +9,6 @@
 
 import * as React from 'react';
 
-import {l_countries} from '../static/scripts/common/i18n/countries';
-
 const buildReleaseCountry = (event) => {
   const country = event.country;
   if (!country) {

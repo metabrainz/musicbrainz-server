@@ -9,7 +9,6 @@
 
 import React from 'react';
 
-import {l} from '../../static/scripts/common/i18n';
 import Layout from '../../layout';
 
 type Props = {|
@@ -20,11 +19,11 @@ const DiscourseRegistered = ({emailAddress}: Props) => (
   <Layout fullWidth title={l('Account Created')}>
     <h2>{l('Account Created')}</h2>
     <p style={{fontSize: '1.2em'}}>
-      {l('You must verify your email address before you can log in to {discourse|MetaBrainz Community Discourse}.',
+      {exp.l('You must verify your email address before you can log in to {discourse|MetaBrainz Community Discourse}.',
         {discourse: 'https://community.metabrainz.org/'})}
     </p>
     <p>
-      {l('An email has been sent to {addr}. Please check your mailbox and click on the link in the email to verify your email address.',
+      {exp.l('An email has been sent to {addr}. Please check your mailbox and click on the link in the email to verify your email address.',
         {addr: <code>{emailAddress}</code>})}
     </p>
   </Layout>

@@ -9,7 +9,6 @@
 
 import * as React from 'react';
 
-import {l} from '../../static/scripts/common/i18n';
 import TagLink from '../../static/scripts/common/components/TagLink';
 import loopParity from '../../utility/loopParity';
 import type {ResultsPropsT} from '../types';

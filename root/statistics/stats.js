@@ -19,14 +19,6 @@
 
 import padStart from 'lodash/padStart';
 
-import {TEXT} from '../static/scripts/common/i18n';
-import {l_attributes} from '../static/scripts/common/i18n/attributes';
-import {
-  l_statistics as l,
-  ln_statistics as ln,
-  lp_statistics as lp,
-} from '../static/scripts/common/i18n/statistics';
-
 const stats = {
   'category': {
     'artist-countries': {label: l('Artist Countries')},
@@ -751,29 +743,29 @@ for (let n = 0; n < 11; n++) {
   stats[`count.release.${n}discids`] = {
     category: 'other',
     color: '#ff0000',
-    description: l('Count of all Releases with {n} Disc IDs', no, TEXT),
-    label: ln('Releases with 1 Disc ID', 'Releases with {n} Disc IDs', n, no, TEXT),
+    description: texp.l('Count of all Releases with {n} Disc IDs', no),
+    label: texp.ln('Releases with 1 Disc ID', 'Releases with {n} Disc IDs', n, no),
   };
 
   stats[`count.medium.${n}discids`] = {
     category: 'other',
     color: '#ff0000',
-    description: l('Count of all Mediums with {n} Disc IDs', no, TEXT),
-    label: ln('Mediums with 1 Disc ID', 'Mediums with {n} Disc IDs', n, no, TEXT),
+    description: texp.l('Count of all Mediums with {n} Disc IDs', no),
+    label: texp.ln('Mediums with 1 Disc ID', 'Mediums with {n} Disc IDs', n, no),
   };
 
   stats[`count.recording.${n}releases`] = {
     category: 'other',
     color: '#ff0000',
-    description: l('Count of all Recordings with {n} Releases', no, TEXT),
-    label: ln('Recordings with 1 Release', 'Recordings with {n} Releases', n, no, TEXT),
+    description: texp.l('Count of all Recordings with {n} Releases', no),
+    label: texp.ln('Recordings with 1 Release', 'Recordings with {n} Releases', n, no),
   };
 
   stats[`count.releasegroup.${n}releases`] = {
     category: 'other',
     color: '#ff0000',
-    description: l('Count of all Release Groups with {n} Releases', no, TEXT),
-    label: ln('Release Groups with 1 Release', 'Release Groups with {n} Releases', n, no, TEXT),
+    description: texp.l('Count of all Release Groups with {n} Releases', no),
+    label: texp.ln('Release Groups with 1 Release', 'Release Groups with {n} Releases', n, no),
   };
 }
 
@@ -811,21 +803,21 @@ export function buildTypeStats(typeData) {
       category: 'artist-countries',
       color: '#ff0000',
       description: countryName,
-      label: l('{country} artists', countryArg, TEXT),
+      label: texp.l('{country} artists', countryArg),
     };
 
     stats[`count.label.country.${key}`] = {
       category: 'label-countries',
       color: '#ff0000',
       description: countryName,
-      label: l('{country} labels', countryArg, TEXT),
+      label: texp.l('{country} labels', countryArg),
     };
 
     stats[`count.release.country.${key}`] = {
       category: 'release-countries',
       color: '#ff0000',
       description: countryName,
-      label: l('{country} releases', countryArg, TEXT),
+      label: texp.l('{country} releases', countryArg),
     };
   }
 
@@ -837,14 +829,14 @@ export function buildTypeStats(typeData) {
       category: 'formats',
       color: '#ff0000',
       description: '',
-      label: l('{name} releases', formatArg, TEXT),
+      label: texp.l('{name} releases', formatArg),
     };
 
     stats[`count.medium.format.${key}`] = {
       category: 'formats',
       color: '#ff0000',
       description: '',
-      label: l('{name} mediums', formatArg, TEXT),
+      label: texp.l('{name} mediums', formatArg),
     };
   }
 
@@ -856,17 +848,17 @@ export function buildTypeStats(typeData) {
       category: 'release-languages',
       color: '#ff0000',
       description: languageName,
-      label: l('{language} releases', {language: languageName}, TEXT),
+      label: texp.l('{language} releases', {language: languageName}),
     };
   }
 
   for (let i = 0; i < relationships.length; i++) {
     const pair = relationships[i];
     const hex = padStart(String((i + 1) * 3), 2, '0');
-    const label = l('l_{first}_{second} Relationships', {
+    const label = texp.l('l_{first}_{second} Relationships', {
       first: pair[0],
       second: pair[1],
-    }, TEXT);
+    });
 
     stats[`count.ar.links.l_${pair[0]}_${pair[1]}`] = {
       category: 'relationships',
@@ -884,7 +876,7 @@ export function buildTypeStats(typeData) {
       category: 'release-scripts',
       color: '#ff0000',
       description: scriptName,
-      label: l('{script} releases', {script: scriptName}, TEXT),
+      label: texp.l('{script} releases', {script: scriptName}),
     };
   }
 }

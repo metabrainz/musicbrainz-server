@@ -9,8 +9,6 @@
 
 import ENTITIES from '../../../../entities';
 
-import {N_l, N_lp} from './i18n';
-
 export {ENTITIES};
 
 export const ENTITY_NAMES = {

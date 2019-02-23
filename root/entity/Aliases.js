@@ -11,7 +11,6 @@ import React from 'react';
 
 import chooseLayoutComponent from '../utility/chooseLayoutComponent';
 import AliasesComponent from '../components/Aliases';
-import {l} from '../static/scripts/common/i18n';
 
 
 type Props = {|

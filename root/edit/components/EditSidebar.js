@@ -21,7 +21,6 @@ import {
   SidebarProperty,
 } from '../../layout/components/sidebar/SidebarProperties';
 import expand2react from '../../static/scripts/common/i18n/expand2react';
-import {addColonText, l, ln, lp, TEXT} from '../../static/scripts/common/i18n';
 import {
   getEditExpireAction,
   getEditStatusName,
@@ -68,12 +67,11 @@ const EditSidebar = ({$c, edit}: Props) => (
       <SidebarDataQuality quality={edit.quality} />
 
       <SidebarProperty className="" label={l('Requires:')}>
-        {ln(
+        {texp.ln(
           '1 vote',
           '{n} unanimous votes',
           edit.conditions.votes,
           {n: edit.conditions.votes},
-          TEXT,
         )}
       </SidebarProperty>
 

@@ -7,7 +7,7 @@ import $ from 'jquery';
 import ko from 'knockout';
 import _ from 'lodash';
 
-import * as i18n from '../common/i18n';
+import expand2text from '../common/i18n/expand2text';
 import {errorsExist} from '../edit/validation';
 
 import utils from './utils';
@@ -128,40 +128,40 @@ utils.withRelease(function (release) {
         return;
     }
 
-    var checkDigitText = i18n.N_l("The check digit is {checkdigit}.");
-    var doubleCheckText = i18n.l("Please double-check the barcode on the release.");
+    var checkDigitText = N_l("The check digit is {checkdigit}.");
+    var doubleCheckText = l("Please double-check the barcode on the release.");
 
     if (barcode.length === 11) {
         field.error(
-            i18n.l("The barcode you entered looks like a UPC code with the check digit missing.") +
+            l("The barcode you entered looks like a UPC code with the check digit missing.") +
             " " +
-            checkDigitText({ checkdigit: field.checkDigit("0" + barcode) }, i18n.TEXT)
+            expand2text(checkDigitText, { checkdigit: field.checkDigit("0" + barcode) })
         );
     } else if (barcode.length === 12) {
         if (field.validateCheckDigit("0" + barcode)) {
-            field.message(i18n.l("The barcode you entered is a valid UPC code."));
+            field.message(l("The barcode you entered is a valid UPC code."));
         } else {
             field.error(
-                i18n.l("The barcode you entered is either an invalid UPC code, or an EAN code with the check digit missing.") +
+                l("The barcode you entered is either an invalid UPC code, or an EAN code with the check digit missing.") +
                 " " +
                 doubleCheckText +
                 " " +
-                checkDigitText({ checkdigit: field.checkDigit(barcode) }, i18n.TEXT)
+                expand2text(checkDigitText, { checkdigit: field.checkDigit(barcode) })
             );
         }
     } else if (barcode.length === 13) {
         if (field.validateCheckDigit(barcode)) {
-            field.message(i18n.l("The barcode you entered is a valid EAN code."));
+            field.message(l("The barcode you entered is a valid EAN code."));
         } else {
             field.error(
-                i18n.l("The barcode you entered is not a valid EAN code.") +
+                l("The barcode you entered is not a valid EAN code.") +
                 " " +
                 doubleCheckText
             );
         }
     } else {
         field.error(
-            i18n.l("The barcode you entered is not a valid UPC or EAN code.") +
+            l("The barcode you entered is not a valid UPC or EAN code.") +
             " " +
             doubleCheckText
         );

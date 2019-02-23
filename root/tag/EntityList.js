@@ -11,7 +11,7 @@ import * as React from 'react';
 
 import PaginatedResults from '../components/PaginatedResults';
 import DescriptiveLink from '../static/scripts/common/components/DescriptiveLink';
-import {l, N_l, N_ln, TEXT} from '../static/scripts/common/i18n';
+import expand2text from '../static/scripts/common/i18n/expand2text';
 
 import TagLayout from './TagLayout';
 
@@ -64,10 +64,9 @@ const EntityList = ({
 }: Props) => (
   <TagLayout page={page} tag={tag}>
     <h2>
-      {headingsText[entityType](
-        pager.total_entries,
+      {expand2text(
+        headingsText[entityType](pager.total_entries),
         {num: pager.total_entries},
-        TEXT,
       )}
     </h2>
 

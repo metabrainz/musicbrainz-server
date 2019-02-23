@@ -472,6 +472,10 @@ declare type EventT = {|
 
 export opaque type EventTypeT: OptionTreeT = OptionTreeT;
 
+declare type Expand2ReactInput = VarSubstArg | AnchorProps;
+
+declare type Expand2ReactOutput = string | AnyReactElem;
+
 declare type FieldRoleT = {|
   +errors: $ReadOnlyArray<string>,
   +has_errors: boolean,

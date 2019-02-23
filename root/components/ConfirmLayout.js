@@ -10,7 +10,6 @@
 import * as React from 'react';
 
 import Layout from '../layout';
-import {l} from '../static/scripts/common/i18n';
 
 type Props = {|
   +action?: string,

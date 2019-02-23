@@ -7,7 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import {l} from '../i18n';
 import expand2react from '../i18n/expand2react';
 import expand2text from '../i18n/expand2text';
 

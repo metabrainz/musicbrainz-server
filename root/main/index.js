@@ -14,8 +14,6 @@ import React from 'react';
 import {ArtworkImage} from '../components/Artwork';
 import Layout from '../layout';
 import {CONTACT_URL} from '../static/scripts/common/constants';
-import expand2react from '../static/scripts/common/i18n/expand2react';
-import {l} from '../static/scripts/common/i18n';
 import {reduceArtistCredit} from '../static/scripts/common/immutable-entities';
 import entityHref from '../static/scripts/common/utility/entityHref';
 
@@ -45,26 +43,26 @@ const Homepage = ({
 
         <ol>
           <li>
-            {l('<strong>The ultimate source of music information</strong> by allowing anyone to contribute and releasing the {doc|data} under {doc2|open licenses}.', {
+            {exp.l('<strong>The ultimate source of music information</strong> by allowing anyone to contribute and releasing the {doc|data} under {doc2|open licenses}.', {
               doc: '/doc/MusicBrainz_Documentation',
               doc2: '/doc/About/Data_License',
             })}
           </li>
           <li>
-            {l('<strong>The universal lingua franca for music</strong> by providing a reliable and unambiguous form of {doc|music identification}, enabling both people and machines to have meaningful conversations about music.', {
+            {exp.l('<strong>The universal lingua franca for music</strong> by providing a reliable and unambiguous form of {doc|music identification}, enabling both people and machines to have meaningful conversations about music.', {
               doc: '/doc/MusicBrainz_Identifier',
             })}
           </li>
         </ol>
 
         <p>
-          {l('Like Wikipedia, MusicBrainz is maintained by a global community of users and we want everyone &#x2014; including you &#x2014; to {doc|participate and contribute}.', {
+          {exp.l('Like Wikipedia, MusicBrainz is maintained by a global community of users and we want everyone &#x2014; including you &#x2014; to {doc|participate and contribute}.', {
             doc: '/doc/How_to_Contribute',
           })}
         </p>
 
         <div className="linkbar">
-          {l('{about|More Information} &#x2014; {faq|FAQs} &#x2014; {contact|Contact Us}', {
+          {exp.l('{about|More Information} &#x2014; {faq|FAQs} &#x2014; {contact|Contact Us}', {
             about: '/doc/About',
             contact: CONTACT_URL,
             faq: '/doc/Frequently_Asked_Questions',
@@ -72,7 +70,7 @@ const Homepage = ({
         </div>
 
         <p>
-          {l('MusicBrainz is operated by the {uri|MetaBrainz Foundation}, a California based 501(c)(3) tax-exempt non-profit corporation dedicated to keeping MusicBrainz {free|free and open source}.', {
+          {exp.l('MusicBrainz is operated by the {uri|MetaBrainz Foundation}, a California based 501(c)(3) tax-exempt non-profit corporation dedicated to keeping MusicBrainz {free|free and open source}.', {
             free: '/doc/About/Data_License',
             uri: 'https://metabrainz.org',
           })}
@@ -149,7 +147,7 @@ const Homepage = ({
         <h2 className="products">{l('MusicBrainz Database')}</h2>
         <p>
           <a href="/doc/MusicBrainz_Database">
-            {expand2react(l('The majority of the data in the <strong>MusicBrainz Database</strong> is released into the <strong>Public Domain</strong> and can be downloaded and used <strong>for free</strong>.'))}
+            {exp.l('The majority of the data in the <strong>MusicBrainz Database</strong> is released into the <strong>Public Domain</strong> and can be downloaded and used <strong>for free</strong>.')}
           </a>
         </p>
       </div>
@@ -158,7 +156,7 @@ const Homepage = ({
         <h2 className="developers">{l('Developers')}</h2>
         <p>
           <a href="/doc/Developer_Resources">
-            {expand2react(l('Use our <strong>XML web service</strong> or <strong>development libraries</strong> to create your own MusicBrainz-enabled applications.'))}
+            {exp.l('Use our <strong>XML web service</strong> or <strong>development libraries</strong> to create your own MusicBrainz-enabled applications.')}
           </a>
         </p>
       </div>
@@ -168,7 +166,7 @@ const Homepage = ({
       <h2>{l('Recent Additions')}</h2>
       {withSafeBrowsing ? (
         <div className="banner">
-          {l('Cover art on the homepage is disabled for Chrome-based browsers, which are known to issue an incorrect phishing warning since the 11th of November 2018; see {ticket_link|ticket CAA-116} for follow-up.<br/>A phishing warning may show up on any other page with cover art. You are encouraged to {report_link|report errors to Google Safe Browsing}. Sorry for the inconvenience!', {
+          {exp.l('Cover art on the homepage is disabled for Chrome-based browsers, which are known to issue an incorrect phishing warning since the 11th of November 2018; see {ticket_link|ticket CAA-116} for follow-up.<br/>A phishing warning may show up on any other page with cover art. You are encouraged to {report_link|report errors to Google Safe Browsing}. Sorry for the inconvenience!', {
             report_link: 'https://safebrowsing.google.com/safebrowsing/report_error/',
             ticket_link: 'https://tickets.metabrainz.org/browse/CAA-116',
           })}
@@ -198,7 +196,7 @@ const ReleaseArtwork = ({
   if (!release) {
     return null;
   }
-  const releaseDescription = l('{entity} by {artist}', {
+  const releaseDescription = texp.l('{entity} by {artist}', {
     artist: reduceArtistCredit(release.artistCredit),
     entity: release.name,
   });

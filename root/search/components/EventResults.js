@@ -10,8 +10,6 @@
 import React from 'react';
 
 import {withCatalystContext} from '../../context';
-import {l} from '../../static/scripts/common/i18n';
-import {lp_attributes} from '../../static/scripts/common/i18n/attributes';
 import ArtistRoles from '../../static/scripts/common/components/ArtistRoles';
 import EntityLink from '../../static/scripts/common/components/EntityLink';
 import EventLocations from '../../static/scripts/common/components/EventLocations';
@@ -71,7 +69,7 @@ const EventResults = ({
     />
     {$c.user && !$c.user.is_editing_disabled ? (
       <p>
-        {l('Alternatively, you may {uri|add a new event}.', {
+        {exp.l('Alternatively, you may {uri|add a new event}.', {
           uri: '/event/create?edit-event.name=' + encodeURIComponent(query),
         })}
       </p>

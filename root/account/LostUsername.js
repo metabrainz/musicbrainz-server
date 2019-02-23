@@ -13,7 +13,6 @@ import FormRow from '../components/FormRow';
 import FormRowEmailLong from '../components/FormRowEmailLong';
 import FormSubmit from '../components/FormSubmit';
 import Layout from '../layout';
-import {addColonText, l} from '../static/scripts/common/i18n';
 
 type LostUsernameFormT = FormT<{|
   +email: FieldT<string>,

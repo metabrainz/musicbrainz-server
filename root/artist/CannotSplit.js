@@ -9,18 +9,18 @@
 
 import React from 'react';
 
-import {l} from '../static/scripts/common/i18n';
-
 import ArtistLayout from './ArtistLayout';
 
 const CannotSplit = ({artist}: {artist: ArtistT}) => (
   <ArtistLayout entity={artist} page="cannot_split">
     <h2>{l('Split Into Separate Artists')}</h2>
     <p>
-      {l(`This artist has relationships other than collaboration
-          relationships, and cannot be split until these are
-          removed. {relationships|View all relationships}.`,
-      {relationships: `/artist/${artist.gid}/relationships`})}
+      {exp.l(
+        `This artist has relationships other than collaboration
+         relationships, and cannot be split until these are
+         removed. {relationships|View all relationships}.`,
+        {relationships: `/artist/${artist.gid}/relationships`},
+      )}
     </p>
   </ArtistLayout>
 );

@@ -18,7 +18,6 @@ import {
 import {withCatalystContext} from '../../../context';
 import CommonsImage from '../../../static/scripts/common/components/CommonsImage';
 import DescriptiveLink from '../../../static/scripts/common/components/DescriptiveLink';
-import {l} from '../../../static/scripts/common/i18n';
 import entityHref from '../../../static/scripts/common/utility/entityHref';
 import isSpecialPurposeArtist from '../../../static/scripts/common/utility/isSpecialPurposeArtist';
 import * as age from '../../../utility/age';

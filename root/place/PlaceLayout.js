@@ -12,7 +12,6 @@ import type {Node as ReactNode} from 'react';
 
 import Layout from '../layout';
 import PlaceSidebar from '../layout/components/sidebar/PlaceSidebar';
-import {hyphenateTitle} from '../static/scripts/common/i18n';
 
 import PlaceHeader from './PlaceHeader';
 

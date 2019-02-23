@@ -9,9 +9,7 @@ import _ from 'lodash';
 import React from 'react';
 
 import {artistBeginLabel, artistEndLabel} from '../../artist/utils';
-import {addColon, l} from '../../static/scripts/common/i18n';
 import commaOnlyList from '../../static/scripts/common/i18n/commaOnlyList';
-import {l_languages} from '../../static/scripts/common/i18n/languages';
 import formatBarcode from '../../static/scripts/common/utility/formatBarcode';
 import formatDate from '../../static/scripts/common/utility/formatDate';
 import formatTrackLength from '../../static/scripts/common/utility/formatTrackLength';

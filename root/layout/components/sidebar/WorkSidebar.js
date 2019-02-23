@@ -15,8 +15,6 @@ import {withCatalystContext} from '../../../context';
 import CodeLink from '../../../static/scripts/common/components/CodeLink';
 import commaOnlyList from '../../../static/scripts/common/i18n/commaOnlyList';
 import CommonsImage from '../../../static/scripts/common/components/CommonsImage';
-import {addColonText, l} from '../../../static/scripts/common/i18n';
-import {lp_attributes} from '../../../static/scripts/common/i18n/attributes';
 import ExternalLinks from '../ExternalLinks';
 
 import AnnotationLinks from './AnnotationLinks';

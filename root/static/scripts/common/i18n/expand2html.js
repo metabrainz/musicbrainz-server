@@ -9,9 +9,12 @@
 
 import * as ReactDOMServer from 'react-dom/server';
 
-import expand2react, {type Input} from './expand2react';
+import expand2react from './expand2react';
 
-export default function expand2html(source: string, args?: ?{+[string]: Input}) {
+export default function expand2html(
+  source: string,
+  args?: ?{+[string]: Expand2ReactInput},
+) {
   return ReactDOMServer.renderToStaticMarkup(
     expand2react(source, args)
   );

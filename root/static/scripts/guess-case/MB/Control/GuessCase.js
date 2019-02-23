@@ -7,7 +7,6 @@ import $ from 'jquery';
 import _ from 'lodash';
 import ko from 'knockout';
 
-import {l} from '../../../common/i18n';
 import getBooleanCookie from '../../../common/utility/getBooleanCookie';
 import setCookie from '../../../common/utility/setCookie';
 import gc from '../GuessCase/Main';

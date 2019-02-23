@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import {l_instruments, lp_instruments} from './instruments';
-
 function localizeInstrumentName(instrument: InstrumentT) {
   if (instrument.comment) {
     return lp_instruments(instrument.name, instrument.comment);

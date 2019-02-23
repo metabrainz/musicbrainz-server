@@ -9,8 +9,6 @@
 
 import React from 'react';
 
-import {addColon, l} from '../../static/scripts/common/i18n';
-import {lp_attributes} from '../../static/scripts/common/i18n/attributes';
 import formatDate from '../../static/scripts/common/utility/formatDate';
 import isDateEmpty from '../../static/scripts/common/utility/isDateEmpty';
 import EntityLink from '../../static/scripts/common/components/EntityLink';

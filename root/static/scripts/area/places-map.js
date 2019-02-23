@@ -10,7 +10,6 @@ const React = require('react');
 const ReactDOMServer = require('react-dom/server');
 
 const EntityLink = require('../common/components/EntityLink').default;
-const {l, ln, TEXT} = require('../common/i18n');
 const {createMap, L} = require('../common/leaflet');
 import getScriptArgs from '../common/utility/getScriptArgs';
 
@@ -71,12 +70,11 @@ if (places.length) {
 
     if (markers.length > CLUSTER_POPUP_LIMIT) {
       popupText += '<br /> ';
-      popupText += _.escape(ln(
+      popupText += _.escape(texp.ln(
         '… and {place_count} other',
         '… and {place_count} others',
         markers.length - CLUSTER_POPUP_LIMIT,
         {place_count: markers.length - CLUSTER_POPUP_LIMIT},
-        TEXT,
       ));
     }
 
@@ -96,7 +94,7 @@ if (places.length) {
       icon: _.get(icons, place.typeID, icons['3']),
       title: place.name,
     }).bindPopup(
-      l('{place_type}: {place_link}', {
+      texp.l('{place_type}: {place_link}', {
         place_type: placeType,
         place_link: placeLink(place),
       })

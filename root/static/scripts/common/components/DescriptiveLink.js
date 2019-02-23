@@ -8,7 +8,6 @@
 import ko from 'knockout';
 import React from 'react';
 
-import {l} from '../i18n';
 import {artistCreditFromArray} from '../immutable-entities';
 
 import AreaWithContainmentLink from './AreaWithContainmentLink';
@@ -30,7 +29,7 @@ const DescriptiveLink = ({entity, content, showDeletedArtists = true}) => {
     if (Array.isArray(artistCredit)) {
       artistCredit = artistCreditFromArray(artistCredit);
     }
-    return l('{entity} by {artist}', {
+    return exp.l('{entity} by {artist}', {
       artist: (
         <ArtistCreditLink
           artistCredit={artistCredit}
@@ -43,7 +42,7 @@ const DescriptiveLink = ({entity, content, showDeletedArtists = true}) => {
   }
 
   if (entity.entityType === 'place' && entity.area) {
-    return l('{place} in {area}', {
+    return exp.l('{place} in {area}', {
       area: <AreaWithContainmentLink area={entity.area} key="area" />,
       place: link,
     });

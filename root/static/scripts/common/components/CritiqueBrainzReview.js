@@ -13,7 +13,6 @@ import {withCatalystContext} from '../../../../context';
 import formatUserDate from '../../../../utility/formatUserDate';
 import hydrate from '../../../../utility/hydrate';
 import * as DBDefs from '../DBDefs';
-import {l} from '../i18n';
 
 import Collapsible from './Collapsible';
 
@@ -35,7 +34,7 @@ const CritiqueBrainzReview = ({$c, review, title}: Props) => (
   <>
     <h3>{title}</h3>
     <p className="review-metadata">
-      {l('{review_link|Review} by {author} on {date}', {
+      {exp.l('{review_link|Review} by {author} on {date}', {
         author: (
           <a href={authorHref(review.author)} key="author">
             {review.author.name}

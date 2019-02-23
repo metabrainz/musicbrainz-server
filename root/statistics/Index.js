@@ -11,8 +11,6 @@
 import React from 'react';
 import {range} from 'lodash';
 
-import {addColon} from '../static/scripts/common/i18n';
-import {lp_attributes} from '../static/scripts/common/i18n/attributes';
 import {l_statistics as l, ln_statistics as ln, lp_statistics as lp} from '../static/scripts/common/i18n/statistics';
 import {withCatalystContext} from '../context';
 
@@ -64,8 +62,7 @@ const Index = ({
   return (
     <StatisticsLayout fullWidth page="index" title={l('Overview')}>
       <p>
-        {l('Last updated: {date}',
-          {date: dateCollected})}
+        {texp.l('Last updated: {date}', {date: dateCollected})}
       </p>
       <h2>{l('Basic metadata')}</h2>
       <table className="database-statistics">
@@ -506,7 +503,7 @@ const Index = ({
             <tr key={num}>
               <th />
               <th />
-              <th>{ln('with {num} disc ID:', 'with {num} disc IDs:', num, {num: num})}</th>
+              <th>{texp.ln('with {num} disc ID:', 'with {num} disc IDs:', num, {num: num})}</th>
               <td>{formatCount($c, stats['count.release.' + num + 'discids'])}</td>
               <td>{formatPercentage($c, stats['count.release.' + num + 'discids'] / stats['count.release.has_discid'], 1)}</td>
             </tr>
@@ -541,7 +538,7 @@ const Index = ({
             <tr key={num}>
               <th />
               <th />
-              <th>{ln('with {num} disc ID:', 'with {num} disc IDs:', num, {num: num})}</th>
+              <th>{texp.ln('with {num} disc ID:', 'with {num} disc IDs:', num, {num: num})}</th>
               <td>{formatCount($c, stats['count.medium.' + num + 'discids'])}</td>
               <td>{formatPercentage($c, stats['count.medium.' + num + 'discids'] / stats['count.medium.has_discid'], 1)}</td>
             </tr>

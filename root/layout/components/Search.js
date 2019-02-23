@@ -11,7 +11,7 @@ import React from 'react';
 
 import SearchIcon from '../../static/scripts/common/components/SearchIcon';
 import * as DBDefs from '../../static/scripts/common/DBDefs';
-import {compare, l, lp, N_l, N_lp} from '../../static/scripts/common/i18n';
+import {compare} from '../../static/scripts/common/i18n';
 
 const TYPE_OPTION_GROUPS = [
   {

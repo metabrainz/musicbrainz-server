@@ -14,7 +14,6 @@ import FormRowSelect from '../../../../components/FormRowSelect';
 import FormRowText from '../../../../components/FormRowText';
 import FormRowURLLong from '../../../../components/FormRowURLLong';
 import FormSubmit from '../../../../components/FormSubmit';
-import {addColonText, l, N_l} from '../../common/i18n';
 import {Lens, prop, set, compose3} from '../../common/utility/lens';
 import hydrate from '../../../../utility/hydrate';
 

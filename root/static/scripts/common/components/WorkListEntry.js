@@ -9,8 +9,6 @@
 
 import * as React from 'react';
 
-import {lp_attributes} from '../i18n/attributes';
-import {l_languages} from '../i18n/languages';
 import loopParity from '../../../../utility/loopParity';
 
 import ArtistCreditLink from './ArtistCreditLink';

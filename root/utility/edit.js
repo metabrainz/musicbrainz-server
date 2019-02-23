@@ -27,7 +27,6 @@ import {
   EDIT_RELATIONSHIP_DELETE,
   EDIT_SERIES_EDIT,
 } from '../static/scripts/common/constants/editTypes';
-import {l, N_l} from '../static/scripts/common/i18n';
 
 const EXPIRE_ACTIONS = {
   [EDIT_EXPIRE_ACCEPT]:   N_l('Accept upon expiration'),

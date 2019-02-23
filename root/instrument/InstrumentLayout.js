@@ -12,7 +12,6 @@ import type {Node as ReactNode} from 'react';
 
 import Layout from '../layout';
 import InstrumentSidebar from '../layout/components/sidebar/InstrumentSidebar';
-import {hyphenateTitle} from '../static/scripts/common/i18n';
 import localizeInstrumentName from '../static/scripts/common/i18n/localizeInstrumentName';
 
 

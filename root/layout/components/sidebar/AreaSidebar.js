@@ -11,7 +11,6 @@ import React from 'react';
 
 import {withCatalystContext} from '../../../context';
 import CommonsImage from '../../../static/scripts/common/components/CommonsImage';
-import {l} from '../../../static/scripts/common/i18n';
 import entityHref from '../../../static/scripts/common/utility/entityHref';
 import * as age from '../../../utility/age';
 import ExternalLinks from '../ExternalLinks';

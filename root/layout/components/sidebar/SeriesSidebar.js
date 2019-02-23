@@ -11,8 +11,6 @@ import * as React from 'react';
 
 import {withCatalystContext} from '../../../context';
 import CommonsImage from '../../../static/scripts/common/components/CommonsImage';
-import {addColonText, l} from '../../../static/scripts/common/i18n';
-import {l_attributes} from '../../../static/scripts/common/i18n/attributes';
 import ExternalLinks from '../ExternalLinks';
 
 import AnnotationLinks from './AnnotationLinks';

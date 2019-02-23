@@ -11,7 +11,6 @@ import * as React from 'react';
 
 import {withCatalystContext} from '../../../context';
 import CommonsImage from '../../../static/scripts/common/components/CommonsImage';
-import {l} from '../../../static/scripts/common/i18n';
 import isDateEmpty from '../../../static/scripts/common/utility/isDateEmpty';
 import areDatesEqual from '../../../utility/areDatesEqual';
 import ExternalLinks from '../ExternalLinks';

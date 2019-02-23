@@ -11,8 +11,7 @@ import ReactDOMServer from 'react-dom/server';
 import '../../../lib/jquery-ui';
 
 import {ENTITY_NAMES, PART_OF_SERIES_LINK_TYPES} from '../../common/constants';
-import {compare, l} from '../../common/i18n';
-import {l_relationships} from '../../common/i18n/relationships';
+import {compare} from '../../common/i18n';
 import MB from '../../common/MB';
 import {link_type as linkTypeInfo} from '../../common/typeInfo';
 import * as URLCleanup from '../../edit/URLCleanup';
@@ -337,7 +336,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
 
             if (linkType && linkType.description) {
                 description = ReactDOMServer.renderToStaticMarkup(
-                    l("{description} ({url|more documentation})", {
+                    exp.l("{description} ({url|more documentation})", {
                         description: l_relationships(linkType.description),
                         url: { href: "/relationship/" + linkType.gid, target: "_blank" }
                     })
@@ -517,20 +516,20 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
 
         changeOtherRelationshipCreditsLabel(entity) {
             return ReactDOMServer.renderToStaticMarkup(
-                l('Change credits for other {entity} relationships on the page.', {entity: entity.reactElement()})
+                exp.l('Change credits for other {entity} relationships on the page.', {entity: entity.reactElement()})
             );
         }
 
         sameEntityTypesLabel($parent, relationship, entity) {
             const entityType = relationship.target(entity).entityType;
-            return l('Only relationships to {entity_type} entities.', {
+            return texp.l('Only relationships to {entity_type} entities.', {
                 entity_type: ENTITY_NAMES[entityType](),
             });
         }
 
         sameRelationshipTypeLabel($parent, relationship, entity) {
             const entityType = relationship.target(entity).entityType;
-            return l('Only “{relationship_type}” relationships to {entity_type} entities.', {
+            return texp.l('Only “{relationship_type}” relationships to {entity_type} entities.', {
                 relationship_type: $parent.linkTypeName(),
                 entity_type: ENTITY_NAMES[entityType](),
             });

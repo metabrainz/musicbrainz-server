@@ -10,8 +10,6 @@
 import * as React from 'react';
 
 import {withCatalystContext} from '../../context';
-import {l} from '../../static/scripts/common/i18n';
-import {lp_attributes} from '../../static/scripts/common/i18n/attributes';
 import EntityLink from '../../static/scripts/common/components/EntityLink';
 import formatDate from '../../static/scripts/common/utility/formatDate';
 import formatEndDate from '../../static/scripts/common/utility/formatEndDate';
@@ -68,7 +66,7 @@ const PlaceResults = ({
     />
     {$c.user && !$c.user.is_editing_disabled ? (
       <p>
-        {l('Alternatively, you may {uri|add a new place}.', {
+        {exp.l('Alternatively, you may {uri|add a new place}.', {
           uri: '/place/create?edit-place.name=' + encodeURIComponent(query),
         })}
       </p>

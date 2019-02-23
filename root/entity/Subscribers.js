@@ -9,7 +9,6 @@
 
 import React from 'react';
 
-import {l, ln} from '../static/scripts/common/i18n';
 import EditorLink from '../static/scripts/common/components/EditorLink';
 import chooseLayoutComponent from '../utility/chooseLayoutComponent';
 
@@ -36,7 +35,7 @@ const Subscribers = ({
       {(publicEditors.length || (privateEditors > 0)) ? (
         <>
           <p>
-            {ln(
+            {texp.ln(
               'There is currently {num} user subscribed to {entity}:',
               'There are currently {num} users subscribed to {entity}:',
               publicEditors.length + privateEditors,
@@ -55,7 +54,7 @@ const Subscribers = ({
             ))}
             {publicEditors.length && (privateEditors > 0) ? (
               <li>
-                {ln(
+                {texp.ln(
                   'Plus {n} other anonymous user',
                   'Plus {n} other anonymous users',
                   privateEditors,
@@ -65,7 +64,7 @@ const Subscribers = ({
             ) : (
               privateEditors > 0 ? (
                 <li>
-                  {ln(
+                  {texp.ln(
                     'An anonymous user',
                     '{n} anonymous users',
                     privateEditors,
@@ -78,25 +77,25 @@ const Subscribers = ({
         </>
       ) : (
         <p>
-          {l('There are currently no users subscribed to {entity}.',
+          {texp.l('There are currently no users subscribed to {entity}.',
             {entity: entity.name})}
         </p>
       )}
 
       {subscribed ? (
         <p>
-          {l('You are currently subscribed. {unsub|Unsubscribe}?',
+          {exp.l('You are currently subscribed. {unsub|Unsubscribe}?',
             {unsub: '/account/subscriptions/' + entityType + '/remove?id=' + entity.id})}
         </p>
       ) : (
         (publicEditors.length + privateEditors === 0) ? (
           <p>
-            {l('Be the first! {sub|Subscribe}?',
+            {exp.l('Be the first! {sub|Subscribe}?',
               {sub: '/account/subscriptions/' + entityType + '/add?id=' + entity.id})}
           </p>
         ) : (
           <p>
-            {l('You are not currently subscribed. {sub|Subscribe}?',
+            {exp.l('You are not currently subscribed. {sub|Subscribe}?',
               {sub: '/account/subscriptions/' + entityType + '/add?id=' + entity.id})}
           </p>
         )

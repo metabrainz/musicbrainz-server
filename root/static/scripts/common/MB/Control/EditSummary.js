@@ -5,7 +5,6 @@
 
 import $ from 'jquery';
 
-import {l} from '../../i18n';
 import MB from '../../MB';
 
 MB.Control.EditSummary = function (container) {
