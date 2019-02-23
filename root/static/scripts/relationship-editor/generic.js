@@ -10,6 +10,7 @@ import _ from 'lodash';
 import {SERIES_ORDERING_TYPE_AUTOMATIC} from '../common/constants';
 import MB from '../common/MB';
 import formatDate from '../common/utility/formatDate';
+import nonEmpty from '../common/utility/nonEmpty';
 import {hasSessionStorage} from '../common/utility/storage';
 import validation from '../edit/validation';
 
@@ -203,7 +204,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
             pushInput(prefix, "link_type_id", editData.linkTypeID || "");
 
             if (relationship.getLinkType().orderable_direction !== 0) {
-                if (relationship.added() || changeData.linkOrder) {
+                if (relationship.added() || nonEmpty(changeData.linkOrder)) {
                     pushInput(prefix, "link_order", editData.linkOrder);
                 }
             }
