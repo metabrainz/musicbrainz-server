@@ -46,15 +46,17 @@ const Annotation = ({
       <h2 className="annotation">{l('Annotation')}</h2>
 
       {collapse
-        ? <Collapsible
-          className="annotation"
-          html={annotation.html}
+        ? (
+          <Collapsible
+            className="annotation"
+            html={annotation.html}
           />
-        : <div
-          className="annotation-body"
-          dangerouslySetInnerHTML={{__html: annotation.html}}
+        ) : (
+          <div
+            className="annotation-body"
+            dangerouslySetInnerHTML={{__html: annotation.html}}
           />
-      }
+        )}
 
       {showChangeLog ? (
         <p>
