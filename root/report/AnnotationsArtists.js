@@ -13,6 +13,7 @@ import {withCatalystContext} from '../context';
 import Layout from '../layout';
 import formatUserDate from '../utility/formatUserDate';
 
+import {ANNOTATION_REPORT_TEXT} from './constants';
 import ArtistAnnotationList from './components/ArtistAnnotationList';
 import FilterLink from './FilterLink';
 import type {ReportArtistAnnotationT, ReportDataT} from './types';
@@ -32,6 +33,7 @@ const AnnotationsArtists = ({
       <li>
         {l('This report lists artists with annotations.')}
       </li>
+      <li>{ANNOTATION_REPORT_TEXT()}</li>
       <li>
         {texp.l('Total artists found: {count}',
                 {count: pager.total_entries})}
