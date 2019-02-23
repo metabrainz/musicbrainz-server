@@ -19,7 +19,7 @@ import isolateText from '../utility/isolateText';
 import nonEmpty from '../utility/nonEmpty';
 import reactTextContent from '../utility/reactTextContent';
 
-export const DeletedLink = ({name, allowNew}: {|+name: React.Node, +allowNew: boolean|}) => {
+export const DeletedLink = ({name, allowNew}: {|+allowNew: boolean, +name: React.Node|}) => {
   const caption = allowNew
     ? l('This entity will be created when edits are entered.')
     : l('This entity has been removed, and cannot be displayed correctly.');
@@ -75,7 +75,7 @@ const AreaDisambiguation = ({area}: {|+area: AreaT|}) => {
   return <Comment className="historical" comment={comment} />;
 };
 
-const NoInfoURL = ({url, allowNew}: {|+url: string, +allowNew: boolean|}) => (
+const NoInfoURL = ({url, allowNew}: {|+allowNew: boolean, +url: string|}) => (
   <>
     <a href={url}>{url}</a>
     {' '}
@@ -220,7 +220,7 @@ const EntityLink = ({
 
   if (showDisambiguation) {
     if (entity.entityType === 'event') {
-      parts.push(<EventDisambiguation event={entity} showDate={showEventDate} key="eventdisambig" />);
+      parts.push(<EventDisambiguation event={entity} key="eventdisambig" showDate={showEventDate} />);
     }
     if (comment) {
       parts.push(
@@ -237,8 +237,8 @@ const EntityLink = ({
       ' ',
       bracketed(
         <a href={infoLink} key="info">{l('info')}</a>,
-        {type: '[]'}
-      )
+        {type: '[]'},
+      ),
     );
   }
 

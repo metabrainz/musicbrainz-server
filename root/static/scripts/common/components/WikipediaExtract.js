@@ -16,8 +16,8 @@ import entityHref from '../utility/entityHref';
 import Collapsible from './Collapsible';
 
 type Props = {|
-  +entity: CoreEntityT,
   +cachedWikipediaExtract: WikipediaExtractT | null,
+  +entity: CoreEntityT,
 |};
 
 type State = {|
