@@ -77,7 +77,11 @@ const ElectionDetails = ({election, user}: PropsT) => (
           {election.is_open
             ? (
               lp(election.status_name, 'autoeditor election status', {
-                date: formatUserDate(user, election.open_time),
+                date: (
+                  election.open_time
+                    ? formatUserDate(user, election.open_time)
+                    : null
+                ),
               })
             ) : null}
 
