@@ -11,7 +11,7 @@ import 'moment-timezone';
 
 function formatUserDate(user, dateString, options) {
   let preferences = user ? user.preferences : null;
-  let result = moment(dateString);
+  let result = moment(dateString, moment.defaultFormat, true);
   let format = '%Y-%m-%d %H:%M %Z';
 
   if (preferences) {
