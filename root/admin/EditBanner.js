@@ -22,7 +22,7 @@ type Props = {|
 const EditBanner = ({form}: Props) => (
   <Layout fullWidth title={l('Edit Banner Message')}>
     <div id="content">
-      <h1>{l('Edit Banner Message')}</h1>
+      <h1>{l('Edit banner message')}</h1>
       <p>
         {l(`This will set the banner message that is shown at the top
             of each page. An empty string removes the banner.`)}
