@@ -22,9 +22,9 @@ const MissingEditorLink = () => {
 };
 
 type Props = {|
-  +editor: EditorT | SanitizedEditorT | null,
-  +content?: string,
   +avatarSize?: number,
+  +content?: string,
+  +editor: EditorT | SanitizedEditorT | null,
   +subPath?: string,
 |};
 
@@ -49,7 +49,7 @@ const EditorLink = ({editor, content, avatarSize, subPath}: Props) => {
   return (
     <a href={entityHref(editor, subPath)}>
       {gravatar ? (
-        <img src={gravatar} height={avatarSize} width={avatarSize} className="gravatar" alt="" />
+        <img alt="" className="gravatar" height={avatarSize} src={gravatar} width={avatarSize} />
       ) : null}
       {isolateText(content)}
     </a>

@@ -8,7 +8,6 @@
  */
 
 import * as React from 'react';
-import uniq from 'lodash/uniq';
 
 import {l} from '../i18n';
 import commaOnlyList from '../i18n/commaOnlyList';

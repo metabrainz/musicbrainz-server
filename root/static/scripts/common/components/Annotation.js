@@ -46,15 +46,17 @@ const Annotation = ({
       <h2 className="annotation">{l('Annotation')}</h2>
 
       {collapse
-        ? <Collapsible
+        ? (
+          <Collapsible
             className="annotation"
             html={annotation.html}
           />
-        : <div
+        ) : (
+          <div
             className="annotation-body"
             dangerouslySetInnerHTML={{__html: annotation.html}}
           />
-      }
+        )}
 
       {showChangeLog ? (
         <p>
@@ -123,5 +125,5 @@ export default withCatalystContext(
       latest_annotation: entity.latest_annotation,
     }, props);
     return props;
-  })
+  }),
 );

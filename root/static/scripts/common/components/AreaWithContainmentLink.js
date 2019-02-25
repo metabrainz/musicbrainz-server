@@ -19,7 +19,7 @@ const AreaWithContainmentLink = ({area, ...props}) => {
   const areaLink = <EntityLink entity={area} key={0} {...props} />;
 
   return area.containment ? commaOnlyList(
-    [areaLink].concat(area.containment.map(makeContainmentLink))
+    [areaLink].concat(area.containment.map(makeContainmentLink)),
   ) : areaLink;
 };
 

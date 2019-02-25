@@ -1,7 +1,9 @@
-// This file is part of MusicBrainz, the open internet music database.
-// Copyright (C) 2016 MetaBrainz Foundation
-// Licensed under the GPL version 2, or (at your option) any later version:
-// http://www.gnu.org/licenses/gpl-2.0.txt
+/*
+ * This file is part of MusicBrainz, the open internet music database.
+ * Copyright (C) 2016 MetaBrainz Foundation
+ * Licensed under the GPL version 2, or (at your option) any later version:
+ * http://www.gnu.org/licenses/gpl-2.0.txt
+ */
 
 import _ from 'lodash';
 import $ from 'jquery';
@@ -23,7 +25,9 @@ class Autocomplete extends React.Component {
     this._subscription = currentSelection.subscribe(this.props.onChange);
 
     this._autocomplete = $(this._nameInput).entitylookup(options).data('mb-entitylookup');
-    currentSelection(this._autocomplete._dataToEntity(this.props.currentSelection));
+    currentSelection(
+      this._autocomplete._dataToEntity(this.props.currentSelection),
+    );
   }
 
   componentWillUnmount() {
@@ -47,7 +51,9 @@ class Autocomplete extends React.Component {
     if (!next) {
       autocomplete.clearSelection(true);
     } else if (!prev || prev.gid !== next.gid || prev.name !== next.name) {
-      autocomplete.currentSelection(autocomplete._dataToEntity(nextProps.currentSelection));
+      autocomplete.currentSelection(
+        autocomplete._dataToEntity(nextProps.currentSelection),
+      );
     }
 
     autocomplete.element.prop('disabled', !!nextProps.disabled);
@@ -74,7 +80,8 @@ class Autocomplete extends React.Component {
           disabled={disabled}
           id={inputID}
           ref={input => this._nameInput = input}
-          type="text" />
+          type="text"
+        />
       </span>
     );
   }
