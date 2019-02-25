@@ -33,22 +33,26 @@ const canLoadDomain = typeof gettext.loadDomain === 'function';
  */
 
 function tryLoadDomain(domain) {
-  if (canLoadDomain && !gettext.options.locale_data[domain]) {
+  if (!gettext.options.locale_data[domain]) {
     gettext.loadDomain(domain);
   }
 }
 
 export function dgettext(domain) {
-  tryLoadDomain(domain);
   return function (key, args) {
+    if (canLoadDomain) {
+      tryLoadDomain(domain);
+    }
     key = cleanMsgid(key);
     return expand2(gettext.dgettext(domain, key), args);
   };
 }
 
 export function dngettext(domain) {
-  tryLoadDomain(domain);
   return function (skey, pkey, val, args) {
+    if (canLoadDomain) {
+      tryLoadDomain(domain);
+    }
     skey = cleanMsgid(skey);
     pkey = cleanMsgid(pkey);
     return expand2(gettext.dngettext(domain, skey, pkey, val), args);
@@ -56,8 +60,10 @@ export function dngettext(domain) {
 }
 
 export function dpgettext(domain) {
-  tryLoadDomain(domain);
   return function (key, context, args) {
+    if (canLoadDomain) {
+      tryLoadDomain(domain);
+    }
     key = cleanMsgid(key);
     return expand2(gettext.dpgettext(domain, context, key), args);
   };
