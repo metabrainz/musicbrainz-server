@@ -2108,11 +2108,11 @@ const testData = [
        only_valid_entity_types: ['artist'],
   },
   {
-                     input_url: 'https://www.musixmatch.com/album/Bruno-Mars/This-Is-My-Love-Remixes-3',
-             input_entity_type: 'album',
-    expected_relationship_type: undefined,
-       input_relationship_type: 'lyrics',
-       only_valid_entity_types: [],
+                     input_url: 'http://musixmatch.com/album/Bruno-Mars/This-Is-My-Love-Remixes-3',
+             input_entity_type: 'release_group',
+    expected_relationship_type: 'lyrics',
+            expected_clean_url: 'https://www.musixmatch.com/album/Bruno-Mars/This-Is-My-Love-Remixes-3',
+       only_valid_entity_types: ['release_group'],
   },
   {
                      input_url: 'https://www.musixmatch.com/lyrics/Mark-Ronson-feat-Bruno-Mars/Uptown-Funk/translation/spanish',
