@@ -525,6 +525,16 @@ sub report : Chained('load') RequireAuth HiddenOnSlaves {
     _check_for_confirmed_email($c);
 
     my $form = $c->form(form => 'User::Report');
+
+    $c->stash(
+        current_view => 'Node',
+        component_path => 'user/ReportUser',
+        component_props => {
+            form => $form,
+            user => $reported_user,
+        },
+    );
+
     if ($c->form_posted && $form->process(params => $c->req->params)) {
         my @account_admins = $c->model('Editor')->find_by_privileges($ACCOUNT_ADMIN_FLAG);
         my $result;
