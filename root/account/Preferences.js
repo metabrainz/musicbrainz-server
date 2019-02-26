@@ -11,8 +11,10 @@ import * as React from 'react';
 
 import UserAccountLayout from '../components/UserAccountLayout';
 import {withCatalystContext} from '../context';
-import PreferencesForm from '../static/scripts/account/components/PreferencesForm';
-import type {PreferencesFormPropsT} from '../static/scripts/account/components/PreferencesForm';
+import PreferencesForm
+  from '../static/scripts/account/components/PreferencesForm';
+import type {PreferencesFormPropsT}
+  from '../static/scripts/account/components/PreferencesForm';
 import {l} from '../static/scripts/common/i18n';
 import * as manifest from '../static/manifest';
 

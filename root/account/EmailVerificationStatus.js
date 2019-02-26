@@ -21,7 +21,8 @@ const EmailVerificationStatus = ({message}: Props) => (
     <p>
       {message
         ? message
-        : l('Thank you, your email address has now been verified! If you still can\'t edit, please try to log out and log in again.')
+        : l(`Thank you, your email address has now been verified! If you still
+             can't edit, please try to log out and log in again.`)
       }
     </p>
   </StatusPage>
