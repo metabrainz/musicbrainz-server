@@ -17,11 +17,11 @@ import {l} from '../static/scripts/common/i18n';
 import * as manifest from '../static/manifest';
 
 type Props = {|
-  +$c: CatalystContextT,
+  +$c: {user: EditorT} & CatalystContextT,
   ...PreferencesFormPropsT,
 |};
 
-const Preferences = withCatalystContext(({$c, ...props}) => (
+const Preferences = withCatalystContext(({$c, ...props}: Props) => (
   <UserAccountLayout
     entity={$c.user}
     page="preferences"
