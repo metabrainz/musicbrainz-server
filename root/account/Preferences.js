@@ -23,9 +23,9 @@ type Props = {|
 
 const Preferences = withCatalystContext(({$c, ...props}) => (
   <UserAccountLayout
+    entity={$c.user}
     page="preferences"
     title={l('Preferences')}
-    user={$c.user}
   >
     <PreferencesForm {...props} />
     {manifest.js('account/preferences')}
