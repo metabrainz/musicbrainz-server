@@ -17,7 +17,7 @@ import formatDate from '../../static/scripts/common/utility/formatDate';
 import formatEndDate from '../../static/scripts/common/utility/formatEndDate';
 import primaryAreaCode from '../../static/scripts/common/utility/primaryAreaCode';
 import loopParity from '../../utility/loopParity';
-import type {ResultsPropsT} from '../types';
+import type {ResultsPropsWithContextT} from '../types';
 
 import PaginatedSearchResults from './PaginatedSearchResults';
 import ResultsLayout from './ResultsLayout';
@@ -48,7 +48,7 @@ const AreaResults = ({
   pager,
   query,
   results,
-}: ResultsPropsT<AreaT>) => (
+}: ResultsPropsWithContextT<AreaT>) => (
   <ResultsLayout form={form} lastUpdated={lastUpdated}>
     <PaginatedSearchResults
       buildResult={buildResult}

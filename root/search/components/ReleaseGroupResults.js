@@ -15,7 +15,7 @@ import {lp_attributes} from '../../static/scripts/common/i18n/attributes';
 import EntityLink from '../../static/scripts/common/components/EntityLink';
 import ArtistCreditLink from '../../static/scripts/common/components/ArtistCreditLink';
 import loopParity from '../../utility/loopParity';
-import type {ResultsPropsT} from '../types';
+import type {ResultsPropsWithContextT} from '../types';
 
 import PaginatedSearchResults from './PaginatedSearchResults';
 import ResultsLayout from './ResultsLayout';
@@ -52,7 +52,7 @@ const ReleaseGroupResults = ({
   pager,
   query,
   results,
-}: ResultsPropsT<ReleaseGroupT>) => (
+}: ResultsPropsWithContextT<ReleaseGroupT>) => (
   <ResultsLayout form={form} lastUpdated={lastUpdated}>
     <PaginatedSearchResults
       buildResult={buildResult}
