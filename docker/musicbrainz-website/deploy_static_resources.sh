@@ -45,8 +45,7 @@ _deploy_static_resources() {
         rsync-staticbrainz-mb \
         "$BUILD_DIR/" \
         ./ \
-        '--exclude', 'server*',
-        '--recursive' \
+        '--exclude "server*" --recursive' \
         &
     trap_jobs
     popd > /dev/null
