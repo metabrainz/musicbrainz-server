@@ -28,19 +28,21 @@ const PaginatedSearchResults = <T>({
   pager,
   query,
   results,
-}: Props<T>) => results.length ? (
-  <PaginatedResults pager={pager} query={query} search>
-    <table className="tbl">
-      <thead>
-        <tr>
-          {columns}
-        </tr>
-      </thead>
-      <tbody>
-        {results.map(buildResult)}
-      </tbody>
-    </table>
-  </PaginatedResults>
-) : <p>{l('No results found. Try refining your search query.')}</p>;
+}: Props<T>) => {
+  return results.length ? (
+    <PaginatedResults pager={pager} query={query} search>
+      <table className="tbl">
+        <thead>
+          <tr>
+            {columns}
+          </tr>
+        </thead>
+        <tbody>
+          {results.map(buildResult)}
+        </tbody>
+      </table>
+    </PaginatedResults>
+  ) : <p>{l('No results found. Try refining your search query.')}</p>;
+};
 
 export default PaginatedSearchResults;

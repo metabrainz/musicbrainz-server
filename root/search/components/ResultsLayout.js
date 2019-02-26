@@ -32,7 +32,7 @@ const ResultsLayout = ({$c, children, form, lastUpdated}: Props) => {
         {lastUpdated ? (
           <p>
             {l('Last updated: {date}',
-              {date: formatUserDate($c.user, lastUpdated)})}
+               {date: formatUserDate($c.user, lastUpdated)})}
           </p>
         ) : null}
         {children}
