@@ -110,7 +110,7 @@ const ReportUser = ({
     <form action={$c.req.uri} className="report-form" method="post">
       <FormRowSelect
         field={form.field.reason}
-        label={l('Reason:')}
+        label={addColon(l('Reason'))}
         onChange={noop}
         options={reportReasonOptions}
       />
@@ -118,7 +118,7 @@ const ReportUser = ({
       <FormRowTextArea
         cols={50}
         field={form.field.message}
-        label={l('Message:')}
+        label={addColon(l('Message'))}
         required
         rows={10}
       />
