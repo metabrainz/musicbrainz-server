@@ -69,7 +69,7 @@
     "babel-eslint": "10.0.1",
     "chrome-remote-interface": "0.27.0",
     "eslint": "5.14.1",
-    "eslint-plugin-flowtype": "2.50.0",
+    "eslint-plugin-flowtype": "3.4.2",
     "eslint-plugin-import": "2.14.0",
     "eslint-plugin-react": "git://github.com/yannickcr/eslint-plugin-react#60b5642",
     "file-url": "2.0.2",
