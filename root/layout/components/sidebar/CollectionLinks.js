@@ -19,8 +19,12 @@ type Props = {|
   +entity: CoreEntityT,
 |};
 
-const CollectionLinks = ({$c, entity}: Props) => (
-  ($c.user_exists && $c.stash.all_collections) ? (
+const CollectionLinks = ({$c, entity}: Props) => {
+  const allCollections = $c.stash.all_collections;
+  if (!$c.user_exists || !allCollections) {
+    return null;
+  }
+  return (
     <>
       <h2 className="collections">
         {l('Collections')}
@@ -34,10 +38,8 @@ const CollectionLinks = ({$c, entity}: Props) => (
             content={texp.ln(
               'Found in {num} user collection',
               'Found in {num} user collections',
-              // $FlowFixMe
-              $c.stash.all_collections.length,
-              // $FlowFixMe
-              {num: $c.stash.all_collections.length},
+              allCollections.length,
+              {num: allCollections.length},
             )}
             entity={entity}
             subPath="collections"
@@ -45,7 +47,7 @@ const CollectionLinks = ({$c, entity}: Props) => (
         }
       />
     </>
-  ) : null
-);
+  );
+};
 
 export default withCatalystContext(CollectionLinks);

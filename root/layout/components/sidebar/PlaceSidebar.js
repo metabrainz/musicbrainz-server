@@ -36,6 +36,7 @@ type Props = {|
 const PlaceSidebar = ({$c, place}: Props) => {
   const placeAge = age.age(place);
   const gid = encodeURIComponent(place.gid);
+  const coordinates = place.coordinates;
 
   return (
     <div id="sidebar">
@@ -67,11 +68,10 @@ const PlaceSidebar = ({$c, place}: Props) => {
           </SidebarProperty>
         ) : null}
 
-        {place.coordinates ? (
+        {coordinates ? (
           <SidebarProperty className="coordinates" label={l('Coordinates:')}>
-            {/* $FlowFixMe */}
-            <a href={osmUrl(place.coordinates, 16)}>
-              {formatCoordinates(place.coordinates)}
+            <a href={osmUrl(coordinates, 16)}>
+              {formatCoordinates(coordinates)}
             </a>
           </SidebarProperty>
         ) : null}

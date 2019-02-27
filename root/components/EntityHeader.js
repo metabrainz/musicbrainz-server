@@ -30,13 +30,12 @@ const EntityHeader = ({
   headerClass,
   heading,
   page,
-  // $FlowFixMe
-  preHeader = null,
+  preHeader,
   subHeading,
 }: Props) => (
   <>
     <div className={headerClass}>
-      {preHeader}
+      {preHeader || null}
       <h1>
         {heading || <EntityLink entity={entity} />}
       </h1>

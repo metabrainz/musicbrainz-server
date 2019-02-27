@@ -24,7 +24,6 @@ type ReleaseLabelsProps = {|
 
 const ReleaseCatnoList = ({labels}: ReleaseLabelsProps) => (
   labels && labels.length ? (
-    // $FlowFixMe
     commaOnlyList(uniqBy(labels, 'catalogNumber').map(ReleaseCatno))
   ) : null
 );

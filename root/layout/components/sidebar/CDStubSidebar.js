@@ -42,6 +42,8 @@ const CDStubSidebar = ({cdstub}: Props) => {
     (cdstub.barcode ? ' barcode:(' + escapeLuceneValue(cdstub.barcode) + ')' : '')
   );
 
+  const toc = cdstub.toc;
+
   return (
     <div id="sidebar">
       <SidebarProperties>
@@ -76,10 +78,9 @@ const CDStubSidebar = ({cdstub}: Props) => {
             subPath="import"
           />
         </li>
-        {cdstub.toc ? (
+        {toc ? (
           <li>
-            {/* $FlowFixMe */}
-            <a href={'/cdtoc/attach?toc=' + encodeURIComponent(cdstub.toc)}>
+            <a href={'/cdtoc/attach?toc=' + encodeURIComponent(toc)}>
               {l('Add disc ID to an existing release')}
             </a>
           </li>
