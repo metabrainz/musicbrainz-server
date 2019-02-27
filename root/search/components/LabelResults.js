@@ -17,7 +17,7 @@ import formatDate from '../../static/scripts/common/utility/formatDate';
 import formatEndDate from '../../static/scripts/common/utility/formatEndDate';
 import formatLabelCode from '../../utility/formatLabelCode';
 import loopParity from '../../utility/loopParity';
-import type {ResultsPropsT} from '../types';
+import type {ResultsPropsWithContextT} from '../types';
 
 import PaginatedSearchResults from './PaginatedSearchResults';
 import ResultsLayout from './ResultsLayout';
@@ -53,7 +53,7 @@ const LabelResults = ({
   pager,
   query,
   results,
-}: ResultsPropsT<LabelT>) => (
+}: ResultsPropsWithContextT<LabelT>) => (
   <ResultsLayout form={form} lastUpdated={lastUpdated}>
     <PaginatedSearchResults
       buildResult={buildResult}

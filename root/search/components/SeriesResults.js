@@ -14,7 +14,7 @@ import {l} from '../../static/scripts/common/i18n';
 import {lp_attributes} from '../../static/scripts/common/i18n/attributes';
 import EntityLink from '../../static/scripts/common/components/EntityLink';
 import loopParity from '../../utility/loopParity';
-import type {ResultsPropsT} from '../types';
+import type {ResultsPropsWithContextT} from '../types';
 
 import PaginatedSearchResults from './PaginatedSearchResults';
 import ResultsLayout from './ResultsLayout';
@@ -42,7 +42,7 @@ const SeriesResults = ({
   pager,
   query,
   results,
-}: ResultsPropsT<SeriesT>) => (
+}: ResultsPropsWithContextT<SeriesT>) => (
   <ResultsLayout form={form} lastUpdated={lastUpdated}>
     <PaginatedSearchResults
       buildResult={buildResult}

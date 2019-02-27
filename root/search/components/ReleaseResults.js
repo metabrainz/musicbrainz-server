@@ -24,7 +24,7 @@ import ReleaseCatnoList from '../../components/ReleaseCatnoList';
 import ReleaseCountries from '../../components/ReleaseCountries';
 import ReleaseDates from '../../components/ReleaseDates';
 import ReleaseLabelList from '../../components/ReleaseLabelList';
-import type {InlineResultsPropsT, ResultsPropsT} from '../types';
+import type {InlineResultsPropsT, ResultsPropsWithContextT} from '../types';
 
 import PaginatedSearchResults from './PaginatedSearchResults';
 import ResultsLayout from './ResultsLayout';
@@ -108,7 +108,7 @@ export const ReleaseResultsInline = ({
         <th>{l('Language')}</th>
         <th>{l('Type')}</th>
         <th>{l('Status')}</th>
-        {$c.session && $c.session.tport ? <th>{l('Tagger')}</th> : null}
+        {$c && $c.session && $c.session.tport ? <th>{l('Tagger')}</th> : null}
       </>
     }
     pager={pager}
@@ -124,7 +124,7 @@ const ReleaseResults = ({
   pager,
   query,
   results,
-}: ResultsPropsT<ReleaseT>) => (
+}: ResultsPropsWithContextT<ReleaseT>) => (
   <ResultsLayout form={form} lastUpdated={lastUpdated}>
     <ReleaseResultsInline
       $c={$c}

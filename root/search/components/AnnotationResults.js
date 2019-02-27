@@ -42,7 +42,6 @@ function buildResult(result, index) {
 }
 
 const AnnotationResults = ({
-  $c,
   form,
   lastUpdated,
   pager,

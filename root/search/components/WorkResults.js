@@ -12,7 +12,7 @@ import * as React from 'react';
 import {withCatalystContext} from '../../context';
 import {l} from '../../static/scripts/common/i18n';
 import WorkListEntry from '../../static/scripts/common/components/WorkListEntry';
-import type {ResultsPropsT} from '../types';
+import type {ResultsPropsWithContextT} from '../types';
 
 import PaginatedSearchResults from './PaginatedSearchResults';
 import ResultsLayout from './ResultsLayout';
@@ -40,7 +40,7 @@ const WorkResults = ({
   pager,
   query,
   results,
-}: ResultsPropsT<WorkT>) => (
+}: ResultsPropsWithContextT<WorkT>) => (
   <ResultsLayout form={form} lastUpdated={lastUpdated}>
     <PaginatedSearchResults
       buildResult={buildResult}

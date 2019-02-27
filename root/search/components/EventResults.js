@@ -17,7 +17,7 @@ import EntityLink from '../../static/scripts/common/components/EntityLink';
 import EventLocations from '../../static/scripts/common/components/EventLocations';
 import formatDatePeriod from '../../static/scripts/common/utility/formatDatePeriod';
 import loopParity from '../../utility/loopParity';
-import type {ResultsPropsT} from '../types';
+import type {ResultsPropsWithContextT} from '../types';
 
 import PaginatedSearchResults from './PaginatedSearchResults';
 import ResultsLayout from './ResultsLayout';
@@ -51,7 +51,7 @@ const EventResults = ({
   pager,
   query,
   results,
-}: ResultsPropsT<EventT>) => (
+}: ResultsPropsWithContextT<EventT>) => (
   <ResultsLayout form={form} lastUpdated={lastUpdated}>
     <PaginatedSearchResults
       buildResult={buildResult}

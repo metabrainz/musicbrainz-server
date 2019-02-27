@@ -33,7 +33,6 @@ function buildResult(result, index) {
 }
 
 const CDStubResults = ({
-  $c,
   form,
   lastUpdated,
   pager,

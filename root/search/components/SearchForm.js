@@ -12,8 +12,6 @@ import React from 'react';
 
 import {l, N_l, N_lp} from '../../static/scripts/common/i18n';
 import * as DBDefs from '../../static/scripts/common/DBDefs';
-import FieldErrors from '../../components/FieldErrors';
-import FormRow from '../../components/FormRow';
 import FormRowRadio from '../../components/FormRowRadio';
 import FormRowSelect from '../../components/FormRowSelect';
 import FormRowTextLong from '../../components/FormRowTextLong';
@@ -68,49 +66,45 @@ const methodOptions = [
   {label: N_l('Direct database search'), value: 'direct'},
 ];
 
-const SearchForm = ({form}: Props) => {
-  const limitField = form.field.limit;
-  const methodField = form.field.method;
-  return (
-    <>
-      <div className="searchform">
-        <form action="/search" method="get">
-          <FormRowTextLong
-            field={form.field.query}
-            label={l('Query:')}
-            required
-          />
-          <FormRowSelect
-            field={form.field.type}
-            label={l('Type:')}
-            onChange={noop}
-            options={typeOptions}
-          />
-          <FormRowSelect
-            field={form.field.limit}
-            label={l('Results per page:')}
-            onChange={noop}
-            options={limitOptions}
-          />
-          <FormRowRadio
-            field={form.field.method}
-            label={l('Search method:')}
-            options={methodOptions}
-          />
-          <div className="row no-label">
-            <FormSubmit label={l('Search')} />
-          </div>
-        </form>
-      </div>
-      <div className="searchinfo">
-        <p>
-          {l('For more information, check the {doc_doc|documentation}.', {
-            doc_doc: '/doc/Search',
-          })}
-        </p>
-      </div>
-    </>
-  );
-};
+const SearchForm = ({form}: Props) => (
+  <>
+    <div className="searchform">
+      <form action="/search" method="get">
+        <FormRowTextLong
+          field={form.field.query}
+          label={l('Query:')}
+          required
+        />
+        <FormRowSelect
+          field={form.field.type}
+          label={l('Type:')}
+          onChange={noop}
+          options={typeOptions}
+        />
+        <FormRowSelect
+          field={form.field.limit}
+          label={l('Results per page:')}
+          onChange={noop}
+          options={limitOptions}
+        />
+        <FormRowRadio
+          field={form.field.method}
+          label={l('Search method:')}
+          options={methodOptions}
+        />
+        <div className="row no-label">
+          <FormSubmit label={l('Search')} />
+        </div>
+      </form>
+    </div>
+    <div className="searchinfo">
+      <p>
+        {l('For more information, check the {doc_doc|documentation}.', {
+          doc_doc: '/doc/Search',
+        })}
+      </p>
+    </div>
+  </>
+);
 
 export default SearchForm;

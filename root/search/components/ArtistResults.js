@@ -16,7 +16,7 @@ import EntityLink from '../../static/scripts/common/components/EntityLink';
 import formatDate from '../../static/scripts/common/utility/formatDate';
 import formatEndDate from '../../static/scripts/common/utility/formatEndDate';
 import loopParity from '../../utility/loopParity';
-import type {InlineResultsPropsT, ResultsPropsT} from '../types';
+import type {InlineResultsPropsT, ResultsPropsWithContextT} from '../types';
 
 import PaginatedSearchResults from './PaginatedSearchResults';
 import ResultsLayout from './ResultsLayout';
@@ -53,7 +53,6 @@ function buildResult(result, index) {
 }
 
 export const ArtistResultsInline = ({
-  $c,
   pager,
   query,
   results,
@@ -86,10 +85,9 @@ const ArtistResults = ({
   pager,
   query,
   results,
-}: ResultsPropsT<ArtistT>) => (
+}: ResultsPropsWithContextT<ArtistT>) => (
   <ResultsLayout form={form} lastUpdated={lastUpdated}>
     <ArtistResultsInline
-      $c={$c}
       pager={pager}
       query={query}
       results={results}

@@ -9,7 +9,6 @@
 
 import * as React from 'react';
 
-import {withCatalystContext} from '../../context';
 import {l} from '../../static/scripts/common/i18n';
 import {l_instrument_descriptions} from '../../static/scripts/common/i18n/instrument_descriptions';
 import {lp_attributes} from '../../static/scripts/common/i18n/attributes';
@@ -40,7 +39,6 @@ function buildResult(result, index) {
 }
 
 const InstrumentResults = ({
-  $c,
   form,
   lastUpdated,
   pager,
@@ -64,4 +62,4 @@ const InstrumentResults = ({
   </ResultsLayout>
 );
 
-export default withCatalystContext(InstrumentResults);
+export default InstrumentResults;
