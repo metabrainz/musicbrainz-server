@@ -116,7 +116,7 @@ rules:
   func-call-spacing: [warn, never]
   function-paren-newline: [warn, consistent]
   implicit-arrow-linebreak: [warn, beside]
-  indent: [warn, 2, {SwitchCase: 1}]
+  indent: [warn, 2, {CallExpression: {arguments: first}, SwitchCase: 1}]
   jsx-quotes: [warn, prefer-double]
   key-spacing: [warn, {mode: minimum}]
   keyword-spacing: [warn, {before: true, after: true}]
