@@ -16,8 +16,10 @@ import StatusPage from '../components/StatusPage';
 const LostUsernameSent = () => (
   <StatusPage title={hyphenateTitle(l('Lost Username'), l('Email Sent!'))}>
     <p>
-      {l('We\'ve sent you information about your MusicBrainz account. If you don\'t receive this email or still have problems logging in, please {link|contact us}.',
-        {link: CONTACT_URL})}
+      {l(`We've sent you information about your MusicBrainz account. If you
+          don't receive this email or still have problems logging in,
+          please {link|contact us}.`,
+         {link: CONTACT_URL})}
     </p>
   </StatusPage>
 );

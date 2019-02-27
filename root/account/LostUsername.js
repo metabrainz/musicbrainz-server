@@ -27,7 +27,8 @@ const LostUsername = (props: Props) => (
   <Layout fullWidth title={l('Lost Username')}>
     <h1>{l('Lost Username')}</h1>
     <p>
-      {l('Enter your email address below and we will send you an email with your MusicBrainz account information.')}
+      {l(`Enter your email address below and we will send you an email with
+          your MusicBrainz account information.`)}
     </p>
     <form method="post">
       <FormRowEmailLong

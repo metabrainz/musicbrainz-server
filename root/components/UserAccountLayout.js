@@ -18,15 +18,15 @@ import UserAccountTabs from './UserAccountTabs';
 
 type Props = {|
   +children: React.Node,
+  +entity: EditorT,
   +page: string,
   +title?: string,
-  +user: EditorT,
 |};
 
 const UserAccountLayout = ({
   children,
+  entity: user,
   page,
-  user,
   title,
   ...layoutProps
 }: Props) => (

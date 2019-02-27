@@ -24,11 +24,16 @@ const Donation = ({days, nag}: Props) => (
       ? (
         <>
           <p>
-            {l('We have not received a donation from you recently. If you have just made a PayPal donation, then we have not received a notification from PayPal yet. Please wait a few minutes and reload this page to check again.')}
+            {l(`We have not received a donation from you recently. If you have
+                just made a PayPal donation, then we have not received a
+                notification from PayPal yet. Please wait a few minutes and
+                reload this page to check again.`)}
           </p>
           <p>
-            {l('If you would like to make a donation, {donate|you can do that here}. If you have donated, but you are still being nagged, please {contact|contact us}.',
-              {contact: CONTACT_URL, donate: DONATE_URL})}
+            {l(`If you would like to make a donation, {donate|you can do that
+                here}. If you have donated, but you are still being nagged,
+                please {contact|contact us}.`,
+               {contact: CONTACT_URL, donate: DONATE_URL})}
           </p>
         </>
       ) : (
@@ -39,7 +44,10 @@ const Donation = ({days, nag}: Props) => (
           {days > 0
             ? (
               <p>
-                {l('You will not be nagged for another {days} days.', {days: days})}
+                {l(
+                  'You will not be nagged for another {days} days.',
+                  {days: days},
+                )}
               </p>
             ) : (
               <p>
