@@ -20,8 +20,8 @@ export default function subfieldErrors<F>(
   }
   if (hasOwnProperty.call(field, 'field')) {
     // $FlowFixMe
-    each(field.field, function (subfield) {
-      accum = subfieldErrors(subfield, accum);
+    each(field.field, function <S>(subfield: AnyFieldT<S>) {
+      accum = subfieldErrors<S>(subfield, accum);
     });
   }
   return accum;
