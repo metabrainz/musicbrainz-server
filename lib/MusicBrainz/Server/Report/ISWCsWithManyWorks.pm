@@ -1,4 +1,4 @@
-package MusicBrainz::Server::Report::IswcsWithManyWorks;
+package MusicBrainz::Server::Report::ISWCsWithManyWorks;
 use Moose;
 
 with 'MusicBrainz::Server::Report::WorkReport',
@@ -18,6 +18,7 @@ around inflate_rows => sub {
 };
 
 sub table { 'iswc_with_many_works' }
+sub component_name { 'IswcsWithManyWorks' }
 
 sub query {
     "
