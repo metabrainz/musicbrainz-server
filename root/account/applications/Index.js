@@ -26,7 +26,7 @@ const buildApplicationRow = (application: ApplicationT, index: number) => (
   <tr className={loopParity(index)} key={application.id}>
     <td>{application.name}</td>
     <td>
-      {application.oauth_redirect_uri ? l('Web Application') : l('Installed Application')}
+      {application.is_server ? l('Web Application') : l('Installed Application')}
     </td>
     <td><code>{application.oauth_id}</code></td>
     <td><code>{application.oauth_secret}</code></td>

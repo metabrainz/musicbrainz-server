@@ -8,7 +8,6 @@
  */
 
 import * as React from 'react';
-import noop from 'lodash/noop';
 
 import FormRow from '../../../../components/FormRow';
 import FormRowSelect from '../../../../components/FormRowSelect';
@@ -101,14 +100,22 @@ class ApplicationForm extends React.Component<Props, State> {
           options={oauthTypeOptions}
           required
         />
-        {this.state.form.field.oauth_type.value === 'web' ? (
-          <FormRowURLLong
-            field={this.state.form.field.oauth_redirect_uri}
-            label={addColon(l('Callback URL'))}
-            onChange={this.handleOauthRedirectURIChange}
-            required
-          />
-        ) : null}
+        <FormRowURLLong
+          field={this.state.form.field.oauth_redirect_uri}
+          label={addColon(l('Callback URL'))}
+          onChange={this.handleOauthRedirectURIChange}
+          required={this.state.form.field.oauth_type.value === 'web'}
+        />
+        {this.state.form.field.oauth_type.value === 'web' ? null : (
+          <FormRow hasNoLabel>
+            <span className="input-note">
+              {l(`Callback URI is optional for installed applications.
+                  If set, its scheme must be a custom reverse-DNS string,
+                  as in <code>org.example.app://auth</code>,
+                  for installed applications.`)}
+            </span>
+          </FormRow>
+        )}
         <FormRow hasNoLabel>
           <FormSubmit label={this.props.submitLabel} />
         </FormRow>
