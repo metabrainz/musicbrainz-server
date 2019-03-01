@@ -10,12 +10,12 @@
 import type {Node as ReactNode} from 'react';
 
 export type TagLookupFormT = FormT<{|
-  +artist: FieldT<string>,
-  +duration: FieldT<string>,
-  +filename: FieldT<string>,
-  +release: FieldT<string>,
-  +track: FieldT<string>,
-  +tracknum: FieldT<string>,
+  +artist: ReadOnlyFieldT<string>,
+  +duration: ReadOnlyFieldT<string>,
+  +filename: ReadOnlyFieldT<string>,
+  +release: ReadOnlyFieldT<string>,
+  +track: ReadOnlyFieldT<string>,
+  +tracknum: ReadOnlyFieldT<string>,
 |}>;
 
 export type TagLookupPropsT = {|

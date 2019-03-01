@@ -10,7 +10,7 @@
 import React from 'react';
 
 type Props = {
-  +field: FieldT<number | string>,
+  +field: ReadOnlyFieldT<number | string>,
 };
 
 const HiddenField = ({

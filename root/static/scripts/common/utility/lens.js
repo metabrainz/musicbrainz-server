@@ -63,7 +63,7 @@ function arrayAssign<T: Array<*>, I: number>(
  * 3. set(a, set(a, s)) = set(a, s)
  */
 
-export interface Lens<+S, A> {
+export interface Lens<+S, +A> {
   get(s: S): A;
   set(a: A): (s: S) => S;
 }

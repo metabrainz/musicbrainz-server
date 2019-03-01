@@ -16,7 +16,7 @@ import SelectField from './SelectField';
 type Props<S> = {|
   +addId: string,
   +addLabel: string,
-  +getSelectField: (S) => FieldT<number | string>,
+  +getSelectField: (S) => ReadOnlyFieldT<number | string>,
   +hideAddButton?: boolean,
   +label: string,
   +onAdd: (event: SyntheticEvent<HTMLButtonElement>) => void,
@@ -25,10 +25,10 @@ type Props<S> = {|
   +options: MaybeGroupedOptionsT,
   +removeClassName: string,
   +removeLabel: string,
-  +repeatable: RepeatableFieldT<S>,
+  +repeatable: ReadOnlyRepeatableFieldT<S>,
 |};
 
-const FormRowSelectList = <F, S: AnyFieldT<F>>({
+const FormRowSelectList = <S: {+id: number}>({
   addId,
   addLabel,
   getSelectField,

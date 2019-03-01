@@ -15,7 +15,7 @@ import Layout from '../layout';
 
 type Props = {|
   +form: FormT<{|
-    +message: FieldT<string>,
+    +message: ReadOnlyFieldT<string>,
   |}>,
 |};
 
