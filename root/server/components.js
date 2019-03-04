@@ -78,6 +78,7 @@ module.exports = {
   'report/DeprecatedRelationshipArtists': require('../report/DeprecatedRelationshipArtists'),
   'report/DeprecatedRelationshipLabels': require('../report/DeprecatedRelationshipLabels'),
   'report/DeprecatedRelationshipReleaseGroups': require('../report/DeprecatedRelationshipReleaseGroups'),
+  'report/DeprecatedRelationshipUrls': require('../report/DeprecatedRelationshipUrls'),
   'report/DiscogsLinksWithMultipleArtists': require('../report/DiscogsLinksWithMultipleArtists'),
   'report/DiscogsLinksWithMultipleLabels': require('../report/DiscogsLinksWithMultipleLabels'),
   'report/DiscogsLinksWithMultipleReleaseGroups': require('../report/DiscogsLinksWithMultipleReleaseGroups'),

@@ -31,7 +31,7 @@ const DeprecatedRelationshipArtists = ({
     <ul>
       <li>
         {l(`This report lists artists which have relationships using
-            deprecated and grouping-only relationship types`)}
+            deprecated and grouping-only relationship types.`)}
       </li>
       <li>{texp.l('Total artists found: {count}', {count: pager.total_entries})}</li>
       <li>{texp.l('Generated on {date}', {date: formatUserDate($c.user, generated)})}</li>

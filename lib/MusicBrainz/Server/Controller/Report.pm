@@ -59,6 +59,8 @@ sub show : Path Args(1)
 
     $_->{text} = format_wikitext($_->{text}) for @$items;
 
+    my $component_name = $report->component_name ? $report->component_name : $name;
+
     my %props = (
         items         => $items,
         canBeFiltered => boolean_to_json($can_be_filtered),
@@ -68,7 +70,7 @@ sub show : Path Args(1)
     );
 
     $c->stash(
-        component_path => 'report/'. $name . '.js',
+        component_path => 'report/'. $component_name,
         component_props => \%props,
         current_view => 'Node',
     );
