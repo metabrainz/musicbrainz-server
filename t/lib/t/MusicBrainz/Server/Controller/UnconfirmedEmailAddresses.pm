@@ -357,6 +357,7 @@ test 'Paths that allow browsing without a confirmed email address' => sub {
   "Controller::Tag::event",
   "Controller::Tag::instrument",
   "Controller::Tag::label",
+  "Controller::Tag::no_tag_provided",
   "Controller::Tag::place",
   "Controller::Tag::recording",
   "Controller::Tag::release",
