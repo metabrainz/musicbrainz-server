@@ -27,7 +27,6 @@ import {
   EDIT_RELATIONSHIP_DELETE,
   EDIT_SERIES_EDIT,
 } from '../static/scripts/common/constants/editTypes';
-import {l, N_l} from '../static/scripts/common/i18n';
 
 const EXPIRE_ACTIONS = {
   [EDIT_EXPIRE_ACCEPT]:   N_l('Accept upon expiration'),
@@ -46,11 +45,11 @@ const STATUS_NAMES = {
 };
 
 export function getEditExpireAction(edit: EditT) {
-  return EXPIRE_ACTIONS[edit.conditions.expire_action].toLocaleString();
+  return EXPIRE_ACTIONS[edit.conditions.expire_action]();
 }
 
 export function getEditStatusName(edit: EditT) {
-  return STATUS_NAMES[edit.status].toLocaleString();
+  return STATUS_NAMES[edit.status]();
 }
 
 export function getEditStatusDescription(edit: EditT) {

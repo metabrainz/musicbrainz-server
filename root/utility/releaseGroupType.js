@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import {lp_attributes} from '../static/scripts/common/i18n/attributes';
-
 export default function releaseGroupType(
   $c: CatalystContextT,
   releaseGroup: ReleaseGroupT,

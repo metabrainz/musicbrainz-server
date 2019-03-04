@@ -14,7 +14,6 @@ import FormRowText from '../components/FormRowText';
 import FormRowEmailLong from '../components/FormRowEmailLong';
 import FormSubmit from '../components/FormSubmit';
 import Layout from '../layout';
-import {addColon, l} from '../static/scripts/common/i18n';
 
 type LostPasswordFormT = FormT<{|
   +email: FieldT<string>,
@@ -29,10 +28,13 @@ const LostPassword = (props: Props) => (
   <Layout fullWidth title={l('Lost Password')}>
     <h1>{l('Lost Password')}</h1>
     <p>
-      {l(`Enter your username and email below. We will send you an email with
-          a link to reset your password. If you have forgotten your username,
-          {link|retrieve it} first and then reset your password.`,
-         {link: '/account/lost-username'})}
+      {exp.l(
+        `Enter your username and email below. We will send you an
+         email with a link to reset your password. If you have
+         forgotten your username, {link|retrieve it} first and then
+         reset your password.`,
+        {link: '/account/lost-username'},
+      )}
     </p>
     <form method="post">
       <FormRowText
@@ -42,7 +44,7 @@ const LostPassword = (props: Props) => (
       />
       <FormRowEmailLong
         field={props.form.field.email}
-        label={addColon(l('Email'))}
+        label={addColonText(l('Email'))}
         required
       />
       <FormRow hasNoLabel>

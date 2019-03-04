@@ -9,8 +9,6 @@
 
 import React from 'react';
 
-import {l} from '../static/scripts/common/i18n';
-import {lp_attributes} from '../static/scripts/common/i18n/attributes';
 import EntityHeader from '../components/EntityHeader';
 
 type Props = {|

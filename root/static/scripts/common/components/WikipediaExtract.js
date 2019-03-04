@@ -10,7 +10,6 @@
 import React from 'react';
 
 import hydrate, {minimalEntity} from '../../../../utility/hydrate';
-import {l} from '../i18n';
 import entityHref from '../utility/entityHref';
 
 import Collapsible from './Collapsible';
@@ -53,7 +52,7 @@ class WikipediaExtract extends React.Component<Props, State> {
         </a>
         {' '}
         <small>
-          {l('Wikipedia content provided under the terms of the {license_link|Creative Commons BY-SA license}',
+          {exp.l('Wikipedia content provided under the terms of the {license_link|Creative Commons BY-SA license}',
             {license_link: 'https://creativecommons.org/licenses/by-sa/3.0/'})}
         </small>
       </>

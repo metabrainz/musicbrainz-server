@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import {l, lp} from '../i18n';
-
 export default function formatEntityTypeName(typeName: string) {
   switch (typeName) {
     case 'area':

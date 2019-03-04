@@ -11,7 +11,6 @@ import {withCatalystContext} from '../context';
 import getRequestCookie from '../utility/getRequestCookie';
 import {RT_SLAVE} from '../static/scripts/common/constants';
 import * as DBDefs from '../static/scripts/common/DBDefs';
-import {l} from '../static/scripts/common/i18n';
 
 import Footer from './components/Footer';
 import Header from './components/Header';
@@ -60,7 +59,7 @@ const ServerDetailsBanner = () => {
         <p>
           {description}
           {' '}
-          {l('{uri|Return to musicbrainz.org}.',
+          {exp.l('{uri|Return to musicbrainz.org}.',
             {
               uri: '//musicbrainz.org' + (DBDefs.BETA_REDIRECT_HOSTNAME === 'musicbrainz.org' ? '?unset_beta=1' : ''),
             })}
@@ -74,7 +73,7 @@ const ServerDetailsBanner = () => {
     return (
       <div className="banner server-details">
         <p>
-          {l('This is a MusicBrainz mirror server. To edit or make changes to the data, please {uri|return to musicbrainz.org}.',
+          {exp.l('This is a MusicBrainz mirror server. To edit or make changes to the data, please {uri|return to musicbrainz.org}.',
             {uri: '//musicbrainz.org'})}
         </p>
         <DismissBannerButton bannerName="server_details" />
@@ -124,7 +123,7 @@ const Layout = ({$c, ...props}) => (
           ($c.user.is_limited || getRequestCookie($c.req, 'alert_new_edit_notes', 'true') !== 'false')) &&
           <div className="banner new-edit-notes">
             <p>
-              {l('{link|New notes} have been left on some of your edits. Please make sure to read them and respond if necessary.',
+              {exp.l('{link|New notes} have been left on some of your edits. Please make sure to read them and respond if necessary.',
                 {link: '/edit/notes-received'})}
             </p>
             <DismissBannerButton bannerName="new_edit_notes" />

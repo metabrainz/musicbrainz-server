@@ -10,7 +10,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import Autocomplete from '../../common/components/Autocomplete';
-import {l} from '../../common/i18n';
 import {
   artistCreditFromArray,
   artistCreditsAreEqual,

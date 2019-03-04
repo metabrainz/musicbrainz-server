@@ -10,10 +10,6 @@
 import * as React from 'react';
 
 import {CatalystContext, withCatalystContext} from '../../context';
-import {l} from '../../static/scripts/common/i18n';
-import {l_languages} from '../../static/scripts/common/i18n/languages';
-import {l_scripts} from '../../static/scripts/common/i18n/scripts';
-import {lp_attributes} from '../../static/scripts/common/i18n/attributes';
 import ArtistCreditLink
   from '../../static/scripts/common/components/ArtistCreditLink';
 import EntityLink from '../../static/scripts/common/components/EntityLink';
@@ -73,7 +69,7 @@ function buildResult(result, index) {
         {release.releaseGroup && release.releaseGroup.typeName ? lp_attributes(release.releaseGroup.typeName, 'release_group_primary_type') : null}
       </td>
       <td>
-        {release.status ? lp_attributes(release.status.name) : null}
+        {release.status ? lp_attributes(release.status.name, 'release_status') : null}
       </td>
       <CatalystContext.Consumer>
         {($c: CatalystContextT) => (
@@ -134,7 +130,7 @@ const ReleaseResults = ({
     />
     {$c.user && !$c.user.is_editing_disabled ? (
       <p>
-        {l('Alternatively, you may {uri|add a new release}.', {
+        {exp.l('Alternatively, you may {uri|add a new release}.', {
           uri: '/release/add',
         })}
       </p>

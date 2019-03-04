@@ -9,7 +9,6 @@
 
 import React from 'react';
 
-import {l, ln} from '../static/scripts/common/i18n';
 import EntityHeader from '../components/EntityHeader';
 import ArtistCreditLink from '../static/scripts/common/components/ArtistCreditLink';
 import EntityLink from '../static/scripts/common/components/EntityLink';
@@ -29,7 +28,7 @@ const ReleaseHeader = ({release, page}: Props) => {
     />
   );
   const rgLink = release.releaseGroup
-    ? ln(
+    ? texp.ln(
       'see all versions of this release, {count} available',
       'see all versions of this release, {count} available',
       release.releaseGroup.release_count,
@@ -37,9 +36,7 @@ const ReleaseHeader = ({release, page}: Props) => {
     ) : null;
   const subHeading = (
     <>
-      {l('Release by {artist}', {
-        artist: artistCredit,
-      })}
+      {exp.l('Release by {artist}', {artist: artistCredit})}
       {' '}
       {release.releaseGroup ? (
         <span className="small">

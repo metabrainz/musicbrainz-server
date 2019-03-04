@@ -10,8 +10,6 @@
 import * as React from 'react';
 
 import {withCatalystContext} from '../../context';
-import {l} from '../../static/scripts/common/i18n';
-import {lp_attributes} from '../../static/scripts/common/i18n/attributes';
 import EntityLink from '../../static/scripts/common/components/EntityLink';
 import ArtistCreditLink from '../../static/scripts/common/components/ArtistCreditLink';
 import loopParity from '../../utility/loopParity';
@@ -69,7 +67,7 @@ const ReleaseGroupResults = ({
     />
     {$c.user && !$c.user.is_editing_disabled ? (
       <p>
-        {l('Alternatively, you may {uri|add a new release group}.', {
+        {exp.l('Alternatively, you may {uri|add a new release group}.', {
           uri: '/release-group/create?edit-release-group.name=' + encodeURIComponent(query),
         })}
       </p>

@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import NopArgs from './static/scripts/common/i18n/NopArgs';
-
 /*
  * Types are in alphabetical order.
  *
@@ -36,9 +34,18 @@ declare type AliasT = {|
 
 export opaque type AliasTypeT: OptionTreeT = OptionTreeT;
 
+declare type AnchorProps = {|
+  +href: string,
+  +key?: number | string,
+  +target?: '_blank',
+  +title?: string,
+|};
+
 declare type AnyFieldT<+F> =
   | FieldT<F>
   | StructFieldT<F>;
+
+declare type AnyReactElem = React.Element<any>;
 
 declare type ApplicationT = {|
   ...EntityRoleT,
@@ -465,6 +472,10 @@ declare type EventT = {|
 
 export opaque type EventTypeT: OptionTreeT = OptionTreeT;
 
+declare type Expand2ReactInput = VarSubstArg | AnchorProps;
+
+declare type Expand2ReactOutput = string | AnyReactElem;
+
 declare type FieldRoleT = {|
   +errors: $ReadOnlyArray<string>,
   +has_errors: boolean,
@@ -805,7 +816,7 @@ declare type SearchResultT<T> = {|
  * FIXME(michael): Consolidate with OptionListT.
  */
 declare type SelectOptionT = {|
-  +label: string | NopArgs,
+  +label: string | (() => string),
   +value: number | string,
 |};
 
@@ -831,6 +842,8 @@ declare type ServerLanguageT = {|
   +native_territory: string,
 |};
 
+declare type StrOrNum = string | number;
+
 type StructFieldT<+F> =
   | CompoundFieldT<F>
   | RepeatableFieldT<F>;
@@ -855,6 +868,10 @@ declare type UserTagT = {|
   +tag: string,
   +vote: 1 | 0 | -1,
 |};
+
+declare type VarSubstArg =
+  | StrOrNum
+  | AnyReactElem;
 
 declare type VoteOptionT =
   | -2   // None

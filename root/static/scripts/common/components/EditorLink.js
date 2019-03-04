@@ -9,7 +9,6 @@
 
 import React from 'react';
 
-import {l} from '../i18n';
 import entityHref from '../utility/entityHref';
 import isolateText from '../utility/isolateText';
 

@@ -17,7 +17,6 @@ import FormRow from '../../../../components/FormRow';
 import FormRowCheckbox from '../../../../components/FormRowCheckbox';
 import FormRowSelect from '../../../../components/FormRowSelect';
 import FormSubmit from '../../../../components/FormSubmit';
-import {l, N_l} from '../../common/i18n';
 import {Lens, prop, set, compose3} from '../../common/utility/lens';
 import hydrate from '../../../../utility/hydrate';
 

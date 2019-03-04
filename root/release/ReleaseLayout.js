@@ -11,7 +11,6 @@ import React from 'react';
 import type {Node as ReactNode} from 'react';
 
 import Layout from '../layout';
-import {hyphenateTitle, l} from '../static/scripts/common/i18n';
 import ReleaseSidebar from '../layout/components/sidebar/ReleaseSidebar';
 import {artistCreditFromArray, reduceArtistCredit} from '../static/scripts/common/immutable-entities';
 
@@ -32,7 +31,7 @@ const ReleaseLayout = ({
   page,
   title,
 }: Props) => {
-  const mainTitle = l('Release “{name}” by {artist}', {
+  const mainTitle = texp.l('Release “{name}” by {artist}', {
     artist: reduceArtistCredit(
       artistCreditFromArray(release.artistCredit),
     ),

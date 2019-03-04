@@ -20,8 +20,9 @@ const webpack = require('webpack');
 const poFile = require('./root/server/gettext/poFile');
 const DBDefs = require('./root/static/scripts/common/DBDefs');
 const browserConfig = require('./webpack/browserConfig');
-const {dirs, PUBLIC_PATH} = require('./webpack/constants');
+const {dirs, GETTEXT_DOMAINS, PUBLIC_PATH} = require('./webpack/constants');
 const moduleConfig = require('./webpack/moduleConfig');
+const providePluginConfig = require('./webpack/providePluginConfig');
 
 const entries = [
   'account/applications/register',
@@ -53,18 +54,6 @@ const entries = [
   accum[name] = path.resolve(dirs.SCRIPTS, `${name}.js`);
   return accum;
 }, {});
-
-const GETTEXT_DOMAINS = [
-  'attributes',
-  'countries',
-  'instrument_descriptions',
-  'instruments',
-  'languages',
-  'mb_server',
-  'relationships',
-  'scripts',
-  'statistics',
-];
 
 function langToPosix(lang) {
   return lang.replace(/^([a-zA-Z]+)-([a-zA-Z]+)$/, function (match, l, c) {
@@ -187,6 +176,8 @@ _(DBDefs.MB_LANGUAGES || '')
   });
 
 const plugins = browserConfig.plugins.concat();
+
+plugins.push(new webpack.ProvidePlugin(providePluginConfig));
 
 if (!DBDefs.DEVELOPMENT_SERVER) {
   plugins.push(

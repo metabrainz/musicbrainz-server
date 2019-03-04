@@ -8,7 +8,6 @@
  */
 
 import React from 'react';
-import {ln} from '../static/scripts/common/i18n';
 import Paginator from './Paginator';
 import type {Node as ReactNode} from 'react';
 
@@ -36,11 +35,11 @@ const PaginatedResults = ({
       {(search || total) ? (
         <p className="pageselector-results">
           {(total || !query) ? (
-            ln('Found {n} result', 'Found {n} results',
+            texp.ln('Found {n} result', 'Found {n} results',
               pager.total_entries,
               {n: Number(pager.total_entries).toLocaleString()})
           ) : (
-            ln('Found {n} result for "{q}"', 'Found {n} results for "{q}"',
+            texp.ln('Found {n} result for "{q}"', 'Found {n} results for "{q}"',
               pager.total_entries,
               {n: Number(pager.total_entries).toLocaleString(), q: query})
           )}

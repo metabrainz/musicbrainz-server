@@ -12,7 +12,6 @@ import * as React from 'react';
 import {withCatalystContext} from '../context';
 import Layout from '../layout';
 import formatUserDate from '../utility/formatUserDate';
-import {l} from '../static/scripts/common/i18n';
 
 import ArtistList from './components/ArtistList';
 import FilterLink from './FilterLink';
@@ -36,8 +35,8 @@ const DuplicateRelationshipsArtists = ({
             For multiple relationships to release groups, recordings or works,
             see the reports for those entities.`)}
       </li>
-      <li>{l('Total artists found: {count}', {count: pager.total_entries})}</li>
-      <li>{l('Generated on {date}', {date: formatUserDate($c.user, generated)})}</li>
+      <li>{texp.l('Total artists found: {count}', {count: pager.total_entries})}</li>
+      <li>{texp.l('Generated on {date}', {date: formatUserDate($c.user, generated)})}</li>
 
       {canBeFiltered ? <FilterLink filtered={filtered} /> : null}
     </ul>

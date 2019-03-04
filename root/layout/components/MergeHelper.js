@@ -8,7 +8,6 @@
 import React from 'react';
 
 import {withCatalystContext} from '../../context';
-import {l} from '../../static/scripts/common/i18n';
 import DescriptiveLink from '../../static/scripts/common/components/DescriptiveLink';
 
 const MergeHelper = ({$c}) => (

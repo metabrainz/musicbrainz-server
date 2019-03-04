@@ -12,7 +12,6 @@ import React from 'react';
 
 import RequestLogin from '../../components/RequestLogin';
 import {withCatalystContext} from '../../context';
-import {l, lp} from '../../static/scripts/common/i18n';
 import returnUri from '../../utility/returnUri';
 
 import Search from './Search';

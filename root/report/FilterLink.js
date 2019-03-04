@@ -9,7 +9,6 @@
 
 import * as React from 'react';
 
-import {l} from '../static/scripts/common/i18n';
 import uriWith from '../utility/uriWith';
 import {withCatalystContext} from '../context';
 

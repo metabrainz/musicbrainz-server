@@ -10,7 +10,6 @@
 import React from 'react';
 
 import {CatalystContext, withCatalystContext} from '../../context';
-import {l} from '../../static/scripts/common/i18n';
 import EntityLink from '../../static/scripts/common/components/EntityLink';
 import TaggerIcon from '../../static/scripts/common/components/TaggerIcon';
 import formatTrackLength from '../../static/scripts/common/utility/formatTrackLength';
@@ -19,7 +18,6 @@ import type {InlineResultsPropsT, ResultsPropsWithContextT} from '../types';
 import ArtistCreditLink
   from '../../static/scripts/common/components/ArtistCreditLink';
 import CodeLink from '../../static/scripts/common/components/CodeLink';
-import {lp_attributes} from '../../static/scripts/common/i18n/attributes';
 
 import PaginatedSearchResults from './PaginatedSearchResults';
 import ResultsLayout from './ResultsLayout';
@@ -155,7 +153,7 @@ const RecordingResults = ({
       />
       {$c.user && !$c.user.is_editing_disabled ? (
         <p>
-          {l('Alternatively, you may {uri|add a new recording}.', {
+          {exp.l('Alternatively, you may {uri|add a new recording}.', {
             uri: '/recording/create?edit-recording.name=' + encodeURIComponent(query),
           })}
         </p>

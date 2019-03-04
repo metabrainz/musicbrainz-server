@@ -9,8 +9,6 @@
 
 import * as React from 'react';
 
-import {l} from '../i18n';
-
 const SearchIcon = () => (
   <img
     alt={l('Search')}

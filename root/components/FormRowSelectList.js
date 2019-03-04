@@ -9,8 +9,6 @@
 
 import React from 'react';
 
-import {addColon} from '../static/scripts/common/i18n';
-
 import FieldErrors from './FieldErrors';
 import FormRow from './FormRow';
 import SelectField from './SelectField';

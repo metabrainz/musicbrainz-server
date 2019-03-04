@@ -9,8 +9,6 @@
 
 import React from 'react';
 
-import {l} from '../static/scripts/common/i18n';
-
 import ArtistLayout from './ArtistLayout';
 
 const SpecialPurpose = ({artist}: {artist: ArtistT}) => (

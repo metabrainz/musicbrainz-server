@@ -7,7 +7,6 @@ import $ from 'jquery';
 import ko from 'knockout';
 import _ from 'lodash';
 
-import * as i18n from '../common/i18n';
 import MB from '../common/MB';
 import request from '../common/utility/request';
 
@@ -41,12 +40,12 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
 
                 recordingMessage: function () {
                     var n = this.recordingCount();
-                    return "(" + i18n.ln("{n} recording selected", "{n} recordings selected", n, { n: n }) + ")";
+                    return "(" + texp.ln("{n} recording selected", "{n} recordings selected", n, { n: n }) + ")";
                 },
 
                 workMessage: function () {
                     var n = this.workCount();
-                    return "(" + i18n.ln("{n} work selected", "{n} works selected", n, { n: n }) + ")";
+                    return "(" + texp.ln("{n} work selected", "{n} works selected", n, { n: n }) + ")";
                 }
             };
 
@@ -72,7 +71,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
                     .filter(".rel-edit:eq(0), .rel-add:eq(0), .rel-remove:eq(0)");
 
                 if ($changes.length) {
-                    event.returnValue = i18n.l("All of your changes will be lost if you leave this page.");
+                    event.returnValue = l("All of your changes will be lost if you leave this page.");
                     return event.returnValue;
                 }
             });
@@ -158,7 +157,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
 
             if (edits.length == 0) {
                 this.submissionLoading(false);
-                this.submissionError(i18n.l("You haven’t made any changes!"));
+                this.submissionError(l("You haven’t made any changes!"));
                 return;
             }
 

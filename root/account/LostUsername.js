@@ -13,7 +13,6 @@ import FormRow from '../components/FormRow';
 import FormRowEmailLong from '../components/FormRowEmailLong';
 import FormSubmit from '../components/FormSubmit';
 import Layout from '../layout';
-import {addColon, l} from '../static/scripts/common/i18n';
 
 type LostUsernameFormT = FormT<{|
   +email: FieldT<string>,
@@ -33,7 +32,7 @@ const LostUsername = (props: Props) => (
     <form method="post">
       <FormRowEmailLong
         field={props.form.field.email}
-        label={addColon(l('Email'))}
+        label={addColonText(l('Email'))}
         required
       />
       <FormRow hasNoLabel>

@@ -7,37 +7,69 @@
  */
 
 const path = require('path');
+const webpack = require('webpack');
 
 const browserConfig = require('./webpack/browserConfig');
 const dirs = require('./webpack/dirs');
 const moduleConfig = require('./webpack/moduleConfig');
+const providePluginConfig = require('./webpack/providePluginConfig');
 
 process.env.MUSICBRAINZ_RUNNING_TESTS = true;
 process.env.NODE_ENV = 'development';
 
-module.exports = {
+const baseTestsConfig = {
   context: dirs.CHECKOUT,
-
-  entry: {
-    tests: path.resolve(dirs.SCRIPTS, 'tests', 'browser-runner.js'),
-  },
-
   mode: 'development',
-
   module: moduleConfig,
-
-  node: browserConfig.node,
-
   output: {
     filename: '[name].js',
     path: dirs.BUILD,
   },
+};
 
-  plugins: browserConfig.plugins,
+const webTestsConfig = {
+  entry: {
+    'web-tests': path.resolve(dirs.SCRIPTS, 'tests', 'browser-runner.js'),
+  },
+
+  node: browserConfig.node,
+
+  plugins: [
+    ...browserConfig.plugins,
+    new webpack.ProvidePlugin(providePluginConfig),
+  ],
 
   resolve: browserConfig.resolve,
+
+  ...baseTestsConfig,
+};
+
+const nodeTestsConfig = {
+  entry: {
+    'tests': path.resolve(dirs.SCRIPTS, 'tests', 'node-runner.js'),
+    'react-macros-tests': path.resolve(dirs.SCRIPTS, 'tests', 'react-macros.js'),
+  },
+
+  node: {
+    __dirname: false,
+    __filename: false,
+  },
+
+  plugins: [
+    new webpack.ProvidePlugin(providePluginConfig),
+  ],
+
+  target: 'node',
+
+  ...baseTestsConfig,
 };
 
 if (String(process.env.WATCH_MODE) === '1') {
-  Object.assign(module.exports, require('./webpack/watchConfig'));
+  Object.assign(webTestsConfig, require('./webpack/watchConfig'));
+  Object.assign(nodeTestsConfig, require('./webpack/watchConfig'));
 }
+
+module.exports = [
+  webTestsConfig,
+  nodeTestsConfig,
+];

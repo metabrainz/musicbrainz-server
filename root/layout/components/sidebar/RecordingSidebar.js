@@ -13,7 +13,6 @@ import {withCatalystContext} from '../../../context';
 import ArtistCreditLink from '../../../static/scripts/common/components/ArtistCreditLink';
 import CodeLink from '../../../static/scripts/common/components/CodeLink';
 import formatTrackLength from '../../../static/scripts/common/utility/formatTrackLength';
-import {l} from '../../../static/scripts/common/i18n';
 import ExternalLinks from '../ExternalLinks';
 
 import AnnotationLinks from './AnnotationLinks';

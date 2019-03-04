@@ -14,8 +14,7 @@ import keyBy from 'terable/keyBy';
 import hydrate, {minimalEntity} from '../../../../utility/hydrate';
 import loopParity from '../../../../utility/loopParity';
 import {GENRE_TAGS} from '../constants';
-import {l, lp, N_l} from '../i18n';
-import NopArgs from '../i18n/NopArgs';
+import {unwrapNl} from '../i18n';
 import bracketed from '../utility/bracketed';
 import isBlank from '../utility/isBlank';
 
@@ -66,11 +65,11 @@ function splitTags(tags) {
 type VoteT = 1 | 0 | -1;
 
 type VoteButtonProps = {
-  activeTitle: string | NopArgs,
+  activeTitle: string | () => string,
   callback: (VoteT) => void,
   currentVote: VoteT,
   text: string,
-  title: string | NopArgs,
+  title: string | () => string,
   vote: VoteT,
 };
 
@@ -90,8 +89,8 @@ class VoteButton extends React.Component<VoteButtonProps> {
       className: 'tag-vote tag-' + VOTE_ACTIONS[vote],
       disabled: isActive,
       title: isActive
-        ? activeTitle.toString()
-        : (currentVote === 0 ? title.toString() : l('Withdraw vote')),
+        ? unwrapNl(activeTitle)
+        : (currentVote === 0 ? unwrapNl(title) : l('Withdraw vote')),
       type: 'button',
     };
 
@@ -529,7 +528,7 @@ export const MainTagEditor = hydrate<TagEditorProps>('all-tags', class extends T
           <>
             <h2>{l('Add Tags')}</h2>
             <p>
-              {l('You can add your own {tagdocs|tags} below. Use commas to separate multiple tags.',
+              {exp.l('You can add your own {tagdocs|tags} below. Use commas to separate multiple tags.',
                 {tagdocs: '/doc/Folksonomy_Tagging'})}
             </p>
             <form id="tag-form" onSubmit={this.addTags}>
@@ -592,7 +591,7 @@ export const SidebarTagEditor = hydrate<TagEditorProps>('sidebar-tags', class ex
               type="text"
             />
             <button className="styled-button" type="submit">
-              {l('Tag', 'verb')}
+              {lp('Tag', 'verb')}
             </button>
           </div>
         </form>

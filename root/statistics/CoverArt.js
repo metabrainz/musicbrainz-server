@@ -10,7 +10,6 @@
 import React from 'react';
 import {range} from 'lodash';
 
-import {lp_attributes} from '../static/scripts/common/i18n/attributes';
 import {l_statistics as l, ln_statistics as ln} from '../static/scripts/common/i18n/statistics';
 import {withCatalystContext} from '../context';
 
@@ -68,8 +67,7 @@ const CoverArt = ({
 }: CoverArtStatsT) => (
   <StatisticsLayout fullWidth page="coverart" title={l('Cover Art')}>
     <p>
-      {l('Last updated: {date}',
-        {date: dateCollected})}
+      {texp.l('Last updated: {date}', {date: dateCollected})}
     </p>
     <h2>{l('Basics')}</h2>
     {stats['count.release.has_caa'] < 1 ? (
@@ -274,7 +272,7 @@ const CoverArt = ({
             <tr key={number}>
               <th />
               <th>
-                {ln(
+                {texp.ln(
                   'with {num} piece of cover art:',
                   'with {num} pieces of cover art:',
                   number,

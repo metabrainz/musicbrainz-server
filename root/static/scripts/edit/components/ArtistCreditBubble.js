@@ -9,7 +9,6 @@ import React from 'react';
 
 import ArtistCreditLink from '../../common/components/ArtistCreditLink';
 import DescriptiveLink from '../../common/components/DescriptiveLink';
-import {l} from '../../common/i18n';
 import {reduceArtistCredit} from '../../common/immutable-entities';
 import clean from '../../common/utility/clean';
 
@@ -53,7 +52,7 @@ const ArtistCreditBubble = ({
       <thead>
         <tr>
           <td colSpan="3" style={{paddingBottom: '1em'}}>
-            {l('Use the following fields to enter collaborations. See the {ac|Artist Credit} documentation for more information.',
+            {exp.l('Use the following fields to enter collaborations. See the {ac|Artist Credit} documentation for more information.',
              {ac: '/doc/Artist_Credits'})}
           </td>
         </tr>
@@ -104,7 +103,7 @@ const ArtistCreditBubble = ({
       <div>
         <label>
           <input id="change-matching-artists" type="checkbox" />
-          {l('Change all artists on this release that match “{name}”', {
+          {texp.l('Change all artists on this release that match “{name}”', {
             name: initialArtistText,
           })}
         </label>

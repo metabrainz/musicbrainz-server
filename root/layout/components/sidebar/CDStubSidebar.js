@@ -10,7 +10,6 @@
 import * as React from 'react';
 
 import CDStubLink from '../../../static/scripts/common/components/CDStubLink';
-import {l} from '../../../static/scripts/common/i18n';
 import escapeLuceneValue from '../../../static/scripts/common/utility/escapeLuceneValue';
 import parseDate from '../../../static/scripts/common/utility/parseDate';
 import {age, displayAgeAgo} from '../../../utility/age';

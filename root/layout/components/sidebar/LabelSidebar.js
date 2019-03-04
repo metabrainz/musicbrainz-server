@@ -12,7 +12,6 @@ import * as React from 'react';
 import {withCatalystContext} from '../../../context';
 import CommonsImage from '../../../static/scripts/common/components/CommonsImage';
 import DescriptiveLink from '../../../static/scripts/common/components/DescriptiveLink';
-import {l} from '../../../static/scripts/common/i18n';
 import * as age from '../../../utility/age';
 import formatLabelCode from '../../../utility/formatLabelCode';
 import ExternalLinks from '../ExternalLinks';

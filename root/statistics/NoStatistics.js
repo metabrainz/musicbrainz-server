@@ -17,10 +17,12 @@ const NoStatistics = () => (
   <StatisticsLayout fullWidth page="index" title={l('No Statistics')}>
     <h2>{l('No Statistics')}</h2>
     <p>
-      {l(`Statistics have never been collected for this server. If you are the
-           administrator for this server, you should run
-           <code>./admin/CollectStats.pl</code> or import
-           <code>mbdump-stats.tar.bz2</code>.`)}
+      {exp.l(
+        `Statistics have never been collected for this server. If you are the
+         administrator for this server, you should run
+         <code>./admin/CollectStats.pl</code> or import
+         <code>mbdump-stats.tar.bz2</code>.`,
+      )}
     </p>
   </StatisticsLayout>
 );

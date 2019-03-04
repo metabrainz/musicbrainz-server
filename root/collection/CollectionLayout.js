@@ -11,7 +11,6 @@ import React from 'react';
 import type {Node as ReactNode} from 'react';
 
 import Layout from '../layout';
-import {hyphenateTitle, l} from '../static/scripts/common/i18n';
 import CollectionSidebar from '../layout/components/sidebar/CollectionSidebar';
 
 import CollectionHeader from './CollectionHeader';
@@ -31,8 +30,10 @@ const CollectionLayout = ({
   page,
   title,
 }: Props) => {
-  const mainTitle = l('Collection “{collection}”',
-    {collection: collection.name});
+  const mainTitle = texp.l(
+    'Collection “{collection}”',
+    {collection: collection.name},
+  );
 
   return (
     <Layout title={title ? hyphenateTitle(mainTitle, title) : mainTitle}>

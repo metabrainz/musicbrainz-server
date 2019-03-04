@@ -11,9 +11,6 @@ import React from 'react';
 
 import Layout from '../layout';
 import EntityLink from '../static/scripts/common/components/EntityLink';
-import {l} from '../static/scripts/common/i18n';
-import {lp_attributes} from '../static/scripts/common/i18n/attributes';
-import {l_instrument_descriptions} from '../static/scripts/common/i18n/instrument_descriptions';
 
 type PropsT = {|
   +instrument_types: $ReadOnlyArray<InstrumentTypeT>,
@@ -70,7 +67,7 @@ const InstrumentList = ({
           )
           : null}
         <p>
-          {l('Is this list missing an instrument? Request it by following {link|these instructions}.', {
+          {exp.l('Is this list missing an instrument? Request it by following {link|these instructions}.', {
             link: '/doc/How_to_Add_Instruments',
           })}
         </p>

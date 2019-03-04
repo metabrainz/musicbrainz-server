@@ -11,7 +11,6 @@ import {
   SERIES_ORDERING_TYPE_AUTOMATIC,
 } from '../../common/constants';
 import MB_entity from '../../common/entity';
-import * as i18n from '../../common/i18n';
 import MB from '../../common/MB';
 import typeInfo from '../../common/typeInfo';
 import clean from '../../common/utility/clean';
@@ -302,7 +301,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
                 });
 
                 if (values.length < min) {
-                    return i18n.l("This attribute is required.");
+                    return l("This attribute is required.");
                 }
             }
 
@@ -310,7 +309,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
         }
 
         attributeLabel(attribute) {
-            return i18n.addColon(attribute.l_name);
+            return addColon(attribute.l_name);
         }
 
         _phraseAndExtraAttributes() {
@@ -438,7 +437,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
         }
 
         htmlWithLinkOrder(entity) {
-            return i18n.l('{num}. {relationship}', {
+            return texp.l('{num}. {relationship}', {
                 num: this.linkOrder(),
                 relationship: entity.html({target: '_blank', creditedAs: this.creditField(entity)()}),
             });

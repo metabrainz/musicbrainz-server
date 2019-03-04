@@ -9,7 +9,6 @@
 
 import React from 'react';
 
-import {l} from '../static/scripts/common/i18n';
 import EntityHeader from '../components/EntityHeader';
 import ArtistCreditLink from '../static/scripts/common/components/ArtistCreditLink';
 import {artistCreditFromArray} from '../static/scripts/common/immutable-entities';
@@ -30,7 +29,7 @@ const ReleaseGroupHeader = ({releaseGroup, page}: Props) => {
       entity={releaseGroup}
       headerClass="rgheader"
       page={page}
-      subHeading={l('Release group by {artist}', {
+      subHeading={exp.l('Release group by {artist}', {
         artist: artistCredit,
       })}
     />

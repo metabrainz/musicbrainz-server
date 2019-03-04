@@ -9,7 +9,6 @@
 
 import * as React from 'react';
 
-import {l} from '../../static/scripts/common/i18n';
 import PaginatedResults from '../../components/PaginatedResults';
 import EntityLink from '../../static/scripts/common/components/EntityLink';
 import type {ReportLabelUrlT} from '../types';

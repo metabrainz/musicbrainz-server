@@ -7,7 +7,6 @@ import $ from 'jquery';
 import ko from 'knockout';
 import _ from 'lodash';
 
-import * as i18n from '../common/i18n';
 import {
   artistCreditFromArray,
   hasVariousArtists,
@@ -253,7 +252,7 @@ const actions = {
             return isComplexArtistCredit(track.artistCredit());
         });
 
-        var question = i18n.l(
+        var question = l(
             "This tracklist has artist credits with information that " +
             "will be lost if you swap artist credits with track titles. " +
             "This cannot be undone. Do you wish to continue?"

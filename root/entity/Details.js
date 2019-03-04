@@ -12,7 +12,6 @@ import React from 'react';
 import {ENTITIES} from '../static/scripts/common/constants';
 import DBDefs from '../static/scripts/common/DBDefs';
 import {withCatalystContext} from '../context';
-import {l, lp} from '../static/scripts/common/i18n';
 import EntityLink from '../static/scripts/common/components/EntityLink';
 import chooseLayoutComponent from '../utility/chooseLayoutComponent';
 import formatUserDate from '../utility/formatUserDate';
@@ -68,7 +67,7 @@ const Details = ({
         </tr>
         <tr>
           <th>
-            {l('{mbid|<abbr title="MusicBrainz Identifier">MBID</abbr>}:',
+            {exp.l('{mbid|<abbr title="MusicBrainz Identifier">MBID</abbr>}:',
               {mbid: '/doc/MusicBrainz_Identifier'})}
           </th>
           <td><code>{entity.gid}</code></td>

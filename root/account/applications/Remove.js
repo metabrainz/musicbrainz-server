@@ -10,7 +10,6 @@
 import * as React from 'react';
 
 import ConfirmLayout from '../../components/ConfirmLayout';
-import {l} from '../../static/scripts/common/i18n';
 
 const RemoveApplication = () => ConfirmLayout({
   question: l('Are you sure you want to remove this application?'),

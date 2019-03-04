@@ -9,7 +9,6 @@
 
 import * as React from 'react';
 
-import {l} from '../../static/scripts/common/i18n';
 import PaginatedResults from '../../components/PaginatedResults';
 import EditorLink from '../../static/scripts/common/components/EditorLink';
 import bracketed from '../../static/scripts/common/utility/bracketed';

@@ -10,14 +10,11 @@
 import {URL} from 'url';
 
 import * as React from 'react';
+import * as ReactDOMServer from 'react-dom/server';
 
 import {QUALITY_UNKNOWN} from '../../../constants';
 import {withCatalystContext} from '../../../context';
 import EntityLink from '../../../static/scripts/common/components/EntityLink';
-import {l, lp} from '../../../static/scripts/common/i18n';
-import {l_attributes} from '../../../static/scripts/common/i18n/attributes';
-import {l_languages} from '../../../static/scripts/common/i18n/languages';
-import {l_scripts} from '../../../static/scripts/common/i18n/scripts';
 import entityHref from '../../../static/scripts/common/utility/entityHref';
 import formatBarcode from '../../../static/scripts/common/utility/formatBarcode';
 import formatTrackLength from '../../../static/scripts/common/utility/formatTrackLength';
@@ -76,10 +73,10 @@ const ReleaseSidebar = ({$c, release}: Props) => {
           <Artwork
             artwork={releaseArtwork}
             fallback={releaseCoverUrl}
-            message={l(
+            message={ReactDOMServer.renderToStaticMarkup(exp.l(
               'Front cover image failed to load correctly.<br/>{all|View all artwork}.',
               {all: entityHref(release, 'cover-art')},
-            )}
+            ))}
           />
         ) : (
           release.cover_art_presence !== 'darkened' &&
@@ -89,11 +86,11 @@ const ReleaseSidebar = ({$c, release}: Props) => {
                 <img src={releaseCoverUrl} />
                 <span className="cover-art-note">
                   {/(?:ssl-)?images-amazon\.com/.test(releaseCoverHost) ? (
-                    l('Cover art from {cover|Amazon}', {
+                    exp.l('Cover art from {cover|Amazon}', {
                       cover: releaseCoverUrl,
                     })
                   ) : (
-                    l('Cover art from {cover|{host}}', {
+                    exp.l('Cover art from {cover|{host}}', {
                       cover: releaseCoverUrl,
                       host: releaseCoverHost,
                     })

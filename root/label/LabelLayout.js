@@ -12,7 +12,6 @@ import type {Node as ReactNode} from 'react';
 
 import Layout from '../layout';
 import LabelSidebar from '../layout/components/sidebar/LabelSidebar';
-import {hyphenateTitle} from '../static/scripts/common/i18n';
 
 import LabelHeader from './LabelHeader';
 

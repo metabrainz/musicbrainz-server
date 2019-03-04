@@ -9,7 +9,6 @@
 
 import React from 'react';
 
-import {addColon, l} from '../../static/scripts/common/i18n';
 import DescriptiveLink from '../../static/scripts/common/components/DescriptiveLink';
 import formatEntityTypeName from '../../static/scripts/common/utility/formatEntityTypeName';
 

@@ -12,7 +12,6 @@ import * as React from 'react';
 import {withCatalystContext} from '../context';
 import Layout from '../layout';
 import formatUserDate from '../utility/formatUserDate';
-import {l} from '../static/scripts/common/i18n';
 
 import ReleaseGroupUrlList from './components/ReleaseGroupUrlList';
 import FilterLink from './FilterLink';
@@ -34,8 +33,8 @@ const DiscogsLinksWithMultipleReleaseGroups = ({
         {l(`This report shows Discogs URLs which are linked
             to multiple release groups.`)}
       </li>
-      <li>{l('Total release groups found: {count}', {count: pager.total_entries})}</li>
-      <li>{l('Generated on {date}', {date: formatUserDate($c.user, generated)})}</li>
+      <li>{texp.l('Total release groups found: {count}', {count: pager.total_entries})}</li>
+      <li>{texp.l('Generated on {date}', {date: formatUserDate($c.user, generated)})}</li>
 
       {canBeFiltered ? <FilterLink filtered={filtered} /> : null}
     </ul>

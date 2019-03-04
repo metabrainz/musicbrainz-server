@@ -12,7 +12,6 @@ import * as React from 'react';
 import {withCatalystContext} from '../context';
 import Layout from '../layout';
 import formatUserDate from '../utility/formatUserDate';
-import {l} from '../static/scripts/common/i18n';
 
 import ReleaseGroupRelationshipList from './components/ReleaseGroupRelationshipList';
 import FilterLink from './FilterLink';
@@ -34,8 +33,8 @@ const DeprecatedRelationshipReleaseGroups = ({
         {l(`This report lists release groups which have relationships using
             deprecated and grouping-only relationship types`)}
       </li>
-      <li>{l('Total release groups found: {count}', {count: pager.total_entries})}</li>
-      <li>{l('Generated on {date}', {date: formatUserDate($c.user, generated)})}</li>
+      <li>{texp.l('Total release groups found: {count}', {count: pager.total_entries})}</li>
+      <li>{texp.l('Generated on {date}', {date: formatUserDate($c.user, generated)})}</li>
 
       {canBeFiltered ? <FilterLink filtered={filtered} /> : null}
     </ul>

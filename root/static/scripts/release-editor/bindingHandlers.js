@@ -9,7 +9,6 @@ import _ from 'lodash';
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import {l} from '../common/i18n';
 import {reduceArtistCredit} from '../common/immutable-entities';
 import ArtistCreditEditor from '../edit/components/ArtistCreditEditor';
 

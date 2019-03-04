@@ -9,7 +9,6 @@
 
 import React from 'react';
 
-import {l} from '../static/scripts/common/i18n';
 import {withCatalystContext} from '../context';
 import EventsList from '../components/EventsList';
 import PaginatedResults from '../components/PaginatedResults';

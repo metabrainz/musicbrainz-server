@@ -10,7 +10,6 @@
 import * as React from 'react';
 
 import {QUALITY_NAMES} from '../../../static/scripts/common/constants';
-import {addColon, l} from '../../../static/scripts/common/i18n';
 
 import {SidebarProperty} from './SidebarProperties';
 
@@ -21,8 +20,8 @@ type Props = {|
 const SidebarDataQuality = ({quality}: Props) => {
   const name = QUALITY_NAMES.get(quality);
   return name ? (
-    <SidebarProperty className="data-quality" label={addColon(l('Data Quality'))}>
-      {name.toString()}
+    <SidebarProperty className="data-quality" label={addColonText(l('Data Quality'))}>
+      {name()}
     </SidebarProperty>
   ) : null;
 };

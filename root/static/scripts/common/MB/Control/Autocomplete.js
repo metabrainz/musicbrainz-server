@@ -9,10 +9,7 @@ import ko from 'knockout';
 
 import {ENTITIES, MAX_RECENT_ENTITIES} from '../../constants';
 import MB_entity from '../../entity';
-import {addColon, l, N_l} from '../../i18n';
 import commaOnlyList from '../../i18n/commaOnlyList';
-import {l_languages} from '../../i18n/languages';
-import {lp_attributes} from '../../i18n/attributes';
 import {artistCreditFromArray, reduceArtistCredit} from '../../immutable-entities';
 import MB from '../../MB';
 import clean from '../../utility/clean';
@@ -444,7 +441,7 @@ $.widget("mb.entitylookup", $.ui.autocomplete, {
             entity = this.entity.replace("-", "_");
 
         if (allowCreation && addNewEntityLabels[entity]) {
-            const label = addNewEntityLabels[entity].toLocaleString();
+            const label = addNewEntityLabels[entity]();
             results.push({
                 label,
                 action: function () {
@@ -733,7 +730,7 @@ MB.Control.autocomplete_formatters = {
 
         if (item.typeName) {
             a.append('<br /><span class="autocomplete-comment">' +
-              _.escape(l('{release_group_type} by {artist}', {
+              _.escape(texp.l('{release_group_type} by {artist}', {
                 artist: item.artist,
                 release_group_type: item.l_type_name,
              })) + '</span>');

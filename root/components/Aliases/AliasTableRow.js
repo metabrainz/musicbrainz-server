@@ -15,8 +15,6 @@ import formatEndDate from '../../static/scripts/common/utility/formatEndDate';
 import entityHref from '../../static/scripts/common/utility/entityHref';
 import bracketed from '../../static/scripts/common/utility/bracketed';
 import locales from '../../static/scripts/common/constants/locales';
-import {l} from '../../static/scripts/common/i18n';
-import {lp_attributes} from '../../static/scripts/common/i18n/attributes';
 
 type Props = {
   +alias: AliasT,

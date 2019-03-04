@@ -11,8 +11,6 @@
 import React from 'react';
 
 import manifest from '../static/manifest';
-import {l_languages} from '../static/scripts/common/i18n/languages';
-import {l_scripts} from '../static/scripts/common/i18n/scripts';
 import {l_statistics as l} from '../static/scripts/common/i18n/statistics';
 import {withCatalystContext} from '../context';
 import loopParity from '../utility/loopParity';
@@ -48,8 +46,7 @@ const LanguagesScripts = ({
 }: LanguagesScriptsStatsT) => (
   <StatisticsLayout fullWidth page="languages-scripts" title={l('Languages and Scripts')}>
     <p>
-      {l('Last updated: {date}',
-        {date: dateCollected})}
+      {texp.l('Last updated: {date}', {date: dateCollected})}
     </p>
     <p>{l('All other available languages and scripts have 0 releases and works.')}</p>
     <div style={{display: 'inline-block', float: 'left', marginRight: '50px'}}>

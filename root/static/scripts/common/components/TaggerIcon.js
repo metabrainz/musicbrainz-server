@@ -10,7 +10,6 @@
 import React from 'react';
 
 import {withCatalystContext} from '../../../../context';
-import {l} from '../i18n';
 
 function buildTaggerLink(entity, tport: number): string {
   const gid = entity.gid;

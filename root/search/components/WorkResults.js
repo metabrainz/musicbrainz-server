@@ -10,7 +10,6 @@
 import * as React from 'react';
 
 import {withCatalystContext} from '../../context';
-import {l} from '../../static/scripts/common/i18n';
 import WorkListEntry from '../../static/scripts/common/components/WorkListEntry';
 import type {ResultsPropsWithContextT} from '../types';
 
@@ -60,7 +59,7 @@ const WorkResults = ({
     />
     {$c.user && !$c.user.is_editing_disabled ? (
       <p>
-        {l('Alternatively, you may {uri|add a new work}.', {
+        {exp.l('Alternatively, you may {uri|add a new work}.', {
           uri: '/work/create?edit-work.name=' + encodeURIComponent(query),
         })}
       </p>

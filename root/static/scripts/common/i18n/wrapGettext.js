@@ -1,3 +1,4 @@
+// @flow
 // Copyright (C) 2015 MetaBrainz Foundation
 //
 // This file is part of MusicBrainz, the open internet music database,
@@ -7,10 +8,10 @@
 import isNodeJS from 'detect-node';
 
 import cleanMsgid from './cleanMsgid';
-import expand2 from './expand2';
 
+import {type default as Jed} from 'jed';
 
-let gettext;
+let gettext: Jed;
 if (isNodeJS) {
   gettext = require('../../../../server/gettext');
 } else {
@@ -20,7 +21,7 @@ if (isNodeJS) {
   gettext = new Jed(jedData[jedData.locale]);
 }
 
-const canLoadDomain = typeof gettext.loadDomain === 'function';
+const canLoadDomain = typeof (gettext: any).loadDomain === 'function';
 
 /*
  * On the usage of cleanMsgid:
@@ -32,39 +33,51 @@ const canLoadDomain = typeof gettext.loadDomain === 'function';
  * transformation here.
  */
 
+type Domain =
+  | 'attributes'
+  | 'countries'
+  | 'instrument_descriptions'
+  | 'instruments'
+  | 'languages'
+  | 'mb_server'
+  | 'relationships'
+  | 'scripts'
+  | 'statistics'
+  ;
+
 function tryLoadDomain(domain) {
   if (!gettext.options.locale_data[domain]) {
-    gettext.loadDomain(domain);
+    (gettext: any).loadDomain(domain);
   }
 }
 
-export function dgettext(domain) {
-  return function (key, args) {
+export function dgettext(domain: Domain) {
+  return function (key: string) {
     if (canLoadDomain) {
       tryLoadDomain(domain);
     }
     key = cleanMsgid(key);
-    return expand2(gettext.dgettext(domain, key), args);
+    return  gettext.dgettext(domain, key);
   };
 }
 
-export function dngettext(domain) {
-  return function (skey, pkey, val, args) {
+export function dngettext(domain: Domain) {
+  return function (skey: string, pkey: string, val: number) {
     if (canLoadDomain) {
       tryLoadDomain(domain);
     }
     skey = cleanMsgid(skey);
     pkey = cleanMsgid(pkey);
-    return expand2(gettext.dngettext(domain, skey, pkey, val), args);
+    return gettext.dngettext(domain, skey, pkey, val);
   };
 }
 
-export function dpgettext(domain) {
-  return function (key, context, args) {
+export function dpgettext(domain: Domain) {
+  return function (key: string, context: string) {
     if (canLoadDomain) {
       tryLoadDomain(domain);
     }
     key = cleanMsgid(key);
-    return expand2(gettext.dpgettext(domain, context, key), args);
+    return gettext.dpgettext(domain, context, key);
   };
 }

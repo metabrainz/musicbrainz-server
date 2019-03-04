@@ -13,8 +13,6 @@ import RequestLogin from '../../../components/RequestLogin';
 import {withCatalystContext} from '../../../context';
 import EditorLink from '../../../static/scripts/common/components/EditorLink';
 import EntityLink from '../../../static/scripts/common/components/EntityLink';
-import {l} from '../../../static/scripts/common/i18n';
-import {lp_attributes} from '../../../static/scripts/common/i18n/attributes';
 
 import {SidebarProperties, SidebarProperty} from './SidebarProperties';
 

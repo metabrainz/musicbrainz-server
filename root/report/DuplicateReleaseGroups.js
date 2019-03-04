@@ -12,7 +12,6 @@ import * as React from 'react';
 import {withCatalystContext} from '../context';
 import Layout from '../layout';
 import formatUserDate from '../utility/formatUserDate';
-import {l} from '../static/scripts/common/i18n';
 
 import ReleaseGroupList from './components/ReleaseGroupList';
 import FilterLink from './FilterLink';
@@ -31,17 +30,20 @@ const DuplicateReleaseGroups = ({
 
     <ul>
       <li>
-        {l(`This report lists release groups with very similar names and
-            artists. If the releases in the release groups should be grouped
-            together (see the {url|guidelines}), they can be merged. If they
-            shouldn\'t be grouped together but they can be distinguished by
-            the release group types, e.g. when an artist has an album and
-            single with the same name, then there is usually no need to
-            change anything. In other cases, a disambiguation comment may be
-            helpful.`, {url: '/doc/Style/Release_Group'})}
+        {exp.l(
+          `This report lists release groups with very similar names and
+           artists. If the releases in the release groups should be grouped
+           together (see the {url|guidelines}), they can be merged. If they
+           shouldn\'t be grouped together but they can be distinguished by
+           the release group types, e.g. when an artist has an album and
+           single with the same name, then there is usually no need to
+           change anything. In other cases, a disambiguation comment may be
+           helpful.`,
+          {url: '/doc/Style/Release_Group'},
+        )}
       </li>
-      <li>{l('Total release groups found: {count}', {count: pager.total_entries})}</li>
-      <li>{l('Generated on {date}', {date: formatUserDate($c.user, generated)})}</li>
+      <li>{texp.l('Total release groups found: {count}', {count: pager.total_entries})}</li>
+      <li>{texp.l('Generated on {date}', {date: formatUserDate($c.user, generated)})}</li>
 
       {canBeFiltered ? <FilterLink filtered={filtered} /> : null}
     </ul>

@@ -10,7 +10,6 @@
 import * as React from 'react';
 
 import {CatalystContext} from '../context';
-import {l, N_l} from '../static/scripts/common/i18n';
 import {ENTITIES} from '../static/scripts/common/constants';
 import isSpecialPurposeArtist from '../static/scripts/common/utility/isSpecialPurposeArtist';
 
@@ -77,7 +76,7 @@ function buildLinks(
 
   if (entityProperties.custom_tabs) {
     entityProperties.custom_tabs.forEach((tab) => {
-      links.push(buildLink(tabLinkNames[tab].toLocaleString(), entity, tab, page));
+      links.push(buildLink(tabLinkNames[tab](), entity, tab, page));
     });
   }
 

@@ -9,8 +9,6 @@
 
 import React from 'react';
 
-import {l} from '../static/scripts/common/i18n';
-import {lp_attributes} from '../static/scripts/common/i18n/attributes';
 import commaOnlyList from '../static/scripts/common/i18n/commaOnlyList';
 import localizeArtistRoles
   from '../static/scripts/common/i18n/localizeArtistRoles';

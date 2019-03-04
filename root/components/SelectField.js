@@ -9,11 +9,12 @@
 
 import React from 'react';
 
+import {unwrapNl} from '../static/scripts/common/i18n';
 import getSelectValue from '../utility/getSelectValue';
 
 const buildOption = (option: SelectOptionT, index: number) => (
   <option key={index} value={option.value}>
-    {option.label.toLocaleString()}
+    {unwrapNl(option.label)}
   </option>
 );
 

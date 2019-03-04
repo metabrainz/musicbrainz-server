@@ -9,7 +9,6 @@
 
 import React from 'react';
 
-import {l} from '../static/scripts/common/i18n';
 import EntityTabLink from '../components/EntityTabLink';
 import SubHeader from '../components/SubHeader';
 import Tabs from '../components/Tabs';
@@ -30,7 +29,7 @@ const CollectionHeader = ({$c, collection, page}: Props) => {
   const subHeading = (
     <>
       {collection.public ? (
-        l('Public collection by {owner}',
+        exp.l('Public collection by {owner}',
           {owner: <EditorLink editor={owner} />})
       ) : l('Private collection')}
       {owner ? (
@@ -47,7 +46,7 @@ const CollectionHeader = ({$c, collection, page}: Props) => {
               {viewingOwnCollection ? (
                 l('See all of your collections')
               ) : (
-                l("See all of {editor}'s public collections",
+                texp.l("See all of {editor}'s public collections",
                   {editor: owner.name})
               )}
             </a>,

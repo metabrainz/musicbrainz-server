@@ -11,7 +11,6 @@ import * as React from 'react';
 
 import {withCatalystContext} from '../context';
 import Layout from '../layout';
-import {l} from '../static/scripts/common/i18n';
 
 const ReportsIndex = ({$c}: {$c: CatalystContextT}) => (
   <Layout fullWidth title={l('Reports')}>
@@ -19,12 +18,14 @@ const ReportsIndex = ({$c}: {$c: CatalystContextT}) => (
       <h1>{l('Reports')}</h1>
 
       <p>
-        {l(`If you'd like to participate in the editing process, but do not know where
-            to start, the following reports should be useful. These reports scour the
-            database looking for data that might require fixing, either to comply with
-            the {style|style guidelines}, or in other cases where administrative
-            "clean up" tasks are required.`,
-        {style: '/doc/Style'})}
+        {exp.l(
+          `If you'd like to participate in the editing process, but do not know where
+           to start, the following reports should be useful. These reports scour the
+           database looking for data that might require fixing, either to comply with
+           the {style|style guidelines}, or in other cases where administrative
+           "clean up" tasks are required.`,
+          {style: '/doc/Style'},
+        )}
       </p>
 
       <h2>{l('Artists')}</h2>

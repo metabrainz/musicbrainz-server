@@ -10,7 +10,6 @@
 import React from 'react';
 
 import chooseLayoutComponent from '../utility/chooseLayoutComponent';
-import {l} from '../static/scripts/common/i18n';
 import {withCatalystContext} from '../context';
 import {MainTagEditor} from '../static/scripts/common/components/TagEditor';
 

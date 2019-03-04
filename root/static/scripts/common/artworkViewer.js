@@ -6,8 +6,6 @@
 import $ from 'jquery';
 import _ from 'lodash';
 
-import {l} from './i18n';
-
 $.widget("mb.artworkViewer", $.ui.dialog, {
 
     options: {
@@ -68,7 +66,7 @@ $.widget("mb.artworkViewer", $.ui.dialog, {
         this.$next.prop("disabled", !this._nextImageLink);
 
         this.$pager.text(
-            l("Image {current} of {total}", {
+            texp.l("Image {current} of {total}", {
                 current: index + 1, total: this.$artwork.length
             })
         );

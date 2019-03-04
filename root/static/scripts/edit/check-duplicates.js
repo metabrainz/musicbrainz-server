@@ -9,7 +9,6 @@ import _ from 'lodash';
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import {l} from '../common/i18n';
 import MB from '../common/MB';
 import clean from '../common/utility/clean';
 import isBlank from '../common/utility/isBlank';

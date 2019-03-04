@@ -12,7 +12,6 @@ import * as React from 'react';
 import {withCatalystContext} from '../context';
 import Layout from '../layout';
 import formatUserDate from '../utility/formatUserDate';
-import {l} from '../static/scripts/common/i18n';
 
 import EventList from './components/EventList';
 import FilterLink from './FilterLink';
@@ -36,8 +35,8 @@ const DuplicateEvents = ({
             if there are separate events for headliner and supporting artist)
             please merge them.`)}
       </li>
-      <li>{l('Total events found: {count}', {count: pager.total_entries})}</li>
-      <li>{l('Generated on {date}', {date: formatUserDate($c.user, generated)})}</li>
+      <li>{texp.l('Total events found: {count}', {count: pager.total_entries})}</li>
+      <li>{texp.l('Generated on {date}', {date: formatUserDate($c.user, generated)})}</li>
 
       {canBeFiltered ? <FilterLink filtered={filtered} /> : null}
     </ul>

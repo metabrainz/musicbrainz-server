@@ -10,7 +10,6 @@
 import React from 'react';
 
 import hydrate, {minimalEntity} from '../../../../utility/hydrate';
-import {l} from '../i18n';
 import entityHref from '../utility/entityHref';
 
 type Props = {|

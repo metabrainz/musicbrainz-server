@@ -16,7 +16,6 @@ import {
   PART_OF_SERIES_LINK_TYPES,
   PROBABLY_CLASSICAL_LINK_TYPES,
 } from './constants';
-import {addColon, l} from './i18n';
 import {
   artistCreditFromArray,
   artistCreditsAreEqual,
@@ -69,7 +68,7 @@ import formatTrackLength from './utility/formatTrackLength';
         }
 
         entityTypeLabel() {
-            return addColon(ENTITY_NAMES[this.entityType].toLocaleString());
+            return addColon(ENTITY_NAMES[this.entityType]());
         }
 
         html(...args) {
@@ -232,7 +231,7 @@ import formatTrackLength from './utility/formatTrackLength';
     class Label extends CoreEntity {
         selectionMessage() {
             return ReactDOMServer.renderToStaticMarkup(
-                l('You selected {label}.', {label: this.reactElement({target: '_blank'})})
+                exp.l('You selected {label}.', {label: this.reactElement({target: '_blank'})})
             );
         }
     }
@@ -242,7 +241,7 @@ import formatTrackLength from './utility/formatTrackLength';
     class Area extends CoreEntity {
         selectionMessage() {
             return ReactDOMServer.renderToStaticMarkup(
-                l('You selected {area}.', {area: this.reactElement({ target: '_blank'})})
+                exp.l('You selected {area}.', {area: this.reactElement({ target: '_blank'})})
             );
         }
     }
@@ -327,7 +326,7 @@ import formatTrackLength from './utility/formatTrackLength';
     class ReleaseGroup extends CoreEntity {
         selectionMessage() {
             return ReactDOMServer.renderToStaticMarkup(
-                l('You selected {releasegroup}.', {
+                exp.l('You selected {releasegroup}.', {
                     releasegroup: this.reactElement({target: '_blank'}),
                 })
             );
@@ -421,18 +420,20 @@ import formatTrackLength from './utility/formatTrackLength';
 
             this.tracks = _.map(data.tracks, x => new Track(x));
 
-            var positionName;
-            if (this.name) {
-                positionName = this.format ? "{medium_format} {position}: {title}" : "Medium {position}: {title}";
-            } else {
-                positionName = this.format ? "{medium_format} {position}" : "Medium {position}";
-            }
-
-            this.positionName = l(positionName, {
+            const positionArgs = {
                 medium_format: this.format,
                 position: this.position,
                 title: this.name
-            });
+            };
+            if (this.name) {
+                this.positionName = this.format
+                    ? texp.l('{medium_format} {position}: {title}', positionArgs)
+                    : texp.l('Medium {position}: {title}', positionArgs);
+            } else {
+                this.positionName = this.format
+                    ? texp.l('{medium_format} {position}', positionArgs)
+                    : texp.l('Medium {position}', positionArgs);
+            }
         }
     }
 

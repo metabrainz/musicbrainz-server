@@ -9,8 +9,6 @@
 
 import * as React from 'react';
 
-import {l} from '../../common/i18n';
-
 const WarningIcon = () => (
   <img
     alt={l('Warning')}

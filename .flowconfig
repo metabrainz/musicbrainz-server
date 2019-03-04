@@ -10,6 +10,7 @@
 [libs]
 ./node_modules/jsx-control-statements/jsx-control-statements.latest.flow.js
 ./root/types.js
+./root/vars.js
 
 [lints]
 

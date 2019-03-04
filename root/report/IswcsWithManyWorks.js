@@ -12,10 +12,9 @@ import * as React from 'react';
 import {withCatalystContext} from '../context';
 import Layout from '../layout';
 import formatUserDate from '../utility/formatUserDate';
-import {l} from '../static/scripts/common/i18n';
 import PaginatedResults from '../components/PaginatedResults';
 import {WorkListRow} from '../static/scripts/common/components/WorkListEntry';
-import bracketed from '../static/scripts/common/utility/bracketed';
+import {bracketedText} from '../static/scripts/common/utility/bracketed';
 
 import FilterLink from './FilterLink';
 import type {ReportDataT, ReportIswcT} from './types';
@@ -38,13 +37,15 @@ const IswcsWithManyWorks = ({
 
       <ul>
         <li>
-          {l(`This report lists {iswc|ISWCs} that are attached to more than
-              one work. If the works are the same, this usually means
-              they should be merged.`,
-          {iswc: '/doc/ISWC'})}
+          {exp.l(
+            `This report lists {iswc|ISWCs} that are attached to more than
+             one work. If the works are the same, this usually means
+             they should be merged.`,
+            {iswc: '/doc/ISWC'},
+          )}
         </li>
-        <li>{l('Total ISWCs found: {count}', {count: pager.total_entries})}</li>
-        <li>{l('Generated on {date}', {date: formatUserDate($c.user, generated)})}</li>
+        <li>{texp.l('Total ISWCs found: {count}', {count: pager.total_entries})}</li>
+        <li>{texp.l('Generated on {date}', {date: formatUserDate($c.user, generated)})}</li>
 
         {canBeFiltered ? <FilterLink filtered={filtered} /> : null}
       </ul>
@@ -72,7 +73,7 @@ const IswcsWithManyWorks = ({
                     <tr className="even">
                       <td>
                         <a href={'/iswc/' + item.iswc}>{item.iswc}</a>
-                        <span>{' ' + bracketed(item.workcount)}</span>
+                        {' ' + bracketedText(item.workcount)}
                       </td>
                       <td colSpan="5" />
                     </tr>

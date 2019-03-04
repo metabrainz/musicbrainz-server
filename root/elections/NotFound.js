@@ -10,7 +10,6 @@
 import React from 'react';
 
 import NotFound from '../components/NotFound';
-import {l} from '../static/scripts/common/i18n';
 
 const ElectionNotFound = () => (
   <NotFound title={l('Election Not Found')}>

@@ -12,8 +12,6 @@ import * as React from 'react';
 import {withCatalystContext} from '../context';
 import Layout from '../layout';
 import formatUserDate from '../utility/formatUserDate';
-import {l} from '../static/scripts/common/i18n';
-import {lp_attributes} from '../static/scripts/common/i18n/attributes';
 import PaginatedResults from '../components/PaginatedResults';
 import loopParity from '../utility/loopParity';
 import EntityLink from '../static/scripts/common/components/EntityLink';
@@ -40,20 +38,22 @@ const DuplicateArtists = ({
 
       <ul>
         <li>
-          {l(`This report aims to identify artists with very similar names.
-              If two artists are actually the same, please merge them
-              (remember to {how_to_write_edit_notes|write an edit note}
-              and give your proof). If they\'re different, add
-              {disambiguation_comment|disambiguation comments} to them
-              (and once a group of similarly named artists have
-              disambiguation comments, they will stop appearing here).`,
-          {
-            disambiguation_comment: '/doc/Disambiguation_Comment',
-            how_to_write_edit_notes: '/doc/How_to_Write_Edit_Notes',
-          })}
+          {exp.l(
+            `This report aims to identify artists with very similar names.
+             If two artists are actually the same, please merge them
+             (remember to {how_to_write_edit_notes|write an edit note}
+             and give your proof). If they\'re different, add
+             {disambiguation_comment|disambiguation comments} to them
+             (and once a group of similarly named artists have
+             disambiguation comments, they will stop appearing here).`,
+            {
+              disambiguation_comment: '/doc/Disambiguation_Comment',
+              how_to_write_edit_notes: '/doc/How_to_Write_Edit_Notes',
+            },
+          )}
         </li>
-        <li>{l('Total duplicate groups: {count}', {count: pager.total_entries})}</li>
-        <li>{l('Generated on {date}', {date: formatUserDate($c.user, generated)})}</li>
+        <li>{texp.l('Total duplicate groups: {count}', {count: pager.total_entries})}</li>
+        <li>{texp.l('Generated on {date}', {date: formatUserDate($c.user, generated)})}</li>
 
         {canBeFiltered ? <FilterLink filtered={filtered} /> : null}
       </ul>

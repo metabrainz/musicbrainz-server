@@ -13,7 +13,6 @@ import {withCatalystContext} from '../../../../context';
 import formatUserDate from '../../../../utility/formatUserDate';
 import hydrate from '../../../../utility/hydrate';
 import sanitizedEditor from '../../../../utility/sanitizedEditor';
-import {l} from '../i18n';
 import entityHref from '../utility/entityHref';
 import * as lens from '../utility/lens';
 
@@ -70,7 +69,7 @@ const Annotation = ({
         {$c.user_exists ? (
           latestAnnotation && (annotation.id === latestAnnotation.id) ? (
             <>
-              {l('Annotation last modified by {user} on {date}.', {
+              {exp.l('Annotation last modified by {user} on {date}.', {
                 date: formatUserDate($c.user, annotation.creation_date),
                 user: <EditorLink editor={annotation.editor} />,
               })}
@@ -84,7 +83,7 @@ const Annotation = ({
               ) : null}
             </>
           ) : (
-            l('This is an {history|old revision} of this annotation, as edited by {user} on {date}. {current|View current revision}.', {
+            exp.l('This is an {history|old revision} of this annotation, as edited by {user} on {date}. {current|View current revision}.', {
               current: entityHref(entity, '/annotation'),
               date: formatUserDate($c.user, annotation.creation_date),
               history: entityHref(entity, '/annotations'),
@@ -92,7 +91,7 @@ const Annotation = ({
             })
           )
         ) : (
-          l('Annotation last modified on {date}.', {
+          texp.l('Annotation last modified on {date}.', {
             date: formatUserDate($c.user, annotation.creation_date),
           })
         )}

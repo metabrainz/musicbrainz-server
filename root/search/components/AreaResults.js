@@ -10,8 +10,6 @@
 import React from 'react';
 
 import {withCatalystContext} from '../../context';
-import {l} from '../../static/scripts/common/i18n';
-import {lp_attributes} from '../../static/scripts/common/i18n/attributes';
 import DescriptiveLink from '../../static/scripts/common/components/DescriptiveLink';
 import formatDate from '../../static/scripts/common/utility/formatDate';
 import formatEndDate from '../../static/scripts/common/utility/formatEndDate';
@@ -67,7 +65,7 @@ const AreaResults = ({
     />
     {$c.user && $c.user.is_location_editor ? (
       <p>
-        {l('Alternatively, you may {uri|add a new area}.', {
+        {exp.l('Alternatively, you may {uri|add a new area}.', {
           uri: '/area/create?edit-area.name=' + encodeURIComponent(query),
         })}
       </p>

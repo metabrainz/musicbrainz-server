@@ -9,7 +9,6 @@
 
 import React from 'react';
 
-import {l} from '../static/scripts/common/i18n';
 import EntityHeader from '../components/EntityHeader';
 import EntityLink from '../static/scripts/common/components/EntityLink';
 

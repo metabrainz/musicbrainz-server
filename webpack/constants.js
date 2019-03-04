@@ -10,5 +10,16 @@ const DBDefs = require('../root/static/scripts/common/DBDefs');
 
 module.exports = {
   dirs: require('./dirs'),
+  GETTEXT_DOMAINS: [
+    'attributes',
+    'countries',
+    'instrument_descriptions',
+    'instruments',
+    'languages',
+    'mb_server',
+    'relationships',
+    'scripts',
+    'statistics',
+  ],
   PUBLIC_PATH: DBDefs.STATIC_RESOURCES_LOCATION + '/',
 };

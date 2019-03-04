@@ -15,8 +15,7 @@ import {
   VIDEO_ATTRIBUTE_ID,
   VIDEO_ATTRIBUTE_GID,
 } from '../common/constants';
-import {compare, l} from '../common/i18n';
-import {l_relationships} from '../common/i18n/relationships';
+import {compare} from '../common/i18n';
 import MB from '../common/MB';
 import {link_type as linkTypeInfo} from '../common/typeInfo';
 import {hasSessionStorage} from '../common/utility/storage';
@@ -205,7 +204,7 @@ export class ExternalLinksEditor extends React.Component<LinksEditorProps, Links
               error = l('This URL is not allowed for the selected link type, or is incorrectly formatted.');
             } else if ((!isPositiveInteger(link.relationship) || (oldLink && link.url !== oldLink.url)) && /^(https?:\/\/)?([^.\/]+\.)?wikipedia\.org\/.*#/.test(link.url)) {
               // Kludge for MBS-9515 to be replaced with the more general MBS-9516
-              error = l('Links to specific sections of Wikipedia articles are not allowed. Please remove “{fragment}” if still appropriate. See the {url|guidelines}.', {
+              error = exp.l('Links to specific sections of Wikipedia articles are not allowed. Please remove “{fragment}” if still appropriate. See the {url|guidelines}.', {
                 fragment: <span className='url-quote' key='fragment'>{link.url.replace(/^(?:https?:\/\/)?(?:[^.\/]+\.)?wikipedia\.org\/[^#]*#(.*)$/, '#$1')}</span>,
                 url: { href: '/relationship/' + linkType.gid, target: '_blank' }
               });
@@ -262,7 +261,7 @@ type LinkProps = {
   url: string,
   type: number|null,
   video: boolean,
-  errorMessage: string,
+  errorMessage: React.Node,
   isOnlyLink: boolean,
   urlMatchesType: boolean,
   removeCallback: (number) => void,
@@ -281,7 +280,7 @@ export class ExternalLink extends React.Component<LinkProps> {
     var faviconClass: string | void;
 
     if (linkType && linkType.description) {
-      typeDescription = l('{description} ({url|more documentation})', {
+      typeDescription = exp.l('{description} ({url|more documentation})', {
         description: l_relationships(linkType.description),
         url: '/relationship/' + linkType.gid
       });

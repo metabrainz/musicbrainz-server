@@ -9,8 +9,6 @@
 
 import React from 'react';
 
-import {l} from '../static/scripts/common/i18n';
-import {lp_attributes} from '../static/scripts/common/i18n/attributes';
 import {withCatalystContext} from '../context';
 import formatLabelCode from '../utility/formatLabelCode';
 import loopParity from '../utility/loopParity';

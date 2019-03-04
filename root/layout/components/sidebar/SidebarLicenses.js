@@ -16,8 +16,6 @@ import toArray from 'terable/toArray';
 
 import {withCatalystContext} from '../../../context';
 import * as manifest from '../../../static/manifest';
-import {l} from '../../../static/scripts/common/i18n';
-import {l_relationships} from '../../../static/scripts/common/i18n/relationships';
 
 const LICENSE_CLASSES = {
   ArtLibre: {

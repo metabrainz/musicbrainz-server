@@ -19,7 +19,6 @@ import {
 } from '../../constants';
 import {withCatalystContext} from '../../context';
 import * as DBDefs from '../../static/scripts/common/DBDefs';
-import {l, lp} from '../../static/scripts/common/i18n';
 import {
   editorMayVote,
   getLatestVoteForEditor,

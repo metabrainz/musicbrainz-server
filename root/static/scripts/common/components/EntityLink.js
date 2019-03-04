@@ -9,10 +9,9 @@
 import ko from 'knockout';
 import * as React from 'react';
 
-import {l} from '../i18n';
 import localizeAreaName from '../i18n/localizeAreaName';
 import localizeInstrumentName from '../i18n/localizeInstrumentName';
-import bracketed from '../utility/bracketed';
+import bracketed, {bracketedText} from '../utility/bracketed';
 import entityHref from '../utility/entityHref';
 import formatDatePeriod from '../utility/formatDatePeriod';
 import isolateText from '../utility/isolateText';
@@ -56,7 +55,7 @@ const EventDisambiguation = ({
   }
   return (
     <>
-      {dates && showDate ? ' ' + bracketed(dates) : null}
+      {dates && showDate ? ' ' + bracketedText(dates) : null}
       {event.cancelled
         ? <Comment className="cancelled" comment={l('cancelled')} />
         : null}
@@ -74,12 +73,12 @@ const AreaDisambiguation = ({area}: {|+area: AreaT|}) => {
   const endYear = area.end_date ? area.end_date.year : null;
 
   if (beginYear && endYear) {
-    comment = l(
+    comment = texp.l(
       'historical, {begin}-{end}',
       {begin: beginYear, end: endYear},
     );
   } else if (endYear) {
-    comment = l('historical, until {end}', {end: endYear});
+    comment = texp.l('historical, until {end}', {end: endYear});
   } else {
     comment = l('historical');
   }
@@ -135,7 +134,7 @@ const EntityLink = ({
   }
 
   if (entity.entityType === 'artist' && !nonEmpty(hover)) {
-    hover = entity.sort_name + (comment ? ' ' + bracketed(comment) : '');
+    hover = entity.sort_name + (comment ? ' ' + bracketedText(comment) : '');
   }
 
   if (entity.entityType === 'area') {
@@ -177,7 +176,7 @@ const EntityLink = ({
 
     if (nameVariation) {
       if (hover) {
-        hover = l('{name} – {additional_info}', {
+        hover = texp.l('{name} – {additional_info}', {
           additional_info: hover,
           name: entity.name,
         });

@@ -10,7 +10,6 @@
 import React from 'react';
 import type {Node as ReactNode} from 'react';
 
-import {l} from '../static/scripts/common/i18n';
 
 type Props<F> = {|
   +children: ReactNode,

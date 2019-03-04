@@ -12,7 +12,6 @@ import type {Node as ReactNode} from 'react';
 
 import Layout from '../layout';
 import EventSidebar from '../layout/components/sidebar/EventSidebar';
-import {hyphenateTitle} from '../static/scripts/common/i18n';
 
 import EventHeader from './EventHeader';
 
@@ -41,6 +40,5 @@ const EventLayout = ({
     {fullWidth ? null : <EventSidebar event={event} />}
   </Layout>
 );
-
 
 export default EventLayout;

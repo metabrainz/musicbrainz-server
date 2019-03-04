@@ -8,8 +8,6 @@
  */
 
 
-import {l_relationships} from './relationships';
-
 function localizeArtistRoles(roles: $ReadOnlyArray<string>):
   $ReadOnlyArray<string> {
   return roles.map(role => l_relationships(role));
