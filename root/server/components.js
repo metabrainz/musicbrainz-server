@@ -28,6 +28,7 @@ module.exports = {
   'account/ResetPasswordStatus': require('../account/ResetPasswordStatus'),
   'account/sso/DiscourseRegistered': require('../account/sso/DiscourseRegistered'),
   'account/sso/DiscourseUnconfirmedEmailAddress': require('../account/sso/DiscourseUnconfirmedEmailAddress'),
+  'admin/EditBanner': require('../admin/EditBanner'),
   'area/AreaEvents': require('../area/AreaEvents'),
   'area/AreaLabels': require('../area/AreaLabels'),
   'area/NotFound': require('../area/NotFound'),
