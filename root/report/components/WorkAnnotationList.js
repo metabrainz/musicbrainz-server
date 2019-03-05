@@ -12,33 +12,29 @@ import * as React from 'react';
 import PaginatedResults from '../../components/PaginatedResults';
 import EntityLink from '../../static/scripts/common/components/EntityLink';
 import loopParity from '../../utility/loopParity';
-import type {ReportArtistRelationshipT} from '../types';
+import type {ReportWorkAnnotationT} from '../types';
 
-const ArtistRelationshipList = ({
+const WorkAnnotationList = ({
   items,
   pager,
-}: {items: $ReadOnlyArray<ReportArtistRelationshipT>, pager: PagerT}) => (
+}: {items: $ReadOnlyArray<ReportWorkAnnotationT>, pager: PagerT}) => (
   <PaginatedResults pager={pager}>
     <table className="tbl">
       <thead>
         <tr>
-          <th>{l('Relationship Type')}</th>
-          <th>{l('Artist')}</th>
-          <th>{l('Type')}</th>
+          <th>{l('Work')}</th>
+          <th>{l('Annotation')}</th>
+          <th style={{width: '10em'}}>{l('Last edited')}</th>
         </tr>
       </thead>
       <tbody>
         {items.map((item, index) => (
-          <tr className={loopParity(index)} key={item.artist.gid}>
+          <tr className={loopParity(index)} key={item.work.gid}>
             <td>
-              <a href={'/relationship/' + encodeURIComponent(item.link_gid)}>
-                {l_relationships(item.link_name)}
-              </a>
+              <EntityLink entity={item.work} />
             </td>
-            <td>
-              <EntityLink entity={item.artist} />
-            </td>
-            <td>{item.artist.typeName ? lp_attributes(item.artist.typeName, 'artist_type') : l('Unknown')}</td>
+            <td dangerouslySetInnerHTML={{__html: item.text}} />
+            <td>{item.created}</td>
           </tr>
         ))}
       </tbody>
@@ -46,4 +42,4 @@ const ArtistRelationshipList = ({
   </PaginatedResults>
 );
 
-export default ArtistRelationshipList;
+export default WorkAnnotationList;
