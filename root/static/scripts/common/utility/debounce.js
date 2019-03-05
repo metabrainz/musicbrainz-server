@@ -9,6 +9,9 @@ function debounce(value, delay) {
     if (!ko.isObservable(value)) {
         value = ko.computed(value);
     }
+    if (process.env.MUSICBRAINZ_RUNNING_TESTS) {
+        return value;
+    }
     return value.extend({
         rateLimit: { method: "notifyWhenChangesStop", timeout: delay || 500 }
     });
