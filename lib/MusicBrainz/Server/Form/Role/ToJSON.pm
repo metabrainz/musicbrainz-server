@@ -49,7 +49,6 @@ sub TO_JSON {
     }
 
     if ($is_form) {
-        $json->{last_field_id} = $field_id_counter;
         $field_id_counter = 0;
     }
 

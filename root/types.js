@@ -501,7 +501,6 @@ declare type ReadOnlyFieldT<+V> = {|
 declare type FormT<+F> = {|
   +field: F,
   +has_errors: boolean,
-  +last_field_id: number,
   +name: string,
 |};
 

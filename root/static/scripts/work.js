@@ -85,12 +85,10 @@ const store = createStore(function (state: WorkForm = form, action) {
 });
 
 function pushField<F, R: ReadOnlyRepeatableFieldT<F>>(
-  form: WorkForm,
   repeatable: R,
   value: mixed,
 ) {
   return createField(
-    form,
     repeatable,
     String(repeatable.field.length),
     value,
@@ -101,7 +99,6 @@ function addLanguageToState(form: WorkForm): WorkForm {
   return mutate<WritableWorkForm, _>(form, newForm => {
     newForm.field.languages.field.push(
       pushField(
-        newForm,
         newForm.field.languages,
         null,
       )
@@ -214,7 +211,7 @@ class ViewModel {
 
     if (_.isEmpty(attributes)) {
       attributes = [
-        pushField(form, form.field.attributes, {
+        pushField(form.field.attributes, {
           type_id: null,
           value: null,
         }),
@@ -227,7 +224,7 @@ class ViewModel {
   }
 
   newAttribute() {
-    const attr = new WorkAttribute(pushField(form, form.field.attributes, {
+    const attr = new WorkAttribute(pushField(form.field.attributes, {
       type_id: null,
       value: null,
     }), this);

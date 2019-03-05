@@ -7,13 +7,19 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
+/*
+ * The Perl will assign a unique ID to all existing fields in
+ * MusicBrainz::Server::Form::Role::ToJSON. The initial value of
+ * `LAST_FIELD_ID` here is high enough that it should never overlap
+ * with an ID assigned on the server.
+ */
+let LAST_FIELD_ID = 99999;
+
 export default function createField<
-  F,
   S,
   P: ReadOnlyCompoundFieldT<S> | ReadOnlyRepeatableFieldT<S>,
   N: number | string,
 >(
-  form: FormT<F>,
   parent: P,
   name: N,
   value: mixed,
@@ -22,17 +28,17 @@ export default function createField<
     errors: [],
     has_errors: false,
     html_name: parent.html_name + '.' + String(name),
-    id: ++form.last_field_id,
+    id: ++LAST_FIELD_ID,
   };
   if (value && typeof value === 'object') {
     if (Array.isArray(value)) {
       field.field = value.map(
-        (x, i) => createField(form, field, i, x),
+        (x, i) => createField(field, i, x),
       );
     } else {
       const fields = {};
       for (const key in value) {
-        fields[key] = createField(form, field, key, value[key]);
+        fields[key] = createField(field, key, value[key]);
       }
       field.field = fields;
     }
