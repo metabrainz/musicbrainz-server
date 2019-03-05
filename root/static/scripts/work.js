@@ -16,12 +16,12 @@ import ReactDOM from 'react-dom';
 import {createStore} from 'redux';
 
 import FormRowSelectList from '../../components/FormRowSelectList';
-import createField from '../../utility/createField';
 import subfieldErrors from '../../utility/subfieldErrors';
 
 import getScriptArgs from './common/utility/getScriptArgs';
 import {buildOptionsTree} from './edit/forms';
 import {initializeBubble} from './edit/MB/Control/Bubble';
+import createField from './edit/utility/createField';
 import {initialize_guess_case} from './guess-case/MB/Control/GuessCase';
 
 const scriptArgs = getScriptArgs();
