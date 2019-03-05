@@ -69,6 +69,7 @@ module.exports = {
   'report/AnnotationsArtists': require('../report/AnnotationsArtists'),
   'report/AnnotationsLabels': require('../report/AnnotationsLabels'),
   'report/AnnotationsReleaseGroups': require('../report/AnnotationsReleaseGroups'),
+  'report/AnnotationsSeries': require('../report/AnnotationsSeries'),
   'report/AnnotationsWorks': require('../report/AnnotationsWorks'),
   'report/ArtistsContainingDisambiguationComments': require('../report/ArtistsContainingDisambiguationComments'),
   'report/ArtistsDisambiguationSameName': require('../report/ArtistsDisambiguationSameName'),
