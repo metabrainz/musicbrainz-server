@@ -524,10 +524,8 @@ $message
 EOF
     }
 
-    my $admin_addresses = join ', ', map { _user_address($_) } @{ $opts{admins} };
-
     my @headers = (
-        'To'          => $admin_addresses,
+        'To'          => $EMAIL_ACCOUNT_ADMINS_ADDRESS,
         'Sender'      => $EMAIL_NOREPLY_ADDRESS,
         'Subject'     => _encode_header($subject),
         'Message-Id'  => _message_id('editor-report-%s-%s-%d', $reporter->id, $reported_user->id, time),
@@ -535,9 +533,9 @@ EOF
 
     push @headers, 'From', _user_address($reporter, 1);
     if ($opts{reveal_address}) {
-        push @headers, 'Reply-To', _user_address($reporter);
+        push @headers, 'Reply-To', _user_address($reporter) . ', ' . $EMAIL_ACCOUNT_ADMINS_ADDRESS;
     } else {
-        push @headers, 'Reply-To', $EMAIL_NOREPLY_ADDRESS;
+        push @headers, 'Reply-To', $EMAIL_ACCOUNT_ADMINS_ADDRESS;
     }
 
     my $email = $self->_create_email(\@headers, $body);
