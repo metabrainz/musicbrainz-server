@@ -219,7 +219,7 @@ const keywords = {
 const parser = new XGettext({
   keywords,
   parseOptions: {
-    plugins: ['jsx', 'flow', 'classProperties'],
+    plugins: ['jsx', 'flow', 'dynamicImport', 'classProperties'],
     sourceType: 'unambiguous',
   },
 });
