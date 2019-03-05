@@ -15,35 +15,34 @@
  */
 let LAST_FIELD_ID = 99999;
 
-export default function createField<
-  S,
-  P: ReadOnlyCompoundFieldT<S> | ReadOnlyRepeatableFieldT<S>,
-  N: number | string,
->(
-  parent: P,
-  name: N,
-  value: mixed,
-): $ElementType<P, N> {
-  const field: any = {
+export type MapFields<F> = $ObjMap<F, <T>(T) => FieldT<T>>;
+
+export function createCompoundField<F: {[string]: mixed}>(
+  name: string,
+  fieldValues: F,
+): CompoundFieldT<MapFields<F>> {
+  const field: MapFields<F> = {};
+  for (const key in fieldValues) {
+    field[key] = createField(name + '.' + key, fieldValues[key]);
+  }
+  return {
     errors: [],
+    field,
     has_errors: false,
-    html_name: parent.html_name + '.' + String(name),
+    html_name: name,
     id: ++LAST_FIELD_ID,
   };
-  if (value && typeof value === 'object') {
-    if (Array.isArray(value)) {
-      field.field = value.map(
-        (x, i) => createField(field, i, x),
-      );
-    } else {
-      const fields = {};
-      for (const key in value) {
-        fields[key] = createField(field, key, value[key]);
-      }
-      field.field = fields;
-    }
-  } else {
-    field.value = value;
-  }
-  return field;
+}
+
+export function createField<T>(
+  name: string,
+  value: T,
+): FieldT<T> {
+  return {
+    errors: [],
+    has_errors: false,
+    html_name: name,
+    id: ++LAST_FIELD_ID,
+    value,
+  };
 }

@@ -7,15 +7,28 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import createField from './createField';
+import {
+  createCompoundField,
+  createField,
+  type MapFields,
+} from './createField';
 
-export default function pushField<F>(
-  repeatable: ReadOnlyRepeatableFieldT<F>,
-  value: mixed,
+export function pushField<V>(
+  repeatable: RepeatableFieldT<FieldT<V>>,
+  value: V,
 ) {
-  return createField(
-    repeatable,
-    String(repeatable.field.length),
-    value,
+  repeatable.field.push(
+    createField(
+      repeatable.html_name + '.' + String(repeatable.field.length),
+      value,
+    )
   );
+}
+
+export function pushCompoundField<F: {...}>(
+  repeatable: RepeatableFieldT<CompoundFieldT<MapFields<$ReadOnly<F>>>>,
+  fieldValues: F,
+) {
+  const name = repeatable.html_name + '.' + String(repeatable.field.length);
+  repeatable.field.push(createCompoundField(name, fieldValues));
 }

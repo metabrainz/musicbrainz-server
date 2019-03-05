@@ -21,7 +21,8 @@ import subfieldErrors from '../../utility/subfieldErrors';
 import getScriptArgs from './common/utility/getScriptArgs';
 import {buildOptionsTree} from './edit/forms';
 import {initializeBubble} from './edit/MB/Control/Bubble';
-import pushField from './edit/utility/pushField';
+import {createCompoundField} from './edit/utility/createField';
+import {pushCompoundField, pushField} from './edit/utility/pushField';
 import {initialize_guess_case} from './guess-case/MB/Control/GuessCase';
 
 const scriptArgs = getScriptArgs();
@@ -50,7 +51,7 @@ type WritableWorkForm = FormT<{|
  * Flow does not support assigning types within destructuring assignments:
  * https://github.com/facebook/flow/issues/235
  */
-const form: WorkForm = scriptArgs.form;
+let form: WorkForm = scriptArgs.form;
 const workAttributeTypeTree: WorkAttributeTypeTreeRootT =
   scriptArgs.workAttributeTypeTree;
 const workAttributeValueTree: WorkAttributeTypeAllowedValueTreeRootT =
@@ -86,12 +87,7 @@ const store = createStore(function (state: WorkForm = form, action) {
 
 function addLanguageToState(form: WorkForm): WorkForm {
   return mutate<WritableWorkForm, _>(form, newForm => {
-    newForm.field.languages.field.push(
-      pushField(
-        newForm.field.languages,
-        null,
-      )
-    );
+    pushField(newForm.field.languages, null);
   });
 }
 
@@ -198,22 +194,16 @@ class ViewModel {
       })
       .value();
 
-    if (_.isEmpty(attributes)) {
-      attributes = [
-        pushField(form.field.attributes, {
-          type_id: null,
-          value: null,
-        }),
-      ];
-    }
-
     this.attributes = ko.observableArray(
       _.map(attributes, data => new WorkAttribute(data, this)),
     );
   }
 
   newAttribute() {
-    const attr = new WorkAttribute(pushField(form.field.attributes, {
+    const attributesField = form.field.attributes;
+    const fieldName = attributesField.html_name + '.' +
+      String(attributesField.field.length);
+    const attr = new WorkAttribute(createCompoundField(fieldName, {
       type_id: null,
       value: null,
     }), this);
@@ -228,6 +218,20 @@ function byID(result, parent) {
     parent.children.reduce(byID, result);
   }
   return result;
+}
+
+{
+  const attributes = form.field.attributes;
+  if (_.isEmpty(attributes.field)) {
+    const name = attributes.html_name + '.' +
+      String(attributes.field.length);
+    form = mutate<WritableWorkForm, _>(form, newForm => {
+      pushCompoundField(newForm.field.attributes, {
+        type_id: null,
+        value: null,
+      });
+    });
+  }
 }
 
 ko.applyBindings(
