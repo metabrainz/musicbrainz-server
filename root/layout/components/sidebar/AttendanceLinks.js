@@ -19,8 +19,12 @@ type Props = {|
   +event: EventT,
 |};
 
-const AttendanceLinks = ({$c, event}: Props) => (
-  ($c.user_exists && $c.stash.all_collections) ? (
+const AttendanceLinks = ({$c, event}: Props) => {
+  const allCollections = $c.stash.all_collections;
+  if (!$c.user_exists || !allCollections) {
+    return null;
+  }
+  return (
     <>
       <h2 className="attendance">
         {l('Attendance')}
@@ -34,10 +38,8 @@ const AttendanceLinks = ({$c, event}: Props) => (
             content={texp.ln(
               'Found in {num} attendance list',
               'Found in {num} attendance lists',
-              // $FlowFixMe
-              $c.stash.all_collections.length,
-              // $FlowFixMe
-              {num: $c.stash.all_collections.length},
+              allCollections.length,
+              {num: allCollections.length},
             )}
             entity={event}
             subPath="attendance"
@@ -45,7 +47,7 @@ const AttendanceLinks = ({$c, event}: Props) => (
         }
       />
     </>
-  ) : null
-);
+  );
+};
 
 export default withCatalystContext(AttendanceLinks);

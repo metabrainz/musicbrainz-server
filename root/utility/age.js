@@ -24,12 +24,13 @@ export function hasAge<+T: {...DatePeriodRoleT}>(entity: T) {
   const begin = entity.begin_date;
   const end = entity.end_date;
   const ended = entity.ended;
+  const beginYear = begin && begin.year;
 
   /*
    * If there is no begin year, there is no age.
    * Only compute ages when the begin date is AD.
    */
-  if (!begin || !begin.year || begin.year < 1) {
+  if (!begin || !beginYear || beginYear < 1) {
     return false;
   }
 
@@ -54,12 +55,11 @@ export function hasAge<+T: {...DatePeriodRoleT}>(entity: T) {
    * either position, since we can't determine anything about the age in that
    * case.
    */
-  // $FlowFixMe - Flow thinks begin.year can be null here
-  if (begin.year < end.year) {
+  if (beginYear < end.year) {
     return true;
   }
 
-  if (begin.year === end.year) {
+  if (beginYear === end.year) {
     if (!begin.month || !end.month) {
       return false;
     }

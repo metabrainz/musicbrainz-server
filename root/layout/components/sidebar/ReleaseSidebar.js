@@ -65,6 +65,8 @@ const ReleaseSidebar = ({$c, release}: Props) => {
   const script = release.scriptID
     ? $c.linked_entities.script[release.scriptID]
     : null;
+  const releaseEvents = release.events;
+  const releaseLabels = release.labels;
 
   return (
     <div id="sidebar">
@@ -186,12 +188,11 @@ const ReleaseSidebar = ({$c, release}: Props) => {
         )}
       </SidebarProperties>
 
-      {release.labels && release.labels.length ? (
+      {releaseLabels && releaseLabels.length ? (
         <>
           <h2 className="labels">{l('Labels')}</h2>
           <ul className="links">
-            {/* $FlowFixMe */}
-            {release.labels.map(releaseLabel => (
+            {releaseLabels.map(releaseLabel => (
               <li key={releaseLabelKey(releaseLabel)}>
                 {releaseLabel.label ? (
                   <>
@@ -213,11 +214,10 @@ const ReleaseSidebar = ({$c, release}: Props) => {
         </>
       ) : null}
 
-      {release.events && release.events.length ? (
+      {releaseEvents && releaseEvents.length ? (
         <>
           <h2 className="release-events">{l('Release events')}</h2>
-          {/* $FlowFixMe */}
-          <ReleaseEvents events={release.events} />
+          <ReleaseEvents events={releaseEvents} />
         </>
       ) : null}
 

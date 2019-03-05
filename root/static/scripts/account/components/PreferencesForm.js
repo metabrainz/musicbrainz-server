@@ -120,7 +120,6 @@ class PreferencesForm extends React.Component<Props, State> {
 
   handleTimezoneGuess(e: SyntheticEvent<HTMLButtonElement>) {
     const guess = moment.tz.guess();
-    // $FlowFixMe - $ReadOnlyArray is incompatible with array type
     if (_.some(this.state.timezoneOptions.options, {value: guess})) {
       this.setState(prevState => ({
         form: set(

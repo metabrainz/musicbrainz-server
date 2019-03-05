@@ -9,8 +9,6 @@
 
 import each from 'lodash/each';
 
-const hasOwnProperty = Object.prototype.hasOwnProperty;
-
 export default function subfieldErrors<F>(
   field: AnyFieldT<F>,
   accum: $ReadOnlyArray<string> = [],
@@ -18,10 +16,9 @@ export default function subfieldErrors<F>(
   if (field.errors.length) {
     accum = accum.concat(field.errors);
   }
-  if (hasOwnProperty.call(field, 'field')) {
-    // $FlowFixMe
-    each(field.field, function (subfield) {
-      accum = subfieldErrors(subfield, accum);
+  if (field.field) {
+    each(field.field, function <S>(subfield: AnyFieldT<S>) {
+      accum = subfieldErrors<S>(subfield, accum);
     });
   }
   return accum;
