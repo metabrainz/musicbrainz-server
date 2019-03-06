@@ -7,23 +7,22 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-const $ = require('jquery');
-const _ = require('lodash');
-const ko = require('knockout');
-const React = require('react');
-const ReactDOM = require('react-dom');
-const {createStore} = require('redux');
+import $ from 'jquery';
+import _ from 'lodash';
+import ko from 'knockout';
+import React from 'react';
+import ReactDOM from 'react-dom';
+import {createStore} from 'redux';
 
-const {l} = require('./common/i18n');
-const {lp_attributes} = require('./common/i18n/attributes');
-import getScriptArgs from './common/utility/getScriptArgs';
-const {Lens, prop, index, set, compose3} = require('./common/utility/lens');
-import {buildOptionsTree} from './edit/forms';
-import {initializeBubble} from './edit/MB/Control/Bubble';
-import {initialize_guess_case} from './guess-case/MB/Control/GuessCase';
 import FormRowSelectList from '../../components/FormRowSelectList';
 import createField from '../../utility/createField';
 import subfieldErrors from '../../utility/subfieldErrors';
+
+import getScriptArgs from './common/utility/getScriptArgs';
+import {Lens, prop, index, set, compose3} from './common/utility/lens';
+import {buildOptionsTree} from './edit/forms';
+import {initializeBubble} from './edit/MB/Control/Bubble';
+import {initialize_guess_case} from './guess-case/MB/Control/GuessCase';
 
 const scriptArgs = getScriptArgs();
 
