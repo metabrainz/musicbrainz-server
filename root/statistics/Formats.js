@@ -75,7 +75,7 @@ const Formats = ({$c, dateCollected, formatStats, stats}: FormatsStatsT) => (
                     <LinkSearchableProperty
                       entityType="release"
                       searchField="format"
-                      searchValue={entity.name.replace('"', '\\"')}
+                      searchValue={entity.name}
                       text={lp_attributes(entity.name, 'medium_format')}
                     />
                   ) : l('Unknown Format')}
