@@ -29,7 +29,7 @@ tablesorter.addWidget({
 
 tablesorter.addParser({
   format: function (s) {
-    return tablesorter.formatFloat(s.replace(/,/g, ''));
+    return tablesorter.formatFloat(s.replace(/,|\.|\s/g, ''));
   },
   id: 'fancyNumber',
   is: function (s) {
