@@ -264,10 +264,16 @@ sub formats : Path('formats')
         }
     }
 
+    my %props = (
+        dateCollected => $stats->{date_collected},
+        formatStats => $format_stats,
+        stats => $stats->{data},
+    );
+
     $c->stash(
-        template => 'statistics/formats.tt',
-        format_stats => $format_stats,
-        stats => $stats
+        current_view => 'Node',
+        component_path => 'statistics/Formats',
+        component_props => \%props,
     );
 }
 
