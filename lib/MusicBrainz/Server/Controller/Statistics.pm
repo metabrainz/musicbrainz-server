@@ -142,10 +142,15 @@ sub countries : Local
         }
     }
 
+    my %props = (
+        dateCollected => $stats->{date_collected},
+        countryStats => $country_stats,
+    );
+
     $c->stash(
-        template => 'statistics/countries.tt',
-        stats    => $country_stats,
-        date_collected => $stats->{date_collected}
+        current_view => 'Node',
+        component_path => 'statistics/Countries',
+        component_props => \%props,
     );
 }
 

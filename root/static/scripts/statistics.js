@@ -38,6 +38,13 @@ tablesorter.addParser({
   type: 'numeric',
 });
 
+$('#countries-table').tablesorter({
+  headers: {0: {sorter: false}, 2: {sorter: 'fancyNumber'}, 3: {sorter: 'fancyNumber'}, 4: {sorter: 'fancyNumber'}, 5: {sorter: 'fancyNumber'}},
+  // order by descending number of entities, then name
+  sortList: [[5, 1], [1, 0]],
+  widgets: ['indexFirstColumn', 'evenRowClasses'],
+});
+
 $('#languages-table').tablesorter({
   headers: {0: {sorter: false}, 2: {sorter: 'fancyNumber'}, 3: {sorter: 'fancyNumber'}, 4: {sorter: 'fancyNumber'}},
   // order by descending number of entities, then name
