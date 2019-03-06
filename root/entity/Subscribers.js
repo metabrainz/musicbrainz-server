@@ -48,19 +48,34 @@ const Subscribers = ({
       {(publicEditors.length || (privateEditors > 0)) ? (
         <>
           {entityType === 'editor' ? (
-            <p>
-              {texp.ln(
-                `There is currently {num} user subscribed to edits
-                 that {user} makes:`,
-                `There are currently {num} users subscribed to edits
-                 that {user} makes:`,
-                publicEditors.length + privateEditors,
-                {
-                  num: publicEditors.length + privateEditors,
-                  user: entity.name,
-                },
-              )}
-            </p>
+            viewingOwnProfile ? (
+              <p>
+                {texp.ln(
+                  `There is currently {num} user subscribed to edits
+                   that you make:`,
+                  `There are currently {num} users subscribed to edits
+                   that you make:`,
+                  publicEditors.length + privateEditors,
+                  {
+                    num: publicEditors.length + privateEditors,
+                  },
+                )}
+              </p>
+            ) : (
+              <p>
+                {texp.ln(
+                  `There is currently {num} user subscribed to edits
+                   that {user} makes:`,
+                  `There are currently {num} users subscribed to edits
+                   that {user} makes:`,
+                  publicEditors.length + privateEditors,
+                  {
+                    num: publicEditors.length + privateEditors,
+                    user: entity.name,
+                  },
+                )}
+              </p>
+            )
           ) : (
             <p>
               {texp.ln(
