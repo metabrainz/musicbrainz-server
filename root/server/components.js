@@ -139,7 +139,7 @@ module.exports = {
   'report/ReleasesWithDownloadRelationships': require('../report/ReleasesWithDownloadRelationships'),
   'report/ReleasesWithNoMediums': require('../report/ReleasesWithNoMediums'),
   'report/ReleasesWithUnlikelyLanguageScript': require('../report/ReleasesWithUnlikelyLanguageScript'),
-  'report/ReleasesWithoutVACredit': require('../report/ReleasesWithoutVACredit'),
+  'report/ReleasesWithoutVaCredit': require('../report/ReleasesWithoutVaCredit'),
   'report/ReleasesWithoutVALink': require('../report/ReleasesWithoutVALink'),
   'report/ReportNotAvailable': require('../report/ReportNotAvailable'),
   'report/ReportsIndex': require('../report/ReportsIndex'),
