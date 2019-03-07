@@ -21,6 +21,7 @@ type Props = {|
   +$c: CatalystContextT,
   +artists: $ReadOnlyArray<ArtistT>,
   +checkboxes?: string,
+  +noAreas?: boolean,
   +noRatings?: boolean,
   +order?: string,
   +sortable?: boolean,
@@ -30,6 +31,7 @@ const ArtistsList = ({
   $c,
   artists,
   checkboxes,
+  noAreas,
   noRatings,
   order,
   sortable,
@@ -75,6 +77,13 @@ const ArtistsList = ({
             )
             : l('Gender')}
         </th>
+        {noAreas ? null : (
+          <>
+            <th>{l('Area')}</th>
+            <th>{l('Begin Area')}</th>
+            <th>{l('End Area')}</th>
+          </>
+        )}
         {noRatings ? null : <th>{l('Rating')}</th>}
       </tr>
     </thead>
@@ -103,6 +112,25 @@ const ArtistsList = ({
               ? lp_attributes(artist.gender.name, 'gender')
               : null}
           </td>
+          {noAreas ? null : (
+            <>
+              <td>
+                {artist.area
+                  ? <DescriptiveLink entity={artist.area} />
+                  : null}
+              </td>
+              <td>
+                {artist.begin_area
+                  ? <DescriptiveLink entity={artist.begin_area} />
+                  : null}
+              </td>
+              <td>
+                {artist.end_area
+                  ? <DescriptiveLink entity={artist.end_area} />
+                  : null}
+              </td>
+            </>
+          )}
           {noRatings ? null : (
             <td>
               <RatingStars entity={artist} />
