@@ -132,7 +132,7 @@ module.exports = {
   'report/ReleaseGroupsWithoutVALink': require('../report/ReleaseGroupsWithoutVALink'),
   'report/ReleaseLabelSameArtist': require('../report/ReleaseLabelSameArtist'),
   'report/ReleasedTooEarly': require('../report/ReleasedTooEarly'),
-  'report/ReleasesInCAAWithCoverArtRelationships': require('../report/ReleasesInCAAWithCoverArtRelationships'),
+  'report/ReleasesInCaaWithCoverArtRelationships': require('../report/ReleasesInCaaWithCoverArtRelationships'),
   'report/ReleasesMissingDiscIDs': require('../report/ReleasesMissingDiscIDs'),
   'report/ReleasesToConvert': require('../report/ReleasesToConvert'),
   'report/ReleasesWithCAANoTypes': require('../report/ReleasesWithCAANoTypes'),
