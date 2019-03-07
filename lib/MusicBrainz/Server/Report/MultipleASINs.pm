@@ -5,6 +5,7 @@ with 'MusicBrainz::Server::Report::ReleaseReport',
      'MusicBrainz::Server::Report::FilterForEditor::ReleaseID';
 
 sub table { 'multiple_asins' }
+sub component_name { 'MultipleAsins' }
 
 sub query
 {
