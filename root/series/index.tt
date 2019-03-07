@@ -42,8 +42,7 @@
       ELSIF series.type.item_entity_type == 'work';
         '<h2>' _ l('Works') _ '</h2>';
         IF entities.size;
-          INCLUDE 'components/works-list.tt'
-                  works=entities checkboxes='' show_artists=1
+          React.embed(c, 'components/WorksList', { works => entities, seriesItemNumbers = series_item_numbers})
           WRAPPER 'components/with-pager.tt';
         END;
       END

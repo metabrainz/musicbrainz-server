@@ -221,6 +221,7 @@ module.exports = {
   'components/ReleaseGroupsList': require('../components/ReleaseGroupsList'),
   'components/SeriesList': require('../components/SeriesList'),
   'components/UserAccountTabs': require('../components/UserAccountTabs'),
+  'components/WorksList': require('../components/WorksList'),
   'edit/components/EditSidebar': require('../edit/components/EditSidebar'),
   'edit/components/EditSummary': require('../edit/components/EditSummary'),
   'edit/components/Vote': require('../edit/components/Vote'),

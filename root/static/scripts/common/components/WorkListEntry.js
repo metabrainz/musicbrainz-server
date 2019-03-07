@@ -9,40 +9,62 @@
 
 import * as React from 'react';
 
+import {withCatalystContext} from '../../../../context';
+import RatingStars from '../../../../components/RatingStars';
 import loopParity from '../../../../utility/loopParity';
 
 import ArtistCreditLink from './ArtistCreditLink';
 import ArtistRoles from './ArtistRoles';
 import CodeLink from './CodeLink';
+import AttributesList from './AttributesList';
 import EntityLink from './EntityLink';
 
 type WorkListRowProps = {|
-  +hasIswcColumn: boolean,
-  +hasMergeColumn: boolean,
+  ...SeriesItemNumbersRoleT,
+  +$c: CatalystContextT,
+  +checkboxes?: string,
+  +hasAttributesColumn?: boolean,
+  +hasIswcColumn?: boolean,
+  +hasMergeColumn?: boolean,
+  +hasRatingsColumn?: boolean,
   +work: WorkT,
 |};
 
 type WorkListEntryProps = {|
-  +hasIswcColumn: boolean,
-  +hasMergeColumn: boolean,
+  ...SeriesItemNumbersRoleT,
+  +checkboxes?: string,
+  +hasAttributesColumn?: boolean,
+  +hasIswcColumn?: boolean,
+  +hasMergeColumn?: boolean,
+  +hasRatingsColumn?: boolean,
   +index: number,
   +score?: number,
   +work: WorkT,
 |};
 
-export const WorkListRow = ({
+export const WorkListRow = withCatalystContext(({
+  $c,
+  checkboxes,
+  hasAttributesColumn,
   hasIswcColumn,
   hasMergeColumn,
+  hasRatingsColumn,
+  seriesItemNumbers,
   work,
 }: WorkListRowProps) => (
   <>
-    {hasMergeColumn ? (
+    {hasMergeColumn || ($c.user_exists && checkboxes) ? (
       <td>
         <input
-          name="add-to-merge"
+          name={checkboxes ? checkboxes : 'add-to-merge'}
           type="checkbox"
           value={work.id}
         />
+      </td>
+    ) : null}
+    {seriesItemNumbers ? (
+      <td style={{width: '1em'}}>
+        {seriesItemNumbers[work.id]}
       </td>
     ) : null}
     <td><EntityLink entity={work} /></td>
@@ -81,20 +103,38 @@ export const WorkListRow = ({
         ))}
       </ul>
     </td>
+    {hasAttributesColumn ? (
+      <td>
+        <AttributesList entity={work} />
+      </td>
+    ) : null}
+    {hasRatingsColumn ? (
+      <td>
+        <RatingStars entity={work} />
+      </td>
+    ) : null}
   </>
-);
+));
 
 const WorkListEntry = ({
+  checkboxes,
+  hasAttributesColumn,
   hasIswcColumn,
   hasMergeColumn,
+  hasRatingsColumn,
   index,
   score,
+  seriesItemNumbers,
   work,
 }: WorkListEntryProps) => (
   <tr className={loopParity(index)} data-score={score || null}>
     <WorkListRow
+      checkboxes={checkboxes}
+      hasAttributesColumn={hasAttributesColumn}
       hasIswcColumn={hasIswcColumn}
       hasMergeColumn={hasMergeColumn}
+      hasRatingsColumn={hasRatingsColumn}
+      seriesItemNumbers={seriesItemNumbers}
       work={work}
     />
   </tr>
