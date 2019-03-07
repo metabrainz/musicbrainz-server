@@ -135,7 +135,7 @@ module.exports = {
   'report/ReleasesInCaaWithCoverArtRelationships': require('../report/ReleasesInCaaWithCoverArtRelationships'),
   'report/ReleasesMissingDiscIds': require('../report/ReleasesMissingDiscIds'),
   'report/ReleasesToConvert': require('../report/ReleasesToConvert'),
-  'report/ReleasesWithCAANoTypes': require('../report/ReleasesWithCAANoTypes'),
+  'report/ReleasesWithCaaNoTypes': require('../report/ReleasesWithCaaNoTypes'),
   'report/ReleasesWithDownloadRelationships': require('../report/ReleasesWithDownloadRelationships'),
   'report/ReleasesWithNoMediums': require('../report/ReleasesWithNoMediums'),
   'report/ReleasesWithUnlikelyLanguageScript': require('../report/ReleasesWithUnlikelyLanguageScript'),
