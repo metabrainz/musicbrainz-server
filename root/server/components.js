@@ -140,7 +140,7 @@ module.exports = {
   'report/ReleasesWithNoMediums': require('../report/ReleasesWithNoMediums'),
   'report/ReleasesWithUnlikelyLanguageScript': require('../report/ReleasesWithUnlikelyLanguageScript'),
   'report/ReleasesWithoutVaCredit': require('../report/ReleasesWithoutVaCredit'),
-  'report/ReleasesWithoutVALink': require('../report/ReleasesWithoutVALink'),
+  'report/ReleasesWithoutVaLink': require('../report/ReleasesWithoutVaLink'),
   'report/ReportNotAvailable': require('../report/ReportNotAvailable'),
   'report/ReportsIndex': require('../report/ReportsIndex'),
   'report/SeparateDiscs': require('../report/SeparateDiscs'),

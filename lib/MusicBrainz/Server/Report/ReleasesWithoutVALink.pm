@@ -4,6 +4,8 @@ use MusicBrainz::Server::Constants qw( $VARTIST_ID );
 
 with 'MusicBrainz::Server::Report::ReleaseReport';
 
+sub component_name { 'ReleasesWithoutVaLink' }
+
 sub query {
     "
         SELECT DISTINCT ON (r.id)
@@ -29,10 +31,6 @@ sub query {
               AND a.name != 'Various Artists'
         ) r
     ";
-}
-
-sub template {
-    return 'report/releases_without_va_link.tt';
 }
 
 __PACKAGE__->meta->make_immutable;
