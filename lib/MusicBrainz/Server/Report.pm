@@ -20,11 +20,6 @@ sub table {
     return decamelize($name);
 }
 
-sub template {
-    my $self = shift;
-    return 'report/' . $self->table . '.tt';
-}
-
 sub load {
     my ($self, $limit, $offset) = @_;
 
