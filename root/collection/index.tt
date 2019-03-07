@@ -19,6 +19,9 @@
       [%- IF collection.type.item_entity_type == 'area' -%]
         [% React.embed(c, 'components/AreasList', { areas => entities, checkboxes => my_collection ? 'remove' : '', order => order, sortable => 1})
             WRAPPER 'components/with-pager.tt' %]
+      [%- ELSIF collection.type.item_entity_type == 'artist' -%]
+        [% React.embed(c, 'components/ArtistsList', { artists => entities, checkboxes => my_collection ? 'remove' : '', order => order, sortable => 1})
+            WRAPPER 'components/with-pager.tt' %]
       [%- ELSIF collection.type.item_entity_type == 'event' -%]
         [% React.embed(c, 'components/EventsList', { events => entities, checkboxes => my_collection ? 'remove' : '', order => order, sortable => 1})
             WRAPPER 'components/with-pager.tt' %]
