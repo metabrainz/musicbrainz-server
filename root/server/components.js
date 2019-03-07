@@ -133,7 +133,7 @@ module.exports = {
   'report/ReleaseLabelSameArtist': require('../report/ReleaseLabelSameArtist'),
   'report/ReleasedTooEarly': require('../report/ReleasedTooEarly'),
   'report/ReleasesInCaaWithCoverArtRelationships': require('../report/ReleasesInCaaWithCoverArtRelationships'),
-  'report/ReleasesMissingDiscIDs': require('../report/ReleasesMissingDiscIDs'),
+  'report/ReleasesMissingDiscIds': require('../report/ReleasesMissingDiscIds'),
   'report/ReleasesToConvert': require('../report/ReleasesToConvert'),
   'report/ReleasesWithCAANoTypes': require('../report/ReleasesWithCAANoTypes'),
   'report/ReleasesWithDownloadRelationships': require('../report/ReleasesWithDownloadRelationships'),
