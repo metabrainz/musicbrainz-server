@@ -8,6 +8,7 @@ import ko from 'knockout';
 import _ from 'lodash';
 import React from 'react';
 import ReactDOM from 'react-dom';
+import mutate from 'mutate-cow';
 
 import Autocomplete from '../../common/components/Autocomplete';
 import {
@@ -20,13 +21,6 @@ import {
   reduceArtistCredit,
 } from '../../common/immutable-entities';
 import MB from '../../common/MB';
-import {
-  compose2,
-  deleteIndex,
-  index,
-  merge,
-  prop,
-} from '../../common/utility/lens';
 import nonEmpty from '../../common/utility/nonEmpty';
 import {localStorage} from '../../common/utility/storage';
 
@@ -102,7 +96,9 @@ class ArtistCreditEditor extends React.Component {
     event.stopPropagation();
 
     const ac = this.state.artistCredit;
-    const newState = deleteIndex(prop('artistCredit'), i, this.state);
+    const newState = mutate(this.state, newState => {
+      newState.artistCredit.splice(i, 1);
+    });
     setAutoJoinPhrases(newState.artistCredit);
 
     this.setState(newState, () => {
@@ -114,9 +110,9 @@ class ArtistCreditEditor extends React.Component {
   }
 
   onNameChange(i, update) {
-    this.setState(
-      merge(compose2(prop('artistCredit'), index(i)), update, this.state),
-    );
+    this.setState(state => mutate(state, newState => {
+      newState.artistCredit[i] = {...state.artistCredit[i], ...update};
+    }));
   }
 
   copyArtistCredit() {

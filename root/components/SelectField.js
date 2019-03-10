@@ -27,7 +27,7 @@ const buildOptGroup = (optgroup, index) => (
 type Props = {|
   +allowEmpty?: boolean,
   +disabled?: boolean,
-  +field: ReadOnlyFieldT<number | string>,
+  +field: ReadOnlyFieldT<?StrOrNum>,
   +onChange?: (event: SyntheticEvent<HTMLSelectElement>) => void,
   +options: MaybeGroupedOptionsT,
   +required?: boolean,

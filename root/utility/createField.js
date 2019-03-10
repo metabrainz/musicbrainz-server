@@ -10,7 +10,7 @@
 export default function createField<
   F,
   S,
-  P: StructFieldT<S>,
+  P: ReadOnlyCompoundFieldT<S> | ReadOnlyRepeatableFieldT<S>,
   N: number | string,
 >(
   form: FormT<F>,

@@ -622,6 +622,12 @@ declare type MediumFormatT = {|
   +year: ?number,
 |};
 
+declare type MinimalCoreEntityT = {
+  +entityType: string,
+  +gid: string,
+  ...
+};
+
 // See MB.forms.buildOptionsTree
 declare type OptionListT = $ReadOnlyArray<{|
   +text: string,

@@ -12,12 +12,12 @@ import moment from 'moment';
 import 'moment-strftime';
 import 'moment-timezone';
 import _ from 'lodash';
+import mutate from 'mutate-cow';
 
 import FormRow from '../../../../components/FormRow';
 import FormRowCheckbox from '../../../../components/FormRowCheckbox';
 import FormRowSelect from '../../../../components/FormRowSelect';
 import FormSubmit from '../../../../components/FormSubmit';
-import {Lens, prop, set, compose3} from '../../common/utility/lens';
 import hydrate from '../../../../utility/hydrate';
 
 type PreferencesFormT = FormT<{|
@@ -82,15 +82,6 @@ const subscriptionsEmailPeriodOptions = {
   ],
 };
 
-const timezoneFieldLens: Lens<PreferencesFormT, string> =
-  compose3(prop('field'), prop('timezone'), prop('value'));
-
-const dateTimeFormatFieldLens: Lens<PreferencesFormT, string> =
-  compose3(prop('field'), prop('datetime_format'), prop('value'));
-
-const subscriptionsEmailPeriodFieldLens: Lens<PreferencesFormT, string> =
-  compose3(prop('field'), prop('subscriptions_email_period'), prop('value'));
-
 class PreferencesForm extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
@@ -107,12 +98,8 @@ class PreferencesForm extends React.Component<Props, State> {
 
   handleTimezoneChange(e: SyntheticEvent<HTMLSelectElement>) {
     const selectedTimezone = e.currentTarget.value;
-    this.setState(prevState => ({
-      form: set(
-        timezoneFieldLens,
-        selectedTimezone,
-        prevState.form,
-      ),
+    this.setState(prevState => mutate<State, _>(prevState, newState => {
+      newState.form.field.timezone.value = selectedTimezone;
     }));
   }
 
@@ -121,12 +108,8 @@ class PreferencesForm extends React.Component<Props, State> {
   handleTimezoneGuess(e: SyntheticEvent<HTMLButtonElement>) {
     const guess = moment.tz.guess();
     if (_.some(this.state.timezoneOptions.options, {value: guess})) {
-      this.setState(prevState => ({
-        form: set(
-          timezoneFieldLens,
-          guess,
-          prevState.form,
-        ),
+      this.setState(prevState => mutate<State, _>(prevState, newState => {
+        newState.form.field.timezone.value = guess;
       }));
     }
   }
@@ -135,12 +118,8 @@ class PreferencesForm extends React.Component<Props, State> {
 
   handleDateTimeFormatChange(e: SyntheticEvent<HTMLSelectElement>) {
     const selectedDateTimeFormat = e.currentTarget.value;
-    this.setState(prevState => ({
-      form: set(
-        dateTimeFormatFieldLens,
-        selectedDateTimeFormat,
-        prevState.form,
-      ),
+    this.setState(prevState => mutate<State, _>(prevState, newState => {
+      newState.form.field.datetime_format.value = selectedDateTimeFormat;
     }));
   }
 
@@ -149,12 +128,9 @@ class PreferencesForm extends React.Component<Props, State> {
 
   handleSubscriptionsEmailPeriodChange(e: SyntheticEvent<HTMLSelectElement>) {
     const selectedSubscriptionsEmailPeriod = e.currentTarget.value;
-    this.setState(prevState => ({
-      form: set(
-        subscriptionsEmailPeriodFieldLens,
-        selectedSubscriptionsEmailPeriod,
-        prevState.form,
-      ),
+    this.setState(prevState => mutate<State, _>(prevState, newState => {
+      newState.form.field.subscriptions_email_period.value =
+        selectedSubscriptionsEmailPeriod;
     }));
   }
 

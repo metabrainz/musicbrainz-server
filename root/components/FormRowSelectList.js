@@ -16,7 +16,7 @@ import SelectField from './SelectField';
 type Props<S> = {|
   +addId: string,
   +addLabel: string,
-  +getSelectField: (S) => ReadOnlyFieldT<number | string>,
+  +getSelectField: (S) => ReadOnlyFieldT<?StrOrNum>,
   +hideAddButton?: boolean,
   +label: string,
   +onAdd: (event: SyntheticEvent<HTMLButtonElement>) => void,

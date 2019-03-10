@@ -10,6 +10,7 @@
 import $ from 'jquery';
 import _ from 'lodash';
 import ko from 'knockout';
+import mutate from 'mutate-cow';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {createStore} from 'redux';
@@ -19,25 +20,30 @@ import createField from '../../utility/createField';
 import subfieldErrors from '../../utility/subfieldErrors';
 
 import getScriptArgs from './common/utility/getScriptArgs';
-import {Lens, prop, index, set, compose3} from './common/utility/lens';
 import {buildOptionsTree} from './edit/forms';
 import {initializeBubble} from './edit/MB/Control/Bubble';
 import {initialize_guess_case} from './guess-case/MB/Control/GuessCase';
 
 const scriptArgs = getScriptArgs();
 
-type LanguageField = FieldT<number>;
-
-type LanguageFields = $ReadOnlyArray<LanguageField>;
-
-type WorkAttributeField = CompoundFieldT<{|
-  +type_id: FieldT<number | null>,
-  +value: FieldT<number | string | null>,
+type WorkAttributeField = ReadOnlyCompoundFieldT<{|
+  +type_id: ReadOnlyFieldT<?number>,
+  +value: ReadOnlyFieldT<?StrOrNum>,
 |}>;
 
 type WorkForm = FormT<{|
-  +attributes: RepeatableFieldT<WorkAttributeField>,
-  +languages: RepeatableFieldT<LanguageField>,
+  +attributes: ReadOnlyRepeatableFieldT<WorkAttributeField>,
+  +languages: ReadOnlyRepeatableFieldT<ReadOnlyFieldT<?number>>,
+|}>;
+
+type WritableWorkAttributeField = CompoundFieldT<{|
+  +type_id: FieldT<?number>,
+  +value: FieldT<?StrOrNum>,
+|}>;
+
+type WritableWorkForm = FormT<{|
+  +attributes: RepeatableFieldT<WritableWorkAttributeField>,
+  +languages: RepeatableFieldT<FieldT<?number>>,
 |}>;
 
 /*
@@ -54,9 +60,6 @@ const workLanguageOptions: MaybeGroupedOptionsT = {
   options: scriptArgs.workLanguageOptions,
 };
 
-const languagesField: Lens<WorkForm, LanguageFields> =
-  compose3(prop('field'), prop('languages'), prop('field'));
-
 const store = createStore(function (state: WorkForm = form, action) {
   switch (action.type) {
     case 'ADD_LANGUAGE':
@@ -64,12 +67,9 @@ const store = createStore(function (state: WorkForm = form, action) {
       break;
 
     case 'EDIT_LANGUAGE':
-      state = set(
-        (compose3(languagesField, index(action.index), prop('value')):
-          Lens<WorkForm, number>),
-        action.languageId,
-        state,
-      );
+      state = mutate<WorkForm, _>(state, newState => {
+        newState.field.languages.field[action.index].value = action.languageId;
+      });
       break;
 
     case 'REMOVE_LANGUAGE':
@@ -84,7 +84,7 @@ const store = createStore(function (state: WorkForm = form, action) {
   return state;
 });
 
-function pushField<F, R: RepeatableFieldT<F>>(
+function pushField<F, R: ReadOnlyRepeatableFieldT<F>>(
   form: WorkForm,
   repeatable: R,
   value: mixed,
@@ -98,22 +98,21 @@ function pushField<F, R: RepeatableFieldT<F>>(
 }
 
 function addLanguageToState(form: WorkForm): WorkForm {
-  const languages = form.field.languages.field.slice(0);
-  const newForm = set(languagesField, languages, form);
-  languages.push(
-    pushField(
-      newForm,
-      newForm.field.languages,
-      null,
-    )
-  );
-  return newForm;
+  return mutate<WritableWorkForm, _>(form, newForm => {
+    newForm.field.languages.field.push(
+      pushField(
+        newForm,
+        newForm.field.languages,
+        null,
+      )
+    );
+  });
 }
 
 function removeLanguageFromState(form: WorkForm, i: number): WorkForm {
-  const languages = form.field.languages.field.slice(0);
-  languages.splice(i, 1);
-  return set(languagesField, languages, form);
+  return mutate<WritableWorkForm, _>(form, newForm => {
+    newForm.field.languages.field.splice(i, 1);
+  });
 }
 
 class WorkAttribute {

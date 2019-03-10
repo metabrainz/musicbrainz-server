@@ -18,7 +18,12 @@ module.exports = function (api) {
     '@babel/plugin-transform-flow-strip-types',
     '@babel/plugin-transform-react-jsx',
     '@babel/plugin-transform-react-constant-elements',
-    '@babel/plugin-transform-runtime',
+    ['@babel/plugin-transform-runtime', {
+      corejs: 2,
+      helpers: true,
+      regenerator: true,
+      useESModules: false,
+    }],
     '@babel/plugin-proposal-class-properties',
     '@babel/plugin-syntax-dynamic-import',
   ];
