@@ -17,7 +17,7 @@ import ReleaseGroupList from './components/ReleaseGroupList';
 import FilterLink from './FilterLink';
 import type {ReportDataT, ReportReleaseGroupT} from './types';
 
-const ReleaseGroupsWithoutVALink = ({
+const SetInDifferentRg = ({
   $c,
   canBeFiltered,
   filtered,
@@ -25,13 +25,21 @@ const ReleaseGroupsWithoutVALink = ({
   items,
   pager,
 }: ReportDataT<ReportReleaseGroupT>) => (
-  <Layout fullWidth title={l('Release groups credited to "Various Artists" but not linked to VA')}>
-    <h1>{l('Release groups credited to "Various Artists" but not linked to VA')}</h1>
+  <Layout fullWidth title={l('Mismatched release groups')}>
+    <h1>{l('Mismatched release groups')}</h1>
 
     <ul>
       <li>
-        {l(`This report shows release groups with "Various Artists" as the
-            credited name but not linked to the Various Artists entity.`)}
+        {exp.l(
+          `This report shows release groups with releases that are linked to
+           releases in different release groups by part-of-set or
+           transliteration relationships. If a pair of release groups are
+           listed here, you should probably merge them. If the releases are
+           discs linked with "part of set" relationships, you might want to
+           merge them too into one multi-disc release
+           (see {how_to_merge_releases|How to Merge Releases}).`,
+          {how_to_merge_releases: '/doc/How_to_Merge_Releases'},
+        )}
       </li>
       <li>{texp.l('Total release groups found: {count}', {count: pager.total_entries})}</li>
       <li>{texp.l('Generated on {date}', {date: formatUserDate($c.user, generated)})}</li>
@@ -44,4 +52,4 @@ const ReleaseGroupsWithoutVALink = ({
   </Layout>
 );
 
-export default withCatalystContext(ReleaseGroupsWithoutVALink);
+export default withCatalystContext(SetInDifferentRg);

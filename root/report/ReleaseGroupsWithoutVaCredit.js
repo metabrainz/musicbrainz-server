@@ -17,7 +17,7 @@ import ReleaseGroupList from './components/ReleaseGroupList';
 import FilterLink from './FilterLink';
 import type {ReportDataT, ReportReleaseGroupT} from './types';
 
-const ReleaseGroupsWithoutVACredit = ({
+const ReleaseGroupsWithoutVaCredit = ({
   $c,
   canBeFiltered,
   filtered,
@@ -44,4 +44,4 @@ const ReleaseGroupsWithoutVACredit = ({
   </Layout>
 );
 
-export default withCatalystContext(ReleaseGroupsWithoutVACredit);
+export default withCatalystContext(ReleaseGroupsWithoutVaCredit);

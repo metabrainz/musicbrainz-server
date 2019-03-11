@@ -4,6 +4,8 @@ use MusicBrainz::Server::Constants qw( $VARTIST_ID );
 
 with 'MusicBrainz::Server::Report::ReleaseGroupReport';
 
+sub component_name { 'ReleaseGroupsWithoutVaCredit'}
+
 sub query {
     "
         SELECT

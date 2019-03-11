@@ -17,7 +17,7 @@ import RecordingList from './components/RecordingList';
 import FilterLink from './FilterLink';
 import type {ReportDataT, ReportRecordingT} from './types';
 
-const RecordingsWithoutVALink = ({
+const RecordingsWithoutVaLink = ({
   $c,
   canBeFiltered,
   filtered,
@@ -44,4 +44,4 @@ const RecordingsWithoutVALink = ({
   </Layout>
 );
 
-export default withCatalystContext(RecordingsWithoutVALink);
+export default withCatalystContext(RecordingsWithoutVaLink);

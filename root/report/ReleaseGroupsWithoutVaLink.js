@@ -13,35 +13,35 @@ import {withCatalystContext} from '../context';
 import Layout from '../layout';
 import formatUserDate from '../utility/formatUserDate';
 
-import RecordingList from './components/RecordingList';
+import ReleaseGroupList from './components/ReleaseGroupList';
 import FilterLink from './FilterLink';
-import type {ReportDataT, ReportRecordingT} from './types';
+import type {ReportDataT, ReportReleaseGroupT} from './types';
 
-const RecordingsWithoutVACredit = ({
+const ReleaseGroupsWithoutVaLink = ({
   $c,
   canBeFiltered,
   filtered,
   generated,
   items,
   pager,
-}: ReportDataT<ReportRecordingT>) => (
-  <Layout fullWidth title={l('Recordings not credited to "Various Artists" but linked to VA')}>
-    <h1>{l('Recordings not credited to "Various Artists" but linked to VA')}</h1>
+}: ReportDataT<ReportReleaseGroupT>) => (
+  <Layout fullWidth title={l('Release groups credited to "Various Artists" but not linked to VA')}>
+    <h1>{l('Release groups credited to "Various Artists" but not linked to VA')}</h1>
 
     <ul>
       <li>
-        {l(`This report shows recordings linked to the Various Artists entity
-            without "Various Artists" as the credited name.`)}
+        {l(`This report shows release groups with "Various Artists" as the
+            credited name but not linked to the Various Artists entity.`)}
       </li>
-      <li>{texp.l('Total recordings found: {count}', {count: pager.total_entries})}</li>
+      <li>{texp.l('Total release groups found: {count}', {count: pager.total_entries})}</li>
       <li>{texp.l('Generated on {date}', {date: formatUserDate($c.user, generated)})}</li>
 
       {canBeFiltered ? <FilterLink filtered={filtered} /> : null}
     </ul>
 
-    <RecordingList items={items} pager={pager} />
+    <ReleaseGroupList items={items} pager={pager} />
 
   </Layout>
 );
 
-export default withCatalystContext(RecordingsWithoutVACredit);
+export default withCatalystContext(ReleaseGroupsWithoutVaLink);
