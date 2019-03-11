@@ -784,6 +784,7 @@ declare type RepeatableFieldT<F> = {|
   has_errors: boolean,
   html_name: string,
   id: number,
+  last_index: number,
 |};
 
 declare type ReadOnlyRepeatableFieldT<+F> = {|
@@ -792,6 +793,7 @@ declare type ReadOnlyRepeatableFieldT<+F> = {|
   +has_errors: boolean,
   +html_name: string,
   +id: number,
+  last_index: number,
 |};
 
 declare type SanitizedCatalystContextT = {|

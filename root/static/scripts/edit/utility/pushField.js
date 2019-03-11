@@ -19,7 +19,7 @@ export function pushField<V>(
 ) {
   repeatable.field.push(
     createField(
-      repeatable.html_name + '.' + String(repeatable.field.length),
+      repeatable.html_name + '.' + String(++repeatable.last_index),
       value,
     )
   );
@@ -29,6 +29,6 @@ export function pushCompoundField<F: {...}>(
   repeatable: RepeatableFieldT<CompoundFieldT<MapFields<$ReadOnly<F>>>>,
   fieldValues: F,
 ) {
-  const name = repeatable.html_name + '.' + String(repeatable.field.length);
+  const name = repeatable.html_name + '.' + String(++repeatable.last_index);
   repeatable.field.push(createCompoundField(name, fieldValues));
 }
