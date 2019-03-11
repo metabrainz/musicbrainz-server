@@ -26,6 +26,15 @@ has 'has_discids' => (
     isa => 'Bool'
 );
 
+around TO_JSON => sub {
+    my ($orig, $self) = @_;
+
+    my $json = $self->$orig;
+    $json->{year} = $self->year;
+    $json->{hasDiscids} = $self->has_discids;
+    return $json;
+};
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;
