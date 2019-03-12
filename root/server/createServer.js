@@ -71,6 +71,15 @@ const connectionListener = Raven.wrap(function (socket) {
         socket.end();
         socket.destroy();
       } else {
+        // Merge new linked entities into current ones.
+        const current = context.linked_entities;
+        for (let [type, entities] of Object.entries(requestBody.linked_entities)) {
+          if (!current[type]) {
+            current[type] = entities;
+          } else {
+            Object.assign(current[type], entities);
+          }
+        }
         writeResponse(socket, getResponse(requestBody, context));
       }
 
