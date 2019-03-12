@@ -25,7 +25,6 @@ type WorkListRowProps = {|
   +checkboxes?: string,
   +hasAttributesColumn?: boolean,
   +hasIswcColumn?: boolean,
-  +hasMergeColumn?: boolean,
   +hasRatingsColumn?: boolean,
   +work: WorkT,
 |};
@@ -35,7 +34,6 @@ type WorkListEntryProps = {|
   +checkboxes?: string,
   +hasAttributesColumn?: boolean,
   +hasIswcColumn?: boolean,
-  +hasMergeColumn?: boolean,
   +hasRatingsColumn?: boolean,
   +index: number,
   +score?: number,
@@ -47,16 +45,15 @@ export const WorkListRow = withCatalystContext(({
   checkboxes,
   hasAttributesColumn,
   hasIswcColumn,
-  hasMergeColumn,
   hasRatingsColumn,
   seriesItemNumbers,
   work,
 }: WorkListRowProps) => (
   <>
-    {hasMergeColumn || ($c.user_exists && checkboxes) ? (
+    {$c.user_exists && checkboxes ? (
       <td>
         <input
-          name={checkboxes ? checkboxes : 'add-to-merge'}
+          name={checkboxes}
           type="checkbox"
           value={work.id}
         />
@@ -120,7 +117,6 @@ const WorkListEntry = ({
   checkboxes,
   hasAttributesColumn,
   hasIswcColumn,
-  hasMergeColumn,
   hasRatingsColumn,
   index,
   score,
@@ -132,7 +128,6 @@ const WorkListEntry = ({
       checkboxes={checkboxes}
       hasAttributesColumn={hasAttributesColumn}
       hasIswcColumn={hasIswcColumn}
-      hasMergeColumn={hasMergeColumn}
       hasRatingsColumn={hasRatingsColumn}
       seriesItemNumbers={seriesItemNumbers}
       work={work}
