@@ -773,6 +773,7 @@ declare type ReleaseEventT = {|
 declare type ReleaseLabelT = {|
   +catalogNumber: string | null,
   +label: LabelT | null,
+  +label_id: number,
 |};
 
 declare type ReleaseStatusT = OptionTreeT<'release_status'>;

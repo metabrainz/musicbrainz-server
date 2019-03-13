@@ -11,5 +11,7 @@ export default function filterReleaseLabels(
   releaseLabels: $ReadOnlyArray<ReleaseLabelT>,
   label: LabelT,
 ): $ReadOnlyArray<ReleaseLabelT> {
-  return releaseLabels.filter(id => id === label.id);
+  return releaseLabels.filter(
+    releaseLabel => releaseLabel.label_id === label.id,
+  );
 }
