@@ -34,6 +34,12 @@
       [%- ELSIF collection.type.item_entity_type == 'place' -%]
         [% React.embed(c, 'components/PlacesList', { places => entities, checkboxes => my_collection ? 'remove' : '', order => order, sortable => 1})
             WRAPPER 'components/with-pager.tt' %]
+      [%- ELSIF collection.type.item_entity_type == 'recording' -%]
+        [% React.embed(c, 'components/RecordingsList', { recordings => entities, checkboxes => my_collection ? 'remove' : '', showRatings => 1, order => order, sortable => 1})
+            WRAPPER 'components/with-pager.tt' %]
+      [%- ELSIF collection.type.item_entity_type == 'release' -%]
+        [% React.embed(c, 'components/ReleasesList', { releases => entities, checkboxes => my_collection ? 'remove' : '', order => order, sortable => 1, showArtists => 1, showRatings => 1})
+            WRAPPER 'components/with-pager.tt' %]
       [%- ELSIF collection.type.item_entity_type == 'release_group' -%]
         [% React.embed(c, 'components/ReleaseGroupsList', { releaseGroups => entities, checkboxes => my_collection ? 'remove' : '', order => order, sortable => 1, showRatings => 1, groupByType => 1 }) # TODO: On conversion to React, please check MBS-10155.
             WRAPPER 'components/with-pager.tt' %]
@@ -42,9 +48,6 @@
             WRAPPER 'components/with-pager.tt' %]
       [%- ELSIF collection.type.item_entity_type == 'work' -%]
         [% React.embed(c, 'components/WorksList', { works => entities, checkboxes => my_collection ? 'remove' : '', order => order, sortable => 1, showRatings => 1})
-            WRAPPER 'components/with-pager.tt' %]
-      [%- ELSIF collection.type.item_entity_type == 'recording' -%]
-        [% React.embed(c, 'components/RecordingsList', { recordings => entities, checkboxes => my_collection ? 'remove' : '', showRatings => 1, order => order, sortable => 1})
             WRAPPER 'components/with-pager.tt' %]
       [%- ELSE -%]
         [%- INCLUDE $entity_list_template show_artists=1 show_ratings=1 checkboxes=(my_collection ? 'remove' : '') sortable=1
