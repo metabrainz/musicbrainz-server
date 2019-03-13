@@ -27,8 +27,7 @@
       ELSIF series.type.item_entity_type == 'release';
         '<h2>' _ l('Releases') _ '</h2>';
         IF entities.size;
-          INCLUDE 'components/releases-list.tt'
-                  releases=entities checkboxes='' show_artists=1
+          React.embed(c, 'components/ReleasesList', { releases => entities, seriesItemNumbers => series_item_numbers, showArtists => 1})
           WRAPPER 'components/with-pager.tt';
         END;
       ELSIF series.type.item_entity_type == 'release_group';
