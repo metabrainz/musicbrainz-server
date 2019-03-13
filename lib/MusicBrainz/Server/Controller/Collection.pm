@@ -113,6 +113,7 @@ sub show : Chained('load') PathPart('') {
     } elsif ($entity_type eq 'label') {
         $c->model('LabelType')->load(@$entities);
         $c->model('Area')->load(@$entities);
+        $c->model('Area')->load_containment(map { $_->{area} } @$entities);
     } elsif ($entity_type eq 'release') {
         $c->model('ArtistCredit')->load(@$entities);
         $c->model('ReleaseGroup')->load(@$entities);

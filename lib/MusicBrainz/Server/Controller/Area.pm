@@ -154,6 +154,8 @@ sub labels : Chained('load')
         $c->model('Label')->find_by_area($c->stash->{area}->id, shift, shift);
     });
     $c->model('LabelType')->load(@$labels);
+    $c->model('Area')->load(@$labels);
+    $c->model('Area')->load_containment(map { $_->{area} } @$labels);
     if ($c->user_exists) {
         $c->model('Label')->rating->load_user_ratings($c->user->id, @$labels);
     }
