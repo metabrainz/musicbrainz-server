@@ -37,8 +37,12 @@ function buildResult(result, index) {
       <td>
         <ArtistCreditLink artistCredit={release.artistCredit} />
       </td>
-      <td>{release.combined_format_name}</td>
-      <td>{release.combined_track_count}</td>
+      <td>
+        {release.combined_format_name || l('[missing media]')}
+      </td>
+      <td>
+        {release.combined_track_count || '-'}
+      </td>
       <td>
         <ReleaseDates events={release.events} />
       </td>
