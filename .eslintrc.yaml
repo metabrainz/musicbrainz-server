@@ -58,6 +58,7 @@ rules:
   no-eq-null: error
   no-floating-decimal: warn
   no-multi-spaces: [error, {ignoreEOLComments: true}]
+  no-unneeded-ternary: warn
   radix: warn
   wrap-iife: warn
 
