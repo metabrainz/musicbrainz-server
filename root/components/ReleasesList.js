@@ -35,7 +35,6 @@ type Props = {|
   +filterLabel?: LabelT,
   +order?: string,
   +releases: $ReadOnlyArray<ReleaseT>,
-  +showArtists?: boolean,
   +showInstrumentCredits?: boolean,
   +showRatings?: boolean,
   +sortable?: boolean,
@@ -49,7 +48,6 @@ const ReleasesList = ({
   order,
   releases,
   seriesItemNumbers,
-  showArtists,
   showInstrumentCredits,
   showRatings,
   sortable,
@@ -74,19 +72,17 @@ const ReleasesList = ({
             )
             : l('Release')}
         </th>
-        {showArtists ? (
-          <th>
-            {sortable
-              ? (
-                <SortableTableHeader
-                  label={l('Artist')}
-                  name="artist"
-                  order={order}
-                />
-              )
-              : l('Artist')}
-          </th>
-        ) : null}
+        <th>
+          {sortable
+            ? (
+              <SortableTableHeader
+                label={l('Artist')}
+                name="artist"
+                order={order}
+              />
+            )
+            : l('Artist')}
+        </th>
         <th>
           {sortable
             ? (
@@ -191,11 +187,9 @@ const ReleasesList = ({
           <td>
             <EntityLink entity={release} />
           </td>
-          {showArtists ? (
-            <td>
-              <ArtistCreditLink artistCredit={release.artistCredit} />
-            </td>
-          ) : null}
+          <td>
+            <ArtistCreditLink artistCredit={release.artistCredit} />
+          </td>
           <td>
             {release.combined_format_name || l('[missing media]')}
           </td>
