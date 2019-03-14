@@ -217,6 +217,7 @@ module.exports = {
   'components/InstrumentsList': require('../components/InstrumentsList'),
   'components/LabelsList': require('../components/LabelsList'),
   'components/PlacesList': require('../components/PlacesList'),
+  'components/RecordingsList': require('../components/RecordingsList'),
   'components/Relationships': require('../components/Relationships'),
   'components/ReleaseGroupsList': require('../components/ReleaseGroupsList'),
   'components/SeriesList': require('../components/SeriesList'),
