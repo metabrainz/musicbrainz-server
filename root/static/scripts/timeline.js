@@ -104,9 +104,7 @@ class TimelineViewModel {
         });
         // rateLimit to ensure graph doesn't need frequent redrawing
         self.lines = debounce(function () {
-            return _.chain(self.enabledCategories())
-                .map(function (category) { return category.enabledLines() })
-                .flatten().value();
+            return [].concat(...self.enabledCategories().map(category => category.enabledLines()));
         }, 1000);
 
         self.waitToGraph = ko.computed(function () {
@@ -153,22 +151,25 @@ class TimelineViewModel {
         self.addLines(lines);
         self._getLocationHashSettings();
 
+        function getHashPart(accum, object) {
+            if (object.enabledByDefault !== object.enabled()) {
+                accum.push((object.enabled() ? '' : '-') + object.hashIdentifier);
+            }
+            return accum;
+        }
+
         self.hash = debounce(function () {
             var optionParts = [];
             if (self.options.rate()) { optionParts.push('r') }
             if (!self.options.events()) { optionParts.push('-v') }
             if (self.zoomHashPart()) { optionParts.push(self.zoomHashPart()) }
-            var categoryParts = _.chain(self.categories())
-                .filter(function (category) { return category.enabledByDefault !== category.enabled() })
-                .map(function (category) { return (category.enabled() ? '' : '-') + category.hashIdentifier })
-                .value().sort();
-            var lineParts = _.chain(self.categories())
-                .filter(function (category) { return category.enabled() })
-                .map(function (category) { return category.lines() })
-                .flatten()
-                .filter(function (line) { return line.enabledByDefault !== line.enabled() })
-                .map(function (line) { return (line.enabled() ? '' : '-') + line.hashIdentifier })
-                .value().sort();
+            var categoryParts = self.categories().reduce(getHashPart, []).sort();
+            var lineParts = self.categories().reduce((accum, category) => {
+                if (category.enabled()) {
+                    accum.push(...category.lines().reduce(getHashPart, []));
+                }
+                return accum;
+            }, []).sort();
             return optionParts.concat(categoryParts, lineParts).join('+');
         }, 1000);
 
@@ -216,10 +217,15 @@ class TimelineViewModel {
                 self.zoomHashPart(part);
             } else {
                 match = part.match(/^(-)?(.*)$/);
-                var line = _.chain(self.categories())
-                    .map(function (category) { return category.lines() })
-                    .flatten().find({ hashIdentifier: match[2] }).value();
-                if (line) { line.enabled(!(match[1] === '-')) }
+                outer:
+                for (let category of self.categories()) {
+                    for (let line of category.lines()) {
+                        if (line.hashIdentifier === match[2]) {
+                            line.enabled(!(match[1] === '-'))
+                            break outer;
+                        }
+                    }
+                }
             }
         });
     }
