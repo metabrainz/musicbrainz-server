@@ -536,7 +536,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
         }
     }
 
-    _.assign(Dialog.prototype, {
+    Object.assign(Dialog.prototype, {
         loading: ko.observable(false),
         showAttributesHelp: ko.observable(false),
         showLinkTypeHelp: ko.observable(false),
@@ -555,7 +555,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
             var widget = $dialog.data("ui-dialog");
             widget.uiDialog.find(".ui-dialog-titlebar").remove();
 
-            _.assign(Dialog.prototype, {$dialog, widget});
+            Object.assign(Dialog.prototype, {$dialog, widget});
             ko.applyBindings(this.viewModel, $dialog[0]);
         }),
     });
@@ -600,7 +600,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
         }
     }
 
-    _.assign(AddDialog.prototype, {
+    Object.assign(AddDialog.prototype, {
         dialogTemplate: "template.relationship-dialog",
         disableTypeSelection: false,
     });
@@ -641,7 +641,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
         }
     }
 
-    _.assign(EditDialog.prototype, {
+    Object.assign(EditDialog.prototype, {
         dialogTemplate: "template.relationship-dialog",
         disableTypeSelection: true,
     });
@@ -674,7 +674,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
         }
     }
 
-    _.assign(BatchRelationshipDialog.prototype, {
+    Object.assign(BatchRelationshipDialog.prototype, {
         dialogTemplate: "template.batch-relationship-dialog",
         disableTypeSelection: false,
     });
@@ -682,7 +682,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
     export class BatchCreateWorksDialog extends BatchRelationshipDialog {
 
         constructor(options) {
-            super(_.assign(options, { target: new MB.entity.Work({}) }));
+            super(Object.assign(options, { target: new MB.entity.Work({}) }));
             this.error = ko.observable(false);
         }
 
@@ -726,7 +726,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
         targetEntityError() { return "" }
     }
 
-    _.assign(BatchCreateWorksDialog.prototype, {
+    Object.assign(BatchCreateWorksDialog.prototype, {
         dialogTemplate: "template.batch-create-works-dialog",
         workType: ko.observable(null),
         workLanguage: ko.observable(null),

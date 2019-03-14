@@ -291,7 +291,7 @@ class Track {
     }
 }
 
-_.assign(Track.prototype, {
+Object.assign(Track.prototype, {
     entityType: 'track',
     renderArtistCredit: MB_entity.Entity.prototype.renderArtistCredit,
     isCompleteArtistCredit: MB_entity.Entity.prototype.isCompleteArtistCredit,

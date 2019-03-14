@@ -308,6 +308,6 @@ const actions = {
     copyTrackArtistsToRecordings: ko.observable(false)
 };
 
-_.extend(releaseEditor, actions);
+Object.assign(releaseEditor, actions);
 
 export default actions;

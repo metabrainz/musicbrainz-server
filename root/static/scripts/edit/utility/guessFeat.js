@@ -157,7 +157,7 @@ function expandCredit(fullName, artists, isProbablyClassical) {
         .map(function (pair) {
             var name = cleanCredit(pair[0], isProbablyClassical);
 
-            return _.assign(
+            return Object.assign(
                 {similarity: -1, artist: null, name: name, joinPhrase: fixJoinPhrase(pair[1])},
                 bestArtistMatch(artists, name, isProbablyClassical) || {}
             );
@@ -197,7 +197,7 @@ export default function (entity) {
 MB.Control.initGuessFeatButton = function (formName) {
     var nameInput = document.getElementById('id-' + formName + '.name');
 
-    var augmentedEntity = _.assign(
+    var augmentedEntity = Object.assign(
         Object.create(MB.sourceRelationshipEditor.source),
         {
             // Emulate an observable that just reads/writes to the name input directly.

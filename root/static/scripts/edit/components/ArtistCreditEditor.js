@@ -39,21 +39,21 @@ function setAutoJoinPhrases(ac) {
   if (size > 0) {
     const name0 = ac[size - 1];
     if (name0 && name0.automaticJoinPhrase !== false) {
-      ac[size - 1] = _.assign({}, name0, {joinPhrase: ''});
+      ac[size - 1] = {...name0, joinPhrase: ''};
     }
   }
 
   if (size > 1) {
     const name1 = ac[size - 2];
     if (name1 && name1.automaticJoinPhrase !== false && auto.test(name1.joinPhrase)) {
-      ac[size - 2] = _.assign({}, name1, {joinPhrase: ' & '});
+      ac[size - 2] = {...name1, joinPhrase: ' & '};
     }
   }
 
   if (size > 2) {
     const name2 = ac[size - 3];
     if (name2 && name2.automaticJoinPhrase !== false && auto.test(name2.joinPhrase)) {
-      ac[size - 3] = _.assign({}, name2, {joinPhrase: ', '});
+      ac[size - 3] = {...name2, joinPhrase: ', '};
     }
   }
 

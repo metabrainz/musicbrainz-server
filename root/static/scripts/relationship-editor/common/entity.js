@@ -39,7 +39,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
         this.relationshipElements = {};
     };
 
-    _.assign(coreEntityPrototype, {
+    Object.assign(coreEntityPrototype, {
 
         parseRelationships: function (relationships) {
             var self = this;

@@ -11,7 +11,7 @@ var previousDeferred = null;
 var timeout = 1000;
 
 function makeRequest(args, context, deferred) {
-    deferred.jqXHR = $.ajax(_.extend({ dataType: "json" }, args))
+    deferred.jqXHR = $.ajax({...args, dataType: "json"})
         .done(function () {
             if (!deferred.aborted) {
                 deferred.resolveWith(context, arguments);

@@ -24,7 +24,7 @@ import recordingAssociation from './recordingAssociation';
 import utils from './utils';
 import releaseEditor from './viewModel';
 
-_.extend(releaseEditor, {
+Object.assign(releaseEditor, {
     activeTabID: ko.observable("#information"),
     activeTabIndex: ko.observable(0),
     loadError: ko.observable(""),

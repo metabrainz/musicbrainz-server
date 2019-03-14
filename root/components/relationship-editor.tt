@@ -140,7 +140,7 @@
     <td data-bind="foreach: relationship().linkTypeAttributes()">
       <!-- ko template: {
                 name: "template.edit-attribute",
-                data: _.assign({ relationship: $parent.relationship() }, $data)
+                data: Object.assign({ relationship: $parent.relationship() }, $data)
               }
         --><!-- /ko -->
     </td>

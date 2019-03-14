@@ -34,7 +34,7 @@ import formatTrackLength from './utility/formatTrackLength';
     class Entity {
 
         constructor(data) {
-            _.assign(this, data);
+            Object.assign(this, data);
             this.name = this.name || "";
         }
 
@@ -283,7 +283,7 @@ import formatTrackLength from './utility/formatTrackLength';
         }
 
         toJSON() {
-            return _.assign(super.toJSON(), { isrcs: this.isrcs, appearsOn: this.appearsOn });
+            return Object.assign(super.toJSON(), { isrcs: this.isrcs, appearsOn: this.appearsOn });
         }
     }
 
@@ -357,7 +357,7 @@ import formatTrackLength from './utility/formatTrackLength';
         }
 
         toJSON() {
-            return _.assign(super.toJSON(), {
+            return Object.assign(super.toJSON(), {
                 type: this.type(),
                 typeID: this.typeID,
                 orderingTypeID: this.orderingTypeID
@@ -408,7 +408,7 @@ import formatTrackLength from './utility/formatTrackLength';
 
     class Work extends CoreEntity {
         toJSON() {
-            return _.assign(super.toJSON(), { artists: this.artists });
+            return Object.assign(super.toJSON(), { artists: this.artists });
         }
     }
 
