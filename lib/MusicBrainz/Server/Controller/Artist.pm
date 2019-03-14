@@ -213,6 +213,7 @@ sub show : PathPart('') Chained('load')
         $recordings = $self->_load_paged($c, sub {
             $c->model('Recording')->find_standalone($artist->id, shift, shift);
         });
+        $c->model('ArtistCredit')->load(@$recordings);
     }
 
     $c->stash(

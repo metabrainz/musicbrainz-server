@@ -42,7 +42,8 @@ END %]
     [%- END -%]
 
     [%- IF recordings.size -%]
-            [%- INCLUDE 'components/recordings-list.tt' checkboxes='add-to-merge' WRAPPER 'components/with-pager.tt' -%]
+            [% React.embed(c, 'components/RecordingsList', { recordings => recordings, checkboxes => 'add-to-merge', showArtists => 1, showRatings => 1 })
+                WRAPPER 'components/with-pager.tt' -%]
     [%- END -%]
 
     <p>
