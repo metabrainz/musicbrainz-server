@@ -6,6 +6,7 @@ with 'MusicBrainz::Server::Report::ReleaseReport',
      'MusicBrainz::Server::Report::FilterForEditor::ReleaseID';
 
 sub table { 'bad_amazon_urls' }
+sub component_name { 'BadAmazonUrls' }
 
 sub query
 {

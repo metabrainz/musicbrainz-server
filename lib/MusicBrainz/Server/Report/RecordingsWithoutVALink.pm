@@ -4,6 +4,8 @@ use MusicBrainz::Server::Constants qw( $VARTIST_ID );
 
 with 'MusicBrainz::Server::Report::RecordingReport';
 
+sub component_name { 'RecordingsWithoutVaLink' }
+
 sub query {
     "
         SELECT
