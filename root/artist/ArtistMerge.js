@@ -32,40 +32,48 @@ type Props = {|
   +toMerge: $ReadOnlyArray<ArtistT>,
 |};
 
-const buildMergeTarget = (artist, index) => (
-  <li key={artist.id}>
-    <input name={'merge.merging.' + index} type="hidden" value={artist.id} />
-    <input name="merge.target" type="radio" value={artist.id} />
-    <DescriptiveLink entity={artist} />
-  </li>
-);
-
-const ArtistMerge = ({$c, form, toMerge}: Props) => (
-  <Layout fullWidth title={l('Merge Artists')}>
-    <div id="content">
-      <h1>{l('Merge Artists')}</h1>
-      <p>{l('You are about to merge the following artists into a single artist. Please select the artist which you would like other artists to be merged into:')}</p>
-      <form action={$c.req.uri} method="post">
-        <ul>
-          {sortBy(toMerge, 'name').map(buildMergeTarget)}
-        </ul>
-        <FieldErrors field={form.field.target} />
-
-        <FormRowCheckbox
-          field={form.field.rename}
-          label={l('Update matching artist and relationship credits to use the new artist’s name')}
+const ArtistMerge = ({$c, form, toMerge}: Props) => {
+  function buildMergeTarget(artist, index) {
+    return (
+      <li key={artist.id}>
+        <input name={'merge.merging.' + index} type="hidden" value={artist.id} />
+        <input
+          checked={artist.id === form.field.target.value}
+          name="merge.target"
+          type="radio"
+          value={artist.id}
         />
+        <DescriptiveLink entity={artist} />
+      </li>
+    );
+  }
+  return (
+    <Layout fullWidth title={l('Merge Artists')}>
+      <div id="content">
+        <h1>{l('Merge Artists')}</h1>
+        <p>{l('You are about to merge the following artists into a single artist. Please select the artist which you would like other artists to be merged into:')}</p>
+        <form action={$c.req.uri} method="post">
+          <ul>
+            {sortBy(toMerge, 'name').map(buildMergeTarget)}
+          </ul>
+          <FieldErrors field={form.field.target} />
 
-        <EnterEditNote field={form.field.edit_note} />
+          <FormRowCheckbox
+            field={form.field.rename}
+            label={l('Update matching artist and relationship credits to use the new artist’s name')}
+          />
 
-        <EnterEdit form={form}>
-          <button className="negative" name="submit" type="submit" value="cancel">
-            {l('Cancel')}
-          </button>
-        </EnterEdit>
-      </form>
-    </div>
-  </Layout>
-);
+          <EnterEditNote field={form.field.edit_note} />
+
+          <EnterEdit form={form}>
+            <button className="negative" name="submit" type="submit" value="cancel">
+              {l('Cancel')}
+            </button>
+          </EnterEdit>
+        </form>
+      </div>
+    </Layout>
+  );
+};
 
 export default withCatalystContext(ArtistMerge);
