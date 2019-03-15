@@ -21,7 +21,7 @@
       ELSIF series.type.item_entity_type == 'recording';
         '<h2>' _ l('Recordings') _ '</h2>';
         IF entities.size;
-          React.embed(c, 'components/RecordingsList', { recordings => entities, showArtists => 1, showRatings => 1, seriesItemNumbers => series_item_numbers})
+          React.embed(c, 'components/RecordingsList', { recordings => entities, showRatings => 1, seriesItemNumbers => series_item_numbers})
           WRAPPER 'components/with-pager.tt';
         END;
       ELSIF series.type.item_entity_type == 'release';

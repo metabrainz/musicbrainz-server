@@ -32,7 +32,6 @@ type Props = {|
   +order?: string,
   +recordings: $ReadOnlyArray<RecordingT>,
   +renderCheckboxElement?: (RecordingT, number) => AnyReactElem,
-  +showArtists: boolean,
   +showInstrumentCredits?: boolean,
   +showRatings?: boolean,
   +sortable?: boolean,
@@ -47,7 +46,6 @@ const RecordingsList = ({
   recordings,
   renderCheckboxElement,
   seriesItemNumbers,
-  showArtists,
   showInstrumentCredits,
   showRatings,
   sortable,
@@ -72,19 +70,17 @@ const RecordingsList = ({
             )
             : l('Name')}
         </th>
-        {showArtists ? (
-          <th>
-            {sortable
-              ? (
-                <SortableTableHeader
-                  label={l('Artist')}
-                  name="artist"
-                  order={order}
-                />
-              )
-              : l('Artist')}
-          </th>
-        ) : null}
+        <th>
+          {sortable
+            ? (
+              <SortableTableHeader
+                label={l('Artist')}
+                name="artist"
+                order={order}
+              />
+            )
+            : l('Artist')}
+        </th>
         <th>{l('ISRCs')}</th>
         {showRatings ? <th>{l('Rating')}</th> : null}
         <th>
@@ -125,13 +121,11 @@ const RecordingsList = ({
           <td>
             <EntityLink entity={recording} />
           </td>
-          {showArtists ? (
-            <td>
-              {recording.artistCredit
-                ? <ArtistCreditLink artistCredit={recording.artistCredit} />
-                : null}
-            </td>
-          ) : null}
+          <td>
+            {recording.artistCredit
+              ? <ArtistCreditLink artistCredit={recording.artistCredit} />
+              : null}
+          </td>
           <td>
             <ul>
               {recording.isrcs.map(isrc => (

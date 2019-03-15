@@ -48,9 +48,9 @@ const ArtistMerge = ({$c, form, toMerge}: Props) => {
     );
   }
   return (
-    <Layout fullWidth title={l('Merge Artists')}>
+    <Layout fullWidth title={l('Merge artists')}>
       <div id="content">
-        <h1>{l('Merge Artists')}</h1>
+        <h1>{l('Merge artists')}</h1>
         <p>
           {l(`You are about to merge the following artists into a single
               artist. Please select the artist which you would like other

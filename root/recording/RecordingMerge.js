@@ -50,9 +50,9 @@ const RecordingMerge = ({$c, form, isrcsDiffer, toMerge}: Props) => {
     );
   }
   return (
-    <Layout fullWidth title={l('Merge Recordings')}>
+    <Layout fullWidth title={l('Merge recordings')}>
       <div id="content">
-        <h1>{l('Merge Recordings')}</h1>
+        <h1>{l('Merge recordings')}</h1>
         <p>
           {l(`You are about to merge the following recordings into a single
               recording. Please select the recording which you would like other
@@ -72,7 +72,6 @@ const RecordingMerge = ({$c, form, isrcsDiffer, toMerge}: Props) => {
           <RecordingsList
             recordings={toMerge}
             renderCheckboxElement={renderCheckboxElement}
-            showArtists
           />
           <FieldErrors field={form.field.target} />
 
