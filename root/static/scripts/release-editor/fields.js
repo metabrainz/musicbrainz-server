@@ -440,7 +440,7 @@ class Medium {
     }
 
     hasToc() {
-        return this.hasExistingTocs() || (this.toc() ? true : false);
+        return this.hasExistingTocs() || (!!this.toc());
     }
 
     tocChanged(toc) {
