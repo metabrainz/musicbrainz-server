@@ -145,8 +145,9 @@ role {
             $self->_merge_form_arguments($c, @entities)
         );
 
-        if ($c->namespace eq 'artist') {
+        if ($c->namespace =~ /^(?:artist|recording)$/) {
             my %props = (
+                isrcsDiffer => $c->stash->{isrcs_differ},
                 form => $form,
                 toMerge => \@entities,
             );

@@ -31,6 +31,7 @@ type Props = {|
   +merging?: boolean,
   +order?: string,
   +recordings: $ReadOnlyArray<RecordingT>,
+  +renderCheckboxElement?: (RecordingT, number) => AnyReactElem,
   +showArtists: boolean,
   +showInstrumentCredits?: boolean,
   +showRatings?: boolean,
@@ -42,9 +43,9 @@ const RecordingsList = ({
   checkboxes,
   instrumentCredits,
   lengthClass,
-  merging,
   order,
   recordings,
+  renderCheckboxElement,
   seriesItemNumbers,
   showArtists,
   showInstrumentCredits,
@@ -54,9 +55,9 @@ const RecordingsList = ({
   <table className="tbl">
     <thead>
       <tr>
-        {$c.user_exists && (checkboxes || merging) ? (
+        {$c.user_exists && (checkboxes || renderCheckboxElement) ? (
           <th>
-            {merging ? null : <input type="checkbox" />}
+            {renderCheckboxElement ? null : <input type="checkbox" />}
           </th>
         ) : null}
         {seriesItemNumbers ? <th style={{width: '1em'}}>{l('#')}</th> : null}
@@ -103,13 +104,17 @@ const RecordingsList = ({
     <tbody>
       {recordings.map((recording, index) => (
         <tr className={loopParity(index)} key={recording.id}>
-          {$c.user_exists && checkboxes ? (
+          {$c.user_exists && (checkboxes || renderCheckboxElement) ? (
             <td>
-              <input
-                name={checkboxes}
-                type="checkbox"
-                value={recording.id}
-              />
+              {renderCheckboxElement
+                ? renderCheckboxElement(recording, index)
+                : (
+                  <input
+                    name={checkboxes}
+                    type="checkbox"
+                    value={recording.id}
+                  />
+                )}
             </td>
           ) : null}
           {seriesItemNumbers ? (

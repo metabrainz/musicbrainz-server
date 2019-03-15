@@ -67,6 +67,7 @@ module.exports = {
   'otherlookup/NotFound': require('../otherlookup/NotFound'),
   'place/NotFound': require('../place/NotFound'),
   'place/PlaceEvents': require('../place/PlaceEvents'),
+  'recording/Merge': require('../recording/Merge'),
   'recording/NotFound': require('../recording/NotFound'),
   'relationship/linkattributetype/NotFound': require('../relationship/linkattributetype/NotFound'),
   'release/NotFound': require('../release/NotFound'),
