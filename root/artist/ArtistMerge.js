@@ -51,7 +51,11 @@ const ArtistMerge = ({$c, form, toMerge}: Props) => {
     <Layout fullWidth title={l('Merge Artists')}>
       <div id="content">
         <h1>{l('Merge Artists')}</h1>
-        <p>{l('You are about to merge the following artists into a single artist. Please select the artist which you would like other artists to be merged into:')}</p>
+        <p>
+          {l(`You are about to merge the following artists into a single
+              artist. Please select the artist which you would like other
+              artists to be merged into:`)}
+        </p>
         <form action={$c.req.uri} method="post">
           <ul>
             {sortBy(toMerge, 'name').map(buildMergeTarget)}
@@ -60,13 +64,19 @@ const ArtistMerge = ({$c, form, toMerge}: Props) => {
 
           <FormRowCheckbox
             field={form.field.rename}
-            label={l('Update matching artist and relationship credits to use the new artist’s name')}
+            label={l(`Update matching artist and relationship credits to use
+                      the new artist’s name`)}
           />
 
           <EnterEditNote field={form.field.edit_note} />
 
           <EnterEdit form={form}>
-            <button className="negative" name="submit" type="submit" value="cancel">
+            <button
+              className="negative"
+              name="submit"
+              type="submit"
+              value="cancel"
+            >
               {l('Cancel')}
             </button>
           </EnterEdit>
