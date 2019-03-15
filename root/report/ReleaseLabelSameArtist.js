@@ -37,14 +37,15 @@ const ReleaseLabelSameArtist = ({
 
     <ul>
       <li>
-        {exp.l(`This report lists releases where the label name is the same as
-            the artist name. Often this means the release is self-released,
-            and the label
-            {SpecialPurposeLabel|should be "[no label]" instead}.`,
-               {
-                 SpecialPurposeLabel:
+        {exp.l(
+          `This report lists releases where the label name is the same as the
+           artist name. Often this means the release is self-released, and the
+           label {SpecialPurposeLabel|should be "[no label]" instead}.`,
+          {
+            SpecialPurposeLabel:
             '/doc/Style/Unknown_and_untitled/Special_purpose_label',
-               })}
+          }
+        )}
       </li>
       <li>
         {texp.l('Total releases found: {count}',

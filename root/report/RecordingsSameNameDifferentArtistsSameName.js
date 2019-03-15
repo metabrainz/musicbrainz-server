@@ -47,7 +47,7 @@ const RecordingsSameNameDifferentArtistsSameName = ({
       </li>
       <li>
         {exp.l(`These are most likely cases where the {ac|artist credit} is
-            incorrect for at least one of the recordings.`,
+                incorrect for at least one of the recordings.`,
                {ac: '/doc/Artist_Credits'})}
       </li>
       <li>

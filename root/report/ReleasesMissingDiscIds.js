@@ -36,7 +36,7 @@ const ReleasesMissingDiscIds = ({
       </li>
       <li>
         {exp.l(`For instructions on how to add one, see the
-            {add_discids|documentation page}.`,
+                {add_discids|documentation page}.`,
                {add_discids: '/doc/How_to_Add_Disc_IDs'})}
       </li>
       <li>
