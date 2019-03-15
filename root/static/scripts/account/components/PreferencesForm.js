@@ -103,9 +103,9 @@ class PreferencesForm extends React.Component<Props, State> {
     }));
   }
 
-  handleTimezoneGuess: (e: SyntheticEvent<HTMLButtonElement>) => void;
+  handleTimezoneGuess: () => void;
 
-  handleTimezoneGuess(e: SyntheticEvent<HTMLButtonElement>) {
+  handleTimezoneGuess() {
     const guess = moment.tz.guess();
     if (_.some(this.state.timezoneOptions.options, {value: guess})) {
       this.setState(prevState => mutate<State, _>(prevState, newState => {
