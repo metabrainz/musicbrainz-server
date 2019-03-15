@@ -40,7 +40,7 @@ const buildMergeTarget = (artist, index) => (
   </li>
 );
 
-const MergeArtists = ({$c, form, toMerge}: Props) => (
+const ArtistMerge = ({$c, form, toMerge}: Props) => (
   <Layout fullWidth title={l('Merge Artists')}>
     <div id="content">
       <h1>{l('Merge Artists')}</h1>
@@ -68,4 +68,4 @@ const MergeArtists = ({$c, form, toMerge}: Props) => (
   </Layout>
 );
 
-export default withCatalystContext(MergeArtists);
+export default withCatalystContext(ArtistMerge);

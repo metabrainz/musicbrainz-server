@@ -2,6 +2,7 @@ package MusicBrainz::Server::Controller::Role::Merge;
 use MooseX::MethodAttributes::Role;
 use MooseX::Role::Parameterized;
 
+use MusicBrainz::Server::Data::Utils qw( type_to_model );
 use MusicBrainz::Server::Log qw( log_assertion );
 use MusicBrainz::Server::Translation qw( l ln );
 use MusicBrainz::Server::Validation qw( is_positive_integer );
@@ -152,7 +153,7 @@ role {
                 toMerge => \@entities,
             );
             $c->stash(
-                component_path => $c->namespace . '/Merge.js',
+                component_path => $c->namespace . '/'. type_to_model($c->namespace) . 'Merge.js',
                 component_props => \%props,
                 current_view => 'Node',
             );
