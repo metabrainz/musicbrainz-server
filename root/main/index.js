@@ -79,7 +79,7 @@ const Homepage = ({
 
       <div className="sidebar">
         <div className="feature-column" id="blog-feed">
-          <h2>{l('MusicBrainz Blog')}</h2>
+          <h2>{l('MetaBrainz Blog')}</h2>
 
           {(blogEntries && blogEntries.length) ? (
             <>
