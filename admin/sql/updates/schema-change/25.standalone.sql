@@ -2,6 +2,7 @@
 -- 20170604-mbs-9365.sql
 -- 20170909-mbs-9462-missing-event-triggers.sql
 -- 20180331-mbs-9664-non-loop-checks.sql
+-- 20190317-mbs-9941-mbs-10062-fks.sql
 -- 20190422-mbs-9428-collection-collaborators-fks.sql
 \set ON_ERROR_STOP 1
 BEGIN;
@@ -57,6 +58,17 @@ ALTER TABLE l_release_group_release_group ADD CONSTRAINT non_loop_relationship C
 ALTER TABLE l_series_series               ADD CONSTRAINT non_loop_relationship CHECK (entity0 != entity1);
 ALTER TABLE l_url_url                     ADD CONSTRAINT non_loop_relationship CHECK (entity0 != entity1);
 ALTER TABLE l_work_work                   ADD CONSTRAINT non_loop_relationship CHECK (entity0 != entity1);
+
+--------------------------------------------------------------------------------
+SELECT '20190317-mbs-9941-mbs-10062-fks.sql';
+
+ALTER TABLE genre_alias
+   ADD CONSTRAINT genre_alias_fk_genre
+   FOREIGN KEY (genre)
+   REFERENCES genre(id);
+
+CREATE TRIGGER unique_primary_for_locale BEFORE UPDATE OR INSERT ON genre_alias
+    FOR EACH ROW EXECUTE PROCEDURE unique_primary_genre_alias();
 
 --------------------------------------------------------------------------------
 SELECT '20190422-mbs-9428-collection-collaborators-fks.sql';

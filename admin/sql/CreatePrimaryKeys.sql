@@ -103,6 +103,8 @@ ALTER TABLE event_tag ADD CONSTRAINT event_tag_pkey PRIMARY KEY (event, tag);
 ALTER TABLE event_tag_raw ADD CONSTRAINT event_tag_raw_pkey PRIMARY KEY (event, editor, tag);
 ALTER TABLE event_type ADD CONSTRAINT event_type_pkey PRIMARY KEY (id);
 ALTER TABLE gender ADD CONSTRAINT gender_pkey PRIMARY KEY (id);
+ALTER TABLE genre ADD CONSTRAINT genre_pkey PRIMARY KEY (id);
+ALTER TABLE genre_alias ADD CONSTRAINT genre_alias_pkey PRIMARY KEY (id);
 ALTER TABLE instrument ADD CONSTRAINT instrument_pkey PRIMARY KEY (id);
 ALTER TABLE instrument_alias ADD CONSTRAINT instrument_alias_pkey PRIMARY KEY (id);
 ALTER TABLE instrument_alias_type ADD CONSTRAINT instrument_alias_type_pkey PRIMARY KEY (id);
