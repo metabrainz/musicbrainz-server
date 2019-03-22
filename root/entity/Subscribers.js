@@ -47,10 +47,10 @@ const Subscribers = ({
 
       {(publicEditors.length || (privateEditors > 0)) ? (
         <>
-          {entityType === 'editor' ? (
-            viewingOwnProfile ? (
-              <p>
-                {texp.ln(
+          <p>
+            {entityType === 'editor' ? (
+              viewingOwnProfile ? (
+                texp.ln(
                   `There is currently {num} user subscribed to edits
                    that you make:`,
                   `There are currently {num} users subscribed to edits
@@ -59,11 +59,9 @@ const Subscribers = ({
                   {
                     num: publicEditors.length + privateEditors,
                   },
-                )}
-              </p>
-            ) : (
-              <p>
-                {texp.ln(
+                )
+              ) : (
+                texp.ln(
                   `There is currently {num} user subscribed to edits
                    that {user} makes:`,
                   `There are currently {num} users subscribed to edits
@@ -73,12 +71,10 @@ const Subscribers = ({
                     num: publicEditors.length + privateEditors,
                     user: entity.name,
                   },
-                )}
-              </p>
-            )
-          ) : (
-            <p>
-              {texp.ln(
+                )
+              )
+            ) : (
+              texp.ln(
                 'There is currently {num} user subscribed to {entity}:',
                 'There are currently {num} users subscribed to {entity}:',
                 publicEditors.length + privateEditors,
@@ -86,9 +82,9 @@ const Subscribers = ({
                   entity: entity.name,
                   num: publicEditors.length + privateEditors,
                 },
-              )}
-            </p>
-          )}
+              )
+            )}
+          </p>
           <ul>
             {publicEditors.map(editor => (
               <li key={editor.id}>
@@ -119,51 +115,39 @@ const Subscribers = ({
           </ul>
         </>
       ) : (
-        entityType === 'editor' ? (
-          viewingOwnProfile ? (
-            <p>
-              {l(`There are currently no users subscribed to edits
-                  that you make.`)}
-            </p>
+        <p>
+          {entityType === 'editor' ? (
+            viewingOwnProfile ? (
+              l(`There are currently no users subscribed to edits
+                 that you make.`)
+            ) : (
+              texp.l(`There are currently no users subscribed to edits
+                      that {user} makes.`,
+                     {user: entity.name})
+            )
           ) : (
-            <p>
-              {texp.l(`There are currently no users subscribed to edits
-                       that {user} makes.`,
-                      {user: entity.name})}
-            </p>
-          )
-        ) : (
-          <p>
-            {texp.l('There are currently no users subscribed to {entity}.',
-                    {entity: entity.name})}
-          </p>
-        )
+            texp.l('There are currently no users subscribed to {entity}.',
+                   {entity: entity.name})
+          )}
+        </p>
       )}
 
       {viewingOwnProfile ? null : (
-        subscribed ? (
-          <p>
-            {exp.l('You are currently subscribed. {unsub|Unsubscribe}?',
-                   {unsub: unsubLink})
-            }
-          </p>
-        ) : (
-          (publicEditors.length + privateEditors === 0) ? (
-            <p>
-              {exp.l('Be the first! {sub|Subscribe}?',
-                     {sub: subLink})
-              }
-            </p>
+        <p>
+          {subscribed ? (
+            exp.l('You are currently subscribed. {unsub|Unsubscribe}?',
+                  {unsub: unsubLink})
           ) : (
-            <p>
-              {exp.l('You are not currently subscribed. {sub|Subscribe}?',
-                     {sub: subLink})
-              }
-            </p>
-          )
-        )
-      )
-      }
+            (publicEditors.length + privateEditors === 0) ? (
+              exp.l('Be the first! {sub|Subscribe}?',
+                    {sub: subLink})
+            ) : (
+              exp.l('You are not currently subscribed. {sub|Subscribe}?',
+                    {sub: subLink})
+            )
+          )}
+        </p>
+      )}
     </LayoutComponent>
   );
 };
