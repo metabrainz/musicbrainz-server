@@ -15,12 +15,13 @@ import EditorLink from '../static/scripts/common/components/EditorLink';
 
 import UserAccountTabs from './UserAccountTabs';
 
-type Props = {|
+type Props = {
   +children: React.Node,
   +entity: EditorT,
   +page: string,
   +title?: string,
-|};
+  ...
+};
 
 const UserAccountLayout = ({
   children,
