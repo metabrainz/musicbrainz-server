@@ -686,9 +686,9 @@ END -%]
     name | lower | replace('[^a-z]+', '-') | remove('^-|-$');
     END -%]
 
-[%~ MACRO warning_icon BLOCK # Converted to React at root/static/scripts/edit/components/WarningIcon.js
+[%~ MACRO warning_icon BLOCK # Converted to React at root/static/scripts/common/components/WarningIcon.js
 -%]
-   [% React.embed(c, 'static/scripts/edit/components/WarningIcon') %]
+   [% React.embed(c, 'static/scripts/common/components/WarningIcon') %]
 [%- END -%]
 
 [%~ MACRO error(message, class) BLOCK -%]
