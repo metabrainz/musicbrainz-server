@@ -85,7 +85,7 @@ const StaticRelationshipsDisplay = ({
       targetTypeRows.push(
         <tr key={phraseKey}>
           <th>{addColon(group.phrase)}</th>
-          <td>{phraseRows}</td>
+          <td style={{wordBreak: 'break-all'}}>{phraseRows}</td>
         </tr>,
       );
     }
