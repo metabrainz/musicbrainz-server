@@ -26,7 +26,6 @@ sub show : Path('')
         return;
     }
 
-    my $bare = $c->req->param('bare') || 0;
     $c->stash(
         id => $id,
         page => $page,
@@ -39,11 +38,11 @@ sub show : Path('')
     }
 
     if ($page) {
-        $c->stash->{template} = $bare ? 'doc/bare.tt' : 'doc/page.tt';
+        $c->stash->{template} = 'doc/page.tt';
     }
     else {
         $c->response->status(404);
-        $c->stash->{template} = $bare ? 'doc/bare_error.tt' : 'doc/error.tt';
+        $c->stash->{template} = 'doc/error.tt';
     }
 }
 

@@ -9,7 +9,7 @@ import {withCatalystContext} from '../context';
 import Layout from '../layout';
 import bugTrackerURL from '../static/scripts/common/utility/bugTrackerURL';
 
-// Please try and keep the WikiDoc templates (doc/error.tt & doc/bare_error.tt)
+// Please try and keep the WikiDoc error template (doc/error.tt)
 // looking similar to how this template looks.
 
 const _404 = ({$c, ...props}) => (
