@@ -816,17 +816,17 @@ const testData = [
   },
   // CD Baby
   {
-                     input_url: 'www.cdbaby.name/artist/JohnDoe1#',
+                     input_url: 'www.cdbaby.name/artist/Johnn%c3%afDoe1#',
              input_entity_type: 'artist',
     expected_relationship_type: 'cdbaby',
-            expected_clean_url: 'https://store.cdbaby.com/Artist/JohnDoe1',
+            expected_clean_url: 'https://store.cdbaby.com/Artist/Johnn%c3%afDoe1',
        only_valid_entity_types: ['artist'],
   },
   {
-                     input_url: 'http://cdbaby.com/cd/John003',
+                     input_url: 'http://cdbaby.com/cd/Johnn%c3%af003',
              input_entity_type: 'release',
     expected_relationship_type: undefined,
-            expected_clean_url: 'https://store.cdbaby.com/cd/john003',
+            expected_clean_url: 'https://store.cdbaby.com/cd/johnn%c3%af003',
   },
   // CB (Cape Breton) Fiddle Recordings
   {
