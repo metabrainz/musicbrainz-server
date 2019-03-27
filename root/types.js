@@ -855,7 +855,7 @@ type StructFieldT<+F> =
   | CompoundFieldT<F>
   | RepeatableFieldT<F>;
 
-declare type TypeRoleT<T: {...OptionTreeT}> = {|
+declare type TypeRoleT<T> = {|
   +typeID: number | null,
   +typeName?: string,
 |};
