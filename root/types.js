@@ -766,7 +766,7 @@ declare type ReleaseLabelT = {|
   +label: LabelT | null,
 |};
 
-export opaque type ReleaseStatusT: OptionsTree = OptionsTree;
+export opaque type ReleaseStatusT: OptionTreeT = OptionTreeT;
 
 declare type RepeatableFieldT<+F> = {|
   ...FieldRoleT,
@@ -838,7 +838,7 @@ declare type SeriesT = {|
   +orderingTypeID: number,
 |};
 
-export opaque type SeriesOrderingTypeT: OptionsTree = OptionsTree;
+export opaque type SeriesOrderingTypeT: OptionTreeT = OptionTreeT;
 
 export opaque type SeriesTypeT: OptionTreeT = OptionTreeT;
 
