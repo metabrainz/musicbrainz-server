@@ -16,7 +16,7 @@ import PaginatedResults from '../components/PaginatedResults';
 import loopParity from '../utility/loopParity';
 import ArtistCreditLink
   from '../static/scripts/common/components/ArtistCreditLink';
-import bracketed from '../static/scripts/common/utility/bracketed';
+import {bracketedText} from '../static/scripts/common/utility/bracketed';
 import EntityLink from '../static/scripts/common/components/EntityLink';
 
 import FilterLink from './FilterLink';
@@ -72,7 +72,7 @@ const RecordingsSameNameDifferentArtistsSameName = ({
                   <bdi key="comment">
                     {
                       ' ' +
-                      bracketed(item.recording.artistCredit[0].artist.comment)
+                      bracketedText(item.recording.artistCredit[0].artist.comment)
                     }
                   </bdi>
                 </span>

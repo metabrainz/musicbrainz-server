@@ -17,6 +17,7 @@ import expand, {
   createVarSubstParser,
   error,
   getString,
+  getVarSubstArg,
   gotMatch,
   hasArg,
   NO_MATCH_VALUE,
@@ -74,7 +75,10 @@ function handleTextContentReact(text: string) {
         result.push(he.decode(part));
       }
     }
-    return result;
+    if (typeof replacement === 'string') {
+      return result.join('');
+    }
+    return React.createElement(React.Fragment, null, ...result);
   } else {
     return he.decode(text);
   }
@@ -85,12 +89,7 @@ const parseRootTextContent = createTextContentParser<Output, VarSubstArg>(
   handleTextContentReact,
 );
 
-export function getVarSubstArg(x: mixed): Output {
-  if (React.isValidElement(x)) {
-    return ((x: any): AnyReactElem);
-  }
-  return getString(x);
-}
+
 
 const parseVarSubst = createVarSubstParser<Output, Input>(
   getVarSubstArg,
@@ -156,7 +155,7 @@ function concatArrayMatch<-T>(
 function parseContinuousArray<-T, -V>(
   parsers: $ReadOnlyArray<Parser<Array<T> | T | NO_MATCH, V>>,
   args: ?VarArgs<V>,
-): $ReadOnlyArray<T> {
+): Array<T> {
   return parseContinuous<Array<T> | T, Array<T>, V>(
     parsers,
     args,
@@ -185,7 +184,10 @@ const htmlAttrCondSubstThenParsers = [
 ];
 
 const htmlAttrCondSubstElseParsers = [
-  parseRootTextContent,
+  createTextContentParser<string, StrOrNum>(
+    textContent,
+    handleTextContentText,
+  ),
   parseStringVarSubst,
   parseHtmlAttrValueCondSubst,
 ];
@@ -270,7 +272,7 @@ function parseHtmlTag(args) {
   );
 }
 
-const parseCondSubst = createCondSubstParser<$ReadOnlyArray<Output>, Input>(
+const parseCondSubst = createCondSubstParser<Array<Output>, Input>(
   args => parseContinuousArray(condSubstThenParsers, args),
   args => parseContinuousArray(condSubstElseParsers, args),
 );

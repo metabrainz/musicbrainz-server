@@ -42,7 +42,7 @@ declare type AnyFieldT<+F> =
   | FieldT<F>
   | StructFieldT<F>;
 
-declare type AnyReactElem = React.Element<any>;
+declare type AnyReactElem = React$Element<any>;
 
 declare type ApplicationT = {|
   ...EntityRoleT<'application'>,
@@ -94,9 +94,7 @@ declare type AnnotationT = {|
   +text: string,
 |};
 
-export opaque type AreaTypeT:
-  OptionTreeT<'area_type'> =
-  OptionTreeT<'area_type'>;
+declare type AreaTypeT = OptionTreeT<'area_type'>;
 
 declare type ArtistCreditNameT = {|
   +artist: ArtistT,
@@ -126,9 +124,7 @@ declare type ArtistT = {|
   +sort_name: string,
 |};
 
-export opaque type ArtistTypeT:
-  OptionTreeT<'artist_type'> =
-  OptionTreeT<'artist_type'>;
+declare type ArtistTypeT = OptionTreeT<'artist_type'>;
 
 declare type ArtworkT = {|
   +comment: string,
@@ -294,7 +290,7 @@ declare type CollectionT = {|
   +public: boolean,
 |};
 
-export opaque type CollectionTypeT = {|
+declare type CollectionTypeT = {|
   ...OptionTreeT<'collection_type'>,
   item_entity_type: string,
 |};
@@ -466,9 +462,7 @@ declare type EventT = {|
   +time: string,
 |};
 
-export opaque type EventTypeT:
-  OptionTreeT<'event_type'> =
-  OptionTreeT<'event_type'>;
+declare type EventTypeT = OptionTreeT<'event_type'>;
 
 declare type Expand2ReactInput = VarSubstArg | AnchorProps;
 
@@ -498,9 +492,7 @@ declare type FormT<F> = {|
   +name: string,
 |};
 
-export opaque type GenderT:
-  OptionTreeT<'gender'> =
-  OptionTreeT<'gender'>;
+declare type GenderT = OptionTreeT<'gender'>;
 
 /*
  * See MusicBrainz::Server::Form::Utils::build_grouped_options
@@ -520,9 +512,7 @@ declare type InstrumentT = {|
   +description: string,
 |};
 
-export opaque type InstrumentTypeT:
-  OptionTreeT<'instrument_type'> =
-  OptionTreeT<'instrument_type'>;
+declare type InstrumentTypeT = OptionTreeT<'instrument_type'>;
 
 type IpiCodesRoleT = {|
   +ipi_codes: $ReadOnlyArray<IpiCodeT>,
@@ -569,9 +559,7 @@ declare type LabelT = {|
   +label_code: number,
 |};
 
-export opaque type LabelTypeT:
-  OptionTreeT<'label_type'> =
-  OptionTreeT<'label_type'>;
+declare type LabelTypeT = OptionTreeT<'label_type'>;
 
 declare type LanguageT = {|
   +frequency: number,
@@ -659,9 +647,7 @@ declare type PlaceT = {|
   +coordinates: CoordinatesT | null,
 |};
 
-export opaque type PlaceTypeT:
-  OptionTreeT<'place_type'> =
-  OptionTreeT<'place_type'>;
+declare type PlaceTypeT = OptionTreeT<'place_type'>;
 
 declare type QualityT = -1 | 0 | 1 | 2;
 
@@ -706,8 +692,7 @@ declare type RelationshipT = {|
   +target: CoreEntityT,
 |};
 
-export opaque type ReleaseGroupSecondaryTypeT:
-  OptionTreeT<'release_group_secondary_type'> =
+declare type ReleaseGroupSecondaryTypeT =
   OptionTreeT<'release_group_secondary_type'>;
 
 declare type ReleaseGroupT = {|
@@ -728,13 +713,9 @@ declare type ReleaseGroupT = {|
   +typeName: string | null,
 |};
 
-export opaque type ReleaseGroupTypeT:
-  OptionTreeT<'release_group_type'> =
-  OptionTreeT<'release_group_type'>;
+declare type ReleaseGroupTypeT = OptionTreeT<'release_group_type'>;
 
-export opaque type ReleasePackagingT:
-  OptionTreeT<'release_packaging'> =
-  OptionTreeT<'release_packaging'>;
+declare type ReleasePackagingT = OptionTreeT<'release_packaging'>;
 
 declare type ReleaseT = {|
   ...AnnotationRoleT,
@@ -770,9 +751,7 @@ declare type ReleaseLabelT = {|
   +label: LabelT | null,
 |};
 
-export opaque type ReleaseStatusT:
-  OptionTreeT<'release_status'> =
-  OptionTreeT<'release_status'>;
+declare type ReleaseStatusT = OptionTreeT<'release_status'>;
 
 declare type RepeatableFieldT<+F> = {|
   ...FieldRoleT,
@@ -842,13 +821,9 @@ declare type SeriesT = {|
   +orderingTypeID: number,
 |};
 
-export opaque type SeriesOrderingTypeT:
-  OptionTreeT<'series_ordering_type'> =
-  OptionTreeT<'series_ordering_type'>;
+declare type SeriesOrderingTypeT = OptionTreeT<'series_ordering_type'>;
 
-export opaque type SeriesTypeT:
-  OptionTreeT<'series_type'> =
-  OptionTreeT<'series_type'>;
+declare type SeriesTypeT = OptionTreeT<'series_type'>;
 
 declare type ServerLanguageT = {|
   +id: number,
@@ -927,9 +902,7 @@ declare type WorkT = {|
   |}>,
 |};
 
-export opaque type WorkTypeT:
-  OptionTreeT<'work_type'> =
-  OptionTreeT<'work_type'>;
+declare type WorkTypeT = OptionTreeT<'work_type'>;
 
 declare type WorkLanguageT = {|
   +language: LanguageT,
