@@ -574,7 +574,11 @@ declare type LabelT = {|
 export opaque type LabelTypeT: OptionTreeT = OptionTreeT;
 
 declare type LanguageT = {|
+  +frequency: number,
   +id: number,
+  +iso_code_1: string | null,
+  +iso_code_2b: string | null,
+  +iso_code_2t: string | null,
   +iso_code_3: string | null,
   +name: string,
 |};
@@ -788,7 +792,10 @@ declare type SanitizedEditorT = {|
 |};
 
 declare type ScriptT = {|
+  +frequency: number,
+  +id: number,
   +iso_code: string,
+  +iso_number: string | null,
   +name: string,
 |};
 
