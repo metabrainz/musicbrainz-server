@@ -21,10 +21,10 @@ type Props = {
 };
 
 const Script = ({model, attributes}: Props) => (
-  <Layout fullWidth title={model ? model : l('Script')}>
+  <Layout fullWidth title={model || l('Script')}>
     <h1>
       <a href="/admin/attributes">{l('Attributes')}</a>
-      {'/' + l('Script')}
+      {' / ' + l('Script')}
     </h1>
 
     <table className="tbl">
@@ -38,8 +38,10 @@ const Script = ({model, attributes}: Props) => (
           <th>{l('Actions')}</th>
         </tr>
       </thead>
-      {attributes.sort((a, b) => (b.frequency - a.frequency) ||
-        compare(a.name, b.name))
+      {attributes
+        .sort((a, b) => (
+          (b.frequency - a.frequency) || compare(a.name, b.name)
+        ))
         .map((attr) => (
           <tr key={attr.id}>
             <td>{attr.id}</td>
@@ -48,9 +50,13 @@ const Script = ({model, attributes}: Props) => (
             <td>{attr.iso_number}</td>
             <td>{attr.frequency}</td>
             <td>
-              <a href={`/admin/attributes/${model}/edit/${attr.id}`}>{l('Edit')}</a>
+              <a href={`/admin/attributes/${model}/edit/${attr.id}`}>
+                {l('Edit')}
+              </a>
               {' | '}
-              <a href={`/admin/attributes/${model}/delete/${attr.id}`}>{l('Remove')}</a>
+              <a href={`/admin/attributes/${model}/delete/${attr.id}`}>
+                {l('Remove')}
+              </a>
             </td>
           </tr>
         ))}
@@ -58,7 +64,9 @@ const Script = ({model, attributes}: Props) => (
 
     <p>
       <span className="buttons">
-        <a href={`/admin/attributes/${model}/create`}>{l('Add new attribute')}</a>
+        <a href={`/admin/attributes/${model}/create`}>
+          {l('Add new attribute')}
+        </a>
       </span>
     </p>
   </Layout>
