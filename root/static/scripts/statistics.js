@@ -1,9 +1,9 @@
-const tablesorter = require('tablesorter');
+import tablesorter from 'tablesorter';
 
 // Needed by root/statistics/macros-header.tt, which uses the
 // css_manifest TT macro that requires statistics.less to exist in
 // rev-manifest.json.
-require('../styles/statistics.less');
+import '../styles/statistics.less';
 
 tablesorter.addWidget({
   format: function (table) {
