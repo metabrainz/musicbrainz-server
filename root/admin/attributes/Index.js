@@ -15,7 +15,7 @@ import Layout from '../../layout';
 import {compare} from '../../static/scripts/common/i18n';
 import yesNo from '../../static/scripts/common/utility/yesNo';
 
-type attributeT = {
+type AttributeT = {
   childOrder: number,
   description: string,
   entityType: string,
@@ -28,7 +28,7 @@ type attributeT = {
 };
 
 type Props = {
-  attributes: Array<attributeT> | null,
+  attributes: Array<AttributeT> | null,
   model: string,
   models: Array<string> | null,
 };
