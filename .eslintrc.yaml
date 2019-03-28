@@ -304,7 +304,7 @@ rules:
   flowtype/generic-spacing: [warn, never]
   flowtype/no-dupe-keys: error
   flowtype/no-flow-fix-me-comments: off
-  flowtype/no-mutable-array: warn
+  flowtype/no-mutable-array: off
   flowtype/no-primitive-constructor-types: error
   flowtype/no-types-missing-file-annotation: error
   flowtype/no-weak-types: warn

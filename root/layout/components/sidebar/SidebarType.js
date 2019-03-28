@@ -15,7 +15,7 @@ import {SidebarProperty} from './SidebarProperties';
 
 type Props = {|
   +$c: CatalystContextT,
-  +entity: {...TypeRoleT<OptionTreeT>},
+  +entity: {...TypeRoleT<empty>},
   +typeType: string,
 |};
 

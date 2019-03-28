@@ -23,8 +23,10 @@ export const N_lp = (key: string, context: string) => (
   () => lp(key, context)
 );
 
-export const unwrapNl = (value: string | () => string) => (
-  typeof value === 'string' ? value : value()
+export const unwrapNl = (
+  value: AnyReactElem | string | (() => AnyReactElem | string),
+) => (
+  typeof value === 'function' ? value() : value
 );
 
 let documentLang = 'en';

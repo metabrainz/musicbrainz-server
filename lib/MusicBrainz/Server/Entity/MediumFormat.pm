@@ -1,6 +1,7 @@
 package MusicBrainz::Server::Entity::MediumFormat;
 
 use Moose;
+use MusicBrainz::Server::Data::Utils qw( boolean_to_json );
 use MusicBrainz::Server::Translation::Attributes qw( lp );
 
 extends 'MusicBrainz::Server::Entity';
@@ -31,7 +32,7 @@ around TO_JSON => sub {
 
     my $json = $self->$orig;
     $json->{year} = $self->year;
-    $json->{hasDiscids} = $self->has_discids;
+    $json->{has_discids} = boolean_to_json($self->has_discids);
     return $json;
 };
 
