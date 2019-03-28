@@ -29,6 +29,7 @@ module.exports = {
   'account/sso/DiscourseRegistered': require('../account/sso/DiscourseRegistered'),
   'account/sso/DiscourseUnconfirmedEmailAddress': require('../account/sso/DiscourseUnconfirmedEmailAddress'),
   'admin/EditBanner': require('../admin/EditBanner'),
+  'admin/attributes/Delete': require('../admin/attributes/Delete'),
   'admin/attributes/Index': require('../admin/attributes/Index'),
   'admin/attributes/Language': require('../admin/attributes/Language'),
   'admin/attributes/Script': require('../admin/attributes/Script'),

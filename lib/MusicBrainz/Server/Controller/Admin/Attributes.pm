@@ -112,7 +112,11 @@ sub delete : Chained('attribute_base') Args(1) RequireAuth(account_admin) {
     my $model = $c->stash->{model};
     my $attr = $c->model($model)->get_by_id($id);
     my $form = $c->form(form => 'Confirm');
-    $c->stash->{attribute} = $attr;
+    $c->stash(
+        current_view => 'Node',
+        component_path => 'admin/attributes/Delete.js',
+        component_props => {attribute => $attr, model => $model}
+    );
 
     if ($c->model($model)->in_use($id)) {
         $c->stash->{template} = 'admin/attributes/in_use.tt';
