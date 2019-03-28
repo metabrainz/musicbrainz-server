@@ -57,7 +57,7 @@ const DocError = ({
                  {
                    report: bugTrackerURL(
                      'Broken link: ' + $c.req.uri + '\n' +
-                     'Referrer: ' + $c.req.headers.Referer,
+                     'Referrer: ' + $c.req.headers.referer,
                    ),
                  })}
         </p>
