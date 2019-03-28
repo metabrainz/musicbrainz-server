@@ -76,12 +76,16 @@ const renderAttributesAccordingToModel = (model, attribute) => {
 };
 
 const Attributes = ({models, attributes, model}: Props) => (
-  <Layout fullWidth title={model ? model : l('Attributes')}>
+  <Layout fullWidth title={model || l('Attributes')}>
     {models ? (
       <div>
         <h1>{l('Attributes')}</h1>
         <ul>
-          {models ? models.sort().map((item) => (<li key={item}><a href={'/admin/attributes/' + item}>{item}</a></li>)) : null}
+          {models ? models.sort().map((item) => (
+            <li key={item}>
+              <a href={'/admin/attributes/' + item}>{item}</a>
+            </li>
+          )) : null}
         </ul>
       </div>
     ) : (
@@ -103,7 +107,8 @@ const Attributes = ({models, attributes, model}: Props) => (
             </tr>
           </thead>
           <tbody>
-            {attributes ? attributes.sort((a, b) => compare(a.name, b.name))
+            {attributes ? attributes
+              .sort((a, b) => compare(a.name, b.name))
               .map((attribute) => (
                 <tr key={attribute.id}>
                   <td>{attribute.id}</td>
@@ -113,15 +118,25 @@ const Attributes = ({models, attributes, model}: Props) => (
                   <td>{attribute.parentID}</td>
                   {renderAttributesAccordingToModel(model, attribute)}
                   <td>
-                    <a href={`/admin/attributes/${model}/edit/${attribute.id}`}>{l('Edit')}</a>
+                    <a href={`/admin/attributes/${model}/edit/${attribute.id}`}>
+                      {l('Edit')}
+                    </a>
                     {' | '}
-                    <a href={`/admin/attributes/${model}/delete/${attribute.id}`}>{l('Remove')}</a>
+                    <a href={`/admin/attributes/${model}/delete/${attribute.id}`}>
+                      {l('Remove')}
+                    </a>
                   </td>
                 </tr>
               )) : null}
           </tbody>
         </table>
-        <p><span className="buttons"><a href={`/admin/attributes/${model}/create`}>{l('Add new attribute')}</a></span></p>
+        <p>
+          <span className="buttons">
+            <a href={`/admin/attributes/${model}/create`}>
+              {l('Add new attribute')}
+            </a>
+          </span>
+        </p>
       </div>
     )}
   </Layout>
