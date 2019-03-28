@@ -13,6 +13,7 @@ import React from 'react';
 
 import Layout from '../../layout';
 import {compare} from '../../static/scripts/common/i18n';
+import yesNo from '../../static/scripts/common/utility/yesNo';
 
 type attributeT = {
   childOrder: number,
@@ -59,7 +60,7 @@ const renderAttributesAccordingToModel = (model, attribute) => {
       return (
         <>
           <td>{attribute.year}</td>
-          <td>{attribute.has_discids ? 'Yes' : 'No'}</td>
+          <td>{yesNo(attribute.has_discids)}</td>
         </>
       );
     }
@@ -68,7 +69,7 @@ const renderAttributesAccordingToModel = (model, attribute) => {
       return <td>{attribute.entityType}</td>;
     }
     case 'WorkAttributeType': {
-      return <td>{attribute.freeText ? 'Yes' : 'No'}</td>;
+      return <td>{yesNo(attribute.freeText)}</td>;
     }
     default: return null;
   }
