@@ -51,6 +51,7 @@ module.exports = {
   'collection/CreateCollection': require('../collection/CreateCollection'),
   'collection/DeleteCollection': require('../collection/DeleteCollection'),
   'collection/EditCollection': require('../collection/EditCollection'),
+  'doc/DocError': require('../doc/DocError'),
   'doc/DocPage': require('../doc/DocPage'),
   'elections/Index': require('../elections/Index'),
   'elections/Nominate': require('../elections/Nominate'),

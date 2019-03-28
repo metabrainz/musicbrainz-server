@@ -763,16 +763,6 @@ END ~%]
   <div style="float:right;margin-top:1.5em;"><a class="filter-button">[% React.embed(c, 'static/scripts/common/components/FilterIcon') %]</a> <a class="filter-button" href="#">[% l("Filter") %]</a></div>
 [%- END -%]
 
-[%~ MACRO wikidoc_search_box BLOCK -%]
-  <div class="wikidoc-search">
-    <form action="[% c.uri_for('/search') | html %]" method="get">
-      <input type="hidden" name="type" value="doc" />
-      <input type="text" name="query" placeholder="[% l('Search the documentation...')  %]" />
-      [% form_submit(l('Search'),'inline') %]
-    </form>
-  </div>
-[%- END -%]
-
 [%~ MACRO artist_begin_label_from_type(type_id) BLOCK ~%]
     [%~ type_id == 1 ? l('Born:') : (type_id ==  2 || type_id == 5 || type_id == 6) ? l('Founded:') : l('Begin date:') ~%]
 [%~ END -%]

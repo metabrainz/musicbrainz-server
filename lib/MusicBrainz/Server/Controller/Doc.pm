@@ -45,7 +45,11 @@ sub show : Path('')
         );
     }    else {
         $c->response->status(404);
-        $c->stash->{template} = 'doc/error.tt';
+        $c->stash(
+            component_path  => 'doc/DocError',
+            component_props => \%props,
+            current_view    => 'Node',
+        );
     }
 }
 
