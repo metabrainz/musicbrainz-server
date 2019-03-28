@@ -334,6 +334,8 @@ declare type CoreEntityT =
   | UrlT
   | WorkT;
 
+declare type CoverArtTypeT = OptionTreeT<'cover_art_type'>;
+
 declare type CritiqueBrainzReviewT = {|
   +author: CritiqueBrainzUserT,
   +body: string,
@@ -562,6 +564,7 @@ declare type LabelT = {|
 declare type LabelTypeT = OptionTreeT<'label_type'>;
 
 declare type LanguageT = {|
+  +entityType: 'language',
   +frequency: number,
   +id: number,
   +iso_code_1: string | null,
@@ -601,6 +604,12 @@ declare type LinkTypeT = {|
 declare type MaybeGroupedOptionsT =
   | {|+grouped: true, +options: GroupedOptionsT|}
   | {|+grouped: false, +options: SelectOptionsT|};
+
+declare type MediumFormatT = {|
+  ...OptionTreeT<'medium_format'>,
+  +has_discids: boolean,
+  +year: ?number,
+|};
 
 // See MB.forms.buildOptionsTree
 declare type OptionListT = $ReadOnlyArray<{|
@@ -776,6 +785,7 @@ declare type SanitizedEditorT = {|
 |};
 
 declare type ScriptT = {|
+  +entityType: 'script',
   +frequency: number,
   +id: number,
   +iso_code: string,

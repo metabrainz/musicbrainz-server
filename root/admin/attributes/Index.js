@@ -15,17 +15,25 @@ import Layout from '../../layout';
 import {compare} from '../../static/scripts/common/i18n';
 import yesNo from '../../static/scripts/common/utility/yesNo';
 
-type AttributeT = {
-  childOrder: number,
-  description: string,
-  entityType: string,
-  freeText: boolean,
-  has_discids: boolean,
-  id: number,
-  name: string,
-  parentID: number,
-  year: number,
-};
+type AttributeT =
+  | AreaTypeT
+  | ArtistTypeT
+  | CollectionTypeT
+  | CoverArtTypeT
+  | EventTypeT
+  | GenderT
+  | InstrumentTypeT
+  | LabelTypeT
+  | MediumFormatT
+  | PlaceTypeT
+  | ReleaseGroupSecondaryTypeT
+  | ReleaseGroupTypeT
+  | ReleasePackagingT
+  | ReleaseStatusT
+  | SeriesTypeT
+  | WorkAttributeTypeT
+  | WorkTypeT
+  ;
 
 type Props = {
   attributes: Array<AttributeT> | null,
@@ -54,9 +62,9 @@ const renderAttributesHeaderAccordingToModel = (model) => {
   }
 };
 
-const renderAttributesAccordingToModel = (model, attribute) => {
-  switch (model) {
-    case 'MediumFormat': {
+const renderAttributes = (attribute) => {
+  switch (attribute.entityType) {
+    case 'medium_format': {
       return (
         <>
           <td>{attribute.year}</td>
@@ -64,11 +72,11 @@ const renderAttributesAccordingToModel = (model, attribute) => {
         </>
       );
     }
-    case 'SeriesType':
-    case 'CollectionType': {
+    case 'series_type':
+    case 'collection_type': {
       return <td>{attribute.entityType}</td>;
     }
-    case 'WorkAttributeType': {
+    case 'work_attribute_type': {
       return <td>{yesNo(attribute.freeText)}</td>;
     }
     default: return null;
@@ -116,7 +124,7 @@ const Attributes = ({models, attributes, model}: Props) => (
                   <td>{attribute.description}</td>
                   <td>{attribute.childOrder}</td>
                   <td>{attribute.parentID}</td>
-                  {renderAttributesAccordingToModel(model, attribute)}
+                  {renderAttributes(attribute)}
                   <td>
                     <a href={`/admin/attributes/${model}/edit/${attribute.id}`}>
                       {l('Edit')}
