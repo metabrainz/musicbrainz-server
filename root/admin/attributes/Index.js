@@ -19,7 +19,7 @@ type attributeT = {
   description: string,
   entityType: string,
   freeText: boolean,
-  hasDiscids: boolean,
+  has_discids: boolean,
   id: number,
   name: string,
   parentID: number,
@@ -59,7 +59,7 @@ const renderAttributesAccordingToModel = (model, attribute) => {
       return (
         <>
           <td>{attribute.year}</td>
-          <td>{attribute.hasDiscids ? 'Yes' : 'No'}</td>
+          <td>{attribute.has_discids ? 'Yes' : 'No'}</td>
         </>
       );
     }
