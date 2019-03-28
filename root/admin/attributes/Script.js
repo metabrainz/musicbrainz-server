@@ -14,6 +14,7 @@ import React from 'react';
 
 import Layout from '../../layout';
 import {compare} from '../../static/scripts/common/i18n';
+import loopParity from '../../utility/loopParity';
 
 type Props = {
   attributes: Array<ScriptT>,
@@ -42,8 +43,8 @@ const Script = ({model, attributes}: Props) => (
         .sort((a, b) => (
           (b.frequency - a.frequency) || compare(a.name, b.name)
         ))
-        .map((attr) => (
-          <tr key={attr.id}>
+        .map((attr, index) => (
+          <tr className={loopParity(index)} key={attr.id}>
             <td>{attr.id}</td>
             <td>{attr.name}</td>
             <td>{attr.iso_code}</td>

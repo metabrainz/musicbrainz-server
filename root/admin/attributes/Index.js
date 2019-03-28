@@ -14,6 +14,7 @@ import React from 'react';
 import Layout from '../../layout';
 import {compare} from '../../static/scripts/common/i18n';
 import yesNo from '../../static/scripts/common/utility/yesNo';
+import loopParity from '../../utility/loopParity';
 
 type AttributeT =
   | AreaTypeT
@@ -117,8 +118,8 @@ const Attributes = ({models, attributes, model}: Props) => (
           <tbody>
             {attributes ? attributes
               .sort((a, b) => compare(a.name, b.name))
-              .map((attribute) => (
-                <tr key={attribute.id}>
+              .map((attribute, index) => (
+                <tr className={loopParity(index)} key={attribute.id}>
                   <td>{attribute.id}</td>
                   <td>{attribute.name}</td>
                   <td>{attribute.description}</td>
