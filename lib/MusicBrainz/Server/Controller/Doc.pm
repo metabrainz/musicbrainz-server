@@ -5,6 +5,7 @@ BEGIN { extends 'MusicBrainz::Server::Controller'; }
 
 use DBDefs;
 use HTTP::Status qw( HTTP_MOVED_PERMANENTLY );
+use MusicBrainz::Server::Data::Utils qw( boolean_to_json );
 use MusicBrainz::Server::Validation qw( is_guid );
 
 sub show : Path('')
@@ -26,21 +27,23 @@ sub show : Path('')
         return;
     }
 
-    $c->stash(
-        id => $id,
-        page => $page,
-        google_custom_search => DBDefs->GOOGLE_CUSTOM_SEARCH,
-    );
-
     if ($id =~ /^[^:]+:/i && $id !~ /^Category:/i) {
         $c->response->redirect(sprintf('http://%s/%s', DBDefs->WIKITRANS_SERVER, $id));
         $c->detach;
     }
 
+    my %props = (
+        id      => $id,
+        page    => $page,
+    );
+
     if ($page) {
-        $c->stash->{template} = 'doc/page.tt';
-    }
-    else {
+        $c->stash(
+            component_path  => 'doc/DocPage',
+            component_props => \%props,
+            current_view    => 'Node',
+        );
+    }    else {
         $c->response->status(404);
         $c->stash->{template} = 'doc/error.tt';
     }
