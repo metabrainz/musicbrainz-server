@@ -7,6 +7,8 @@ import $ from 'jquery';
 import ko from 'knockout';
 import _ from 'lodash';
 
+import localizeLinkAttributeTypeDescription
+    from '../../common/i18n/localizeLinkAttributeTypeDescription';
 import localizeLinkAttributeTypeName
     from '../../common/i18n/localizeLinkAttributeTypeName';
 import linkedEntities from '../../common/linkedEntities';
@@ -122,6 +124,10 @@ export class ViewModel {
 
         localizeLinkAttributeTypeName(type) {
             return localizeLinkAttributeTypeName(type);
+        }
+
+        localizeLinkAttributeTypeDescription(type) {
+            return localizeLinkAttributeTypeDescription(type);
         }
     }
 

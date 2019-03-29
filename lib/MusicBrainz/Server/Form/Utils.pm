@@ -186,7 +186,7 @@ sub build_attr_info {
         };
 
         $attr->{instrument_comment} = $_->instrument_comment if $_->instrument_comment;
-        $attr->{description} = $_->l_description if $_->description;
+        $attr->{description} = $_->description if $_->description;
         $attr->{children} = build_child_info($_, \&build_attr) if $_->all_children;
 
         return $attr;
