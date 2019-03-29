@@ -41,8 +41,8 @@ const StaticRelationshipsDisplay = ({
     const targetType = targetTypes[i];
     const phraseGroups = relationships[targetType];
     const phraseKeys = Object.keys(phraseGroups).sort((a, b) => (
-      (phraseGroups[a].linkType.childOrder -
-       phraseGroups[b].linkType.childOrder) ||
+      (phraseGroups[a].linkType.child_order -
+       phraseGroups[b].linkType.child_order) ||
       compare(a, b)
     ));
     const targetTypeRows = [];

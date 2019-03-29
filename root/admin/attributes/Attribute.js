@@ -108,7 +108,7 @@ const Attribute = ({attributes, model}: Props) => (
               <td>{attribute.id}</td>
               <td>{attribute.name}</td>
               <td>{attribute.description}</td>
-              <td>{attribute.childOrder}</td>
+              <td>{attribute.child_order}</td>
               <td>{attribute.parent_id}</td>
               {renderAttributes(attribute)}
               <td>

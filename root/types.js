@@ -604,7 +604,7 @@ declare type OptionListT = $ReadOnlyArray<{|
 
 declare type OptionTreeT<+T> = {|
   ...EntityRoleT<T>,
-  +childOrder: number,
+  +child_order: number,
   +description: string,
   +gid: string,
   +name: string,

@@ -91,7 +91,7 @@ role {
             $name       => $self->$name,
             gid         => $self->gid,
             parent_id   => $self->parent_id,
-            childOrder  => +$self->child_order,
+            child_order => +$self->child_order,
             description => $self->description,
         };
     };

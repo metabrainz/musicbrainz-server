@@ -19,8 +19,8 @@ export default function compareRelationships(
     (a.linkOrder - b.linkOrder) ||
     compareDates(a.begin_date, b.begin_date) ||
     compareDates(a.end_date, b.end_date) ||
-    (linkedEntities.link_type[a.linkTypeID].childOrder -
-     linkedEntities.link_type[b.linkTypeID].childOrder) ||
+    (linkedEntities.link_type[a.linkTypeID].child_order -
+     linkedEntities.link_type[b.linkTypeID].child_order) ||
     compare(a.target.sort_name || a.target.name,
             b.target.sort_name || b.target.name)
   );

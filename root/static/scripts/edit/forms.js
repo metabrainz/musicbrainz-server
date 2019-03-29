@@ -15,7 +15,7 @@ const ELEMENT_NODE = window.Node.ELEMENT_NODE;
 const COMMENT_NODE = window.Node.COMMENT_NODE;
 
 function cmpOptions(a, b) {
-    return (a.data.childOrder - b.data.childOrder) || compare(a.text, b.text);
+    return (a.data.child_order - b.data.child_order) || compare(a.text, b.text);
 }
 
 MB.forms = {
