@@ -107,7 +107,7 @@ export function error(message: string) {
  * `state.match` if there's no `foo` or `bar` variable in `args`, thus
  * performing no substitution in that case.
  */
-export function saveMatch<-T, -V>(cb: Parser<T, V>): Parser<T, V> {
+export function saveMatch<T, V>(cb: Parser<T, V>): Parser<T, V> {
   return function (args) {
     const savedMatch = state.match;
     state.match = '';
@@ -117,7 +117,7 @@ export function saveMatch<-T, -V>(cb: Parser<T, V>): Parser<T, V> {
   };
 }
 
-export function parseContinuous<-T, U, -V>(
+export function parseContinuous<T, U, V>(
   parsers: $ReadOnlyArray<Parser<T | NO_MATCH, V>>,
   args: ?VarArgs<V>,
   matchCallback: (U | NO_MATCH, T) => U,
@@ -155,7 +155,7 @@ function concatStringMatch(
   );
 }
 
-export function parseContinuousString<-V>(
+export function parseContinuousString<V>(
   parsers: $ReadOnlyArray<Parser<string | NO_MATCH, V>>,
   args: ?VarArgs<V>,
 ): string {
@@ -167,7 +167,7 @@ export function parseContinuousString<-V>(
   );
 }
 
-export const createTextContentParser = <+T, -V>(
+export const createTextContentParser = <+T, V>(
   textPattern: RegExp,
   mapValue: (string) => T,
 ): Parser<T | string | NO_MATCH, V> => () => {
@@ -179,7 +179,7 @@ export const createTextContentParser = <+T, -V>(
 };
 
 const varSubst = /^\{([0-9A-z_]+)\}/;
-export const createVarSubstParser = <T, -V>(
+export const createVarSubstParser = <T, V>(
   argFilter: (V) => T,
 ): Parser<T | string | NO_MATCH, V> => saveMatch(function (args: ?VarArgs<V>) {
   const name = accept(varSubst);
@@ -198,7 +198,7 @@ export const parseStringVarSubst =
 const condSubstStart = /^\{([0-9A-z_]+):/;
 const verticalPipe = /^\|/;
 export const substEnd = /^}/;
-export const createCondSubstParser = <-T, -V>(
+export const createCondSubstParser = <T, V>(
   thenParser: Parser<T, V>,
   elseParser: Parser<T, V>,
 ): Parser<T | string | NO_MATCH, V> => saveMatch(function (args) {
@@ -249,7 +249,7 @@ export const createCondSubstParser = <-T, -V>(
  * Thus these signatures provide type safety on both the return value
  * and input arg values.
  */
-export default function expand<+T, -V>(
+export default function expand<+T, V>(
   rootParser: (?VarArgs<V>) => T,
   source: ?string,
   args: ?VarArgs<V>,

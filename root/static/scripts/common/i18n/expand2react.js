@@ -120,7 +120,7 @@ const parseLinkSubst = saveMatch<
   return state.match;
 });
 
-function pushChild<-T>(
+function pushChild<T>(
   children: Array<T>,
   match: T,
 ): Array<T> {
@@ -135,7 +135,7 @@ function pushChild<-T>(
   return children;
 }
 
-function concatArrayMatch<-T>(
+function concatArrayMatch<T>(
   children: Array<T> | NO_MATCH,
   match: Array<T> | T,
 ): Array<T> {
@@ -152,7 +152,7 @@ function concatArrayMatch<-T>(
   return children;
 }
 
-function parseContinuousArray<-T, -V>(
+function parseContinuousArray<T, V>(
   parsers: $ReadOnlyArray<Parser<Array<T> | T | NO_MATCH, V>>,
   args: ?VarArgs<V>,
 ): Array<T> {
