@@ -14,6 +14,8 @@ import commaOnlyList, {commaOnlyListText} from '../../common/i18n/commaOnlyList'
 import {VarArgs, type VarArgsObject} from '../../common/i18n/expand2';
 import expand2react from '../../common/i18n/expand2react';
 import expand2text from '../../common/i18n/expand2text';
+import localizeLinkAttributeTypeName
+  from '../../common/i18n/localizeLinkAttributeTypeName';
 import linkedEntities from '../../common/linkedEntities';
 import clean from '../../common/utility/clean';
 
@@ -50,16 +52,6 @@ function _getResultCache<T>(
     resultCache.set(relationship, result);
   }
   return result;
-}
-
-function getAttributeLName(type: AttrInfoT | LinkAttrTypeT) {
-  if (type.root_id === INSTRUMENT_ROOT_ID) {
-    if (type.instrument_comment) {
-      return lp_instruments(type.name, type.instrument_comment);
-    }
-    return l_instruments(type.name);
-  }
-  return l_relationships(type.name);
 }
 
 type AttrValue<T> = Array<T | string> | T | string;
@@ -158,7 +150,7 @@ function _setAttributeValues<T, V>(
   for (let i = 0; i < attributes.length; i++) {
     const attribute = attributes[i];
     const type = linkedEntities.link_attribute_type[attribute.type.gid];
-    const typeName = getAttributeLName(type);
+    const typeName = localizeLinkAttributeTypeName(type);
     let value = i18n.getAttributeValue(type, typeName);
 
     if (type.free_text) {
@@ -214,7 +206,7 @@ function _getRequiredAttributes(linkType: LinkTypeT) {
     const {attribute, min} = ((info: any): LinkTypeAttrTypeT);
     if (min) {
       required = required || {};
-      required[attribute.name] = `{${getAttributeLName(attribute)}}`;
+      required[attribute.name] = `{${localizeLinkAttributeTypeName(attribute)}}`;
     }
   }
   return (requiredAttributesCache[linkType.id] = required || EMPTY_OBJECT);
