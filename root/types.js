@@ -145,7 +145,6 @@ declare type AttrInfoT = {|
   +gid: string,
   +id: number,
   +instrument_comment?: string,
-  +l_name: string,
   +name: string,
   root: AttrInfoT,
   +root_gid: string,

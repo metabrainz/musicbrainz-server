@@ -7,6 +7,8 @@ import $ from 'jquery';
 import ko from 'knockout';
 import _ from 'lodash';
 
+import localizeLinkAttributeTypeName
+    from '../../common/i18n/localizeLinkAttributeTypeName';
 import linkedEntities from '../../common/linkedEntities';
 import MB from '../../common/MB';
 import parseDate from '../../common/utility/parseDate';
@@ -116,6 +118,10 @@ export class ViewModel {
         addAnotherEntityLabel(group, entity) {
             const entityType = group.values.peek()[0].target(entity).entityType;
             return addAnotherEntityLabels[entityType]();
+        }
+
+        localizeLinkAttributeTypeName(type) {
+            return localizeLinkAttributeTypeName(type);
         }
     }
 

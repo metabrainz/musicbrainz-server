@@ -10,6 +10,8 @@ import {
   SERIES_ORDERING_ATTRIBUTE,
   SERIES_ORDERING_TYPE_AUTOMATIC,
 } from '../../common/constants';
+import localizeLinkAttributeTypeName
+    from '../../common/i18n/localizeLinkAttributeTypeName';
 import linkedEntities from '../../common/linkedEntities';
 import MB_entity from '../../common/entity';
 import MB from '../../common/MB';
@@ -312,7 +314,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
         }
 
         attributeLabel(attribute) {
-            return addColon(attribute.l_name);
+            return addColonText(localizeLinkAttributeTypeName(attribute));
         }
 
         phraseAndExtraAttributes(phraseProp, shouldStripAttributes) {
