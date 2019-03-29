@@ -3,11 +3,9 @@ package MusicBrainz::Server::Form::Utils;
 use strict;
 use warnings;
 
-use Encode;
 use MusicBrainz::Server::Data::Utils qw( boolean_to_json );
 use MusicBrainz::Server::Translation qw( l lp );
 use Text::Trim qw( trim );
-use Text::Unaccent qw( unac_string_utf16 );
 use Unicode::ICU::Collator qw( UCOL_NUMERIC_COLLATION UCOL_ON );
 use List::UtilsBy qw( sort_by );
 
@@ -191,9 +189,6 @@ sub build_attr_info {
         $attr->{instrument_comment} = $_->instrument_comment if $_->instrument_comment;
         $attr->{description} = $_->l_description if $_->description;
         $attr->{children} = build_child_info($_, \&build_attr) if $_->all_children;
-
-        my $unac = decode("utf-16", unac_string_utf16(encode("utf-16", $_->l_name)));
-        $attr->{unaccented} = $unac if $unac ne $_->l_name;
 
         return $attr;
     }

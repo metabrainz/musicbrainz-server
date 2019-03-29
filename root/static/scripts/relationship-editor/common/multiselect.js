@@ -223,10 +223,6 @@ import deferFocus from '../../edit/utility/deferFocus';
     }
 
     function matchIndex(option, term) {
-        if (option.data.unaccented) {
-            var index = option.data.unaccented.toLowerCase().indexOf(term.toLowerCase());
-            if (index >= 0) return index;
-        }
         return option.text.toLowerCase().indexOf(term.toLowerCase());
     }
 

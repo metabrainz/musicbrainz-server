@@ -150,7 +150,6 @@ declare type AttrInfoT = {|
   root: AttrInfoT,
   +root_gid: string,
   +rootID: number,
-  +unaccented?: string,
 |};
 
 declare type AutoEditorElectionT = {|
