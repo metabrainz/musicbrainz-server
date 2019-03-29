@@ -149,7 +149,7 @@ declare type AttrInfoT = {|
   +name: string,
   root: AttrInfoT,
   +root_gid: string,
-  +rootID: number,
+  +root_id: number,
 |};
 
 declare type AutoEditorElectionT = {|
@@ -576,7 +576,7 @@ declare type LinkAttrTypeT = {|
   +freeText: boolean,
   +instrument_comment?: string,
   +root_gid: string,
-  +rootID: number,
+  +root_id: number,
 |};
 
 declare type LinkTypeAttrTypeT = {|

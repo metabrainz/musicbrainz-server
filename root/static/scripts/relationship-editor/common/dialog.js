@@ -122,7 +122,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
             }
 
             _.each(relationship.attributes.peek(), function (attribute) {
-                if (attribute.type.rootID == 14) {
+                if (attribute.type.root_id == 14) {
                     addInstrument(MB.entity(attribute.type, "instrument"), attribute);
                 }
             });

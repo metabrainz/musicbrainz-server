@@ -66,7 +66,7 @@ export default function groupRelationships(
       for (let i = 0; i < linkAttrs.length; i++) {
         const linkAttr = linkAttrs[i];
         const linkAttrType = linkedEntities.link_attribute_type[linkAttr.type.gid];
-        if (linkAttrType.rootID === INSTRUMENT_ROOT_ID) {
+        if (linkAttrType.root_id === INSTRUMENT_ROOT_ID) {
           hasInstruments = true;
           break;
         }

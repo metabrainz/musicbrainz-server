@@ -167,7 +167,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
             for (var i = 0, len = attributes.length; i < len; i++) {
                 attribute = attributes[i];
 
-                if (!typeAttributes || !typeAttributes[attribute.type.rootID]) {
+                if (!typeAttributes || !typeAttributes[attribute.type.root_id]) {
                     this.attributes.remove(attribute);
                     --i;
                     --len;
@@ -300,7 +300,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
                 var rootID = rootInfo.attribute.id;
 
                 var values = _.filter(this.attributes(), function (attribute) {
-                    return attribute.type.rootID == rootID;
+                    return attribute.type.root_id == rootID;
                 });
 
                 if (values.length < min) {
@@ -598,7 +598,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
             return _.transform(attributes, function (accum, data) {
                 var attrInfo = linkedEntities.link_attribute_type[data.type.gid];
 
-                if (attrInfo && linkType.attributes[attrInfo.rootID]) {
+                if (attrInfo && linkType.attributes[attrInfo.root_id]) {
                     accum.push(data);
                 }
             });

@@ -77,7 +77,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
         _(MB.allowedRelations).values().invokeMap('sort').value();
 
         _.each(linkedEntities.link_attribute_type, function (attr) {
-            attr.root = linkedEntities.link_attribute_type[attr.rootID];
+            attr.root = linkedEntities.link_attribute_type[attr.root_id];
         });
     });
 

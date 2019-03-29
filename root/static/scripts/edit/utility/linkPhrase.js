@@ -53,7 +53,7 @@ function _getResultCache<T>(
 }
 
 function getAttributeLName(type: AttrInfoT | LinkAttrTypeT) {
-  if (type.rootID === INSTRUMENT_ROOT_ID) {
+  if (type.root_id === INSTRUMENT_ROOT_ID) {
     if (type.instrument_comment) {
       return lp_instruments(type.name, type.instrument_comment);
     }
@@ -125,7 +125,7 @@ const reactI18n: I18n<Expand2ReactOutput, Expand2ReactInput> = {
   commaOnlyList,
   expand: expand2react,
   getAttributeValue: (type, typeName) => (
-    type.rootID === INSTRUMENT_ROOT_ID
+    type.root_id === INSTRUMENT_ROOT_ID
       ? <a href={'/instrument/' + type.gid}>{typeName}</a>
       : typeName
   ),
@@ -186,7 +186,7 @@ function _setAttributeValues<T, V>(
         values = {};
       }
 
-      const info = linkType.attributes[type.rootID];
+      const info = linkType.attributes[type.root_id];
       const rootName = linkedEntities.link_attribute_type[type.root_gid].name;
 
       if (info.max === 1) {

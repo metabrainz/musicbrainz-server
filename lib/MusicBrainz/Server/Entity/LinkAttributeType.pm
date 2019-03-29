@@ -78,7 +78,7 @@ around TO_JSON => sub {
     return {
         %{ $self->$orig },
         gid => $self->gid,
-        rootID => $self->root_id + 0,
+        root_id => $self->root_id + 0,
         root_gid => $self->root_gid,
         freeText => boolean_to_json($self->free_text),
         creditable => boolean_to_json($self->creditable),
