@@ -35,22 +35,33 @@ const addAnotherEntityLabels = {
 
 const RE = MB.relationshipEditor = MB.relationshipEditor || {};
 
-    function mapItems(result, item) {
-        if (item.id) {
-            result[item.id] = item;
-        }
-        if (item.gid) {
-            result[item.gid] = item;
-        }
-        _.transform(item.children, mapItems, result);
-    }
-
-
     RE.exportTypeInfo = _.once(function (typeInfo, attrInfo) {
+        const attrChildren = _.groupBy(attrInfo, x => x.parentID);
+
+        function mapItems(result, item) {
+            if (item.id) {
+                result[item.id] = item;
+            }
+            if (item.gid) {
+                result[item.gid] = item;
+            }
+            switch (item.entityType) {
+                case 'link_attribute_type':
+                    const children = attrChildren[item.id];
+                    if (children) {
+                        item.children = children;
+                    }
+                    break;
+                case 'link_type':
+                    _.transform(item.children, mapItems, result);
+                    break;
+            }
+        }
+
         Object.assign(linkedEntities, {
             link_type_tree: typeInfo,
             link_type: _(typeInfo).values().flatten().transform(mapItems, {}).value(),
-            link_attribute_type: _(attrInfo).values().transform(mapItems, {}).value(),
+            link_attribute_type: _.transform(attrInfo, mapItems, {}),
         });
 
         _.each(linkedEntities.link_type, function (type) {

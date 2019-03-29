@@ -9,7 +9,7 @@
 
 import {INSTRUMENT_ROOT_ID} from '../../common/constants';
 
-function localizeLinkAttributeTypeName(type: AttrInfoT | LinkAttrTypeT) {
+function localizeLinkAttributeTypeName(type: LinkAttrTypeT) {
   if (type.root_id === INSTRUMENT_ROOT_ID) {
     if (type.instrument_comment) {
       return lp_instruments(type.name, type.instrument_comment);

@@ -136,21 +136,6 @@ declare type ArtworkT = {|
   +types: $ReadOnlyArray<string>,
 |};
 
-// See MusicBrainz::Server::Form::Utils::build_attr_info
-declare type AttrInfoT = {|
-  +children?: $ReadOnlyArray<AttrInfoT>,
-  +creditable: boolean,
-  +description?: string,
-  +free_text: boolean,
-  +gid: string,
-  +id: number,
-  +instrument_comment?: string,
-  +name: string,
-  root: AttrInfoT,
-  +root_gid: string,
-  +root_id: number,
-|};
-
 declare type AutoEditorElectionT = {|
   ...EntityRoleT<empty>,
   +candidate: EditorT,
@@ -579,7 +564,7 @@ declare type LinkAttrTypeT = {|
 |};
 
 declare type LinkTypeAttrTypeT = {|
-  attribute: AttrInfoT,
+  attribute: LinkAttrTypeT,
   +max: number | null,
   +min: number | null,
 |};

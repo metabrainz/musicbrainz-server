@@ -107,7 +107,7 @@ type I18n<T, V> = {
   commaList: (Array<T>) => T,
   commaOnlyList: (Array<T>) => T,
   expand: (string, PhraseVarArgs<T>) => T,
-  getAttributeValue: (AttrInfoT | LinkAttrTypeT, string) => T,
+  getAttributeValue: (LinkAttrTypeT, string) => T,
   l: (string, VarArgsObject<T | V>) => T,
 };
 

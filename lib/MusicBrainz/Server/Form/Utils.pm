@@ -17,7 +17,6 @@ use Sub::Exporter -setup => {
                       select_options_tree
                       build_grouped_options
                       build_type_info
-                      build_attr_info
                       build_options_tree
                       indentation
                       validate_username
@@ -169,30 +168,6 @@ sub build_type_info {
         $type_info{ $type_key } = build_child_info($root, \&build_type);
     }
     return \%type_info;
-}
-
-sub build_attr_info {
-    my $root = shift;
-
-    sub build_attr {
-        my $attr = {
-            id          => $_->id,
-            gid         => $_->gid,
-            root_id     => $_->root_id,
-            root_gid    => $_->root_gid,
-            name        => $_->name,
-            free_text   => boolean_to_json($_->free_text),
-            creditable  => boolean_to_json($_->creditable),
-        };
-
-        $attr->{instrument_comment} = $_->instrument_comment if $_->instrument_comment;
-        $attr->{description} = $_->description if $_->description;
-        $attr->{children} = build_child_info($_, \&build_attr) if $_->all_children;
-
-        return $attr;
-    }
-
-    return { map { $_->gid => build_attr($_) } $root->all_children };
 }
 
 sub build_child_info {
