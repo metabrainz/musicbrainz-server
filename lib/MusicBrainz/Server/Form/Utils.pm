@@ -182,7 +182,7 @@ sub build_attr_info {
             root_gid    => $_->root_gid,
             name        => $_->name,
             l_name      => $_->l_name,
-            freeText    => boolean_to_json($_->free_text),
+            free_text   => boolean_to_json($_->free_text),
             creditable  => boolean_to_json($_->creditable),
         };
 

@@ -163,7 +163,7 @@ class WorkAttribute {
 
   allowsFreeText() {
     return !this.typeID() ||
-      this.parent.attributeTypesByID[this.typeID()].freeText;
+      this.parent.attributeTypesByID[this.typeID()].free_text;
   }
 
   isGroupingType() {

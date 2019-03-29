@@ -76,7 +76,7 @@ const renderAttributes = (attribute) => {
       return <td>{attribute.entityType}</td>;
     }
     case 'work_attribute_type': {
-      return <td>{yesNo(attribute.freeText)}</td>;
+      return <td>{yesNo(attribute.free_text)}</td>;
     }
     default: return null;
   }

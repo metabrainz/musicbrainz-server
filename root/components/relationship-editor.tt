@@ -189,7 +189,7 @@
 
 <script type="text/html" id="template.edit-attribute">
   <div class="attribute-container">
-    <!-- ko ifnot: attribute.children || attribute.freeText -->
+    <!-- ko ifnot: attribute.children || attribute.free_text -->
     <label>
       <input type="checkbox" data-bind="checked: relationship.attributes, checkedValue: relationship.getAttribute(attribute.gid)" />
       <!-- ko text: attribute.l_name --><!-- /ko -->
@@ -231,7 +231,7 @@
                 }
               }"></div>
     <!-- /ko -->
-    <!-- ko if: attribute.freeText -->
+    <!-- ko if: attribute.free_text -->
     <label>
       <!-- ko text: relationship.attributeLabel(attribute) --><!-- /ko -->
       <input type="text" data-bind="textAttribute: { relationship: relationship, typeGID: attribute.gid }

@@ -80,7 +80,7 @@ around TO_JSON => sub {
         gid => $self->gid,
         root_id => $self->root_id + 0,
         root_gid => $self->root_gid,
-        freeText => boolean_to_json($self->free_text),
+        free_text => boolean_to_json($self->free_text),
         creditable => boolean_to_json($self->creditable),
         $self->instrument_comment ? (instrument_comment => $self->instrument_comment) : (),
     };

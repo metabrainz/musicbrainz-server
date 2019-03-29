@@ -205,7 +205,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
     }
 
     function isFreeText(linkAttribute) {
-        return linkedEntities.link_attribute_type[linkAttribute.type.id].freeText;
+        return linkedEntities.link_attribute_type[linkAttribute.type.id].free_text;
     }
 
     function cacheByID(func) {

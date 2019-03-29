@@ -161,7 +161,7 @@ function _setAttributeValues<T, V>(
     const typeName = getAttributeLName(type);
     let value = i18n.getAttributeValue(type, typeName);
 
-    if (type.freeText) {
+    if (type.free_text) {
       const textValue = clean(attribute.text_value);
       if (textValue) {
         value = i18n.l('{attribute}: {value}', {

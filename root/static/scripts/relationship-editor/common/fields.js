@@ -508,7 +508,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
             this.creditedAs = ko.observable(ko.unwrap(data.credited_as) || "");
         }
 
-        if (type.freeText) {
+        if (type.free_text) {
             this.textValue = ko.observable(ko.unwrap(data.text_value) || "");
         }
     };
@@ -519,7 +519,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
         if (type.creditable) {
             return type.gid + "\0" + clean(this.creditedAs());
         }
-        if (type.freeText) {
+        if (type.free_text) {
             return type.gid + "\0" + clean(this.textValue());
         }
         return type.gid;
@@ -533,7 +533,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
             output.credited_as = clean(this.creditedAs());
         }
 
-        if (type.freeText) {
+        if (type.free_text) {
             output.text_value = clean(this.textValue());
         }
 

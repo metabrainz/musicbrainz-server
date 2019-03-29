@@ -60,7 +60,7 @@ around TO_JSON => sub {
 
     return {
         %{ $self->$orig },
-        freeText => boolean_to_json($self->free_text),
+        free_text => boolean_to_json($self->free_text),
     };
 };
 

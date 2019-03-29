@@ -141,7 +141,7 @@ declare type AttrInfoT = {|
   +children?: $ReadOnlyArray<AttrInfoT>,
   +creditable: boolean,
   +description?: string,
-  +freeText: boolean,
+  +free_text: boolean,
   +gid: string,
   +id: number,
   +instrument_comment?: string,
@@ -573,7 +573,7 @@ declare type LinkAttrT = {|
 declare type LinkAttrTypeT = {|
   ...OptionTreeT<'link_attribute_type'>,
   +creditable: boolean,
-  +freeText: boolean,
+  +free_text: boolean,
   +instrument_comment?: string,
   +root_gid: string,
   +root_id: number,
@@ -936,7 +936,7 @@ declare type WorkAttributeTypeAllowedValueTreeRootT =
 declare type WorkAttributeTypeT = {|
   ...CommentRoleT,
   ...OptionTreeT<'work_attribute_type'>,
-  +freeText: boolean,
+  +free_text: boolean,
 |};
 
 // See MusicBrainz::Server::Controller::Work::stash_work_form_json
