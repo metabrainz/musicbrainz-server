@@ -608,7 +608,7 @@ declare type OptionTreeT<+T> = {|
   +description: string,
   +gid: string,
   +name: string,
-  +parentID: number | null,
+  +parent_id: number | null,
 |};
 
 /*

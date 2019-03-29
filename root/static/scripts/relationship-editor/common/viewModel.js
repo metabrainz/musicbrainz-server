@@ -36,7 +36,7 @@ const addAnotherEntityLabels = {
 const RE = MB.relationshipEditor = MB.relationshipEditor || {};
 
     RE.exportTypeInfo = _.once(function (typeInfo, attrInfo) {
-        const attrChildren = _.groupBy(attrInfo, x => x.parentID);
+        const attrChildren = _.groupBy(attrInfo, x => x.parent_id);
 
         function mapItems(result, item) {
             if (item.id) {
