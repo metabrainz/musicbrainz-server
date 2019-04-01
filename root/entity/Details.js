@@ -32,10 +32,12 @@ const XMLLink = ({
     ? entityProperties.url : entityType;
   entityProperties.aliases && xmlInc.push('aliases');
   entityProperties.artist_credits && xmlInc.push('artist-credits');
-  (entityType === 'recording' || entityType === 'release_group') && xmlInc.push('releases');
+  (entityType === 'recording' || entityType === 'release_group') &&
+    xmlInc.push('releases');
   entityType === 'release' && xmlInc.push('labels', 'discids', 'recordings');
   const protocol = isSecureConnection ? 'https://' : 'http://';
-  const link = '/ws/2/' + entityTypeForUrl + '/' + entityGid + '?inc=' + xmlInc.join('+');
+  const link = '/ws/2/' + entityTypeForUrl + '/' + entityGid +
+               '?inc=' + xmlInc.join('+');
   return (
     <a href={link}>{protocol + DBDefs.WEB_SERVER + link}</a>
   );
@@ -66,14 +68,16 @@ const Details = ({
         <tr>
           <th>
             {exp.l('{mbid|<abbr title="MusicBrainz Identifier">MBID</abbr>}:',
-              {mbid: '/doc/MusicBrainz_Identifier'})}
+                   {mbid: '/doc/MusicBrainz_Identifier'})}
           </th>
           <td><code>{entity.gid}</code></td>
         </tr>
         <tr>
           <th>{l('Last updated:')}</th>
           <td>
-            {entity.last_updated ? formatUserDate($c.user, entity.last_updated) : l('(unknown)')}
+            {entity.last_updated
+              ? formatUserDate($c.user, entity.last_updated)
+              : l('(unknown)')}
           </td>
         </tr>
         <tr>
@@ -97,7 +101,9 @@ const Details = ({
           <tr>
             <th>{l('AcousticBrainz entry:')}</th>
             <td>
-              <a href={'https://acousticbrainz.org/' + entity.gid}>{'https://acousticbrainz.org/' + entity.gid}</a>
+              <a href={'https://acousticbrainz.org/' + entity.gid}>
+                {'https://acousticbrainz.org/' + entity.gid}
+              </a>
             </td>
           </tr>
         ) : null}
