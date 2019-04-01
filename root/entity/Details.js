@@ -19,7 +19,6 @@ import formatUserDate from '../utility/formatUserDate';
 type Props = {|
   +$c: CatalystContextT,
   +entity: CoreEntityT,
-  +lastUpdated: string,
 |};
 
 const XMLLink = ({
@@ -45,7 +44,6 @@ const XMLLink = ({
 const Details = ({
   $c,
   entity,
-  lastUpdated,
 }: Props) => {
   const entityType = entity.entityType;
   const entityProperties = ENTITIES[entityType];
@@ -75,7 +73,7 @@ const Details = ({
         <tr>
           <th>{l('Last updated:')}</th>
           <td>
-            {lastUpdated ? formatUserDate($c.user, lastUpdated) : l('(unknown)')}
+            {entity.last_updated ? formatUserDate($c.user, entity.last_updated) : l('(unknown)')}
           </td>
         </tr>
         <tr>
