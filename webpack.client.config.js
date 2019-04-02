@@ -26,6 +26,7 @@ const providePluginConfig = require('./webpack/providePluginConfig');
 
 const entries = [
   'account/applications/register',
+  'account/edit',
   'account/preferences',
   'area/index',
   'area/places-map',

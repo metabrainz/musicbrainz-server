@@ -73,7 +73,7 @@ test 'Set cover art fails if release no longer exists' => sub {
     $c->model('Release')->delete($release->id);
 
     my $exception = exception { $edit->accept };
-    ok($exception, "An exception occured when accepting the edit");
+    ok($exception, "An exception occurred when accepting the edit");
     isa_ok($exception, 'MusicBrainz::Server::Edit::Exceptions::FailedDependency',
         "... and is a failed dependancy");
 };

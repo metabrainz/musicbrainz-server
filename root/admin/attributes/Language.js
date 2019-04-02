@@ -1,6 +1,5 @@
 /*
  * @flow
- * eslint-disable flowtype/no-mutable-array
  * Copyright (C) 2019 Anirudh Jain
  * Copyright (C) 2014 MetaBrainz Foundation
  *
@@ -13,6 +12,7 @@ import React from 'react';
 
 import Layout from '../../layout';
 import {compare} from '../../static/scripts/common/i18n';
+import loopParity from '../../utility/loopParity';
 
 type Props = {
   attributes: Array<LanguageT>,
@@ -21,7 +21,7 @@ type Props = {
 
 const Language = ({model, attributes}: Props) => {
   return (
-    <Layout fullWidth title={model ? model : l('Language')}>
+    <Layout fullWidth title={model || l('Language')}>
       <h1>
         <a href="/admin/attributes">{l('Attributes')}</a>
         <text>{' / ' + l('Language')}</text>
@@ -39,10 +39,12 @@ const Language = ({model, attributes}: Props) => {
             <th>{l('Actions')}</th>
           </tr>
         </thead>
-        {attributes.sort((a, b) => (b.frequency - a.frequency) ||
-          compare(a.name, b.name))
-          .map((attr) => (
-            <tr key={attr.id}>
+        {attributes
+          .sort((a, b) => (
+            (b.frequency - a.frequency) || compare(a.name, b.name)
+          ))
+          .map((attr, index) => (
+            <tr className={loopParity(index)} key={attr.id}>
               <td>{attr.id}</td>
               <td>{attr.name}</td>
               <td>{attr.iso_code_1}</td>
@@ -51,15 +53,23 @@ const Language = ({model, attributes}: Props) => {
               <td>{attr.iso_code_3}</td>
               <td>{attr.frequency}</td>
               <td>
-                <a href={`/admin/attributes/${model}/edit/${attr.id}`}>{l('Edit')}</a>
+                <a href={`/admin/attributes/${model}/edit/${attr.id}`}>
+                  {l('Edit')}
+                </a>
                 {' | '}
-                <a href={`/admin/attributes/${model}/delete/${attr.id}`}>{l('Remove')}</a>
+                <a href={`/admin/attributes/${model}/delete/${attr.id}`}>
+                  {l('Remove')}
+                </a>
               </td>
             </tr>
           ))}
       </table>
       <p>
-        <span className="buttons"><a href={`/admin/attributes/${model}/create`}>{l('Add new attribute')}</a></span>
+        <span className="buttons">
+          <a href={`/admin/attributes/${model}/create`}>
+            {l('Add new attribute')}
+          </a>
+        </span>
       </p>
     </Layout>
   );

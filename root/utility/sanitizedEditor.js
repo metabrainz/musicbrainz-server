@@ -10,7 +10,7 @@
 // NOTE: Don't convert to an ES module; this is used by root/server.js.
 /* eslint-disable import/no-commonjs */
 
-function sanitizedEditor(editor /*: EditorT */) /*: SanitizedEditorT */ {
+function sanitizedEditor(editor /*: EditorT | SanitizedEditorT */) /*: SanitizedEditorT */ {
   return {
     entityType: 'editor',
     gravatar: editor.gravatar,

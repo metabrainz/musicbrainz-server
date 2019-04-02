@@ -11,7 +11,7 @@
             [%-INCLUDE "edit/details/${edit.edit_template}.tt" %]
           [% END %]
         [% ELSE %]
-          <p>[% l('An error occured while loading this edit.') %]</p>
+          <p>[% l('An error occurred while loading this edit.') %]</p>
           <p>[% link_edit(edit, 'data', l('Raw edit data may be available.')) %]</p>
         [% END %]
 

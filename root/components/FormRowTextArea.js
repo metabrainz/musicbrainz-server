@@ -15,7 +15,7 @@ import FormLabel from './FormLabel';
 
 type Props = {
   +cols?: number,
-  +field: FieldT<string>,
+  +field: ReadOnlyFieldT<string>,
   +label: string,
   +required?: boolean,
   +rows?: number,

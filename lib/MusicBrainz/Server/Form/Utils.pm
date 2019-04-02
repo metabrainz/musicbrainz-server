@@ -18,6 +18,7 @@ use Sub::Exporter -setup => {
                       select_options
                       select_options_tree
                       build_grouped_options
+                      build_json
                       build_type_info
                       build_attr_info
                       build_options_tree
@@ -38,7 +39,13 @@ sub language_options {
     my $skip = 0;
 
     my @languages = $c->model('Language')->get_all;
-    if ($context eq "work") {
+    if ($context eq "editor") {
+        for my $language (@languages) {
+            if ($language->iso_code_3 && $language->iso_code_3 =~ /mis|mul|qaa|und|zxx/) {
+                $language->frequency($skip);
+            }
+        }
+    } elsif ($context eq "work") {
         for my $language (@languages) {
             if ($language->iso_code_3 && $language->iso_code_3 eq "zxx") {
                 $language->name(l("[No lyrics]"));
@@ -150,6 +157,19 @@ sub build_grouped_options
     }
     return $result;
 }
+
+sub build_json {
+    my ($c, $root, $out, $coll) = @_;
+
+    $out //= {};
+    $coll //= $c->get_collator();
+
+    my @children = map { build_json->($c, $_, $_->TO_JSON, $coll) }
+                   $root->sorted_children($coll);
+    $out->{children} = [ @children ] if scalar(@children);
+
+    return $out;
+};
 
 sub build_type_info {
     my ($c, $types, @link_type_tree) = @_;

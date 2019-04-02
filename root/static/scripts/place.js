@@ -3,18 +3,18 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-const $ = require('jquery');
-const L = require('leaflet/dist/leaflet-src');
-const ko = require('knockout');
-const _ = require('lodash');
+import $ from 'jquery';
+import L from 'leaflet/dist/leaflet-src';
+import ko from 'knockout';
+import _ from 'lodash';
 
-const isBlank = require('./common/utility/isBlank').default;
-const initializeDuplicateChecker = require('./edit/check-duplicates').default;
-const {initializeArea} = require('./edit/MB/Control/Area');
-const {initializeBubble} = require('./edit/MB/Control/Bubble');
-const {errorField} = require('./edit/validation');
-const {initialize_guess_case} = require('./guess-case/MB/Control/GuessCase');
-const {map, marker} = require('./place/map');
+import isBlank from './common/utility/isBlank';
+import initializeDuplicateChecker from './edit/check-duplicates';
+import {initializeArea} from './edit/MB/Control/Area';
+import {initializeBubble} from './edit/MB/Control/Bubble';
+import {errorField} from './edit/validation';
+import {initialize_guess_case} from './guess-case/MB/Control/GuessCase';
+import {map, marker} from './place/map';
 
 initialize_guess_case('place', 'id-edit-place');
 initializeArea('span.area.autocomplete');

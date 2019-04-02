@@ -55,7 +55,7 @@ sub attribute_index : Chained('attribute_base') PathPart('') RequireAuth(account
         Language => "admin/attributes/Language.js",
         Script => "admin/attributes/Script.js"
     );
-    my $component_path = $component_paths{$model} // "admin/attributes/Index.js";
+    my $component_path = $component_paths{$model} // "admin/attributes/Attribute.js";
 
     $c->stash(
         current_view => 'Node',

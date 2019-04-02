@@ -110,7 +110,7 @@
   <!-- /ko -->
 
   <!-- ko if: error -->
-    <p>[% l('An error occured: ') %] <span data-bind="text: error"></span></p>
+    <p>[% l('An error occurred: ') %] <span data-bind="text: error"></span></p>
   <!-- /ko -->
 
   <!-- ko foreach: { data: searchResults, if: searchResults } -->
