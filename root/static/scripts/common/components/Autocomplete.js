@@ -6,17 +6,18 @@
  */
 
 import _ from 'lodash';
-import $ from 'jquery';
 import ko from 'knockout';
 import React from 'react';
 
 import SearchIcon from './SearchIcon';
 
-import '../MB/Control/Autocomplete';
 import '../entity';
 
 class Autocomplete extends React.Component {
   componentDidMount() {
+    const $ = require('jquery');
+    require('../MB/Control/Autocomplete');
+
     const currentSelection = ko.observable();
     const options = _.clone(this.props);
 
@@ -31,6 +32,9 @@ class Autocomplete extends React.Component {
   }
 
   componentWillUnmount() {
+    const $ = require('jquery');
+    require('../MB/Control/Autocomplete');
+
     this._subscription.dispose();
     this._subscription = null;
     this._currentSelection = null;
@@ -67,7 +71,14 @@ class Autocomplete extends React.Component {
   }
 
   render() {
-    const {disabled, entity, inputID, isLookupPerformed} = this.props;
+    const {
+      children,
+      disabled,
+      entity,
+      inputID,
+      inputName,
+      isLookupPerformed,
+    } = this.props;
     let className = 'name';
     if (isLookupPerformed) {
       className += ' lookup-performed';
@@ -79,9 +90,11 @@ class Autocomplete extends React.Component {
           className={className}
           disabled={disabled}
           id={inputID}
+          name={inputName}
           ref={input => this._nameInput = input}
           type="text"
         />
+        {children}
       </span>
     );
   }

@@ -38,10 +38,6 @@ declare type AnchorProps = {|
   +title?: string,
 |};
 
-declare type AnyFieldT<+F> =
-  | FieldT<F>
-  | StructFieldT<F>;
-
 declare type AnyReactElem = React$Element<any>;
 
 declare type ApplicationT = {|
@@ -53,6 +49,11 @@ declare type ApplicationT = {|
   +oauth_secret: string,
   +oauth_type: string,
 |};
+
+declare type AreaFieldT = CompoundFieldT<{|
+  +gid: FieldT<string | null>,
+  +name: FieldT<string>,
+|}>;
 
 declare type AreaT = {|
   ...AnnotationRoleT,
@@ -307,9 +308,20 @@ declare type CommonsImageT = {|
   +thumb_url: string,
 |};
 
-declare type CompoundFieldT<+F> = {|
-  ...FieldRoleT,
+declare type CompoundFieldT<F> = {|
+  errors: Array<string>,
+  field: F,
+  has_errors: boolean,
+  html_name: string,
+  id: number,
+|};
+
+declare type ReadOnlyCompoundFieldT<+F> = {|
+  +errors: $ReadOnlyArray<string>,
   +field: F,
+  +has_errors: boolean,
+  +html_name: string,
+  +id: number,
 |};
 
 declare type CoreEntityRoleT<+T> = {|
@@ -470,27 +482,30 @@ declare type Expand2ReactInput = VarSubstArg | AnchorProps;
 
 declare type Expand2ReactOutput = string | AnyReactElem;
 
-declare type FieldRoleT = {|
-  +errors: $ReadOnlyArray<string>,
-  +has_errors: boolean,
-  +html_name: string,
+declare type FieldT<V> = {|
+  errors: Array<string>,
+  has_errors: boolean,
+  html_name: string,
   /*
    * The field `id` is unique across all fields on the page. It's purpose
    * is for passing to `key` attributes on React elements.
    */
-  +id: number,
+  id: number,
+  value: V,
 |};
 
-declare type FieldT<+V> = {|
-  ...FieldRoleT,
+declare type ReadOnlyFieldT<+V> = {|
+  +errors: $ReadOnlyArray<string>,
+  +has_errors: boolean,
+  +html_name: string,
+  +id: number,
   +value: V,
 |};
 
 // See lib/MusicBrainz/Server/Form/Role/ToJSON.pm
-declare type FormT<F> = {|
+declare type FormT<+F> = {|
   +field: F,
   +has_errors: boolean,
-  +last_field_id: number,
   +name: string,
 |};
 
@@ -611,6 +626,12 @@ declare type MediumFormatT = {|
   +year: ?number,
 |};
 
+declare type MinimalCoreEntityT = {
+  +entityType: string,
+  +gid: string,
+  ...
+};
+
 // See MB.forms.buildOptionsTree
 declare type OptionListT = $ReadOnlyArray<{|
   +text: string,
@@ -638,6 +659,12 @@ declare type PagerT = {|
   +previous_page: number | null,
   +total_entries: number,
 |};
+
+declare type PartialDateFieldT = CompoundFieldT<{|
+  +day: FieldT<number>,
+  +month: FieldT<number>,
+  +year: FieldT<number>,
+|}>;
 
 declare type PartialDateT = {|
   +day: number | null,
@@ -762,9 +789,22 @@ declare type ReleaseLabelT = {|
 
 declare type ReleaseStatusT = OptionTreeT<'release_status'>;
 
-declare type RepeatableFieldT<+F> = {|
-  ...FieldRoleT,
+declare type RepeatableFieldT<F> = {|
+  errors: Array<string>,
+  field: Array<F>,
+  has_errors: boolean,
+  html_name: string,
+  id: number,
+  last_index: number,
+|};
+
+declare type ReadOnlyRepeatableFieldT<+F> = {|
+  +errors: $ReadOnlyArray<string>,
   +field: $ReadOnlyArray<F>,
+  +has_errors: boolean,
+  +html_name: string,
+  +id: number,
+  last_index: number,
 |};
 
 declare type SanitizedCatalystContextT = {|
@@ -794,10 +834,10 @@ declare type ScriptT = {|
 |};
 
 declare type SearchFormT = FormT<{|
-  +limit: FieldT<number>,
-  +method: FieldT<'advanced' | 'direct' | 'indexed'>,
-  +query: FieldT<string>,
-  +type: FieldT<string>,
+  +limit: ReadOnlyFieldT<number>,
+  +method: ReadOnlyFieldT<'advanced' | 'direct' | 'indexed'>,
+  +query: ReadOnlyFieldT<string>,
+  +type: ReadOnlyFieldT<string>,
 |}>;
 
 declare type SearchResultT<T> = {|
@@ -844,7 +884,7 @@ declare type ServerLanguageT = {|
 
 declare type StrOrNum = string | number;
 
-type StructFieldT<+F> =
+type StructFieldT<F> =
   | CompoundFieldT<F>
   | RepeatableFieldT<F>;
 

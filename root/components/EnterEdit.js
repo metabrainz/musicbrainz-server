@@ -13,7 +13,7 @@ import type {Node as ReactNode} from 'react';
 
 type Props<F> = {|
   +children: ReactNode,
-  +form: FormT<F & {+make_votable: FieldT<boolean>}>,
+  +form: FormT<F & {+make_votable: ReadOnlyFieldT<boolean>}>,
 |};
 
 const EnterEdit = <F>({children, form}: Props<F>) => (

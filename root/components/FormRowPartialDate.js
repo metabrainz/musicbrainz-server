@@ -12,33 +12,32 @@ import React from 'react';
 import FieldErrors from './FieldErrors';
 import FormRow from './FormRow';
 import FormLabel from './FormLabel';
+import PartialDateInput from './PartialDateInput';
 
 type Props = {
-  +field: ReadOnlyFieldT<?string>,
+  +field: PartialDateFieldT,
   +label: string,
   +required?: boolean,
-  +type?: string,
 };
 
-const FormRowText = ({
+const FormRowPartialDate = ({
   field,
   label,
   required = false,
-  type = 'text',
   ...inputProps
 }: Props) => (
   <FormRow>
-    <FormLabel forField={field} label={label} required={required} />
-    <input
-      defaultValue={field.value || ''}
-      id={'id-' + field.html_name}
-      name={field.html_name}
+    <FormLabel
+      forField={field.field.year}
+      label={label}
       required={required}
-      type={type}
+    />
+    <PartialDateInput
+      field={field}
       {...inputProps}
     />
     <FieldErrors field={field} />
   </FormRow>
 );
 
-export default FormRowText;
+export default FormRowPartialDate;

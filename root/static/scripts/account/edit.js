@@ -7,20 +7,4 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import React from 'react';
-
-type Props = {
-  +field: ReadOnlyFieldT<number | string>,
-};
-
-const HiddenField = ({
-  field,
-}: Props) => (
-  <input
-    name={field.html_name}
-    type="hidden"
-    value={field.value}
-  />
-);
-
-export default HiddenField;
+import './components/EditProfileForm';

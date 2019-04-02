@@ -16,7 +16,7 @@ import Collapsible from './Collapsible';
 
 type Props = {|
   +cachedWikipediaExtract: WikipediaExtractT | null,
-  +entity: CoreEntityT,
+  +entity: MinimalCoreEntityT,
 |};
 
 type State = {|
@@ -53,7 +53,7 @@ class WikipediaExtract extends React.Component<Props, State> {
         {' '}
         <small>
           {exp.l('Wikipedia content provided under the terms of the {license_link|Creative Commons BY-SA license}',
-            {license_link: 'https://creativecommons.org/licenses/by-sa/3.0/'})}
+                 {license_link: 'https://creativecommons.org/licenses/by-sa/3.0/'})}
         </small>
       </>
     ) : null;
