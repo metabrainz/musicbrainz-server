@@ -51,7 +51,7 @@ function buildResult(result, index) {
       <td>
         <ReleaseCatnoList labels={release.labels} />
       </td>
-      <td>{formatBarcode(release.barcode)}</td>
+      <td className="barcode-cell">{formatBarcode(release.barcode)}</td>
       <td>
         {release.language ? (
           <abbr title={l_languages(release.language.name)}>
