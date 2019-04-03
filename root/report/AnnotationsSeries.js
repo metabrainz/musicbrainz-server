@@ -13,6 +13,7 @@ import {withCatalystContext} from '../context';
 import Layout from '../layout';
 import formatUserDate from '../utility/formatUserDate';
 
+import {ANNOTATION_REPORT_TEXT} from './constants';
 import SeriesAnnotationList from './components/SeriesAnnotationList';
 import FilterLink from './FilterLink';
 import type {ReportDataT, ReportSeriesAnnotationT} from './types';
@@ -32,6 +33,7 @@ const AnnotationsSeries = ({
       <li>
         {l('This report lists series with annotations.')}
       </li>
+      <li>{ANNOTATION_REPORT_TEXT()}</li>
       <li>
         {texp.l('Total series found: {count}',
                 {count: pager.total_entries})}
