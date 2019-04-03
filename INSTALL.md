@@ -128,7 +128,7 @@ Server configuration
         for the READONLY database setting in lib/DBDefs.pm; it can just be a copy
         of what's in READWRITE if you don't need anything fancy.
 
-    2.  `RT_STANDALONE`
+    2.  `RT_STANDALONE` (for development)
 
         A stand alone server is recommended if you are setting up a server for
         development purposes. They do not accept the replication packets and will
