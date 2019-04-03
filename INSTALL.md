@@ -101,7 +101,7 @@ Server configuration
 
         cp lib/DBDefs.pm.sample lib/DBDefs.pm
 
-    Fill in the appropriate values for `MB_SERVER_ROOT` and `WEB_SERVER`.
+    Fill in the appropriate value (according to comments) for `WEB_SERVER`.
     If you are using a reverse proxy, you should set the environment variable
     MUSICBRAINZ_USE_PROXY=1 when starting the server.
     This makes the server aware of it when checking for the canonical uri.
