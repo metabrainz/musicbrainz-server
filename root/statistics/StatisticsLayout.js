@@ -38,15 +38,51 @@ const LinkStatisticsTab = ({link, title, page, selected}: TabPropsT) => (
 );
 
 const infoLinks = [
-  {link: '/statistics', page: 'index', title: N_l('Overview')},
-  {link: '/statistics/countries', page: 'countries', title: N_l('Countries')},
-  {link: '/statistics/languages-scripts', page: 'languages-scripts', title: N_l('Languages/Scripts')},
-  {link: '/statistics/coverart', page: 'coverart', title: N_l('Cover Art')},
-  {link: '/statistics/relationships', page: 'relationships', title: N_l('Relationships')},
-  {link: '/statistics/edits', page: 'edits', title: N_l('Edits')},
-  {link: '/statistics/formats', page: 'formats', title: N_l('Formats')},
-  {link: '/statistics/editors', page: 'editors', title: N_l('Editors')},
-  {link: '/statistics/timeline/main', page: 'timeline', title: N_l('Timeline')},
+  {
+    link: '/statistics',
+    page: 'index',
+    title: N_l('Overview'),
+  },
+  {
+    link: '/statistics/countries',
+    page: 'countries',
+    title: N_l('Countries'),
+  },
+  {
+    link: '/statistics/languages-scripts',
+    page: 'languages-scripts',
+    title: N_l('Languages/Scripts'),
+  },
+  {
+    link: '/statistics/coverart',
+    page: 'coverart',
+    title: N_l('Cover Art'),
+  },
+  {
+    link: '/statistics/relationships',
+    page: 'relationships',
+    title: N_l('Relationships'),
+  },
+  {
+    link: '/statistics/edits',
+    page: 'edits',
+    title: N_l('Edits'),
+  },
+  {
+    link: '/statistics/formats',
+    page: 'formats',
+    title: N_l('Formats'),
+  },
+  {
+    link: '/statistics/editors',
+    page: 'editors',
+    title: N_l('Editors'),
+  },
+  {
+    link: '/statistics/timeline/main',
+    page: 'timeline',
+    title: N_l('Timeline'),
+  },
 ];
 
 const StatisticsLayout = ({
@@ -58,7 +94,11 @@ const StatisticsLayout = ({
 }: StatisticsLayoutPropsT) => {
   const htmlTitle = hyphenateTitle(l('Database Statistics'), title);
   return (
-    <Layout fullWidth={fullWidth} gettext_domains={['attributes', 'relationships', 'statistics']} title={htmlTitle}>
+    <Layout
+      fullWidth={fullWidth}
+      gettext_domains={['attributes', 'relationships', 'statistics']}
+      title={htmlTitle}
+    >
       <link
         href={require('../static/styles/statistics.less')}
         rel="stylesheet"
