@@ -35,7 +35,11 @@ Prerequisites
     If needed, packages of all supported PostgreSQL versions for various Ubuntu
     releases are available from the [PostgreSQL apt repository](http://www.postgresql.org/download/linux/ubuntu/).
 
-        sudo apt-get install postgresql-9.x postgresql-server-dev-9.x postgresql-contrib-9.x
+        POSTGRES_VERSION=9.5
+        sudo apt-get install \
+            postgresql-${POSTGRES_VERSION} \
+            postgresql-contrib-${POSTGRES_VERSION} \
+            postgresql-server-dev-${POSTGRES_VERSION}
 
     Alternatively, you may compile PostgreSQL from source, but then make sure to
     also compile the cube and earthdistance extensions found in the contrib
@@ -160,7 +164,14 @@ Below outlines how to setup MusicBrainz server with local::lib.
     There are also a few development headers that will be needed when installing
     dependencies. Run the following steps as a normal user on your system.
 
-        sudo apt-get install libxml2-dev libpq-dev libexpat1-dev libdb-dev libicu-dev liblocal-lib-perl cpanminus
+        sudo apt-get install \
+            libdb-dev \
+            libexpat1-dev \
+            libicu-dev \
+            liblocal-lib-perl \
+            libpq-dev \
+            libxml2-dev \
+            cpanminus
 
 2.  Enable local::lib
 
