@@ -10,20 +10,18 @@
 import React from 'react';
 
 import {withCatalystContext} from '../context';
-import loopParity from '../utility/loopParity';
-import DescriptiveLink
-  from '../static/scripts/common/components/DescriptiveLink';
+import ArtistListEntry
+  from '../static/scripts/common/components/ArtistListEntry';
 
-import RatingStars from './RatingStars';
 import SortableTableHeader from './SortableTableHeader';
 
 type Props = {|
   +$c: CatalystContextT,
   +artists: $ReadOnlyArray<ArtistT>,
   +checkboxes?: string,
-  +noAreas?: boolean,
-  +noRatings?: boolean,
   +order?: string,
+  +showBeginEnd?: boolean,
+  +showRatings?: boolean,
   +sortable?: boolean,
 |};
 
@@ -31,9 +29,9 @@ const ArtistsList = ({
   $c,
   artists,
   checkboxes,
-  noAreas,
-  noRatings,
   order,
+  showBeginEnd,
+  showRatings,
   sortable,
 }: Props) => (
   <table className="tbl">
@@ -77,66 +75,28 @@ const ArtistsList = ({
             )
             : l('Gender')}
         </th>
-        {noAreas ? null : (
+        <th>{l('Area')}</th>
+        {showBeginEnd ? (
           <>
-            <th>{l('Area')}</th>
+            <th>{l('Begin')}</th>
             <th>{l('Begin Area')}</th>
+            <th>{l('End')}</th>
             <th>{l('End Area')}</th>
           </>
-        )}
-        {noRatings ? null : <th>{l('Rating')}</th>}
+        ) : null}
+        {showRatings ? <th>{l('Rating')}</th> : null}
       </tr>
     </thead>
     <tbody>
       {artists.map((artist, index) => (
-        <tr className={loopParity(index)} key={artist.id}>
-          {$c.user_exists && checkboxes ? (
-            <td>
-              <input
-                name={checkboxes}
-                type="checkbox"
-                value={artist.id}
-              />
-            </td>
-          ) : null}
-          <td>
-            <DescriptiveLink entity={artist} />
-          </td>
-          <td>
-            {artist.typeName
-              ? lp_attributes(artist.typeName, 'artist_type')
-              : null}
-          </td>
-          <td>
-            {artist.gender
-              ? lp_attributes(artist.gender.name, 'gender')
-              : null}
-          </td>
-          {noAreas ? null : (
-            <>
-              <td>
-                {artist.area
-                  ? <DescriptiveLink entity={artist.area} />
-                  : null}
-              </td>
-              <td>
-                {artist.begin_area
-                  ? <DescriptiveLink entity={artist.begin_area} />
-                  : null}
-              </td>
-              <td>
-                {artist.end_area
-                  ? <DescriptiveLink entity={artist.end_area} />
-                  : null}
-              </td>
-            </>
-          )}
-          {noRatings ? null : (
-            <td>
-              <RatingStars entity={artist} />
-            </td>
-          )}
-        </tr>
+        <ArtistListEntry
+          artist={artist}
+          checkboxes={checkboxes}
+          index={index}
+          key={artist.id}
+          showBeginEnd={showBeginEnd}
+          showRatings={showRatings}
+        />
       ))}
     </tbody>
   </table>
