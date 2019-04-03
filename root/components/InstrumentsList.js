@@ -10,10 +10,8 @@
 import React from 'react';
 
 import {withCatalystContext} from '../context';
-import loopParity from '../utility/loopParity';
-import DescriptiveLink
-  from '../static/scripts/common/components/DescriptiveLink';
-import expand2react from '../static/scripts/common/i18n/expand2react';
+import InstrumentListEntry
+  from '../static/scripts/common/components/InstrumentListEntry';
 
 import SortableTableHeader from './SortableTableHeader';
 
@@ -67,32 +65,12 @@ const InstrumentsList = ({
     </thead>
     <tbody>
       {instruments.map((instrument, index) => (
-        <tr className={loopParity(index)} key={instrument.id}>
-          {$c.user_exists && checkboxes ? (
-            <td>
-              <input
-                name={checkboxes}
-                type="checkbox"
-                value={instrument.id}
-              />
-            </td>
-          ) : null}
-          <td>
-            <DescriptiveLink entity={instrument} />
-          </td>
-          <td>
-            {instrument.typeName
-              ? lp_attributes(instrument.typeName, 'instrument_type')
-              : null}
-          </td>
-          <td>
-            {instrument.description
-              ? expand2react(
-                l_instrument_descriptions(instrument.description),
-              )
-              : null}
-          </td>
-        </tr>
+        <InstrumentListEntry
+          checkboxes={checkboxes}
+          index={index}
+          instrument={instrument}
+          key={instrument.id}
+        />
       ))}
     </tbody>
   </table>
