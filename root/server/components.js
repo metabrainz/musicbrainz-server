@@ -178,6 +178,7 @@ module.exports = {
   'statistics/CoverArt': require('../statistics/CoverArt'),
   'statistics/Editors': require('../statistics/Editors'),
   'statistics/Edits': require('../statistics/Edits'),
+  'statistics/Formats': require('../statistics/Formats'),
   'statistics/Index': require('../statistics/Index'),
   'statistics/LanguagesScripts': require('../statistics/LanguagesScripts'),
   'statistics/NoStatistics': require('../statistics/NoStatistics'),
