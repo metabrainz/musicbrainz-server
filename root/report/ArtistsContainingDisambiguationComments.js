@@ -25,16 +25,26 @@ const ArtistsContainingDisambiguationComments = ({
   items,
   pager,
 }: ReportDataT<ReportArtistT>) => (
-  <Layout fullWidth title={l('Artists containing disambiguation comments in their name')}>
+  <Layout
+    fullWidth
+    title={l('Artists containing disambiguation comments in their name')}
+  >
     <h1>{l('Artists containing disambiguation comments in their name')}</h1>
 
     <ul>
       <li>
         {l(`This report lists artists that may have disambiguation comments in
-            their name, rather than the actual disambiguation comment field.`)}
+            their name, rather than the actual disambiguation comment
+            field.`)}
       </li>
-      <li>{texp.l('Total artists found: {count}', {count: pager.total_entries})}</li>
-      <li>{texp.l('Generated on {date}', {date: formatUserDate($c.user, generated)})}</li>
+      <li>
+        {texp.l('Total artists found: {count}',
+                {count: pager.total_entries})}
+      </li>
+      <li>
+        {texp.l('Generated on {date}',
+                {date: formatUserDate($c.user, generated)})}
+      </li>
 
       {canBeFiltered ? <FilterLink filtered={filtered} /> : null}
     </ul>

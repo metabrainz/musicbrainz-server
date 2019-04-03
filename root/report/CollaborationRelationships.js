@@ -44,8 +44,14 @@ const CollaborationRelationships = ({
             {how_to_split_artists: '/doc/How_to_Split_Artists'},
           )}
         </li>
-        <li>{texp.l('Total artists found: {count}', {count: pager.total_entries})}</li>
-        <li>{texp.l('Generated on {date}', {date: formatUserDate($c.user, generated)})}</li>
+        <li>
+          {texp.l('Total artists found: {count}',
+                  {count: pager.total_entries})}
+        </li>
+        <li>
+          {texp.l('Generated on {date}',
+                  {date: formatUserDate($c.user, generated)})}
+        </li>
 
         {canBeFiltered ? <FilterLink filtered={filtered} /> : null}
       </ul>
@@ -64,7 +70,9 @@ const CollaborationRelationships = ({
               currentID = item.id1;
 
               return (
-                <React.Fragment key={item.artist1.gid + '-' + item.artist0.gid}>
+                <React.Fragment
+                  key={item.artist1.gid + '-' + item.artist0.gid}
+                >
                   {lastID === item.id1 ? null : (
                     <tr className="even">
                       <td colSpan="2">

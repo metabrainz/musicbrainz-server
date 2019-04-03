@@ -33,8 +33,14 @@ const DeprecatedRelationshipPlaces = ({
         {l(`This report lists places which have relationships using
             deprecated and grouping-only relationship types.`)}
       </li>
-      <li>{texp.l('Total places found: {count}', {count: pager.total_entries})}</li>
-      <li>{texp.l('Generated on {date}', {date: formatUserDate($c.user, generated)})}</li>
+      <li>
+        {texp.l('Total places found: {count}',
+                {count: pager.total_entries})}
+      </li>
+      <li>
+        {texp.l('Generated on {date}',
+                {date: formatUserDate($c.user, generated)})}
+      </li>
 
       {canBeFiltered ? <FilterLink filtered={filtered} /> : null}
     </ul>

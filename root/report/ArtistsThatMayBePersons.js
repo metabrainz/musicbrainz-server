@@ -37,8 +37,14 @@ const ArtistsThatMayBePersons = ({
             a person, change its type. If it is not, please make sure that
             all the relationships are correct and make sense.`)}
       </li>
-      <li>{texp.l('Total artists found: {count}', {count: pager.total_entries})}</li>
-      <li>{texp.l('Generated on {date}', {date: formatUserDate($c.user, generated)})}</li>
+      <li>
+        {texp.l('Total artists found: {count}',
+                {count: pager.total_entries})}
+      </li>
+      <li>
+        {texp.l('Generated on {date}',
+                {date: formatUserDate($c.user, generated)})}
+      </li>
 
       {canBeFiltered ? <FilterLink filtered={filtered} /> : null}
     </ul>

@@ -38,7 +38,11 @@ const ArtistRelationshipList = ({
             <td>
               <EntityLink entity={item.artist} />
             </td>
-            <td>{item.artist.typeName ? lp_attributes(item.artist.typeName, 'artist_type') : l('Unknown')}</td>
+            <td>
+              {item.artist.typeName
+                ? lp_attributes(item.artist.typeName, 'artist_type')
+                : l('Unknown')}
+            </td>
           </tr>
         ))}
       </tbody>

@@ -27,7 +27,10 @@ const ArtistsWithMultipleOccurrencesInArtistCredits = ({
   items,
   pager,
 }: ReportDataT<ReportArtistT>) => (
-  <Layout fullWidth title={l('Artists occurring multiple times in the same artist credit')}>
+  <Layout
+    fullWidth
+    title={l('Artists occurring multiple times in the same artist credit')}
+  >
     <h1>{l('Artists occurring multiple times in the same artist credit')}</h1>
 
     <ul>
@@ -35,8 +38,14 @@ const ArtistsWithMultipleOccurrencesInArtistCredits = ({
         {l(`This report lists artists that appear more than once in different
             positions within the same artist credit.`)}
       </li>
-      <li>{texp.l('Total artists found: {count}', {count: pager.total_entries})}</li>
-      <li>{texp.l('Generated on {date}', {date: formatUserDate($c.user, generated)})}</li>
+      <li>
+        {texp.l('Total artists found: {count}',
+                {count: pager.total_entries})}
+      </li>
+      <li>
+        {texp.l('Generated on {date}',
+                {date: formatUserDate($c.user, generated)})}
+      </li>
 
       {canBeFiltered ? <FilterLink filtered={filtered} /> : null}
     </ul>
@@ -55,7 +64,11 @@ const ArtistsWithMultipleOccurrencesInArtistCredits = ({
               <td>
                 <EntityLink entity={item.artist} subPath="aliases" />
               </td>
-              <td>{item.artist.typeName ? lp_attributes(item.artist.typeName, 'artist_type') : l('Unknown')}</td>
+              <td>
+                {item.artist.typeName
+                  ? lp_attributes(item.artist.typeName, 'artist_type')
+                  : l('Unknown')}
+              </td>
             </tr>
           ))}
         </tbody>

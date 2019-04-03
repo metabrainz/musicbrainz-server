@@ -30,8 +30,15 @@ const RecordingsSameNameDifferentArtistsSameName = ({
   items,
   pager,
 }: ReportDataT<ReportRecordingT>) => (
-  <Layout fullWidth title={l('Recordings with the same name by different artists with the same name')}>
-    <h1>{l('Recordings with the same name by different artists with the same name')}</h1>
+  <Layout
+    fullWidth
+    title={l(`Recordings with the same name by different artists
+              with the same name`)}
+  >
+    <h1>
+      {l(`Recordings with the same name by different artists
+          with the same name`)}
+    </h1>
 
     <ul>
       <li>
@@ -40,15 +47,21 @@ const RecordingsSameNameDifferentArtistsSameName = ({
       </li>
       <li>
         {exp.l(`These are most likely cases where the {ac|artist credit} is
-            incorrect for at least one of the recordings.`,
-        {ac: '/doc/Artist_Credits'})}
+                incorrect for at least one of the recordings.`,
+               {ac: '/doc/Artist_Credits'})}
       </li>
       <li>
         {l(`Currently, this report only works with recordings that have
             one artist.`)}
       </li>
-      <li>{texp.l('Total recordings found: {count}', {count: pager.total_entries})}</li>
-      <li>{texp.l('Generated on {date}', {date: formatUserDate($c.user, generated)})}</li>
+      <li>
+        {texp.l('Total recordings found: {count}',
+                {count: pager.total_entries})}
+      </li>
+      <li>
+        {texp.l('Generated on {date}',
+                {date: formatUserDate($c.user, generated)})}
+      </li>
 
       {canBeFiltered ? <FilterLink filtered={filtered} /> : null}
     </ul>

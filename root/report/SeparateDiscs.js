@@ -36,10 +36,16 @@ const SeparateDiscs = ({
       <li>
         {exp.l('For instructions on how to fix them, please see the documentation\
             about {howto|how to merge releases}.',
-        {howto: '/doc/How_to_Merge_Releases'})}
+               {howto: '/doc/How_to_Merge_Releases'})}
       </li>
-      <li>{texp.l('Total releases found: {count}', {count: pager.total_entries})}</li>
-      <li>{texp.l('Generated on {date}', {date: formatUserDate($c.user, generated)})}</li>
+      <li>
+        {texp.l('Total releases found: {count}',
+                {count: pager.total_entries})}
+      </li>
+      <li>
+        {texp.l('Generated on {date}',
+                {date: formatUserDate($c.user, generated)})}
+      </li>
 
       {canBeFiltered ? <FilterLink filtered={filtered} /> : null}
     </ul>

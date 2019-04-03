@@ -35,8 +35,14 @@ const DuplicateRelationshipsWorks = ({
             This excludes recording-work relationships. See the recording
             version of this report for those.`)}
       </li>
-      <li>{texp.l('Total works found: {count}', {count: pager.total_entries})}</li>
-      <li>{texp.l('Generated on {date}', {date: formatUserDate($c.user, generated)})}</li>
+      <li>
+        {texp.l('Total works found: {count}',
+                {count: pager.total_entries})}
+      </li>
+      <li>
+        {texp.l('Generated on {date}',
+                {date: formatUserDate($c.user, generated)})}
+      </li>
 
       {canBeFiltered ? <FilterLink filtered={filtered} /> : null}
     </ul>

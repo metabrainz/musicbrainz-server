@@ -36,11 +36,17 @@ const ReleasesMissingDiscIds = ({
       </li>
       <li>
         {exp.l(`For instructions on how to add one, see the
-            {add_discids|documentation page}.`,
-        {add_discids: '/doc/How_to_Add_Disc_IDs'})}
+                {add_discids|documentation page}.`,
+               {add_discids: '/doc/How_to_Add_Disc_IDs'})}
       </li>
-      <li>{texp.l('Total releases found: {count}', {count: pager.total_entries})}</li>
-      <li>{texp.l('Generated on {date}', {date: formatUserDate($c.user, generated)})}</li>
+      <li>
+        {texp.l('Total releases found: {count}',
+                {count: pager.total_entries})}
+      </li>
+      <li>
+        {texp.l('Generated on {date}',
+                {date: formatUserDate($c.user, generated)})}
+      </li>
 
       {canBeFiltered ? <FilterLink filtered={filtered} /> : null}
     </ul>

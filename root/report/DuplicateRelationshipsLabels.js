@@ -33,8 +33,14 @@ const DuplicateRelationshipsLabels = ({
         {l(`This report lists labels which have multiple relationships
             to the same entity using the same relationship type.`)}
       </li>
-      <li>{texp.l('Total labels found: {count}', {count: pager.total_entries})}</li>
-      <li>{texp.l('Generated on {date}', {date: formatUserDate($c.user, generated)})}</li>
+      <li>
+        {texp.l('Total labels found: {count}',
+                {count: pager.total_entries})}
+      </li>
+      <li>
+        {texp.l('Generated on {date}',
+                {date: formatUserDate($c.user, generated)})}
+      </li>
 
       {canBeFiltered ? <FilterLink filtered={filtered} /> : null}
     </ul>

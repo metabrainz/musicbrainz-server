@@ -25,7 +25,10 @@ const RecordingsWithEarliestReleaseRelationships = ({
   items,
   pager,
 }: ReportDataT<ReportRecordingT>) => (
-  <Layout fullWidth title={l('Recordings with earliest release relationships')}>
+  <Layout
+    fullWidth
+    title={l('Recordings with earliest release relationships')}
+  >
     <h1>{l('Recordings with earliest release relationships')}</h1>
 
     <ul>
@@ -37,8 +40,14 @@ const RecordingsWithEarliestReleaseRelationships = ({
             the lengths fit, and do not merge recordings with very different
             times!`)}
       </li>
-      <li>{texp.l('Total recordings found: {count}', {count: pager.total_entries})}</li>
-      <li>{texp.l('Generated on {date}', {date: formatUserDate($c.user, generated)})}</li>
+      <li>
+        {texp.l('Total recordings found: {count}',
+                {count: pager.total_entries})}
+      </li>
+      <li>
+        {texp.l('Generated on {date}',
+                {date: formatUserDate($c.user, generated)})}
+      </li>
 
       {canBeFiltered ? <FilterLink filtered={filtered} /> : null}
     </ul>

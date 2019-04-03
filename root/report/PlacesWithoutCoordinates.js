@@ -36,8 +36,14 @@ const PlacesWithoutCoordinates = ({
       <li>
         {l('This report lists places without coordinates.')}
       </li>
-      <li>{texp.l('Total places found: {count}', {count: pager.total_entries})}</li>
-      <li>{texp.l('Generated on {date}', {date: formatUserDate($c.user, generated)})}</li>
+      <li>
+        {texp.l('Total places found: {count}',
+                {count: pager.total_entries})}
+      </li>
+      <li>
+        {texp.l('Generated on {date}',
+                {date: formatUserDate($c.user, generated)})}
+      </li>
 
       {canBeFiltered ? <FilterLink filtered={filtered} /> : null}
     </ul>
@@ -74,7 +80,9 @@ const PlacesWithoutCoordinates = ({
                 <td className="search-links">
                   <span className="no-favicon">
                     <a
-                      href={'https://www.openstreetmap.org/search?query=' + query}
+                      href={
+                        'https://www.openstreetmap.org/search?query=' + query
+                      }
                       rel="noopener noreferrer"
                       target="_blank"
                       title="OpenStreetMap"

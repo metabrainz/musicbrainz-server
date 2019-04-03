@@ -28,10 +28,16 @@ const LimitedEditors = ({
     <ul>
       <li>
         {exp.l('This report lists {url|beginner/limited editors}.',
-          {url: '/doc/How_to_Create_an_Account'})}
+               {url: '/doc/How_to_Create_an_Account'})}
       </li>
-      <li>{texp.l('Total editors found: {count}', {count: pager.total_entries})}</li>
-      <li>{texp.l('Generated on {date}', {date: formatUserDate($c.user, generated)})}</li>
+      <li>
+        {texp.l('Total editors found: {count}',
+                {count: pager.total_entries})}
+      </li>
+      <li>
+        {texp.l('Generated on {date}',
+                {date: formatUserDate($c.user, generated)})}
+      </li>
     </ul>
 
     {$c.user && $c.user.is_account_admin ? (
