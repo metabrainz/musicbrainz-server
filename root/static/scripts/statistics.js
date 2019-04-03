@@ -1,8 +1,10 @@
 import tablesorter from 'tablesorter';
 
-// Needed by root/statistics/macros-header.tt, which uses the
-// css_manifest TT macro that requires statistics.less to exist in
-// rev-manifest.json.
+/*
+ * Needed by root/statistics/macros-header.tt, which uses the
+ * css_manifest TT macro that requires statistics.less to exist in
+ * rev-manifest.json.
+ */
 import '../styles/statistics.less';
 
 tablesorter.addWidget({
@@ -39,14 +41,25 @@ tablesorter.addParser({
 });
 
 $('#countries-table').tablesorter({
-  headers: {0: {sorter: false}, 2: {sorter: 'fancyNumber'}, 3: {sorter: 'fancyNumber'}, 4: {sorter: 'fancyNumber'}, 5: {sorter: 'fancyNumber'}},
+  headers: {
+    0: {sorter: false},
+    2: {sorter: 'fancyNumber'},
+    3: {sorter: 'fancyNumber'},
+    4: {sorter: 'fancyNumber'},
+    5: {sorter: 'fancyNumber'},
+  },
   // order by descending number of entities, then name
   sortList: [[5, 1], [1, 0]],
   widgets: ['indexFirstColumn', 'evenRowClasses'],
 });
 
 $('#languages-table').tablesorter({
-  headers: {0: {sorter: false}, 2: {sorter: 'fancyNumber'}, 3: {sorter: 'fancyNumber'}, 4: {sorter: 'fancyNumber'}},
+  headers: {
+    0: {sorter: false},
+    2: {sorter: 'fancyNumber'},
+    3: {sorter: 'fancyNumber'},
+    4: {sorter: 'fancyNumber'},
+  },
   // order by descending number of entities, then name
   sortList: [[4, 1], [1, 0]],
   widgets: ['indexFirstColumn', 'evenRowClasses'],
