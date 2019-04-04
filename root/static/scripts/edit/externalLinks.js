@@ -584,7 +584,7 @@ MB.createExternalLinksEditor = function (options: InitialOptionsT) {
     const urls = {};
     let match;
 
-    while (match = seededLinkRegex.exec(window.location.search)) {
+    while ((match = seededLinkRegex.exec(window.location.search))) {
       const [/* unused */, index, key, value] = match;
       (urls[index] = urls[index] || {})[key] = decodeURIComponent(value);
     }
