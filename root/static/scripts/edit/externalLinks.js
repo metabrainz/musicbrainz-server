@@ -130,9 +130,9 @@ export class ExternalLinksEditor extends React.Component<LinksEditorProps, Links
     >(this.state.links, 'relationship');
 
     return {
-      oldLinks: oldLinks,
-      newLinks: newLinks,
       allLinks: _.defaults(_.clone(newLinks), oldLinks),
+      newLinks: newLinks,
+      oldLinks: oldLinks,
     };
   }
 
@@ -360,9 +360,9 @@ export class ExternalLink extends React.Component<LinkProps> {
 }
 
 const defaultLinkState: LinkStateT = {
-  url: '',
-  type: null,
   relationship: null,
+  type: null,
+  url: '',
   video: false,
 };
 
@@ -412,8 +412,8 @@ export function parseRelationships(relationships?: $ReadOnlyArray<RelationshipT>
     if (target.entityType === 'url') {
       accum.push({
         relationship: data.id,
-        url: target.name,
         type: data.linkTypeID,
+        url: target.name,
         video: data.attributes
           ? data.attributes.some(isVideoAttribute)
           : false,
@@ -511,9 +511,9 @@ MB.createExternalLinksEditor = function (options: InitialOptionsT) {
 
     _.each(urls, function (data) {
       initialLinks.push(newLinkState({
-        url: data.text || '',
-        type: data.link_type_id,
         relationship: _.uniqueId('new-'),
+        type: data.link_type_id,
+        url: data.text || '',
       }));
     });
   }
