@@ -47,7 +47,8 @@ type LinksEditorState = {
   links: Array<LinkStateT>,
 };
 
-export class ExternalLinksEditor extends React.Component<LinksEditorProps, LinksEditorState> {
+export class ExternalLinksEditor
+  extends React.Component<LinksEditorProps, LinksEditorState> {
   constructor(props: LinksEditorProps) {
     super(props);
     this.state = {links: withOneEmptyLink(props.initialLinks)};
@@ -207,18 +208,51 @@ export class ExternalLinksEditor extends React.Component<LinksEditorProps, Links
             } else if (isShortened(link.url)) {
               error = l("Please don't use shortened URLs.");
             } else if (!link.type) {
-              error = l('Please select a link type for the URL you’ve entered.');
-            } else if (linkType.deprecated && (!isPositiveInteger(link.relationship) || (oldLink && +link.type !== +oldLink.type))) {
-              error = l('This relationship type is deprecated and should not be used.');
-            } else if ((!isPositiveInteger(link.relationship) || (oldLink && link.url !== oldLink.url)) && checker && !checker(link.url)) {
-              error = l('This URL is not allowed for the selected link type, or is incorrectly formatted.');
-            } else if ((!isPositiveInteger(link.relationship) || (oldLink && link.url !== oldLink.url)) && /^(https?:\/\/)?([^.\/]+\.)?wikipedia\.org\/.*#/.test(link.url)) {
-              // Kludge for MBS-9515 to be replaced with the more general MBS-9516
-              error = exp.l('Links to specific sections of Wikipedia articles are not allowed. Please remove “{fragment}” if still appropriate. See the {url|guidelines}.', {
-                fragment: <span className="url-quote" key="fragment">{link.url.replace(/^(?:https?:\/\/)?(?:[^.\/]+\.)?wikipedia\.org\/[^#]*#(.*)$/, '#$1')}</span>,
-                url: {href: '/relationship/' + linkType.gid, target: '_blank'},
-              });
-            } else if ((linksByTypeAndUrl[linkTypeAndUrlString(link)] || []).length > 1) {
+              error = l(`Please select a link type for the URL
+                         you’ve entered.`);
+            } else if (
+              linkType.deprecated &&
+                (!isPositiveInteger(link.relationship) ||
+                  (oldLink && +link.type !== +oldLink.type))
+            ) {
+              error = l(`This relationship type is deprecated 
+                         and should not be used.`);
+            } else if (
+              (!isPositiveInteger(link.relationship) ||
+                (oldLink && link.url !== oldLink.url)) &&
+                  checker && !checker(link.url)
+            ) {
+              error = l(`This URL is not allowed for the selected link type, 
+                         or is incorrectly formatted.`);
+            } else if (
+              (!isPositiveInteger(link.relationship) ||
+                (oldLink && link.url !== oldLink.url)) &&
+                  /^(https?:\/\/)?([^.\/]+\.)?wikipedia\.org\/.*#/
+                    .test(link.url)
+            ) {
+              // Kludge for MBS-9515 to be replaced with general MBS-9516
+              error = exp.l(
+                `Links to specific sections of Wikipedia articles are not 
+                 allowed. Please remove “{fragment}” if still appropriate.
+                 See the {url|guidelines}.`,
+                {
+                  fragment: (
+                    <span className="url-quote" key="fragment">
+                      {link.url.replace(
+                        /^(?:https?:\/\/)?(?:[^.\/]+\.)?wikipedia\.org\/[^#]*#(.*)$/,
+                        '#$1',
+                      )}
+                    </span>
+                  ),
+                  url: {
+                    href: '/relationship/' + linkType.gid,
+                    target: '_blank',
+                  },
+                },
+              );
+            } else if (
+              (linksByTypeAndUrl[linkTypeAndUrlString(link)] || []).length > 1
+            ) {
               error = l('This relationship already exists.');
             }
 
@@ -233,14 +267,22 @@ export class ExternalLinksEditor extends React.Component<LinksEditorProps, Links
                 key={link.relationship}
                 removeCallback={_.bind(this.removeLink, this, index)}
                 type={link.type}
-                typeChangeCallback={_.bind(this.handleTypeChange, this, index)}
+                typeChangeCallback={
+                  _.bind(this.handleTypeChange, this, index)
+                }
                 typeOptions={this.props.typeOptions}
                 url={link.url}
                 urlBlurCallback={_.bind(this.handleUrlBlur, this, index)}
                 urlChangeCallback={_.bind(this.handleUrlChange, this, index)}
-                urlMatchesType={linkType.gid === URLCleanup.guessType(this.props.sourceType, link.url)}
+                urlMatchesType={
+                  linkType.gid === URLCleanup.guessType(
+                    this.props.sourceType, link.url,
+                  )
+                }
                 video={link.video}
-                videoChangeCallback={_.bind(this.handleVideoChange, this, index)}
+                videoChangeCallback={
+                  _.bind(this.handleVideoChange, this, index)
+                }
               />
             );
           })}
@@ -259,7 +301,11 @@ type LinkTypeSelectProps = {
 class LinkTypeSelect extends React.Component<LinkTypeSelectProps> {
   render() {
     return (
-      <select className="link-type" onChange={this.props.typeChangeCallback} value={this.props.type || ''}>
+      <select
+        className="link-type"
+        onChange={this.props.typeChangeCallback}
+        value={this.props.type || ''}
+      >
         <option value="">{'\xA0'}</option>
         {this.props.children}
       </select>
@@ -308,9 +354,14 @@ export class ExternalLink extends React.Component<LinkProps> {
       );
     }
 
-    const showTypeSelection = props.errorMessage ? true : !(props.urlMatchesType || isEmpty(props));
+    const showTypeSelection = props.errorMessage
+      ? true
+      : !(props.urlMatchesType || isEmpty(props));
     if (!showTypeSelection && props.urlMatchesType) {
-      faviconClass = _.find(FAVICON_CLASSES, (value: string, key: string) => props.url.indexOf(key) > 0);
+      faviconClass = _.find(
+        FAVICON_CLASSES,
+        (value: string, key: string) => props.url.indexOf(key) > 0,
+      );
     }
 
     return (
@@ -319,17 +370,23 @@ export class ExternalLink extends React.Component<LinkProps> {
           {/* If the URL matches its type or is just empty, display either a
               favicon or a prompt for a new link as appropriate. */
             showTypeSelection
-              ? <LinkTypeSelect type={props.type} typeChangeCallback={props.typeChangeCallback}>
+              ? <LinkTypeSelect
+                type={props.type}
+                typeChangeCallback={props.typeChangeCallback}
+                >
                 {props.typeOptions}
               </LinkTypeSelect>
               : <label>
-                {faviconClass && <span className={'favicon ' + faviconClass + '-favicon'} />}
+                {faviconClass &&
+                  <span className={'favicon ' + faviconClass + '-favicon'} />}
                 {(linkType ? (
                   backward
                     ? l_relationships(linkType.reverse_link_phrase)
                     : l_relationships(linkType.link_phrase)
                 ) : null) ||
-                  (props.isOnlyLink ? l('Add link:') : l('Add another link:'))}
+                  (props.isOnlyLink
+                    ? l('Add link:')
+                    : l('Add another link:'))}
               </label>}
         </td>
         <td>
@@ -340,11 +397,19 @@ export class ExternalLink extends React.Component<LinkProps> {
             type="url"
             value={props.url}
           />
-          {props.errorMessage && <div className="error field-error" data-visible="1">{props.errorMessage}</div>}
-          {linkType && _.has(linkType.attributes, String(VIDEO_ATTRIBUTE_ID)) &&
+          {props.errorMessage &&
+            <div className="error field-error" data-visible="1">
+              {props.errorMessage}
+            </div>}
+          {linkType &&
+            _.has(linkType.attributes, String(VIDEO_ATTRIBUTE_ID)) &&
             <div className="attribute-container">
               <label>
-                <input checked={props.video} onChange={props.videoChangeCallback} type="checkbox" />
+                <input
+                  checked={props.video}
+                  onChange={props.videoChangeCallback}
+                  type="checkbox"
+                />
                 {' '}
                 {l('video')}
               </label>
@@ -352,7 +417,11 @@ export class ExternalLink extends React.Component<LinkProps> {
         </td>
         <td style={{minWidth: '34px'}}>
           {typeDescription && <HelpIcon content={typeDescription} />}
-          {isEmpty(props) || <RemoveButton callback={props.removeCallback} title={l('Remove Link')} />}
+          {isEmpty(props) ||
+            <RemoveButton
+              callback={props.removeCallback}
+              title={l('Remove Link')}
+            />}
         </td>
       </tr>
     );
@@ -402,7 +471,9 @@ function withOneEmptyLink(links, dontRemove) {
 
 const isVideoAttribute = attr => attr.type.gid === VIDEO_ATTRIBUTE_GID;
 
-export function parseRelationships(relationships?: $ReadOnlyArray<RelationshipT>) {
+export function parseRelationships(
+  relationships?: $ReadOnlyArray<RelationshipT>,
+) {
   if (!relationships) {
     return [];
   }
@@ -497,16 +568,22 @@ MB.createExternalLinksEditor = function (options: InitialOptionsT) {
     if (hasSessionStorage) {
       const submittedLinks = window.sessionStorage.getItem('submittedLinks');
       if (submittedLinks) {
-        initialLinks = JSON.parse(submittedLinks).filter(l => !isEmpty(l)).map(newLinkState);
+        initialLinks = JSON.parse(submittedLinks)
+          .filter(l => !isEmpty(l)).map(newLinkState);
       }
     }
   } else {
-    const seededLinkRegex = new RegExp('(?:\\?|&)edit-' + sourceType + '\\.url\\.([0-9]+)\\.(text|link_type_id)=([^&]+)', 'g');
+    const seededLinkRegex = new RegExp(
+      '(?:\\?|&)edit-' + sourceType +
+        '\\.url\\.([0-9]+)\\.(text|link_type_id)=([^&]+)',
+      'g',
+    );
     const urls = {};
     let match;
 
     while (match = seededLinkRegex.exec(window.location.search)) {
-      (urls[match[1]] = urls[match[1]] || {})[match[2]] = decodeURIComponent(match[3]);
+      (urls[match[1]] = urls[match[1]] || {})[match[2]] =
+        decodeURIComponent(match[3]);
     }
 
     _.each(urls, function (data) {
@@ -522,8 +599,10 @@ MB.createExternalLinksEditor = function (options: InitialOptionsT) {
     const typeA = a.type && linkedEntities.link_type[a.type];
     const typeB = b.type && linkedEntities.link_type[b.type];
 
-    return compare(typeA ? l_relationships(typeA.link_phrase).toLowerCase() : '',
-                   typeB ? l_relationships(typeB.link_phrase).toLowerCase() : '');
+    return compare(
+      typeA ? l_relationships(typeA.link_phrase).toLowerCase() : '',
+      typeB ? l_relationships(typeB.link_phrase).toLowerCase() : '',
+    );
   });
 
   initialLinks = initialLinks.map(function (link) {
@@ -541,11 +620,22 @@ MB.createExternalLinksEditor = function (options: InitialOptionsT) {
   });
 
   const typeOptions = (
-    linkTypeOptions({children: linkedEntities.link_type_tree[entityTypes]}, /^url-/.test(entityTypes))
-      .map((data) => <option disabled={data.disabled} key={data.value} value={data.value}>{data.text}</option>)
+    linkTypeOptions(
+      {children: linkedEntities.link_type_tree[entityTypes]},
+      /^url-/.test(entityTypes),
+    ).map((data) => (
+      <option
+        disabled={data.disabled}
+        key={data.value}
+        value={data.value}
+      >
+        {data.text}
+      </option>
+    ))
   );
 
-  const errorObservable = options.errorObservable || validation.errorField(ko.observable(false));
+  const errorObservable = options.errorObservable ||
+    validation.errorField(ko.observable(false));
 
   return ReactDOM.render(
     <ExternalLinksEditor
