@@ -370,24 +370,27 @@ export class ExternalLink extends React.Component<LinkProps> {
           {/* If the URL matches its type or is just empty, display either a
               favicon or a prompt for a new link as appropriate. */
             showTypeSelection
-              ? <LinkTypeSelect
-                type={props.type}
-                typeChangeCallback={props.typeChangeCallback}
+              ? (
+                <LinkTypeSelect
+                  type={props.type}
+                  typeChangeCallback={props.typeChangeCallback}
                 >
-                {props.typeOptions}
-              </LinkTypeSelect>
-              : <label>
-                {faviconClass &&
+                  {props.typeOptions}
+                </LinkTypeSelect>
+              ) : (
+                <label>
+                  {faviconClass &&
                   <span className={'favicon ' + faviconClass + '-favicon'} />}
-                {(linkType ? (
-                  backward
-                    ? l_relationships(linkType.reverse_link_phrase)
-                    : l_relationships(linkType.link_phrase)
-                ) : null) ||
+                  {(linkType ? (
+                    backward
+                      ? l_relationships(linkType.reverse_link_phrase)
+                      : l_relationships(linkType.link_phrase)
+                  ) : null) ||
                   (props.isOnlyLink
                     ? l('Add link:')
                     : l('Add another link:'))}
-              </label>}
+                </label>)
+          }
         </td>
         <td>
           <input
