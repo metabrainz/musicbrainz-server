@@ -263,6 +263,15 @@ export class ExternalLinksEditor
             return (
               <ExternalLink
                 errorMessage={error || ''}
+                handleUrlBlur={
+                  _.bind(this.handleUrlBlur, this, index)
+                }
+                handleUrlChange={
+                  _.bind(this.handleUrlChange, this, index)
+                }
+                handleVideoChange={
+                  _.bind(this.handleVideoChange, this, index)
+                }
                 isOnlyLink={this.state.links.length === 1}
                 key={link.relationship}
                 removeCallback={_.bind(this.removeLink, this, index)}
@@ -272,17 +281,12 @@ export class ExternalLinksEditor
                 }
                 typeOptions={this.props.typeOptions}
                 url={link.url}
-                urlBlurCallback={_.bind(this.handleUrlBlur, this, index)}
-                urlChangeCallback={_.bind(this.handleUrlChange, this, index)}
                 urlMatchesType={
                   linkType.gid === URLCleanup.guessType(
                     this.props.sourceType, link.url,
                   )
                 }
                 video={link.video}
-                videoChangeCallback={
-                  _.bind(this.handleVideoChange, this, index)
-                }
               />
             );
           })}
@@ -294,8 +298,9 @@ export class ExternalLinksEditor
 
 type LinkTypeSelectProps = {
   children: Array<React.Element<'option'>>,
+  handleTypeChange:
+    (number, SyntheticEvent<HTMLSelectElement>) => void,
   type: number | null,
-  typeChangeCallback: (number, SyntheticEvent<HTMLSelectElement>) => void,
 };
 
 class LinkTypeSelect extends React.Component<LinkTypeSelectProps> {
@@ -303,7 +308,7 @@ class LinkTypeSelect extends React.Component<LinkTypeSelectProps> {
     return (
       <select
         className="link-type"
-        onChange={this.props.typeChangeCallback}
+        onChange={this.props.handleTypeChange}
         value={this.props.type || ''}
       >
         <option value="">{'\xA0'}</option>
@@ -315,17 +320,18 @@ class LinkTypeSelect extends React.Component<LinkTypeSelectProps> {
 
 type LinkProps = {
   errorMessage: React.Node,
+  handleUrlBlur: (number, SyntheticEvent<HTMLInputElement>) => void,
+  handleUrlChange: (number, SyntheticEvent<HTMLInputElement>) => void,
+  handleVideoChange:
+    (number, SyntheticEvent<HTMLInputElement>) => void,
   isOnlyLink: boolean,
   removeCallback: (number) => void,
   type: number | null,
   typeChangeCallback: (number, SyntheticEvent<HTMLSelectElement>) => void,
   typeOptions: Array<React.Element<'option'>>,
   url: string,
-  urlBlurCallback: (number, SyntheticEvent<HTMLInputElement>) => void,
-  urlChangeCallback: (number, SyntheticEvent<HTMLInputElement>) => void,
   urlMatchesType: boolean,
   video: boolean,
-  videoChangeCallback: (number, SyntheticEvent<HTMLInputElement>) => void,
 };
 
 export class ExternalLink extends React.Component<LinkProps> {
@@ -372,8 +378,8 @@ export class ExternalLink extends React.Component<LinkProps> {
             showTypeSelection
               ? (
                 <LinkTypeSelect
+                  handleTypeChange={props.typeChangeCallback}
                   type={props.type}
-                  typeChangeCallback={props.typeChangeCallback}
                 >
                   {props.typeOptions}
                 </LinkTypeSelect>
@@ -395,8 +401,8 @@ export class ExternalLink extends React.Component<LinkProps> {
         <td>
           <input
             className="value with-button"
-            onBlur={props.urlBlurCallback}
-            onChange={props.urlChangeCallback}
+            onBlur={props.handleUrlBlur}
+            onChange={props.handleUrlChange}
             type="url"
             value={props.url}
           />
@@ -410,7 +416,7 @@ export class ExternalLink extends React.Component<LinkProps> {
               <label>
                 <input
                   checked={props.video}
-                  onChange={props.videoChangeCallback}
+                  onChange={props.handleVideoChange}
                   type="checkbox"
                 />
                 {' '}
