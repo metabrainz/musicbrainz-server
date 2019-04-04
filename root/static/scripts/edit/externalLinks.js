@@ -278,6 +278,7 @@ export class ExternalLink extends React.Component<LinkProps> {
     var linkType = props.type ? linkedEntities.link_type[props.type] : null;
     var typeDescription = '';
     var faviconClass: string | void;
+    var backward = linkType && linkType.type1 > 'url';
 
     if (linkType && linkType.description) {
       typeDescription = exp.l('{description} ({url|more documentation})', {
@@ -313,7 +314,11 @@ export class ExternalLink extends React.Component<LinkProps> {
               </LinkTypeSelect>
             : <label>
                 {faviconClass && <span className={'favicon ' + faviconClass + '-favicon'}></span>}
-                {(linkType ? l_relationships(linkType.link_phrase) : null) ||
+                {(linkType ? (
+                  backward
+                    ? l_relationships(linkType.reverse_link_phrase)
+                    : l_relationships(linkType.link_phrase)
+                ) : null) ||
                   (props.isOnlyLink ? l('Add link:') : l('Add another link:'))}
               </label>}
         </td>
