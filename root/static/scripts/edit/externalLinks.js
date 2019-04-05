@@ -200,6 +200,9 @@ export class ExternalLinksEditor
               ? linkedEntities.link_type[link.type] : {};
             const checker = URLCleanup.validationRules[linkType.gid];
             const oldLink = oldLinks[link.relationship];
+            const isNewLink = !isPositiveInteger(link.relationship);
+            const linkChanged = oldLink && link.url !== oldLink.url;
+            const linkTypeChanged = oldLink && +link.type !== +oldLink.type;
 
             if (isEmpty(link)) {
               error = '';
@@ -213,24 +216,19 @@ export class ExternalLinksEditor
               error = l(`Please select a link type for the URL
                          you’ve entered.`);
             } else if (
-              linkType.deprecated &&
-                (!isPositiveInteger(link.relationship) ||
-                  (oldLink && +link.type !== +oldLink.type))
+              linkType.deprecated && (isNewLink || linkTypeChanged)
             ) {
               error = l(`This relationship type is deprecated 
                          and should not be used.`);
             } else if (
-              (!isPositiveInteger(link.relationship) ||
-                (oldLink && link.url !== oldLink.url)) &&
-                  checker && !checker(link.url)
+              (isNewLink || linkChanged) && checker && !checker(link.url)
             ) {
               error = l(`This URL is not allowed for the selected link type, 
                          or is incorrectly formatted.`);
             } else if (
-              (!isPositiveInteger(link.relationship) ||
-                (oldLink && link.url !== oldLink.url)) &&
-                  /^(https?:\/\/)?([^.\/]+\.)?wikipedia\.org\/.*#/
-                    .test(link.url)
+              (isNewLink || linkChanged) &&
+                /^(https?:\/\/)?([^.\/]+\.)?wikipedia\.org\/.*#/
+                  .test(link.url)
             ) {
               // Kludge for MBS-9515 to be replaced with general MBS-9516
               error = exp.l(
