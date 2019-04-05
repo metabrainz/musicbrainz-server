@@ -105,9 +105,11 @@ export class ExternalLinksEditor
   }
 
   removeLink(index: number) {
-    const newLinks = this.state.links.concat();
-    newLinks.splice(index, 1);
-    this.setState({links: newLinks}, () => {
+    this.setState(prevState => {
+      const newLinks = prevState.links.concat();
+      newLinks.splice(index, 1);
+      return {links: newLinks};
+    }, () => {
       $(ReactDOM.findDOMNode(this))
         .find('tr:gt(' + (index - 1) + ') button.remove:first, ' +
               'tr:lt(' + (index + 1) + ') button.remove:last')
