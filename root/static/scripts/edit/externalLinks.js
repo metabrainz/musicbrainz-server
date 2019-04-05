@@ -354,7 +354,13 @@ export class ExternalLink extends React.Component<LinkProps> {
     if (props.url && !props.errorMessage) {
       typeDescription = (
         <>
-          <a href={props.url} target="_blank">{props.url}</a>
+          <a
+            href={props.url}
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            {props.url}
+          </a>
           <br />
           <br />
           {typeDescription}
