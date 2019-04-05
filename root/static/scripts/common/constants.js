@@ -48,6 +48,7 @@ export const FAVICON_CLASSES: {[string]: string} = {
   'beatport.com': 'beatport',
   'bibliotekapiosenki.pl': 'piosenki',
   'bigcartel.com': 'bigcartel',
+  'bookbrainz.org': 'bookbrainz',
   'cancioneros.si': 'cancioneros',
   'castalbums.org': 'castalbums',
   'catalogue.bnf.fr': 'bnfcatalogue',
