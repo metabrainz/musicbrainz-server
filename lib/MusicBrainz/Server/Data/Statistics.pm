@@ -917,7 +917,7 @@ my %stats = (
                 "SELECT COALESCE(iso.code::text, 'null'), COUNT(l.gid) AS count
                 FROM label l FULL OUTER JOIN country_area c
                     ON l.area=c.area
-                JOIN iso_3166_1 iso ON c.area = iso.area
+                LEFT JOIN iso_3166_1 iso ON c.area = iso.area
                 GROUP BY iso.code
                 ",
             );
@@ -942,7 +942,7 @@ my %stats = (
                 FROM release r
                 LEFT JOIN release_country rc ON r.id = rc.release
                 FULL OUTER JOIN country_area c ON rc.country = c.area
-                JOIN iso_3166_1 iso ON c.area = iso.area
+                LEFT JOIN iso_3166_1 iso ON c.area = iso.area
                 GROUP BY iso.code
                 ",
             );
@@ -1350,7 +1350,7 @@ my %stats = (
                 "SELECT COALESCE(iso.code::text, 'null'), COUNT(a.gid) AS count
                 FROM artist a FULL OUTER JOIN country_area c
                     ON a.area=c.area
-                JOIN iso_3166_1 iso ON c.area = iso.area
+                LEFT JOIN iso_3166_1 iso ON c.area = iso.area
                 GROUP BY iso.code
                 ",
             );

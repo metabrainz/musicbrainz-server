@@ -138,7 +138,12 @@ sub countries : Local
         if (my ($iso_code) = $stat_name =~ /^$artist_country_prefix\.(.*)$/) {
             my $release_stat = $stat_name =~ s/$artist_country_prefix/$release_country_prefix/r;
             my $label_stat = $stat_name =~ s/$artist_country_prefix/$label_country_prefix/r;
-            push(@$country_stats, ({'entity' => $countries{$iso_code}, 'artist_count' => $stats->statistic($stat_name), 'release_count' => $stats->statistic($release_stat), 'label_count' => $stats->statistic($label_stat)}));
+            push(@$country_stats, ({
+                'entity' => $countries{$iso_code},
+                'artist_count' => $stats->statistic($stat_name),
+                'release_count' => $stats->statistic($release_stat),
+                'label_count' => $stats->statistic($label_stat)
+            }));
         }
     }
 
