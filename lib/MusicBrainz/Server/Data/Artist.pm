@@ -13,6 +13,7 @@ use MusicBrainz::Server::Data::Utils qw(
     is_special_artist
     add_partial_date_to_row
     defined_hash
+    get_area_containment_query
     hash_to_row
     load_subobjects
     merge_table_attributes
@@ -104,7 +105,7 @@ sub find_by_area {
     my (
         $containment_query,
         @containment_query_args,
-    ) = $self->c->model('Area')->get_containment_query('$2', 'any(array[area, begin_area, end_area])');
+    ) = get_area_containment_query('$2', 'any(array[area, begin_area, end_area])');
     my $query = "SELECT " . $self->_columns . "
                  FROM " . $self->_table . "
                  WHERE \$1 IN (area, begin_area, end_area) OR EXISTS (
