@@ -50,7 +50,7 @@
         [% WRAPPER form_row %]
             [% r.label('child_order', add_colon(l('Child order'))) %]
             [% r.text('child_order', { size => 5 }) %]
-            [% form_field_errors(form, 'child_order') %]
+            [% field_errors(form, 'child_order') %]
         [% END %]
 
         [% form_row_text(r, 'name', add_colon(l('Name'))) %]
@@ -58,14 +58,14 @@
         [% WRAPPER form_row %]
             [% r.label('description', add_colon(l('Description'))) %]
             [% r.textarea('description', { cols => 80, rows => 6 }) %]
-            [% form_field_errors(form, 'description') %]
+            [% field_errors(form, 'description') %]
         [% END %]
 
         [%~ IF model == "MediumFormat" ~%]
             [% WRAPPER form_row %]
                 [% r.label('year', add_colon(l('Year'))) %]
                 [% r.text('year', { size => 5 }) %]
-                [% form_field_errors(form, 'year') %]
+                [% field_errors(form, 'year') %]
             [% END %]
 
             [% form_row_checkbox(r, 'has_discids', l('This format can have disc IDs')) %]
