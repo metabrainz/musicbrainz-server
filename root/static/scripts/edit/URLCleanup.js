@@ -165,6 +165,8 @@ export const LINK_TYPES = {
   },
   secondhandsongs: {
     artist: '79c5b84d-a206-4f4c-9832-78c028c312c3',
+    label: 'e46c1166-2aae-4623-ade9-34bd067dfe02',
+    recording: 'a98fb02f-f289-4778-b34e-2625d922e28f',
     release: '0e555925-1b7d-475c-9b25-b9c349dcc3f3',
     work: 'b80dff64-9560-445a-b824-c8b432d77a52',
   },
@@ -1823,6 +1825,10 @@ const CLEANUPS = {
         switch (id) {
           case LINK_TYPES.secondhandsongs.artist:
             return prefix === 'artist';
+          case LINK_TYPES.secondhandsongs.label:
+            return prefix === 'label';
+          case LINK_TYPES.secondhandsongs.recording:
+            return prefix === 'performance';
           case LINK_TYPES.secondhandsongs.release:
             return prefix === 'release';
           case LINK_TYPES.secondhandsongs.work:

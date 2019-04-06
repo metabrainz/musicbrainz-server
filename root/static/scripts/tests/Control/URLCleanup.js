@@ -2609,6 +2609,18 @@ const testData = [
        only_valid_entity_types: ['artist'],
   },
   {
+                     input_url: 'https://secondhandsongs.com/label/7752',
+             input_entity_type: 'label',
+    expected_relationship_type: 'secondhandsongs',
+       only_valid_entity_types: ['label'],
+  },
+  {
+                     input_url: 'https://secondhandsongs.com/performance/235077',
+             input_entity_type: 'recording',
+    expected_relationship_type: 'secondhandsongs',
+       only_valid_entity_types: ['recording'],
+  },
+  {
                      input_url: 'http://www.secondhandsongs.com/release/888',
              input_entity_type: 'release',
     expected_relationship_type: 'secondhandsongs',
