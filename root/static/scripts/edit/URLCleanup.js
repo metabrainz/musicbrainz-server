@@ -1818,8 +1818,13 @@ const CLEANUPS = {
   'secondhandsongs': {
     match: [new RegExp('^(https?://)?([^/]+\\.)?secondhandsongs\\.com/', 'i')],
     type: LINK_TYPES.secondhandsongs,
+    clean: function (url) {
+      url = url.replace(/^(?:https?:\/\/)?(?:[^/]+\.)?secondhandsongs\.com/, 'https://secondhandsongs.com');
+      url = url.replace(/^(https:\/\/secondhandsongs\.com\/\w+\/[\d+]+)[\/#?-].*$/, '$1');
+      return url;
+    },
     validate: function (url, id) {
-      const m = /secondhandsongs\.com\/([a-z]+)\//.exec(url);
+      const m = /^https:\/\/secondhandsongs\.com\/(\w+)\/[\d+]+$/.exec(url);
       if (m) {
         const prefix = m[1];
         switch (id) {

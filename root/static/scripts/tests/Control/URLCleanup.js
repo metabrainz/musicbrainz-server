@@ -2603,33 +2603,38 @@ const testData = [
   },
   // SecondHandSongs
   {
-                     input_url: 'http://www.secondhandsongs.com/artist/103',
+                     input_url: 'http://www.secondhandsongs.com/artist/48874+56478+64931',
              input_entity_type: 'artist',
     expected_relationship_type: 'secondhandsongs',
+            expected_clean_url: 'https://secondhandsongs.com/artist/48874+56478+64931',
        only_valid_entity_types: ['artist'],
   },
   {
                      input_url: 'https://secondhandsongs.com/label/7752',
              input_entity_type: 'label',
     expected_relationship_type: 'secondhandsongs',
+            expected_clean_url: 'https://secondhandsongs.com/label/7752',
        only_valid_entity_types: ['label'],
   },
   {
                      input_url: 'https://secondhandsongs.com/performance/235077',
              input_entity_type: 'recording',
     expected_relationship_type: 'secondhandsongs',
+            expected_clean_url: 'https://secondhandsongs.com/performance/235077',
        only_valid_entity_types: ['recording'],
   },
   {
-                     input_url: 'http://www.secondhandsongs.com/release/888',
+                     input_url: 'http://secondhandsongs.com/release/888',
              input_entity_type: 'release',
     expected_relationship_type: 'secondhandsongs',
+            expected_clean_url: 'https://secondhandsongs.com/release/888',
        only_valid_entity_types: ['release'],
   },
   {
-                     input_url: 'http://www.secondhandsongs.com/work/1409',
+                     input_url: 'http://www.secondhandsongs.com/work/140348/adaptations#nav-entity',
              input_entity_type: 'work',
     expected_relationship_type: 'secondhandsongs',
+            expected_clean_url: 'https://secondhandsongs.com/work/140348',
        only_valid_entity_types: ['work'],
   },
   // setlist.fm
