@@ -13,7 +13,7 @@ import EditorLink from '../static/scripts/common/components/EditorLink';
 import bracketed from '../static/scripts/common/utility/bracketed';
 import formatUserDate from '../utility/formatUserDate';
 import {votesVisible} from '../utility/voting';
-import ExpirationTime from '../components/ExpirationTime';
+import VotingPeriod from '../components/VotingPeriod';
 
 type PropsT = {
   +election: AutoEditorElectionT,
@@ -89,8 +89,8 @@ const ElectionDetails = ({election, user}: PropsT) => (
               <>
                 {' '}
                 {bracketed(
-                  <ExpirationTime
-                    date={election.current_expiration_time}
+                  <VotingPeriod
+                    closingDate={election.current_expiration_time}
                     user={user}
                   />,
                 )}

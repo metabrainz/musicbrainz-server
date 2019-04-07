@@ -64,7 +64,7 @@ test 'Check edit conditions for default settings' => sub {
     html_ok($test->mech->content);
 
     $test->mech->content_contains('Normal', 'mentions quality level');
-    $test->mech->content_contains('Accept upon expiration', 'mentions expire action');
+    $test->mech->content_contains('Accept upon closing', 'mentions expire action');
     $test->mech->content_contains('3 unanimous votes', 'mentions vote period');
 
     done_testing;
@@ -78,7 +78,7 @@ test 'Check edit conditions for alternative settings' => sub {
 
     $test->mech->content_contains('High', 'mentions quality level');
     $test->mech->content_contains('50 unanimous votes', 'mentions vote period');
-    $test->mech->content_contains('Reject upon expiration', 'mentions expire action');
+    $test->mech->content_contains('Reject upon closing', 'mentions expire action');
 
     done_testing;
 };

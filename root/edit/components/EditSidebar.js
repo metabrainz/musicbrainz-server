@@ -9,7 +9,7 @@
 
 import * as React from 'react';
 
-import ExpirationTime from '../../components/ExpirationTime';
+import VotingPeriod from '../../components/VotingPeriod';
 import {
   EDIT_STATUS_OPEN,
   EDIT_STATUS_TOBEDELETED,
@@ -49,9 +49,9 @@ const EditSidebar = ({$c, edit}: Props) => (
       </SidebarProperty>
 
       {edit.status === EDIT_STATUS_OPEN ? (
-        <SidebarProperty className="" label={addColonText(l('Expiration'))}>
+        <SidebarProperty className="" label={addColonText(l('Voting'))}>
           <div className="edit-expiration">
-            <ExpirationTime date={edit.expires_time} user={$c.user} />
+            <VotingPeriod closingDate={edit.expires_time} user={$c.user} />
           </div>
         </SidebarProperty>
       ) : (
@@ -66,7 +66,7 @@ const EditSidebar = ({$c, edit}: Props) => (
 
       <SidebarDataQuality quality={edit.quality} />
 
-      <SidebarProperty className="" label={l('Requires:')}>
+      <SidebarProperty className="" label={addColonText(l('For quicker closing'))}>
         {texp.ln(
           '1 vote',
           '{n} unanimous votes',
@@ -75,7 +75,7 @@ const EditSidebar = ({$c, edit}: Props) => (
         )}
       </SidebarProperty>
 
-      <SidebarProperty className="" label={l('Conditions:')}>
+      <SidebarProperty className="" label={addColonText(l('If no votes cast'))}>
         {getEditExpireAction(edit)}
       </SidebarProperty>
     </SidebarProperties>

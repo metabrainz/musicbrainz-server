@@ -13,45 +13,45 @@ import moment from 'moment';
 import formatUserDate from '../utility/formatUserDate';
 
 type PropsT = {
-  +date: string,
+  +closingDate: string,
   +user?: EditorT,
 };
 
-const ExpirationTime = ({date, user}: PropsT) => {
-  const dateMoment = moment(date);
-  const userDate = formatUserDate(user, date);
+const VotingPeriod = ({closingDate, user}: PropsT) => {
+  const dateMoment = moment(closingDate);
+  const userDate = formatUserDate(user, closingDate);
 
   if (dateMoment.isAfter()) {
     const duration = moment.duration(dateMoment.diff(moment()));
     if (duration.days() > 0) {
       return exp.ln(
-        `Expires in
+        `Closes in
          <span class="tooltip" title="{exactdate}">{num} day</span>`,
-        `Expires in
+        `Closes in
          <span class="tooltip" title="{exactdate}">{num} days</span>`,
         duration.days(),
         {exactdate: userDate, num: duration.days()},
       );
     } else if (duration.hours() > 0) {
       return exp.ln(
-        `Expires in
+        `Closes in
          <span class="tooltip" title="{exactdate}">{num} hour</span>`,
-        `Expires in
+        `Closes in
          <span class="tooltip" title="{exactdate}">{num} hours</span>`,
         duration.hours(),
         {exactdate: userDate, num: duration.hours()},
       );
     }
     return exp.ln(
-      `Expires in
+      `Closes in
        <span class="tooltip" title="{exactdate}">{num} minute</span>`,
-      `Expires in
+      `Closes in
        <span class="tooltip" title="{exactdate}">{num} minutes</span>`,
       duration.minutes(),
       {exactdate: userDate, num: duration.minutes()},
     );
   }
-  return l('Already expired');
+  return l('Already closed');
 };
 
-export default ExpirationTime;
+export default VotingPeriod;

@@ -29,8 +29,8 @@ import {
 } from '../static/scripts/common/constants/editTypes';
 
 const EXPIRE_ACTIONS = {
-  [EDIT_EXPIRE_ACCEPT]:   N_l('Accept upon expiration'),
-  [EDIT_EXPIRE_REJECT]:   N_l('Reject upon expiration'),
+  [EDIT_EXPIRE_ACCEPT]:   N_l('Accept upon closing'),
+  [EDIT_EXPIRE_REJECT]:   N_l('Reject upon closing'),
 };
 
 const STATUS_NAMES = {
