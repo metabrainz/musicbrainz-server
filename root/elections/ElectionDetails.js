@@ -65,7 +65,10 @@ const ElectionDetails = ({election, user}: PropsT) => (
             ? (
               <tr>
                 <th>{l('Votes for/against:')}</th>
-                <td>{l('The tally of votes cast will only be shown when the election is complete.')}</td>
+                <td>
+                  {l(`The tally of votes cast will only be shown
+                      when the election is complete.`)}
+                </td>
               </tr>
             ) : null
         )
@@ -101,12 +104,13 @@ const ElectionDetails = ({election, user}: PropsT) => (
             ? (
               election.close_time
                 ? (
-                  texp.lp(election.status_name, 'autoeditor election status', {
-                    date: formatUserDate(user, election.close_time),
-                  })
+                  texp.lp(election.status_name, 'autoeditor election status',
+                          {
+                            date: formatUserDate(user, election.close_time),
+                          })
                 ) : (
                   lp(election.status_name_short,
-                    'autoeditor election status (short)')
+                     'autoeditor election status (short)')
                 )
             ) : null}
 
