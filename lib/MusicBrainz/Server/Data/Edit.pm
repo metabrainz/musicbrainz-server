@@ -59,7 +59,7 @@ sub _columns
 {
     return 'edit.id, edit.editor, edit.open_time, edit.expire_time, edit.close_time,
             edit_data.data, edit.language, edit.type,
-            edit.autoedit, edit.status, edit.quality';
+            edit.autoedit, edit.status';
 }
 
 sub _new_from_row
@@ -82,7 +82,6 @@ sub _new_from_row
         auto_edit => $row->{autoedit},
         status => $row->{status},
         raw_data => $row->{data},
-        quality => $row->{quality},
     });
     $edit->language_id($row->{language}) if $row->{language};
     try {
@@ -524,7 +523,6 @@ sub create {
 
     my $edit = $self->_create_instance(0, %opts);
 
-    my $quality = $edit->determine_quality // $QUALITY_UNKNOWN_MAPPED;
     my $conditions = $edit->edit_conditions;
 
     # Edit conditions allow auto edit and the edit requires no votes
@@ -546,9 +544,6 @@ sub create {
     $edit->auto_edit(1)
         if ($edit->editor_id == $EDITOR_MODBOT && $edit->modbot_auto_edit);
 
-    # Save quality level
-    $edit->quality($quality);
-
     # Serialize transactions per-editor. Should only be necessary for autoedits,
     # since only they update the editor table but for now we've enabled it for everything
     $self->c->model('Editor')->lock_row($edit->editor_id);
@@ -565,7 +560,6 @@ sub create {
         open_time => \"now()",
         expire_time => \"now() + interval '$interval'",
         autoedit => $edit->auto_edit,
-        quality => $edit->quality,
         close_time => $edit->close_time
     };
     my $edit_id = $self->c->sql->insert_row('edit', $row, 'id');

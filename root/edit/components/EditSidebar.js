@@ -15,7 +15,6 @@ import {
   EDIT_STATUS_TOBEDELETED,
 } from '../../constants';
 import {withCatalystContext} from '../../context';
-import SidebarDataQuality from '../../layout/components/sidebar/SidebarDataQuality';
 import {
   SidebarProperties,
   SidebarProperty,
@@ -63,8 +62,6 @@ const EditSidebar = ({$c, edit}: Props) => (
           </div>
         </SidebarProperty>
       )}
-
-      <SidebarDataQuality quality={edit.quality} />
 
       <SidebarProperty className="" label={addColonText(l('For quicker closing'))}>
         {texp.ln(
