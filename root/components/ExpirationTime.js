@@ -9,6 +9,7 @@
 
 import React from 'react';
 import moment from 'moment';
+
 import formatUserDate from '../utility/formatUserDate';
 
 type PropsT = {
@@ -24,26 +25,31 @@ const ExpirationTime = ({date, user}: PropsT) => {
     const duration = moment.duration(dateMoment.diff(moment()));
     if (duration.days() > 0) {
       return exp.ln(
-        'Expires in <span class="tooltip" title="{exactdate}">{num} day</span>',
-        'Expires in <span class="tooltip" title="{exactdate}">{num} days</span>',
+        `Expires in
+         <span class="tooltip" title="{exactdate}">{num} day</span>`,
+        `Expires in
+         <span class="tooltip" title="{exactdate}">{num} days</span>`,
         duration.days(),
         {exactdate: userDate, num: duration.days()},
       );
     } else if (duration.hours() > 0) {
       return exp.ln(
-        'Expires in <span class="tooltip" title="{exactdate}">{num} hour</span>',
-        'Expires in <span class="tooltip" title="{exactdate}">{num} hours</span>',
+        `Expires in
+         <span class="tooltip" title="{exactdate}">{num} hour</span>`,
+        `Expires in
+         <span class="tooltip" title="{exactdate}">{num} hours</span>`,
         duration.hours(),
         {exactdate: userDate, num: duration.hours()},
       );
-    } else {
-      return exp.ln(
-        'Expires in <span class="tooltip" title="{exactdate}">{num} minute</span>',
-        'Expires in <span class="tooltip" title="{exactdate}">{num} minutes</span>',
-        duration.minutes(),
-        {exactdate: userDate, num: duration.minutes()},
-      );
     }
+    return exp.ln(
+      `Expires in
+       <span class="tooltip" title="{exactdate}">{num} minute</span>`,
+      `Expires in
+       <span class="tooltip" title="{exactdate}">{num} minutes</span>`,
+      duration.minutes(),
+      {exactdate: userDate, num: duration.minutes()},
+    );
   }
   return l('Already expired');
 };
