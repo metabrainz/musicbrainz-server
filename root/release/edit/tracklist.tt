@@ -293,7 +293,7 @@
           </p>
         </td>
 
-        <td class="icon" style="text-align: right">
+        <td class="align-right icon" >
           <button type="button" class="icon disc-down" title="[% l('Move disc down') %]" data-click="moveMediumDown"></button>
           <button type="button" class="icon disc-up" title="[% l('Move disc up') %]" data-click="moveMediumUp"></button>
           <button type="button" class="icon remove-item" title="[% l('Remove disc') %]" style="margin-left: 16px" data-click="removeMedium"></button>

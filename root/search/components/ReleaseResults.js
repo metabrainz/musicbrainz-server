@@ -55,7 +55,7 @@ function buildResult(result, index) {
       <td>
         <ReleaseCatnoList labels={release.labels} />
       </td>
-      <td>{formatBarcode(release.barcode)}</td>
+      <td className="barcode-cell">{formatBarcode(release.barcode)}</td>
       <td>
         {release.language ? (
           <abbr title={l_languages(release.language.name)}>
@@ -70,10 +70,16 @@ function buildResult(result, index) {
         ) : null}
       </td>
       <td>
-        {release.releaseGroup && release.releaseGroup.typeName ? lp_attributes(release.releaseGroup.typeName, 'release_group_primary_type') : null}
+        {release.releaseGroup && release.releaseGroup.typeName
+          ? lp_attributes(
+            release.releaseGroup.typeName,
+            'release_group_primary_type',
+          )
+          : null}
       </td>
       <td>
-        {release.status ? lp_attributes(release.status.name, 'release_status') : null}
+        {release.status
+          ? lp_attributes(release.status.name, 'release_status') : null}
       </td>
       <CatalystContext.Consumer>
         {($c: CatalystContextT) => (
