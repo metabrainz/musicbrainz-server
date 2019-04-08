@@ -94,7 +94,7 @@ const ReportUser = ({
     </p>
 
     <p>
-      <strong>{addColon(l('Note'))}</strong>
+      <strong>{addColonText(l('Note'))}</strong>
       {' '}
       {l(`Be sure to provide direct links to examples of the behaviour you’re
           reporting (for example, use “https://musicbrainz.org/edit/23”
@@ -110,7 +110,7 @@ const ReportUser = ({
     <form action={$c.req.uri} className="report-form" method="post">
       <FormRowSelect
         field={form.field.reason}
-        label={addColon(l('Reason'))}
+        label={addColonText(l('Reason'))}
         onChange={noop}
         options={reportReasonOptions}
       />
@@ -118,7 +118,7 @@ const ReportUser = ({
       <FormRowTextArea
         cols={50}
         field={form.field.message}
-        label={addColon(l('Message'))}
+        label={addColonText(l('Message'))}
         required
         rows={10}
       />
