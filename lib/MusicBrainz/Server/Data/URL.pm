@@ -32,6 +32,7 @@ my %URL_SPECIALIZATIONS = (
     'Beatport'            => qr{^https?://([^/]+\.)?beatport\.com/}i,
     'BigCartel'           => qr{^https?://([^/]+\.)?bigcartel\.com}i,
     'BnFCatalogue'        => qr{^https?://catalogue\.bnf\.fr/}i,
+    'BookBrainz'          => qr{^https?://(?:www\.)?bookbrainz\.org}i,
     'BrahmsIrcam'         => qr{^https?://brahms\.ircam\.fr/}i,
     'Canzone'             => qr{^https?://(?:www\.)?discografia\.dds\.it/}i,
     'Cancioneros'         => qr{^https?://(?:www\.)?cancioneros\.si/}i,
