@@ -268,12 +268,12 @@ before restore => sub {
                 type => {
                     root => {
                         id => $_->{root_id},
-                        gid => $_->{root_gid},
+                        $_->{root_gid} ? (gid => $_->{root_gid}) : (),
                         name => $_->{root_name},
                     },
-                    id => $_->{id},
-                    gid => $_->{gid},
-                    name => $_->{name},
+                    id => ($_->{id} // $_->{root_id}),
+                    $_->{gid} ? (gid => $_->{gid}) : (),
+                    name => ($_->{name} // $_->{root_name}),
                 }
             }, @$attributes
         ];
