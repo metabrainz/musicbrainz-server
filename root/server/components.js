@@ -198,6 +198,7 @@ module.exports = {
   'url/NotFound': require('../url/NotFound'),
   'user/NotFound': require('../user/NotFound'),
   'user/PrivilegedUsers': require('../user/PrivilegedUsers'),
+  'user/ReportUser': require('../user/ReportUser'),
   'work/NotFound': require('../work/NotFound'),
 
   /*
