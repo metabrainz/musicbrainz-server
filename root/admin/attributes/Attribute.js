@@ -76,7 +76,7 @@ const renderAttributes = (attribute) => {
       return <td>{attribute.entityType}</td>;
     }
     case 'work_attribute_type': {
-      return <td>{yesNo(attribute.freeText)}</td>;
+      return <td>{yesNo(attribute.free_text)}</td>;
     }
     default: return null;
   }
@@ -108,8 +108,8 @@ const Attribute = ({attributes, model}: Props) => (
               <td>{attribute.id}</td>
               <td>{attribute.name}</td>
               <td>{attribute.description}</td>
-              <td>{attribute.childOrder}</td>
-              <td>{attribute.parentID}</td>
+              <td>{attribute.child_order}</td>
+              <td>{attribute.parent_id}</td>
               {renderAttributes(attribute)}
               <td>
                 <a href={`/admin/attributes/${model}/edit/${attribute.id}`}>

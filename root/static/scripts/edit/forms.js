@@ -15,7 +15,7 @@ const ELEMENT_NODE = window.Node.ELEMENT_NODE;
 const COMMENT_NODE = window.Node.COMMENT_NODE;
 
 function cmpOptions(a, b) {
-    return (a.data.childOrder - b.data.childOrder) || compare(a.text, b.text);
+    return (a.data.child_order - b.data.child_order) || compare(a.text, b.text);
 }
 
 MB.forms = {
@@ -54,7 +54,8 @@ MB.forms = {
 
     linkTypeOptions: function (root, backward) {
         function getText(data) {
-            return stripAttributes(data.gid, !!backward);
+            return stripAttributes(data, l_relationships(
+                backward ? data.reverse_link_phrase : data.link_phrase));
         }
 
         var options = MB.forms.buildOptionsTree(root, getText, 'id');

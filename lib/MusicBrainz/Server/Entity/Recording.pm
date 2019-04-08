@@ -3,6 +3,7 @@ package MusicBrainz::Server::Entity::Recording;
 use Moose;
 use MusicBrainz::Server::Data::Utils qw( boolean_to_json );
 use MusicBrainz::Server::Entity::Types;
+use MusicBrainz::Server::Entity::Util::JSON qw( add_linked_entity );
 use List::UtilsBy qw( uniq_by );
 
 extends 'MusicBrainz::Server::Entity::CoreEntity';
@@ -61,11 +62,15 @@ sub related_works {
 around TO_JSON => sub {
     my ($orig, $self) = @_;
 
+    my @related_works = $self->related_works;
+    add_linked_entity('work', $_->id, $_) for @related_works;
+
     return {
         %{ $self->$orig },
         isrcs   => [map { $_->TO_JSON } $self->all_isrcs],
         length  => $self->length,
         video   => boolean_to_json($self->video),
+        related_works => [map { $_->id } @related_works],
     };
 };
 

@@ -46,5 +46,5 @@
         [%- END -%]
     [%- END -%]
 
-    [%- INCLUDE "components/relationships.tt" source=recording -%]
+    [% React.embed(c, 'components/Relationships', {source => recording}) %]
 [%- END -%]

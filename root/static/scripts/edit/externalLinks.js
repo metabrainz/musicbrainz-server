@@ -16,8 +16,8 @@ import {
   VIDEO_ATTRIBUTE_GID,
 } from '../common/constants';
 import {compare} from '../common/i18n';
+import linkedEntities from '../common/linkedEntities';
 import MB from '../common/MB';
-import {link_type as linkTypeInfo} from '../common/typeInfo';
 import {hasSessionStorage} from '../common/utility/storage';
 
 import isPositiveInteger from './utility/isPositiveInteger';
@@ -76,7 +76,7 @@ export class ExternalLinksEditor extends React.Component<LinksEditorProps, Links
         var type = URLCleanup.guessType(this.props.sourceType, url);
 
         if (type) {
-          this.setLinkState(index, {type: linkTypeInfo.byId[type].id});
+          this.setLinkState(index, {type: linkedEntities.link_type[type].id});
         }
       }
     });
@@ -184,7 +184,7 @@ export class ExternalLinksEditor extends React.Component<LinksEditorProps, Links
         <tbody>
           {linksArray.map((link, index) => {
             var error;
-            var linkType = link.type ? linkTypeInfo.byId[link.type] : {};
+            var linkType = link.type ? linkedEntities.link_type[link.type] : {};
             var checker = URLCleanup.validationRules[linkType.gid];
             var oldLink = oldLinks[link.relationship];
 
@@ -275,7 +275,7 @@ type LinkProps = {
 export class ExternalLink extends React.Component<LinkProps> {
   render() {
     var props = this.props;
-    var linkType = props.type ? linkTypeInfo.byId[props.type] : null;
+    var linkType = props.type ? linkedEntities.link_type[props.type] : null;
     var typeDescription = '';
     var faviconClass: string | void;
 
@@ -501,8 +501,8 @@ MB.createExternalLinksEditor = function (options: InitialOptionsT) {
   }
 
   initialLinks.sort(function (a, b) {
-    var typeA = a.type && linkTypeInfo.byId[a.type];
-    var typeB = b.type && linkTypeInfo.byId[b.type];
+    var typeA = a.type && linkedEntities.link_type[a.type];
+    var typeB = b.type && linkedEntities.link_type[b.type];
 
     return compare(typeA ? l_relationships(typeA.link_phrase).toLowerCase() : '',
                    typeB ? l_relationships(typeB.link_phrase).toLowerCase() : '');
@@ -521,7 +521,7 @@ MB.createExternalLinksEditor = function (options: InitialOptionsT) {
   });
 
   var typeOptions = (
-    linkTypeOptions({children: linkTypeInfo.byTypes[entityTypes]}, /^url-/.test(entityTypes))
+    linkTypeOptions({children: linkedEntities.link_type_tree[entityTypes]}, /^url-/.test(entityTypes))
       .map((data) => <option value={data.value} disabled={data.disabled} key={data.value}>{data.text}</option>)
   );
 

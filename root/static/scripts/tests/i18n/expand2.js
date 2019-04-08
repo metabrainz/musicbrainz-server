@@ -1,10 +1,11 @@
 import test from 'tape';
 import React from 'react';
+import {VarArgs} from '../../common/i18n/expand2';
 import expand2html from '../../common/i18n/expand2html';
 import expand2text from '../../common/i18n/expand2text';
 
 test('expand2', function (t) {
-  t.plan(63);
+  t.plan(64);
 
   let error = '';
   const consoleError = console.error;
@@ -206,6 +207,19 @@ test('expand2', function (t) {
     '{&lt;script&gt;alert(&quot;HAx0r&quot;)&lt;/script&gt;}',
   );
   t.ok(/unexpected token/.test(error));
+
+  // Test nested expand calls
+  const CustomArgs = class extends VarArgs {
+    get(name) {
+      const value = super.get(name);
+      return expand2text('some {value}', {value});
+    }
+  };
+  expandText(
+    '{value}, huh?',
+    new CustomArgs({value: 'nesting'}),
+    'some nesting, huh?',
+  );
 
   console.error = consoleError;
 });

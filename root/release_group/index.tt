@@ -72,7 +72,7 @@
     [%- ELSE -%]
         <p>[% l('No releases found.') -%]</p>
     [%- END -%]
-    [%- INCLUDE "components/relationships.tt" source=rg -%]
+    [% React.embed(c, 'components/Relationships', {source => rg}) %]
 
     [%~ IF rg.review_count.defined ~%]
       <h2>[% l('CritiqueBrainz Reviews') %]</h2>

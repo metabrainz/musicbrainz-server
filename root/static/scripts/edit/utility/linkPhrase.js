@@ -1,108 +1,322 @@
-// This file is part of MusicBrainz, the open internet music database.
-// Copyright (C) 2015 MetaBrainz Foundation
-// Licensed under the GPL version 2, or (at your option) any later version:
-// http://www.gnu.org/licenses/gpl-2.0.txt
+/*
+ * @flow
+ * This file is part of MusicBrainz, the open internet music database.
+ * Copyright (C) 2015 MetaBrainz Foundation
+ * Licensed under the GPL version 2, or (at your option) any later version:
+ * http://www.gnu.org/licenses/gpl-2.0.txt
+ */
 
-import _ from 'lodash';
+import * as React from 'react';
 
-import commaList from '../../common/i18n/commaList';
-import commaOnlyList from '../../common/i18n/commaOnlyList';
-import {link_type as linkTypeInfo} from '../../common/typeInfo';
+import {INSTRUMENT_ROOT_ID} from '../../common/constants';
+import commaList, {commaListText} from '../../common/i18n/commaList';
+import commaOnlyList, {commaOnlyListText} from '../../common/i18n/commaOnlyList';
+import {VarArgs, type VarArgsObject} from '../../common/i18n/expand2';
+import expand2react from '../../common/i18n/expand2react';
+import expand2text from '../../common/i18n/expand2text';
+import localizeLinkAttributeTypeName
+  from '../../common/i18n/localizeLinkAttributeTypeName';
+import linkedEntities from '../../common/linkedEntities';
 import clean from '../../common/utility/clean';
 
-var attributeRegex = /\{(.*?)(?::(.*?))?\}/g;
+const EMPTY_OBJECT = Object.freeze({});
 
-function mapNameToID(result, info, id) {
-    result[info.attribute.name] = id;
+const emptyResult = Object.freeze(['', '']);
+
+type CachedResult<T> = {|
+  attributeValues: ?{+[string]: Array<T>},
+  phraseAndExtraAttributes: {[string]: [T, T]},
+|};
+
+type RelationshipInfoT = {
+  +attributes?: $ReadOnlyArray<LinkAttrT>,
+  +linkTypeID: number,
+};
+
+type LinkPhraseProp =
+  | 'link_phrase'
+  | 'long_link_phrase'
+  | 'reverse_link_phrase'
+  ;
+
+function _getResultCache<T>(
+  resultCache: WeakMap<RelationshipInfoT, CachedResult<T>>,
+  relationship: RelationshipInfoT,
+): CachedResult<T> {
+  let result = resultCache.get(relationship);
+  if (!result) {
+    result = {
+      attributeValues: null,
+      phraseAndExtraAttributes: {},
+    };
+    resultCache.set(relationship, result);
+  }
+  return result;
 }
 
-export const stripAttributes = _.memoize(function (linkTypeID, backward) {
-    var linkType = linkTypeInfo.byId[linkTypeID];
-    var idsByName = _.transform(linkType.attributes, mapNameToID);
+type AttrValue<T> = Array<T | string> | T | string;
 
-    // remove {foo} {bar} junk, unless it's for a required attribute.
-    const phrase = backward
-        ? l_relationships(linkType.reverse_link_phrase)
-        : l_relationships(linkType.link_phrase);
+class PhraseVarArgs<T> extends VarArgs<AttrValue<T>> {
+  +usedAttributes: Array<string>;
 
-    return clean(phrase.replace(attributeRegex, function (match, name, alt) {
-        var id = idsByName[name];
+  +makeCommaList: (Array<T | string>) => T | string;
 
-        if (id !== undefined && linkType.attributes[id].min < 1) {
-            return (alt ? alt.split('|')[1] : '') || '';
+  constructor(
+    args: ?VarArgsObject<AttrValue<T>>,
+    makeCommaList: (Array<T | string>) => T | string,
+  ) {
+    super(args || EMPTY_OBJECT);
+    this.usedAttributes = [];
+    this.makeCommaList = makeCommaList;
+  }
+
+  get(name): T | string {
+    const value = super.get(name);
+    if (value == null) {
+      return '';
+    }
+    if (Array.isArray(value)) {
+      return this.makeCommaList(value);
+    }
+    return value;
+  }
+
+  has(name) {
+    this.usedAttributes.push(name);
+    return true;
+  }
+
+  getExtraAttributes(): Array<T | string> {
+    const extraAttributes = [];
+    for (const key in this.data) {
+      if (!this.usedAttributes.includes(key)) {
+        const values = this.data[key];
+        if (Array.isArray(values)) {
+          extraAttributes.push(...values);
+        } else {
+          extraAttributes.push(values);
         }
+      }
+    }
+    return extraAttributes;
+  }
+}
 
-        return match;
-    }));
-}, (a, b) => a + String(b));
+type I18n<T, V> = {
+  cache: WeakMap<RelationshipInfoT, CachedResult<T>>,
+  commaList: (Array<T>) => T,
+  commaOnlyList: (Array<T>) => T,
+  expand: (string, PhraseVarArgs<T>) => T,
+  getAttributeValue: (LinkAttrTypeT, string) => T,
+  l: (string, VarArgsObject<T | V>) => T,
+};
 
-export const interpolate = function (linkType, attributes) {
-    if (!linkType) {
-        return ['', '', ''];
+const reactI18n: I18n<Expand2ReactOutput, Expand2ReactInput> = {
+  cache: new WeakMap<RelationshipInfoT, CachedResult<Expand2ReactOutput>>(),
+  commaList,
+  commaOnlyList,
+  expand: expand2react,
+  getAttributeValue: (type, typeName) => (
+    type.root_id === INSTRUMENT_ROOT_ID
+      ? <a href={'/instrument/' + type.gid}>{typeName}</a>
+      : typeName
+  ),
+  l: exp.l,
+};
+
+const textI18n: I18n<string, StrOrNum> = {
+  cache: new WeakMap<RelationshipInfoT, CachedResult<string>>(),
+  commaList: commaListText,
+  commaOnlyList: commaOnlyListText,
+  expand: expand2text,
+  getAttributeValue: (type, typeName) => typeName,
+  l: texp.l,
+};
+
+function _setAttributeValues<T, V>(
+  i18n: I18n<T | string, V | string>,
+  relationship: RelationshipInfoT,
+  cache: CachedResult<T>,
+) {
+  const attributes = relationship.attributes;
+  if (!attributes) {
+    cache.attributeValues = EMPTY_OBJECT;
+    return;
+  }
+
+  let values;
+  const linkType = linkedEntities.link_type[relationship.linkTypeID];
+
+  for (let i = 0; i < attributes.length; i++) {
+    const attribute = attributes[i];
+    const type = linkedEntities.link_attribute_type[attribute.type.gid];
+    const typeName = localizeLinkAttributeTypeName(type);
+    let value = i18n.getAttributeValue(type, typeName);
+
+    if (type.free_text) {
+      const textValue = clean(attribute.text_value);
+      if (textValue) {
+        value = i18n.l('{attribute}: {value}', {
+          attribute: value,
+          value: textValue,
+        });
+      }
     }
 
-    var phrase = l_relationships(linkType.link_phrase);
-    var reversePhrase = l_relationships(linkType.reverse_link_phrase);
-    var cleanPhrase = '';
-    var cleanReversePhrase = '';
-    var cleanExtraAttributes;
-    var attributesByName = {};
-    var usedAttributes = [];
-
-    _.each(attributes, function (attribute) {
-        var type = attribute.type;
-        var value = type.l_name;
-
-        if (type.freeText) {
-            value = clean(attribute.textValue());
-            if (value) {
-                value = texp.l('{attribute}: {value}', {attribute: type.l_name, value: value});
-            }
-        }
-
-        if (type.creditable) {
-            var credit = clean(attribute.creditedAs());
-            if (credit) {
-                value = texp.l('{attribute} [{credited_as}]', {attribute: type.l_name, credited_as: credit});
-            }
-        }
-
-        if (value) {
-            var rootName = type.root.name;
-            (attributesByName[rootName] = attributesByName[rootName] || []).push(value);
-        }
-    });
-
-    function interpolate(match, name, alts) {
-        usedAttributes.push(name);
-
-        var values = attributesByName[name] || [];
-        var replacement = commaList(values)
-
-        if (alts && (alts = alts.split('|'))) {
-            replacement = values.length ? alts[0].replace(/%/g, replacement) : alts[1] || '';
-        }
-
-        return replacement;
+    if (type.creditable) {
+      const credit = clean(attribute.credited_as);
+      if (credit) {
+        value = i18n.l('{attribute} [{credited_as}]', {
+          attribute: value,
+          credited_as: credit,
+        });
+      }
     }
 
-    phrase = clean(phrase.replace(attributeRegex, interpolate));
-    reversePhrase = clean(reversePhrase.replace(attributeRegex, interpolate));
-    const extraAttributes = commaOnlyList(_(attributesByName).omit(usedAttributes).values().flatten().value());
+    if (value) {
+      if (!values) {
+        values = {};
+      }
 
-    if (linkType.orderable_direction > 0) {
-        usedAttributes = [];
-        cleanPhrase = clean(stripAttributes(linkType.id, false).replace(attributeRegex, interpolate));
-        cleanReversePhrase = clean(stripAttributes(linkType.id, true).replace(attributeRegex, interpolate));
-        cleanExtraAttributes = commaOnlyList(_(attributesByName).omit(usedAttributes).values().flatten().value());
+      const info = linkType.attributes[type.root_id];
+      const rootName = linkedEntities.link_attribute_type[type.root_gid].name;
+
+      if (info.max === 1) {
+        values[rootName] = value;
+      } else {
+        (values[rootName] = values[rootName] || []).push(value);
+      }
     }
+  }
 
-    return [
-        phrase,
-        reversePhrase,
-        extraAttributes,
-        cleanPhrase,
-        cleanReversePhrase,
-        cleanExtraAttributes,
-    ];
+  cache.attributeValues = values || EMPTY_OBJECT;
+}
+
+const requiredAttributesCache: {
+  __proto__: null,
+  [number]: {+[string]: string},
+} = Object.create(null);
+
+function _getRequiredAttributes(linkType: LinkTypeT) {
+  let required = requiredAttributesCache[linkType.id];
+  if (required) {
+    return required;
+  }
+  for (const [, info] of Object.entries(linkType.attributes)) {
+    const {attribute, min} = ((info: any): LinkTypeAttrTypeT);
+    if (min) {
+      required = required || {};
+      required[attribute.name] = `{${localizeLinkAttributeTypeName(attribute)}}`;
+    }
+  }
+  return (requiredAttributesCache[linkType.id] = required || EMPTY_OBJECT);
+}
+
+function _getPhraseAndExtraAttributes<T, V>(
+  i18n: I18n<T | string, V | string>,
+  relationship: RelationshipInfoT,
+  phraseProp: LinkPhraseProp,
+  forGrouping?: boolean = false,
+): [T | string, T | string] {
+  const cache = _getResultCache<T | string>(i18n.cache, relationship);
+  const key = phraseProp + '\0' + (forGrouping ? '1' : '0');
+
+  let result = cache.phraseAndExtraAttributes[key];
+  if (result) {
+    return result;
+  }
+
+  const linkType = linkedEntities.link_type[relationship.linkTypeID];
+  if (!linkType) {
+    return emptyResult;
+  }
+
+  const phraseSource = l_relationships(linkType[phraseProp]);
+  if (!phraseSource) {
+    return emptyResult;
+  }
+
+  if (!forGrouping && !cache.attributeValues) {
+    _setAttributeValues<T | string, V>(i18n, relationship, cache);
+  }
+
+  /* flow-include if (!cache.attributeValues) throw 'impossible'; */
+
+  const varArgs = new PhraseVarArgs(
+    forGrouping ? _getRequiredAttributes(linkType) : cache.attributeValues,
+    i18n.commaList,
+  );
+
+  let phrase = i18n.expand(phraseSource, varArgs);
+  if (typeof phrase === 'string') {
+    phrase = clean(phrase);
+  }
+
+  result = [
+    phrase,
+    i18n.commaOnlyList(varArgs.getExtraAttributes()),
+  ];
+
+  cache.phraseAndExtraAttributes[key] = result;
+  return result;
+}
+
+export const getPhraseAndExtraAttributesText = (
+  relationship: RelationshipInfoT,
+  phraseProp: LinkPhraseProp,
+  forGrouping?: boolean = false,
+) => _getPhraseAndExtraAttributes<string, StrOrNum>(
+  textI18n,
+  relationship,
+  phraseProp,
+  forGrouping,
+);
+
+export const interpolate = (
+  relationship: RelationshipInfoT,
+  phraseProp: LinkPhraseProp,
+  forGrouping?: boolean = false,
+) => _getPhraseAndExtraAttributes<Expand2ReactOutput, Expand2ReactInput>(
+  reactI18n,
+  relationship,
+  phraseProp,
+  forGrouping,
+)[0];
+
+export const interpolateText = (
+  relationship: RelationshipInfoT,
+  phraseProp: LinkPhraseProp,
+  forGrouping?: boolean = false,
+) => getPhraseAndExtraAttributesText(
+  relationship,
+  phraseProp,
+  forGrouping,
+)[0];
+
+export const getExtraAttributes = (
+  relationship: RelationshipInfoT,
+  phraseProp: LinkPhraseProp,
+  forGrouping?: boolean = false,
+) => _getPhraseAndExtraAttributes<Expand2ReactOutput, Expand2ReactInput>(
+  reactI18n,
+  relationship,
+  phraseProp,
+  forGrouping,
+)[1];
+
+export const getExtraAttributesText = (
+  relationship: RelationshipInfoT,
+  phraseProp: LinkPhraseProp,
+  forGrouping?: boolean = false,
+) => getPhraseAndExtraAttributesText(
+  relationship,
+  phraseProp,
+  forGrouping,
+)[1];
+
+export const stripAttributes = (linkType: LinkTypeT, phrase: string) => {
+  return clean(textI18n.expand(phrase, new PhraseVarArgs(
+    _getRequiredAttributes(linkType),
+    textI18n.commaList,
+  )));
 };

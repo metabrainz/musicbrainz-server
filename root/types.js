@@ -138,21 +138,6 @@ declare type ArtworkT = {|
   +types: $ReadOnlyArray<string>,
 |};
 
-// See MusicBrainz::Server::Form::Utils::build_attr_info
-declare type AttrInfoT = {|
-  +children?: $ReadOnlyArray<AttrInfoT>,
-  +creditable: boolean,
-  +description?: string,
-  +freeText: boolean,
-  +gid: string,
-  +id: number,
-  +l_name: string,
-  +name: string,
-  root: AttrInfoT,
-  +rootID: number,
-  +unaccented?: string,
-|};
-
 declare type AutoEditorElectionT = {|
   ...EntityRoleT<empty>,
   +candidate: EditorT,
@@ -198,41 +183,6 @@ type CatalystContextT = {|
   +stash: CatalystStashT,
   +user?: CatalystUserT,
   +user_exists: boolean,
-  +linked_entities: {
-    +artist_type: {|
-      +[number]: ArtistTypeT,
-    |},
-    +language: {|
-      +[number]: LanguageT,
-    |},
-    +link_type: {|
-      +[number]: LinkTypeT,
-    |},
-    +release_group_primary_type: {|
-      [number]: ReleaseGroupTypeT,
-    |},
-    +release_group_secondary_type: {|
-      [number]: ReleaseGroupSecondaryTypeT,
-    |},
-    +release_packaging: {|
-      +[number]: ReleasePackagingT,
-    |},
-    +release_status: {|
-      +[number]: ReleaseStatusT,
-    |},
-    +script: {|
-      +[number]: ScriptT,
-    |},
-    +series_ordering_type: {|
-      +[number]: SeriesOrderingTypeT,
-    |},
-    +series_type: {|
-      +[number]: SeriesTypeT,
-    |},
-    +work_attribute_type: {|
-      +[number]: WorkAttributeTypeT,
-    |},
-  },
 |};
 
 type CatalystRequestContextT = {|
@@ -346,6 +296,21 @@ declare type CoreEntityT =
   | SeriesT
   | UrlT
   | WorkT;
+
+declare type CoreEntityTypeT =
+  | 'area'
+  | 'artist'
+  | 'event'
+  | 'instrument'
+  | 'label'
+  | 'place'
+  | 'recording'
+  | 'release_group'
+  | 'release'
+  | 'series'
+  | 'url'
+  | 'work'
+  ;
 
 declare type CoverArtTypeT = OptionTreeT<'cover_art_type'>;
 
@@ -474,6 +439,7 @@ declare type EventT = {|
     +roles: $ReadOnlyArray<string>,
   |}>,
   +places: $ReadOnlyArray<{|+entity: PlaceT|}>,
+  +related_series: $ReadOnlyArray<number>,
   +time: string,
 |};
 
@@ -594,8 +560,27 @@ type LastUpdateRoleT = {|
   +last_updated: string | null,
 |};
 
+declare type LinkAttrT = {|
+  +credited_as?: string,
+  +text_value?: string,
+  type: {|
+    +gid: string,
+  |},
+  +typeID: number,
+  +typeName: string,
+|};
+
+declare type LinkAttrTypeT = {|
+  ...OptionTreeT<'link_attribute_type'>,
+  +creditable: boolean,
+  +free_text: boolean,
+  +instrument_comment?: string,
+  +root_gid: string,
+  +root_id: number,
+|};
+
 declare type LinkTypeAttrTypeT = {|
-  attribute: AttrInfoT,
+  attribute: LinkAttrTypeT,
   +max: number | null,
   +min: number | null,
 |};
@@ -641,11 +626,11 @@ declare type OptionListT = $ReadOnlyArray<{|
 
 declare type OptionTreeT<+T> = {|
   ...EntityRoleT<T>,
-  +childOrder: number,
+  +child_order: number,
   +description: string,
   +gid: string,
   +name: string,
-  +parentID: number | null,
+  +parent_id: number | null,
 |};
 
 /*
@@ -710,21 +695,20 @@ declare type RecordingT = {|
   ...RatableRoleT,
   +isrcs: $ReadOnlyArray<IsrcT>,
   +length: number,
+  +related_works: $ReadOnlyArray<number>,
   +video: boolean,
 |};
 
-declare type RelationshipAttributeTypeT = {|
-  +gid: string,
-|};
-
-declare type RelationshipAttributeT = {|
-  +type: RelationshipAttributeTypeT,
-|};
-
 declare type RelationshipT = {|
+  ...DatePeriodRoleT,
+  ...EditableRoleT,
   // `attributes` may not exist when seeding.
-  +attributes?: $ReadOnlyArray<RelationshipAttributeT>,
+  +attributes?: $ReadOnlyArray<LinkAttrT>,
+  +direction?: 'backward',
+  +entity0_credit: string,
+  +entity1_credit: string,
   +id: number,
+  +linkOrder: number,
   +linkTypeID: number,
   +target: CoreEntityT,
 |};
@@ -977,7 +961,7 @@ declare type WorkAttributeTypeAllowedValueTreeRootT =
 declare type WorkAttributeTypeT = {|
   ...CommentRoleT,
   ...OptionTreeT<'work_attribute_type'>,
-  +freeText: boolean,
+  +free_text: boolean,
 |};
 
 // See MusicBrainz::Server::Controller::Work::stash_work_form_json

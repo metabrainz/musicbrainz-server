@@ -52,10 +52,10 @@ rules:
   curly: [error, all]
   dot-location: [warn, property]
   dot-notation: [warn, {allowKeywords: true}]
-  eqeqeq: warn
+  eqeqeq: [warn, smart]
   no-alert: off
   no-else-return: warn
-  no-eq-null: error
+  no-eq-null: off
   no-floating-decimal: warn
   no-multi-spaces: [error, {ignoreEOLComments: true}]
   radix: warn

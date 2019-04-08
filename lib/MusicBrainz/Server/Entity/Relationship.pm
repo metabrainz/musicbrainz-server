@@ -338,7 +338,12 @@ around TO_JSON => sub {
     my $link = $self->link;
 
     my $json = {
-        attributes      => [map +{ (%{ $_->TO_JSON }, type => { gid => $_->type->gid }) }, $link->all_attributes],
+        attributes      => [map {
+            my $type = $_->type;
+            $self->link_entity('link_attribute_type', $type->gid, $type);
+            my $result = { (%{ $_->TO_JSON }, type => { gid => $type->gid }) };
+            $result
+        } $link->all_attributes],
         editsPending    => boolean_to_json($self->edits_pending),
         ended           => boolean_to_json($link->ended),
         entity0_credit  => $self->entity0_credit,

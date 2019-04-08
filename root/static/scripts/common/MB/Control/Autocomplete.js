@@ -895,7 +895,7 @@ MB.Control.autocomplete_formatters = {
 
         if (item.description) {
             a.append('<br /><span class="autocomplete-comment">' +
-                      _.escape($('<span>'+item.description+'</span>').text()) +
+                      _.escape(l_instrument_descriptions(item.description)) +
                       '</span>');
         }
 

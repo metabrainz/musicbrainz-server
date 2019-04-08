@@ -54,8 +54,7 @@
       <p>[% l('This series is currently empty.') %]</p>
     [% END %]
 
-    [% INCLUDE "components/relationships.tt" source=series
-        relationships=series.display_relationships %]
+    [% React.embed(c, 'components/Relationships', {source => series}) %]
 
     [%- script_manifest('series/index.js', {async => 'async'}) -%]
 [% END %]
