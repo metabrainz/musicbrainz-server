@@ -23,24 +23,22 @@ type Props = {|
   +lastUpdated?: string,
 |};
 
-const ResultsLayout = ({$c, children, form, lastUpdated}: Props) => {
-  return (
-    <Layout fullWidth title={l('Search Results')}>
-      <div id="content">
-        <h1>{l('Search Results')}</h1>
-        {lastUpdated ? (
-          <p>
-            {texp.l(
-              'Last updated: {date}',
-              {date: formatUserDate($c.user, lastUpdated)},
-            )}
-          </p>
-        ) : null}
-        {children}
-        <SearchForm form={form} />
-      </div>
-    </Layout>
-  );
-};
+const ResultsLayout = ({$c, children, form, lastUpdated}: Props) => (
+  <Layout fullWidth title={l('Search Results')}>
+    <div id="content">
+      <h1>{l('Search Results')}</h1>
+      {lastUpdated ? (
+        <p>
+          {texp.l(
+            'Last updated: {date}',
+            {date: formatUserDate($c.user, lastUpdated)},
+          )}
+        </p>
+      ) : null}
+      {children}
+      <SearchForm form={form} />
+    </div>
+  </Layout>
+);
 
 export default withCatalystContext(ResultsLayout);
