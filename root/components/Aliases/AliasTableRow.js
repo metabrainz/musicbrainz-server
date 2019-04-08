@@ -35,7 +35,9 @@ const AliasTableRow = ({alias, allowEditing, entity, row}: Props) => (
       : <td>{isolateText(alias.sort_name)}</td>}
     <td>{formatDate(alias.begin_date)}</td>
     <td>{formatEndDate(alias)}</td>
-    <td>{alias.typeName ? lp_attributes(alias.typeName, 'alias_type') : ''}</td>
+    <td>
+      {alias.typeName ? lp_attributes(alias.typeName, 'alias_type') : ''}
+    </td>
     <td>
       {alias.locale ? locales[alias.locale] : null}
       {alias.primary_for_locale

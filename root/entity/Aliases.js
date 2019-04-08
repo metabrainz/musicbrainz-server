@@ -11,20 +11,27 @@ import React from 'react';
 
 import chooseLayoutComponent from '../utility/chooseLayoutComponent';
 import AliasesComponent from '../components/Aliases';
-
+import ArtistCreditList from '../components/Aliases/ArtistCreditList';
 
 type Props = {|
   +aliases: $ReadOnlyArray<AliasT>,
+  +artistCredits?: $ReadOnlyArray<{
+    +id: number,
+    +names: ArtistCreditT,
+  }>,
   +entity: CoreEntityT,
 |};
 
-const Aliases = ({aliases, entity}: Props) => {
+const Aliases = ({aliases, artistCredits, entity}: Props) => {
   const entityType = entity.entityType;
   const LayoutComponent = chooseLayoutComponent(entityType);
 
   return (
     <LayoutComponent entity={entity} page="aliases" title={l('Aliases')}>
       <AliasesComponent aliases={aliases} entity={entity} />
+      {artistCredits && artistCredits.length > 0 ? (
+        <ArtistCreditList artistCredits={artistCredits} entity={entity} />
+      ) : null}
     </LayoutComponent>
   );
 };
