@@ -91,7 +91,7 @@ const WorkListEntry = ({
   score,
   work,
 }: WorkListEntryProps) => (
-  <tr className={loopParity(index)} data-score={score ? score : null}>
+  <tr className={loopParity(index)} data-score={score || null}>
     <WorkListRow
       hasIswcColumn={hasIswcColumn}
       hasMergeColumn={hasMergeColumn}
