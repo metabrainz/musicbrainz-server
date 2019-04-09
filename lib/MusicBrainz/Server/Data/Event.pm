@@ -11,6 +11,7 @@ use MusicBrainz::Server::Entity::PartialDate;
 use MusicBrainz::Server::Data::Utils qw(
     add_partial_date_to_row
     generate_gid
+    get_area_containment_query
     hash_to_row
     load_subobjects
     merge_table_attributes
@@ -192,7 +193,7 @@ sub find_by_area
     my (
         $containment_query,
         @containment_query_args,
-    ) = $self->c->model('Area')->get_containment_query('$2', 'lae.entity0');
+    ) = get_area_containment_query('$2', 'lae.entity0');
     my $query =
         "SELECT " . $self->_columns ."
            FROM (

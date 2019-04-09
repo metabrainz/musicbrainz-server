@@ -8,7 +8,6 @@ use List::UtilsBy qw( partition_by );
 use MusicBrainz::Server::Constants qw(
     $STATUS_OPEN
     $AREA_TYPE_COUNTRY
-    $PART_OF_AREA_LINK_TYPE_ID
 );
 use MusicBrainz::Server::Data::Edit;
 use MusicBrainz::Server::Entity::Area;
@@ -16,6 +15,7 @@ use MusicBrainz::Server::Entity::PartialDate;
 use Readonly;
 use MusicBrainz::Server::Data::Utils qw(
     add_partial_date_to_row
+    get_area_containment_query
     hash_to_row
     load_subobjects
     merge_table_attributes
@@ -70,32 +70,6 @@ sub load
     load_subobjects($self, ['area', 'begin_area', 'end_area', 'country'], @objs);
 }
 
-sub get_containment_query {
-    my ($self, $link_type_param, $descendant_param) = @_;
-
-    return (qq{
-        WITH RECURSIVE area_descendants AS (
-            SELECT entity0 AS parent, entity1 AS descendant, 1 AS depth
-              FROM l_area_area laa
-              JOIN link ON laa.link = link.id
-             WHERE link.link_type = $link_type_param
-               AND entity1 = $descendant_param
-                UNION
-            SELECT entity0 AS parent, descendant, (depth + 1) AS depth
-              FROM l_area_area laa
-              JOIN link ON laa.link = link.id
-              JOIN area_descendants ON area_descendants.parent = laa.entity1
-             WHERE link.link_type = $link_type_param
-               AND entity0 != descendant
-        )
-        SELECT ad.descendant, ad.parent, ad.depth
-          FROM area_descendants ad
-          JOIN area a ON a.id = ad.parent
-         WHERE a.type IN (1, 2, 3)
-         ORDER BY ad.descendant, ad.depth ASC
-    }, $PART_OF_AREA_LINK_TYPE_ID);
-}
-
 sub load_containment {
     my ($self, @areas) = @_;
 
@@ -103,7 +77,7 @@ sub load_containment {
     return unless @areas;
 
     my @results = @{ $self->sql->select_list_of_hashes(
-        $self->get_containment_query('$1', 'any($2)'),
+        get_area_containment_query('$1', 'any($2)'),
         [map { $_->id } @areas],
     ) };
 

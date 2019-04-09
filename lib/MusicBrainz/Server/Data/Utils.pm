@@ -21,6 +21,7 @@ use MusicBrainz::Server::Constants qw(
     $VARTIST_ID
     $DLABEL_ID
     $INSTRUMENT_ROOT_ID
+    $PART_OF_AREA_LINK_TYPE_ID
     $VOCAL_ROOT_ID
     %ENTITIES
 );
@@ -44,6 +45,7 @@ our @EXPORT_OK = qw(
     defined_hash
     generate_gid
     generate_token
+    get_area_containment_query
     hash_structure
     hash_to_row
     is_special_artist
@@ -231,6 +233,32 @@ sub generate_gid
 sub generate_token
 {
     encode_base64url(pack('LLLL', irand(), irand(), irand(), irand()));
+}
+
+sub get_area_containment_query {
+    my ($link_type_param, $descendant_param) = @_;
+
+    return (qq{
+        WITH RECURSIVE area_descendants AS (
+            SELECT entity0 AS parent, entity1 AS descendant, 1 AS depth
+              FROM l_area_area laa
+              JOIN link ON laa.link = link.id
+             WHERE link.link_type = $link_type_param
+               AND entity1 = $descendant_param
+                UNION
+            SELECT entity0 AS parent, descendant, (depth + 1) AS depth
+              FROM l_area_area laa
+              JOIN link ON laa.link = link.id
+              JOIN area_descendants ON area_descendants.parent = laa.entity1
+             WHERE link.link_type = $link_type_param
+               AND entity0 != descendant
+        )
+        SELECT ad.descendant, ad.parent, ad.depth
+          FROM area_descendants ad
+          JOIN area a ON a.id = ad.parent
+         WHERE a.type IN (1, 2, 3)
+         ORDER BY ad.descendant, ad.depth ASC
+    }, $PART_OF_AREA_LINK_TYPE_ID);
 }
 
 sub defined_hash
