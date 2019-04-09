@@ -427,6 +427,13 @@ const testData = [
        only_valid_entity_types: ['artist'],
   },
   {
+                     input_url: 'https://www.bandsintown.com/en/a/12625251-wormwitch',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'bandsintown',
+            expected_clean_url: 'https://www.bandsintown.com/a/12625251',
+       only_valid_entity_types: ['artist'],
+  },
+  {
                      input_url: 'https://bandsintown.com/a/159526#',
              input_entity_type: 'artist',
     expected_relationship_type: 'bandsintown',

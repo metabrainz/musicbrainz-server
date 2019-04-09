@@ -536,7 +536,7 @@ const CLEANUPS = {
     match: [new RegExp('^(https?://)?((m|www)\\.)?bandsintown\\.com', 'i')],
     type: LINK_TYPES.bandsintown,
     clean: function (url) {
-      let m = url.match(/^(?:https?:\/\/)?(?:(?:m|www)\.)?bandsintown\.com\/(a(?=rtist|\/)|e(?=vent|\/)|v(?=enue|\/))[a-z]*\/0*([1-9][0-9]*)(?:[^0-9].*)?$/);
+      let m = url.match(/^(?:https?:\/\/)?(?:(?:m|www)\.)?bandsintown\.com\/(?:[a-z]{2}\/)?(a(?=rtist|\/)|e(?=vent|\/)|v(?=enue|\/))[a-z]*\/0*([1-9][0-9]*)(?:[^0-9].*)?$/);
       if (m) {
         const prefix = m[1];
         const number = m[2];
