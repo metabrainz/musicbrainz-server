@@ -10,7 +10,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2019-01-15 20:40+0000\n"
+"PO-Revision-Date: 2019-04-04 17:28+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -3973,7 +3973,7 @@ msgstr "heeft zijn of haar geschiedenis gepresenteerd op"
 
 #: DB:link_type/long_link_phrase:93 DB:link_type/long_link_phrase:197
 msgid "has lyrics available at"
-msgstr "liedtekst op"
+msgstr "tekst op"
 
 #: DB:link_type/long_link_phrase:857
 msgid "has music video"
@@ -4128,10 +4128,6 @@ msgstr "uitvinder van"
 msgid "invented by"
 msgstr "uitgevonden door"
 
-#: DB:link_type/link_phrase:112 DB:link_type/reverse_link_phrase:112
-msgid "involved with"
-msgstr "heeft een relatie met"
-
 #: DB:link_type/long_link_phrase:8 DB:link_type/long_link_phrase:227
 msgid "is a DJ-mix of"
 msgstr "is een dj-mix van"
@@ -4259,10 +4255,6 @@ msgstr "is/was artistiek directeur van"
 msgid "is/was distributing the catalog of"
 msgstr "distribueert/distribueerde de catalogus van"
 
-#: DB:link_type/long_link_phrase:112
-msgid "is/was involved with"
-msgstr "is/was betrokken bij"
-
 #: DB:link_type/long_link_phrase:111
 msgid "is/was married to"
 msgstr "is/was getrouwd met"
@@ -4270,6 +4262,10 @@ msgstr "is/was getrouwd met"
 #: DB:link_type/long_link_phrase:201
 msgid "is/was reissuing the catalog of"
 msgstr "geeft/gaf opnieuw de catalogus uit van"
+
+#: DB:link_type/long_link_phrase:112
+msgid "is/was romantically involved with"
+msgstr "heeft of had een verhouding met"
 
 #: DB:link_type/long_link_phrase:200
 msgid "is/was the parent label of"
@@ -4394,12 +4390,12 @@ msgstr "logo’s"
 #: DB:link_type/link_phrase:93 DB:link_type/link_phrase:197
 #: DB:link_type/reverse_link_phrase:271
 msgid "lyrics page"
-msgstr "liedtekst"
+msgstr "tekst"
 
 #: DB:link_type/link_phrase:271 DB:link_type/reverse_link_phrase:93
 #: DB:link_type/reverse_link_phrase:197
 msgid "lyrics page for"
-msgstr "liedtekst van"
+msgstr "tekst van"
 
 #: DB:link_type/reverse_link_phrase:960 DB:link_type/reverse_link_phrase:175
 #: DB:link_type/reverse_link_phrase:79
@@ -5141,6 +5137,10 @@ msgstr "auteursrechtenorganisatie"
 #: DB:link_type/link_phrase:349
 msgid "rights society associated with"
 msgstr "auteursrechtenorganisatie verbonden met"
+
+#: DB:link_type/link_phrase:112 DB:link_type/reverse_link_phrase:112
+msgid "romantically involved with"
+msgstr "verhouding met"
 
 #: DB:link_type/link_phrase:83 DB:link_type/link_phrase:258
 msgid "samples IMDb entry"

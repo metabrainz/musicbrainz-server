@@ -3,6 +3,7 @@
 # AO <email address hidden>, 2013
 # Benjamin Sonntag <email address hidden>, 2011-2012
 # Benjamin Sonntag <email address hidden>, 2011
+# Idlusen <email address hidden>, 2019
 # Dibou <email address hidden>, 2012,2016
 # Dorian Soergel <email address hidden>, 2018
 # Frédéric Da Vitoria <email address hidden>, 2014
@@ -22,8 +23,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2019-01-09 17:37+0000\n"
-"Last-Translator: yvanz\n"
+"PO-Revision-Date: 2019-02-27 12:54+0000\n"
+"Last-Translator: Idlusen <email address hidden>\n"
 "Language-Team: French (http://www.transifex.com/musicbrainz/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -347,7 +348,7 @@ msgid ""
 "truncated cone resting on a triangular base."
 msgstr "Une trompette marine est un instrument triangulaire à corde frottée, utilisé dans l’Europe médiévale et de la Renaissance, comprenant un corps et un manche en forme de cône tronqué et reposant sur une base triangulaire."
 
-#. name:marxophone
+#. name:Marxophone
 #: DB:instrument/description:442
 msgid "A type of fretless zither."
 msgstr "Un type de cithare sans frette."
@@ -734,6 +735,14 @@ msgstr ""
 #: DB:instrument/description:411
 msgid "Davul, turkish drum"
 msgstr "Le davul, un tambour turc"
+
+#. name:setar
+#: DB:instrument/description:630
+msgid ""
+"Derived from the Indian tritantri veena by the Persian poet Amir Khusro "
+"sometime in 13th century, it had 3 (now 4) strings and a long neck. It later"
+" gave name to the Indian sitar."
+msgstr ""
 
 #. name:tenora
 #: DB:instrument/description:869
@@ -1395,6 +1404,15 @@ msgid ""
 " townspeople."
 msgstr ""
 
+#. name:tritantri veena
+#: DB:instrument/description:945
+msgid ""
+"Originally played in court, it consists of a 1m long piece of wood with a "
+"small intricately carved soundbox. It has 16 frets and 3 metal strings. "
+"Legend has it, the Persian Ameer Khusrau made some alterations and created "
+"the Persian sehtara (setar)."
+msgstr ""
+
 #. name:renaissance rackett
 #: DB:instrument/description:896
 msgid ""
@@ -1533,7 +1551,7 @@ msgstr ""
 #. name:ngɔni
 #: DB:instrument/description:729
 msgid "Plucked string instrument made of wood or gourd from West Africa."
-msgstr ""
+msgstr "Instrument à cordes pincées d’Afrique occidentale fait de bois ou d’une coque de calebasse."
 
 #. name:melodica
 #: DB:instrument/description:44
@@ -1721,7 +1739,7 @@ msgstr "Type de fifre utilisé dans la musique traditionnelle ukrainienne."
 msgid ""
 "Sound chip in various video game consoles used for music, chiefly in bit-"
 "tunes and chip-tunes"
-msgstr ""
+msgstr "Puce audio de console de jeu vidéo utilisée pour la musique, principalement dans le genre chiptune."
 
 #. name:struck idiophone
 #: DB:instrument/description:675
@@ -3072,13 +3090,6 @@ msgstr "Le saz est luth à manche long avec frettes. (<a href=\"http://fr.wikipe
 msgid "The segunda is a bass garifuna drum."
 msgstr "Tambour basse garifuna."
 
-#. name:setar
-#: DB:instrument/description:630
-msgid ""
-"The setar is a long-necked three-stringed lute found in Iran and Central "
-"Asia."
-msgstr "Le setâr est un luth à long manche et à trois cordes trouvé en Iran et en Asie centrale."
-
 #. name:shakuhachi
 #: DB:instrument/description:173
 msgid "The shakuhachi is a Japanese end-blown flute."
@@ -4193,7 +4204,7 @@ msgid ""
 "made of clay with two layers of goat skin, it is used as a rhythmic "
 "accompaniment to shehnai players and is one of the instruments of the Baul "
 "community."
-msgstr ""
+msgstr "fait de terre cuite avec deux peaux de chèvre tendues, il est utilisé en accompagnement rythmique des joueurs de shehnai et fait partie des instruments de la communauté Baul."
 
 #. name:pūrerehua
 #: DB:instrument/description:791
@@ -4287,8 +4298,8 @@ msgid ""
 " of mandolin, it is tuned like it and the violin."
 msgstr ""
 
-#. name:saó ôi flute
-#: DB:instrument/description:310
+#. name:sáo meò
+#: DB:instrument/description:316
 msgid "saó ôi (flute of the Muong)"
 msgstr "flûte saó ôi, utilisée par les Muong"
 
