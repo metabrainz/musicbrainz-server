@@ -3,27 +3,36 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-const $ = require('jquery');
-const _ = require('lodash');
-const ko = require('knockout');
+import $ from 'jquery';
+import _ from 'lodash';
+import ko from 'knockout';
 
-const {ENTITIES, MAX_RECENT_ENTITIES} = require('../../constants');
-const MB_entity = require('../../entity');
-const i18n = require('../../i18n');
-const commaOnlyList = require('../../i18n/commaOnlyList');
-import {l_languages} from '../../i18n/languages';
-import {lp_attributes} from '../../i18n/attributes';
-const {artistCreditFromArray, reduceArtistCredit} = require('../../immutable-entities');
-const MB = require('../../MB');
-const clean = require('../../utility/clean');
+import {ENTITIES, MAX_RECENT_ENTITIES} from '../../constants';
+import MB_entity from '../../entity';
+import commaOnlyList from '../../i18n/commaOnlyList';
+import {artistCreditFromArray, reduceArtistCredit} from '../../immutable-entities';
+import MB from '../../MB';
+import clean from '../../utility/clean';
 import formatDate from '../../utility/formatDate';
 import formatDatePeriod from '../../utility/formatDatePeriod';
-const formatTrackLength = require('../../utility/formatTrackLength');
-const isBlank = require('../../utility/isBlank');
+import formatTrackLength from '../../utility/formatTrackLength';
+import isBlank from '../../utility/isBlank';
 import primaryAreaCode from '../../utility/primaryAreaCode';
-const {localStorage} = require('../../utility/storage');
+import {localStorage} from '../../utility/storage';
+import bracketed from '../../utility/bracketed';
 
-require('../../../../lib/jquery-ui');
+import '../../../../lib/jquery-ui';
+
+const addNewEntityLabels = {
+    artist: N_l('Add a new artist'),
+    event: N_l('Add a new event'),
+    label: N_l('Add a new label'),
+    place: N_l('Add a new place'),
+    recording: N_l('Add a new recording'),
+    release_group: N_l('Add a new release group'),
+    series: N_l('Add a new series'),
+    work: N_l('Add a new work'),
+};
 
 $.widget("mb.entitylookup", $.ui.autocomplete, {
 
@@ -66,12 +75,12 @@ $.widget("mb.entitylookup", $.ui.autocomplete, {
                 success: $.proxy(this._lookupSuccess, this, response),
                 error: function () {
                     response([{
-                        label: i18n.l("An error occurred while searching. Click here to try again."),
+                        label: l("An error occurred while searching. Click here to try again."),
                         action: _.bind(self._searchAgain, self)
                     }, {
                         label: self.indexedSearch ?
-                               i18n.l("Try with direct search instead.") :
-                               i18n.l("Try with indexed search instead."),
+                               l("Try with direct search instead.") :
+                               l("Try with indexed search instead."),
                         action: _.bind(self._searchAgain, self, true)
 
                     }]);
@@ -103,7 +112,7 @@ $.widget("mb.entitylookup", $.ui.autocomplete, {
         this.$search = this.element
             .closest("span.autocomplete").find("img.search");
 
-        this.element.attr("placeholder",  i18n.l("Type to search, or paste an MBID"));
+        this.element.attr("placeholder", l("Type to search, or paste an MBID"));
 
         var self = this;
 
@@ -175,7 +184,7 @@ $.widget("mb.entitylookup", $.ui.autocomplete, {
                 self.term = "";
 
                 recent.push({
-                    label: i18n.l("Clear recent items"),
+                    label: l("Clear recent items"),
                     action: function () {
                         self.recentEntities([]);
                         self.clear();
@@ -410,34 +419,36 @@ $.widget("mb.entitylookup", $.ui.autocomplete, {
 
         if (results.length === 0) {
             results.push({
-                label: "(" + i18n.l("No results") + ")",
+                label: "(" + l("No results") + ")",
                 action: _.bind(this.close, this)
             });
         }
 
         if (this.currentPage < this.totalPages) {
             results.push({
-                label: i18n.l("Show more..."),
+                label: l("Show more..."),
                 action: _.bind(this._showMore, this)
             });
         }
 
         results.push({
-            label: this.indexedSearch ? i18n.l("Not found? Try again with direct search.") :
-                                        i18n.l("Slow? Switch back to indexed search."),
+            label: this.indexedSearch ? l("Not found? Try again with direct search.") :
+                                        l("Slow? Switch back to indexed search."),
             action: _.bind(this._searchAgain, this, true)
         });
 
         var allowCreation = window === window.top,
             entity = this.entity.replace("-", "_");
 
-        if (allowCreation && i18n.strings.addANewEntity[entity]) {
+        if (allowCreation && addNewEntityLabels[entity]) {
+            const label = addNewEntityLabels[entity]();
             results.push({
-                label: i18n.strings.addANewEntity[entity],
+                label,
                 action: function () {
                     $("<div>").appendTo("body").createEntityDialog({
                         name: self._value(),
                         entity: entity,
+                        title: label,
                         callback: function (item) {
                             self.options.select(null, { item: item });
                         }
@@ -589,8 +600,8 @@ MB.Control.autocomplete_formatters = {
 
         if (comment.length)
         {
-            a.append(' <span class="autocomplete-comment">(' +
-                     _.escape(commaOnlyList(comment)) + ')</span>');
+            a.append(' <span class="autocomplete-comment">' +
+                     _.escape(bracketed(commaOnlyList(comment))) + '</span>');
         }
 
         return $("<li>").append(a).appendTo(ul);
@@ -607,13 +618,13 @@ MB.Control.autocomplete_formatters = {
 
         if (item.comment)
         {
-            a.append('<span class="autocomplete-comment">(' +
-                      _.escape(item.comment) + ')</span>');
+            a.append('<span class="autocomplete-comment">' +
+                      _.escape(bracketed(item.comment)) + '</span>');
         }
 
         if (item.video)
         {
-            const title = _.escape(i18n.l('This recording is a video'));
+            const title = _.escape(l('This recording is a video'));
             a.prepend($(`<span class="video" title="${title}"></span>`));
         }
 
@@ -632,16 +643,16 @@ MB.Control.autocomplete_formatters = {
                 rgs.push('...');
             }
 
-            a.append('<br /><span class="autocomplete-appears">appears on: ' +
+            a.append('<br /><span class="autocomplete-appears">' + _.escape(addColon(l('appears on'))) + ' ' +
                      _.escape(commaOnlyList(rgs)) + '</span>');
         }
         else if (item.appearsOn && item.appearsOn.hits === 0) {
-            a.append('<br /><span class="autocomplete-appears">standalone recording</span>');
+            a.append('<br /><span class="autocomplete-appears">' + _.escape(l('standalone recording')) + '</span>');
         }
 
         if (item.isrcs && item.isrcs.length)
         {
-            a.append('<br /><span class="autocomplete-isrcs">ISRCs: ' +
+            a.append('<br /><span class="autocomplete-isrcs">' + _.escape(addColon(l('ISRCs'))) + ' ' +
                      _.escape(commaOnlyList(item.isrcs.map(isrc => isrc.isrc))) + '</span>');
         }
 
@@ -707,19 +718,22 @@ MB.Control.autocomplete_formatters = {
 
         if (item.firstReleaseDate)
         {
-            a.append('<span class="autocomplete-comment">(' +
-                        item.firstReleaseDate + ')</span>');
+            a.append('<span class="autocomplete-comment">' +
+                        bracketed(item.firstReleaseDate) + '</span>');
         }
 
         if (item.comment)
         {
-            a.append('<span class="autocomplete-comment">(' +
-                      _.escape(item.comment) + ')</span>');
+            a.append('<span class="autocomplete-comment">' +
+                      _.escape(bracketed(item.comment)) + '</span>');
         }
 
         if (item.typeName) {
-            a.append('<br /><span class="autocomplete-comment">' + item.typeName + ' by ' +
-                    _.escape(item.artist) + '</span>');
+            a.append('<br /><span class="autocomplete-comment">' +
+              _.escape(texp.l('{release_group_type} by {artist}', {
+                artist: item.artist,
+                release_group_type: item.l_type_name,
+             })) + '</span>');
         }
 
         return $("<li>").append(a).appendTo(ul);
@@ -729,11 +743,11 @@ MB.Control.autocomplete_formatters = {
         var a = $("<a>").text(item.name);
 
         if (item.comment) {
-            a.append('<span class="autocomplete-comment">(' + _.escape(item.comment) + ')</span>');
+            a.append('<span class="autocomplete-comment">' + _.escape(bracketed(item.comment)) + '</span>');
         }
 
         if (item.type) {
-            a.append(' <span class="autocomplete-comment">(' + _.escape(item.type.name) + ')</span>');
+            a.append(' <span class="autocomplete-comment">' + _.escape(bracketed(lp_attributes(item.type.name, 'series_type'))) + '</span>');
         }
 
         return $("<li>").append(a).appendTo(ul);
@@ -761,13 +775,13 @@ MB.Control.autocomplete_formatters = {
 
         if (comment.length)
         {
-            a.append(' <span class="autocomplete-comment">(' +
-                     _.escape(commaOnlyList(comment)) + ')</span>');
+            a.append(' <span class="autocomplete-comment">' +
+                     _.escape(bracketed(commaOnlyList(comment))) + '</span>');
         }
 
         if (item.typeName)
         {
-            a.append('<br /><span class="autocomplete-comment">' + _.escape(i18n.addColon(i18n.l('Type')) + ' ' + lp_attributes(item.typeName, 'work_type')) + '</span>');
+            a.append('<br /><span class="autocomplete-comment">' + _.escape(addColon(l('Type')) + ' ' + lp_attributes(item.typeName, 'work_type')) + '</span>');
         }
 
         var artistRenderer = function (prefix, artists) {
@@ -785,8 +799,8 @@ MB.Control.autocomplete_formatters = {
         };
 
         if (item.artists) {
-            artistRenderer("Writers", item.artists.writers);
-            artistRenderer("Artists", item.artists.artists);
+            artistRenderer(l('Writers'), item.artists.writers);
+            artistRenderer(l('Artists'), item.artists.artists);
         }
 
         return $("<li>").append(a).appendTo(ul);
@@ -797,16 +811,18 @@ MB.Control.autocomplete_formatters = {
 
         if (item.comment)
         {
-            a.append('<span class="autocomplete-comment">(' +
-                      _.escape(item.comment) + ')</span>');
+            a.append('<span class="autocomplete-comment">' +
+                      _.escape(bracketed(item.comment)) + '</span>');
         }
 
         if (item.typeName || (item.containment && item.containment.length)) {
             var items = [];
             if (item.typeName) {
-                items.push(item.typeName);
+                items.push(lp_attributes(item.typeName, 'area_type'));
             }
-            items.push(renderContainingAreas(item));
+            if (item.containment && item.containment.length) {
+                items.push(renderContainingAreas(item));
+            }
             a.append('<br /><span class="autocomplete-comment">' +
                      _.escape(commaOnlyList(items)) + '</span>');
         };
@@ -831,17 +847,24 @@ MB.Control.autocomplete_formatters = {
 
         if (comment.length)
         {
-            a.append(' <span class="autocomplete-comment">(' +
-                     _.escape(commaOnlyList(comment)) + ')</span>');
+            a.append(' <span class="autocomplete-comment">' +
+                     _.escape(bracketed(commaOnlyList(comment))) + '</span>');
         }
 
         var area = item.area;
         if (item.typeName || area) {
+            var items =[];
+            if (item.typeName) {
+                items.push(lp_attributes(item.typeName, 'place_type'));
+            }
+            if (area) {
+                items.push(area.name);
+                if (area.containment && area.containment.length) {
+                    items.push(renderContainingAreas(area));
+                }
+            }
             a.append('<br /><span class="autocomplete-comment">' +
-                     (item.typeName ? _.escape(item.typeName) : '') +
-                     (item.typeName && item.area ? ', ' : '') +
-                     (area ? _.escape(area.name + ', ' + renderContainingAreas(area)) : '') +
-                     '</span>');
+                     _.escape(commaOnlyList(items)) + '</span>');
         };
 
         return $("<li>").append(a).appendTo(ul);
@@ -861,18 +884,18 @@ MB.Control.autocomplete_formatters = {
         }
 
         if (item.typeName) {
-            comment.push(item.typeName);
+            comment.push(lp_attributes(item.typeName, 'instrument_type'));
         }
 
         if (comment.length)
         {
-            a.append(' <span class="autocomplete-comment">(' +
-                     _.escape(commaOnlyList(comment)) + ')</span>');
+            a.append(' <span class="autocomplete-comment">' +
+                     _.escape(bracketed(commaOnlyList(comment))) + '</span>');
         }
 
         if (item.description) {
             a.append('<br /><span class="autocomplete-comment">' +
-                      _.escape($('<span>'+item.description+'</span>').text()) +
+                      _.escape(l_instrument_descriptions(item.description)) +
                       '</span>');
         }
 
@@ -895,12 +918,12 @@ MB.Control.autocomplete_formatters = {
 
         if (comment.length)
         {
-            a.append(' <span class="autocomplete-comment">(' +
-                     _.escape(commaOnlyList(comment)) + ')</span>');
+            a.append(' <span class="autocomplete-comment">' +
+                     _.escape(bracketed(commaOnlyList(comment))) + '</span>');
         }
 
         if (item.typeName) {
-            a.append(' <span class="autocomplete-comment">(' + _.escape(item.typeName) + ')</span>');
+            a.append(' <span class="autocomplete-comment">' + _.escape(bracketed(lp_attributes(item.typeName, 'event_type'))) + '</span>');
         }
 
         if (item.begin_date || item.time)
@@ -923,8 +946,8 @@ MB.Control.autocomplete_formatters = {
         };
 
         if (item.related_entities) {
-            entityRenderer("Performers", item.related_entities.performers);
-            entityRenderer("Location", item.related_entities.places);
+            entityRenderer(l('Performers'), item.related_entities.performers);
+            entityRenderer(l('Location'), item.related_entities.places);
         }
 
         return $("<li>").append(a).appendTo(ul);

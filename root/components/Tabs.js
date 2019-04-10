@@ -7,10 +7,10 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-const React = require('react');
+import * as React from 'react';
 
 type Props = {|
-  +children: React.Node;
+  +children: React.Node,
 |};
 
 const Tabs = ({children}: Props) => (
@@ -21,4 +21,4 @@ const Tabs = ({children}: Props) => (
   </div>
 );
 
-module.exports = Tabs;
+export default Tabs;

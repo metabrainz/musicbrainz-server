@@ -65,8 +65,10 @@ sub serialize_track {
         title => $entity->name,
     );
 
-    $track_output{recording} = serialize_entity($entity->recording, $inc, $stash)
-        if $inc->recordings;
+    if ($inc->recordings) {
+        local $stash->{track_artist_credit} = $entity->artist_credit;
+        $track_output{recording} = serialize_entity($entity->recording, $inc, $stash);
+    }
 
     $track_output{"artist-credit"} = serialize_entity($entity->artist_credit, $inc, $stash)
         if $inc->artist_credits;

@@ -7,14 +7,17 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import {parse} from 'cookie';
+// NOTE: Don't convert to an ES module; this is used by root/server.js.
+/* eslint-disable import/no-commonjs */
+
+const {parse} = require('cookie');
 
 const hasOwnProperty = Object.prototype.hasOwnProperty;
 
-export default function parseCookie(
-  cookie: mixed,
-  name: string,
-  defaultValue: mixed = undefined,
+function parseCookie(
+  cookie /*: mixed */,
+  name /*: string */,
+  defaultValue /*: mixed */ = undefined,
 ) {
   if (typeof cookie === 'string') {
     const values = parse(cookie);
@@ -24,3 +27,5 @@ export default function parseCookie(
   }
   return defaultValue;
 }
+
+module.exports = parseCookie;

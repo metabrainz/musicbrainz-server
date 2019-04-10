@@ -9,8 +9,7 @@
 
 import * as React from 'react';
 
-import {l} from '../../../static/scripts/common/i18n';
-import bracketed from '../../../static/scripts/common/utility/bracketed';
+import {bracketedText} from '../../../static/scripts/common/utility/bracketed';
 import formatDate from '../../../static/scripts/common/utility/formatDate';
 import isDateEmpty from '../../../static/scripts/common/utility/isDateEmpty';
 import {displayAge} from '../../../utility/age';
@@ -39,7 +38,7 @@ const SidebarEndDate = ({age, entity, label}: Props) => (
     <SidebarProperty className="end-date" label={label}>
       {formatDate(entity.end_date)}
       {age ? (
-        ' ' + bracketed(
+        ' ' + bracketedText(
           displayAge(
             age,
             entity.entityType === 'artist' && entity.typeID === 1,

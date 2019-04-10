@@ -7,11 +7,10 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-const React = require('react');
-const {l} = require('../static/scripts/common/i18n');
-const {lp_attributes} = require('../static/scripts/common/i18n/attributes');
-const AreaContainmentLink = require('../static/scripts/common/components/AreaContainmentLink');
-const EntityHeader = require('../components/EntityHeader');
+import React from 'react';
+
+import AreaContainmentLink from '../static/scripts/common/components/AreaContainmentLink';
+import EntityHeader from '../components/EntityHeader';
 
 type Props = {|
   +area: AreaT,
@@ -23,7 +22,7 @@ const AreaHeader = ({area, page}: Props) => {
   let subHeading = areaType;
   if (area.containment && area.containment.length) {
     const parentAreas = <AreaContainmentLink area={area} />;
-    subHeading = l('{area_type} in {parent_areas}', {
+    subHeading = exp.l('{area_type} in {parent_areas}', {
       area_type: areaType,
       parent_areas: parentAreas,
     });

@@ -3,30 +3,28 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-const ko = require('knockout');
-const _ = require('lodash');
-const React = require('react');
-const ReactDOMServer = require('react-dom/server');
+import ko from 'knockout';
+import _ from 'lodash';
+import React from 'react';
+import ReactDOMServer from 'react-dom/server';
 
-const ArtistCreditLink = require('./components/ArtistCreditLink');
-const EditorLink = require('./components/EditorLink');
-const EntityLink = require('./components/EntityLink');
-const {
-    PART_OF_SERIES_LINK_TYPES,
-    PROBABLY_CLASSICAL_LINK_TYPES,
-    VARTIST_GID,
-} = require('./constants');
-const i18n = require('./i18n');
-const {
-        artistCreditFromArray,
-        artistCreditsAreEqual,
-        isCompleteArtistCredit,
-    } = require('./immutable-entities');
-const MB = require('./MB');
-const linkTypeInfo = require('./typeInfo').link_type;
-const bracketed = require('./utility/bracketed').default;
-const clean = require('./utility/clean');
-const formatTrackLength = require('./utility/formatTrackLength');
+import ArtistCreditLink from './components/ArtistCreditLink';
+import EditorLink from './components/EditorLink';
+import EntityLink from './components/EntityLink';
+import {
+  ENTITY_NAMES,
+  PART_OF_SERIES_LINK_TYPES,
+  PROBABLY_CLASSICAL_LINK_TYPES,
+} from './constants';
+import {
+  artistCreditFromArray,
+  artistCreditsAreEqual,
+  isCompleteArtistCredit,
+} from './immutable-entities';
+import linkedEntities from './linkedEntities';
+import MB from './MB';
+import clean from './utility/clean';
+import formatTrackLength from './utility/formatTrackLength';
 
 (function () {
 
@@ -36,7 +34,7 @@ const formatTrackLength = require('./utility/formatTrackLength');
     class Entity {
 
         constructor(data) {
-            _.assign(this, data);
+            Object.assign(this, data);
             this.name = this.name || "";
         }
 
@@ -70,7 +68,7 @@ const formatTrackLength = require('./utility/formatTrackLength');
         }
 
         entityTypeLabel() {
-            return i18n.addColon(i18n.strings.entityName[this.entityType]);
+            return addColon(ENTITY_NAMES[this.entityType]());
         }
 
         html(...args) {
@@ -171,6 +169,7 @@ const formatTrackLength = require('./utility/formatTrackLength');
                             gid: json.gid,
                             name: json.name,
                             sort_name: json.sort_name,
+                            typeID: json.typeID,
                             video: json.video,
                         }}
                         {...renderParams}
@@ -232,7 +231,7 @@ const formatTrackLength = require('./utility/formatTrackLength');
     class Label extends CoreEntity {
         selectionMessage() {
             return ReactDOMServer.renderToStaticMarkup(
-                i18n.l('You selected {label}.', {label: this.reactElement({target: '_blank'})})
+                exp.l('You selected {label}.', {label: this.reactElement({target: '_blank'})})
             );
         }
     }
@@ -242,7 +241,7 @@ const formatTrackLength = require('./utility/formatTrackLength');
     class Area extends CoreEntity {
         selectionMessage() {
             return ReactDOMServer.renderToStaticMarkup(
-                i18n.l('You selected {area}.', {area: this.reactElement({ target: '_blank'})})
+                exp.l('You selected {area}.', {area: this.reactElement({ target: '_blank'})})
             );
         }
     }
@@ -284,7 +283,7 @@ const formatTrackLength = require('./utility/formatTrackLength');
         }
 
         toJSON() {
-            return _.assign(super.toJSON(), { isrcs: this.isrcs, appearsOn: this.appearsOn });
+            return Object.assign(super.toJSON(), { isrcs: this.isrcs, appearsOn: this.appearsOn });
         }
     }
 
@@ -327,7 +326,7 @@ const formatTrackLength = require('./utility/formatTrackLength');
     class ReleaseGroup extends CoreEntity {
         selectionMessage() {
             return ReactDOMServer.renderToStaticMarkup(
-                i18n.l('You selected {releasegroup}.', {
+                exp.l('You selected {releasegroup}.', {
                     releasegroup: this.reactElement({target: '_blank'}),
                 })
             );
@@ -350,7 +349,7 @@ const formatTrackLength = require('./utility/formatTrackLength');
             if (!type) return [];
 
             var gid = PART_OF_SERIES_LINK_TYPES[type.item_entity_type];
-            var linkTypeID = linkTypeInfo.byId[gid].id;
+            var linkTypeID = linkedEntities.link_type[gid].id;
 
             return _.filter(this.displayableRelationships(viewModel)(), function (r) {
                 return r.linkTypeID() === linkTypeID;
@@ -358,7 +357,7 @@ const formatTrackLength = require('./utility/formatTrackLength');
         }
 
         toJSON() {
-            return _.assign(super.toJSON(), {
+            return Object.assign(super.toJSON(), {
                 type: this.type(),
                 typeID: this.typeID,
                 orderingTypeID: this.orderingTypeID
@@ -409,7 +408,7 @@ const formatTrackLength = require('./utility/formatTrackLength');
 
     class Work extends CoreEntity {
         toJSON() {
-            return _.assign(super.toJSON(), { artists: this.artists });
+            return Object.assign(super.toJSON(), { artists: this.artists });
         }
     }
 
@@ -421,18 +420,20 @@ const formatTrackLength = require('./utility/formatTrackLength');
 
             this.tracks = _.map(data.tracks, x => new Track(x));
 
-            var positionName;
-            if (this.name) {
-                positionName = this.format ? "{medium_format} {position}: {title}" : "Medium {position}: {title}";
-            } else {
-                positionName = this.format ? "{medium_format} {position}" : "Medium {position}";
-            }
-
-            this.positionName = i18n.l(positionName, {
+            const positionArgs = {
                 medium_format: this.format,
                 position: this.position,
                 title: this.name
-            });
+            };
+            if (this.name) {
+                this.positionName = this.format
+                    ? texp.l('{medium_format} {position}: {title}', positionArgs)
+                    : texp.l('Medium {position}: {title}', positionArgs);
+            } else {
+                this.positionName = this.format
+                    ? texp.l('{medium_format} {position}', positionArgs)
+                    : texp.l('Medium {position}', positionArgs);
+            }
         }
     }
 
@@ -487,4 +488,4 @@ const formatTrackLength = require('./utility/formatTrackLength');
     };
 }());
 
-module.exports = MB.entity;
+export default MB.entity;

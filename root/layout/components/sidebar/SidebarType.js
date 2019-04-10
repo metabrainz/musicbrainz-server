@@ -10,23 +10,24 @@
 import * as React from 'react';
 
 import {withCatalystContext} from '../../../context';
-import {l} from '../../../static/scripts/common/i18n';
-import {l_attributes} from '../../../static/scripts/common/i18n/attributes';
+import linkedEntities from '../../../static/scripts/common/linkedEntities';
 
 import {SidebarProperty} from './SidebarProperties';
 
 type Props = {|
-  +$c: CatalystContextT,
-  +entity: {...TypeRoleT<OptionTreeT>},
+  +entity: {...TypeRoleT<empty>},
   +typeType: string,
 |};
 
-const SidebarType = ({$c, entity, typeType}: Props) => (
+const SidebarType = ({entity, typeType}: Props) => (
   entity.typeID ? (
     <SidebarProperty className="type" label={l('Type:')}>
-      {l_attributes($c.linked_entities[typeType][entity.typeID].name)}
+      {lp_attributes(
+        linkedEntities[typeType][entity.typeID].name,
+        typeType,
+      )}
     </SidebarProperty>
   ) : null
 );
 
-export default withCatalystContext(SidebarType);
+export default SidebarType;

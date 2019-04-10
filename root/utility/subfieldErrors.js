@@ -9,17 +9,20 @@
 
 import each from 'lodash/each';
 
-const hasOwnProperty = Object.prototype.hasOwnProperty;
+export type FieldShape = {
+  // `errors` is optional too because FormT has none
+  +errors?: $ReadOnlyArray<string>,
+  +field?: FieldShape,
+};
 
-export default function subfieldErrors<F>(
-  field: AnyFieldT<F>,
+export default function subfieldErrors(
+  field: FieldShape,
   accum: $ReadOnlyArray<string> = [],
 ) {
-  if (field.errors.length) {
+  if (field.errors && field.errors.length) {
     accum = accum.concat(field.errors);
   }
-  if (hasOwnProperty.call(field, 'field')) {
-    // $FlowFixMe
+  if (field.field) {
     each(field.field, function (subfield) {
       accum = subfieldErrors(subfield, accum);
     });

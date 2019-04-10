@@ -7,15 +7,14 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-const React = require('react');
-const isolateText = require('../../static/scripts/common/utility/isolateText');
+import React from 'react';
+
+import isolateText from '../../static/scripts/common/utility/isolateText';
 import formatDate from '../../static/scripts/common/utility/formatDate';
 import formatEndDate from '../../static/scripts/common/utility/formatEndDate';
-const entityHref = require('../../static/scripts/common/utility/entityHref');
+import entityHref from '../../static/scripts/common/utility/entityHref';
 import bracketed from '../../static/scripts/common/utility/bracketed';
-const locales = require('../../static/scripts/common/constants/locales');
-const {l} = require('../../static/scripts/common/i18n');
-const {lp_attributes} = require('../../static/scripts/common/i18n/attributes');
+import locales from '../../static/scripts/common/constants/locales';
 
 type Props = {
   +alias: AliasT,
@@ -36,7 +35,9 @@ const AliasTableRow = ({alias, allowEditing, entity, row}: Props) => (
       : <td>{isolateText(alias.sort_name)}</td>}
     <td>{formatDate(alias.begin_date)}</td>
     <td>{formatEndDate(alias)}</td>
-    <td>{alias.typeName ? lp_attributes(alias.typeName, 'alias_type') : ''}</td>
+    <td>
+      {alias.typeName ? lp_attributes(alias.typeName, 'alias_type') : ''}
+    </td>
     <td>
       {alias.locale ? locales[alias.locale] : null}
       {alias.primary_for_locale
@@ -67,4 +68,4 @@ const AliasTableRow = ({alias, allowEditing, entity, row}: Props) => (
   </tr>
 );
 
-module.exports = AliasTableRow;
+export default AliasTableRow;

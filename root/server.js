@@ -3,9 +3,9 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-'use strict';
+/* eslint-disable import/no-commonjs */
 
-require('@babel/register');
+'use strict';
 
 const Raven = require('raven');
 const DBDefs = require('./static/scripts/common/DBDefs');

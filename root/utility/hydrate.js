@@ -7,11 +7,9 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import $ from 'jquery';
+import mutate from 'mutate-cow';
 import * as React from 'react';
 import ReactDOM from 'react-dom';
-
-import * as lens from '../static/scripts/common/utility/lens';
 
 export default function hydrate<Config: {}>(
   rootClass: string,
@@ -20,6 +18,7 @@ export default function hydrate<Config: {}>(
 ): React.AbstractComponent<Config, void> {
   if (typeof document !== 'undefined') {
     // This should only run on the client.
+    const $ = require('jquery');
     $(function () {
       const roots = document.querySelectorAll('div.' + rootClass);
       for (const root of roots) {
@@ -45,12 +44,16 @@ export default function hydrate<Config: {}>(
   };
 }
 
-const entityLens = lens.prop('entity');
+type PropsWithEntity = {entity: MinimalCoreEntityT, ...};
 
-export function minimalEntity(props: any) {
+export function minimalEntity<T: $ReadOnly<PropsWithEntity>>(
+  props: $Exact<T>,
+): $Exact<T> {
   const entity = props.entity;
-  return lens.set(entityLens, {
-    entityType: entity.entityType,
-    gid: entity.gid,
-  }, props);
+  return mutate<PropsWithEntity, _>(props, newProps => {
+    newProps.entity = {
+      entityType: entity.entityType,
+      gid: entity.gid,
+    };
+  });
 }

@@ -11,7 +11,6 @@ import * as React from 'react';
 
 import {withCatalystContext} from '../../../context';
 import CommonsImage from '../../../static/scripts/common/components/CommonsImage';
-import {l} from '../../../static/scripts/common/i18n';
 import isDateEmpty from '../../../static/scripts/common/utility/isDateEmpty';
 import areDatesEqual from '../../../utility/areDatesEqual';
 import ExternalLinks from '../ExternalLinks';
@@ -41,8 +40,8 @@ const EventSidebar = ({$c, event}: Props) => {
   return (
     <div id="sidebar">
       <CommonsImage
+        cachedImage={$c.stash.commons_image}
         entity={event}
-        image={$c.stash.commons_image}
       />
 
       <h2 className="event-information">

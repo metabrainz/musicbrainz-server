@@ -3,9 +3,9 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-const ko = require('knockout');
+import ko from 'knockout';
 
-const MB = require('../common/MB');
+import MB from '../common/MB';
 
 MB.releaseEditor = {
     rootField: {
@@ -15,4 +15,4 @@ MB.releaseEditor = {
     }
 };
 
-module.exports = MB.releaseEditor;
+export default MB.releaseEditor;

@@ -3,33 +3,28 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-const $ = require('jquery');
-const ko = require('knockout');
-const _ = require('lodash');
-const React = require('react');
-const ReactDOM = require('react-dom');
+import $ from 'jquery';
+import ko from 'knockout';
+import _ from 'lodash';
+import React from 'react';
+import ReactDOM from 'react-dom';
+import mutate from 'mutate-cow';
 
-const Autocomplete = require('../../common/components/Autocomplete');
-const {l} = require('../../common/i18n');
-const {
-    artistCreditFromArray,
-    artistCreditsAreEqual,
-    hasArtist,
-    hasVariousArtists,
-    isCompleteArtistCredit,
-    isComplexArtistCredit,
-    reduceArtistCredit,
-  } = require('../../common/immutable-entities');
-const {
-  compose2,
-  deleteIndex,
-  index,
-  merge,
-  prop,
-} = require('../../common/utility/lens');
-const nonEmpty = require('../../common/utility/nonEmpty');
-const {localStorage} = require('../../common/utility/storage');
-const ArtistCreditBubble = require('./ArtistCreditBubble');
+import Autocomplete from '../../common/components/Autocomplete';
+import {
+  artistCreditFromArray,
+  artistCreditsAreEqual,
+  hasArtist,
+  hasVariousArtists,
+  isCompleteArtistCredit,
+  isComplexArtistCredit,
+  reduceArtistCredit,
+} from '../../common/immutable-entities';
+import MB from '../../common/MB';
+import nonEmpty from '../../common/utility/nonEmpty';
+import {localStorage} from '../../common/utility/storage';
+
+import ArtistCreditBubble from './ArtistCreditBubble';
 
 function setAutoJoinPhrases(ac) {
   const size = ac.length;
@@ -38,21 +33,21 @@ function setAutoJoinPhrases(ac) {
   if (size > 0) {
     const name0 = ac[size - 1];
     if (name0 && name0.automaticJoinPhrase !== false) {
-      ac[size - 1] = _.assign({}, name0, {joinPhrase: ''});
+      ac[size - 1] = {...name0, joinPhrase: ''};
     }
   }
 
   if (size > 1) {
     const name1 = ac[size - 2];
     if (name1 && name1.automaticJoinPhrase !== false && auto.test(name1.joinPhrase)) {
-      ac[size - 2] = _.assign({}, name1, {joinPhrase: ' & '});
+      ac[size - 2] = {...name1, joinPhrase: ' & '};
     }
   }
 
   if (size > 2) {
     const name2 = ac[size - 3];
     if (name2 && name2.automaticJoinPhrase !== false && auto.test(name2.joinPhrase)) {
-      ac[size - 3] = _.assign({}, name2, {joinPhrase: ', '});
+      ac[size - 3] = {...name2, joinPhrase: ', '};
     }
   }
 
@@ -101,7 +96,9 @@ class ArtistCreditEditor extends React.Component {
     event.stopPropagation();
 
     const ac = this.state.artistCredit;
-    const newState = deleteIndex(prop('artistCredit'), i, this.state);
+    const newState = mutate(this.state, newState => {
+      newState.artistCredit.splice(i, 1);
+    });
     setAutoJoinPhrases(newState.artistCredit);
 
     this.setState(newState, () => {
@@ -113,9 +110,9 @@ class ArtistCreditEditor extends React.Component {
   }
 
   onNameChange(i, update) {
-    this.setState(
-      merge(compose2(prop('artistCredit'), index(i)), update, this.state),
-    );
+    this.setState(state => mutate(state, newState => {
+      newState.artistCredit[i] = {...state.artistCredit[i], ...update};
+    }));
   }
 
   copyArtistCredit() {
@@ -303,14 +300,6 @@ class ArtistCreditEditor extends React.Component {
     $('body').off('click.artist-credit-editor');
   }
 
-  static getDerivedStateFromProps(nextProps, prevState) {
-    const artistCredit = ko.unwrap(nextProps.entity.artistCredit);
-    if (!artistCreditsAreEqual(prevState.artistCredit, artistCredit)) {
-      return {artistCredit};
-    }
-    return null;
-  }
-
   componentDidUpdate(prevProps, prevState) {
     if (this.props.onChange &&
         !artistCreditsAreEqual(prevState.artistCredit, this.state.artistCredit)) {
@@ -412,4 +401,4 @@ class ArtistCreditEditor extends React.Component {
   }
 }
 
-module.exports = ArtistCreditEditor;
+export default ArtistCreditEditor;

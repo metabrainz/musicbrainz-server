@@ -35,7 +35,7 @@
           <td>[% release_countries(result.events) %]</td>
           <td>[% release_label_list(result.labels) %]</td>
           <td>[% release_catno_list(result.labels) %]</td>
-          <td>[% result.barcode.format IF result.barcode.format %]</td>
+          <td class="barcode-cell">[% result.barcode.format IF result.barcode.format %]</td>
           <td>
             <abbr title="[% result.language.l_name %]">[% result.language.iso_code_3 %]</abbr>
             [%= '/' IF result.language && result.script =%]

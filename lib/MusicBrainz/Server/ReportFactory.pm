@@ -15,7 +15,7 @@ use MusicBrainz::Server::PagedReport;
     AnnotationsWorks
     ArtistsContainingDisambiguationComments
     ArtistsDisambiguationSameName
-    ArtistsWithMultipleOccurancesInArtistCredits
+    ArtistsWithMultipleOccurrencesInArtistCredits
     ArtistsThatMayBeGroups
     ArtistsThatMayBePersons
     ArtistsWithNoSubscribers
@@ -96,7 +96,7 @@ use MusicBrainz::Server::Report::ArtistsContainingDisambiguationComments;
 use MusicBrainz::Server::Report::ArtistsDisambiguationSameName;
 use MusicBrainz::Server::Report::ArtistsThatMayBeGroups;
 use MusicBrainz::Server::Report::ArtistsThatMayBePersons;
-use MusicBrainz::Server::Report::ArtistsWithMultipleOccurancesInArtistCredits;
+use MusicBrainz::Server::Report::ArtistsWithMultipleOccurrencesInArtistCredits;
 use MusicBrainz::Server::Report::ArtistsWithNoSubscribers;
 use MusicBrainz::Server::Report::BadAmazonURLs;
 use MusicBrainz::Server::Report::CatNoLooksLikeASIN;

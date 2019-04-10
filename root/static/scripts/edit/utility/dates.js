@@ -3,13 +3,11 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-const _ = require('lodash');
-
 import getDaysInMonth from '../../../../utility/getDaysInMonth';
-const nonEmpty = require('../../common/utility/nonEmpty');
+import nonEmpty from '../../common/utility/nonEmpty';
 import parseInteger from '../../common/utility/parseInteger';
 
-exports.isDateValid = function (y, m, d) {
+export const isDateValid = function (y, m, d) {
     y = nonEmpty(y) ? parseInteger(y) : null;
     m = nonEmpty(m) ? parseInteger(m) : null;
     d = nonEmpty(d) ? parseInteger(d) : null;
@@ -33,11 +31,11 @@ exports.isDateValid = function (y, m, d) {
     return true;
 };
 
-exports.isDatePeriodValid = function (a, b) {
+export const isDatePeriodValid = function (a, b) {
     var y1 = a.year, m1 = a.month, d1 = a.day;
     var y2 = b.year, m2 = b.month, d2 = b.day;
 
-    if (!exports.isDateValid(y1, m1, d1) || !exports.isDateValid(y2, m2, d2)) {
+    if (!isDateValid(y1, m1, d1) || !isDateValid(y2, m2, d2)) {
         return false;
     }
 

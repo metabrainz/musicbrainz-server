@@ -1,7 +1,6 @@
 package MusicBrainz::Server::WebService::Validator;
 use MooseX::Role::Parameterized;
 use aliased 'MusicBrainz::Server::WebService::WebServiceInc';
-use aliased 'MusicBrainz::Server::WebService::WebServiceIncV1';
 use MusicBrainz::Server::Constants qw(
     $ACCESS_SCOPE_TAG
     $ACCESS_SCOPE_RATING
@@ -198,13 +197,7 @@ sub validate_inc
     my @inc = split(/[+ ]/, $inc || '');
     my %acc = map { $_ => 1 } @{ $def };
 
-    my $allow_type = exists $acc{"_rg_type"};
-    my $allow_status = exists $acc{"_rel_status"};
     my $allow_relations = exists $acc{"_relations"};
-    my $various_artists = 0;
-    my $type_used = 0;
-    my $status_used = 0;
-
     my @relations_used;
     my @filtered;
 
@@ -219,36 +212,6 @@ sub validate_inc
         next if (!$i);
 
         $i =~ s/mediums/media/;
-
-        if ($version eq '1')
-        {
-            $i = lc($i);
-
-            load_type_and_status($c) unless %types;
-
-            if ($allow_type && exists $types{$i})
-            {
-                if ($type_used)
-                {
-                    $c->stash->{error} = "Only one type filter (e.g. $i) may be used per request.";
-                    return;
-                }
-                $type_used = $types{$i};
-                $various_artists = substr($i, 0, 3) eq 'va-' ? 1 : 0;
-                next;
-            }
-            if ($allow_status && exists $statuses{$i})
-            {
-                if ($status_used)
-                {
-                    $c->stash->{error} = "Only one status filter (e.g. $i) may be used per request.";
-                    return;
-                }
-                $status_used = $statuses{$i};
-                $various_artists = substr($i, 0, 3) eq 'va-' ? 1 : 0;
-                next;
-            }
-        }
 
         if ($allow_relations && exists $relation_types{$version}{$i})
         {
@@ -277,17 +240,10 @@ sub validate_inc
         push @filtered, $i;
     }
 
-    if ($version eq '1')
-    {
-        return WebServiceIncV1->new(inc => \@filtered, rg_type => $type_used,
-                                    rel_status => $status_used, relations => \@relations_used,
-                                    various_artists => $various_artists);
-    }
-    else
-    {
-        return WebServiceInc->new(inc => \@filtered, rg_type => $type_used,
-                                  rel_status => $status_used, relations => \@relations_used);
-    }
+    return WebServiceInc->new(
+        inc => \@filtered,
+        relations => \@relations_used,
+    );
 }
 
 role {
@@ -343,10 +299,7 @@ role {
             }
 
             # Check to make sure that only appropriate inc values have been requested
-            my $inc = do {
-                my $class = $version eq '2' ? WebServiceInc : WebServiceIncV1;
-                $class->new;
-            };
+            my $inc = WebServiceInc->new;
 
             if ($def->[1]->{inc})
             {

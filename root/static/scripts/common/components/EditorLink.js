@@ -7,12 +7,10 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-const {trim} = require('lodash');
-const React = require('react');
+import React from 'react';
 
-const {l} = require('../i18n');
-const entityHref = require('../utility/entityHref');
-const isolateText = require('../utility/isolateText');
+import entityHref from '../utility/entityHref';
+import isolateText from '../utility/isolateText';
 
 const MissingEditorLink = () => {
   return (
@@ -23,9 +21,9 @@ const MissingEditorLink = () => {
 };
 
 type Props = {|
-  +editor: EditorT | SanitizedEditorT | null,
-  +content?: string,
   +avatarSize?: number,
+  +content?: string,
+  +editor: EditorT | SanitizedEditorT | null,
   +subPath?: string,
 |};
 
@@ -50,11 +48,11 @@ const EditorLink = ({editor, content, avatarSize, subPath}: Props) => {
   return (
     <a href={entityHref(editor, subPath)}>
       {gravatar ? (
-        <img src={gravatar} height={avatarSize} width={avatarSize} className="gravatar" alt="" />
+        <img alt="" className="gravatar" height={avatarSize} src={gravatar} width={avatarSize} />
       ) : null}
       {isolateText(content)}
     </a>
   );
 };
 
-module.exports = EditorLink;
+export default EditorLink;

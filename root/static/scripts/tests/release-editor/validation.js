@@ -3,14 +3,14 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-const _ = require('lodash');
-const test = require('tape');
+import _ from 'lodash';
+import test from 'tape';
 
-const validation = require('../../edit/validation');
-const fields = require('../../release-editor/fields');
-const releaseEditor = require('../../release-editor/viewModel');
+import validation from '../../edit/validation';
+import fields from '../../release-editor/fields';
+import releaseEditor from '../../release-editor/viewModel';
 
-require('../../release-editor/init');
+import '../../release-editor/init';
 
 function validationTest(name, callback) {
     test(name, function (t) {

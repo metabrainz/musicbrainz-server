@@ -18,6 +18,10 @@
 
 */
 
+import $ from 'jquery';
+
+import MB from '../../MB';
+
 MB.Control.SelectAll = function (table) {
     var self = {};
 

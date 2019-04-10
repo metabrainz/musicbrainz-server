@@ -4,16 +4,17 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-require('leaflet.markercluster/dist/leaflet.markercluster-src');
-const _ = require('lodash');
-const React = require('react');
-const ReactDOMServer = require('react-dom/server');
+import 'leaflet.markercluster/dist/leaflet.markercluster-src';
 
-const manifest = require('../../manifest');
-const EntityLink = require('../common/components/EntityLink');
-const {l, ln} = require('../common/i18n');
-const {createMap, L} = require('../common/leaflet');
-const {places} = require('../common/utility/getScriptArgs')();
+import _ from 'lodash';
+import React from 'react';
+import ReactDOMServer from 'react-dom/server';
+
+import EntityLink from '../common/components/EntityLink';
+import {createMap, L} from '../common/leaflet';
+import getScriptArgs from '../common/utility/getScriptArgs';
+
+const {places} = getScriptArgs();
 
 const CLUSTER_POPUP_LIMIT = 10;
 
@@ -33,18 +34,14 @@ if (places.length) {
   });
 
   const iconNames = {
-    '1': 'studio-marker',
-    '2': 'venue-marker',
-    '3': 'marker',
-    '4': 'stadium-marker',
-    '5': 'arena-marker',
-    '6': 'religious-marker',
+    '1': require('../../images/leaflet/studio-marker-icon.png'),
+    '2': require('../../images/leaflet/venue-marker-icon.png'),
+    '3': require('../../images/leaflet/marker-icon.png'),
+    '4': require('../../images/leaflet/stadium-marker-icon.png'),
+    '5': require('../../images/leaflet/arena-marker-icon.png'),
+    '6': require('../../images/leaflet/religious-marker-icon.png'),
   };
-  const icons = _.mapValues(iconNames, function (name) {
-    return new LeafIcon({
-      iconUrl: manifest.pathTo('/images/leaflet/' + name + '-icon.png'),
-    });
-  });
+  const icons = _.mapValues(iconNames, iconUrl => new LeafIcon({iconUrl}));
 
   const markers = L.markerClusterGroup({
     maxClusterRadius: 50,
@@ -52,7 +49,7 @@ if (places.length) {
     showCoverageOnHover: false,
     zoomToBoundsOnClick: false,
     iconCreateFunction: function (cluster) {
-      const iconURL = manifest.pathTo('/images/leaflet/cluster-marker-icon.png');
+      const iconURL = require('../../images/leaflet/cluster-marker-icon.png');
 
       return L.divIcon({
         html: '<img src="' + _.escape(iconURL) + '" />'
@@ -74,11 +71,11 @@ if (places.length) {
 
     if (markers.length > CLUSTER_POPUP_LIMIT) {
       popupText += '<br /> ';
-      popupText += _.escape(ln(
+      popupText += _.escape(texp.ln(
         '… and {place_count} other',
         '… and {place_count} others',
         markers.length - CLUSTER_POPUP_LIMIT,
-        {place_count: markers.length - CLUSTER_POPUP_LIMIT}
+        {place_count: markers.length - CLUSTER_POPUP_LIMIT},
       ));
     }
 
@@ -98,7 +95,7 @@ if (places.length) {
       icon: _.get(icons, place.typeID, icons['3']),
       title: place.name,
     }).bindPopup(
-      l('{place_type}: {place_link}', {
+      texp.l('{place_type}: {place_link}', {
         place_type: placeType,
         place_link: placeLink(place),
       })

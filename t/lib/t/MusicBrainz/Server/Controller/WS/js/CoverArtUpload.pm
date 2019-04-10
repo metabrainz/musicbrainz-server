@@ -1,7 +1,7 @@
 package t::MusicBrainz::Server::Controller::WS::js::CoverArtUpload;
 use Test::More;
 use Test::Routine;
-use Test::JSON import => [ 'is_valid_json', 'is_json' ];
+use Test::JSON import => [ 'is_json' ];
 
 with 't::Mechanize', 't::Context';
 
@@ -17,14 +17,10 @@ test 'jpg post fields' => sub {
     my $c = $test->c;
 
     MusicBrainz::Server::Test->prepare_test_database($c);
-    $c->sql->do("INSERT INTO cover_art_archive.image_type (mime_type, suffix) " .
-                "VALUES ('image/jpeg', 'jpg');");
 
     $mech->default_header("Accept" => "application/json");
     $mech->get_ok('/ws/js/cover-art-upload/0385f276-5f4f-4c81-a7a4-6bd7b8d85a7e?mime_type=image/jpeg',
                   'cover art upload signature request');
-
-    is_valid_json($mech->content);
 
     my $decoded = from_json($mech->content);
 

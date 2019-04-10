@@ -3,13 +3,13 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-const ko = require('knockout');
+import $ from 'jquery';
+import _ from 'lodash';
+import ko from 'knockout';
 
-const typeInfo = require('../../common/typeInfo');
-const clean = require('../../common/utility/clean');
-const deferFocus = require('../../edit/utility/deferFocus');
-
-(function () {
+import linkedEntities from '../../common/linkedEntities';
+import clean from '../../common/utility/clean';
+import deferFocus from '../../edit/utility/deferFocus';
 
     class Multiselect {
 
@@ -92,7 +92,7 @@ const deferFocus = require('../../edit/utility/deferFocus');
                 var typeGID = option.value;
 
                 var visible = matchIndex(option, term) >= 0 && (
-                    typeInfo.link_attribute_type[typeGID].creditable ||
+                    linkedEntities.link_attribute_type[typeGID].creditable ||
                     _.findIndex(selected, function (a) { return a.type.gid === typeGID }) < 0
                 );
 
@@ -223,10 +223,6 @@ const deferFocus = require('../../edit/utility/deferFocus');
     }
 
     function matchIndex(option, term) {
-        if (option.data.unaccented) {
-            var index = option.data.unaccented.toLowerCase().indexOf(term.toLowerCase());
-            if (index >= 0) return index;
-        }
         return option.text.toLowerCase().indexOf(term.toLowerCase());
     }
 
@@ -239,5 +235,3 @@ const deferFocus = require('../../edit/utility/deferFocus');
         },
         template: { fromScript: "template.multiselect" }
     });
-
-}());

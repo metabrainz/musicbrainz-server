@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import {l} from '../i18n';
-
 import formatDate from './formatDate';
 
 export default function formatEndDate<+T: {...DatePeriodRoleT}>(entity: T) {

@@ -17,11 +17,19 @@ sub subscribers : Chained('load') RequireAuth {
     $public ||= [];
     $private ||= [];
 
-    $c->stash(
-        public_editors => $public,
-        private_editors => scalar @$private,
-        subscribed => $c->model($model)->subscription->check_subscription($c->user->id, $entity->id)
+    my %props = (
+        entity => $entity,
+        privateEditors => scalar @$private,
+        publicEditors => $public,
+        subscribed => $c->model($model)->subscription->check_subscription($c->user->id, $entity->id),
     );
+
+     $c->stash(
+        component_path => 'entity/Subscribers.js',
+        component_props => \%props,
+        current_view => 'Node',
+    );
+
 }
 
 1;

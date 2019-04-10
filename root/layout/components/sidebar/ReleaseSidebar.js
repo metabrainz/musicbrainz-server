@@ -10,15 +10,12 @@
 import {URL} from 'url';
 
 import * as React from 'react';
+import * as ReactDOMServer from 'react-dom/server';
 
 import {QUALITY_UNKNOWN} from '../../../constants';
 import {withCatalystContext} from '../../../context';
 import EntityLink from '../../../static/scripts/common/components/EntityLink';
-import {QUALITY_NAMES} from '../../../static/scripts/common/constants';
-import {l, lp} from '../../../static/scripts/common/i18n';
-import {l_attributes} from '../../../static/scripts/common/i18n/attributes';
-import {l_languages} from '../../../static/scripts/common/i18n/languages';
-import {l_scripts} from '../../../static/scripts/common/i18n/scripts';
+import linkedEntities from '../../../static/scripts/common/linkedEntities';
 import entityHref from '../../../static/scripts/common/utility/entityHref';
 import formatBarcode from '../../../static/scripts/common/utility/formatBarcode';
 import formatTrackLength from '../../../static/scripts/common/utility/formatTrackLength';
@@ -37,6 +34,7 @@ import EditLinks from './EditLinks';
 import LastUpdated from './LastUpdated';
 import MergeLink from './MergeLink';
 import RemoveLink from './RemoveLink';
+import SidebarDataQuality from './SidebarDataQuality';
 import SidebarLicenses from './SidebarLicenses';
 import {SidebarProperty, SidebarProperties} from './SidebarProperties';
 import SidebarRating from './SidebarRating';
@@ -61,13 +59,15 @@ const ReleaseSidebar = ({$c, release}: Props) => {
     ? new URL(releaseCoverUrl).host
     : null;
   const barcode = formatBarcode(release.barcode);
-  const typeName = releaseGroup.typeName;
+  const typeName = releaseGroup.l_type_name;
   const language = release.languageID
-    ? $c.linked_entities.language[release.languageID]
+    ? linkedEntities.language[release.languageID]
     : null;
   const script = release.scriptID
-    ? $c.linked_entities.script[release.scriptID]
+    ? linkedEntities.script[release.scriptID]
     : null;
+  const releaseEvents = release.events;
+  const releaseLabels = release.labels;
 
   return (
     <div id="sidebar">
@@ -76,43 +76,43 @@ const ReleaseSidebar = ({$c, release}: Props) => {
           <Artwork
             artwork={releaseArtwork}
             fallback={releaseCoverUrl}
-            message={l(
+            message={ReactDOMServer.renderToStaticMarkup(exp.l(
               'Front cover image failed to load correctly.<br/>{all|View all artwork}.',
               {all: entityHref(release, 'cover-art')},
-            )}
+            ))}
           />
         ) : (
-          release.cover_art_presence !== 'darkened'
-            && releaseCoverUrl
+          release.cover_art_presence !== 'darkened' &&
+            releaseCoverUrl
             /* flow-include && releaseCoverHost */ ? (
-            <>
-              <img src={releaseCoverUrl} />
-              <span className="cover-art-note">
-                {/(?:ssl-)?images-amazon\.com/.test(releaseCoverHost) ? (
-                  l('Cover art from {cover|Amazon}', {
-                    cover: releaseCoverUrl,
-                  })
-                ) : (
-                  l('Cover art from {cover|{host}}', {
-                    cover: releaseCoverUrl,
-                    host: releaseCoverHost,
-                  })
-                )}
-              </span>
-            </>
-          ) : (
-            <p className="cover-art-note" style={{textAlign: 'left'}}>
-              {release.cover_art_presence === 'present' ? (
-                <>
-                  {l('No front cover image available.')}
-                  <br />
-                  <a href={entityHref(release, 'cover-art')}>
-                    {l('View all artwork')}
-                  </a>
-                </>
-              ) : l('No cover art available.')}
-            </p>
-          )
+              <>
+                <img src={releaseCoverUrl} />
+                <span className="cover-art-note">
+                  {/(?:ssl-)?images-amazon\.com/.test(releaseCoverHost) ? (
+                    exp.l('Cover art from {cover|Amazon}', {
+                      cover: releaseCoverUrl,
+                    })
+                  ) : (
+                    exp.l('Cover art from {cover|{host}}', {
+                      cover: releaseCoverUrl,
+                      host: releaseCoverHost,
+                    })
+                  )}
+                </span>
+              </>
+            ) : (
+              <p className="cover-art-note" style={{textAlign: 'left'}}>
+                {release.cover_art_presence === 'present' ? (
+                  <>
+                    {l('No front cover image available.')}
+                    <br />
+                    <a href={entityHref(release, 'cover-art')}>
+                      {l('View all artwork')}
+                    </a>
+                  </>
+                ) : l('No cover art available.')}
+              </p>
+            )
         )}
       </div>
 
@@ -147,14 +147,14 @@ const ReleaseSidebar = ({$c, release}: Props) => {
       <SidebarProperties>
         {typeName ? (
           <SidebarProperty className="type" label={l('Type:')}>
-            {l_attributes(typeName)}
+            {typeName}
           </SidebarProperty>
         ) : null}
 
         {release.packagingID ? (
           <SidebarProperty className="packaging" label={l('Packaging:')}>
             {l_attributes(
-              $c.linked_entities.release_packaging[release.packagingID].name,
+              linkedEntities.release_packaging[release.packagingID].name,
             )}
           </SidebarProperty>
         ) : null}
@@ -162,7 +162,7 @@ const ReleaseSidebar = ({$c, release}: Props) => {
         {release.statusID ? (
           <SidebarProperty className="status" label={lp('Status:', 'release status')}>
             {l_attributes(
-              $c.linked_entities.release_status[release.statusID].name,
+              linkedEntities.release_status[release.statusID].name,
             )}
           </SidebarProperty>
         ) : null}
@@ -185,18 +185,15 @@ const ReleaseSidebar = ({$c, release}: Props) => {
         ) : null}
 
         {release.quality === QUALITY_UNKNOWN ? null : (
-          <SidebarProperty className="data-quality" label={l('Data Quality:')}>
-            {QUALITY_NAMES.get(release.quality) || ''}
-          </SidebarProperty>
+          <SidebarDataQuality quality={release.quality} />
         )}
       </SidebarProperties>
 
-      {release.labels && release.labels.length ? (
+      {releaseLabels && releaseLabels.length ? (
         <>
           <h2 className="labels">{l('Labels')}</h2>
           <ul className="links">
-            {/* $FlowFixMe */}
-            {release.labels.map(releaseLabel => (
+            {releaseLabels.map(releaseLabel => (
               <li key={releaseLabelKey(releaseLabel)}>
                 {releaseLabel.label ? (
                   <>
@@ -218,11 +215,10 @@ const ReleaseSidebar = ({$c, release}: Props) => {
         </>
       ) : null}
 
-      {release.events && release.events.length ? (
+      {releaseEvents && releaseEvents.length ? (
         <>
           <h2 className="release-events">{l('Release events')}</h2>
-          {/* $FlowFixMe */}
-          <ReleaseEvents events={release.events} />
+          <ReleaseEvents events={releaseEvents} />
         </>
       ) : null}
 
@@ -266,7 +262,7 @@ const ReleaseSidebar = ({$c, release}: Props) => {
 
         <li>
           <a href={entityHref(release, 'change-quality')}>
-            {l('Change release quality')}
+            {l('Change data quality')}
           </a>
         </li>
 

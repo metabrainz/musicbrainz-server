@@ -7,14 +7,8 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import wrapGettext from './wrapGettext';
+import * as wrapGettext from './wrapGettext';
 
-const l_languages = wrapGettext('dgettext', 'languages');
-const ln_languages = wrapGettext('dngettext', 'languages');
-const lp_languages = wrapGettext('dpgettext', 'languages');
-
-export {
-  l_languages,
-  ln_languages,
-  lp_languages,
-};
+export const l_languages = wrapGettext.dgettext('languages');
+export const ln_languages = wrapGettext.dngettext('languages');
+export const lp_languages = wrapGettext.dpgettext('languages');

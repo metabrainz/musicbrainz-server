@@ -18,6 +18,10 @@
 
 */
 
+import $ from 'jquery';
+
+import MB from '../../common/MB';
+
 MB.Form = (MB.Form) ? MB.Form : {};
 
 MB.Form.TextList = function (input) {

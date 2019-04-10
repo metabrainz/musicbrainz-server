@@ -7,31 +7,61 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-const React = require('react');
-const {withCatalystContext} = require('../../context');
-const {l} = require('../../static/scripts/common/i18n');
-const EntityLink = require('../../static/scripts/common/components/EntityLink');
-const entityHref = require('../../static/scripts/common/utility/entityHref');
-const AliasTable = require('./AliasTable');
+import React from 'react';
+
+import {withCatalystContext} from '../../context';
+import EntityLink from '../../static/scripts/common/components/EntityLink';
+import entityHref from '../../static/scripts/common/utility/entityHref';
+
+import AliasTable from './AliasTable';
+
+function canEdit($c: CatalystContextT, entityType: string) {
+  if ($c.user && !$c.user.is_editing_disabled) {
+    switch (entityType) {
+      case 'area':
+        return $c.user.is_location_editor;
+      case 'instrument':
+        return $c.user.is_relationship_editor;
+      default:
+        return true;
+    }
+  }
+  return false;
+}
 
 type Props = {
   +$c: CatalystContextT,
   +aliases: $ReadOnlyArray<AliasT>,
-  +allowEditing?: boolean,
   +entity: CoreEntityT,
 };
 
-const Aliases = ({$c, aliases, allowEditing = $c.user ? !$c.user.is_editing_disabled : false, entity}: Props) => {
+const Aliases = ({$c, aliases, entity}: Props) => {
+  const entityType = entity.entityType;
+  const allowEditing = canEdit($c, entityType);
   return (
     <>
       <h2>{l('Aliases')}</h2>
       <p>
-        {l('An alias is an alternate name for an entity. They typically contain common mispellings or variations of the name and are also used to improve search results. View the {doc|alias documentation} for more details.',
-          {doc: '/doc/Aliases'})}
+        {exp.l(
+          `An alias is an alternate name for an entity. They typically
+           contain common mispellings or variations of the name and are also 
+           used to improve search results. View the {doc|alias documentation}
+           for more details.`,
+          {doc: '/doc/Aliases'},
+        )}
       </p>
-      {aliases && aliases.length
-        ? <AliasTable aliases={aliases} allowEditing={allowEditing} entity={entity} />
-        : <p>{l('{entity} has no aliases.', {entity: <EntityLink entity={entity} key='entity' />})}</p>}
+      {aliases && aliases.length ? (
+        <AliasTable
+          aliases={aliases}
+          allowEditing={allowEditing}
+          entity={entity}
+        />
+      ) : (
+        <p>
+          {exp.l('{entity} has no aliases.',
+                 {entity: <EntityLink entity={entity} key="entity" />})}
+        </p>
+      )}
       {allowEditing
         ? (
           <p>

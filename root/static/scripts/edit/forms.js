@@ -3,18 +3,19 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-const ko = require('knockout');
-const _ = require('lodash');
+import $ from 'jquery';
+import ko from 'knockout';
+import _ from 'lodash';
 
-const i18n = require('../common/i18n');
-const MB = require('../common/MB');
-const linkPhrase = require('../edit/utility/linkPhrase');
+import {compare} from '../common/i18n';
+import MB from '../common/MB';
+import {stripAttributes} from '../edit/utility/linkPhrase';
 
 const ELEMENT_NODE = window.Node.ELEMENT_NODE;
 const COMMENT_NODE = window.Node.COMMENT_NODE;
 
 function cmpOptions(a, b) {
-    return (a.data.childOrder - b.data.childOrder) || i18n.compare(a.text, b.text);
+    return (a.data.child_order - b.data.child_order) || compare(a.text, b.text);
 }
 
 MB.forms = {
@@ -53,7 +54,8 @@ MB.forms = {
 
     linkTypeOptions: function (root, backward) {
         function getText(data) {
-            return linkPhrase.clean(data.gid, !!backward);
+            return stripAttributes(data, l_relationships(
+                backward ? data.reverse_link_phrase : data.link_phrase));
         }
 
         var options = MB.forms.buildOptionsTree(root, getText, 'id');
@@ -278,4 +280,6 @@ ko.bindingHandlers.withLabel = {
     }
 };
 
-module.exports = MB.forms;
+export const buildOptionsTree = MB.forms.buildOptionsTree;
+export const linkTypeOptions = MB.forms.linkTypeOptions;
+export const setDisabledOption = MB.forms.setDisabledOption;

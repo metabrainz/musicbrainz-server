@@ -18,14 +18,16 @@ import SelectField from './SelectField';
 type Props = {|
   // `allowEmpty` prepends an empty default option to the list.
   +allowEmpty?: boolean,
+  +field: ReadOnlyFieldT<number | string>,
   +frozen?: boolean,
-  +field: FieldT<number | string>,
   +helpers?: React.Node,
   +label: string,
   +onChange?: (event: SyntheticEvent<HTMLSelectElement>) => void,
   +options: MaybeGroupedOptionsT,
-  // `required` makes the field text bold to indicate a selection is required.
-  // Only useful when `allowEmpty` is true.
+  /*
+   * `required` makes the field text bold to indicate a selection is required.
+   * Only useful when `allowEmpty` is true.
+   */
   +required?: boolean,
 |};
 

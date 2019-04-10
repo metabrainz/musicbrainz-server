@@ -1,3 +1,5 @@
+import $ from 'jquery';
+
 $(function () {
     $('a.tagger-icon').click(function (event) {
         event.preventDefault();

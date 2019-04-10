@@ -86,6 +86,8 @@ sub foreign_keys
     $ids{$self->model0}->{gid_or_id($entity0)} = [ 'ArtistCredit' ];
     $ids{$self->model1}->{gid_or_id($entity1)} = [ 'ArtistCredit' ];
 
+    $ids{LinkType} = [$self->data->{link}{type}{id}];
+
     return \%ids;
 }
 
@@ -111,11 +113,17 @@ sub build_display_data
         } @{ $relationship->{link}{attributes} }
     ];
 
+    my $link_type = $relationship->{link}{type};
     my $link = MusicBrainz::Server::Entity::Link->new(
         begin_date => MusicBrainz::Server::Entity::PartialDate->new_from_row($relationship->{link}{begin_date}),
         end_date => MusicBrainz::Server::Entity::PartialDate->new_from_row($relationship->{link}{end_date}),
         ended => $relationship->{link}{ended},
-        type => MusicBrainz::Server::Entity::LinkType->new(long_link_phrase => $relationship->{link}{type}{long_link_phrase} // ''),
+        type => $loaded->{LinkType}{$link_type->{id}} // MusicBrainz::Server::Entity::LinkType->new(
+            $link_type->{id} ? (id => $link_type->{id}) : (),
+            entity0_type => $link_type->{entity0_type},
+            entity1_type => $link_type->{entity1_type},
+            long_link_phrase => $link_type->{long_link_phrase} // '',
+        ),
         attributes => $attrs
     );
 
@@ -260,12 +268,12 @@ before restore => sub {
                 type => {
                     root => {
                         id => $_->{root_id},
-                        gid => $_->{root_gid},
+                        $_->{root_gid} ? (gid => $_->{root_gid}) : (),
                         name => $_->{root_name},
                     },
-                    id => $_->{id},
-                    gid => $_->{gid},
-                    name => $_->{name},
+                    id => ($_->{id} // $_->{root_id}),
+                    $_->{gid} ? (gid => $_->{gid}) : (),
+                    name => ($_->{name} // $_->{root_name}),
                 }
             }, @$attributes
         ];

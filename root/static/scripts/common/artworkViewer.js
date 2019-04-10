@@ -3,7 +3,8 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-const {l} = require('./i18n');
+import $ from 'jquery';
+import _ from 'lodash';
 
 $.widget("mb.artworkViewer", $.ui.dialog, {
 
@@ -65,7 +66,7 @@ $.widget("mb.artworkViewer", $.ui.dialog, {
         this.$next.prop("disabled", !this._nextImageLink);
 
         this.$pager.text(
-            l("Image {current} of {total}", {
+            texp.l("Image {current} of {total}", {
                 current: index + 1, total: this.$artwork.length
             })
         );

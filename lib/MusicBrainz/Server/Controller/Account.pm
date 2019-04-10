@@ -7,6 +7,10 @@ use Digest::SHA qw(sha1_base64);
 use JSON;
 use List::MoreUtils qw( uniq );
 use MusicBrainz::Server::ControllerUtils::JSON qw( serialize_pager );
+use MusicBrainz::Server::Form::Utils qw(
+    build_grouped_options
+    language_options
+);
 use MusicBrainz::Server::Translation qw( l );
 use MusicBrainz::Server::Validation qw( encode_entities is_positive_integer );
 use Try::Tiny;
@@ -413,6 +417,20 @@ sub edit : Local RequireAuth DenyWhenReadonly {
 
         $c->flash->{message} = $flash;
         $c->response->redirect($c->uri_for_action('/user/profile', [$editor->name]));
+        $c->detach;
+    } else {
+        $c->stash(
+            current_view => 'Node',
+            component_path => 'account/EditProfile',
+            component_props => {
+                form => $form,
+                language_options => {
+                    grouped => JSON::true,
+                    options => build_grouped_options($c, language_options($c, 'editor')),
+                },
+
+            },
+        );
         $c->detach;
     }
 }

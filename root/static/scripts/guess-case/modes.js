@@ -4,12 +4,17 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-const {assign, capitalize} = require('lodash');
-const ReactDOMServer = require('react-dom/server');
+import {assign, capitalize} from 'lodash';
+import ReactDOMServer from 'react-dom/server';
 
-const {l} = require('../common/i18n');
-const getBooleanCookie = require('../common/utility/getBooleanCookie');
-const {isPrepBracketWord, isPrepBracketSingleWord, turkishUpperCase, turkishLowerCase} = require('./utils');
+import getBooleanCookie from '../common/utility/getBooleanCookie';
+
+import {
+  isPrepBracketWord,
+  isPrepBracketSingleWord,
+  turkishUpperCase,
+  turkishLowerCase,
+} from './utils';
 
 /*
  * Words which are always written lowercase.
@@ -246,8 +251,8 @@ let DefaultMode = {
   },
 };
 
-exports.English = assign({}, DefaultMode, {
-  description: ReactDOMServer.renderToStaticMarkup(l(
+export const English = assign({}, DefaultMode, {
+  description: ReactDOMServer.renderToStaticMarkup(exp.l(
     'This mode capitalises almost all words, with some words ' +
     '(mainly articles and short prepositions) lowercased. Some ' +
     'words may need to be manually capitalised to follow the ' +
@@ -260,8 +265,8 @@ exports.English = assign({}, DefaultMode, {
   },
 });
 
-exports.French = assign({}, DefaultMode, {
-  description: ReactDOMServer.renderToStaticMarkup(l(
+export const French = assign({}, DefaultMode, {
+  description: ReactDOMServer.renderToStaticMarkup(exp.l(
     'This mode capitalises titles as sentence mode, but also ' +
     'inserts spaces before semicolons, colons, exclamation marks ' +
     'and question marks, and inside guillemets. Some words may ' +
@@ -280,8 +285,8 @@ exports.French = assign({}, DefaultMode, {
   },
 });
 
-exports.Sentence = assign({}, DefaultMode, {
-  description: ReactDOMServer.renderToStaticMarkup(l(
+export const Sentence = assign({}, DefaultMode, {
+  description: ReactDOMServer.renderToStaticMarkup(exp.l(
     'This mode capitalises the first word of a sentence, most ' +
     'other words are lowercased. Some words, often proper nouns, ' +
     'may need to be manually fixed according to the {url|relevant ' +
@@ -290,8 +295,8 @@ exports.Sentence = assign({}, DefaultMode, {
   )),
 });
 
-exports.Turkish = assign({}, DefaultMode, {
-  description: ReactDOMServer.renderToStaticMarkup(l(
+export const Turkish = assign({}, DefaultMode, {
+  description: ReactDOMServer.renderToStaticMarkup(exp.l(
     'This mode handles the Turkish capitalisation of \'i\' (\'İ\') and \'ı\' '+
     '(\'I\'). Some words may need to be manually corrected '+
     'according to the {url|Turkish language guidelines}. ',

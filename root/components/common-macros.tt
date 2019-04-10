@@ -27,7 +27,7 @@
 [%~ MACRO va_doc_link BLOCK -%]
     [%- doc_link('Style/Unknown_and_untitled/Special_purpose_artist#List_of_official_SPAs') -%]
 [%- END -%]
-[%~ MACRO yesno(b) BLOCK; b ? l('Yes') : l('No'); END ~%]
+[%~ MACRO yesno(b) BLOCK; b ? l('Yes') : l('No'); END ~%] [% # Converted to React at root/static/scripts/common/utility/yesNo.js %]
 
 [%~ MACRO isolate_text(text) BLOCK; # Converted to React at root/static/scripts/common/utility/isolateText.js
     IF text != ''; INCLUDE _wrap_text options=['isolate', 'escape'] content=text;
@@ -524,18 +524,7 @@ END -%]
 END -%]
 
 [%~ MACRO tagger_icon(entity) BLOCK -%]
-    [%- IF entity.isa('MusicBrainz::Server::Entity::Release') -%]
-        [% USE date %]
-        <a href="http://127.0.0.1:[% c.session.tport %]/openalbum?id=[% entity.gid %]&t=[% date.now %]"
-            class="tagger-icon" title="[% l('Open in tagger') %]">
-            <img src="[% c.model('FileCache').path_to('/images/icons/mblookup-tagger.png') %]" alt="[% l('Tagger') %]">
-        </a>
-    [%- ELSIF entity.isa('MusicBrainz::Server::Entity::Recording') -%]
-        <a href="http://127.0.0.1:[% c.session.tport %]/opennat?id=[% entity.gid %]"
-            class="tagger-icon" title="[% l('Open in tagger') %]">
-            <img src="[% c.model('FileCache').path_to('/images/icons/mblookup-tagger.png') %]" alt="[% l('Tagger') %]">
-        </a>
-    [%- END -%]
+    [%- React.embed(c, 'static/scripts/common/components/TaggerIcon', {entity => entity}) -%]
 [%- END -%]
 
 [%~ MACRO release_label_list(labels) BLOCK; # Converted to React at root/components/ReleaseLabelList.js
@@ -562,7 +551,7 @@ END -%]
     comma_only_list(out);
 END -%]
 
-[%~ MACRO sortable_table_header(name, label) BLOCK -%]
+[%~ MACRO sortable_table_header(name, label) BLOCK -%] [% # Converted to React at root/components/SortableTableHeader.js %]
     <a href="[% c.req.uri_with( order => order == name ? '-' _ name : name ) %]">[% label %]</a>
     [%- IF order == name %]&#xa0;&#9652;[% ELSIF order == '-' _ name %]&#xa0;&#9662;[% END %]
 [%- END -%]
@@ -697,8 +686,9 @@ END -%]
     name | lower | replace('[^a-z]+', '-') | remove('^-|-$');
     END -%]
 
-[%~ MACRO warning_icon BLOCK -%]
-   <img class="warning" src="[% c.model('FileCache').path_to('/images/icons/warning.png') %]" alt="[% l('Warning') | html %]" />
+[%~ MACRO warning_icon BLOCK # Converted to React at root/static/scripts/common/components/WarningIcon.js
+-%]
+   [% React.embed(c, 'static/scripts/common/components/WarningIcon') %]
 [%- END -%]
 
 [%~ MACRO error(message, class) BLOCK -%]
@@ -708,7 +698,8 @@ END -%]
    </div>
 [%- END -%]
 
-[%~ MACRO warning(message, class) BLOCK -%]
+[%~ MACRO warning(message, class) BLOCK # Converted to React at root/static/scripts/components/Warning.js
+-%]
    <div class="warning[% ' ' _ class IF class %]">
      [%- warning_icon %]
      <p>[% l('<strong>Warning</strong>:') %] [% message %]</p>
@@ -732,12 +723,11 @@ END -%]
         attr_string = "$attr_string ${attr.key}=\"" _ html_escape(attr.value) _ '"';
       END
   ~%]
-  <script src="[% c.model('FileCache').path_to('scripts/' _ manifest) %]"[% attr_string %]></script>
+  <script src="[% c.model('FileCache').path_to(manifest) %]"[% attr_string %]></script>
 [%~ END ~%]
 
-[%~ MACRO css_manifest(manifest) BLOCK # Converted to React at root/static/manifest.js
-~%]
-  <link rel="stylesheet" type="text/css" href="[% c.model('FileCache').path_to('styles/' _ manifest) %]" />
+[%~ MACRO css_manifest(manifest) BLOCK # Converted to React at root/static/manifest.js ~%]
+  <link rel="stylesheet" type="text/css" href="[% c.model('FileCache').path_to(manifest) %]" />
 [%~ END ~%]
 
 [%~ MACRO format_length(n) BLOCK; n | format_length; END -%]
@@ -778,7 +768,7 @@ END ~%]
 [%- END -%]
 
 [%~ MACRO filter_button BLOCK -%]
-  <div style="float:right;margin-top:1.5em;"><a class="filter-button"><img src="[% c.model('FileCache').path_to('/images/icons/filter.png') %]" alt="" /></a> <a class="filter-button" href="#">[% l("Filter") %]</a></div>
+  <div style="float:right;margin-top:1.5em;"><a class="filter-button">[% React.embed(c, 'static/scripts/common/components/FilterIcon') %]</a> <a class="filter-button" href="#">[% l("Filter") %]</a></div>
 [%- END -%]
 
 [%~ MACRO wikidoc_search_box BLOCK -%]
@@ -803,7 +793,7 @@ END ~%]
 -%]
     [%- React.embed(c, 'static/scripts/common/components/WikipediaExtract', {
         entity => {entityType => entity.entity_type, gid => entity.gid},
-        wikipediaExtract => wikipedia_extract,
+        cachedWikipediaExtract => wikipedia_extract,
     }) -%]
 [%- END -%]
 
@@ -926,11 +916,6 @@ END -%]
       ELSIF direction == 1; l('Forward');
       ELSIF direction == 2; l('Backward');
   END %] ([% direction %])
-[%~ END ~%]
-
-[%~ USE Canonicalize ~%]
-[%~ MACRO replace_gid(new_gid) BLOCK ~%]
-  [%~ Canonicalize.replace_gid(c, new_gid) ~%]
 [%~ END ~%]
 
 [%~ MACRO data_track_icon BLOCK ~%]

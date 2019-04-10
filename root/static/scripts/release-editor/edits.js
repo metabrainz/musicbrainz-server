@@ -3,19 +3,22 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-const ko = require('knockout');
-const _ = require('lodash');
+import $ from 'jquery';
+import ko from 'knockout';
+import _ from 'lodash';
 
-const {VIDEO_ATTRIBUTE_GID} = require('../common/constants');
-const {reduceArtistCredit} = require('../common/immutable-entities');
-const clean = require('../common/utility/clean');
-const debounce = require('../common/utility/debounce');
-const isPositiveInteger = require('../edit/utility/isPositiveInteger');
-const validation = require('../edit/validation');
-const releaseEditor = require('./viewModel');
-const utils = require('./utils');
+import {VIDEO_ATTRIBUTE_GID} from '../common/constants';
+import {reduceArtistCredit} from '../common/immutable-entities';
+import MB from '../common/MB';
+import clean from '../common/utility/clean';
+import debounce from '../common/utility/debounce';
+import isPositiveInteger from '../edit/utility/isPositiveInteger';
+import * as validation from '../edit/validation';
 
-require('./init');
+import releaseEditor from './viewModel';
+import utils from './utils';
+
+import './init';
 
 const WS_EDIT_RESPONSE_OK = 1;
 
@@ -75,7 +78,7 @@ releaseEditor.edits = {
             edits.push(MB.edit.releaseCreate(newData));
         }
         else if (!_.isEqual(newData, oldData)) {
-            newData = _.extend(_.clone(newData), { to_edit: release.gid() });
+            newData = {...newData, to_edit: release.gid()};
             edits.push(MB.edit.releaseEdit(newData, oldData));
         }
         return edits;
@@ -649,4 +652,4 @@ releaseEditor.submitEdits = function () {
     chainEditSubmissions(release, releaseEditor.orderedEditSubmissions);
 };
 
-module.exports = releaseEditor.edits;
+export default releaseEditor.edits;

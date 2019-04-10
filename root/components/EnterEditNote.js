@@ -9,13 +9,11 @@
 
 import React from 'react';
 
-import {l} from '../static/scripts/common/i18n';
-
 import FieldErrors from './FieldErrors';
 import FormRow from './FormRow';
 
 type Props = {|
-  +field: FieldT<string>,
+  +field: ReadOnlyFieldT<string>,
   +hideHelp?: boolean,
 |};
 
@@ -28,7 +26,7 @@ const EnterEditNote = ({
     {hideHelp ? null : (
       <>
         <p>
-          {l('Entering an {note|edit note} that describes where you got your information is highly recommended. Not only does it make it clear where you got your information, but it can also encourage other users to vote on your edit — thus making your edit get applied faster.', {
+          {exp.l('Entering an {note|edit note} that describes where you got your information is highly recommended. Not only does it make it clear where you got your information, but it can also encourage other users to vote on your edit — thus making your edit get applied faster.', {
             note: {href: '/doc/Edit_Note', target: '_blank'},
           })}
         </p>

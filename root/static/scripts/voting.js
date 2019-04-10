@@ -3,10 +3,13 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-const querystring = require('querystring');
+import querystring from 'querystring';
 
-require('./common/MB/Control/EditList');
-require('./common/MB/Control/EditSummary');
+import $ from 'jquery';
+
+import MB from './common/MB';
+import './common/MB/Control/EditList';
+import './common/MB/Control/EditSummary';
 
 $('.edit-list').each(function () {
   MB.Control.EditSummary(this);

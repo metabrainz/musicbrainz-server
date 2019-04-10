@@ -2,9 +2,9 @@
         artist => artist_credit(release.artist_credit, plain => 1),
         name => release.name
 }) ~%]
-[%~ WRAPPER "layout.tt" title=title ? main_title _ " - ${title}" : main_title canonical_url=replace_gid(entity.gid) ~%]
+[%~ WRAPPER "layout.tt" title=title ? main_title _ " - ${title}" : main_title ~%]
     <div id="content">
-        [%~ INCLUDE "release/header.tt" ~%]
+        [%~ React.embed(c, 'release/ReleaseHeader', { release => release, page => page }) ~%]
         [%~ content ~%]
     </div>
 

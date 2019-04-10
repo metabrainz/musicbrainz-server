@@ -16,13 +16,6 @@ GetOptions(
     'workers=i' => \$workers,
 ) or exit 2;
 
-chomp (my $node_version = `node --version`);
-my $server_js_file = 'server.js';
-
-if ($node_version lt 'v6.0.0') {
-    $server_js_file = 'server-compat.js';
-}
-
 # http://perldoc.perl.org/perlipc.html#Complete-Dissociation-of-Child-from-Parent
 my $child = fork;
 
@@ -50,5 +43,5 @@ if ($child) {
     push @argv, ('--socket', $socket) if $socket;
     push @argv, ('--workers', $workers) if $workers;
     chdir qq($FindBin::Bin/../);
-    exec 'node', qq(root/$server_js_file), @argv;
+    exec 'node', 'root/server.js', @argv;
 }

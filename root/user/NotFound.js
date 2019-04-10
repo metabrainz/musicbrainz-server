@@ -10,12 +10,11 @@
 import React from 'react';
 
 import NotFound from '../components/NotFound';
-import {l} from '../static/scripts/common/i18n';
 
 const EditorNotFound = () => (
   <NotFound title={l('Editor Not Found')}>
     <p>
-      {l('Sorry, we could not find an editor with that name. You may wish to try and {search_url|search for them} instead.',
+      {exp.l('Sorry, we could not find an editor with that name. You may wish to try and {search_url|search for them} instead.',
         {search_url: '/search'})}
     </p>
   </NotFound>

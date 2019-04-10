@@ -6,6 +6,7 @@ use MooseX::Types::Moose qw( Int Str );
 use MooseX::Types::Structured qw( Dict );
 use MusicBrainz::Server::Data::Utils qw( model_to_type );
 use MusicBrainz::Server::Edit::Types qw( Nullable NullableOnPreview );
+use MusicBrainz::Server::Filters qw( format_wikitext );
 
 parameter model => ( isa => 'Str', required => 1 );
 parameter edit_type => ( isa => 'Int', required => 1 );
@@ -65,6 +66,7 @@ role {
             changelog     => $self->data->{changelog},
             annotation_id => $self->annotation_id,
             text          => $self->data->{text},
+            html          => format_wikitext($self->data->{text}),
             entity_type   => $entity_type,
         };
 
@@ -134,6 +136,6 @@ role {
     };
 };
 
-sub edit_template { "add_annotation" };
+sub edit_template_react { 'AddAnnotation' };
 
 1;

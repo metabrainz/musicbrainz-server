@@ -24,14 +24,11 @@ test all => sub {
     my $exec_sql = sub {
         my $sql = shell_quote(shift);
 
-        system 'sh', '-c' => "echo $sql | $psql TEST";
+        system 'sh', '-c' => "echo $sql | $psql TEST_FULL_EXPORT";
     };
 
     my $output_dir = tempdir("t-fullexport-XXXXXXXX", DIR => '/tmp', CLEANUP => 1);
     my $schema_seq = DBDefs->DB_SCHEMA_SEQUENCE;
-
-    # Test requires a clean database
-    system File::Spec->catfile($root, 'script/create_test_db.sh');
 
     # MBS-9342
     my $long_unicode_tag1 = '松' x 255;
@@ -55,7 +52,7 @@ EOSQL
         '--with-full-export',
         '--without-replication',
         '--output-dir', $output_dir,
-        '--database', 'TEST',
+        '--database', 'TEST_FULL_EXPORT',
         '--compress',
     );
 
@@ -79,21 +76,30 @@ EOSQL
         '--without-full-export',
         '--with-replication',
         '--output-dir', $output_dir,
-        '--database', 'TEST',
+        '--database', 'TEST_FULL_EXPORT',
         '--compress',
     );
 
-    my $test_db = Databases->get('TEST');
-    system 'dropdb', $test_db->database;
+    my $system_db = Databases->get('SYSTEM');
+    my $test_db = Databases->get('TEST_FULL_EXPORT');
+    $ENV{PGPASSWORD} = $test_db->password;
+    system 'dropdb',
+        '-h', $test_db->host,
+        '-p', $test_db->port,
+        '-U', $system_db->username,
+        $test_db->database;
 
     system(
         File::Spec->catfile($root, 'admin/InitDb.pl'),
-        '--database', 'TEST',
+        '--database', 'TEST_FULL_EXPORT',
         '--createdb',
         '--import',
             File::Spec->catfile($output_dir, 'mbdump.tar.bz2'),
             File::Spec->catfile($output_dir, 'mbdump-derived.tar.bz2'),
     );
+
+    my $replication_setup = File::Spec->catfile($root, 'admin/sql/ReplicationSetup.sql');
+    system 'sh', '-c' => "$psql TEST_FULL_EXPORT < $replication_setup";
 
     $exec_sql->(<<EOSQL);
     SET client_min_messages TO WARNING;
@@ -104,10 +110,12 @@ EOSQL
 
     system (
         File::Spec->catfile($root, 'admin/replication/LoadReplicationChanges'),
-        '--base-uri', 'file://' . $output_dir, '--database', 'TEST',
+        '--base-uri', 'file://' . $output_dir,
+        '--database', 'TEST_FULL_EXPORT',
+        '--lockfile', '/tmp/.mb-LoadReplicationChanges-TEST_FULL_EXPORT',
     );
 
-    my $c = MusicBrainz::Server::Context->create_script_context(database => 'TEST');
+    my $c = MusicBrainz::Server::Context->create_script_context(database => 'TEST_FULL_EXPORT');
     my $artists = $c->sql->select_list_of_hashes('SELECT * FROM artist ORDER BY id');
 
     cmp_deeply($artists, [

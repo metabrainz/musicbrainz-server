@@ -8,7 +8,7 @@
         [% form_row_text_long(r, 'subject', l('Subject:')) %]
 
         [% WRAPPER form_row %]
-            [% r.label('body', l('Message:')) %]
+            [% r.label('body', add_colon(l('Message'))) %]
             [% r.textarea('body', { cols => 50, rows => 10 }) %]
             [% form_field_errors(form, 'body') %]
         [% END %]

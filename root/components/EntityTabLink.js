@@ -7,12 +7,13 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-const React = require('react');
-const EntityLink = require('../static/scripts/common/components/EntityLink');
+import React from 'react';
+
+import EntityLink from '../static/scripts/common/components/EntityLink';
 
 type Props = {|
   +content: string,
-  +entity: CoreEntityT,
+  +entity: CoreEntityT | CollectionT,
   +selected: boolean,
   +subPath: string,
 |};
@@ -23,4 +24,4 @@ const EntityTabLink = ({selected, ...linkProps}: Props) => (
   </li>
 );
 
-module.exports = EntityTabLink;
+export default EntityTabLink;

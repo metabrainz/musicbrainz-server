@@ -16,37 +16,37 @@ my @inc_rels = map { ($_ =~ s/_/-/gr) . '-rels' } @RELATABLE_ENTITIES;
 
 Readonly our %DUMPED_ENTITY_TYPES => (
     area => {
-        inc => WebServiceInc->new(inc => [qw( aliases annotation tags ), @inc_rels]),
+        inc => WebServiceInc->new(inc => [qw( aliases annotation tags genres ), @inc_rels]),
     },
     artist => {
-        inc => WebServiceInc->new(inc => [qw( aliases annotation ratings tags ), @inc_rels]),
+        inc => WebServiceInc->new(inc => [qw( aliases annotation ratings tags genres ), @inc_rels]),
     },
     event => {
-        inc => WebServiceInc->new(inc => [qw( aliases annotation ratings tags ), @inc_rels]),
+        inc => WebServiceInc->new(inc => [qw( aliases annotation ratings tags genres ), @inc_rels]),
     },
     instrument => {
-        inc => WebServiceInc->new(inc => [qw( aliases annotation tags ), @inc_rels]),
+        inc => WebServiceInc->new(inc => [qw( aliases annotation tags genres ), @inc_rels]),
     },
     label => {
-        inc => WebServiceInc->new(inc => [qw( aliases annotation ratings tags ), @inc_rels]),
+        inc => WebServiceInc->new(inc => [qw( aliases annotation ratings tags genres ), @inc_rels]),
     },
     place => {
-        inc => WebServiceInc->new(inc => [qw( aliases annotation tags ), @inc_rels]),
+        inc => WebServiceInc->new(inc => [qw( aliases annotation tags genres ), @inc_rels]),
     },
     recording => {
-        inc => WebServiceInc->new(inc => [qw( aliases annotation artists artist-credits isrcs ratings tags ), @inc_rels]),
+        inc => WebServiceInc->new(inc => [qw( aliases annotation artists artist-credits isrcs ratings tags genres ), @inc_rels]),
     },
     release => {
-        inc => WebServiceInc->new(inc => [qw( aliases annotation artists artist-credits discids isrcs labels media recording-level-rels recordings release-groups tags ), @inc_rels]),
+        inc => WebServiceInc->new(inc => [qw( aliases annotation artists artist-credits discids isrcs labels media recording-level-rels recordings release-groups tags genres ), @inc_rels]),
     },
     release_group => {
-        inc => WebServiceInc->new(inc => [qw( aliases annotation artists artist-credits ratings tags ), @inc_rels]),
+        inc => WebServiceInc->new(inc => [qw( aliases annotation artists artist-credits ratings tags genres ), @inc_rels]),
     },
     series => {
-        inc => WebServiceInc->new(inc => [qw( aliases annotation tags ), @inc_rels]),
+        inc => WebServiceInc->new(inc => [qw( aliases annotation tags genres ), @inc_rels]),
     },
     work => {
-        inc => WebServiceInc->new(inc => [qw( aliases annotation ratings tags ), @inc_rels]),
+        inc => WebServiceInc->new(inc => [qw( aliases annotation ratings tags genres ), @inc_rels]),
     },
 );
 

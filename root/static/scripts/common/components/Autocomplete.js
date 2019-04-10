@@ -1,20 +1,23 @@
-// This file is part of MusicBrainz, the open internet music database.
-// Copyright (C) 2016 MetaBrainz Foundation
-// Licensed under the GPL version 2, or (at your option) any later version:
-// http://www.gnu.org/licenses/gpl-2.0.txt
+/*
+ * This file is part of MusicBrainz, the open internet music database.
+ * Copyright (C) 2016 MetaBrainz Foundation
+ * Licensed under the GPL version 2, or (at your option) any later version:
+ * http://www.gnu.org/licenses/gpl-2.0.txt
+ */
 
-const _ = require('lodash');
-const $ = require('jquery');
-const ko = require('knockout');
-const React = require('react');
-const manifest = require('../../../manifest');
-const {l} = require('../../common/i18n');
+import _ from 'lodash';
+import ko from 'knockout';
+import React from 'react';
 
-require('../MB/Control/Autocomplete');
-require('../entity');
+import SearchIcon from './SearchIcon';
+
+import '../entity';
 
 class Autocomplete extends React.Component {
   componentDidMount() {
+    const $ = require('jquery');
+    require('../MB/Control/Autocomplete');
+
     const currentSelection = ko.observable();
     const options = _.clone(this.props);
 
@@ -23,10 +26,15 @@ class Autocomplete extends React.Component {
     this._subscription = currentSelection.subscribe(this.props.onChange);
 
     this._autocomplete = $(this._nameInput).entitylookup(options).data('mb-entitylookup');
-    currentSelection(this._autocomplete._dataToEntity(this.props.currentSelection));
+    currentSelection(
+      this._autocomplete._dataToEntity(this.props.currentSelection),
+    );
   }
 
   componentWillUnmount() {
+    const $ = require('jquery');
+    require('../MB/Control/Autocomplete');
+
     this._subscription.dispose();
     this._subscription = null;
     this._currentSelection = null;
@@ -47,7 +55,9 @@ class Autocomplete extends React.Component {
     if (!next) {
       autocomplete.clearSelection(true);
     } else if (!prev || prev.gid !== next.gid || prev.name !== next.name) {
-      autocomplete.currentSelection(autocomplete._dataToEntity(nextProps.currentSelection));
+      autocomplete.currentSelection(
+        autocomplete._dataToEntity(nextProps.currentSelection),
+      );
     }
 
     autocomplete.element.prop('disabled', !!nextProps.disabled);
@@ -61,23 +71,33 @@ class Autocomplete extends React.Component {
   }
 
   render() {
-    const {disabled, entity, inputID, isLookupPerformed} = this.props;
+    const {
+      children,
+      disabled,
+      entity,
+      inputID,
+      inputName,
+      isLookupPerformed,
+    } = this.props;
     let className = 'name';
     if (isLookupPerformed) {
       className += ' lookup-performed';
     }
     return (
       <span className={entity + ' autocomplete'}>
-        <img className="search" src={manifest.pathTo('/images/icons/search.png')} alt={l('Search')} />
+        <SearchIcon />
         <input
           className={className}
           disabled={disabled}
           id={inputID}
+          name={inputName}
           ref={input => this._nameInput = input}
-          type="text" />
+          type="text"
+        />
+        {children}
       </span>
     );
   }
 }
 
-module.exports = Autocomplete;
+export default Autocomplete;

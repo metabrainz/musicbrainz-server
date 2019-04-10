@@ -6,21 +6,22 @@
  * http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-const ko = require('knockout');
-const React = require('react');
+import ko from 'knockout';
+import * as React from 'react';
 
-const {ENTITIES, AREA_TYPE_COUNTRY} = require('../constants');
-const {l} = require('../i18n');
-const {l_countries} = require('../i18n/countries');
-const {l_instruments} = require('../i18n/instruments');
-import bracketed from '../utility/bracketed';
-const entityHref = require('../utility/entityHref');
-const formatDatePeriod = require('../utility/formatDatePeriod');
-const isolateText = require('../utility/isolateText');
-const nonEmpty = require('../utility/nonEmpty');
-const reactTextContent = require('../utility/reactTextContent');
+import localizeAreaName from '../i18n/localizeAreaName';
+import localizeInstrumentName from '../i18n/localizeInstrumentName';
+import bracketed, {bracketedText} from '../utility/bracketed';
+import entityHref from '../utility/entityHref';
+import formatDatePeriod from '../utility/formatDatePeriod';
+import isolateText from '../utility/isolateText';
+import nonEmpty from '../utility/nonEmpty';
+import reactTextContent from '../utility/reactTextContent';
 
-const DeletedLink = ({name, allowNew}: {|+name: React.Node, +allowNew: boolean|}) => {
+export const DeletedLink = ({
+  allowNew,
+  name,
+}: {|+allowNew: boolean, +name: React.Node|}) => {
   const caption = allowNew
     ? l('This entity will be created when edits are entered.')
     : l('This entity has been removed, and cannot be displayed correctly.');
@@ -32,7 +33,10 @@ const DeletedLink = ({name, allowNew}: {|+name: React.Node, +allowNew: boolean|}
   );
 };
 
-const Comment = ({className, comment}: {|+className: string, +comment: string|}) => (
+const Comment = ({
+  className,
+  comment,
+}: {|+className: string, +comment: string|}) => (
   <>
     {' '}
     <span className={className}>
@@ -41,14 +45,17 @@ const Comment = ({className, comment}: {|+className: string, +comment: string|})
   </>
 );
 
-const EventDisambiguation = ({event, showDate}: {|+event: EventT, +showDate: boolean|}) => {
+const EventDisambiguation = ({
+  event,
+  showDate,
+}: {|+event: EventT, +showDate: boolean|}) => {
   const dates = formatDatePeriod(event);
   if ((!dates || !showDate) && !event.cancelled) {
     return null;
   }
   return (
     <>
-      {dates && showDate ? ' ' + bracketed(dates) : null}
+      {dates && showDate ? ' ' + bracketedText(dates) : null}
       {event.cancelled
         ? <Comment className="cancelled" comment={l('cancelled')} />
         : null}
@@ -66,9 +73,12 @@ const AreaDisambiguation = ({area}: {|+area: AreaT|}) => {
   const endYear = area.end_date ? area.end_date.year : null;
 
   if (beginYear && endYear) {
-    comment = l('historical, {begin}-{end}', {begin: beginYear, end: endYear});
+    comment = texp.l(
+      'historical, {begin}-{end}',
+      {begin: beginYear, end: endYear},
+    );
   } else if (endYear) {
-    comment = l('historical, until {end}', {end: endYear});
+    comment = texp.l('historical, until {end}', {end: endYear});
   } else {
     comment = l('historical');
   }
@@ -76,7 +86,7 @@ const AreaDisambiguation = ({area}: {|+area: AreaT|}) => {
   return <Comment className="historical" comment={comment} />;
 };
 
-const NoInfoURL = ({url, allowNew}: {|+url: string, +allowNew: boolean|}) => (
+const NoInfoURL = ({allowNew, url}: {|+allowNew: boolean, +url: string|}) => (
   <>
     <a href={url}>{url}</a>
     {' '}
@@ -124,13 +134,13 @@ const EntityLink = ({
   }
 
   if (entity.entityType === 'artist' && !nonEmpty(hover)) {
-    hover = entity.sort_name + (comment ? ' ' + bracketed(comment) : '');
+    hover = entity.sort_name + (comment ? ' ' + bracketedText(comment) : '');
   }
 
   if (entity.entityType === 'area') {
-    content = content || l_countries(entity.name);
+    content = content || localizeAreaName(entity);
   } else if (entity.entityType === 'instrument') {
-    content = content || l_instruments(entity.name);
+    content = content || localizeInstrumentName(entity);
   }
 
   content = content || ko.unwrap(entity.name);
@@ -156,7 +166,8 @@ const EntityLink = ({
   }
 
   // TODO: support name variations for all entity types?
-  if (!subPath && (entity.entityType === 'artist' || entity.entityType === 'recording')) {
+  if (!subPath &&
+      (entity.entityType === 'artist' || entity.entityType === 'recording')) {
     nameVariation = (
       React.isValidElement(content)
         ? reactTextContent(content)
@@ -165,7 +176,7 @@ const EntityLink = ({
 
     if (nameVariation) {
       if (hover) {
-        hover = l('{name} – {additional_info}', {
+        hover = texp.l('{name} – {additional_info}', {
           additional_info: hover,
           name: entity.name,
         });
@@ -221,7 +232,13 @@ const EntityLink = ({
 
   if (showDisambiguation) {
     if (entity.entityType === 'event') {
-      parts.push(<EventDisambiguation event={entity} showDate={showEventDate} key="eventdisambig" />);
+      parts.push(
+        <EventDisambiguation
+          event={entity}
+          key="eventdisambig"
+          showDate={showEventDate}
+        />,
+      );
     }
     if (comment) {
       parts.push(
@@ -238,12 +255,12 @@ const EntityLink = ({
       ' ',
       bracketed(
         <a href={infoLink} key="info">{l('info')}</a>,
-        {type: '[]'}
-      )
+        {type: '[]'},
+      ),
     );
   }
 
   return parts;
 };
 
-module.exports = EntityLink;
+export default EntityLink;

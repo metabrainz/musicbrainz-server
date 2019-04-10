@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import {l} from '../static/scripts/common/i18n';
-
 export function artistBeginAreaLabel(typeId: ?number) {
   switch (typeId) {
     case 1:

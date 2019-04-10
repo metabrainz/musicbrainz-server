@@ -14,7 +14,7 @@ import FormRow from './FormRow';
 import FormLabel from './FormLabel';
 
 type Props = {
-  +field: FieldT<string>,
+  +field: ReadOnlyFieldT<?string>,
   +label: string,
   +required?: boolean,
   +type?: string,
@@ -24,13 +24,13 @@ const FormRowText = ({
   field,
   label,
   required = false,
-  type = "text",
+  type = 'text',
   ...inputProps
 }: Props) => (
   <FormRow>
     <FormLabel forField={field} label={label} required={required} />
     <input
-      defaultValue={field.value}
+      defaultValue={field.value || ''}
       id={'id-' + field.html_name}
       name={field.html_name}
       required={required}

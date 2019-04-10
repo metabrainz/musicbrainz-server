@@ -5,9 +5,13 @@
 
         <h2>[% l('Changes') %]</h2>
         [% IF edit.data.defined %]
-          [%-INCLUDE "edit/details/${edit.edit_template}.tt" %]
+          [% IF edit.edit_template_react %]
+            [%~ React.embed(c, "edit/details/${edit.edit_template_react}.js", {edit => edit}) ~%]
+          [% ELSE %]
+            [%-INCLUDE "edit/details/${edit.edit_template}.tt" %]
+          [% END %]
         [% ELSE %]
-          <p>[% l('An error occured while loading this edit.') %]</p>
+          <p>[% l('An error occurred while loading this edit.') %]</p>
           <p>[% link_edit(edit, 'data', l('Raw edit data may be available.')) %]</p>
         [% END %]
 

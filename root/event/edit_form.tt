@@ -1,4 +1,3 @@
-[% script_manifest('guess-case.js') %]
 [% script_manifest('edit.js') %]
 
 <p>[%- l('For more information, check the {doc_doc|documentation}.', {doc_doc => doc_link('Event')}) -%]</p>
@@ -11,7 +10,7 @@
       <fieldset>
         <legend>[% l('Event Details') %]</legend>
         [%- form_row_name_with_guesscase(r) -%]
-        [%- form_row_text_long(r, 'comment', l('Disambiguation:')) -%]
+        [%- form_row_text_long(r, 'comment', add_colon(l('Disambiguation'))) -%]
         [%- form_row_select(r, 'type_id', l('Type:')) -%]
         [% form_row_checkbox(r, 'cancelled', l('This event was cancelled.')) %]
         [% WRAPPER form_row %]

@@ -26,6 +26,7 @@ my $ws_defs = Data::OptList::mkopt([
                                           recording release-group track
                                           collection) ],
                          inc      => [ qw(aliases artist-credits labels recordings discids
+                                          tags user-tags genres user-genres
                                           release-groups media _relations annotation) ],
                          optional => [ qw(fmt limit offset) ],
      },
@@ -138,7 +139,7 @@ sub release_toplevel {
             $c->model('ArtistCredit')->load(@tracks);
             my @acns = map { $_->artist_credit->all_names } @tracks;
             $c->model('Artist')->load(@acns);
-            $self->_aliases($c, 'Artist', [uniq_by { $_->id } map { $_->artist } @acns], $stash);
+            $self->linked_artists($c, $stash, [uniq_by { $_->id } map { $_->artist } @acns]);
         }
 
         my @recordings = $c->model('Recording')->load(@tracks);

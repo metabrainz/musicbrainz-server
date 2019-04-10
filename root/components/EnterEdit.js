@@ -10,11 +10,10 @@
 import React from 'react';
 import type {Node as ReactNode} from 'react';
 
-import {l} from '../static/scripts/common/i18n';
 
 type Props<F> = {|
   +children: ReactNode,
-  +form: FormT<F & {+make_votable: FieldT<boolean>}>,
+  +form: FormT<F & {+make_votable: ReadOnlyFieldT<boolean>}>,
 |};
 
 const EnterEdit = <F>({children, form}: Props<F>) => (

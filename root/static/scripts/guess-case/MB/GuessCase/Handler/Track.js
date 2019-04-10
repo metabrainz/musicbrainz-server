@@ -19,9 +19,10 @@
 
 */
 
-const _ = require('lodash');
+import _ from 'lodash';
 
-const flags = require('../../../flags');
+import MB from '../../../../common/MB';
+import * as flags from '../../../flags';
 
 MB.GuessCase = (MB.GuessCase) ? MB.GuessCase : {};
 MB.GuessCase.Handler = (MB.GuessCase.Handler) ? MB.GuessCase.Handler : {};
@@ -135,6 +136,11 @@ MB.GuessCase.Handler.Track = function (gc) {
         flags.context.number = false;
         return null;
     };
+
+    /**
+     * Guesses the sortname for recordings (for aliases)
+     **/
+    self.guessSortName = self.moveArticleToEnd;
 
     return self;
 };

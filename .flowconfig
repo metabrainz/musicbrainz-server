@@ -10,7 +10,9 @@
 [libs]
 ./node_modules/jsx-control-statements/jsx-control-statements.latest.flow.js
 ./root/types.js
+./root/vars.js
 
 [lints]
 
 [options]
+module.name_mapper.extension='less' -> '<PROJECT_ROOT>/root/flowstub.js.flow'

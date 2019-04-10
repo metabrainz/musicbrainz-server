@@ -3,8 +3,8 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-const {VARTIST_GID} = require('./constants');
-const nonEmpty = require('./utility/nonEmpty');
+import {VARTIST_GID} from './constants';
+import nonEmpty from './utility/nonEmpty';
 
 const reduceName = (memo, x) =>
   memo +
@@ -13,15 +13,15 @@ const reduceName = (memo, x) =>
 
 const isVariousArtist = name => name.artist ? name.artist.gid === VARTIST_GID : false;
 
-const hasVariousArtists = ac => ac.some(isVariousArtist);
+export const hasVariousArtists = ac => ac.some(isVariousArtist);
 
-const hasArtist = name => !!(name.artist && name.artist.gid);
+export const hasArtist = name => !!(name.artist && name.artist.gid);
 
-const isCompleteArtistCredit = ac => ac.length > 0 && ac.every(hasArtist);
+export const isCompleteArtistCredit = ac => ac.length > 0 && ac.every(hasArtist);
 
-const reduceArtistCredit = ac => ac.reduce(reduceName, '');
+export const reduceArtistCredit = ac => ac.reduce(reduceName, '');
 
-const isComplexArtistCredit = function (ac) {
+export const isComplexArtistCredit = function (ac) {
   const firstName = ac[0];
   if (firstName && hasArtist(firstName)) {
      return !nonEmpty(firstName.name) || firstName.artist.name !== reduceArtistCredit(ac);
@@ -29,7 +29,7 @@ const isComplexArtistCredit = function (ac) {
   return false;
 };
 
-function artistCreditFromArray(ac) {
+export function artistCreditFromArray(ac) {
   return ac.map(function (x) {
     x = {
       artist: x.artist,
@@ -43,7 +43,7 @@ function artistCreditFromArray(ac) {
   });
 }
 
-function artistCreditsAreEqual(a, b) {
+export function artistCreditsAreEqual(a, b) {
   if (a === b) {
     return true;
   }
@@ -69,11 +69,3 @@ function artistCreditsAreEqual(a, b) {
 
   return true;
 }
-
-exports.artistCreditFromArray = artistCreditFromArray;
-exports.artistCreditsAreEqual = artistCreditsAreEqual;
-exports.hasArtist = hasArtist;
-exports.hasVariousArtists = hasVariousArtists;
-exports.isCompleteArtistCredit = isCompleteArtistCredit;
-exports.isComplexArtistCredit = isComplexArtistCredit;
-exports.reduceArtistCredit = reduceArtistCredit;

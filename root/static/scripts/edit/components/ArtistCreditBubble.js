@@ -3,16 +3,17 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-const $ = require('jquery');
-const {assign} = require('lodash');
-const React = require('react');
+import $ from 'jquery';
+import {assign} from 'lodash';
+import React from 'react';
 
-const ArtistCreditLink = require('../../common/components/ArtistCreditLink');
-const DescriptiveLink = require('../../common/components/DescriptiveLink');
-const {l} = require('../../common/i18n');
-const {reduceArtistCredit} = require('../../common/immutable-entities');
-const clean = require('../../common/utility/clean');
-const ArtistCreditNameEditor = require('./ArtistCreditNameEditor');
+import ArtistCreditLink from '../../common/components/ArtistCreditLink';
+import DescriptiveLink from '../../common/components/DescriptiveLink';
+import {reduceArtistCredit} from '../../common/immutable-entities';
+import clean from '../../common/utility/clean';
+
+import ArtistCreditNameEditor from './ArtistCreditNameEditor';
+
 
 function onBubbleKeyDown(done, hide, event) {
   if (event.isDefaultPrevented()) {
@@ -51,7 +52,7 @@ const ArtistCreditBubble = ({
       <thead>
         <tr>
           <td colSpan="3" style={{paddingBottom: '1em'}}>
-            {l('Use the following fields to enter collaborations. See the {ac|Artist Credit} documentation for more information.',
+            {exp.l('Use the following fields to enter collaborations. See the {ac|Artist Credit} documentation for more information.',
              {ac: '/doc/Artist_Credits'})}
           </td>
         </tr>
@@ -90,7 +91,7 @@ const ArtistCreditBubble = ({
           />
         ))}
         <tr>
-          <td colSpan="4" style={{textAlign: 'right'}}>
+          <td className="align-right" colSpan="4" >
             <button type="button" className="add-item with-label" onClick={addName}>
               {l('Add Artist Credit')}
             </button>
@@ -102,7 +103,7 @@ const ArtistCreditBubble = ({
       <div>
         <label>
           <input id="change-matching-artists" type="checkbox" />
-          {l('Change all artists on this release that match “{name}”', {
+          {texp.l('Change all artists on this release that match “{name}”', {
             name: initialArtistText,
           })}
         </label>
@@ -117,4 +118,4 @@ const ArtistCreditBubble = ({
   </div>
 );
 
-module.exports = ArtistCreditBubble;
+export default ArtistCreditBubble;

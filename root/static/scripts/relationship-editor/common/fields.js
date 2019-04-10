@@ -3,26 +3,28 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-const ko = require('knockout');
-const _ = require('lodash');
+import ko from 'knockout';
+import _ from 'lodash';
 
-const {
-    SERIES_ORDERING_ATTRIBUTE,
-    SERIES_ORDERING_TYPE_AUTOMATIC
-} = require('../../common/constants');
-const MB_entity = require('../../common/entity');
-const i18n = require('../../common/i18n');
-const MB = require('../../common/MB');
-const typeInfo = require('../../common/typeInfo');
-const clean = require('../../common/utility/clean');
+import {
+  SERIES_ORDERING_ATTRIBUTE,
+  SERIES_ORDERING_TYPE_AUTOMATIC,
+} from '../../common/constants';
+import localizeLinkAttributeTypeName
+    from '../../common/i18n/localizeLinkAttributeTypeName';
+import linkedEntities from '../../common/linkedEntities';
+import MB_entity from '../../common/entity';
+import MB from '../../common/MB';
+import clean from '../../common/utility/clean';
 import formatDate from '../../common/utility/formatDate';
-const formatDatePeriod = require('../../common/utility/formatDatePeriod');
-const request = require('../../common/utility/request');
-const MB_edit = require('../../edit/MB/edit');
-const linkPhrase = require('../../edit/utility/linkPhrase');
-const mergeDates = require('./mergeDates');
+import formatDatePeriod from '../../common/utility/formatDatePeriod';
+import request from '../../common/utility/request';
+import MB_edit from '../../edit/MB/edit';
+import * as linkPhrase from '../../edit/utility/linkPhrase';
 
-(function (RE) {
+import mergeDates from './mergeDates';
+
+const RE = MB.relationshipEditor = MB.relationshipEditor || {};
 
     var fields = RE.fields = RE.fields || {};
 
@@ -69,6 +71,13 @@ const mergeDates = require('./mergeDates');
             this.setAttributes(data.attributes);
             this.attributes.original = {};
 
+            this.relationshipInfo = ko.computed(function () {
+                return {
+                    attributes: this.attributes().map(x => x.toJS()),
+                    linkTypeID: this.linkTypeID(),
+                };
+            }, this);
+
             if (data.id) {
                 _.each(this.attributes.peek(), function (attribute) {
                     self.attributes.original[attribute.type.gid] = attribute.toJS();
@@ -104,10 +113,6 @@ const mergeDates = require('./mergeDates');
 
             this.editData = ko.computed(function () {
                 return MB_edit.fields.relationship(self);
-            });
-
-            this.phraseAndExtraAttributes = ko.computed(function () {
-                return self._phraseAndExtraAttributes();
             });
 
             if (data.id) {
@@ -164,7 +169,7 @@ const mergeDates = require('./mergeDates');
             for (var i = 0, len = attributes.length; i < len; i++) {
                 attribute = attributes[i];
 
-                if (!typeAttributes || !typeAttributes[attribute.type.rootID]) {
+                if (!typeAttributes || !typeAttributes[attribute.type.root_id]) {
                     this.attributes.remove(attribute);
                     --i;
                     --len;
@@ -173,7 +178,7 @@ const mergeDates = require('./mergeDates');
         }
 
         getLinkType() {
-            return typeInfo.link_type.byId[this.linkTypeID()];
+            return linkedEntities.link_type[this.linkTypeID()];
         }
 
         hasDates() {
@@ -297,11 +302,11 @@ const mergeDates = require('./mergeDates');
                 var rootID = rootInfo.attribute.id;
 
                 var values = _.filter(this.attributes(), function (attribute) {
-                    return attribute.type.rootID == rootID;
+                    return attribute.type.root_id == rootID;
                 });
 
                 if (values.length < min) {
-                    return i18n.l("This attribute is required.");
+                    return l("This attribute is required.");
                 }
             }
 
@@ -309,18 +314,24 @@ const mergeDates = require('./mergeDates');
         }
 
         attributeLabel(attribute) {
-            return i18n.addColon(attribute.l_name);
+            return addColonText(localizeLinkAttributeTypeName(attribute));
         }
 
-        _phraseAndExtraAttributes() {
-            const linkType = this.getLinkType();
-            return linkPhrase.interpolate(linkType, this.attributes());
+        phraseAndExtraAttributes(phraseProp, shouldStripAttributes) {
+            return linkPhrase.getPhraseAndExtraAttributesText(
+                this.relationshipInfo(),
+                phraseProp,
+                shouldStripAttributes,
+            );
         }
 
-        _linkPhrase(source, clean) {
-            const index = _.indexOf(this.entities(), source) +
-                (clean ? 3 : 0);
-            return this.phraseAndExtraAttributes()[index];
+        _linkPhrase(source, shouldStripAttributes) {
+            return this.phraseAndExtraAttributes(
+                source === this.entities()[0]
+                    ? 'link_phrase'
+                    : 'reverse_link_phrase',
+                shouldStripAttributes,
+            )[0];
         }
 
         linkPhrase(source) {
@@ -437,7 +448,7 @@ const mergeDates = require('./mergeDates');
         }
 
         htmlWithLinkOrder(entity) {
-            return i18n.l('{num}. {relationship}', {
+            return texp.l('{num}. {relationship}', {
                 num: this.linkOrder(),
                 relationship: entity.html({target: '_blank', creditedAs: this.creditField(entity)()}),
             });
@@ -493,13 +504,13 @@ const mergeDates = require('./mergeDates');
     fields.Relationship = Relationship;
 
     fields.LinkAttribute = function (data) {
-        var type = this.type = typeInfo.link_attribute_type[data.type.gid];
+        var type = this.type = linkedEntities.link_attribute_type[data.type.gid];
 
         if (type.creditable) {
             this.creditedAs = ko.observable(ko.unwrap(data.credited_as) || "");
         }
 
-        if (type.freeText) {
+        if (type.free_text) {
             this.textValue = ko.observable(ko.unwrap(data.text_value) || "");
         }
     };
@@ -510,7 +521,7 @@ const mergeDates = require('./mergeDates');
         if (type.creditable) {
             return type.gid + "\0" + clean(this.creditedAs());
         }
-        if (type.freeText) {
+        if (type.free_text) {
             return type.gid + "\0" + clean(this.textValue());
         }
         return type.gid;
@@ -524,7 +535,7 @@ const mergeDates = require('./mergeDates');
             output.credited_as = clean(this.creditedAs());
         }
 
-        if (type.freeText) {
+        if (type.free_text) {
             output.text_value = clean(this.textValue());
         }
 
@@ -587,15 +598,14 @@ const mergeDates = require('./mergeDates');
             return [];
         } else {
             return _.transform(attributes, function (accum, data) {
-                var attrInfo = typeInfo.link_attribute_type[data.type.gid];
+                var attrInfo = linkedEntities.link_attribute_type[data.type.gid];
 
-                if (attrInfo && linkType.attributes[attrInfo.rootID]) {
+                if (attrInfo && linkType.attributes[attrInfo.root_id]) {
                     accum.push(data);
                 }
             });
         }
     }
 
-}(MB.relationshipEditor = MB.relationshipEditor || {}));
 
-module.exports = MB.relationshipEditor.fields;
+export default MB.relationshipEditor.fields;

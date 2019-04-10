@@ -1,4 +1,3 @@
-[% script_manifest('guess-case.js') %]
 [% script_manifest('edit.js') %]
 
 <p>[%- l('For more information, check the {doc_doc|documentation}.', {doc_doc => doc_link('Place')}) -%]</p>
@@ -11,7 +10,7 @@
         <legend>[% l('Place Details') %]</legend>
         [%- form_row_name_with_guesscase(r) -%]
         [%- duplicate_entities_section() -%]
-        [%- form_row_text_long(r, 'comment', l('Disambiguation:')) -%]
+        [%- form_row_text_long(r, 'comment', add_colon(l('Disambiguation'))) -%]
         [%- disambiguation_error() -%]
         [%- form_row_select(r, 'type_id', l('Type:')) -%]
         [%- form_row_text_long(r, 'address', l('Address:')) -%]
@@ -19,7 +18,7 @@
           [% area_field = form.field('area.name') %]
           <label for="id-edit-place.area.name">[% l('Area:') %]</label>
           <span class="area autocomplete">
-            <img class="search" src="[% c.model('FileCache').path_to('/images/icons/search.png') %]" alt="[% l('Search') %]" />
+            [% React.embed(c, 'static/scripts/common/components/SearchIcon') %]
             [% r.hidden(form.field('area').field('gid'), class => 'gid') %]
             [% r.hidden('area_id', class => 'id') %]
             [% r.text(area_field, class => 'name') %]

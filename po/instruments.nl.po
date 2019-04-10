@@ -8,7 +8,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2019-01-09 21:32+0000\n"
+"PO-Revision-Date: 2019-01-23 08:19+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -155,6 +155,10 @@ msgstr "Keltische harp"
 #: DB:instrument/name:561
 msgid "Lyricon"
 msgstr "Lyricon"
+
+#: DB:instrument/name:442
+msgid "Marxophone"
+msgstr "Marxophone"
 
 #: DB:instrument/name:92
 msgid "Mexican vihuela"
@@ -2184,10 +2188,6 @@ msgstr "marimba lumina"
 msgid "mark tree"
 msgstr "bellenboom"
 
-#: DB:instrument/name:442
-msgid "marxophone"
-msgstr "marxofoon"
-
 #: DB:instrument/name:633
 msgid "marímbula"
 msgstr "marímbula"
@@ -2898,10 +2898,6 @@ msgstr "saxofoonkwartet"
 msgid "saz"
 msgstr "saz"
 
-#: DB:instrument/name:310
-msgid "saó ôi flute"
-msgstr "saó ôi fluit"
-
 #: DB:instrument/name:757
 msgid "segunda"
 msgstr "segunda"
@@ -2911,6 +2907,7 @@ msgid "serpent"
 msgstr "serpent"
 
 #: DB:instrument/name:630
+msgctxt "Persian three-stringed long-necked lute"
 msgid "setar"
 msgstr "setar"
 
@@ -3451,6 +3448,11 @@ msgstr "triangel"
 msgctxt "Basque button accordion"
 msgid "trikiti"
 msgstr "trikiti"
+
+#: DB:instrument/name:945
+msgctxt "Indian three-stringed long-necked lute"
+msgid "tritantri veena"
+msgstr "tritantri-vina"
 
 #: DB:instrument/name:698
 msgid "tromba marina"

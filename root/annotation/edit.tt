@@ -55,7 +55,7 @@
     <tr>
       <th>[% l('Links:') %]</th>
       <td>
-        [% l("URL; [URL]; [URL|label]; [<entity_type>:<mbid>|<name>]") %]</td>
+        [% l("URL; [URL]; [URL|label]; [entity-type:MBID|label]") %]</td>
     </tr>
   </tbody>
 </table>

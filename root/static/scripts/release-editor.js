@@ -1,3 +1,5 @@
+require('./edit');
+
 require("./edit/confirmNavigationFallback")
 
 // The order here is important!

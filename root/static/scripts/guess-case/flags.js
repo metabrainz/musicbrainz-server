@@ -5,7 +5,7 @@
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
 // Holds the state of the current GC operation.
-var context = {
+export const context = {
     whitespace: false,
     openingBracket: false,
     hypen: false,
@@ -15,10 +15,8 @@ var context = {
     ellipsis: false
 };
 
-exports.context = context;
-
 // Reset the context
-exports.resetContext = function () {
+export function resetContext() {
     context.whitespace = false;
     context.openingBracket = false;
     context.hypen = false;
@@ -26,22 +24,22 @@ exports.resetContext = function () {
     context.acronym_split = false;
     context.singlequote = false;
     context.ellipsis = false;
-};
+}
 
 // Returns if there are opened brackets at current position in the string.
-exports.isInsideBrackets = function () {
+export function isInsideBrackets() {
     return context.openBrackets.length > 0;
-};
+}
 
-exports.pushBracket = function (b) {
+export function pushBracket(b) {
     context.openBrackets.push(b);
-};
+}
 
-exports.popBracket = function () {
-    var cb = exports.getCurrentCloseBracket();
+export function popBracket() {
+    var cb = getCurrentCloseBracket();
     context.openBrackets.pop();
     return cb;
-};
+}
 
 var bracketChars = /^[()\[\]{}<>]$/;
 
@@ -60,13 +58,13 @@ function getCorrespondingBracket(w) {
     return bracketChars.test(w) ? bracketPairs[w] : '';
 }
 
-exports.getCurrentCloseBracket = function () {
+export function getCurrentCloseBracket() {
     var ob = context.openBrackets[context.openBrackets.length - 1];
     return ob ? getCorrespondingBracket(ob) : null;
-};
+}
 
 // Initialise flags for another run.
-exports.init = function () {
+export function init() {
     // Flag to force the next word to capitalize the first letter. Set to true
     // because the first word is always capitalized.
     context.forceCaps = true;
@@ -78,7 +76,7 @@ exports.init = function () {
     context.openBrackets = [];
     context.slurpExtraTitleInformation = false;
 
-    exports.resetContext();
+    resetContext();
 
     // Flag to not lowercase acronyms if followed by major punctuation.
     context.acronym = false;
@@ -92,4 +90,4 @@ exports.init = function () {
     // people aren't going to be mixing grammars in titles.
     context.numberSplitChar = null;
     context.numberSplitExpect = false;
-};
+}

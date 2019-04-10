@@ -5,6 +5,7 @@ with 'MusicBrainz::Server::Report::RecordingReport',
      'MusicBrainz::Server::Report::FilterForEditor::RecordingID';
 
 sub table { 'isrc_with_many_recordings' }
+sub component_name { 'IsrcsWithManyRecordings' }
 
 sub query {
     "

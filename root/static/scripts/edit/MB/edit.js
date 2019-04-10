@@ -3,17 +3,17 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-const ko = require('knockout');
-const _ = require('lodash');
+import ko from 'knockout';
+import _ from 'lodash';
 
-const {hex_sha1} = require('../../../lib/sha1/sha1');
-const {VIDEO_ATTRIBUTE_GID} = require('../../common/constants');
+import {hex_sha1} from '../../../lib/sha1/sha1';
+import {VIDEO_ATTRIBUTE_GID} from '../../common/constants';
 import * as TYPES from '../../common/constants/editTypes';
-const MB = require('../../common/MB');
-const typeInfo = require('../../common/typeInfo');
-const clean = require('../../common/utility/clean');
-const nonEmpty = require('../../common/utility/nonEmpty');
-const request = require('../../common/utility/request');
+import linkedEntities from '../../common/linkedEntities';
+import MB from '../../common/MB';
+import clean from '../../common/utility/clean';
+import nonEmpty from '../../common/utility/nonEmpty';
+import request from '../../common/utility/request';
 
 (function (edit) {
 
@@ -141,7 +141,7 @@ const request = require('../../common/utility/request');
                 .value();
 
             if (_.isNumber(data.linkTypeID)) {
-                if (typeInfo.link_type.byId[data.linkTypeID].orderable_direction !== 0) {
+                if (linkedEntities.link_type[data.linkTypeID].orderable_direction !== 0) {
                     data.linkOrder = number(relationship.linkOrder) || 0;
                 }
             }
@@ -277,7 +277,7 @@ const request = require('../../common/utility/request');
 
     function editConstructor(type, callback) {
         return function (args, ...rest) {
-            args = _.extend({ edit_type: type }, args);
+            args = {...args, edit_type: type};
 
             callback && callback.apply(null, [args].concat(rest));
             args.hash = editHash(args);
@@ -442,4 +442,4 @@ const request = require('../../common/utility/request');
 
 }(MB.edit = {}));
 
-module.exports = MB.edit;
+export default MB.edit;

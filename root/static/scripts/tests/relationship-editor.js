@@ -3,28 +3,29 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-require('./typeInfo');
+import './typeInfo';
 
-const $ = require('jquery');
-const ko = require('knockout');
-const _ = require('lodash');
-const test = require('tape');
+import $ from 'jquery';
+import ko from 'knockout';
+import _ from 'lodash';
+import test from 'tape';
 
-const typeInfo = require('../common/typeInfo');
-const {LinkAttribute, Relationship} = require('../relationship-editor/common/fields');
-const {
-        AddDialog,
-        BatchCreateWorksDialog,
-        BatchRelationshipDialog,
-        EditDialog,
-    } = require('../relationship-editor/common/dialog');
-const {
-        GenericEntityViewModel,
-        prepareSubmission,
-    } = require('../relationship-editor/generic');
-const {ReleaseViewModel} = require('../relationship-editor/release');
+import linkedEntities from '../common/linkedEntities';
+import MB from '../common/MB';
+import fields from '../relationship-editor/common/fields';
+import {
+  AddDialog,
+  BatchCreateWorksDialog,
+  BatchRelationshipDialog,
+  EditDialog,
+} from '../relationship-editor/common/dialog';
+import {
+  GenericEntityViewModel,
+  prepareSubmission,
+} from '../relationship-editor/generic';
+import {ReleaseViewModel} from '../relationship-editor/release';
 
-class FakeRelationship extends Relationship {}
+class FakeRelationship extends fields.Relationship {}
 
 FakeRelationship.prototype.loadWorkRelationships = _.noop;
 
@@ -108,7 +109,7 @@ var testRelease = {
     }
 };
 
-function id2attr(id) { return { type: typeInfo.link_attribute_type[id] } }
+function id2attr(id) { return { type: linkedEntities.link_attribute_type[id] } }
 
 function ids2attrs(ids) { return _.map(ids, id2attr) }
 
@@ -216,16 +217,19 @@ relationshipEditorTest("link phrase interpolation", function (t) {
         relationship.linkTypeID(test.linkTypeID);
         relationship.setAttributes(test.attributes);
 
-        var result = relationship.phraseAndExtraAttributes();
+        var result = relationship.phraseAndExtraAttributes(
+            entities.indexOf(source) === 0 ? 'link_phrase' : 'reverse_link_phrase',
+            false,
+        );
 
         t.equal(
-            result[entities.indexOf(source)],
+            result[0],
             test.expected,
             [test.linkTypeID, JSON.stringify(_(test.attributes).map('type.id').value())].join(", ")
         );
 
         if (test.expectedExtra) {
-            t.equal(result[2], test.expectedExtra);
+            t.equal(result[1], test.expectedExtra);
         }
     });
 
@@ -359,7 +363,7 @@ relationshipEditorTest("dialog backwardness", function (t) {
     ];
 
     _.each(tests, function (test) {
-        var options = _.assign({ viewModel: vm }, test.input);
+        var options = {...test.input, viewModel: vm};
         var dialog = new AddDialog(options);
 
         t.equal(dialog.backward(), test.expected.backward)
@@ -925,7 +929,7 @@ relationshipEditorTest("invalid attributes can’t be set on a relationship (MBS
     t.equal(relationship.attributes().length, 1);
 
     relationship.attributes.push(
-        new LinkAttribute(
+        new fields.LinkAttribute(
             { type: { gid: "ed11fcb1-5a18-4e1d-b12c-633ed19c8ee1" } }
         )
     );
@@ -945,7 +949,7 @@ relationshipEditorTest('relationships with different link orders are not duplica
     var relationship = vm.source.relationships()[0];
 
     var newRelationship = vm.getRelationship(
-        _.assign(_.clone(sourceData.relationships[0]), { linkOrder: 1 }),
+        {...sourceData.relationships[0], linkOrder: 1},
         vm.source
     );
 

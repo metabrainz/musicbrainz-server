@@ -3,8 +3,6 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-const {l} = require('../i18n');
-
 function formatBarcode(code) {
   if (code == null) {
     return '';
@@ -15,4 +13,4 @@ function formatBarcode(code) {
   return code;
 }
 
-module.exports = formatBarcode;
+export default formatBarcode;

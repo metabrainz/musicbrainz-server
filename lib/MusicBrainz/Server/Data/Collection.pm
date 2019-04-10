@@ -130,12 +130,6 @@ sub delete_entities {
               WHERE $type IN (".placeholders(@ids).")", @ids);
 }
 
-sub get_first_collection {
-    my ($self, $editor_id) = @_;
-    my $query = 'SELECT id FROM ' . $self->_table . ' WHERE editor = ? ORDER BY id ASC LIMIT 1';
-    return $self->sql->select_single_value($query, $editor_id);
-}
-
 sub find_by {
     my ($self, $opts, $limit, $offset) = @_;
 

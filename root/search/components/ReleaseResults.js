@@ -10,10 +10,6 @@
 import * as React from 'react';
 
 import {CatalystContext, withCatalystContext} from '../../context';
-import {l} from '../../static/scripts/common/i18n';
-import {l_languages} from '../../static/scripts/common/i18n/languages';
-import {l_scripts} from '../../static/scripts/common/i18n/scripts';
-import {lp_attributes} from '../../static/scripts/common/i18n/attributes';
 import ArtistCreditLink
   from '../../static/scripts/common/components/ArtistCreditLink';
 import EntityLink from '../../static/scripts/common/components/EntityLink';
@@ -24,7 +20,7 @@ import ReleaseCatnoList from '../../components/ReleaseCatnoList';
 import ReleaseCountries from '../../components/ReleaseCountries';
 import ReleaseDates from '../../components/ReleaseDates';
 import ReleaseLabelList from '../../components/ReleaseLabelList';
-import type {InlineResultsPropsT, ResultsPropsT} from '../types';
+import type {InlineResultsPropsT, ResultsPropsWithContextT} from '../types';
 
 import PaginatedSearchResults from './PaginatedSearchResults';
 import ResultsLayout from './ResultsLayout';
@@ -41,8 +37,12 @@ function buildResult(result, index) {
       <td>
         <ArtistCreditLink artistCredit={release.artistCredit} />
       </td>
-      <td>{release.combined_format_name}</td>
-      <td>{release.combined_track_count}</td>
+      <td>
+        {release.combined_format_name || l('[missing media]')}
+      </td>
+      <td>
+        {release.combined_track_count || l('-')}
+      </td>
       <td>
         <ReleaseDates events={release.events} />
       </td>
@@ -55,7 +55,7 @@ function buildResult(result, index) {
       <td>
         <ReleaseCatnoList labels={release.labels} />
       </td>
-      <td>{formatBarcode(release.barcode)}</td>
+      <td className="barcode-cell">{formatBarcode(release.barcode)}</td>
       <td>
         {release.language ? (
           <abbr title={l_languages(release.language.name)}>
@@ -70,10 +70,16 @@ function buildResult(result, index) {
         ) : null}
       </td>
       <td>
-        {release.releaseGroup && release.releaseGroup.typeName ? lp_attributes(release.releaseGroup.typeName, 'release_group_primary_type') : null}
+        {release.releaseGroup && release.releaseGroup.typeName
+          ? lp_attributes(
+            release.releaseGroup.typeName,
+            'release_group_primary_type',
+          )
+          : null}
       </td>
       <td>
-        {release.status ? lp_attributes(release.status.name) : null}
+        {release.status
+          ? lp_attributes(release.status.name, 'release_status') : null}
       </td>
       <CatalystContext.Consumer>
         {($c: CatalystContextT) => (
@@ -108,7 +114,7 @@ export const ReleaseResultsInline = ({
         <th>{l('Language')}</th>
         <th>{l('Type')}</th>
         <th>{l('Status')}</th>
-        {$c.session && $c.session.tport ? <th>{l('Tagger')}</th> : null}
+        {$c && $c.session && $c.session.tport ? <th>{l('Tagger')}</th> : null}
       </>
     }
     pager={pager}
@@ -124,7 +130,7 @@ const ReleaseResults = ({
   pager,
   query,
   results,
-}: ResultsPropsT<ReleaseT>) => (
+}: ResultsPropsWithContextT<ReleaseT>) => (
   <ResultsLayout form={form} lastUpdated={lastUpdated}>
     <ReleaseResultsInline
       $c={$c}
@@ -134,7 +140,7 @@ const ReleaseResults = ({
     />
     {$c.user && !$c.user.is_editing_disabled ? (
       <p>
-        {l('Alternatively, you may {uri|add a new release}.', {
+        {exp.l('Alternatively, you may {uri|add a new release}.', {
           uri: '/release/add',
         })}
       </p>

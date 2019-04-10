@@ -10,12 +10,11 @@
 import React from 'react';
 
 import NotFound from '../components/NotFound';
-import {l} from '../static/scripts/common/i18n';
 
 const EditNotFound = () => (
   <NotFound title={l('Edit Not Found')}>
     <p>
-      {l('Sorry, we could not find an edit with that edit ID. You may wish to try and perform an {search_url|edit search} instead.',
+      {exp.l('Sorry, we could not find an edit with that edit ID. You may wish to try and perform an {search_url|edit search} instead.',
         {search_url: '/search/edits'})}
     </p>
   </NotFound>

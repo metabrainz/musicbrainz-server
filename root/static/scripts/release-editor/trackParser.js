@@ -3,26 +3,27 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-const $ = require('jquery');
-const ko = require('knockout');
-const _ = require('lodash');
+import $ from 'jquery';
+import ko from 'knockout';
+import _ from 'lodash';
 
-const {MIN_NAME_SIMILARITY} = require('../common/constants');
-const {
-        artistCreditFromArray,
-        hasVariousArtists,
-        isCompleteArtistCredit,
-        reduceArtistCredit,
-    } = require('../common/immutable-entities');
-const clean = require('../common/utility/clean');
-const isBlank = require('../common/utility/isBlank');
-const getCookie = require('../common/utility/getCookie');
-const setCookie = require('../common/utility/setCookie');
-const {fromFullwidthLatin} = require('../edit/utility/fullwidthLatin');
-const getSimilarity = require('../edit/utility/similarity');
-const fields = require('./fields');
-const utils = require('./utils');
-const releaseEditor = require('./viewModel');
+import {MIN_NAME_SIMILARITY} from '../common/constants';
+import {
+  artistCreditFromArray,
+  hasVariousArtists,
+  isCompleteArtistCredit,
+  reduceArtistCredit,
+} from '../common/immutable-entities';
+import clean from '../common/utility/clean';
+import isBlank from '../common/utility/isBlank';
+import getCookie from '../common/utility/getCookie';
+import setCookie from '../common/utility/setCookie';
+import {fromFullwidthLatin} from '../edit/utility/fullwidthLatin';
+import getSimilarity from '../edit/utility/similarity';
+
+import fields from './fields';
+import utils from './utils';
+import releaseEditor from './viewModel';
 
 releaseEditor.trackParser = {
 
@@ -421,4 +422,4 @@ function optionCookie(name, defaultValue) {
     return observable;
 }
 
-module.exports = releaseEditor.trackParser;
+export default releaseEditor.trackParser;

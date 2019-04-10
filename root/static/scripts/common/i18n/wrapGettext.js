@@ -1,86 +1,83 @@
+// @flow
 // Copyright (C) 2015 MetaBrainz Foundation
 //
 // This file is part of MusicBrainz, the open internet music database,
 // and is licensed under the GPL version 2, or (at your option) any
 // later version: http://www.gnu.org/licenses/gpl-2.0.txt
 
-const isNodeJS = require('detect-node');
-const sliced = require('sliced');
+import isNodeJS from 'detect-node';
 
-const cleanMsgid = require('./cleanMsgid').default;
-const expand2 = require('./expand2').default;
-const NopArgs = require('./NopArgs');
+import cleanMsgid from './cleanMsgid';
 
-let gettext;
+import {type default as Jed} from 'jed';
+
+let gettext: Jed;
 if (isNodeJS) {
-  // Avoid bundling this module in the browser by using a dynamic require().
-  const gettextPath = '../../../../server/gettext';
-  gettext = require(gettextPath);
+  gettext = require('../../../../server/gettext');
 } else {
   const Jed = require('jed');
-  const jedData = require('./jedData');
+  const {jedData} = require('../../jed-data');
   // jedData contains all domains used by the client.
   gettext = new Jed(jedData[jedData.locale]);
 }
 
-const canLoadDomain = typeof gettext.loadDomain === 'function';
+const canLoadDomain = typeof (gettext: any).loadDomain === 'function';
 
 /*
+ * On the usage of cleanMsgid:
+ *
  * /script/xgettext.js will strip newlines and collapse adjacent
  * whitespace when extracting strings into .pot files. Yet the string
  * in the source code obviously remains unchanged. So to make sure we
  * look up the correct key, we have to apply the same whitespace
- * transformation here. The key/msgid's argument position depends on
- * which method we're wrapping.
+ * transformation here.
  */
-const MSGID_ARG_POSITIONS = new Map([
-  ['gettext', 0],
-  ['dgettext', 1],
-  ['dcgettext', 1],
-  ['ngettext', 0],
-  ['dngettext', 1],
-  ['dcngettext', 1],
-  ['pgettext', 1],
-  ['dpgettext', 2],
-  ['npgettext', 1],
-  ['dnpgettext', 2],
-  ['dcnpgettext', 2],
-]);
 
-function wrapGettext(method, domain) {
-  return function () {
-    if (canLoadDomain && !gettext.options.locale_data[domain]) {
-      gettext.loadDomain(domain);
+type Domain =
+  | 'attributes'
+  | 'countries'
+  | 'instrument_descriptions'
+  | 'instruments'
+  | 'languages'
+  | 'mb_server'
+  | 'relationships'
+  | 'scripts'
+  | 'statistics'
+  ;
+
+function tryLoadDomain(domain) {
+  if (!gettext.options.locale_data[domain]) {
+    (gettext: any).loadDomain(domain);
+  }
+}
+
+export function dgettext(domain: Domain) {
+  return function (key: string) {
+    if (canLoadDomain) {
+      tryLoadDomain(domain);
     }
-
-    let args = sliced(arguments);
-    const firstArg = args[0];
-
-    if (typeof firstArg === 'object' && firstArg instanceof NopArgs) {
-      args = firstArg.args.concat(args.slice(1));
-    }
-
-    let expandArgs = args[args.length - 1];
-    if (expandArgs && typeof expandArgs === 'object') {
-      args.pop();
-    } else {
-      expandArgs = null;
-    }
-
-    if (method === 'dpgettext') {
-      // Swap order of context, msgid.
-      [args[0], args[1]] = [args[1], args[0]];
-    }
-
-    args.unshift(domain);
-
-    // See comment for MSGID_ARG_POSITIONS above.
-    const msgidArg = MSGID_ARG_POSITIONS.get(method);
-    args[msgidArg] = cleanMsgid(args[msgidArg]);
-
-    const string = gettext[method].apply(gettext, args);
-    return expand2(string, expandArgs);
+    key = cleanMsgid(key);
+    return  gettext.dgettext(domain, key);
   };
 }
 
-module.exports = wrapGettext;
+export function dngettext(domain: Domain) {
+  return function (skey: string, pkey: string, val: number) {
+    if (canLoadDomain) {
+      tryLoadDomain(domain);
+    }
+    skey = cleanMsgid(skey);
+    pkey = cleanMsgid(pkey);
+    return gettext.dngettext(domain, skey, pkey, val);
+  };
+}
+
+export function dpgettext(domain: Domain) {
+  return function (key: string, context: string) {
+    if (canLoadDomain) {
+      tryLoadDomain(domain);
+    }
+    key = cleanMsgid(key);
+    return gettext.dpgettext(domain, context, key);
+  };
+}

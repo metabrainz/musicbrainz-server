@@ -9,7 +9,6 @@
 
 import React from 'react';
 
-import {l} from '../static/scripts/common/i18n';
 import StatusPage from '../components/StatusPage';
 
 type Props = {|
@@ -21,7 +20,8 @@ const EmailVerificationStatus = ({message}: Props) => (
     <p>
       {message
         ? message
-        : l('Thank you, your email address has now been verified! If you still can\'t edit, please try to log out and log in again.')
+        : l(`Thank you, your email address has now been verified! If you still
+             can't edit, please try to log out and log in again.`)
       }
     </p>
   </StatusPage>

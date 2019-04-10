@@ -9,10 +9,8 @@
 
 import React from 'react';
 
-import {l} from '../static/scripts/common/i18n';
-import {l_attributes} from '../static/scripts/common/i18n/attributes';
 import commaOnlyList from '../static/scripts/common/i18n/commaOnlyList';
-import bracketed from '../static/scripts/common/utility/bracketed';
+import {bracketedText} from '../static/scripts/common/utility/bracketed';
 
 const lType = (x, index) => l_attributes(x);
 
@@ -22,7 +20,7 @@ function artworkHover(artwork: ArtworkT) {
     result = commaOnlyList(artwork.types.map(lType));
   }
   if (artwork.comment) {
-    result += ' ' + bracketed(artwork.comment);
+    result += ' ' + bracketedText(artwork.comment);
   }
   return result;
 }

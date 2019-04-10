@@ -9,7 +9,6 @@
 
 import * as React from 'react';
 
-import {l} from '../../static/scripts/common/i18n';
 import CDStubLink from '../../static/scripts/common/components/CDStubLink';
 import loopParity from '../../utility/loopParity';
 import type {ResultsPropsT} from '../types';
@@ -33,7 +32,6 @@ function buildResult(result, index) {
 }
 
 const CDStubResults = ({
-  $c,
   form,
   lastUpdated,
   pager,

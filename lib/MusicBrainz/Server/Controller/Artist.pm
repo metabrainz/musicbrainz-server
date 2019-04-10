@@ -57,6 +57,7 @@ use MusicBrainz::Server::Constants qw(
     $EDIT_RELATIONSHIP_DELETE
     $ARTIST_ARTIST_COLLABORATION
 );
+use MusicBrainz::Server::ControllerUtils::JSON qw( serialize_pager );
 use MusicBrainz::Server::Form::Artist;
 use MusicBrainz::Server::Form::Confirm;
 use MusicBrainz::Server::Translation qw( l );
@@ -150,7 +151,7 @@ after 'aliases' => sub
 
     my $artist = $c->stash->{artist};
     my $artist_credits = $c->model('ArtistCredit')->find_by_artist_id($artist->id);
-    $c->stash( artist_credits => $artist_credits );
+    $c->stash->{component_props}{artistCredits} = [map +{ id => $_->id, names => $_->names }, @{$artist_credits}];
 };
 
 =head2 show
@@ -357,7 +358,17 @@ sub events : Chained('load')
     $c->model('Event')->load_areas(@$events);
     $c->model('Event')->rating->load_user_ratings($c->user->id, @$events) if $c->user_exists;
 
-    $c->stash( events => $events );
+    my %props = (
+        artist       => $c->stash->{artist},
+        events       => $events,
+        pager        => serialize_pager($c->stash->{pager}),
+    );
+
+    $c->stash(
+        component_path  => 'artist/ArtistEvents.js',
+        component_props => \%props,
+        current_view    => 'Node',
+    );
 }
 
 =head2 releases
@@ -562,7 +573,14 @@ around $_ => sub {
 
     my $artist = $c->stash->{artist};
     if ($artist->is_special_purpose) {
-        $c->stash( template => 'artist/special_purpose.tt' );
+        my %props = (
+            artist => $artist,
+        );
+        $c->stash(
+            component_path => 'artist/SpecialPurpose.js',
+            component_props => \%props,
+            current_view => 'Node',
+        );
         $c->response->status(HTTP_FORBIDDEN);
         $c->detach;
     }
@@ -602,7 +620,14 @@ sub split : Chained('load') Edit {
     my $artist = $c->stash->{artist};
 
     if (!can_split($artist)) {
-        $c->stash( template => 'artist/cannot_split.tt' );
+        my %props = (
+            artist => $artist,
+        );
+        $c->stash(
+            component_path => 'artist/CannotSplit.js',
+            component_props => \%props,
+            current_view => 'Node',
+        );
         $c->detach;
     }
 

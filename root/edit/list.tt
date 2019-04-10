@@ -56,9 +56,13 @@
 
                     <div class="edit-details">
                         [% IF edit.data.defined %]
-                           [%-INCLUDE "edit/details/${edit.edit_template}.tt" %]
+                          [% IF edit.edit_template_react %]
+                            [%~ React.embed(c, "edit/details/${edit.edit_template_react}.js", {edit => edit}) ~%]
+                          [% ELSE %]
+                            [%-INCLUDE "edit/details/${edit.edit_template}.tt" %]
+                          [% END %]
                         [% ELSE %]
-                           <p>[% l('An error occured while loading this edit') %]</p>
+                           <p>[% l('An error occurred while loading this edit.') %]</p>
                         [% END %]
                     </div>
 
@@ -70,7 +74,7 @@
             [%- END -%]
 
             <input type="hidden" name="url" value="[% c.req.uri %]" />
-            <div class="row no-label" style="text-align: right">
+            <div class="align-right row no-label" >
                 [% form_submit(l('Submit votes &amp; edit notes')) %]
             </div>
         </form>

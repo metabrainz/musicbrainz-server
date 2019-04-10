@@ -3,9 +3,7 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-const {l} = require('../i18n');
-
-function commaList(items) {
+function _commaList(l, items) {
   let count = items.length;
 
   if (count <= 1) {
@@ -30,4 +28,9 @@ function commaList(items) {
   return output;
 }
 
-module.exports = commaList;
+const commaList = (items) => _commaList(exp.l, items);
+const commaListText = (items) => _commaList(texp.l, items);
+
+export default commaList;
+
+export {commaListText};

@@ -7,16 +7,15 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-const React = require('react');
+import React from 'react';
 
-const {withCatalystContext} = require('../context');
-const Layout = require('../layout');
-const ArtistCreditLink = require('../static/scripts/common/components/ArtistCreditLink');
-const CodeLink = require('../static/scripts/common/components/CodeLink');
-const EntityLink = require('../static/scripts/common/components/EntityLink');
-const {l, ln} = require('../static/scripts/common/i18n');
-const {artistCreditFromArray} = require('../static/scripts/common/immutable-entities');
-const formatTrackLength = require('../static/scripts/common/utility/formatTrackLength');
+import {withCatalystContext} from '../context';
+import Layout from '../layout';
+import ArtistCreditLink from '../static/scripts/common/components/ArtistCreditLink';
+import CodeLink from '../static/scripts/common/components/CodeLink';
+import EntityLink from '../static/scripts/common/components/EntityLink';
+import {artistCreditFromArray} from '../static/scripts/common/immutable-entities';
+import formatTrackLength from '../static/scripts/common/utility/formatTrackLength';
 import loopParity from '../utility/loopParity';
 
 type PropsT = {|
@@ -29,13 +28,13 @@ const Index = ({$c, isrcs, recordings}: PropsT) => {
   const userExists = $c.user_exists;
   const isrc = isrcs[0];
   return (
-    <Layout fullWidth title={l('ISRC “{isrc}”', {isrc: isrc.isrc})}>
+    <Layout fullWidth title={texp.l('ISRC “{isrc}”', {isrc: isrc.isrc})}>
       <h1>
-        {l('ISRC “{isrc}”',
+        {exp.l('ISRC “{isrc}”',
           {isrc: <CodeLink code={isrc} key="isrc" />})}
       </h1>
       <h2>
-        {ln(
+        {texp.ln(
           'Associated with {num} recording',
           'Associated with {num} recordings',
           recordings.length,
@@ -96,4 +95,4 @@ const Index = ({$c, isrcs, recordings}: PropsT) => {
   );
 };
 
-module.exports = withCatalystContext(Index);
+export default withCatalystContext(Index);

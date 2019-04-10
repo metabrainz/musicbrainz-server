@@ -1,4 +1,3 @@
-[% script_manifest('guess-case.js') %]
 [% script_manifest('edit.js') %]
 
 <form action="[% c.req.uri %]" method="post" class="edit-instrument">
@@ -8,7 +7,7 @@
     <fieldset>
       <legend>[%- l('Instrument Details') -%]</legend>
       [%- form_row_name_with_guesscase(r) -%]
-      [%- form_row_text_long(r, 'comment', l('Disambiguation:')) -%]
+      [%- form_row_text_long(r, 'comment', add_colon(l('Disambiguation'))) -%]
       [%- form_row_select(r, 'type_id', l('Type:')) -%]
       [% WRAPPER form_row %]
           [%- r.label('description', l('Description:')) -%]

@@ -7,14 +7,8 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import wrapGettext from './wrapGettext';
+import * as wrapGettext from './wrapGettext';
 
-const l_countries = wrapGettext('dgettext', 'countries');
-const ln_countries = wrapGettext('dngettext', 'countries');
-const lp_countries = wrapGettext('dpgettext', 'countries');
-
-export {
-  l_countries,
-  ln_countries,
-  lp_countries,
-};
+export const l_countries = wrapGettext.dgettext('countries');
+export const ln_countries = wrapGettext.dngettext('countries');
+export const lp_countries = wrapGettext.dpgettext('countries');

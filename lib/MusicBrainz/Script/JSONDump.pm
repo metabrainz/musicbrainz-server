@@ -69,6 +69,8 @@ has output_dir => (
     documentation => 'location where dumps are outputted (default: .)',
 );
 
+with 'MusicBrainz::Script::Role::TestCacheNamespace';
+
 our $TMP_EXPORT_DIR = tempdir(
     'json-dump-XXXXXX',
     DIR => tmpdir(),

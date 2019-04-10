@@ -7,20 +7,21 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-const React = require('react');
-const {l} = require('../static/scripts/common/i18n');
-const EntityLink = require('../static/scripts/common/components/EntityLink');
-const EntityTabs = require('./EntityTabs');
-const SubHeader = require('./SubHeader');
+import * as React from 'react';
+
+import EntityLink from '../static/scripts/common/components/EntityLink';
+
+import EntityTabs from './EntityTabs';
+import SubHeader from './SubHeader';
 
 type Props = {|
   +editTab?: React.Node,
   +entity: CoreEntityT,
   +headerClass: string,
-  +heading?: string | React.Node,
+  +heading?: React.Node,
   +page: string,
   +preHeader?: React.Node,
-  +subHeading: string,
+  +subHeading: React.Node,
 |};
 
 const EntityHeader = ({
@@ -29,13 +30,12 @@ const EntityHeader = ({
   headerClass,
   heading,
   page,
-  // $FlowFixMe
-  preHeader = null,
+  preHeader,
   subHeading,
 }: Props) => (
   <>
     <div className={headerClass}>
-      {preHeader}
+      {preHeader || null}
       <h1>
         {heading || <EntityLink entity={entity} />}
       </h1>
@@ -49,4 +49,4 @@ const EntityHeader = ({
   </>
 );
 
-module.exports = EntityHeader;
+export default EntityHeader;

@@ -1,29 +1,41 @@
 import test from 'tape';
 import React from 'react';
-import expand2, {expand2html} from '../../common/i18n/expand2';
+import {VarArgs} from '../../common/i18n/expand2';
+import expand2html from '../../common/i18n/expand2html';
+import expand2text from '../../common/i18n/expand2text';
 
 test('expand2', function (t) {
-  t.plan(47);
+  t.plan(64);
 
-  let error;
+  let error = '';
   const consoleError = console.error;
   console.error = function () {
     error = arguments[0];
   };
 
   function expandText(input, args, output) {
-    t.equal(expand2(input, args), output);
+    error = '';
+    t.equal(expand2text(input, args), output);
   }
 
   function expandHtml(input, args, output) {
+    error = '';
     t.equal(expand2html(input, args), output);
   }
 
+  expandText('', null, '');
+  expandText(null, null, '');
+  expandText(undefined, null, '');
   expandText('Some plain text', null, 'Some plain text');
-  expandText('Some &quot;plain&quot; text', null, 'Some "plain" text');
+  expandText('Some &quot;plain&quot; text', null, 'Some &quot;plain&quot; text');
+  expandHtml('Some &quot;plain&quot; text', null, 'Some &quot;plain&quot; text');
   expandText('An {apple_fruit}', null, 'An {apple_fruit}');
   expandText('An {apple_fruit}', {apple_fruit: 'apple'}, 'An apple');
   expandText('A {number}', {number: 1}, 'A 1');
+  expandHtml('{null} value', {null: null}, ' value');
+  t.equal(error, '');
+  expandHtml('{undefined} value', {undefined: undefined}, ' value');
+  t.equal(error, '');
 
   expandHtml(
     'An {apple_fruit}',
@@ -31,7 +43,20 @@ test('expand2', function (t) {
     'An <b>apple</b>',
   );
 
+  // Shouldn't interpolate React elements with expand2text.
   expandText(
+    'An {apple_fruit}',
+    {apple_fruit: React.createElement('b', null, 'apple')},
+    'An ',
+  );
+
+  expandText(
+    'An &lbrace;apple_fruit&rbrace;',
+    {apple_fruit: 'apple'},
+    'An &lbrace;apple_fruit&rbrace;',
+  );
+
+  expandHtml(
     'An &lbrace;apple_fruit&rbrace;',
     {apple_fruit: 'apple'},
     'An {apple_fruit}',
@@ -43,11 +68,27 @@ test('expand2', function (t) {
     'An <a href="http://www.apple.com">Apple</a>',
   );
 
+  // Shouldn't perform link interpolation with expand2text.
+  expandText(
+    'An {apple_fruit|Apple}',
+    {apple_fruit: 'http://www.apple.com'},
+    'An {apple_fruit|Apple}',
+  );
+  t.ok(/unexpected token/.test(error));
+
   expandHtml(
     'An <a href="/apple">Apple</a>',
     null,
     'An <a href="/apple">Apple</a>',
   );
+
+  // HTML should be parsed as plain text with expand2text.
+  expandText(
+    'An <a href="/apple">Apple</a>',
+    null,
+    'An <a href="/apple">Apple</a>',
+  );
+  t.equal(error, '');
 
   expandHtml(
     'A {apple_fruit|darn {apple}}',
@@ -108,8 +149,10 @@ test('expand2', function (t) {
   expandText('{x:%|}', {x: ''}, '');
   expandText('{x:%|}', {x: '%'}, '%');
   expandText('{x:%|}', {x: '&percnt;'}, '&percnt;');
+  expandHtml('{x:%|}', {x: <p>hi</p>}, '<p>hi</p>');
   expandText('{x:a%c|}', {x: 'b'}, 'abc');
-  expandText('{x:a&percnt;c|}', {x: 'b'}, 'a%c');
+  expandText('{x:a&percnt;c|}', {x: 'b'}, 'a&percnt;c');
+  expandHtml('{x:a&percnt;c|}', {x: 'b'}, 'a%c');
 
   expandHtml('<a href="{x}"></a>', {x: '/&'}, '<a href="/&amp;"></a>');
   expandHtml('<a href="{x:%|}"></a>', {x: '/%'}, '<a href="/%"></a>');
@@ -164,6 +207,19 @@ test('expand2', function (t) {
     '{&lt;script&gt;alert(&quot;HAx0r&quot;)&lt;/script&gt;}',
   );
   t.ok(/unexpected token/.test(error));
+
+  // Test nested expand calls
+  const CustomArgs = class extends VarArgs {
+    get(name) {
+      const value = super.get(name);
+      return expand2text('some {value}', {value});
+    }
+  };
+  expandText(
+    '{value}, huh?',
+    new CustomArgs({value: 'nesting'}),
+    'some nesting, huh?',
+  );
 
   console.error = consoleError;
 });

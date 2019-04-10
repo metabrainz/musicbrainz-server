@@ -9,11 +9,12 @@
 
 import React from 'react';
 
+import {unwrapNl} from '../static/scripts/common/i18n';
 import getSelectValue from '../utility/getSelectValue';
 
 const buildOption = (option: SelectOptionT, index: number) => (
   <option key={index} value={option.value}>
-    {option.label.toLocaleString()}
+    {unwrapNl(option.label)}
   </option>
 );
 
@@ -26,10 +27,10 @@ const buildOptGroup = (optgroup, index) => (
 type Props = {|
   +allowEmpty?: boolean,
   +disabled?: boolean,
-  +field: FieldT<number | string>,
+  +field: ReadOnlyFieldT<?StrOrNum>,
   +onChange?: (event: SyntheticEvent<HTMLSelectElement>) => void,
   +options: MaybeGroupedOptionsT,
-  +required?: boolean
+  +required?: boolean,
 |};
 
 const SelectField = ({

@@ -7,11 +7,28 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import {l} from './i18n';
+import ENTITIES from '../../../../entities';
 
-export const ENTITIES = require('../../../../entities');
+export {ENTITIES};
+
+export const ENTITY_NAMES = {
+  area: N_l('Area'),
+  artist: N_l('Artist'),
+  event: N_l('Event'),
+  instrument: N_l('Instrument'),
+  label: N_l('Label'),
+  place: N_l('Place'),
+  recording: N_l('Recording'),
+  release: N_l('Release'),
+  release_group: N_l('Release group'),
+  series: N_lp('Series', 'singular'),
+  url: N_l('URL'),
+  work: N_l('Work'),
+};
 
 export const GENRE_TAGS: Set<string> = new Set(ENTITIES.tag.genres);
+
+export const INSTRUMENT_ROOT_ID = 14;
 
 export const AREA_TYPE_COUNTRY = 1;
 
@@ -33,10 +50,12 @@ export const FAVICON_CLASSES: {[string]: string} = {
   'beatport.com': 'beatport',
   'bibliotekapiosenki.pl': 'piosenki',
   'bigcartel.com': 'bigcartel',
+  'bookbrainz.org': 'bookbrainz',
   'cancioneros.si': 'cancioneros',
   'castalbums.org': 'castalbums',
   'catalogue.bnf.fr': 'bnfcatalogue',
   'cbfiddle.com/rx/': 'cbfiddlerx',
+  'ccmixter.org': 'ccmixter',
   'cdbaby.com': 'cdbaby',
   'changetip.com': 'changetip',
   'ci.nii.ac.jp': 'cinii',
@@ -204,9 +223,9 @@ export const ENTITIES_WITH_RELATIONSHIP_CREDITS: {[string]: boolean} = {
   place: true,
 };
 
-export const QUALITY_NAMES: Map<QualityT, string> = new Map([
-  [0, l('Low')],
-  [-1, l('Normal')],
-  [1, l('Normal')],
-  [2, l('High')],
+export const QUALITY_NAMES: Map<QualityT, () => string> = new Map([
+  [0, N_l('Low')],
+  [-1, N_l('Normal')],
+  [1, N_l('Normal')],
+  [2, N_l('High')],
 ]);

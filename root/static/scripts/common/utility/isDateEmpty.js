@@ -8,8 +8,6 @@
  */
 
 export default function isDateEmpty(date: ?PartialDateT) {
-  /* eslint-disable eqeqeq, no-eq-null */
   return (date == null) ||
     (date.year == null && date.month == null && date.day == null);
-  /* eslint-enable eqeqeq, no-eq-null */
 }

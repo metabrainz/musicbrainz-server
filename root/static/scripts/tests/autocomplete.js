@@ -3,12 +3,12 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-const $ = require('jquery');
-const ko = require('knockout');
-const test = require('tape');
+import $ from 'jquery';
+import ko from 'knockout';
+import test from 'tape';
 
-require('../../lib/jquery-ui');
-require('../common/MB/Control/Autocomplete');
+import '../../lib/jquery-ui';
+import '../common/MB/Control/Autocomplete';
 
 function autocompleteTest(name, callback) {
     test(name, function (t) {

@@ -118,14 +118,6 @@
     [% END %]
 [%- END -%]
 
-[%- MACRO form_row_textarea(r, field_name, label) BLOCK -%]
-    [% WRAPPER form_row %]
-      [% r.label(field_name, label || r.form.field(field_name).label) %]
-      [% r.textarea(field_name) %]
-      [% field_errors(r.form, field_name) %]
-    [% END %]
-[%- END -%]
-
 [%- MACRO form_row_password(r, field_name, label) BLOCK -%]
     [% WRAPPER form_row %]
       [% r.label(field_name, label || r.form.field(field_name).label) %]
@@ -186,7 +178,8 @@
     [% END %]
 [%- END -%]
 
-[%- MACRO form_row_date(r, field_name, label) BLOCK -%]
+[%- MACRO form_row_date(r, field_name, label) BLOCK # Converted to React at root/components/FormRowPartialDate.js
+-%]
     [% WRAPPER form_row %]
       [% r.label(field_name, label || r.form.field(field_name).label, fake => 1) %]
       [% r.date(field_name) %]
@@ -243,7 +236,7 @@
   <fieldset class="guesscase">
     <legend>[% lp('Guess case', 'header') %]</legend>
     [% IF show_icon %]
-      <img src="[% c.model('FileCache').path_to('/images/icons/guesscase.32x32.png') %]" style="float: left; margin: 1em;" alt="" />
+      [% React.embed(c, 'static/scripts/edit/components/GuessCaseIcon') %]
     [% END %]
     <div style="float: right; margin: 10px;" class="buttons">
       <button id="guess-case-button" type="button" data-bind="click: guessCase">[% lp('Guess case', 'button/menu') %]</button>

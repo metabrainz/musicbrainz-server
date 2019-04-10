@@ -10,14 +10,12 @@
 import * as React from 'react';
 
 import {withCatalystContext} from '../../context';
-import {l} from '../../static/scripts/common/i18n';
-import {lp_attributes} from '../../static/scripts/common/i18n/attributes';
 import EntityLink from '../../static/scripts/common/components/EntityLink';
 import formatDate from '../../static/scripts/common/utility/formatDate';
 import formatEndDate from '../../static/scripts/common/utility/formatEndDate';
 import formatLabelCode from '../../utility/formatLabelCode';
 import loopParity from '../../utility/loopParity';
-import type {ResultsPropsT} from '../types';
+import type {ResultsPropsWithContextT} from '../types';
 
 import PaginatedSearchResults from './PaginatedSearchResults';
 import ResultsLayout from './ResultsLayout';
@@ -53,7 +51,7 @@ const LabelResults = ({
   pager,
   query,
   results,
-}: ResultsPropsT<LabelT>) => (
+}: ResultsPropsWithContextT<LabelT>) => (
   <ResultsLayout form={form} lastUpdated={lastUpdated}>
     <PaginatedSearchResults
       buildResult={buildResult}
@@ -73,7 +71,7 @@ const LabelResults = ({
     />
     {$c.user && !$c.user.is_editing_disabled ? (
       <p>
-        {l('Alternatively, you may {uri|add a new label}.', {
+        {exp.l('Alternatively, you may {uri|add a new label}.', {
           uri: '/label/create?edit-label.name=' + encodeURIComponent(query),
         })}
       </p>

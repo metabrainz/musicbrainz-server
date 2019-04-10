@@ -6,6 +6,6 @@
             <td>[% simple_link(url.href_url, url.pretty_name) %]</td>
         </tr>
     </table>
-    [%- INCLUDE "components/relationships.tt" source=url -%]
+    [% React.embed(c, 'components/Relationships', {source => url}) %]
 [%- END -%]
 

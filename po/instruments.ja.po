@@ -8,11 +8,12 @@
 # Osamu Takahashi, 2014
 # Shunsuke Shimizu <email address hidden>, 2016
 # th1rtyf0ur, 2013
+# wa2c <email address hidden>, 2019
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2019-01-09 17:37+0000\n"
-"Last-Translator: Shunsuke Shimizu <email address hidden>\n"
+"PO-Revision-Date: 2019-03-19 15:29+0000\n"
+"Last-Translator: wa2c <email address hidden>\n"
 "Language-Team: Japanese (http://www.transifex.com/musicbrainz/musicbrainz/language/ja/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -26,12 +27,12 @@ msgstr "12弦ギター"
 
 #: DB:instrument/name:516
 msgid "17-string bass koto"
-msgstr ""
+msgstr "十七弦箏"
 
 #: DB:instrument/name:839
 msgctxt "historical hybrid between English and German style concertinas"
 msgid "Anglo concertina"
-msgstr ""
+msgstr "アングロ コンサー ティーナ"
 
 #: DB:instrument/name:66
 msgid "Appalachian dulcimer"
@@ -49,12 +50,12 @@ msgstr "バタドラム"
 #: DB:instrument/name:852
 msgctxt "long metal bar with strings"
 msgid "Blaster Beam"
-msgstr ""
+msgstr "ブラスタービーム"
 
 #: DB:instrument/name:794
 msgctxt "an electric piano with reeds"
 msgid "Cembalet"
-msgstr ""
+msgstr "チェンバレット"
 
 #: DB:instrument/name:183
 msgid "Chapman stick"
@@ -62,7 +63,7 @@ msgstr "チャップマン・スティック"
 
 #: DB:instrument/name:175
 msgid "Clavinet"
-msgstr ""
+msgstr "クラビネット"
 
 #: DB:instrument/name:482
 msgid "Cretan lyra"
@@ -70,7 +71,7 @@ msgstr "クレタン・リラ"
 
 #: DB:instrument/name:736
 msgid "Cristal Baschet"
-msgstr ""
+msgstr "クリスタルバシェ"
 
 #: DB:instrument/name:118
 msgid "Denis d'or"
@@ -91,12 +92,12 @@ msgstr "ＥＷＩ"
 #: DB:instrument/name:837
 msgctxt "unisonoric concertina"
 msgid "English concertina"
-msgstr ""
+msgstr "イングリッシュ・コンサーティーナ"
 
 #: DB:instrument/name:844
 msgctxt "English \"improved\" flageolet"
 msgid "English flageolet"
-msgstr ""
+msgstr "イングリッシュ・フラジオレット"
 
 #: DB:instrument/name:7
 msgctxt "Transposing oboe"
@@ -110,7 +111,7 @@ msgstr "フレンチホルン"
 #: DB:instrument/name:838
 msgctxt "bisonoric concertina"
 msgid "German concertina"
-msgstr ""
+msgstr "ジャーマン・コンサーティーナ"
 
 #: DB:instrument/name:356
 msgid "German harp"
@@ -119,7 +120,7 @@ msgstr "ジャーマンハープ"
 #: DB:instrument/name:901
 msgctxt "Modern 24-stringed stainless steel kora"
 msgid "Gravikord"
-msgstr ""
+msgstr "クラヴィコード"
 
 #: DB:instrument/name:236
 msgid "Greek baglama"
@@ -149,7 +150,7 @@ msgstr "アイリッシュ・ブズーキ"
 #: DB:instrument/name:878
 msgctxt "19th century transverse flute"
 msgid "Irish flute"
-msgstr ""
+msgstr "アイリッシュ・フルート"
 
 #: DB:instrument/name:355
 msgid "Irish harp / clàrsach"
@@ -158,6 +159,10 @@ msgstr "アイリッシュハープ"
 #: DB:instrument/name:561
 msgid "Lyricon"
 msgstr "リリコン"
+
+#: DB:instrument/name:442
+msgid "Marxophone"
+msgstr "マーキソフォン"
 
 #: DB:instrument/name:92
 msgid "Mexican vihuela"
@@ -178,7 +183,7 @@ msgstr "ノーサンブリアン・パイプ"
 #: DB:instrument/name:890
 msgctxt "Toy synthesizer"
 msgid "Otamatone"
-msgstr ""
+msgstr "オタマトーン"
 
 #: DB:instrument/name:664
 msgid "Paraguayan harp"
@@ -187,7 +192,7 @@ msgstr "アルパ"
 #: DB:instrument/name:793
 msgctxt "an electromechanical piano"
 msgid "Pianet"
-msgstr ""
+msgstr "プラネット"
 
 #: DB:instrument/name:647
 msgid "Portuguese guitar"
@@ -204,7 +209,7 @@ msgstr "ローズ・ピアノ"
 #: DB:instrument/name:476
 msgctxt "Ancient Carnatic veena lute"
 msgid "Saraswati veena"
-msgstr ""
+msgstr "サラスヴァティー・ヴィーナ"
 
 #: DB:instrument/name:679
 msgid "Schwyzerörgeli"
@@ -242,7 +247,7 @@ msgstr "チベット・ウォーター・ドラム"
 #: DB:instrument/name:846
 msgctxt "plastic fipple flute"
 msgid "Tonette"
-msgstr ""
+msgstr "トネット"
 
 #: DB:instrument/name:235
 msgid "Turkish baglama"
@@ -316,7 +321,7 @@ msgstr "牙箏（アジェン）"
 #: DB:instrument/name:747
 msgctxt "set of Nyabinghi drums"
 msgid "akete"
-msgstr ""
+msgstr "アケテ"
 
 #: DB:instrument/name:718
 msgid "alfaia"
@@ -345,12 +350,12 @@ msgstr "アルト・サクソフォン"
 #: DB:instrument/name:923
 msgctxt "Alto member of the viol family"
 msgid "alto viol"
-msgstr ""
+msgstr "アルト・ヴァイオル"
 
 #: DB:instrument/name:174
 msgctxt "Alto or vertical violin, for French \"alto\" credits, choose viola"
 msgid "alto violin"
-msgstr ""
+msgstr "アルト・ヴァイオリン"
 
 #: DB:instrument/name:363
 msgid "amadinda"
@@ -364,7 +369,7 @@ msgstr ""
 #: DB:instrument/name:813
 msgctxt "uses analogue circuits to produce sound"
 msgid "analog synthesizer"
-msgstr ""
+msgstr "アナログ・シンセサイザー"
 
 #: DB:instrument/name:373
 msgid "ankle rattlers"
@@ -474,12 +479,12 @@ msgstr "バンジョー"
 #: DB:instrument/name:832
 msgctxt "banjo ukulele hybrid"
 msgid "banjo-ukulele"
-msgstr ""
+msgstr "バンジョー・ウクレレ"
 
 #: DB:instrument/name:831
 msgctxt "banjo and mandolin/violin hybrid"
 msgid "banjolin"
-msgstr ""
+msgstr "バンジョリン"
 
 #: DB:instrument/name:190
 msgid "bansuri"
@@ -488,7 +493,7 @@ msgstr "バーンスリー"
 #: DB:instrument/name:819
 msgctxt "ancient asian/persian lute"
 msgid "barbat"
-msgstr ""
+msgstr "バルバット"
 
 #: DB:instrument/name:301
 msgid "baritone guitar"
@@ -504,12 +509,12 @@ msgstr "バリトン・サクソフォン"
 
 #: DB:instrument/name:917
 msgid "baroque guitar"
-msgstr ""
+msgstr "バロック・ギター"
 
 #: DB:instrument/name:897
 msgctxt "Conical bored compact double reed"
 msgid "baroque rackett"
-msgstr ""
+msgstr "バロック・ラケット"
 
 #: DB:instrument/name:521
 msgctxt "20th century reinvented natural trumpet"
@@ -584,12 +589,12 @@ msgstr "バス・トランペット"
 #: DB:instrument/name:916
 msgctxt "Bass member of the viol family"
 msgid "bass viol"
-msgstr ""
+msgstr "バス・ヴァイオル"
 
 #: DB:instrument/name:900
 msgctxt "Sixteenth century precursor of the (violon)cello"
 msgid "bass violin"
-msgstr ""
+msgstr "バス・バイオリン"
 
 #: DB:instrument/name:404
 msgid "basset clarinet"
@@ -2131,7 +2136,7 @@ msgstr "リュテアル"
 #: DB:instrument/name:925
 msgctxt "Small bass viol"
 msgid "lyra viol"
-msgstr ""
+msgstr "リラ・ヴァイオル"
 
 #: DB:instrument/name:84
 msgid "lyre"
@@ -2186,10 +2191,6 @@ msgstr "marimba lumina"
 #: DB:instrument/name:637
 msgid "mark tree"
 msgstr ""
-
-#: DB:instrument/name:442
-msgid "marxophone"
-msgstr "マーキソフォン"
 
 #: DB:instrument/name:633
 msgid "marímbula"
@@ -2901,10 +2902,6 @@ msgstr ""
 msgid "saz"
 msgstr "サズ"
 
-#: DB:instrument/name:310
-msgid "saó ôi flute"
-msgstr ""
-
 #: DB:instrument/name:757
 msgid "segunda"
 msgstr "セグンダ"
@@ -2914,6 +2911,7 @@ msgid "serpent"
 msgstr "セルパン"
 
 #: DB:instrument/name:630
+msgctxt "Persian three-stringed long-necked lute"
 msgid "setar"
 msgstr "セタール"
 
@@ -3321,7 +3319,7 @@ msgstr "テナー・トロンボーン"
 #: DB:instrument/name:922
 msgctxt "Tenor member of the viol family"
 msgid "tenor viol"
-msgstr ""
+msgstr "テナー・ヴァイオル"
 
 #: DB:instrument/name:615
 msgid "tenor violin"
@@ -3435,12 +3433,12 @@ msgstr "アルト・リコーダー"
 #: DB:instrument/name:921
 msgctxt "Treble/descant member of the viol family"
 msgid "treble viol"
-msgstr ""
+msgstr "トレブル・ヴァイオル"
 
 #: DB:instrument/name:209
 msgctxt "Smallest member of the new violin family"
 msgid "treble violin"
-msgstr ""
+msgstr "トレブル・ヴァイオリン"
 
 #: DB:instrument/name:90
 msgid "tres"
@@ -3453,6 +3451,11 @@ msgstr "バウロン"
 #: DB:instrument/name:847
 msgctxt "Basque button accordion"
 msgid "trikiti"
+msgstr ""
+
+#: DB:instrument/name:945
+msgctxt "Indian three-stringed long-necked lute"
+msgid "tritantri veena"
 msgstr ""
 
 #: DB:instrument/name:698
@@ -3646,7 +3649,7 @@ msgstr ""
 #: DB:instrument/name:899
 msgctxt "Viola de gamba family"
 msgid "viol family"
-msgstr ""
+msgstr "ヴァイオル・ファミリー"
 
 #: DB:instrument/name:63
 msgid "viola"
@@ -3678,12 +3681,12 @@ msgstr "ヴァイオリン"
 #: DB:instrument/name:59
 msgctxt "Modern violin family"
 msgid "violin family"
-msgstr ""
+msgstr "ヴァイオリン・ファミリー"
 
 #: DB:instrument/name:898
 msgctxt "New modern streamlined family of violins"
 msgid "violin octet"
-msgstr ""
+msgstr "ヴァイオリン・オクテット"
 
 #: DB:instrument/name:661
 msgid "violino piccolo"
@@ -3692,7 +3695,7 @@ msgstr "ヴァイオリーノ・ピッコロ"
 #: DB:instrument/name:834
 msgctxt "cretan lyra / violin hybrid"
 msgid "viololyra"
-msgstr ""
+msgstr "ヴィオロリラ"
 
 #: DB:instrument/name:693
 msgctxt "for violoncello use \"cello\""
@@ -3702,7 +3705,7 @@ msgstr "ヴィオロンチェロ・ピッコロ"
 #: DB:instrument/name:420
 msgctxt "Contra/double-bass member of the viol family"
 msgid "violone"
-msgstr ""
+msgstr "ヴィオローネ"
 
 #: DB:instrument/name:95
 msgid "violotta"

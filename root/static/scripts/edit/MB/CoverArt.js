@@ -18,12 +18,12 @@
 
 */
 
-const filesize = require('filesize');
-const $ = require('jquery');
-const ko = require('knockout');
-const _ = require('lodash');
+import filesize from 'filesize';
+import $ from 'jquery';
+import ko from 'knockout';
+import _ from 'lodash';
 
-const MB = require('../../common/MB');
+import MB from '../../common/MB';
 
 MB.CoverArt = {};
 
@@ -62,7 +62,7 @@ MB.CoverArt.image_error = function ($img, image) {
            between requesting the index and loading the image.
            FIXME: start over if this happens?  obviously the
            data in the index is incorrect. */
-        $img.attr("src", "/static/images/image404-125.png")
+        $img.attr("src", require('../../../images/image404-125.png'));
     }
 };
 
@@ -637,4 +637,4 @@ function iteratePromises(promises) {
     return deferred.promise();
 }
 
-module.exports = MB.CoverArt;
+export default MB.CoverArt;

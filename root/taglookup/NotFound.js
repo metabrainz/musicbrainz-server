@@ -10,7 +10,6 @@
 import React from 'react';
 
 import NotFound from '../components/NotFound';
-import {l} from '../static/scripts/common/i18n';
 
 const TagLookupNotFound = () => (
   <NotFound title={l('Tag Lookup Error')}>
@@ -18,7 +17,7 @@ const TagLookupNotFound = () => (
       {l("That search can't be performed, because you must provide at least one of 'recording', 'track number', 'duration', 'release', or 'artist'.")}
     </p>
     <p>
-      {l('Please {search|try again}, providing at least one of these parameters',
+      {exp.l('Please {search|try again}, providing at least one of these parameters',
         {search: '/taglookup'})}
     </p>
   </NotFound>

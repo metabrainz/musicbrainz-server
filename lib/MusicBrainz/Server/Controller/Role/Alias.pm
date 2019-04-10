@@ -42,8 +42,18 @@ sub aliases : Chained('load') PathPart('aliases')
     my $m = $c->model($self->{model});
     my $aliases = $m->alias->find_by_entity_id($entity->id);
     $m->alias_type->load(@$aliases);
-    $c->stash(
+
+    my %props = (
         aliases => $aliases,
+        entity => $entity,
+    );
+
+    $c->stash(
+        # "aliases" needs to remain here for JSON-LD serialization
+        aliases => $aliases,
+        component_path => 'entity/Aliases.js',
+        component_props => \%props,
+        current_view => 'Node',
     );
 }
 

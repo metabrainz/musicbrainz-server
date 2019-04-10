@@ -15,73 +15,39 @@ test 'Authenticate WS bearer' => sub {
 
     MusicBrainz::Server::Test->prepare_test_database($test->c, '+oauth');
 
+    my $path = '/ws/2/collection/181685d4-a23a-4140-a343-b7d15de26ff7';
     # No authentication
-    $test->mech->get('/ws/1/user/?name=editor1');
+    $test->mech->get($path);
     is(401, $test->mech->status);
 
     # Invalid token
-    $test->mech->get('/ws/1/user/?name=editor1&access_token=xxxx');
+    $test->mech->get("$path?access_token=xxxx");
     is(401, $test->mech->status);
-    $test->mech->get('/ws/1/user/?name=editor1', Authorization => 'Bearer xxx');
+    $test->mech->get($path, Authorization => 'Bearer xxx');
     is(401, $test->mech->status);
 
     # Correctly authenticated
-    $test->mech->get_ok('/ws/1/user/?name=editor1&access_token=Nlaa7v15QHm9g8rUOmT3dQ');
-    $test->mech->get_ok('/ws/1/user/?name=editor1', { Authorization => 'Bearer Nlaa7v15QHm9g8rUOmT3dQ' });
+    $test->mech->get_ok("$path?access_token=Nlaa7v15QHm9g8rUOmT3dQ");
+    $test->mech->get_ok($path, { Authorization => 'Bearer Nlaa7v15QHm9g8rUOmT3dQ' });
 
     # MAC tokens can't be used as bearer
-    $test->mech->get('/ws/1/user/?name=editor1&access_token=NeYRRMSFFEjRoowpZ1K59Q');
+    $test->mech->get("$path?access_token=NeYRRMSFFEjRoowpZ1K59Q");
     is(401, $test->mech->status);
-    $test->mech->get('/ws/1/user/?name=editor1', { Authorization => 'Bearer NeYRRMSFFEjRoowpZ1K59Q' });
+    $test->mech->get($path, { Authorization => 'Bearer NeYRRMSFFEjRoowpZ1K59Q' });
     is(401, $test->mech->status);
 
     # Drop the profile scope
     $test->c->sql->do("UPDATE editor_oauth_token SET scope = 0 WHERE access_token = 'Nlaa7v15QHm9g8rUOmT3dQ'");
-    $test->mech->get('/ws/1/user/?name=editor1&access_token=Nlaa7v15QHm9g8rUOmT3dQ');
-    is(403, $test->mech->status);
-    $test->mech->get('/ws/1/user/?name=editor1', Authorization => 'Bearer Nlaa7v15QHm9g8rUOmT3dQ');
-    is(403, $test->mech->status);
+    $test->mech->get("$path?access_token=Nlaa7v15QHm9g8rUOmT3dQ");
+    is(401, $test->mech->status);
+    $test->mech->get($path, Authorization => 'Bearer Nlaa7v15QHm9g8rUOmT3dQ');
+    is(401, $test->mech->status);
 
     # Expire the token
     $test->c->sql->do("UPDATE editor_oauth_token SET expire_time = now() - interval '1 hour' WHERE access_token = 'Nlaa7v15QHm9g8rUOmT3dQ'");
-    $test->mech->get('/ws/1/user/?name=editor1&access_token=Nlaa7v15QHm9g8rUOmT3dQ');
+    $test->mech->get("$path?access_token=Nlaa7v15QHm9g8rUOmT3dQ");
     is(401, $test->mech->status);
-    $test->mech->get('/ws/1/user/?name=editor1', Authorization => 'Bearer Nlaa7v15QHm9g8rUOmT3dQ');
-    is(401, $test->mech->status);
-};
-
-test 'Deleted users (bearer)' => sub {
-    my $test = shift;
-
-    MusicBrainz::Server::Test->prepare_test_database($test->c, '+oauth');
-
-    # No authentication
-    $test->mech->get('/ws/1/user/?name=editor1');
-    is(401, $test->mech->status);
-
-    # Correctly authenticated
-    $test->mech->get_ok('/ws/1/user/?name=editor1&access_token=Nlaa7v15QHm9g8rUOmT3dQ');
-    $test->mech->get_ok('/ws/1/user/?name=editor1', { Authorization => 'Bearer Nlaa7v15QHm9g8rUOmT3dQ' });
-
-    $test->c->sql->do("UPDATE editor SET deleted = TRUE WHERE id = 1;");
-
-    $test->mech->get('/ws/1/user/?name=editor1&access_token=Nlaa7v15QHm9g8rUOmT3dQ');
-    is(401, $test->mech->status);
-    $test->mech->get('/ws/1/user/?name=editor1', { Authorization => 'Bearer Nlaa7v15QHm9g8rUOmT3dQ' });
-    is(401, $test->mech->status);
-};
-
-test 'Deleted users (digest)' => sub {
-    my $test = shift;
-
-    MusicBrainz::Server::Test->prepare_test_database($test->c, '+oauth');
-
-    $test->mech->credentials('localhost:80', 'musicbrainz.org', encode('utf8', 'æditorⅣ'), 'pass');
-    $test->mech->get_ok('/ws/1/user/?type=xml&name=%C3%A6ditor%E2%85%A3');
-
-    $test->c->sql->do("UPDATE editor SET deleted = TRUE WHERE id = 4;");
-
-    $test->mech->get('/ws/1/user/?type=xml&name=%C3%A6ditor%E2%85%A3');
+    $test->mech->get($path, Authorization => 'Bearer Nlaa7v15QHm9g8rUOmT3dQ');
     is(401, $test->mech->status);
 };
 

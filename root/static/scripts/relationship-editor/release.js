@@ -3,22 +3,23 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-const $ = require('jquery');
-const ko = require('knockout');
-const _ = require('lodash');
+import $ from 'jquery';
+import ko from 'knockout';
+import _ from 'lodash';
 
-const i18n = require('../common/i18n');
-const request = require('../common/utility/request');
-const {ViewModel} = require('./common/viewModel');
+import MB from '../common/MB';
+import request from '../common/utility/request';
 
-require('./common/entity');
+import {ViewModel} from './common/viewModel';
 
-(function (RE) {
+import './common/entity';
+
+const RE = MB.relationshipEditor = MB.relationshipEditor || {};
 
     var UI = RE.UI = RE.UI || {};
 
 
-    class ReleaseViewModel extends ViewModel {
+    export class ReleaseViewModel extends ViewModel {
 
         constructor(options) {
             super(options);
@@ -39,12 +40,12 @@ require('./common/entity');
 
                 recordingMessage: function () {
                     var n = this.recordingCount();
-                    return "(" + i18n.ln("{n} recording selected", "{n} recordings selected", n, { n: n }) + ")";
+                    return "(" + texp.ln("{n} recording selected", "{n} recordings selected", n, { n: n }) + ")";
                 },
 
                 workMessage: function () {
                     var n = this.workCount();
-                    return "(" + i18n.ln("{n} work selected", "{n} works selected", n, { n: n }) + ")";
+                    return "(" + texp.ln("{n} work selected", "{n} works selected", n, { n: n }) + ")";
                 }
             };
 
@@ -70,7 +71,7 @@ require('./common/entity');
                     .filter(".rel-edit:eq(0), .rel-add:eq(0), .rel-remove:eq(0)");
 
                 if ($changes.length) {
-                    event.returnValue = i18n.l("All of your changes will be lost if you leave this page.");
+                    event.returnValue = l("All of your changes will be lost if you leave this page.");
                     return event.returnValue;
                 }
             });
@@ -156,7 +157,7 @@ require('./common/entity');
 
             if (edits.length == 0) {
                 this.submissionLoading(false);
-                this.submissionError(i18n.l("You haven’t made any changes!"));
+                this.submissionError(l("You haven’t made any changes!"));
                 return;
             }
 
@@ -295,7 +296,6 @@ require('./common/entity');
     }
 
     RE.ReleaseViewModel = ReleaseViewModel;
-    exports.ReleaseViewModel = ReleaseViewModel;
 
     var recordingCheckboxes = "td.recording > input[type=checkbox]";
     var workCheckboxes = "td.works > div.ar > input[type=checkbox]";
@@ -366,5 +366,3 @@ require('./common/entity');
         range(recordingCheckboxes, checkboxes.recordingCount);
         range(workCheckboxes, checkboxes.workCount);
     }
-
-}(MB.relationshipEditor = MB.relationshipEditor || {}));

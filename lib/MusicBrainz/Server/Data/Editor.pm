@@ -15,6 +15,7 @@ use MusicBrainz::Server::Entity::Preferences;
 use MusicBrainz::Server::Entity::Editor;
 use MusicBrainz::Server::Data::Utils qw(
     generate_token
+    get_area_containment_query
     hash_to_row
     load_subobjects
     placeholders
@@ -169,7 +170,7 @@ sub find_by_area {
     my (
         $containment_query,
         @containment_query_args,
-    ) = $self->c->model('Area')->get_containment_query('$2', 'area');
+    ) = get_area_containment_query('$2', 'area');
     my $query = "SELECT " . $self->_columns . "
                  FROM " . $self->_table . "
                  WHERE area = \$1 OR EXISTS (

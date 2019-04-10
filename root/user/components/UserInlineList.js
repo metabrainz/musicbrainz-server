@@ -10,7 +10,6 @@
 
 import * as React from 'react';
 
-import {l} from '../../static/scripts/common/i18n';
 import EditorLink from '../../static/scripts/common/components/EditorLink';
 import commaOnlyList from '../../static/scripts/common/i18n/commaOnlyList';
 
@@ -22,7 +21,7 @@ const UserInlineList = ({editors}: Props) => (
   <p>
     {editors.length ? (
       commaOnlyList(
-        editors.map(editor => <EditorLink editor={editor} key={editor.id} />)
+        editors.map(editor => <EditorLink editor={editor} key={editor.id} />),
       )
     ) : l('No users found')}
   </p>

@@ -5,6 +5,8 @@ use namespace::autoclean;
 with 'MusicBrainz::Server::Report::ReleaseGroupReport',
      'MusicBrainz::Server::Report::FilterForEditor::ReleaseGroupID';
 
+sub component_name { 'SetInDifferentRg' }
+
 sub query {
     "
         SELECT DISTINCT

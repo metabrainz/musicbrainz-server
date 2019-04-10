@@ -11,6 +11,7 @@ use MusicBrainz::Server::Entity::PartialDate;
 use MusicBrainz::Server::Data::Utils qw(
     add_partial_date_to_row
     generate_gid
+    get_area_containment_query
     hash_to_row
     load_subobjects
     merge_table_attributes
@@ -189,20 +190,26 @@ sub load_areas {
 sub find_by_area
 {
     my ($self, $area_id, $limit, $offset) = @_;
-
+    my (
+        $containment_query,
+        @containment_query_args,
+    ) = get_area_containment_query('$2', 'lae.entity0');
     my $query =
-        'SELECT ' . $self->_columns .'
+        "SELECT " . $self->_columns ."
            FROM (
-                    SELECT entity1 AS event
-                      FROM l_area_event ar
-                      JOIN link ON ar.link = link.id
-                      JOIN link_type lt ON lt.id = link.link_type
-                     WHERE entity0 = ?
-                ) s, ' . $self->_table .'
+                    SELECT lae.entity1 AS event
+                      FROM l_area_event lae
+                     WHERE lae.entity0 = \$1 OR EXISTS (
+                        SELECT 1 FROM ($containment_query) ac
+                         WHERE ac.descendant = lae.entity0 AND ac.parent = \$1
+                     )
+                ) s, " . $self->_table . "
           WHERE event.id = s.event
-       ORDER BY event.begin_date_year, event.begin_date_month, event.begin_date_day, event.time, musicbrainz_collate(event.name)';
-
-    $self->query_to_list_limited($query, [$area_id], $limit, $offset);
+       ORDER BY event.begin_date_year, event.begin_date_month, event.begin_date_day, event.time, musicbrainz_collate(event.name)";
+    $self->query_to_list_limited(
+        $query, [$area_id, @containment_query_args], $limit, $offset, undef,
+        dollar_placeholders => 1,
+    );
 }
 
 sub find_by_artist
@@ -392,7 +399,7 @@ sub _find_performers
         $map->{$event_id} ||= [];
         push @{ $map->{$event_id} }, {
             entity => $artists->{$artist_id},
-            roles => $roles
+            roles => [ uniq @{ $roles } ]
         }
     }
 }

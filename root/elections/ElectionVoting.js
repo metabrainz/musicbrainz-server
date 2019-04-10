@@ -9,7 +9,6 @@
 
 import React from 'react';
 
-import {l, lp} from '../static/scripts/common/i18n';
 import EditorLink from '../static/scripts/common/components/EditorLink';
 import formatUserDate from '../utility/formatUserDate';
 import {canCancel, canSecond, canVote, isInvolved, votesVisible} from '../utility/voting';
@@ -20,7 +19,7 @@ type PropsT = {
 };
 
 const ElectionVoting = ({election, user}: PropsT) => {
-  let message = l('To find out if you can vote for this candidate, please {url|log in}.',
+  let message = exp.l('To find out if you can vote for this candidate, please {url|log in}.',
     {url: '/login'});
   if (user) {
     if (!user.is_auto_editor) {

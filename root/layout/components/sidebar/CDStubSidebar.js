@@ -10,7 +10,6 @@
 import * as React from 'react';
 
 import CDStubLink from '../../../static/scripts/common/components/CDStubLink';
-import {l} from '../../../static/scripts/common/i18n';
 import escapeLuceneValue from '../../../static/scripts/common/utility/escapeLuceneValue';
 import parseDate from '../../../static/scripts/common/utility/parseDate';
 import {age, displayAgeAgo} from '../../../utility/age';
@@ -42,6 +41,8 @@ const CDStubSidebar = ({cdstub}: Props) => {
     'tracksmedium:(' + escapeLuceneValue(cdstub.track_count) + ')' +
     (cdstub.barcode ? ' barcode:(' + escapeLuceneValue(cdstub.barcode) + ')' : '')
   );
+
+  const toc = cdstub.toc;
 
   return (
     <div id="sidebar">
@@ -77,10 +78,9 @@ const CDStubSidebar = ({cdstub}: Props) => {
             subPath="import"
           />
         </li>
-        {cdstub.toc ? (
+        {toc ? (
           <li>
-            {/* $FlowFixMe */}
-            <a href={'/cdtoc/attach?toc=' + encodeURIComponent(cdstub.toc)}>
+            <a href={'/cdtoc/attach?toc=' + encodeURIComponent(toc)}>
               {l('Add disc ID to an existing release')}
             </a>
           </li>

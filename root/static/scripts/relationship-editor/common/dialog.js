@@ -3,34 +3,34 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-const $ = require('jquery');
-const ko = require('knockout');
-const _ = require('lodash');
-const ReactDOMServer = require('react-dom/server');
+import $ from 'jquery';
+import ko from 'knockout';
+import _ from 'lodash';
+import ReactDOMServer from 'react-dom/server';
 
-require('../../../lib/jquery-ui');
+import '../../../lib/jquery-ui';
 
-const {PART_OF_SERIES_LINK_TYPES} = require('../../common/constants');
-const i18n = require('../../common/i18n');
-import {l_relationships} from '../../common/i18n/relationships';
-const linkTypeInfo = require('../../common/typeInfo').link_type;
-const URLCleanup = require('../../edit/URLCleanup');
-const dates = require('../../edit/utility/dates');
-const linkPhrase = require('../../edit/utility/linkPhrase');
-const isBlank = require('../../common/utility/isBlank');
+import {ENTITY_NAMES, PART_OF_SERIES_LINK_TYPES} from '../../common/constants';
+import {compare} from '../../common/i18n';
+import linkedEntities from '../../common/linkedEntities';
+import MB from '../../common/MB';
+import * as URLCleanup from '../../edit/URLCleanup';
+import * as dates from '../../edit/utility/dates';
+import {stripAttributes} from '../../edit/utility/linkPhrase';
+import isBlank from '../../common/utility/isBlank';
 
 const PART_OF_SERIES_LINK_TYPE_GIDS = _.values(PART_OF_SERIES_LINK_TYPES);
 
-(function (RE) {
+const RE = MB.relationshipEditor = MB.relationshipEditor || {};
 
     var UI = RE.UI = RE.UI || {};
     var fields = RE.fields = RE.fields || {};
 
     var incorrectEntityForSeries = {
-        recording:      i18n.l("The series you’ve selected is for recordings."),
-        release:        i18n.l("The series you’ve selected is for releases."),
-        release_group:  i18n.l("The series you’ve selected is for release groups."),
-        work:           i18n.l("The series you’ve selected is for works.")
+        recording:      l("The series you’ve selected is for recordings."),
+        release:        l("The series you’ve selected is for releases."),
+        release_group:  l("The series you’ve selected is for release groups."),
+        work:           l("The series you’ve selected is for works.")
     };
 
     ko.bindingHandlers.relationshipEditorAutocomplete = (function () {
@@ -122,7 +122,7 @@ const PART_OF_SERIES_LINK_TYPE_GIDS = _.values(PART_OF_SERIES_LINK_TYPES);
             }
 
             _.each(relationship.attributes.peek(), function (attribute) {
-                if (attribute.type.rootID == 14) {
+                if (attribute.type.root_id == 14) {
                     addInstrument(MB.entity(attribute.type, "instrument"), attribute);
                 }
             });
@@ -182,7 +182,7 @@ const PART_OF_SERIES_LINK_TYPE_GIDS = _.values(PART_OF_SERIES_LINK_TYPES);
                 }, source);
 
                 options.relationship.linkTypeID(
-                    defaultLinkType({ children: linkTypeInfo.byTypes[options.relationship.entityTypes] })
+                    defaultLinkType({ children: linkedEntities.link_type_tree[options.relationship.entityTypes] })
                 );
             }
 
@@ -326,8 +326,18 @@ const PART_OF_SERIES_LINK_TYPE_GIDS = _.values(PART_OF_SERIES_LINK_TYPES);
         }
 
         linkTypeName() {
-            var linkTypeID = this.relationship().linkTypeID();
-            return linkTypeID ? linkPhrase.clean(linkTypeID, this.backward()) : "";
+            var linkType = this.relationship().getLinkType();
+            if (!linkType) {
+                return '';
+            }
+            return stripAttributes(
+                linkType,
+                l_relationships(
+                  this.backward()
+                    ? linkType.reverse_link_phrase
+                    : linkType.link_phrase
+                ),
+            );
         }
 
         linkTypeDescription() {
@@ -336,7 +346,7 @@ const PART_OF_SERIES_LINK_TYPE_GIDS = _.values(PART_OF_SERIES_LINK_TYPES);
 
             if (linkType && linkType.description) {
                 description = ReactDOMServer.renderToStaticMarkup(
-                    i18n.l("{description} ({url|more documentation})", {
+                    exp.l("{description} ({url|more documentation})", {
                         description: l_relationships(linkType.description),
                         url: { href: "/relationship/" + linkType.gid, target: "_blank" }
                     })
@@ -354,14 +364,14 @@ const PART_OF_SERIES_LINK_TYPE_GIDS = _.values(PART_OF_SERIES_LINK_TYPES);
 
         linkTypeOptions(entityTypes) {
             var options = MB.forms.linkTypeOptions(
-                { children: linkTypeInfo.byTypes[entityTypes] }, this.backward()
+                { children: linkedEntities.link_type_tree[entityTypes] }, this.backward()
             );
 
             if (this.source.entityType === "series") {
                 var itemType = MB.seriesTypesByID[this.source.typeID()].item_entity_type;
 
                 options = _.reject(options, function (opt) {
-                    var linkType = linkTypeInfo.byId[opt.value];
+                    var linkType = linkedEntities.link_type[opt.value];
 
                     if (_.includes(PART_OF_SERIES_LINK_TYPE_GIDS, linkType.gid) &&
                             linkType.gid !== PART_OF_SERIES_LINK_TYPES[itemType]) {
@@ -390,11 +400,11 @@ const PART_OF_SERIES_LINK_TYPE_GIDS = _.values(PART_OF_SERIES_LINK_TYPES);
             }
 
             var options = _.map(targetTypes, function (type) {
-                return { value: type, text: i18n.strings.entityName[type] };
+                return { value: type, text: ENTITY_NAMES[type]() };
             });
 
             options.sort(function (a, b) {
-                return i18n.compare(a.text, b.text);
+                return compare(a.text, b.text);
             });
 
             return options;
@@ -421,7 +431,7 @@ const PART_OF_SERIES_LINK_TYPE_GIDS = _.values(PART_OF_SERIES_LINK_TYPES);
             delete data.entities;
 
             var entityTypes = [this.source.entityType, newType].sort().join("-");
-            data.linkTypeID = defaultLinkType({ children: linkTypeInfo.byTypes[entityTypes] });
+            data.linkTypeID = defaultLinkType({ children: linkedEntities.link_type_tree[entityTypes] });
             data.attributes = [];
 
             var newRelationship = this.viewModel.getRelationship(data, this.source);
@@ -446,16 +456,16 @@ const PART_OF_SERIES_LINK_TYPE_GIDS = _.values(PART_OF_SERIES_LINK_TYPES);
             var linkType = this.relationship().getLinkType();
 
             if (!linkType) {
-                return i18n.l("Please select a relationship type.");
+                return l("Please select a relationship type.");
             } else if (!linkType.description) {
-                return i18n.l("Please select a subtype of the currently selected relationship type. The selected relationship type is only used for grouping subtypes.");
+                return l("Please select a subtype of the currently selected relationship type. The selected relationship type is only used for grouping subtypes.");
             } else if (linkType.deprecated) {
-                return i18n.l("This relationship type is deprecated and should not be used.");
+                return l("This relationship type is deprecated and should not be used.");
             } else if (this.source.entityType === "url") {
                 var checker = URLCleanup.validationRules[linkType.gid];
 
                 if (checker && !checker(this.source.name())) {
-                    return i18n.l("This URL is not allowed for the selected link type, or is incorrectly formatted.");
+                    return l("This URL is not allowed for the selected link type, or is incorrectly formatted.");
                 }
             }
 
@@ -468,9 +478,9 @@ const PART_OF_SERIES_LINK_TYPE_GIDS = _.values(PART_OF_SERIES_LINK_TYPES);
             var linkType = relationship.getLinkType() || {};
 
             if (!target.gid) {
-                return i18n.l("Required field.");
+                return l("Required field.");
             } else if (this.source === target) {
-                return i18n.l("Entities in a relationship cannot be the same.");
+                return l("Entities in a relationship cannot be the same.");
             }
 
             if (target.entityType === "series" &&
@@ -484,7 +494,7 @@ const PART_OF_SERIES_LINK_TYPE_GIDS = _.values(PART_OF_SERIES_LINK_TYPES);
 
         dateError(date) {
             var valid = dates.isDateValid(date.year(), date.month(), date.day());
-            return valid ? "" : i18n.l("The date you've entered is not valid.");
+            return valid ? "" : l("The date you've entered is not valid.");
         }
 
         datePeriodError() {
@@ -495,7 +505,7 @@ const PART_OF_SERIES_LINK_TYPE_GIDS = _.values(PART_OF_SERIES_LINK_TYPES);
 
             if (!this.dateError(a) && !this.dateError(b)) {
                 if (!dates.isDatePeriodValid(ko.toJS(a), ko.toJS(b))) {
-                    return i18n.l("The end date cannot precede the begin date.");
+                    return l("The end date cannot precede the begin date.");
                 }
             }
 
@@ -516,27 +526,27 @@ const PART_OF_SERIES_LINK_TYPE_GIDS = _.values(PART_OF_SERIES_LINK_TYPES);
 
         changeOtherRelationshipCreditsLabel(entity) {
             return ReactDOMServer.renderToStaticMarkup(
-                i18n.l('Change credits for other {entity} relationships on the page.', {entity: entity.reactElement()})
+                exp.l('Change credits for other {entity} relationships on the page.', {entity: entity.reactElement()})
             );
         }
 
         sameEntityTypesLabel($parent, relationship, entity) {
             const entityType = relationship.target(entity).entityType;
-            return i18n.l('Only relationships to {entity_type} entities.', {
-                entity_type: i18n.strings.entityName[entityType].toLocaleLowerCase(),
+            return texp.l('Only relationships to {entity_type} entities.', {
+                entity_type: ENTITY_NAMES[entityType](),
             });
         }
 
         sameRelationshipTypeLabel($parent, relationship, entity) {
             const entityType = relationship.target(entity).entityType;
-            return i18n.l('Only “{relationship_type}” relationships to {entity_type} entities.', {
+            return texp.l('Only “{relationship_type}” relationships to {entity_type} entities.', {
                 relationship_type: $parent.linkTypeName(),
-                entity_type: i18n.strings.entityName[entityType].toLocaleLowerCase(),
+                entity_type: ENTITY_NAMES[entityType](),
             });
         }
     }
 
-    _.assign(Dialog.prototype, {
+    Object.assign(Dialog.prototype, {
         loading: ko.observable(false),
         showAttributesHelp: ko.observable(false),
         showLinkTypeHelp: ko.observable(false),
@@ -555,7 +565,7 @@ const PART_OF_SERIES_LINK_TYPE_GIDS = _.values(PART_OF_SERIES_LINK_TYPES);
             var widget = $dialog.data("ui-dialog");
             widget.uiDialog.find(".ui-dialog-titlebar").remove();
 
-            _.assign(Dialog.prototype, {$dialog, widget});
+            Object.assign(Dialog.prototype, {$dialog, widget});
             ko.applyBindings(this.viewModel, $dialog[0]);
         }),
     });
@@ -586,7 +596,7 @@ const PART_OF_SERIES_LINK_TYPE_GIDS = _.values(PART_OF_SERIES_LINK_TYPES);
         });
     }
 
-    class AddDialog extends Dialog {
+    export class AddDialog extends Dialog {
 
         _accept() {
             addRelationships(splitByCreditableAttributes(this.relationship()), this.source, this.viewModel);
@@ -600,12 +610,12 @@ const PART_OF_SERIES_LINK_TYPE_GIDS = _.values(PART_OF_SERIES_LINK_TYPES);
         }
     }
 
-    _.assign(AddDialog.prototype, {
+    Object.assign(AddDialog.prototype, {
         dialogTemplate: "template.relationship-dialog",
         disableTypeSelection: false,
     });
 
-    class EditDialog extends Dialog {
+    export class EditDialog extends Dialog {
 
         constructor(options) {
             // originalRelationship is a copy of the relationship when the dialog
@@ -641,12 +651,12 @@ const PART_OF_SERIES_LINK_TYPE_GIDS = _.values(PART_OF_SERIES_LINK_TYPES);
         }
     }
 
-    _.assign(EditDialog.prototype, {
+    Object.assign(EditDialog.prototype, {
         dialogTemplate: "template.relationship-dialog",
         disableTypeSelection: true,
     });
 
-    class BatchRelationshipDialog extends Dialog {
+    export class BatchRelationshipDialog extends Dialog {
 
         constructor(options) {
             options.source = MB.entity({}, options.sources[0].entityType);
@@ -674,15 +684,15 @@ const PART_OF_SERIES_LINK_TYPE_GIDS = _.values(PART_OF_SERIES_LINK_TYPES);
         }
     }
 
-    _.assign(BatchRelationshipDialog.prototype, {
+    Object.assign(BatchRelationshipDialog.prototype, {
         dialogTemplate: "template.batch-relationship-dialog",
         disableTypeSelection: false,
     });
 
-    class BatchCreateWorksDialog extends BatchRelationshipDialog {
+    export class BatchCreateWorksDialog extends BatchRelationshipDialog {
 
         constructor(options) {
-            super(_.assign(options, { target: new MB.entity.Work({}) }));
+            super(Object.assign(options, { target: new MB.entity.Work({}) }));
             this.error = ko.observable(false);
         }
 
@@ -726,7 +736,7 @@ const PART_OF_SERIES_LINK_TYPE_GIDS = _.values(PART_OF_SERIES_LINK_TYPES);
         targetEntityError() { return "" }
     }
 
-    _.assign(BatchCreateWorksDialog.prototype, {
+    Object.assign(BatchCreateWorksDialog.prototype, {
         dialogTemplate: "template.batch-create-works-dialog",
         workType: ko.observable(null),
         workLanguage: ko.observable(null),
@@ -786,9 +796,3 @@ const PART_OF_SERIES_LINK_TYPE_GIDS = _.values(PART_OF_SERIES_LINK_TYPES);
     UI.BatchRelationshipDialog = BatchRelationshipDialog;
     UI.BatchCreateWorksDialog = BatchCreateWorksDialog;
 
-    exports.AddDialog = AddDialog;
-    exports.EditDialog = EditDialog;
-    exports.BatchRelationshipDialog = BatchRelationshipDialog;
-    exports.BatchCreateWorksDialog = BatchCreateWorksDialog;
-
-}(MB.relationshipEditor = MB.relationshipEditor || {}));

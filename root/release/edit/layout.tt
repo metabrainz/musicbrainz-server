@@ -2,7 +2,7 @@
 
 [%- WRAPPER 'layout.tt' full_width=1 edit=1 gettext_domains=['attributes', 'countries', 'languages', 'relationships'] -%]
   [% IF release.name %]
-    [%- INCLUDE "release/header.tt" page="edit" -%]
+    [%- React.embed(c, 'release/ReleaseHeader', { release => release, page => 'edit' }) -%]
   [% ELSE %]
     <h1>[% lp('Add Release', 'header') %]</h1>
   [% END %]
@@ -70,7 +70,6 @@
 
   [%- guesscase_options() -%]
 
-  [% script_manifest('guess-case.js') %]
   [% script_manifest('edit.js') %]
   [% script_manifest('release-editor.js') %]
 

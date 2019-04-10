@@ -9,7 +9,6 @@
 
 import React from 'react';
 
-import {l, lp} from '../static/scripts/common/i18n';
 import EditorLink from '../static/scripts/common/components/EditorLink';
 import formatUserDate from '../utility/formatUserDate';
 import {votesVisible} from '../utility/voting';

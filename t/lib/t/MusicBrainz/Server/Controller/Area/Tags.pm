@@ -19,23 +19,23 @@ test all => sub {
     $mech->get_ok('/login');
     $mech->submit_form(with_fields => {username => 'new_editor', password => 'password'});
 
-    $mech->get_ok('/area/489ce91b-6658-3307-9877-795b68554c98/tags/upvote?tags=Broken, Fixme');
+    $mech->get_ok('/area/489ce91b-6658-3307-9877-795b68554c98/tags/upvote?tags=Broken, Fixmeplz');
     $mech->get_ok('/area/489ce91b-6658-3307-9877-795b68554c98/tags');
     html_ok($mech->content);
     $mech->content_contains('broken');
-    $mech->content_contains('fixme');
+    $mech->content_contains('fixmeplz');
 
-    $mech->get_ok('/area/489ce91b-6658-3307-9877-795b68554c98/tags/withdraw?tags=Broken, Fixme');
+    $mech->get_ok('/area/489ce91b-6658-3307-9877-795b68554c98/tags/withdraw?tags=Broken, Fixmeplz');
     $mech->get_ok('/area/489ce91b-6658-3307-9877-795b68554c98/tags');
     html_ok($mech->content);
     $mech->content_lacks('broken');
-    $mech->content_lacks('fixme');
+    $mech->content_lacks('fixmeplz');
 
-    $mech->get_ok('/area/489ce91b-6658-3307-9877-795b68554c98/tags/downvote?tags=Broken, Fixme');
+    $mech->get_ok('/area/489ce91b-6658-3307-9877-795b68554c98/tags/downvote?tags=Broken, Fixmeplz');
     $mech->get_ok('/area/489ce91b-6658-3307-9877-795b68554c98/tags');
     html_ok($mech->content);
     $mech->content_contains('broken');
-    $mech->content_contains('fixme');
+    $mech->content_contains('fixmeplz');
 };
 
 1;

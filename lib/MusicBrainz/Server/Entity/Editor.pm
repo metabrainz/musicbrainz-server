@@ -290,23 +290,35 @@ sub gravatar {
 around TO_JSON => sub {
     my ($orig, $self) = @_;
 
+    my $birth_partial_date;
+
+    if ($self->birth_date) {
+        my $bd = $self->birth_date;
+        $birth_partial_date = { year => $bd->year, month => $bd->month, day => $bd->day };
+    }
+
     return {
         %{$self->$orig},
-        deleted => boolean_to_json($self->deleted),
+        biography               => $self->biography,
+        birth_date              => $birth_partial_date,
+        deleted                 => boolean_to_json($self->deleted),
+        email                   => $self->email,
         email_confirmation_date => datetime_to_iso8601($self->email_confirmation_date),
-        gravatar => $self->gravatar,
-        is_account_admin => boolean_to_json($self->is_account_admin),
-        is_admin => boolean_to_json($self->is_admin),
-        is_auto_editor => boolean_to_json($self->is_auto_editor),
-        is_banner_editor => boolean_to_json($self->is_banner_editor),
-        is_bot => boolean_to_json($self->is_bot),
-        is_editing_disabled => boolean_to_json($self->is_editing_disabled),
-        is_limited => boolean_to_json($self->is_limited),
-        is_location_editor => boolean_to_json($self->is_location_editor),
-        is_relationship_editor => boolean_to_json($self->is_relationship_editor),
-        is_wiki_transcluder => boolean_to_json($self->is_wiki_transcluder),
-        name => $self->name,
-        preferences => $self->preferences->TO_JSON,
+        gravatar                => $self->gravatar,
+        is_account_admin        => boolean_to_json($self->is_account_admin),
+        is_admin                => boolean_to_json($self->is_admin),
+        is_auto_editor          => boolean_to_json($self->is_auto_editor),
+        is_banner_editor        => boolean_to_json($self->is_banner_editor),
+        is_bot                  => boolean_to_json($self->is_bot),
+        is_editing_disabled     => boolean_to_json($self->is_editing_disabled),
+        is_limited              => boolean_to_json($self->is_limited),
+        is_location_editor      => boolean_to_json($self->is_location_editor),
+        is_relationship_editor  => boolean_to_json($self->is_relationship_editor),
+        is_wiki_transcluder     => boolean_to_json($self->is_wiki_transcluder),
+        name                    => $self->name,
+        preferences             => $self->preferences->TO_JSON,
+        registration_date       => datetime_to_iso8601($self->registration_date),
+        website                 => $self->website,
     };
 };
 

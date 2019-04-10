@@ -299,4 +299,12 @@ sub error {
     $c->detach;
 }
 
+sub ws1_gone : Chained('/') PathPart('ws/1') {
+    my ($self, $c) = @_;
+
+    $c->res->content_type('text/plain; charset=utf-8');
+    $c->res->body('https://blog.metabrainz.org/2018/02/01/web-service-ver-1-0-ws-1-will-be-removed-in-6-months/');
+    $c->res->status(410);
+}
+
 1;

@@ -7,10 +7,9 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-const React = require('react');
-const {withCatalystContext} = require('../../../../context');
-const {pathTo} = require('../../../manifest');
-const {l} = require('../i18n');
+import React from 'react';
+
+import {withCatalystContext} from '../../../../context';
 
 function buildTaggerLink(entity, tport: number): string {
   const gid = entity.gid;
@@ -42,10 +41,10 @@ const TaggerIcon = ({$c, entity}: Props) => {
     >
       <img
         alt={l('Tagger')}
-        src={pathTo('/images/icons/mblookup-tagger.png')}
+        src={require('../../../images/icons/mblookup-tagger.png')}
       />
     </a>
   );
 };
 
-module.exports = withCatalystContext(TaggerIcon);
+export default withCatalystContext(TaggerIcon);

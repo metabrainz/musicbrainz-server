@@ -5,7 +5,7 @@
 
 const ko = require('knockout');
 
-const MB = require('../common/MB');
+const MB = require('../common/MB').default;
 
 exports.errorFields = ko.observableArray([]);
 
@@ -33,7 +33,7 @@ MB.validation = exports;
 if (typeof document !== 'undefined') {
     const $ = require('jquery');
 
-    const clean = require('../common/utility/clean');
+    const clean = require('../common/utility/clean').default;
 
     exports.errorsExist.subscribe(function (value) {
         $('#page form button[type=submit]').prop('disabled', value);

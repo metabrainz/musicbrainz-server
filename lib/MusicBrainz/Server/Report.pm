@@ -20,11 +20,6 @@ sub table {
     return decamelize($name);
 }
 
-sub template {
-    my $self = shift;
-    return 'report/' . $self->table . '.tt';
-}
-
 sub load {
     my ($self, $limit, $offset) = @_;
 
@@ -74,6 +69,8 @@ sub generated_at {
     }
     return $timestamp;
 }
+
+sub component_name {}
 
 1;
 

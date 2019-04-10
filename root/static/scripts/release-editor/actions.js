@@ -3,21 +3,22 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-const $ = require('jquery');
-const ko = require('knockout');
-const _ = require('lodash');
+import $ from 'jquery';
+import ko from 'knockout';
+import _ from 'lodash';
 
-const i18n = require('../common/i18n');
-const {
-        artistCreditFromArray,
-        hasVariousArtists,
-        isComplexArtistCredit,
-        reduceArtistCredit,
-    } = require('../common/immutable-entities');
-const deferFocus = require('../edit/utility/deferFocus');
-const guessFeat = require('../edit/utility/guessFeat');
-const fields = require('./fields');
-const releaseEditor = require('./viewModel');
+import {
+  artistCreditFromArray,
+  hasVariousArtists,
+  isComplexArtistCredit,
+  reduceArtistCredit,
+} from '../common/immutable-entities';
+import MB from '../common/MB';
+import deferFocus from '../edit/utility/deferFocus';
+import guessFeat from '../edit/utility/guessFeat';
+
+import fields from './fields';
+import releaseEditor from './viewModel';
 
 const actions = {
 
@@ -251,7 +252,7 @@ const actions = {
             return isComplexArtistCredit(track.artistCredit());
         });
 
-        var question = i18n.l(
+        var question = l(
             "This tracklist has artist credits with information that " +
             "will be lost if you swap artist credits with track titles. " +
             "This cannot be undone. Do you wish to continue?"
@@ -307,6 +308,6 @@ const actions = {
     copyTrackArtistsToRecordings: ko.observable(false)
 };
 
-_.extend(releaseEditor, actions);
+Object.assign(releaseEditor, actions);
 
-module.exports = actions;
+export default actions;

@@ -15,8 +15,7 @@ import {withCatalystContext} from '../../../context';
 import CodeLink from '../../../static/scripts/common/components/CodeLink';
 import commaOnlyList from '../../../static/scripts/common/i18n/commaOnlyList';
 import CommonsImage from '../../../static/scripts/common/components/CommonsImage';
-import {addColon, l} from '../../../static/scripts/common/i18n';
-import {lp_attributes} from '../../../static/scripts/common/i18n/attributes';
+import linkedEntities from '../../../static/scripts/common/linkedEntities';
 import ExternalLinks from '../ExternalLinks';
 
 import AnnotationLinks from './AnnotationLinks';
@@ -47,8 +46,8 @@ const WorkSidebar = ({$c, work}: Props) => {
   return (
     <div id="sidebar">
       <CommonsImage
+        cachedImage={$c.stash.commons_image}
         entity={work}
-        image={$c.stash.commons_image}
       />
 
       {showInfo ? (
@@ -61,7 +60,7 @@ const WorkSidebar = ({$c, work}: Props) => {
             <SidebarType entity={work} typeType="work_type" />
 
             {languages.length ? (
-              <SidebarProperty className="lyrics-language" label={addColon(l('Lyrics Languages'))}>
+              <SidebarProperty className="lyrics-language" label={addColonText(l('Lyrics Languages'))}>
                 {commaOnlyList(
                   languages.map((wl, index) => (
                     <LinkSearchableLanguage
@@ -69,7 +68,7 @@ const WorkSidebar = ({$c, work}: Props) => {
                       key={wl.language.id}
                       language={wl.language}
                     />
-                  ))
+                  )),
                 )}
               </SidebarProperty>
             ) : null}
@@ -84,13 +83,12 @@ const WorkSidebar = ({$c, work}: Props) => {
 
             {attributes.length ? (
               attributes.map((attr, index) => {
-                const type =
-                  $c.linked_entities.work_attribute_type[attr.typeID];
+                const type = linkedEntities.work_attribute_type[attr.typeID];
                 return (
                   <SidebarProperty
                     className={'work-attribute work-attribute-' + kebabCase(type.name)}
                     key={attr.id}
-                    label={addColon(lp_attributes(type.name, 'work_attribute_type'))}
+                    label={addColonText(lp_attributes(type.name, 'work_attribute_type'))}
                   >
                     {attr.value_id
                       ? lp_attributes(attr.value, 'work_attribute_type_allowed_value')

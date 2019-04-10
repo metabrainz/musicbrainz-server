@@ -19,8 +19,7 @@ around inflate_rows => sub {
         map +{
             %$_,
             release_group => $releasegroups->{ $_->{release_group_id} }
-        },
-            @$items
+        }, @$items
     ];
 };
 

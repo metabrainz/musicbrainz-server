@@ -18,6 +18,7 @@ FROM (
    WHERE (medium_format.has_discids = TRUE OR medium_format.has_discids IS NULL)
      AND track.position = medium.track_count
      AND track.name ~* E'([[:<:]](dat(a|en)|cccd|gegevens|video)[[:>:]]|\\u30C7\\u30FC\\u30BF)'
+     AND track.is_data_track = FALSE
      AND NOT EXISTS (
        SELECT TRUE FROM medium_cdtoc WHERE medium_cdtoc.medium = medium.id
        LIMIT 1

@@ -10,12 +10,11 @@
 import React from 'react';
 
 import NotFound from '../components/NotFound';
-import {l} from '../static/scripts/common/i18n';
 
 const ISRCNotFound = () => (
   <NotFound title={l('ISRC Not Currently Used')}>
     <p>
-      {l('This ISRC is not associated with any recordings. If you wish to associate it with a recording, please {search_url|search for the recording} and add it.',
+      {exp.l('This ISRC is not associated with any recordings. If you wish to associate it with a recording, please {search_url|search for the recording} and add it.',
         {search_url: '/search'})}
     </p>
   </NotFound>

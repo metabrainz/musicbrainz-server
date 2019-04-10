@@ -7,10 +7,9 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-const React = require('react');
-const {l} = require('../static/scripts/common/i18n');
-const {lp_attributes} = require('../static/scripts/common/i18n/attributes');
-const EntityHeader = require('../components/EntityHeader');
+import React from 'react';
+
+import EntityHeader from '../components/EntityHeader';
 
 type Props = {|
   +artist: ArtistT,
@@ -32,4 +31,4 @@ const ArtistHeader = ({artist, page}: Props) => {
   );
 };
 
-module.exports = ArtistHeader;
+export default ArtistHeader;

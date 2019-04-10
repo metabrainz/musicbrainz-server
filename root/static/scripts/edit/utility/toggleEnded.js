@@ -3,6 +3,10 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
+import $ from 'jquery';
+
+import MB from '../../common/MB';
+
 MB.initializeToggleEnded = function (formID) {
     $(function () {
         const endYear = '#' + formID + '\\.period\\.end_date\\.year';
@@ -21,4 +25,4 @@ MB.initializeToggleEnded = function (formID) {
     });
 };
 
-module.exports = MB.initializeToggleEnded;
+export default MB.initializeToggleEnded;

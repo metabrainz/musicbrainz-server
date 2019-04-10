@@ -260,7 +260,8 @@ test 'previewing/creating/editing a release group and release' => sub {
                         iso_3166_1_codes => ['JP'],
                         iso_3166_2_codes => [],
                         iso_3166_3_codes => [],
-                        primary_code => 'JP'
+                        primary_code => 'JP',
+                        country_code => 'JP',
                     },
                     date => {
                         day => 27,

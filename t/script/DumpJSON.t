@@ -1,4 +1,3 @@
-use Clone qw( clone );
 use DBDefs;
 use File::Slurp;
 use File::Spec;
@@ -32,13 +31,10 @@ test all => sub {
     my $schema_seq = DBDefs->DB_SCHEMA_SEQUENCE;
     my $psql = File::Spec->catfile($root, 'admin/psql');
 
-    # Test requires a clean database
-    system File::Spec->catfile($root, 'script/create_test_db.sh');
-
     my $exec_sql = sub {
         my $sql = shell_quote(shift);
 
-        system 'sh', '-c' => "echo $sql | $psql TEST";
+        system 'sh', '-c' => "echo $sql | $psql TEST_JSON_DUMP";
     };
 
     $exec_sql->(<<EOSQL);
@@ -64,7 +60,7 @@ EOSQL
         $new_output_dir->();
         system (
             File::Spec->catfile($root, 'admin/DumpJSON'),
-            '--database' => 'TEST',
+            '--database' => 'TEST_JSON_DUMP',
             '--no-compress',
             '--output-dir' => $output_dir,
         );
@@ -74,7 +70,7 @@ EOSQL
         $new_output_dir->();
         system (
             File::Spec->catfile($root, 'admin/DumpIncrementalJSON'),
-            '--database' => 'TEST',
+            '--database' => 'TEST_JSON_DUMP',
             '--no-compress',
             '--output-dir' => $output_dir,
             '--replication-access-uri' => "file://$rep_dir",
@@ -138,6 +134,7 @@ EOSQL
         end_area => undef,
         gender => undef,
         'gender-id' => undef,
+        genres => [],
         id => '30238ead-59fa-41e2-a7ab-b7f6e6363c4b',
         ipis => [],
         isnis => [],
@@ -212,6 +209,7 @@ EOF
         annotation => undef,
         attributes => [],
         disambiguation => '',
+        genres => [],
         iswcs => [],
         language => undef,
         languages => [],
@@ -276,7 +274,6 @@ EOF
             'type-id' => 'd59d99ea-23d4-4a80-b066-edca32ee158f',
             work => {
                 aliases => [],
-                annotation => undef,
                 attributes => [],
                 disambiguation => '',
                 id => 'b6c76104-d64c-4883-b395-c74f782b751c',
@@ -299,7 +296,6 @@ EOF
         {
             artist => {
                 aliases => [],
-                annotation => undef,
                 disambiguation => '',
                 id => '30238ead-59fa-41e2-a7ab-b7f6e6363c4b',
                 name => 'Blues Guy',
@@ -352,27 +348,27 @@ EOF
 8\tf\t"id"='1' "current_replication_sequence"='5'\x{20}
 EOF
 
-    my $artist_credit1 = [
-        {
+    my $make_artist_credit = sub {
+        my ($name, %extra) = @_;
+        return [{
             artist => {
                 disambiguation => '',
                 id => '30238ead-59fa-41e2-a7ab-b7f6e6363c4b',
                 name => 'Blues Guy',
                 'sort-name' => 'Blues Guy',
+                %extra,
             },
             joinphrase => '',
-            name => 'Blues Guy',
-        }
-    ];
+            name => $name || 'Blues Guy',
+        }];
+    };
 
-    my $artist_credit1_toplevel = clone($artist_credit1);
-    $artist_credit1_toplevel->[0]{artist}{aliases} = [];
-    $artist_credit1_toplevel->[0]{artist}{annotation} = undef;
+    my $artist_credit1 = $make_artist_credit->('');
 
     my %release1 = (
         aliases => [],
         annotation => undef,
-        'artist-credit' => $artist_credit1_toplevel,
+        'artist-credit' => $make_artist_credit->('', aliases => [], tags => [], genres => []),
         asin => undef,
         barcode => undef,
         'cover-art-archive' => {
@@ -383,6 +379,7 @@ EOF
             front => JSON::false,
         },
         disambiguation => '',
+        genres => [],
         id => '8ddb6392-a3d2-4c62-8a3f-9289dfc627b0',
         'label-info' => [],
         media => [
@@ -396,20 +393,21 @@ EOF
                 'track-offset' => 0,
                 tracks => [
                     {
-                        'artist-credit' => $artist_credit1_toplevel,
+                        'artist-credit' => $make_artist_credit->('', aliases => []),
                         id => 'a5e1dc36-b61e-4dba-86fa-ec11b4f18d20',
                         length => undef,
                         number => '1',
                         position => 1,
                         recording => {
                             aliases => [],
-                            annotation => undef,
                             'artist-credit' => $artist_credit1,
                             disambiguation => '',
+                            genres => [],
                             id => '4293ab04-ec12-4c5e-9ffa-98ee6e833bb3',
                             isrcs => [],
                             length => undef,
                             relations => [],
+                            tags => [],
                             title => 'The Blues',
                             video => JSON::false,
                         },
@@ -424,15 +422,16 @@ EOF
         relations => [],
         'release-group' => {
             aliases => [],
-            annotation => undef,
-            'artist-credit' => $artist_credit1,
+            'artist-credit' => $make_artist_credit->('', aliases => []),
             disambiguation => '',
             'first-release-date' => '',
+            genres => [],
             id => 'e0e39108-5a94-4736-83bb-09c1682a2ab5',
             'primary-type' => undef,
             'primary-type-id' => undef,
             'secondary-type-ids' => [],
             'secondary-types' => [],
+            tags => [],
             title => 'Blue Hits',
         },
         status => 'Official',
@@ -448,9 +447,10 @@ EOF
     my %release_group1 = (
         aliases => [],
         annotation => undef,
-        'artist-credit' => $artist_credit1,
+        'artist-credit' => $make_artist_credit->('', aliases => [], tags => [], genres => []),
         disambiguation => '',
         'first-release-date' => '',
+        genres => [],
         id => 'e0e39108-5a94-4736-83bb-09c1682a2ab5',
         'primary-type' => undef,
         'primary-type-id' => undef,
@@ -498,8 +498,7 @@ EOF
 
     $build_incremental_dump->();
 
-    my $artist_credit2_toplevel = clone($artist_credit1_toplevel);
-    $artist_credit2_toplevel->[0]{name} = 'B.G.';
+    my $artist_credit2_toplevel = $make_artist_credit->('B.G.', aliases => []);
     $release1{media}[0]{tracks}[0]{'artist-credit'} = $artist_credit2_toplevel;
 
     $test_dump->("$output_dir/json-dump-6", 'release', [
@@ -559,8 +558,9 @@ EOF
         {
             aliases => [],
             annotation => undef,
-            'artist-credit' => $artist_credit1,
+            'artist-credit' => $make_artist_credit->('', tags => [], genres => []),
             disambiguation => '',
+            genres => [],
             id => '4293ab04-ec12-4c5e-9ffa-98ee6e833bb3',
             length => 238000,
             rating => {

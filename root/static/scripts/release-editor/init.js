@@ -3,32 +3,33 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-const $ = require('jquery');
-const ko = require('knockout');
-const _ = require('lodash');
+import $ from 'jquery';
+import ko from 'knockout';
+import _ from 'lodash';
 
-const i18n = require('../common/i18n');
-const {
-        artistCreditFromArray,
-        artistCreditsAreEqual,
-        hasVariousArtists,
-        reduceArtistCredit,
-    } = require('../common/immutable-entities');
-const clean = require('../common/utility/clean');
-const request = require('../common/utility/request');
-const externalLinks = require('../edit/externalLinks');
-const validation = require('../edit/validation');
-const fields = require('./fields');
-const recordingAssociation = require('./recordingAssociation');
-const utils = require('./utils');
-const releaseEditor = require('./viewModel');
+import {
+  artistCreditFromArray,
+  artistCreditsAreEqual,
+  hasVariousArtists,
+  reduceArtistCredit,
+} from '../common/immutable-entities';
+import MB from '../common/MB';
+import clean from '../common/utility/clean';
+import request from '../common/utility/request';
+import * as externalLinks from '../edit/externalLinks';
+import * as validation from '../edit/validation';
 
-_.extend(releaseEditor, {
+import fields from './fields';
+import recordingAssociation from './recordingAssociation';
+import utils from './utils';
+import releaseEditor from './viewModel';
+
+Object.assign(releaseEditor, {
     activeTabID: ko.observable("#information"),
     activeTabIndex: ko.observable(0),
     loadError: ko.observable(""),
     loadErrorMessage: function () {
-        return i18n.l('Error loading release: {error}', {error: releaseEditor.loadError()});
+        return texp.l('Error loading release: {error}', {error: releaseEditor.loadError()});
     },
     externalLinksEditData: ko.observable({}),
     hasInvalidLinks: validation.errorField(ko.observable(false))
@@ -171,12 +172,12 @@ releaseEditor.init = function (options) {
 
         if (self.action === "add") {
             document.title =
-                name ? i18n.hyphenateTitle(name, i18n.l("Add Release")) :
-                       i18n.l("Add Release");
+                name ? hyphenateTitle(name, l("Add Release")) :
+                       l("Add Release");
         } else {
             document.title =
-                name ? i18n.hyphenateTitle(name, i18n.l("Edit Release")) :
-                       i18n.l("Edit Release");
+                name ? hyphenateTitle(name, l("Edit Release")) :
+                       l("Edit Release");
         }
     });
 
@@ -215,7 +216,7 @@ releaseEditor.init = function (options) {
 
     window.addEventListener('beforeunload', event => {
         if (hasEdits() && !this.rootField.redirecting) {
-            event.returnValue = i18n.l("All of your changes will be lost if you leave this page.");
+            event.returnValue = l("All of your changes will be lost if you leave this page.");
             return event.returnValue;
         }
     });

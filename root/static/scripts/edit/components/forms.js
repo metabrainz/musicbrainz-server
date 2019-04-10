@@ -3,16 +3,17 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-const React = require('react');
-const ReactDOM = require('react-dom');
+import React from 'react';
+import ReactDOM from 'react-dom';
 
-const {l} = require('../../common/i18n');
-const {artistCreditFromArray} = require('../../common/immutable-entities');
-const ArtistCreditEditor = require('./ArtistCreditEditor');
+import {artistCreditFromArray} from '../../common/immutable-entities';
+import MB from '../../common/MB';
 import FieldErrors from '../../../../components/FieldErrors';
 import FormRow from '../../../../components/FormRow';
 
-const FormRowArtistCredit = ({form, entity}) => (
+import ArtistCreditEditor from './ArtistCreditEditor';
+
+export const FormRowArtistCredit = ({form, entity}) => (
   <FormRow>
     <label htmlFor="entity-artist" className="required">
       {l('Artist:')}
@@ -35,5 +36,3 @@ MB.initializeArtistCredit = function (form, initialNames) {
     document.getElementById('artist-credit-editor')
   );
 };
-
-exports.FormRowArtistCredit = FormRowArtistCredit;

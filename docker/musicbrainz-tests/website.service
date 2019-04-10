@@ -1,4 +1,4 @@
 #!/bin/bash
 
-cd /home/musicbrainz/musicbrainz-server
-exec sudo -E -H -u musicbrainz carton exec -- plackup -Ilib
+MBS_ROOT=/home/musicbrainz/musicbrainz-server
+exec $MBS_ROOT/docker/scripts/start_musicbrainz_server.sh

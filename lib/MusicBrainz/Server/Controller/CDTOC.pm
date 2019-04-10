@@ -57,9 +57,14 @@ sub show : Chained('load') PathPart('')
     my ($self, $c) = @_;
 
     my $cdtoc = $c->stash->{cdtoc};
+    my $medium_cdtocs = $self->_load_releases($c, $cdtoc);
+
+    $c->model('Track')->load_for_mediums(
+        map { $_->medium } @{$medium_cdtocs}
+    );
 
     $c->stash(
-        medium_cdtocs => $self->_load_releases($c, $cdtoc),
+        medium_cdtocs => $medium_cdtocs,
         template      => 'cdtoc/index.tt',
     );
 }
