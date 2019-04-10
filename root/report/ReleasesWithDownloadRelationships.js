@@ -36,7 +36,7 @@ const ReleasesWithDownloadRelationships = ({
     <ul>
       <li>
         {l(`This report shows releases that have download relationships, but
-            have media whose format is not "Digital Media".`)}
+            have media whose format is not “Digital Media”.`)}
       </li>
       <li>
         {texp.l('Total releases found: {count}',

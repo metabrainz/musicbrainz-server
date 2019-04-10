@@ -30,7 +30,7 @@ const UnlinkedPseudoReleases = ({
 
     <ul>
       <li>
-        {l(`This report shows releases with status Pseudo-Release that aren't
+        {l(`This report shows releases with status Pseudo-Release that aren’t
             linked via the translation/transliteration relationship to an
              original version. This could be because the original version is
              missing, or just because the release status is wrongly set.`)}
