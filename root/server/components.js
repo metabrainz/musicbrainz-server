@@ -65,6 +65,7 @@ module.exports = {
   'genre/GenreIndex': require('../genre/GenreIndex'),
   'genre/GenreListPage': require('../genre/GenreListPage'),
   'genre/NotFound': require('../genre/NotFound'),
+  'instrument/InstrumentIndex': require('../instrument/InstrumentIndex'),
   'instrument/List': require('../instrument/List'),
   'instrument/NotFound': require('../instrument/NotFound'),
   'isrc/Index': require('../isrc/Index'),
