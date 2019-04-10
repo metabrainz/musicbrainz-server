@@ -25,8 +25,8 @@ const RecordingsWithVaryingTrackLengths = ({
   items,
   pager,
 }: ReportDataT<ReportRecordingT>) => (
-  <Layout fullWidth title={l('Recordings with varying track lengths')}>
-    <h1>{l('Recordings with varying track lengths')}</h1>
+  <Layout fullWidth title={l('Recordings with varying track times')}>
+    <h1>{l('Recordings with varying track times')}</h1>
 
     <ul>
       <li>
