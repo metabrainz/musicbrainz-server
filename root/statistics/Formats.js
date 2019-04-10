@@ -60,9 +60,9 @@ const Formats = ({$c, dateCollected, formatStats, stats}: FormatsStatsT) => (
           <td />
           <td>{l('Total')}</td>
           <td className="t">{formatCount($c, stats['count.release'])}</td>
-          <td className="t">{l('100%')}</td>
+          <td className="t">{formatPercentage($c, 1, 0)}</td>
           <td className="t">{formatCount($c, stats['count.medium'])}</td>
-          <td className="t">{l('100%')}</td>
+          <td className="t">{formatPercentage($c, 1, 0)}</td>
         </tr>
         {formatStats.map((formatStat, index) => {
           const entity = formatStat.entity;

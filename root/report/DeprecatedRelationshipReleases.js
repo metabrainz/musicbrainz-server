@@ -30,7 +30,7 @@ const DeprecatedRelationshipReleases = ({
 
     <ul>
       <li>
-        {l(`This report lists release which have relationships using
+        {l(`This report lists releases which have relationships using
             deprecated and grouping-only relationship types.`)}
       </li>
       <li>

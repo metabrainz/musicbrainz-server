@@ -2448,6 +2448,11 @@ msgstr ""
 msgid "Umbundu"
 msgstr ""
 
+#. frequency:1 iso_code_3:sju 
+#: DB:language/name:5995
+msgid "Ume Sami"
+msgstr ""
+
 #. frequency:0 iso_code_3:mis 
 #: DB:language/name:273
 msgid "Uncoded languages"

@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2019-01-10 11:41+0000\n"
+"PO-Revision-Date: 2019-02-11 13:34+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -322,7 +322,7 @@ msgstr "Een tenorbanjo is een viersnarige banjo die als tenor is gestemd, meesta
 msgid ""
 "A tom-tom (or just tom) is a cylindrical drum with no snare, commonly found "
 "in a standard drum set."
-msgstr "Een tom-tom (of gewoon tom) is een cilindrische trommel zonder snaar. Standaard onderdeel van een drumstel."
+msgstr "Een tom-tom (of gewoon tom) is een cilindrische trommel zonder snaar. Standaardonderdeel van een drumstel."
 
 #. name:tromba marina
 #: DB:instrument/description:698
@@ -332,7 +332,7 @@ msgid ""
 "truncated cone resting on a triangular base."
 msgstr "Een tromba marina of marinetrompet is een driehoekig strijkinstrument met één snaar dat vooral werd bespeeld in Europa tijdens de Middeleeuwen en de Renaissance. De naam komt van het feit dat de klank lijkt op die van een trompet."
 
-#. name:marxophone
+#. name:Marxophone
 #: DB:instrument/description:442
 msgid "A type of fretless zither."
 msgstr "Een soort fretloze citer."
@@ -675,7 +675,7 @@ msgid ""
 "ritual and meditation, North Indian raga and Dhrupad music. It has two dried"
 " gourd resonators and a body of bamboo with 24 wooden frets and 4 main, 2-3 "
 "secondary and one drone string."
-msgstr "De ruda veena wordt als de stamvader van alle Indiase snaarinstrumenten (veena) beschouwd. Het werd gebruikt bij rituelen en meditatie, Noord-Indiase raga en dhrupadmuziek. Het heeft twee resonatoren van gedroogde kalebas en een klankkast van bamboe, 24 houten fretten, 4 hoofdsnaren, 2 tot 3 secundaire snaren en een bourdonsnaar."
+msgstr "De rudra-vina wordt als de stamvader van alle Indiase snaarinstrumenten (vina) beschouwd. Het werd gebruikt bij rituelen en meditatie, Noord-Indiase raga en dhrupadmuziek. Het heeft twee resonatoren van gedroogde kalebas en een klankkast van bamboe, 24 houten fretten, 4 hoofdsnaren, 2 tot 3 secundaire snaren en een bourdonsnaar."
 
 #. name:whip / slapstick
 #: DB:instrument/description:107
@@ -719,6 +719,14 @@ msgstr "Bellen zijn klok- of schaalvormige instrumenten die worden geschud of aa
 #: DB:instrument/description:411
 msgid "Davul, turkish drum"
 msgstr "Davul, Turkse trommel"
+
+#. name:setar
+#: DB:instrument/description:630
+msgid ""
+"Derived from the Indian tritantri veena by the Persian poet Amir Khusro "
+"sometime in 13th century, it had 3 (now 4) strings and a long neck. It later"
+" gave name to the Indian sitar."
+msgstr "De setar werd in de 13e eeuw door de Perzische dichter Amīr Khusrow ontwikkeld uit de Indiase tritantri-vina. Het had drie (tegenwoordig vier) snaren en een lange hals. Het gaf ook de naam aan de Indiase sitar."
 
 #. name:tenora
 #: DB:instrument/description:869
@@ -1380,6 +1388,15 @@ msgid ""
 " townspeople."
 msgstr "De jootsjin werd vanuit China in Mongolië geïntroduceerd. Het heeft 13 dubbele snaren en een zwartgelakt houten klankbord. Het werd oorspronkelijk alleen door dorpsbewoners bespeeld."
 
+#. name:tritantri veena
+#: DB:instrument/description:945
+msgid ""
+"Originally played in court, it consists of a 1m long piece of wood with a "
+"small intricately carved soundbox. It has 16 frets and 3 metal strings. "
+"Legend has it, the Persian Ameer Khusrau made some alterations and created "
+"the Persian sehtara (setar)."
+msgstr "De tritantri-vina werd oorspronkelijk aan het hof bespeeld. Het bestaat uit een stuk hout van een meter lang met een kleine klankkast die met fijn houtsnijwerk is versierd. Het instrument heeft 16 fretten en drie metalen snaren. Volgens de legende maakte Amīr Khusrow wat aanpassingen en ontwikkelde zo de Perzische setar."
+
 #. name:renaissance rackett
 #: DB:instrument/description:896
 msgid ""
@@ -1534,7 +1551,7 @@ msgid ""
 "Popular in the fifteenth century, it was a combination of a pipe organ and "
 "harpsichord, often with two keyboards, one for the strings and one for the "
 "pipes mounted underneath."
-msgstr "Het Klaviorganum is een combinatie van een klavecimbel en een pijporgel, vaak met twee klavieren, één voor de snaren en één voor de pijpen. Het was in de 15e eeuw een populair instrument."
+msgstr "Het klaviorganum is een combinatie van een klavecimbel en een pijporgel, vaak met twee klavieren, één voor de snaren en één voor de pijpen. Het was in de 15e eeuw een populair instrument."
 
 #. name:regal
 #: DB:instrument/description:918
@@ -3057,13 +3074,6 @@ msgstr "Saz is een familie van snaarinstrumenten waaronder de bağlama valt. De 
 msgid "The segunda is a bass garifuna drum."
 msgstr "Een segunda is een basgarifunatrommel."
 
-#. name:setar
-#: DB:instrument/description:630
-msgid ""
-"The setar is a long-necked three-stringed lute found in Iran and Central "
-"Asia."
-msgstr "Een setar is een driesnarige luit met een lange hals uit Iran en Centraal-Azië."
-
 #. name:shakuhachi
 #: DB:instrument/description:173
 msgid "The shakuhachi is a Japanese end-blown flute."
@@ -4272,8 +4282,8 @@ msgid ""
 " of mandolin, it is tuned like it and the violin."
 msgstr "De banjoline is meerdere keren in verschillende landen uitgevonden. Het is een combinatie van de klankkast van een banjo en de hals van een mandoline, en is gestemd als een viool."
 
-#. name:saó ôi flute
-#: DB:instrument/description:310
+#. name:sáo meò
+#: DB:instrument/description:316
 msgid "saó ôi (flute of the Muong)"
 msgstr "Fluit van de Muong uit Vietnam"
 

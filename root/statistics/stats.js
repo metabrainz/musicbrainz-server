@@ -28,7 +28,7 @@ const stats = {
     'edit-information': {hide: true, label: l('Edit Information')},
     'formats': {label: l('Formats')},
     'label-countries': {label: l('Label Countries')},
-    'other': {label: l('Other')},
+    'other': {label: lp('Other', 'stats category')},
     'ratings-tags': {label: l('Ratings and Tags')},
     'relationships': {hide: true, label: l('Relationships')},
     'release-countries': {label: l('Release Countries')},
