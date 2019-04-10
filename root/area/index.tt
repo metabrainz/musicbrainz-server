@@ -1,9 +1,0 @@
-[%- WRAPPER "area/layout.tt" page='index' -%]
-    [%- INCLUDE 'annotation/summary.tt' -%]
-
-    [%- show_wikipedia_extract() -%]
-
-    [% React.embed(c, 'components/Relationships', {source => area}) %]
-
-    [%- script_manifest('area/index.js', {async => 'async'}) -%]
-[% END %]

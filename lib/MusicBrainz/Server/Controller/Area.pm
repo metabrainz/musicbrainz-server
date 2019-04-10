@@ -88,7 +88,17 @@ sub show : PathPart('') Chained('load')
 {
     my ($self, $c) = @_;
 
-    $c->stash(template => 'area/index.tt');
+    my %props = (
+        area              => $c->stash->{area},
+        numberOfRevisions => $c->stash->{number_of_revisions},
+        wikipediaExtract  => $c->stash->{wikipedia_extract},
+    );
+
+    $c->stash(
+        component_path => 'area/AreaIndex.js',
+        component_props => \%props,
+        current_view => 'Node',
+    );
 }
 
 =head2 artists
