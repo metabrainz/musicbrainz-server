@@ -147,7 +147,7 @@ const notFoundPages = {
     footer: null,
   },
   'relationship/linkattributetype': {
-    title: N_l('Relationship Attributes'),
+    title: N_l('Relationship Attribute Not Found'),
     message: N_l(
       `Sorry, we could not find a relationship attribute
        with that MusicBrainz ID.`,
