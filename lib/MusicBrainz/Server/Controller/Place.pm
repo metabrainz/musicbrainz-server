@@ -88,7 +88,17 @@ Shows a place's main landing page.
 sub show : PathPart('') Chained('load') {
     my ($self, $c) = @_;
 
-    $c->stash(template => 'place/index.tt');
+    my %props = (
+        numberOfRevisions => $c->stash->{number_of_revisions},
+        place             => $c->stash->{place},
+        wikipediaExtract  => $c->stash->{wikipedia_extract},
+    );
+
+    $c->stash(
+        component_path => 'place/PlaceIndex.js',
+        component_props => \%props,
+        current_view => 'Node',
+    );
 }
 
 =head2 events
