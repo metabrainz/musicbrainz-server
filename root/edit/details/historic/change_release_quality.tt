@@ -11,7 +11,7 @@
     </td>
   </tr>
   <tr>
-    <th>[% l('Data Quality:') %]</th>
+    <th>[% add_colon(l('Data Quality')) %]</th>
     <td class="old">[% quality_name(change.quality.old) %]</td>
     <td class="new">[% quality_name(change.quality.new) %]</td>
   </tr>
