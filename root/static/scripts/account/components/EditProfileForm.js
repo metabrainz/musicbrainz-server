@@ -23,6 +23,7 @@ import SelectField from '../../../../components/SelectField';
 import DBDefs from '../../common/DBDefs-client';
 import Autocomplete from '../../common/components/Autocomplete';
 import Warning from '../../common/components/Warning';
+import {N_lp_attributes} from '../../common/i18n/attributes';
 import {pushCompoundField} from '../../edit/utility/pushField';
 import hydrate from '../../../../utility/hydrate';
 
@@ -65,9 +66,9 @@ type State = {|
 const genderOptions = {
   grouped: false,
   options: [
-    {label: N_l('Male'), value: 1},
-    {label: N_l('Female'), value: 2},
-    {label: N_l('Other'), value: 3},
+    {label: N_lp_attributes('Male', 'gender'), value: 1},
+    {label: N_lp_attributes('Female', 'gender'), value: 2},
+    {label: N_lp_attributes('Other', 'gender'), value: 3},
   ],
 };
 
