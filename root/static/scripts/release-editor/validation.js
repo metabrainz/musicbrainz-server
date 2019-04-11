@@ -128,7 +128,7 @@ utils.withRelease(function (release) {
         return;
     }
 
-    var checkDigitText = N_l("The check digit is {checkdigit}.");
+    var checkDigitText = l("The check digit is {checkdigit}.");
     var doubleCheckText = l("Please double-check the barcode on the release.");
 
     if (barcode.length === 11) {
