@@ -35,7 +35,7 @@
         [% React.embed(c, 'components/PlacesList', { places => entities, checkboxes => my_collection ? 'remove' : '', order => order, sortable => 1})
             WRAPPER 'components/with-pager.tt' %]
       [%- ELSIF collection.type.item_entity_type == 'release_group' -%]
-        [% React.embed(c, 'components/ReleaseGroupsList', { releaseGroups => entities, checkboxes => my_collection ? 'remove' : '', order => order, sortable => 1, showArtists => 1, showRatings => 1, groupByType => 1 }) # TODO: On conversion to React, please check MBS-10155.
+        [% React.embed(c, 'components/ReleaseGroupsList', { releaseGroups => entities, checkboxes => my_collection ? 'remove' : '', order => order, sortable => 1, showRatings => 1, groupByType => 1 }) # TODO: On conversion to React, please check MBS-10155.
             WRAPPER 'components/with-pager.tt' %]
       [%- ELSIF collection.type.item_entity_type == 'series' -%]
         [% React.embed(c, 'components/SeriesList', { series => entities, checkboxes => my_collection ? 'remove' : '', order => order, sortable => 1})

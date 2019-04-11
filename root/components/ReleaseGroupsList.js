@@ -28,7 +28,6 @@ type ReleaseGroupsListHeaderProps = {|
   +groupByType?: boolean,
   +order?: string,
   +seriesItemNumbers?: {+[number]: string},
-  +showArtists?: boolean,
   +showRatings?: boolean,
   +sortable?: boolean,
 |};
@@ -40,7 +39,6 @@ type ReleaseGroupsListEntryProps = {|
   +index: number,
   +releaseGroup: ReleaseGroupT,
   +seriesItemNumbers?: {+[number]: string},
-  +showArtists?: boolean,
   +showRatings?: boolean,
 |};
 
@@ -51,7 +49,6 @@ type ReleaseGroupsListProps = {|
   +order?: string,
   +releaseGroups: $ReadOnlyArray<ReleaseGroupT>,
   +seriesItemNumbers?: {+[number]: string},
-  +showArtists?: boolean,
   +showRatings?: boolean,
   +sortable?: boolean,
 |};
@@ -62,7 +59,6 @@ const ReleaseGroupsListHeader = ({
   groupByType,
   order,
   seriesItemNumbers,
-  showArtists,
   showRatings,
   sortable,
 }: ReleaseGroupsListHeaderProps) => (
@@ -96,7 +92,7 @@ const ReleaseGroupsListHeader = ({
           )
           : l('Title')}
       </th>
-      {showArtists ? <th className="artist">{l('Artist')}</th> : null}
+      <th className="artist">{l('Artist')}</th>
       {groupByType ? null : (
         <th>
           {sortable
@@ -123,7 +119,6 @@ const ReleaseGroupsListEntry = ({
   groupByType,
   releaseGroup,
   seriesItemNumbers,
-  showArtists,
   showRatings,
 }: ReleaseGroupsListEntryProps) => (
   <tr className={loopParity(index)} key={releaseGroup.id}>
@@ -149,13 +144,11 @@ const ReleaseGroupsListEntry = ({
     <td>
       <EntityLink entity={releaseGroup} />
     </td>
-    {showArtists ? (
-      <td>
-        {releaseGroup.artistCredit
-          ? <ArtistCreditLink artistCredit={releaseGroup.artistCredit} />
-          : null}
-      </td>
-    ) : null}
+    <td>
+      {releaseGroup.artistCredit
+        ? <ArtistCreditLink artistCredit={releaseGroup.artistCredit} />
+        : null}
+    </td>
     {groupByType ? null : (
       <td>
         {releaseGroup.typeName
@@ -180,7 +173,6 @@ const ReleaseGroupsListTable = ({
   order,
   releaseGroups,
   seriesItemNumbers,
-  showArtists,
   showRatings,
   sortable,
 }: ReleaseGroupsListProps) => (
@@ -191,7 +183,6 @@ const ReleaseGroupsListTable = ({
       groupByType={groupByType}
       order={order}
       seriesItemNumbers={seriesItemNumbers}
-      showArtists={showArtists}
       showRatings={showRatings}
       sortable={sortable}
     />
@@ -205,7 +196,6 @@ const ReleaseGroupsListTable = ({
           key={releaseGroup.id}
           releaseGroup={releaseGroup}
           seriesItemNumbers={seriesItemNumbers}
-          showArtists={showArtists}
           showRatings={showRatings}
         />
       ))}
@@ -220,7 +210,6 @@ const ReleaseGroupsList = ({
   order,
   releaseGroups,
   seriesItemNumbers,
-  showArtists,
   showRatings,
   sortable,
 }: ReleaseGroupsListProps) => {
@@ -244,7 +233,6 @@ const ReleaseGroupsList = ({
               order={order}
               releaseGroups={releaseGroupsOfType}
               seriesItemNumbers={seriesItemNumbers}
-              showArtists={showArtists}
               showRatings={showRatings}
               sortable={sortable}
             />
@@ -259,7 +247,6 @@ const ReleaseGroupsList = ({
         order={order}
         releaseGroups={releaseGroups}
         seriesItemNumbers={seriesItemNumbers}
-        showArtists={showArtists}
         showRatings={showRatings}
         sortable={sortable}
       />
