@@ -73,7 +73,12 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
 
             this.relationshipInfo = ko.computed(function () {
                 return {
-                    attributes: this.attributes().map(x => x.toJS()),
+                    attributes: this.attributes().map(x => {
+                        const result = x.toJS();
+                        result.typeID = x.type.id;
+                        result.typeName = x.type.name;
+                        return result;
+                    }),
                     linkTypeID: this.linkTypeID(),
                 };
             }, this);

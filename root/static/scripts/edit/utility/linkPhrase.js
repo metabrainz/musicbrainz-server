@@ -149,7 +149,7 @@ function _setAttributeValues<T, V>(
 
   for (let i = 0; i < attributes.length; i++) {
     const attribute = attributes[i];
-    const type = linkedEntities.link_attribute_type[attribute.type.gid];
+    const type = linkedEntities.link_attribute_type[attribute.typeID];
     const typeName = localizeLinkAttributeTypeName(type);
     let value = i18n.getAttributeValue(type, typeName);
 
@@ -179,7 +179,7 @@ function _setAttributeValues<T, V>(
       }
 
       const info = linkType.attributes[type.root_id];
-      const rootName = linkedEntities.link_attribute_type[type.root_gid].name;
+      const rootName = linkedEntities.link_attribute_type[type.root_id].name;
 
       if (info.max === 1) {
         values[rootName] = value;
@@ -202,9 +202,10 @@ function _getRequiredAttributes(linkType: LinkTypeT) {
   if (required) {
     return required;
   }
-  for (const [, info] of Object.entries(linkType.attributes)) {
-    const {attribute, min} = ((info: any): LinkTypeAttrTypeT);
+  for (const [typeId, info] of Object.entries(linkType.attributes)) {
+    const {min} = ((info: any): LinkTypeAttrTypeT);
     if (min) {
+      const attribute = linkedEntities.link_attribute_type[(typeId: any)];
       required = required || {};
       required[attribute.name] = `{${localizeLinkAttributeTypeName(attribute)}}`;
     }

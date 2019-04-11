@@ -72,7 +72,7 @@ around TO_JSON => sub {
 
     my $root = $self->root;
     if ($root) {
-        $self->link_entity('link_attribute_type', $root->gid, $root);
+        $self->link_entity('link_attribute_type', $root->id, $root);
     }
 
     return {
