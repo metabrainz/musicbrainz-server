@@ -18,8 +18,8 @@ type Props = {|
   ...SeriesItemNumbersRoleT,
   +$c: CatalystContextT,
   +checkboxes?: string,
-  +noRatings?: boolean,
   +order?: string,
+  +showRatings?: boolean,
   +sortable?: boolean,
   +works: $ReadOnlyArray<WorkT>,
 |};
@@ -27,9 +27,9 @@ type Props = {|
 const WorksList = ({
   $c,
   checkboxes,
-  noRatings,
   order,
   seriesItemNumbers,
+  showRatings,
   sortable,
   works,
 }: Props) => (
@@ -69,7 +69,7 @@ const WorksList = ({
         </th>
         <th>{l('Lyrics Languages')}</th>
         <th>{l('Attributes')}</th>
-        {noRatings ? null : <th>{l('Rating')}</th>}
+        {showRatings ? <th>{l('Rating')}</th> : null}
       </tr>
     </thead>
     <tbody>
@@ -81,7 +81,7 @@ const WorksList = ({
           seriesItemNumbers={seriesItemNumbers}
           showAttributes
           showIswcs
-          showRatings={!noRatings}
+          showRatings={showRatings}
           work={work}
         />
       ))}

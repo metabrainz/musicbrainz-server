@@ -42,7 +42,7 @@
       ELSIF series.type.item_entity_type == 'work';
         '<h2>' _ l('Works') _ '</h2>';
         IF entities.size;
-          React.embed(c, 'components/WorksList', { works => entities, seriesItemNumbers = series_item_numbers})
+          React.embed(c, 'components/WorksList', { works => entities, seriesItemNumbers = series_item_numbers, showRatings => 1})
           WRAPPER 'components/with-pager.tt';
         END;
       END
