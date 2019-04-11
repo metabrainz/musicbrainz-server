@@ -1,6 +1,7 @@
 package MusicBrainz::Server::Controller::WS::js::Edit;
 use DBDefs;
 use File::Spec::Functions qw( catdir );
+use HTML::Entities qw( encode_entities );
 use JSON qw( encode_json );
 use List::MoreUtils qw( any );
 use Moose;
@@ -38,6 +39,7 @@ use MusicBrainz::Server::Data::Utils qw(
     trim
     non_empty
 );
+use MusicBrainz::Server::Renderer qw( render_component );
 use MusicBrainz::Server::Translation qw( comma_list comma_only_list l );
 use MusicBrainz::Server::Validation qw( is_guid is_valid_url is_valid_partial_date );
 use MusicBrainz::Server::View::Base;
@@ -716,12 +718,31 @@ sub preview : Chained('edit') PathPart('preview') Edit {
     my @previews = map {
         my $edit = $_;
 
-        my $edit_template = $edit->edit_template;
-        my $vars = { edit => $edit, c => $c, allow_new => 1 };
-        my $out = '';
+        my $edit_template_react = $edit->edit_template_react;
+        my $preview;
 
-        my $preview = $TT->process("edit/details/${edit_template}.tt", $vars, \$out, binmode => 1)
-            ? $out : '' . $TT->error();
+        if ($edit_template_react) {
+            my $response = render_component(
+                $c,
+                "edit/details/$edit_template_react",
+                {edit => $edit, allowNew => \1},
+            );
+            my $body = $response->{body} // '';
+            my $content_type = $response->{content_type} // '';
+            $preview = $content_type eq 'text/html'
+                ? $body
+                : encode_entities($body);
+        } else {
+            my $edit_template = $edit->edit_template;
+            my $out = '';
+
+            $preview = $TT->process(
+                "edit/details/${edit_template}.tt",
+                {edit => $edit, c => $c, allow_new => 1},
+                \$out,
+                binmode => 1,
+            ) ? $out : '' . $TT->error();
+        }
 
         { preview => $preview, editName => $edit->l_edit_name };
     } @edits;
