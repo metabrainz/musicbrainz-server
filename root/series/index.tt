@@ -15,7 +15,7 @@
       IF series.type.item_entity_type == 'event';
         '<h2>' _ l('Event') _ '</h2>';
         IF entities.size;
-          React.embed(c, 'components/EventsList', { events => entities, noType => 1, seriesItemNumbers => series_item_numbers})
+          React.embed(c, 'components/EventsList', { events => entities, seriesItemNumbers => series_item_numbers, showArtists => 1, showLocation => 1, showRatings => 1 })
           WRAPPER 'components/with-pager.tt';
         END;
       ELSIF series.type.item_entity_type == 'recording';

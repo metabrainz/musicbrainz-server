@@ -23,7 +23,7 @@
         [% React.embed(c, 'components/ArtistsList', { artists => entities, checkboxes => my_collection ? 'remove' : '', showRatings => 1, order => order, sortable => 1})
             WRAPPER 'components/with-pager.tt' %]
       [%- ELSIF collection.type.item_entity_type == 'event' -%]
-        [% React.embed(c, 'components/EventsList', { events => entities, checkboxes => my_collection ? 'remove' : '', order => order, sortable => 1})
+        [% React.embed(c, 'components/EventsList', { events => entities, checkboxes => my_collection ? 'remove' : '', order => order, sortable => 1, showArtists => 1, showLocation => 1, showRatings => 1, showType => 1 })
             WRAPPER 'components/with-pager.tt' %]
       [%- ELSIF collection.type.item_entity_type == 'instrument' -%]
         [% React.embed(c, 'components/InstrumentsList', { instruments => entities, checkboxes => my_collection ? 'remove' : '', order => order, sortable => 1})
