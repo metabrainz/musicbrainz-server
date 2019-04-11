@@ -120,7 +120,7 @@ sub get_by_ids
 sub _load
 {
     my ($self, $type, $target_types, $use_cardinality, @objs) = @_;
-    my @target_types = @$target_types;
+    my @target_types = uniq @$target_types;
     my @types = map { [ sort($type, $_) ] } @target_types;
     my @rels;
     foreach my $t (@types) {
