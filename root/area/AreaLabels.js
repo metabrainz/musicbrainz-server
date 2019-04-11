@@ -32,6 +32,7 @@ const AreaLabels = ({
       <PaginatedResults pager={pager}>
         <LabelsList
           labels={labels}
+          showRatings
         />
       </PaginatedResults>
     ) : (

@@ -24,8 +24,8 @@ type Props = {|
   +$c: CatalystContextT,
   +checkboxes?: string,
   +labels: $ReadOnlyArray<LabelT>,
-  +noRatings?: boolean,
   +order?: string,
+  +showRatings?: boolean,
   +sortable?: boolean,
 |};
 
@@ -33,8 +33,8 @@ const LabelsList = ({
   $c,
   checkboxes,
   labels,
-  noRatings,
   order,
+  showRatings,
   sortable,
 }: Props) => (
   <table className="tbl">
@@ -109,7 +109,7 @@ const LabelsList = ({
             )
             : l('End')}
         </th>
-        {noRatings ? null : <th>{l('Rating')}</th>}
+        {showRatings ? <th>{l('Rating')}</th> : null}
       </tr>
     </thead>
     <tbody>
@@ -140,11 +140,11 @@ const LabelsList = ({
           </td>
           <td>{formatDate(label.begin_date)}</td>
           <td>{formatEndDate(label)}</td>
-          {noRatings ? null : (
+          {showRatings ? (
             <td>
               <RatingStars entity={label} />
             </td>
-          )}
+          ) : null}
         </tr>
       ))}
     </tbody>
