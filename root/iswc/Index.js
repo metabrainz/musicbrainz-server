@@ -27,7 +27,7 @@ const Index = ({$c, iswcs, works}: Props) => {
     <Layout fullWidth title={texp.l('ISWC “{iswc}”', {iswc: iswc.iswc})}>
       <h1>
         {exp.l('ISWC “{iswc}”',
-          {iswc: <CodeLink code={iswc} key="iswc" />})}
+               {iswc: <CodeLink code={iswc} key="iswc" />})}
       </h1>
       <h2>
         {texp.ln(
