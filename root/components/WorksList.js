@@ -76,12 +76,12 @@ const WorksList = ({
       {works.map((work, index) => (
         <WorkListEntry
           checkboxes={checkboxes}
-          hasAttributesColumn
-          hasIswcColumn
-          hasRatingsColumn={!noRatings}
           index={index}
           key={work.id}
           seriesItemNumbers={seriesItemNumbers}
+          showAttributes
+          showIswcs
+          showRatings={!noRatings}
           work={work}
         />
       ))}

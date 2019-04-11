@@ -23,30 +23,30 @@ type WorkListRowProps = {|
   ...SeriesItemNumbersRoleT,
   +$c: CatalystContextT,
   +checkboxes?: string,
-  +hasAttributesColumn?: boolean,
-  +hasIswcColumn?: boolean,
-  +hasRatingsColumn?: boolean,
+  +showAttributes?: boolean,
+  +showIswcs?: boolean,
+  +showRatings?: boolean,
   +work: WorkT,
 |};
 
 type WorkListEntryProps = {|
   ...SeriesItemNumbersRoleT,
   +checkboxes?: string,
-  +hasAttributesColumn?: boolean,
-  +hasIswcColumn?: boolean,
-  +hasRatingsColumn?: boolean,
   +index: number,
   +score?: number,
+  +showAttributes?: boolean,
+  +showIswcs?: boolean,
+  +showRatings?: boolean,
   +work: WorkT,
 |};
 
 export const WorkListRow = withCatalystContext(({
   $c,
   checkboxes,
-  hasAttributesColumn,
-  hasIswcColumn,
-  hasRatingsColumn,
   seriesItemNumbers,
+  showAttributes,
+  showIswcs,
+  showRatings,
   work,
 }: WorkListRowProps) => (
   <>
@@ -77,7 +77,7 @@ export const WorkListRow = withCatalystContext(({
         ))}
       </ul>
     </td>
-    {hasIswcColumn ? (
+    {showIswcs ? (
       <td>
         <ul>
           {work.iswcs.map((iswc, i) => (
@@ -100,12 +100,12 @@ export const WorkListRow = withCatalystContext(({
         ))}
       </ul>
     </td>
-    {hasAttributesColumn ? (
+    {showAttributes ? (
       <td>
         <AttributesList entity={work} />
       </td>
     ) : null}
-    {hasRatingsColumn ? (
+    {showRatings ? (
       <td>
         <RatingStars entity={work} />
       </td>
@@ -115,21 +115,21 @@ export const WorkListRow = withCatalystContext(({
 
 const WorkListEntry = ({
   checkboxes,
-  hasAttributesColumn,
-  hasIswcColumn,
-  hasRatingsColumn,
   index,
   score,
   seriesItemNumbers,
+  showAttributes,
+  showIswcs,
+  showRatings,
   work,
 }: WorkListEntryProps) => (
   <tr className={loopParity(index)} data-score={score || null}>
     <WorkListRow
       checkboxes={checkboxes}
-      hasAttributesColumn={hasAttributesColumn}
-      hasIswcColumn={hasIswcColumn}
-      hasRatingsColumn={hasRatingsColumn}
       seriesItemNumbers={seriesItemNumbers}
+      showAttributes={showAttributes}
+      showIswcs={showIswcs}
+      showRatings={showRatings}
       work={work}
     />
   </tr>

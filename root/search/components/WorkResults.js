@@ -22,10 +22,10 @@ function buildResult(result, index) {
 
   return (
     <WorkListEntry
-      hasIswcColumn
       index={index}
       key={work.id}
       score={score}
+      showIswcs
       work={work}
     />
   );
