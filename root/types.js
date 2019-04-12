@@ -642,6 +642,22 @@ declare type MediumFormatT = {|
   +year: ?number,
 |};
 
+declare type MediumT = {|
+  /*
+   * TODO: still missing +cdtocs: $ReadOnlyArray<MediumCdTocT>
+   * (MediumCdTocT is not defined yet)
+   */
+  ...EntityRoleT<'track'>,
+  ...LastUpdateRoleT,
+  +editsPending: boolean,
+  +format: string,
+  +formatID: number,
+  +name: string,
+  +position: number,
+  +release_id: number,
+  +tracks?: $ReadOnlyArray<TrackT>
+|};
+
 declare type MinimalCoreEntityT = {
   +entityType: string,
   +gid: string,
@@ -913,6 +929,23 @@ declare type StrOrNum = string | number;
 type StructFieldT<F> =
   | CompoundFieldT<F>
   | RepeatableFieldT<F>;
+
+declare type TrackT = {|
+  ...EntityRoleT<'track'>,
+  ...LastUpdateRoleT,
+  +artist: string,
+  +artistCredit: ArtistCreditT,
+  +editsPending: boolean,
+  +gid: string,
+  +isDataTrack: boolean,
+  +length: number,
+  +medium: MediumT | null,
+  +name: string,
+  +number: string,
+  +position: number,
+  +recording?: {+artistCredit?: ArtistCreditT} & RecordingT,
+  +unaccented_name: string | null,
+|};
 
 declare type TypeRoleT<T> = {|
   +typeID: number | null,

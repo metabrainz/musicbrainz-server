@@ -29,6 +29,9 @@ type LinkedEntities = {
   link_type_tree: {|
     +[string]: $ReadOnlyArray<LinkTypeT>,
   |},
+  release: {|
+    +[number]: ReleaseT,
+  |},
   release_group_primary_type: {|
     [number]: ReleaseGroupTypeT,
   |},
@@ -70,6 +73,7 @@ const linkedEntities/*: LinkedEntities */ = Object.create(Object.seal({
   link_attribute_type:            EMPTY_OBJECT,
   link_type:                      EMPTY_OBJECT,
   link_type_tree:                 EMPTY_OBJECT,
+  release:                        EMPTY_OBJECT,
   release_group_primary_type:     EMPTY_OBJECT,
   release_group_secondary_type:   EMPTY_OBJECT,
   release_packaging:              EMPTY_OBJECT,
