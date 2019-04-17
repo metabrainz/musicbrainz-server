@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2018-12-14 23:49+0000\n"
-"Last-Translator: Mihkel Tõnnov <email address hidden>\n"
+"PO-Revision-Date: 2019-04-10 17:09+0000\n"
+"Last-Translator: yvanz\n"
 "Language-Team: Estonian (http://www.transifex.com/musicbrainz/musicbrainz/language/et/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -2453,6 +2453,11 @@ msgstr "ukraina"
 #: DB:language/name:442
 msgid "Umbundu"
 msgstr "umbundu"
+
+#. frequency:1 iso_code_3:sju
+#: DB:language/name:5995
+msgid "Ume Sami"
+msgstr ""
 
 #. frequency:0 iso_code_3:mis
 #: DB:language/name:273
