@@ -18,7 +18,7 @@ const UrlIndex = ({url}: {url: UrlT}) => (
     <h2 className="url-details">{l('URL Details')}</h2>
     <table className="details">
       <tr>
-        <th>{l('URL:')}</th>
+        <th>{addColonText(l('URL'))}</th>
         <td><a href={url.href_url}>{url.pretty_name}</a></td>
       </tr>
     </table>
