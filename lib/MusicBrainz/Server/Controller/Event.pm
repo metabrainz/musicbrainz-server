@@ -68,8 +68,19 @@ sub show : PathPart('') Chained('load') {
     my $event = $c->stash->{event};
 
     $c->model('Event')->load_performers($event);
-    $c->stash(template => 'event/index.tt');
     $c->model('Relationship')->load($event->related_series);
+
+    my %props = (
+        event             => $c->stash->{event},
+        numberOfRevisions => $c->stash->{number_of_revisions},
+        wikipediaExtract  => $c->stash->{wikipedia_extract},
+    );
+
+    $c->stash(
+        component_path => 'event/EventIndex',
+        component_props => \%props,
+        current_view => 'Node',
+    );
 }
 
 sub _merge_load_entities {

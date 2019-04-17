@@ -18,6 +18,7 @@ use MooseX::Types::Structured qw( Dict );
 use MooseX::Types::Moose qw( ArrayRef Object Str );
 use MusicBrainz::Server::Data::Utils qw( boolean_to_json );
 use MusicBrainz::Server::Entity::Util::JSON qw( add_linked_entity );
+use MusicBrainz::Server::Filters qw( format_setlist );
 use MusicBrainz::Server::Types qw( Time );
 use List::UtilsBy qw( uniq_by );
 
@@ -121,6 +122,7 @@ around TO_JSON => sub {
             entity => $_->{entity},
         }, $self->all_places],
         related_series => [map { $_->id } @related_series],
+        setlist => format_setlist($self->setlist),
         time => $self->formatted_time,
     };
 };

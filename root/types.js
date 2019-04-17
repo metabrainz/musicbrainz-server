@@ -448,6 +448,7 @@ declare type EventT = {|
   |}>,
   +places: $ReadOnlyArray<{|+entity: PlaceT|}>,
   +related_series: $ReadOnlyArray<number>,
+  +setlist: string,
   +time: string,
 |};
 
