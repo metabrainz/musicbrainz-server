@@ -96,18 +96,20 @@ const ReportUser = ({
     <p>
       <strong>{addColonText(l('Note'))}</strong>
       {' '}
-      {l(`Be sure to provide direct links to examples of the behaviour you’re
-          reporting (for example, use
-          “<code>https://musicbrainz.org/edit/23</code>”
-          instead of “edit #23”, and use
-          “<code>https://musicbrainz.org/edit/42</code> and
-          <code>https://musicbrainz.org/edit/43</code>”
-          instead of
-          “<code>https://musicbrainz.org/user/SomeUser/edits</code>”).
-          Providing links makes it much easier for the recipients of the
-          report to look into the issues; a report without links is
-          unlikely to be acted on fast, since it will require a lot of
-          additional research.`)}
+      {exp.l(
+        `Be sure to provide direct links to examples of the behaviour you’re 
+         reporting (for example, use
+         “<code>https://musicbrainz.org/edit/23</code>”
+         instead of “edit #23”, and use
+         “<code>https://musicbrainz.org/edit/42</code> and
+         <code>https://musicbrainz.org/edit/43</code>”
+         instead of
+         “<code>https://musicbrainz.org/user/SomeUser/edits</code>”).
+         Providing links makes it much easier for the recipients of the
+         report to look into the issues; a report without links is
+         unlikely to be acted on fast, since it will require a lot of
+         additional research.`,
+      )}
     </p>
 
     <form action={$c.req.uri} className="report-form" method="post">
