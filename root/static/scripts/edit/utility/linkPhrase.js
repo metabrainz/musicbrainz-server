@@ -85,21 +85,6 @@ class PhraseVarArgs<T> extends VarArgs<AttrValue<T>> {
     this.usedAttributes.push(name);
     return true;
   }
-
-  getExtraAttributes(): Array<T | string> {
-    const extraAttributes = [];
-    for (const key in this.data) {
-      if (!this.usedAttributes.includes(key)) {
-        const values = this.data[key];
-        if (Array.isArray(values)) {
-          extraAttributes.push(...values);
-        } else {
-          extraAttributes.push(values);
-        }
-      }
-    }
-    return extraAttributes;
-  }
 }
 
 type I18n<T, V> = {
@@ -237,14 +222,16 @@ function _getPhraseAndExtraAttributes<T, V>(
     return emptyResult;
   }
 
-  if (!forGrouping && !cache.attributeValues) {
+  if (!cache.attributeValues) {
     _setAttributeValues<T | string, V>(i18n, relationship, cache);
   }
 
-  /* flow-include if (!cache.attributeValues) throw 'impossible'; */
+  const attributeValues = cache.attributeValues;
+
+  /* flow-include if (!attributeValues) throw 'impossible'; */
 
   const varArgs = new PhraseVarArgs(
-    forGrouping ? _getRequiredAttributes(linkType) : cache.attributeValues,
+    forGrouping ? _getRequiredAttributes(linkType) : attributeValues,
     i18n.commaList,
   );
 
@@ -253,9 +240,21 @@ function _getPhraseAndExtraAttributes<T, V>(
     phrase = clean(phrase);
   }
 
+  const extraAttributes: Array<T | string> = [];
+  for (const key in attributeValues) {
+    if (!varArgs.usedAttributes.includes(key)) {
+      const values = attributeValues[key];
+      if (Array.isArray(values)) {
+        extraAttributes.push(...values);
+      } else {
+        extraAttributes.push(values);
+      }
+    }
+  }
+
   result = [
     phrase,
-    i18n.commaOnlyList(varArgs.getExtraAttributes()),
+    i18n.commaOnlyList(extraAttributes),
   ];
 
   cache.phraseAndExtraAttributes[key] = result;
