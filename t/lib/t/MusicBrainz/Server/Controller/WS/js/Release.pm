@@ -67,6 +67,7 @@ test all => sub {
         verbosePhrase => 'performed guest vocals on',
         attributes => [
             {
+                html => 'guest',
                 typeID => 194,
                 typeName => 'guest',
                 type => {

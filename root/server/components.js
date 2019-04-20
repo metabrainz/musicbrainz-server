@@ -222,6 +222,7 @@ module.exports = {
   'components/Aliases': require('../components/Aliases'),
   'components/ExpirationTime': require('../components/ExpirationTime'),
   'components/Relationships': require('../components/Relationships'),
+  'components/RelationshipsTable': require('../components/RelationshipsTable'),
   'components/UserAccountTabs': require('../components/UserAccountTabs'),
   'components/list/AreaList': require('../components/list/AreaList'),
   'components/list/ArtistList': require('../components/list/ArtistList'),

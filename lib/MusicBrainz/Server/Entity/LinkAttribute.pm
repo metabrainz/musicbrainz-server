@@ -44,6 +44,7 @@ sub TO_JSON {
     my ($self) = @_;
 
     return {
+        html => $self->html,
         type => $self->type->TO_JSON,
         $self->type->creditable && non_empty($self->credited_as) ? (credited_as => $self->credited_as) : (),
         # text values are required

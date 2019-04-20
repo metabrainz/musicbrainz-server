@@ -78,7 +78,7 @@ has attributes => (
     }
 );
 
-sub _appearances_table_types { "recording" }
+sub _appearances_tble_types { "recording" }
 
 sub sorted_attributes {
     my $self = shift;

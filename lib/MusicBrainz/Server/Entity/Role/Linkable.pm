@@ -51,6 +51,7 @@ sub grouped_relationships
     return \%groups;
 }
 
+# Converted to JavaScript at root/utility/filterRelationshipsByType.js
 sub relationships_by_type
 {
     my ($self, @types) = @_;
@@ -74,6 +75,7 @@ sub relationships_by_link_type_names
     } $self->all_relationships ];
 }
 
+# Converted to JavaScript at root/utility/generateRelationshipAppearancesList.js
 sub appearances {
     my $self = shift;
     my @rels = @{ $self->relationships_by_type($self->_appearances_table_types) };

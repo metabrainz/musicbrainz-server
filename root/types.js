@@ -579,6 +579,7 @@ type LastUpdateRoleT = {|
 
 declare type LinkAttrT = {|
   +credited_as?: string,
+  +html: string,
   +text_value?: string,
   type: {|
     +gid: string,
