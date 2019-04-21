@@ -3246,11 +3246,18 @@ const testData = [
              input_entity_type: 'recording',
     expected_relationship_type: 'otherdatabases',
   },
-  // Wikia
+  // Fandom (old Wikia)
   {
                      input_url: 'http://lyrics.wikia.com/Van_Canto:Hero_(2008)',
              input_entity_type: 'release_group',
     expected_relationship_type: 'lyrics',
+            expected_clean_url: 'https://lyrics.fandom.com/Van_Canto:Hero_(2008)',
+  },
+  {
+                     input_url: 'http://lyrics.fandom.com/wiki/S%C3%B5pruse_Puiestee:Miks_Ma_Ei_V%C3%B5iks_Olla_Maailmas_%C3%9Cksi',
+             input_entity_type: 'work',
+    expected_relationship_type: 'lyrics',
+            expected_clean_url: 'https://lyrics.fandom.com/wiki/S%C3%B5pruse_Puiestee:Miks_Ma_Ei_V%C3%B5iks_Olla_Maailmas_%C3%9Cksi',
   },
   // Wikidata
   {
