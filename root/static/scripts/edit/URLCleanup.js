@@ -1463,6 +1463,7 @@ const CLEANUPS = {
   },
   'lyrics': {
     match: [
+      new RegExp('^(https?://)?([^/]+\\.)?lyrics\\.(wikia|fandom)\\.com', 'i'),
       new RegExp('^(https?://)?([^/]+\\.)?directlyrics\\.com', 'i'),
       new RegExp('^(https?://)?([^/]+\\.)?decoda\\.com', 'i'),
       new RegExp('^(https?://)?([^/]+\\.)?kasi-time\\.com', 'i'),
@@ -1475,6 +1476,11 @@ const CLEANUPS = {
       new RegExp('^(https?://)?([^/]+\\.)?laboiteauxparoles\\.com', 'i'),
     ],
     type: LINK_TYPES.lyrics,
+    clean: function (url) {
+      url = url.replace(/^https?:\/\/([^/]+\.)?genius\.com/, 'http://$1genius.com');
+      url = url.replace(/^https?:\/\/(?:[^/]+\.)?lyrics\.(?:wikia|fandom)\.com/, 'https://lyrics.fandom.com');
+      return url;
+    },
   },
   'mixcloud': {
     match: [new RegExp('^(https?://)?([^/]+\\.)?mixcloud\\.com/', 'i')],
