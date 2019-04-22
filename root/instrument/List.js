@@ -11,6 +11,7 @@ import React from 'react';
 
 import Layout from '../layout';
 import EntityLink from '../static/scripts/common/components/EntityLink';
+import expand2react from '../static/scripts/common/i18n/expand2react';
 
 type PropsT = {|
   +instrument_types: $ReadOnlyArray<InstrumentTypeT>,
@@ -27,7 +28,7 @@ const Instrument = ({instrument}) => (
       ? (
         <>
           {' — '}
-          {l_instrument_descriptions(instrument.description)}
+          {expand2react(l_instrument_descriptions(instrument.description))}
         </>
       )
       : null}
