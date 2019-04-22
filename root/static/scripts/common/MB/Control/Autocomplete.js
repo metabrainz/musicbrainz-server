@@ -894,8 +894,11 @@ MB.Control.autocomplete_formatters = {
         }
 
         if (item.description) {
+            // We want to strip html from the non-clickable description
             a.append('<br /><span class="autocomplete-comment">' +
-                      _.escape(l_instrument_descriptions(item.description)) +
+                      _.escape($('<div/>').html(
+                        l_instrument_descriptions(item.description),
+                      ).text()) +
                       '</span>');
         }
 
