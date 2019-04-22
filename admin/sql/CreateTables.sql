@@ -711,10 +711,13 @@ CREATE TABLE event ( -- replicate (verbose)
       )
 );
 
+CREATE TYPE event_art_presence AS ENUM ('absent', 'present', 'darkened');
+
 CREATE TABLE event_meta ( -- replicate
     id                  INTEGER NOT NULL, -- PK, references event.id CASCADE
     rating              SMALLINT CHECK (rating >= 0 AND rating <= 100),
-    rating_count        INTEGER
+    rating_count        INTEGER,
+    event_art_presence  event_art_presence NOT NULL DEFAULT 'absent'
 );
 
 CREATE TABLE event_rating_raw (
