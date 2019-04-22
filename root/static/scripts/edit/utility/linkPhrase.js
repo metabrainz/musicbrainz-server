@@ -262,7 +262,8 @@ function _getPhraseAndExtraAttributes<T, V>(
 
   const extraAttributes: Array<T | string> = [];
   for (const key in attributeValues) {
-    if (!varArgs.usedAttributes.includes(key)) {
+    if (shouldStripAttributes ||
+        !varArgs.usedAttributes.includes(key)) {
       const values = attributeValues[key];
       if (Array.isArray(values)) {
         extraAttributes.push(...values);
