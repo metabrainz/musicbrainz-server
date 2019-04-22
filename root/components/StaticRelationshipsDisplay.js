@@ -57,11 +57,10 @@ const StaticRelationshipsDisplay = ({
 
       for (let k = 0; k < groupSize; k++) {
         const relationship = group.relationships[k];
-        const linkType = linkedEntities.link_type[relationship.linkTypeID];
 
         const relationshipLink = (
           <RelationshipTargetLinks
-            forGrouping={linkType.orderable_direction > 0}
+            forGrouping
             hiddenArtistCredit={hiddenArtistCredit}
             relationship={relationship}
           />

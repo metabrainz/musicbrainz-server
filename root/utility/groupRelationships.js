@@ -76,13 +76,7 @@ export default function groupRelationships(
     let textPhrase = interpolateText(
       relationship,
       backward ? 'reverse_link_phrase' : 'link_phrase',
-      /*
-       * For ordered relationships (such as those in a series), builds
-       * a phrase with attributes removed, so that these relationships
-       * can remain grouped together under the same phrase in our
-       * relationships display, even if their attributes differ.
-       */
-      linkType.orderable_direction > 0, /* forGrouping */
+      true, /* forGrouping */
     );
     let phrase;
 
@@ -90,7 +84,7 @@ export default function groupRelationships(
       phrase = interpolate(
         relationship,
         backward ? 'reverse_link_phrase' : 'link_phrase',
-        linkType.orderable_direction > 0, /* forGrouping */
+        true, /* forGrouping */
       );
     }
 

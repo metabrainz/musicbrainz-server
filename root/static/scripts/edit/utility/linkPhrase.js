@@ -192,7 +192,7 @@ function _getRequiredAttributes(linkType: LinkTypeT) {
     if (min) {
       const attribute = linkedEntities.link_attribute_type[(typeId: any)];
       required = required || {};
-      required[attribute.name] = `{${localizeLinkAttributeTypeName(attribute)}}`;
+      required[attribute.name] = localizeLinkAttributeTypeName(attribute);
     }
   }
   return (requiredAttributesCache[linkType.id] = required || EMPTY_OBJECT);
@@ -230,8 +230,28 @@ function _getPhraseAndExtraAttributes<T, V>(
 
   /* flow-include if (!attributeValues) throw 'impossible'; */
 
+  /*
+    * When forGrouping is enabled:
+    *
+    * For ordered relationships (such as those in a series), build
+    * a phrase with attributes removed, so that those relationships
+    * can remain grouped together under the same phrase in our
+    * relationships display, even if their attributes differ.
+    *
+    * Required attributes (where `min` is not null) are kept in the
+    * phrase, however, since they wouldn't be written in a way that'd
+    * make sense without them grammatically. Note, however, that there
+    * are currently no orderable link types with any required
+    * attributes.
+    */
+  const shouldStripAttributes =
+    forGrouping &&
+    linkType.orderable_direction > 0;
+
   const varArgs = new PhraseVarArgs(
-    forGrouping ? _getRequiredAttributes(linkType) : attributeValues,
+    shouldStripAttributes
+      ? _getRequiredAttributes(linkType)
+      : attributeValues,
     i18n.commaList,
   );
 
