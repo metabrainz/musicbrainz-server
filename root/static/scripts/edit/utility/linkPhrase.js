@@ -85,21 +85,6 @@ class PhraseVarArgs<T> extends VarArgs<AttrValue<T>> {
     this.usedAttributes.push(name);
     return true;
   }
-
-  getExtraAttributes(): Array<T | string> {
-    const extraAttributes = [];
-    for (const key in this.data) {
-      if (!this.usedAttributes.includes(key)) {
-        const values = this.data[key];
-        if (Array.isArray(values)) {
-          extraAttributes.push(...values);
-        } else {
-          extraAttributes.push(values);
-        }
-      }
-    }
-    return extraAttributes;
-  }
 }
 
 type I18n<T, V> = {
@@ -149,7 +134,7 @@ function _setAttributeValues<T, V>(
 
   for (let i = 0; i < attributes.length; i++) {
     const attribute = attributes[i];
-    const type = linkedEntities.link_attribute_type[attribute.type.gid];
+    const type = linkedEntities.link_attribute_type[attribute.typeID];
     const typeName = localizeLinkAttributeTypeName(type);
     let value = i18n.getAttributeValue(type, typeName);
 
@@ -179,7 +164,7 @@ function _setAttributeValues<T, V>(
       }
 
       const info = linkType.attributes[type.root_id];
-      const rootName = linkedEntities.link_attribute_type[type.root_gid].name;
+      const rootName = linkedEntities.link_attribute_type[type.root_id].name;
 
       if (info.max === 1) {
         values[rootName] = value;
@@ -202,11 +187,12 @@ function _getRequiredAttributes(linkType: LinkTypeT) {
   if (required) {
     return required;
   }
-  for (const [, info] of Object.entries(linkType.attributes)) {
-    const {attribute, min} = ((info: any): LinkTypeAttrTypeT);
+  for (const [typeId, info] of Object.entries(linkType.attributes)) {
+    const {min} = ((info: any): LinkTypeAttrTypeT);
     if (min) {
+      const attribute = linkedEntities.link_attribute_type[(typeId: any)];
       required = required || {};
-      required[attribute.name] = `{${localizeLinkAttributeTypeName(attribute)}}`;
+      required[attribute.name] = localizeLinkAttributeTypeName(attribute);
     }
   }
   return (requiredAttributesCache[linkType.id] = required || EMPTY_OBJECT);
@@ -236,14 +222,36 @@ function _getPhraseAndExtraAttributes<T, V>(
     return emptyResult;
   }
 
-  if (!forGrouping && !cache.attributeValues) {
+  if (!cache.attributeValues) {
     _setAttributeValues<T | string, V>(i18n, relationship, cache);
   }
 
-  /* flow-include if (!cache.attributeValues) throw 'impossible'; */
+  const attributeValues = cache.attributeValues;
+
+  /* flow-include if (!attributeValues) throw 'impossible'; */
+
+  /*
+    * When forGrouping is enabled:
+    *
+    * For ordered relationships (such as those in a series), build
+    * a phrase with attributes removed, so that those relationships
+    * can remain grouped together under the same phrase in our
+    * relationships display, even if their attributes differ.
+    *
+    * Required attributes (where `min` is not null) are kept in the
+    * phrase, however, since they wouldn't be written in a way that'd
+    * make sense without them grammatically. Note, however, that there
+    * are currently no orderable link types with any required
+    * attributes.
+    */
+  const shouldStripAttributes =
+    forGrouping &&
+    linkType.orderable_direction > 0;
 
   const varArgs = new PhraseVarArgs(
-    forGrouping ? _getRequiredAttributes(linkType) : cache.attributeValues,
+    shouldStripAttributes
+      ? _getRequiredAttributes(linkType)
+      : attributeValues,
     i18n.commaList,
   );
 
@@ -252,9 +260,22 @@ function _getPhraseAndExtraAttributes<T, V>(
     phrase = clean(phrase);
   }
 
+  const extraAttributes: Array<T | string> = [];
+  for (const key in attributeValues) {
+    if (shouldStripAttributes ||
+        !varArgs.usedAttributes.includes(key)) {
+      const values = attributeValues[key];
+      if (Array.isArray(values)) {
+        extraAttributes.push(...values);
+      } else {
+        extraAttributes.push(values);
+      }
+    }
+  }
+
   result = [
     phrase,
-    i18n.commaOnlyList(varArgs.getExtraAttributes()),
+    i18n.commaOnlyList(extraAttributes),
   ];
 
   cache.phraseAndExtraAttributes[key] = result;
