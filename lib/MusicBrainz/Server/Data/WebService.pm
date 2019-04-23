@@ -205,7 +205,7 @@ sub xml_search
     if ($query =~ /^\s*$/)
     {
         return {
-            error => "Must specify a least one parameter (other than 'limit', 'offset' or empty 'query') for collections query.",
+            error => "You submitted a blank search query. You must include a non-blank 'query=' parameter with your search.",
             code  => HTTP_BAD_REQUEST
         };
     }
