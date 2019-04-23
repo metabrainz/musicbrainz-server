@@ -580,7 +580,6 @@ declare type LinkAttrTypeT = {|
 |};
 
 declare type LinkTypeAttrTypeT = {|
-  attribute: LinkAttrTypeT,
   +max: number | null,
   +min: number | null,
 |};

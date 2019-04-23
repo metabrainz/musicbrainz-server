@@ -65,7 +65,7 @@ export default function groupRelationships(
     if (linkAttrs) {
       for (let i = 0; i < linkAttrs.length; i++) {
         const linkAttr = linkAttrs[i];
-        const linkAttrType = linkedEntities.link_attribute_type[linkAttr.type.gid];
+        const linkAttrType = linkedEntities.link_attribute_type[linkAttr.typeID];
         if (linkAttrType.root_id === INSTRUMENT_ROOT_ID) {
           hasInstruments = true;
           break;
@@ -76,13 +76,7 @@ export default function groupRelationships(
     let textPhrase = interpolateText(
       relationship,
       backward ? 'reverse_link_phrase' : 'link_phrase',
-      /*
-       * For ordered relationships (such as those in a series), builds
-       * a phrase with attributes removed, so that these relationships
-       * can remain grouped together under the same phrase in our
-       * relationships display, even if their attributes differ.
-       */
-      linkType.orderable_direction > 0, /* forGrouping */
+      true, /* forGrouping */
     );
     let phrase;
 
@@ -90,7 +84,7 @@ export default function groupRelationships(
       phrase = interpolate(
         relationship,
         backward ? 'reverse_link_phrase' : 'link_phrase',
-        linkType.orderable_direction > 0, /* forGrouping */
+        true, /* forGrouping */
       );
     }
 

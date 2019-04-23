@@ -8,7 +8,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2018-12-18 09:34+0000\n"
+"PO-Revision-Date: 2019-04-10 17:09+0000\n"
 "Last-Translator: yvanz\n"
 "Language-Team: Greek (http://www.transifex.com/musicbrainz/musicbrainz/language/el/)\n"
 "MIME-Version: 1.0\n"
@@ -2416,6 +2416,13 @@ msgctxt "medium_format"
 msgid "Floppy Disk"
 msgstr ""
 
+#: DB:gender/description:4
+msgctxt "gender"
+msgid ""
+"For cases where gender just doesn't apply at all (like companies entered as "
+"artists)."
+msgstr ""
+
 #: DB:work_attribute_type/name:16
 msgctxt "work_attribute_type"
 msgid "Form (Ottoman, Turkish)"
@@ -4650,6 +4657,11 @@ msgctxt "release_packaging"
 msgid "None"
 msgstr "Κανένα"
 
+#: DB:gender/name:4
+msgctxt "gender"
+msgid "Not applicable"
+msgstr ""
+
 #: DB:work_attribute_type_allowed_value/value:491
 msgctxt "work_attribute_type_allowed_value"
 msgid "Nuşingül"
@@ -6123,6 +6135,13 @@ msgid ""
 "medium."
 msgstr ""
 
+#: DB:medium_format/description:82
+msgctxt "medium_format"
+msgid ""
+"The CD side of a vinyl + CD VinylDisc. The vinyl side should be added as a "
+"separate medium."
+msgstr ""
+
 #: DB:medium_format/description:60
 msgctxt "medium_format"
 msgid ""
@@ -6153,6 +6172,13 @@ msgid ""
 "separate medium."
 msgstr ""
 
+#: DB:medium_format/description:80
+msgctxt "medium_format"
+msgid ""
+"The DVD side of a vinyl + DVD VinylDisc. The vinyl side should be added as a"
+" separate medium."
+msgstr ""
+
 #: DB:medium_format/description:64
 msgctxt "medium_format"
 msgid ""
@@ -6178,6 +6204,13 @@ msgstr ""
 #: DB:release_packaging/description:1
 msgctxt "release_packaging"
 msgid "The traditional CD case, made of hard, brittle plastic."
+msgstr ""
+
+#: DB:medium_format/description:81
+msgctxt "medium_format"
+msgid ""
+"The vinyl side of a VinylDisc. The CD or DVD side should be added as a "
+"separate medium."
 msgstr ""
 
 #: DB:work_type/description:23
@@ -6475,6 +6508,21 @@ msgstr "Βινύλιο"
 #: DB:medium_format/name:48
 msgctxt "medium_format"
 msgid "VinylDisc"
+msgstr ""
+
+#: DB:medium_format/name:82
+msgctxt "medium_format"
+msgid "VinylDisc (CD side)"
+msgstr ""
+
+#: DB:medium_format/name:80
+msgctxt "medium_format"
+msgid "VinylDisc (DVD side)"
+msgstr ""
+
+#: DB:medium_format/name:81
+msgctxt "medium_format"
+msgid "VinylDisc (Vinyl side)"
 msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:259

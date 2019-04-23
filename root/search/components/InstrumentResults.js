@@ -10,6 +10,7 @@
 import * as React from 'react';
 
 import EntityLink from '../../static/scripts/common/components/EntityLink';
+import expand2react from '../../static/scripts/common/i18n/expand2react';
 import loopParity from '../../utility/loopParity';
 import type {ResultsPropsT} from '../types';
 
@@ -25,10 +26,13 @@ function buildResult(result, index) {
       <td>
         <EntityLink entity={instrument} />
       </td>
-      <td>{instrument.typeName ? lp_attributes(instrument.typeName, 'instrument_type') : null}</td>
+      <td>
+        {instrument.typeName
+          ? lp_attributes(instrument.typeName, 'instrument_type') : null}
+      </td>
       <td>
         {instrument.description
-          ? l_instrument_descriptions(instrument.description)
+          ? expand2react(l_instrument_descriptions(instrument.description))
           : null}
       </td>
     </tr>

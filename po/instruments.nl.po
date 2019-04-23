@@ -8,7 +8,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2019-01-23 08:19+0000\n"
+"PO-Revision-Date: 2019-04-19 11:12+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -24,6 +24,10 @@ msgstr "twaalfsnarige gitaar"
 #: DB:instrument/name:516
 msgid "17-string bass koto"
 msgstr "zeventiensnarige baskoto"
+
+#: DB:instrument/name:108
+msgid "Afuche/Cabasa"
+msgstr "kabassa"
 
 #: DB:instrument/name:839
 msgctxt "historical hybrid between English and German style concertinas"
@@ -41,7 +45,7 @@ msgstr "Baltische psalteria"
 
 #: DB:instrument/name:457
 msgid "Batá drum"
-msgstr "Batátrommel"
+msgstr "batátrommel"
 
 #: DB:instrument/name:852
 msgctxt "long metal bar with strings"
@@ -94,11 +98,6 @@ msgstr "Engelse concertina"
 msgctxt "English \"improved\" flageolet"
 msgid "English flageolet"
 msgstr "Engelse flageolet"
-
-#: DB:instrument/name:7
-msgctxt "Transposing oboe"
-msgid "English horn"
-msgstr "althobo"
 
 #: DB:instrument/name:30
 msgid "French horn"
@@ -302,10 +301,6 @@ msgstr "windharp"
 msgid "afoxé"
 msgstr "afoxé"
 
-#: DB:instrument/name:108
-msgid "afuche / cabasa"
-msgstr "kabassa"
-
 #: DB:instrument/name:487
 msgid "agogô"
 msgstr "agogô"
@@ -392,6 +387,11 @@ msgctxt "bass viol with guitar frets and tuning"
 msgid "arpeggione"
 msgstr "arpeggione"
 
+#: DB:instrument/name:960
+msgctxt "Spanish bone scraper"
+msgid "arrabel"
+msgstr "arrabel"
+
 #: DB:instrument/name:812
 msgctxt "cone shaped west african frame-drum"
 msgid "ashiko"
@@ -456,6 +456,7 @@ msgid "bandurria"
 msgstr "bandurria"
 
 #: DB:instrument/name:581
+msgctxt "Traditional Chinese frame drum"
 msgid "bangu"
 msgstr "bangu"
 
@@ -616,6 +617,10 @@ msgstr "bajan"
 msgid "bazooka"
 msgstr "bazooka"
 
+#: DB:instrument/name:116
+msgid "bell"
+msgstr "bel"
+
 #: DB:instrument/name:479
 msgid "bell tree"
 msgstr "bellenboom"
@@ -623,10 +628,6 @@ msgstr "bellenboom"
 #: DB:instrument/name:428
 msgid "bellow-blown bagpipes"
 msgstr "doedelzakken met balg"
-
-#: DB:instrument/name:116
-msgid "bells"
-msgstr "bellen"
 
 #: DB:instrument/name:343
 msgid "bendir"
@@ -705,6 +706,11 @@ msgstr "bongos"
 msgctxt "arrangement of bamboo tube-drums"
 msgid "boobam"
 msgstr "boebam"
+
+#: DB:instrument/name:948
+msgctxt "Tuned hollow plastic tubes"
+msgid "boomwhacker"
+msgstr "boomwhacker"
 
 #: DB:instrument/name:833
 msgctxt "hybrid of bouzouki and guitar"
@@ -938,6 +944,11 @@ msgctxt "egyptian ancient clappers"
 msgid "clapper"
 msgstr "klepper"
 
+#: DB:instrument/name:955
+msgctxt "Ancient Aboriginal rhythm stick"
+msgid "clapstick"
+msgstr "clapstick"
+
 #: DB:instrument/name:9
 msgid "clarinet"
 msgstr "klarinet"
@@ -989,6 +1000,10 @@ msgstr "concertina"
 msgid "conch"
 msgstr "zeeschelp"
 
+#: DB:instrument/name:958
+msgid "concussion idiophone"
+msgstr "concussie-idiofoon"
+
 #: DB:instrument/name:102
 msgid "congas"
 msgstr "conga’s"
@@ -1016,6 +1031,11 @@ msgstr "contrabassaxofoon"
 #: DB:instrument/name:6
 msgid "contrabassoon"
 msgstr "contrafagot"
+
+#: DB:instrument/name:7
+msgctxt "Curved bulb belled transposing oboe"
+msgid "cor anglais"
+msgstr "althobo"
 
 #: DB:instrument/name:510
 msgid "cornamuse"
@@ -1209,11 +1229,6 @@ msgstr "doyra"
 #: DB:instrument/name:689
 msgid "dramyin"
 msgstr "dramyen"
-
-#: DB:instrument/name:933
-msgctxt "Generic drums of any kind."
-msgid "drum"
-msgstr "trommel"
 
 #: DB:instrument/name:120
 msgid "drum machine"
@@ -1418,6 +1433,7 @@ msgid "flumpet"
 msgstr "flümpet"
 
 #: DB:instrument/name:13
+msgctxt "Reedless aerophone"
 msgid "flute"
 msgstr "fluit"
 
@@ -1522,6 +1538,11 @@ msgctxt "Medieval chamois or goat horn"
 msgid "gemshorn"
 msgstr "gemshoorn"
 
+#: DB:instrument/name:961
+msgctxt "Family of Indonesian metallophones"
+msgid "gendèr"
+msgstr "gender"
+
 #: DB:instrument/name:76
 msgid "geomungo"
 msgstr "geomungo"
@@ -1595,6 +1616,11 @@ msgstr "grootbasblokfluit"
 #: DB:instrument/name:683
 msgid "guan"
 msgstr "guan"
+
+#: DB:instrument/name:956
+msgctxt "Traditional chinese drum and clapper."
+msgid "guban"
+msgstr "guban"
 
 #: DB:instrument/name:230
 msgid "gudok"
@@ -1845,6 +1871,11 @@ msgctxt "Vietnamese Air Xylophone"
 msgid "k'lông pút"
 msgstr "k'lông pút"
 
+#: DB:instrument/name:947
+msgctxt "Flat-cut gourd sitar"
+msgid "kachva sitar"
+msgstr "kachva sitar"
+
 #: DB:instrument/name:849
 msgctxt "bamboo transverse flute"
 msgid "kagurabue"
@@ -1933,6 +1964,7 @@ msgid "khim"
 msgstr "khim"
 
 #: DB:instrument/name:666
+msgctxt "Vertical bamboo duct flute"
 msgid "khlui"
 msgstr "khlui"
 
@@ -2023,6 +2055,26 @@ msgstr "kotsuzumi"
 msgid "krakebs"
 msgstr "krakebs"
 
+#: DB:instrument/name:949
+msgctxt "Group of thai concussion idiophones"
+msgid "krap"
+msgstr "krap"
+
+#: DB:instrument/name:950
+msgctxt "Thai bamboo concussion sticks"
+msgid "krap khū"
+msgstr "krap khū"
+
+#: DB:instrument/name:951
+msgctxt "Thai wood/brass clappers"
+msgid "krap phuang"
+msgstr "krap phuang"
+
+#: DB:instrument/name:952
+msgctxt "Thai bevelled wood rhythm-sticks"
+msgid "krap sēphā"
+msgstr "krap sēphā"
+
 #: DB:instrument/name:734
 msgid "krar"
 msgstr "krar"
@@ -2054,7 +2106,7 @@ msgid "kōauau ponga ihu"
 msgstr "kooauau ponga ihu"
 
 #: DB:instrument/name:632
-msgid "lamellophone"
+msgid "lamellaphone"
 msgstr "lamellofoon"
 
 #: DB:instrument/name:249
@@ -2108,7 +2160,8 @@ msgstr "limbe"
 msgid "lirone"
 msgstr "lirone"
 
-#: DB:instrument/name:702
+#: DB:instrument/name:963
+msgctxt "Arrangement of struck tuned stone bars."
 msgid "lithophone"
 msgstr "lithofoon"
 
@@ -2211,7 +2264,6 @@ msgid "melodica"
 msgstr "melodica"
 
 #: DB:instrument/name:100
-msgctxt "generic drums of any kind"
 msgid "membranophone"
 msgstr "membranofoon"
 
@@ -2224,6 +2276,7 @@ msgid "metal angklung"
 msgstr "metalen angkloeng"
 
 #: DB:instrument/name:349
+msgctxt "Arrangements of struck tuned metal bars."
 msgid "metallophone"
 msgstr "metallofoon"
 
@@ -2360,10 +2413,6 @@ msgctxt "nylon-stringed acoustic guitar"
 msgid "nylon guitar"
 msgstr "nylongitaar"
 
-#: DB:instrument/name:272
-msgid "não bạt / chập chõa"
-msgstr "não bạt / chập chõa"
-
 #: DB:instrument/name:8
 msgid "oboe"
 msgstr "hobo"
@@ -2373,6 +2422,7 @@ msgid "oboe d'amore"
 msgstr "oboe d’amore"
 
 #: DB:instrument/name:572
+msgctxt "Baroque curved flared bell transposing oboe"
 msgid "oboe da caccia"
 msgstr "jachthobo"
 
@@ -2470,8 +2520,14 @@ msgctxt "Māori taonga pūoro gong made of jade and bone"
 msgid "pahū pounamu"
 msgstr "pahuu pounamu"
 
+#: DB:instrument/name:957
+msgctxt "Ancient Chinese clapper"
+msgid "paiban"
+msgstr "paiban"
+
 #: DB:instrument/name:502
-msgid "pakhavaj"
+msgctxt "Dhrupad wooden two-headed barrel-drum"
+msgid "pakhawaj"
 msgstr "pakhavaj"
 
 #: DB:instrument/name:16
@@ -2498,6 +2554,10 @@ msgstr "steelgitaar met pedalen"
 #: DB:instrument/name:99
 msgid "percussion"
 msgstr "percussie"
+
+#: DB:instrument/name:959
+msgid "percussion idiophone"
+msgstr "percussie-idiofoon"
 
 #: DB:instrument/name:302
 msgid "phách"
@@ -2702,10 +2762,6 @@ msgstr "ranat thum"
 msgid "ratchet"
 msgstr "ratel"
 
-#: DB:instrument/name:334
-msgid "rattle"
-msgstr "rammelaar"
-
 #: DB:instrument/name:595
 msgid "rauschpfeife"
 msgstr "rauschpfeife"
@@ -2858,6 +2914,7 @@ msgid "sarod"
 msgstr "sarod"
 
 #: DB:instrument/name:597
+msgctxt "Javanese wooden trough metallophone family"
 msgid "saron"
 msgstr "saron"
 
@@ -2898,6 +2955,10 @@ msgstr "saxofoonkwartet"
 msgid "saz"
 msgstr "saz"
 
+#: DB:instrument/name:953
+msgid "scraped idiophone"
+msgstr "geraspte idiofoon"
+
 #: DB:instrument/name:757
 msgid "segunda"
 msgstr "segunda"
@@ -2911,7 +2972,12 @@ msgctxt "Persian three-stringed long-necked lute"
 msgid "setar"
 msgstr "setar"
 
+#: DB:instrument/name:954
+msgid "shaken idiophone"
+msgstr "geschudde idiofoon"
+
 #: DB:instrument/name:340
+msgctxt "Latin-American tube rattle"
 msgid "shakers"
 msgstr "shakers"
 
@@ -2985,8 +3051,19 @@ msgid "sistrum"
 msgstr "sistrum"
 
 #: DB:instrument/name:88
+msgctxt "Indian long-necked lute"
 msgid "sitar"
 msgstr "sitar"
+
+#: DB:instrument/name:962
+msgctxt "Central Javanese single octave metallophone"
+msgid "slenthem"
+msgstr "slenthem"
+
+#: DB:instrument/name:964
+msgctxt "Largely obsolete Central Javan metallophone."
+msgid "slentho"
+msgstr "slentho"
 
 #: DB:instrument/name:202
 msgid "slide brass instruments"
@@ -3109,12 +3186,18 @@ msgid "suka"
 msgstr "suka"
 
 #: DB:instrument/name:725
+msgctxt "Southeast asian bamboo fipple flute"
 msgid "suling"
 msgstr "suling"
 
 #: DB:instrument/name:548
 msgid "suona"
 msgstr "suona"
+
+#: DB:instrument/name:946
+msgctxt "Bass sitar"
+msgid "surbahar"
+msgstr "surbahar"
 
 #: DB:instrument/name:379
 msgid "surdo"
@@ -3522,13 +3605,9 @@ msgid "tumbi"
 msgstr "thumbi"
 
 #: DB:instrument/name:863
-msgctxt "Māori taonga pūoro ancient struck percussion"
+msgctxt "Māori taonga pūoro ancient struck idiophone"
 msgid "tumutumu"
 msgstr "tumutumu"
-
-#: DB:instrument/name:115
-msgid "tuned percussion"
-msgstr "afgestemde percussie"
 
 #: DB:instrument/name:887
 msgctxt "Korean notched end-blown bamboo flute"
@@ -3577,6 +3656,14 @@ msgstr "ukeke"
 #: DB:instrument/name:89
 msgid "ukulele"
 msgstr "ukelele"
+
+#: DB:instrument/name:933
+msgctxt ""
+"Drums not specified. For rock \"drums\" credits, you generally want \"drums "
+"(drum set)\". For \"programmed\" drums you generally want drum machine. ONLY"
+" USE IF THERE'S NO BETTER ALTERNATIVE"
+msgid "unspecified drum"
+msgstr "ongespecificeerde trommel"
 
 #: DB:instrument/name:140
 msgid "upright piano"
@@ -3805,6 +3892,7 @@ msgid "xun"
 msgstr "xun"
 
 #: DB:instrument/name:170
+msgctxt "Arrangement of struck tuned wooden bars."
 msgid "xylophone"
 msgstr "xylofoon"
 

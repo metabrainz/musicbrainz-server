@@ -21,7 +21,7 @@ type LinkedEntities = {
     +[number]: LanguageT,
   |},
   link_attribute_type: {|
-    +[string]: LinkAttrTypeT,
+    +[number]: LinkAttrTypeT,
   |},
   link_type: {|
     +[number]: LinkTypeT,
