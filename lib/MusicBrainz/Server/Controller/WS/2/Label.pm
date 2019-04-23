@@ -20,6 +20,7 @@ my $ws_defs = Data::OptList::mkopt([
                          optional => [ qw(fmt limit offset) ],
      },
      label => {
+                         action   => '/ws/2/label/lookup',
                          method   => 'GET',
                          inc      => [ qw(releases aliases annotation
                                           _relations tags user-tags genres user-genres ratings user-ratings) ],

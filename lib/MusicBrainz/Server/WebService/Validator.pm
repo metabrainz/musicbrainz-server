@@ -266,6 +266,10 @@ role {
             next if ($resource ne $def->[0]);
             next if ($c->req->method ne $def->[1]->{method});
 
+            next if
+                defined $def->[1]->{action} &&
+                $c->req->action ne $def->[1]->{action};
+
             # Check to make sure that required arguments are present
             next unless validate_required($c, $def->[1]->{required});
 
