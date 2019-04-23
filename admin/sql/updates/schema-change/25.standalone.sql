@@ -2,6 +2,7 @@
 -- 20170604-mbs-9365.sql
 -- 20170909-mbs-9462-missing-event-triggers.sql
 -- 20180331-mbs-9664-non-loop-checks.sql
+-- 20190422-mbs-9428-collection-collaborators-fks.sql
 \set ON_ERROR_STOP 1
 BEGIN;
 SET search_path = musicbrainz, public;
@@ -56,5 +57,18 @@ ALTER TABLE l_release_group_release_group ADD CONSTRAINT non_loop_relationship C
 ALTER TABLE l_series_series               ADD CONSTRAINT non_loop_relationship CHECK (entity0 != entity1);
 ALTER TABLE l_url_url                     ADD CONSTRAINT non_loop_relationship CHECK (entity0 != entity1);
 ALTER TABLE l_work_work                   ADD CONSTRAINT non_loop_relationship CHECK (entity0 != entity1);
+
+--------------------------------------------------------------------------------
+SELECT '20190422-mbs-9428-collection-collaborators-fks.sql';
+
+ALTER TABLE editor_collection_collaborator
+   ADD CONSTRAINT editor_collection_collaborator_fk_collection
+   FOREIGN KEY (collection)
+   REFERENCES editor_collection(id);
+
+ALTER TABLE editor_collection_collaborator
+   ADD CONSTRAINT editor_collection_collaborator_fk_editor
+   FOREIGN KEY (editor)
+   REFERENCES editor(id);
 
 COMMIT;

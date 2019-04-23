@@ -111,6 +111,8 @@ ALTER TABLE editor_collection_area DROP CONSTRAINT IF EXISTS editor_collection_a
 ALTER TABLE editor_collection_area DROP CONSTRAINT IF EXISTS editor_collection_area_fk_area;
 ALTER TABLE editor_collection_artist DROP CONSTRAINT IF EXISTS editor_collection_artist_fk_collection;
 ALTER TABLE editor_collection_artist DROP CONSTRAINT IF EXISTS editor_collection_artist_fk_artist;
+ALTER TABLE editor_collection_collaborator DROP CONSTRAINT IF EXISTS editor_collection_collaborator_fk_collection;
+ALTER TABLE editor_collection_collaborator DROP CONSTRAINT IF EXISTS editor_collection_collaborator_fk_editor;
 ALTER TABLE editor_collection_deleted_entity DROP CONSTRAINT IF EXISTS editor_collection_deleted_entity_fk_collection;
 ALTER TABLE editor_collection_deleted_entity DROP CONSTRAINT IF EXISTS editor_collection_deleted_entity_fk_gid;
 ALTER TABLE editor_collection_event DROP CONSTRAINT IF EXISTS editor_collection_event_fk_collection;

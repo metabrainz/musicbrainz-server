@@ -2259,6 +2259,11 @@ CREATE TABLE editor_collection_type ( -- replicate
     gid                 uuid NOT NULL
 );
 
+CREATE TABLE editor_collection_collaborator (
+    collection INTEGER NOT NULL, -- PK, references editor_collection.id
+    editor INTEGER NOT NULL -- PK, references editor.id
+);
+
 CREATE TABLE editor_collection_area (
     collection INTEGER NOT NULL, -- PK, references editor_collection.id
     area INTEGER NOT NULL -- PK, references area.id
