@@ -71,6 +71,17 @@ ws_test 'browse recordings via release',
     </recording-list>
 </metadata>';
 
+ws_test 'browse recordings via work',
+    '/recording?work=f5cdd40d-6dc3-358b-8d7d-22dd9d8f87a8&limit=1' =>
+    '<?xml version="1.0" encoding="UTF-8"?>
+<metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
+    <recording-list count="1">
+        <recording id="4878bc36-7306-497a-b45a-561d9f7f8573">
+            <title>Asseswaving</title><length>274666</length>
+        </recording>
+    </recording-list>
+</metadata>';
+
 };
 
 1;
