@@ -3,11 +3,9 @@ package MusicBrainz::Server::Form::Utils;
 use strict;
 use warnings;
 
-use Encode;
 use MusicBrainz::Server::Data::Utils qw( boolean_to_json );
 use MusicBrainz::Server::Translation qw( l lp );
 use Text::Trim qw( trim );
-use Text::Unaccent qw( unac_string_utf16 );
 use Unicode::ICU::Collator qw( UCOL_NUMERIC_COLLATION UCOL_ON );
 use List::UtilsBy qw( sort_by );
 
@@ -18,8 +16,8 @@ use Sub::Exporter -setup => {
                       select_options
                       select_options_tree
                       build_grouped_options
+                      build_json
                       build_type_info
-                      build_attr_info
                       build_options_tree
                       indentation
                       validate_username
@@ -38,7 +36,13 @@ sub language_options {
     my $skip = 0;
 
     my @languages = $c->model('Language')->get_all;
-    if ($context eq "work") {
+    if ($context eq "editor") {
+        for my $language (@languages) {
+            if ($language->iso_code_3 && $language->iso_code_3 =~ /mis|mul|qaa|und|zxx/) {
+                $language->frequency($skip);
+            }
+        }
+    } elsif ($context eq "work") {
         for my $language (@languages) {
             if ($language->iso_code_3 && $language->iso_code_3 eq "zxx") {
                 $language->name(l("[No lyrics]"));
@@ -151,6 +155,19 @@ sub build_grouped_options
     return $result;
 }
 
+sub build_json {
+    my ($c, $root, $out, $coll) = @_;
+
+    $out //= {};
+    $coll //= $c->get_collator();
+
+    my @children = map { build_json->($c, $_, $_->TO_JSON, $coll) }
+                   $root->sorted_children($coll);
+    $out->{children} = [ @children ] if scalar(@children);
+
+    return $out;
+};
+
 sub build_type_info {
     my ($c, $types, @link_type_tree) = @_;
 
@@ -171,32 +188,6 @@ sub build_type_info {
         $type_info{ $type_key } = build_child_info($root, \&build_type);
     }
     return \%type_info;
-}
-
-sub build_attr_info {
-    my $root = shift;
-
-    sub build_attr {
-        my $attr = {
-            id          => $_->id,
-            gid         => $_->gid,
-            rootID      => $_->root_id,
-            name        => $_->name,
-            l_name      => $_->l_name,
-            freeText    => boolean_to_json($_->free_text),
-            creditable  => boolean_to_json($_->creditable),
-        };
-
-        $attr->{description} = $_->l_description if $_->description;
-        $attr->{children} = build_child_info($_, \&build_attr) if $_->all_children;
-
-        my $unac = decode("utf-16", unac_string_utf16(encode("utf-16", $_->l_name)));
-        $attr->{unaccented} = $unac if $unac ne $_->l_name;
-
-        return $attr;
-    }
-
-    return { map { $_->gid => build_attr($_) } $root->all_children };
 }
 
 sub build_child_info {

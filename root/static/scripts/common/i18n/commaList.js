@@ -3,14 +3,14 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-function commaList(items) {
+function _commaList(l, items) {
   let count = items.length;
 
   if (count <= 1) {
     return items[0] || '';
   }
 
-  let output = exp.l('{almost_last_list_item} and {last_list_item}', {
+  let output = l('{almost_last_list_item} and {last_list_item}', {
     almost_last_list_item: items[count - 2],
     last_list_item: items[count - 1],
   });
@@ -19,7 +19,7 @@ function commaList(items) {
   count -= 2;
 
   for (let i = 0; i < count; i++) {
-    output = exp.l('{list_item}, {rest}', {
+    output = l('{list_item}, {rest}', {
       list_item: items[i],
       rest: output,
     });
@@ -28,4 +28,9 @@ function commaList(items) {
   return output;
 }
 
+const commaList = (items) => _commaList(exp.l, items);
+const commaListText = (items) => _commaList(texp.l, items);
+
 export default commaList;
+
+export {commaListText};

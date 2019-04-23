@@ -18,6 +18,9 @@ my $mech = $test->mech;
 $mech->default_header("Accept" => "application/xml");
 
 MusicBrainz::Server::Test->prepare_test_database($c, '+webservice');
+MusicBrainz::Server::Test->prepare_test_database($c, <<'EOSQL');
+INSERT INTO release_tag (count, release, tag) VALUES (1, 123054, 114);
+EOSQL
 
 ws_test 'browse releases via artist (paging)',
     '/release?artist=3088b672-fba9-4b4b-8ae0-dce13babfbb4&offset=2' =>
@@ -206,6 +209,79 @@ ws_test 'browse releases via release group',
             </release-event-list>
             <barcode>4942463511227</barcode>
             <asin>B00005LA6G</asin>
+            <cover-art-archive>
+                <artwork>false</artwork>
+                <count>0</count>
+                <front>false</front>
+                <back>false</back>
+            </cover-art-archive>
+        </release>
+    </release-list>
+</metadata>';
+
+ws_test 'browse releases via release group with inc=tags',
+    '/release?release-group=b84625af-6229-305f-9f1b-59c0185df016&inc=tags' =>
+    '<?xml version="1.0" encoding="UTF-8"?>
+<metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
+    <release-list count="2">
+        <release id="0385f276-5f4f-4c81-a7a4-6bd7b8d85a7e">
+            <title>サマーれげぇ!レインボー</title>
+            <status id="4e304316-386d-3409-af2e-78857eec5cfe">Official</status>
+            <quality>normal</quality>
+            <text-representation>
+                <language>jpn</language>
+                <script>Jpan</script>
+            </text-representation>
+            <date>2001-07-04</date>
+            <country>JP</country>
+            <release-event-list count="1">
+                <release-event>
+                     <date>2001-07-04</date>
+                     <area id="2db42837-c832-3c27-b4a3-08198f75693c">
+                         <name>Japan</name>
+                         <sort-name>Japan</sort-name>
+                         <iso-3166-1-code-list>
+                             <iso-3166-1-code>JP</iso-3166-1-code>
+                         </iso-3166-1-code-list>
+                     </area>
+                </release-event>
+            </release-event-list>
+            <barcode>4942463511227</barcode>
+            <asin>B00005LA6G</asin>
+            <cover-art-archive>
+                <artwork>false</artwork>
+                <count>0</count>
+                <front>false</front>
+                <back>false</back>
+            </cover-art-archive>
+        </release>
+        <release id="b3b7e934-445b-4c68-a097-730c6a6d47e6">
+            <title>Summer Reggae! Rainbow</title>
+            <status id="41121bb9-3413-3818-8a9a-9742318349aa">Pseudo-Release</status>
+            <quality>normal</quality>
+            <text-representation>
+                <language>jpn</language>
+                <script>Latn</script>
+            </text-representation>
+            <date>2001-07-04</date>
+            <country>JP</country>
+            <release-event-list count="1">
+                <release-event>
+                     <date>2001-07-04</date>
+                     <area id="2db42837-c832-3c27-b4a3-08198f75693c">
+                         <name>Japan</name>
+                         <sort-name>Japan</sort-name>
+                         <iso-3166-1-code-list>
+                             <iso-3166-1-code>JP</iso-3166-1-code>
+                         </iso-3166-1-code-list>
+                     </area>
+                </release-event>
+            </release-event-list>
+            <barcode>4942463511227</barcode>
+            <asin>B00005LA6G</asin>
+            <tag-list>
+              <tag count="1"><name>hello project</name></tag>
+            </tag-list>
             <cover-art-archive>
                 <artwork>false</artwork>
                 <count>0</count>

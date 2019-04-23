@@ -25,16 +25,22 @@ const RecordingsWithVaryingTrackLengths = ({
   items,
   pager,
 }: ReportDataT<ReportRecordingT>) => (
-  <Layout fullWidth title={l('Recordings with varying track lengths')}>
-    <h1>{l('Recordings with varying track lengths')}</h1>
+  <Layout fullWidth title={l('Recordings with varying track times')}>
+    <h1>{l('Recordings with varying track times')}</h1>
 
     <ul>
       <li>
         {l(`This report shows recordings where the linked tracks have times
             that vary by more than 30 seconds.`)}
       </li>
-      <li>{texp.l('Total recordings found: {count}', {count: pager.total_entries})}</li>
-      <li>{texp.l('Generated on {date}', {date: formatUserDate($c.user, generated)})}</li>
+      <li>
+        {texp.l('Total recordings found: {count}',
+                {count: pager.total_entries})}
+      </li>
+      <li>
+        {texp.l('Generated on {date}',
+                {date: formatUserDate($c.user, generated)})}
+      </li>
 
       {canBeFiltered ? <FilterLink filtered={filtered} /> : null}
     </ul>

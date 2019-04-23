@@ -1,3 +1,0 @@
-[%- WRAPPER "instrument/layout.tt" title=l('Aliases') page='aliases' -%]
-    [%~ React.embed(c, 'components/Aliases', { aliases => aliases, entity => instrument, allowEditing => c.user_exists ? c.user.is_relationship_editor : 0}) ~%]
-[%- END -%]

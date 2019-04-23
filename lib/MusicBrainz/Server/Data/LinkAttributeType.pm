@@ -41,7 +41,12 @@ sub _columns
                 (SELECT true FROM link_creditable_attribute_type
                  WHERE attribute_type = link_attribute_type.id),
                 false
-            ) AS creditable';
+            ) AS creditable, ' .
+           'COALESCE(
+                (SELECT comment FROM instrument
+                 WHERE gid = link_attribute_type.gid),
+                \'\'
+            ) AS instrument_comment';
 }
 
 sub _column_mapping
@@ -51,6 +56,7 @@ sub _column_mapping
         gid         => 'gid',
         parent_id   => 'parent',
         root_id     => 'root',
+        root_gid    => 'root_gid',
         child_order => 'child_order',
         name        => 'name',
         description => 'description',
@@ -61,7 +67,9 @@ sub _column_mapping
             MusicBrainz::Server::Entity::LinkAttributeType->new({
                 id => $row->{root},
                 gid => $row->{root_gid},
-                name => $row->{root_name}
+                name => $row->{root_name},
+                root_id => $row->{root},
+                root_gid => $row->{root_gid},
             });
         }
     };

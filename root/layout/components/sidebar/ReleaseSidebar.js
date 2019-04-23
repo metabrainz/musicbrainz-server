@@ -15,6 +15,7 @@ import * as ReactDOMServer from 'react-dom/server';
 import {QUALITY_UNKNOWN} from '../../../constants';
 import {withCatalystContext} from '../../../context';
 import EntityLink from '../../../static/scripts/common/components/EntityLink';
+import linkedEntities from '../../../static/scripts/common/linkedEntities';
 import entityHref from '../../../static/scripts/common/utility/entityHref';
 import formatBarcode from '../../../static/scripts/common/utility/formatBarcode';
 import formatTrackLength from '../../../static/scripts/common/utility/formatTrackLength';
@@ -60,10 +61,10 @@ const ReleaseSidebar = ({$c, release}: Props) => {
   const barcode = formatBarcode(release.barcode);
   const typeName = releaseGroup.l_type_name;
   const language = release.languageID
-    ? $c.linked_entities.language[release.languageID]
+    ? linkedEntities.language[release.languageID]
     : null;
   const script = release.scriptID
-    ? $c.linked_entities.script[release.scriptID]
+    ? linkedEntities.script[release.scriptID]
     : null;
   const releaseEvents = release.events;
   const releaseLabels = release.labels;
@@ -153,7 +154,7 @@ const ReleaseSidebar = ({$c, release}: Props) => {
         {release.packagingID ? (
           <SidebarProperty className="packaging" label={l('Packaging:')}>
             {l_attributes(
-              $c.linked_entities.release_packaging[release.packagingID].name,
+              linkedEntities.release_packaging[release.packagingID].name,
             )}
           </SidebarProperty>
         ) : null}
@@ -161,7 +162,7 @@ const ReleaseSidebar = ({$c, release}: Props) => {
         {release.statusID ? (
           <SidebarProperty className="status" label={lp('Status:', 'release status')}>
             {l_attributes(
-              $c.linked_entities.release_status[release.statusID].name,
+              linkedEntities.release_status[release.statusID].name,
             )}
           </SidebarProperty>
         ) : null}

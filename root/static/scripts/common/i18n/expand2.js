@@ -30,8 +30,29 @@ export function gotMatch(x: mixed): boolean %checks {
   );
 }
 
-export type VarArgs<+T> = {+[string]: T};
-export type Parser<+T, -V> = (?VarArgs<V>) => T;
+export type VarArgsObject<+T> = {__proto__: any, +[string]: T};
+
+export class VarArgs<+T> {
+  +data: VarArgsObject<T>;
+
+  constructor(data: VarArgsObject<T>) {
+    this.data = data;
+  }
+
+  get(name: string): T {
+    return this.data[name];
+  }
+
+  has(name: string): boolean {
+    return Object.prototype.hasOwnProperty.call(this.data, name);
+  }
+}
+
+export type Parser<+T, -V> = (VarArgs<V>) => T;
+
+const EMPTY_OBJECT = Object.freeze({});
+
+const DEFAULT_ARGS = new VarArgs<any>(EMPTY_OBJECT);
 
 type State = {
   /*
@@ -44,24 +65,21 @@ type State = {
   // Portion of the source string that hasn't been parsed yet.
   remainder: string,
   // The value of % in conditional substitutions, from `args`.
-  replacement: VarSubstArg | NO_MATCH,
+  replacement: string | AnyReactElem | NO_MATCH,
+  // Whether expand is currently running. Used to detect nested calls.
+  running: boolean,
   // A copy of the source string, used in error messages.
   source: string,
 };
-
-const EMPTY_OBJECT = Object.freeze({});
 
 export const state: State = Object.seal({
   match: '',
   position: 0,
   remainder: '',
   replacement: NO_MATCH_VALUE,
+  running: false,
   source: '',
 });
-
-export function hasArg<-T>(args: VarArgs<T>, name: string): boolean {
-  return Object.prototype.hasOwnProperty.call(args, name);
-}
 
 export function getString(x: mixed) {
   if (typeof x === 'string') {
@@ -71,6 +89,13 @@ export function getString(x: mixed) {
     return String(x);
   }
   return '';
+}
+
+export function getVarSubstArg(x: mixed) {
+  if (React.isValidElement(x)) {
+    return ((x: any): AnyReactElem);
+  }
+  return getString(x);
 }
 
 export function accept(pattern: RegExp) {
@@ -100,7 +125,7 @@ export function error(message: string) {
  * `state.match` if there's no `foo` or `bar` variable in `args`, thus
  * performing no substitution in that case.
  */
-export function saveMatch<-T, -V>(cb: Parser<T, V>): Parser<T, V> {
+export function saveMatch<T, V>(cb: Parser<T, V>): Parser<T, V> {
   return function (args) {
     const savedMatch = state.match;
     state.match = '';
@@ -110,9 +135,9 @@ export function saveMatch<-T, -V>(cb: Parser<T, V>): Parser<T, V> {
   };
 }
 
-export function parseContinuous<-T, U, -V>(
+export function parseContinuous<T, U, V>(
   parsers: $ReadOnlyArray<Parser<T | NO_MATCH, V>>,
-  args: ?VarArgs<V>,
+  args: VarArgs<V>,
   matchCallback: (U | NO_MATCH, T) => U,
   defaultValue: U,
 ): U {
@@ -148,9 +173,9 @@ function concatStringMatch(
   );
 }
 
-export function parseContinuousString<-V>(
+export function parseContinuousString<V>(
   parsers: $ReadOnlyArray<Parser<string | NO_MATCH, V>>,
-  args: ?VarArgs<V>,
+  args: VarArgs<V>,
 ): string {
   return parseContinuous<string, string, V>(
     parsers,
@@ -160,7 +185,7 @@ export function parseContinuousString<-V>(
   );
 }
 
-export const createTextContentParser = <+T, -V>(
+export const createTextContentParser = <+T, V>(
   textPattern: RegExp,
   mapValue: (string) => T,
 ): Parser<T | string | NO_MATCH, V> => () => {
@@ -172,26 +197,26 @@ export const createTextContentParser = <+T, -V>(
 };
 
 const varSubst = /^\{([0-9A-z_]+)\}/;
-export const createVarSubstParser = <T, -V>(
+export const createVarSubstParser = <T, V>(
   argFilter: (V) => T,
-): Parser<T | string | NO_MATCH, V> => saveMatch(function (args: ?VarArgs<V>) {
+): Parser<T | string | NO_MATCH, V> => saveMatch(function (args: VarArgs<V>) {
   const name = accept(varSubst);
   if (typeof name !== 'string') {
     return NO_MATCH_VALUE;
   }
-  if (args && hasArg(args, name)) {
-    return argFilter(args[name]);
+  if (args.has(name)) {
+    return argFilter(args.get(name));
   }
   return state.match;
 });
 
 export const parseStringVarSubst =
-  createVarSubstParser<string, StrOrNum>(getString);
+  createVarSubstParser<string, mixed>(getString);
 
 const condSubstStart = /^\{([0-9A-z_]+):/;
 const verticalPipe = /^\|/;
 export const substEnd = /^}/;
-export const createCondSubstParser = <-T, -V>(
+export const createCondSubstParser = <T, V>(
   thenParser: Parser<T, V>,
   elseParser: Parser<T, V>,
 ): Parser<T | string | NO_MATCH, V> => saveMatch(function (args) {
@@ -201,8 +226,8 @@ export const createCondSubstParser = <-T, -V>(
   }
 
   const savedReplacement = state.replacement;
-  if (args && hasArg(args, name)) {
-    state.replacement = args[name];
+  if (args.has(name)) {
+    state.replacement = getVarSubstArg(args.get(name));
   }
 
   const thenChildren = thenParser(args);
@@ -218,8 +243,8 @@ export const createCondSubstParser = <-T, -V>(
     throw error('expected }');
   }
 
-  if (args && hasArg(args, name)) {
-    const value = args[name];
+  if (args.has(name)) {
+    const value = args.get(name);
     if (value) {
       return thenChildren;
     }
@@ -242,13 +267,18 @@ export const createCondSubstParser = <-T, -V>(
  * Thus these signatures provide type safety on both the return value
  * and input arg values.
  */
-export default function expand<+T, -V>(
-  rootParser: (?VarArgs<V>) => T,
+export default function expand<+T, V>(
+  rootParser: (VarArgs<V>) => T,
   source: ?string,
-  args: ?VarArgs<V>,
+  args: ?(VarArgsObject<V> | VarArgs<V>),
 ): T | string {
   if (!source) {
     return '';
+  }
+
+  let savedState;
+  if (state.running) {
+    savedState = {...state};
   }
 
   // Reset the global state.
@@ -256,7 +286,20 @@ export default function expand<+T, -V>(
   state.position = 0;
   state.remainder = source;
   state.replacement = NO_MATCH_VALUE;
+  state.running = true;
   state.source = source;
+
+  if (!(args instanceof VarArgs)) {
+    /*
+     * Note: The `data` property is covariant on the VarArgs class,
+     * but assigning to it here is safe only because it remains
+     * constant throughout the `expand` call, so this is equivalent
+     * to creating a new object. It must not be assigned to anywhere
+     * else.
+     */
+    (DEFAULT_ARGS: any).data = args || EMPTY_OBJECT;
+    args = (DEFAULT_ARGS: VarArgs<V>);
+  }
 
   let result;
   try {
@@ -274,6 +317,14 @@ export default function expand<+T, -V>(
     console.error(e);
     Raven.captureException(e);
     return source;
+  } finally {
+    if (savedState) {
+      Object.assign(state, savedState);
+    } else {
+      state.running = false;
+      // Remove reference to the args object, so it can be GC'd.
+      (DEFAULT_ARGS: any).data = EMPTY_OBJECT;
+    }
   }
 
   return result;

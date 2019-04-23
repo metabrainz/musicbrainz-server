@@ -17,8 +17,8 @@ import expand, {
   createVarSubstParser,
   error,
   getString,
+  getVarSubstArg,
   gotMatch,
-  hasArg,
   NO_MATCH_VALUE,
   parseContinuous,
   parseContinuousString,
@@ -74,23 +74,19 @@ function handleTextContentReact(text: string) {
         result.push(he.decode(part));
       }
     }
-    return result;
+    if (typeof replacement === 'string') {
+      return result.join('');
+    }
+    return React.createElement(React.Fragment, null, ...result);
   } else {
     return he.decode(text);
   }
 }
 
-const parseRootTextContent = createTextContentParser<Output, VarSubstArg>(
+const parseRootTextContent = createTextContentParser<Output, Input>(
   textContent,
   handleTextContentReact,
 );
-
-export function getVarSubstArg(x: mixed): Output {
-  if (React.isValidElement(x)) {
-    return ((x: any): AnyReactElem);
-  }
-  return getString(x);
-}
 
 const parseVarSubst = createVarSubstParser<Output, Input>(
   getVarSubstArg,
@@ -108,8 +104,8 @@ const parseLinkSubst = saveMatch<
   if (!gotMatch(accept(substEnd))) {
     throw error('expected }');
   }
-  if (args && hasArg(args, name)) {
-    let props = args[name];
+  if (args.has(name)) {
+    let props = args.get(name);
     if (typeof props === 'string') {
       props = ({href: props}: AnchorProps);
     }
@@ -121,7 +117,7 @@ const parseLinkSubst = saveMatch<
   return state.match;
 });
 
-function pushChild<-T>(
+function pushChild<T>(
   children: Array<T>,
   match: T,
 ): Array<T> {
@@ -136,7 +132,7 @@ function pushChild<-T>(
   return children;
 }
 
-function concatArrayMatch<-T>(
+function concatArrayMatch<T>(
   children: Array<T> | NO_MATCH,
   match: Array<T> | T,
 ): Array<T> {
@@ -153,10 +149,10 @@ function concatArrayMatch<-T>(
   return children;
 }
 
-function parseContinuousArray<-T, -V>(
+function parseContinuousArray<T, V>(
   parsers: $ReadOnlyArray<Parser<Array<T> | T | NO_MATCH, V>>,
-  args: ?VarArgs<V>,
-): $ReadOnlyArray<T> {
+  args: VarArgs<V>,
+): Array<T> {
   return parseContinuous<Array<T> | T, Array<T>, V>(
     parsers,
     args,
@@ -170,13 +166,13 @@ const parseHtmlAttrValue = args => (
 );
 
 const parseHtmlAttrValueCondSubst =
-  createCondSubstParser<string, StrOrNum>(
+  createCondSubstParser<string, Input>(
     args => parseContinuousString(htmlAttrCondSubstThenParsers, args),
     args => parseContinuousString(htmlAttrCondSubstElseParsers, args),
   );
 
 const htmlAttrCondSubstThenParsers = [
-  createTextContentParser<string, StrOrNum>(
+  createTextContentParser<string, Input>(
     condSubstThenTextContent,
     handleTextContentText,
   ),
@@ -185,13 +181,16 @@ const htmlAttrCondSubstThenParsers = [
 ];
 
 const htmlAttrCondSubstElseParsers = [
-  parseRootTextContent,
+  createTextContentParser<string, Input>(
+    textContent,
+    handleTextContentText,
+  ),
   parseStringVarSubst,
   parseHtmlAttrValueCondSubst,
 ];
 
 const htmlAttrValueParsers = [
-  createTextContentParser<string, StrOrNum>(
+  createTextContentParser<string, Input>(
     htmlAttrTextContent,
     handleTextContentText,
   ),
@@ -240,7 +239,7 @@ function parseHtmlTag(args) {
 
   type HtmlAttr = {[string]: string};
 
-  const attributes = parseContinuousArray<HtmlAttr, Array<HtmlAttr>, Input>(
+  const attributes = parseContinuousArray<HtmlAttr, Input>(
     htmlAttrParsers,
     args,
   );
@@ -270,13 +269,13 @@ function parseHtmlTag(args) {
   );
 }
 
-const parseCondSubst = createCondSubstParser<$ReadOnlyArray<Output>, Input>(
+const parseCondSubst = createCondSubstParser<Array<Output>, Input>(
   args => parseContinuousArray(condSubstThenParsers, args),
   args => parseContinuousArray(condSubstElseParsers, args),
 );
 
 const condSubstThenParsers = [
-  createTextContentParser<Output, VarSubstArg>(
+  createTextContentParser<Output, Input>(
     condSubstThenTextContent,
     handleTextContentReact,
   ),

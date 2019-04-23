@@ -8,7 +8,7 @@
 
     [%- show_wikipedia_extract() -%]
 
-    [%- INCLUDE "components/relationships.tt" source=instrument -%]
+    [% React.embed(c, 'components/Relationships', {source => instrument}) %]
 
     [%- script_manifest('instrument/index.js', {async => 'async'}) -%]
 [%- END -%]

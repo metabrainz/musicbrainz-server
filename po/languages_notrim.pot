@@ -35633,7 +35633,7 @@ msgstr ""
 msgid "Umbuygamu"
 msgstr ""
 
-#. frequency:0 iso_code_3:sju 
+#. frequency:1 iso_code_3:sju 
 #: DB:language/name:5995
 msgid "Ume Sami"
 msgstr ""

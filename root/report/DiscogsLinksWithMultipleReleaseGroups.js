@@ -25,7 +25,10 @@ const DiscogsLinksWithMultipleReleaseGroups = ({
   items,
   pager,
 }: ReportDataT<ReportReleaseGroupUrlT>) => (
-  <Layout fullWidth title={l('Discogs URLs linked to multiple release groups')}>
+  <Layout
+    fullWidth
+    title={l('Discogs URLs linked to multiple release groups')}
+  >
     <h1>{l('Discogs URLs linked to multiple release groups')}</h1>
 
     <ul>
@@ -33,8 +36,14 @@ const DiscogsLinksWithMultipleReleaseGroups = ({
         {l(`This report shows Discogs URLs which are linked
             to multiple release groups.`)}
       </li>
-      <li>{texp.l('Total release groups found: {count}', {count: pager.total_entries})}</li>
-      <li>{texp.l('Generated on {date}', {date: formatUserDate($c.user, generated)})}</li>
+      <li>
+        {texp.l('Total release groups found: {count}',
+                {count: pager.total_entries})}
+      </li>
+      <li>
+        {texp.l('Generated on {date}',
+                {date: formatUserDate($c.user, generated)})}
+      </li>
 
       {canBeFiltered ? <FilterLink filtered={filtered} /> : null}
     </ul>

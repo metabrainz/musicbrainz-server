@@ -427,6 +427,13 @@ const testData = [
        only_valid_entity_types: ['artist'],
   },
   {
+                     input_url: 'https://www.bandsintown.com/en/a/12625251-wormwitch',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'bandsintown',
+            expected_clean_url: 'https://www.bandsintown.com/a/12625251',
+       only_valid_entity_types: ['artist'],
+  },
+  {
                      input_url: 'https://bandsintown.com/a/159526#',
              input_entity_type: 'artist',
     expected_relationship_type: 'bandsintown',
@@ -816,17 +823,17 @@ const testData = [
   },
   // CD Baby
   {
-                     input_url: 'www.cdbaby.name/artist/JohnDoe1#',
+                     input_url: 'www.cdbaby.name/artist/Johnn%c3%afDoe1#',
              input_entity_type: 'artist',
     expected_relationship_type: 'cdbaby',
-            expected_clean_url: 'https://store.cdbaby.com/Artist/JohnDoe1',
+            expected_clean_url: 'https://store.cdbaby.com/Artist/Johnn%c3%afDoe1',
        only_valid_entity_types: ['artist'],
   },
   {
-                     input_url: 'http://cdbaby.com/cd/John003',
+                     input_url: 'http://cdbaby.com/cd/Johnn%c3%af003',
              input_entity_type: 'release',
     expected_relationship_type: undefined,
-            expected_clean_url: 'https://store.cdbaby.com/cd/john003',
+            expected_clean_url: 'https://store.cdbaby.com/cd/johnn%c3%af003',
   },
   // CB (Cape Breton) Fiddle Recordings
   {
@@ -2603,21 +2610,38 @@ const testData = [
   },
   // SecondHandSongs
   {
-                     input_url: 'http://www.secondhandsongs.com/artist/103',
+                     input_url: 'http://www.secondhandsongs.com/artist/48874+56478+64931',
              input_entity_type: 'artist',
     expected_relationship_type: 'secondhandsongs',
+            expected_clean_url: 'https://secondhandsongs.com/artist/48874+56478+64931',
        only_valid_entity_types: ['artist'],
   },
   {
-                     input_url: 'http://www.secondhandsongs.com/release/888',
+                     input_url: 'https://secondhandsongs.com/label/7752',
+             input_entity_type: 'label',
+    expected_relationship_type: 'secondhandsongs',
+            expected_clean_url: 'https://secondhandsongs.com/label/7752',
+       only_valid_entity_types: ['label'],
+  },
+  {
+                     input_url: 'https://secondhandsongs.com/performance/235077',
+             input_entity_type: 'recording',
+    expected_relationship_type: 'secondhandsongs',
+            expected_clean_url: 'https://secondhandsongs.com/performance/235077',
+       only_valid_entity_types: ['recording'],
+  },
+  {
+                     input_url: 'http://secondhandsongs.com/release/888',
              input_entity_type: 'release',
     expected_relationship_type: 'secondhandsongs',
+            expected_clean_url: 'https://secondhandsongs.com/release/888',
        only_valid_entity_types: ['release'],
   },
   {
-                     input_url: 'http://www.secondhandsongs.com/work/1409',
+                     input_url: 'http://www.secondhandsongs.com/work/140348/adaptations#nav-entity',
              input_entity_type: 'work',
     expected_relationship_type: 'secondhandsongs',
+            expected_clean_url: 'https://secondhandsongs.com/work/140348',
        only_valid_entity_types: ['work'],
   },
   // setlist.fm

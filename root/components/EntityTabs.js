@@ -17,19 +17,19 @@ import Tabs from './Tabs';
 import EntityTabLink from './EntityTabLink';
 
 const tabLinkNames = {
-  artists: N_l('Artists'),
-  cover_art: N_l('Cover Art'),
-  discids: N_l('Disc IDs'),
-  events: N_l('Events'),
-  fingerprints: N_l('Fingerprints'),
-  labels: N_l('Labels'),
-  map: N_l('Map'),
-  performances: N_l('Performances'),
-  places: N_l('Places'),
-  recordings: N_l('Recordings'),
-  releases: N_l('Releases'),
-  users: N_l('Users'),
-  works: N_l('Works'),
+  'artists': N_l('Artists'),
+  'cover-art': N_l('Cover Art'),
+  'discids': N_l('Disc IDs'),
+  'events': N_l('Events'),
+  'fingerprints': N_l('Fingerprints'),
+  'labels': N_l('Labels'),
+  'map': N_l('Map'),
+  'performances': N_l('Performances'),
+  'places': N_l('Places'),
+  'recordings': N_l('Recordings'),
+  'releases': N_l('Releases'),
+  'users': N_l('Users'),
+  'works': N_l('Works'),
 };
 
 const buildLink = (

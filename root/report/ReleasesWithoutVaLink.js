@@ -25,16 +25,27 @@ const ReleasesWithoutVaLink = ({
   items,
   pager,
 }: ReportDataT<ReportReleaseT>) => (
-  <Layout fullWidth title={l('Releases credited to "Various Artists" but not linked to VA')}>
-    <h1>{l('Releases credited to "Various Artists" but not linked to VA')}</h1>
+  <Layout
+    fullWidth
+    title={l('Releases credited to "Various Artists" but not linked to VA')}
+  >
+    <h1>
+      {l('Releases credited to "Various Artists" but not linked to VA')}
+    </h1>
 
     <ul>
       <li>
         {l(`This report shows releases with "Various Artists" as the credited
             name but not linked to the Various Artists entity.`)}
       </li>
-      <li>{texp.l('Total releases found: {count}', {count: pager.total_entries})}</li>
-      <li>{texp.l('Generated on {date}', {date: formatUserDate($c.user, generated)})}</li>
+      <li>
+        {texp.l('Total releases found: {count}',
+                {count: pager.total_entries})}
+      </li>
+      <li>
+        {texp.l('Generated on {date}',
+                {date: formatUserDate($c.user, generated)})}
+      </li>
 
       {canBeFiltered ? <FilterLink filtered={filtered} /> : null}
     </ul>

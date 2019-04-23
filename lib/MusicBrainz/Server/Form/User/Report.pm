@@ -22,6 +22,7 @@ has_field 'message' => (
 
 has_field 'reveal_address' => (
     type => 'Boolean',
+    default => 1,
 );
 
 Readonly our %REASONS => (

@@ -13,7 +13,7 @@ import FieldErrors from './FieldErrors';
 import FormRow from './FormRow';
 
 type Props = {|
-  +field: FieldT<string>,
+  +field: ReadOnlyFieldT<string>,
   +hideHelp?: boolean,
 |};
 

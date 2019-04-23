@@ -9,13 +9,13 @@
 
 import React from 'react';
 
-type Props<F> = {|
-  +forField?: AnyFieldT<F>,
+type Props = {|
+  +forField?: {+html_name: string},
   +label: string,
   +required?: boolean,
 |};
 
-const FormLabel = <F>(props: Props<F>) => (
+const FormLabel = (props: Props) => (
   <label
     className={props.required ? 'required' : ''}
     htmlFor={props.forField ? 'id-' + props.forField.html_name : null}

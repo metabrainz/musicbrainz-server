@@ -11,7 +11,7 @@
 
     [%- show_wikipedia_extract() -%]
 
-    [% INCLUDE "components/relationships.tt" source=event %]
+    [% React.embed(c, 'components/Relationships', {source => event}) %]
 
     [%- IF event.setlist -%]
     <h2 class="setlist">[% l('Setlist') %]</h2>

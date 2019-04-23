@@ -20,9 +20,13 @@ const FilterLink = (
   return (
     <li>
       {filtered === true ? (
-        <a href={uriWith(reqUri, {filter: 0})}>{l('Show all results.')}</a>
+        <a href={uriWith(reqUri, {filter: 0})}>
+          {l('Show all results.')}
+        </a>
       ) : (
-        <a href={uriWith(reqUri, {filter: 1})}>{l('Show only results that are in my subscribed entities.')}</a>
+        <a href={uriWith(reqUri, {filter: 1})}>
+          {l('Show only results that are in my subscribed entities.')}
+        </a>
       )}
     </li>
   );

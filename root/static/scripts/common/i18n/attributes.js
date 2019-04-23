@@ -12,3 +12,7 @@ import * as wrapGettext from './wrapGettext';
 export const l_attributes = wrapGettext.dgettext('attributes');
 export const ln_attributes = wrapGettext.dngettext('attributes');
 export const lp_attributes = wrapGettext.dpgettext('attributes');
+
+export const N_lp_attributes = (key: string, context: string) => (
+  () => lp_attributes(key, context)
+);

@@ -120,7 +120,7 @@ class ArtistCreditNameEditor extends React.Component {
             type="text"
             value={nonEmpty(name.joinPhrase) ? name.joinPhrase : ''} />
         </td>
-        <td style={{textAlign: 'right'}}>
+        <td className="align-right">
           <button className="icon remove-item remove-artist-credit"
                   onClick={this.props.onRemove}
                   title={l('Remove Artist Credit')}

@@ -25,16 +25,28 @@ const ReleaseGroupsWithoutVaCredit = ({
   items,
   pager,
 }: ReportDataT<ReportReleaseGroupT>) => (
-  <Layout fullWidth title={l('Release groups not credited to "Various Artists" but linked to VA')}>
-    <h1>{l('Release groups not credited to "Various Artists" but linked to VA')}</h1>
+  <Layout
+    fullWidth
+    title={l(`Release groups not credited to "Various Artists"
+              but linked to VA`)}
+  >
+    <h1>
+      {l('Release groups not credited to "Various Artists" but linked to VA')}
+    </h1>
 
     <ul>
       <li>
         {l(`This report shows release groups linked to the Various Artists
             entity without "Various Artists" as the credited name.`)}
       </li>
-      <li>{texp.l('Total release groups found: {count}', {count: pager.total_entries})}</li>
-      <li>{texp.l('Generated on {date}', {date: formatUserDate($c.user, generated)})}</li>
+      <li>
+        {texp.l('Total release groups found: {count}',
+                {count: pager.total_entries})}
+      </li>
+      <li>
+        {texp.l('Generated on {date}',
+                {date: formatUserDate($c.user, generated)})}
+      </li>
 
       {canBeFiltered ? <FilterLink filtered={filtered} /> : null}
     </ul>

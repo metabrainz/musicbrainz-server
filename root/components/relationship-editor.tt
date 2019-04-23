@@ -182,17 +182,17 @@
       [% bracketedWithSpace(l('ended')) | html %]
     <!-- /ko -->
   <!-- /ko -->
-  <!-- ko with: relationship.phraseAndExtraAttributes()[2 + (forGrouping ? 3 : 0)] -->
+  <!-- ko with: relationship.phraseAndExtraAttributes('link_phrase', forGrouping)[1] -->
     (<!-- ko text: $data --><!-- /ko -->)
   <!-- /ko -->
 </script>
 
 <script type="text/html" id="template.edit-attribute">
   <div class="attribute-container">
-    <!-- ko ifnot: attribute.children || attribute.freeText -->
+    <!-- ko ifnot: attribute.children || attribute.free_text -->
     <label>
       <input type="checkbox" data-bind="checked: relationship.attributes, checkedValue: relationship.getAttribute(attribute.gid)" />
-      <!-- ko text: attribute.l_name --><!-- /ko -->
+      <!-- ko text: $root.localizeLinkAttributeTypeName(attribute) --><!-- /ko -->
     </label>
     <!-- /ko -->
     <!-- ko if: attribute.id == 14 -->
@@ -223,7 +223,7 @@
               component: {
                 name: 'multiselect',
                 params: {
-                  options: MB.forms.buildOptionsTree(attribute, 'l_name', 'gid'),
+                  options: MB.forms.buildOptionsTree(attribute, $root.localizeLinkAttributeTypeName, 'gid'),
                   placeholder: attribute.id == 14 ? '[% l('Click here to choose an instrument') | js %]' :
                                attribute.id == 3  ? '[% l('Click here to choose a vocal') | js %]' : '',
                   relationship: relationship,
@@ -231,16 +231,16 @@
                 }
               }"></div>
     <!-- /ko -->
-    <!-- ko if: attribute.freeText -->
+    <!-- ko if: attribute.free_text -->
     <label>
       <!-- ko text: relationship.attributeLabel(attribute) --><!-- /ko -->
       <input type="text" data-bind="textAttribute: { relationship: relationship, typeGID: attribute.gid }
-                                    attr: { placeholder: attribute.l_name }" />
+                                    attr: { placeholder: $root.localizeLinkAttributeTypeName(attribute) }" />
     </label>
     <!-- /ko -->
     <div class="error" data-bind="text: relationship.attributeError($data)"></div>
     <!-- ko if: $parents[1].showAttributesHelp -->
-      <div class="ar-descr" data-bind="html: attribute.description"></div>
+      <div class="ar-descr" data-bind="html: $root.localizeLinkAttributeTypeDescription(attribute)"></div>
     <!-- /ko -->
   </div>
 </script>
@@ -248,7 +248,7 @@
 <script type="text/html" id="template.multiselect">
   <div class="items" data-bind="foreach: selectedAttributes">
     <div>
-      <a href="#" data-bind="html: '&#215; ' + _.escape(type.l_name)"></a>
+      <a href="#" data-bind="html: '&#215; ' + _.escape($root.localizeLinkAttributeTypeName(type))"></a>
       <!-- ko if: type.creditable -->
         <input type="text" class="attribute-credit" placeholder="[% l('credited as') %]" data-bind="value: creditedAs" />
       <!-- /ko -->

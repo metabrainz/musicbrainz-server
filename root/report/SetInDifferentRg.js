@@ -41,8 +41,14 @@ const SetInDifferentRg = ({
           {how_to_merge_releases: '/doc/How_to_Merge_Releases'},
         )}
       </li>
-      <li>{texp.l('Total release groups found: {count}', {count: pager.total_entries})}</li>
-      <li>{texp.l('Generated on {date}', {date: formatUserDate($c.user, generated)})}</li>
+      <li>
+        {texp.l('Total release groups found: {count}',
+                {count: pager.total_entries})}
+      </li>
+      <li>
+        {texp.l('Generated on {date}',
+                {date: formatUserDate($c.user, generated)})}
+      </li>
 
       {canBeFiltered ? <FilterLink filtered={filtered} /> : null}
     </ul>

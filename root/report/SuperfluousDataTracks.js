@@ -30,12 +30,27 @@ const SuperfluousDataTracks = ({
 
     <ul>
       <li>
-        {l(`This report lists releases without any disc IDs that probably
-            contain data tracks (like videos). A data track should be deleted
-            if it is the last track of the CD and there is no disc ID.`)}
+        {exp.l(
+          `This report lists releases without any disc IDs that probably
+           contain data tracks (like videos) at the end of a medium, but have
+           no tracks marked as data tracks. A data track should be marked as
+           such if it is the last track of the CD and contains audio or video.
+           Otherwise, it should just be removed. See the
+           {data_track_guidelines|data track guidelines}.`,
+          {
+            data_track_guidelines:
+            `/doc/Style/Unknown_and_untitled/Special_purpose_track_title#Data_tracks`,
+          },
+        )}
       </li>
-      <li>{texp.l('Total releases found: {count}', {count: pager.total_entries})}</li>
-      <li>{texp.l('Generated on {date}', {date: formatUserDate($c.user, generated)})}</li>
+      <li>
+        {texp.l('Total releases found: {count}',
+                {count: pager.total_entries})}
+      </li>
+      <li>
+        {texp.l('Generated on {date}',
+                {date: formatUserDate($c.user, generated)})}
+      </li>
 
       {canBeFiltered ? <FilterLink filtered={filtered} /> : null}
     </ul>

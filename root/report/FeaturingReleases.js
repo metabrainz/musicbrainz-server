@@ -25,23 +25,34 @@ const FeaturingReleases = ({
   items,
   pager,
 }: ReportDataT<ReportReleaseT>) => (
-  <Layout fullWidth title={l('Releases with titles containing featuring artists')}>
+  <Layout
+    fullWidth
+    title={l('Releases with titles containing featuring artists')}
+  >
     <h1>{l('Releases with titles containing featuring artists')}</h1>
 
     <ul>
       <li>
-        {exp.l(`This report shows releases with (feat. Artist) in the title. For
-            classical releases, consult the {CSG|classical style guidelines}.
-            For non-classical releases, this is inherited from an older
-            version of MusicBrainz and should be fixed. Consult the
-            {featured_artists|page about featured artists} to know more.`,
-        {
-          CSG: '/doc/Style/Classical',
-          featured_artists: '/doc/Style/Artist_Credits#Featured_artists',
-        })}
+        {exp.l(
+          `This report shows releases with (feat. Artist) in the title. For
+          classical releases, consult the {CSG|classical style guidelines}.
+          For non-classical releases, this is inherited from an older
+          version of MusicBrainz and should be fixed. Consult the
+          {featured_artists|page about featured artists} to know more.`,
+          {
+            CSG: '/doc/Style/Classical',
+            featured_artists: '/doc/Style/Artist_Credits#Featured_artists',
+          },
+        )}
       </li>
-      <li>{texp.l('Total releases found: {count}', {count: pager.total_entries})}</li>
-      <li>{texp.l('Generated on {date}', {date: formatUserDate($c.user, generated)})}</li>
+      <li>
+        {texp.l('Total releases found: {count}',
+                {count: pager.total_entries})}
+      </li>
+      <li>
+        {texp.l('Generated on {date}',
+                {date: formatUserDate($c.user, generated)})}
+      </li>
 
       {canBeFiltered ? <FilterLink filtered={filtered} /> : null}
     </ul>

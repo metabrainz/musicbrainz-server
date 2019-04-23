@@ -25,7 +25,10 @@ const TracksNamedWithSequence = ({
   items,
   pager,
 }: ReportDataT<ReportReleaseT>) => (
-  <Layout fullWidth title={l('Releases where track names start with their track number')}>
+  <Layout
+    fullWidth
+    title={l('Releases where track names start with their track number')}
+  >
     <h1>{l('Releases where track names start with their track number')}</h1>
 
     <ul>
@@ -36,8 +39,14 @@ const TracksNamedWithSequence = ({
              don't automatically assume it is a mistake! If you confirm it
              is a mistake, please correct it.`)}
       </li>
-      <li>{texp.l('Total releases found: {count}', {count: pager.total_entries})}</li>
-      <li>{texp.l('Generated on {date}', {date: formatUserDate($c.user, generated)})}</li>
+      <li>
+        {texp.l('Total releases found: {count}',
+                {count: pager.total_entries})}
+      </li>
+      <li>
+        {texp.l('Generated on {date}',
+                {date: formatUserDate($c.user, generated)})}
+      </li>
 
       {canBeFiltered ? <FilterLink filtered={filtered} /> : null}
     </ul>

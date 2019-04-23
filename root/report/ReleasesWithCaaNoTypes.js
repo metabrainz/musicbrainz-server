@@ -25,8 +25,15 @@ const ReleasesWithCaaNoTypes = ({
   items,
   pager,
 }: ReportDataT<ReportReleaseT>) => (
-  <Layout fullWidth title={l('Releases in the Cover Art Archive where no cover art piece has types')}>
-    <h1>{l('Releases in the Cover Art Archive where no cover art piece has types')}</h1>
+  <Layout
+    fullWidth
+    title={l(`Releases in the Cover Art Archive where no cover art piece
+              has types`)}
+  >
+    <h1>
+      {l(`Releases in the Cover Art Archive where no cover art piece
+          has types`)}
+    </h1>
 
     <ul>
       <li>
@@ -34,8 +41,14 @@ const ReleasesWithCaaNoTypes = ({
             Archive, but where none of it has any types set. This often means
             a front cover was added, but not marked as such.`)}
       </li>
-      <li>{texp.l('Total releases found: {count}', {count: pager.total_entries})}</li>
-      <li>{texp.l('Generated on {date}', {date: formatUserDate($c.user, generated)})}</li>
+      <li>
+        {texp.l('Total releases found: {count}',
+                {count: pager.total_entries})}
+      </li>
+      <li>
+        {texp.l('Generated on {date}',
+                {date: formatUserDate($c.user, generated)})}
+      </li>
 
       {canBeFiltered ? <FilterLink filtered={filtered} /> : null}
     </ul>

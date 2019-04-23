@@ -44,7 +44,11 @@ const EventList = ({
                 showEventDate={false}
               />
             </td>
-            <td>{item.event.typeName ? lp_attributes(item.event.typeName, 'event_type') : null}</td>
+            <td>
+              {item.event.typeName
+                ? lp_attributes(item.event.typeName, 'event_type')
+                : null}
+            </td>
             <td>
               <ArtistRoles relations={item.event.performers} />
             </td>

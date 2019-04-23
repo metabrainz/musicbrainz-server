@@ -7,7 +7,7 @@
 
 require('@babel/register');
 
-const global = require('../global');
+const global = require('../global').default;
 
 let document = global.document;
 if (!document) {

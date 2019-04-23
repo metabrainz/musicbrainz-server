@@ -338,7 +338,12 @@ around TO_JSON => sub {
     my $link = $self->link;
 
     my $json = {
-        attributes      => [map +{ (%{ $_->TO_JSON }, type => { gid => $_->type->gid }) }, $link->all_attributes],
+        attributes      => [map {
+            my $type = $_->type;
+            $self->link_entity('link_attribute_type', $type->id, $type);
+            my $result = { (%{ $_->TO_JSON }, type => { gid => $type->gid }) };
+            $result
+        } $link->all_attributes],
         editsPending    => boolean_to_json($self->edits_pending),
         ended           => boolean_to_json($link->ended),
         entity0_credit  => $self->entity0_credit,
@@ -355,6 +360,10 @@ around TO_JSON => sub {
     $json->{direction} = 'backward' if $self->direction == $DIRECTION_BACKWARD;
 
     $self->link_entity('link_type', $link->type_id, $link->type);
+
+    for my $ltat ($link->type->all_attributes) {
+        $self->link_entity('link_attribute_type', $ltat->type_id, $ltat->type);
+    }
 
     return $json;
 };

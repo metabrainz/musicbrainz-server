@@ -21,7 +21,7 @@ type RadioOptionsT = $ReadOnlyArray<{|
 |}>;
 
 type Props = {|
-  +field: FieldT<string>,
+  +field: ReadOnlyFieldT<string>,
   +label: string,
   +options: RadioOptionsT,
   +required?: boolean,

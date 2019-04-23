@@ -19,11 +19,11 @@ const ReportsIndex = ({$c}: {$c: CatalystContextT}) => (
 
       <p>
         {exp.l(
-          `If you'd like to participate in the editing process, but do not know where
-           to start, the following reports should be useful. These reports scour the
-           database looking for data that might require fixing, either to comply with
-           the {style|style guidelines}, or in other cases where administrative
-           "clean up" tasks are required.`,
+          `If you'd like to participate in the editing process, but do not
+           know where to start, the following reports should be useful. These
+           reports scour the database looking for data that might require
+           fixing, either to comply with the {style|style guidelines}, or in
+           other cases where administrative "clean up" tasks are required.`,
           {style: '/doc/Style'},
         )}
       </p>
@@ -207,12 +207,14 @@ const ReportsIndex = ({$c}: {$c: CatalystContextT}) => (
         </li>
         <li>
           <a href="/report/ReleaseGroupsWithoutVACredit">
-            {l('Release groups not credited to "Various Artists" but linked to VA')}
+            {l(`Release groups not credited to "Various Artists" but linked
+                to VA`)}
           </a>
         </li>
         <li>
           <a href="/report/ReleaseGroupsWithoutVALink">
-            {l('Release groups credited to "Various Artists" but not linked to VA')}
+            {l(`Release groups credited to "Various Artists" but not linked
+                to VA`)}
           </a>
         </li>
       </ul>
@@ -297,7 +299,8 @@ const ReportsIndex = ({$c}: {$c: CatalystContextT}) => (
         </li>
         <li>
           <a href="/report/SomeFormatsUnset">
-            {l('Releases where some (but not all) mediums have no format set')}
+            {l(`Releases where some (but not all) mediums have
+                no format set`)}
           </a>
         </li>
         <li>
@@ -307,22 +310,26 @@ const ReportsIndex = ({$c}: {$c: CatalystContextT}) => (
         </li>
         <li>
           <a href="/report/UnlinkedPseudoReleases">
-            {l('Translated/Transliterated Pseudo-Releases not linked to an original version')}
+            {l(`Translated/Transliterated Pseudo-Releases not linked to
+                an original version`)}
           </a>
         </li>
         <li>
           <a href="/report/ReleasesInCAAWithCoverArtRelationships">
-            {l('Releases in the Cover Art Archive that still have cover art relationships')}
+            {l(`Releases in the Cover Art Archive that still have
+                cover art relationships`)}
           </a>
         </li>
         <li>
           <a href="/report/CoverArtRelationships">
-            {l('Releases of any sort that still have cover art relationships')}
+            {l(`Releases of any sort that still have
+                cover art relationships`)}
           </a>
         </li>
         <li>
           <a href="/report/ReleasesWithCAANoTypes">
-            {l('Releases in the Cover Art Archive where no cover art piece has types')}
+            {l(`Releases in the Cover Art Archive where no cover art piece
+                has types`)}
           </a>
         </li>
         <li>
@@ -427,17 +434,20 @@ const ReportsIndex = ({$c}: {$c: CatalystContextT}) => (
         </li>
         <li>
           <a href="/report/RecordingsWithoutVACredit">
-            {l('Recordings not credited to "Various Artists" but linked to VA')}
+            {l(`Recordings not credited to "Various Artists" but linked
+                to VA`)}
           </a>
         </li>
         <li>
           <a href="/report/RecordingsWithoutVALink">
-            {l('Recordings credited to "Various Artists" but not linked to VA')}
+            {l(`Recordings credited to "Various Artists" but not linked
+                to VA`)}
           </a>
         </li>
         <li>
           <a href="/report/RecordingsSameNameDifferentArtistsSameName">
-            {l('Recordings with the same name by different artists with the same name')}
+            {l(`Recordings with the same name by different artists
+                with the same name`)}
           </a>
         </li>
       </ul>

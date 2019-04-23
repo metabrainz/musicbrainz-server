@@ -25,16 +25,27 @@ const ReleasesWithDownloadRelationships = ({
   items,
   pager,
 }: ReportDataT<ReportReleaseT>) => (
-  <Layout fullWidth title={l('Non-digital releases with download relationships')}>
-    <h1>{l('Non-digital releases with download relationships')}</h1>
+  <Layout
+    fullWidth
+    title={l('Non-digital releases with download relationships')}
+  >
+    <h1>
+      {l('Non-digital releases with download relationships')}
+    </h1>
 
     <ul>
       <li>
         {l(`This report shows releases that have download relationships, but
-            have media whose format is not "Digital Media".`)}
+            have media whose format is not “Digital Media”.`)}
       </li>
-      <li>{texp.l('Total releases found: {count}', {count: pager.total_entries})}</li>
-      <li>{texp.l('Generated on {date}', {date: formatUserDate($c.user, generated)})}</li>
+      <li>
+        {texp.l('Total releases found: {count}',
+                {count: pager.total_entries})}
+      </li>
+      <li>
+        {texp.l('Generated on {date}',
+                {date: formatUserDate($c.user, generated)})}
+      </li>
 
       {canBeFiltered ? <FilterLink filtered={filtered} /> : null}
     </ul>

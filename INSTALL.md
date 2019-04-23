@@ -35,7 +35,11 @@ Prerequisites
     If needed, packages of all supported PostgreSQL versions for various Ubuntu
     releases are available from the [PostgreSQL apt repository](http://www.postgresql.org/download/linux/ubuntu/).
 
-        sudo apt-get install postgresql-9.x postgresql-server-dev-9.x postgresql-contrib-9.x
+        POSTGRES_VERSION=9.5
+        sudo apt-get install \
+            postgresql-${POSTGRES_VERSION} \
+            postgresql-contrib-${POSTGRES_VERSION} \
+            postgresql-server-dev-${POSTGRES_VERSION}
 
     Alternatively, you may compile PostgreSQL from source, but then make sure to
     also compile the cube and earthdistance extensions found in the contrib
@@ -101,7 +105,7 @@ Server configuration
 
         cp lib/DBDefs.pm.sample lib/DBDefs.pm
 
-    Fill in the appropriate values for `MB_SERVER_ROOT` and `WEB_SERVER`.
+    Fill in the appropriate value (according to comments) for `WEB_SERVER`.
     If you are using a reverse proxy, you should set the environment variable
     MUSICBRAINZ_USE_PROXY=1 when starting the server.
     This makes the server aware of it when checking for the canonical uri.
@@ -124,7 +128,7 @@ Server configuration
         for the READONLY database setting in lib/DBDefs.pm; it can just be a copy
         of what's in READWRITE if you don't need anything fancy.
 
-    2.  `RT_STANDALONE`
+    2.  `RT_STANDALONE` (for development)
 
         A stand alone server is recommended if you are setting up a server for
         development purposes. They do not accept the replication packets and will
@@ -160,7 +164,14 @@ Below outlines how to setup MusicBrainz server with local::lib.
     There are also a few development headers that will be needed when installing
     dependencies. Run the following steps as a normal user on your system.
 
-        sudo apt-get install libxml2-dev libpq-dev libexpat1-dev libdb-dev libicu-dev liblocal-lib-perl cpanminus
+        sudo apt-get install \
+            libdb-dev \
+            libexpat1-dev \
+            libicu-dev \
+            liblocal-lib-perl \
+            libpq-dev \
+            libxml2-dev \
+            cpanminus
 
 2.  Enable local::lib
 

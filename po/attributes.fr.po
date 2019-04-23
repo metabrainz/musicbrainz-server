@@ -28,7 +28,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2019-01-22 21:02+0000\n"
+"PO-Revision-Date: 2019-04-17 08:44+0000\n"
 "Last-Translator: yvanz\n"
 "Language-Team: French (http://www.transifex.com/musicbrainz/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -6155,6 +6155,13 @@ msgid ""
 "medium."
 msgstr "La couche CD d’un SACD hybride. La couche SACD doit être ajoutée comme un support à part."
 
+#: DB:medium_format/description:82
+msgctxt "medium_format"
+msgid ""
+"The CD side of a vinyl + CD VinylDisc. The vinyl side should be added as a "
+"separate medium."
+msgstr "La face CD d’un VinylDisc vinyle + CD. La face vinyle doit être ajoutée comme un support à part."
+
 #: DB:medium_format/description:60
 msgctxt "medium_format"
 msgid ""
@@ -6185,6 +6192,13 @@ msgid ""
 "separate medium."
 msgstr "La couche DVD (vidéo) d’un DualDisc. La couche CD doit être ajoutée comme un support à part."
 
+#: DB:medium_format/description:80
+msgctxt "medium_format"
+msgid ""
+"The DVD side of a vinyl + DVD VinylDisc. The vinyl side should be added as a"
+" separate medium."
+msgstr "La face DVD d’un VinylDisc vinyle + DVD. La face vinyle doit être ajoutée comme un support à part."
+
 #: DB:medium_format/description:64
 msgctxt "medium_format"
 msgid ""
@@ -6211,6 +6225,13 @@ msgstr "L’opérette est un genre d’opéra léger, à la fois en terme musica
 msgctxt "release_packaging"
 msgid "The traditional CD case, made of hard, brittle plastic."
 msgstr "Le boîtier traditionnel pour CD, en plastique dur et cassant."
+
+#: DB:medium_format/description:81
+msgctxt "medium_format"
+msgid ""
+"The vinyl side of a VinylDisc. The CD or DVD side should be added as a "
+"separate medium."
+msgstr "La face vinyle d’un VinylDisc. La face CD ou DVD doit être ajoutée comme un support à part."
 
 #: DB:work_type/description:23
 msgctxt "work_type"
@@ -6508,6 +6529,21 @@ msgstr "Vinyle"
 msgctxt "medium_format"
 msgid "VinylDisc"
 msgstr "VinylDisc"
+
+#: DB:medium_format/name:82
+msgctxt "medium_format"
+msgid "VinylDisc (CD side)"
+msgstr "VinylDisc (face CD)"
+
+#: DB:medium_format/name:80
+msgctxt "medium_format"
+msgid "VinylDisc (DVD side)"
+msgstr "VinylDisc (face DVD)"
+
+#: DB:medium_format/name:81
+msgctxt "medium_format"
+msgid "VinylDisc (Vinyl side)"
+msgstr "VinylDisc (face vinyle)"
 
 #: DB:work_attribute_type_allowed_value/value:259
 #: DB:work_attribute_type_allowed_value/value:1047

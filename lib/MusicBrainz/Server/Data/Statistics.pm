@@ -5,7 +5,7 @@ use namespace::autoclean;
 use warnings FATAL => 'all';
 
 use List::AllUtils qw( any );
-use MusicBrainz::Server::Data::Utils qw( placeholders );
+use MusicBrainz::Server::Data::Utils qw( get_area_containment_query placeholders );
 use MusicBrainz::Server::Constants qw( :edit_status :vote );
 use MusicBrainz::Server::Constants qw( $VARTIST_ID $EDITOR_MODBOT $EDITOR_FREEDB :quality %ENTITIES entities_with );
 use MusicBrainz::Server::Data::Relationship;
@@ -913,14 +913,21 @@ my %stats = (
         CALC => sub {
             my ($self, $sql) = @_;
 
-            my $data = $sql->select_list_of_lists(
-                "SELECT COALESCE(iso.code::text, 'null'), COUNT(l.gid) AS count
-                FROM label l FULL OUTER JOIN country_area c
-                    ON l.area=c.area
-                JOIN iso_3166_1 iso ON c.area = iso.area
+            my (
+                $containment_query,
+                @containment_query_args,
+            ) = get_area_containment_query('$1', 'entity1');
+
+            my $data = $sql->select_list_of_lists(qq{
+                SELECT COALESCE(iso.code::text, 'null'), COUNT(l.id)
+                FROM label l
+                LEFT JOIN ($containment_query) ac
+                    ON l.area = ac.descendant
+                    AND ac.parent IN (SELECT area FROM country_area)
+                FULL OUTER JOIN iso_3166_1 iso
+                    ON iso.area = COALESCE(ac.parent, l.area)
                 GROUP BY iso.code
-                ",
-            );
+            }, @containment_query_args);
 
             my %dist = map { @$_ } @$data;
 
@@ -942,7 +949,7 @@ my %stats = (
                 FROM release r
                 LEFT JOIN release_country rc ON r.id = rc.release
                 FULL OUTER JOIN country_area c ON rc.country = c.area
-                JOIN iso_3166_1 iso ON c.area = iso.area
+                LEFT JOIN iso_3166_1 iso ON c.area = iso.area
                 GROUP BY iso.code
                 ",
             );
@@ -1346,14 +1353,21 @@ my %stats = (
         CALC => sub {
             my ($self, $sql) = @_;
 
-            my $data = $sql->select_list_of_lists(
-                "SELECT COALESCE(iso.code::text, 'null'), COUNT(a.gid) AS count
-                FROM artist a FULL OUTER JOIN country_area c
-                    ON a.area=c.area
-                JOIN iso_3166_1 iso ON c.area = iso.area
+            my (
+                $containment_query,
+                @containment_query_args,
+            ) = get_area_containment_query('$1', 'entity1');
+
+            my $data = $sql->select_list_of_lists(qq{
+                SELECT COALESCE(iso.code::text, 'null'), COUNT(a.id)
+                FROM artist a
+                LEFT JOIN ($containment_query) ac
+                    ON a.area = ac.descendant
+                    AND ac.parent IN (SELECT area FROM country_area)
+                FULL OUTER JOIN iso_3166_1 iso
+                    ON iso.area = COALESCE(ac.parent, a.area)
                 GROUP BY iso.code
-                ",
-            );
+            }, @containment_query_args);
 
             my %dist = map { @$_ } @$data;
 

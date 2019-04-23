@@ -30,18 +30,25 @@ const DiscogsLinksWithMultipleReleases = ({
 
     <ul>
       <li>
-        {exp.l(`This report shows Discogs URLs which are linked to multiple
-            releases. In most cases Discogs releases should map to MusicBrainz
-            releases 1:1, so only one of the links will be correct. Just check
-            which MusicBrainz release fits the release in Discogs (look at the
-            format, tracklist, release country, etc.). You might also find
-            some Discogs URLs linked to several discs of a multi-disc release:
-            just merge those (see
-            {how_to_merge_releases|How to Merge Releases}).`,
-        {how_to_merge_releases: '/doc/How_to_Merge_Releases'})}
+        {exp.l(
+          `This report shows Discogs URLs which are linked to multiple
+           releases. In most cases Discogs releases should map to MusicBrainz
+           releases 1:1, so only one of the links will be correct. Just check
+           which MusicBrainz release fits the release in Discogs (look at the
+           format, tracklist, release country, etc.). You might also find some
+           Discogs URLs linked to several discs of a multi-disc release: just
+           merge those (see {how_to_merge_releases|How to Merge Releases}).`,
+          {how_to_merge_releases: '/doc/How_to_Merge_Releases'},
+        )}
       </li>
-      <li>{texp.l('Total releases found: {count}', {count: pager.total_entries})}</li>
-      <li>{texp.l('Generated on {date}', {date: formatUserDate($c.user, generated)})}</li>
+      <li>
+        {texp.l('Total releases found: {count}',
+                {count: pager.total_entries})}
+      </li>
+      <li>
+        {texp.l('Generated on {date}',
+                {date: formatUserDate($c.user, generated)})}
+      </li>
 
       {canBeFiltered ? <FilterLink filtered={filtered} /> : null}
     </ul>

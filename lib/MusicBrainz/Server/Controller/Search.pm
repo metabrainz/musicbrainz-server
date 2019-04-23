@@ -4,7 +4,7 @@ BEGIN { extends 'MusicBrainz::Server::Controller' }
 
 use List::Util qw( min max );
 use MusicBrainz::Server::ControllerUtils::JSON qw( serialize_pager );
-use MusicBrainz::Server::Data::Utils qw( model_to_type type_to_model );
+use MusicBrainz::Server::Data::Utils qw( datetime_to_iso8601 model_to_type type_to_model );
 use MusicBrainz::Server::Form::Search::Query;
 use MusicBrainz::Server::Form::Search::Search;
 use Scalar::Util qw( looks_like_number );
@@ -65,7 +65,7 @@ sub search : Path('')
 
             my %props = (
                 form => $stash->{form},
-                lastUpdated => $stash->{last_updated},
+                lastUpdated => datetime_to_iso8601($stash->{last_updated}),
                 pager => serialize_pager($stash->{pager}),
                 query => $stash->{query},
                 results => $stash->{results},

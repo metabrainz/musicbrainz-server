@@ -9,9 +9,10 @@ with 'MusicBrainz::Server::Controller::Role::Load' => {
         cardinal    => ['edit'],
         default     => ['url'],
         subset      => {
-            show => [qw( area artist label place url work series instrument release release_group recording work url )],
+            show => [qw( area artist label place series instrument release release_group recording work url )],
         }
-    },};
+    },
+};
 with 'MusicBrainz::Server::Controller::Role::LoadWithRowID';
 with 'MusicBrainz::Server::Controller::Role::Annotation';
 with 'MusicBrainz::Server::Controller::Role::Alias';

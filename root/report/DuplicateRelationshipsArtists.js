@@ -25,7 +25,10 @@ const DuplicateRelationshipsArtists = ({
   items,
   pager,
 }: ReportDataT<ReportArtistT>) => (
-  <Layout fullWidth title={l('Artists with possible duplicate relationships')}>
+  <Layout
+    fullWidth
+    title={l('Artists with possible duplicate relationships')}
+  >
     <h1>{l('Artists with possible duplicate relationships')}</h1>
 
     <ul>
@@ -35,8 +38,14 @@ const DuplicateRelationshipsArtists = ({
             For multiple relationships to release groups, recordings or works,
             see the reports for those entities.`)}
       </li>
-      <li>{texp.l('Total artists found: {count}', {count: pager.total_entries})}</li>
-      <li>{texp.l('Generated on {date}', {date: formatUserDate($c.user, generated)})}</li>
+      <li>
+        {texp.l('Total artists found: {count}',
+                {count: pager.total_entries})}
+      </li>
+      <li>
+        {texp.l('Generated on {date}',
+                {date: formatUserDate($c.user, generated)})}
+      </li>
 
       {canBeFiltered ? <FilterLink filtered={filtered} /> : null}
     </ul>

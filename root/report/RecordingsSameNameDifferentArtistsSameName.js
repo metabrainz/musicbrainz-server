@@ -16,7 +16,7 @@ import PaginatedResults from '../components/PaginatedResults';
 import loopParity from '../utility/loopParity';
 import ArtistCreditLink
   from '../static/scripts/common/components/ArtistCreditLink';
-import bracketed from '../static/scripts/common/utility/bracketed';
+import {bracketedText} from '../static/scripts/common/utility/bracketed';
 import EntityLink from '../static/scripts/common/components/EntityLink';
 
 import FilterLink from './FilterLink';
@@ -30,8 +30,15 @@ const RecordingsSameNameDifferentArtistsSameName = ({
   items,
   pager,
 }: ReportDataT<ReportRecordingT>) => (
-  <Layout fullWidth title={l('Recordings with the same name by different artists with the same name')}>
-    <h1>{l('Recordings with the same name by different artists with the same name')}</h1>
+  <Layout
+    fullWidth
+    title={l(`Recordings with the same name by different artists
+              with the same name`)}
+  >
+    <h1>
+      {l(`Recordings with the same name by different artists
+          with the same name`)}
+    </h1>
 
     <ul>
       <li>
@@ -40,15 +47,21 @@ const RecordingsSameNameDifferentArtistsSameName = ({
       </li>
       <li>
         {exp.l(`These are most likely cases where the {ac|artist credit} is
-            incorrect for at least one of the recordings.`,
-        {ac: '/doc/Artist_Credits'})}
+                incorrect for at least one of the recordings.`,
+               {ac: '/doc/Artist_Credits'})}
       </li>
       <li>
         {l(`Currently, this report only works with recordings that have
             one artist.`)}
       </li>
-      <li>{texp.l('Total recordings found: {count}', {count: pager.total_entries})}</li>
-      <li>{texp.l('Generated on {date}', {date: formatUserDate($c.user, generated)})}</li>
+      <li>
+        {texp.l('Total recordings found: {count}',
+                {count: pager.total_entries})}
+      </li>
+      <li>
+        {texp.l('Generated on {date}',
+                {date: formatUserDate($c.user, generated)})}
+      </li>
 
       {canBeFiltered ? <FilterLink filtered={filtered} /> : null}
     </ul>
@@ -72,7 +85,7 @@ const RecordingsSameNameDifferentArtistsSameName = ({
                   <bdi key="comment">
                     {
                       ' ' +
-                      bracketed(item.recording.artistCredit[0].artist.comment)
+                      bracketedText(item.recording.artistCredit[0].artist.comment)
                     }
                   </bdi>
                 </span>

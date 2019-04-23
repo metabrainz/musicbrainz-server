@@ -6,7 +6,7 @@ use MusicBrainz::Server::CGI::Expand qw( expand_hash );
 use MusicBrainz::Server::Constants qw( $SERIES_ORDERING_TYPE_MANUAL );
 use MusicBrainz::Server::ControllerUtils::Relationship qw( merge_link_attributes );
 use MusicBrainz::Server::Data::Utils qw( model_to_type ref_to_type type_to_model trim non_empty );
-use MusicBrainz::Server::Form::Utils qw( build_type_info build_attr_info );
+use MusicBrainz::Server::Form::Utils qw( build_type_info );
 
 role {
     with 'MusicBrainz::Server::Controller::Role::RelationshipEditor';
@@ -87,11 +87,11 @@ role {
         $form_name =~ s/_/-/;
 
         my @link_type_tree = $c->model('LinkType')->get_full_tree;
-        my $attr_tree = $c->model('LinkAttributeType')->get_tree;
+        my @link_attribute_types = $c->model('LinkAttributeType')->get_all;
 
         $c->stash(
             source_entity   => $c->json->encode($source_entity),
-            attr_info       => $c->json->encode(build_attr_info($attr_tree)),
+            attr_info       => $c->json->encode(\@link_attribute_types),
             type_info       => $c->json->encode(build_type_info($c, qr/(^$source_type-|-$source_type$)/, @link_type_tree)),
         );
 

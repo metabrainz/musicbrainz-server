@@ -1,11 +1,10 @@
-const $ = require('jquery');
-const _ = require('lodash');
-const ko = require('knockout');
+import $ from 'jquery';
+import _ from 'lodash';
+import ko from 'knockout';
 
-const {SERIES_ORDERING_TYPE_AUTOMATIC} = require('./common/constants');
-const {lp_attributes} = require('./common/i18n/attributes');
+import {SERIES_ORDERING_TYPE_AUTOMATIC} from './common/constants';
 import MB from './common/MB';
-const initializeDuplicateChecker = require('./edit/check-duplicates').default;
+import initializeDuplicateChecker from './edit/check-duplicates';
 
 $(function () {
   var $type = $("#id-edit-series\\.type_id");

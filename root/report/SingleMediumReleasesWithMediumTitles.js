@@ -25,7 +25,10 @@ const SingleMediumReleasesWithMediumTitles = ({
   items,
   pager,
 }: ReportDataT<ReportReleaseT>) => (
-  <Layout fullWidth title={l('Releases with a single medium that has a name')}>
+  <Layout
+    fullWidth
+    title={l('Releases with a single medium that has a name')}
+  >
     <h1>{l('Releases with a single medium that has a name')}</h1>
 
     <ul>
@@ -34,8 +37,14 @@ const SingleMediumReleasesWithMediumTitles = ({
             medium also has a specific name. Usually, this is not necessary
             and is duplicate information which can be removed.`)}
       </li>
-      <li>{texp.l('Total releases found: {count}', {count: pager.total_entries})}</li>
-      <li>{texp.l('Generated on {date}', {date: formatUserDate($c.user, generated)})}</li>
+      <li>
+        {texp.l('Total releases found: {count}',
+                {count: pager.total_entries})}
+      </li>
+      <li>
+        {texp.l('Generated on {date}',
+                {date: formatUserDate($c.user, generated)})}
+      </li>
 
       {canBeFiltered ? <FilterLink filtered={filtered} /> : null}
     </ul>

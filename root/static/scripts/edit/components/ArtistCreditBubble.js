@@ -91,7 +91,7 @@ const ArtistCreditBubble = ({
           />
         ))}
         <tr>
-          <td colSpan="4" style={{textAlign: 'right'}}>
+          <td className="align-right" colSpan="4" >
             <button type="button" className="add-item with-label" onClick={addName}>
               {l('Add Artist Credit')}
             </button>

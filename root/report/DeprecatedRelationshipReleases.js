@@ -30,11 +30,17 @@ const DeprecatedRelationshipReleases = ({
 
     <ul>
       <li>
-        {l(`This report lists release which have relationships using
+        {l(`This report lists releases which have relationships using
             deprecated and grouping-only relationship types.`)}
       </li>
-      <li>{texp.l('Total releases found: {count}', {count: pager.total_entries})}</li>
-      <li>{texp.l('Generated on {date}', {date: formatUserDate($c.user, generated)})}</li>
+      <li>
+        {texp.l('Total releases found: {count}',
+                {count: pager.total_entries})}
+      </li>
+      <li>
+        {texp.l('Generated on {date}',
+                {date: formatUserDate($c.user, generated)})}
+      </li>
 
       {canBeFiltered ? <FilterLink filtered={filtered} /> : null}
     </ul>

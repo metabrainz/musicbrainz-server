@@ -23,16 +23,13 @@ declare type AggregatedTagT = {|
 declare type AliasT = {|
   ...DatePeriodRoleT,
   ...EditableRoleT,
-  ...EntityRoleT,
-  ...TypeRoleT<AliasTypeT>,
-  +entityType: 'alias',
+  ...EntityRoleT<'alias'>,
+  ...TypeRoleT<empty>,
   +locale: string | null,
   +name: string,
   +primary_for_locale: boolean,
   +sort_name: string,
 |};
-
-export opaque type AliasTypeT: OptionTreeT = OptionTreeT;
 
 declare type AnchorProps = {|
   +href: string,
@@ -41,14 +38,10 @@ declare type AnchorProps = {|
   +title?: string,
 |};
 
-declare type AnyFieldT<+F> =
-  | FieldT<F>
-  | StructFieldT<F>;
-
-declare type AnyReactElem = React.Element<any>;
+declare type AnyReactElem = React$Element<any>;
 
 declare type ApplicationT = {|
-  ...EntityRoleT,
+  ...EntityRoleT<'application'>,
   +is_server: boolean,
   +name: string,
   +oauth_id: string,
@@ -57,14 +50,19 @@ declare type ApplicationT = {|
   +oauth_type: string,
 |};
 
+declare type AreaFieldT = CompoundFieldT<{|
+  +gid: FieldT<string | null>,
+  +name: FieldT<string>,
+|}>;
+
 declare type AreaT = {|
   ...AnnotationRoleT,
   ...CommentRoleT,
-  ...CoreEntityRoleT,
+  ...CoreEntityRoleT<'area'>,
   ...DatePeriodRoleT,
   ...TypeRoleT<AreaTypeT>,
   +containment: $ReadOnlyArray<AreaT> | null,
-  +entityType: 'area',
+  +country_code: string,
   +iso_3166_1_codes: $ReadOnlyArray<string>,
   +iso_3166_2_codes: $ReadOnlyArray<string>,
   +iso_3166_3_codes: $ReadOnlyArray<string>,
@@ -98,7 +96,7 @@ declare type AnnotationT = {|
   +text: string,
 |};
 
-export opaque type AreaTypeT: OptionTreeT = OptionTreeT;
+declare type AreaTypeT = OptionTreeT<'area_type'>;
 
 declare type ArtistCreditNameT = {|
   +artist: ArtistT,
@@ -115,7 +113,7 @@ declare type ArtistCreditT = $ReadOnlyArray<ArtistCreditNameT>;
 declare type ArtistT = {|
   ...AnnotationRoleT,
   ...CommentRoleT,
-  ...CoreEntityRoleT,
+  ...CoreEntityRoleT<'artist'>,
   ...DatePeriodRoleT,
   ...IpiCodesRoleT,
   ...IsniCodesRoleT,
@@ -124,12 +122,11 @@ declare type ArtistT = {|
   +area: AreaT | null,
   +begin_area: AreaT | null,
   +end_area: AreaT | null,
-  +entityType: 'artist',
   +gender: GenderT | null,
   +sort_name: string,
 |};
 
-export opaque type ArtistTypeT: OptionTreeT = OptionTreeT;
+declare type ArtistTypeT = OptionTreeT<'artist_type'>;
 
 declare type ArtworkT = {|
   +comment: string,
@@ -141,23 +138,8 @@ declare type ArtworkT = {|
   +types: $ReadOnlyArray<string>,
 |};
 
-// See MusicBrainz::Server::Form::Utils::build_attr_info
-declare type AttrInfoT = {|
-  +children?: $ReadOnlyArray<AttrInfoT>,
-  +creditable: boolean,
-  +description?: string,
-  +freeText: boolean,
-  +gid: string,
-  +id: number,
-  +l_name: string,
-  +name: string,
-  root: AttrInfoT,
-  +rootID: number,
-  +unaccented?: string,
-|};
-
 declare type AutoEditorElectionT = {|
-  ...EntityRoleT,
+  ...EntityRoleT<empty>,
   +candidate: EditorT,
   +close_time?: string,
   +current_expiration_time: string,
@@ -177,7 +159,7 @@ declare type AutoEditorElectionT = {|
 |};
 
 declare type AutoEditorElectionVoteT = {|
-  ...EntityRoleT,
+  ...EntityRoleT<empty>,
   +vote_name: string,
   +vote_time: string,
   +voter: EditorT,
@@ -201,41 +183,6 @@ type CatalystContextT = {|
   +stash: CatalystStashT,
   +user?: CatalystUserT,
   +user_exists: boolean,
-  +linked_entities: {
-    +artist_type: {|
-      +[number]: ArtistTypeT,
-    |},
-    +language: {|
-      +[number]: LanguageT,
-    |},
-    +link_type: {|
-      +[number]: LinkTypeT,
-    |},
-    +release_group_primary_type: {|
-      [number]: ReleaseGroupTypeT,
-    |},
-    +release_group_secondary_type: {|
-      [number]: ReleaseGroupSecondaryTypeT,
-    |},
-    +release_packaging: {|
-      +[number]: ReleasePackagingT,
-    |},
-    +release_status: {|
-      +[number]: ReleaseStatusT,
-    |},
-    +script: {|
-      +[number]: ScriptT,
-    |},
-    +series_ordering_type: {|
-      +[number]: SeriesOrderingTypeT,
-    |},
-    +series_type: {|
-      +[number]: SeriesTypeT,
-    |},
-    +work_attribute_type: {|
-      +[number]: WorkAttributeTypeT,
-    |},
-  },
 |};
 
 type CatalystRequestContextT = {|
@@ -270,7 +217,7 @@ type CatalystStashT = {|
 type CatalystUserT = EditorT;
 
 declare type CDStubT = {|
-  ...EntityRoleT,
+  ...EntityRoleT<'cdstub'>,
   +artist: string,
   +barcode: string,
   // null properties are not present in search indexes
@@ -285,19 +232,18 @@ declare type CDStubT = {|
 |};
 
 declare type CollectionT = {|
-  ...EntityRoleT,
+  ...EntityRoleT<'collection'>,
   ...TypeRoleT<CollectionTypeT>,
   +description: string,
   +entity_count: number,
-  +entityType: 'collection',
   +editor: EditorT | null,
   +gid: string,
   +name: string,
   +public: boolean,
 |};
 
-export opaque type CollectionTypeT = {|
-  ...OptionTreeT,
+declare type CollectionTypeT = {|
+  ...OptionTreeT<'collection_type'>,
   item_entity_type: string,
 |};
 
@@ -313,13 +259,24 @@ declare type CommonsImageT = {|
   +thumb_url: string,
 |};
 
-declare type CompoundFieldT<+F> = {|
-  ...FieldRoleT,
-  +field: F,
+declare type CompoundFieldT<F> = {|
+  errors: Array<string>,
+  field: F,
+  has_errors: boolean,
+  html_name: string,
+  id: number,
 |};
 
-declare type CoreEntityRoleT = {|
-  ...EntityRoleT,
+declare type ReadOnlyCompoundFieldT<+F> = {|
+  +errors: $ReadOnlyArray<string>,
+  +field: F,
+  +has_errors: boolean,
+  +html_name: string,
+  +id: number,
+|};
+
+declare type CoreEntityRoleT<+T> = {|
+  ...EntityRoleT<T>,
   ...LastUpdateRoleT,
   +gid: string,
   +name: string,
@@ -339,6 +296,23 @@ declare type CoreEntityT =
   | SeriesT
   | UrlT
   | WorkT;
+
+declare type CoreEntityTypeT =
+  | 'area'
+  | 'artist'
+  | 'event'
+  | 'instrument'
+  | 'label'
+  | 'place'
+  | 'recording'
+  | 'release_group'
+  | 'release'
+  | 'series'
+  | 'url'
+  | 'work'
+  ;
+
+declare type CoverArtTypeT = OptionTreeT<'cover_art_type'>;
 
 declare type CritiqueBrainzReviewT = {|
   +author: CritiqueBrainzUserT,
@@ -381,13 +355,12 @@ declare type EditorPreferencesT = {|
 |};
 
 declare type EditorT = {|
-  ...EntityRoleT,
+  ...EntityRoleT<'editor'>,
   +biography: string | null,
   +birth_date: PartialDateT | null,
   +deleted: boolean,
   +email: string,
   +email_confirmation_date: string | null,
-  +entityType: 'editor',
   +gravatar: string,
   +is_account_admin: boolean,
   +is_admin: boolean,
@@ -406,7 +379,7 @@ declare type EditorT = {|
 |};
 
 declare type EditorOAuthTokenT = {|
-  ...EntityRoleT,
+  ...EntityRoleT<empty>,
   +application: ApplicationT,
   +editor: EditorT,
   +granted: string,
@@ -447,60 +420,63 @@ declare type EditT = {|
   +votes: $ReadOnlyArray<VoteT>,
 |};
 
-declare type EntityRoleT = {|
-  +entityType: string,
+declare type EntityRoleT<+T> = {|
+  +entityType: T,
   +id: number,
 |};
 
 declare type EventT = {|
   ...AnnotationRoleT,
   ...CommentRoleT,
-  ...CoreEntityRoleT,
+  ...CoreEntityRoleT<'event'>,
   ...DatePeriodRoleT,
   ...RatableRoleT,
   ...TypeRoleT<EventTypeT>,
   +areas: $ReadOnlyArray<{|+entity: AreaT|}>,
   +cancelled: boolean,
-  +entityType: 'event',
   +performers: $ReadOnlyArray<{|
     +entity: ArtistT,
     +roles: $ReadOnlyArray<string>,
   |}>,
   +places: $ReadOnlyArray<{|+entity: PlaceT|}>,
+  +related_series: $ReadOnlyArray<number>,
   +time: string,
 |};
 
-export opaque type EventTypeT: OptionTreeT = OptionTreeT;
+declare type EventTypeT = OptionTreeT<'event_type'>;
 
 declare type Expand2ReactInput = VarSubstArg | AnchorProps;
 
 declare type Expand2ReactOutput = string | AnyReactElem;
 
-declare type FieldRoleT = {|
-  +errors: $ReadOnlyArray<string>,
-  +has_errors: boolean,
-  +html_name: string,
+declare type FieldT<V> = {|
+  errors: Array<string>,
+  has_errors: boolean,
+  html_name: string,
   /*
    * The field `id` is unique across all fields on the page. It's purpose
    * is for passing to `key` attributes on React elements.
    */
-  +id: number,
+  id: number,
+  value: V,
 |};
 
-declare type FieldT<+V> = {|
-  ...FieldRoleT,
+declare type ReadOnlyFieldT<+V> = {|
+  +errors: $ReadOnlyArray<string>,
+  +has_errors: boolean,
+  +html_name: string,
+  +id: number,
   +value: V,
 |};
 
 // See lib/MusicBrainz/Server/Form/Role/ToJSON.pm
-declare type FormT<F> = {|
+declare type FormT<+F> = {|
   +field: F,
   +has_errors: boolean,
-  +last_field_id: number,
   +name: string,
 |};
 
-export opaque type GenderT: OptionTreeT = OptionTreeT;
+declare type GenderT = OptionTreeT<'gender'>;
 
 /*
  * See MusicBrainz::Server::Form::Utils::build_grouped_options
@@ -515,13 +491,12 @@ declare type GroupedOptionsT = $ReadOnlyArray<{|
 declare type InstrumentT = {|
   ...AnnotationRoleT,
   ...CommentRoleT,
-  ...CoreEntityRoleT,
+  ...CoreEntityRoleT<'instrument'>,
   ...TypeRoleT<InstrumentTypeT>,
   +description: string,
-  +entityType: 'instrument',
 |};
 
-export opaque type InstrumentTypeT: OptionTreeT = OptionTreeT;
+declare type InstrumentTypeT = OptionTreeT<'instrument_type'>;
 
 type IpiCodesRoleT = {|
   +ipi_codes: $ReadOnlyArray<IpiCodeT>,
@@ -543,16 +518,14 @@ declare type IsniCodeT = {|
 
 declare type IsrcT = {|
   ...EditableRoleT,
-  ...EntityRoleT,
-  +entityType: 'isrc',
+  ...EntityRoleT<'isrc'>,
   +isrc: string,
   +recording_id: number,
 |};
 
 declare type IswcT = {|
   ...EditableRoleT,
-  ...EntityRoleT,
-  +entityType: 'iswc',
+  ...EntityRoleT<'iswc'>,
   +iswc: string,
   +work_id: number,
 |};
@@ -560,21 +533,25 @@ declare type IswcT = {|
 declare type LabelT = {|
   ...AnnotationRoleT,
   ...CommentRoleT,
-  ...CoreEntityRoleT,
+  ...CoreEntityRoleT<'label'>,
   ...DatePeriodRoleT,
   ...IpiCodesRoleT,
   ...IsniCodesRoleT,
   ...RatableRoleT,
   ...TypeRoleT<LabelTypeT>,
   +area: AreaT | null,
-  +entityType: 'label',
   +label_code: number,
 |};
 
-export opaque type LabelTypeT: OptionTreeT = OptionTreeT;
+declare type LabelTypeT = OptionTreeT<'label_type'>;
 
 declare type LanguageT = {|
+  +entityType: 'language',
+  +frequency: number,
   +id: number,
+  +iso_code_1: string | null,
+  +iso_code_2b: string | null,
+  +iso_code_2t: string | null,
   +iso_code_3: string | null,
   +name: string,
 |};
@@ -583,14 +560,32 @@ type LastUpdateRoleT = {|
   +last_updated: string | null,
 |};
 
+declare type LinkAttrT = {|
+  +credited_as?: string,
+  +text_value?: string,
+  type: {|
+    +gid: string,
+  |},
+  +typeID: number,
+  +typeName: string,
+|};
+
+declare type LinkAttrTypeT = {|
+  ...OptionTreeT<'link_attribute_type'>,
+  +creditable: boolean,
+  +free_text: boolean,
+  +instrument_comment?: string,
+  +root_gid: string,
+  +root_id: number,
+|};
+
 declare type LinkTypeAttrTypeT = {|
-  attribute: AttrInfoT,
   +max: number | null,
   +min: number | null,
 |};
 
 declare type LinkTypeT = {|
-  ...OptionTreeT,
+  ...OptionTreeT<'link_type'>,
   +attributes: {+[number]: LinkTypeAttrTypeT},
   +cardinality0: number,
   +cardinality1: number,
@@ -610,19 +605,31 @@ declare type MaybeGroupedOptionsT =
   | {|+grouped: true, +options: GroupedOptionsT|}
   | {|+grouped: false, +options: SelectOptionsT|};
 
+declare type MediumFormatT = {|
+  ...OptionTreeT<'medium_format'>,
+  +has_discids: boolean,
+  +year: ?number,
+|};
+
+declare type MinimalCoreEntityT = {
+  +entityType: string,
+  +gid: string,
+  ...
+};
+
 // See MB.forms.buildOptionsTree
 declare type OptionListT = $ReadOnlyArray<{|
   +text: string,
   +value: number,
 |}>;
 
-declare type OptionTreeT = {|
-  ...EntityRoleT,
-  +childOrder: number,
+declare type OptionTreeT<+T> = {|
+  ...EntityRoleT<T>,
+  +child_order: number,
   +description: string,
   +gid: string,
   +name: string,
-  +parentID: number | null,
+  +parent_id: number | null,
 |};
 
 /*
@@ -638,6 +645,12 @@ declare type PagerT = {|
   +total_entries: number,
 |};
 
+declare type PartialDateFieldT = CompoundFieldT<{|
+  +day: FieldT<number>,
+  +month: FieldT<number>,
+  +year: FieldT<number>,
+|}>;
+
 declare type PartialDateT = {|
   +day: number | null,
   +month: number | null,
@@ -647,16 +660,15 @@ declare type PartialDateT = {|
 declare type PlaceT = {|
   ...AnnotationRoleT,
   ...CommentRoleT,
-  ...CoreEntityRoleT,
+  ...CoreEntityRoleT<'place'>,
   ...DatePeriodRoleT,
   ...TypeRoleT<PlaceTypeT>,
   +address: string,
   +area: AreaT | null,
   +coordinates: CoordinatesT | null,
-  +entityType: 'place',
 |};
 
-export opaque type PlaceTypeT: OptionTreeT = OptionTreeT;
+declare type PlaceTypeT = OptionTreeT<'place_type'>;
 
 declare type QualityT = -1 | 0 | 1 | 2;
 
@@ -678,41 +690,39 @@ declare type RecordingT = {|
   ...AnnotationRoleT,
   ...ArtistCreditRoleT,
   ...CommentRoleT,
-  ...CoreEntityRoleT,
+  ...CoreEntityRoleT<'recording'>,
   ...RatableRoleT,
-  +entityType: 'recording',
   +isrcs: $ReadOnlyArray<IsrcT>,
   +length: number,
+  +related_works: $ReadOnlyArray<number>,
   +video: boolean,
 |};
 
-declare type RelationshipAttributeTypeT = {|
-  +gid: string,
-|};
-
-declare type RelationshipAttributeT = {|
-  +type: RelationshipAttributeTypeT,
-|};
-
 declare type RelationshipT = {|
+  ...DatePeriodRoleT,
+  ...EditableRoleT,
   // `attributes` may not exist when seeding.
-  +attributes?: $ReadOnlyArray<RelationshipAttributeT>,
+  +attributes?: $ReadOnlyArray<LinkAttrT>,
+  +direction?: 'backward',
+  +entity0_credit: string,
+  +entity1_credit: string,
   +id: number,
+  +linkOrder: number,
   +linkTypeID: number,
   +target: CoreEntityT,
 |};
 
-export opaque type ReleaseGroupSecondaryTypeT: OptionTreeT = OptionTreeT;
+declare type ReleaseGroupSecondaryTypeT =
+  OptionTreeT<'release_group_secondary_type'>;
 
 declare type ReleaseGroupT = {|
   ...AnnotationRoleT,
   ...ArtistCreditRoleT,
   ...CommentRoleT,
-  ...CoreEntityRoleT,
+  ...CoreEntityRoleT<'release_group'>,
   ...RatableRoleT,
   ...TypeRoleT<ReleaseGroupTypeT>,
   +cover_art?: ArtworkT,
-  +entityType: 'release_group',
   +firstReleaseDate: string | null,
   +l_type_name: string | null,
   +release_count: number,
@@ -723,21 +733,20 @@ declare type ReleaseGroupT = {|
   +typeName: string | null,
 |};
 
-export opaque type ReleaseGroupTypeT: OptionTreeT = OptionTreeT;
+declare type ReleaseGroupTypeT = OptionTreeT<'release_group_type'>;
 
-export opaque type ReleasePackagingT: OptionTreeT = OptionTreeT;
+declare type ReleasePackagingT = OptionTreeT<'release_packaging'>;
 
 declare type ReleaseT = {|
   ...AnnotationRoleT,
   ...ArtistCreditRoleT,
   ...CommentRoleT,
-  ...CoreEntityRoleT,
+  ...CoreEntityRoleT<'release'>,
   +barcode: string | null,
   +combined_format_name?: string,
   +combined_track_count?: string,
   +cover_art_presence: 'absent' | 'present' | 'darkened' | null,
   +cover_art_url: string | null,
-  +entityType: 'release',
   +events?: $ReadOnlyArray<ReleaseEventT>,
   +labels?: $ReadOnlyArray<ReleaseLabelT>,
   +language: LanguageT | null,
@@ -762,11 +771,24 @@ declare type ReleaseLabelT = {|
   +label: LabelT | null,
 |};
 
-export opaque type ReleaseStatusT: OptionsTree = OptionsTree;
+declare type ReleaseStatusT = OptionTreeT<'release_status'>;
 
-declare type RepeatableFieldT<+F> = {|
-  ...FieldRoleT,
+declare type RepeatableFieldT<F> = {|
+  errors: Array<string>,
+  field: Array<F>,
+  has_errors: boolean,
+  html_name: string,
+  id: number,
+  last_index: number,
+|};
+
+declare type ReadOnlyRepeatableFieldT<+F> = {|
+  +errors: $ReadOnlyArray<string>,
   +field: $ReadOnlyArray<F>,
+  +has_errors: boolean,
+  +html_name: string,
+  +id: number,
+  last_index: number,
 |};
 
 declare type SanitizedCatalystContextT = {|
@@ -780,23 +802,26 @@ declare type SanitizedEditorPreferencesT = {|
 |};
 
 declare type SanitizedEditorT = {|
-  ...EntityRoleT,
-  +entityType: 'editor',
+  ...EntityRoleT<'editor'>,
   +gravatar: string,
   +name: string,
   +preferences: SanitizedEditorPreferencesT,
 |};
 
 declare type ScriptT = {|
+  +entityType: 'script',
+  +frequency: number,
+  +id: number,
   +iso_code: string,
+  +iso_number: string | null,
   +name: string,
 |};
 
 declare type SearchFormT = FormT<{|
-  +limit: FieldT<number>,
-  +method: FieldT<'advanced' | 'direct' | 'indexed'>,
-  +query: FieldT<string>,
-  +type: FieldT<string>,
+  +limit: ReadOnlyFieldT<number>,
+  +method: ReadOnlyFieldT<'advanced' | 'direct' | 'indexed'>,
+  +query: ReadOnlyFieldT<string>,
+  +type: ReadOnlyFieldT<string>,
 |}>;
 
 declare type SearchResultT<T> = {|
@@ -825,15 +850,14 @@ declare type SelectOptionsT = $ReadOnlyArray<SelectOptionT>;
 declare type SeriesT = {|
   ...AnnotationRoleT,
   ...CommentRoleT,
-  ...CoreEntityRoleT,
+  ...CoreEntityRoleT<'series'>,
   ...TypeRoleT<SeriesTypeT>,
-  +entityType: 'series',
   +orderingTypeID: number,
 |};
 
-export opaque type SeriesOrderingTypeT: OptionsTree = OptionsTree;
+declare type SeriesOrderingTypeT = OptionTreeT<'series_ordering_type'>;
 
-export opaque type SeriesTypeT: OptionTreeT = OptionTreeT;
+declare type SeriesTypeT = OptionTreeT<'series_type'>;
 
 declare type ServerLanguageT = {|
   +id: number,
@@ -844,20 +868,19 @@ declare type ServerLanguageT = {|
 
 declare type StrOrNum = string | number;
 
-type StructFieldT<+F> =
+type StructFieldT<F> =
   | CompoundFieldT<F>
   | RepeatableFieldT<F>;
 
-declare type TypeRoleT<T: {...OptionTreeT}> = {|
+declare type TypeRoleT<T> = {|
   +typeID: number | null,
   +typeName?: string,
 |};
 
 declare type UrlT = {|
-  ...CoreEntityRoleT,
+  ...CoreEntityRoleT<'url'>,
   ...EditableRoleT,
   +decoded: string,
-  +entityType: 'url',
   +href_url: string,
   +pretty_name: string,
   +show_license_in_sidebar?: boolean,
@@ -900,12 +923,11 @@ declare type WorkAttributeT = {|
 declare type WorkT = {|
   ...AnnotationRoleT,
   ...CommentRoleT,
-  ...CoreEntityRoleT,
+  ...CoreEntityRoleT<'work'>,
   ...RatableRoleT,
   ...TypeRoleT<WorkTypeT>,
   +artists: $ReadOnlyArray<ArtistCreditT>,
   +attributes: $ReadOnlyArray<WorkAttributeT>,
-  +entityType: 'work',
   +iswcs: $ReadOnlyArray<IswcT>,
   +languages: $ReadOnlyArray<WorkLanguageT>,
   +writers: $ReadOnlyArray<{|
@@ -914,15 +936,14 @@ declare type WorkT = {|
   |}>,
 |};
 
-export opaque type WorkTypeT: OptionTreeT = OptionTreeT;
+declare type WorkTypeT = OptionTreeT<'work_type'>;
 
 declare type WorkLanguageT = {|
   +language: LanguageT,
 |};
 
 declare type WorkAttributeTypeAllowedValueT = {|
-  ...EntityRoleT,
-  ...OptionTreeT,
+  ...OptionTreeT<'work_attribute_type_allowed_value'>,
   +value: string,
   +workAttributeTypeID: number,
 |};
@@ -938,9 +959,8 @@ declare type WorkAttributeTypeAllowedValueTreeRootT =
 
 declare type WorkAttributeTypeT = {|
   ...CommentRoleT,
-  ...EntityRoleT,
-  ...OptionTreeT,
-  +freeText: boolean,
+  ...OptionTreeT<'work_attribute_type'>,
+  +free_text: boolean,
 |};
 
 // See MusicBrainz::Server::Controller::Work::stash_work_form_json

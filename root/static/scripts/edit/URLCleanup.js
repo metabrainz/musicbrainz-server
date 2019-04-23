@@ -165,6 +165,8 @@ export const LINK_TYPES = {
   },
   secondhandsongs: {
     artist: '79c5b84d-a206-4f4c-9832-78c028c312c3',
+    label: 'e46c1166-2aae-4623-ade9-34bd067dfe02',
+    recording: 'a98fb02f-f289-4778-b34e-2625d922e28f',
     release: '0e555925-1b7d-475c-9b25-b9c349dcc3f3',
     work: 'b80dff64-9560-445a-b824-c8b432d77a52',
   },
@@ -534,7 +536,7 @@ const CLEANUPS = {
     match: [new RegExp('^(https?://)?((m|www)\\.)?bandsintown\\.com', 'i')],
     type: LINK_TYPES.bandsintown,
     clean: function (url) {
-      let m = url.match(/^(?:https?:\/\/)?(?:(?:m|www)\.)?bandsintown\.com\/(a(?=rtist|\/)|e(?=vent|\/)|v(?=enue|\/))[a-z]*\/0*([1-9][0-9]*)(?:[^0-9].*)?$/);
+      let m = url.match(/^(?:https?:\/\/)?(?:(?:m|www)\.)?bandsintown\.com\/(?:[a-z]{2}\/)?(a(?=rtist|\/)|e(?=vent|\/)|v(?=enue|\/))[a-z]*\/0*([1-9][0-9]*)(?:[^0-9].*)?$/);
       if (m) {
         const prefix = m[1];
         const number = m[2];
@@ -811,18 +813,18 @@ const CLEANUPS = {
       if (m) {
         url = 'https://store.cdbaby.com/cd/' + m[1].toLowerCase();
       }
-      url = url.replace(/(?:https?:\/\/)?(?:(?:store|www)\.)?cdbaby\.com\/Images\/Album\/(\w+)(?:_small)?\.jpg/, 'https://store.cdbaby.com/cd/$1');
-      return url.replace(/(?:https?:\/\/)?(?:images\.)?cdbaby\.name\/.\/.\/(\w+)(?:_small)?\.jpg/, 'https://store.cdbaby.com/cd/$1');
+      url = url.replace(/(?:https?:\/\/)?(?:(?:store|www)\.)?cdbaby\.com\/Images\/Album\/([\w%]+)(?:_small)?\.jpg/, 'https://store.cdbaby.com/cd/$1');
+      return url.replace(/(?:https?:\/\/)?(?:images\.)?cdbaby\.name\/.\/.\/([\w%]+)(?:_small)?\.jpg/, 'https://store.cdbaby.com/cd/$1');
     },
   },
   'cdbaby_artist': {
     match: [new RegExp('^(https?://)?((store|www)\\.)?cdbaby\\.(com|name)/Artist/', 'i')],
     type: LINK_TYPES.cdbaby,
     clean: function (url) {
-      return url.replace(/(?:https?:\/\/)?(?:(?:store|www)\.)?cdbaby\.(?:com|name)\/Artist\/(\w+).*$/i, 'https://store.cdbaby.com/Artist/$1');
+      return url.replace(/(?:https?:\/\/)?(?:(?:store|www)\.)?cdbaby\.(?:com|name)\/Artist\/([\w%]+).*$/i, 'https://store.cdbaby.com/Artist/$1');
     },
     validate: function (url, id) {
-      return /^https:\/\/store.cdbaby\.com\/Artist\/\w+$/.test(url) && id === LINK_TYPES.cdbaby.artist;
+      return /^https:\/\/store.cdbaby\.com\/Artist\/[\w%]+$/.test(url) && id === LINK_TYPES.cdbaby.artist;
     },
   },
   'cdjapan': {
@@ -1816,13 +1818,22 @@ const CLEANUPS = {
   'secondhandsongs': {
     match: [new RegExp('^(https?://)?([^/]+\\.)?secondhandsongs\\.com/', 'i')],
     type: LINK_TYPES.secondhandsongs,
+    clean: function (url) {
+      url = url.replace(/^(?:https?:\/\/)?(?:[^/]+\.)?secondhandsongs\.com/, 'https://secondhandsongs.com');
+      url = url.replace(/^(https:\/\/secondhandsongs\.com\/\w+\/[\d+]+)[\/#?-].*$/, '$1');
+      return url;
+    },
     validate: function (url, id) {
-      const m = /secondhandsongs\.com\/([a-z]+)\//.exec(url);
+      const m = /^https:\/\/secondhandsongs\.com\/(\w+)\/[\d+]+$/.exec(url);
       if (m) {
         const prefix = m[1];
         switch (id) {
           case LINK_TYPES.secondhandsongs.artist:
             return prefix === 'artist';
+          case LINK_TYPES.secondhandsongs.label:
+            return prefix === 'label';
+          case LINK_TYPES.secondhandsongs.recording:
+            return prefix === 'performance';
           case LINK_TYPES.secondhandsongs.release:
             return prefix === 'release';
           case LINK_TYPES.secondhandsongs.work:

@@ -138,14 +138,24 @@ sub countries : Local
         if (my ($iso_code) = $stat_name =~ /^$artist_country_prefix\.(.*)$/) {
             my $release_stat = $stat_name =~ s/$artist_country_prefix/$release_country_prefix/r;
             my $label_stat = $stat_name =~ s/$artist_country_prefix/$label_country_prefix/r;
-            push(@$country_stats, ({'entity' => $countries{$iso_code}, 'artist_count' => $stats->statistic($stat_name), 'release_count' => $stats->statistic($release_stat), 'label_count' => $stats->statistic($label_stat)}));
+            push(@$country_stats, ({
+                'entity' => $countries{$iso_code},
+                'artist_count' => $stats->statistic($stat_name),
+                'release_count' => $stats->statistic($release_stat),
+                'label_count' => $stats->statistic($label_stat)
+            }));
         }
     }
 
+    my %props = (
+        dateCollected => $stats->{date_collected},
+        countryStats => $country_stats,
+    );
+
     $c->stash(
-        template => 'statistics/countries.tt',
-        stats    => $country_stats,
-        date_collected => $stats->{date_collected}
+        current_view => 'Node',
+        component_path => 'statistics/Countries',
+        component_props => \%props,
     );
 }
 
@@ -264,10 +274,16 @@ sub formats : Path('formats')
         }
     }
 
+    my %props = (
+        dateCollected => $stats->{date_collected},
+        formatStats => $format_stats,
+        stats => $stats->{data},
+    );
+
     $c->stash(
-        template => 'statistics/formats.tt',
-        format_stats => $format_stats,
-        stats => $stats
+        current_view => 'Node',
+        component_path => 'statistics/Formats',
+        component_props => \%props,
     );
 }
 

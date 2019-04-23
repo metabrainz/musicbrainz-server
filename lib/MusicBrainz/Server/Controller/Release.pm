@@ -36,7 +36,6 @@ use MusicBrainz::Server::Form::Utils qw(
     build_grouped_options
     select_options
     language_options
-    build_attr_info
     build_type_info
 );
 use Scalar::Util qw( looks_like_number );
@@ -616,13 +615,13 @@ sub edit_relationships : Chained('load') PathPart('edit-relationships') Edit {
     $c->model('Relationship')->load_cardinal($release->release_group);
 
     my @link_type_tree = $c->model('LinkType')->get_full_tree;
-    my $attr_tree = $c->model('LinkAttributeType')->get_tree;
+    my @link_attribute_types = $c->model('LinkAttributeType')->get_all;
 
     $c->stash(
         work_types      => select_options($c, 'WorkType'),
         work_languages  => build_grouped_options($c, language_options($c, 'work')),
         source_entity   => $c->json->encode($release),
-        attr_info       => $c->json->encode(build_attr_info($attr_tree)),
+        attr_info       => $c->json->encode(\@link_attribute_types),
         type_info       => $c->json->encode(build_type_info($c, qr/(recording|work|release)/, @link_type_tree)),
     );
 }

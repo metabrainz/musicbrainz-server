@@ -422,6 +422,7 @@ const seleniumTests = [
   {name: 'Create_Account.html'},
   {name: 'MBS-7456.html', login: true},
   {name: 'MBS-9548.html'},
+  {name: 'MBS-9669.html'},
   {name: 'MBS-9941.html', login: true},
   {name: 'Artist_Credit_Editor.html', login: true},
   {name: 'External_Links_Editor.html', login: true},

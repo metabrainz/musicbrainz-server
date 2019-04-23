@@ -22,6 +22,7 @@ type LinkableEntity =
   | EditorT
   | IsrcT
   | IswcT
+  | MinimalCoreEntityT
   | SanitizedEditorT;
 
 function entityHref(

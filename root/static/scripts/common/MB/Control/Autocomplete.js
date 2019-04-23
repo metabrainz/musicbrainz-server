@@ -21,7 +21,7 @@ import primaryAreaCode from '../../utility/primaryAreaCode';
 import {localStorage} from '../../utility/storage';
 import bracketed from '../../utility/bracketed';
 
-require('../../../../lib/jquery-ui');
+import '../../../../lib/jquery-ui';
 
 const addNewEntityLabels = {
     artist: N_l('Add a new artist'),
@@ -894,8 +894,11 @@ MB.Control.autocomplete_formatters = {
         }
 
         if (item.description) {
+            // We want to strip html from the non-clickable description
             a.append('<br /><span class="autocomplete-comment">' +
-                      _.escape($('<span>'+item.description+'</span>').text()) +
+                      _.escape($('<div/>').html(
+                        l_instrument_descriptions(item.description),
+                      ).text()) +
                       '</span>');
         }
 

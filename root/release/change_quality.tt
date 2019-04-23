@@ -2,7 +2,7 @@
    <h2>[% l('Change release data quality') %]</h2>
    <form method="post">
      [% USE r = FormRenderer(form) %]
-     [% form_row_select(r, 'quality', l('Data Quality:')) %]
+     [% form_row_select(r, 'quality', add_colon(l('Data Quality'))) %]
      [% INCLUDE 'forms/edit-note.tt' %]
      [% enter_edit() %]
    </form>

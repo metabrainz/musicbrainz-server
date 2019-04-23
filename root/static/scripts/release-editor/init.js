@@ -157,6 +157,9 @@ releaseEditor.init = function (options) {
                     _.each(medium.tracks(), function (track) {
                         if (reduceArtistCredit(track.artistCredit()) === reduceArtistCredit(savedReleaseAC)) {
                             track.artistCredit(artistCreditFromArray(releaseAC));
+                            track.artistCreditEditorInst.setState({
+                                artistCredit: track.artistCredit.peek(),
+                            });
                         }
                     });
                 });

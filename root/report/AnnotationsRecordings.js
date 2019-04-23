@@ -13,6 +13,7 @@ import {withCatalystContext} from '../context';
 import Layout from '../layout';
 import formatUserDate from '../utility/formatUserDate';
 
+import {ANNOTATION_REPORT_TEXT} from './constants';
 import RecordingAnnotationList from './components/RecordingAnnotationList';
 import FilterLink from './FilterLink';
 import type {ReportDataT, ReportRecordingAnnotationT} from './types';
@@ -32,8 +33,15 @@ const AnnotationsRecordings = ({
       <li>
         {l('This report lists recordings with annotations.')}
       </li>
-      <li>{texp.l('Total recordings found: {count}', {count: pager.total_entries})}</li>
-      <li>{texp.l('Generated on {date}', {date: formatUserDate($c.user, generated)})}</li>
+      <li>{ANNOTATION_REPORT_TEXT()}</li>
+      <li>
+        {texp.l('Total recordings found: {count}',
+                {count: pager.total_entries})}
+      </li>
+      <li>
+        {texp.l('Generated on {date}',
+                {date: formatUserDate($c.user, generated)})}
+      </li>
 
       {canBeFiltered ? <FilterLink filtered={filtered} /> : null}
     </ul>

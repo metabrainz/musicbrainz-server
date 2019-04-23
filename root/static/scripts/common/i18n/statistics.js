@@ -12,3 +12,7 @@ import * as wrapGettext from './wrapGettext';
 export const l_statistics = wrapGettext.dgettext('statistics');
 export const ln_statistics = wrapGettext.dngettext('statistics');
 export const lp_statistics = wrapGettext.dpgettext('statistics');
+
+export const N_l_statistics = (key: string) => (
+  () => l_statistics(key)
+);

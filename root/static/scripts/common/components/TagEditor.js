@@ -180,7 +180,7 @@ class TagRow extends React.Component<TagRowProps> {
 type TagEditorProps = {|
   +$c: CatalystContextT,
   +aggregatedTags: $ReadOnlyArray<AggregatedTagT>,
-  +entity: CoreEntityT,
+  +entity: MinimalCoreEntityT,
   +more: boolean,
   +userTags: $ReadOnlyArray<UserTagT>,
 |};
@@ -529,7 +529,7 @@ export const MainTagEditor = hydrate<TagEditorProps>('all-tags', class extends T
             <h2>{l('Add Tags')}</h2>
             <p>
               {exp.l('You can add your own {tagdocs|tags} below. Use commas to separate multiple tags.',
-                {tagdocs: '/doc/Folksonomy_Tagging'})}
+                     {tagdocs: '/doc/Folksonomy_Tagging'})}
             </p>
             <form id="tag-form" onSubmit={this.addTags}>
               <p>

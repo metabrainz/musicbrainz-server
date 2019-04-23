@@ -81,7 +81,7 @@ $coll_data->add_entities_to_collection('release', 1, 3);
 ok($coll_data->contains_entity('release', 1, 3), 'Release #3 has been added to collection #1');
 
 $coll_data->add_entities_to_collection('release', 1, 3);
-ok($coll_data->contains_entity('release', 1, 3), 'No exception occured when re-adding release #3');
+ok($coll_data->contains_entity('release', 1, 3), 'No exception occurred when re-adding release #3');
 
 
 my ($releases) = $coll_data->find_by({ entity_type => 'release', entity_id => 3, show_private => 1 });

@@ -30,13 +30,19 @@ const UnlinkedPseudoReleases = ({
 
     <ul>
       <li>
-        {l(`This report shows releases with status Pseudo-Release that aren't
+        {l(`This report shows releases with status Pseudo-Release that aren’t
             linked via the translation/transliteration relationship to an
              original version. This could be because the original version is
              missing, or just because the release status is wrongly set.`)}
       </li>
-      <li>{texp.l('Total releases found: {count}', {count: pager.total_entries})}</li>
-      <li>{texp.l('Generated on {date}', {date: formatUserDate($c.user, generated)})}</li>
+      <li>
+        {texp.l('Total releases found: {count}',
+                {count: pager.total_entries})}
+      </li>
+      <li>
+        {texp.l('Generated on {date}',
+                {date: formatUserDate($c.user, generated)})}
+      </li>
 
       {canBeFiltered ? <FilterLink filtered={filtered} /> : null}
     </ul>

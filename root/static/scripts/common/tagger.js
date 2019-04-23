@@ -1,4 +1,4 @@
-const $ = require('jquery');
+import $ from 'jquery';
 
 $(function () {
     $('a.tagger-icon').click(function (event) {

@@ -151,7 +151,7 @@ after 'aliases' => sub
 
     my $artist = $c->stash->{artist};
     my $artist_credits = $c->model('ArtistCredit')->find_by_artist_id($artist->id);
-    $c->stash( artist_credits => $artist_credits );
+    $c->stash->{component_props}{artistCredits} = [map +{ id => $_->id, names => $_->names }, @{$artist_credits}];
 };
 
 =head2 show

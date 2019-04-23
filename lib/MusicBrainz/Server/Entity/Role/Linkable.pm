@@ -24,6 +24,7 @@ has has_loaded_relationships => (
     default => 0,
 );
 
+# Converted to JavaScript at root/utility/groupRelationships.js
 sub grouped_relationships
 {
     my ($self, @types) = @_;

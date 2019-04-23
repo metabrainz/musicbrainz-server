@@ -16,8 +16,8 @@ import FormSubmit from '../components/FormSubmit';
 import Layout from '../layout';
 
 type LostPasswordFormT = FormT<{|
-  +email: FieldT<string>,
-  +username: FieldT<string>,
+  +email: ReadOnlyFieldT<string>,
+  +username: ReadOnlyFieldT<string>,
 |}>;
 
 type Props = {|

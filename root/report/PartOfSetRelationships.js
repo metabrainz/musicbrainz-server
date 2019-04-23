@@ -25,22 +25,30 @@ const PartOfSetRelationships = ({
   items,
   pager,
 }: ReportDataT<ReportReleaseT>) => (
-  <Layout fullWidth title={l('Releases with "part of set" relationships')}>
-    <h1>{l('Releases with "part of set" relationships')}</h1>
+  <Layout fullWidth title={l('Releases with “part of set” relationships')}>
+    <h1>{l('Releases with “part of set” relationships')}</h1>
 
     <ul>
       <li>
-        {exp.l(`This report shows releases that still have the deprecated "part
-            of set" relationship and should probably be merged. For
-            instructions on how to fix them, please see the documentation
-            about {how_to_merge_releases|how to merge releases}. If the
-            releases are not really part of a set (for example, if they are
-            independently-released volumes in a series) just remove the
-            relationship.`,
-        {how_to_merge_releases: '/doc/How_to_Merge_Releases'})}
+        {exp.l(
+          `This report shows releases that still have the deprecated "part
+          of set" relationship and should probably be merged. For
+          instructions on how to fix them, please see the documentation
+          about {how_to_merge_releases|how to merge releases}. If the
+          releases are not really part of a set (for example, if they are
+          independently-released volumes in a series) just remove the
+          relationship.`,
+          {how_to_merge_releases: '/doc/How_to_Merge_Releases'},
+        )}
       </li>
-      <li>{texp.l('Total releases found: {count}', {count: pager.total_entries})}</li>
-      <li>{texp.l('Generated on {date}', {date: formatUserDate($c.user, generated)})}</li>
+      <li>
+        {texp.l('Total releases found: {count}',
+                {count: pager.total_entries})}
+      </li>
+      <li>
+        {texp.l('Generated on {date}',
+                {date: formatUserDate($c.user, generated)})}
+      </li>
 
       {canBeFiltered ? <FilterLink filtered={filtered} /> : null}
     </ul>

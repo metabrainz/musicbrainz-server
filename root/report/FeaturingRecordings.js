@@ -25,7 +25,10 @@ const FeaturingRecordings = ({
   items,
   pager,
 }: ReportDataT<ReportRecordingT>) => (
-  <Layout fullWidth title={l('Recordings with titles containing featuring artists')}>
+  <Layout
+    fullWidth
+    title={l('Recordings with titles containing featuring artists')}
+  >
     <h1>{l('Recordings with titles containing featuring artists')}</h1>
 
     <ul>
@@ -44,8 +47,14 @@ const FeaturingRecordings = ({
           },
         )}
       </li>
-      <li>{texp.l('Total recordings found: {count}', {count: pager.total_entries})}</li>
-      <li>{texp.l('Generated on {date}', {date: formatUserDate($c.user, generated)})}</li>
+      <li>
+        {texp.l('Total recordings found: {count}',
+                {count: pager.total_entries})}
+      </li>
+      <li>
+        {texp.l('Generated on {date}',
+                {date: formatUserDate($c.user, generated)})}
+      </li>
 
       {canBeFiltered ? <FilterLink filtered={filtered} /> : null}
     </ul>

@@ -10,8 +10,8 @@ import ko from 'knockout';
 import _ from 'lodash';
 import test from 'tape';
 
+import linkedEntities from '../common/linkedEntities';
 import MB from '../common/MB';
-import typeInfo from '../common/typeInfo';
 import fields from '../relationship-editor/common/fields';
 import {
   AddDialog,
@@ -109,7 +109,7 @@ var testRelease = {
     }
 };
 
-function id2attr(id) { return { type: typeInfo.link_attribute_type[id] } }
+function id2attr(id) { return { type: linkedEntities.link_attribute_type[id] } }
 
 function ids2attrs(ids) { return _.map(ids, id2attr) }
 
@@ -217,16 +217,19 @@ relationshipEditorTest("link phrase interpolation", function (t) {
         relationship.linkTypeID(test.linkTypeID);
         relationship.setAttributes(test.attributes);
 
-        var result = relationship.phraseAndExtraAttributes();
+        var result = relationship.phraseAndExtraAttributes(
+            entities.indexOf(source) === 0 ? 'link_phrase' : 'reverse_link_phrase',
+            false,
+        );
 
         t.equal(
-            result[entities.indexOf(source)],
+            result[0],
             test.expected,
             [test.linkTypeID, JSON.stringify(_(test.attributes).map('type.id').value())].join(", ")
         );
 
         if (test.expectedExtra) {
-            t.equal(result[2], test.expectedExtra);
+            t.equal(result[1], test.expectedExtra);
         }
     });
 

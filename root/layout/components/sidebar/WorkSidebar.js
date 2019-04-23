@@ -15,6 +15,7 @@ import {withCatalystContext} from '../../../context';
 import CodeLink from '../../../static/scripts/common/components/CodeLink';
 import commaOnlyList from '../../../static/scripts/common/i18n/commaOnlyList';
 import CommonsImage from '../../../static/scripts/common/components/CommonsImage';
+import linkedEntities from '../../../static/scripts/common/linkedEntities';
 import ExternalLinks from '../ExternalLinks';
 
 import AnnotationLinks from './AnnotationLinks';
@@ -82,8 +83,7 @@ const WorkSidebar = ({$c, work}: Props) => {
 
             {attributes.length ? (
               attributes.map((attr, index) => {
-                const type =
-                  $c.linked_entities.work_attribute_type[attr.typeID];
+                const type = linkedEntities.work_attribute_type[attr.typeID];
                 return (
                   <SidebarProperty
                     className={'work-attribute work-attribute-' + kebabCase(type.name)}

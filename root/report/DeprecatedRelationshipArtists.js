@@ -25,7 +25,7 @@ const DeprecatedRelationshipArtists = ({
   items,
   pager,
 }: ReportDataT<ReportArtistRelationshipT>) => (
-  <Layout fullWidth gettext_domains={['relationships']} title={l('Artists with deprecated relationships')}>
+  <Layout fullWidth title={l('Artists with deprecated relationships')}>
     <h1>{l('Artists with deprecated relationships')}</h1>
 
     <ul>
@@ -33,8 +33,14 @@ const DeprecatedRelationshipArtists = ({
         {l(`This report lists artists which have relationships using
             deprecated and grouping-only relationship types.`)}
       </li>
-      <li>{texp.l('Total artists found: {count}', {count: pager.total_entries})}</li>
-      <li>{texp.l('Generated on {date}', {date: formatUserDate($c.user, generated)})}</li>
+      <li>
+        {texp.l('Total artists found: {count}',
+                {count: pager.total_entries})}
+      </li>
+      <li>
+        {texp.l('Generated on {date}',
+                {date: formatUserDate($c.user, generated)})}
+      </li>
 
       {canBeFiltered ? <FilterLink filtered={filtered} /> : null}
     </ul>

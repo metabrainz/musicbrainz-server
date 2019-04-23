@@ -38,7 +38,14 @@ const EditorList = ({
               <td>
                 <EditorLink editor={editor} />
                 {' '}
-                {bracketed(<a href={'/admin/user/delete/' + encodeURIComponent(editor.name)}>{l('delete')}</a>)}
+                {bracketed(
+                  <a
+                    href={'/admin/user/delete/' +
+                    encodeURIComponent(editor.name)}
+                  >
+                    {l('delete')}
+                  </a>,
+                )}
               </td>
               <td>{editor.registration_date}</td>
               <td>{editor.website}</td>
@@ -51,4 +58,5 @@ const EditorList = ({
     </table>
   </PaginatedResults>
 );
+
 export default EditorList;

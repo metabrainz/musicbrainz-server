@@ -11,8 +11,7 @@
 
     [%- show_wikipedia_extract() -%]
 
-    [% INCLUDE "components/relationships.tt" source=work
-        relationships=work.grouped_relationships('artist', 'release_group', 'release', 'work', 'url', 'label', 'place', 'area', 'series', 'instrument', 'event') %]
+    [% React.embed(c, 'components/Relationships', {source => work}) %]
 
     [%- INCLUDE "components/relationships-table.tt" heading=l("Recordings") entity=work -%]
 
