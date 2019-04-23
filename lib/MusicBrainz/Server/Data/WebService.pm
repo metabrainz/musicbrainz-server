@@ -201,8 +201,8 @@ sub xml_search
     }
 
     $query =~ s/^ AND //;
-    # In case we have a blank query
-    if ($query =~ /^\s*$/)
+    # In case we have a blank query (only whitespace, or whitespace surrounded by unescaped quotes)
+    if ($query =~ /^(?:\s*|"\s*")$/)
     {
         return {
             error => "You submitted a blank search query. You must include a non-blank 'query=' parameter with your search.",
