@@ -33,7 +33,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2019-04-10 17:09+0000\n"
+"PO-Revision-Date: 2019-04-23 09:01+0000\n"
 "Last-Translator: yvanz\n"
 "Language-Team: French (http://www.transifex.com/musicbrainz/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -1029,13 +1029,13 @@ msgstr "Page SoundCloud pour"
 msgid ""
 "Specifies the level of studies that a student studied towards in an "
 "educational institution."
-msgstr ""
+msgstr "Indique le niveau d’études qu’un élève a atteint dans une école."
 
 #: DB:link_attribute_type/description:1125
 msgid ""
 "Specifies the subject that was taught by a teacher in an institution and/or "
 "to a student."
-msgstr ""
+msgstr "Indique le sujet qui a été enseigné par un professeur dans une école et/ou à un élève."
 
 #: DB:link_attribute_type/description:561
 msgid "Spoken vocals (speech)"
@@ -1557,11 +1557,11 @@ msgstr "Ceci indique que c’est l’enregistrement d’un pot-pourri, dont l’
 
 #: DB:link_type/description:973
 msgid "This indicates the artist that inspired this artist’s name."
-msgstr ""
+msgstr "Ceci indique l’artiste qui a inspiré le nom de cet artiste."
 
 #: DB:link_type/description:975
 msgid "This indicates the artist that inspired this place’s name."
-msgstr ""
+msgstr "Ceci indique l’artiste qui a inspiré le nom de ce lieu."
 
 #: DB:link_type/description:962
 msgid "This indicates the artist was the director of this music video."
@@ -1696,7 +1696,7 @@ msgstr "Indique l’organisation qui presse une parution. Ce n’est <strong>pas
 
 #: DB:link_type/description:974
 msgid "This indicates the release group that inspired this artist’s name."
-msgstr ""
+msgstr "Ceci indique le groupe de parution qui a inspiré le nom de cet artiste."
 
 #: DB:link_type/description:349
 msgid ""
@@ -1738,7 +1738,7 @@ msgstr "Ceci indique que l’œuvre est dédiée à une personne en particulier.
 
 #: DB:link_type/description:972
 msgid "This indicates the work that inspired this artist’s name."
-msgstr ""
+msgstr "Ceci indique l’œuvre qui a inspiré le nom de cet artiste."
 
 #: DB:link_type/description:915
 msgid "This indicates where a feed for this podcast can be found."
@@ -1799,7 +1799,7 @@ msgstr "Ceci est utilisé pour relier un label à une image de son logo."
 msgid ""
 "This is used to link a label to its corresponding page in the "
 "SecondHandSongs database."
-msgstr ""
+msgstr "Ceci est utilisé pour relier un label à sa page correspondante dans la base de données SecondHandSongs."
 
 #: DB:link_type/description:857
 msgid ""
@@ -1814,7 +1814,7 @@ msgstr "Ceci est utilisé pour relier un lieu à l’entrée équivalente de Dis
 msgid ""
 "This is used to link a recording to its corresponding page in the "
 "SecondHandSongs database."
-msgstr ""
+msgstr "Ceci est utilisé pour relier un enregistrement à sa page correspondante dans la base de données SecondHandSongs."
 
 #: DB:link_type/description:285
 msgid ""
@@ -1839,7 +1839,7 @@ msgstr "Ceci est utilisé pour relier un groupe de parution à sa page correspon
 msgid ""
 "This is used to link a release to its corresponding page in the "
 "SecondHandSongs database."
-msgstr ""
+msgstr "Ceci est utilisé pour relier une parution à sa page correspondante dans la base de données SecondHandSongs."
 
 #: DB:link_type/description:755
 msgid "This is used to link a release to its corresponding page on Allmusic."
@@ -1853,7 +1853,7 @@ msgstr "Ceci est utilisé pour relier une série à l’entrée équivalente de 
 msgid ""
 "This is used to link a work to its corresponding page in the SecondHandSongs"
 " database."
-msgstr ""
+msgstr "Ceci est utilisé pour relier une œuvre à sa page correspondante dans la base de données SecondHandSongs."
 
 #: DB:link_type/description:286
 msgid "This is used to link a work to its corresponding page on Allmusic."
@@ -1863,7 +1863,7 @@ msgstr "Ceci est utilisé pour relier une œuvre à sa page correspondante sur A
 msgid ""
 "This is used to link an artist to its corresponding page in the "
 "SecondHandSongs database."
-msgstr ""
+msgstr "Ceci est utilisé pour relier un artiste à sa page correspondante dans la base de données de SecondHandSongs."
 
 #: DB:link_type/description:283
 msgid "This is used to link an artist to its corresponding page on Allmusic."
@@ -3259,7 +3259,7 @@ msgstr "parutions proposées"
 
 #: DB:link_attribute_type/name:1137
 msgid "bachelor’s degree"
-msgstr ""
+msgstr "licence"
 
 #: DB:link_attribute_type/description:12 DB:link_attribute_type/name:12
 msgid "background vocals"
@@ -3422,7 +3422,7 @@ msgstr "composition"
 
 #: DB:link_attribute_type/name:1130
 msgid "conducting"
-msgstr ""
+msgstr "direction d’orchestre"
 
 #: DB:link_type/link_phrase:806
 msgid "conductor at"
@@ -3611,7 +3611,7 @@ msgstr "distributeurs"
 
 #: DB:link_attribute_type/name:1139
 msgid "doctoral degree"
-msgstr ""
+msgstr "doctorat"
 
 #: DB:link_type/long_link_phrase:105
 msgid "does/did {instrument} support for"
@@ -3648,7 +3648,7 @@ msgstr "première parution"
 
 #: DB:link_attribute_type/name:1131
 msgid "early music"
-msgstr ""
+msgstr "musique ancienne"
 
 #: DB:link_type/link_phrase:309
 msgid "edit of"
@@ -3672,7 +3672,7 @@ msgstr "enseignants"
 
 #: DB:link_attribute_type/name:1127
 msgid "electronic music"
-msgstr ""
+msgstr "musique électronique"
 
 #: DB:link_attribute_type/name:617
 msgid "emeritus"
@@ -3708,7 +3708,7 @@ msgstr "pages de fan"
 
 #: DB:link_attribute_type/name:1133
 msgid "folk music"
-msgstr ""
+msgstr "musique “folk” ou “populaire”"
 
 #: DB:link_type/link_phrase:116 DB:link_type/link_phrase:832
 #: DB:link_type/link_phrase:895 DB:link_type/long_link_phrase:116
@@ -4183,7 +4183,7 @@ msgstr "marques"
 
 #: DB:link_attribute_type/name:1134
 msgid "improvisation"
-msgstr ""
+msgstr "improvisation"
 
 #: DB:link_type/link_phrase:894
 msgid "included in"
@@ -4201,7 +4201,7 @@ msgstr "page d’information"
 #: DB:link_type/link_phrase:975 DB:link_type/reverse_link_phrase:973
 #: DB:link_type/reverse_link_phrase:972 DB:link_type/reverse_link_phrase:974
 msgid "inspired the name of"
-msgstr ""
+msgstr "a inspiré le nom de"
 
 #: DB:link_attribute_type/name:580
 msgid "instrumental"
@@ -4314,7 +4314,7 @@ msgstr "est sous licence"
 #: DB:link_type/long_link_phrase:973 DB:link_type/long_link_phrase:972
 #: DB:link_type/long_link_phrase:974
 msgid "is named after"
-msgstr ""
+msgstr "est nommé d’après"
 
 #: DB:link_type/long_link_phrase:738
 msgid "is related to"
@@ -4388,7 +4388,7 @@ msgstr "est/était {assistant:un|un} chef d’orchestre {assistant} {principal} 
 
 #: DB:link_attribute_type/name:1132
 msgid "jazz"
-msgstr ""
+msgstr "jazz"
 
 #: DB:link_type/reverse_link_phrase:226
 msgid "karaoke version of"
@@ -4444,7 +4444,7 @@ msgstr "représentation juridique"
 
 #: DB:link_attribute_type/name:1135
 msgid "level of studies"
-msgstr ""
+msgstr "niveau d’études"
 
 #: DB:link_type/reverse_link_phrase:880
 msgid "libretto {additional:additionally} written at"
@@ -4581,7 +4581,7 @@ msgstr "ingénieurs de matriçage"
 
 #: DB:link_attribute_type/name:1136
 msgid "master’s degree"
-msgstr ""
+msgstr "master"
 
 #: DB:link_attribute_type/name:1060
 msgid "meane vocals"
@@ -4700,12 +4700,12 @@ msgstr "relation musicale"
 
 #: DB:link_attribute_type/name:1141
 msgid "musicology"
-msgstr ""
+msgstr "musicologie"
 
 #: DB:link_type/link_phrase:973 DB:link_type/link_phrase:972
 #: DB:link_type/link_phrase:974 DB:link_type/reverse_link_phrase:975
 msgid "named after"
-msgstr ""
+msgstr "nommé d’après"
 
 #: DB:link_type/link_phrase:935 DB:link_type/reverse_link_phrase:935
 #: DB:link_type/long_link_phrase:935
@@ -4786,7 +4786,7 @@ msgstr "programmé originalement comme"
 
 #: DB:link_attribute_type/name:1128
 msgid "other"
-msgstr ""
+msgstr "autre"
 
 #: DB:link_type/link_phrase:746 DB:link_type/link_phrase:803
 #: DB:link_type/link_phrase:753 DB:link_type/link_phrase:96
@@ -5368,7 +5368,7 @@ msgstr "sous-groupes"
 
 #: DB:link_attribute_type/name:1125
 msgid "subject"
-msgstr ""
+msgstr "sujet"
 
 #: DB:link_type/link_phrase:823
 msgid "subseries"
@@ -6255,7 +6255,7 @@ msgstr "{entity1} est rendu disponible sous les termes de la licence {entity0}"
 
 #: DB:link_type/long_link_phrase:975
 msgid "{entity1} is named after {entity0}"
-msgstr ""
+msgstr "{entity1} est nommé d’après {entity0}"
 
 #: DB:link_type/long_link_phrase:357
 msgid "{entity1} is/was an anthem of {entity0}"

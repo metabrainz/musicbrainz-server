@@ -8,7 +8,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2019-04-13 13:53+0000\n"
+"PO-Revision-Date: 2019-04-19 11:12+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -45,7 +45,7 @@ msgstr "Baltische psalteria"
 
 #: DB:instrument/name:457
 msgid "Batá drum"
-msgstr "Batátrommel"
+msgstr "batátrommel"
 
 #: DB:instrument/name:852
 msgctxt "long metal bar with strings"
@@ -619,7 +619,7 @@ msgstr "bazooka"
 
 #: DB:instrument/name:116
 msgid "bell"
-msgstr ""
+msgstr "bel"
 
 #: DB:instrument/name:479
 msgid "bell tree"
@@ -1541,7 +1541,7 @@ msgstr "gemshoorn"
 #: DB:instrument/name:961
 msgctxt "Family of Indonesian metallophones"
 msgid "gendèr"
-msgstr ""
+msgstr "gender"
 
 #: DB:instrument/name:76
 msgid "geomungo"
@@ -1620,7 +1620,7 @@ msgstr "guan"
 #: DB:instrument/name:956
 msgctxt "Traditional chinese drum and clapper."
 msgid "guban"
-msgstr ""
+msgstr "guban"
 
 #: DB:instrument/name:230
 msgid "gudok"
@@ -1874,7 +1874,7 @@ msgstr "k'lông pút"
 #: DB:instrument/name:947
 msgctxt "Flat-cut gourd sitar"
 msgid "kachva sitar"
-msgstr ""
+msgstr "kachva sitar"
 
 #: DB:instrument/name:849
 msgctxt "bamboo transverse flute"
@@ -2063,17 +2063,17 @@ msgstr "krap"
 #: DB:instrument/name:950
 msgctxt "Thai bamboo concussion sticks"
 msgid "krap khū"
-msgstr ""
+msgstr "krap khū"
 
 #: DB:instrument/name:951
 msgctxt "Thai wood/brass clappers"
 msgid "krap phuang"
-msgstr ""
+msgstr "krap phuang"
 
 #: DB:instrument/name:952
 msgctxt "Thai bevelled wood rhythm-sticks"
 msgid "krap sēphā"
-msgstr ""
+msgstr "krap sēphā"
 
 #: DB:instrument/name:734
 msgid "krar"
@@ -2523,12 +2523,12 @@ msgstr "pahuu pounamu"
 #: DB:instrument/name:957
 msgctxt "Ancient Chinese clapper"
 msgid "paiban"
-msgstr ""
+msgstr "paiban"
 
 #: DB:instrument/name:502
 msgctxt "Dhrupad wooden two-headed barrel-drum"
 msgid "pakhawaj"
-msgstr ""
+msgstr "pakhavaj"
 
 #: DB:instrument/name:16
 msgid "pan flute"
@@ -2916,7 +2916,7 @@ msgstr "sarod"
 #: DB:instrument/name:597
 msgctxt "Javanese wooden trough metallophone family"
 msgid "saron"
-msgstr ""
+msgstr "saron"
 
 #: DB:instrument/name:749
 msgid "sarrusophone"
@@ -2979,7 +2979,7 @@ msgstr "geschudde idiofoon"
 #: DB:instrument/name:340
 msgctxt "Latin-American tube rattle"
 msgid "shakers"
-msgstr ""
+msgstr "shakers"
 
 #: DB:instrument/name:173
 msgid "shakuhachi"
@@ -3058,12 +3058,12 @@ msgstr "sitar"
 #: DB:instrument/name:962
 msgctxt "Central Javanese single octave metallophone"
 msgid "slenthem"
-msgstr ""
+msgstr "slenthem"
 
 #: DB:instrument/name:964
 msgctxt "Largely obsolete Central Javan metallophone."
 msgid "slentho"
-msgstr ""
+msgstr "slentho"
 
 #: DB:instrument/name:202
 msgid "slide brass instruments"
@@ -3197,7 +3197,7 @@ msgstr "suona"
 #: DB:instrument/name:946
 msgctxt "Bass sitar"
 msgid "surbahar"
-msgstr ""
+msgstr "surbahar"
 
 #: DB:instrument/name:379
 msgid "surdo"
@@ -3663,7 +3663,7 @@ msgctxt ""
 "(drum set)\". For \"programmed\" drums you generally want drum machine. ONLY"
 " USE IF THERE'S NO BETTER ALTERNATIVE"
 msgid "unspecified drum"
-msgstr ""
+msgstr "ongespecificeerde trommel"
 
 #: DB:instrument/name:140
 msgid "upright piano"
