@@ -2266,62 +2266,74 @@ CREATE TABLE editor_collection_collaborator (
 
 CREATE TABLE editor_collection_area (
     collection INTEGER NOT NULL, -- PK, references editor_collection.id
-    area INTEGER NOT NULL -- PK, references area.id
+    area INTEGER NOT NULL, -- PK, references area.id
+    comment TEXT DEFAULT '' NOT NULL
 );
 
 CREATE TABLE editor_collection_artist (
     collection INTEGER NOT NULL, -- PK, references editor_collection.id
-    artist INTEGER NOT NULL -- PK, references artist.id
+    artist INTEGER NOT NULL, -- PK, references artist.id
+    comment TEXT DEFAULT '' NOT NULL
 );
 
 CREATE TABLE editor_collection_event (
     collection INTEGER NOT NULL, -- PK, references editor_collection.id
-    event INTEGER NOT NULL -- PK, references event.id
+    event INTEGER NOT NULL, -- PK, references event.id
+    comment TEXT DEFAULT '' NOT NULL
 );
 
 CREATE TABLE editor_collection_instrument (
     collection INTEGER NOT NULL, -- PK, references editor_collection.id
-    instrument INTEGER NOT NULL -- PK, references instrument.id
+    instrument INTEGER NOT NULL, -- PK, references instrument.id
+    comment TEXT DEFAULT '' NOT NULL
 );
 
 CREATE TABLE editor_collection_label (
     collection INTEGER NOT NULL, -- PK, references editor_collection.id
-    label INTEGER NOT NULL -- PK, references label.id
+    label INTEGER NOT NULL, -- PK, references label.id
+    comment TEXT DEFAULT '' NOT NULL
 );
 
 CREATE TABLE editor_collection_place (
     collection INTEGER NOT NULL, -- PK, references editor_collection.id
-    place INTEGER NOT NULL -- PK, references place.id
+    place INTEGER NOT NULL, -- PK, references place.id
+    comment TEXT DEFAULT '' NOT NULL
 );
 
 CREATE TABLE editor_collection_recording (
     collection INTEGER NOT NULL, -- PK, references editor_collection.id
-    recording INTEGER NOT NULL -- PK, references recording.id
+    recording INTEGER NOT NULL, -- PK, references recording.id
+    comment TEXT DEFAULT '' NOT NULL
 );
 
 CREATE TABLE editor_collection_release (
     collection INTEGER NOT NULL, -- PK, references editor_collection.id
-    release INTEGER NOT NULL -- PK, references release.id
+    release INTEGER NOT NULL, -- PK, references release.id
+    comment TEXT DEFAULT '' NOT NULL
 );
 
 CREATE TABLE editor_collection_release_group (
     collection INTEGER NOT NULL, -- PK, references editor_collection.id
-    release_group INTEGER NOT NULL -- PK, references release_group.id
+    release_group INTEGER NOT NULL, -- PK, references release_group.id
+    comment TEXT DEFAULT '' NOT NULL
 );
 
 CREATE TABLE editor_collection_series (
     collection INTEGER NOT NULL, -- PK, references editor_collection.id
-    series INTEGER NOT NULL -- PK, references series.id
+    series INTEGER NOT NULL, -- PK, references series.id
+    comment TEXT DEFAULT '' NOT NULL
 );
 
 CREATE TABLE editor_collection_work (
     collection INTEGER NOT NULL, -- PK, references editor_collection.id
-    work INTEGER NOT NULL -- PK, references work.id
+    work INTEGER NOT NULL, -- PK, references work.id
+    comment TEXT DEFAULT '' NOT NULL
 );
 
 CREATE TABLE editor_collection_deleted_entity (
     collection INTEGER NOT NULL, -- PK, references editor_collection.id
-    gid UUID NOT NULL -- PK, references deleted_entity.gid
+    gid UUID NOT NULL, -- PK, references deleted_entity.gid
+    comment TEXT DEFAULT '' NOT NULL
 );
 
 CREATE TABLE editor_oauth_token
