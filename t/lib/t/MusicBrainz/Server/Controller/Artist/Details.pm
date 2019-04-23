@@ -21,7 +21,7 @@ html_ok($mech->content);
 $mech->content_contains('https://musicbrainz.org/artist/745c079d-374e-4436-9448-da92dedef3ce',
                         '..has permanent link');
 $mech->content_contains('>745c079d-374e-4436-9448-da92dedef3ce</',
-                        '..has mbid in plain text');
+                        '..has MBID in plain text');
 
 };
 

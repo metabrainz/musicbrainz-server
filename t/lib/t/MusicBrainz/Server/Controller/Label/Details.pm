@@ -21,7 +21,7 @@ $mech->content_contains('https://musicbrainz.org/label/46f0f4cd-8aab-4b33-b698-f
                         '..has permanent link');
 # I don't think this test could be much more wrong, but it passes for now
 $mech->content_contains('>46f0f4cd-8aab-4b33-b698-f459faf64190</',
-                        '..has mbid in plain text');
+                        '..has MBID in plain text');
 
 };
 

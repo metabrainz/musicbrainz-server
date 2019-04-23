@@ -89,7 +89,7 @@ sub not_found : Private
 sub invalid_mbid : Private
 {
     my ($self, $c, $id) = @_;
-    $c->stash->{error} = "Invalid mbid.";
+    $c->stash->{error} = "Invalid MBID.";
     $c->detach('bad_req');
 }
 
@@ -507,7 +507,7 @@ sub _validate_entity
 
     if (!$gid || !is_guid($gid))
     {
-        $c->stash->{error} = "Invalid mbid.";
+        $c->stash->{error} = "Invalid MBID.";
         $c->detach('bad_req');
     }
 

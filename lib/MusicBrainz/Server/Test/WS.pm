@@ -54,7 +54,7 @@ EOXML
 Readonly our $INVALID_MBID_XML_RESPONSE => <<'EOXML';
 <?xml version="1.0" encoding="UTF-8"?>
 <error>
-  <text>Invalid mbid.</text>
+  <text>Invalid MBID.</text>
   <text>For usage, please see: http://musicbrainz.org/development/mmd</text>
 </error>
 EOXML

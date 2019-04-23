@@ -61,7 +61,7 @@ sub series_browse : Private
     my ($limit, $offset) = $self->_limit_and_offset($c);
 
     if (!is_guid($id)) {
-        $c->stash->{error} = "Invalid mbid.";
+        $c->stash->{error} = "Invalid MBID.";
         $c->detach('bad_req');
     }
 

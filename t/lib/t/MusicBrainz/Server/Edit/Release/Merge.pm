@@ -234,14 +234,14 @@ test 'Old medium and tracks are removed during merge' => sub {
 
     is($release->name, "The Prologue (disc 1)", "Release has expected name after merge");
     is($release->combined_track_count, 1, "Release has 1 track");
-    is($release->mediums->[0]->tracks->[0]->gid, 'd6de1f70-4a29-4cce-a35b-aa2b56265583', "Track has expected mbid");
+    is($release->mediums->[0]->tracks->[0]->gid, 'd6de1f70-4a29-4cce-a35b-aa2b56265583', "Track has expected MBID");
 
     my $medium = $c->model('Medium')->get_by_id(3);
     is($medium, undef, "Old medium no longer exists");
 
     my $track_by_mbid = $c->model('Track')->get_by_gid('929e5fb9-cfe7-4764-b3f6-80e056f0c1da');
     isnt($track_by_mbid, undef, 'track by old MBID still fetches something');
-    is($track_by_mbid->gid, 'd6de1f70-4a29-4cce-a35b-aa2b56265583', 'Track mbid was redirected');
+    is($track_by_mbid->gid, 'd6de1f70-4a29-4cce-a35b-aa2b56265583', 'Track MBID was redirected');
 
     my $track = $c->model('Track')->get_by_id(3);
     is($track, undef, "Old track no longer exists");

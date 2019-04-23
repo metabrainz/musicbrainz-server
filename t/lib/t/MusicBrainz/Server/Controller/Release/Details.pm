@@ -19,7 +19,7 @@ html_ok($mech->content);
 $mech->content_contains('https://musicbrainz.org/release/f205627f-b70a-409d-adbe-66289b614e80',
                         '..has permanent link');
 $mech->content_contains('>f205627f-b70a-409d-adbe-66289b614e80</',
-                        '..has mbid in plain text');
+                        '..has MBID in plain text');
 
 $mech->content_contains('CD', 'contains medium type');
 $mech->content_contains('Official', 'contains release status');

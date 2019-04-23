@@ -133,7 +133,7 @@ sub recording_browse : Private
 
     if (!is_guid($id))
     {
-        $c->stash->{error} = "Invalid mbid.";
+        $c->stash->{error} = "Invalid MBID.";
         $c->detach('bad_req');
     }
 

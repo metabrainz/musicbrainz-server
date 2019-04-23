@@ -19,7 +19,7 @@ html_ok($mech->content);
 $mech->content_contains('https://musicbrainz.org/recording/54b9d183-7dab-42ba-94a3-7388a66604b8',
                         '..has permanent link');
 $mech->content_contains('>54b9d183-7dab-42ba-94a3-7388a66604b8</',
-                        '..has mbid in plain text');
+                        '..has MBID in plain text');
 
 };
 

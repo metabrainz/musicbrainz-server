@@ -317,13 +317,13 @@ test "collection lookup errors" => sub {
         '/collection/?editor=the-anti-kuno&inc=user-collections',
         { username => 'the-anti-kuno', password => 'wrong_password' };
 
-    ws2_test_xml_not_found 'lookup 404s if mbid is not found',
+    ws2_test_xml_not_found 'lookup 404s if MBID is not found',
         '/collection/c1f75626-bff2-499d-b8f3-1a8ade05cb70';
 
-    ws2_test_xml_invalid_mbid 'lookup 400s if mbid is invalid',
+    ws2_test_xml_invalid_mbid 'lookup 400s if MBID is invalid',
         '/collection/29611d8b-b3ad-4ffb-acb5-xxxxxxxxxxxx';
 
-    ws2_test_xml_invalid_mbid 'lookup 400s if mbid is invalid',
+    ws2_test_xml_invalid_mbid 'lookup 400s if MBID is invalid',
         '/collection/29611d8b-b3ad-4ffb-acb5-xxxxxxxxxxxx';
 
     my $bad_entity_response = sub {
