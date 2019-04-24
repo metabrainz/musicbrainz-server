@@ -9,7 +9,6 @@ import _ from 'lodash';
 
 import {MIN_NAME_SIMILARITY} from '../common/constants';
 import {
-  artistCreditFromArray,
   hasVariousArtists,
   isCompleteArtistCredit,
   reduceArtistCredit,
@@ -175,7 +174,7 @@ releaseEditor.trackParser = {
                 }
 
                 if (options.useTrackArtists) {
-                    matchedTrack.artistCredit(artistCreditFromArray(data.artistCredit));
+                    matchedTrack.artistCredit(data.artistCredit);
                 }
 
                 return matchedTrack;

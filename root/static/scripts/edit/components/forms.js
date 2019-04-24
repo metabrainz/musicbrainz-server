@@ -6,7 +6,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import {artistCreditFromArray} from '../../common/immutable-entities';
 import MB from '../../common/MB';
 import FieldErrors from '../../../../components/FieldErrors';
 import FormRow from '../../../../components/FormRow';
@@ -29,7 +28,7 @@ export const FormRowArtistCredit = ({form, entity}) => (
 
 MB.initializeArtistCredit = function (form, initialNames) {
   let source = MB.sourceEntity || {name: ''};
-  source.artistCredit = artistCreditFromArray(initialNames);
+  source.artistCredit = initialNames;
 
   ReactDOM.render(
     <FormRowArtistCredit entity={source} form={form} />,

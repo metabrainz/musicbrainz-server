@@ -8,7 +8,6 @@ import _ from 'lodash';
 
 import {MAX_LENGTH_DIFFERENCE} from '../common/constants';
 import {
-  artistCreditFromArray,
   isCompleteArtistCredit,
   reduceArtistCredit,
 } from '../common/immutable-entities';
@@ -98,7 +97,7 @@ function recordingQuery(track, name) {
 function cleanRecordingData(data) {
     var clean = utils.cleanWebServiceData(data);
 
-    clean.artist = reduceArtistCredit(artistCreditFromArray(clean.artistCredit));
+    clean.artist = reduceArtistCredit(clean.artistCredit);
     clean.video = !!data.video;
 
     var appearsOn = _(data.releases)

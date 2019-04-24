@@ -125,6 +125,7 @@ sub json {
         my $artist = $artists->{$name->{artist}->{id}};
         $name->{artist} = $artist->TO_JSON if $artist;
         $name->{joinPhrase} = delete $name->{join_phrase};
+        $name->{name} = $artist->name if $artist && !$name->{name};
     }
 
     return to_json($names);

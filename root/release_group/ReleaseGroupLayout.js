@@ -12,7 +12,7 @@ import type {Node as ReactNode} from 'react';
 
 import Layout from '../layout';
 import ReleaseGroupSidebar from '../layout/components/sidebar/ReleaseGroupSidebar';
-import {artistCreditFromArray, reduceArtistCredit} from '../static/scripts/common/immutable-entities';
+import {reduceArtistCredit} from '../static/scripts/common/immutable-entities';
 
 import ReleaseGroupHeader from './ReleaseGroupHeader';
 
@@ -32,9 +32,7 @@ const ReleaseGroupLayout = ({
   title,
 }: Props) => {
   const mainTitle = texp.l('Release group “{name}” by {artist}', {
-    artist: reduceArtistCredit(
-      artistCreditFromArray(releaseGroup.artistCredit),
-    ),
+    artist: reduceArtistCredit(releaseGroup.artistCredit),
     name: releaseGroup.name,
   });
   return (

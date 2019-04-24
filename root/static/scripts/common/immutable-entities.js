@@ -29,20 +29,6 @@ export const isComplexArtistCredit = function (ac) {
   return false;
 };
 
-export function artistCreditFromArray(ac) {
-  return ac.map(function (x) {
-    x = {
-      artist: x.artist,
-      joinPhrase: x.joinPhrase,
-      name: x.name,
-    };
-    if (x.artist && !nonEmpty(x.name)) {
-      x.name = x.artist.name;
-    }
-    return x;
-  });
-}
-
 export function artistCreditsAreEqual(a, b) {
   if (a === b) {
     return true;

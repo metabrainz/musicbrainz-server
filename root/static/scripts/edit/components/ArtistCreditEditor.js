@@ -12,7 +12,6 @@ import mutate from 'mutate-cow';
 
 import Autocomplete from '../../common/components/Autocomplete';
 import {
-  artistCreditFromArray,
   artistCreditsAreEqual,
   hasArtist,
   hasVariousArtists,

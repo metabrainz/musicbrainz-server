@@ -8,7 +8,6 @@ import ko from 'knockout';
 import _ from 'lodash';
 
 import {
-  artistCreditFromArray,
   hasVariousArtists,
   isComplexArtistCredit,
   reduceArtistCredit,
@@ -263,7 +262,7 @@ const actions = {
                 var oldTitle = track.name();
 
                 track.name(reduceArtistCredit(track.artistCredit()));
-                track.artistCredit(artistCreditFromArray([{ name: oldTitle }]));
+                track.artistCredit([{ name: oldTitle }]);
                 track.artistCreditEditorInst.setState({
                     artistCredit: track.artistCredit.peek(),
                 });

@@ -13,7 +13,6 @@ import type {Node as ReactNode} from 'react';
 import Layout from '../layout';
 import RecordingSidebar from '../layout/components/sidebar/RecordingSidebar';
 import {
-  artistCreditFromArray,
   reduceArtistCredit,
 } from '../static/scripts/common/immutable-entities';
 
@@ -35,9 +34,7 @@ const RecordingLayout = ({
   title,
 }: Props) => {
   const titleArgs = {
-    artist: reduceArtistCredit(
-      artistCreditFromArray(recording.artistCredit),
-    ),
+    artist: reduceArtistCredit(recording.artistCredit),
     name: recording.name,
   };
   const mainTitle = recording.video

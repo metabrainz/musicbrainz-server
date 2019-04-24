@@ -14,7 +14,6 @@ import Layout from '../layout';
 import ArtistCreditLink from '../static/scripts/common/components/ArtistCreditLink';
 import CodeLink from '../static/scripts/common/components/CodeLink';
 import EntityLink from '../static/scripts/common/components/EntityLink';
-import {artistCreditFromArray} from '../static/scripts/common/immutable-entities';
 import formatTrackLength from '../static/scripts/common/utility/formatTrackLength';
 import loopParity from '../utility/loopParity';
 
@@ -72,11 +71,7 @@ const Index = ({$c, isrcs, recordings}: PropsT) => {
                 ) : null}
                 <td><EntityLink entity={recording} /></td>
                 <td>
-                  <ArtistCreditLink
-                    artistCredit={
-                      artistCreditFromArray(recording.artistCredit)
-                    }
-                  />
+                  <ArtistCreditLink artistCredit={recording.artistCredit} />
                 </td>
                 <td>{formatTrackLength(recording.length)}</td>
               </tr>
