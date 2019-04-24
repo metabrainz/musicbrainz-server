@@ -1058,6 +1058,15 @@ const CLEANUPS = {
       return true;
     },
   },
+  'fandomlyrics': {
+    match: [new RegExp('^(https?://)?(fr\\.)?lyrics\\.(wikia|fandom)\\.com', 'i')],
+    type: LINK_TYPES.lyrics,
+    clean: function (url) {
+      url = url.replace(/^https?:\/\/lyrics\.(?:wikia|fandom)\.com/, 'https://lyrics.fandom.com');
+      url = url.replace(/^https?:\/\/fr\.lyrics\.(?:wikia|fandom)\.com/, 'https://lyrics.fandom.com/fr');
+      return url;
+    },
+  },
   'flattr': {
     match: [new RegExp('^(https?://)?(www\\.)?flattr\\.com/profile/[^/?#]', 'i')],
     type: LINK_TYPES.patronage,
@@ -1077,6 +1086,13 @@ const CLEANUPS = {
           id === LINK_TYPES.otherdatabases.label ||
           id === LINK_TYPES.otherdatabases.release_group ||
           id === LINK_TYPES.otherdatabases.work;
+    },
+  },
+  'genius': {
+    match: [new RegExp('^(https?://)?([^/]+\\.)?genius\\.com', 'i')],
+    type: LINK_TYPES.lyrics,
+    clean: function (url) {
+      return url.replace(/^https?:\/\/([^/]+\.)?genius\.com/, 'http://$1genius.com');
     },
   },
   'geonames': {
@@ -1419,7 +1435,6 @@ const CLEANUPS = {
   },
   'lyrics': {
     match: [
-      new RegExp('^(https?://)?(fr.)?lyrics\\.(wikia|fandom)\\.com', 'i'),
       new RegExp('^(https?://)?([^/]+\\.)?directlyrics\\.com', 'i'),
       new RegExp('^(https?://)?([^/]+\\.)?decoda\\.com', 'i'),
       new RegExp('^(https?://)?([^/]+\\.)?kasi-time\\.com', 'i'),
@@ -1428,17 +1443,10 @@ const CLEANUPS = {
       new RegExp('^(https?://)?([^/]+\\.)?j-lyric\\.net', 'i'),
       new RegExp('^(https?://)?([^/]+\\.)?lyricsnmusic\\.com', 'i'),
       new RegExp('^(https?://)?([^/]+\\.)?muzikum\\.eu', 'i'),
-      new RegExp('^(https?://)?([^/]+\\.)?genius\\.com', 'i'),
       new RegExp('^(https?://)?([^/]+\\.)?gutenberg\\.org', 'i'),
       new RegExp('^(https?://)?([^/]+\\.)?laboiteauxparoles\\.com', 'i'),
     ],
     type: LINK_TYPES.lyrics,
-    clean: function (url) {
-      url = url.replace(/^https?:\/\/([^/]+\.)?genius\.com/, 'http://$1genius.com');
-      url = url.replace(/^https?:\/\/lyrics\.(?:wikia|fandom)\.com/, 'https://lyrics.fandom.com');
-      url = url.replace(/^https?:\/\/fr\.lyrics\.(?:wikia|fandom)\.com/, 'https://lyrics.fandom.com/fr');
-      return url;
-    },
   },
   'mora': {
     match: [new RegExp('^(https?://)?([^/]+\\.)?mora\\.jp', 'i')],
