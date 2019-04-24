@@ -185,6 +185,7 @@ test 'previewing/creating/editing a release group and release' => sub {
             gid => ignore(),
             artist => 'Boredoms plus a fake artist and a trailing join phrase',
             artistCredit => {
+                editsPending => JSON::false,
                 entityType => 'artist_credit',
                 id => 101,
                 names => [

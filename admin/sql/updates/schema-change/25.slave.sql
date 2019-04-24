@@ -7,6 +7,7 @@
 -- 20190422-mbs-5818-collection-position.sql
 -- 20190422-mbs-1658-collection-text.sql
 -- 20190423-mbs-10052-eaa.sql
+-- 20190423-mbs-5387.sql
 \set ON_ERROR_STOP 1
 BEGIN;
 SET search_path = musicbrainz, public;
@@ -704,5 +705,12 @@ SELECT event_art.*,
         WHERE event_art_type.id = event_art.id) AS types
 FROM event_art_archive.event_art
 LEFT JOIN musicbrainz.edit ON edit.id = event_art.edit;
+
+--------------------------------------------------------------------------------
+SELECT '20190423-mbs-5387.sql';
+
+ALTER TABLE artist_credit
+ADD COLUMN edits_pending INTEGER NOT NULL DEFAULT 0
+CHECK (edits_pending >= 0);
 
 COMMIT;

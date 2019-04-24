@@ -128,7 +128,7 @@ sub json {
         $name->{name} = $artist->name if $artist && !$name->{name};
     }
 
-    return {names => to_json($names)};
+    return to_json({names => $names});
 }
 
 =head1 LICENSE

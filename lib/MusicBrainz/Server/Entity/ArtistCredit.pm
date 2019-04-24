@@ -11,6 +11,7 @@ use overload
     fallback => 1;
 
 extends 'MusicBrainz::Server::Entity';
+with 'MusicBrainz::Server::Entity::Role::Editable';
 
 sub entity_type { 'artist_credit' }
 

@@ -36,8 +36,10 @@ sub new_artist_ids {
 sub alter_edit_pending {
     my ($self) = @_;
     my %old = load_artist_credit_definitions($self->data->{old}{artist_credit});
+    my $old_ac_id = $self->c->model('ArtistCredit')->find($self->data->{old}{artist_credit});
     return {
-        Artist => [ keys(%old) ]
+        Artist => [ keys(%old) ],
+        ArtistCredit => [ $old_ac_id ],
     }
 }
 
