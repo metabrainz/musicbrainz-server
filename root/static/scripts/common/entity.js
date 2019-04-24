@@ -261,7 +261,7 @@ import formatTrackLength from './utility/formatTrackLength';
             }
 
             if (!this.artistCredit) {
-                this.artistCredit = [];
+                this.artistCredit = {names: []};
             }
 
             this.relatedArtists = relatedArtists(data.relationships);

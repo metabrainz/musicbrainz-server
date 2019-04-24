@@ -515,8 +515,11 @@ sub _seeded_artist_credit
 
     _report_unknown_fields($field_name, $params, $errors, 'names');
 
-    return _seeded_array($c, \&_seeded_artist_credit_name, $params->{names},
-            "$field_name.names", $errors);
+    return {
+        names => _seeded_array(
+            $c, \&_seeded_artist_credit_name, $params->{names},
+            "$field_name.names", $errors),
+    };
 }
 
 sub _seeded_artist_credit_name

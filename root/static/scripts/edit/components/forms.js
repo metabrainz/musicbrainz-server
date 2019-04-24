@@ -26,9 +26,9 @@ export const FormRowArtistCredit = ({form, entity}) => (
   </FormRow>
 );
 
-MB.initializeArtistCredit = function (form, initialNames) {
+MB.initializeArtistCredit = function (form, initialArtistCredit) {
   let source = MB.sourceEntity || {name: ''};
-  source.artistCredit = initialNames;
+  source.artistCredit = initialArtistCredit;
 
   ReactDOM.render(
     <FormRowArtistCredit entity={source} form={form} />,

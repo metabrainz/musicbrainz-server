@@ -183,7 +183,7 @@ export default function guessFeat(entity) {
 
     entity.name(match.name);
 
-    var artistCredit = entity.artistCredit().slice(0);
+    var artistCredit = entity.artistCredit().names.slice(0);
     _.last(artistCredit).joinPhrase = match.joinPhrase;
     _.last(match.artistCredit).joinPhrase = '';
 
@@ -191,9 +191,9 @@ export default function guessFeat(entity) {
         delete name.similarity;
     }
 
-    entity.artistCredit(
-        artistCredit.concat(match.artistCredit),
-    );
+    entity.artistCredit({
+        names: artistCredit.concat(match.artistCredit),
+    });
 
     entity.artistCreditEditorInst && entity.artistCreditEditorInst.setState({
         artistCredit: entity.artistCredit.peek(),

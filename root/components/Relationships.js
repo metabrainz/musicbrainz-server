@@ -87,7 +87,7 @@ const Relationships = ({
   }
 
   const hiddenArtistCredit: ?ArtistCreditT = source.entityType === 'artist'
-    ? [{artist: source, joinPhrase: '', name: source.name}]
+    ? {names: [{artist: source, joinPhrase: '', name: source.name}]}
     : (source.artistCredit || null);
 
   return (

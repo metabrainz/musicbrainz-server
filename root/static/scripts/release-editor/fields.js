@@ -60,7 +60,7 @@ class Track {
             data.artistCredit = release.artistCredit.peek();
         }
 
-        this.artistCredit = ko.observable(data.artistCredit ? _.cloneDeep(data.artistCredit) : []);
+        this.artistCredit = ko.observable(data.artistCredit ? _.cloneDeep(data.artistCredit) : {names: []});
         this.artistCredit.track = this;
 
         this.formattedLength = ko.observable(formatTrackLength(data.length, ''));
@@ -762,7 +762,7 @@ class Release extends MB_entity.Release {
             self.needsName(!newName);
         });
 
-        this.artistCredit = ko.observable(data.artistCredit ? _.cloneDeep(data.artistCredit) : []);
+        this.artistCredit = ko.observable(data.artistCredit ? _.cloneDeep(data.artistCredit) : {names: []});
         this.artistCredit.saved = this.artistCredit.peek();
 
         this.needsArtistCredit = errorField(function () {

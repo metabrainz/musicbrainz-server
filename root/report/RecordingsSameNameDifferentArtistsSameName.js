@@ -83,10 +83,9 @@ const RecordingsSameNameDifferentArtistsSameName = ({
                 />
                 <span className="comment">
                   <bdi key="comment">
-                    {
-                      ' ' +
-                      bracketedText(item.recording.artistCredit[0].artist.comment)
-                    }
+                    {' ' + bracketedText(
+                      item.recording.artistCredit.names[0].artist.comment,
+                    )}
                   </bdi>
                 </span>
               </td>

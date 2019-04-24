@@ -262,7 +262,7 @@ const actions = {
                 var oldTitle = track.name();
 
                 track.name(reduceArtistCredit(track.artistCredit()));
-                track.artistCredit([{ name: oldTitle }]);
+                track.artistCredit({names: [{ name: oldTitle }]});
                 track.artistCreditEditorInst.setState({
                     artistCredit: track.artistCredit.peek(),
                 });

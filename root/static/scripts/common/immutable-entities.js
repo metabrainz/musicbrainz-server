@@ -13,16 +13,16 @@ const reduceName = (memo, x) =>
 
 const isVariousArtist = name => name.artist ? name.artist.gid === VARTIST_GID : false;
 
-export const hasVariousArtists = ac => ac.some(isVariousArtist);
+export const hasVariousArtists = ac => ac.names.some(isVariousArtist);
 
 export const hasArtist = name => !!(name.artist && name.artist.gid);
 
-export const isCompleteArtistCredit = ac => ac.length > 0 && ac.every(hasArtist);
+export const isCompleteArtistCredit = ac => ac.names.length > 0 && ac.names.every(hasArtist);
 
-export const reduceArtistCredit = ac => ac.reduce(reduceName, '');
+export const reduceArtistCredit = ac => ac.names.reduce(reduceName, '');
 
 export const isComplexArtistCredit = function (ac) {
-  const firstName = ac[0];
+  const firstName = ac.names[0];
   if (firstName && hasArtist(firstName)) {
      return !nonEmpty(firstName.name) || firstName.artist.name !== reduceArtistCredit(ac);
   }
@@ -34,13 +34,16 @@ export function artistCreditsAreEqual(a, b) {
     return true;
   }
 
-  if (a.length !== b.length) {
+  const aNames = a.names;
+  const bNames = b.names;
+
+  if (aNames.length !== bNames.length) {
     return false;
   }
 
-  for (let i = 0; i < a.length; i++) {
-    const aName = a[i];
-    const bName = b[i];
+  for (let i = 0; i < aNames.length; i++) {
+    const aName = aNames[i];
+    const bName = bNames[i];
 
     const aHasArtist = hasArtist(aName);
     const bHasArtist = hasArtist(bName);

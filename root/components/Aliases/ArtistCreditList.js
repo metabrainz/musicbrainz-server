@@ -17,10 +17,7 @@ import loopParity from '../../utility/loopParity';
 
 type Props = {
   +$c: CatalystContextT,
-  +artistCredits: $ReadOnlyArray<{
-    +id: number,
-    +names: ArtistCreditT,
-  }>,
+  +artistCredits: $ReadOnlyArray<{+id: number} & ArtistCreditT>,
   +entity: CoreEntityT,
 };
 
@@ -57,7 +54,7 @@ const ArtistCreditList = ({$c, artistCredits, entity}: Props) => {
           {artistCredits.map((credit, index) => (
             <tr className={loopParity(index)} key={credit.id}>
               <td>
-                <ArtistCreditLink artistCredit={credit.names} />
+                <ArtistCreditLink artistCredit={credit} />
               </td>
               {$c.user_exists ? (
                 <td>

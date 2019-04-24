@@ -124,7 +124,7 @@ class SearchResult {
             track.artist = reduceArtistCredit(track.artistCredit);
         } else {
             track.artist = track.artist || this.artist || "";
-            track.artistCredit = [{ name: track.artist }];
+            track.artistCredit = {names: [{ name: track.artist }]};
         }
     }
 

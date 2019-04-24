@@ -22,9 +22,10 @@ const ArtistCreditLink = ({
   showDeleted = true,
   ...props
 }: Props) => {
+  const names = artistCredit.names;
   const parts = [];
-  for (let i = 0; i < artistCredit.length; i++) {
-    const credit = artistCredit[i];
+  for (let i = 0; i < names.length; i++) {
+    const credit = names[i];
     if (props.plain) {
       parts.push(credit.name);
     } else {
