@@ -171,7 +171,7 @@ function expandCredit(fullName, artists, isProbablyClassical) {
     return splitMatches.value();
 }
 
-export default function (entity) {
+export default function guessFeat(entity) {
     var relatedArtists = _.result(entity, 'relatedArtists');
     var isProbablyClassical = _.result(entity, 'isProbablyClassical');
 
