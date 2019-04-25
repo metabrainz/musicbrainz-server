@@ -18,6 +18,7 @@ import {
   VIDEO_ATTRIBUTE_GID,
 } from '../common/constants';
 import {compare} from '../common/i18n';
+import expand2react from '../common/i18n/expand2react';
 import linkedEntities from '../common/linkedEntities';
 import MB from '../common/MB';
 import {hasSessionStorage} from '../common/utility/storage';
@@ -344,7 +345,7 @@ export class ExternalLink extends React.Component<LinkProps> {
 
     if (linkType && linkType.description) {
       typeDescription = exp.l('{description} ({url|more documentation})', {
-        description: l_relationships(linkType.description),
+        description: expand2react(l_relationships(linkType.description)),
         url: '/relationship/' + linkType.gid,
       });
     }
