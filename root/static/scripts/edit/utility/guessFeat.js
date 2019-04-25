@@ -171,7 +171,7 @@ function expandCredit(fullName, artists, isProbablyClassical) {
     return splitMatches.value();
 }
 
-export default function (entity) {
+export default function guessFeat(entity) {
     var relatedArtists = _.result(entity, 'relatedArtists');
     var isProbablyClassical = _.result(entity, 'isProbablyClassical');
 
@@ -191,6 +191,10 @@ export default function (entity) {
     entity.artistCredit(
         artistCreditFromArray(artistCredit.concat(match.artistCredit))
     );
+
+    entity.artistCreditEditorInst && entity.artistCreditEditorInst.setState({
+        artistCredit: entity.artistCredit.peek(),
+    });
 };
 
 // For use outside of the release editor.
