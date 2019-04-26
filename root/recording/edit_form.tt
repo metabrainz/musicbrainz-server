@@ -24,9 +24,16 @@
       [%- form_row_name_with_guesscase(r, { guessfeat => 1 }) -%]
       <div id="artist-credit-editor"></div>
       [%- form_row_text_long(r, 'comment', add_colon(l('Disambiguation'))) -%]
-      [%- IF !form.used_by_tracks || form.field('length').has_errors;
-            form_row_text_long(r, 'length', l('Length:'));
-          END -%]
+      [%- IF !form.used_by_tracks || form.field('length').has_errors -%]
+        [%- form_row_text_long(r, 'length', l('Length:')) -%]
+      [%- ELSE -%]
+        [% WRAPPER form_row %]
+          <label>[% l('Length:') %]</label>
+          [% l('{recording_length} ({length_info|derived} from the associated track lengths)',
+                recording_length => format_length(form.field('length').value),
+                length_info => doc_link('Recording') ) %]
+        [%- END -%]
+      [%- END -%]
       [%- form_row_checkbox(r, 'video', l('Video')) -%]
       [%- form_row_text_list(r, 'isrcs', l('ISRCs:'), l('ISRC')) -%]
     </fieldset>
