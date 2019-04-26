@@ -216,6 +216,7 @@ module.exports = {
   'components/LabelsList': require('../components/LabelsList'),
   'components/PlacesList': require('../components/PlacesList'),
   'components/Relationships': require('../components/Relationships'),
+  'components/SeriesList': require('../components/SeriesList'),
   'components/UserAccountTabs': require('../components/UserAccountTabs'),
   'edit/components/EditSidebar': require('../edit/components/EditSidebar'),
   'edit/components/EditSummary': require('../edit/components/EditSummary'),
