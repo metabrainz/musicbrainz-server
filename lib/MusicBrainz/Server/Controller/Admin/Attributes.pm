@@ -95,15 +95,15 @@ sub edit : Chained('attribute_base') Args(1) RequireAuth(account_admin) {
         Language => "Admin::Attributes::Language",
         Script => "Admin::Attributes::Script"
     );
-    print Dumper($attr);
-    print Dumper($id);
+
+    my $form_name = $forms{$model} // "Admin::Attributes";
+    my $form = $c->form( form => $form_name, init_object => $attr );
+
     $c->stash(
         current_view => 'Node',
         component_path => 'admin/attributes/Edit.js',
-        component_props => {attr => $attr, model => $model}
+        component_props => {model => $model, form => $form}
     );
-    my $form_name = $forms{$model} // "Admin::Attributes";
-    my $form = $c->form( form => $form_name, init_object => $attr );
 
     if ($c->form_posted && $form->process( params => $c->req->params )) {
         $c->model('MB')->with_transaction(sub {
