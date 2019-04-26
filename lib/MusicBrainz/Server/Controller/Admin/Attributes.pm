@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Controller::Admin::Attributes;
 use Moose;
+use Data::Dumper;
 
 no if $] >= 5.018, warnings => "experimental::smartmatch";
 
@@ -93,6 +94,13 @@ sub edit : Chained('attribute_base') Args(1) RequireAuth(account_admin) {
     my %forms = (
         Language => "Admin::Attributes::Language",
         Script => "Admin::Attributes::Script"
+    );
+    print Dumper($attr);
+    print Dumper($id);
+    $c->stash(
+        current_view => 'Node',
+        component_path => 'admin/attributes/Edit.js',
+        component_props => {attr => $attr, model => $model}
     );
     my $form_name = $forms{$model} // "Admin::Attributes";
     my $form = $c->form( form => $form_name, init_object => $attr );
