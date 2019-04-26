@@ -210,6 +210,7 @@ module.exports = {
   'artist/ArtistHeader': require('../artist/ArtistHeader'),
   'collection/CollectionHeader': require('../collection/CollectionHeader'),
   'components/Aliases': require('../components/Aliases'),
+  'components/AreasList': require('../components/AreasList'),
   'components/EventsList': require('../components/EventsList'),
   'components/ExpirationTime': require('../components/ExpirationTime'),
   'components/InstrumentsList': require('../components/InstrumentsList'),
