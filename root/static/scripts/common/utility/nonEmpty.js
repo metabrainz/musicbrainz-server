@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-function nonEmpty(value: mixed): boolean %checks {
+export default function nonEmpty(value: mixed): boolean %checks {
   return value !== null && value !== undefined && value !== '';
 }
-
-module.exports = nonEmpty;

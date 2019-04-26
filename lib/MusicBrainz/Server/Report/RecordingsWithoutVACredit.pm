@@ -4,6 +4,8 @@ use MusicBrainz::Server::Constants qw( $VARTIST_ID );
 
 with 'MusicBrainz::Server::Report::RecordingReport';
 
+sub component_name { 'RecordingsWithoutVaCredit' }
+
 sub query {
     "
         SELECT
@@ -13,10 +15,6 @@ sub query {
         JOIN artist_credit_name acn on acn.artist_credit = r.artist_credit
         WHERE acn.artist = $VARTIST_ID AND acn.name != 'Various Artists'
     ";
-}
-
-sub template {
-    return 'report/recordings_without_va_credit.tt';
 }
 
 __PACKAGE__->meta->make_immutable;

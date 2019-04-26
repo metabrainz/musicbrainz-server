@@ -1,17 +1,24 @@
-// This file is part of MusicBrainz, the open internet music database.
-// Copyright (C) 2015 MetaBrainz Foundation
-// Licensed under the GPL version 2, or (at your option) any later version:
-// http://www.gnu.org/licenses/gpl-2.0.txt
+/*
+ * @flow
+ * This file is part of MusicBrainz, the open internet music database.
+ * Copyright (C) 2015 MetaBrainz Foundation
+ * Licensed under the GPL version 2, or (at your option) any later version:
+ * http://www.gnu.org/licenses/gpl-2.0.txt
+ */
 
-const {trim} = require('lodash');
-const moment = require('moment');
+import moment from 'moment';
+import trim from 'lodash/trim';
 
-require('moment-strftime');
-require('moment-timezone');
+import 'moment-strftime';
+import 'moment-timezone';
 
-function formatUserDate(user, dateString, options) {
-  let preferences = user ? user.preferences : null;
-  let result = moment(dateString);
+function formatUserDate(
+  user: ?(CatalystUserT | SanitizedEditorT),
+  dateString: string,
+  options?: {dateOnly?: boolean},
+) {
+  const preferences = user ? user.preferences : null;
+  const result = moment(dateString, moment.defaultFormat, true);
   let format = '%Y-%m-%d %H:%M %Z';
 
   if (preferences) {
@@ -30,4 +37,4 @@ function formatUserDate(user, dateString, options) {
   return result.strftime(format);
 }
 
-module.exports = formatUserDate;
+export default formatUserDate;

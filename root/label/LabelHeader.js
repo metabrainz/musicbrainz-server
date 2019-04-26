@@ -7,9 +7,9 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-const React = require('react');
-const {l} = require('../static/scripts/common/i18n');
-const EntityHeader = require('../components/EntityHeader');
+import React from 'react';
+
+import EntityHeader from '../components/EntityHeader';
 
 type Props = {|
   +label: LabelT,
@@ -25,4 +25,4 @@ const LabelHeader = ({label, page}: Props) => (
   />
 );
 
-module.exports = LabelHeader;
+export default LabelHeader;

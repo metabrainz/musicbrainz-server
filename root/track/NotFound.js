@@ -10,12 +10,11 @@
 import React from 'react';
 
 import NotFound from '../components/NotFound';
-import {l} from '../static/scripts/common/i18n';
 
 const TrackNotFound = () => (
   <NotFound title={l('Track Not Found')}>
     <p>
-      {l('Sorry, we could find neither a recording nor a track with that MusicBrainz ID. You may wish to try and {search_url|search for it} instead.',
+      {exp.l('Sorry, we could find neither a recording nor a track with that MusicBrainz ID. You may wish to try and {search_url|search for it} instead.',
         {search_url: '/search'})}
     </p>
   </NotFound>

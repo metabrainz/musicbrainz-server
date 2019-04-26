@@ -1,4 +1,4 @@
-[%~ WRAPPER "layout.tt" title=title ? area.l_name _ " - ${title}" : area.l_name canonical_url=replace_gid(entity.gid) ~%]
+[%~ WRAPPER "layout.tt" title=title ? area.l_name _ " - ${title}" : area.l_name ~%]
     <div id="content">
         [%~ React.embed(c, 'area/AreaHeader', { area => area, page => page }) ~%]
         [%~ content ~%]

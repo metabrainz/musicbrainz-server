@@ -1,3 +1,0 @@
-[%- WRAPPER "area/layout.tt" title=l('Aliases') page='aliases' -%]
-    [%~ React.embed(c, 'components/Aliases', { aliases => aliases, entity => area, allowEditing => c.user_exists ? c.user.is_location_editor : 0}) ~%]
-[%- END -%]

@@ -498,7 +498,7 @@ test all => sub {
     ]));
 
     my $test_results = decode_json(
-        `node ./root/static/scripts/tests/react-macros.js $test_data`
+        `node ./root/static/build/react-macros-tests.js $test_data`
     );
 
     for (@$test_results) {

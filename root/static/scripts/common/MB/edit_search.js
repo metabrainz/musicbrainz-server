@@ -1,3 +1,7 @@
+import $ from 'jquery';
+
+import MB from '../MB';
+
 $(function () {
 
     var cardinalityMap = {

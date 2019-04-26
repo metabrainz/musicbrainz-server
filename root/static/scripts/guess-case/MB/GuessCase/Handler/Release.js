@@ -19,7 +19,10 @@
 
 */
 
-const flags = require('../../../flags');
+import _ from 'lodash';
+
+import MB from '../../../../common/MB';
+import * as flags from '../../../flags';
 
 MB.GuessCase = (MB.GuessCase) ? MB.GuessCase : {};
 MB.GuessCase.Handler = (MB.GuessCase.Handler) ? MB.GuessCase.Handler : {};
@@ -79,6 +82,11 @@ MB.GuessCase.Handler.Release = function (gc) {
         flags.context.number = false;
         return null;
     };
+
+    /**
+     * Guesses the sortname for releases (for aliases)
+     **/
+    self.guessSortName = self.moveArticleToEnd;
 
     return self;
 };

@@ -4,6 +4,8 @@ use MusicBrainz::Server::Constants qw( $VARTIST_ID );
 
 with 'MusicBrainz::Server::Report::RecordingReport';
 
+sub component_name { 'RecordingsWithoutVaLink' }
+
 sub query {
     "
         SELECT
@@ -15,10 +17,6 @@ sub query {
         WHERE acn.name = 'Various Artists'
           AND a.name != 'Various Artists'
     ";
-}
-
-sub template {
-    return 'report/recordings_without_va_link.tt';
 }
 
 __PACKAGE__->meta->make_immutable;

@@ -90,8 +90,8 @@ role {
             %{ $self->$orig },
             $name       => $self->$name,
             gid         => $self->gid,
-            parentID    => $self->parent_id,
-            childOrder  => +$self->child_order,
+            parent_id   => $self->parent_id,
+            child_order => +$self->child_order,
             description => $self->description,
         };
     };

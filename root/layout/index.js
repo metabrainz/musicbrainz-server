@@ -9,15 +9,13 @@ import React from 'react';
 
 import {withCatalystContext} from '../context';
 import getRequestCookie from '../utility/getRequestCookie';
+import {RT_SLAVE} from '../static/scripts/common/constants';
+import * as DBDefs from '../static/scripts/common/DBDefs';
 
 import Footer from './components/Footer';
 import Header from './components/Header';
-
-const Head = require('./components/Head');
-const MergeHelper = require('./components/MergeHelper');
-const {RT_SLAVE} = require('../static/scripts/common/constants');
-const DBDefs = require('../static/scripts/common/DBDefs');
-const {l} = require('../static/scripts/common/i18n');
+import Head from './components/Head';
+import MergeHelper from './components/MergeHelper';
 
 const DismissBannerButton = ({bannerName}) => (
   <button
@@ -26,6 +24,25 @@ const DismissBannerButton = ({bannerName}) => (
     type="button"
   />
 );
+
+const BirthdayCakes = () => (
+  <span aria-label={l('Birthday cakes')} role="img">
+    {String.fromCodePoint(0x1F382)}
+    {String.fromCodePoint(0x1F382)}
+    {String.fromCodePoint(0x1F382)}
+  </span>
+);
+
+function showBirthdayBanner($c) {
+  const birthDate = $c.user ? $c.user.birth_date : null;
+  if (!birthDate) {
+    return false;
+  }
+  const now = new Date();
+  return (birthDate.month === now.getMonth() + 1 &&
+          birthDate.day === now.getDate() &&
+          !getRequestCookie($c.req, 'birthday_message_dismissed_mtime'));
+}
 
 const ServerDetailsBanner = () => {
   if (DBDefs.DB_STAGING_SERVER) {
@@ -42,7 +59,7 @@ const ServerDetailsBanner = () => {
         <p>
           {description}
           {' '}
-          {l('{uri|Return to musicbrainz.org}.',
+          {exp.l('{uri|Return to musicbrainz.org}.',
             {
               uri: '//musicbrainz.org' + (DBDefs.BETA_REDIRECT_HOSTNAME === 'musicbrainz.org' ? '?unset_beta=1' : ''),
             })}
@@ -56,7 +73,7 @@ const ServerDetailsBanner = () => {
     return (
       <div className="banner server-details">
         <p>
-          {l('This is a MusicBrainz mirror server. To edit or make changes to the data, please {uri|return to musicbrainz.org}.',
+          {exp.l('This is a MusicBrainz mirror server. To edit or make changes to the data, please {uri|return to musicbrainz.org}.',
             {uri: '//musicbrainz.org'})}
         </p>
         <DismissBannerButton bannerName="server_details" />
@@ -89,12 +106,24 @@ const Layout = ({$c, ...props}) => (
           </p>
         </div>}
 
+      {showBirthdayBanner($c) &&
+        <div className="banner birthday-message">
+          <p>
+            <BirthdayCakes />
+            {' '}
+            {l('Happy birthday, and thanks for contributing to MusicBrainz!')}
+            {' '}
+            <BirthdayCakes />
+          </p>
+          <DismissBannerButton bannerName="birthday_message" />
+        </div>}
+
       {!!($c.stash.new_edit_notes &&
           $c.stash.new_edit_notes_mtime > getRequestCookie($c.req, 'new_edit_notes_dismissed_mtime', 0) &&
           ($c.user.is_limited || getRequestCookie($c.req, 'alert_new_edit_notes', 'true') !== 'false')) &&
           <div className="banner new-edit-notes">
             <p>
-              {l('{link|New notes} have been left on some of your edits. Please make sure to read them and respond if necessary.',
+              {exp.l('{link|New notes} have been left on some of your edits. Please make sure to read them and respond if necessary.',
                 {link: '/edit/notes-received'})}
             </p>
             <DismissBannerButton bannerName="new_edit_notes" />
@@ -115,11 +144,11 @@ const Layout = ({$c, ...props}) => (
         <div style={{clear: 'both'}} />
       </div>
 
-      {($c.session.merger && !$c.stash.hide_merge_helper) && <MergeHelper />}
+      {($c.session && $c.session.merger && !$c.stash.hide_merge_helper) && <MergeHelper />}
 
       <Footer {...props} />
     </body>
   </html>
 );
 
-module.exports = withCatalystContext(Layout);
+export default withCatalystContext(Layout);

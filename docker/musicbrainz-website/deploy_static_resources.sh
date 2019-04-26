@@ -13,7 +13,7 @@ _compile_static_resources() {
 
     pushd "$MBS_ROOT" > /dev/null
     HOME="$MBS_HOME" MBS_STATIC_BUILD_DIR="$TMP_BUILD_DIR" \
-        eval 'chpst -u musicbrainz:musicbrainz carton exec -- ./script/compile_resources.sh &'
+        eval 'chpst -u musicbrainz:musicbrainz carton exec -- ./script/compile_resources.sh client &'
     trap_jobs
     popd > /dev/null
 }
@@ -28,13 +28,15 @@ _deploy_static_resources() {
 
     # -n will not clobber existing files, preserving their mtimes and allowing
     # us to avoid recompressing files that haven't changed (zopfli is slow).
-    cp -Rn $TMP_BUILD_DIR/* $BUILD_DIR/
+    # -a will preserve ownership to the musicbrainz user.
+    cp -Rna $TMP_BUILD_DIR/* $BUILD_DIR/
 
     # These files are not versioned with any hash, so must always be copied in
     # case they changed.
-    cp $MBS_ROOT/root/{favicon.ico,robots.txt.*} $BUILD_DIR/
+    cp -a $MBS_ROOT/root/{favicon.ico,robots.txt.*} $BUILD_DIR/
 
-    find $BUILD_DIR -type f -newermt '-10 seconds' -not -name '*.gz' | xargs zopfli -v &
+    find $BUILD_DIR -type f -newermt '-10 seconds' -not -name '*.gz' | \
+        chpst -u musicbrainz:musicbrainz xargs zopfli -v &
     trap_jobs
 
     # copy resources into the staticbrainz data volume
@@ -43,14 +45,14 @@ _deploy_static_resources() {
         rsync-staticbrainz-mb \
         "$BUILD_DIR/" \
         ./ \
-        '--recursive' \
+        '--exclude "server*" --recursive' \
         &
     trap_jobs
     popd > /dev/null
 
     # We can copy the new rev-manifest.json only after the files it references
     # have been rsynced.
-    cp $TMP_BUILD_DIR/rev-manifest.json $BUILD_DIR/
+    cp -a $TMP_BUILD_DIR/rev-manifest.json $BUILD_DIR/
 
     rm -rf "$TMP_BUILD_DIR"
 }

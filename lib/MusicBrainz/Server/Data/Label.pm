@@ -9,6 +9,7 @@ use MusicBrainz::Server::Entity::Label;
 use MusicBrainz::Server::Entity::PartialDate;
 use MusicBrainz::Server::Data::Utils qw(
     add_partial_date_to_row
+    get_area_containment_query
     hash_to_row
     load_subobjects
     merge_table_attributes
@@ -87,29 +88,21 @@ sub find_by_subscribed_editor
 
 sub find_by_area {
     my ($self, $area_id, $limit, $offset) = @_;
+    my (
+        $containment_query,
+        @containment_query_args,
+    ) = get_area_containment_query('$2', 'area');
     my $query = "SELECT " . $self->_columns . "
                  FROM " . $self->_table . "
-                    JOIN area ON label.area = area.id
-                 WHERE area.id = ?
-                 ORDER BY musicbrainz_collate(label.name), label.id";
-    $self->query_to_list_limited($query, [$area_id], $limit, $offset);
-}
-
-sub find_by_artist
-{
-    my ($self, $artist_id) = @_;
-    my $query = "SELECT " . $self->_columns . "
-                 FROM " . $self->_table . "
-                 WHERE label.id IN (
-                         SELECT rl.label
-                         FROM release_label rl
-                         JOIN release ON rl.release = release.id
-                         JOIN artist_credit_name acn ON acn.artist_credit = release.artist_credit
-                         WHERE acn.artist = ?
+                 WHERE area = \$1 OR EXISTS (
+                    SELECT 1 FROM ($containment_query) ac
+                     WHERE ac.descendant = area AND ac.parent = \$1
                  )
-                 ORDER BY label.id";
-
-    $self->query_to_list($query, [$artist_id]);
+                 ORDER BY musicbrainz_collate(label.name), label.id";
+    $self->query_to_list_limited(
+        $query, [$area_id, @containment_query_args], $limit, $offset, undef,
+        dollar_placeholders => 1,
+    );
 }
 
 sub find_by_release
@@ -133,6 +126,9 @@ sub _order_by {
         },
         "code" => sub {
             return "label_code, musicbrainz_collate(name)"
+        },
+        "area" => sub {
+            return "area, musicbrainz_collate(name)"
         },
         "begin_date" => sub {
             return "begin_date_year, begin_date_month, begin_date_day, musicbrainz_collate(name)"

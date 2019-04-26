@@ -120,7 +120,7 @@ sub get_by_ids
 sub _load
 {
     my ($self, $type, $target_types, $use_cardinality, @objs) = @_;
-    my @target_types = @$target_types;
+    my @target_types = uniq @$target_types;
     my @types = map { [ sort($type, $_) ] } @target_types;
     my @rels;
     foreach my $t (@types) {
@@ -135,14 +135,22 @@ sub _load
         my (@cond, @params, $target, $target_id, $source_id, $query);
 
         if ($type eq $type0) {
-            push @cond, "entity0 IN (" . placeholders(@ids) . ")";
+            my $condstring = "entity0 IN (" . placeholders(@ids) . ")";
+            if ($use_cardinality) {
+                $condstring = "($condstring AND entity0_cardinality = 0)";
+            }
+            push @cond, $condstring;
             push @params, @ids;
             $target = $type1;
             $target_id = 'entity1';
             $source_id = 'entity0';
         }
         if ($type eq $type1) {
-            push @cond, "entity1 IN (" . placeholders(@ids) . ")";
+            my $condstring = "entity1 IN (" . placeholders(@ids) . ")";
+            if ($use_cardinality) {
+                $condstring = "($condstring AND entity1_cardinality = 0)";
+            }
+            push @cond, $condstring;
             push @params, @ids;
             $target = $type0;
             $target_id = 'entity0';
@@ -151,8 +159,7 @@ sub _load
 
         # If the source and target types are the same, two possible conditions
         # will have been added above, so join them with an OR.
-        @cond = ("(" . join(" OR ", @cond) . ")");
-        push @cond, "${source_id}_cardinality = 0" if $use_cardinality;
+        @cond = join(" OR ", @cond);
 
         my $select = "l_${type0}_${type1}.* FROM l_${type0}_${type1}
                       JOIN link l ON link = l.id
@@ -258,7 +265,9 @@ sub _load_subset {
     }
 
     $self->c->model('Link')->load(@rels);
-    $self->c->model('LinkType')->load(map { $_->link } @rels);
+    my @links = map { $_->link } @rels;
+    $self->c->model('LinkType')->load(@links);
+    $self->c->model('LinkAttributeType')->load(map { $_->type->all_attributes } @links);
     $self->load_entities(@rels);
 
     return @rels;

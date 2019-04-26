@@ -3,7 +3,7 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-const React = require('react');
+import React from 'react';
 
 class RemoveButton extends React.Component {
   render() {
@@ -18,4 +18,4 @@ class RemoveButton extends React.Component {
   }
 }
 
-module.exports = RemoveButton;
+export default RemoveButton;

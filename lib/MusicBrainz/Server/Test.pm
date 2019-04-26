@@ -24,7 +24,6 @@ use Sql;
 use Test::Builder;
 use Test::Deep qw( cmp_deeply );
 use Test::Differences;
-use Test::JSON import => [qw( is_valid_json )];
 use Test::WWW::Mechanize::Catalyst;
 use Test::XML::SemanticCompare;
 use Test::XPath;
@@ -321,8 +320,6 @@ sub schema_validator
 
         $message ||= "Validate against schema";
 
-        xml_ok($xml, "$message (xml_ok)");
-
       SKIP: {
 
           skip "schema not found", 1 unless $rngschema;
@@ -362,7 +359,7 @@ sub _build_ws_test_xml {
                 $Test->plan(tests => 2);
                 is($mech->res->code, $opts->{response_code});
             } else {
-                $Test->plan(tests => 4);
+                $Test->plan(tests => 3);
                 ok($mech->success);
                 # only do this on success, there's no schema for error messages
                 $validator->($mech->content, 'validating');
@@ -392,7 +389,7 @@ sub _build_ws_test_json {
                 $mech->clear_credentials;
             }
 
-            $Test->plan(tests => 3);
+            $Test->plan(tests => 2);
 
             $mech->get($end_point . $url, 'fetching');
             if ($opts->{response_code}) {
@@ -400,8 +397,6 @@ sub _build_ws_test_json {
             } else {
                 ok($mech->success);
             }
-
-            is_valid_json($mech->content, "validating (is_valid_json)");
 
             cmp_deeply(decode_json($mech->content), $expected);
         });
@@ -483,7 +478,6 @@ sub page_test_jsonld {
     my $tx = test_xpath_html($mech->content);
     my $jsonld = encode('UTF-8', $tx->find_value('//script[@type="application/ld+json"]'));
 
-    is_valid_json($jsonld, 'has valid JSON-LD');
     cmp_deeply(decode_json($jsonld), $expected, 'has expected JSON-LD');
 }
 

@@ -3,16 +3,22 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-const i18n = require('../common/i18n');
-const releaseEditor = require('./viewModel');
-const utils = require('./utils');
+import $ from 'jquery';
+import ko from 'knockout';
+import _ from 'lodash';
 
-const validation = exports;
+import expand2text from '../common/i18n/expand2text';
+import {errorsExist} from '../edit/validation';
+
+import utils from './utils';
+import releaseEditor from './viewModel';
+
+const validation = {};
 
 releaseEditor.validation = validation;
 
 // Allow for access in ko templates
-validation.errorsExist = require('../edit/validation').errorsExist;
+validation.errorsExist = errorsExist;
 
 function markTabWithErrors($panel) {
     // Don't mark the edit note tab, because it's the last one and only
@@ -122,40 +128,40 @@ utils.withRelease(function (release) {
         return;
     }
 
-    var checkDigitText = i18n.N_l("The check digit is {checkdigit}.");
-    var doubleCheckText = i18n.l("Please double-check the barcode on the release.");
+    var checkDigitText = l("The check digit is {checkdigit}.");
+    var doubleCheckText = l("Please double-check the barcode on the release.");
 
     if (barcode.length === 11) {
         field.error(
-            i18n.l("The barcode you entered looks like a UPC code with the check digit missing.") +
+            l("The barcode you entered looks like a UPC code with the check digit missing.") +
             " " +
-            i18n.l(checkDigitText, { checkdigit: field.checkDigit("0" + barcode) })
+            expand2text(checkDigitText, { checkdigit: field.checkDigit("0" + barcode) })
         );
     } else if (barcode.length === 12) {
         if (field.validateCheckDigit("0" + barcode)) {
-            field.message(i18n.l("The barcode you entered is a valid UPC code."));
+            field.message(l("The barcode you entered is a valid UPC code."));
         } else {
             field.error(
-                i18n.l("The barcode you entered is either an invalid UPC code, or an EAN code with the check digit missing.") +
+                l("The barcode you entered is either an invalid UPC code, or an EAN code with the check digit missing.") +
                 " " +
                 doubleCheckText +
                 " " +
-                i18n.l(checkDigitText, { checkdigit: field.checkDigit(barcode) })
+                expand2text(checkDigitText, { checkdigit: field.checkDigit(barcode) })
             );
         }
     } else if (barcode.length === 13) {
         if (field.validateCheckDigit(barcode)) {
-            field.message(i18n.l("The barcode you entered is a valid EAN code."));
+            field.message(l("The barcode you entered is a valid EAN code."));
         } else {
             field.error(
-                i18n.l("The barcode you entered is not a valid EAN code.") +
+                l("The barcode you entered is not a valid EAN code.") +
                 " " +
                 doubleCheckText
             );
         }
     } else {
         field.error(
-            i18n.l("The barcode you entered is not a valid UPC or EAN code.") +
+            l("The barcode you entered is not a valid UPC or EAN code.") +
             " " +
             doubleCheckText
         );

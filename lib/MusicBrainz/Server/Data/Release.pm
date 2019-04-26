@@ -662,13 +662,13 @@ sub _order_by {
             return "catnos, musicbrainz_collate(name)";
         },
         "format" => sub {
-            $extra_join = "JOIN medium ON medium.release = release.id
+            $extra_join = "LEFT JOIN medium ON medium.release = release.id
                            LEFT JOIN medium_format ON medium.format = medium_format.id";
             $also_select = "medium_format.name AS medium_format_name";
             return "medium_format_name, musicbrainz_collate(name)";
         },
         "tracks" => sub {
-            $extra_join = "JOIN
+            $extra_join = "LEFT JOIN
                 (SELECT medium.release, sum(track_count) AS total_track_count
                     FROM medium
                     GROUP BY medium.release) medium

@@ -3,6 +3,7 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
+/* eslint-disable import/no-commonjs */
 
 // Buffer.from apparently exists in some Nodes <= 4.5.0, but is broken,
 // throwing "this is not a typed array" if you pass it a string.

@@ -7,11 +7,11 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-const React = require('react');
-const {l} = require('../static/scripts/common/i18n');
-const EntityHeader = require('../components/EntityHeader');
-const ArtistCreditLink = require('../static/scripts/common/components/ArtistCreditLink');
-const {artistCreditFromArray} = require('../static/scripts/common/immutable-entities');
+import React from 'react';
+
+import EntityHeader from '../components/EntityHeader';
+import ArtistCreditLink from '../static/scripts/common/components/ArtistCreditLink';
+import {artistCreditFromArray} from '../static/scripts/common/immutable-entities';
 
 type Props = {|
   page: string,
@@ -29,11 +29,11 @@ const ReleaseGroupHeader = ({releaseGroup, page}: Props) => {
       entity={releaseGroup}
       headerClass="rgheader"
       page={page}
-      subHeading={l('Release group by {artist}', {
+      subHeading={exp.l('Release group by {artist}', {
         artist: artistCredit,
       })}
     />
   );
 };
 
-module.exports = ReleaseGroupHeader;
+export default ReleaseGroupHeader;

@@ -1,4 +1,4 @@
-[%~ WRAPPER "layout.tt" title=title ? event.name _ " - ${title}" : event.name canonical_url=replace_gid(entity.gid) ~%]
+[%~ WRAPPER "layout.tt" title=title ? event.name _ " - ${title}" : event.name ~%]
     <div id="content">
         [%~ React.embed(c, 'event/EventHeader', { event => event, page => page }) ~%]
         [%~ content ~%]

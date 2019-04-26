@@ -31,7 +31,11 @@ my @models = qw(
 sub index : Path('/admin/attributes') Args(0) RequireAuth(account_admin) {
     my ($self, $c) = @_;
 
-    $c->stash->{models} = \@models;
+    $c->stash(
+        current_view => 'Node',
+        component_path => 'admin/attributes/Index.js',
+        component_props => {models => \@models}
+    );
 }
 
 sub attribute_base : Chained('/') PathPart('admin/attributes') CaptureArgs(1) RequireAuth(account_admin) {
@@ -47,15 +51,16 @@ sub attribute_index : Chained('attribute_base') PathPart('') RequireAuth(account
     my $model = $c->stash->{model};
     my @attr = $c->model($model)->get_all();
 
-    my %templates = (
-        Language => "admin/attributes/language.tt",
-        Script => "admin/attributes/script.tt"
+    my %component_paths = (
+        Language => "admin/attributes/Language.js",
+        Script => "admin/attributes/Script.js"
     );
-    my $template = $templates{$model} // "admin/attributes/index.tt";
+    my $component_path = $component_paths{$model} // "admin/attributes/Attribute.js";
 
     $c->stash(
-        template => $template,
-        attributes => \@attr,
+        current_view => 'Node',
+        component_path => $component_path,
+        component_props => {attributes => \@attr, model => $model}
     );
 }
 

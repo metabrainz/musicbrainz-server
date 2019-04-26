@@ -1,7 +1,6 @@
 package MusicBrainz::Server::Entity::Series;
 
 use Moose;
-use MusicBrainz::Server::Constants qw( %PART_OF_SERIES );
 use MusicBrainz::Server::Entity::Types;
 
 no if $] >= 5.018, warnings => "experimental::smartmatch";
@@ -25,23 +24,6 @@ has ordering_type => (
     is => 'rw',
     isa => 'SeriesOrderingType'
 );
-
-sub display_relationships {
-    my ($self) = @_;
-
-    my %groups;
-    my @relationships = sort { $a <=> $b } grep {
-        !($_->link->type->gid ~~ [values %PART_OF_SERIES]);
-    } $self->all_relationships;
-
-    for my $relationship (@relationships) {
-        $groups{ $relationship->target_type } ||= {};
-        $groups{ $relationship->target_type }{ $relationship->phrase } ||= [];
-        push @{ $groups{ $relationship->target_type }{ $relationship->phrase} }, $relationship;
-    }
-
-    return \%groups;
-}
 
 around TO_JSON => sub {
     my ($orig, $self) = @_;

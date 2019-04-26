@@ -67,9 +67,9 @@ test all => sub {
     $redis->set("int", 23);
     is($redis->get("int"), 23, "retrieved expected integer");
 
-    $redis->expire_at("int", time() + 1);
+    $redis->expire_at("int", time() + 2);
     ok($redis->exists("int"), "int still exists");
-    sleep(1);
+    sleep(2);
     ok(!$redis->exists("int"), "int no longer exists");
 };
 

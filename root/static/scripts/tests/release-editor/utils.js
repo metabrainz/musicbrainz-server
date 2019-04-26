@@ -3,9 +3,9 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-const test = require('tape');
+import test from 'tape';
 
-const {unformatTrackLength, calculateDiscID} = require('../../release-editor/utils');
+import {unformatTrackLength, calculateDiscID} from '../../release-editor/utils';
 
 test('unformatTrackLength', function (t) {
     t.plan(7);

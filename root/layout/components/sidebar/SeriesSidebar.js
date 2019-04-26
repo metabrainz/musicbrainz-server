@@ -11,8 +11,7 @@ import * as React from 'react';
 
 import {withCatalystContext} from '../../../context';
 import CommonsImage from '../../../static/scripts/common/components/CommonsImage';
-import {addColon, l} from '../../../static/scripts/common/i18n';
-import {l_attributes} from '../../../static/scripts/common/i18n/attributes';
+import linkedEntities from '../../../static/scripts/common/linkedEntities';
 import ExternalLinks from '../ExternalLinks';
 
 import AnnotationLinks from './AnnotationLinks';
@@ -37,8 +36,8 @@ const SeriesSidebar = ({$c, series}: Props) => {
   return (
     <div id="sidebar">
       <CommonsImage
+        cachedImage={$c.stash.commons_image}
         entity={series}
-        image={$c.stash.commons_image}
       />
 
       <h2 className="series-information">
@@ -48,10 +47,9 @@ const SeriesSidebar = ({$c, series}: Props) => {
       <SidebarProperties>
         <SidebarType entity={series} typeType="series_type" />
 
-        <SidebarProperty className="series-code" label={addColon(l('Ordering Type'))}>
+        <SidebarProperty className="series-code" label={addColonText(l('Ordering Type'))}>
           {l_attributes(
-            $c.linked_entities
-              .series_ordering_type[series.orderingTypeID].name,
+            linkedEntities.series_ordering_type[series.orderingTypeID].name,
           )}
         </SidebarProperty>
       </SidebarProperties>

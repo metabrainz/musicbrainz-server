@@ -20,6 +20,8 @@ our @EXPORT_OK = qw(
     serializer
 );
 
+our $hide_aliases = 0;
+our $hide_tags_and_genres = 0;
 our $force_ratings = 0;
 
 my %serializers =
@@ -148,6 +150,8 @@ sub count_of
 sub serialize_aliases {
     my ($into, $entity, $inc, $stash) = @_;
 
+    return if $hide_aliases;
+
     return unless defined $inc && $inc->aliases;
 
     my $opts = $stash->store($entity);
@@ -171,9 +175,9 @@ sub serialize_aliases {
 }
 
 sub serialize_annotation {
-    my ($into, $entity, $inc) = @_;
+    my ($into, $entity, $inc, $stash, $toplevel) = @_;
 
-    return unless defined $inc && $inc->annotation;
+    return unless $toplevel && defined $inc && $inc->annotation;
 
     my $annotation = $entity->latest_annotation;
     $into->{annotation} = defined $annotation ?
@@ -249,6 +253,8 @@ sub serialize_relationships {
          $inc->has_rels &&
          $entity->has_loaded_relationships);
 
+    local $hide_tags_and_genres = 1;
+
     my @relationships =
         map { serialize_entity($_, $inc, $stash) }
         sort_by {
@@ -265,10 +271,20 @@ sub serialize_relationships {
 sub serialize_tags {
     my ($into, $entity, $inc, $stash, $toplevel) = @_;
 
+    return if $hide_tags_and_genres;
+
     return unless
-        ($toplevel &&
-         defined $inc &&
+        (defined $inc &&
          ($inc->tags || $inc->user_tags || $inc->genres || $inc->user_genres));
+
+    if ($entity->isa('MusicBrainz::Server::Entity::Artist')) {
+        if (my $release_ac = $stash->{release_artist_credit}) {
+            return if (grep { $_->artist_id == $entity->id } $release_ac->all_names);
+        }
+        if (my $track_ac = $stash->{track_artist_credit}) {
+            return if (grep { $_->artist_id == $entity->id } $track_ac->all_names);
+        }
+    }
 
     my $opts = $stash->store($entity);
 

@@ -5,10 +5,11 @@
  * http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-const React = require('react');
+import React from 'react';
 
-const EntityLink = require('./EntityLink');
-const commaOnlyList = require('../../common/i18n/commaOnlyList');
+import commaOnlyList from '../../common/i18n/commaOnlyList';
+
+import EntityLink from './EntityLink';
 
 const makeContainmentLink = (x, i) => (
   <EntityLink entity={x} key={i + 1} />
@@ -18,8 +19,8 @@ const AreaWithContainmentLink = ({area, ...props}) => {
   const areaLink = <EntityLink entity={area} key={0} {...props} />;
 
   return area.containment ? commaOnlyList(
-    [areaLink].concat(area.containment.map(makeContainmentLink))
+    [areaLink].concat(area.containment.map(makeContainmentLink)),
   ) : areaLink;
 };
 
-module.exports = AreaWithContainmentLink;
+export default AreaWithContainmentLink;

@@ -2,6 +2,7 @@ package MusicBrainz::Server::Edit::Artist::Create;
 use Moose;
 
 use MusicBrainz::Server::Constants qw( $EDIT_ARTIST_CREATE );
+use MusicBrainz::Server::Data::Utils qw( boolean_to_json );
 use MusicBrainz::Server::Edit::Types qw( Nullable PartialDateHash );
 use MusicBrainz::Server::Translation qw( N_l );
 use aliased 'MusicBrainz::Server::Entity::PartialDate';
@@ -82,8 +83,8 @@ sub build_display_data
 
     return {
         ( map { $_ => $self->data->{$_} // '' } qw( name sort_name comment ) ),
-        type       => $type ? $loaded->{ArtistType}->{$type} : '',
-        gender     => $gender ? $loaded->{Gender}->{$gender} : '',
+        type       => $type ? $loaded->{ArtistType}->{$type} : undef,
+        gender     => $gender ? $loaded->{Gender}->{$gender} : undef,
         ( map { $_ => $self->data->{$_ . '_id'} && ($loaded->{Area}->{$self->data->{$_ . '_id'}} // Area->new()) } qw( area begin_area end_area ) ),
         begin_date => PartialDate->new($self->data->{begin_date}),
         end_date   => PartialDate->new($self->data->{end_date}),
@@ -91,7 +92,7 @@ sub build_display_data
             Artist->new( name => $self->data->{name} ),
         ipi_codes  => $self->data->{ipi_codes},
         isni_codes   => $self->data->{isni_codes},
-        ended      => $self->data->{ended} // 0
+        ended      => boolean_to_json($self->data->{ended})
     };
 }
 
@@ -113,6 +114,8 @@ sub restore {
 
     $self->data($data);
 }
+
+sub edit_template_react { 'AddArtist' };
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

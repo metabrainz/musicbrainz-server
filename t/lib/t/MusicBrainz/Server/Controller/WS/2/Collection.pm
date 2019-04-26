@@ -13,8 +13,6 @@ use MusicBrainz::Server::Test::WS qw(
 with 't::Mechanize', 't::Context';
 
 use utf8;
-use XML::SemanticDiff;
-use MusicBrainz::Server::Test qw( xml_ok schema_validator );
 
 test "collection lookup" => sub {
     my $test = shift;

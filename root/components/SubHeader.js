@@ -7,12 +7,14 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-const React = require('react');
+import * as React from 'react';
 
-const SubHeader = ({subHeading}: {subHeading: string}) => (
+const SubHeader = ({subHeading}: {subHeading: React.Node}) => (
   <p className="subheader">
-    <span className="prefix">{'~'}</span>{' '}{subHeading}
+    <span className="prefix">{'~'}</span>
+    {' '}
+    {subHeading}
   </p>
 );
 
-module.exports = SubHeader;
+export default SubHeader;

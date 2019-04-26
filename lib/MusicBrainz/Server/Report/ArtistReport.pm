@@ -7,10 +7,10 @@ around inflate_rows => sub {
     my $orig = shift;
     my $self = shift;
 
-    my $rows = $self->$orig(@_);
+    my $items = $self->$orig(@_);
 
     my $artists = $self->c->model('Artist')->get_by_ids(
-        map { $_->{artist_id} } @$rows
+        map { $_->{artist_id} } @$items
     );
 
     $self->c->model('ArtistType')->load(values %$artists);
@@ -19,8 +19,7 @@ around inflate_rows => sub {
         map +{
             %$_,
             artist => $artists->{ $_->{artist_id} },
-        },
-            @$rows
+        }, @$items
     ];
 };
 

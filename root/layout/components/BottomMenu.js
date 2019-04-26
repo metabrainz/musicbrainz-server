@@ -12,7 +12,6 @@ import React from 'react';
 
 import {withCatalystContext} from '../../context';
 import {VARTIST_GID} from '../../static/scripts/common/constants';
-import {l, lp} from '../../static/scripts/common/i18n';
 
 function languageName(language, selected) {
   if (!language) {
@@ -49,18 +48,18 @@ const LanguageLink = ({language}: {|+language: ServerLanguageT|}) => (
 );
 
 type LanguageMenuProps = {|
-  +currentLanguage: string,
+  +currentBCP47Language: string,
   +serverLanguages: $ReadOnlyArray<ServerLanguageT>,
 |};
 
 const LanguageMenu = ({
-  currentLanguage,
+  currentBCP47Language,
   serverLanguages,
 }: LanguageMenuProps) => (
   <li className="language-selector" tabIndex="-1">
     <span className="menu-header">
       {languageName(
-        _.find(serverLanguages, x => x.name === currentLanguage),
+        _.find(serverLanguages, x => x.name === currentBCP47Language),
         true,
       )}
     </span>
@@ -68,7 +67,7 @@ const LanguageMenu = ({
       {serverLanguages.map(function (language, index) {
         let inner = <LanguageLink language={language} />;
 
-        if (language.name === currentLanguage) {
+        if (language.name === currentBCP47Language) {
           inner = <strong>{inner}</strong>;
         }
 
@@ -90,7 +89,10 @@ const LanguageMenu = ({
 
 const AboutMenu = () => (
   <li className="about" tabIndex="-1">
-    <span className="menu-header">{l('About Us')}{'\xA0\u25BE'}</span>
+    <span className="menu-header">
+      {l('About Us')}
+      {'\xA0\u25BE'}
+    </span>
     <ul>
       <li>
         <a href="/doc/About">{l('About MusicBrainz')}</a>
@@ -140,7 +142,10 @@ const AboutMenu = () => (
 
 const ProductsMenu = () => (
   <li className="products" tabIndex="-1">
-    <span className="menu-header">{l('Products')}{'\xA0\u25BE'}</span>
+    <span className="menu-header">
+      {l('Products')}
+      {'\xA0\u25BE'}
+    </span>
     <ul>
       <li>
         <a href="//picard.musicbrainz.org">{l('MusicBrainz Picard')}</a>
@@ -178,7 +183,10 @@ const ProductsMenu = () => (
 
 const SearchMenu = withCatalystContext(({$c}: {+$c: CatalystContextT}) => (
   <li className="search" tabIndex="-1">
-    <span className="menu-header">{l('Search')}{'\xA0\u25BE'}</span>
+    <span className="menu-header">
+      {l('Search')}
+      {'\xA0\u25BE'}
+    </span>
     <ul>
       <li>
         <a href="/search">{l('Search Entities')}</a>
@@ -200,7 +208,10 @@ const SearchMenu = withCatalystContext(({$c}: {+$c: CatalystContextT}) => (
 
 const EditingMenu = () => (
   <li className="editing" tabIndex="-1">
-    <span className="menu-header">{l('Editing')}{'\xA0\u25BE'}</span>
+    <span className="menu-header">
+      {l('Editing')}
+      {'\xA0\u25BE'}
+    </span>
     <ul>
       <li>
         <a href="/artist/create">{lp('Add Artist', 'button/menu')}</a>
@@ -246,7 +257,10 @@ const EditingMenu = () => (
 
 const DocumentationMenu = () => (
   <li className="documentation" tabIndex="-1">
-    <span className="menu-header">{l('Documentation')}{'\xA0\u25BE'}</span>
+    <span className="menu-header">
+      {l('Documentation')}
+      {'\xA0\u25BE'}
+    </span>
     <ul>
       <li>
         <a href="/doc/Beginners_Guide">{l('Beginners Guide')}</a>
@@ -282,22 +296,25 @@ const DocumentationMenu = () => (
   </li>
 );
 
-const BottomMenu = ({$c}: {|+$c: CatalystContextT|}) => (
-  <div className="bottom">
-    <ul className="menu">
-      <AboutMenu />
-      <ProductsMenu />
-      <SearchMenu />
-      {$c.user_exists ? <EditingMenu /> : null}
-      <DocumentationMenu />
-      {$c.stash.server_languages && $c.stash.server_languages.length > 1 ? (
-        <LanguageMenu
-          currentLanguage={$c.stash.current_language}
-          serverLanguages={$c.stash.server_languages}
-        />
-      ) : null}
-    </ul>
-  </div>
-);
+const BottomMenu = ({$c}: {|+$c: CatalystContextT|}) => {
+  const serverLanguages = $c.stash.server_languages;
+  return (
+    <div className="bottom">
+      <ul className="menu">
+        <AboutMenu />
+        <ProductsMenu />
+        <SearchMenu />
+        {$c.user_exists ? <EditingMenu /> : null}
+        <DocumentationMenu />
+        {serverLanguages && serverLanguages.length > 1 ? (
+          <LanguageMenu
+            currentBCP47Language={$c.stash.current_language.replace('_', '-')}
+            serverLanguages={serverLanguages}
+          />
+        ) : null}
+      </ul>
+    </div>
+  );
+};
 
 export default withCatalystContext(BottomMenu);

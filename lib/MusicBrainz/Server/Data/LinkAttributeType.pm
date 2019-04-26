@@ -41,7 +41,12 @@ sub _columns
                 (SELECT true FROM link_creditable_attribute_type
                  WHERE attribute_type = link_attribute_type.id),
                 false
-            ) AS creditable';
+            ) AS creditable, ' .
+           'COALESCE(
+                (SELECT comment FROM instrument
+                 WHERE gid = link_attribute_type.gid),
+                \'\'
+            ) AS instrument_comment';
 }
 
 sub _column_mapping
@@ -201,7 +206,8 @@ sub merge_instrument_attributes {
       GROUP BY link.id, link_type,
                begin_date_year, begin_date_month, begin_date_day,
                end_date_year, end_date_month, end_date_day, ended,
-               entity_type0, entity_type1',
+               entity_type0, entity_type1
+      ORDER BY link.id ASC',
         \@sources);
 
     my %source_attributes = map { $_ => 1 } @sources;

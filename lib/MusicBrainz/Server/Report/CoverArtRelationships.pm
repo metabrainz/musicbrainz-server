@@ -18,11 +18,6 @@ sub query {
     ";
 }
 
-sub template
-{
-    return 'report/releases_with_coverart_links.tt';
-}
-
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;

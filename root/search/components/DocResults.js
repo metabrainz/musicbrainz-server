@@ -9,13 +9,12 @@
 
 import * as React from 'react';
 
-import {l} from '../../static/scripts/common/i18n';
 import Layout from '../../layout';
 import {GOOGLE_CUSTOM_SEARCH} from '../../static/scripts/common/DBDefs';
 
 const DocResults = () => (
   <Layout fullWidth title={l('Documentation Search')}>
-    <div id="content" className="wikicontent">
+    <div className="wikicontent" id="content">
       <h1>{l('Documentation Search')}</h1>
       <script
         async="true"

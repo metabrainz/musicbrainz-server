@@ -6,8 +6,6 @@ use MusicBrainz::Server::Test qw( html_ok );
 with 't::Mechanize', 't::Context';
 
 use utf8;
-use XML::SemanticDiff;
-use XML::XPath;
 
 use MusicBrainz::Server::Test qw( xml_ok schema_validator xml_post );
 use MusicBrainz::Server::Test ws_test => {

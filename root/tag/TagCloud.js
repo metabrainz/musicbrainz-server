@@ -11,7 +11,6 @@ import * as React from 'react';
 
 import Layout from '../layout';
 import TagLink from '../static/scripts/common/components/TagLink';
-import {l} from '../static/scripts/common/i18n';
 
 type Props = {|
   tagMaxCount: number,
@@ -52,7 +51,7 @@ const TagCloud = ({tagMaxCount, tags}: Props) => (
               <li
                 className={getTagSize(count, tagMaxCount)}
                 key={tag}
-                title={l("'{tag}' has been used {num} times", {num: count.toLocaleString(), tag})}
+                title={texp.l("'{tag}' has been used {num} times", {num: count.toLocaleString(), tag})}
               >
                 <TagLink tag={tag} />
                 {' '}

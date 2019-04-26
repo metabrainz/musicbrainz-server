@@ -5,7 +5,13 @@ BEGIN { extends 'MusicBrainz::Server::Controller'; }
 
 with 'MusicBrainz::Server::Controller::Role::Load' => {
     model           => 'Area',
-    relationships   => { all => ['show'], cardinal => ['edit'], default => ['url'] },
+    relationships   => {
+        cardinal    => ['edit'],
+        default     => ['url'],
+        subset      => {
+            show => [qw( area artist label place series instrument release release_group recording work url )],
+        }
+    },
 };
 with 'MusicBrainz::Server::Controller::Role::LoadWithRowID';
 with 'MusicBrainz::Server::Controller::Role::Annotation';
@@ -27,6 +33,7 @@ use Data::Page;
 use HTTP::Status qw( :constants );
 use MusicBrainz::Server::Translation qw( l );
 use MusicBrainz::Server::Constants qw( $EDIT_AREA_CREATE $EDIT_AREA_EDIT $EDIT_AREA_DELETE $EDIT_AREA_MERGE );
+use MusicBrainz::Server::ControllerUtils::JSON qw( serialize_pager );
 use Sql;
 
 =head1 NAME
@@ -104,6 +111,37 @@ sub artists : Chained('load')
     $c->stash( artists => $artists );
 }
 
+=head2 events
+
+Shows all events for an area.
+
+=cut
+
+sub events : Chained('load')
+{
+    my ($self, $c) = @_;
+    my $events = $self->_load_paged($c, sub {
+        $c->model('Event')->find_by_area($c->stash->{area}->id, shift, shift);
+    });
+    $c->model('Event')->load_related_info(@$events);
+    $c->model('Area')->load(map { $_->{entity} } map { $_->all_places } @$events);
+    $c->model('Area')->load_containment(map { (map { $_->{entity} } $_->all_areas),
+                                              (map { $_->{entity}->area } $_->all_places) } @$events);
+    $c->model('Event')->rating->load_user_ratings($c->user->id, @$events) if $c->user_exists;
+
+    my %props = (
+        area       => $c->stash->{area},
+        events      => $events,
+        pager       => serialize_pager($c->stash->{pager}),
+    );
+
+    $c->stash(
+        component_path  => 'area/AreaEvents.js',
+        component_props => \%props,
+        current_view    => 'Node',
+    );
+}
+
 =head2 labels
 
 Shows labels for an area.
@@ -117,10 +155,23 @@ sub labels : Chained('load')
         $c->model('Label')->find_by_area($c->stash->{area}->id, shift, shift);
     });
     $c->model('LabelType')->load(@$labels);
+    $c->model('Area')->load(@$labels);
+    $c->model('Area')->load_containment(map { $_->{area} } @$labels);
     if ($c->user_exists) {
         $c->model('Label')->rating->load_user_ratings($c->user->id, @$labels);
     }
-    $c->stash( labels => $labels );
+
+    my %props = (
+        area         => $c->stash->{area},
+        labels       => $labels,
+        pager        => serialize_pager($c->stash->{pager}),
+    );
+
+    $c->stash(
+        component_path  => 'area/AreaLabels.js',
+        component_props => \%props,
+        current_view    => 'Node',
+    );
 }
 
 =head2 releases

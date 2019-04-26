@@ -15,28 +15,63 @@ import sortBy from 'terable/sortBy';
 import toArray from 'terable/toArray';
 
 import {withCatalystContext} from '../../../context';
-import manifest from '../../../static/manifest';
-import {l} from '../../../static/scripts/common/i18n';
-import {l_relationships} from '../../../static/scripts/common/i18n/relationships';
+import * as manifest from '../../../static/manifest';
+import linkedEntities from '../../../static/scripts/common/linkedEntities';
 
 const LICENSE_CLASSES = {
-  ArtLibre: /artlibre\.org\/licence\/lal/,
-  CC0: /creativecommons\.org\/publicdomain\/zero\//,
-  CCBY: /creativecommons\.org\/licenses\/by\//,
-  CCBYNC: /creativecommons\.org\/licenses\/by-nc\//,
-  CCBYNCND: /creativecommons\.org\/licenses\/by-nc-nd\//,
-  CCBYNCSA: /creativecommons\.org\/licenses\/by-nc-sa\//,
-  CCBYND: /creativecommons\.org\/licenses\/by-nd\//,
-  CCBYSA: /creativecommons\.org\/licenses\/by-sa\//,
-  CCNCSamplingPlus: /creativecommons\.org\/licenses\/nc-sampling\+\//,
-  CCPD: /creativecommons\.org\/licenses\/publicdomain\//,
-  CCSampling: /creativecommons\.org\/licenses\/sampling\//,
-  CCSamplingPlus: /creativecommons\.org\/licenses\/sampling\+\//,
+  ArtLibre: {
+    icon: require('../../../static/images/licenses/ArtLibre.png'),
+    pattern: /artlibre\.org\/licence\/lal/,
+  },
+  CC0: {
+    icon: require('../../../static/images/licenses/CC0.png'),
+    pattern: /creativecommons\.org\/publicdomain\/zero\//,
+  },
+  CCBY: {
+    icon: require('../../../static/images/licenses/CCBY.png'),
+    pattern: /creativecommons\.org\/licenses\/by\//,
+  },
+  CCBYNC: {
+    icon: require('../../../static/images/licenses/CCBYNC.png'),
+    pattern: /creativecommons\.org\/licenses\/by-nc\//,
+  },
+  CCBYNCND: {
+    icon: require('../../../static/images/licenses/CCBYNCND.png'),
+    pattern: /creativecommons\.org\/licenses\/by-nc-nd\//,
+  },
+  CCBYNCSA: {
+    icon: require('../../../static/images/licenses/CCBYNCSA.png'),
+    pattern: /creativecommons\.org\/licenses\/by-nc-sa\//,
+  },
+  CCBYND: {
+    icon: require('../../../static/images/licenses/CCBYND.png'),
+    pattern: /creativecommons\.org\/licenses\/by-nd\//,
+  },
+  CCBYSA: {
+    icon: require('../../../static/images/licenses/CCBYSA.png'),
+    pattern: /creativecommons\.org\/licenses\/by-sa\//,
+  },
+  CCNCSamplingPlus: {
+    icon: require('../../../static/images/licenses/CCNCSamplingPlus.png'),
+    pattern: /creativecommons\.org\/licenses\/nc-sampling\+\//,
+  },
+  CCPD: {
+    icon: require('../../../static/images/licenses/CCPD.png'),
+    pattern: /creativecommons\.org\/licenses\/publicdomain\//,
+  },
+  CCSampling: {
+    icon: require('../../../static/images/licenses/CCSampling.png'),
+    pattern: /creativecommons\.org\/licenses\/sampling\//,
+  },
+  CCSamplingPlus: {
+    icon: require('../../../static/images/licenses/CCSamplingPlus.png'),
+    pattern: /creativecommons\.org\/licenses\/sampling\+\//,
+  },
 };
 
 function licenseClass(url: UrlT): string {
   for (const className in LICENSE_CLASSES) {
-    if (LICENSE_CLASSES[className].test(url.name)) {
+    if (LICENSE_CLASSES[className].pattern.test(url.name)) {
       return className;
     }
   }
@@ -48,7 +83,7 @@ const LicenseDisplay = ({url}: {|+url: UrlT|}) => {
   return (
     <li className={className}>
       <a href={url.href_url}>
-        <img src={manifest.pathTo(`/images/licenses/${className}.png`)} />
+        <img alt="" src={LICENSE_CLASSES[className].icon} />
       </a>
     </li>
   );
@@ -62,11 +97,10 @@ const getLicenses = filter(r => (
 const buildLicenses = map(r => <LicenseDisplay key={r.id} url={r.target} />);
 
 type Props = {|
-  +$c: CatalystContextT,
   +entity: CoreEntityT,
 |};
 
-const SidebarLicenses = ({$c, entity}: Props) => {
+const SidebarLicenses = ({entity}: Props) => {
   let licenses = entity.relationships;
 
   if (!licenses) {
@@ -77,7 +111,7 @@ const SidebarLicenses = ({$c, entity}: Props) => {
     toArray,
     buildLicenses,
     sortBy(r => (
-      l_relationships($c.linked_entities.link_type[r.linkTypeID].link_phrase)
+      l_relationships(linkedEntities.link_type[r.linkTypeID].link_phrase)
     )),
     getLicenses,
   )(licenses);
@@ -90,4 +124,4 @@ const SidebarLicenses = ({$c, entity}: Props) => {
   ) : null;
 };
 
-export default withCatalystContext(SidebarLicenses);
+export default SidebarLicenses;

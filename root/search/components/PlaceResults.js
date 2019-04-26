@@ -10,13 +10,11 @@
 import * as React from 'react';
 
 import {withCatalystContext} from '../../context';
-import {l} from '../../static/scripts/common/i18n';
-import {lp_attributes} from '../../static/scripts/common/i18n/attributes';
 import EntityLink from '../../static/scripts/common/components/EntityLink';
 import formatDate from '../../static/scripts/common/utility/formatDate';
 import formatEndDate from '../../static/scripts/common/utility/formatEndDate';
 import loopParity from '../../utility/loopParity';
-import type {ResultsPropsT} from '../types';
+import type {ResultsPropsWithContextT} from '../types';
 
 import PaginatedSearchResults from './PaginatedSearchResults';
 import ResultsLayout from './ResultsLayout';
@@ -48,7 +46,7 @@ const PlaceResults = ({
   pager,
   query,
   results,
-}: ResultsPropsT<PlaceT>) => (
+}: ResultsPropsWithContextT<PlaceT>) => (
   <ResultsLayout form={form} lastUpdated={lastUpdated}>
     <PaginatedSearchResults
       buildResult={buildResult}
@@ -68,7 +66,7 @@ const PlaceResults = ({
     />
     {$c.user && !$c.user.is_editing_disabled ? (
       <p>
-        {l('Alternatively, you may {uri|add a new place}.', {
+        {exp.l('Alternatively, you may {uri|add a new place}.', {
           uri: '/place/create?edit-place.name=' + encodeURIComponent(query),
         })}
       </p>

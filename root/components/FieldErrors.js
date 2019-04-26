@@ -9,17 +9,17 @@
 
 import React from 'react';
 
-import subfieldErrors from '../utility/subfieldErrors';
+import subfieldErrors, {type FieldShape} from '../utility/subfieldErrors';
 
 const buildErrorListItem = (error, index) => (
   <li key={index}>{error}</li>
 );
 
-type Props<F> = {|
-  +field: AnyFieldT<F>,
+type Props = {|
+  +field: FieldShape,
 |};
 
-const FieldErrors = <F>({field}: Props<F>) => {
+const FieldErrors = ({field}: Props) => {
   if (!field) {
     return null;
   }

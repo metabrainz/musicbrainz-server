@@ -7,18 +7,16 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import $ from 'jquery';
 import React from 'react';
 
 import hydrate, {minimalEntity} from '../../../../utility/hydrate';
-import {l} from '../i18n';
 import entityHref from '../utility/entityHref';
 
 import Collapsible from './Collapsible';
 
 type Props = {|
-  +entity: CoreEntityT,
-  +wikipediaExtract: WikipediaExtractT | null,
+  +cachedWikipediaExtract: WikipediaExtractT | null,
+  +entity: MinimalCoreEntityT,
 |};
 
 type State = {|
@@ -28,15 +26,12 @@ type State = {|
 class WikipediaExtract extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
-    this.state = {wikipediaExtract: null};
-  }
-
-  static getDerivedStateFromProps(nextProps: Props) {
-    return {wikipediaExtract: nextProps.wikipediaExtract};
+    this.state = {wikipediaExtract: props.cachedWikipediaExtract};
   }
 
   componentDidMount() {
     if (!this.state.wikipediaExtract) {
+      const $ = require('jquery');
       $.get(entityHref(this.props.entity, '/wikipedia-extract'), data => {
         this.setState(data);
       });
@@ -55,9 +50,10 @@ class WikipediaExtract extends React.Component<Props, State> {
         <a href={wikipediaExtract.url}>
           {l('Continue reading at Wikipedia...')}
         </a>
+        {' '}
         <small>
-          {l('Wikipedia content provided under the terms of the {license_link|Creative Commons BY-SA license}',
-            {license_link: 'https://creativecommons.org/licenses/by-sa/3.0/'})}
+          {exp.l('Wikipedia content provided under the terms of the {license_link|Creative Commons BY-SA license}',
+                 {license_link: 'https://creativecommons.org/licenses/by-sa/3.0/'})}
         </small>
       </>
     ) : null;

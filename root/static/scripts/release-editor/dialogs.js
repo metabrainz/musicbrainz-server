@@ -3,22 +3,22 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-const $ = require('jquery');
-const ko = require('knockout');
-const _ = require('lodash');
-const React = require('react');
-const ReactDOMServer = require('react-dom/server');
+import $ from 'jquery';
+import ko from 'knockout';
+import _ from 'lodash';
+import React from 'react';
+import ReactDOMServer from 'react-dom/server';
 
-const i18n = require('../common/i18n');
-const {artistCreditFromArray, reduceArtistCredit} = require('../common/immutable-entities');
-const bracketed = require('../common/utility/bracketed').default;
-const formatTrackLength = require('../common/utility/formatTrackLength');
-const isBlank = require('../common/utility/isBlank');
-const request = require('../common/utility/request');
-const fields = require('./fields');
-const trackParser = require('./trackParser');
-const utils = require('./utils');
-const releaseEditor = require('./viewModel');
+import {artistCreditFromArray, reduceArtistCredit} from '../common/immutable-entities';
+import bracketed from '../common/utility/bracketed';
+import formatTrackLength from '../common/utility/formatTrackLength';
+import isBlank from '../common/utility/isBlank';
+import request from '../common/utility/request';
+
+import fields from './fields';
+import trackParser from './trackParser';
+import utils from './utils';
+import releaseEditor from './viewModel';
 
 class Dialog {
 
@@ -32,11 +32,11 @@ class Dialog {
 }
 
 
-var trackParserDialog = exports.trackParserDialog = new Dialog();
+export const trackParserDialog = releaseEditor.trackParserDialog = new Dialog();
 
-_.assign(trackParserDialog, {
+Object.assign(trackParserDialog, {
     element: "#track-parser-dialog",
-    title: i18n.l("Track Parser"),
+    title: l("Track Parser"),
 
     toBeParsed: ko.observable(""),
     result: ko.observable(null),
@@ -73,7 +73,7 @@ _.assign(trackParserDialog, {
 class SearchResult {
 
     constructor(tab, data) {
-        _.extend(this, data);
+        Object.assign(this, data);
 
         this.tab = tab;
         this.loaded = ko.observable(false);
@@ -109,7 +109,7 @@ class SearchResult {
 
     requestDone(data) {
         _.each(data.tracks, (track, index) => this.parseTrack(track, index));
-        _.extend(this, utils.reuseExistingMediumData(data));
+        Object.assign(this, utils.reuseExistingMediumData(data));
 
         this.loaded(true);
     }
@@ -135,7 +135,7 @@ class SearchResult {
                 (this.position ? ' ' + this.position : '');
         }
 
-        const link = i18n.l('{entity} by {artist}', {
+        const link = exp.l('{entity} by {artist}', {
             entity: (
                 <>
                     <bdi>{this.name}</bdi>
@@ -248,7 +248,7 @@ class SearchTab {
     }
 
     pageText() {
-        return i18n.l('Page {page} of {total}', {
+        return texp.l('Page {page} of {total}', {
             page: this.currentPage(),
             total: this.totalPages(),
         });
@@ -258,9 +258,9 @@ class SearchTab {
 SearchTab.prototype.tracksRequestData = {};
 
 
-var mediumSearchTab = exports.mediumSearchTab = new SearchTab();
+export const mediumSearchTab = releaseEditor.mediumSearchTab = new SearchTab();
 
-_.assign(mediumSearchTab, {
+Object.assign(mediumSearchTab, {
     endpoint: "/ws/js/medium",
 
     tracksRequestData: { inc: "recordings" },
@@ -278,7 +278,7 @@ _.assign(mediumSearchTab, {
 
 var cdstubSearchTab = new SearchTab();
 
-_.assign(cdstubSearchTab, {
+Object.assign(cdstubSearchTab, {
     endpoint: "/ws/js/cdstub",
 
     tracksRequestURL: function (result) {
@@ -287,11 +287,11 @@ _.assign(cdstubSearchTab, {
 });
 
 
-var addDiscDialog = exports.addDiscDialog = new Dialog();
+export const addDiscDialog = releaseEditor.addDiscDialog = new Dialog();
 
-_.assign(addDiscDialog, {
+Object.assign(addDiscDialog, {
     element: "#add-disc-dialog",
-    title: i18n.l("Add Medium"),
+    title: l("Add Medium"),
 
     trackParser: trackParserDialog,
     mediumSearch: mediumSearchTab,
@@ -358,5 +358,3 @@ $(function () {
         }
     });
 });
-
-_.assign(releaseEditor, exports);

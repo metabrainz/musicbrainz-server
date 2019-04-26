@@ -2,9 +2,6 @@ package MusicBrainz::Server::Data::Recording;
 
 use Moose;
 use namespace::autoclean;
-use DateTime;
-use Scalar::Util qw( looks_like_number );
-use Try::Tiny;
 use List::UtilsBy qw( rev_nsort_by sort_by uniq_by );
 use MusicBrainz::Server::Constants qw(
     $EDIT_RECORDING_CREATE
@@ -23,7 +20,6 @@ use MusicBrainz::Server::Data::Utils qw(
     order_by
 );
 use MusicBrainz::Server::Entity::Recording;
-use MusicBrainz::Server::ExternalUtils qw( get_chunked_with_retry );
 
 extends 'MusicBrainz::Server::Data::CoreEntity';
 with 'MusicBrainz::Server::Data::Role::Annotation' => { type => 'recording' };
@@ -363,104 +359,6 @@ sub appears_on
     }
 
     return %map;
-}
-
-=method find_tracklist_offsets
-
-Attempt to find all absolute offsets of when a recording appears in a releases
-tracklist, over all its mediums. For example, if a recording is the 3rd track
-on the first medium, it's offset is 2. If it's the first track on the 2nd medium
-and the first medium contains 10 tracks, it's 10.
-
-The return value is a list of (release_id, offset) tuples.
-
-=cut
-
-sub find_tracklist_offsets {
-    my ($self, $recording_id) = @_;
-
-    # This query attempts to find all offsets of a recording on various
-    # releases. It does so by:
-    #
-    # 1. `bef` CTE:
-    #   a. Select all mediums that a recording appears on.
-    #   b. Select all mediums on the same release that are *before*
-    #      the mediums found in (a).
-    #   c. Group by the containing medium (a).
-    #   d. Sum the total track count of all prior mediums (b).
-    # 2. Main query:
-    #   a. Find all tracks with this recording_id.
-    #   b. Find the corresponding `bef` count.
-    #   c. Add `bef` count to the track position, and subtract on for /ws/1
-    #      compat.
-    my $offsets = $self->sql->select_list_of_lists(<<'EOSQL', $recording_id);
-    WITH
-      r (id) AS ( SELECT ?::int ),
-      bef AS (
-        SELECT container.id AS container,
-               sum(container.track_count)
-        FROM medium container
-        JOIN track ON track.medium = container.id
-        JOIN medium bef ON (
-          container.release = bef.release AND
-          container.position > bef.position
-        )
-        JOIN r ON r.id = track.recording
-        GROUP BY container.id, track.id
-      )
-      SELECT medium.release, (track.position - 1) + COALESCE(bef.sum, 0)
-      FROM track
-      JOIN r ON r.id = track.recording
-      JOIN medium ON track.medium = medium.id
-      LEFT JOIN bef ON bef.container = medium.id;
-EOSQL
-
-    return $offsets;
-}
-
-sub find_recent_by_artists
-{
-    my ($self, $artist_ids) = @_;
-
-    my $search_url;
-    if (DBDefs->SEARCH_ENGINE eq 'LUCENE') {
-        $search_url = sprintf('http://%s/ws/2/recording/?query=title:""',
-                              DBDefs->SEARCH_SERVER);
-    } else {
-        $search_url = sprintf('http://%s/recording/advanced?q=recording:*&wt=mbxml',
-                              DBDefs->SEARCH_SERVER);
-    }
-
-    my $ua = LWP::UserAgent->new;
-
-    $ua->timeout(3);
-    $ua->env_proxy;
-
-    my $last_updated;
-
-    try {
-        my $response = get_chunked_with_retry($ua, $search_url);
-        my $data = JSON->new->utf8->decode($response->content);
-
-        $last_updated = DateTime::Format::ISO8601->parse_datetime($data->{created});
-    }
-    catch {
-        $last_updated = DateTime->now;
-        $last_updated->subtract( hours => 3 );
-    };
-
-    my @artist_ids = grep { looks_like_number($_) } @$artist_ids;
-    return @artist_ids unless scalar @artist_ids;
-
-    my $query = "SELECT DISTINCT " . $self->_columns . "
-                 FROM " . $self->_table . "
-                     JOIN track t ON t.recording = recording.id
-                     JOIN artist_credit_name acn
-                         ON (acn.artist_credit = recording.artist_credit
-                         OR  acn.artist_credit = t.artist_credit)
-                 WHERE acn.artist IN (" . placeholders(@artist_ids) . ")
-                   AND recording.last_updated >= ?";
-    $self->query_to_list($query, [@artist_ids, $last_updated->iso8601]);
 }
 
 __PACKAGE__->meta->make_immutable;

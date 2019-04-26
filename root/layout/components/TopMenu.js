@@ -12,7 +12,6 @@ import React from 'react';
 
 import RequestLogin from '../../components/RequestLogin';
 import {withCatalystContext} from '../../context';
-import {l, lp} from '../../static/scripts/common/i18n';
 import returnUri from '../../utility/returnUri';
 
 import Search from './Search';
@@ -25,7 +24,10 @@ type UserProp = {|+user: CatalystUserT|};
 
 const AccountMenu = ({user}: UserProp) => (
   <li className="account" tabIndex="-1">
-    <span className="menu-header">{user.name}{'\xA0\u25BE'}</span>
+    <span className="menu-header">
+      {user.name}
+      {'\xA0\u25BE'}
+    </span>
     <ul>
       <li>
         <a href={userLink(user.name, '')}>{l('Profile')}</a>
@@ -50,7 +52,10 @@ const DataMenu = ({user}: UserProp) => {
 
   return (
     <li className="data" tabIndex="-1">
-      <span className="menu-header">{l('My Data')}{'\xA0\u25BE'}</span>
+      <span className="menu-header">
+        {l('My Data')}
+        {'\xA0\u25BE'}
+      </span>
       <ul>
         <li>
           <a href={userLink(userName, '/collections')}>{l('My Collections')}</a>
@@ -83,7 +88,10 @@ const DataMenu = ({user}: UserProp) => {
 
 const AdminMenu = ({user}: UserProp) => (
   <li className="admin" tabIndex="-1">
-    <span className="menu-header">{l('Admin')}{'\xA0\u25BE'}</span>
+    <span className="menu-header">
+      {l('Admin')}
+      {'\xA0\u25BE'}
+    </span>
     <ul>
       {user.is_location_editor ? (
         <li>

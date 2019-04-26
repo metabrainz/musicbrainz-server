@@ -7,10 +7,9 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-const React = require('react');
-const {l} = require('../static/scripts/common/i18n');
-const {lp_attributes} = require('../static/scripts/common/i18n/attributes');
-const EntityHeader = require('../components/EntityHeader');
+import React from 'react';
+
+import EntityHeader from '../components/EntityHeader';
 
 type Props = {|
   page: string,
@@ -26,4 +25,4 @@ const WorkHeader = ({work, page}: Props) => (
   />
 );
 
-module.exports = WorkHeader;
+export default WorkHeader;

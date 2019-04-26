@@ -3,9 +3,7 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-const {l} = require('../i18n');
-
-function commaOnlyList(items) {
+function _commaOnlyList(l, items) {
   if (!items.length) {
     return '';
   }
@@ -26,4 +24,9 @@ function commaOnlyList(items) {
   return output;
 }
 
-module.exports = commaOnlyList;
+const commaOnlyList = (items) => _commaOnlyList(exp.l, items);
+const commaOnlyListText = (items) => _commaOnlyList(texp.l, items);
+
+export default commaOnlyList;
+
+export {commaOnlyListText};

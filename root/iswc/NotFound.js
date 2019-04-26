@@ -10,12 +10,11 @@
 import React from 'react';
 
 import NotFound from '../components/NotFound';
-import {l} from '../static/scripts/common/i18n';
 
 const ISWCNotFound = () => (
   <NotFound title={l('ISWC Not Currently Used')}>
     <p>
-      {l('This ISWC is not associated with any works. If you wish to associate it with a work, please {search_url|search for the work} and add it.',
+      {exp.l('This ISWC is not associated with any works. If you wish to associate it with a work, please {search_url|search for the work} and add it.',
         {search_url: '/search'})}
     </p>
   </NotFound>

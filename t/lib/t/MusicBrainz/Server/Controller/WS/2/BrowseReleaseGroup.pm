@@ -6,8 +6,6 @@ use MusicBrainz::Server::Test qw( html_ok );
 with 't::Mechanize', 't::Context';
 
 use utf8;
-use XML::SemanticDiff;
-use MusicBrainz::Server::Test qw( xml_ok schema_validator );
 use MusicBrainz::Server::Test ws_test => {
     version => 2
 };
@@ -16,8 +14,6 @@ test all => sub {
 
 my $test = shift;
 my $c = $test->c;
-my $v2 = schema_validator;
-my $diff = XML::SemanticDiff->new;
 
 MusicBrainz::Server::Test->prepare_test_database($c, '+webservice');
 
@@ -36,6 +32,7 @@ ws_test 'browse release group via release',
                         <name>Distance</name>
                         <sort-name>Distance</sort-name>
                         <disambiguation>UK dubstep artist Greg Sanders</disambiguation>
+                        <rating votes-count="1">5</rating>
                     </artist>
                 </name-credit>
             </artist-credit>
@@ -64,6 +61,7 @@ ws_test 'browse release group via artist',
                         <name>Distance</name>
                         <sort-name>Distance</sort-name>
                         <disambiguation>UK dubstep artist Greg Sanders</disambiguation>
+                        <rating votes-count="1">5</rating>
                     </artist>
                 </name-credit>
             </artist-credit>
@@ -87,6 +85,7 @@ ws_test 'browse release group via artist',
                         <name>Distance</name>
                         <sort-name>Distance</sort-name>
                         <disambiguation>UK dubstep artist Greg Sanders</disambiguation>
+                        <rating votes-count="1">5</rating>
                     </artist>
                 </name-credit>
             </artist-credit>

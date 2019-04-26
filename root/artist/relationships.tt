@@ -1,8 +1,7 @@
 [%- WRAPPER 'artist/layout.tt' title=l('Relationships') page='relationships' -%]
 <div>
     [% IF artist.relationships.size %]
-        [% INCLUDE "components/relationships.tt" source=artist
-            relationships=artist.grouped_relationships('artist', 'url', 'label', 'place', 'area', 'series', 'instrument') %]
+        [% React.embed(c, 'components/Relationships', {source => artist}) %]
     [%- ELSE -%]
         <h2 class="relationships">[% l("Relationships") %]</h2>
         <p>[% l('{link} has no relationships.', { link => link_entity(artist) }) -%]</p>

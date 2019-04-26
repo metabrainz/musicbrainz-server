@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2019-01-10 11:41+0000\n"
+"PO-Revision-Date: 2019-04-19 11:52+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -69,13 +69,6 @@ msgid ""
 "inverted metal bowls."
 msgstr "Een bellenboom is een percussie-instrument, bestaande uit verticaal in elkaar passende omgekeerde metalen kommen."
 
-#. name:bullroarer
-#: DB:instrument/description:153
-msgid ""
-"A bullroarer consists of a piece of wood attached to a long cord which is "
-"then swung in a circle."
-msgstr "Een snorrebot (ook wel hor, bromhout, snorhout of bullroarer genoemd) bestaat uit een stuk hout aan een koord. Het stuk hout wordt in de lucht rondgezwaaid om geluid te produceren."
-
 #. name:chamber organ
 #: DB:instrument/description:471
 msgid "A chamber organ is a small pipe organ."
@@ -124,13 +117,6 @@ msgstr "Een dolceola is een muziekinstrument dat lijkt op een minipiano, maar ei
 #: DB:instrument/description:523
 msgid "A five-string banjo is a banjo with five strings."
 msgstr "Een vijfsnarige banjo is een banjo met vijf snaren."
-
-#. name:flute
-#: DB:instrument/description:13
-msgid ""
-"A flute is an aerophone or reedless wind instrument that produces its sound "
-"from the flow of air across an opening."
-msgstr "Een fluit is een aerofoon zonder riet die geluid produceert door lucht langs een opening te laten blazen."
 
 #. name:four-string banjo
 #: DB:instrument/description:656
@@ -191,13 +177,6 @@ msgid ""
 " guitar"
 msgstr "Een latere constructie in de vorm van een viersnarige basgitaar met een vierkante kast."
 
-#. name:lithophone
-#: DB:instrument/description:702
-msgid ""
-"A lithophone is a musical instrument consisting of a rock or pieces of rock "
-"which are struck to produce musical notes."
-msgstr "Een lithofoon is een muziekinstrument bestaande uit één of meer stukken steen die worden aangeslagen om muziek te maken."
-
 #. name:pōrutu
 #: DB:instrument/description:787
 msgid ""
@@ -234,13 +213,6 @@ msgid ""
 "A mouth organ is a generic term for free reed aerophone with one or more air"
 " chambers fitted with a free reed."
 msgstr "Een mondorgel is een algemene term voor aerofonen met een doorslaande tong en één of meer luchtkamers uitgerust met een doorslaande tong."
-
-#. name:musical saw
-#: DB:instrument/description:145
-msgid ""
-"A musical saw is a hand saw used as a musical instrument. It is usually "
-"played by bowing the non-serrated edge."
-msgstr "Een zingende zaag is een handzaag die wordt gebruikt als muziekinstrument. Het wordt meestal bespeeld door langs de rechte kant te strijken."
 
 #. name:bowed piano
 #: DB:instrument/description:504
@@ -322,7 +294,7 @@ msgstr "Een tenorbanjo is een viersnarige banjo die als tenor is gestemd, meesta
 msgid ""
 "A tom-tom (or just tom) is a cylindrical drum with no snare, commonly found "
 "in a standard drum set."
-msgstr "Een tom-tom (of gewoon tom) is een cilindrische trommel zonder snaar. Standaard onderdeel van een drumstel."
+msgstr "Een tom-tom (of gewoon tom) is een cilindrische trommel zonder snaar. Standaardonderdeel van een drumstel."
 
 #. name:tromba marina
 #: DB:instrument/description:698
@@ -332,15 +304,10 @@ msgid ""
 "truncated cone resting on a triangular base."
 msgstr "Een tromba marina of marinetrompet is een driehoekig strijkinstrument met één snaar dat vooral werd bespeeld in Europa tijdens de Middeleeuwen en de Renaissance. De naam komt van het feit dat de klank lijkt op die van een trompet."
 
-#. name:marxophone
+#. name:Marxophone
 #: DB:instrument/description:442
 msgid "A type of fretless zither."
 msgstr "Een soort fretloze citer."
-
-#. name:typewriter
-#: DB:instrument/description:526
-msgid "A typewriter, used for percussion (either keys or bells)"
-msgstr "Een typemachine, gebruikt voor percussie."
 
 #. name:vessel flute
 #: DB:instrument/description:650
@@ -355,13 +322,6 @@ msgid ""
 "A wooden double-reed instrument with a conical bore from the 16th and 17th "
 "centuries"
 msgstr "Een houten dubbelrietinstrument met een conische boring uit de 16de en 17de eeuw."
-
-#. name:wooden fish
-#: DB:instrument/description:267
-msgid ""
-"A wooden fish is an idiophone often used during Buddhist rituals in East "
-"Asia."
-msgstr "Een houten vis (ook wel muyu of Chinees tempelblok genoemd) is een idiofoon die wordt gebruikt tijdens boeddhistische rituelen in Oost-Azië."
 
 #. name:acoustic fretless guitar
 #: DB:instrument/description:539
@@ -397,13 +357,6 @@ msgid ""
 "bars"
 msgstr "Een Amadinda (ook Madinda) is een enorme Zuid-Oegandese xylofoon van resonerende hardhouten staven."
 
-#. name:calabash
-#: DB:instrument/description:777
-msgid ""
-"An African percussion instrument, made of a dried gourd plant. Struck with "
-"hands or objects."
-msgstr "Een kalebas is een Afrikaans percussie-instrument dat wordt gemaakt van een gedroogde fleskalebas. Het wordt bespeeld door er met de handen of een voorwerp op te slaan."
-
 #. name:Irish harp / clàrsach
 #: DB:instrument/description:355
 msgid "An Irish/Scottish harp."
@@ -429,14 +382,6 @@ msgid ""
 "An electric keyboard slung over the shoulder by a strap like a guitar, it "
 "has soundcontrols placed on the neck"
 msgstr "Een keytar is een keyboard dat net als een gitaar om de nek wordt gedragen."
-
-#. name:electric piano
-#: DB:instrument/description:259
-msgid ""
-"An electric piano is an electro-mechanical musical instrument. Depending on "
-"the type of electric piano, the tones may be produced by strings, reeds or "
-"tuning forks."
-msgstr "Een elektrische piano is een elektromechanisch muziekinstrument. Afhankelijk van het soort elektrische piano kan het geluid worden geproduceerd door snaren, rieten of stemvorken."
 
 #. name:Pianet
 #: DB:instrument/description:793
@@ -500,19 +445,27 @@ msgid ""
 " often combined with tabor drums."
 msgstr "Een eenhandsfluit is een middeleeuwse voorloper van de blokfluit. Het werd met één hand bespeeld, vaak in combinatie met een tabor."
 
+#. name:khlui
+#: DB:instrument/description:666
+msgid "Ancient reedless fipple flute made of bamboo."
+msgstr "De khlui is een antieke bekfluit van bamboe."
+
 #. name:membranophone
 #: DB:instrument/description:100
-msgid "Any kind of idiophone with membranes, variously sized drums."
-msgstr "Membranofonen zijn idiofonen met een membraan, waaronder verschillende formaten trommels."
+msgid "Any kind of instrument with membranes, usually variously sized drums."
+msgstr "Membranofonen zijn instrumenten met membranen, vaak trommels."
 
-#. name:drum
+#. name:unspecified drum
 #: DB:instrument/description:933
 msgid ""
-"Any kind of idiophone with membranes, variously sized drums. For the "
-"instrument commonly known as \"drums\" use <a "
-"href=\"https://beta.musicbrainz.org/instrument/12092505-6ee1-46af-a15a-"
-"b5b468b6b155\">drumset</a>"
-msgstr "Membranofonen zijn idiofonen met een membraan, waaronder verschillende formaten trommels. Gebruik voor het instrument dat meestal “drums” wordt genoemd <a href=\"https://beta.musicbrainz.org/instrument/12092505-6ee1-46af-a15a-b5b468b6b155\">drumstel</a>."
+"Any kind of unspecified percussion with membranes, variously sized drums. "
+"For the instrument commonly known as \"drums\" use <a "
+"href=\"https://musicbrainz.org/instrument/12092505-6ee1-46af-a15a-"
+"b5b468b6b155\">drums (drum set)</a>. For programmed or \"drum-loops\" use <a"
+" "
+"href=\"https://musicbrainz.org/instrument/ce0eed13-58d8-4744-8ad0-b7d6182a2d0f\">drum"
+" machine</a>."
+msgstr "Elk soort niet-gespecificeerde percussie met membranen, zoals verschillende soorten trommels. Gebruik voor het instrument dat meestal “drums” wordt genoemd <a href=\"https://musicbrainz.org/instrument/12092505-6ee1-46af-a15a-b5b468b6b155\">drumstel</a>. Voor geprogrammeerde drumloops gebruik je <a href=\"https://musicbrainz.org/instrument/ce0eed13-58d8-4744-8ad0-b7d6182a2d0f\">drumcomputer</a>."
 
 #. name:flumpet
 #: DB:instrument/description:742
@@ -592,6 +545,11 @@ msgstr "Een fietsbel maakt geluid door met de duim een veer aan te spannen die b
 #: DB:instrument/description:343
 msgid "Bendir, frame drum from North Africa, doesn't have jingles"
 msgstr "Bendir, lijsttrommel zonder belletjes uit Noord-Afrika."
+
+#. name:typewriter
+#: DB:instrument/description:526
+msgid "Besides being used for writing, it has also been used in percussion."
+msgstr "Typemachines worden niet alleen gebruikt om mee te schrijven, maar ook voor percussie."
 
 #. name:cajón
 #: DB:instrument/description:336
@@ -675,7 +633,16 @@ msgid ""
 "ritual and meditation, North Indian raga and Dhrupad music. It has two dried"
 " gourd resonators and a body of bamboo with 24 wooden frets and 4 main, 2-3 "
 "secondary and one drone string."
-msgstr "De ruda veena wordt als de stamvader van alle Indiase snaarinstrumenten (veena) beschouwd. Het werd gebruikt bij rituelen en meditatie, Noord-Indiase raga en dhrupadmuziek. Het heeft twee resonatoren van gedroogde kalebas en een klankkast van bamboe, 24 houten fretten, 4 hoofdsnaren, 2 tot 3 secundaire snaren en een bourdonsnaar."
+msgstr "De rudra-vina wordt als de stamvader van alle Indiase snaarinstrumenten (vina) beschouwd. Het werd gebruikt bij rituelen en meditatie, Noord-Indiase raga en dhrupadmuziek. Het heeft twee resonatoren van gedroogde kalebas en een klankkast van bamboe, 24 houten fretten, 4 hoofdsnaren, 2 tot 3 secundaire snaren en een bourdonsnaar."
+
+#. name:metallophone
+#: DB:instrument/description:349
+msgid ""
+"Consisting of tuned metal bars, slates or keys struck with mallets and "
+"arranged (often on resonators of sonorous material) in various scales. "
+"Compare <a href=\"https://musicbrainz.org/instrument/db95a035-6a3d-"
+"44b4-8694-74ff71b61768\">xylophone</a> for the wooden bar equivalent."
+msgstr "Metallofonen bestaan uit gestemde metalen plaatjes, latjes of toetsen die in verschillende schalen zijn gerangschikt en met een hamer worden aangeslagen. De <a href=\"https://musicbrainz.org/instrument/db95a035-6a3d-44b4-8694-74ff71b61768\">xylofoon</a> is het houten equivalent."
 
 #. name:whip / slapstick
 #: DB:instrument/description:107
@@ -710,15 +677,23 @@ msgstr "De chuurqin is een Mongools strijkinstrument en de voorloper van de mori
 msgid "Crumhorn used in the 14th to 17th centuries in Europe"
 msgstr "De kromhoorn werd vooral tussen de veertiende en zeventiende eeuw gebruikt in Europa"
 
-#. name:bells
+#. name:bell
 #: DB:instrument/description:116
-msgid "Cup or bellshaped bells, these are shuk or struck."
-msgstr "Bellen zijn klok- of schaalvormige instrumenten die worden geschud of aangeslagen."
+msgid "Cup or bellshaped bells, these are shook or struck."
+msgstr "Bellen in de vorm van een kom of bel die worden geschud of aangeslagen."
 
 #. name:davul
 #: DB:instrument/description:411
 msgid "Davul, turkish drum"
 msgstr "Davul, Turkse trommel"
+
+#. name:setar
+#: DB:instrument/description:630
+msgid ""
+"Derived from the Indian tritantri veena by the Persian poet Amir Khusro "
+"sometime in 13th century, it had 3 (now 4) strings and a long neck. It later"
+" gave name to the Indian sitar."
+msgstr "De setar werd in de 13e eeuw door de Perzische dichter Amīr Khusrow ontwikkeld uit de Indiase tritantri-vina. Het had drie (tegenwoordig vier) snaren en een lange hals. Het gaf ook de naam aan de Indiase sitar."
 
 #. name:tenora
 #: DB:instrument/description:869
@@ -816,6 +791,20 @@ msgid ""
 "and mellower than the trumpet which it resembles."
 msgstr "De kornet is een koperblazer uit de vroege 19e eeuw met een conische boring. Het is compacter en klinkt milder dan de trompet, waar het verder erg op lijkt."
 
+#. name:đing buốt
+#: DB:instrument/description:306
+msgid "Ede traditional flute, four finger holes, blowing reed"
+msgstr "Traditionele fluit van het Vietnamese Radevolk met vier vingergaten en een riet."
+
+#. name:surbahar
+#: DB:instrument/description:946
+msgid ""
+"Effectively a bass sitar, it has 4 main, 3-4 chikari(drone) and 10-11 "
+"resonance strings strung over a wide wooden neck. Made of flat-cut gourd "
+"with a possible secondary resonator (tumba) it was invented in 1825 by "
+"sitar-player Ghulam Mohammed who wanted a deeper sound."
+msgstr "De surbahar is eigenlijk een bassitar met 4 hoofdsnaren, 3 tot 4 bourdonsnaren en 10 tot 11 resonantiesnaren en een lange houten hals. Het is gemaakt van een vlak afgesneden kalebas en heeft soms een tweede resonator (tumba). Sitarspeler Ghulam Mohammed vond het instrument in 1825 uit omdat hij een lager geluid wilde."
+
 #. name:harpejji
 #: DB:instrument/description:894
 msgid ""
@@ -871,6 +860,19 @@ msgstr "De trompetfamilie is een familie van koperblazers."
 msgid "Fipple flute that became a symbol for the Basque folk revival."
 msgstr "Een txistu is een bekfluit die het symbool is geworden van de opleving in de Baskische volksmuziek."
 
+#. name:fipple flute
+#: DB:instrument/description:194
+msgid ""
+"Fipple or duct flutes have a mouthpiece that is breathed into, but no reeds"
+msgstr "Bek- of blokfluiten hebben een mondstuk waarin wordt geblazen, maar geen riet."
+
+#. name:oboe da caccia
+#: DB:instrument/description:572
+msgid ""
+"First referred to in 1722, this transposing double-reed has a curved tube "
+"and a flared (brass) bell."
+msgstr "De jachthobo werd voor het eerst in 1722 genoemd en is een dubbelrietinstrument met een gebogen buis en een uitlopende (koperen) beker."
+
 #. name:poi
 #: DB:instrument/description:866
 msgid ""
@@ -906,10 +908,31 @@ msgid ""
 "ensemble with zhu."
 msgstr "Een yu is een houten tijger met een rij tanden op de rug. Het geluid wordt geproduceerd door over de tanden te schrapen. Het instrument werd bespeeld in een ensemble met de zhu."
 
+#. name:gendèr
+#: DB:instrument/description:961
+msgid ""
+"From the Bali and Java use in gamelan, it has 12-14 tuned bronze keys "
+"suspended over metal or bamboo resonators."
+msgstr "De gender wordt in Bali en Java gebruikt in het gamelanensemble en heeft 12 tot 14 gestemde bronzen toetsen die boven resonators van metaal of bamboe zijn opgehangen."
+
 #. name:gankogui
 #: DB:instrument/description:383
 msgid "Gankogui, iron bell"
 msgstr "IJzeren bel(len) uit Afrika."
+
+#. name:percussion idiophone
+#: DB:instrument/description:959
+msgid ""
+"Generally consists of one to very many plates, sticks, or other objects hit "
+"with (or against) various types of mallets."
+msgstr "Percussie-idiofonen zijn idiofonen die met verschillende soorten hamers worden aangeslagen of zelf ergens tegenaan worden geslagen."
+
+#. name:concussion idiophone
+#: DB:instrument/description:958
+msgid ""
+"Generally consists of two completely equal or somewhat unsymmetrical sticks,"
+" plates, shells or similar hit together."
+msgstr "Concussie-idiofonen bestaan meestal uit twee (bijna) identieke stokken, platen, schelpen of soortgelijke voorwerpen die tegen elkaar aan worden geslagen."
 
 #. name:German harp
 #: DB:instrument/description:356
@@ -994,6 +1017,16 @@ msgid ""
 "end of the 18th century."
 msgstr "De baritone is een hybride vorm van een viola da gamba en een bandora. Naast de snaren die met een strijkstok worden bespeeld, heeft het ook snaren om te tokkelen. Het werd tot eind 18e eeuw regelmatig in Europa bespeeld."
 
+#. name:guban
+#: DB:instrument/description:956
+msgid ""
+"Important in Yue, Kunkqu and Peking opera, it consists of the drum <a "
+"href=\"https://musicbrainz.org/instrument/42349583-c10d-"
+"4c6e-b553-28d916113856\">bangu</a> and the clapper <a "
+"href=\"https://beta.musicbrainz.org/instrument/c641bccc-2060-4871-9c12-e2df2523e53c\">paiban</a>."
+" Drum is played by one hand and clapper with the other."
+msgstr "Deze combinatie van de trommel <a href=\"https://musicbrainz.org/instrument/42349583-c10d-4c6e-b553-28d916113856\">bangu</a> en klepper <a href=\"https://beta.musicbrainz.org/instrument/c641bccc-2060-4871-9c12-e2df2523e53c\">paiban</a> speelt een belangrijke rol in Yue- en Kunkqumuziek en de Pekingopera. De trommel wordt met de ene hand bespeeld en de klepper met de andere hand."
+
 #. name:morin khuur
 #: DB:instrument/description:224
 msgid ""
@@ -1067,6 +1100,16 @@ msgid ""
 "lute\""
 msgstr "De yueqin heeft een korte hals met fretten en vier snaren die traditioneel van zijde, maar tegenwoordig van nylon of staal worden gemaakt. Dankzij de schijfvormige klankkast heeft het instrument de bijnamen maangitaar en maanciter."
 
+#. name:slentho
+#: DB:instrument/description:964
+msgid ""
+"It has seven bossed keys hit with the tabuh mallet and is nailed to a wooden"
+" frame. Largely replaced by the <a "
+"href=\"https://musicbrainz.org/instrument/73173277-b7ef-4d5e-"
+"83b2-205cd2f12488\">slethem</a> in gamelan, it is the lowest member of the "
+"saron family."
+msgstr "De slentho heeft zeven toetsen met knobbels die op een houten raamwerk zijn gespijkerd en met hamers worden aangeslagen. Het instrument is het laagste lid van de saronfamilie en is in het gamelanensemble grotendeels vervangen door de <a href=\"https://musicbrainz.org/instrument/73173277-b7ef-4d5e-83b2-205cd2f12488\">slethem</a>."
+
 #. name:yangqin
 #: DB:instrument/description:254
 msgid ""
@@ -1137,7 +1180,7 @@ msgid ""
 "rhythmic component of Gnawa music."
 msgstr "Krakebs zijn grote metalen castagnettenachtige instrumenten die vooral gebruikt worden voor de ritmische component van de Gnawamuziek."
 
-#. name:lamellophone
+#. name:lamellaphone
 #: DB:instrument/description:632
 msgid ""
 "Lamellophones are a family of musical instruments which have one or more "
@@ -1203,12 +1246,25 @@ msgid ""
 "rhythmic accompaniment in Yakshagana."
 msgstr "De maddale is een tweekoppige trommel uit Karnata, India. Samen met de chande zorgt de maddale voor ritmische begeleiding in Yakshagana."
 
+#. name:suling
+#: DB:instrument/description:725
+msgid ""
+"Made of bamboo, it has from 4 to 6 finger-holes and a small wedge-shaped "
+"fipple. There are many varieties all around Southeast Asia, it is also used "
+"in gamelan."
+msgstr "De suling is een fluit van bamboe met vier tot zes vingergaten en een klein wigvormig mondstuk. In Zuidoost-Azië bestaan er veel varianten van deze fluit, die ook in het gamelanensemble wordt gebruikt."
+
 #. name:bones
 #: DB:instrument/description:357
 msgid ""
 "Made of bone or wood, these are paired sticks of sonorous material used in "
 "folk music."
 msgstr "Botjes zijn ritmestokjes gemaakt van been of hout die in één hand worden gehouden. Ze worden bespeeld in volksmuziek."
+
+#. name:calabash
+#: DB:instrument/description:777
+msgid "Made of dried gourd. Struck with hands or objects."
+msgstr "Een kalebas is een instrument dat gemaakt is van een gedroogde en uitgeholde kalebas en waar met de handen of objecten op wordt geslagen."
 
 #. name:njarka
 #: DB:instrument/description:936
@@ -1240,6 +1296,14 @@ msgid ""
 "hardwood, this ancient instrument was used for rhythm during chanting."
 msgstr "Een tumutumu wordt gemaakt van resonerend steen, hout of bot en wordt bespeeld met een klopper van steen, bot of hardhout. Het instrument wordt gebruikt voor ritmische begeleiding tijdens het zingen."
 
+#. name:paiban
+#: DB:instrument/description:957
+msgid ""
+"Made of sandalwood or bamboo, 2 blocks are tied together with a string, a "
+"third with a ribbon. Part of the drum and clapper ensemble guban, but "
+"confusingly, the clapper alone can also be called guban."
+msgstr "De paiban bestaat uit drie blokken sandelhout of bamboe, waarvan er twee met een koord aan elkaar zijn gebonden en een derde met een lint. Het is de helft van de combinatie guban, maar de klepper zelf wordt soms ook guban genoemd."
+
 #. name:tungso
 #: DB:instrument/description:887
 msgid ""
@@ -1254,6 +1318,13 @@ msgid ""
 "water instead of air comes out of the holes. Sound is produced by covering "
 "the holes with fingers, altering the flow of water through the holes."
 msgstr "Een hydraulofoon is gemaakt van een buis met gaten met daarin geen, enkel of dubbel riet. Door de gaten stroomt water naar buiten, en het geluid wordt gemanipuleerd door gaten met de vinger af te sluiten, waardoor de stroming wordt beïnvloed."
+
+#. name:krap
+#: DB:instrument/description:949
+msgid ""
+"Made of various materials, clappers are struck together to keep rhythm and "
+"time for use in ceremonies and rituals and to accompany dancing and singing."
+msgstr "Krap zijn kleppers van verschillende materialen die tegen elkaar worden aangeslagen om tijdens ceremonies en rituelen het ritme of de tijd aan te geven of worden gebruikt om dans en gezang te begeleiden."
 
 #. name:pūtōrino
 #: DB:instrument/description:786
@@ -1291,13 +1362,12 @@ msgstr "De gemshoorn stamt uit de middeleeuwen of eerder en werd vroeger gemaakt
 msgid "Mexican vihuela, used by mariachi bands"
 msgstr "Mexicaanse vihuela, wordt gebruikt door mariachibands."
 
-#. name:mirliton
-#: DB:instrument/description:591
+#. name:kachva sitar
+#: DB:instrument/description:947
 msgid ""
-"Mirliton is a generic term for membranophones played by a performer speaking"
-" or singing into them, and which alter the sound of the voice by means of a "
-"vibrating membrane."
-msgstr "Miriliton is een algemene term voor membranofonen die worden bespeeld door in het instrument te spreken of te zingen. Dit brengt een membraan in trilling, waardoor het geluid van de stem verandert."
+"More common in the 19th century, it was made of flat-cut gourd and had 16 "
+"frets, In the 1820s it was used by Ghulam Mohammed to develop the surbahar."
+msgstr "De kachva sitar werd vooral in de 19e eeuw bespeeld. Het is gemaakt van een vlak afgesneden kalebas en heeft 16 fretten. In de jaren 1820 ontwikkelde Ghulam Mohammed de surbahar op basis van de kachva sitar."
 
 #. name:bass viol
 #: DB:instrument/description:916
@@ -1350,6 +1420,15 @@ msgstr "Een dubbelrietinstrument met een conisch geboorde buis met een licht tre
 msgid "Oboe d'amore / Oboe d'amour (mezzo-soprano)"
 msgstr "Oboe d’amore / liefdeshobo (mezzo-sopraan)."
 
+#. name:boomwhacker
+#: DB:instrument/description:948
+msgid ""
+"Often used in group musical education and by street musicians, it consists "
+"of individual colourful hollow plastic tubes of various widths that are "
+"struck on various surfaces to produce sound, tubes can also be arranged and "
+"hit by mallets."
+msgstr "De boomwhacker wordt vaak gebruikt voor muziekonderwijs of door straatmuzikanten. Het bestaat uit losse kleurrijke holle buizen van plastic met verschillende diameters waarmee op verschillende voorwerpen wordt geslagen om geluid te maken, of ze worden naar grootte gerangschikt en met hamers aangeslagen."
+
 #. name:kanklės
 #: DB:instrument/description:422
 msgid ""
@@ -1379,6 +1458,15 @@ msgid ""
 "and a black lacquered wooden soundboard. Traditionally it was only played by"
 " townspeople."
 msgstr "De jootsjin werd vanuit China in Mongolië geïntroduceerd. Het heeft 13 dubbele snaren en een zwartgelakt houten klankbord. Het werd oorspronkelijk alleen door dorpsbewoners bespeeld."
+
+#. name:tritantri veena
+#: DB:instrument/description:945
+msgid ""
+"Originally played in court, it consists of a 1m long piece of wood with a "
+"small intricately carved soundbox. It has 16 frets and 3 metal strings. "
+"Legend has it, the Persian Ameer Khusrau made some alterations and created "
+"the Persian sehtara (setar)."
+msgstr "De tritantri-vina werd oorspronkelijk aan het hof bespeeld. Het bestaat uit een stuk hout van een meter lang met een kleine klankkast die met fijn houtsnijwerk is versierd. Het instrument heeft 16 fretten en drie metalen snaren. Volgens de legende maakte Amīr Khusrow wat aanpassingen en ontwikkelde zo de Perzische setar."
 
 #. name:renaissance rackett
 #: DB:instrument/description:896
@@ -1440,6 +1528,22 @@ msgstr "Castagnetten zijn schelpvormige kleppers van hout, bot, schelp of glasve
 #: DB:instrument/description:924
 msgid "Pardessus or sopranino member of the viol family"
 msgstr "De pardessus de viole is het kleinste lid (sopranino) van de familie viole da gamba."
+
+#. name:slenthem
+#: DB:instrument/description:962
+msgid ""
+"Part of central Javanese gamelan, the 6(slendro)-7(pelog) bronze keys beat "
+"by a disk mallet(tabuh) are suspended above individual tube metal/bamboo "
+"resonators set in a 75 cm long wooden frame."
+msgstr "De slenthem bestaat uit zes tot zeven bronzen toetsen die met een schijfvormige hamer worden aangeslagen. De toetsen hangen boven buisvormige resonators van metaal of bamboe in een 75 cm lang houten raamwerk. De slenthem maakt deel uit van het Centraal-Javaanse gamelanensemble."
+
+#. name:saron
+#: DB:instrument/description:597
+msgid ""
+"Part of the Javanese gamelan, these can have from six up to nine thick "
+"bronze or iron slabs resting on wooden resonator (rancak) and are hit with "
+"wooden mallets or buffalo horn."
+msgstr "De saron bestaat uit zes tot negen dikke staven van brons of ijzer op een houten resonator (rancak) die met houten hamers of een buffelhoorn worden aangeslagen. Het maakt deel uit van het Javaanse gamelanensemble."
 
 #. name:body percussion
 #: DB:instrument/description:500
@@ -1534,7 +1638,7 @@ msgid ""
 "Popular in the fifteenth century, it was a combination of a pipe organ and "
 "harpsichord, often with two keyboards, one for the strings and one for the "
 "pipes mounted underneath."
-msgstr "Het Klaviorganum is een combinatie van een klavecimbel en een pijporgel, vaak met twee klavieren, één voor de snaren en één voor de pijpen. Het was in de 15e eeuw een populair instrument."
+msgstr "Het klaviorganum is een combinatie van een klavecimbel en een pijporgel, vaak met twee klavieren, één voor de snaren en één voor de pijpen. Het was in de 15e eeuw een populair instrument."
 
 #. name:regal
 #: DB:instrument/description:918
@@ -1564,6 +1668,11 @@ msgid ""
 "India and \"cimbalon\" in Europe."
 msgstr "De đàn tam thập lục, een recent geïntroduceerd Vietnamees instrument, is een hakkebord met 36 snaren en is verwant met andere soorten hakkeborden over de hele wereld, zoals de Indiase santoor en de Europese cimbalon."
 
+#. name:flute
+#: DB:instrument/description:13
+msgid "Reedless Aerophone, usually a tube"
+msgstr "Een fluit is een rietloze aerofoon, meestal in de vorm van een buis."
+
 #. name:rubab
 #: DB:instrument/description:883
 msgid ""
@@ -1590,6 +1699,13 @@ msgstr "Een junjung is een heilige cilindrische trommel met een geiten- of koeie
 msgid "Santur, Middle Eastern"
 msgstr "De santur is een Perzisch-Iraans hakkebord."
 
+#. name:arrabel
+#: DB:instrument/description:960
+msgid ""
+"Scraper made of bones tied together with rope scraped with a conch-shell, in"
+" Catalonia it's scraped with a castanet. Ginebra is a variant made of cane."
+msgstr "De arrabel is een idiofoon gemaakt van beenderen, samengebonden met touw. Het wordt bespeeld door er met een zeeschelp, of in Catalonië met een castagnet, overheen te schrapen. De ginebra is een variant gemaakt van riet."
+
 #. name:drums (drum set)
 #: DB:instrument/description:101
 msgid ""
@@ -1597,6 +1713,13 @@ msgid ""
 "Rock and Pop music. It consists of snare drum, tom-toms, hi-hats, cymbals "
 "and bass drum."
 msgstr "Het drumstel werd vanaf de jaren 1930 ontwikkeld als een vaste verzameling trommels. Het bestaat uit een kleine en grote trom (snare en bass drum), tom-toms, hi-hats en bekkens."
+
+#. name:shaken idiophone
+#: DB:instrument/description:954
+msgid ""
+"Shaken idiophone or rattle. Sound is produced by holding or containing "
+"usually small concussing parts."
+msgstr "Geschudde idiofoon of ratel. Het geluid wordt geproduceerd door vele, meestal kleine deeltjes in of aan het instrument die tegen elkaar aan tikken."
 
 #. name:Otamatone
 #: DB:instrument/description:890
@@ -1621,6 +1744,13 @@ msgid ""
 "Side drum, often with one or more snares, worn by one person and beaten by "
 "one hand, it is often combined with tabor pipes."
 msgstr "Een tabor is een trommel met een of twee snaren die met één hand wordt bespeeld, vaak in combinatie met een eenhandsfluit."
+
+#. name:mirliton
+#: DB:instrument/description:591
+msgid ""
+"Simultaneously a woodwind and membranophone, sound is produced by singing or"
+" speaking into a thin buzzing membrane."
+msgstr "De mirliton is zowel een blaasinstrument als een membranofoon. Het geluid wordt geproduceerd door in een dun, zoemend membraan te spreken of zingen."
 
 #. name:donso ngɔni
 #: DB:instrument/description:776
@@ -1707,6 +1837,16 @@ msgid ""
 "Sound chip in various video game consoles used for music, chiefly in bit-"
 "tunes and chip-tunes"
 msgstr "Met spelcomputer wordt de geluidschip uit verschillende spelcomputers bedoeld. Deze wordt meestal gebruikt voor het maken van bitpop en chiptune-muziek."
+
+#. name:sitar
+#: DB:instrument/description:88
+msgid ""
+"Soundbox made of gourd, it has 18-21 (6-7 on frets and 11-15 sympathetic "
+"under the frets) metal strings, two bridges and a long wooden neck where the"
+" tuning pegs of the sympathetic strings are attached. Used in India since "
+"ancient times, it flourished during the 16-17th before arriving at it's "
+"current form in the 18th century. It became popular worldwide in the 1950-60"
+msgstr "De sitar is een instrument met een klankkast van kalebas, 18 tot 21 metalen snaren (6 of 7 op fretten en 11 tot 15 resonantiesnaren daaronder), twee bruggen en een lange houten hals waaraan de stemschroeven voor de resonantiesnaren aan zijn bevestigd. Het instrument wordt als sinds de oudheid in India gebruikt, had een bloeiperiode in de 16e en 17e eeuw en kreeg zijn huidige vorm in de 18e eeuw. In de jaren ’50 en ’60 werd het in de hele wereld populair."
 
 #. name:struck idiophone
 #: DB:instrument/description:675
@@ -1952,16 +2092,6 @@ msgid ""
 "The bandoneón is a type of bisonoric concertina popular in parts of South "
 "America and in Lithuania."
 msgstr "Een bandoneon is een soort concertina en is populair in delen van Zuid-Amerika en Litouwen. Het wordt onder andere gebruikt voor Argentijnse tango."
-
-#. name:bangu
-#: DB:instrument/description:581
-msgid ""
-"The bangu or danpigu is a Chinese frame drum, struck by two bamboo sticks. "
-"It is usually played along with the clappers ban (Chinese: 板, bǎn) and both "
-"instruments are known collectively as <a "
-"href=\"http://en.wikipedia.org/wiki/Guban_(instrument)\">guban</a> (Chinese:"
-" 鼓板, gǔbǎn)."
-msgstr "De bangu, ook bekend als danpigu is een Chinese lijsttrommel die met twee stokken van bamboe wordt bespeeld. Het wordt meestal samen met Chinese ban-kleppers bespeeld. De combinatie van de twee instrumenten wordt <a href=\"http://en.wikipedia.org/wiki/Guban_(instrument)\">guban</a> genoemd."
 
 #. name:banhu
 #: DB:instrument/description:221
@@ -2398,13 +2528,6 @@ msgid ""
 "family."
 msgstr "Een gralla is een traditioneel Catalaans dubbelrietinstrument uit de familie van de hobo. Het instrument is ook bekend als xirimita."
 
-#. name:gramorimba
-#: DB:instrument/description:748
-msgid ""
-"The gramorimba is a lithophone, similar to a xylophone whose bars are made "
-"of stone."
-msgstr "Een gramorimba is een lithofoon en lijkt op een xylofoon met staven van steen."
-
 #. name:guan
 #: DB:instrument/description:683
 msgid ""
@@ -2564,13 +2687,6 @@ msgid ""
 "bamboo pipes arranged into two rows which are connected to a small, "
 "hollowed-out hardwood windchest."
 msgstr "De khene is een mondorgel uit Laos en Noordoost-Thailand en wordt ook gebruikt door sommige etnische minderheden in Vietnam. Het bestaat meestal uit 14 bamboebuizen die in twee rijen worden opgesteld en met een kleine uitgeholde windkast worden verbonden."
-
-#. name:khlui
-#: DB:instrument/description:666
-msgid ""
-"The khlui is a vertical duct flute from Thailand which is generally made of "
-"bamboo."
-msgstr "Een khlui is een bekfluit uit Thailand en wordt meestal gemaakt van bamboe."
 
 #. name:khong wong
 #: DB:instrument/description:621
@@ -2802,14 +2918,6 @@ msgstr "Een nyatiti is een tokkelinstrument met vijf tot acht snaren uit Kenia."
 msgid "The nyckelharpa is a traditional Swedish string instrument."
 msgstr "Een nyckelharpa is een traditioneel Zweeds snaarinstrument."
 
-#. name:oboe da caccia
-#: DB:instrument/description:572
-msgid ""
-"The oboe da caccia is a double reed woodwind instrument in the oboe family, "
-"pitched a fifth below the oboe and used primarily in the Baroque period of "
-"European classical music."
-msgstr "Een jachthobo (ook wel oboe da caccia) is een dubbelriets houtblazer Het is een vroege vorm van de hobo."
-
 #. name:ocarina
 #: DB:instrument/description:15
 msgid ""
@@ -2824,13 +2932,6 @@ msgid ""
 "strings tuned in fifths, G, D, A, E (low to high), an octave below a "
 "mandolin."
 msgstr "De octaafmandoline of tenormandoline is een mandoline die een octaaf lager gestemd is dan een gewone Mandoline."
-
-#. name:pakhavaj
-#: DB:instrument/description:502
-msgid ""
-"The pakhavaj is an Indian barrel-shaped, two-headed drum used in Hindustani "
-"music."
-msgstr "De pakhavaj, pakhawaj, pakuaj, pakhvaj of pakavaj is een Indiase tonvormige tweekoppige trommel."
 
 #. name:pedal piano
 #: DB:instrument/description:606
@@ -3007,13 +3108,6 @@ msgid ""
 " Pakistan."
 msgstr "De sarangi is een strijkinstrument met een korte hals uit India, Nepal en Pakistan."
 
-#. name:saron
-#: DB:instrument/description:597
-msgid ""
-"The saron is an Indonesian musical instrument which is used in the gamelan. "
-"It normally has seven bronze bars placed on top of a resonating frame."
-msgstr "Een saron is een Indonesisch muziekinstrument dat wordt gebruikt in de gamelan. Het heeft zeven bronzen staven op een resonerend onderstel."
-
 #. name:sarrusophone
 #: DB:instrument/description:749
 msgid ""
@@ -3056,13 +3150,6 @@ msgstr "Saz is een familie van snaarinstrumenten waaronder de bağlama valt. De 
 #: DB:instrument/description:757
 msgid "The segunda is a bass garifuna drum."
 msgstr "Een segunda is een basgarifunatrommel."
-
-#. name:setar
-#: DB:instrument/description:630
-msgid ""
-"The setar is a long-necked three-stringed lute found in Iran and Central "
-"Asia."
-msgstr "Een setar is een driesnarige luit met een lange hals uit Iran en Centraal-Azië."
 
 #. name:shakuhachi
 #: DB:instrument/description:173
@@ -3147,14 +3234,6 @@ msgstr "Een siku is een traditionele panfluit uit de Andes."
 msgid "The sistrum is a metal rattle associated with ancient Iraq and Egypt."
 msgstr "Een sistrum is een metalen ratel."
 
-#. name:sitar
-#: DB:instrument/description:88
-msgid ""
-"The sitar is a plucked stringed instrument used mainly in Hindustani music "
-"and Indian classical music which is descended from a similar but simpler "
-"Persian instrument called the setar."
-msgstr "Een sitar is een tokkelinstrument dat vooral wordt gebruikt voor Hindoestaanse muziek en klassieke Indiase muziek. Het instrument stamt af van het simpelere Perzische instrument genaamd setar."
-
 #. name:song loan
 #: DB:instrument/description:284
 msgid ""
@@ -3181,11 +3260,6 @@ msgstr "Een westerngitaar of steelstringgitaar is een moderne variant op de akoe
 #: DB:instrument/description:730
 msgid "The suka is a once-extinct fiddle from Poland."
 msgstr "Een suka is een traditionele viool uit Polen. Hoewel bijna verdwenen, wordt het tegenwoordig weer vaker bespeeld."
-
-#. name:suling
-#: DB:instrument/description:725
-msgid "The suling is a bamboo flute from Southeast Asia."
-msgstr "Een suling is een bamboefluit uit Zuidoost-Azië."
 
 #. name:suona
 #: DB:instrument/description:548
@@ -3352,7 +3426,7 @@ msgstr "Een trombot of tromboon is een instrument bestaande uit een trombone met
 msgid ""
 "The trống bông is a wooden Vietnamese drum with a single drumhead which is "
 "played with both hands."
-msgstr "De trống bông, ook bekend als bong trommel, is een houten Vietnamese trommel met een enkel vel en wordt met beide handen bespeeld."
+msgstr "De trống bông, ook bekend als bongtrommel, is een houten Vietnamese trommel met een enkel vel en wordt met beide handen bespeeld."
 
 #. name:tubax
 #: DB:instrument/description:694
@@ -3691,6 +3765,14 @@ msgid ""
 "It was for signalling, but also ceremonial and ritual use."
 msgstr "Een puutaatara is een trompet gemaakt van een zeeschelp met een prachtig gesneden houten mondstuk. Het werd gebruikt om signalen door te geven, maar ook in ceremonies en rituelen."
 
+#. name:shakers
+#: DB:instrument/description:340
+msgid ""
+"Tube made of metal or bamboo, it is filled with seeds, pebbles or sand. "
+"Especially used in Latin American music, it is shaken rhythmically to "
+"produce sound."
+msgstr "Een buis van metaal of bamboe, gevuld met zaden, steentjes of zand. Deze instrumenten worden vooral in Latijns-Amerika gebruikt en worden meestal ritmisch geschud om geluid te produceren."
+
 #. name:soprano violin
 #: DB:instrument/description:210
 msgid ""
@@ -3756,6 +3838,13 @@ msgid ""
 "announcements like war, welcoming people and kumara planting."
 msgstr "Een puukaea is een houten trompet met een lengte tot 2,5 meter. Het werd gebruikt voor verschillende aankondigen, bijvoorbeeld tijdens oorlogen, om mensen te verwelkomen en bij het planten van kumara-aardappelen."
 
+#. name:clapstick
+#: DB:instrument/description:955
+msgid ""
+"Used by Australian Aboriginals to maintain rhythm in chants and "
+"traditionally to accompany didgeridoo. There are also Boomerang clapsticks."
+msgstr "De clapstick wordt gebruikt door Australische Aboriginals om bij gezang in het ritme te blijven. Het instrument wordt traditioneel gebruikt als begeleiding van de didgeridoo. Er zijn ook boomerangclapsticks."
+
 #. name:harmonica
 #: DB:instrument/description:43
 msgid ""
@@ -3771,6 +3860,13 @@ msgid ""
 "it is known since ancient times. Lute with a gourd sound resonator, it has "
 "24 fixed frets, 7 steel strings (4 main & 3 drone)"
 msgstr "De Saraswati veena wordt gebruikt in de Carnatische muziektraditie en is vernoemd naar de godin van kunst en muziek Saraswati. Het instrument is al sinds de oudheid bekend. Het is een luit met een klankkast van kalebas en heeft 24 vaste fretten en 7 stalen snaren (4 hoofdsnaren en 3 bourdonsnaren)."
+
+#. name:pakhawaj
+#: DB:instrument/description:502
+msgid ""
+"Used in Hindustani dhrupad, this two-headed barrel-drum is tuned like its "
+"descendant the tabla."
+msgstr "De pakhavaj wordt gebruikt bij Hindoestaanse dhrupadmuziek. Het is een tweekoppige vattrommel en is op dezelfde manier gestemd als de tabla die van het instrument is afgeleid."
 
 #. name:octavilla
 #: DB:instrument/description:940
@@ -3789,10 +3885,32 @@ msgid ""
 "was derived from the Chinese xiao in the 19th century."
 msgstr "De tanso is een verticaal bespeelde bekfluit die in Korea in volksmuziek en op school als lesinstrument wordt bespeeld. Het instrument werd, net als zijn grotere broer de tongso, in de 19e eeuw uit de Chinese xiao ontwikkeld."
 
+#. name:krap khū
+#: DB:instrument/description:950
+msgid ""
+"Used in folk music, bamboo is split into a pair of 40 cm long sticks which "
+"are hit together."
+msgstr "De krap khū wordt gebruikt in de volksmuziek en bestaat een in de lengterichting doorgesneden stuk bamboe van 40 cm. Deze delen worden tegen elkaar aangeslagen."
+
 #. name:viola caipira
 #: DB:instrument/description:660
 msgid "Used in folk-music, It has ten steel strings in five courses."
 msgstr "De viola caipira is een Braziliaanse gitaar met tien stalen snaren in vijf dubbele koren en wordt bij volksmuziek bespeeld."
+
+#. name:krap phuang
+#: DB:instrument/description:951
+msgid ""
+"Used in royal ceremonies, played by striking against the palm, it is made of"
+" several pieces of wood, ivory and sheets of brass between two larger pieces"
+" of wood tied together by a string at one end."
+msgstr "De krap phuang wordt tijdens koninklijke ceremonies bespeeld door het tegen de palm aan te slaan. Het instrument is gemaakt van meerdere stukken hout, ivoor en koperen vellen die zijn ingeklemd tussen twee grotere stukken hout die aan een uiteinde zijn samengebonden."
+
+#. name:krap sēphā
+#: DB:instrument/description:952
+msgid ""
+"Used in the chant, sēphā, a pair of squared bevelled rosewood sticks around "
+"21 cm long and 3-4 cm thick."
+msgstr "De krap sēphā wordt bespeeld tijdens sēphāgezang. Het instrument bestaat uit een paar stokken van rozenhout met een lengte van ongeveer 21 cm en een dikte van 3 tot 4 cm."
 
 #. name:hyoshigi
 #: DB:instrument/description:905
@@ -3830,8 +3948,8 @@ msgid ""
 "tubing into the instrument."
 msgstr "Koperblazers met ventiel gebruiken ventielen waarmee de lengte van de buis kan worden beïnvloed."
 
-#. name:não bạt / chập chõa
-#: DB:instrument/description:272
+#. name:cymbal
+#: DB:instrument/description:271
 msgid "Various types of cymbal. Also called chũm chọe"
 msgstr "Verschillende types bekken. Wordt ook chũm chọe genoemd."
 
@@ -3861,12 +3979,12 @@ msgid ""
 "commonly referred to as just \"flute\"."
 msgstr "Een concertfluit is een dwarsfluit en het meest voorkomende soort fluit in de westerse klassieke muziek. Het instrument wordt ook vaak simpelweg fluit genoemd."
 
-#. name:English horn
+#. name:cor anglais
 #: DB:instrument/description:7
 msgid ""
-"While also known as Cor anglais, it is neither a horn nor English, but a "
+"While also known as English horn, it is neither a horn nor English, but a "
 "transposing member of the oboe family, pitched at F"
-msgstr "De althobo wordt ook wel een Engelse hoorn genoemd, maar is een hoorn noch Engels. Het is een in F gestemde hobo."
+msgstr "Hoewel de althobo ook wel Engelse hoorn wordt genoemd, is het Engels noch een hoorn, maar een lager (in F) gestemde variant van de hobo."
 
 #. name:viola d'amore
 #: DB:instrument/description:94
@@ -3889,6 +4007,14 @@ msgid ""
 "Widely used in Korea, it has a wood soundbox and a rod neck with two silk-"
 "strings, heldt on the knee while played with a bow"
 msgstr "De haegeum is een veelgebruikt Koreaans snaarinstrument met een houten klankkast, een staafvormige hals en twee snaren van zijde. Het wordt met een strijkstok bespeeld."
+
+#. name:bangu
+#: DB:instrument/description:581
+msgid ""
+"Widely used in folk music, opera and music ensembles, it can be round or "
+"cone-shaped with cow/pigskin nailed to the larger convex end which has a "
+"small hole (guxin)."
+msgstr "De bangu wordt veel gebruikt voor volksmuziek, opera en in muziekensembles. Het kan rond of conisch zijn en het grootste uiteinde is bespannen met een koeien- of varkenshuid."
 
 #. name:wind chime
 #: DB:instrument/description:497
@@ -4081,11 +4207,6 @@ msgid ""
 "\"tanpura\" related Indian \"pandour\""
 msgstr "Een luit met een lange hals uit Macedonië en Bulgarije. Niet verwarren met het Joegoslavische tamburica-orkest, verschillende antieke Perzische en Turkse instrumenten die van de tanbur zijn afgeleid en de Indiase tanpura en pandour."
 
-#. name:đing buốt
-#: DB:instrument/description:306
-msgid "edo village traditional flute, four finger holes, blowing reed"
-msgstr "Een đing buốt is een traditionele fluit uit de Edoperiode met vier vingergaten en een riet."
-
 #. name:tubon
 #: DB:instrument/description:775
 msgid "electronic bass organ proto-keytar"
@@ -4272,8 +4393,8 @@ msgid ""
 " of mandolin, it is tuned like it and the violin."
 msgstr "De banjoline is meerdere keren in verschillende landen uitgevonden. Het is een combinatie van de klankkast van een banjo en de hals van een mandoline, en is gestemd als een viool."
 
-#. name:saó ôi flute
-#: DB:instrument/description:310
+#. name:sáo meò
+#: DB:instrument/description:316
 msgid "saó ôi (flute of the Muong)"
 msgstr "Fluit van de Muong uit Vietnam"
 

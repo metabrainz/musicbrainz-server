@@ -3,13 +3,16 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-const _ = require('lodash');
+import _ from 'lodash';
+import ko from 'knockout';
 
-const releaseEditor = require('./viewModel');
+import MB from '../common/MB';
+
+import releaseEditor from './viewModel';
 
 function bubbleDoc(options) {
     var bubble = new MB.Control.BubbleDoc("Information");
-    _.assign(bubble, options);
+    Object.assign(bubble, options);
     return bubble;
 }
 

@@ -3,14 +3,15 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-const _ = require('lodash');
-const test = require('tape');
+import _ from 'lodash';
+import test from 'tape';
 
-const {reduceArtistCredit} = require('../../common/immutable-entities');
-const fields = require('../../release-editor/fields');
-const trackParser = require('../../release-editor/trackParser');
-const releaseEditor = require('../../release-editor/viewModel');
-const common = require('./common');
+import {reduceArtistCredit} from '../../common/immutable-entities';
+import fields from '../../release-editor/fields';
+import trackParser from '../../release-editor/trackParser';
+import releaseEditor from '../../release-editor/viewModel';
+
+import * as common from './common';
 
 function parserTest(name, callback) {
     test(name, function (t) {
@@ -30,7 +31,7 @@ function parserTest(name, callback) {
 parserTest("track numbers", function (t) {
     t.plan(1);
 
-    _.assign(trackParser.options, {
+    Object.assign(trackParser.options, {
         hasTrackNumbers: true,
         hasVinylNumbers: true,
         useTrackNumbers: true,
@@ -49,7 +50,7 @@ parserTest("track numbers", function (t) {
     ]
     .join("\n");
 
-    common.trackParser(t, input, [
+    common.trackParserTest(t, input, [
         { position: 1, number: "a1", name: "Kermis" },
         { position: 2, number: "a2", name: "Glitch" },
         { position: 3, number: "a3", name: "Afrik Slang" },
@@ -63,7 +64,7 @@ parserTest("track numbers", function (t) {
 parserTest("parsing track durations with trailing whitespace (MBS-1284)", function (t) {
     t.plan(1);
 
-    _.assign(trackParser.options, {
+    Object.assign(trackParser.options, {
         hasTrackNumbers: true,
         useTrackNumbers: true,
         useTrackNames: true,
@@ -78,7 +79,7 @@ parserTest("parsing track durations with trailing whitespace (MBS-1284)", functi
     ]
     .join("\n");
 
-    common.trackParser(t, input, [
+    common.trackParserTest(t, input, [
         { position: 1, name: "Forgotten Child", formattedLength: "3:39" },
         { position: 2, name: "Dirty Looks",     formattedLength: "4:34" },
         { position: 3, name: "Private Life",    formattedLength: "3:29" },
@@ -89,7 +90,7 @@ parserTest("parsing track durations with trailing whitespace (MBS-1284)", functi
 parserTest("numbers at the end of track names being wrongly interpreted as durations (MBS-2511, MBS-2902)", function (t) {
     t.plan(1);
 
-    _.assign(trackParser.options, {
+    Object.assign(trackParser.options, {
         hasTrackNumbers: true,
         useTrackNumbers: true,
         useTrackNames: true,
@@ -102,7 +103,7 @@ parserTest("numbers at the end of track names being wrongly interpreted as durat
     ]
     .join("\n");
 
-    common.trackParser(t, input, [
+    common.trackParserTest(t, input, [
         { position: 1, name: "Criminology 2.5", formattedLength: "" },
         { position: 2, name: "Love On A .45", formattedLength: "" }
     ]);
@@ -111,7 +112,7 @@ parserTest("numbers at the end of track names being wrongly interpreted as durat
 parserTest("ignoring lines that don't start with a number when the option is set (MBS-2540)", function (t) {
     t.plan(1);
 
-    _.assign(trackParser.options, {
+    Object.assign(trackParser.options, {
         hasTrackNumbers: true,
         useTrackNumbers: true,
         useTrackNames: true,
@@ -127,7 +128,7 @@ parserTest("ignoring lines that don't start with a number when the option is set
         4:51 \n\
     ";
 
-    common.trackParser(t, input, [
+    common.trackParserTest(t, input, [
         { position: 1, name: "Freeman Hardy & Willis Acid", formattedLength: "" },
         { position: 2, name: "Orange Romeda", formattedLength: "" }
     ]);
@@ -136,7 +137,7 @@ parserTest("ignoring lines that don't start with a number when the option is set
 parserTest("XX:XX:XX track times (MBS-3353)", function (t) {
     t.plan(1);
 
-    _.assign(trackParser.options, {
+    Object.assign(trackParser.options, {
         hasTrackNumbers: true,
         useTrackNumbers: true,
         useTrackNames: true,
@@ -145,7 +146,7 @@ parserTest("XX:XX:XX track times (MBS-3353)", function (t) {
 
     var input = "1. Love On A .45  05:22:31";
 
-    common.trackParser(t, input, [
+    common.trackParserTest(t, input, [
         { position: 1, name: "Love On A .45", formattedLength: "5:22:31" }
     ]);
 });
@@ -153,7 +154,7 @@ parserTest("XX:XX:XX track times (MBS-3353)", function (t) {
 parserTest("internal track positions are updated appropriately after being reused", function (t) {
     t.plan(2);
 
-    _.assign(trackParser.options, {
+    Object.assign(trackParser.options, {
         hasTrackNumbers: true,
         useTrackNames: true,
         useTrackLengths: true
@@ -211,7 +212,7 @@ parserTest("MBS-7451: track parser can clear TOC track lengths", function (t) {
 parserTest("can parse only numbers, titles, artists, or lengths (MBS-3730, MBS-3732)", function (t) {
     t.plan(16);
 
-    _.assign(trackParser.options, {
+    Object.assign(trackParser.options, {
         hasTrackNumbers: true,
         hasVinylNumbers: true,
         hasTrackArtists: true,
@@ -242,7 +243,7 @@ parserTest("can parse only numbers, titles, artists, or lengths (MBS-3730, MBS-3
     t.equal(track.formattedLength(), "3:00", "length was not used");
 
     // Parse only titles
-    _.assign(trackParser.options, {
+    Object.assign(trackParser.options, {
         useTrackNumbers: false,
         useTrackNames: true
     });
@@ -256,7 +257,7 @@ parserTest("can parse only numbers, titles, artists, or lengths (MBS-3730, MBS-3
     t.equal(track.formattedLength(), "3:00", "length was not used");
 
     // Parse only artists
-    _.assign(trackParser.options, {
+    Object.assign(trackParser.options, {
         useTrackNames: false,
         useTrackArtists: true
     });
@@ -270,7 +271,7 @@ parserTest("can parse only numbers, titles, artists, or lengths (MBS-3730, MBS-3
     t.equal(track.formattedLength(), "3:00", "length was not used");
 
     // Parse only lengths
-    _.assign(trackParser.options, {
+    Object.assign(trackParser.options, {
         useTrackArtists: false,
         useTrackLengths: true
     });
@@ -289,7 +290,7 @@ parserTest("Does not lose previous recordings (MBS-7719)", function (t) {
 
     var trackParser = releaseEditor.trackParser;
 
-    _.assign(trackParser.options, {
+    Object.assign(trackParser.options, {
         hasTrackNumbers: true,
         useTrackNumbers: true,
         useTrackNames: true
@@ -367,7 +368,7 @@ parserTest("Does not lose previous recordings (MBS-7719)", function (t) {
 parserTest("parsing fullwidth numbers", function (t) {
     t.plan(1);
 
-    _.assign(releaseEditor.trackParser.options, {
+    Object.assign(releaseEditor.trackParser.options, {
         hasTrackNumbers: true,
         useTrackNumbers: true,
         useTrackNames: true,
@@ -376,7 +377,7 @@ parserTest("parsing fullwidth numbers", function (t) {
 
     var input = "１ Ｆｏｏ ２：３４";
 
-    common.trackParser(t, input, [
+    common.trackParserTest(t, input, [
         { position: 1, name: "Ｆｏｏ", formattedLength: "2:34" }
     ]);
 });
@@ -385,7 +386,7 @@ parserTest("parses track times for data tracks if there's a disc ID (MBS-8409)",
     t.plan(2);
 
     var trackParser = releaseEditor.trackParser;
-    _.assign(trackParser.options, {useTrackLengths: true});
+    Object.assign(trackParser.options, {useTrackLengths: true});
 
     var release = new fields.Release({
         id: 1,

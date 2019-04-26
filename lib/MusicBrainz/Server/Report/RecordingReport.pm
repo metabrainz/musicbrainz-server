@@ -19,8 +19,7 @@ around inflate_rows => sub {
         map +{
             %$_,
             recording => $recordings->{ $_->{recording_id} }
-        },
-            @$items
+        }, @$items
     ];
 };
 

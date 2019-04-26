@@ -9,7 +9,6 @@
 
 import * as React from 'react';
 
-import {l} from '../../static/scripts/common/i18n';
 import EditorLink from '../../static/scripts/common/components/EditorLink';
 import loopParity from '../../utility/loopParity';
 import type {ResultsPropsT} from '../types';

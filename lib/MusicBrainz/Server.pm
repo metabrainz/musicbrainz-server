@@ -344,16 +344,20 @@ before dispatch => sub {
 
     my $ctx = $self->model('MB')->context;
 
-    # The selenium header is added by the http proxy in t/selenium.js,
-    # and instructs us to use the SELENIUM database instead of
-    # READWRITE. We ignore the header unless USE_SELENIUM_HEADER is
-    # also enabled.
-    if (DBDefs->USE_SELENIUM_HEADER && $self->req->headers->header('selenium')) {
+    # The mb-set-database header is added by:
+    #  1) the http proxy in t/selenium.js
+    #  2) make_jsonld_request in
+    #     lib/MusicBrainz/Server/Sitemap/Incremental.pm
+    # and instructs us to use the specified database instead of
+    # READWRITE. We ignore the header unless USE_SET_DATABASE_HEADER
+    # is also enabled.
+    my $database = $self->req->headers->header('mb-set-database');
+    if (DBDefs->USE_SET_DATABASE_HEADER && $database) {
         no warnings 'redefine';
-        $ctx->database('SELENIUM');
+        $ctx->database($database);
         $ctx->clear_connector;
         my $cache_namespace = DBDefs->CACHE_NAMESPACE;
-        *DBDefs::CACHE_NAMESPACE = sub { $cache_namespace . 'Selenium:' };
+        *DBDefs::CACHE_NAMESPACE = sub { $cache_namespace . $database . ':' };
         *DBDefs::ENTITY_CACHE_TTL = sub { 1 };
         *DBDefs::SEARCH_SERVER = sub { '' };
     } else {
@@ -373,13 +377,14 @@ after dispatch => sub {
     $ctx->store->disconnect;
     $ctx->cache->disconnect;
 
-    if (DBDefs->USE_SELENIUM_HEADER && $self->req->headers->header('selenium')) {
+    my $database = $self->req->headers->header('mb-set-database');
+    if (DBDefs->USE_SET_DATABASE_HEADER && $database) {
         no warnings 'redefine';
         # Clear the connector and database handles, so that we revert
         # back to the default (READWRITE, or READONLY for slaves).
         $ctx->clear_connector;
         $ctx->clear_database;
-        *DBDefs::CACHE_NAMESPACE = $ORIG_SEARCH_SERVER;
+        *DBDefs::CACHE_NAMESPACE = $ORIG_CACHE_NAMESPACE;
         *DBDefs::ENTITY_CACHE_TTL = $ORIG_ENTITY_CACHE_TTL;
         *DBDefs::SEARCH_SERVER = $ORIG_SEARCH_SERVER;
     }

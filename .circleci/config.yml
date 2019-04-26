@@ -1,0 +1,200 @@
+version: 2.1
+
+executors:
+  musicbrainz-tests:
+    docker:
+      - environment:
+          MMD_SCHEMA_TAG: v-2019-01-07
+          PERL_CARTON_PATH: &carton /home/musicbrainz/carton-local
+          PERL_CPANM_OPT: --notest --no-interactive
+        image: metabrainz/musicbrainz-tests:v-2019-02
+        user: root
+    working_directory: /home/musicbrainz/musicbrainz-server
+
+jobs:
+  js:
+    executor: musicbrainz-tests
+    steps:
+      - attach_workspace:
+          at: &home /home/musicbrainz
+      - run: |
+          rm /etc/service/chrome/down && sv start chrome
+          export JUNIT_OUTPUT_FILE=junit_output/js.xml
+          sudo -E -H -u musicbrainz carton exec -- prove \
+              -I lib \
+              t/js.t \
+              t/web.js \
+              --harness=TAP::Harness::JUnit \
+              -v
+      - store_test_results:
+          path: ./junit_output
+
+  perl-and-pgtap:
+    executor: musicbrainz-tests
+    steps:
+      - attach_workspace:
+          at: *home
+      - run: |
+          # As noted in docker/musicbrainz-tests/DBDefs.pm, CircleCI
+          # sets NO_PROXY=127.0.0.1,localhost in every container, so
+          # the Selenium proxy doesn't work unless we make requests
+          # against a different hostname alias. We use mbtest, added
+          # to /etc/hosts here and in the selenium job below.
+          echo '127.0.0.1 mbtest' >> /etc/hosts
+          # These extensions were compiled and installed in the build
+          # job, but the postgres libdir is outside of our workspace,
+          # so they need to be reinstalled.
+          ./docker/musicbrainz-tests/install_pg_extensions.sh
+          rm /etc/service/postgresql/down && sv start postgresql
+          sudo -u postgres createdb -O musicbrainz -T musicbrainz_test -U postgres musicbrainz_test_json_dump
+          sudo -u postgres createdb -O musicbrainz -T musicbrainz_test -U postgres musicbrainz_test_full_export
+          sudo -u postgres createdb -O musicbrainz -T musicbrainz_test -U postgres musicbrainz_test_sitemaps
+          rm /etc/service/{redis,template-renderer,vnu,website}/down && sv start redis template-renderer vnu website
+          export JUNIT_OUTPUT_FILE=junit_output/perl_and_pgtap.xml
+          sudo -E -H -u musicbrainz carton exec -- prove \
+              --pgtap-option dbname=musicbrainz_test \
+              --pgtap-option host=localhost \
+              --pgtap-option port=5432 \
+              --pgtap-option username=musicbrainz \
+              --source pgTAP \
+              --source Perl \
+              -I lib \
+              -j 9 \
+              t/pgtap/* \
+              t/pgtap/unused-tags/* \
+              t/script/BuildSitemaps.t \
+              t/script/DumpJSON.t \
+              t/script/ExportAllTables.t \
+              t/tests.t \
+              --harness=TAP::Harness::JUnit \
+              -v
+      - store_test_results:
+          path: ./junit_output
+
+  selenium:
+    executor: musicbrainz-tests
+    steps:
+      - attach_workspace:
+          at: *home
+      - run: |
+          echo '127.0.0.1 mbtest' >> /etc/hosts
+          ./docker/musicbrainz-tests/install_pg_extensions.sh
+          rm /etc/service/{postgresql,redis,template-renderer,website}/down && sv start postgresql redis template-renderer website
+          # Wait for the website to start.
+          sleep 5
+          sudo -u postgres createdb -O musicbrainz -T musicbrainz_test -U postgres musicbrainz_test_template
+          # Replace 'localhost:5000' in the Selenium tests with
+          # 'mbtest:5000', our custom host alias. (Refer to the comment
+          # in the perl-and-pgtap job above.) This mostly only matters
+          # on the form action attributes under seeds/, and a few URL
+          # checks; the rel="selenium.base" links aren't used at all.
+          sudo -E -H -u musicbrainz find t/selenium -type f -name '*.html' -exec sed -i'' -e "s/localhost:5000/mbtest:5000/g" '{}' \;
+          export JUNIT_OUTPUT_FILE=junit_output/selenium.xml
+          sudo -E -H -u musicbrainz carton exec -- prove \
+              -I lib \
+              t/selenium.js \
+              --harness=TAP::Harness::JUnit \
+              -v
+      - store_test_results:
+          path: ./junit_output
+
+  build:
+    executor: musicbrainz-tests
+    steps:
+      - restore_cache:
+          keys:
+            - v1-source-{{ .Branch }}-{{ .Revision }}
+            - v1-source-{{ .Branch }}-
+            - v1-source-
+      - checkout
+      - run: |
+          git submodule sync
+          git submodule update --init
+          chown -R musicbrainz:musicbrainz .
+          # The checkout step configures git to skip gc, so we run it
+          # here to reduce .git's size before saving it to cache.
+          sudo -E -H -u musicbrainz git gc
+      - save_cache:
+          key: v1-source-{{ .Branch }}-{{ .Revision }}
+          paths:
+            - ".git"
+
+      - run: |
+          cd postgresql-musicbrainz-collate && make && make install && cd -
+          cd postgresql-musicbrainz-unaccent && make && make install && cd -
+
+      - restore_cache:
+          key: v1-mmd-schema-{{ .Environment.MMD_SCHEMA_TAG }}
+      - run: |
+          cd /home/musicbrainz
+          if [[ ! -d mmd-schema ]]; then
+            git clone https://github.com/metabrainz/mmd-schema.git
+            cd mmd-schema
+          else
+            cd mmd-schema
+            git fetch origin
+          fi
+          git checkout $MMD_SCHEMA_TAG
+          cd ../musicbrainz-server
+      - save_cache:
+          key: v1-mmd-schema-{{ .Environment.MMD_SCHEMA_TAG }}
+          paths:
+            - /home/musicbrainz/mmd-schema
+
+      - restore_cache:
+          keys:
+            - v2-node-{{ checksum "yarn.lock" }}
+            - v2-node-
+      - run: sudo -E -H -u musicbrainz yarn
+      - save_cache:
+          key: v2-node-{{ checksum "yarn.lock" }}
+          paths:
+            - "node_modules"
+
+      - restore_cache:
+          keys:
+            - v3-carton-{{ checksum "cpanfile.snapshot" }}
+            - v3-carton-
+      - run: |
+          sudo -E -H -u musicbrainz carton install --cached --deployment
+          sudo -E -H -u musicbrainz carton bundle
+      - save_cache:
+          key: v3-carton-{{ checksum "cpanfile.snapshot" }}
+          paths:
+            - *carton
+            - /home/musicbrainz/vendor
+
+      - run: |
+          sudo -E -H -u musicbrainz mkdir -p junit_output
+          sudo -E -H -u musicbrainz cp docker/musicbrainz-tests/DBDefs.pm lib/
+          rm /etc/service/{postgresql,redis}/down && sv start postgresql redis
+          sudo -E -H -u musicbrainz carton exec -- ./script/create_test_db.sh
+          sudo -E -H -u musicbrainz make -C po all_quiet deploy
+          sudo -E -H -u musicbrainz carton exec -- ./script/compile_resources.sh default web-tests
+          sudo -E -H -u musicbrainz ./node_modules/.bin/flow --quiet
+          # Prevent postgres from writing to pgdata while
+          # persist_to_workspace runs below.
+          sv stop postgresql
+
+      - persist_to_workspace:
+          root: *home
+          paths:
+            - "carton-local"
+            - "mmd-schema"
+            - "musicbrainz-server"
+            - "pgdata"
+
+workflows:
+  version: 2.1
+  build-and-test:
+    jobs:
+      - js:
+          requires:
+            - build
+      - perl-and-pgtap:
+          requires:
+            - build
+      - selenium:
+          requires:
+            - build
+      - build

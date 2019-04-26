@@ -43,7 +43,11 @@ our %EXPORT_TAGS = (
         qw( $ELECTION_VOTE_YES $ELECTION_VOTE_NO $ELECTION_VOTE_ABSTAIN )
     ],
     email_addresses => [
-        qw( $EMAIL_NOREPLY_ADDR_SPEC $EMAIL_NOREPLY_ADDRESS $EMAIL_SUPPORT_ADDRESS )
+        qw( $EMAIL_NOREPLY_ADDR_SPEC $EMAIL_NOREPLY_ADDRESS
+            $EMAIL_SUPPORT_ADDRESS $EMAIL_ACCOUNT_ADMINS_ADDRESS )
+    ],
+    oauth_redirect_uri_re => [
+        qw( $OAUTH_INSTALLED_APP_REDIRECT_URI_RE $OAUTH_WEB_APP_REDIRECT_URI_RE )
     ],
 );
 
@@ -294,6 +298,7 @@ Readonly our $ELECTION_CANCELLED  => 6;
 Readonly our $EMAIL_NOREPLY_ADDR_SPEC => 'noreply@musicbrainz.org';
 Readonly our $EMAIL_NOREPLY_ADDRESS => 'MusicBrainz Server <' . $EMAIL_NOREPLY_ADDR_SPEC . '>';
 Readonly our $EMAIL_SUPPORT_ADDRESS => 'MusicBrainz <support@musicbrainz.org>';
+Readonly our $EMAIL_ACCOUNT_ADMINS_ADDRESS => 'MusicBrainz Account Admins <musicbrainz-account-admin@metabrainz.org>';
 
 Readonly our $VOTE_ABSTAIN => -1;
 Readonly our $VOTE_NO      =>  0;
@@ -920,6 +925,9 @@ Readonly our $EDITOR_SANITISED_COLUMNS => join(', ',
 );
 
 Readonly our $PASSPHRASE_BCRYPT_COST => 12;
+
+Readonly our $OAUTH_INSTALLED_APP_REDIRECT_URI_RE => qr/^(?![_-])[\w-]+(?:\.(?![_-])[\w-]+)+:/;
+Readonly our $OAUTH_WEB_APP_REDIRECT_URI_RE => qr/^https?:\/\//;
 
 =head1 NAME
 

@@ -437,6 +437,14 @@ sub linked_release_groups
     if ($c->stash->{inc}->artist_credits)
     {
         $c->model('ArtistCredit')->load(@$release_groups);
+
+        my @acns = map { $_->artist_credit->all_names } @$release_groups;
+        $c->model('Artist')->load(@acns);
+
+        $self->linked_artists(
+            $c, $stash,
+            [uniq_by { $_->id } map { $_->artist } @acns],
+        );
     }
 
     $self->_tags_and_ratings($c, 'ReleaseGroup', $release_groups, $stash);

@@ -15,7 +15,6 @@ import entityHref from '../../../static/scripts/common/utility/entityHref';
 import ExternalLinks from '../ExternalLinks';
 import releaseGroupType from '../../../utility/releaseGroupType';
 import {Artwork} from '../../../components/Artwork';
-import {l} from '../../../static/scripts/common/i18n';
 
 import AnnotationLinks from './AnnotationLinks';
 import CollectionLinks from './CollectionLinks';
@@ -34,7 +33,7 @@ type Props = {|
 
 const ReleaseGroupSidebar = ({$c, releaseGroup}: Props) => {
   const gid = encodeURIComponent(releaseGroup.gid);
-  const typeName = releaseGroupType($c, releaseGroup);
+  const typeName = releaseGroupType(releaseGroup);
 
   return (
     <div id="sidebar">

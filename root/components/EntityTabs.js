@@ -7,29 +7,29 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-const React = require('react');
-const {CatalystContext} = require('../context');
-const {l, N_l} = require('../static/scripts/common/i18n');
-const Tabs = require('./Tabs');
-const EntityTabLink = require('./EntityTabLink');
-const EntityLink = require('../static/scripts/common/components/EntityLink');
-const {ENTITIES} = require('../static/scripts/common/constants');
+import * as React from 'react';
+
+import {CatalystContext} from '../context';
+import {ENTITIES} from '../static/scripts/common/constants';
 import isSpecialPurposeArtist from '../static/scripts/common/utility/isSpecialPurposeArtist';
 
+import Tabs from './Tabs';
+import EntityTabLink from './EntityTabLink';
+
 const tabLinkNames = {
-  artists: N_l('Artists'),
-  cover_art: N_l('Cover Art'),
-  discids: N_l('Disc IDs'),
-  events: N_l('Events'),
-  fingerprints: N_l('Fingerprints'),
-  labels: N_l('Labels'),
-  map: N_l('Map'),
-  performances: N_l('Performances'),
-  places: N_l('Places'),
-  recordings: N_l('Recordings'),
-  releases: N_l('Releases'),
-  users: N_l('Users'),
-  works: N_l('Works'),
+  'artists': N_l('Artists'),
+  'cover-art': N_l('Cover Art'),
+  'discids': N_l('Disc IDs'),
+  'events': N_l('Events'),
+  'fingerprints': N_l('Fingerprints'),
+  'labels': N_l('Labels'),
+  'map': N_l('Map'),
+  'performances': N_l('Performances'),
+  'places': N_l('Places'),
+  'recordings': N_l('Recordings'),
+  'releases': N_l('Releases'),
+  'users': N_l('Users'),
+  'works': N_l('Works'),
 };
 
 const buildLink = (
@@ -76,7 +76,7 @@ function buildLinks(
 
   if (entityProperties.custom_tabs) {
     entityProperties.custom_tabs.forEach((tab) => {
-      links.push(buildLink(l(tabLinkNames[tab]), entity, tab, page));
+      links.push(buildLink(tabLinkNames[tab](), entity, tab, page));
     });
   }
 
@@ -125,4 +125,4 @@ const EntityTabs = ({
   </Tabs>
 );
 
-module.exports = EntityTabs;
+export default EntityTabs;

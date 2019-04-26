@@ -2,6 +2,7 @@ package MusicBrainz::Server::Entity::Application;
 use Moose;
 use namespace::autoclean;
 
+use MusicBrainz::Server::Constants qw( $OAUTH_WEB_APP_REDIRECT_URI_RE );
 use MusicBrainz::Server::Data::Utils qw( boolean_to_json );
 use MusicBrainz::Server::Entity::Types;
 
@@ -41,14 +42,15 @@ sub is_server
 {
     my ($self) = @_;
 
-    return defined $self->oauth_redirect_uri;
+    return defined $self->oauth_redirect_uri
+        && $self->oauth_redirect_uri =~ $OAUTH_WEB_APP_REDIRECT_URI_RE;
 }
 
 sub oauth_type
 {
     my ($self) = @_;
 
-    return defined $self->oauth_redirect_uri ? 'web' : 'installed';
+    return $self->is_server ? 'web' : 'installed';
 }
 
 around TO_JSON => sub {

@@ -1,7 +1,7 @@
 package t::MusicBrainz::Server::WebService::Format;
 
 use JSON qw( decode_json encode_json );
-use Test::JSON import => [qw( is_valid_json is_json )];
+use Test::JSON import => [qw( is_json )];
 use Test::More;
 use Test::Routine;
 use Test::XML::SemanticCompare;
@@ -86,14 +86,12 @@ test 'webservice request format handling (JSON)' => sub {
     $mech->default_header('Accept' => 'application/json');
     $mech->get('/ws/2/artist/472bc127-8861-45e8-bc9e-31e8dd32de7a');
     ok($mech->success, 'request successful');
-    is_valid_json($mech->content, 'well-formed JSON');
     is_json($mech->content, encode_json($expected), 'expected contents');
 
     $Test->note('fmt=json');
     $mech->default_header('Accept' => 'application/something-else');
     $mech->get('/ws/2/artist/472bc127-8861-45e8-bc9e-31e8dd32de7a?fmt=json');
     ok($mech->success, 'request successful');
-    is_valid_json($mech->content, 'well-formed JSON');
     is_json($mech->content, encode_json($expected), 'expected contents');
 
 };

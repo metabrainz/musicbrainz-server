@@ -11,7 +11,6 @@ import * as React from 'react';
 
 import {withCatalystContext} from '../../../context';
 import {GENRE_TAGS} from '../../../static/scripts/common/constants';
-import {l, lp} from '../../../static/scripts/common/i18n';
 import EntityLink from '../../../static/scripts/common/components/EntityLink';
 import {SidebarTagEditor} from '../../../static/scripts/common/components/TagEditor';
 import TagLink from '../../../static/scripts/common/components/TagLink';
@@ -59,6 +58,7 @@ const SidebarTags = ({
     <>
       {($c.user_exists && aggregatedTags && userTags) ? (
         <SidebarTagEditor
+          $c={$c}
           aggregatedTags={aggregatedTags}
           entity={entity}
           more={more}

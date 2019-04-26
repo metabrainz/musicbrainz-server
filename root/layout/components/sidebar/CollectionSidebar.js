@@ -13,8 +13,6 @@ import RequestLogin from '../../../components/RequestLogin';
 import {withCatalystContext} from '../../../context';
 import EditorLink from '../../../static/scripts/common/components/EditorLink';
 import EntityLink from '../../../static/scripts/common/components/EntityLink';
-import {l} from '../../../static/scripts/common/i18n';
-import {lp_attributes} from '../../../static/scripts/common/i18n/attributes';
 
 import {SidebarProperties, SidebarProperty} from './SidebarProperties';
 
@@ -48,16 +46,16 @@ const CollectionSidebar = ({$c, collection}: Props) => (
         <>
           <li>
             <EntityLink
+              content={l('Open edits')}
               entity={collection}
               subPath="open_edits"
-              content={l('Open edits')}
             />
           </li>
           <li>
             <EntityLink
+              content={l('Editing history')}
               entity={collection}
               subPath="edits"
-              content={l('Editing history')}
             />
           </li>
         </>
@@ -70,7 +68,7 @@ const CollectionSidebar = ({$c, collection}: Props) => (
 
     {$c.user_exists ? (
       <>
-        <h2 className="subscriptions">{l("Subscriptions")}</h2>
+        <h2 className="subscriptions">{l('Subscriptions')}</h2>
         <ul className="links">
           {$c.stash.subscribed ? (
             <li>
@@ -87,9 +85,9 @@ const CollectionSidebar = ({$c, collection}: Props) => (
           )}
           <li>
             <EntityLink
+              content={l('Subscribers')}
               entity={collection}
               subPath="subscribers"
-              content={l('Subscribers')}
             />
           </li>
         </ul>

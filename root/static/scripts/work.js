@@ -7,44 +7,51 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-const $ = require('jquery');
-const _ = require('lodash');
-const ko = require('knockout');
-const React = require('react');
-const ReactDOM = require('react-dom');
-const {createStore} = require('redux');
+import $ from 'jquery';
+import _ from 'lodash';
+import ko from 'knockout';
+import mutate from 'mutate-cow';
+import React from 'react';
+import ReactDOM from 'react-dom';
+import {createStore} from 'redux';
 
-const {l} = require('./common/i18n');
-const {lp_attributes} = require('./common/i18n/attributes');
-const MB = require('./common/MB');
-const scriptArgs = require('./common/utility/getScriptArgs')();
-const {Lens, prop, index, set, compose3} = require('./common/utility/lens');
-const {buildOptionsTree} = require('./edit/forms');
-const {initializeBubble} = require('./edit/MB/Control/Bubble');
-const {initialize_guess_case} = require('./guess-case/MB/Control/GuessCase');
 import FormRowSelectList from '../../components/FormRowSelectList';
-import createField from '../../utility/createField';
 import subfieldErrors from '../../utility/subfieldErrors';
 
-type LanguageField = FieldT<number>;
+import getScriptArgs from './common/utility/getScriptArgs';
+import {buildOptionsTree} from './edit/forms';
+import {initializeBubble} from './edit/MB/Control/Bubble';
+import {createCompoundField} from './edit/utility/createField';
+import {pushCompoundField, pushField} from './edit/utility/pushField';
+import {initialize_guess_case} from './guess-case/MB/Control/GuessCase';
 
-type LanguageFields = $ReadOnlyArray<LanguageField>;
+const scriptArgs = getScriptArgs();
 
-type WorkAttributeField = CompoundFieldT<{|
-  +type_id: FieldT<number | null>,
-  +value: FieldT<number | string | null>,
+type WorkAttributeField = ReadOnlyCompoundFieldT<{|
+  +type_id: ReadOnlyFieldT<?number>,
+  +value: ReadOnlyFieldT<?StrOrNum>,
 |}>;
 
 type WorkForm = FormT<{|
-  +attributes: RepeatableFieldT<WorkAttributeField>,
-  +languages: RepeatableFieldT<LanguageField>,
+  +attributes: ReadOnlyRepeatableFieldT<WorkAttributeField>,
+  +languages: ReadOnlyRepeatableFieldT<ReadOnlyFieldT<?number>>,
+|}>;
+
+type WritableWorkAttributeField = CompoundFieldT<{|
+  +type_id: FieldT<?number>,
+  +value: FieldT<?StrOrNum>,
+|}>;
+
+type WritableWorkForm = FormT<{|
+  +attributes: RepeatableFieldT<WritableWorkAttributeField>,
+  +languages: RepeatableFieldT<FieldT<?number>>,
 |}>;
 
 /*
  * Flow does not support assigning types within destructuring assignments:
  * https://github.com/facebook/flow/issues/235
  */
-const form: WorkForm = scriptArgs.form;
+let form: WorkForm = scriptArgs.form;
 const workAttributeTypeTree: WorkAttributeTypeTreeRootT =
   scriptArgs.workAttributeTypeTree;
 const workAttributeValueTree: WorkAttributeTypeAllowedValueTreeRootT =
@@ -54,9 +61,6 @@ const workLanguageOptions: MaybeGroupedOptionsT = {
   options: scriptArgs.workLanguageOptions,
 };
 
-const languagesField: Lens<WorkForm, LanguageFields> =
-  compose3(prop('field'), prop('languages'), prop('field'));
-
 const store = createStore(function (state: WorkForm = form, action) {
   switch (action.type) {
     case 'ADD_LANGUAGE':
@@ -64,12 +68,9 @@ const store = createStore(function (state: WorkForm = form, action) {
       break;
 
     case 'EDIT_LANGUAGE':
-      state = set(
-        (compose3(languagesField, index(action.index), prop('value')):
-          Lens<WorkForm, number>),
-        action.languageId,
-        state,
-      );
+      state = mutate<WorkForm, _>(state, newState => {
+        newState.field.languages.field[action.index].value = action.languageId;
+      });
       break;
 
     case 'REMOVE_LANGUAGE':
@@ -84,36 +85,16 @@ const store = createStore(function (state: WorkForm = form, action) {
   return state;
 });
 
-function pushField<F, R: RepeatableFieldT<F>>(
-  form: WorkForm,
-  repeatable: R,
-  value: mixed,
-) {
-  return createField(
-    form,
-    repeatable,
-    String(repeatable.field.length),
-    value,
-  );
-}
-
 function addLanguageToState(form: WorkForm): WorkForm {
-  const languages = form.field.languages.field.slice(0);
-  const newForm = set(languagesField, languages, form);
-  languages.push(
-    pushField(
-      newForm,
-      newForm.field.languages,
-      null,
-    )
-  );
-  return newForm;
+  return mutate<WritableWorkForm, _>(form, newForm => {
+    pushField(newForm.field.languages, null);
+  });
 }
 
 function removeLanguageFromState(form: WorkForm, i: number): WorkForm {
-  const languages = form.field.languages.field.slice(0);
-  languages.splice(i, 1);
-  return set(languagesField, languages, form);
+  return mutate<WritableWorkForm, _>(form, newForm => {
+    newForm.field.languages.field.splice(i, 1);
+  });
 }
 
 class WorkAttribute {
@@ -163,7 +144,7 @@ class WorkAttribute {
 
   allowsFreeText() {
     return !this.typeID() ||
-      this.parent.attributeTypesByID[this.typeID()].freeText;
+      this.parent.attributeTypesByID[this.typeID()].free_text;
   }
 
   isGroupingType() {
@@ -213,22 +194,16 @@ class ViewModel {
       })
       .value();
 
-    if (_.isEmpty(attributes)) {
-      attributes = [
-        pushField(form, form.field.attributes, {
-          type_id: null,
-          value: null,
-        }),
-      ];
-    }
-
     this.attributes = ko.observableArray(
       _.map(attributes, data => new WorkAttribute(data, this)),
     );
   }
 
   newAttribute() {
-    const attr = new WorkAttribute(pushField(form, form.field.attributes, {
+    const attributesField = form.field.attributes;
+    const fieldName = attributesField.html_name + '.' +
+      String(attributesField.field.length);
+    const attr = new WorkAttribute(createCompoundField(fieldName, {
       type_id: null,
       value: null,
     }), this);
@@ -243,6 +218,20 @@ function byID(result, parent) {
     parent.children.reduce(byID, result);
   }
   return result;
+}
+
+{
+  const attributes = form.field.attributes;
+  if (_.isEmpty(attributes.field)) {
+    const name = attributes.html_name + '.' +
+      String(attributes.field.length);
+    form = mutate<WritableWorkForm, _>(form, newForm => {
+      pushCompoundField(newForm.field.attributes, {
+        type_id: null,
+        value: null,
+      });
+    });
+  }
 }
 
 ko.applyBindings(
@@ -286,6 +275,7 @@ function renderWorkLanguages() {
       addId="add-language"
       addLabel={l('Add Language')}
       getSelectField={_.identity}
+      hideAddButton={_.intersection(form.field.languages.field.map(lang => String(lang.value)), ["486", "284"]).length > 0}
       label={l('Lyrics Languages')}
       onAdd={addLanguage}
       onEdit={editLanguage}

@@ -1,34 +1,38 @@
-// This file is part of MusicBrainz, the open internet music database.
-// Copyright (C) 2015 MetaBrainz Foundation
-// Licensed under the GPL version 2, or (at your option) any later version:
-// http://www.gnu.org/licenses/gpl-2.0.txt
+/*
+ * This file is part of MusicBrainz, the open internet music database.
+ * Copyright (C) 2015 MetaBrainz Foundation
+ * Licensed under the GPL version 2, or (at your option) any later version:
+ * http://www.gnu.org/licenses/gpl-2.0.txt
+ */
 
-const React = require('react');
+import React from 'react';
 
-const {withCatalystContext} = require('../../context');
-const manifest = require('../../static/manifest');
-const DBDefs = require('../../static/scripts/common/DBDefs');
-const {l} = require('../../static/scripts/common/i18n');
-const escapeClosingTags = require('../../utility/escapeClosingTags');
-const MetaDescription = require('./MetaDescription');
+import {withCatalystContext} from '../../context';
+import * as manifest from '../../static/manifest';
+import * as DBDefs from '../../static/scripts/common/DBDefs';
+import escapeClosingTags from '../../utility/escapeClosingTags';
 
-let canonRegexp = new RegExp('^(https?:)?//' + DBDefs.WEB_SERVER);
+import MetaDescription from './MetaDescription';
+
+const canonRegexp = new RegExp('^(https?:)?//' + DBDefs.WEB_SERVER);
 function canonicalize(url) {
-  return DBDefs.CANONICAL_SERVER ? url.replace(canonRegexp, DBDefs.CANONICAL_SERVER) : url;
+  return DBDefs.CANONICAL_SERVER
+    ? url.replace(canonRegexp, DBDefs.CANONICAL_SERVER)
+    : url;
 }
 
 function getTitle(props) {
   let {title, pager} = props;
 
   if (!props.homepage) {
-    let parts = [];
+    const parts = [];
 
     if (title) {
       parts.push(title);
     }
 
     if (pager && pager.current_page && pager.current_page > 1) {
-      parts.push(l('Page {n}', {n: pager.current_page}));
+      parts.push(texp.l('Page {n}', {n: pager.current_page}));
     }
 
     parts.push('MusicBrainz');
@@ -38,10 +42,10 @@ function getTitle(props) {
   return title;
 }
 
-const CanonicalLink = ({href, requestUri}) => {
-  const canonUri = canonicalize(href || requestUri);
+const CanonicalLink = ({requestUri}) => {
+  const canonUri = canonicalize(requestUri);
   if (requestUri !== canonUri) {
-    return <link rel="canonical" href={canonUri} />;
+    return <link href={canonUri} rel="canonical" />;
   }
   return null;
 };
@@ -49,22 +53,52 @@ const CanonicalLink = ({href, requestUri}) => {
 const Head = ({$c, ...props}) => (
   <head>
     <meta charSet="utf-8" />
-    <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta content="IE=edge" httpEquiv="X-UA-Compatible" />
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
     <MetaDescription entity={$c.stash.entity} />
 
     <title>{getTitle(props)}</title>
 
-    <CanonicalLink href={props.canonical_url} requestUri={$c.req.uri} />
+    <CanonicalLink requestUri={$c.req.uri} />
 
-    {manifest.css('common')}
+    <link
+      href={require('../../static/styles/common.less')}
+      rel="stylesheet"
+      type="text/css"
+    />
 
-    {props.no_icons ? null : manifest.css('icons')}
+    {props.no_icons
+      ? null
+      : <link
+          href={require('../../static/styles/icons.less')}
+          rel="stylesheet"
+          type="text/css"
+        />}
 
-    <link rel="search" type="application/opensearchdescription+xml" title={l('MusicBrainz: Artist')} href="/static/search_plugins/opensearch/musicbrainz_artist.xml" />
-    <link rel="search" type="application/opensearchdescription+xml" title={l('MusicBrainz: Label')} href="/static/search_plugins/opensearch/musicbrainz_label.xml" />
-    <link rel="search" type="application/opensearchdescription+xml" title={l('MusicBrainz: Release')} href="/static/search_plugins/opensearch/musicbrainz_release.xml" />
-    <link rel="search" type="application/opensearchdescription+xml" title={l('MusicBrainz: Track')} href="/static/search_plugins/opensearch/musicbrainz_track.xml" />
+    <link
+      href="/static/search_plugins/opensearch/musicbrainz_artist.xml"
+      rel="search"
+      title={l('MusicBrainz: Artist')}
+      type="application/opensearchdescription+xml"
+    />
+    <link
+      href="/static/search_plugins/opensearch/musicbrainz_label.xml"
+      rel="search"
+      title={l('MusicBrainz: Label')}
+      type="application/opensearchdescription+xml"
+    />
+    <link
+      href="/static/search_plugins/opensearch/musicbrainz_release.xml"
+      rel="search"
+      title={l('MusicBrainz: Release')}
+      type="application/opensearchdescription+xml"
+    />
+    <link
+      href="/static/search_plugins/opensearch/musicbrainz_track.xml"
+      rel="search"
+      title={l('MusicBrainz: Track')}
+      type="application/opensearchdescription+xml"
+    />
 
     <noscript>
       <style
@@ -73,15 +107,17 @@ const Head = ({$c, ...props}) => (
       />
     </noscript>
 
-    {manifest.js('rev-manifest')}
+    {manifest.js('runtime')}
 
-    {manifest.js('common/i18n/jedData.json')}
+    {manifest.js('common-chunks')}
+
+    {manifest.js('jed-data')}
 
     {$c.stash.current_language !== 'en'
       ? ['mb_server'].concat(props.gettext_domains || []).map(function (domain) {
-          const name = 'jed-' + $c.stash.current_language + '-' + domain;
-          return manifest.js(name, {key: name});
-        })
+        const name = 'jed-' + $c.stash.current_language + '-' + domain;
+        return manifest.js(name, {key: name});
+      })
       : null}
 
     {manifest.js('common', {
@@ -92,11 +128,13 @@ const Head = ({$c, ...props}) => (
 
     {$c.stash.jsonld_data ? (
       <script
-        dangerouslySetInnerHTML={{__html: escapeClosingTags(JSON.stringify($c.stash.jsonld_data))}}
+        dangerouslySetInnerHTML={
+          {__html: escapeClosingTags(JSON.stringify($c.stash.jsonld_data))}
+        }
         type="application/ld+json"
       />
     ) : null}
   </head>
 );
 
-module.exports = withCatalystContext(Head);
+export default withCatalystContext(Head);

@@ -10,7 +10,6 @@
 import React from 'react';
 
 import {withCatalystContext} from '../../../context';
-import {l} from '../../../static/scripts/common/i18n';
 import formatUserDate from '../../../utility/formatUserDate';
 
 type Props = {|
@@ -18,12 +17,19 @@ type Props = {|
   +entity: CoreEntityT,
 |};
 
-const LastUpdated = ({$c, entity}: Props) => (
-  <p className="lastupdate">
-    {l('Last updated on {date}', {
-      date: formatUserDate($c.user, entity.last_updated),
-    })}
-  </p>
-);
+const LastUpdated = ({$c, entity}: Props) => {
+  const lastUpdated = entity.last_updated;
+  return (
+    <p className="lastupdate">
+      {lastUpdated ? (
+        texp.l('Last updated on {date}', {
+          date: formatUserDate($c.user, lastUpdated),
+        })
+      ) : (
+        l('Last updated on an unknown date')
+      )}
+    </p>
+  );
+};
 
 export default withCatalystContext(LastUpdated);

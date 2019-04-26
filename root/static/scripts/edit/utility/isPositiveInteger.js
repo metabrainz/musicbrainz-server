@@ -4,4 +4,4 @@ function isPositiveInteger(value) {
   return regex.test(value);
 }
 
-module.exports = isPositiveInteger;
+export default isPositiveInteger;

@@ -11,4 +11,4 @@ function bugTrackerURL(description) {
   );
 }
 
-module.exports = bugTrackerURL;
+export default bugTrackerURL;

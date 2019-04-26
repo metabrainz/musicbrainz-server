@@ -1,4 +1,4 @@
-[%~ WRAPPER "layout.tt" title=title ? label.name _ " - ${title}" : label.name canonical_url=replace_gid(entity.gid) ~%]
+[%~ WRAPPER "layout.tt" title=title ? label.name _ " - ${title}" : label.name ~%]
     <div id="content">
         [%~ React.embed(c, 'label/LabelHeader', { label => label, page => page }) ~%]
         [%~ content ~%]

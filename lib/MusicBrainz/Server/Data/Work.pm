@@ -357,7 +357,7 @@ sub _find_writers
         $map->{$work_id} ||= [];
         push @{ $map->{$work_id} }, {
             entity => $artists->{$artist_id},
-            roles => $roles
+            roles => [ uniq @{ $roles } ]
         }
     }
 }

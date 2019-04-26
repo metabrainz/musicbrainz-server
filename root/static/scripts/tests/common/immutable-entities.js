@@ -3,13 +3,13 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-const test = require('tape');
+import test from 'tape';
 
-const {
-    artistCreditFromArray,
-    artistCreditsAreEqual,
-    isComplexArtistCredit,
-  } = require('../../common/immutable-entities');
+import {
+  artistCreditFromArray,
+  artistCreditsAreEqual,
+  isComplexArtistCredit,
+} from '../../common/immutable-entities';
 
 const bowie = {id: 956, gid: '5441c29d-3602-4898-b1a1-b77fa23b8e50', name: 'david bowie'};
 const crosby = {id: 99, gid: '2437980f-513a-44fc-80f1-b90d9d7fcf8f', name: 'bing crosby'};

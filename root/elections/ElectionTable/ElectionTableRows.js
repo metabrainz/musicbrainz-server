@@ -11,7 +11,6 @@ import React from 'react';
 import type {Node as ReactNode} from 'react';
 
 import {withCatalystContext} from '../../context';
-import {l, lp} from '../../static/scripts/common/i18n';
 import EditorLink from '../../static/scripts/common/components/EditorLink';
 import formatUserDate from '../../utility/formatUserDate';
 import {votesVisible} from '../../utility/voting';
@@ -22,7 +21,11 @@ type RowProps = {|
   +index: number,
 |};
 
-const ElectionTableRow = withCatalystContext(({$c, election, index}: RowProps) => (
+const ElectionTableRow = withCatalystContext(({
+  $c,
+  election,
+  index,
+}: RowProps) => (
   <tr className={index % 2 ? 'even' : 'odd'}>
     <td><EditorLink editor={election.candidate} /></td>
     <td>{lp(election.status_name_short, 'autoeditor election status (short)')}</td>

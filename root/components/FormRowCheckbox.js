@@ -13,7 +13,7 @@ import FieldErrors from './FieldErrors';
 import FormRow from './FormRow';
 
 type Props = {|
-  +field: FieldT<boolean>,
+  +field: ReadOnlyFieldT<boolean>,
   +label: string,
   +onChange?: (event: SyntheticEvent<HTMLInputElement>) => void,
 |};

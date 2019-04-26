@@ -3,10 +3,15 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-const i18n = require('../../../common/i18n');
-const getBooleanCookie = require('../../../common/utility/getBooleanCookie');
-const setCookie = require('../../../common/utility/setCookie');
-const gc = require('../GuessCase/Main');
+import $ from 'jquery';
+import _ from 'lodash';
+import ko from 'knockout';
+
+import getBooleanCookie from '../../../common/utility/getBooleanCookie';
+import setCookie from '../../../common/utility/setCookie';
+import gc from '../GuessCase/Main';
+import * as modes from '../../modes';
+import MB from '../../../common/MB';
 
 MB.Control.initialize_guess_case = function (type, formPrefix) {
     formPrefix = formPrefix ? (formPrefix + "\\.") : "";
@@ -15,7 +20,7 @@ MB.Control.initialize_guess_case = function (type, formPrefix) {
     var $options = $("#guesscase-options");
 
     if ($options.length && !$options.data("ui-dialog")) {
-        $options.dialog({ title: i18n.l('Guess Case Options'), autoOpen: false });
+        $options.dialog({ title: l('Guess Case Options'), autoOpen: false });
         ko.applyBindingsToNode($options[0], { guessCase: _.noop });
     }
 
@@ -61,7 +66,7 @@ var mode = ko.computed({
 
         if (modeName !== gc.modeName) {
             gc.modeName = modeName;
-            gc.mode = require('../../modes')[modeName];
+            gc.mode = modes[modeName];
             setCookie("guesscase_mode", modeName);
         }
         return gc.mode;
@@ -100,7 +105,7 @@ ko.bindingHandlers.guessCase = {
             guessCaseOptions.upperCaseRoman(getBooleanCookie('guesscase_roman'));
         }
 
-        var bindings = _.assign({}, guessCaseOptions);
+        var bindings = {...guessCaseOptions};
         bindings.guessCase = _.bind(valueAccessor(), bindings);
 
         var context = bindingContext.createChildContext(bindings);
@@ -112,4 +117,4 @@ ko.bindingHandlers.guessCase = {
 
 ko.virtualElements.allowedBindings.guessCase = true;
 
-module.exports = MB.Control;
+export const initialize_guess_case = MB.Control.initialize_guess_case;

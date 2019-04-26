@@ -3,21 +3,17 @@ m4_divert(-1)
 m4_define(
     `apt_install',
     `m4_dnl
-apt-get update && \
-    apt-get install --no-install-suggests --no-install-recommends -y $1 && \
+apt-get update && ( \
+    apt-get install --no-install-suggests --no-install-recommends -y $1 || ( \
+        apt-key adv --keyserver hkps.pool.sks-keyservers.net --refresh-keys && \
+        apt-get install --no-install-suggests --no-install-recommends -y $1 ) ) && \
     rm -rf /var/lib/apt/lists/*')
 
 m4_define(`apt_purge', `apt-get purge --auto-remove -y $1')
 
 m4_define(`sudo_mb', `sudo -E -H -u musicbrainz $1')
 
-m4_define(`CHROME_DEB', `google-chrome-stable_current_amd64.deb')
-
-m4_define(`CHROME_DRIVER', `chromedriver_linux64.zip')
-
 m4_define(`NODEJS_DEB', `nodejs_10.10.0-1nodesource1_amd64.deb')
-
-m4_define(`MMD_SCHEMA_COMMIT', `ac9a0bdd209091a61c97915d8419180002e87931')
 
 m4_define(
     `install_javascript',
@@ -40,9 +36,10 @@ m4_define(
     `m4_dnl
 install_javascript(`$1')
 
-copy_mb(``gulpfile.js ./'')
 copy_mb(``root/ root/'')
 copy_mb(``script/compile_resources.sh script/dbdefs_to_js.pl script/start_renderer.pl script/xgettext.js script/'')
+copy_mb(``webpack.client.config.js webpack.server.config.js webpack.tests.config.js ./'')
+copy_mb(``webpack/ webpack/'')
 
 RUN chown_mb(``/tmp/ttc'')')
 
@@ -96,7 +93,7 @@ ENV PERL_CPANM_OPT --notest --no-interactive
 
 RUN apt_install(`mbs_build_deps mbs_run_deps') && \
     wget -q -O - https://cpanmin.us | perl - App::cpanminus && \
-    cpanm Carton && \
+    cpanm Carton JSON::XS && \
     chown_mb(``$PERL_CARTON_PATH'') && \
     sudo_mb(``carton install$1'') && \
     apt_purge(`mbs_build_deps')')
@@ -126,7 +123,7 @@ m4_define(
     `install_translations',
     `m4_dnl
 copy_mb(``po/ po/'')
-RUN apt_install(``gettext make'') && \
+RUN apt_install(``gettext language-pack-de language-pack-el language-pack-es language-pack-et language-pack-fi language-pack-fr language-pack-it language-pack-ja language-pack-nl make'') && \
     sudo_mb(``make -C po all_quiet'') && \
     sudo_mb(``make -C po deploy'')')
 

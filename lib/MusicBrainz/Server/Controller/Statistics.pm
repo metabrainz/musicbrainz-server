@@ -5,6 +5,7 @@ use MusicBrainz::Server::Data::Statistics::ByDate;
 use MusicBrainz::Server::Data::Statistics::ByName;
 use MusicBrainz::Server::Data::CountryArea;
 use MusicBrainz::Server::Data::Area;
+use MusicBrainz::Server::Form::Utils qw( build_type_info );
 use MusicBrainz::Server::Translation::Statistics qw(l ln);
 use List::AllUtils qw( sum );
 use List::UtilsBy qw( rev_nsort_by sort_by );
@@ -24,10 +25,10 @@ sub statistics : Path('')
 #       ALTER TABLE statistic ADD CONSTRAINT statistic_pkey PRIMARY KEY (id); fails
 #       for duplicate key 1
 #       count.quality.release.unknown is too high
-    my %statuses = map { $_->id => $_ } $c->model('ReleaseStatus')->get_all();
-    my %packagings = map { $_->id => $_ } $c->model('ReleasePackaging')->get_all();
-    my %primary_types = map { $_->id => $_ } $c->model('ReleaseGroupType')->get_all();
-    my %secondary_types = map { $_->id => $_ } $c->model('ReleaseGroupSecondaryType')->get_all();
+    my @statuses = $c->model('ReleaseStatus')->get_all();
+    my @packagings = $c->model('ReleasePackaging')->get_all();
+    my @primary_types = $c->model('ReleaseGroupType')->get_all();
+    my @secondary_types = $c->model('ReleaseGroupSecondaryType')->get_all();
     my @label_types = sort_by { $_->l_name } $c->model('LabelType')->get_all();
     my @work_types = sort_by { $_->l_name } $c->model('WorkType')->get_all();
     my @area_types = sort_by { $_->l_name } $c->model('AreaType')->get_all();
@@ -39,21 +40,27 @@ sub statistics : Path('')
     my @work_attribute_types = sort_by { $_->l_name }
         $c->model('WorkAttributeType')->get_all;
 
+    my %props = (
+        dateCollected => $latest_stats->{date_collected},
+        statuses => \@statuses,
+        packagings => \@packagings,
+        primaryTypes => \@primary_types,
+        secondaryTypes => \@secondary_types,
+        labelTypes => \@label_types,
+        workTypes => \@work_types,
+        areaTypes => \@area_types,
+        placeTypes => \@place_types,
+        seriesTypes => \@series_types,
+        instrumentTypes => \@instrument_types,
+        eventTypes => \@event_types,
+        workAttributeTypes => \@work_attribute_types,
+        stats => $latest_stats->{data},
+    );
+
     $c->stash(
-        template => 'statistics/index.tt',
-        statuses => \%statuses,
-        packagings => \%packagings,
-        primary_types => \%primary_types,
-        secondary_types => \%secondary_types,
-        label_types => \@label_types,
-        work_types => \@work_types,
-        area_types => \@area_types,
-        place_types => \@place_types,
-        series_types => \@series_types,
-        instrument_types => \@instrument_types,
-        event_types => \@event_types,
-        work_attribute_types => \@work_attribute_types,
-        stats => $latest_stats
+        current_view    => 'Node',
+        component_path  => 'statistics/Index',
+        component_props => \%props,
     );
 }
 
@@ -131,14 +138,24 @@ sub countries : Local
         if (my ($iso_code) = $stat_name =~ /^$artist_country_prefix\.(.*)$/) {
             my $release_stat = $stat_name =~ s/$artist_country_prefix/$release_country_prefix/r;
             my $label_stat = $stat_name =~ s/$artist_country_prefix/$label_country_prefix/r;
-            push(@$country_stats, ({'entity' => $countries{$iso_code}, 'artist_count' => $stats->statistic($stat_name), 'release_count' => $stats->statistic($release_stat), 'label_count' => $stats->statistic($label_stat)}));
+            push(@$country_stats, ({
+                'entity' => $countries{$iso_code},
+                'artist_count' => $stats->statistic($stat_name),
+                'release_count' => $stats->statistic($release_stat),
+                'label_count' => $stats->statistic($label_stat)
+            }));
         }
     }
 
+    my %props = (
+        dateCollected => $stats->{date_collected},
+        countryStats => $country_stats,
+    );
+
     $c->stash(
-        template => 'statistics/countries.tt',
-        stats    => $country_stats,
-        date_collected => $stats->{date_collected}
+        current_view => 'Node',
+        component_path => 'statistics/Countries',
+        component_props => \%props,
     );
 }
 
@@ -170,13 +187,19 @@ sub coverart : Local
         }
     }
 
+    my %props = (
+        dateCollected => $stats->{date_collected},
+        releaseFormatStats => $release_format_stats,
+        releaseStatusStats => $release_status_stats,
+        releaseTypeStats => $release_type_stats,
+        stats => $stats->{data},
+        typeStats => $type_stats,
+    );
+
     $c->stash(
-        template => 'statistics/coverart.tt',
-        stats => $stats,
-        release_type_stats => $release_type_stats,
-        release_status_stats => $release_status_stats,
-        release_format_stats => $release_format_stats,
-        type_stats => $type_stats
+        current_view => 'Node',
+        component_path => 'statistics/CoverArt',
+        component_props => \%props,
     );
 }
 
@@ -219,11 +242,16 @@ sub languages_scripts : Path('languages-scripts')
         }
     }
 
+    my %props = (
+        dateCollected => $stats->{date_collected},
+        languageStats => [ rev_nsort_by { $_->{total} } @language_stats ],
+        scriptStats => $script_stats,
+    );
+
     $c->stash(
-        template => 'statistics/languages_scripts.tt',
-        language_stats => [ rev_nsort_by { $_->{total} } @language_stats ],
-        script_stats => $script_stats,
-        date_collected => $stats->{date_collected}
+        current_view => 'Node',
+        component_path => 'statistics/LanguagesScripts',
+        component_props => \%props,
     );
 }
 
@@ -246,10 +274,16 @@ sub formats : Path('formats')
         }
     }
 
+    my %props = (
+        dateCollected => $stats->{date_collected},
+        formatStats => $format_stats,
+        stats => $stats->{data},
+    );
+
     $c->stash(
-        template => 'statistics/formats.tt',
-        format_stats => $format_stats,
-        stats => $stats
+        current_view => 'Node',
+        component_path => 'statistics/Formats',
+        component_props => \%props,
     );
 }
 
@@ -279,13 +313,18 @@ sub editors : Path('editors') {
         $data_point->{editor} = $editors->{ delete $data_point->{editor_id} };
     }
 
-    $c->stash(
-        stats => $stats,
-        top_recently_active_editors => $top_recently_active_editors,
-        top_editors => $top_active_editors,
+    my %props = (
+        dateCollected => $stats->{date_collected},
+        topRecentlyActiveEditors => $top_recently_active_editors,
+        topEditors => $top_active_editors,
+        topRecentlyActiveVoters => $top_recently_active_voters,
+        topVoters => $top_active_voters,
+    );
 
-        top_recently_active_voters => $top_recently_active_voters,
-        top_voters => $top_active_voters,
+    $c->stash(
+        current_view => 'Node',
+        component_path => 'statistics/Editors',
+        component_props => \%props,
     );
 }
 
@@ -314,10 +353,18 @@ sub relationships : Path('relationships') {
     my ($self, $c) = @_;
     my $stats = try_fetch_latest_statistics($c);
     my $pairs = [ $c->model('Relationship')->all_pairs() ];
-    my $types = { map { (join '_', 'l', @$_) => { entity_types => \@$_, tree => $c->model('LinkType')->get_tree($_->[0], $_->[1]) } } @$pairs };
-    $c->stash(
+    my $types = { map { (join '_', 'l', @$_) => { entity_types => \@$_, tree => build_type_info($c, qr/.*/, $c->model('LinkType')->get_tree($_->[0], $_->[1])) } } @$pairs };
+
+    my %props = (
+        dateCollected => $stats->{date_collected},
+        stats => $stats->{data},
         types => $types,
-        stats => $stats
+    );
+
+    $c->stash(
+        current_view => 'Node',
+        component_path => 'statistics/Relationships',
+        component_props => \%props,
     );
 }
 
@@ -329,21 +376,28 @@ sub edits : Path('edits') {
     my %by_category;
     for my $class (EditRegistry->get_all_classes) {
         $by_category{$class->edit_category} ||= [];
-        push @{ $by_category{$class->edit_category} }, $class;
+        push @{ $by_category{$class->edit_category} }, {edit_type => $class->edit_type, edit_name => $class->edit_name};
     }
 
     for my $category (keys %by_category) {
         $by_category{$category} = [
             reverse sort {
-                ($stats->statistic('count.edit.type.' . $a->edit_type) // 0) <=>
-                    ($stats->statistic('count.edit.type.' . $b->edit_type) // 0)
+                ($stats->statistic('count.edit.type.' . $a->{edit_type}) // 0) <=>
+                    ($stats->statistic('count.edit.type.' . $b->{edit_type}) // 0)
                 } @{ $by_category{$category} }
             ];
     }
 
+    my %props = (
+        dateCollected => $stats->{date_collected},
+        stats => $stats->{data},
+        statsByCategory => \%by_category,
+    );
+
     $c->stash(
-        by_category => \%by_category,
-        stats => $stats
+        current_view => 'Node',
+        component_path => 'statistics/Edits',
+        component_props => \%props,
     );
 }
 
@@ -357,7 +411,10 @@ sub try_fetch_latest_statistics {
 
 sub no_statistics : Private {
     my ($self, $c) = @_;
-    $c->stash( template => 'statistics/no_statistics.tt' );
+    $c->stash(
+        current_view => 'Node',
+        component_path => 'statistics/NoStatistics',
+    );
 }
 
 =head1 LICENSE

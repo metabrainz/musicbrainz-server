@@ -9,14 +9,13 @@
 
 import React from 'react';
 
-import {l} from '../../static/scripts/common/i18n';
 import Layout from '../../layout';
 
 const DiscourseUnconfirmedEmailAddress = () => (
   <Layout fullWidth title={l('Unconfirmed Email Address')}>
     <h2>{l('Unconfirmed Email Address')}</h2>
     <p>
-      {l('You must verify your email address before you can log in to {discourse|MetaBrainz Community Discourse}.',
+      {exp.l('You must verify your email address before you can log in to {discourse|MetaBrainz Community Discourse}.',
         {discourse: 'https://community.metabrainz.org/'})}
     </p>
   </Layout>

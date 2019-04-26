@@ -1,5 +1,10 @@
-const i18n = require('../common/i18n');
-const request = require('../common/utility/request');
+import $ from 'jquery';
+import _ from 'lodash';
+import ko from 'knockout';
+
+import {ENTITY_NAMES} from '../common/constants';
+import MB from '../common/MB';
+import request from '../common/utility/request';
 
 MB.ExampleRelationshipsEditor = (function (ERE) {
 
@@ -30,9 +35,9 @@ ERE.init = function (config) {
     });
     ERE.viewModel.selectedEntityType.subscribe(autocomplete.changeEntity);
     ERE.viewModel.availableEntityTypes(
-        _.chain([ type0, type1 ]).uniq().map(function (value) {
-            return { 'value': value, 'text': i18n.strings.entityName[value] };
-        }).value());
+        _.uniq([ type0, type1 ]).map(function (value) {
+            return { 'value': value, 'text': ENTITY_NAMES[value]() };
+        }));
 
     ko.bindingHandlers.checkObject = {
         init: function (element, valueAccessor, all, vm, bindingContext) {

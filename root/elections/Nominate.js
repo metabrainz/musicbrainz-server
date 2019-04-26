@@ -10,11 +10,10 @@
 import React from 'react';
 
 import ConfirmLayout from '../components/ConfirmLayout';
-import {l} from '../static/scripts/common/i18n';
 import EditorLink from '../static/scripts/common/components/EditorLink';
 
 const Nominate = ({candidate}: {+candidate: EditorT}) => ConfirmLayout({
-  question: l('Are you sure you want to nominate the editor {editor} for auto-editor status?', {
+  question: exp.l('Are you sure you want to nominate the editor {editor} for auto-editor status?', {
     editor: <EditorLink editor={candidate} key="editor" />,
   }),
   title: l('Nominate a candidate for auto-editor'),

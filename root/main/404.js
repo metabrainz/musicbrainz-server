@@ -3,12 +3,11 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-const React = require('react');
+import React from 'react';
 
-const {withCatalystContext} = require('../context');
-const Layout = require('../layout');
-const {l} = require('../static/scripts/common/i18n');
-const bugTrackerURL = require('../static/scripts/common/utility/bugTrackerURL');
+import {withCatalystContext} from '../context';
+import Layout from '../layout';
+import bugTrackerURL from '../static/scripts/common/utility/bugTrackerURL';
 
 // Please try and keep the WikiDoc templates (doc/error.tt & doc/bare_error.tt)
 // looking similar to how this template looks.
@@ -26,11 +25,11 @@ const _404 = ({$c, ...props}) => (
           <code>{props.message}</code>
         </p>}
       <p>
-        {l('Looking for help? Check out our {doc|documentation} or {faq|FAQ}.',
+        {exp.l('Looking for help? Check out our {doc|documentation} or {faq|FAQ}.',
            {doc: '/doc/MusicBrainz_Documentation', faq: '/doc/FAQ'})}
       </p>
       <p>
-        {l('Found a broken link on our site? Please {report|report a bug} and include any error message that is shown above.', {
+        {exp.l('Found a broken link on our site? Please {report|report a bug} and include any error message that is shown above.', {
           report: bugTrackerURL(
             'Nonexistent page: ' + $c.req.uri + '\n' +
             'Referrer: ' + ($c.req.headers.referer || '')

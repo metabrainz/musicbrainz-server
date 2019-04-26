@@ -3,6 +3,11 @@ FROM postgres:9.5.6
 
 ARG DEBIAN_FRONTEND=noninteractive
 
+# postgres:9.5.6 is based on debian:jessie
+# this acknowledges the removal of jessie-updates from mirrors
+# https://lists.debian.org/debian-devel-announce/2019/03/msg00006.html
+RUN sed -i '/jessie-updates/d' /etc/apt/sources.list
+
 # install_extensions.sh removes certain build dependencies that we need, so we
 # can't install everything here.
 # Note: curl is also a dependency of carton.

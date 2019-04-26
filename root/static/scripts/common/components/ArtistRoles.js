@@ -8,10 +8,9 @@
  */
 
 import * as React from 'react';
-import uniq from 'lodash/uniq';
 
-import {l} from '../i18n';
 import commaOnlyList from '../i18n/commaOnlyList';
+import localizeArtistRoles from '../i18n/localizeArtistRoles';
 
 import EntityLink from './EntityLink';
 
@@ -24,14 +23,11 @@ type Props = {|
 
 const ArtistRoles = ({relations}: Props) => (
   <ul>
-    {relations.map(r =>(
+    {relations.map(r => (
       <li key={r.entity.id}>
-        {l('{artist} ({roles})', {
+        {exp.l('{artist} ({roles})', {
           artist: <EntityLink entity={r.entity} />,
-          roles: r.roles.length > 1
-            // $FlowFixMe
-            ? commaOnlyList(uniq(r.roles))
-            : r.roles[0],
+          roles: commaOnlyList(localizeArtistRoles(r.roles)),
         })}
       </li>
     ))}

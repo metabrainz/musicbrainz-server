@@ -36,6 +36,7 @@ sub TO_JSON {
         if ($self->isa('HTML::FormHandler::Field::Repeatable')) {
             $json->{field} = [];
             $json->{field}[$_->name] = TO_JSON($_) for $self->fields;
+            $json->{last_index} = scalar(@{ $json->{field} }) - 1;
         } else {
             $json->{field} = {};
             $json->{field}{$_->name} = TO_JSON($_) for $self->fields;
@@ -49,7 +50,6 @@ sub TO_JSON {
     }
 
     if ($is_form) {
-        $json->{last_field_id} = $field_id_counter;
         $field_id_counter = 0;
     }
 

@@ -8,9 +8,8 @@
 import * as React from 'react';
 
 import {withCatalystContext} from '../../context';
-import DBDefs from '../../static/scripts/common/DBDefs';
+import * as DBDefs from '../../static/scripts/common/DBDefs';
 import {DONATE_URL} from '../../constants';
-import {l} from '../../static/scripts/common/i18n';
 import bracketed from '../../static/scripts/common/utility/bracketed';
 import formatUserDate from '../../utility/formatUserDate';
 
@@ -43,10 +42,12 @@ const Footer = ({$c, ...props}) => {
         {DBDefs.GIT_BRANCH ? (
           <>
             <br />
-            {l('Running: {git_details}', {
+            {exp.l('Running: {git_details}', {
               git_details: (
                 <span className="tooltip" key="git_details" title={DBDefs.GIT_MSG}>
-                  {DBDefs.GIT_BRANCH} {' '} {bracketed(DBDefs.GIT_SHA)}
+                  {DBDefs.GIT_BRANCH}
+                  {' '}
+                  {bracketed(DBDefs.GIT_SHA)}
                 </span>
               ),
             })}
@@ -56,7 +57,7 @@ const Footer = ({$c, ...props}) => {
         {stash.last_replication_date ? (
           <>
             <br />
-            {l('Last replication packet received at {datetime}', {
+            {texp.l('Last replication packet received at {datetime}', {
               datetime: $c.user
                 ? formatUserDate($c.user, stash.last_replication_date)
                 : stash.last_replication_date,
@@ -66,7 +67,7 @@ const Footer = ({$c, ...props}) => {
       </p>
 
       <p className="right">
-        {l('Brought to you by {MeB|MetaBrainz Foundation} and our {spon|sponsors} and {supp|supporters}. Cover Art provided by the {caa|Cover Art Archive}.',
+        {exp.l('Brought to you by {MeB|MetaBrainz Foundation} and our {spon|sponsors} and {supp|supporters}. Cover Art provided by the {caa|Cover Art Archive}.',
           {
             MeB: 'https://metabrainz.org/',
             caa: '//coverartarchive.org/',

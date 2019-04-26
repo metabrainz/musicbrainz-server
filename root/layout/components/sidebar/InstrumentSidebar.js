@@ -11,7 +11,6 @@ import * as React from 'react';
 
 import {withCatalystContext} from '../../../context';
 import CommonsImage from '../../../static/scripts/common/components/CommonsImage';
-import {l} from '../../../static/scripts/common/i18n';
 import entityHref from '../../../static/scripts/common/utility/entityHref';
 import ExternalLinks from '../ExternalLinks';
 
@@ -35,8 +34,8 @@ const InstrumentSidebar = ({$c, instrument}: Props) => {
   return (
     <div id="sidebar">
       <CommonsImage
+        cachedImage={$c.stash.commons_image}
         entity={instrument}
-        image={$c.stash.commons_image}
       />
 
       {instrument.typeID ? (

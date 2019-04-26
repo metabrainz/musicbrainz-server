@@ -11,7 +11,7 @@ import * as React from 'react';
 
 import PaginatedResults from '../components/PaginatedResults';
 import DescriptiveLink from '../static/scripts/common/components/DescriptiveLink';
-import {l, ln, N_l, N_ln} from '../static/scripts/common/i18n';
+import expand2text from '../static/scripts/common/i18n/expand2text';
 
 import TagLayout from './TagLayout';
 
@@ -64,9 +64,10 @@ const EntityList = ({
 }: Props) => (
   <TagLayout page={page} tag={tag}>
     <h2>
-      {ln(headingsText[entityType], pager.total_entries, {
-        num: pager.total_entries.toLocaleString(),
-      })}
+      {expand2text(
+        headingsText[entityType](pager.total_entries),
+        {num: pager.total_entries},
+      )}
     </h2>
 
     {entityTags.length ? (
@@ -81,7 +82,7 @@ const EntityList = ({
           ))}
         </ul>
       </PaginatedResults>
-    ) : <p>{l(noEntitiesText[entityType])}</p>}
+    ) : <p>{noEntitiesText[entityType]()}</p>}
   </TagLayout>
 );
 

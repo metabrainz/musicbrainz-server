@@ -1,6 +1,6 @@
 <html>
   <head>
-    [%- css_manifest('common.css') -%]
+    [%- css_manifest('common.less') -%]
     [%- script_manifest('jed-' _ current_language _ '.js') -%]
     [%~ USE JSON.Escape;
         user_json = { user => c.user_exists ? { id => c.user.id, name => c.user.name } : undef };

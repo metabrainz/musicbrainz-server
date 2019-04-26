@@ -9,15 +9,14 @@
 
 import React from 'react';
 
-import * as manifest from '../../static/manifest';
-
+import HeaderLogo from './HeaderLogo';
 import TopMenu from './TopMenu';
 import BottomMenu from './BottomMenu';
 
 const Header = () => (
   <div className="header">
     <a className="logo" href="/" title="MusicBrainz">
-      <img className="logo" src={manifest.pathTo('/images/layout/header-logo.svg')} />
+      <HeaderLogo />
     </a>
     <div className="right">
       <TopMenu />

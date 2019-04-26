@@ -1,10 +1,10 @@
-[%- WRAPPER 'layout.tt' full_width=1 title=l('Edit Relationships: {release}', {release => release.name}) gettext_domains=['attributes', 'countries', 'languages', 'relationships'] -%]
+[%- WRAPPER 'layout.tt' full_width=1 title=l('Edit Relationships: {release}', {release => release.name}) gettext_domains=['attributes', 'countries', 'instruments', 'instrument_descriptions', 'languages', 'relationships'] -%]
     [% script_manifest('edit.js') %]
 
     [% PROCESS 'components/relationship-editor.tt' %]
 
     <div id="content" class="rel-editor" data-bind="delegatedHandler: 'click'">
-      [%- INCLUDE "release/header.tt" page='edit_relationships' -%]
+      [%- React.embed(c, 'release/ReleaseHeader', { release => release, page => 'edit_relationships' }) -%]
 
       <p>
         [% l('Relationships highlighted <span class="rel-edit">yellow</span> will be edited,
@@ -23,19 +23,19 @@
         <tr>
           <td>
             <a id="batch-recording" class="btn" data-bind="css: {disabled: recordingCount() == 0}" data-click="openBatchRecordingsDialog">
-              <img src="[% c.model('FileCache').path_to('/images/icons/add.png') %]" class="bottom" />
+              [% React.embed(c, 'static/scripts/edit/components/AddIcon') %]
               [% l('Batch-add a relationship to recordings') %]
             </a>
           </td>
           <td>
             <a id="batch-create-works" class="btn" data-bind="css: {disabled: recordingCount() == 0}" data-click="openBatchCreateWorksDialog">
-              <img src="[% c.model('FileCache').path_to('/images/icons/add.png') %]" class="bottom" />
+              [% React.embed(c, 'static/scripts/edit/components/AddIcon') %]
               [% l('Batch-create new works') %]
             </a>
           </td>
           <td>
             <a id="batch-work" class="btn" data-bind="css: {disabled: workCount() == 0}" data-click="openBatchWorksDialog">
-              <img src="[% c.model('FileCache').path_to('/images/icons/add.png') %]" class="bottom" />
+              [% React.embed(c, 'static/scripts/edit/components/AddIcon') %]
               [% l('Batch-add a relationship to works') %]
             </a>
           </td>
@@ -195,7 +195,7 @@
         </div>
       </div>
       <span class="add-rel btn" data-click="openAddDialog">
-        <img src="[% c.model('FileCache').path_to('/images/icons/add.png') %]" class="bottom" /> [% l('Add relationship') %]
+        [% React.embed(c, 'static/scripts/edit/components/AddIcon') %] [% l('Add relationship') %]
       </span>
     </script>
 
@@ -213,7 +213,7 @@
         </td>
         <td class="midcol">
           <span class="relate-work btn" data-click="openRelateToWorkDialog">
-            &#8592; <img src="[% c.model('FileCache').path_to('/images/icons/add.png') %]" class="bottom"> [% l('Add related work') %] &#8594;
+            &#8592; [% React.embed(c, 'static/scripts/edit/components/AddIcon') %] [% l('Add related work') %] &#8594;
           </span>
         </td>
         <!-- ko with: recording -->

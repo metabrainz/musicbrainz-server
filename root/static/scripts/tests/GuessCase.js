@@ -3,12 +3,13 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-const _ = require('lodash');
-const test = require('tape');
+import _ from 'lodash';
+import test from 'tape';
 
-const setCookie = require('../common/utility/setCookie');
-const gc = require('../guess-case/MB/GuessCase/Main');
-const modes = require('../guess-case/modes');
+import MB from '../common/MB';
+import setCookie from '../common/utility/setCookie';
+import gc from '../guess-case/MB/GuessCase/Main';
+import * as modes from '../guess-case/modes';
 
 setCookie('guesscase_roman', 'false');
 gc.CFG_UC_UPPERCASED = 'false';

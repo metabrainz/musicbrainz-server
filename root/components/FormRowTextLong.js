@@ -12,7 +12,7 @@ import React from 'react';
 import FormRowText from './FormRowText';
 
 type Props = {
-  +field: FieldT<string>,
+  +field: ReadOnlyFieldT<string>,
   +label: string,
   +required?: boolean,
   +type?: string,

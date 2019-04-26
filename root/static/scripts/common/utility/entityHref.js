@@ -7,10 +7,11 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-const ko = require('knockout');
+import ko from 'knockout';
 
-const {ENTITIES} = require('../constants');
-const nonEmpty = require('./nonEmpty');
+import {ENTITIES} from '../constants';
+
+import nonEmpty from './nonEmpty';
 
 const leadingSlash = /^\/?(.*)/;
 
@@ -21,6 +22,7 @@ type LinkableEntity =
   | EditorT
   | IsrcT
   | IswcT
+  | MinimalCoreEntityT
   | SanitizedEditorT;
 
 function entityHref(
@@ -54,4 +56,4 @@ function entityHref(
   return href;
 }
 
-module.exports = entityHref;
+export default entityHref;

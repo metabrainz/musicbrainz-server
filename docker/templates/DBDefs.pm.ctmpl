@@ -214,7 +214,6 @@ sub GIT_SHA { {{executeTemplate "QUOTED_STRING" (env "GIT_SHA")}} }
 {{executeTemplate "STRING_DEF" "REPLICATION_ACCESS_TOKEN"}}
 {{executeTemplate "STRING_DEF" "SEARCH_ENGINE"}}
 {{executeTemplate "STRING_DEF" "SEARCH_SERVER"}}
-{{executeTemplate "STRING_DEF" "OLD_SEARCH_SERVER"}}
 {{executeTemplate "STRING_DEF" "SENTRY_DSN"}}
 {{executeTemplate "STRING_DEF" "SENTRY_DSN_PUBLIC"}}
 {{executeTemplate "STRING_DEF" "SESSION_COOKIE"}}

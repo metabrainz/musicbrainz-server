@@ -17,14 +17,13 @@ import FormRowCheckbox from '../components/FormRowCheckbox';
 import {withCatalystContext} from '../context';
 import Layout from '../layout';
 import DescriptiveLink from '../static/scripts/common/components/DescriptiveLink';
-import {l} from '../static/scripts/common/i18n';
 
 type ArtistMergeForm = FormT<{|
-  +edit_note: FieldT<string>,
-  +make_votable: FieldT<boolean>,
-  +merging: RepeatableFieldT<FieldT<number>>,
-  +rename: FieldT<boolean>,
-  +target: FieldT<number>,
+  +edit_note: ReadOnlyFieldT<string>,
+  +make_votable: ReadOnlyFieldT<boolean>,
+  +merging: ReadOnlyRepeatableFieldT<ReadOnlyFieldT<number>>,
+  +rename: ReadOnlyFieldT<boolean>,
+  +target: ReadOnlyFieldT<number>,
 |}>;
 
 type Props = {|

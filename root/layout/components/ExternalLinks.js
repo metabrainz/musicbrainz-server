@@ -6,15 +6,16 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-const _ = require('lodash');
-const React = require('react');
-const URL = require('url');
+import URL from 'url';
 
-const {withCatalystContext} = require('../../context');
-const EntityLink =
-  require('../../static/scripts/common/components/EntityLink');
-const {FAVICON_CLASSES} = require('../../static/scripts/common/constants');
-const {compare, l} = require('../../static/scripts/common/i18n');
+import React from 'react';
+import _ from 'lodash';
+
+import {withCatalystContext} from '../../context';
+import EntityLink from '../../static/scripts/common/components/EntityLink';
+import {FAVICON_CLASSES} from '../../static/scripts/common/constants';
+import {compare, l} from '../../static/scripts/common/i18n';
+import linkedEntities from '../../static/scripts/common/linkedEntities';
 
 function faviconClass(urlEntity) {
   let matchingClass;
@@ -50,7 +51,7 @@ const ExternalLink = ({className, relationship, text}) => {
   );
 };
 
-const ExternalLinks = ({$c, entity, empty, heading}) => {
+const ExternalLinks = ({entity, empty, heading}) => {
   const relationships = entity.relationships;
   const links = [];
   const otherLinks = [];
@@ -64,7 +65,7 @@ const ExternalLinks = ({$c, entity, empty, heading}) => {
     }
 
     const linkType =
-      $c.linked_entities.link_type[relationship.linkTypeID];
+      linkedEntities.link_type[relationship.linkTypeID];
     if (/^official (?:homepage|site)$/.test(linkType.name)) {
       links.push(
         <ExternalLink
@@ -117,4 +118,4 @@ const ExternalLinks = ({$c, entity, empty, heading}) => {
   );
 };
 
-module.exports = withCatalystContext(ExternalLinks);
+export default ExternalLinks;

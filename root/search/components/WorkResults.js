@@ -10,9 +10,8 @@
 import * as React from 'react';
 
 import {withCatalystContext} from '../../context';
-import {l} from '../../static/scripts/common/i18n';
 import WorkListEntry from '../../static/scripts/common/components/WorkListEntry';
-import type {ResultsPropsT} from '../types';
+import type {ResultsPropsWithContextT} from '../types';
 
 import PaginatedSearchResults from './PaginatedSearchResults';
 import ResultsLayout from './ResultsLayout';
@@ -23,7 +22,7 @@ function buildResult(result, index) {
 
   return (
     <WorkListEntry
-      hasISWCColumn
+      hasIswcColumn
       hasMergeColumn={false}
       index={index}
       key={work.id}
@@ -40,7 +39,7 @@ const WorkResults = ({
   pager,
   query,
   results,
-}: ResultsPropsT<WorkT>) => (
+}: ResultsPropsWithContextT<WorkT>) => (
   <ResultsLayout form={form} lastUpdated={lastUpdated}>
     <PaginatedSearchResults
       buildResult={buildResult}
@@ -60,7 +59,7 @@ const WorkResults = ({
     />
     {$c.user && !$c.user.is_editing_disabled ? (
       <p>
-        {l('Alternatively, you may {uri|add a new work}.', {
+        {exp.l('Alternatively, you may {uri|add a new work}.', {
           uri: '/work/create?edit-work.name=' + encodeURIComponent(query),
         })}
       </p>

@@ -493,15 +493,20 @@ sub privileged : Path('/privileged')
     $c->model('Editor')->load_preferences(@banner_editors);
     $c->model('Editor')->load_preferences(@account_admins);
 
-    $c->stash(
+    my %props = (
         bots => [ @bots ],
-        auto_editors => [ @auto_editors ],
-        transclusion_editors => [ @transclusion_editors ],
-        relationship_editors => [ @relationship_editors ],
-        location_editors => [ @location_editors ],
-        banner_editors => [ @banner_editors ],
-        account_admins => [ @account_admins ],
-        template => 'user/privileged.tt',
+        autoEditors => [ @auto_editors ],
+        transclusionEditors => [ @transclusion_editors ],
+        relationshipEditors => [ @relationship_editors ],
+        locationEditors => [ @location_editors ],
+        bannerEditors => [ @banner_editors ],
+        accountAdmins => [ @account_admins ],
+    );
+
+    $c->stash(
+        component_path  => 'user/PrivilegedUsers',
+        component_props => \%props,
+        current_view    => 'Node',
     );
 }
 
@@ -520,14 +525,22 @@ sub report : Chained('load') RequireAuth HiddenOnSlaves {
     _check_for_confirmed_email($c);
 
     my $form = $c->form(form => 'User::Report');
+
+    $c->stash(
+        current_view => 'Node',
+        component_path => 'user/ReportUser',
+        component_props => {
+            form => $form,
+            user => $reported_user,
+        },
+    );
+
     if ($c->form_posted && $form->process(params => $c->req->params)) {
-        my @account_admins = $c->model('Editor')->find_by_privileges($ACCOUNT_ADMIN_FLAG);
         my $result;
         try {
             $result = $c->model('Email')->send_editor_report(
                 reporter        => $reporter,
                 reported_user   => $reported_user,
-                admins          => \@account_admins,
                 reason          => $form->value->{reason},
                 message         => $form->value->{message},
                 reveal_address  => $form->value->{reveal_address},

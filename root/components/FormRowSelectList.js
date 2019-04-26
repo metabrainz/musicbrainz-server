@@ -9,8 +9,6 @@
 
 import React from 'react';
 
-import {addColon} from '../static/scripts/common/i18n';
-
 import FieldErrors from './FieldErrors';
 import FormRow from './FormRow';
 import SelectField from './SelectField';
@@ -18,7 +16,8 @@ import SelectField from './SelectField';
 type Props<S> = {|
   +addId: string,
   +addLabel: string,
-  +getSelectField: (S) => FieldT<number | string>,
+  +getSelectField: (S) => ReadOnlyFieldT<?StrOrNum>,
+  +hideAddButton?: boolean,
   +label: string,
   +onAdd: (event: SyntheticEvent<HTMLButtonElement>) => void,
   +onEdit: (index: number, value: string) => void,
@@ -26,13 +25,14 @@ type Props<S> = {|
   +options: MaybeGroupedOptionsT,
   +removeClassName: string,
   +removeLabel: string,
-  +repeatable: RepeatableFieldT<S>,
+  +repeatable: ReadOnlyRepeatableFieldT<S>,
 |};
 
-const FormRowSelectList = <F, S: AnyFieldT<F>>({
+const FormRowSelectList = <S: {+id: number}>({
   addId,
   addLabel,
   getSelectField,
+  hideAddButton,
   label,
   onAdd,
   onEdit,
@@ -62,16 +62,18 @@ const FormRowSelectList = <F, S: AnyFieldT<F>>({
           <FieldErrors field={getSelectField(subfield)} />
         </div>
       ))}
-      <div className="form-row-add">
-        <button
-          className="with-label add-item"
-          id={addId}
-          onClick={onAdd}
-          type="button"
-        >
-          {addLabel}
-        </button>
-      </div>
+      {hideAddButton ? null : (
+        <div className="form-row-add">
+          <button
+            className="with-label add-item"
+            id={addId}
+            onClick={onAdd}
+            type="button"
+          >
+            {addLabel}
+          </button>
+        </div>
+      )}
     </div>
   </FormRow>
 );

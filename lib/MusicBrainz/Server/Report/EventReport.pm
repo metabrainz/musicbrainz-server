@@ -20,8 +20,7 @@ around inflate_rows => sub {
         map +{
             %$_,
             event => $events->{ $_->{event_id} }
-        },
-            @$items
+        }, @$items
     ];
 };
 

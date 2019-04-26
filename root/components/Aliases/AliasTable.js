@@ -7,9 +7,10 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-const React = require('react');
-const AliasTableBody = require('./AliasTableBody');
-const {l} = require('../../static/scripts/common/i18n');
+import React from 'react';
+
+
+import AliasTableBody from './AliasTableBody';
 
 type Props = {
   +aliases: $ReadOnlyArray<AliasT>,
@@ -36,4 +37,4 @@ const AliasTable = (props: Props) => (
   </table>
 );
 
-module.exports = AliasTable;
+export default AliasTable;

@@ -3,12 +3,12 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
-const $ = require('jquery');
-const ko = require('knockout');
-const test = require('tape');
+import $ from 'jquery';
+import ko from 'knockout';
+import test from 'tape';
 
-const MB = require('../common/MB');
-const CoverArt = require('../edit/MB/CoverArt');
+import MB from '../common/MB';
+import CoverArt from '../edit/MB/CoverArt';
 
 MB.cover_art_types_json = [
     { id: 'image/jpeg', l_name: 'jpg' },

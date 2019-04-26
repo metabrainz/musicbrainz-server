@@ -16,6 +16,7 @@
 /root/static/scripts/common/DBDefs-client.js
 /root/static/scripts/tests/typeInfo.js
 /blib
+/junit_output*
 /lib/DBDefs.pm
 /lib/DBDefs.pm.bak
 /Makefile

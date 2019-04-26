@@ -12,7 +12,6 @@ import * as React from 'react';
 import {withCatalystContext} from '../../../context';
 import CommonsImage from '../../../static/scripts/common/components/CommonsImage';
 import DescriptiveLink from '../../../static/scripts/common/components/DescriptiveLink';
-import {l} from '../../../static/scripts/common/i18n';
 import * as age from '../../../utility/age';
 import {formatCoordinates, osmUrl} from '../../../utility/coordinates';
 import ExternalLinks from '../ExternalLinks';
@@ -37,12 +36,13 @@ type Props = {|
 const PlaceSidebar = ({$c, place}: Props) => {
   const placeAge = age.age(place);
   const gid = encodeURIComponent(place.gid);
+  const coordinates = place.coordinates;
 
   return (
     <div id="sidebar">
       <CommonsImage
+        cachedImage={$c.stash.commons_image}
         entity={place}
-        image={$c.stash.commons_image}
       />
 
       <h2 className="place-information">
@@ -68,11 +68,10 @@ const PlaceSidebar = ({$c, place}: Props) => {
           </SidebarProperty>
         ) : null}
 
-        {place.coordinates ? (
+        {coordinates ? (
           <SidebarProperty className="coordinates" label={l('Coordinates:')}>
-            {/* $FlowFixMe */}
-            <a href={osmUrl(place.coordinates, 16)}>
-              {formatCoordinates(place.coordinates)}
+            <a href={osmUrl(coordinates, 16)}>
+              {formatCoordinates(coordinates)}
             </a>
           </SidebarProperty>
         ) : null}

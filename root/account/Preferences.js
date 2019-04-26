@@ -11,21 +11,22 @@ import * as React from 'react';
 
 import UserAccountLayout from '../components/UserAccountLayout';
 import {withCatalystContext} from '../context';
-import PreferencesForm from '../static/scripts/account/components/PreferencesForm';
-import type {PreferencesFormPropsT} from '../static/scripts/account/components/PreferencesForm';
-import {l} from '../static/scripts/common/i18n';
+import PreferencesForm
+  from '../static/scripts/account/components/PreferencesForm';
+import type {PreferencesFormPropsT}
+  from '../static/scripts/account/components/PreferencesForm';
 import * as manifest from '../static/manifest';
 
 type Props = {|
-  +$c: CatalystContextT,
+  +$c: {user: EditorT} & CatalystContextT,
   ...PreferencesFormPropsT,
 |};
 
-const Preferences = withCatalystContext(({$c, ...props}) => (
+const Preferences = withCatalystContext(({$c, ...props}: Props) => (
   <UserAccountLayout
+    entity={$c.user}
     page="preferences"
     title={l('Preferences')}
-    user={$c.user}
   >
     <PreferencesForm {...props} />
     {manifest.js('account/preferences')}

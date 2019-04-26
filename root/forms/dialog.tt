@@ -9,10 +9,9 @@
     </head>
   [% ELSE %]
     [%- IF !gettext_domains;
-          SET gettext_domains = ['attributes', 'countries', 'languages', 'relationships'];
+          SET gettext_domains = ['attributes', 'countries', 'instruments', 'instrument_descriptions', 'languages', 'relationships'];
         END;
         React.embed(c, 'layout/components/Head', {
-            canonical_url => canonical_url,
             gettext_domains => gettext_domains,
             homepage => homepage,
             no_icons => no_icons,

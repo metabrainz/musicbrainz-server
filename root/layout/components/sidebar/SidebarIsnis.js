@@ -9,7 +9,6 @@
 
 import * as React from 'react';
 
-import {l} from '../../../static/scripts/common/i18n';
 import formatIsni from '../../../utility/formatIsni';
 
 import {SidebarProperty} from './SidebarProperties';
