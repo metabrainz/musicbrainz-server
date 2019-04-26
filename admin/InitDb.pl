@@ -277,11 +277,11 @@ sub CreateRelations
     RunSQLScript($SYSMB, "Extensions.sql", "Installing extensions");
 
     RunSQLScript($DB, "CreateTables.sql", "Creating tables ...");
-    RunSQLScript($DB, "caa/CreateTables.sql", "Creating tables ...");
-    RunSQLScript($DB, "eaa/CreateTables.sql", "Creating tables ...");
+    RunSQLScript($DB, "caa/CreateTables.sql", "Creating CAA tables ...");
+    RunSQLScript($DB, "eaa/CreateTables.sql", "Creating EAA tables ...");
     RunSQLScript($DB, "documentation/CreateTables.sql", "Creating documentation tables ...");
     RunSQLScript($DB, "json_dump/CreateTables.sql", "Creating json_dump tables ...");
-    RunSQLScript($DB, "report/CreateTables.sql", "Creating tables ...");
+    RunSQLScript($DB, "report/CreateTables.sql", "Creating report tables ...");
     RunSQLScript($DB, "sitemaps/CreateTables.sql", "Creating sitemaps tables ...");
     RunSQLScript($DB, "statistics/CreateTables.sql", "Creating statistics tables ...");
     RunSQLScript($DB, "wikidocs/CreateTables.sql", "Creating wikidocs tables ...");
