@@ -4,7 +4,7 @@
     [% IF places.size %]
       <div id="largemap"></div>
       [% script_manifest('area/places-map.js', { 'data-args' => map_data_args }) %]
-      [% INCLUDE 'components/places-list.tt' checkboxes='' WRAPPER 'components/with-pager.tt' %]
+      [% React.embed(c, 'components/PlacesList', { places => places }) WRAPPER 'components/with-pager.tt' %]
     [% ELSE %]
       [% l('This area is not currently associated with any places.') %]
     [% END %]

@@ -134,6 +134,8 @@ sub show : Chained('load') PathPart('') {
         }
     } elsif ($entity_type eq 'place') {
         $c->model('PlaceType')->load(@$entities);
+        $c->model('Area')->load(@$entities);
+        $c->model('Area')->load_containment(map { $_->area } @$entities);
     } elsif ($entity_type eq 'recording') {
         $c->model('ArtistCredit')->load(@$entities);
         $c->model('ISRC')->load_for_recordings(@$entities);
