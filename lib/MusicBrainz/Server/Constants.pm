@@ -741,6 +741,7 @@ Readonly our @PRIVATE_TABLE_LIST => qw(
     editor_collection
     editor_collection_area
     editor_collection_artist
+    editor_collection_collaborator
     editor_collection_event
     editor_collection_instrument
     editor_collection_label
