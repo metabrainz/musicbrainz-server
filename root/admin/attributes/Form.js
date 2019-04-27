@@ -13,7 +13,6 @@ import FormRowTextArea from '../../components/FormRowTextArea';
 type LanguageFieldT = {
   entity_type: FieldT<string | null>,
   frequency: FieldT<number>,
-  id: FieldT<number>,
   iso_code_1: FieldT<string | null>,
   iso_code_2b: FieldT<string | null>,
   iso_code_2t: FieldT<string | null>,
@@ -24,7 +23,6 @@ type LanguageFieldT = {
 type ScriptFieldT = {
   entity_type: FieldT<string | null>,
   frequency: FieldT<number>,
-  id: FieldT<number>,
   iso_code: FieldT<string | null>,
   iso_number: FieldT<string | null>,
   name: FieldT<string>,
@@ -33,13 +31,14 @@ type ScriptFieldT = {
 type Props = {
   form: FormT<LanguageFieldT> | FormT<ScriptFieldT>,
   model: string,
+  id: number
 };
 
-const Form = ({model, form}: Props) => {
+const Form = ({model, form, id}: Props) => {
   switch (model) {
     case 'Language': {
       return (
-        <form action={`/admin/attributes/Language/edit/${form.field.id}`} method="post">
+        <form action={`/admin/attributes/Language/edit/${id}`} method="post">
           <FormRowText field={form.field.name} label={addColon(l('Name'))} />
           <FormRowText field={form.field.iso_code_1} label={addColon(l('ISO 639-1'))} />
           <FormRowText field={form.field.iso_code_2b} label={addColon(l('ISO 639-2/B'))} />
@@ -62,7 +61,7 @@ const Form = ({model, form}: Props) => {
     }
     case 'Script': {
       return (
-        <form action={`/admin/attributes/Language/edit/${form.field.id}`} method="post">
+        <form action={`/admin/attributes/Language/edit/${id}`} method="post">
           <FormRowText field={form.field.name} label={addColon(l('Name'))} />
           <FormRowText field={form.field.iso_code} label={addColon(l('ISO CODE'))} />
           <FormRowText field={form.field.iso_number} label={addColon(l('ISO number'))} />
@@ -90,7 +89,7 @@ const Form = ({model, form}: Props) => {
         options: ['1', '2', '3'],
       };
       return (
-        <form action={`/admin/attributes/${model}/edit/${form.field.id}`} method="post">
+        <form action={`/admin/attributes/${model}/edit/${id}`} method="post">
           {(model === 'CollectionType' || model === 'SeriesType') ? <FormRowSelect field={form.field.entity_type} frozen label={addColon(l('Entity type'))} options={entityOptions} /> : null}
           <FormRowSelect field={form.field.parent_id} label={addColon(l('Parent'))} options={parentOptions} />
           <FormRow>

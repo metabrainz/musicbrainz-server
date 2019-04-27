@@ -104,7 +104,7 @@ sub edit : Chained('attribute_base') Args(1) RequireAuth(account_admin) {
     $c->stash(
         current_view => 'Node',
         component_path => 'admin/attributes/Edit.js',
-        component_props => {model => $model, form => $form}
+        component_props => {model => $model, form => $form, id => $id}
     );
 
     if ($c->form_posted && $form->process( params => $c->req->params )) {
