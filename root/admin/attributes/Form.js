@@ -7,6 +7,8 @@ import FormSubmit from '../../components/FormSubmit';
 import FormRowSelect from '../../components/FormRowSelect';
 import FormRow from '../../components/FormRow';
 import FormRowCheckbox from '../../components/FormRowCheckbox';
+import FieldErrors from '../../components/FieldErrors';
+import FormRowTextArea from '../../components/FormRowTextArea';
 
 type LanguageFieldT = {
   entity_type: FieldT<string | null>,
@@ -85,17 +87,29 @@ const Form = ({model, form}: Props) => {
         options: ['area', 'artist', 'event', 'instrument', 'label', 'place', 'recording', 'release', 'release_group', 'series', 'work'],
       };
       const parentOptions = {
-        options: ['1', '2', '3']
+        options: ['1', '2', '3'],
       };
       return (
         <form action={`/admin/attributes/${model}/edit/${form.field.id}`} method="post">
-          {(model === 'CollectionType' || model === 'SeriesType') ? <FormRowSelect field={form.field.entity_type} frozen={true} label={addColon(l('Entity type'))} options={entityOptions} /> : null}
+          {(model === 'CollectionType' || model === 'SeriesType') ? <FormRowSelect field={form.field.entity_type} frozen label={addColon(l('Entity type'))} options={entityOptions} /> : null}
           <FormRowSelect field={form.field.parent_id} label={addColon(l('Parent'))} options={parentOptions} />
           <FormRow>
             <FormRowText field={form.field.child_order} label={addColon(l('Child order'))} size={5} />
+            <FieldErrors field={form.field.child_order} />
           </FormRow>
-          <FormRowText field={form.field.name} label={addColon(l('Name'))} required={true} />
-          {(model === 'MediumFormat') ? <FormRowCheckbox field={form.field.has_discids} label={addColon(l('This format can have disc IDs'))} /> : null}
+          <FormRowText field={form.field.name} label={addColon(l('Name'))} required />
+          <FormRow>
+            <FormRowTextArea field={form.field.description} label={addColon(l('Description'))} />
+            <FieldErrors field={form.field.description} />
+          </FormRow>
+          {(model === 'MediumFormat') ?
+            <>
+              <FormRow>
+                <FormRowText field={form.field.year} label={addColon(l('Year'))} size={5} />
+                <FieldErrors field={form.field.year} />
+              </FormRow>
+              <FormRowCheckbox field={form.field.has_discids} label={addColon(l('This format can have disc IDs'))} />
+            </> : null}
           {(model === 'WorkAttributeType') ? <FormRowCheckbox field={form.field.free_text} label={addColon(l('This is a free text work attribute'))} /> : null}
           <div className="row no-label">
             <FormSubmit label={l('Save')} />
