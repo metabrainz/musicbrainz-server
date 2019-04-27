@@ -99,6 +99,8 @@ sub edit : Chained('attribute_base') Args(1) RequireAuth(account_admin) {
     my $form_name = $forms{$model} // "Admin::Attributes";
     my $form = $c->form( form => $form_name, init_object => $attr );
 
+    Dumper($form);
+
     $c->stash(
         current_view => 'Node',
         component_path => 'admin/attributes/Edit.js',

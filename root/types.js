@@ -453,7 +453,7 @@ declare type EventT = {|
 
 declare type EventTypeT = OptionTreeT<'event_type'>;
 
-declare type Expand2ReactInput = VarSubstArg | AnchorProps;
+declare type Expand2ReactInput = VarSubstArg | AnchorProps | string;
 
 declare type Expand2ReactOutput = string | AnyReactElem;
 
