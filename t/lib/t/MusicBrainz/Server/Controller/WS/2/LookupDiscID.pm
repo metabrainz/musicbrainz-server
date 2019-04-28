@@ -20,6 +20,8 @@ $mech->default_header("Accept" => "application/xml");
 MusicBrainz::Server::Test->prepare_test_database($c, '+tracklist');
 MusicBrainz::Server::Test->prepare_test_database($c, <<'EOSQL');
 INSERT INTO medium_cdtoc (medium, cdtoc) VALUES (2, 2);
+INSERT INTO tag (id, name) VALUES (1, 'musical'), (2, 'not-used');
+INSERT INTO release_tag (tag, release, count) VALUES (1, 2, 2), (2, 2, 2);
 EOSQL
 
 ws_test 'direct disc id lookup',
@@ -94,7 +96,7 @@ ws_test 'direct disc id lookup',
 $c->model('DurationLookup')->update(2);
 $c->model('DurationLookup')->update(4);
 ws_test 'lookup via toc',
-    '/discid/aa11.sPglQ1x0cybDcDi0OsZw9Q-?toc=1 9 189343 150 6614 32287 54041 61236 88129 92729 115276 153877&cdstubs=no' =>
+    '/discid/aa11.sPglQ1x0cybDcDi0OsZw9Q-?toc=1 9 189343 150 6614 32287 54041 61236 88129 92729 115276 153877&cdstubs=no&inc=tags+genres' =>
     '<?xml version="1.0"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
   <release-list>
@@ -129,6 +131,19 @@ ws_test 'lookup via toc',
           <track-list count="9" />
         </medium>
       </medium-list>
+      <genre-list>
+        <genre count="2">
+          <name>musical</name>
+        </genre>
+      </genre-list>
+      <tag-list>
+        <tag count="2">
+          <name>musical</name>
+        </tag>
+        <tag count="2">
+          <name>not-used</name>
+        </tag>
+      </tag-list>
     </release>
     <release id="f205627f-b70a-409d-adbe-66289b614e80">
       <title>Aerial</title>
