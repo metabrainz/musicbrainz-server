@@ -235,6 +235,7 @@ declare type CollectionT = {|
   ...EntityRoleT<'collection'>,
   ...TypeRoleT<CollectionTypeT>,
   +description: string,
+  +description_html: string,
   +entity_count: number,
   +editor: EditorT | null,
   +gid: string,

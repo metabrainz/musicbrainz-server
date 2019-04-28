@@ -43,6 +43,7 @@ module.exports = {
   'artist/NotFound': require('../artist/NotFound'),
   'artist/SpecialPurpose': require('../artist/SpecialPurpose'),
   'cdtoc/NotFound': require('../cdtoc/NotFound'),
+  'collection/CollectionIndex': require('../collection/CollectionIndex'),
   'collection/NotFound': require('../collection/NotFound'),
   'edit/NotFound': require('../edit/NotFound'),
   'elections/Index': require('../elections/Index'),
