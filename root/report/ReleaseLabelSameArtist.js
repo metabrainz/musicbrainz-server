@@ -44,7 +44,7 @@ const ReleaseLabelSameArtist = ({
           {
             SpecialPurposeLabel:
             '/doc/Style/Unknown_and_untitled/Special_purpose_label',
-          }
+          },
         )}
       </li>
       <li>

@@ -92,16 +92,28 @@ const DuplicateArtists = ({
                     {item.artist ? (
                       <tr className={loopParity(index)}>
                         <td>
-                          <input name="add-to-merge" type="checkbox" value={item.artist.id} />
+                          <input
+                            name="add-to-merge"
+                            type="checkbox"
+                            value={item.artist.id}
+                          />
                         </td>
                         <td>
                           <EntityLink entity={item.artist} />
                           {alias ? (
-                            <span>{' (' + l('alias:') + ' ' + alias + ')'}</span>
+                            <span>
+                              {' (' + l('alias:') + ' ' + alias + ')'}
+                            </span>
                           ) : null}
                         </td>
                         <td>{item.artist.sort_name}</td>
-                        <td>{item.artist.typeName ? lp_attributes(item.artist.typeName, 'artist_type') : l('Unknown')}</td>
+                        <td>
+                          {item.artist.typeName
+                            ? lp_attributes(
+                              item.artist.typeName, 'artist_type',
+                            )
+                            : l('Unknown')}
+                        </td>
                       </tr>
                     ) : (
                       <tr>
