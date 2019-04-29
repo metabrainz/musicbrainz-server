@@ -60,15 +60,23 @@ const ArtistsWithMultipleOccurrencesInArtistCredits = ({
         </thead>
         <tbody>
           {items.map((item, index) => (
-            <tr className={loopParity(index)} key={item.artist.gid}>
-              <td>
-                <EntityLink entity={item.artist} subPath="aliases" />
-              </td>
-              <td>
-                {item.artist.typeName
-                  ? lp_attributes(item.artist.typeName, 'artist_type')
-                  : l('Unknown')}
-              </td>
+            <tr className={loopParity(index)} key={item.artist_id}>
+              {item.artist ? (
+                <>
+                  <td>
+                    <EntityLink entity={item.artist} subPath="aliases" />
+                  </td>
+                  <td>
+                    {item.artist.typeName
+                      ? lp_attributes(item.artist.typeName, 'artist_type')
+                      : l('Unknown')}
+                  </td>
+                </>
+              ) : (
+                <td colSpan="2">
+                  {l('This artist no longer exists.')}
+                </td>
+              )}
             </tr>
           ))}
         </tbody>

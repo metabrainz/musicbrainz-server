@@ -52,21 +52,32 @@ const ReleaseGroupList = ({
                 ) : null}
                 <tr
                   className={loopParity(index)}
-                  key={item.release_group.gid}
+                  key={item.release_group_id}
                 >
-                  <td>
-                    <ArtistCreditLink
-                      artistCredit={item.release_group.artistCredit}
-                    />
-                  </td>
-                  <td>
-                    <EntityLink entity={item.release_group} />
-                  </td>
-                  <td>
-                    {item.release_group.l_type_name
-                      ? item.release_group.typeName
-                      : l('Unknown')}
-                  </td>
+                  {item.release_group ? (
+                    <>
+                      <td>
+                        <ArtistCreditLink
+                          artistCredit={item.release_group.artistCredit}
+                        />
+                      </td>
+                      <td>
+                        <EntityLink entity={item.release_group} />
+                      </td>
+                      <td>
+                        {item.release_group.l_type_name
+                          ? item.release_group.typeName
+                          : l('Unknown')}
+                      </td>
+                    </>
+                  ) : (
+                    <>
+                      <td />
+                      <td colSpan="2">
+                        {l('This release group no longer exists.')}
+                      </td>
+                    </>
+                  )}
                 </tr>
               </>
             );

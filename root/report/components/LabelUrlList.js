@@ -46,12 +46,21 @@ const LabelUrlList = ({
                     </td>
                   </tr>
                 )}
-                <tr key={item.label.gid}>
-                  <td />
-                  <td>
-                    <EntityLink entity={item.label} />
-                  </td>
-                </tr>
+                {item.label ? (
+                  <tr key={item.label.gid}>
+                    <td />
+                    <td>
+                      <EntityLink entity={item.label} />
+                    </td>
+                  </tr>
+                ) : (
+                  <tr key={`removed-${item.label_id}`}>
+                    <td />
+                    <td>
+                      {l('This label no longer exists.')}
+                    </td>
+                  </tr>
+                )}
               </>
             );
           })}

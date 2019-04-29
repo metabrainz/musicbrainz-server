@@ -30,15 +30,23 @@ const ArtistAnnotationList = ({
       </thead>
       <tbody>
         {items.map((item, index) => (
-          <tr className={loopParity(index)} key={item.artist.gid}>
-            <td>
-              <EntityLink entity={item.artist} />
-            </td>
-            <td>
-              {item.artist.typeName
-                ? lp_attributes(item.artist.typeName, 'artist_type')
-                : l('Unknown')}
-            </td>
+          <tr className={loopParity(index)} key={item.artist_id}>
+            {item.artist ? (
+              <>
+                <td>
+                  <EntityLink entity={item.artist} />
+                </td>
+                <td>
+                  {item.artist.typeName
+                    ? lp_attributes(item.artist.typeName, 'artist_type')
+                    : l('Unknown')}
+                </td>
+              </>
+            ) : (
+              <td colSpan="2">
+                {l('This artist no longer exists.')}
+              </td>
+            )}
             <td dangerouslySetInnerHTML={{__html: item.text}} />
             <td>{item.created}</td>
           </tr>

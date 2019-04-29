@@ -35,25 +35,33 @@ const ReleaseGroupRelationshipList = ({
       </thead>
       <tbody>
         {items.map((item, index) => (
-          <tr className={loopParity(index)} key={item.release_group.gid}>
+          <tr className={loopParity(index)} key={item.release_group_id}>
             <td>
               <a href={'/relationship/' + encodeURIComponent(item.link_gid)}>
                 {l_relationships(item.link_name)}
               </a>
             </td>
-            <td>
-              <ArtistCreditLink
-                artistCredit={item.release_group.artistCredit}
-              />
-            </td>
-            <td>
-              <EntityLink entity={item.release_group} />
-            </td>
-            <td>
-              {item.release_group.l_type_name
-                ? item.release_group.l_type_name
-                : l('Unknown')}
-            </td>
+            {item.release_group ? (
+              <>
+                <td>
+                  <ArtistCreditLink
+                    artistCredit={item.release_group.artistCredit}
+                  />
+                </td>
+                <td>
+                  <EntityLink entity={item.release_group} />
+                </td>
+                <td>
+                  {item.release_group.l_type_name
+                    ? item.release_group.l_type_name
+                    : l('Unknown')}
+                </td>
+              </>
+            ) : (
+              <td colSpan="3">
+                {l('This release group no longer exists.')}
+              </td>
+            )}
           </tr>
         ))}
       </tbody>

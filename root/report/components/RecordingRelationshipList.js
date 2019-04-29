@@ -31,18 +31,28 @@ const RecordingRelationshipList = ({
       </thead>
       <tbody>
         {items.map((item, index) => (
-          <tr className={loopParity(index)} key={item.recording.gid}>
+          <tr className={loopParity(index)} key={item.recording_id}>
             <td>
               <a href={'/relationship/' + encodeURIComponent(item.link_gid)}>
                 {l_relationships(item.link_name)}
               </a>
             </td>
-            <td>
-              <ArtistCreditLink artistCredit={item.recording.artistCredit} />
-            </td>
-            <td>
-              <EntityLink entity={item.recording} />
-            </td>
+            {item.recording ? (
+              <>
+                <td>
+                  <ArtistCreditLink
+                    artistCredit={item.recording.artistCredit}
+                  />
+                </td>
+                <td>
+                  <EntityLink entity={item.recording} />
+                </td>
+              </>
+            ) : (
+              <td colSpan="2">
+                {l('This recording no longer exists.')}
+              </td>
+            )}
           </tr>
         ))}
       </tbody>

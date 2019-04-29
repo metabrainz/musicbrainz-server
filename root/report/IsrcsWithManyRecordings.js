@@ -81,7 +81,7 @@ const IsrcsWithManyRecordings = ({
               currentIsrc = item.isrc;
 
               return (
-                <React.Fragment key={item.isrc + '-' + item.recording.gid}>
+                <React.Fragment key={item.isrc + '-' + item.recording_id}>
                   {lastIsrc === item.isrc ? null : (
                     <tr className="even">
                       <td>
@@ -92,16 +92,27 @@ const IsrcsWithManyRecordings = ({
                     </tr>
                   )}
                   <tr>
-                    <td />
-                    <td>
-                      <ArtistCreditLink
-                        artistCredit={item.recording.artistCredit}
-                      />
-                    </td>
-                    <td>
-                      <EntityLink entity={item.recording} />
-                    </td>
-                    <td>{formatTrackLength(item.length)}</td>
+                    {item.recording ? (
+                      <>
+                        <td />
+                        <td>
+                          <ArtistCreditLink
+                            artistCredit={item.recording.artistCredit}
+                          />
+                        </td>
+                        <td>
+                          <EntityLink entity={item.recording} />
+                        </td>
+                        <td>{formatTrackLength(item.length)}</td>
+                      </>
+                    ) : (
+                      <>
+                        <td />
+                        <td colSpan="3">
+                          {l('This recording no longer exists.')}
+                        </td>
+                      </>
+                    )}
                   </tr>
                 </React.Fragment>
               );

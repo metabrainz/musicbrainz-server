@@ -71,19 +71,27 @@ const CollaborationRelationships = ({
 
               return (
                 <React.Fragment
-                  key={item.artist1.gid + '-' + item.artist0.gid}
+                  key={item.id1 + '-' + item.id0}
                 >
                   {lastID === item.id1 ? null : (
                     <tr className="even">
                       <td colSpan="2">
-                        <EntityLink entity={item.artist1} />
+                        {item.artist1 ? (
+                          <EntityLink entity={item.artist1} />
+                        ) : (
+                          l('This artist no longer exists.')
+                        )}
                       </td>
                     </tr>
                   )}
                   <tr>
                     <td />
                     <td>
-                      <EntityLink entity={item.artist0} />
+                      {item.artist0 ? (
+                        <EntityLink entity={item.artist0} />
+                      ) : (
+                        l('This artist no longer exists.')
+                      )}
                     </td>
                   </tr>
                 </React.Fragment>

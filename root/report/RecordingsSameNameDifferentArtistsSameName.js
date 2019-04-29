@@ -75,25 +75,36 @@ const RecordingsSameNameDifferentArtistsSameName = ({
           </tr>
         </thead>
         <tbody>
-          {items.map((item, index) => (
-            <tr className={loopParity(index)} key={item.recording.gid}>
-              <td>
-                <ArtistCreditLink
-                  artistCredit={item.recording.artistCredit}
-                />
-                <span className="comment">
-                  <bdi key="comment">
-                    {' ' + bracketedText(
-                      item.recording.artistCredit.names[0].artist.comment,
-                    )}
-                  </bdi>
-                </span>
-              </td>
-              <td>
-                <EntityLink entity={item.recording} />
-              </td>
-            </tr>
-          ))}
+          {items.map((item, index) => {
+            const recording = item.recording;
+            return (
+              <tr className={loopParity(index)} key={item.recording_id}>
+                {recording ? (
+                  <>
+                    <td>
+                      <ArtistCreditLink
+                        artistCredit={recording.artistCredit}
+                      />
+                      <span className="comment">
+                        <bdi key="comment">
+                          {' ' + bracketedText(
+                            recording.artistCredit.names[0].artist.comment,
+                          )}
+                        </bdi>
+                      </span>
+                    </td>
+                    <td>
+                      <EntityLink entity={recording} />
+                    </td>
+                  </>
+                ) : (
+                  <td colSpan="2">
+                    {l('This recording no longer exists.')}
+                  </td>
+                )}
+              </tr>
+            );
+          })}
         </tbody>
       </table>
     </PaginatedResults>
