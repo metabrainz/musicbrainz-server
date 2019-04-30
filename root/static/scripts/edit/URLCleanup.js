@@ -1377,10 +1377,10 @@ const CLEANUPS = {
     clean: function (url) {
       url = url.replace(/(venues)\/(?:past|future)\//, '$1/');
       url = url.replace(/(venues)\/facility\?.*v_id=([0-9]+).*$/, '$1/$2');
-      return url.replace(/^(?:https?:\/\/)?(?:www\.)?livefans\.jp\/([^?#]+[^/?#])\/*(?:[?#].*)?$/, 'http://www.livefans.jp/$1');
+      return url.replace(/^(?:https?:\/\/)?(?:www\.)?livefans\.jp\/([^?#]+[^/?#])\/*(?:[?#].*)?$/, 'https://www.livefans.jp/$1');
     },
     validate: function (url, id) {
-      const m = /^http:\/\/www\.livefans\.jp\/([a-z]+)\/[0-9]+$/.exec(url);
+      const m = /^https:\/\/www\.livefans\.jp\/([a-z]+)\/[0-9]+$/.exec(url);
       if (m) {
         const prefix = m[1];
         switch (id) {
