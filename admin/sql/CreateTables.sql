@@ -2267,6 +2267,7 @@ CREATE TABLE editor_collection_collaborator (
 CREATE TABLE editor_collection_area (
     collection INTEGER NOT NULL, -- PK, references editor_collection.id
     area INTEGER NOT NULL, -- PK, references area.id
+    added TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
     position INTEGER NOT NULL DEFAULT 0 CHECK (position >= 0),
     comment TEXT DEFAULT '' NOT NULL
 );
@@ -2274,6 +2275,7 @@ CREATE TABLE editor_collection_area (
 CREATE TABLE editor_collection_artist (
     collection INTEGER NOT NULL, -- PK, references editor_collection.id
     artist INTEGER NOT NULL, -- PK, references artist.id
+    added TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
     position INTEGER NOT NULL DEFAULT 0 CHECK (position >= 0),
     comment TEXT DEFAULT '' NOT NULL
 );
@@ -2281,6 +2283,7 @@ CREATE TABLE editor_collection_artist (
 CREATE TABLE editor_collection_event (
     collection INTEGER NOT NULL, -- PK, references editor_collection.id
     event INTEGER NOT NULL, -- PK, references event.id
+    added TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
     position INTEGER NOT NULL DEFAULT 0 CHECK (position >= 0),
     comment TEXT DEFAULT '' NOT NULL
 );
@@ -2288,6 +2291,7 @@ CREATE TABLE editor_collection_event (
 CREATE TABLE editor_collection_instrument (
     collection INTEGER NOT NULL, -- PK, references editor_collection.id
     instrument INTEGER NOT NULL, -- PK, references instrument.id
+    added TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
     position INTEGER NOT NULL DEFAULT 0 CHECK (position >= 0),
     comment TEXT DEFAULT '' NOT NULL
 );
@@ -2295,6 +2299,7 @@ CREATE TABLE editor_collection_instrument (
 CREATE TABLE editor_collection_label (
     collection INTEGER NOT NULL, -- PK, references editor_collection.id
     label INTEGER NOT NULL, -- PK, references label.id
+    added TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
     position INTEGER NOT NULL DEFAULT 0 CHECK (position >= 0),
     comment TEXT DEFAULT '' NOT NULL
 );
@@ -2302,6 +2307,7 @@ CREATE TABLE editor_collection_label (
 CREATE TABLE editor_collection_place (
     collection INTEGER NOT NULL, -- PK, references editor_collection.id
     place INTEGER NOT NULL, -- PK, references place.id
+    added TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
     position INTEGER NOT NULL DEFAULT 0 CHECK (position >= 0),
     comment TEXT DEFAULT '' NOT NULL
 );
@@ -2309,6 +2315,7 @@ CREATE TABLE editor_collection_place (
 CREATE TABLE editor_collection_recording (
     collection INTEGER NOT NULL, -- PK, references editor_collection.id
     recording INTEGER NOT NULL, -- PK, references recording.id
+    added TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
     position INTEGER NOT NULL DEFAULT 0 CHECK (position >= 0),
     comment TEXT DEFAULT '' NOT NULL
 );
@@ -2316,6 +2323,7 @@ CREATE TABLE editor_collection_recording (
 CREATE TABLE editor_collection_release (
     collection INTEGER NOT NULL, -- PK, references editor_collection.id
     release INTEGER NOT NULL, -- PK, references release.id
+    added TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
     position INTEGER NOT NULL DEFAULT 0 CHECK (position >= 0),
     comment TEXT DEFAULT '' NOT NULL
 );
@@ -2323,6 +2331,7 @@ CREATE TABLE editor_collection_release (
 CREATE TABLE editor_collection_release_group (
     collection INTEGER NOT NULL, -- PK, references editor_collection.id
     release_group INTEGER NOT NULL, -- PK, references release_group.id
+    added TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
     position INTEGER NOT NULL DEFAULT 0 CHECK (position >= 0),
     comment TEXT DEFAULT '' NOT NULL
 );
@@ -2330,6 +2339,7 @@ CREATE TABLE editor_collection_release_group (
 CREATE TABLE editor_collection_series (
     collection INTEGER NOT NULL, -- PK, references editor_collection.id
     series INTEGER NOT NULL, -- PK, references series.id
+    added TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
     position INTEGER NOT NULL DEFAULT 0 CHECK (position >= 0),
     comment TEXT DEFAULT '' NOT NULL
 );
@@ -2337,6 +2347,7 @@ CREATE TABLE editor_collection_series (
 CREATE TABLE editor_collection_work (
     collection INTEGER NOT NULL, -- PK, references editor_collection.id
     work INTEGER NOT NULL, -- PK, references work.id
+    added TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
     position INTEGER NOT NULL DEFAULT 0 CHECK (position >= 0),
     comment TEXT DEFAULT '' NOT NULL
 );
@@ -2344,6 +2355,7 @@ CREATE TABLE editor_collection_work (
 CREATE TABLE editor_collection_deleted_entity (
     collection INTEGER NOT NULL, -- PK, references editor_collection.id
     gid UUID NOT NULL, -- PK, references deleted_entity.gid
+    added TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
     position INTEGER NOT NULL DEFAULT 0 CHECK (position >= 0),
     comment TEXT DEFAULT '' NOT NULL
 );
