@@ -264,6 +264,9 @@ const actions = {
 
                 track.name(reduceArtistCredit(track.artistCredit()));
                 track.artistCredit(artistCreditFromArray([{ name: oldTitle }]));
+                track.artistCreditEditorInst.setState({
+                    artistCredit: track.artistCredit.peek(),
+                });
             });
         }
     },
