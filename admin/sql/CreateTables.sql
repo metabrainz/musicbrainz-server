@@ -852,6 +852,25 @@ CREATE TABLE gender ( -- replicate
     gid                 uuid NOT NULL
 );
 
+CREATE TABLE genre ( -- replicate (verbose)
+    id                  SERIAL, -- PK
+    gid                 UUID NOT NULL,
+    name                VARCHAR NOT NULL,
+    comment             VARCHAR(255) NOT NULL DEFAULT '',
+    edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >=0)
+);
+
+CREATE TABLE genre_alias ( -- replicate (verbose)
+    id                  SERIAL,
+    genre               INTEGER NOT NULL, -- references genre.id
+    name                VARCHAR NOT NULL,
+    locale              TEXT,
+    edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    primary_for_locale  BOOLEAN NOT NULL DEFAULT FALSE,
+    CONSTRAINT primary_check CHECK ((locale IS NULL AND primary_for_locale IS FALSE) OR (locale IS NOT NULL))
+);
+
 CREATE TABLE instrument_type ( -- replicate
     id                  SERIAL, -- PK
     name                VARCHAR(255) NOT NULL,

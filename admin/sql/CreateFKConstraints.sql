@@ -967,6 +967,11 @@ ALTER TABLE gender
    FOREIGN KEY (parent)
    REFERENCES gender(id);
 
+ALTER TABLE genre_alias
+   ADD CONSTRAINT genre_alias_fk_genre
+   FOREIGN KEY (genre)
+   REFERENCES genre(id);
+
 ALTER TABLE instrument
    ADD CONSTRAINT instrument_fk_type
    FOREIGN KEY (type)

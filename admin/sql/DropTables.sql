@@ -103,6 +103,8 @@ DROP TABLE event_tag;
 DROP TABLE event_tag_raw;
 DROP TABLE event_type;
 DROP TABLE gender;
+DROP TABLE genre;
+DROP TABLE genre_alias;
 DROP TABLE instrument;
 DROP TABLE instrument_alias;
 DROP TABLE instrument_alias_type;
