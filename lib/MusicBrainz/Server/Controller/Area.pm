@@ -105,6 +105,8 @@ sub artists : Chained('load')
     });
         $c->model('ArtistType')->load(@$artists);
         $c->model('Gender')->load(@$artists);
+        $c->model('Area')->load(@$artists);
+        $c->model('Area')->load_containment(map { $_->{area}, $_->{begin_area}, $_->{end_area} } @$artists);
     if ($c->user_exists) {
         $c->model('Artist')->rating->load_user_ratings($c->user->id, @$artists);
     }

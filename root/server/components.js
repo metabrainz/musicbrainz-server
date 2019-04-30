@@ -211,6 +211,7 @@ module.exports = {
   'collection/CollectionHeader': require('../collection/CollectionHeader'),
   'components/Aliases': require('../components/Aliases'),
   'components/AreasList': require('../components/AreasList'),
+  'components/ArtistsList': require('../components/ArtistsList'),
   'components/EventsList': require('../components/EventsList'),
   'components/ExpirationTime': require('../components/ExpirationTime'),
   'components/InstrumentsList': require('../components/InstrumentsList'),

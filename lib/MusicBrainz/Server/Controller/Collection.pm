@@ -109,6 +109,8 @@ sub show : Chained('load') PathPart('') {
     } elsif ($entity_type eq 'artist') {
         $c->model('ArtistType')->load(@$entities);
         $c->model('Gender')->load(@$entities);
+        $c->model('Area')->load(@$entities);
+        $c->model('Area')->load_containment(map { $_->area } @$entities);
     } elsif ($entity_type eq 'instrument') {
         $c->model('InstrumentType')->load(@$entities);
     } elsif ($entity_type eq 'label') {
