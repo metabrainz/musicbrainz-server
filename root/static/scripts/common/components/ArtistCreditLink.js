@@ -17,6 +17,7 @@ type Props = {
   +artistCredit: ArtistCreditT,
   +plain?: boolean,
   +showDeleted?: boolean,
+  +showEditsPending?: boolean,
   +target?: '_blank',
 };
 
@@ -67,6 +68,7 @@ const MpIcon = hydrate<MpIconProps>('span.ac-mp', ({artistCredit}: MpIconProps) 
 const ArtistCreditLink = ({
   artistCredit,
   showDeleted = true,
+  showEditsPending = true,
   ...props
 }: Props) => {
   const names = artistCredit.names;
@@ -84,6 +86,7 @@ const ArtistCreditLink = ({
             entity={artist}
             key={`${artist.id}-${i}`}
             showDeleted={showDeleted}
+            showEditsPending={!artistCredit.editsPending}
             target={props.target}
           />,
         );

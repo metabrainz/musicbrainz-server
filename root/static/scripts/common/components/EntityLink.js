@@ -103,6 +103,7 @@ type EntityLinkProps = {
   +content?: React.Node,
   +entity: CoreEntityT | CollectionT,
   +hover?: string,
+  +showEditsPending?: boolean,
   +showEventDate?: boolean,
   +showDeleted?: boolean,
   +showDisambiguation?: boolean,
@@ -120,6 +121,7 @@ const EntityLink = ({
   content,
   entity,
   hover,
+  showEditsPending = true,
   showEventDate = true,
   showDeleted = true,
   showDisambiguation,
@@ -200,7 +202,7 @@ const EntityLink = ({
     );
   }
 
-  if (!subPath && entity.editsPending) {
+  if (showEditsPending && !subPath && entity.editsPending) {
     content = <span className="mp" key="mp">{content}</span>;
   }
 
