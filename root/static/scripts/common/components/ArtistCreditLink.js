@@ -35,14 +35,18 @@ const ArtistCreditLink = ({
           <EntityLink
             content={credit.name}
             entity={artist}
-            key={i}
+            key={`${artist.id}-${i}`}
             showDeleted={showDeleted}
             target={props.target}
           />,
         );
       } else {
         parts.push(
-          <DeletedLink allowNew={false} name={credit.name} />,
+          <DeletedLink
+            allowNew={false}
+            key={`deleted-${i}`}
+            name={credit.name}
+          />,
         );
       }
     }
