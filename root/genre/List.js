@@ -13,7 +13,7 @@ import Layout from '../layout';
 import TagLink from '../static/scripts/common/components/TagLink';
 
 type PropsT = {|
-  +genres: $ReadOnlyArray<string>,
+  +genres: $ReadOnlyArray<GenreT>,
 |};
 
 const GenreList = ({genres}: PropsT) => (
@@ -25,8 +25,8 @@ const GenreList = ({genres}: PropsT) => (
       </p>
       <ul>
         {genres.map(genre => (
-          <li key={genre}>
-            <TagLink tag={genre} />
+          <li key={genre.id}>
+            <TagLink tag={genre.name} />
           </li>
         ))}
       </ul>
@@ -38,5 +38,6 @@ const GenreList = ({genres}: PropsT) => (
     </div>
   </Layout>
 );
+
 
 export default GenreList;
