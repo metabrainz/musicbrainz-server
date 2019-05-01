@@ -97,11 +97,12 @@ sub edit : Chained('attribute_base') Args(1) RequireAuth(account_admin) {
 
     my $form_name = $forms{$model} // "Admin::Attributes";
     my $form = $c->form( form => $form_name, init_object => $attr );
+    my $parent_options = $form->options_parent_id($model);
 
     $c->stash(
         current_view => 'Node',
         component_path => 'admin/attributes/Edit.js',
-        component_props => {model => $model, form => $form, id => $id}
+        component_props => {model => $model, form => $form, id => $id, parentOptions => $parent_options}
     );
 
     if ($c->form_posted && $form->process( params => $c->req->params )) {

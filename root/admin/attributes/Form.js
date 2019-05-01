@@ -34,7 +34,7 @@ type Props = {
   id: number
 };
 
-const Form = ({model, form, id}: Props) => {
+const Form = ({model, form, id, parentOptions}: Props) => {
   switch (model) {
     case 'Language': {
       return (
@@ -83,15 +83,12 @@ const Form = ({model, form, id}: Props) => {
     }
     default: {
       const entityOptions = {
-        options: ['area', 'artist', 'event', 'instrument', 'label', 'place', 'recording', 'release', 'release_group', 'series', 'work'],
-      };
-      const parentOptions = {
-        options: ['1', '2', '3'],
+        options: [{value: 1, label: 'area'}, {value: 2, label: 'artist'}, {value: 3, label: 'event'}, {value: 4, label: 'instrument'}, {value: 5, label: 'label'}, {value: 6, label: 'place'}, {value: 7, label: 'recording'}, {value: 8, label: 'release'}, {value: 9, label: 'release_group'}, {value: 10, label: 'series'}, {value: 11, label: 'work'}],
       };
       return (
         <form action={`/admin/attributes/${model}/edit/${id}`} method="post">
-          {(model === 'CollectionType' || model === 'SeriesType') ? <FormRowSelect field={form.field.entity_type} frozen label={addColon(l('Entity type'))} options={entityOptions} /> : null}
-          <FormRowSelect field={form.field.parent_id} label={addColon(l('Parent'))} options={parentOptions} />
+          {(model === 'CollectionType' || model === 'SeriesType') ? <FormRowSelect field={form.field.entity_type} frozen label={addColon(l('Entity type'))} options={entityOptions} allowEmpty={true}/> : null}
+          <FormRowSelect field={form.field.parent_id} label={addColon(l('Parent'))} options={{options: parentOptions}} allowEmpty={true} />
           <FormRow>
             <FormRowText field={form.field.child_order} label={addColon(l('Child order'))} size={5} />
             <FieldErrors field={form.field.child_order} />

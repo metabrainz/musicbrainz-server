@@ -4,13 +4,17 @@ import Layout from '../../layout';
 
 import Form from './Form';
 
-const Edit = ({model, form, id}) => {
-  console.log("This is from React Console.log\n", form)
+const Edit = ({model, form, id, parentOptions}) => {
   return (
     <Layout fullWidth title={l('Edit Attribute')}>
       <div id="content">
         <h1>{l('Edit Attribute')}</h1>
-        <Form form={form} model={model} id={id}/>
+        <Form
+          form={form}
+          id={id}
+          model={model}
+          parentOptions={parentOptions}
+        />
       </div>
     </Layout>
   );
