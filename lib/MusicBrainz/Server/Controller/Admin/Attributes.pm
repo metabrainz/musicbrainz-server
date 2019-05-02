@@ -97,8 +97,11 @@ sub edit : Chained('attribute_base') Args(1) RequireAuth(account_admin) {
 
     my $form_name = $forms{$model} // "Admin::Attributes";
     my $form = $c->form( form => $form_name, init_object => $attr );
-    my $parent_options = $form->options_parent_id($model);
-
+    my $parent_options = {};
+    if ($model != "Script" || $model != "Language") {
+        $parent_options = $form->options_parent_id($model);
+    }
+    
     $c->stash(
         current_view => 'Node',
         component_path => 'admin/attributes/Edit.js',

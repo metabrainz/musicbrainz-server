@@ -30,8 +30,9 @@ type ScriptFieldT = {
 
 type Props = {
   form: FormT<LanguageFieldT> | FormT<ScriptFieldT>,
+  id: number,
   model: string,
-  id: number
+  parentOptions: $ReadOnlyArray<{label: string, value: number}>,
 };
 
 const Form = ({model, form, id, parentOptions}: Props) => {
@@ -39,11 +40,11 @@ const Form = ({model, form, id, parentOptions}: Props) => {
     case 'Language': {
       return (
         <form action={`/admin/attributes/Language/edit/${id}`} method="post">
-          <FormRowText field={form.field.name} label={addColon(l('Name'))} />
+          <FormRowText field={form.field.name} label={addColon(l('Name'))} required />
           <FormRowText field={form.field.iso_code_1} label={addColon(l('ISO 639-1'))} />
           <FormRowText field={form.field.iso_code_2b} label={addColon(l('ISO 639-2/B'))} />
           <FormRowText field={form.field.iso_code_2t} label={addColon(l('ISO 639-2/T'))} />
-          <FormRowText field={form.field.iso_code_3} label={addColon(l('ISO 639-3'))} />
+          <FormRowText field={form.field.iso_code_3} label={addColon(l('ISO 639-3'))} required />
           <FormRowText field={form.field.frequency} label={addColon(l('Frequency'))} type="number" />
           <p>
             {l('Frequency notes:')}
@@ -62,8 +63,8 @@ const Form = ({model, form, id, parentOptions}: Props) => {
     case 'Script': {
       return (
         <form action={`/admin/attributes/Language/edit/${id}`} method="post">
-          <FormRowText field={form.field.name} label={addColon(l('Name'))} />
-          <FormRowText field={form.field.iso_code} label={addColon(l('ISO CODE'))} />
+          <FormRowText field={form.field.name} label={addColon(l('Name'))} required />
+          <FormRowText field={form.field.iso_code} label={addColon(l('ISO code'))} required />
           <FormRowText field={form.field.iso_number} label={addColon(l('ISO number'))} />
           <FormRowText field={form.field.frequency} label={addColon(l('Frequency'))} />
           <p>
