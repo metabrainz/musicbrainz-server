@@ -22,10 +22,10 @@ type Props = {|
 const CollectionCreate = ({collectionTypes, form}: Props) => (
   <Layout
     fullWidth
-    title={l('Add a New Collection')}
+    title={l('Create a new collection')}
   >
     <div id="content">
-      <h1>{l('Add a New Collection')}</h1>
+      <h1>{l('Create a new collection')}</h1>
       <CollectionEditForm collectionTypes={collectionTypes} form={form} />
     </div>
   </Layout>

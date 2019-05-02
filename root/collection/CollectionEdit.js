@@ -24,7 +24,7 @@ const CollectionEdit = ({collection, collectionTypes, form}: Props) => (
     entity={collection}
     fullWidth
     page="edit"
-    title={l('Edit Collection')}
+    title={l('Edit')}
   >
     <CollectionEditForm collectionTypes={collectionTypes} form={form} />
   </CollectionLayout>
