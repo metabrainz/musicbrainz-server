@@ -23,32 +23,32 @@ import RatingStars from './RatingStars';
 import SortableTableHeader from './SortableTableHeader';
 
 type ReleaseGroupsListHeaderProps = {|
+  ...SeriesItemNumbersRoleT,
   +$c: CatalystContextT,
   +checkboxes?: string,
   +groupByType?: boolean,
   +order?: string,
-  +seriesItemNumbers?: {+[number]: string},
   +showRatings?: boolean,
   +sortable?: boolean,
 |};
 
 type ReleaseGroupsListEntryProps = {|
+  ...SeriesItemNumbersRoleT,
   +$c: CatalystContextT,
   +checkboxes?: string,
   +groupByType?: boolean,
   +index: number,
   +releaseGroup: ReleaseGroupT,
-  +seriesItemNumbers?: {+[number]: string},
   +showRatings?: boolean,
 |};
 
 type ReleaseGroupsListProps = {|
+  ...SeriesItemNumbersRoleT,
   +$c: CatalystContextT,
   +checkboxes?: string,
   +groupByType?: boolean,
   +order?: string,
   +releaseGroups: $ReadOnlyArray<ReleaseGroupT>,
-  +seriesItemNumbers?: {+[number]: string},
   +showRatings?: boolean,
   +sortable?: boolean,
 |};

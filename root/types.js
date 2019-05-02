@@ -855,6 +855,10 @@ declare type SeriesT = {|
   +orderingTypeID: number,
 |};
 
+declare type SeriesItemNumbersRoleT = {|
+  +seriesItemNumbers?: {+[number]: string}
+  |};
+
 declare type SeriesOrderingTypeT = OptionTreeT<'series_ordering_type'>;
 
 declare type SeriesTypeT = OptionTreeT<'series_type'>;

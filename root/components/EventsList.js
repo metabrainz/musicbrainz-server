@@ -26,6 +26,7 @@ import RatingStars from './RatingStars';
 import SortableTableHeader from './SortableTableHeader';
 
 type Props = {|
+  ...SeriesItemNumbersRoleT,
   +$c: CatalystContextT,
   +artist?: ArtistT,
   +artistRoles?: boolean,
@@ -36,7 +37,6 @@ type Props = {|
   +noRatings?: boolean,
   +noType?: boolean,
   +order?: string,
-  +seriesItemNumbers?: {+[number]: string},
   +sortable?: boolean,
 |};
 
