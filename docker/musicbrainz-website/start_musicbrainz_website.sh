@@ -12,6 +12,10 @@ cd $MBS_ROOT
 deploy_static_resources.sh &
 trap_jobs
 
+sudo -E -H -u musicbrainz \
+    carton exec -- ./script/compile_resources.sh server &
+trap_jobs
+
 sv start template-renderer
 
 exec start_musicbrainz_server.sh
