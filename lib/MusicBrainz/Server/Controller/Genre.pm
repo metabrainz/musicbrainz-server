@@ -14,7 +14,7 @@ sub list : Path('/genres') Args(0) {
 
     $c->stash(
         current_view => 'Node',
-        component_path => 'genre/List',
+        component_path => 'genre/GenreListPage',
         component_props => { genres => \@sorted_genres },
     );
 }

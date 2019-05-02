@@ -54,7 +54,7 @@ module.exports = {
   'elections/NotFound': require('../elections/NotFound'),
   'elections/Show': require('../elections/Show'),
   'event/NotFound': require('../event/NotFound'),
-  'genre/List': require('../genre/List'),
+  'genre/GenreListPage': require('../genre/GenreListPage'),
   'instrument/List': require('../instrument/List'),
   'instrument/NotFound': require('../instrument/NotFound'),
   'isrc/Index': require('../isrc/Index'),
