@@ -35,9 +35,8 @@
       ELSIF series.type.item_entity_type == 'release_group';
         '<h2>' _ l('Release Groups') _ '</h2>';
         IF entities.size;
-          INCLUDE 'components/release_groups-list.tt'
-                  release_groups=entities no_grouping=1 checkboxes=''
-                  show_artists=1
+          React.embed(c, 'components/ReleaseGroupsList',
+                  { releaseGroups => entities, seriesItemNumbers = series_item_numbers, showRatings => 1  }) # TODO: On conversion to React, please check MBS-10155.
           WRAPPER 'components/with-pager.tt';
         END;
       ELSIF series.type.item_entity_type == 'work';
