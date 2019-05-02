@@ -49,6 +49,7 @@ Readonly our @QW_DEFS => qw(
 );
 
 Readonly our %CLIENT_DEFS => (
+    CRITIQUEBRAINZ_SERVER => 1,
     DB_STAGING_TESTING_FEATURES => 1,
     DEVELOPMENT_SERVER => 1,
     GIT_BRANCH => 1,
