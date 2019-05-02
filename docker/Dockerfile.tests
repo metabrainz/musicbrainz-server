@@ -29,7 +29,6 @@ RUN apt-get update && \
         ./nodejs_10.10.0-1nodesource1_amd64.deb \
         build-essential \
         bzip2 \
-        carton \
         default-jre \
         gcc \
         gettext \
@@ -75,6 +74,9 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/* && \
     rm google-chrome-stable_current_amd64.deb && \
     rm nodejs_10.10.0-1nodesource1_amd64.deb
+
+RUN wget -q -O - https://cpanmin.us | perl - App::cpanminus && \
+    cpanm Carton
 
 RUN curl -sLO http://chromedriver.storage.googleapis.com/2.45/chromedriver_linux64.zip && \
     unzip chromedriver_linux64.zip -d /usr/local/bin && \
