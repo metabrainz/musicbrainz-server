@@ -173,7 +173,8 @@ export function titleString(gc, is, forceCaps) {
     // we got an 'til (Until = 'til), lowercase.
     // we got an 'way (Away = 'way), lowercase.
     // we got an 'round (Around = 'round), lowercased
-    } else if (isApostrophe(gc.i.getPreviousWord()) && lc.match(/^(s|round|em|ve|ll|d|cha|re|til|way|all)$/i)) {
+    // we got a 'mon (Come on = C'mon), lowercase
+    } else if (isApostrophe(gc.i.getPreviousWord()) && lc.match(/^(s|round|em|ve|ll|d|cha|re|til|way|all|mon)$/i)) {
         os = lc;
     // we got an Ev'..
     // Every = Ev'ry, lowercase
@@ -181,7 +182,7 @@ export function titleString(gc, is, forceCaps) {
     } else if (isApostrophe(gc.i.getPreviousWord()) && gc.i.getWordAtIndex(pos - 2) === "Ev") {
         os = lc;
     // Make it O'Titled, Y'All
-    } else if (lc.match(/^(o|y)$/i) && isApostrophe(gc.i.getNextWord())) {
+    } else if (lc.match(/^(c|o|y)$/i) && isApostrophe(gc.i.getNextWord())) {
         os = uc;
     } else {
         os = titleStringByMode(gc, lc, forceCaps);

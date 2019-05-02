@@ -262,7 +262,7 @@ test('Work', function (t) {
 });
 
 test('BugFixes', function (t) {
-    t.plan(15);
+    t.plan(16);
 
     var tests = [
         {
@@ -332,6 +332,11 @@ test('BugFixes', function (t) {
             input: "10000 dB Goa Trance",
             expected: "10000 dB Goa Trance",
             bug: "MBS-2756", mode: "English"
+        },
+        {
+            input: "Hey c'Mon Everybody",
+            expected: "Hey C'mon Everybody",
+            bug: "MBS-8867", mode: "English"
         },
         {
             input: "¿qué No? ¡anda Que No!",
