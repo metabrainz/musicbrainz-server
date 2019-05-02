@@ -79,6 +79,7 @@ sub remove : Local Edit
     my $release = $c->model('Release')->get_by_id($medium->release_id);
     $c->model('ArtistCredit')->load($release);
     $c->model('ReleaseGroup')->load($release);
+    $c->model('ReleaseGroup')->load_meta($release->release_group);
 
     my $cdtoc = $c->model('MediumCDTOC')->get_by_medium_cdtoc($medium_id, $cdtoc_id);
     $c->model('CDTOC')->load($cdtoc);
