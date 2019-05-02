@@ -5,7 +5,9 @@ SOURCE="$2"
 DESTINATION="$3"
 RSYNC_OPTIONS="$4"
 
-source /etc/mbs_constants.sh
+MBS_HOME=/home/musicbrainz
+MBS_ROOT=$MBS_HOME/musicbrainz-server
+
 source "$MBS_ROOT/script/functions.sh"
 
 for server in $STATICBRAINZ_SERVERS; do
