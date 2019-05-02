@@ -114,7 +114,7 @@ export function isLowerCaseBracketWord(w) {
 
 /*
  * Words which the pre-processor looks for and puts them into brackets
- * if they arent yet.
+ * if they aren't yet.
  */
 const prepBracketWords = /^(?:cd|disk|12["”]|7["”]|a_cappella|re_edit)$/i;
 
@@ -147,7 +147,7 @@ export function trim(is) {
 }
 
 /*
- * Upper case first letter of word unless it's one of the words
+ * Uppercase first letter of word unless it's one of the words
  * in the lowercase words array.
  */
 export function titleString(gc, is, forceCaps) {
@@ -182,8 +182,8 @@ export function titleString(gc, is, forceCaps) {
   } else if (lc.length === 1 && isApostrophe(gc.i.getPreviousWord())) {
     os = lc;
     /*
-     * we got an 's (It is = It's), lowercased
-     * we got an 'all (Y'all = You all), lowercased
+     * we got an 's (It is = It's), lowercase
+     * we got an 'all (Y'all = You all), lowercase
      * we got an 'em (Them = 'em), lowercase.
      * we got an 've (They have = They've), lowercase.
      * we got an 'd (He had = He'd), lowercase.
@@ -191,7 +191,7 @@ export function titleString(gc, is, forceCaps) {
      * we got an 're (You are = You're), lowercase.
      * we got an 'til (Until = 'til), lowercase.
      * we got an 'way (Away = 'way), lowercase.
-     * we got an 'round (Around = 'round), lowercased
+     * we got an 'round (Around = 'round), lowercase
      * we got a 'mon (Come on = C'mon), lowercase
      */
   } else if (isApostrophe(gc.i.getPreviousWord()) &&
