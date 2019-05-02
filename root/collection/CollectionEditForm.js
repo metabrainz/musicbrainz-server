@@ -37,18 +37,18 @@ const CollectionEditForm = ({$c, collectionTypes, form}: Props) => {
         <legend>{l('Collection details')}</legend>
         <FormRowTextLong
           field={form.field.name}
-          label={l('Name:')}
+          label={addColonText(l('Name'))}
           required
         />
         <FormRowSelect
           field={form.field.type_id}
-          label={l('Type:')}
+          label={addColonText(l('Type'))}
           onChange={noop}
           options={typeOptions}
         />
         <FormRowTextArea
           field={form.field.description}
-          label={l('Description:')}
+          label={addColonText(l('Description'))}
         />
         <FormRowCheckbox
           field={form.field.public}
