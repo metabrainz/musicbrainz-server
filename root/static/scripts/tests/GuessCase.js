@@ -39,7 +39,7 @@ test('Sortname', function (t) {
     },
   ];
 
-  _.each(tests, function (test, idx) {
+  _.each(tests, function (test) {
     const result = MB.GuessCase.artist.sortname(test.input, test.person);
     t.equal(result, test.expected, test.input);
   });
@@ -74,7 +74,7 @@ test('Sortname', function (t) {
      */
   ];
 
-  _.each(tests, function (test, idx) {
+  _.each(tests, function (test) {
     const result = MB.GuessCase.label.sortname(test.input);
     t.equal(result, test.expected, test.input);
   });
@@ -120,7 +120,7 @@ test('Artist', function (t) {
     },
   ];
 
-  _.each(tests, function (test, idx) {
+  _.each(tests, function (test) {
     const result = MB.GuessCase.artist.guess(test.input);
 
     const prefix = test.bug ? test.bug + ', ' : '';
@@ -144,7 +144,7 @@ test('Label', function (t) {
     {input: 'No Label', expected: '[unknown]'},
   ];
 
-  _.each(tests, function (test, idx) {
+  _.each(tests, function (test) {
     const result = MB.GuessCase.label.guess(test.input);
     t.equal(result, test.expected, test.input);
   });
@@ -307,7 +307,7 @@ test('Work', function (t) {
     },
   ];
 
-  _.each(tests, function (test, idx) {
+  _.each(tests, function (test) {
     setCookie('guesscase_roman', String(test.roman));
     gc.CFG_UC_UPPERCASED = test.keepuppercase;
     gc.mode = modes[test.mode];
@@ -448,7 +448,7 @@ test('BugFixes', function (t) {
      */
   ];
 
-  _.each(tests, function (test, idx) {
+  _.each(tests, function (test) {
     gc.mode = modes[test.mode];
 
     const result = MB.GuessCase.work.guess(test.input);
