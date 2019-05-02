@@ -38,7 +38,7 @@ const ArtistsList = ({
     <thead>
       <tr>
         {$c.user_exists && checkboxes ? (
-          <th style={{width: '1em'}}>
+          <th>
             <input type="checkbox" />
           </th>
         ) : null}

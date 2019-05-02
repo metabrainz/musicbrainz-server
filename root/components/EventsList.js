@@ -32,11 +32,11 @@ type Props = {|
   +artistRoles?: boolean,
   +checkboxes?: string,
   +events: $ReadOnlyArray<EventT>,
-  +noArtists?: boolean,
-  +noLocation?: boolean,
-  +noRatings?: boolean,
-  +noType?: boolean,
   +order?: string,
+  +showArtists?: boolean,
+  +showLocation?: boolean,
+  +showRatings?: boolean,
+  +showType?: boolean,
   +sortable?: boolean,
 |};
 
@@ -46,19 +46,19 @@ const EventsList = ({
   artistRoles,
   checkboxes,
   events,
-  noArtists,
-  noLocation,
-  noRatings,
-  noType,
   order,
   seriesItemNumbers,
+  showArtists,
+  showLocation,
+  showRatings,
+  showType,
   sortable,
 }: Props) => (
   <table className="tbl">
     <thead>
       <tr>
         {$c.user_exists && checkboxes ? (
-          <th style={{width: '1em'}}>
+          <th>
             <input type="checkbox" />
           </th>
         ) : null}
@@ -74,7 +74,7 @@ const EventsList = ({
             )
             : l('Event')}
         </th>
-        {noType ? null : (
+        {showType ? (
           <th>
             {sortable
               ? (
@@ -86,10 +86,10 @@ const EventsList = ({
               )
               : l('Type')}
           </th>
-        )}
-        {noArtists ? null : <th>{l('Artists')}</th>}
+        ) : null}
+        {showArtists ? <th>{l('Artists')}</th> : null}
         {artistRoles ? <th>{l('Role')}</th> : null}
-        {noLocation ? null : <th>{l('Location')}</th>}
+        {showLocation ? <th>{l('Location')}</th> : null}
         <th>
           {sortable
             ? (
@@ -102,7 +102,7 @@ const EventsList = ({
             : l('Date')}
         </th>
         <th>{l('Time')}</th>
-        {noRatings ? null : <th>{l('Rating')}</th>}
+        {showRatings ? <th>{l('Rating')}</th> : null}
       </tr>
     </thead>
     <tbody>
@@ -125,18 +125,18 @@ const EventsList = ({
           <td>
             <DescriptiveLink entity={event} />
           </td>
-          {noType ? null : (
+          {showType ? (
             <td>
               {event.typeName
                 ? lp_attributes(event.typeName, 'event_type')
                 : null}
             </td>
-          )}
-          {noArtists ? null : (
+          ) : null}
+          {showArtists ? (
             <td>
               <ArtistRoles relations={event.performers} />
             </td>
-          )}
+          ) : null}
           {artist && artistRoles ? (
             <td>
               {event.performers.map(performer => (
@@ -146,18 +146,18 @@ const EventsList = ({
               ))}
             </td>
           ) : null}
-          {noLocation ? null : (
+          {showLocation ? (
             <td>
               <EventLocations event={event} />
             </td>
-          )}
+          ) : null}
           <td>{formatDatePeriod(event)}</td>
           <td>{event.time}</td>
-          {noRatings ? null : (
+          {showRatings ? (
             <td>
               <RatingStars entity={event} />
             </td>
-          )}
+          ) : null}
         </tr>
       ))}
     </tbody>

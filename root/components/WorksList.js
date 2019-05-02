@@ -10,25 +10,28 @@
 import React from 'react';
 
 import {withCatalystContext} from '../context';
-import InstrumentListEntry
-  from '../static/scripts/common/components/InstrumentListEntry';
+import WorkListEntry from '../static/scripts/common/components/WorkListEntry';
 
 import SortableTableHeader from './SortableTableHeader';
 
 type Props = {|
+  ...SeriesItemNumbersRoleT,
   +$c: CatalystContextT,
   +checkboxes?: string,
-  +instruments: $ReadOnlyArray<InstrumentT>,
   +order?: string,
+  +showRatings?: boolean,
   +sortable?: boolean,
+  +works: $ReadOnlyArray<WorkT>,
 |};
 
-const InstrumentsList = ({
+const WorksList = ({
   $c,
   checkboxes,
-  instruments,
   order,
+  seriesItemNumbers,
+  showRatings,
   sortable,
+  works,
 }: Props) => (
   <table className="tbl">
     <thead>
@@ -38,17 +41,21 @@ const InstrumentsList = ({
             <input type="checkbox" />
           </th>
         ) : null}
+        {seriesItemNumbers ? <th style={{width: '1em'}}>{l('#')}</th> : null}
         <th>
           {sortable
             ? (
               <SortableTableHeader
-                label={l('Instrument')}
+                label={l('Work')}
                 name="name"
                 order={order}
               />
             )
-            : l('Instrument')}
+            : l('Work')}
         </th>
+        <th>{l('Writers')}</th>
+        <th>{l('Artists')}</th>
+        <th>{l('ISWC')}</th>
         <th>
           {sortable
             ? (
@@ -60,20 +67,26 @@ const InstrumentsList = ({
             )
             : l('Type')}
         </th>
-        <th>{l('Description')}</th>
+        <th>{l('Lyrics Languages')}</th>
+        <th>{l('Attributes')}</th>
+        {showRatings ? <th>{l('Rating')}</th> : null}
       </tr>
     </thead>
     <tbody>
-      {instruments.map((instrument, index) => (
-        <InstrumentListEntry
+      {works.map((work, index) => (
+        <WorkListEntry
           checkboxes={checkboxes}
           index={index}
-          instrument={instrument}
-          key={instrument.id}
+          key={work.id}
+          seriesItemNumbers={seriesItemNumbers}
+          showAttributes
+          showIswcs
+          showRatings={showRatings}
+          work={work}
         />
       ))}
     </tbody>
   </table>
 );
 
-export default withCatalystContext(InstrumentsList);
+export default withCatalystContext(WorksList);

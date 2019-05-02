@@ -39,7 +39,9 @@ const ArtistEvents = ({
             artistRoles
             checkboxes="add-to-merge"
             events={events}
-            noArtists
+            showLocation
+            showRatings
+            showType
           />
         </PaginatedResults>
         {$c.user_exists ? (
