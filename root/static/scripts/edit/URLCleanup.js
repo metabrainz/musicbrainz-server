@@ -1920,12 +1920,17 @@ const CLEANUPS = {
     match: [new RegExp('^(https?://)?([^/]+\\.)?songkick\\.com', 'i')],
     type: LINK_TYPES.songkick,
     clean: function (url) {
-      return url.replace(/^http:\/\//, 'https://');
+      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?songkick\.com\//, 'https://www.songkick.com/');
+      url = url.replace(/^(https:\/\/www\.songkick\.com\/[a-z]+\/[0-9]+)(?:-[\w-]*)?(\/id\/[0-9]+)?(?:[-\/?#].*)?$/, '$1$2');
+      return url;
     },
     validate: function (url, id) {
-      const m = /songkick\.com\/([a-z]+)\//.exec(url);
+      const m = /^https:\/\/www\.songkick\.com\/([a-z]+)\/[0-9]+(?:\/(id)\/[0-9]+)?$/.exec(url);
       if (m) {
         const prefix = m[1];
+        if ((m[2] === 'id') !== (prefix === 'festivals')) {
+          return false;
+        }
         switch (id) {
           case LINK_TYPES.songkick.artist:
             return prefix === 'artists';
