@@ -16,7 +16,7 @@ RUN apt-get update && \
         gnupg && \
     apt-key add yarn_pubkey.txt && \
     rm yarn_pubkey.txt && \
-    apt-key adv --keyserver hkps.pool.sks-keyservers.net --refresh-keys 'Yarn' && \
+    apt-key adv --keyserver keyserver.ubuntu.com --refresh-keys 'Yarn' && \
     echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list && \
     curl -sLO https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb && \
     curl -sLO https://deb.nodesource.com/node_10.x/pool/main/n/nodejs/nodejs_10.10.0-1nodesource1_amd64.deb && \

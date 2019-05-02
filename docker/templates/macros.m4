@@ -5,7 +5,7 @@ m4_define(
     `m4_dnl
 apt-get update && ( \
     apt-get install --no-install-suggests --no-install-recommends -y $1 || ( \
-        apt-key adv --keyserver hkps.pool.sks-keyservers.net --refresh-keys && \
+        apt-key adv --keyserver keyserver.ubuntu.com --refresh-keys && \
         apt-get install --no-install-suggests --no-install-recommends -y $1 ) ) && \
     rm -rf /var/lib/apt/lists/*')
 
