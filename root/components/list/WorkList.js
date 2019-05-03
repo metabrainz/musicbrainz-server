@@ -9,10 +9,10 @@
 
 import React from 'react';
 
-import {withCatalystContext} from '../context';
-import WorkListEntry from '../static/scripts/common/components/WorkListEntry';
-
-import SortableTableHeader from './SortableTableHeader';
+import {withCatalystContext} from '../../context';
+import WorkListEntry
+  from '../../static/scripts/common/components/WorkListEntry';
+import SortableTableHeader from '../SortableTableHeader';
 
 type Props = {|
   ...SeriesItemNumbersRoleT,

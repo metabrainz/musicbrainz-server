@@ -10,17 +10,16 @@
 import React from 'react';
 import {groupBy} from 'lodash';
 
-import {withCatalystContext} from '../context';
-import loopParity from '../utility/loopParity';
-import releaseGroupType from '../utility/releaseGroupType';
+import {withCatalystContext} from '../../context';
+import loopParity from '../../utility/loopParity';
+import releaseGroupType from '../../utility/releaseGroupType';
 import ArtistCreditLink
-  from '../static/scripts/common/components/ArtistCreditLink';
+  from '../../static/scripts/common/components/ArtistCreditLink';
 import EntityLink
-  from '../static/scripts/common/components/EntityLink';
-import parseDate from '../static/scripts/common/utility/parseDate';
-
-import RatingStars from './RatingStars';
-import SortableTableHeader from './SortableTableHeader';
+  from '../../static/scripts/common/components/EntityLink';
+import parseDate from '../../static/scripts/common/utility/parseDate';
+import RatingStars from '../RatingStars';
+import SortableTableHeader from '../SortableTableHeader';
 
 type ReleaseGroupListHeaderProps = {|
   ...SeriesItemNumbersRoleT,

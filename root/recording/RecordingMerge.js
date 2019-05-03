@@ -12,7 +12,7 @@ import React from 'react';
 import EnterEdit from '../components/EnterEdit';
 import EnterEditNote from '../components/EnterEditNote';
 import FieldErrors from '../components/FieldErrors';
-import RecordingList from '../components/RecordingList';
+import RecordingList from '../components/list/RecordingList';
 import {withCatalystContext} from '../context';
 import Layout from '../layout';
 

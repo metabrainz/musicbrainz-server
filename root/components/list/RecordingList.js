@@ -9,18 +9,17 @@
 
 import React from 'react';
 
-import {withCatalystContext} from '../context';
-import loopParity from '../utility/loopParity';
-import {commaListText} from '../static/scripts/common/i18n/commaList';
+import {withCatalystContext} from '../../context';
+import loopParity from '../../utility/loopParity';
+import {commaListText} from '../../static/scripts/common/i18n/commaList';
 import ArtistCreditLink
-  from '../static/scripts/common/components/ArtistCreditLink';
-import CodeLink from '../static/scripts/common/components/CodeLink';
-import EntityLink from '../static/scripts/common/components/EntityLink';
+  from '../../static/scripts/common/components/ArtistCreditLink';
+import CodeLink from '../../static/scripts/common/components/CodeLink';
+import EntityLink from '../../static/scripts/common/components/EntityLink';
 import formatTrackLength
-  from '../static/scripts/common/utility/formatTrackLength';
-
-import RatingStars from './RatingStars';
-import SortableTableHeader from './SortableTableHeader';
+  from '../../static/scripts/common/utility/formatTrackLength';
+import RatingStars from '../RatingStars';
+import SortableTableHeader from '../SortableTableHeader';
 
 type Props = {|
   ...InstrumentCreditsRoleT,

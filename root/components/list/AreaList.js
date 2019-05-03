@@ -9,12 +9,11 @@
 
 import React from 'react';
 
-import {withCatalystContext} from '../context';
-import loopParity from '../utility/loopParity';
+import {withCatalystContext} from '../../context';
+import loopParity from '../../utility/loopParity';
 import DescriptiveLink
-  from '../static/scripts/common/components/DescriptiveLink';
-
-import SortableTableHeader from './SortableTableHeader';
+  from '../../static/scripts/common/components/DescriptiveLink';
+import SortableTableHeader from '../SortableTableHeader';
 
 type Props = {|
   +$c: CatalystContextT,
