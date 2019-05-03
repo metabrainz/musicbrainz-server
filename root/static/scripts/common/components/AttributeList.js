@@ -11,7 +11,7 @@ import React from 'react';
 
 import {bracketedText} from '../utility/bracketed';
 
-const AttributesList = ({entity}: {entity: WorkT}) => (
+const AttributeList = ({entity}: {entity: WorkT}) => (
   entity.attributes ? (
     <ul>
       {entity.attributes.map(attribute => (
@@ -31,4 +31,4 @@ const AttributesList = ({entity}: {entity: WorkT}) => (
   ) : null
 );
 
-export default AttributesList;
+export default AttributeList;
