@@ -2,12 +2,18 @@
 
 set -e
 
-source /etc/mbs_constants.sh
+MBS_HOME=/home/musicbrainz
+MBS_ROOT=$MBS_HOME/musicbrainz-server
+
 source "$MBS_ROOT/script/functions.sh"
 
 cd $MBS_ROOT
 
 deploy_static_resources.sh &
+trap_jobs
+
+sudo -E -H -u musicbrainz \
+    carton exec -- ./script/compile_resources.sh server &
 trap_jobs
 
 sv start template-renderer
