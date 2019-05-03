@@ -22,6 +22,7 @@ echo "
   DROP SCHEMA IF EXISTS statistics CASCADE;
   DROP SCHEMA IF EXISTS cover_art_archive CASCADE;
   DROP SCHEMA IF EXISTS documentation CASCADE;
+  DROP SCHEMA IF EXISTS event_art_archive CASCADE;
   DROP SCHEMA IF EXISTS wikidocs CASCADE;
   DROP SCHEMA IF EXISTS sitemaps CASCADE;
   DROP SCHEMA IF EXISTS json_dump CASCADE;
@@ -30,6 +31,7 @@ echo "
   CREATE SCHEMA statistics;
   CREATE SCHEMA cover_art_archive;
   CREATE SCHEMA documentation;
+  CREATE SCHEMA event_art_archive;
   CREATE SCHEMA wikidocs;
   CREATE SCHEMA sitemaps;
   CREATE SCHEMA json_dump;" | ./admin/psql $DATABASE 2>&1
@@ -70,6 +72,15 @@ echo `date` : Creating documentation Schema
 OUTPUT=`./admin/psql $DATABASE <./admin/sql/documentation/CreateTables.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
 OUTPUT=`./admin/psql $DATABASE <./admin/sql/documentation/CreatePrimaryKeys.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
 OUTPUT=`./admin/psql $DATABASE <./admin/sql/documentation/CreateFKConstraints.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
+
+echo `date` : Creating Event Art Archive Schema
+OUTPUT=`./admin/psql $DATABASE <./admin/sql/eaa/CreateTables.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
+OUTPUT=`./admin/psql $DATABASE <./admin/sql/eaa/CreateViews.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
+OUTPUT=`./admin/psql $DATABASE <./admin/sql/eaa/CreateFunctions.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
+OUTPUT=`./admin/psql $DATABASE <./admin/sql/eaa/CreatePrimaryKeys.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
+OUTPUT=`./admin/psql $DATABASE <./admin/sql/eaa/CreateFKConstraints.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
+OUTPUT=`./admin/psql $DATABASE <./admin/sql/eaa/CreateTriggers.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
+OUTPUT=`./admin/psql $DATABASE <./admin/sql/eaa/CreateIndexes.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
 
 echo `date` : Creating sitemaps Schema
 OUTPUT=`./admin/psql $DATABASE <./admin/sql/sitemaps/CreateTables.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
