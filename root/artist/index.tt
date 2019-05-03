@@ -35,14 +35,14 @@ END %]
 
     [%- IF release_groups.size -%]
       <form action="[% c.uri_for_action('/release_group/merge_queue') %]" method="post">
-        [% React.embed(c, 'components/ReleaseGroupsList', { releaseGroups => release_groups, checkboxes => 'add-to-merge', showRatings => 1, groupByType => 1 }) # TODO: On conversion to React, please check MBS-10155.
+        [% React.embed(c, 'components/ReleaseGroupList', { releaseGroups => release_groups, checkboxes => 'add-to-merge', showRatings => 1, groupByType => 1 }) # TODO: On conversion to React, please check MBS-10155.
             WRAPPER 'components/with-pager.tt' %]
         [% form_submit(l('Merge release groups')) WRAPPER form_row IF c.user_exists %]
       </form>
     [%- END -%]
 
     [%- IF recordings.size -%]
-            [% React.embed(c, 'components/RecordingsList', { recordings => recordings, checkboxes => 'add-to-merge', showRatings => 1 })
+            [% React.embed(c, 'components/RecordingList', { recordings => recordings, checkboxes => 'add-to-merge', showRatings => 1 })
                 WRAPPER 'components/with-pager.tt' -%]
     [%- END -%]
 

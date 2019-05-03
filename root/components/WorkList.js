@@ -24,7 +24,7 @@ type Props = {|
   +works: $ReadOnlyArray<WorkT>,
 |};
 
-const WorksList = ({
+const WorkList = ({
   $c,
   checkboxes,
   order,
@@ -89,4 +89,4 @@ const WorksList = ({
   </table>
 );
 
-export default withCatalystContext(WorksList);
+export default withCatalystContext(WorkList);

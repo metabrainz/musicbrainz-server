@@ -40,7 +40,7 @@ type Props = {|
   +sortable?: boolean,
 |};
 
-const ReleasesList = ({
+const ReleaseList = ({
   $c,
   checkboxes,
   filterLabel,
@@ -246,4 +246,4 @@ const ReleasesList = ({
   </table>
 );
 
-export default withCatalystContext(ReleasesList);
+export default withCatalystContext(ReleaseList);

@@ -12,7 +12,7 @@ import React from 'react';
 import EnterEdit from '../components/EnterEdit';
 import EnterEditNote from '../components/EnterEditNote';
 import FieldErrors from '../components/FieldErrors';
-import RecordingsList from '../components/RecordingsList';
+import RecordingList from '../components/RecordingList';
 import {withCatalystContext} from '../context';
 import Layout from '../layout';
 
@@ -69,7 +69,7 @@ const RecordingMerge = ({$c, form, isrcsDiffer, toMerge}: Props) => {
           </div>
         ) : null}
         <form action={$c.req.uri} method="post">
-          <RecordingsList
+          <RecordingList
             recordings={toMerge}
             renderCheckboxElement={renderCheckboxElement}
           />
