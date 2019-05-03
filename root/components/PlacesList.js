@@ -10,49 +10,47 @@
 import React from 'react';
 
 import {withCatalystContext} from '../context';
-import formatLabelCode from '../utility/formatLabelCode';
 import loopParity from '../utility/loopParity';
 import DescriptiveLink
   from '../static/scripts/common/components/DescriptiveLink';
-import formatDate from '../static/scripts/common/utility/formatDate';
-import formatEndDate from '../static/scripts/common/utility/formatEndDate';
-
-import RatingStars from './RatingStars';
-import SortableTableHeader from './SortableTableHeader';
+import EntityLink from '../static/scripts/common/components/EntityLink';
+import SortableTableHeader from '../components/SortableTableHeader';
+import formatDatePeriod
+  from '../static/scripts/common/utility/formatDatePeriod';
 
 type Props = {|
   +$c: CatalystContextT,
   +checkboxes?: string,
-  +labels: $ReadOnlyArray<LabelT>,
   +order?: string,
-  +showRatings?: boolean,
+  +places: $ReadOnlyArray<PlaceT>,
   +sortable?: boolean,
 |};
 
-const LabelsList = ({
+const PlacesList = ({
   $c,
   checkboxes,
-  labels,
   order,
-  showRatings,
+  places,
   sortable,
 }: Props) => (
   <table className="tbl">
     <thead>
       <tr>
         {$c.user_exists && checkboxes ? (
-          <th className="pos" />
+          <th>
+            <input type="checkbox" />
+          </th>
         ) : null}
         <th>
           {sortable
             ? (
               <SortableTableHeader
-                label={l('Label')}
+                label={l('Place')}
                 name="name"
                 order={order}
               />
             )
-            : l('Label')}
+            : l('Place')}
         </th>
         <th>
           {sortable
@@ -69,12 +67,12 @@ const LabelsList = ({
           {sortable
             ? (
               <SortableTableHeader
-                label={l('Code')}
-                name="code"
+                label={l('Address')}
+                name="address"
                 order={order}
               />
             )
-            : l('Code')}
+            : l('Address')}
         </th>
         <th>
           {sortable
@@ -91,64 +89,44 @@ const LabelsList = ({
           {sortable
             ? (
               <SortableTableHeader
-                label={l('Begin')}
-                name="begin_date"
+                label={l('Date')}
+                name="date"
                 order={order}
               />
             )
-            : l('Begin')}
+            : l('Date')}
         </th>
-        <th>
-          {sortable
-            ? (
-              <SortableTableHeader
-                label={l('End')}
-                name="end_date"
-                order={order}
-              />
-            )
-            : l('End')}
-        </th>
-        {showRatings ? <th>{l('Rating')}</th> : null}
       </tr>
     </thead>
     <tbody>
-      {labels.map((label, index) => (
-        <tr className={loopParity(index)} key={label.id}>
+      {places.map((place, index) => (
+        <tr className={loopParity(index)} key={place.id}>
           {$c.user_exists && checkboxes ? (
             <td>
               <input
                 name={checkboxes}
                 type="checkbox"
-                value={label.id}
+                value={place.id}
               />
             </td>
           ) : null}
           <td>
-            <DescriptiveLink entity={label} />
+            <EntityLink entity={place} />
           </td>
           <td>
-            {label.typeName
-              ? lp_attributes(label.typeName, 'label_type')
+            {place.typeName
+              ? lp_attributes(place.typeName, 'place_type')
               : null}
           </td>
+          <td>{place.address}</td>
           <td>
-            {label.label_code ? formatLabelCode(label.label_code) : null}
+            {place.area ? <DescriptiveLink entity={place.area} /> : null}
           </td>
-          <td>
-            {label.area ? <DescriptiveLink entity={label.area} /> : null}
-          </td>
-          <td>{formatDate(label.begin_date)}</td>
-          <td>{formatEndDate(label)}</td>
-          {showRatings ? (
-            <td>
-              <RatingStars entity={label} />
-            </td>
-          ) : null}
+          <td>{formatDatePeriod(place)}</td>
         </tr>
       ))}
     </tbody>
   </table>
 );
 
-export default withCatalystContext(LabelsList);
+export default withCatalystContext(PlacesList);

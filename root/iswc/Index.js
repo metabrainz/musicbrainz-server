@@ -27,7 +27,7 @@ const Index = ({$c, iswcs, works}: Props) => {
     <Layout fullWidth title={texp.l('ISWC “{iswc}”', {iswc: iswc.iswc})}>
       <h1>
         {exp.l('ISWC “{iswc}”',
-          {iswc: <CodeLink code={iswc} key="iswc" />})}
+               {iswc: <CodeLink code={iswc} key="iswc" />})}
       </h1>
       <h2>
         {texp.ln(
@@ -42,7 +42,7 @@ const Index = ({$c, iswcs, works}: Props) => {
           <thead>
             <tr>
               {userExists ? (
-                <th style={{width: '1em'}}>
+                <th>
                   <input type="checkbox" />
                 </th>
               ) : null}
@@ -56,8 +56,7 @@ const Index = ({$c, iswcs, works}: Props) => {
           <tbody>
             {works.map((work, index) => (
               <WorkListEntry
-                hasIswcColumn={false}
-                hasMergeColumn
+                checkboxes="add-to-merge"
                 index={index}
                 key={work.id}
                 work={work}

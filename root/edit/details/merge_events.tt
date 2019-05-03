@@ -2,13 +2,13 @@
   <tr>
     <th>[% l('Merge:') %]</th>
     <td>
-      [%~ React.embed(c, 'components/EventsList', { events => edit.display_data.old, noRatings => 1}) ~%]
+      [%~ React.embed(c, 'components/EventsList', { events => edit.display_data.old, showArtists => 1, showLocation => 1, showType => 1 }) ~%]
     </td>
   </tr>
   <tr>
     <th>[% l('Into:') %]</th>
     <td>
-      [%~ React.embed(c, 'components/EventsList', { events => [edit.display_data.new], noRatings => 1}) ~%]
+      [%~ React.embed(c, 'components/EventsList', { events => [edit.display_data.new], showArtists => 1, showLocation => 1, showType => 1 }) ~%]
     </td>
   </tr>
 </table>

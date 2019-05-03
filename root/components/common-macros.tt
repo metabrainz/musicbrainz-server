@@ -894,7 +894,7 @@ END -%]
       l('{variable}:', { variable => variable });
     END -%]
 
-[%~ MACRO work_attributes_list(work) BLOCK -%]
+[%~ MACRO work_attributes_list(work) BLOCK # Converted to React at root/static/scripts/common/components/AttributesList.js -%]
   [%- IF work.attributes %]
     <ul>
       [%- FOR attr=work.sorted_attributes %]

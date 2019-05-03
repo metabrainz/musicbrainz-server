@@ -37,7 +37,9 @@ const PlaceEvents = ({
           <EventsList
             checkboxes="add-to-merge"
             events={events}
-            noLocation
+            showArtists
+            showRatings
+            showType
           />
         </PaginatedResults>
         {$c.user_exists ? (

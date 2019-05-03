@@ -16,11 +16,32 @@
 
     [%- IF entities.size -%]
     <form action="[% c.req.uri %]" method="post">
-      [%- IF collection.type.item_entity_type == 'event' -%]
-        [% React.embed(c, 'components/EventsList', { events => entities, checkboxes => my_collection ? 'remove' : '', order => order, sortable => 1})
+      [%- IF collection.type.item_entity_type == 'area' -%]
+        [% React.embed(c, 'components/AreasList', { areas => entities, checkboxes => my_collection ? 'remove' : '', order => order, sortable => 1})
+            WRAPPER 'components/with-pager.tt' %]
+      [%- ELSIF collection.type.item_entity_type == 'artist' -%]
+        [% React.embed(c, 'components/ArtistsList', { artists => entities, checkboxes => my_collection ? 'remove' : '', showRatings => 1, order => order, sortable => 1})
+            WRAPPER 'components/with-pager.tt' %]
+      [%- ELSIF collection.type.item_entity_type == 'event' -%]
+        [% React.embed(c, 'components/EventsList', { events => entities, checkboxes => my_collection ? 'remove' : '', order => order, sortable => 1, showArtists => 1, showLocation => 1, showRatings => 1, showType => 1 })
+            WRAPPER 'components/with-pager.tt' %]
+      [%- ELSIF collection.type.item_entity_type == 'instrument' -%]
+        [% React.embed(c, 'components/InstrumentsList', { instruments => entities, checkboxes => my_collection ? 'remove' : '', order => order, sortable => 1})
             WRAPPER 'components/with-pager.tt' %]
       [%- ELSIF collection.type.item_entity_type == 'label' -%]
-        [% React.embed(c, 'components/LabelsList', { labels => entities, checkboxes => my_collection ? 'remove' : '', order => order, sortable => 1})
+        [% React.embed(c, 'components/LabelsList', { labels => entities, checkboxes => my_collection ? 'remove' : '', order => order, sortable => 1, showRatings => 1})
+            WRAPPER 'components/with-pager.tt' %]
+      [%- ELSIF collection.type.item_entity_type == 'place' -%]
+        [% React.embed(c, 'components/PlacesList', { places => entities, checkboxes => my_collection ? 'remove' : '', order => order, sortable => 1})
+            WRAPPER 'components/with-pager.tt' %]
+      [%- ELSIF collection.type.item_entity_type == 'release_group' -%]
+        [% React.embed(c, 'components/ReleaseGroupsList', { releaseGroups => entities, checkboxes => my_collection ? 'remove' : '', order => order, sortable => 1, showRatings => 1, groupByType => 1 }) # TODO: On conversion to React, please check MBS-10155.
+            WRAPPER 'components/with-pager.tt' %]
+      [%- ELSIF collection.type.item_entity_type == 'series' -%]
+        [% React.embed(c, 'components/SeriesList', { series => entities, checkboxes => my_collection ? 'remove' : '', order => order, sortable => 1})
+            WRAPPER 'components/with-pager.tt' %]
+      [%- ELSIF collection.type.item_entity_type == 'work' -%]
+        [% React.embed(c, 'components/WorksList', { works => entities, checkboxes => my_collection ? 'remove' : '', order => order, sortable => 1, showRatings => 1})
             WRAPPER 'components/with-pager.tt' %]
       [%- ELSE -%]
         [%- INCLUDE $entity_list_template show_artists=1 show_ratings=1 checkboxes=(my_collection ? 'remove' : '') sortable=1

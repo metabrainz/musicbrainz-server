@@ -46,7 +46,7 @@ const Index = ({$c, isrcs, recordings}: PropsT) => {
           <thead>
             <tr>
               {userExists ? (
-                <th style={{width: '1em'}}>
+                <th>
                   <input type="checkbox" />
                 </th>
               ) : null}
