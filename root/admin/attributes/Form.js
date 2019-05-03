@@ -40,12 +40,12 @@ const Form = ({model, form, id, parentOptions}: Props) => {
     case 'Language': {
       return (
         <form action={`/admin/attributes/Language/edit/${id}`} method="post">
-          <FormRowText field={form.field.name} label={addColon(l('Name'))} required />
-          <FormRowText field={form.field.iso_code_1} label={addColon(l('ISO 639-1'))} />
-          <FormRowText field={form.field.iso_code_2b} label={addColon(l('ISO 639-2/B'))} />
-          <FormRowText field={form.field.iso_code_2t} label={addColon(l('ISO 639-2/T'))} />
-          <FormRowText field={form.field.iso_code_3} label={addColon(l('ISO 639-3'))} required />
-          <FormRowText field={form.field.frequency} label={addColon(l('Frequency'))} type="number" />
+          <FormRowText field={form.field.name} label={addColonText(l('Name'))} required />
+          <FormRowText field={form.field.iso_code_1} label={addColonText(l('ISO 639-1'))} />
+          <FormRowText field={form.field.iso_code_2b} label={addColonText(l('ISO 639-2/B'))} />
+          <FormRowText field={form.field.iso_code_2t} label={addColonText(l('ISO 639-2/T'))} />
+          <FormRowText field={form.field.iso_code_3} label={addColonText(l('ISO 639-3'))} required />
+          <FormRowText field={form.field.frequency} label={addColonText(l('Frequency'))} type="number" />
           <p>
             {l('Frequency notes:')}
             <ul>
@@ -63,10 +63,10 @@ const Form = ({model, form, id, parentOptions}: Props) => {
     case 'Script': {
       return (
         <form action={`/admin/attributes/Language/edit/${id}`} method="post">
-          <FormRowText field={form.field.name} label={addColon(l('Name'))} required />
-          <FormRowText field={form.field.iso_code} label={addColon(l('ISO code'))} required />
-          <FormRowText field={form.field.iso_number} label={addColon(l('ISO number'))} />
-          <FormRowText field={form.field.frequency} label={addColon(l('Frequency'))} />
+          <FormRowText field={form.field.name} label={addColonText(l('Name'))} required />
+          <FormRowText field={form.field.iso_code} label={addColonText(l('ISO code'))} required />
+          <FormRowText field={form.field.iso_number} label={addColonText(l('ISO number'))} />
+          <FormRowText field={form.field.frequency} label={addColonText(l('Frequency'))} />
           <p>
             {l('Frequency notes:')}
             <ul>
@@ -88,26 +88,26 @@ const Form = ({model, form, id, parentOptions}: Props) => {
       };
       return (
         <form action={`/admin/attributes/${model}/edit/${id}`} method="post">
-          {(model === 'CollectionType' || model === 'SeriesType') ? <FormRowSelect field={form.field.entity_type} frozen label={addColon(l('Entity type'))} options={entityOptions} allowEmpty={true}/> : null}
-          <FormRowSelect field={form.field.parent_id} label={addColon(l('Parent'))} options={{options: parentOptions}} allowEmpty={true} />
+          {(model === 'CollectionType' || model === 'SeriesType') ? <FormRowSelect field={form.field.entity_type} frozen label={addColonText(l('Entity type'))} options={entityOptions} allowEmpty={true}/> : null}
+          <FormRowSelect field={form.field.parent_id} label={addColonText(l('Parent'))} options={{options: parentOptions}} allowEmpty={true} />
           <FormRow>
-            <FormRowText field={form.field.child_order} label={addColon(l('Child order'))} size={5} />
+            <FormRowText field={form.field.child_order} label={addColonText(l('Child order'))} size={5} />
             <FieldErrors field={form.field.child_order} />
           </FormRow>
-          <FormRowText field={form.field.name} label={addColon(l('Name'))} required />
+          <FormRowText field={form.field.name} label={addColonText(l('Name'))} required />
           <FormRow>
-            <FormRowTextArea field={form.field.description} label={addColon(l('Description'))} />
+            <FormRowTextArea field={form.field.description} label={addColonText(l('Description'))} />
             <FieldErrors field={form.field.description} />
           </FormRow>
           {(model === 'MediumFormat') ?
             <>
               <FormRow>
-                <FormRowText field={form.field.year} label={addColon(l('Year'))} size={5} />
+                <FormRowText field={form.field.year} label={addColonText(l('Year'))} size={5} />
                 <FieldErrors field={form.field.year} />
               </FormRow>
-              <FormRowCheckbox field={form.field.has_discids} label={addColon(l('This format can have disc IDs'))} />
+              <FormRowCheckbox field={form.field.has_discids} label={addColonText(l('This format can have disc IDs'))} />
             </> : null}
-          {(model === 'WorkAttributeType') ? <FormRowCheckbox field={form.field.free_text} label={addColon(l('This is a free text work attribute'))} /> : null}
+          {(model === 'WorkAttributeType') ? <FormRowCheckbox field={form.field.free_text} label={addColonText(l('This is a free text work attribute'))} /> : null}
           <div className="row no-label">
             <FormSubmit label={l('Save')} />
           </div>
