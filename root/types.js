@@ -488,6 +488,10 @@ declare type GroupedOptionsT = $ReadOnlyArray<{|
   +options: SelectOptionsT,
 |}>;
 
+declare type InstrumentCreditsRoleT = {|
+  +instrumentCredits?: {+[string]: string},
+|};
+
 declare type InstrumentT = {|
   ...AnnotationRoleT,
   ...CommentRoleT,
@@ -857,7 +861,7 @@ declare type SeriesT = {|
 
 declare type SeriesItemNumbersRoleT = {|
   +seriesItemNumbers?: {+[number]: string}
-  |};
+|};
 
 declare type SeriesOrderingTypeT = OptionTreeT<'series_ordering_type'>;
 

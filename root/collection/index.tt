@@ -43,6 +43,9 @@
       [%- ELSIF collection.type.item_entity_type == 'work' -%]
         [% React.embed(c, 'components/WorksList', { works => entities, checkboxes => my_collection ? 'remove' : '', order => order, sortable => 1, showRatings => 1})
             WRAPPER 'components/with-pager.tt' %]
+      [%- ELSIF collection.type.item_entity_type == 'recording' -%]
+        [% React.embed(c, 'components/RecordingsList', { recordings => entities, checkboxes => my_collection ? 'remove' : '', showRatings => 1, order => order, sortable => 1})
+            WRAPPER 'components/with-pager.tt' %]
       [%- ELSE -%]
         [%- INCLUDE $entity_list_template show_artists=1 show_ratings=1 checkboxes=(my_collection ? 'remove' : '') sortable=1
             WRAPPER 'components/with-pager.tt' -%]
