@@ -40,7 +40,7 @@ type Props = {|
   +sortable?: boolean,
 |};
 
-const EventsList = ({
+const EventList = ({
   $c,
   artist,
   artistRoles,
@@ -164,4 +164,4 @@ const EventsList = ({
   </table>
 );
 
-export default withCatalystContext(EventsList);
+export default withCatalystContext(EventList);

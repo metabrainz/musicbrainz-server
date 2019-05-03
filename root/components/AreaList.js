@@ -13,24 +13,22 @@ import {withCatalystContext} from '../context';
 import loopParity from '../utility/loopParity';
 import DescriptiveLink
   from '../static/scripts/common/components/DescriptiveLink';
-import EntityLink from '../static/scripts/common/components/EntityLink';
-import SortableTableHeader from '../components/SortableTableHeader';
-import formatDatePeriod
-  from '../static/scripts/common/utility/formatDatePeriod';
+
+import SortableTableHeader from './SortableTableHeader';
 
 type Props = {|
   +$c: CatalystContextT,
+  +areas: $ReadOnlyArray<AreaT>,
   +checkboxes?: string,
   +order?: string,
-  +places: $ReadOnlyArray<PlaceT>,
   +sortable?: boolean,
 |};
 
-const PlacesList = ({
+const AreaList = ({
   $c,
+  areas,
   checkboxes,
   order,
-  places,
   sortable,
 }: Props) => (
   <table className="tbl">
@@ -45,12 +43,12 @@ const PlacesList = ({
           {sortable
             ? (
               <SortableTableHeader
-                label={l('Place')}
+                label={l('Area')}
                 name="name"
                 order={order}
               />
             )
-            : l('Place')}
+            : l('Area')}
         </th>
         <th>
           {sortable
@@ -63,70 +61,32 @@ const PlacesList = ({
             )
             : l('Type')}
         </th>
-        <th>
-          {sortable
-            ? (
-              <SortableTableHeader
-                label={l('Address')}
-                name="address"
-                order={order}
-              />
-            )
-            : l('Address')}
-        </th>
-        <th>
-          {sortable
-            ? (
-              <SortableTableHeader
-                label={l('Area')}
-                name="area"
-                order={order}
-              />
-            )
-            : l('Area')}
-        </th>
-        <th>
-          {sortable
-            ? (
-              <SortableTableHeader
-                label={l('Date')}
-                name="date"
-                order={order}
-              />
-            )
-            : l('Date')}
-        </th>
       </tr>
     </thead>
     <tbody>
-      {places.map((place, index) => (
-        <tr className={loopParity(index)} key={place.id}>
+      {areas.map((area, index) => (
+        <tr className={loopParity(index)} key={area.id}>
           {$c.user_exists && checkboxes ? (
             <td>
               <input
                 name={checkboxes}
                 type="checkbox"
-                value={place.id}
+                value={area.id}
               />
             </td>
           ) : null}
           <td>
-            <EntityLink entity={place} />
+            <DescriptiveLink entity={area} />
           </td>
           <td>
-            {place.typeName
-              ? lp_attributes(place.typeName, 'place_type')
+            {area.typeName
+              ? lp_attributes(area.typeName, 'area_type')
               : null}
           </td>
-          <td>{place.address}</td>
-          <td>
-            {place.area ? <DescriptiveLink entity={place.area} /> : null}
-          </td>
-          <td>{formatDatePeriod(place)}</td>
         </tr>
       ))}
     </tbody>
   </table>
 );
 
-export default withCatalystContext(PlacesList);
+export default withCatalystContext(AreaList);

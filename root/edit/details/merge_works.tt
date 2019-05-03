@@ -2,13 +2,13 @@
   <tr>
     <th>[% l('Merge:') %]</th>
     <td>
-      [% React.embed(c, 'components/WorksList', { works => edit.display_data.old }) %]
+      [% React.embed(c, 'components/WorkList', { works => edit.display_data.old }) %]
     </td>
   </tr>
   <tr>
     <th>[% l('Into:') %]</th>
     <td>
-      [% React.embed(c, 'components/WorksList', { works => [edit.display_data.new] }) %]
+      [% React.embed(c, 'components/WorkList', { works => [edit.display_data.new] }) %]
 
     </td>
   </tr>
