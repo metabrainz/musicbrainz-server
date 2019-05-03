@@ -9,23 +9,23 @@
 
 import React from 'react';
 
-import {withCatalystContext} from '../context';
-import loopParity from '../utility/loopParity';
-import ReleaseCatnoList from '../components/ReleaseCatnoList';
-import ReleaseCountries from '../components/ReleaseCountries';
-import ReleaseDates from '../components/ReleaseDates';
-import ReleaseLabelList from '../components/ReleaseLabelList';
-import commaList from '../static/scripts/common/i18n/commaList';
+import {withCatalystContext} from '../../context';
+import loopParity from '../../utility/loopParity';
+import ReleaseCatnoList from '../ReleaseCatnoList';
+import ReleaseCountries from '../ReleaseCountries';
+import ReleaseDates from '../ReleaseDates';
+import ReleaseLabelList from '../ReleaseLabelList';
+import commaList from '../../static/scripts/common/i18n/commaList';
 import filterReleaseLabels
-  from '../static/scripts/common/utility/filterReleaseLabels';
-import formatBarcode from '../static/scripts/common/utility/formatBarcode';
+  from '../../static/scripts/common/utility/filterReleaseLabels';
+import formatBarcode from '../../static/scripts/common/utility/formatBarcode';
 import ArtistCreditLink
-  from '../static/scripts/common/components/ArtistCreditLink';
-import EntityLink from '../static/scripts/common/components/EntityLink';
-import TaggerIcon from '../static/scripts/common/components/TaggerIcon';
+  from '../../static/scripts/common/components/ArtistCreditLink';
+import EntityLink from '../../static/scripts/common/components/EntityLink';
+import TaggerIcon from '../../static/scripts/common/components/TaggerIcon';
 
-import RatingStars from './RatingStars';
-import SortableTableHeader from './SortableTableHeader';
+import RatingStars from '../RatingStars';
+import SortableTableHeader from '../SortableTableHeader';
 
 type Props = {|
   ...InstrumentCreditsRoleT,

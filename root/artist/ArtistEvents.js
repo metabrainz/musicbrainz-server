@@ -10,7 +10,7 @@
 import React from 'react';
 
 import {withCatalystContext} from '../context';
-import EventList from '../components/EventList';
+import EventList from '../components/list/EventList';
 import PaginatedResults from '../components/PaginatedResults';
 
 import ArtistLayout from './ArtistLayout';

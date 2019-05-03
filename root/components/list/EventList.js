@@ -9,21 +9,21 @@
 
 import React from 'react';
 
-import commaOnlyList from '../static/scripts/common/i18n/commaOnlyList';
+import commaOnlyList from '../../static/scripts/common/i18n/commaOnlyList';
 import localizeArtistRoles
-  from '../static/scripts/common/i18n/localizeArtistRoles';
-import {withCatalystContext} from '../context';
-import loopParity from '../utility/loopParity';
-import ArtistRoles from '../static/scripts/common/components/ArtistRoles';
+  from '../../static/scripts/common/i18n/localizeArtistRoles';
+import {withCatalystContext} from '../../context';
+import loopParity from '../../utility/loopParity';
+import ArtistRoles from '../../static/scripts/common/components/ArtistRoles';
 import DescriptiveLink
-  from '../static/scripts/common/components/DescriptiveLink';
+  from '../../static/scripts/common/components/DescriptiveLink';
 import EventLocations
-  from '../static/scripts/common/components/EventLocations';
+  from '../../static/scripts/common/components/EventLocations';
 import formatDatePeriod
-  from '../static/scripts/common/utility/formatDatePeriod';
+  from '../../static/scripts/common/utility/formatDatePeriod';
 
-import RatingStars from './RatingStars';
-import SortableTableHeader from './SortableTableHeader';
+import RatingStars from '../RatingStars';
+import SortableTableHeader from '../SortableTableHeader';
 
 type Props = {|
   ...SeriesItemNumbersRoleT,

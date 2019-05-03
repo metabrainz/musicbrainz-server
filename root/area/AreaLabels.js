@@ -9,7 +9,7 @@
 
 import React from 'react';
 
-import LabelList from '../components/LabelList';
+import LabelList from '../components/list/LabelList';
 import PaginatedResults from '../components/PaginatedResults';
 
 import AreaLayout from './AreaLayout';
