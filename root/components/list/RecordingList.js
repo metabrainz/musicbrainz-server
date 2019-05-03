@@ -18,7 +18,6 @@ import CodeLink from '../../static/scripts/common/components/CodeLink';
 import EntityLink from '../../static/scripts/common/components/EntityLink';
 import formatTrackLength
   from '../../static/scripts/common/utility/formatTrackLength';
-
 import RatingStars from '../RatingStars';
 import SortableTableHeader from '../SortableTableHeader';
 

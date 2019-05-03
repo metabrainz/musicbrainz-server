@@ -18,7 +18,6 @@ import ArtistCreditLink
 import EntityLink
   from '../../static/scripts/common/components/EntityLink';
 import parseDate from '../../static/scripts/common/utility/parseDate';
-
 import RatingStars from '../RatingStars';
 import SortableTableHeader from '../SortableTableHeader';
 

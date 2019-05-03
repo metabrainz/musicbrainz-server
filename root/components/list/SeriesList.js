@@ -14,7 +14,6 @@ import loopParity from '../../utility/loopParity';
 import DescriptiveLink
   from '../../static/scripts/common/components/DescriptiveLink';
 import linkedEntities from '../../static/scripts/common/linkedEntities';
-
 import SortableTableHeader from '../SortableTableHeader';
 
 type Props = {|

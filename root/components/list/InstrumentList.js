@@ -12,7 +12,6 @@ import React from 'react';
 import {withCatalystContext} from '../../context';
 import InstrumentListEntry
   from '../../static/scripts/common/components/InstrumentListEntry';
-
 import SortableTableHeader from '../SortableTableHeader';
 
 type Props = {|

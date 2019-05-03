@@ -23,7 +23,6 @@ import ArtistCreditLink
   from '../../static/scripts/common/components/ArtistCreditLink';
 import EntityLink from '../../static/scripts/common/components/EntityLink';
 import TaggerIcon from '../../static/scripts/common/components/TaggerIcon';
-
 import RatingStars from '../RatingStars';
 import SortableTableHeader from '../SortableTableHeader';
 

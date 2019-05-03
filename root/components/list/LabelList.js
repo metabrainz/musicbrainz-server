@@ -16,7 +16,6 @@ import DescriptiveLink
   from '../../static/scripts/common/components/DescriptiveLink';
 import formatDate from '../../static/scripts/common/utility/formatDate';
 import formatEndDate from '../../static/scripts/common/utility/formatEndDate';
-
 import RatingStars from '../RatingStars';
 import SortableTableHeader from '../SortableTableHeader';
 

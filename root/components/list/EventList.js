@@ -21,7 +21,6 @@ import EventLocations
   from '../../static/scripts/common/components/EventLocations';
 import formatDatePeriod
   from '../../static/scripts/common/utility/formatDatePeriod';
-
 import RatingStars from '../RatingStars';
 import SortableTableHeader from '../SortableTableHeader';
 
