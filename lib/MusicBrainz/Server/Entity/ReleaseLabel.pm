@@ -36,6 +36,7 @@ around TO_JSON => sub {
     return {
         %{ $self->$orig },
         label => defined($self->label) ? $self->label->TO_JSON : undef,
+        label_id => $self->label_id,
         catalogNumber => $self->catalog_number,
     };
 };

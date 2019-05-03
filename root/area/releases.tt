@@ -4,7 +4,8 @@
     <h2>[% l('Releases') %]</h2>
 
     [%- IF releases.size -%]
-        [%- INCLUDE 'components/releases-list.tt' checkboxes='add-to-merge' WRAPPER 'components/with-pager.tt' -%]
+        [% React.embed(c, 'components/ReleasesList', { releases => releases, checkboxes => 'add-to-merge'})
+            WRAPPER 'components/with-pager.tt' -%]
     [%- ELSE -%]
       [% l('This area is not currently associated with any releases.') %]
     [%- END -%]
