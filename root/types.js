@@ -287,6 +287,7 @@ declare type CoreEntityT =
   | AreaT
   | ArtistT
   | EventT
+  | GenreT
   | InstrumentT
   | LabelT
   | PlaceT
@@ -301,6 +302,7 @@ declare type CoreEntityTypeT =
   | 'area'
   | 'artist'
   | 'event'
+  | 'genre'
   | 'instrument'
   | 'label'
   | 'place'
@@ -477,6 +479,11 @@ declare type FormT<+F> = {|
 |};
 
 declare type GenderT = OptionTreeT<'gender'>;
+
+declare type GenreT = {|
+  ...CommentRoleT,
+  ...CoreEntityRoleT<'genre'>,
+|};
 
 /*
  * See MusicBrainz::Server::Form::Utils::build_grouped_options
