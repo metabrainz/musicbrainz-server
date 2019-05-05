@@ -3240,6 +3240,12 @@ const testData = [
     expected_relationship_type: 'socialnetwork',
             expected_clean_url: 'http://www.weibo.com/mchotdog2010',
   },
+  {
+                     input_url: 'http://www.weibo.com/u/5887871694?is_hot=1',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'socialnetwork',
+            expected_clean_url: 'http://www.weibo.com/u/5887871694',
+  },
   // WhoSampled
   {
                      input_url: 'http://www.whosampled.com/Just-to-Get-a-Rep/Gang-Starr/',
