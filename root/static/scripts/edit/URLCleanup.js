@@ -1066,6 +1066,13 @@ const CLEANUPS = {
       return url;
     },
   },
+  'foursquare': {
+    match: [new RegExp('^(https?://)?([^/]+\\.)?foursquare\\.com/', 'i')],
+    type: LINK_TYPES.socialnetwork,
+    clean: function (url) {
+      return url.replace(/^https?:\/\/(?:[^/]+\.)?foursquare\.com/, 'https://foursquare.com');
+    },
+  },
   'generasia': {
     match: [new RegExp('^(https?://)?(www\\.)?generasia\\.com/wiki/', 'i')],
     type: LINK_TYPES.otherdatabases,
@@ -1090,6 +1097,13 @@ const CLEANUPS = {
     match: [new RegExp('^(https?://)?play\\.google\\.com/store/music/', 'i')],
     clean: function (url) {
       return url.replace(/^https?:\/\/play\.google\.com\/store\/music\/(artist|album)(?:\/[^?]*)?\?id=([^&#]+)(?:[&#].*)?$/, 'https://play.google.com/store/music/$1?id=$2');
+    },
+  },
+  'googleplus': {
+    match: [new RegExp('^(https?://)?([^/]+\\.)?plus\\.google\\.com/', 'i')],
+    type: LINK_TYPES.socialnetwork,
+    clean: function (url) {
+      return url.replace(/^(?:https?:\/\/)?plus\.google\.com\/(?:u\/[0-9]\/)?([0-9]+)(\/.*)?$/, 'https://plus.google.com/$1');
     },
   },
   'hmikuwiki': {
@@ -1338,6 +1352,13 @@ const CLEANUPS = {
       return url;
     },
   },
+  'lastfm_user': {
+    match: [new RegExp('^(https?://)?([^/]+\\.)?(last\\.fm|lastfm\\.(com\\.br|com\\.tr|at|com|de|es|fr|it|jp|pl|pt|ru|se))/user/', 'i')],
+    type: LINK_TYPES.socialnetwork,
+    clean: function (url) {
+      return url.replace(/^(https?:\/\/)?((www|cn|m)\.)?(last\.fm|lastfm\.(com\.br|com\.tr|at|com|de|es|fr|it|jp|pl|pt|ru|se))/, 'https://www.last.fm');
+    },
+  },
   'libraryofcongress': {
     match: [new RegExp('^(https?://)?id\\.loc\\.gov/', 'i')],
     type: LINK_TYPES.otherdatabases,
@@ -1369,6 +1390,13 @@ const CLEANUPS = {
       url = url.replace(/^(https?:\/\/)?([^\/]+\.)?artlibre\.org\//, 'http://artlibre.org/');
       url = url.replace(/^http:\/\/artlibre\.org\/licence\.php\/lal\.html/, 'http://artlibre.org/licence/lal');
       return url;
+    },
+  },
+  'linkedin': {
+    match: [new RegExp('^(https?://)?([^/]+\\.)?linkedin\\.com/', 'i')],
+    type: LINK_TYPES.socialnetwork,
+    clean: function (url) {
+      return url.replace(/^https?:\/\/([^/]+\.)?linkedin\.com/, 'https://$1linkedin.com');
     },
   },
   'livefans': {
@@ -1436,6 +1464,13 @@ const CLEANUPS = {
     clean: function (url) {
       url = url.replace(/^https?:\/\/([^/]+\.)?genius\.com/, 'http://$1genius.com');
       return url;
+    },
+  },
+  'mixcloud': {
+    match: [new RegExp('^(https?://)?([^/]+\\.)?mixcloud\\.com/', 'i')],
+    type: LINK_TYPES.socialnetwork,
+    clean: function (url) {
+      return url.replace(/^https?:\/\/(?:[^/]+\.)?mixcloud\.com/, 'https://www.mixcloud.com');
     },
   },
   'mora': {
@@ -1890,27 +1925,10 @@ const CLEANUPS = {
   },
   'socialnetwork': {
     match: [
-      new RegExp('^(https?://)?([^/]+\\.)?(last\\.fm|lastfm\\.(com\\.br|com\\.tr|at|com|de|es|fr|it|jp|pl|pt|ru|se))/user/', 'i'),
-      new RegExp('^(https?://)?([^/]+\\.)?plus\\.google\\.com/', 'i'),
       new RegExp('^(https?://)?([^/]+\\.)?vine\\.co/', 'i'),
       new RegExp('^(https?://)?([^/]+\\.)?vk\\.com/', 'i'),
-      new RegExp('^(https?://)?([^/]+\\.)?twitter\\.com/', 'i'),
-      new RegExp('^(https?://)?([^/]+\\.)?weibo\\.com/', 'i'),
-      new RegExp('^(https?://)?([^/]+\\.)?linkedin\\.com/', 'i'),
-      new RegExp('^(https?://)?([^/]+\\.)?foursquare\\.com/', 'i'),
-      new RegExp('^(https?://)?([^/]+\\.)?mixcloud\\.com/', 'i'),
     ],
     type: LINK_TYPES.socialnetwork,
-    clean: function (url) {
-      url = url.replace(/^(?:https?:\/\/)?plus\.google\.com\/(?:u\/[0-9]\/)?([0-9]+)(\/.*)?$/, 'https://plus.google.com/$1');
-      url = url.replace(/^(?:https?:\/\/)?(?:(?:www|mobile)\.)?twitter\.com(?:\/#!)?\/@?([^\/?#]+)(?:[\/?#].*)?$/, 'https://twitter.com/$1');
-      url = url.replace(/^(https?:\/\/)?((www|cn|m)\.)?(last\.fm|lastfm\.(com\.br|com\.tr|at|com|de|es|fr|it|jp|pl|pt|ru|se))/, 'https://www.last.fm');
-      url = url.replace(/^(?:https?:\/\/)?(?:[^/]+\.)?weibo\.com\/(u\/)?([^\/?#]+)(?:.*)$/, 'https://www.weibo.com/$1$2');
-      url = url.replace(/^https?:\/\/([^/]+\.)?linkedin\.com/, 'https://$1linkedin.com');
-      url = url.replace(/^https?:\/\/(?:[^/]+\.)?foursquare\.com/, 'https://foursquare.com');
-      url = url.replace(/^https?:\/\/(?:[^/]+\.)?mixcloud\.com/, 'https://www.mixcloud.com');
-      return url;
-    },
   },
   'songfacts': {
     match: [new RegExp('^(https?://)?([^/]+\\.)?songfacts\\.com/', 'i')],
@@ -2067,6 +2085,13 @@ const CLEANUPS = {
       return false;
     },
   },
+  'twitter': {
+    match: [new RegExp('^(https?://)?([^/]+\\.)?twitter\\.com/', 'i')],
+    type: LINK_TYPES.socialnetwork,
+    clean: function (url) {
+      return url.replace(/^(?:https?:\/\/)?(?:(?:www|mobile)\.)?twitter\.com(?:\/#!)?\/@?([^\/?#]+)(?:[\/?#].*)?$/, 'https://twitter.com/$1');
+    },
+  },
   'unwelcomeimages': { // Block images from sites that don't allow deeplinking
     match: [
       new RegExp('^(https?://)?s\\.pixogs\\.com\/', 'i'),
@@ -2191,6 +2216,13 @@ const CLEANUPS = {
       // Remove query string, just the video id should be enough.
       url = url.replace(/\?.*/, '');
       return url;
+    },
+  },
+  'weibo': {
+    match: [new RegExp('^(https?://)?([^/]+\\.)?weibo\\.com/', 'i')],
+    type: LINK_TYPES.socialnetwork,
+    clean: function (url) {
+      return url.replace(/^(?:https?:\/\/)?(?:[^/]+\.)?weibo\.com\/(u\/)?([^\/?#]+)(?:.*)$/, 'https://www.weibo.com/$1$2');
     },
   },
   'wikidata': {
