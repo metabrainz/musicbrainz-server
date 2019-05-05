@@ -18,7 +18,11 @@ sub base : Chained('/') PathPart('tag') CaptureArgs(0) { }
 sub _load
 {
     my ($self, $c, $name) = @_;
-    return $c->model('Tag')->get_by_name($name);
+    my $tag = $c->model('Tag')->get_by_name($name);
+    if ($tag && $tag->genre_id) {
+        $c->model('Genre')->load($tag);
+    }
+    return $tag;
 }
 
 sub no_tag_provided : Path('/tag') Args(0)
@@ -105,7 +109,7 @@ map {
                 entityType => $entity_type,
                 page => "/$url",
                 pager => serialize_pager($c->stash->{pager}),
-                tag => $c->stash->{tag}->name,
+                tag => $c->stash->{tag},
             },
         );
     };

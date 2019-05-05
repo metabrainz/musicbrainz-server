@@ -56,7 +56,7 @@ type Props = {
   +entityType: string,
   +page: string,
   +pager: PagerT,
-  +tag: string,
+  +tag: TagT,
 };
 
 const EntityList = ({

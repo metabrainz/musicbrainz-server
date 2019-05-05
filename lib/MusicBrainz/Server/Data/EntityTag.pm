@@ -2,11 +2,6 @@ package MusicBrainz::Server::Data::EntityTag;
 use Moose;
 use namespace::autoclean;
 
-use MusicBrainz::Server::Constants qw( %ENTITIES );
-
-# Readonly values can't be passed as query arguments, for some unknown reason.
-our @GENRES = @{ $ENTITIES{tag}{genres} };
-
 use MusicBrainz::Server::Data::Utils qw(
     boolean_to_json
     placeholders
@@ -33,10 +28,13 @@ has [qw( tag_table type )] => (
 sub find_tags {
     my ($self, $entity_id) = @_;
 
-    my $query = "SELECT tag.name, entity_tag.count FROM " . $self->tag_table . " entity_tag " .
-                "JOIN tag ON tag.id = entity_tag.tag " .
-                "WHERE " . $self->type . " = ?" .
-                "ORDER BY entity_tag.count DESC, musicbrainz_collate(tag.name)";
+    my $query = "SELECT tag.name, entity_tag.count,
+                        tag.id as tag_id, genre.id as genre_id
+                 FROM " . $self->tag_table . " entity_tag
+                 JOIN tag ON tag.id = entity_tag.tag
+                 LEFT JOIN genre ON tag.name = genre.name
+                 WHERE " . $self->type . " = ?
+                 ORDER BY entity_tag.count DESC, musicbrainz_collate(tag.name)";
 
     $self->query_to_list($query, [$entity_id]);
 }
@@ -53,33 +51,35 @@ sub find_tag_count
 sub find_top_tags
 {
     my ($self, $entity_id, $limit) = @_;
-    my $query = "SELECT tag.name, entity_tag.count FROM " . $self->tag_table . " entity_tag " .
-                "JOIN tag ON tag.id = entity_tag.tag " .
-                "WHERE " . $self->type . " = ? " .
-                "ORDER BY entity_tag.count DESC, musicbrainz_collate(tag.name) LIMIT ?";
+    my $query = "SELECT tag.name, entity_tag.count,
+                        tag.id as tag_id, genre.id as genre_id
+                 FROM " . $self->tag_table . " entity_tag
+                 JOIN tag ON tag.id = entity_tag.tag
+                 LEFT JOIN genre ON tag.name = genre.name
+                 WHERE " .  $self->type . " = ?
+                 ORDER BY entity_tag.count DESC, musicbrainz_collate(tag.name) LIMIT ?";
     $self->query_to_list($query, [$entity_id, $limit]);
 }
 
 sub find_tags_for_entities
 {
-    my ($self, $genre_flag, @ids) = @_;
+    my ($self, @ids) = @_;
 
     return unless scalar @ids;
 
-    my $query = "SELECT tag.name, entity_tag.count,
-                        entity_tag.".$self->type." AS entity
+    my $query = "SELECT tag.id as tag_id, tag.name, entity_tag.count,
+                        entity_tag." . $self->type . " AS entity
                  FROM " . $self->tag_table . " entity_tag
                  JOIN tag ON tag.id = entity_tag.tag
-                 WHERE " . $self->type . " IN (" . placeholders(@ids) . ")"
-                 . ($genre_flag ? " AND tag.name = any(?) " : " ") .
-                 "ORDER BY entity_tag.count DESC, musicbrainz_collate(tag.name)";
+                 WHERE " . $self->type . " IN (" . placeholders(@ids) . ")
+                 ORDER BY entity_tag.count DESC, musicbrainz_collate(tag.name)";
 
-    $self->query_to_list($query, [@ids, ($genre_flag ? \@GENRES : ())]);
+    $self->query_to_list($query, \@ids);
 }
 
 sub find_user_tags_for_entities
 {
-    my ($self, $user_id, $genre_flag, @ids) = @_;
+    my ($self, $user_id, @ids) = @_;
 
     return unless scalar @ids;
 
@@ -89,10 +89,9 @@ sub find_user_tags_for_entities
                  FROM $table entity_tag
                  JOIN tag ON tag.id = entity_tag.tag
                  WHERE editor = ?
-                 AND $type IN (" . placeholders(@ids) . ")"
-                 . ($genre_flag ? " AND tag.name = any(?) " : " ");
+                 AND $type IN (" . placeholders(@ids) . ")";
 
-    my @tags = $self->query_to_list($query, [$user_id, @ids, ($genre_flag ? \@GENRES : ())], sub {
+    my @tags = $self->query_to_list($query, [$user_id, @ids], sub {
         my ($model, $row) = @_;
         return MusicBrainz::Server::Entity::UserTag->new(
             tag_id => $row->{tag_id},
@@ -108,13 +107,71 @@ sub find_user_tags_for_entities
     return @tags;
 }
 
+sub find_genres_for_entities
+{
+    my ($self, @ids) = @_;
+
+    return unless scalar @ids;
+
+    my $query = "SELECT tag.id as tag_id, tag.name, entity_tag.count,
+                        entity_tag." . $self->type . " AS entity, genre.id as genre_id
+                 FROM " . $self->tag_table . " entity_tag
+                 JOIN tag ON tag.id = entity_tag.tag
+                 JOIN genre ON tag.name = genre.name
+                 WHERE " . $self->type . " IN (" . placeholders(@ids) . ")
+                 ORDER BY musicbrainz_collate(tag.name)";
+
+    my @tags = $self->query_to_list($query, \@ids);
+
+    $self->c->model('Genre')->load(map { $_->tag } @tags);
+
+    return @tags;
+}
+
+sub find_user_genres_for_entities
+{
+    my ($self, $user_id, @ids) = @_;
+
+    return unless scalar @ids;
+
+    my $type = $self->type;
+    my $table = $self->tag_table . '_raw';
+    my $query = "SELECT entity_tag.tag as tag_id, $type AS entity,
+                        is_upvote
+                 FROM $table entity_tag
+                 JOIN tag ON tag.id = entity_tag.tag
+                 JOIN genre ON tag.name = genre.name
+                 WHERE editor = ?
+                 AND $type IN (" . placeholders(@ids) . ")
+                 ORDER BY musicbrainz_collate(tag.name)";
+
+    my @tags = $self->query_to_list($query, [$user_id, @ids], sub {
+        my ($model, $row) = @_;
+        return MusicBrainz::Server::Entity::UserTag->new(
+            tag_id    => $row->{tag_id},
+            editor_id => $user_id,
+            entity_id => $row->{entity},
+            is_upvote => $row->{is_upvote},
+        );
+    });
+
+    $self->c->model('Tag')->load(@tags);
+    $self->c->model('Genre')->load(map { $_->tag } @tags);
+
+    return @tags;
+}
+
 sub _new_from_row
 {
     my ($self, $row) = @_;
 
     my %init = (
         count => $row->{count},
-        tag => MusicBrainz::Server::Entity::Tag->new( name => $row->{name} ),
+        tag => MusicBrainz::Server::Entity::Tag->new(
+            genre_id => $row->{genre_id},
+            id => $row->{tag_id},
+            name => $row->{name},
+        ),
     );
 
     $init{entity_id} = $row->{entity} if $row->{entity};
@@ -347,19 +404,29 @@ sub find_user_tags {
     my $table_raw = "${table}_raw";
 
     my $query = qq{
-        SELECT tag, is_upvote, count AS aggregate_count FROM $table_raw
+        SELECT tag as tag_id, tag.name as name, genre.id as genre_id, is_upvote,
+               count AS aggregate_count FROM $table_raw
         JOIN $table USING (tag, $type)
+        JOIN tag ON tag.id = $table.tag
+        LEFT JOIN genre ON genre.name = tag.name
         WHERE editor = ? AND $type = ?
     };
 
     my @tags = $self->query_to_list($query, [$user_id, $entity_id], sub {
         my ($model, $row) = @_;
-        return MusicBrainz::Server::Entity::UserTag->new(
-            tag_id => $row->{tag},
+        my $tag = MusicBrainz::Server::Entity::UserTag->new(
+            tag => MusicBrainz::Server::Entity::Tag->new(
+                genre_id => $row->{genre_id},
+                name => $row->{name},
+                id => $row->{tag_id}
+            ),
+            tag_id => $row->{tag_id},
             editor_id => $user_id,
             is_upvote => $row->{is_upvote},
             aggregate_count => $row->{aggregate_count},
         );
+        return $tag;
+
     });
 
     $self->c->model('Tag')->load(@tags);

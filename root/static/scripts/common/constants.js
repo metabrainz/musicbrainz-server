@@ -26,8 +26,6 @@ export const ENTITY_NAMES = {
   work: N_l('Work'),
 };
 
-export const GENRE_TAGS: Set<string> = new Set(ENTITIES.tag.genres);
-
 export const INSTRUMENT_ROOT_ID = 14;
 
 export const AREA_TYPE_COUNTRY = 1;

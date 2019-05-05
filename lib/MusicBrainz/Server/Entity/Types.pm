@@ -11,10 +11,11 @@ for my $cls (qw(AggregatedTag AliasType Annotation Application
                 CritiqueBrainz::Review CritiqueBrainz::User
                 Editor EditorOAuthToken
                 Event EventAlias EventType
+                Gender Genre
                 Instrument InstrumentType
                 Label LabelAlias LabelType
                 Link LinkAttribute LinkAttributeType LinkType LinkTypeAttribute
-                Gender Language
+                Language
                 Medium MediumCDTOC MediumFormat
                 PartialDate
                 Place PlaceAlias PlaceType

@@ -109,6 +109,7 @@ test 'lookup via toc' => sub {
     MusicBrainz::Server::Test->prepare_test_database($test->c, <<'EOSQL');
     INSERT INTO medium_cdtoc (medium, cdtoc) VALUES (2, 2);
     INSERT INTO tag (id, name) VALUES (1, 'musical'), (2, 'not-used');
+    INSERT INTO genre (id, gid, name) VALUES (1, 'ff6d73e8-bf1a-431e-9911-88ae7ffcfdfb', 'musical');
     INSERT INTO release_tag (tag, release, count) VALUES (1, 2, 2), (2, 2, 2);
 EOSQL
     $test->c->model('DurationLookup')->update(2);

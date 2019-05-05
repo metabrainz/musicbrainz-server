@@ -10,16 +10,30 @@ has 'name' => (
     isa => 'Str'
 );
 
-sub TO_JSON {
-    return shift->name;
-}
+has 'genre_id' => (
+    is => 'rw',
+    isa => 'Maybe[Int]'
+);
 
-our %GENRES = map { $_ => 1 } @{ $ENTITIES{tag}{genres} };
+has 'genre' => (
+    is => 'rw',
+    isa => 'Maybe[Genre]'
+);
 
-sub is_genre_tag {
-    my $self = shift;
-    exists $GENRES{$self->name};
-}
+around TO_JSON => sub {
+    my ($orig, $self) = @_;
+
+    my $json = $self->$orig;
+
+    $json->{name} = $self->name;
+
+    if ($self->genre) {
+        $json->{genre} = $self->genre;
+    }
+
+    return $json;
+};
+
 
 __PACKAGE__->meta->make_immutable;
 no Moose;
