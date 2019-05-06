@@ -12,7 +12,6 @@ import mutate from 'mutate-cow';
 
 import Autocomplete from '../../common/components/Autocomplete';
 import {
-  artistCreditFromArray,
   artistCreditsAreEqual,
   hasArtist,
   hasVariousArtists,
@@ -27,27 +26,28 @@ import {localStorage} from '../../common/utility/storage';
 import ArtistCreditBubble from './ArtistCreditBubble';
 
 function setAutoJoinPhrases(ac) {
-  const size = ac.length;
+  const names = ac.names;
+  const size = names.length;
   const auto = /^(| & |, )$/;
 
   if (size > 0) {
-    const name0 = ac[size - 1];
+    const name0 = names[size - 1];
     if (name0 && name0.automaticJoinPhrase !== false) {
-      ac[size - 1] = {...name0, joinPhrase: ''};
+      names[size - 1] = {...name0, joinPhrase: ''};
     }
   }
 
   if (size > 1) {
-    const name1 = ac[size - 2];
+    const name1 = names[size - 2];
     if (name1 && name1.automaticJoinPhrase !== false && auto.test(name1.joinPhrase)) {
-      ac[size - 2] = {...name1, joinPhrase: ' & '};
+      names[size - 2] = {...name1, joinPhrase: ' & '};
     }
   }
 
   if (size > 2) {
-    const name2 = ac[size - 3];
+    const name2 = names[size - 3];
     if (name2 && name2.automaticJoinPhrase !== false && auto.test(name2.joinPhrase)) {
-      ac[size - 3] = {...name2, joinPhrase: ', '};
+      names[size - 3] = {...name2, joinPhrase: ', '};
     }
   }
 
@@ -83,11 +83,13 @@ class ArtistCreditEditor extends React.Component {
   }
 
   addName() {
-    const ac = setAutoJoinPhrases(this.state.artistCredit.concat({
-      artist: null,
-      joinPhrase: '',
-      name: '',
-    }));
+    const ac = setAutoJoinPhrases({
+      names: this.state.artistCredit.names.concat({
+        artist: null,
+        joinPhrase: '',
+        name: '',
+      }),
+    });
     this.setState({artistCredit: ac}, () => this.positionBubble());
   }
 
@@ -97,13 +99,13 @@ class ArtistCreditEditor extends React.Component {
 
     const ac = this.state.artistCredit;
     const newState = mutate(this.state, newState => {
-      newState.artistCredit.splice(i, 1);
+      newState.artistCredit.names.splice(i, 1);
     });
     setAutoJoinPhrases(newState.artistCredit);
 
     this.setState(newState, () => {
       this.positionBubble();
-      if (i > 0 && i === ac.length - 1) {
+      if (i > 0 && i === ac.names.length - 1) {
         $('#artist-credit-bubble').find('.remove-item').eq(i - 1).focus();
       }
     });
@@ -111,23 +113,23 @@ class ArtistCreditEditor extends React.Component {
 
   onNameChange(i, update) {
     this.setState(state => mutate(state, newState => {
-      newState.artistCredit[i] = {...state.artistCredit[i], ...update};
+      newState.artistCredit.names[i] = {...state.artistCredit.names[i], ...update};
     }));
   }
 
   copyArtistCredit() {
-    let ac = this.state.artistCredit;
+    let names = this.state.artistCredit.names;
 
-    if (!ac.length) {
-      ac = [{artist: null, joinPhrase: '', name: ''}];
+    if (!names.length) {
+      names = [{artist: null, joinPhrase: '', name: ''}];
     }
 
-    localStorage('copiedArtistCredit', JSON.stringify(ac));
+    localStorage('copiedArtistCredit', JSON.stringify(names));
   }
 
   pasteArtistCredit() {
-    const ac = JSON.parse(localStorage('copiedArtistCredit') || '[{}]');
-    this.setState({artistCredit: ac});
+    const names = JSON.parse(localStorage('copiedArtistCredit') || '[{}]');
+    this.setState({artistCredit: {names}});
   }
 
   toggleBubble() {
@@ -319,7 +321,7 @@ class ArtistCreditEditor extends React.Component {
       prefix = this.props.form.name + '.' + prefix;
     }
 
-    return _.flatten(_.map(this.state.artistCredit, function (name, i) {
+    return _.flatten(_.map(this.state.artistCredit.names, function (name, i) {
       const curPrefix = prefix + i + '.';
 
       return [
@@ -334,7 +336,7 @@ class ArtistCreditEditor extends React.Component {
   render() {
     const ac = this.state.artistCredit;
     let entity = _.clone(this.props.entity);
-    entity.artistCredit = _.filter(ac, n => hasArtist(n));
+    entity.artistCredit = {names: _.filter(ac.names, n => hasArtist(n))};
 
     // The single-artist lookup changes the credit boxes in the doc bubble,
     // and the credit boxes change the single-artist lookup.
@@ -342,11 +344,11 @@ class ArtistCreditEditor extends React.Component {
     let singleArtistSelection = {name: ''};
     let singleArtistIsEditable = true;
 
-    if (complex || ac.length > 1) {
+    if (complex || ac.names.length > 1) {
       singleArtistSelection.name = reduceArtistCredit(ac);
       singleArtistIsEditable = false;
     } else {
-      const firstName = ac[0];
+      const firstName = ac.names[0];
       if (firstName) {
         if (hasArtist(firstName)) {
           singleArtistSelection = firstName.artist;
@@ -371,11 +373,13 @@ class ArtistCreditEditor extends React.Component {
                   onChange={artist => {
                     if (singleArtistIsEditable) {
                       this.setState({
-                        artistCredit: [{
-                          artist,
-                          name: artist.name,
-                          joinPhrase: '',
-                        }]
+                        artistCredit: {
+                          names: [{
+                            artist,
+                            name: artist.name,
+                            joinPhrase: '',
+                          }],
+                        },
                       });
                     }
                   }}

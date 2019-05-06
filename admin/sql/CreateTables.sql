@@ -379,7 +379,8 @@ CREATE TABLE artist_credit ( -- replicate
     name                VARCHAR NOT NULL,
     artist_count        SMALLINT NOT NULL,
     ref_count           INTEGER DEFAULT 0,
-    created             TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+    created             TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0)
 );
 
 CREATE TABLE artist_credit_name ( -- replicate (verbose)

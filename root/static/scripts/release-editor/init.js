@@ -8,7 +8,6 @@ import ko from 'knockout';
 import _ from 'lodash';
 
 import {
-  artistCreditFromArray,
   artistCreditsAreEqual,
   hasVariousArtists,
   reduceArtistCredit,
@@ -147,7 +146,7 @@ releaseEditor.init = function (options) {
 
     utils.withRelease(function (release) {
         var tabID = self.activeTabID();
-        var releaseAC = release.artistCredit();
+        var releaseAC = _.cloneDeep(release.artistCredit());
         var savedReleaseAC = release.artistCredit.saved;
         var releaseACChanged = !artistCreditsAreEqual(releaseAC, savedReleaseAC);
 
@@ -156,7 +155,7 @@ releaseEditor.init = function (options) {
                 _.each(release.mediums(), function (medium) {
                     _.each(medium.tracks(), function (track) {
                         if (reduceArtistCredit(track.artistCredit()) === reduceArtistCredit(savedReleaseAC)) {
-                            track.artistCredit(artistCreditFromArray(releaseAC));
+                            track.artistCredit(releaseAC);
                             track.artistCreditEditorInst.setState({
                                 artistCredit: track.artistCredit.peek(),
                             });
@@ -164,7 +163,7 @@ releaseEditor.init = function (options) {
                     });
                 });
             }
-            release.artistCredit.saved = artistCreditFromArray(releaseAC);
+            release.artistCredit.saved = releaseAC;
         }
     });
 

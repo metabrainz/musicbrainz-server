@@ -10,7 +10,7 @@ import ko from 'knockout';
 import {ENTITIES, MAX_RECENT_ENTITIES} from '../../constants';
 import MB_entity from '../../entity';
 import commaOnlyList from '../../i18n/commaOnlyList';
-import {artistCreditFromArray, reduceArtistCredit} from '../../immutable-entities';
+import {reduceArtistCredit} from '../../immutable-entities';
 import MB from '../../MB';
 import clean from '../../utility/clean';
 import formatDate from '../../utility/formatDate';
@@ -663,9 +663,7 @@ MB.Control.autocomplete_formatters = {
         var $li = this.generic(ul, item);
         var $a = $li.children('a');
 
-        appendComment($a, _.escape(reduceArtistCredit(
-            artistCreditFromArray(item.artistCredit)
-        )));
+        appendComment($a, _.escape(reduceArtistCredit(item.artistCredit)));
 
         item.events && item.events.forEach(function (event) {
             var country = event.country;

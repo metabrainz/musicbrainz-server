@@ -108,7 +108,12 @@ declare type ArtistCreditRoleT = {|
   +artistCredit: ArtistCreditT,
 |};
 
-declare type ArtistCreditT = $ReadOnlyArray<ArtistCreditNameT>;
+declare type ArtistCreditT = {|
+  +editsPending?: boolean,
+  +entityType?: 'artist_credit',
+  +id?: number,
+  +names: $ReadOnlyArray<ArtistCreditNameT>,
+|};
 
 declare type ArtistT = {|
   ...AnnotationRoleT,

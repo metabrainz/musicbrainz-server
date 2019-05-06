@@ -254,6 +254,7 @@ module.exports = {
   'release_group/ReleaseGroupHeader': require('../release_group/ReleaseGroupHeader'),
   'series/SeriesHeader': require('../series/SeriesHeader'),
   'static/scripts/common/components/Annotation': require('../static/scripts/common/components/Annotation'),
+  'static/scripts/common/components/ArtistCreditLink': require('../static/scripts/common/components/ArtistCreditLink'),
   'static/scripts/common/components/CritiqueBrainzReview': require('../static/scripts/common/components/CritiqueBrainzReview'),
   'static/scripts/common/components/FilterIcon': require('../static/scripts/common/components/FilterIcon'),
   'static/scripts/common/components/SearchIcon': require('../static/scripts/common/components/SearchIcon'),

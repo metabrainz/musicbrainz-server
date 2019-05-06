@@ -17,10 +17,7 @@ import loopParity from '../../utility/loopParity';
 
 type Props = {
   +$c: CatalystContextT,
-  +artistCredits: $ReadOnlyArray<{
-    +id: number,
-    +names: ArtistCreditT,
-  }>,
+  +artistCredits: $ReadOnlyArray<{+id: number} & ArtistCreditT>,
   +entity: CoreEntityT,
 };
 
@@ -40,7 +37,7 @@ const ArtistCreditList = ({$c, artistCredits, entity}: Props) => {
         )}
       </p>
 
-      <table className="tbl">
+      <table className="tbl artist-credits">
         <thead>
           <tr>
             <th>
@@ -57,12 +54,14 @@ const ArtistCreditList = ({$c, artistCredits, entity}: Props) => {
           {artistCredits.map((credit, index) => (
             <tr className={loopParity(index)} key={credit.id}>
               <td>
-                <ArtistCreditLink artistCredit={credit.names} />
+                <ArtistCreditLink artistCredit={credit} />
               </td>
               {$c.user_exists ? (
                 <td>
                   <a href={`/artist/${entity.gid}/credit/${credit.id}/edit`}>
-                    {l('Edit')}
+                    {credit.editsPending
+                      ? <span className="mp">{l('Edit')}</span>
+                      : l('Edit')}
                   </a>
                 </td>
               ) : null}

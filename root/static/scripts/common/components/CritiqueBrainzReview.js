@@ -49,6 +49,6 @@ const CritiqueBrainzReview = ({$c, review, title}: Props) => (
 );
 
 export default withCatalystContext(hydrate(
-  'critiquebrainz-review',
+  'div.critiquebrainz-review',
   CritiqueBrainzReview,
 ));

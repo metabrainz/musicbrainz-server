@@ -14,6 +14,9 @@ use MusicBrainz::Server::Constants qw( entities_with );
 
 extends 'MusicBrainz::Server::Data::Entity';
 with 'MusicBrainz::Server::Data::Role::EntityCache';
+with 'MusicBrainz::Server::Data::Role::Editable' => {
+    table => 'artist_credit',
+};
 
 sub _type { 'artist_credit' }
 
@@ -22,9 +25,10 @@ sub get_by_ids
     my ($self, @ids) = @_;
     my $artist_columns = $self->c->model('Artist')->_columns;
     my $query = "SELECT artist, artist_credit_name.name AS ac_name, join_phrase, artist_credit, " .
-                $artist_columns . " " .
+                $artist_columns . ", ac.edits_pending " .
                 "FROM artist_credit_name " .
                 "JOIN artist ON artist.id=artist_credit_name.artist " .
+                "JOIN artist_credit ac ON ac.id = artist_credit_name.artist_credit " .
                 "WHERE artist_credit IN (" . placeholders(@ids) . ") " .
                 "ORDER BY artist_credit, position";
 
@@ -33,7 +37,10 @@ sub get_by_ids
     for my $row (@{ $self->sql->select_list_of_hashes($query, @ids) }) {
         my $id = $row->{artist_credit};
         $counts{$id} //= 0;
-        $result{$id} //= MusicBrainz::Server::Entity::ArtistCredit->new(id => $id);
+        $result{$id} //= MusicBrainz::Server::Entity::ArtistCredit->new(
+            id => $id,
+            edits_pending => $row->{edits_pending},
+        );
 
         my $acn = MusicBrainz::Server::Entity::ArtistCreditName->new(
                       artist_id => $row->{artist},

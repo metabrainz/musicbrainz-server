@@ -17,7 +17,6 @@ import {
   PROBABLY_CLASSICAL_LINK_TYPES,
 } from './constants';
 import {
-  artistCreditFromArray,
   artistCreditsAreEqual,
   isCompleteArtistCredit,
 } from './immutable-entities';
@@ -48,12 +47,6 @@ import formatTrackLength from './utility/formatTrackLength';
 
         renderArtistCredit(ac) {
             ac = ko.unwrap(ac);
-            // XXX For suggested recording data in the release editor,
-            // which root/release/edit/recordings.tt passes into here as plain
-            // JSON (can't really "instantiate" things anywhere else).
-            if (Array.isArray(ac)) {
-                ac = artistCreditFromArray(ac);
-            }
             return ReactDOMServer.renderToStaticMarkup(
                 <ArtistCreditLink artistCredit={ac} target="_blank" />
             );
@@ -61,9 +54,6 @@ import formatTrackLength from './utility/formatTrackLength';
 
         isCompleteArtistCredit(ac) {
             ac = ko.unwrap(ac);
-            if (Array.isArray(ac)) {
-                ac = artistCreditFromArray(ac);
-            }
             return isCompleteArtistCredit(ac);
         }
 
@@ -141,7 +131,7 @@ import formatTrackLength from './utility/formatTrackLength';
             this.relationships = ko.observableArray([]);
 
             if (data.artistCredit) {
-                this.artistCredit = artistCreditFromArray(data.artistCredit);
+                this.artistCredit = _.cloneDeep(data.artistCredit);
             }
 
             if (this._afterCoreEntityCtor) {
@@ -271,7 +261,7 @@ import formatTrackLength from './utility/formatTrackLength';
             }
 
             if (!this.artistCredit) {
-                this.artistCredit = artistCreditFromArray([]);
+                this.artistCredit = {names: []};
             }
 
             this.relatedArtists = relatedArtists(data.relationships);

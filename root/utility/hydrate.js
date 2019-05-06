@@ -12,15 +12,16 @@ import * as React from 'react';
 import ReactDOM from 'react-dom';
 
 export default function hydrate<Config: {}>(
-  rootClass: string,
+  containerSelector: string,
   Component: React.AbstractComponent<Config>,
   mungeProps?: (Config) => Config,
 ): React.AbstractComponent<Config, void> {
+  const [containerTag, ...classes] = containerSelector.split('.');
   if (typeof document !== 'undefined') {
     // This should only run on the client.
     const $ = require('jquery');
     $(function () {
-      const roots = document.querySelectorAll('div.' + rootClass);
+      const roots = document.querySelectorAll(containerSelector);
       for (const root of roots) {
         const propString = root.getAttribute('data-props');
         root.removeAttribute('data-props');
@@ -36,10 +37,13 @@ export default function hydrate<Config: {}>(
     if (mungeProps) {
       dataProps = mungeProps(dataProps);
     }
-    return (
-      <div className={rootClass} data-props={JSON.stringify(dataProps)}>
-        <Component {...props} />
-      </div>
+    return React.createElement(
+      containerTag,
+      {
+        'className': classes.join(' '),
+        'data-props': JSON.stringify(dataProps),
+      },
+      <Component {...props} />,
     );
   };
 }
