@@ -69,6 +69,7 @@ INSERT INTO edit (id, editor, type, status, expire_time, autoedit) VALUES
     (18, 2, 1, $STATUS_APPLIED, now(), 0),
     (19, 2, 1, $STATUS_APPLIED, now(), 0),
     (20, 2, 1, $STATUS_APPLIED, now(), 0);
+UPDATE editor SET member_since = '2007-07-23' WHERE id = 2;
 EOSQL
 
     $mech->get_ok('/collection/f34c079d-374e-4436-9448-da92dedef3cb');

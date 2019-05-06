@@ -589,7 +589,7 @@ END -%]
     END -%]
 [%- END -%]
 
-[%~ MACRO format_plural_entity_type_name(type_name) BLOCK -%]
+[%~ MACRO format_plural_entity_type_name(type_name) BLOCK # Converted to React at root/components/formatEntityTypeName.js -%]
     [%- IF    type_name == 'artist'; l('Artists');
         ELSIF type_name == 'area'; l('Areas');
         ELSIF type_name == 'event'; l('Events');
