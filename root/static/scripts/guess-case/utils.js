@@ -48,6 +48,8 @@ const preBracketSingleWordsList = [
   'rap',
   'rehearsal',
   'remixed',
+  'remode',
+  're‐mode',
   'rework',
   'reworked',
   'session',
