@@ -318,7 +318,7 @@ test('Work', function (t) {
 });
 
 test('BugFixes', function (t) {
-  t.plan(16);
+  t.plan(17);
 
   const tests = [
     {
@@ -408,6 +408,12 @@ test('BugFixes', function (t) {
       input: "Hey c'Mon Everybody",
       expected: "Hey C'mon Everybody",
       bug: 'MBS-8867',
+      mode: 'English',
+    },
+    {
+      input: 'We Love Techno (Stereo)',
+      expected: 'We Love Techno (stereo)',
+      bug: 'MBS-10161',
       mode: 'English',
     },
     {
