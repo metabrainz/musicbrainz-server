@@ -26,6 +26,7 @@ const preBracketSingleWordsList = [
   'composition',
   'cut',
   'dance',
+  'dialogue',
   'dirty',
   'disc',
   'disco',
@@ -49,10 +50,13 @@ const preBracketSingleWordsList = [
   'session',
   'short',
   'take',
+  'techno',
   'trance',
   'version',
   'video',
   'vocal',
+  'with',
+  'without',
 ];
 
 const preBracketSingleWords = new RegExp(
@@ -68,7 +72,6 @@ const lowerCaseBracketWordsList = [
   'a_cappella',
   'clubmix',
   'demo',
-  'dialogue',
   'edit',
   'excerpt',
   'interlude',
@@ -91,11 +94,8 @@ const lowerCaseBracketWordsList = [
   'skit',
   'stereo',
   'studio',
-  'techno',
   'unplugged',
   'vs',
-  'with',
-  'without',
 ].concat(preBracketSingleWordsList);
 
 const lowerCaseBracketWords = new RegExp(
