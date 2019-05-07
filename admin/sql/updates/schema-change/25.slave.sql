@@ -571,7 +571,7 @@ SET search_path = 'event_art_archive';
 CREATE TYPE musicbrainz.event_art_presence AS ENUM ('absent', 'present', 'darkened');
 
 ALTER TABLE musicbrainz.event_meta
-ADD COLUMN event_art_presence event_art_presence NOT NULL DEFAULT 'absent';
+ADD COLUMN event_art_presence musicbrainz.event_art_presence NOT NULL DEFAULT 'absent';
 
 -- Tables
 
