@@ -318,7 +318,7 @@ test('Work', function (t) {
 });
 
 test('BugFixes', function (t) {
-  t.plan(18);
+  t.plan(20);
 
   const tests = [
     {
@@ -428,6 +428,18 @@ test('BugFixes', function (t) {
       expected: '¿Qué no? ¡Anda que no!',
       bug: 'MBS-1549',
       mode: 'Sentence',
+    },
+    {
+      input: 'Protect Ya Neck',
+      expected: 'Protect Ya Neck',
+      bug: 'MBS-9837',
+      mode: 'English',
+    },
+    {
+      input: 'Protect Ya Neck',
+      expected: 'Protect ya Neck',
+      bug: 'MBS-9837',
+      mode: 'Turkish',
     },
 
     /*

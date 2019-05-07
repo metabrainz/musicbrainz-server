@@ -25,7 +25,8 @@ import {
  * warp     2011-02-01  added da, de, di, fe, fi, ina, inna
  * dpmittal 2016-12-20  added Turkish lowercase words
  */
-const LOWER_CASE_WORDS = /^(a|an|and|as|at|but|by|da|de|di|fe|fi|for|in|ina|inna|n|nor|o|of|on|or|tha|the|to|ve|ile|ya|veya|yahut|ki|mı|mi|mu|mü|mısın|musun|mudur|mıdır|midir|miyim|misin|misiniz|mısınız|müsün|müyüm|müsünüz|mıyım|muyum|musunuz|miyiz|mıyız|muyuz|müyüz|müdür)$/;
+const LOWER_CASE_WORDS = /^(a|an|and|as|at|but|by|da|de|di|fe|fi|for|in|ina|inna|n|nor|o|of|on|or|tha|the|to)$/;
+const LOWER_CASE_WORDS_TURKISH = /^(ve|ile|ya|veya|yahut|ki|mı|mi|mu|mü|mısın|musun|mudur|mıdır|midir|miyim|misin|misiniz|mısınız|müsün|müyüm|müsünüz|mıyım|muyum|musunuz|miyiz|mıyız|muyuz|müyüz|müdür)$/;
 
 /*
  * Words which are always written uppercase.
@@ -302,6 +303,10 @@ export const Turkish = assign({}, DefaultMode, {
     'according to the {url|Turkish language guidelines}. ',
     {url: {href: 'https://musicbrainz.org/doc/Style/Language/Turkish', target: '_blank'}}
   )),
+
+  isLowerCaseWord(w) {
+    return LOWER_CASE_WORDS.test(w) || LOWER_CASE_WORDS_TURKISH.test(w);
+  },
 
   isSentenceCaps() {
     return false;
