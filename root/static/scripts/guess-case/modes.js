@@ -1,8 +1,10 @@
-// This file is part of MusicBrainz, the open internet music database.
-// Copyright (C) 2005 Stefan Kestenholz (keschte)
-// Copyright (C) 2015 MetaBrainz Foundation
-// Licensed under the GPL version 2, or (at your option) any later version:
-// http://www.gnu.org/licenses/gpl-2.0.txt
+/*
+ * This file is part of MusicBrainz, the open internet music database.
+ * Copyright (C) 2005 Stefan Kestenholz (keschte)
+ * Copyright (C) 2015 MetaBrainz Foundation
+ * Licensed under the GPL version 2, or (at your option) any later version:
+ * http://www.gnu.org/licenses/gpl-2.0.txt
+ */
 
 import {assign, capitalize} from 'lodash';
 import ReactDOMServer from 'react-dom/server';
@@ -33,26 +35,31 @@ const LOWER_CASE_WORDS_TURKISH = /^(ve|ile|ya|veya|yahut|ki|mı|mi|mu|mü|mısı
  * -------------------------------------------------------
  * keschte  2005-01-31  first version
  * various  2005-05-05  added "FM...PM"
- * keschte  2005-05-24  removed AM, PM because they yielded false positives e.g. "I AM stupid"
+ * keschte  2005-05-24  removed AM, PM because they yielded false positives
+ *                        e.g. "I AM stupid"
  * keschte  2005-07-10  added uk, bpm
- * keschte  2005-07-20  added ussr, usa, ok, nba, rip, ny, classical words, hip-hop artists
+ * keschte  2005-07-20  added ussr, usa, ok, nba, rip, ny, classical words,
+ *                        hip-hop artists
  * keschte  2005-10-24  removed AD
  * keschte  2005-11-15  removed RIP (Let Rip) is not R.I.P.
  */
 const UPPER_CASE_WORDS = /^(dj|mc|tv|mtv|ep|lp|ymca|nyc|ny|ussr|usa|r&b|bbc|fm|bc|ac|dc|uk|bpm|ok|nba|rza|gza|odb|dmx|2xlc)$/;
 const ROMAN_NUMERALS = /^(i|ii|iii|iv|v|vi|vii|viii|ix|x)$/;
 
+/* eslint-disable no-multi-spaces */
 const PREPROCESS_FIXLIST = [
   // trim spaces from brackets.
-  [/(^|\s)([\(\{\[])\s+($|\b)/i, "$2"], // spaces after opening brackets
-  [/(\b|^)\s+([\)\}\]])($|\b)/i, "$2"], // spaces before closing brackets
+  [/(^|\s)([\(\{\[])\s+($|\b)/i, '$2'], // spaces after opening brackets
+  [/(\b|^)\s+([\)\}\]])($|\b)/i, '$2'], // spaces before closing brackets
 
   // vinyl
   [/(\s|^|\()(\d+)''(\s|$)/i,      '$2"'], // 12'' -> 12"
   [/(\s|^|\()(\d+)in(ch)?(\s|$)/i, '$2"'], // 12in -> 12"
 
-  // combined word hacks, e.g. replace spaces with underscores ("a cappella"
-  // -> a_capella), such that it can be handled correctly in post-processing.
+  /*
+   * combined word hacks, e.g. replace spaces with underscores ("a cappella"
+   * -> a_capella), such that it can be handled correctly in post-processing.
+   */
   [/(\b|^)a\s?c+ap+el+a(\b)/i, 'a_cappella'], // A Capella preprocess
   [/(\b|^)oc\sremix(\b)/i,     'oc_remix'],   // OC ReMix preprocess
   [/(\b|^)aka(\b)/ig,          'a_k_a_'],     // a.k.a. preprocess
@@ -68,8 +75,10 @@ const POSTPROCESS_FIXLIST = [
   [/(\b|^)Re_edit(\b)/,    're-edit'],    // re_edit inside brackets
   [/(\b|^)a_k_a_(\b|$)/ig, 'a.k.a.'],     // a.k.a. lowercase
 
-  // "fe" is considered a lowercase word, but "Santa Fe" is very common in
-  // song titles, so change that "fe" back into "Fe".
+  /*
+   * "fe" is considered a lowercase word, but "Santa Fe" is very common in
+   * song titles, so change that "fe" back into "Fe".
+   */
   [/(\b|^)Santa fe(\b|$)/g,        'Santa Fe'],
   [/(\b|^)R\s*&\s*B(\b)/i,         'R&B'],
   [/(\b|^)\[live\](\b)/i,          '(live)'],
@@ -78,13 +87,14 @@ const POSTPROCESS_FIXLIST = [
   [/(\b)w([/／])o(\b)/i,           'w$2o'], // w/o should be lowercase
   [/(\b)f([.．/／])(\b)/i,         'f$2'], // f. and f/ should be lowercase
 ];
+/* eslint-enable no-multi-spaces */
 
 function replaceMatch(matches, is, regex, replacement) {
   // get reference to first set of parentheses
-  let a = matches[1] || '';
+  const a = matches[1] || '';
 
   // get reference to last set of parentheses
-  let b = matches[matches.length - 1] || '';
+  const b = matches[matches.length - 1] || '';
 
   // compile replace string
   return is.replace(regex, [a, replacement, b].join(''));
@@ -98,7 +108,7 @@ function replaceMatch(matches, is, regex, replacement) {
  */
 function runFixes(is, fixes) {
   fixes.forEach(function (fix) {
-    let [regex, replacement] = fix;
+    const [regex, replacement] = fix;
     let matches;
 
     if (regex.global) {
@@ -113,15 +123,15 @@ function runFixes(is, fixes) {
   return is;
 }
 
-let DefaultMode = {
+const DefaultMode = {
   description: '',
-
-  isSentenceCaps() {
-    return true;
-  },
 
   isLowerCaseWord(w) {
     return LOWER_CASE_WORDS.test(w);
+  },
+
+  isSentenceCaps() {
+    return true;
   },
 
   isUpperCaseWord(w) {
@@ -131,12 +141,12 @@ let DefaultMode = {
     );
   },
 
-  toUpperCase(str) {
-    return str.toUpperCase();
-  },
-
   toLowerCase(str) {
     return str.toLowerCase();
+  },
+
+  toUpperCase(str) {
+    return str.toUpperCase();
   },
 
   /*
@@ -147,10 +157,9 @@ let DefaultMode = {
    * My Track 12" remix => My Track (12" remix)
    */
   prepExtraTitleInfo(words) {
-    let lastWord = words.length - 1;
+    const lastWord = words.length - 1;
     let wi = lastWord;
     let handlePreProcess = false;
-    let isDoubleQuote = false;
 
     while (wi >= 0 && (
       // skip whitespace
@@ -166,13 +175,17 @@ let DefaultMode = {
       wi--;
     }
 
-    // Down-N-Dirty (lastWord = dirty)
-    // Dance,Dance,Dance (lastWord = dance) get matched by the preprocessor,
-    // but are a single word which can occur at the end of the string.
-    // therefore, we don't put the single word into parens.
+    /*
+     * Down-N-Dirty (lastWord = dirty)
+     * Dance,Dance,Dance (lastWord = dance) get matched by the preprocessor,
+     * but are a single word which can occur at the end of the string.
+     * therefore, we don't put the single word into parens.
+     */
 
-    // trackback the skipped spaces spaces, and then slurp the next word, so
-    // see which word we found.
+    /*
+     * trackback the skipped spaces spaces, and then slurp the next word, so
+     * see which word we found.
+     */
     if (wi < lastWord) {
       // the word at wi broke out of the loop above, is not extra title info
       wi++;
@@ -180,9 +193,11 @@ let DefaultMode = {
         wi++; // skip whitespace
       }
 
-      // If we have a single word that needs to be put in parentheses, consult
-      // the list of words were we don't do that, otherwise continue.
-      let probe = words[lastWord];
+      /*
+       * If we have a single word that needs to be put in parentheses, consult
+       * the list of words were we don't do that, otherwise continue.
+       */
+      const probe = words[lastWord];
       if (wi === lastWord && isPrepBracketSingleWord(probe)) {
         handlePreProcess = false;
       }
@@ -211,7 +226,8 @@ let DefaultMode = {
   /*
    * Take care of misspellings that need to be fixed before splitting the
    * string into words.
-   * Note: this function is run before release and track guess types (not for artist)
+   * Note: this function is run before release and track guess types
+   * (not for artist)
    *
    * keschte  2005-11-10  first version
    */
@@ -229,15 +245,15 @@ let DefaultMode = {
 
   /*
    * Look for and convert vinyl expressions.
-   *  - Look only at substrings which start with ' ' or '('.
-   *  - Convert 7', 7'', 7", 7in, and 7inch to '7" ' (with a following space).
-   *  - Convert 12', 12'', 12", 12in, and 12inch to '12" ' (with a following space).
-   *  - Do not convert strings like 80's.
+   * - Look only at substrings which start with ' ' or '('.
+   * - Convert 7', 7'', 7", 7in, and 7inch to '7" ' (followed by space).
+   * - Convert 12', 12'', 12", 12in, and 12inch to '12" ' (followed by space).
+   * - Do not convert strings like 80's.
    */
   fixVinylSizes(is) {
     return is
-      .replace(/(\s+|\()(7|10|12)(?:inch\b|in\b|'|''|")([^s]|$)/ig, "$1$2\"$3")
-      .replace(/((?:\s+|\()(?:7|10|12)")([^),\s])/, "$1 $2");
+      .replace(/(\s+|\()(7|10|12)(?:inch\b|in\b|'|''|")([^s]|$)/ig, '$1$2"$3')
+      .replace(/((?:\s+|\()(?:7|10|12)")([^),\s])/, '$1 $2');
   },
 
   /*
@@ -254,11 +270,13 @@ let DefaultMode = {
 
 export const English = assign({}, DefaultMode, {
   description: ReactDOMServer.renderToStaticMarkup(exp.l(
-    'This mode capitalises almost all words, with some words ' +
-    '(mainly articles and short prepositions) lowercased. Some ' +
-    'words may need to be manually capitalised to follow the ' +
-    '{url|English capitalisation guidelines}.',
-    {url: {href: 'https://musicbrainz.org/doc/Style/Language/English', target: '_blank'}}
+    `This mode capitalises almost all words, with some words (mainly articles 
+     and short prepositions) lowercased. Some words may need to be manually 
+     capitalised to follow the {url|English capitalisation guidelines}.`,
+    {
+      url:
+        {href: 'https://musicbrainz.org/doc/Style/Language/English', target: '_blank'},
+    },
   )),
 
   isSentenceCaps() {
@@ -268,12 +286,13 @@ export const English = assign({}, DefaultMode, {
 
 export const French = assign({}, DefaultMode, {
   description: ReactDOMServer.renderToStaticMarkup(exp.l(
-    'This mode capitalises titles as sentence mode, but also ' +
-    'inserts spaces before semicolons, colons, exclamation marks ' +
-    'and question marks, and inside guillemets. Some words may ' +
-    'need to be manually capitalised to follow the {url|French ' +
-    'capitalisation guidelines}.',
-    {url: {href: 'https://musicbrainz.org/doc/Style/Language/French', target: '_blank'}}
+    `This mode capitalises titles as sentence mode, but also inserts spaces 
+     before semicolons, colons, exclamation marks and question marks, 
+     and inside guillemets. Some words may need to be manually capitalised 
+     to follow the {url|French capitalisation guidelines}.`,
+    {
+      url: {href: 'https://musicbrainz.org/doc/Style/Language/French', target: '_blank'},
+    },
   )),
 
   runPostProcess(is) {
@@ -288,20 +307,26 @@ export const French = assign({}, DefaultMode, {
 
 export const Sentence = assign({}, DefaultMode, {
   description: ReactDOMServer.renderToStaticMarkup(exp.l(
-    'This mode capitalises the first word of a sentence, most ' +
-    'other words are lowercased. Some words, often proper nouns, ' +
-    'may need to be manually fixed according to the {url|relevant ' +
-    'language guidelines}.',
-    {url: {href: 'https://musicbrainz.org/doc/Style/Language', target: '_blank'}}
+    `This mode capitalises the first word of a sentence, most other words 
+     are lowercased. Some words, often proper nouns, may need to be manually 
+     fixed according to the {url|relevant language guidelines}.`,
+    {
+      url:
+        {href: 'https://musicbrainz.org/doc/Style/Language', target: '_blank'},
+    },
   )),
 });
-
 export const Turkish = assign({}, DefaultMode, {
   description: ReactDOMServer.renderToStaticMarkup(exp.l(
-    'This mode handles the Turkish capitalisation of \'i\' (\'İ\') and \'ı\' '+
-    '(\'I\'). Some words may need to be manually corrected '+
-    'according to the {url|Turkish language guidelines}. ',
-    {url: {href: 'https://musicbrainz.org/doc/Style/Language/Turkish', target: '_blank'}}
+    `This mode handles the Turkish capitalisation of 'i' ('İ') and 'ı' ('I').
+     Some words may need to be manually corrected according to 
+     the {url|Turkish language guidelines}.`,
+    {
+      url: {
+        href: 'https://musicbrainz.org/doc/Style/Language/Turkish',
+        target: '_blank',
+      },
+    },
   )),
 
   isLowerCaseWord(w) {
@@ -312,7 +337,7 @@ export const Turkish = assign({}, DefaultMode, {
     return false;
   },
 
-  toUpperCase: turkishUpperCase,
-
   toLowerCase: turkishLowerCase,
+
+  toUpperCase: turkishUpperCase,
 });
