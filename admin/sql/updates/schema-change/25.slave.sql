@@ -15,7 +15,7 @@ SET LOCAL statement_timeout = 0;
 --------------------------------------------------------------------------------
 SELECT '20180503-mbs-9708-drop-area-containment-view.sql';
 
-DROP VIEW area_containment;
+DROP VIEW IF EXISTS area_containment;
 
 --------------------------------------------------------------------------------
 SELECT '20190317-mbs-9941-mbs-10062.sql';
