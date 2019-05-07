@@ -566,6 +566,8 @@ ALTER TABLE editor_collection_deleted_entity ADD COLUMN comment TEXT DEFAULT '' 
 --------------------------------------------------------------------------------
 SELECT '20190423-mbs-10052-eaa.sql';
 
+CREATE SCHEMA event_art_archive;
+
 SET search_path = 'event_art_archive';
 
 CREATE TYPE musicbrainz.event_art_presence AS ENUM ('absent', 'present', 'darkened');
