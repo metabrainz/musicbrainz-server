@@ -11,8 +11,8 @@ import clean from '../common/utility/clean';
 import * as flags from './flags';
 
 /*
- * Words which are *not* converted if they are matched as a single
- * pre-processor word at the end of the sentence.
+ * Words which are turned to lowercase if in brackets, but
+ * are *not* put in brackets if they're found at the end of the sentence.
  */
 const preBracketSingleWordsList = [
   'acoustic',
@@ -70,7 +70,10 @@ export function isPrepBracketSingleWord(w) {
   return preBracketSingleWords.test(w);
 }
 
-// Words which are written lowercase if in brackets.
+/*
+ * Words which are turned to lowercase if in brackets, and
+ * put in brackets if they're found at the end of the sentence.
+ */
 const lowerCaseBracketWordsList = [
   'a_cappella',
   'clubmix',
@@ -118,10 +121,7 @@ export function isLowerCaseBracketWord(w) {
   return lowerCaseBracketWords.test(w);
 }
 
-/*
- * Words which the pre-processor looks for and puts them into brackets
- * if they aren't yet.
- */
+// Words which are put into brackets if they aren't yet.
 const prepBracketWords = /^(?:cd|disk|12["”]|7["”]|a_cappella|re_edit)$/i;
 
 export function isPrepBracketWord(w) {
