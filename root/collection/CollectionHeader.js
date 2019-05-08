@@ -30,8 +30,11 @@ const CollectionHeader = ({$c, collection, page}: Props) => {
     <>
       {collection.public ? (
         exp.l('Public collection by {owner}',
-          {owner: <EditorLink editor={owner} />})
-      ) : l('Private collection')}
+              {owner: <EditorLink editor={owner} />})
+      ) : (
+        exp.l('Private collection by {owner}',
+              {owner: <EditorLink editor={owner} />})
+      )}
       {owner ? (
         <span className="small">
           {' '}
@@ -47,7 +50,7 @@ const CollectionHeader = ({$c, collection, page}: Props) => {
                 l('See all of your collections')
               ) : (
                 texp.l("See all of {editor}'s public collections",
-                  {editor: owner.name})
+                       {editor: owner.name})
               )}
             </a>,
           )}

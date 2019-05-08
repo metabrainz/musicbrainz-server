@@ -30,8 +30,13 @@ after 'load' => sub {
     $c->model('Editor')->load_for_collection($collection);
     $c->model('CollectionType')->load($collection);
 
+    my @collaborators = $collection->all_collaborators;
+    my $is_collection_collaborator = $c->user_exists &&
+        (($c->user->id == $collection->editor_id) ||
+            grep { $_->id == $c->user->id } @collaborators);
+
     $c->stash(
-        my_collection => $c->user_exists && $c->user->id == $collection->editor_id
+        is_collection_collaborator => $is_collection_collaborator
     )
 };
 
@@ -49,12 +54,7 @@ sub collection_collaborator : Chained('load') CaptureArgs(0) {
     my $collection = $c->stash->{collection};
     $c->forward('/user/do_login') if !$c->user_exists;
 
-    my $collaborators = $collection->{collaborators};
-    my $is_collection_collaborator =
-        ($c->user->id == $collection->editor_id) ||
-            grep { $_->id == $c->user->id } @$collaborators;
-
-    $c->detach('/error_403') if !$is_collection_collaborator;
+    $c->detach('/error_403') if !$c->stash->{is_collection_collaborator};
 }
 
 sub _do_add_or_remove {
@@ -92,7 +92,7 @@ sub show : Chained('load') PathPart('') {
     my $collection = $c->stash->{collection};
     my $entity_type = $collection->type->item_entity_type;
 
-    if ($c->form_posted && $c->stash->{my_collection}) {
+    if ($c->form_posted && $c->stash->{is_collection_collaborator}) {
         my $remove_params = $c->req->params->{remove};
         $c->model('Collection')->remove_entities_from_collection($entity_type,
             $collection->id,
@@ -101,7 +101,7 @@ sub show : Chained('load') PathPart('') {
         );
     }
 
-    $self->own_collection($c) if !$collection->public;
+    $self->collection_collaborator($c) if !$collection->public;
 
     my $order = $c->req->params->{order};
 

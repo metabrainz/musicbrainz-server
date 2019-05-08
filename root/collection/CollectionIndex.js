@@ -54,9 +54,9 @@ type Props =
   | PropsForEntity<WorkT>
   ;
 
-const listPicker = (props: Props, ownCollection: boolean) => {
+const listPicker = (props: Props, canRemoveFromCollection: boolean) => {
   const sharedProps = {
-    checkboxes: ownCollection ? 'remove' : '',
+    checkboxes: canRemoveFromCollection ? 'remove' : '',
     order: props.order,
     sortable: true,
   };
@@ -165,8 +165,10 @@ const CollectionIndex = (props: Props) => {
     pager,
   } = props;
 
-  const ownCollection = !!$c.user && !!collection.editor &&
-    $c.user.id === collection.editor.id;
+  const user = $c.user;
+  const canRemoveFromCollection = !!user && !!collection.editor &&
+    (user.id === collection.editor.id ||
+      collection.collaborators.some(x => x.id === user.id));
 
   return (
     <CollectionLayout entity={collection} page="index">
@@ -199,9 +201,9 @@ const CollectionIndex = (props: Props) => {
       {entities.length > 0 ? (
         <form action={$c.req.uri} method="post">
           <PaginatedResults pager={pager}>
-            {listPicker(props, ownCollection)}
+            {listPicker(props, canRemoveFromCollection)}
           </PaginatedResults>
-          {ownCollection ? (
+          {canRemoveFromCollection ? (
             <FormRow>
               <FormSubmit
                 label={l('Remove selected items from collection')}
