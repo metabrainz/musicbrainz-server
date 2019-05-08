@@ -275,6 +275,10 @@ sub delete {
             WHERE collection IN (" . placeholders(@collection_ids) . ')', @collection_ids);
     } entities_with('collections');
 
+    # Remove all collaborators associated with the collection(s)
+    $self->sql->do('DELETE FROM editor_collection_collaborator
+                    WHERE collection IN (' . placeholders(@collection_ids) . ')', @collection_ids);
+
     # Remove collection(s)
     $self->sql->do('DELETE FROM editor_collection
                     WHERE id IN (' . placeholders(@collection_ids) . ')', @collection_ids);
