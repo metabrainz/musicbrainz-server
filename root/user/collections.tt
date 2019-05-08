@@ -15,18 +15,21 @@
 
 [% WRAPPER "user/profile/layout.tt" title=l("Collections") page="collections" %]
 
+<h2>[% l("My collections") %]</h2>
 [%- FOR colentity = collections.pairs -%]
     [% INCLUDE 'user-collections' %]
 [% END %]
 
 [%- IF no_collections -%]
-    <h2>[% l("Collections") %]</h2>
     [% IF viewing_own_profile %]
         <p>[% l('You have no collections.') -%]</p>
     [%- ELSE -%]
         <p>[% l('{user} has no public collections.', { user => html_escape(user.name) }) -%]</p>
     [%- END -%]
 [%- END -%]
+
+<h2>[% l("Collaborative collections") %]</h2>
+[% INCLUDE 'collaborative-collections' %]
 
 [% IF viewing_own_profile %]
     <p><a href="[% c.uri_for_action('/collection/create') %]">[% l('Create a new collection') %]</a></p>
@@ -36,7 +39,7 @@
 
 [% BLOCK 'user-collections' %]
 [%- IF colentity.value.size -%]
-    <h2>[% format_entity_collection_title(colentity.key) %]</h2>
+    <h3>[% format_entity_collection_title(colentity.key) %]</h3>
 
     <table class="tbl">
         <thead>
@@ -69,6 +72,50 @@
             [%- END -%]
         </tbody>
     </table>
+[% END %]
+
+[% END %]
+
+[% BLOCK 'collaborative-collections' %]
+[%- IF collaborative_collections.size -%]
+    [%- FOR collabentity = collaborative_collections.pairs -%]
+        [%- IF collabentity.value.size -%]
+            <h3>[% format_entity_collection_title(collabentity.key) %]</h3>
+
+            <table class="tbl">
+                <thead>
+                    <tr>
+                        <th>[% l('Collection') %]</th>
+                        <th>[% l('Type') %]</th>
+                        <th>[% format_plural_entity_type_name(collabentity.key) %]</th>
+                        [% IF viewing_own_profile %]
+                            <th>[% l('Subscribed') %]</th>
+                        [% END %]
+                        <th>[% l('Privacy') %]</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    [%- FOR collection = collabentity.value -%]
+                        <tr class="[% loop.parity %]">
+                            <td>[% link_collection(collection) %]</td>
+                            <td>[% collection.type.l_name %]</td>
+                            <td>[% collection.entity_count %]</td>
+                            [% IF viewing_own_profile %]
+                                <td>[% yesno(collection.subscribed) %]</td>
+                            [% END %]
+                            <td>[% collection.public ? l('Public') : l('Private') %]</td>
+                        </tr>
+                    [%- END -%]
+                </tbody>
+            </table>
+        [% END %]
+    [% END %]
+[% ELSE %]
+    [% IF viewing_own_profile %]
+        <p>[% l('You aren’t collaborating in any collections.') -%]</p>
+    [%- ELSE -%]
+        <p>[% l('{user} isn’t collaborating in any collections.', { user => html_escape(user.name) }) -%]</p>
+    [%- END -%]
 [% END %]
 
 [% END %]

@@ -203,7 +203,7 @@ type CatalystSessionT = {|
 
 type CatalystStashT = {|
   +all_collections?: $ReadOnlyArray<CollectionT>,
-  +collaborator_collections?: $ReadOnlyArray<CollectionT>,
+  +collaborative_collections?: $ReadOnlyArray<CollectionT>,
   +commons_image?: CommonsImageT | null,
   +containment?: {|
     [number]: ?1,

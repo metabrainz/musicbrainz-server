@@ -27,10 +27,10 @@ const CollectionLinks = ({$c, entity}: Props) => {
   return (
     <CollectionList
       addCollectionText={l('Add to a new collection')}
-      collaborativeCollections={$c.stash.collaborator_collections}
+      collaborativeCollections={$c.stash.collaborative_collections}
       collaborativeCollectionsHeader={l('Collaborative collections')}
       collaborativeCollectionsNoneText={
-        l('Not collaborating in any collections!')
+        l('Not collaborating on any collections!')
       }
       entity={entity}
       header={l('Collections')}

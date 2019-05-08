@@ -489,7 +489,7 @@ sub TO_JSON {
     # Whitelist of keys that we use in the templates.
     my @stash_keys = qw(
         all_collections
-        collaborator_collections
+        collaborative_collections
         commons_image
         containment
         current_language

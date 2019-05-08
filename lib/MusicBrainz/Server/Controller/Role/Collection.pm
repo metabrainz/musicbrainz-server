@@ -47,7 +47,7 @@ role
         my ($self, $c) = @_;
 
         my $own_collections;
-        my $collaborator_collections;
+        my $collaborative_collections;
         my %containment;
         my $entity_collections = $self->_all_collections($c);
         my %entity_collections_map = map { $_->id => 1 } @$entity_collections;
@@ -62,18 +62,18 @@ role
             foreach my $collection (@$own_collections) {
                 $containment{$collection->id} = 1 if $entity_collections_map{$collection->id};
             }
-            ($collaborator_collections) = $c->model('Collection')->find_by({
+            ($collaborative_collections) = $c->model('Collection')->find_by({
                 collaborator_id => $c->user->id,
                 entity_type => $entity_type,
             });
-            foreach my $collection (@$collaborator_collections) {
+            foreach my $collection (@$collaborative_collections) {
                 $containment{$collection->id} = 1 if $entity_collections_map{$collection->id};
             }
         }
 
         $c->stash
           (own_collections => $own_collections,
-           collaborator_collections => $collaborator_collections,
+           collaborative_collections => $collaborative_collections,
            containment => \%containment,
            all_collections => $entity_collections,
           );

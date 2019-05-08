@@ -27,10 +27,10 @@ const AttendanceLinks = ({$c, event}: Props) => {
   return (
     <CollectionList
       addCollectionText={l('Add to a new list')}
-      collaborativeCollections={$c.stash.collaborator_collections}
+      collaborativeCollections={$c.stash.collaborative_collections}
       collaborativeCollectionsHeader={l('Collaborative lists')}
       collaborativeCollectionsNoneText={
-        l('Not collaborating in any attendance lists!')
+        l('Not collaborating on any attendance lists!')
       }
       entity={event}
       header={l('Attendance')}

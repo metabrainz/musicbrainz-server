@@ -1,4 +1,5 @@
 package t::MusicBrainz::Server::Controller::User::Collections;
+use utf8;
 use Test::Routine;
 use Test::More;
 use MusicBrainz::Server::Test qw( html_ok test_xpath_html );
@@ -46,7 +47,8 @@ test 'No collections' => sub {
     $mech->get_ok('/user/editor3/collections');
     my $tx = test_xpath_html($mech->content);
 
-    $tx->is('//div[@id="page"]/p', 'editor3 has no public collections.',
+    $tx->is('//div[@id="page"]/p',
+            'editor3 has no public collections.editor3 isn’t collaborating in any collections.',
             'editor has no collections');
 };
 
