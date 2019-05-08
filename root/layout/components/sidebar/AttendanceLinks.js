@@ -25,28 +25,32 @@ const AttendanceLinks = ({$c, event}: Props) => {
     return null;
   }
   return (
-    <>
-      <h2 className="attendance">
-        {l('Attendance')}
-      </h2>
-      <CollectionList
-        addText={l('Add to a new list')}
-        entity={event}
-        noneText={l('You have no attendance lists!')}
-        usersLink={
-          <EntityLink
-            content={texp.ln(
-              'Found in {num} attendance list',
-              'Found in {num} attendance lists',
-              allCollections.length,
-              {num: allCollections.length},
-            )}
-            entity={event}
-            subPath="attendance"
-          />
-        }
-      />
-    </>
+    <CollectionList
+      addCollectionText={l('Add to a new list')}
+      collaborativeCollections={$c.stash.collaborator_collections}
+      collaborativeCollectionsHeader={l('Collaborative lists')}
+      collaborativeCollectionsNoneText={
+        l('Not collaborating in any attendance lists!')
+      }
+      entity={event}
+      header={l('Attendance')}
+      ownCollections={$c.stash.own_collections}
+      ownCollectionsHeader={l('My attendance lists')}
+      ownCollectionsNoneText={l('You have no attendance lists!')}
+      sectionClass="attendance"
+      usersLink={
+        <EntityLink
+          content={texp.ln(
+            'Found in {num} attendance list',
+            'Found in {num} attendance lists',
+            allCollections.length,
+            {num: allCollections.length},
+          )}
+          entity={event}
+          subPath="attendance"
+        />
+      }
+    />
   );
 };
 

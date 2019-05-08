@@ -25,28 +25,32 @@ const CollectionLinks = ({$c, entity}: Props) => {
     return null;
   }
   return (
-    <>
-      <h2 className="collections">
-        {l('Collections')}
-      </h2>
-      <CollectionList
-        addText={l('Add to a new collection')}
-        entity={entity}
-        noneText={l('You have no collections!')}
-        usersLink={
-          <EntityLink
-            content={texp.ln(
-              'Found in {num} user collection',
-              'Found in {num} user collections',
-              allCollections.length,
-              {num: allCollections.length},
-            )}
-            entity={entity}
-            subPath="collections"
-          />
-        }
-      />
-    </>
+    <CollectionList
+      addCollectionText={l('Add to a new collection')}
+      collaborativeCollections={$c.stash.collaborator_collections}
+      collaborativeCollectionsHeader={l('Collaborative collections')}
+      collaborativeCollectionsNoneText={
+        l('Not collaborating in any collections!')
+      }
+      entity={entity}
+      header={l('Collections')}
+      ownCollections={$c.stash.own_collections}
+      ownCollectionsHeader={l('My collections')}
+      ownCollectionsNoneText={l('You have no collections!')}
+      sectionClass="collections"
+      usersLink={
+        <EntityLink
+          content={texp.ln(
+            'Found in {num} user collection',
+            'Found in {num} user collections',
+            allCollections.length,
+            {num: allCollections.length},
+          )}
+          entity={entity}
+          subPath="collections"
+        />
+      }
+    />
   );
 };
 

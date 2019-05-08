@@ -43,6 +43,20 @@ sub own_collection : Chained('load') CaptureArgs(0) {
     $c->detach('/error_403') if $c->user->id != $collection->editor_id;
 }
 
+sub collection_collaborator : Chained('load') CaptureArgs(0) {
+    my ($self, $c) = @_;
+
+    my $collection = $c->stash->{collection};
+    $c->forward('/user/do_login') if !$c->user_exists;
+
+    my $collaborators = $collection->{collaborators};
+    my $is_collection_collaborator =
+        ($c->user->id == $collection->editor_id) ||
+            grep { $_->id == $c->user->id } @$collaborators;
+
+    $c->detach('/error_403') if !$is_collection_collaborator;
+}
+
 sub _do_add_or_remove {
     my ($self, $c, $func_name) = @_;
 
@@ -62,12 +76,12 @@ sub _do_add_or_remove {
     }
 }
 
-sub add : Chained('own_collection') RequireAuth {
+sub add : Chained('collection_collaborator') RequireAuth {
     my ($self, $c) = @_;
     $self->_do_add_or_remove($c, 'add_entities_to_collection');
 }
 
-sub remove : Chained('own_collection') RequireAuth {
+sub remove : Chained('collection_collaborator') RequireAuth {
     my ($self, $c) = @_;
     $self->_do_add_or_remove($c, 'remove_entities_from_collection');
 }

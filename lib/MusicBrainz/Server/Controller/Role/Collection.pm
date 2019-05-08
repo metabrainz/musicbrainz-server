@@ -37,6 +37,7 @@ role
             entity_id => $c->stash->{$entity_name}->id,
             entity_type => $entity_type,
             show_private => $c->user_exists ? $c->user->id : undef,
+            with_collaborations => 1,
         });
         $collections;
     };
@@ -45,25 +46,34 @@ role
     method _stash_collections => sub {
         my ($self, $c) = @_;
 
-        my $collections;
+        my $own_collections;
+        my $collaborator_collections;
         my %containment;
         my $entity_collections = $self->_all_collections($c);
         my %entity_collections_map = map { $_->id => 1 } @$entity_collections;
 
         if ($c->user_exists) {
             # Make a list of collections and whether this entity is contained in them
-            ($collections) = $c->model('Collection')->find_by({
+            ($own_collections) = $c->model('Collection')->find_by({
                 editor_id => $c->user->id,
                 entity_type => $entity_type,
                 show_private => $c->user->id,
             });
-            foreach my $collection (@$collections) {
+            foreach my $collection (@$own_collections) {
+                $containment{$collection->id} = 1 if $entity_collections_map{$collection->id};
+            }
+            ($collaborator_collections) = $c->model('Collection')->find_by({
+                collaborator_id => $c->user->id,
+                entity_type => $entity_type,
+            });
+            foreach my $collection (@$collaborator_collections) {
                 $containment{$collection->id} = 1 if $entity_collections_map{$collection->id};
             }
         }
 
         $c->stash
-          (collections => $collections,
+          (own_collections => $own_collections,
+           collaborator_collections => $collaborator_collections,
            containment => \%containment,
            all_collections => $entity_collections,
           );

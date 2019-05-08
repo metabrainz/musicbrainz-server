@@ -154,13 +154,31 @@ sub find_by {
         }
     }
 
-    if (my $editor_id = $opts->{show_private}) {
-        push @conditions, '(editor_collection.public = true OR editor = ?)';
+    if (my $editor_id = $opts->{collaborator_id}) {
+        push @conditions, 'EXISTS (SELECT 1 FROM editor_collection_collaborator ecc
+                           WHERE ecc.collection = editor_collection.id AND ecc.editor = ?)';
         push @args, $editor_id;
-    } else {
-        push @conditions, 'editor_collection.public = true';
     }
 
+    if (my $editor_id = $opts->{show_private}) {
+        # If we check collaborations, we want to know whether the editor is the main editor *or* the collaboration editor
+        if ($opts->{with_collaborations}) {
+            push @conditions, '(editor_collection.public = true OR editor_collection.editor = ? OR
+                               EXISTS (SELECT 1 FROM editor_collection_collaborator ecc
+                               WHERE ecc.collection = editor_collection.id AND ecc.editor = ?))';
+            push @args, $editor_id, $editor_id;
+        } else {
+            push @conditions, '(editor_collection.public = true OR editor_collection.editor = ?)';
+            push @args, $editor_id;
+        }
+    } else {
+        # If we have a collaborator ID we will already only show relevant collections, and we should show all
+        unless ($opts->{collaborator_id}) {
+            push @conditions, 'editor_collection.public = true';
+        }
+    }
+
+    # Since joining editor_collection_collaborator might give many rows, we select only distinct collections here
     my $query =
         'SELECT ' . $self->_columns .
         '  FROM ' . $self->_table . ' ' .
