@@ -37,6 +37,16 @@ has entity_count => (
     predicate => 'loaded_entity_count'
 );
 
+has 'collaborators' => (
+    isa     => 'ArrayRef[Editor]',
+    is      => 'rw',
+    traits => [ 'Array' ],
+    default => sub { [] },
+    handles => {
+        all_collaborators => 'elements',
+    }
+);
+
 around TO_JSON => sub {
     my ($orig, $self) = @_;
 

@@ -824,6 +824,12 @@ declare type ReadOnlyRepeatableFieldT<+F> = {|
 |};
 
 declare type SanitizedCatalystContextT = {|
+  +action: {|
+    +name: string,
+  |},
+  +req: {|
+    +uri: string,
+  |},
   +user: SanitizedEditorT | null,
   +user_exists: boolean,
 |};

@@ -9,14 +9,17 @@
 
 import React from 'react';
 
-import CollectionEditForm from './CollectionEditForm';
+import * as manifest from '../static/manifest';
+import CollectionEditForm
+  from '../static/scripts/collection/components/CollectionEditForm';
+
 import CollectionLayout from './CollectionLayout';
-import type {CollectionFormT} from './types';
+import type {CollectionEditFormT} from './types';
 
 type Props = {|
   +collection: CollectionT,
   +collectionTypes: SelectOptionsT,
-  +form: CollectionFormT,
+  +form: CollectionEditFormT,
 |};
 
 const CollectionEdit = ({collection, collectionTypes, form}: Props) => (
@@ -27,6 +30,7 @@ const CollectionEdit = ({collection, collectionTypes, form}: Props) => (
     title={l('Edit')}
   >
     <CollectionEditForm collectionTypes={collectionTypes} form={form} />
+    {manifest.js('collection/edit')}
   </CollectionLayout>
 );
 

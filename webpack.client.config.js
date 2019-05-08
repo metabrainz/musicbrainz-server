@@ -31,6 +31,7 @@ const entries = [
   'area/index',
   'area/places-map',
   'artist/index',
+  'collection/edit',
   'common',
   'edit',
   'edit/notes-received',

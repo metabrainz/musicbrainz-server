@@ -26,8 +26,8 @@ after 'load' => sub {
             $c->user->id, $collection->id);
     }
 
-    # Load editor
-    $c->model('Editor')->load($collection);
+    # Load editor and collaborators
+    $c->model('Editor')->load_for_collection($collection);
     $c->model('CollectionType')->load($collection);
 
     $c->stash(

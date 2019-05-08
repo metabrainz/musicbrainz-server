@@ -194,6 +194,14 @@ around _insert_hook_make_row => sub {
     return $row;
 };
 
+sub _insert_hook_after_each {
+    my ($self, $created, $collection) = @_;
+
+    $self->set_collaborators(
+        $created->{id}, $collection->{collaborators}
+    ) if $collection->{collaborators};
+}
+
 sub load_entity_count {
     my ($self, @collections) = @_;
     return unless @collections;
@@ -215,6 +223,10 @@ sub load_entity_count {
 sub update {
     my ($self, $collection_id, $update) = @_;
     croak '$collection_id must be present and > 0' unless $collection_id > 0;
+
+    $self->set_collaborators(
+        $collection_id, $update->{collaborators}
+    ) if $update->{collaborators};
 
     my $row = $self->_hash_to_row($update);
     my $collection = $self->get_by_id($collection_id);
@@ -262,6 +274,23 @@ sub delete_editor {
             $editor_id
         ) }
     );
+}
+
+sub set_collaborators {
+    my ($self, $collection_id, $collaborators) = @_;
+
+    $self->sql->begin;
+
+    $self->sql->do('DELETE FROM editor_collection_collaborator WHERE collection = ?', $collection_id);
+    $self->sql->insert_many(
+        'editor_collection_collaborator',
+        map +{
+            collection => $collection_id,
+            editor     => $_->{id},
+        }, @$collaborators
+    );
+
+    $self->sql->commit;
 }
 
 sub _hash_to_row {
