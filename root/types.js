@@ -240,6 +240,7 @@ declare type CDStubT = {|
 declare type CollectionT = {|
   ...EntityRoleT<'collection'>,
   ...TypeRoleT<CollectionTypeT>,
+  +collaborators: $ReadOnlyArray<EditorT>,
   +description: string,
   +description_html: string,
   +entity_count: number,

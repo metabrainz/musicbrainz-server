@@ -56,6 +56,7 @@ around TO_JSON => sub {
     $json->{public} = boolean_to_json($self->public);
     $json->{description} = $self->description;
     $json->{description_html} = format_wikitext($self->description);
+    $json->{collaborators} = [map { $_->TO_JSON } $self->all_collaborators];
 
     if ($self->loaded_entity_count) {
         $json->{entity_count} = $self->entity_count;

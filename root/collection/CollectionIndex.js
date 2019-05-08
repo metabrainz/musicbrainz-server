@@ -27,6 +27,7 @@ import PaginatedResults from '../components/PaginatedResults';
 import expand2react from '../static/scripts/common/i18n/expand2react';
 import {formatPluralEntityTypeName}
   from '../static/scripts/common/utility/formatEntityTypeName';
+import UserInlineList from '../user/components/UserInlineList';
 
 import CollectionLayout from './CollectionLayout';
 
@@ -183,6 +184,14 @@ const CollectionIndex = (props: Props) => {
                          {url: '/login'})}
                 </p>
               )}
+          </>
+        ) : null}
+      </div>
+      <div className="">
+        {collection.collaborators && collection.collaborators.length ? (
+          <>
+            <h2>{l('Collaborators')}</h2>
+            <UserInlineList editors={collection.collaborators} />
           </>
         ) : null}
       </div>
