@@ -9,10 +9,10 @@
 
 import React from 'react';
 
-import {withCatalystContext} from '../context';
-import WorkListEntry from '../static/scripts/common/components/WorkListEntry';
-
-import SortableTableHeader from './SortableTableHeader';
+import {withCatalystContext} from '../../context';
+import WorkListEntry
+  from '../../static/scripts/common/components/WorkListEntry';
+import SortableTableHeader from '../SortableTableHeader';
 
 type Props = {|
   ...SeriesItemNumbersRoleT,
@@ -24,7 +24,7 @@ type Props = {|
   +works: $ReadOnlyArray<WorkT>,
 |};
 
-const WorksList = ({
+const WorkList = ({
   $c,
   checkboxes,
   order,
@@ -89,4 +89,4 @@ const WorksList = ({
   </table>
 );
 
-export default withCatalystContext(WorksList);
+export default withCatalystContext(WorkList);

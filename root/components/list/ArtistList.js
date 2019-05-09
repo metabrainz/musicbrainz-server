@@ -9,25 +9,28 @@
 
 import React from 'react';
 
-import {withCatalystContext} from '../context';
-import InstrumentListEntry
-  from '../static/scripts/common/components/InstrumentListEntry';
-
-import SortableTableHeader from './SortableTableHeader';
+import {withCatalystContext} from '../../context';
+import ArtistListEntry
+  from '../../static/scripts/common/components/ArtistListEntry';
+import SortableTableHeader from '../SortableTableHeader';
 
 type Props = {|
   +$c: CatalystContextT,
+  +artists: $ReadOnlyArray<ArtistT>,
   +checkboxes?: string,
-  +instruments: $ReadOnlyArray<InstrumentT>,
   +order?: string,
+  +showBeginEnd?: boolean,
+  +showRatings?: boolean,
   +sortable?: boolean,
 |};
 
-const InstrumentsList = ({
+const ArtistList = ({
   $c,
+  artists,
   checkboxes,
-  instruments,
   order,
+  showBeginEnd,
+  showRatings,
   sortable,
 }: Props) => (
   <table className="tbl">
@@ -42,12 +45,12 @@ const InstrumentsList = ({
           {sortable
             ? (
               <SortableTableHeader
-                label={l('Instrument')}
+                label={l('Artist')}
                 name="name"
                 order={order}
               />
             )
-            : l('Instrument')}
+            : l('Artist')}
         </th>
         <th>
           {sortable
@@ -60,20 +63,42 @@ const InstrumentsList = ({
             )
             : l('Type')}
         </th>
-        <th>{l('Description')}</th>
+        <th>
+          {sortable
+            ? (
+              <SortableTableHeader
+                label={l('Gender')}
+                name="gender"
+                order={order}
+              />
+            )
+            : l('Gender')}
+        </th>
+        <th>{l('Area')}</th>
+        {showBeginEnd ? (
+          <>
+            <th>{l('Begin')}</th>
+            <th>{l('Begin Area')}</th>
+            <th>{l('End')}</th>
+            <th>{l('End Area')}</th>
+          </>
+        ) : null}
+        {showRatings ? <th>{l('Rating')}</th> : null}
       </tr>
     </thead>
     <tbody>
-      {instruments.map((instrument, index) => (
-        <InstrumentListEntry
+      {artists.map((artist, index) => (
+        <ArtistListEntry
+          artist={artist}
           checkboxes={checkboxes}
           index={index}
-          instrument={instrument}
-          key={instrument.id}
+          key={artist.id}
+          showBeginEnd={showBeginEnd}
+          showRatings={showRatings}
         />
       ))}
     </tbody>
   </table>
 );
 
-export default withCatalystContext(InstrumentsList);
+export default withCatalystContext(ArtistList);

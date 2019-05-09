@@ -9,14 +9,14 @@
 
 import React from 'react';
 
-import {withCatalystContext} from '../context';
-import loopParity from '../utility/loopParity';
+import {withCatalystContext} from '../../context';
+import loopParity from '../../utility/loopParity';
 import DescriptiveLink
-  from '../static/scripts/common/components/DescriptiveLink';
-import EntityLink from '../static/scripts/common/components/EntityLink';
-import SortableTableHeader from '../components/SortableTableHeader';
+  from '../../static/scripts/common/components/DescriptiveLink';
+import EntityLink from '../../static/scripts/common/components/EntityLink';
+import SortableTableHeader from '../SortableTableHeader';
 import formatDatePeriod
-  from '../static/scripts/common/utility/formatDatePeriod';
+  from '../../static/scripts/common/utility/formatDatePeriod';
 
 type Props = {|
   +$c: CatalystContextT,
@@ -26,7 +26,7 @@ type Props = {|
   +sortable?: boolean,
 |};
 
-const PlacesList = ({
+const PlaceList = ({
   $c,
   checkboxes,
   order,
@@ -129,4 +129,4 @@ const PlacesList = ({
   </table>
 );
 
-export default withCatalystContext(PlacesList);
+export default withCatalystContext(PlaceList);

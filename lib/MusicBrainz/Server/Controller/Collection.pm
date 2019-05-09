@@ -11,6 +11,7 @@ with 'MusicBrainz::Server::Controller::Role::Load' => {
 };
 with 'MusicBrainz::Server::Controller::Role::Subscribe';
 
+use MusicBrainz::Server::ControllerUtils::JSON qw( serialize_pager );
 use MusicBrainz::Server::Data::Utils qw( model_to_type type_to_model load_everything_for_edits );
 use MusicBrainz::Server::Constants qw( :edit_status entities_with %ENTITIES );
 
@@ -150,12 +151,18 @@ sub show : Chained('load') PathPart('') {
         $c->model('SeriesOrderingType')->load(@$entities);
     }
 
+    my %props = (
+        collection           => $collection,
+        collectionEntityType => $entity_type,
+        entities             => $entities,
+        order                => $order,
+        pager                => serialize_pager($c->stash->{pager}),
+    );
+
     $c->stash(
-        entities => $entities,
-        collection => $collection,
-        order => $order,
-        entity_list_template => 'components/' . $ENTITIES{$entity_type}->{plural} . '-list.tt',
-        template => 'collection/index.tt'
+        current_view => 'Node',
+        component_path => 'collection/CollectionIndex.js',
+        component_props => \%props,
     );
 }
 
@@ -238,6 +245,17 @@ sub create : Local RequireAuth {
 
         $self->_redirect_to_collection($c, $collection->{gid});
     }
+
+    my %props = (
+        collectionTypes => $form->options_type_id,
+        form => $form,
+    );
+
+    $c->stash(
+        component_path => 'collection/CollectionCreate',
+        component_props => \%props,
+        current_view => 'Node',
+    );
 }
 
 sub edit : Chained('own_collection') RequireAuth {
@@ -255,6 +273,18 @@ sub edit : Chained('own_collection') RequireAuth {
         $c->model('Collection')->update($collection->id, \%update);
         $self->_redirect_to_collection($c, $collection->gid);
     }
+
+    my %props = (
+        collection => $collection,
+        collectionTypes => $form->options_type_id,
+        form => $form,
+    );
+
+    $c->stash(
+        component_path => 'collection/CollectionEdit',
+        component_props => \%props,
+        current_view => 'Node',
+    );
 }
 
 sub delete : Chained('own_collection') RequireAuth {
@@ -268,6 +298,15 @@ sub delete : Chained('own_collection') RequireAuth {
         $c->response->redirect(
             $c->uri_for_action('/user/collections', [ $c->user->name ]));
     }
+    my %props = (
+        collection => $collection,
+    );
+
+    $c->stash(
+        component_path => 'collection/CollectionDelete',
+        component_props => \%props,
+        current_view => 'Node',
+    );
 }
 
 1;

@@ -9,7 +9,7 @@
 
 import React from 'react';
 
-import LabelsList from '../components/LabelsList';
+import LabelList from '../components/list/LabelList';
 import PaginatedResults from '../components/PaginatedResults';
 
 import AreaLayout from './AreaLayout';
@@ -30,7 +30,7 @@ const AreaLabels = ({
 
     {labels.length > 0 ? (
       <PaginatedResults pager={pager}>
-        <LabelsList
+        <LabelList
           labels={labels}
           showRatings
         />

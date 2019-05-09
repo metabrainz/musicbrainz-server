@@ -16,7 +16,7 @@ import loopParity from '../../../../utility/loopParity';
 import ArtistCreditLink from './ArtistCreditLink';
 import ArtistRoles from './ArtistRoles';
 import CodeLink from './CodeLink';
-import AttributesList from './AttributesList';
+import AttributeList from './AttributeList';
 import EntityLink from './EntityLink';
 
 type WorkListRowProps = {|
@@ -102,7 +102,7 @@ export const WorkListRow = withCatalystContext(({
     </td>
     {showAttributes ? (
       <td>
-        <AttributesList entity={work} />
+        <AttributeList entity={work} />
       </td>
     ) : null}
     {showRatings ? (

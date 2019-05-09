@@ -10,7 +10,7 @@
 import React from 'react';
 
 import {withCatalystContext} from '../context';
-import EventsList from '../components/EventsList';
+import EventList from '../components/list/EventList';
 import PaginatedResults from '../components/PaginatedResults';
 
 import AreaLayout from './AreaLayout';
@@ -34,7 +34,7 @@ const AreaEvents = ({
     {events.length > 0 ? (
       <form action="/event/merge_queue" method="post">
         <PaginatedResults pager={pager}>
-          <EventsList
+          <EventList
             checkboxes="add-to-merge"
             events={events}
             showArtists

@@ -10,19 +10,18 @@
 import React from 'react';
 import {groupBy} from 'lodash';
 
-import {withCatalystContext} from '../context';
-import loopParity from '../utility/loopParity';
-import releaseGroupType from '../utility/releaseGroupType';
+import {withCatalystContext} from '../../context';
+import loopParity from '../../utility/loopParity';
+import releaseGroupType from '../../utility/releaseGroupType';
 import ArtistCreditLink
-  from '../static/scripts/common/components/ArtistCreditLink';
+  from '../../static/scripts/common/components/ArtistCreditLink';
 import EntityLink
-  from '../static/scripts/common/components/EntityLink';
-import parseDate from '../static/scripts/common/utility/parseDate';
+  from '../../static/scripts/common/components/EntityLink';
+import parseDate from '../../static/scripts/common/utility/parseDate';
+import RatingStars from '../RatingStars';
+import SortableTableHeader from '../SortableTableHeader';
 
-import RatingStars from './RatingStars';
-import SortableTableHeader from './SortableTableHeader';
-
-type ReleaseGroupsListHeaderProps = {|
+type ReleaseGroupListHeaderProps = {|
   ...SeriesItemNumbersRoleT,
   +$c: CatalystContextT,
   +checkboxes?: string,
@@ -32,7 +31,7 @@ type ReleaseGroupsListHeaderProps = {|
   +sortable?: boolean,
 |};
 
-type ReleaseGroupsListEntryProps = {|
+type ReleaseGroupListEntryProps = {|
   ...SeriesItemNumbersRoleT,
   +$c: CatalystContextT,
   +checkboxes?: string,
@@ -42,7 +41,7 @@ type ReleaseGroupsListEntryProps = {|
   +showRatings?: boolean,
 |};
 
-type ReleaseGroupsListProps = {|
+type ReleaseGroupListProps = {|
   ...SeriesItemNumbersRoleT,
   +$c: CatalystContextT,
   +checkboxes?: string,
@@ -53,7 +52,7 @@ type ReleaseGroupsListProps = {|
   +sortable?: boolean,
 |};
 
-const ReleaseGroupsListHeader = ({
+const ReleaseGroupListHeader = ({
   $c,
   checkboxes,
   groupByType,
@@ -61,7 +60,7 @@ const ReleaseGroupsListHeader = ({
   seriesItemNumbers,
   showRatings,
   sortable,
-}: ReleaseGroupsListHeaderProps) => (
+}: ReleaseGroupListHeaderProps) => (
   <thead>
     <tr>
       {$c.user_exists && checkboxes ? (
@@ -112,7 +111,7 @@ const ReleaseGroupsListHeader = ({
   </thead>
 );
 
-const ReleaseGroupsListEntry = ({
+const ReleaseGroupListEntry = ({
   $c,
   checkboxes,
   index,
@@ -120,7 +119,7 @@ const ReleaseGroupsListEntry = ({
   releaseGroup,
   seriesItemNumbers,
   showRatings,
-}: ReleaseGroupsListEntryProps) => (
+}: ReleaseGroupListEntryProps) => (
   <tr className={loopParity(index)} key={releaseGroup.id}>
     {$c.user_exists && checkboxes ? (
       <td>
@@ -166,7 +165,7 @@ const ReleaseGroupsListEntry = ({
   </tr>
 );
 
-const ReleaseGroupsListTable = ({
+const ReleaseGroupListTable = ({
   $c,
   checkboxes,
   groupByType,
@@ -175,9 +174,9 @@ const ReleaseGroupsListTable = ({
   seriesItemNumbers,
   showRatings,
   sortable,
-}: ReleaseGroupsListProps) => (
+}: ReleaseGroupListProps) => (
   <table className="tbl release-group-list">
-    <ReleaseGroupsListHeader
+    <ReleaseGroupListHeader
       $c={$c}
       checkboxes={checkboxes}
       groupByType={groupByType}
@@ -188,7 +187,7 @@ const ReleaseGroupsListTable = ({
     />
     <tbody>
       {releaseGroups.map((releaseGroup, index) => (
-        <ReleaseGroupsListEntry
+        <ReleaseGroupListEntry
           $c={$c}
           checkboxes={checkboxes}
           groupByType={groupByType}
@@ -203,7 +202,7 @@ const ReleaseGroupsListTable = ({
   </table>
 );
 
-const ReleaseGroupsList = ({
+const ReleaseGroupList = ({
   $c,
   checkboxes,
   groupByType,
@@ -212,7 +211,7 @@ const ReleaseGroupsList = ({
   seriesItemNumbers,
   showRatings,
   sortable,
-}: ReleaseGroupsListProps) => {
+}: ReleaseGroupListProps) => {
   const groupedReleaseGroups = groupBy(releaseGroups, 'typeName');
   return (
     groupByType ? (
@@ -226,7 +225,7 @@ const ReleaseGroupsList = ({
                 : releaseGroupType(releaseGroupsOfType[0])
               }
             </h3>
-            <ReleaseGroupsListTable
+            <ReleaseGroupListTable
               $c={$c}
               checkboxes={checkboxes}
               groupByType
@@ -241,7 +240,7 @@ const ReleaseGroupsList = ({
       })
     ) : (
       // TODO: When converting usages to React, please check MBS-10155.
-      <ReleaseGroupsListTable
+      <ReleaseGroupListTable
         $c={$c}
         checkboxes={checkboxes}
         order={order}
@@ -254,4 +253,4 @@ const ReleaseGroupsList = ({
   );
 };
 
-export default withCatalystContext(ReleaseGroupsList);
+export default withCatalystContext(ReleaseGroupList);

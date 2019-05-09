@@ -240,6 +240,7 @@ declare type CollectionT = {|
   ...EntityRoleT<'collection'>,
   ...TypeRoleT<CollectionTypeT>,
   +description: string,
+  +description_html: string,
   +entity_count: number,
   +editor: EditorT | null,
   +gid: string,
@@ -499,6 +500,10 @@ declare type GroupedOptionsT = $ReadOnlyArray<{|
   +optgroup: string,
   +options: SelectOptionsT,
 |}>;
+
+declare type InstrumentCreditsRoleT = {|
+  +instrumentCredits?: {+[string]: string},
+|};
 
 declare type InstrumentT = {|
   ...AnnotationRoleT,
@@ -781,6 +786,7 @@ declare type ReleaseEventT = {|
 declare type ReleaseLabelT = {|
   +catalogNumber: string | null,
   +label: LabelT | null,
+  +label_id: number,
 |};
 
 declare type ReleaseStatusT = OptionTreeT<'release_status'>;
@@ -869,7 +875,7 @@ declare type SeriesT = {|
 
 declare type SeriesItemNumbersRoleT = {|
   +seriesItemNumbers?: {+[number]: string}
-  |};
+|};
 
 declare type SeriesOrderingTypeT = OptionTreeT<'series_ordering_type'>;
 

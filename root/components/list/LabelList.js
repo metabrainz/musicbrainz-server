@@ -9,16 +9,15 @@
 
 import React from 'react';
 
-import {withCatalystContext} from '../context';
-import formatLabelCode from '../utility/formatLabelCode';
-import loopParity from '../utility/loopParity';
+import {withCatalystContext} from '../../context';
+import formatLabelCode from '../../utility/formatLabelCode';
+import loopParity from '../../utility/loopParity';
 import DescriptiveLink
-  from '../static/scripts/common/components/DescriptiveLink';
-import formatDate from '../static/scripts/common/utility/formatDate';
-import formatEndDate from '../static/scripts/common/utility/formatEndDate';
-
-import RatingStars from './RatingStars';
-import SortableTableHeader from './SortableTableHeader';
+  from '../../static/scripts/common/components/DescriptiveLink';
+import formatDate from '../../static/scripts/common/utility/formatDate';
+import formatEndDate from '../../static/scripts/common/utility/formatEndDate';
+import RatingStars from '../RatingStars';
+import SortableTableHeader from '../SortableTableHeader';
 
 type Props = {|
   +$c: CatalystContextT,
@@ -29,7 +28,7 @@ type Props = {|
   +sortable?: boolean,
 |};
 
-const LabelsList = ({
+const LabelList = ({
   $c,
   checkboxes,
   labels,
@@ -151,4 +150,4 @@ const LabelsList = ({
   </table>
 );
 
-export default withCatalystContext(LabelsList);
+export default withCatalystContext(LabelList);
