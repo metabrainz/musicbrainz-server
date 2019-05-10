@@ -1330,6 +1330,7 @@ sub _serialize_genre
 
     my $genre_node = $parent_node->addNewChild(undef, 'genre');
     $genre_node->_setAttribute('count', $tag->count);
+    $genre_node->_setAttribute('id', $tag->tag->genre->gid);
     $genre_node->appendTextChild('name', $tag->tag->name);
 }
 
@@ -1373,7 +1374,9 @@ sub _serialize_user_genre
     my ($self, $parent_node, $tag) = @_;
 
     if ($tag->is_upvote) {
-        $parent_node->addNewChild(undef, 'user-genre')->appendTextChild('name', $tag->tag->name);
+        my $genre_node = $parent_node->addNewChild(undef, 'user-genre');
+        $genre_node->_setAttribute('id', $tag->tag->genre->gid);
+        $genre_node->appendTextChild('name', $tag->tag->name);
     }
 }
 
