@@ -20,6 +20,11 @@ import formatDatePeriod
 
 type Props = {|
   +$c: CatalystContextT,
+  +buildExtraDataCells?: (
+    $c: CatalystContextT,
+    entity: CoreEntityT,
+  ) => AnyReactElem | null,
+  +buildExtraHeaderCells?: () => AnyReactElem,
   +checkboxes?: string,
   +order?: string,
   +places: $ReadOnlyArray<PlaceT>,
@@ -28,6 +33,8 @@ type Props = {|
 
 const PlaceList = ({
   $c,
+  buildExtraDataCells,
+  buildExtraHeaderCells,
   checkboxes,
   order,
   places,
@@ -96,6 +103,7 @@ const PlaceList = ({
             )
             : l('Date')}
         </th>
+        {buildExtraHeaderCells ? buildExtraHeaderCells() : null}
       </tr>
     </thead>
     <tbody>
@@ -123,6 +131,9 @@ const PlaceList = ({
             {place.area ? <DescriptiveLink entity={place.area} /> : null}
           </td>
           <td>{formatDatePeriod(place)}</td>
+          {buildExtraDataCells
+            ? buildExtraDataCells($c, place)
+            : null}
         </tr>
       ))}
     </tbody>

@@ -21,6 +21,11 @@ import SortableTableHeader from '../SortableTableHeader';
 
 type Props = {|
   +$c: CatalystContextT,
+  +buildExtraDataCells?: (
+    $c: CatalystContextT,
+    entity: CoreEntityT,
+  ) => AnyReactElem | null,
+  +buildExtraHeaderCells?: () => AnyReactElem,
   +checkboxes?: string,
   +labels: $ReadOnlyArray<LabelT>,
   +order?: string,
@@ -30,6 +35,8 @@ type Props = {|
 
 const LabelList = ({
   $c,
+  buildExtraDataCells,
+  buildExtraHeaderCells,
   checkboxes,
   labels,
   order,
@@ -109,6 +116,7 @@ const LabelList = ({
             : l('End')}
         </th>
         {showRatings ? <th>{l('Rating')}</th> : null}
+        {buildExtraHeaderCells ? buildExtraHeaderCells() : null}
       </tr>
     </thead>
     <tbody>
@@ -144,6 +152,9 @@ const LabelList = ({
               <RatingStars entity={label} />
             </td>
           ) : null}
+          {buildExtraDataCells
+            ? buildExtraDataCells($c, label)
+            : null}
         </tr>
       ))}
     </tbody>

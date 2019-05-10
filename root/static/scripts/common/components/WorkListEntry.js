@@ -22,6 +22,10 @@ import EntityLink from './EntityLink';
 type WorkListRowProps = {|
   ...SeriesItemNumbersRoleT,
   +$c: CatalystContextT,
+  +buildExtraDataCells?: (
+    $c: CatalystContextT,
+    entity: CoreEntityT,
+  ) => AnyReactElem | null,
   +checkboxes?: string,
   +showAttributes?: boolean,
   +showIswcs?: boolean,
@@ -31,6 +35,10 @@ type WorkListRowProps = {|
 
 type WorkListEntryProps = {|
   ...SeriesItemNumbersRoleT,
+  +buildExtraDataCells?: (
+    $c: CatalystContextT,
+    entity: CoreEntityT,
+  ) => AnyReactElem | null,
   +checkboxes?: string,
   +index: number,
   +score?: number,
@@ -42,6 +50,7 @@ type WorkListEntryProps = {|
 
 export const WorkListRow = withCatalystContext(({
   $c,
+  buildExtraDataCells,
   checkboxes,
   seriesItemNumbers,
   showAttributes,
@@ -110,10 +119,14 @@ export const WorkListRow = withCatalystContext(({
         <RatingStars entity={work} />
       </td>
     ) : null}
+    {buildExtraDataCells
+      ? buildExtraDataCells($c, work)
+      : null}
   </>
 ));
 
 const WorkListEntry = ({
+  buildExtraDataCells,
   checkboxes,
   index,
   score,

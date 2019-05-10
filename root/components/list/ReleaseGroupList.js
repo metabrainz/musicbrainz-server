@@ -24,6 +24,7 @@ import SortableTableHeader from '../SortableTableHeader';
 type ReleaseGroupListHeaderProps = {|
   ...SeriesItemNumbersRoleT,
   +$c: CatalystContextT,
+  +buildExtraHeaderCells?: () => AnyReactElem,
   +checkboxes?: string,
   +groupByType?: boolean,
   +order?: string,
@@ -34,6 +35,10 @@ type ReleaseGroupListHeaderProps = {|
 type ReleaseGroupListEntryProps = {|
   ...SeriesItemNumbersRoleT,
   +$c: CatalystContextT,
+  +buildExtraDataCells?: (
+    $c: CatalystContextT,
+    entity: CoreEntityT,
+  ) => AnyReactElem | null,
   +checkboxes?: string,
   +groupByType?: boolean,
   +index: number,
@@ -44,6 +49,11 @@ type ReleaseGroupListEntryProps = {|
 type ReleaseGroupListProps = {|
   ...SeriesItemNumbersRoleT,
   +$c: CatalystContextT,
+  +buildExtraDataCells?: (
+    $c: CatalystContextT,
+    entity: CoreEntityT,
+  ) => AnyReactElem | null,
+  +buildExtraHeaderCells?: () => AnyReactElem,
   +checkboxes?: string,
   +groupByType?: boolean,
   +order?: string,
@@ -54,6 +64,7 @@ type ReleaseGroupListProps = {|
 
 const ReleaseGroupListHeader = ({
   $c,
+  buildExtraHeaderCells,
   checkboxes,
   groupByType,
   order,
@@ -107,12 +118,14 @@ const ReleaseGroupListHeader = ({
       )}
       {showRatings ? <th className="rating c">{l('Rating')}</th> : null}
       <th className="count c">{l('Releases')}</th>
+      {buildExtraHeaderCells ? buildExtraHeaderCells() : null}
     </tr>
   </thead>
 );
 
 const ReleaseGroupListEntry = ({
   $c,
+  buildExtraDataCells,
   checkboxes,
   index,
   groupByType,
@@ -162,11 +175,16 @@ const ReleaseGroupListEntry = ({
       </td>
     ) : null}
     <td className="c">{releaseGroup.release_count}</td>
+    {buildExtraDataCells
+      ? buildExtraDataCells($c, releaseGroup)
+      : null}
   </tr>
 );
 
 const ReleaseGroupListTable = ({
   $c,
+  buildExtraDataCells,
+  buildExtraHeaderCells,
   checkboxes,
   groupByType,
   order,
@@ -178,6 +196,7 @@ const ReleaseGroupListTable = ({
   <table className="tbl release-group-list">
     <ReleaseGroupListHeader
       $c={$c}
+      buildExtraHeaderCells={buildExtraHeaderCells}
       checkboxes={checkboxes}
       groupByType={groupByType}
       order={order}
@@ -189,6 +208,7 @@ const ReleaseGroupListTable = ({
       {releaseGroups.map((releaseGroup, index) => (
         <ReleaseGroupListEntry
           $c={$c}
+          buildExtraDataCells={buildExtraDataCells}
           checkboxes={checkboxes}
           groupByType={groupByType}
           index={index}
@@ -204,6 +224,8 @@ const ReleaseGroupListTable = ({
 
 const ReleaseGroupList = ({
   $c,
+  buildExtraDataCells,
+  buildExtraHeaderCells,
   checkboxes,
   groupByType,
   order,
@@ -227,6 +249,8 @@ const ReleaseGroupList = ({
             </h3>
             <ReleaseGroupListTable
               $c={$c}
+              buildExtraDataCells={buildExtraDataCells}
+              buildExtraHeaderCells={buildExtraHeaderCells}
               checkboxes={checkboxes}
               groupByType
               order={order}
@@ -242,6 +266,8 @@ const ReleaseGroupList = ({
       // TODO: When converting usages to React, please check MBS-10155.
       <ReleaseGroupListTable
         $c={$c}
+        buildExtraDataCells={buildExtraDataCells}
+        buildExtraHeaderCells={buildExtraHeaderCells}
         checkboxes={checkboxes}
         order={order}
         releaseGroups={releaseGroups}

@@ -17,6 +17,11 @@ import SortableTableHeader from '../SortableTableHeader';
 type Props = {|
   ...SeriesItemNumbersRoleT,
   +$c: CatalystContextT,
+  +buildExtraDataCells?: (
+    $c: CatalystContextT,
+    entity: CoreEntityT,
+  ) => AnyReactElem | null,
+  +buildExtraHeaderCells?: () => AnyReactElem,
   +checkboxes?: string,
   +order?: string,
   +showRatings?: boolean,
@@ -26,6 +31,8 @@ type Props = {|
 
 const WorkList = ({
   $c,
+  buildExtraDataCells,
+  buildExtraHeaderCells,
   checkboxes,
   order,
   seriesItemNumbers,
@@ -70,11 +77,13 @@ const WorkList = ({
         <th>{l('Lyrics Languages')}</th>
         <th>{l('Attributes')}</th>
         {showRatings ? <th>{l('Rating')}</th> : null}
+        {buildExtraHeaderCells ? buildExtraHeaderCells() : null}
       </tr>
     </thead>
     <tbody>
       {works.map((work, index) => (
         <WorkListEntry
+          buildExtraDataCells={buildExtraDataCells}
           checkboxes={checkboxes}
           index={index}
           key={work.id}

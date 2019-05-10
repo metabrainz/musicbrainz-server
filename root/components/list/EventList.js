@@ -29,6 +29,11 @@ type Props = {|
   +$c: CatalystContextT,
   +artist?: ArtistT,
   +artistRoles?: boolean,
+  +buildExtraDataCells?: (
+    $c: CatalystContextT,
+    entity: CoreEntityT,
+  ) => AnyReactElem | null,
+  +buildExtraHeaderCells?: () => AnyReactElem,
   +checkboxes?: string,
   +events: $ReadOnlyArray<EventT>,
   +order?: string,
@@ -43,6 +48,8 @@ const EventList = ({
   $c,
   artist,
   artistRoles,
+  buildExtraDataCells,
+  buildExtraHeaderCells,
   checkboxes,
   events,
   order,
@@ -102,6 +109,7 @@ const EventList = ({
         </th>
         <th>{l('Time')}</th>
         {showRatings ? <th>{l('Rating')}</th> : null}
+        {buildExtraHeaderCells ? buildExtraHeaderCells() : null}
       </tr>
     </thead>
     <tbody>
@@ -157,6 +165,9 @@ const EventList = ({
               <RatingStars entity={event} />
             </td>
           ) : null}
+          {buildExtraDataCells
+            ? buildExtraDataCells($c, event)
+            : null}
         </tr>
       ))}
     </tbody>

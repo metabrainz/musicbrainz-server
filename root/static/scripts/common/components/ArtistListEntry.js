@@ -20,6 +20,10 @@ import DescriptiveLink from './DescriptiveLink';
 type ArtistListRowProps = {|
   +$c: CatalystContextT,
   +artist: ArtistT,
+  +buildExtraDataCells?: (
+    $c: CatalystContextT,
+    entity: CoreEntityT,
+  ) => AnyReactElem | null,
   +checkboxes?: string,
   +showBeginEnd?: boolean,
   +showRatings?: boolean,
@@ -28,6 +32,10 @@ type ArtistListRowProps = {|
 
 type ArtistListEntryProps = {|
   +artist: ArtistT,
+  +buildExtraDataCells?: (
+    $c: CatalystContextT,
+    entity: CoreEntityT,
+  ) => AnyReactElem | null,
   +checkboxes?: string,
   +index: number,
   +score?: number,
@@ -39,6 +47,7 @@ type ArtistListEntryProps = {|
 const ArtistListRow = withCatalystContext(({
   $c,
   artist,
+  buildExtraDataCells,
   checkboxes,
   showBeginEnd,
   showRatings,
@@ -92,11 +101,15 @@ const ArtistListRow = withCatalystContext(({
         <RatingStars entity={artist} />
       </td>
     ) : null}
+    {buildExtraDataCells
+      ? buildExtraDataCells($c, artist)
+      : null}
   </>
 ));
 
 const ArtistListEntry = ({
   artist,
+  buildExtraDataCells,
   checkboxes,
   index,
   score,

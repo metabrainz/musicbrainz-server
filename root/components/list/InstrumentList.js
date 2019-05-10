@@ -16,6 +16,11 @@ import SortableTableHeader from '../SortableTableHeader';
 
 type Props = {|
   +$c: CatalystContextT,
+  +buildExtraDataCells?: (
+    $c: CatalystContextT,
+    entity: CoreEntityT,
+  ) => AnyReactElem | null,
+  +buildExtraHeaderCells?: () => AnyReactElem,
   +checkboxes?: string,
   +instruments: $ReadOnlyArray<InstrumentT>,
   +order?: string,
@@ -24,6 +29,8 @@ type Props = {|
 
 const InstrumentList = ({
   $c,
+  buildExtraDataCells,
+  buildExtraHeaderCells,
   checkboxes,
   instruments,
   order,
@@ -60,11 +67,13 @@ const InstrumentList = ({
             : l('Type')}
         </th>
         <th>{l('Description')}</th>
+        {buildExtraHeaderCells ? buildExtraHeaderCells() : null}
       </tr>
     </thead>
     <tbody>
       {instruments.map((instrument, index) => (
         <InstrumentListEntry
+          buildExtraDataCells={buildExtraDataCells}
           checkboxes={checkboxes}
           index={index}
           instrument={instrument}
