@@ -92,9 +92,10 @@ sub show : Chained('load') PathPart('') {
     my $order = $c->req->params->{order};
 
     my $model = $c->model(type_to_model($entity_type));
-    my $entities = $self->_load_paged($c, sub {
-        $model->find_by_collection($collection->id, shift, shift, $order);
+    my $collection_items = $self->_load_paged($c, sub {
+        $model->find_items_by_collection($collection->id, shift, shift, $order);
     });
+    my $entities = map { $_->entity } @$collection_items;
 
     if ($model->can('load_related_info')) {
         $model->load_related_info(@$entities);
@@ -154,7 +155,7 @@ sub show : Chained('load') PathPart('') {
     my %props = (
         collection           => $collection,
         collectionEntityType => $entity_type,
-        entities             => $entities,
+        entities             => $collection_items,
         order                => $order,
         pager                => serialize_pager($c->stash->{pager}),
     );

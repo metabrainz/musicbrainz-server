@@ -16,12 +16,20 @@ import expand2react from '../i18n/expand2react';
 import DescriptiveLink from './DescriptiveLink';
 
 type InstrumentListRowProps = {|
+  +buildExtraDataCells?: (
+    $c: CatalystContextT,
+    entity: CoreEntityT,
+  ) => AnyReactElem | null,
   +$c: CatalystContextT,
   +checkboxes?: string,
   +instrument: InstrumentT,
 |};
 
 type InstrumentListEntryProps = {|
+  +buildExtraDataCells?: (
+    $c: CatalystContextT,
+    entity: CoreEntityT,
+  ) => AnyReactElem | null,
   +checkboxes?: string,
   +index: number,
   +instrument: InstrumentT,
@@ -30,6 +38,7 @@ type InstrumentListEntryProps = {|
 
 const InstrumentListRow = withCatalystContext(({
   $c,
+  buildExtraDataCells,
   checkboxes,
   instrument,
 }: InstrumentListRowProps) => (
@@ -56,10 +65,14 @@ const InstrumentListRow = withCatalystContext(({
         ? expand2react(l_instrument_descriptions(instrument.description))
         : null}
     </td>
+    {buildExtraDataCells
+      ? buildExtraDataCells($c, instrument)
+      : null}
   </>
 ));
 
 const InstrumentListEntry = ({
+  buildExtraDataCells,
   checkboxes,
   index,
   instrument,

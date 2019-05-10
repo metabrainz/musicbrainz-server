@@ -27,8 +27,30 @@ import PaginatedResults from '../components/PaginatedResults';
 import expand2react from '../static/scripts/common/i18n/expand2react';
 import {formatPluralEntityTypeName}
   from '../static/scripts/common/utility/formatEntityTypeName';
+import formatUserDate from '../utility/formatUserDate';
 
 import CollectionLayout from './CollectionLayout';
+
+const buildCollectionHeaderCells = () => (
+  <th>{l('Date Added')}</th>
+);
+
+const buildCollectionDataCells = (
+  $c: CatalystContextT,
+  entity: CoreEntityT,
+) => {
+  const collectionItem = entity.collection_item;
+  if (!collectionItem) {
+    return null;
+  }
+  return (
+    <td>
+      {collectionItem.added
+        ? formatUserDate($c.user, collectionItem.added)
+        : l('Unknown')}
+    </td>
+  );
+};
 
 type PropsForEntity<T: CoreEntityT> = {
   +$c: CatalystContextT,
@@ -55,6 +77,8 @@ type Props =
 
 const listPicker = (props: Props, ownCollection: boolean) => {
   const sharedProps = {
+    buildExtraDataCells: buildCollectionDataCells,
+    buildExtraHeaderCells: buildCollectionHeaderCells,
     checkboxes: ownCollection ? 'remove' : '',
     order: props.order,
     sortable: true,

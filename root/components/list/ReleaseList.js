@@ -30,6 +30,11 @@ type Props = {|
   ...InstrumentCreditsRoleT,
   ...SeriesItemNumbersRoleT,
   +$c: CatalystContextT,
+  +buildExtraDataCells?: (
+    $c: CatalystContextT,
+    entity: CoreEntityT,
+  ) => AnyReactElem | null,
+  +buildExtraHeaderCells?: () => AnyReactElem,
   +checkboxes?: string,
   +filterLabel?: LabelT,
   +order?: string,
@@ -41,6 +46,8 @@ type Props = {|
 
 const ReleaseList = ({
   $c,
+  buildExtraDataCells,
+  buildExtraHeaderCells,
   checkboxes,
   filterLabel,
   instrumentCredits,
@@ -164,6 +171,7 @@ const ReleaseList = ({
         {showRatings ? <th>{l('Rating')}</th> : null}
         {showInstrumentCredits ? <th>{l('Instrument Credits')}</th> : null}
         {$c.session && $c.session.tport ? <th>{l('Tagger')}</th> : null}
+        {buildExtraHeaderCells ? buildExtraHeaderCells() : null}
       </tr>
     </thead>
     <tbody>
@@ -239,6 +247,9 @@ const ReleaseList = ({
               <TaggerIcon entity={release} />
             </td>
           ) : null}
+          {buildExtraDataCells
+            ? buildExtraDataCells($c, release)
+            : null}
         </tr>
       ))}
     </tbody>

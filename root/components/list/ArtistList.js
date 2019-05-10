@@ -17,6 +17,11 @@ import SortableTableHeader from '../SortableTableHeader';
 type Props = {|
   +$c: CatalystContextT,
   +artists: $ReadOnlyArray<ArtistT>,
+  +buildExtraDataCells?: (
+    $c: CatalystContextT,
+    entity: CoreEntityT,
+  ) => AnyReactElem | null,
+  +buildExtraHeaderCells?: () => AnyReactElem,
   +checkboxes?: string,
   +order?: string,
   +showBeginEnd?: boolean,
@@ -27,6 +32,8 @@ type Props = {|
 const ArtistList = ({
   $c,
   artists,
+  buildExtraDataCells,
+  buildExtraHeaderCells,
   checkboxes,
   order,
   showBeginEnd,
@@ -84,12 +91,14 @@ const ArtistList = ({
           </>
         ) : null}
         {showRatings ? <th>{l('Rating')}</th> : null}
+        {buildExtraHeaderCells ? buildExtraHeaderCells() : null}
       </tr>
     </thead>
     <tbody>
       {artists.map((artist, index) => (
         <ArtistListEntry
           artist={artist}
+          buildExtraDataCells={buildExtraDataCells}
           checkboxes={checkboxes}
           index={index}
           key={artist.id}

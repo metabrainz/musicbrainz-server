@@ -25,6 +25,11 @@ type Props = {|
   ...InstrumentCreditsRoleT,
   ...SeriesItemNumbersRoleT,
   +$c: CatalystContextT,
+  +buildExtraDataCells?: (
+    $c: CatalystContextT,
+    entity: CoreEntityT,
+  ) => AnyReactElem | null,
+  +buildExtraHeaderCells?: () => AnyReactElem,
   +checkboxes?: string,
   +lengthClass?: string,
   +merging?: boolean,
@@ -38,6 +43,8 @@ type Props = {|
 
 const RecordingList = ({
   $c,
+  buildExtraDataCells,
+  buildExtraHeaderCells,
   checkboxes,
   instrumentCredits,
   lengthClass,
@@ -94,6 +101,7 @@ const RecordingList = ({
             : l('Length')}
         </th>
         {showInstrumentCredits ? <th>{l('Instrument Credits')}</th> : null}
+        {buildExtraHeaderCells ? buildExtraHeaderCells() : null}
       </tr>
     </thead>
     <tbody>
@@ -150,6 +158,9 @@ const RecordingList = ({
                 : null}
             </td>
           ) : null}
+          {buildExtraDataCells
+            ? buildExtraDataCells($c, recording)
+            : null}
         </tr>
       ))}
     </tbody>

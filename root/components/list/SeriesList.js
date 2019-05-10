@@ -18,6 +18,11 @@ import SortableTableHeader from '../SortableTableHeader';
 
 type Props = {|
   +$c: CatalystContextT,
+  +buildExtraDataCells?: (
+    $c: CatalystContextT,
+    entity: CoreEntityT,
+  ) => AnyReactElem | null,
+  +buildExtraHeaderCells?: () => AnyReactElem,
   +checkboxes?: string,
   +order?: string,
   +series: $ReadOnlyArray<SeriesT>,
@@ -26,6 +31,8 @@ type Props = {|
 
 const SeriesList = ({
   $c,
+  buildExtraDataCells,
+  buildExtraHeaderCells,
   checkboxes,
   order,
   series,
@@ -62,6 +69,7 @@ const SeriesList = ({
             : l('Type')}
         </th>
         <th>{l('Ordering Type')}</th>
+        {buildExtraHeaderCells ? buildExtraHeaderCells() : null}
       </tr>
     </thead>
     <tbody>
@@ -92,6 +100,9 @@ const SeriesList = ({
                 ? lp_attributes(orderingType.name, 'series_ordering_type')
                 : null}
             </td>
+            {buildExtraDataCells
+              ? buildExtraDataCells($c, thisSeries)
+              : null}
           </tr>
         );
       })}
