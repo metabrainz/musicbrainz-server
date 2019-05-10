@@ -236,6 +236,14 @@ declare type CDStubT = {|
   +track_count: number,
 |};
 
+declare type CollectibleRoleT = {|
+  +collection_item?: CollectionItemT,
+|};
+
+declare type CollectionItemT = {|
+  +added: string | null,
+|};
+
 declare type CollectionT = {|
   ...EntityRoleT<'collection'>,
   ...TypeRoleT<CollectionTypeT>,
@@ -284,6 +292,7 @@ declare type ReadOnlyCompoundFieldT<+F> = {|
 declare type CoreEntityRoleT<+T> = {|
   ...EntityRoleT<T>,
   ...LastUpdateRoleT,
+  ...CollectibleRoleT,
   +gid: string,
   +name: string,
   +relationships?: $ReadOnlyArray<RelationshipT>,
