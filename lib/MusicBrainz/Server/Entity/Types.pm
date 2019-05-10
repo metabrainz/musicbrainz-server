@@ -6,7 +6,7 @@ for my $cls (qw(AggregatedTag AliasType Annotation Application
                 Area AreaAlias AreaType
                 Artist ArtistAlias ArtistCredit ArtistCreditName ArtistType
                 AutoEditorElection AutoEditorElectionVote
-                Barcode CDTOC CDStub Collection CollectionType Coordinates
+                Barcode CDTOC CDStub Collection CollectionItem CollectionType Coordinates
                 CoverArtType
                 CritiqueBrainz::Review CritiqueBrainz::User
                 Editor EditorOAuthToken
