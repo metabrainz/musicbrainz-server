@@ -106,7 +106,7 @@ sub merge_entities {
     my @ids = ($new_id, @old_ids);
 
     # Remove duplicate joins (ie, rows with entity from @old_ids and pointing to
-    # a collection that already contains $new_id)
+    # a collection that already contains $new_id), keep the earliest added row
     $self->sql->do(
         "DELETE FROM editor_collection_$type
                WHERE $type IN (" . placeholders(@ids) . ")
@@ -114,6 +114,7 @@ sub merge_entities {
                      SELECT DISTINCT ON (collection) collection, $type
                        FROM editor_collection_$type
                       WHERE $type IN (" . placeholders(@ids) . ")
+                      ORDER BY added ASC
                  )",
         @ids, @ids);
 
