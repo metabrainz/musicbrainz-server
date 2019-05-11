@@ -31,13 +31,23 @@ role
         }
     );
 
-    method _all_collections => sub {
+    method _all_visible_collections => sub {
         my ($self, $c) = @_;
         my ($collections) = $c->model('Collection')->find_by({
             entity_id => $c->stash->{$entity_name}->id,
             entity_type => $entity_type,
             show_private => $c->user_exists ? $c->user->id : undef,
             with_collaborations => 1,
+        });
+        $collections;
+    };
+
+    method _all_non_visible_collections => sub {
+        my ($self, $c) = @_;
+        my ($collections) = $c->model('Collection')->find_by({
+            entity_id => $c->stash->{$entity_name}->id,
+            entity_type => $entity_type,
+            show_private_only => $c->user_exists ? $c->user->id : undef,
         });
         $collections;
     };
@@ -49,7 +59,7 @@ role
         my $own_collections;
         my $collaborative_collections;
         my %containment;
-        my $entity_collections = $self->_all_collections($c);
+        my $entity_collections = $self->_all_visible_collections($c);
         my %entity_collections_map = map { $_->id => 1 } @$entity_collections;
 
         if ($c->user_exists) {
@@ -88,18 +98,9 @@ View a list of collections that this work has been added to.
     method $method_name => sub {
         my ($self, $c) = @_;
 
-        my @public_collections;
-        my $private_collections = 0;
-
-        # Keep public collections;
-        # count private collection
-        foreach my $collection (@{$self->_all_collections($c)}) {
-            if ($collection->{'public'} == 1) {
-                push(@public_collections, $collection);
-            } else {
-                $private_collections++;
-            }
-        }
+        my @public_collections = @{$self->_all_visible_collections($c)};
+        # For private collections we just want the number, so we just read the results in scalar context
+        my $private_collections = @{$self->_all_non_visible_collections($c)};
 
         $c->model('Editor')->load(@public_collections);
 

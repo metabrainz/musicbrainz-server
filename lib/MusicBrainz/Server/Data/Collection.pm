@@ -173,9 +173,18 @@ sub find_by {
         }
     } else {
         # If we have a collaborator ID we will already only show relevant collections, and we should show all
-        unless ($opts->{collaborator_id}) {
+        # If we want to only see non-visible collections, then we clearly don't want to show only public ones
+        unless ($opts->{collaborator_id} || $opts->{show_private_only}) {
             push @conditions, 'editor_collection.public = true';
         }
+    }
+
+    if (my $editor_id = $opts->{show_private_only}) {
+            push @conditions, 'editor_collection.public = false';
+            push @conditions, 'editor_collection.editor != ?';
+            push @conditions, 'NOT EXISTS (SELECT 1 FROM editor_collection_collaborator ecc
+                               WHERE ecc.collection = editor_collection.id AND ecc.editor = ?)';
+            push @args, $editor_id, $editor_id;
     }
 
     # Since joining editor_collection_collaborator might give many rows, we select only distinct collections here
