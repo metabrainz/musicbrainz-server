@@ -62,6 +62,9 @@ role
         my $entity_collections = $self->_all_visible_collections($c);
         my %entity_collections_map = map { $_->id => 1 } @$entity_collections;
 
+        my $number_of_visible_collections = @$entity_collections;
+        my $number_of_non_visible_collections = @{$self->_all_non_visible_collections($c)};
+
         if ($c->user_exists) {
             # Make a list of collections and whether this entity is contained in them
             ($own_collections) = $c->model('Collection')->find_by({
@@ -85,7 +88,7 @@ role
           (own_collections => $own_collections,
            collaborative_collections => $collaborative_collections,
            containment => \%containment,
-           all_collections => $entity_collections,
+           number_of_collections => $number_of_visible_collections + $number_of_non_visible_collections,
           );
     };
 

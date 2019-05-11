@@ -20,8 +20,8 @@ type Props = {|
 |};
 
 const CollectionLinks = ({$c, entity}: Props) => {
-  const allCollections = $c.stash.all_collections;
-  if (!$c.user_exists || !allCollections) {
+  const numberOfCollections = $c.stash.number_of_collections || 0;
+  if (!$c.user_exists) {
     return null;
   }
   return (
@@ -43,8 +43,8 @@ const CollectionLinks = ({$c, entity}: Props) => {
           content={texp.ln(
             'Found in {num} user collection',
             'Found in {num} user collections',
-            allCollections.length,
-            {num: allCollections.length},
+            numberOfCollections,
+            {num: numberOfCollections},
           )}
           entity={entity}
           subPath="collections"

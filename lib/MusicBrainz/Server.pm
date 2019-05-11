@@ -488,7 +488,6 @@ sub TO_JSON {
 
     # Whitelist of keys that we use in the templates.
     my @stash_keys = qw(
-        all_collections
         collaborative_collections
         commons_image
         containment
@@ -502,6 +501,7 @@ sub TO_JSON {
         merge_link
         more_tags
         new_edit_notes
+        number_of_collections
         number_of_revisions
         own_collections
         release_artwork

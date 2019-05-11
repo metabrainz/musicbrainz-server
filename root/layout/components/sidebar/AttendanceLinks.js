@@ -20,8 +20,8 @@ type Props = {|
 |};
 
 const AttendanceLinks = ({$c, event}: Props) => {
-  const allCollections = $c.stash.all_collections;
-  if (!$c.user_exists || !allCollections) {
+  const numberOfCollections = $c.stash.number_of_collections || 0;
+  if (!$c.user_exists) {
     return null;
   }
   return (
@@ -43,8 +43,8 @@ const AttendanceLinks = ({$c, event}: Props) => {
           content={texp.ln(
             'Found in {num} attendance list',
             'Found in {num} attendance lists',
-            allCollections.length,
-            {num: allCollections.length},
+            numberOfCollections,
+            {num: numberOfCollections},
           )}
           entity={event}
           subPath="attendance"
