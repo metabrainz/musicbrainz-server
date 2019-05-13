@@ -49,6 +49,12 @@ sub medium : Chained('root') PathPart Args(1) {
     my ($self, $c, $id) = @_;
 
     my $medium = $c->model('Medium')->get_by_id($id);
+
+    unless ($medium) {
+        $c->stash->{error} = 'No medium found with this ID.';
+        $c->detach('bad_req');
+    }
+
     $c->model('MediumFormat')->load($medium);
     $c->model('MediumCDTOC')->load_for_mediums($medium);
     $c->model('CDTOC')->load($medium->all_cdtocs);
