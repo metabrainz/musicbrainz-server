@@ -187,15 +187,10 @@ END -%]
 [%- END -%]
 
 [%~ MACRO artist_credit(ac, opts) BLOCK -%]
-    [%- FOREACH name IN ac.names -%]
-        [%- IF !opts.plain -%]
-            [%- link_entity(name.artist, 'show', name.name) -%]
-            [%- name.join_phrase | html -%]
-        [%- ELSE -%]
-            [%- name.name -%]
-            [%- name.join_phrase -%]
-        [%- END -%]
-    [%- END -%]
+    [%- React.embed(c, 'static/scripts/common/components/ArtistCreditLink', {
+      artistCredit => ac,
+      plain => opts.plain ? 1 : 0,
+    }) -%]
 [%- END -%]
 
 [%~ MACRO expanded_artist_credit(ac) IF ac -%]

@@ -11,6 +11,7 @@ use overload
     fallback => 1;
 
 extends 'MusicBrainz::Server::Entity';
+with 'MusicBrainz::Server::Entity::Role::Editable';
 
 sub entity_type { 'artist_credit' }
 
@@ -139,7 +140,9 @@ sub from_array
 around TO_JSON => sub {
     my ($orig, $self) = @_;
 
-    return [map { $_->TO_JSON } @{$self->names}];
+    my $json = $self->$orig;
+    $json->{names} = [map { $_->TO_JSON } @{$self->names}];
+    return $json;
 };
 
 __PACKAGE__->meta->make_immutable;

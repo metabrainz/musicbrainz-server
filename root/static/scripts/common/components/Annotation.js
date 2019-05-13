@@ -103,7 +103,7 @@ const Annotation = ({
 };
 
 export default withCatalystContext(
-  hydrate<Props>('annotation', Annotation, function (props) {
+  hydrate<Props>('div.annotation', Annotation, function (props) {
     const entity = props.entity;
 
     return mutate<Props, _>(props, newProps => {

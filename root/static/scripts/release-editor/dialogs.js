@@ -9,7 +9,7 @@ import _ from 'lodash';
 import React from 'react';
 import ReactDOMServer from 'react-dom/server';
 
-import {artistCreditFromArray, reduceArtistCredit} from '../common/immutable-entities';
+import {reduceArtistCredit} from '../common/immutable-entities';
 import bracketed from '../common/utility/bracketed';
 import formatTrackLength from '../common/utility/formatTrackLength';
 import isBlank from '../common/utility/isBlank';
@@ -121,10 +121,10 @@ class SearchResult {
         track.formattedLength = formatTrackLength(track.length);
 
         if (track.artistCredit) {
-            track.artist = reduceArtistCredit(artistCreditFromArray(track.artistCredit));
+            track.artist = reduceArtistCredit(track.artistCredit);
         } else {
             track.artist = track.artist || this.artist || "";
-            track.artistCredit = [{ name: track.artist }];
+            track.artistCredit = {names: [{ name: track.artist }]};
         }
     }
 

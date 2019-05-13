@@ -224,6 +224,25 @@
         },
         "model": "Gender"
     },
+    "genre": {
+        "cache": {
+            "id": 333
+        },
+        "disambiguation": true,
+        "edit_table": false,
+        "mbid": {
+            "indexable": true,
+            "multiple": false
+        },
+        "merging": false,
+        "model": "Genre",
+        "plural": "genres",
+        "plural_url": "genres",
+        "removal": {
+            "manual": true
+        },
+        "url": "genre"
+    },
     "instrument": {
         "aliases": {
             "add_edit_type": 136,

@@ -16,7 +16,4 @@ DROP FUNCTION cover_art_archive.reindex_caa_type ();
 DROP FUNCTION cover_art_archive.caa_move ();
 DROP FUNCTION cover_art_archive.delete_release ();
 
-SELECT pgq.unregister_consumer('CoverArtIndex', 'CoverArtIndexer');
-SELECT pgq.drop_queue('CoverArtIndex');
-
 COMMIT;

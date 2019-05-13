@@ -1,6 +1,6 @@
 \set ON_ERROR_STOP 1
 BEGIN;
 
-DROP VIEW area_containment;
+DROP VIEW IF EXISTS area_containment;
 
 COMMIT;

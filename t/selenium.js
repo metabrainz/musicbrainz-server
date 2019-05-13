@@ -420,6 +420,7 @@ async function handleCommand(file, command, target, value, t) {
 
 const seleniumTests = [
   {name: 'Create_Account.html'},
+  {name: 'MBS-5387.html', login: true},
   {name: 'MBS-7456.html', login: true},
   {name: 'MBS-9548.html'},
   {name: 'MBS-9669.html'},

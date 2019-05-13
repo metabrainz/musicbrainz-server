@@ -94,6 +94,15 @@ CREATE TRIGGER search_hint BEFORE UPDATE OR INSERT ON event_alias
 CREATE TRIGGER b_upd_event_tag BEFORE UPDATE ON event_tag
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
 
+CREATE TRIGGER b_upd_genre BEFORE UPDATE ON genre
+    FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
+
+CREATE TRIGGER b_upd_genre_alias BEFORE UPDATE ON genre_alias
+    FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
+
+CREATE TRIGGER unique_primary_for_locale BEFORE UPDATE OR INSERT ON genre_alias
+    FOR EACH ROW EXECUTE PROCEDURE unique_primary_genre_alias();
+
 CREATE TRIGGER b_upd_instrument BEFORE UPDATE ON instrument
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
 

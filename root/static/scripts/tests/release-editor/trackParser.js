@@ -224,7 +224,7 @@ parserTest("can parse only numbers, titles, artists, or lengths (MBS-3730, MBS-3
             tracks: [{
                 number: "1",
                 name: "foo",
-                artistCredit: [{ name: "bar" }],
+                artistCredit: {names: [{ name: "bar" }]},
                 length: 180000
             }]
         }]

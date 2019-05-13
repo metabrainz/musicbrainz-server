@@ -47,18 +47,20 @@ var testRelease = {
     entityType: "release",
     relationships: [],
     name: "Love Me Do / I Saw Her Standing There",
-    artistCredit: [
-        {
-            artist: {
-                entityType: "artist",
-                sort_name: "Beatles, The",
-                name: "The Beatles",
-                id: 303,
-                gid: "b10bbbfc-cf9e-42e0-be17-e2c3e1d2600d"
+    artistCredit: {
+        names: [
+            {
+                artist: {
+                    entityType: "artist",
+                    sort_name: "Beatles, The",
+                    name: "The Beatles",
+                    id: 303,
+                    gid: "b10bbbfc-cf9e-42e0-be17-e2c3e1d2600d"
+                },
+                joinPhrase: ""
             },
-            joinPhrase: ""
-        }
-    ],
+        ],
+    },
     id: 211431,
     mediums: [
         {
@@ -76,7 +78,7 @@ var testRelease = {
                     },
                     position: 1,
                     name: "Love Me Do",
-                    artistCredit: []
+                    artistCredit: {names: []},
                 },
                 {
                     length: 176000,
@@ -91,7 +93,7 @@ var testRelease = {
                     },
                     position: 2,
                     name: "I Saw Her Standing There",
-                    artistCredit: []
+                    artistCredit: {names: []},
                 }
             ],
             format: "Vinyl",
@@ -985,14 +987,14 @@ relationshipEditorTest("empty dates are submitted as a hash, not as undef (MBS-8
             name: "3 Great Piano Sonatas (Wilhelm Backhaus)",
             gid: "b01c805e-0d25-45ad-9ddb-785658fe56ce",
             relationships: [compositionData],
-            artistCredit: [{artist: beethoven, joinPhrase: ""}],
+            artistCredit: {names: [{artist: beethoven, joinPhrase: ""}]},
             mediums: [],
             releaseGroup: {
                 entityType: "release_group",
                 id: 188961,
                 gid: "d0dd466b-3385-356b-bdf0-856737c6baf7",
                 name: "3 Great Piano Sonatas",
-                artistCredit: [{name: "Beethoven", joinPhrase: "; ", artist: beethoven}],
+                artistCredit: {names: [{name: "Beethoven", joinPhrase: "; ", artist: beethoven}]},
             }
         }
     });

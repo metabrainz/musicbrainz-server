@@ -86,6 +86,7 @@ DROP FUNCTION trg_delete_unused_tag_ref();
 DROP FUNCTION unique_primary_area_alias();
 DROP FUNCTION unique_primary_artist_alias();
 DROP FUNCTION unique_primary_event_alias();
+DROP FUNCTION unique_primary_genre_alias();
 DROP FUNCTION unique_primary_instrument_alias();
 DROP FUNCTION unique_primary_label_alias();
 DROP FUNCTION unique_primary_place_alias();

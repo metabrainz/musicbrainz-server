@@ -6,8 +6,6 @@
 import ko from 'knockout';
 import _ from 'lodash';
 
-import {artistCreditFromArray} from '../common/immutable-entities';
-
 import fields from './fields';
 import utils from './utils';
 import releaseEditor from './viewModel';
@@ -81,7 +79,7 @@ releaseEditor.seedRelease = function (release, data) {
     }
 
     if (data.artistCredit) {
-        release.artistCredit(artistCreditFromArray(data.artistCredit));
+        release.artistCredit(data.artistCredit);
         release.artistCredit.saved = release.artistCredit.peek();
     }
 

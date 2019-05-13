@@ -379,7 +379,8 @@ CREATE TABLE artist_credit ( -- replicate
     name                VARCHAR NOT NULL,
     artist_count        SMALLINT NOT NULL,
     ref_count           INTEGER DEFAULT 0,
-    created             TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+    created             TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0)
 );
 
 CREATE TABLE artist_credit_name ( -- replicate (verbose)
@@ -711,10 +712,13 @@ CREATE TABLE event ( -- replicate (verbose)
       )
 );
 
+CREATE TYPE event_art_presence AS ENUM ('absent', 'present', 'darkened');
+
 CREATE TABLE event_meta ( -- replicate
     id                  INTEGER NOT NULL, -- PK, references event.id CASCADE
     rating              SMALLINT CHECK (rating >= 0 AND rating <= 100),
-    rating_count        INTEGER
+    rating_count        INTEGER,
+    event_art_presence  event_art_presence NOT NULL DEFAULT 'absent'
 );
 
 CREATE TABLE event_rating_raw (
@@ -850,6 +854,26 @@ CREATE TABLE gender ( -- replicate
     child_order         INTEGER NOT NULL DEFAULT 0,
     description         TEXT,
     gid                 uuid NOT NULL
+);
+
+CREATE TABLE genre ( -- replicate (verbose)
+    id                  SERIAL, -- PK
+    gid                 UUID NOT NULL,
+    name                VARCHAR NOT NULL,
+    comment             VARCHAR(255) NOT NULL DEFAULT '',
+    edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >=0),
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+CREATE TABLE genre_alias ( -- replicate (verbose)
+    id                  SERIAL,
+    genre               INTEGER NOT NULL, -- references genre.id
+    name                VARCHAR NOT NULL,
+    locale              TEXT,
+    edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
+    last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    primary_for_locale  BOOLEAN NOT NULL DEFAULT FALSE,
+    CONSTRAINT primary_check CHECK ((locale IS NULL AND primary_for_locale IS FALSE) OR (locale IS NOT NULL))
 );
 
 CREATE TABLE instrument_type ( -- replicate
@@ -2259,64 +2283,105 @@ CREATE TABLE editor_collection_type ( -- replicate
     gid                 uuid NOT NULL
 );
 
+CREATE TABLE editor_collection_collaborator (
+    collection INTEGER NOT NULL, -- PK, references editor_collection.id
+    editor INTEGER NOT NULL -- PK, references editor.id
+);
+
 CREATE TABLE editor_collection_area (
     collection INTEGER NOT NULL, -- PK, references editor_collection.id
-    area INTEGER NOT NULL -- PK, references area.id
+    area INTEGER NOT NULL, -- PK, references area.id
+    added TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    position INTEGER NOT NULL DEFAULT 0 CHECK (position >= 0),
+    comment TEXT DEFAULT '' NOT NULL
 );
 
 CREATE TABLE editor_collection_artist (
     collection INTEGER NOT NULL, -- PK, references editor_collection.id
-    artist INTEGER NOT NULL -- PK, references artist.id
+    artist INTEGER NOT NULL, -- PK, references artist.id
+    added TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    position INTEGER NOT NULL DEFAULT 0 CHECK (position >= 0),
+    comment TEXT DEFAULT '' NOT NULL
 );
 
 CREATE TABLE editor_collection_event (
     collection INTEGER NOT NULL, -- PK, references editor_collection.id
-    event INTEGER NOT NULL -- PK, references event.id
+    event INTEGER NOT NULL, -- PK, references event.id
+    added TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    position INTEGER NOT NULL DEFAULT 0 CHECK (position >= 0),
+    comment TEXT DEFAULT '' NOT NULL
 );
 
 CREATE TABLE editor_collection_instrument (
     collection INTEGER NOT NULL, -- PK, references editor_collection.id
-    instrument INTEGER NOT NULL -- PK, references instrument.id
+    instrument INTEGER NOT NULL, -- PK, references instrument.id
+    added TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    position INTEGER NOT NULL DEFAULT 0 CHECK (position >= 0),
+    comment TEXT DEFAULT '' NOT NULL
 );
 
 CREATE TABLE editor_collection_label (
     collection INTEGER NOT NULL, -- PK, references editor_collection.id
-    label INTEGER NOT NULL -- PK, references label.id
+    label INTEGER NOT NULL, -- PK, references label.id
+    added TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    position INTEGER NOT NULL DEFAULT 0 CHECK (position >= 0),
+    comment TEXT DEFAULT '' NOT NULL
 );
 
 CREATE TABLE editor_collection_place (
     collection INTEGER NOT NULL, -- PK, references editor_collection.id
-    place INTEGER NOT NULL -- PK, references place.id
+    place INTEGER NOT NULL, -- PK, references place.id
+    added TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    position INTEGER NOT NULL DEFAULT 0 CHECK (position >= 0),
+    comment TEXT DEFAULT '' NOT NULL
 );
 
 CREATE TABLE editor_collection_recording (
     collection INTEGER NOT NULL, -- PK, references editor_collection.id
-    recording INTEGER NOT NULL -- PK, references recording.id
+    recording INTEGER NOT NULL, -- PK, references recording.id
+    added TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    position INTEGER NOT NULL DEFAULT 0 CHECK (position >= 0),
+    comment TEXT DEFAULT '' NOT NULL
 );
 
 CREATE TABLE editor_collection_release (
     collection INTEGER NOT NULL, -- PK, references editor_collection.id
-    release INTEGER NOT NULL -- PK, references release.id
+    release INTEGER NOT NULL, -- PK, references release.id
+    added TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    position INTEGER NOT NULL DEFAULT 0 CHECK (position >= 0),
+    comment TEXT DEFAULT '' NOT NULL
 );
 
 CREATE TABLE editor_collection_release_group (
     collection INTEGER NOT NULL, -- PK, references editor_collection.id
-    release_group INTEGER NOT NULL -- PK, references release_group.id
+    release_group INTEGER NOT NULL, -- PK, references release_group.id
+    added TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    position INTEGER NOT NULL DEFAULT 0 CHECK (position >= 0),
+    comment TEXT DEFAULT '' NOT NULL
 );
 
 CREATE TABLE editor_collection_series (
     collection INTEGER NOT NULL, -- PK, references editor_collection.id
-    series INTEGER NOT NULL -- PK, references series.id
+    series INTEGER NOT NULL, -- PK, references series.id
+    added TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    position INTEGER NOT NULL DEFAULT 0 CHECK (position >= 0),
+    comment TEXT DEFAULT '' NOT NULL
 );
 
 CREATE TABLE editor_collection_work (
     collection INTEGER NOT NULL, -- PK, references editor_collection.id
-    work INTEGER NOT NULL -- PK, references work.id
+    work INTEGER NOT NULL, -- PK, references work.id
+    added TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    position INTEGER NOT NULL DEFAULT 0 CHECK (position >= 0),
+    comment TEXT DEFAULT '' NOT NULL
 );
 
 CREATE TABLE editor_collection_deleted_entity (
     collection INTEGER NOT NULL, -- PK, references editor_collection.id
-    gid UUID NOT NULL -- PK, references deleted_entity.gid
+    gid UUID NOT NULL, -- PK, references deleted_entity.gid
+    added TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    position INTEGER NOT NULL DEFAULT 0 CHECK (position >= 0),
+    comment TEXT DEFAULT '' NOT NULL
 );
 
 CREATE TABLE editor_oauth_token
