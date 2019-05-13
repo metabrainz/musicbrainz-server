@@ -35,6 +35,7 @@ msgid "Baltic psalteries"
 msgstr ""
 
 #: DB:instrument/name:457
+msgctxt "Double headed hourglass Nigerian drums"
 msgid "Batá drum"
 msgstr ""
 
@@ -44,7 +45,7 @@ msgid "Blaster Beam"
 msgstr ""
 
 #: DB:instrument/name:794
-msgctxt "an electric piano with reeds"
+msgctxt "electric piano with reeds"
 msgid "Cembalet"
 msgstr ""
 
@@ -353,6 +354,11 @@ msgctxt "uses analogue circuits to produce sound"
 msgid "analog synthesizer"
 msgstr ""
 
+#: DB:instrument/name:371
+msgctxt "single pitch bamboo rattle xylophone"
+msgid "angklung"
+msgstr ""
+
 #: DB:instrument/name:373
 msgid "ankle rattlers"
 msgstr ""
@@ -423,10 +429,6 @@ msgstr ""
 
 #: DB:instrument/name:67
 msgid "balalaika"
-msgstr ""
-
-#: DB:instrument/name:371
-msgid "bamboo angklung"
 msgstr ""
 
 #: DB:instrument/name:193
@@ -834,7 +836,7 @@ msgid "chamber organ"
 msgstr ""
 
 #: DB:instrument/name:260
-msgctxt "An electromechanical piano"
+msgctxt "electromechanical piano"
 msgid "chamberlin"
 msgstr ""
 
@@ -2570,6 +2572,10 @@ msgstr ""
 msgid "piano accordion"
 msgstr ""
 
+#: DB:instrument/name:965
+msgid "piano quartet"
+msgstr ""
+
 #: DB:instrument/name:798
 msgctxt "small drop action piano"
 msgid "piano spinet"
@@ -2863,6 +2869,11 @@ msgstr ""
 
 #: DB:instrument/name:804
 msgid "saduk"
+msgstr ""
+
+#: DB:instrument/name:966
+msgctxt "West Sumatran end-blown flute."
+msgid "saluang"
 msgstr ""
 
 #: DB:instrument/name:583
