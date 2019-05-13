@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2019-04-10 17:09+0000\n"
+"PO-Revision-Date: 2019-05-13 10:44+0000\n"
 "Last-Translator: yvanz\n"
 "Language-Team: Estonian (http://www.transifex.com/musicbrainz/musicbrainz/language/et/)\n"
 "MIME-Version: 1.0\n"
@@ -14,6 +14,25 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: et\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. name:unspecified drum
+#: DB:instrument/description:933
+msgid ""
+"\"Drum\" or \"drums\" is a common but generic credit can refer to multiple "
+"instruments. If you know which instrument this is, please select the "
+"specific instrument: <ul> <li> For the instrument commonly known as "
+"\"drums\", and often used in Western popular music, use <a "
+"href=\"/instrument/12092505-6ee1-46af-a15a-b5b468b6b155\">drums (drum "
+"set)</a>. </li> <li> For programmed or \"drum-loops\" use <a "
+"href=\"/instrument/ce0eed13-58d8-4744-8ad0-b7d6182a2d0f\">drum machine</a>. "
+"</li> <li> For specific drums not yet in MusicBrainz, use <a "
+"href=\"/instrument/3bccb7eb-cbca-42cd-b0ac-a5e959df7221\">membranophone</a> "
+"(or <a href=\"/instrument/1a03e9a1-f81f-40ce-9d57-65d6c1b9dcb3\">slit "
+"drum</a>, if appropriate) and consider <a "
+"href=\"/doc/How_to_Add_Instruments\">requesting the missing instrument</a>. "
+"</li> </ul> If you can't find more information than the generic \"drum\" or "
+"\"drums\" credit, use this instrument."
+msgstr ""
 
 #. name:chitra veena
 #: DB:instrument/description:744
@@ -23,11 +42,6 @@ msgid ""
 " out gourd, it has 6 main, 3 drone and 11-12 sympathetic strings with a "
 "sliding block of hardwood to vary pitch much like the North Indian vichitra "
 "veena and the Hawaiian guitar."
-msgstr ""
-
-#. name:Batá drum
-#: DB:instrument/description:457
-msgid "A Batá drum is a double-headed drum originating from Nigeria."
 msgstr ""
 
 #. name:dulce melos
@@ -454,18 +468,6 @@ msgstr ""
 msgid "Any kind of instrument with membranes, usually variously sized drums."
 msgstr ""
 
-#. name:unspecified drum
-#: DB:instrument/description:933
-msgid ""
-"Any kind of unspecified percussion with membranes, variously sized drums. "
-"For the instrument commonly known as \"drums\" use <a "
-"href=\"https://musicbrainz.org/instrument/12092505-6ee1-46af-a15a-"
-"b5b468b6b155\">drums (drum set)</a>. For programmed or \"drum-loops\" use <a"
-" "
-"href=\"https://musicbrainz.org/instrument/ce0eed13-58d8-4744-8ad0-b7d6182a2d0f\">drum"
-" machine</a>."
-msgstr ""
-
 #. name:flumpet
 #: DB:instrument/description:742
 msgid ""
@@ -639,7 +641,7 @@ msgstr ""
 msgid ""
 "Consisting of tuned metal bars, slates or keys struck with mallets and "
 "arranged (often on resonators of sonorous material) in various scales. "
-"Compare <a href=\"https://musicbrainz.org/instrument/db95a035-6a3d-"
+"Compare <a href=\"/instrument/db95a035-6a3d-"
 "44b4-8694-74ff71b61768\">xylophone</a> for the wooden bar equivalent."
 msgstr ""
 
@@ -732,11 +734,11 @@ msgstr ""
 #: DB:instrument/description:59
 msgid ""
 "Developed in the 16th century, these violas da braccio are distinct from the"
-" violas da gamba family. Modern members are * Violin (little viola) * Viola "
-"* Violoncello (small big viola) * Double Bass (replacing the violone (big "
-"viola)) Past members include the violone (now a considered a viol) and bass "
-"viol (a forerunner to the violoncello) Occasionally Octobass is included as "
-"a member."
+" violas da gamba family. </br> Modern members are: <ul> <li> Violin (little "
+"viola) </li> <li> Viola </li> <li> Violoncello (small big viola) </li> <li> "
+"Double Bass (replacing the violone (big viola)) </li></ul> Past members "
+"include the violone (now a considered a viol) and bass viol (a forerunner to"
+" the violoncello). Occasionally Octobass is also included as a member."
 msgstr ""
 
 #. name:trikiti
@@ -1020,10 +1022,10 @@ msgstr ""
 #: DB:instrument/description:956
 msgid ""
 "Important in Yue, Kunkqu and Peking opera, it consists of the drum <a "
-"href=\"https://musicbrainz.org/instrument/42349583-c10d-"
-"4c6e-b553-28d916113856\">bangu</a> and the clapper <a "
-"href=\"https://beta.musicbrainz.org/instrument/c641bccc-2060-4871-9c12-e2df2523e53c\">paiban</a>."
-" Drum is played by one hand and clapper with the other."
+"href=\"/instrument/42349583-c10d-4c6e-b553-28d916113856\">bangu</a> and the "
+"clapper <a "
+"href=\"/instrument/c641bccc-2060-4871-9c12-e2df2523e53c\">paiban</a>. Drum "
+"is played by one hand and clapper with the other."
 msgstr ""
 
 #. name:morin khuur
@@ -1103,8 +1105,7 @@ msgstr ""
 #: DB:instrument/description:964
 msgid ""
 "It has seven bossed keys hit with the tabuh mallet and is nailed to a wooden"
-" frame. Largely replaced by the <a "
-"href=\"https://musicbrainz.org/instrument/73173277-b7ef-4d5e-"
+" frame. Largely replaced by the <a href=\"/instrument/73173277-b7ef-4d5e-"
 "83b2-205cd2f12488\">slethem</a> in gamelan, it is the lowest member of the "
 "saron family."
 msgstr ""
@@ -1513,7 +1514,7 @@ msgstr ""
 #: DB:instrument/description:141
 msgid ""
 "Other instruments. If you can't find an instrument, please <a "
-"href=\"https://musicbrainz.org/doc/How_to_Add_Instruments\">request it</a>."
+"href=\"/doc/How_to_Add_Instruments\">request it</a>."
 msgstr ""
 
 #. name:castanets
@@ -1604,11 +1605,11 @@ msgstr ""
 #: DB:instrument/description:899
 msgid ""
 "Please use <a "
-"href=\"https://musicbrainz.org/instrument/be34e4e5-6e77-46f5-ab56-c9641d3da213\">Viola"
-" da Gamba</a> with credit \"viol\" for generic / unspecified viol credits, "
-"and not this one. Developed in the 15th century from vihuelists starting to "
-"play with bows, viols have frets, flat backs, sloped shoulders, c-holes and "
-"are tuned in fourths."
+"href=\"/instrument/be34e4e5-6e77-46f5-ab56-c9641d3da213\">Viola da Gamba</a>"
+" with credit \"viol\" for generic / unspecified viol credits, and not this "
+"one. Developed in the 15th century from vihuelists starting to play with "
+"bows, viols have frets, flat backs, sloped shoulders, c-holes and are tuned "
+"in fourths."
 msgstr ""
 
 #. name:plucked idiophone
@@ -1652,6 +1653,14 @@ msgid ""
 "Predecessor of the modern classical guitar, it had gut strings and even gut "
 "frets. First described in 1555, it surpassed the Renaissance lute's "
 "popularity."
+msgstr ""
+
+#. name:Batá drum
+#: DB:instrument/description:457
+msgid ""
+"Primarily in the religious rituals of the Yoruba and diaspora, these "
+"hourglass shaped drums have membranes on each end. Their names are largest "
+"to least: Iyá, Itótele, Okónkolo."
 msgstr ""
 
 #. name:pí thiu
@@ -3932,12 +3941,31 @@ msgid ""
 "trapezoid."
 msgstr ""
 
+#. name:saluang
+#: DB:instrument/description:966
+msgid ""
+"Used traditionally by the Minang people of West Sumatra for love songs, in "
+"shamanic rites and for capturing tigers, this open end-blown bamboo flute "
+"can be decorated to resemble tiger-stripes. Played with a circular breathing"
+" technique, it is 75 cm long with 3 to 6 holes depending on subtype. </br> "
+"<ul> <li>saluang darek \"inland\" 4 holes</li> <li>saluang pauh/padang 6 "
+"holes</li> <li>saluang sungai pagu 3 holes</li> </ul>"
+msgstr ""
+
 #. name:tanpura
 #: DB:instrument/description:829
 msgid ""
 "Usually accompanying sitar on ragas, the fretless instrument comes in "
 "different sizes: largest; male-voice, smaller; female-voice and smallest; "
 "the instrument-accompanying \"tanpuri\""
+msgstr ""
+
+#. name:angklung
+#: DB:instrument/description:371
+msgid ""
+"Usually consisting of 2-3 carved bamboo tubes suspended in a wooden or "
+"bamboo frame that is shook. It has been in use since ancient times by "
+"Sundanese peoples."
 msgstr ""
 
 #. name:valved brass instruments
@@ -4101,12 +4129,6 @@ msgid ""
 "and a more guitar shaped body."
 msgstr ""
 
-#. name:Cembalet
-#: DB:instrument/description:794
-msgid ""
-"an electromechanical piano with stainless steel reeds and amplified pick-up"
-msgstr ""
-
 #. name:jug
 #: DB:instrument/description:505
 msgid ""
@@ -4204,6 +4226,14 @@ msgid ""
 "do not confuse with: Serb-Croat \"tamburica\" ensemble. Persian/Turkish "
 "ancient things evolved/came from \"tanbur\". unrelated Indian drone "
 "\"tanpura\" related Indian \"pandour\""
+msgstr ""
+
+#. name:Cembalet
+#: DB:instrument/description:794
+msgid ""
+"electromechanical piano with stainless steel reeds and an amplified pick-up."
+" not to be confused with \"cembalo\" which is another name for <a "
+"href=\"/instrument/bfe379dc-1d65-4862-acd8-60d53bb963a2\">Harpsichord</a>"
 msgstr ""
 
 #. name:tubon
