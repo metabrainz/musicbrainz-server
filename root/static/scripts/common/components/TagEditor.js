@@ -447,7 +447,7 @@ class TagEditor extends React.Component<TagEditorProps, TagEditorState> {
   }
 }
 
-export const MainTagEditor = hydrate<TagEditorProps>('all-tags', class extends TagEditor {
+export const MainTagEditor = hydrate<TagEditorProps>('div.all-tags', class extends TagEditor {
   hideNegativeTags(event: SyntheticEvent<HTMLAnchorElement>) {
     event.preventDefault();
     this.setState({positiveTagsOnly: true});
@@ -546,7 +546,7 @@ export const MainTagEditor = hydrate<TagEditorProps>('all-tags', class extends T
   }
 }, minimalEntity);
 
-export const SidebarTagEditor = hydrate<TagEditorProps>('sidebar-tags', class extends TagEditor {
+export const SidebarTagEditor = hydrate<TagEditorProps>('div.sidebar-tags', class extends TagEditor {
   render() {
     const tagRows = this.createTagRows();
     return (

@@ -12,7 +12,7 @@ import type {Node as ReactNode} from 'react';
 
 import Layout from '../layout';
 import ReleaseSidebar from '../layout/components/sidebar/ReleaseSidebar';
-import {artistCreditFromArray, reduceArtistCredit} from '../static/scripts/common/immutable-entities';
+import {reduceArtistCredit} from '../static/scripts/common/immutable-entities';
 
 import ReleaseHeader from './ReleaseHeader';
 
@@ -32,9 +32,7 @@ const ReleaseLayout = ({
   title,
 }: Props) => {
   const mainTitle = texp.l('Release “{name}” by {artist}', {
-    artist: reduceArtistCredit(
-      artistCreditFromArray(release.artistCredit),
-    ),
+    artist: reduceArtistCredit(release.artistCredit),
     name: release.name,
   });
   return (

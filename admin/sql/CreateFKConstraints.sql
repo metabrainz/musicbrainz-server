@@ -566,6 +566,16 @@ ALTER TABLE editor_collection_artist
    FOREIGN KEY (artist)
    REFERENCES artist(id);
 
+ALTER TABLE editor_collection_collaborator
+   ADD CONSTRAINT editor_collection_collaborator_fk_collection
+   FOREIGN KEY (collection)
+   REFERENCES editor_collection(id);
+
+ALTER TABLE editor_collection_collaborator
+   ADD CONSTRAINT editor_collection_collaborator_fk_editor
+   FOREIGN KEY (editor)
+   REFERENCES editor(id);
+
 ALTER TABLE editor_collection_deleted_entity
    ADD CONSTRAINT editor_collection_deleted_entity_fk_collection
    FOREIGN KEY (collection)
@@ -956,6 +966,11 @@ ALTER TABLE gender
    ADD CONSTRAINT gender_fk_parent
    FOREIGN KEY (parent)
    REFERENCES gender(id);
+
+ALTER TABLE genre_alias
+   ADD CONSTRAINT genre_alias_fk_genre
+   FOREIGN KEY (genre)
+   REFERENCES genre(id);
 
 ALTER TABLE instrument
    ADD CONSTRAINT instrument_fk_type

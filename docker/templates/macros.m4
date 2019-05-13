@@ -5,7 +5,7 @@ m4_define(
     `m4_dnl
 apt-get update && ( \
     apt-get install --no-install-suggests --no-install-recommends -y $1 || ( \
-        apt-key adv --keyserver hkps.pool.sks-keyservers.net --refresh-keys && \
+        apt-key adv --keyserver keyserver.ubuntu.com --refresh-keys && \
         apt-get install --no-install-suggests --no-install-recommends -y $1 ) ) && \
     rm -rf /var/lib/apt/lists/*')
 
@@ -133,7 +133,6 @@ m4_define(
 copy_mb(``admin/ admin/'')
 copy_mb(``app.psgi entities.json ./'')
 copy_mb(``bin/ bin/'')
-copy_mb(``docker/scripts/mbs_constants.sh /etc/'')
 copy_mb(``docker/scripts/consul-template-dedup-prefix /usr/local/bin/'')
 copy_mb(``lib/ lib/'')
 copy_mb(``script/functions.sh script/git_info script/'')')

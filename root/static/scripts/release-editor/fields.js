@@ -9,7 +9,6 @@ import _ from 'lodash';
 import MB_entity from '../common/entity';
 import releaseLabelKey from '../common/utility/releaseLabelKey';
 import {
-  artistCreditFromArray,
   artistCreditsAreEqual,
   hasVariousArtists,
   isCompleteArtistCredit,
@@ -61,7 +60,7 @@ class Track {
             data.artistCredit = release.artistCredit.peek();
         }
 
-        this.artistCredit = ko.observable(artistCreditFromArray(data.artistCredit || []));
+        this.artistCredit = ko.observable(data.artistCredit ? _.cloneDeep(data.artistCredit) : {names: []});
         this.artistCredit.track = this;
 
         this.formattedLength = ko.observable(formatTrackLength(data.length, ''));
@@ -763,7 +762,7 @@ class Release extends MB_entity.Release {
             self.needsName(!newName);
         });
 
-        this.artistCredit = ko.observable(artistCreditFromArray(data.artistCredit || []));
+        this.artistCredit = ko.observable(data.artistCredit ? _.cloneDeep(data.artistCredit) : {names: []});
         this.artistCredit.saved = this.artistCredit.peek();
 
         this.needsArtistCredit = errorField(function () {
@@ -831,7 +830,7 @@ class Release extends MB_entity.Release {
 
         this.releaseGroup.subscribe(function (releaseGroup) {
             if (releaseGroup.artistCredit && !reduceArtistCredit(self.artistCredit())) {
-                self.artistCredit(artistCreditFromArray(releaseGroup.artistCredit));
+                self.artistCredit(_.cloneDeep(releaseGroup.artistCredit));
             }
         });
 

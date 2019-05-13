@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="http://localhost:5000" />
+<title>MBS-5387</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">MBS-5387</td></tr>
+</thead><tbody>
+<tr>
+	<td>open</td>
+	<td>/artist/b7ffd2af-418f-4be2-bdd1-22f8b48613da/aliases</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertEval</td>
+	<td>document.querySelector('table.tbl.artist-credits td:first-child &gt; span.mp')</td>
+	<td>null</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>xpath=//table[@class='tbl artist-credits']//tr[contains(descendant::text(), 'Nine Inch Nails')]//a[contains(text(), 'Edit')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=button.open-ac</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>xpath=//div[@id='artist-credit-bubble']//input[contains(@id, 'credited-as')]</td>
+	<td>nin</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=button.submit.positive</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertEval</td>
+	<td>document.querySelector('table.tbl.artist-credits td:first-child &gt; span.mp &gt; span.ac-mp') != null</td>
+	<td>true</td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>

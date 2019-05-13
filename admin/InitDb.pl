@@ -265,6 +265,7 @@ sub CreateRelations
             musicbrainz
             cover_art_archive
             documentation
+            event_art_archive
             json_dump
             report
             sitemaps
@@ -276,10 +277,11 @@ sub CreateRelations
     RunSQLScript($SYSMB, "Extensions.sql", "Installing extensions");
 
     RunSQLScript($DB, "CreateTables.sql", "Creating tables ...");
-    RunSQLScript($DB, "caa/CreateTables.sql", "Creating tables ...");
+    RunSQLScript($DB, "caa/CreateTables.sql", "Creating CAA tables ...");
+    RunSQLScript($DB, "eaa/CreateTables.sql", "Creating EAA tables ...");
     RunSQLScript($DB, "documentation/CreateTables.sql", "Creating documentation tables ...");
     RunSQLScript($DB, "json_dump/CreateTables.sql", "Creating json_dump tables ...");
-    RunSQLScript($DB, "report/CreateTables.sql", "Creating tables ...");
+    RunSQLScript($DB, "report/CreateTables.sql", "Creating report tables ...");
     RunSQLScript($DB, "sitemaps/CreateTables.sql", "Creating sitemaps tables ...");
     RunSQLScript($DB, "statistics/CreateTables.sql", "Creating statistics tables ...");
     RunSQLScript($DB, "wikidocs/CreateTables.sql", "Creating wikidocs tables ...");
@@ -300,15 +302,18 @@ sub CreateRelations
     RunSQLScript($DB, "CreatePrimaryKeys.sql", "Creating primary keys ...");
     RunSQLScript($DB, "caa/CreatePrimaryKeys.sql", "Creating CAA primary keys ...");
     RunSQLScript($DB, "documentation/CreatePrimaryKeys.sql", "Creating documentation primary keys ...");
+    RunSQLScript($DB, "eaa/CreatePrimaryKeys.sql", "Creating EAA primary keys ...");
     RunSQLScript($DB, "statistics/CreatePrimaryKeys.sql", "Creating statistics primary keys ...");
     RunSQLScript($DB, "wikidocs/CreatePrimaryKeys.sql", "Creating wikidocs primary keys ...");
 
     RunSQLScript($SYSMB, "CreateSearchConfiguration.sql", "Creating search configuration ...");
     RunSQLScript($DB, "CreateFunctions.sql", "Creating functions ...");
     RunSQLScript($DB, "caa/CreateFunctions.sql", "Creating CAA functions ...");
+    RunSQLScript($DB, "eaa/CreateFunctions.sql", "Creating EAA functions ...");
 
     RunSQLScript($DB, "CreateIndexes.sql", "Creating indexes ...");
     RunSQLScript($DB, "caa/CreateIndexes.sql", "Creating CAA indexes ...");
+    RunSQLScript($DB, "eaa/CreateIndexes.sql", "Creating EAA indexes ...");
     RunSQLScript($DB, "json_dump/CreateIndexes.sql", "Creating json_dump indexes ...");
     RunSQLScript($DB, "sitemaps/CreateIndexes.sql", "Creating sitemaps indexes ...");
     RunSQLScript($DB, "statistics/CreateIndexes.sql", "Creating statistics indexes ...");
@@ -322,7 +327,13 @@ sub CreateRelations
     RunSQLScript($DB, "caa/CreateFKConstraints.sql", "Adding CAA foreign key constraints ...")
         unless $REPTYPE == RT_SLAVE;
 
+    RunSQLScript($DB, "eaa/CreateFKConstraints.sql", "Adding EAA foreign key constraints ...")
+        unless $REPTYPE == RT_SLAVE;
+
     RunSQLScript($DB, "caa/CreateEditFKConstraints.sql", "Adding CAA foreign key constraint to edit table...")
+        unless ($REPTYPE == RT_SLAVE || !HasEditData());
+
+    RunSQLScript($DB, "eaa/CreateEditFKConstraints.sql", "Adding EAA foreign key constraint to edit table...")
         unless ($REPTYPE == RT_SLAVE || !HasEditData());
 
     RunSQLScript($DB, "sitemaps/CreateFKConstraints.sql", "Adding sitemaps foreign key constraints ...")
@@ -336,11 +347,15 @@ sub CreateRelations
 
     RunSQLScript($DB, "CreateViews.sql", "Creating views ...");
     RunSQLScript($DB, "caa/CreateViews.sql", "Creating CAA views ...");
+    RunSQLScript($DB, "eaa/CreateViews.sql", "Creating EAA views ...");
 
     RunSQLScript($DB, "CreateTriggers.sql", "Creating triggers ...")
         unless $REPTYPE == RT_SLAVE;
 
     RunSQLScript($DB, "caa/CreateTriggers.sql", "Creating CAA triggers ...")
+        unless $REPTYPE == RT_SLAVE;
+
+    RunSQLScript($DB, "eaa/CreateTriggers.sql", "Creating EAA triggers ...")
         unless $REPTYPE == RT_SLAVE;
 
     RunSQLScript($DB, "CreateSearchIndexes.sql", "Creating search indexes ...");
@@ -351,6 +366,7 @@ sub CreateRelations
         RunSQLScript($DB, "CreateReplicationTriggers.sql", "Creating replication triggers ...");
         RunSQLScript($DB, "caa/CreateReplicationTriggers.sql", "Creating CAA replication triggers ...");
         RunSQLScript($DB, "documentation/CreateReplicationTriggers.sql", "Creating documentation replication triggers ...");
+        RunSQLScript($DB, "eaa/CreateReplicationTriggers.sql", "Creating EAA replication triggers ...");
         RunSQLScript($DB, "statistics/CreateReplicationTriggers.sql", "Creating statistics replication triggers ...");
         RunSQLScript($DB, "wikidocs/CreateReplicationTriggers.sql", "Creating wikidocs replication triggers ...");
     }

@@ -13,7 +13,6 @@ import EntityHeader from '../components/EntityHeader';
 import ArtistCreditLink from '../static/scripts/common/components/ArtistCreditLink';
 import EntityLink from '../static/scripts/common/components/EntityLink';
 import TaggerIcon from '../static/scripts/common/components/TaggerIcon';
-import {artistCreditFromArray} from '../static/scripts/common/immutable-entities';
 import bracketed from '../static/scripts/common/utility/bracketed';
 
 type Props = {|
@@ -22,11 +21,6 @@ type Props = {|
 |};
 
 const ReleaseHeader = ({release, page}: Props) => {
-  const artistCredit = (
-    <ArtistCreditLink
-      artistCredit={artistCreditFromArray(release.artistCredit)}
-    />
-  );
   const rgLink = release.releaseGroup
     ? texp.ln(
       'see all versions of this release, {count} available',
@@ -36,7 +30,9 @@ const ReleaseHeader = ({release, page}: Props) => {
     ) : null;
   const subHeading = (
     <>
-      {exp.l('Release by {artist}', {artist: artistCredit})}
+      {exp.l('Release by {artist}', {
+        artist: <ArtistCreditLink artistCredit={release.artistCredit} />,
+      })}
       {' '}
       {release.releaseGroup ? (
         <span className="small">

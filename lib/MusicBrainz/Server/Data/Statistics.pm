@@ -348,6 +348,10 @@ my %stats = (
             };
         },
     },
+    "count.genre" => {
+        DESC => "Count of all genres",
+        SQL => "SELECT COUNT(*) FROM genre",
+    },
     "count.instrument" => {
         DESC => "Count of all instruments",
         SQL => "SELECT COUNT(*) FROM instrument",

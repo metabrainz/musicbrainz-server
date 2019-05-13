@@ -43,6 +43,8 @@ SELECT setval('event_attribute_type_allowed_value_id_seq', COALESCE((SELECT MAX(
 SELECT setval('event_attribute_id_seq', COALESCE((SELECT MAX(id) FROM event_attribute), 0) + 1, FALSE);
 SELECT setval('event_type_id_seq', COALESCE((SELECT MAX(id) FROM event_type), 0) + 1, FALSE);
 SELECT setval('gender_id_seq', COALESCE((SELECT MAX(id) FROM gender), 0) + 1, FALSE);
+SELECT setval('genre_id_seq', COALESCE((SELECT MAX(id) FROM genre), 0) + 1, FALSE);
+SELECT setval('genre_alias_id_seq', COALESCE((SELECT MAX(id) FROM genre_alias), 0) + 1, FALSE);
 SELECT setval('instrument_type_id_seq', COALESCE((SELECT MAX(id) FROM instrument_type), 0) + 1, FALSE);
 SELECT setval('instrument_id_seq', COALESCE((SELECT MAX(id) FROM instrument), 0) + 1, FALSE);
 SELECT setval('instrument_alias_type_id_seq', COALESCE((SELECT MAX(id) FROM instrument_alias_type), 0) + 1, FALSE);

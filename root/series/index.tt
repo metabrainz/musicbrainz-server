@@ -15,36 +15,32 @@
       IF series.type.item_entity_type == 'event';
         '<h2>' _ l('Event') _ '</h2>';
         IF entities.size;
-          React.embed(c, 'components/EventsList', { events => entities, noType => 1, seriesItemNumbers => series_item_numbers})
+          React.embed(c, 'components/list/EventList', { events => entities, seriesItemNumbers => series_item_numbers, showArtists => 1, showLocation => 1, showRatings => 1 })
           WRAPPER 'components/with-pager.tt';
         END;
       ELSIF series.type.item_entity_type == 'recording';
         '<h2>' _ l('Recordings') _ '</h2>';
         IF entities.size;
-          INCLUDE 'components/recordings-list.tt'
-                  recordings=entities checkboxes='' show_artists=1
+          React.embed(c, 'components/list/RecordingList', { recordings => entities, showRatings => 1, seriesItemNumbers => series_item_numbers})
           WRAPPER 'components/with-pager.tt';
         END;
       ELSIF series.type.item_entity_type == 'release';
         '<h2>' _ l('Releases') _ '</h2>';
         IF entities.size;
-          INCLUDE 'components/releases-list.tt'
-                  releases=entities checkboxes='' show_artists=1
+          React.embed(c, 'components/list/ReleaseList', { releases => entities, seriesItemNumbers => series_item_numbers})
           WRAPPER 'components/with-pager.tt';
         END;
       ELSIF series.type.item_entity_type == 'release_group';
         '<h2>' _ l('Release Groups') _ '</h2>';
         IF entities.size;
-          INCLUDE 'components/release_groups-list.tt'
-                  release_groups=entities no_grouping=1 checkboxes=''
-                  show_artists=1
+          React.embed(c, 'components/list/ReleaseGroupList',
+                  { releaseGroups => entities, seriesItemNumbers = series_item_numbers, showRatings => 1  }) # TODO: On conversion to React, please check MBS-10155.
           WRAPPER 'components/with-pager.tt';
         END;
       ELSIF series.type.item_entity_type == 'work';
         '<h2>' _ l('Works') _ '</h2>';
         IF entities.size;
-          INCLUDE 'components/works-list.tt'
-                  works=entities checkboxes='' show_artists=1
+          React.embed(c, 'components/list/WorkList', { works => entities, seriesItemNumbers = series_item_numbers, showRatings => 1})
           WRAPPER 'components/with-pager.tt';
         END;
       END

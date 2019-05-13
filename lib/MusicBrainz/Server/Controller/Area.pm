@@ -105,6 +105,8 @@ sub artists : Chained('load')
     });
         $c->model('ArtistType')->load(@$artists);
         $c->model('Gender')->load(@$artists);
+        $c->model('Area')->load(@$artists);
+        $c->model('Area')->load_containment(map { $_->{area}, $_->{begin_area}, $_->{end_area} } @$artists);
     if ($c->user_exists) {
         $c->model('Artist')->rating->load_user_ratings($c->user->id, @$artists);
     }
@@ -209,6 +211,8 @@ sub places : Chained('load')
         $c->model('Place')->find_by_area($c->stash->{area}->id, shift, shift);
     });
     $c->model('PlaceType')->load(@$places);
+    $c->model('Area')->load(@$places);
+    $c->model('Area')->load_containment(map { $_->area } @$places);
     $c->stash(
         places => $places,
         map_data_args => $c->json->encode({
@@ -217,7 +221,7 @@ sub places : Chained('load')
                     my $json = $_->TO_JSON;
                     # These arguments aren't needed at all to render the map,
                     # and only increase the page size.
-                    delete @{$json}{qw(annotation area unaccented_name)};
+                    delete @{$json}{qw(annotation unaccented_name)};
                     $json;
                 } grep { $_->coordinates } @$places
             ],

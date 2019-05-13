@@ -15,10 +15,7 @@ import ArtistCreditList from '../components/Aliases/ArtistCreditList';
 
 type Props = {|
   +aliases: $ReadOnlyArray<AliasT>,
-  +artistCredits?: $ReadOnlyArray<{
-    +id: number,
-    +names: ArtistCreditT,
-  }>,
+  +artistCredits?: $ReadOnlyArray<{+id: number} & ArtistCreditT>,
   +entity: CoreEntityT,
 |};
 

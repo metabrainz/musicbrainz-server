@@ -28,6 +28,7 @@ const FormRowCheckbox = ({field, label, onChange}: Props) => (
         type="checkbox"
         value="1"
       />
+      {' '}
       {label}
     </label>
     <FieldErrors field={field} />

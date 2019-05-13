@@ -108,7 +108,12 @@ declare type ArtistCreditRoleT = {|
   +artistCredit: ArtistCreditT,
 |};
 
-declare type ArtistCreditT = $ReadOnlyArray<ArtistCreditNameT>;
+declare type ArtistCreditT = {|
+  +editsPending?: boolean,
+  +entityType?: 'artist_credit',
+  +id?: number,
+  +names: $ReadOnlyArray<ArtistCreditNameT>,
+|};
 
 declare type ArtistT = {|
   ...AnnotationRoleT,
@@ -235,6 +240,7 @@ declare type CollectionT = {|
   ...EntityRoleT<'collection'>,
   ...TypeRoleT<CollectionTypeT>,
   +description: string,
+  +description_html: string,
   +entity_count: number,
   +editor: EditorT | null,
   +gid: string,
@@ -287,6 +293,7 @@ declare type CoreEntityT =
   | AreaT
   | ArtistT
   | EventT
+  | GenreT
   | InstrumentT
   | LabelT
   | PlaceT
@@ -301,6 +308,7 @@ declare type CoreEntityTypeT =
   | 'area'
   | 'artist'
   | 'event'
+  | 'genre'
   | 'instrument'
   | 'label'
   | 'place'
@@ -478,6 +486,11 @@ declare type FormT<+F> = {|
 
 declare type GenderT = OptionTreeT<'gender'>;
 
+declare type GenreT = {|
+  ...CommentRoleT,
+  ...CoreEntityRoleT<'genre'>,
+|};
+
 /*
  * See MusicBrainz::Server::Form::Utils::build_grouped_options
  * FIXME(michael): Figure out a way to consolidate GroupedOptionsT,
@@ -487,6 +500,10 @@ declare type GroupedOptionsT = $ReadOnlyArray<{|
   +optgroup: string,
   +options: SelectOptionsT,
 |}>;
+
+declare type InstrumentCreditsRoleT = {|
+  +instrumentCredits?: {+[string]: string},
+|};
 
 declare type InstrumentT = {|
   ...AnnotationRoleT,
@@ -769,6 +786,7 @@ declare type ReleaseEventT = {|
 declare type ReleaseLabelT = {|
   +catalogNumber: string | null,
   +label: LabelT | null,
+  +label_id: number,
 |};
 
 declare type ReleaseStatusT = OptionTreeT<'release_status'>;
@@ -853,6 +871,10 @@ declare type SeriesT = {|
   ...CoreEntityRoleT<'series'>,
   ...TypeRoleT<SeriesTypeT>,
   +orderingTypeID: number,
+|};
+
+declare type SeriesItemNumbersRoleT = {|
+  +seriesItemNumbers?: {+[number]: string}
 |};
 
 declare type SeriesOrderingTypeT = OptionTreeT<'series_ordering_type'>;

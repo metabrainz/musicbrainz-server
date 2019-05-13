@@ -20,7 +20,7 @@ type Props = {|
 const UrlHeader = ({url, page}: Props) => (
   <EntityHeader
     entity={url}
-    headerClass="workheader"
+    headerClass="urlheader"
     heading={
       <EntityLink content={url.decoded} entity={url} />
     }
