@@ -5,6 +5,25 @@ BEGIN { extends 'MusicBrainz::Server::Controller' }
 
 use List::UtilsBy qw( sort_by );
 
+with 'MusicBrainz::Server::Controller::Role::Load' => {
+    model           => 'Genre',
+    entity_name     => 'genre',
+};
+with 'MusicBrainz::Server::Controller::Role::LoadWithRowID';
+with 'MusicBrainz::Server::Controller::Role::Details';
+
+sub base : Chained('/') PathPart('genre') CaptureArgs(0) { }
+
+sub show : PathPart('') Chained('load') {
+    my ($self, $c) = @_;
+
+    $c->stash(
+        component_path => 'genre/GenreIndex',
+        component_props => {genre => $c->stash->{genre}},
+        current_view => 'Node',
+    );
+}
+
 sub list : Path('/genres') Args(0) {
     my ($self, $c) = @_;
 

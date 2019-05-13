@@ -57,6 +57,7 @@ function showEditTab(
       return user ? user.is_location_editor : false;
     case 'artist':
       return !isSpecialPurposeArtist(entity);
+    case 'genre':
     case 'instrument':
       return user ? user.is_relationship_editor : false;
     default:

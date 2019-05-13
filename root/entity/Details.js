@@ -86,17 +86,20 @@ const Details = ({
             <a href={canonicalLink}>{canonicalLink}</a>
           </td>
         </tr>
-        <tr>
-          <th>{l('XML:')}</th>
-          <td>
-            <XMLLink
-              entityGid={entity.gid}
-              entityProperties={entityProperties}
-              entityType={entityType}
-              isSecureConnection={$c.req.secure}
-            />
-          </td>
-        </tr>
+        {/* TODO: remove conditon once genres have WS pages (MBS-10166) */}
+        {entityType === 'genre' ? null : (
+          <tr>
+            <th>{l('XML:')}</th>
+            <td>
+              <XMLLink
+                entityGid={entity.gid}
+                entityProperties={entityProperties}
+                entityType={entityType}
+                isSecureConnection={$c.req.secure}
+              />
+            </td>
+          </tr>
+        )}
         {entityType === 'recording' ? (
           <tr>
             <th>{l('AcousticBrainz entry:')}</th>
