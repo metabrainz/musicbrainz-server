@@ -9,9 +9,8 @@
 
 import * as React from 'react';
 
-import EntityLink from '../../static/scripts/common/components/EntityLink';
-import expand2react from '../../static/scripts/common/i18n/expand2react';
-import loopParity from '../../utility/loopParity';
+import InstrumentListEntry
+  from '../../static/scripts/common/components/InstrumentListEntry';
 import type {ResultsPropsT} from '../types';
 
 import PaginatedSearchResults from './PaginatedSearchResults';
@@ -22,20 +21,12 @@ function buildResult(result, index) {
   const score = result.score;
 
   return (
-    <tr className={loopParity(index)} data-score={score} key={instrument.id}>
-      <td>
-        <EntityLink entity={instrument} />
-      </td>
-      <td>
-        {instrument.typeName
-          ? lp_attributes(instrument.typeName, 'instrument_type') : null}
-      </td>
-      <td>
-        {instrument.description
-          ? expand2react(l_instrument_descriptions(instrument.description))
-          : null}
-      </td>
-    </tr>
+    <InstrumentListEntry
+      index={index}
+      instrument={instrument}
+      key={instrument.id}
+      score={score}
+    />
   );
 }
 

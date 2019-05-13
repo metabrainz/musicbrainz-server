@@ -119,7 +119,9 @@ utils.cleanWebServiceData = function (data) {
     if (data["sort-name"]) clean.sort_name = data["sort-name"];
 
     if (data["artist-credit"]) {
-        clean.artistCredit = _.map(data["artist-credit"], cleanArtistCreditName);
+        clean.artistCredit = {
+            names: _.map(data["artist-credit"], cleanArtistCreditName),
+        };
     }
 
     if (data.disambiguation) {

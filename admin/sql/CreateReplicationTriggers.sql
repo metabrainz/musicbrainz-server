@@ -191,6 +191,14 @@ CREATE TRIGGER "reptg_gender"
 AFTER INSERT OR DELETE OR UPDATE ON "gender"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ();
 
+CREATE TRIGGER "reptg_genre"
+AFTER INSERT OR DELETE OR UPDATE ON "genre"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
+
+CREATE TRIGGER "reptg_genre_alias"
+AFTER INSERT OR DELETE OR UPDATE ON "genre_alias"
+FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');
+
 CREATE TRIGGER "reptg_instrument"
 AFTER INSERT OR DELETE OR UPDATE ON "instrument"
 FOR EACH ROW EXECUTE PROCEDURE "recordchange" ('verbose');

@@ -515,8 +515,11 @@ sub _seeded_artist_credit
 
     _report_unknown_fields($field_name, $params, $errors, 'names');
 
-    return _seeded_array($c, \&_seeded_artist_credit_name, $params->{names},
-            "$field_name.names", $errors);
+    return {
+        names => _seeded_array(
+            $c, \&_seeded_artist_credit_name, $params->{names},
+            "$field_name.names", $errors),
+    };
 }
 
 sub _seeded_artist_credit_name
@@ -528,9 +531,8 @@ sub _seeded_artist_credit_name
 
     my $result = {};
 
-    if (my $name = _seeded_string($params->{name}, "$field_name.name", $errors)) {
-        $result->{name} = trim($name);
-    }
+    my $name = _seeded_string($params->{name}, "$field_name.name", $errors);
+    $result->{name} = trim($name // '');
 
     if (my $gid = $params->{mbid}) {
         my $entity = $c->model('Artist')->get_by_gid($gid);
@@ -543,12 +545,12 @@ sub _seeded_artist_credit_name
         }
     }
 
-    if (my $join = _seeded_string($params->{join_phrase}, "$field_name.join_phrase", $errors)) {
-        $result->{joinPhrase} = sanitize($join);
-    }
+    my $join = _seeded_string($params->{join_phrase}, "$field_name.join_phrase", $errors);
+    $result->{joinPhrase} = sanitize($join // '');
 
     $result->{artist} //= _seeded_hash($c, \&_seeded_artist, $params->{artist},
         "$field_name.artist", $errors);
+    $result->{name} ||= ($result->{artist}{name} // '');
 
     return $result;
 }

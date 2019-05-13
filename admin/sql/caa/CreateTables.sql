@@ -26,7 +26,11 @@ CREATE TABLE cover_art ( -- replicate (verbose)
     ordering INTEGER NOT NULL CHECK (ordering > 0),
     date_uploaded TIMESTAMP WITH TIME ZONE DEFAULT now() NOT NULL,
     edits_pending INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
-    mime_type TEXT NOT NULL  -- references cover_art_archive.image_type.mime_type
+    mime_type TEXT NOT NULL, -- references cover_art_archive.image_type.mime_type
+    filesize INTEGER,
+    thumb_250_filesize INTEGER,
+    thumb_500_filesize INTEGER,
+    thumb_1200_filesize INTEGER
 );
 
 CREATE TABLE cover_art_type ( -- replicate (verbose)

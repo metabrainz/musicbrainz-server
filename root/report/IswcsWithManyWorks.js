@@ -87,8 +87,6 @@ const IswcsWithManyWorks = ({
                   <tr>
                     <td />
                     <WorkListRow
-                      hasIswcColumn={false}
-                      hasMergeColumn={false}
                       work={item.work}
                     />
                   </tr>

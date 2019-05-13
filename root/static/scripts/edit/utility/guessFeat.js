@@ -8,7 +8,6 @@ import balanced from 'balanced-match';
 import _ from 'lodash';
 
 import {MIN_NAME_SIMILARITY} from '../../common/constants';
-import {artistCreditFromArray} from '../../common/immutable-entities';
 import MB from '../../common/MB';
 import clean from '../../common/utility/clean';
 
@@ -184,13 +183,17 @@ export default function guessFeat(entity) {
 
     entity.name(match.name);
 
-    var artistCredit = entity.artistCredit().slice(0);
+    var artistCredit = entity.artistCredit().names.slice(0);
     _.last(artistCredit).joinPhrase = match.joinPhrase;
     _.last(match.artistCredit).joinPhrase = '';
 
-    entity.artistCredit(
-        artistCreditFromArray(artistCredit.concat(match.artistCredit))
-    );
+    for (let name of match.artistCredit) {
+        delete name.similarity;
+    }
+
+    entity.artistCredit({
+        names: artistCredit.concat(match.artistCredit),
+    });
 
     entity.artistCreditEditorInst && entity.artistCreditEditorInst.setState({
         artistCredit: entity.artistCredit.peek(),

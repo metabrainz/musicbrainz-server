@@ -132,6 +132,10 @@ const Index = ({
             <th>{l('Events:')}</th>
             <td colSpan="3">{formatCount($c, stats['count.event'])}</td>
           </tr>
+          <tr>
+            <th>{addColonText(l('Genres'))}</th>
+            <td colSpan="3">{formatCount($c, stats['count.genre'])}</td>
+          </tr>
         </tbody>
         <tbody>
           <tr className="thead">

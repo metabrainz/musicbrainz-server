@@ -46,11 +46,11 @@ const condSubstThenTextContent = /^[^<>{}|]+/;
 const percentSign = /(%)/;
 const linkSubstStart = /^\{([0-9A-z_]+)\|/;
 const htmlTagStart = /^<(?=[a-z])/;
-const htmlTagName = /^(a|abbr|b|br|code|em|li|span|strong|ul)(?=[\s\/>])/;
+const htmlTagName = /^(a|abbr|b|br|code|em|li|p|span|strong|ul)(?=[\s\/>])/;
 const htmlTagEnd = /^>/;
 const htmlSelfClosingTagEnd = /^\s*\/>/;
 const htmlAttrStart = /^\s+(?=[a-z])/;
-const htmlAttrName = /^(class|href|id|key|target|title)="/;
+const htmlAttrName = /^(class|href|id|key|rel|target|title)="/;
 const htmlAttrTextContent = /^[^{}"]+/;
 const hrefValueStart = /^(?:\/|https?:\/\/)/;
 

@@ -45,7 +45,7 @@ import request from '../../common/utility/request';
                 return {names: []};
             }
 
-            ac = _.map(ac, function (credit, index) {
+            const names = _.map(ac.names, function (credit, index) {
                 var artist = value(credit.artist) || {};
 
                 var name = {
@@ -63,7 +63,7 @@ import request from '../../common/utility/request';
                 name.join_phrase = joinPhrase.replace(/\s{2,}/g, " ");
 
                 // Trim trailing whitespace for the final join phrase only.
-                if (index === ac.length - 1) {
+                if (index === ac.names.length - 1) {
                     name.join_phrase = _.trimEnd(name.join_phrase);
                 }
 
@@ -71,7 +71,7 @@ import request from '../../common/utility/request';
 
                 return name;
             });
-            return { names: ac };
+            return {names};
         },
 
         externalLinkRelationship: function (link, source) {

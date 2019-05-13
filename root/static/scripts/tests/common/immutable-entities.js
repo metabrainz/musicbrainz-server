@@ -6,7 +6,6 @@
 import test from 'tape';
 
 import {
-  artistCreditFromArray,
   artistCreditsAreEqual,
   isComplexArtistCredit,
 } from '../../common/immutable-entities';
@@ -17,32 +16,36 @@ const crosby = {id: 99, gid: '2437980f-513a-44fc-80f1-b90d9d7fcf8f', name: 'bing
 test('isComplexArtistCredit', function (t) {
   t.plan(4);
 
-  let ac = artistCreditFromArray([{artist: bowie, name: 'david bowie'}]);
+  let ac = {names: [{artist: bowie, name: 'david bowie'}]};
   t.equal(isComplexArtistCredit(ac), false, 'david bowie is not complex');
 
-  ac = artistCreditFromArray([{artist: bowie, name: 'david robert jones'}]);
+  ac = {names: [{artist: bowie, name: 'david robert jones'}]};
   t.equal(isComplexArtistCredit(ac), true, 'david robert jones is complex');
 
-  ac = [{artist: bowie, name: '', joinPhrase: ''}];
+  ac = {names: [{artist: bowie, name: '', joinPhrase: ''}]};
   t.equal(isComplexArtistCredit(ac), true, 'empty artist credit is complex');
 
-  ac = artistCreditFromArray([
-    {artist: bowie, name: 'david bowie', joinPhrase: ' & '},
-    {artist: crosby, name: 'bing crosby'}
-  ]);
+  ac = {
+    names: [
+      {artist: bowie, name: 'david bowie', joinPhrase: ' & '},
+      {artist: crosby, name: 'bing crosby'},
+    ],
+  };
   t.equal(isComplexArtistCredit(ac), true, 'david bowie & bing crosby is complex');
 });
 
 test('artistCreditsAreEqual', function (t) {
     t.plan(4);
 
-    const ac1 = artistCreditFromArray([{artist: {gid: 1, name: 'a'}, name: 'a', joinPhrase: '/'}]);
-    const ac2 = artistCreditFromArray([{artist: {gid: 1, name: 'a'}, name: 'a', joinPhrase: '/'}]);
-    const ac3 = artistCreditFromArray([{artist: {gid: 1, name: 'a'}, name: 'b', joinPhrase: '/'}]);
-    const ac4 = artistCreditFromArray([
-      {artist: {gid: 1, name: 'a'}, name: 'a', joinPhrase: '/'},
-      {artist: {gid: 2, name: 'b'}, name: 'b', joinPhrase: ''},
-    ]);
+    const ac1 = {names: [{artist: {gid: 1, name: 'a'}, name: 'a', joinPhrase: '/'}]};
+    const ac2 = {names: [{artist: {gid: 1, name: 'a'}, name: 'a', joinPhrase: '/'}]};
+    const ac3 = {names: [{artist: {gid: 1, name: 'a'}, name: 'b', joinPhrase: '/'}]};
+    const ac4 = {
+      names: [
+        {artist: {gid: 1, name: 'a'}, name: 'a', joinPhrase: '/'},
+        {artist: {gid: 2, name: 'b'}, name: 'b', joinPhrase: ''},
+      ],
+    };
 
     t.ok(!artistCreditsAreEqual(ac1, ac3));
     t.ok(!artistCreditsAreEqual(ac1, ac4));

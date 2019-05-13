@@ -90,7 +90,7 @@ releaseEditor.findReleaseDuplicates = function () {
         var query = utils.constructLuceneFieldConjunction({
             release: [ utils.escapeLuceneValue(name) ],
 
-            arid: _(ac)
+            arid: _(ac.names)
                     .map('artist.gid')
                     .map(utils.escapeLuceneValue).value()
         });

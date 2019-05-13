@@ -94,6 +94,12 @@ CREATE UNIQUE INDEX event_type_idx_gid ON event_type (gid);
 
 CREATE UNIQUE INDEX gender_idx_gid ON gender (gid);
 
+CREATE UNIQUE INDEX genre_idx_gid ON genre (gid);
+CREATE UNIQUE INDEX genre_idx_name ON genre (LOWER(name));
+
+CREATE INDEX genre_alias_idx_genre ON genre_alias (genre);
+CREATE UNIQUE INDEX genre_alias_idx_primary ON genre_alias (genre, locale) WHERE primary_for_locale = TRUE AND locale IS NOT NULL;
+
 CREATE UNIQUE INDEX instrument_type_idx_gid ON instrument_type (gid);
 
 CREATE UNIQUE INDEX instrument_alias_type_idx_gid ON instrument_alias_type (gid);

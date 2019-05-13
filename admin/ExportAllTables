@@ -45,6 +45,7 @@ use MusicBrainz::Server::Constants qw(
     @PRIVATE_TABLE_LIST
     @CDSTUBS_TABLE_LIST
     @CAA_TABLE_LIST
+    @EAA_TABLE_LIST
     @WIKIDOCS_TABLE_LIST
     @DOCUMENTATION_TABLE_LIST
 );
@@ -291,6 +292,7 @@ if ($fCompress and $fDoFullExport)
     $mbdump->make_tar("mbdump-private.tar.bz2", @PRIVATE_TABLE_LIST);
     $mbdump->make_tar("mbdump-cdstubs.tar.bz2", @CDSTUBS_TABLE_LIST);
     $mbdump->make_tar("mbdump-cover-art-archive.tar.bz2", @CAA_TABLE_LIST);
+    $mbdump->make_tar("mbdump-event-art-archive.tar.bz2", @EAA_TABLE_LIST);
     $mbdump->make_tar("mbdump-wikidocs.tar.bz2", @WIKIDOCS_TABLE_LIST);
     $mbdump->make_tar("mbdump-documentation.tar.bz2", @DOCUMENTATION_TABLE_LIST);
 

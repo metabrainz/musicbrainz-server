@@ -1,6 +1,8 @@
 #!/bin/bash
 
-source /etc/mbs_constants.sh
+MBS_HOME=/home/musicbrainz
+MBS_ROOT=$MBS_HOME/musicbrainz-server
+
 source "$MBS_ROOT/script/functions.sh"
 
 BUILD_DIR=$MBS_ROOT/root/static/build

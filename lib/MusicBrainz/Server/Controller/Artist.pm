@@ -151,7 +151,7 @@ after 'aliases' => sub
 
     my $artist = $c->stash->{artist};
     my $artist_credits = $c->model('ArtistCredit')->find_by_artist_id($artist->id);
-    $c->stash->{component_props}{artistCredits} = [map +{ id => $_->id, names => $_->names }, @{$artist_credits}];
+    $c->stash->{component_props}{artistCredits} = [map { $_->TO_JSON } @{$artist_credits}];
 };
 
 =head2 show
@@ -213,6 +213,7 @@ sub show : PathPart('') Chained('load')
         $recordings = $self->_load_paged($c, sub {
             $c->model('Recording')->find_standalone($artist->id, shift, shift);
         });
+        $c->model('ArtistCredit')->load(@$recordings);
     }
 
     $c->stash(

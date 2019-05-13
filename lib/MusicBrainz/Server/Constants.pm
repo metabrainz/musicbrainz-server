@@ -77,6 +77,7 @@ our @EXPORT_OK = (
         @PRIVATE_TABLE_LIST
         @CDSTUBS_TABLE_LIST
         @CAA_TABLE_LIST
+        @EAA_TABLE_LIST
         @WIKIDOCS_TABLE_LIST
         @DOCUMENTATION_TABLE_LIST
         @SITEMAPS_TABLE_LIST
@@ -741,6 +742,7 @@ Readonly our @PRIVATE_TABLE_LIST => qw(
     editor_collection
     editor_collection_area
     editor_collection_artist
+    editor_collection_collaborator
     editor_collection_event
     editor_collection_instrument
     editor_collection_label
@@ -792,6 +794,12 @@ Readonly our @CAA_TABLE_LIST => qw(
     cover_art_archive.cover_art_type
     cover_art_archive.image_type
     cover_art_archive.release_group_cover_art
+);
+
+Readonly our @EAA_TABLE_LIST => qw(
+    event_art_archive.art_type
+    event_art_archive.event_art
+    event_art_archive.event_art_type
 );
 
 Readonly our @WIKIDOCS_TABLE_LIST => qw(
@@ -900,6 +908,7 @@ Readonly our @FULL_TABLE_LIST => (
     @PRIVATE_TABLE_LIST,
     @CDSTUBS_TABLE_LIST,
     @CAA_TABLE_LIST,
+    @EAA_TABLE_LIST,
     @WIKIDOCS_TABLE_LIST,
     @DOCUMENTATION_TABLE_LIST,
     @SITEMAPS_TABLE_LIST,

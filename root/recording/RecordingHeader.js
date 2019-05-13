@@ -12,7 +12,6 @@ import React from 'react';
 import EntityHeader from '../components/EntityHeader';
 import ArtistCreditLink from '../static/scripts/common/components/ArtistCreditLink';
 import TaggerIcon from '../static/scripts/common/components/TaggerIcon';
-import {artistCreditFromArray} from '../static/scripts/common/immutable-entities';
 
 type Props = {|
   +page: string,
@@ -20,13 +19,8 @@ type Props = {|
 |};
 
 const RecordingHeader = ({recording, page}: Props) => {
-  const artistCredit = (
-    <ArtistCreditLink
-      artistCredit={artistCreditFromArray(recording.artistCredit)}
-    />
-  );
   const lArgs = {
-    artist: artistCredit,
+    artist: <ArtistCreditLink artistCredit={recording.artistCredit} />,
   };
   return (
     <EntityHeader

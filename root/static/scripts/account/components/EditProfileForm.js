@@ -299,4 +299,4 @@ class EditProfileForm extends React.Component<Props, State> {
 }
 
 export type EditProfileFormPropsT = Props;
-export default hydrate<Props>('edit-profile-form', EditProfileForm);
+export default hydrate<Props>('div.edit-profile-form', EditProfileForm);

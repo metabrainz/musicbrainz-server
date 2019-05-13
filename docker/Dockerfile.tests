@@ -16,7 +16,7 @@ RUN apt-get update && \
         gnupg && \
     apt-key add yarn_pubkey.txt && \
     rm yarn_pubkey.txt && \
-    apt-key adv --keyserver hkps.pool.sks-keyservers.net --refresh-keys 'Yarn' && \
+    apt-key adv --keyserver keyserver.ubuntu.com --refresh-keys 'Yarn' && \
     echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list && \
     curl -sLO https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb && \
     curl -sLO https://deb.nodesource.com/node_10.x/pool/main/n/nodejs/nodejs_10.10.0-1nodesource1_amd64.deb && \
@@ -29,7 +29,6 @@ RUN apt-get update && \
         ./nodejs_10.10.0-1nodesource1_amd64.deb \
         build-essential \
         bzip2 \
-        carton \
         default-jre \
         gcc \
         gettext \
@@ -76,8 +75,12 @@ RUN apt-get update && \
     rm google-chrome-stable_current_amd64.deb && \
     rm nodejs_10.10.0-1nodesource1_amd64.deb
 
-RUN curl -sLO http://chromedriver.storage.googleapis.com/2.45/chromedriver_linux64.zip && \
+RUN wget -q -O - https://cpanmin.us | perl - App::cpanminus && \
+    cpanm Carton JSON::XS
+
+RUN curl -sLO https://chromedriver.storage.googleapis.com/74.0.3729.6/chromedriver_linux64.zip && \
     unzip chromedriver_linux64.zip -d /usr/local/bin && \
+    chmod +x /usr/local/bin/chromedriver && \
     rm chromedriver_linux64.zip
 
 RUN curl -sLO https://github.com/validator/validator/releases/download/18.11.5/vnu.jar_18.11.5.zip && \

@@ -16,173 +16,195 @@ test('guessing feat. artists', function (t) {
         {
             input: {
                 name: 'мыльныйопус (feat.813)',
-                artistCredit: [{name: 'micromatics', joinPhrase: ''}]
+                artistCredit: {names: [{name: 'micromatics', joinPhrase: ''}]},
             },
             output: {
                 name: 'мыльныйопус',
-                artistCredit: [
-                    {name: 'micromatics', joinPhrase: ' feat. '},
-                    {name: '813', joinPhrase: ''}
-                ]
+                artistCredit: {
+                    names: [
+                        {name: 'micromatics', joinPhrase: ' feat. '},
+                        {name: '813', joinPhrase: ''},
+                    ],
+                },
             }
         },
         {
             input: {
                 name: 'City Of Time (feat. 마리오(Feat.영지))',
-                artistCredit: [{name: '[unknown]', joinPhrase: ''}]
+                artistCredit: {names: [{name: '[unknown]', joinPhrase: ''}]},
             },
             output: {
                 name: 'City Of Time',
-                artistCredit: [
-                    {name: '[unknown]', joinPhrase: ' feat. '},
-                    {name: '마리오', joinPhrase: ' & '},
-                    {name: '영지', joinPhrase: ''},
-                ]
+                artistCredit: {
+                    names: [
+                        {name: '[unknown]', joinPhrase: ' feat. '},
+                        {name: '마리오', joinPhrase: ' & '},
+                        {name: '영지', joinPhrase: ''},
+                    ],
+                },
             }
         },
         {
             input: {
                 name: 'Feat Stouffi (feat. Christine & Stouffi)',
-                artistCredit: [{name: 'David TMX', joinPhrase: ''}]
+                artistCredit: {names: [{name: 'David TMX', joinPhrase: ''}]},
             },
             output: {
                 name: 'Feat Stouffi',
-                artistCredit: [
-                    {name: 'David TMX', joinPhrase: ' feat. '},
-                    {name: 'Christine', joinPhrase: ' & '},
-                    {name: 'Stouffi', joinPhrase: ''},
-                ]
+                artistCredit: {
+                    names: [
+                        {name: 'David TMX', joinPhrase: ' feat. '},
+                        {name: 'Christine', joinPhrase: ' & '},
+                        {name: 'Stouffi', joinPhrase: ''},
+                    ],
+                },
             }
         },
         {
             input: {
                 name: 'Åndsvag ( Feat. Jooks)',
-                artistCredit: [{name: 'Suspekt', joinPhrase: ''}]
+                artistCredit: {names: [{name: 'Suspekt', joinPhrase: ''}]},
             },
             output: {
                 name: 'Åndsvag',
-                artistCredit: [
-                    {name: 'Suspekt', joinPhrase: ' feat. '},
-                    {name: 'Jooks', joinPhrase: ''}
-                ]
+                artistCredit: {
+                    names: [
+                        {name: 'Suspekt', joinPhrase: ' feat. '},
+                        {name: 'Jooks', joinPhrase: ''},
+                    ],
+                },
             }
         },
         {
             input: {
                 name: 'Ft. Smith Breakdown',
-                artistCredit: [{name: 'Luke Highnight & His Ozark Strutters', joinPhrase: ''}]
+                artistCredit: {names: [{name: 'Luke Highnight & His Ozark Strutters', joinPhrase: ''}]},
             },
             // no change
             output: {
                 name: 'Ft. Smith Breakdown',
-                artistCredit: [{name: 'Luke Highnight & His Ozark Strutters', joinPhrase: ''}]
+                artistCredit: {names: [{name: 'Luke Highnight & His Ozark Strutters', joinPhrase: ''}]},
             }
         },
         {
             input: {
                 name: 'Stormclouds [ft. Landforge]',
-                artistCredit: [{name: 'Red Horizons', joinPhrase: ''}]
+                artistCredit: {names: [{name: 'Red Horizons', joinPhrase: ''}]},
             },
             output: {
                 name: 'Stormclouds',
-                artistCredit: [
-                    {name: 'Red Horizons', joinPhrase: ' ft. '},
-                    {name: 'Landforge', joinPhrase: ''}
-                ]
+                artistCredit: {
+                    names: [
+                        {name: 'Red Horizons', joinPhrase: ' ft. '},
+                        {name: 'Landforge', joinPhrase: ''},
+                    ],
+                },
             }
         },
         {
             input: {
                 name: 'Montana Ft Juicy J',
-                artistCredit: [{name: 'Lil Bibby', joinPhrase: ''}]
+                artistCredit: {names: [{name: 'Lil Bibby', joinPhrase: ''}]},
             },
             output: {
                 name: 'Montana',
-                artistCredit: [
-                    {name: 'Lil Bibby', joinPhrase: ' ft '},
-                    {name: 'Juicy J', joinPhrase: ''}
-                ]
+                artistCredit: {
+                    names: [
+                        {name: 'Lil Bibby', joinPhrase: ' ft '},
+                        {name: 'Juicy J', joinPhrase: ''},
+                    ],
+                },
             }
         },
         {
             input: {
                 name: '50,000 ft.',
-                artistCredit: [{name: 'The Hang Ups', joinPhrase: ''}]
+                artistCredit: {names: [{name: 'The Hang Ups', joinPhrase: ''}]},
             },
             // no change
             output: {
                 name: '50,000 ft.',
-                artistCredit: [{name: 'The Hang Ups', joinPhrase: ''}]
+                artistCredit: {names: [{name: 'The Hang Ups', joinPhrase: ''}]},
             }
         },
         {
             input: {
                 name: 'Classe x et freestyle (Feat. Hfi, Oxmo et Pit Baccardi)',
-                artistCredit: [{name: 'Ill', joinPhrase: ''}]
+                artistCredit: {names: [{name: 'Ill', joinPhrase: ''}]},
             },
             output: {
                 name: 'Classe x et freestyle',
-                artistCredit: [
-                    {name: 'Ill', joinPhrase: ' feat. '},
-                    {name: 'Hfi', joinPhrase: ', '},
-                    {name: 'Oxmo', joinPhrase: ' et '},
-                    {name: 'Pit Baccardi', joinPhrase: ''}
-                ]
+                artistCredit: {
+                    names: [
+                        {name: 'Ill', joinPhrase: ' feat. '},
+                        {name: 'Hfi', joinPhrase: ', '},
+                        {name: 'Oxmo', joinPhrase: ' et '},
+                        {name: 'Pit Baccardi', joinPhrase: ''},
+                    ],
+                },
             }
         },
         {
             input: {
                 name: 'The Lion (Featuring Sphere720 And Tariq)',
-                artistCredit: [{name: 'Dragon Fli Empire', joinPhrase: ''}]
+                artistCredit: {names: [{name: 'Dragon Fli Empire', joinPhrase: ''}]},
             },
             output: {
                 name: 'The Lion',
-                artistCredit: [
-                    {name: 'Dragon Fli Empire', joinPhrase: ' featuring '},
-                    {name: 'Sphere720', joinPhrase: ' And '},
-                    {name: 'Tariq', joinPhrase: ''}
-                ]
+                artistCredit: {
+                    names: [
+                        {name: 'Dragon Fli Empire', joinPhrase: ' featuring '},
+                        {name: 'Sphere720', joinPhrase: ' And '},
+                        {name: 'Tariq', joinPhrase: ''},
+                    ],
+                },
             }
         },
         {
             input: {
                 name: 'The Bell (Paranoia Network Remix), featuring Pete Seeger & DJ Spooky',
-                artistCredit: [{name: 'Stephan Smith', joinPhrase: ''}]
+                artistCredit: {names: [{name: 'Stephan Smith', joinPhrase: ''}]},
             },
             output: {
                 name: 'The Bell (Paranoia Network Remix)',
-                artistCredit: [
-                    {name: 'Stephan Smith', joinPhrase: ' featuring '},
-                    {name: 'Pete Seeger', joinPhrase: ' & '},
-                    {name: 'DJ Spooky', joinPhrase: ''}
-                ]
+                artistCredit: {
+                    names: [
+                        {name: 'Stephan Smith', joinPhrase: ' featuring '},
+                        {name: 'Pete Seeger', joinPhrase: ' & '},
+                        {name: 'DJ Spooky', joinPhrase: ''},
+                    ],
+                },
             }
         },
         {
             input: {
                 name: 'Mothership Reconnection (Feat Parliament/Funkadelic) (Daft Punk Remix)',
-                artistCredit: [{name: 'Daft Punk', joinPhrase: ''}]
+                artistCredit: {names: [{name: 'Daft Punk', joinPhrase: ''}]},
             },
             output: {
                 name: 'Mothership Reconnection (Daft Punk Remix)',
-                artistCredit: [
-                    {name: 'Daft Punk', joinPhrase: ' feat. '},
-                    {name: 'Parliament', joinPhrase: '/'},
-                    {name: 'Funkadelic', joinPhrase: ''}
-                ]
+                artistCredit: {
+                    names: [
+                        {name: 'Daft Punk', joinPhrase: ' feat. '},
+                        {name: 'Parliament', joinPhrase: '/'},
+                        {name: 'Funkadelic', joinPhrase: ''},
+                    ],
+                },
             }
         },
         {
             input: {
                 name: 'Yes my lord (dub version - feat. Rubén Rada)',
-                artistCredit: [{name: 'Kameleba', joinPhrase: ''}]
+                artistCredit: {names: [{name: 'Kameleba', joinPhrase: ''}]},
             },
             output: {
                 name: 'Yes my lord (dub version)',
-                artistCredit: [
-                    {name: 'Kameleba', joinPhrase: ' feat. '},
-                    {name: 'Rubén Rada', joinPhrase: ''}
-                ]
+                artistCredit: {
+                    names: [
+                        {name: 'Kameleba', joinPhrase: ' feat. '},
+                        {name: 'Rubén Rada', joinPhrase: ''},
+                    ],
+                },
             }
         },
         // "Slash & Ol' Dirty Bastard" should be split even though it's above
@@ -190,7 +212,7 @@ test('guessing feat. artists', function (t) {
         {
             input: {
                 name: 'Fix (Main Mix) (feat. Slash & Ol\' Dirty Bastard)',
-                artistCredit: [{name: 'Blackstreet', joinPhrase: ''}],
+                artistCredit: {names: [{name: 'Blackstreet', joinPhrase: ''}]},
                 recording: {
                     name: 'Fix (main mix) (feat. Slash & Ol\' Dirty Bastard)',
                     gid: '8c6920a2-130c-4028-add9-684325a3fa8a',
@@ -205,64 +227,74 @@ test('guessing feat. artists', function (t) {
             },
             output: {
                 name: 'Fix (Main Mix)',
-                artistCredit: [
-                    {name: 'Blackstreet', joinPhrase: ' feat. '},
-                    {name: 'Slash', joinPhrase: ' & '},
-                    {name: 'Ol\' Dirty Bastard', joinPhrase: ''},
-                ]
+                artistCredit: {
+                    names: [
+                        {name: 'Blackstreet', joinPhrase: ' feat. '},
+                        {name: 'Slash', joinPhrase: ' & '},
+                        {name: 'Ol\' Dirty Bastard', joinPhrase: ''},
+                    ],
+                },
             }
         },
         {
             input: {
                 name: 'ｆｒｏｚｅｎ ｆｔ.grèg',
-                artistCredit: [{name: 'cight', joinPhrase: ''}]
+                artistCredit: {names: [{name: 'cight', joinPhrase: ''}]},
             },
             output: {
                 name: 'ｆｒｏｚｅｎ',
-                artistCredit: [
-                    {name: 'cight', joinPhrase: '　ｆｔ．　'},
-                    {name: 'grèg', joinPhrase: ''}
-                ]
+                artistCredit: {
+                    names: [
+                        {name: 'cight', joinPhrase: '　ｆｔ．　'},
+                        {name: 'grèg', joinPhrase: ''},
+                    ],
+                },
             }
         },
         {
             input: {
                 name: 'ｓｍｏｋｅ ｆｔ. ｅｐvｒ',
-                artistCredit: [{name: 'cight', joinPhrase: ''}]
+                artistCredit: {names: [{name: 'cight', joinPhrase: ''}]},
             },
             output: {
                 name: 'ｓｍｏｋｅ',
-                artistCredit: [
-                    {name: 'cight', joinPhrase: '　ｆｔ．　'},
-                    {name: 'ｅｐvｒ', joinPhrase: ''}
-                ]
+                artistCredit: {
+                    names: [
+                        {name: 'cight', joinPhrase: '　ｆｔ．　'},
+                        {name: 'ｅｐvｒ', joinPhrase: ''},
+                    ],
+                },
             }
         },
         {
             input: {
                 name: 'lulu（feat. Predawn）',
-                artistCredit: [{name: '菅野よう子', joinPhrase: ''}]
+                artistCredit: {names: [{name: '菅野よう子', joinPhrase: ''}]},
             },
             output: {
                 name: 'lulu',
-                artistCredit: [
-                    {name: '菅野よう子', joinPhrase: ' feat. '},
-                    {name: 'Predawn', joinPhrase: ''}
-                ]
+                artistCredit: {
+                    names: [
+                        {name: '菅野よう子', joinPhrase: ' feat. '},
+                        {name: 'Predawn', joinPhrase: ''},
+                    ],
+                },
             }
         },
         {
             input: {
                 name: '本能の呼吸（カラオケ） feat．戦場ヶ原ひたぎ ＆ 貝木泥舟',
-                artistCredit: [{name: '凪宗一郎', joinPhrase: ''}]
+                artistCredit: {names: [{name: '凪宗一郎', joinPhrase: ''}]},
             },
             output: {
                 name: '本能の呼吸（カラオケ）',
-                artistCredit: [
-                    {name: '凪宗一郎', joinPhrase: '　ｆｅａｔ．　'},
-                    {name: '戦場ヶ原ひたぎ', joinPhrase: '　＆　'},
-                    {name: '貝木泥舟', joinPhrase: ''}
-                ]
+                artistCredit: {
+                    names: [
+                        {name: '凪宗一郎', joinPhrase: '　ｆｅａｔ．　'},
+                        {name: '戦場ヶ原ひたぎ', joinPhrase: '　＆　'},
+                        {name: '貝木泥舟', joinPhrase: ''},
+                    ],
+                },
             }
         }
     ];
@@ -271,7 +303,7 @@ test('guessing feat. artists', function (t) {
         {
             input: {
                 name: 'The Nutcracker: Suite, Op. 71 (London Symphony Orchestra feat. conductor: André Previn) (disc 2)',
-                artistCredit: [{name: 'Пётр Ильич Чайковский', joinPhrase: ''}],
+                artistCredit: {names: [{name: 'Пётр Ильич Чайковский', joinPhrase: ''}],},
                 relationships: [
                     {
                         target: {name: 'London Symphony Orchestra', entityType: 'artist'},
@@ -282,17 +314,19 @@ test('guessing feat. artists', function (t) {
             },
             output: {
                 name: 'The Nutcracker: Suite, Op. 71 (disc 2)',
-                artistCredit: [
-                    {name: 'Пётр Ильич Чайковский', joinPhrase: '; '},
-                    {name: 'London Symphony Orchestra', joinPhrase: ', '},
-                    {name: 'André Previn', joinPhrase: ''}
-                ]
+                artistCredit: {
+                    names: [
+                        {name: 'Пётр Ильич Чайковский', joinPhrase: '; '},
+                        {name: 'London Symphony Orchestra', joinPhrase: ', '},
+                        {name: 'André Previn', joinPhrase: ''},
+                    ],
+                },
             }
         },
         {
             input: {
                 name: 'Intermezzi from Palandrana and Zambrano (feat. Fortuna Ensemble; conductor: Roberto Cascio; soprano: Barbara di Castri; tenor: Gastone Sarti)',
-                artistCredit: [{name: 'Alessandro Scarlatti', joinPhrase: ''}],
+                artistCredit: {names: [{name: 'Alessandro Scarlatti', joinPhrase: ''}],},
                 relationships: [
                     {
                         target: {name: 'Roberto Cascio', entityType: 'artist'},
@@ -303,19 +337,21 @@ test('guessing feat. artists', function (t) {
             },
             output: {
                 name: 'Intermezzi from Palandrana and Zambrano',
-                artistCredit: [
-                    {name: 'Alessandro Scarlatti', joinPhrase: '; '},
-                    {name: 'Fortuna Ensemble', joinPhrase: ', '},
-                    {name: 'Roberto Cascio', joinPhrase: ', '},
-                    {name: 'Barbara di Castri', joinPhrase: ', '},
-                    {name: 'Gastone Sarti', joinPhrase: ''}
-                ]
+                artistCredit: {
+                    names: [
+                        {name: 'Alessandro Scarlatti', joinPhrase: '; '},
+                        {name: 'Fortuna Ensemble', joinPhrase: ', '},
+                        {name: 'Roberto Cascio', joinPhrase: ', '},
+                        {name: 'Barbara di Castri', joinPhrase: ', '},
+                        {name: 'Gastone Sarti', joinPhrase: ''},
+                    ],
+                },
             }
         },
         {
             input: {
                 name: 'Le nozze di Figaro - highlights (The Drottningholm Court Theatre Orchestra & Chorus, feat. conductor: Arnold Östman, singers: Salomaa, Bonney, Hagagård)',
-                artistCredit: [{name: 'Mozart', joinPhrase: ''}],
+                artistCredit: {names: [{name: 'Mozart', joinPhrase: ''}],},
                 relationships: [
                     {
                         target: {name: 'The Drottningholm Court Theatre Orchestra & Chorus', entityType: 'artist'},
@@ -326,14 +362,16 @@ test('guessing feat. artists', function (t) {
             },
             output: {
                 name: 'Le nozze di Figaro - highlights',
-                artistCredit: [
-                    {name: 'Mozart', joinPhrase: '; '},
-                    {name: 'The Drottningholm Court Theatre Orchestra & Chorus', joinPhrase: ', '},
-                    {name: 'Arnold Östman', joinPhrase: ', '},
-                    {name: 'Salomaa', joinPhrase: ', '},
-                    {name: 'Bonney', joinPhrase: ', '},
-                    {name: 'Hagagård', joinPhrase: ''}
-                ]
+                artistCredit: {
+                    names: [
+                        {name: 'Mozart', joinPhrase: '; '},
+                        {name: 'The Drottningholm Court Theatre Orchestra & Chorus', joinPhrase: ', '},
+                        {name: 'Arnold Östman', joinPhrase: ', '},
+                        {name: 'Salomaa', joinPhrase: ', '},
+                        {name: 'Bonney', joinPhrase: ', '},
+                        {name: 'Hagagård', joinPhrase: ''},
+                    ],
+                },
             }
         }
     ];
@@ -341,10 +379,12 @@ test('guessing feat. artists', function (t) {
     function toJS(track) {
         return {
             name: track.name(),
-            artistCredit: _.map(
-                track.artistCredit(),
-                _.partialRight(_.omit, ['artist', 'automaticJoinPhrase'])
-            )
+            artistCredit: {
+                names: _.map(
+                    track.artistCredit().names,
+                    _.partialRight(_.omit, ['artist', 'automaticJoinPhrase']),
+                ),
+            },
         };
     }
 
@@ -355,7 +395,7 @@ test('guessing feat. artists', function (t) {
 
     _.each(trackTests, function (x) {
         var release = new fields.Release({
-            artistCredit: [],
+            artistCredit: {names: []},
             mediums: [{tracks: [x.input]}],
         });
 
