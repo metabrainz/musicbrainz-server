@@ -64,7 +64,7 @@
                 [%- END %]
                 [%- IF has.artist %]
                 <td>
-                    [%~ artist_credit(rel.target.artist_credit) ~%]
+                    [%~ artist_credit(rel.target.artist_credit) IF rel.target.artist_credit ~%]
                 </td>
                 [%- END %]
                 [%- IF has.length %]
