@@ -22,7 +22,7 @@ type Props = {|
   +form: CollectionEditFormT,
 |};
 
-const CollectionEdit = ({collection, collectionTypes, form}: Props) => (
+const EditCollection = ({collection, collectionTypes, form}: Props) => (
   <CollectionLayout
     entity={collection}
     fullWidth
@@ -34,4 +34,4 @@ const CollectionEdit = ({collection, collectionTypes, form}: Props) => (
   </CollectionLayout>
 );
 
-export default CollectionEdit;
+export default EditCollection;

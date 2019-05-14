@@ -266,7 +266,7 @@ sub create : Local RequireAuth {
     );
 
     $c->stash(
-        component_path => 'collection/CollectionCreate',
+        component_path => 'collection/CreateCollection',
         component_props => \%props,
         current_view => 'Node',
     );
@@ -295,7 +295,7 @@ sub edit : Chained('own_collection') RequireAuth {
     );
 
     $c->stash(
-        component_path => 'collection/CollectionEdit',
+        component_path => 'collection/EditCollection',
         component_props => \%props,
         current_view => 'Node',
     );
@@ -317,7 +317,7 @@ sub delete : Chained('own_collection') RequireAuth {
     );
 
     $c->stash(
-        component_path => 'collection/CollectionDelete',
+        component_path => 'collection/DeleteCollection',
         component_props => \%props,
         current_view => 'Node',
     );

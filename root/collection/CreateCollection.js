@@ -21,7 +21,7 @@ type Props = {|
   +form: CollectionEditFormT,
 |};
 
-const CollectionCreate = ({collectionTypes, form}: Props) => (
+const CreateCollection = ({collectionTypes, form}: Props) => (
   <Layout
     fullWidth
     title={l('Create a new collection')}
@@ -34,4 +34,4 @@ const CollectionCreate = ({collectionTypes, form}: Props) => (
   </Layout>
 );
 
-export default CollectionCreate;
+export default CreateCollection;
