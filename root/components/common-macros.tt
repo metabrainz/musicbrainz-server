@@ -186,10 +186,18 @@ END -%]
     [%- END -%]
 [%- END -%]
 
-[%~ MACRO artist_credit(ac, opts) BLOCK -%]
+[%~ MACRO artist_credit_plain(ac) BLOCK # Converted to React at root/static/scripts/common/immutable-entities.js with reduceArtistCredit
+-%]
+    [%- FOREACH name IN ac.names -%]
+        [%- name.name -%]
+        [%- name.join_phrase -%]
+    [%- END -%]
+[%- END -%]
+
+[%~ MACRO artist_credit(ac) BLOCK # Converted to React at root/static/scripts/common/components/ArtistCreditLink.js
+-%]
     [%- React.embed(c, 'static/scripts/common/components/ArtistCreditLink', {
       artistCredit => ac,
-      plain => opts.plain ? 1 : 0,
     }) -%]
 [%- END -%]
 
