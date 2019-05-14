@@ -74,27 +74,27 @@ const ArtistCreditLink = ({
   const parts = [];
   for (let i = 0; i < names.length; i++) {
     const credit = names[i];
-      const artist = credit.artist;
-      if (artist) {
-        parts.push(
-          <EntityLink
-            content={credit.name}
-            entity={artist}
-            key={`${artist.id}-${i}`}
-            showDeleted={showDeleted}
-            showEditsPending={!artistCredit.editsPending}
-            target={props.target}
-          />,
-        );
-      } else {
-        parts.push(
-          <DeletedLink
-            allowNew={false}
-            key={`deleted-${i}`}
-            name={credit.name}
-          />,
-        );
-      }
+    const artist = credit.artist;
+    if (artist) {
+      parts.push(
+        <EntityLink
+          content={credit.name}
+          entity={artist}
+          key={`${artist.id}-${i}`}
+          showDeleted={showDeleted}
+          showEditsPending={!artistCredit.editsPending}
+          target={props.target}
+        />,
+      );
+    } else {
+      parts.push(
+        <DeletedLink
+          allowNew={false}
+          key={`deleted-${i}`}
+          name={credit.name}
+        />,
+      );
+    }
     parts.push(credit.joinPhrase);
   }
   if (artistCredit.editsPending) {
