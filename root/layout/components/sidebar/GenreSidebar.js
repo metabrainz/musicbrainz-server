@@ -9,14 +9,30 @@
 
 import React from 'react';
 
-import LastUpdated from './LastUpdated';
+import {withCatalystContext} from '../../../context';
 
-const GenreSidebar = ({genre}: {genre: GenreT}) => {
+import LastUpdated from './LastUpdated';
+import RemoveLink from './RemoveLink';
+
+type Props = {|
+  +$c: CatalystContextT,
+  +genre: GenreT,
+|};
+
+const GenreSidebar = ({$c, genre}: Props) => {
   return (
     <div id="sidebar">
+      {$c.user && $c.user.is_relationship_editor ? (
+        <>
+          <h2 className="editing">{l('Editing')}</h2>
+          <ul className="links">
+            <RemoveLink entity={genre} />
+          </ul>
+        </>
+      ) : null}
       <LastUpdated entity={genre} />
     </div>
   );
 };
 
-export default GenreSidebar;
+export default withCatalystContext(GenreSidebar);
