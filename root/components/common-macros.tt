@@ -196,9 +196,11 @@ END -%]
 
 [%~ MACRO artist_credit(ac) BLOCK # Converted to React at root/static/scripts/common/components/ArtistCreditLink.js
 -%]
-    [%- React.embed(c, 'static/scripts/common/components/ArtistCreditLink', {
-      artistCredit => ac,
-    }) -%]
+    [%- IF ac.names -%]
+        [%- React.embed(c, 'static/scripts/common/components/ArtistCreditLink', {
+            artistCredit => ac,
+        }) -%]
+    [%- END -%]
 [%- END -%]
 
 [%~ MACRO expanded_artist_credit(ac) IF ac -%]
