@@ -15,7 +15,6 @@ import EntityLink, {DeletedLink} from './EntityLink';
 
 type Props = {
   +artistCredit: ArtistCreditT,
-  +plain?: boolean,
   +showDeleted?: boolean,
   +showEditsPending?: boolean,
   +target?: '_blank',
@@ -75,30 +74,26 @@ const ArtistCreditLink = ({
   const parts = [];
   for (let i = 0; i < names.length; i++) {
     const credit = names[i];
-    if (props.plain) {
-      parts.push(credit.name);
+    const artist = credit.artist;
+    if (artist) {
+      parts.push(
+        <EntityLink
+          content={credit.name}
+          entity={artist}
+          key={`${artist.id}-${i}`}
+          showDeleted={showDeleted}
+          showEditsPending={!artistCredit.editsPending}
+          target={props.target}
+        />,
+      );
     } else {
-      const artist = credit.artist;
-      if (artist) {
-        parts.push(
-          <EntityLink
-            content={credit.name}
-            entity={artist}
-            key={`${artist.id}-${i}`}
-            showDeleted={showDeleted}
-            showEditsPending={!artistCredit.editsPending}
-            target={props.target}
-          />,
-        );
-      } else {
-        parts.push(
-          <DeletedLink
-            allowNew={false}
-            key={`deleted-${i}`}
-            name={credit.name}
-          />,
-        );
-      }
+      parts.push(
+        <DeletedLink
+          allowNew={false}
+          key={`deleted-${i}`}
+          name={credit.name}
+        />,
+      );
     }
     parts.push(credit.joinPhrase);
   }
