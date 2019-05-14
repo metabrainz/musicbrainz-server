@@ -1,5 +1,5 @@
 [% main_title = l('Release group “{name}” by {artist}', {
-    artist => artist_credit(rg.artist_credit, plain => 1),
+    artist => artist_credit_plain(rg.artist_credit),
     name => rg.name
 }) %]
 [%- WRAPPER "layout.tt" title=title ? main_title _ " - ${title}" : main_title -%]
