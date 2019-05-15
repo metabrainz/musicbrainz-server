@@ -483,6 +483,8 @@ Readonly our @CORE_TABLE_LIST => qw(
     event_gid_redirect
     event_type
     gender
+    genre
+    genre_alias
     instrument
     instrument_alias
     instrument_alias_type
