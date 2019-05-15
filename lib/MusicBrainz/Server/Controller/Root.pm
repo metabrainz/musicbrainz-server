@@ -150,10 +150,11 @@ sub error_403 : Private
 }
 
 sub error_404 : Private {
-    my ($self, $c) = @_;
+    my ($self, $c, $message) = @_;
 
     $c->response->status(404);
     $c->stash->{current_view} = 'Node';
+    $c->stash->{component_props}{message} = $message;
 }
 
 sub error_500 : Private
