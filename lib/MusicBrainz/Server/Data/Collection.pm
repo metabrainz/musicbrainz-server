@@ -89,6 +89,17 @@ sub contains_entity {
         $collection_id, $id) ? 1 : 0;
 }
 
+sub is_collection_collaborator {
+    my ($self, $user_id, $collection_id) = @_;
+
+    return $self->sql->select_single_value(
+        "SELECT 1 FROM editor_collection WHERE (id = \$1 AND editor = \$2) OR 
+            EXISTS (SELECT 1 FROM editor_collection_collaborator ecc
+                WHERE ecc.collection = \$1 AND ecc.editor = \$2)",
+        $collection_id, $user_id,
+    );
+}
+
 sub is_empty {
     my ($self, $type, $collection_id) = @_;
 

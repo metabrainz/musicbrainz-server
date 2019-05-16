@@ -30,13 +30,11 @@ after 'load' => sub {
     $c->model('Editor')->load_for_collection($collection);
     $c->model('CollectionType')->load($collection);
 
-    my @collaborators = $collection->all_collaborators;
     my $is_collection_collaborator = $c->user_exists &&
-        (($c->user->id == $collection->editor_id) ||
-            grep { $_->id == $c->user->id } @collaborators);
+        $c->model('Collection')->is_collection_collaborator($c->user->id, $collection->id);
 
     $c->stash(
-        is_collection_collaborator => $is_collection_collaborator
+        is_collection_collaborator => $is_collection_collaborator,
     )
 };
 
