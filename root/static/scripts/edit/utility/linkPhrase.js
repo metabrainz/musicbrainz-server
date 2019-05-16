@@ -8,7 +8,6 @@
 
 import * as React from 'react';
 
-import {INSTRUMENT_ROOT_ID} from '../../common/constants';
 import commaList, {commaListText} from '../../common/i18n/commaList';
 import commaOnlyList, {commaOnlyListText} from '../../common/i18n/commaOnlyList';
 import {VarArgs, type VarArgsObject} from '../../common/i18n/expand2';
@@ -18,6 +17,8 @@ import localizeLinkAttributeTypeName
   from '../../common/i18n/localizeLinkAttributeTypeName';
 import linkedEntities from '../../common/linkedEntities';
 import clean from '../../common/utility/clean';
+import displayLinkAttribute, {displayLinkAttributeText}
+  from '../../common/utility/displayLinkAttribute';
 
 const EMPTY_OBJECT = Object.freeze({});
 
@@ -87,39 +88,32 @@ class PhraseVarArgs<T> extends VarArgs<AttrValue<T>> {
   }
 }
 
-type I18n<T, V> = {
+type I18n<T> = {
   cache: WeakMap<RelationshipInfoT, CachedResult<T>>,
   commaList: (Array<T>) => T,
   commaOnlyList: (Array<T>) => T,
   expand: (string, PhraseVarArgs<T>) => T,
-  getAttributeValue: (LinkAttrTypeT, string) => T,
-  l: (string, VarArgsObject<T | V>) => T,
+  displayLinkAttribute: (LinkAttrT) => T,
 };
 
-const reactI18n: I18n<Expand2ReactOutput, Expand2ReactInput> = {
+const reactI18n: I18n<Expand2ReactOutput> = {
   cache: new WeakMap<RelationshipInfoT, CachedResult<Expand2ReactOutput>>(),
   commaList,
   commaOnlyList,
   expand: expand2react,
-  getAttributeValue: (type, typeName) => (
-    type.root_id === INSTRUMENT_ROOT_ID
-      ? <a href={'/instrument/' + type.gid}>{typeName}</a>
-      : typeName
-  ),
-  l: exp.l,
+  displayLinkAttribute,
 };
 
-const textI18n: I18n<string, StrOrNum> = {
+const textI18n: I18n<string> = {
   cache: new WeakMap<RelationshipInfoT, CachedResult<string>>(),
   commaList: commaListText,
   commaOnlyList: commaOnlyListText,
   expand: expand2text,
-  getAttributeValue: (type, typeName) => typeName,
-  l: texp.l,
+  displayLinkAttribute: displayLinkAttributeText,
 };
 
-function _setAttributeValues<T, V>(
-  i18n: I18n<T | string, V | string>,
+function _setAttributeValues<T>(
+  i18n: I18n<T | string>,
   relationship: RelationshipInfoT,
   cache: CachedResult<T>,
 ) {
@@ -134,35 +128,14 @@ function _setAttributeValues<T, V>(
 
   for (let i = 0; i < attributes.length; i++) {
     const attribute = attributes[i];
-    const type = linkedEntities.link_attribute_type[attribute.typeID];
-    const typeName = localizeLinkAttributeTypeName(type);
-    let value = i18n.getAttributeValue(type, typeName);
-
-    if (type.free_text) {
-      const textValue = clean(attribute.text_value);
-      if (textValue) {
-        value = i18n.l('{attribute}: {value}', {
-          attribute: value,
-          value: textValue,
-        });
-      }
-    }
-
-    if (type.creditable) {
-      const credit = clean(attribute.credited_as);
-      if (credit) {
-        value = i18n.l('{attribute} [{credited_as}]', {
-          attribute: value,
-          credited_as: credit,
-        });
-      }
-    }
+    const value = i18n.displayLinkAttribute(attribute);
 
     if (value) {
       if (!values) {
         values = {};
       }
 
+      const type = linkedEntities.link_attribute_type[attribute.typeID];
       const info = linkType.attributes[type.root_id];
       const rootName = linkedEntities.link_attribute_type[type.root_id].name;
 
@@ -198,8 +171,8 @@ function _getRequiredAttributes(linkType: LinkTypeT) {
   return (requiredAttributesCache[linkType.id] = required || EMPTY_OBJECT);
 }
 
-function _getPhraseAndExtraAttributes<T, V>(
-  i18n: I18n<T | string, V | string>,
+function _getPhraseAndExtraAttributes<T>(
+  i18n: I18n<T | string>,
   relationship: RelationshipInfoT,
   phraseProp: LinkPhraseProp,
   forGrouping?: boolean = false,
@@ -223,7 +196,7 @@ function _getPhraseAndExtraAttributes<T, V>(
   }
 
   if (!cache.attributeValues) {
-    _setAttributeValues<T | string, V>(i18n, relationship, cache);
+    _setAttributeValues<T | string>(i18n, relationship, cache);
   }
 
   const attributeValues = cache.attributeValues;

@@ -20,6 +20,8 @@ import formatDatePeriod
   from '../static/scripts/common/utility/formatDatePeriod';
 import formatTrackLength
   from '../static/scripts/common/utility/formatTrackLength';
+import displayLinkAttribute
+  from '../static/scripts/common/utility/displayLinkAttribute';
 
 type Props = {|
   +entity: CoreEntityT,
@@ -136,7 +138,7 @@ const RelationshipsTable = ({
                       <td>
                         {attributes && attributes.length > 0 ? (
                           commaList(
-                            attributes.map(attribute => attribute.html),
+                            attributes.map(displayLinkAttribute),
                           )
                         ) : null}
                       </td>
