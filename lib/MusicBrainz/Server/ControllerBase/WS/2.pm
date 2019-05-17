@@ -103,7 +103,12 @@ sub method_not_allowed : Private {
     ));
 }
 
-sub begin : Private { }
+sub begin : Private {
+    my ($self, $c) = @_;
+
+    $c->stash->{serializer} = $self->get_serialization($c);
+}
+
 sub end : Private { }
 
 sub root : Chained('/') PathPart("ws/2") CaptureArgs(0)
