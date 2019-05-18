@@ -18,7 +18,7 @@ const PlacePerformances = ({place}: {place: PlaceT}) => (
     <RelationshipsTable
       entity={place}
       fallbackMessage={
-        l('No recordings, releases or release groups are linked to this place')
+        l('No recordings, releases or release groups are linked to this place.')
       }
       heading={l('Performances')}
     />
