@@ -27,8 +27,6 @@ has 'coordinates' => (
     isa => 'Coordinates'
 );
 
-sub _appearances_table_types { qw( release release_group recording work ) }
-
 around TO_JSON => sub {
     my ($orig, $self) = @_;
 

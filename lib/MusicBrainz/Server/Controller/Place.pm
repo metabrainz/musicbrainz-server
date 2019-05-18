@@ -125,7 +125,15 @@ Shows performances linked to a place.
 
 =cut
 
-sub performances : Chained('load') { }
+sub performances : Chained('load') { 
+    my ($self, $c) = @_;
+
+    $c->stash(
+        component_path  => 'place/PlacePerformances',
+        component_props => {place => $c->stash->{place}},
+        current_view    => 'Node',
+    );
+}
 
 =head2 map
 

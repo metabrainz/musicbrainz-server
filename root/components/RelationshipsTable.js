@@ -25,19 +25,21 @@ import displayLinkAttribute
 
 type Props = {|
   +entity: CoreEntityT,
+  +fallbackMessage?: string,
   +heading: string,
-  +showCredits: boolean,
+  +showCredits?: boolean,
 |};
 
 const RelationshipsTable = ({
   entity,
+  fallbackMessage,
   heading,
   showCredits,
 }: Props) => {
   const appearances = generateRelationshipAppearancesList(entity);
   const relationshipTypes = Object.keys(appearances);
   if (!appearances || relationshipTypes.length === 0) {
-    return null;
+    return <p>{fallbackMessage}</p> || null;
   }
   let hasCreditColumn = 0;
   let hasAttributeColumn = 0;
