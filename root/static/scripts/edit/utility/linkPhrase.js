@@ -59,11 +59,11 @@ type AttrValue<T> = Array<T | string> | T | string;
 class PhraseVarArgs<T> extends VarArgs<AttrValue<T>> {
   +usedAttributes: Array<string>;
 
-  +makeCommaList: (Array<T | string>) => T | string;
+  +makeCommaList: ($ReadOnlyArray<T | string>) => T | string;
 
   constructor(
     args: ?VarArgsObject<AttrValue<T>>,
-    makeCommaList: (Array<T | string>) => T | string,
+    makeCommaList: ($ReadOnlyArray<T | string>) => T | string,
   ) {
     super(args || EMPTY_OBJECT);
     this.usedAttributes = [];
@@ -89,8 +89,8 @@ class PhraseVarArgs<T> extends VarArgs<AttrValue<T>> {
 
 type I18n<T, V> = {
   cache: WeakMap<RelationshipInfoT, CachedResult<T>>,
-  commaList: (Array<T>) => T,
-  commaOnlyList: (Array<T>) => T,
+  commaList: ($ReadOnlyArray<T>) => T,
+  commaOnlyList: ($ReadOnlyArray<T>) => T,
   expand: (string, PhraseVarArgs<T>) => T,
   getAttributeValue: (LinkAttrTypeT, string) => T,
   l: (string, VarArgsObject<T | V>) => T,
