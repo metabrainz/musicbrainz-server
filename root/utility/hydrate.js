@@ -11,7 +11,7 @@ import mutate from 'mutate-cow';
 import * as React from 'react';
 import ReactDOM from 'react-dom';
 
-export default function hydrate<Config: {}>(
+export default function hydrate<Config>(
   containerSelector: string,
   Component: React.AbstractComponent<Config>,
   mungeProps?: (Config) => Config,

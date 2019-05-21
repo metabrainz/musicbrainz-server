@@ -23,7 +23,7 @@ type ReleaseEventsProps = {|
 
 const ReleaseDates = ({events}: ReleaseEventsProps) => (
   events && events.length ? (
-    <ul className="links">
+    <ul className="links nowrap">
       {events.map(buildReleaseDate)}
     </ul>
   ) : null
