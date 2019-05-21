@@ -28,10 +28,10 @@ test 'Viewing your own collections' => sub {
             3, 'three collection lists are present');
 
     $tx->is('count(//div[@id="page"]//table[1]//th)',
-            6, 'release collection list has 6 cols');
+            7, 'release collection list has 7 cols');
 
     $tx->is('count(//div[@id="page"]//table[2]//th)',
-            6, 'event collection list has 6 cols');
+            7, 'event collection list has 7 cols');
 
     $tx->is('//div[@id="page"]//table[1]/tbody/tr[1]/td[3]',
             2, 'number of releases is correct');
@@ -60,7 +60,7 @@ test 'Viewing someone elses collections' => sub {
     my $tx = test_xpath_html($mech->content);
 
     $tx->is('count(//div[@id="page"]//table//th)',
-            3, 'other collection list has 3 cols');
+            4, 'other collection list has 4 cols');
 };
 
 test 'Invalid user' => sub {

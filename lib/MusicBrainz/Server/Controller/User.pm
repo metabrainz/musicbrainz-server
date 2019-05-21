@@ -318,12 +318,14 @@ sub collections : Chained('load') PathPart('collections')
 
     my ($collections) = $c->model('Collection')->find_by({
         editor_id => $user->id,
-        show_private => $viewing_own_profile ? $user->id : undef,
+        show_private => $c->user_exists ? $c->user->id : undef,
+        with_collaborations => 1,
     });
     $c->model('Collection')->load_entity_count(@$collections);
     $c->model('CollectionType')->load(@$collections);
 
     for my $collection (@$collections) {
+        $c->model('Editor')->load_for_collection($collection);
         if ($c->user_exists) {
             $collection->{'subscribed'} =
                 $c->model('Collection')->subscription->check_subscription($c->user->id, $collection->id);
@@ -340,6 +342,7 @@ sub collections : Chained('load') PathPart('collections')
     $c->model('CollectionType')->load(@$collaborative_collections);
 
     for my $collection (@$collaborative_collections) {
+        $c->model('Editor')->load_for_collection($collection);
         if ($c->user_exists) {
             $collection->{'subscribed'} =
                 $c->model('Collection')->subscription->check_subscription($c->user->id, $collection->id);

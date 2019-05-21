@@ -13,6 +13,24 @@
     END -%]
 [%- END -%]
 
+[%- MACRO collaborator_number(collection, user) BLOCK -%]
+    [%- FOR collaborator = collection.collaborators -%]
+        [%- IF collaborator.id == user.id; is_collaborator = 1; END -%]
+    [%- END -%]
+    [%- IF is_collaborator; 
+        l('{collaborator_number} (including you)', {collaborator_number => collection.collaborators.size}); 
+        ELSE;
+        collection.collaborators.size;
+        END -%]
+[%- END -%]
+
+[%- MACRO collaborative_privacy(collection, user) BLOCK -%]
+    [% collection.public ? l('Public') : l('Private') %]
+    [% IF collection.editor.id == user.id;
+        l('(your collection)');
+        END -%]
+[%- END -%]
+
 [% WRAPPER "user/profile/layout.tt" title=l("Collections") page="collections" %]
 
 <h2>[% l("My collections") %]</h2>
@@ -47,6 +65,7 @@
                 <th>[% l('Collection') %]</th>
                 <th>[% l('Type') %]</th>
                 <th>[% format_plural_entity_type_name(colentity.key) %]</th>
+                <th>[% l('Collaborators') %]</th>
                 [% IF viewing_own_profile %]
                     <th>[% l('Subscribed') %]</th>
                     <th>[% l('Privacy') %]</th>
@@ -60,6 +79,7 @@
                     <td>[% link_collection(collection) %]</td>
                     <td>[% collection.type.l_name %]</td>
                     <td>[% collection.entity_count %]</td>
+                    <td><p>[% collaborator_number(collection, c.user) %]</p></td>
                     [% IF viewing_own_profile %]
                         <td>[% yesno(collection.subscribed) %]</td>
                         <td>[% collection.public ? l('Public') : l('Private') %]</td>
@@ -88,6 +108,7 @@
                         <th>[% l('Collection') %]</th>
                         <th>[% l('Type') %]</th>
                         <th>[% format_plural_entity_type_name(collabentity.key) %]</th>
+                        <th>[% l('Collaborators') %]</th>
                         [% IF viewing_own_profile %]
                             <th>[% l('Subscribed') %]</th>
                         [% END %]
@@ -100,10 +121,11 @@
                             <td>[% link_collection(collection) %]</td>
                             <td>[% collection.type.l_name %]</td>
                             <td>[% collection.entity_count %]</td>
+                            <td><p>[% collaborator_number(collection, c.user) %]</p></td>
                             [% IF viewing_own_profile %]
                                 <td>[% yesno(collection.subscribed) %]</td>
                             [% END %]
-                            <td>[% collection.public ? l('Public') : l('Private') %]</td>
+                            <td>[% collaborative_privacy(collection, c.user) %]</td>
                         </tr>
                     [%- END -%]
                 </tbody>
