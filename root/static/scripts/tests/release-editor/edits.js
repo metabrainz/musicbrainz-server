@@ -9,13 +9,10 @@ import $ from 'jquery';
 import ko from 'knockout';
 import _ from 'lodash';
 import test from 'tape';
-import ReactTestUtils from 'react-dom/test-utils';
-import ReactDOM from 'react-dom';
 
 import MB from '../../common/MB';
 import validation from '../../edit/validation';
 import fields from '../../release-editor/fields';
-import {triggerChange, triggerClick, addURL} from '../external-links-editor/utils';
 
 import * as common from './common';
 
