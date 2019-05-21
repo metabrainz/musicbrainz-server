@@ -3480,6 +3480,12 @@ const testData = [
     expected_relationship_type: 'streamingmusic',
             expected_clean_url: 'https://www.youtube.com/watch?v=4eUqsUZBluA',
   },
+  {
+                     input_url: 'https://www.youtube.com/c/MetaBrainz',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'youtube',
+            expected_clean_url: 'https://www.youtube.com/MetaBrainz',
+  },
 ];
 /* eslint-enable indent, max-len, sort-keys */
 
