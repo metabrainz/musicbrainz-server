@@ -6,5 +6,5 @@
         <p>[% l('{link} has no relationships.', { link => link_entity(label) }) -%]</p>
     [%- END -%]
 
-    [%- INCLUDE "components/relationships-table.tt" heading=l("Appearances") entity=label -%]
+    [% React.embed(c, 'components/RelationshipsTable', {entity => label, heading => l('Appearances')}) %]
 [%- END -%]

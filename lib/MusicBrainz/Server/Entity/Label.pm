@@ -33,8 +33,6 @@ sub format_label_code
     return "";
 }
 
-sub _appearances_table_types { ("release", "release_group", "work", "recording") }
-
 around TO_JSON => sub {
     my ($orig, $self) = @_;
 
