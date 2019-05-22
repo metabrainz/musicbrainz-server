@@ -3022,13 +3022,13 @@ const testData = [
   },
   {
                      input_url: 'https://twitter.com/@UNIVERSAL_D',
-             input_entity_type: 'artist',
+             input_entity_type: 'label',
     expected_relationship_type: 'socialnetwork',
             expected_clean_url: 'https://twitter.com/UNIVERSAL_D',
   },
   {
                      input_url: 'https://twitter.com/@UNIVERSAL_D#content-main-heading',
-             input_entity_type: 'artist',
+             input_entity_type: 'label',
     expected_relationship_type: 'socialnetwork',
             expected_clean_url: 'https://twitter.com/UNIVERSAL_D',
   },

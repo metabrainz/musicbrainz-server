@@ -2094,7 +2094,15 @@ const CLEANUPS = {
     match: [new RegExp('^(https?://)?([^/]+\\.)?twitter\\.com/', 'i')],
     type: LINK_TYPES.socialnetwork,
     clean: function (url) {
-      return url.replace(/^(?:https?:\/\/)?(?:(?:www|mobile)\.)?twitter\.com(?:\/#!)?\/@?([^\/?#]+)(?:[\/?#].*)?$/, 'https://twitter.com/$1');
+      url = url.replace(
+        /^(?:https?:\/\/)?(?:(?:www|mobile)\.)?twitter\.com(?:\/#!)?\//,
+        'https://twitter.com/'
+      );
+      url = url.replace(
+        /^(https:\/\/twitter\.com)\/@?([^\/?#]+)(?:[\/?#].*)?$/,
+        '$1/$2'
+      );
+      return url;
     },
   },
   'unwelcomeimages': { // Block images from sites that don't allow deeplinking
