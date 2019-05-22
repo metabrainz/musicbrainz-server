@@ -3232,13 +3232,19 @@ const testData = [
                      input_url: 'www.weibo.com/mchotdog2010#test',
              input_entity_type: 'artist',
     expected_relationship_type: 'socialnetwork',
-            expected_clean_url: 'http://www.weibo.com/mchotdog2010',
+            expected_clean_url: 'https://www.weibo.com/mchotdog2010',
   },
   {
                      input_url: 'https://weibo.com/mchotdog2010?test',
              input_entity_type: 'label',
     expected_relationship_type: 'socialnetwork',
-            expected_clean_url: 'http://www.weibo.com/mchotdog2010',
+            expected_clean_url: 'https://www.weibo.com/mchotdog2010',
+  },
+  {
+                     input_url: 'http://www.weibo.com/u/5887871694?is_hot=1',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'socialnetwork',
+            expected_clean_url: 'https://www.weibo.com/u/5887871694',
   },
   // WhoSampled
   {
