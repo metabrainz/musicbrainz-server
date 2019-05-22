@@ -3032,6 +3032,13 @@ const testData = [
     expected_relationship_type: 'socialnetwork',
             expected_clean_url: 'https://twitter.com/UNIVERSAL_D',
   },
+  {
+                     input_url: 'https://twitter.com/mountain_goats/status/1062342708470132738',
+             input_entity_type: 'recording',
+    expected_relationship_type: 'streamingmusic',
+            expected_clean_url: 'https://twitter.com/mountain_goats/status/1062342708470132738',
+       only_valid_entity_types: ['recording'],
+  },
   // Universal Music
   {
                      input_url: 'http://www.universal-music.co.jp/sweety/products/umca-59007/',
