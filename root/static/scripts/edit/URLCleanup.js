@@ -2260,6 +2260,8 @@ const CLEANUPS = {
     type: _.defaults({}, LINK_TYPES.youtube, LINK_TYPES.streamingmusic),
     clean: function (url) {
       url = url.replace(/^(https?:\/\/)?([^\/]+\.)?youtube\.com(?:\/#)?/, 'https://www.youtube.com');
+      // YouTube /c/ user channels (/c/ is unneeded)
+      url = url.replace(/^https:\/\/www\.youtube\.com\/c\//, 'https://www.youtube.com/');
       // YouTube URL shortener
       url = url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?youtu\.be\/([a-zA-Z0-9_-]+).*$/, 'https://www.youtube.com/watch?v=$1');
       // YouTube standard watch URL
