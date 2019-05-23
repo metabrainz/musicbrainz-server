@@ -3753,9 +3753,9 @@ kind-of@^6.0.0, kind-of@^6.0.2:
   version "2.1.1"
   resolved "git://github.com/mwiencek/knockout-arraytransforms.git#9673e91a4755b92ba4eea5ca03067790dbbd997b"
 
-"knockout@git://github.com/mwiencek/knockout.git#cffd030":
+"knockout@git://github.com/mwiencek/knockout.git#a09f077":
   version "3.1.0"
-  resolved "git://github.com/mwiencek/knockout.git#cffd030b9624d40122cd4a9a540c0b69b00f366f"
+  resolved "git://github.com/mwiencek/knockout.git#a09f0778844130a89af438971ad6229ab81e26b3"
 
 lazy-cache@^1.0.3:
   version "1.0.4"
