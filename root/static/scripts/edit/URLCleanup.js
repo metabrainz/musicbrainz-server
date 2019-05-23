@@ -2092,9 +2092,32 @@ const CLEANUPS = {
   },
   'twitter': {
     match: [new RegExp('^(https?://)?([^/]+\\.)?twitter\\.com/', 'i')],
-    type: LINK_TYPES.socialnetwork,
+    type: _.defaults(
+      {},
+      LINK_TYPES.socialnetwork,
+      LINK_TYPES.streamingmusic,
+    ),
     clean: function (url) {
-      return url.replace(/^(?:https?:\/\/)?(?:(?:www|mobile)\.)?twitter\.com(?:\/#!)?\/@?([^\/?#]+)(?:[\/?#].*)?$/, 'https://twitter.com/$1');
+      url = url.replace(
+        /^(?:https?:\/\/)?(?:(?:www|mobile)\.)?twitter\.com(?:\/#!)?\//,
+        'https://twitter.com/'
+      );
+      url = url.replace(
+        /^(https:\/\/twitter\.com)\/@?([^\/?#]+(?:\/status\/\d+)?)(?:[\/?#].*)?$/,
+        '$1/$2'
+      );
+      return url;
+    },
+    validate: function (url, id) {
+      const m = /^https:\/\/twitter\.com\/[^\/?#]+(\/status\/\d+)?$/.exec(url);
+      if (m) {
+        const isATweet = !!m[1];
+        if (_.includes(LINK_TYPES.streamingmusic, id)) {
+          return isATweet && (id === LINK_TYPES.streamingmusic.recording);
+        }
+        return !isATweet;
+      }
+      return false;
     },
   },
   'unwelcomeimages': { // Block images from sites that don't allow deeplinking
