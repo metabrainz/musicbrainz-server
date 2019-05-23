@@ -30,13 +30,23 @@ const RecordingList = ({
       </thead>
       <tbody>
         {items.map((item, index) => (
-          <tr className={loopParity(index)} key={item.recording.gid}>
-            <td>
-              <ArtistCreditLink artistCredit={item.recording.artistCredit} />
-            </td>
-            <td>
-              <EntityLink entity={item.recording} />
-            </td>
+          <tr className={loopParity(index)} key={item.recording_id}>
+            {item.recording ? (
+              <>
+                <td>
+                  <ArtistCreditLink
+                    artistCredit={item.recording.artistCredit}
+                  />
+                </td>
+                <td>
+                  <EntityLink entity={item.recording} />
+                </td>
+              </>
+            ) : (
+              <td colSpan="2">
+                {l('This recording no longer exists.')}
+              </td>
+            )}
           </tr>
         ))}
       </tbody>

@@ -13,6 +13,10 @@ sub edit_user : Path('/admin/user/edit') Args(1) RequireAuth HiddenOnSlaves
         unless $c->user->is_account_admin or DBDefs->DB_STAGING_TESTING_FEATURES;
 
     my $user = $c->model('Editor')->get_by_name($user_name);
+
+    if (not defined $user) {
+        $c->detach('/user/not_found')
+    }
     $c->stash->{viewing_own_profile} = $c->user_exists && $c->user->id == $user->id;
 
     my $form = $c->form(

@@ -19,7 +19,6 @@ import {bracketedText} from '../static/scripts/common/utility/bracketed';
 import FilterLink from './FilterLink';
 import type {ReportDataT, ReportIswcT} from './types';
 
-
 const IswcsWithManyWorks = ({
   $c,
   canBeFiltered,
@@ -74,7 +73,7 @@ const IswcsWithManyWorks = ({
               currentIswc = item.iswc;
 
               return (
-                <React.Fragment key={item.iswc + '-' + item.work.gid}>
+                <React.Fragment key={item.iswc + '-' + item.work_id}>
                   {lastIswc === item.iswc ? null : (
                     <tr className="even">
                       <td>
@@ -85,10 +84,21 @@ const IswcsWithManyWorks = ({
                     </tr>
                   )}
                   <tr>
-                    <td />
-                    <WorkListRow
-                      work={item.work}
-                    />
+                    {item.work ? (
+                      <>
+                        <td />
+                        <WorkListRow
+                          work={item.work}
+                        />
+                      </>
+                    ) : (
+                      <>
+                        <td />
+                        <td colSpan="5">
+                          {l('This work no longer exists.')}
+                        </td>
+                      </>
+                    )}
                   </tr>
                 </React.Fragment>
               );

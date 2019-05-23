@@ -9,7 +9,6 @@
 
 import * as React from 'react';
 
-import {l} from '../../static/scripts/common/i18n';
 import {l_relationships} from '../../static/scripts/common/i18n/relationships';
 import PaginatedResults from '../../components/PaginatedResults';
 import EntityLink from '../../static/scripts/common/components/EntityLink';
@@ -30,14 +29,18 @@ const UrlRelationshipList = ({
       </thead>
       <tbody>
         {items.map((item, index) => (
-          <tr className={loopParity(index)} key={item.url.gid}>
+          <tr className={loopParity(index)} key={item.url_id}>
             <td>
               <a href={'/relationship/' + encodeURIComponent(item.link_gid)}>
                 {l_relationships(item.link_name)}
               </a>
             </td>
             <td>
-              <EntityLink entity={item.url} />
+              {item.url ? (
+                <EntityLink entity={item.url} />
+              ) : (
+                l('This URL no longer exists.')
+              )}
             </td>
           </tr>
         ))}

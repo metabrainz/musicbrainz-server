@@ -28,15 +28,20 @@ const PlaceRelationshipList = ({
       </thead>
       <tbody>
         {items.map((item, index) => (
-          <tr className={loopParity(index)} key={item.place.gid}>
+          <tr className={loopParity(index)} key={item.place_id}>
             <td>
               <a href={'/relationship/' + encodeURIComponent(item.link_gid)}>
                 {l_relationships(item.link_name)}
               </a>
             </td>
             <td>
-              <EntityLink entity={item.place} />
+              {item.place ? (
+                <EntityLink entity={item.place} />
+              ) : (
+                l('This place no longer exists.')
+              )}
             </td>
+
           </tr>
         ))}
       </tbody>

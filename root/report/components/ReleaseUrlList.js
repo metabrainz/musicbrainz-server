@@ -49,17 +49,26 @@ const ReleaseUrlList = ({
                     </td>
                   </tr>
                 )}
-                <tr key={item.release.gid}>
-                  <td />
-                  <td>
-                    <EntityLink entity={item.release} />
-                  </td>
-                  <td>
-                    <ArtistCreditLink
-                      artistCredit={item.release.artistCredit}
-                    />
-                  </td>
-                </tr>
+                {item.release ? (
+                  <tr key={item.release.gid}>
+                    <td />
+                    <td>
+                      <EntityLink entity={item.release} />
+                    </td>
+                    <td>
+                      <ArtistCreditLink
+                        artistCredit={item.release.artistCredit}
+                      />
+                    </td>
+                  </tr>
+                ) : (
+                  <tr key={`removed-${item.release_id}`}>
+                    <td />
+                    <td colSpan="2">
+                      {l('This release no longer exists.')}
+                    </td>
+                  </tr>
+                )}
               </>
             );
           })}

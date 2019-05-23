@@ -14,6 +14,7 @@ import entityHref from '../../../static/scripts/common/utility/entityHref';
 type Props = {|
   +entity:
     | AreaT
+    | GenreT
     | InstrumentT
     | LabelT
     | RecordingT

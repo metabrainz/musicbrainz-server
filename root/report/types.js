@@ -9,7 +9,7 @@
 
 
 export type ReportArtistAnnotationT = {|
-  +artist: ArtistT,
+  +artist: ?ArtistT,
   +artist_id: number,
   +created: string,
   +row_number: number,
@@ -17,7 +17,7 @@ export type ReportArtistAnnotationT = {|
 |};
 
 export type ReportArtistRelationshipT = {|
-  +artist: ArtistT,
+  +artist: ?ArtistT,
   +artist_id: number,
   +link_gid: string,
   +link_name: string,
@@ -26,22 +26,22 @@ export type ReportArtistRelationshipT = {|
 
 export type ReportArtistT = {|
   +alias?: string,
-  +artist: ArtistT,
+  +artist: ?ArtistT,
   +artist_id: number,
   +key?: string,
   +row_number: number,
 |};
 
 export type ReportArtistUrlT = {|
-  +artist: ArtistT,
+  +artist: ?ArtistT,
   +artist_id: number,
   +row_number: number,
   +url: UrlT,
 |};
 
 export type ReportCollaborationT = {|
-  +artist0: ArtistT,
-  +artist1: ArtistT,
+  +artist0: ?ArtistT,
+  +artist1: ?ArtistT,
   +id0: number,
   +id1: number,
   +name0: string,
@@ -65,13 +65,13 @@ export type ReportEditorT = {|
 |};
 
 export type ReportEventT = {|
-  +event: EventT,
+  +event: ?EventT,
   +event_id: number,
   +row_number: number,
 |};
 
 export type ReportInstrumentT = {|
-  +instrument: InstrumentT,
+  +instrument: ?InstrumentT,
   +instrument_id: number,
   +row_number: number,
 |};
@@ -80,7 +80,7 @@ export type ReportIsrcT = {|
   +isrc: string,
   +length: number,
   +name: string,
-  +recording: RecordingT,
+  +recording: ?RecordingT,
   +recording_id: string,
   +recordingcount: number,
   +row_number: number,
@@ -91,21 +91,21 @@ export type ReportIswcT = {|
   +iswc: string,
   +row_number: number,
   +text: string,
-  +work: WorkT,
+  +work: ?WorkT,
   +work_id: string,
   +workcount: number,
 |};
 
 export type ReportLabelAnnotationT = {|
   +created: string,
-  +label: LabelT,
+  +label: ?LabelT,
   +label_id: number,
   +row_number: number,
   +text: string,
 |};
 
 export type ReportLabelRelationshipT = {|
-  +label: LabelT,
+  +label: ?LabelT,
   +label_id: number,
   +link_gid: string,
   +link_name: string,
@@ -113,13 +113,13 @@ export type ReportLabelRelationshipT = {|
 |};
 
 export type ReportLabelT = {|
-  +label: LabelT,
+  +label: ?LabelT,
   +label_id: number,
   +row_number: number,
 |};
 
 export type ReportLabelUrlT = {|
-  +label: LabelT,
+  +label: ?LabelT,
   +label_id: number,
   +row_number: number,
   +url: UrlT,
@@ -127,7 +127,7 @@ export type ReportLabelUrlT = {|
 
 export type ReportPlaceAnnotationT = {|
   +created: string,
-  +place: PlaceT,
+  +place: ?PlaceT,
   +place_id: number,
   +row_number: number,
   +text: string,
@@ -136,14 +136,14 @@ export type ReportPlaceAnnotationT = {|
 export type ReportPlaceRelationshipT = {|
   +link_gid: string,
   +link_name: string,
-  +place: PlaceT,
+  +place: ?PlaceT,
   +place_id: number,
   +row_number: number,
 |};
 
 export type ReportRecordingAnnotationT = {|
   +created: string,
-  +recording: RecordingT,
+  +recording: ?RecordingT,
   +recording_id: number,
   +row_number: number,
   +text: string,
@@ -152,20 +152,20 @@ export type ReportRecordingAnnotationT = {|
 export type ReportRecordingRelationshipT = {|
   +link_gid: string,
   +link_name: string,
-  +recording: RecordingT,
+  +recording: ?RecordingT,
   +recording_id: number,
   +row_number: number,
 |};
 
 export type ReportRecordingT = {|
-  +recording: RecordingT,
+  +recording: ?RecordingT,
   +recording_id: number,
   +row_number: number,
 |};
 
 export type ReportReleaseAnnotationT = {|
   +created: string,
-  +release: ReleaseT,
+  +release: ?ReleaseT,
   +release_id: number,
   +row_number: number,
   +text: string,
@@ -173,14 +173,14 @@ export type ReportReleaseAnnotationT = {|
 
 export type ReportReleaseCatNoT = {|
   +catalog_number: string,
-  +release: ReleaseT,
+  +release: ?ReleaseT,
   +release_id: number,
   +row_number: number,
 |};
 
 export type ReportReleaseGroupAnnotationT = {|
   +created: string,
-  +release_group: ReleaseGroupT,
+  +release_group: ?ReleaseGroupT,
   +release_group_id: number,
   +row_number: number,
   +text: string,
@@ -189,20 +189,20 @@ export type ReportReleaseGroupAnnotationT = {|
 export type ReportReleaseGroupRelationshipT = {|
   +link_gid: string,
   +link_name: string,
-  +release_group: ReleaseGroupT,
+  +release_group: ?ReleaseGroupT,
   +release_group_id: number,
   +row_number: number,
 |};
 
 export type ReportReleaseGroupT = {|
   +key?: string,
-  +release_group: ReleaseGroupT,
+  +release_group: ?ReleaseGroupT,
   +release_group_id: number,
   +row_number: number,
 |};
 
 export type ReportReleaseGroupUrlT = {|
-  +release_group: ReleaseGroupT,
+  +release_group: ?ReleaseGroupT,
   +release_group_id: number,
   +row_number: number,
   +url: UrlT,
@@ -211,7 +211,7 @@ export type ReportReleaseGroupUrlT = {|
 export type ReportReleaseLabelT = {|
   +label_gid: string,
   +label_name: string,
-  +release: ReleaseT,
+  +release: ?ReleaseT,
   +release_id: number,
   +row_number: number,
 |};
@@ -219,19 +219,19 @@ export type ReportReleaseLabelT = {|
 export type ReportReleaseRelationshipT = {|
   +link_gid: string,
   +link_name: string,
-  +release: ReleaseT,
+  +release: ?ReleaseT,
   +release_id: number,
   +row_number: number,
 |};
 
 export type ReportReleaseT = {|
-  +release: ReleaseT,
+  +release: ?ReleaseT,
   +release_id: number,
   +row_number: number,
 |};
 
 export type ReportReleaseUrlT = {|
-  +release: ReleaseT,
+  +release: ?ReleaseT,
   +release_id: number,
   +row_number: number,
   +url: UrlT,
@@ -240,7 +240,7 @@ export type ReportReleaseUrlT = {|
 export type ReportSeriesAnnotationT = {|
   +created: string,
   +row_number: number,
-  +series: SeriesT,
+  +series: ?SeriesT,
   +series_id: number,
   +text: string,
 |};
@@ -249,7 +249,7 @@ export type ReportUrlRelationshipT = {|
   +link_gid: string,
   +link_name: string,
   +row_number: number,
-  +url: UrlT,
+  +url: ?UrlT,
   +url_id: number,
 |};
 
@@ -257,7 +257,7 @@ export type ReportWorkAnnotationT = {|
   +created: string,
   +row_number: number,
   +text: string,
-  +work: WorkT,
+  +work: ?WorkT,
   +work_id: number,
 |};
 
@@ -265,12 +265,12 @@ export type ReportWorkRelationshipT = {|
   +link_gid: string,
   +link_name: string,
   +row_number: number,
-  +work: WorkT,
+  +work: ?WorkT,
   +work_id: number,
 |};
 
 export type ReportWorkT = {|
   +row_number: number,
-  +work: WorkT,
+  +work: ?WorkT,
   +work_id: number,
 |};

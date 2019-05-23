@@ -36,22 +36,29 @@ const InstrumentList = ({
       </thead>
       <tbody>
         {items.map((item, index) => (
-          <tr className={loopParity(index)} key={item.instrument.gid}>
-            <td>
-              <EntityLink entity={item.instrument} />
-            </td>
-            <td>
-              {item.instrument.typeName
-                ? lp_attributes(item.instrument.typeName, 'instrument_type')
-                : l('Unclassified instrument')}
-            </td>
-            <td>
-              {item.instrument.last_updated
-                ? formatUserDate($c.user, item.instrument.last_updated)
-                : null
-              }
-            </td>
-
+          <tr className={loopParity(index)} key={item.instrument_id}>
+            {item.instrument ? (
+              <>
+                <td>
+                  <EntityLink entity={item.instrument} />
+                </td>
+                <td>
+                  {item.instrument.typeName
+                    ? lp_attributes(item.instrument.typeName, 'instrument_type')
+                    : l('Unclassified instrument')}
+                </td>
+                <td>
+                  {item.instrument.last_updated
+                    ? formatUserDate($c.user, item.instrument.last_updated)
+                    : null
+                  }
+                </td>
+              </>
+            ) : (
+              <td colSpan="3">
+                {l('This instrument no longer exists.')}
+              </td>
+            )}
           </tr>
         ))}
       </tbody>

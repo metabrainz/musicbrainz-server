@@ -29,20 +29,28 @@ const ArtistRelationshipList = ({
       </thead>
       <tbody>
         {items.map((item, index) => (
-          <tr className={loopParity(index)} key={item.artist.gid}>
+          <tr className={loopParity(index)} key={item.artist_id}>
             <td>
               <a href={'/relationship/' + encodeURIComponent(item.link_gid)}>
                 {l_relationships(item.link_name)}
               </a>
             </td>
-            <td>
-              <EntityLink entity={item.artist} />
-            </td>
-            <td>
-              {item.artist.typeName
-                ? lp_attributes(item.artist.typeName, 'artist_type')
-                : l('Unknown')}
-            </td>
+            {item.artist ? (
+              <>
+                <td>
+                  <EntityLink entity={item.artist} />
+                </td>
+                <td>
+                  {item.artist.typeName
+                    ? lp_attributes(item.artist.typeName, 'artist_type')
+                    : l('Unknown')}
+                </td>
+              </>
+            ) : (
+              <td colSpan="2">
+                {l('This artist no longer exists.')}
+              </td>
+            )}
           </tr>
         ))}
       </tbody>

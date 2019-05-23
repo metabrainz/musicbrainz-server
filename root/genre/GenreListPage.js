@@ -10,7 +10,7 @@
 import * as React from 'react';
 
 import Layout from '../layout';
-import TagLink from '../static/scripts/common/components/TagLink';
+import EntityLink from '../static/scripts/common/components/EntityLink';
 
 type PropsT = {|
   +genres: $ReadOnlyArray<GenreT>,
@@ -21,13 +21,20 @@ const GenreListPage = ({genres}: PropsT) => (
     <div id="content">
       <h1>{l('Genre List')}</h1>
       <p>
-        {l(`These are all the tags that will be understood 
-            as genres by the tag system.`)}
+        {exp.l(
+          `These are all the {genre_url|genres} 
+           currently available for use in MusicBrainz.`,
+          {genre_url: '/doc/Genre'},
+        )}
+      </p>
+      <p>
+        {l(`To associate a genre with an entity,
+            tag the entity with the genre name.`)}
       </p>
       <ul>
         {genres.map(genre => (
           <li key={genre.id}>
-            <TagLink tag={genre.name} />
+            <EntityLink entity={genre} />
           </li>
         ))}
       </ul>

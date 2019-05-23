@@ -63,6 +63,8 @@ Readonly our @DUMP_ALL => qw(
     event_attribute_type_allowed_value
     event_type
     gender
+    genre
+    genre_alias
     instrument
     instrument_alias_type
     instrument_attribute_type

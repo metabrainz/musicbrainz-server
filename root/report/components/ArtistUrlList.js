@@ -46,12 +46,21 @@ const ArtistUrlList = ({
                     </td>
                   </tr>
                 )}
-                <tr key={item.artist.gid}>
-                  <td />
-                  <td>
-                    <EntityLink entity={item.artist} />
-                  </td>
-                </tr>
+                {item.artist ? (
+                  <tr key={item.artist.gid}>
+                    <td />
+                    <td>
+                      <EntityLink entity={item.artist} />
+                    </td>
+                  </tr>
+                ) : (
+                  <tr key={`removed-${item.artist_id}`}>
+                    <td />
+                    <td>
+                      {l('This artist no longer exists.')}
+                    </td>
+                  </tr>
+                )}
               </>
             );
           })}
