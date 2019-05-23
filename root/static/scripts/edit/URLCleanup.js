@@ -1937,7 +1937,7 @@ const CLEANUPS = {
           case LINK_TYPES.songkick.event:
             return prefix === 'concerts' || prefix === 'festivals';
           case LINK_TYPES.songkick.place:
-            return prefix === 'venues' || prefix === 'festivals';
+            return prefix === 'venues';
         }
       }
       return false;

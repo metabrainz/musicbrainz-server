@@ -2711,7 +2711,7 @@ const testData = [
              input_entity_type: 'event',
     expected_relationship_type: 'songkick',
             expected_clean_url: 'https://www.songkick.com/festivals/74586/id/19803209',
-       only_valid_entity_types: ['event', 'place'],
+       only_valid_entity_types: ['event'],
   },
   {
                      input_url: 'http://www.songkick.com/venues/1141041-flugplatz-schwarze-heide#calendar-summary',
