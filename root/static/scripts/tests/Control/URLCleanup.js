@@ -2700,17 +2700,24 @@ const testData = [
   },
   // Songkick
   {
+                     input_url: 'https://www.songkick.com/artists/3909026-courtney-barnett/calendar',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'songkick',
+            expected_clean_url: 'https://www.songkick.com/artists/3909026',
+       only_valid_entity_types: ['artist'],
+  },
+  {
                      input_url: 'http://www.songkick.com/festivals/74586-ruhrpott-rodeo/id/19803209-ruhrpott-rodeo-festival-2014',
              input_entity_type: 'event',
     expected_relationship_type: 'songkick',
-            expected_clean_url: 'https://www.songkick.com/festivals/74586-ruhrpott-rodeo/id/19803209-ruhrpott-rodeo-festival-2014',
-       only_valid_entity_types: ['event', 'place'],
+            expected_clean_url: 'https://www.songkick.com/festivals/74586/id/19803209',
+       only_valid_entity_types: ['event'],
   },
   {
-                     input_url: 'http://www.songkick.com/venues/1141041-flugplatz-schwarze-heide',
+                     input_url: 'http://www.songkick.com/venues/1141041-flugplatz-schwarze-heide#calendar-summary',
              input_entity_type: 'place',
     expected_relationship_type: 'songkick',
-            expected_clean_url: 'https://www.songkick.com/venues/1141041-flugplatz-schwarze-heide',
+            expected_clean_url: 'https://www.songkick.com/venues/1141041',
        only_valid_entity_types: ['place'],
   },
   // SoundCloud
