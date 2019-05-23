@@ -543,6 +543,14 @@ msgstr ""
 msgid "Besides being used for writing, it has also been used in percussion."
 msgstr ""
 
+#. name:ugal 
+#: DB:instrument/description:967
+msgid ""
+"Bronze metallophone with 10 keys suspended over tuned bamboo resonators that "
+"the player hits with a small hammer, often in a theatrical manner. In the "
+"indonesian gamelan it is the leader of the pokok melody."
+msgstr ""
+
 #. name:cajón 
 #: DB:instrument/description:336
 msgid "Cajón, Peruvian box drum"
@@ -1457,6 +1465,15 @@ msgid ""
 "the Persian sehtara (setar)."
 msgstr ""
 
+#. name:anvil 
+#: DB:instrument/description:720
+msgid ""
+"Originally used just by blacksmiths, the crisp, clear tone produced was "
+"noticed by even early composers. In modern use, it is specifically made for "
+"music from tuned metal, sometimes placed in a resonator, and is struck with "
+"metal hammers."
+msgstr ""
+
 #. name:renaissance rackett 
 #: DB:instrument/description:896
 msgid ""
@@ -2031,13 +2048,6 @@ msgstr ""
 msgid ""
 "The alto saxophone is a woodwind invented by Adolphe Sax which is between "
 "the tenor and soprano in size."
-msgstr ""
-
-#. name:anvil 
-#: DB:instrument/description:720
-msgid ""
-"The anvil is a tool normally used by blacksmiths which is sometimes used as "
-"a percussion instrument."
 msgstr ""
 
 #. name:archlute 
