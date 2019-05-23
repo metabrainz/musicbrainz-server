@@ -253,8 +253,6 @@ role {
     {
         my ($self, $c) = @_;
 
-        $c->stash->{serializer} = $self->get_serialization($c);
-
         my $resource = $c->req->path;
         my $version = quotemeta($r->version);
         $resource =~ s,ws/$version/([\w-]+?)(/.*)?$,$1,;
