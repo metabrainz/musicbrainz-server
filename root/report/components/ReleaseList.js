@@ -30,13 +30,23 @@ const ReleaseList = ({
       </thead>
       <tbody>
         {items.map((item, index) => (
-          <tr className={loopParity(index)} key={item.release.gid}>
-            <td>
-              <EntityLink entity={item.release} />
-            </td>
-            <td>
-              <ArtistCreditLink artistCredit={item.release.artistCredit} />
-            </td>
+          <tr className={loopParity(index)} key={item.release_id}>
+            {item.release ? (
+              <>
+                <td>
+                  <EntityLink entity={item.release} />
+                </td>
+                <td>
+                  <ArtistCreditLink
+                    artistCredit={item.release.artistCredit}
+                  />
+                </td>
+              </>
+            ) : (
+              <td colSpan="2">
+                {l('This release no longer exists.')}
+              </td>
+           )}
           </tr>
         ))}
       </tbody>

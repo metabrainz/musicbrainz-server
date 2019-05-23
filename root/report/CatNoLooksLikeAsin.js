@@ -21,7 +21,6 @@ import ArtistCreditLink
 import FilterLink from './FilterLink';
 import type {ReportDataT, ReportReleaseCatNoT} from './types';
 
-
 const CatNoLooksLikeAsin = ({
   $c,
   canBeFiltered,
@@ -66,14 +65,24 @@ const CatNoLooksLikeAsin = ({
         </thead>
         <tbody>
           {items.map((item, index) => (
-            <tr className={loopParity(index)} key={item.release.gid}>
-              <td>{item.catalog_number}</td>
-              <td>
-                <EntityLink entity={item.release} />
-              </td>
-              <td>
-                <ArtistCreditLink artistCredit={item.release.artistCredit} />
-              </td>
+            <tr className={loopParity(index)} key={item.release_id}>
+              {item.release ? (
+                <>
+                  <td>{item.catalog_number}</td>
+                  <td>
+                    <EntityLink entity={item.release} />
+                  </td>
+                  <td>
+                    <ArtistCreditLink
+                      artistCredit={item.release.artistCredit}
+                    />
+                  </td>
+                </>
+              ) : (
+                <td colSpan="3">
+                  {l('This release no longer exists.')}
+                </td>
+              )}
             </tr>
           ))}
         </tbody>

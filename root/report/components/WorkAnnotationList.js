@@ -29,10 +29,16 @@ const WorkAnnotationList = ({
       </thead>
       <tbody>
         {items.map((item, index) => (
-          <tr className={loopParity(index)} key={item.work.gid}>
-            <td>
-              <EntityLink entity={item.work} />
-            </td>
+          <tr className={loopParity(index)} key={item.work_id}>
+            {item.work ? (
+              <td>
+                <EntityLink entity={item.work} />
+              </td>
+            ) : (
+              <td>
+                {l('This work no longer exists.')}
+              </td>
+            )}
             <td dangerouslySetInnerHTML={{__html: item.text}} />
             <td>{item.created}</td>
           </tr>

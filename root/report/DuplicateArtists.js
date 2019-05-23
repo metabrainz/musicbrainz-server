@@ -81,25 +81,48 @@ const DuplicateArtists = ({
                 lastKey = currentKey;
                 currentKey = item.key;
                 return (
-                  <React.Fragment key={item.artist.gid}>
+                  <React.Fragment
+                    key={item.artist ? item.artist.gid : `removed-${index}`}
+                  >
                     {lastKey === item.key ? null : (
                       <tr className="subh">
                         <td colSpan="4" />
                       </tr>
                     )}
-                    <tr className={loopParity(index)}>
-                      <td>
-                        <input name="add-to-merge" type="checkbox" value={item.artist.id} />
-                      </td>
-                      <td>
-                        <EntityLink entity={item.artist} />
-                        {alias ? (
-                          <span>{' (' + l('alias:') + ' ' + alias + ')'}</span>
-                        ) : null}
-                      </td>
-                      <td>{item.artist.sort_name}</td>
-                      <td>{item.artist.typeName ? lp_attributes(item.artist.typeName, 'artist_type') : l('Unknown')}</td>
-                    </tr>
+                    {item.artist ? (
+                      <tr className={loopParity(index)}>
+                        <td>
+                          <input
+                            name="add-to-merge"
+                            type="checkbox"
+                            value={item.artist.id}
+                          />
+                        </td>
+                        <td>
+                          <EntityLink entity={item.artist} />
+                          {alias ? (
+                            <span>
+                              {' (' + l('alias:') + ' ' + alias + ')'}
+                            </span>
+                          ) : null}
+                        </td>
+                        <td>{item.artist.sort_name}</td>
+                        <td>
+                          {item.artist.typeName
+                            ? lp_attributes(
+                              item.artist.typeName, 'artist_type',
+                            )
+                            : l('Unknown')}
+                        </td>
+                      </tr>
+                    ) : (
+                      <tr>
+                        <td />
+                        <td colSpan="3">
+                          {l('This artist no longer exists.')}
+                        </td>
+                      </tr>
+                    )}
                   </React.Fragment>
                 );
               })}

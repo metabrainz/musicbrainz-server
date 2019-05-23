@@ -21,7 +21,6 @@ import ArtistCreditLink
 import FilterLink from './FilterLink';
 import type {ReportDataT, ReportReleaseUrlT} from './types';
 
-
 const BadAmazonUrls = ({
   $c,
   canBeFiltered,
@@ -63,16 +62,29 @@ const BadAmazonUrls = ({
         </thead>
         <tbody>
           {items.map((item, index) => (
-            <tr className={loopParity(index)} key={item.release.gid}>
-              <td>
-                <EntityLink entity={item.release} />
-              </td>
-              <td>
-                <ArtistCreditLink artistCredit={item.release.artistCredit} />
-              </td>
-              <td>
-                <EntityLink content={item.url.href_url} entity={item.url} />
-              </td>
+            <tr className={loopParity(index)} key={item.release_id}>
+              {item.release ? (
+                <>
+                  <td>
+                    <EntityLink entity={item.release} />
+                  </td>
+                  <td>
+                    <ArtistCreditLink
+                      artistCredit={item.release.artistCredit}
+                    />
+                  </td>
+                  <td>
+                    <EntityLink
+                      content={item.url.href_url}
+                      entity={item.url}
+                    />
+                  </td>
+                </>
+              ) : (
+                <td colSpan="3">
+                  {l('This release no longer exists.')}
+                </td>
+              )}
             </tr>
           ))}
         </tbody>

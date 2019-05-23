@@ -29,10 +29,16 @@ const PlaceAnnotationList = ({
       </thead>
       <tbody>
         {items.map((item, index) => (
-          <tr className={loopParity(index)} key={item.place.gid}>
-            <td>
-              <EntityLink entity={item.place} />
-            </td>
+          <tr className={loopParity(index)} key={item.place_id}>
+            {item.place ? (
+              <td>
+                <EntityLink entity={item.place} />
+              </td>
+            ) : (
+              <td>
+                {l('This place no longer exists.')}
+              </td>
+            )}
             <td dangerouslySetInnerHTML={{__html: item.text}} />
             <td>{item.created}</td>
           </tr>
