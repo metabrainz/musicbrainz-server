@@ -1,3 +1,0 @@
-#!/bin/sh
-
-printf 'mbs-%s-%s' "$DEPLOY_ENV" "$GIT_SHA"
