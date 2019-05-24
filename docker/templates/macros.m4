@@ -133,7 +133,6 @@ m4_define(
 copy_mb(``admin/ admin/'')
 copy_mb(``app.psgi entities.json ./'')
 copy_mb(``bin/ bin/'')
-copy_mb(``docker/scripts/consul-template-dedup-prefix /usr/local/bin/'')
 copy_mb(``lib/ lib/'')
 copy_mb(``script/functions.sh script/git_info script/'')')
 
