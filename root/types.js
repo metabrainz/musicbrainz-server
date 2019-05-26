@@ -411,13 +411,14 @@ declare type EditStatusT =
 declare type EditT = {|
   +close_time: string,
   +conditions: {|
-    +duration: number,
-    +votes: number,
-    +expire_action: EditExpireActionT,
     +auto_edit: boolean,
+    +duration: number,
+    +expire_action: EditExpireActionT,
+    +votes: number,
   |},
   +created_time: string,
   +data: Object,
+  +edit_kind: string,
   +edit_type: number,
   +editor_id: number,
   +expires_time: string,
