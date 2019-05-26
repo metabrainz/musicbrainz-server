@@ -77,6 +77,7 @@ module.exports = {
   'isrc/NotFound': require('../isrc/NotFound'),
   'iswc/Index': require('../iswc/Index'),
   'iswc/NotFound': require('../iswc/NotFound'),
+  'label/LabelIndex': require('../label/LabelIndex'),
   'label/NotFound': require('../label/NotFound'),
   'main/404': require('../main/404'),
   'main/index': require('../main/index'),

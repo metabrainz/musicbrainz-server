@@ -36,6 +36,7 @@ with 'MusicBrainz::Server::Controller::Role::Collection' => {
 };
 
 use MusicBrainz::Server::Constants qw( $DLABEL_ID $EDIT_LABEL_CREATE $EDIT_LABEL_DELETE $EDIT_LABEL_EDIT $EDIT_LABEL_MERGE );
+use MusicBrainz::Server::ControllerUtils::JSON qw( serialize_pager );
 use Data::Page;
 
 use Sql;
@@ -110,9 +111,19 @@ sub show : PathPart('') Chained('load')
     $c->model('Medium')->load_for_releases(@$releases);
     $c->model('MediumFormat')->load(map { $_->all_mediums } @$releases);
     $c->model('ReleaseLabel')->load(@$releases);
+ 
+    my %props = (
+        label             => $c->stash->{label},
+        numberOfRevisions => $c->stash->{number_of_revisions},
+        pager             => serialize_pager($c->stash->{pager}),
+        releases          => $releases,
+        wikipediaExtract  => $c->stash->{wikipedia_extract},
+    );
+
     $c->stash(
-        template => 'label/index.tt',
-        releases => $releases,
+        component_path => 'label/LabelIndex',
+        component_props => \%props,
+        current_view => 'Node',
         releases_jsonld => {items => $releases},
     );
 }
