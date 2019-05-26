@@ -128,7 +128,15 @@ sub show : PathPart('') Chained('load')
     );
 }
 
-sub relationships : Chained('load') PathPart('relationships') {}
+sub relationships : Chained('load') PathPart('relationships') {
+    my ($self, $c) = @_;
+
+    $c->stash(
+        component_path => 'label/LabelRelationships',
+        component_props => {label => $c->stash->{label}},
+        current_view => 'Node',
+    );
+}
 
 after [qw( show collections details tags aliases relationships )] => sub {
     my ($self, $c) = @_;
