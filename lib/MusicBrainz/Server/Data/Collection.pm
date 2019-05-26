@@ -147,8 +147,15 @@ sub find_by {
     my (@conditions, @args);
 
     if (my $editor_id = $opts->{editor_id}) {
-        push @conditions, 'editor = ?';
-        push @args, $editor_id;
+        if ($opts->{with_collaborations}) {
+            push @conditions, '(editor_collection.editor = ? OR
+                               EXISTS (SELECT 1 FROM editor_collection_collaborator ecc
+                               WHERE ecc.collection = editor_collection.id AND ecc.editor = ?))';
+            push @args, $editor_id, $editor_id;
+        } else {
+            push @conditions, 'editor_collection.editor = ?';
+            push @args, $editor_id;
+        }
     }
 
     if (my $entity_type = $opts->{entity_type}) {

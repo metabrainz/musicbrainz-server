@@ -319,7 +319,6 @@ sub collections : Chained('load') PathPart('collections')
     my ($collections) = $c->model('Collection')->find_by({
         editor_id => $user->id,
         show_private => $c->user_exists ? $c->user->id : undef,
-        with_collaborations => 1,
     });
     $c->model('Collection')->load_entity_count(@$collections);
     $c->model('CollectionType')->load(@$collections);

@@ -196,6 +196,7 @@ sub collection_list : Chained('base') PathPart('') {
     my @result = $c->model('Collection')->find_by({
         editor_id => $c->user->id,
         show_private => $c->user->id,
+        with_collaborations => 1,
     });
     my @collections = @{ $result[0] };
     $c->model('Editor')->load(@collections);
@@ -235,6 +236,7 @@ sub collection_browse : Private {
         @result = $c->model('Collection')->find_by({
             editor_id => $editor->id,
             show_private => $show_private,
+            with_collaborations => 1,
         }, $limit, $offset);
     } else {
         my $entity_type = $resource =~ tr/-/_/r;
@@ -245,6 +247,7 @@ sub collection_browse : Private {
             entity_type => $entity_type,
             entity_id => $entity->id,
             show_private => $show_private,
+            with_collaborations => 1,
         }, $limit, $offset);
     }
 
