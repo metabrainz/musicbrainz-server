@@ -153,7 +153,11 @@ sub search
         $extra_ordering = ', entity.artist_credit';
 
         my ($join_sql, $where_sql)
-            = ("JOIN ${type} entity ON r.name = entity.name", '');
+            = (
+                "LEFT JOIN ${type}_alias AS alias ON (alias.name = r.name OR alias.sort_name = r.name)
+                JOIN ${type} entity ON (r.name = entity.name OR alias.${type} = entity.id)",
+                ''
+            );
 
         if ($type eq 'release' && $where && exists $where->{track_count}) {
             $join_sql .= ' JOIN medium ON medium.release = entity.id';
@@ -173,14 +177,17 @@ sub search
             SELECT DISTINCT
                 entity.id,
                 entity.gid,
+                entity.name,
                 entity.comment,
                 $extra_columns
-                r.name,
                 r.rank
             FROM
                 (
                     SELECT name, ts_rank_cd(to_tsvector('mb_simple', name), query, 2) as rank
-                    FROM ${type},
+                    FROM
+                        (SELECT name              FROM ${type}       UNION ALL
+                         SELECT name              FROM ${type}_alias UNION ALL
+                         SELECT sort_name AS name FROM ${type}_alias) names,
                         plainto_tsquery('mb_simple', ?) AS query
                     WHERE to_tsvector('mb_simple', name) @@ query OR name = ?
                     ORDER BY rank DESC
@@ -189,7 +196,7 @@ sub search
                 $join_sql
                 $where_sql
             ORDER BY
-                r.rank DESC, r.name
+                r.rank DESC, entity.name
                 ${extra_ordering}, entity.gid
             OFFSET
                 ?
