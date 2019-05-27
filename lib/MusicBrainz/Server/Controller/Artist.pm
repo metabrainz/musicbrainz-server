@@ -269,7 +269,15 @@ sub show : PathPart('') Chained('load')
               identities => \@identities);
 }
 
-sub relationships : Chained('load') PathPart('relationships') {}
+sub relationships : Chained('load') PathPart('relationships') {
+    my ($self, $c) = @_;
+
+    $c->stash(
+        component_path => 'artist/ArtistRelationships',
+        component_props => { artist => $c->stash->{artist} },
+        current_view => 'Node',
+    );
+}
 
 =head2 works
 
