@@ -213,9 +213,17 @@ sub releases : Chained('load')
 
     $c->model('ArtistCredit')->load(@$releases);
     $c->model('Release')->load_related_info(@$releases);
+
+    my %props = (
+        area        => $c->stash->{area},
+        releases    => $releases,
+        pager       => serialize_pager($c->stash->{pager}),
+    );
+
     $c->stash(
-        template => 'area/releases.tt',
-        releases => $releases,
+        component_path  => 'area/AreaReleases',
+        component_props => \%props,
+        current_view    => 'Node',
     );
 }
 
