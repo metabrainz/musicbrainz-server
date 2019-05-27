@@ -385,7 +385,7 @@ sub events : Chained('load')
     );
 
     $c->stash(
-        component_path  => 'artist/ArtistEvents.js',
+        component_path  => 'artist/ArtistEvents',
         component_props => \%props,
         current_view    => 'Node',
     );
@@ -597,7 +597,7 @@ around $_ => sub {
             artist => $artist,
         );
         $c->stash(
-            component_path => 'artist/SpecialPurpose.js',
+            component_path => 'artist/SpecialPurpose',
             component_props => \%props,
             current_view => 'Node',
         );
@@ -644,7 +644,7 @@ sub split : Chained('load') Edit {
             artist => $artist,
         );
         $c->stash(
-            component_path => 'artist/CannotSplit.js',
+            component_path => 'artist/CannotSplit',
             component_props => \%props,
             current_view => 'Node',
         );
