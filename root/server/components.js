@@ -39,6 +39,7 @@ module.exports = {
   'area/AreaIndex': require('../area/AreaIndex'),
   'area/AreaLabels': require('../area/AreaLabels'),
   'area/AreaReleases': require('../area/AreaReleases'),
+  'area/AreaUsers': require('../area/AreaUsers'),
   'area/NotFound': require('../area/NotFound'),
   'artist/ArtistEvents': require('../artist/ArtistEvents'),
   'artist/ArtistMerge': require('../artist/ArtistMerge'),

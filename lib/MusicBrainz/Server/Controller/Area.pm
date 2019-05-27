@@ -276,7 +276,18 @@ sub users : Chained('load') {
         $c->model('Editor')->load_preferences(@$editors);
         ($editors, $total);
     });
-    $c->stash( editors => $editors );
+
+    my %props = (
+        area        => $c->stash->{area},
+        editors     => $editors,
+        pager       => serialize_pager($c->stash->{pager}),
+    );
+
+    $c->stash(
+        component_path  => 'area/AreaUsers',
+        component_props => \%props,
+        current_view    => 'Node',
+    );
 }
 
 =head2 WRITE METHODS
