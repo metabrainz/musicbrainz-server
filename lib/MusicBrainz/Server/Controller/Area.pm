@@ -120,7 +120,18 @@ sub artists : Chained('load')
     if ($c->user_exists) {
         $c->model('Artist')->rating->load_user_ratings($c->user->id, @$artists);
     }
-    $c->stash( artists => $artists );
+
+    my %props = (
+        area        => $c->stash->{area},
+        artists     => $artists,
+        pager       => serialize_pager($c->stash->{pager}),
+    );
+
+    $c->stash(
+        component_path  => 'area/AreaArtists',
+        component_props => \%props,
+        current_view    => 'Node',
+    );
 }
 
 =head2 events

@@ -34,6 +34,7 @@ module.exports = {
   'admin/attributes/Index': require('../admin/attributes/Index'),
   'admin/attributes/Language': require('../admin/attributes/Language'),
   'admin/attributes/Script': require('../admin/attributes/Script'),
+  'area/AreaArtists': require('../area/AreaArtists'),
   'area/AreaEvents': require('../area/AreaEvents'),
   'area/AreaIndex': require('../area/AreaIndex'),
   'area/AreaLabels': require('../area/AreaLabels'),
