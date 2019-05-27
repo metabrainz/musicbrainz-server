@@ -293,7 +293,18 @@ sub works : Chained('load')
     });
     $c->model('Work')->load_related_info(@$works);
     $c->model('Work')->rating->load_user_ratings($c->user->id, @$works) if $c->user_exists;
-    $c->stash( works => $works );
+
+    my %props = (
+        artist       => $c->stash->{artist},
+        pager        => serialize_pager($c->stash->{pager}),
+        works        => $works,
+    );
+
+    $c->stash(
+        component_path  => 'artist/ArtistWorks',
+        component_props => \%props,
+        current_view    => 'Node',
+    );
 }
 
 =head2 recordings
