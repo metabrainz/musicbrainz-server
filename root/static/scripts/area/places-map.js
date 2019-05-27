@@ -1,8 +1,10 @@
-// This file is part of MusicBrainz, the open internet music database.
-// Copyright (C) 2016 Jérôme Roy
-// Copyright (C) 2017 MetaBrainz Foundation
-// Licensed under the GPL version 2, or (at your option) any later version:
-// http://www.gnu.org/licenses/gpl-2.0.txt
+/*
+ * This file is part of MusicBrainz, the open internet music database.
+ * Copyright (C) 2016 Jérôme Roy
+ * Copyright (C) 2017 MetaBrainz Foundation
+ * Licensed under the GPL version 2, or (at your option) any later version:
+ * http://www.gnu.org/licenses/gpl-2.0.txt
+ */
 
 import 'leaflet.markercluster/dist/leaflet.markercluster-src';
 
@@ -34,31 +36,31 @@ if (places.length) {
   });
 
   const iconNames = {
-    '1': require('../../images/leaflet/studio-marker-icon.png'),
-    '2': require('../../images/leaflet/venue-marker-icon.png'),
-    '3': require('../../images/leaflet/marker-icon.png'),
-    '4': require('../../images/leaflet/stadium-marker-icon.png'),
-    '5': require('../../images/leaflet/arena-marker-icon.png'),
-    '6': require('../../images/leaflet/religious-marker-icon.png'),
+    1: require('../../images/leaflet/studio-marker-icon.png'),
+    2: require('../../images/leaflet/venue-marker-icon.png'),
+    3: require('../../images/leaflet/marker-icon.png'),
+    4: require('../../images/leaflet/stadium-marker-icon.png'),
+    5: require('../../images/leaflet/arena-marker-icon.png'),
+    6: require('../../images/leaflet/religious-marker-icon.png'),
   };
   const icons = _.mapValues(iconNames, iconUrl => new LeafIcon({iconUrl}));
 
   const markers = L.markerClusterGroup({
-    maxClusterRadius: 50,
-    spiderfyOnMaxZoom: true,
-    showCoverageOnHover: false,
-    zoomToBoundsOnClick: false,
     iconCreateFunction: function (cluster) {
       const iconURL = require('../../images/leaflet/cluster-marker-icon.png');
 
       return L.divIcon({
-        html: '<img src="' + _.escape(iconURL) + '" />'
-            + '<div class="cluster-div-text">'
-            + '<b>' + cluster.getChildCount() + '</b></div>',
         className: 'cluster-div-icon',
+        html: '<img src="' + _.escape(iconURL) + '" />' +
+              '<div class="cluster-div-text">' +
+              '<b>' + cluster.getChildCount() + '</b></div>',
         iconSize: L.point(25, 41),
       });
     },
+    maxClusterRadius: 50,
+    showCoverageOnHover: false,
+    spiderfyOnMaxZoom: true,
+    zoomToBoundsOnClick: false,
   });
 
   markers.on('clustermouseover', function (event) {
@@ -96,9 +98,9 @@ if (places.length) {
       title: place.name,
     }).bindPopup(
       texp.l('{place_type}: {place_link}', {
-        place_type: placeType,
         place_link: placeLink(place),
-      })
+        place_type: placeType,
+      }),
     );
     bounds.push(coordinates);
     markers.addLayer(marker);
