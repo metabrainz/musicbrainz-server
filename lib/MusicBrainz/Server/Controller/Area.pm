@@ -242,9 +242,10 @@ sub places : Chained('load')
     $c->model('PlaceType')->load(@$places);
     $c->model('Area')->load(@$places);
     $c->model('Area')->load_containment(map { $_->area } @$places);
-    $c->stash(
-        places => $places,
-        map_data_args => $c->json->encode({
+
+    my %props = (
+        area        => $c->stash->{area},
+        mapDataArgs => $c->json->encode({
             places => [
                 map {
                     my $json = $_->TO_JSON;
@@ -255,6 +256,14 @@ sub places : Chained('load')
                 } grep { $_->coordinates } @$places
             ],
         }),
+        places      => $places,
+        pager       => serialize_pager($c->stash->{pager}),
+    );
+
+    $c->stash(
+        component_path  => 'area/AreaPlaces',
+        component_props => \%props,
+        current_view    => 'Node',
     );
 }
 
