@@ -95,7 +95,7 @@ sub show : PathPart('') Chained('load')
     );
 
     $c->stash(
-        component_path => 'area/AreaIndex.js',
+        component_path => 'area/AreaIndex',
         component_props => \%props,
         current_view => 'Node',
     );
@@ -159,7 +159,7 @@ sub events : Chained('load')
     );
 
     $c->stash(
-        component_path  => 'area/AreaEvents.js',
+        component_path  => 'area/AreaEvents',
         component_props => \%props,
         current_view    => 'Node',
     );
@@ -191,7 +191,7 @@ sub labels : Chained('load')
     );
 
     $c->stash(
-        component_path  => 'area/AreaLabels.js',
+        component_path  => 'area/AreaLabels',
         component_props => \%props,
         current_view    => 'Node',
     );
