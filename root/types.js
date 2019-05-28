@@ -16,8 +16,8 @@
  */
 
 declare type AggregatedTagT = {|
-  +tag: string,
   +count: number,
+  +tag: string,
 |};
 
 declare type AliasT = {|
@@ -241,8 +241,8 @@ declare type CollectionT = {|
   +collaborators: $ReadOnlyArray<EditorT>,
   +description: string,
   +description_html: string,
-  +entity_count: number,
   +editor: EditorT | null,
+  +entity_count: number,
   +gid: string,
   +name: string,
   +public: boolean,
@@ -411,10 +411,10 @@ declare type EditStatusT =
 declare type EditT = {|
   +close_time: string,
   +conditions: {|
-    +duration: number,
-    +votes: number,
-    +expire_action: EditExpireActionT,
     +auto_edit: boolean,
+    +duration: number,
+    +expire_action: EditExpireActionT,
+    +votes: number,
   |},
   +created_time: string,
   +data: Object,
@@ -655,7 +655,7 @@ declare type MediumT = {|
   +name: string,
   +position: number,
   +release_id: number,
-  +tracks?: $ReadOnlyArray<TrackT>
+  +tracks?: $ReadOnlyArray<TrackT>,
 |};
 
 declare type MinimalCoreEntityT = {
@@ -910,7 +910,7 @@ declare type SeriesT = {|
 |};
 
 declare type SeriesItemNumbersRoleT = {|
-  +seriesItemNumbers?: {+[number]: string}
+  +seriesItemNumbers?: {+[number]: string},
 |};
 
 declare type SeriesOrderingTypeT = OptionTreeT<'series_ordering_type'>;
