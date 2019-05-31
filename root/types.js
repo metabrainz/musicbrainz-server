@@ -375,26 +375,38 @@ declare type EditorPreferencesT = {
 
 declare type EditorT = {
   ...EntityRoleT<'editor'>,
+  +age: number | null,
+  +area: AreaT | null,
   +biography: string | null,
   +birth_date: PartialDateT | null,
   +deleted: boolean,
   +email: string,
   +email_confirmation_date: string | null,
+  +gender: GenderT | null,
   +gravatar: string,
+  +has_confirmed_email_address: boolean,
   +is_account_admin: boolean,
   +is_admin: boolean,
   +is_auto_editor: boolean,
   +is_banner_editor: boolean,
   +is_bot: boolean,
+  +is_charter: boolean,
   +is_editing_disabled: boolean,
   +is_limited: boolean,
   +is_location_editor: boolean,
   +is_relationship_editor: boolean,
   +is_wiki_transcluder: boolean,
+  +languages: $ReadOnlyArray<EditorLanguageT> | null,
+  +last_login_date: string | null,
   +name: string,
   +preferences: EditorPreferencesT,
   +registration_date: string,
   +website: string | null,
+};
+
+declare type EditorLanguageT = {
+  +fluency: FluencyT,
+  +language: LanguageT,
 };
 
 declare type EditorOAuthTokenT = {
@@ -494,6 +506,13 @@ declare type ReadOnlyFieldT<+V> = {
   +id: number,
   +value: V,
 };
+
+declare type FluencyT =
+  | 'basic'
+  | 'intermediate'
+  | 'advanced'
+  | 'native'
+  ;
 
 // See lib/MusicBrainz/Server/Form/Role/ToJSON.pm
 declare type FormT<+F> = {

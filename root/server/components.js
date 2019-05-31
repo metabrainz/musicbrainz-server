@@ -215,6 +215,7 @@ module.exports = {
   'url/UrlIndex': require('../url/UrlIndex'),
   'user/PrivilegedUsers': require('../user/PrivilegedUsers'),
   'user/ReportUser': require('../user/ReportUser'),
+  'user/UserProfile': require('../user/UserProfile'),
   'work/WorkIndex': require('../work/WorkIndex'),
 
   /*

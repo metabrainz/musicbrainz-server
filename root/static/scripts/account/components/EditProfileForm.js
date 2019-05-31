@@ -34,8 +34,6 @@ type AreaClassT = {
   name: string,
 };
 
-type FluencyT = 'basic' | 'intermediate' | 'advanced' | 'native';
-
 type UserLanguageFieldT = CompoundFieldT<{
   +fluency: FieldT<FluencyT | null>,
   +language_id: FieldT<number | null>,
