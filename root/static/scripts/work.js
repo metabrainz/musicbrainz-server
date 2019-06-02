@@ -102,15 +102,15 @@ class WorkAttribute {
 
   allowedValuesByTypeID: {[number]: OptionListT};
 
-  attributeValue: (?string) => string;
+  attributeValue: KnockoutObservable<string>;
 
-  errors: (?$ReadOnlyArray<string>) => $ReadOnlyArray<string>;
+  errors: KnockoutObservableArray<string>;
 
   parent: ViewModel;
 
-  typeHasFocus: (?boolean) => boolean;
+  typeHasFocus: KnockoutObservable<boolean>;
 
-  typeID: (?number) => number;
+  typeID: KnockoutObservable<number>;
 
   constructor(
     data: WorkAttributeField,
@@ -167,8 +167,7 @@ class ViewModel {
 
   allowedValuesByTypeID: {[number]: OptionListT};
 
-  attributes: (?$ReadOnlyArray<WorkAttribute>) =>
-    $ReadOnlyArray<WorkAttribute>;
+  attributes: KnockoutObservableArray<WorkAttribute>;
 
   constructor(
     attributeTypes: WorkAttributeTypeTreeRootT,

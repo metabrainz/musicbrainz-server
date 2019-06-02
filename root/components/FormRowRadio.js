@@ -30,7 +30,6 @@ type Props = {|
 const FormRowRadio = ({
   field,
   label,
-  onChange,
   options,
   required = false,
 }: Props) => (
