@@ -2,6 +2,9 @@ package MusicBrainz::Server::Form::Admin::Attributes::Script;
 
 use HTML::FormHandler::Moose;
 
+use MusicBrainz::Server::Constants qw( :script_frequency );
+use MusicBrainz::Server::Translation qw( lp );
+
 extends 'MusicBrainz::Server::Form';
 with 'MusicBrainz::Server::Form::Role::Edit';
 
@@ -27,8 +30,18 @@ has_field 'iso_number' => (
 );
 
 has_field 'frequency' => (
-    type => '+MusicBrainz::Server::Form::Field::Integer',
+    type => 'Select',
+    required => 1
 );
+
+sub options_frequency {
+    return [
+        $SCRIPT_FREQUENCY_HIDDEN, lp('Hidden', 'script frequency'),
+        $SCRIPT_FREQUENCY_UNCOMMON, lp('Other (Uncommon)', 'script frequency'),
+        $SCRIPT_FREQUENCY_OTHER, lp('Other', 'script frequency'),
+        $SCRIPT_FREQUENCY_FREQUENT, lp('Frequently used', 'script frequency'),
+    ]
+}
 
 1;
 

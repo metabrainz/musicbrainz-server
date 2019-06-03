@@ -24,17 +24,19 @@ sub _get
 }
 
 our %EXPORT_TAGS = (
-    edit_type       => _get(qr/^EDIT_/),
-    expire_action   => _get(qr/^EXPIRE_/),
-    quality         => _get(qr/^QUALITY_/),
-    alias           => _get(qr/^EDIT_.*_ALIAS$/),
-    annotation      => _get(qr/^EDIT_.*_ADD_ANNOTATION$/),
-    historic        => _get(qr/^EDIT_HISTORIC_/),
-    editor          => _get(qr/^EDITOR_/),
-    vote            => _get(qr/^VOTE_/),
-    edit_status     => _get(qr/^STATUS_/),
-    access_scope    => _get(qr/^ACCESS_SCOPE_/),
-    privileges      => _get(qr/_FLAG$/),
+    edit_type          => _get(qr/^EDIT_/),
+    expire_action      => _get(qr/^EXPIRE_/),
+    quality            => _get(qr/^QUALITY_/),
+    alias              => _get(qr/^EDIT_.*_ALIAS$/),
+    annotation         => _get(qr/^EDIT_.*_ADD_ANNOTATION$/),
+    historic           => _get(qr/^EDIT_HISTORIC_/),
+    editor             => _get(qr/^EDITOR_/),
+    vote               => _get(qr/^VOTE_/),
+    edit_status        => _get(qr/^STATUS_/),
+    access_scope       => _get(qr/^ACCESS_SCOPE_/),
+    privileges         => _get(qr/_FLAG$/),
+    language_frequency => _get(qr/^LANGUAGE_FREQUENCY/),
+    script_frequency   => _get(qr/^SCRIPT_FREQUENCY/),
     election_status => [
         qw( $ELECTION_SECONDER_1 $ELECTION_SECONDER_2 $ELECTION_OPEN
             $ELECTION_ACCEPTED   $ELECTION_REJECTED   $ELECTION_CANCELLED )
@@ -300,6 +302,15 @@ Readonly our $EMAIL_NOREPLY_ADDR_SPEC => 'noreply@musicbrainz.org';
 Readonly our $EMAIL_NOREPLY_ADDRESS => 'MusicBrainz Server <' . $EMAIL_NOREPLY_ADDR_SPEC . '>';
 Readonly our $EMAIL_SUPPORT_ADDRESS => 'MusicBrainz <support@musicbrainz.org>';
 Readonly our $EMAIL_ACCOUNT_ADMINS_ADDRESS => 'MusicBrainz Account Admins <musicbrainz-account-admin@metabrainz.org>';
+
+Readonly our $LANGUAGE_FREQUENCY_HIDDEN   =>  0;
+Readonly our $LANGUAGE_FREQUENCY_OTHER    =>  1;
+Readonly our $LANGUAGE_FREQUENCY_FREQUENT =>  2;
+
+Readonly our $SCRIPT_FREQUENCY_HIDDEN   =>  1;
+Readonly our $SCRIPT_FREQUENCY_UNCOMMON =>  2;
+Readonly our $SCRIPT_FREQUENCY_OTHER    =>  3;
+Readonly our $SCRIPT_FREQUENCY_FREQUENT =>  4;
 
 Readonly our $VOTE_ABSTAIN => -1;
 Readonly our $VOTE_NO      =>  0;
