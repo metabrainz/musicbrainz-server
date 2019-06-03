@@ -42,16 +42,16 @@ const trackParser = releaseEditor.trackParser = {
         hasTrackArtists: optionCookie("trackparser_trackartists", true),
         hasVinylNumbers: optionCookie("trackparser_vinylnumbers", false),
         customDelimiter: optionCookie("trackparser_customdelimiter", "", false),
-        customDelimiterError: ko.observable(''),
         useCustomDelimiter: optionCookie("trackparser_usecustomdelimiter", false),
         useTrackNumbers: optionCookie("trackparser_usetracknumbers", true),
         useTrackNames: optionCookie("trackparser_usetracknames", true),
         useTrackArtists: optionCookie("trackparser_usetrackartists", true),
         useTrackLengths: optionCookie("trackparser_tracktimes", true),
-        delimiterHelpVisible: ko.observable(false),
-        toggleDelimiterHelp: function () {
-          this.delimiterHelpVisible(!this.delimiterHelpVisible());
-        },
+    },
+
+    delimiterHelpVisible: ko.observable(false),
+    toggleDelimiterHelp: function () {
+      trackParser.delimiterHelpVisible(!trackParser.delimiterHelpVisible());
     },
 
     parse: function (str, medium) {
@@ -334,14 +334,8 @@ const trackParser = releaseEditor.trackParser = {
         }
 
         // Use custom delimiter as separator.
-        if (options.useCustomDelimiter && options.customDelimiter !== '') {
-            try {
-                this.separators = new RegExp('(' + options.customDelimiter + ')');
-                this.options.customDelimiterError('');
-            } catch(e) {
-                this.options.customDelimiterError(l('Invalid regular expression.'));
-            }
-        }
+        const customDelimiter = trackParser.customDelimiterRegExp();
+        this.separators = customDelimiter || this.defaultSeparators;
 
         // Split the string into parts, if there are any.
         var parts = line.split(this.separators),
@@ -426,6 +420,27 @@ const trackParser = releaseEditor.trackParser = {
         }
     }
 };
+
+trackParser.customDelimiterRegExp = ko.computed(function () {
+    if (!trackParser.options.useCustomDelimiter()) {
+        return null;
+    }
+    try {
+        const delimiter = trackParser.options.customDelimiter();
+        return new RegExp('(' + delimiter + ')');
+    } catch (e) {
+        return null;
+    }
+});
+
+trackParser.customDelimiterError = debounce(function () {
+    if (!trackParser.options.useCustomDelimiter()) {
+        return '';
+    }
+    return trackParser.customDelimiterRegExp()
+        ? ''
+        : l('Invalid regular expression.');
+})
 
 function optionCookie(name, defaultValue, checkbox=true) {
     var existingValue = getCookie(name);
