@@ -170,6 +170,7 @@ export const FAVICON_CLASSES: {[string]: string} = {
   'vk.com': 'vk',
   'vkdb.jp': 'vkdb',
   'vocadb.net': 'vocadb',
+  'weibo.com': 'weibo',
   'whosampled.com': 'whosampled',
   'wikidata.org': 'wikidata',
   'wikipedia.org': 'wikipedia',

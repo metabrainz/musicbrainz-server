@@ -35,30 +35,41 @@ const EventList = ({
         </tr>
       </thead>
       <tbody>
-        {items.map((item, index) => (
-          <tr className={loopParity(index)} key={item.event.id}>
-            <td>
-              <EntityLink
-                entity={item.event}
-                showDisambiguation
-                showEventDate={false}
-              />
-            </td>
-            <td>
-              {item.event.typeName
-                ? lp_attributes(item.event.typeName, 'event_type')
-                : null}
-            </td>
-            <td>
-              <ArtistRoles relations={item.event.performers} />
-            </td>
-            <td>
-              <EventLocations event={item.event} />
-            </td>
-            <td>{formatDatePeriod(item.event)}</td>
-            <td>{item.event.time}</td>
-          </tr>
-        ))}
+        {items.map((item, index) => {
+          const event = item.event;
+          return (
+            <tr className={loopParity(index)} key={item.event_id}>
+              {event ? (
+                <>
+                  <td>
+                    <EntityLink
+                      entity={event}
+                      showDisambiguation
+                      showEventDate={false}
+                    />
+                  </td>
+                  <td>
+                    {event.typeName
+                      ? lp_attributes(event.typeName, 'event_type')
+                      : null}
+                  </td>
+                  <td>
+                    <ArtistRoles relations={event.performers} />
+                  </td>
+                  <td>
+                    <EventLocations event={event} />
+                  </td>
+                  <td>{formatDatePeriod(event)}</td>
+                  <td>{event.time}</td>
+                </>
+              ) : (
+                <td colSpan="6">
+                  {l('This event no longer exists.')}
+                </td>
+              )}
+            </tr>
+          );
+        })}
       </tbody>
     </table>
   </PaginatedResults>

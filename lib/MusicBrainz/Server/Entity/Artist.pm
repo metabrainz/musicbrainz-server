@@ -75,8 +75,6 @@ sub is_special_purpose {
         || ($self->gid && $self->gid eq $VARTIST_GID);
 }
 
-sub _appearances_table_types { ("release", "release_group", "work", "recording") }
-
 around TO_JSON => sub {
     my ($orig, $self) = @_;
 

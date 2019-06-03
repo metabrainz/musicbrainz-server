@@ -29,10 +29,16 @@ const SeriesAnnotationList = ({
       </thead>
       <tbody>
         {items.map((item, index) => (
-          <tr className={loopParity(index)} key={item.series.gid}>
-            <td>
-              <EntityLink entity={item.series} />
-            </td>
+          <tr className={loopParity(index)} key={item.series_id}>
+            {item.series ? (
+              <td>
+                <EntityLink entity={item.series} />
+              </td>
+            ) : (
+              <td>
+                {l('This series no longer exists.')}
+              </td>
+            )}
             <td dangerouslySetInnerHTML={{__html: item.text}} />
             <td>{item.created}</td>
           </tr>

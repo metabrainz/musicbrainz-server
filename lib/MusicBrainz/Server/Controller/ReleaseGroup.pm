@@ -10,6 +10,7 @@ use MusicBrainz::Server::Constants qw(
     $EDIT_RELEASEGROUP_SET_COVER_ART
     %ENTITIES
 );
+use MusicBrainz::Server::ControllerUtils::JSON qw( serialize_pager );
 use MusicBrainz::Server::Entity::Util::Release qw( group_by_release_status );
 
 with 'MusicBrainz::Server::Controller::Role::Load' => {
@@ -78,10 +79,21 @@ sub show : Chained('load') PathPart('') {
     $c->model('CritiqueBrainz')->load_display_reviews($rg)
         unless $self->should_return_jsonld($c);
 
+    my %props = (
+        numberOfRevisions => $c->stash->{number_of_revisions},
+        mostPopularReview => $rg->most_popular_review,
+        mostRecentReview  => $rg->most_recent_review,
+        pager             => serialize_pager($c->stash->{pager}),
+        releases          => group_by_release_status(@$releases),
+        releaseGroup      => $c->stash->{rg},
+        wikipediaExtract  => $c->stash->{wikipedia_extract},
+    );
+
     $c->stash(
-        template => 'release_group/index.tt',
-        releases_jsonld => {items => $releases},
-        releases => group_by_release_status(@$releases),
+        component_path => 'release_group/ReleaseGroupIndex.js',
+        component_props => \%props,
+        current_view => 'Node',
+        releases_jsonld   => { items => $releases },
     );
 }
 
@@ -191,22 +203,13 @@ sub set_cover_art : Chained('load') PathPart('set-cover-art') Args(0) Edit
 
 MusicBrainz::Server::Controller::ReleaseGroup - controller for release groups
 
-=head1 COPYRIGHT
+=head1 COPYRIGHT AND LICENSE
 
 Copyright (C) 2009 Oliver Charles
+Copyright (C) 2019 MetaBrainz Foundation
 
-This program is free software; you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation; either version 2 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program; if not, write to the Free Software
-Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+This file is part of MusicBrainz, the open internet music database,
+and is licensed under the GPL version 2, or (at your option) any
+later version: http://www.gnu.org/licenses/gpl-2.0.txt
 
 =cut

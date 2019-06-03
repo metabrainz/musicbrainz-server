@@ -3056,6 +3056,16 @@ msgctxt "work_attribute_type"
 msgid "ID for the International Copyright Enterprise"
 msgstr ""
 
+#: DB:work_attribute_type/description:3
+msgctxt "work_attribute_type"
+msgid "ID for the Japanese rights society JASRAC"
+msgstr ""
+
+#: DB:work_attribute_type/description:33
+msgctxt "work_attribute_type"
+msgid "ID for the Japanese rights society NexTone"
+msgstr ""
+
 #: DB:work_attribute_type/description:27
 msgctxt "work_attribute_type"
 msgid "ID for the Mexican rights society SACM"
@@ -4547,6 +4557,11 @@ msgstr ""
 #: DB:work_attribute_type_allowed_value/value:482
 msgctxt "work_attribute_type_allowed_value"
 msgid "Nevruzi Rumi"
+msgstr ""
+
+#: DB:work_attribute_type/name:33
+msgctxt "work_attribute_type"
+msgid "NexTone ID"
 msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:471

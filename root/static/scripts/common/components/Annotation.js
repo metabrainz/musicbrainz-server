@@ -19,16 +19,23 @@ import entityHref from '../utility/entityHref';
 import Collapsible from './Collapsible';
 import EditorLink from './EditorLink';
 
+type MinimalAnnotatedEntityT = $ReadOnly<MinimalCoreEntityT & {
+  +latest_annotation?: AnnotationT,
+}>;
+
 type Props = {|
   +$c: CatalystContextT | SanitizedCatalystContextT,
-  annotation: ?{...AnnotationT, editor: SanitizedEditorT},
+  +annotation: ?({+editor: EditorT | SanitizedEditorT | null} & AnnotationT),
   +collapse?: boolean,
-  entity: $ReadOnly<MinimalCoreEntityT & {
-    +latest_annotation?: {...AnnotationT},
-  }>,
+  +entity: MinimalAnnotatedEntityT,
   +numberOfRevisions: number,
   +showChangeLog?: boolean,
 |};
+
+type WritableProps = {
+  annotation: ?({editor: EditorT | SanitizedEditorT | null} & AnnotationT),
+  entity: MinimalAnnotatedEntityT,
+};
 
 const Annotation = ({
   $c,
@@ -106,7 +113,7 @@ export default withCatalystContext(
   hydrate<Props>('div.annotation', Annotation, function (props) {
     const entity = props.entity;
 
-    return mutate<Props, _>(props, newProps => {
+    return mutate<WritableProps, Props>(props, newProps => {
       const annotation = newProps.annotation;
 
       // editor data is usually missing on mirror server

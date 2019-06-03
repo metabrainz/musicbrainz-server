@@ -40,10 +40,12 @@ sub options_type_id {
 
     if ($collection && blessed $collection) {
         my $entity_type = $collection->type->item_entity_type;
-        my %valid_types =
-            map { $_->id => 1 }
-            $self->ctx->model('CollectionType')->find_by_entity_type($entity_type);
-        $types = [grep { $valid_types{$_->{value}} } @$types];
+        unless ($self->ctx->model('Collection')->is_empty($entity_type, $collection->{id})) {
+            my %valid_types =
+                map { $_->id => 1 }
+                    $self->ctx->model('CollectionType')->find_by_entity_type($entity_type);
+            $types = [grep {$valid_types{$_->{value}}} @$types];
+        }
     }
 
     return $types;

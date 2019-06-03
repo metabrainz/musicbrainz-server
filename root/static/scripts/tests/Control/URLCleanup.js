@@ -1903,35 +1903,35 @@ const testData = [
                      input_url: 'http://www.livefans.jp/artists/4486/',
              input_entity_type: 'artist',
     expected_relationship_type: 'otherdatabases',
-            expected_clean_url: 'http://www.livefans.jp/artists/4486',
+            expected_clean_url: 'https://www.livefans.jp/artists/4486',
        only_valid_entity_types: ['artist'],
   },
   {
                      input_url: 'http://livefans.jp/events/760678?ref=headline',
              input_entity_type: 'event',
     expected_relationship_type: 'otherdatabases',
-            expected_clean_url: 'http://www.livefans.jp/events/760678',
+            expected_clean_url: 'https://www.livefans.jp/events/760678',
        only_valid_entity_types: ['event'],
   },
   {
                      input_url: 'https://www.livefans.jp/groups/102241#reviewPost',
              input_entity_type: 'series',
     expected_relationship_type: 'otherdatabases',
-            expected_clean_url: 'http://www.livefans.jp/groups/102241',
+            expected_clean_url: 'https://www.livefans.jp/groups/102241',
        only_valid_entity_types: ['series'],
   },
   {
                      input_url: 'www.livefans.jp/venues/past/4853',
              input_entity_type: 'place',
     expected_relationship_type: 'otherdatabases',
-            expected_clean_url: 'http://www.livefans.jp/venues/4853',
+            expected_clean_url: 'https://www.livefans.jp/venues/4853',
        only_valid_entity_types: ['place'],
   },
   {
                      input_url: 'http://www.livefans.jp/venues/facility?latitude=35.670302&longitude=139.718274&target=1&v_id=4853',
              input_entity_type: 'place',
     expected_relationship_type: 'otherdatabases',
-            expected_clean_url: 'http://www.livefans.jp/venues/4853',
+            expected_clean_url: 'https://www.livefans.jp/venues/4853',
        only_valid_entity_types: ['place'],
   },
   // Loudr
@@ -2700,17 +2700,24 @@ const testData = [
   },
   // Songkick
   {
+                     input_url: 'https://www.songkick.com/artists/3909026-courtney-barnett/calendar',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'songkick',
+            expected_clean_url: 'https://www.songkick.com/artists/3909026',
+       only_valid_entity_types: ['artist'],
+  },
+  {
                      input_url: 'http://www.songkick.com/festivals/74586-ruhrpott-rodeo/id/19803209-ruhrpott-rodeo-festival-2014',
              input_entity_type: 'event',
     expected_relationship_type: 'songkick',
-            expected_clean_url: 'https://www.songkick.com/festivals/74586-ruhrpott-rodeo/id/19803209-ruhrpott-rodeo-festival-2014',
-       only_valid_entity_types: ['event', 'place'],
+            expected_clean_url: 'https://www.songkick.com/festivals/74586/id/19803209',
+       only_valid_entity_types: ['event'],
   },
   {
-                     input_url: 'http://www.songkick.com/venues/1141041-flugplatz-schwarze-heide',
+                     input_url: 'http://www.songkick.com/venues/1141041-flugplatz-schwarze-heide#calendar-summary',
              input_entity_type: 'place',
     expected_relationship_type: 'songkick',
-            expected_clean_url: 'https://www.songkick.com/venues/1141041-flugplatz-schwarze-heide',
+            expected_clean_url: 'https://www.songkick.com/venues/1141041',
        only_valid_entity_types: ['place'],
   },
   // SoundCloud
@@ -3015,15 +3022,22 @@ const testData = [
   },
   {
                      input_url: 'https://twitter.com/@UNIVERSAL_D',
-             input_entity_type: 'artist',
+             input_entity_type: 'label',
     expected_relationship_type: 'socialnetwork',
             expected_clean_url: 'https://twitter.com/UNIVERSAL_D',
   },
   {
                      input_url: 'https://twitter.com/@UNIVERSAL_D#content-main-heading',
-             input_entity_type: 'artist',
+             input_entity_type: 'label',
     expected_relationship_type: 'socialnetwork',
             expected_clean_url: 'https://twitter.com/UNIVERSAL_D',
+  },
+  {
+                     input_url: 'https://twitter.com/mountain_goats/status/1062342708470132738',
+             input_entity_type: 'recording',
+    expected_relationship_type: 'streamingmusic',
+            expected_clean_url: 'https://twitter.com/mountain_goats/status/1062342708470132738',
+       only_valid_entity_types: ['recording'],
   },
   // Universal Music
   {
@@ -3232,13 +3246,19 @@ const testData = [
                      input_url: 'www.weibo.com/mchotdog2010#test',
              input_entity_type: 'artist',
     expected_relationship_type: 'socialnetwork',
-            expected_clean_url: 'http://www.weibo.com/mchotdog2010',
+            expected_clean_url: 'https://www.weibo.com/mchotdog2010',
   },
   {
                      input_url: 'https://weibo.com/mchotdog2010?test',
              input_entity_type: 'label',
     expected_relationship_type: 'socialnetwork',
-            expected_clean_url: 'http://www.weibo.com/mchotdog2010',
+            expected_clean_url: 'https://www.weibo.com/mchotdog2010',
+  },
+  {
+                     input_url: 'http://www.weibo.com/u/5887871694?is_hot=1',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'socialnetwork',
+            expected_clean_url: 'https://www.weibo.com/u/5887871694',
   },
   // WhoSampled
   {
@@ -3479,6 +3499,12 @@ const testData = [
              input_entity_type: 'recording',
     expected_relationship_type: 'streamingmusic',
             expected_clean_url: 'https://www.youtube.com/watch?v=4eUqsUZBluA',
+  },
+  {
+                     input_url: 'https://www.youtube.com/c/MetaBrainz',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'youtube',
+            expected_clean_url: 'https://www.youtube.com/MetaBrainz',
   },
 ];
 /* eslint-enable indent, max-len, sort-keys */

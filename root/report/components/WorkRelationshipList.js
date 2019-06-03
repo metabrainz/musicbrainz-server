@@ -28,14 +28,18 @@ const WorkRelationshipList = ({
       </thead>
       <tbody>
         {items.map((item, index) => (
-          <tr className={loopParity(index)} key={item.work.gid}>
+          <tr className={loopParity(index)} key={item.work_id}>
             <td>
               <a href={'/relationship/' + encodeURIComponent(item.link_gid)}>
                 {l_relationships(item.link_name)}
               </a>
             </td>
             <td>
-              <EntityLink entity={item.work} />
+              {item.work ? (
+                <EntityLink entity={item.work} />
+              ) : (
+                l('This work no longer exists.')
+              )}
             </td>
           </tr>
         ))}

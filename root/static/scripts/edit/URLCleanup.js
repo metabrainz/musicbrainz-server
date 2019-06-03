@@ -1066,6 +1066,13 @@ const CLEANUPS = {
       return url;
     },
   },
+  'foursquare': {
+    match: [new RegExp('^(https?://)?([^/]+\\.)?foursquare\\.com/', 'i')],
+    type: LINK_TYPES.socialnetwork,
+    clean: function (url) {
+      return url.replace(/^https?:\/\/(?:[^/]+\.)?foursquare\.com/, 'https://foursquare.com');
+    },
+  },
   'generasia': {
     match: [new RegExp('^(https?://)?(www\\.)?generasia\\.com/wiki/', 'i')],
     type: LINK_TYPES.otherdatabases,
@@ -1090,6 +1097,13 @@ const CLEANUPS = {
     match: [new RegExp('^(https?://)?play\\.google\\.com/store/music/', 'i')],
     clean: function (url) {
       return url.replace(/^https?:\/\/play\.google\.com\/store\/music\/(artist|album)(?:\/[^?]*)?\?id=([^&#]+)(?:[&#].*)?$/, 'https://play.google.com/store/music/$1?id=$2');
+    },
+  },
+  'googleplus': {
+    match: [new RegExp('^(https?://)?([^/]+\\.)?plus\\.google\\.com/', 'i')],
+    type: LINK_TYPES.socialnetwork,
+    clean: function (url) {
+      return url.replace(/^(?:https?:\/\/)?plus\.google\.com\/(?:u\/[0-9]\/)?([0-9]+)(\/.*)?$/, 'https://plus.google.com/$1');
     },
   },
   'hmikuwiki': {
@@ -1338,6 +1352,13 @@ const CLEANUPS = {
       return url;
     },
   },
+  'lastfm_user': {
+    match: [new RegExp('^(https?://)?([^/]+\\.)?(last\\.fm|lastfm\\.(com\\.br|com\\.tr|at|com|de|es|fr|it|jp|pl|pt|ru|se))/user/', 'i')],
+    type: LINK_TYPES.socialnetwork,
+    clean: function (url) {
+      return url.replace(/^(https?:\/\/)?((www|cn|m)\.)?(last\.fm|lastfm\.(com\.br|com\.tr|at|com|de|es|fr|it|jp|pl|pt|ru|se))/, 'https://www.last.fm');
+    },
+  },
   'libraryofcongress': {
     match: [new RegExp('^(https?://)?id\\.loc\\.gov/', 'i')],
     type: LINK_TYPES.otherdatabases,
@@ -1371,16 +1392,23 @@ const CLEANUPS = {
       return url;
     },
   },
+  'linkedin': {
+    match: [new RegExp('^(https?://)?([^/]+\\.)?linkedin\\.com/', 'i')],
+    type: LINK_TYPES.socialnetwork,
+    clean: function (url) {
+      return url.replace(/^https?:\/\/([^/]+\.)?linkedin\.com/, 'https://$1linkedin.com');
+    },
+  },
   'livefans': {
     match: [new RegExp('^(https?://)?(www\\.)?livefans\\.jp', 'i')],
     type: LINK_TYPES.otherdatabases,
     clean: function (url) {
       url = url.replace(/(venues)\/(?:past|future)\//, '$1/');
       url = url.replace(/(venues)\/facility\?.*v_id=([0-9]+).*$/, '$1/$2');
-      return url.replace(/^(?:https?:\/\/)?(?:www\.)?livefans\.jp\/([^?#]+[^/?#])\/*(?:[?#].*)?$/, 'http://www.livefans.jp/$1');
+      return url.replace(/^(?:https?:\/\/)?(?:www\.)?livefans\.jp\/([^?#]+[^/?#])\/*(?:[?#].*)?$/, 'https://www.livefans.jp/$1');
     },
     validate: function (url, id) {
-      const m = /^http:\/\/www\.livefans\.jp\/([a-z]+)\/[0-9]+$/.exec(url);
+      const m = /^https:\/\/www\.livefans\.jp\/([a-z]+)\/[0-9]+$/.exec(url);
       if (m) {
         const prefix = m[1];
         switch (id) {
@@ -1436,6 +1464,13 @@ const CLEANUPS = {
     clean: function (url) {
       url = url.replace(/^https?:\/\/([^/]+\.)?genius\.com/, 'http://$1genius.com');
       return url;
+    },
+  },
+  'mixcloud': {
+    match: [new RegExp('^(https?://)?([^/]+\\.)?mixcloud\\.com/', 'i')],
+    type: LINK_TYPES.socialnetwork,
+    clean: function (url) {
+      return url.replace(/^https?:\/\/(?:[^/]+\.)?mixcloud\.com/, 'https://www.mixcloud.com');
     },
   },
   'mora': {
@@ -1890,27 +1925,10 @@ const CLEANUPS = {
   },
   'socialnetwork': {
     match: [
-      new RegExp('^(https?://)?([^/]+\\.)?(last\\.fm|lastfm\\.(com\\.br|com\\.tr|at|com|de|es|fr|it|jp|pl|pt|ru|se))/user/', 'i'),
-      new RegExp('^(https?://)?([^/]+\\.)?plus\\.google\\.com/', 'i'),
       new RegExp('^(https?://)?([^/]+\\.)?vine\\.co/', 'i'),
       new RegExp('^(https?://)?([^/]+\\.)?vk\\.com/', 'i'),
-      new RegExp('^(https?://)?([^/]+\\.)?twitter\\.com/', 'i'),
-      new RegExp('^(https?://)?([^/]+\\.)?weibo\\.com/', 'i'),
-      new RegExp('^(https?://)?([^/]+\\.)?linkedin\\.com/', 'i'),
-      new RegExp('^(https?://)?([^/]+\\.)?foursquare\\.com/', 'i'),
-      new RegExp('^(https?://)?([^/]+\\.)?mixcloud\\.com/', 'i'),
     ],
     type: LINK_TYPES.socialnetwork,
-    clean: function (url) {
-      url = url.replace(/^(?:https?:\/\/)?plus\.google\.com\/(?:u\/[0-9]\/)?([0-9]+)(\/.*)?$/, 'https://plus.google.com/$1');
-      url = url.replace(/^(?:https?:\/\/)?(?:(?:www|mobile)\.)?twitter\.com(?:\/#!)?\/@?([^\/?#]+)(?:[\/?#].*)?$/, 'https://twitter.com/$1');
-      url = url.replace(/^(https?:\/\/)?((www|cn|m)\.)?(last\.fm|lastfm\.(com\.br|com\.tr|at|com|de|es|fr|it|jp|pl|pt|ru|se))/, 'https://www.last.fm');
-      url = url.replace(/^(?:https?:\/\/)?(?:[^/]+\.)?weibo\.com\/([^\/?#]+)(?:.*)$/, 'http://www.weibo.com/$1');
-      url = url.replace(/^https?:\/\/([^/]+\.)?linkedin\.com/, 'https://$1linkedin.com');
-      url = url.replace(/^https?:\/\/(?:[^/]+\.)?foursquare\.com/, 'https://foursquare.com');
-      url = url.replace(/^https?:\/\/(?:[^/]+\.)?mixcloud\.com/, 'https://www.mixcloud.com');
-      return url;
-    },
   },
   'songfacts': {
     match: [new RegExp('^(https?://)?([^/]+\\.)?songfacts\\.com/', 'i')],
@@ -1920,19 +1938,24 @@ const CLEANUPS = {
     match: [new RegExp('^(https?://)?([^/]+\\.)?songkick\\.com', 'i')],
     type: LINK_TYPES.songkick,
     clean: function (url) {
-      return url.replace(/^http:\/\//, 'https://');
+      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?songkick\.com\//, 'https://www.songkick.com/');
+      url = url.replace(/^(https:\/\/www\.songkick\.com\/[a-z]+\/[0-9]+)(?:-[\w-]*)?(\/id\/[0-9]+)?(?:[-\/?#].*)?$/, '$1$2');
+      return url;
     },
     validate: function (url, id) {
-      const m = /songkick\.com\/([a-z]+)\//.exec(url);
+      const m = /^https:\/\/www\.songkick\.com\/([a-z]+)\/[0-9]+(?:\/(id)\/[0-9]+)?$/.exec(url);
       if (m) {
         const prefix = m[1];
+        if ((m[2] === 'id') !== (prefix === 'festivals')) {
+          return false;
+        }
         switch (id) {
           case LINK_TYPES.songkick.artist:
             return prefix === 'artists';
           case LINK_TYPES.songkick.event:
             return prefix === 'concerts' || prefix === 'festivals';
           case LINK_TYPES.songkick.place:
-            return prefix === 'venues' || prefix === 'festivals';
+            return prefix === 'venues';
         }
       }
       return false;
@@ -2067,6 +2090,36 @@ const CLEANUPS = {
       return false;
     },
   },
+  'twitter': {
+    match: [new RegExp('^(https?://)?([^/]+\\.)?twitter\\.com/', 'i')],
+    type: _.defaults(
+      {},
+      LINK_TYPES.socialnetwork,
+      LINK_TYPES.streamingmusic,
+    ),
+    clean: function (url) {
+      url = url.replace(
+        /^(?:https?:\/\/)?(?:(?:www|mobile)\.)?twitter\.com(?:\/#!)?\//,
+        'https://twitter.com/'
+      );
+      url = url.replace(
+        /^(https:\/\/twitter\.com)\/@?([^\/?#]+(?:\/status\/\d+)?)(?:[\/?#].*)?$/,
+        '$1/$2'
+      );
+      return url;
+    },
+    validate: function (url, id) {
+      const m = /^https:\/\/twitter\.com\/[^\/?#]+(\/status\/\d+)?$/.exec(url);
+      if (m) {
+        const isATweet = !!m[1];
+        if (_.includes(LINK_TYPES.streamingmusic, id)) {
+          return isATweet && (id === LINK_TYPES.streamingmusic.recording);
+        }
+        return !isATweet;
+      }
+      return false;
+    },
+  },
   'unwelcomeimages': { // Block images from sites that don't allow deeplinking
     match: [
       new RegExp('^(https?://)?s\\.pixogs\\.com\/', 'i'),
@@ -2193,6 +2246,13 @@ const CLEANUPS = {
       return url;
     },
   },
+  'weibo': {
+    match: [new RegExp('^(https?://)?([^/]+\\.)?weibo\\.com/', 'i')],
+    type: LINK_TYPES.socialnetwork,
+    clean: function (url) {
+      return url.replace(/^(?:https?:\/\/)?(?:[^/]+\.)?weibo\.com\/(u\/)?([^\/?#]+)(?:.*)$/, 'https://www.weibo.com/$1$2');
+    },
+  },
   'wikidata': {
     match: [new RegExp('^(https?://)?([^/]+\\.)?wikidata\\.org', 'i')],
     type: LINK_TYPES.wikidata,
@@ -2260,6 +2320,8 @@ const CLEANUPS = {
     type: _.defaults({}, LINK_TYPES.youtube, LINK_TYPES.streamingmusic),
     clean: function (url) {
       url = url.replace(/^(https?:\/\/)?([^\/]+\.)?youtube\.com(?:\/#)?/, 'https://www.youtube.com');
+      // YouTube /c/ user channels (/c/ is unneeded)
+      url = url.replace(/^https:\/\/www\.youtube\.com\/c\//, 'https://www.youtube.com/');
       // YouTube URL shortener
       url = url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?youtu\.be\/([a-zA-Z0-9_-]+).*$/, 'https://www.youtube.com/watch?v=$1');
       // YouTube standard watch URL

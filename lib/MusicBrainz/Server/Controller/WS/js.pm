@@ -49,6 +49,12 @@ sub medium : Chained('root') PathPart Args(1) {
     my ($self, $c, $id) = @_;
 
     my $medium = $c->model('Medium')->get_by_id($id);
+
+    unless ($medium) {
+        $c->stash->{error} = 'No medium found with this ID.';
+        $c->detach('bad_req');
+    }
+
     $c->model('MediumFormat')->load($medium);
     $c->model('MediumCDTOC')->load_for_mediums($medium);
     $c->model('CDTOC')->load($medium->all_cdtocs);
@@ -115,15 +121,12 @@ sub tracklist_results {
     {
         next unless $release;
 
-        my $count = 0;
         for my $medium ($release->all_mediums)
         {
-            $count += 1;
-
             push @output, {
                 gid => $release->gid,
                 name => $release->name,
-                position => $count,
+                position => $medium->position,
                 format => $medium->format_name,
                 medium => $medium->name,
                 comment => $release->comment,

@@ -13,7 +13,7 @@
 
     [% React.embed(c, 'components/Relationships', {source => work}) %]
 
-    [%- INCLUDE "components/relationships-table.tt" heading=l("Recordings") entity=work -%]
+    [% React.embed(c, 'components/RelationshipsTable', {entity => work, heading => l('Recordings')}) %]
 
     [%- script_manifest('work/index.js', {async => 'async'}) -%]
 [%- END -%]

@@ -1,6 +1,14 @@
 #, fuzzy
 msgid ""
 msgstr ""
+"#-#-#-#-#  statistics_db.pot (PACKAGE VERSION)  #-#-#-#-#\n"
+"Project-Id-Version: PACKAGE VERSION\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
 "#-#-#-#-#  statistics_tmpl.pot (PACKAGE VERSION)  #-#-#-#-#\n"
 "Project-Id-Version: PACKAGE VERSION\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
@@ -12,7 +20,7 @@ msgstr ""
 "#-#-#-#-#  statistics_js.pot (PACKAGE VERSION)  #-#-#-#-#\n"
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-05-13 11:20-0500\n"
+"POT-Creation-Date: 2019-05-23 20:14+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2172,10 +2180,6 @@ msgstr ""
 
 #: ../root/statistics/stats.js:624
 msgid "Count of all Tags"
-msgstr ""
-
-#: ../root/statistics/stats.js:625
-msgid "Tags"
 msgstr ""
 
 #: ../root/statistics/stats.js:630

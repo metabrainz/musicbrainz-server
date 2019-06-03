@@ -172,6 +172,7 @@ my %URL_SPECIALIZATIONS = (
     'VK'                  => qr{^https?://(?:www\.)?vk\.com/}i,
     'Vkdb'                => qr{^https?://(?:www\.)?vkdb\.jp/}i,
     'VocaDB'              => qr{^https?://(?:www\.)?vocadb\.net/}i,
+    'Weibo'               => qr{^https?://(?:www\.)?weibo\.com/}i,
     'WhoSampled'          => qr{^https?://(?:www\.)?whosampled\.com/}i,
     'Wikidata'            => qr{^https?://(?:www\.)?wikidata\.org/wiki/}i,
     'Wikipedia'           => qr{^https?://([\w-]{2,})\.wikipedia\.org/wiki/}i,

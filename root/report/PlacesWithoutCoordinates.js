@@ -60,73 +60,84 @@ const PlacesWithoutCoordinates = ({
         </thead>
         <tbody>
           {items.map((item, index) => {
-            const query = encodeURIComponent(
-              item.place.name +
-              ' ' +
-              item.place.address +
-              (item.place.area ? ' ' + item.place.area.name : ''),
-            );
+            const place = item.place;
+            const query = place ? (
+              encodeURIComponent(
+                place.name +
+                ' ' +
+                place.address +
+                (place.area ? ' ' + place.area.name : ''),
+              )
+            ) : '';
             return (
-              <tr className={loopParity(index)} key={item.place.gid}>
-                <td>
-                  <EntityLink entity={item.place} />
-                </td>
-                <td>{item.place.address}</td>
-                <td>
-                  {item.place.area
-                    ? <DescriptiveLink entity={item.place.area} />
-                    : null}
-                </td>
-                <td className="search-links">
-                  <span className="no-favicon">
-                    <a
-                      href={
-                        'https://www.openstreetmap.org/search?query=' + query
-                      }
-                      rel="noopener noreferrer"
-                      target="_blank"
-                      title="OpenStreetMap"
-                    >
-                      {'OSM'}
-                    </a>
-                  </span>
-                  {' | '}
-                  <span>
-                    <a
-                      href={'https://www.qwant.com/local/?q=' + query}
-                      rel="noopener noreferrer"
-                      target="_blank"
-                      title="Qwant Local"
-                    >
-                      {'QL'}
-                    </a>
-                  </span>
-                  {' | '}
-                  <span>
-                    <a
-                      href={
-                        'https://www.mapquest.com/search/results/?query=' +
-                        query
-                      }
-                      rel="noopener noreferrer"
-                      target="_blank"
-                      title="MapQuest"
-                    >
-                      {'MQ'}
-                    </a>
-                  </span>
-                  {' | '}
-                  <span>
-                    <a
-                      href={'https://www.google.com/maps/search/' + query}
-                      rel="noopener noreferrer"
-                      target="_blank"
-                      title="Google Maps"
-                    >
-                      {'GM'}
-                    </a>
-                  </span>
-                </td>
+              <tr className={loopParity(index)} key={item.place_id}>
+                {place ? (
+                  <>
+                    <td>
+                      <EntityLink entity={place} />
+                    </td>
+                    <td>{place.address}</td>
+                    <td>
+                      {place.area
+                        ? <DescriptiveLink entity={place.area} />
+                        : null}
+                    </td>
+                    <td className="search-links">
+                      <span className="no-favicon">
+                        <a
+                          href={
+                            'https://www.openstreetmap.org/search?query=' + query
+                          }
+                          rel="noopener noreferrer"
+                          target="_blank"
+                          title="OpenStreetMap"
+                        >
+                          {'OSM'}
+                        </a>
+                      </span>
+                      {' | '}
+                      <span>
+                        <a
+                          href={'https://www.qwant.com/local/?q=' + query}
+                          rel="noopener noreferrer"
+                          target="_blank"
+                          title="Qwant Local"
+                        >
+                          {'QL'}
+                        </a>
+                      </span>
+                      {' | '}
+                      <span>
+                        <a
+                          href={
+                            'https://www.mapquest.com/search/results/?query=' +
+                            query
+                          }
+                          rel="noopener noreferrer"
+                          target="_blank"
+                          title="MapQuest"
+                        >
+                          {'MQ'}
+                        </a>
+                      </span>
+                      {' | '}
+                      <span>
+                        <a
+                          href={'https://www.google.com/maps/search/' + query}
+                          rel="noopener noreferrer"
+                          target="_blank"
+                          title="Google Maps"
+                        >
+                          {'GM'}
+                        </a>
+                      </span>
+                    </td>
+                  </>
+                ) : (
+                  <td colSpan="4">
+                    {l('This place no longer exists.')}
+                  </td>
+                )}
               </tr>
             );
           })}
