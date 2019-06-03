@@ -66,10 +66,10 @@
       <td style="padding-left: 2em">
         <label data-bind="visible: useCustomDelimiter">
           [%= add_colon(l('Custom delimiter')) %]
-          <input type="text" name="custom-delimiter" data-bind="value: customDelimiter" />
-          <span class="error" data-bind="text: customDelimiterError"></span>
-          (<a href="#" data-bind="click: toggleDelimiterHelp">[% l('help') %]</a>)
-          <p data-bind="visible: delimiterHelpVisible" style="max-width: 25em">
+          <input type="text" name="custom-delimiter" data-bind="value: customDelimiter, valueUpdate: 'input'" />
+          (<a href="#" data-bind="click: $root.trackParser.toggleDelimiterHelp">[% l('help') %]</a>)
+          <p class="error" data-bind="text: $root.trackParser.customDelimiterError"></p>
+          <p data-bind="visible: $root.trackParser.delimiterHelpVisible" style="max-width: 25em">
             <i>[% l('Enter the delimiter that separates the track name from the artist name
                      (valid {url|regular expressions} are accepted).',
                      { url => 'https://developer.mozilla.org/docs/Web/JavaScript/Guide/Regular_Expressions' }) %]</i>
