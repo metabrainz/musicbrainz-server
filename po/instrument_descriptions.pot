@@ -839,6 +839,14 @@ msgid ""
 "produced by longer, not thicker strings."
 msgstr ""
 
+#. name:bedug 
+#: DB:instrument/description:968
+msgid ""
+"Extra large double-headed water buffalo hide barrel drum. It is suspended "
+"from a rack and beat with mallet, it is used in central Javanese gamelan and "
+"for religious signalling purposes in mosques."
+msgstr ""
+
 #. name:Baltic psalteries 
 #: DB:instrument/description:421
 msgid ""
