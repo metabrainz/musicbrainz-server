@@ -611,6 +611,11 @@ msgstr ""
 msgid "bazooka"
 msgstr ""
 
+#: DB:instrument/name:968
+msgctxt "Very large suspended Javanese barrel drum"
+msgid "bedug"
+msgstr ""
+
 #: DB:instrument/name:116
 msgctxt "Tuned metal cups"
 msgid "bell"
@@ -2353,12 +2358,12 @@ msgid "natural brass instruments"
 msgstr ""
 
 #: DB:instrument/name:522
-msgctxt "Valveless and keyless ancestor of the modern horn"
+msgctxt "Brass valveless and keyless ancestor of the modern horn"
 msgid "natural horn"
 msgstr ""
 
 #: DB:instrument/name:913
-msgctxt "Valveless ancestor of the modern trumpet"
+msgctxt "Brass valveless ancestor of the modern trumpet"
 msgid "natural trumpet"
 msgstr ""
 
