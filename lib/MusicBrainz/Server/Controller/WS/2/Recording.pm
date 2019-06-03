@@ -22,7 +22,7 @@ my $ws_defs = Data::OptList::mkopt([
      },
      recording => {
                          method   => 'GET',
-                         linked   => [ qw(artist release collection) ],
+                         linked   => [ qw(artist release collection work) ],
                          inc      => [ qw(aliases artist-credits puids isrcs annotation
                                           _relations tags user-tags genres user-genres ratings user-ratings) ],
                          optional => [ qw(fmt limit offset) ],
@@ -155,6 +155,14 @@ sub recording_browse : Private
         $c->detach('not_found') unless ($release);
 
         my @tmp = $c->model('Recording')->find_by_release($release->id, $limit, $offset);
+        $recordings = $self->make_list(@tmp, $offset);
+    }
+    elsif ($resource eq 'work')
+    {
+        my $work = $c->model('Work')->get_by_gid($id);
+        $c->detach('not_found') unless ($work);
+
+        my @tmp = $c->model('Recording')->find_by_work($work->id, $limit, $offset);
         $recordings = $self->make_list(@tmp, $offset);
     }
 

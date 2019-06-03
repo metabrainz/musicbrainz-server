@@ -4,7 +4,7 @@ use Test::More;
 
 use DateTime;
 use Log::Dispatch;
-use MusicBrainz::Server::Constants qw( :edit_type :quality :edit_status );
+use MusicBrainz::Server::Constants qw( :edit_type :edit_status );
 use MusicBrainz::Server::EditQueue;
 use Try::Tiny;
 
@@ -164,7 +164,6 @@ test '_determine_new_status for different quality levels' => sub {
 
     # Expired one day ago, without votes
     my $edit = t::MusicBrainz::Server::EditQueue::MockEdit->new();
-    $edit->quality($QUALITY_NORMAL);
     $edit->yes_votes(0);
     $edit->no_votes(0);
     $edit->expires_time(DateTime->now() - DateTime::Duration->new( days => 1 ));
@@ -173,7 +172,6 @@ test '_determine_new_status for different quality levels' => sub {
 
     # Expired one day ago, 1 no vote, 0 yes votes
     $edit = t::MusicBrainz::Server::EditQueue::MockEdit->new();
-    $edit->quality($QUALITY_NORMAL);
     $edit->yes_votes(0);
     $edit->no_votes(1);
     $edit->expires_time(DateTime->now() - DateTime::Duration->new( days => 1 ));
@@ -182,7 +180,6 @@ test '_determine_new_status for different quality levels' => sub {
 
     # Expired one day ago, 0 no votes, 1 yes vote
     $edit = t::MusicBrainz::Server::EditQueue::MockEdit->new();
-    $edit->quality($QUALITY_NORMAL);
     $edit->yes_votes(1);
     $edit->no_votes(0);
     $edit->expires_time(DateTime->now() - DateTime::Duration->new( days => 1 ));
@@ -191,7 +188,6 @@ test '_determine_new_status for different quality levels' => sub {
 
     # Expired one day ago, 1 no vote, 1 yes vote
     $edit = t::MusicBrainz::Server::EditQueue::MockEdit->new();
-    $edit->quality($QUALITY_NORMAL);
     $edit->yes_votes(1);
     $edit->no_votes(1);
     $edit->expires_time(DateTime->now() - DateTime::Duration->new( days => 1 ));
@@ -200,7 +196,6 @@ test '_determine_new_status for different quality levels' => sub {
 
     # Not expired, without votes
     $edit = t::MusicBrainz::Server::EditQueue::MockEdit->new();
-    $edit->quality($QUALITY_NORMAL);
     $edit->yes_votes(0);
     $edit->no_votes(0);
     $edit->expires_time(DateTime->now() + DateTime::Duration->new( days => 1 ));
@@ -209,7 +204,6 @@ test '_determine_new_status for different quality levels' => sub {
 
     # Not expired, 3 yes votes, 0 no votes
     $edit = t::MusicBrainz::Server::EditQueue::MockEdit->new();
-    $edit->quality($QUALITY_NORMAL);
     $edit->yes_votes(3);
     $edit->no_votes(0);
     $edit->created_time(DateTime->now() - DateTime::Duration->new( days => 6 ));
@@ -219,7 +213,6 @@ test '_determine_new_status for different quality levels' => sub {
 
     # Not expired, 0 yes votes, 3 no votes
     $edit = t::MusicBrainz::Server::EditQueue::MockEdit->new();
-    $edit->quality($QUALITY_NORMAL);
     $edit->yes_votes(0);
     $edit->no_votes(3);
     $edit->expires_time(DateTime->now() + DateTime::Duration->new( days => 1 ));
@@ -228,7 +221,6 @@ test '_determine_new_status for different quality levels' => sub {
 
     # Not expired, 2 yes votes, 0 no votes
     $edit = t::MusicBrainz::Server::EditQueue::MockEdit->new();
-    $edit->quality($QUALITY_NORMAL);
     $edit->yes_votes(2);
     $edit->no_votes(0);
     $edit->expires_time(DateTime->now() + DateTime::Duration->new( days => 1 ));
@@ -237,7 +229,6 @@ test '_determine_new_status for different quality levels' => sub {
 
     # Not expired, 0 yes votes, 2 no votes
     $edit = t::MusicBrainz::Server::EditQueue::MockEdit->new();
-    $edit->quality($QUALITY_NORMAL);
     $edit->yes_votes(0);
     $edit->no_votes(2);
     $edit->expires_time(DateTime->now() + DateTime::Duration->new( days => 1 ));
@@ -246,7 +237,6 @@ test '_determine_new_status for different quality levels' => sub {
 
     # Not expired, 3 yes votes, 1 no vote
     $edit = t::MusicBrainz::Server::EditQueue::MockEdit->new();
-    $edit->quality($QUALITY_NORMAL);
     $edit->yes_votes(3);
     $edit->no_votes(1);
     $edit->expires_time(DateTime->now() + DateTime::Duration->new( days => 1 ));
@@ -255,142 +245,11 @@ test '_determine_new_status for different quality levels' => sub {
 
     # Not expired, 1 yes vote, 3 no votes
     $edit = t::MusicBrainz::Server::EditQueue::MockEdit->new();
-    $edit->quality($QUALITY_NORMAL);
     $edit->yes_votes(1);
     $edit->no_votes(3);
     $edit->expires_time(DateTime->now() + DateTime::Duration->new( days => 1 ));
     $status = $test->edit_queue->_determine_new_status($edit);
     is($status, undef, "Normal quality edit with 1 Yes / 3 No stays open before expiration");
-
-    # Expired one day ago, without votes, high quality
-    $edit = t::MusicBrainz::Server::EditQueue::MockEdit->new();
-    $edit->quality($QUALITY_HIGH);
-    $edit->yes_votes(0);
-    $edit->no_votes(0);
-    $edit->expires_time(DateTime->now() - DateTime::Duration->new( days => 1 ));
-    $status = $test->edit_queue->_determine_new_status($edit);
-     # MBS-5008 removes voting differences for data quality
-    is($status, $STATUS_APPLIED, "High quality edit with no votes passes on expiration");
-
-    # Not expired, 3 yes votes, 0 no votes, high quality
-    $edit = t::MusicBrainz::Server::EditQueue::MockEdit->new();
-    $edit->quality($QUALITY_HIGH);
-    $edit->yes_votes(3);
-    $edit->no_votes(0);
-    $edit->created_time(DateTime->now() - DateTime::Duration->new( days => 6 ));
-    $edit->expires_time(DateTime->now() + DateTime::Duration->new( days => 1 ));
-    $status = $test->edit_queue->_determine_new_status($edit);
-    is($status, $STATUS_APPLIED, "High quality edit with 3 Yes / 0 No passes before expiration");
-
-    # Not expired, 0 yes votes, 3 no votes, high quality
-    $edit = t::MusicBrainz::Server::EditQueue::MockEdit->new();
-    $edit->quality($QUALITY_HIGH);
-    $edit->yes_votes(0);
-    $edit->no_votes(3);
-    $edit->expires_time(DateTime->now() + DateTime::Duration->new( days => 1 ));
-    $status = $test->edit_queue->_determine_new_status($edit);
-    is($status, $STATUS_FAILEDVOTE, "High quality edit with 0 Yes / 3 No fails before expiration");
-
-    # Not expired, 2 yes votes, 0 no votes, high quality
-    $edit = t::MusicBrainz::Server::EditQueue::MockEdit->new();
-    $edit->quality($QUALITY_HIGH);
-    $edit->yes_votes(2);
-    $edit->no_votes(0);
-    $edit->expires_time(DateTime->now() + DateTime::Duration->new( days => 1 ));
-    $status = $test->edit_queue->_determine_new_status($edit);
-    is($status, undef, "High quality edit with fewer than 3 Yes votes stays open before expiration");
-
-    # Not expired, 0 yes votes, 2 no votes, high quality
-    $edit = t::MusicBrainz::Server::EditQueue::MockEdit->new();
-    $edit->quality($QUALITY_HIGH);
-    $edit->yes_votes(0);
-    $edit->no_votes(2);
-    $edit->expires_time(DateTime->now() + DateTime::Duration->new( days => 1 ));
-    $status = $test->edit_queue->_determine_new_status($edit);
-    is($status, undef, "High quality edit with fewer than 3 No votes stays open before expiration");
-
-    # Not expired, 3 yes votes, 1 no vote, high quality
-    $edit = t::MusicBrainz::Server::EditQueue::MockEdit->new();
-    $edit->quality($QUALITY_HIGH);
-    $edit->yes_votes(3);
-    $edit->no_votes(1);
-    $edit->expires_time(DateTime->now() + DateTime::Duration->new( days => 1 ));
-    $status = $test->edit_queue->_determine_new_status($edit);
-    is($status, undef, "High quality edit with 3 Yes / 1 No stays open before expiration");
-
-    # Not expired, 1 yes vote, 3 no votes, high quality
-    $edit = t::MusicBrainz::Server::EditQueue::MockEdit->new();
-    $edit->quality($QUALITY_HIGH);
-    $edit->yes_votes(1);
-    $edit->no_votes(3);
-    $edit->expires_time(DateTime->now() + DateTime::Duration->new( days => 1 ));
-    $status = $test->edit_queue->_determine_new_status($edit);
-    is($status, undef, "High quality edit with 1 Yes / 3 No stays open before expiration");
-
-    # Expired one day ago, without votes, low quality
-    $edit = t::MusicBrainz::Server::EditQueue::MockEdit->new();
-    $edit->quality($QUALITY_LOW);
-    $edit->yes_votes(0);
-    $edit->no_votes(0);
-    $edit->expires_time(DateTime->now() - DateTime::Duration->new( days => 1 ));
-    $status = $test->edit_queue->_determine_new_status($edit);
-     # MBS-5008 removes voting differences for data quality
-    is($status, $STATUS_APPLIED, "Low quality edit with no votes passes on expiration");
-
-    # Not expired, 3 yes votes, 0 no votes, low quality
-    $edit = t::MusicBrainz::Server::EditQueue::MockEdit->new();
-    $edit->quality($QUALITY_LOW);
-    $edit->yes_votes(3);
-    $edit->no_votes(0);
-    $edit->created_time(DateTime->now() - DateTime::Duration->new( days => 6 ));
-    $edit->expires_time(DateTime->now() + DateTime::Duration->new( days => 1 ));
-    $status = $test->edit_queue->_determine_new_status($edit);
-    is($status, $STATUS_APPLIED, "Low quality edit with 3 Yes / 0 No passes before expiration");
-
-    # Not expired, 0 yes votes, 3 no votes, low quality
-    $edit = t::MusicBrainz::Server::EditQueue::MockEdit->new();
-    $edit->quality($QUALITY_LOW);
-    $edit->yes_votes(0);
-    $edit->no_votes(3);
-    $edit->expires_time(DateTime->now() + DateTime::Duration->new( days => 1 ));
-    $status = $test->edit_queue->_determine_new_status($edit);
-    is($status, $STATUS_FAILEDVOTE, "Low quality edit with 0 Yes / 3 No fails before expiration");
-
-    # Not expired, 2 yes votes, 0 no votes, low quality
-    $edit = t::MusicBrainz::Server::EditQueue::MockEdit->new();
-    $edit->quality($QUALITY_LOW);
-    $edit->yes_votes(2);
-    $edit->no_votes(0);
-    $edit->expires_time(DateTime->now() + DateTime::Duration->new( days => 1 ));
-    $status = $test->edit_queue->_determine_new_status($edit);
-    is($status, undef, "Low quality edit with fewer than 3 Yes votes stays open before expiration");
-
-    # Not expired, 0 yes votes, 2 no votes, low quality
-    $edit = t::MusicBrainz::Server::EditQueue::MockEdit->new();
-    $edit->quality($QUALITY_LOW);
-    $edit->yes_votes(0);
-    $edit->no_votes(2);
-    $edit->expires_time(DateTime->now() + DateTime::Duration->new( days => 1 ));
-    $status = $test->edit_queue->_determine_new_status($edit);
-    is($status, undef, "Low quality edit with fewer than 3 No votes stays open before expiration");
-
-    # Not expired, 3 yes votes, 1 no vote, low quality
-    $edit = t::MusicBrainz::Server::EditQueue::MockEdit->new();
-    $edit->quality($QUALITY_LOW);
-    $edit->yes_votes(3);
-    $edit->no_votes(1);
-    $edit->expires_time(DateTime->now() + DateTime::Duration->new( days => 1 ));
-    $status = $test->edit_queue->_determine_new_status($edit);
-    is($status, undef, "Low quality edit with 3 Yes / 1 No stays open before expiration");
-
-    # Not expired, 1 yes vote, 3 no votes, low quality
-    $edit = t::MusicBrainz::Server::EditQueue::MockEdit->new();
-    $edit->quality($QUALITY_LOW);
-    $edit->yes_votes(1);
-    $edit->no_votes(3);
-    $edit->expires_time(DateTime->now() + DateTime::Duration->new( days => 1 ));
-    $status = $test->edit_queue->_determine_new_status($edit);
-    is($status, undef, "Low quality edit with 1 Yes / 3 No stays open before expiration");
 };
 
 1;

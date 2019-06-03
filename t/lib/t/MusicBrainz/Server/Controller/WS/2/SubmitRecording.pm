@@ -6,6 +6,7 @@ use MusicBrainz::Server::Test qw( html_ok );
 with 't::Mechanize', 't::Context';
 
 use utf8;
+use HTTP::Request;
 use HTTP::Status qw( :constants );
 
 use MusicBrainz::Server::Test qw( xml_ok xml_post );
@@ -26,6 +27,32 @@ INSERT INTO editor (id, name, password, ha1, email, email_confirm_date) VALUES (
 INSERT INTO recording_gid_redirect (gid, new_id) VALUES ('78ad6e24-dc0a-4c20-8284-db2d44d28fb9', 4223060);
 EOSQL
 
+# Check OPTIONS support
+my $req = HTTP::Request->new('OPTIONS', '/ws/2/recording?client=test-1.0');
+
+$mech->request($req);
+is($mech->status, HTTP_OK);
+
+my $headers = $mech->response->headers;
+is($headers->header('access-control-allow-origin'), '*');
+is($headers->header('allow'), 'GET, POST, OPTIONS');
+
+# Check CORS preflight support
+$req = HTTP::Request->new('OPTIONS', '/ws/2/recording?client=test-1.0', [
+    'Access-Control-Request-Headers' => 'Authorization, Content-Type',
+    'Access-Control-Request-Method' => 'POST',
+    'Origin' => 'https://example.com',
+]);
+
+$mech->request($req);
+is($mech->status, HTTP_OK);
+
+my $headers = $mech->response->headers;
+is($headers->header('access-control-allow-headers'), 'Authorization, Content-Type');
+is($headers->header('access-control-allow-methods'), 'GET, POST, OPTIONS');
+is($headers->header('access-control-allow-origin'), '*');
+is($headers->header('allow'), 'GET, POST, OPTIONS');
+
 my $content = '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
   <recording-list>
@@ -37,7 +64,7 @@ my $content = '<?xml version="1.0" encoding="UTF-8"?>
   </recording-list>
 </metadata>';
 
-my $req = xml_post('/ws/2/recording?client=test-1.0', $content);
+$req = xml_post('/ws/2/recording?client=test-1.0', $content);
 
 $mech->request($req);
 is($mech->status, HTTP_UNAUTHORIZED, 'cant POST without authentication');

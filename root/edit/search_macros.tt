@@ -359,7 +359,7 @@
     [% END %]
     [% FOR field=[ [ 'id', l('ID') ],
                    [ 'open_time', l('Created') ],
-                   [ 'expire_time', l('Expired') ],
+                   [ 'expire_time', l('Voting closed') ],
                    [ 'close_time', l('Closed') ],
                    [ 'status', lp('Status', 'edit status') ],
                    [ 'type', l('Type') ],

@@ -204,7 +204,6 @@ sub _determine_new_status
     my $yes_votes = $edit->yes_votes;
     my $no_votes = $edit->no_votes;
 
-    my $quality = $edit->quality;
     my $conditions = $edit->edit_conditions;
 
     # Let's deal with expired edits first

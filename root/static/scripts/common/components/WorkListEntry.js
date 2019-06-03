@@ -40,7 +40,7 @@ type WorkListEntryProps = {|
   +work: WorkT,
 |};
 
-export const WorkListRow = withCatalystContext(({
+export const WorkListRow = withCatalystContext<WorkListRowProps>(({
   $c,
   checkboxes,
   seriesItemNumbers,
