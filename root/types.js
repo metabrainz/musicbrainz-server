@@ -548,6 +548,19 @@ declare type IswcT = {|
   +work_id: number,
 |};
 
+declare type KnockoutObservable<T> = {
+  [[call]]: (() => T) & ((T) => empty),
+  peek: () => T,
+  subscribe: ((T) => void) => {dispose: () => empty},
+};
+
+declare type KnockoutObservableArray<T> =
+  & KnockoutObservable<$ReadOnlyArray<T>>
+  & {
+      push: (T) => empty,
+      remove: (T) => empty,
+    };
+
 declare type LabelT = {|
   ...AnnotationRoleT,
   ...CommentRoleT,
