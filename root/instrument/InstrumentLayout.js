@@ -31,11 +31,18 @@ const InstrumentLayout = ({
   fullWidth,
   page,
   title,
-}: Props) => (
+}: Props) => {
+  const nameWithType = texp.l('{type} “{instrument}”', {
+    instrument: localizeInstrumentName(instrument),
+    type: instrument.typeName
+      ? lp_attributes(instrument.typeName, 'instrument_type')
+      : l('Instrument'),
+  });
+  return (
   <Layout
     title={title
-      ? hyphenateTitle(localizeInstrumentName(instrument), title)
-      : localizeInstrumentName(instrument)}
+      ? hyphenateTitle(nameWithType, title)
+      : nameWithType}
   >
     <div id="content">
       <InstrumentHeader instrument={instrument} page={page} />
@@ -44,6 +51,6 @@ const InstrumentLayout = ({
     {fullWidth ? null : <InstrumentSidebar instrument={instrument} />}
   </Layout>
 );
-
+};
 
 export default InstrumentLayout;
