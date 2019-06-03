@@ -35,7 +35,17 @@ sub base : Chained('/') PathPart('instrument') CaptureArgs(0) { }
 sub show : PathPart('') Chained('load') {
     my ($self, $c) = @_;
 
-    $c->stash->{template} = 'instrument/index.tt';
+    my %props = (
+        instrument        => $c->stash->{instrument},
+        numberOfRevisions => $c->stash->{number_of_revisions},
+        wikipediaExtract  => $c->stash->{wikipedia_extract},
+    );
+
+    $c->stash(
+        component_path => 'instrument/InstrumentIndex.js',
+        component_props => \%props,
+        current_view => 'Node',
+    );
 }
 
 after 'load' => sub {
