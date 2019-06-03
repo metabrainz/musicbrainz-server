@@ -210,6 +210,7 @@ module.exports = {
   'taglookup/Results': require('../taglookup/Results'),
   'track/NotFound': require('../track/NotFound'),
   'url/NotFound': require('../url/NotFound'),
+  'url/UrlIndex': require('../url/UrlIndex'),
   'user/NotFound': require('../user/NotFound'),
   'user/PrivilegedUsers': require('../user/PrivilegedUsers'),
   'user/ReportUser': require('../user/ReportUser'),
