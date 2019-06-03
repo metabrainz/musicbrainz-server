@@ -39,18 +39,18 @@ const InstrumentLayout = ({
       : l('Instrument'),
   });
   return (
-  <Layout
-    title={title
-      ? hyphenateTitle(nameWithType, title)
-      : nameWithType}
-  >
-    <div id="content">
-      <InstrumentHeader instrument={instrument} page={page} />
-      {children}
-    </div>
-    {fullWidth ? null : <InstrumentSidebar instrument={instrument} />}
-  </Layout>
-);
+    <Layout
+      title={title
+        ? hyphenateTitle(nameWithType, title)
+        : nameWithType}
+    >
+      <div id="content">
+        <InstrumentHeader instrument={instrument} page={page} />
+        {children}
+      </div>
+      {fullWidth ? null : <InstrumentSidebar instrument={instrument} />}
+    </Layout>
+  );
 };
 
 export default InstrumentLayout;
