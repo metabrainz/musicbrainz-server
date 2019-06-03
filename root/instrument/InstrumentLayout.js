@@ -31,19 +31,26 @@ const InstrumentLayout = ({
   fullWidth,
   page,
   title,
-}: Props) => (
-  <Layout
-    title={title
-      ? hyphenateTitle(localizeInstrumentName(instrument), title)
-      : localizeInstrumentName(instrument)}
-  >
-    <div id="content">
-      <InstrumentHeader instrument={instrument} page={page} />
-      {children}
-    </div>
-    {fullWidth ? null : <InstrumentSidebar instrument={instrument} />}
-  </Layout>
-);
-
+}: Props) => {
+  const nameWithType = texp.l('{type} “{instrument}”', {
+    instrument: localizeInstrumentName(instrument),
+    type: instrument.typeName
+      ? lp_attributes(instrument.typeName, 'instrument_type')
+      : l('Instrument'),
+  });
+  return (
+    <Layout
+      title={title
+        ? hyphenateTitle(nameWithType, title)
+        : nameWithType}
+    >
+      <div id="content">
+        <InstrumentHeader instrument={instrument} page={page} />
+        {children}
+      </div>
+      {fullWidth ? null : <InstrumentSidebar instrument={instrument} />}
+    </Layout>
+  );
+};
 
 export default InstrumentLayout;
