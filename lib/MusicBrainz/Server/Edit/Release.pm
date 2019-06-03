@@ -9,13 +9,6 @@ sub edit_category { l('Release') }
 
 requires 'release_ids';
 
-sub determine_quality { }
-around determine_quality => sub {
-    my ($orig, $self) = @_;
-
-    return max map { $_->quality } values %{ $self->c->model('Release')->get_by_ids( $self->release_ids ) };
-};
-
 sub check_event_countries {
     my ($self, $events) = @_;
 

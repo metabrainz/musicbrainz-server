@@ -10,7 +10,6 @@ use MusicBrainz::Server::Entity::Types;
 use MusicBrainz::Server::Constants qw(
     :edit_status
     :expire_action
-    :quality
     :vote
     $AUTO_EDITOR_FLAG
     $EDITING_DISABLED_FLAG
@@ -49,11 +48,6 @@ has 'editor' => (
 
 has 'language' => (
     isa => 'Language',
-    is => 'rw'
-);
-
-has 'quality' => (
-    isa => Quality,
     is => 'rw'
 );
 
@@ -218,11 +212,6 @@ sub conditions
     return $self->edit_conditions;
 }
 
-sub determine_quality
-{
-    return $QUALITY_NORMAL;
-}
-
 sub editor_may_approve {
     my ($self, $editor) = @_;
 
@@ -346,7 +335,6 @@ sub TO_JSON {
         expires_time => datetime_to_iso8601($self->expires_time),
         id => $self->id + 0,
         $can_preview ? (preview => boolean_to_json($self->preview)) : (),
-        quality => $self->quality + 0,
         status => $self->status + 0,
         votes => [map { $_->TO_JSON } $self->all_votes],
     };
