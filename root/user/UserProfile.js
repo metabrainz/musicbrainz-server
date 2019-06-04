@@ -341,6 +341,8 @@ const UserProfileStatistics = withCatalystContext(({
 }: UserProfileStatisticsProps) => {
   const voteTotals = votes.pop();
   const encodedName = encodeURIComponent(user.name);
+  const allAppliedCount = editStats.accepted_count +
+                          editStats.accepted_auto_count;
 
   return (
     <>
@@ -379,7 +381,17 @@ const UserProfileStatistics = withCatalystContext(({
             )}
           </UserProfileProperty>
 
-          <UserProfileProperty name={l('Voted down')}>
+          <UserProfileProperty className="positive" name={l('Total applied')}>
+            {exp.l(
+              '{count} ({view_url|view})',
+              {
+                count: formatCount($c, allAppliedCount),
+                view_url: `/user/${encodedName}/edits/applied`,
+              },
+            )}
+          </UserProfileProperty>
+
+          <UserProfileProperty className="negative" name={l('Voted down')}>
             {exp.l(
               '{count} ({view_url|view})',
               {
@@ -399,22 +411,22 @@ const UserProfileStatistics = withCatalystContext(({
             )}
           </UserProfileProperty>
 
-          <UserProfileProperty name={l('Open')}>
-            {exp.l(
-              '{count} ({view_url|view})',
-              {
-                count: formatCount($c, editStats.open_count),
-                view_url: `/user/${encodedName}/edits/open`,
-              },
-            )}
-          </UserProfileProperty>
-
           <UserProfileProperty name={l('Cancelled')}>
             {exp.l(
               '{count} ({view_url|view})',
               {
                 count: formatCount($c, editStats.cancelled_count),
                 view_url: `/user/${encodedName}/edits/cancelled`,
+              },
+            )}
+          </UserProfileProperty>
+
+          <UserProfileProperty name={l('Open')}>
+            {exp.l(
+              '{count} ({view_url|view})',
+              {
+                count: formatCount($c, editStats.open_count),
+                view_url: `/user/${encodedName}/edits/open`,
               },
             )}
           </UserProfileProperty>
