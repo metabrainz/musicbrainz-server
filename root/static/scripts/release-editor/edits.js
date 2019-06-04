@@ -12,6 +12,7 @@ import {reduceArtistCredit} from '../common/immutable-entities';
 import MB from '../common/MB';
 import clean from '../common/utility/clean';
 import debounce from '../common/utility/debounce';
+import isBlank from '../common/utility/isBlank';
 import isPositiveInteger from '../edit/utility/isPositiveInteger';
 import * as validation from '../edit/validation';
 
@@ -168,7 +169,7 @@ releaseEditor.edits = {
                     var oldRecording = track.recording.savedEditData;
 
                     if (oldRecording) {
-                        if (track.updateRecordingTitle()) {
+                        if (track.updateRecordingTitle() && !isBlank(trackData.name)) {
                             newRecording.name = trackData.name;
                         }
 
