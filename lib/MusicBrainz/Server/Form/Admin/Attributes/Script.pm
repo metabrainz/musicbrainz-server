@@ -26,6 +26,7 @@ has_field 'iso_code' => (
 
 has_field 'iso_number' => (
     type => 'Text',
+    required  => 1,
     maxlength => 3,
 );
 
