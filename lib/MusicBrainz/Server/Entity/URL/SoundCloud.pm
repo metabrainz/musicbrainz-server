@@ -13,9 +13,11 @@ sub sidebar_name {
     my $name = $self->decoded_local_part;
     # e.g. "/someartist/somesong" -> "someartist/somesong"
     $name =~ s{^/}{};
+    # e.g. "someartist/" -> "someartist"
+    $name =~ s{/$}{};
     # only show "SoundCloud" for URI parts containing slashes (e.g. songs),
     # since they are too long for the sidebar
-    return 'SoundCloud' if $name =~ /\//;
+    return 'SoundCloud' if $name =~ /\/.+/;
 
     return $name;
 }
