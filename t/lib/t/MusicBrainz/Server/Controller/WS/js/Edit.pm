@@ -466,6 +466,24 @@ test 'previewing/creating/editing a release group and release' => sub {
     $c->model('Track')->load_for_mediums($medium2);
     $c->model('Recording')->load($medium2->all_tracks);
 
+    # MBS-9512
+    @edits = capture_edits {
+        post_json($mech, '/ws/js/edit/create', encode_json({
+            edits => [
+                {
+                    edit_type   => $EDIT_RECORDING_EDIT,
+                    name        => '',
+                    to_edit     => $medium2->tracks->[0]->recording->gid,
+                },
+            ],
+            makeVotable => 0,
+        }));
+    } $c;
+
+    ok(scalar(@edits) == 0, 'recording edit with empty name is not created');
+    $response = from_json($mech->content);
+    like($response->{error}, qr/^empty name/, 'error is returned for empty recording name');
+
     $medium_edits = [
         {
             # No changes. Shouldn't cause an error, but should be indicated

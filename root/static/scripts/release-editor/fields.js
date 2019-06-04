@@ -17,6 +17,7 @@ import {
 import MB from '../common/MB';
 import clean from '../common/utility/clean';
 import formatTrackLength from '../common/utility/formatTrackLength';
+import isBlank from '../common/utility/isBlank';
 import request from '../common/utility/request';
 import MB_edit from '../edit/MB/edit';
 import * as dates from '../edit/utility/dates';
@@ -274,7 +275,7 @@ class Track {
     }
 
     hasNameAndArtist() {
-        return this.name() && isCompleteArtistCredit(this.artistCredit());
+        return !isBlank(this.name()) && isCompleteArtistCredit(this.artistCredit());
     }
 
     hasVariousArtists() {
