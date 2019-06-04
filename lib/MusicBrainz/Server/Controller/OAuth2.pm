@@ -9,6 +9,7 @@ use URI;
 use URI::QueryParam;
 use JSON;
 use MusicBrainz::Server::Constants qw( :access_scope );
+use MusicBrainz::Server::Data::Utils qw( boolean_to_json );
 
 our %ACCESS_SCOPE_BY_NAME = (
     'profile'        => $ACCESS_SCOPE_PROFILE,
@@ -92,7 +93,15 @@ sub authorize : Local Args(0) RequireAuth
     }
 
     my $perms = MusicBrainz::Server::Entity::EditorOAuthToken->permissions($scope);
-    $c->stash( application => $application, perms => $perms, offline => $offline );
+    $c->stash(
+        current_view => 'Node',
+        component_path => 'oauth2/OAuth2Authorize',
+        component_props => {
+            application => $application,
+            offline => boolean_to_json($offline),
+            permissions => $perms,
+        },
+    );
 }
 
 sub oob : Local Args(0)
@@ -112,7 +121,14 @@ sub oob : Local Args(0)
 
     $c->model('Application')->load($token);
 
-    $c->stash( code => $code, application => $token->application );
+    $c->stash(
+        current_view => 'Node',
+        component_path => 'oauth2/OAuth2Oob',
+        component_props => {
+            code => $code,
+            application => $token->application,
+        },
+    );
 }
 
 sub token : Local Args(0)
@@ -205,9 +221,12 @@ sub _send_html_error
     my ($self, $c, $error, $error_description) = @_;
 
     $c->stash(
-        template => 'oauth2/error.tt',
-        error_message => $error, # there is a TT macro called "error"
-        error_description => $error_description,
+        current_view => 'Node',
+        component_path => 'oauth2/OAuth2Error',
+        component_props => {
+            errorDescription => $error_description,
+            errorMessage => $error,
+        },
     );
     $c->detach;
 }
