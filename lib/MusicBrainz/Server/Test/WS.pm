@@ -21,10 +21,12 @@ our @EXPORT_OK = qw(
 
 Readonly our $FORBIDDEN_JSON_RESPONSE => {
     error => 'You are not authorized to access this resource.',
+    help => 'For usage, please see: https://musicbrainz.org/development/mmd',
 };
 
 Readonly our $UNAUTHORIZED_JSON_RESPONSE => {
     error => 'Your credentials could not be verified. Either you supplied the wrong credentials (e.g., bad password), or your client doesn\'t understand how to supply the credentials required.',
+    help => 'For usage, please see: https://musicbrainz.org/development/mmd',
 };
 
 Readonly our $FORBIDDEN_XML_RESPONSE => <<'EOXML';
