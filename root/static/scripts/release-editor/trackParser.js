@@ -14,6 +14,7 @@ import {
   reduceArtistCredit,
 } from '../common/immutable-entities';
 import clean from '../common/utility/clean';
+import debounce from '../common/utility/debounce';
 import isBlank from '../common/utility/isBlank';
 import getCookie from '../common/utility/getCookie';
 import setCookie from '../common/utility/setCookie';
@@ -24,10 +25,11 @@ import fields from './fields';
 import utils from './utils';
 import releaseEditor from './viewModel';
 
-releaseEditor.trackParser = {
+const trackParser = releaseEditor.trackParser = {
 
     // These are all different types of dash
-    separators: /(\s+[\-‒–—―]\s+|\s*\t\s*)/,
+    defaultSeparators: /(\s+[\-‒–—―]\s+|\s*\t\s*)/,
+    separators: null,
 
     // Leading "M." is for Japanese releases. MBS-3398
     trackNumber: /^(?:M[\.\-])?([０-９0-9]+(?:-[０-９0-9]+)?)(?:\.|．|\s?-|:|：|;|,|，|$)?/,
@@ -39,10 +41,17 @@ releaseEditor.trackParser = {
         hasTrackNumbers: optionCookie("trackparser_tracknumbers", true),
         hasTrackArtists: optionCookie("trackparser_trackartists", true),
         hasVinylNumbers: optionCookie("trackparser_vinylnumbers", false),
+        customDelimiter: optionCookie("trackparser_customdelimiter", "", false),
+        useCustomDelimiter: optionCookie("trackparser_usecustomdelimiter", false),
         useTrackNumbers: optionCookie("trackparser_usetracknumbers", true),
         useTrackNames: optionCookie("trackparser_usetracknames", true),
         useTrackArtists: optionCookie("trackparser_usetrackartists", true),
-        useTrackLengths: optionCookie("trackparser_tracktimes", true)
+        useTrackLengths: optionCookie("trackparser_tracktimes", true),
+    },
+
+    delimiterHelpVisible: ko.observable(false),
+    toggleDelimiterHelp: function () {
+      trackParser.delimiterHelpVisible(!trackParser.delimiterHelpVisible());
     },
 
     parse: function (str, medium) {
@@ -324,6 +333,10 @@ releaseEditor.trackParser = {
             return data;
         }
 
+        // Use custom delimiter as separator.
+        const customDelimiter = trackParser.customDelimiterRegExp();
+        this.separators = customDelimiter || this.defaultSeparators;
+
         // Split the string into parts, if there are any.
         var parts = line.split(this.separators),
             names = _.reject(parts, x => this.separatorOrBlank(x));
@@ -408,12 +421,39 @@ releaseEditor.trackParser = {
     }
 };
 
-function optionCookie(name, defaultValue) {
+trackParser.customDelimiterRegExp = ko.computed(function () {
+    if (!trackParser.options.useCustomDelimiter()) {
+        return null;
+    }
+    try {
+        const delimiter = trackParser.options.customDelimiter();
+        return new RegExp('(' + delimiter + ')');
+    } catch (e) {
+        return null;
+    }
+});
+
+trackParser.customDelimiterError = debounce(function () {
+    if (!trackParser.options.useCustomDelimiter()) {
+        return '';
+    }
+    return trackParser.customDelimiterRegExp()
+        ? ''
+        : l('Invalid regular expression.');
+})
+
+function optionCookie(name, defaultValue, checkbox=true) {
     var existingValue = getCookie(name);
 
-    var observable = ko.observable(
-        defaultValue ? existingValue !== "false" : existingValue === "true"
-    );
+    if (checkbox) {
+      var observable = ko.observable(
+          defaultValue ? existingValue !== "false" : existingValue === "true"
+      );
+    } else {
+      var observable = ko.observable(
+          existingValue ? existingValue : defaultValue
+      );
+    }
 
     observable.subscribe(function (newValue) {
         setCookie(name, newValue);
