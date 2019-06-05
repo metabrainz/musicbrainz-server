@@ -8,7 +8,7 @@ use MusicBrainz::Server::Constants qw(
     $EDIT_RECORDING_ADD_ISRCS
     $ACCESS_SCOPE_SUBMIT_ISRC
 );
-
+use MusicBrainz::Server::Data::Utils qw( non_empty );
 use MusicBrainz::Server::Validation qw( is_valid_isrc is_guid );
 use MusicBrainz::Server::WebService::XML::XPath;
 use Readonly;
@@ -201,6 +201,8 @@ sub recording_submit : Private
 
     my $xp = MusicBrainz::Server::WebService::XML::XPath->new( xml => $c->request->body );
 
+    my $edit_note = $xp->find('/mb:metadata/mb:edit-note')->string_value;
+
     my (%submit_isrc);
     for my $node ($xp->find('/mb:metadata/mb:recording-list/mb:recording')->get_nodelist)
     {
@@ -244,12 +246,22 @@ sub recording_submit : Private
             on_full => sub {
                 my $contents = shift;
                 try {
-                    $c->model('Edit')->create(
+                    my $edit = $c->model('Edit')->create(
                         edit_type      => $EDIT_RECORDING_ADD_ISRCS,
                         editor         => $c->user,
                         isrcs          => $contents,
                         client_version => $client
                     );
+
+                    if (non_empty($edit_note)) {
+                        $c->model('EditNote')->add_note(
+                            $edit->id,
+                            {
+                                text => $edit_note,
+                                editor_id => $c->user->id
+                            }
+                        );
+                    }
                 }
                     catch {
                         my $err = $_;
