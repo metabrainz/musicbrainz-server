@@ -2,6 +2,9 @@ package MusicBrainz::Server::Form::Admin::Attributes::Language;
 
 use HTML::FormHandler::Moose;
 
+use MusicBrainz::Server::Constants qw( :language_frequency );
+use MusicBrainz::Server::Translation qw( lp );
+
 extends 'MusicBrainz::Server::Form';
 with 'MusicBrainz::Server::Form::Role::Edit';
 
@@ -37,8 +40,17 @@ has_field 'iso_code_3' => (
 );
 
 has_field 'frequency' => (
-    type => '+MusicBrainz::Server::Form::Field::Integer',
+    type => 'Select',
+    required => 1
 );
+
+sub options_frequency {
+    return [
+        $LANGUAGE_FREQUENCY_HIDDEN, lp('Hidden', 'language optgroup'),
+        $LANGUAGE_FREQUENCY_OTHER, lp('Other', 'language optgroup'),
+        $LANGUAGE_FREQUENCY_FREQUENT, lp('Frequently used', 'language optgroup'),
+    ]
+}
 
 1;
 
