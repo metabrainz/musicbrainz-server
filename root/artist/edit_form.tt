@@ -73,7 +73,13 @@
       <fieldset>
         <legend>[% l('Artist Credits') %]</legend>
         <p>
-            [%- l('Please select the artist credits that you want to rename to follow the new artist name.') -%]
+            [%- l('Please select the {doc|artist credits} that you want to rename to follow the new artist name.', {doc => doc_link('Artist Credits')}) -%]
+        </p>
+        <p>
+            [%- l('This will enter additional edits to change each specific credit to use the new name. Only use this if you are sure the existing credits are incorrect (e.g. for typos).') -%]
+        </p>
+        <p>
+            [%- l('Keep in mind artist credits should generally follow what is printed on releases. If an artist has changed their name, but old releases were credited to the existing name, do not change the artist credit.') -%]
         </p>
         <p>
             [%- selected_acs = form.rename_artist_credit_set() -%]
