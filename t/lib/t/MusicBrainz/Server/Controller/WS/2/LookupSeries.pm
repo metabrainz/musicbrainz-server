@@ -25,7 +25,7 @@ is($mech->status, 400);
 is_xml_same($mech->content, q{<?xml version="1.0"?>
 <error>
   <text>coffee is not a valid inc parameter for the series resource.</text>
-  <text>For usage, please see: http://musicbrainz.org/development/mmd</text>
+  <text>For usage, please see: https://musicbrainz.org/development/mmd</text>
 </error>});
 
 ws_test 'basic series lookup',

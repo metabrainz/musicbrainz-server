@@ -21,17 +21,19 @@ our @EXPORT_OK = qw(
 
 Readonly our $FORBIDDEN_JSON_RESPONSE => {
     error => 'You are not authorized to access this resource.',
+    help => 'For usage, please see: https://musicbrainz.org/development/mmd',
 };
 
 Readonly our $UNAUTHORIZED_JSON_RESPONSE => {
     error => 'Your credentials could not be verified. Either you supplied the wrong credentials (e.g., bad password), or your client doesn\'t understand how to supply the credentials required.',
+    help => 'For usage, please see: https://musicbrainz.org/development/mmd',
 };
 
 Readonly our $FORBIDDEN_XML_RESPONSE => <<'EOXML';
 <?xml version="1.0" encoding="UTF-8"?>
 <error>
   <text>You are not authorized to access this resource.</text>
-  <text>For usage, please see: http://musicbrainz.org/development/mmd</text>
+  <text>For usage, please see: https://musicbrainz.org/development/mmd</text>
 </error>
 EOXML
 
@@ -39,7 +41,7 @@ Readonly our $UNAUTHORIZED_XML_RESPONSE => <<'EOXML';
 <?xml version="1.0" encoding="UTF-8"?>
 <error>
   <text>Your credentials could not be verified. Either you supplied the wrong credentials (e.g., bad password), or your client doesn't understand how to supply the credentials required.</text>
-  <text>For usage, please see: http://musicbrainz.org/development/mmd</text>
+  <text>For usage, please see: https://musicbrainz.org/development/mmd</text>
 </error>
 EOXML
 
@@ -47,7 +49,7 @@ Readonly our $NOT_FOUND_XML_RESPONSE => <<'EOXML';
 <?xml version="1.0" encoding="UTF-8"?>
 <error>
   <text>Not Found</text>
-  <text>For usage, please see: http://musicbrainz.org/development/mmd</text>
+  <text>For usage, please see: https://musicbrainz.org/development/mmd</text>
 </error>
 EOXML
 
@@ -55,7 +57,7 @@ Readonly our $INVALID_MBID_XML_RESPONSE => <<'EOXML';
 <?xml version="1.0" encoding="UTF-8"?>
 <error>
   <text>Invalid mbid.</text>
-  <text>For usage, please see: http://musicbrainz.org/development/mmd</text>
+  <text>For usage, please see: https://musicbrainz.org/development/mmd</text>
 </error>
 EOXML
 

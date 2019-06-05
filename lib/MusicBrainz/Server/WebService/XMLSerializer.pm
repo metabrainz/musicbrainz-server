@@ -1326,7 +1326,7 @@ sub output_error
 
     return '<?xml version="1.0" encoding="UTF-8"?>' .
         $gen->error($gen->text($err), $gen->text(
-           "For usage, please see: http://musicbrainz.org/development/mmd"));
+           "For usage, please see: https://musicbrainz.org/development/mmd"));
 }
 
 sub output_success
