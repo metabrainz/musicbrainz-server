@@ -15,6 +15,13 @@ import Layout from '../../layout';
 import {compare} from '../../static/scripts/common/i18n';
 import loopParity from '../../utility/loopParity';
 
+const frequencyLabels = {
+  [1]: N_lp('Hidden', 'script frequency'),
+  [2]: N_lp('Other (Uncommon)', 'script frequency'),
+  [3]: N_lp('Other', 'script frequency'),
+  [4]: N_lp('Frequently used', 'script frequency'),
+};
+
 type Props = {
   attributes: Array<ScriptT>,
   model: string,
@@ -48,7 +55,7 @@ const Script = ({model, attributes}: Props) => (
             <td>{attr.name}</td>
             <td>{attr.iso_code}</td>
             <td>{attr.iso_number}</td>
-            <td>{attr.frequency}</td>
+            <td>{frequencyLabels[attr.frequency]()}</td>
             <td>
               <a href={`/admin/attributes/${model}/edit/${attr.id}`}>
                 {l('Edit')}
