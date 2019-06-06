@@ -27,6 +27,7 @@
     "canonical-json": "0.0.4",
     "cookie": "0.2.3",
     "copy-webpack-plugin": "4.6.0",
+    "design-system": "git://github.com/metabrainz/design-system.git#097ddc4",
     "detect-node": "2.0.3",
     "file-loader": "3.0.1",
     "filesize": "2.0.4",

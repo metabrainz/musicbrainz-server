@@ -889,11 +889,14 @@ declare type SanitizedCatalystContextT = {
   +action: {
     +name: string,
   },
+  +relative_uri: string,
   +req: {
+    +query_params: {+[string]: string, ...},
     +uri: string,
   },
   +stash: {
     +current_language: string,
+    +server_languages: ?$ReadOnlyArray<ServerLanguageT>,
   },
   +user: SanitizedEditorT | null,
   +user_exists: boolean,
@@ -907,6 +910,12 @@ declare type SanitizedEditorPreferencesT = {
 declare type SanitizedEditorT = {
   ...EntityRoleT<'editor'>,
   +gravatar: string,
+  +is_account_admin: boolean,
+  +is_admin: boolean,
+  +is_banner_editor: boolean,
+  +is_location_editor: boolean,
+  +is_relationship_editor: boolean,
+  +is_wiki_transcluder: boolean,
   +name: string,
   +preferences: SanitizedEditorPreferencesT,
 };

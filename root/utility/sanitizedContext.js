@@ -25,11 +25,14 @@ function sanitizedContext(
     action: {
       name: $c.action.name,
     },
+    relative_uri: $c.relative_uri,
     req: {
+      query_params: $c.req.query_params,
       uri: $c.req.uri,
     },
     stash: {
       current_language: stash.current_language,
+      server_languages: stash.server_languages,
     },
     user: user ? sanitizedEditor(user) : null,
     user_exists: $c.user_exists,

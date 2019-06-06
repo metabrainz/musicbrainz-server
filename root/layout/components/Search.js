@@ -10,7 +10,6 @@
 import React from 'react';
 
 import SearchIcon from '../../static/scripts/common/components/SearchIcon';
-import * as DBDefs from '../../static/scripts/common/DBDefs';
 import {compare} from '../../static/scripts/common/i18n';
 
 const TYPE_OPTION_GROUPS = [
@@ -42,7 +41,7 @@ const TYPE_OPTION_GROUPS = [
     editor:        N_l('Editor'),
   },
   {
-    doc:           DBDefs.GOOGLE_CUSTOM_SEARCH ? N_l('Documentation') : null,
+    doc:           N_l('Documentation'),
   },
 ];
 
@@ -52,7 +51,7 @@ function localizedTypeOption(group, key) {
 }
 
 const SearchOptions = () => (
-  <select id="headerid-type" name="type">
+  <select className="custom-select" id="headerid-type" name="type">
     {TYPE_OPTION_GROUPS.map(<TogT: {...}>(group: TogT, groupIndex) => (
       Object.keys(group).sort(function (a, b) {
         return compare(
@@ -78,8 +77,9 @@ const SearchOptions = () => (
 );
 
 const Search = () => (
-  <form action="/search" method="get">
+  <form action="/search" className="form-inline flex-shrink-1" method="get">
     <input
+      className="form-control"
       id="headerid-query"
       name="query"
       placeholder={l('Search')}
@@ -95,7 +95,7 @@ const Search = () => (
       type="hidden"
       value="indexed"
     />
-    <button type="submit">
+    <button className="btn" type="submit">
       <SearchIcon />
     </button>
   </form>

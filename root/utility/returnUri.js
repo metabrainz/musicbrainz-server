@@ -8,7 +8,7 @@
  */
 
 export default function returnUri(
-  $c: CatalystContextT,
+  $c: CatalystContextT | SanitizedCatalystContextT,
   path: string,
   param?: string = 'uri',
   redirect?: string = '',
