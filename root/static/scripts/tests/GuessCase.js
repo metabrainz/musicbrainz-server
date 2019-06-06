@@ -39,7 +39,7 @@ test('Sortname', function (t) {
     },
   ];
 
-  _.each(tests, function (test) {
+  _.each(tests, function (test, idx) {
     const result = MB.GuessCase.artist.sortname(test.input, test.person);
     t.equal(result, test.expected, test.input);
   });
@@ -74,7 +74,7 @@ test('Sortname', function (t) {
      */
   ];
 
-  _.each(tests, function (test) {
+  _.each(tests, function (test, idx) {
     const result = MB.GuessCase.label.sortname(test.input);
     t.equal(result, test.expected, test.input);
   });
@@ -120,7 +120,7 @@ test('Artist', function (t) {
     },
   ];
 
-  _.each(tests, function (test) {
+  _.each(tests, function (test, idx) {
     const result = MB.GuessCase.artist.guess(test.input);
 
     const prefix = test.bug ? test.bug + ', ' : '';
@@ -144,7 +144,7 @@ test('Label', function (t) {
     {input: 'No Label', expected: '[unknown]'},
   ];
 
-  _.each(tests, function (test) {
+  _.each(tests, function (test, idx) {
     const result = MB.GuessCase.label.guess(test.input);
     t.equal(result, test.expected, test.input);
   });
@@ -307,7 +307,7 @@ test('Work', function (t) {
     },
   ];
 
-  _.each(tests, function (test) {
+  _.each(tests, function (test, idx) {
     setCookie('guesscase_roman', String(test.roman));
     gc.CFG_UC_UPPERCASED = test.keepuppercase;
     gc.mode = modes[test.mode];
@@ -318,123 +318,142 @@ test('Work', function (t) {
 });
 
 test('BugFixes', function (t) {
-    t.plan(16);
+  t.plan(16);
 
-    var tests = [
-        {
-            input: "Je T’Aime Moi… Non Plus (feat. Miss Kittin)",
-            expected: "Je T’Aime Moi… Non Plus (feat. Miss Kittin)",
-            bug: 'MBS-991', mode: "English"
-        },
-        {
-            input: "E Pra Sempre Te Amar: Ao Vivo",
-            expected: "E pra sempre te amar: Ao vivo",
-            bug: 'MBS-1311', mode: "Sentence"
-        },
-        {
-            input: "Me Esqueça / No Limite / Desesperadamente Apaixonado",
-            expected: "Me esqueça / No limite / Desesperadamente apaixonado",
-            bug: 'MBS-1311', mode: "Sentence"
-        },
-        {
-            input: "Megablast (Rap Version) (ft. Merlin)",
-            // Note: 'rap' used to be lowercased until MBS-8982. Ideally it
-            // would still be, but we don't maintain a separate list for words
-            // that should trigger brackets.
-            expected: "Megablast (Rap version) (ft. Merlin)",
-            bug: 'MBS-1313', mode: "English"
-        },
-        {
-            input: "너 (Techno Version)",
-            expected: "너 (techno version)",
-            bug: 'MBS-1313', mode: "English"
-        },
-        {
-            input: "aka AKA a.k.a. A.K.A. a/k/a A/K/A",
-            expected: "a.k.a. a.k.a. a.k.a. a.k.a. a.k.a. a.k.a.",
-            bug: "MBS-1314", mode: "English"
-        },
-        {
-            input: "Boy In Da Corner / Fire Ina Hole / Bird Inna De Nest / Rock Di Mexicano",
-            expected: "Boy in da Corner / Fire ina Hole / Bird inna de Nest / Rock di Mexicano",
-            bug: "MBS-1315", mode: "English"
-        },
-        {
-            input: "We Ready Fe Dem / Santa Fe Express / We Come Fi Rock",
-            expected: "We Ready fe Dem / Santa Fe Express / We Come fi Rock",
-            bug: "MBS-1315", mode: "English"
-        },
-        {
-            input: "Contagious (The Isley Brothers f/ R. Kelly)",
-            expected: "Contagious (The Isley Brothers f/ R. Kelly)",
-            bug: "MBS-1316", mode: "English"
-        },
-        {
-            input: "X (extended version, Part 1) (feat. Peter Tosh & Bunny Wailer)",
-            expected: "X (extended version, Part 1) (feat. Peter Tosh & Bunny Wailer)",
-            bug: "MBS-1318", mode: "English"
-        },
-        {
-            input: "Hold on, I'm Coming",
-            expected: "Hold On, I'm Coming",
-            bug: "MBS-3013", mode: "English"
-        },
-        {
-            input: "I’ll do something - Johnny’s great band",
-            expected: "I’ll Do Something - Johnny’s Great Band",
-            bug: "MBS-2923", mode: "English"
-        },
-        {
-            input: "10000 dB Goa Trance",
-            expected: "10000 dB Goa Trance",
-            bug: "MBS-2756", mode: "English"
-        },
-        {
-            input: "Hey c'Mon Everybody",
-            expected: "Hey C'mon Everybody",
-            bug: "MBS-8867", mode: "English"
-        },
-        {
-            input: "¿qué No? ¡anda Que No!",
-            expected: "¿Qué no? ¡Anda que no!",
-            bug: "MBS-1549", mode: "Sentence"
-        },
-        {
-            input: "¿QUÉ NO? ¡ANDA QUE NO!",
-            expected: "¿Qué no? ¡Anda que no!",
-            bug: "MBS-1549", mode: "Sentence"
-        }
+  const tests = [
+    {
+      input: 'Je T’Aime Moi… Non Plus (feat. Miss Kittin)',
+      expected: 'Je T’Aime Moi… Non Plus (feat. Miss Kittin)',
+      bug: 'MBS-991',
+      mode: 'English',
+    },
+    {
+      input: 'E Pra Sempre Te Amar: Ao Vivo',
+      expected: 'E pra sempre te amar: Ao vivo',
+      bug: 'MBS-1311',
+      mode: 'Sentence',
+    },
+    {
+      input: 'Me Esqueça / No Limite / Desesperadamente Apaixonado',
+      expected: 'Me esqueça / No limite / Desesperadamente apaixonado',
+      bug: 'MBS-1311',
+      mode: 'Sentence',
+    },
+    {
+      input: 'Megablast (Rap Version) (ft. Merlin)',
+      /*
+       * Note: 'rap' used to be lowercased until MBS-8982. Ideally it
+       * would still be, but we don't maintain a separate list for words
+       * that should trigger brackets.
+       */
+      expected: 'Megablast (Rap version) (ft. Merlin)',
+      bug: 'MBS-1313',
+      mode: 'English',
+    },
+    {
+      input: '너 (Techno Version)',
+      expected: '너 (techno version)',
+      bug: 'MBS-1313',
+      mode: 'English',
+    },
+    {
+      input: 'aka AKA a.k.a. A.K.A. a/k/a A/K/A',
+      expected: 'a.k.a. a.k.a. a.k.a. a.k.a. a.k.a. a.k.a.',
+      bug: 'MBS-1314',
+      mode: 'English',
+    },
+    {
+      input: 'Boy In Da Corner / Fire Ina Hole / Bird Inna De Nest / Rock Di Mexicano',
+      expected: 'Boy in da Corner / Fire ina Hole / Bird inna de Nest / Rock di Mexicano',
+      bug: 'MBS-1315',
+      mode: 'English',
+    },
+    {
+      input: 'We Ready Fe Dem / Santa Fe Express / We Come Fi Rock',
+      expected: 'We Ready fe Dem / Santa Fe Express / We Come fi Rock',
+      bug: 'MBS-1315',
+      mode: 'English',
+    },
+    {
+      input: 'Contagious (The Isley Brothers f/ R. Kelly)',
+      expected: 'Contagious (The Isley Brothers f/ R. Kelly)',
+      bug: 'MBS-1316',
+      mode: 'English',
+    },
+    {
+      input: 'X (extended version, Part 1) (feat. Peter Tosh & Bunny Wailer)',
+      expected: 'X (extended version, Part 1) (feat. Peter Tosh & Bunny Wailer)',
+      bug: 'MBS-1318',
+      mode: 'English',
+    },
+    {
+      input: "Hold on, I'm Coming",
+      expected: "Hold On, I'm Coming",
+      bug: 'MBS-3013',
+      mode: 'English',
+    },
+    {
+      input: 'I’ll do something - Johnny’s great band',
+      expected: 'I’ll Do Something - Johnny’s Great Band',
+      bug: 'MBS-2923',
+      mode: 'English',
+    },
+    {
+      input: '10000 dB Goa Trance',
+      expected: '10000 dB Goa Trance',
+      bug: 'MBS-2756',
+      mode: 'English',
+    },
+    {
+      input: "Hey c'Mon Everybody",
+      expected: "Hey C'mon Everybody",
+      bug: 'MBS-8867',
+      mode: 'English',
+    },
+    {
+      input: '¿qué No? ¡anda Que No!',
+      expected: '¿Qué no? ¡Anda que no!',
+      bug: 'MBS-1549',
+      mode: 'Sentence',
+    },
+    {
+      input: '¿QUÉ NO? ¡ANDA QUE NO!',
+      expected: '¿Qué no? ¡Anda que no!',
+      bug: 'MBS-1549',
+      mode: 'Sentence',
+    },
 
-        /* There is no fix for these yet.
-        {
-            input: "(Dance With the) Guitar Man",
-            expected: "(Dance With the) Guitar Man",
-            bug: "MBS-1317", mode: "English"
-        },
-        {
-            input: "My Life (Live to the Max)",
-            expected: "My Life (Live to the Max)",
-            bug: "MBS-1317", mode: "English"
-        },
-        {
-            input: "My Life (Club Is Open)",
-            expected: "My Life (Club Is Open)",
-            bug: "MBS-1317", mode: "English"
-        },
-        {
-            input: "Here I Am (Come and Take Me)",
-            expected: "Here I Am (Come and Take Me)",
-            bug: "MBS-1317", mode: "English"
-        }
-        */
-    ];
+    /*
+     * There is no fix for these yet.
+     * {
+     * input: "(Dance With the) Guitar Man",
+     * expected: "(Dance With the) Guitar Man",
+     * bug: "MBS-1317", mode: "English"
+     * },
+     * {
+     * input: "My Life (Live to the Max)",
+     * expected: "My Life (Live to the Max)",
+     * bug: "MBS-1317", mode: "English"
+     * },
+     * {
+     * input: "My Life (Club Is Open)",
+     * expected: "My Life (Club Is Open)",
+     * bug: "MBS-1317", mode: "English"
+     * },
+     * {
+     * input: "Here I Am (Come and Take Me)",
+     * expected: "Here I Am (Come and Take Me)",
+     * bug: "MBS-1317", mode: "English"
+     * }
+     */
+  ];
 
-    _.each(tests, function (test, idx) {
-        gc.mode = modes[test.mode];
+  _.each(tests, function (test, idx) {
+    gc.mode = modes[test.mode];
 
-        var result = MB.GuessCase.work.guess(test.input);
-        t.equal(result, test.expected, test.bug + ', ' + test.input);
-    });
+    const result = MB.GuessCase.work.guess(test.input);
+    t.equal(result, test.expected, test.bug + ', ' + test.input);
+  });
 });
 
 test('vinyl numbers are fixed', function (t) {
