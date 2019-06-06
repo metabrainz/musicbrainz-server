@@ -10,7 +10,7 @@
 import React from 'react';
 
 import {withCatalystContext} from '../context';
-import LabelList from '../components/list/LabelList';
+import ReleaseList from '../components/list/ReleaseList';
 import PaginatedResults from '../components/PaginatedResults';
 
 import AreaLayout from './AreaLayout';
@@ -18,33 +18,32 @@ import AreaLayout from './AreaLayout';
 type Props = {|
   +$c: CatalystContextT,
   +area: AreaT,
-  +labels: $ReadOnlyArray<LabelT>,
   +pager: PagerT,
+  +releases: $ReadOnlyArray<ReleaseT>,
 |};
 
-const AreaLabels = ({
+const AreaReleases = ({
   $c,
   area,
-  labels,
   pager,
+  releases,
 }: Props) => (
-  <AreaLayout entity={area} page="labels" title={l('Labels')}>
-    <h2>{l('Labels')}</h2>
+  <AreaLayout entity={area} page="releases" title={l('Releases')}>
+    <h2>{l('Releases')}</h2>
 
-    {labels.length > 0 ? (
-      <form action="/label/merge_queue" method="post">
+    {releases && releases.length > 0 ? (
+      <form action="/release/merge_queue" method="post">
         <PaginatedResults pager={pager}>
-          <LabelList
+          <ReleaseList
             checkboxes="add-to-merge"
-            labels={labels}
-            showRatings
+            releases={releases}
           />
         </PaginatedResults>
         {$c.user_exists ? (
           <div className="row">
             <span className="buttons">
               <button type="submit">
-                {l('Add selected labels for merging')}
+                {l('Add selected releases for merging')}
               </button>
             </span>
           </div>
@@ -52,10 +51,10 @@ const AreaLabels = ({
       </form>
     ) : (
       <p>
-        {l('This area is not currently associated with any labels.')}
+        {l('This area is not currently associated with any releases.')}
       </p>
     )}
   </AreaLayout>
 );
 
-export default withCatalystContext(AreaLabels);
+export default withCatalystContext(AreaReleases);
