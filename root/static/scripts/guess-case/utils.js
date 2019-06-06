@@ -116,7 +116,7 @@ export function isLowerCaseBracketWord(w) {
  * Words which the pre-processor looks for and puts them into brackets
  * if they arent yet.
  */
-const prepBracketWords = /^(cd|disk|12["”]|7["”]|a_cappella|re_edit)$/i;
+const prepBracketWords = /^(?:cd|disk|12["”]|7["”]|a_cappella|re_edit)$/i;
 
 export function isPrepBracketWord(w) {
   return prepBracketWords.test(w) || isLowerCaseBracketWord(w);
@@ -143,7 +143,7 @@ export function isPunctuationChar(w) {
 // Trim leading, trailing and running-line whitespace from the given string.
 export function trim(is) {
   is = clean(is);
-  return is.replace(/([\(\[])\s+/, '$1').replace(/\s+([\)\]])/, '$1');
+  return is.replace(/([(\[])\s+/, '$1').replace(/\s+([)\]])/, '$1');
 }
 
 /*
@@ -195,7 +195,7 @@ export function titleString(gc, is, forceCaps) {
      * we got a 'mon (Come on = C'mon), lowercase
      */
   } else if (isApostrophe(gc.i.getPreviousWord()) &&
-      lc.match(/^(s|round|em|ve|ll|d|cha|re|til|way|all|mon)$/i)) {
+      lc.match(/^(?:s|round|em|ve|ll|d|cha|re|til|way|all|mon)$/i)) {
     os = lc;
     /*
      * we got an Ev'..
@@ -206,7 +206,7 @@ export function titleString(gc, is, forceCaps) {
       gc.i.getWordAtIndex(pos - 2) === 'Ev') {
     os = lc;
     // Make it O'Titled, Y'All
-  } else if (lc.match(/^(c|o|y)$/i) &&
+  } else if (lc.match(/^[coy]$/i) &&
       isApostrophe(gc.i.getNextWord())) {
     os = uc;
   } else {
