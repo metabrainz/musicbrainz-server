@@ -113,6 +113,7 @@ export const FAVICON_CLASSES: {[string]: string} = {
   'musik-sammler.de': 'musiksammler',
   'musixmatch.com': 'musixmatch',
   'musopen.org': 'musopen',
+  'muziekweb.eu': 'muziekweb',
   'muzikum.eu': 'muzikum',
   'myspace.com': 'myspace',
   'nicovideo.jp': 'niconicovideo',
