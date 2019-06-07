@@ -254,6 +254,8 @@ sub show : PathPart('') Chained('load')
                       uniq
                       # An alias equal to the artist name already shown isn't useful
                       grep { ($_->name) ne $legal_name->name }
+                      # A legal name alias marked ended isn't a current legal name
+                      grep { !($_->ended) }
                       grep { ($_->type_name // "") eq 'Legal name' } @$aliases;
         $c->stash( legal_name_artist_aliases => \@aliases );
         push(@identities, $legal_name);
@@ -263,6 +265,8 @@ sub show : PathPart('') Chained('load')
         my @aliases = map { $_->name }
                       sort_by { $coll->getSortKey($_->name) }
                       uniq
+                      # A legal name alias marked ended isn't a current legal name
+                      grep { !($_->ended) }
                       grep { ($_->type_name // "") eq 'Legal name' } @$aliases;
         $c->stash( legal_name_aliases => \@aliases );
     }
