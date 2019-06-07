@@ -247,6 +247,15 @@ sub show : PathPart('') Chained('load')
     if (defined $legal_name) {
         $c->model('Relationship')->load_subset(['artist'], $legal_name);
         $c->stash( legal_name => $legal_name );
+        my $aliases = $c->model('Artist')->alias->find_by_entity_id($legal_name->id);
+        $c->model('Artist')->alias_type->load(@$aliases);
+        my @aliases = map { $_->name }
+                      sort_by { $coll->getSortKey($_->name) }
+                      uniq
+                      # An alias equal to the artist name already shown isn't useful
+                      grep { ($_->name) ne $legal_name->name }
+                      grep { ($_->type_name // "") eq 'Legal name' } @$aliases;
+        $c->stash( legal_name_artist_aliases => \@aliases );
         push(@identities, $legal_name);
     } else {
         my $aliases = $c->model('Artist')->alias->find_by_entity_id($artist->id);

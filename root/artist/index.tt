@@ -1,8 +1,9 @@
-[% MACRO rel_artist_line(title, list) BLOCK;
+[% MACRO rel_artist_line(title, list, extra) BLOCK;
     IF list.size;
         SET ll = [];
         ll.push(descriptive_link(e)) FOR e = list;
-        '<p><strong>' _ add_colon(title) _ '</strong> ' _ comma_only_list(ll) _ '</p>';
+        extra_list =  ' (' _ comma_only_list(extra)_ ')' IF extra.size;
+        '<p><strong>' _ add_colon(title) _ '</strong> ' _ comma_only_list(ll)_ extra_list _ '</p>';
     END;
 END %]
 
@@ -19,7 +20,7 @@ END %]
     [%- INCLUDE 'annotation/summary.tt' -%]
 
     [%- IF legal_name.defined;
-        rel_artist_line(l('Legal name'), [ legal_name ]);
+        rel_artist_line(l('Legal name'), [ legal_name ], legal_name_artist_aliases);
     ELSIF legal_name_aliases.size -%]
         <p><strong>[% add_colon(l('Legal name')) %]</strong> [% comma_only_list(legal_name_aliases) %]</p>
     [% END %]
