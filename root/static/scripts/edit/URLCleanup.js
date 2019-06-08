@@ -1540,6 +1540,22 @@ const CLEANUPS = {
       return /^https:\/\/musopen\.org\/music\/\d+\/$/.test(url);
     },
   },
+  'muziekweb': {
+    match: [new RegExp('^(https?://)?www\\.muziekweb\\.(eu|nl)/', 'i')],
+    type: LINK_TYPES.otherdatabases,
+    clean: function (url) {
+      return url.replace(/^(?:https?:\/\/)?(?:www\.)?muziekweb\.(?:eu|nl)\/(?:[a-z]{2}\/)?Link\/([A-Z]{1,3}\d+).*$/, 'https://www.muziekweb.eu/Link/$1/');
+    },
+    validate: function (url, id) {
+      switch (id) {
+        case LINK_TYPES.otherdatabases.artist:
+          return /^https:\/\/www\.muziekweb\.eu\/Link\/M\d{11}\/$/.test(url);
+        case LINK_TYPES.otherdatabases.release:
+          return /^https:\/\/www\.muziekweb\.eu\/Link\/[A-Z]{2,3}\d{4,6}\/$/.test(url);
+      }
+      return false;
+    },
+  },
   'myspace': {
     match: [new RegExp('^(https?://)?([^/]+\\.)?myspace\\.(com|de|fr)', 'i')],
     type: LINK_TYPES.myspace,

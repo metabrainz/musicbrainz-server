@@ -2136,6 +2136,35 @@ const testData = [
             expected_clean_url: 'https://musopen.org/music/7887/',
        only_valid_entity_types: ['work'],
   },
+  // muziekweb.eu (National Dutch music library)
+  {
+                     input_url: 'https://www.muziekweb.eu/en/Link/M00000052618/POPULAR/Eminem',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://www.muziekweb.eu/Link/M00000052618/',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'https://www.muziekweb.nl/Link/M00000052618/POPULAR/Eminem',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://www.muziekweb.eu/Link/M00000052618/',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'https://www.muziekweb.eu/en/Link/JK95205/The-slim-shady-LP',
+             input_entity_type: 'release',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://www.muziekweb.eu/Link/JK95205/',
+       only_valid_entity_types: ['release'],
+  },
+  {
+                     input_url: 'https://www.muziekweb.nl/Link/JK95205/The-slim-shady-LP',
+             input_entity_type: 'release',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://www.muziekweb.eu/Link/JK95205/',
+       only_valid_entity_types: ['release'],
+  },
   // mvdbase.com (The Music Video DataBase)
   {
                      input_url: 'http://www.mvdbase.com/video.php?id=4',
