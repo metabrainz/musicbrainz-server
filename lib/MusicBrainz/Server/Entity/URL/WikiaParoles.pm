@@ -1,4 +1,4 @@
-package MusicBrainz::Server::Entity::URL::LyricWiki;
+package MusicBrainz::Server::Entity::URL::WikiaParoles;
 
 use Moose;
 
@@ -9,10 +9,10 @@ override href_url => sub {
     # Turn the official permalink into what LyricWiki currently redirects to.
     # See https://community.fandom.com/wiki/Help:Fandom_domain_migration for more info
     shift->url->as_string =~
-        s{^https?://lyrics\.wikia\.com/}{https://lyrics.fandom.com/}r;
+        s{^https?://fr\.lyrics\.wikia\.com/}{https://lyrics.fandom.com/fr/}r;
 };
 
-sub sidebar_name { 'LyricWiki' }
+sub sidebar_name { 'WikiaParoles' }
 
 __PACKAGE__->meta->make_immutable;
 no Moose;
@@ -20,7 +20,7 @@ no Moose;
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright (C) 2010 MetaBrainz Foundation
+Copyright (C) 2019 MetaBrainz Foundation
 
 This file is part of MusicBrainz, the open internet music database,
 and is licensed under the GPL version 2, or (at your option) any
