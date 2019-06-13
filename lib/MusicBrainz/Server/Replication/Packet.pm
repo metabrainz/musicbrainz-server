@@ -8,7 +8,7 @@ use DBDefs;
 use File::Temp qw( tempdir );
 use GnuPG qw( :algo );
 use HTTP::Status qw( RC_NOT_FOUND );
-use LWP::UserAgent;
+use MusicBrainz::LWP;
 use Try::Tiny;
 use URI::Escape qw( uri_escape );
 
@@ -38,7 +38,7 @@ sub retrieve_remote_file {
     my ($url, $file, $verify_signature) = @_;
 
     # Initialise User Agent
-    my $ua = LWP::UserAgent->new(
+    my $ua = MusicBrainz::LWP->new(
         agent => '$Id$',
     );
     $ua->env_proxy;

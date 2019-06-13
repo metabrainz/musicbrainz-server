@@ -6,9 +6,9 @@ use Readonly;
 use List::UtilsBy qw( sort_by );
 use List::MoreUtils qw( natatime);
 use LWP::Simple qw();
-use LWP::UserAgent;
 use XML::Simple;
 use Encode qw( decode );
+use MusicBrainz::LWP;
 use MusicBrainz::Server::Replication ':replication_type';
 
 with 'MusicBrainz::Server::Data::Role::Sql';
@@ -100,7 +100,10 @@ sub get_wiki_versions
 
         my $doc_url = sprintf "https://%s?action=query&prop=info&format=xml&titles=%s", DBDefs->WIKITRANS_SERVER_API, join('|', @queries);
 
-        my $ua = LWP::UserAgent->new(max_redirect => 0, timeout => 5);
+        my $ua = MusicBrainz::LWP->new(
+            global_timeout => 5,
+            max_redirect => 0,
+        );
         $ua->env_proxy;
         my $response = $ua->get($doc_url);
 

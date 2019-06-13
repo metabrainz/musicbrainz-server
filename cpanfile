@@ -2,6 +2,8 @@ requires 'perl' => '5.18.2';
 
 # Mandatory modules
 requires 'Algorithm::Diff'                            => '1.1902';
+requires 'AnyEvent'                                   => '7.16';
+requires 'AnyEvent::HTTP::LWP::UserAgent'             => '0.10';
 requires 'Authen::Passphrase'                         => '0.008';
 requires 'Captcha::reCAPTCHA'                         => '0.99';
 requires 'Catalyst::Action::RenderView'               => '0.16';
@@ -42,6 +44,7 @@ requires 'Email::MIME::Creator'                       => '1.925';
 requires 'Email::Sender'                              => '1.300010';
 requires 'Email::Valid'                               => '1.192';
 requires 'Encode::Detect'                             => '1.01';
+requires 'EV'                                         => '4.27';
 requires 'Exception::Class'                           => '1.37';
 requires 'File::Slurp';
 requires 'File::Spec'                                 => '3.40';

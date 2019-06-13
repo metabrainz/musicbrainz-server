@@ -5,6 +5,7 @@ use DBDefs;
 use Encode;
 use File::Temp qw( tempfile );
 use JSON;
+use MusicBrainz::LWP;
 
 use Sub::Exporter -setup => { exports => [ qw(html5_ok) ] };
 
@@ -126,8 +127,9 @@ sub html5_ok
     }
 
 
-    my $ua = LWP::UserAgent->new;
-    $ua->timeout(10);
+    my $ua = MusicBrainz::LWP->new(
+        global_timeout => 10,
+    );
 
     my $request = HTTP::Request->new(POST => $url);
     $request->header('Content-Type', 'text/html');
