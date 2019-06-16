@@ -6,7 +6,11 @@
    <div class="edit-list">
      <h2>[% edit.l_edit_name | html %]</h2>
      <div class="edit-details">
-       [%-INCLUDE "edit/details/${edit.edit_template}.tt" %]
+       [% IF edit.edit_template_react %]
+         [%~ React.embed(c, "edit/details/${edit.edit_template_react}.js", {edit => edit}) ~%]
+       [% ELSE %]
+         [%-INCLUDE "edit/details/${edit.edit_template}.tt" %]
+       [% END %]
      </div>
    </div>
 
