@@ -2,8 +2,8 @@
   <tr>
     <td>[% link_entity(release) %]</td>
     <td>[% artist_credit(release.artist_credit) %]</td>
-    <td>[% html_escape(release.combined_format_name) %]</td>
-    <td>[% release.combined_track_count %]</td>
+    <td>[% html_escape(release.combined_format_name) || l('[missing media]') %]</td>
+    <td>[% release.combined_track_count || lp('-', 'missing data') %]</td>
     <td>[% release_dates(release.events) %]</td>
     <td>[% release_countries(release.events) %]</td>
     <td>[% release_label_list(release.labels) %]</td>
