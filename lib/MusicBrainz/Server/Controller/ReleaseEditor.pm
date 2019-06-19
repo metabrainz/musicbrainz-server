@@ -43,6 +43,7 @@ sub _init_release_editor
 
     my @medium_formats = $c->model('MediumFormat')->get_all;
     my $discid_formats = [ grep { $_ } map { $_->has_discids ? ($_->id) : () } @medium_formats ];
+    my %medium_format_dates = map { $_->id => $_->year } @medium_formats;
 
     $c->stash(
         template            => 'release/edit/layout.tt',
@@ -58,6 +59,7 @@ sub _init_release_editor
         type_info           => $c->json->encode(build_type_info($c, qr/release-url/, $url_link_types)),
         attr_info           => $c->json->encode(\@link_attribute_types),
         discid_formats      => $c->json->encode($discid_formats),
+        medium_format_dates => $c->json->encode(\%medium_format_dates),
         # The merge helper doesn't really work well together with the release editor process
         hide_merge_helper   => 1,
         %options

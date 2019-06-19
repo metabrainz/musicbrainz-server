@@ -85,6 +85,8 @@
 
     MB.formatsWithDiscIDs = [% discid_formats %];
 
+    MB.mediumFormatDates = [% medium_format_dates %];
+
     MB.releaseEditor.init({
     [%- IF release.gid %]
       release: [% closing_tag_escape(release_json) %],
