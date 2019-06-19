@@ -193,7 +193,7 @@ const ReleaseList = ({
             {release.combined_format_name || l('[missing media]')}
           </td>
           <td>
-            {release.combined_track_count || l('-')}
+            {release.combined_track_count || lp('-', 'missing data')}
           </td>
           <td>
             <ReleaseDates events={release.events} />
