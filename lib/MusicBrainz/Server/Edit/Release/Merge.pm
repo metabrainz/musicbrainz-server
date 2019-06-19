@@ -219,6 +219,11 @@ override build_display_data => sub
                 mediums => $_->{mediums}
             }, @{ $self->data->{medium_changes} }
         ];
+        $data->{empty_releases} = [
+            map +{
+                release => $loaded->{Release}{ $_->{id} } // Release->new(name => $_->{name}),
+            }, grep { defined $_->{mediums} && scalar @{ $_->{mediums} } == 0 } @{ $self->data->{old_entities} }
+        ];
     } elsif ($self->data->{merge_strategy} == $MusicBrainz::Server::Data::Release::MERGE_MERGE) {
         my $recording_merges = [];
         if ($self->data->{recording_merges}) {
