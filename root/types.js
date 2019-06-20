@@ -16,9 +16,33 @@
  */
 
 declare type AggregatedTagT = {|
-  +tag: string,
   +count: number,
+  +tag: string,
 |};
+
+declare type AliasFormT = {|
+  field: {
+    edit_note: FieldT<string>,
+    locale: FieldT<string>,
+    make_votable: FieldT<boolean>,
+    name: FieldT<string>,
+    period: {
+      field: {
+        begin_date: PartialDateFieldT,
+        end_date: PartialDateFieldT,
+        ended: FieldT<boolean>,
+      },
+      has_errors: boolean,
+      html_name: string,
+    },
+    primary_for_locale: FieldT<boolean>,
+    sort_name: FieldT<string>,
+    type_id: FieldT<string>,
+  },
+  has_errors: boolean,
+  name: string,
+|};
+
 
 declare type AliasT = {|
   ...DatePeriodRoleT,
@@ -239,8 +263,8 @@ declare type CollectionT = {|
   ...TypeRoleT<CollectionTypeT>,
   +description: string,
   +description_html: string,
-  +entity_count: number,
   +editor: EditorT | null,
+  +entity_count: number,
   +gid: string,
   +name: string,
   +public: boolean,
@@ -644,7 +668,7 @@ declare type MediumFormatT = {|
 declare type MinimalCoreEntityT = {
   +entityType: string,
   +gid: string,
-  ...
+  ...,
 };
 
 // See MB.forms.buildOptionsTree
@@ -676,9 +700,9 @@ declare type PagerT = {|
 |};
 
 declare type PartialDateFieldT = CompoundFieldT<{|
-  +day: FieldT<number>,
-  +month: FieldT<number>,
-  +year: FieldT<number>,
+  +day: FieldT<number | null>,
+  +month: FieldT<number | null>,
+  +year: FieldT<number | null>,
 |}>;
 
 declare type PartialDateT = {|
@@ -876,6 +900,11 @@ declare type SelectOptionT = {|
   +value: number | string,
 |};
 
+declare type SelectOptionWithoutFunctionT = {|
+  +label: string,
+  +value: number | string,
+|};
+
 declare type SelectOptionsT = $ReadOnlyArray<SelectOptionT>;
 
 declare type SeriesT = {|
@@ -887,7 +916,7 @@ declare type SeriesT = {|
 |};
 
 declare type SeriesItemNumbersRoleT = {|
-  +seriesItemNumbers?: {+[number]: string}
+  +seriesItemNumbers?: {+[number]: string},
 |};
 
 declare type SeriesOrderingTypeT = OptionTreeT<'series_ordering_type'>;
@@ -934,9 +963,9 @@ declare type VarSubstArg =
 declare type VoteOptionT =
   | -2   // None
   | -1   // Abstain
-  |  0   // No
-  |  1   // Yes
-  |  2   // Approve
+  | 0   // No
+  | 1   // Yes
+  | 2   // Approve
   ;
 
 declare type VoteT = {|

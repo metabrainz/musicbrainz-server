@@ -15,15 +15,21 @@ import FormLabel from './FormLabel';
 import PartialDateInput from './PartialDateInput';
 
 type Props = {
-  +field: PartialDateFieldT,
-  +label: string,
-  +required?: boolean,
+  field: PartialDateFieldT,
+  label: string,
+  onChangeDay?: (e: SyntheticInputEvent<HTMLInputElement>) => void,
+  onChangeMonth?: (e: SyntheticInputEvent<HTMLInputElement>) => void,
+  onChangeYear?: (e: SyntheticInputEvent<HTMLInputElement>) => void,
+  required?: boolean,
 };
 
 const FormRowPartialDate = ({
   field,
   label,
   required = false,
+  onChangeDay,
+  onChangeMonth,
+  onChangeYear,
   ...inputProps
 }: Props) => (
   <FormRow>
@@ -34,6 +40,9 @@ const FormRowPartialDate = ({
     />
     <PartialDateInput
       field={field}
+      onChangeDay={onChangeDay}
+      onChangeMonth={onChangeMonth}
+      onChangeYear={onChangeYear}
       {...inputProps}
     />
     <FieldErrors field={field} />

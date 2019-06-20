@@ -151,6 +151,14 @@ around extract_property => sub {
     }
 };
 
+around TO_JSON => sub {
+    my ($orig, $self) = @_;
+
+    my $json = $self->$orig;
+    $json->{alias} = $self->alias->TO_JSON;
+    return $json;
+};
+
 sub accept
 {
     my $self = shift;
@@ -187,7 +195,7 @@ sub current_instance {
     $self->_load_alias;
 }
 
-sub edit_template { "edit_alias" };
+sub edit_template_react { "EditAlias" };
 
 __PACKAGE__->meta->make_immutable;
 no Moose;
