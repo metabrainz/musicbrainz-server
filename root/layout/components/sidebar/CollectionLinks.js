@@ -29,9 +29,6 @@ const CollectionLinks = ({$c, entity}: Props) => {
       addCollectionText={l('Add to a new collection')}
       collaborativeCollections={$c.stash.collaborative_collections}
       collaborativeCollectionsHeader={l('Collaborative collections')}
-      collaborativeCollectionsNoneText={
-        l('Not collaborating on any collections!')
-      }
       entity={entity}
       header={l('Collections')}
       ownCollections={$c.stash.own_collections}
@@ -50,6 +47,7 @@ const CollectionLinks = ({$c, entity}: Props) => {
           subPath="collections"
         />
       }
+      usersLinkHeader={l('Other collections')}
     />
   );
 };

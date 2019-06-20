@@ -32,13 +32,12 @@ type CollectionAddRemoveProps = {|
   +$c: CatalystContextT,
   +collections?: $ReadOnlyArray<CollectionT>,
   +entity: CoreEntityT,
-  +noneText: string,
+  +noneText?: string,
 |};
 
 type CollaborativeCollectionListProps = {|
   +collections?: $ReadOnlyArray<CollectionT>,
   +entity: CoreEntityT,
-  +noneText: string,
 |};
 
 type OwnCollectionListProps = {|
@@ -52,7 +51,6 @@ type CollectionListProps = {|
   +addCollectionText: string,
   +collaborativeCollections?: $ReadOnlyArray<CollectionT>,
   +collaborativeCollectionsHeader: string,
-  +collaborativeCollectionsNoneText: string,
   +entity: CoreEntityT,
   +header: string,
   +ownCollections?: $ReadOnlyArray<CollectionT>,
@@ -60,6 +58,7 @@ type CollectionListProps = {|
   +ownCollectionsNoneText: string,
   +sectionClass: string,
   +usersLink: ReactNode,
+  +usersLinkHeader: string,
 |};
 
 const CollectionAddRemove = withCatalystContext(({
@@ -90,13 +89,11 @@ const CollectionAddRemove = withCatalystContext(({
 const CollaborativeCollectionList = ({
   collections,
   entity,
-  noneText,
 }: CollaborativeCollectionListProps) => (
   <ul className="links">
     <CollectionAddRemove
       collections={collections}
       entity={entity}
-      noneText={noneText}
     />
   </ul>
 );
@@ -125,7 +122,6 @@ const CollectionList = ({
   addCollectionText,
   collaborativeCollections,
   collaborativeCollectionsHeader,
-  collaborativeCollectionsNoneText,
   entity,
   header,
   ownCollections,
@@ -133,6 +129,7 @@ const CollectionList = ({
   ownCollectionsNoneText,
   sectionClass,
   usersLink,
+  usersLinkHeader,
 }: CollectionListProps) => (
   <>
     <h2 className={sectionClass}>
@@ -148,15 +145,21 @@ const CollectionList = ({
       noneText={ownCollectionsNoneText}
     />
     <li className="separator" role="separator" />
+    {collaborativeCollections && collaborativeCollections.length > 0 ? (
+      <>
+        <h3>
+          {collaborativeCollectionsHeader}
+        </h3>
+        <CollaborativeCollectionList
+          collections={collaborativeCollections}
+          entity={entity}
+        />
+        <li className="separator" role="separator" />
+      </>
+    ) : null}
     <h3>
-      {collaborativeCollectionsHeader}
+      {usersLinkHeader}
     </h3>
-    <CollaborativeCollectionList
-      collections={collaborativeCollections}
-      entity={entity}
-      noneText={collaborativeCollectionsNoneText}
-    />
-    <li className="separator" role="separator" />
     <ul className="links">
       <li>{usersLink}</li>
     </ul>
