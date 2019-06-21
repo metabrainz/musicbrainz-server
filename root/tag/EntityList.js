@@ -10,6 +10,7 @@
 import * as React from 'react';
 
 import PaginatedResults from '../components/PaginatedResults';
+import {CatalystContext} from '../context';
 import DescriptiveLink
   from '../static/scripts/common/components/DescriptiveLink';
 import expand2text from '../static/scripts/common/i18n/expand2text';
@@ -17,7 +18,9 @@ import {formatCount} from '../statistics/utilities';
 
 import TagLayout from './TagLayout';
 
-const headingsText = {
+export const headingsText: {
+  +[entityType: string]: (val: number) => string, ...
+} = {
   area: N_ln('{num} area found', '{num} areas found'),
   artist: N_ln('{num} artist found', '{num} artists found'),
   event: N_ln('{num} event found', '{num} events found'),
@@ -48,7 +51,17 @@ const noEntitiesText = {
   work: N_l('No works with this tag were found.'),
 };
 
-type Props = {
+type EntityListContentProps = {
+  +entityTags: $ReadOnlyArray<{
+    +count?: number,
+    +entity: CoreEntityT,
+    +entity_id: number,
+  }>,
+  +entityType: string,
+  +pager: PagerT,
+};
+
+type EntityListProps = {
   +$c: CatalystContextT,
   +entityTags: $ReadOnlyArray<{
     +count: number,
@@ -61,6 +74,40 @@ type Props = {
   +tag: TagT,
 };
 
+export const EntityListContent = ({
+  entityTags,
+  entityType,
+  pager,
+}: EntityListContentProps): React.Element<typeof React.Fragment> => {
+  const $c = React.useContext(CatalystContext);
+
+  return (
+    <>
+      <h3>
+        {expand2text(
+          headingsText[entityType](pager.total_entries),
+          {num: formatCount($c, pager.total_entries)},
+        )}
+      </h3>
+
+      {entityTags.length ? (
+        <PaginatedResults pager={pager}>
+          <ul>
+            {entityTags.map(tag => (
+              <li key={tag.entity_id}>
+                {tag.count == null
+                  ? null
+                  : String(tag.count) + ' - '}
+                <DescriptiveLink entity={tag.entity} />
+              </li>
+            ))}
+          </ul>
+        </PaginatedResults>
+      ) : <p>{noEntitiesText[entityType]()}</p>}
+    </>
+  );
+};
+
 const EntityList = ({
   $c,
   entityTags,
@@ -68,28 +115,13 @@ const EntityList = ({
   page,
   pager,
   tag,
-}: Props): React.Element<typeof TagLayout> => (
+}: EntityListProps): React.Element<typeof TagLayout> => (
   <TagLayout $c={$c} page={page} tag={tag}>
-    <h2>
-      {expand2text(
-        headingsText[entityType](pager.total_entries),
-        {num: formatCount($c, pager.total_entries)},
-      )}
-    </h2>
-
-    {entityTags.length ? (
-      <PaginatedResults pager={pager}>
-        <ul>
-          {entityTags.map(tag => (
-            <li key={tag.entity_id}>
-              {tag.count}
-              {' - '}
-              <DescriptiveLink entity={tag.entity} />
-            </li>
-          ))}
-        </ul>
-      </PaginatedResults>
-    ) : <p>{noEntitiesText[entityType]()}</p>}
+    <EntityListContent
+      entityTags={entityTags}
+      entityType={entityType}
+      pager={pager}
+    />
   </TagLayout>
 );
 

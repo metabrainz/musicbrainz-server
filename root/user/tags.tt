@@ -1,6 +1,6 @@
 [% WRAPPER "user/profile/layout.tt" title=l("Tags") page="tags" %]
     [% BLOCK tag_link_block %]
-    <a href="[% c.uri_for_action('/user/tag', [ user.name ], tag.tag.name) %]">
+    <a href="[% c.uri_for_action('/user/tag', [ user.name, tag.tag.name ]) %]">
     [% tag.tag.name | html %]
     </a>
     [% END %]

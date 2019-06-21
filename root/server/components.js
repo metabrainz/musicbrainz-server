@@ -283,6 +283,8 @@ module.exports = {
   'user/UserMessage': require('../user/UserMessage'),
   'user/UserProfile': require('../user/UserProfile'),
   'user/UserSubscriptions': require('../user/UserSubscriptions'),
+  'user/UserTag': require('../user/UserTag'),
+  'user/UserTagEntity': require('../user/UserTagEntity'),
   'vote/VotingIndex': require('../vote/VotingIndex'),
   'work/WorkIndex': require('../work/WorkIndex'),
   'work/WorkMerge': require('../work/WorkMerge'),
