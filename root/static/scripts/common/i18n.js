@@ -24,7 +24,7 @@ export const N_lp = (key: string, context: string) => (
 );
 
 export const unwrapNl = (
-  value: AnyReactElem | string | (() => AnyReactElem | string),
+  value: React$MixedElement | string | (() => React$MixedElement | string),
 ) => (
   typeof value === 'function' ? value() : value
 );

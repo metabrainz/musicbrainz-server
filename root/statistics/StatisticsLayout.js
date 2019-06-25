@@ -28,7 +28,7 @@ type TabPropsT = {
   +link: string,
   +page: string,
   +selected: string,
-  +title: string | (() => string | AnyReactElem),
+  +title: string | (() => string | React$MixedElement),
 };
 
 const LinkStatisticsTab = ({link, title, page, selected}: TabPropsT) => (

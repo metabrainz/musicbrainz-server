@@ -16,7 +16,7 @@ import FieldErrors from './FieldErrors';
 import FormLabel from './FormLabel';
 
 type RadioOptionsT = $ReadOnlyArray<{|
-  +label: string | (() => string | AnyReactElem),
+  +label: string | (() => string | React$MixedElement),
   +value: number | string,
 |}>;
 

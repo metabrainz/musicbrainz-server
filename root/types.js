@@ -38,8 +38,6 @@ declare type AnchorProps = {|
   +title?: string,
 |};
 
-declare type AnyReactElem = React$Element<any>;
-
 declare type ApplicationT = {|
   ...EntityRoleT<'application'>,
   +is_server: boolean,
@@ -456,7 +454,7 @@ declare type EventTypeT = OptionTreeT<'event_type'>;
 
 declare type Expand2ReactInput = VarSubstArg | AnchorProps;
 
-declare type Expand2ReactOutput = string | AnyReactElem;
+declare type Expand2ReactOutput = string | React$MixedElement;
 
 declare type FieldT<V> = {|
   errors: Array<string>,
@@ -930,7 +928,7 @@ declare type UserTagT = {|
 
 declare type VarSubstArg =
   | StrOrNum
-  | AnyReactElem;
+  | React$MixedElement;
 
 declare type VoteOptionT =
   | -2   // None

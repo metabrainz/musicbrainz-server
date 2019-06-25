@@ -30,7 +30,7 @@ type Props = {|
   +merging?: boolean,
   +order?: string,
   +recordings: $ReadOnlyArray<RecordingT>,
-  +renderCheckboxElement?: (RecordingT, number) => AnyReactElem,
+  +renderCheckboxElement?: (RecordingT, number) => React$MixedElement,
   +showInstrumentCredits?: boolean,
   +showRatings?: boolean,
   +sortable?: boolean,
