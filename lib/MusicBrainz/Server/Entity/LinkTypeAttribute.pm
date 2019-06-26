@@ -18,8 +18,8 @@ has 'max' => (
 sub TO_JSON {
     my ($self) = @_;
     return {
-      max => defined $_->max ? 0 + $_->max : undef,
-      min => defined $_->min ? 0 + $_->min : undef,
+      max => defined $self->max ? 0 + $self->max : undef,
+      min => defined $self->min ? 0 + $self->min : undef,
     };
 }
 
