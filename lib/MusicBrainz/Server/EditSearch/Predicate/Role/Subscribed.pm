@@ -36,7 +36,8 @@ role {
         my ($orig, $self) = @_;
         return (
             $self->$orig,
-            'subscribed' => undef
+            'subscribed' => undef,
+            'not_subscribed' => undef
         );
     };
 
@@ -58,6 +59,19 @@ role {
                 ]);
             }
 
+            when ('not_subscribed') {
+                my $subscribed_clause = "NOT IN (
+                    SELECT $subscribed_column
+                      FROM editor_subscribe_$type
+                     WHERE editor = ?
+                )";
+
+                $query->add_where([
+                    $template_clause =~ s/ROLE_CLAUSE\(([^)]*)\)/$1 $subscribed_clause/r,
+                    [ $self->user->id ]
+                ]);
+            }
+
             default {
                 $self->$orig(@_);
             }
@@ -66,6 +80,6 @@ role {
 
     around valid => sub {
         my ($orig, $self) = @_;
-        return $self->operator eq 'subscribed' || $self->$orig;
+        return ($self->operator eq 'subscribed' || $self->operator eq 'not_subscribed') || $self->$orig;
     };
 }

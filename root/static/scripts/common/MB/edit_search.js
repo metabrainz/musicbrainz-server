@@ -18,7 +18,7 @@ $(function () {
             '=': 1, '!=': 1, 'me': 0, 'not_me': 0, 'subscribed': 0 // Not directly true, but it here it means "show one argument control"
         },
         'subscription': {
-            '=': 1, '!=': 1, 'subscribed': 0
+            '=': 1, '!=': 1, 'subscribed': 0, 'not_subscribed': 0
         },
         'link_type': {
             '=': 1
