@@ -26,6 +26,10 @@ parameter 'dialog_template' => (
     isa => 'Str'
 );
 
+parameter 'dialog_template_react' => (
+    isa => 'Str'
+);
+
 role {
     my $params = shift;
     my %extra = @_;
@@ -50,13 +54,23 @@ role {
 
     method 'create' => sub {
         my ($self, $c, %args) = @_;
+        my $entity;
 
         if ($params->dialog_template) {
             $c->stash( dialog_template => $params->dialog_template );
         }
 
+        my %props;
+
+        if ($params->dialog_template_react) {
+            $c->stash(
+                component_path => $params->dialog_template_react,
+                component_props => \%props,
+                current_view => 'Node'
+            )
+        }
+
         my $model = $self->config->{model};
-        my $entity;
 
         $self->edit_action($c,
             form        => $params->form,
@@ -80,7 +94,12 @@ role {
             },
             no_redirect => $args{within_dialog},
             edit_rels   => 1,
-            $params->edit_arguments->($self, $c)
+            $params->edit_arguments->($self, $c),
+            pre_validation => sub {
+                my $form = shift;
+                $props{form} = $form;
+                $props{optionsTypeId} = $form->options_type_id if $params->form == 'Place';
+            }
         );
     };
 };

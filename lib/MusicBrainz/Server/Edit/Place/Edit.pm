@@ -127,6 +127,8 @@ sub build_display_data
     return $data;
 }
 
+sub edit_template_react { 'EditPlace' }
+
 sub _mapping
 {
     my $self = shift;

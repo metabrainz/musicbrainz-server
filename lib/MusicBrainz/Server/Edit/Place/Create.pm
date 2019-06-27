@@ -71,6 +71,8 @@ sub build_display_data
     };
 }
 
+sub edit_template_react { "AddPlace" }
+
 before restore => sub {
     my ($self, $data) = @_;
 
