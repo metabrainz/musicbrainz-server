@@ -21,7 +21,7 @@ input::-webkit-input-placeholder { // webkit
     color: @dark-text;
 }
 input[disabled].lookup-performed,
-input[disabled] { background: @medium-bg; cursor: default; }
+input[disabled], input[readonly] { background: @medium-bg; cursor: default; }
 
 /* this is to ensure input/select/textarea elements are all the same
    width if you set the same width on them. (without this a <select>

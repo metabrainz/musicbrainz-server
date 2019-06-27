@@ -24,6 +24,7 @@ has_field 'barcode' => (
 );
 
 has_field 'artist' => (
+    required => 1,
     type => '+MusicBrainz::Server::Form::Field::Text',
     maxlength => 255
 );
@@ -79,7 +80,7 @@ sub validate
     my $self = shift;
     if ($self->field('multiple_artists')->value) {
         $self->field('artist')->add_error(l('You may not specify a release artist while also specifying track artists.'))
-            if $self->field('artist')->value;
+            if $self->field('artist')->value && $self->field('artist')->value ne "Various Artists";
 
         for my $field ($self->field('tracks')->fields) {
             $field = $field->field('artist');
@@ -88,7 +89,6 @@ sub validate
         }
     }
     else {
-        $self->field('artist')->required(1);
         $self->field('artist')->validate_field;
 
         for my $field ($self->field('tracks')->fields) {
