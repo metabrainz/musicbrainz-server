@@ -20,24 +20,25 @@ import yesNo from '../../static/scripts/common/utility/yesNo';
 
 type AliasEntityTypeT = $ElementType<AliasEntityTypeT, 'entityType'>;
 
-type AddRemoveAliasEditT = {
-  edit: {
-    ...EditT,
-    display_data: {
-      alias: string,
-      begin_date: PartialDateT,
-      end_date: PartialDateT,
-      ended: boolean,
-      entity_type: AliasEntityTypeT,
-      locale: string,
-      primary_for_locale: boolean,
-      sort_name: string,
-      type: AliasT,
-    },
+type AddRemoveAliasEditT = EditT & {
+  display_data: {
+    alias: string,
+    begin_date: PartialDateT,
+    end_date: PartialDateT,
+    ended: boolean,
+    entity_type: AliasEntityTypeT,
+    locale: string,
+    primary_for_locale: boolean,
+    sort_name: string,
+    type: OptionTreeT<empty>,
   },
 };
 
-const AddRemoveAlias = ({edit}: AddRemoveAliasEditT) => {
+type Props = {|
+  edit: AddRemoveAliasEditT,
+|};
+
+const AddRemoveAlias = ({edit}: Props) => {
   const display = edit.display_data;
   const entityType = display.entity_type;
   const entity = display[entityType];
