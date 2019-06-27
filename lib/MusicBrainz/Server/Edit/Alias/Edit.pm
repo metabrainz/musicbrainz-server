@@ -10,6 +10,7 @@ use MooseX::Types::Structured qw( Dict Optional );
 use MusicBrainz::Server::Data::Utils qw(
     type_to_model
     non_empty
+    boolean_to_json
 );
 use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Edit::Types qw( Nullable PartialDateHash );
@@ -114,8 +115,8 @@ sub build_display_data
             old => PartialDate->new_from_row($self->data->{old}{end_date}),
         },
         primary_for_locale => {
-            new => $self->data->{new}{primary_for_locale},
-            old => $self->data->{old}{primary_for_locale},
+            new => boolean_to_json($self->data->{new}{primary_for_locale}),
+            old => boolean_to_json($self->data->{old}{primary_for_locale}),
         },
         ended => {
             new => $self->data->{new}{ended},
