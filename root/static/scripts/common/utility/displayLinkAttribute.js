@@ -18,7 +18,7 @@ import clean from '../utility/clean';
 function _displayLinkAttribute<T>(
   attribute: LinkAttrT,
   getAttributeValue: (LinkAttrTypeT) => T,
-  l: (string, VarArgsObject<T>) => T,
+  l: (string, VarArgsObject<T | string>) => T,
 ): T {
   const type = linkedEntities.link_attribute_type[attribute.typeID];
   let value = getAttributeValue(type);

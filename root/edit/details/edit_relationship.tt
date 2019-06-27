@@ -5,7 +5,7 @@
 -%]
 
 <table class="details edit-relationship">
-  [%- display_relationship_differences(l('Relationship:'), old_rel, new_rel) -%]
+  [%- display_relationship_differences(old_rel, new_rel) -%]
 
   [% IF edit.display_data.unknown_attributes %]
   <tr>

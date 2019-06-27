@@ -128,7 +128,7 @@ sub _render_side_diff {
 
             my $text = $_->{str};
             $text = encode_entities($text) if $escape_output;
-            $h->span({ class => $class }, $text)
+            $class ? $h->span({ class => $class }, $text) : $text
         } @stack
     )
 }

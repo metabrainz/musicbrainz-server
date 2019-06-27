@@ -103,10 +103,11 @@ type EntityLinkProps = {
   +content?: React.Node,
   +entity: CoreEntityT | CollectionT,
   +hover?: string,
-  +showEditsPending?: boolean,
-  +showEventDate?: boolean,
+  +nameVariation?: boolean,
   +showDeleted?: boolean,
   +showDisambiguation?: boolean,
+  +showEditsPending?: boolean,
+  +showEventDate?: boolean,
   +subPath?: string,
 
   // ...anchorProps
@@ -121,10 +122,11 @@ const EntityLink = ({
   content,
   entity,
   hover,
-  showEditsPending = true,
-  showEventDate = true,
+  nameVariation,
   showDeleted = true,
   showDisambiguation,
+  showEditsPending = true,
+  showEventDate = true,
   subPath,
   ...anchorProps
 }: EntityLinkProps) => {
@@ -158,7 +160,6 @@ const EntityLink = ({
   }
 
   let href = entityHref(entity, subPath);
-  let nameVariation;
   let infoLink;
 
   if (entity.entityType === 'url' && !hasCustomContent) {
@@ -170,11 +171,13 @@ const EntityLink = ({
   // TODO: support name variations for all entity types?
   if (!subPath &&
       (entity.entityType === 'artist' || entity.entityType === 'recording')) {
-    nameVariation = (
-      React.isValidElement(content)
-        ? reactTextContent(content)
-        : content
-    ) !== entity.name;
+    if (nameVariation === undefined) {
+      nameVariation = (
+        React.isValidElement(content)
+          ? reactTextContent(content)
+          : content
+      ) !== entity.name;
+    }
 
     if (nameVariation) {
       if (hover) {
