@@ -835,6 +835,10 @@ class Release extends MB_entity.Release {
             }
         });
 
+        this.willCreateReleaseGroup = function () {
+            return releaseEditor.action === "add" && !self.releaseGroup().gid;
+        };
+
         this.needsReleaseGroup = errorField(function () {
             return releaseEditor.action === "edit" && !self.releaseGroup().gid;
         });

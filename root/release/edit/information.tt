@@ -47,6 +47,8 @@
         </td>
       </tr>
 
+      [% table_row_help_message(2, 'showMessageRightAway: willCreateReleaseGroup', l('If you don’t select an existing release group, a new one will be created with the types selected below.')) %]
+
       [% table_row_error(2, 'showErrorWhenTabIsSwitched: needsReleaseGroup', l('You must select an existing release group.')) %]
 
       <!-- ko with: releaseGroup -->

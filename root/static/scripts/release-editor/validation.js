@@ -70,6 +70,7 @@ ko.bindingHandlers.showErrorRightAway = {
     })
 };
 
+ko.bindingHandlers.showMessageRightAway = ko.bindingHandlers.showErrorRightAway;
 
 ko.bindingHandlers.showErrorWhenTabIsSwitched = {
 
