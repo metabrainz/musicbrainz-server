@@ -1601,12 +1601,35 @@ const testData = [
              input_entity_type: 'artist',
     expected_relationship_type: 'socialnetwork',
             expected_clean_url: 'https://www.instagram.com/deadmau5/',
+       only_valid_entity_types: ['artist', 'event', 'label', 'place', 'series'],
   },
   {
                      input_url: 'https://i.instagram.com/yorickvannorden/?ref=badge',
              input_entity_type: 'artist',
     expected_relationship_type: 'socialnetwork',
             expected_clean_url: 'https://www.instagram.com/yorickvannorden/',
+       only_valid_entity_types: ['artist', 'event', 'label', 'place', 'series'],
+  },
+  {
+                     input_url: 'https://www.instagram.com/stories/nathanwpylestrangeplanet/',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'socialnetwork',
+            expected_clean_url: 'https://www.instagram.com/nathanwpylestrangeplanet/',
+       only_valid_entity_types: ['artist', 'event', 'label', 'place', 'series'],
+  },
+  {
+                     input_url: 'https://www.instagram.com/p/B3Mew-Cl2Z9/',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'socialnetwork',
+            expected_clean_url: 'https://www.instagram.com/p/B3Mew-Cl2Z9/',
+       only_valid_entity_types: [],
+  },
+  {
+                     input_url: 'https://www.instagram.com/explore/locations/277133756/pacha-club-ibiza/',
+             input_entity_type: 'place',
+    expected_relationship_type: 'socialnetwork',
+            expected_clean_url: 'https://www.instagram.com/explore/locations/277133756/pacha-club-ibiza/',
+       only_valid_entity_types: [],
   },
   // Irish Traditional Music Tune Index (Alan Ng's Tunography)
   {
