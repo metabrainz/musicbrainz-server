@@ -7,6 +7,7 @@ use MooseX::Types::Structured qw( Dict );
 use MusicBrainz::Server::Data::Utils qw( model_to_type );
 use MusicBrainz::Server::Edit::Types qw( Nullable NullableOnPreview );
 use MusicBrainz::Server::Filters qw( format_wikitext );
+use JSON::XS;
 
 parameter model => ( isa => 'Str', required => 1 );
 parameter edit_type => ( isa => 'Int', required => 1 );
@@ -39,7 +40,7 @@ role {
     );
 
     has annotation_id => (
-        isa => 'Int',
+        isa => 'Maybe[Int]',
         is => 'rw',
     );
 
@@ -64,7 +65,6 @@ role {
 
         my $data = {
             changelog     => $self->data->{changelog},
-            annotation_id => $self->annotation_id,
             text          => $self->data->{text},
             html          => format_wikitext($self->data->{text}),
             entity_type   => $entity_type,
@@ -78,16 +78,27 @@ role {
         return $data;
     };
 
-    method insert => sub {
+    method accept => sub {
         my $self = shift;
         my $model = $self->_annotation_model;
+        my $latest_annotation = $model->get_latest($self->data->{entity}{id});
+
+        if ($latest_annotation && $latest_annotation->{creation_date} > $self->{created_time} ) {
+            MusicBrainz::Server::Edit::Exceptions::FailedDependency
+            ->throw('The annotation has changed since this edit was entered.');
+        }
+
         my $id = $model->edit({
             entity_id => $self->data->{entity}{id},
             text      => $self->data->{text},
             changelog => $self->data->{changelog},
             editor_id => $self->data->{editor_id}
         });
+
+        # We add the annotation id to the raw edit data for reference
         $self->annotation_id($id);
+        my $json = JSON::XS->new;
+        $self->c->sql->update_row('edit_data', { data => $json->encode($self->to_hash) }, { edit => $self->id });
     };
 
     method initialize => sub {

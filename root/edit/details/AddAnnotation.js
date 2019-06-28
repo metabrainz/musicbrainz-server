@@ -17,7 +17,6 @@ type AnnotatedEntityTypeT = $ElementType<AnnotatedEntityT, 'entityType'>;
 type AddAnnotationEditT = {|
   ...EditT,
   +display_data: {|
-    +annotation_id: number,
     +changelog: string,
     +entity_type: AnnotatedEntityTypeT,
     [AnnotatedEntityTypeT]: AnnotatedEntityT,
