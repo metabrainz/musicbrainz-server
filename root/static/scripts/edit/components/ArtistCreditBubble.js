@@ -71,11 +71,13 @@ const ArtistCreditBubble = ({
                       Object.create(entity), {artistCredit: artistCredit},
                     )}
                     showDeletedArtists={false}
+                    target="_blank"
                   />
                 ) : (
                   <ArtistCreditLink
                     artistCredit={artistCredit}
                     showDeleted={false}
+                    target="_blank"
                   />
                 )}
             </td>
