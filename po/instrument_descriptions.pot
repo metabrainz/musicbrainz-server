@@ -602,6 +602,13 @@ msgid ""
 "ritualistically buried in pairs."
 msgstr ""
 
+#. name:bonang panembung 
+#: DB:instrument/description:972
+msgid ""
+"Chiefly used in Yogyvanese gamelan, the largest and deepest pitched member "
+"of the bonang family of gongs"
+msgstr ""
+
 #. name:naobo 
 #: DB:instrument/description:599
 msgid "Chinese cymbals specially used in the Beijing opera."
@@ -626,6 +633,15 @@ msgid ""
 "Ching are a pair of small hand cymbals used in Thai and Cambodian music."
 msgstr ""
 
+#. name:glockenspiel 
+#: DB:instrument/description:165
+msgid ""
+"Common and popular metallophone, usually an arrangement of metal keys or "
+"slabs on a wooden resonator box. <br /> For the instrument often used in "
+"bell towers, see <a href=\"/instrument/0d14d4e0-9ac9-4a96-"
+"a595-4145d7794082\">carillon</a>."
+msgstr ""
+
 #. name:rudra veena 
 #: DB:instrument/description:501
 msgid ""
@@ -633,6 +649,13 @@ msgid ""
 "ritual and meditation, North Indian raga and Dhrupad music. It has two dried "
 "gourd resonators and a body of bamboo with 24 wooden frets and 4 main, 2-3 "
 "secondary and one drone string."
+msgstr ""
+
+#. name:bonang 
+#: DB:instrument/description:969
+msgid ""
+"Consisting of bossed bronze kettle-like gongs arranged in elaborately "
+"decorated wooden frames, these are hit with tabuh beaters."
 msgstr ""
 
 #. name:metallophone 
@@ -733,7 +756,7 @@ msgstr ""
 #: DB:instrument/description:59
 msgid ""
 "Developed in the 16th century, these violas da braccio are distinct from the "
-"violas da gamba family. </br> Modern members are: <ul> <li> Violin (little "
+"violas da gamba family. <br /> Modern members are: <ul> <li> Violin (little "
 "viola) </li> <li> Viola </li> <li> Violoncello (small big viola) </li> <li> "
 "Double Bass (replacing the violone (big viola)) </li></ul> Past members "
 "include the violone (now a considered a viol) and bass viol (a forerunner to "
@@ -1440,6 +1463,13 @@ msgid ""
 "Oldest instrument of Lithuania, it is made of a special tree in a trapezoid "
 "shape, it has a metalbar and wooden pegs at each side were 5 to 12 strings "
 "are strung."
+msgstr ""
+
+#. name:bonang barung 
+#: DB:instrument/description:970
+msgid ""
+"One to two octaves below panerus, it plays elaborate melodies and is one of "
+"the most important instruments in the ensemble."
 msgstr ""
 
 #. name:handbell 
@@ -3928,6 +3958,13 @@ msgid ""
 "perform creating sound."
 msgstr ""
 
+#. name:bonang panerus 
+#: DB:instrument/description:971
+msgid ""
+"Used to play fast melodies, it is the highest pitched member of the bonang "
+"family of gongs"
+msgstr ""
+
 #. name:lap harp 
 #: DB:instrument/description:886
 msgid ""
@@ -3941,7 +3978,7 @@ msgid ""
 "Used traditionally by the Minang people of West Sumatra for love songs, in "
 "shamanic rites and for capturing tigers, this open end-blown bamboo flute "
 "can be decorated to resemble tiger-stripes. Played with a circular breathing "
-"technique, it is 75 cm long with 3 to 6 holes depending on subtype. </br> "
+"technique, it is 75 cm long with 3 to 6 holes depending on subtype. <br /> "
 "<ul> <li>saluang darek \"inland\" 4 holes</li> <li>saluang pauh/padang 6 "
 "holes</li> <li>saluang sungai pagu 3 holes</li> </ul>"
 msgstr ""
