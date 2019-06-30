@@ -2,6 +2,7 @@ import React from 'react';
 
 import DescriptiveLink from '../../static/scripts/common/components/DescriptiveLink';
 import isDateEmpty from '../../static/scripts/common/utility/isDateEmpty';
+import { formatCoordinates } from '../../utility/coordinates';
 import formatDate from '../../static/scripts/common/utility/formatDate';
 import yesNo from '../../static/scripts/common/utility/yesNo';
 
@@ -49,7 +50,7 @@ const AddPlace = ({edit}) => {
         {display.coordinates ? (
           <tr>
             <th>{l('Coordinates:')}</th>
-            <td>{display.coordinates.format}</td>
+            <td>{formatCoordinates(display.coordinates)}</td>
           </tr>
         ): null}
         {isDateEmpty(display.begin_date) ? null : (
