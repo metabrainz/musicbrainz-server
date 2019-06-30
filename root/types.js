@@ -448,6 +448,7 @@ declare type EventT = {|
   |}>,
   +places: $ReadOnlyArray<{|+entity: PlaceT|}>,
   +related_series: $ReadOnlyArray<number>,
+  +setlist: string,
   +time: string,
 |};
 
@@ -546,6 +547,19 @@ declare type IswcT = {|
   +iswc: string,
   +work_id: number,
 |};
+
+declare type KnockoutObservable<T> = {
+  [[call]]: (() => T) & ((T) => empty),
+  peek: () => T,
+  subscribe: ((T) => void) => {dispose: () => empty},
+};
+
+declare type KnockoutObservableArray<T> =
+  & KnockoutObservable<$ReadOnlyArray<T>>
+  & {
+      push: (T) => empty,
+      remove: (T) => empty,
+    };
 
 declare type LabelT = {|
   ...AnnotationRoleT,

@@ -26,8 +26,7 @@ my $hard_mock_edit_class = $mock_edit_class + 1;
     sub edit_template { "remove_entity" };
     sub edit_type { $hard_mock_edit_class }
 
-    use MusicBrainz::Server::Constants qw( :expire_action :quality );
-    sub determine_quality { $QUALITY_HIGH }
+    use MusicBrainz::Server::Constants qw( :expire_action );
     sub edit_conditions {
         return {
             duration      => 29,
@@ -63,8 +62,7 @@ test 'Check edit conditions for default settings' => sub {
     $test->mech->get_ok('/edit/' . $test->easy->id, 'fetch edit page');
     html_ok($test->mech->content);
 
-    $test->mech->content_contains('Normal', 'mentions quality level');
-    $test->mech->content_contains('Accept upon expiration', 'mentions expire action');
+    $test->mech->content_contains('Accept upon closing', 'mentions expire action');
     $test->mech->content_contains('3 unanimous votes', 'mentions vote period');
 
     done_testing;
@@ -76,9 +74,8 @@ test 'Check edit conditions for alternative settings' => sub {
     $test->mech->get_ok('/edit/' . $test->hard->id, 'fetch edit page');
     html_ok($test->mech->content);
 
-    $test->mech->content_contains('High', 'mentions quality level');
     $test->mech->content_contains('50 unanimous votes', 'mentions vote period');
-    $test->mech->content_contains('Reject upon expiration', 'mentions expire action');
+    $test->mech->content_contains('Reject upon closing', 'mentions expire action');
 
     done_testing;
 };

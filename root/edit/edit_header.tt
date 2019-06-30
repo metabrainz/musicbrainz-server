@@ -38,7 +38,8 @@
                 <tr>
                     <td colspan="2" class="edit-expiration">
                         [%~ IF edit.status == 1 ~%]
-                            [%~ React.embed(c, 'components/ExpirationTime', {date => edit.expires_time _ 'Z', user => c.user}) ~%]
+                            <strong>[%~ add_colon(l('Voting')) _ ' ' ~%]</strong>
+                            [%~ React.embed(c, 'components/VotingPeriod', {closingDate => edit.expires_time _ 'Z', user => c.user}) ~%]
                         [%~ ELSIF !edit.is_open && edit.status == 8 ~%]
                             [%~ l('<strong>Closed:</strong> <em>Cancelling</em>') ~%]
                         [%~ ELSIF !edit.is_open && edit.was_approved ~%]

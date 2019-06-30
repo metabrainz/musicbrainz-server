@@ -17,7 +17,7 @@ const DocResults = () => (
     <div className="wikicontent" id="content">
       <h1>{l('Documentation Search')}</h1>
       <script
-        async="true"
+        async
         src={'https://cse.google.com/cse.js?cx=' + encodeURIComponent(GOOGLE_CUSTOM_SEARCH)}
         type="text/javascript"
       />

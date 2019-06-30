@@ -2,7 +2,8 @@
         type => instrument.l_type_name or l('Instrument'),
         instrument => instrument.l_name
 }) ~%]
-[%~ WRAPPER "layout.tt" title=title ? main_title _ " - ${title}" : main_title ~%]
+[%~ WRAPPER "layout.tt" title=title ? main_title _ " - ${title}" : main_title # Converted to React at root/instrument/InstrumentLayout.js
+~%]
     <div id="content">
         [%~ React.embed(c, 'instrument/InstrumentHeader', { instrument => instrument, page => page }) ~%]
         [%~ content ~%]

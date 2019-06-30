@@ -34,7 +34,11 @@ sub base : Chained('/') PathPart('url') CaptureArgs(0) { }
 
 sub show : Chained('load') PathPart('') {
     my ($self, $c) = @_;
-    $c->stash->{template} = 'url/index.tt';
+    $c->stash(
+        component_path => 'url/UrlIndex',
+        component_props => {url => $c->stash->{url}},
+        current_view => 'Node',
+    );
 }
 
 =head2 edit
