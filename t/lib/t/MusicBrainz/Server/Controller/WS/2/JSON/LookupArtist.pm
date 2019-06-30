@@ -22,12 +22,16 @@ test 'errors' => sub {
     is($mech->status, 400);
 
     is_json($mech->content, encode_json({
-        error => "coffee is not a valid inc parameter for the artist resource."
+        error => "coffee is not a valid inc parameter for the artist resource.",
+        help => 'For usage, please see: https://musicbrainz.org/development/mmd',
     }));
 
     $mech->get('/ws/2/artist/00000000-1111-2222-3333-444444444444');
     is($mech->status, 404);
-    is_json($mech->content, encode_json({ error => "Not Found" }));
+    is_json($mech->content, encode_json({
+          error => "Not Found",
+          help => 'For usage, please see: https://musicbrainz.org/development/mmd',
+    }));
 };
 
 test 'basic artist lookup' => sub {

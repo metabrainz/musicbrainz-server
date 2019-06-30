@@ -27,9 +27,17 @@ has_field 'public' => (
     type => 'Boolean',
 );
 
+has_field 'collaborators' => (
+    type => 'Repeatable',
+);
+
+has_field 'collaborators.contains' => (
+    type => '+MusicBrainz::Server::Form::Field::Editor',
+);
+
 sub edit_field_names
 {
-    return qw( name description public type_id );
+    return qw( name description public type_id collaborators );
 }
 
 sub options_type_id {

@@ -63,14 +63,14 @@ has 'granted' => (
     coerce => 1
 );
 
-our %ACCESS_SCOPE_PERMISSIONS = (
-    $ACCESS_SCOPE_PROFILE        => N_l('View your public account information'),
-    $ACCESS_SCOPE_EMAIL          => N_l('View your email address'),
-    $ACCESS_SCOPE_TAG            => N_l('View and modify your private tags'),
-    $ACCESS_SCOPE_RATING         => N_l('View and modify your private ratings'),
-    $ACCESS_SCOPE_COLLECTION     => N_l('View and modify your private collections'),
-    $ACCESS_SCOPE_SUBMIT_ISRC    => N_l('Submit new ISRCs to the database'),
-    $ACCESS_SCOPE_SUBMIT_BARCODE => N_l('Submit new barcodes to the database'),
+our @ACCESS_SCOPE_PERMISSIONS = (
+    $ACCESS_SCOPE_PROFILE,
+    $ACCESS_SCOPE_EMAIL,
+    $ACCESS_SCOPE_TAG,
+    $ACCESS_SCOPE_RATING,
+    $ACCESS_SCOPE_COLLECTION,
+    $ACCESS_SCOPE_SUBMIT_ISRC,
+    $ACCESS_SCOPE_SUBMIT_BARCODE,
 );
 
 sub permissions
@@ -80,9 +80,9 @@ sub permissions
     $scope ||= $self->scope;
 
     my @perms;
-    for my $i (keys %ACCESS_SCOPE_PERMISSIONS) {
+    for my $i (@ACCESS_SCOPE_PERMISSIONS) {
         if (($scope & $i) == $i) {
-            push @perms, $ACCESS_SCOPE_PERMISSIONS{$i};
+            push @perms, $i;
         }
     }
 

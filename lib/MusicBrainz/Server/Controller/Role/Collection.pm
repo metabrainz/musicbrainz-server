@@ -31,12 +31,23 @@ role
         }
     );
 
-    method _all_collections => sub {
+    method _all_visible_collections => sub {
         my ($self, $c) = @_;
         my ($collections) = $c->model('Collection')->find_by({
             entity_id => $c->stash->{$entity_name}->id,
             entity_type => $entity_type,
             show_private => $c->user_exists ? $c->user->id : undef,
+            with_collaborations => 1,
+        });
+        $collections;
+    };
+
+    method _all_non_visible_collections => sub {
+        my ($self, $c) = @_;
+        my ($collections) = $c->model('Collection')->find_by({
+            entity_id => $c->stash->{$entity_name}->id,
+            entity_type => $entity_type,
+            show_private_only => $c->user_exists ? $c->user->id : undef,
         });
         $collections;
     };
@@ -45,27 +56,39 @@ role
     method _stash_collections => sub {
         my ($self, $c) = @_;
 
-        my $collections;
+        my $own_collections;
+        my $collaborative_collections;
         my %containment;
-        my $entity_collections = $self->_all_collections($c);
+        my $entity_collections = $self->_all_visible_collections($c);
         my %entity_collections_map = map { $_->id => 1 } @$entity_collections;
+
+        my $number_of_visible_collections = @$entity_collections;
+        my $number_of_non_visible_collections = @{$self->_all_non_visible_collections($c)};
 
         if ($c->user_exists) {
             # Make a list of collections and whether this entity is contained in them
-            ($collections) = $c->model('Collection')->find_by({
+            ($own_collections) = $c->model('Collection')->find_by({
                 editor_id => $c->user->id,
                 entity_type => $entity_type,
                 show_private => $c->user->id,
             });
-            foreach my $collection (@$collections) {
+            foreach my $collection (@$own_collections) {
+                $containment{$collection->id} = 1 if $entity_collections_map{$collection->id};
+            }
+            ($collaborative_collections) = $c->model('Collection')->find_by({
+                collaborator_id => $c->user->id,
+                entity_type => $entity_type,
+            });
+            foreach my $collection (@$collaborative_collections) {
                 $containment{$collection->id} = 1 if $entity_collections_map{$collection->id};
             }
         }
 
         $c->stash
-          (collections => $collections,
+          (own_collections => $own_collections,
+           collaborative_collections => $collaborative_collections,
            containment => \%containment,
-           all_collections => $entity_collections,
+           number_of_collections => $number_of_visible_collections + $number_of_non_visible_collections,
           );
     };
 
@@ -78,18 +101,9 @@ View a list of collections that this work has been added to.
     method $method_name => sub {
         my ($self, $c) = @_;
 
-        my @public_collections;
-        my $private_collections = 0;
-
-        # Keep public collections;
-        # count private collection
-        foreach my $collection (@{$self->_all_collections($c)}) {
-            if ($collection->{'public'} == 1) {
-                push(@public_collections, $collection);
-            } else {
-                $private_collections++;
-            }
-        }
+        my @public_collections = @{$self->_all_visible_collections($c)};
+        # For private collections we just want the number, so we just read the results in scalar context
+        my $private_collections = @{$self->_all_non_visible_collections($c)};
 
         $c->model('Editor')->load(@public_collections);
 

@@ -186,7 +186,7 @@ subtest 'lookup of invalid discid with no toc parameter' => sub {
     is_xml_same($mech->content, q{<?xml version="1.0"?>
     <error>
       <text>Invalid discid.</text>
-      <text>For usage, please see: http://musicbrainz.org/development/mmd</text>
+      <text>For usage, please see: https://musicbrainz.org/development/mmd</text>
     </error>});
 };
 

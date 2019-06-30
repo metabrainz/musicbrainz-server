@@ -333,7 +333,7 @@ test "collection lookup errors" => sub {
 <?xml version="1.0" encoding="UTF-8"?>
 <error>
   <text>This is not a collection for entity type $entity_type.</text>
-  <text>For usage, please see: http://musicbrainz.org/development/mmd</text>
+  <text>For usage, please see: https://musicbrainz.org/development/mmd</text>
 </error>
 EOXML
     };

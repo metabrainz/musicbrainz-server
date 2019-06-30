@@ -6,7 +6,7 @@
     [% WRAPPER form_row %]
         [% r.label('child_order', l('Child order:')) %]
         [% r.number('child_order') %]
-        [% form_field_errors(form, 'child_order') %]
+        [% field_errors(form, 'child_order') %]
     [% END %]
 
     [% form_row_text(r, 'name', l('Name:')) %]
@@ -14,7 +14,7 @@
     [% WRAPPER form_row %]
         [% r.label('description', l('Description:')) %]
         [% r.textarea('description', { cols => 80, rows => 6 }) %]
-        [% form_field_errors(form, 'description') %]
+        [% field_errors(form, 'description') %]
     [% END %]
 
     <div class="row no-label">

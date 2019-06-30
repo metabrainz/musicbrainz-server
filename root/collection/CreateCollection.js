@@ -10,16 +10,18 @@
 import React from 'react';
 
 import Layout from '../layout';
+import * as manifest from '../static/manifest';
+import CollectionEditForm
+  from '../static/scripts/collection/components/CollectionEditForm';
 
-import CollectionEditForm from './CollectionEditForm';
-import type {CollectionFormT} from './types';
+import type {CollectionEditFormT} from './types';
 
 type Props = {|
   +collectionTypes: SelectOptionsT,
-  +form: CollectionFormT,
+  +form: CollectionEditFormT,
 |};
 
-const CollectionCreate = ({collectionTypes, form}: Props) => (
+const CreateCollection = ({collectionTypes, form}: Props) => (
   <Layout
     fullWidth
     title={l('Create a new collection')}
@@ -27,8 +29,9 @@ const CollectionCreate = ({collectionTypes, form}: Props) => (
     <div id="content">
       <h1>{l('Create a new collection')}</h1>
       <CollectionEditForm collectionTypes={collectionTypes} form={form} />
+      {manifest.js('collection/edit')}
     </div>
   </Layout>
 );
 
-export default CollectionCreate;
+export default CreateCollection;

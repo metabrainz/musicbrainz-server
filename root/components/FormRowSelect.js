@@ -29,6 +29,7 @@ type Props = {|
    * Only useful when `allowEmpty` is true.
    */
   +required?: boolean,
+  +uncontrolled?: boolean,
 |};
 
 const FormRowSelect = ({
@@ -40,6 +41,7 @@ const FormRowSelect = ({
   onChange,
   options,
   required = false,
+  uncontrolled = false,
 }: Props) => {
   if (!allowEmpty) {
     // If the field can't be unset, there's nothing required from the user.
@@ -55,6 +57,7 @@ const FormRowSelect = ({
         onChange={onChange}
         options={options}
         required={required}
+        uncontrolled={uncontrolled}
       />
       {frozen ? <HiddenField field={field} /> : null}
       {helpers}

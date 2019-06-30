@@ -21,6 +21,12 @@ function sanitizedContext(
 ) /*: SanitizedCatalystContextT */ {
   const user = $c.user;
   return {
+    action: {
+      name: $c.action.name,
+    },
+    req: {
+      uri: $c.req.uri,
+    },
     user: user ? sanitizedEditor(user) : null,
     user_exists: $c.user_exists,
   };

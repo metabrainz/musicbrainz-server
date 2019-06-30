@@ -38,8 +38,6 @@ declare type AnchorProps = {|
   +title?: string,
 |};
 
-declare type AnyReactElem = React$Element<any>;
-
 declare type ApplicationT = {|
   ...EntityRoleT<'application'>,
   +is_server: boolean,
@@ -202,8 +200,7 @@ type CatalystSessionT = {|
 |};
 
 type CatalystStashT = {|
-  +all_collections?: $ReadOnlyArray<CollectionT>,
-  +collections?: $ReadOnlyArray<CollectionT>,
+  +collaborative_collections?: $ReadOnlyArray<CollectionT>,
   +commons_image?: CommonsImageT | null,
   +containment?: {|
     [number]: ?1,
@@ -211,7 +208,9 @@ type CatalystStashT = {|
   +current_language: string,
   +current_language_html: string,
   +more_tags?: boolean,
+  +number_of_collections?: number,
   +number_of_revisions?: number,
+  +own_collections?: $ReadOnlyArray<CollectionT>,
   +release_artwork?: ArtworkT,
   +server_languages?: $ReadOnlyArray<ServerLanguageT>,
   +subscribed?: boolean,
@@ -239,6 +238,7 @@ declare type CDStubT = {|
 declare type CollectionT = {|
   ...EntityRoleT<'collection'>,
   ...TypeRoleT<CollectionTypeT>,
+  +collaborators: $ReadOnlyArray<EditorT>,
   +description: string,
   +description_html: string,
   +entity_count: number,
@@ -456,7 +456,7 @@ declare type EventTypeT = OptionTreeT<'event_type'>;
 
 declare type Expand2ReactInput = VarSubstArg | AnchorProps;
 
-declare type Expand2ReactOutput = string | AnyReactElem;
+declare type Expand2ReactOutput = string | React$MixedElement;
 
 declare type FieldT<V> = {|
   errors: Array<string>,
@@ -824,6 +824,12 @@ declare type ReadOnlyRepeatableFieldT<+F> = {|
 |};
 
 declare type SanitizedCatalystContextT = {|
+  +action: {|
+    +name: string,
+  |},
+  +req: {|
+    +uri: string,
+  |},
   +user: SanitizedEditorT | null,
   +user_exists: boolean,
 |};
@@ -930,7 +936,7 @@ declare type UserTagT = {|
 
 declare type VarSubstArg =
   | StrOrNum
-  | AnyReactElem;
+  | React$MixedElement;
 
 declare type VoteOptionT =
   | -2   // None

@@ -5,6 +5,7 @@ use feature 'state';
 use Moose;
 use DBDefs;
 use Carp qw( cluck croak carp );
+use List::AllUtils qw( any );
 use Try::Tiny;
 use utf8 ();
 
@@ -158,7 +159,7 @@ sub insert_row
 
 sub insert_many {
     my ($self, $table, @insertions) = @_;
-    return unless @insertions;
+    return unless any { defined } @insertions;
 
     my %pivot;
     for my $insertion (@insertions) {

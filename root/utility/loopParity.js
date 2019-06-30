@@ -8,5 +8,5 @@
  */
 
 export default function loopParity(x: number): string {
-  return x % 2 === 0 ? 'even' : 'odd';
+  return (x + 1) % 2 === 0 ? 'even' : 'odd';
 }

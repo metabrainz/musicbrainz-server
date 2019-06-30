@@ -9,18 +9,21 @@
 
 import React from 'react';
 
+import {withCatalystContext} from '../context';
 import LabelList from '../components/list/LabelList';
 import PaginatedResults from '../components/PaginatedResults';
 
 import AreaLayout from './AreaLayout';
 
 type Props = {|
+  +$c: CatalystContextT,
   +area: AreaT,
   +labels: $ReadOnlyArray<LabelT>,
   +pager: PagerT,
 |};
 
 const AreaLabels = ({
+  $c,
   area,
   labels,
   pager,
@@ -29,12 +32,24 @@ const AreaLabels = ({
     <h2>{l('Labels')}</h2>
 
     {labels.length > 0 ? (
-      <PaginatedResults pager={pager}>
-        <LabelList
-          labels={labels}
-          showRatings
-        />
-      </PaginatedResults>
+      <form action="/label/merge_queue" method="post">
+        <PaginatedResults pager={pager}>
+          <LabelList
+            checkboxes="add-to-merge"
+            labels={labels}
+            showRatings
+          />
+        </PaginatedResults>
+        {$c.user_exists ? (
+          <div className="row">
+            <span className="buttons">
+              <button type="submit">
+                {l('Add selected labels for merging')}
+              </button>
+            </span>
+          </div>
+        ) : null}
+      </form>
     ) : (
       <p>
         {l('This area is not currently associated with any labels.')}
@@ -43,4 +58,4 @@ const AreaLabels = ({
   </AreaLayout>
 );
 
-export default AreaLabels;
+export default withCatalystContext(AreaLabels);

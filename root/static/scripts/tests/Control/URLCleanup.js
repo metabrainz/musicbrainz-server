@@ -2136,6 +2136,35 @@ const testData = [
             expected_clean_url: 'https://musopen.org/music/7887/',
        only_valid_entity_types: ['work'],
   },
+  // muziekweb.eu (National Dutch music library)
+  {
+                     input_url: 'https://www.muziekweb.eu/en/Link/M00000052618/POPULAR/Eminem',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://www.muziekweb.eu/Link/M00000052618/',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'https://www.muziekweb.nl/Link/M00000052618/POPULAR/Eminem',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://www.muziekweb.eu/Link/M00000052618/',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'https://www.muziekweb.eu/en/Link/JK95205/The-slim-shady-LP',
+             input_entity_type: 'release',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://www.muziekweb.eu/Link/JK95205/',
+       only_valid_entity_types: ['release'],
+  },
+  {
+                     input_url: 'https://www.muziekweb.nl/Link/JK95205/The-slim-shady-LP',
+             input_entity_type: 'release',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://www.muziekweb.eu/Link/JK95205/',
+       only_valid_entity_types: ['release'],
+  },
   // mvdbase.com (The Music Video DataBase)
   {
                      input_url: 'http://www.mvdbase.com/video.php?id=4',
@@ -3266,11 +3295,24 @@ const testData = [
              input_entity_type: 'recording',
     expected_relationship_type: 'otherdatabases',
   },
-  // Wikia
+  // Fandom (old Wikia)
   {
                      input_url: 'http://lyrics.wikia.com/Van_Canto:Hero_(2008)',
              input_entity_type: 'release_group',
     expected_relationship_type: 'lyrics',
+            expected_clean_url: 'https://lyrics.fandom.com/Van_Canto:Hero_(2008)',
+  },
+  {
+                     input_url: 'http://lyrics.fandom.com/wiki/S%C3%B5pruse_Puiestee:Miks_Ma_Ei_V%C3%B5iks_Olla_Maailmas_%C3%9Cksi',
+             input_entity_type: 'work',
+    expected_relationship_type: 'lyrics',
+            expected_clean_url: 'https://lyrics.fandom.com/wiki/S%C3%B5pruse_Puiestee:Miks_Ma_Ei_V%C3%B5iks_Olla_Maailmas_%C3%9Cksi',
+  },
+  {
+                     input_url: 'http://fr.lyrics.wikia.com/wiki/Christiane_Legrand/Les_parapluies_de_Cherbourg',
+             input_entity_type: 'work',
+    expected_relationship_type: 'lyrics',
+            expected_clean_url: 'https://lyrics.fandom.com/fr/wiki/Christiane_Legrand/Les_parapluies_de_Cherbourg',
   },
   // Wikidata
   {

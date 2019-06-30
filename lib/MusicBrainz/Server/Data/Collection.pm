@@ -89,6 +89,17 @@ sub contains_entity {
         $collection_id, $id) ? 1 : 0;
 }
 
+sub is_collection_collaborator {
+    my ($self, $user_id, $collection_id) = @_;
+
+    return $self->sql->select_single_value(
+        "SELECT 1 FROM editor_collection WHERE (id = \$1 AND editor = \$2) OR 
+            EXISTS (SELECT 1 FROM editor_collection_collaborator ecc
+                WHERE ecc.collection = \$1 AND ecc.editor = \$2)",
+        $collection_id, $user_id,
+    );
+}
+
 sub is_empty {
     my ($self, $type, $collection_id) = @_;
 
@@ -136,8 +147,15 @@ sub find_by {
     my (@conditions, @args);
 
     if (my $editor_id = $opts->{editor_id}) {
-        push @conditions, 'editor = ?';
-        push @args, $editor_id;
+        if ($opts->{with_collaborations}) {
+            push @conditions, '(editor_collection.editor = ? OR
+                               EXISTS (SELECT 1 FROM editor_collection_collaborator ecc
+                               WHERE ecc.collection = editor_collection.id AND ecc.editor = ?))';
+            push @args, $editor_id, $editor_id;
+        } else {
+            push @conditions, 'editor_collection.editor = ?';
+            push @args, $editor_id;
+        }
     }
 
     if (my $entity_type = $opts->{entity_type}) {
@@ -154,13 +172,40 @@ sub find_by {
         }
     }
 
-    if (my $editor_id = $opts->{show_private}) {
-        push @conditions, '(editor_collection.public = true OR editor = ?)';
+    if (my $editor_id = $opts->{collaborator_id}) {
+        push @conditions, 'EXISTS (SELECT 1 FROM editor_collection_collaborator ecc
+                           WHERE ecc.collection = editor_collection.id AND ecc.editor = ?)';
         push @args, $editor_id;
-    } else {
-        push @conditions, 'editor_collection.public = true';
     }
 
+    if (my $editor_id = $opts->{show_private}) {
+        # If we check collaborations, we want to know whether the editor is the main editor *or* the collaboration editor
+        if ($opts->{with_collaborations}) {
+            push @conditions, '(editor_collection.public = true OR editor_collection.editor = ? OR
+                               EXISTS (SELECT 1 FROM editor_collection_collaborator ecc
+                               WHERE ecc.collection = editor_collection.id AND ecc.editor = ?))';
+            push @args, $editor_id, $editor_id;
+        } else {
+            push @conditions, '(editor_collection.public = true OR editor_collection.editor = ?)';
+            push @args, $editor_id;
+        }
+    } else {
+        # If we have a collaborator ID we will already only show relevant collections, and we should show all
+        # If we want to only see non-visible collections, then we clearly don't want to show only public ones
+        unless ($opts->{collaborator_id} || $opts->{show_private_only}) {
+            push @conditions, 'editor_collection.public = true';
+        }
+    }
+
+    if (my $editor_id = $opts->{show_private_only}) {
+            push @conditions, 'editor_collection.public = false';
+            push @conditions, 'editor_collection.editor != ?';
+            push @conditions, 'NOT EXISTS (SELECT 1 FROM editor_collection_collaborator ecc
+                               WHERE ecc.collection = editor_collection.id AND ecc.editor = ?)';
+            push @args, $editor_id, $editor_id;
+    }
+
+    # Since joining editor_collection_collaborator might give many rows, we select only distinct collections here
     my $query =
         'SELECT ' . $self->_columns .
         '  FROM ' . $self->_table . ' ' .
@@ -194,6 +239,14 @@ around _insert_hook_make_row => sub {
     return $row;
 };
 
+sub _insert_hook_after_each {
+    my ($self, $created, $collection) = @_;
+
+    $self->set_collaborators(
+        $created->{id}, $collection->{collaborators}
+    ) if $collection->{collaborators};
+}
+
 sub load_entity_count {
     my ($self, @collections) = @_;
     return unless @collections;
@@ -215,6 +268,10 @@ sub load_entity_count {
 sub update {
     my ($self, $collection_id, $update) = @_;
     croak '$collection_id must be present and > 0' unless $collection_id > 0;
+
+    $self->set_collaborators(
+        $collection_id, $update->{collaborators}
+    ) if $update->{collaborators};
 
     my $row = $self->_hash_to_row($update);
     my $collection = $self->get_by_id($collection_id);
@@ -245,6 +302,10 @@ sub delete {
             WHERE collection IN (" . placeholders(@collection_ids) . ')', @collection_ids);
     } entities_with('collections');
 
+    # Remove all collaborators associated with the collection(s)
+    $self->sql->do('DELETE FROM editor_collection_collaborator
+                    WHERE collection IN (' . placeholders(@collection_ids) . ')', @collection_ids);
+
     # Remove collection(s)
     $self->sql->do('DELETE FROM editor_collection
                     WHERE id IN (' . placeholders(@collection_ids) . ')', @collection_ids);
@@ -262,6 +323,23 @@ sub delete_editor {
             $editor_id
         ) }
     );
+}
+
+sub set_collaborators {
+    my ($self, $collection_id, $collaborators) = @_;
+
+    $self->sql->begin;
+
+    $self->sql->do('DELETE FROM editor_collection_collaborator WHERE collection = ?', $collection_id);
+    $self->sql->insert_many(
+        'editor_collection_collaborator',
+        map +{
+            collection => $collection_id,
+            editor     => $_->{id},
+        }, @$collaborators
+    );
+
+    $self->sql->commit;
 }
 
 sub _hash_to_row {

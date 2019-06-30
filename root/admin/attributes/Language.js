@@ -14,6 +14,12 @@ import Layout from '../../layout';
 import {compare} from '../../static/scripts/common/i18n';
 import loopParity from '../../utility/loopParity';
 
+const frequencyLabels = {
+  [0]: N_lp('Hidden', 'language optgroup'),
+  [1]: N_lp('Other', 'language optgroup'),
+  [2]: N_lp('Frequently used', 'language optgroup'),
+};
+
 type Props = {
   attributes: Array<LanguageT>,
   model: string,
@@ -51,7 +57,7 @@ const Language = ({model, attributes}: Props) => {
               <td>{attr.iso_code_2b}</td>
               <td>{attr.iso_code_2t}</td>
               <td>{attr.iso_code_3}</td>
-              <td>{attr.frequency}</td>
+              <td>{frequencyLabels[attr.frequency]()}</td>
               <td>
                 <a href={`/admin/attributes/${model}/edit/${attr.id}`}>
                   {l('Edit')}

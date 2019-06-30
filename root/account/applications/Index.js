@@ -9,6 +9,7 @@
 
 import React from 'react';
 
+import {ACCESS_SCOPE_PERMISSIONS} from '../../constants';
 import {compare} from '../../static/scripts/common/i18n';
 import Layout from '../../layout';
 import PaginatedResults from '../../components/PaginatedResults';
@@ -51,7 +52,9 @@ const buildTokenRow = (token: EditorOAuthTokenT, index: number) => (
 );
 
 function formatScopes(token: EditorOAuthTokenT) {
-  const lScopes = token.permissions.map(perm => l(perm));
+  const lScopes = token.permissions.map(
+    perm => ACCESS_SCOPE_PERMISSIONS[perm](),
+  );
 
   if (token.is_offline) {
     lScopes.push(l('Offline Access'));

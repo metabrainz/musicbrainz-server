@@ -318,19 +318,35 @@ sub collections : Chained('load') PathPart('collections')
 
     my ($collections) = $c->model('Collection')->find_by({
         editor_id => $user->id,
-        show_private => $viewing_own_profile ? $user->id : undef,
+        show_private => $c->user_exists ? $c->user->id : undef,
     });
     $c->model('Collection')->load_entity_count(@$collections);
     $c->model('CollectionType')->load(@$collections);
 
-    $no_collections = 0 if ($no_collections && @$collections);
-
     for my $collection (@$collections) {
+        $c->model('Editor')->load_for_collection($collection);
         if ($c->user_exists) {
             $collection->{'subscribed'} =
                 $c->model('Collection')->subscription->check_subscription($c->user->id, $collection->id);
         }
         push @{ $c->stash->{collections}{$collection->type->item_entity_type} }, $collection;
+    }
+
+    $no_collections = 0 if ($no_collections && @$collections);
+
+    my ($collaborative_collections) = $c->model('Collection')->find_by({
+        collaborator_id => $user->id,
+    });
+    $c->model('Collection')->load_entity_count(@$collaborative_collections);
+    $c->model('CollectionType')->load(@$collaborative_collections);
+
+    for my $collection (@$collaborative_collections) {
+        $c->model('Editor')->load_for_collection($collection);
+        if ($c->user_exists) {
+            $collection->{'subscribed'} =
+                $c->model('Collection')->subscription->check_subscription($c->user->id, $collection->id);
+        }
+        push @{ $c->stash->{collaborative_collections}{$collection->type->item_entity_type} }, $collection;
     }
 
     $c->stash(user => $user, no_collections => $no_collections);

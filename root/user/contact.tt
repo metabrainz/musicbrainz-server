@@ -10,7 +10,7 @@
         [% WRAPPER form_row %]
             [% r.label('body', add_colon(l('Message'))) %]
             [% r.textarea('body', { cols => 50, rows => 10 }) %]
-            [% form_field_errors(form, 'body') %]
+            [% field_errors(form, 'body') %]
         [% END %]
 
         [% form_row_checkbox(r, 'reveal_address', l('Reveal my email address')) %]
