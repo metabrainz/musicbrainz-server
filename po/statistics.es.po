@@ -14,9 +14,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-05-11 20:12+0200\n"
-"PO-Revision-Date: 2019-05-11 18:27+0000\n"
-"Last-Translator: Robert Schneider <email address hidden>\n"
+"POT-Creation-Date: 2019-05-23 20:14+0200\n"
+"PO-Revision-Date: 2019-06-12 08:58+0000\n"
+"Last-Translator: César Martín <email address hidden>\n"
 "Language-Team: Spanish (http://www.transifex.com/musicbrainz/musicbrainz/language/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1154,7 +1154,7 @@ msgstr ""
 
 #: ../root/statistics/Index.js:438
 msgid "Data Quality"
-msgstr ""
+msgstr "Calidad de datos"
 
 #: ../root/statistics/Index.js:447
 msgid "High Data Quality:"

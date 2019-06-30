@@ -2,6 +2,7 @@
 # Translators:
 # nikki, 2014
 # Alexander Dupuy <email address hidden>, 2012
+# César Martín <email address hidden>, 2019
 # 3b2b9b2970dff2223d07f096c7a072f3, 2011
 # Gustavo Guillermo Scalvini Imazio <email address hidden>, 2016
 # Héctor Arroyo <email address hidden>, 2012
@@ -16,8 +17,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2019-05-13 10:44+0000\n"
-"Last-Translator: AriasNicolas <email address hidden>\n"
+"PO-Revision-Date: 2019-06-12 10:18+0000\n"
+"Last-Translator: César Martín <email address hidden>\n"
 "Language-Team: Spanish (http://www.transifex.com/musicbrainz/musicbrainz/language/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -31,7 +32,7 @@ msgstr "Guitarra de doce cuerdas"
 
 #: DB:instrument/name:516
 msgid "17-string bass koto"
-msgstr ""
+msgstr "Koto de 17 cuerdas"
 
 #: DB:instrument/name:108
 msgid "Afuche/Cabasa"
@@ -72,7 +73,7 @@ msgstr ""
 
 #: DB:instrument/name:175
 msgid "Clavinet"
-msgstr ""
+msgstr "Clavinet"
 
 #: DB:instrument/name:482
 msgid "Cretan lyra"
@@ -84,7 +85,7 @@ msgstr ""
 
 #: DB:instrument/name:118
 msgid "Denis d'or"
-msgstr ""
+msgstr "Denis de oro"
 
 #: DB:instrument/name:119
 msgid "Dubreq Stylophone"
@@ -187,7 +188,7 @@ msgstr "gaita northumbria"
 #: DB:instrument/name:890
 msgctxt "Toy synthesizer"
 msgid "Otamatone"
-msgstr ""
+msgstr "Otamatone"
 
 #: DB:instrument/name:664
 msgid "Paraguayan harp"
@@ -381,6 +382,7 @@ msgid "ankle rattlers"
 msgstr ""
 
 #: DB:instrument/name:720
+msgctxt "Tuned metal shape."
 msgid "anvil"
 msgstr ""
 
@@ -409,7 +411,7 @@ msgstr ""
 #: DB:instrument/name:812
 msgctxt "cone shaped west african frame-drum"
 msgid "ashiko"
-msgstr ""
+msgstr "ashiko"
 
 #: DB:instrument/name:719
 msgid "atabaque"
@@ -459,7 +461,7 @@ msgstr "baldosa"
 #: DB:instrument/name:394
 msgctxt "Ukraininan lute-zither"
 msgid "bandura"
-msgstr ""
+msgstr "bandura"
 
 #: DB:instrument/name:771
 msgid "bandurria"
@@ -627,7 +629,13 @@ msgstr "bayan"
 msgid "bazooka"
 msgstr ""
 
+#: DB:instrument/name:968
+msgctxt "Very large suspended Javanese barrel drum"
+msgid "bedug"
+msgstr ""
+
 #: DB:instrument/name:116
+msgctxt "Tuned metal cups"
 msgid "bell"
 msgstr ""
 
@@ -818,7 +826,7 @@ msgstr "carillón"
 #: DB:instrument/name:109
 msgctxt "Pair of concave shells"
 msgid "castanets"
-msgstr ""
+msgstr "castañuelas"
 
 #: DB:instrument/name:524
 msgid "cavaquinho"
@@ -1251,7 +1259,7 @@ msgstr ""
 
 #: DB:instrument/name:649
 msgid "duck call"
-msgstr ""
+msgstr "reclamo"
 
 #: DB:instrument/name:397
 msgid "duduk"
@@ -1384,7 +1392,7 @@ msgstr ""
 
 #: DB:instrument/name:150
 msgid "euphonium"
-msgstr ""
+msgstr "bombardino"
 
 #: DB:instrument/name:448
 msgid "farfisa"
@@ -1427,7 +1435,7 @@ msgstr ""
 #: DB:instrument/name:938
 msgctxt "Guitar used in flamenco"
 msgid "flamenco guitar"
-msgstr ""
+msgstr "guitarra flamenca"
 
 #: DB:instrument/name:604
 msgid "floppy disk drive"
@@ -1445,7 +1453,7 @@ msgstr ""
 #: DB:instrument/name:13
 msgctxt "Reedless aerophone"
 msgid "flute"
-msgstr ""
+msgstr "flauta"
 
 #: DB:instrument/name:415
 msgid "flûte d'amour"
@@ -1600,6 +1608,7 @@ msgid "goblet drum"
 msgstr ""
 
 #: DB:instrument/name:270
+msgctxt "Tuned metal discs"
 msgid "gong"
 msgstr "gong"
 
@@ -1609,7 +1618,7 @@ msgstr ""
 
 #: DB:instrument/name:582
 msgid "gralla"
-msgstr ""
+msgstr "gralla"
 
 #: DB:instrument/name:748
 msgid "gramorimba"
@@ -1731,7 +1740,7 @@ msgstr ""
 #: DB:instrument/name:43
 msgctxt "mouth organ"
 msgid "harmonica"
-msgstr ""
+msgstr "armónica"
 
 #: DB:instrument/name:135
 msgctxt "reed organ"
@@ -1761,7 +1770,7 @@ msgstr ""
 
 #: DB:instrument/name:579
 msgid "heike biwa"
-msgstr ""
+msgstr "biwa heike"
 
 #: DB:instrument/name:678
 msgid "helicon"
@@ -2055,7 +2064,7 @@ msgstr ""
 
 #: DB:instrument/name:82
 msgid "koto"
-msgstr ""
+msgstr "koto"
 
 #: DB:instrument/name:557
 msgid "kotsuzumi"
@@ -2281,10 +2290,6 @@ msgstr ""
 msgid "mendoza"
 msgstr "lagerfono / mendoza"
 
-#: DB:instrument/name:372
-msgid "metal angklung"
-msgstr ""
-
 #: DB:instrument/name:349
 msgctxt "Arrangements of struck tuned metal bars."
 msgid "metallophone"
@@ -2371,12 +2376,12 @@ msgid "natural brass instruments"
 msgstr "instrumentos de viento-metal naturales"
 
 #: DB:instrument/name:522
-msgctxt "Valveless and keyless ancestor of the modern horn"
+msgctxt "Brass valveless and keyless ancestor of the modern horn"
 msgid "natural horn"
 msgstr "cuerno natural"
 
 #: DB:instrument/name:913
-msgctxt "Valveless ancestor of the modern trumpet"
+msgctxt "Brass valveless ancestor of the modern trumpet"
 msgid "natural trumpet"
 msgstr ""
 
@@ -2742,7 +2747,7 @@ msgstr ""
 
 #: DB:instrument/name:437
 msgid "quena"
-msgstr ""
+msgstr "quena"
 
 #: DB:instrument/name:755
 msgid "quijada"
@@ -3006,7 +3011,7 @@ msgstr ""
 
 #: DB:instrument/name:87
 msgid "shamisen"
-msgstr ""
+msgstr "shamisen"
 
 #: DB:instrument/name:408
 msgid "shawm"
@@ -3282,7 +3287,7 @@ msgstr ""
 
 #: DB:instrument/name:378
 msgid "taiko"
-msgstr ""
+msgstr "taiko"
 
 #: DB:instrument/name:555
 msgid "taishogoto"
@@ -3338,7 +3343,7 @@ msgstr ""
 
 #: DB:instrument/name:559
 msgid "tap dancing"
-msgstr ""
+msgstr "claqué"
 
 #: DB:instrument/name:520
 msgid "tape"
@@ -3543,6 +3548,7 @@ msgid "tres"
 msgstr ""
 
 #: DB:instrument/name:106
+msgctxt "Tuned metal bar, bent into triangle shape"
 msgid "triangle"
 msgstr "triángulo"
 
@@ -3662,6 +3668,11 @@ msgstr ""
 
 #: DB:instrument/name:330
 msgid "udu"
+msgstr ""
+
+#: DB:instrument/name:967
+msgctxt "Indonesian bronze 10 key metallophone"
+msgid "ugal"
 msgstr ""
 
 #: DB:instrument/name:187
@@ -3828,7 +3839,7 @@ msgstr "sintetizador de voz"
 #: DB:instrument/name:877
 msgctxt "plastic horn"
 msgid "vuvuzela"
-msgstr ""
+msgstr "vuvuzela"
 
 #: DB:instrument/name:159
 msgid "washboard"
@@ -3913,7 +3924,7 @@ msgstr ""
 #: DB:instrument/name:170
 msgctxt "Arrangement of struck tuned wooden bars."
 msgid "xylophone"
-msgstr ""
+msgstr "xilófono"
 
 #: DB:instrument/name:703
 msgid "xylorimba"

@@ -25,15 +25,15 @@
 # th1rtyf0ur, 2013
 # th1rtyf0ur, 2013
 # wa2c <email address hidden>, 2018
-# wa2c <email address hidden>, 2018
+# wa2c <email address hidden>, 2018-2019
 # yvanz, 2018
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-05-23 20:14+0200\n"
-"PO-Revision-Date: 2019-05-23 18:20+0000\n"
-"Last-Translator: yvanz\n"
+"PO-Revision-Date: 2019-06-29 17:31+0000\n"
+"Last-Translator: wa2c <email address hidden>\n"
 "Language-Team: Japanese (http://www.transifex.com/musicbrainz/musicbrainz/language/ja/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -693,11 +693,11 @@ msgstr "作品の作成中にエラーが発生しました。"
 
 #: ../root/edit/index.tt:14 ../root/edit/list.tt:65
 msgid "An error occurred while loading this edit."
-msgstr ""
+msgstr "編集の読み込み中にエラーが発生しました。"
 
 #: ../root/release/edit/tracklist.tt:113
 msgid "An error occurred: "
-msgstr ""
+msgstr "エラー発生: "
 
 #: ../root/annotation/revision.tt:1
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:43
@@ -1789,7 +1789,7 @@ msgstr "データベースの直接検索"
 #: ../root/edit/details/AddArtist.js:74 ../root/edit/details/AddEvent.js:56
 #: ../root/genre/GenreEditForm.js:35
 msgid "Disambiguation"
-msgstr ""
+msgstr "曖昧さ回避"
 
 #: ../root/release/discids.tt:8
 msgid "Disc ID"
@@ -2137,7 +2137,7 @@ msgid ""
 "is highly recommended. Not only does it make it clear where you got your "
 "information, but it can also encourage other users to vote on your edit "
 "&#x2014; thus making your edit get applied faster."
-msgstr ""
+msgstr "編集した情報を説明する{note|edit note}の入力を強くお勧めします。あなたが編集した箇所を明確にするだけでなく、編集内容の投票を他のユーザに促す事ができます。それにより、編集がより早く適用されるようになります。"
 
 #: ../root/admin/attributes/form.tt:38
 #: ../root/admin/attributes/Attribute.js:55
@@ -2333,13 +2333,13 @@ msgstr "アカウント削除手続きについて知りたい場合は、{uri|�
 msgid ""
 "For more information, check the {doc_doc|documentation} and "
 "{doc_styleguide|style guidelines}."
-msgstr ""
+msgstr "より多くの情報は、 {doc_doc|documentation} および {doc_styleguide|style guidelines} を参照してください。"
 
 #: ../root/event/edit_form.tt:3 ../root/label/edit_form.tt:3
 #: ../root/place/edit_form.tt:3 ../root/search/form.tt:48
 #: ../root/work/edit_form.tt:4 ../root/search/components/SearchForm.js:101
 msgid "For more information, check the {doc_doc|documentation}."
-msgstr ""
+msgstr "より多くの情報は、 {doc_doc|documentation} を参照してください。"
 
 #: ../root/main/403.tt:1 ../root/main/403.tt:3 ../root/main/mirror.tt:1
 #: ../root/main/mirror.tt:3
@@ -3332,7 +3332,7 @@ msgstr "マージ:"
 
 #: ../root/user/contact.tt:11 ../root/user/ReportUser.js:126
 msgid "Message"
-msgstr ""
+msgstr "メッセージ"
 
 #: ../root/cdstub/browse.tt:11
 msgid "Modify count"
@@ -3496,7 +3496,7 @@ msgstr ""
 
 #: ../root/edit/details/reorder_relationships.tt:10
 msgid "New Order"
-msgstr ""
+msgstr "新しい順序"
 
 #: ../root/relationship/linkattributetype/create.tt:1
 #: ../root/relationship/linkattributetype/create.tt:3
@@ -3626,7 +3626,7 @@ msgstr "関係属性が見つかりません。"
 
 #: ../root/artist/index.tt:53
 msgid "No release groups found."
-msgstr ""
+msgstr "リリースグループが見つかりませんでした。"
 
 #: ../root/artist/releases.tt:22 ../root/instrument/releases.tt:14
 msgid "No releases found"
@@ -3752,7 +3752,7 @@ msgstr "前のアーティスト"
 
 #: ../root/edit/details/reorder_relationships.tt:7
 msgid "Old Order"
-msgstr ""
+msgstr "以前の順序"
 
 #: ../root/edit/details/edit_medium.tt:47
 msgid "Old Tracklist"
@@ -5561,7 +5561,7 @@ msgstr ""
 msgid ""
 "These images provided by the {caa|Cover Art Archive}. You can also see them "
 "at the {ia|Internet Archive}."
-msgstr ""
+msgstr "この画像は{caa|Cover Art Archive}により提供されています。{ia|Internet Archive}も参照してください。"
 
 #: ../root/forms/relationship-editor.tt:62
 msgid "These relationships have a specific ordering"
@@ -5668,7 +5668,7 @@ msgstr ""
 #: ../root/layout.tt:28 ../root/layout/index.js:52
 msgid ""
 "This beta test server allows testing of new features with the live database."
-msgstr ""
+msgstr "このベータテストサーバーは、稼働中データベースで新機能のテストができます。"
 
 #: ../root/edit/details/edit_url.tt:31
 msgid "This change affects {num} relationship."
@@ -5683,11 +5683,11 @@ msgstr ""
 
 #: ../root/release/edit/tracklist.tt:392
 msgid "This disc contains data tracks at the end ({info|more info})"
-msgstr ""
+msgstr "このディスクは最後にデータトラックを含む ({詳しい情報})"
 
 #: ../root/release/edit/tracklist.tt:386
 msgid "This disc has a hidden pregap track before track 1 ({info|more info})"
-msgstr ""
+msgstr "このディスクは1トラック目より前にプリギャップトラックを含む  ({詳しい情報})"
 
 #: ../root/edit/details/edit_release.tt:82
 msgid "This edit also changed the track artists."
@@ -6045,7 +6045,7 @@ msgstr ""
 msgid ""
 "To create a new tracklist, use an existing medium or import a disc from a CD"
 " stub, select the appropriate tab."
-msgstr ""
+msgstr "新しいトラックリストを作成するには、既存のメディアを使用するかCDのスタブからディスクをインポートし、適切なタブを選択してください。"
 
 #: ../root/release/edit/information.tt:99
 msgid "To edit types, please {edit_page|edit the release group}."
@@ -6882,7 +6882,7 @@ msgstr ""
 #: ../root/release/edit/editnote.tt:10
 #: ../root/static/scripts/relationship-editor/release.js:160
 msgid "You haven’t made any changes!"
-msgstr ""
+msgstr "何も変更していません！"
 
 #: ../root/edit/cancel.tt:14
 msgid ""
@@ -9294,7 +9294,7 @@ msgstr "もし寄付をしてくださるのであれば、{donate|ここで行�
 
 #: ../root/account/Donation.js:43
 msgid "Thank you for contributing to MusicBrainz."
-msgstr ""
+msgstr "MusicBrainzに寄付していただきありがとうございます。"
 
 #: ../root/account/Donation.js:49
 msgid "You will not be nagged for another {days} days."
@@ -9755,7 +9755,7 @@ msgstr "{entity}に別名がありません。"
 
 #: ../root/components/Aliases/index.js:69
 msgid "Add a new alias"
-msgstr ""
+msgstr "新しい別名を追加"
 
 #: ../root/components/ConfirmLayout.js:37
 msgid "Yes, I am sure"
@@ -9767,7 +9767,7 @@ msgid ""
 "is highly recommended. Not only does it make it clear where you got your "
 "information, but it can also encourage other users to vote on your edit — "
 "thus making your edit get applied faster."
-msgstr ""
+msgstr "編集した情報を説明する{note|edit note}の入力を強くお勧めします。あなたが編集した箇所を明確にするだけでなく、編集内容の投票を他のユーザに促す事ができます。それにより、編集がより早く適用されるようになります。"
 
 #: ../root/components/EntityTabs.js:27 ../root/place/PlacePerformances.js:17
 #: ../root/place/PlacePerformances.js:23
@@ -11017,7 +11017,7 @@ msgstr "最新投稿:"
 
 #: ../root/main/index.js:99
 msgid "Read more »"
-msgstr ""
+msgstr "もっと読む »"
 
 #: ../root/main/index.js:106
 msgid "The blog is currently unavailable."
@@ -11156,7 +11156,7 @@ msgstr ""
 #: ../root/release/ReleaseHeader.js:26
 msgid "see all versions of this release, {count} available"
 msgid_plural "see all versions of this release, {count} available"
-msgstr[0] ""
+msgstr[0] "全バージョンのリリースを見る、{count} 件が有効"
 
 #: ../root/release/ReleaseHeader.js:33
 msgid "Release by {artist}"
@@ -13025,7 +13025,7 @@ msgstr "注釈は{date}に更新しました。"
 
 #: ../root/static/scripts/common/components/ArtistCreditLink.js:48
 msgid "This artist credit has pending edits."
-msgstr ""
+msgstr "このアーティスト・クレジットは編集保留中です。"
 
 #: ../root/static/scripts/common/components/ArtistCreditLink.js:57
 msgid "This artist credit has {edit_search|pending edits}."
@@ -13074,7 +13074,7 @@ msgstr ""
 
 #: ../root/static/scripts/common/components/TagEditor.js:490
 msgid "Nobody has tagged this yet."
-msgstr ""
+msgstr "タグはまだありません。"
 
 #: ../root/static/scripts/common/components/TagEditor.js:497
 msgid ""
@@ -13111,7 +13111,7 @@ msgstr "タグの追加"
 msgid ""
 "You can add your own {tagdocs|tags} below. Use commas to separate multiple "
 "tags."
-msgstr ""
+msgstr "以下に独自の{tagdocs|タグ} を追加することができます。複数のタグを区切るにはカンマを使用します。"
 
 #: ../root/static/scripts/common/components/TagEditor.js:539
 msgid "Submit tags"
@@ -13257,7 +13257,7 @@ msgstr "クレジットをコピー"
 
 #: ../root/static/scripts/edit/components/ArtistCreditBubble.js:114
 msgid "Paste Credits"
-msgstr ""
+msgstr "クレジットを貼り付け"
 
 #: ../root/static/scripts/edit/components/ArtistCreditNameEditor.js:126
 msgid "Remove Artist Credit"
@@ -13946,7 +13946,7 @@ msgstr ""
 
 #: ../root/user/components/UserInlineList.js:26
 msgid "No users found"
-msgstr ""
+msgstr "ユーザーが見つかりません"
 
 #: ../root/utility/age.js:143
 msgid "aged {num}"

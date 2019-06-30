@@ -12,7 +12,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2019-04-27 21:25+0000\n"
+"PO-Revision-Date: 2019-06-10 00:23+0000\n"
 "Last-Translator: Luca Salini <email address hidden>\n"
 "Language-Team: Italian (http://www.transifex.com/musicbrainz/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
@@ -3072,6 +3072,16 @@ msgctxt "work_attribute_type"
 msgid "ID for the International Copyright Enterprise"
 msgstr "ID per l'International Copyright Enterprise"
 
+#: DB:work_attribute_type/description:3
+msgctxt "work_attribute_type"
+msgid "ID for the Japanese rights society JASRAC"
+msgstr "ID per la società di diritti giapponese JASRAC"
+
+#: DB:work_attribute_type/description:33
+msgctxt "work_attribute_type"
+msgid "ID for the Japanese rights society NexTone"
+msgstr "ID per la società di diritti giapponese NexTone"
+
 #: DB:work_attribute_type/description:27
 msgctxt "work_attribute_type"
 msgid "ID for the Mexican rights society SACM"
@@ -4565,6 +4575,11 @@ msgstr "Nevruz"
 msgctxt "work_attribute_type_allowed_value"
 msgid "Nevruzi Rumi"
 msgstr "Nevruzi Rumi"
+
+#: DB:work_attribute_type/name:33
+msgctxt "work_attribute_type"
+msgid "NexTone ID"
+msgstr "ID NexTone"
 
 #: DB:work_attribute_type_allowed_value/value:471
 msgctxt "work_attribute_type_allowed_value"

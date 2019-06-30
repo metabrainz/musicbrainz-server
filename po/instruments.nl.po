@@ -1,14 +1,14 @@
 # 
 # Translators:
 # nikki, 2014
-# reneweesp <email address hidden>, 2017
+# reneweesp <email address hidden>, 2017,2019
 # Maurits Meulenbelt <email address hidden>, 2012
 # Maurits Meulenbelt <email address hidden>, 2013-2019
 # Nikolai Prokoschenko <email address hidden>, 2011
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2019-05-13 19:58+0000\n"
+"PO-Revision-Date: 2019-06-25 08:27+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -373,6 +373,7 @@ msgid "ankle rattlers"
 msgstr "enkelratels"
 
 #: DB:instrument/name:720
+msgctxt "Tuned metal shape."
 msgid "anvil"
 msgstr "aambeeld"
 
@@ -619,7 +620,13 @@ msgstr "bajan"
 msgid "bazooka"
 msgstr "bazooka"
 
+#: DB:instrument/name:968
+msgctxt "Very large suspended Javanese barrel drum"
+msgid "bedug"
+msgstr "bedug"
+
 #: DB:instrument/name:116
+msgctxt "Tuned metal cups"
 msgid "bell"
 msgstr "bel"
 
@@ -1592,6 +1599,7 @@ msgid "goblet drum"
 msgstr "vaastrommel"
 
 #: DB:instrument/name:270
+msgctxt "Tuned metal discs"
 msgid "gong"
 msgstr "gong"
 
@@ -2273,10 +2281,6 @@ msgstr "membranofoon"
 msgid "mendoza"
 msgstr "kuttepiel"
 
-#: DB:instrument/name:372
-msgid "metal angklung"
-msgstr "metalen angkloeng"
-
 #: DB:instrument/name:349
 msgctxt "Arrangements of struck tuned metal bars."
 msgid "metallophone"
@@ -2363,12 +2367,12 @@ msgid "natural brass instruments"
 msgstr "natuurkoperblazers"
 
 #: DB:instrument/name:522
-msgctxt "Valveless and keyless ancestor of the modern horn"
+msgctxt "Brass valveless and keyless ancestor of the modern horn"
 msgid "natural horn"
 msgstr "natuurhoorn"
 
 #: DB:instrument/name:913
-msgctxt "Valveless ancestor of the modern trumpet"
+msgctxt "Brass valveless ancestor of the modern trumpet"
 msgid "natural trumpet"
 msgstr "natuurtrompet"
 
@@ -3535,6 +3539,7 @@ msgid "tres"
 msgstr "tres"
 
 #: DB:instrument/name:106
+msgctxt "Tuned metal bar, bent into triangle shape"
 msgid "triangle"
 msgstr "triangel"
 
@@ -3655,6 +3660,11 @@ msgstr "tookere"
 #: DB:instrument/name:330
 msgid "udu"
 msgstr "udu"
+
+#: DB:instrument/name:967
+msgctxt "Indonesian bronze 10 key metallophone"
+msgid "ugal"
+msgstr "ugal"
 
 #: DB:instrument/name:187
 msgid "uilleann pipes"
