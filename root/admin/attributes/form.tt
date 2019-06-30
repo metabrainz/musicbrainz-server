@@ -12,7 +12,7 @@
             [% l('Frequency notes:') %]
             <ul>
                 <li>[% l('Hidden should be used for sign languages and languages with no ISO 639-3 code.') %]
-                <li>[% l('Hidden is used by default for ancient languages and languages only in ISO 639-3 (until requested by a user.)') %]</li>
+                <li>[% l('Hidden is used by default for ancient languages and languages only in ISO 639-3 (until requested by a user).') %]</li>
             </ul>
         </p>
 

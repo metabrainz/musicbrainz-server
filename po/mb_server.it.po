@@ -27,8 +27,8 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-05-23 20:14+0200\n"
-"PO-Revision-Date: 2019-05-23 18:20+0000\n"
-"Last-Translator: yvanz\n"
+"PO-Revision-Date: 2019-06-10 00:45+0000\n"
+"Last-Translator: Luca Salini <email address hidden>\n"
 "Language-Team: Italian (http://www.transifex.com/musicbrainz/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -8800,7 +8800,7 @@ msgstr "Progetto Runeberg"
 
 #: ../lib/MusicBrainz/Server/Entity/URL/Weibo.pm:13
 msgid "Weibo"
-msgstr ""
+msgstr "Weibo"
 
 #: ../lib/MusicBrainz/Server/Entity/URL/Wikisource.pm:9
 msgid "Wikisource"
@@ -10251,40 +10251,40 @@ msgstr "Spiacenti, non è stato possibile trovare un evento con quell'ID di Musi
 
 #: ../root/genre/CreateGenre.js:18 ../root/genre/CreateGenre.js:20
 msgid "Add a new genre"
-msgstr ""
+msgstr "Aggiungi un nuovo genere"
 
 #: ../root/genre/DeleteGenre.js:28 ../root/genre/DeleteGenre.js:30
 #: ../root/genre/DeleteGenre.js:36
 msgid "Remove genre"
-msgstr ""
+msgstr "Rimuovi genere"
 
 #: ../root/genre/DeleteGenre.js:32
 msgid "Are you sure you want to remove the genre {genre}?"
-msgstr ""
+msgstr "Sei sicuro di voler rimuovere il genere {genre}?"
 
 #: ../root/genre/EditGenre.js:26
 msgid "Edit genre"
-msgstr ""
+msgstr "Modifica genere"
 
 #: ../root/genre/GenreEditForm.js:27
 msgid "Genre details"
-msgstr ""
+msgstr "Dettagli sul genere"
 
 #: ../root/genre/GenreHeader.js:28
 msgid "Genre"
-msgstr ""
+msgstr "Genere"
 
 #: ../root/genre/GenreIndex.js:17
 msgid "Genre information"
-msgstr ""
+msgstr "Informazioni sul genere"
 
 #: ../root/genre/GenreIndex.js:18
 msgid "Associated tags"
-msgstr ""
+msgstr "Tag associati"
 
 #: ../root/genre/GenreIndex.js:21
 msgid "Primary tag"
-msgstr ""
+msgstr "Tag primario"
 
 #: ../root/genre/GenreListPage.js:20 ../root/genre/GenreListPage.js:22
 #: ../root/layout/components/BottomMenu.js:290
@@ -10295,12 +10295,12 @@ msgstr "Elenco generi"
 msgid ""
 "These are all the {genre_url|genres} currently available for use in "
 "MusicBrainz."
-msgstr ""
+msgstr "Questi sono tutti i {genre_url|generi} disponibili al momento su MusicBrainz."
 
 #: ../root/genre/GenreListPage.js:31
 msgid ""
 "To associate a genre with an entity, tag the entity with the genre name."
-msgstr ""
+msgstr "Per associare un genere ad un'entità, tagga l'entità con il nome del genere."
 
 #: ../root/genre/GenreListPage.js:42
 msgid ""
@@ -10310,13 +10310,13 @@ msgstr "Manca un genere nell'elenco? Richiedilo {link|aggiungendo un ticket di s
 
 #: ../root/genre/NotFound.js:15
 msgid "Genre Not Found"
-msgstr ""
+msgstr "Genere non trovato"
 
 #: ../root/genre/NotFound.js:18
 msgid ""
 "Sorry, we could not find a genre with that MusicBrainz ID. You can see all "
 "available genres on our {genre_list|genre list}."
-msgstr ""
+msgstr "Spiacenti, non è stato possibile trovare un genere con quell'ID di MusicBrainz. Puoi vedere tutti i generi disponibili sul nostro {genre_list|elenco di generi}."
 
 #: ../root/instrument/InstrumentHeader.js:24
 msgid "instrument"
@@ -10721,7 +10721,7 @@ msgstr "Aggiungi strumento"
 #: ../root/layout/components/TopMenu.js:108
 msgctxt "button/menu"
 msgid "Add Genre"
-msgstr ""
+msgstr "Aggiungi genere"
 
 #: ../root/layout/components/TopMenu.js:111
 msgid "Edit Relationship Types"
@@ -11141,7 +11141,7 @@ msgstr "Questo luogo non è al momento associato a nessun evento."
 
 #: ../root/place/PlacePerformances.js:21
 msgid "No recordings, releases or release groups are linked to this place."
-msgstr ""
+msgstr "Nessuna registrazione, pubblicazione o gruppo di pubblicazioni è collegata a questo luogo."
 
 #: ../root/recording/NotFound.js:15
 msgid "Recording Not Found"
@@ -11562,7 +11562,7 @@ msgstr "Questo rapporto elenca gli artisti che appaiono più di una volta in pos
 #: ../root/report/components/ArtistRelationshipList.js:51
 #: ../root/report/components/ArtistUrlList.js:60
 msgid "This artist no longer exists."
-msgstr ""
+msgstr "Questo artista non esiste più."
 
 #: ../root/report/ArtistsWithNoSubscribers.js:28
 #: ../root/report/ArtistsWithNoSubscribers.js:29
@@ -11612,7 +11612,7 @@ msgstr "Questo rapporto mostra le pubblicazioni con URL di Amazon che non seguon
 #: ../root/report/components/ReleaseRelationshipList.js:53
 #: ../root/report/components/ReleaseUrlList.js:68
 msgid "This release no longer exists."
-msgstr ""
+msgstr "Questa pubblicazione non esiste più."
 
 #: ../root/report/CatNoLooksLikeAsin.js:34
 #: ../root/report/CatNoLooksLikeAsin.js:36 ../root/report/ReportsIndex.js:308
@@ -12046,7 +12046,7 @@ msgstr "Totale ISRC trovati: {count}"
 #: ../root/report/components/RecordingList.js:47
 #: ../root/report/components/RecordingRelationshipList.js:53
 msgid "This recording no longer exists."
-msgstr ""
+msgstr "Questa registrazione non esiste più."
 
 #: ../root/report/IswcsWithManyWorks.js:34
 #: ../root/report/IswcsWithManyWorks.js:35 ../root/report/ReportsIndex.js:531
@@ -12068,7 +12068,7 @@ msgstr "Totale ISWC trovati: {count}"
 #: ../root/report/components/WorkList.js:37
 #: ../root/report/components/WorkRelationshipList.js:41
 msgid "This work no longer exists."
-msgstr ""
+msgstr "Quest'opera non esiste più."
 
 #: ../root/report/LabelsDisambiguationSameName.js:30
 #: ../root/report/LabelsDisambiguationSameName.js:32
@@ -12191,7 +12191,7 @@ msgstr "Cerca coordinate"
 #: ../root/report/components/PlaceAnnotationList.js:39
 #: ../root/report/components/PlaceRelationshipList.js:41
 msgid "This place no longer exists."
-msgstr ""
+msgstr "Questo luogo non esiste più."
 
 #: ../root/report/PossibleCollaborations.js:28
 #: ../root/report/PossibleCollaborations.js:29
@@ -12719,7 +12719,7 @@ msgstr "elimina"
 
 #: ../root/report/components/EventList.js:67
 msgid "This event no longer exists."
-msgstr ""
+msgstr "Questo evento non esiste più."
 
 #: ../root/report/components/InstrumentList.js:34
 msgid "Last updated"
@@ -12727,29 +12727,29 @@ msgstr "Ultimo aggiornamento"
 
 #: ../root/report/components/InstrumentList.js:59
 msgid "This instrument no longer exists."
-msgstr ""
+msgstr "Questo strumento non esiste più."
 
 #: ../root/report/components/LabelAnnotationList.js:39
 #: ../root/report/components/LabelList.js:35
 #: ../root/report/components/LabelRelationshipList.js:41
 #: ../root/report/components/LabelUrlList.js:60
 msgid "This label no longer exists."
-msgstr ""
+msgstr "Questa etichetta non esiste più."
 
 #: ../root/report/components/ReleaseGroupAnnotationList.js:55
 #: ../root/report/components/ReleaseGroupList.js:77
 #: ../root/report/components/ReleaseGroupRelationshipList.js:62
 #: ../root/report/components/ReleaseGroupUrlList.js:68
 msgid "This release group no longer exists."
-msgstr ""
+msgstr "Questo gruppo di pubblicazioni non esiste più."
 
 #: ../root/report/components/SeriesAnnotationList.js:39
 msgid "This series no longer exists."
-msgstr ""
+msgstr "Questa serie non esiste più."
 
 #: ../root/report/components/UrlRelationshipList.js:42
 msgid "This URL no longer exists."
-msgstr ""
+msgstr "Questo URL non esiste più."
 
 #: ../root/report/constants.js:11
 msgid ""
@@ -13064,11 +13064,11 @@ msgstr "Annotazione modificata l'ultima volta il {date}."
 
 #: ../root/static/scripts/common/components/ArtistCreditLink.js:48
 msgid "This artist credit has pending edits."
-msgstr ""
+msgstr "Questo accreditamento artista ha delle modifiche in corso."
 
 #: ../root/static/scripts/common/components/ArtistCreditLink.js:57
 msgid "This artist credit has {edit_search|pending edits}."
-msgstr ""
+msgstr "Questo accreditamento artista ha delle {edit_search|modifiche in corso}."
 
 #: ../root/static/scripts/common/components/Collapsible.js:78
 msgid "Show less..."

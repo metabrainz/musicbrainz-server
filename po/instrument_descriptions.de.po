@@ -4,6 +4,7 @@
 # David <email address hidden>, 2015
 # Ettore Atalan <email address hidden>, 2014
 # lorenzpressler <email address hidden>, 2012
+# Marc Rodrigues <email address hidden>, 2019
 # S.Brandt <email address hidden>, 2014
 # Shepard, 2014
 # TL, 2014-2016
@@ -11,8 +12,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2019-05-13 10:44+0000\n"
-"Last-Translator: yvanz\n"
+"PO-Revision-Date: 2019-06-16 12:39+0000\n"
+"Last-Translator: Marc Rodrigues <email address hidden>\n"
 "Language-Team: German (http://www.transifex.com/musicbrainz/musicbrainz/language/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -110,7 +111,7 @@ msgstr "Das Cuatro ist eine kleine viersaitige Gitarre, die im Norden Südamerik
 msgid ""
 "A cross between a saxophone and a duduk invented and played by Alexander "
 "Berne"
-msgstr ""
+msgstr "Eine Kreuzung zwischen einem Saxophon und einem Duduk, erfunden und gespielt von Alexander Berne"
 
 #. name:cylindrical drum
 #: DB:instrument/description:658
@@ -358,7 +359,7 @@ msgstr ""
 msgid ""
 "Although originally built like a cittern, its 6-7 courses of strings were "
 "tuned more like a lute."
-msgstr ""
+msgstr "Obwohl ursprünglich wie eine Zither gebaut, sind die 6-7 Saiten mehr wie die einer Laute gestimmt."
 
 #. name:kokyu
 #: DB:instrument/description:223
@@ -392,7 +393,7 @@ msgstr "Als Archtop (englisch für „gewölbte Decke“) -Gitarren werden haupt
 msgid ""
 "An effects device to be clamped on the bridge, it produces \"synthesizer-"
 "like\" sounds"
-msgstr ""
+msgstr "Ein Effektgerät, das am Steg befestigt wird. Es produziert synthesizerähnliche Klänge"
 
 #. name:keytar
 #: DB:instrument/description:774
@@ -406,7 +407,7 @@ msgstr "Ein Umhängekeyboard, umgangssprachlich auch „Keytar“ (Kofferwort au
 msgid ""
 "An electromechanical piano (not to be confused with electronic piano) "
 "designed and produced by Hohner in the 1960 and 70s."
-msgstr ""
+msgstr "Ein elektromechanisches Klavier (nicht zu verwechseln mit dem elektronischen Klavier), entworfen und produziert von Hohner in den 1960er und 70er Jahren."
 
 #. name:idiophone
 #: DB:instrument/description:674
@@ -420,19 +421,19 @@ msgstr "Idiophon heisst 'Selbsttöner' oder 'Selbstklinger' und bezeichnet ein M
 msgid ""
 "Ancestor of the modern horn, it consists of a coiled tubing with a large "
 "flared bell. Bugles, posthorns and hunting horns are all natural horns"
-msgstr ""
+msgstr "Vorläufer des modernen Horns. Es besteht aus einem gewickelten Rohr mit einem großen, geweitetem Trichter. Signalhörner, Posthörner und Waldhörner sind alles Naturhörner."
 
 #. name:natural trumpet
 #: DB:instrument/description:913
 msgid ""
 "Ancestor of the modern trumpet, it is valveless with a mouthpiece and at-"
 "least one coil, it has an origin in military use."
-msgstr ""
+msgstr "Vorläufer der modernen Trompete. Sie ist ventillos mit einem Mundstück und wenigstens einmal gewickelt. Ursprünglich militärisch genutzt."
 
 #. name:xiao
 #: DB:instrument/description:484
 msgid "Ancient Chinese vertical, end-blown flute made of bamboo"
-msgstr ""
+msgstr "Altertümliche chinesische Längsflöte aus Bambus "
 
 #. name:gusli
 #: DB:instrument/description:423
@@ -446,7 +447,7 @@ msgstr ""
 #. name:ravanahatha
 #: DB:instrument/description:754
 msgid "Ancient bowed fiddle, once popular in Western India and Sri Lanka."
-msgstr ""
+msgstr "Altertümliche Langhals-Spießlaute, die mit dem Bogen gespielt und einst in Westindien und Sri Lanka populär war."
 
 #. name:santoor
 #: DB:instrument/description:286
@@ -466,12 +467,12 @@ msgstr ""
 #. name:khlui
 #: DB:instrument/description:666
 msgid "Ancient reedless fipple flute made of bamboo."
-msgstr ""
+msgstr "Altertümliche längs geblasene Kernspaltflöte aus Bambus."
 
 #. name:membranophone
 #: DB:instrument/description:100
 msgid "Any kind of instrument with membranes, usually variously sized drums."
-msgstr ""
+msgstr "Jede Art von Instrument mit Membranen, normalerweise Trommeln verschiedener Größen. "
 
 #. name:flumpet
 #: DB:instrument/description:742
@@ -531,7 +532,7 @@ msgstr "Als „Bass“ wird ein Musikinstrument bezeichnet, wenn es\nallgemein i
 #. name:daruan
 #: DB:instrument/description:546
 msgid "Bass member of Chinese ruan family of lutes."
-msgstr ""
+msgstr "Bassversion der Ruan, einer Familie chinesischer Lauten."
 
 #. name:berda
 #: DB:instrument/description:828
@@ -555,6 +556,14 @@ msgstr "Bendir ist eine in Nordafrika verbreitete Rahmentrommel. Das Instrument 
 #. name:typewriter
 #: DB:instrument/description:526
 msgid "Besides being used for writing, it has also been used in percussion."
+msgstr ""
+
+#. name:ugal
+#: DB:instrument/description:967
+msgid ""
+"Bronze metallophone with 10 keys suspended over tuned bamboo resonators that"
+" the player hits with a small hammer, often in a theatrical manner. In the "
+"indonesian gamelan it is the leader of the pokok melody."
 msgstr ""
 
 #. name:cajón
@@ -843,6 +852,14 @@ msgstr ""
 msgid ""
 "Exceptionally long spinet, with multiple strings choirs, its bass-tones were"
 " produced by longer, not thicker strings."
+msgstr ""
+
+#. name:bedug
+#: DB:instrument/description:968
+msgid ""
+"Extra large double-headed water buffalo hide barrel drum. It is suspended "
+"from a rack and beat with mallet, it is used in central Javanese gamelan and"
+" for religious signalling purposes in mosques."
 msgstr ""
 
 #. name:Baltic psalteries
@@ -1473,6 +1490,15 @@ msgid ""
 "the Persian sehtara (setar)."
 msgstr ""
 
+#. name:anvil
+#: DB:instrument/description:720
+msgid ""
+"Originally used just by blacksmiths, the crisp, clear tone produced was "
+"noticed by even early composers. In modern use, it is specifically made for "
+"music from tuned metal, sometimes placed in a resonator, and is struck with "
+"metal hammers."
+msgstr ""
+
 #. name:renaissance rackett
 #: DB:instrument/description:896
 msgid ""
@@ -2051,13 +2077,6 @@ msgid ""
 "The alto saxophone is a woodwind invented by Adolphe Sax which is between "
 "the tenor and soprano in size."
 msgstr "Das Altsaxophon ist ein Saxophon der hohen Lage in Es und gehört zur Gruppe der Holzblasinstrumente. Es ist kleiner als das Tenor-, aber grösser als das Sopran-Saxophon."
-
-#. name:anvil
-#: DB:instrument/description:720
-msgid ""
-"The anvil is a tool normally used by blacksmiths which is sometimes used as "
-"a percussion instrument."
-msgstr "Der Amboss ist ein Musikinstrument in der Percussion-Familie. Ursprünglich war er nur ein Arbeitsgerät des Schmieds. Ein Amboss wird meist mit Metallhämmern geschlagen und kann in einem Rahmen als Resonanzkörper aufgestellt werden."
 
 #. name:archlute
 #: DB:instrument/description:507

@@ -1,13 +1,13 @@
 # 
 # Translators:
-# reneweesp <email address hidden>, 2017-2018
+# reneweesp <email address hidden>, 2017-2019
 # Maurits Meulenbelt <email address hidden>, 2012
 # Maurits Meulenbelt <email address hidden>, 2013-2019
 # Nikolai Prokoschenko <email address hidden>, 2011
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2019-05-13 20:16+0000\n"
+"PO-Revision-Date: 2019-06-25 08:38+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -33,7 +33,7 @@ msgid ""
 "href=\"/doc/How_to_Add_Instruments\">requesting the missing instrument</a>. "
 "</li> </ul> If you can't find more information than the generic \"drum\" or "
 "\"drums\" credit, use this instrument."
-msgstr "Met “drum” of “drums” kan naar verschillende instrumenten worden verwezen. Als je weet welk instrument er wordt bedoeld, kan je beter dat specifieke instrument selecteren: <ul> <li>Voor het instrument “drums” dat veel in de Westerse popmuziek wordt bespeeld, gebruik je <a href=\"/instrument/12092505-6ee1-46af-a15a-b5b468b6b155\">drumstel</a>. </li> <li>Voor geprogrammeerde “drumloops” gebruik je <a href=\"/instrument/ce0eed13-58d8-4744-8ad0-b7d6182a2d0f\">drumcomputer</a>. </li> <li>Voor specifieke trommels waar we nog geen instrument voor hebben, kan je <a href=\"/instrument/3bccb7eb-cbca-42cd-b0ac-a5e959df7221\">membranofoon</a> gebruiken (of <a href=\"/instrument/1a03e9a1-f81f-40ce-9d57-65d6c1b9dcb3\">spleettrommel</a> als dat de juiste is). Je kan het ontbrekende instrument ook <a href=\"/doc/How_to_Add_Instruments\">aanvragen</a>. </li> </ul>Als je er niet achter kan komen welk instrument er wordt bedoeld, kan je dit instrument gebruiken."
+msgstr "Met “drum” of “drums” kan naar verschillende instrumenten worden verwezen. Als je weet welk instrument er wordt bedoeld, kan je beter dat specifieke instrument selecteren: <ul> <li>Voor het instrument “drums” dat veel in de westerse popmuziek wordt bespeeld, gebruik je <a href=\"/instrument/12092505-6ee1-46af-a15a-b5b468b6b155\">drumstel</a>. </li> <li>Voor geprogrammeerde “drumloops” gebruik je <a href=\"/instrument/ce0eed13-58d8-4744-8ad0-b7d6182a2d0f\">drumcomputer</a>. </li> <li>Voor specifieke trommels waar we nog geen instrument voor hebben, kan je <a href=\"/instrument/3bccb7eb-cbca-42cd-b0ac-a5e959df7221\">membranofoon</a> gebruiken (of <a href=\"/instrument/1a03e9a1-f81f-40ce-9d57-65d6c1b9dcb3\">spleettrommel</a> als dat de juiste is). Je kan het ontbrekende instrument ook <a href=\"/doc/How_to_Add_Instruments\">aanvragen</a>. </li> </ul>Als je er niet achter kan komen welk instrument er wordt bedoeld, kan je dit instrument gebruiken."
 
 #. name:chitra veena
 #: DB:instrument/description:744
@@ -553,6 +553,14 @@ msgstr "Bendir, lijsttrommel zonder belletjes uit Noord-Afrika."
 msgid "Besides being used for writing, it has also been used in percussion."
 msgstr "Typemachines worden niet alleen gebruikt om mee te schrijven, maar ook voor percussie."
 
+#. name:ugal
+#: DB:instrument/description:967
+msgid ""
+"Bronze metallophone with 10 keys suspended over tuned bamboo resonators that"
+" the player hits with a small hammer, often in a theatrical manner. In the "
+"indonesian gamelan it is the leader of the pokok melody."
+msgstr "Een ugal is een bronzen metallofoon die bestaat uit 10 toetsen die boven gestemde resonatoren van bamboe zijn opgehangen. De bespeler slaat, vaak op een theatrale manier, met een kleine hamer op de toetsen. In de Indonesische gamelan is de ugal de leider van de pokok-melodie."
+
 #. name:cajón
 #: DB:instrument/description:336
 msgid "Cajón, Peruvian box drum"
@@ -840,6 +848,14 @@ msgid ""
 "Exceptionally long spinet, with multiple strings choirs, its bass-tones were"
 " produced by longer, not thicker strings."
 msgstr "Een spinettone is een uitzonderlijk lange meerkorige spinet. De lage tonen worden geproduceerd door langere in plaats van dikkere snaren."
+
+#. name:bedug
+#: DB:instrument/description:968
+msgid ""
+"Extra large double-headed water buffalo hide barrel drum. It is suspended "
+"from a rack and beat with mallet, it is used in central Javanese gamelan and"
+" for religious signalling purposes in mosques."
+msgstr "Een bedug is een extra grote dubbelkoppige trommel met een membraan van buffelhuid. De trommel wordt aan een rek opgehangen en met een hamer aangeslagen. Het instrument maakt deel uit van het gamelanensemble en wordt ook in moskeeën gebruikt."
 
 #. name:Baltic psalteries
 #: DB:instrument/description:421
@@ -1469,6 +1485,15 @@ msgid ""
 "the Persian sehtara (setar)."
 msgstr "De tritantri-vina werd oorspronkelijk aan het hof bespeeld. Het bestaat uit een stuk hout van een meter lang met een kleine klankkast die met fijn houtsnijwerk is versierd. Het instrument heeft 16 fretten en drie metalen snaren. Volgens de legende maakte Amīr Khusrow wat aanpassingen en ontwikkelde zo de Perzische setar."
 
+#. name:anvil
+#: DB:instrument/description:720
+msgid ""
+"Originally used just by blacksmiths, the crisp, clear tone produced was "
+"noticed by even early composers. In modern use, it is specifically made for "
+"music from tuned metal, sometimes placed in a resonator, and is struck with "
+"metal hammers."
+msgstr "Aambeelden werden oorspronkelijk door smeden gebruikt, maar de heldere toon werd al door vroege componisten herkend. Tegenwoordig worden ze vaak speciaal voor muziek gemaakt en soms in een resonator geplaatst. Ze worden met metalen hamers bespeeld."
+
 #. name:renaissance rackett
 #: DB:instrument/description:896
 msgid ""
@@ -2047,13 +2072,6 @@ msgid ""
 "The alto saxophone is a woodwind invented by Adolphe Sax which is between "
 "the tenor and soprano in size."
 msgstr "Een altsaxofoon is een door Adolphe Sax uitgevonden houtblazer. Het formaat is tussen een tenorsaxofoon en een sopraansaxofoon."
-
-#. name:anvil
-#: DB:instrument/description:720
-msgid ""
-"The anvil is a tool normally used by blacksmiths which is sometimes used as "
-"a percussion instrument."
-msgstr "Een aambeeld is een stuk gereedschap dat meestal wordt gebruikt door een smid, maar soms ook wordt gebruikt als percussie-instrument."
 
 #. name:archlute
 #: DB:instrument/description:507

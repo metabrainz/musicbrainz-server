@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2019-05-13 10:44+0000\n"
+"PO-Revision-Date: 2019-06-03 13:42+0000\n"
 "Last-Translator: yvanz\n"
 "Language-Team: Greek (http://www.transifex.com/musicbrainz/musicbrainz/language/el/)\n"
 "MIME-Version: 1.0\n"
@@ -371,6 +371,7 @@ msgid "ankle rattlers"
 msgstr ""
 
 #: DB:instrument/name:720
+msgctxt "Tuned metal shape."
 msgid "anvil"
 msgstr ""
 
@@ -617,7 +618,13 @@ msgstr ""
 msgid "bazooka"
 msgstr ""
 
+#: DB:instrument/name:968
+msgctxt "Very large suspended Javanese barrel drum"
+msgid "bedug"
+msgstr ""
+
 #: DB:instrument/name:116
+msgctxt "Tuned metal cups"
 msgid "bell"
 msgstr ""
 
@@ -1590,8 +1597,9 @@ msgid "goblet drum"
 msgstr "τουμπερλέκι"
 
 #: DB:instrument/name:270
+msgctxt "Tuned metal discs"
 msgid "gong"
-msgstr "γκονγκ"
+msgstr ""
 
 #: DB:instrument/name:639
 msgid "gong bass drum"
@@ -2271,10 +2279,6 @@ msgstr ""
 msgid "mendoza"
 msgstr ""
 
-#: DB:instrument/name:372
-msgid "metal angklung"
-msgstr ""
-
 #: DB:instrument/name:349
 msgctxt "Arrangements of struck tuned metal bars."
 msgid "metallophone"
@@ -2361,12 +2365,12 @@ msgid "natural brass instruments"
 msgstr "φυσικά πνευστά όργανα"
 
 #: DB:instrument/name:522
-msgctxt "Valveless and keyless ancestor of the modern horn"
+msgctxt "Brass valveless and keyless ancestor of the modern horn"
 msgid "natural horn"
 msgstr ""
 
 #: DB:instrument/name:913
-msgctxt "Valveless ancestor of the modern trumpet"
+msgctxt "Brass valveless ancestor of the modern trumpet"
 msgid "natural trumpet"
 msgstr ""
 
@@ -3533,8 +3537,9 @@ msgid "tres"
 msgstr ""
 
 #: DB:instrument/name:106
+msgctxt "Tuned metal bar, bent into triangle shape"
 msgid "triangle"
-msgstr "τρίγωνο"
+msgstr ""
 
 #: DB:instrument/name:847
 msgctxt "Basque button accordion"
@@ -3652,6 +3657,11 @@ msgstr ""
 
 #: DB:instrument/name:330
 msgid "udu"
+msgstr ""
+
+#: DB:instrument/name:967
+msgctxt "Indonesian bronze 10 key metallophone"
+msgid "ugal"
 msgstr ""
 
 #: DB:instrument/name:187
