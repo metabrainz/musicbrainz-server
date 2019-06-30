@@ -20,7 +20,7 @@ type Props = {|
   +collection: CollectionT,
 |};
 
-const CollectionDelete = ({$c, collection}: Props) => (
+const DeleteCollection = ({$c, collection}: Props) => (
   <CollectionLayout
     entity={collection}
     fullWidth
@@ -39,4 +39,4 @@ const CollectionDelete = ({$c, collection}: Props) => (
   </CollectionLayout>
 );
 
-export default withCatalystContext(CollectionDelete);
+export default withCatalystContext(DeleteCollection);

@@ -10,6 +10,7 @@ use Authen::Passphrase::RejectAll;
 use DateTime;
 use Digest::MD5 qw( md5_hex );
 use Encode;
+use List::MoreUtils qw( uniq );
 use MusicBrainz::Server::Constants qw( :edit_status entities_with );
 use MusicBrainz::Server::Entity::Preferences;
 use MusicBrainz::Server::Entity::Editor;
@@ -18,6 +19,7 @@ use MusicBrainz::Server::Data::Utils qw(
     get_area_containment_query
     hash_to_row
     load_subobjects
+    object_to_ids
     placeholders
     type_to_model
 );
@@ -63,7 +65,7 @@ sub _column_mapping
         area_id                 => 'area',
         birth_date              => 'birth_date',
         ha1                     => 'ha1',
-        deleted                 => 'deleted'
+        deleted                 => 'deleted',
     };
 }
 
@@ -411,6 +413,23 @@ sub donation_check
     }
 
     return { nag => $nag, days => $days };
+}
+
+sub load_for_collection {
+    my ($self, $collection) = @_;
+
+    my $id = $collection->{id};
+    return unless $id; # nothing to do
+
+    $self->load($collection);
+    my $query = "SELECT " . $self->_columns . "
+                 FROM " . $self->_table . "
+                 JOIN editor_collection_collaborator ecc ON editor.id = ecc.editor
+                 WHERE ecc.collection = $id
+                 ORDER BY editor.name, editor.id";
+    my @collaborators = $self->query_to_list($query);
+
+    $collection->collaborators(\@collaborators);
 }
 
 sub editors_with_subscriptions {

@@ -16,7 +16,7 @@ import areDatesEqual from '../../../utility/areDatesEqual';
 import ExternalLinks from '../ExternalLinks';
 
 import AnnotationLinks from './AnnotationLinks';
-import AttendanceLinks from './AttendanceLinks';
+import CollectionLinks from './CollectionLinks';
 import EditLinks from './EditLinks';
 import LastUpdated from './LastUpdated';
 import MergeLink from './MergeLink';
@@ -92,7 +92,7 @@ const EventSidebar = ({$c, event}: Props) => {
         ) : null}
       </EditLinks>
 
-      <AttendanceLinks event={event} />
+      <CollectionLinks entity={event} />
 
       <SidebarLicenses entity={event} />
 

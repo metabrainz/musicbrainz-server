@@ -1,4 +1,5 @@
 package t::MusicBrainz::Server::Controller::User::Collections;
+use utf8;
 use Test::Routine;
 use Test::More;
 use MusicBrainz::Server::Test qw( html_ok test_xpath_html );
@@ -27,10 +28,10 @@ test 'Viewing your own collections' => sub {
             3, 'three collection lists are present');
 
     $tx->is('count(//div[@id="page"]//table[1]//th)',
-            6, 'release collection list has 6 cols');
+            7, 'release collection list has 7 cols');
 
     $tx->is('count(//div[@id="page"]//table[2]//th)',
-            6, 'event collection list has 6 cols');
+            7, 'event collection list has 7 cols');
 
     $tx->is('//div[@id="page"]//table[1]/tbody/tr[1]/td[3]',
             2, 'number of releases is correct');
@@ -46,7 +47,8 @@ test 'No collections' => sub {
     $mech->get_ok('/user/editor3/collections');
     my $tx = test_xpath_html($mech->content);
 
-    $tx->is('//div[@id="page"]/p', 'editor3 has no public collections.',
+    $tx->is('//div[@id="page"]/p',
+            'editor3 has no public collections.editor3 isn’t collaborating in any collections.',
             'editor has no collections');
 };
 
@@ -58,7 +60,7 @@ test 'Viewing someone elses collections' => sub {
     my $tx = test_xpath_html($mech->content);
 
     $tx->is('count(//div[@id="page"]//table//th)',
-            3, 'other collection list has 3 cols');
+            4, 'other collection list has 4 cols');
 };
 
 test 'Invalid user' => sub {

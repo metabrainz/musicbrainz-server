@@ -200,8 +200,7 @@ type CatalystSessionT = {|
 |};
 
 type CatalystStashT = {|
-  +all_collections?: $ReadOnlyArray<CollectionT>,
-  +collections?: $ReadOnlyArray<CollectionT>,
+  +collaborative_collections?: $ReadOnlyArray<CollectionT>,
   +commons_image?: CommonsImageT | null,
   +containment?: {|
     [number]: ?1,
@@ -209,7 +208,9 @@ type CatalystStashT = {|
   +current_language: string,
   +current_language_html: string,
   +more_tags?: boolean,
+  +number_of_collections?: number,
   +number_of_revisions?: number,
+  +own_collections?: $ReadOnlyArray<CollectionT>,
   +release_artwork?: ArtworkT,
   +server_languages?: $ReadOnlyArray<ServerLanguageT>,
   +subscribed?: boolean,
@@ -237,6 +238,7 @@ declare type CDStubT = {|
 declare type CollectionT = {|
   ...EntityRoleT<'collection'>,
   ...TypeRoleT<CollectionTypeT>,
+  +collaborators: $ReadOnlyArray<EditorT>,
   +description: string,
   +description_html: string,
   +entity_count: number,
@@ -822,6 +824,12 @@ declare type ReadOnlyRepeatableFieldT<+F> = {|
 |};
 
 declare type SanitizedCatalystContextT = {|
+  +action: {|
+    +name: string,
+  |},
+  +req: {|
+    +uri: string,
+  |},
   +user: SanitizedEditorT | null,
   +user_exists: boolean,
 |};

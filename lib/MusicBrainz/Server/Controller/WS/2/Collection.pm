@@ -49,9 +49,9 @@ sub get_collection_from_stash {
     my $collection = $c->stash->{entity} // $c->detach('not_found');
     if (!$collection->public) {
         $self->authenticate($c, $ACCESS_SCOPE_COLLECTION);
-        if ($c->user_exists) {
-            $self->_error($c, 'You do not have permission to view this collection')
-                unless $c->user->id == $collection->editor_id;
+        unless ($c->user_exists && 
+                    $c->model('Collection')->is_collection_collaborator($c->user->id, $collection->id)) {
+            $self->_error($c, 'You do not have permission to view this collection');
         }
     }
     return $collection;
@@ -129,7 +129,7 @@ map {
         $c->model('CollectionType')->load($collection);
 
         $self->_error($c, 'You do not have permission to modify this collection')
-            unless ($c->user->id == $collection->editor_id);
+            unless ($c->model('Collection')->is_collection_collaborator($c->user->id, $collection->id));
 
         $self->_error($c, "This is not a collection for entity type $url.")
             unless ($collection->type->item_entity_type eq $type);
@@ -196,6 +196,7 @@ sub collection_list : Chained('base') PathPart('') {
     my @result = $c->model('Collection')->find_by({
         editor_id => $c->user->id,
         show_private => $c->user->id,
+        with_collaborations => 1,
     });
     my @collections = @{ $result[0] };
     $c->model('Editor')->load(@collections);
@@ -235,6 +236,7 @@ sub collection_browse : Private {
         @result = $c->model('Collection')->find_by({
             editor_id => $editor->id,
             show_private => $show_private,
+            with_collaborations => 1,
         }, $limit, $offset);
     } else {
         my $entity_type = $resource =~ tr/-/_/r;
@@ -245,6 +247,7 @@ sub collection_browse : Private {
             entity_type => $entity_type,
             entity_id => $entity->id,
             show_private => $show_private,
+            with_collaborations => 1,
         }, $limit, $offset);
     }
 
