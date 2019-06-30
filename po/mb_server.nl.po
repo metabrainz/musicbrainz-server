@@ -7,7 +7,7 @@
 # nikki, 2013-2014
 # nikki2 <email address hidden>, 2012
 # nikki2 <email address hidden>, 2012
-# reneweesp <email address hidden>, 2018
+# reneweesp <email address hidden>, 2018-2019
 # <email address hidden>, 2012
 #   <email address hidden>, 2012
 # Ian McEwen <email address hidden>, 2012
@@ -29,7 +29,7 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-05-23 20:14+0200\n"
-"PO-Revision-Date: 2019-05-28 09:27+0000\n"
+"PO-Revision-Date: 2019-06-25 08:38+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -10282,11 +10282,11 @@ msgstr "Genre-informatie"
 
 #: ../root/genre/GenreIndex.js:18
 msgid "Associated tags"
-msgstr ""
+msgstr "Gerelateerde tags"
 
 #: ../root/genre/GenreIndex.js:21
 msgid "Primary tag"
-msgstr ""
+msgstr "Primaire tag"
 
 #: ../root/genre/GenreListPage.js:20 ../root/genre/GenreListPage.js:22
 #: ../root/layout/components/BottomMenu.js:290
@@ -10302,7 +10302,7 @@ msgstr "Dit zijn alle {genre_url|genres} die nu op MusicBrainz kunnen worden geb
 #: ../root/genre/GenreListPage.js:31
 msgid ""
 "To associate a genre with an entity, tag the entity with the genre name."
-msgstr ""
+msgstr "Als je een genre aan een object wilt koppelen, kun je het object taggen met de naam van het genre."
 
 #: ../root/genre/GenreListPage.js:42
 msgid ""

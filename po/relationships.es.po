@@ -4,7 +4,8 @@
 # Alexander Dupuy <email address hidden>, 2012
 # Antony Duran <email address hidden>, 2017
 # daniel plinplon <email address hidden>, 2015
-# Fabien Guilleminot <email address hidden>, 2018
+# Biel Perelló <email address hidden>, 2018
+# Fito JB, 2019
 # 3b2b9b2970dff2223d07f096c7a072f3, 2011
 # Héctor Arroyo <email address hidden>, 2012
 # Kevin López Brante <email address hidden>, 2012
@@ -17,8 +18,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2019-04-10 17:09+0000\n"
-"Last-Translator: yvanz\n"
+"PO-Revision-Date: 2019-06-25 03:17+0000\n"
+"Last-Translator: Robert Schneider <email address hidden>\n"
 "Language-Team: Spanish (http://www.transifex.com/musicbrainz/musicbrainz/language/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -505,12 +506,12 @@ msgstr "Indica la página web oficial de un artista."
 
 #: DB:link_type/description:782
 msgid "Indicates the official homepage for an event."
-msgstr ""
+msgstr "Indica la página web oficial de un evento."
 
 #: DB:link_type/description:871
 msgid ""
 "Indicates the person who translated the lyrics/libretto for this release."
-msgstr ""
+msgstr "Indica la persona que ha traducido las letras/el libreto para este lanzamiento."
 
 #: DB:link_type/description:872
 msgid "Indicates the person who translated the lyrics/libretto for this work."
@@ -3319,7 +3320,7 @@ msgstr "puede comprarse por correo en"
 
 #: DB:link_attribute_type/name:921
 msgid "cancelled"
-msgstr ""
+msgstr "cancelado"
 
 #: DB:link_type/link_phrase:212 DB:link_type/reverse_link_phrase:212
 msgid "catalog of records"

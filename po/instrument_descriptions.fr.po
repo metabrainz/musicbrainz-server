@@ -23,7 +23,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2019-05-13 10:44+0000\n"
+"PO-Revision-Date: 2019-06-03 13:42+0000\n"
 "Last-Translator: yvanz\n"
 "Language-Team: French (http://www.transifex.com/musicbrainz/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -569,6 +569,14 @@ msgstr "Le bendir, un tambour sur cadre d’Afrique du Nord, sans cymbalette"
 msgid "Besides being used for writing, it has also been used in percussion."
 msgstr ""
 
+#. name:ugal
+#: DB:instrument/description:967
+msgid ""
+"Bronze metallophone with 10 keys suspended over tuned bamboo resonators that"
+" the player hits with a small hammer, often in a theatrical manner. In the "
+"indonesian gamelan it is the leader of the pokok melody."
+msgstr ""
+
 #. name:cajón
 #: DB:instrument/description:336
 msgid "Cajón, Peruvian box drum"
@@ -856,6 +864,14 @@ msgid ""
 "Exceptionally long spinet, with multiple strings choirs, its bass-tones were"
 " produced by longer, not thicker strings."
 msgstr "Epinette de longueur exceptionnelle, avec de nombreux jeux. Les bassessont obtenues par des fils, non plus gros, mais plus longs."
+
+#. name:bedug
+#: DB:instrument/description:968
+msgid ""
+"Extra large double-headed water buffalo hide barrel drum. It is suspended "
+"from a rack and beat with mallet, it is used in central Javanese gamelan and"
+" for religious signalling purposes in mosques."
+msgstr ""
 
 #. name:Baltic psalteries
 #: DB:instrument/description:421
@@ -1485,6 +1501,15 @@ msgid ""
 "the Persian sehtara (setar)."
 msgstr ""
 
+#. name:anvil
+#: DB:instrument/description:720
+msgid ""
+"Originally used just by blacksmiths, the crisp, clear tone produced was "
+"noticed by even early composers. In modern use, it is specifically made for "
+"music from tuned metal, sometimes placed in a resonator, and is struck with "
+"metal hammers."
+msgstr ""
+
 #. name:renaissance rackett
 #: DB:instrument/description:896
 msgid ""
@@ -2063,13 +2088,6 @@ msgid ""
 "The alto saxophone is a woodwind invented by Adolphe Sax which is between "
 "the tenor and soprano in size."
 msgstr "Le saxophone alto est un instrument à vent de la famille des bois inventé par Adolphe Sax. Il se situe entre le ténor et le soprano."
-
-#. name:anvil
-#: DB:instrument/description:720
-msgid ""
-"The anvil is a tool normally used by blacksmiths which is sometimes used as "
-"a percussion instrument."
-msgstr "L’enclume est un outil habituellement utilisé par les forgerons, et parfois utilisé comme instrument de percussion."
 
 #. name:archlute
 #: DB:instrument/description:507

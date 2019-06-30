@@ -8,6 +8,7 @@
 # Alexander Dupuy <email address hidden>, 2012
 # Antony Duran <email address hidden>, 2017
 # Antony Duran <email address hidden>, 2017
+# César Martín <email address hidden>, 2019
 # <email address hidden>, 2012
 #   <email address hidden>, 2012
 # gr0uch0mars <email address hidden>, 2011
@@ -45,8 +46,8 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-05-23 20:14+0200\n"
-"PO-Revision-Date: 2019-05-23 18:20+0000\n"
-"Last-Translator: yvanz\n"
+"PO-Revision-Date: 2019-06-25 03:17+0000\n"
+"Last-Translator: Robert Schneider <email address hidden>\n"
 "Language-Team: Spanish (http://www.transifex.com/musicbrainz/musicbrainz/language/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -384,7 +385,7 @@ msgstr "Aceptadas"
 
 #: ../root/user/edits.tt:1
 msgid "Accepted edits by {name}"
-msgstr ""
+msgstr "Ediciones aceptadas por {name}"
 
 #: ../root/admin/edit_user.tt:27 ../root/admin/edit_user.tt:31
 msgid "Account admin"
@@ -707,11 +708,11 @@ msgstr "Se ha producido un error al crear las obras."
 
 #: ../root/edit/index.tt:14 ../root/edit/list.tt:65
 msgid "An error occurred while loading this edit."
-msgstr ""
+msgstr "Se ha producido un error mientras se aplicaba esta edición."
 
 #: ../root/release/edit/tracklist.tt:113
 msgid "An error occurred: "
-msgstr ""
+msgstr "Se ha producido un error:"
 
 #: ../root/annotation/revision.tt:1
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:43
@@ -1424,7 +1425,7 @@ msgstr "Cambiar calidad de datos de publicación"
 
 #: ../root/edit/details/historic/move_release.tt:14
 msgid "Change track artists:"
-msgstr ""
+msgstr "Cambiar artistas de la pista:"
 
 #: ../root/annotation/edit.tt:24
 #: ../root/edit/details/add_event_annotation.tt:7
@@ -1547,11 +1548,11 @@ msgstr "Coordenadas:"
 
 #: ../root/release/edit/recordings.tt:128
 msgid "Copy all track artist credits to associated recordings."
-msgstr ""
+msgstr "Copiar todos los créditos de los artistas a las grabaciones asociadas."
 
 #: ../root/release/edit/recordings.tt:122
 msgid "Copy all track titles to associated recordings."
-msgstr ""
+msgstr "Copiar todos los títulos de pista a las grabaciones asociadas."
 
 #: ../root/components/forms.tt:230
 msgid "Copy name"
@@ -1651,7 +1652,7 @@ msgstr "DD"
 #: ../root/release/change_quality.tt:5
 #: ../root/layout/components/sidebar/SidebarDataQuality.js:23
 msgid "Data Quality"
-msgstr ""
+msgstr "Calidad de datos"
 
 #: ../root/components/medium.tt:89 ../root/medium/tracklist.tt:35
 #: ../root/release/edit/tracklist.tt:358
@@ -1803,7 +1804,7 @@ msgstr "Búsqueda directa en la base de datos"
 #: ../root/edit/details/AddArtist.js:74 ../root/edit/details/AddEvent.js:56
 #: ../root/genre/GenreEditForm.js:35
 msgid "Disambiguation"
-msgstr ""
+msgstr "Desambiguación"
 
 #: ../root/release/discids.tt:8
 msgid "Disc ID"
@@ -2323,7 +2324,7 @@ msgstr "Huellas digitales"
 msgid ""
 "First enter all track information, including titles and artist credits, in "
 "order to edit their recordings."
-msgstr ""
+msgstr "Primero, introduce toda la información de las pistas, títulos y créditos de los artistas incluidos, para editar sus grabaciones."
 
 #: ../root/account/register.tt:56
 msgid ""
@@ -2798,7 +2799,7 @@ msgstr ""
 msgid ""
 "In order to view this page, please visit the main server at "
 "{mb|https://musicbrainz.org/}."
-msgstr ""
+msgstr "Para ver esta página, visita el servidor principal en {mb|https://musicbrainz.org/}."
 
 #: ../root/user/login.tt:20
 msgid "Incorrect username or password"
@@ -2886,7 +2887,7 @@ msgstr ""
 
 #: ../root/components/common-macros.tt:711
 msgid "Javascript is required for this page to work properly."
-msgstr ""
+msgstr "Se necesita Javascript para que esta página funcione correctamente."
 
 #: ../root/components/forms.tt:254 ../root/components/forms.tt:278
 msgid "Keep all-uppercase words uppercased"
@@ -2946,7 +2947,7 @@ msgstr "IPI de la discográfica:"
 
 #: ../root/otherlookup/form.tt:3
 msgid "Label ISNI:"
-msgstr ""
+msgstr "ISNI de la discográfica:"
 
 #: ../root/user/subscriptions/label.tt:1 ../root/user/subscriptions/menu.tt:5
 msgid "Label Subscriptions"
@@ -3351,7 +3352,7 @@ msgstr "Fusionar:"
 
 #: ../root/user/contact.tt:11 ../root/user/ReportUser.js:126
 msgid "Message"
-msgstr ""
+msgstr "Mensaje"
 
 #: ../root/cdstub/browse.tt:11
 msgid "Modify count"
@@ -3818,7 +3819,7 @@ msgstr "Solo se muestran las publicaciones con el mismo número de pistas ({n}) 
 
 #: ../root/edit/list.tt:5
 msgid "Only show open edits"
-msgstr ""
+msgstr "Mostrar solo ediciones pendientes"
 
 #: ../root/edit/cannot_cancel.tt:6
 msgid ""
@@ -4625,7 +4626,7 @@ msgstr "Eliminar"
 
 #: ../root/entity/alias/delete.tt:1
 msgid "Remove Alias"
-msgstr ""
+msgstr "Eliminar alias"
 
 #: ../root/area/delete.tt:2
 msgid "Remove Area"
@@ -4695,7 +4696,7 @@ msgstr "Eliminar serie"
 
 #: ../root/entity/alias/delete.tt:2
 msgid "Remove alias"
-msgstr ""
+msgstr "Eliminar alias"
 
 #: ../root/work/edit_form.tt:60
 msgid "Remove attribute"
@@ -4950,7 +4951,7 @@ msgstr "Enviar una copia a mi propia dirección de correo"
 
 #: ../root/components/forms.tt:247 ../root/components/forms.tt:271
 msgid "Sentence"
-msgstr ""
+msgstr "Oración"
 
 #: ../root/components/common-macros.tt:593
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:33
@@ -5019,15 +5020,15 @@ msgstr "Establecer la duración de pista"
 
 #: ../root/event/index.tt:17 ../root/edit/details/AddEvent.js:96
 msgid "Setlist"
-msgstr ""
+msgstr "Repertorio"
 
 #: ../root/edit/details/edit_event.tt:41 ../root/event/edit_form.tt:17
 msgid "Setlist:"
-msgstr ""
+msgstr "Repertorio:"
 
 #: ../root/edit/notes-received.tt:10
 msgid "Show me an alert whenever I receive a new edit note."
-msgstr ""
+msgstr "Avísame cuando reciba una nueva nota sobre la edición."
 
 #: ../root/edit/search_macros.tt:32
 msgid ""
@@ -5270,7 +5271,7 @@ msgstr "Enviar"
 
 #: ../root/edit/index.tt:77
 msgid "Submit note"
-msgstr ""
+msgstr "Enviar nota"
 
 #: ../root/cdtoc/lookup.tt:105
 msgid "Submit this CD using the simple method."
@@ -5278,7 +5279,7 @@ msgstr "Enviar este CD usando el método simple."
 
 #: ../root/edit/index.tt:75 ../root/edit/components/Vote.js:81
 msgid "Submit vote and note"
-msgstr ""
+msgstr "Enviar voto y nota"
 
 #: ../root/edit/list.tt:78
 msgid "Submit votes &amp; edit notes"
@@ -5288,7 +5289,7 @@ msgstr "Enviar votos y notas"
 #: ../root/release/edit_relationships.tt:107
 #: ../root/release/edit_relationships.tt:167
 msgid "Submitting edits..."
-msgstr ""
+msgstr "Enviando ediciones..."
 
 #: ../root/user/collections.tt:48
 msgid "Subscribed"
@@ -5312,7 +5313,7 @@ msgstr "¡Funcionó!"
 
 #: ../root/release/edit/recordings.tt:161
 msgid "Suggested recordings:"
-msgstr ""
+msgstr "Grabaciones sugeridas:"
 
 #: ../root/edit/details/historic/add_release_annotation.tt:25
 #: ../root/edit/details/AddAnnotation.js:73
@@ -5416,7 +5417,7 @@ msgstr "Los datos que has enviado no suponen ningún cambio en los datos ya pres
 
 #: ../root/release/edit/layout.tt:23
 msgid "The data you’ve seeded contained the following errors:"
-msgstr ""
+msgstr "Los datos proporcionados contienen los siguientes errores:"
 
 #: ../root/release/edit/information.tt:155
 #: ../root/static/scripts/relationship-editor/common/dialog.js:497
@@ -5600,7 +5601,7 @@ msgstr ""
 #: ../root/edit/details/historic/add_release_annotation.tt:19
 #: ../root/edit/details/AddAnnotation.js:65
 msgid "This annotation is empty."
-msgstr ""
+msgstr "Esta anotación está vacia."
 
 #: ../root/release/edit/information.tt:332
 msgid ""
@@ -5901,7 +5902,7 @@ msgstr "Esta grabación no está asociada a ningúna AcoustID."
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:627
 #: ../root/static/scripts/common/components/EntityLink.js:223
 msgid "This recording is a video"
-msgstr ""
+msgstr "Esta grabación es un video"
 
 #: ../root/relationship/linktype/form.tt:17
 msgid "This relationship allows setting dates"
@@ -5920,11 +5921,11 @@ msgstr "Esta relación ha finalizado."
 
 #: ../root/relationship/linktype/form.tt:16
 msgid "This relationship is deprecated"
-msgstr ""
+msgstr "Esta relación es obsoleta"
 
 #: ../root/relationship/linktype/form.tt:100
 msgid "This relationship type does not have any examples."
-msgstr ""
+msgstr "Este tipo de relación no tiene ningún ejemplo."
 
 #: ../root/doc/relationship_type.tt:52
 msgid "This relationship type doesn't allow any attributes."
@@ -6033,7 +6034,7 @@ msgstr "Duración"
 #: ../root/main/info/environment.tt:2
 #: ../root/layout/components/sidebar/EventSidebar.js:66
 msgid "Time:"
-msgstr ""
+msgstr "Tiempo:"
 
 #: ../root/cdstub/browse.tt:8 ../root/cdstub/cdstub.tt:5
 #: ../root/cdtoc/list.tt:5 ../root/components/medium.tt:73
@@ -6136,7 +6137,7 @@ msgstr "Duración de las pistas:"
 
 #: ../root/edit/details/historic/edit_track.tt:19 ../root/taglookup/Form.js:32
 msgid "Track number"
-msgstr ""
+msgstr "Número de pista"
 
 #: ../root/edit/details/historic/add_track_kv.tt:26
 #: ../root/edit/details/historic/add_track_old.tt:26
@@ -6333,7 +6334,7 @@ msgstr ""
 #: ../root/components/common-macros.tt:593 ../root/report/ReportsIndex.js:505
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:35
 msgid "URLs"
-msgstr ""
+msgstr "URLs"
 
 #: ../root/doc/relationship_type.tt:37
 #: ../root/relationship/linktype/tree.tt:14
@@ -6492,7 +6493,7 @@ msgstr "Versión:"
 
 #: ../root/recording/edit_form.tt:30
 msgid "Video"
-msgstr ""
+msgstr "Video"
 
 #: ../root/recording/layout.tt:3 ../root/recording/RecordingLayout.js:41
 msgid "Video “{name}” by {artist}"
@@ -7099,7 +7100,7 @@ msgstr "de"
 #: ../root/components/common-macros.tt:184
 #: ../root/static/scripts/common/components/EntityLink.js:60
 msgid "cancelled"
-msgstr ""
+msgstr "cancelado"
 
 #: ../root/components/relationship-editor.tt:208
 #: ../root/components/relationship-editor.tt:253
