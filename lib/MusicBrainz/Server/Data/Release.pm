@@ -200,10 +200,12 @@ sub find_by_instrument {
         SELECT " . $self->_columns . ",
           date_year, date_month, date_day,
           area.name AS country_name,
-          array_agg(lac.credited_as) AS instrument_credits
+          array_agg(json_build_object('name', link_type.name, 'credit', lac.credited_as)) AS instrument_credits_and_rel_types
         FROM " . $self->_table . "
         JOIN l_artist_release ON l_artist_release.entity1 = release.id
-        JOIN link_attribute ON link_attribute.link = l_artist_release.link
+        JOIN link ON link.id = l_artist_release.link
+        JOIN link_type ON link_type.id = link.link_type
+        JOIN link_attribute ON link_attribute.link = link.id
         JOIN link_attribute_type ON link_attribute_type.id = link_attribute.attribute_type
         JOIN instrument ON instrument.gid = link_attribute_type.gid
         LEFT JOIN link_attribute_credit lac ON (
@@ -226,8 +228,8 @@ sub find_by_instrument {
     $self->query_to_list_limited($query, $params, $limit, $offset, sub {
         my ($model, $row) = @_;
 
-        my $credits = delete $row->{instrument_credits};
-        { release => $model->_new_from_row($row), instrument_credits => $credits };
+        my $credits_and_rel_types = delete $row->{instrument_credits_and_rel_types};
+        { release => $model->_new_from_row($row), instrument_credits_and_rel_types => $credits_and_rel_types };
     });
 }
 
