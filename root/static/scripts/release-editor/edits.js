@@ -338,6 +338,11 @@ releaseEditor.edits = {
     externalLinks: function (release) {
         var edits = [];
 
+        function hasVideo(relationship) {
+            const attributes = relationship.attributes;
+            return (attributes && attributes.some(attr => attr.type.gid === VIDEO_ATTRIBUTE_GID));
+        }
+
         if (releaseEditor.hasInvalidLinks()) {
             return edits;
         }
@@ -360,7 +365,7 @@ releaseEditor.edits = {
                     if (!_.isEqual(newData, original)) {
                         var editData = MB.edit.relationshipEdit(newData, original);
 
-                        if (original.video && !newData.video) {
+                        if (hasVideo(original) && !hasVideo(newData)) {
                             editData.attributes = [{type: {gid: VIDEO_ATTRIBUTE_GID}, removed: true}];
                         }
 
