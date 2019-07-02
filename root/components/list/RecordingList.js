@@ -53,7 +53,7 @@ const RecordingList = ({
     <thead>
       <tr>
         {$c.user_exists && (checkboxes || renderCheckboxElement) ? (
-          <th>
+          <th className="checkbox-cell">
             {renderCheckboxElement ? null : <input type="checkbox" />}
           </th>
         ) : null}

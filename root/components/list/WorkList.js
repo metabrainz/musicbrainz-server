@@ -37,7 +37,7 @@ const WorkList = ({
     <thead>
       <tr>
         {$c.user_exists && checkboxes ? (
-          <th>
+          <th className="checkbox-cell">
             <input type="checkbox" />
           </th>
         ) : null}

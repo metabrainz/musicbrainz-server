@@ -136,7 +136,7 @@ const ReleaseGroupIndex = ({
               <thead>
                 <tr>
                   {$c.user_exists
-                    ? <th className="pos"><input type="checkbox" /></th>
+                    ? <th className="checkbox-cell"><input type="checkbox" /></th>
                     : null}
                   <th>{l('Release')}</th>
                   <th>{l('Format')}</th>
