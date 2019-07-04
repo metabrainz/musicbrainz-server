@@ -8,6 +8,7 @@ import yesNo from '../../static/scripts/common/utility/yesNo';
 
 const AddPlace = ({edit}) => {
   console.log(edit);
+  console.log(edit.display_data.area);
   const display = edit.display_data;
   const entity = display["place"];
   return (
@@ -44,7 +45,7 @@ const AddPlace = ({edit}) => {
         {display.area ? (
           <tr>
             <th>{l('Area:')}</th>
-            <td>{DescriptiveLink(display.area)}</td>
+            <td><DescriptiveLink entity={display.area} /></td>
           </tr>
         ): null}
         {display.coordinates ? (
