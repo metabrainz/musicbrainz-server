@@ -318,7 +318,7 @@ import formatTrackLength from './utility/formatTrackLength';
         selectionMessage() {
             return ReactDOMServer.renderToStaticMarkup(
                 exp.l('You selected {releasegroup}.', {
-                    releasegroup: <DescriptiveLink entity={this} />,
+                    releasegroup: <DescriptiveLink entity={this} target="_blank" />,
                 })
             );
         }

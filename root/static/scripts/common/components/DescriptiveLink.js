@@ -17,14 +17,16 @@ type DescriptiveLinkProps = {
   +content?: React.Node,
   +entity: CoreEntityT,
   +showDeletedArtists?: boolean,
+  +target?: '_blank',
 };
 
 const DescriptiveLink = ({
   content,
   entity,
   showDeletedArtists = true,
+  target,
 }: DescriptiveLinkProps) => {
-  const props = {content, showDisambiguation: true};
+  const props = {content, showDisambiguation: true, target};
 
   if (entity.entityType === 'area' && entity.gid) {
     return <AreaWithContainmentLink area={entity} {...props} />;
