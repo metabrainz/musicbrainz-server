@@ -26,6 +26,10 @@ parameter 'dialog_template' => (
     isa => 'Str'
 );
 
+parameter 'dialog_template_react' => (
+    isa => 'Str'
+);
+
 role {
     my $params = shift;
     my %extra = @_;
@@ -50,13 +54,26 @@ role {
 
     method 'create' => sub {
         my ($self, $c, %args) = @_;
+        my $entity;
 
         if ($params->dialog_template) {
             $c->stash( dialog_template => $params->dialog_template );
         }
 
+        my $props = {
+            form => $params->form,
+            entity => $entity,
+        };
+
+        if ($params->dialog_template_react) {
+            $c->stash(
+                component_path => $params->dialog_template_react,
+                component_props => $props,
+                current_view => 'Node'
+            )
+        }
+
         my $model = $self->config->{model};
-        my $entity;
 
         $self->edit_action($c,
             form        => $params->form,
