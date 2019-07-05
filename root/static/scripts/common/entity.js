@@ -11,6 +11,7 @@ import ReactDOMServer from 'react-dom/server';
 import ArtistCreditLink from './components/ArtistCreditLink';
 import EditorLink from './components/EditorLink';
 import EntityLink from './components/EntityLink';
+import DescriptiveLink from './components/DescriptiveLink';
 import {
   ENTITY_NAMES,
   PART_OF_SERIES_LINK_TYPES,
@@ -317,7 +318,7 @@ import formatTrackLength from './utility/formatTrackLength';
         selectionMessage() {
             return ReactDOMServer.renderToStaticMarkup(
                 exp.l('You selected {releasegroup}.', {
-                    releasegroup: this.reactElement({target: '_blank'}),
+                    releasegroup: <DescriptiveLink entity={this} target="_blank" />,
                 })
             );
         }
