@@ -99,6 +99,7 @@ const lowerCaseBracketWordsList = [
   'reinterpreted',
   'remake',
   'remix',
+  'rmx',
   'reprise',
   'single',
   'skit',
