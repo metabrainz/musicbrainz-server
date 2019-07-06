@@ -318,7 +318,7 @@ test('Work', function (t) {
 });
 
 test('BugFixes', function (t) {
-  t.plan(20);
+  t.plan(21);
 
   const tests = [
     {
@@ -353,8 +353,14 @@ test('BugFixes', function (t) {
     },
     {
       input: 'aka AKA a.k.a. A.K.A. a/k/a A/K/A',
-      expected: 'a.k.a. a.k.a. a.k.a. a.k.a. a.k.a. a.k.a.',
-      bug: 'MBS-1314',
+      expected: 'aka aka a.k.a. a.k.a. a.k.a. a.k.a.',
+      bug: 'MBS-1314, MBS-8065',
+      mode: 'English',
+    },
+    {
+      input: 'Stuff aka Stuffy AKA Stuffy Stuff',
+      expected: 'Stuff aka Stuffy aka Stuffy Stuff',
+      bug: 'MBS-8065',
       mode: 'English',
     },
     {
@@ -468,6 +474,7 @@ test('BugFixes', function (t) {
   ];
 
   _.each(tests, function (test) {
+    gc.CFG_UC_UPPERCASED = false;
     gc.mode = modes[test.mode];
 
     const result = MB.GuessCase.work.guess(test.input);

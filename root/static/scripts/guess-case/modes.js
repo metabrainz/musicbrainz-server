@@ -62,8 +62,7 @@ const PREPROCESS_FIXLIST = [
    */
   [/(\b|^)a\s?c+ap+el+a(\b)/i, 'a_cappella'], // A Capella preprocess
   [/(\b|^)oc\sremix(\b)/i,     'oc_remix'],   // OC ReMix preprocess
-  [/(\b|^)aka(\b)/ig,          'a_k_a_'],     // a.k.a. preprocess
-  [/(\b|^)a\/k\/a(\b)/ig,      'a_k_a_'],
+  [/(\b|^)a\/k\/a(\b)/ig,      'a_k_a_'],     // a.k.a. preprocess
   [/(\b|^)a\.k\.a\.(\s)/ig,    'a_k_a_'],
 ];
 
@@ -74,6 +73,7 @@ const POSTPROCESS_FIXLIST = [
   [/(\b|^)oc_remix(\b)/i,  'OC ReMix'],   // oc_remix
   [/(\b|^)Re_edit(\b)/,    're-edit'],    // re_edit inside brackets
   [/(\b|^)a_k_a_(\b|$)/ig, 'a.k.a.'],     // a.k.a. lowercase
+  [/(\b|^)aka(\b|$)/ig,    'aka'],        // aka lowercase
 
   /*
    * "fe" is considered a lowercase word, but "Santa Fe" is very common in
