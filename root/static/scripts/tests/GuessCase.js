@@ -318,7 +318,7 @@ test('Work', function (t) {
 });
 
 test('BugFixes', function (t) {
-  t.plan(21);
+  t.plan(22);
 
   const tests = [
     {
@@ -446,6 +446,12 @@ test('BugFixes', function (t) {
       expected: 'Protect ya Neck',
       bug: 'MBS-9837',
       mode: 'Turkish',
+    },
+    {
+      input: 'I Love My iPad, My IPod and My Iphone!',
+      expected: 'I Love My iPad, My iPod and My iPhone!',
+      bug: 'MBS-7421',
+      mode: 'English',
     },
 
     /*
