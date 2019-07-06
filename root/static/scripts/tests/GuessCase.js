@@ -176,7 +176,7 @@ test('Recording', function (t) {
 });
 
 test('Work', function (t) {
-  t.plan(18);
+  t.plan(19);
 
   const tests = [
     {
@@ -303,6 +303,14 @@ test('Work', function (t) {
       expected: 'Ya Devlet Başa ya Kuzgun Leşe',
       mode: 'Turkish',
       roman: false,
+      keepuppercase: false,
+    },
+    {
+      input: 'My Favourite Numbers ARE IV, Viii, xIx and mcmxcvi',
+      expected: 'My Favourite Numbers Are IV, VIII, XIX and MCMXCVI',
+      bug: 'MBS-5338',
+      mode: 'English',
+      roman: true,
       keepuppercase: false,
     },
   ];
@@ -491,6 +499,7 @@ test('BugFixes', function (t) {
 test('vinyl numbers are fixed', function (t) {
   t.plan(5);
 
+  setCookie('guesscase_roman', 'false');
   gc.mode = modes.English;
 
   const tests = [

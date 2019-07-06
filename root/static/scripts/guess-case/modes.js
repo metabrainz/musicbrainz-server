@@ -44,7 +44,7 @@ const LOWER_CASE_WORDS_TURKISH = /^(ve|ile|ya|veya|yahut|ki|mı|mi|mu|mü|mısı
  * keschte  2005-11-15  removed RIP (Let Rip) is not R.I.P.
  */
 const UPPER_CASE_WORDS = /^(dj|mc|tv|mtv|ep|lp|ymca|nyc|ny|ussr|usa|r&b|bbc|fm|bc|ac|dc|uk|bpm|ok|nba|rza|gza|odb|dmx|2xlc)$/;
-const ROMAN_NUMERALS = /^(i|ii|iii|iv|v|vi|vii|viii|ix|x)$/;
+const ROMAN_NUMERALS = /^m{0,4}(cm|cd|d?c{0,3})(xc|xl|l?x{0,3})(ix|iv|v?i{0,3})$/;
 
 /* eslint-disable no-multi-spaces */
 const PREPROCESS_FIXLIST = [
