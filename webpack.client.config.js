@@ -14,7 +14,7 @@ const ManifestPlugin = require('webpack-manifest-plugin');
 const path = require('path');
 const shell = require('shelljs');
 const shellQuote = require('shell-quote');
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
+const TerserPlugin = require('terser-webpack-plugin');
 const webpack = require('webpack');
 
 const poFile = require('./root/server/gettext/poFile');
@@ -200,18 +200,6 @@ plugins.push.apply(plugins, [
   }),
 ]);
 
-if (!DBDefs.DEVELOPMENT_SERVER) {
-  plugins.push(new UglifyJsPlugin({
-    uglifyOptions: {
-      ecma: 5,
-      mangle: true,
-      output: {
-        comments: /@preserve|@license/,
-      },
-    },
-  }));
-}
-
 module.exports = {
   context: dirs.CHECKOUT,
 
@@ -257,4 +245,14 @@ module.exports = {
 
 if (String(process.env.WATCH_MODE) === '1') {
   Object.assign(module.exports, require('./webpack/watchConfig'));
+}
+
+if (!DBDefs.DEVELOPMENT_SERVER) {
+  module.exports.optimization.minimizer = [
+    new TerserPlugin({
+      terserOptions: {
+        safari10: true,
+      },
+    }),
+  ];
 }
