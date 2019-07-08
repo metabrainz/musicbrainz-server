@@ -331,6 +331,10 @@ sub edits {
     $ids = get_new_ids('edit', $ids);
     return unless @{$ids};
 
+    my $rows = get_rows($c, 'edit', 'id', $ids);
+    editors($c, pluck('editor', $rows));
+    handle_rows($c, 'edit', $rows);
+
     for my $entity_type (entities_with('edit_table')) {
         my $table = "edit_$entity_type";
         my $rows = get_rows($c, $table, 'edit', $ids);
@@ -339,10 +343,6 @@ sub edits {
 
         handle_rows($c, $table, $rows);
     }
-
-    my $rows = get_rows($c, 'edit', 'id', $ids);
-    editors($c, pluck('editor', $rows));
-    handle_rows($c, 'edit', $rows);
 }
 
 sub editors {
