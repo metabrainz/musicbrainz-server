@@ -20,8 +20,7 @@ sub query {
                 WHERE 
                     l_artist_artist.entity1=artist.id
                     AND link_type.name IN
-                      ('collaboration', 'member of band')
-            )
+                      ('collaboration', 'conductor position', 'founder', 'member of band', 'subgroup')            )
         GROUP BY artist.id, artist.name
     "
 }
