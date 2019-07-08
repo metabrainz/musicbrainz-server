@@ -119,6 +119,7 @@ my $mbdump_handle;
 my $sample_dump;
 my %table_map;
 
+$MusicBrainz::Script::EntityDump::dump_aliases = 1;
 $MusicBrainz::Script::EntityDump::dump_annotations = 1;
 $MusicBrainz::Script::EntityDump::dump_collections = 1;
 $MusicBrainz::Script::EntityDump::dump_edits = 1;
@@ -127,6 +128,8 @@ $MusicBrainz::Script::EntityDump::dump_meta_tables = 1;
 $MusicBrainz::Script::EntityDump::dump_ratings = 1;
 $MusicBrainz::Script::EntityDump::dump_subscriptions = 1;
 $MusicBrainz::Script::EntityDump::dump_tags = 1;
+$MusicBrainz::Script::EntityDump::dump_types = 1;
+$MusicBrainz::Script::EntityDump::follow_extra_data = 1;
 $MusicBrainz::Script::EntityDump::relationships_cardinality = undef;
 @MusicBrainz::Script::EntityDump::skip_tables = @DUMP_ALL;
 

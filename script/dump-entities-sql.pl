@@ -16,10 +16,27 @@ use MusicBrainz::Server::Context;
 no warnings 'experimental::smartmatch';
 
 my $database = 'READWRITE';
+my $aliases = 0;
+my $annotations = 0;
+# collections, relationships, subscriptions
+my $extra_data = 0;
+my $ratings = 0;
+my $tags = 0;
 
 GetOptions(
-    'database=s' => \$database,
+    'database=s'    => \$database,
+    'aliases!'      => \$aliases,
+    'annotations!'  => \$annotations,
+    'extra-data!'   => \$extra_data,
+    'ratings!'      => \$ratings,
+    'tags!'         => \$tags,
 ) or exit 2;
+
+$MusicBrainz::Script::EntityDump::dump_aliases = $aliases;
+$MusicBrainz::Script::EntityDump::dump_annotations = $annotations;
+$MusicBrainz::Script::EntityDump::follow_extra_data = $extra_data;
+$MusicBrainz::Script::EntityDump::dump_ratings = $ratings;
+$MusicBrainz::Script::EntityDump::dump_tags = $tags;
 
 sub quote_column {
     my ($type, $data) = @_;
