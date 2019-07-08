@@ -24,7 +24,19 @@ SELECT event.id AS event_id,
        AND duplicates.begin_date_month = event.begin_date_month 
        AND duplicates.begin_date_day = event.begin_date_day 
        AND l_event_place.entity1 = duplicates.entity1
-  )";
+  )
+  WHERE EXISTS (
+    SELECT TRUE
+    FROM event e2
+    JOIN l_event_place lep2 ON e2.id = lep2.entity0 
+    JOIN place p2 ON p2.id = lep2.entity1
+    WHERE e2.begin_date_year = event.begin_date_year 
+        AND e2.begin_date_month = event.begin_date_month 
+        AND e2.begin_date_day = event.begin_date_day 
+        AND lep2.entity1 = duplicates.entity1
+        AND e2.comment = ''
+  )
+";
 }
 
 __PACKAGE__->meta->make_immutable;
