@@ -51,6 +51,8 @@ sub load
 sub load_for_works {
     my ($self, @objs) = @_;
 
+    @objs = grep { defined $_ } @objs;
+
     $self->c->model('Work')->language->load_for(@objs);
 
     load_subobjects($self, 'language', map { $_->all_languages } @objs);
