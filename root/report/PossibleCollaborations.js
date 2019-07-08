@@ -31,15 +31,15 @@ const PossibleCollaborations = ({
     <ul>
       <li>
         {exp.l(
-          `This report lists artists which have "&" in their names
+          `This report lists artists which have “&” in their names
            but no membership-related relationships (none of member,
            collaborator, conductor, founder nor subgroup). If the artist
            is usually seen as an actual group, member relationships should
-           be added. If it's a short term collaboration, it should be split
+           be added. If it’s a short term collaboration, it should be split
            if possible (see {how_to_split_artists|How to Split Artists}).
-           If it is a collaboration with its own name and can't be split,
+           If it is a collaboration with its own name and can’t be split,
            collaboration relationships should be added to it. For some
-           special cases, such as "Person & His Orchestra", conductor
+           special cases, such as “Person & His Orchestra”, conductor
            and/or founder might be the best choice.`,
           {how_to_split_artists: '/doc/How_to_Split_Artists'},
         )}
