@@ -335,6 +335,13 @@ sub edits {
     editors($c, pluck('editor', $rows));
     handle_rows($c, 'edit', $rows);
 
+    $rows = get_rows($c, 'edit_data', 'edit', $ids);
+    handle_rows($c, 'edit_data', $rows);
+
+    $rows = get_rows($c, 'vote', 'edit', $ids);
+    editors($c, pluck('editor', $rows));
+    handle_rows($c, 'vote', $rows);
+
     for my $entity_type (entities_with('edit_table')) {
         my $table = "edit_$entity_type";
         my $rows = get_rows($c, $table, 'edit', $ids);
