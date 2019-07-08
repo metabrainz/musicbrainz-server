@@ -10,7 +10,7 @@ use Getopt::Long;
 use lib "$FindBin::Bin/../lib";
 use Carp qw( croak );
 use Encode qw( encode );
-use MusicBrainz::Script::EntityDump qw( get_core_entities_by_gids );
+use MusicBrainz::Script::EntityDump qw( edits get_core_entities_by_gids );
 use MusicBrainz::Server::Context;
 
 no warnings 'experimental::smartmatch';
@@ -80,6 +80,7 @@ sub dump_release_groups {
 }
 
 our %DUMP_METHODS = (
+    edit => \&edits,
     release_group => \&dump_release_groups,
 );
 
@@ -88,8 +89,8 @@ sub main {
         database => $database,
     );
 
-    my ($entity_type, @gids) = @ARGV;
-    my $arguments_string = $entity_type . ' ' . join(' ', @gids);
+    my ($entity_type, @ids) = @ARGV;
+    my $arguments_string = $entity_type . ' ' . join(' ', @ids);
 
     print <<"EOSQL";
 -- Automatically generated, do not edit.
@@ -107,7 +108,7 @@ EOSQL
         get_core_entities_by_gids($c, $entity_type, $gids);
     };
 
-    $dump_method->($c, \@gids);
+    $dump_method->($c, \@ids);
 
     print <<'EOSQL';
 

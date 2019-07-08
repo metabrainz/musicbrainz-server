@@ -13,6 +13,7 @@ use MusicBrainz::Server::Constants qw(
 );
 
 our @EXPORT_OK = qw(
+    edits
     get_core_entities
     get_core_entities_by_gids
 );
