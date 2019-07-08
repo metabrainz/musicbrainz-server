@@ -6,6 +6,7 @@ use feature 'switch';
 
 use Moose;
 use FindBin;
+use Getopt::Long;
 use lib "$FindBin::Bin/../lib";
 use Carp qw( croak );
 use Encode qw( encode );
@@ -13,6 +14,12 @@ use MusicBrainz::Script::EntityDump qw( get_core_entities_by_gids );
 use MusicBrainz::Server::Context;
 
 no warnings 'experimental::smartmatch';
+
+my $database = 'READWRITE';
+
+GetOptions(
+    'database=s' => \$database,
+) or exit 2;
 
 sub quote_column {
     my ($type, $data) = @_;
@@ -77,7 +84,9 @@ our %DUMP_METHODS = (
 );
 
 sub main {
-    my $c = MusicBrainz::Server::Context->create_script_context(database => 'READWRITE');
+    my $c = MusicBrainz::Server::Context->create_script_context(
+        database => $database,
+    );
 
     my ($entity_type, @gids) = @ARGV;
     my $arguments_string = $entity_type . ' ' . join(' ', @gids);
