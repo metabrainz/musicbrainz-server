@@ -987,6 +987,8 @@ INSERT INTO work_type VALUES (28, 'Play', NULL, 2, 'A play is a form of literatu
 INSERT INTO work_type VALUES (29, 'Musical', NULL, 2, 'Musical theatre is a form of theatrical performance that combines songs, spoken dialogue, acting, and dance.', '9ca5e067-acf7-3cd6-baa4-92bf1975bf24');
 INSERT INTO work_type VALUES (30, 'Incidental music', NULL, 2, 'Incidental music is music written as background for (usually) a theatre play.', '3cd7c402-444a-3d04-a154-4fa7d13e4ec6');
 
+INSERT INTO editor (id, name, privs, email, bio, email_confirm_date, password, ha1) VALUES (4, 'ModBot', 2, 'support@musicbrainz.org', 'ModBot is a bot used by the MusicBrainz Server to perform a variety of automated functions. \r+', '2013-07-26 11:48:31.088042+00', '{CLEARTEXT}mb', '03503a81a03bdbb6055f4a6c8b86b5b8');
+
 -- Restore FK constraints.
 ALTER TABLE link_attribute_type ADD CONSTRAINT link_attribute_type_fk_parent FOREIGN KEY (parent) REFERENCES link_attribute_type(id);
 ALTER TABLE link_creditable_attribute_type ADD CONSTRAINT link_creditable_attribute_type_fk_attribute_type FOREIGN KEY (attribute_type) REFERENCES link_attribute_type(id) ON DELETE CASCADE;

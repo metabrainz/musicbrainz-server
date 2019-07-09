@@ -48,6 +48,7 @@ Readonly::Hash our %RELEASE_MERGE_ERRORS => (
     medium_positions            => N_l('The medium positions conflict.'),
     medium_track_counts         => N_l('The track counts on at least one set of corresponding mediums do not match.'),
     pregaps                     => N_l('Mediums with a pregap track can only be merged with other mediums with a pregap track.'),
+    recording_merge_cycle       => N_l('A merge cycle exists whereby two recordings ({recording1} and {recording2}) each want to merge into the other. This is likely because the tracks or recordings are in an inconsistent order on the releases.'),
 );
 
 sub _type { 'release' }
@@ -1028,8 +1029,8 @@ sub determine_recording_merges {
             old_recordings
         )};
 
-        $new_recording = $merge_targets{$new_recording->{id}} // $new_recording;
-        my $new_id = $new_recording->{id};
+        my $target = $merge_targets{$new_recording->{id}} // $new_recording;
+        my $new_id = $target->{id};
 
         for my $old_recording (@{$old_recordings}) {
             my $old_id = $old_recording->{id};
@@ -1038,18 +1039,26 @@ sub determine_recording_merges {
             # merged into recording 2, and recording 2 is being merged into
             # recording 1), then we don't merge them in that case, because it's
             # probably not intentional.
-            if ($new_id != $old_id) {
-                my $merge = ($recording_merges{$new_id} //= {
-                    new_recording       => $new_recording,
-                    new_medium_position => $possible_merge->{new_medium_position},
-                    new_track_number    => $possible_merge->{new_track_number},
-                    new_track_position  => $possible_merge->{new_track_position},
+            if ($new_id == $old_id) {
+                return (0, {
+                    message => $RELEASE_MERGE_ERRORS{recording_merge_cycle},
+                    args => {
+                        recording1 => _link_recording($old_recording),
+                        recording2 => _link_recording($new_recording),
+                    },
                 });
-
-                push @{$merge->{old_recordings}}, $old_recording;
-
-                $merge_targets{$old_id} = $new_recording;
             }
+
+            my $merge = ($recording_merges{$new_id} //= {
+                new_recording       => $target,
+                new_medium_position => $possible_merge->{new_medium_position},
+                new_track_number    => $possible_merge->{new_track_number},
+                new_track_position  => $possible_merge->{new_track_position},
+            });
+
+            push @{$merge->{old_recordings}}, $old_recording;
+
+            $merge_targets{$old_id} = $target;
         }
     }
 

@@ -124,7 +124,7 @@
 [%~ ELSIF !edit.display_data.recording_merges.defined && !edit.is_open ~%]
     <p><strong>[% l('This edit does not store recording merge information and is closed, so no recording merge information can be shown.') %]</strong></p>
 [%~ ELSIF edit.cannot_merge_recordings_reason ~%]
-    <p class="error">
+    <p class="error merge-error">
       <strong>
         [%- l(edit.cannot_merge_recordings_reason.message, edit.cannot_merge_recordings_reason.args) -%]
       </strong>
