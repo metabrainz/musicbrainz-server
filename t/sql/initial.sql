@@ -104,11 +104,16 @@ INSERT INTO label_type VALUES (7, 'Publisher', NULL, 0, NULL, 'e9ad53b0-e3d0-388
 INSERT INTO label_type VALUES (8, 'Rights Society', NULL, 0, NULL, '78ab2758-7809-372c-9b99-74b7ab87f390');
 INSERT INTO label_type VALUES (9, 'Imprint', NULL, 0, NULL, 'b6285b2a-3514-3d43-80df-fcf528824ded');
 
+INSERT INTO language VALUES (27, 'ast', 'ast', NULL, 'Asturian', 1, 'ast');
 INSERT INTO language VALUES (113, 'nld', 'dut', 'nl', 'Dutch', 2, 'nld');
 INSERT INTO language VALUES (120, 'eng', 'eng', 'en', 'English', 2, 'eng');
+INSERT INTO language VALUES (123, 'est', 'est', 'et', 'Estonian', 1, 'est');
 INSERT INTO language VALUES (134, 'fra', 'fre', 'fr', 'French', 2, 'fra');
 INSERT INTO language VALUES (145, 'deu', 'ger', 'de', 'German', 2, 'deu');
+INSERT INTO language VALUES (171, 'hin', 'hin', 'hi', 'Hindi', 1, 'hin');
+INSERT INTO language VALUES (195, 'ita', 'ita', 'it', 'Italian', 2, 'ita');
 INSERT INTO language VALUES (198, 'jpn', 'jpn', 'ja', 'Japanese', 2, 'jpn');
+INSERT INTO language VALUES (393, 'spa', 'spa', 'es', 'Spanish', 2, 'spa');
 INSERT INTO language VALUES (486, 'zxx', 'zxx', NULL, 'No linguistic content', 1, 'zxx');
 
 INSERT INTO link_attribute_type VALUES (1, NULL, 1, 0, '0a5341f8-3b1d-4f99-a0c6-26b7f4e42c7f', 'additional', 'This attribute describes if a particular role was considered normal or additional.', '2014-03-30 09:53:32.715353+00');
