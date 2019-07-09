@@ -1,13 +1,16 @@
 package MusicBrainz::Server::Data::Release;
 
+use 5.18.2; # enables the state feature
+
 use Moose;
 use namespace::autoclean -also => [qw( _where_status_in _where_type_in )];
 
 use Carp 'confess';
 use DBDefs;
+use JSON::XS;
 use List::AllUtils qw( all );
 use List::MoreUtils qw( part );
-use List::UtilsBy qw( partition_by );
+use List::UtilsBy qw( nsort_by partition_by );
 use MusicBrainz::Server::Constants qw( :quality $EDIT_RELEASE_CREATE $STATUS_APPLIED );
 use MusicBrainz::Server::Entity::Barcode;
 use MusicBrainz::Server::Entity::PartialDate;
@@ -880,54 +883,155 @@ sub can_merge {
     }
 }
 
-sub determine_recording_merges
-{
-    my ($self, @releases) = @_;
+sub determine_medium_merges {
+    my ($self, $new_id, @old_ids) = @_;
 
-    my %medium_by_position;
-    foreach my $release (@releases) {
-        foreach my $medium ($release->all_mediums) {
-            if (exists $medium_by_position{$medium->position}) {
-                push @{ $medium_by_position{$medium->position} }, $medium;
-            }
-            else {
-                $medium_by_position{$medium->position} = [ $medium ];
+    $self->sql->select_list_of_hashes(
+        'SELECT newm.id AS new_id,
+                array_agg(oldm.id) AS old_ids
+           FROM medium newm,
+                medium oldm
+          WHERE newm.release = ?
+            AND oldm.release = any(?)
+            AND newm.position = oldm.position
+            AND newm.track_count = oldm.track_count
+          GROUP BY newm.id',
+        $new_id,
+        \@old_ids,
+    );
+}
+
+sub determine_recording_merges {
+    my ($self, $new_release_id, @old_release_ids) = @_;
+
+    my $possible_merges = $self->sql->select_list_of_hashes(q{
+        SELECT newm.position AS new_medium_position,
+               newt.number AS new_track_number,
+               newt.position AS new_track_position,
+               jsonb_build_object(
+                 'id', newr.id,
+                 'gid', newr.gid,
+                 'name', newr.name,
+                 'length', newr.length,
+                 'artist_credit_id', newr.artist_credit
+               ) AS new_recording,
+               array_agg(DISTINCT jsonb_build_object(
+                 'id', oldr.id,
+                 'gid', oldr.gid,
+                 'name', oldr.name,
+                 'length', oldr.length,
+                 'artist_credit_id', oldr.artist_credit
+               )) AS old_recordings
+          FROM medium newm,
+               medium oldm,
+               track newt,
+               track oldt,
+               recording newr,
+               recording oldr
+         WHERE newm.release = ?
+           AND oldm.release = any(?)
+           AND newm.position = oldm.position
+           AND newm.track_count = oldm.track_count
+           AND newt.medium = newm.id
+           AND oldt.medium = oldm.id
+           AND newt.position = oldt.position
+           AND newr.id = newt.recording
+           AND oldr.id = oldt.recording
+           AND newr.id != oldr.id
+         GROUP BY new_medium_position,
+                  new_track_number,
+                  new_track_position,
+                  newr.id
+         ORDER BY new_medium_position,
+                  new_track_position
+    }, $new_release_id, \@old_release_ids);
+
+    state $json = JSON::XS->new->utf8(0);
+    my %target_count;
+
+    for my $possible_merge (@{$possible_merges}) {
+        $possible_merge->{new_recording} = $json->decode($possible_merge->{new_recording});
+        $possible_merge->{old_recordings} = [map { $json->decode($_) } @{$possible_merge->{old_recordings}}];
+
+        # We need to make sure that for each old recording, there is only 1
+        # new recording to merge into. If there is > 1, then it's not clear
+        # what we should merge into.
+        $target_count{$_->{id}}++ for @{$possible_merge->{old_recordings}};
+    }
+
+    # MBS-8614. Track recording merges, to resolve cases where a recording is
+    # a merge source on one track (after which it gets deleted), and a merge
+    # target on another track (in which case we should instead use the ID of
+    # the target from the first merge). Example where recording 3 should be
+    # merged into recording 2:
+    # 1 -> 2
+    # 3 -> 1
+    my %merge_targets;
+
+    $possible_merges = [grep {
+        # Assigned to avoid confusion with unrelated uses of $_ below.
+        my $possible_merge = $_;
+
+        my ($new_recording, $old_recordings) = @{$possible_merge}{qw(
+            new_recording
+            old_recordings
+        )};
+
+        # As mentioned above, remove old (source) recordings that have
+        # multiple targets.
+        #
+        # Perl fact: this assignment modifies the array in $possible_merge.
+        @{$old_recordings} = grep { $target_count{$_->{id}} == 1 } @{$old_recordings};
+
+        $merge_targets{$_->{id}} = $new_recording for @{$old_recordings};
+
+        # Make sure there's at least one merge source left for this target.
+        # (This is the expression for which `grep` is evaluated on.)
+        scalar @{$old_recordings} > 0
+    } @{$possible_merges}];
+
+    my %recording_merges;
+    for my $possible_merge (@{$possible_merges}) {
+        my ($new_recording, $old_recordings) = @{$possible_merge}{qw(
+            new_recording
+            old_recordings
+        )};
+
+        $new_recording = $merge_targets{$new_recording->{id}} // $new_recording;
+        my $new_id = $new_recording->{id};
+
+        for my $old_recording (@{$old_recordings}) {
+            my $old_id = $old_recording->{id};
+
+            # If two recordings' positions are swapped (e.g. recording 1 is being
+            # merged into recording 2, and recording 2 is being merged into
+            # recording 1), then we don't merge them in that case, because it's
+            # probably not intentional.
+            if ($new_id != $old_id) {
+                my $merge = ($recording_merges{$new_id} //= {
+                    new_recording       => $new_recording,
+                    new_medium_position => $possible_merge->{new_medium_position},
+                    new_track_number    => $possible_merge->{new_track_number},
+                    new_track_position  => $possible_merge->{new_track_position},
+                });
+
+                push @{$merge->{old_recordings}}, $old_recording;
+
+                $merge_targets{$old_id} = $new_recording;
             }
         }
     }
 
-    my %recording_by_position;
-    for my $m_pos (keys %medium_by_position) {
-        # must have at least two mediums
-        my @mediums = @{ $medium_by_position{$m_pos} };
-        next if @mediums <= 1;
-        # all mediums must have the same number of tracks
-        my $track_count = $mediums[0]->track_count;
-        next if grep { $_->track_count != $track_count } @mediums;
-        # group recordings by track position
-        $recording_by_position{$m_pos} = {};
-        for my $medium (@mediums) {
-            for my $tr ($medium->all_tracks) {
-                my $tr_pos = $tr->position;
-                if (exists $recording_by_position{$m_pos}->{$tr_pos}) {
-                    push @{ $recording_by_position{$m_pos}->{$tr_pos} }, $tr->recording;
-                }
-                else {
-                    $recording_by_position{$m_pos}->{$tr_pos} = [ $tr->recording ];
-                }
-            }
-        }
-    }
-
-    my @merges;
-    for my $m_pos (sort { $a <=> $b } keys %recording_by_position) {
-        for my $tr_pos (sort { $a <=> $b } keys %{ $recording_by_position{$m_pos} }) {
-            my $recordings = $recording_by_position{$m_pos}->{$tr_pos};
-            push @merges, $recordings if scalar @$recordings;
-        }
-    }
-
-    return @merges;
+    # Sort, then convert to the format expected by
+    # MusicBrainz::Server::Edit::Release::Merge.
+    [map +{
+        medium      => $_->{new_medium_position},
+        track       => $_->{new_track_number},
+        destination => $_->{new_recording},
+        sources     => $_->{old_recordings},
+    }, nsort_by {
+        $_->{new_medium_position}, $_->{new_track_position}
+    } values %recording_merges];
 }
 
 sub merge
@@ -1078,22 +1182,24 @@ sub merge
                 old_ids => \@old_ids,
             });
 
-        my @merges = @{
-            $self->sql->select_list_of_hashes(
-                'SELECT newmed.id AS new_id,
-                        oldmed.id AS old_id
-                   FROM medium newmed, medium oldmed
-                  WHERE newmed.release = ?
-                    AND oldmed.release IN (' . placeholders(@old_ids) . ')
-                    AND newmed.position = oldmed.position',
-                $new_id, @old_ids
-            )
-        };
-        for my $merge (@merges) {
-            $self->c->model('Medium')->merge($merge->{new_id}, $merge->{old_id});
+        my $recording_merges = $opts{recording_merges} //
+            $self->determine_recording_merges($new_id, @old_ids);
+
+        for my $recording_merge (@{$recording_merges}) {
+            $self->c->model('Recording')->merge(
+                $recording_merge->{destination}{id},
+                map { $_->{id} } @{$recording_merge->{sources}},
+            );
+        }
+
+        for my $medium_merge (@{ $self->determine_medium_merges($new_id, @old_ids) }) {
+            $self->c->model('Track')->merge_mediums(
+                $medium_merge->{new_id},
+                @{$medium_merge->{old_ids}},
+            );
             $self->c->model('MediumCDTOC')->merge_mediums(
-                $merge->{new_id},
-                $merge->{old_id}
+                $medium_merge->{new_id},
+                @{$medium_merge->{old_ids}},
             );
         }
 

@@ -86,13 +86,17 @@ subtype RecordingMergesArray,
         track => Str,
         sources => ArrayRef[Dict[
             id => Int,
+            gid => Optional[Str],
             name => Str,
             length => Nullable[Int],
+            artist_credit_id => Optional[Int],
         ]],
         destination => Dict[
             id => Int,
+            gid => Optional[Str],
             name => Str,
             length => Nullable[Int],
+            artist_credit_id => Optional[Int],
         ]
     ]];
 

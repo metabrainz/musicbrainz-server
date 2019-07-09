@@ -146,7 +146,11 @@ test 'Merging mediums with swapped recordings (MBS-9309)' => sub {
 
     MusicBrainz::Server::Test->prepare_raw_test_database($c, '+mbs-9309');
 
-    $c->model('Medium')->merge(1, 2);
+    $c->model('Release')->merge(
+        new_id => 1,
+        old_ids => [2],
+        merge_strategy => 2,
+    );
 
     my $medium = $c->model('Medium')->get_by_id(1);
     $c->model('Track')->load_for_mediums($medium);
