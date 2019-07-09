@@ -15,6 +15,13 @@ JSON_DUMP_GROUP=musicbrainz
 JSON_DUMP_DIR_MODE=755
 JSON_DUMP_FILE_MODE=644
 
+# Same, but for search index dumps.
+SEARCH_INDEXES_DUMP_DIR=/home/musicbrainz/search-index-dumps
+SEARCH_INDEXES_DUMP_USER=musicbrainz
+SEARCH_INDEXES_DUMP_GROUP=musicbrainz
+SEARCH_INDEXES_DUMP_DIR_MODE=755
+SEARCH_INDEXES_DUMP_FILE_MODE=644
+
 # Where to back things up to, who should own the backup files, and what mode
 # those files should have.
 # The backups include a full database export, and all replication data.

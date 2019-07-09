@@ -1,0 +1,211 @@
+#!/usr/bin/env perl
+
+use strict;
+use warnings;
+
+use Getopt::Long qw( GetOptions );
+use Pod::Usage qw( pod2usage );
+
+################################################################################
+
+=head1 NAME
+
+BundleSearchIndexesDump - Bundle search indexes dump from SolrCloud backups
+
+=head1 SYNOPSIS
+
+BundleSearchIndexesDump [options]
+
+Options:
+
+    -w, --working-dir DIRECTORY         directory that contains solr backups
+                                        to be turned into search indexes dump
+    -d, --debug                         print more progress messages
+
+    -h, --help                          show this help
+
+Environment:
+
+    BACKUP_STAMP                        timestamp used for backup directory name
+
+=head1 COPYRIGHT AND LICENSE
+
+Copyright (C) 2020 MetaBrainz Foundation
+
+This file is part of MusicBrainz, the open internet music database,
+and is licensed under the GPL version 2, or (at your option) any
+later version: http://www.gnu.org/licenses/gpl-2.0.txt
+
+=cut
+
+################################################################################
+
+my $working_dir;
+my $debug_flag;
+my $help_flag;
+
+GetOptions(
+    "working-dir|w=s"            => \$working_dir,
+    "debug|d"                   => \$debug_flag,
+    "help|h"                    => \$help_flag,
+);
+
+pod2usage() if $help_flag;
+pod2usage(
+    -exitval => 64, # EX_USAGE
+    -message => "$0: unrecognized arguments",
+) if @ARGV;
+
+################################################################################
+
+$SIG{'INT'} = sub { exit 3 };
+
+use File::Copy qw( copy move );
+use POSIX qw( strftime );
+use String::ShellQuote qw( shell_quote );
+
+use FindBin;
+use lib "$FindBin::Bin/../lib";
+
+use DBDefs;
+use MusicBrainz::Script::MBDump qw( gpg_sign );
+
+################################################################################
+
+sub _debug { print "[debug] ", (sprintf shift, @_), "\n" if $debug_flag; }
+sub _info { print "[info] ", (sprintf shift, @_), "\n"; }
+sub _warn { warn "[warning] ", (sprintf shift, @_), "\n"; }
+sub _error { warn "[error] ", (sprintf shift, @_), "\n"; }
+
+my $BACKUP_STAMP = $ENV{BACKUP_STAMP};
+my $COMPRESSION_LEVEL = DBDefs->SEARCH_INDEXES_DUMP_COMPRESSION_LEVEL;
+
+my @backup_dirs;
+my @extraneous_files;
+
+opendir(my $wdh, $working_dir) or die $!;
+for my $filename (sort grep { ! /^\.\.?$/ } readdir $wdh)
+{
+    if ($filename =~ /^backup_${BACKUP_STAMP}_/)
+    {
+        push @backup_dirs, $filename;
+    }
+    else
+    {
+        push @extraneous_files, $filename;
+    }
+}
+closedir $wdh;
+
+die "$working_dir has extraneous files: @extraneous_files\n"
+    if scalar @extraneous_files;
+
+my @public_domain_collections = qw(
+    area
+    artist
+    event
+    instrument
+    label
+    place
+    recording
+    release
+    release-group
+    series
+    url
+    work
+);
+
+my @private_collections = qw(
+    editor
+);
+
+for my $backup_dir (@backup_dirs)
+{
+    my $collection = $backup_dir =~ s/^backup_\d{8}-\d{6}_//r;
+    my $dump_dir = $collection;
+    opendir(my $bdh, "$working_dir/$backup_dir") or die $!;
+    if (grep { /^$collection$/ } @private_collections)
+    {
+        system 'rm', '-fr', "$working_dir/$backup_dir";
+        next;
+    }
+    @extraneous_files = ();
+    for my $filename (sort grep { ! /^\.\.?$/ } readdir $bdh)
+    {
+        push @extraneous_files, $filename
+            if ! $filename =~ 'backup\.properties|snapshot\.shard1';
+    }
+    closedir $bdh;
+    die "$working_dir/$backup_dir has extraneous files: @extraneous_files\n"
+        if scalar @extraneous_files;
+
+    my $working_dump_dir = "$working_dir/$dump_dir";
+    move("$working_dir/$backup_dir", $working_dump_dir) or die $!;
+    move("$working_dump_dir/snapshot.shard1", "$working_dump_dir/index") or die $!;
+
+    my $license_file = (grep { /^$collection$/ } @public_domain_collections)
+        ? "$FindBin::Bin/COPYING-PublicDomain"
+        : "$FindBin::Bin/COPYING-CCShareAlike";
+    copy($license_file, "$working_dump_dir/COPYING") or die $!;
+
+    my $readme_text = <<EOF;
+The files in the directory 'index' are a snapshot of the search index
+'$collection' from musicbrainz.org, in a format suitable for
+use with an Apache Solr server.  To import them, you need a compatible
+version of the MusicBrainz simple Solr search server schema (mbsssss).
+EOF
+    _write_file($working_dump_dir, 'README', $readme_text);
+
+    my $tar_file = "$collection.tar.zst";
+    _info("Creating $tar_file");
+    system
+        'bash', '-c',
+            'set -o pipefail; ' .
+            'tar' .
+            ' -C ' . shell_quote($working_dir) .
+            ' --create' .
+            ' --group=solr:8983' .
+            ' --owner=solr:8983' .
+            ' --remove-files' .
+            ' --verbose' .
+            ' -- ' .
+            shell_quote($dump_dir) .
+            " | zstd -T0 -$COMPRESSION_LEVEL" .
+            ' > ' . shell_quote("$working_dir/$tar_file");
+    if ($? != 0)
+    {
+        _error('Tar returned ' . ($? >> 8));
+        exit 70; # EX_SOFTWARE
+    }
+
+    MusicBrainz::Script::MBDump::gpg_sign("$working_dir/$tar_file");
+}
+
+for my $hash_program ('md5sum', 'sha256sum') {
+    my $hash_output_file = uc($hash_program . 's');
+    chomp (my $hash_bin = `which g$hash_program` || `which $hash_program`);
+    my $hash_command = "cd $working_dir" .
+        " && $hash_bin --binary *.tar.zst > $hash_output_file";
+    system $hash_command;
+    if ($? != 0)
+    {
+        _error('Failed command with ' . ($? >> 8) . ": $hash_command");
+        exit 70; # EX_SOFTWARE
+    }
+
+    MusicBrainz::Script::MBDump::gpg_sign("$working_dir/$hash_output_file");
+}
+
+_info 'Successfully bundled SolrCloud backups as search indexes dump.';
+exit;
+
+################################################################################
+
+sub _write_file
+{
+    my ($parent_dir, $file, $contents) = @_;
+
+    open(my $fh, '>' . $parent_dir . "/$file") or die $!;
+    print $fh $contents or die $!;
+    close $fh or die $!;
+}
