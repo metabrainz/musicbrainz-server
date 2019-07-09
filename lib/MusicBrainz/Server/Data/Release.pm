@@ -1175,13 +1175,6 @@ sub merge
         }
     }
     elsif ($merge_strategy == $MERGE_MERGE) {
-        confess('Mediums contain differing numbers of tracks')
-            unless $self->can_merge({
-                merge_strategy => $MERGE_MERGE,
-                new_id => $new_id,
-                old_ids => \@old_ids,
-            });
-
         my $recording_merges = $opts{recording_merges} //
             $self->determine_recording_merges($new_id, @old_ids);
 
