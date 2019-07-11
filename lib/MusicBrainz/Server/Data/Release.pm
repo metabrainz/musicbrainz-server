@@ -43,6 +43,12 @@ use Readonly;
 Readonly our $MERGE_APPEND => 1;
 Readonly our $MERGE_MERGE => 2;
 
+Readonly::Hash our %RELEASE_MERGE_ERRORS => (
+    medium_positions            => N_l('The medium positions conflict.'),
+    medium_track_counts         => N_l('The track counts on at least one set of corresponding mediums do not match.'),
+    pregaps                     => N_l('Mediums with a pregap track can only be merged with other mediums with a pregap track.'),
+);
+
 sub _type { 'release' }
 
 sub _columns
@@ -810,7 +816,7 @@ sub can_merge {
             @old_ids, $new_id);
 
         if ($mediums_differ) {
-            $opts->{_cannot_merge_reason} = N_l('The track counts on at least one set of corresponding mediums do not match.');
+            $opts->{_cannot_merge_reason} = $RELEASE_MERGE_ERRORS{medium_track_counts};
             return 0;
         }
 
@@ -830,7 +836,7 @@ sub can_merge {
             # Mediums in the same position should either all have pregaps,
             # or none should.
             if ($pregap_count{0} && $pregap_count{1}) {
-                $opts->{_cannot_merge_reason} = N_l('Mediums with a pregap track can only be merged with other mediums with a pregap track.');
+                $opts->{_cannot_merge_reason} = $RELEASE_MERGE_ERRORS{pregaps};
                 return 0;
             }
         }
@@ -838,7 +844,7 @@ sub can_merge {
         return 1;
     }
     elsif ($strategy == $MERGE_APPEND) {
-        $opts->{_cannot_merge_reason} = N_l('The medium positions conflict.');
+        $opts->{_cannot_merge_reason} = $RELEASE_MERGE_ERRORS{medium_positions};
 
         my %positions = %{ $opts->{medium_positions} || {} } or return 0;
 
