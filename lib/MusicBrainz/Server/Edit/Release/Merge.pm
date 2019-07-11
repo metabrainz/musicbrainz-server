@@ -284,6 +284,8 @@ sub do_merge
         medium_names => $medium_names
     );
 
+    my ($can_merge, $cannot_merge_reason) = $self->c->model('Release')->can_merge(\%opts);
+
     my $recording_merges;
     if ($merge_strategy == $MusicBrainz::Server::Data::Release::MERGE_MERGE) {
         $recording_merges = $self->recording_merges;
@@ -291,8 +293,8 @@ sub do_merge
         $opts{recording_merges} = $recording_merges;
     }
 
-    if (!$self->c->model('Release')->can_merge(\%opts)) {
-        my $message = 'These releases could not be merged: ' . $opts{_cannot_merge_reason};
+    unless ($can_merge) {
+        my $message = 'These releases could not be merged: ' . $cannot_merge_reason;
         MusicBrainz::Server::Edit::Exceptions::GeneralError->throw($message);
     }
 

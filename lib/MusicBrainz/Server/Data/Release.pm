@@ -816,8 +816,7 @@ sub can_merge {
             @old_ids, $new_id);
 
         if ($mediums_differ) {
-            $opts->{_cannot_merge_reason} = $RELEASE_MERGE_ERRORS{medium_track_counts};
-            return 0;
+            return (0, $RELEASE_MERGE_ERRORS{medium_track_counts});
         }
 
         my $medium_ids = $self->sql->select_single_column_array(
@@ -836,15 +835,14 @@ sub can_merge {
             # Mediums in the same position should either all have pregaps,
             # or none should.
             if ($pregap_count{0} && $pregap_count{1}) {
-                $opts->{_cannot_merge_reason} = $RELEASE_MERGE_ERRORS{pregaps};
-                return 0;
+                return (0, $RELEASE_MERGE_ERRORS{pregaps});
             }
         }
 
         return 1;
     }
     elsif ($strategy == $MERGE_APPEND) {
-        $opts->{_cannot_merge_reason} = $RELEASE_MERGE_ERRORS{medium_positions};
+        my @failure = (0, $RELEASE_MERGE_ERRORS{medium_positions});
 
         my %positions = %{ $opts->{medium_positions} || {} } or return 0;
 
@@ -854,7 +852,7 @@ sub can_merge {
             \@old_ids
         ) };
 
-        return 0 if grep { !exists $positions{$_} } @must_move_mediums;
+        return @failure if grep { !exists $positions{$_} } @must_move_mediums;
 
         # Make sure the new positions don't conflict with the current new medium
         my @conflicts = @{
@@ -881,10 +879,9 @@ sub can_merge {
              ', map { $_, $positions{$_} } keys %positions)
         };
 
-        return 0 if @conflicts;
+        return @failure if @conflicts;
 
         # If we've got this far, it must be ok to merge
-        delete $opts->{_cannot_merge_reason};
         return 1;
     }
 }
