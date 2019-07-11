@@ -460,9 +460,9 @@ sub _extra_entity_data {
 }
 
 around _merge_submit => sub {
-    my ($orig, $self, $c, $form, $entities) = @_;
+    my ($orig, $self, $c, $form, $releases) = @_;
     my $new_id = $form->field('target')->value or die 'Coludnt figure out new_id';
-    my ($new, $old) = part { $_->id == $new_id ? 0 : 1 } @$entities;
+    my ($new, $old) = part { $_->id == $new_id ? 0 : 1 } @$releases;
 
     my $strat = $form->field('merge_strategy')->value;
     my %merge_opts = (
@@ -473,7 +473,7 @@ around _merge_submit => sub {
 
     # XXX Ripped from Edit/Release/Merge.pm need to find a better solution.
     if ($strat == $MusicBrainz::Server::Data::Release::MERGE_APPEND) {
-        my %extra_params = $self->_merge_parameters($c, $form, $entities);
+        my %extra_params = $self->_merge_parameters($c, $form, $releases);
         $merge_opts{ medium_positions } = {
             map { $_->{id} => $_->{new_position} }
             map { @{ $_->{mediums} } }
@@ -482,7 +482,7 @@ around _merge_submit => sub {
     }
 
     if ($c->model('Release')->can_merge(\%merge_opts)) {
-        $self->$orig($c, $form, $entities);
+        $self->$orig($c, $form, $releases);
     } else {
         $form->field('merge_strategy')->add_error(
             l('This merge strategy is not applicable to the releases you have selected.')
