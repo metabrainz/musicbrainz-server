@@ -20,7 +20,7 @@ import yesNo from '../../static/scripts/common/utility/yesNo';
 
 type AliasEntityTypeT = $ElementType<AliasEntityTypeT, 'entityType'>;
 
-type AddRemoveAliasEditT = EditT & {
+type AddRemoveAliasEditT = {
   display_data: {
     alias: string,
     begin_date: PartialDateT,
@@ -30,8 +30,11 @@ type AddRemoveAliasEditT = EditT & {
     locale: string,
     primary_for_locale: boolean,
     sort_name: string,
-    type: OptionTreeT<empty>,
+    type: {
+      name: string,
+    } | null,
   },
+  edit_kind: string,
 };
 
 type Props = {|
@@ -84,7 +87,7 @@ const AddRemoveAlias = ({edit}: Props) => {
       {display.type ? (
         <tr>
           <th>{addColonText(l('Type'))}</th>
-          <td>{lp_attributes(display.type.name, 'alias_type')}</td>
+          <td>{lp_attributes((display.type) ? display.type.name : '', 'alias_type')}</td>
         </tr>
       ) : null}
       {isDateEmpty(display.begin_date) ? null : (

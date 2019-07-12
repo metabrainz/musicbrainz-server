@@ -31,6 +31,29 @@ declare type AliasT = {|
   +sort_name: string,
 |};
 
+declare type AliasFormT = {|
+  field: {
+    edit_note: FieldT<string>,
+    locale: FieldT<string>,
+    make_votable: FieldT<boolean>,
+    name: FieldT<string>,
+    period: {
+      field: {
+        begin_date: PartialDateFieldT,
+        end_date: PartialDateFieldT,
+        ended: FieldT<boolean>,
+      },
+      has_errors: boolean,
+      html_name: string,
+    },
+    primary_for_locale: FieldT<boolean>,
+    sort_name: FieldT<string>,
+    type_id: FieldT<string>,
+  },
+  has_errors: boolean,
+  name: string,
+|};
+
 declare type AnchorProps = {|
   +href: string,
   +key?: number | string,
@@ -676,9 +699,9 @@ declare type PagerT = {|
 |};
 
 declare type PartialDateFieldT = CompoundFieldT<{|
-  +day: FieldT<number>,
-  +month: FieldT<number>,
-  +year: FieldT<number>,
+  +day: FieldT<number | null>,
+  +month: FieldT<number | null>,
+  +year: FieldT<number | null>,
 |}>;
 
 declare type PartialDateT = {|

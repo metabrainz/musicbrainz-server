@@ -84,9 +84,10 @@ sub _locale_name_special_cases {
 sub options_locale {
     my ($self, $field) = @_;
     return [
-        map {
-            $_->id => indentation($_->id =~ /[_-]/ ? 1 : 0) . _locale_name_special_cases($_)
-        }
+        map +{
+            value => $_->id,
+            label => indentation($_->id =~ /[_-]/ ? 1 : 0) . _locale_name_special_cases($_)
+        },
             sort_by { $_->name }
             sort_by { $_->id }
                 map { DateTime::Locale->load($_) } DateTime::Locale->ids

@@ -13,12 +13,13 @@ import FieldErrors from './FieldErrors';
 import FormRow from './FormRow';
 
 type Props = {|
+  +disabled?: boolean,
   +field: ReadOnlyFieldT<boolean>,
   +label: string,
   +onChange?: (event: SyntheticEvent<HTMLInputElement>) => void,
 |};
 
-const FormRowCheckbox = ({field, label, onChange}: Props) => (
+const FormRowCheckbox = ({field, label, onChange, ...inputProps}: Props) => (
   <FormRow hasNoLabel>
     <label className="inline">
       <input
@@ -27,6 +28,7 @@ const FormRowCheckbox = ({field, label, onChange}: Props) => (
         onChange={onChange}
         type="checkbox"
         value="1"
+        {...inputProps}
       />
       {' '}
       {label}
