@@ -463,10 +463,15 @@ sub _extra_entity_data {
     return @args;
 }
 
-around _merge_submit => sub {
-    my ($orig, $self, $c, $form, $releases) = @_;
+around _validate_merge => sub {
+    my ($orig, $self, $c, $form) = @_;
 
-    my $new_id = $form->field('target')->value or die 'Coludnt figure out new_id';
+    my $releases = $c->stash->{to_merge};
+
+    return 0 unless $self->$orig($c, $form);
+    # The entity-specific form data was submitted and is valid.
+
+    my $new_id = $form->field('target')->value;
     my ($new, $old) = part { $_->id == $new_id ? 0 : 1 } @$releases;
     my @old_ids = [map { $_->id } @$old];
 
@@ -499,16 +504,17 @@ around _merge_submit => sub {
         $cannot_merge_reason = $recording_merge_result;
     }
 
-    if ($can_merge) {
-        $self->$orig($c, $form, $releases);
-    } else {
+    unless ($can_merge) {
         $form->field('merge_strategy')->add_error(
             l('This merge strategy is not applicable to the releases you have selected.')
         );
         $form->field('merge_strategy')->add_error(
             l($cannot_merge_reason->{message}, $cannot_merge_reason->{args} // {}),
         );
+        return 0;
     }
+
+    return 1;
 };
 
 sub _merge_load_entities {
