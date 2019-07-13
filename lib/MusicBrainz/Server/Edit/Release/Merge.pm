@@ -111,13 +111,27 @@ has recording_merges => (
     builder => '_build_recording_merges',
 );
 
+has cannot_merge_recordings_reason => (
+    is => 'rw',
+    isa => 'Maybe[HashRef]',
+);
+
 sub _build_recording_merges {
     my $self = shift;
 
-    return $self->c->model('Release')->determine_recording_merges(
-        $self->data->{new_entity}{id},
-        map { $_->{id} } @{$self->data->{old_entities}},
-    ) if $self->is_open;
+    $self->cannot_merge_recordings_reason(undef);
+
+    if ($self->is_open) {
+        my ($can_merge, $result) = $self->c->model('Release')->determine_recording_merges(
+            $self->data->{new_entity}{id},
+            map { $_->{id} } @{$self->data->{old_entities}},
+        );
+        if ($can_merge) {
+            return $result;
+        }
+        $self->cannot_merge_recordings_reason($result);
+        return [];
+    }
 
     return $self->data->{recording_merges};
 }
@@ -288,10 +302,16 @@ sub do_merge
     my ($can_merge, $cannot_merge_reason) = $self->c->model('Release')->can_merge(\%opts);
 
     my $recording_merges;
-    if ($merge_strategy == $MusicBrainz::Server::Data::Release::MERGE_MERGE) {
+    if ($can_merge && $merge_strategy == $MusicBrainz::Server::Data::Release::MERGE_MERGE) {
         $recording_merges = $self->recording_merges;
-        $self->data->{recording_merges} = $recording_merges;
-        $opts{recording_merges} = $recording_merges;
+
+        $cannot_merge_reason = $self->cannot_merge_recordings_reason;
+        $can_merge = $cannot_merge_reason ? 0 : 1;
+
+        if ($can_merge) {
+            $self->data->{recording_merges} = $recording_merges;
+            $opts{recording_merges} = $recording_merges;
+        }
     }
 
     unless ($can_merge) {

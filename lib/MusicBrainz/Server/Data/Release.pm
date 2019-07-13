@@ -26,7 +26,7 @@ use MusicBrainz::Server::Data::Utils qw(
     placeholders
 );
 use MusicBrainz::Server::Log qw( log_debug );
-use MusicBrainz::Server::Translation qw( N_l );
+use MusicBrainz::Server::Translation qw( comma_list N_l );
 use aliased 'MusicBrainz::Server::Entity::Artwork';
 
 extends 'MusicBrainz::Server::Data::CoreEntity';
@@ -44,6 +44,7 @@ Readonly our $MERGE_APPEND => 1;
 Readonly our $MERGE_MERGE => 2;
 
 Readonly::Hash our %RELEASE_MERGE_ERRORS => (
+    ambiguous_recording_merge   => N_l('Unable to determine which recording {source_recording} should be merged into. There are multiple valid options: {target_recordings}.'),
     medium_positions            => N_l('The medium positions conflict.'),
     medium_track_counts         => N_l('The track counts on at least one set of corresponding mediums do not match.'),
     pregaps                     => N_l('Mediums with a pregap track can only be merged with other mediums with a pregap track.'),
@@ -910,6 +911,16 @@ sub determine_medium_merges {
     );
 }
 
+sub _link_recording {
+    my $recording_info = shift;
+
+    MusicBrainz::Server::Translation->expand(
+        '{url|{name}}',
+        url => '/recording/' . $recording_info->{gid},
+        name => $recording_info->{name},
+    );
+}
+
 sub determine_recording_merges {
     my ($self, $new_release_id, @old_release_ids) = @_;
 
@@ -956,18 +967,6 @@ sub determine_recording_merges {
     }, $new_release_id, \@old_release_ids);
 
     state $json = JSON::XS->new->utf8(0);
-    my %target_count;
-
-    for my $possible_merge (@{$possible_merges}) {
-        $possible_merge->{new_recording} = $json->decode($possible_merge->{new_recording});
-        $possible_merge->{old_recordings} = [map { $json->decode($_) } @{$possible_merge->{old_recordings}}];
-
-        # We need to make sure that for each old recording, there is only 1
-        # new recording to merge into. If there is > 1, then it's not clear
-        # what we should merge into.
-        $target_count{$_->{id}}++ for @{$possible_merge->{old_recordings}};
-    }
-
     # MBS-8614. Track recording merges, to resolve cases where a recording is
     # a merge source on one track (after which it gets deleted), and a merge
     # target on another track (in which case we should instead use the ID of
@@ -976,28 +975,51 @@ sub determine_recording_merges {
     # 1 -> 2
     # 3 -> 1
     my %merge_targets;
+    my %old_recordings_by_id;
 
-    $possible_merges = [grep {
-        # Assigned to avoid confusion with unrelated uses of $_ below.
-        my $possible_merge = $_;
+    for my $possible_merge (@{$possible_merges}) {
+        my $new_recording =
+            $possible_merge->{new_recording} =
+            $json->decode($possible_merge->{new_recording});
 
-        my ($new_recording, $old_recordings) = @{$possible_merge}{qw(
-            new_recording
-            old_recordings
-        )};
+        my $old_recordings = $possible_merge->{old_recordings};
+        @{$old_recordings} = map { $json->decode($_) } @{$old_recordings};
 
-        # As mentioned above, remove old (source) recordings that have
-        # multiple targets.
-        #
-        # Perl fact: this assignment modifies the array in $possible_merge.
-        @{$old_recordings} = grep { $target_count{$_->{id}} == 1 } @{$old_recordings};
+        for my $old_recording (@{$old_recordings}) {
+            my $old_id = $old_recording->{id};
 
-        $merge_targets{$_->{id}} = $new_recording for @{$old_recordings};
+            $old_recordings_by_id{$old_id} = $old_recording;
 
-        # Make sure there's at least one merge source left for this target.
-        # (This is the expression for which `grep` is evaluated on.)
-        scalar @{$old_recordings} > 0
-    } @{$possible_merges}];
+            my $target = \$merge_targets{$old_id};
+
+            if (defined ${$target}) {
+                ${$target} = [${$target}] if ref ${$target} ne 'ARRAY';
+                push @{${$target}}, $new_recording;
+            } else {
+                ${$target} = $new_recording;
+            }
+        }
+    }
+
+    for my $old_id (keys %merge_targets) {
+        my $target = $merge_targets{$old_id};
+
+        # We need to make sure that for each old recording, there is only 1
+        # new recording to merge into. If there is > 1, then it's not clear
+        # what we should merge into.
+
+        if (ref $target eq 'ARRAY') {
+            my $source = $old_recordings_by_id{$old_id};
+
+            return (0, {
+                message => $RELEASE_MERGE_ERRORS{ambiguous_recording_merge},
+                args => {
+                    source_recording => _link_recording($source),
+                    target_recordings => comma_list(map { _link_recording($_) } @{$target}),
+                },
+            });
+        }
+    }
 
     my %recording_merges;
     for my $possible_merge (@{$possible_merges}) {
@@ -1033,14 +1055,14 @@ sub determine_recording_merges {
 
     # Sort, then convert to the format expected by
     # MusicBrainz::Server::Edit::Release::Merge.
-    [map +{
+    (1, [map +{
         medium      => $_->{new_medium_position},
         track       => $_->{new_track_number},
         destination => $_->{new_recording},
         sources     => $_->{old_recordings},
     }, nsort_by {
         $_->{new_medium_position}, $_->{new_track_position}
-    } values %recording_merges];
+    } values %recording_merges]);
 }
 
 sub merge
@@ -1184,8 +1206,12 @@ sub merge
         }
     }
     elsif ($merge_strategy == $MERGE_MERGE) {
-        my $recording_merges = $opts{recording_merges} //
-            $self->determine_recording_merges($new_id, @old_ids);
+        my $recording_merges = $opts{recording_merges};
+
+        unless (defined $recording_merges) {
+            (my $can_merge, $recording_merges) = $self->determine_recording_merges($new_id, @old_ids);
+            die unless $can_merge; # we should never hit this here
+        }
 
         for my $recording_merge (@{$recording_merges}) {
             $self->c->model('Recording')->merge(

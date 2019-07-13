@@ -380,22 +380,26 @@ sub _merge_form_arguments {
         }
     }
 
+    my ($can_merge_recordings, $recording_merge_result) =
+        $c->model('Release')->determine_recording_merges(map { $_->id } @{$releases});
+
     my @bad_recording_merges;
-    my $recording_merges = $c->model('Release')->determine_recording_merges(@releases);
-    for my $recording_merge (@{$recording_merges}) {
-        my @ac_ids = (
-            $recording_merge->{destination}{artist_credit_id},
-            map { $_->{artist_credit_id} } @{$recording_merge->{sources}},
-        );
-        if (uniq(@ac_ids) > 1) {
-            push @bad_recording_merges, (
-                Recording->new($recording_merge->{destination}),
-                map { Recording->new($_) } @{$recording_merge->{sources}},
+    if ($can_merge_recordings) {
+        for my $recording_merge (@{$recording_merge_result}) {
+            my @ac_ids = (
+                $recording_merge->{destination}{artist_credit_id},
+                map { $_->{artist_credit_id} } @{$recording_merge->{sources}},
             );
+            if (uniq(@ac_ids) > 1) {
+                push @bad_recording_merges, (
+                    Recording->new($recording_merge->{destination}),
+                    map { Recording->new($_) } @{$recording_merge->{sources}},
+                );
+            }
         }
-    }
-    if (@bad_recording_merges) {
-        $c->model('ArtistCredit')->load(map { @$_ } @bad_recording_merges);
+        if (@bad_recording_merges) {
+            $c->model('ArtistCredit')->load(map { @$_ } @bad_recording_merges);
+        }
     }
 
     @mediums = nsort_by { $_->{position} } @mediums;
@@ -461,14 +465,19 @@ sub _extra_entity_data {
 
 around _merge_submit => sub {
     my ($orig, $self, $c, $form, $releases) = @_;
+
     my $new_id = $form->field('target')->value or die 'Coludnt figure out new_id';
     my ($new, $old) = part { $_->id == $new_id ? 0 : 1 } @$releases;
+    my @old_ids = [map { $_->id } @$old];
+
+    my ($can_merge_recordings, $recording_merge_result) =
+        $c->model('Release')->determine_recording_merges($new_id, @old_ids);
 
     my $strat = $form->field('merge_strategy')->value;
     my %merge_opts = (
         merge_strategy => $strat,
         new_id => $new_id,
-        old_ids => [ map { $_->id } @$old ],
+        old_ids => \@old_ids,
     );
 
     # XXX Ripped from Edit/Release/Merge.pm need to find a better solution.
@@ -482,6 +491,13 @@ around _merge_submit => sub {
     }
 
     my ($can_merge, $cannot_merge_reason) = $c->model('Release')->can_merge(\%merge_opts);
+
+    if ($can_merge &&
+            $strat == $MusicBrainz::Server::Data::Release::MERGE_MERGE &&
+            !$can_merge_recordings) {
+        $can_merge = 0;
+        $cannot_merge_reason = $recording_merge_result;
+    }
 
     if ($can_merge) {
         $self->$orig($c, $form, $releases);
