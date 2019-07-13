@@ -816,7 +816,9 @@ sub can_merge {
             @old_ids, $new_id);
 
         if ($mediums_differ) {
-            return (0, $RELEASE_MERGE_ERRORS{medium_track_counts});
+            return (0, {
+                message => $RELEASE_MERGE_ERRORS{medium_track_counts},
+            });
         }
 
         my $medium_ids = $self->sql->select_single_column_array(
@@ -835,14 +837,18 @@ sub can_merge {
             # Mediums in the same position should either all have pregaps,
             # or none should.
             if ($pregap_count{0} && $pregap_count{1}) {
-                return (0, $RELEASE_MERGE_ERRORS{pregaps});
+                return (0, {
+                    message => $RELEASE_MERGE_ERRORS{pregaps},
+                });
             }
         }
 
         return 1;
     }
     elsif ($strategy == $MERGE_APPEND) {
-        my @failure = (0, $RELEASE_MERGE_ERRORS{medium_positions});
+        my @failure = (0, {
+            message => $RELEASE_MERGE_ERRORS{medium_positions},
+        });
 
         my %positions = %{ $opts->{medium_positions} || {} } or return 0;
 

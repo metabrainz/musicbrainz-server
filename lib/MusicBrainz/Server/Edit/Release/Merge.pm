@@ -5,6 +5,7 @@ use 5.18.2;
 use Moose;
 use List::AllUtils qw( any );
 use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_MERGE );
+use MusicBrainz::Server::Data::Utils qw( localized_note );
 use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Edit::Types qw(
     ArtistCreditDefinition
@@ -294,8 +295,14 @@ sub do_merge
     }
 
     unless ($can_merge) {
-        my $message = 'These releases could not be merged: ' . $cannot_merge_reason;
-        MusicBrainz::Server::Edit::Exceptions::GeneralError->throw($message);
+        my $error = localized_note(
+            N_l('These releases could not be merged: {reason}'),
+            {reason => localized_note(
+                $cannot_merge_reason->{message},
+                $cannot_merge_reason->{args},
+            )},
+        );
+        MusicBrainz::Server::Edit::Exceptions::GeneralError->throw($error);
     }
 
     $self->c->model('Release')->merge(%opts);
