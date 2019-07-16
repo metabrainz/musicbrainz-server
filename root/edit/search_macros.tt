@@ -293,6 +293,7 @@
   [% operators([ [ '=', l('is') ]
                , [ '!=', l('is not') ]
                , [ 'subscribed', l('is in my subscriptions') ]
+               , [ 'not_subscribed', l('is not in my subscriptions') ]
                ], field_contents) %]
 
   <span class="arg autocomplete [% field | replace('_', '-') %]">
