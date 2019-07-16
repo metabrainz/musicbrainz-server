@@ -365,8 +365,9 @@ sub _find_writers
 =method load_recording_artists
 
 This method will load the work's artists based on the recordings the work
-is linked to. The artist credits are sorted by the number of recordings in
-descending order (i.e. the top artists will be first in the list).
+is linked to. The artist credits are sorted by the number of tracks for
+the recordings by that artist in descending order. This ensures the 
+artists most associated with the work will be listed first.
 
 =cut
 
@@ -395,6 +396,7 @@ sub _find_recording_artists
         SELECT lrw.entity1 AS work, r.artist_credit
         FROM l_recording_work lrw
         JOIN recording r ON lrw.entity0 = r.id
+        LEFT JOIN track t on r.id = t.recording
         WHERE lrw.entity1 IN (" . placeholders(@$ids) . ")
         GROUP BY lrw.entity1, r.artist_credit
         ORDER BY count(*) DESC, artist_credit
