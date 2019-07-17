@@ -5,25 +5,25 @@ import MB from '../MB';
 $(function () {
     /* eslint-disable sort-keys */
     const cardinalityMap = {
-        'id': {
+        id: {
             '=': 1, '!=': 1, '>': 1, '<': 1, 'BETWEEN': 2,
         },
-        'date': {
+        date: {
             '=': 1, '!=': 1, '>': 1, '<': 1, 'BETWEEN': 2,
         },
-        'set': {
+        set: {
             '=': 1, '!=': 1, // Not directly true, but it here it means "show one argument control"
         },
-        'voter': {
+        voter: {
             '=': 1, '!=': 1, 'me': 0, 'not_me': 0, 'subscribed': 0, 'not_subscribed': 0,
         },
-        'subscription': {
+        subscription: {
             '=': 1, '!=': 1, 'subscribed': 0, 'not_subscribed': 0,
         },
-        'link_type': {
+        link_type: {
             '=': 1,
         },
-        'user': {
+        user: {
             '=': 1, '!=': 1, 'me': 0, 'not_me': 0, 'subscribed': 0, 'not_subscribed': 0, 'beginner': 0,
         },
     };
@@ -64,7 +64,7 @@ $(function () {
                 .find('select.operator').trigger('change');
 
             $li.find('span.autocomplete').each(function () {
-                MB.Control.EntityAutocomplete({ 'inputs': $(this) });
+                MB.Control.EntityAutocomplete({ inputs: $(this) });
             });
 
             $li.find(':input').each(function () {
@@ -123,6 +123,6 @@ $(function () {
     });
 
     $('ul.conditions span.autocomplete').each(function () {
-        MB.Control.EntityAutocomplete({ 'inputs': $(this) });
+        MB.Control.EntityAutocomplete({ inputs: $(this) });
     });
 });
