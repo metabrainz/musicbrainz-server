@@ -246,7 +246,9 @@
                  [ '!=', l('is not') ]
                  [ 'me', l('is me') ]
                  [ 'not_me', l('is not me') ]
-                 [ 'subscribed', l('is in my subscriptions') ] ], field_contents) %]
+                 [ 'subscribed', l('is in my subscriptions') ]
+                 [ 'not_subscribed', l('is not in my subscriptions') ]
+               ], field_contents) %]
 
   <span class="arg autocomplete editor">
     [% React.embed(c, 'static/scripts/common/components/SearchIcon') %]
@@ -322,8 +324,9 @@
                  [ '!=', l('is not') ]
                  [ 'me', l('is me') ]
                  [ 'not_me', l('is not me') ]
-                 [ 'subscribed', l('is in my subscriptions') ] ], field_contents) %]
-
+                 [ 'subscribed', l('is in my subscriptions') ]
+                 [ 'not_subscribed', l('is not in my subscriptions') ]
+               ], field_contents) %]
   <span class="arg autocomplete editor">
     [% React.embed(c, 'static/scripts/common/components/SearchIcon') %]
     <input type="text" class="name" name="name" value="[% html_escape(field_contents.name) %]" style="width: 170px;" />
