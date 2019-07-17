@@ -72,8 +72,7 @@ $(function () {
         });
 
         conditionCounter++;
-      }
-      else {
+      } else {
         console.error('There is no field-' + val);
       }
     })
@@ -92,8 +91,7 @@ $(function () {
   }
 
   function addInputNamePrefix($input) {
-    if ($input.attr('name'))
-    {
+    if ($input.attr('name')) {
       $input.attr('name', prefixedInputName($input));
     }
   }
