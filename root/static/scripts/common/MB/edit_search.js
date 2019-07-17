@@ -4,37 +4,37 @@ import MB from '../MB';
 
 $(function () {
     /* eslint-disable sort-keys */
-    var cardinalityMap = {
+    const cardinalityMap = {
         'id': {
-            '=': 1, '!=': 1, '>': 1, '<': 1, 'BETWEEN': 2
+            '=': 1, '!=': 1, '>': 1, '<': 1, 'BETWEEN': 2,
         },
         'date': {
-            '=': 1, '!=': 1, '>': 1, '<': 1, 'BETWEEN': 2
+            '=': 1, '!=': 1, '>': 1, '<': 1, 'BETWEEN': 2,
         },
         'set': {
-            '=': 1, '!=': 1 // Not directly true, but it here it means "show one argument control"
+            '=': 1, '!=': 1, // Not directly true, but it here it means "show one argument control"
         },
         'voter': {
-            '=': 1, '!=': 1, 'me': 0, 'not_me': 0, 'subscribed': 0, 'not_subscribed': 0
+            '=': 1, '!=': 1, 'me': 0, 'not_me': 0, 'subscribed': 0, 'not_subscribed': 0,
         },
         'subscription': {
-            '=': 1, '!=': 1, 'subscribed': 0, 'not_subscribed': 0
+            '=': 1, '!=': 1, 'subscribed': 0, 'not_subscribed': 0,
         },
         'link_type': {
-            '=': 1
+            '=': 1,
         },
         'user': {
-            '=': 1, '!=': 1, 'me': 0, 'not_me': 0, 'subscribed': 0, 'not_subscribed': 0, 'beginner': 0
+            '=': 1, '!=': 1, 'me': 0, 'not_me': 0, 'subscribed': 0, 'not_subscribed': 0, 'beginner': 0,
         },
     };
     /* eslint-enable sort-keys */
 
-    var conditionCounter = 0;
+    let conditionCounter = 0;
 
     $(document).on("change", "#extra-condition select", function () {
-        var newCondition = $(this).parent('li');
+        const newCondition = $(this).parent('li');
 
-        var append = newCondition.clone();
+        const append = newCondition.clone();
         append.find('select').val('');
 
         newCondition
@@ -52,13 +52,13 @@ $(function () {
         $(this).parent('li').remove();
 
     }).on("change", "ul.conditions select.field", function () {
-        var val = $(this).val();
-        var $replacement = $('#fields .field-' + val).clone();
+        const val = $(this).val();
+        const $replacement = $('#fields .field-' + val).clone();
         if ($replacement.length) {
-            var $li = $(this).parent('li');
+            const $li = $(this).parent('li');
             $li.find('span.field-container span.field').replaceWith($replacement);
 
-            var $field = $(this).parent('li').find('span.field-container span.field');
+            const $field = $(this).parent('li').find('span.field-container span.field');
             $field
                 .show()
                 .find('select.operator').trigger('change');
@@ -78,10 +78,10 @@ $(function () {
         }
 
     }).on("change", "ul.conditions select.operator", function () {
-        var $field = $(this).parent('span.field');
+        const $field = $(this).parent('span.field');
 
-        var predicate = filteredClassName($field, 'predicate-');
-        var cardinality = cardinalityMap[predicate][$(this).val()];
+        const predicate = filteredClassName($field, 'predicate-');
+        const cardinality = cardinalityMap[predicate][$(this).val()];
 
         $field.find('.arg').hide();
         $field.find('.arg:lt(' + cardinality + ')').show();
@@ -99,9 +99,9 @@ $(function () {
     }
 
     function filteredClassName($element, prefix) {
-        var classList = $element.attr('class').split(/\s+/);
-        var ret;
-        for (var i = 0; i < classList.length; i++) {
+        const classList = $element.attr('class').split(/\s+/);
+        let ret;
+        for (let i = 0; i < classList.length; i++) {
             if (classList[i].substring(0, prefix.length) === prefix) {
                 ret = classList[i].substring(prefix.length);
                 break;
