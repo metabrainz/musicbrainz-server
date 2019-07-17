@@ -64,7 +64,7 @@ $(function () {
                 .find('select.operator').trigger('change');
 
             $li.find('span.autocomplete').each(function () {
-                MB.Control.EntityAutocomplete({ inputs: $(this) });
+                MB.Control.EntityAutocomplete({inputs: $(this)});
             });
 
             $li.find(':input').each(function () {
@@ -123,6 +123,6 @@ $(function () {
     });
 
     $('ul.conditions span.autocomplete').each(function () {
-        MB.Control.EntityAutocomplete({ inputs: $(this) });
+        MB.Control.EntityAutocomplete({inputs: $(this)});
     });
 });
