@@ -108,6 +108,7 @@
 
   <!-- ko if: searchResults() && searchResults().length > 0 -->
   <p>[% l('Select a medium from the search results below and then click "Add Medium".') %]</p>
+  <p>[% l('The tracklist for the medium (including the track/recording associations, but not other data such as medium format) will be loaded as a medium on this release.') %]</p>
   <!-- /ko -->
 
   <!-- ko if: totalPages() > 1 -->
