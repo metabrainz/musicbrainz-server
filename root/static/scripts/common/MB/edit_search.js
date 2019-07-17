@@ -24,7 +24,7 @@ $(function () {
             '=': 1
         },
         'user': {
-            '=': 1, '!=': 1, 'me': 0, 'not_me': 0, 'subscribed': 0, 'not_subscribed': 0
+            '=': 1, '!=': 1, 'me': 0, 'not_me': 0, 'subscribed': 0, 'not_subscribed': 0, 'beginner': 0
         },
     };
 
