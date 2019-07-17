@@ -44,48 +44,51 @@ $(function () {
 
     newCondition.find('select:first')
       .addClass('field')
-      .find('option:first').remove();
+      .find('option:first')
+      .remove();
 
     newCondition.find('button.remove-item').show();
 
   }).on('click', 'ul.conditions li.condition button.remove-item', function () {
     $(this).parent('li').remove();
 
-  }).on('change', 'ul.conditions select.field', function () {
-    const val = $(this).val();
-    const $replacement = $('#fields .field-' + val).clone();
-    if ($replacement.length) {
-      const $li = $(this).parent('li');
-      $li.find('span.field-container span.field').replaceWith($replacement);
+  })
+    .on('change', 'ul.conditions select.field', function () {
+      const val = $(this).val();
+      const $replacement = $('#fields .field-' + val).clone();
+      if ($replacement.length) {
+        const $li = $(this).parent('li');
+        $li.find('span.field-container span.field').replaceWith($replacement);
 
-      const $field = $(this).parent('li').find('span.field-container span.field');
-      $field
-        .show()
-        .find('select.operator').trigger('change');
+        const $field = $(this).parent('li').find('span.field-container span.field');
+        $field
+          .show()
+          .find('select.operator').trigger('change');
 
-      $li.find('span.autocomplete').each(function () {
-        MB.Control.EntityAutocomplete({inputs: $(this)});
-      });
+        $li.find('span.autocomplete').each(function () {
+          MB.Control.EntityAutocomplete({inputs: $(this)});
+        });
 
-      $li.find(':input').each(function () {
-        addInputNamePrefix($(this));
-      });
+        $li.find(':input').each(function () {
+          addInputNamePrefix($(this));
+        });
 
-      conditionCounter++;
-    }
-    else {
-      console.error('There is no field-' + val);
-    }
+        conditionCounter++;
+      }
+      else {
+        console.error('There is no field-' + val);
+      }
 
-  }).on('change', 'ul.conditions select.operator', function () {
-    const $field = $(this).parent('span.field');
+    })
+    .on('change', 'ul.conditions select.operator', function () {
+      const $field = $(this).parent('span.field');
 
-    const predicate = filteredClassName($field, 'predicate-');
-    const cardinality = cardinalityMap[predicate][$(this).val()];
+      const predicate = filteredClassName($field, 'predicate-');
+      const cardinality = cardinalityMap[predicate][$(this).val()];
 
-    $field.find('.arg').hide();
-    $field.find('.arg:lt(' + cardinality + ')').show();
-  });
+      $field.find('.arg').hide();
+      $field.find('.arg:lt(' + cardinality + ')').show();
+    });
 
   function prefixedInputName($element) {
     return 'conditions.' + conditionCounter + '.' + $element.attr('name').replace(/conditions\.\d+\./, '');
