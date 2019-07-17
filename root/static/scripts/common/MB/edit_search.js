@@ -3,7 +3,7 @@ import $ from 'jquery';
 import MB from '../MB';
 
 $(function () {
-
+    /* eslint-disable sort-keys */
     var cardinalityMap = {
         'id': {
             '=': 1, '!=': 1, '>': 1, '<': 1, 'BETWEEN': 2
@@ -27,6 +27,7 @@ $(function () {
             '=': 1, '!=': 1, 'me': 0, 'not_me': 0, 'subscribed': 0, 'not_subscribed': 0, 'beginner': 0
         },
     };
+    /* eslint-enable sort-keys */
 
     var conditionCounter = 0;
 
