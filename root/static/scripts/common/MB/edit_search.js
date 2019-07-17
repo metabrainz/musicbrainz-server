@@ -31,7 +31,7 @@ $(function () {
 
     let conditionCounter = 0;
 
-    $(document).on("change", "#extra-condition select", function () {
+    $(document).on('change', '#extra-condition select', function () {
         const newCondition = $(this).parent('li');
 
         const append = newCondition.clone();
@@ -48,10 +48,10 @@ $(function () {
 
         newCondition.find('button.remove-item').show();
 
-    }).on("click", "ul.conditions li.condition button.remove-item", function () {
+    }).on('click', 'ul.conditions li.condition button.remove-item', function () {
         $(this).parent('li').remove();
 
-    }).on("change", "ul.conditions select.field", function () {
+    }).on('change', 'ul.conditions select.field', function () {
         const val = $(this).val();
         const $replacement = $('#fields .field-' + val).clone();
         if ($replacement.length) {
@@ -77,7 +77,7 @@ $(function () {
             console.error('There is no field-' + val);
         }
 
-    }).on("change", "ul.conditions select.operator", function () {
+    }).on('change', 'ul.conditions select.operator', function () {
         const $field = $(this).parent('span.field');
 
         const predicate = filteredClassName($field, 'predicate-');
