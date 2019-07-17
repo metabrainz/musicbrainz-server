@@ -48,10 +48,8 @@ $(function () {
       .remove();
 
     newCondition.find('button.remove-item').show();
-
   }).on('click', 'ul.conditions li.condition button.remove-item', function () {
     $(this).parent('li').remove();
-
   })
     .on('change', 'ul.conditions select.field', function () {
       const val = $(this).val();
@@ -78,7 +76,6 @@ $(function () {
       else {
         console.error('There is no field-' + val);
       }
-
     })
     .on('change', 'ul.conditions select.operator', function () {
       const $field = $(this).parent('span.field');
