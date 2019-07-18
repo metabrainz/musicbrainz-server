@@ -41,7 +41,7 @@ test 'Instrument releases page contains the expected data' => sub {
         'The entry is for the expected release',
     );
     $tx->is(
-        '//table[@class="tbl"]/tbody/tr/td[9]',
+        '//table[@class="tbl"]/tbody/tr/td[10]',
         'instrument',
         'The entry lists the relevant role, "instrument"',
     );
