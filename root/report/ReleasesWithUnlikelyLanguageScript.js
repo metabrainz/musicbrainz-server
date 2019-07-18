@@ -45,7 +45,7 @@ const ReleasesWithUnlikelyLanguageScript = ({
       {canBeFiltered ? <FilterLink filtered={filtered} /> : null}
     </ul>
 
-    <ReleaseList items={items} pager={pager} />
+    <ReleaseList items={items} pager={pager} showLanguageAndScript />
 
   </Layout>
 );
