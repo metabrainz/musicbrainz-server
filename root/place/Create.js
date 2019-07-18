@@ -9,7 +9,6 @@ import EditForm from './EditForm';
 type Props = {
   $c: CatalystContextT,
   entity: PlaceT,
-  form: PlaceFormT,
   optionsTypeId: SelectOptionsT
 };
 

@@ -13,7 +13,6 @@ import FieldErrors from '../components/FieldErrors';
 
 type Props = {
   $c: CatalystContextT,
-  form: PlaceFormT,
   optionsTypeId: SelectOptionsT
 };
 
