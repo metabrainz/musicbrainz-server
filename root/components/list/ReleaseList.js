@@ -24,6 +24,7 @@ import {
   defineSeriesNumberColumn,
   defineTextColumn,
   ratingsColumn,
+  releaseLanguageColumn,
   taggerColumn,
 } from '../../utility/tableColumns';
 
@@ -136,6 +137,7 @@ const ReleaseList = ({
         ...(labelsColumn ? [labelsColumn] : []),
         catnosColumn,
         barcodeColumn,
+        releaseLanguageColumn,
         ...(instrumentUsageColumn ? [instrumentUsageColumn] : []),
         ...($c.session?.tport == null ? [] : [taggerColumn]),
         ...(showRatings ? [ratingsColumn] : []),

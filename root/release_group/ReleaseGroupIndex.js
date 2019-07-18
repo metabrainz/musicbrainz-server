@@ -26,6 +26,7 @@ import Relationships from '../components/Relationships';
 import ReleaseEvents from '../static/scripts/common/components/ReleaseEvents';
 import ReleaseLabelList from '../components/ReleaseLabelList';
 import ReleaseCatnoList from '../components/ReleaseCatnoList';
+import ReleaseLanguageScript from '../components/ReleaseLanguageScript';
 import formatBarcode from '../static/scripts/common/utility/formatBarcode';
 import * as manifest from '../static/manifest';
 import releaseGroupType from '../utility/releaseGroupType';
@@ -50,7 +51,7 @@ function buildReleaseStatusTable($c, releaseStatusGroup) {
     <React.Fragment key={status ? status.name : 'no-status'}>
       <tr className="subh">
         {$c.user ? <th /> : null}
-        <th colSpan={$c.session && $c.session.tport ? 8 : 7}>
+        <th colSpan={$c.session && $c.session.tport ? 9 : 8}>
           {status?.name
             ? lp_attributes(status.name, 'release_status')
             : lp('(unknown)', 'release status')}
@@ -83,6 +84,9 @@ function buildReleaseStatusTable($c, releaseStatusGroup) {
             <ReleaseCatnoList labels={release.labels} />
           </td>
           <td className="barcode-cell">{formatBarcode(release.barcode)}</td>
+          <td>
+            <ReleaseLanguageScript release={release} />
+          </td>
           {$c.session?.tport
             ? <td><TaggerIcon entity={release} /></td>
             : null}
@@ -141,6 +145,7 @@ const ReleaseGroupIndex = ({
                   <th>{l('Label')}</th>
                   <th>{l('Catalog#')}</th>
                   <th>{l('Barcode')}</th>
+                  <th>{l('Language')}</th>
                   {$c.session?.tport
                     ? <th>{l('Tagger')}</th> : null}
                 </tr>
