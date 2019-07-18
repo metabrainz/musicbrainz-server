@@ -54,6 +54,7 @@ const ExternalLink = ({className, relationship, text}) => {
 const ExternalLinks = ({entity, empty, heading}) => {
   const relationships = entity.relationships;
   const links = [];
+  const blogLinks = [];
   const otherLinks = [];
 
   for (let i = 0; i < relationships.length; i++) {
@@ -75,12 +76,21 @@ const ExternalLinks = ({entity, empty, heading}) => {
           text={l('Official homepage')}
         />,
       );
+    } else if (/^blog$/.test(linkType.name)) {
+      blogLinks.push(
+        <ExternalLink
+          className="blog-favicon"
+          key={relationship.id}
+          relationship={relationship}
+          text={l('Blog')}
+        />,
+      );
     } else if (target.show_in_external_links) {
       otherLinks.push(relationship);
     }
   }
 
-  if (!(links.length || otherLinks.length)) {
+  if (!(links.length || blogLinks.length || otherLinks.length)) {
     return null;
   }
 
@@ -91,6 +101,8 @@ const ExternalLinks = ({entity, empty, heading}) => {
 
   const uniqueOtherLinks = _.sortedUniqBy(otherLinks, x => x.target.href_url);
 
+  // We ensure official sites are listed above blogs, and blogs above others
+  links.push.apply(links, blogLinks);
   links.push.apply(links, uniqueOtherLinks.map(function (relationship) {
     return <ExternalLink key={relationship.id} relationship={relationship} />;
   }));
