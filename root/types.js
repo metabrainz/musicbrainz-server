@@ -721,6 +721,12 @@ declare type PlaceT = {|
   +coordinates: CoordinatesT | null,
 |};
 
+declare type PlaceFormT = {
+  field: {
+    
+  }
+}
+
 declare type PlaceTypeT = OptionTreeT<'place_type'>;
 
 declare type QualityT = -1 | 0 | 1 | 2;

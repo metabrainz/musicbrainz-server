@@ -9,10 +9,12 @@ import EditForm from './EditForm';
 type Props = {
   $c: CatalystContextT,
   entity: PlaceT,
+  form: PlaceFormT,
   optionsTypeId: SelectOptionsT
 };
 
 const Create = ({$c, form, optionsTypeId}: Props) => {
+  console.log('I was Called');
   return (
     <Layout fullWidth title={l('Add Place')}>
       <div id="content">
