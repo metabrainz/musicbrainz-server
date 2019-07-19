@@ -44,6 +44,8 @@ module.exports = {
   'area/NotFound': require('../area/NotFound'),
   'artist/ArtistEvents': require('../artist/ArtistEvents'),
   'artist/ArtistMerge': require('../artist/ArtistMerge'),
+  'artist/ArtistRelationships': require('../artist/ArtistRelationships'),
+  'artist/ArtistWorks': require('../artist/ArtistWorks'),
   'artist/CannotSplit': require('../artist/CannotSplit'),
   'artist/NotFound': require('../artist/NotFound'),
   'artist/SpecialPurpose': require('../artist/SpecialPurpose'),
