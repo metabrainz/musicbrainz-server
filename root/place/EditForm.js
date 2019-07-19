@@ -1,12 +1,16 @@
 // @flow
-import React from 'react';
+import React, {useEffect} from 'react';
+import ReactDOM from 'react-dom';
 
+import gc from '../static/scripts/guess-case/MB/GuessCase/Main';
+import MB from '../static/scripts/common/MB';
 import * as manifest from '../static/manifest';
 import EnterEditNote from '../components/EnterEditNote';
 import EnterEdit from '../components/EnterEdit';
 import FormRowNameWithGuesscase from '../components/FormRowNameWithGuesscase';
 import FormRowTextLong from '../components/FormRowTextLong';
 import FormRowSelect from '../components/FormRowSelect';
+import GuessCaseOptions from '../components/GuessCaseOptions';
 import DuplicateEntitiesSection from '../components/DuplicateEntitiesSection';
 import DateRangeFieldset from '../components/DateRangeFieldset';
 import FormRow from '../components/FormRow';
@@ -22,6 +26,16 @@ type Props = {
 };
 
 const EditForm = ({$c, form, optionsTypeId}: Props) => {
+  const guess = MB.GuessCase['place'];
+
+  useEffect(() => {
+    const $ = require('jquery');
+    const $options = $('#guesscase-options');
+    if ($options.length && !$options.data('ui-dialog')) {
+      $options.dialog({autoOpen: false, title: l('Guess Case Options')});
+      ReactDOM.render(<GuessCaseOptions />, $options[0]);
+    }
+  }, []);
   const typeOptions = {
     grouped: false,
     options: optionsTypeId,
@@ -39,6 +53,11 @@ const EditForm = ({$c, form, optionsTypeId}: Props) => {
             <legend>{l('Place Details')}</legend>
             <FormRowNameWithGuesscase
               field={form.field.name}
+              // eslint-disable-next-line react/jsx-no-bind
+              onPressGuessCaseOptions={() => {
+                const $ = require('jquery');
+                return $('#guesscase-options').dialog('open');
+              }}
               options={{}}
             />
             <DuplicateEntitiesSection />

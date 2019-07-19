@@ -15,6 +15,8 @@
  * how data is serialized for us.
  */
 
+import FieldShape from './utility/subfieldErrors';
+
 declare type AggregatedTagT = {|
   +tag: string,
   +count: number,
@@ -721,11 +723,30 @@ declare type PlaceT = {|
   +coordinates: CoordinatesT | null,
 |};
 
-declare type PlaceFormT = {
+declare type PlaceFormT = {|
   field: {
-    
-  }
-}
+    address: FieldT<string>,
+    area: FieldShape<FieldT<AreaFieldT>>,
+    area_id: FieldT<number>,
+    comment: FieldT<string>,
+    coordinates: FieldT<string>,
+    edit_note: FieldT<string>,
+    make_votable: FieldT<boolean>,
+    name: FieldT<string>,
+    period: {
+      field: {
+        begin_date: PartialDateFieldT,
+        end_date: PartialDateFieldT,
+        ended: FieldT<boolean>,
+      },
+      has_errors: boolean,
+      html_name: string,
+    },
+    type_id: FieldT<number>,
+  },
+  has_errors: boolean,
+  name: string,
+|}
 
 declare type PlaceTypeT = OptionTreeT<'place_type'>;
 

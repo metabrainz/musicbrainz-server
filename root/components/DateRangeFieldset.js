@@ -5,12 +5,12 @@ import FormRowPartialDate from './FormRowPartialDate';
 import FormRowCheckbox from './FormRowCheckbox';
 
 type DateRangeFieldsetT = {
-  disabled: boolean,
-  endDateOnChangeDay: (e: SyntheticInputEvent<HTMLInputElement>) => void,
-  endDateOnChangeMonth: (e: SyntheticInputEvent<HTMLInputElement>) => void,
-  endDateOnChangeYear: (e: SyntheticInputEvent<HTMLInputElement>) => void,
+  disabled?: boolean,
+  endDateOnChangeDay?: (e: SyntheticInputEvent<HTMLInputElement>) => void,
+  endDateOnChangeMonth?: (e: SyntheticInputEvent<HTMLInputElement>) => void,
+  endDateOnChangeYear?: (e: SyntheticInputEvent<HTMLInputElement>) => void,
   endedLabel: string,
-  onChangeEnded: (e: SyntheticEvent<HTMLInputElement>) => void,
+  onChangeEnded?: (e: SyntheticEvent<HTMLInputElement>) => void,
   period: {
     field: {
       begin_date: PartialDateFieldT,
@@ -18,9 +18,9 @@ type DateRangeFieldsetT = {
       ended: FieldT<boolean>,
     },
   },
-  startDateOnChangeDay: (e: SyntheticInputEvent<HTMLInputElement>) => void,
-  startDateOnChangeMonth: (e: SyntheticInputEvent<HTMLInputElement>) => void,
-  startDateOnChangeYear: (e: SyntheticInputEvent<HTMLInputElement>) => void,
+  startDateOnChangeDay?: (e: SyntheticInputEvent<HTMLInputElement>) => void,
+  startDateOnChangeMonth?: (e: SyntheticInputEvent<HTMLInputElement>) => void,
+  startDateOnChangeYear?: (e: SyntheticInputEvent<HTMLInputElement>) => void,
 };
 
 
