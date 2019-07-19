@@ -226,13 +226,13 @@ sub _order_by {
     my ($self, $order) = @_;
     my $order_by = order_by($order, "name", {
         "name" => sub {
-            return "musicbrainz_collate(name)"
+            return "musicbrainz_collate(sort_name)"
         },
         "gender" => sub {
-            return "gender, musicbrainz_collate(name)"
+            return "gender, musicbrainz_collate(sort_name)"
         },
         "type" => sub {
-            return "type, musicbrainz_collate(name)"
+            return "type, musicbrainz_collate(sort_name)"
         }
     });
 
