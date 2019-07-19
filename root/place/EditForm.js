@@ -43,7 +43,7 @@ const EditForm = ({$c, form, optionsTypeId}: Props) => {
   console.log(form);
   return (
     <>
-      {manifest.js('edit')}
+      {manifest.js('edit.js')}
       <p>
         {exp.l('For more information, check the {doc_doc|documentation}.', {doc_doc: '/doc/Place'})}
       </p>
@@ -92,6 +92,7 @@ const EditForm = ({$c, form, optionsTypeId}: Props) => {
             <ul className="errors coordinates-errors" style={{display: 'none'}}><li>{l('These coordinates could not be parsed.')}</li></ul>
           </fieldset>
           <DateRangeFieldset endedLabel={l('This place has ended.')} period={form.field.period} />
+          <div dangerouslySetInnerHTML={{__html: $c.stash.relationship_editor_html}} />
           <fieldset>
             <legend>{l('External Links')}</legend>
             <div id="external-links-editor-container" />
