@@ -47,65 +47,67 @@ const AddRemoveAlias = ({edit}: Props) => {
   const entity = display[entityType];
   return (
     <table className={`details ${edit.edit_kind}-${entityType}-alias`}>
-      <tr>
-        <th>{addColonText(formatEntityTypeName(entityType))}</th>
-        <td>
-          <DescriptiveLink entity={entity} />
-          {' '}
-          {(entity && entity.gid)
-            ? bracketed(
-              <EntityLink
-                content={l('view all aliases')}
-                entity={entity}
-                subPath="aliases"
-              />,
-            ) : null}
-        </td>
-      </tr>
-      <tr>
-        <th>{addColonText(l('Alias'))}</th>
-        <td>{isolateText(display.alias)}</td>
-      </tr>
-      {display.sort_name ? (
+      <tbody>
         <tr>
-          <th>{addColonText(l('Sort name'))}</th>
-          <td>{display.sort_name}</td>
+          <th>{addColonText(formatEntityTypeName(entityType))}</th>
+          <td>
+            <DescriptiveLink entity={entity} />
+            {' '}
+            {(entity && entity.gid)
+              ? bracketed(
+                <EntityLink
+                  content={l('view all aliases')}
+                  entity={entity}
+                  subPath="aliases"
+                />,
+              ) : null}
+          </td>
         </tr>
-      ) : null}
-      {display.locale ? (
-        <>
+        <tr>
+          <th>{addColonText(l('Alias'))}</th>
+          <td>{isolateText(display.alias)}</td>
+        </tr>
+        {display.sort_name ? (
           <tr>
-            <th>{addColonText(l('Locale'))}</th>
-            <td>{locales[display.locale]}</td>
+            <th>{addColonText(l('Sort name'))}</th>
+            <td>{display.sort_name}</td>
           </tr>
+        ) : null}
+        {display.locale ? (
+          <>
+            <tr>
+              <th>{addColonText(l('Locale'))}</th>
+              <td>{locales[display.locale]}</td>
+            </tr>
+            <tr>
+              <th>{addColonText(l('Primary for locale'))}</th>
+              <td>{yesNo(display.primary_for_locale)}</td>
+            </tr>
+          </>
+        ) : null}
+        {display.type ? (
           <tr>
-            <th>{addColonText(l('Primary for locale'))}</th>
-            <td>{yesNo(display.primary_for_locale)}</td>
+            <th>{addColonText(l('Type'))}</th>
+            <td>{lp_attributes((display.type) ? display.type.name : '', 'alias_type')}</td>
           </tr>
-        </>
-      ) : null}
-      {display.type ? (
+        ) : null}
+        {isDateEmpty(display.begin_date) ? null : (
+          <tr>
+            <th>{addColonText(l('Begin date'))}</th>
+            <td>{formatDate(display.begin_date)}</td>
+          </tr>
+        )}
+        {isDateEmpty(display.end_date) ? null : (
+          <tr>
+            <th>{addColonText(l('End date'))}</th>
+            <td>{formatDate(display.end_date)}</td>
+          </tr>
+        )}
         <tr>
-          <th>{addColonText(l('Type'))}</th>
-          <td>{lp_attributes((display.type) ? display.type.name : '', 'alias_type')}</td>
+          <th>{addColonText(l('Ended'))}</th>
+          <td>{yesNo(display.ended)}</td>
         </tr>
-      ) : null}
-      {isDateEmpty(display.begin_date) ? null : (
-        <tr>
-          <th>{addColonText(l('Begin date'))}</th>
-          <td>{formatDate(display.begin_date)}</td>
-        </tr>
-      )}
-      {isDateEmpty(display.end_date) ? null : (
-        <tr>
-          <th>{addColonText(l('End date'))}</th>
-          <td>{formatDate(display.end_date)}</td>
-        </tr>
-      )}
-      <tr>
-        <th>{addColonText(l('Ended'))}</th>
-        <td>{yesNo(display.ended)}</td>
-      </tr>
+      </tbody>
     </table>
   );
 };

@@ -11,6 +11,7 @@ import FormRowNameWithGuesscase from '../components/FormRowNameWithGuesscase';
 import FormRowTextLong from '../components/FormRowTextLong';
 import FormRowSelect from '../components/FormRowSelect';
 import GuessCaseOptions from '../components/GuessCaseOptions';
+import hydrate from '../utility/hydrate';
 import DuplicateEntitiesSection from '../components/DuplicateEntitiesSection';
 import DateRangeFieldset from '../components/DateRangeFieldset';
 import FormRow from '../components/FormRow';
@@ -21,12 +22,13 @@ import AreaBubble from '../components/AreaBubble';
 
 type Props = {
   $c: CatalystContextT,
+  entityType: string,
   form: PlaceFormT,
   optionsTypeId: SelectOptionsT,
 };
 
-const EditForm = ({$c, form, optionsTypeId}: Props) => {
-  const guess = MB.GuessCase['place'];
+const EditForm = ({$c, entityType, form, optionsTypeId}: Props) => {
+  const guess = MB.GuessCase[entityType];
 
   useEffect(() => {
     const $ = require('jquery');
@@ -53,12 +55,14 @@ const EditForm = ({$c, form, optionsTypeId}: Props) => {
             <legend>{l('Place Details')}</legend>
             <FormRowNameWithGuesscase
               field={form.field.name}
+              label={l('name')}
               // eslint-disable-next-line react/jsx-no-bind
               onPressGuessCaseOptions={() => {
                 const $ = require('jquery');
                 return $('#guesscase-options').dialog('open');
               }}
-              options={{}}
+              options={{label: l('Name')}}
+              required
             />
             <DuplicateEntitiesSection />
             <FormRowTextLong
@@ -115,4 +119,4 @@ const EditForm = ({$c, form, optionsTypeId}: Props) => {
   );
 };
 
-export default EditForm;
+export default hydrate<Props>('div.alias-edit-form', EditForm);

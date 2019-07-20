@@ -8,18 +8,19 @@ import EditForm from './EditForm';
 
 type Props = {
   $c: CatalystContextT,
-  entity: PlaceT,
+  entityType: string,
   form: PlaceFormT,
   optionsTypeId: SelectOptionsT,
 };
 
-const Create = ({$c, form, optionsTypeId}: Props) => {
+const Create = ({$c, form, optionsTypeId, entityType}: Props) => {
   return (
     <Layout fullWidth title={l('Add Place')}>
       <div id="content">
         <h1>{l('Add Place')}</h1>
         <EditForm
           $c={$c}
+          entityType={entityType}
           form={form}
           optionsTypeId={optionsTypeId}
         />

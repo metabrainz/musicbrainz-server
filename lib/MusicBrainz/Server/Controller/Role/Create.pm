@@ -61,6 +61,7 @@ role {
         }
 
         my %props;
+        $props{entityType} = $params->form;
 
         if ($params->dialog_template_react) {
             $c->stash(

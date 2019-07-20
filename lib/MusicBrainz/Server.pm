@@ -503,6 +503,7 @@ sub TO_JSON {
         more_tags
         new_edit_notes
         number_of_revisions
+        relationship_editor_html
         release_artwork
         server_details
         server_languages

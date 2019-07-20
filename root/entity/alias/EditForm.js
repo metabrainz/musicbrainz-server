@@ -415,4 +415,4 @@ const EditForm = ({
   );
 };
 
-export default hydrate<Props>('div.edit-form', EditForm);
+export default hydrate<Props>('div.place-edit-form', EditForm);
