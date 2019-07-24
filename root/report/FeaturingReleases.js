@@ -34,11 +34,15 @@ const FeaturingReleases = ({
     <ul>
       <li>
         {exp.l(
-          `This report shows releases with (feat. Artist) in the title. For
-          classical releases, consult the {CSG|classical style guidelines}.
-          For non-classical releases, this is inherited from an older
-          version of MusicBrainz and should be fixed. Consult the
-          {featured_artists|page about featured artists} to know more.`,
+          `This report shows releases with “(feat. Artist)”
+           (or similar) in the title. For classical releases, 
+           consult the {CSG|classical style guidelines}. For 
+           non-classical releases, this is usually inherited from an
+           older version of MusicBrainz and should be fixed. Consult the
+           {featured_artists|page about featured artists} to know more.
+           Don’t forget that the same generally applies to tracks, so if
+           the track titles also include featuring credits you can fix
+           them too while you edit the release!`,
           {
             CSG: '/doc/Style/Classical',
             featured_artists: '/doc/Style/Artist_Credits#Featured_artists',
