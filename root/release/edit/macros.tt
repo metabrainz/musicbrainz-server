@@ -7,6 +7,15 @@
   </tr>
 [%- END %]
 
+[% MACRO table_row_help_message(colspan, data_bind, message) BLOCK -%]
+  <tr data-bind="[% data_bind %]">
+    <td></td>
+    <td colspan="[% colspan %]">
+      [%~ message IF message ~%]
+    </td>
+  </tr>
+[%- END %]
+
 [% MACRO table_row_select_options(options) BLOCK -%]
   [%- FOR opt=options %]
   [%- matches = opt.label.match('^((?:&#xa0;)*)(.*)') -%]
