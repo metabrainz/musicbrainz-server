@@ -79,6 +79,7 @@ module.exports = {
   'place/PlaceEvents': require('../place/PlaceEvents'),
   'place/PlaceIndex': require('../place/PlaceIndex'),
   'place/PlacePerformances': require('../place/PlacePerformances'),
+  'recording/RecordingIndex': require('../recording/RecordingIndex'),
   'recording/RecordingMerge': require('../recording/RecordingMerge'),
   'release_group/ReleaseGroupIndex': require('../release_group/ReleaseGroupIndex'),
   'report/AnnotationsArtists': require('../report/AnnotationsArtists'),
