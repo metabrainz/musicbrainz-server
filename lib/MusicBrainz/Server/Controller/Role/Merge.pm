@@ -56,7 +56,7 @@ role {
             if ($merger->ready_to_merge) {
                 $c->response->redirect(
                     $c->uri_for_action(
-                        $self->action_for('merge')));
+                        $self->action_for('merge'), { returnto => $c->req->referer }));
                 $c->detach;
             }
         }
@@ -86,7 +86,7 @@ role {
         my ($self, $c) = @_;
         delete $c->session->{merger};
         $c->res->redirect(
-            $c->req->referer || $c->uri_for('/'));
+            $c->req->query_params->{returnto} || $c->uri_for('/'));
         $c->detach;
     };
 
