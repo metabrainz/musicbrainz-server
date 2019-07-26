@@ -74,8 +74,8 @@ sub _get_and_process_json
 
         # pull out the correct page, though there should only be one
         my $ret;
-        # If using version 2, pages is an array of objects, not a hash
-        if ($url =~ /formatversion=2/) {
+        # If using version 2, pages might be an array of objects, not a hash
+        if (ref($content->{pages}) eq 'ARRAY') {
             $ret = first { $_->{title} eq $title } @{ $content->{pages} };
         } else {
             $ret = first { $_->{title} eq $title } values %{ $content->{pages} };
