@@ -106,13 +106,16 @@ test 'lookup via toc' => sub {
     my $test = shift;
 
     MusicBrainz::Server::Test->prepare_test_database($test->c, '+tracklist');
-    MusicBrainz::Server::Test->prepare_test_database(
-        $test->c, "INSERT INTO medium_cdtoc (medium, cdtoc) VALUES (2, 2);");
+    MusicBrainz::Server::Test->prepare_test_database($test->c, <<'EOSQL');
+    INSERT INTO medium_cdtoc (medium, cdtoc) VALUES (2, 2);
+    INSERT INTO tag (id, name) VALUES (1, 'musical'), (2, 'not-used');
+    INSERT INTO release_tag (tag, release, count) VALUES (1, 2, 2), (2, 2, 2);
+EOSQL
     $test->c->model('DurationLookup')->update(2);
     $test->c->model('DurationLookup')->update(4);
 
     ws_test_json 'lookup via toc',
-    '/discid/aa11.sPglQ1x0cybDcDi0OsZw9Q-?toc=1 9 189343 150 6614 32287 54041 61236 88129 92729 115276 153877&cdstubs=no' =>
+    '/discid/aa11.sPglQ1x0cybDcDi0OsZw9Q-?toc=1 9 189343 150 6614 32287 54041 61236 88129 92729 115276 153877&cdstubs=no&inc=tags+genres' =>
         {
             releases => [
                 {
@@ -157,7 +160,14 @@ test 'lookup via toc' => sub {
                     "release-events" => [{
                         date => "2008",
                         area => JSON::null,
-                    }]
+                    }],
+                    tags => [
+                        { count => 2, name => "musical" },
+                        { count => 2, name => "not-used" },
+                    ],
+                    genres => [
+                        { count => 2, name => "musical" },
+                    ],
                 },
                 {
                     id => "f205627f-b70a-409d-adbe-66289b614e80",
@@ -218,7 +228,9 @@ test 'lookup via toc' => sub {
                     "release-events" => [{
                         date => "2007",
                         area => JSON::null,
-                    }]
+                    }],
+                    tags => [],
+                    genres => [],
                 }
             ]
         };
