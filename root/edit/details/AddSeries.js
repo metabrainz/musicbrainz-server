@@ -35,7 +35,6 @@ const AddSeries = ({edit}) => {
           </tr>
         ) : null}
       </table>
-      {console.log('This is from React version')}
     </>
   );
 };
