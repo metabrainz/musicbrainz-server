@@ -86,6 +86,8 @@ sub build_display_data {
     return $data;
 }
 
+sub edit_template_react { "EditSeries" }
+
 around allow_auto_edit => sub {
     my ($orig, $self, @args) = @_;
 
