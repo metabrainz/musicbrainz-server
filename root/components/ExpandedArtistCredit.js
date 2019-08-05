@@ -3,10 +3,11 @@ import React from 'react';
 import ArtistCreditLink from '../static/scripts/common/components/ArtistCreditLink';
 import DescriptiveLink from '../static/scripts/common/components/DescriptiveLink';
 import commaOnlyList from '../static/scripts/common/i18n/commaOnlyList';
+import {reduceArtistCredit} from '../static/scripts/common/immutable-entities';
 
 const ExpandedArtistCredit = ({ac}) => {
   if (ac) {
-    const run = ac.name !== ac.names[0].artist.name || ac.names.length > 1 || ac.names[0].artist.comment;
+    const run = reduceArtistCredit(ac) !== ac.names[0].artist.name || ac.names.length > 1 || ac.names[0].artist.comment;
     let showList = false;
     const artistList = [];
     if (run) {

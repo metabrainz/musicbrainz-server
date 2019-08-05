@@ -4,9 +4,6 @@ import DescriptiveLink from '../../static/scripts/common/components/DescriptiveL
 import ExpandedArtistCredit from '../../components/ExpandedArtistCredit';
 
 const AddReleaseGroup = ({edit}) => {
-  console.log(edit.display_data.artist_credit);
-  console.log(edit.display_data.artist_credit.names);
-  console.log(edit.display_data.artist_credit.names.length);
   return (
     <>
       <table className="details">
