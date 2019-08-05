@@ -99,7 +99,7 @@ role {
             pre_validation => sub {
                 my $form = shift;
                 $props{form} = $form;
-                $props{optionsTypeId} = $form->options_type_id if $params->form == 'Place';
+                $props{optionsTypeId} = $form->options_type_id if $params->form eq 'Place';
             }
         );
     };

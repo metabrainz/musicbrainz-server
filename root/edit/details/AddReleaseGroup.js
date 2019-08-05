@@ -1,8 +1,12 @@
 import React from 'react';
 
 import DescriptiveLink from '../../static/scripts/common/components/DescriptiveLink';
+import ExpandedArtistCredit from '../../components/ExpandedArtistCredit';
 
 const AddReleaseGroup = ({edit}) => {
+  console.log(edit.display_data.artist_credit);
+  console.log(edit.display_data.artist_credit.names);
+  console.log(edit.display_data.artist_credit.names.length);
   return (
     <>
       <table className="details">
@@ -21,7 +25,9 @@ const AddReleaseGroup = ({edit}) => {
 
         <tr>
           <th>{l('Artist:')}</th>
-          <td>{expanded_artist_credit(edit.display_data.artist_credit)}</td>
+          <td>
+            <ExpandedArtistCredit ac={edit.display_data.artist_credit} />
+          </td>
         </tr>
 
         {edit.display_data.comment ? (
