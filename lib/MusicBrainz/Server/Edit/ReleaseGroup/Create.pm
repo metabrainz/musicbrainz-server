@@ -67,6 +67,8 @@ sub build_display_data
     };
 }
 
+sub edit_template_react { "AddReleaseGroup" }
+
 sub initialize {
     my ($self, %opts) = @_;
     $opts{type_id} = delete $opts{primary_type_id};
