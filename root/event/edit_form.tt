@@ -31,7 +31,9 @@
             [%- l('Dates are in the format YYYY-MM-DD. Partial dates such as YYYY-MM or just YYYY are OK, or you can omit the date entirely.') -%]
         </p>
         [% form_row_date(r, 'period.begin_date', l('Begin date:')) %]
+        [% too_short_year_error('too_short_begin_year') %]
         [% form_row_date(r, 'period.end_date', l('End date:')) %]
+        [% too_short_year_error('too_short_end_year') %]
         [%- form_row_time(r, 'time', l('Time:')) -%]
       </fieldset>
 
@@ -58,5 +60,7 @@
 <script type="text/javascript">
   (function () {
     MB.Control.initialize_guess_case("event", "id-edit-event");
+
+    [% too_short_year_js("event") %]
   }());
 </script>

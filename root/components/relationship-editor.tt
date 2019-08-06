@@ -126,6 +126,7 @@
       --><input type="text" data-bind="value: date.month, valueUpdate: 'afterkeydown'" maxlength="2" placeholder="[% l('MM') %]" size="2" />-<!--
       --><input type="text" data-bind="value: date.day, valueUpdate: 'afterkeydown'" maxlength="2" placeholder="[% l('DD') %]" size="2" />
       <div class="error" data-bind="text: $parent.dateError(date)"></div>
+      <div class="error" data-bind="text: isBeginDate ? $parent.tooShortBeginYearError() : $parent.tooShortEndYearError()"></div>
     </td>
   </tr>
 </script>
@@ -149,11 +150,11 @@
   <!-- ko if: relationship().hasDates() -->
     <!-- ko template: {
               name: "template.dialog-date",
-              data: { label: "[% l('Begin date:') | html | js %]", date: relationship().begin_date }
+              data: { label: "[% l('Begin date:') | html | js %]", date: relationship().begin_date, isBeginDate: true }
             } --><!-- /ko -->
     <!-- ko template: {
               name: "template.dialog-date",
-              data: { label: "[% l('End date:') | html | js %]", date: relationship().end_date }
+              data: { label: "[% l('End date:') | html | js %]", date: relationship().end_date, isBeginDate: false }
             } --><!-- /ko -->
     <!-- ko with: datePeriodError() -->
     <tr>

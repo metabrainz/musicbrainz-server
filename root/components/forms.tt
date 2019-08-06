@@ -187,6 +187,36 @@
     [% END %]
 [%- END -%]
 
+[%- MACRO too_short_year_js(type) BLOCK -%]
+  function blockTooShortBeginYear() {
+    var beginYear = $('#id-edit-[% type %]\\\.period\\\.begin_date\\\.year').val();
+    var allowed = (!beginYear || beginYear.trim().length === 4);
+    $('.submit').prop('disabled', !allowed);
+    $('#too_short_begin_year').toggle(!allowed);
+  }
+
+  function blockTooShortEndYear() {
+    var endYear = $('#id-edit-[% type %]\\\.period\\\.end_date\\\.year').val();
+    var allowed = (endYear === null || endYear === '' || endYear.length === 4);
+    $('.submit').prop('disabled', !allowed);
+    $('#too_short_end_year').toggle(!allowed);
+  }
+
+  $('#id-edit-[% type %]\\\.period\\\.begin_date\\\.year').keyup(_.debounce(blockTooShortBeginYear, 500)).change(_.debounce(blockTooShortBeginYear, 500));
+  blockTooShortBeginYear();
+
+  $('#id-edit-[% type %]\\\.period\\\.end_date\\\.year').keyup(_.debounce(blockTooShortEndYear, 500)).change(_.debounce(blockTooShortEndYear, 500));
+  blockTooShortEndYear();
+[%- END -%]
+
+[%- MACRO too_short_year_error(id) BLOCK -%]
+  <div class="error field-error" id="[% id %]" style="display: none">
+    <div class="row no-label"> 
+      [%- l('The year should have four digits. If you want to enter a year earlier than 1000 CE, please pad with zeros, such as “0123”.') -%]
+    </div>
+  </div>
+[%- END -%]
+
 [%- MACRO date_range_fieldset(r, type, ended_label) BLOCK -%]
     <fieldset>
       <legend>[% l('Date Period') %]</legend>
@@ -194,11 +224,14 @@
         [%- l('Dates are in the format YYYY-MM-DD. Partial dates such as YYYY-MM or just YYYY are OK, or you can omit the date entirely.') -%]
       </p>
       [% form_row_date(r, 'period.begin_date', l('Begin date:')) %]
+      [% too_short_year_error('too_short_begin_year') %]
       [% form_row_date(r, 'period.end_date', l('End date:')) %]
+      [% too_short_year_error('too_short_end_year') %]
       [% form_row_checkbox(r, 'period.ended', ended_label) %]
     </fieldset>
     <script type="text/javascript">
       MB.initializeToggleEnded('id-edit-[% type %]');
+      [% too_short_year_js(type) %] 
     </script>
 [%- END -%]
 

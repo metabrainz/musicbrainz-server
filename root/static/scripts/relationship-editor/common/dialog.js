@@ -19,6 +19,7 @@ import * as URLCleanup from '../../edit/URLCleanup';
 import * as dates from '../../edit/utility/dates';
 import {stripAttributes} from '../../edit/utility/linkPhrase';
 import isBlank from '../../common/utility/isBlank';
+import debounce from '../../common/utility/debounce';
 
 const PART_OF_SERIES_LINK_TYPE_GIDS = _.values(PART_OF_SERIES_LINK_TYPES);
 
@@ -195,6 +196,22 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
 
             this.changeOtherRelationshipCredits = {source: ko.observable(false), target: ko.observable(false)};
             this.selectedRelationshipCredits = {source: ko.observable('all'), target: ko.observable('all')};
+
+            function tooShortYear(date) {
+                const valid = dates.isYearFourDigits(date.year());
+                return valid ? '' : l('The year should have four digits. If you want to enter a year earlier than 1000 CE, please pad with zeros, such as “0123”.');
+            }
+
+            this.tooShortBeginYearError = debounce(function () {
+                const relationship = self.relationship();
+                return tooShortYear(relationship.begin_date);
+            });
+
+            this.tooShortEndYearError = debounce(function () {
+                const relationship = self.relationship();
+                return tooShortYear(relationship.end_date);
+            });
+
             this.setupUI();
         }
 
@@ -522,6 +539,8 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
                      .values().map(_.bind(relationship.attributeError, relationship)).some() ||
                    this.dateError(relationship.begin_date) ||
                    this.dateError(relationship.end_date) ||
+                   this.tooShortBeginYearError() ||
+                   this.tooShortEndYearError() ||
                    this.datePeriodError();
         }
 

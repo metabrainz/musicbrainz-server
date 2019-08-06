@@ -18,6 +18,7 @@ import MB from '../../common/MB';
 import clean from '../../common/utility/clean';
 import formatDate from '../../common/utility/formatDate';
 import formatDatePeriod from '../../common/utility/formatDatePeriod';
+import nonEmpty from '../../common/utility/nonEmpty';
 import request from '../../common/utility/request';
 import MB_edit from '../../edit/MB/edit';
 import * as linkPhrase from '../../edit/utility/linkPhrase';
@@ -57,7 +58,16 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
             this.linkTypeID.isDifferent = linkTypeComparer;
             this.linkTypeID.subscribe(this.linkTypeIDChanged, this);
 
+            if (data.begin_date && nonEmpty(data.begin_date.year)) {
+                data.begin_date.year = _.padStart(String(data.begin_date.year), 4, '0');
+            }
+
             this.begin_date = setPartialDate({}, data.begin_date || {});
+
+            if (data.end_date && nonEmpty(data.end_date.year)) {
+                data.end_date.year = _.padStart(String(data.end_date.year), 4, '0');
+            }
+
             this.end_date = setPartialDate({}, data.end_date || {});
             this.ended = ko.observable(!!data.ended);
 
