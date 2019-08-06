@@ -260,6 +260,8 @@ sub restore {
     $self->data($data);
 }
 
+sub edit_template_react { "EditArtist" }
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;
