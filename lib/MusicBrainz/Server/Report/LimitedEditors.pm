@@ -5,6 +5,8 @@ use MusicBrainz::Server::Constants qw( $EDITOR_MODBOT );
 
 with 'MusicBrainz::Server::Report::EditorReport';
 
+# Please keep the logic in sync with EditSearch::Predicate::Role::User and Entity::Editor
+
 sub query { "
 SELECT id,
        row_number() OVER (ORDER BY id DESC)

@@ -47,6 +47,7 @@ role {
         if ($self->operator eq 'me' || $self->operator eq 'not_me') {
             $query->add_where([ $sql, [ $self->user->id ] ]);
         } elsif ($self->operator eq 'limited') {
+            # Please keep the logic in sync with Report::LimitedEditors and Entity::Editor
             $sql = "
               edit.editor != ?
               AND (
