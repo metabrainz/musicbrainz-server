@@ -118,7 +118,10 @@
             [% FOR bad_recordings IN bad_recording_merges %]
                 <ul>
                 [% FOR bad_recording IN bad_recordings %]
-                    <li>[% descriptive_link(bad_recording) %]</li>
+                    <li>
+                      [% descriptive_link(bad_recording) %]<br />
+                      [% expanded_artist_credit_list(bad_recording.artist_credit) %]
+                    </li>
                 [% END %]
                 </ul>
             [% END %]
