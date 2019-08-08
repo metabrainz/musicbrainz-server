@@ -525,7 +525,7 @@ msgid ""
 "same concept as the <a href=\"/doc/Label\">record label</a>."
 msgstr ""
 
-#: DB:link_type/description:208 DB:link_type/description:161
+#: DB:link_type/description:161 DB:link_type/description:208
 msgid ""
 "Indicates the publisher of this work. This is <strong>not</strong> the same "
 "concept as the <a href=\"/doc/Label\">record label</a>."
@@ -3109,6 +3109,10 @@ msgstr ""
 msgid "VIAF ID for"
 msgstr ""
 
+#: DB:link_attribute_type/description:1151
+msgid "Whistling (with mouth, not a whistle)"
+msgstr ""
+
 #: DB:link_type/link_phrase:733 DB:link_type/link_phrase:358
 #: DB:link_type/link_phrase:352 DB:link_type/link_phrase:354
 #: DB:link_type/link_phrase:594 DB:link_type/link_phrase:353
@@ -5590,17 +5594,17 @@ msgstr ""
 
 #: DB:link_type/link_phrase:206 DB:link_type/link_phrase:362
 #: DB:link_type/link_phrase:127 DB:link_type/link_phrase:32
-#: DB:link_type/link_phrase:208 DB:link_type/link_phrase:161
+#: DB:link_type/link_phrase:161 DB:link_type/link_phrase:208
 #: DB:link_type/name:362 DB:link_type/long_link_phrase:206
 #: DB:link_type/long_link_phrase:362 DB:link_type/long_link_phrase:127
-#: DB:link_type/long_link_phrase:32 DB:link_type/long_link_phrase:208
-#: DB:link_type/long_link_phrase:161
+#: DB:link_type/long_link_phrase:32 DB:link_type/long_link_phrase:161
+#: DB:link_type/long_link_phrase:208
 msgid "published"
 msgstr ""
 
 #: DB:link_type/reverse_link_phrase:206 DB:link_type/reverse_link_phrase:362
 #: DB:link_type/reverse_link_phrase:127 DB:link_type/reverse_link_phrase:32
-#: DB:link_type/reverse_link_phrase:208 DB:link_type/reverse_link_phrase:161
+#: DB:link_type/reverse_link_phrase:161 DB:link_type/reverse_link_phrase:208
 msgid "publisher"
 msgstr ""
 
@@ -5610,7 +5614,7 @@ msgid "publishes series"
 msgstr ""
 
 #: DB:link_type/name:206 DB:link_type/name:127 DB:link_type/name:32
-#: DB:link_type/name:208 DB:link_type/name:66 DB:link_type/name:161
+#: DB:link_type/name:66 DB:link_type/name:161 DB:link_type/name:208
 msgid "publishing"
 msgstr ""
 
@@ -6309,6 +6313,10 @@ msgstr ""
 
 #: DB:link_type/long_link_phrase:36 DB:link_type/long_link_phrase:128
 msgid "was {additional} {assistant} {associate} {co:co-}recording engineer for"
+msgstr ""
+
+#: DB:link_attribute_type/name:1151
+msgid "whistling"
 msgstr ""
 
 #: DB:link_type/name:351 DB:link_type/name:733 DB:link_type/name:358
