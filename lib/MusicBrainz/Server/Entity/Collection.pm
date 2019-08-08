@@ -37,6 +37,16 @@ has entity_count => (
     predicate => 'loaded_entity_count'
 );
 
+has 'collaborators' => (
+    isa     => 'ArrayRef[Editor]',
+    is      => 'rw',
+    traits => [ 'Array' ],
+    default => sub { [] },
+    handles => {
+        all_collaborators => 'elements',
+    }
+);
+
 around TO_JSON => sub {
     my ($orig, $self) = @_;
 
@@ -46,6 +56,7 @@ around TO_JSON => sub {
     $json->{public} = boolean_to_json($self->public);
     $json->{description} = $self->description;
     $json->{description_html} = format_wikitext($self->description);
+    $json->{collaborators} = [map { $_->TO_JSON } $self->all_collaborators];
 
     if ($self->loaded_entity_count) {
         $json->{entity_count} = $self->entity_count;

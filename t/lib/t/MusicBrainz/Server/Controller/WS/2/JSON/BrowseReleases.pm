@@ -21,7 +21,10 @@ test 'errors' => sub {
     $mech->get('/ws/2/release?recording=7b1f6e95-b523-43b6-a048-810ea5d463a8');
     is($mech->status, 404, 'browse releases via non-existent recording');
 
-    is_json($mech->content, encode_json({ error => "Not Found" }));
+    is_json($mech->content, encode_json({
+          error => "Not Found",
+          help => 'For usage, please see: https://musicbrainz.org/development/mmd',
+    }));
 };
 
 test 'browse releases via artist (paging)' => sub {

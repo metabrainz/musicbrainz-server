@@ -174,6 +174,7 @@ sub release_toplevel {
                 # would rely on user-tags or user-ratings to force authentication
                 # and get private collections. See MBS-6152.
                 show_private => $c->user_exists ? $c->user->id : undef,
+                with_collaborations => 1,
             });
 
             push @collections, @{$collections};

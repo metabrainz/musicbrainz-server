@@ -19,7 +19,7 @@ function entityArg(entity) {
 }
 
 function collectionUrl(collection, entity, action) {
-  return entityHref(collection, 'own_collection/' + action) +
+  return entityHref(collection, 'collection_collaborator/' + action) +
     entityArg(entity);
 }
 
@@ -28,44 +28,142 @@ function hasEntity($c, collection) {
   return !!(containment && containment[collection.id]);
 }
 
-type Props = {|
+type CollectionAddRemoveProps = {|
   +$c: CatalystContextT,
-  +addText: string,
+  +collections?: $ReadOnlyArray<CollectionT>,
   +entity: CoreEntityT,
-  +noneText: string,
-  +usersLink: ReactNode,
+  +noneText?: string,
 |};
 
-const CollectionList = ({
+type CollaborativeCollectionListProps = {|
+  +collections?: $ReadOnlyArray<CollectionT>,
+  +entity: CoreEntityT,
+|};
+
+type OwnCollectionListProps = {|
+  +addText: string,
+  +collections?: $ReadOnlyArray<CollectionT>,
+  +entity: CoreEntityT,
+  +noneText: string,
+|};
+
+type CollectionListProps = {|
+  +addCollectionText: string,
+  +collaborativeCollections?: $ReadOnlyArray<CollectionT>,
+  +collaborativeCollectionsHeader: string,
+  +entity: CoreEntityT,
+  +header: string,
+  +ownCollections?: $ReadOnlyArray<CollectionT>,
+  +ownCollectionsHeader: string,
+  +ownCollectionsNoneText: string,
+  +sectionClass: string,
+  +usersLink: ReactNode,
+  +usersLinkHeader: string,
+|};
+
+const CollectionAddRemove = withCatalystContext(({
   $c,
-  addText,
+  collections,
   entity,
   noneText,
-  usersLink,
-}: Props) => (
+}: CollectionAddRemoveProps) => (
+  (collections && collections.length) ? (
+    collections.map(collection => (
+      <li key={collection.id}>
+        {hasEntity($c, collection) ? (
+          <a href={collectionUrl(collection, entity, 'remove')}>
+            {texp.l(
+              'Remove from {collection}', {collection: collection.name},
+            )}
+          </a>
+        ) : (
+          <a href={collectionUrl(collection, entity, 'add')}>
+            {texp.l('Add to {collection}', {collection: collection.name})}
+          </a>
+        )}
+      </li>
+    ))
+  ) : <li>{noneText}</li>
+));
+
+const CollaborativeCollectionList = ({
+  collections,
+  entity,
+}: CollaborativeCollectionListProps) => (
   <ul className="links">
-    {($c.stash.collections && $c.stash.collections.length) ? (
-      $c.stash.collections.map(collection => (
-        <li key={collection.id}>
-          {hasEntity($c, collection) ? (
-            <a href={collectionUrl(collection, entity, 'remove')}>
-              {texp.l('Remove from {collection}', {collection: collection.name})}
-            </a>
-          ) : (
-            <a href={collectionUrl(collection, entity, 'add')}>
-              {texp.l('Add to {collection}', {collection: collection.name})}
-            </a>
-          )}
-        </li>
-      ))
-    ) : <li>{noneText}</li>}
+    <CollectionAddRemove
+      collections={collections}
+      entity={entity}
+    />
+  </ul>
+);
+
+const OwnCollectionList = ({
+  addText,
+  collections,
+  entity,
+  noneText,
+}: OwnCollectionListProps) => (
+  <ul className="links">
+    <CollectionAddRemove
+      collections={collections}
+      entity={entity}
+      noneText={noneText}
+    />
     <li>
       <a href={'/collection/create' + entityArg(entity)}>
         {addText}
       </a>
     </li>
-    <li>{usersLink}</li>
   </ul>
 );
 
-export default withCatalystContext(CollectionList);
+const CollectionList = ({
+  addCollectionText,
+  collaborativeCollections,
+  collaborativeCollectionsHeader,
+  entity,
+  header,
+  ownCollections,
+  ownCollectionsHeader,
+  ownCollectionsNoneText,
+  sectionClass,
+  usersLink,
+  usersLinkHeader,
+}: CollectionListProps) => (
+  <>
+    <h2 className={sectionClass}>
+      {header}
+    </h2>
+    <h3>
+      {ownCollectionsHeader}
+    </h3>
+    <OwnCollectionList
+      addText={addCollectionText}
+      collections={ownCollections}
+      entity={entity}
+      noneText={ownCollectionsNoneText}
+    />
+    <li className="separator" role="separator" />
+    {collaborativeCollections && collaborativeCollections.length > 0 ? (
+      <>
+        <h3>
+          {collaborativeCollectionsHeader}
+        </h3>
+        <CollaborativeCollectionList
+          collections={collaborativeCollections}
+          entity={entity}
+        />
+        <li className="separator" role="separator" />
+      </>
+    ) : null}
+    <h3>
+      {usersLinkHeader}
+    </h3>
+    <ul className="links">
+      <li>{usersLink}</li>
+    </ul>
+  </>
+);
+
+export default CollectionList;

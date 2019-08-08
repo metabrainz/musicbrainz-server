@@ -5,9 +5,14 @@ use Moose;
 extends 'MusicBrainz::Server::Entity::URL';
 with 'MusicBrainz::Server::Entity::URL::Sidebar';
 
-sub sidebar_name { 'LyricWiki' }
+override href_url => sub {
+    # Turn the official permalink into what LyricWiki currently redirects to.
+    # See https://community.fandom.com/wiki/Help:Fandom_domain_migration for more info
+    shift->url->as_string =~
+        s{^https?://lyrics\.wikia\.com/}{https://lyrics.fandom.com/}r;
+};
 
-sub url_is_scheme_independent { 1 }
+sub sidebar_name { 'LyricWiki' }
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

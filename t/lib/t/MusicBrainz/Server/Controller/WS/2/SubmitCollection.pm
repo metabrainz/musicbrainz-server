@@ -156,7 +156,7 @@ EOXML
 <?xml version="1.0" encoding="UTF-8"?>
 <error>
     <text>PUT is not allowed on this endpoint.</text>
-    <text>For usage, please see: http://musicbrainz.org/development/mmd</text>
+    <text>For usage, please see: https://musicbrainz.org/development/mmd</text>
 </error>
 EOXML
     };

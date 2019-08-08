@@ -65,7 +65,7 @@ type State = {
   // Portion of the source string that hasn't been parsed yet.
   remainder: string,
   // The value of % in conditional substitutions, from `args`.
-  replacement: string | AnyReactElem | NO_MATCH,
+  replacement: string | React$MixedElement | NO_MATCH,
   // Whether expand is currently running. Used to detect nested calls.
   running: boolean,
   // A copy of the source string, used in error messages.
@@ -93,7 +93,7 @@ export function getString(x: mixed) {
 
 export function getVarSubstArg(x: mixed) {
   if (React.isValidElement(x)) {
-    return ((x: any): AnyReactElem);
+    return ((x: any): React$MixedElement);
   }
   return getString(x);
 }

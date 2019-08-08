@@ -95,7 +95,7 @@ sub show : PathPart('') Chained('load')
     );
 
     $c->stash(
-        component_path => 'area/AreaIndex.js',
+        component_path => 'area/AreaIndex',
         component_props => \%props,
         current_view => 'Node',
     );
@@ -120,7 +120,18 @@ sub artists : Chained('load')
     if ($c->user_exists) {
         $c->model('Artist')->rating->load_user_ratings($c->user->id, @$artists);
     }
-    $c->stash( artists => $artists );
+
+    my %props = (
+        area        => $c->stash->{area},
+        artists     => $artists,
+        pager       => serialize_pager($c->stash->{pager}),
+    );
+
+    $c->stash(
+        component_path  => 'area/AreaArtists',
+        component_props => \%props,
+        current_view    => 'Node',
+    );
 }
 
 =head2 events
@@ -148,7 +159,7 @@ sub events : Chained('load')
     );
 
     $c->stash(
-        component_path  => 'area/AreaEvents.js',
+        component_path  => 'area/AreaEvents',
         component_props => \%props,
         current_view    => 'Node',
     );
@@ -180,7 +191,7 @@ sub labels : Chained('load')
     );
 
     $c->stash(
-        component_path  => 'area/AreaLabels.js',
+        component_path  => 'area/AreaLabels',
         component_props => \%props,
         current_view    => 'Node',
     );
@@ -202,9 +213,17 @@ sub releases : Chained('load')
 
     $c->model('ArtistCredit')->load(@$releases);
     $c->model('Release')->load_related_info(@$releases);
+
+    my %props = (
+        area        => $c->stash->{area},
+        releases    => $releases,
+        pager       => serialize_pager($c->stash->{pager}),
+    );
+
     $c->stash(
-        template => 'area/releases.tt',
-        releases => $releases,
+        component_path  => 'area/AreaReleases',
+        component_props => \%props,
+        current_view    => 'Node',
     );
 }
 
@@ -223,9 +242,10 @@ sub places : Chained('load')
     $c->model('PlaceType')->load(@$places);
     $c->model('Area')->load(@$places);
     $c->model('Area')->load_containment(map { $_->area } @$places);
-    $c->stash(
-        places => $places,
-        map_data_args => $c->json->encode({
+
+    my %props = (
+        area        => $c->stash->{area},
+        mapDataArgs => $c->json->encode({
             places => [
                 map {
                     my $json = $_->TO_JSON;
@@ -236,6 +256,14 @@ sub places : Chained('load')
                 } grep { $_->coordinates } @$places
             ],
         }),
+        places      => $places,
+        pager       => serialize_pager($c->stash->{pager}),
+    );
+
+    $c->stash(
+        component_path  => 'area/AreaPlaces',
+        component_props => \%props,
+        current_view    => 'Node',
     );
 }
 
@@ -257,7 +285,18 @@ sub users : Chained('load') {
         $c->model('Editor')->load_preferences(@$editors);
         ($editors, $total);
     });
-    $c->stash( editors => $editors );
+
+    my %props = (
+        area        => $c->stash->{area},
+        editors     => $editors,
+        pager       => serialize_pager($c->stash->{pager}),
+    );
+
+    $c->stash(
+        component_path  => 'area/AreaUsers',
+        component_props => \%props,
+        current_view    => 'Node',
+    );
 }
 
 =head2 WRITE METHODS

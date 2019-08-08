@@ -210,7 +210,10 @@ sub trim_string {
 sub process_entity {
     my ($c, $loader, $data) = @_;
 
-    trim_string($data, 'name');
+    if (exists $data->{name}) {
+        trim_string($data, 'name');
+        die 'empty name' unless non_empty($data->{name});
+    }
 
     if ($data->{comment}) {
         trim_string($data, 'comment');

@@ -525,7 +525,7 @@ msgid ""
 "same concept as the <a href=\"/doc/Label\">record label</a>."
 msgstr ""
 
-#: DB:link_type/description:208 DB:link_type/description:161
+#: DB:link_type/description:161 DB:link_type/description:208
 msgid ""
 "Indicates the publisher of this work. This is <strong>not</strong> the same "
 "concept as the <a href=\"/doc/Label\">record label</a>."
@@ -1488,7 +1488,7 @@ msgid ""
 "for classical works, but also exists in other genres to a degree."
 msgstr ""
 
-#: DB:link_type/description:25 DB:link_type/description:129
+#: DB:link_type/description:129 DB:link_type/description:25
 msgid ""
 "This indicates that the artist performed a role not covered by other "
 "relationship types."
@@ -2972,6 +2972,12 @@ msgid ""
 "source as performing a solo part."
 msgstr ""
 
+#: DB:link_attribute_type/description:1150
+msgid ""
+"This specifies the credited task(s) for a \"miscellaneous support\" "
+"relationship."
+msgstr ""
+
 #: DB:link_attribute_type/description:617
 msgid ""
 "This title indicates that a conductor has at least partially retired, and no "
@@ -3101,6 +3107,10 @@ msgstr ""
 #: DB:link_type/link_phrase:312 DB:link_type/reverse_link_phrase:920
 #: DB:link_type/reverse_link_phrase:311 DB:link_type/reverse_link_phrase:310
 msgid "VIAF ID for"
+msgstr ""
+
+#: DB:link_attribute_type/description:1151
+msgid "Whistling (with mouth, not a whistle)"
 msgstr ""
 
 #: DB:link_type/link_phrase:733 DB:link_type/link_phrase:358
@@ -3563,15 +3573,15 @@ msgstr ""
 msgid "contracted mixing for"
 msgstr ""
 
-#: DB:link_type/link_phrase:950 DB:link_type/link_phrase:951
-msgid "contracted production for"
-msgstr ""
-
 #: DB:link_type/link_phrase:945 DB:link_type/link_phrase:944
 #: DB:link_type/name:945 DB:link_type/name:944
 #: DB:link_type/reverse_link_phrase:945 DB:link_type/reverse_link_phrase:944
 #: DB:link_type/long_link_phrase:945 DB:link_type/long_link_phrase:944
 msgid "contracted tasks"
+msgstr ""
+
+#: DB:link_type/link_phrase:951 DB:link_type/link_phrase:950
+msgid "contracted {co:co-}{executive:executive }production for"
 msgstr ""
 
 #: DB:link_attribute_type/description:230 DB:link_attribute_type/name:230
@@ -4140,7 +4150,7 @@ msgstr ""
 msgid "has a logo at"
 msgstr ""
 
-#: DB:link_type/long_link_phrase:25 DB:link_type/long_link_phrase:129
+#: DB:link_type/long_link_phrase:129 DB:link_type/long_link_phrase:25
 msgid "has a miscellaneous role on"
 msgstr ""
 
@@ -5000,17 +5010,17 @@ msgstr ""
 msgid "minor"
 msgstr ""
 
-#: DB:link_type/name:25 DB:link_type/name:129 DB:link_type/name:162
+#: DB:link_type/name:162 DB:link_type/name:129 DB:link_type/name:25
 msgid "misc"
 msgstr ""
 
-#: DB:link_type/link_phrase:25 DB:link_type/link_phrase:129
-#: DB:link_type/link_phrase:162
+#: DB:link_type/link_phrase:162 DB:link_type/link_phrase:129
+#: DB:link_type/link_phrase:25
 msgid "miscellaneous roles"
 msgstr ""
 
-#: DB:link_type/reverse_link_phrase:25 DB:link_type/reverse_link_phrase:129
-#: DB:link_type/reverse_link_phrase:162
+#: DB:link_type/reverse_link_phrase:162 DB:link_type/reverse_link_phrase:129
+#: DB:link_type/reverse_link_phrase:25
 msgid "miscellaneous support"
 msgstr ""
 
@@ -5494,8 +5504,7 @@ msgstr ""
 msgid "produced at"
 msgstr ""
 
-#: DB:link_type/name:950 DB:link_type/name:951
-#: DB:link_type/reverse_link_phrase:950 DB:link_type/reverse_link_phrase:951
+#: DB:link_type/name:951 DB:link_type/name:950
 msgid "produced for"
 msgstr ""
 
@@ -5585,17 +5594,17 @@ msgstr ""
 
 #: DB:link_type/link_phrase:206 DB:link_type/link_phrase:362
 #: DB:link_type/link_phrase:127 DB:link_type/link_phrase:32
-#: DB:link_type/link_phrase:208 DB:link_type/link_phrase:161
+#: DB:link_type/link_phrase:161 DB:link_type/link_phrase:208
 #: DB:link_type/name:362 DB:link_type/long_link_phrase:206
 #: DB:link_type/long_link_phrase:362 DB:link_type/long_link_phrase:127
-#: DB:link_type/long_link_phrase:32 DB:link_type/long_link_phrase:208
-#: DB:link_type/long_link_phrase:161
+#: DB:link_type/long_link_phrase:32 DB:link_type/long_link_phrase:161
+#: DB:link_type/long_link_phrase:208
 msgid "published"
 msgstr ""
 
 #: DB:link_type/reverse_link_phrase:206 DB:link_type/reverse_link_phrase:362
 #: DB:link_type/reverse_link_phrase:127 DB:link_type/reverse_link_phrase:32
-#: DB:link_type/reverse_link_phrase:208 DB:link_type/reverse_link_phrase:161
+#: DB:link_type/reverse_link_phrase:161 DB:link_type/reverse_link_phrase:208
 msgid "publisher"
 msgstr ""
 
@@ -5605,7 +5614,7 @@ msgid "publishes series"
 msgstr ""
 
 #: DB:link_type/name:206 DB:link_type/name:127 DB:link_type/name:32
-#: DB:link_type/name:208 DB:link_type/name:66 DB:link_type/name:161
+#: DB:link_type/name:66 DB:link_type/name:161 DB:link_type/name:208
 msgid "publishing"
 msgstr ""
 
@@ -6057,6 +6066,10 @@ msgstr ""
 msgid "supporting {instrument} for"
 msgstr ""
 
+#: DB:link_attribute_type/name:1150
+msgid "task"
+msgstr ""
+
 #: DB:link_type/long_link_phrase:847
 msgid "taught"
 msgstr ""
@@ -6300,6 +6313,10 @@ msgstr ""
 
 #: DB:link_type/long_link_phrase:36 DB:link_type/long_link_phrase:128
 msgid "was {additional} {assistant} {associate} {co:co-}recording engineer for"
+msgstr ""
+
+#: DB:link_attribute_type/name:1151
+msgid "whistling"
 msgstr ""
 
 #: DB:link_type/name:351 DB:link_type/name:733 DB:link_type/name:358
@@ -6880,6 +6897,10 @@ msgstr ""
 msgid "{bonus:may be|is} part of a set, the next disc in the set is"
 msgstr ""
 
+#: DB:link_type/reverse_link_phrase:951 DB:link_type/reverse_link_phrase:950
+msgid "{co:co-}{executive:executive }produced for"
+msgstr ""
+
 #: DB:link_type/long_link_phrase:750
 msgid "{entity1} catalogues the work of {entity0}"
 msgstr ""
@@ -7057,10 +7078,6 @@ msgstr ""
 msgid "{entity1} was printed in {entity0}"
 msgstr ""
 
-#: DB:link_type/long_link_phrase:950 DB:link_type/long_link_phrase:951
-msgid "{entity1} was produced for {entity0}"
-msgstr ""
-
 #: DB:link_type/long_link_phrase:810 DB:link_type/long_link_phrase:809
 msgid "{entity1} was recorded at  {entity0}"
 msgstr ""
@@ -7173,6 +7190,10 @@ msgstr ""
 msgid ""
 "{entity1} was {anniversary:an anniversary tour for|a tour in support of} "
 "{entity0}"
+msgstr ""
+
+#: DB:link_type/long_link_phrase:951 DB:link_type/long_link_phrase:950
+msgid "{entity1} was {co:co-}{executive:executive }produced for {entity0}"
 msgstr ""
 
 #: DB:link_type/long_link_phrase:967 DB:link_type/long_link_phrase:968

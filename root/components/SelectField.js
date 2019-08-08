@@ -1,6 +1,6 @@
 /*
  * @flow
- * Copyright (C) 2017 MetaBrainz Foundation
+ * Copyright (C) 2019 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
  * and is licensed under the GPL version 2, or (at your option) any
@@ -24,13 +24,14 @@ const buildOptGroup = (optgroup, index) => (
   </optgroup>
 );
 
-type Props = {|
+type SelectFieldProps = {|
   +allowEmpty?: boolean,
   +disabled?: boolean,
   +field: ReadOnlyFieldT<?StrOrNum>,
   +onChange?: (event: SyntheticEvent<HTMLSelectElement>) => void,
   +options: MaybeGroupedOptionsT,
   +required?: boolean,
+  +uncontrolled?: boolean,
 |};
 
 const SelectField = ({
@@ -40,23 +41,34 @@ const SelectField = ({
   onChange,
   options,
   required,
-}: Props) => (
-  <select
-    className="with-button"
-    disabled={disabled}
-    id={'id-' + field.html_name}
-    name={field.html_name}
-    onChange={onChange}
-    required={required}
-    value={getSelectValue(field, options, allowEmpty)}
-  >
-    {allowEmpty
-      ? <option value="">{'\xA0'}</option>
-      : null}
-    {options.grouped
-      ? options.options.map(buildOptGroup)
-      : options.options.map(buildOption)}
-  </select>
-);
+  uncontrolled = false,
+}: SelectFieldProps) => {
+  const selectElementProps: any = {
+    className: 'with-button',
+    disabled: disabled,
+    id: 'id-' + field.html_name,
+    name: field.html_name,
+    required: required,
+  };
+
+  if (uncontrolled) {
+    selectElementProps.defaultValue =
+      getSelectValue(field, options, allowEmpty);
+  } else {
+    selectElementProps.onChange = onChange;
+    selectElementProps.value = getSelectValue(field, options, allowEmpty);
+  }
+
+  return (
+    <select {...selectElementProps}>
+      {allowEmpty
+        ? <option value="">{'\xA0'}</option>
+        : null}
+      {options.grouped
+        ? options.options.map(buildOptGroup)
+        : options.options.map(buildOption)}
+    </select>
+  );
+};
 
 export default SelectField;

@@ -129,7 +129,10 @@ sub autocomplete_editor {
 sub output_error {
     my ($self, $err) = @_;
 
-    return encode_json({ error => $err });
+    return encode_json({
+        error => $err,
+        help => 'For usage, please see: https://musicbrainz.org/development/mmd',
+    });
 }
 
 sub output_success {

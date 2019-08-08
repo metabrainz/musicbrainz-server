@@ -40,7 +40,9 @@ const LabelList = ({
     <thead>
       <tr>
         {$c.user_exists && checkboxes ? (
-          <th className="pos" />
+          <th>
+            <input type="checkbox" />
+          </th>
         ) : null}
         <th>
           {sortable

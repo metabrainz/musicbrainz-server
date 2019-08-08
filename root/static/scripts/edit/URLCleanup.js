@@ -1058,6 +1058,15 @@ const CLEANUPS = {
       return true;
     },
   },
+  'fandomlyrics': {
+    match: [new RegExp('^(https?://)?(fr\\.)?lyrics\\.(wikia|fandom)\\.com', 'i')],
+    type: LINK_TYPES.lyrics,
+    clean: function (url) {
+      url = url.replace(/^https?:\/\/lyrics\.(?:wikia|fandom)\.com/, 'https://lyrics.fandom.com');
+      url = url.replace(/^https?:\/\/fr\.lyrics\.(?:wikia|fandom)\.com/, 'https://lyrics.fandom.com/fr');
+      return url;
+    },
+  },
   'flattr': {
     match: [new RegExp('^(https?://)?(www\\.)?flattr\\.com/profile/[^/?#]', 'i')],
     type: LINK_TYPES.patronage,
@@ -1084,6 +1093,13 @@ const CLEANUPS = {
           id === LINK_TYPES.otherdatabases.label ||
           id === LINK_TYPES.otherdatabases.release_group ||
           id === LINK_TYPES.otherdatabases.work;
+    },
+  },
+  'genius': {
+    match: [new RegExp('^(https?://)?([^/]+\\.)?genius\\.com', 'i')],
+    type: LINK_TYPES.lyrics,
+    clean: function (url) {
+      return url.replace(/^https?:\/\/([^/]+\.)?genius\.com/, 'http://$1genius.com');
     },
   },
   'geonames': {
@@ -1447,7 +1463,6 @@ const CLEANUPS = {
   },
   'lyrics': {
     match: [
-      new RegExp('^(https?://)?([^/]+\\.)?lyrics\\.wikia\\.com', 'i'),
       new RegExp('^(https?://)?([^/]+\\.)?directlyrics\\.com', 'i'),
       new RegExp('^(https?://)?([^/]+\\.)?decoda\\.com', 'i'),
       new RegExp('^(https?://)?([^/]+\\.)?kasi-time\\.com', 'i'),
@@ -1456,15 +1471,10 @@ const CLEANUPS = {
       new RegExp('^(https?://)?([^/]+\\.)?j-lyric\\.net', 'i'),
       new RegExp('^(https?://)?([^/]+\\.)?lyricsnmusic\\.com', 'i'),
       new RegExp('^(https?://)?([^/]+\\.)?muzikum\\.eu', 'i'),
-      new RegExp('^(https?://)?([^/]+\\.)?genius\\.com', 'i'),
       new RegExp('^(https?://)?([^/]+\\.)?gutenberg\\.org', 'i'),
       new RegExp('^(https?://)?([^/]+\\.)?laboiteauxparoles\\.com', 'i'),
     ],
     type: LINK_TYPES.lyrics,
-    clean: function (url) {
-      url = url.replace(/^https?:\/\/([^/]+\.)?genius\.com/, 'http://$1genius.com');
-      return url;
-    },
   },
   'mixcloud': {
     match: [new RegExp('^(https?://)?([^/]+\\.)?mixcloud\\.com/', 'i')],
@@ -1538,6 +1548,22 @@ const CLEANUPS = {
     },
     validate: function (url, id) {
       return /^https:\/\/musopen\.org\/music\/\d+\/$/.test(url);
+    },
+  },
+  'muziekweb': {
+    match: [new RegExp('^(https?://)?www\\.muziekweb\\.(eu|nl)/', 'i')],
+    type: LINK_TYPES.otherdatabases,
+    clean: function (url) {
+      return url.replace(/^(?:https?:\/\/)?(?:www\.)?muziekweb\.(?:eu|nl)\/(?:[a-z]{2}\/)?Link\/([A-Z]{1,3}\d+).*$/, 'https://www.muziekweb.eu/Link/$1/');
+    },
+    validate: function (url, id) {
+      switch (id) {
+        case LINK_TYPES.otherdatabases.artist:
+          return /^https:\/\/www\.muziekweb\.eu\/Link\/M\d{11}\/$/.test(url);
+        case LINK_TYPES.otherdatabases.release:
+          return /^https:\/\/www\.muziekweb\.eu\/Link\/[A-Z]{2,3}\d{4,6}\/$/.test(url);
+      }
+      return false;
     },
   },
   'myspace': {

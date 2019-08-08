@@ -6,7 +6,7 @@
     [% WRAPPER form_row %]
         [% r.label('child_order', l('Child order:')) %]
         [% r.number('child_order') %]
-        [% form_field_errors(form, 'child_order') %]
+        [% field_errors(form, 'child_order') %]
     [% END %]
 
     [% form_row_text_long(r, 'name', l('Name:')) %]
@@ -19,18 +19,18 @@
     [% WRAPPER form_row %]
         [% r.label('description', l('Description:')) %]
         [% r.textarea('description', { cols => 80, rows => 6 }) %]
-        [% form_field_errors(form, 'description') %]
+        [% field_errors(form, 'description') %]
     [% END %]
 
     [% WRAPPER form_row %]
         [% r.label('entity0_cardinality', l('entity0 cardinality:')) %]
         [% r.number('entity0_cardinality') %]
-        [% form_field_errors(form, 'entity0_cardinality') %]
+        [% field_errors(form, 'entity0_cardinality') %]
     [% END %]
     [% WRAPPER form_row %]
         [% r.label('entity1_cardinality', l('entity1 cardinality:')) %]
         [% r.number('entity1_cardinality') %]
-        [% form_field_errors(form, 'entity1_cardinality') %]
+        [% field_errors(form, 'entity1_cardinality') %]
     [% END %]
 
     [% WRAPPER form_row %]
@@ -39,13 +39,13 @@
         <div class="no-label">
             [% l('A value of 1 or 2 indicates that either entity1 or entity0 are orderable, respectively.') %]
         </div>
-        [% form_field_errors(form, 'orderable_direction') %]
+        [% field_errors(form, 'orderable_direction') %]
     [% END %]
 
     [% WRAPPER form_row %]
         [% r.label('priority', l('Priority:')) %]
         [% r.number('priority') %]
-        [% form_field_errors(form, 'priority') %]
+        [% field_errors(form, 'priority') %]
     [% END %]
 
     [% WRAPPER form_row %]

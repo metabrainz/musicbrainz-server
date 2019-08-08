@@ -82,11 +82,13 @@ const linkedEntities/*: LinkedEntities */ = Object.create(Object.seal({
   work_attribute_type:            EMPTY_OBJECT,
 
   mergeLinkedEntities(update/*: ?LinkedEntities */) {
-    for (const [type, entities] of Object.entries(update)) {
-      if (Object.prototype.hasOwnProperty.call(linkedEntities, type)) {
-        Object.assign(linkedEntities[type], entities);
-      } else {
-        linkedEntities[type] = entities;
+    if (update) {
+      for (const [type, entities] of Object.entries(update)) {
+        if (Object.prototype.hasOwnProperty.call(linkedEntities, type)) {
+          Object.assign(linkedEntities[type], entities);
+        } else {
+          linkedEntities[type] = entities;
+        }
       }
     }
   },
