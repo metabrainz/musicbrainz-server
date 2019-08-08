@@ -31,7 +31,7 @@
           <label>[% l('Length:') %]</label>
           [% l('{recording_length} ({length_info|derived} from the associated track lengths)',
                 recording_length => format_length(form.field('length').value),
-                length_info => doc_link('Recording') ) %]
+                length_info => { href => doc_link('Recording'), target => '_blank' } ) %]
         [%- END -%]
       [%- END -%]
       [%- form_row_checkbox(r, 'video', l('Video')) -%]

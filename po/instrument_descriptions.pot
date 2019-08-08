@@ -79,14 +79,6 @@ msgstr ""
 msgid "A chamber organ is a small pipe organ."
 msgstr ""
 
-#. name:chime bar 
-#: DB:instrument/description:638
-msgid ""
-"A chime bar is a percussion instrument consisting of a tuned metal bar "
-"similar to a glockenspiel bar which is mounted on a wooden resonator and "
-"played with a mallet."
-msgstr ""
-
 #. name:cuatro 
 #: DB:instrument/description:439
 msgid "A class of South-American guitars"
@@ -734,6 +726,13 @@ msgid ""
 "techniques to create a more percussive sound. Originally having wooden "
 "tuning pegs like lutes and violins, it has a thinner, lighter build with "
 "\"golpeadores\" or tapping-plates and less sustain than the classical guitar."
+msgstr ""
+
+#. name:chime bar 
+#: DB:instrument/description:638
+msgid ""
+"Despite the name, it is not a chime but instead consists of tuned metal bars "
+"each on individual resonator boxes. <br></br> It is similar to glockenspiel."
 msgstr ""
 
 #. name:theorbo 
