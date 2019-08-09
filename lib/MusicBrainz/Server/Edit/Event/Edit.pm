@@ -149,6 +149,8 @@ sub _edit_hash {
     return $self->merge_changes;
 }
 
+sub edit_template_react { "EditEvent" }
+
 around extract_property => sub {
     my ($orig, $self) = splice(@_, 0, 2);
     my ($property, $ancestor, $current, $new) = @_;
