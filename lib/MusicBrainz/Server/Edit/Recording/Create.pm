@@ -68,6 +68,8 @@ sub _insert_hash
     return $data
 }
 
+sub edit_template_react { "AddStandaloneRecording" }
+
 around reject => sub {
     my ($orig, $self) = @_;
     if ($self->c->model('Recording')->can_delete($self->entity_id)) {

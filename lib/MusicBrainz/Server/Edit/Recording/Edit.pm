@@ -186,6 +186,8 @@ sub _edit_hash
     return $data;
 }
 
+sub edit_template_react { "EditRecording" }
+
 before accept => sub {
     my ($self) = @_;
 
