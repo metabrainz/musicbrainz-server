@@ -218,6 +218,8 @@ sub restore {
     $self->data($data);
 }
 
+sub edit_template_react { "EditLabel" }
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 
