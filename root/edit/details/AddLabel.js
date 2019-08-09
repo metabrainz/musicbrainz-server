@@ -69,15 +69,15 @@ const AddLabel = ({edit}) => {
           </tr>
         ) : null}
         {display.ipi_codes.length > 0
-          ? display.ipi_codes.forEach(ipiCode => (
-            <tr>
+          ? display.ipi_codes.map(ipiCode => (
+            <tr key={ipiCode}>
               <th>{l('IPI code:')}</th>
               <td>{ipiCode}</td>
             </tr>
           )) : null}
         {display.isni_codes.length > 0
-          ? display.isni_codes.forEach(isniCode => (
-            <tr>
+          ? display.isni_codes.map(isniCode => (
+            <tr key={isniCode}>
               <th>{l('ISNI code:')}</th>
               <td>{formatIsni(isniCode)}</td>
             </tr>
