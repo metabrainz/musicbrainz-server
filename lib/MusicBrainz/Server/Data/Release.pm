@@ -416,6 +416,7 @@ sub find_by_recording
 {
     my ($self, $ids, $limit, $offset, %args) = @_;
     my @ids = ref $ids ? @$ids : ( $ids );
+    return ([], 0) unless @ids;
 
     my ($conditions, $extra_joins, $params) = _where_filter($args{filter});
 
