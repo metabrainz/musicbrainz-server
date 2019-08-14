@@ -178,6 +178,7 @@ has 'preferences' => (
 
 sub is_limited
 {
+    # Please keep the logic in sync with Report::LimitedEditors and EditSearch::Predicate::Role::User
     my $self = shift;
     return
         !($self->id == $EDITOR_MODBOT) &&
