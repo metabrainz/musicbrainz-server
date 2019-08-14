@@ -73,7 +73,13 @@ sub _get_and_process_json
         }
 
         # pull out the correct page, though there should only be one
-        my $ret = first { $_->{title} eq $title } values %{ $content->{pages} };
+        my $ret;
+        # If using version 2, pages might be an array of objects, not a hash
+        if (ref($content->{pages}) eq 'ARRAY') {
+            $ret = first { $_->{title} eq $title } @{ $content->{pages} };
+        } else {
+            $ret = first { $_->{title} eq $title } values %{ $content->{pages} };
+        }
         unless ($ret && $ret->{$property}) { $ret->{$property} = undef; }
 
         return {content => $ret->{$property}, title => $noncanonical, canonical => $title};
