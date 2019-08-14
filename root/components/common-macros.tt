@@ -35,10 +35,6 @@
     END;
 END ~%]
 
-[%~ MACRO wiki_history_link(server, id, version) BLOCK -%]
-//[%- server -%]/[%- id -%]?oldid=[%- version -%]
-[%- END -%]
-
 [%- USE Translation('mb_server') -%]
 [%~ MACRO l(text, args) BLOCK; # Converted to React at root/static/scripts/common/i18n.js
     Translation.l(text, args);
@@ -712,10 +708,6 @@ END -%]
     </noscript>
 [%~ END ~%]
 
-[%~ MACRO wiki_link(server, id) BLOCK -%]
-//[%- server -%]/[%- id -%]
-[%- END -%]
-
 [%~ MACRO script_manifest(manifest, extra_attrs) BLOCK # Converted to React at root/static/manifest.js
 ~%]
   [%~ attr_string = '';
@@ -769,16 +761,6 @@ END ~%]
 
 [%~ MACRO filter_button BLOCK -%]
   <div style="float:right;margin-top:1.5em;"><a class="filter-button">[% React.embed(c, 'static/scripts/common/components/FilterIcon') %]</a> <a class="filter-button" href="#">[% l("Filter") %]</a></div>
-[%- END -%]
-
-[%~ MACRO wikidoc_search_box BLOCK -%]
-  <div class="wikidoc-search">
-    <form action="[% c.uri_for('/search') | html %]" method="get">
-      <input type="hidden" name="type" value="doc" />
-      <input type="text" name="query" placeholder="[% l('Search the documentation...')  %]" />
-      [% form_submit(l('Search'),'inline') %]
-    </form>
-  </div>
 [%- END -%]
 
 [%~ MACRO artist_begin_label_from_type(type_id) BLOCK ~%]

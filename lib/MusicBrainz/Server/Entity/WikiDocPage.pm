@@ -27,6 +27,18 @@ has 'canonical' => (
     isa => 'Str',
 );
 
+sub TO_JSON {
+    my ($self) = @_;
+
+    return {
+        content     => $self->content,
+        hierarchy   => $self->hierarchy,
+        title       => $self->title,
+        version     => $self->version,
+    };
+}
+
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;

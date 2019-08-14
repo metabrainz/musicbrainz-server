@@ -42,6 +42,7 @@ Readonly our @STRING_DEFS => qw(
     SENTRY_DSN_PUBLIC
     STATIC_RESOURCES_LOCATION
     WEB_SERVER
+    WIKITRANS_SERVER
 );
 
 Readonly our @QW_DEFS => qw(
@@ -59,6 +60,7 @@ Readonly our %CLIENT_DEFS => (
     MB_LANGUAGES => 1,
     SENTRY_DSN_PUBLIC => 1,
     STATIC_RESOURCES_LOCATION => 1,
+    WIKITRANS_SERVER => 1,
 );
 
 sub get_value {
