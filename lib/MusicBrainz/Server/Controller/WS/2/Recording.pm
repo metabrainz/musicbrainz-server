@@ -29,6 +29,7 @@ my $ws_defs = Data::OptList::mkopt([
                          optional => [ qw(fmt limit offset) ],
      },
      recording => {
+                         action   => '/ws/2/recording/lookup',
                          method   => 'GET',
                          inc      => [ qw(artists releases artist-credits puids isrcs aliases
                                           _relations tags user-tags genres user-genres ratings user-ratings
