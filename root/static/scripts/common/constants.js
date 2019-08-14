@@ -105,6 +105,8 @@ export const FAVICON_CLASSES: {[string]: string} = {
   'loc.gov': 'loc',
   'loudr.fm': 'loudr',
   'lyric.evesta.jp': 'evestalyric',
+  'lyrics.fandom.com/wiki/': 'lyricwiki',
+  'lyrics.wikia.com/wiki/': 'lyricwiki',
   'lyricsnmusic.com': 'lyricsnmusic',
   'mainlynorfolk.info': 'mainlynorfolk',
   'metal-archives.com': 'metalarchives',
