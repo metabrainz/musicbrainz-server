@@ -19,10 +19,11 @@ const Create = ({$c, form, optionsTypeId, entityType}: Props) => {
       <div id="content">
         <h1>{l('Add Place')}</h1>
         <EditForm
-          $c={$c}
           entityType={entityType}
           form={form}
           optionsTypeId={optionsTypeId}
+          relationshipEditorHTML={$c.stash.relationship_editor_html}
+          uri={$c.req.uri}
         />
       </div>
       <div id="guesscase-options" />

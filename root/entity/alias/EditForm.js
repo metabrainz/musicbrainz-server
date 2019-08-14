@@ -402,10 +402,7 @@ const EditForm = ({
           />
           <fieldset>
             <legend>{l('Changes')}</legend>
-            {editKind === 'add'
-              ? <AddRemoveAlias edit={generateAddPreviewData()} />
-              : <EditAlias edit={generateEditPreviewData()} />
-            }
+            <AddRemoveAlias edit={generateAddPreviewData()} />
           </fieldset>
           <EnterEditNote field={form.field.edit_note} hideHelp />
           <EnterEdit form={form} />

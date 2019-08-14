@@ -182,6 +182,7 @@ with 'MusicBrainz::Server::Controller::Role::Create' => {
 with 'MusicBrainz::Server::Controller::Role::Edit' => {
     form           => 'Place',
     edit_type      => $EDIT_PLACE_EDIT,
+    dialog_template_react => 'place/Edit.js',
 };
 
 after edit => sub {

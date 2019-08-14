@@ -87,6 +87,7 @@ module.exports = {
   'oauth2/OAuth2Oob': require('../oauth2/OAuth2Oob'),
   'otherlookup/NotFound': require('../otherlookup/NotFound'),
   'place/Create': require('../place/Create'),
+  'place/Edit': require('../place/Edit'),
   'place/NotFound': require('../place/NotFound'),
   'place/PlaceEvents': require('../place/PlaceEvents'),
   'place/PlaceIndex': require('../place/PlaceIndex'),

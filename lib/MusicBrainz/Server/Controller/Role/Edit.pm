@@ -17,6 +17,10 @@ parameter 'edit_arguments' => (
     default => sub { sub { } }
 );
 
+parameter 'dialog_template_react' => (
+    isa => 'Str'
+);
+
 role {
     my $params = shift;
     my %extra = @_;
@@ -34,7 +38,18 @@ role {
         my $entity_name = $self->{entity_name};
         my $edit_entity = $c->stash->{ $entity_name };
 
-        $c->stash->{template} = 'entity/edit.tt';
+        my %props;
+        $props{editEntity} = $edit_entity;
+
+        if ($params->dialog_template_react) {
+            $c->stash(
+                component_path => $params->dialog_template_react,
+                component_props => \%props,
+                current_view => 'Node'
+            )
+        } else {
+            $c->stash->{template} = 'entity/edit.tt';
+        }
 
         return $self->edit_action($c,
             form        => $params->form,
@@ -46,7 +61,12 @@ role {
                 $c->response->redirect(
                     $c->uri_for_action($self->action_for('show'), [ $edit_entity->gid ]));
             },
-            $params->edit_arguments->($self, $c, $edit_entity)
+            $params->edit_arguments->($self, $c, $edit_entity),
+            pre_validation => sub {
+                my $form = shift;
+                $props{form} = $form;
+                $props{optionsTypeID} = $form->options_type_id if $params->form eq 'Place';
+            }
         );
     };
 };
