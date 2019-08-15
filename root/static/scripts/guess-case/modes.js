@@ -112,8 +112,13 @@ function runFixes(is, fixes) {
     let matches;
 
     if (regex.global) {
+      let oldis;
       while ((matches = regex.exec(is))) {
+        oldis = is;
         is = replaceMatch(matches, is, regex, replacement);
+        if (oldis === is) {
+          break;
+        }
       }
     } else if ((matches = is.match(regex)) !== null) {
       is = replaceMatch(matches, is, regex, replacement);
