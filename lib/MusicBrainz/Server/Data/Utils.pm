@@ -70,6 +70,7 @@ our @EXPORT_OK = qw(
     sanitize
     take_while
     trim
+    trim_comment
     type_to_model
     split_relationship_by_attributes
 );
@@ -339,6 +340,14 @@ sub trim {
     $t = Text::Trim::trim($t);
 
     return $t;
+}
+
+sub trim_comment {
+    my $t = shift;
+
+    $t =~ s/^\s*\(([^()]+)\)\s*$/$1/;
+
+    return trim($t);
 }
 
 sub remove_direction_marks {
