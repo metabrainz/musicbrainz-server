@@ -310,6 +310,8 @@ const EditForm = ({
                 <HiddenField className="id" field={areaId} />
               </Autocomplete>
               <FieldErrors field={areaName} />
+              <FieldErrors field={areaGID} />
+              <FieldErrors field={areaId} />
             </FormRow>
             <FormRowTextLong
               defaultValue={coordinates.value ? formatCoordinates(coordinates.value) : ''}
