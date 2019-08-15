@@ -280,7 +280,15 @@ sub show : PathPart('') Chained('load')
               identities => \@identities);
 }
 
-sub relationships : Chained('load') PathPart('relationships') {}
+sub relationships : Chained('load') PathPart('relationships') {
+    my ($self, $c) = @_;
+
+    $c->stash(
+        component_path => 'artist/ArtistRelationships',
+        component_props => { artist => $c->stash->{artist} },
+        current_view => 'Node',
+    );
+}
 
 =head2 works
 
@@ -296,7 +304,18 @@ sub works : Chained('load')
     });
     $c->model('Work')->load_related_info(@$works);
     $c->model('Work')->rating->load_user_ratings($c->user->id, @$works) if $c->user_exists;
-    $c->stash( works => $works );
+
+    my %props = (
+        artist       => $c->stash->{artist},
+        pager        => serialize_pager($c->stash->{pager}),
+        works        => $works,
+    );
+
+    $c->stash(
+        component_path  => 'artist/ArtistWorks',
+        component_props => \%props,
+        current_view    => 'Node',
+    );
 }
 
 =head2 recordings
@@ -377,7 +396,7 @@ sub events : Chained('load')
     );
 
     $c->stash(
-        component_path  => 'artist/ArtistEvents.js',
+        component_path  => 'artist/ArtistEvents',
         component_props => \%props,
         current_view    => 'Node',
     );
@@ -589,7 +608,7 @@ around $_ => sub {
             artist => $artist,
         );
         $c->stash(
-            component_path => 'artist/SpecialPurpose.js',
+            component_path => 'artist/SpecialPurpose',
             component_props => \%props,
             current_view => 'Node',
         );
@@ -636,7 +655,7 @@ sub split : Chained('load') Edit {
             artist => $artist,
         );
         $c->stash(
-            component_path => 'artist/CannotSplit.js',
+            component_path => 'artist/CannotSplit',
             component_props => \%props,
             current_view => 'Node',
         );

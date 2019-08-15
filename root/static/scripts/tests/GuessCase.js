@@ -176,7 +176,7 @@ test('Recording', function (t) {
 });
 
 test('Work', function (t) {
-  t.plan(18);
+  t.plan(19);
 
   const tests = [
     {
@@ -305,6 +305,14 @@ test('Work', function (t) {
       roman: false,
       keepuppercase: false,
     },
+    {
+      input: 'My Favourite Numbers ARE IV, Viii, xIx and mcmxcvi',
+      expected: 'My Favourite Numbers Are IV, VIII, XIX and MCMXCVI',
+      bug: 'MBS-5338',
+      mode: 'English',
+      roman: true,
+      keepuppercase: false,
+    },
   ];
 
   _.each(tests, function (test) {
@@ -318,7 +326,7 @@ test('Work', function (t) {
 });
 
 test('BugFixes', function (t) {
-  t.plan(16);
+  t.plan(22);
 
   const tests = [
     {
@@ -341,12 +349,7 @@ test('BugFixes', function (t) {
     },
     {
       input: 'Megablast (Rap Version) (ft. Merlin)',
-      /*
-       * Note: 'rap' used to be lowercased until MBS-8982. Ideally it
-       * would still be, but we don't maintain a separate list for words
-       * that should trigger brackets.
-       */
-      expected: 'Megablast (Rap version) (ft. Merlin)',
+      expected: 'Megablast (rap version) (ft. Merlin)',
       bug: 'MBS-1313',
       mode: 'English',
     },
@@ -358,8 +361,14 @@ test('BugFixes', function (t) {
     },
     {
       input: 'aka AKA a.k.a. A.K.A. a/k/a A/K/A',
-      expected: 'a.k.a. a.k.a. a.k.a. a.k.a. a.k.a. a.k.a.',
-      bug: 'MBS-1314',
+      expected: 'aka aka a.k.a. a.k.a. a.k.a. a.k.a.',
+      bug: 'MBS-1314, MBS-8065',
+      mode: 'English',
+    },
+    {
+      input: 'Stuff aka Stuffy AKA Stuffy Stuff',
+      expected: 'Stuff aka Stuffy aka Stuffy Stuff',
+      bug: 'MBS-8065',
       mode: 'English',
     },
     {
@@ -411,6 +420,18 @@ test('BugFixes', function (t) {
       mode: 'English',
     },
     {
+      input: 'We Love Techno (Re‐Mode)',
+      expected: 'We Love Techno (re‐mode)',
+      bug: 'MBS-10156',
+      mode: 'English',
+    },
+    {
+      input: 'We Love Techno (Stereo)',
+      expected: 'We Love Techno (stereo)',
+      bug: 'MBS-10161',
+      mode: 'English',
+    },
+    {
       input: '¿qué No? ¡anda Que No!',
       expected: '¿Qué no? ¡Anda que no!',
       bug: 'MBS-1549',
@@ -421,6 +442,24 @@ test('BugFixes', function (t) {
       expected: '¿Qué no? ¡Anda que no!',
       bug: 'MBS-1549',
       mode: 'Sentence',
+    },
+    {
+      input: 'Protect Ya Neck',
+      expected: 'Protect Ya Neck',
+      bug: 'MBS-9837',
+      mode: 'English',
+    },
+    {
+      input: 'Protect Ya Neck',
+      expected: 'Protect ya Neck',
+      bug: 'MBS-9837',
+      mode: 'Turkish',
+    },
+    {
+      input: 'I Love My iPad, My IPod and My Iphone!',
+      expected: 'I Love My iPad, My iPod and My iPhone!',
+      bug: 'MBS-7421',
+      mode: 'English',
     },
 
     /*
@@ -449,6 +488,7 @@ test('BugFixes', function (t) {
   ];
 
   _.each(tests, function (test) {
+    gc.CFG_UC_UPPERCASED = false;
     gc.mode = modes[test.mode];
 
     const result = MB.GuessCase.work.guess(test.input);
@@ -459,6 +499,7 @@ test('BugFixes', function (t) {
 test('vinyl numbers are fixed', function (t) {
   t.plan(5);
 
+  setCookie('guesscase_roman', 'false');
   gc.mode = modes.English;
 
   const tests = [

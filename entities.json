@@ -392,6 +392,7 @@
         "last_updated_column": true,
         "model": "LinkType"
     },
+    "medium": {"model": "Medium"},
     "medium_format": {
         "cache": {
             "id": 19

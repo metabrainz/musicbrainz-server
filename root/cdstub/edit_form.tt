@@ -35,11 +35,11 @@
                 artist_value = artist_field.value;
                 artist_field.value = "Various Artists";
                 track_artists(true);
-                artist_field.disabled = true;
+                artist_field.setAttribute("readonly", true);
             } else {
                 artist_field.value = artist_value;
                 track_artists(false);
-                artist_field.disabled = false;
+                artist_field.removeAttribute("readonly");
             }
         };
 

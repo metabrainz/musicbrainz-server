@@ -3,6 +3,7 @@
 // Licensed under the GPL version 2, or (at your option) any later version:
 // http://www.gnu.org/licenses/gpl-2.0.txt
 
+import ko from 'knockout';
 import React from 'react';
 import ReactDOM from 'react-dom';
 
@@ -28,10 +29,17 @@ export const FormRowArtistCredit = ({form, entity}) => (
 
 MB.initializeArtistCredit = function (form, initialArtistCredit) {
   let source = MB.sourceEntity || {name: ''};
-  source.artistCredit = initialArtistCredit;
+  source.artistCredit = ko.observable(initialArtistCredit);
 
+  const container = document.getElementById('artist-credit-editor');
   ReactDOM.render(
     <FormRowArtistCredit entity={source} form={form} />,
-    document.getElementById('artist-credit-editor')
+    container,
   );
+
+  source.artistCredit.subscribe((artistCredit) => {
+    $('table.artist-credit-editor', container)
+      .data('componentInst')
+      .setState({artistCredit});
+  });
 };

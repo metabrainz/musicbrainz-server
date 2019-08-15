@@ -548,7 +548,7 @@ sub TO_JSON {
     my $req = $self->req;
     my %headers;
     for my $name ($req->headers->header_field_names) {
-        $headers{$name} = $req->headers->header($name);
+        $headers{lc($name)} = $req->headers->header($name);
     }
 
     return {

@@ -176,7 +176,7 @@ sub not_found : Private
     my ($self, $c) = @_;
     $c->stash(
         current_view => 'Node',
-        component_path => 'taglookup/NotFound.js',
+        component_path => 'taglookup/NotFound',
     );
     $c->detach;
 }
@@ -197,7 +197,7 @@ sub index : Path('')
 
     $c->stash(
         current_view => 'Node',
-        component_path => 'taglookup/Index.js',
+        component_path => 'taglookup/Index',
         component_props => {
             form => $form,
             nag => $nag,
@@ -214,7 +214,7 @@ sub index : Path('')
     my $model = type_to_model($c->stash->{type});
     $c->stash(
         current_view => 'Node',
-        component_path => "taglookup/${model}Results.js",
+        component_path => "taglookup/${model}Results",
         component_props => {
             form => $form,
             nag => $nag,

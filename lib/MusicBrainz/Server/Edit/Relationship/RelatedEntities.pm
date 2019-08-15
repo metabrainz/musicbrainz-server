@@ -21,7 +21,12 @@ around _build_related_entities => sub {
         $direct->{artist} ||= [];
         push @{ $direct->{artist} }, map { $_->artist_id }
             map { $_->artist_credit->all_names }
-                @entities
+                @entities;
+
+        # For recordings, we want relationship edits to also appear on the releases they're on
+        my @recording_ids = map { $_->id } grep { $_->isa('MusicBrainz::Server::Entity::Recording') } @entities;
+        my ($releases, $hits) = $self->c->model('Release')->find_by_recording(@recording_ids);
+        push @{ $direct->{release} }, map { $_->id } @$releases;
     }
 
     # Extract attributes from delete relationship edits

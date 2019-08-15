@@ -30,6 +30,7 @@ sub operator_cardinality_map {
         'me' => undef,
         'not_me' => undef,
         'subscribed' => undef,
+        'not_subscribed' => undef,
     );
 };
 
@@ -45,6 +46,12 @@ sub voter_clause {
 
     if ($self->operator eq 'subscribed') {
         $sql .= "IN (
+             SELECT subscribed_editor
+               FROM editor_subscribe_editor
+              WHERE editor = ?
+        )";
+    } elsif ($self->operator eq 'not_subscribed') {
+        $sql .= "NOT IN (
              SELECT subscribed_editor
                FROM editor_subscribe_editor
               WHERE editor = ?

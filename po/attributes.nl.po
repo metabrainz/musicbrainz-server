@@ -10,7 +10,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2019-06-04 14:36+0000\n"
+"PO-Revision-Date: 2019-08-14 13:02+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -1225,6 +1225,11 @@ msgstr "Bootleg"
 msgctxt "label_type"
 msgid "Bootleg Production"
 msgstr "Onofficiële (bootleg) productie"
+
+#: DB:release_packaging/name:19
+msgctxt "release_packaging"
+msgid "Box"
+msgstr "Doos"
 
 #: DB:work_attribute_type_allowed_value/value:607
 msgctxt "work_attribute_type_allowed_value"
@@ -4970,6 +4975,16 @@ msgctxt "alias_type"
 msgid "Place name"
 msgstr "Naam van de plaats"
 
+#: DB:release_packaging/description:20
+msgctxt "release_packaging"
+msgid "Plastic CD tray inside a cardboard slipcover"
+msgstr "Een plastic cd-houder in een kartonnen hoesje"
+
+#: DB:release_packaging/name:18
+msgctxt "release_packaging"
+msgid "Plastic Sleeve"
+msgstr "Plastic hoes"
+
 #: DB:work_type/name:28
 msgctxt "work_type"
 msgid "Play"
@@ -5199,7 +5214,7 @@ msgstr "Ravicandrika"
 #: DB:cover_art_archive.art_type/name:14
 msgctxt "cover_art_type"
 msgid "Raw/Unedited"
-msgstr "Onbewerkt"
+msgstr "onbewerkt"
 
 #: DB:editor_collection_type/name:12
 msgctxt "collection_type"
@@ -5735,6 +5750,11 @@ msgstr "Sirto"
 msgctxt "work_attribute_type_allowed_value"
 msgid "Sitārkhānī"
 msgstr "Sitārkhānī"
+
+#: DB:release_packaging/name:20
+msgctxt "release_packaging"
+msgid "Slidepack"
+msgstr "Slidepack"
 
 #: DB:release_packaging/name:2
 msgctxt "release_packaging"

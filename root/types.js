@@ -16,8 +16,8 @@
  */
 
 declare type AggregatedTagT = {|
-  +tag: string,
   +count: number,
+  +tag: string,
 |};
 
 declare type AliasT = {|
@@ -241,8 +241,8 @@ declare type CollectionT = {|
   +collaborators: $ReadOnlyArray<EditorT>,
   +description: string,
   +description_html: string,
-  +entity_count: number,
   +editor: EditorT | null,
+  +entity_count: number,
   +gid: string,
   +name: string,
   +public: boolean,
@@ -411,10 +411,10 @@ declare type EditStatusT =
 declare type EditT = {|
   +close_time: string,
   +conditions: {|
-    +duration: number,
-    +votes: number,
-    +expire_action: EditExpireActionT,
     +auto_edit: boolean,
+    +duration: number,
+    +expire_action: EditExpireActionT,
+    +votes: number,
   |},
   +created_time: string,
   +data: Object,
@@ -640,6 +640,22 @@ declare type MediumFormatT = {|
   ...OptionTreeT<'medium_format'>,
   +has_discids: boolean,
   +year: ?number,
+|};
+
+declare type MediumT = {|
+  /*
+   * TODO: still missing +cdtocs: $ReadOnlyArray<MediumCdTocT>
+   * (MediumCdTocT is not defined yet)
+   */
+  ...EntityRoleT<'track'>,
+  ...LastUpdateRoleT,
+  +editsPending: boolean,
+  +format: string,
+  +formatID: number,
+  +name: string,
+  +position: number,
+  +release_id: number,
+  +tracks?: $ReadOnlyArray<TrackT>,
 |};
 
 declare type MinimalCoreEntityT = {
@@ -894,7 +910,7 @@ declare type SeriesT = {|
 |};
 
 declare type SeriesItemNumbersRoleT = {|
-  +seriesItemNumbers?: {+[number]: string}
+  +seriesItemNumbers?: {+[number]: string},
 |};
 
 declare type SeriesOrderingTypeT = OptionTreeT<'series_ordering_type'>;
@@ -913,6 +929,23 @@ declare type StrOrNum = string | number;
 type StructFieldT<F> =
   | CompoundFieldT<F>
   | RepeatableFieldT<F>;
+
+declare type TrackT = {|
+  ...EntityRoleT<'track'>,
+  ...LastUpdateRoleT,
+  +artist: string,
+  +artistCredit: ArtistCreditT,
+  +editsPending: boolean,
+  +gid: string,
+  +isDataTrack: boolean,
+  +length: number,
+  +medium: MediumT | null,
+  +name: string,
+  +number: string,
+  +position: number,
+  +recording?: {+artistCredit?: ArtistCreditT} & RecordingT,
+  +unaccented_name: string | null,
+|};
 
 declare type TypeRoleT<T> = {|
   +typeID: number | null,

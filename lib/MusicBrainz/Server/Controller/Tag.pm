@@ -39,7 +39,7 @@ sub cloud : Path('/tags')
 
     $c->stash(
         current_view => 'Node',
-        component_path => 'tag/TagCloud.js',
+        component_path => 'tag/TagCloud',
         component_props => {
             %{$c->stash->{component_props}},
             tagMaxCount => $hits ? $cloud->[0]->{count} : 0,
@@ -54,7 +54,7 @@ sub show : Chained('load') PathPart('')
     my $tag = $c->stash->{tag};
     $c->stash(
         current_view => 'Node',
-        component_path => 'tag/TagIndex.js',
+        component_path => 'tag/TagIndex',
         component_props => {
             %{$c->stash->{component_props}},
             tag => $tag,
@@ -94,7 +94,7 @@ map {
         $c->model('ArtistCredit')->load(map { $_->entity } @$entity_tags) if $entity_properties->{artist_credits};
         $c->stash(
             current_view => 'Node',
-            component_path => 'tag/EntityList.js',
+            component_path => 'tag/EntityList',
             component_props => {
                 %{$c->stash->{component_props}},
                 entityTags => [map +{
@@ -120,7 +120,7 @@ sub not_found : Private
     $c->response->status(404);
     $c->stash(
         current_view => 'Node',
-        component_path => 'tag/NotFound.js',
+        component_path => 'tag/NotFound',
         component_props => {
             %{$c->stash->{component_props}},
             tag => $tagname,

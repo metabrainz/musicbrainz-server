@@ -11,8 +11,8 @@ import clean from '../common/utility/clean';
 import * as flags from './flags';
 
 /*
- * Words which are *not* converted if they are matched as a single
- * pre-processor word at the end of the sentence.
+ * Words which are turned to lowercase if in brackets, but
+ * are *not* put in brackets if they're found at the end of the sentence.
  */
 const preBracketSingleWordsList = [
   'acoustic',
@@ -20,12 +20,15 @@ const preBracketSingleWordsList = [
   'album',
   'alternate',
   'alternative',
+  'ambient',
   'bonus',
+  'chillout',
   'clean',
   'club',
   'composition',
   'cut',
   'dance',
+  'dialogue',
   'dirty',
   'disc',
   'disco',
@@ -42,17 +45,25 @@ const preBracketSingleWordsList = [
   'megamix',
   'mix',
   'original',
+  'piano',
   'radio',
+  'rap',
+  'rehearsal',
   'remixed',
+  'remode',
+  're‐mode',
   'rework',
   'reworked',
   'session',
   'short',
   'take',
+  'techno',
   'trance',
   'version',
   'video',
   'vocal',
+  'with',
+  'without',
 ];
 
 const preBracketSingleWords = new RegExp(
@@ -63,12 +74,14 @@ export function isPrepBracketSingleWord(w) {
   return preBracketSingleWords.test(w);
 }
 
-// Words which are written lowercase if in brackets.
+/*
+ * Words which are turned to lowercase if in brackets, and
+ * put in brackets if they're found at the end of the sentence.
+ */
 const lowerCaseBracketWordsList = [
   'a_cappella',
   'clubmix',
   'demo',
-  'dialogue',
   'edit',
   'excerpt',
   'interlude',
@@ -76,23 +89,24 @@ const lowerCaseBracketWordsList = [
   'karaoke',
   'maxi',
   'medley',
+  'mono',
   'orchestral',
   'outro',
   'outtake',
   'outtakes',
+  'quadraphonic',
   'reedit',
   'reinterpreted',
   'remake',
   'remix',
+  'rmx',
   'reprise',
   'single',
   'skit',
+  'stereo',
   'studio',
-  'techno',
   'unplugged',
   'vs',
-  'with',
-  'without',
 ].concat(preBracketSingleWordsList);
 
 const lowerCaseBracketWords = new RegExp(
@@ -112,10 +126,7 @@ export function isLowerCaseBracketWord(w) {
   return lowerCaseBracketWords.test(w);
 }
 
-/*
- * Words which the pre-processor looks for and puts them into brackets
- * if they aren't yet.
- */
+// Words which are put into brackets if they aren't yet.
 const prepBracketWords = /^(?:cd|disk|12["”]|7["”]|a_cappella|re_edit)$/i;
 
 export function isPrepBracketWord(w) {

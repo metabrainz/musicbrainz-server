@@ -22,8 +22,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2019-06-25 14:07+0000\n"
-"Last-Translator: Nicolas ANCEAU <email address hidden>\n"
+"PO-Revision-Date: 2019-08-15 09:00+0000\n"
+"Last-Translator: yvanz\n"
 "Language-Team: French (http://www.transifex.com/musicbrainz/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -716,6 +716,26 @@ msgstr "bolon"
 msgid "bombarde"
 msgstr "bombarde"
 
+#: DB:instrument/name:969
+msgctxt "Family of bronze gong-chime sets used in Javanese gamelan"
+msgid "bonang"
+msgstr ""
+
+#: DB:instrument/name:970
+msgctxt "Medium pitched gong-chime set in Javanese gamelan"
+msgid "bonang barung"
+msgstr ""
+
+#: DB:instrument/name:972
+msgctxt "Lowest pitched gong-chime set in Javanese gamelan"
+msgid "bonang panembung"
+msgstr ""
+
+#: DB:instrument/name:971
+msgctxt "Highest pitched gong-chime set in Javanese gamelan"
+msgid "bonang panerus"
+msgstr ""
+
 #: DB:instrument/name:357
 msgctxt "Folk music idiophone"
 msgid "bones"
@@ -895,10 +915,12 @@ msgid "chikuzen biwa"
 msgstr "chikuzen biwa"
 
 #: DB:instrument/name:638
+msgctxt "Individual percussion plates."
 msgid "chime bar"
 msgstr "lame sur résonateur"
 
 #: DB:instrument/name:338
+msgctxt "Arrangement of hanging struck tuned metal rods."
 msgid "chimes"
 msgstr "carillon tubulaire"
 
@@ -1109,7 +1131,7 @@ msgstr "tambour cylindrique"
 
 #: DB:instrument/name:271
 msgid "cymbal"
-msgstr ""
+msgstr "cymbale"
 
 #: DB:instrument/name:309
 msgid "cò ke"
@@ -2901,7 +2923,7 @@ msgstr "saduk"
 #: DB:instrument/name:966
 msgctxt "West Sumatran end-blown flute."
 msgid "saluang"
-msgstr ""
+msgstr "saluang"
 
 #: DB:instrument/name:583
 msgid "samba whistle"
@@ -2945,7 +2967,7 @@ msgstr "sarod"
 #: DB:instrument/name:597
 msgctxt "Javanese wooden trough metallophone family"
 msgid "saron"
-msgstr ""
+msgstr "saron"
 
 #: DB:instrument/name:749
 msgid "sarrusophone"
@@ -2954,7 +2976,7 @@ msgstr "sarrusophone"
 #: DB:instrument/name:928
 msgctxt "Indonesian tube zither"
 msgid "sasando"
-msgstr ""
+msgstr "sasando"
 
 #: DB:instrument/name:580
 msgid "satsuma biwa"
@@ -3053,7 +3075,7 @@ msgstr "shō"
 #: DB:instrument/name:39
 msgctxt "Ram's horn natural brass"
 msgid "shofar"
-msgstr ""
+msgstr "shofar"
 
 #: DB:instrument/name:443
 msgid "shruti box"
@@ -3628,7 +3650,7 @@ msgstr "carillon tubulaire"
 #: DB:instrument/name:873
 msgctxt "PVC pipe instrument"
 msgid "tubulum"
-msgstr ""
+msgstr "tubulum"
 
 #: DB:instrument/name:511
 msgid "tumbi"
@@ -3642,7 +3664,7 @@ msgstr "tumutumu"
 #: DB:instrument/name:887
 msgctxt "Korean notched end-blown bamboo flute"
 msgid "tungso"
-msgstr ""
+msgstr "tungso"
 
 #: DB:instrument/name:181
 msgid "turntable"
@@ -3656,7 +3678,7 @@ msgstr "txalaparta"
 #: DB:instrument/name:855
 msgctxt "Basque fipple flute"
 msgid "txistu"
-msgstr ""
+msgstr "txistu"
 
 #: DB:instrument/name:526
 msgid "typewriter"
@@ -3678,7 +3700,7 @@ msgstr "udu"
 #: DB:instrument/name:967
 msgctxt "Indonesian bronze 10 key metallophone"
 msgid "ugal"
-msgstr ""
+msgstr "ugal"
 
 #: DB:instrument/name:187
 msgid "uilleann pipes"
@@ -3916,7 +3938,7 @@ msgstr "xalam"
 #: DB:instrument/name:484
 msgctxt "Chinese end-blown flute"
 msgid "xiao"
-msgstr ""
+msgstr "xiao"
 
 #: DB:instrument/name:550
 msgid "xiaoluo"
@@ -3952,7 +3974,7 @@ msgstr "yaylı tanbur"
 #: DB:instrument/name:222
 msgctxt "southern coconut huqin"
 msgid "yehu"
-msgstr ""
+msgstr "yehu"
 
 #: DB:instrument/name:685
 msgid "yonggo"
@@ -3966,12 +3988,12 @@ msgstr "yoochin"
 #: DB:instrument/name:891
 msgctxt "wooden tiger scraped with bamboo whisk"
 msgid "yu"
-msgstr ""
+msgstr "yu"
 
 #: DB:instrument/name:240
 msgctxt "Traditional Chinese lute"
 msgid "yueqin"
-msgstr ""
+msgstr "yueqin"
 
 #: DB:instrument/name:715
 msgid "zabumba"
@@ -3988,7 +4010,7 @@ msgstr "zhaleika"
 #: DB:instrument/name:217
 msgctxt "Alto huqin"
 msgid "zhonghu"
-msgstr ""
+msgstr "zhonghu"
 
 #: DB:instrument/name:241
 msgid "zhongruan"
@@ -3997,7 +4019,7 @@ msgstr "zhongruan"
 #: DB:instrument/name:907
 msgctxt "Wooden huqin"
 msgid "zhuihu"
-msgstr ""
+msgstr "zhuihu"
 
 #: DB:instrument/name:455
 msgid "zill"

@@ -96,11 +96,14 @@ utils.search = function (resource, query, limit, offset) {
 
 
 utils.reuseExistingMediumData = function (data) {
-    // When reusing an existing medium, we don't want to keep its id or
-    // its cdtocs, since neither of those will be shared. However, if we
-    // haven't loaded the tracks yet, we retain the id as originalID so we
-    // can request them later.
-    var newData = _.omit(data, "id", "cdtocs");
+    /*
+     * When reusing an existing medium, we don't want to keep its id or
+     * its cdtocs, since neither of those will be shared. However, if we
+     * haven't loaded the tracks yet, we retain the id as originalID so we
+     * can request them later. We also drop the format, since it'll often
+     * be different.
+     */
+    var newData = _.omit(data, "id", "cdtocs", "format", "formatID");
 
     if (data.id) newData.originalID = data.id;
 

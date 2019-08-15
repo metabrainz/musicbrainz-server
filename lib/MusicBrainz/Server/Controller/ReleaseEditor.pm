@@ -45,19 +45,21 @@ sub _init_release_editor
     my $discid_formats = [ grep { $_ } map { $_->has_discids ? ($_->id) : () } @medium_formats ];
 
     $c->stash(
-        template        => 'release/edit/layout.tt',
+        template            => 'release/edit/layout.tt',
         # These need to be accessed by root/release/edit/information.tt.
-        primary_types   => select_options_tree($c, 'ReleaseGroupType'),
-        secondary_types => select_options_tree($c, 'ReleaseGroupSecondaryType'),
-        statuses        => select_options_tree($c, 'ReleaseStatus'),
-        languages       => build_grouped_options($c, language_options($c)),
-        scripts         => build_grouped_options($c, script_options($c)),
-        packagings      => select_options_tree($c, 'ReleasePackaging'),
-        countries       => select_options($c, 'CountryArea'),
-        formats         => select_options_tree($c, 'MediumFormat'),
-        type_info       => $c->json->encode(build_type_info($c, qr/release-url/, $url_link_types)),
-        attr_info       => $c->json->encode(\@link_attribute_types),
-        discid_formats  => $c->json->encode($discid_formats),
+        primary_types       => select_options_tree($c, 'ReleaseGroupType'),
+        secondary_types     => select_options_tree($c, 'ReleaseGroupSecondaryType'),
+        statuses            => select_options_tree($c, 'ReleaseStatus'),
+        languages           => build_grouped_options($c, language_options($c)),
+        scripts             => build_grouped_options($c, script_options($c)),
+        packagings          => select_options_tree($c, 'ReleasePackaging'),
+        countries           => select_options($c, 'CountryArea'),
+        formats             => select_options_tree($c, 'MediumFormat'),
+        type_info           => $c->json->encode(build_type_info($c, qr/release-url/, $url_link_types)),
+        attr_info           => $c->json->encode(\@link_attribute_types),
+        discid_formats      => $c->json->encode($discid_formats),
+        # The merge helper doesn't really work well together with the release editor process
+        hide_merge_helper   => 1,
         %options
     );
 }

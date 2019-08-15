@@ -360,7 +360,15 @@ class ArtistCreditEditor extends React.Component {
 
     return (
       <>
-        <table key="artist-credit-editor" className="artist-credit-editor">
+        <table
+          key="artist-credit-editor"
+          className="artist-credit-editor"
+          ref={node => {
+            if (node) {
+              $(node).data('componentInst', this);
+            }
+          }}
+        >
           <tbody>
             <tr>
               <td>
