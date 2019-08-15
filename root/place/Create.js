@@ -3,6 +3,7 @@ import React from 'react';
 
 import Layout from '../layout';
 import {withCatalystContext} from '../context';
+import * as manifest from '../static/manifest';
 
 import EditForm from './EditForm';
 
@@ -18,9 +19,13 @@ const Create = ({$c, form, optionsTypeId, entityType}: Props) => {
     <Layout fullWidth title={l('Add Place')}>
       <div id="content">
         <h1>{l('Add Place')}</h1>
+        {manifest.js('edit')}
+        {manifest.js('place/map.js')}
+        {manifest.js('place.js')}
         <EditForm
           entityType={entityType}
           form={form}
+          formType="add"
           optionsTypeId={optionsTypeId}
           relationshipEditorHTML={$c.stash.relationship_editor_html}
           uri={$c.req.uri}

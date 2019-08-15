@@ -5,7 +5,6 @@ import ReactDOM from 'react-dom';
 
 import gc from '../static/scripts/guess-case/MB/GuessCase/Main';
 import MB from '../static/scripts/common/MB';
-import * as manifest from '../static/manifest';
 import EnterEditNote from '../components/EnterEditNote';
 import EnterEdit from '../components/EnterEdit';
 import FormRowNameWithGuesscase from '../components/FormRowNameWithGuesscase';
@@ -16,7 +15,6 @@ import hydrate from '../utility/hydrate';
 import DuplicateEntitiesSection from '../components/DuplicateEntitiesSection';
 import DateRangeFieldset from '../components/DateRangeFieldset';
 import FormRow from '../components/FormRow';
-import SearchIcon from '../static/scripts/common/components/SearchIcon';
 import HiddenField from '../components/HiddenField';
 import FieldErrors from '../components/FieldErrors';
 import AreaBubble from '../components/AreaBubble';
@@ -29,6 +27,7 @@ import Autocomplete from '../static/scripts/common/components/Autocomplete';
 type Props = {
   entityType: string,
   form: PlaceFormT,
+  formType: string,
   optionsTypeId: SelectOptionsT,
   relationshipEditorHTML?: string,
   uri: string,
@@ -41,12 +40,9 @@ const EditForm = ({
   optionsTypeId,
   relationshipEditorHTML,
   uri,
+  formType,
 }: Props) => {
   const guess = MB.GuessCase[entityType];
-  console.log(form);
-  console.log('This is Edit Entity');
-  console.log(editEntity);
-  console.log(form.field.area);
 
   const [name, setName] = useState(form.field.name.value ? form.field.name : {...form.field.name, value: ''});
   const [comment, setComment] = useState(form.field.comment);
@@ -119,6 +115,7 @@ const EditForm = ({
       display_data: {
         address: address.value,
         area: {
+          entityType: 'area',
           gid: areaGID.value ? areaGID.value : '',
           name: areaName.value ? areaName.value : '',
         },
@@ -218,23 +215,16 @@ const EditForm = ({
           old: form.field.name.value,
         },
         place: editEntity,
-        /*
-         * type: {
-         *   new: {
-         *     name: typeUsed(typeId.value),
-         *   },
-         *   old: {
-         *     name: typeUsed(form.field.type_id.value),
-         *   },
-         * },
-         */
+        type: {
+          new: typeUsed(typeId.value),
+          old: typeUsed(form.field.type_id.value),
+        },
       },
     };
   }
 
   return (
     <>
-      {manifest.js('edit.js')}
       <p>
         {exp.l('For more information, check the {doc_doc|documentation}.', {doc_doc: '/doc/Place'})}
       </p>
@@ -300,9 +290,7 @@ const EditForm = ({
                 }}
                 entity="area"
                 inputID={'id-' + form.field.area.field.name.html_name}
-                inputName={form.field.area.field.name.html_name}
                 onChange={(area) => {
-                  console.log('I was called');
                   setAreaName({
                     ...areaName,
                     value: area.name,
@@ -322,19 +310,23 @@ const EditForm = ({
               </Autocomplete>
               <FieldErrors field={areaName} />
             </FormRow>
-            {coordinates.value ? (
-              <FormRowTextLong
-                defaultValue={formatCoordinates(coordinates.value)}
-                field={coordinates}
-                label={l('Coordinates')}
-                onChange={(e) => {
+            <FormRowTextLong
+              defaultValue={coordinates.value ? formatCoordinates(coordinates.value) : ''}
+              field={coordinates}
+              label={l('Coordinates')}
+              onChange={(e) => {
+                if (e.target.value) {
+                  const latlng = e.target.value.split(',');
                   setCoordinates({
                     ...coordinates,
-                    value: e.target.value,
+                    value: {
+                      latitude: latlng[0].split('°')[0],
+                      longitude: latlng[1].split('°')[0],
+                    },
                   });
-                }}
-              />
-            ) : null}
+                }
+              }}
+            />
             <ul className="errors coordinates-errors" style={{display: 'none'}}><li>{l('These coordinates could not be parsed.')}</li></ul>
           </fieldset>
           <DateRangeFieldset
@@ -427,8 +419,9 @@ const EditForm = ({
           </fieldset>
           <fieldset>
             <legend>{l('Changes')}</legend>
-            <AddPlace edit={generateAddPreview()} />
-            {/* {<EditPlace edit={generateEditPreview()} />} */}
+            {formType === 'add'
+              ? <AddPlace edit={generateAddPreview()} />
+              : <EditPlace edit={generateEditPreview()} />}
           </fieldset>
           <EnterEditNote field={form.field.edit_note} hideHelp />
           <EnterEdit form={form} />
@@ -442,8 +435,6 @@ const EditForm = ({
           </div>
         </div>
       </form>
-      {manifest.js('place/map.js')}
-      {manifest.js('place.js')}
     </>
   );
 };
