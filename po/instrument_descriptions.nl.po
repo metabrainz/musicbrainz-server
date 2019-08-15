@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2019-06-30 15:45+0000\n"
+"PO-Revision-Date: 2019-08-12 11:08+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -87,14 +87,6 @@ msgstr "Een bellenboom is een percussie-instrument, bestaande uit verticaal in e
 #: DB:instrument/description:471
 msgid "A chamber organ is a small pipe organ."
 msgstr "Een kamerorgel is een klein pijporgel."
-
-#. name:chime bar
-#: DB:instrument/description:638
-msgid ""
-"A chime bar is a percussion instrument consisting of a tuned metal bar "
-"similar to a glockenspiel bar which is mounted on a wooden resonator and "
-"played with a mallet."
-msgstr "Een klokkenstaaf is een percussie-instrument bestaande uit een gestemde metalen staaf die lijkt op een staaf van een glockenspiel. De staaf staat op een houten klankkast en wordt met een hamer bespeeld."
 
 #. name:cuatro
 #: DB:instrument/description:439
@@ -745,6 +737,14 @@ msgid ""
 "\"golpeadores\" or tapping-plates and less sustain than the classical "
 "guitar."
 msgstr "De flamencogitaar is afgeleid van de klassieke gitaar, maar heeft veel aanpassingen om een percussiever geluid te creëren. Oorspronkelijk had het net als luiten en violen houten stemschroeven. Het is lichter gebouwd dan de klassieke gitaar, heeft slagplaten (golpeadores) en het geluid blijft langer doorklinken."
+
+#. name:chime bar
+#: DB:instrument/description:638
+msgid ""
+"Despite the name, it is not a chime but instead consists of tuned metal bars"
+" each on individual resonator boxes. <br></br> It is similar to "
+"glockenspiel."
+msgstr "Hoewel de naam anders doet vermoeden, bestaat een klokkenstaaf niet uit klokken, maar uit gestemde metalen staven op resonatoren. <br></br>Het instrument lijkt op een glockenspiel."
 
 #. name:theorbo
 #: DB:instrument/description:395

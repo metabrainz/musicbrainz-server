@@ -10,7 +10,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2019-06-30 15:52+0000\n"
+"PO-Revision-Date: 2019-08-12 11:50+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -541,7 +541,7 @@ msgid ""
 "same concept as the <a href=\"/doc/Label\">record label</a>."
 msgstr "Geeft de uitgever van deze uitgave aan. Dit is <strong>niet</strong> hetzelfde concept als de <a href=\"/doc/Label\">platenmaatschappij.</a>."
 
-#: DB:link_type/description:208 DB:link_type/description:161
+#: DB:link_type/description:161 DB:link_type/description:208
 msgid ""
 "Indicates the publisher of this work. This is <strong>not</strong> the same "
 "concept as the <a href=\"/doc/Label\">record label</a>."
@@ -3119,6 +3119,10 @@ msgstr "VIAF-ID"
 msgid "VIAF ID for"
 msgstr "VIAF-ID van"
 
+#: DB:link_attribute_type/description:1151
+msgid "Whistling (with mouth, not a whistle)"
+msgstr "Fluiten (met de mond, niet met een fluitje)"
+
 #: DB:link_type/link_phrase:733 DB:link_type/link_phrase:358
 #: DB:link_type/link_phrase:352 DB:link_type/link_phrase:354
 #: DB:link_type/link_phrase:594 DB:link_type/link_phrase:353
@@ -3536,7 +3540,7 @@ msgstr "dirigent bij"
 
 #: DB:link_type/name:305
 msgid "conductor position"
-msgstr ""
+msgstr "dirigent van"
 
 #: DB:link_type/reverse_link_phrase:806
 msgid "conductors"
@@ -3588,7 +3592,7 @@ msgstr "uitbestede opdrachten"
 
 #: DB:link_type/link_phrase:951 DB:link_type/link_phrase:950
 msgid "contracted {co:co-}{executive:executive }production for"
-msgstr ""
+msgstr "besteedde {executive:leidinggevende }{co:co-}productie uit aan"
 
 #: DB:link_attribute_type/description:230 DB:link_attribute_type/name:230
 msgid "contralto vocals"
@@ -3897,7 +3901,7 @@ msgstr "fanpagina"
 
 #: DB:link_type/name:238
 msgid "first track release"
-msgstr ""
+msgstr "vroegste uitgave van het nummer"
 
 #: DB:link_attribute_type/name:1133
 msgid "folk music"
@@ -4359,7 +4363,7 @@ msgstr "geschiedenispagina van"
 
 #: DB:link_type/name:211
 msgid "history site"
-msgstr ""
+msgstr "geschiedenispagina"
 
 #: DB:link_type/link_phrase:708 DB:link_type/link_phrase:709
 #: DB:link_type/long_link_phrase:708 DB:link_type/long_link_phrase:709
@@ -4439,11 +4443,11 @@ msgstr "instrument"
 
 #: DB:link_type/name:158 DB:link_type/name:41 DB:link_type/name:282
 msgid "instrument arranger"
-msgstr ""
+msgstr "arrangeur van instrumenten"
 
 #: DB:link_type/name:752
 msgid "instrument origin"
-msgstr ""
+msgstr "oorsprong van het instrument"
 
 #: DB:link_attribute_type/name:580
 msgid "instrumental"
@@ -4451,7 +4455,7 @@ msgstr "instrumentaal"
 
 #: DB:link_type/name:105
 msgid "instrumental supporting musician"
-msgstr ""
+msgstr "ondersteunende artiest voor instrumenten"
 
 #: DB:link_type/link_phrase:752
 msgid "instruments"
@@ -4459,7 +4463,7 @@ msgstr "instrumenten"
 
 #: DB:link_type/name:707
 msgid "interview"
-msgstr ""
+msgstr "interview"
 
 #: DB:link_type/reverse_link_phrase:707
 msgid "interview with"
@@ -4480,7 +4484,7 @@ msgstr "uitgevonden door"
 
 #: DB:link_type/name:112
 msgid "involved with"
-msgstr ""
+msgstr "relatie met"
 
 #: DB:link_type/long_link_phrase:8 DB:link_type/long_link_phrase:227
 msgid "is a DJ-mix of"
@@ -4572,7 +4576,7 @@ msgstr "is vernoemd naar"
 
 #: DB:link_type/name:108
 msgid "is person"
-msgstr ""
+msgstr "is de persoon"
 
 #: DB:link_type/long_link_phrase:738
 msgid "is related to"
@@ -4642,7 +4646,7 @@ msgstr "is/was {additional:een} {original:oorpronkelijk} {additional:aanvullend}
 msgid ""
 "is/was {assistant:an|a} {assistant} {principal} {guest} conductor {emeritus}"
 " for"
-msgstr "is/was {assistant:een|een} {assistant:assisterend} {emeritus:emeritus} {principal:hoofd}{guest:gast}dirigent van"
+msgstr "is/was {assistant:assisterend} {emeritus:emeritus} {principal:hoofd}{guest:gast}dirigent van"
 
 #: DB:link_attribute_type/name:1132
 msgid "jazz"
@@ -4650,7 +4654,7 @@ msgstr "jazz"
 
 #: DB:link_type/name:226
 msgid "karaoke"
-msgstr ""
+msgstr "karaoke"
 
 #: DB:link_type/reverse_link_phrase:226
 msgid "karaoke version of"
@@ -4666,11 +4670,11 @@ msgstr "distributie"
 
 #: DB:link_type/name:116
 msgid "label founder"
-msgstr ""
+msgstr "oprichter van platenmaatschappij"
 
 #: DB:link_type/name:200
 msgid "label ownership"
-msgstr ""
+msgstr "eigenaar van platenmaatschappij"
 
 #: DB:link_type/name:201
 msgid "label reissue"
@@ -4712,7 +4716,7 @@ msgstr "latere {translated:vertaalde} {parody:parodie-}versies"
 
 #: DB:link_type/name:796 DB:link_type/name:797
 msgid "launch event"
-msgstr ""
+msgstr "lanceerevenement"
 
 #: DB:link_type/link_phrase:796 DB:link_type/link_phrase:797
 msgid "launch event for"
@@ -5018,7 +5022,7 @@ msgstr "secundair"
 
 #: DB:link_type/name:162 DB:link_type/name:129 DB:link_type/name:25
 msgid "misc"
-msgstr ""
+msgstr "divers"
 
 #: DB:link_type/link_phrase:162 DB:link_type/link_phrase:129
 #: DB:link_type/link_phrase:25
@@ -5036,7 +5040,7 @@ msgstr ""
 
 #: DB:link_type/name:43 DB:link_type/name:155
 msgid "mix-DJ"
-msgstr ""
+msgstr "mix-dj"
 
 #: DB:link_type/name:696 DB:link_type/name:694
 msgid "mixed at"
@@ -5085,7 +5089,7 @@ msgstr "muziek kan gratis worden gestreamd op"
 
 #: DB:link_type/name:857
 msgid "music video"
-msgstr ""
+msgstr "videoclip"
 
 #: DB:link_type/reverse_link_phrase:857
 msgid "music video for"
@@ -5102,7 +5106,7 @@ msgstr "muzikale relatie"
 
 #: DB:link_type/name:106
 msgid "musical relationships"
-msgstr ""
+msgstr "muzikale relatie"
 
 #: DB:link_attribute_type/name:1141
 msgid "musicology"
@@ -5372,7 +5376,7 @@ msgstr "persoonlijke platenmaatschappij van"
 
 #: DB:link_type/name:724
 msgid "personal publisher"
-msgstr ""
+msgstr "persoonlijke uitgever"
 
 #: DB:link_type/reverse_link_phrase:724
 msgid "personal publisher for"
@@ -5600,17 +5604,17 @@ msgstr "verzorgde {additional:aanvullende} juridische vertegenwoordiging voor"
 
 #: DB:link_type/link_phrase:206 DB:link_type/link_phrase:362
 #: DB:link_type/link_phrase:127 DB:link_type/link_phrase:32
-#: DB:link_type/link_phrase:208 DB:link_type/link_phrase:161
+#: DB:link_type/link_phrase:161 DB:link_type/link_phrase:208
 #: DB:link_type/name:362 DB:link_type/long_link_phrase:206
 #: DB:link_type/long_link_phrase:362 DB:link_type/long_link_phrase:127
-#: DB:link_type/long_link_phrase:32 DB:link_type/long_link_phrase:208
-#: DB:link_type/long_link_phrase:161
+#: DB:link_type/long_link_phrase:32 DB:link_type/long_link_phrase:161
+#: DB:link_type/long_link_phrase:208
 msgid "published"
 msgstr "publiceerde"
 
 #: DB:link_type/reverse_link_phrase:206 DB:link_type/reverse_link_phrase:362
 #: DB:link_type/reverse_link_phrase:127 DB:link_type/reverse_link_phrase:32
-#: DB:link_type/reverse_link_phrase:208 DB:link_type/reverse_link_phrase:161
+#: DB:link_type/reverse_link_phrase:161 DB:link_type/reverse_link_phrase:208
 msgid "publisher"
 msgstr "uitgever"
 
@@ -5620,9 +5624,9 @@ msgid "publishes series"
 msgstr "publiceert de serie"
 
 #: DB:link_type/name:206 DB:link_type/name:127 DB:link_type/name:32
-#: DB:link_type/name:208 DB:link_type/name:66 DB:link_type/name:161
+#: DB:link_type/name:66 DB:link_type/name:161 DB:link_type/name:208
 msgid "publishing"
-msgstr ""
+msgstr "uitgeven"
 
 #: DB:link_type/reverse_link_phrase:933
 msgid "publishing label"
@@ -5803,7 +5807,7 @@ msgstr "opnieuw gepland als"
 
 #: DB:link_type/name:842 DB:link_type/name:94
 msgid "review"
-msgstr ""
+msgstr "recensie"
 
 #: DB:link_type/reverse_link_phrase:842 DB:link_type/reverse_link_phrase:94
 msgid "review page for"
@@ -5855,7 +5859,7 @@ msgstr "sampelt IMDb-lemma"
 
 #: DB:link_type/name:154 DB:link_type/name:49
 msgid "samples from artist"
-msgstr ""
+msgstr "samples van artiest"
 
 #: DB:link_type/name:69 DB:link_type/name:231
 msgid "samples material"
@@ -5903,7 +5907,7 @@ msgstr "getekend door"
 
 #: DB:link_type/name:11
 msgid "single from"
-msgstr ""
+msgstr "single van"
 
 #: DB:link_type/link_phrase:11
 msgid "single/EP which was taken from"
@@ -5944,7 +5948,7 @@ msgstr "sopraanvocalen"
 
 #: DB:link_type/name:29 DB:link_type/name:133
 msgid "sound"
-msgstr ""
+msgstr "geluid"
 
 #: DB:link_type/name:870 DB:link_type/name:291 DB:link_type/name:290
 #: DB:link_type/name:940
@@ -5977,7 +5981,7 @@ msgstr "{video:video} gratis streamen"
 
 #: DB:link_type/name:85 DB:link_type/name:268 DB:link_type/name:194
 msgid "streaming music"
-msgstr ""
+msgstr "muziek streamen"
 
 #: DB:link_type/link_phrase:847 DB:link_type/reverse_link_phrase:923
 msgid "students"
@@ -5990,7 +5994,7 @@ msgstr "onderwezen aan"
 
 #: DB:link_type/name:722
 msgid "subgroup"
-msgstr ""
+msgstr "subgroep"
 
 #: DB:link_type/link_phrase:722
 msgid "subgroup of"
@@ -6018,7 +6022,7 @@ msgstr "dochterondernemingen"
 
 #: DB:link_type/name:736
 msgid "subtype"
-msgstr ""
+msgstr "subtype"
 
 #: DB:link_type/link_phrase:736
 msgid "subtypes"
@@ -6026,7 +6030,7 @@ msgstr "subtypes"
 
 #: DB:link_type/name:799
 msgid "support act"
-msgstr ""
+msgstr "ondersteunende artiest"
 
 #: DB:link_type/link_phrase:799
 msgid "support act at"
@@ -6054,11 +6058,11 @@ msgstr "ondersteunende artiesten"
 
 #: DB:link_type/name:104
 msgid "supporting musician"
-msgstr ""
+msgstr "ondersteunende muzikant"
 
 #: DB:link_type/name:3
 msgid "supporting release"
-msgstr ""
+msgstr "ondersteunende uitgave"
 
 #: DB:link_type/reverse_link_phrase:3
 msgid "supporting releases"
@@ -6074,7 +6078,7 @@ msgstr "ondersteunend {instrument:instrument} voor"
 
 #: DB:link_attribute_type/name:1150
 msgid "task"
-msgstr ""
+msgstr "taak"
 
 #: DB:link_type/long_link_phrase:847
 msgid "taught"
@@ -6088,11 +6092,11 @@ msgstr "gaf les op"
 
 #: DB:link_type/name:847 DB:link_type/name:893
 msgid "teacher"
-msgstr ""
+msgstr "docent"
 
 #: DB:link_type/reverse_link_phrase:847 DB:link_type/reverse_link_phrase:893
 msgid "teachers"
-msgstr "leermeester"
+msgstr "docent"
 
 #: DB:link_attribute_type/description:11 DB:link_attribute_type/name:11
 msgid "tenor vocals"
@@ -6157,7 +6161,7 @@ msgstr "jongenssopraanvocalen"
 
 #: DB:link_type/name:728 DB:link_type/name:65 DB:link_type/name:970
 msgid "tribute"
-msgstr ""
+msgstr "hommage"
 
 #: DB:link_type/link_phrase:65 DB:link_type/link_phrase:970
 msgid "tribute albums"
@@ -6211,11 +6215,11 @@ msgstr "videokanaal van"
 
 #: DB:link_type/name:962
 msgid "video director"
-msgstr ""
+msgstr "regisseur videoclip"
 
 #: DB:link_type/name:963 DB:link_type/name:966
 msgid "video shot at"
-msgstr ""
+msgstr "videoclip opgenomen bij"
 
 #: DB:link_type/name:964
 msgid "video shot in"
@@ -6231,11 +6235,11 @@ msgstr "vocaal"
 
 #: DB:link_type/name:298 DB:link_type/name:296 DB:link_type/name:294
 msgid "vocal arranger"
-msgstr ""
+msgstr "vocaal arrangeur"
 
 #: DB:link_type/name:107
 msgid "vocal supporting musician"
-msgstr ""
+msgstr "ondersteunende artiest voor vocalen"
 
 #: DB:link_type/name:292
 msgid "voice actor"
@@ -6323,6 +6327,10 @@ msgid ""
 "was {additional} {assistant} {associate} {co:co-}recording engineer for"
 msgstr "was {additional:aanvullend} {assistant:assisterend} {associate:geassocieerd} {co:co-}opnametechnicus van"
 
+#: DB:link_attribute_type/name:1151
+msgid "whistling"
+msgstr "fluiten"
+
 #: DB:link_type/name:351 DB:link_type/name:733 DB:link_type/name:358
 #: DB:link_type/name:352 DB:link_type/name:354 DB:link_type/name:594
 #: DB:link_type/name:353 DB:link_type/name:749 DB:link_type/name:790
@@ -6365,7 +6373,7 @@ msgstr "bracht in première"
 
 #: DB:link_type/name:54 DB:link_type/name:167
 msgid "writer"
-msgstr ""
+msgstr "schrijver"
 
 #: DB:link_type/name:874
 msgid "written at"
@@ -6903,7 +6911,7 @@ msgstr "{bonus:is|is misschien} deel van een set, het volgende medium van het st
 
 #: DB:link_type/reverse_link_phrase:951 DB:link_type/reverse_link_phrase:950
 msgid "{co:co-}{executive:executive }produced for"
-msgstr ""
+msgstr "{executive:leidinggevend }{co:co-}geproduceerd voor"
 
 #: DB:link_type/long_link_phrase:750
 msgid "{entity1} catalogues the work of {entity0}"
@@ -7198,7 +7206,7 @@ msgstr "{entitiy1} was {anniversary:een jubileumtournee voor|een ondersteunende 
 
 #: DB:link_type/long_link_phrase:951 DB:link_type/long_link_phrase:950
 msgid "{entity1} was {co:co-}{executive:executive }produced for {entity0}"
-msgstr ""
+msgstr "{entity1} werd {executive:leidinggevend }{co:co-}geproduceerd voor {entity0}"
 
 #: DB:link_type/long_link_phrase:967 DB:link_type/long_link_phrase:968
 msgid "{entity1}'s lacquer was cut in {entity0}"
