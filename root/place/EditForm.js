@@ -21,6 +21,7 @@ import AreaBubble from '../components/AreaBubble';
 import parseIntegerOrNull from '../static/scripts/common/utility/parseIntegerOrNull';
 import AddPlace from '../edit/details/AddPlace';
 import EditPlace from '../edit/details/EditPlace';
+import * as manifest from '../static/manifest';
 import {formatCoordinates} from '../utility/coordinates';
 import Autocomplete from '../static/scripts/common/components/Autocomplete';
 

@@ -20,8 +20,6 @@ const Create = ({$c, form, optionsTypeId, entityType}: Props) => {
       <div id="content">
         <h1>{l('Add Place')}</h1>
         {manifest.js('edit')}
-        {manifest.js('place/map.js')}
-        {manifest.js('place.js')}
         <EditForm
           entityType={entityType}
           form={form}
@@ -30,6 +28,8 @@ const Create = ({$c, form, optionsTypeId, entityType}: Props) => {
           relationshipEditorHTML={$c.stash.relationship_editor_html}
           uri={$c.req.uri}
         />
+        {manifest.js('place/map.js')}
+        {manifest.js('place')}
       </div>
       <div id="guesscase-options" />
     </Layout>

@@ -10,8 +10,6 @@ const Edit = ({$c, editEntity, form, optionsTypeID}) => {
   return (
     <PlaceLayout entity={editEntity} fullWidth page="edit" title={l('Edit')}>
       {manifest.js('edit')}
-      {manifest.js('place/map.js')}
-      {manifest.js('place.js')}
       <EditForm
         editEntity={editEntity}
         form={form}
@@ -20,6 +18,8 @@ const Edit = ({$c, editEntity, form, optionsTypeID}) => {
         relationshipEditorHTML={$c.stash.relationship_editor_html}
         uri={$c.req.uri}
       />
+      {manifest.js('place/map.js')}
+      {manifest.js('place')}
     </PlaceLayout>
   );
 };
