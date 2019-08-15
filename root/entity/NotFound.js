@@ -44,7 +44,7 @@ const notFoundPages = {
   'collection': {
     title: N_l('Collection Not Found'),
     message: N_l(
-      'Sorry, we could not find an collection with that MusicBrainz ID',
+      'Sorry, we could not find a collection with that MusicBrainz ID.',
     ),
     args: {},
     footer: null,
