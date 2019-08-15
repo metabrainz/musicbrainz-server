@@ -257,7 +257,7 @@
             "id": 11
         },
         "collections": true,
-        "custom_tabs": ["releases", "recordings"],
+        "custom_tabs": ["artists", "releases", "recordings"],
         "disambiguation": true,
         "edit_table": true,
         "last_updated_column": true,

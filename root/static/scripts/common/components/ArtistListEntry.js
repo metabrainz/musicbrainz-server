@@ -10,6 +10,8 @@
 import * as React from 'react';
 
 import {withCatalystContext} from '../../../../context';
+import InstrumentRelTypes
+  from '../../../../components/InstrumentRelTypes';
 import RemoveFromMergeTableCell
   from '../../../../components/RemoveFromMergeTableCell';
 import RatingStars from '../../../../components/RatingStars';
@@ -22,6 +24,7 @@ import renderMergeCheckboxElement
 import DescriptiveLink from './DescriptiveLink';
 
 type ArtistListRowProps = {
+  ...InstrumentCreditsAndRelTypesRoleT,
   +$c: CatalystContextT,
   +artist: ArtistT,
   +artistList?: $ReadOnlyArray<ArtistT>,
@@ -29,11 +32,13 @@ type ArtistListRowProps = {
   +index: number,
   +mergeForm?: MergeFormT,
   +showBeginEnd?: boolean,
+  +showInstrumentCreditsAndRelTypes?: boolean,
   +showRatings?: boolean,
   +showSortName?: boolean,
 };
 
 type ArtistListEntryProps = {
+  ...InstrumentCreditsAndRelTypesRoleT,
   +artist: ArtistT,
   +artistList?: $ReadOnlyArray<ArtistT>,
   +checkboxes?: string,
@@ -41,6 +46,7 @@ type ArtistListEntryProps = {
   +mergeForm?: MergeFormT,
   +score?: number,
   +showBeginEnd?: boolean,
+  +showInstrumentCreditsAndRelTypes?: boolean,
   +showRatings?: boolean,
   +showSortName?: boolean,
 };
@@ -51,8 +57,10 @@ const ArtistListRow = withCatalystContext(({
   artistList,
   checkboxes,
   index,
+  instrumentCreditsAndRelTypes,
   mergeForm,
   showBeginEnd,
+  showInstrumentCreditsAndRelTypes,
   showRatings,
   showSortName,
 }: ArtistListRowProps) => (
@@ -108,6 +116,12 @@ const ArtistListRow = withCatalystContext(({
         <RatingStars entity={artist} />
       </td>
     ) : null}
+    {showInstrumentCreditsAndRelTypes ? (
+      <InstrumentRelTypes
+        entity={artist}
+        instrumentCreditsAndRelTypes={instrumentCreditsAndRelTypes}
+      />
+    ) : null}
     {mergeForm && artistList ? (
       <RemoveFromMergeTableCell
         entity={artist}
@@ -122,9 +136,11 @@ const ArtistListEntry = ({
   artistList,
   checkboxes,
   index,
+  instrumentCreditsAndRelTypes,
   mergeForm,
   score,
   showBeginEnd,
+  showInstrumentCreditsAndRelTypes,
   showRatings,
   showSortName,
 }: ArtistListEntryProps) => (
@@ -134,8 +150,10 @@ const ArtistListEntry = ({
       artistList={artistList}
       checkboxes={checkboxes}
       index={index}
+      instrumentCreditsAndRelTypes={instrumentCreditsAndRelTypes}
       mergeForm={mergeForm}
       showBeginEnd={showBeginEnd}
+      showInstrumentCreditsAndRelTypes={showInstrumentCreditsAndRelTypes}
       showRatings={showRatings}
       showSortName={showSortName}
     />

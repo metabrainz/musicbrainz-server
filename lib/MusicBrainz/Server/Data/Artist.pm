@@ -119,6 +119,46 @@ sub find_by_area {
     );
 }
 
+sub find_by_instrument {
+    my ($self, $instrument_id, $limit, $offset) = @_;
+
+    my $query =
+        "SELECT " . $self->_columns . ",
+                array_agg(json_build_object('typeName', link_type.name, 'credit', lac.credited_as)) AS instrument_credits_and_rel_types
+            FROM " . $self->_table . "
+                JOIN (
+                    SELECT * FROM l_artist_artist
+                    UNION ALL
+                    SELECT * FROM l_artist_recording
+                    UNION ALL
+                    SELECT * FROM l_artist_release
+                ) rels ON rels.entity0 = artist.id
+                JOIN link ON link.id = rels.link
+                JOIN link_type ON link_type.id = link.link_type
+                JOIN link_attribute ON link_attribute.link = link.id
+                JOIN link_attribute_type ON link_attribute_type.id = link_attribute.attribute_type
+                JOIN instrument ON instrument.gid = link_attribute_type.gid
+                LEFT JOIN link_attribute_credit lac ON (
+                    lac.link = link_attribute.link AND
+                    lac.attribute_type = link_attribute.attribute_type
+                )
+            WHERE instrument.id = ?
+            GROUP BY artist.id
+            ORDER BY musicbrainz_collate(artist.sort_name)";
+
+    $self->query_to_list_limited(
+        $query,
+        [$instrument_id],
+        $limit,
+        $offset,
+        sub {
+            my ($model, $row) = @_;
+            my $credits_and_rel_types = delete $row->{instrument_credits_and_rel_types};
+            { artist => $model->_new_from_row($row), instrument_credits_and_rel_types => $credits_and_rel_types };
+        },
+    );
+}
+
 sub find_by_recording
 {
     my ($self, $recording_id, $limit, $offset) = @_;

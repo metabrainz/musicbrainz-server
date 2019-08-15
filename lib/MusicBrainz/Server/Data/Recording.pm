@@ -113,7 +113,7 @@ sub find_by_instrument {
 
     # NOTE: if more tables than l_artist_recording are added here, check admin/BuildSitemaps.pl
     my $query = "SELECT " . $self->_columns . ", 
-                     array_agg(json_build_object('name', link_type.name, 'credit', lac.credited_as)) AS instrument_credits_and_rel_types
+                     array_agg(json_build_object('typeName', link_type.name, 'credit', lac.credited_as)) AS instrument_credits_and_rel_types
                  FROM " . $self->_table . "
                      JOIN l_artist_recording ON l_artist_recording.entity1 = recording.id
                      JOIN link ON link.id = l_artist_recording.link

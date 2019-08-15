@@ -568,7 +568,7 @@ declare type GroupedOptionsT = $ReadOnlyArray<{
 
 declare type InstrumentCreditsAndRelTypesRoleT = {
   +instrumentCreditsAndRelTypes?: {
-    +[string]: $ReadOnlyArray<string>,
+    +[entityGid: string]: $ReadOnlyArray<string>,
   },
 };
 
