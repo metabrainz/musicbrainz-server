@@ -3,6 +3,7 @@ package MusicBrainz::Server::Data::Work;
 use Moose;
 use namespace::autoclean;
 use List::AllUtils qw( uniq );
+use MusicBrainz::Server::Constants qw( @WRITER_RELATIONSHIP_GIDS );
 use MusicBrainz::Server::Data::Utils qw(
     hash_to_row
     load_subobjects
@@ -382,18 +383,26 @@ sub _find_writers
     my ($self, $ids, $map) = @_;
     return unless @$ids;
 
-    my $query = '
-        SELECT law.entity1 AS work, law.entity0 AS artist, 
-            law.entity0_credit AS credit, array_agg(lt.name) AS roles
-        FROM l_artist_work law
-        JOIN link l ON law.link = l.id
-        JOIN link_type lt ON l.link_type = lt.id
-        WHERE law.entity1 IN (' . placeholders(@$ids) . ')
+    my $query = <<~"SQL";
+          SELECT law.entity1 AS work,
+                 law.entity0 AS artist,
+                 law.entity0_credit AS credit,
+                 array_agg(lt.name) AS roles
+            FROM l_artist_work law
+            JOIN link l ON law.link = l.id
+            JOIN link_type lt ON l.link_type = lt.id
+           WHERE law.entity1 = any(?)
+             AND lt.gid = any(?)
         GROUP BY law.entity1, law.entity0, law.entity0_credit
         ORDER BY count(*) DESC, artist, credit
-    ';
+        SQL
 
-    my $rows = $self->sql->select_list_of_lists($query, @$ids);
+
+    my $rows = $self->sql->select_list_of_lists(
+        $query,
+        $ids,
+        [@WRITER_RELATIONSHIP_GIDS],
+    );
 
     my @artist_ids = map { $_->[1] } @$rows;
     my $artists = $self->c->model('Artist')->get_by_ids(@artist_ids);
