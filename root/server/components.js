@@ -201,6 +201,7 @@ module.exports = {
   'search/components/SeriesResults': require('../search/components/SeriesResults'),
   'search/components/TagResults': require('../search/components/TagResults'),
   'search/components/WorkResults': require('../search/components/WorkResults'),
+  'series/Create': require('../series/Create'),
   'series/NotFound': require('../series/NotFound'),
   'statistics/Countries': require('../statistics/Countries'),
   'statistics/CoverArt': require('../statistics/CoverArt'),

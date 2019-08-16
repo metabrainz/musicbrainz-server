@@ -139,7 +139,7 @@ around _merge_submit => sub {
 with 'MusicBrainz::Server::Controller::Role::Create' => {
     form      => 'Series',
     edit_type => $EDIT_SERIES_CREATE,
-    dialog_template => 'series/edit_form.tt',
+    dialog_template_react => 'series/Create.js',
 };
 
 with 'MusicBrainz::Server::Controller::Role::Edit' => {

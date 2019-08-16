@@ -50,11 +50,13 @@ const EditPlace = ({edit}) => {
           />
         ) : null}
         {display.area ? (
-          <FullChangeDiff
-            label={l('Area:')}
-            newText={display.area.new ? <DescriptiveLink entity={display.area.new} /> : ''}
-            oldText={display.area.old ? <DescriptiveLink entity={display.area.old} /> : ''}
-          />
+          display.area.new.gid === display.area.old.gid ? (
+            <FullChangeDiff
+              label={l('Area:')}
+              newText={display.area.new ? <DescriptiveLink entity={display.area.new} /> : ''}
+              oldText={display.area.old ? <DescriptiveLink entity={display.area.old} /> : ''}
+            />
+          ) : null
         ) : null}
         {display.coordinates ? (
           <Diff
