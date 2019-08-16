@@ -3,7 +3,7 @@ package MusicBrainz::Server::Data::Work;
 use Moose;
 use namespace::autoclean;
 use List::AllUtils qw( uniq zip );
-use MusicBrainz::Server::Constants qw( $STATUS_OPEN );
+use MusicBrainz::Server::Constants qw( $STATUS_OPEN @WRITER_RELATIONSHIP_GIDS );
 use MusicBrainz::Server::Data::Utils qw(
     defined_hash
     hash_to_row
@@ -344,11 +344,12 @@ sub _find_writers
         JOIN link l ON law.link = l.id
         JOIN link_type lt ON l.link_type = lt.id
         WHERE law.entity1 IN (" . placeholders(@$ids) . ")
+        AND lt.gid IN (" . placeholders(@WRITER_RELATIONSHIP_GIDS) . ")
         GROUP BY law.entity1, law.entity0, law.entity0_credit
         ORDER BY count(*) DESC, artist, credit
     ";
 
-    my $rows = $self->sql->select_list_of_lists($query, @$ids);
+    my $rows = $self->sql->select_list_of_lists($query, @$ids, @WRITER_RELATIONSHIP_GIDS);
 
     my @artist_ids = map { $_->[1] } @$rows;
     my $artists = $self->c->model('Artist')->get_by_ids(@artist_ids);
