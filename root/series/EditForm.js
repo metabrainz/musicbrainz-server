@@ -16,7 +16,7 @@ import FormRowSelect from '../components/FormRowSelect';
 
 type Props = {
   entityType: string,
-  form: PlaceFormT,
+  form: SeriesFormT,
   optionsOrderingTypeId: SelectOptionsT,
   optionsTypeId: SelectOptionsT,
   relationshipEditorHTML?: string,
@@ -30,6 +30,8 @@ const EditForm = ({
   optionsOrderingTypeId,
   optionsTypeId,
   relationshipEditorHTML,
+  seriesTypes,
+  seriesOrderingTypes,
 }: Props) => {
   const guess = MB.GuessCase[entityType];
   const [name, setName] = useState(form.field.name.value ? form.field.name : {...form.field.name, value: ''});
@@ -56,10 +58,14 @@ const EditForm = ({
     options: optionsOrderingTypeId,
   };
 
+  const script = `$(function () {
+    MB.seriesTypesByID = ${JSON.stringify(seriesTypes)};
+    MB.orderingTypesByID = ${JSON.stringify(seriesOrderingTypes)};
+  });`;
 
-  console.log(form);
   return (
     <>
+      
       <p>{exp.l('For more information, check the {doc_doc|documentation} and {doc_styleguide|style guidelines}.', {doc_doc: '/doc/Series', doc_styleguide: '/doc/Style/Series'})}</p>
       {console.log('Hello')}
       <form action={uri} className="edit-series" method="post">
@@ -136,6 +142,7 @@ const EditForm = ({
           </div>
         </div>
       </form>
+      <script dangerouslySetInnerHTML={{__html: script}} />
     </>
   );
 };

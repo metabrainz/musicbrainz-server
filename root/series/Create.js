@@ -18,8 +18,10 @@ const Create = ({$c, form, entityType, optionsTypeId, optionsOrderingTypeId}) =>
           form={form}
           optionsOrderingTypeId={optionsOrderingTypeId}
           optionsTypeId={optionsTypeId}
-          uri={$c.req.uri}
           relationshipEditorHTML={$c.stash.relationship_editor_html}
+          seriesOrderingTypes={$c.stash.series_ordering_types}
+          seriesTypes={$c.stash.series_types}
+          uri={$c.req.uri}
         />
         {manifest.js('series')}
       </div>

@@ -937,15 +937,18 @@ declare type SeriesT = {|
   +orderingTypeID: number,
 |};
 
-declare type SeriesFormT = {
+declare type SeriesFormT = {|
   field: {
     comment: FieldT<string>,
     edit_note: FieldT<string>,
     name: FieldT<string>,
     ordering_type_id: FieldT<number>,
     type_id: FieldT<number>,
-  }  
-}
+    make_votable: FieldT<boolean>,
+  },
+  name: string,
+  has_errors: boolean,
+|};
 
 declare type SeriesItemNumbersRoleT = {|
   +seriesItemNumbers?: {+[number]: string}
