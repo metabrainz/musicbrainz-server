@@ -505,6 +505,8 @@ sub TO_JSON {
         number_of_revisions
         relationship_editor_html
         release_artwork
+        series_types
+        series_ordering_types
         server_details
         server_languages
         subscribed

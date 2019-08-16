@@ -6,8 +6,6 @@ import {SERIES_ORDERING_TYPE_AUTOMATIC} from './common/constants';
 import MB from './common/MB';
 import initializeDuplicateChecker from './edit/check-duplicates';
 
-console.log('series.js was called');
-
 $(function () {
   var $type = $("#id-edit-series\\.type_id");
   var $orderingType = $("#id-edit-series\\.ordering_type_id");

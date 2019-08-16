@@ -65,9 +65,7 @@ const EditForm = ({
 
   return (
     <>
-      
       <p>{exp.l('For more information, check the {doc_doc|documentation} and {doc_styleguide|style guidelines}.', {doc_doc: '/doc/Series', doc_styleguide: '/doc/Style/Series'})}</p>
-      {console.log('Hello')}
       <form action={uri} className="edit-series" method="post">
         <div className="half-width">
           <fieldset>
