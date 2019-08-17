@@ -17,7 +17,7 @@ import AddSeries from '../edit/details/AddSeries';
 import EditSeries from '../edit/details/EditSeries';
 
 type Props = {
-  editEntity: SeriesT,
+  editEntity?: SeriesT,
   entityType: string,
   form: SeriesFormT,
   formType: string,

@@ -237,6 +237,8 @@ type CatalystStashT = {|
   +number_of_revisions?: number,
   +relationship_editor_html?: string,
   +release_artwork?: ArtworkT,
+  +series_ordering_types: SeriesOrderingTypeT,
+  +series_types: SeriesTypeT,
   +server_languages?: $ReadOnlyArray<ServerLanguageT>,
   +subscribed?: boolean,
   +top_tags?: $ReadOnlyArray<AggregatedTagT>,

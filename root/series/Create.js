@@ -1,3 +1,4 @@
+// @flow
 import React from 'react';
 
 import Layout from '../layout';
@@ -6,6 +7,13 @@ import {withCatalystContext} from '../context';
 
 import EditForm from './EditForm';
 
+type Props = {
+  $c: CatalystContextT,
+  entityType: string,
+  form: SeriesFormT,
+  optionsOrderingTypeId: SelectOptionsT,
+  optionsTypeId: SelectOptionsT,
+};
 
 const Create = ({
   $c,
@@ -13,7 +21,7 @@ const Create = ({
   entityType,
   optionsTypeId,
   optionsOrderingTypeId,
-}) => {
+}: Props) => {
   return (
     <Layout fullWidth title={l('Add Series')}>
       <div id="content">
