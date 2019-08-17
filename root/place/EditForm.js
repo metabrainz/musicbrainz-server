@@ -149,6 +149,7 @@ const EditForm = ({
             year: endDate.field.year.value,
           },
           entityType: 'place',
+          name: name.value,
           typeID: typeId.value,
         },
         type: typeUsed(typeId.value),

@@ -66,6 +66,8 @@ role {
                 my $form = shift;
                 $props{form} = $form;
                 $props{optionsTypeID} = $form->options_type_id if $params->form eq 'Place';
+                $props{optionsTypeId} = $form->options_type_id if $params->form eq 'Series';
+                $props{optionsOrderingTypeId} = $form->options_ordering_type_id if $params->form eq 'Series';
             }
         );
     };

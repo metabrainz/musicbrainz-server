@@ -145,6 +145,7 @@ with 'MusicBrainz::Server::Controller::Role::Create' => {
 with 'MusicBrainz::Server::Controller::Role::Edit' => {
     form           => 'Series',
     edit_type      => $EDIT_SERIES_EDIT,
+    dialog_template_react => 'series/Edit.js',
 };
 
 with 'MusicBrainz::Server::Controller::Role::Delete' => {

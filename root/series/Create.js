@@ -7,7 +7,13 @@ import {withCatalystContext} from '../context';
 import EditForm from './EditForm';
 
 
-const Create = ({$c, form, entityType, optionsTypeId, optionsOrderingTypeId}) => {
+const Create = ({
+  $c,
+  form,
+  entityType,
+  optionsTypeId,
+  optionsOrderingTypeId,
+}) => {
   return (
     <Layout fullWidth title={l('Add Series')}>
       <div id="content">
@@ -16,6 +22,7 @@ const Create = ({$c, form, entityType, optionsTypeId, optionsOrderingTypeId}) =>
         <EditForm
           entityType={entityType}
           form={form}
+          formType="create"
           optionsOrderingTypeId={optionsOrderingTypeId}
           optionsTypeId={optionsTypeId}
           relationshipEditorHTML={$c.stash.relationship_editor_html}
