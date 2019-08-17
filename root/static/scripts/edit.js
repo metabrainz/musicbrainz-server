@@ -5,6 +5,7 @@ require("../lib/knockout/knockout-delegatedEvents");
 require("../../entity/alias/EditForm");
 require("../../place/EditForm");
 require("../../series/EditForm");
+require("../../work/EditForm");
 
 require("./relationship-editor/common/multiselect");
 require("./relationship-editor/common/fields");

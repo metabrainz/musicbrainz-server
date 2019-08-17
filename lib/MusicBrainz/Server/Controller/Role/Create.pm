@@ -101,6 +101,7 @@ role {
                 $props{form} = $form;
                 $props{optionsTypeId} = $form->options_type_id if $params->form eq 'Place';
                 $props{optionsTypeId} = $form->options_type_id if $params->form eq 'Series';
+                $props{optionsTypeId} = $form->options_type_id if $params->form eq 'Work';
                 $props{optionsOrderingTypeId} = $form->options_ordering_type_id if $params->form eq 'Series';
             }
         );

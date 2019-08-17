@@ -229,6 +229,7 @@ module.exports = {
   'user/NotFound': require('../user/NotFound'),
   'user/PrivilegedUsers': require('../user/PrivilegedUsers'),
   'user/ReportUser': require('../user/ReportUser'),
+  'work/Create': require('../work/Create'),
   'work/NotFound': require('../work/NotFound'),
 
   /*

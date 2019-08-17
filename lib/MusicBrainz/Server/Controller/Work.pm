@@ -163,7 +163,7 @@ with 'MusicBrainz::Server::Controller::Role::Create' => {
             post_creation => $self->create_with_identifiers($c)
         );
     },
-    dialog_template => 'work/edit_form.tt',
+    dialog_template_react => 'work/Create.js',
 };
 
 after create => sub {

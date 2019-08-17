@@ -154,6 +154,10 @@ const EditForm = ({
                 const $ = require('jquery');
                 return $('#guesscase-options').dialog('open');
               }}
+              onPressGuessCaseTitle={() => setName({
+                ...name,
+                value: guess.guess(name.value),
+              })}
               options={{label: l('Name')}}
               required
             />

@@ -37,6 +37,7 @@ const Edit = ({
         seriesTypes={$c.stash.series_types}
         uri={$c.req.uri}
       />
+      <div id="guesscase-options" />
       {manifest.js('series')}
     </SeriesLayout>
   );
