@@ -816,6 +816,20 @@ declare type ReleaseGroupT = {|
   +typeName: string | null,
 |};
 
+declare type ReleaseGroupFormT = {|
+  field: {
+    artist_credit: FieldT<string>,
+    comment: FieldT<string>,
+    edit_note: FieldT<string>,
+    make_votable: FieldT<boolean>,
+    name: FieldT<string>,
+    primary_type_id: FieldT<number>,
+    secondary_type_ids: FieldT<number>,
+  },
+  has_errors: boolean,
+  name: string,
+|}
+
 declare type ReleaseGroupTypeT = OptionTreeT<'release_group_type'>;
 
 declare type ReleasePackagingT = OptionTreeT<'release_packaging'>;

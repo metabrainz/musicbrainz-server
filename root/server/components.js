@@ -96,6 +96,8 @@ module.exports = {
   'recording/RecordingMerge': require('../recording/RecordingMerge'),
   'relationship/linkattributetype/NotFound': require('../relationship/linkattributetype/NotFound'),
   'release/NotFound': require('../release/NotFound'),
+  'release_group/Create': require('../release_group/Create'),
+  'release_group/Edit': require('../release_group/Edit'),
   'release_group/NotFound': require('../release_group/NotFound'),
   'release_group/ReleaseGroupIndex': require('../release_group/ReleaseGroupIndex'),
   'report/AnnotationsArtists': require('../report/AnnotationsArtists'),

@@ -129,12 +129,13 @@ with 'MusicBrainz::Server::Controller::Role::Create' => {
             return ();
         }
     },
-    dialog_template => 'release_group/edit_form.tt',
+    dialog_template_react => 'release_group/Create.js',
 };
 
 with 'MusicBrainz::Server::Controller::Role::Edit' => {
     form           => 'ReleaseGroup',
     edit_type      => $EDIT_RELEASEGROUP_EDIT,
+    dialog_template_react => 'release_group/Edit.js',
 };
 
 with 'MusicBrainz::Server::Controller::Role::Merge' => {

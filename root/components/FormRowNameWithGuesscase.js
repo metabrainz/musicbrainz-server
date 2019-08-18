@@ -12,7 +12,7 @@ type Props = {
   onPressGuessCaseOptions?: (e: SyntheticEvent<HTMLSelectElement>) => void,
   onPressGuessCaseTitle?: (e: SyntheticEvent<HTMLSelectElement>) => void,
   options: {
-    guessfeat?: string,
+    guessfeat?: boolean,
     label?: string,
   },
   required?: boolean,
