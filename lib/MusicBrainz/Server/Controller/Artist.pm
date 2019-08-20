@@ -458,7 +458,7 @@ is done via L<MusicBrainz::Server::Form::Artist>
 with 'MusicBrainz::Server::Controller::Role::Create' => {
     form      => 'Artist',
     edit_type => $EDIT_ARTIST_CREATE,
-    dialog_template => 'artist/edit_form.tt',
+    dialog_template_react => 'artist/Create.js',
 };
 
 =head2 edit

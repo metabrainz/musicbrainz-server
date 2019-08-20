@@ -45,6 +45,7 @@ module.exports = {
   'artist/ArtistEvents': require('../artist/ArtistEvents'),
   'artist/ArtistMerge': require('../artist/ArtistMerge'),
   'artist/CannotSplit': require('../artist/CannotSplit'),
+  'artist/Create': require('../artist/Create'),
   'artist/NotFound': require('../artist/NotFound'),
   'artist/SpecialPurpose': require('../artist/SpecialPurpose'),
   'cdtoc/NotFound': require('../cdtoc/NotFound'),

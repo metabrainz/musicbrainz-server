@@ -2,6 +2,7 @@ require('./common');
 
 require("knockout-arraytransforms");
 require("../lib/knockout/knockout-delegatedEvents");
+require("../../artist/EditForm");
 require("../../entity/alias/EditForm");
 require("../../place/EditForm");
 require("../../release_group/EditForm");

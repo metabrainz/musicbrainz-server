@@ -34,7 +34,7 @@ const FormRowTextList = ({field, label, itemName}: Props) => {
       <div className="form-row-text-list">
         <div
           className={`text-list-row ${field.html_name}`}
-          style={{display: 'none'}}
+          // style={{display: 'none'}}
         >
           <input className="value with-button" defaultValue="" type="text" />
           <button className="nobutton icon remove-item" title={`l('Remove ${itemName}`} type="button" />
