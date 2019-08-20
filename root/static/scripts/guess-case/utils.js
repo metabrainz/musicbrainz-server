@@ -57,6 +57,7 @@ const preBracketSingleWordsList = [
   'session',
   'short',
   'take',
+  'takes',
   'techno',
   'trance',
   'version',
