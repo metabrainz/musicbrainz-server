@@ -18,18 +18,17 @@ import EntityTabLink from './EntityTabLink';
 
 const tabLinkNames = {
   'artists': N_l('Artists'),
-  'cover-art': N_l('Cover Art'),
-  'discids': N_l('Disc IDs'),
-  'events': N_l('Events'),
-  'fingerprints': N_l('Fingerprints'),
-  'labels': N_l('Labels'),
-  'map': N_l('Map'),
-  'performances': N_l('Performances'),
-  'places': N_l('Places'),
-  'recordings': N_l('Recordings'),
-  'releases': N_l('Releases'),
-  'users': N_l('Users'),
-  'works': N_l('Works'),
+  discids: N_l('Disc IDs'),
+  events: N_l('Events'),
+  fingerprints: N_l('Fingerprints'),
+  labels: N_l('Labels'),
+  map: N_l('Map'),
+  performances: N_l('Performances'),
+  places: N_l('Places'),
+  recordings: N_l('Recordings'),
+  releases: N_l('Releases'),
+  users: N_l('Users'),
+  works: N_l('Works'),
 };
 
 const buildLink = (
@@ -66,12 +65,13 @@ function showEditTab(
 }
 
 function buildLinks(
-  user: ?EditorT,
+  $c: CatalystContextT,
   entity: CoreEntityT,
   page: string,
   editTab: ?React.Node,
 ): React.Node {
   const links = [buildLink(l('Overview'), entity, '', page, 'index')];
+  const user = $c.user;
 
   const entityProperties = ENTITIES[entity.entityType];
 
@@ -83,6 +83,10 @@ function buildLinks(
 
   if (entityProperties.mbid.relatable === 'dedicated') {
     links.push(buildLink(l('Relationships'), entity, 'relationships', page));
+  }
+
+  if (entityProperties.cover_art) {
+    links.push(buildLink(texp.l('Cover Art ({num})', {num: $c.stash.release_artwork_count || 0}), entity, 'cover-art', page));
   }
 
   if (entityProperties.aliases) {
@@ -121,7 +125,7 @@ const EntityTabs = ({
 }: Props) => (
   <Tabs>
     <CatalystContext.Consumer>
-      {($c: CatalystContextT) => buildLinks($c.user, entity, page, editTab)}
+      {($c: CatalystContextT) => buildLinks($c, entity, page, editTab)}
     </CatalystContext.Consumer>
   </Tabs>
 );

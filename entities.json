@@ -509,7 +509,8 @@
             "id": 23
         },
         "collections": true,
-        "custom_tabs": ["discids", "cover-art"],
+        "cover_art": true,
+        "custom_tabs": ["discids"],
         "disambiguation": true,
         "edit_table": true,
         "last_updated_column": true,
