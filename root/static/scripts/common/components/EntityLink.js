@@ -112,6 +112,7 @@ type EntityLinkProps = {
   +entity: CoreEntityT | CollectionT,
   +hover?: string,
   +nameVariation?: boolean,
+  +showCaaPresence?: boolean,
   +showDeleted?: boolean,
   +showDisambiguation?: boolean,
   +showEditsPending?: boolean,
@@ -131,6 +132,7 @@ const EntityLink = ({
   entity,
   hover,
   nameVariation,
+  showCaaPresence,
   showDeleted = true,
   showDisambiguation,
   showEditsPending = true,
@@ -229,6 +231,22 @@ $ReadOnlyArray<Expand2ReactOutput> | Expand2ReactOutput | null => {
     content = (
       <>
         <span className="video" title={l('This recording is a video')} />
+        {content}
+      </>
+    );
+  }
+
+  if (showCaaPresence &&
+    entity.entityType === 'release' &&
+    entity.cover_art_presence === 'present') {
+    content = (
+      <>
+        <a href={'/release/' + entity.gid + '/cover-art'}>
+          <span
+            className="caa-icon"
+            title={l('This release has artwork in the Cover Art Archive')}
+          />
+        </a>
         {content}
       </>
     );

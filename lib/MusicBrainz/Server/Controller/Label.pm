@@ -112,6 +112,7 @@ sub show : PathPart('') Chained('load')
 
     $c->model('ArtistCredit')->load(@$releases);
     $c->model('Release')->load_release_events(@$releases);
+    $c->model('Release')->load_meta(@$releases);
     $c->model('Medium')->load_for_releases(@$releases);
     $c->model('MediumFormat')->load(map { $_->all_mediums } @$releases);
     $c->model('ReleaseLabel')->load(@$releases);
