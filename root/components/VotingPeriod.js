@@ -51,7 +51,7 @@ const VotingPeriod = ({closingDate, user}: PropsT) => {
       {exactdate: userDate, num: duration.minutes()},
     );
   }
-  return l('Already closed');
+  return l('About to close');
 };
 
 export default VotingPeriod;

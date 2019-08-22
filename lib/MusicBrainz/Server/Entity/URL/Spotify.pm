@@ -2,10 +2,20 @@ package MusicBrainz::Server::Entity::URL::Spotify;
 
 use Moose;
 
+use MusicBrainz::Server::Translation qw( l );
+
 extends 'MusicBrainz::Server::Entity::URL';
 with 'MusicBrainz::Server::Entity::URL::Sidebar';
 
-sub sidebar_name { 'Stream at Spotify' }
+sub sidebar_name {
+    my $self = shift;
+
+    if ($self->url =~ m{^(?:https?:)?//(?:[^/]+.)?spotify.com/user/[^/?&#]+/?}i) {
+        return l('Playlists at Spotify');
+    } else {
+        return l('Stream at Spotify');
+    }
+};
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

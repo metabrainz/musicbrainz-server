@@ -18,6 +18,7 @@ my $ws_defs = Data::OptList::mkopt([
                          optional => [ qw(fmt) ],
      },
      url => {
+                         action   => '/ws/2/url/lookup',
                          method   => 'GET',
                          inc      => [ qw(_relations) ],
                          optional => [ qw(fmt) ],

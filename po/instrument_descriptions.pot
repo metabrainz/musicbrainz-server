@@ -222,12 +222,6 @@ msgstr ""
 msgid "A plucked instrument from the Renaissance."
 msgstr ""
 
-#. name:çevgen 
-#: DB:instrument/description:740
-msgid ""
-"A pole with bells and/or zills used in the traditional Ottoman military bands"
-msgstr ""
-
 #. name:prepared piano 
 #: DB:instrument/description:481
 msgid ""
@@ -474,7 +468,9 @@ msgstr ""
 #: DB:instrument/description:338
 msgid ""
 "Bar or pole shaped chimes, usually arranged in a line or circle, hanging "
-"free or struck with mallets."
+"free or struck with mallets. <br /> For the instrument often used in bell "
+"towers, see <a href=\"/instrument/0d14d4e0-9ac9-4a96-"
+"a595-4145d7794082\">carillon</a>."
 msgstr ""
 
 #. name:baroque trumpet 
@@ -1535,6 +1531,14 @@ msgid ""
 "strings, but is made of wood."
 msgstr ""
 
+#. name:çevgen 
+#: DB:instrument/description:740
+msgid ""
+"Originating in Central Asia, it gained symbolic value to the Turks who used "
+"it in Ottoman marching-bands. It is 2-2,5 m long, has a bronze crescent "
+"shape with bells and jangles attached."
+msgstr ""
+
 #. name:bhapang 
 #: DB:instrument/description:920
 msgid ""
@@ -1762,6 +1766,17 @@ msgid ""
 "Set of drums developed from the 1930's onward, it is used in Jazz, Swing, "
 "Rock and Pop music. It consists of snare drum, tom-toms, hi-hats, cymbals "
 "and bass drum."
+msgstr ""
+
+#. name:carillon 
+#: DB:instrument/description:128
+msgid ""
+"Set of many bronze bells, often mechanized and operated by keyboard, they "
+"are set in the bell tower (belfry) of important buildings. <br /> For the "
+"steel bar metallophone used from toy to orchestra, see <a href=\"/"
+"instrument/340b8043-e3c4-443e-afb8-7fce24fe0ce4\">glockenspiel</a>. <br /> "
+"For the crank operated, revolving cylinder/disc plucked idiophone see <a "
+"href=\"/instrument/2f5f6a67-2b2b-4857-92b0-5b25d485f632\">music box</a>."
 msgstr ""
 
 #. name:shaken idiophone 

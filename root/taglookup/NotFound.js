@@ -14,11 +14,17 @@ import NotFound from '../components/NotFound';
 const TagLookupNotFound = () => (
   <NotFound title={l('Tag Lookup Error')}>
     <p>
-      {l("That search can't be performed, because you must provide at least one of 'recording', 'track number', 'duration', 'release', or 'artist'.")}
+      {l(
+        `That search can't be performed, because you must provide at least one
+         of 'recording', 'track number', 'duration', 'release', or 'artist'.`,
+      )}
     </p>
     <p>
-      {exp.l('Please {search|try again}, providing at least one of these parameters',
-        {search: '/taglookup'})}
+      {exp.l(
+        `Please {search|try again}, providing at least 
+         one of these parameters`,
+        {search: '/taglookup'},
+      )}
     </p>
   </NotFound>
 );

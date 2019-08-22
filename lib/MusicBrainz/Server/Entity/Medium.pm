@@ -278,12 +278,17 @@ around TO_JSON => sub {
         formatID    => $self->format_id,
         name        => $self->name,
         position    => $self->position,
+        release_id  => $self->release_id,
     };
 
     if ($self->all_tracks) {
         $data->{tracks} = [map { $_->TO_JSON } $self->all_tracks];
     }
 
+    if ($self->release) {
+        $self->link_entity('release', $self->release->id, $self->release);
+    }
+    
     return $data;
 };
 

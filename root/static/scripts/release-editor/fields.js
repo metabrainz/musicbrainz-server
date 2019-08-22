@@ -16,7 +16,9 @@ import {
 } from '../common/immutable-entities';
 import MB from '../common/MB';
 import clean from '../common/utility/clean';
+import debounce from '../common/utility/debounce';
 import formatTrackLength from '../common/utility/formatTrackLength';
+import nonEmpty from '../common/utility/nonEmpty';
 import isBlank from '../common/utility/isBlank';
 import request from '../common/utility/request';
 import MB_edit from '../edit/MB/edit';
@@ -609,6 +611,10 @@ class ReleaseEvent {
     constructor(data, release) {
         var date = data.date || {};
 
+        if (nonEmpty(date.year)) {
+            date.year = _.padStart(String(date.year), 4, '0');
+        }
+        
         this.date = {
             year:   ko.observable(date.year == null ? null : date.year),
             month:  ko.observable(date.month == null ? null : date.month),
@@ -624,6 +630,11 @@ class ReleaseEvent {
         this.hasInvalidDate = ko.computed(function () {
             var date = self.unwrapDate();
             return !dates.isDateValid(date.year, date.month, date.day);
+        });
+
+        this.hasTooShortYear = debounce(function () {
+            var date = self.unwrapDate();
+            return !dates.isYearFourDigits(date.year);
         });
     }
 
@@ -802,6 +813,7 @@ class Release extends MB_entity.Release {
 
         this.hasDuplicateCountries = errorField(this.events.any("isDuplicate"));
         this.hasInvalidDates = errorField(this.events.any("hasInvalidDate"));
+        this.hasTooShortYears = errorField(this.events.any("hasTooShortYear"));
 
         this.labels = ko.observableArray(
             utils.mapChild(this, data.labels, ReleaseLabel)
@@ -834,6 +846,10 @@ class Release extends MB_entity.Release {
                 self.artistCredit(_.cloneDeep(releaseGroup.artistCredit));
             }
         });
+
+        this.willCreateReleaseGroup = function () {
+            return releaseEditor.action === "add" && !self.releaseGroup().gid;
+        };
 
         this.needsReleaseGroup = errorField(function () {
             return releaseEditor.action === "edit" && !self.releaseGroup().gid;

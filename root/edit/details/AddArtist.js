@@ -42,6 +42,9 @@ type AddArtistEditT = {|
 
 const AddArtist = ({edit}: {edit: AddArtistEditT}) => {
   const display = edit.display_data;
+  const area = display.area;
+  const beginArea = display.begin_area;
+  const endArea = display.end_area;
   const gender = display.gender;
   const type = display.type;
 
@@ -90,12 +93,12 @@ const AddArtist = ({edit}: {edit: AddArtistEditT}) => {
           </tr>
         ) : null}
 
-        {display.area ? (
+        {area ? (
           <tr>
             <th>{addColon(l('Area'))}</th>
             <td>
               <DescriptiveLink
-                entity={display.area}
+                entity={area}
               />
             </td>
           </tr>
@@ -108,12 +111,12 @@ const AddArtist = ({edit}: {edit: AddArtistEditT}) => {
           </tr>
         )}
 
-        {display.begin_area ? (
+        {beginArea ? (
           <tr>
             <th>{artistBeginAreaLabel(type ? type.id : null)}</th>
             <td>
               <DescriptiveLink
-                entity={display.begin_area}
+                entity={beginArea}
               />
             </td>
           </tr>
@@ -126,12 +129,12 @@ const AddArtist = ({edit}: {edit: AddArtistEditT}) => {
           </tr>
         )}
 
-        {display.end_area ? (
+        {endArea ? (
           <tr>
             <th>{artistEndAreaLabel(type ? type.id : null)}</th>
             <td>
               <DescriptiveLink
-                entity={display.end_area}
+                entity={endArea}
               />
             </td>
           </tr>

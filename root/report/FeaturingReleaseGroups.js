@@ -34,11 +34,11 @@ const FeaturingReleaseGroups = ({
     <ul>
       <li>
         {exp.l(
-          `This report shows release groups with (feat. Artist) in the
-           title. For classical release groups, consult the
-           {CSG|classical style guidelines}. For non-classical release
-           groups, this is inherited from an older version of MusicBrainz
-           and should be fixed. Consult the
+          `This report shows release groups with “(feat. Artist)” 
+           (or similar) in the title. For classical release groups, 
+           consult the {CSG|classical style guidelines}. For 
+           non-classical release groups, this is usually inherited from an
+           older version of MusicBrainz and should be fixed. Consult the
            {featured_artists|page about featured artists} to know more.`,
           {
             CSG: '/doc/Style/Classical',

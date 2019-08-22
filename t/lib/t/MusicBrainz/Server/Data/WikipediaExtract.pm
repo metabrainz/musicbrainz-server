@@ -28,7 +28,7 @@ test 'Get ja page from en' => sub {
     $extract = $c->model('WikipediaExtract')->get_extract([$entity], 'ja', cache_only => 0);
     ok(defined $extract);
 
-    like($extract->content, qr{は、広島県出身の女性3人組テクノポップユニットである。}, "contains japanese text");
+    like($extract->content, qr{は、中田ヤスタカがプロデュースする広島県出身の3人組テクノポップユニット。}, "contains japanese text");
 
     LWP::UserAgent::Mockable->finished;
 };
@@ -55,21 +55,21 @@ test 'Get en page from en' => sub {
     LWP::UserAgent::Mockable->finished;
 };
 
-test 'Get nl page from en, fallback to en' => sub {
+test 'Get ast page from en, fallback to en' => sub {
     my $test = shift;
     my $c = $test->c;
 
     LWP::UserAgent::Mockable->reset(
-        playback => $Bin.'/lwp-sessions/data_wikipedia.nl-en-fallback.lwp-mock'
+        playback => $Bin.'/lwp-sessions/data_wikipedia.ast-en-fallback.lwp-mock'
     );
 
     my $entity = Wikipedia->new(url => 'http://en.wikipedia.org/wiki/Perfume (Japanese band)');
     # No cache
-    my $extract = $c->model('WikipediaExtract')->get_extract([$entity], 'nl', cache_only => 1);
+    my $extract = $c->model('WikipediaExtract')->get_extract([$entity], 'ast', cache_only => 1);
     ok(!defined $extract);
 
     # Now let it use the network
-    $extract = $c->model('WikipediaExtract')->get_extract([$entity], 'nl', cache_only => 0);
+    $extract = $c->model('WikipediaExtract')->get_extract([$entity], 'ast', cache_only => 0);
     ok(defined $extract);
 
     like($extract->content, qr{Japanese pop girl group}, "contains english text");
@@ -100,26 +100,26 @@ test 'Get en page from wikidata' => sub {
     LWP::UserAgent::Mockable->finished;
 };
 
-test 'Request eo page via wikidata, fallback to de' => sub {
+test 'Request ast page via wikidata, fallback to en' => sub {
     my $test = shift;
     my $c = $test->c;
 
     LWP::UserAgent::Mockable->reset(
-        playback => $Bin.'/lwp-sessions/data_wikipedia.eo-de-fallback-wikidata.lwp-mock'
+        playback => $Bin.'/lwp-sessions/data_wikipedia.ast-en-fallback-wikidata.lwp-mock'
     );
 
     # german municipality of schladen-werla
     my $entity = Wikidata->new(url => 'https://www.wikidata.org/wiki/Q1462109');
     my $entity2 = Wikipedia->new(url => 'http://de.wikipedia.org/wiki/Schladen-Werla');
     # No cache
-    my $extract = $c->model('WikipediaExtract')->get_extract([$entity, $entity2], 'eo', cache_only => 1);
+    my $extract = $c->model('WikipediaExtract')->get_extract([$entity, $entity2], 'ast', cache_only => 1);
     ok(!defined $extract);
 
     # Now let it use the network
-    $extract = $c->model('WikipediaExtract')->get_extract([$entity, $entity2], 'eo', cache_only => 0);
+    $extract = $c->model('WikipediaExtract')->get_extract([$entity, $entity2], 'ast', cache_only => 0);
     ok(defined $extract);
 
-    like($extract->content, qr{ist eine Einheitsgemeinde}, "contains german text");
+    like($extract->content, qr{is a municipality}, "contains English text");
 
     LWP::UserAgent::Mockable->finished;
 };
@@ -198,6 +198,29 @@ EOSQL
     ok(defined $extract);
 
     like($extract->content, qr{општина во округот}, "contains macedonian text");
+
+    LWP::UserAgent::Mockable->finished;
+};
+
+test 'Request en page via wikidata, fallback to de (en is redirect)' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    LWP::UserAgent::Mockable->reset(
+        playback => $Bin.'/lwp-sessions/data_wikipedia.en-de-fallback-redirect.lwp-mock'
+    );
+
+    # American actress Clarissa Burt
+    my $entity = Wikidata->new(url => 'https://www.wikidata.org/wiki/Q514294');
+    # No cache
+    my $extract = $c->model('WikipediaExtract')->get_extract([$entity], 'en', cache_only => 1);
+    ok(!defined $extract);
+
+    # Now let it use the network
+    $extract = $c->model('WikipediaExtract')->get_extract([$entity], 'en', cache_only => 0);
+    ok(defined $extract);
+
+    like($extract->content, qr{ist eine US-amerikanisch-italienische Schauspielerin}, "contains German text");
 
     LWP::UserAgent::Mockable->finished;
 };
