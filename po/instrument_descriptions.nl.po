@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2019-08-12 11:08+0000\n"
+"PO-Revision-Date: 2019-08-19 08:27+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -230,13 +230,6 @@ msgstr "Een piano waarbij de snaren worden gestreken met fijne draden van nylon 
 #: DB:instrument/description:519
 msgid "A plucked instrument from the Renaissance."
 msgstr "Een tokkelinstrument uit de Renaissance."
-
-#. name:çevgen
-#: DB:instrument/description:740
-msgid ""
-"A pole with bells and/or zills used in the traditional Ottoman military "
-"bands"
-msgstr "Een staf met bellen en/of schellen die wordt gebruikt bij traditionele Ottomaanse militaire muziek."
 
 #. name:prepared piano
 #: DB:instrument/description:481
@@ -484,8 +477,10 @@ msgstr "Een balafoon, soort xylofoon van kalebasflessen uit Mali."
 #: DB:instrument/description:338
 msgid ""
 "Bar or pole shaped chimes, usually arranged in a line or circle, hanging "
-"free or struck with mallets."
-msgstr "Een klokkenspel bestaat uit staven of balken die meestal in een lijn of cirkel staan opgesteld en met hamertjes worden aangeslagen."
+"free or struck with mallets. <br /> For the instrument often used in bell "
+"towers, see <a "
+"href=\"/instrument/0d14d4e0-9ac9-4a96-a595-4145d7794082\">carillon</a>."
+msgstr "Een glockenspiel is een metallofoon die bestaat uit toetsen of staven die met een hamer worden beslagen. <br /> Zie voor het instrument in klokkentorens <a href=\"/instrument/0d14d4e0-9ac9-4a96-a595-4145d7794082\">carillon</a>."
 
 #. name:baroque trumpet
 #: DB:instrument/description:521
@@ -1548,6 +1543,14 @@ msgid ""
 " strings, but is made of wood."
 msgstr "De zhuihu is een fretloze huqin uit de provincie Henan. Het heeft twee snaren en is gemaakt van hout."
 
+#. name:çevgen
+#: DB:instrument/description:740
+msgid ""
+"Originating in Central Asia, it gained symbolic value to the Turks who used "
+"it in Ottoman marching-bands. It is 2-2,5 m long, has a bronze crescent "
+"shape with bells and jangles attached."
+msgstr "Een schellenboom bestaat uit een paal van 2 tot 2,5 m hoog met een bronzen halve maan waarin bellen en schellen zijn bevestigd. Het instrument komt oorspronkelijk uit Centraal-Azië en heeft in Turkse militaire fanfares symbolische waarde gekregen."
+
 #. name:bhapang
 #: DB:instrument/description:920
 msgid ""
@@ -1777,6 +1780,17 @@ msgid ""
 "Rock and Pop music. It consists of snare drum, tom-toms, hi-hats, cymbals "
 "and bass drum."
 msgstr "Het drumstel werd vanaf de jaren 1930 ontwikkeld als een vaste verzameling trommels. Het bestaat uit een kleine en grote trom (snare en bass drum), tom-toms, hi-hats en bekkens."
+
+#. name:carillon
+#: DB:instrument/description:128
+msgid ""
+"Set of many bronze bells, often mechanized and operated by keyboard, they "
+"are set in the bell tower (belfry) of important buildings. <br /> For the "
+"steel bar metallophone used from toy to orchestra, see <a "
+"href=\"/instrument/340b8043-e3c4-443e-afb8-7fce24fe0ce4\">glockenspiel</a>. "
+"<br /> For the crank operated, revolving cylinder/disc plucked idiophone see"
+" <a href=\"/instrument/2f5f6a67-2b2b-4857-92b0-5b25d485f632\">music box</a>."
+msgstr "Een carillon is een ensemble van klokken dat met een toetsenbord wordt bespeeld. Ze zijn vaak gemechaniseerd en te vinden in klokkentorens. <br />Zie voor de metallofoon van metalen plaatjes dat als speelgoed en instrument wordt gebruikt <a href=\"/instrument/340b8043-e3c4-443e-afb8-7fce24fe0ce4\">glockenspiel</a>. Zie voor de getokkelde idiofoon die met een slinger wordt bespeeld <a href=\"/instrument/2f5f6a67-2b2b-4857-92b0-5b25d485f632\">speeldoos</a>."
 
 #. name:shaken idiophone
 #: DB:instrument/description:954
