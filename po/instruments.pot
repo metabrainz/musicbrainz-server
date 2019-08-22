@@ -147,6 +147,11 @@ msgstr ""
 msgid "Lyricon"
 msgstr ""
 
+#: DB:instrument/name:637
+msgctxt "Mark Stevens' bar chime"
+msgid "Mark tree"
+msgstr ""
+
 #: DB:instrument/name:442
 msgid "Marxophone"
 msgstr ""
@@ -822,6 +827,7 @@ msgid "calliope"
 msgstr ""
 
 #: DB:instrument/name:128
+msgctxt "belfry tower bell set"
 msgid "carillon"
 msgstr ""
 
@@ -2260,10 +2266,6 @@ msgstr ""
 msgid "marimba lumina"
 msgstr ""
 
-#: DB:instrument/name:637
-msgid "mark tree"
-msgstr ""
-
 #: DB:instrument/name:633
 msgid "marímbula"
 msgstr ""
@@ -2844,6 +2846,11 @@ msgstr ""
 
 #: DB:instrument/name:386
 msgid "resonator guitar"
+msgstr ""
+
+#: DB:instrument/name:973
+msgctxt "Gong-chime used in Balinese gamelan"
+msgid "reyong"
 msgstr ""
 
 #: DB:instrument/name:369
@@ -3621,6 +3628,7 @@ msgid "tubon"
 msgstr ""
 
 #: DB:instrument/name:168
+msgctxt "Orchestral chimes"
 msgid "tubular bells"
 msgstr ""
 
@@ -3876,6 +3884,7 @@ msgid "willow flute"
 msgstr ""
 
 #: DB:instrument/name:497
+msgctxt "Wind played chimes"
 msgid "wind chime"
 msgstr ""
 
@@ -4011,6 +4020,7 @@ msgid "zurna"
 msgstr ""
 
 #: DB:instrument/name:740
+msgctxt "Ceremonial Ottoman jangle-staff"
 msgid "çevgen"
 msgstr ""
 

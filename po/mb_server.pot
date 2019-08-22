@@ -10,7 +10,7 @@ msgstr ""
 "#-#-#-#-#  mb_server.pot (PACKAGE VERSION)  #-#-#-#-#\n"
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-08-15 11:19+0200\n"
+"POT-Creation-Date: 2019-08-22 14:02+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22,7 +22,7 @@ msgstr ""
 "#-#-#-#-#  javascript.pot (PACKAGE VERSION)  #-#-#-#-#\n"
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-08-15 11:19+0200\n"
+"POT-Creation-Date: 2019-08-22 14:02+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1178,7 +1178,8 @@ msgstr ""
 msgid "Bio:"
 msgstr ""
 
-#: ../root/layout.tt:107 ../root/layout/components/Footer.js:29
+#: ../root/layout.tt:107 ../root/layout/components/ExternalLinks.js:85
+#: ../root/layout/components/Footer.js:29
 msgid "Blog"
 msgstr ""
 
@@ -10152,7 +10153,7 @@ msgid "Collection Not Found"
 msgstr ""
 
 #: ../root/entity/NotFound.js:47
-msgid "Sorry, we could not find an collection with that MusicBrainz ID"
+msgid "Sorry, we could not find a collection with that MusicBrainz ID."
 msgstr ""
 
 #: ../root/entity/NotFound.js:53
@@ -10715,15 +10716,15 @@ msgstr ""
 msgid "Development"
 msgstr ""
 
-#: ../root/layout/components/ExternalLinks.js:75
+#: ../root/layout/components/ExternalLinks.js:76
 msgid "Official homepage"
 msgstr ""
 
-#: ../root/layout/components/ExternalLinks.js:103
+#: ../root/layout/components/ExternalLinks.js:115
 msgid "External links"
 msgstr ""
 
-#: ../root/layout/components/ExternalLinks.js:110
+#: ../root/layout/components/ExternalLinks.js:122
 msgid "View all relationships"
 msgstr ""
 
@@ -13491,14 +13492,14 @@ msgstr ""
 msgid "Guess Case Options"
 msgstr ""
 
-#: ../root/static/scripts/guess-case/modes.js:256
+#: ../root/static/scripts/guess-case/modes.js:283
 msgid ""
 "This mode capitalises almost all words, with some words (mainly articles and "
 "short prepositions) lowercased. Some words may need to be manually "
 "capitalised to follow the {url|English capitalisation guidelines}."
 msgstr ""
 
-#: ../root/static/scripts/guess-case/modes.js:270
+#: ../root/static/scripts/guess-case/modes.js:299
 msgid ""
 "This mode capitalises titles as sentence mode, but also inserts spaces "
 "before semicolons, colons, exclamation marks and question marks, and inside "
@@ -13506,18 +13507,18 @@ msgid ""
 "{url|French capitalisation guidelines}."
 msgstr ""
 
-#: ../root/static/scripts/guess-case/modes.js:290
+#: ../root/static/scripts/guess-case/modes.js:320
 msgid ""
 "This mode capitalises the first word of a sentence, most other words are "
 "lowercased. Some words, often proper nouns, may need to be manually fixed "
 "according to the {url|relevant language guidelines}."
 msgstr ""
 
-#: ../root/static/scripts/guess-case/modes.js:300
+#: ../root/static/scripts/guess-case/modes.js:331
 msgid ""
 "This mode handles the Turkish capitalisation of 'i' ('İ') and 'ı' ('I'). "
 "Some words may need to be manually corrected according to the {url|Turkish "
-"language guidelines}. "
+"language guidelines}."
 msgstr ""
 
 #: ../root/static/scripts/relationship-editor/common/dialog.js:32

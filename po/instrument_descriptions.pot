@@ -196,14 +196,6 @@ msgid ""
 "control surface based on the layout of a marimba."
 msgstr ""
 
-#. name:mark tree 
-#: DB:instrument/description:637
-msgid ""
-"A mark tree consists of many small chimes arranged in order of length which "
-"hang from a bar. The chimes are played by sweeping a finger or stick through "
-"the length of the hanging chimes."
-msgstr ""
-
 #. name:mouth organ 
 #: DB:instrument/description:610
 msgid ""
@@ -316,6 +308,15 @@ msgstr ""
 #. name:acoustic fretless guitar 
 #: DB:instrument/description:539
 msgid "Acoustic guitar without frets."
+msgstr ""
+
+#. name:repeater 
+#: DB:instrument/description:882
+msgid ""
+"Also known as kette or keteh, it is the smallest size/pitch drum. It has a "
+"tight goat skin membrane and it is struck with the fingertips. Important in "
+"the Jamaican Burru music and Rastafari movement, it is part of the Nyabinghi/"
+"Akete drums."
 msgstr ""
 
 #. name:alto viol 
@@ -470,7 +471,9 @@ msgid ""
 "Bar or pole shaped chimes, usually arranged in a line or circle, hanging "
 "free or struck with mallets. <br /> For the instrument often used in bell "
 "towers, see <a href=\"/instrument/0d14d4e0-9ac9-4a96-"
-"a595-4145d7794082\">carillon</a>."
+"a595-4145d7794082\">carillon</a>.<br /> For the instrument used in "
+"orchestra, see <a href=\"/instrument/7d6964ff-b1f5-472b-bdd7-"
+"b53de3739ad3\">tubular bells</a>."
 msgstr ""
 
 #. name:baroque trumpet 
@@ -627,7 +630,9 @@ msgid ""
 "Common and popular metallophone, usually an arrangement of metal keys or "
 "slabs on a wooden resonator box. <br /> For the instrument often used in "
 "bell towers, see <a href=\"/instrument/0d14d4e0-9ac9-4a96-"
-"a595-4145d7794082\">carillon</a>."
+"a595-4145d7794082\">carillon</a>.<br /> For the instrument called orchestra "
+"bell/chime in some languages, see <a href=\"/instrument/7d6964ff-b1f5-472b-"
+"bdd7-b53de3739ad3\">tubular bells</a>."
 msgstr ""
 
 #. name:rudra veena 
@@ -728,7 +733,9 @@ msgstr ""
 #: DB:instrument/description:638
 msgid ""
 "Despite the name, it is not a chime but instead consists of tuned metal bars "
-"each on individual resonator boxes. <br></br> It is similar to glockenspiel."
+"each on individual resonator boxes. <br /> It is similar to glockenspiel. "
+"<br /> For the instrument called <em>bar chimes</em>, see <a href=\"/"
+"instrument/3b8cd68b-aadc-4e43-a13f-e575202d67ea\">chimes</a>."
 msgstr ""
 
 #. name:theorbo 
@@ -863,6 +870,11 @@ msgid ""
 "Extra large double-headed water buffalo hide barrel drum. It is suspended "
 "from a rack and beat with mallet, it is used in central Javanese gamelan and "
 "for religious signalling purposes in mosques."
+msgstr ""
+
+#. name:pi 
+#: DB:instrument/description:667
+msgid "Family of quadruple reed oboes"
 msgstr ""
 
 #. name:Baltic psalteries 
@@ -1117,6 +1129,15 @@ msgid ""
 "glued together creating an UFO shape."
 msgstr ""
 
+#. name:wind chime 
+#: DB:instrument/description:497
+msgid ""
+"It differs from other chimes by addition of pendulum(s), such to be worked "
+"by wind, the sonorous parts can be rods, bells or other shapes of metal, "
+"wood, glass or ceramic.<br /> Often decorated, it is seen as a good luck "
+"charm."
+msgstr ""
+
 #. name:yueqin 
 #: DB:instrument/description:240
 msgid ""
@@ -1218,6 +1239,22 @@ msgid ""
 "Large box lute-zither with a short, unfretted neck. It has 30 or more "
 "strings fanned out on the body, the four to eight bass strings are strung to "
 "the neck."
+msgstr ""
+
+#. name:baandu 
+#: DB:instrument/description:880
+msgid ""
+"Larger bass drum also known as thunder or pope smasher, it has a double goat "
+"skin membrane and is hit with a padded mallet. Important in the Jamaican "
+"Burru music and Rastafari movement, it is part of the Nyabinghi/Akete drums."
+msgstr ""
+
+#. name:tubular bells 
+#: DB:instrument/description:168
+msgid ""
+"Larger orchestral version of chimes, closed top hollow metal tubes are set "
+"in a stand with a damper operated by pedals, they are tuned at a definite "
+"pitch and played with mallets."
 msgstr ""
 
 #. name:Scottish smallpipes 
@@ -1383,6 +1420,14 @@ msgstr ""
 #. name:Mexican vihuela 
 #: DB:instrument/description:92
 msgid "Mexican vihuela, used by mariachi bands"
+msgstr ""
+
+#. name:fundeh 
+#: DB:instrument/description:881
+msgid ""
+"Middle size/pitch drum, it has a slack goat skin membrane and it is hit with "
+"the palms. Important in the Jamaican Burru music and Rastafari movement, it "
+"is part of the Nyabinghi/Akete drums."
 msgstr ""
 
 #. name:kachva sitar 
@@ -1619,11 +1664,6 @@ msgid ""
 "block. The sound produced is used to keep time."
 msgstr ""
 
-#. name:pi 
-#: DB:instrument/description:667
-msgid "Pi is a family of quadruple reed oboes from Thailand."
-msgstr ""
-
 #. name:boobam 
 #: DB:instrument/description:874
 msgid ""
@@ -1760,6 +1800,13 @@ msgid ""
 "Catalonia it's scraped with a castanet. Ginebra is a variant made of cane."
 msgstr ""
 
+#. name:reyong 
+#: DB:instrument/description:973
+msgid ""
+"Set of 4 to 12 small metal gongs suspended in a string carriage, played by "
+"two to four players."
+msgstr ""
+
 #. name:drums (drum set) 
 #: DB:instrument/description:101
 msgid ""
@@ -1887,6 +1934,13 @@ msgstr ""
 msgid ""
 "Small, high-pitched, transverse flute, similar to the piccolo, but with a "
 "narrower bore."
+msgstr ""
+
+#. name:Mark tree 
+#: DB:instrument/description:637
+msgid ""
+"Solid metal (often aluminium) rods hanging on a bar, set at an inharmonic "
+"pitch."
 msgstr ""
 
 #. name:sopilka 
@@ -3749,6 +3803,16 @@ msgstr ""
 msgid "Theatre organ, such as the Wurlitzer"
 msgstr ""
 
+#. name:akete 
+#: DB:instrument/description:747
+msgid ""
+"Three-parts drumset (<a href=\"/instrument/ed1628bd-8541-4874-"
+"b8ca-2cec8b4c5140\">baandu</a>, <a href=\"/"
+"instrument/81b68590-5c82-47a3-9790-1570ca60f711\">funde</a> and <a href=\"/"
+"instrument/30aeef52-3ebf-405e-9baa-ef6c6f3ef6d5\">kete</a>) commonly used in "
+"Burru and Nyabinghi musics."
+msgstr ""
+
 #. name:timpani 
 #: DB:instrument/description:167
 msgid "Timpani (Kettle drum)"
@@ -4088,13 +4152,6 @@ msgid ""
 "small hole (guxin)."
 msgstr ""
 
-#. name:wind chime 
-#: DB:instrument/description:497
-msgid ""
-"Wind chimes are chimes constructed from suspended tubes, rods, bells or "
-"other objects, designed to be hung outside and played by the wind."
-msgstr ""
-
 #. name:zill 
 #: DB:instrument/description:455
 msgid ""
@@ -4149,15 +4206,6 @@ msgid ""
 "also known as dangubica or kuterevka, it is similar to the bisernica and the "
 "ancestor of the entire tamburica ensemble. this plucked long-necked lute has "
 "two double strings and is played solo."
-msgstr ""
-
-#. name:repeater 
-#: DB:instrument/description:882
-msgid ""
-"also known as kette or keteh, it is the smallest size/pitch drum. It has a "
-"tight goat skin membrane and it is struck with the fingertips. Important in "
-"the Jamaican Burru music and Rastafari movement, it is part of the Nyabinghi/"
-"Akete drums."
 msgstr ""
 
 #. name:clavioline 
@@ -4358,14 +4406,6 @@ msgid ""
 "booming bass sound."
 msgstr ""
 
-#. name:baandu 
-#: DB:instrument/description:880
-msgid ""
-"larger bass drum also known as thunder or pope smasher, it has a double goat "
-"skin membrane and is hit with a padded mallet. Important in the Jamaican "
-"Burru music and Rastafari movement, it is part of the Nyabinghi/Akete drums."
-msgstr ""
-
 #. name:duggi 
 #: DB:instrument/description:851
 msgid ""
@@ -4379,14 +4419,6 @@ msgstr ""
 msgid ""
 "made of wood, bone or stone it has a long string attached, when spun around "
 "it produces a deep, loud whizzing sound that can be heard from far away."
-msgstr ""
-
-#. name:fundeh 
-#: DB:instrument/description:881
-msgid ""
-"middle size/pitch drum, it has a slack goat skin membrane and it is hit with "
-"the palms. Important in the Jamaican Burru music and Rastafari movement, it "
-"is part of the Nyabinghi/Akete drums."
 msgstr ""
 
 #. name:kamalen ngɔni 
@@ -4537,13 +4569,6 @@ msgstr ""
 #. name:rōria 
 #: DB:instrument/description:859
 msgid "thin quiet jew's harp-like instrument made of wood or bone."
-msgstr ""
-
-#. name:akete 
-#: DB:instrument/description:747
-msgid ""
-"three-parts drumset (baandu, funde, and kete) commonly used in Burru and "
-"Nyabinghi musics."
 msgstr ""
 
 #. name:ti bwa 
