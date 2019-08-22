@@ -67,6 +67,8 @@ role {
                 $props{form} = $form;
                 $props{optionsTypeID} = $form->options_type_id if $params->form eq 'Place';
                 $props{optionsTypeId} = $form->options_type_id if $params->form eq 'Series';
+                $props{optionsTypeId} = $form->options_type_id if $params->form eq 'ArtistEdit';
+                $props{optionsGenderId} = $form->options_gender_id if $params->form eq 'ArtistEdit';
                 $props{optionsPrimaryTypeId} = $form->options_primary_type_id if $params->form eq 'ReleaseGroup';
                 $props{optionsSecondaryTypeIds} = $form->options_secondary_type_ids if $params->form eq 'ReleaseGroup';
                 $props{optionsOrderingTypeId} = $form->options_ordering_type_id if $params->form eq 'Series';

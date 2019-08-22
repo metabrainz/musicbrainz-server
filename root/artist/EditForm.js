@@ -17,58 +17,20 @@ import DuplicateEntitiesSection from '../components/DuplicateEntitiesSection';
 import FormRowTextLong from '../components/FormRowTextLong';
 import FormRowSelect from '../components/FormRowSelect';
 import FormRow from '../components/FormRow';
+import AreaBubble from '../components/AreaBubble';
 import Autocomplete from '../static/scripts/common/components/Autocomplete';
 import FormRowTextList from '../components/FormRowTextList';
 import FormRowCheckbox from '../components/FormRowCheckbox';
 import parseIntegerOrNull from '../static/scripts/common/utility/parseIntegerOrNull';
 import FormRowPartialDate from '../components/FormRowPartialDate';
-
-type ArtistFormT = {
-  field: {
-    area: {
-      field: {
-        gid: FieldT<string>,
-        name: FieldT<string>,
-      },
-    },
-    area_id: FieldT<number>,
-    begin_area: {
-      field: {
-        gid: FieldT<string>,
-        name: FieldT<string>,
-      },
-    },
-    begin_area_id: FieldT<number>,
-    comment: FieldT<string>,
-    edit_note: FieldT<string>,
-    end_area: {
-      field: {
-        gid: FieldT<string>,
-        name: FieldT<string>,
-      },
-    },
-    end_area_id: FieldT<number>,
-    gender_id: FieldT<number>,
-    name: FieldT<string>,
-    period: {
-      field: {
-        begin_date: PartialDateFieldT,
-        end_date: PartialDateFieldT,
-        ended: FieldT<boolean>,
-      },
-      has_errors: boolean,
-      html_name: string,
-    },
-    sort_name: FieldT<string>,
-    type_id: FieldT<number>,
-  },
-  has_errors: boolean,
-  name: string,
-};
+import AddArtist from '../edit/details/AddArtist';
+import EditArtist from '../edit/details/EditArtist';
 
 type Props = {
+  editEntity: ArtistT,
   entityType: string,
   form: ArtistFormT,
+  formType: string,
   optionsGenderId: SelectOptionsT,
   optionsTypeId: SelectOptionsT,
   relationshipEditorHTML: string,
@@ -76,14 +38,16 @@ type Props = {
 };
 
 const EditForm = ({
+  editEntity,
   entityType,
   form,
+  formType,
   optionsGenderId,
   optionsTypeId,
   relationshipEditorHTML,
   uri,
 }) => {
-  const guess = MB.GuessCase['artist'];
+  const guess = MB.GuessCase["artist"];
 
   const [
     name,
@@ -119,6 +83,7 @@ const EditForm = ({
   const [typeId, setTypeId] = useState(form.field.type_id);
   const [genderId, setGenderId] = useState(form.field.gender_id);
   const [ipiCodes, setIpiCodes] = useState(form.field.ipi_codes);
+  const [isniCodes, setIsniCodes] = useState(form.field.isni_codes);
   const [
     sortName,
     setSortName,
@@ -254,7 +219,175 @@ const EditForm = ({
     });
   }
 
-  console.log(form);
+  function typeUsed(optionNo) {
+    const type = optionsTypeId.find((option) => {
+      return option.value === parseInt(optionNo, 10);
+    });
+    return type ? {
+      name: type.label,
+    } : null;
+  }
+
+  function genderChoosen(optionNo) {
+    const type = optionsGenderId.find((option) => {
+      return option.value === parseInt(optionNo, 10);
+    });
+    return type ? {
+      name: type.label,
+    } : null;
+  }
+
+  function generateAddPreviewData() {
+    return {
+      display_data: {
+        area: {
+          entityType: 'area',
+          gid: areaGID.value,
+          id: areaID.value,
+          name: areaName.value,
+        },
+        artist: {
+          begin_data: beginDate.value,
+          comment: comment.value,
+          end_date: endDate.value,
+          entityType: 'artist',
+          name: name.value,
+        },
+        begin_area: {
+          entityType: 'area',
+          gid: beginAreaGID.value,
+          id: beginAreaID.value,
+          name: beginAreaName.value,
+        },
+        begin_date: {
+          day: beginDate.field.day.value,
+          month: beginDate.field.month.value,
+          year: beginDate.field.year.value,
+        },
+        comment: comment.value,
+        end_area: {
+          entityType: 'area',
+          gid: endAreaGID.value,
+          id: endAreaID.value,
+          name: endAreaName.value,
+        },
+        end_date: {
+          day: endDate.field.day.value,
+          month: endDate.field.month.value,
+          year: endDate.field.year.value,
+        },
+        ended: ended.value,
+        gender: genderChoosen(genderId.value),
+        ipi_codes: ipiCodes.value,
+        isni_codes: isniCodes.value,
+        sort_name: sortName.value,
+        type: typeUsed(typeId.value),
+
+      },
+    };
+  }
+
+  function generateEditPreviewData() {
+    return {
+      display_data: {
+        area: {
+          new: {
+            entityType: 'area',
+            gid: areaGID.value,
+            id: areaID.value,
+            name: areaName.value,
+          },
+          old: {
+            entityType: 'area',
+            gid: form.field.area.field.gid.value,
+            id: form.field.area_id.value,
+            name: form.field.area.field.name.value,
+          },
+        },
+        artist: editEntity,
+        begin_area: beginAreaGID ? {
+          new: {
+            entityType: 'area',
+            gid: beginAreaGID.value,
+            id: beginAreaID.value,
+            name: beginAreaName.value,
+          },
+          old: {
+            entityType: 'area',
+            gid: form.field.begin_area.field.gid.value,
+            id: form.field.begin_area_id.value,
+            name: form.field.begin_area.field.name.value,
+          },
+        } : null,
+        begin_date: {
+          new: {
+            day: beginDate.field.day.value,
+            month: beginDate.field.month.value,
+            year: beginDate.field.year.value,
+          },
+          old: {
+            day: refractorDate('begin_date').field.day.value,
+            month: refractorDate('begin_date').field.month.value,
+            year: refractorDate('begin_date').field.year.value,
+          },
+        },
+        comment: {
+          new: comment.value,
+          old: form.field.comment.value,
+        },
+        end_area: endAreaGID ? {
+          new: {
+            entityType: 'area',
+            gid: endAreaGID.value,
+            id: endAreaID.value,
+            name: endAreaName.value,
+          },
+          old: {
+            entityType: 'area',
+            gid: form.field.end_area.field.gid.value,
+            id: form.field.end_area_id.value,
+            name: form.field.end_area.field.name.value,
+          },
+        } : null,
+        end_date: {
+          new: {
+            day: endDate.field.day.value,
+            month: endDate.field.month.value,
+            year: endDate.field.year.value,
+          },
+          old: {
+            day: refractorDate('end_date').field.day.value,
+            month: refractorDate('end_date').field.month.value,
+            year: refractorDate('end_date').field.year.value,
+          },
+        },
+        ended: {
+          new: ended.value,
+          old: form.field.period.field.ended.value,
+        },
+        gender: {
+          new: genderChoosen(genderId.value),
+          old: genderChoosen(form.field.gender_id.value),
+        },
+        ipi_codes: {
+          new: ipiCodes.value,
+          old: form.field.ipi_codes.value,
+        },
+        isni_codes: {
+          new: isniCodes.value,
+          old: form.field.isni_codes.value,
+        },
+        sort_name: {
+          new: sortName.value,
+          old: form.field.sort_name.value,
+        },
+        type: {
+          new: typeUsed(typeId.value),
+          old: typeUsed(form.field.type_id.value),
+        },
+      },
+    };
+  }
 
   return (
     <>
@@ -469,8 +602,15 @@ const EditForm = ({
             <legend>{l('External Links')}</legend>
             <div id="external-links-editor-container" />
           </fieldset>
+          <fieldset>
+            <legend>{l('Changes')}</legend>
+            {formType === 'add' ? <AddArtist edit={generateAddPreviewData()} /> : <EditArtist edit={generateEditPreviewData()} />}
+          </fieldset>
           <EnterEditNote field={form.field.edit_note} hideHelp />
           <EnterEdit form={form} />
+        </div>
+        <div className="documentation">
+          <AreaBubble />
         </div>
       </form>
     </>

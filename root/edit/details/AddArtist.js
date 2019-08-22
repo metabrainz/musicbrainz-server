@@ -48,117 +48,122 @@ const AddArtist = ({edit}: {edit: AddArtistEditT}) => {
   return (
     <>
       <table className="details">
-        <tr>
-          <th>{addColon(l('Artist'))}</th>
-          <td>
-            <EntityLink
-              entity={display.artist}
-            />
-          </td>
-        </tr>
+        <tbody>
+          <tr>
+            <th>{addColon(l('Artist'))}</th>
+            <td>
+              <EntityLink
+                allowNew
+                entity={display.artist}
+              />
+            </td>
+          </tr>
+        </tbody>
       </table>
 
       <table className="details add-artist">
-        <tr>
-          <th>{addColon(l('Name'))}</th>
-          <td>{display.name}</td>
-        </tr>
-
-        <tr>
-          <th>{addColon(l('Sort name'))}</th>
-          <td>{display.sort_name}</td>
-        </tr>
-
-        {display.comment ? (
+        <tbody>
           <tr>
-            <th>{addColon(l('Disambiguation'))}</th>
-            <td>{display.comment}</td>
+            <th>{addColon(l('Name'))}</th>
+            <td>{display.name}</td>
           </tr>
-        ) : null}
 
-        {type ? (
           <tr>
-            <th>{addColon(l('Type'))}</th>
-            <td>{lp_attributes(type.name, 'artist_type')}</td>
+            <th>{addColon(l('Sort name'))}</th>
+            <td>{display.sort_name}</td>
           </tr>
-        ) : null}
 
-        {gender ? (
-          <tr>
-            <th>{addColon(l('Gender'))}</th>
-            <td>{lp_attributes(gender.name, 'gender')}</td>
-          </tr>
-        ) : null}
-
-        {display.area ? (
-          <tr>
-            <th>{addColon(l('Area'))}</th>
-            <td>
-              <DescriptiveLink
-                entity={display.area}
-              />
-            </td>
-          </tr>
-        ) : null}
-
-        {isDateEmpty(display.begin_date) ? null : (
-          <tr>
-            <th>{artistBeginLabel(type ? type.id : null)}</th>
-            <td>{formatDate(display.begin_date)}</td>
-          </tr>
-        )}
-
-        {display.begin_area ? (
-          <tr>
-            <th>{artistBeginAreaLabel(type ? type.id : null)}</th>
-            <td>
-              <DescriptiveLink
-                entity={display.begin_area}
-              />
-            </td>
-          </tr>
-        ) : null}
-
-        {isDateEmpty(display.end_date) ? null : (
-          <tr>
-            <th>{artistEndLabel(type ? type.id : null)}</th>
-            <td>{formatDate(display.end_date)}</td>
-          </tr>
-        )}
-
-        {display.end_area ? (
-          <tr>
-            <th>{artistEndAreaLabel(type ? type.id : null)}</th>
-            <td>
-              <DescriptiveLink
-                entity={display.end_area}
-              />
-            </td>
-          </tr>
-        ) : null}
-
-        <tr>
-          <th>{addColon(l('Ended'))}</th>
-          <td>{yesNo(display.ended)}</td>
-        </tr>
-
-        {display.ipi_codes && display.ipi_codes.length > 0 ? (
-          display.ipi_codes.map(ipi => (
-            <tr key={ipi}>
-              <th>{addColon(l('IPI code'))}</th>
-              <td>{ipi}</td>
+          {display.comment ? (
+            <tr>
+              <th>{addColon(l('Disambiguation'))}</th>
+              <td>{display.comment}</td>
             </tr>
-          ))
-        ) : null}
+          ) : null}
 
-        {display.isni_codes && display.isni_codes.length > 0 ? (
-          display.isni_codes.map(isni => (
-            <tr key={isni}>
-              <th>{addColon(l('ISNI code'))}</th>
-              <td>{formatIsni(isni)}</td>
+          {type ? (
+            <tr>
+              <th>{addColon(l('Type'))}</th>
+              <td>{lp_attributes(type.name, 'artist_type')}</td>
             </tr>
-          ))
-        ) : null}
+          ) : null}
+
+          {gender ? (
+            <tr>
+              <th>{addColon(l('Gender'))}</th>
+              <td>{lp_attributes(gender.name, 'gender')}</td>
+            </tr>
+          ) : null}
+
+          {display.area.gid ? (
+            <tr>
+              <th>{addColon(l('Area'))}</th>
+              <td>
+                <DescriptiveLink
+                  entity={display.area}
+                />
+              </td>
+            </tr>
+          ) : null}
+
+          {isDateEmpty(display.begin_date) ? null : (
+            <tr>
+              <th>{artistBeginLabel(type ? type.id : null)}</th>
+              <td>{formatDate(display.begin_date)}</td>
+            </tr>
+          )}
+
+          {display.begin_area.gid ? (
+            <tr>
+              <th>{artistBeginAreaLabel(type ? type.id : null)}</th>
+              <td>
+                <DescriptiveLink
+                  entity={display.begin_area}
+                />
+              </td>
+            </tr>
+          ) : null}
+
+          {isDateEmpty(display.end_date) ? null : (
+            <tr>
+              <th>{artistEndLabel(type ? type.id : null)}</th>
+              <td>{formatDate(display.end_date)}</td>
+            </tr>
+          )}
+
+          {display.end_area.gid ? (
+            <tr>
+              <th>{artistEndAreaLabel(type ? type.id : null)}</th>
+              <td>
+                <DescriptiveLink
+                  entity={display.end_area}
+                />
+              </td>
+            </tr>
+          ) : null}
+
+          <tr>
+            <th>{addColon(l('Ended'))}</th>
+            <td>{yesNo(display.ended)}</td>
+          </tr>
+
+          {display.ipi_codes && display.ipi_codes.length > 0 ? (
+            display.ipi_codes.map(ipi => (
+              <tr key={ipi}>
+                <th>{addColon(l('IPI code'))}</th>
+                <td>{ipi}</td>
+              </tr>
+            ))
+          ) : null}
+
+          {display.isni_codes && display.isni_codes.length > 0 ? (
+            display.isni_codes.map(isni => (
+              <tr key={isni}>
+                <th>{addColon(l('ISNI code'))}</th>
+                <td>{formatIsni(isni)}</td>
+              </tr>
+            ))
+          ) : null}
+        </tbody>
       </table>
     </>
   );

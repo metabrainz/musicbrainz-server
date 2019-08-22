@@ -154,6 +154,52 @@ declare type ArtistT = {|
   +sort_name: string,
 |};
 
+type ArtistFormT = {|
+  field: {
+    area: {
+      field: {
+        gid: FieldT<string>,
+        name: FieldT<string>,
+      },
+    },
+    area_id: FieldT<number>,
+    begin_area: {
+      field: {
+        gid: FieldT<string>,
+        name: FieldT<string>,
+      },
+    },
+    begin_area_id: FieldT<number>,
+    comment: FieldT<string>,
+    edit_note: FieldT<string>,
+    end_area: {
+      field: {
+        gid: FieldT<string>,
+        name: FieldT<string>,
+      },
+    },
+    end_area_id: FieldT<number>,
+    gender_id: FieldT<number>,
+    ipi_codes: Field<Array<string>>,
+    isni_codes: Field<Array<string>>,
+    make_votable: FieldT<boolean>,
+    name: FieldT<string>,
+    period: {
+      field: {
+        begin_date: PartialDateFieldT,
+        end_date: PartialDateFieldT,
+        ended: FieldT<boolean>,
+      },
+      has_errors: boolean,
+      html_name: string,
+    },
+    sort_name: FieldT<string>,
+    type_id: FieldT<number>,
+  },
+  has_errors: boolean,
+  name: string,
+|};
+
 declare type ArtistTypeT = OptionTreeT<'artist_type'>;
 
 declare type ArtworkT = {|

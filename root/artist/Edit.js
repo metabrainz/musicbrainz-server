@@ -1,26 +1,27 @@
 import React from 'react';
 
-import Layout from '../layout';
 import * as manifest from '../static/manifest';
 import {withCatalystContext} from '../context';
 
 import EditForm from './EditForm';
+import Layout from './ArtistLayout';
 
-const Create = ({
+const Edit = ({
   $c,
+  editEntity,
   form,
   optionsGenderId,
   optionsTypeId,
 }) => {
   return (
-    <Layout fullWidth title={l('Add Artist')}>
+    <Layout entity={editEntity} fullWidth page="edit" title={l('Edit Artist')}>
       {manifest.js('edit')}
       <div id="content">
-        <h1>{l('Add Artist')}</h1>
         <EditForm
+          editEntity={editEntity}
           entityType="artist"
           form={form}
-          formType="add"
+          formType="edit"
           optionsGenderId={optionsGenderId}
           optionsTypeId={optionsTypeId}
           relationshipEditorHTML={$c.stash.relationship_editor_html}
@@ -32,4 +33,4 @@ const Create = ({
   );
 };
 
-export default withCatalystContext(Create);
+export default withCatalystContext(Edit);
