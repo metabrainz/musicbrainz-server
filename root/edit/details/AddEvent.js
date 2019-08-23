@@ -39,6 +39,7 @@ const AddEvent = ({edit}: {edit: AddEventEditT}) => {
           <th>{addColon(l('Event'))}</th>
           <td>
             <EntityLink
+              allowNew
               entity={display.event}
             />
           </td>

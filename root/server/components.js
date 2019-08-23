@@ -66,6 +66,8 @@ module.exports = {
   'entity/Tags': require('../entity/Tags'),
   'entity/alias/AliasForm': require('../entity/alias/AliasForm'),
   'entity/alias/EditForm': require('../entity/alias/EditForm'),
+  'event/Create': require('../event/Create'),
+  'event/Edit': require('../event/Edit'),
   'event/EventIndex': require('../event/EventIndex'),
   'event/NotFound': require('../event/NotFound'),
   'genre/CreateGenre': require('../genre/CreateGenre'),
