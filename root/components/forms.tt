@@ -256,7 +256,7 @@
       <br />
       <label>
         <input type="checkbox" data-bind="checked: upperCaseRoman" />
-        [% l('Uppercase roman numerals') %]
+        [% l('Uppercase Roman numerals') %]
       </label>
     </p>
   </fieldset>
@@ -280,7 +280,7 @@
         <br />
         <label>
           <input type="checkbox" data-bind="checked: upperCaseRoman" />
-          [% l('Uppercase roman numerals') %]
+          [% l('Uppercase Roman numerals') %]
         </label>
       </td>
       <td>
