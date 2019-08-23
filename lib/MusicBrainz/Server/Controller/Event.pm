@@ -106,6 +106,7 @@ with 'MusicBrainz::Server::Controller::Role::Create' => {
 with 'MusicBrainz::Server::Controller::Role::Edit' => {
     form           => 'Event',
     edit_type      => $EDIT_EVENT_EDIT,
+    dialog_template_react => 'event/Edit.js',
 };
 
 with 'MusicBrainz::Server::Controller::Role::Delete' => {

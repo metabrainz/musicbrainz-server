@@ -22,6 +22,7 @@ import FormRowTime from '../components/FormRowTime';
 import formatTrackLength from '../static/scripts/common/utility/formatTrackLength';
 import yesNo from '../static/scripts/common/utility/yesNo';
 import AddEvent from '../edit/details/AddEvent';
+import EditEvent from '../edit/details/EditEvent';
 
 type Props = {
   editEntity?: EventT,
@@ -379,7 +380,7 @@ const EditForm = ({
             <legend>{l('Changes')}</legend>
             {formType === 'add'
               ? <AddEvent edit={generateAddPreviewData()} />
-              : null}
+              : <EditEvent edit={generateEditPreviewData()} />}
           </fieldset>
           <EnterEditNote field={form.field.edit_note} hideHelp />
           <EnterEdit form={form} />
