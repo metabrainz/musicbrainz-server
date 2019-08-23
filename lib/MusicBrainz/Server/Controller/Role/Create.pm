@@ -62,6 +62,7 @@ role {
 
         my %props;
         $props{entityType} = $params->form;
+        $props{usedByTracks} = $params->edit_arguments->form_args->used_by_tracks if $params->form eq 'Recording::Standalone';
 
         if ($params->dialog_template_react) {
             $c->stash(

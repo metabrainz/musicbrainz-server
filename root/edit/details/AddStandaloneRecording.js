@@ -10,36 +10,47 @@ const AddStandaloneRecording = ({edit}) => {
   return (
     <>
       <table className="details">
-        <tr>
-          <th>{l('Recording:')}</th>
-          <td><EntityLink entity={display.recording} /></td>
-        </tr>
+        <tbody>
+          <tr>
+            <th>{l('Recording:')}</th>
+            <td><EntityLink allowNew entity={display.recording} /></td>
+          </tr>
+        </tbody>
       </table>
       <table className="details add-standalone-recording">
-        <tr>
-          <th>{l('Name:')}</th>
-          <td><EntityLink entity={display.recording} showDisambiguation content={display.name} /></td>
-        </tr>
-        <tr>
-          <th>{l('Artist:')}</th>
-          <td><ExapandedArtistCredit ac={display.artist_credit} /></td>
-        </tr>
-        {display.comment ? (
+        <tbody>
           <tr>
-            <th>{addColon(l('Disambiguation'))}</th>
-            <td>{display.comment}</td>
+            <th>{l('Name:')}</th>
+            <td>
+              <EntityLink
+                allowNew
+                content={display.name}
+                entity={display.recording}
+                showDisambiguation
+              />
+            </td>
           </tr>
-        ) : null}
-        {display.length ? (
           <tr>
-            <th>{l('Length:')}</th>
-            <td>{formatTrackLength(display.length)}</td>
+            <th>{l('Artist:')}</th>
+            <td><ExapandedArtistCredit ac={display.artist_credit} /></td>
           </tr>
-        ) : null}
-        <tr>
-          <th>{l('Video:')}</th>
-          <td>{yesNo(display.video)}</td>
-        </tr>
+          {display.comment ? (
+            <tr>
+              <th>{addColon(l('Disambiguation'))}</th>
+              <td>{display.comment}</td>
+            </tr>
+          ) : null}
+          {display.length ? (
+            <tr>
+              <th>{l('Length:')}</th>
+              <td>{formatTrackLength(display.length)}</td>
+            </tr>
+          ) : null}
+          <tr>
+            <th>{l('Video:')}</th>
+            <td>{yesNo(display.video)}</td>
+          </tr>
+        </tbody>
       </table>
     </>
   );

@@ -5,6 +5,7 @@ require("../lib/knockout/knockout-delegatedEvents");
 require("../../artist/EditForm");
 require("../../entity/alias/EditForm");
 require("../../place/EditForm");
+require("../../recording/EditForm");
 require("../../release_group/EditForm");
 require("../../series/EditForm");
 require("../../work/EditForm");

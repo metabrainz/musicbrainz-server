@@ -94,6 +94,8 @@ module.exports = {
   'place/PlaceEvents': require('../place/PlaceEvents'),
   'place/PlaceIndex': require('../place/PlaceIndex'),
   'place/PlacePerformances': require('../place/PlacePerformances'),
+  'recording/Create': require('../recording/Create'),
+  'recording/Edit': require('../recording/Edit'),
   'recording/NotFound': require('../recording/NotFound'),
   'recording/RecordingMerge': require('../recording/RecordingMerge'),
   'relationship/linkattributetype/NotFound': require('../relationship/linkattributetype/NotFound'),

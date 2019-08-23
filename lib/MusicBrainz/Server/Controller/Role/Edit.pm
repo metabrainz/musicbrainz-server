@@ -40,6 +40,7 @@ role {
 
         my %props;
         $props{editEntity} = $edit_entity;
+        $props{usedByTracks} = $params->edit_arguments->form_arg->{ used_by_tracks } if $params->form eq 'Recording';
 
         if ($params->dialog_template_react) {
             $c->stash(

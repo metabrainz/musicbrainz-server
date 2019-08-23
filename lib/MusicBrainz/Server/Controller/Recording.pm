@@ -157,7 +157,8 @@ with 'MusicBrainz::Server::Controller::Role::Edit' => {
                 used_by_tracks => $track_count > 0
             }
         );
-    }
+    },
+    dialog_template_react => 'recording/Edit.js'
 };
 
 with 'MusicBrainz::Server::Controller::Role::Merge' => {
@@ -182,7 +183,7 @@ with 'MusicBrainz::Server::Controller::Role::Create' => {
         $ret{form_args} = { used_by_tracks => 0 };
         return %ret;
     },
-    dialog_template => 'recording/edit_form.tt',
+    dialog_template_react => 'recording/Create.js',
 };
 
 sub _merge_load_entities {
