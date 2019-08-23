@@ -35,69 +35,73 @@ const AddEvent = ({edit}: {edit: AddEventEditT}) => {
   return (
     <>
       <table className="details">
-        <tr>
-          <th>{addColon(l('Event'))}</th>
-          <td>
-            <EntityLink
-              allowNew
-              entity={display.event}
-            />
-          </td>
-        </tr>
+        <tbody>
+          <tr>
+            <th>{addColon(l('Event'))}</th>
+            <td>
+              <EntityLink
+                allowNew
+                entity={display.event}
+              />
+            </td>
+          </tr>
+        </tbody>
       </table>
 
       <table className="details add-event">
-        <tr>
-          <th>{addColon(l('Name'))}</th>
-          <td>{display.name}</td>
-        </tr>
-
-        {display.comment ? (
+        <tbody>
           <tr>
-            <th>{addColon(l('Disambiguation'))}</th>
-            <td>{display.comment}</td>
+            <th>{addColon(l('Name'))}</th>
+            <td>{display.name}</td>
           </tr>
-        ) : null}
 
-        <tr>
-          <th>{addColon(l('Cancelled'))}</th>
-          <td>{yesNo(display.cancelled)}</td>
-        </tr>
+          {display.comment ? (
+            <tr>
+              <th>{addColon(l('Disambiguation'))}</th>
+              <td>{display.comment}</td>
+            </tr>
+          ) : null}
 
-        {display.type ? (
           <tr>
-            <th>{addColon(l('Type'))}</th>
-            <td>{lp_attributes(display.type.name, 'event_type')}</td>
+            <th>{addColon(l('Cancelled'))}</th>
+            <td>{yesNo(display.cancelled)}</td>
           </tr>
-        ) : null}
 
-        {isDateEmpty(display.begin_date) ? null : (
-          <tr>
-            <th>{addColon(l('Begin date'))}</th>
-            <td>{formatDate(display.begin_date)}</td>
-          </tr>
-        )}
+          {display.type ? (
+            <tr>
+              <th>{addColon(l('Type'))}</th>
+              <td>{lp_attributes(display.type.name, 'event_type')}</td>
+            </tr>
+          ) : null}
 
-        {isDateEmpty(display.end_date) ? null : (
-          <tr>
-            <th>{addColon(l('End date'))}</th>
-            <td>{formatDate(display.end_date)}</td>
-          </tr>
-        )}
+          {isDateEmpty(display.begin_date) ? null : (
+            <tr>
+              <th>{addColon(l('Begin date'))}</th>
+              <td>{formatDate(display.begin_date)}</td>
+            </tr>
+          )}
 
-        {display.time ? (
-          <tr>
-            <th>{addColon(l('Time'))}</th>
-            <td>{display.time}</td>
-          </tr>
-        ) : null}
+          {isDateEmpty(display.end_date) ? null : (
+            <tr>
+              <th>{addColon(l('End date'))}</th>
+              <td>{formatDate(display.end_date)}</td>
+            </tr>
+          )}
 
-        {display.setlist ? (
-          <tr>
-            <th>{addColon(l('Setlist'))}</th>
-            <td>{display.setlist}</td>
-          </tr>
-        ) : null}
+          {display.time ? (
+            <tr>
+              <th>{addColon(l('Time'))}</th>
+              <td>{display.time}</td>
+            </tr>
+          ) : null}
+
+          {display.setlist ? (
+            <tr>
+              <th>{addColon(l('Setlist'))}</th>
+              <td>{display.setlist}</td>
+            </tr>
+          ) : null}
+        </tbody>
       </table>
     </>
   );

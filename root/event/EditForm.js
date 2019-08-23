@@ -19,18 +19,25 @@ import FormRow from '../components/FormRow';
 import FormLabel from '../components/FormLabel';
 import FieldErrors from '../components/FieldErrors';
 import FormRowTime from '../components/FormRowTime';
+import formatTrackLength from '../static/scripts/common/utility/formatTrackLength';
+import yesNo from '../static/scripts/common/utility/yesNo';
+import AddEvent from '../edit/details/AddEvent';
 
 type Props = {
+  editEntity?: EventT,
   entityType: string,
   form: EventFormT,
+  formType: string,
   optionsTypeId: SelectOptionsT,
   relationshipEditorHTML: string,
   uri: string,
 };
 
 const EditForm = ({
+  editEntity,
   entityType,
   form,
+  formType,
   optionsTypeId,
   relationshipEditorHTML,
   uri,
@@ -165,11 +172,94 @@ const EditForm = ({
     });
   }
 
+  function typeUsed(optionNo) {
+    const type = optionsTypeId.find((option) => {
+      return option.value === parseInt(optionNo, 10);
+    });
+    return type ? {
+      name: type.label,
+    } : null;
+  }
+
   function generateAddPreviewData() {
     return {
       display_data: {
+        begin_date: {
+          day: beginDate.field.day.value,
+          month: beginDate.field.month.value,
+          year: beginDate.field.year.value,
+        },
+        cancelled: cancelled.value,
+        comment: comment.value,
+        end_date: {
+          day: endDate.field.day.value,
+          month: endDate.field.month.value,
+          year: endDate.field.year.value,
+        },
         event: {
-          
+          comment: comment.value,
+          name: name.value,
+          type: typeUsed(typeId.value),
+        },
+        name: name.value,
+        setlist: setlist.value,
+        time: formatTrackLength(time.value),
+        type: typeUsed(typeId.value),
+      },
+    };
+  }
+
+  function generateEditPreviewData() {
+    return {
+      display_data: {
+        begin_date: {
+          new: {
+            day: beginDate.field.day.value,
+            month: beginDate.field.month.value,
+            year: beginDate.field.year.value,
+          },
+          old: {
+            day: form.field.period.field.begin_date.field.day.value,
+            month: form.field.period.field.begin_date.field.month.value,
+            year: form.field.period.field.begin_date.field.year.value,
+          },
+        },
+        cancelled: {
+          new: yesNo(cancelled.value),
+          old: yesNo(form.field.cancelled.value),
+        },
+        comment: {
+          new: comment.value,
+          old: form.field.comment.value,
+        },
+        end_date: {
+          new: {
+            day: endDate.field.day.value,
+            month: endDate.field.month.value,
+            year: endDate.field.year.value,
+          },
+          old: {
+            day: form.field.period.field.end_date.field.day.value,
+            month: form.field.period.field.end_date.field.month.value,
+            year: form.field.period.field.end_date.field.year.value,
+          },
+        },
+        event: editEntity,
+        name: {
+          new: name.value,
+          old: form.field.name.value,
+        },
+        setlist: {
+          new: setlist.value,
+          old: form.field.setlist.value,
+        },
+        time: {
+          new: formatTrackLength(time.value),
+          old: formatTrackLength(form.field.time.value),
+        },
+        type: {
+          new: typeUsed(typeId.value),
+          old: typeUsed(form.field.type_id.value),
         },
       },
     };
@@ -228,6 +318,7 @@ const EditForm = ({
               onChange={(e) => {
                 setCancelled({
                   ...cancelled,
+                  // $FlowFixMe
                   value: e.target.checked,
                 });
               }}
@@ -283,6 +374,12 @@ const EditForm = ({
           <fieldset>
             <legend>{l('External Links')}</legend>
             <div id="external-links-editor-container" />
+          </fieldset>
+          <fieldset>
+            <legend>{l('Changes')}</legend>
+            {formType === 'add'
+              ? <AddEvent edit={generateAddPreviewData()} />
+              : null}
           </fieldset>
           <EnterEditNote field={form.field.edit_note} hideHelp />
           <EnterEdit form={form} />

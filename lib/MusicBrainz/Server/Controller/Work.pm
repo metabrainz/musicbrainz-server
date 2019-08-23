@@ -97,7 +97,8 @@ with 'MusicBrainz::Server::Controller::Role::Edit' => {
                 to_edit => $work,
             }
         );
-    }
+    },
+    dialog_template_react => 'work/Edit.js'
 };
 
 with 'MusicBrainz::Server::Controller::Role::Merge' => {
