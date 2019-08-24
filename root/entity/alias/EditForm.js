@@ -402,7 +402,9 @@ const EditForm = ({
           />
           <fieldset>
             <legend>{l('Changes')}</legend>
-            <AddRemoveAlias edit={generateAddPreviewData()} />
+            {editKind === 'add'
+              ? <AddRemoveAlias edit={generateAddPreviewData()} />
+              : <EditAlias edit={generateEditPreviewData()} />}
           </fieldset>
           <EnterEditNote field={form.field.edit_note} hideHelp />
           <EnterEdit form={form} />
@@ -412,4 +414,4 @@ const EditForm = ({
   );
 };
 
-export default hydrate<Props>('div.place-edit-form', EditForm);
+export default hydrate<Props>('div.alias-edit-form', EditForm);

@@ -69,35 +69,37 @@ const EditAlias = ({edit}: {edit: Props}) => {
         <p>{l('There are no changes')}</p>
       ) : (
         <table className={`details edit-${entityType}-alias`}>
-          <tr>
-            <th>{addColon(formatEntityTypeName(entityType))}</th>
-            <td colSpan="2">
-              <DescriptiveLink entity={entity} />
-              {' '}
-              {(entity && entity.gid) ? bracketed(<EntityLink content={l('view all aliases')} entity={entity} subPath="aliases" />) : null}
-            </td>
-          </tr>
-          {(entity && entity.gid) ? (
+          <tbody>
             <tr>
-              <th>{addColon(l('Alias'))}</th>
+              <th>{addColon(formatEntityTypeName(entityType))}</th>
               <td colSpan="2">
-                {aliasName ? (
-                  <>
-                    {isolateText(aliasName)}
-                    {' '}
-                    {bracketed(edit.alias.primary_for_locale ? l(`primary for ${edit.alias.locale}`) : edit.alias.locale)}
-                  </>
-                ) : <span className="deleted">{l('[removed]')}</span>}
+                <DescriptiveLink entity={entity} />
+                {' '}
+                {(entity && entity.gid) ? bracketed(<EntityLink content={l('view all aliases')} entity={entity} subPath="aliases" />) : null}
               </td>
-            </tr>) : null}
-          <Diff label={addColonText(l('Alias'))} newText={display.alias.new} oldText={display.alias.old} split="\s+" />
-          <Diff label={addColonText(l('Sort name'))} newText={display.sort_name.new} oldText={display.sort_name.old} split="\s+" />
-          <FullChangeDiff label={addColonText(l('Locale'))} newText={locales[display.locale.new]} oldText={locales[display.locale.old]} />
-          <FullChangeDiff label={addColonText(l('Primary for locale'))} newText={yesNo(display.primary_for_locale.new)} oldText={yesNo(display.primary_for_locale.old)} />
-          <FullChangeDiff label={addColonText(l('Type'))} newText={display.type.new ? display.type.new.name : ''} oldText={display.type.old ? display.type.old.name : ''} />
-          <Diff label={addColonText(l('Begin date'))} newText={formatDate(display.begin_date.new)} oldText={formatDate(display.begin_date.old)} split="\s+" />
-          <Diff label={addColonText(l('End date'))} newText={formatDate(display.end_date.new)} oldText={formatDate(display.end_date.old)} split="\s+" />
-          <FullChangeDiff label={addColonText(l('Ended'))} newText={yesNo(display.ended.new)} oldText={yesNo(display.ended.old)} />
+            </tr>
+            {(entity && entity.gid) ? (
+              <tr>
+                <th>{addColon(l('Alias'))}</th>
+                <td colSpan="2">
+                  {aliasName ? (
+                    <>
+                      {isolateText(aliasName)}
+                      {' '}
+                      {bracketed(edit.alias.primary_for_locale ? l(`primary for ${locales[edit.alias.locale]}`) : locales[edit.alias.locale])}
+                    </>
+                  ) : <span className="deleted">{l('[removed]')}</span>}
+                </td>
+              </tr>) : null}
+            <Diff label={addColonText(l('Alias'))} newText={display.alias.new} oldText={display.alias.old} split="\s+" />
+            <Diff label={addColonText(l('Sort name'))} newText={display.sort_name.new} oldText={display.sort_name.old} split="\s+" />
+            <FullChangeDiff label={addColonText(l('Locale'))} newText={locales[display.locale.new]} oldText={locales[display.locale.old]} />
+            <FullChangeDiff label={addColonText(l('Primary for locale'))} newText={yesNo(display.primary_for_locale.new)} oldText={yesNo(display.primary_for_locale.old)} />
+            <FullChangeDiff label={addColonText(l('Type'))} newText={display.type.new ? display.type.new.name : ''} oldText={display.type.old ? display.type.old.name : ''} />
+            <Diff label={addColonText(l('Begin date'))} newText={formatDate(display.begin_date.new)} oldText={formatDate(display.begin_date.old)} split="\s+" />
+            <Diff label={addColonText(l('End date'))} newText={formatDate(display.end_date.new)} oldText={formatDate(display.end_date.old)} split="\s+" />
+            <FullChangeDiff label={addColonText(l('Ended'))} newText={yesNo(display.ended.new)} oldText={yesNo(display.ended.old)} />
+          </tbody>
         </table>
       )}
     </>
