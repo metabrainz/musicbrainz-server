@@ -778,7 +778,7 @@ declare type PlaceFormT = {|
     area: FieldShape<FieldT<AreaFieldT>>,
     area_id: FieldT<number>,
     comment: FieldT<string>,
-    coordinates: FieldT<string>,
+    coordinates: FieldT<CoordinatesT>,
     edit_note: FieldT<string>,
     make_votable: FieldT<boolean>,
     name: FieldT<string>,

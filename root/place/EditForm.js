@@ -25,7 +25,7 @@ import {formatCoordinates} from '../utility/coordinates';
 import Autocomplete from '../static/scripts/common/components/Autocomplete';
 
 type Props = {
-  editEntity: PlaceT,
+  editEntity?: PlaceT,
   entityType: string,
   form: PlaceFormT,
   formType: string,
@@ -49,7 +49,7 @@ const EditForm = ({
   const [comment, setComment] = useState(form.field.comment);
   const [typeId, setTypeId] = useState(form.field.type_id);
   const [address, setAddress] = useState(form.field.address);
-  const [coordinates, setCoordinates] = useState(form.field.coordinates);
+  const [coordinates, setCoordinates] = useState<FieldT<CoordinatesT>>(form.field.coordinates);
   const [endDate, setEndDate] = useState(refractorDate('end_date'));
   const [beginDate, setBeginDate] = useState(refractorDate('begin_date'));
   const [ended, setEnded] = useState(form.field.period.field.ended);
@@ -447,4 +447,4 @@ const EditForm = ({
   );
 };
 
-export default hydrate<Props>('div.alias-edit-form', EditForm);
+export default hydrate<Props>('div.place-edit-form', EditForm);
