@@ -12,63 +12,60 @@ const AddLabel = ({edit}) => {
   return (
     <>
       <table className="details">
-        <tr>
-          <th>{l('Label:')}</th>
-          <td><EntityLink entity={display.label} /></td>
-        </tr>
+        <tbody>
+          <tr>
+            <th>{l('Label:')}</th>
+            <td><EntityLink allowNew entity={display.label} /></td>
+          </tr>
+        </tbody>
       </table>
       <table className="details add-label">
-        <tr>
-          <th>{l('Name:')}</th>
-          <td>{display.name}</td>
-        </tr>
-        {display.sort_name ? (
+        <tbody>
           <tr>
-            <th>{l('Sort name:')}</th>
-            <td>{display.sort_name}</td>
+            <th>{l('Name:')}</th>
+            <td>{display.name}</td>
           </tr>
-        ) : null}
-        {display.comment ? (
+          {display.comment ? (
+            <tr>
+              <th>{addColon(l('Disambiguation'))}</th>
+              <td>{display.comment}</td>
+            </tr>
+          ) : null}
+          {isDateEmpty(display.begin_date) ? (
+            <tr>
+              <th>{l('Begin date:')}</th>
+              <td>{formatDate(display.begin_date)}</td>
+            </tr>
+          ) : null}
+          {isDateEmpty(display.end_date) ? (
+            <tr>
+              <th>{l('End date:')}</th>
+              <td>{formatDate(display.end_date)}</td>
+            </tr>
+          ) : null}
           <tr>
-            <th>{addColon(l('Disambiguation'))}</th>
-            <td>{display.comment}</td>
+            <th>{l('Ended:')}</th>
+            <td>{yesNo(display.ended)}</td>
           </tr>
-        ) : null}
-        {isDateEmpty(display.begin_date) ? (
-          <tr>
-            <th>{l('Begin date:')}</th>
-            <td>{formatDate(display.begin_date)}</td>
-          </tr>
-        ) : null}
-        {isDateEmpty(display.end_date) ? (
-          <tr>
-            <th>{l('End date:')}</th>
-            <td>{formatDate(display.end_date)}</td>
-          </tr>
-        ) : null}
-        <tr>
-          <th>{l('Ended:')}</th>
-          <td>{yesNo(display.ended)}</td>
-        </tr>
-        {display.area ? (
-          <tr>
-            <th>{l('Area:')}</th>
-            <td><DescriptiveLink entity={display.area} /></td>
-          </tr>
-        ) : null}
-        {display.type ? (
-          <tr>
-            <th>{l('Type:')}</th>
-            <td>{display.type.name}</td>
-          </tr>
-        ) : null}
-        {display.label_code ? (
-          <tr>
-            <th>{l('Label code:')}</th>
-            <td>{display.label_code}</td>
-          </tr>
-        ) : null}
-        {display.ipi_codes.length > 0
+          {display.area ? (
+            <tr>
+              <th>{l('Area:')}</th>
+              <td><DescriptiveLink entity={display.area} /></td>
+            </tr>
+          ) : null}
+          {display.type ? (
+            <tr>
+              <th>{l('Type:')}</th>
+              <td>{display.type.name}</td>
+            </tr>
+          ) : null}
+          {display.label_code ? (
+            <tr>
+              <th>{l('Label code:')}</th>
+              <td>{display.label_code}</td>
+            </tr>
+          ) : null}
+          {/* {display.ipi_codes.length > 0
           ? display.ipi_codes.map(ipiCode => (
             <tr key={ipiCode}>
               <th>{l('IPI code:')}</th>
@@ -81,7 +78,8 @@ const AddLabel = ({edit}) => {
               <th>{l('ISNI code:')}</th>
               <td>{formatIsni(isniCode)}</td>
             </tr>
-          )) : null}
+          )) : null} */}
+        </tbody>
       </table>
     </>
   );

@@ -19,7 +19,9 @@ const Create = ({
         <EditForm
           entityType="label"
           form={form}
+          formType="add"
           optionsTypeId={optionsTypeId}
+          relationshipEditorHTML={$c.stash.relationship_editor_html}
           uri={$c.req.uri}
         />
       </div>

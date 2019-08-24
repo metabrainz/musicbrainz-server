@@ -148,6 +148,7 @@ with 'MusicBrainz::Server::Controller::Role::Create' => {
 with 'MusicBrainz::Server::Controller::Role::Edit' => {
     form           => 'Label',
     edit_type      => $EDIT_LABEL_EDIT,
+    dialog_template_react => 'label/Edit.js'
 };
 
 with 'MusicBrainz::Server::Controller::Role::Delete' => {
