@@ -95,6 +95,13 @@ role {
             type_info       => $c->json->encode(build_type_info($c, qr/(^$source_type-|-$source_type$)/, @link_type_tree)),
         );
 
+        MusicBrainz::Server::View::Base->process($c);
+        my $relationship_editor_html = $c->view('Default')->render($c, 'forms/relationship-editor.tt');
+        MusicBrainz::Server::View::Base->_post_process($c);
+        $c->stash(
+            relationship_editor_html => $relationship_editor_html,
+        );
+
         my $post_creation = delete $opts{post_creation};
 
         $opts{post_creation} = sub {

@@ -176,12 +176,13 @@ after [qw( show collections details tags aliases events performances map )] => s
 with 'MusicBrainz::Server::Controller::Role::Create' => {
     form      => 'Place',
     edit_type => $EDIT_PLACE_CREATE,
-    dialog_template => 'place/edit_form.tt',
+    dialog_template_react => 'place/Create.js',
 };
 
 with 'MusicBrainz::Server::Controller::Role::Edit' => {
     form           => 'Place',
     edit_type      => $EDIT_PLACE_EDIT,
+    dialog_template_react => 'place/Edit.js',
 };
 
 after edit => sub {
