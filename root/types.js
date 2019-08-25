@@ -15,6 +15,8 @@
  * how data is serialized for us.
  */
 
+import FieldShape from './utility/subfieldErrors';
+
 declare type AggregatedTagT = {|
   +tag: string,
   +count: number,
@@ -29,6 +31,29 @@ declare type AliasT = {|
   +name: string,
   +primary_for_locale: boolean,
   +sort_name: string,
+|};
+
+declare type AliasFormT = {|
+  field: {
+    edit_note: FieldT<string>,
+    locale: FieldT<string>,
+    make_votable: FieldT<boolean>,
+    name: FieldT<string>,
+    period: {
+      field: {
+        begin_date: PartialDateFieldT,
+        end_date: PartialDateFieldT,
+        ended: FieldT<boolean>,
+      },
+      has_errors: boolean,
+      html_name: string,
+    },
+    primary_for_locale: FieldT<boolean>,
+    sort_name: FieldT<string>,
+    type_id: FieldT<string>,
+  },
+  has_errors: boolean,
+  name: string,
 |};
 
 declare type AnchorProps = {|
@@ -129,6 +154,52 @@ declare type ArtistT = {|
   +sort_name: string,
 |};
 
+type ArtistFormT = {|
+  field: {
+    area: {
+      field: {
+        gid: FieldT<string>,
+        name: FieldT<string>,
+      },
+    },
+    area_id: FieldT<number>,
+    begin_area: {
+      field: {
+        gid: FieldT<string>,
+        name: FieldT<string>,
+      },
+    },
+    begin_area_id: FieldT<number>,
+    comment: FieldT<string>,
+    edit_note: FieldT<string>,
+    end_area: {
+      field: {
+        gid: FieldT<string>,
+        name: FieldT<string>,
+      },
+    },
+    end_area_id: FieldT<number>,
+    gender_id: FieldT<number>,
+    ipi_codes: Field<Array<string>>,
+    isni_codes: Field<Array<string>>,
+    make_votable: FieldT<boolean>,
+    name: FieldT<string>,
+    period: {
+      field: {
+        begin_date: PartialDateFieldT,
+        end_date: PartialDateFieldT,
+        ended: FieldT<boolean>,
+      },
+      has_errors: boolean,
+      html_name: string,
+    },
+    sort_name: FieldT<string>,
+    type_id: FieldT<number>,
+  },
+  has_errors: boolean,
+  name: string,
+|};
+
 declare type ArtistTypeT = OptionTreeT<'artist_type'>;
 
 declare type ArtworkT = {|
@@ -210,7 +281,10 @@ type CatalystStashT = {|
   +current_language_html: string,
   +more_tags?: boolean,
   +number_of_revisions?: number,
+  +relationship_editor_html?: string,
   +release_artwork?: ArtworkT,
+  +series_ordering_types: SeriesOrderingTypeT,
+  +series_types: SeriesTypeT,
   +server_languages?: $ReadOnlyArray<ServerLanguageT>,
   +subscribed?: boolean,
   +top_tags?: $ReadOnlyArray<AggregatedTagT>,
@@ -676,9 +750,9 @@ declare type PagerT = {|
 |};
 
 declare type PartialDateFieldT = CompoundFieldT<{|
-  +day: FieldT<number>,
-  +month: FieldT<number>,
-  +year: FieldT<number>,
+  +day: FieldT<number | null>,
+  +month: FieldT<number | null>,
+  +year: FieldT<number | null>,
 |}>;
 
 declare type PartialDateT = {|
@@ -697,6 +771,31 @@ declare type PlaceT = {|
   +area: AreaT | null,
   +coordinates: CoordinatesT | null,
 |};
+
+declare type PlaceFormT = {|
+  field: {
+    address: FieldT<string>,
+    area: FieldShape<FieldT<AreaFieldT>>,
+    area_id: FieldT<number>,
+    comment: FieldT<string>,
+    coordinates: FieldT<CoordinatesT>,
+    edit_note: FieldT<string>,
+    make_votable: FieldT<boolean>,
+    name: FieldT<string>,
+    period: {
+      field: {
+        begin_date: PartialDateFieldT,
+        end_date: PartialDateFieldT,
+        ended: FieldT<boolean>,
+      },
+      has_errors: boolean,
+      html_name: string,
+    },
+    type_id: FieldT<number>,
+  },
+  has_errors: boolean,
+  name: string,
+|}
 
 declare type PlaceTypeT = OptionTreeT<'place_type'>;
 
@@ -762,6 +861,20 @@ declare type ReleaseGroupT = {|
   +typeID: number | null,
   +typeName: string | null,
 |};
+
+declare type ReleaseGroupFormT = {|
+  field: {
+    artist_credit: FieldT<string>,
+    comment: FieldT<string>,
+    edit_note: FieldT<string>,
+    make_votable: FieldT<boolean>,
+    name: FieldT<string>,
+    primary_type_id: FieldT<number>,
+    secondary_type_ids: FieldT<number>,
+  },
+  has_errors: boolean,
+  name: string,
+|}
 
 declare type ReleaseGroupTypeT = OptionTreeT<'release_group_type'>;
 
@@ -884,6 +997,19 @@ declare type SeriesT = {|
   ...CoreEntityRoleT<'series'>,
   ...TypeRoleT<SeriesTypeT>,
   +orderingTypeID: number,
+|};
+
+declare type SeriesFormT = {|
+  field: {
+    comment: FieldT<string>,
+    edit_note: FieldT<string>,
+    name: FieldT<string>,
+    ordering_type_id: FieldT<number>,
+    type_id: FieldT<number>,
+    make_votable: FieldT<boolean>,
+  },
+  name: string,
+  has_errors: boolean,
 |};
 
 declare type SeriesItemNumbersRoleT = {|

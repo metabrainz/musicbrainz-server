@@ -28,6 +28,7 @@ type Props = {|
   +allowEmpty?: boolean,
   +disabled?: boolean,
   +field: ReadOnlyFieldT<?StrOrNum>,
+  +multiple?: boolean,
   +onChange?: (event: SyntheticEvent<HTMLSelectElement>) => void,
   +options: MaybeGroupedOptionsT,
   +required?: boolean,
@@ -37,6 +38,7 @@ const SelectField = ({
   allowEmpty = true,
   disabled = false,
   field,
+  multiple = false,
   onChange,
   options,
   required,
@@ -45,6 +47,7 @@ const SelectField = ({
     className="with-button"
     disabled={disabled}
     id={'id-' + field.html_name}
+    multiple={multiple}
     name={field.html_name}
     onChange={onChange}
     required={required}

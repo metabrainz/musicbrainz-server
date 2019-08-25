@@ -12,7 +12,7 @@ import type {Node as ReactNode} from 'react';
 
 
 type Props<F> = {|
-  +children: ReactNode,
+  +children?: ReactNode,
   +form: FormT<F & {+make_votable: ReadOnlyFieldT<boolean>}>,
 |};
 

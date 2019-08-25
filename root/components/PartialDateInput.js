@@ -11,10 +11,16 @@ import * as React from 'react';
 
 type Props = {|
   +field: PartialDateFieldT,
+  +onChangeDay?: (e: SyntheticInputEvent<HTMLInputElement>) => void,
+  +onChangeMonth?: (e: SyntheticInputEvent<HTMLInputElement>) => void,
+  +onChangeYear?: (e: SyntheticInputEvent<HTMLInputElement>) => void,
 |};
 
 const PartialDateInput = ({
   field,
+  onChangeDay,
+  onChangeMonth,
+  onChangeYear,
   ...inputProps
 }: Props) => (
   <span className="partial-date">
@@ -24,6 +30,7 @@ const PartialDateInput = ({
       id={'id-' + field.field.year.html_name}
       maxLength={4}
       name={field.field.year.html_name}
+      onChange={onChangeYear}
       placeholder={l('YYYY')}
       size={4}
       type="text"
@@ -36,6 +43,7 @@ const PartialDateInput = ({
       id={'id-' + field.field.month.html_name}
       maxLength={2}
       name={field.field.month.html_name}
+      onChange={onChangeMonth}
       placeholder={l('MM')}
       size={2}
       type="text"
@@ -48,6 +56,7 @@ const PartialDateInput = ({
       id={'id-' + field.field.day.html_name}
       maxLength={2}
       name={field.field.day.html_name}
+      onChange={onChangeDay}
       placeholder={l('DD')}
       size={2}
       type="text"
