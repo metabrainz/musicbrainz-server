@@ -91,9 +91,9 @@ test('expand2', function (t) {
   t.equal(error, '');
 
   expandHtml(
-    'A {apple_fruit|darn {apple}}',
+    'A {apple_fruit|darn <i>{apple}</i>}',
     {apple_fruit: 'http://www.apple.com', apple: 'pear'},
-    'A <a href="http://www.apple.com">darn pear</a>',
+    'A <a href="http://www.apple.com">darn <i>pear</i></a>',
   );
 
   expandHtml(
