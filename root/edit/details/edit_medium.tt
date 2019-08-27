@@ -101,10 +101,14 @@
             </td>
             <td>
               [%~ data_track_icon IF new_track.is_data_track %]
+              [% # If no recording_id exists, it's creating a recording
+                SET allow_new = 1 IF !new_track.recording_id
+              %]
               [%= link_entity(
                      new_track.recording, 'show',
                      new_name_diff, undef, 1
                    ) ~%]
+              [% SET allow_new = 0 IF !new_track.recording_id %]
             </td>
             <td>
               [% artist_credit_differences.new %]
@@ -190,7 +194,15 @@
                    [% new_track.number %]
                  </td>
                  <td><span class="diff-only-a">[% IF old_track.recording; descriptive_link(old_track.recording); END %]</span></td>
-                 <td><span class="diff-only-b">[% SET allow_new = 1; descriptive_link(new_track.recording); SET allow_new = 0; %]</span></td>
+                 <td>
+                   <span class="diff-only-b">
+                     [% # If no recording_id exists, it's creating a recording
+                       SET allow_new = 1 IF !new_track.recording_id
+                     %]
+                     [% descriptive_link(new_track.recording) %]
+                     [% SET allow_new = 0 IF !new_track.recording_id %]
+                   </span>
+                 </td>
                </tr>
           [% END %]
         </tbody>
