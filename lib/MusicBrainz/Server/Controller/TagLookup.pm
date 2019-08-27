@@ -83,7 +83,7 @@ sub nag_check
     my ($self, $c) = @_;
 
     # Never nag users in non-core MB servers
-    return 0 unless DBDefs->WEB_SERVER =~ /^(beta\.)?musicbrainz\.org$/;
+    return 0 unless DBDefs->WEB_SERVER =~ /^(?:beta\.)?musicbrainz\.org$/;
 
     # Always nag users who are not logged in
     return 1 unless $c->user_exists;
