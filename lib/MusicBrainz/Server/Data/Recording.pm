@@ -23,6 +23,7 @@ use MusicBrainz::Server::Data::Utils qw(
 );
 use aliased 'MusicBrainz::Server::Entity::PartialDate';
 use MusicBrainz::Server::Entity::Recording;
+use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array );
 
 extends 'MusicBrainz::Server::Data::CoreEntity';
 with 'MusicBrainz::Server::Data::Role::Annotation' => { type => 'recording' };
@@ -387,7 +388,7 @@ then singles, etc..) and then by name.
 
 sub appears_on
 {
-    my ($self, $recordings, $limit) = @_;
+    my ($self, $recordings, $limit, $return_json) = @_;
 
     return () unless scalar @$recordings;
 
@@ -414,14 +415,18 @@ sub appears_on
     for my $rec_id (keys %map)
     {
         # A crude ordering of importance.
-        my @rgs = uniq_by { $_->name }
+        my $rgs = [ uniq_by { $_->name }
                   rev_nsort_by { $_->primary_type_id // -1 }
                   sort_by { $_->name  }
-                  @{ $map{$rec_id} };
+                  @{ $map{$rec_id} } ];
+
+        if ($return_json) {
+            $rgs = to_json_array($rgs);
+        }
 
         $map{$rec_id} = {
-            hits => scalar @rgs,
-            results => scalar @rgs > $limit ? [ @rgs[ 0 .. ($limit-1) ] ] : \@rgs,
+            hits => scalar @$rgs,
+            results => defined $limit && scalar @$rgs > $limit ? [ @$rgs[ 0 .. ($limit-1) ] ] : $rgs,
         }
     }
 

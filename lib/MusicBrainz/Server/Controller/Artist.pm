@@ -426,6 +426,7 @@ sub recordings : Chained('load')
 
     $c->model('Recording')->load_meta(@$recordings);
 
+    my %release_group_appearances = $c->model('Recording')->appears_on($recordings, 10, 1);
     if ($c->user_exists) {
         $c->model('Recording')->rating->load_user_ratings($c->user->id, @$recordings);
     }
@@ -447,6 +448,7 @@ sub recordings : Chained('load')
             hasVideo => boolean_to_json($has_video),
             pager => serialize_pager($c->stash->{pager}),
             recordings => to_json_array($recordings),
+            releaseGroupAppearances => \%release_group_appearances,
             standaloneOnly => boolean_to_json($standalone_only),
             videoOnly => boolean_to_json($video_only),
         },
