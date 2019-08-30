@@ -26,6 +26,7 @@ use MusicBrainz::Server::Data::Utils qw(
 );
 use MusicBrainz::Server::Constants qw(
     $PART_OF_AREA_LINK_TYPE
+    %ENTITIES
     %ENTITIES_WITH_RELATIONSHIP_CREDITS
     @RELATABLE_ENTITIES
     entities_with
@@ -165,11 +166,20 @@ sub _load
                       JOIN link l ON link = l.id
                       JOIN link_type lt ON lt.id = l.link_type";
 
-        my $order = 'l.begin_date_year, l.begin_date_month, l.begin_date_day,
+        my $order = 'lt.name, link_order,
+                     l.begin_date_year, l.begin_date_month, l.begin_date_day,
                      l.end_date_year,   l.end_date_month,   l.end_date_day,
                      l.ended';
 
-        $order .= $target eq 'url' ? ', url' : ", musicbrainz_collate(${target}.name)";
+        if ($ENTITIES{$target}{sort_name}) {
+            $order .= ", musicbrainz_collate(${target}.sort_name)";
+        } elsif ($target eq 'url') {
+            $order .= ', url';
+        } else {
+            $order .= ", musicbrainz_collate(${target}.name)";
+        }
+
+        $order .= ', lt.child_order';
 
         $query = "SELECT $select
                     JOIN $target ON $target_id = ${target}.id

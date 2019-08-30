@@ -27,14 +27,14 @@ ws_test 'artist lookup with url relationships',
             <relation type-id="eb535226-f8ca-499d-9b18-6a144df4ae6f" type="blog">
                 <target id="5eb2c075-3c3b-4cf7-ab77-2dacaee19366">http://dj-distance.blogspot.com/</target>
             </relation>
-            <relation type-id="29651736-fa6d-48e4-aadc-a557c6add1cb" type="wikipedia">
-                <target id="651248e8-6a8f-4365-948a-aa43559caf58">http://en.wikipedia.org/wiki/Distance_(musician)</target>
-            </relation>
             <relation type-id="04a5b104-a4c2-4bac-99a1-7b837c37d9e4" type="discogs">
                 <target id="03e3d0be-d336-447e-b7da-06d0adcd15cd">http://www.discogs.com/artist/DJ+Distance</target>
             </relation>
             <relation type-id="bac47923-ecde-4b59-822e-d08f0cd10156" type="myspace">
                 <target id="63854ab2-4804-481f-8b07-e2cbe8192c0f">http://www.myspace.com/djdistancedub</target>
+            </relation>
+            <relation type-id="29651736-fa6d-48e4-aadc-a557c6add1cb" type="wikipedia">
+                <target id="651248e8-6a8f-4365-948a-aa43559caf58">http://en.wikipedia.org/wiki/Distance_(musician)</target>
             </relation>
         </relation-list>
     </artist>
@@ -183,17 +183,17 @@ ws_test 'label lookup with label and url relationships',
             </iso-3166-1-code-list>
         </area>
         <relation-list target-type="url">
+            <relation type-id="5b987f87-25bc-4a2d-b3f1-3618795b8207" type="discogs">
+                <target id="baaf9d35-392a-407a-b1bb-564015b146c6">http://www.discogs.com/label/Rhythm+Zone</target>
+            </relation>
+            <relation type-id="fe108f43-acb9-4ad1-8be3-57e6ec5b17b6" type="official site">
+                <target id="2a545d02-5447-4f16-a9c5-6239d98ea3f0">http://rzn.jp/</target>
+            </relation>
             <relation type-id="51e9db21-8864-49b3-aa58-470d7b81fa50" type="wikipedia">
                 <target id="4e5f8e53-a6fc-46e2-8fe4-2b3192be57e1">http://en.wikipedia.org/wiki/Rhythm_Zone</target>
             </relation>
             <relation type-id="51e9db21-8864-49b3-aa58-470d7b81fa50" type="wikipedia">
                 <target id="e697226c-7752-47d5-9192-5722babd9c32">http://ja.wikipedia.org/wiki/Rhythm_zone</target>
-            </relation>
-            <relation type-id="fe108f43-acb9-4ad1-8be3-57e6ec5b17b6" type="official site">
-                <target id="2a545d02-5447-4f16-a9c5-6239d98ea3f0">http://rzn.jp/</target>
-            </relation>
-            <relation type-id="5b987f87-25bc-4a2d-b3f1-3618795b8207" type="discogs">
-                <target id="baaf9d35-392a-407a-b1bb-564015b146c6">http://www.discogs.com/label/Rhythm+Zone</target>
             </relation>
         </relation-list>
     </label>
