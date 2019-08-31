@@ -261,7 +261,7 @@ sub serialize_relationships {
             join("\t",
                  $_->link->type->name,
                  (sprintf "%09d", $_->link_order // 0),
-                 $_->target_key)
+                 $_->target->id)
         } $entity->all_relationships;
 
     $into->{relations} = \@relationships;

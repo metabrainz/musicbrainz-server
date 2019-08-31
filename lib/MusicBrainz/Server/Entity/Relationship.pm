@@ -194,14 +194,6 @@ sub _build_target_credit {
     return $self->_source_target_prop(is_target => 1, prop_suffix => 'credit') // '';
 }
 
-sub target_key
-{
-    my ($self) = @_;
-    return ($self->target_type eq 'url')
-        ? $self->target->url
-        : $self->target->gid;
-}
-
 sub phrase
 {
     my ($self) = @_;

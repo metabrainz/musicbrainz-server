@@ -1047,9 +1047,9 @@ sub _serialize_relation
     my $type_id = $rel->link->type->gid;
 
     if ($rel->target_type eq 'url') {
-        push @list, $gen->target({ 'id' => $rel->target->gid }, $rel->target_key);
+        push @list, $gen->target({ 'id' => $rel->target->gid }, $rel->target->url);
     } else {
-        push @list, $gen->target($rel->target_key);
+        push @list, $gen->target($rel->target->gid);
     }
 
     push @list, $gen->ordering_key($rel->link_order) if $rel->link_order;
