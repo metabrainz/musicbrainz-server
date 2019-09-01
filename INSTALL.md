@@ -170,6 +170,7 @@ Below outlines how to setup MusicBrainz server with local::lib.
             libicu-dev \
             liblocal-lib-perl \
             libpq-dev \
+            libxml2 \
             libxml2-dev \
             cpanminus
 

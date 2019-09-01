@@ -67,6 +67,7 @@ libexpat1 m4_dnl
 libicu55 m4_dnl
 libpq5 m4_dnl
 libssl1.0.0 m4_dnl
+libxml2 m4_dnl
 perl m4_dnl
 postgresql-client-9.5 m4_dnl
 postgresql-server-dev-9.5')

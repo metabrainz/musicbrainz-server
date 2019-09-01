@@ -99,7 +99,7 @@ ws_test 'lookup via toc',
     '/discid/aa11.sPglQ1x0cybDcDi0OsZw9Q-?toc=1 9 189343 150 6614 32287 54041 61236 88129 92729 115276 153877&cdstubs=no&inc=tags+genres' =>
     '<?xml version="1.0"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
-  <release-list>
+  <release-list count="2">
     <release id="9b3d9383-3d2a-417f-bfbb-56f7c15f075b">
       <title>Aerial</title>
       <quality>normal</quality>
@@ -209,7 +209,7 @@ ws_test 'lookup via toc with invalid discid parameter',
     '/discid/-?toc=1 9 189343 150 6614 32287 54041 61236 88129 92729 115276 153877&cdstubs=no' =>
     '<?xml version="1.0"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
-  <release-list>
+  <release-list count="2">
     <release id="9b3d9383-3d2a-417f-bfbb-56f7c15f075b">
       <title>Aerial</title>
       <quality>normal</quality>

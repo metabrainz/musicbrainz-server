@@ -65,7 +65,7 @@ sub discid : Chained('root') PathPart('discid') {
             $c->controller('WS::2::Release')->release_toplevel($c, $stash, \@releases);
 
             $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
-            $c->res->body($c->stash->{serializer}->serialize('discid', $cdtoc, $c->stash->{inc}, $stash));
+            $c->res->body($c->stash->{serializer}->serialize('disc', $cdtoc, $c->stash->{inc}, $stash));
             return;
         }
 
@@ -107,7 +107,8 @@ sub discid : Chained('root') PathPart('discid') {
         $c->res->body($c->stash->{serializer}->serialize(
             'release_list',
             {
-                items => \@releases
+                items => \@releases,
+                total => scalar @releases,
             },
             $c->stash->{inc}, $stash
         ));
