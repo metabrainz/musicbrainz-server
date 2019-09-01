@@ -217,8 +217,8 @@ const EditForm = ({
           old: form.field.name.value,
         },
         type: {
-          new: typeUsed(typeId.value),
-          old: typeUsed(form.field.type_id.value),
+          new: typeId.value ? typeUsed(typeId.value) : {name: ''},
+          old: form.field.type_id.value ? typeUsed(form.field.type_id.value) : {name: ''},
         },
       },
     };

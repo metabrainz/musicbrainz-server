@@ -33,7 +33,7 @@ const EditLabel = ({edit}) => {
             split="\s+"
           />
         ) : null}
-        {display.type ? (
+        {display.type.old || display.type.new ? (
           <FullChangeDiff
             label={l('Type:')}
             newText={display.type.new.name}
