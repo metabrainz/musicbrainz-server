@@ -48,6 +48,7 @@ const EditForm = ({
   uri,
 }) => {
   const guess = MB.GuessCase["artist"];
+  console.log(form);
 
   const [
     name,
@@ -277,7 +278,9 @@ const EditForm = ({
           year: endDate.field.year.value,
         },
         ended: ended.value,
-        gender: genderChoosen(genderId.value),
+        gender: genderId.value ? genderChoosen(genderId.value) : {
+          name: '',
+        },
         ipi_codes: ipiCodes.value,
         isni_codes: isniCodes.value,
         sort_name: sortName.value,
@@ -366,8 +369,12 @@ const EditForm = ({
           old: form.field.period.field.ended.value,
         },
         gender: {
-          new: genderChoosen(genderId.value),
-          old: genderChoosen(form.field.gender_id.value),
+          new: genderId.value ? genderChoosen(genderId.value) : {
+            name: '',
+          },
+          old: form.field.gender_id.value ? genderChoosen(form.field.gender_id.value) : {
+            name: '',
+          },
         },
         ipi_codes: {
           new: ipiCodes.value,

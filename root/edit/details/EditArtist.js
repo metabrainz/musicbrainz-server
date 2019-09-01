@@ -62,7 +62,7 @@ const EditArtist = ({edit}) => {
               oldText={edit.display_data.type.old.name}
             />
           ) : null}
-          {edit.display_data.gender ? (
+          {edit.display_data.gender.old || edit.display_data.gender.new ? (
             <FullChangeDiff
               label={l('Gender:')}
               newText={edit.display_data.gender.new.name}
