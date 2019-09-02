@@ -74,7 +74,16 @@ const RecordingAppearancesTable = ({
               return (
                 <tr className={loopParity(index)} key={track.gid}>
                   <td>
-                    <a href={`/track/${track.gid}`}>
+                    <a
+                      href={`/track/${track.gid}`}
+                      title={texp.l(
+                        'Medium {medium_num}, track {track_num}',
+                        {
+                          medium_num: track.medium.position,
+                          track_num: track.position,
+                        },
+                      )}
+                    >
                       {`${track.medium.position}.${track.position}`}
                     </a>
                   </td>
