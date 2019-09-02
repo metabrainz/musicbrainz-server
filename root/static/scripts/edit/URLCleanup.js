@@ -198,7 +198,7 @@ export const LINK_TYPES = {
     place: '1cd2eb89-2997-4901-87e9-838ac9a68da9',
     series: '4789521b-57b9-4689-9644-46de63190f66',
   },
-  streamingmusic: {
+  streamingfree: {
     artist: '769085a1-c2f7-4c24-a532-2375a77693bd',
     recording: '7e41ef12-a124-4324-afdb-fdbae687a89c',
     release: '08445ccf-7b99-4438-9f9a-fb9ac18099ee',
@@ -870,7 +870,7 @@ const CLEANUPS = {
   },
   'dailymotion': {
     match: [new RegExp('^(https?://)?([^/]+\\.)?(dailymotion\\.com/)', 'i')],
-    type: _.defaults({}, LINK_TYPES.videochannel, LINK_TYPES.streamingmusic),
+    type: _.defaults({}, LINK_TYPES.videochannel, LINK_TYPES.streamingfree),
     clean: function (url) {
       const m = /^(?:https?:\/\/)?(?:www\.)?dailymotion\.com\/((([^\/?#]+)(?:\/[^?#]*)?)(?:\?[^#]*)?(?:#(.+)?)?)$/.exec(url);
       if (m) {
@@ -907,7 +907,7 @@ const CLEANUPS = {
   },
   'deezer': {
     match: [new RegExp('^(https?://)?([^/]+\\.)?(deezer\\.com)', 'i')],
-    type: LINK_TYPES.streamingmusic,
+    type: LINK_TYPES.streamingfree,
     clean: function (url) {
       url = url.replace(/^https?:\/\/(www\.)?deezer\.com\/(?:[a-z]{2}\/)?(\w+)\/(\d+).*$/, 'https://www.deezer.com/$2/$3');
       return url;
@@ -917,11 +917,11 @@ const CLEANUPS = {
       if (m) {
         const prefix = m[1];
         switch (id) {
-          case LINK_TYPES.streamingmusic.artist:
+          case LINK_TYPES.streamingfree.artist:
             return prefix === 'artist';
-          case LINK_TYPES.streamingmusic.release:
+          case LINK_TYPES.streamingfree.release:
             return prefix === 'album';
-          case LINK_TYPES.streamingmusic.recording:
+          case LINK_TYPES.streamingfree.recording:
             return prefix === 'track' || prefix === 'episode';
         }
       }
@@ -1616,7 +1616,7 @@ const CLEANUPS = {
   },
   'niconicovideo': {
     match: [new RegExp('^(https?://)?([^/]+\\.)?(nicovideo\\.jp/)', 'i')],
-    type: _.defaults({}, LINK_TYPES.videochannel, LINK_TYPES.streamingmusic),
+    type: _.defaults({}, LINK_TYPES.videochannel, LINK_TYPES.streamingfree),
     clean: function (url) {
       return url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?nicovideo\.jp\/(user\/[0-9]+|watch\/sm[0-9]+).*$/, 'https://www.nicovideo.jp/$1');
     },
@@ -1625,8 +1625,8 @@ const CLEANUPS = {
       if (m) {
         const prefix = m[1] || m[2];
         switch (id) {
-          case LINK_TYPES.streamingmusic.recording:
-          case LINK_TYPES.streamingmusic.release:
+          case LINK_TYPES.streamingfree.recording:
+          case LINK_TYPES.streamingfree.release:
             return prefix === 'watch';
           case LINK_TYPES.videochannel.artist:
             return prefix === 'user';
@@ -2084,7 +2084,7 @@ const CLEANUPS = {
   },
   'spotify': {
     match: [new RegExp('^(https?://)?([^/]+\\.)?(spotify\\.com)/(?!user)', 'i')],
-    type: LINK_TYPES.streamingmusic,
+    type: LINK_TYPES.streamingfree,
     clean: function (url) {
       url = url.replace(/^(?:https?:\/\/)?embed\.spotify\.com\/\?uri=spotify:([a-z]+):([a-zA-Z0-9_-]+)$/, 'https://open.spotify.com/$1/$2');
       url = url.replace(/^(?:https?:\/\/)?(?:play|open)\.spotify\.com\/([a-z]+)\/([a-zA-Z0-9_-]+)(?:[/?#].*)?$/, 'https://open.spotify.com/$1/$2');
@@ -2095,11 +2095,11 @@ const CLEANUPS = {
       if (m) {
         const prefix = m[1];
         switch (id) {
-          case LINK_TYPES.streamingmusic.artist:
+          case LINK_TYPES.streamingfree.artist:
             return prefix === 'artist';
-          case LINK_TYPES.streamingmusic.release:
+          case LINK_TYPES.streamingfree.release:
             return prefix === 'album';
-          case LINK_TYPES.streamingmusic.recording:
+          case LINK_TYPES.streamingfree.recording:
             return prefix === 'track' || prefix === 'episode';
         }
       }
@@ -2161,7 +2161,7 @@ const CLEANUPS = {
   },
   'twitch': {
     match: [new RegExp('^(https?://)?([^/]+\\.)?(twitch\\.tv/)', 'i')],
-    type: _.defaults({}, LINK_TYPES.videochannel, LINK_TYPES.streamingmusic),
+    type: _.defaults({}, LINK_TYPES.videochannel, LINK_TYPES.streamingfree),
     clean: function (url) {
       url = url.replace(/^(?:https?:\/\/)?(?:www\.)?twitch\.tv\/((?:videos\/)?[^\/?#]+)(?:.*)?$/, 'https://www.twitch.tv/$1');
       return url;
@@ -2183,7 +2183,7 @@ const CLEANUPS = {
     type: _.defaults(
       {},
       LINK_TYPES.socialnetwork,
-      LINK_TYPES.streamingmusic,
+      LINK_TYPES.streamingfree,
     ),
     clean: function (url) {
       url = url.replace(
@@ -2200,8 +2200,8 @@ const CLEANUPS = {
       const m = /^https:\/\/twitter\.com\/[^\/?#]+(\/status\/\d+)?$/.exec(url);
       if (m) {
         const isATweet = !!m[1];
-        if (_.includes(LINK_TYPES.streamingmusic, id)) {
-          return isATweet && (id === LINK_TYPES.streamingmusic.recording);
+        if (_.includes(LINK_TYPES.streamingfree, id)) {
+          return isATweet && (id === LINK_TYPES.streamingfree.recording);
         }
         return !isATweet;
       }
@@ -2326,7 +2326,7 @@ const CLEANUPS = {
   },
   'vimeo': {
     match: [new RegExp('^(https?://)?([^/]+\\.)?(vimeo\\.com/)', 'i')],
-    type: _.defaults({}, LINK_TYPES.videochannel, LINK_TYPES.streamingmusic),
+    type: _.defaults({}, LINK_TYPES.videochannel, LINK_TYPES.streamingfree),
     clean: function (url) {
       url = url.replace(/^(?:https?:\/\/)?(?:[^\/]+\.)?vimeo\.com/, 'https://vimeo.com');
       // Remove query string, just the video id should be enough.
@@ -2405,7 +2405,7 @@ const CLEANUPS = {
   },
   'youtube': {
     match: [new RegExp('^(https?://)?([^/]+\\.)?(youtube\\.com/|youtu\\.be/)', 'i')],
-    type: _.defaults({}, LINK_TYPES.youtube, LINK_TYPES.streamingmusic),
+    type: _.defaults({}, LINK_TYPES.youtube, LINK_TYPES.streamingfree),
     clean: function (url) {
       url = url.replace(/^(https?:\/\/)?([^\/]+\.)?youtube\.com(?:\/#)?/, 'https://www.youtube.com');
       // YouTube /c/ user channels (/c/ is unneeded)
