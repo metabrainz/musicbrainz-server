@@ -56,7 +56,9 @@ const RecordingAppearancesTable = ({
     <tbody>
       {tracks.map((tracksWithReleaseStatus) => {
         const sampleRelease =
-          linkedEntities.release[tracksWithReleaseStatus[0].medium.release_id];
+          linkedEntities.release[
+            tracksWithReleaseStatus[0].medium.release_id
+          ];
         const status = sampleRelease.status;
         return (
           <React.Fragment key={status ? status.name : 'no-status'}>
