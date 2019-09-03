@@ -21,15 +21,16 @@ import {
 } from './fullwidthLatin';
 import getSimilarity from './similarity';
 
-var featRegex = /(?:^\s*|[,，－\-]\s*|\s+)((?:ft|feat|ｆｔ|ｆｅａｔ)(?:[.．]|(?=\s))|(?:featuring|ｆｅａｔｕｒｉｎｇ)(?=\s))\s*/i;
-var collabRegex = /([,，]?\s+(?:&|and|et|＆|ａｎｄ|ｅｔ)\s+|、|[,，;；]\s+|\s*[\/／]\s*|\s+(?:vs|ｖｓ)[.．]\s+)/i;
-var bracketPairs = [['(', ')'], ['[', ']'], ['（', '）'], ['［', '］']];
+/* eslint-disable sort-keys */
+const featRegex = /(?:^\s*|[,，－\-]\s*|\s+)((?:ft|feat|ｆｔ|ｆｅａｔ)(?:[.．]|(?=\s))|(?:featuring|ｆｅａｔｕｒｉｎｇ)(?=\s))\s*/i;
+const collabRegex = /([,，]?\s+(?:&|and|et|＆|ａｎｄ|ｅｔ)\s+|、|[,，;；]\s+|\s*[\/／]\s*|\s+(?:vs|ｖｓ)[.．]\s+)/i;
+const bracketPairs = [['(', ')'], ['[', ']'], ['（', '）'], ['［', '］']];
 
 function extractNonBracketedFeatCredits(str, artists, isProbablyClassical) {
-  var wrapped = _(str.split(featRegex)).map(clean);
+  const wrapped = _(str.split(featRegex)).map(clean);
 
-  var fixFeatJoinPhrase = function (existing) {
-    var joinPhrase = isProbablyClassical ? '; ' : existing ? (
+  const fixFeatJoinPhrase = function (existing) {
+    const joinPhrase = isProbablyClassical ? '; ' : existing ? (
       ' ' +
       fromFullwidthLatin(existing)
         .toLowerCase()
@@ -42,13 +43,13 @@ function extractNonBracketedFeatCredits(str, artists, isProbablyClassical) {
       : joinPhrase;
   };
 
-  var name = clean(wrapped.head());
+  const name = clean(wrapped.head());
 
-  var joinPhrase = (wrapped.size() < 2)
+  const joinPhrase = (wrapped.size() < 2)
     ? ''
     : fixFeatJoinPhrase(wrapped.pullAt(1));
 
-  var artistCredit = wrapped
+  const artistCredit = wrapped
     .splice(2)
     .filter((value, key) => key % 2 === 0)
     .compact()
@@ -59,16 +60,16 @@ function extractNonBracketedFeatCredits(str, artists, isProbablyClassical) {
   return {
     name: name,
     joinPhrase: joinPhrase,
-    artistCredit: artistCredit
+    artistCredit: artistCredit,
   };
 }
 
 function extractBracketedFeatCredits(str, artists, isProbablyClassical) {
   return _.reduce(bracketPairs, function (accum, pair) {
-    var name = '';
-    var joinPhrase = accum.joinPhrase;
-    var credits = accum.artistCredit;
-    var remainder = accum.name;
+    let name = '';
+    let joinPhrase = accum.joinPhrase;
+    let credits = accum.artistCredit;
+    let remainder = accum.name;
     let b;
     let m;
 
@@ -79,10 +80,17 @@ function extractBracketedFeatCredits(str, artists, isProbablyClassical) {
         name += b.pre;
 
         if (m.name) {
-          // Check if the remaining text in the brackets is also an artist name.
-          var expandedCredits = expandCredit(m.name, artists, isProbablyClassical);
+          /*
+           * Check if the remaining text in the brackets
+           * is also an artist name.
+           */
+          const expandedCredits = expandCredit(
+            m.name, artists, isProbablyClassical,
+          );
 
-          if (_.some(expandedCredits, c => c.similarity >= MIN_NAME_SIMILARITY)) {
+          if (_.some(
+            expandedCredits, c => c.similarity >= MIN_NAME_SIMILARITY,
+          )) {
             credits = credits.concat(expandedCredits);
           } else {
             name += pair[0] + m.name + pair[1];
@@ -102,20 +110,28 @@ function extractBracketedFeatCredits(str, artists, isProbablyClassical) {
   }, {name: str, joinPhrase: '', artistCredit: []});
 }
 
-function extractFeatCredits(str, artists, isProbablyClassical, allowEmptyName) {
-  var m1 = extractBracketedFeatCredits(str, artists, isProbablyClassical);
+function extractFeatCredits(
+  str, artists, isProbablyClassical, allowEmptyName,
+) {
+  const m1 = extractBracketedFeatCredits(str, artists, isProbablyClassical);
 
   if (!m1.name && !allowEmptyName) {
     return {name: str, joinPhrase: '', artistCredit: []};
   }
 
-  var m2 = extractNonBracketedFeatCredits(m1.name, artists, isProbablyClassical);
+  const m2 = extractNonBracketedFeatCredits(
+    m1.name, artists, isProbablyClassical,
+  );
 
   if (!m2.name && !allowEmptyName) {
     return m1;
   }
 
-  return {name: m2.name, joinPhrase: m2.joinPhrase || m1.joinPhrase, artistCredit: m2.artistCredit.concat(m1.artistCredit)};
+  return {
+    name: m2.name,
+    joinPhrase: m2.joinPhrase || m1.joinPhrase,
+    artistCredit: m2.artistCredit.concat(m1.artistCredit),
+  };
 }
 
 function cleanCredit(name, isProbablyClassical) {
@@ -126,7 +142,7 @@ function cleanCredit(name, isProbablyClassical) {
 function bestArtistMatch(artists, name) {
   return _(artists)
     .map(function (a) {
-      var similarity = getSimilarity(name, a.name);
+      const similarity = getSimilarity(name, a.name);
       if (similarity >= MIN_NAME_SIMILARITY) {
         return {similarity: similarity, artist: a, name: name};
       }
@@ -148,28 +164,38 @@ function expandCredit(fullName, artists, isProbablyClassical) {
    * those from getting split (assuming the artist appears in a relationship
    * or artist credit).
    */
-  var bestFullMatch = bestArtistMatch(artists, fullName, isProbablyClassical);
+  const bestFullMatch = bestArtistMatch(artists, fullName);
 
-  var fixJoinPhrase = function (existing) {
-    var joinPhrase = isProbablyClassical ? ', ' : (existing || ' & ');
+  const fixJoinPhrase = function (existing) {
+    const joinPhrase = isProbablyClassical ? ', ' : (existing || ' & ');
 
     return hasFullwidthLatin(existing)
       ? toFullwidthLatin(joinPhrase)
       : joinPhrase;
   };
 
-  var splitMatches = _(fullName.split(collabRegex))
+  const splitMatches = _(fullName.split(collabRegex))
     .chunk(2)
     .map(function (pair) {
-      var name = cleanCredit(pair[0], isProbablyClassical);
+      const name = cleanCredit(pair[0], isProbablyClassical);
 
       return Object.assign(
-        {similarity: -1, artist: null, name: name, joinPhrase: fixJoinPhrase(pair[1])},
-        bestArtistMatch(artists, name, isProbablyClassical) || {}
+        {
+          similarity: -1,
+          artist: null,
+          name: name,
+          joinPhrase: fixJoinPhrase(pair[1]),
+        },
+        bestArtistMatch(artists, name) || {},
       );
     });
 
-  if (bestFullMatch && bestFullMatch.similarity > splitMatches.sortBy('similarity').reverse().head().similarity) {
+  if (bestFullMatch &&
+    bestFullMatch.similarity > splitMatches
+      .sortBy('similarity')
+      .reverse()
+      .head()
+      .similarity) {
     bestFullMatch.joinPhrase = fixJoinPhrase();
     return [bestFullMatch];
   }
@@ -178,11 +204,13 @@ function expandCredit(fullName, artists, isProbablyClassical) {
 }
 
 export default function guessFeat(entity) {
-  var relatedArtists = _.result(entity, 'relatedArtists');
-  var isProbablyClassical = _.result(entity, 'isProbablyClassical');
+  const relatedArtists = _.result(entity, 'relatedArtists');
+  const isProbablyClassical = _.result(entity, 'isProbablyClassical');
 
-  var name = entity.name();
-  var match = extractFeatCredits(name, relatedArtists, isProbablyClassical, false);
+  const name = entity.name();
+  const match = extractFeatCredits(
+    name, relatedArtists, isProbablyClassical, false,
+  );
 
   if (!match.name || !match.artistCredit.length) {
     return;
@@ -190,7 +218,7 @@ export default function guessFeat(entity) {
 
   entity.name(match.name);
 
-  var artistCredit = entity.artistCredit().names.slice(0);
+  const artistCredit = entity.artistCredit().names.slice(0);
   _.last(artistCredit).joinPhrase = match.joinPhrase;
   _.last(match.artistCredit).joinPhrase = '';
 
@@ -205,31 +233,33 @@ export default function guessFeat(entity) {
   entity.artistCreditEditorInst && entity.artistCreditEditorInst.setState({
     artistCredit: entity.artistCredit.peek(),
   });
-};
+}
 
 // For use outside of the release editor.
 MB.Control.initGuessFeatButton = function (formName) {
-  var nameInput = document.getElementById('id-' + formName + '.name');
+  const nameInput = document.getElementById('id-' + formName + '.name');
 
-  var augmentedEntity = Object.assign(
+  const augmentedEntity = Object.assign(
     Object.create(MB.sourceRelationshipEditor.source),
     {
-      // Emulate an observable that just reads/writes to the name input directly.
+      /*
+       * Emulate an observable that just reads/writes
+       * to the name input directly.
+       */
       name: function () {
         if (arguments.length) {
           nameInput.value = arguments[0];
           return undefined;
-        } else {
-          return nameInput.value;
         }
+        return nameInput.value;
       },
       /*
        * Confusingly, the artistCredit object used to generated hidden input
        * fields is also different from MB.sourceRelationshipEditor.source's,
        * so we have to replace this field too.
        */
-      artistCredit: MB.sourceEntity.artistCredit
-    }
+      artistCredit: MB.sourceEntity.artistCredit,
+    },
   );
 
   $(document).on('click', 'button.guessfeat.icon', function () {
