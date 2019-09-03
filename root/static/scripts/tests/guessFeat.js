@@ -10,7 +10,7 @@ import guessFeat from '../edit/utility/guessFeat';
 import fields from '../release-editor/fields';
 
 test('guessing feat. artists', function (t) {
-    t.plan(21);
+    t.plan(22);
 
     var trackTests = [
         {
@@ -296,7 +296,23 @@ test('guessing feat. artists', function (t) {
                     ],
                 },
             }
-        }
+        },
+        {
+            input: {
+                name: 'Coast To Coast feat. 漢、般若',
+                artistCredit: {names: [{name: 'DJ Baku', joinPhrase: ''}]},
+            },
+            output: {
+                name: 'Coast To Coast',
+                artistCredit: {
+                    names: [
+                        {name: 'DJ Baku', joinPhrase: ' feat. '},
+                        {name: '漢', joinPhrase: '、'},
+                        {name: '般若', joinPhrase: ''},
+                    ],
+                },
+            }
+        },
     ];
 
     var releaseTests = [
