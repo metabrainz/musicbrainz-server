@@ -23,6 +23,7 @@ import trackParser from './trackParser';
 import utils from './utils';
 import releaseEditor from './viewModel';
 
+/* eslint-disable sort-keys */
 class Dialog {
 
     open() {
