@@ -12,10 +12,11 @@ import test from 'tape';
 import guessFeat from '../edit/utility/guessFeat';
 import fields from '../release-editor/fields';
 
+/* eslint-disable sort-keys */
 test('guessing feat. artists', function (t) {
   t.plan(22);
 
-  var trackTests = [
+  const trackTests = [
     {
       input: {
         name: 'мыльныйопус (feat.813)',
@@ -29,7 +30,7 @@ test('guessing feat. artists', function (t) {
             {name: '813', joinPhrase: ''},
           ],
         },
-      }
+      },
     },
     {
       input: {
@@ -45,7 +46,7 @@ test('guessing feat. artists', function (t) {
             {name: '영지', joinPhrase: ''},
           ],
         },
-      }
+      },
     },
     {
       input: {
@@ -61,7 +62,7 @@ test('guessing feat. artists', function (t) {
             {name: 'Stouffi', joinPhrase: ''},
           ],
         },
-      }
+      },
     },
     {
       input: {
@@ -76,7 +77,7 @@ test('guessing feat. artists', function (t) {
             {name: 'Jooks', joinPhrase: ''},
           ],
         },
-      }
+      },
     },
     {
       input: {
@@ -87,7 +88,7 @@ test('guessing feat. artists', function (t) {
       output: {
         name: 'Ft. Smith Breakdown',
         artistCredit: {names: [{name: 'Luke Highnight & His Ozark Strutters', joinPhrase: ''}]},
-      }
+      },
     },
     {
       input: {
@@ -102,7 +103,7 @@ test('guessing feat. artists', function (t) {
             {name: 'Landforge', joinPhrase: ''},
           ],
         },
-      }
+      },
     },
     {
       input: {
@@ -117,7 +118,7 @@ test('guessing feat. artists', function (t) {
             {name: 'Juicy J', joinPhrase: ''},
           ],
         },
-      }
+      },
     },
     {
       input: {
@@ -128,7 +129,7 @@ test('guessing feat. artists', function (t) {
       output: {
         name: '50,000 ft.',
         artistCredit: {names: [{name: 'The Hang Ups', joinPhrase: ''}]},
-      }
+      },
     },
     {
       input: {
@@ -145,7 +146,7 @@ test('guessing feat. artists', function (t) {
             {name: 'Pit Baccardi', joinPhrase: ''},
           ],
         },
-      }
+      },
     },
     {
       input: {
@@ -161,7 +162,7 @@ test('guessing feat. artists', function (t) {
             {name: 'Tariq', joinPhrase: ''},
           ],
         },
-      }
+      },
     },
     {
       input: {
@@ -177,7 +178,7 @@ test('guessing feat. artists', function (t) {
             {name: 'DJ Spooky', joinPhrase: ''},
           ],
         },
-      }
+      },
     },
     {
       input: {
@@ -193,7 +194,7 @@ test('guessing feat. artists', function (t) {
             {name: 'Funkadelic', joinPhrase: ''},
           ],
         },
-      }
+      },
     },
     {
       input: {
@@ -208,7 +209,7 @@ test('guessing feat. artists', function (t) {
             {name: 'Rubén Rada', joinPhrase: ''},
           ],
         },
-      }
+      },
     },
     /*
      * "Slash & Ol' Dirty Bastard" should be split even though it's above
@@ -225,10 +226,10 @@ test('guessing feat. artists', function (t) {
             {
               target: {name: 'Ol’ Dirty Bastard', gid: 'd50548a0-3cfd-4d7a-964b-0aef6545d819', entityType: 'artist'},
               direction: 'backward',
-              linkTypeID: 156
-            }
-          ]
-        }
+              linkTypeID: 156,
+            },
+          ],
+        },
       },
       output: {
         name: 'Fix (Main Mix)',
@@ -239,7 +240,7 @@ test('guessing feat. artists', function (t) {
             {name: 'Ol\' Dirty Bastard', joinPhrase: ''},
           ],
         },
-      }
+      },
     },
     {
       input: {
@@ -254,7 +255,7 @@ test('guessing feat. artists', function (t) {
             {name: 'grèg', joinPhrase: ''},
           ],
         },
-      }
+      },
     },
     {
       input: {
@@ -269,7 +270,7 @@ test('guessing feat. artists', function (t) {
             {name: 'ｅｐvｒ', joinPhrase: ''},
           ],
         },
-      }
+      },
     },
     {
       input: {
@@ -284,7 +285,7 @@ test('guessing feat. artists', function (t) {
             {name: 'Predawn', joinPhrase: ''},
           ],
         },
-      }
+      },
     },
     {
       input: {
@@ -300,7 +301,7 @@ test('guessing feat. artists', function (t) {
             {name: '貝木泥舟', joinPhrase: ''},
           ],
         },
-      }
+      },
     },
     {
       input: {
@@ -316,22 +317,22 @@ test('guessing feat. artists', function (t) {
             {name: '般若', joinPhrase: ''},
           ],
         },
-      }
+      },
     },
   ];
 
-  var releaseTests = [
+  const releaseTests = [
     {
       input: {
         name: 'The Nutcracker: Suite, Op. 71 (London Symphony Orchestra feat. conductor: André Previn) (disc 2)',
-        artistCredit: {names: [{name: 'Пётр Ильич Чайковский', joinPhrase: ''}],},
+        artistCredit: {names: [{name: 'Пётр Ильич Чайковский', joinPhrase: ''}]},
         relationships: [
           {
             target: {name: 'London Symphony Orchestra', entityType: 'artist'},
             direction: 'backward',
-            linkTypeID: 45
-          }
-        ]
+            linkTypeID: 45,
+          },
+        ],
       },
       output: {
         name: 'The Nutcracker: Suite, Op. 71 (disc 2)',
@@ -342,19 +343,19 @@ test('guessing feat. artists', function (t) {
             {name: 'André Previn', joinPhrase: ''},
           ],
         },
-      }
+      },
     },
     {
       input: {
         name: 'Intermezzi from Palandrana and Zambrano (feat. Fortuna Ensemble; conductor: Roberto Cascio; soprano: Barbara di Castri; tenor: Gastone Sarti)',
-        artistCredit: {names: [{name: 'Alessandro Scarlatti', joinPhrase: ''}],},
+        artistCredit: {names: [{name: 'Alessandro Scarlatti', joinPhrase: ''}]},
         relationships: [
           {
             target: {name: 'Roberto Cascio', entityType: 'artist'},
             direction: 'backward',
-            linkTypeID: 46
-          }
-        ]
+            linkTypeID: 46,
+          },
+        ],
       },
       output: {
         name: 'Intermezzi from Palandrana and Zambrano',
@@ -367,19 +368,19 @@ test('guessing feat. artists', function (t) {
             {name: 'Gastone Sarti', joinPhrase: ''},
           ],
         },
-      }
+      },
     },
     {
       input: {
         name: 'Le nozze di Figaro - highlights (The Drottningholm Court Theatre Orchestra & Chorus, feat. conductor: Arnold Östman, singers: Salomaa, Bonney, Hagagård)',
-        artistCredit: {names: [{name: 'Mozart', joinPhrase: ''}],},
+        artistCredit: {names: [{name: 'Mozart', joinPhrase: ''}]},
         relationships: [
           {
             target: {name: 'The Drottningholm Court Theatre Orchestra & Chorus', entityType: 'artist'},
             direction: 'backward',
-            linkTypeID: 45
-          }
-        ]
+            linkTypeID: 45,
+          },
+        ],
       },
       output: {
         name: 'Le nozze di Figaro - highlights',
@@ -393,8 +394,8 @@ test('guessing feat. artists', function (t) {
             {name: 'Hagagård', joinPhrase: ''},
           ],
         },
-      }
-    }
+      },
+    },
   ];
 
   function toJS(track) {
@@ -415,7 +416,7 @@ test('guessing feat. artists', function (t) {
   }
 
   _.each(trackTests, function (x) {
-    var release = new fields.Release({
+    const release = new fields.Release({
       artistCredit: {names: []},
       mediums: [{tracks: [x.input]}],
     });
