@@ -35,7 +35,8 @@ class Dialog {
 }
 
 
-export const trackParserDialog = releaseEditor.trackParserDialog = new Dialog();
+export const trackParserDialog =
+  releaseEditor.trackParserDialog = new Dialog();
 
 Object.assign(trackParserDialog, {
     element: "#track-parser-dialog",
@@ -277,7 +278,8 @@ class SearchTab {
 SearchTab.prototype.tracksRequestData = {};
 
 
-export const mediumSearchTab = releaseEditor.mediumSearchTab = new SearchTab();
+export const mediumSearchTab =
+  releaseEditor.mediumSearchTab = new SearchTab();
 
 Object.assign(mediumSearchTab, {
     endpoint: "/ws/js/medium",
