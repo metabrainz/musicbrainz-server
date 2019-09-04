@@ -114,33 +114,45 @@ sub build_display_data
     ];
 
     my $link_type = $relationship->{link}{type};
+    my $entity0_type = $link_type->{entity0_type};
+    my $entity1_type = $link_type->{entity1_type};
     my $link = MusicBrainz::Server::Entity::Link->new(
         begin_date => MusicBrainz::Server::Entity::PartialDate->new_from_row($relationship->{link}{begin_date}),
         end_date => MusicBrainz::Server::Entity::PartialDate->new_from_row($relationship->{link}{end_date}),
         ended => $relationship->{link}{ended},
         type => $loaded->{LinkType}{$link_type->{id}} // MusicBrainz::Server::Entity::LinkType->new(
             $link_type->{id} ? (id => $link_type->{id}) : (),
-            entity0_type => $link_type->{entity0_type},
-            entity1_type => $link_type->{entity1_type},
+            entity0_type => $entity0_type,
+            entity1_type => $entity1_type,
             long_link_phrase => $link_type->{long_link_phrase} // '',
         ),
         attributes => $attrs
     );
 
-    my $entity0 = $relationship->{entity0};
-    my $entity1 = $relationship->{entity1};
+    my $entity0_data = $relationship->{entity0};
+    my $entity1_data = $relationship->{entity1};
+    my $entity0 = $loaded->{ $self->model0 }->{gid_or_id($entity0_data)} ||
+        $self->c->model($self->model0)->_entity_class->new(
+            name => $entity0_data->{name}
+        );
+    my $entity1 = $loaded->{ $self->model1 }->{gid_or_id($entity1_data)} ||
+        $self->c->model($self->model1)->_entity_class->new(
+            name => $entity1_data->{name}
+        );
+    my $entity0_credit = $relationship->{entity0_credit} // '';
+    my $entity1_credit = $relationship->{entity1_credit} // '';
 
     my %relationship_opts = (
-        entity0 => $loaded->{ $self->model0 }->{gid_or_id($entity0)} ||
-            $self->c->model($self->model0)->_entity_class->new(
-                name => $entity0->{name}
-            ),
-        entity1 => $loaded->{ $self->model1 }->{gid_or_id($entity1)} ||
-            $self->c->model($self->model1)->_entity_class->new(
-                name => $entity1->{name}
-            ),
-        entity0_credit => $relationship->{entity0_credit} // '',
-        entity1_credit => $relationship->{entity1_credit} // '',
+        entity0 => $entity0,
+        entity1 => $entity1,
+        entity0_credit => $entity0_credit,
+        entity1_credit => $entity1_credit,
+        source => $entity0,
+        target => $entity1,
+        source_type => $entity0_type,
+        target_type => $entity1_type,
+        source_credit => $entity0_credit,
+        target_credit => $entity1_credit,
         link => $link
     );
     if ($relationship->{phrase}) {
