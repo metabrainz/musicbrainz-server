@@ -42,6 +42,7 @@ RUN apt-get update && \
         language-pack-it \
         language-pack-ja \
         language-pack-nl \
+        language-pack-sq \
         libc6-dev \
         libdb-dev \
         libdb5.3 \
