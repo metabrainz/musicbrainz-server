@@ -16,17 +16,11 @@ has $_ => (
           recording_level_rels work_level_rels rels annotation release_events
 ), map { $_ . '_rels' } @RELATABLE_ENTITIES);
 
-sub has_rels
-{
-    my ($self) = @_;
-
-    for my $type (@RELATABLE_ENTITIES) {
-        my $meth = $type . '_rels';
-        return 1 if $self->$meth;
-    }
-
-    return 0;
-}
+has has_rels => (
+    is => 'rw',
+    isa => 'Bool',
+    default => 0,
+);
 
 sub get_rel_types
 {
@@ -47,14 +41,16 @@ sub BUILD
 
     my $meta = $self->meta;
     my %methods = map { $_->name => $_ } $meta->get_all_attributes;
+    my @relations = @{$args->{relations} // []};
 
-    if (exists $args->{relations} && $args->{relations})
+    if (@relations)
     {
-        foreach my $rel (@{$args->{relations}})
+        foreach my $rel (@relations)
         {
             $rel =~ tr/-/_/;
             $methods{$rel}->set_value($self, 1);
         }
+        $self->has_rels(1);
     }
 
     foreach my $arg (@{$args->{inc}})
