@@ -23,6 +23,11 @@
                   <textarea class="edit-note" rows="5" placeholder="[% l('Add an edit note') %]"
                       name="enter-vote.vote.[% index %].edit_note"></textarea>
               </div>
+            <p>
+                  [% l('Edit notes support {doc_formatting|a limited set of wiki formatting options}. Please do always keep the {doc_coc|Code of Conduct} in mind when writing edit notes!',
+                     { doc_coc => doc_link('Code_of_Conduct'), doc_formatting => doc_link('Edit_Note') }) %]
+            </p>
+
           </div>
       [% ELSE %]
           <p>
