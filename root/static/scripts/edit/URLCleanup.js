@@ -203,6 +203,11 @@ export const LINK_TYPES = {
     recording: '7e41ef12-a124-4324-afdb-fdbae687a89c',
     release: '08445ccf-7b99-4438-9f9a-fb9ac18099ee',
   },
+  streamingpaid: {
+    artist: '63cc5d1f-f096-4c94-a43f-ecb32ea94161',
+    recording: 'b5f3058a-666c-406f-aafb-f9249fc7b122',
+    release: '320adf26-96fa-4183-9045-1f5f32f833cb',
+  },
   vgmdb: {
     artist: '0af15ab3-c615-46d6-b95b-a5fcd2a92ed9',
     event: '5d3e0348-71a8-3dc1-b847-3a8f1d5de688',
