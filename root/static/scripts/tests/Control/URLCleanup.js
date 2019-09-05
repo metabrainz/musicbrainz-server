@@ -256,6 +256,35 @@ const testData = [
                      input_url: 'http://www.amazon.com/gp/redirect.html/ref=amb_link_7764682_1?location=http://www.amazon.com/Carrie-Underwood/e/B0017PAU8Y/%20&token=3A0F170E7CEFE27BDC730D3D7344512BC1296B83&pf_rd_m=ATVPDKIKX0DER&pf_rd_s=center-4&pf_rd_r=0WX9S8HSE9M2WG1YZJE4&pf_rd_t=101&pf_rd_p=80631142&pf_rd_i=721517011',
             expected_clean_url: 'https://www.amazon.com/-/e/B0017PAU8Y',
   },
+  // Amazon Music
+  {
+                     input_url: 'http://music.amazon.com/artists/B000QKDMIG',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'streamingpaid',
+            expected_clean_url: 'https://music.amazon.com/artists/B000QKDMIG',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'https://music.amazon.co.uk/albums/B07VPBW7S9#',
+             input_entity_type: 'release',
+    expected_relationship_type: 'streamingpaid',
+            expected_clean_url: 'https://music.amazon.co.uk/albums/B07VPBW7S9',
+       only_valid_entity_types: ['release'],
+  },
+  {
+                     input_url: 'https://music.amazon.co.uk/albums/B07VQTD55C?trackAsin=B07VMLW9PK&ref=dm_sh_cf2b-aa2f-dmcp-def3-f0a59&musicTerritory=GB&marketplaceId=A1F83G8C2ARO7P',
+             input_entity_type: 'release',
+    expected_relationship_type: 'streamingpaid',
+            expected_clean_url: 'https://music.amazon.co.uk/albums/B07VQTD55C',
+       only_valid_entity_types: ['release'],
+  },
+  {
+                     input_url: 'http://somefancymusic.amazon.com/artists/B000QKDMIG',
+             input_entity_type: 'artist',
+    expected_relationship_type: undefined,
+       input_relationship_type: 'amazon',
+       only_valid_entity_types: [],
+  },
   // Ameba
   {
                      input_url: 'https://ameblo.jp/murataayumi',

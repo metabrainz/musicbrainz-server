@@ -404,7 +404,7 @@ const CLEANUPS = {
     },
   },
   'amazon': {
-    match: [new RegExp('^(https?://)?([^/]+\\.)?(amazon\\.(com|ca|co\\.uk|fr|at|de|it|co\\.jp|jp|cn|es|in|com\\.br|com\\.mx|com\\.au)|amzn\\.com)', 'i')],
+    match: [new RegExp('^(https?://)?(((?!music)[^/])+\.)?(amazon\\.(com|ca|co\\.uk|fr|at|de|it|co\\.jp|jp|cn|es|in|com\\.br|com\\.mx|com\\.au)|amzn\\.com)', 'i')],
     type: LINK_TYPES.amazon,
     clean: function (url) {
       /*
@@ -445,6 +445,55 @@ const CLEANUPS = {
     },
     validate: function (url) {
       return /^https:\/\/www\.amazon\.(com|ca|co\.uk|fr|at|de|it|co\.jp|jp|cn|es|in|com\.br|com\.mx|com\.au)\//.test(url);
+    },
+  },
+  'amazonmusic': {
+    match: [new RegExp('^(https?://)?music\\.amazon\\.(com|ca|co\\.uk|fr|at|de|it|co\\.jp|jp|cn|es|in|com\\.br|com\\.mx|com\\.au)/(albums|artists)', 'i')],
+    type: LINK_TYPES.streamingpaid,
+    clean: function (url) {
+      /*
+       * determine tld, asin from url, and build standard format [1],
+       * if both were found.
+       *
+       * [1] "https://www.amazon.<tld>/(albums|artists)/<ASIN>"
+       */
+      let tld = '';
+      let type = '';
+      let asin = '';
+      let m;
+
+      if ((m = url.match(/(?:amazon)\.([a-z.]+)\//))) {
+        tld = m[1];
+        if (tld === 'jp') {
+          tld = 'co.jp';
+        }
+        if (tld === 'at') {
+          tld = 'de';
+        }
+      }
+
+      m = url.match(/\/(albums|artists)\/(B[0-9A-Z]{9}|[0-9]{9}[0-9X])(?:[/?&%#]|$)/);
+      type = m[1];
+      asin = m[2];
+
+      if (tld !== '' && asin !== '') {
+        return 'https://music.amazon.' + tld + '/' + type + '/' + asin;
+      }
+
+      return url;
+    },
+    validate: function (url, id) {
+      const m = /^https:\/\/music\.amazon\.(?:com|ca|co\.uk|fr|at|de|it|co\.jp|jp|cn|es|in|com\.br|com\.mx|com\.au)\/(albums|artists)/.exec(url);
+      if (m) {
+        const prefix = m[1];
+        switch (id) {
+          case LINK_TYPES.streamingpaid.artist:
+            return prefix === 'artists';
+          case LINK_TYPES.streamingpaid.release:
+            return prefix === 'albums';
+        }
+      }
+      return false;
     },
   },
   'animationsong': {
