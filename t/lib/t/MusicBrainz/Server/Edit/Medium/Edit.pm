@@ -567,6 +567,12 @@ test 'Tracks can be reordered' => sub {
     $c->model('Track')->load_for_mediums($medium);
     $c->model('ArtistCredit')->load($medium->all_tracks);
 
+    my $track_hashes = tracks_to_hash($medium->tracks);
+
+    # The positions would be changed in a real edit, so we mock that
+    $medium->tracks->[1]->position(1);
+    $medium->tracks->[0]->position(2); 
+
     my $edit = $c->model('Edit')->create(
         editor_id => 1,
         edit_type => $EDIT_MEDIUM_EDIT,
@@ -579,14 +585,13 @@ test 'Tracks can be reordered' => sub {
 
     $edit->accept;
 
-    my $track_hashes = tracks_to_hash($medium->tracks);
-
     cmp_deeply($edit->data, {
         entity_id => $medium->id,
         new => {
             tracklist => [
-                $track_hashes->[1],
-                $track_hashes->[0]
+                # The positions would be changed in a real edit, so we mock that
+                {%{$track_hashes->[1]}, position => 1},
+                {%{$track_hashes->[0]}, position => 2}
             ]
         },
         old => {
