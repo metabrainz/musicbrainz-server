@@ -506,15 +506,16 @@ sub delete {
         for (entities_with('ratings', take => 'model'));
 
     # Cancel any open edits the editor still has
-    my @edits = values %{ $self->c->model('Edit')->get_by_ids(
-        @{ $self->sql->select_single_column_array(
-            'SELECT id FROM edit WHERE editor = ? AND status = ?',
-            $editor_id, $STATUS_OPEN)
-       }
-    ) };
+    # We want to cancel the latest edits first, to make sure
+    # no conflicts happen that make some cancelling fail and all
+    # entities that should be autoremoved do get removed
+    my $ids = $self->sql->select_single_column_array(
+            'SELECT id FROM edit WHERE editor = ? AND status = ? ORDER BY open_time DESC',
+            $editor_id, $STATUS_OPEN);
+    my $edits = $self->c->model('Edit')->get_by_ids(@$ids);
 
-    for my $edit (@edits) {
-        $self->c->model('Edit')->cancel($edit);
+    for my $id (@$ids) {
+        $self->c->model('Edit')->cancel($edits->{$id});
     }
 
     # Delete completely if they're not actually referred to by anything
