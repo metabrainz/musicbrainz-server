@@ -534,14 +534,6 @@ msgstr ""
 msgid "Besides being used for writing, it has also been used in percussion."
 msgstr ""
 
-#. name:ugal 
-#: DB:instrument/description:967
-msgid ""
-"Bronze metallophone with 10 keys suspended over tuned bamboo resonators that "
-"the player hits with a small hammer, often in a theatrical manner. In the "
-"indonesian gamelan it is the leader of the pokok melody."
-msgstr ""
-
 #. name:cajón 
 #: DB:instrument/description:336
 msgid "Cajón, Peruvian box drum"
@@ -666,6 +658,14 @@ msgstr ""
 msgid ""
 "Consisting of two parts joined together by a hinge, it creates a whip-like "
 "sound when clacked together."
+msgstr ""
+
+#. name:gambang 
+#: DB:instrument/description:977
+msgid ""
+"Consists of up to 21 hardwood bars suspended by pins and rope over an oft "
+"ornate wooden trapeze shaped box, the two springy beaters are made of "
+"buffalo horn."
 msgstr ""
 
 #. name:octobass 
@@ -857,6 +857,14 @@ msgid ""
 "plate."
 msgstr ""
 
+#. name:ugal 
+#: DB:instrument/description:967
+msgid ""
+"Even lower pitched than the pemade , it also has 10 bronze keys suspended "
+"over tuned bamboo resonators that the player hits with a small hammer, often "
+"in a theatrical manner. It is the leader of the pokok melody."
+msgstr ""
+
 #. name:spinettone 
 #: DB:instrument/description:799
 msgid ""
@@ -1028,6 +1036,13 @@ msgid ""
 "Having 4 metal strings, it is carved from a single piece of wood into a "
 "particular shape similar to the Sarinda, it has 3 soundholes, two on each "
 "side of the short neck and one under the bridge which is membrane-covered."
+msgstr ""
+
+#. name:kantilan 
+#: DB:instrument/description:975
+msgid ""
+"Highest pitched gangsa, it has 10 brass or bronze keys suspended over short "
+"resonating bamboo pipes set in an heavily ornate case."
 msgstr ""
 
 #. name:gut guitar 
@@ -1269,7 +1284,7 @@ msgstr ""
 msgid ""
 "Located in the Luray Caverns of Virginia USA, it is made of an electric "
 "console wired to mallets striking thirty-seven stalactites producing tones. "
-"This is a singular specific instrument, not an instrument <i>type</i>"
+"This is a singular specific instrument, not an instrument <em>type</em>."
 msgstr ""
 
 #. name:pahū 
@@ -1338,6 +1353,14 @@ msgstr ""
 msgid ""
 "Made of metal with many small notches scraped with a brush or hair pick, it "
 "is used in Merengue típico."
+msgstr ""
+
+#. name:calung 
+#: DB:instrument/description:974
+msgid ""
+"Made of multiple vertical hung bamboo tubes with segments cut out to create "
+"different pitch. They can be played either hanging suspended or on a bamboo "
+"frame like a xylophone."
 msgstr ""
 
 #. name:sasando 
@@ -1800,6 +1823,14 @@ msgid ""
 "Catalonia it's scraped with a castanet. Ginebra is a variant made of cane."
 msgstr ""
 
+#. name:pemade 
+#: DB:instrument/description:976
+msgid ""
+"Second highest pitched gangsa, it is deeper than the kantil but also has 10 "
+"brass or bronze keys suspended over short resonating pipes set in an heavily "
+"ornate case."
+msgstr ""
+
 #. name:reyong 
 #: DB:instrument/description:973
 msgid ""
@@ -1950,11 +1981,11 @@ msgid ""
 "music."
 msgstr ""
 
-#. name:video game console 
+#. name:game console sound chip 
 #: DB:instrument/description:853
 msgid ""
-"Sound chip in various video game consoles used for music, chiefly in bit-"
-"tunes and chip-tunes"
+"Sound chip from various video game consoles, computers and similar, used for "
+"music, chiefly in bitunes and chiptunes"
 msgstr ""
 
 #. name:sitar 

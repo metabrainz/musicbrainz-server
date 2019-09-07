@@ -826,6 +826,11 @@ msgstr ""
 msgid "calliope"
 msgstr ""
 
+#: DB:instrument/name:974
+msgctxt "Sundanese bamboo xylophone"
+msgid "calung"
+msgstr ""
+
 #: DB:instrument/name:128
 msgctxt "belfry tower bell set"
 msgid "carillon"
@@ -1526,6 +1531,16 @@ msgstr ""
 msgid "gadulka"
 msgstr ""
 
+#: DB:instrument/name:977
+msgctxt "Indonesian wood box-resonated xylophone"
+msgid "gambang"
+msgstr ""
+
+#: DB:instrument/name:853
+msgctxt "sound chip from gaming consoles"
+msgid "game console sound chip"
+msgstr ""
+
 #: DB:instrument/name:365
 msgctxt "Indonesian traditional ensemble"
 msgid "gamelan"
@@ -1936,6 +1951,11 @@ msgstr ""
 #: DB:instrument/name:424
 msgctxt "Traditional Finnish plucked psaltery"
 msgid "kantele"
+msgstr ""
+
+#: DB:instrument/name:975
+msgctxt "High pitch gangsa used in Balinese gamelan"
+msgid "kantilan"
 msgstr ""
 
 #: DB:instrument/name:288
@@ -2570,6 +2590,11 @@ msgstr ""
 
 #: DB:instrument/name:388
 msgid "pedal steel guitar"
+msgstr ""
+
+#: DB:instrument/name:976
+msgctxt "Lower pitch gangsa used in Balinese gamelan"
+msgid "pemade"
 msgstr ""
 
 #: DB:instrument/name:99
@@ -3683,7 +3708,7 @@ msgid "udu"
 msgstr ""
 
 #: DB:instrument/name:967
-msgctxt "Indonesian bronze 10 key metallophone"
+msgctxt "Deep pitch gangsa used in Balinese gamelan"
 msgid "ugal"
 msgstr ""
 
@@ -3755,11 +3780,6 @@ msgstr ""
 
 #: DB:instrument/name:612
 msgid "vichitra veena"
-msgstr ""
-
-#: DB:instrument/name:853
-msgctxt "sound chip from gaming consoles"
-msgid "video game console"
 msgstr ""
 
 #: DB:instrument/name:91

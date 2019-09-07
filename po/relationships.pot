@@ -2790,6 +2790,15 @@ msgid ""
 "for videos."
 msgstr ""
 
+#: DB:link_type/description:978 DB:link_type/description:979
+#: DB:link_type/description:980
+msgid ""
+"This relationship type is used to link an artist to a site where music can "
+"be legally streamed for a subscription fee, e.g. Tidal.\n"
+"\n"
+"If the site allows free streaming, use \"free streaming\" instead."
+msgstr ""
+
 #: DB:link_type/description:194
 msgid ""
 "This relationship type is used to link an artist to a site where music can "
@@ -3389,6 +3398,11 @@ msgstr ""
 msgid "can be purchased for mail-order at"
 msgstr ""
 
+#: DB:link_type/long_link_phrase:978 DB:link_type/long_link_phrase:979
+#: DB:link_type/long_link_phrase:980
+msgid "can be streamed at"
+msgstr ""
+
 #: DB:link_attribute_type/name:921
 msgid "cancelled"
 msgstr ""
@@ -3930,6 +3944,10 @@ msgstr ""
 
 #: DB:link_type/reverse_link_phrase:85 DB:link_type/reverse_link_phrase:268
 msgid "free music {video} streaming page for"
+msgstr ""
+
+#: DB:link_type/name:85 DB:link_type/name:268 DB:link_type/name:194
+msgid "free streaming"
 msgstr ""
 
 #: DB:link_type/reverse_link_phrase:752
@@ -5969,8 +5987,18 @@ msgstr ""
 msgid "stream {video} for free"
 msgstr ""
 
-#: DB:link_type/name:85 DB:link_type/name:268 DB:link_type/name:194
-msgid "streaming music"
+#: DB:link_type/name:978 DB:link_type/name:979 DB:link_type/name:980
+msgid "streaming"
+msgstr ""
+
+#: DB:link_type/link_phrase:978 DB:link_type/link_phrase:979
+#: DB:link_type/link_phrase:980
+msgid "streaming page"
+msgstr ""
+
+#: DB:link_type/reverse_link_phrase:978 DB:link_type/reverse_link_phrase:979
+#: DB:link_type/reverse_link_phrase:980
+msgid "streaming page for"
 msgstr ""
 
 #: DB:link_type/link_phrase:847 DB:link_type/reverse_link_phrase:923
