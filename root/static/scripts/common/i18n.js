@@ -23,9 +23,9 @@ export const N_lp = (key: string, context: string) => (
   () => lp(key, context)
 );
 
-export const unwrapNl = (
-  value: React$MixedElement | string | (() => React$MixedElement | string),
-) => (
+export const unwrapNl = <T: React$MixedElement | string>(
+  value: T | (() => T),
+): T => (
   typeof value === 'function' ? value() : value
 );
 

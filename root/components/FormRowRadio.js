@@ -47,7 +47,7 @@ const FormRowRadio = ({
               value={option.value}
             />
             {' '}
-            {unwrapNl(option.label)}
+            {unwrapNl<string | React$MixedElement>(option.label)}
           </label>
           {index < options.length - 1 ? <br /> : null}
         </React.Fragment>
