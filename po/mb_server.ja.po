@@ -25,15 +25,16 @@
 # th1rtyf0ur, 2013
 # th1rtyf0ur, 2013
 # wa2c <email address hidden>, 2018
-# wa2c <email address hidden>, 2018-2019
+# 和田篤 <email address hidden>, 2018-2019
 # yvanz, 2018
+# 和田篤 <email address hidden>, 2019
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-15 11:19+0200\n"
-"PO-Revision-Date: 2019-08-15 09:33+0000\n"
-"Last-Translator: yvanz\n"
+"PO-Revision-Date: 2019-08-24 18:18+0000\n"
+"Last-Translator: 和田篤 <email address hidden>\n"
 "Language-Team: Japanese (http://www.transifex.com/musicbrainz/musicbrainz/language/ja/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -213,7 +214,7 @@ msgstr "（リリース「{release}」のメディア{position}:「{name}」で�
 
 #: ../root/user/collections.tt:29
 msgid "(your collection)"
-msgstr ""
+msgstr "(あなたのコレクション)"
 
 #: ../root/user/profile.tt:124
 msgid "0"
@@ -340,7 +341,7 @@ msgstr "承認済"
 
 #: ../root/user/edits.tt:1
 msgid "Accepted edits by {name}"
-msgstr ""
+msgstr "{name} による編集の同意"
 
 #: ../root/admin/edit_user.tt:27 ../root/admin/edit_user.tt:31
 msgid "Account admin"
@@ -627,7 +628,7 @@ msgstr "トラックには、関連したレコーディングが必要です。
 
 #: ../root/admin/delete_user.tt:11
 msgid "Allow the name “{editor_name}” to be reused."
-msgstr ""
+msgstr "名前 “{editor_name}” の再利用を許可します。"
 
 #: ../root/edit/details/edit_relationship_type.tt:44
 msgid "Allows dates:"
@@ -1052,7 +1053,7 @@ msgstr "自動編集"
 
 #: ../root/user/edits.tt:1
 msgid "Auto-edits by {name}"
-msgstr ""
+msgstr "{name} による自動編集"
 
 #: ../root/entity/ratings.tt:20
 msgid "Average rating:"
@@ -1294,7 +1295,7 @@ msgstr "キャンセル済"
 
 #: ../root/user/edits.tt:1
 msgid "Cancelled edits by {name}"
-msgstr ""
+msgstr "{name} による編集のキャンセル"
 
 #: ../root/edit/details/edit_event.tt:19
 msgid "Cancelled:"
@@ -2307,13 +2308,13 @@ msgstr "アカウント削除手続きについて知りたい場合は、{uri|�
 msgid ""
 "For more information, check the {doc_doc|documentation} and "
 "{doc_styleguide|style guidelines}."
-msgstr "より多くの情報は、 {doc_doc|documentation} および {doc_styleguide|style guidelines} を参照してください。"
+msgstr "より詳細な情報は、 {doc_doc|documentation} および {doc_styleguide|style guidelines} を参照してください。"
 
 #: ../root/event/edit_form.tt:3 ../root/label/edit_form.tt:3
 #: ../root/place/edit_form.tt:3 ../root/search/form.tt:48
 #: ../root/work/edit_form.tt:4 ../root/search/components/SearchForm.js:101
 msgid "For more information, check the {doc_doc|documentation}."
-msgstr "より多くの情報は、 {doc_doc|documentation} を参照してください。"
+msgstr "より詳細な情報は、 {doc_doc|documentation} を参照してください。"
 
 #: ../root/main/403.tt:1 ../root/main/403.tt:3 ../root/main/mirror.tt:1
 #: ../root/main/mirror.tt:3
@@ -2726,7 +2727,7 @@ msgstr "探しているリリースが見つからない場合でも、このCD 
 msgid ""
 "If you don’t select an existing release group, a new one will be created "
 "with the types selected below."
-msgstr ""
+msgstr "存在するリリースグループを選択しなかった場合、以下で指定したタイプで新規に作成します。"
 
 #: ../root/main/403.tt:8
 msgid ""
@@ -2869,7 +2870,7 @@ msgid ""
 "Keep in mind artist credits should generally follow what is printed on "
 "releases. If an artist has changed their name, but old releases were "
 "credited to the existing name, do not change the artist credit."
-msgstr ""
+msgstr "アーティストのクレジットは、一般的にリリースに記載されている内容に従う必要があることに注意してください。アーティストの名前が変更されても、古いリリースが既存の名前でクレジットされている場合、アーティストのクレジットを変更しないでください。"
 
 #: ../root/user/login.tt:31
 msgid "Keep me logged in"
@@ -3180,7 +3181,7 @@ msgstr "手動で入力"
 
 #: ../root/components/common-macros.tt:890
 msgid "Many relationships"
-msgstr ""
+msgstr "多数の関係"
 
 #: ../root/place/map.tt:1 ../root/components/EntityTabs.js:26
 msgid "Map"
@@ -3398,7 +3399,7 @@ msgstr ""
 #: ../root/user/collections.tt:36
 #: ../root/layout/components/sidebar/CollectionLinks.js:35
 msgid "My collections"
-msgstr ""
+msgstr "自分のコレクション"
 
 #: ../root/edit/index.tt:30
 msgid "My vote:"
@@ -4073,7 +4074,7 @@ msgstr ""
 msgid ""
 "Please select the {doc|artist credits} that you want to rename to follow the"
 " new artist name."
-msgstr ""
+msgstr "新しいアーティスト名の変更を反映する {doc|artist credits} を選択して下さい。"
 
 #: ../root/main/503.tt:8
 msgid "Please wait a few minutes and repeat your request."
@@ -5582,7 +5583,7 @@ msgstr ""
 
 #: ../root/artist/index.tt:64 ../root/artist/index.tt:80
 msgid "This artist only has release groups by various artists."
-msgstr ""
+msgstr "このアーティストは、さまざまなアーティストによるリリースグループのみがあります。"
 
 #: ../root/artist/releases.tt:26
 msgid "This artist only has releases by various artists."
@@ -5590,7 +5591,7 @@ msgstr "このアーティストはVarious Artistsのリリースしかありま
 
 #: ../root/artist/index.tt:70 ../root/artist/index.tt:92
 msgid "This artist only has unofficial release groups by various artists."
-msgstr ""
+msgstr "このアーティストは、さまざまなアーティストによる非公式のリリースグループのみがあります。"
 
 #: ../root/artist/index.tt:60
 msgid "This artist only has unofficial release groups."
@@ -5895,7 +5896,7 @@ msgid ""
 "This will enter additional edits to change each specific credit to use the "
 "new name. Only use this if you are sure the existing credits are incorrect "
 "(e.g. for typos)."
-msgstr ""
+msgstr "これにより編集が追加され、特定のクレジットが新しい名前に変更されます。既存のクレジットが間違っていることが確実な場合にのみこれを使用します(タイプミスなど)。"
 
 #: ../root/work/index.tt:4
 msgid ""
@@ -9535,7 +9536,7 @@ msgstr ""
 
 #: ../root/artist/ArtistEvents.js:59
 msgid "This artist is not currently associated with any events."
-msgstr ""
+msgstr "このアーティストは現在、どのイベントにも関連付けられていません。"
 
 #: ../root/artist/ArtistMerge.js:55
 msgid ""
@@ -9639,7 +9640,7 @@ msgstr "コレクションから選択した項目を削除"
 
 #: ../root/collection/CollectionIndex.js:214
 msgid "This collection is empty."
-msgstr ""
+msgstr "コレクションが空です。"
 
 #: ../root/collection/CollectionLayout.js:34
 msgid "Collection “{collection}”"
@@ -9664,7 +9665,7 @@ msgstr "終了日"
 
 #: ../root/components/Aliases/AliasTableRow.js:47
 msgid "primary"
-msgstr ""
+msgstr "プライマリ"
 
 #: ../root/components/Aliases/ArtistCreditList.js:27
 msgid "Artist credits"
@@ -9802,7 +9803,7 @@ msgstr "終了地域"
 
 #: ../root/components/list/EventList.js:90
 msgid "Role"
-msgstr ""
+msgstr "役割"
 
 #: ../root/components/list/EventList.js:91
 #: ../root/report/components/EventList.js:32
@@ -9838,7 +9839,7 @@ msgstr "タイプ未定"
 #: ../root/release_group/ReleaseGroupIndex.js:75
 #: ../root/search/components/ReleaseResults.js:41
 msgid "[missing media]"
-msgstr ""
+msgstr "[missing media]"
 
 #: ../root/components/list/ReleaseList.js:196
 #: ../root/search/components/ReleaseResults.js:44
@@ -9950,7 +9951,7 @@ msgstr "メモを追加"
 
 #: ../root/edit/details/AddEvent.js:96 ../root/event/EventIndex.js:57
 msgid "Setlist"
-msgstr ""
+msgstr "セットリスト"
 
 #: ../root/elections/ElectionDetails.js:28
 msgid "Candidate:"
@@ -10087,7 +10088,7 @@ msgstr "自動編集者選挙"
 
 #: ../root/elections/Index.js:23
 msgid "No elections found."
-msgstr ""
+msgstr "投票が見つかりません。"
 
 #: ../root/elections/Nominate.js:16
 msgid ""
@@ -10415,32 +10416,32 @@ msgstr "このイベントは関係を持たないため、数日のうちに自
 
 #: ../root/genre/CreateGenre.js:18 ../root/genre/CreateGenre.js:20
 msgid "Add a new genre"
-msgstr ""
+msgstr "新しいジャンルを追加"
 
 #: ../root/genre/DeleteGenre.js:28 ../root/genre/DeleteGenre.js:30
 #: ../root/genre/DeleteGenre.js:36
 msgid "Remove genre"
-msgstr ""
+msgstr "ジャンルを削除"
 
 #: ../root/genre/DeleteGenre.js:32
 msgid "Are you sure you want to remove the genre {genre}?"
-msgstr ""
+msgstr "本当にジャンル {genre} を削除しますか？"
 
 #: ../root/genre/EditGenre.js:26
 msgid "Edit genre"
-msgstr ""
+msgstr "ジャンルを編集"
 
 #: ../root/genre/GenreEditForm.js:27
 msgid "Genre details"
-msgstr ""
+msgstr "ジャンル詳細"
 
 #: ../root/genre/GenreHeader.js:28
 msgid "Genre"
-msgstr ""
+msgstr "ジャンル"
 
 #: ../root/genre/GenreIndex.js:17
 msgid "Genre information"
-msgstr ""
+msgstr "ジャンル情報"
 
 #: ../root/genre/GenreIndex.js:18
 msgid "Associated tags"
@@ -10448,12 +10449,12 @@ msgstr ""
 
 #: ../root/genre/GenreIndex.js:21
 msgid "Primary tag"
-msgstr ""
+msgstr "プライマリタグ"
 
 #: ../root/genre/GenreListPage.js:20 ../root/genre/GenreListPage.js:22
 #: ../root/layout/components/BottomMenu.js:290
 msgid "Genre List"
-msgstr ""
+msgstr "ジャンル一覧"
 
 #: ../root/genre/GenreListPage.js:25
 msgid ""
@@ -10474,7 +10475,7 @@ msgstr ""
 
 #: ../root/instrument/InstrumentHeader.js:24
 msgid "instrument"
-msgstr ""
+msgstr "インストゥルメント"
 
 #: ../root/instrument/List.js:45 ../root/instrument/List.js:47
 #: ../root/layout/components/BottomMenu.js:287
@@ -10547,7 +10548,7 @@ msgstr "チーム"
 
 #: ../root/layout/components/BottomMenu.js:107
 msgid "Shop"
-msgstr ""
+msgstr "店"
 
 #: ../root/layout/components/BottomMenu.js:110
 msgid "Contact Us"
@@ -10760,11 +10761,11 @@ msgstr "MusicBrainz: トラック"
 
 #: ../root/layout/components/MetaDescription.js:60
 msgid "Start:"
-msgstr ""
+msgstr "開始:"
 
 #: ../root/layout/components/MetaDescription.js:63
 msgid "End:"
-msgstr ""
+msgstr "終了:"
 
 #: ../root/layout/components/MetaDescription.js:84
 msgid "Label Code:"
@@ -10844,7 +10845,7 @@ msgstr "楽器を追加"
 #: ../root/layout/components/TopMenu.js:108
 msgctxt "button/menu"
 msgid "Add Genre"
-msgstr ""
+msgstr "ジャンルを追加"
 
 #: ../root/layout/components/TopMenu.js:111
 msgid "Edit Relationship Types"
@@ -13561,15 +13562,15 @@ msgstr "関係する二つのエンティティは異なっていなければな
 
 #: ../root/static/scripts/relationship-editor/common/dialog.js:549
 msgid "Change credits for other {entity} relationships on the page."
-msgstr ""
+msgstr "ページ上の他の {entity} 関係クレジットを変更する。"
 
 #: ../root/static/scripts/relationship-editor/common/dialog.js:555
 msgid "Only relationships to {entity_type} entities."
-msgstr ""
+msgstr "{entity_type} エンティティ関係のみ"
 
 #: ../root/static/scripts/relationship-editor/common/dialog.js:562
 msgid "Only “{relationship_type}” relationships to {entity_type} entities."
-msgstr ""
+msgstr "{entity_type} エンティティの “{relationship_type}” 関係のみ。"
 
 #: ../root/static/scripts/relationship-editor/common/fields.js:324
 msgid "This attribute is required."
