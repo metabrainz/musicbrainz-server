@@ -18,6 +18,11 @@ with 't::Context', 't::Mechanize';
 test 'Can perform tag lookups with artist and release titles' => sub {
     my $test = shift;
 
+    # We want to make sure the nag will be shown on the main MB website
+    no warnings qw( redefine );
+    use DBDefs;
+    local *DBDefs::WEB_SERVER = sub { 'musicbrainz.org' };
+
     LWP::UserAgent::Mockable->set_record_pre_callback(sub {
         my $response = HTTP::Response->new;
         $response->code(200);

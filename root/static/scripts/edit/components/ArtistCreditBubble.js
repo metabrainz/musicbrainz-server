@@ -1,7 +1,9 @@
-// This file is part of MusicBrainz, the open internet music database.
-// Copyright (C) 2016 MetaBrainz Foundation
-// Licensed under the GPL version 2, or (at your option) any later version:
-// http://www.gnu.org/licenses/gpl-2.0.txt
+/*
+ * This file is part of MusicBrainz, the open internet music database.
+ * Copyright (C) 2016 MetaBrainz Foundation
+ * Licensed under the GPL version 2, or (at your option) any later version:
+ * http://www.gnu.org/licenses/gpl-2.0.txt
+ */
 
 import $ from 'jquery';
 import {assign} from 'lodash';
@@ -45,15 +47,17 @@ const ArtistCreditBubble = ({
   pasteArtistCredit,
   removeName,
 }) => (
-  <div className="bubble"
-       onKeyDown={event => onBubbleKeyDown(done, hide, event)}
-       style={{display: 'block', position: 'relative'}}>
+  <div
+    className="bubble"
+    onKeyDown={event => onBubbleKeyDown(done, hide, event)}
+    style={{display: 'block', position: 'relative'}}
+  >
     <table className="table-condensed">
       <thead>
         <tr>
           <td colSpan="3" style={{paddingBottom: '1em'}}>
             {exp.l('Use the following fields to enter collaborations. See the {ac|Artist Credit} documentation for more information.',
-             {ac: '/doc/Artist_Credits'})}
+                   {ac: '/doc/Artist_Credits'})}
           </td>
         </tr>
         {clean(reduceArtistCredit(artistCredit)) ? (
@@ -61,14 +65,21 @@ const ArtistCreditBubble = ({
             <td colSpan="4" style={{paddingBottom: '1em'}}>
               {l('Preview:') + ' '}
               {entity.entityType === 'track'
-                ? <DescriptiveLink
-                    entity={assign(Object.create(entity), {artistCredit: artistCredit})}
+                ? (
+                  <DescriptiveLink
+                    entity={assign(
+                      Object.create(entity), {artistCredit: artistCredit},
+                    )}
                     showDeletedArtists={false}
+                    target="_blank"
                   />
-                : <ArtistCreditLink
+                ) : (
+                  <ArtistCreditLink
                     artistCredit={artistCredit}
                     showDeleted={false}
-                  />}
+                    target="_blank"
+                  />
+                )}
             </td>
           </tr>
         ) : null}
@@ -76,7 +87,7 @@ const ArtistCreditBubble = ({
           <th style={{width: '40%'}}>{l('Artist in MusicBrainz:')}</th>
           <th style={{width: '40%'}}>{l('Artist as credited:')}</th>
           <th>{l('Join phrase:')}</th>
-          <th></th>
+          <th />
         </tr>
       </thead>
       <tbody>
@@ -87,12 +98,14 @@ const ArtistCreditBubble = ({
             key={index}
             name={name}
             onChange={update => onNameChange(index, update)}
-            onRemove={artistCredit.names.length > 1 ? (event => removeName(index, event)) : null}
+            onRemove={artistCredit.names.length > 1
+              ? (event => removeName(index, event))
+              : null}
           />
         ))}
         <tr>
-          <td className="align-right" colSpan="4" >
-            <button type="button" className="add-item with-label" onClick={addName}>
+          <td className="align-right" colSpan="4">
+            <button className="add-item with-label" onClick={addName} type="button">
               {l('Add Artist Credit')}
             </button>
           </td>
@@ -110,9 +123,9 @@ const ArtistCreditBubble = ({
       </div>
     ) : null}
     <div className="buttons">
-      <button type="button" style={{float: 'left'}} onClick={copyArtistCredit}>{l('Copy Credits')}</button>
-      <button type="button" style={{float: 'left'}} onClick={pasteArtistCredit}>{l('Paste Credits')}</button>
-      <button type="button" style={{float: 'right'}} className="positive" onClick={done}>{l('Done')}</button>
+      <button onClick={copyArtistCredit} style={{float: 'left'}} type="button">{l('Copy Credits')}</button>
+      <button onClick={pasteArtistCredit} style={{float: 'left'}} type="button">{l('Paste Credits')}</button>
+      <button className="positive" onClick={done} style={{float: 'right'}} type="button">{l('Done')}</button>
       {extraButtons ? extraButtons : null}
     </div>
   </div>

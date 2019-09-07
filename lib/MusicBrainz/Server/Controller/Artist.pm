@@ -214,6 +214,11 @@ sub show : PathPart('') Chained('load')
             $c->model('Recording')->find_standalone($artist->id, shift, shift);
         });
         $c->model('ArtistCredit')->load(@$recordings);
+        $c->model('Recording')->load_meta(@$recordings);
+        $c->model('ISRC')->load_for_recordings(@$recordings);
+        if ($c->user_exists) {
+            $c->model('Recording')->rating->load_user_ratings($c->user->id, @$recordings);
+        }
     }
 
     $c->stash(

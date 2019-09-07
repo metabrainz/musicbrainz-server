@@ -37,6 +37,8 @@ sub show : Chained('load') PathPart('')
     if (defined ($c->stash->{recording}))
     {
         $uri = $c->uri_for_action('/recording/show', [ $c->stash->{recording}->gid ]);
+        # The track link is now a recording link: this should be considered a permanent move
+        $c->response->redirect($uri, 301);
     }
     else
     {
@@ -47,9 +49,10 @@ sub show : Chained('load') PathPart('')
         $uri = $c->uri_for_action('/release/show', [ $release_gid ]);
         $uri->path($uri->path . '/disc/' . $medium->position);
         $uri->fragment($track->gid);
+
+        $c->response->redirect($uri, 303);
     }
 
-    $c->response->redirect($uri, 303);
     $c->detach;
 }
 
