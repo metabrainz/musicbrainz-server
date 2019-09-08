@@ -3,6 +3,7 @@ use Moose;
 BEGIN { extends 'MusicBrainz::Server::ControllerBase::WS::2' };
 
 use aliased 'MusicBrainz::Server::WebService::WebServiceStash';
+use List::AllUtils qw( uniq );
 use MusicBrainz::Server::Validation qw( is_valid_discid );
 use MusicBrainz::Server::Translation qw( l );
 use Readonly;
@@ -98,9 +99,10 @@ sub discid : Chained('root') PathPart('discid') {
         unless (exists $c->req->query_params->{"media-format"} && $c->req->query_params->{'media-format'} eq "all") {
             @mediums = grep { $_->may_have_discids } @mediums;
         }
-        $c->model('Release')->load(@mediums);
 
-        my @releases = map { $_->release } @mediums;
+        my @release_ids = uniq map { $_->release_id } @mediums;
+        my $releases = $c->model('Release')->get_by_ids(@release_ids);
+        my @releases = map { $releases->{$_} } @release_ids;
         $c->controller('WS::2::Release')->release_toplevel($c, $stash, \@releases);
 
         $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
