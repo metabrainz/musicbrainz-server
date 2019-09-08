@@ -5,8 +5,11 @@ use Moose::Role;
 use List::MoreUtils qw( natatime uniq );
 use MusicBrainz::Server::Constants qw( %ENTITIES );
 use MusicBrainz::Server::Validation qw( is_database_row_id );
+use Readonly;
 
 requires '_type';
+
+Readonly our $MAX_CACHE_ENTRIES => 500;
 
 sub _cache_id {
     my ($self) = @_;
@@ -65,6 +68,10 @@ sub _create_cache_entries {
     my $cache_prefix = $self->_type . ':';
     my @entries;
     my @ids = keys %{$data};
+
+    if (scalar(@ids) > $MAX_CACHE_ENTRIES) {
+        @ids = @ids[0..$MAX_CACHE_ENTRIES];
+    }
 
     my $it = natatime 100, @ids;
     while (my @next_ids = $it->()) {
