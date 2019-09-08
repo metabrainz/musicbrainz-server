@@ -2,9 +2,9 @@ package MusicBrainz::Server::Data::Role::EntityCache;
 
 use DBDefs;
 use Moose::Role;
-use List::MoreUtils qw( uniq );
+use List::MoreUtils qw( natatime uniq );
 use MusicBrainz::Server::Constants qw( %ENTITIES );
-use Scalar::Util qw( looks_like_number );
+use MusicBrainz::Server::Validation qw( is_database_row_id );
 
 requires '_type';
 
@@ -64,17 +64,23 @@ sub _create_cache_entries {
     my $cache_id = $self->_cache_id;
     my $cache_prefix = $self->_type . ':';
     my @entries;
-    for my $id (keys %{$data}) {
+    my @ids = keys %{$data};
+
+    my $it = natatime 100, @ids;
+    while (my @next_ids = $it->()) {
         # MBS-7241
-        my $got_lock = $self->c->sql->select_single_value(
-            'SELECT pg_try_advisory_xact_lock(?, ?)',
+        my $locks = $self->c->sql->select_list_of_hashes(
+            'SELECT id, pg_try_advisory_xact_lock(?, id) AS got_lock ' .
+            '  FROM unnest(?::integer[]) AS id',
             $cache_id,
-            $id,
+            \@next_ids,
         );
-        if ($got_lock) {
-            push @entries, [$cache_prefix . $id, $data->{$id}, DBDefs->ENTITY_CACHE_TTL];
-        }
+        push @entries, map {
+            my $id = $_->{id};
+            [$cache_prefix . $id, $data->{$id}, DBDefs->ENTITY_CACHE_TTL]
+        } grep { $_->{got_lock} } @$locks;
     }
+
     @entries;
 }
 
@@ -92,16 +98,18 @@ sub _delete_from_cache {
     return unless @ids;
 
     my $cache_id = $self->_cache_id;
-    my $cache_prefix = $self->_type . ':';
-    my @keys;
 
-    for my $id (@ids) {
-        if (looks_like_number($id)) {
-            # MBS-7241
-            $self->c->sql->do('SELECT pg_advisory_xact_lock(?, ?)', $cache_id, $id);
-        }
-        push @keys, $cache_prefix . $id;
-    }
+    # MBS-7241
+    my @row_ids = grep { is_database_row_id($_) } @ids;
+    $self->c->sql->do(
+        'SELECT pg_advisory_xact_lock(?, id) ' .
+        '  FROM unnest(?::integer[]) AS id',
+        $cache_id,
+        \@row_ids,
+    ) if @row_ids;
+
+    my $cache_prefix = $self->_type . ':';
+    my @keys = map { $cache_prefix . $_ } @ids;
 
     my $cache = $self->c->cache($self->_type);
     my $method = @keys > 1 ? 'delete_multi' : 'delete';
