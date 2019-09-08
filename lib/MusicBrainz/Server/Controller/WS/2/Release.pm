@@ -264,6 +264,9 @@ sub release_browse : Private
 
     my $stash = WebServiceStash->new;
 
+    $self->limit_releases_by_tracks($c, $releases->{items})
+        if $c->stash->{inc}->recordings;
+
     $self->release_toplevel($c, $stash, $releases->{items});
 
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');

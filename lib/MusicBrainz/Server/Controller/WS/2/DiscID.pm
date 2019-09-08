@@ -103,15 +103,19 @@ sub discid : Chained('root') PathPart('discid') {
         my @release_ids = uniq map { $_->release_id } @mediums;
         my $releases = $c->model('Release')->get_by_ids(@release_ids);
         my @releases = map { $releases->{$_} } @release_ids;
-        $c->controller('WS::2::Release')->release_toplevel($c, $stash, \@releases);
+        my $release_list = {
+            items => \@releases,
+            total => scalar @releases,
+        };
+
+        $self->limit_releases_by_tracks($c, $release_list->{items})
+            if $inc->recordings;
+        $c->controller('WS::2::Release')->release_toplevel($c, $stash, $release_list->{items});
 
         $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
         $c->res->body($c->stash->{serializer}->serialize(
             'release_list',
-            {
-                items => \@releases,
-                total => scalar @releases,
-            },
+            $release_list,
             $c->stash->{inc}, $stash
         ));
 
