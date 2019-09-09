@@ -257,12 +257,7 @@ sub serialize_relationships {
 
     my @relationships =
         map { serialize_entity($_, $inc, $stash) }
-        sort_by {
-            join("\t",
-                 $_->link->type->name,
-                 (sprintf "%09d", $_->link_order // 0),
-                 $_->target->id)
-        } $entity->all_relationships;
+        $entity->all_relationships;
 
     $into->{relations} = \@relationships;
     return;
