@@ -79,7 +79,7 @@
                     <td>[% link_collection(collection) %]</td>
                     <td>[% collection.type.l_name %]</td>
                     <td>[% collection.entity_count %]</td>
-                    <td><p>[% collaborator_number(collection, c.user) %]</p></td>
+                    <td>[% collaborator_number(collection, c.user) %]</td>
                     [% IF viewing_own_profile %]
                         <td>[% yesno(collection.subscribed) %]</td>
                         <td>[% collection.public ? l('Public') : l('Private') %]</td>
@@ -121,7 +121,7 @@
                             <td>[% link_collection(collection) %]</td>
                             <td>[% collection.type.l_name %]</td>
                             <td>[% collection.entity_count %]</td>
-                            <td><p>[% collaborator_number(collection, c.user) %]</p></td>
+                            <td>[% collaborator_number(collection, c.user) %]</td>
                             [% IF viewing_own_profile %]
                                 <td>[% yesno(collection.subscribed) %]</td>
                             [% END %]
