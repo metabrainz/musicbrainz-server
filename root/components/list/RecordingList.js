@@ -21,6 +21,8 @@ import formatTrackLength
 import renderMergeCheckboxElement
   from '../../static/scripts/common/utility/renderMergeCheckboxElement';
 import RatingStars from '../RatingStars';
+import RemoveFromMergeTableCell from '../RemoveFromMergeTableCell';
+import RemoveFromMergeTableHeader from '../RemoveFromMergeTableHeader';
 import SortableTableHeader from '../SortableTableHeader';
 
 type Props = {
@@ -95,6 +97,9 @@ const RecordingList = ({
             : l('Length')}
         </th>
         {showInstrumentCredits ? <th>{l('Instrument Credits')}</th> : null}
+        {mergeForm
+          ? <RemoveFromMergeTableHeader toMerge={recordings} />
+          : null}
       </tr>
     </thead>
     <tbody>
@@ -150,6 +155,12 @@ const RecordingList = ({
                 ? commaListText(instrumentCredits[recording.gid])
                 : null}
             </td>
+          ) : null}
+          {mergeForm ? (
+            <RemoveFromMergeTableCell
+              entity={recording}
+              toMerge={recordings}
+            />
           ) : null}
         </tr>
       ))}

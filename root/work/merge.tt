@@ -15,6 +15,7 @@
                     <th>[% l('Type') %]</th>
                     <th>[% l('Language') %]</th>
                     <th>[% l('Attributes') %]</th>
+                    [%- remove_from_merge_header(to_merge) -%]
                 </tr>
             </thead>
             <tbody>
@@ -62,8 +63,8 @@
                     <td>
                       [% work_attributes_list(entity) %]
                     </td>
-                  </tr>
-                </tr>
+                    [%- remove_from_merge('work', to_merge) -%]
+                 </tr>
             [%- END -%]
             </tbody>
         </table>

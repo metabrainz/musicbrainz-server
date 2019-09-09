@@ -12,6 +12,7 @@ import React from 'react';
 import {withCatalystContext} from '../../context';
 import ArtistListEntry
   from '../../static/scripts/common/components/ArtistListEntry';
+import RemoveFromMergeTableHeader from '../RemoveFromMergeTableHeader';
 import SortableTableHeader from '../SortableTableHeader';
 
 type Props = {
@@ -86,12 +87,16 @@ const ArtistList = ({
           </>
         ) : null}
         {showRatings ? <th>{l('Rating')}</th> : null}
+        {mergeForm
+          ? <RemoveFromMergeTableHeader toMerge={artists} />
+          : null}
       </tr>
     </thead>
     <tbody>
       {artists.map((artist, index) => (
         <ArtistListEntry
           artist={artist}
+          artistList={artists}
           checkboxes={checkboxes}
           index={index}
           key={artist.id}

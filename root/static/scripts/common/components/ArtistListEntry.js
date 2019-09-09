@@ -10,6 +10,8 @@
 import * as React from 'react';
 
 import {withCatalystContext} from '../../../../context';
+import RemoveFromMergeTableCell
+  from '../../../../components/RemoveFromMergeTableCell';
 import RatingStars from '../../../../components/RatingStars';
 import loopParity from '../../../../utility/loopParity';
 import formatDate from '../utility/formatDate';
@@ -22,6 +24,7 @@ import DescriptiveLink from './DescriptiveLink';
 type ArtistListRowProps = {
   +$c: CatalystContextT,
   +artist: ArtistT,
+  +artistList?: $ReadOnlyArray<ArtistT>,
   +checkboxes?: string,
   +index: number,
   +mergeForm?: MergeFormT,
@@ -32,6 +35,7 @@ type ArtistListRowProps = {
 
 type ArtistListEntryProps = {
   +artist: ArtistT,
+  +artistList?: $ReadOnlyArray<ArtistT>,
   +checkboxes?: string,
   +index: number,
   +mergeForm?: MergeFormT,
@@ -44,6 +48,7 @@ type ArtistListEntryProps = {
 const ArtistListRow = withCatalystContext(({
   $c,
   artist,
+  artistList,
   checkboxes,
   index,
   mergeForm,
@@ -103,11 +108,18 @@ const ArtistListRow = withCatalystContext(({
         <RatingStars entity={artist} />
       </td>
     ) : null}
+    {mergeForm && artistList ? (
+      <RemoveFromMergeTableCell
+        entity={artist}
+        toMerge={artistList}
+      />
+    ) : null}
   </>
 ));
 
 const ArtistListEntry = ({
   artist,
+  artistList,
   checkboxes,
   index,
   mergeForm,
@@ -119,6 +131,7 @@ const ArtistListEntry = ({
   <tr className={loopParity(index)} data-score={score || null}>
     <ArtistListRow
       artist={artist}
+      artistList={artistList}
       checkboxes={checkboxes}
       index={index}
       mergeForm={mergeForm}
