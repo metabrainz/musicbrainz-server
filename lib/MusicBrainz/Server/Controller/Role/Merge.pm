@@ -126,9 +126,13 @@ role {
             $c->model($merger->type)->get_by_ids($merger->all_entities)
         };
 
-        $c->detach
-            unless $merger->ready_to_merge;
-
+        unless ($merger->ready_to_merge) {
+            $c->response->redirect(
+                $c->req->referer ||
+                    $c->uri_for_action('/'));
+            $c->detach;
+        }
+        
         my $check_form = $c->form(form => 'Merge');
         if ($check_form->submitted_and_valid($c->req->params)) {
             # Ensure that we use the entities that appeared on the page and the right type,
