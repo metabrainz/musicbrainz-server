@@ -118,6 +118,7 @@ EOSQL
     '/discid/aa11.sPglQ1x0cybDcDi0OsZw9Q-?toc=1 9 189343 150 6614 32287 54041 61236 88129 92729 115276 153877&cdstubs=no&inc=tags+genres' =>
         {
             'release-count' => 2,
+            'release-offset' => 0,
             releases => [
                 {
                     id => "9b3d9383-3d2a-417f-bfbb-56f7c15f075b",

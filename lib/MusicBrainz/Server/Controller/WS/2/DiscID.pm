@@ -3,7 +3,6 @@ use Moose;
 BEGIN { extends 'MusicBrainz::Server::ControllerBase::WS::2' };
 
 use aliased 'MusicBrainz::Server::WebService::WebServiceStash';
-use List::AllUtils qw( uniq );
 use MusicBrainz::Server::Validation qw( is_valid_discid );
 use MusicBrainz::Server::Translation qw( l );
 use Readonly;
@@ -17,7 +16,7 @@ my $ws_defs = Data::OptList::mkopt([
                          inc      => [ qw(artists labels recordings release-groups artist-credits                                          tags user-tags genres user-genres
                                           tags user-tags genres user-genres
                                           aliases puids isrcs _relations cdstubs ) ],
-                         optional => [ qw( fmt ) ],
+                         optional => [ qw( fmt limit offset ) ],
      }
 ]);
 
@@ -45,6 +44,9 @@ sub discid : Chained('root') PathPart('discid') {
             if ref($toc);
     }
 
+    my ($limit, $offset) = $self->_limit_and_offset($c);
+    $limit = 25 if $limit > 25;
+
     $c->stash->{inc}->media(1);
     $c->stash->{inc}->discids(1);
 
@@ -57,13 +59,14 @@ sub discid : Chained('root') PathPart('discid') {
 
             my $opts = $stash->store($cdtoc);
 
-            my @releases = $c->model('Release')->find_by_medium(
-                map { $_->medium_id } @mediumcdtocs
+            my ($releases, $hits) = $c->model('Release')->find_by_medium(
+                [map { $_->medium_id } @mediumcdtocs],
+                $limit, $offset
             );
 
-            $opts->{releases} = $self->make_list(\@releases);
+            $opts->{releases} = $self->make_list($releases, $hits, $offset);
 
-            $c->controller('WS::2::Release')->release_toplevel($c, $stash, \@releases);
+            $c->controller('WS::2::Release')->release_toplevel($c, $stash, $releases);
 
             $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
             $c->res->body($c->stash->{serializer}->serialize('disc', $cdtoc, $c->stash->{inc}, $stash));
@@ -86,27 +89,23 @@ sub discid : Chained('root') PathPart('discid') {
     }
 
     if (my $toc = $c->req->query_params->{toc}) {
-        my $results = $c->model('DurationLookup')->lookup($toc, DURATION_LOOKUP_RANGE);
+        my $all_formats = 0;
+        if (exists $c->req->query_params->{"media-format"} &&
+                   $c->req->query_params->{'media-format'} eq "all") {
+            $all_formats = 1;
+        }
+
+        my ($results, $hits) = $c->model('DurationLookup')->lookup(
+            $toc, DURATION_LOOKUP_RANGE, $all_formats, $limit, $offset);
         if (!defined($results)) {
             $self->_error($c, l('Invalid TOC'));
         }
 
         my $inc = $c->stash->{inc};
-
-        $c->model('MediumFormat')->load(map { $_->medium } @$results);
-
-        my @mediums = map { $_->medium } @$results;
-        unless (exists $c->req->query_params->{"media-format"} && $c->req->query_params->{'media-format'} eq "all") {
-            @mediums = grep { $_->may_have_discids } @mediums;
-        }
-
-        my @release_ids = uniq map { $_->release_id } @mediums;
+        my @release_ids = map { $_->{release} } @{$results};
         my $releases = $c->model('Release')->get_by_ids(@release_ids);
         my @releases = map { $releases->{$_} } @release_ids;
-        my $release_list = {
-            items => \@releases,
-            total => scalar @releases,
-        };
+        my $release_list = $self->make_list(\@releases, $hits, $offset);
 
         $self->limit_releases_by_tracks($c, $release_list->{items})
             if $inc->recordings;
@@ -116,7 +115,7 @@ sub discid : Chained('root') PathPart('discid') {
         $c->res->body($c->stash->{serializer}->serialize(
             'release_list',
             $release_list,
-            $c->stash->{inc}, $stash
+            $inc, $stash
         ));
 
         return;
