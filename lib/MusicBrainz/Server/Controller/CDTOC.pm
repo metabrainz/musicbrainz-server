@@ -314,7 +314,13 @@ sub _attach_list {
                 $initial_release ||= $cdstub->title;
 
                 my @mediums = $c->model('Medium')->find_for_cdstub($cdstub);
-                $c->model('ArtistCredit')->load(map { $_->release } @mediums);
+                $c->model('MediumFormat')->load(@mediums);
+                $c->model('Track')->load_for_mediums(@mediums);
+                my @tracks = map { $_->all_tracks } @mediums;
+                $c->model('Recording')->load(@tracks);
+                my @releases = map { $_->release } @mediums;
+                $c->model('Release')->load_related_info(@releases);
+                $c->model('ArtistCredit')->load(@releases);
                 $c->stash(
                     possible_mediums => [ @mediums  ],
                     cdstub => $cdstub

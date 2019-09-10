@@ -1,8 +1,4 @@
-[% MACRO attach_list_row(release, show_artists) BLOCK %]
-  <tr[% ' class="even"' IF zebra % 2 == 0 %]>
-    <td colspan="2">
-      [%~ link_entity(release) ~%]
-    </td>
+[% MACRO release_info(show_artists) BLOCK %]
     [% IF show_artists %]
       <td>[% artist_credit(release.artist_credit) %]</td>
     [% END %]
@@ -15,6 +11,29 @@
     [%- IF c.try_get_session('tport') -%]
       <td>[% tagger_icon(release) %]</td>
     [%- END -%]
+[% END %]
+
+[% MACRO tracklist_toggle BLOCK %]
+  <small>(<a class="toggle" style="cursor:pointer;">[% l('show tracklist') %]</a>)</small>
+[% END %]
+
+[% MACRO tracklist_block BLOCK %]
+  <tr class="tracklist" style="display:none">
+    <td></td>
+    <td colspan="6">
+      <table style="border-collapse: collapse;">
+      [% INCLUDE 'medium/tracklist.tt' tracks=medium.tracks hide_rating = 1%]
+      </table>
+    </td>
+  </tr>
+[% END %]
+
+[% MACRO attach_list_row(release, show_artists) BLOCK %]
+  <tr[% ' class="even"' IF zebra % 2 == 0 %]>
+    <td colspan="2">
+      [%~ link_entity(release) ~%]
+    </td>
+    [% release_info(show_artists) %]
   </tr>
   [%-
     attachable_mediums = [];
@@ -42,21 +61,14 @@
                [% medium.name | html %]
             [% END %]
           </label>
-          <small>(<a class="toggle" style="cursor:pointer;">[% l('show tracklist') %]</a>)</small>
+          [% tracklist_toggle %]
           [% IF this_medium_has_cdtoc %]
             <div class="error">[% l('This CDTOC is already attached to this medium.') %]</div>
           [% END %]
         </td>
         <td colspan="6"></td>
       </tr>
-      <tr class="tracklist" style="display:none">
-        <td></td>
-        <td colspan="6">
-          <table style="border-collapse: collapse;">
-          [% INCLUDE 'medium/tracklist.tt' tracks=medium.tracks hide_rating = 1%]
-          </table>
-        </td>
-      </tr>
+      [% tracklist_block %]
     </tr>
   [% END %]
   [% IF was_mbid_search && !attachable_mediums.size %]
