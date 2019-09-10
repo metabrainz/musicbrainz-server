@@ -131,9 +131,7 @@ sub list_of
     my $list = $opts->{$type};
     my $items = (ref $list eq 'HASH') ? $list->{items} : $list;
 
-    return [
-        map { serialize_entity($_, $inc, $stash, $toplevel) }
-        sort_by { $_->gid } @$items ];
+    return [map { serialize_entity($_, $inc, $stash, $toplevel) } @$items];
 }
 
 sub count_of

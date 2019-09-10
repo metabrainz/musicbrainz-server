@@ -128,7 +128,7 @@ sub _serialize_artist_list
 
     if (my @artists = @{ $list->{items} }) {
         my $artist_list_node = $parent_node->addNewChild(undef, 'artist-list');
-        foreach my $artist (sort_by { $_->gid } @artists) {
+        foreach my $artist (@artists) {
             $self->_serialize_artist($artist_list_node, $artist, $inc, $stash, 1);
         }
         set_list_attributes($artist_list_node, $list);
@@ -275,7 +275,7 @@ sub _serialize_release_group_list
     my $list_node = $parent_node->addNewChild(undef, 'release-group-list');
     set_list_attributes($list_node, $list);
 
-    foreach my $rg (sort_by { $_->gid } @{ $list->{items} })
+    foreach my $rg (@{ $list->{items} })
     {
         $self->_serialize_release_group($list_node, $rg, $inc, $stash, $toplevel);
     }
@@ -365,7 +365,7 @@ sub _serialize_release_list
     my $list_node = $parent_node->addNewChild(undef, 'release-list');
     set_list_attributes($list_node, $list);
 
-    foreach my $release (sort_by { $_->gid } @{ $list->{items} })
+    foreach my $release (@{ $list->{items} })
     {
         $self->_serialize_release($list_node, $release, $inc, $stash, $toplevel);
     }
@@ -499,7 +499,7 @@ sub _serialize_work_list
     my $list_node = $parent_node->addNewChild(undef, 'work-list');
     set_list_attributes($list_node, $list);
 
-    foreach my $work (sort_by { $_->gid } @{ $list->{items} })
+    foreach my $work (@{ $list->{items} })
     {
         $self->_serialize_work($list_node, $work, $inc, $stash, $toplevel);
     }
@@ -578,7 +578,7 @@ sub _serialize_recording_list
     my $list_node = $parent_node->addNewChild(undef, 'recording-list');
     set_list_attributes($list_node, $list);
 
-    foreach my $recording (sort_by { $_->gid } @{ $list->{items} })
+    foreach my $recording (@{ $list->{items} })
     {
         $self->_serialize_recording($list_node, $recording, $inc, $stash, $toplevel);
     }
@@ -819,7 +819,7 @@ sub _serialize_label_list
     my $list_node = $parent_node->addNewChild(undef, 'label-list');
     set_list_attributes($list_node, $list);
 
-    foreach my $label (sort_by { $_->gid } @{ $list->{items} })
+    foreach my $label (@{ $list->{items} })
     {
         $self->_serialize_label($list_node, $label, $inc, $stash, $toplevel);
     }
@@ -888,7 +888,7 @@ sub _serialize_area_list
     my $list_node = $parent_node->addNewChild(undef, 'area-list');
     set_list_attributes($list_node, $list);
 
-    foreach my $area (sort_by { $_->gid } @{ $list->{items} })
+    foreach my $area (@{ $list->{items} })
     {
         $self->_serialize_area($list_node, $area, $inc, $stash, $toplevel);
     }
@@ -970,7 +970,7 @@ sub _serialize_place_list
     my $list_node = $parent_node->addNewChild(undef, 'place-list');
     set_list_attributes($list_node, $list);
 
-    foreach my $place (sort_by { $_->gid } @{ $list->{items} })
+    foreach my $place (@{ $list->{items} })
     {
         $self->_serialize_place($list_node, $place, $inc, $stash, $toplevel);
     }
@@ -1016,7 +1016,7 @@ sub _serialize_instrument_list {
     my $list_node = $parent_node->addNewChild(undef, 'instrument-list');
     set_list_attributes($list_node, $list);
 
-    foreach my $instrument (sort_by { $_->gid } @{ $list->{items} }) {
+    foreach my $instrument (@{ $list->{items} }) {
         $self->_serialize_instrument($list_node, $instrument, $inc, $stash, $toplevel);
     }
 }
@@ -1147,7 +1147,7 @@ sub _serialize_series_list
     my $list_node = $parent_node->addNewChild(undef, 'series-list');
     set_list_attributes($list_node, $list);
 
-    foreach my $series (sort_by { $_->gid } @{ $list->{items} })
+    foreach my $series (@{ $list->{items} })
     {
         $self->_serialize_series($list_node, $series, $inc, $stash, $toplevel);
     }
@@ -1189,7 +1189,7 @@ sub _serialize_event_list
     my $list_node = $parent_node->addNewChild(undef, 'event-list');
     set_list_attributes($list_node, $list);
 
-    foreach my $event (sort_by { $_->gid } @{ $list->{items} })
+    foreach my $event (@{ $list->{items} })
     {
         $self->_serialize_event($list_node, $event, $inc, $stash, $toplevel);
     }

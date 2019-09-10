@@ -103,6 +103,35 @@ ws_test 'label lookup with releases, inc=media',
             <begin>1995</begin>
         </life-span>
         <release-list count="2">
+            <release id="adcf7b48-086e-48ee-b420-1001f88d672f">
+                <title>My Demons</title>
+                <status id="4e304316-386d-3409-af2e-78857eec5cfe">Official</status>
+                <quality>normal</quality>
+                <text-representation>
+                    <language>eng</language>
+                    <script>Latn</script>
+                </text-representation>
+                <date>2007-01-29</date>
+                <country>GB</country>
+                <release-event-list count="1">
+                    <release-event>
+                        <date>2007-01-29</date>
+                        <area id="8a754a16-0027-3a29-b6d7-2b40ea0481ed">
+                            <name>United Kingdom</name>
+                            <sort-name>United Kingdom</sort-name>
+                            <iso-3166-1-code-list>
+                                <iso-3166-1-code>GB</iso-3166-1-code>
+                            </iso-3166-1-code-list>
+                        </area>
+                    </release-event>
+                </release-event-list>
+                <barcode>600116817020</barcode>
+                <medium-list count="1">
+                    <medium>
+                        <position>1</position><format id="9712d52a-4509-3d4b-a1a2-67c88c643e31">CD</format><track-list count="12" />
+                    </medium>
+                </medium-list>
+            </release>
             <release id="3b3d130a-87a8-4a47-b9fb-920f2530d134">
                 <title>Repercussions</title>
                 <status id="4e304316-386d-3409-af2e-78857eec5cfe">Official</status>
@@ -133,35 +162,6 @@ ws_test 'label lookup with releases, inc=media',
                     <medium>
                         <title>Chestplate Singles</title>
                         <position>2</position><format id="9712d52a-4509-3d4b-a1a2-67c88c643e31">CD</format><track-list count="9" />
-                    </medium>
-                </medium-list>
-            </release>
-            <release id="adcf7b48-086e-48ee-b420-1001f88d672f">
-                <title>My Demons</title>
-                <status id="4e304316-386d-3409-af2e-78857eec5cfe">Official</status>
-                <quality>normal</quality>
-                <text-representation>
-                    <language>eng</language>
-                    <script>Latn</script>
-                </text-representation>
-                <date>2007-01-29</date>
-                <country>GB</country>
-                <release-event-list count="1">
-                    <release-event>
-                        <date>2007-01-29</date>
-                        <area id="8a754a16-0027-3a29-b6d7-2b40ea0481ed">
-                            <name>United Kingdom</name>
-                            <sort-name>United Kingdom</sort-name>
-                            <iso-3166-1-code-list>
-                                <iso-3166-1-code>GB</iso-3166-1-code>
-                            </iso-3166-1-code-list>
-                        </area>
-                    </release-event>
-                </release-event-list>
-                <barcode>600116817020</barcode>
-                <medium-list count="1">
-                    <medium>
-                        <position>1</position><format id="9712d52a-4509-3d4b-a1a2-67c88c643e31">CD</format><track-list count="12" />
                     </medium>
                 </medium-list>
             </release>

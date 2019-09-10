@@ -260,8 +260,8 @@ EOSQL
             %$common_release_json,
             collections => [
                 {
-                    id => "5e8dd65f-7d52-4d6e-93f6-f84651e137ca",
-                    name => "My Private Collection",
+                    id => "f34c079d-374e-4436-9448-da92dedef3cd",
+                    name => "My Collection",
                     editor => "editor",
                     type => "Release",
                     "type-id" => "d94659b2-4ce5-3a98-b4b8-da1131cf33ee",
@@ -269,8 +269,8 @@ EOSQL
                     "release-count" => 1
                 },
                 {
-                    id => "f34c079d-374e-4436-9448-da92dedef3cd",
-                    name => "My Collection",
+                    id => "5e8dd65f-7d52-4d6e-93f6-f84651e137ca",
+                    name => "My Private Collection",
                     editor => "editor",
                     type => "Release",
                     "type-id" => "d94659b2-4ce5-3a98-b4b8-da1131cf33ee",
