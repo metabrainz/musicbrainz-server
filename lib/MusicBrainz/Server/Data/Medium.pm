@@ -329,6 +329,7 @@ sub load_related_info {
     $self->c->model('ArtistCredit')->load(@tracks);
 
     my @recordings = $self->c->model('Recording')->load(@tracks);
+    $self->c->model('ArtistCredit')->load(@recordings);
     $self->c->model('Recording')->load_meta(@recordings);
     $self->c->model('Recording')->load_gid_redirects(@recordings);
     $self->c->model('Recording')->rating->load_user_ratings($user_id, @recordings) if $user_id;

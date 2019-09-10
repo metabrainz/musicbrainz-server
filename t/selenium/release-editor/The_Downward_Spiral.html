@@ -508,10 +508,10 @@ A7 The Becoming - nin 5:32</td>
 </tr>
 <tr>
 	<td>assertEval</td>
-	<td>Array.from(document.querySelectorAll('table.medium > tbody > tr')).slice(1).map(x => Array.from(x.querySelectorAll('td')).filter(x => !x.classList.contains('rating')).map(x => x.textContent.trim()).join('\t')).join('\n')</td>
+	<td>Array.from(document.querySelectorAll('table.medium > tbody > tr')).slice(1).map(x => Array.from(x.querySelectorAll('td')).filter(x => !x.classList.contains('rating')).map(x => x.textContent.trim().replace(/\s*(Recording artist:)\s*([^\n]+)/, '\t$1 $2')).join('\t')).join('\n')</td>
 	<td>0	Pregap	Nine Inch Nails	?:??
-A1	Mr Self Destruct	nin	4:31
-A2	Piggy	nin	4:24
+A1	Mr Self Destruct	Recording artist: Nine Inch Nails	nin	4:31
+A2	Piggy	Recording artist: Nine Inch Nails	nin	4:24
 A3	Heresy	nin	3:54
 A4	March of the Pigs	nin	2:58
 A5	Closer	nin	6:13
@@ -1448,14 +1448,14 @@ B4. Eraser (4:54)
 </tr>
 <tr>
 	<td>assertEval</td>
-	<td>Array.from(document.querySelectorAll('table.medium > tbody > tr')).slice(1).map(x => Array.from(x.querySelectorAll('td')).filter(x => !x.classList.contains('rating')).map(x => x.textContent.trim()).join('\t')).join('\n')</td>
+	<td>Array.from(document.querySelectorAll('table.medium > tbody > tr')).slice(1).map(x => Array.from(x.querySelectorAll('td')).filter(x => !x.classList.contains('rating')).map(x => x.textContent.trim().replace(/\s*(Recording artist:)\s*([^\n]+)/, '\t$1 $2')).join('\t')).join('\n')</td>
 	<td>A1	Mr Self Destruct	4:31
 A2	Piggy	4:24
-A3	Heresy	3:54
-A4	March of the Pigs	2:58
-A5	Closer	6:13
-A6	Ruiner	4:59
-A7	The Becoming	5:32
+A3	Heresy	Recording artist: nin	3:54
+A4	March of the Pigs	Recording artist: nin	2:58
+A5	Closer	Recording artist: nin	6:13
+A6	Ruiner	Recording artist: nin	4:59
+A7	The Becoming	Recording artist: nin	5:32
 B1	I Do Not Want This	5:41
 B2	Big Man With a Gun	1:36
 B3	A Warm Place	3:23
@@ -2575,14 +2575,14 @@ Nothing Records</td>
 <!-- Check that the submitted release information is correct. -->
 <tr>
 	<td>assertEval</td>
-	<td>Array.from(document.querySelectorAll('table.medium > tbody > tr')).slice(1).map(x => Array.from(x.querySelectorAll('td')).filter(x => !x.classList.contains('rating')).map(x => x.textContent.trim()).join('\t')).join('\n')</td>
+	<td>Array.from(document.querySelectorAll('table.medium > tbody > tr')).slice(1).map(x => Array.from(x.querySelectorAll('td')).filter(x => !x.classList.contains('rating')).map(x => x.textContent.trim().replace(/\s*(Recording artist:)\s*([^\n]+)/, '\t$1 $2')).join('\t')).join('\n')</td>
 	<td>1	Mr Self Destruct	4:31
 2	Piggy	4:24
-3	Heresy	3:54
-4	March of the Pigs	2:58
-5	Closer	6:13
-6	Ruiner	4:59
-7	The Becoming	5:32
+3	Heresy	Recording artist: nin	3:54
+4	March of the Pigs	Recording artist: nin	2:58
+5	Closer	Recording artist: nin	6:13
+6	Ruiner	Recording artist: nin	4:59
+7	The Becoming	Recording artist: nin	5:32
 8	I Do Not Want This	5:41
 9	Big Man With a Gun	1:36
 10	A Warm Place	3:23
