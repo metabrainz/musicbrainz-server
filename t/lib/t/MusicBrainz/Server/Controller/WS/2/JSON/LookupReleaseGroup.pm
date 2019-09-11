@@ -173,7 +173,7 @@ test 'release group lookup with inc=artists+releases+tags+ratings' => sub {
                     tags => [],
                 }],
             disambiguation => "",
-            rating => { "votes-count" => 0, value => JSON::null },
+            rating => { "votes-count" => 2, value => 5 },
             tags => [],
         };
 };
