@@ -39,8 +39,8 @@ test('expand2', function (t) {
 
   expandHtml(
     'An {apple_fruit}',
-    {apple_fruit: React.createElement('b', null, 'apple')},
-    'An <b>apple</b>',
+    {apple_fruit: React.createElement('strong', null, 'apple')},
+    'An <strong>apple</strong>',
   );
 
   // Shouldn't interpolate React elements with expand2text.
@@ -131,15 +131,15 @@ test('expand2', function (t) {
   );
 
   expandHtml(
-    'A {apple_fruit|<b><strong>{prefix} APPLE!</strong></b>}',
+    'A {apple_fruit|<strong>{prefix} APPLE!</strong>}',
     {apple_fruit: 'http://www.apple.com', prefix: 'dang'},
-    'A <a href="http://www.apple.com"><b><strong>dang APPLE!</strong></b></a>',
+    'A <a href="http://www.apple.com"><strong>dang APPLE!</strong></a>',
   );
 
   expandText('{x:y|}', null, '{x:y|}');
   expandText('{x:y|}', {x: true}, 'y');
   expandText('{x:y|}', {x: false}, '');
-  expandHtml('{x:<b>|</b>|}', {x: true}, '<b>|</b>');
+  expandHtml('{x:<strong>|</strong>|}', {x: true}, '<strong>|</strong>');
 
   expandText('{x:|y}', null, '{x:|y}');
   expandText('{x:|y}', {x: true}, '');

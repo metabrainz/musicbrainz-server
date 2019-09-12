@@ -46,7 +46,7 @@ const condSubstThenTextContent = /^[^<>{}|]+/;
 const percentSign = /(%)/;
 const linkSubstStart = /^\{([0-9A-z_]+)\|/;
 const htmlTagStart = /^<(?=[a-z])/;
-const htmlTagName = /^(a|abbr|b|br|code|em|li|p|span|strong|ul)(?=[\s\/>])/;
+const htmlTagName = /^(a|abbr|br|code|em|li|p|span|strong|ul)(?=[\s\/>])/;
 const htmlTagEnd = /^>/;
 const htmlSelfClosingTagEnd = /^\s*\/>/;
 const htmlAttrStart = /^\s+(?=[a-z])/;
