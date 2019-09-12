@@ -8,7 +8,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2019-06-30 15:24+0000\n"
+"PO-Revision-Date: 2019-08-22 12:06+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -155,6 +155,11 @@ msgstr "Keltische harp"
 #: DB:instrument/name:561
 msgid "Lyricon"
 msgstr "Lyricon"
+
+#: DB:instrument/name:637
+msgctxt "Mark Stevens' bar chime"
+msgid "Mark tree"
+msgstr ""
 
 #: DB:instrument/name:442
 msgid "Marxophone"
@@ -831,8 +836,9 @@ msgid "calliope"
 msgstr "stoomorgel of stoompiano"
 
 #: DB:instrument/name:128
+msgctxt "belfry tower bell set"
 msgid "carillon"
-msgstr "carillon"
+msgstr "Een beiaard, carillon of klokkenspel is een met een klavier bespeelbaar muziekinstrument, bestaande uit één of meerdere series klokken. (<a href=\"http://nl.wikipedia.org/wiki/Beiaard\">Wikipedia</a>)"
 
 #: DB:instrument/name:109
 msgctxt "Pair of concave shells"
@@ -901,10 +907,12 @@ msgid "chikuzen biwa"
 msgstr "chikuzen biwa"
 
 #: DB:instrument/name:638
+msgctxt "Individual percussion plates."
 msgid "chime bar"
 msgstr "klokkenstaaf"
 
 #: DB:instrument/name:338
+msgctxt "Arrangement of hanging struck tuned metal rods."
 msgid "chimes"
 msgstr "klokkenspel"
 
@@ -2267,10 +2275,6 @@ msgstr "marimba"
 msgid "marimba lumina"
 msgstr "marimba lumina"
 
-#: DB:instrument/name:637
-msgid "mark tree"
-msgstr "bellenboom"
-
 #: DB:instrument/name:633
 msgid "marímbula"
 msgstr "marímbula"
@@ -2852,6 +2856,11 @@ msgstr "repinique"
 #: DB:instrument/name:386
 msgid "resonator guitar"
 msgstr "resonatorgitaar"
+
+#: DB:instrument/name:973
+msgctxt "Gong-chime used in Balinese gamelan"
+msgid "reyong"
+msgstr ""
 
 #: DB:instrument/name:369
 msgid "rhythm sticks"
@@ -3628,8 +3637,9 @@ msgid "tubon"
 msgstr "tubon"
 
 #: DB:instrument/name:168
+msgctxt "Orchestral chimes"
 msgid "tubular bells"
-msgstr "buisklokken"
+msgstr "Buisklokken is een instrument uit de slagwerkfamilie, behorend tot de klasse van de idiofonen. (<a href=\"http://nl.wikipedia.org/wiki/Buisklokken\">Wikipedia</a>)"
 
 #: DB:instrument/name:873
 msgctxt "PVC pipe instrument"
@@ -3883,6 +3893,7 @@ msgid "willow flute"
 msgstr "wilgenfluit"
 
 #: DB:instrument/name:497
+msgctxt "Wind played chimes"
 msgid "wind chime"
 msgstr "windgong"
 
@@ -4018,6 +4029,7 @@ msgid "zurna"
 msgstr "zurna"
 
 #: DB:instrument/name:740
+msgctxt "Ceremonial Ottoman jangle-staff"
 msgid "çevgen"
 msgstr "çevgen"
 

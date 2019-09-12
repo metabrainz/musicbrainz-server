@@ -2,6 +2,7 @@
 # Translators:
 # Alex DM <email address hidden>, 2016
 # Andrea Borio <email address hidden>, 2016
+# Carmine Martino <email address hidden>, 2019
 # Davide Bardelli <email address hidden>, 2016
 # Gioele <email address hidden>, 2012
 # theloca95 <email address hidden>, 2015
@@ -13,8 +14,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2019-06-30 05:29+0000\n"
-"Last-Translator: Luca Salini <email address hidden>\n"
+"PO-Revision-Date: 2019-08-27 16:22+0000\n"
+"Last-Translator: Carmine Martino <email address hidden>\n"
 "Language-Team: Italian (http://www.transifex.com/musicbrainz/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -91,7 +92,7 @@ msgstr "BBC Music"
 
 #: DB:link_type/name:190
 msgid "BBC Music page"
-msgstr ""
+msgstr "Pagina BBC Music"
 
 #: DB:link_type/reverse_link_phrase:190
 msgid "BBC Music page for"
@@ -131,15 +132,15 @@ msgstr "Pagina BookBrainz per"
 
 #: DB:link_type/link_phrase:919 DB:link_type/name:919
 msgid "CD Baby"
-msgstr ""
+msgstr "CD Baby"
 
 #: DB:link_type/reverse_link_phrase:919
 msgid "CD Baby page for"
-msgstr ""
+msgstr "CD Baby pagina per"
 
 #: DB:link_type/name:8 DB:link_type/name:227
 msgid "DJ-mix"
-msgstr ""
+msgstr "DJ mix"
 
 #: DB:link_type/link_phrase:8 DB:link_type/link_phrase:227
 msgid "DJ-mix of"
@@ -155,11 +156,11 @@ msgstr "Versioni remixate"
 
 #: DB:link_type/long_link_phrase:43
 msgid "DJ-mixed {medium:% of}"
-msgstr ""
+msgstr "DJ mixata {medium:% of}"
 
 #: DB:link_type/link_phrase:43
 msgid "DJ-mixed {medium}"
-msgstr ""
+msgstr "DJ mixata {medium}"
 
 #: DB:link_type/reverse_link_phrase:155
 msgid "DJ-mixer"
@@ -188,11 +189,11 @@ msgstr "Descrive il fatto che una persona sia stata assunta da un luogo come ing
 msgid ""
 "Describes the fact a person was contracted by a place as a recording "
 "engineer."
-msgstr ""
+msgstr "Descrive il fatto che una persona sia stata assunta da un luogo come ingegnere della registrazione"
 
 #: DB:link_type/description:701
 msgid "Describes the fact a person was contracted by a place as an engineer."
-msgstr ""
+msgstr "Descrive il fatto che una persona sia stata assunta da un luogo come ingegnere"
 
 #: DB:link_type/description:357
 msgid "Designates that a work is or was the anthem for an area"
@@ -544,7 +545,7 @@ msgid ""
 "same concept as the <a href=\"/doc/Label\">record label</a>."
 msgstr "Indica l'editore di questa pubblicazione. <strong>Non</strong> è lo stesso concetto di <a href=\"/doc/Label\">etichetta di registrazione</a>"
 
-#: DB:link_type/description:208 DB:link_type/description:161
+#: DB:link_type/description:161 DB:link_type/description:208
 msgid ""
 "Indicates the publisher of this work. This is <strong>not</strong> the same "
 "concept as the <a href=\"/doc/Label\">record label</a>."
@@ -3122,6 +3123,10 @@ msgstr "ID VIAF"
 msgid "VIAF ID for"
 msgstr "ID VIAF per"
 
+#: DB:link_attribute_type/description:1151
+msgid "Whistling (with mouth, not a whistle)"
+msgstr ""
+
 #: DB:link_type/link_phrase:733 DB:link_type/link_phrase:358
 #: DB:link_type/link_phrase:352 DB:link_type/link_phrase:354
 #: DB:link_type/link_phrase:594 DB:link_type/link_phrase:353
@@ -5603,17 +5608,17 @@ msgstr ""
 
 #: DB:link_type/link_phrase:206 DB:link_type/link_phrase:362
 #: DB:link_type/link_phrase:127 DB:link_type/link_phrase:32
-#: DB:link_type/link_phrase:208 DB:link_type/link_phrase:161
+#: DB:link_type/link_phrase:161 DB:link_type/link_phrase:208
 #: DB:link_type/name:362 DB:link_type/long_link_phrase:206
 #: DB:link_type/long_link_phrase:362 DB:link_type/long_link_phrase:127
-#: DB:link_type/long_link_phrase:32 DB:link_type/long_link_phrase:208
-#: DB:link_type/long_link_phrase:161
+#: DB:link_type/long_link_phrase:32 DB:link_type/long_link_phrase:161
+#: DB:link_type/long_link_phrase:208
 msgid "published"
 msgstr ""
 
 #: DB:link_type/reverse_link_phrase:206 DB:link_type/reverse_link_phrase:362
 #: DB:link_type/reverse_link_phrase:127 DB:link_type/reverse_link_phrase:32
-#: DB:link_type/reverse_link_phrase:208 DB:link_type/reverse_link_phrase:161
+#: DB:link_type/reverse_link_phrase:161 DB:link_type/reverse_link_phrase:208
 msgid "publisher"
 msgstr ""
 
@@ -5623,7 +5628,7 @@ msgid "publishes series"
 msgstr ""
 
 #: DB:link_type/name:206 DB:link_type/name:127 DB:link_type/name:32
-#: DB:link_type/name:208 DB:link_type/name:66 DB:link_type/name:161
+#: DB:link_type/name:66 DB:link_type/name:161 DB:link_type/name:208
 msgid "publishing"
 msgstr ""
 
@@ -6324,6 +6329,10 @@ msgstr ""
 #: DB:link_type/long_link_phrase:36 DB:link_type/long_link_phrase:128
 msgid ""
 "was {additional} {assistant} {associate} {co:co-}recording engineer for"
+msgstr ""
+
+#: DB:link_attribute_type/name:1151
+msgid "whistling"
 msgstr ""
 
 #: DB:link_type/name:351 DB:link_type/name:733 DB:link_type/name:358

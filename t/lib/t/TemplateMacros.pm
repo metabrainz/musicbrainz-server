@@ -211,7 +211,7 @@ test all => sub {
             "allow_new=1; link_entity(entity)",
             "React.createElement(EntityLink, {entity: entity, allowNew: true})",
 
-            '<span class="tooltip" title="This entity will be created when edits are entered.">' .
+            '<span class="tooltip" title="This entity will be created by this edit.">' .
                 '<bdi>[removed]</bdi>' .
             '</span>',
 
@@ -289,7 +289,7 @@ test all => sub {
             "allow_new=1; link_entity(entity)",
             "React.createElement(EntityLink, {entity: entity, allowNew: true})",
 
-            '<span class="tooltip" title="This entity will be created when edits are entered.">' .
+            '<span class="tooltip" title="This entity will be created by this edit.">' .
                 '<bdi>Flying Nun Records</bdi>' .
             '</span>',
 

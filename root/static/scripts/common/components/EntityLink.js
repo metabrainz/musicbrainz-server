@@ -23,7 +23,7 @@ export const DeletedLink = ({
   name,
 }: {|+allowNew: boolean, +name: React.Node|}) => {
   const caption = allowNew
-    ? l('This entity will be created when edits are entered.')
+    ? l('This entity will be created by this edit.')
     : l('This entity has been removed, and cannot be displayed correctly.');
 
   return (
