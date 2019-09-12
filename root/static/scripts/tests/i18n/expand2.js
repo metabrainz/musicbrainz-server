@@ -1,5 +1,6 @@
 import test from 'tape';
 import React from 'react';
+
 import {VarArgs} from '../../common/i18n/expand2';
 import expand2html from '../../common/i18n/expand2html';
 import expand2text from '../../common/i18n/expand2text';
@@ -92,25 +93,25 @@ test('expand2', function (t) {
 
   expandHtml(
     'A {apple_fruit|darn {apple}}',
-    {apple_fruit: 'http://www.apple.com', apple: 'pear'},
+    {apple: 'pear', apple_fruit: 'http://www.apple.com'},
     'A <a href="http://www.apple.com">darn pear</a>',
   );
 
   expandHtml(
     'A {apple_fruit|darn {apple}}',
-    {apple_fruit: 'http://www.apple.com', apple: React.createElement('i', null, 'pear')},
+    {apple: React.createElement('i', null, 'pear'), apple_fruit: 'http://www.apple.com'},
     'A <a href="http://www.apple.com">darn <i>pear</i></a>',
   );
 
   expandHtml(
     'A {apple_fruit|{apple}}',
     {
+      apple: 'pear',
       apple_fruit: {
         className: 'link',
         href: 'http://www.apple.com',
         target: '_blank',
       },
-      apple: 'pear',
     },
     'A <a class="link" href="http://www.apple.com" target="_blank">pear</a>',
   );
@@ -118,8 +119,8 @@ test('expand2', function (t) {
   expandHtml(
     'A {apple_fruit|{apple}}',
     {
-      apple_fruit: 'http://www.apple.com',
       apple: '<pears are="yellow, green & red">',
+      apple_fruit: 'http://www.apple.com',
     },
     'A <a href="http://www.apple.com">&lt;pears are=&quot;yellow, green &amp; red&quot;&gt;</a>',
   );
@@ -149,7 +150,7 @@ test('expand2', function (t) {
   expandText('{x:%|}', {x: ''}, '');
   expandText('{x:%|}', {x: '%'}, '%');
   expandText('{x:%|}', {x: '&percnt;'}, '&percnt;');
-  expandHtml('{x:%|}', {x: <p>hi</p>}, '<p>hi</p>');
+  expandHtml('{x:%|}', {x: <p>{'hi'}</p>}, '<p>hi</p>');
   expandText('{x:a%c|}', {x: 'b'}, 'abc');
   expandText('{x:a&percnt;c|}', {x: 'b'}, 'a&percnt;c');
   expandHtml('{x:a&percnt;c|}', {x: 'b'}, 'a%c');
