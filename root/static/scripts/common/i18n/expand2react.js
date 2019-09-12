@@ -10,13 +10,18 @@
 import he from 'he';
 import * as React from 'react';
 
+import {
+  l as lActual,
+  ln as lnActual,
+  lp as lpActual,
+} from '../i18n';
+
 import expand, {
   accept,
   createCondSubstParser,
   createTextContentParser,
   createVarSubstParser,
   error,
-  getString,
   getVarSubstArg,
   gotMatch,
   NO_MATCH_VALUE,
@@ -30,11 +35,6 @@ import expand, {
   type Parser,
   type VarArgs,
 } from './expand2';
-import {
-  l as lActual,
-  ln as lnActual,
-  lp as lpActual,
-} from '../i18n';
 
 type Input = Expand2ReactInput;
 type Output = Expand2ReactOutput;
