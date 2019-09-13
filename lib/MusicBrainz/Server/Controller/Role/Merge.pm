@@ -86,7 +86,7 @@ role {
         my ($self, $c) = @_;
         delete $c->session->{merger};
         $c->res->redirect(
-            $c->req->query_params->{returnto} || $c->uri_for('/'));
+            $c->req->query_params->{returnto} || $c->req->referer || $c->uri_for('/'));
         $c->detach;
     };
 
