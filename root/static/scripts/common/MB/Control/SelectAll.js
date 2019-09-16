@@ -11,7 +11,7 @@ import $ from 'jquery';
 import MB from '../../MB';
 
 MB.Control.SelectAll = function (table) {
-  var self = {};
+  const self = {};
 
   self.$table = $(table);
   self.$checkboxes = self.$table.find('td input[type="checkbox"]');
@@ -22,7 +22,7 @@ MB.Control.SelectAll = function (table) {
   self.$selector.toggle(self.$checkboxes.length > 0);
 
   self.$selector.change(function () {
-    var $input = $(this);
+    const $input = $(this);
     self.$checkboxes.prop('checked', $input.prop('checked'));
   });
 
