@@ -10,25 +10,33 @@ import $ from 'jquery';
 
 import MB from '../../MB';
 
-MB.Control.RangeSelect = function ($checkboxes) {
+MB.Control.RangeSelect = function (selector, parent) {
   let lastChecked = null;
-  $checkboxes.click(function (event) {
-    const nowChecked = event.currentTarget;
+  $(parent || 'body').on(
+    'click',
+    selector,
+    function (event) {
+      const thisChecked = event.currentTarget;
+      const $checkboxes = $(selector);
 
-    if (event.shiftKey && lastChecked && lastChecked !== nowChecked) {
-      const first = $checkboxes.index(lastChecked);
-      const last = $checkboxes.index(nowChecked);
+      if (event.shiftKey && lastChecked && lastChecked !== thisChecked) {
+        const lastIndex = $checkboxes.index(lastChecked);
+        const thisIndex = $checkboxes.index(thisChecked);
+        const thisIsChecked = $(thisChecked).is(':checked');
 
-      if (first > last) {
-        $checkboxes.slice(last, first + 1)
-          .prop('checked', nowChecked.checked);
-      } else if (last > first) {
-        $checkboxes.slice(first, last + 1)
-          .prop('checked', nowChecked.checked);
+        if (lastIndex > thisIndex) {
+          $checkboxes.slice(thisIndex, lastIndex + 1)
+            .filter(thisIsChecked ? ':not(:checked)' : ':checked')
+            .trigger('click');
+        } else if (thisIndex > lastIndex) {
+          $checkboxes.slice(lastIndex, thisIndex + 1)
+            .filter(thisIsChecked ? ':not(:checked)' : ':checked')
+            .trigger('click');
+        }
       }
-    }
-    lastChecked = nowChecked;
-  });
+      lastChecked = thisChecked;
+    },
+  );
 };
 
 MB.Control.SelectAll = function (table) {
@@ -44,7 +52,7 @@ MB.Control.SelectAll = function (table) {
     $checkboxes.prop('checked', $input.prop('checked'));
   });
 
-  MB.Control.RangeSelect($checkboxes);
+  MB.Control.RangeSelect('td input[type="checkbox"]', $table);
 };
 
 $(function () {

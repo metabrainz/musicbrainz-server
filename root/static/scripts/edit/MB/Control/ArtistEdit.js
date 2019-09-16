@@ -126,9 +126,9 @@ MB.Control.ArtistEdit = function () {
         });
     };
 
-    self.$checkboxes = $('#artist-credit-renamer')
-        .find('span.rename-artist-credit input[type="checkbox"]');
-    MB.Control.RangeSelect(self.$checkboxes);
+    MB.Control.RangeSelect(
+        '#artist-credit-renamer span.rename-artist-credit input[type="checkbox"]',
+    );
 
     MB.Control.initializeGuessCase('artist', 'id-edit-artist');
 
