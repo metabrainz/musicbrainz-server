@@ -220,6 +220,7 @@ ws_test 'recording lookup with release relationships',
         <relation-list target-type="release">
             <relation type-id="967746f9-9d79-456c-9d1e-50116f0b27fc" type="samples material">
                 <target>4ccb3e54-caab-4ad4-94a6-a598e0e52eec</target>
+                <direction>forward</direction>
                 <begin>2008</begin>
                 <release id="4ccb3e54-caab-4ad4-94a6-a598e0e52eec">
                     <title>An Inextricable Tale Audiobook</title>
