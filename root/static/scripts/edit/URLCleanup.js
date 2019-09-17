@@ -306,6 +306,21 @@ function disallow() {
   return false;
 }
 
+function findAmazonTld(url) {
+  let tld = '';
+  let m;
+
+  if ((m = url.match(/(?:amazon|amzn)\.([a-z.]+)\//))) {
+    tld = m[1];
+    if (tld === 'jp') {
+      tld = 'co.jp';
+    }
+    if (tld === 'at') {
+      tld = 'de';
+    }
+  }
+  return tld;
+}
 /*
  * CLEANUPS entries have 2 to 4 of the following properties:
  *
@@ -419,15 +434,7 @@ const CLEANUPS = {
       let asin = '';
       let m;
 
-      if ((m = url.match(/(?:amazon|amzn)\.([a-z.]+)\//))) {
-        tld = m[1];
-        if (tld === 'jp') {
-          tld = 'co.jp';
-        }
-        if (tld === 'at') {
-          tld = 'de';
-        }
-      }
+      tld = findAmazonTld(url);
 
       if ((m = url.match(/\/e\/([A-Z0-9]{10})(?:[/?&%#]|$)/))) { // artist pages
         return 'https://www.amazon.' + tld + '/-/e/' + m[1];
@@ -460,19 +467,10 @@ const CLEANUPS = {
       let tld = '';
       let type = '';
       let asin = '';
-      let m;
 
-      if ((m = url.match(/(?:amazon)\.([a-z.]+)\//))) {
-        tld = m[1];
-        if (tld === 'jp') {
-          tld = 'co.jp';
-        }
-        if (tld === 'at') {
-          tld = 'de';
-        }
-      }
+      tld = findAmazonTld(url);
 
-      m = url.match(/\/(albums|artists)\/(B[0-9A-Z]{9}|[0-9]{9}[0-9X])(?:[/?&%#]|$)/);
+      const m = url.match(/\/(albums|artists)\/(B[0-9A-Z]{9}|[0-9]{9}[0-9X])(?:[/?&%#]|$)/);
       type = m[1];
       asin = m[2];
 
