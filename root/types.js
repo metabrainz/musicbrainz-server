@@ -753,6 +753,8 @@ declare type RelationshipT = {|
   +direction?: 'backward',
   +entity0_credit: string,
   +entity1_credit: string,
+  +entity0_id: number,
+  +entity1_id: number,
   +id: number,
   +linkOrder: number,
   +linkTypeID: number,

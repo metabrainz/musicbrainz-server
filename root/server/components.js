@@ -276,6 +276,7 @@ module.exports = {
   'static/scripts/edit/components/AddIcon': require('../static/scripts/edit/components/AddIcon'),
   'static/scripts/edit/components/GuessCaseIcon': require('../static/scripts/edit/components/GuessCaseIcon'),
   'static/scripts/edit/components/InformationIcon': require('../static/scripts/edit/components/InformationIcon'),
+  'static/scripts/edit/components/edit/RelationshipDiff': require('../static/scripts/edit/components/edit/RelationshipDiff'),
   'url/UrlHeader': require('../url/UrlHeader'),
   'work/WorkHeader': require('../work/WorkHeader'),
 };

@@ -26,12 +26,12 @@ const emptyResult = Object.freeze(['', '']);
 const entity0Subst = /\{entity0\}/;
 const entity1Subst = /\{entity1\}/;
 
-type CachedResult<T> = {|
+export type CachedLinkPhraseData<T> = {|
   attributeValues: ?{+[string]: Array<T> | T},
   phraseAndExtraAttributes: {[string]: [T, T]},
 |};
 
-type RelationshipInfoT = {
+export type RelationshipInfoT = {
   +attributes?: $ReadOnlyArray<LinkAttrT>,
   +linkTypeID: number,
 };
@@ -43,9 +43,9 @@ type LinkPhraseProp =
   ;
 
 function _getResultCache<T>(
-  resultCache: WeakMap<RelationshipInfoT, CachedResult<T>>,
+  resultCache: WeakMap<RelationshipInfoT, CachedLinkPhraseData<T>>,
   relationship: RelationshipInfoT,
-): CachedResult<T> {
+): CachedLinkPhraseData<T> {
   let result = resultCache.get(relationship);
   if (!result) {
     result = {
@@ -90,24 +90,24 @@ class PhraseVarArgs<T> extends VarArgs<AttrValue<T>> {
   }
 }
 
-type I18n<T> = {
-  cache: WeakMap<RelationshipInfoT, CachedResult<T>>,
+export type LinkPhraseI18n<T> = {
+  cache: WeakMap<RelationshipInfoT, CachedLinkPhraseData<T>>,
   commaList: ($ReadOnlyArray<T>) => T,
   commaOnlyList: ($ReadOnlyArray<T>) => T,
   expand: (string, PhraseVarArgs<T>) => T,
   displayLinkAttribute: (LinkAttrT) => T,
 };
 
-const reactI18n: I18n<Expand2ReactOutput> = {
-  cache: new WeakMap<RelationshipInfoT, CachedResult<Expand2ReactOutput>>(),
+const reactI18n: LinkPhraseI18n<Expand2ReactOutput> = {
+  cache: new WeakMap<RelationshipInfoT, CachedLinkPhraseData<Expand2ReactOutput>>(),
   commaList,
   commaOnlyList,
   expand: expand2react,
   displayLinkAttribute,
 };
 
-const textI18n: I18n<string> = {
-  cache: new WeakMap<RelationshipInfoT, CachedResult<string>>(),
+const textI18n: LinkPhraseI18n<string> = {
+  cache: new WeakMap<RelationshipInfoT, CachedLinkPhraseData<string>>(),
   commaList: commaListText,
   commaOnlyList: commaOnlyListText,
   expand: expand2text,
@@ -115,11 +115,11 @@ const textI18n: I18n<string> = {
 };
 
 function _setAttributeValues<T>(
-  i18n: I18n<T | string>,
+  i18n: LinkPhraseI18n<T | string>,
   relationship: RelationshipInfoT,
   entity0: ?T,
   entity1: ?T,
-  cache: CachedResult<T>,
+  cache: CachedLinkPhraseData<T>,
 ) {
   const attributes = relationship.attributes;
   const values = entity0 && entity1 ? {entity0, entity1} : {};
@@ -171,8 +171,8 @@ function _getRequiredAttributes(linkType: LinkTypeT) {
   return (requiredAttributesCache[linkType.id] = required || EMPTY_OBJECT);
 }
 
-function _getPhraseAndExtraAttributes<T>(
-  i18n: I18n<T | string>,
+export function getPhraseAndExtraAttributes<T>(
+  i18n: LinkPhraseI18n<T | string>,
   relationship: RelationshipInfoT,
   phraseProp: LinkPhraseProp,
   forGrouping?: boolean = false,
@@ -276,7 +276,7 @@ export const getPhraseAndExtraAttributesText = (
   relationship: RelationshipInfoT,
   phraseProp: LinkPhraseProp,
   forGrouping?: boolean = false,
-) => _getPhraseAndExtraAttributes<string, StrOrNum>(
+) => getPhraseAndExtraAttributes<string, StrOrNum>(
   textI18n,
   relationship,
   phraseProp,
@@ -289,7 +289,7 @@ export const interpolate = (
   forGrouping?: boolean = false,
   entity0?: React$MixedElement,
   entity1?: React$MixedElement,
-) => _getPhraseAndExtraAttributes<Expand2ReactOutput, Expand2ReactInput>(
+) => getPhraseAndExtraAttributes<Expand2ReactOutput, Expand2ReactInput>(
   reactI18n,
   relationship,
   phraseProp,
@@ -312,7 +312,7 @@ export const getExtraAttributes = (
   relationship: RelationshipInfoT,
   phraseProp: LinkPhraseProp,
   forGrouping?: boolean = false,
-) => _getPhraseAndExtraAttributes<Expand2ReactOutput, Expand2ReactInput>(
+) => getPhraseAndExtraAttributes<Expand2ReactOutput, Expand2ReactInput>(
   reactI18n,
   relationship,
   phraseProp,
