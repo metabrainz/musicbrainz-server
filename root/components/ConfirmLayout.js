@@ -24,17 +24,19 @@ const ConfirmLayout = ({action, question, title}: Props) => (
     <form action={action} method="post">
       <span className="buttons">
         <button
+          name="confirm.submit"
+          type="submit"
+          value="1"
+        >
+          {l('Yes, I am sure')}
+        </button>
+        <button
           className="negative"
           name="confirm.cancel"
           type="submit"
           value="1"
-        >{l('Cancel')}
-        </button>
-        <button
-          name="confirm.submit"
-          type="submit"
-          value="1"
-        >{l('Yes, I am sure')}
+        >
+          {l('Cancel')}
         </button>
       </span>
     </form>
