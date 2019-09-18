@@ -382,6 +382,7 @@ class Medium {
         this.needsRecordings = this.tracks.any("needsRecording");
         this.hasTrackInfo = this.tracks.all("hasNameAndArtist");
         this.hasVariousArtistTracks = this.tracks.any("hasVariousArtists");
+        this.confirmedVariousArtists = ko.observable(this.hasVariousArtistTracks());
         this.needsTrackInfo = ko.computed(function () { return !self.hasTrackInfo() });
 
         if (data.id != null) {
@@ -423,6 +424,16 @@ class Medium {
 
         this.needsFormat = ko.computed(function () {
             return !(self.formatID() || self.formatUnknownToUser());
+        });
+
+        this.hasUnconfirmedVariousArtists = ko.computed(function() {
+            return (self.hasVariousArtistTracks() && !self.confirmedVariousArtists());
+        });
+
+        this.hasVariousArtistTracks.subscribe(function (value) {
+            if (!value) {
+                self.confirmedVariousArtists(false);
+            }
         });
 
         this.formatID.subscribe(function (value) {
@@ -576,6 +587,7 @@ class Medium {
         this.loaded(true);
         this.loading(false);
         this.collapsed(false);
+        this.confirmedVariousArtists(this.hasVariousArtistTracks());
     }
 
     hasTracks() { return this.tracks().length > 0 }
@@ -887,6 +899,7 @@ class Release extends MB_entity.Release {
         this.hasUnknownTracklist = ko.observable(!this.mediums().length && releaseEditor.action === "edit");
         this.needsRecordings = errorField(this.mediums.any("needsRecordings"));
         this.hasInvalidFormats = errorField(this.mediums.any("hasInvalidFormat"));
+        this.hasUnconfirmedVariousArtists = errorField(this.mediums.any("hasUnconfirmedVariousArtists"));
         this.needsMediums = errorField(function () { return !(self.mediums().length || self.hasUnknownTracklist()) });
         this.needsFormat = errorField(this.mediums.any("needsFormat"));
         this.needsTracks = errorField(this.mediums.any("needsTracks"));
