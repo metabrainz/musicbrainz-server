@@ -190,6 +190,8 @@ sub build_display_data
     return $display;
 }
 
+sub edit_template_react { "EditWork" }
+
 around allow_auto_edit => sub {
     my ($orig, $self, @args) = @_;
 

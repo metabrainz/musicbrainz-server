@@ -97,7 +97,8 @@ with 'MusicBrainz::Server::Controller::Role::Edit' => {
                 to_edit => $work,
             }
         );
-    }
+    },
+    dialog_template_react => 'work/Edit.js'
 };
 
 with 'MusicBrainz::Server::Controller::Role::Merge' => {
@@ -163,7 +164,7 @@ with 'MusicBrainz::Server::Controller::Role::Create' => {
             post_creation => $self->create_with_identifiers($c)
         );
     },
-    dialog_template => 'work/edit_form.tt',
+    dialog_template_react => 'work/Create.js',
 };
 
 after create => sub {

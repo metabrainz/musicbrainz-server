@@ -83,6 +83,8 @@ sub build_display_data
     return $display;
 }
 
+sub edit_template_react { "AddWork" }
+
 after insert => sub {
     my $self = shift;
     if (my $attributes = $self->data->{attributes}) {
