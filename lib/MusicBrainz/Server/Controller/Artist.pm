@@ -45,7 +45,10 @@ with 'MusicBrainz::Server::Controller::Role::Collection' => {
 
 use Data::Page;
 use HTTP::Status qw( :constants );
-use MusicBrainz::Server::Data::Utils qw( is_special_artist );
+use MusicBrainz::Server::Data::Utils qw(
+    boolean_to_json
+    is_special_artist
+);
 use MusicBrainz::Server::Constants qw(
     $DARTIST_ID
     $EDITOR_MODBOT
@@ -174,13 +177,12 @@ sub show : PathPart('') Chained('load')
     my %filter = %{ $self->process_filter($c, sub {
         return create_artist_release_groups_form($c, $artist->id);
     }) };
+    my $has_filter = %filter ? 1 : 0;
 
-    if (%filter) {
-        $c->stash( has_filter => 1 );
-    }
-
-    my $show_va = $c->req->query_params->{va};
-    my $show_all = $c->req->query_params->{all};
+    my $want_va_only = $c->req->query_params->{va};
+    my $want_all_statuses = $c->req->query_params->{all};
+    my $including_all_statuses;
+    my $showing_va_only;
 
     my $make_attempt = sub {
         my ($all, $va) = @_;
@@ -192,7 +194,11 @@ sub show : PathPart('') Chained('load')
 
     # Attempt from official non-va, to all non-va, to official va, to all va;
     # filter out any attempt that contradicts a preference from a query param
-    my @attempts = grep { ($_->[0] || !$show_all) && ($_->[1] || !$show_va) } ([0,0], [1,0], [0,1], [1,1]);
+    my @attempts = grep {
+        ($_->[0] || !$want_all_statuses) &&
+        ($_->[1] || !$want_va_only)
+    } ([0,0], [1,0], [0,1], [1,1]);
+
     for my $attempt (@attempts) {
         my $all = $attempt->[0];
         my $va = $attempt->[1];
@@ -200,16 +206,14 @@ sub show : PathPart('') Chained('load')
         # If filtering, only make one attempt
         # otherwise, attempt until we find RGs or exhaust the possibilities
         if (scalar @$release_groups || %filter) {
-            $c->stash(
-                including_all => $all,
-                including_va => $va
-            );
+            $including_all_statuses = $all;
+            $showing_va_only = $va;
             last;
         }
     }
 
     # If there is no expressed preference (va, filter) and no RGs, find recordings
-    if (!$show_va && !%filter && scalar @$release_groups == 0) {
+    if (!$showing_va_only && !%filter && scalar @$release_groups == 0) {
         $recordings = $self->_load_paged($c, sub {
             $c->model('Recording')->find_standalone($artist->id, shift, shift);
         });
@@ -221,12 +225,6 @@ sub show : PathPart('') Chained('load')
         }
     }
 
-    $c->stash(
-        show_va => $show_va,
-        show_all => $show_all,
-        template => 'artist/index.tt'
-    );
-
     if ($c->user_exists) {
         $c->model('ReleaseGroup')->rating->load_user_ratings($c->user->id, @$release_groups);
     }
@@ -237,15 +235,13 @@ sub show : PathPart('') Chained('load')
     $c->stash(
         recordings => $recordings,
         recordings_jsonld => {items => $recordings},
-        release_groups => $release_groups,
         release_groups_jsonld => {items => $release_groups},
-        show_artists => scalar grep {
-            $_->artist_credit->name ne $artist->name
-        } @$release_groups,
     );
 
     my $coll = $c->get_collator();
     my @identities;
+    my $legal_name_artist_aliases;
+    my $legal_name_aliases;
     my ($legal_name) = map { $_->target }
                        grep { $_->direction == $MusicBrainz::Server::Entity::Relationship::DIRECTION_BACKWARD }
                        grep { $_->link->type->gid eq 'dd9886f2-1dfe-4270-97db-283f6839a666' } @{ $artist->relationships };
@@ -262,6 +258,7 @@ sub show : PathPart('') Chained('load')
                       grep { !($_->ended) }
                       grep { ($_->type_name // "") eq 'Legal name' } @$aliases;
         $c->stash( legal_name_artist_aliases => \@aliases );
+        $legal_name_artist_aliases = \@aliases;
         push(@identities, $legal_name);
     } else {
         my $aliases = $c->model('Artist')->alias->find_by_entity_id($artist->id);
@@ -272,17 +269,41 @@ sub show : PathPart('') Chained('load')
                       grep { !($_->ended) }
                       grep { ($_->type_name // "") eq 'Legal name' } @$aliases;
         $c->stash( legal_name_aliases => \@aliases );
+        $legal_name_aliases = \@aliases;
     }
-    $legal_name //= $artist;
     my @other_identities = sort_by { $coll->getSortKey($_->name) }
                            grep { $_->id != $artist->id }
                            uniq
                            map { $_->target }
                            grep { $_->direction == $MusicBrainz::Server::Entity::Relationship::DIRECTION_FORWARD }
-                           grep { $_->link->type->gid eq 'dd9886f2-1dfe-4270-97db-283f6839a666' } @{ $legal_name->relationships };
+                           grep { $_->link->type->gid eq 'dd9886f2-1dfe-4270-97db-283f6839a666' }
+                           @{ ($legal_name // $artist)->relationships };
     push(@identities, @other_identities);
     $c->stash(other_identities => \@other_identities,
               identities => \@identities);
+
+    $c->stash(
+        current_view => 'Node',
+        component_path => 'artist/ArtistIndex',
+        component_props => {
+            ajaxFilterFormUrl => $c->uri_for_action('/ajax/filter_artist_release_groups_form', { artist_id => $artist->id }),
+            artist => $artist,
+            filterForm => $c->stash->{filter_form},
+            hasFilter => boolean_to_json($has_filter),
+            includingAllStatuses => $including_all_statuses,
+            legalName => $legal_name,
+            legalNameAliases => $legal_name_aliases,
+            legalNameArtistAliases => $legal_name_artist_aliases,
+            numberOfRevisions => $c->stash->{number_of_revisions},
+            otherIdentities => \@other_identities,
+            recordings => $recordings,
+            releaseGroups => $release_groups,
+            showingVariousArtistsOnly => $showing_va_only,
+            wantAllStatuses => boolean_to_json($want_all_statuses),
+            wantVariousArtistsOnly => boolean_to_json($want_va_only),
+            wikipediaExtract => $c->stash->{wikipedia_extract},
+        },
+    );
 }
 
 sub relationships : Chained('load') PathPart('relationships') {
@@ -335,6 +356,8 @@ sub recordings : Chained('load')
 
     my $artist = $c->stash->{artist};
     my $recordings;
+    my $standalone_only;
+    my $video_only;
 
     my %filter = %{ $self->process_filter($c, sub {
         return create_artist_recordings_form($c, $artist->id);
@@ -344,13 +367,13 @@ sub recordings : Chained('load')
         $recordings = $self->_load_paged($c, sub {
             $c->model('Recording')->find_standalone($artist->id, shift, shift);
         });
-        $c->stash( standalone_only => 1 );
+        $standalone_only = 1;
     }
     elsif ($c->req->query_params->{video}) {
         $recordings = $self->_load_paged($c, sub {
             $c->model('Recording')->find_video($artist->id, shift, shift);
         });
-        $c->stash( video_only => 1 );
+        $video_only = 1;
     }
     else {
         $recordings = $self->_load_paged($c, sub {
@@ -364,17 +387,23 @@ sub recordings : Chained('load')
         $c->model('Recording')->rating->load_user_ratings($c->user->id, @$recordings);
     }
 
-    $c->stash( template => 'artist/recordings.tt' );
-
     $c->model('ISRC')->load_for_recordings(@$recordings);
     $c->model('ArtistCredit')->load(@$recordings);
 
     $c->stash(
         recordings => $recordings,
         recordings_jsonld => {items => $recordings},
-        show_artists => scalar(grep {
-            $_->artist_credit->name ne $artist->name
-        } @$recordings),
+        current_view => 'Node',
+        component_path => 'artist/ArtistRecordings',
+        component_props => {
+            ajaxFilterFormUrl => $c->uri_for_action('/ajax/filter_artist_recordings_form', { artist_id => $artist->id }),
+            artist => $artist,
+            filterForm => $c->stash->{filter_form},
+            pager => serialize_pager($c->stash->{pager}),
+            recordings => $recordings,
+            standaloneOnly => boolean_to_json($standalone_only),
+            videoOnly => boolean_to_json($video_only),
+        },
     );
 }
 
@@ -419,16 +448,16 @@ sub releases : Chained('load')
 
     my $artist = $c->stash->{artist};
     my $releases;
+    my $showing_va_only;
 
     my %filter = %{ $self->process_filter($c, sub {
         return create_artist_releases_form($c, $artist->id);
     }) };
 
     my $method = 'find_by_artist';
-    my $show_va = $c->req->query_params->{va};
-    if ($show_va) {
+    my $want_va_only = $c->req->query_params->{va} ? 1 : 0;
+    if ($want_va_only) {
         $method = 'find_by_track_artist';
-        $c->stash( show_va => 1 );
     }
 
     $releases = $self->_load_paged($c, sub {
@@ -436,25 +465,28 @@ sub releases : Chained('load')
         });
 
     my $pager = $c->stash->{pager};
-    if (!$show_va && $pager->total_entries == 0) {
+    if (!$want_va_only && $pager->total_entries == 0) {
         $releases = $self->_load_paged($c, sub {
                 $c->model('Release')->find_by_track_artist($c->stash->{artist}->id, shift, shift, filter => \%filter);
             });
-        $c->stash(
-            va_only => 1,
-            show_va => 1
-        );
+        $want_va_only = 1;
+        $showing_va_only = 1;
     }
-
-    $c->stash( template => 'artist/releases.tt' );
 
     $c->model('ArtistCredit')->load(@$releases);
     $c->model('Release')->load_related_info(@$releases);
     $c->stash(
-        releases => $releases,
-        show_artists => scalar grep {
-            $_->artist_credit->name ne $artist->name
-        } @$releases,
+        current_view => 'Node',
+        component_path => 'artist/ArtistReleases',
+        component_props => {
+            ajaxFilterFormUrl => $c->uri_for_action('/ajax/filter_artist_releases_form', { artist_id => $artist->id }),
+            artist => $artist,
+            filterForm => $c->stash->{filter_form},
+            pager => serialize_pager($pager),
+            releases => $releases,
+            showingVariousArtistsOnly => boolean_to_json($showing_va_only),
+            wantVariousArtistsOnly => boolean_to_json($want_va_only),
+        },
     );
 }
 
