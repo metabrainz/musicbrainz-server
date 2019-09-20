@@ -45,8 +45,6 @@
 
   </form>
 
-   [%# INCLUDE 'release_group/edit_form.tt' %]
-
 [%- ELSE -%]
   <p>
     [%- l('No releases have cover art marked as "Front", cannot set cover art.') -%]
