@@ -17,10 +17,8 @@
           <div class="cover-image">[%- display_artwork(image) -%]</div>
           <p>
             [%- descriptive_link(image.release) -%]<br />
-            [%- image.release.date.format -%]
-            [%- IF image.release.country -%]
-              ([%- link_searchable_property('country', image.release.country.iso_code, 'release', image.release.country.iso_code) -%])
-            [%- END -%]<br />
+            [% release_dates(image.release.events) %]
+            [% release_countries(image.release.events) %]<br />
             <span style="display: inline-block">[%- html_escape(image.release.combined_format_name) -%],</span>
             <span style="display: inline-block">[%- l('Tracks:') %] [% image.release.combined_track_count -%]</span><br />
             <span style="display: inline-block">[% release_label_list(image.release.labels) -%]
