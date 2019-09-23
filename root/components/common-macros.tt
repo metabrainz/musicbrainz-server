@@ -854,9 +854,8 @@ END -%]
     END -%]
 
 [%~ MACRO country_abbr(country) BLOCK # Converted to React at root/components/CountryAbbr.js -%]
-    <span class="flag flag-[% country.primary_code %]">
+    <span class="flag flag-[% country.primary_code %]"></span>
     <abbr title="[% html_escape(country.l_name) %]">[% country.primary_code %]</abbr>
-    </span>
 [%- END -%]
 
 [%~ MACRO set_header BLOCK -%]
