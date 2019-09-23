@@ -165,18 +165,27 @@ sub _build_relationship {
     my $entity1_id = gid_or_id($entity1) // 0;
 
     return Relationship->new(
+        id => $data->{relationship_id},
         link => Link->new(
-            type       => $loaded->{LinkType}{ $lt->{id} } || LinkType->new( $lt ),
+            type       => $loaded->{LinkType}{ $lt->{id} } ||
+                              LinkType->new(
+                                  %{$lt},
+                                  entity0_type => $data->{type0},
+                                  entity1_type => $data->{type1},
+                              ),
+            type_id    => $lt->{id},
             begin_date => PartialDate->new_from_row( $begin ),
             end_date   => PartialDate->new_from_row( $end ),
             ended      => $ended,
             attributes => [
                 map {
-                    my $attr = $loaded->{LinkAttributeType}{ $_->{type}{id} };
+                    my $type_id = $_->{type}{id};
+                    my $attr = $loaded->{LinkAttributeType}{$type_id};
 
                     if ($attr) {
                         MusicBrainz::Server::Entity::LinkAttribute->new(
                             type => $attr,
+                            type_id => $type_id,
                             credited_as => $_->{credited_as},
                             text_value => $_->{text_value},
                         );
@@ -188,11 +197,19 @@ sub _build_relationship {
             ],
         ),
         entity0 => $loaded->{$model0}{ $entity0_id } ||
-            $self->c->model($model0)->_entity_class->new( name => $entity0->{name} ),
+            $self->c->model($model0)->_entity_class->new(
+                defined $entity0->{id} ? (id => $entity0->{id}) : (),
+                name => $entity0->{name},
+            ),
         entity1 => $loaded->{$model1}{ $entity1_id } ||
-            $self->c->model($model1)->_entity_class->new( name => $entity1->{name} ),
+            $self->c->model($model1)->_entity_class->new(
+                defined $entity1->{id} ? (id => $entity1->{id}) : (),
+                name => $entity1->{name},
+            ),
         entity0_credit => $change->{entity0_credit} // '',
         entity1_credit => $change->{entity1_credit} // '',
+        defined $entity0->{id} ? (entity0_id => $entity0->{id}) : (),
+        defined $entity1->{id} ? (entity1_id => $entity1->{id}) : (),
     );
 }
 

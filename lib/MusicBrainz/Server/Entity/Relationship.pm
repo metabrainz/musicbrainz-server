@@ -348,6 +348,8 @@ around TO_JSON => sub {
         ended           => boolean_to_json($link->ended),
         entity0_credit  => $self->entity0_credit,
         entity1_credit  => $self->entity1_credit,
+        entity0_id      => $self->entity0_id,
+        entity1_id      => $self->entity1_id,
         id              => $self->id + 0,
         linkOrder       => $self->link_order + 0,
         linkTypeID      => $link->type_id + 0,
@@ -358,6 +360,9 @@ around TO_JSON => sub {
     $json->{begin_date} = $link->begin_date->is_empty ? undef : partial_date_to_hash($link->begin_date);
     $json->{end_date} = $link->end_date->is_empty ? undef : partial_date_to_hash($link->end_date);
     $json->{direction} = 'backward' if $self->direction == $DIRECTION_BACKWARD;
+
+    my $source = $self->source;
+    $self->link_entity($source->entity_type, $source->id, $source);
 
     $self->link_entity('link_type', $link->type_id, $link->type);
 
