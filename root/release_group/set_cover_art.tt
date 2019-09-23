@@ -17,7 +17,7 @@
       <div id="set-cover-art-images">
       [% FOR release = all_releases %]
         [% image = artwork.${release.id} %]
-        <div class="editimage [% ' selected' IF release.gid == selected_release.gid %]">
+        <div class="editimage [% ' selected' IF release.gid == selected_release.gid %]" data-gid="[% release.gid %]" data-selectable="[% 'true' IF image %]">
           <div class="cover-image">
             [%- IF image -%]
               [%- display_artwork(image) -%]
@@ -42,7 +42,6 @@
               [%- comma_list(image.types) || '-' -%]<br />
               [%- image.comment | html -%]
             </p>
-            <button type="button" class="set-cover-art" data-gid="[% release.gid %]">[% l('Select') %]</button>
           [%- END -%]
         </div>
       [% END %]
@@ -63,11 +62,23 @@
 [%- END -%]
 
 <script type="text/javascript">
-  $('button.set-cover-art').bind('click.mb', function (event) {
+  // Ensure links can still be clicked
+  $('div.editimage a:not(.artwork-image)').click(function(event) {
+    event.stopPropagation();
+  });
+  $('div.editimage').bind('click.mb', function (event) {
+    // Avoid selecting by clicking on the image / opening lightbox
+    if ($(event.target).is('img')) {
+      return;
+    }
+    // Avoid selecting releases without an image
+    if (!$(this).data("selectable")) {
+      return;
+    }
     event.preventDefault();
     $('#id-set-cover-art\\.release').val($(this).data("gid"));
     $('div.editimage').removeClass("selected");
-    $(this).closest('div.editimage').addClass("selected");
+    $(this).addClass("selected");
   });
 </script>
 
