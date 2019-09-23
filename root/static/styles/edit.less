@@ -440,13 +440,18 @@ div.thumb-position.moved {
     display: block;
 }
 
-#set-cover-art-images { margin: 2em 0; overflow: hidden; }
+#set-cover-art-images {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    margin: 2em 0;
+    overflow: hidden;
+}
 
 .set-cover-art div.cover-image { float: left; margin: 0 10px 10px 0; }
 
 .set-cover-art div.editimage {
-    position: relative;
-    float: left;
+    display: inline-block;
     width: 300px;
     min-height: 140px;
     margin: 3px;
@@ -465,8 +470,8 @@ div.thumb-position.moved {
     max-height: 125px;
 }
 
-div.editimage button.set-cover-art {
-    position: absolute; right: 5px; bottom: 5px;
+.set-cover-art div.editimage button.set-cover-art {
+    float: right;
 }
 
 div.editimage p.currently-selected { display: none; }

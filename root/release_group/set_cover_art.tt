@@ -9,28 +9,37 @@
     [%- USE r = FormRenderer(form) -%]
     [%- r.hidden('release') -%]
 
-    <div class="row" id="cover-art-position-row">
+    <p>
+      [%- l('Only releases with a front cover on the {caa|Cover Art Archive} can be selected.', { caa => '//coverartarchive.org' }) -%]
+    </p>
+    <div class="row" id="set-cover-art-position-row">
       [%- field_errors(form, 'release') -%]
       <div id="set-cover-art-images">
-      [% FOR image = artwork %]
-        <div class="editimage [% ' selected' IF image.release.gid == release.gid %]">
-          <div class="cover-image">[%- display_artwork(image) -%]</div>
+      [% FOR release = all_releases %]
+        [% image = artwork.${release.id} %]
+        <div class="editimage [% ' selected' IF release.gid == selected_release.gid %]">
+          [%- IF image -%]
+            <div class="cover-image">[%- display_artwork(image) -%]</div>
+          [%- END -%]
           <p>
-            [%- descriptive_link(image.release) -%]<br />
-            [% release_dates(image.release.events) %]
-            [% release_countries(image.release.events) %]<br />
-            <span style="display: inline-block">[%- html_escape(image.release.combined_format_name) -%],</span>
-            <span style="display: inline-block">[%- l('Tracks:') %] [% image.release.combined_track_count -%]</span><br />
-            <span style="display: inline-block">[% release_label_list(image.release.labels) -%]
-              [%- IF release_label_list(image.release.labels) AND release_catno_list(image.release.labels) -%];
-              [%- END -%]</span>
-            <span style="display: inline-block">[% release_catno_list(image.release.labels) %]</span>
+            [%- descriptive_link(release) -%]<br />
+            [% release_dates(release.events) %]
+            [% release_countries(release.events) %]<br />
+            <span style="display: inline-block">[%- html_escape(release.combined_format_name) -%],</span>
+            <span style="display: inline-block">[%- l('Tracks:') %] [% release.combined_track_count -%]</span><br />
+            <span style="display: inline-block">[% release_label_list(release.labels) -%]
+              [%- IF release_label_list(release.labels) AND release_catno_list(release.labels) -%];
+              [%- END -%]
+              [% release_catno_list(release.labels) %]
+            </span>
           </p>
-          <p>
-            [%- comma_list(image.types) || '-' -%]<br />
-            [%- image.comment | html -%]
-          </p>
-          <button type="button" class="set-cover-art" data-gid="[% image.release.gid %]">[% l('Select') %]</button>
+          [%- IF image -%]
+            <p>
+              [%- comma_list(image.types) || '-' -%]<br />
+              [%- image.comment | html -%]
+            </p>
+            <button type="button" class="set-cover-art" data-gid="[% release.gid %]">[% l('Select') %]</button>
+          [%- END -%]
         </div>
       [% END %]
       </div>
