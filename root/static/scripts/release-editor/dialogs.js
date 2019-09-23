@@ -142,7 +142,7 @@ class SearchResult {
     link() {
         let formatString;
         if (this.format) {
-            formatString = this.format +
+            formatString = lp_attributes(this.format.name, 'medium_format') +
                 (this.position ? ' ' + this.position : '');
         }
 
