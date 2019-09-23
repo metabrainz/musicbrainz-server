@@ -18,9 +18,13 @@
       [% FOR release = all_releases %]
         [% image = artwork.${release.id} %]
         <div class="editimage [% ' selected' IF release.gid == selected_release.gid %]">
-          [%- IF image -%]
-            <div class="cover-image">[%- display_artwork(image) -%]</div>
-          [%- END -%]
+          <div class="cover-image">
+            [%- IF image -%]
+              [%- display_artwork(image) -%]
+            [%- ELSE -%]
+              [%- display_missing_artwork -%]
+            [%- END -%]
+          </div>
           <p>
             [%- descriptive_link(release) -%]<br />
             [% release_dates(release.events) %]

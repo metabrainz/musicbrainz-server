@@ -99,6 +99,10 @@ END; -%]
     </a>
 [%- END -%]
 
+[%~ MACRO display_missing_artwork BLOCK -%]
+    <img src="/static/images/no-cover-art.png" title="No cover art available" />
+[%- END -%]
+
 [%~ MACRO cover_art_links(artwork) BLOCK -%]
 [% IF artwork.small_thumbnail %]<a href="[% artwork.small_thumbnail %]">[% l('250px') %]</a> |[% END %]
 [% IF artwork.large_thumbnail %]<a href="[% artwork.large_thumbnail %]">[% l('500px') %]</a> |[% END %]

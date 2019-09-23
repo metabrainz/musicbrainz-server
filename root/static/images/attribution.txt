@@ -183,3 +183,12 @@ Images:
 
     (original .svg versions are in src/icons/*.svg)
 
+----------------------------------------------------------------------------
+
+Source:      Calvin Walton (kepstin)
+License:     CC0
+Authors:     Calvin Walton (kepstin)
+
+Image:
+
+    no-cover-art.png
