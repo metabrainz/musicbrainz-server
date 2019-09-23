@@ -423,7 +423,9 @@ import formatTrackLength from './utility/formatTrackLength';
             this.tracks = _.map(data.tracks, x => new Track(x));
 
             const positionArgs = {
-                medium_format: this.format,
+                medium_format: this.format
+                    ? lp_attributes(this.format.name, 'medium_format')
+                    : null,
                 position: this.position,
                 title: this.name
             };

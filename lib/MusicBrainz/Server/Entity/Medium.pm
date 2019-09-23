@@ -274,8 +274,8 @@ around TO_JSON => sub {
     my $data = {
         %{ $self->$orig },
         cdtocs      => [map { $_->cdtoc->toc } $self->all_cdtocs],
-        format      => $self->l_format_name,
-        formatID    => $self->format_id,
+        format      => $self->format ? $self->format->TO_JSON : undef,
+        format_id   => $self->format_id,
         name        => $self->name,
         position    => $self->position,
         release_id  => $self->release_id,
@@ -288,7 +288,7 @@ around TO_JSON => sub {
     if ($self->release) {
         $self->link_entity('release', $self->release->id, $self->release);
     }
-    
+
     return $data;
 };
 

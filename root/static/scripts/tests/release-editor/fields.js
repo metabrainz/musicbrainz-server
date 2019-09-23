@@ -77,7 +77,7 @@ fieldTest("loading a medium doesn't overwrite its original edit data", function 
     var medium = new fields.Medium({
         id: 123,
         position: 1,
-        formatID: 1,
+        format_id: 1,
         name: "foo",
         tracks: []
     }, release);
