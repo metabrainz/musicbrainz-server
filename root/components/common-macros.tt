@@ -818,6 +818,28 @@ END ~%]
     '</span>' IF rel.edits_pending;
 END ~%]
 
+[%~ MACRO release_countries_list(release_events) BLOCK;
+    out = [];
+    FOR event=release_events;
+      IF event.country;
+        out.push(country_abbr(event.country));
+      END;
+    END;
+    comma_only_list(out);
+END -%]
+
+[%~ MACRO release_dates_list(release_events) BLOCK;
+    out = [];
+    seen = {};
+    FOR event=release_events;
+      IF !event.date.is_empty AND !seen.${ event.date.format };
+        out.push(event.date.format);
+        seen.${ event.date.format } = 1;
+      END;
+    END;
+    comma_only_list(out);
+END -%]
+
 [%~ MACRO release_event(event) BLOCK; # Converted to React at root/static/scripts/common/components/ReleaseEvent.js
       date = event.date;
       country = event.country;

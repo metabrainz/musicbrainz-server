@@ -160,6 +160,7 @@ sub set_cover_art : Chained('load') PathPart('set-cover-art') Args(0) Edit
     my ($releases, $hits) = $c->model('Release')->find_by_release_group(
         $entity->id);
     $c->model('Release')->load_related_info(@$releases);
+    $c->model('ArtistCredit')->load(@$releases);
 
     my $artwork = $c->model('Artwork')->find_front_cover_by_release(@$releases);
     $c->model('CoverArtType')->load_for(@$artwork);

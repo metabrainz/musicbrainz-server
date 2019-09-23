@@ -26,33 +26,56 @@
               [%- display_missing_artwork -%]
             [%- END -%]
           </div>
-          <p>
-            [%- descriptive_link(release) -%]<br />
-            [% release_dates(release.events) %]
-            [% release_countries(release.events) %]<br />
-            <span style="display: inline-block">[%- html_escape(release.combined_format_name) -%],</span>
-            <span style="display: inline-block">[%- l('Tracks:') %] [% release.combined_track_count -%]</span><br />
-            <span style="display: inline-block">[% release_label_list(release.labels) -%]
-              [%- IF release_label_list(release.labels) AND release_catno_list(release.labels) -%];
-              [%- END -%]
-              [% release_catno_list(release.labels) %]
-            </span>
-            <br />
-            [%- IF release.barcode -%]
-              [%- l('Barcode:') %] [% release.barcode -%]
-            [%- END -%]
-          </p>
-          [%- IF image -%]
+          <div class="release-description">
             <p>
-              [%- comma_list(image.types) || '-' -%]<br />
-              [%- image.comment | html -%]
-              [%- IF originally_selected -%]
-                <strong>
-                  [% l('This is the current release group image') %]
-                </strong>
-              [%- END -%]
+              [%- link_entity(release) -%]<br />
+              [%- l('Artist:') %] [% artist_credit(release.artist_credit) -%]
             </p>
+            [%- IF release.events -%]
+              <p>
+                [%- IF release_dates_list(release.events) -%]
+                  [%- l('Date:') %] [% release_dates_list(release.events) %]
+                   <br />
+                [%- END -%]
+                [%- IF release_countries_list(release.events) -%]
+                  [%- l('Country:') %] [% release_countries_list(release.events) %]
+                [%- END -%]
+              </p>
+            [%- END -%]
+            <p>
+            [%- l('Format:') %] [% html_escape(release.combined_format_name) -%]<br/>
+            [%- l('Tracks:') %] [% release.combined_track_count -%]
+            </p>
+            [%- IF release.labels -%]
+              <p>
+                [%- IF release_label_list(release.labels) -%]
+                  [%- l('Label:') %] [% release_label_list(release.labels) -%]
+                  <br />
+                [%- END -%]
+                [%- IF release_catno_list(release.labels) -%]
+                  [%- l('Catalog#:') %] [% release_catno_list(release.labels) %]
+                [%- END -%]
+              </p>
+            [%- END -%]
+            [%- IF release.barcode -%]
+              <p>
+                [%- l('Barcode:') %] [% release.barcode -%]
+              </p>
+            [%- END -%]
+            [%- IF image -%]
+              <p>
+                [%- l('Image types:') %] [% comma_list(image.types) || '-' -%]<br />
+                [%- IF image.comment -%]
+                  [%- l('Image comment:') %] [%- image.comment | html -%]
+                [%- END -%]
+                [%- IF originally_selected -%]
+                  <strong>
+                    [% l('This is the current release group image') %]
+                  </strong>
+                [%- END -%]
+              </p>
           [%- END -%]
+          </div>
         </div>
       [% END %]
       </div>
