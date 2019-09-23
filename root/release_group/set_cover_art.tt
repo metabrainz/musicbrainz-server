@@ -37,6 +37,10 @@
               [%- END -%]
               [% release_catno_list(release.labels) %]
             </span>
+            <br />
+            [%- IF release.barcode -%]
+              [%- l('Barcode:') %] [% release.barcode -%]
+            [%- END -%]
           </p>
           [%- IF image -%]
             <p>
