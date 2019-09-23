@@ -16,8 +16,9 @@
       [%- field_errors(form, 'release') -%]
       <div id="set-cover-art-images">
       [% FOR release = all_releases %]
+        [% originally_selected = release.gid == selected_release.gid %]
         [% image = artwork.${release.id} %]
-        <div class="editimage [% ' selected' IF release.gid == selected_release.gid %]" data-gid="[% release.gid %]" data-selectable="[% 'true' IF image %]">
+        <div class="editimage [% ' selected' IF originally_selected %]" data-gid="[% release.gid %]" data-selectable="[% 'true' IF image %]">
           <div class="cover-image">
             [%- IF image -%]
               [%- display_artwork(image) -%]
@@ -41,6 +42,11 @@
             <p>
               [%- comma_list(image.types) || '-' -%]<br />
               [%- image.comment | html -%]
+              [%- IF originally_selected -%]
+                <strong>
+                  [% l('This is the current release group image') %]
+                </strong>
+              [%- END -%]
             </p>
           [%- END -%]
         </div>
