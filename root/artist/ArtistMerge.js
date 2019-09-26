@@ -85,7 +85,7 @@ const ArtistMerge = ({$c, form, toMerge}: Props) => {
               </>
             }
             label={l(`Update matching artist and relationship credits to use
-                      the new artist’s name`)}
+                      the target artist’s name`)}
           />
 
           <EnterEditNote field={form.field.edit_note} />
