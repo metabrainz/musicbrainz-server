@@ -23,6 +23,11 @@ type WorkAttributeField = ReadOnlyCompoundFieldT<{|
   +value: ReadOnlyFieldT<?StrOrNum>,
 |}>;
 
+type WritableWorkAttributeField = CompoundFieldT<{|
+  type_id: FieldT<?number>,
+  value: FieldT<?StrOrNum>,
+|}>;
+
 type WritableWorkForm = FormT<{|
   +attributes: RepeatableFieldT<WritableWorkAttributeField>,
   +languages: RepeatableFieldT<FieldT<?number>>,
@@ -31,13 +36,13 @@ type WritableWorkForm = FormT<{|
 type WorkFormT = {|
   field: {
     attributes: ReadOnlyRepeatableFieldT<WorkAttributeField>,
-    comment: FieldT<string>,
-    edit_note: FieldT<string>,
-    iswc: FieldT<Array<Object>>,
+    comment: ReadOnlyFieldT<string>,
+    edit_note: ReadOnlyFieldT<string>,
+    iswcs: ReadOnlyRepeatableFieldT<string>,
     languages: ReadOnlyRepeatableFieldT<ReadOnlyFieldT<?number>>,
-    make_votable: FieldT<boolean>,
-    name: FieldT<string>,
-    type_id: FieldT<number>,
+    make_votable: ReadOnlyFieldT<boolean>,
+    name: ReadOnlyFieldT<string>,
+    type_id: ReadOnlyFieldT<number>,
   },
   has_errors: boolean,
   name: string,
@@ -90,7 +95,7 @@ const EditForm = ({
   console.log(form.field.attributes.field);
   console.log(optionsLanguageId);
 
-  function addLanguageToState(languages: RepeatableFieldT<FieldT<?number>>) {
+  function addLanguageToState(languages) {
     return mutate<RepeatableFieldT<FieldT<?number>>, ReadOnlyRepeatableFieldT<ReadOnlyFieldT<?number>>>(languages, newLanguages => {
       pushField(newLanguages, null);
     });
@@ -102,14 +107,14 @@ const EditForm = ({
     });
   }
 
-  function languageFieldReducer(state: RepeatableFieldT<FieldT<?number>>, action) {
+  function languageFieldReducer(state, action) {
     switch (action.type) {
       case 'ADD_LANGUAGE':
         state = addLanguageToState(state);
         return state;
       case 'EDIT_LANGUAGE':
         state = mutate<RepeatableFieldT<FieldT<?number>>, ReadOnlyRepeatableFieldT<ReadOnlyFieldT<?number>>>(state, newState => {
-          state.field[action.index].value = Number(action.languageId);
+          newState.field[action.index].value = Number(action.languageId);
         });
         return state;
       case 'REMOVE_LANGUAGE':
@@ -143,7 +148,10 @@ const EditForm = ({
     });
   }
 
-  const [languageState, languageDispatch] = useReducer(languageFieldReducer, form.field.languages);
+  const [languageState, languageDispatch] = useReducer<
+    ReadOnlyRepeatableFieldT<ReadOnlyFieldT<?number>>,
+    _
+  >(languageFieldReducer, form.field.languages);
 
   return (
     <>
