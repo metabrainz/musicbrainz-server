@@ -31,7 +31,7 @@ sub create_artist_releases_form {
     $form_args{artist_credits} =
         $c->model('Release')->find_artist_credits_by_artist($artist_id);
 
-    return $c->form(filter_form => 'Filter::Recording', %form_args);
+    return $c->form(filter_form => 'Filter::Generic', %form_args);
 }
 
 sub create_artist_recordings_form {
@@ -42,7 +42,7 @@ sub create_artist_recordings_form {
     $form_args{artist_credits} =
         $c->model('Recording')->find_artist_credits_by_artist($artist_id);
 
-    return $c->form(filter_form => 'Filter::Recording', %form_args);
+    return $c->form(filter_form => 'Filter::Generic', %form_args);
 }
 
 1;
