@@ -1,7 +1,9 @@
 // @flow
 /* eslint-disable react/jsx-no-bind */
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useReducer} from 'react';
 import ReactDOM from 'react-dom';
+import mutate from 'mutate-cow';
+import _ from 'lodash';
 
 import gc from '../static/scripts/guess-case/MB/GuessCase/Main';
 import MB from '../static/scripts/common/MB';
@@ -10,15 +12,29 @@ import FormRowTextLong from '../components/FormRowTextLong';
 import GuessCaseOptions from '../components/GuessCaseOptions';
 import hydrate from '../utility/hydrate';
 import FormRowSelect from '../components/FormRowSelect';
+import FormRowSelectList from '../components/FormRowSelectList';
 import FormRowTextList from '../components/FormRowTextList';
 import EnterEditNote from '../components/EnterEditNote';
 import EnterEdit from '../components/EnterEdit';
+import { pushField } from '../static/scripts/edit/utility/pushField';
+
+type WorkAttributeField = ReadOnlyCompoundFieldT<{|
+  +type_id: ReadOnlyFieldT<?number>,
+  +value: ReadOnlyFieldT<?StrOrNum>,
+|}>;
+
+type WritableWorkForm = FormT<{|
+  +attributes: RepeatableFieldT<WritableWorkAttributeField>,
+  +languages: RepeatableFieldT<FieldT<?number>>,
+|}>;
 
 type WorkFormT = {|
   field: {
+    attributes: ReadOnlyRepeatableFieldT<WorkAttributeField>,
     comment: FieldT<string>,
     edit_note: FieldT<string>,
     iswc: FieldT<Array<Object>>,
+    languages: ReadOnlyRepeatableFieldT<ReadOnlyFieldT<?number>>,
     make_votable: FieldT<boolean>,
     name: FieldT<string>,
     type_id: FieldT<number>,
@@ -30,12 +46,23 @@ type WorkFormT = {|
 type Props = {
   entityType: string,
   form: WorkFormT,
+  optionsLanguageId: {
+    grouped: boolean,
+    options: SelectOptionsT,
+  },
   optionsTypeId: SelectOptionsT,
   relationshipEditorHTML: string,
   uri: string,
 };
 
-const EditForm = ({entityType, form, uri, optionsTypeId, relationshipEditorHTML}: Props) => {
+const EditForm = ({
+  entityType,
+  form,
+  uri,
+  optionsLanguageId,
+  optionsTypeId,
+  relationshipEditorHTML,
+}: Props) => {
   const guess = MB.GuessCase[entityType];
   const [
     name,
@@ -57,6 +84,66 @@ const EditForm = ({entityType, form, uri, optionsTypeId, relationshipEditorHTML}
       ReactDOM.render(<GuessCaseOptions />, $options[0]);
     }
   }, []);
+
+  console.log(form);
+  console.log(form.field.attributes);
+  console.log(form.field.attributes.field);
+  console.log(optionsLanguageId);
+
+  function addLanguageToState(languages: RepeatableFieldT<FieldT<?number>>) {
+    return mutate<RepeatableFieldT<FieldT<?number>>, ReadOnlyRepeatableFieldT<ReadOnlyFieldT<?number>>>(languages, newLanguages => {
+      pushField(newLanguages, null);
+    });
+  }
+
+  function removeLanguageFromState(languages, i) {
+    return mutate<RepeatableFieldT<FieldT<?number>>, ReadOnlyRepeatableFieldT<ReadOnlyFieldT<?number>>>(languages, newLanguages => {
+      newLanguages.field.splice(i, 1);
+    });
+  }
+
+  function languageFieldReducer(state: RepeatableFieldT<FieldT<?number>>, action) {
+    switch (action.type) {
+      case 'ADD_LANGUAGE':
+        state = addLanguageToState(state);
+        return state;
+      case 'EDIT_LANGUAGE':
+        state = mutate<RepeatableFieldT<FieldT<?number>>, ReadOnlyRepeatableFieldT<ReadOnlyFieldT<?number>>>(state, newState => {
+          state.field[action.index].value = Number(action.languageId);
+        });
+        return state;
+      case 'REMOVE_LANGUAGE':
+        state = removeLanguageFromState(state, action.index);
+        return state;
+      default:
+        throw new Error();
+    }
+  }
+
+  function renderAttributes(attributes) {
+    attributes.field.forEach((attr, index) => {
+      return (
+        <tr>
+          <td>
+            <select
+              attr={{name: `edit-work.attributes.${index}.type_id`}}
+              hasFocus={false}
+              optionsCaption=""
+              optionsText="text"
+              optionsValue="value"
+              value={attr.field.type_id.value}
+            />
+          </td>
+          {/* <td>
+            !this.typeID()
+            || this.parent.attributeTypesByID[this.typeID()].free_text
+          </td> */}
+        </tr>
+      );
+    });
+  }
+
+  const [languageState, languageDispatch] = useReducer(languageFieldReducer, form.field.languages);
 
   return (
     <>
@@ -107,7 +194,33 @@ const EditForm = ({entityType, form, uri, optionsTypeId, relationshipEditorHTML}
               }}
               options={typeOptions}
             />
-            <div id="work-languages-editor" />
+            <FormRowSelectList
+              addId="add-language"
+              addLabel={l('Add Language')}
+              getSelectField={_.identity}
+              hideAddButton={_.intersection(form.field.languages.field.map(lang => String(lang.value)), ['486', '284']).length > 0}
+              label={l('Lyrics Languages')}
+              onAdd={() => {
+                languageDispatch({type: 'ADD_LANGUAGE'});
+              }}
+              onEdit={(i, languageId) => {
+                languageDispatch({
+                  index: i,
+                  languageId,
+                  type: 'EDIT_LANGUAGE',
+                });
+              }}
+              onRemove={(i) => {
+                languageDispatch({
+                  index: i,
+                  type: 'ADD_LANGUAGE',
+                });
+              }}
+              options={optionsLanguageId}
+              removeClassName="remove-language"
+              removeLabel={l('Remove Language')}
+              repeatable={languageState}
+            />
             <FormRowTextList
               field={form.field.iswcs}
               itemName={l('ISWC')}
@@ -118,6 +231,7 @@ const EditForm = ({entityType, form, uri, optionsTypeId, relationshipEditorHTML}
             <legend>{l('Work Attributes')}</legend>
             <table className="row-form" data-bind="delegatedHandler: 'click'" id="work-attributes">
               <tbody>
+                {renderAttributes(form.field.attributes)}
                 <div data-bind="foreach: attributes">
                   <tr>
                     <td>

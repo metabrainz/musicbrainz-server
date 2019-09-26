@@ -233,15 +233,6 @@ function byID(result, parent) {
   }
 }
 
-ko.applyBindings(
-  new ViewModel(
-    workAttributeTypeTree,
-    workAttributeValueTree,
-    form.field.attributes.field,
-  ),
-  $('#work-attributes')[0],
-);
-
 initialize_guess_case('work', 'id-edit-work');
 
 function addLanguage() {
@@ -263,30 +254,30 @@ function removeLanguage(i) {
   });
 }
 
-function renderWorkLanguages() {
-  const workLanguagesNode = document.getElementById('work-languages-editor');
-  if (!workLanguagesNode) {
-    throw new Error('Mount point #work-languages-editor does not exist');
-  }
-  const form: WorkForm = store.getState();
-  ReactDOM.render(
-    <FormRowSelectList
-      addId="add-language"
-      addLabel={l('Add Language')}
-      getSelectField={_.identity}
-      hideAddButton={_.intersection(form.field.languages.field.map(lang => String(lang.value)), ["486", "284"]).length > 0}
-      label={l('Lyrics Languages')}
-      onAdd={addLanguage}
-      onEdit={editLanguage}
-      onRemove={removeLanguage}
-      options={workLanguageOptions}
-      removeClassName="remove-language"
-      removeLabel={l('Remove Language')}
-      repeatable={form.field.languages}
-    />,
-    workLanguagesNode,
-  );
-}
+// function renderWorkLanguages() {
+//   const workLanguagesNode = document.getElementById('work-languages-editor');
+//   if (!workLanguagesNode) {
+//     throw new Error('Mount point #work-languages-editor does not exist');
+//   }
+//   const form: WorkForm = store.getState();
+//   ReactDOM.render(
+//     <FormRowSelectList
+//       addId="add-language"
+//       addLabel={l('Add Language')}
+//       getSelectField={_.identity}
+//       hideAddButton={_.intersection(form.field.languages.field.map(lang => String(lang.value)), ["486", "284"]).length > 0}
+//       label={l('Lyrics Languages')}
+//       onAdd={addLanguage}
+//       onEdit={editLanguage}
+//       onRemove={removeLanguage}
+//       options={workLanguageOptions}
+//       removeClassName="remove-language"
+//       removeLabel={l('Remove Language')}
+//       repeatable={form.field.languages}
+//     />,
+//     workLanguagesNode,
+//   );
+// }
 
 store.subscribe(renderWorkLanguages);
 renderWorkLanguages();

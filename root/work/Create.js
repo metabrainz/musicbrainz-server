@@ -14,12 +14,16 @@ const Create = ({$c, form, optionsTypeId}) => {
       <EditForm
         entityType="Work"
         form={form}
+        optionsLanguageId={{
+          options: $c.stash.work_form_json.workLanguageOptions,
+          grouped: true,
+        }}
         optionsTypeId={optionsTypeId}
         relationshipEditorHTML={$c.stash.relationship_editor_html}
         uri={$c.req.uri}
       />
       <div id="guesscase-options" />
-      {manifest.js('work')}
+      {manifest.js('work', {'data-args': JSON.stringify($c.stash.work_form_json)})}
     </Layout>
   );
 };

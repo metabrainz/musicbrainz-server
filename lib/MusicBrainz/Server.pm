@@ -513,6 +513,7 @@ sub TO_JSON {
         to_merge
         top_tags
         user_tags
+        work_form_json
     );
 
     my %stash;
