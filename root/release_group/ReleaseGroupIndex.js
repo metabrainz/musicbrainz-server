@@ -20,6 +20,7 @@ import PaginatedResults from '../components/PaginatedResults';
 import TaggerIcon from '../static/scripts/common/components/TaggerIcon';
 import loopParity from '../utility/loopParity';
 import EntityLink from '../static/scripts/common/components/EntityLink';
+import CleanupBanner from '../components/CleanupBanner';
 import FormRow from '../components/FormRow';
 import FormSubmit from '../components/FormSubmit';
 import Relationships from '../components/Relationships';
@@ -109,13 +110,7 @@ const ReleaseGroupIndex = ({
 }: Props) => (
   <ReleaseGroupLayout entity={releaseGroup} page="index">
     {eligibleForCleanup ? (
-      <p className="cleanup">
-        {l(
-          `This release group has no relationships or releases associated,
-           and will be removed automatically in the next few days. If this
-           is not intended, please add more data to this release group.`,
-        )}
-      </p>
+      <CleanupBanner entityType="release_group" />
     ) : null}
     <Annotation
       annotation={releaseGroup.latest_annotation}

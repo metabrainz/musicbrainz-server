@@ -10,6 +10,7 @@
 import React from 'react';
 
 import {withCatalystContext} from '../context';
+import CleanupBanner from '../components/CleanupBanner';
 import FormRow from '../components/FormRow';
 import FormSubmit from '../components/FormSubmit';
 import PaginatedResults from '../components/PaginatedResults';
@@ -42,13 +43,7 @@ const LabelIndex = ({
 }: Props) => (
   <LabelLayout entity={label} page="index">
     {eligibleForCleanup ? (
-      <p className="cleanup">
-        {l(
-          `This label has no relationships or releases and will be removed
-           automatically in the next few days. If this is not intended,
-           please add more data to this label.`,
-        )}
-      </p>
+      <CleanupBanner entityType="label" />
     ) : null}
     <Annotation
       annotation={label.latest_annotation}

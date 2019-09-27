@@ -13,6 +13,7 @@ import Annotation from '../static/scripts/common/components/Annotation';
 import WikipediaExtract
   from '../static/scripts/common/components/WikipediaExtract';
 import expand2react from '../static/scripts/common/i18n/expand2react';
+import CleanupBanner from '../components/CleanupBanner';
 import Relationships from '../components/Relationships';
 import * as manifest from '../static/manifest';
 
@@ -33,13 +34,7 @@ const EventIndex = ({
 }: Props) => (
   <EventLayout entity={event} page="index">
     {eligibleForCleanup ? (
-      <p className="cleanup">
-        {l(
-          `This event has no relationships and will be removed automatically 
-           in the next few days. If this is not intended, 
-           please add more data to this event.`,
-        )}
-      </p>
+      <CleanupBanner entityType="event" />
     ) : null}
     <Annotation
       annotation={event.latest_annotation}
