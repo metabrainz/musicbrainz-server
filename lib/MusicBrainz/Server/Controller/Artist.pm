@@ -362,6 +362,7 @@ sub recordings : Chained('load')
     my %filter = %{ $self->process_filter($c, sub {
         return create_artist_recordings_form($c, $artist->id);
     }) };
+    my $has_filter = %filter ? 1 : 0;
 
     if ($c->req->query_params->{standalone}) {
         $recordings = $self->_load_paged($c, sub {
@@ -399,6 +400,7 @@ sub recordings : Chained('load')
             ajaxFilterFormUrl => $c->uri_for_action('/ajax/filter_artist_recordings_form', { artist_id => $artist->id }),
             artist => $artist,
             filterForm => $c->stash->{filter_form},
+            hasFilter => boolean_to_json($has_filter),
             pager => serialize_pager($c->stash->{pager}),
             recordings => $recordings,
             standaloneOnly => boolean_to_json($standalone_only),
@@ -453,11 +455,13 @@ sub releases : Chained('load')
     my %filter = %{ $self->process_filter($c, sub {
         return create_artist_releases_form($c, $artist->id);
     }) };
+    my $has_filter = %filter ? 1 : 0;
 
     my $method = 'find_by_artist';
     my $want_va_only = $c->req->query_params->{va} ? 1 : 0;
     if ($want_va_only) {
         $method = 'find_by_track_artist';
+        $showing_va_only = 1;
     }
 
     $releases = $self->_load_paged($c, sub {
@@ -482,6 +486,7 @@ sub releases : Chained('load')
             ajaxFilterFormUrl => $c->uri_for_action('/ajax/filter_artist_releases_form', { artist_id => $artist->id }),
             artist => $artist,
             filterForm => $c->stash->{filter_form},
+            hasFilter => boolean_to_json($has_filter),
             pager => serialize_pager($pager),
             releases => $releases,
             showingVariousArtistsOnly => boolean_to_json($showing_va_only),

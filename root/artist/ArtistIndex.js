@@ -91,7 +91,7 @@ const ArtistIndex = ({
       'This artist has no release groups, only standalone recordings.',
     );
   } else if (!hasReleaseGroups && hasFilter) {
-    message = l('No release groups found.');
+    message = l('No release groups found that match this search.');
   } else if (!wantAllStatuses && !wantVariousArtistsOnly) {
     if (!includingAllStatuses && !showingVariousArtistsOnly) {
       if (hasReleaseGroups) {

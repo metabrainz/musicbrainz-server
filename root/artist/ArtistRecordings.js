@@ -23,6 +23,7 @@ type Props = {
   +ajaxFilterFormUrl: string,
   +artist: ArtistT,
   +filterForm: ?FilterFormT,
+  +hasFilter: boolean,
   +pager: PagerT,
   +recordings: $ReadOnlyArray<RecordingT>,
   +standaloneOnly: boolean,
@@ -34,6 +35,7 @@ const ArtistRecordings = ({
   ajaxFilterFormUrl,
   artist,
   filterForm,
+  hasFilter,
   pager,
   recordings,
   standaloneOnly,
@@ -63,7 +65,11 @@ const ArtistRecordings = ({
         ) : null}
       </form>
     ) : (
-      <p>{l('No recordings found.')}</p>
+      <p>
+        {hasFilter
+          ? l('No recordings found that match this search.')
+          : l('No recordings found.')}
+      </p>
     )}
 
     {standaloneOnly ? (

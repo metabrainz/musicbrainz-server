@@ -23,6 +23,7 @@ type Props = {
   +ajaxFilterFormUrl: string,
   +artist: ArtistT,
   +filterForm: ?FilterFormT,
+  +hasFilter: boolean,
   +pager: PagerT,
   +releases: $ReadOnlyArray<RecordingT>,
   +showingVariousArtistsOnly: boolean,
@@ -34,6 +35,7 @@ const ArtistReleases = ({
   ajaxFilterFormUrl,
   artist,
   filterForm,
+  hasFilter,
   pager,
   releases,
   showingVariousArtistsOnly,
@@ -60,31 +62,38 @@ const ArtistReleases = ({
       </form>
     ) : null}
 
-    {(showingVariousArtistsOnly && pager.total_entries === 0) ? (
-      <p>{l('This artist does not have any releases')}</p>
+    {releases.length === 0 ? (
+      <p>
+        {hasFilter
+          ? l('No releases found that match this search.')
+          : l('No releases found.')}
+      </p>
+    ) : null}
 
-    ) : (
-      <>
-        {releases.length === 0 ? (
-          <p>{l('No releases found')}</p>
-        ) : null}
-
-        {showingVariousArtistsOnly ? (
-          <p>{l('This artist only has releases by various artists.')}</p>
-        ) : wantVariousArtistsOnly ? (
-          exp.l(
-            `Showing Various Artist releases.
-             {show_subset|Show releases by this artist instead}.`,
-            {show_subset: `/artist/${artist.gid}/releases?va=0`},
-          )
+    {wantVariousArtistsOnly ? (
+      exp.l(
+        `Showing Various Artist releases.
+         {show_subset|Show releases by this artist instead}.`,
+        {show_subset: `/artist/${artist.gid}/releases?va=0`},
+      )
+    ) : showingVariousArtistsOnly ? (
+      /*
+       * The user didn't specifically ask for VA releases, but nothing
+       * else was found, so we're showing them anyway.
+       */
+      <p>
+        {hasFilter ? (
+          l('This search only found releases by various artists.')
         ) : (
-          exp.l(
-            `Showing releases by this artist.
-             {show_all|Show Various Artist releases instead}.`,
-            {show_all: `/artist/${artist.gid}/releases?va=1`},
-          )
+          l('This artist only has releases by various artists.')
         )}
-      </>
+      </p>
+    ) : (
+      exp.l(
+        `Showing releases by this artist.
+         {show_all|Show Various Artist releases instead}.`,
+        {show_all: `/artist/${artist.gid}/releases?va=1`},
+      )
     )}
   </ArtistLayout>
 );
