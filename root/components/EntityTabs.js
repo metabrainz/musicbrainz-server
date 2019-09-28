@@ -105,6 +105,10 @@ function buildLinks(
     }
   }
 
+  if (entity.entityType === 'release') {
+    links.push(buildLink(l('Edit Relationships'), entity, 'edit-relationships', page));
+  }
+
   return links;
 }
 
