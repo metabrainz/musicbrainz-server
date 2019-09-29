@@ -62,7 +62,6 @@ role {
 
         my %props;
         $props{entityType} = $params->form;
-        $props{usedByTracks} = $params->edit_arguments->form_args->used_by_tracks if $params->form eq 'Recording::Standalone';
 
         if ($params->dialog_template_react) {
             $c->stash(
@@ -110,6 +109,7 @@ role {
                 $props{optionsPrimaryTypeId} = $form->options_primary_type_id if $params->form eq 'ReleaseGroup';
                 $props{optionsSecondaryTypeIds} = $form->options_secondary_type_ids if $params->form eq 'ReleaseGroup';
                 $props{optionsOrderingTypeId} = $form->options_ordering_type_id if $params->form eq 'Series';
+                $props{usedByTracks} = $form->used_by_tracks if $params->form eq 'Recording::Standalone';
             }
         );
     };

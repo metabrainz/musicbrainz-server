@@ -12,7 +12,7 @@ import each from 'lodash/each';
 export type FieldShape = {
   // `errors` is optional too because FormT has none
   +errors?: $ReadOnlyArray<string>,
-  +field?: FieldShape,
+  +field?: FieldShape | $ReadOnlyArray<FieldShape>,
 };
 
 export default function subfieldErrors(

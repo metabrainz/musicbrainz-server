@@ -14,9 +14,10 @@ const Create = ({$c, form, optionsTypeId}) => {
       <EditForm
         entityType="Work"
         form={form}
+        temp={$c.stash.work_form_json}
         optionsLanguageId={{
-          options: $c.stash.work_form_json.workLanguageOptions,
           grouped: true,
+          options: $c.stash.work_form_json.workLanguageOptions,
         }}
         optionsTypeId={optionsTypeId}
         relationshipEditorHTML={$c.stash.relationship_editor_html}

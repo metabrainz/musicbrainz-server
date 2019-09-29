@@ -61,42 +61,6 @@ const workLanguageOptions: MaybeGroupedOptionsT = {
   options: scriptArgs.workLanguageOptions,
 };
 
-const store = createStore(function (state: WorkForm = form, action) {
-  switch (action.type) {
-    case 'ADD_LANGUAGE':
-      state = addLanguageToState(state);
-      break;
-
-    case 'EDIT_LANGUAGE':
-      state = mutate<WorkForm, _>(state, newState => {
-        newState.field.languages.field[action.index].value = action.languageId;
-      });
-      break;
-
-    case 'REMOVE_LANGUAGE':
-      state = removeLanguageFromState(state, action.index);
-      break;
-  }
-
-  if (!state.field.languages.field.length) {
-    state = addLanguageToState(state);
-  }
-
-  return state;
-});
-
-function addLanguageToState(form: WorkForm): WorkForm {
-  return mutate<WritableWorkForm, _>(form, newForm => {
-    pushField(newForm.field.languages, null);
-  });
-}
-
-function removeLanguageFromState(form: WorkForm, i: number): WorkForm {
-  return mutate<WritableWorkForm, _>(form, newForm => {
-    newForm.field.languages.field.splice(i, 1);
-  });
-}
-
 class WorkAttribute {
   allowedValues: () => OptionListT;
 
@@ -234,53 +198,6 @@ function byID(result, parent) {
 }
 
 initialize_guess_case('work', 'id-edit-work');
-
-function addLanguage() {
-  store.dispatch({type: 'ADD_LANGUAGE'});
-}
-
-function editLanguage(i, languageId) {
-  store.dispatch({
-    index: i,
-    languageId: languageId,
-    type: 'EDIT_LANGUAGE',
-  });
-}
-
-function removeLanguage(i) {
-  store.dispatch({
-    index: i,
-    type: 'REMOVE_LANGUAGE',
-  });
-}
-
-// function renderWorkLanguages() {
-//   const workLanguagesNode = document.getElementById('work-languages-editor');
-//   if (!workLanguagesNode) {
-//     throw new Error('Mount point #work-languages-editor does not exist');
-//   }
-//   const form: WorkForm = store.getState();
-//   ReactDOM.render(
-//     <FormRowSelectList
-//       addId="add-language"
-//       addLabel={l('Add Language')}
-//       getSelectField={_.identity}
-//       hideAddButton={_.intersection(form.field.languages.field.map(lang => String(lang.value)), ["486", "284"]).length > 0}
-//       label={l('Lyrics Languages')}
-//       onAdd={addLanguage}
-//       onEdit={editLanguage}
-//       onRemove={removeLanguage}
-//       options={workLanguageOptions}
-//       removeClassName="remove-language"
-//       removeLabel={l('Remove Language')}
-//       repeatable={form.field.languages}
-//     />,
-//     workLanguagesNode,
-//   );
-// }
-
-store.subscribe(renderWorkLanguages);
-renderWorkLanguages();
 
 initializeBubble('#iswcs-bubble', 'input[name=edit-work\\.iswcs\\.0]');
 

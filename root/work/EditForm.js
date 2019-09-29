@@ -11,26 +11,17 @@ import FormRowNameWithGuesscase from '../components/FormRowNameWithGuesscase';
 import FormRowTextLong from '../components/FormRowTextLong';
 import GuessCaseOptions from '../components/GuessCaseOptions';
 import hydrate from '../utility/hydrate';
+import SelectField from '../components/SelectField';
 import FormRowSelect from '../components/FormRowSelect';
 import FormRowSelectList from '../components/FormRowSelectList';
 import FormRowTextList from '../components/FormRowTextList';
 import EnterEditNote from '../components/EnterEditNote';
 import EnterEdit from '../components/EnterEdit';
-import { pushField } from '../static/scripts/edit/utility/pushField';
+import {pushField} from '../static/scripts/edit/utility/pushField';
 
 type WorkAttributeField = ReadOnlyCompoundFieldT<{|
   +type_id: ReadOnlyFieldT<?number>,
   +value: ReadOnlyFieldT<?StrOrNum>,
-|}>;
-
-type WritableWorkAttributeField = CompoundFieldT<{|
-  type_id: FieldT<?number>,
-  value: FieldT<?StrOrNum>,
-|}>;
-
-type WritableWorkForm = FormT<{|
-  +attributes: RepeatableFieldT<WritableWorkAttributeField>,
-  +languages: RepeatableFieldT<FieldT<?number>>,
 |}>;
 
 type WorkFormT = {|
@@ -38,7 +29,7 @@ type WorkFormT = {|
     attributes: ReadOnlyRepeatableFieldT<WorkAttributeField>,
     comment: ReadOnlyFieldT<string>,
     edit_note: ReadOnlyFieldT<string>,
-    iswcs: ReadOnlyRepeatableFieldT<string>,
+    iswcs: ReadOnlyRepeatableFieldT<ReadOnlyFieldT<string>>,
     languages: ReadOnlyRepeatableFieldT<ReadOnlyFieldT<?number>>,
     make_votable: ReadOnlyFieldT<boolean>,
     name: ReadOnlyFieldT<string>,
@@ -51,10 +42,7 @@ type WorkFormT = {|
 type Props = {
   entityType: string,
   form: WorkFormT,
-  optionsLanguageId: {
-    grouped: boolean,
-    options: SelectOptionsT,
-  },
+  optionsLanguageId: GroupedOptionsT,
   optionsTypeId: SelectOptionsT,
   relationshipEditorHTML: string,
   uri: string,
@@ -64,6 +52,7 @@ const EditForm = ({
   entityType,
   form,
   uri,
+  temp,
   optionsLanguageId,
   optionsTypeId,
   relationshipEditorHTML,
@@ -75,6 +64,21 @@ const EditForm = ({
   ] = useState(form.field.name.value ? form.field.name : {...form.field.name, value: ''});
   const [comment, setComment] = useState(form.field.comment);
   const [typeId, setTypeId] = useState(form.field.type_id);
+
+  const {buildOptionsTree} = require('../static/scripts/edit/forms.js');
+  const attributeOptions = buildOptionsTree(
+    temp.workAttributeTypeTree,
+    x => lp_attributes(x.name, 'work_attribute_type'),
+    'id',
+  );
+
+  const groupedAttrOptions = {
+    grouped: false,
+    options: attributeOptions.map(element => {
+      element.label = element.text;
+      return element;
+    }),
+  };
 
   const typeOptions = {
     grouped: false,
@@ -89,11 +93,6 @@ const EditForm = ({
       ReactDOM.render(<GuessCaseOptions />, $options[0]);
     }
   }, []);
-
-  console.log(form);
-  console.log(form.field.attributes);
-  console.log(form.field.attributes.field);
-  console.log(optionsLanguageId);
 
   function addLanguageToState(languages) {
     return mutate<RepeatableFieldT<FieldT<?number>>, ReadOnlyRepeatableFieldT<ReadOnlyFieldT<?number>>>(languages, newLanguages => {
@@ -125,24 +124,110 @@ const EditForm = ({
     }
   }
 
+  function addISWCToState(state) {
+    return mutate<
+      RepeatableFieldT<FieldT<?string>>,
+      ReadOnlyRepeatableFieldT<ReadOnlyFieldT<?string>>,
+    >(state, newState => {
+      pushField(newState, null);
+    });
+  }
+
+  function removeISWCFromState(state, i) {
+    return mutate<RepeatableFieldT<FieldT<?string>>,
+    ReadOnlyRepeatableFieldT<ReadOnlyFieldT<?string>>>(state, newState => {
+      newState.field.splice(i, 1);
+    });
+  }
+
+  function iswcFieldReducer(state, action) {
+    switch (action.type) {
+      case 'ADD_ISWC':
+        state = addISWCToState(state);
+        return state;
+      case 'EDIT_ISWC':
+        state = mutate<RepeatableFieldT<FieldT<?string>>,
+      ReadOnlyRepeatableFieldT<ReadOnlyFieldT<?string>>>(state, newState => {
+        newState.field[action.index].value = action.iswc;
+      });
+        return state;
+      case 'REMOVE_ISWC':
+        state = removeISWCFromState(state, action.index);
+        return state;
+      default:
+        throw new Error();
+    }
+  }
+
+  function onChangeAttributesSelect() {
+    return undefined;
+  }
+
+  const allowedValuesByTypeID = _(allowedValues.children)
+    .groupBy(x => x.workAttributeTypeID)
+    .mapValues(function (children) {
+      return buildOptionsTree(
+        {children},
+        x => lp_attributes(x.value, 'work_attribute_type_allowed_value'),
+        'id',
+      );
+    })
+    .value();
+
+  const attributeTypesById = attributeOptions.reduce(byID, {});
+
+  function byID(result, parent) {
+    result[parent.id] = parent;
+    if (parent.children) {
+      parent.reduce(byID, result);
+    }
+    return result;
+  }
+
+  function allowFreeText(attr) {
+    return !attr.field.type_id.value || attributeTypesById[attr.field.type_id.value].free_text;
+  }
+
+  function allowedValues(attr) {
+    if (allowFreeText(attr.field.type_id.value)) {
+      return [];
+    }
+    return allowedValuesByTypeId[attr.field.type_id.value];
+  }
+
+  function isGroupingType(attr) {
+    return !allowFreeText(attr) || allowedValues(attr).length === 0;
+  }
+
   function renderAttributes(attributes) {
-    attributes.field.forEach((attr, index) => {
+    return attributes.field.map((attr, index) => {
       return (
-        <tr>
+        <tr key={attr.id}>
           <td>
-            <select
-              attr={{name: `edit-work.attributes.${index}.type_id`}}
-              hasFocus={false}
-              optionsCaption=""
-              optionsText="text"
-              optionsValue="value"
-              value={attr.field.type_id.value}
+            <SelectField
+              allowEmpty
+              field={attr.field.type_id}
+              onChange={onChangeAttributesSelect}
+              options={groupedAttrOptions}
             />
           </td>
-          {/* <td>
-            !this.typeID()
-            || this.parent.attributeTypesByID[this.typeID()].free_text
-          </td> */}
+          {console.log(attributes)}
+          <td>
+            {allowFreeText(attr) ? (
+              <input
+                value={attr.field.value.value}
+              />
+            ) : allowedValues(attr) ? null : (
+              <SelectField
+                allowEmpty
+                field={attr.field.value}
+                options={allowedValues(attr)}
+              />
+            )}
+            {allowedValues(attr) ? (
+              <p>{l('This attribute type is only used for grouping, please select a subtype')}</p>
+            ) : null}
+          </td>
         </tr>
       );
     });
@@ -152,6 +237,13 @@ const EditForm = ({
     ReadOnlyRepeatableFieldT<ReadOnlyFieldT<?number>>,
     _
   >(languageFieldReducer, form.field.languages);
+
+  const [iswcState, iswcDispatch] = useReducer<
+    ReadOnlyRepeatableFieldT<ReadOnlyFieldT<?string>>,
+    _
+  >(iswcFieldReducer, form.field.iswcs);
+
+  console.log(attributeOptions);
 
   return (
     <>
@@ -221,7 +313,7 @@ const EditForm = ({
               onRemove={(i) => {
                 languageDispatch({
                   index: i,
-                  type: 'ADD_LANGUAGE',
+                  type: 'REMOVE_LANGUAGE',
                 });
               }}
               options={optionsLanguageId}
@@ -230,77 +322,30 @@ const EditForm = ({
               repeatable={languageState}
             />
             <FormRowTextList
-              field={form.field.iswcs}
               itemName={l('ISWC')}
               label={l('ISWCs:')}
+              onAdd={() => iswcDispatch({
+                type: 'ADD_ISWC',
+              })}
+              onEdit={(index, iswc) => {
+                iswcDispatch({
+                  index,
+                  iswc,
+                  type: 'EDIT_ISWC',
+                });
+              }}
+              onRemove={(index) => iswcDispatch({
+                index,
+                type: 'REMOVE_ISWC',
+              })}
+              textList={iswcState}
             />
           </fieldset>
           <fieldset>
             <legend>{l('Work Attributes')}</legend>
-            <table className="row-form" data-bind="delegatedHandler: 'click'" id="work-attributes">
+            <table className="row-form" id="work-attributes">
               <tbody>
                 {renderAttributes(form.field.attributes)}
-                <div data-bind="foreach: attributes">
-                  <tr>
-                    <td>
-                      <select data-bind="
-                        value: typeID,
-                        options: $parent.attributeTypes,
-                        optionsText: 'text',
-                        optionsValue: 'value',
-                        optionsCaption: '',
-                        attr: {name: 'edit-work.attributes.' + $index() + '.type_id'},
-                        hasFocus: typeHasFocus
-                        "
-                      />
-                    </td>
-                    <td>
-                      <div data-bind="if: allowsFreeText()">
-                        <input
-                          data-bind="
-                          value: attributeValue,
-                          attr: { name: 'edit-work.attributes.' + $index() + '.value' }
-                          "
-                          type="text"
-                        />
-                      </div>
-                      <div data-bind="if: !allowsFreeText() && !isGroupingType()">
-                        <select data-bind="
-                        value: attributeValue,
-                        options: allowedValues,
-                        optionsText: 'text',
-                        optionsValue: 'value',
-                        optionsCaption: '',
-                        attr: { name: 'edit-work.attributes.' + $index() + '.value' }"
-                        />
-                      </div>
-                      <div data-bind="if: isGroupingType()">
-                        <p>{l('This attribute type is only used for grouping, please select a subtype')}</p>
-                      </div>
-                    </td>
-                    <td>
-                      <button className="icon remove-item" data-click="remove" title={l('Remove attribute')} type="button" />
-                    </td>
-                  </tr>
-                  <div data-bind="if: errors().length">
-                    <tr>
-                      <td />
-                      <td colSpan="2">
-                        <ul className="errors" data-bind="foreach: errors" style={{marginLeft: 0}}>
-                          <li data-bind="text: $data" />
-                        </ul>
-                      </td>
-                    </tr>
-                  </div>
-                </div>
-                <tr>
-                  <td />
-                  <td className="add-item" colSpan="2">
-                    <button className="with-label add-item" data-click="newAttribute" id="add-work-attribute" title={lp('Add Work Attribute', 'button/menu')} type="button">
-                      {lp('Add Work Attribute', 'button/menu')}
-                    </button>
-                  </td>
-                </tr>
               </tbody>
             </table>
           </fieldset>
