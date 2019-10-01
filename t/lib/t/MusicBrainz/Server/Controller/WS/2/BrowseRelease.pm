@@ -381,8 +381,8 @@ ws_test 'browse releases via recording',
     </release-list>
 </metadata>';
 
-ws_test 'browse releases via track artist',
-    '/release?track_artist=a16d1433-ba89-4f72-a47b-a370add0bb55' =>
+ws_test 'browse releases via track artist, including RGs and ratings',
+    '/release?track_artist=a16d1433-ba89-4f72-a47b-a370add0bb55&inc=release-groups+ratings' =>
     '<?xml version="1.0"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
   <release-list count="1">
@@ -391,6 +391,12 @@ ws_test 'browse releases via track artist',
       <status id="4e304316-386d-3409-af2e-78857eec5cfe">Official</status>
       <quality>normal</quality>
       <text-representation><language>eng</language><script>Latn</script></text-representation>
+      <release-group type="Single" type-id="d6038452-8ee0-3f68-affc-2de9a1ede0b9" id="153f0a09-fead-3370-9b17-379ebd09446b">
+        <title>the Love Bug</title>
+        <first-release-date>2004-03-17</first-release-date>
+        <primary-type id="d6038452-8ee0-3f68-affc-2de9a1ede0b9">Single</primary-type>
+        <rating votes-count="2">5</rating>
+      </release-group>
       <date>2004-03-17</date>
       <country>JP</country>
       <release-event-list count="1">

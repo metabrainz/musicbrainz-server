@@ -566,7 +566,7 @@ test 'release lookup with release-group and ratings' => sub {
                 "primary-type-id" => "d6038452-8ee0-3f68-affc-2de9a1ede0b9",
                 "secondary-types" => [],
                 "secondary-type-ids" => [],
-                rating => { "votes-count" => 0, value => JSON::null },
+                rating => { "votes-count" => 2, value => 5 },
             }
         };
 

@@ -164,7 +164,7 @@ UPDATE release_group_meta SET first_release_date_month = 7, rating_count = NULL,
 UPDATE release_group_meta SET first_release_date_month = 9, rating_count = NULL, first_release_date_year = 1999, release_count = 3, first_release_date_day = 13, rating = NULL WHERE id = 155364;
 UPDATE release_group_meta SET first_release_date_month = 1, rating_count = 1, first_release_date_year = 2007, release_count = 1, first_release_date_day = 29, rating = 80 WHERE id = 597897;
 UPDATE release_group_meta SET first_release_date_month = 11, rating_count = NULL, first_release_date_year = 2008, release_count = 1, first_release_date_day = 17, rating = NULL WHERE id = 761939;
-UPDATE release_group_meta SET first_release_date_month = 3, rating_count = NULL, first_release_date_year = 2004, release_count = 1, first_release_date_day = 17, rating = NULL WHERE id = 403214;
+UPDATE release_group_meta SET first_release_date_month = 3, rating_count = 2, first_release_date_year = 2004, release_count = 1, first_release_date_day = 17, rating = 100 WHERE id = 403214;
 UPDATE release_group_meta SET first_release_date_month = 1, rating_count = NULL, first_release_date_year = 2004, release_count = 3, first_release_date_day = 15, rating = NULL WHERE id = 326504;
 UPDATE release_group_meta SET first_release_date_month = NULL, rating_count = 3, first_release_date_year = 1999, release_count = 9, first_release_date_day = NULL, rating = 87 WHERE id = 724150;
 UPDATE release_group_meta SET first_release_date_month = 6, rating_count = NULL, first_release_date_year = 1998, release_count = 2, first_release_date_day = 15, rating = NULL WHERE id = 148670;

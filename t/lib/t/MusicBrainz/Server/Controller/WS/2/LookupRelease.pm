@@ -403,8 +403,8 @@ ws_test 'release lookup with labels, recordings and tags',
     </release>
 </metadata>';
 
-ws_test 'release lookup with release-groups',
-    '/release/aff4a693-5970-4e2e-bd46-e2ee49c22de7?inc=artist-credits+release-groups' =>
+ws_test 'release lookup with release-groups and ratings',
+    '/release/aff4a693-5970-4e2e-bd46-e2ee49c22de7?inc=artist-credits+release-groups+ratings' =>
     '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
     <release id="aff4a693-5970-4e2e-bd46-e2ee49c22de7">
@@ -420,6 +420,7 @@ ws_test 'release lookup with release-groups',
                 <artist id="22dd2db3-88ea-4428-a7a8-5cd3acf23175">
                     <name>m-flo</name>
                     <sort-name>m-flo</sort-name>
+                    <rating votes-count="3">3</rating>
                 </artist>
             </name-credit>
         </artist-credit>
@@ -432,9 +433,11 @@ ws_test 'release lookup with release-groups',
                     <artist id="22dd2db3-88ea-4428-a7a8-5cd3acf23175">
                         <name>m-flo</name>
                         <sort-name>m-flo</sort-name>
+                        <rating votes-count="3">3</rating>
                     </artist>
                 </name-credit>
             </artist-credit>
+            <rating votes-count="2">5</rating>
         </release-group>
         <date>2004-03-17</date>
         <country>JP</country>
