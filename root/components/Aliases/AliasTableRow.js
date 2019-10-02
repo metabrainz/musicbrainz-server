@@ -49,7 +49,7 @@ const AliasTableRow = ({alias, allowEditing, entity, row}: Props) => (
         )
         : null}
     </td>
-    <td>
+    <td className="actions">
       {allowEditing
         ? (
           <>
