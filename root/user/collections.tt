@@ -69,7 +69,7 @@
                 [% IF viewing_own_profile %]
                     <th>[% l('Subscribed') %]</th>
                     <th>[% l('Privacy') %]</th>
-                    <th class="actions actions-header">[% l('Actions') %]</th>
+                    <th class="actions">[% l('Actions') %]</th>
                 [% END %]
             </tr>
         </thead>

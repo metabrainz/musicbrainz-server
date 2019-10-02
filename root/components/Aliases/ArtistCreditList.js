@@ -44,7 +44,7 @@ const ArtistCreditList = ({$c, artistCredits, entity}: Props) => {
               {l('Name')}
             </th>
             {$c.user_exists ? (
-              <th className="actions actions-header">
+              <th className="actions">
                 {l('Actions')}
               </th>
             ) : null}

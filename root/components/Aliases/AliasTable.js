@@ -29,7 +29,7 @@ const AliasTable = (props: Props) => (
         <th>{l('Type')}</th>
         <th>{l('Locale')}</th>
         {props.allowEditing
-          ? <th className="actions actions-header">{l('Actions')}</th>
+          ? <th className="actions">{l('Actions')}</th>
           : null}
       </tr>
     </thead>
