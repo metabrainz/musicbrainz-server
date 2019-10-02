@@ -1,6 +1,7 @@
 package MusicBrainz::Server::Entity::ArtistCredit;
 use Moose;
 
+use Scalar::Util qw( refaddr );
 use MusicBrainz::Server::Entity::Types;
 use aliased 'MusicBrainz::Server::Entity::Artist';
 use aliased 'MusicBrainz::Server::Entity::ArtistCreditName';
@@ -35,10 +36,15 @@ has 'artist_count' => (
 
 sub is_equal {
     my ($a, $b) = @_;
+
     return 0 unless
         (defined($a) && defined($b)) &&
-        (ref($a) eq ref($b)) &&
-        ($a->name_count == $b->name_count);
+        (ref($a) eq ref($b));
+
+    # refaddr is needed since == is overloaded
+    return 1 if refaddr($a) == refaddr($b);
+
+    return 0 unless $a->name_count == $b->name_count;
 
     for my $i (0 .. ($a->name_count - 1)) {
         my ($an, $bn) = ($a->names->[$i], $b->names->[$i]);

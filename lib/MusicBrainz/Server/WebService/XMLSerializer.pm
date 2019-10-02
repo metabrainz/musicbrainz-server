@@ -1,5 +1,6 @@
 package MusicBrainz::Server::WebService::XMLSerializer;
 
+use IO::String;
 use Moose;
 use Scalar::Util 'reftype';
 use Readonly;
@@ -9,629 +10,654 @@ use MusicBrainz::Server::Data::Utils qw( non_empty );
 use MusicBrainz::Server::WebService::Escape qw( xml_escape );
 use MusicBrainz::Server::Entity::Relationship;
 use MusicBrainz::Server::Validation;
-use MusicBrainz::XML;
+use XML::LibXML;
 use aliased 'MusicBrainz::Server::WebService::WebServiceInc';
 use aliased 'MusicBrainz::Server::WebService::WebServiceStash';
 
 sub mime_type { 'application/xml' }
 sub fmt { 'xml' }
 
-Readonly my $xml_decl_begin => '<?xml version="1.0" encoding="UTF-8"?><metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">';
-Readonly my $xml_decl_end => '</metadata>';
-
 # Dynamically scoped variables for determined what data is displayed.
 # Can change at runtime via 'local' shadowing
 our $in_relation_node = 0;
 our $show_aliases = 1;
 
-sub _list_attributes
+sub add_type_elem {
+    my ($parent_node, $name, $type) = @_;
+
+    my $elem = $parent_node->addNewChild(undef, $name);
+    $elem->_setAttribute('id', $type->gid);
+    $elem->appendText($type->name);
+    return $elem;
+}
+
+sub set_list_attributes
 {
-    my ($self, $list) = @_;
+    my ($list_node, $list) = @_;
 
-    my %attrs = ( count => $list->{total} );
-
-    $attrs{offset} = $list->{offset} if $list->{offset};
-
-    return \%attrs;
+    $list_node->_setAttribute('count', $list->{total});
+    $list_node->_setAttribute('offset', $list->{offset}) if $list->{offset};
 }
 
 sub _serialize_annotation
 {
-    my ($self, $data, $gen, $entity, $inc, $opts) = @_;
+    my ($self, $parent_node, $entity, $inc, $opts) = @_;
 
     if ($inc->annotation &&
         defined $entity->latest_annotation &&
         $entity->latest_annotation->text)
     {
-        push @$data, $gen->annotation($gen->text($entity->latest_annotation->text));
+        my $annotation_node = $parent_node->addNewChild(undef, 'annotation');
+        $annotation_node->appendTextChild('text', $entity->latest_annotation->text);
     }
 }
 
 sub _serialize_coordinates
 {
-    my ($self, $data, $gen, $entity, $inc, $opts) = @_;
+    my ($self, $parent_node, $entity, $inc, $opts) = @_;
 
-    my @coordinates;
-    push @coordinates, $gen->latitude($entity->coordinates->latitude);
-    push @coordinates, $gen->longitude($entity->coordinates->longitude);
-    push @$data, $gen->coordinates(@coordinates);
+    my $elem = $parent_node->addNewChild(undef, 'coordinates');
+    my $coordinates = $entity->coordinates;
+    $elem->appendTextChild('latitude', $coordinates->latitude);
+    $elem->appendTextChild('longitude', $coordinates->longitude);
 }
 
 sub _serialize_life_span
 {
-    my ($self, $data, $gen, $entity, $inc, $opts) = @_;
+    my ($self, $parent_node, $entity, $inc, $opts) = @_;
 
     my $has_begin_date = !$entity->begin_date->is_empty;
     my $has_end_date = !$entity->end_date->is_empty;
     if ($has_begin_date || $has_end_date) {
-        my @span;
-        push @span, $gen->begin($entity->begin_date->format) if $has_begin_date;
-        push @span, $gen->end($entity->end_date->format) if $has_end_date;
-        push @span, $gen->ended('true') if ($entity->ended && !$entity->isa('MusicBrainz::Server::Entity::Event'));
-        push @$data, $gen->life_span(@span);
+        my $life_span_node = $parent_node->addNewChild(undef, 'life-span');
+        $life_span_node->appendTextChild('begin', $entity->begin_date->format)
+            if $has_begin_date;
+        $life_span_node->appendTextChild('end', $entity->end_date->format)
+            if $has_end_date;
+        $life_span_node->appendTextChild('ended', 'true')
+            if ($entity->ended && !$entity->isa('MusicBrainz::Server::Entity::Event'));
     }
 }
 
 sub _serialize_text_representation
 {
-    my ($self, $data, $gen, $entity, $inc, $opts) = @_;
+    my ($self, $parent_node, $entity, $inc, $opts) = @_;
 
     if ($entity->language || $entity->script)
     {
-        my @tr;
-        push @tr, $gen->language($entity->language->alpha_3_code)
+        my $tr_node = $parent_node->addNewChild(undef, 'text-representation');
+        $tr_node->appendTextChild('language', $entity->language->alpha_3_code)
             if $entity->language;
-        push @tr, $gen->script($entity->script->iso_code) if $entity->script;
-        push @$data, $gen->text_representation(@tr);
+        $tr_node->appendTextChild('script', $entity->script->iso_code)
+            if $entity->script;
     }
 }
 
-sub _serialize_alias
+sub _serialize_alias_list
 {
-    my ($self, $data, $gen, $aliases, $inc, $opts) = @_;
+    my ($self, $parent_node, $aliases, $inc, $opts) = @_;
 
-    if ($show_aliases && @$aliases)
-    {
-        my %attr = ( count => scalar(@$aliases) );
-        my @alias_list;
-        foreach my $al (sort_by { $_->name } @$aliases)
-        {
-            push @alias_list, $gen->alias({
-                $al->locale ? ( locale => $al->locale ) : (),
-                'sort-name' => $al->sort_name,
-                $al->type ? ( type => $al->type_name ) : (),
-                $al->type ? ( 'type-id' => $al->type->gid ) : (),
-                $al->primary_for_locale ? (primary => 'primary') : (),
-                !$al->begin_date->is_empty ? ( 'begin-date' => $al->begin_date->format ) : (),
-                !$al->end_date->is_empty ? ( 'end-date' => $al->end_date->format ) : ()
-            }, $al->name);
+    if ($show_aliases && @$aliases) {
+        my $alias_list_node = $parent_node->addNewChild(undef, 'alias-list');
+        $alias_list_node->_setAttribute('count', scalar(@$aliases));
+
+        foreach my $al (sort_by { $_->name } @$aliases) {
+            my $alias_node = $alias_list_node->addNewChild(undef, 'alias');
+            $alias_node->_setAttribute('locale', $al->locale) if $al->locale;
+            $alias_node->_setAttribute('sort-name', $al->sort_name);
+
+            if (my $type = $al->type) {
+                $alias_node->_setAttribute('type', $type->name);
+                $alias_node->_setAttribute('type-id', $type->gid);
+            }
+
+            $alias_node->_setAttribute('primary', 'primary') if $al->primary_for_locale;
+            $alias_node->_setAttribute('begin-date', $al->begin_date->format)
+                unless $al->begin_date->is_empty;
+            $alias_node->_setAttribute('end-date', $al->end_date->format)
+                unless $al->end_date->is_empty;
+
+            $alias_node->appendText($al->name);
         }
-        push @$data, $gen->alias_list(\%attr, @alias_list);
     }
 }
 
 sub _serialize_artist_list
 {
-    my ($self, $data, $gen, $list, $inc, $stash) = @_;
+    my ($self, $parent_node, $list, $inc, $stash) = @_;
 
-    if (@{ $list->{items} })
-    {
-        my @list;
-        foreach my $artist (sort_by { $_->gid } @{ $list->{items} })
-        {
-            $self->_serialize_artist(\@list, $gen, $artist, $inc, $stash, 1);
+    if (my @artists = @{ $list->{items} }) {
+        my $artist_list_node = $parent_node->addNewChild(undef, 'artist-list');
+        foreach my $artist (@artists) {
+            $self->_serialize_artist($artist_list_node, $artist, $inc, $stash, 1);
         }
-        push @$data, $gen->artist_list($self->_list_attributes($list), @list);
+        set_list_attributes($artist_list_node, $list);
     }
 }
 
 sub _serialize_artist
 {
-    my ($self, $data, $gen, $artist, $inc, $stash, $toplevel) = @_;
+    my ($self, $parent_node, $artist, $inc, $stash, $toplevel) = @_;
 
     my $opts = $stash->store($artist);
 
     my $compact_display = $artist->id == $VARTIST_ID && !$toplevel;
 
-    my %attrs;
-    $attrs{id} = $artist->gid;
-    $attrs{type} = $artist->type->name if ($artist->type);
-    $attrs{"type-id"} = $artist->type->gid if ($artist->type);
+    my $artist_node = $parent_node->addNewChild(undef, 'artist');
+    $artist_node->_setAttribute('id', $artist->gid);
 
-    my @list;
-    push @list, $gen->name($artist->name);
-    push @list, $gen->sort_name($artist->sort_name) if ($artist->sort_name);
-    $self->_serialize_annotation(\@list, $gen, $artist, $inc, $opts) if $toplevel;
-    push @list, $gen->disambiguation($artist->comment) if ($artist->comment);
-    push @list, $gen->ipi($artist->ipi_codes->[0]->ipi) if ($artist->all_ipi_codes);
-    push @list, $gen->ipi_list(
-        map { $gen->ipi($_->ipi) } $artist->all_ipi_codes
-    ) if ($artist->all_ipi_codes);
+    my $type = $artist->type;
+    if ($type) {
+        $artist_node->_setAttribute('type', $type->name);
+        $artist_node->_setAttribute('type-id', $type->gid);
+    }
 
-    push @list, $gen->isni_list(
-        map { $gen->isni($_->isni) } $artist->all_isni_codes
-    ) if ($artist->all_isni_codes);
+    $artist_node->appendTextChild('name', $artist->name);
+    $artist_node->appendTextChild('sort-name', $artist->sort_name) if $artist->sort_name;
+
+    $self->_serialize_annotation($artist_node, $artist, $inc, $opts) if $toplevel;
+
+    $artist_node->appendTextChild('disambiguation', $artist->comment) if $artist->comment;
+    $artist_node->appendTextChild('ipi', $artist->ipi_codes->[0]->ipi) if $artist->all_ipi_codes;
+
+    if (my @ipi_codes = $artist->all_ipi_codes) {
+        my $ipi_list_node = $artist_node->addNewChild(undef, 'ipi-list');
+        $ipi_list_node->appendTextChild('ipi', $_->ipi) for @ipi_codes;
+    }
+
+    if (my @isni_codes = $artist->all_isni_codes) {
+        my $isni_list_node = $artist_node->addNewChild(undef, 'isni-list');
+        $isni_list_node->appendTextChild('isni', $_->isni) for @isni_codes;
+    }
 
     if ($toplevel)
     {
-        push @list, $gen->gender({id => $artist->gender->gid}, $artist->gender->name) if ($artist->gender);
-        push @list, $gen->country($artist->area->country_code) if $artist->area && $artist->area->country_code;
-        $self->_serialize_area(\@list, $gen, $artist->area, $inc, $stash, $toplevel) if $artist->area;
-        $self->_serialize_begin_area(\@list, $gen, $artist->begin_area, $inc, $stash, $toplevel) if $artist->begin_area;
-        $self->_serialize_end_area(\@list, $gen, $artist->end_area, $inc, $stash, $toplevel) if $artist->end_area;
+        if (my $gender = $artist->gender) {
+            add_type_elem($artist_node, 'gender', $gender);
+        }
 
-        $self->_serialize_life_span(\@list, $gen, $artist, $inc, $opts);
+        if (my $area = $artist->area) {
+            $artist_node->appendTextChild('country', $area->country_code) if $area->country_code;
+            $self->_serialize_area($artist_node, $area, $inc, $stash, $toplevel);
+        }
+
+        $self->_serialize_begin_area($artist_node, $artist->begin_area, $inc, $stash, $toplevel) if $artist->begin_area;
+        $self->_serialize_end_area($artist_node, $artist->end_area, $inc, $stash, $toplevel) if $artist->end_area;
+        $self->_serialize_life_span($artist_node, $artist, $inc, $opts);
     }
 
-    $self->_serialize_alias(\@list, $gen, $opts->{aliases}, $inc, $opts)
+    $self->_serialize_alias_list($artist_node, $opts->{aliases}, $inc, $opts)
         if ($inc->aliases && $opts->{aliases} && !$compact_display);
 
     if ($toplevel)
     {
-        $self->_serialize_recording_list(\@list, $gen, $opts->{recordings}, $inc, $stash)
+        $self->_serialize_recording_list($artist_node, $opts->{recordings}, $inc, $stash)
             if $inc->recordings;
 
-        $self->_serialize_release_list(\@list, $gen, $opts->{releases}, $inc, $stash)
+        $self->_serialize_release_list($artist_node, $opts->{releases}, $inc, $stash)
             if $inc->releases;
 
-        $self->_serialize_release_group_list(\@list, $gen, $opts->{release_groups}, $inc, $stash)
+        $self->_serialize_release_group_list($artist_node, $opts->{release_groups}, $inc, $stash)
             if $inc->release_groups;
 
-        $self->_serialize_work_list(\@list, $gen, $opts->{works}, $inc, $stash)
+        $self->_serialize_work_list($artist_node, $opts->{works}, $inc, $stash)
             if $inc->works;
     }
 
-    $self->_serialize_relation_lists($artist, \@list, $gen, $artist->relationships, $inc, $stash) if ($inc->has_rels);
-    $self->_serialize_tags_and_ratings(\@list, $gen, $inc, $opts)
+    $self->_serialize_relation_lists($artist_node, $artist, $artist->relationships, $inc, $stash)
+        if $inc->has_rels;
+    $self->_serialize_tags_and_ratings($artist_node, $artist, $inc, $stash)
         if !$compact_display;
-
-    push @$data, $gen->artist(\%attrs, @list);
 }
 
 sub _serialize_artist_credit
 {
-    my ($self, $data, $gen, $artist_credit, $inc, $stash, $toplevel) = @_;
+    my ($self, $parent_node, $artist_credit, $inc, $stash, $toplevel) = @_;
 
-    my @ac;
+    my $ac_node = $parent_node->addNewChild(undef, 'artist-credit');
+
     foreach my $name (@{$artist_credit->names})
     {
-        my %artist_attr = ( id => $name->artist->gid );
-
-        my %nc_attr;
-        $nc_attr{joinphrase} = $name->join_phrase if ($name->join_phrase);
-
-        my @nc;
-        push @nc, $gen->name($name->name) if ($name->name ne $name->artist->name);
-
-        $self->_serialize_artist(\@nc, $gen, $name->artist, $inc, $stash);
-        push @ac, $gen->name_credit(\%nc_attr, @nc);
+        my $acn_node = $ac_node->addNewChild(undef, 'name-credit');
+        $acn_node->_setAttribute('joinphrase', $name->join_phrase) if $name->join_phrase;
+        $acn_node->appendTextChild('name', $name->name) if $name->name ne $name->artist->name;
+        $self->_serialize_artist($acn_node, $name->artist, $inc, $stash);
     }
-
-    push @$data, $gen->artist_credit(@ac);
 }
 
 sub _serialize_collection
 {
-    my ($self, $data, $gen, $collection, $inc, $stash, $toplevel) = @_;
+    my ($self, $parent_node, $collection, $inc, $stash, $toplevel) = @_;
 
     my $opts = $stash->store($collection);
-
-    my %attrs;
-    $attrs{id} = $collection->gid;
-    $attrs{type} = $collection->type->name if ($collection->type);
-    $attrs{"entity-type"} = $collection->type->item_entity_type if ($collection->type);
-
-    my @collection;
-    push @collection, $gen->name($collection->name);
-    push @collection, $gen->editor($collection->editor->name);
-
+    my $type = $collection->type;
     my $entity_type = $collection->type->item_entity_type;
-    my $plural = $ENTITIES{$entity_type}{plural};
 
-    my $ser = "_serialize_${entity_type}_list";
-    my $gen_list = "${entity_type}_list";
-    my $list = $opts->{$plural};
-
-    if ($toplevel && defined($list->{items}) && @{ $list->{items} }) {
-        $self->$ser(\@collection, $gen, $list, $inc, $stash);
-    } elsif ($collection->loaded_entity_count) {
-        push @collection, $gen->$gen_list({ count => $collection->entity_count });
+    my $col_node = $parent_node->addNewChild(undef, 'collection');
+    $col_node->_setAttribute('id', $collection->gid);
+    if ($type) {
+        $col_node->_setAttribute('type', $type->name);
+        $col_node->_setAttribute('entity-type', $entity_type);
     }
 
-    push @$data, $gen->collection(\%attrs, @collection);
+    $col_node->appendTextChild('name', $collection->name);
+    $col_node->appendTextChild('editor', $collection->editor->name);
+
+    my $props = $ENTITIES{$entity_type};
+    my $list = $opts->{$props->{plural}};
+
+    if ($toplevel && defined($list->{items}) && @{ $list->{items} }) {
+        my $serialize = "_serialize_${entity_type}_list";
+        $self->$serialize($col_node, $list, $inc, $stash);
+
+    } elsif ($collection->loaded_entity_count) {
+        my $list_node = $col_node->addNewChild(undef, $props->{url} . '-list');
+        $list_node->_setAttribute('count', $collection->entity_count);
+    }
 }
 
 sub _serialize_collection_list
 {
-    my ($self, $data, $gen, $list, $inc, $stash, $toplevel) = @_;
+    my ($self, $parent_node, $list, $inc, $stash, $toplevel) = @_;
 
-    my @list;
+    my $list_node = $parent_node->addNewChild(undef, 'collection-list');
+    set_list_attributes($list_node, $list);
+
     foreach my $collection (@{ $list->{items} }) {
-        $self->_serialize_collection(\@list, $gen, $collection, $inc, $stash, $toplevel);
+        $self->_serialize_collection($list_node, $collection, $inc, $stash, $toplevel);
     }
-    push @$data, $gen->collection_list($self->_list_attributes($list), @list);
 }
 
 sub _serialize_release_group_list
 {
-    my ($self, $data, $gen, $list, $inc, $stash, $toplevel) = @_;
+    my ($self, $parent_node, $list, $inc, $stash, $toplevel) = @_;
 
-    my @list;
-    foreach my $rg (sort_by { $_->gid } @{ $list->{items} })
+    my $list_node = $parent_node->addNewChild(undef, 'release-group-list');
+    set_list_attributes($list_node, $list);
+
+    foreach my $rg (@{ $list->{items} })
     {
-        $self->_serialize_release_group(\@list, $gen, $rg, $inc, $stash, $toplevel);
+        $self->_serialize_release_group($list_node, $rg, $inc, $stash, $toplevel);
     }
-    push @$data, $gen->release_group_list($self->_list_attributes($list), @list);
 }
+
+my %rg_fallback_type_order = (
+    Compilation => 0,
+    Remix => 1,
+    Soundtrack => 2,
+    Live => 3,
+    Spokenword => 4,
+    Interview => 5
+);
 
 sub _serialize_release_group
 {
-    my ($self, $data, $gen, $release_group, $inc, $stash, $toplevel) = @_;
+    my ($self, $parent_node, $release_group, $inc, $stash, $toplevel) = @_;
 
     my $opts = $stash->store($release_group);
+    my $primary_type = $release_group->primary_type;
+    my @secondary_types = $release_group->all_secondary_types;
 
-    my %attr;
-    $attr{id} = $release_group->gid;
+    my $rg_node = $parent_node->addNewChild(undef, 'release-group');
+    $rg_node->_setAttribute('id', $release_group->gid);
 
-    if ($release_group->primary_type && $release_group->primary_type->name eq 'Album') {
-        my %fallback_type_order = (
-            Compilation => 0,
-            Remix => 1,
-            Soundtrack => 2,
-            Live => 3,
-            Spokenword => 4,
-            Interview => 5
-        );
-
+    if ($primary_type && $primary_type->name eq 'Album') {
         my $fallback =
-            nsort_by { $fallback_type_order{$_->name} }
-                grep { exists $fallback_type_order{$_->name} }
-                    $release_group->all_secondary_types;
+            nsort_by { $rg_fallback_type_order{$_->name} }
+                grep { exists $rg_fallback_type_order{$_->name} }
+                    @secondary_types;
 
         if ($fallback) {
-            $attr{type} = $fallback->name;
-            $attr{"type-id"} = $fallback->gid;
+            $rg_node->_setAttribute('type', $fallback->name);
+            $rg_node->_setAttribute('type-id', $fallback->gid);
         } else {
-            $attr{type} = $release_group->primary_type->name;
-            $attr{"type-id"} = $release_group->primary_type->gid;
+            $rg_node->_setAttribute('type', $primary_type->name);
+            $rg_node->_setAttribute('type-id', $primary_type->gid);
         }
     }
-    elsif ($release_group->primary_type) {
-        $attr{type} = $release_group->primary_type->name;
-        $attr{"type-id"} = $release_group->primary_type->gid;
+    elsif ($primary_type) {
+        $rg_node->_setAttribute('type', $primary_type->name);
+        $rg_node->_setAttribute('type-id', $primary_type->gid);
     }
-    elsif ($release_group->all_secondary_types) {
-        $attr{type} = $release_group->secondary_types->[0]->name;
-        $attr{"type-id"} = $release_group->secondary_types->[0]->gid;
+    elsif (@secondary_types) {
+        $rg_node->_setAttribute('type', $secondary_types[0]->name);
+        $rg_node->_setAttribute('type-id', $secondary_types[0]->gid);
     }
 
-    my @list;
-    push @list, $gen->title($release_group->name);
-    push @list, $gen->disambiguation($release_group->comment) if $release_group->comment;
-    $self->_serialize_annotation(\@list, $gen, $release_group, $inc, $opts) if $toplevel;
-    push @list, $gen->first_release_date($release_group->first_release_date->format);
+    $rg_node->appendTextChild('title', $release_group->name);
+    $rg_node->appendTextChild('disambiguation', $release_group->comment) if $release_group->comment;
+    $self->_serialize_annotation($rg_node, $release_group, $inc, $opts) if $toplevel;
+    $rg_node->appendTextChild('first-release-date', $release_group->first_release_date->format);
 
-    push @list, $gen->primary_type({ id => $release_group->primary_type->gid }, $release_group->primary_type->name)
+    add_type_elem($rg_node, 'primary-type', $primary_type)
         if $release_group->primary_type;
-    push @list, $gen->secondary_type_list(
-        map {
-            $gen->secondary_type({ id => $_->gid }, $_->name)
-        } $release_group->all_secondary_types
-    ) if $release_group->all_secondary_types;
+
+    if (@secondary_types) {
+        my $sec_type_list_node = $rg_node->addNewChild(undef, 'secondary-type-list');
+        add_type_elem($sec_type_list_node, 'secondary-type', $_) for @secondary_types;
+    }
 
     if ($toplevel)
     {
-        $self->_serialize_artist_credit(\@list, $gen, $release_group->artist_credit, $inc, $stash, $inc->artists)
+        $self->_serialize_artist_credit($rg_node, $release_group->artist_credit, $inc, $stash, $inc->artists)
             if $inc->artists || $inc->artist_credits;
 
-        $self->_serialize_release_list(\@list, $gen, $opts->{releases}, $inc, $stash)
+        $self->_serialize_release_list($rg_node, $opts->{releases}, $inc, $stash)
             if $inc->releases;
     }
     else
     {
-        $self->_serialize_artist_credit(\@list, $gen, $release_group->artist_credit, $inc, $stash)
+        $self->_serialize_artist_credit($rg_node, $release_group->artist_credit, $inc, $stash)
             if $inc->artist_credits;
     }
 
-    $self->_serialize_alias(\@list, $gen, $opts->{aliases}, $inc, $opts)
+    $self->_serialize_alias_list($rg_node, $opts->{aliases}, $inc, $opts)
         if ($inc->aliases && $opts->{aliases});
 
-    $self->_serialize_relation_lists($release_group, \@list, $gen, $release_group->relationships, $inc, $stash) if $inc->has_rels;
-    $self->_serialize_tags_and_ratings(\@list, $gen, $inc, $opts);
-
-    push @$data, $gen->release_group(\%attr, @list);
+    $self->_serialize_relation_lists($rg_node, $release_group, $release_group->relationships, $inc, $stash) if $inc->has_rels;
+    $self->_serialize_tags_and_ratings($rg_node, $release_group, $inc, $stash);
 }
 
 sub _serialize_release_list
 {
-    my ($self, $data, $gen, $list, $inc, $stash, $toplevel) = @_;
+    my ($self, $parent_node, $list, $inc, $stash, $toplevel) = @_;
 
-    my @list;
-    foreach my $release (sort_by { $_->gid } @{ $list->{items} })
+    my $list_node = $parent_node->addNewChild(undef, 'release-list');
+    set_list_attributes($list_node, $list);
+
+    foreach my $release (@{ $list->{items} })
     {
-        $self->_serialize_release(\@list, $gen, $release, $inc, $stash, $toplevel);
+        $self->_serialize_release($list_node, $release, $inc, $stash, $toplevel);
     }
-    push @$data, $gen->release_list($self->_list_attributes($list), @list);
 }
 
-sub _serialize_quality
-{
-    my ($self, $data, $gen, $release, $inc) = @_;
-    my %quality_names = (
-        $QUALITY_LOW => 'low',
-        $QUALITY_NORMAL => 'normal',
-        $QUALITY_HIGH => 'high'
-    );
+my %quality_names = (
+    $QUALITY_LOW => 'low',
+    $QUALITY_NORMAL => 'normal',
+    $QUALITY_HIGH => 'high'
+);
 
-    my $quality =
-        $release->quality == $QUALITY_UNKNOWN ? $QUALITY_UNKNOWN_MAPPED
-                                              : $release->quality;
+sub _serialize_release_event {
+    my ($self, $parent_node, $release_event, $inc, $stash, $toplevel, $include_country) = @_;
 
-    push @$data, $gen->quality(
-        $quality_names{$quality}
-    );
+    if (my $date = $release_event->date) {
+        $parent_node->appendTextChild('date', $date->format) unless $date->is_empty;
+    }
+
+    if (my $country = $release_event->country) {
+        if ($include_country) {
+            my $country_code = $country->country_code;
+            $parent_node->appendTextChild('country', $country_code) if $country_code;
+        } else {
+            $self->_serialize_area($parent_node, $country, $inc, $stash, $toplevel);
+        }
+    }
 }
 
 sub _serialize_release
 {
-    my ($self, $data, $gen, $release, $inc, $stash, $toplevel) = @_;
+    my ($self, $parent_node, $release, $inc, $stash, $toplevel) = @_;
 
     my $opts = $stash->store($release);
 
     $inc = $inc->clone( releases => 0 );
 
-    my @list;
+    my $release_node = $parent_node->addNewChild(undef, 'release');
+    $release_node->_setAttribute('id', $release->gid);
 
-    push @list, $gen->title($release->name);
-    push @list, $gen->status({ id => $release->status->gid }, $release->status->name) if $release->status;
-    $self->_serialize_quality(\@list, $gen, $release, $inc, $opts);
-    push @list, $gen->disambiguation($release->comment) if $release->comment;
-    $self->_serialize_annotation(\@list, $gen, $release, $inc, $opts) if $toplevel;
-    push @list, $gen->packaging({ id => $release->packaging->gid }, $release->packaging->name) if $release->packaging;
+    $release_node->appendTextChild('title', $release->name);
 
-    $self->_serialize_text_representation(\@list, $gen, $release, $inc, $opts);
+    if (my $status = $release->status) {
+        add_type_elem($release_node, 'status', $status);
+    }
+
+    my $quality = ($release->quality == $QUALITY_UNKNOWN
+        ? $QUALITY_UNKNOWN_MAPPED
+        : $release->quality);
+
+    $release_node->appendTextChild('quality', $quality_names{$quality});
+    $release_node->appendTextChild('disambiguation', $release->comment) if $release->comment;
+    $self->_serialize_annotation($release_node, $release, $inc, $stash) if $toplevel;
+
+    if (my $packaging = $release->packaging) {
+        add_type_elem($release_node, 'packaging', $packaging);
+    }
+
+    $self->_serialize_text_representation($release_node, $release, $inc, $stash);
 
     if ($toplevel)
     {
-        $self->_serialize_artist_credit(\@list, $gen, $release->artist_credit, $inc, $stash, $inc->artists)
+        $self->_serialize_artist_credit($release_node, $release->artist_credit, $inc, $stash, $inc->artists)
             if $inc->artist_credits || $inc->artists;
     }
     else
     {
-        $self->_serialize_artist_credit(\@list, $gen, $release->artist_credit, $inc, $stash)
+        $self->_serialize_artist_credit($release_node, $release->artist_credit, $inc, $stash)
             if $inc->artist_credits;
     }
 
-    $self->_serialize_alias(\@list, $gen, $opts->{aliases}, $inc, $opts)
+    $self->_serialize_alias_list($release_node, $opts->{aliases}, $inc, $opts)
         if ($inc->aliases && $opts->{aliases});
 
-    $self->_serialize_release_group(\@list, $gen, $release->release_group, $inc, $stash)
+    $self->_serialize_release_group($release_node, $release->release_group, $inc, $stash)
             if ($release->release_group && $inc->release_groups);
 
-    if (my ($earliest_release_event) = $release->all_events) {
-        my $serialize_release_event = sub {
-            my ($event, $include_country) = @_;
-            my @r = ();
+    if (my @release_events = $release->all_events) {
+        my ($earliest_release_event) = @release_events;
+        $self->_serialize_release_event($release_node, $earliest_release_event, $inc, $stash, $toplevel, 1);
 
-            push @r, $gen->date($event->date->format)
-                if $event->date && !$event->date->is_empty;
+        my $re_list_node = $release_node->addNewChild(undef, 'release-event-list');
+        $re_list_node->_setAttribute('count', $release->event_count);
 
-            if ($include_country) {
-                push @r, $gen->country($event->country->country_code) if $event->country && $event->country->country_code;
-            } else {
-                $self->_serialize_area(\@r, $gen, $event->country, $inc, $stash, $toplevel) if $event->country;
-            }
-
-            return @r;
-        };
-
-        push @list, $serialize_release_event->($earliest_release_event, 1);
-        push @list, $gen->release_event_list(
-            $self->_list_attributes({ total => $release->event_count }),
-            map { $gen->release_event($serialize_release_event->($_)) }
-                $release->all_events
-        )
+        for my $release_event (@release_events) {
+            $self->_serialize_release_event(
+                $re_list_node->addNewChild(undef, 'release-event'),
+                $release_event, $inc, $stash, $toplevel, 0);
+        }
     }
 
-    push @list, $gen->barcode($release->barcode->code) if defined $release->barcode->code;
-    push @list, $gen->asin($release->amazon_asin) if $release->amazon_asin;
-    $self->_serialize_cover_art_archive(\@list, $gen, $release, $inc, $stash) if $release->cover_art_presence;
+    $release_node->appendTextChild('barcode', $release->barcode->code) if defined $release->barcode->code;
+    $release_node->appendTextChild('asin', $release->amazon_asin) if $release->amazon_asin;
+    $self->_serialize_cover_art_archive($release_node, $release, $inc, $stash) if $release->cover_art_presence;
 
     if ($toplevel)
     {
-        $self->_serialize_label_info_list(\@list, $gen, $release->labels, $inc, $stash)
+        $self->_serialize_label_info_list($release_node, $release->labels, $inc, $stash)
             if ($release->labels && $inc->labels);
 
     }
 
-    $self->_serialize_medium_list(\@list, $gen, $release->mediums, $inc, $stash)
+    $self->_serialize_medium_list($release_node, $release->mediums, $inc, $stash)
         if ($release->mediums && ($inc->media || $inc->discids || $inc->recordings));
 
-    $self->_serialize_relation_lists($release, \@list, $gen, $release->relationships, $inc, $stash) if ($inc->has_rels);
-    $self->_serialize_tags_and_ratings(\@list, $gen, $inc, $opts);
-    $self->_serialize_collection_list(\@list, $gen, $opts->{collections}, $inc, $stash, 0)
+    $self->_serialize_relation_lists($release_node, $release, $release->relationships, $inc, $stash) if ($inc->has_rels);
+    $self->_serialize_tags_and_ratings($release_node, $release, $inc, $stash);
+    $self->_serialize_collection_list($release_node, $opts->{collections}, $inc, $stash, 0)
         if $opts->{collections} && @{ $opts->{collections}{items} };
         # MBS-8845: Don't output <collection-list count="0" />, since at breaks (at least) Picard.
-
-    push @$data, $gen->release({ id => $release->gid }, @list);
 }
 
 sub _serialize_cover_art_archive
 {
-    my ($self, $data, $gen, $release, $inc, $stash) = @_;
+    my ($self, $parent_node, $release, $inc, $stash) = @_;
+
     my $coverart = $stash->store($release)->{'cover-art-archive'};
 
-    my @list;
-    push @list, $gen->artwork($release->cover_art_presence eq 'present' ? 'true' : 'false');
-    push @list, $gen->count($coverart->{total});
-    push @list, $gen->front($coverart->{front} ? 'true' : 'false');
-    push @list, $gen->back($coverart->{back} ? 'true' : 'false');
-    push @list, $gen->darkened('true') if $release->cover_art_presence eq 'darkened';
+    my $caa_node = $parent_node->addNewChild(undef, 'cover-art-archive');
 
-    push @$data, $gen->cover_art_archive(@list);
+    $caa_node->appendTextChild('artwork', $release->cover_art_presence eq 'present' ? 'true' : 'false');
+    $caa_node->appendTextChild('count', $coverart->{total} // 0);
+    $caa_node->appendTextChild('front', $coverart->{front} ? 'true' : 'false');
+    $caa_node->appendTextChild('back', $coverart->{back} ? 'true' : 'false');
+    $caa_node->appendTextChild('darkened', 'true') if $release->cover_art_presence eq 'darkened';
 }
 
 sub _serialize_work_list
 {
-    my ($self, $data, $gen, $list, $inc, $stash, $toplevel) = @_;
+    my ($self, $parent_node, $list, $inc, $stash, $toplevel) = @_;
 
-    my @list;
-    foreach my $work (sort_by { $_->gid } @{ $list->{items} })
+    my $list_node = $parent_node->addNewChild(undef, 'work-list');
+    set_list_attributes($list_node, $list);
+
+    foreach my $work (@{ $list->{items} })
     {
-        $self->_serialize_work(\@list, $gen, $work, $inc, $stash, $toplevel);
+        $self->_serialize_work($list_node, $work, $inc, $stash, $toplevel);
     }
-    push @$data, $gen->work_list($self->_list_attributes($list), @list);
 }
 
 sub _serialize_work
 {
-    my ($self, $data, $gen, $work, $inc, $stash, $toplevel) = @_;
+    my ($self, $parent_node, $work, $inc, $stash, $toplevel) = @_;
 
     my $opts = $stash->store($work);
 
-    my %attrs;
-    $attrs{id} = $work->gid;
-    $attrs{type} = $work->type->name if ($work->type);
-    $attrs{"type-id"} = $work->type->gid if ($work->type);
+    my $work_node = $parent_node->addNewChild(undef, 'work');
+    $work_node->_setAttribute('id', $work->gid);
 
-    my @list;
-    push @list, $gen->title($work->name);
+    if (my $type = $work->type) {
+        $work_node->_setAttribute('type', $type->name);
+        $work_node->_setAttribute('type-id', $type->gid);
+    }
+
+    $work_node->appendTextChild('title', $work->name);
 
     if ($work->all_languages) {
         my @languages = map { $_->language->alpha_3_code } $work->all_languages;
+
         # Pre-MBS-5452 element.
-        push @list, $gen->language(@languages > 1 ? 'mul' : $languages[0]);
-        push @list, $gen->language_list(map { $gen->language($_) } @languages);
+        $work_node->appendTextChild('language', @languages > 1 ? 'mul' : $languages[0]);
+
+        my $lang_list_node = $work_node->addNewChild(undef, 'language-list');
+        $lang_list_node->appendTextChild('language', $_) for @languages;
     }
 
-    if ($work->all_iswcs) {
-        push @list, $gen->iswc($work->iswcs->[0]->iswc);
-        push @list, $gen->iswc_list(map {
-            $gen->iswc($_->iswc);
-        } $work->all_iswcs);
+    if (my @iswcs = $work->all_iswcs) {
+        $work_node->appendTextChild('iswc', $work->iswcs->[0]->iswc);
+        my $iswc_list_node = $work_node->addNewChild(undef, 'iswc-list');
+        $iswc_list_node->appendTextChild('iswc', $_->iswc) for @iswcs;
     }
 
-    if ($work->all_attributes) {
-        push @list, $gen->attribute_list(map {
-            $gen->attribute({
-                "value-id" => $_->value_gid,
-                type => $_->type->name,
-                "type-id" => $_->type->gid,
-            }, $_->value);
-        } $work->all_attributes);
+    if (my @attributes = $work->all_attributes) {
+        my $attr_list_node = $work_node->addNewChild(undef, 'attribute-list');
+        for my $attr (@attributes) {
+            my $attr_node = $attr_list_node->addNewChild(undef, 'attribute');
+            $attr_node->appendText($attr->value);
+            $attr_node->_setAttribute('value-id', $attr->value_gid);
+            $attr_node->_setAttribute('type', $attr->type->name);
+            $attr_node->_setAttribute('type-id', $attr->type->gid);
+        }
     }
 
-    push @list, $gen->disambiguation($work->comment) if ($work->comment);
-    $self->_serialize_annotation(\@list, $gen, $work, $inc, $opts) if $toplevel;
+    $work_node->appendTextChild('disambiguation', $work->comment) if $work->comment;
+    $self->_serialize_annotation($work_node, $work, $inc, $stash) if $toplevel;
 
-    $self->_serialize_alias(\@list, $gen, $opts->{aliases}, $inc, $opts)
+    $self->_serialize_alias_list($work_node, $opts->{aliases}, $inc, $stash)
         if ($inc->aliases && $opts->{aliases});
 
-    $self->_serialize_relation_lists($work, \@list, $gen, $work->relationships, $inc, $stash) if $inc->has_rels;
-    $self->_serialize_tags_and_ratings(\@list, $gen, $inc, $opts);
-
-    push @$data, $gen->work(\%attrs, @list);
+    $self->_serialize_relation_lists($work_node, $work, $work->relationships, $inc, $stash) if $inc->has_rels;
+    $self->_serialize_tags_and_ratings($work_node, $work, $inc, $stash);
 }
 
 sub _serialize_url
 {
-    my ($self, $data, $gen, $url, $inc, $stash, $toplevel) = @_;
+    my ($self, $parent_node, $url, $inc, $stash, $toplevel) = @_;
 
     my $opts = $stash->store($url);
 
-    my %attrs;
-    $attrs{id} = $url->gid;
+    my $url_node = $parent_node->addNewChild(undef, 'url');
+    $url_node->_setAttribute('id', $url->gid);
 
-    my @list;
-    push @list, $gen->resource($url->url);
-    $self->_serialize_relation_lists($url, \@list, $gen, $url->relationships, $inc, $stash) if ($inc->has_rels);
-
-    push @$data, $gen->url(\%attrs, @list);
+    $url_node->appendTextChild('resource', $url->url);
+    $self->_serialize_relation_lists($url_node, $url, $url->relationships, $inc, $stash) if $inc->has_rels;
 }
 
 sub _serialize_recording_list
 {
-    my ($self, $data, $gen, $list, $inc, $stash, $toplevel) = @_;
+    my ($self, $parent_node, $list, $inc, $stash, $toplevel) = @_;
 
-    my @list;
-    foreach my $recording (sort_by { $_->gid } @{ $list->{items} })
+    my $list_node = $parent_node->addNewChild(undef, 'recording-list');
+    set_list_attributes($list_node, $list);
+
+    foreach my $recording (@{ $list->{items} })
     {
-        $self->_serialize_recording(\@list, $gen, $recording, $inc, $stash, $toplevel);
+        $self->_serialize_recording($list_node, $recording, $inc, $stash, $toplevel);
     }
-
-    push @$data, $gen->recording_list($self->_list_attributes($list), @list);
 }
 
 sub _serialize_recording
 {
-    my ($self, $data, $gen, $recording, $inc, $stash, $toplevel) = @_;
+    my ($self, $parent_node, $recording, $inc, $stash, $toplevel) = @_;
 
     my $opts = $stash->store($recording);
 
-    my @list;
-    push @list, $gen->title($recording->name);
-    push @list, $gen->length($recording->length) if $recording->length;
-    push @list, $gen->disambiguation($recording->comment) if ($recording->comment);
-    push @list, $gen->video('true') if $recording->video;
+    my $rec_node = $parent_node->addNewChild(undef, 'recording');
+    $rec_node->_setAttribute('id', $recording->gid);
+
+    $rec_node->appendTextChild('title', $recording->name);
+    $rec_node->appendTextChild('length', $recording->length) if $recording->length;
+    $rec_node->appendTextChild('disambiguation', $recording->comment) if ($recording->comment);
+    $rec_node->appendTextChild('video', 'true') if $recording->video;
+
     if ($toplevel)
     {
-        $self->_serialize_annotation(\@list, $gen, $recording, $inc, $opts);
+        $self->_serialize_annotation($rec_node, $recording, $inc, $stash);
 
-        $self->_serialize_artist_credit(\@list, $gen, $recording->artist_credit, $inc, $stash, $inc->artists)
+        $self->_serialize_artist_credit($rec_node, $recording->artist_credit, $inc, $stash, $inc->artists)
             if $inc->artists || $inc->artist_credits;
 
-        $self->_serialize_release_list(\@list, $gen, $opts->{releases}, $inc, $stash)
+        $self->_serialize_release_list($rec_node, $opts->{releases}, $inc, $stash)
             if $inc->releases;
     }
     else
     {
-        $self->_serialize_artist_credit(\@list, $gen, $recording->artist_credit, $inc, $stash)
+        $self->_serialize_artist_credit($rec_node, $recording->artist_credit, $inc, $stash)
             if $inc->artist_credits;
     }
 
-    $self->_serialize_alias(\@list, $gen, $opts->{aliases}, $inc, $opts)
+    $self->_serialize_alias_list($rec_node, $opts->{aliases}, $inc, $opts)
         if ($inc->aliases && $opts->{aliases});
 
-    $self->_serialize_isrc_list(\@list, $gen, $opts->{isrcs}, $inc, $stash)
+    $self->_serialize_isrc_list($rec_node, $opts->{isrcs}, $inc, $stash)
         if ($opts->{isrcs} && $inc->isrcs);
 
-    $self->_serialize_relation_lists($recording, \@list, $gen, $recording->relationships, $inc, $stash) if ($inc->has_rels);
-    $self->_serialize_tags_and_ratings(\@list, $gen, $inc, $opts);
-
-    push @$data, $gen->recording({ id => $recording->gid }, @list);
+    $self->_serialize_relation_lists($rec_node, $recording, $recording->relationships, $inc, $stash) if ($inc->has_rels);
+    $self->_serialize_tags_and_ratings($rec_node, $recording, $inc, $stash);
 
 }
 
 sub _serialize_medium_list
 {
-    my ($self, $data, $gen, $mediums, $inc, $stash) = @_;
+    my ($self, $parent_node, $mediums, $inc, $stash) = @_;
 
-    my @list;
+    my $list_node = $parent_node->addNewChild(undef, 'medium-list');
+    $list_node->_setAttribute('count', scalar @$mediums);
+
     foreach my $medium (nsort_by { $_->position } @$mediums)
     {
-        $self->_serialize_medium(\@list, $gen, $medium, $inc, $stash);
+        $self->_serialize_medium($list_node, $medium, $inc, $stash);
     }
-    push @$data, $gen->medium_list({ count => scalar(@$mediums) }, @list);
 }
 
 sub _serialize_medium
 {
-    my ($self, $data, $gen, $medium, $inc, $stash) = @_;
+    my ($self, $parent_node, $medium, $inc, $stash) = @_;
 
-    my @med;
-    push @med, $gen->title($medium->name) if $medium->name;
-    push @med, $gen->position($medium->position);
-    push @med, $gen->format({ id => $medium->format->gid }, $medium->format->name) if ($medium->format);
-    $self->_serialize_disc_list(\@med, $gen, $medium->cdtocs, $inc, $stash) if ($inc->discids);
+    my $med_node = $parent_node->addNewChild(undef, 'medium');
 
-    $self->_serialize_tracks(\@med, $gen, $medium, $inc, $stash);
+    $med_node->appendTextChild('title', $medium->name) if $medium->name;
+    $med_node->appendTextChild('position', $medium->position);
 
-    push @$data, $gen->medium(@med);
+    if (my $format = $medium->format) {
+        add_type_elem($med_node, 'format', $format);
+    }
+
+    $self->_serialize_disc_list($med_node, $medium->cdtocs, $inc, $stash) if $inc->discids;
+    $self->_serialize_tracks($med_node, $medium, $inc, $stash);
 }
 
 sub _serialize_tracks
 {
-    my ($self, $data, $gen, $medium, $inc, $stash) = @_;
+    my ($self, $parent_node, $medium, $inc, $stash) = @_;
 
     # Not all tracks in the tracklists may have been loaded.  If not all
     # tracks have been loaded, only one them will have been loaded which
@@ -642,45 +668,44 @@ sub _serialize_tracks
     my $min = @tracks ? $tracks[0]->position : 0;
 
     if (@tracks && $medium->has_pregap) {
-        $self->_serialize_track($data, $gen, $tracks[0], $inc, $stash, 1);
+        $self->_serialize_track($parent_node, $tracks[0], $inc, $stash, 1);
     }
 
-    my @list;
+    my $track_list_node = $parent_node->addNewChild(undef, 'track-list');
+    $track_list_node->_setAttribute('count', $medium->cdtoc_track_count);
+    $track_list_node->_setAttribute('offset', $medium->has_pregap ? 0 : $min - 1) if @tracks;
+
     foreach my $track (@{ $medium->cdtoc_tracks }) {
         $min = $track->position if $track->position < $min;
-        $self->_serialize_track(\@list, $gen, $track, $inc, $stash);
+        $self->_serialize_track($track_list_node, $track, $inc, $stash);
     }
 
-    my %attr = ( count => $medium->cdtoc_track_count );
-    $attr{offset} = ($medium->has_pregap ? 0 : $min - 1) if @tracks;
-
-    push @$data, $gen->track_list(\%attr, @list);
-
     if (my @data_tracks = grep { $_->position > 0 && $_->is_data_track } @tracks) {
-        @list = ();
-        $self->_serialize_track(\@list, $gen, $_, $inc, $stash) for @data_tracks;
-        push @$data, $gen->data_track_list({ count => scalar(@list) }, @list);
+        my $data_track_list_node = $parent_node->addNewChild(undef, 'data-track-list');
+        $data_track_list_node->_setAttribute('count', scalar @data_tracks);
+        $self->_serialize_track($data_track_list_node, $_, $inc, $stash) for @data_tracks;
     }
 }
 
 sub _serialize_track
 {
-    my ($self, $data, $gen, $track, $inc, $stash, $pregap) = @_;
+    my ($self, $parent_node, $track, $inc, $stash, $pregap) = @_;
 
-    my @track;
-    push @track, $gen->position($track->position);
-    push @track, $gen->number($track->number);
+    my $track_node = $parent_node->addNewChild(undef, $pregap ? 'pregap' : 'track');
+    $track_node->_setAttribute('id', $track->gid);
 
-    push @track, $gen->title($track->name)
+    $track_node->appendTextChild('position', $track->position);
+    $track_node->appendTextChild('number', $track->number);
+
+    $track_node->appendTextChild('title', $track->name)
         if ($track->recording && $track->name ne $track->recording->name) ||
            (!$track->recording);
 
-    push @track, $gen->length($track->length)
-        if $track->length;
+    $track_node->appendTextChild('length', $track->length) if $track->length;
 
     do {
         local $show_aliases = 1;
-        $self->_serialize_artist_credit(\@track, $gen, $track->artist_credit, $inc, $stash)
+        $self->_serialize_artist_credit($track_node, $track->artist_credit, $inc, $stash)
             if $inc->artist_credits &&
                 (
                     ($track->recording &&
@@ -689,658 +714,726 @@ sub _serialize_track
                 );
     };
 
-    $self->_serialize_recording(\@track, $gen, $track->recording, $inc, $stash)
+    $self->_serialize_recording($track_node, $track->recording, $inc, $stash)
         if ($track->recording);
-
-    my $node_name = $pregap ? 'pregap' : 'track';
-    push @$data, $gen->$node_name({ id => $track->gid }, @track);
 }
 
 sub _serialize_disc_list
 {
-    my ($self, $data, $gen, $cdtoclist, $inc, $stash) = @_;
+    my ($self, $parent_node, $cdtoclist, $inc, $stash) = @_;
 
-    my @list;
+    my $list_node = $parent_node->addNewChild(undef, 'disc-list');
+    $list_node->_setAttribute('count', scalar @$cdtoclist);
+
     foreach my $cdtoc (sort_by { $_->cdtoc->discid } @$cdtoclist)
     {
-        $self->_serialize_disc(\@list, $gen, $cdtoc->cdtoc, $inc, $stash);
+        $self->_serialize_disc($list_node, $cdtoc->cdtoc, $inc, $stash);
     }
-    push @$data, $gen->disc_list({ count => scalar(@$cdtoclist) }, @list);
 }
 
 sub _serialize_disc
 {
-    my ($self, $data, $gen, $cdtoc, $inc, $stash, $toplevel) = @_;
+    my ($self, $parent_node, $cdtoc, $inc, $stash, $toplevel) = @_;
 
     my $opts = $stash->store($cdtoc);
 
-    my @list;
-    push @list, $gen->sectors($cdtoc->leadout_offset);
+    my $disc_node = $parent_node->addNewChild(undef, 'disc');
+    $disc_node->_setAttribute('id', $cdtoc->discid);
 
-    $self->_serialize_disc_offsets(\@list, $gen, $cdtoc, $inc, $stash);
+    $disc_node->appendTextChild('sectors', $cdtoc->leadout_offset);
+
+    $self->_serialize_disc_offsets($disc_node, $cdtoc, $inc, $stash);
 
     if ($toplevel) {
-        $self->_serialize_release_list(\@list, $gen, $opts->{releases}, $inc, $stash, $toplevel);
+        $self->_serialize_release_list($disc_node, $opts->{releases}, $inc, $stash, $toplevel);
     }
-
-    push @$data, $gen->disc({ id => $cdtoc->discid }, @list);
 }
 
 sub _serialize_disc_offsets
 {
-    my ($self, $data, $gen, $cdtoc, $inc, $stash) = @_;
+    my ($self, $parent_node, $cdtoc, $inc, $stash) = @_;
 
-    my @list;
+    my $list_node = $parent_node->addNewChild(undef, 'offset-list');
+    $list_node->_setAttribute('count', $cdtoc->track_count);
+
     foreach my $track (0 .. ($cdtoc->track_count - 1)) {
-        push @list, $gen->offset({ position => $track + 1 }, $cdtoc->track_offset->[$track]);
+        my $offset_node = $list_node->addNewChild(undef, 'offset');
+        $offset_node->appendText($cdtoc->track_offset->[$track]);
+        $offset_node->_setAttribute('position', $track + 1);
     }
-
-    push @$data, $gen->offset_list({ count => $cdtoc->track_count }, @list);
 }
 
 sub _serialize_cdstub
 {
-    my ($self, $data, $gen, $cdstub, $inc, $stash, $toplevel) = @_;
+    my ($self, $parent_node, $cdstub, $inc, $stash, $toplevel) = @_;
 
-    my @contents = (
-        $gen->title($cdstub->title),
-        $gen->artist($cdstub->artist),
-    );
-    push @contents, $gen->barcode($cdstub->barcode)
-        if $cdstub->barcode;
-    push @contents, $gen->disambiguation($cdstub->comment)
-        if $cdstub->comment;
+    my $cdstub_node = $parent_node->addNewChild(undef, 'cdstub');
+    $cdstub_node->_setAttribute('id', $cdstub->discid);
 
-    my @tracks = map {
-        my @track = ( $gen->title($_->title) );
-        push @track, $gen->artist($_->artist)
-            if $_->artist;
-        push @track, $gen->length($_->length);
+    $cdstub_node->appendTextChild('title', $cdstub->title);
+    $cdstub_node->appendTextChild('artist', $cdstub->artist);
+    $cdstub_node->appendTextChild('barcode', $cdstub->barcode) if $cdstub->barcode;
+    $cdstub_node->appendTextChild('disambiguation', $cdstub->comment) if $cdstub->comment;
 
-        $gen->track(@track);
-    } $cdstub->all_tracks;
+    my $track_list_node = $cdstub_node->addNewChild(undef, 'track-list');
+    $track_list_node->_setAttribute('count', $cdstub->track_count);
 
-    push @contents, $gen->track_list({ count => $cdstub->track_count }, @tracks);
-
-    push @$data, $gen->cdstub({ id => $cdstub->discid }, @contents);
+    for my $track ($cdstub->all_tracks) {
+        my $track_node = $track_list_node->addNewChild(undef, 'track');
+        $track_node->appendTextChild('title', $track->title);
+        $track_node->appendTextChild('artist', $track->artist) if $track->artist;
+        $track_node->appendTextChild('length', $track->length);
+    }
 }
 
 sub _serialize_label_info_list
 {
-    my ($self, $data, $gen, $rel_labels, $inc, $stash) = @_;
+    my ($self, $parent_node, $rel_labels, $inc, $stash) = @_;
 
-    my @list;
+    my $list_node = $parent_node->addNewChild(undef, 'label-info-list');
+    $list_node->_setAttribute('count', scalar @$rel_labels);
+
     foreach my $rel_label (@$rel_labels)
     {
-        $self->_serialize_label_info(\@list, $gen, $rel_label, $inc, $stash);
+        $self->_serialize_label_info($list_node, $rel_label, $inc, $stash);
     }
-    push @$data, $gen->label_info_list({ count => scalar(@$rel_labels) }, @list);
 }
 
 sub _serialize_label_info
 {
-    my ($self, $data, $gen, $rel_label, $inc, $stash) = @_;
+    my ($self, $parent_node, $rel_label, $inc, $stash) = @_;
 
-    my @list;
-    push @list, $gen->catalog_number($rel_label->catalog_number)
+    my $label_info_node = $parent_node->addNewChild(undef, 'label-info');
+
+    $label_info_node->appendTextChild('catalog-number', $rel_label->catalog_number)
         if $rel_label->catalog_number;
-    $self->_serialize_label(\@list, $gen, $rel_label->label, $inc, $stash)
+
+    $self->_serialize_label($label_info_node, $rel_label->label, $inc, $stash)
         if $rel_label->label;
-    push @$data, $gen->label_info(@list);
 }
 
 sub _serialize_label_list
 {
-    my ($self, $data, $gen, $list, $inc, $stash, $toplevel) = @_;
+    my ($self, $parent_node, $list, $inc, $stash, $toplevel) = @_;
 
-    my @list;
-    foreach my $label (sort_by { $_->gid } @{ $list->{items} })
+    my $list_node = $parent_node->addNewChild(undef, 'label-list');
+    set_list_attributes($list_node, $list);
+
+    foreach my $label (@{ $list->{items} })
     {
-        $self->_serialize_label(\@list, $gen, $label, $inc, $stash, $toplevel);
+        $self->_serialize_label($list_node, $label, $inc, $stash, $toplevel);
     }
-    push @$data, $gen->label_list($self->_list_attributes($list), @list);
 }
 
 sub _serialize_label
 {
-    my ($self, $data, $gen, $label, $inc, $stash, $toplevel) = @_;
+    my ($self, $parent_node, $label, $inc, $stash, $toplevel) = @_;
 
     my $opts = $stash->store($label);
 
-    my %attrs;
-    $attrs{id} = $label->gid;
-    $attrs{type} = $label->type->name if $label->type;
-    $attrs{"type-id"} = $label->type->gid if $label->type;
+    my $label_node = $parent_node->addNewChild(undef, 'label');
+    $label_node->_setAttribute('id', $label->gid);
 
-    my @list;
-    push @list, $gen->name($label->name);
-    push @list, $gen->sort_name($label->name);
-    push @list, $gen->disambiguation($label->comment) if $label->comment;
-    push @list, $gen->label_code($label->label_code) if $label->label_code;
-    push @list, $gen->ipi($label->ipi_codes->[0]->ipi) if ($label->all_ipi_codes);
-    push @list, $gen->ipi_list(
-        map { $gen->ipi($_->ipi) } $label->all_ipi_codes
-    ) if ($label->all_ipi_codes);
+    if (my $type = $label->type) {
+        $label_node->_setAttribute('type', $type->name);
+        $label_node->_setAttribute('type-id', $type->gid);
+    }
 
-    push @list, $gen->isni_list(
-        map { $gen->isni($_->isni) } $label->all_isni_codes
-    ) if ($label->all_isni_codes);
+    $label_node->appendTextChild('name', $label->name);
+    $label_node->appendTextChild('sort-name', $label->name);
+    $label_node->appendTextChild('disambiguation', $label->comment) if $label->comment;
+    $label_node->appendTextChild('label-code', $label->label_code) if $label->label_code;
+
+    if (my @ipi_codes = $label->all_ipi_codes) {
+        $label_node->appendTextChild('ipi', $ipi_codes[0]->ipi);
+        my $ipi_list_node = $label_node->addNewChild(undef, 'ipi-list');
+        $ipi_list_node->appendTextChild('ipi', $_->ipi) for @ipi_codes;
+    }
+
+    if (my @isni_codes = $label->all_isni_codes) {
+        my $isni_list_node = $label_node->addNewChild(undef, 'isni-list');
+        $isni_list_node->appendTextChild('isni', $_->isni) for @isni_codes;
+    }
 
     if ($toplevel)
     {
-        $self->_serialize_annotation(\@list, $gen, $label, $inc, $opts);
-        push @list, $gen->country($label->area->country_code) if $label->area && $label->area->country_code;
-        $self->_serialize_area(\@list, $gen, $label->area, $inc, $stash, $toplevel) if $label->area;
-        $self->_serialize_life_span(\@list, $gen, $label, $inc, $opts);
+        $self->_serialize_annotation($label_node, $label, $inc, $stash);
+
+        if (my $area = $label->area) {
+            my $country_code = $area->country_code;
+            $label_node->appendTextChild('country', $country_code) if $country_code;
+            $self->_serialize_area($label_node, $area, $inc, $stash, $toplevel);
+        }
+
+        $self->_serialize_life_span($label_node, $label, $inc, $stash);
     }
 
-    $self->_serialize_alias(\@list, $gen, $opts->{aliases}, $inc, $opts)
+    $self->_serialize_alias_list($label_node, $opts->{aliases}, $inc, $stash)
         if ($inc->aliases && $opts->{aliases});
 
     if ($toplevel)
     {
-        $self->_serialize_release_list(\@list, $gen, $opts->{releases}, $inc, $stash)
+        $self->_serialize_release_list($label_node, $opts->{releases}, $inc, $stash)
             if $inc->releases;
     }
 
-    $self->_serialize_relation_lists($label, \@list, $gen, $label->relationships, $inc, $stash) if ($inc->has_rels);
-    $self->_serialize_tags_and_ratings(\@list, $gen, $inc, $opts);
-
-    push @$data, $gen->label(\%attrs, @list);
+    $self->_serialize_relation_lists($label_node, $label, $label->relationships, $inc, $stash) if ($inc->has_rels);
+    $self->_serialize_tags_and_ratings($label_node, $label, $inc, $stash);
 }
 
 sub _serialize_area_list
 {
-    my ($self, $data, $gen, $list, $inc, $stash, $toplevel) = @_;
+    my ($self, $parent_node, $list, $inc, $stash, $toplevel) = @_;
 
-    my @list;
-    foreach my $area (sort_by { $_->gid } @{ $list->{items} })
+    my $list_node = $parent_node->addNewChild(undef, 'area-list');
+    set_list_attributes($list_node, $list);
+
+    foreach my $area (@{ $list->{items} })
     {
-        $self->_serialize_area(\@list, $gen, $area, $inc, $stash, $toplevel);
+        $self->_serialize_area($list_node, $area, $inc, $stash, $toplevel);
     }
-    push @$data, $gen->area_list($self->_list_attributes($list), @list);
 }
 
 sub _serialize_area_inner
 {
-    my ($self, $data, $gen, $area, $inc, $stash, $toplevel) = @_;
+    my ($self, $area_node, $area, $inc, $stash, $toplevel) = @_;
 
     my $opts = $stash->store($area);
 
-    my %attrs;
-    $attrs{id} = $area->gid;
-    $attrs{type} = $area->type->name if $area->type;
-    $attrs{"type-id"} = $area->type->gid if $area->type;
+    $area_node->_setAttribute('id', $area->gid);
 
-    my @list;
-    push @list, $gen->name($area->name);
-    push @list, $gen->sort_name($area->name);
-    push @list, $gen->disambiguation($area->comment) if ($area->comment);
-    if ($area->iso_3166_1_codes) {
-        push @list, $gen->iso_3166_1_code_list(map {
-           $gen->iso_3166_1_code($_);
-        } $area->iso_3166_1_codes);
+    if (my $type = $area->type) {
+        $area_node->_setAttribute('type', $type->name);
+        $area_node->_setAttribute('type-id', $type->gid);
     }
-    if ($area->iso_3166_2_codes) {
-        push @list, $gen->iso_3166_2_code_list(map {
-           $gen->iso_3166_2_code($_);
-        } $area->iso_3166_2_codes);
+
+    $area_node->appendTextChild('name', $area->name);
+    $area_node->appendTextChild('sort-name', $area->name);
+    $area_node->appendTextChild('disambiguation', $area->comment) if $area->comment;
+
+    if (my @codes = $area->iso_3166_1_codes) {
+        my $list_node = $area_node->addNewChild(undef ,'iso-3166-1-code-list');
+        $list_node->appendTextChild('iso-3166-1-code', $_) for @codes;
     }
-    if ($area->iso_3166_3_codes) {
-        push @list, $gen->iso_3166_3_code_list(map {
-           $gen->iso_3166_3_code($_);
-        } $area->iso_3166_3_codes);
+
+    if (my @codes = $area->iso_3166_2_codes) {
+        my $list_node = $area_node->addNewChild(undef ,'iso-3166-2-code-list');
+        $list_node->appendTextChild('iso-3166-2-code', $_) for @codes;
     }
+
+    if (my @codes = $area->iso_3166_3_codes) {
+        my $list_node = $area_node->addNewChild(undef ,'iso-3166-3-code-list');
+        $list_node->appendTextChild('iso-3166-3-code', $_) for @codes;
+    }
+
     if ($toplevel)
     {
-        $self->_serialize_annotation(\@list, $gen, $area, $inc, $opts);
-        $self->_serialize_life_span(\@list, $gen, $area, $inc, $opts);
+        $self->_serialize_annotation($area_node, $area, $inc, $opts);
+        $self->_serialize_life_span($area_node, $area, $inc, $opts);
     }
 
-    $self->_serialize_alias(\@list, $gen, $opts->{aliases}, $inc, $opts)
+    $self->_serialize_alias_list($area_node, $opts->{aliases}, $inc, $opts)
         if ($inc->aliases && $opts->{aliases});
 
-    $self->_serialize_relation_lists($area, \@list, $gen, $area->relationships, $inc, $stash) if ($inc->has_rels);
-    $self->_serialize_tags_and_ratings(\@list, $gen, $inc, $opts);
-
-    return (\%attrs, @list);
+    $self->_serialize_relation_lists($area_node, $area, $area->relationships, $inc, $stash) if ($inc->has_rels);
+    $self->_serialize_tags_and_ratings($area_node, $area, $inc, $stash);
 }
 
 sub _serialize_area
 {
-    my ($self, $data, $gen, $area, $inc, $stash, $toplevel) = @_;
+    my ($self, $parent_node, $area, $inc, $stash, $toplevel) = @_;
 
-    my ($attrs, @list) = $self->_serialize_area_inner($data, $gen, $area, $inc, $stash, $toplevel);
-
-    push @$data, $gen->area($attrs, @list);
+    my $area_node = $parent_node->addNewChild(undef, 'area');
+    $self->_serialize_area_inner($area_node, $area, $inc, $stash, $toplevel);
 }
 
 sub _serialize_begin_area
 {
-    my ($self, $data, $gen, $area, $inc, $stash, $toplevel) = @_;
+    my ($self, $parent_node, $area, $inc, $stash, $toplevel) = @_;
 
-    my ($attrs, @list) = $self->_serialize_area_inner($data, $gen, $area, $inc, $stash, $toplevel);
-
-    push @$data, $gen->begin_area($attrs, @list);
+    my $area_node = $parent_node->addNewChild(undef, 'begin-area');
+    $self->_serialize_area_inner($area_node, $area, $inc, $stash, $toplevel);
 }
 
 sub _serialize_end_area
 {
-    my ($self, $data, $gen, $area, $inc, $stash, $toplevel) = @_;
+    my ($self, $parent_node, $area, $inc, $stash, $toplevel) = @_;
 
-    my ($attrs, @list) = $self->_serialize_area_inner($data, $gen, $area, $inc, $stash, $toplevel);
-
-    push @$data, $gen->end_area($attrs, @list);
+    my $area_node = $parent_node->addNewChild(undef, 'end-area');
+    $self->_serialize_area_inner($area_node, $area, $inc, $stash, $toplevel);
 }
 
 sub _serialize_place_list
 {
-    my ($self, $data, $gen, $list, $inc, $stash, $toplevel) = @_;
+    my ($self, $parent_node, $list, $inc, $stash, $toplevel) = @_;
 
-    my @list;
-    foreach my $place (sort_by { $_->gid } @{ $list->{items} })
+    my $list_node = $parent_node->addNewChild(undef, 'place-list');
+    set_list_attributes($list_node, $list);
+
+    foreach my $place (@{ $list->{items} })
     {
-        $self->_serialize_place(\@list, $gen, $place, $inc, $stash, $toplevel);
+        $self->_serialize_place($list_node, $place, $inc, $stash, $toplevel);
     }
-    push @$data, $gen->place_list($self->_list_attributes($list), @list);
 }
 
 sub _serialize_place
 {
-    my ($self, $data, $gen, $place, $inc, $stash, $toplevel) = @_;
+    my ($self, $parent_node, $place, $inc, $stash, $toplevel) = @_;
 
     my $opts = $stash->store($place);
 
-    my %attrs;
-    $attrs{id} = $place->gid;
-    $attrs{type} = $place->type->name if $place->type;
-    $attrs{"type-id"} = $place->type->gid if $place->type;
+    my $place_node = $parent_node->addNewChild(undef, 'place');
 
-    my @list;
-    push @list, $gen->name($place->name);
-    push @list, $gen->disambiguation($place->comment) if $place->comment;
-    push @list, $gen->address($place->address) if $place->address;
-    $self->_serialize_coordinates(\@list, $gen, $place, $inc, $stash, $toplevel) if $place->coordinates;
+    $place_node->_setAttribute('id', $place->gid);
+
+    if (my $type = $place->type) {
+        $place_node->_setAttribute('type', $type->name);
+        $place_node->_setAttribute('type-id', $type->gid);
+    }
+
+    $place_node->appendTextChild('name', $place->name);
+    $place_node->appendTextChild('disambiguation', $place->comment) if $place->comment;
+    $place_node->appendTextChild('address', $place->address) if $place->address;
+    $self->_serialize_coordinates($place_node, $place, $inc, $stash, $toplevel) if $place->coordinates;
 
     if ($toplevel)
     {
-        $self->_serialize_annotation(\@list, $gen, $place, $inc, $opts);
-        $self->_serialize_area(\@list, $gen, $place->area, $inc, $stash, $toplevel) if $place->area;
-        $self->_serialize_life_span(\@list, $gen, $place, $inc, $opts);
+        $self->_serialize_annotation($place_node, $place, $inc, $stash);
+        $self->_serialize_area($place_node, $place->area, $inc, $stash, $toplevel) if $place->area;
+        $self->_serialize_life_span($place_node, $place, $inc, $stash);
     }
 
-    $self->_serialize_alias(\@list, $gen, $opts->{aliases}, $inc, $opts)
+    $self->_serialize_alias_list($place_node, $opts->{aliases}, $inc, $stash)
         if ($inc->aliases && $opts->{aliases});
 
-    $self->_serialize_relation_lists($place, \@list, $gen, $place->relationships, $inc, $stash) if ($inc->has_rels);
-    $self->_serialize_tags_and_ratings(\@list, $gen, $inc, $opts);
-
-    push @$data, $gen->place(\%attrs, @list);
+    $self->_serialize_relation_lists($place_node, $place, $place->relationships, $inc, $stash) if ($inc->has_rels);
+    $self->_serialize_tags_and_ratings($place_node, $place, $inc, $stash);
 }
 
 sub _serialize_instrument_list {
-    my ($self, $data, $gen, $list, $inc, $stash, $toplevel) = @_;
+    my ($self, $parent_node, $list, $inc, $stash, $toplevel) = @_;
 
-    my @list;
-    foreach my $instrument (sort_by { $_->gid } @{ $list->{items} }) {
-        $self->_serialize_instrument(\@list, $gen, $instrument, $inc, $stash, $toplevel);
+    my $list_node = $parent_node->addNewChild(undef, 'instrument-list');
+    set_list_attributes($list_node, $list);
+
+    foreach my $instrument (@{ $list->{items} }) {
+        $self->_serialize_instrument($list_node, $instrument, $inc, $stash, $toplevel);
     }
-    push @$data, $gen->instrument_list($self->_list_attributes($list), @list);
 }
 
 sub _serialize_instrument {
-    my ($self, $data, $gen, $instrument, $inc, $stash, $toplevel) = @_;
+    my ($self, $parent_node, $instrument, $inc, $stash, $toplevel) = @_;
 
     my $opts = $stash->store($instrument);
 
-    my %attrs;
-    $attrs{id} = $instrument->gid;
-    $attrs{type} = $instrument->type->name if $instrument->type;
-    $attrs{"type-id"} = $instrument->type->gid if $instrument->type;
+    my $inst_node = $parent_node->addNewChild(undef, 'instrument');
 
-    my @list;
-    push @list, $gen->name($instrument->name);
-    push @list, $gen->disambiguation($instrument->comment) if $instrument->comment;
-    push @list, $gen->description($instrument->description) if $instrument->description;
+    $inst_node->_setAttribute('id', $instrument->gid);
 
-    if ($toplevel) {
-        $self->_serialize_annotation(\@list, $gen, $instrument, $inc, $opts);
+    if (my $type = $instrument->type) {
+        $inst_node->_setAttribute('type', $type->name);
+        $inst_node->_setAttribute('type-id', $type->gid);
     }
 
-    $self->_serialize_alias(\@list, $gen, $opts->{aliases}, $inc, $opts)
+    $inst_node->appendTextChild('name', $instrument->name);
+    $inst_node->appendTextChild('disambiguation', $instrument->comment) if $instrument->comment;
+    $inst_node->appendTextChild('description', $instrument->description) if $instrument->description;
+
+    if ($toplevel) {
+        $self->_serialize_annotation($inst_node, $instrument, $inc, $stash);
+    }
+
+    $self->_serialize_alias_list($inst_node, $opts->{aliases}, $inc, $stash)
         if ($inc->aliases && $opts->{aliases});
 
-    $self->_serialize_relation_lists($instrument, \@list, $gen, $instrument->relationships, $inc, $stash) if ($inc->has_rels);
-    $self->_serialize_tags_and_ratings(\@list, $gen, $inc, $opts);
-
-    push @$data, $gen->instrument(\%attrs, @list);
+    $self->_serialize_relation_lists($inst_node, $instrument, $instrument->relationships, $inc, $stash) if ($inc->has_rels);
+    $self->_serialize_tags_and_ratings($inst_node, $instrument, $inc, $stash);
 }
 
 sub _serialize_relation_lists
 {
-    my ($self, $src_entity, $data, $gen, $rels, $inc, $stash) = @_;
+    my ($self, $parent_node, $src_entity, $rels, $inc, $stash) = @_;
 
     my %types = ();
 
-    foreach my $rel (sort { $a <=> $b } @$rels)
+    foreach my $rel (@$rels)
     {
         $types{$rel->target_type} = [] if !exists $types{$rel->target_type};
         push @{$types{$rel->target_type}}, $rel;
     }
     foreach my $type (sort keys %types)
     {
-        my @list;
-        foreach my $rel (sort_by { $_->target_key . $_->link->type->name } @{$types{$type}})
-        {
-            $self->_serialize_relation($src_entity, \@list, $gen, $rel, $inc, $stash);
+        my $rel_list_node = $parent_node->addNewChild(undef, 'relation-list');
+        $rel_list_node->_setAttribute('target-type', $type);
+
+        foreach my $rel (@{$types{$type}}) {
+            $self->_serialize_relation($rel_list_node, $src_entity, $rel, $inc, $stash);
         }
-        push @$data, $gen->relation_list({ 'target-type' => $type }, @list);
     }
 }
 
 sub _serialize_relation
 {
-    my ($self, $src_entity, $data, $gen, $rel, $inc, $stash) = @_;
+    my ($self, $parent, $src_entity, $rel, $inc, $stash) = @_;
 
-    my @list;
-    my $type = $rel->link->type->name;
-    my $type_id = $rel->link->type->gid;
+    my $target = $rel->target;
+    my $target_type = $rel->target_type;
+    my $link = $rel->link;
+    my $link_type = $link->type;
 
-    if ($rel->target_type eq 'url') {
-        push @list, $gen->target({ 'id' => $rel->target->gid }, $rel->target_key);
+    my $rel_node = $parent->addNewChild(undef, 'relation');
+    $rel_node->_setAttribute('type', $link_type->name);
+    $rel_node->_setAttribute('type-id', $link_type->gid);
+
+    if ($target_type eq 'url') {
+        my $target_node = $rel_node->addNewChild(undef, 'target');
+        $target_node->_setAttribute('id', $target->gid);
+        $target_node->appendText($target->url);
     } else {
-        push @list, $gen->target($rel->target_key);
+        $rel_node->appendTextChild('target', $target->gid);
     }
 
-    push @list, $gen->ordering_key($rel->link_order) if $rel->link_order;
-    push @list, $gen->direction('backward') if ($rel->direction == $MusicBrainz::Server::Entity::Relationship::DIRECTION_BACKWARD);
-    push @list, $gen->begin($rel->link->begin_date->format) unless $rel->link->begin_date->is_empty;
-    push @list, $gen->end($rel->link->end_date->format) unless $rel->link->end_date->is_empty;
-    push @list, $gen->ended('true') if $rel->link->ended;
+    $rel_node->appendTextChild('ordering-key', $rel->link_order) if $rel->link_order;
+    $rel_node->appendTextChild('direction', 'backward')
+        if $rel->direction == $MusicBrainz::Server::Entity::Relationship::DIRECTION_BACKWARD;
 
-    push @list, $gen->attribute_list(
-        map {
-            if (non_empty($_->text_value)) {
-                $gen->attribute({ value => $_->text_value, 'type-id' => $_->type->gid }, $_->type->name);
-            } elsif (non_empty($_->credited_as)) {
-                $gen->attribute({ 'credited-as' => $_->credited_as, 'type-id' => $_->type->gid }, $_->type->name);
-            } else {
-                $gen->attribute({ 'type-id' => $_->type->gid }, $_->type->name);
+    my $begin_date = $link->begin_date;
+    my $end_date = $link->end_date;
+
+    $rel_node->appendTextChild('begin', $begin_date->format) unless $begin_date->is_empty;
+    $rel_node->appendTextChild('end', $end_date->format) unless $end_date->is_empty;
+    $rel_node->appendTextChild('ended', 'true') if $link->ended;
+
+    if (my @attributes = $link->all_attributes) {
+        my $attr_list_node = $rel_node->addNewChild(undef, 'attribute-list');
+
+        for my $attr (@attributes) {
+            my $attr_type = $attr->type;
+            my $attr_elem = $attr_list_node->addNewChild(undef, 'attribute');
+            $attr_elem->appendText($attr_type->name);
+            $attr_elem->_setAttribute('type-id', $attr_type->gid);
+
+            if (non_empty($attr->text_value)) {
+                $attr_elem->_setAttribute('value', $attr->text_value);
+            } elsif (non_empty($attr->credited_as)) {
+                $attr_elem->_setAttribute('credited-as', $attr->credited_as);
             }
-        } $rel->link->all_attributes
-    ) if ($rel->link->all_attributes);
+        }
+    }
 
-    unless ($rel->target_type eq 'url')
+    unless ($target_type eq 'url')
     {
-        my $method =  "_serialize_" . $rel->target_type;
+        my $method =  "_serialize_" . $target_type;
 
         local $in_relation_node = 1;
         local $show_aliases = 0;
 
-        $self->$method(\@list, $gen, $rel->target, $inc, $stash);
+        $self->$method($rel_node, $rel->target, $inc, $stash);
     }
 
-    push @list, $gen->source_credit($rel->source_credit) if $rel->source_credit;
-    push @list, $gen->target_credit($rel->target_credit) if $rel->target_credit;
+    if (my $source_credit = $rel->source_credit) {
+        $rel_node->appendTextChild('source-credit', $source_credit);
+    }
 
-    push @$data, $gen->relation({ type => $type, "type-id" => $type_id }, @list);
+    if (my $target_credit = $rel->target_credit) {
+        $rel_node->appendTextChild('target-credit', $target_credit);
+    }
 }
 
 sub _serialize_series_list
 {
-    my ($self, $data, $gen, $list, $inc, $stash, $toplevel) = @_;
+    my ($self, $parent_node, $list, $inc, $stash, $toplevel) = @_;
 
-    my @list;
-    foreach my $series (sort_by { $_->gid } @{ $list->{items} })
+    my $list_node = $parent_node->addNewChild(undef, 'series-list');
+    set_list_attributes($list_node, $list);
+
+    foreach my $series (@{ $list->{items} })
     {
-        $self->_serialize_series(\@list, $gen, $series, $inc, $stash, $toplevel);
+        $self->_serialize_series($list_node, $series, $inc, $stash, $toplevel);
     }
-    push @$data, $gen->series_list($self->_list_attributes($list), @list);
 }
 
 sub _serialize_series
 {
-    my ($self, $data, $gen, $series, $inc, $stash, $toplevel) = @_;
+    my ($self, $parent_node, $series, $inc, $stash, $toplevel) = @_;
 
     my $opts = $stash->store($series);
 
-    my %attrs;
-    $attrs{id} = $series->gid;
-    $attrs{type} = $series->type->name if $series->type;
-    $attrs{"type-id"} = $series->type->gid if $series->type;
+    my $series_node = $parent_node->addNewChild(undef, 'series');
 
-    my @list;
-    push @list, $gen->name($series->name);
-    push @list, $gen->disambiguation($series->comment) if $series->comment;
+    $series_node->_setAttribute('id', $series->gid);
 
-    if ($toplevel) {
-        $self->_serialize_annotation(\@list, $gen, $series, $inc, $opts);
+    if (my $type = $series->type) {
+        $series_node->_setAttribute('type', $type->name);
+        $series_node->_setAttribute('type-id', $type->gid);
     }
 
-    $self->_serialize_alias(\@list, $gen, $opts->{aliases}, $inc, $opts)
+    $series_node->appendTextChild('name', $series->name);
+    $series_node->appendTextChild('disambiguation', $series->comment) if $series->comment;
+
+    if ($toplevel) {
+        $self->_serialize_annotation($series_node, $series, $inc, $stash);
+    }
+
+    $self->_serialize_alias_list($series_node, $opts->{aliases}, $inc, $stash)
         if ($inc->aliases && $opts->{aliases});
 
-    $self->_serialize_relation_lists($series, \@list, $gen, $series->relationships, $inc, $stash) if ($inc->has_rels);
-    $self->_serialize_tags_and_ratings(\@list, $gen, $inc, $opts);
-
-    push @$data, $gen->series(\%attrs, @list);
+    $self->_serialize_relation_lists($series_node, $series, $series->relationships, $inc, $stash) if ($inc->has_rels);
+    $self->_serialize_tags_and_ratings($series_node, $series, $inc, $stash);
 }
 
 sub _serialize_event_list
 {
-    my ($self, $data, $gen, $list, $inc, $stash, $toplevel) = @_;
+    my ($self, $parent_node, $list, $inc, $stash, $toplevel) = @_;
 
-    my @list;
-    foreach my $event (sort_by { $_->gid } @{ $list->{items} })
+    my $list_node = $parent_node->addNewChild(undef, 'event-list');
+    set_list_attributes($list_node, $list);
+
+    foreach my $event (@{ $list->{items} })
     {
-        $self->_serialize_event(\@list, $gen, $event, $inc, $stash, $toplevel);
+        $self->_serialize_event($list_node, $event, $inc, $stash, $toplevel);
     }
-    push @$data, $gen->event_list($self->_list_attributes ($list), @list);
 }
 
 sub _serialize_event
 {
-    my ($self, $data, $gen, $event, $inc, $stash, $toplevel) = @_;
+    my ($self, $parent_node, $event, $inc, $stash, $toplevel) = @_;
 
-    my $opts = $stash->store ($event);
+    my $opts = $stash->store($event);
 
-    my %attrs;
-    $attrs{id} = $event->gid;
-    $attrs{type} = $event->type->name if $event->type;
-    $attrs{"type-id"} = $event->type->gid if $event->type;
+    my $event_node = $parent_node->addNewChild(undef, 'event');
+    $event_node->_setAttribute('id', $event->gid);
 
-    my @list;
-    push @list, $gen->name($event->name);
-    push @list, $gen->disambiguation($event->comment) if $event->comment;
+    if (my $type = $event->type) {
+        $event_node->_setAttribute('type', $type->name);
+        $event_node->_setAttribute('type-id', $type->gid);
+    }
 
-    push @list, $gen->cancelled('true') if $event->cancelled;
+    $event_node->appendTextChild('name', $event->name);
+    $event_node->appendTextChild('disambiguation', $event->comment) if $event->comment;
 
-    $self->_serialize_life_span(\@list, $gen, $event, $inc, $opts);
-    push @list, $gen->time($event->formatted_time) if $event->formatted_time;
-    push @list, $gen->setlist($event->setlist) if $event->setlist;
+    $event_node->appendTextChild('cancelled', 'true') if $event->cancelled;
 
-    $self->_serialize_annotation(\@list, $gen, $event, $inc, $opts) if $toplevel;
+    $self->_serialize_life_span($event_node, $event, $inc, $stash);
 
-    $self->_serialize_alias(\@list, $gen, $opts->{aliases}, $inc, $opts)
+    if (my $time = $event->formatted_time) {
+        $event_node->appendTextChild('time', $time);
+    }
+
+    $event_node->appendTextChild('setlist', $event->setlist) if $event->setlist;
+
+    $self->_serialize_annotation($event_node, $event, $inc, $stash) if $toplevel;
+
+    $self->_serialize_alias_list($event_node, $opts->{aliases}, $inc, $stash)
         if ($inc->aliases && $opts->{aliases});
 
-    $self->_serialize_relation_lists($event, \@list, $gen, $event->relationships, $inc, $stash) if ($inc->has_rels);
-    $self->_serialize_tags_and_ratings(\@list, $gen, $inc, $opts);
-
-    push @$data, $gen->event(\%attrs, @list);
+    $self->_serialize_relation_lists($event_node, $event, $event->relationships, $inc, $stash)
+        if $inc->has_rels;
+    $self->_serialize_tags_and_ratings($event_node, $event, $inc, $stash);
 }
 
 sub _serialize_isrc_list
 {
-    my ($self, $data, $gen, $isrcs, $inc, $stash, $toplevel) = @_;
+    my ($self, $parent_node, $isrcs, $inc, $stash, $toplevel) = @_;
 
-    my @list;
+    my $list_node = $parent_node->addNewChild(undef, 'isrc-list');
+    $list_node->_setAttribute('count', scalar @$isrcs);
+
     foreach my $isrc (sort_by { $_->isrc } @{$isrcs})
     {
-        $self->_serialize_isrc(\@list, $gen, $isrc, $inc, $stash, $toplevel);
+        $self->_serialize_isrc($list_node, $isrc, $inc, $stash, $toplevel);
     }
-    push @$data, $gen->isrc_list({ count => scalar(@{$isrcs}) }, @list);
 }
 
 sub _serialize_isrc
 {
-    my ($self, $data, $gen, $isrc, $inc, $stash, $toplevel) = @_;
+    my ($self, $parent_node, $isrc, $inc, $stash, $toplevel) = @_;
 
     my $opts = $stash->store($isrc);
     my @recordings = @{ $opts->{recordings}{items} // [] };
-    my @list;
+
+    my $isrc_node = $parent_node->addNewChild(undef, 'isrc');
+    $isrc_node->_setAttribute('id', $isrc->isrc);
 
     if (@recordings) {
         my $recordings = {
             items => \@recordings,
             total => scalar @recordings,
         };
-        $self->_serialize_recording_list(\@list, $gen, $recordings, $inc, $stash, $toplevel)
+        $self->_serialize_recording_list($isrc_node, $recordings, $inc, $stash, $toplevel)
     }
-
-    push @$data, $gen->isrc({ id => $isrc->isrc }, @list);
 }
 
 sub _serialize_tags_and_ratings
 {
-    my ($self, $data, $gen, $inc, $opts) = @_;
+    my ($self, $parent_node, $entity, $inc, $stash) = @_;
 
-    $self->_serialize_tag_list($data, $gen, $inc, $opts)
+    my $opts = $stash->store($entity);
+
+    $self->_serialize_tag_list($parent_node, $entity, $inc, $stash)
         if $opts->{tags} && $inc->{tags};
-    $self->_serialize_user_tag_list($data, $gen, $inc, $opts)
+    $self->_serialize_user_tag_list($parent_node, $entity, $inc, $stash)
         if $opts->{user_tags} && $inc->{user_tags};
-    $self->_serialize_genre_list($data, $gen, $inc, $opts)
+    $self->_serialize_genre_list($parent_node, $entity, $inc, $stash)
         if $opts->{genres} && $inc->{genres};
-    $self->_serialize_user_genre_list($data, $gen, $inc, $opts)
+    $self->_serialize_user_genre_list($parent_node, $entity, $inc, $stash)
         if $opts->{user_genres} && $inc->{user_genres};
-    $self->_serialize_rating($data, $gen, $inc, $opts)
+    $self->_serialize_rating($parent_node, $entity, $inc, $stash)
         if $opts->{ratings} && $inc->{ratings};
-    $self->_serialize_user_rating($data, $gen, $inc, $opts)
+    $self->_serialize_user_rating($parent_node, $entity, $inc, $stash)
         if $opts->{user_ratings} && $inc->{user_ratings};
 }
 
 sub _serialize_tag_list
 {
-    my ($self, $data, $gen, $inc, $opts) = @_;
+    my ($self, $parent_node, $entity, $inc, $stash) = @_;
     return if $in_relation_node;
 
-    my @list;
+    my $opts = $stash->store($entity);
+    my $list_node = $parent_node->addNewChild(undef, 'tag-list');
+
     foreach my $tag (sort_by { $_->tag->name } @{$opts->{tags}})
     {
-        $self->_serialize_tag(\@list, $gen, $tag, $inc, $opts);
+        $self->_serialize_tag($list_node, $tag);
     }
-    push @$data, $gen->tag_list(@list);
 }
 
 sub _serialize_tag
 {
-    my ($self, $data, $gen, $tag, $inc, $opts, $modelname, $entity) = @_;
+    my ($self, $parent_node, $tag) = @_;
 
-    push @$data, $gen->tag({ count => $tag->count }, $gen->name($tag->tag->name));
+    my $genre_node = $parent_node->addNewChild(undef, 'tag');
+    $genre_node->_setAttribute('count', $tag->count);
+    $genre_node->appendTextChild('name', $tag->tag->name);
 }
 
 sub _serialize_genre_list
 {
-    my ($self, $data, $gen, $inc, $opts) = @_;
+    my ($self, $parent_node, $entity, $inc, $stash) = @_;
     return if $in_relation_node;
 
-    my @list;
+    my $opts = $stash->store($entity);
+    my $list_node = $parent_node->addNewChild(undef, 'genre-list');
+
     foreach my $tag (sort_by { $_->tag->name } @{$opts->{genres}})
     {
-        $self->_serialize_genre(\@list, $gen, $tag, $inc, $opts);
+        $self->_serialize_genre($list_node, $tag);
     }
-    push @$data, $gen->genre_list(@list);
 }
 
 sub _serialize_genre
 {
-    my ($self, $data, $gen, $tag, $inc, $opts, $modelname, $entity) = @_;
+    my ($self, $parent_node, $tag) = @_;
 
-    push @$data, $gen->genre({ count => $tag->count }, $gen->name($tag->tag->name));
+    my $genre_node = $parent_node->addNewChild(undef, 'genre');
+    $genre_node->_setAttribute('count', $tag->count);
+    $genre_node->appendTextChild('name', $tag->tag->name);
 }
 
 sub _serialize_user_tag_list
 {
-    my ($self, $data, $gen, $inc, $opts, $modelname, $entity) = @_;
+    my ($self, $parent_node, $entity, $inc, $stash) = @_;
 
-    my @list;
+    my $opts = $stash->store($entity);
+    my $list_node = $parent_node->addNewChild(undef, 'user-tag-list');
+
     foreach my $tag (sort_by { $_->tag->name } @{$opts->{user_tags}})
     {
-        $self->_serialize_user_tag(\@list, $gen, $tag, $inc, $opts, $modelname, $entity);
+        $self->_serialize_user_tag($list_node, $tag);
     }
-    push @$data, $gen->user_tag_list(@list);
 }
 
 sub _serialize_user_tag
 {
-    my ($self, $data, $gen, $tag, $inc, $opts, $modelname, $entity) = @_;
+    my ($self, $parent_node, $tag) = @_;
 
     if ($tag->is_upvote) {
-        push @$data, $gen->user_tag($gen->name($tag->tag->name));
+        $parent_node->addNewChild(undef, 'user-tag')->appendTextChild('name', $tag->tag->name);
     }
 }
 
 sub _serialize_user_genre_list
 {
-    my ($self, $data, $gen, $inc, $opts, $modelname, $entity) = @_;
+    my ($self, $parent_node, $entity, $inc, $stash) = @_;
 
-    my @list;
+    my $opts = $stash->store($entity);
+    my $list_node = $parent_node->addNewChild(undef, 'user-genre-list');
+
     foreach my $tag (sort_by { $_->tag->name } @{$opts->{user_genres}})
     {
-        $self->_serialize_user_genre(\@list, $gen, $tag, $inc, $opts, $modelname, $entity);
+        $self->_serialize_user_genre($list_node, $tag);
     }
-    push @$data, $gen->user_genre_list(@list);
 }
 
 sub _serialize_user_genre
 {
-    my ($self, $data, $gen, $tag, $inc, $opts, $modelname, $entity) = @_;
+    my ($self, $parent_node, $tag) = @_;
 
     if ($tag->is_upvote) {
-        push @$data, $gen->user_genre($gen->name($tag->tag->name));
+        $parent_node->addNewChild(undef, 'user-genre')->appendTextChild('name', $tag->tag->name);
     }
 }
 
 sub _serialize_rating
 {
-    my ($self, $data, $gen, $inc, $opts) = @_;
+    my ($self, $parent_node, $entity, $inc, $stash) = @_;
 
-    my $count = $opts->{ratings}->{count};
-    my $rating = $opts->{ratings}->{rating};
+    my $opts = $stash->store($entity);
+    my $count = $opts->{ratings}{count};
+    my $rating = $opts->{ratings}{rating};
 
-    push @$data, $gen->rating({ 'votes-count' => $count }, $rating);
+    my $rating_node = $parent_node->addNewChild(undef, 'rating');
+    $rating_node->appendText($rating);
+    $rating_node->_setAttribute('votes-count', $count);
 }
 
 sub _serialize_user_rating
 {
-    my ($self, $data, $gen, $inc, $opts) = @_;
+    my ($self, $parent_node, $entity, $inc, $stash) = @_;
 
-    push @$data, $gen->user_rating($opts->{user_ratings});
+    my $opts = $stash->store($entity);
+
+    return '' unless $opts->{user_ratings};
+
+    $parent_node->appendTextChild('user-rating', $opts->{user_ratings});
+}
+
+sub _create_metadata_node {
+    my ($dom) = @_;
+
+    my $metadata = $dom->createElement('metadata');
+    $metadata->setAttribute('xmlns', 'http://musicbrainz.org/ns/mmd-2.0#');
+    $dom->setDocumentElement($metadata);
+    return $metadata;
 }
 
 sub output_error
 {
     my ($self, $err) = @_;
 
-    my $gen = MusicBrainz::XML->new;
+    my $dom = XML::LibXML::Document->createDocument('1.0', 'UTF-8');
+    my $error_node = $dom->createElement('error');
+    $dom->setDocumentElement($error_node);
 
-    return '<?xml version="1.0" encoding="UTF-8"?>' .
-        $gen->error($gen->text($err), $gen->text(
-           "For usage, please see: https://musicbrainz.org/development/mmd"));
+    $error_node->appendTextChild('text', $err);
+    $error_node->appendTextChild('text', 'For usage, please see: https://musicbrainz.org/development/mmd');
+
+    return IO::String->new($dom->toString());
 }
 
 sub output_success
 {
     my ($self, $msg) = @_;
 
-    my $gen = MusicBrainz::XML->new();
-
     $msg ||= 'OK';
 
-    my $xml = $xml_decl_begin;
-    $xml .= $gen->message($gen->text($msg));
-    $xml .= $xml_decl_end;
-    return $xml;
+    my $dom = XML::LibXML::Document->createDocument('1.0', 'UTF-8');
+    my $metadata = _create_metadata_node($dom);
+
+    my $msg_node = $metadata->addNewChild(undef, 'message');
+    $msg_node->appendTextChild('text', $msg);
+
+    return IO::String->new($dom->toString());
 }
 
 sub serialize
@@ -1348,307 +1441,18 @@ sub serialize
     my ($self, $type, $entity, $inc, $stash) = @_;
     $inc ||= 0;
 
-    my $gen = MusicBrainz::XML->new();
+    my $dom = XML::LibXML::Document->createDocument('1.0', 'UTF-8');
 
-    my $method = ($type =~ tr/-/_/r) . "_resource";
-    my $xml = $xml_decl_begin;
-    $xml .= $self->$method($gen, $entity, $inc, $stash);
-    $xml .= $xml_decl_end;
-    return $xml;
-}
+    my $metadata = $dom->createElement('metadata');
+    $metadata->setAttribute('xmlns', 'http://musicbrainz.org/ns/mmd-2.0#');
+    $dom->setDocumentElement($metadata);
 
-sub artist_resource
-{
-    my ($self, $gen, $artist, $inc, $stash) = @_;
+    my $method = '_serialize_' . ($type =~ tr/-/_/r);
+    $self->$method($metadata, $entity, $inc, $stash, 1);
 
-    my $data = [];
-    $self->_serialize_artist($data, $gen, $artist, $inc, $stash, 1);
-
-    return $data->[0];
-}
-
-sub collection_resource
-{
-    my ($self, $gen, $collection, $inc, $stash) = @_;
-
-    my $data = [];
-    $self->_serialize_collection($data, $gen, $collection, $inc, $stash, 1);
-
-    return $data->[0];
-}
-
-sub collection_list_resource
-{
-    my ($self, $gen, $collections, $inc, $stash) = @_;
-
-    my $data = [];
-    $self->_serialize_collection_list($data, $gen, $collections, $inc, $stash, 1);
-
-    return $data->[0];
-}
-
-sub label_resource
-{
-    my ($self, $gen, $label, $inc, $stash) = @_;
-
-    my $data = [];
-    $self->_serialize_label($data, $gen, $label, $inc, $stash, 1);
-    return $data->[0];
-}
-
-sub release_group_resource
-{
-    my ($self, $gen, $release_group, $inc, $stash) = @_;
-
-    my $data = [];
-    $self->_serialize_release_group($data, $gen, $release_group, $inc, $stash, 1);
-    return $data->[0];
-}
-
-sub release_resource
-{
-    my ($self, $gen, $release, $inc, $stash) = @_;
-
-    my $data = [];
-    $self->_serialize_release($data, $gen, $release, $inc, $stash, 1);
-    return $data->[0];
-}
-
-sub recording_resource
-{
-    my ($self, $gen, $recording, $inc, $stash) = @_;
-
-    my $data = [];
-    $self->_serialize_recording($data, $gen, $recording, $inc, $stash, 1);
-
-    return $data->[0];
-}
-
-sub work_resource
-{
-    my ($self, $gen, $work, $inc, $stash) = @_;
-
-    my $data = [];
-    $self->_serialize_work($data, $gen, $work, $inc, $stash, 1);
-    return $data->[0];
-}
-
-sub area_resource
-{
-    my ($self, $gen, $area, $inc, $stash) = @_;
-
-    my $data = [];
-    $self->_serialize_area($data, $gen, $area, $inc, $stash, 1);
-    return $data->[0];
-}
-
-sub place_resource
-{
-    my ($self, $gen, $place, $inc, $stash) = @_;
-
-    my $data = [];
-    $self->_serialize_place($data, $gen, $place, $inc, $stash, 1);
-    return $data->[0];
-}
-
-sub instrument_resource {
-    my ($self, $gen, $instrument, $inc, $stash) = @_;
-
-    my $data = [];
-    $self->_serialize_instrument($data, $gen, $instrument, $inc, $stash, 1);
-
-    return $data->[0];
-}
-
-sub series_resource
-{
-    my ($self, $gen, $series, $inc, $stash) = @_;
-
-    my $data = [];
-    $self->_serialize_series($data, $gen, $series, $inc, $stash, 1);
-
-    return $data->[0];
-}
-
-sub event_resource
-{
-    my ($self, $gen, $event, $inc, $stash) = @_;
-
-    my $data = [];
-    $self->_serialize_event($data, $gen, $event, $inc, $stash, 1);
-    return $data->[0];
-}
-
-sub url_resource
-{
-    my ($self, $gen, $url, $inc, $stash) = @_;
-
-    my $data = [];
-    $self->_serialize_url($data, $gen, $url, $inc, $stash, 1);
-
-    return $data->[0];
-}
-
-sub isrc_resource
-{
-    my ($self, $gen, $isrc, $inc, $stash) = @_;
-
-    my $data = [];
-    $self->_serialize_isrc($data, $gen, $isrc, $inc, $stash, 1);
-    return $data->[0];
-}
-
-sub discid_resource
-{
-    my ($self, $gen, $cdtoc, $inc, $stash) = @_;
-
-    my $data = [];
-    $self->_serialize_disc($data, $gen, $cdtoc, $inc, $stash, 1);
-    return $data->[0];
-}
-
-sub cdstub_resource
-{
-    my ($self, $gen, $cdtoc, $inc, $stash) = @_;
-
-    my $data = [];
-    $self->_serialize_cdstub($data, $gen, $cdtoc, $inc, $stash, 1);
-    return $data->[0];
-}
-
-sub artist_list_resource
-{
-    my ($self, $gen, $artists, $inc, $stash) = @_;
-
-    my $data = [];
-    $self->_serialize_artist_list($data, $gen, $artists, $inc, $stash, 1);
-
-    return $data->[0];
-}
-
-sub label_list_resource
-{
-    my ($self, $gen, $labels, $inc, $stash) = @_;
-
-    my $data = [];
-    $self->_serialize_label_list($data, $gen, $labels, $inc, $stash, 1);
-
-    return $data->[0];
-}
-
-sub recording_list_resource
-{
-    my ($self, $gen, $recordings, $inc, $stash) = @_;
-
-    my $data = [];
-    $self->_serialize_recording_list($data, $gen, $recordings, $inc, $stash, 1);
-
-    return $data->[0];
-}
-
-sub release_list_resource
-{
-    my ($self, $gen, $releases, $inc, $stash) = @_;
-
-    my $data = [];
-    $self->_serialize_release_list($data, $gen, $releases, $inc, $stash, 1);
-
-    return $data->[0];
-}
-
-sub release_group_list_resource
-{
-    my ($self, $gen, $rgs, $inc, $stash) = @_;
-
-    my $data = [];
-    $self->_serialize_release_group_list($data, $gen, $rgs, $inc, $stash, 1);
-
-    return $data->[0];
-}
-
-sub work_list_resource
-{
-    my ($self, $gen, $works, $inc, $stash) = @_;
-
-    my $data = [];
-    $self->_serialize_work_list($data, $gen, $works, $inc, $stash, 1);
-
-    return $data->[0];
-}
-
-sub area_list_resource
-{
-    my ($self, $gen, $areas, $inc, $stash) = @_;
-
-    my $data = [];
-    $self->_serialize_area_list($data, $gen, $areas, $inc, $stash, 1);
-
-    return $data->[0];
-}
-
-sub place_list_resource
-{
-    my ($self, $gen, $places, $inc, $stash) = @_;
-
-    my $data = [];
-    $self->_serialize_place_list($data, $gen, $places, $inc, $stash, 1);
-
-    return $data->[0];
-}
-
-sub instrument_list_resource {
-    my ($self, $gen, $instruments, $inc, $stash) = @_;
-
-    my $data = [];
-    $self->_serialize_instrument_list($data, $gen, $instruments, $inc, $stash, 1);
-
-    return $data->[0];
-}
-
-sub event_list_resource
-{
-    my ($self, $gen, $events, $inc, $stash) = @_;
-
-    my $data = [];
-    $self->_serialize_event_list($data, $gen, $events, $inc, $stash, 1);
-
-    return $data->[0];
-}
-
-sub rating_resource
-{
-    my ($self, $gen, $entity, $inc, $stash) = @_;
-
-    my $opts = $stash->store($entity);
-
-    return '' unless $opts->{user_ratings};
-
-    my $data = [];
-    $self->_serialize_user_rating($data, $gen, $inc, $opts);
-
-    return $data->[0];
-}
-
-sub series_list_resource
-{
-    my ($self, $gen, $series, $inc, $stash) = @_;
-
-    my $data = [];
-    $self->_serialize_series_list($data, $gen, $series, $inc, $stash, 1);
-
-    return $data->[0];
-}
-
-sub tag_list_resource
-{
-    my ($self, $gen, $entity, $inc, $stash) = @_;
-
-    my $opts = $stash->store($entity);
-
-    my $data = [];
-    $self->_serialize_user_tag_list($data, $gen, $inc, $opts);
-
-    return $data->[0];
+    # $dom->toString() produces an encoded byte string. Wrapping it in an
+    # IO::String prevents Catalyst from double-encoding the request body.
+    return IO::String->new($dom->toString());
 }
 
 __PACKAGE__->meta->make_immutable;

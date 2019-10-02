@@ -101,106 +101,35 @@ sub entity_is_orderable {
     return 0;
 }
 
-sub _source_target_prop {
-    my ($self, %opts) = @_;
-
-    my $prop_base = exists $opts{prop_base} ? $opts{prop_base} : $self;
-    my $prop_suffix = $opts{prop_suffix};
-    my $prop;
-    if ($opts{is_target}) {
-        $prop = ($self->direction == $DIRECTION_FORWARD) ? 'entity1' : 'entity0';
-    } else {
-        $prop = ($self->direction == $DIRECTION_FORWARD) ? 'entity0' : 'entity1';
-    }
-    $prop = $prop . '_' . $prop_suffix if $prop_suffix;
-    return $prop_base->$prop;
-}
-
 has source => (
-    is => 'ro',
+    is => 'rw',
     isa => 'Linkable',
-    lazy => 1,
-    builder => '_build_source',
 );
-
-sub _build_source {
-    return shift->_source_target_prop();
-}
 
 has source_type => (
-    is => 'ro',
+    is => 'rw',
     isa => 'Str',
-    lazy => 1,
-    builder => '_build_source_type',
 );
-
-sub _build_source_type {
-    my ($self) = @_;
-    return $self->_source_target_prop(prop_suffix => 'type', prop_base => $self->link->type);
-}
 
 has source_credit => (
-    is => 'ro',
+    is => 'rw',
     isa => 'Str',
-    lazy => 1,
-    builder => '_build_source_credit',
 );
-
-sub _build_source_credit {
-    my ($self) = @_;
-    return $self->_source_target_prop(prop_suffix => 'credit') // '';
-}
-
-sub source_key {
-    my ($self) = @_;
-    return ($self->source_type eq 'url')
-        ? $self->source->url
-        : $self->source->gid;
-}
 
 has target => (
-    is => 'ro',
+    is => 'rw',
     isa => 'Linkable',
-    lazy => 1,
-    builder => '_build_target',
 );
-
-sub _build_target {
-    my ($self) = @_;
-    return $self->_source_target_prop(is_target => 1);
-}
 
 has target_type => (
-    is => 'ro',
+    is => 'rw',
     isa => 'Str',
-    lazy => 1,
-    builder => '_build_target_type',
 );
-
-sub _build_target_type {
-    my ($self) = @_;
-    return $self->_source_target_prop(is_target => 1, prop_suffix => 'type', prop_base => $self->link->type);
-}
 
 has target_credit => (
-    is => 'ro',
+    is => 'rw',
     isa => 'Str',
-    lazy => 1,
-    builder => '_build_target_credit',
 );
-
-sub _build_target_credit {
-    my ($self) = @_;
-    return $self->_source_target_prop(is_target => 1, prop_suffix => 'credit') // '';
-}
-
-sub target_key
-{
-    my ($self) = @_;
-    return ($self->target_type eq 'url')
-        ? $self->target->url
-        : $self->target->gid;
-}
 
 sub phrase
 {

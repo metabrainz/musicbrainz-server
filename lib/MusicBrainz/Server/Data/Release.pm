@@ -609,16 +609,17 @@ sub load_with_medium_for_recording
 }
 
 sub find_by_medium {
-    my ($self, @medium_ids) = @_;
+    my ($self, $medium_ids, $limit, $offset) = @_;
 
     my $query = 'SELECT ' . $self->_columns .
                 ' FROM ' . $self->_table .
                 ' WHERE release.id IN (
                     SELECT release FROM medium
                      WHERE medium.id = any(?)
-                )';
+                )' .
+                ' ORDER BY release.id';
 
-    $self->query_to_list($query, [\@medium_ids]);
+    $self->query_to_list_limited($query, [$medium_ids], $limit, $offset);
 }
 
 sub _order_by {

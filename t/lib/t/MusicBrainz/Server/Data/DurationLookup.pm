@@ -49,17 +49,17 @@ test 'tracklist used to fit lookup criteria but no longer does' => sub {
 
     my $toc = "1 2 44412 0 24762";
 
-    my $durationlookup = $c->model('DurationLookup')->lookup($toc, 10000);
-    is(scalar @$durationlookup, 0, "disc does not exist yet, no match with TOC lookup");
+    my ($durationlookup, $hits) = $c->model('DurationLookup')->lookup($toc, 10000);
+    is($hits, 0, "disc does not exist yet, no match with TOC lookup");
 
     my $created = $c->model('Medium')->insert($insert_hash);
     my $medium = $c->model('Medium')->get_by_id($created->{id});
     isa_ok($medium, 'MusicBrainz::Server::Entity::Medium');
 
-    $durationlookup = $c->model('DurationLookup')->lookup($toc, 10000);
-    is(scalar @$durationlookup, 1, "one match with TOC lookup");
+    ($durationlookup, $hits) = $c->model('DurationLookup')->lookup($toc, 10000);
+    is($hits, 1, "one match with TOC lookup");
 
-    $medium = $durationlookup->[0]->medium;
+    $medium = $c->model('Medium')->get_by_id($durationlookup->[0]{results}[0]{medium});
     $c->model('Track')->load_for_mediums($medium);
     $c->model('ArtistCredit')->load($medium->all_tracks);
 
@@ -78,8 +78,8 @@ test 'tracklist used to fit lookup criteria but no longer does' => sub {
 
     accept_edit($c, $edit);
 
-    $durationlookup = $c->model('DurationLookup')->lookup($toc, 10000);
-    is(scalar @$durationlookup, 0, "duration lookup did not find medium after it was edited");
+    ($durationlookup, $hits) = $c->model('DurationLookup')->lookup($toc, 10000);
+    is($hits, 0, "duration lookup did not find medium after it was edited");
 };
 
 test 'TOC lookup for disc with pregap track' => sub {
@@ -129,10 +129,10 @@ test 'TOC lookup for disc with pregap track' => sub {
     $c->model('Track')->load_for_mediums($medium);
     is($medium->length, 1122 + 330160, "inserted medium has expected length");
 
-    my $durationlookup = $c->model('DurationLookup')->lookup("1 1 39872 15110", 1);
-    is(scalar @$durationlookup, 1, "one match with TOC lookup");
+    my ($durationlookup, $hits) = $c->model('DurationLookup')->lookup("1 1 39872 15110", 1);
+    is($hits, 1, "one match with TOC lookup");
 
-    $medium = $durationlookup->[0]->medium;
+    $medium = $c->model('Medium')->get_by_id($durationlookup->[0]{results}[0]{medium});
     is($medium->id, $created->{id});
     is($medium->name, 'Bonus disc', 'TOC lookup found correct disc');
 };
@@ -147,38 +147,36 @@ my $sql = $test->c->sql;
 my $lookup_data = MusicBrainz::Server::Data::DurationLookup->new(c => $test->c);
 does_ok($lookup_data, 'MusicBrainz::Server::Data::Role::Context');
 
-my $result = $lookup_data->lookup("1 7 171327 150 22179 49905 69318 96240 121186 143398", 10000);
-ok ( scalar(@$result) > 0, 'found results' );
+my ($release_results, $hits) = $lookup_data->lookup("1 7 171327 150 22179 49905 69318 96240 121186 143398", 10000);
+ok ( $hits > 0, 'found results' );
+my $results = $release_results->[0]{results};
 
-if (my ($result) = grep { $_->medium_id == 1 } @$result) {
+if (my ($result) = grep { $_->{medium} == 1 } @$results) {
     ok($result, 'returned medium 1');
-    is( $result->distance, 1 );
-    is( $result->medium->id, 1 );
-    is( $result->medium_id, 1 );
+    is( $result->{distance}, 1 );
+    is( $result->{medium}, 1 );
 }
 
-if (my ($result) = grep { $_->medium_id == 3 } @$result) {
+if (my ($result) = grep { $_->{medium} == 3 } @$results) {
     ok($result, 'returned medium 3');
-    is( $result->distance, 1 );
-    is( $result->medium->id, 3 );
-    is( $result->medium_id, 3 );
+    is( $result->{distance}, 1 );
+    is( $result->{medium}, 3 );
 }
 
 
-$result = $lookup_data->lookup("1 9 189343 150 6614 32287 54041 61236 88129 92729 115276 153877", 10000);
+($release_results, $hits) = $lookup_data->lookup("1 9 189343 150 6614 32287 54041 61236 88129 92729 115276 153877", 10000);
+$results = $release_results->[0]{results};
 
-if (my ($result) = grep { $_->medium_id == 2 } @$result) {
+if (my ($result) = grep { $_->{medium} == 2 } @$results) {
     ok($result, 'returned medium 1');
-    is( $result->distance, 1 );
-    is( $result->medium->id, 2 );
-    is( $result->medium_id, 2 );
+    is( $result->{distance}, 1 );
+    is( $result->{medium}, 2 );
 }
 
-if (my ($result) = grep { $_->medium_id == 4 } @$result) {
+if (my ($result) = grep { $_->{medium} == 4 } @$results) {
     ok($result, 'returned medium 4');
-    is( $result->distance, 1 );
-    is( $result->medium->id, 4 );
-    is( $result->medium_id, 4 );
+    is( $result->{distance}, 1 );
+    is( $result->{medium}, 4 );
 }
 
 

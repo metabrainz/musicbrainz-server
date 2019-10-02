@@ -65,6 +65,44 @@ ws_test 'browse releases via label',
     '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
     <release-list count="2">
+        <release id="adcf7b48-086e-48ee-b420-1001f88d672f">
+            <title>My Demons</title>
+            <status id="4e304316-386d-3409-af2e-78857eec5cfe">Official</status>
+            <quality>normal</quality>
+            <text-representation>
+                <language>eng</language>
+                <script>Latn</script>
+            </text-representation>
+            <date>2007-01-29</date>
+            <country>GB</country>
+            <release-event-list count="1">
+                <release-event>
+                    <date>2007-01-29</date>
+                    <area id="8a754a16-0027-3a29-b6d7-2b40ea0481ed">
+                        <name>United Kingdom</name>
+                        <sort-name>United Kingdom</sort-name>
+                        <iso-3166-1-code-list>
+                            <iso-3166-1-code>GB</iso-3166-1-code>
+                        </iso-3166-1-code-list>
+                    </area>
+                </release-event>
+            </release-event-list>
+            <barcode>600116817020</barcode>
+            <asin>B000KJTG6K</asin>
+            <cover-art-archive>
+                <artwork>false</artwork>
+                <count>0</count>
+                <front>false</front>
+                <back>false</back>
+            </cover-art-archive>
+            <medium-list count="1">
+                <medium>
+                    <position>1</position>
+                    <format id="9712d52a-4509-3d4b-a1a2-67c88c643e31">CD</format>
+                    <track-list count="12" />
+                </medium>
+            </medium-list>
+        </release>
         <release id="3b3d130a-87a8-4a47-b9fb-920f2530d134">
             <title>Repercussions</title>
             <status id="4e304316-386d-3409-af2e-78857eec5cfe">Official</status>
@@ -105,44 +143,6 @@ ws_test 'browse releases via label',
                     <title>Chestplate Singles</title><position>2</position>
                     <format id="9712d52a-4509-3d4b-a1a2-67c88c643e31">CD</format>
                     <track-list count="9" />
-                </medium>
-            </medium-list>
-        </release>
-        <release id="adcf7b48-086e-48ee-b420-1001f88d672f">
-            <title>My Demons</title>
-            <status id="4e304316-386d-3409-af2e-78857eec5cfe">Official</status>
-            <quality>normal</quality>
-            <text-representation>
-                <language>eng</language>
-                <script>Latn</script>
-            </text-representation>
-            <date>2007-01-29</date>
-            <country>GB</country>
-            <release-event-list count="1">
-                <release-event>
-                    <date>2007-01-29</date>
-                    <area id="8a754a16-0027-3a29-b6d7-2b40ea0481ed">
-                        <name>United Kingdom</name>
-                        <sort-name>United Kingdom</sort-name>
-                        <iso-3166-1-code-list>
-                            <iso-3166-1-code>GB</iso-3166-1-code>
-                        </iso-3166-1-code-list>
-                    </area>
-                </release-event>
-            </release-event-list>
-            <barcode>600116817020</barcode>
-            <asin>B000KJTG6K</asin>
-            <cover-art-archive>
-                <artwork>false</artwork>
-                <count>0</count>
-                <front>false</front>
-                <back>false</back>
-            </cover-art-archive>
-            <medium-list count="1">
-                <medium>
-                    <position>1</position>
-                    <format id="9712d52a-4509-3d4b-a1a2-67c88c643e31">CD</format>
-                    <track-list count="12" />
                 </medium>
             </medium-list>
         </release>
@@ -300,45 +300,6 @@ ws_test 'browse releases via recording',
     '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
     <release-list count="2">
-        <release id="28fc2337-985b-3da9-ac40-ad6f28ff0d8e">
-            <title>LOVE &amp; HONESTY</title>
-            <status id="4e304316-386d-3409-af2e-78857eec5cfe">Official</status>
-            <quality>normal</quality>
-            <text-representation>
-                <language>jpn</language>
-                <script>Jpan</script>
-            </text-representation>
-            <date>2004-01-15</date>
-            <country>JP</country>
-            <release-event-list count="1">
-                <release-event>
-                     <date>2004-01-15</date>
-                     <area id="2db42837-c832-3c27-b4a3-08198f75693c">
-                         <name>Japan</name>
-                         <sort-name>Japan</sort-name>
-                         <iso-3166-1-code-list>
-                             <iso-3166-1-code>JP</iso-3166-1-code>
-                         </iso-3166-1-code-list>
-                     </area>
-                </release-event>
-            </release-event-list>
-            <barcode>4988064173891</barcode>
-            <asin>B0000YGBSG</asin>
-            <cover-art-archive>
-                <artwork>false</artwork>
-                <count>0</count>
-                <front>false</front>
-                <back>false</back>
-            </cover-art-archive>
-            <label-info-list count="1">
-                <label-info>
-                    <catalog-number>AVCD-17389</catalog-number>
-                    <label id="168f48c8-057e-4974-9600-aa9956d21e1a">
-                        <name>avex trax</name><sort-name>avex trax</sort-name>
-                    </label>
-                </label-info>
-            </label-info-list>
-        </release>
         <release id="cacc586f-c2f2-49db-8534-6f44b55196f2">
             <title>LOVE &amp; HONESTY</title>
             <status id="4e304316-386d-3409-af2e-78857eec5cfe">Official</status>
@@ -372,6 +333,45 @@ ws_test 'browse releases via recording',
             <label-info-list count="1">
                 <label-info>
                     <catalog-number>AVCD-17390</catalog-number>
+                    <label id="168f48c8-057e-4974-9600-aa9956d21e1a">
+                        <name>avex trax</name><sort-name>avex trax</sort-name>
+                    </label>
+                </label-info>
+            </label-info-list>
+        </release>
+        <release id="28fc2337-985b-3da9-ac40-ad6f28ff0d8e">
+            <title>LOVE &amp; HONESTY</title>
+            <status id="4e304316-386d-3409-af2e-78857eec5cfe">Official</status>
+            <quality>normal</quality>
+            <text-representation>
+                <language>jpn</language>
+                <script>Jpan</script>
+            </text-representation>
+            <date>2004-01-15</date>
+            <country>JP</country>
+            <release-event-list count="1">
+                <release-event>
+                     <date>2004-01-15</date>
+                     <area id="2db42837-c832-3c27-b4a3-08198f75693c">
+                         <name>Japan</name>
+                         <sort-name>Japan</sort-name>
+                         <iso-3166-1-code-list>
+                             <iso-3166-1-code>JP</iso-3166-1-code>
+                         </iso-3166-1-code-list>
+                     </area>
+                </release-event>
+            </release-event-list>
+            <barcode>4988064173891</barcode>
+            <asin>B0000YGBSG</asin>
+            <cover-art-archive>
+                <artwork>false</artwork>
+                <count>0</count>
+                <front>false</front>
+                <back>false</back>
+            </cover-art-archive>
+            <label-info-list count="1">
+                <label-info>
+                    <catalog-number>AVCD-17389</catalog-number>
                     <label id="168f48c8-057e-4974-9600-aa9956d21e1a">
                         <name>avex trax</name><sort-name>avex trax</sort-name>
                     </label>

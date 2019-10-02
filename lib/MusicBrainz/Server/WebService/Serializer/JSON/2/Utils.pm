@@ -131,9 +131,7 @@ sub list_of
     my $list = $opts->{$type};
     my $items = (ref $list eq 'HASH') ? $list->{items} : $list;
 
-    return [
-        map { serialize_entity($_, $inc, $stash, $toplevel) }
-        sort_by { $_->gid } @$items ];
+    return [map { serialize_entity($_, $inc, $stash, $toplevel) } @$items];
 }
 
 sub count_of
@@ -257,12 +255,7 @@ sub serialize_relationships {
 
     my @relationships =
         map { serialize_entity($_, $inc, $stash) }
-        sort_by {
-            join("\t",
-                 $_->link->type->name,
-                 (sprintf "%09d", $_->link_order // 0),
-                 $_->target_key)
-        } $entity->all_relationships;
+        $entity->all_relationships;
 
     $into->{relations} = \@relationships;
     return;

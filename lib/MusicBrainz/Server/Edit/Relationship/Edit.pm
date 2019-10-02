@@ -148,8 +148,10 @@ sub _build_relationship {
     my ($self, $loaded, $data, $change) = @_;
 
     my $link = $data->{link};
-    my $model0 = type_to_model($data->{type0});
-    my $model1 = type_to_model($data->{type1});
+    my $type0 = $data->{type0};
+    my $type1 = $data->{type1};
+    my $model0 = type_to_model($type0);
+    my $model1 = type_to_model($type1);
 
     my $begin      = defined $change->{begin_date}   ? $change->{begin_date}   : $link->{begin_date};
     my $end        = defined $change->{end_date}     ? $change->{end_date}     : $link->{end_date};
@@ -163,6 +165,19 @@ sub _build_relationship {
 
     my $entity0_id = gid_or_id($entity0) // 0;
     my $entity1_id = gid_or_id($entity1) // 0;
+
+    $entity0 = $loaded->{$model0}{$entity0_id} ||
+        $self->c->model($model0)->_entity_class->new(
+            defined $entity0->{id} ? (id => $entity0->{id}) : (),
+            name => $entity0->{name},
+        );
+    $entity1 = $loaded->{$model1}{$entity1_id} ||
+        $self->c->model($model1)->_entity_class->new(
+            defined $entity1->{id} ? (id => $entity1->{id}) : (),
+            name => $entity1->{name},
+        );
+    my $entity0_credit = $change->{entity0_credit} // '';
+    my $entity1_credit = $change->{entity1_credit} // '';
 
     return Relationship->new(
         id => $data->{relationship_id},
@@ -196,20 +211,18 @@ sub _build_relationship {
                 } @$attributes
             ],
         ),
-        entity0 => $loaded->{$model0}{ $entity0_id } ||
-            $self->c->model($model0)->_entity_class->new(
-                defined $entity0->{id} ? (id => $entity0->{id}) : (),
-                name => $entity0->{name},
-            ),
-        entity1 => $loaded->{$model1}{ $entity1_id } ||
-            $self->c->model($model1)->_entity_class->new(
-                defined $entity1->{id} ? (id => $entity1->{id}) : (),
-                name => $entity1->{name},
-            ),
-        entity0_credit => $change->{entity0_credit} // '',
-        entity1_credit => $change->{entity1_credit} // '',
+        entity0 => $entity0,
+        entity1 => $entity1,
+        entity0_credit => $entity0_credit,
+        entity1_credit => $entity1_credit,
         defined $entity0->{id} ? (entity0_id => $entity0->{id}) : (),
         defined $entity1->{id} ? (entity1_id => $entity1->{id}) : (),
+        source => $entity0,
+        target => $entity1,
+        source_type => $type0,
+        target_type => $type1,
+        source_credit => $entity0_credit,
+        target_credit => $entity1_credit,
     );
 }
 

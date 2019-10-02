@@ -143,6 +143,12 @@ has 'mediums' => (
     }
 );
 
+has 'mediums_loaded' => (
+    is => 'rw',
+    isa => 'Bool',
+    default => 0,
+);
+
 has events => (
     is => 'rw',
     isa => 'ArrayRef[ReleaseEvent]',

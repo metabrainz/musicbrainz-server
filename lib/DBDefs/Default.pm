@@ -440,6 +440,11 @@ sub USE_SELENIUM_HEADER { 0 }
 
 sub WIKIMEDIA_COMMONS_IMAGES_ENABLED { 1 }
 
+# On release browse endpoints in the webservice, we limit the number of
+# releases returned such that the total number of tracks doesn't exceed this
+# number.
+sub WS_TRACK_LIMIT { 500 }
+
 ################################################################################
 # Profiling
 ################################################################################

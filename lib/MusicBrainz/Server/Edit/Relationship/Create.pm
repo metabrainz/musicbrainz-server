@@ -166,8 +166,20 @@ sub foreign_keys
 sub build_display_data
 {
     my ($self, $loaded) = @_;
-    my $model0 = type_to_model($self->data->{type0});
-    my $model1 = type_to_model($self->data->{type1});
+    my $type0 = $self->data->{type0};
+    my $type1 = $self->data->{type1};
+    my $model0 = type_to_model($type0);
+    my $model1 = type_to_model($type1);
+    my $entity0 = $loaded->{$model0}{gid_or_id($self->data->{entity0})} ||
+        $self->c->model($model0)->_entity_class->new(
+            name => $self->data->{entity0}{name}
+        );
+    my $entity1 = $loaded->{$model1}{gid_or_id($self->data->{entity1})} ||
+        $self->c->model($model1)->_entity_class->new(
+            name => $self->data->{entity1}{name}
+        );
+    my $entity0_credit = $self->data->{entity0_credit} // '';
+    my $entity1_credit = $self->data->{entity1_credit} // '';
 
     return {
         relationship => Relationship->new(
@@ -193,16 +205,16 @@ sub build_display_data
                     } @{ $self->data->{attributes} }
                 ],
             ),
-            entity0 => $loaded->{$model0}{gid_or_id($self->data->{entity0})} ||
-                $self->c->model($model0)->_entity_class->new(
-                    name => $self->data->{entity0}{name}
-                ),
-            entity1 => $loaded->{$model1}{gid_or_id($self->data->{entity1})} ||
-                $self->c->model($model1)->_entity_class->new(
-                    name => $self->data->{entity1}{name}
-                ),
-            entity0_credit => $self->data->{entity0_credit} // '',
-            entity1_credit => $self->data->{entity1_credit} // '',
+            entity0 => $entity0,
+            entity1 => $entity1,
+            entity0_credit => $entity0_credit,
+            entity1_credit => $entity1_credit,
+            source => $entity0,
+            target => $entity1,
+            source_type => $type0,
+            target_type => $type1,
+            source_credit => $entity0_credit,
+            target_credit => $entity1_credit,
             link_order => $self->data->{link_order} // 0,
         ),
         unknown_attributes => scalar(

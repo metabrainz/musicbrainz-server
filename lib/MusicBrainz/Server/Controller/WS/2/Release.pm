@@ -8,6 +8,7 @@ use MusicBrainz::Server::Constants qw(
     $ACCESS_SCOPE_SUBMIT_BARCODE
     $EDIT_RELEASE_EDIT_BARCODES
 );
+use List::AllUtils qw( uniq );
 use List::UtilsBy qw( partition_by uniq_by );
 use MusicBrainz::Server::WebService::XML::XPath;
 use MusicBrainz::Server::Validation qw( is_guid is_valid_ean );
@@ -90,16 +91,11 @@ sub release_toplevel {
     }
 
     my @rels_entities = @releases;
+    my @ac_entities;
 
     if ($inc->artists)
     {
-        $c->model('ArtistCredit')->load(@releases);
-
-        my @acns = map { $_->artist_credit->all_names } @releases;
-        $c->model('Artist')->load(@acns);
-
-        my @artists = map { $_->artist } @acns;
-        $self->linked_artists($c, $stash, \@artists);
+        push @ac_entities, @releases;
     }
 
     if ($inc->labels)
@@ -136,15 +132,13 @@ sub release_toplevel {
         $c->model('Track')->load_for_mediums(@mediums);
         my @tracks = map { $_->all_tracks } @mediums;
 
-        if ($inc->artist_credits) {
-            $c->model('ArtistCredit')->load(@tracks);
-            my @acns = map { $_->artist_credit->all_names } @tracks;
-            $c->model('Artist')->load(@acns);
-            $self->linked_artists($c, $stash, [uniq_by { $_->id } map { $_->artist } @acns]);
-        }
-
         my @recordings = $c->model('Recording')->load(@tracks);
         $c->model('Recording')->load_meta(@recordings);
+
+        my $inc_artist_credits = $inc->artist_credits;
+        if ($inc_artist_credits) {
+            push @ac_entities, @tracks, @recordings;
+        }
 
         # The maximum number of recordings to try to get relationships for, if
         # inc=recording-level-rels is specified. Certain releases with an enourmous
@@ -157,7 +151,11 @@ sub release_toplevel {
             push @rels_entities, @recordings;
         }
 
+        # Disable artist-credits during linked_recordings, since we load
+        # them below together with the tracks and release.
+        $inc->artist_credits(0) if $inc_artist_credits;
         $self->linked_recordings($c, $stash, \@recordings);
+        $inc->artist_credits(1) if $inc_artist_credits;
     }
 
     if ($inc->collections || $inc->user_collections) {
@@ -188,6 +186,18 @@ sub release_toplevel {
             $c->model('Collection')->load_entity_count(@collections);
             $c->model('CollectionType')->load(@collections);
         }
+    }
+
+    if (@ac_entities) {
+        $c->model('ArtistCredit')->load(@ac_entities);
+
+        my @acns = map { $_->all_names }
+                   uniq map { $_->artist_credit } @ac_entities;
+
+        $c->model('Artist')->load(@acns);
+
+        my @artists = uniq map { $_->artist } @acns;
+        $self->linked_artists($c, $stash, \@artists);
     }
 
     $self->load_relationships($c, $stash, @rels_entities);
@@ -263,6 +273,9 @@ sub release_browse : Private
     }
 
     my $stash = WebServiceStash->new;
+
+    $self->limit_releases_by_tracks($c, $releases->{items})
+        if $c->stash->{inc}->recordings;
 
     $self->release_toplevel($c, $stash, $releases->{items});
 

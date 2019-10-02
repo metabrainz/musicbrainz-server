@@ -57,12 +57,18 @@ test 'combined_track_relationships' => sub {
     my $artist = Artist->new(id => 1, name => 'Person', sort_name => 'Person');
 
     for my $i (0, 2, 3, 5) {
+        my $recording = $medium->tracks->[$i]->recording;
+
         $medium->tracks->[$i]->recording->add_relationship(
             Relationship->new(
                 direction => $MusicBrainz::Server::Entity::Relationship::DIRECTION_BACKWARD,
                 link => $link,
                 entity0 => $artist,
-                entity1 => $medium->tracks->[$i]->recording
+                entity1 => $recording,
+                source => $recording,
+                target => $artist,
+                source_type => 'recording',
+                target_type => 'artist',
             )
         );
     }

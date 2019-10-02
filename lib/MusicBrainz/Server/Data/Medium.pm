@@ -63,9 +63,12 @@ sub load
 sub load_for_releases
 {
     my ($self, @releases) = @_;
+
+    @releases = grep { !$_->mediums_loaded } @releases;
+    return unless @releases;
+
     my %id_to_release = object_to_ids(@releases);
     my @ids = keys %id_to_release;
-
 
     return unless @ids; # nothing to do
     my $query = "SELECT " . $self->_columns . "
@@ -81,6 +84,8 @@ sub load_for_releases
             weaken($medium->{release}); # XXX HACK!
         }
     }
+
+    $_->mediums_loaded(1) for @releases;
 }
 
 sub update

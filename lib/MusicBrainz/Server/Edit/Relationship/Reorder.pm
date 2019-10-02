@@ -100,6 +100,11 @@ sub _build_relationship {
     my $model0 = type_to_model($lt->{entity0_type});
     my $model1 = type_to_model($lt->{entity1_type});
 
+    my $entity0 = $loaded->{$model0}{ $data->{entity0}{id} } ||
+        $self->c->model($model0)->_entity_class->new(name => $data->{entity0}{name});
+    my $entity1 = $loaded->{$model1}{ $data->{entity1}{id} } ||
+        $self->c->model($model1)->_entity_class->new(name => $data->{entity1}{name});
+
     return Relationship->new(
         link => Link->new(
             type       => $loaded->{LinkType}{$lt->{id}} || LinkType->new($lt),
@@ -122,10 +127,12 @@ sub _build_relationship {
                 } @{ $data->{attributes} }
             ],
         ),
-        entity0 => $loaded->{$model0}{ $data->{entity0}{id} } ||
-            $self->c->model($model0)->_entity_class->new(name => $data->{entity0}{name}),
-        entity1 => $loaded->{$model1}{ $data->{entity1}{id} } ||
-            $self->c->model($model1)->_entity_class->new(name => $data->{entity1}{name}),
+        entity0 => $entity0,
+        entity1 => $entity1,
+        source => $entity0,
+        target => $entity1,
+        source_type => $entity0->entity_type,
+        target_type => $entity1->entity_type,
     );
 }
 

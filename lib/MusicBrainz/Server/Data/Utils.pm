@@ -137,7 +137,7 @@ sub load_subobjects
         my $attr_id = $attr_obj . '_id';
         my @objs_with_id;
         for my $obj (@objs) {
-            next unless $obj->meta->find_attribute_by_name($attr_id);
+            next unless $obj->can($attr_id);
             my $id = $obj->$attr_id;
             if (defined $id) {
                 push @ids, $id;

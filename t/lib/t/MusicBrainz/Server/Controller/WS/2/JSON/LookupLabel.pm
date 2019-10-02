@@ -150,6 +150,38 @@ test 'label lookup with releases, inc=media' => sub {
             },
             releases => [
                 {
+                    id => "adcf7b48-086e-48ee-b420-1001f88d672f",
+                    title => "My Demons",
+                    status => "Official",
+                    "status-id" => "4e304316-386d-3409-af2e-78857eec5cfe",
+                    quality => "normal",
+                    "text-representation" => { language => "eng", script => "Latn" },
+                    date => "2007-01-29",
+                    country => "GB",
+                    "release-events" => [{
+                        date => "2007-01-29",
+                        "area" => {
+                            disambiguation => '',
+                            "id" => "8a754a16-0027-3a29-b6d7-2b40ea0481ed",
+                            "name" => "United Kingdom",
+                            "sort-name" => "United Kingdom",
+                            "iso-3166-1-codes" => ["GB"],
+                        },
+                    }],
+                    barcode => "600116817020",
+                    disambiguation => "",
+                    packaging => JSON::null,
+                    "packaging-id" => JSON::null,
+                    media => [
+                        {
+                            format => "CD",
+                            "format-id" => "9712d52a-4509-3d4b-a1a2-67c88c643e31",
+                            "track-count" => 12,
+                            position => 1,
+                            title => '',
+                        } ]
+                },
+                {
                     id => "3b3d130a-87a8-4a47-b9fb-920f2530d134",
                     title => "Repercussions",
                     status => "Official",
@@ -189,38 +221,6 @@ test 'label lookup with releases, inc=media' => sub {
                         },
                     ],
                 },
-                {
-                    id => "adcf7b48-086e-48ee-b420-1001f88d672f",
-                    title => "My Demons",
-                    status => "Official",
-                    "status-id" => "4e304316-386d-3409-af2e-78857eec5cfe",
-                    quality => "normal",
-                    "text-representation" => { language => "eng", script => "Latn" },
-                    date => "2007-01-29",
-                    country => "GB",
-                    "release-events" => [{
-                        date => "2007-01-29",
-                        "area" => {
-                            disambiguation => '',
-                            "id" => "8a754a16-0027-3a29-b6d7-2b40ea0481ed",
-                            "name" => "United Kingdom",
-                            "sort-name" => "United Kingdom",
-                            "iso-3166-1-codes" => ["GB"],
-                        },
-                    }],
-                    barcode => "600116817020",
-                    disambiguation => "",
-                    packaging => JSON::null,
-                    "packaging-id" => JSON::null,
-                    media => [
-                        {
-                            format => "CD",
-                            "format-id" => "9712d52a-4509-3d4b-a1a2-67c88c643e31",
-                            "track-count" => 12,
-                            position => 1,
-                            title => '',
-                        } ]
-                }
             ],
             ipis => [],
             isnis => [],
