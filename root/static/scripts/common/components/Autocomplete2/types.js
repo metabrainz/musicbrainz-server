@@ -86,14 +86,73 @@ export type Actions =
 export type ActionItem = {|
   +action: Actions,
   +id: number | string,
+  +level?: number,
   +name: string | () => string,
   +separator?: boolean,
 |};
 
-export type EntityItem = {|
-  +id: number | string,
-  +level?: number,
-  +name: string,
+type Appearances<T> = {|
+  +hits: number,
+  +results: $ReadOnlyArray<T>,
 |};
+
+export type AutocompleteAreaT = {|
+  ...AreaT,
+  +primaryAlias: string | null,
+|};
+
+export type AutocompleteEventT = {|
+  ...EventT,
+  +primaryAlias: string | null,
+  +related_entities: {|
+    +areas: Appearances<string>,
+    +performers: Appearances<string>,
+    +places: Appearances<string>,
+  |},
+|};
+
+export type AutocompleteInstrumentT = {|
+  ...InstrumentT,
+  +primaryAlias: string | null,
+|};
+
+export type AutocompletePlaceT = {|
+  ...PlaceT,
+  +primaryAlias: string | null,
+|};
+
+export type AutocompleteRecordingT = {|
+  ...RecordingT,
+  +appearsOn?: Appearances<{|gid: string, name: string|}>,
+  +primaryAlias: string | null,
+|};
+
+export type AutocompleteReleaseT = {|
+  ...ReleaseT,
+  +primaryAlias: string | null,
+|};
+
+export type AutocompleteReleaseGroupT = {|
+  ...ReleaseGroupT,
+  +primaryAlias: string | null,
+|};
+
+export type AutocompleteSeriesT = {|
+  ...SeriesT,
+  +primaryAlias: string | null,
+|};
+
+export type AutocompleteWorkT = {|
+  ...WorkT,
+  +artists: {|
+    +artists: Appearances<string>,
+    +writers: Appearances<string>,
+  |},
+  +primaryAlias: string | null,
+|};
+
+export type EntityItem =
+  | AutocompleteRecordingT
+  | AutocompleteReleaseT;
 
 export type Item = ActionItem | EntityItem;

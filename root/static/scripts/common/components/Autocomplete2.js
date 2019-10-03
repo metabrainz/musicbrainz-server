@@ -35,6 +35,7 @@ import {
   MENU_ITEMS,
   SEARCH_PLACEHOLDERS,
 } from './Autocomplete2/constants';
+import formatItem from './Autocomplete2/formatters';
 import reducer from './Autocomplete2/reducer';
 import type {
   Actions,
@@ -424,7 +425,7 @@ export default function Autocomplete2(props: Props) {
               role="option"
               style={style}
             >
-              {unwrapNl(item.name)}
+              {formatItem(item)}
             </li>
           ),
         );

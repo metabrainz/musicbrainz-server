@@ -103,6 +103,7 @@ declare type ArtistCreditNameT = {|
 |};
 
 declare type ArtistCreditRoleT = {|
+  +artist: string,
   +artistCredit: ArtistCreditT,
 |};
 
@@ -914,6 +915,7 @@ declare type SeriesT = {|
   ...CoreEntityRoleT<'series'>,
   ...TypeRoleT<SeriesTypeT>,
   +orderingTypeID: number,
+  +type?: SeriesTypeT,
 |};
 
 declare type SeriesItemNumbersRoleT = {|
