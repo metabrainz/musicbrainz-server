@@ -396,9 +396,14 @@ export default function Autocomplete2(props: Props) {
         const itemMapKey = item.id + ',' +
           String(isHighlighted) + ',' +
           String(isSelected);
-        const style = item.level
+
+        let style = item.level
           ? {paddingLeft: String((item.level - 1) * 8) + 'px'}
           : null;
+
+        if (item.action) {
+          style = {textAlign: 'center'};
+        }
 
         children.set(
           itemMapKey,
