@@ -728,7 +728,7 @@ END -%]
 
 [%~ MACRO format_length(n) BLOCK; n | format_length; END -%]
 
-[%~ MACRO medium_format_name(medium) BLOCK -%]
+[%~ MACRO medium_format_name(medium) BLOCK # Converted to React at root/static/scripts/common/utility/mediumFormatName.js -%]
     [% medium.l_format_name or l("Medium") | html %]
 [%- END -%]
 
