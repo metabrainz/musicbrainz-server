@@ -6982,6 +6982,7 @@ msgid "{link} has no ratings."
 msgstr ""
 
 #: ../root/components/common-macros.tt:735
+#: ../root/static/scripts/common/components/MediumDescription.js:21
 #: ../root/static/scripts/common/entity.js:436
 msgid "{medium_format} {position}"
 msgstr ""
