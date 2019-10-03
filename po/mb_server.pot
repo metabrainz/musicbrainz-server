@@ -6988,6 +6988,7 @@ msgid "{medium_format} {position}"
 msgstr ""
 
 #: ../root/components/common-macros.tt:747
+#: ../root/static/scripts/common/components/MediumLink.js:21
 msgid "{medium} on {release}"
 msgstr ""
 
