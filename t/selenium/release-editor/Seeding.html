@@ -464,6 +464,22 @@
     <td>document.querySelector('tr.track td.title input').value</td>
     <td>foo</td>
 </tr>
+<!-- seeding barcode = none -->
+<tr>
+    <td>openFile</td>
+    <td>./seeds/no_barcode.html</td>
+    <td></td>
+</tr>
+<tr>
+    <td>clickAndWait</td>
+    <td>css=button[type=submit]</td>
+    <td></td>
+</tr>
+<tr>
+	<td>assertEval</td>
+	<td>window.document.getElementById('barcode').disabled</td>
+	<td>true</td>
+</tr>
 </tbody>
 </table>
 </body>
