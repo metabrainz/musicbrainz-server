@@ -151,6 +151,7 @@ sub cdtoc_tracks {
     return [ grep { $_->position > 0 && !$_->is_data_track } $self->all_tracks ];
 }
 
+# Converted to JavaScript at root/utility/mediumHasMultipleArtists.js
 sub has_multiple_artists {
     my ($self) = @_;
     foreach my $track ($self->all_tracks) {
