@@ -3027,6 +3027,7 @@ msgstr ""
 #: ../root/components/common-macros.tt:732
 #: ../lib/MusicBrainz/Server/Edit/Medium.pm:8
 #: ../root/search/components/RecordingResults.js:130
+#: ../root/static/scripts/common/utility/mediumFormatName.js:14
 msgid "Medium"
 msgstr ""
 
