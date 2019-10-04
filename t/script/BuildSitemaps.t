@@ -698,17 +698,17 @@ EOF
     $test_sitemap->('sitemap-release-1-disc.xml', [
         {
             'lastmod' => undef,
-            'loc' => 'https://musicbrainz.org/release/692c97b4-e9bb-4400-8afe-34d778064f28/disc/11',
+            'loc' => 'https://musicbrainz.org/release/692c97b4-e9bb-4400-8afe-34d778064f28/disc/11?page=1',
             'priority' => undef,
         },
         {
             'lastmod' => undef,
-            'loc' => 'https://musicbrainz.org/release/692c97b4-e9bb-4400-8afe-34d778064f28/disc/13',
+            'loc' => 'https://musicbrainz.org/release/692c97b4-e9bb-4400-8afe-34d778064f28/disc/13?page=1',
             'priority' => undef,
         },
         {
             'lastmod' => undef,
-            'loc' => 'https://musicbrainz.org/release/996d3d48-0cfa-4d30-9031-ea50d806b88a/disc/1',
+            'loc' => 'https://musicbrainz.org/release/996d3d48-0cfa-4d30-9031-ea50d806b88a/disc/1?page=2',
             'priority' => undef,
         },
     ]);

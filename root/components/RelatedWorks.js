@@ -44,7 +44,7 @@ const RelatedWorks = ({workIds}: Props): React.MixedElement => {
       </h3>,
       <StaticRelationshipsDisplay
         relationships={
-          groupRelationships(work.relationships, targetEntityTypes)
+          groupRelationships(work.relationships, {types: targetEntityTypes})
         }
       />,
     );

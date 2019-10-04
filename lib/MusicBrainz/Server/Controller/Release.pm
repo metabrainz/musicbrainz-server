@@ -41,6 +41,7 @@ use MusicBrainz::Server::Validation qw(
     is_positive_integer
 );
 use MusicBrainz::Server::ControllerUtils::Delete qw( cancel_or_action );
+use MusicBrainz::Server::ControllerUtils::JSON qw( serialize_pager );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array );
 use MusicBrainz::Server::Form::Utils qw(
     build_grouped_options
@@ -50,7 +51,11 @@ use MusicBrainz::Server::Form::Utils qw(
 );
 use POSIX qw( ceil );
 use Scalar::Util qw( looks_like_number );
-use MusicBrainz::Server::Data::Utils qw( partial_date_to_hash artist_credit_to_ref );
+use MusicBrainz::Server::Data::Utils qw(
+    artist_credit_to_ref
+    boolean_to_json
+    partial_date_to_hash
+);
 
 =head1 NAME
 
@@ -154,21 +159,35 @@ sub show : Chained('load') PathPart('') {
 
     my $release = $c->stash->{release};
     my @mediums = $release->all_mediums;
+    my $paged_medium;
+    my $medium_page_number = 1;
+    my $no_script = 0;
 
     # Individual medium selected via /disc/n.
-    # This is primarily used where JavaScript is disabled.
+    #
+    # This subpath is only linked where JavaScript is disabled, so
+    # $no_script is set to 1 if we hit it.
     if (@args && $args[0] eq 'disc') {
         my $position = scalar(@args) > 1 ? $args[1] : undef;
 
         if (defined $position) {
             $c->detach('/error_400') unless is_positive_integer($position);
 
-            my $selected_medium = first { $_->position == $position } @mediums;
-            if ($selected_medium) {
-                # Restrict the mediums we're (potentially) loading to just
-                # the selected one. If the number of tracks on it exceeds
-                # $MAX_INITIAL_TRACKS, it won't be preloaded below.
-                @mediums = $selected_medium;
+            $paged_medium = first { $_->position == $position } @mediums;
+
+            if ($paged_medium) {
+                $no_script = 1;
+
+                my $page = $c->req->query_params->{page};
+                if (defined $page) {
+                    $c->detach('/error_400') unless is_integer($page);
+
+                    my $max_page = ceil($paged_medium->track_count / $MAX_INITIAL_TRACKS);
+                    if ($page > $max_page) {
+                        $c->detach('/error_404');
+                    }
+                    $medium_page_number = $page;
+                }
             } else {
                 $c->detach('/error_404');
             }
@@ -176,23 +195,54 @@ sub show : Chained('load') PathPart('') {
     }
 
     my $user_id = $c->user->id if $c->user_exists;
-    my $total_mediums = 0;
-    my $total_tracks = 0;
-    my @preloaded_mediums;
 
-    for my $medium (@mediums) {
-        $total_mediums += 1;
-        last if $total_mediums > $MAX_INITIAL_MEDIUMS;
-        $total_tracks += $medium->track_count;
-        last if $total_tracks > $MAX_INITIAL_TRACKS;
-        push @preloaded_mediums, $medium;
+    if (@mediums && !defined $paged_medium) {
+        my $medium_counter = 0;
+        my $track_counter = 0;
+        my @preloaded_mediums;
+
+        for my $medium (@mediums) {
+            $medium_counter += 1;
+            last if $medium_counter > $MAX_INITIAL_MEDIUMS;
+            $track_counter += $medium->track_count;
+            last if $track_counter > $MAX_INITIAL_TRACKS;
+            push @preloaded_mediums, $medium;
+        }
+
+        if (@preloaded_mediums) {
+            $c->model('Medium')->load_related_info($user_id, @preloaded_mediums);
+        } else {
+            # If even the first medium exceeds $MAX_INITIAL_TRACKS, page that
+            # instead of loading nothing. This is equivalent to navigating to
+            # the /disc/1 subpath, except $no_script will remain 0.
+            $paged_medium = $mediums[0];
+        }
     }
 
-    if (@preloaded_mediums) {
-        $c->model('Medium')->load_related_info($user_id, @preloaded_mediums);
+    if ($paged_medium) {
+        $c->model('Medium')->load_related_info_paged(
+            $user_id,
+            $paged_medium,
+            $medium_page_number,
+        );
     }
 
-    $c->stash->{template} = 'release/index.tt';
+    my $bottom_credits = $c->req->cookies->{'bottom-credits'};
+    my $credits_mode = defined $bottom_credits &&
+        $bottom_credits->value eq '1' ? 'bottom' : 'inline';
+
+    my %props = (
+        creditsMode => $credits_mode,
+        release => $release->TO_JSON,
+        noScript => boolean_to_json($no_script),
+        numberOfRevisions => $c->stash->{number_of_revisions},
+    );
+
+    $c->stash(
+        component_path => 'release/ReleaseIndex',
+        component_props => \%props,
+        current_view => 'Node',
+    );
 }
 
 sub _load_related : Private {

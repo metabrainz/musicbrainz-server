@@ -103,27 +103,28 @@ const GroupedTrackRelationships = ({
 
   const groupedRelationships = groupRelationships(
     source.relationships,
-    undefined,
-    (
-      relationship: RelationshipT,
-      target: CoreEntityT,
-      targetType: CoreEntityTypeT,
-    ) => {
-      if (targetType === 'work') {
-        /*
-         * Specifically ignore rels that do not give information
-         * relevant to this track, such as other arrangements of the work
-         * or all the parts of the work linked.
-         */
-        if (!isIrrelevantLinkType(relationship)) {
-          workRelationships.push(relationship);
+    {
+      filter: (
+        relationship: RelationshipT,
+        target: CoreEntityT,
+        targetType: CoreEntityTypeT,
+      ) => {
+        if (targetType === 'work') {
+          /*
+           * Specifically ignore rels that do not give information
+           * relevant to this track, such as other arrangements of the work
+           * or all the parts of the work linked.
+           */
+          if (!isIrrelevantLinkType(relationship)) {
+            workRelationships.push(relationship);
+          }
+          return false;
         }
-        return false;
-      }
-      if (targetType === 'url') {
-        return false;
-      }
-      return true;
+        if (targetType === 'url') {
+          return false;
+        }
+        return true;
+      },
     },
   );
 

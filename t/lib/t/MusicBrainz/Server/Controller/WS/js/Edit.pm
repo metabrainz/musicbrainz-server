@@ -273,6 +273,9 @@ test 'previewing/creating/editing a release group and release' => sub {
             may_have_cover_art => JSON::true,
             may_have_discids => JSON::false,
             quality => 1,
+            combined_format_name => '',
+            combined_track_count => '',
+            mediums => [],
         },
         response => $WS_EDIT_RESPONSE_OK,
     }, 'ws response contains serialized release data');

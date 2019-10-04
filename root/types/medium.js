@@ -35,5 +35,7 @@ declare type MediumT = $ReadOnly<{
   +name: string,
   +position: number,
   +release_id: number,
+  +track_count: number,
   +tracks?: $ReadOnlyArray<TrackT>,
+  +tracks_pager?: PagerT,
 }>;

@@ -8,6 +8,7 @@ use MusicBrainz::Server::Constants qw(
     $MAX_INITIAL_TRACKS
 );
 use MusicBrainz::Server::Data::Relationship;
+use POSIX qw( ceil );
 use Readonly;
 
 our @EXPORT_OK = qw(
@@ -195,13 +196,19 @@ our Readonly %SITEMAP_SUFFIX_INFO = map {
                             $medium_counter > $MAX_INITIAL_MEDIUMS ||
                             $track_counter > $MAX_INITIAL_TRACKS
                         ) {
-                            push @paginated_urls, $self->create_url_opts(
-                                $c,
-                                'release',
-                                "$url_base/disc/$position",
-                                \%opts,
-                                $id_info,
-                            );
+                            # If this is the first medium, it'll be preloaded as paged,
+                            # so we only need to start from page 2.
+                            my $start_page = $medium_counter > 1 ? 1 : 2;
+                            my $max_page = ceil($track_count / $MAX_INITIAL_TRACKS);
+                            for (my $i = $start_page; $i <= $max_page; $i++) {
+                                push @paginated_urls, $self->create_url_opts(
+                                    $c,
+                                    'release',
+                                    "$url_base/disc/$position?page=$i",
+                                    \%opts,
+                                    $id_info,
+                                );
+                            }
                         }
                     }
                 }
