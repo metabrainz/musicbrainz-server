@@ -212,7 +212,8 @@ export class ExternalLinksEditor
             } else if (!isValidURL(link.url)) {
               error = l('Enter a valid url e.g. "http://google.com/"');
             } else if (isShortened(link.url)) {
-              error = l("Please don't use shortened URLs.");
+              error = l(`Please don’t enter bundled/shortened URLs,
+                         enter the destination URL(s) instead.`);
             } else if (!link.type) {
               error = l(`Please select a link type for the URL
                          you’ve entered.`);
@@ -541,18 +542,37 @@ function isValidURL(url) {
 
 const URL_SHORTENERS = [
   'adf.ly',
+  'band.link',
+  'biglink.to',
   'bit.ly',
+  'bitly.com',
+  'bruit.app',
   'cli.gs',
   'deck.ly',
+  'distrokid.com',
+  'fanlink.to',
+  'ffm.to',
+  'fty.li',
   'fur.ly',
   'goo.gl',
+  'hyperurl.co',
   'is.gd',
   'kl.am',
+  'laburbain.com',
+  'linkco.re',
+  'linktr.ee',
+  'listen.lt',
+  'lnk.bio',
   'lnk.co',
+  'lnk.to',
   'mcaf.ee',
   'moourl.com',
   'owl.ly',
   'rubyurl.com',
+  'smarturl.it',
+  'song.link',
+  'songwhip.com',
+  'spread.link',
   'su.pr',
   't.co',
   'tiny.cc',
