@@ -14,13 +14,13 @@ import InstrumentListEntry
   from '../../static/scripts/common/components/InstrumentListEntry';
 import SortableTableHeader from '../SortableTableHeader';
 
-type Props = {|
+type Props = {
   +$c: CatalystContextT,
   +checkboxes?: string,
   +instruments: $ReadOnlyArray<InstrumentT>,
   +order?: string,
   +sortable?: boolean,
-|};
+};
 
 const InstrumentList = ({
   $c,

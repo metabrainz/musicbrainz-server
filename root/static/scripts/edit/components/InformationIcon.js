@@ -9,9 +9,9 @@
 
 import * as React from 'react';
 
-type Props = {|
+type Props = {
   title?: string,
-|};
+};
 
 const InformationIcon = (props: Props) => (
   <img

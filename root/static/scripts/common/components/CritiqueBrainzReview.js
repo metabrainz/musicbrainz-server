@@ -16,11 +16,11 @@ import * as DBDefs from '../DBDefs-client';
 
 import Collapsible from './Collapsible';
 
-type Props = {|
+type Props = {
   +$c: CatalystContextT | SanitizedCatalystContextT,
   +review: CritiqueBrainzReviewT,
   +title: string,
-|};
+};
 
 const authorHref = author => (
   DBDefs.CRITIQUEBRAINZ_SERVER + '/user/' + author.id

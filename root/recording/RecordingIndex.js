@@ -27,12 +27,12 @@ import loopParity from '../utility/loopParity';
 
 import RecordingLayout from './RecordingLayout';
 
-type Props = {|
+type Props = {
   +numberOfRevisions: number,
   +pager: PagerT,
   +recording: RecordingT,
   +tracks: $ReadOnlyArray<$ReadOnlyArray<{...TrackT, +medium: MediumT}>>,
-|};
+};
 
 const RecordingAppearancesTable = ({
   recording,

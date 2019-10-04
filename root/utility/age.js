@@ -20,7 +20,7 @@ function timestamp(date) {
   );
 }
 
-export function hasAge<+T: {...DatePeriodRoleT}>(entity: T) {
+export function hasAge<+T: {...DatePeriodRoleT, ...}>(entity: T) {
   const begin = entity.begin_date;
   const end = entity.end_date;
   const ended = entity.ended;
@@ -79,7 +79,7 @@ export function hasAge<+T: {...DatePeriodRoleT}>(entity: T) {
   return false;
 }
 
-export function age<+T: {...DatePeriodRoleT}>(entity: T) {
+export function age<+T: {...DatePeriodRoleT, ...}>(entity: T) {
   const begin = entity.begin_date;
 
   if (!begin || !hasAge(entity)) {

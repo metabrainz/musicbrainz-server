@@ -15,10 +15,10 @@ import * as manifest from '../static/manifest';
 import EditProfileForm from '../static/scripts/account/components/EditProfileForm';
 import type {EditProfileFormPropsT} from '../static/scripts/account/components/EditProfileForm';
 
-type Props = {|
+type Props = {
   +$c: CatalystContextT,
   ...EditProfileFormPropsT,
-|};
+};
 
 const EditProfile = ({$c, ...props}: Props) => {
   const user = $c.user;

@@ -27,15 +27,15 @@ type ReportReasonT =
   | 'voting'
   ;
 
-type Props = {|
+type Props = {
   +$c: CatalystContextT,
-  +form: FormT<{|
+  +form: FormT<{
     +message: FieldT<string>,
     +reason: FieldT<ReportReasonT>,
     +reveal_address: FieldT<boolean>,
-  |}>,
+  }>,
   +user: EditorT,
-|};
+};
 
 const reportReasonOptions = {
   grouped: false,

@@ -18,6 +18,7 @@ type Props = {
   +label: string,
   +required?: boolean,
   +type?: string,
+  ...
 };
 
 const FormRowText = ({

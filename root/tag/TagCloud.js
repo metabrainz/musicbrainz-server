@@ -12,10 +12,10 @@ import * as React from 'react';
 import Layout from '../layout';
 import TagLink from '../static/scripts/common/components/TagLink';
 
-type Props = {|
+type Props = {
   tagMaxCount: number,
   tags: $ReadOnlyArray<AggregatedTagT>,
-|};
+};
 
 function getTagSize(count: number, tagMaxCount: number) {
   const percent = count / tagMaxCount * 100;

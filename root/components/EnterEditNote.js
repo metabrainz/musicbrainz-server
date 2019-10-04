@@ -12,10 +12,10 @@ import React from 'react';
 import FieldErrors from './FieldErrors';
 import FormRow from './FormRow';
 
-type Props = {|
+type Props = {
   +field: ReadOnlyFieldT<string>,
   +hideHelp?: boolean,
-|};
+};
 
 const EnterEditNote = ({
   field,

@@ -12,10 +12,10 @@ import React from 'react';
 import EntityHeader from '../components/EntityHeader';
 import EntityLink from '../static/scripts/common/components/EntityLink';
 
-type Props = {|
+type Props = {
   page: string,
   url: UrlT,
-|};
+};
 
 const UrlHeader = ({url, page}: Props) => (
   <EntityHeader

@@ -16,9 +16,9 @@ import FormRowSelect from '../../components/FormRowSelect';
 import FormRowTextLong from '../../components/FormRowTextLong';
 import FormSubmit from '../../components/FormSubmit';
 
-type Props = {|
+type Props = {
   +form: SearchFormT,
-|};
+};
 
 const limitOptions = {
   grouped: false,

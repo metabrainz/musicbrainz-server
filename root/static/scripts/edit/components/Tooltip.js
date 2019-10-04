@@ -11,10 +11,10 @@
 import * as React from 'react';
 import ReactDOM from 'react-dom';
 
-type TooltipProps = {|
+type TooltipProps = {
   +hoverCallback: (bool) => void,
   +content: React.Node,
-|};
+};
 
 class Tooltip extends React.Component<TooltipProps> {
   componentDidMount() {

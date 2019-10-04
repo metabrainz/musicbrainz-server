@@ -28,10 +28,10 @@ import {SidebarProperty, SidebarProperties} from './SidebarProperties';
 import SidebarTags from './SidebarTags';
 import SidebarType from './SidebarType';
 
-type Props = {|
+type Props = {
   +$c: CatalystContextT,
   +area: AreaT,
-|};
+};
 
 const AreaSidebar = ({$c, area}: Props) => {
   const areaAge = age.age(area);

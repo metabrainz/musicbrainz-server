@@ -17,11 +17,11 @@ import EntityLink from '../static/scripts/common/components/EntityLink';
 import formatTrackLength from '../static/scripts/common/utility/formatTrackLength';
 import loopParity from '../utility/loopParity';
 
-type PropsT = {|
+type PropsT = {
   +$c: CatalystContextT,
   +isrcs: $ReadOnlyArray<IsrcT>,
   +recordings: $ReadOnlyArray<RecordingT>,
-|};
+};
 
 const Index = ({$c, isrcs, recordings}: PropsT) => {
   const userExists = $c.user_exists;

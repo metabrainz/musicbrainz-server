@@ -11,10 +11,10 @@ import * as React from 'react';
 
 import WarningIcon from './WarningIcon';
 
-type Props = {|
+type Props = {
   +className?: string,
   +message: string,
-|};
+};
 
 const Warning = ({
   className,

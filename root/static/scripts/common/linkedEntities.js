@@ -14,54 +14,55 @@
 
 /*::
 type LinkedEntities = {
-  artist_type: {|
+  artist_type: {
     +[number]: ArtistTypeT,
-  |},
-  language: {|
+  },
+  language: {
     +[number]: LanguageT,
-  |},
-  link_attribute_type: {|
+  },
+  link_attribute_type: {
     +[number]: LinkAttrTypeT,
-  |},
-  link_type: {|
+  },
+  link_type: {
     +[number]: LinkTypeT,
-  |},
-  link_type_tree: {|
+  },
+  link_type_tree: {
     +[string]: $ReadOnlyArray<LinkTypeT>,
-  |},
-  release: {|
+  },
+  release: {
     +[number]: ReleaseT,
-  |},
-  release_group_primary_type: {|
+  },
+  release_group_primary_type: {
     [number]: ReleaseGroupTypeT,
-  |},
-  release_group_secondary_type: {|
+  },
+  release_group_secondary_type: {
     [number]: ReleaseGroupSecondaryTypeT,
-  |},
-  release_packaging: {|
+  },
+  release_packaging: {
     +[number]: ReleasePackagingT,
-  |},
-  release_status: {|
+  },
+  release_status: {
     +[number]: ReleaseStatusT,
-  |},
-  script: {|
+  },
+  script: {
     +[number]: ScriptT,
-  |},
-  series: {|
+  },
+  series: {
     +[number]: SeriesT,
-  |},
-  series_ordering_type: {|
+  },
+  series_ordering_type: {
     +[number]: SeriesOrderingTypeT,
-  |},
-  series_type: {|
+  },
+  series_type: {
     +[number]: SeriesTypeT,
-  |},
-  work: {|
+  },
+  work: {
     +[number]: WorkT,
-  |},
-  work_attribute_type: {|
+  },
+  work_attribute_type: {
     +[number]: WorkAttributeTypeT,
-  |},
+  },
+  ...
 };
 */
 

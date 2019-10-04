@@ -48,7 +48,6 @@ import type {
 const INITIAL_STATE: State = {
   highlightedIndex: 0,
   indexedSearch: true,
-  inputTimeout: null,
   inputValue: '',
   isOpen: false,
   items: EMPTY_ARRAY,
@@ -56,7 +55,6 @@ const INITIAL_STATE: State = {
   pendingSearch: null,
   selectedItem: null,
   statusMessage: '',
-  xhr: null,
 };
 
 /*

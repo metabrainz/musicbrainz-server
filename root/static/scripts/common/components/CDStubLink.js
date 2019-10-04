@@ -11,11 +11,11 @@ import * as React from 'react';
 
 import entityHref from '../utility/entityHref';
 
-type Props = {|
+type Props = {
   +cdstub: CDStubT,
   +content: string,
   +subPath?: string,
-|};
+};
 
 const CDStubLink = ({cdstub, content, subPath}: Props) => (
   <a href={entityHref(cdstub, subPath)}>

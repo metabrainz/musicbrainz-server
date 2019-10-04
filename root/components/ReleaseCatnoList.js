@@ -17,9 +17,9 @@ const displayCatno = (catno) => (
   </span>
 );
 
-type ReleaseLabelsProps = {|
+type ReleaseLabelsProps = {
   +labels?: $ReadOnlyArray<ReleaseLabelT>,
-|};
+};
 
 const ReleaseCatnoList = ({labels: releaseLabels}: ReleaseLabelsProps) => {
   if (!releaseLabels || !releaseLabels.length) {

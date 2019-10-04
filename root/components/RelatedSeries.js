@@ -17,9 +17,9 @@ import StaticRelationshipsDisplay from './StaticRelationshipsDisplay';
 
 const targetEntityTypes = ['url'];
 
-type Props = {|
+type Props = {
   +seriesIds: $ReadOnlyArray<number>,
-|};
+};
 
 const RelatedSeries = ({seriesIds}: Props) => {
   const createArgs = [

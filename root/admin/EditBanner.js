@@ -13,11 +13,11 @@ import FormRowTextArea from '../components/FormRowTextArea';
 import FormSubmit from '../components/FormSubmit';
 import Layout from '../layout';
 
-type Props = {|
-  +form: FormT<{|
+type Props = {
+  +form: FormT<{
     +message: ReadOnlyFieldT<string>,
-  |}>,
-|};
+  }>,
+};
 
 const EditBanner = ({form}: Props) => (
   <Layout fullWidth title={l('Edit Banner Message')}>

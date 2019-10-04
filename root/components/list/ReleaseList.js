@@ -26,7 +26,7 @@ import TaggerIcon from '../../static/scripts/common/components/TaggerIcon';
 import RatingStars from '../RatingStars';
 import SortableTableHeader from '../SortableTableHeader';
 
-type Props = {|
+type Props = {
   ...InstrumentCreditsRoleT,
   ...SeriesItemNumbersRoleT,
   +$c: CatalystContextT,
@@ -37,7 +37,7 @@ type Props = {|
   +showInstrumentCredits?: boolean,
   +showRatings?: boolean,
   +sortable?: boolean,
-|};
+};
 
 const ReleaseList = ({
   $c,

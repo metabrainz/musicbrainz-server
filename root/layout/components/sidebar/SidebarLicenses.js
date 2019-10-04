@@ -76,7 +76,7 @@ function licenseClass(url: UrlT): string {
   return '';
 }
 
-const LicenseDisplay = ({url}: {|+url: UrlT|}) => {
+const LicenseDisplay = ({url}: {+url: UrlT}) => {
   const className = licenseClass(url);
   return (
     <li className={className}>
@@ -89,9 +89,9 @@ const LicenseDisplay = ({url}: {|+url: UrlT|}) => {
 
 const cmpLinkPhrase = (a, b) => compare(a[0], b[0]);
 
-type Props = {|
+type Props = {
   +entity: CoreEntityT,
-|};
+};
 
 const SidebarLicenses = ({entity}: Props) => {
   const relationships = entity.relationships;

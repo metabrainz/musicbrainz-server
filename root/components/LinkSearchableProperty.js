@@ -15,13 +15,13 @@ import {withCatalystContext} from '../context';
 import escapeLuceneValue
   from '../static/scripts/common/utility/escapeLuceneValue';
 
-type Props = {|
+type Props = {
   +$c: CatalystContextT,
   +entityType: string,
   +searchField: string,
   +searchValue: string,
   +text?: string,
-|};
+};
 
 const LinkSearchableProperty = ({
   $c,

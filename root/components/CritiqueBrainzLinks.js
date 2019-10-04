@@ -23,9 +23,9 @@ const writeReviewLink = (releaseGroup) => (
   releaseGroup.gid
 );
 
-type Props = {|
+type Props = {
   +releaseGroup: ReleaseGroupT,
-|};
+};
 
 const CritiqueBrainzLinks = ({releaseGroup}: Props) => {
   const reviewCount = releaseGroup.review_count;

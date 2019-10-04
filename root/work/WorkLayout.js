@@ -15,13 +15,13 @@ import WorkSidebar from '../layout/components/sidebar/WorkSidebar';
 
 import WorkHeader from './WorkHeader';
 
-type Props = {|
+type Props = {
   +children: ReactNode,
   +entity: WorkT,
   +fullWidth?: boolean,
   +page: string,
   +title?: string,
-|};
+};
 
 const WorkLayout = ({
   children,

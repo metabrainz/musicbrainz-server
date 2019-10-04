@@ -27,9 +27,9 @@ const buildSidebarIsni = (isni, index) => (
   </SidebarProperty>
 );
 
-type Props = {|
-  +entity: {...IsniCodesRoleT},
-|};
+type Props = {
+  +entity: {...IsniCodesRoleT, ...},
+};
 
 const SidebarIsnis = ({entity}: Props):
   React.ChildrenArray<React.Element<typeof SidebarProperty>> => (

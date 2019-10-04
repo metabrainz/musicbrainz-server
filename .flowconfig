@@ -17,4 +17,5 @@
 [options]
 esproposal.nullish_coalescing=enable
 esproposal.optional_chaining=enable
+exact_by_default=true
 module.name_mapper.extension='less' -> '<PROJECT_ROOT>/root/flowstub.js.flow'

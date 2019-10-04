@@ -11,9 +11,9 @@ import React from 'react';
 
 import StatusPage from '../components/StatusPage';
 
-type Props = {|
+type Props = {
   +message: string,
-|};
+};
 
 const ResetPasswordStatus = ({message}: Props) => (
   <StatusPage title={l('Reset Password')}>

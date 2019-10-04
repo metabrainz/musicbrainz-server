@@ -13,16 +13,16 @@ import {INSERT, DELETE} from '../../utility/editDiff';
 
 import DiffSide from './DiffSide';
 
-export type DiffProps = {|
+export type DiffProps = {
   +label: string,
   +newText: string,
   +oldText: string,
-|};
+};
 
-type Props = {|
+type Props = {
   ...DiffProps,
   +split: string,
-|};
+};
 
 const Diff = ({label, newText, oldText, split = ''}: Props) => (
   oldText === newText ? null : (

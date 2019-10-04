@@ -72,6 +72,7 @@ type VoteButtonProps = {
   text: string,
   title: string | () => string,
   vote: VoteT,
+  ...
 };
 
 class VoteButton extends React.Component<VoteButtonProps> {
@@ -129,6 +130,7 @@ type VoteButtonsProps = {
   callback: (VoteT) => void,
   count: number,
   currentVote: VoteT,
+  ...
 };
 
 class VoteButtons extends React.Component<VoteButtonsProps> {
@@ -178,13 +180,13 @@ class TagRow extends React.Component<TagRowProps> {
   }
 }
 
-type TagEditorProps = {|
+type TagEditorProps = {
   +$c: CatalystContextT,
   +aggregatedTags: $ReadOnlyArray<AggregatedTagT>,
   +entity: MinimalCoreEntityT,
   +more: boolean,
   +userTags: $ReadOnlyArray<UserTagT>,
-|};
+};
 
 type TagEditorState = {
   positiveTagsOnly: boolean,
@@ -192,8 +194,8 @@ type TagEditorState = {
 };
 
 type TagUpdateT =
-  | {| +count: number, +deleted?: false, +tag: string, +vote: 1 | -1 |}
-  | {| +deleted: true, +tag: string, +vote: 0 |};
+  | { +count: number, +deleted?: false, +tag: string, +vote: 1 | -1 }
+  | { +deleted: true, +tag: string, +vote: 0 };
 
 type PendingVoteT = {
   fail: () => void,
@@ -208,7 +210,7 @@ class TagEditor extends React.Component<TagEditorProps, TagEditorState> {
 
   debouncePendingVotes: () => void;
 
-  pendingVotes: {[string]: PendingVoteT};
+  pendingVotes: {[string]: PendingVoteT, ...};
 
   setTagsInput: (TagsInputT) => void;
 

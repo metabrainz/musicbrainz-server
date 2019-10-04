@@ -14,9 +14,9 @@ import * as manifest from '../../static/manifest';
 import ApplicationForm from '../../static/scripts/account/components/ApplicationForm';
 import type {ApplicationFormT} from '../../static/scripts/account/components/ApplicationForm';
 
-type Props = {|
+type Props = {
   +form: ApplicationFormT,
-|};
+};
 
 const RegisterApplication = (props: Props) => (
   <Layout fullWidth title={l('Register Application')}>

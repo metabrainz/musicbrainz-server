@@ -13,9 +13,9 @@ import * as React from 'react';
 import EditorLink from '../../static/scripts/common/components/EditorLink';
 import commaOnlyList from '../../static/scripts/common/i18n/commaOnlyList';
 
-type Props = {|
+type Props = {
   +editors: $ReadOnlyArray<EditorT>,
-|};
+};
 
 const UserInlineList = ({editors}: Props) => (
   <p>

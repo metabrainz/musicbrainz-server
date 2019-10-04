@@ -16,7 +16,7 @@ import {displayAge} from '../../../utility/age';
 
 import {SidebarProperty} from './SidebarProperties';
 
-type Props = {|
+type Props = {
   +age?: [number, number, number] | null,
   +entity:
     | AreaT
@@ -25,7 +25,7 @@ type Props = {|
     | LabelT
     | PlaceT,
   +label: string,
-|};
+};
 
 const SidebarEndDate = ({age, entity, label}: Props) => (
   isDateEmpty(entity.end_date) ? (

@@ -16,13 +16,13 @@ import localizeAreaName from '../static/scripts/common/i18n/localizeAreaName';
 
 import AreaHeader from './AreaHeader';
 
-type Props = {|
+type Props = {
   +children: ReactNode,
   +entity: AreaT,
   +fullWidth?: boolean,
   +page: string,
   +title?: string,
-|};
+};
 
 const AreaLayout = ({
   children,

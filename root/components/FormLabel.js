@@ -9,11 +9,11 @@
 
 import React from 'react';
 
-type Props = {|
-  +forField?: {+html_name: string},
+type Props = {
+  +forField?: {+html_name: string, ...},
   +label: string,
   +required?: boolean,
-|};
+};
 
 const FormLabel = (props: Props) => (
   <label

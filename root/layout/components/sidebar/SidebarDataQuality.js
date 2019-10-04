@@ -13,9 +13,9 @@ import {QUALITY_NAMES} from '../../../static/scripts/common/constants';
 
 import {SidebarProperty} from './SidebarProperties';
 
-type Props = {|
+type Props = {
   +quality: QualityT,
-|};
+};
 
 const SidebarDataQuality = ({quality}: Props) => {
   const name = QUALITY_NAMES.get(quality);

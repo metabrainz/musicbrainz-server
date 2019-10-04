@@ -13,9 +13,9 @@ import EntityLink from '../static/scripts/common/components/EntityLink';
 import formatDate from '../static/scripts/common/utility/formatDate';
 import isDateEmpty from '../static/scripts/common/utility/isDateEmpty';
 
-type Props = {|
+type Props = {
   +event: ReleaseEventT,
-|};
+};
 
 const ReleaseEvent = ({event}: Props) => (
   <>

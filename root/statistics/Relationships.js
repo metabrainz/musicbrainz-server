@@ -17,17 +17,17 @@ import formatEntityTypeName from '../static/scripts/common/utility/formatEntityT
 import {formatCount, formatPercentage} from './utilities';
 import StatisticsLayout from './StatisticsLayout';
 
-export type RelationshipsStatsT = {|
+export type RelationshipsStatsT = {
   +$c: CatalystContextT,
   +dateCollected: string,
   +stats: {[string]: number},
   +types: {[string]: RelationshipTypeT},
-|};
+};
 
-declare type RelationshipTypeT = {|
+declare type RelationshipTypeT = {
   +entity_types: $ReadOnlyArray<string>,
   +tree: {[string]: Array<LinkTypeT>},
-|};
+};
 
 function comparePhrases(a, b) {
   return compare(

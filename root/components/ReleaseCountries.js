@@ -23,9 +23,9 @@ const buildReleaseCountry = (event) => {
   );
 };
 
-type ReleaseEventsProps = {|
+type ReleaseEventsProps = {
   +events?: $ReadOnlyArray<ReleaseEventT>,
-|};
+};
 
 const ReleaseCountries = ({events}: ReleaseEventsProps) => (
   events && events.length ? (

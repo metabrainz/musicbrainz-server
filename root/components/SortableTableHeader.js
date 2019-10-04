@@ -26,12 +26,12 @@ function printSortArrows(name, order) {
   );
 }
 
-type Props = {|
+type Props = {
   +$c: CatalystContextT,
   +label: string,
   +name: string,
   +order: ?string,
-|};
+};
 
 const SortableTableHeader = ({$c, label, name, order}: Props) => (
   <>

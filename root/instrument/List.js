@@ -13,13 +13,13 @@ import Layout from '../layout';
 import EntityLink from '../static/scripts/common/components/EntityLink';
 import expand2react from '../static/scripts/common/i18n/expand2react';
 
-type PropsT = {|
+type PropsT = {
   +instrument_types: $ReadOnlyArray<InstrumentTypeT>,
-  +instruments_by_type: {|
+  +instruments_by_type: {
     +[number]: $ReadOnlyArray<InstrumentT>,
     +unknown: $ReadOnlyArray<InstrumentT>,
-  |},
-|};
+  },
+};
 
 const Instrument = ({instrument}) => (
   <li>

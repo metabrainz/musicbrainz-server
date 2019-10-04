@@ -15,7 +15,7 @@ import FormLabel from './FormLabel';
 import HiddenField from './HiddenField';
 import SelectField from './SelectField';
 
-type Props = {|
+type Props = {
   // `allowEmpty` prepends an empty default option to the list.
   +allowEmpty?: boolean,
   +field: ReadOnlyFieldT<number | string>,
@@ -30,7 +30,7 @@ type Props = {|
    */
   +required?: boolean,
   +uncontrolled?: boolean,
-|};
+};
 
 const FormRowSelect = ({
   allowEmpty = false,

@@ -11,7 +11,7 @@ import url from 'url';
 
 export default function uriWith(
   uriString: string,
-  params: {[string]: mixed},
+  params: {[string]: mixed, ...},
 ) {
   const u = url.parse(uriString, true);
 

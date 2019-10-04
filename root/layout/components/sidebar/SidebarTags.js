@@ -16,19 +16,19 @@ import {SidebarTagEditor} from '../../../static/scripts/common/components/TagEdi
 import TagLink from '../../../static/scripts/common/components/TagLink';
 import commaOnlyList from '../../../static/scripts/common/i18n/commaOnlyList';
 
-type TagListProps = {|
+type TagListProps = {
   +entity: CoreEntityT,
   +isGenreList?: boolean,
   +tags: ?$ReadOnlyArray<AggregatedTagT>,
-|};
+};
 
-type SidebarTagsProps = {|
+type SidebarTagsProps = {
   +$c: CatalystContextT,
   +aggregatedTags?: $ReadOnlyArray<AggregatedTagT> | void,
   +entity: CoreEntityT,
   +more: boolean,
   +userTags?: $ReadOnlyArray<UserTagT> | void,
-|};
+};
 
 const TagList = ({
   entity,

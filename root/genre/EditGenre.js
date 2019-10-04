@@ -13,10 +13,10 @@ import GenreEditForm from './GenreEditForm';
 import GenreLayout from './GenreLayout';
 import type {GenreFormT} from './types';
 
-type Props = {|
+type Props = {
   +form: GenreFormT,
   +genre: GenreT,
-|};
+};
 
 const EditGenre = ({form, genre}: Props) => (
   <GenreLayout

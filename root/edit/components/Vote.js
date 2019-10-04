@@ -24,13 +24,13 @@ import {
   getLatestVoteForEditor,
 } from '../../utility/edit';
 
-type VoteCheckboxProps = {|
+type VoteCheckboxProps = {
   +edit: EditT,
   +user: CatalystUserT,
   +name: string,
   +label: string,
   +value: number,
-|};
+};
 
 const VoteCheckbox = ({edit, user, label, name, ...props}: VoteCheckboxProps) => {
   const latestVote = user
@@ -47,12 +47,12 @@ const VoteCheckbox = ({edit, user, label, name, ...props}: VoteCheckboxProps) =>
   );
 };
 
-type VoteProps = {|
+type VoteProps = {
   +$c: CatalystContextT,
   +edit: EditT,
   +index?: number,
   +summary?: boolean,
-|};
+};
 
 const Vote = ({$c, edit, index = 0, summary = false}: VoteProps) => {
   const user = $c.user;

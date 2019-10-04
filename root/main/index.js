@@ -16,10 +16,10 @@ import {CONTACT_URL} from '../static/scripts/common/constants';
 import {reduceArtistCredit} from '../static/scripts/common/immutable-entities';
 import entityHref from '../static/scripts/common/utility/entityHref';
 
-type Props = {|
+type Props = {
   +blogEntries: $ReadOnlyArray<BlogEntryT> | null,
   +newestReleases: $ReadOnlyArray<ArtworkT>,
-|};
+};
 
 const Homepage = ({
   blogEntries,
@@ -175,9 +175,9 @@ const Homepage = ({
 
 const ReleaseArtwork = ({
   artwork,
-}: {|
+}: {
   +artwork: ArtworkT,
-|}) => {
+}) => {
   const release = artwork.release;
   if (!release) {
     return null;

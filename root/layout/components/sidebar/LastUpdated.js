@@ -12,10 +12,10 @@ import React from 'react';
 import {withCatalystContext} from '../../../context';
 import formatUserDate from '../../../utility/formatUserDate';
 
-type Props = {|
+type Props = {
   +$c: CatalystContextT,
   +entity: CoreEntityT,
-|};
+};
 
 const LastUpdated = ({$c, entity}: Props) => {
   const lastUpdated = entity.last_updated;

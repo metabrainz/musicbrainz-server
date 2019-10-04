@@ -15,11 +15,11 @@ import EditorLink from '../../static/scripts/common/components/EditorLink';
 import formatUserDate from '../../utility/formatUserDate';
 import {votesVisible} from '../../utility/voting';
 
-type RowProps = {|
+type RowProps = {
   +$c: CatalystContextT,
   +election: AutoEditorElectionT,
   +index: number,
-|};
+};
 
 const ElectionTableRow = withCatalystContext(({
   $c,
@@ -57,7 +57,7 @@ const ElectionTableRow = withCatalystContext(({
 ));
 
 const ElectionTableRows = (
-  {elections}: {|+elections: $ReadOnlyArray<AutoEditorElectionT>|},
+  {elections}: {+elections: $ReadOnlyArray<AutoEditorElectionT>},
 ): ReactNode => elections.map((election, index) => (
   <ElectionTableRow
     election={election}

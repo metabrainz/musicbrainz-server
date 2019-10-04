@@ -34,7 +34,7 @@ import releaseGroupType from '../utility/releaseGroupType';
 
 import ReleaseGroupLayout from './ReleaseGroupLayout';
 
-type Props = {|
+type Props = {
   +$c: CatalystContextT,
   +eligibleForCleanup: boolean,
   +mostPopularReview: CritiqueBrainzReviewT,
@@ -44,7 +44,7 @@ type Props = {|
   +releaseGroup: ReleaseGroupT,
   +releases: $ReadOnlyArray<$ReadOnlyArray<ReleaseT>>,
   +wikipediaExtract: WikipediaExtractT | null,
-|};
+};
 
 function buildReleaseStatusTable($c, releaseStatusGroup) {
   const status = releaseStatusGroup[0].status;

@@ -29,11 +29,11 @@ function areArtistCreditNamesEqual(a, b) {
   );
 }
 
-type ArtistLinkProps = {|
+type ArtistLinkProps = {
   +content?: React.Node,
   +credit: ArtistCreditNameT,
   +nameVariation?: boolean,
-|};
+};
 
 const ArtistLink = ({content, credit, nameVariation}: ArtistLinkProps) => (
   <EntityLink

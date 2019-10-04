@@ -17,9 +17,9 @@ const displayLabel = (label) => (
   <EntityLink entity={label} />
 );
 
-type ReleaseLabelsProps = {|
+type ReleaseLabelsProps = {
   +labels?: $ReadOnlyArray<ReleaseLabelT>,
-|};
+};
 
 const ReleaseLabelList = ({labels: releaseLabels}: ReleaseLabelsProps) => {
   if (!releaseLabels || !releaseLabels.length) {

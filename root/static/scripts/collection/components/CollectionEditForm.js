@@ -26,11 +26,11 @@ import hydrate from '../../../../utility/hydrate';
 import type {CollaboratorStateT, CollectionEditFormT}
   from '../../../../collection/types';
 
-type Props = {|
+type Props = {
   +$c: CatalystContextT,
   +collectionTypes: SelectOptionsT,
   +form: CollectionEditFormT,
-|};
+};
 
 const CollectionEditForm = ({$c, collectionTypes, form}: Props) => {
   const [collaborators, setCollaborators] =

@@ -20,9 +20,9 @@ type Props = {
   +target?: '_blank',
 };
 
-type MpIconProps = {|
+type MpIconProps = {
   +artistCredit: ArtistCreditT,
-|};
+};
 
 const MpIcon = hydrate<MpIconProps>('span.ac-mp', ({artistCredit}: MpIconProps) => {
   const [hover, setHover] = useState(false);

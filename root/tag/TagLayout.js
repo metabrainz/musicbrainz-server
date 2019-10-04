@@ -13,12 +13,12 @@ import Tabs from '../components/Tabs';
 import Layout from '../layout';
 import TagLink from '../static/scripts/common/components/TagLink';
 
-type Props = {|
+type Props = {
   +children: React.Node,
   +page: string,
   +tag: string,
   +title?: string,
-|};
+};
 
 const tabLinks: $ReadOnlyArray<[string, () => string]> = [
   ['', N_l('Overview')],

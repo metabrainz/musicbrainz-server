@@ -14,10 +14,10 @@ import setCookie from '../utility/setCookie';
 
 import FilterForm, {type FilterFormT} from './FilterForm';
 
-type Props = {|
+type Props = {
   +ajaxFormUrl: string,
   +initialFilterForm: ?FilterFormT,
-|};
+};
 
 const Filter = ({ajaxFormUrl, initialFilterForm}: Props) => {
   const [filterForm, setFilterForm] = useState<?FilterFormT>(
