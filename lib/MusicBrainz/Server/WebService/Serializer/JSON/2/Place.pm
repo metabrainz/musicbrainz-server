@@ -15,8 +15,8 @@ sub serialize
     $body{area} = $entity->area ? serialize_entity($entity->area) : JSON::null;
     $body{coordinates} = $entity->coordinates ?
             {
-                latitude => $entity->coordinates->latitude,
-                longitude => $entity->coordinates->longitude,
+                latitude => $entity->coordinates->latitude + 0.0,
+                longitude => $entity->coordinates->longitude + 0.0,
             }
         : JSON::null;
 
