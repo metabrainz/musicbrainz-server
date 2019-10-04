@@ -929,7 +929,11 @@ my %stats = (
                     ON l.area = ac.descendant
                     AND ac.parent IN (SELECT area FROM country_area)
                 FULL OUTER JOIN iso_3166_1 iso
-                    ON iso.area = COALESCE(ac.parent, l.area)
+                    ON iso.area = COALESCE(
+                        (SELECT area FROM country_area WHERE area = ac.descendant),
+                        ac.parent,
+                        l.area
+                    )
                 GROUP BY iso.code
             }, @containment_query_args);
 
@@ -1369,7 +1373,11 @@ my %stats = (
                     ON a.area = ac.descendant
                     AND ac.parent IN (SELECT area FROM country_area)
                 FULL OUTER JOIN iso_3166_1 iso
-                    ON iso.area = COALESCE(ac.parent, a.area)
+                    ON iso.area = COALESCE(
+                        (SELECT area FROM country_area WHERE area = ac.descendant),
+                        ac.parent,
+                        a.area
+                    )
                 GROUP BY iso.code
             }, @containment_query_args);
 
