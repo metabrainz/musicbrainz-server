@@ -24,15 +24,28 @@ const buildOptGroup = (optgroup, index) => (
   </optgroup>
 );
 
-type SelectFieldProps = {|
+type SelectElementProps = {
+  className?: string,
+  defaultValue?: StrOrNum,
+  disabled?: boolean,
+  id?: string,
+  name?: string,
+  onChange?: (event: SyntheticEvent<HTMLSelectElement>) => void,
+  required?: boolean,
+  style?: {},
+  value?: StrOrNum,
+};
+
+type SelectFieldProps = {
   +allowEmpty?: boolean,
+  +className?: string,
   +disabled?: boolean,
   +field: ReadOnlyFieldT<?StrOrNum>,
   +onChange?: (event: SyntheticEvent<HTMLSelectElement>) => void,
   +options: MaybeGroupedOptionsT,
   +required?: boolean,
   +uncontrolled?: boolean,
-|};
+};
 
 const SelectField = ({
   allowEmpty = true,
@@ -42,25 +55,29 @@ const SelectField = ({
   options,
   required,
   uncontrolled = false,
+  ...props
 }: SelectFieldProps) => {
-  const selectElementProps: any = {
-    className: 'with-button',
-    disabled: disabled,
-    id: 'id-' + field.html_name,
-    name: field.html_name,
-    required: required,
-  };
+  const selectProps: SelectElementProps = props;
+
+  if (selectProps.className === undefined) {
+    selectProps.className = 'with-button';
+  }
+
+  selectProps.disabled = disabled;
+  selectProps.id = 'id-' + field.html_name;
+  selectProps.name = field.html_name;
+  selectProps.required = required;
 
   if (uncontrolled) {
-    selectElementProps.defaultValue =
+    selectProps.defaultValue =
       getSelectValue(field, options, allowEmpty);
   } else {
-    selectElementProps.onChange = onChange;
-    selectElementProps.value = getSelectValue(field, options, allowEmpty);
+    selectProps.onChange = onChange;
+    selectProps.value = getSelectValue(field, options, allowEmpty);
   }
 
   return (
-    <select {...selectElementProps}>
+    <select {...selectProps}>
       {allowEmpty
         ? <option value="">{'\xA0'}</option>
         : null}

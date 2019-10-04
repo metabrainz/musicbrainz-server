@@ -759,10 +759,6 @@ END ~%]
     </a>
 [%- END -%]
 
-[%~ MACRO filter_button BLOCK -%]
-  <div style="float:right;margin-top:1.5em;"><a class="filter-button">[% React.embed(c, 'static/scripts/common/components/FilterIcon') %]</a> <a class="filter-button" href="#">[% l("Filter") %]</a></div>
-[%- END -%]
-
 [%~ MACRO artist_begin_label_from_type(type_id) BLOCK ~%]
     [%~ type_id == 1 ? l('Born:') : (type_id ==  2 || type_id == 5 || type_id == 6) ? l('Founded:') : l('Begin date:') ~%]
 [%~ END -%]
