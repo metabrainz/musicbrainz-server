@@ -15,4 +15,5 @@
 [lints]
 
 [options]
+esproposal.optional_chaining=enable
 module.name_mapper.extension='less' -> '<PROJECT_ROOT>/root/flowstub.js.flow'

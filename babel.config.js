@@ -26,6 +26,7 @@ module.exports = function (api) {
     }],
     '@babel/plugin-proposal-class-properties',
     '@babel/plugin-syntax-dynamic-import',
+    '@babel/plugin-proposal-optional-chaining',
   ];
 
   const ignore = [
