@@ -59,7 +59,6 @@
     "shelljs": "0.5.3",
     "sliced": "1.0.1",
     "tablesorter": "git://github.com/Mottie/tablesorter.git#430f8c5",
-    "terable": "0.3.0",
     "webpack": "4.29.3",
     "webpack-cli": "3.2.3",
     "webpack-manifest-plugin": "2.0.4",

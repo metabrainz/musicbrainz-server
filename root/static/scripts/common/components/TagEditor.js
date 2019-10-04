@@ -9,7 +9,6 @@
 
 import _ from 'lodash';
 import React from 'react';
-import keyBy from 'terable/keyBy';
 
 import hydrate, {minimalEntity} from '../../../../utility/hydrate';
 import loopParity from '../../../../utility/loopParity';
@@ -35,8 +34,10 @@ const VOTE_ACTIONS = {
  */
 const VOTE_DELAY = 1000;
 
+const getTagName = t => t.tag;
+
 function sortedTags(tags) {
-  return _.sortBy(tags, t => -t.count, t => t.tag);
+  return _.sortBy(tags, t => -t.count, getTagName);
 }
 
 function getTagsPath(entity) {
@@ -600,18 +601,16 @@ export const SidebarTagEditor = hydrate<TagEditorProps>('div.sidebar-tags', clas
   }
 }, minimalEntity);
 
-const keyByTag = keyBy(t => t.tag);
-
 function createInitialTagState(
   aggregatedTags: $ReadOnlyArray<AggregatedTagT>,
   userTags: $ReadOnlyArray<UserTagT>,
 ) {
-  const userTagsByName = keyByTag(userTags);
+  const userTagsByName = _.keyBy(userTags, getTagName);
 
   const used = new Set();
 
   const combined = aggregatedTags.map(function (t) {
-    const userTag = userTagsByName.get(t.tag);
+    const userTag = userTagsByName[t.tag];
 
     used.add(t.tag);
 
@@ -623,9 +622,10 @@ function createInitialTagState(
   });
 
   // Always show upvoted user tags (affects sidebar)
-  for (const t of userTagsByName.values()) {
-    if (t.vote > 0 && !used.has(t.tag)) {
-      combined.push(t);
+  for (const tagName of Object.keys(userTagsByName)) {
+    const tag = userTagsByName[tagName];
+    if (tag.vote > 0 && !used.has(tagName)) {
+      combined.push(tag);
     }
   }
 

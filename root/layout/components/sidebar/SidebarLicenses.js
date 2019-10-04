@@ -7,15 +7,13 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
+import map from 'lodash/map';
+import sortBy from 'lodash/sortBy';
 import * as React from 'react';
-import compose from 'terable/compose';
-import filter from 'terable/filter';
-import map from 'terable/map';
-import sortBy from 'terable/sortBy';
-import toArray from 'terable/toArray';
 
 import {withCatalystContext} from '../../../context';
 import * as manifest from '../../../static/manifest';
+import {compare} from '../../../static/scripts/common/i18n';
 import linkedEntities from '../../../static/scripts/common/linkedEntities';
 
 const LICENSE_CLASSES = {
@@ -89,37 +87,38 @@ const LicenseDisplay = ({url}: {|+url: UrlT|}) => {
   );
 };
 
-const getLicenses = filter(r => (
-  r.target.entityType === 'url' &&
-  r.target.show_license_in_sidebar
-));
-
-const buildLicenses = map(r => <LicenseDisplay key={r.id} url={r.target} />);
+const cmpLinkPhrase = (a, b) => compare(a[0], b[0]);
 
 type Props = {|
   +entity: CoreEntityT,
 |};
 
 const SidebarLicenses = ({entity}: Props) => {
-  let licenses = entity.relationships;
+  const relationships = entity.relationships;
 
-  if (!licenses) {
+  if (!relationships) {
     return null;
   }
 
-  licenses = compose(
-    toArray,
-    buildLicenses,
-    sortBy(r => (
-      l_relationships(linkedEntities.link_type[r.linkTypeID].link_phrase)
-    )),
-    getLicenses,
-  )(licenses);
+  const licenses = [];
+  for (const r of relationships) {
+    const target = r.target;
+    if (target.entityType === 'url' && target.show_license_in_sidebar) {
+      licenses.push([
+        l_relationships(linkedEntities.link_type[r.linkTypeID].link_phrase),
+        <LicenseDisplay key={r.id} url={target} />,
+      ]);
+    }
+  }
+
+  licenses.sort(cmpLinkPhrase);
 
   return licenses.length ? (
     <>
       <h2 className="licenses">{l('License')}</h2>
-      <ul className="licenses">{licenses}</ul>
+      <ul className="licenses">
+        {map(licenses, '1')}
+      </ul>
     </>
   ) : null;
 };

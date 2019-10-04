@@ -6120,11 +6120,6 @@ tar@^4:
     safe-buffer "^5.1.2"
     yallist "^3.0.2"
 
-terable@0.3.0:
-  version "0.3.0"
-  resolved "https://registry.yarnpkg.com/terable/-/terable-0.3.0.tgz#9b8f2c0a2917d9b3657a06567c5c5e2bf612c729"
-  integrity sha512-ujD7WbF9OOEWSUzfKmuM8waVgXqEGcantQB9fcWH+n5HklI4NvxOcM91QiMy4gj+d8zWrZDe+yzDHrS5+DgClw==
-
 terser-webpack-plugin@1.3.0:
   version "1.3.0"
   resolved "https://registry.yarnpkg.com/terser-webpack-plugin/-/terser-webpack-plugin-1.3.0.tgz#69aa22426299f4b5b3775cbed8cb2c5d419aa1d4"
