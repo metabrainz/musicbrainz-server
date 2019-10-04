@@ -225,6 +225,7 @@ const parser = new XGettext({
       'dynamicImport',
       'classProperties',
       'optionalChaining',
+      'nullishCoalescingOperator',
     ],
     sourceType: 'unambiguous',
   },
