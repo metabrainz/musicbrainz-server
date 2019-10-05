@@ -213,6 +213,7 @@ module.exports = {
   'url/UrlIndex': require('../url/UrlIndex'),
   'user/PrivilegedUsers': require('../user/PrivilegedUsers'),
   'user/ReportUser': require('../user/ReportUser'),
+  'work/WorkIndex': require('../work/WorkIndex'),
 
   /*
    * XXX Components included via React.embed in our TT templates

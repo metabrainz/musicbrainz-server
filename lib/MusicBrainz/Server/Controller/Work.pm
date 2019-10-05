@@ -69,7 +69,17 @@ sub show : PathPart('') Chained('load')
 
     $c->model('Work')->load_writers($c->stash->{work});
 
-    $c->stash->{template} = 'work/index.tt';
+    my %props = (
+        numberOfRevisions => $c->stash->{number_of_revisions},
+        wikipediaExtract  => $c->stash->{wikipedia_extract},
+        work              => $c->stash->{work},
+    );
+
+    $c->stash(
+        component_path => 'work/WorkIndex',
+        component_props => \%props,
+        current_view => 'Node',
+    );
 }
 
 # Stuff that has the side bar and thus needs to display collection information

@@ -12,6 +12,7 @@ import React from 'react';
 import Annotation from '../static/scripts/common/components/Annotation';
 import WikipediaExtract
   from '../static/scripts/common/components/WikipediaExtract';
+import CleanupBanner from '../components/CleanupBanner';
 import Relationships from '../components/Relationships';
 import * as manifest from '../static/manifest';
 
@@ -32,13 +33,7 @@ const PlaceIndex = ({
 }: Props) => (
   <PlaceLayout entity={place} page="index">
     {eligibleForCleanup ? (
-      <p className="cleanup">
-        {l(
-          `This place has no relationships and will be removed automatically
-           in the next few days. If this is not intended,
-           please add more data to this place.`,
-        )}
-      </p>
+      <CleanupBanner entityType="place" />
     ) : null}
     <Annotation
       annotation={place.latest_annotation}

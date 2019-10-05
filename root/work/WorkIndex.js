@@ -12,51 +12,44 @@ import React from 'react';
 import Annotation from '../static/scripts/common/components/Annotation';
 import WikipediaExtract
   from '../static/scripts/common/components/WikipediaExtract';
-import expand2react from '../static/scripts/common/i18n/expand2react';
 import CleanupBanner from '../components/CleanupBanner';
 import Relationships from '../components/Relationships';
+import RelationshipsTable from '../components/RelationshipsTable';
 import * as manifest from '../static/manifest';
 
-import EventLayout from './EventLayout';
+import WorkLayout from './WorkLayout';
 
 type Props = {|
   +eligibleForCleanup: boolean,
-  +event: EventT,
   +numberOfRevisions: number,
-  +wikipediaExtract: WikipediaExtractT,
+  +wikipediaExtract: WikipediaExtractT | null,
+  +work: WorkT,
 |};
 
-const EventIndex = ({
+const WorkIndex = ({
   eligibleForCleanup,
-  event,
   numberOfRevisions,
   wikipediaExtract,
+  work,
 }: Props) => (
-  <EventLayout entity={event} page="index">
+  <WorkLayout entity={work} page="index">
     {eligibleForCleanup ? (
-      <CleanupBanner entityType="event" />
+      <CleanupBanner entityType="work" />
     ) : null}
     <Annotation
-      annotation={event.latest_annotation}
+      annotation={work.latest_annotation}
       collapse
-      entity={event}
+      entity={work}
       numberOfRevisions={numberOfRevisions}
     />
     <WikipediaExtract
-      cachedWikipediaExtract={wikipediaExtract || null}
-      entity={event}
+      cachedWikipediaExtract={wikipediaExtract}
+      entity={work}
     />
-    <Relationships source={event} />
-    {event.setlist ? (
-      <>
-        <h2 className="setlist">{l('Setlist')}</h2>
-        <p className="setlist">
-          {expand2react(event.setlist)}
-        </p>
-      </>
-    ) : null}
-    {manifest.js('event/index.js', {async: 'async'})}
-  </EventLayout>
+    <Relationships source={work} />
+    <RelationshipsTable entity={work} heading={l('Recordings')} />
+    {manifest.js('work/index.js', {async: 'async'})}
+  </WorkLayout>
 );
 
-export default EventIndex;
+export default WorkIndex;
