@@ -281,6 +281,7 @@ module.exports = {
   'static/scripts/edit/components/GuessCaseIcon': require('../static/scripts/edit/components/GuessCaseIcon'),
   'static/scripts/edit/components/InformationIcon': require('../static/scripts/edit/components/InformationIcon'),
   'static/scripts/edit/components/edit/RelationshipDiff': require('../static/scripts/edit/components/edit/RelationshipDiff'),
+  'static/scripts/edit/components/edit/ReleaseEventsDiff': require('../static/scripts/edit/components/edit/ReleaseEventsDiff'),
   'url/UrlHeader': require('../url/UrlHeader'),
   'work/WorkHeader': require('../work/WorkHeader'),
 };
