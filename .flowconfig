@@ -19,3 +19,11 @@ esproposal.nullish_coalescing=enable
 esproposal.optional_chaining=enable
 exact_by_default=true
 module.name_mapper.extension='less' -> '<PROJECT_ROOT>/root/flowstub.js.flow'
+
+[strict]
+nonstrict-import
+sketchy-null
+unclear-type
+unsafe-getters-setters
+untyped-import
+untyped-type-import
