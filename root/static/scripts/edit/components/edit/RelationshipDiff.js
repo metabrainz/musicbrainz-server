@@ -88,28 +88,28 @@ const RelationshipDiff = ({
 
   const oldSourceLink = (
     <DescriptiveLink
-      credit={oldRelationship.entity0_credit}
+      content={oldRelationship.entity0_credit}
       entity={oldSource}
     />
   );
 
   const newSourceLink = (
     <DescriptiveLink
-      credit={newRelationship.entity0_credit}
+      content={newRelationship.entity0_credit}
       entity={newSource}
     />
   );
 
   const oldTargetLink = (
     <DescriptiveLink
-      credit={oldRelationship.entity1_credit}
+      content={oldRelationship.entity1_credit}
       entity={oldTarget}
     />
   );
 
   const newTargetLink = (
     <DescriptiveLink
-      credit={newRelationship.entity1_credit}
+      content={newRelationship.entity1_credit}
       entity={newTarget}
     />
   );
