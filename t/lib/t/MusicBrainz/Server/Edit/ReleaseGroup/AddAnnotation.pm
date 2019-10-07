@@ -32,7 +32,6 @@ is($edits->[0]->id, $edit->id);
 $c->model('Edit')->load_all($edit);
 is($edit->display_data->{release_group}->id, 1);
 is($edit->display_data->{changelog}, 'A changelog');
-is($edit->display_data->{annotation_id}, $edit->annotation_id);
 
 my $release_group = $c->model('ReleaseGroup')->get_by_id(1);
 
