@@ -76,7 +76,7 @@
     "file-url": "2.0.2",
     "flow-bin": "0.109.0",
     "gettext-parser": "3.1.0",
-    "http-proxy": "1.16.2",
+    "http-proxy": "1.18.0",
     "jsdom": "13.2.0",
     "selenium-webdriver": "3.6.0",
     "tape": "4.7.0",
