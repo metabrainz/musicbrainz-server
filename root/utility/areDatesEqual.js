@@ -10,7 +10,9 @@
 export default function areDatesEqual(
   a: PartialDateT | null,
   b: PartialDateT | null,
-): %checks {
-  return a !== null && b !== null &&
-    a.year === b.year && a.month === b.month && a.day === b.day;
+): boolean %checks {
+  return (a === null && b === null) || (
+    a !== null && b !== null &&
+    a.year === b.year && a.month === b.month && a.day === b.day
+  );
 }

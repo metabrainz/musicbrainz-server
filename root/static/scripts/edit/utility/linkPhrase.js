@@ -15,6 +15,7 @@ import localizeLinkAttributeTypeName
   from '../../common/i18n/localizeLinkAttributeTypeName';
 import linkedEntities from '../../common/linkedEntities';
 import clean from '../../common/utility/clean';
+import {compareStrings} from '../../common/utility/compare';
 import displayLinkAttribute, {displayLinkAttributeText}
   from '../../common/utility/displayLinkAttribute';
 
@@ -189,9 +190,17 @@ export function cmpLinkAttrs(a: LinkAttrT, b: LinkAttrT) {
     /*
      * Sorting by the types' child orders doesn't make sense without taking
      * into account the entire parent hierarchy, so we just sort by ID if
-     * they have the same root to achieve a consistent sort order.
+     * they have the same root child order to achieve a consistent sort.
      */
-    (aType.id - bType.id)
+    (aType.id - bType.id) ||
+    /*
+     * Since we now know the ids are the same, we can assume
+     * aRootType === bRootType below.
+     */
+    (aRootType.free_text ?
+      compareStrings((a.text_value ?? ''), (b.text_value ?? '')) : 0) ||
+    (aRootType.creditable ?
+      compareStrings((a.credited_as ?? ''), (b.credited_as ?? '')) : 0)
   );
 }
 
