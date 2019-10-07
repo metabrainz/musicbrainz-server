@@ -505,6 +505,7 @@ sub TO_JSON {
         number_of_revisions
         own_collections
         release_artwork
+        release_artwork_count
         server_details
         server_languages
         subscribed

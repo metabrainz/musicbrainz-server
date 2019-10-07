@@ -212,6 +212,7 @@ type CatalystStashT = {|
   +number_of_revisions?: number,
   +own_collections?: $ReadOnlyArray<CollectionT>,
   +release_artwork?: ArtworkT,
+  +release_artwork_count?: number,
   +server_languages?: $ReadOnlyArray<ServerLanguageT>,
   +subscribed?: boolean,
   +top_tags?: $ReadOnlyArray<AggregatedTagT>,
