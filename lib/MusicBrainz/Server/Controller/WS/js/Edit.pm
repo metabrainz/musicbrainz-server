@@ -37,6 +37,7 @@ use MusicBrainz::Server::Data::Utils qw(
     split_relationship_by_attributes
     sanitize
     trim
+    trim_comment
     non_empty
 );
 use MusicBrainz::Server::Renderer qw( render_component );
@@ -216,7 +217,7 @@ sub process_entity {
     }
 
     if ($data->{comment}) {
-        trim_string($data, 'comment');
+        $data->{comment} = trim_comment($data->{comment});
         # MBS-7963
         $data->{comment} = substr($data->{comment}, 0, 255);
     }
