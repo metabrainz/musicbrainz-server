@@ -105,7 +105,9 @@ const customProxyServer = http.createServer(function (req, res) {
     req.headers['mb-set-database'] = 'SELENIUM';
     req.rawHeaders['mb-set-database'] = 'SELENIUM';
   }
-  proxy.web(req, res, {target: 'http://' + host});
+  proxy.web(req, res, {target: 'http://' + host}, function (e) {
+    console.error(e);
+  });
 });
 
 const driver = (x => {
