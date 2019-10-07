@@ -1094,8 +1094,11 @@ sub _serialize_relation
     }
 
     $rel_node->appendTextChild('ordering-key', $rel->link_order) if $rel->link_order;
-    $rel_node->appendTextChild('direction', 'backward')
-        if $rel->direction == $MusicBrainz::Server::Entity::Relationship::DIRECTION_BACKWARD;
+    if ($rel->direction == $MusicBrainz::Server::Entity::Relationship::DIRECTION_BACKWARD) {
+        $rel_node->appendTextChild('direction', 'backward');
+    } else {
+        $rel_node->appendTextChild('direction', 'forward');
+    }
 
     my $begin_date = $link->begin_date;
     my $end_date = $link->end_date;

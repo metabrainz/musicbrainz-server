@@ -501,6 +501,7 @@ ws_test 'artist lookup with artist relations',
         <relation-list target-type="artist">
             <relation type-id="5be4c609-9afa-4ea0-910b-12ffb71e3821" type="member of band">
                 <target>802673f0-9b88-4e8a-bb5c-dd01d68b086f</target>
+                <direction>forward</direction>
                 <begin>2001</begin>
                 <artist id="802673f0-9b88-4e8a-bb5c-dd01d68b086f">
                     <name>7人祭</name>
