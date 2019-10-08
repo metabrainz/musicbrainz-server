@@ -63,18 +63,32 @@ type AttrValue<T> = Array<T | string> | T | string;
 class PhraseVarArgs<T> extends VarArgs<AttrValue<T>> {
   +i18n: LinkPhraseI18n<T | string>;
 
+  +entity0: T | string;
+
+  +entity1: T | string;
+
   +usedAttributes: Array<string>;
 
   constructor(
     args: ?VarArgsObject<AttrValue<T>>,
     i18n: LinkPhraseI18n<T | string>,
+    entity0: ?T,
+    entity1: ?T,
   ) {
     super(args || EMPTY_OBJECT);
     this.i18n = i18n;
+    this.entity0 = entity0 || '';
+    this.entity1 = entity1 || '';
     this.usedAttributes = [];
   }
 
   get(name): T | string {
+    if (name === 'entity0') {
+      return this.entity0;
+    }
+    if (name === 'entity1') {
+      return this.entity1;
+    }
     const value = super.get(name);
     if (value == null) {
       return '';
@@ -121,12 +135,10 @@ const textI18n: LinkPhraseI18n<string> = {
 function _setAttributeValues<T>(
   i18n: LinkPhraseI18n<T | string>,
   relationship: RelationshipInfoT,
-  entity0: ?T,
-  entity1: ?T,
   cache: CachedLinkPhraseData<T>,
 ) {
   const attributes = relationship.attributes;
-  const values = entity0 && entity1 ? {entity0, entity1} : {};
+  const values = {};
 
   cache.attributeValues = values;
 
@@ -214,8 +226,6 @@ export function getPhraseAndExtraAttributes<T>(
     _setAttributeValues<T | string>(
       i18n,
       relationship,
-      entity0,
-      entity1,
       cache,
     );
   }
@@ -256,6 +266,8 @@ export function getPhraseAndExtraAttributes<T>(
       ? _getRequiredAttributes(linkType)
       : attributeValues,
     i18n,
+    entity0,
+    entity1,
   );
 
   let phrase = i18n.expand(phraseSource, varArgs);
@@ -346,5 +358,7 @@ export const stripAttributes = (linkType: LinkTypeT, phrase: string) => {
   return clean(textI18n.expand(phrase, new PhraseVarArgs(
     _getRequiredAttributes(linkType),
     textI18n,
+    null,
+    null,
   )));
 };
