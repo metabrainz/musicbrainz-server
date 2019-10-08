@@ -32,9 +32,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-08-15 11:19+0200\n"
-"PO-Revision-Date: 2019-08-24 18:18+0000\n"
-"Last-Translator: 和田篤 <email address hidden>\n"
+"POT-Creation-Date: 2019-09-07 12:13+0200\n"
+"PO-Revision-Date: 2019-09-07 10:18+0000\n"
+"Last-Translator: yvanz\n"
 "Language-Team: Japanese (http://www.transifex.com/musicbrainz/musicbrainz/language/ja/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -78,8 +78,8 @@ msgstr "「YY」は登録された年の最後の2桁です。"
 #: ../root/edit/details/add_medium.tt:49
 #: ../root/edit/details/edit_medium.tt:52
 #: ../root/edit/details/edit_medium.tt:56
-#: ../root/edit/details/edit_medium.tt:178
-#: ../root/edit/details/edit_medium.tt:209
+#: ../root/edit/details/edit_medium.tt:182
+#: ../root/edit/details/edit_medium.tt:221
 #: ../root/edit/details/historic/add_release.tt:49
 #: ../root/release/edit_relationships.tt:48
 #: ../root/release/edit/tracklist.tt:148 ../root/release/edit/tracklist.tt:361
@@ -195,7 +195,7 @@ msgstr "(なし)"
 #: ../root/edit/details/historic/mac_to_sac.tt:13
 #: ../lib/MusicBrainz/Server/Edit/Release/EditReleaseLabel.pm:97
 #: ../lib/MusicBrainz/Server/Entity/Release.pm:176
-#: ../root/entity/Details.js:80 ../root/recording/RecordingIndex.js:67
+#: ../root/entity/Details.js:80 ../root/recording/RecordingIndex.js:69
 #: ../root/release_group/ReleaseGroupIndex.js:57
 msgid "(unknown)"
 msgstr "(不明)"
@@ -938,7 +938,7 @@ msgstr "購読中のアーティスト"
 msgid "Artist credit:"
 msgstr "アーティストクレジット:"
 
-#: ../root/edit/details/edit_medium.tt:204
+#: ../root/edit/details/edit_medium.tt:216
 msgid "Artist credits:"
 msgstr "アーティストクレジット:"
 
@@ -1189,7 +1189,8 @@ msgstr ""
 msgid "Bio:"
 msgstr "プロフィール:"
 
-#: ../root/layout.tt:107 ../root/layout/components/Footer.js:29
+#: ../root/layout.tt:107 ../root/layout/components/ExternalLinks.js:85
+#: ../root/layout/components/Footer.js:29
 msgid "Blog"
 msgstr "ブログ"
 
@@ -1954,6 +1955,13 @@ msgstr "メモを編集:"
 #: ../root/edit/index.tt:72
 msgid "Edit notes"
 msgstr "メモを編集"
+
+#: ../root/edit/notes.tt:27
+msgid ""
+"Edit notes support {doc_formatting|a limited set of wiki formatting "
+"options}. Please do always keep the {doc_coc|Code of Conduct} in mind when "
+"writing edit notes!"
+msgstr ""
 
 #: ../root/admin/edit_user.tt:34
 msgid "Edit profile"
@@ -3484,7 +3492,7 @@ msgstr "名前:"
 msgid "New"
 msgstr "新"
 
-#: ../root/edit/details/edit_medium.tt:211
+#: ../root/edit/details/edit_medium.tt:223
 msgid "New Artist"
 msgstr "新しいアーティスト"
 
@@ -3558,7 +3566,7 @@ msgstr "新しいポジション:"
 msgid "New positions:"
 msgstr "新しいポジション:"
 
-#: ../root/edit/details/edit_medium.tt:180
+#: ../root/edit/details/edit_medium.tt:184
 msgid "New recording"
 msgstr "新しいレコーディング"
 
@@ -3729,7 +3737,7 @@ msgstr "トラックリストを読み込み中…"
 msgid "Old"
 msgstr "前"
 
-#: ../root/edit/details/edit_medium.tt:210
+#: ../root/edit/details/edit_medium.tt:222
 msgid "Old Artist"
 msgstr "前のアーティスト"
 
@@ -3753,7 +3761,7 @@ msgstr "古いパスワード:"
 msgid "Old positions:"
 msgstr ""
 
-#: ../root/edit/details/edit_medium.tt:179
+#: ../root/edit/details/edit_medium.tt:183
 msgid "Old recording"
 msgstr "前のレコーディング"
 
@@ -4253,7 +4261,7 @@ msgstr "レコーディング:"
 msgid "Recordings"
 msgstr "レコーディング"
 
-#: ../root/edit/details/edit_medium.tt:173
+#: ../root/edit/details/edit_medium.tt:177
 msgid "Recordings:"
 msgstr "レコーディング:"
 
@@ -5629,7 +5637,7 @@ msgstr "このディスクは1トラック目より前にプリギャップト�
 msgid "This edit also changed the track artists."
 msgstr ""
 
-#: ../root/edit/details/edit_medium.tt:164
+#: ../root/edit/details/edit_medium.tt:168
 msgid "This edit changes which tracks are data tracks."
 msgstr ""
 
@@ -5660,7 +5668,7 @@ msgstr "エンティティが削除されたため、正しく表示できませ
 
 #: ../root/components/common-macros.tt:257
 #: ../root/static/scripts/common/components/EntityLink.js:26
-msgid "This entity will be created when edits are entered."
+msgid "This entity will be created by this edit."
 msgstr ""
 
 #: ../root/event/edit_form.tt:15
@@ -6277,8 +6285,8 @@ msgid "Uploading image..."
 msgstr ""
 
 #: ../root/components/forms.tt:292 ../root/components/forms.tt:316
-msgid "Uppercase roman numerals"
-msgstr "大文字のローマ数字"
+msgid "Uppercase Roman numerals"
+msgstr ""
 
 #: ../root/layout.tt:110 ../root/layout/components/Footer.js:37
 msgid "Use beta site"
@@ -6709,7 +6717,7 @@ msgstr ""
 msgid "You are currently watching the following artists for new releases."
 msgstr ""
 
-#: ../root/edit/notes.tt:29
+#: ../root/edit/notes.tt:34
 msgid "You are not currently able to add notes to this edit. ({url|Details})"
 msgstr ""
 
@@ -7715,11 +7723,11 @@ msgid ""
 "Banner updated. Remember that each server has its own, independent banner."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/Artist.pm:573
+#: ../lib/MusicBrainz/Server/Controller/Artist.pm:578
 msgid "You cannot merge a special purpose artist into another artist"
 msgstr "特殊目的のアーティストを他のアーティストとマージ出来ません。"
 
-#: ../lib/MusicBrainz/Server/Controller/Artist.pm:578
+#: ../lib/MusicBrainz/Server/Controller/Artist.pm:583
 msgid "You cannot merge into Deleted Artist"
 msgstr "削除されたアーティストにマージできません。"
 
@@ -10165,7 +10173,7 @@ msgid "Collection Not Found"
 msgstr "コレクションが見つかりません"
 
 #: ../root/entity/NotFound.js:47
-msgid "Sorry, we could not find an collection with that MusicBrainz ID"
+msgid "Sorry, we could not find a collection with that MusicBrainz ID."
 msgstr ""
 
 #: ../root/entity/NotFound.js:53
@@ -10723,15 +10731,15 @@ msgstr "ドキュメントの目次"
 msgid "Development"
 msgstr "開発"
 
-#: ../root/layout/components/ExternalLinks.js:75
+#: ../root/layout/components/ExternalLinks.js:76
 msgid "Official homepage"
 msgstr "公式サイト"
 
-#: ../root/layout/components/ExternalLinks.js:103
+#: ../root/layout/components/ExternalLinks.js:115
 msgid "External links"
 msgstr "外部リンク"
 
-#: ../root/layout/components/ExternalLinks.js:110
+#: ../root/layout/components/ExternalLinks.js:122
 msgid "View all relationships"
 msgstr "全関連を表示"
 
@@ -11290,11 +11298,15 @@ msgstr "リリース名"
 msgid "Release Artist"
 msgstr "リリースアーティスト"
 
-#: ../root/recording/RecordingIndex.js:125
+#: ../root/recording/RecordingIndex.js:82
+msgid "Medium {medium_num}, track {track_num}"
+msgstr ""
+
+#: ../root/recording/RecordingIndex.js:136
 msgid "Appears on releases"
 msgstr "リリースへの登場"
 
-#: ../root/recording/RecordingIndex.js:130
+#: ../root/recording/RecordingIndex.js:141
 msgid "No releases found which feature this recording."
 msgstr ""
 
@@ -13501,14 +13513,14 @@ msgstr "リンクの削除"
 msgid "Guess Case Options"
 msgstr "大文字と小文字を推測"
 
-#: ../root/static/scripts/guess-case/modes.js:256
+#: ../root/static/scripts/guess-case/modes.js:283
 msgid ""
 "This mode capitalises almost all words, with some words (mainly articles and"
 " short prepositions) lowercased. Some words may need to be manually "
 "capitalised to follow the {url|English capitalisation guidelines}."
 msgstr ""
 
-#: ../root/static/scripts/guess-case/modes.js:270
+#: ../root/static/scripts/guess-case/modes.js:299
 msgid ""
 "This mode capitalises titles as sentence mode, but also inserts spaces "
 "before semicolons, colons, exclamation marks and question marks, and inside "
@@ -13516,18 +13528,18 @@ msgid ""
 "{url|French capitalisation guidelines}."
 msgstr ""
 
-#: ../root/static/scripts/guess-case/modes.js:290
+#: ../root/static/scripts/guess-case/modes.js:320
 msgid ""
 "This mode capitalises the first word of a sentence, most other words are "
 "lowercased. Some words, often proper nouns, may need to be manually fixed "
 "according to the {url|relevant language guidelines}."
 msgstr ""
 
-#: ../root/static/scripts/guess-case/modes.js:300
+#: ../root/static/scripts/guess-case/modes.js:331
 msgid ""
 "This mode handles the Turkish capitalisation of 'i' ('İ') and 'ı' ('I'). "
 "Some words may need to be manually corrected according to the {url|Turkish "
-"language guidelines}. "
+"language guidelines}."
 msgstr ""
 
 #: ../root/static/scripts/relationship-editor/common/dialog.js:32

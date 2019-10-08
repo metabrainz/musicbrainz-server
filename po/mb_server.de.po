@@ -66,8 +66,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-08-15 11:19+0200\n"
-"PO-Revision-Date: 2019-08-15 09:33+0000\n"
+"POT-Creation-Date: 2019-09-07 12:13+0200\n"
+"PO-Revision-Date: 2019-09-07 10:18+0000\n"
 "Last-Translator: yvanz\n"
 "Language-Team: German (http://www.transifex.com/musicbrainz/musicbrainz/language/de/)\n"
 "MIME-Version: 1.0\n"
@@ -112,8 +112,8 @@ msgstr "„YY“ sind die letzten zwei Ziffern des Registrierungsjahrs."
 #: ../root/edit/details/add_medium.tt:49
 #: ../root/edit/details/edit_medium.tt:52
 #: ../root/edit/details/edit_medium.tt:56
-#: ../root/edit/details/edit_medium.tt:178
-#: ../root/edit/details/edit_medium.tt:209
+#: ../root/edit/details/edit_medium.tt:182
+#: ../root/edit/details/edit_medium.tt:221
 #: ../root/edit/details/historic/add_release.tt:49
 #: ../root/release/edit_relationships.tt:48
 #: ../root/release/edit/tracklist.tt:148 ../root/release/edit/tracklist.tt:361
@@ -229,7 +229,7 @@ msgstr "(keine)"
 #: ../root/edit/details/historic/mac_to_sac.tt:13
 #: ../lib/MusicBrainz/Server/Edit/Release/EditReleaseLabel.pm:97
 #: ../lib/MusicBrainz/Server/Entity/Release.pm:176
-#: ../root/entity/Details.js:80 ../root/recording/RecordingIndex.js:67
+#: ../root/entity/Details.js:80 ../root/recording/RecordingIndex.js:69
 #: ../root/release_group/ReleaseGroupIndex.js:57
 msgid "(unknown)"
 msgstr "(unbekannt)"
@@ -973,7 +973,7 @@ msgstr "Künstlerabonnements"
 msgid "Artist credit:"
 msgstr "Künstlernennung:"
 
-#: ../root/edit/details/edit_medium.tt:204
+#: ../root/edit/details/edit_medium.tt:216
 msgid "Artist credits:"
 msgstr "Künstlernennungen:"
 
@@ -1224,7 +1224,8 @@ msgstr "Unten befinden sich die Fehlerinformationen. Wenn du einen Fehlerbericht
 msgid "Bio:"
 msgstr "Über mich:"
 
-#: ../root/layout.tt:107 ../root/layout/components/Footer.js:29
+#: ../root/layout.tt:107 ../root/layout/components/ExternalLinks.js:85
+#: ../root/layout/components/Footer.js:29
 msgid "Blog"
 msgstr "Blog"
 
@@ -1989,6 +1990,13 @@ msgstr "Bearbeitungsbemerkung:"
 #: ../root/edit/index.tt:72
 msgid "Edit notes"
 msgstr "Bearbeitungsbemerkungen"
+
+#: ../root/edit/notes.tt:27
+msgid ""
+"Edit notes support {doc_formatting|a limited set of wiki formatting "
+"options}. Please do always keep the {doc_coc|Code of Conduct} in mind when "
+"writing edit notes!"
+msgstr ""
 
 #: ../root/admin/edit_user.tt:34
 msgid "Edit profile"
@@ -3524,7 +3532,7 @@ msgstr "Name:"
 msgid "New"
 msgstr "Neu"
 
-#: ../root/edit/details/edit_medium.tt:211
+#: ../root/edit/details/edit_medium.tt:223
 msgid "New Artist"
 msgstr "Neuer Künstler"
 
@@ -3598,7 +3606,7 @@ msgstr "Neue Position:"
 msgid "New positions:"
 msgstr "Neue Positionen:"
 
-#: ../root/edit/details/edit_medium.tt:180
+#: ../root/edit/details/edit_medium.tt:184
 msgid "New recording"
 msgstr "Neue Aufnahme"
 
@@ -3769,7 +3777,7 @@ msgstr "Lade Titelliste …"
 msgid "Old"
 msgstr "Alt"
 
-#: ../root/edit/details/edit_medium.tt:210
+#: ../root/edit/details/edit_medium.tt:222
 msgid "Old Artist"
 msgstr "Alter Künstler"
 
@@ -3793,7 +3801,7 @@ msgstr "Altes Passwort:"
 msgid "Old positions:"
 msgstr "Alte Positionen:"
 
-#: ../root/edit/details/edit_medium.tt:179
+#: ../root/edit/details/edit_medium.tt:183
 msgid "Old recording"
 msgstr "Alte Aufnahme"
 
@@ -4294,7 +4302,7 @@ msgstr "Aufnahme:"
 msgid "Recordings"
 msgstr "Aufnahmen"
 
-#: ../root/edit/details/edit_medium.tt:173
+#: ../root/edit/details/edit_medium.tt:177
 msgid "Recordings:"
 msgstr "Aufnahmen:"
 
@@ -5671,7 +5679,7 @@ msgstr ""
 msgid "This edit also changed the track artists."
 msgstr "Diese Bearbeitung veränderte auch die Titelkünstler."
 
-#: ../root/edit/details/edit_medium.tt:164
+#: ../root/edit/details/edit_medium.tt:168
 msgid "This edit changes which tracks are data tracks."
 msgstr "Diese Bearbeitung verändert, welche Titel Datenspuren sind."
 
@@ -5702,8 +5710,8 @@ msgstr "Dieses Objekt wurde gelöscht und kann nicht korrekt dargestellt werden.
 
 #: ../root/components/common-macros.tt:257
 #: ../root/static/scripts/common/components/EntityLink.js:26
-msgid "This entity will be created when edits are entered."
-msgstr "Dieses Objekt wird erstellt, wenn die Bearbeitungen abgeschickt werden."
+msgid "This entity will be created by this edit."
+msgstr ""
 
 #: ../root/event/edit_form.tt:15
 msgid "This event was cancelled."
@@ -6319,8 +6327,8 @@ msgid "Uploading image..."
 msgstr "Bild wird hochgeladen ..."
 
 #: ../root/components/forms.tt:292 ../root/components/forms.tt:316
-msgid "Uppercase roman numerals"
-msgstr "Großgeschriebene römische Zahlen"
+msgid "Uppercase Roman numerals"
+msgstr ""
 
 #: ../root/layout.tt:110 ../root/layout/components/Footer.js:37
 msgid "Use beta site"
@@ -6751,7 +6759,7 @@ msgstr "Du bist im Begriff, die folgenden Werke in einem einzigen aufgehen zu la
 msgid "You are currently watching the following artists for new releases."
 msgstr "Derzeit beobachtest du die folgenden Künstler auf neue Veröffentlichungen hin."
 
-#: ../root/edit/notes.tt:29
+#: ../root/edit/notes.tt:34
 msgid "You are not currently able to add notes to this edit. ({url|Details})"
 msgstr "Du kannst derzeit keine Bemerkungen zu dieser Bearbeitung abgegeben. ({url|Details})"
 
@@ -7776,11 +7784,11 @@ msgid ""
 "Banner updated. Remember that each server has its own, independent banner."
 msgstr "Banner aktualisiert. Denk daran, dass jeder Server sein eigenes, unabhängiges Banner hat."
 
-#: ../lib/MusicBrainz/Server/Controller/Artist.pm:573
+#: ../lib/MusicBrainz/Server/Controller/Artist.pm:578
 msgid "You cannot merge a special purpose artist into another artist"
 msgstr "Du kannst einen Spezialkünstler nicht mit einem anderen Künstler vereinen"
 
-#: ../lib/MusicBrainz/Server/Controller/Artist.pm:578
+#: ../lib/MusicBrainz/Server/Controller/Artist.pm:583
 msgid "You cannot merge into Deleted Artist"
 msgstr "Du kannst Künstler nicht mit dem Gelöschten Künstler vereinen."
 
@@ -10232,7 +10240,7 @@ msgid "Collection Not Found"
 msgstr "Sammlung nicht gefunden"
 
 #: ../root/entity/NotFound.js:47
-msgid "Sorry, we could not find an collection with that MusicBrainz ID"
+msgid "Sorry, we could not find a collection with that MusicBrainz ID."
 msgstr ""
 
 #: ../root/entity/NotFound.js:53
@@ -10797,15 +10805,15 @@ msgstr "Dokumentations-Index"
 msgid "Development"
 msgstr "Entwicklung"
 
-#: ../root/layout/components/ExternalLinks.js:75
+#: ../root/layout/components/ExternalLinks.js:76
 msgid "Official homepage"
 msgstr "Offizielle Webseite"
 
-#: ../root/layout/components/ExternalLinks.js:103
+#: ../root/layout/components/ExternalLinks.js:115
 msgid "External links"
 msgstr "Externe Links"
 
-#: ../root/layout/components/ExternalLinks.js:110
+#: ../root/layout/components/ExternalLinks.js:122
 msgid "View all relationships"
 msgstr "Alle Beziehungen ansehen"
 
@@ -11365,11 +11373,15 @@ msgstr "Veröffentlichungstitel"
 msgid "Release Artist"
 msgstr "Veröffentlichungskünstler"
 
-#: ../root/recording/RecordingIndex.js:125
+#: ../root/recording/RecordingIndex.js:82
+msgid "Medium {medium_num}, track {track_num}"
+msgstr ""
+
+#: ../root/recording/RecordingIndex.js:136
 msgid "Appears on releases"
 msgstr "Erscheint in Veröffentlichungen"
 
-#: ../root/recording/RecordingIndex.js:130
+#: ../root/recording/RecordingIndex.js:141
 msgid "No releases found which feature this recording."
 msgstr "Es wurden keine Veröffentlichungen gefunden, die diese Aufnahme enthalten."
 
@@ -13578,14 +13590,14 @@ msgstr "Link entfernen"
 msgid "Guess Case Options"
 msgstr "Einstellungen Groß-/Kleinschreibung"
 
-#: ../root/static/scripts/guess-case/modes.js:256
+#: ../root/static/scripts/guess-case/modes.js:283
 msgid ""
 "This mode capitalises almost all words, with some words (mainly articles and"
 " short prepositions) lowercased. Some words may need to be manually "
 "capitalised to follow the {url|English capitalisation guidelines}."
 msgstr "Dieser Modus verwendet Großschreibung für fast alle Wörter bis auf wenige Ausnahmen (vor allem Artikel und kurze Präpositionen). Einige Wörter müssen möglicherweise von Hand in Großgeschreibung geändert werden, um den {url|Großschreibungsleitlinien für Englisch} zu entsprechen."
 
-#: ../root/static/scripts/guess-case/modes.js:270
+#: ../root/static/scripts/guess-case/modes.js:299
 msgid ""
 "This mode capitalises titles as sentence mode, but also inserts spaces "
 "before semicolons, colons, exclamation marks and question marks, and inside "
@@ -13593,18 +13605,18 @@ msgid ""
 "{url|French capitalisation guidelines}."
 msgstr "Dieser Modus benutzt die gleiche Groß- und Kleinschreibung für Titel wie der Satzmodus, fügt aber auch Leerzeichen vor Strichpunkten, Doppelpunkten, Ausrufezeichen und Fragezeichen ein sowie auf der Innenseite von Guillemets. Einige Wörter müssen möglicherweise von Hand in Großschreibung geändert werden, um den {url|Großschreibungsleitlinien für Französisch} zu entsprechen."
 
-#: ../root/static/scripts/guess-case/modes.js:290
+#: ../root/static/scripts/guess-case/modes.js:320
 msgid ""
 "This mode capitalises the first word of a sentence, most other words are "
 "lowercased. Some words, often proper nouns, may need to be manually fixed "
 "according to the {url|relevant language guidelines}."
 msgstr "Dieser Modus schreibt das erste Wort eines Satzes groß, die meisten anderen Wörter klein. Einige Wörter, häufig Eigennamen, müssen nach den {url|Richtlinien der entsprechenden Sprache} von Hand korrigiert werden."
 
-#: ../root/static/scripts/guess-case/modes.js:300
+#: ../root/static/scripts/guess-case/modes.js:331
 msgid ""
 "This mode handles the Turkish capitalisation of 'i' ('İ') and 'ı' ('I'). "
 "Some words may need to be manually corrected according to the {url|Turkish "
-"language guidelines}. "
+"language guidelines}."
 msgstr ""
 
 #: ../root/static/scripts/relationship-editor/common/dialog.js:32
