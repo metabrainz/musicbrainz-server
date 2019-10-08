@@ -26,9 +26,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-08-15 11:19+0200\n"
-"PO-Revision-Date: 2019-08-15 09:33+0000\n"
-"Last-Translator: yvanz\n"
+"POT-Creation-Date: 2019-09-07 12:13+0200\n"
+"PO-Revision-Date: 2019-09-28 11:37+0000\n"
+"Last-Translator: Luca Salini <email address hidden>\n"
 "Language-Team: Italian (http://www.transifex.com/musicbrainz/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -72,8 +72,8 @@ msgstr "\"AA\" sono le ultime due cifre dell'anno di registrazione."
 #: ../root/edit/details/add_medium.tt:49
 #: ../root/edit/details/edit_medium.tt:52
 #: ../root/edit/details/edit_medium.tt:56
-#: ../root/edit/details/edit_medium.tt:178
-#: ../root/edit/details/edit_medium.tt:209
+#: ../root/edit/details/edit_medium.tt:182
+#: ../root/edit/details/edit_medium.tt:221
 #: ../root/edit/details/historic/add_release.tt:49
 #: ../root/release/edit_relationships.tt:48
 #: ../root/release/edit/tracklist.tt:148 ../root/release/edit/tracklist.tt:361
@@ -189,7 +189,7 @@ msgstr "(nessuno)"
 #: ../root/edit/details/historic/mac_to_sac.tt:13
 #: ../lib/MusicBrainz/Server/Edit/Release/EditReleaseLabel.pm:97
 #: ../lib/MusicBrainz/Server/Entity/Release.pm:176
-#: ../root/entity/Details.js:80 ../root/recording/RecordingIndex.js:67
+#: ../root/entity/Details.js:80 ../root/recording/RecordingIndex.js:69
 #: ../root/release_group/ReleaseGroupIndex.js:57
 msgid "(unknown)"
 msgstr "(sconosciuto)"
@@ -257,7 +257,7 @@ msgid ""
 "license. Furthermore, you give the MetaBrainz Foundation the right to "
 "license this data for commercial use. Please read our {doc|license page} for"
 " more details.</strong>"
-msgstr "<strong>Tieni in considerazione che ogni contributo tu faccia a MusicBrainz sarà rilasciato nel Pubblico Dominio e/o sotto licenza Creative Commons by-nc-sa. Inoltre, autorizzi la Fondazione MetaBrainz a dare in licenza questi dati per uso commerciale. Leggi la nostra {doc|pagina delle licenze} per maggiori dettagli.</strong>"
+msgstr "<strong>Tieni in considerazione che tutti i tuoi contributi a MusicBrainz saranno rilasciati nel pubblico dominio e/o sotto licenza Creative Commons by-nc-sa. Inoltre, autorizzi la MetaBrainz Foundation a dare in licenza questi dati per uso commerciale. Leggi la nostra {doc|pagina delle licenze} per maggiori dettagli.</strong>"
 
 #: ../root/admin/wikidoc/index.tt:16
 msgid ""
@@ -469,7 +469,7 @@ msgstr "Aggiungi un nuovo esempio"
 msgid ""
 "Add a medium by clicking “Add Medium” below, or tick the box confirming the "
 "tracklist is unknown."
-msgstr "Aggiungi un supporto cliccando su \"Aggiungi supporto\" qui sotto, o spunta la rispettiva casella di conferma se l'elenco di tracce è sconosciuto."
+msgstr "Aggiungi un supporto cliccando su \"Aggiungi supporto\" più in basso, o spunta la rispettiva casella di conferma se l'elenco di tracce è sconosciuto."
 
 #: ../root/admin/wikidoc/index.tt:11
 msgid "Add a new entry"
@@ -553,7 +553,7 @@ msgstr "Aggiunto il {add}, ultima modifica il {lastmod}"
 
 #: ../root/release/edit/information.tt:241
 msgid "Additional information"
-msgstr "Informazioni aggiuntive"
+msgstr "Più informazioni"
 
 #: ../root/edit/details/add_isrcs.tt:10 ../root/edit/details/add_iswcs.tt:3
 msgid "Additions:"
@@ -933,7 +933,7 @@ msgstr "Sottoscrizioni di artisti"
 msgid "Artist credit:"
 msgstr "Accreditamento artista:"
 
-#: ../root/edit/details/edit_medium.tt:204
+#: ../root/edit/details/edit_medium.tt:216
 msgid "Artist credits:"
 msgstr "Accreditamenti artista:"
 
@@ -1103,7 +1103,7 @@ msgid ""
 "Based on the information you have provided, we have found the following "
 "similar release to already exist in MusicBrainz. If you wish to base your "
 "release on an existing release, select it below."
-msgstr "Sulla base delle informazioni che hai fornito, abbiamo trovato che la seguente pubblicazione simile esiste già su MusicBrainz. Se vuoi basare la tua pubblicazione su quella già esistente, selezionala qui sotto."
+msgstr "Sulla base delle informazioni che hai fornito, abbiamo trovato che la seguente pubblicazione simile esiste già su MusicBrainz. Se vuoi basare la tua pubblicazione su quella già esistente, selezionala più in basso."
 
 #: ../root/release/edit_relationships.tt:27
 msgid "Batch-add a relationship to recordings"
@@ -1184,7 +1184,8 @@ msgstr "Qui sotto trovi le informazioni sull'errore. Se desideri segnalare un bu
 msgid "Bio:"
 msgstr "Biografia:"
 
-#: ../root/layout.tt:107 ../root/layout/components/Footer.js:29
+#: ../root/layout.tt:107 ../root/layout/components/ExternalLinks.js:85
+#: ../root/layout/components/Footer.js:29
 msgid "Blog"
 msgstr "Blog"
 
@@ -1207,7 +1208,7 @@ msgstr "Sia Altro che Infrequente sono mostrati nella sezione \"altro\", ma Infr
 msgid ""
 "Brought to you by {MeB|MetaBrainz Foundation} and our {spon|sponsors} and "
 "{supp|supporters}. Cover Art provided by the {caa|Cover Art Archive}."
-msgstr "Offerto dalla {MeB|Fondazione MetaBrainz} e dai nostri {spon|sponsor} e {supp|supporter}. Copertine fornite dal {caa|Cover Art Archive}."
+msgstr "Offerto dalla {MeB|MetaBrainz Foundation} e dai nostri {spon|sponsor} e {supp|sostenitori}. Copertine fornite dal {caa|Cover Art Archive}."
 
 #: ../root/layout.tt:106 ../root/layout/components/Footer.js:27
 #: ../root/main/index.js:138
@@ -1949,6 +1950,13 @@ msgstr "Nota di modifica:"
 #: ../root/edit/index.tt:72
 msgid "Edit notes"
 msgstr "Note di modifica"
+
+#: ../root/edit/notes.tt:27
+msgid ""
+"Edit notes support {doc_formatting|a limited set of wiki formatting "
+"options}. Please do always keep the {doc_coc|Code of Conduct} in mind when "
+"writing edit notes!"
+msgstr "Le note di modifica supportano {doc_formatting|un insieme limitato di opzioni di formattazione wiki}. Tieni sempre a mente il {doc_coc|Codice di Condotta} quando scrivi note di modifica!"
 
 #: ../root/admin/edit_user.tt:34
 msgid "Edit profile"
@@ -2727,7 +2735,7 @@ msgstr "Se non vedi la pubblicazione che stavi cercando, puoi aggiungerne una nu
 msgid ""
 "If you don’t select an existing release group, a new one will be created "
 "with the types selected below."
-msgstr ""
+msgstr "Se non selezioni un gruppo di pubblicazioni esistente, ne sarà creato uno nuovo con i tipi selezionati più in basso."
 
 #: ../root/main/403.tt:8
 msgid ""
@@ -3484,7 +3492,7 @@ msgstr "Nome:"
 msgid "New"
 msgstr "Nuovo"
 
-#: ../root/edit/details/edit_medium.tt:211
+#: ../root/edit/details/edit_medium.tt:223
 msgid "New Artist"
 msgstr "Nuovo artista"
 
@@ -3558,7 +3566,7 @@ msgstr "Nuova posizione:"
 msgid "New positions:"
 msgstr "Nuove posizioni:"
 
-#: ../root/edit/details/edit_medium.tt:180
+#: ../root/edit/details/edit_medium.tt:184
 msgid "New recording"
 msgstr "Nuova registrazione"
 
@@ -3729,7 +3737,7 @@ msgstr "Caricamento dell'elenco di tracce in corso..."
 msgid "Old"
 msgstr "Vecchio"
 
-#: ../root/edit/details/edit_medium.tt:210
+#: ../root/edit/details/edit_medium.tt:222
 msgid "Old Artist"
 msgstr "Vecchio artista"
 
@@ -3753,7 +3761,7 @@ msgstr "Vecchia password:"
 msgid "Old positions:"
 msgstr "Vecchie posizioni:"
 
-#: ../root/edit/details/edit_medium.tt:179
+#: ../root/edit/details/edit_medium.tt:183
 msgid "Old recording"
 msgstr "Vecchia registrazione"
 
@@ -4254,7 +4262,7 @@ msgstr "Registrazione:"
 msgid "Recordings"
 msgstr "Registrazioni"
 
-#: ../root/edit/details/edit_medium.tt:173
+#: ../root/edit/details/edit_medium.tt:177
 msgid "Recordings:"
 msgstr "Registrazioni:"
 
@@ -5441,7 +5449,7 @@ msgid ""
 "The tracklist for the medium (including the track/recording associations, "
 "but not other data such as medium format) will be loaded as a medium on this"
 " release."
-msgstr ""
+msgstr "L'elenco delle tracce per il supporto (comprensivo delle associazioni traccia/registrazione, ma non di altri dati come il formato del supporto) sarà caricato come supporto su questa pubblicazione."
 
 #: ../root/release/edit/tracklist.tt:267 ../root/release/index.tt:9
 msgid "The tracklist for this release is currently unknown."
@@ -5456,7 +5464,7 @@ msgstr "La funzione \"Segui artista\" non è attualmente attiva."
 msgid ""
 "The year should have four digits. If you want to enter a year earlier than "
 "1000 CE, please pad with zeros, such as “0123”."
-msgstr ""
+msgstr "L'anno deve contenere quattro cifre. Se vuoi inserire un anno precedente al 1000 d.C. puoi utilizzare lo zero come riempimento, per es. \"0123\"."
 
 #: ../root/edit/edit_header.tt:10
 msgid "Their vote: "
@@ -5631,7 +5639,7 @@ msgstr "Questo disco ha una traccia pregap nascosta prima della traccia 1 ({info
 msgid "This edit also changed the track artists."
 msgstr "Questa modifica ha cambiato anche gli artisti delle tracce."
 
-#: ../root/edit/details/edit_medium.tt:164
+#: ../root/edit/details/edit_medium.tt:168
 msgid "This edit changes which tracks are data tracks."
 msgstr "Questa modifica cambia le tracce impostate come tracce dati."
 
@@ -5662,8 +5670,8 @@ msgstr "Questa entità è stata rimossa e non può essere visualizzata correttam
 
 #: ../root/components/common-macros.tt:257
 #: ../root/static/scripts/common/components/EntityLink.js:26
-msgid "This entity will be created when edits are entered."
-msgstr "Questa entità sarà creata all'inserimento delle modifiche."
+msgid "This entity will be created by this edit."
+msgstr "L'entità sarà creata con questa modifica."
 
 #: ../root/event/edit_form.tt:15
 msgid "This event was cancelled."
@@ -6279,7 +6287,7 @@ msgid "Uploading image..."
 msgstr "Caricamento dell'immagine in corso..."
 
 #: ../root/components/forms.tt:292 ../root/components/forms.tt:316
-msgid "Uppercase roman numerals"
+msgid "Uppercase Roman numerals"
 msgstr "Rendi maiuscoli i numeri romani"
 
 #: ../root/layout.tt:110 ../root/layout/components/Footer.js:37
@@ -6711,7 +6719,7 @@ msgstr "Stai per unire le seguenti opere in un'opera unica. Seleziona l'opera in
 msgid "You are currently watching the following artists for new releases."
 msgstr "Al momento stai seguendo le nuove pubblicazioni di questi artisti."
 
-#: ../root/edit/notes.tt:29
+#: ../root/edit/notes.tt:34
 msgid "You are not currently able to add notes to this edit. ({url|Details})"
 msgstr "Al momento non puoi aggiungere note a questa modifica. ({url|Maggiori informazioni})"
 
@@ -7103,7 +7111,7 @@ msgstr "è"
 
 #: ../root/edit/search_macros.tt:323
 msgid "is a beginner"
-msgstr ""
+msgstr "è un principiante"
 
 #: ../root/edit/search_macros.tt:122
 msgid "is after"
@@ -7146,7 +7154,7 @@ msgstr "non è"
 #: ../root/edit/search_macros.tt:245 ../root/edit/search_macros.tt:295
 #: ../root/edit/search_macros.tt:323
 msgid "is not in my subscriptions"
-msgstr ""
+msgstr "non è nelle mie sottoscrizioni"
 
 #: ../root/edit/search_macros.tt:245 ../root/edit/search_macros.tt:323
 msgid "is not me"
@@ -7736,11 +7744,11 @@ msgid ""
 "Banner updated. Remember that each server has its own, independent banner."
 msgstr "Banner aggiornato. Ricordati che ogni server ha il suo banner indipendente dagli altri."
 
-#: ../lib/MusicBrainz/Server/Controller/Artist.pm:573
+#: ../lib/MusicBrainz/Server/Controller/Artist.pm:578
 msgid "You cannot merge a special purpose artist into another artist"
 msgstr "Non è possibile unire un artista speciale con un altro artista."
 
-#: ../lib/MusicBrainz/Server/Controller/Artist.pm:578
+#: ../lib/MusicBrainz/Server/Controller/Artist.pm:583
 msgid "You cannot merge into Deleted Artist"
 msgstr "Non puoi unire con Artista eliminato"
 
@@ -8684,11 +8692,11 @@ msgstr "Progetto Runeberg"
 
 #: ../lib/MusicBrainz/Server/Entity/URL/Spotify.pm:14
 msgid "Playlists at Spotify"
-msgstr ""
+msgstr "Playlist su Spotify"
 
 #: ../lib/MusicBrainz/Server/Entity/URL/Spotify.pm:16
 msgid "Stream at Spotify"
-msgstr ""
+msgstr "Streaming su Spotify"
 
 #: ../lib/MusicBrainz/Server/Entity/URL/Weibo.pm:13
 msgid "Weibo"
@@ -9808,7 +9816,7 @@ msgstr[1] "Chiude tra <span class=\"tooltip\" title=\"{exactdate}\">{num} minuti
 
 #: ../root/components/VotingPeriod.js:54
 msgid "About to close"
-msgstr ""
+msgstr "Prossimo alla chiusura"
 
 #: ../root/components/list/ArtistList.js:70
 #: ../root/components/list/ArtistList.js:75
@@ -10192,8 +10200,8 @@ msgid "Collection Not Found"
 msgstr "Collezione non trovata"
 
 #: ../root/entity/NotFound.js:47
-msgid "Sorry, we could not find an collection with that MusicBrainz ID"
-msgstr ""
+msgid "Sorry, we could not find a collection with that MusicBrainz ID."
+msgstr "Spiacenti, non è stato possibile trovare una collezione con quell'ID di MusicBrainz."
 
 #: ../root/entity/NotFound.js:53
 msgid "Edit Not Found"
@@ -10309,7 +10317,7 @@ msgstr "Spiacenti, non è stato possibile trovare una registrazione con quell'ID
 
 #: ../root/entity/NotFound.js:150
 msgid "Relationship Attribute Not Found"
-msgstr ""
+msgstr "Attributo di relazione non trovato"
 
 #: ../root/entity/NotFound.js:152
 msgid ""
@@ -10354,7 +10362,7 @@ msgstr "Traccia non trovata"
 msgid ""
 "Sorry, we could not find neither a recording nor a track with that "
 "MusicBrainz ID. You may wish to try and {search_url|search for it} instead."
-msgstr ""
+msgstr "Spiacenti, non è stato possibile trovare né una registrazione né una traccia con quell'ID di MusicBrainz. Potresti provare a  {search_url|usare la ricerca}."
 
 #: ../root/entity/NotFound.js:196
 msgid "URL Not Found"
@@ -10757,15 +10765,15 @@ msgstr "Indice documentazione"
 msgid "Development"
 msgstr "Sviluppo"
 
-#: ../root/layout/components/ExternalLinks.js:75
+#: ../root/layout/components/ExternalLinks.js:76
 msgid "Official homepage"
 msgstr "Pagina ufficiale"
 
-#: ../root/layout/components/ExternalLinks.js:103
+#: ../root/layout/components/ExternalLinks.js:115
 msgid "External links"
 msgstr "Collegamenti esterni"
 
-#: ../root/layout/components/ExternalLinks.js:110
+#: ../root/layout/components/ExternalLinks.js:122
 msgid "View all relationships"
 msgstr "Visualizza tutte le relazioni"
 
@@ -11179,14 +11187,14 @@ msgstr "Come Wikipedia, MusicBrainz è mantenuta da una comunità globale di ute
 #: ../root/main/index.js:62
 msgid ""
 "{about|More Information} &#x2014; {faq|FAQs} &#x2014; {contact|Contact Us}"
-msgstr "{about|Informazioni aggiuntive} &#x2014; {faq|Domande frequenti} &#x2014; {contact|Contattaci}"
+msgstr "{about|Più informazioni} &#x2014; {faq|Domande frequenti} &#x2014; {contact|Contattaci}"
 
 #: ../root/main/index.js:70
 msgid ""
 "MusicBrainz is operated by the {uri|MetaBrainz Foundation}, a California "
 "based 501(c)(3) tax-exempt non-profit corporation dedicated to keeping "
 "MusicBrainz {free|free and open source}."
-msgstr "MusicBrainz è gestita dalla {uri|Fondazione MetaBrainz}, un'impresa non-profit esentasse 501(c)(3) con sede in California che si dedica a mantenere MusicBrainz {free|libero e open source}."
+msgstr "MusicBrainz è gestita dalla {uri|MetaBrainz Foundation}, un'impresa non-profit esentasse 501(c)(3) con sede in California che si dedica a mantenere MusicBrainz {free|libero e open source}."
 
 #: ../root/main/index.js:79
 msgid "MetaBrainz Blog"
@@ -11233,7 +11241,7 @@ msgid ""
 "The majority of the data in the <strong>MusicBrainz Database</strong> is "
 "released into the <strong>Public Domain</strong> and can be downloaded and "
 "used <strong>for free</strong>."
-msgstr "La maggioranza dei dati presenti nel <strong>database di MusicBrainz</strong> è rilasciata nel <strong>pubblico dominio</strong> e può essere scaricata e utilizzata <strong>gratis</strong>."
+msgstr "La maggior parte dei dati presenti nel <strong>database di MusicBrainz</strong> è rilasciata nel <strong>pubblico dominio</strong> e può essere scaricata e utilizzata <strong>gratis</strong>."
 
 #: ../root/main/index.js:153
 msgid "Developers"
@@ -11325,11 +11333,15 @@ msgstr "Titolo della pubblicazione"
 msgid "Release Artist"
 msgstr "Artista della pubblicazione"
 
-#: ../root/recording/RecordingIndex.js:125
+#: ../root/recording/RecordingIndex.js:82
+msgid "Medium {medium_num}, track {track_num}"
+msgstr "Supporto {medium_num}, traccia {track_num}"
+
+#: ../root/recording/RecordingIndex.js:136
 msgid "Appears on releases"
 msgstr "Compare in queste pubblicazioni"
 
-#: ../root/recording/RecordingIndex.js:130
+#: ../root/recording/RecordingIndex.js:141
 msgid "No releases found which feature this recording."
 msgstr "Non è stata trovata nessuna pubblicazione che contenga questa registrazione."
 
@@ -12108,7 +12120,7 @@ msgid ""
 " older version of MusicBrainz and should be fixed (both on the recordings "
 "and on the tracks!). Consult the {featured_artists|page about featured "
 "artists} to know more."
-msgstr ""
+msgstr "Questo rapporto mostra le registrazioni con (feat. Artista) (o simile) nel titolo. Per le registrazioni di musica classica, consulta le {CSG|linee guida di stile sulla musica classica}. Per le altre registrazioni, solitamente questo deriva da una versione precedente di MusicBrainz e andrebbe sistemato (sia nelle registrazioni che nelle tracce!). Consulta la {featured_artists|pagina sugli artisti con \"feat.\"} per saperne di più."
 
 #: ../root/report/FeaturingReleaseGroups.js:30
 #: ../root/report/FeaturingReleaseGroups.js:32
@@ -12123,7 +12135,7 @@ msgid ""
 "guidelines}. For non-classical release groups, this is usually inherited "
 "from an older version of MusicBrainz and should be fixed. Consult the "
 "{featured_artists|page about featured artists} to know more."
-msgstr ""
+msgstr "Questo report mostra i gruppi di pubblicazioni con (feat. Artista) (o simile) nel titolo. Per i gruppi di pubblicazioni di musica classica, consulta le {CSG|linee guida di stile sulla musica classica}. Per gli altri gruppi di pubblicazioni, solitamente questo deriva da una versione precedente di MusicBrainz e andrebbe sistemato. Consulta la {featured_artists|pagina sugli artisti con \"feat.\"} per saperne di più."
 
 #: ../root/report/FeaturingReleases.js:30
 #: ../root/report/FeaturingReleases.js:32 ../root/report/ReportsIndex.js:292
@@ -12139,7 +12151,7 @@ msgid ""
 "featured artists} to know more. Don’t forget that the same generally applies"
 " to tracks, so if the track titles also include featuring credits you can "
 "fix them too while you edit the release!"
-msgstr ""
+msgstr "Questo rapporto mostra le pubblicazioni con (feat. Artista) (o simile) nel titolo. Per le pubblicazioni di musica classica, consulta le {CSG|linee guida di stile sulla musica classica}. Per le altre pubblicazioni, solitamente questo deriva da una versione precedente di MusicBrainz e andrebbe sistemato. Consulta la {featured_artists|pagina sugli artisti con \"feat.\"} per saperne di più. Non dimenticare che generalmente la stessa cosa si applica alle tracce, quindi se i titoli di traccia includono (feat. Artista) puoi sistemare anche quelli mentre modifichi la pubblicazione!"
 
 #: ../root/report/FilterLink.js:24
 msgid "Show all results."
@@ -12354,7 +12366,7 @@ msgid ""
 "it is a collaboration with its own name and can’t be split, collaboration "
 "relationships should be added to it. For some special cases, such as “Person"
 " & His Orchestra”, conductor and/or founder might be the best choice."
-msgstr ""
+msgstr "Questo report elenca gli artisti che hanno una \"&\" nei loro nomi, ma nessuna relazione di appartenenza (membri, collaboratori, direttori d'orchestra, fondatori o sottogruppi). Se l'artista è solitamente ritenuto essere effettivamente un gruppo, occorre aggiungere relazioni con i membri. Se si tratta di una collaborazione a breve termine, dovrebbe essere divisa ove possibile (controlla {how_to_split_artists|come dividere gli artisti}). Se si tratta di una collaborazione con un proprio nome che non può essere divisa, bisognerebbe aggiungerle le opportune relazioni di collaborazione. In alcuni casi speciali, come “Persona & La sua Orchestra”, relazioni di direttore d'orchestra e/o fondatore potrebbero essere la scelta migliore."
 
 #: ../root/report/RecordingsSameNameDifferentArtistsSameName.js:35
 #: ../root/report/RecordingsSameNameDifferentArtistsSameName.js:39
@@ -13538,14 +13550,14 @@ msgstr "Rimuovi collegamento"
 msgid "Guess Case Options"
 msgstr "Opzioni ritocco maiuscolo/minuscolo"
 
-#: ../root/static/scripts/guess-case/modes.js:256
+#: ../root/static/scripts/guess-case/modes.js:283
 msgid ""
 "This mode capitalises almost all words, with some words (mainly articles and"
 " short prepositions) lowercased. Some words may need to be manually "
 "capitalised to follow the {url|English capitalisation guidelines}."
 msgstr "Questa modalità rende maiuscole quasi tutte le parole, con solo alcune parole (principalmente articoli e preposizioni brevi) in minuscolo. Alcune parole potrebbero dover essere corrette manualmente per seguire le {url|linee guida su maiuscolo/minuscolo per l'inglese}."
 
-#: ../root/static/scripts/guess-case/modes.js:270
+#: ../root/static/scripts/guess-case/modes.js:299
 msgid ""
 "This mode capitalises titles as sentence mode, but also inserts spaces "
 "before semicolons, colons, exclamation marks and question marks, and inside "
@@ -13553,19 +13565,19 @@ msgid ""
 "{url|French capitalisation guidelines}."
 msgstr "Questa modalità gestisce maiuscole e minuscole come la modalità frase, ma in più inserisce gli spazi prima di punto e virgola, due punti, punti esclamativi, punti interrogativi e all'interno delle virgolette. Alcune parole potrebbero dover essere corrette manualmente per seguire le {url|linee guida su maiuscolo/minuscolo per il francese}."
 
-#: ../root/static/scripts/guess-case/modes.js:290
+#: ../root/static/scripts/guess-case/modes.js:320
 msgid ""
 "This mode capitalises the first word of a sentence, most other words are "
 "lowercased. Some words, often proper nouns, may need to be manually fixed "
 "according to the {url|relevant language guidelines}."
 msgstr "Questa modalità rende maiuscola la prima parola di una frase, con la maggior parte delle altre parole in minuscolo. Alcune parole, spesso nomi propri, potrebbero dover essere corrette manualmente per seguire le {url|linee guida su maiuscolo/minuscolo per quella lingua}."
 
-#: ../root/static/scripts/guess-case/modes.js:300
+#: ../root/static/scripts/guess-case/modes.js:331
 msgid ""
 "This mode handles the Turkish capitalisation of 'i' ('İ') and 'ı' ('I'). "
 "Some words may need to be manually corrected according to the {url|Turkish "
-"language guidelines}. "
-msgstr "Questa modalità gestisce il maiuscolo/minuscolo in turco per 'i' ('İ') e 'ı' ('I'). Alcune parole potrebbero dover essere corrette manualmente per seguire le {url|linee guida su maiuscolo/minuscolo per il turco}."
+"language guidelines}."
+msgstr "Questa modalità gestisce il maiuscolo/minuscolo in turco per 'i' ('İ') e 'ı' ('I'). Alcune parole potrebbero aver bisogno di correzioni manuali per seguire le {url|linee guida su maiuscolo/minuscolo per il turco}."
 
 #: ../root/static/scripts/relationship-editor/common/dialog.js:32
 msgid "The series you’ve selected is for recordings."

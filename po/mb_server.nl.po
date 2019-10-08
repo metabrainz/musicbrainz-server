@@ -28,9 +28,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-08-15 11:19+0200\n"
-"PO-Revision-Date: 2019-08-19 08:43+0000\n"
-"Last-Translator: Maurits Meulenbelt <email address hidden>\n"
+"POT-Creation-Date: 2019-09-07 12:13+0200\n"
+"PO-Revision-Date: 2019-09-07 10:18+0000\n"
+"Last-Translator: yvanz\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -74,8 +74,8 @@ msgstr "‘JJ’ zijn de laatste twee cijfers van het registratiejaar."
 #: ../root/edit/details/add_medium.tt:49
 #: ../root/edit/details/edit_medium.tt:52
 #: ../root/edit/details/edit_medium.tt:56
-#: ../root/edit/details/edit_medium.tt:178
-#: ../root/edit/details/edit_medium.tt:209
+#: ../root/edit/details/edit_medium.tt:182
+#: ../root/edit/details/edit_medium.tt:221
 #: ../root/edit/details/historic/add_release.tt:49
 #: ../root/release/edit_relationships.tt:48
 #: ../root/release/edit/tracklist.tt:148 ../root/release/edit/tracklist.tt:361
@@ -191,7 +191,7 @@ msgstr "(geen)"
 #: ../root/edit/details/historic/mac_to_sac.tt:13
 #: ../lib/MusicBrainz/Server/Edit/Release/EditReleaseLabel.pm:97
 #: ../lib/MusicBrainz/Server/Entity/Release.pm:176
-#: ../root/entity/Details.js:80 ../root/recording/RecordingIndex.js:67
+#: ../root/entity/Details.js:80 ../root/recording/RecordingIndex.js:69
 #: ../root/release_group/ReleaseGroupIndex.js:57
 msgid "(unknown)"
 msgstr "(onbekend)"
@@ -935,7 +935,7 @@ msgstr "Abonnementen op artiesten"
 msgid "Artist credit:"
 msgstr "Vermelding van de artiest:"
 
-#: ../root/edit/details/edit_medium.tt:204
+#: ../root/edit/details/edit_medium.tt:216
 msgid "Artist credits:"
 msgstr "Vermeldingen van de artiest:"
 
@@ -1186,7 +1186,8 @@ msgstr "Hieronder staat informatie over de foutmelding. Als je deze fout wil mel
 msgid "Bio:"
 msgstr "Biografie:"
 
-#: ../root/layout.tt:107 ../root/layout/components/Footer.js:29
+#: ../root/layout.tt:107 ../root/layout/components/ExternalLinks.js:85
+#: ../root/layout/components/Footer.js:29
 msgid "Blog"
 msgstr "Weblog"
 
@@ -1951,6 +1952,13 @@ msgstr "Bewerkingsnotitie:"
 #: ../root/edit/index.tt:72
 msgid "Edit notes"
 msgstr "Bewerkingsnotities"
+
+#: ../root/edit/notes.tt:27
+msgid ""
+"Edit notes support {doc_formatting|a limited set of wiki formatting "
+"options}. Please do always keep the {doc_coc|Code of Conduct} in mind when "
+"writing edit notes!"
+msgstr ""
 
 #: ../root/admin/edit_user.tt:34
 msgid "Edit profile"
@@ -3486,7 +3494,7 @@ msgstr "Naam:"
 msgid "New"
 msgstr "Nieuw"
 
-#: ../root/edit/details/edit_medium.tt:211
+#: ../root/edit/details/edit_medium.tt:223
 msgid "New Artist"
 msgstr "Nieuwe artiest"
 
@@ -3560,7 +3568,7 @@ msgstr "Nieuwe positie:"
 msgid "New positions:"
 msgstr "Nieuwe posities:"
 
-#: ../root/edit/details/edit_medium.tt:180
+#: ../root/edit/details/edit_medium.tt:184
 msgid "New recording"
 msgstr "Nieuwe opname"
 
@@ -3731,7 +3739,7 @@ msgstr "Nummerlijst wordt geladen …"
 msgid "Old"
 msgstr "Oud"
 
-#: ../root/edit/details/edit_medium.tt:210
+#: ../root/edit/details/edit_medium.tt:222
 msgid "Old Artist"
 msgstr "Oude artiest"
 
@@ -3755,7 +3763,7 @@ msgstr "Oud wachtwoord:"
 msgid "Old positions:"
 msgstr "Oude posities:"
 
-#: ../root/edit/details/edit_medium.tt:179
+#: ../root/edit/details/edit_medium.tt:183
 msgid "Old recording"
 msgstr "Oude opname"
 
@@ -4256,7 +4264,7 @@ msgstr "Opname:"
 msgid "Recordings"
 msgstr "Opnames"
 
-#: ../root/edit/details/edit_medium.tt:173
+#: ../root/edit/details/edit_medium.tt:177
 msgid "Recordings:"
 msgstr "Opnames:"
 
@@ -5633,7 +5641,7 @@ msgstr "Dit medium heeft een verborgen pregapnummer voor nummer 1 ({info|meer in
 msgid "This edit also changed the track artists."
 msgstr "Deze bewerking veranderde ook de artiesten van de nummers."
 
-#: ../root/edit/details/edit_medium.tt:164
+#: ../root/edit/details/edit_medium.tt:168
 msgid "This edit changes which tracks are data tracks."
 msgstr "Deze bewerking verandert welke nummers datanummers zijn."
 
@@ -5664,8 +5672,8 @@ msgstr "Dit object is verwijderd en kan niet correct worden weergegeven."
 
 #: ../root/components/common-macros.tt:257
 #: ../root/static/scripts/common/components/EntityLink.js:26
-msgid "This entity will be created when edits are entered."
-msgstr "Dit object zal tegelijk met deze bewerking worden aangemaakt."
+msgid "This entity will be created by this edit."
+msgstr ""
 
 #: ../root/event/edit_form.tt:15
 msgid "This event was cancelled."
@@ -6281,8 +6289,8 @@ msgid "Uploading image..."
 msgstr "Afbeelding aan het uploaden"
 
 #: ../root/components/forms.tt:292 ../root/components/forms.tt:316
-msgid "Uppercase roman numerals"
-msgstr "Zet Romeinse cijfers in bovenkast"
+msgid "Uppercase Roman numerals"
+msgstr ""
 
 #: ../root/layout.tt:110 ../root/layout/components/Footer.js:37
 msgid "Use beta site"
@@ -6713,7 +6721,7 @@ msgstr "Je staat op het punt om de volgende composities samen te voegen. Selecte
 msgid "You are currently watching the following artists for new releases."
 msgstr "Je volgt nu de volgende artiesten voor nieuwe uitgaves."
 
-#: ../root/edit/notes.tt:29
+#: ../root/edit/notes.tt:34
 msgid "You are not currently able to add notes to this edit. ({url|Details})"
 msgstr "Je kan momenteel geen notities aan deze bewerking toevoegen. ({url|Details})"
 
@@ -7738,11 +7746,11 @@ msgid ""
 "Banner updated. Remember that each server has its own, independent banner."
 msgstr "De mededeling is bijgewerkt. Onthoud wel dat elke server zijn eigen onafhankelijke mededeling heeft."
 
-#: ../lib/MusicBrainz/Server/Controller/Artist.pm:573
+#: ../lib/MusicBrainz/Server/Controller/Artist.pm:578
 msgid "You cannot merge a special purpose artist into another artist"
 msgstr "Je kan een speciale artiest niet samenvoegen met een normale artiest."
 
-#: ../lib/MusicBrainz/Server/Controller/Artist.pm:578
+#: ../lib/MusicBrainz/Server/Controller/Artist.pm:583
 msgid "You cannot merge into Deleted Artist"
 msgstr "Je kan een artiest niet met een verwijderde artiest samenvoegen"
 
@@ -10194,8 +10202,8 @@ msgid "Collection Not Found"
 msgstr "Collectie niet gevonden"
 
 #: ../root/entity/NotFound.js:47
-msgid "Sorry, we could not find an collection with that MusicBrainz ID"
-msgstr "Onze excuses, we konden geen collectie vinden met die MusicBrainz-ID"
+msgid "Sorry, we could not find a collection with that MusicBrainz ID."
+msgstr ""
 
 #: ../root/entity/NotFound.js:53
 msgid "Edit Not Found"
@@ -10759,15 +10767,15 @@ msgstr "Alle documentatie"
 msgid "Development"
 msgstr "Ontwikkeling"
 
-#: ../root/layout/components/ExternalLinks.js:75
+#: ../root/layout/components/ExternalLinks.js:76
 msgid "Official homepage"
 msgstr "Officiële website"
 
-#: ../root/layout/components/ExternalLinks.js:103
+#: ../root/layout/components/ExternalLinks.js:115
 msgid "External links"
 msgstr "Externe websites"
 
-#: ../root/layout/components/ExternalLinks.js:110
+#: ../root/layout/components/ExternalLinks.js:122
 msgid "View all relationships"
 msgstr "Alle relaties bekijken"
 
@@ -11327,11 +11335,15 @@ msgstr "Titel van de uitgave"
 msgid "Release Artist"
 msgstr "Artiest van de uitgave"
 
-#: ../root/recording/RecordingIndex.js:125
+#: ../root/recording/RecordingIndex.js:82
+msgid "Medium {medium_num}, track {track_num}"
+msgstr ""
+
+#: ../root/recording/RecordingIndex.js:136
 msgid "Appears on releases"
 msgstr "Staat op uitgaves"
 
-#: ../root/recording/RecordingIndex.js:130
+#: ../root/recording/RecordingIndex.js:141
 msgid "No releases found which feature this recording."
 msgstr "Geen uitgaves gevonden met deze opname."
 
@@ -13540,14 +13552,14 @@ msgstr "Website verwijderen"
 msgid "Guess Case Options"
 msgstr "Opties voor het gokken van hoofdlettergebruik"
 
-#: ../root/static/scripts/guess-case/modes.js:256
+#: ../root/static/scripts/guess-case/modes.js:283
 msgid ""
 "This mode capitalises almost all words, with some words (mainly articles and"
 " short prepositions) lowercased. Some words may need to be manually "
 "capitalised to follow the {url|English capitalisation guidelines}."
 msgstr "Deze methode schrijft bijna alle woorden met een hoofdletter (met uitzondering van sommige lidwoorden en korte voorzetsels). Voor sommige woorden moet het hoofdlettergebruik handmatig worden ingesteld, naar aanleiding van de {url|richtlijn voor hoofdlettergebruik in het Engels}."
 
-#: ../root/static/scripts/guess-case/modes.js:270
+#: ../root/static/scripts/guess-case/modes.js:299
 msgid ""
 "This mode capitalises titles as sentence mode, but also inserts spaces "
 "before semicolons, colons, exclamation marks and question marks, and inside "
@@ -13555,19 +13567,19 @@ msgid ""
 "{url|French capitalisation guidelines}."
 msgstr "Deze methode schrijft hoofdletters zoals in zinnen, maar voegt ook spaties toe voor puntkomma’s, dubbele punten, uitroeptekens en vraagtekens en binnen guillemets. Sommige woorden moeten misschien handmatig van hoofdletters worden voorzien, naar aanleiding van de {url|richtlijn voor hoofdlettergebruik in het Frans}. "
 
-#: ../root/static/scripts/guess-case/modes.js:290
+#: ../root/static/scripts/guess-case/modes.js:320
 msgid ""
 "This mode capitalises the first word of a sentence, most other words are "
 "lowercased. Some words, often proper nouns, may need to be manually fixed "
 "according to the {url|relevant language guidelines}."
 msgstr "Deze methode schrijft alleen het eerste woord van een zin met een hoofdletter. De meeste andere woorden worden geschreven zonder hoofdletters. Sommige woorden, zoals eigennamen, moeten handmatig worden ingesteld, naar aanleiding van de {url|richtlijn voor de relevante taal}."
 
-#: ../root/static/scripts/guess-case/modes.js:300
+#: ../root/static/scripts/guess-case/modes.js:331
 msgid ""
 "This mode handles the Turkish capitalisation of 'i' ('İ') and 'ı' ('I'). "
 "Some words may need to be manually corrected according to the {url|Turkish "
-"language guidelines}. "
-msgstr "Deze methode regelt de hoofdletters voor de Turkse ‘i’ (‘İ’) en ‘ı’ (‘I’). Sommige woorden moeten misschien handmatig worden ingesteld aan de hand van de {url|richtlijn Turks}."
+"language guidelines}."
+msgstr ""
 
 #: ../root/static/scripts/relationship-editor/common/dialog.js:32
 msgid "The series you’ve selected is for recordings."

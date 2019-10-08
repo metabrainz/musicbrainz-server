@@ -12,7 +12,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2019-06-10 00:23+0000\n"
+"PO-Revision-Date: 2019-09-21 13:03+0000\n"
 "Last-Translator: Luca Salini <email address hidden>\n"
 "Language-Team: Italian (http://www.transifex.com/musicbrainz/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
@@ -1227,6 +1227,11 @@ msgstr "Bootleg"
 msgctxt "label_type"
 msgid "Bootleg Production"
 msgstr "Produzione di bootleg"
+
+#: DB:release_packaging/name:19
+msgctxt "release_packaging"
+msgid "Box"
+msgstr "Scatola"
 
 #: DB:work_attribute_type_allowed_value/value:607
 msgctxt "work_attribute_type_allowed_value"
@@ -4972,6 +4977,16 @@ msgctxt "alias_type"
 msgid "Place name"
 msgstr "Nome luogo"
 
+#: DB:release_packaging/description:20
+msgctxt "release_packaging"
+msgid "Plastic CD tray inside a cardboard slipcover"
+msgstr "Tray CD di plastica dentro una sovraccoperta di cartone"
+
+#: DB:release_packaging/name:18
+msgctxt "release_packaging"
+msgid "Plastic Sleeve"
+msgstr "Custodia di plastica"
+
 #: DB:work_type/name:28
 msgctxt "work_type"
 msgid "Play"
@@ -5737,6 +5752,11 @@ msgstr "Sirto"
 msgctxt "work_attribute_type_allowed_value"
 msgid "Sitārkhānī"
 msgstr "Sitārkhānī"
+
+#: DB:release_packaging/name:20
+msgctxt "release_packaging"
+msgid "Slidepack"
+msgstr "Slidepack"
 
 #: DB:release_packaging/name:2
 msgctxt "release_packaging"

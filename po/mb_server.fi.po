@@ -30,8 +30,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-08-15 11:19+0200\n"
-"PO-Revision-Date: 2019-08-15 09:33+0000\n"
+"POT-Creation-Date: 2019-09-07 12:13+0200\n"
+"PO-Revision-Date: 2019-09-07 10:18+0000\n"
 "Last-Translator: yvanz\n"
 "Language-Team: Finnish (http://www.transifex.com/musicbrainz/musicbrainz/language/fi/)\n"
 "MIME-Version: 1.0\n"
@@ -76,8 +76,8 @@ msgstr "\"YY\" on rekisteröintivuoden kaksi viimeisintä numeroa."
 #: ../root/edit/details/add_medium.tt:49
 #: ../root/edit/details/edit_medium.tt:52
 #: ../root/edit/details/edit_medium.tt:56
-#: ../root/edit/details/edit_medium.tt:178
-#: ../root/edit/details/edit_medium.tt:209
+#: ../root/edit/details/edit_medium.tt:182
+#: ../root/edit/details/edit_medium.tt:221
 #: ../root/edit/details/historic/add_release.tt:49
 #: ../root/release/edit_relationships.tt:48
 #: ../root/release/edit/tracklist.tt:148 ../root/release/edit/tracklist.tt:361
@@ -193,7 +193,7 @@ msgstr "(ei mitään)"
 #: ../root/edit/details/historic/mac_to_sac.tt:13
 #: ../lib/MusicBrainz/Server/Edit/Release/EditReleaseLabel.pm:97
 #: ../lib/MusicBrainz/Server/Entity/Release.pm:176
-#: ../root/entity/Details.js:80 ../root/recording/RecordingIndex.js:67
+#: ../root/entity/Details.js:80 ../root/recording/RecordingIndex.js:69
 #: ../root/release_group/ReleaseGroupIndex.js:57
 msgid "(unknown)"
 msgstr "(tuntematon)"
@@ -937,7 +937,7 @@ msgstr "Seuratut artistit"
 msgid "Artist credit:"
 msgstr "Artistin tekijänimi:"
 
-#: ../root/edit/details/edit_medium.tt:204
+#: ../root/edit/details/edit_medium.tt:216
 msgid "Artist credits:"
 msgstr "Artistin tekijänimet:"
 
@@ -1188,7 +1188,8 @@ msgstr "Alta löydät tietoja virheestä. Voit halutessasi lisätä virheraporti
 msgid "Bio:"
 msgstr "Elämäkerta:"
 
-#: ../root/layout.tt:107 ../root/layout/components/Footer.js:29
+#: ../root/layout.tt:107 ../root/layout/components/ExternalLinks.js:85
+#: ../root/layout/components/Footer.js:29
 msgid "Blog"
 msgstr "Blogi"
 
@@ -1953,6 +1954,13 @@ msgstr "Muokkausmerkintä:"
 #: ../root/edit/index.tt:72
 msgid "Edit notes"
 msgstr "Muokkausmerkinnät"
+
+#: ../root/edit/notes.tt:27
+msgid ""
+"Edit notes support {doc_formatting|a limited set of wiki formatting "
+"options}. Please do always keep the {doc_coc|Code of Conduct} in mind when "
+"writing edit notes!"
+msgstr ""
 
 #: ../root/admin/edit_user.tt:34
 msgid "Edit profile"
@@ -3488,7 +3496,7 @@ msgstr "Nimi:"
 msgid "New"
 msgstr "Uusi"
 
-#: ../root/edit/details/edit_medium.tt:211
+#: ../root/edit/details/edit_medium.tt:223
 msgid "New Artist"
 msgstr "Uusi artisti"
 
@@ -3562,7 +3570,7 @@ msgstr "Uusi sijainti:"
 msgid "New positions:"
 msgstr "Uudet sijainnit:"
 
-#: ../root/edit/details/edit_medium.tt:180
+#: ../root/edit/details/edit_medium.tt:184
 msgid "New recording"
 msgstr "Uusi äänite"
 
@@ -3733,7 +3741,7 @@ msgstr "Ladataan kappalelistaa..."
 msgid "Old"
 msgstr "Vanha"
 
-#: ../root/edit/details/edit_medium.tt:210
+#: ../root/edit/details/edit_medium.tt:222
 msgid "Old Artist"
 msgstr "Vanha artisti"
 
@@ -3757,7 +3765,7 @@ msgstr "Vanha salasana:"
 msgid "Old positions:"
 msgstr "Vanhat sijainnit:"
 
-#: ../root/edit/details/edit_medium.tt:179
+#: ../root/edit/details/edit_medium.tt:183
 msgid "Old recording"
 msgstr "Vanha äänite"
 
@@ -4258,7 +4266,7 @@ msgstr "Äänite:"
 msgid "Recordings"
 msgstr "Äänitteet"
 
-#: ../root/edit/details/edit_medium.tt:173
+#: ../root/edit/details/edit_medium.tt:177
 msgid "Recordings:"
 msgstr "Äänitteet:"
 
@@ -5635,7 +5643,7 @@ msgstr "Tällä levyllä on piilossa oleva pregap-raita ennen ensimmäistä kapp
 msgid "This edit also changed the track artists."
 msgstr "Tämä muokkaus muutti myös kappaleen artisteja."
 
-#: ../root/edit/details/edit_medium.tt:164
+#: ../root/edit/details/edit_medium.tt:168
 msgid "This edit changes which tracks are data tracks."
 msgstr "Tämä muokkaus muuttaa mitkä kappaleet ovat dataraitoja."
 
@@ -5666,8 +5674,8 @@ msgstr "Tämä entiteetti on poistettu, joten sitä ei voida näyttää kunnolla
 
 #: ../root/components/common-macros.tt:257
 #: ../root/static/scripts/common/components/EntityLink.js:26
-msgid "This entity will be created when edits are entered."
-msgstr "Tämä entiteetti luodaan kun muokkaukset on syötetty."
+msgid "This entity will be created by this edit."
+msgstr ""
 
 #: ../root/event/edit_form.tt:15
 msgid "This event was cancelled."
@@ -6283,8 +6291,8 @@ msgid "Uploading image..."
 msgstr "Lähetetään kuvaa..."
 
 #: ../root/components/forms.tt:292 ../root/components/forms.tt:316
-msgid "Uppercase roman numerals"
-msgstr "Roomalaiset numerot isoin kirjaimin "
+msgid "Uppercase Roman numerals"
+msgstr ""
 
 #: ../root/layout.tt:110 ../root/layout/components/Footer.js:37
 msgid "Use beta site"
@@ -6715,7 +6723,7 @@ msgstr "Olet sulauttamassa seuraavia teoksia yhdeksi. Valitse se, johon muut tul
 msgid "You are currently watching the following artists for new releases."
 msgstr "Seuraat seuraavien artistien uusia julkaisuja. "
 
-#: ../root/edit/notes.tt:29
+#: ../root/edit/notes.tt:34
 msgid "You are not currently able to add notes to this edit. ({url|Details})"
 msgstr "Et voi lisätä tällä hetkellä merkintöjä tähän muokkaukseen. ({url|Tietoja})"
 
@@ -7740,11 +7748,11 @@ msgid ""
 "Banner updated. Remember that each server has its own, independent banner."
 msgstr "Banneri päivitetty. Muista, että jokaisella palvelimella on oma, itsenäinen bannerinsa."
 
-#: ../lib/MusicBrainz/Server/Controller/Artist.pm:573
+#: ../lib/MusicBrainz/Server/Controller/Artist.pm:578
 msgid "You cannot merge a special purpose artist into another artist"
 msgstr "Erityistarkoituksellista artistia ei voi sulauttaa muihin artisteihin "
 
-#: ../lib/MusicBrainz/Server/Controller/Artist.pm:578
+#: ../lib/MusicBrainz/Server/Controller/Artist.pm:583
 msgid "You cannot merge into Deleted Artist"
 msgstr "Poistettuun artistiin ei voi sulauttaa"
 
@@ -10196,7 +10204,7 @@ msgid "Collection Not Found"
 msgstr "Kokoelmaa ei löytynyt"
 
 #: ../root/entity/NotFound.js:47
-msgid "Sorry, we could not find an collection with that MusicBrainz ID"
+msgid "Sorry, we could not find a collection with that MusicBrainz ID."
 msgstr ""
 
 #: ../root/entity/NotFound.js:53
@@ -10761,15 +10769,15 @@ msgstr "Dokumentaation hakemisto"
 msgid "Development"
 msgstr "Sovelluskehitys"
 
-#: ../root/layout/components/ExternalLinks.js:75
+#: ../root/layout/components/ExternalLinks.js:76
 msgid "Official homepage"
 msgstr "Virallinen kotisivu"
 
-#: ../root/layout/components/ExternalLinks.js:103
+#: ../root/layout/components/ExternalLinks.js:115
 msgid "External links"
 msgstr "Ulkopuoliset linkit"
 
-#: ../root/layout/components/ExternalLinks.js:110
+#: ../root/layout/components/ExternalLinks.js:122
 msgid "View all relationships"
 msgstr "Näytä kaikki yhteydet"
 
@@ -11329,11 +11337,15 @@ msgstr "Julkaisun nimi"
 msgid "Release Artist"
 msgstr "Julkaisun artisti"
 
-#: ../root/recording/RecordingIndex.js:125
+#: ../root/recording/RecordingIndex.js:82
+msgid "Medium {medium_num}, track {track_num}"
+msgstr ""
+
+#: ../root/recording/RecordingIndex.js:136
 msgid "Appears on releases"
 msgstr "Esiintyy julkaisuilla"
 
-#: ../root/recording/RecordingIndex.js:130
+#: ../root/recording/RecordingIndex.js:141
 msgid "No releases found which feature this recording."
 msgstr "Äänitteen sisältäviä julkaisuja ei löydy."
 
@@ -13542,14 +13554,14 @@ msgstr "Poista linkki"
 msgid "Guess Case Options"
 msgstr "Kirjoitusasun tunnistuksen asetukset"
 
-#: ../root/static/scripts/guess-case/modes.js:256
+#: ../root/static/scripts/guess-case/modes.js:283
 msgid ""
 "This mode capitalises almost all words, with some words (mainly articles and"
 " short prepositions) lowercased. Some words may need to be manually "
 "capitalised to follow the {url|English capitalisation guidelines}."
 msgstr "Tämä tapa vaihtaa ison alkukirjaimen lähes kaikkiin sanoihin (esim. artikkelit ja lyhyet prepositiot jäävät pienellä kirjoitetuiksi). Joitakin sanoja saatetaan joutua muuttamaan vielä käsin, jotta ne noudattavat {url|englannin kielen tyyliohjeistusta}."
 
-#: ../root/static/scripts/guess-case/modes.js:270
+#: ../root/static/scripts/guess-case/modes.js:299
 msgid ""
 "This mode capitalises titles as sentence mode, but also inserts spaces "
 "before semicolons, colons, exclamation marks and question marks, and inside "
@@ -13557,19 +13569,19 @@ msgid ""
 "{url|French capitalisation guidelines}."
 msgstr "Tämä tapa vaihtaa isot alkukirjaimet kuten lauseenomainen tapa. Lisäksi välilyönti lisätään ennen puoli- ja kaksoispisteitä, sekä huuto- ja kysymysmerkkejä. Välilyönnit lisätään myös kulmalainausmerkkien sisään. Jotkin sanat saatetaan joutua korjaamaan käsin noudattamaan {url|ranskan kielen tyyliohjeistusta}."
 
-#: ../root/static/scripts/guess-case/modes.js:290
+#: ../root/static/scripts/guess-case/modes.js:320
 msgid ""
 "This mode capitalises the first word of a sentence, most other words are "
 "lowercased. Some words, often proper nouns, may need to be manually fixed "
 "according to the {url|relevant language guidelines}."
 msgstr "Tämä tapa vaihtaa ison alkukirjaimen vain lauseen ensimmäiseen sanaan. Muut sanat jätetään pienellä kirjoitetuiksi. Jotkin sanat, kuten erisnimet, saatetaan joutua korjaamaan käsin noudattamaan {url|kyseisen kielen tyyliohjeistusta}."
 
-#: ../root/static/scripts/guess-case/modes.js:300
+#: ../root/static/scripts/guess-case/modes.js:331
 msgid ""
 "This mode handles the Turkish capitalisation of 'i' ('İ') and 'ı' ('I'). "
 "Some words may need to be manually corrected according to the {url|Turkish "
-"language guidelines}. "
-msgstr "Tämä tapa käsittelee turkin kielen kirjoitusasun 'i' ('İ') and 'ı' ('I'). Jotkin sanat saatetaan joutua korjaamaan käsin noudattamaan {url|turkin kielen tyyliohjeistusta}."
+"language guidelines}."
+msgstr ""
 
 #: ../root/static/scripts/relationship-editor/common/dialog.js:32
 msgid "The series you’ve selected is for recordings."

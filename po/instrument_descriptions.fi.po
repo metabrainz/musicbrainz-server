@@ -11,7 +11,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2019-06-03 13:42+0000\n"
+"PO-Revision-Date: 2019-09-07 10:18+0000\n"
 "Last-Translator: yvanz\n"
 "Language-Team: Finnish (http://www.transifex.com/musicbrainz/musicbrainz/language/fi/)\n"
 "MIME-Version: 1.0\n"
@@ -91,14 +91,6 @@ msgstr "Lyömäsöitin joka koostuu pystysuoraan upotetuista metallisista kulhoi
 #: DB:instrument/description:471
 msgid "A chamber organ is a small pipe organ."
 msgstr "Kamariurut ovat pienikokoiset pilliurut."
-
-#. name:chime bar
-#: DB:instrument/description:638
-msgid ""
-"A chime bar is a percussion instrument consisting of a tuned metal bar "
-"similar to a glockenspiel bar which is mounted on a wooden resonator and "
-"played with a mallet."
-msgstr ""
 
 #. name:cuatro
 #: DB:instrument/description:439
@@ -217,14 +209,6 @@ msgid ""
 "control surface based on the layout of a marimba."
 msgstr ""
 
-#. name:mark tree
-#: DB:instrument/description:637
-msgid ""
-"A mark tree consists of many small chimes arranged in order of length which "
-"hang from a bar. The chimes are played by sweeping a finger or stick through"
-" the length of the hanging chimes."
-msgstr ""
-
 #. name:mouth organ
 #: DB:instrument/description:610
 msgid ""
@@ -242,13 +226,6 @@ msgstr "Piano jonka kieliä soitetaan jousella käyttäen nylon säiettä tai mu
 #: DB:instrument/description:519
 msgid "A plucked instrument from the Renaissance."
 msgstr "Näppäilemällä soitettava soitin renessanssin ajalta. "
-
-#. name:çevgen
-#: DB:instrument/description:740
-msgid ""
-"A pole with bells and/or zills used in the traditional Ottoman military "
-"bands"
-msgstr ""
 
 #. name:prepared piano
 #: DB:instrument/description:481
@@ -345,6 +322,15 @@ msgstr ""
 #: DB:instrument/description:539
 msgid "Acoustic guitar without frets."
 msgstr "Akustinen kitara ilman otenauhoja."
+
+#. name:repeater
+#: DB:instrument/description:882
+msgid ""
+"Also known as kette or keteh, it is the smallest size/pitch drum. It has a "
+"tight goat skin membrane and it is struck with the fingertips. Important in "
+"the Jamaican Burru music and Rastafari movement, it is part of the "
+"Nyabinghi/Akete drums."
+msgstr ""
 
 #. name:alto viol
 #: DB:instrument/description:923
@@ -496,7 +482,11 @@ msgstr ""
 #: DB:instrument/description:338
 msgid ""
 "Bar or pole shaped chimes, usually arranged in a line or circle, hanging "
-"free or struck with mallets."
+"free or struck with mallets. <br /> For the instrument often used in bell "
+"towers, see <a "
+"href=\"/instrument/0d14d4e0-9ac9-4a96-a595-4145d7794082\">carillon</a>.<br "
+"/> For the instrument used in orchestra, see <a href=\"/instrument/7d6964ff-"
+"b1f5-472b-bdd7-b53de3739ad3\">tubular bells</a>."
 msgstr ""
 
 #. name:baroque trumpet
@@ -557,14 +547,6 @@ msgstr ""
 msgid "Besides being used for writing, it has also been used in percussion."
 msgstr ""
 
-#. name:ugal
-#: DB:instrument/description:967
-msgid ""
-"Bronze metallophone with 10 keys suspended over tuned bamboo resonators that"
-" the player hits with a small hammer, often in a theatrical manner. In the "
-"indonesian gamelan it is the leader of the pokok melody."
-msgstr ""
-
 #. name:cajón
 #: DB:instrument/description:336
 msgid "Cajón, Peruvian box drum"
@@ -616,6 +598,13 @@ msgid ""
 "ritualistically buried in pairs."
 msgstr ""
 
+#. name:bonang panembung
+#: DB:instrument/description:972
+msgid ""
+"Chiefly used in Yogyvanese gamelan, the largest and deepest pitched member "
+"of the bonang family of gongs"
+msgstr ""
+
 #. name:naobo
 #: DB:instrument/description:599
 msgid "Chinese cymbals specially used in the Beijing opera."
@@ -640,6 +629,17 @@ msgid ""
 "Ching are a pair of small hand cymbals used in Thai and Cambodian music."
 msgstr ""
 
+#. name:glockenspiel
+#: DB:instrument/description:165
+msgid ""
+"Common and popular metallophone, usually an arrangement of metal keys or "
+"slabs on a wooden resonator box. <br /> For the instrument often used in "
+"bell towers, see <a "
+"href=\"/instrument/0d14d4e0-9ac9-4a96-a595-4145d7794082\">carillon</a>.<br "
+"/> For the instrument called orchestra bell/chime in some languages, see <a "
+"href=\"/instrument/7d6964ff-b1f5-472b-bdd7-b53de3739ad3\">tubular bells</a>."
+msgstr ""
+
 #. name:rudra veena
 #: DB:instrument/description:501
 msgid ""
@@ -647,6 +647,13 @@ msgid ""
 "ritual and meditation, North Indian raga and Dhrupad music. It has two dried"
 " gourd resonators and a body of bamboo with 24 wooden frets and 4 main, 2-3 "
 "secondary and one drone string."
+msgstr ""
+
+#. name:bonang
+#: DB:instrument/description:969
+msgid ""
+"Consisting of bossed bronze kettle-like gongs arranged in elaborately "
+"decorated wooden frames, these are hit with tabuh beaters."
 msgstr ""
 
 #. name:metallophone
@@ -663,6 +670,14 @@ msgstr ""
 msgid ""
 "Consisting of two parts joined together by a hinge, it creates a whip-like "
 "sound when clacked together."
+msgstr ""
+
+#. name:gambang
+#: DB:instrument/description:977
+msgid ""
+"Consists of up to 21 hardwood bars suspended by pins and rope over an oft "
+"ornate wooden trapeze shaped box, the two springy beaters are made of "
+"buffalo horn."
 msgstr ""
 
 #. name:octobass
@@ -727,6 +742,15 @@ msgid ""
 "guitar."
 msgstr ""
 
+#. name:chime bar
+#: DB:instrument/description:638
+msgid ""
+"Despite the name, it is not a chime but instead consists of tuned metal bars"
+" each on individual resonator boxes. <br /> It is similar to glockenspiel. "
+"<br /> For the instrument called <em>bar chimes</em>, see <a "
+"href=\"/instrument/3b8cd68b-aadc-4e43-a13f-e575202d67ea\">chimes</a>."
+msgstr ""
+
 #. name:theorbo
 #: DB:instrument/description:395
 msgid ""
@@ -747,9 +771,9 @@ msgstr ""
 #: DB:instrument/description:59
 msgid ""
 "Developed in the 16th century, these violas da braccio are distinct from the"
-" violas da gamba family. </br> Modern members are: <ul> <li> Violin (little "
-"viola) </li> <li> Viola </li> <li> Violoncello (small big viola) </li> <li> "
-"Double Bass (replacing the violone (big viola)) </li></ul> Past members "
+" violas da gamba family. <br /> Modern members are: <ul> <li> Violin (little"
+" viola) </li> <li> Viola </li> <li> Violoncello (small big viola) </li> <li>"
+" Double Bass (replacing the violone (big viola)) </li></ul> Past members "
 "include the violone (now a considered a viol) and bass viol (a forerunner to"
 " the violoncello). Occasionally Octobass is also included as a member."
 msgstr ""
@@ -846,6 +870,14 @@ msgid ""
 "plate."
 msgstr ""
 
+#. name:ugal
+#: DB:instrument/description:967
+msgid ""
+"Even lower pitched than the pemade , it also has 10 bronze keys suspended "
+"over tuned bamboo resonators that the player hits with a small hammer, often"
+" in a theatrical manner. It is the leader of the pokok melody."
+msgstr ""
+
 #. name:spinettone
 #: DB:instrument/description:799
 msgid ""
@@ -859,6 +891,11 @@ msgid ""
 "Extra large double-headed water buffalo hide barrel drum. It is suspended "
 "from a rack and beat with mallet, it is used in central Javanese gamelan and"
 " for religious signalling purposes in mosques."
+msgstr ""
+
+#. name:pi
+#: DB:instrument/description:667
+msgid "Family of quadruple reed oboes"
 msgstr ""
 
 #. name:Baltic psalteries
@@ -1014,6 +1051,13 @@ msgid ""
 "side of the short neck and one under the bridge which is membrane-covered."
 msgstr ""
 
+#. name:kantilan
+#: DB:instrument/description:975
+msgid ""
+"Highest pitched gangsa, it has 10 brass or bronze keys suspended over short "
+"resonating bamboo pipes set in an heavily ornate case."
+msgstr ""
+
 #. name:gut guitar
 #: DB:instrument/description:567
 msgid "Hollow-body acoustic guitar strung with gut-strings."
@@ -1112,6 +1156,15 @@ msgstr ""
 msgid ""
 "Invented initially as the Hang, it is made of two tuned metal convex pans "
 "glued together creating an UFO shape."
+msgstr ""
+
+#. name:wind chime
+#: DB:instrument/description:497
+msgid ""
+"It differs from other chimes by addition of pendulum(s), such to be worked "
+"by wind, the sonorous parts can be rods, bells or other shapes of metal, "
+"wood, glass or ceramic.<br /> Often decorated, it is seen as a good luck "
+"charm."
 msgstr ""
 
 #. name:yueqin
@@ -1218,6 +1271,22 @@ msgid ""
 " the neck."
 msgstr ""
 
+#. name:baandu
+#: DB:instrument/description:880
+msgid ""
+"Larger bass drum also known as thunder or pope smasher, it has a double goat"
+" skin membrane and is hit with a padded mallet. Important in the Jamaican "
+"Burru music and Rastafari movement, it is part of the Nyabinghi/Akete drums."
+msgstr ""
+
+#. name:tubular bells
+#: DB:instrument/description:168
+msgid ""
+"Larger orchestral version of chimes, closed top hollow metal tubes are set "
+"in a stand with a damper operated by pedals, they are tuned at a definite "
+"pitch and played with mallets."
+msgstr ""
+
 #. name:Scottish smallpipes
 #: DB:instrument/description:427
 msgid ""
@@ -1230,7 +1299,7 @@ msgstr ""
 msgid ""
 "Located in the Luray Caverns of Virginia USA, it is made of an electric "
 "console wired to mallets striking thirty-seven stalactites producing tones. "
-"This is a singular specific instrument, not an instrument <i>type</i>"
+"This is a singular specific instrument, not an instrument <em>type</em>."
 msgstr ""
 
 #. name:pahū
@@ -1299,6 +1368,14 @@ msgstr ""
 msgid ""
 "Made of metal with many small notches scraped with a brush or hair pick, it "
 "is used in Merengue típico."
+msgstr ""
+
+#. name:calung
+#: DB:instrument/description:974
+msgid ""
+"Made of multiple vertical hung bamboo tubes with segments cut out to create "
+"different pitch. They can be played either hanging suspended or on a bamboo "
+"frame like a xylophone."
 msgstr ""
 
 #. name:sasando
@@ -1383,6 +1460,14 @@ msgstr ""
 msgid "Mexican vihuela, used by mariachi bands"
 msgstr ""
 
+#. name:fundeh
+#: DB:instrument/description:881
+msgid ""
+"Middle size/pitch drum, it has a slack goat skin membrane and it is hit with"
+" the palms. Important in the Jamaican Burru music and Rastafari movement, it"
+" is part of the Nyabinghi/Akete drums."
+msgstr ""
+
 #. name:kachva sitar
 #: DB:instrument/description:947
 msgid ""
@@ -1458,6 +1543,13 @@ msgid ""
 "are strung."
 msgstr ""
 
+#. name:bonang barung
+#: DB:instrument/description:970
+msgid ""
+"One to two octaves below panerus, it plays elaborate melodies and is one of "
+"the most important instruments in the ensemble."
+msgstr ""
+
 #. name:handbell
 #: DB:instrument/description:275
 msgid "Open in one end, it has a strap to hold while ringing."
@@ -1520,6 +1612,14 @@ msgstr ""
 msgid ""
 "Originating from Henan province, this fretless huqin has the accustomary two"
 " strings, but is made of wood."
+msgstr ""
+
+#. name:çevgen
+#: DB:instrument/description:740
+msgid ""
+"Originating in Central Asia, it gained symbolic value to the Turks who used "
+"it in Ottoman marching-bands. It is 2-2,5 m long, has a bronze crescent "
+"shape with bells and jangles attached."
 msgstr ""
 
 #. name:bhapang
@@ -1600,11 +1700,6 @@ msgstr ""
 msgid ""
 "Phách are small wooden sticks beaten on a small piece of bamboo or a wooden "
 "block. The sound produced is used to keep time."
-msgstr ""
-
-#. name:pi
-#: DB:instrument/description:667
-msgid "Pi is a family of quadruple reed oboes from Thailand."
 msgstr ""
 
 #. name:boobam
@@ -1744,12 +1839,38 @@ msgid ""
 " Catalonia it's scraped with a castanet. Ginebra is a variant made of cane."
 msgstr ""
 
+#. name:pemade
+#: DB:instrument/description:976
+msgid ""
+"Second highest pitched gangsa, it is deeper than the kantil but also has 10 "
+"brass or bronze keys suspended over short resonating pipes set in an heavily"
+" ornate case."
+msgstr ""
+
+#. name:reyong
+#: DB:instrument/description:973
+msgid ""
+"Set of 4 to 12 small metal gongs suspended in a string carriage, played by "
+"two to four players."
+msgstr ""
+
 #. name:drums (drum set)
 #: DB:instrument/description:101
 msgid ""
 "Set of drums developed from the 1930's onward, it is used in Jazz, Swing, "
 "Rock and Pop music. It consists of snare drum, tom-toms, hi-hats, cymbals "
 "and bass drum."
+msgstr ""
+
+#. name:carillon
+#: DB:instrument/description:128
+msgid ""
+"Set of many bronze bells, often mechanized and operated by keyboard, they "
+"are set in the bell tower (belfry) of important buildings. <br /> For the "
+"steel bar metallophone used from toy to orchestra, see <a "
+"href=\"/instrument/340b8043-e3c4-443e-afb8-7fce24fe0ce4\">glockenspiel</a>. "
+"<br /> For the crank operated, revolving cylinder/disc plucked idiophone see"
+" <a href=\"/instrument/2f5f6a67-2b2b-4857-92b0-5b25d485f632\">music box</a>."
 msgstr ""
 
 #. name:shaken idiophone
@@ -1862,6 +1983,13 @@ msgid ""
 "narrower bore."
 msgstr ""
 
+#. name:Mark tree
+#: DB:instrument/description:637
+msgid ""
+"Solid metal (often aluminium) rods hanging on a bar, set at an inharmonic "
+"pitch."
+msgstr ""
+
 #. name:sopilka
 #: DB:instrument/description:760
 msgid ""
@@ -1869,11 +1997,11 @@ msgid ""
 "music."
 msgstr ""
 
-#. name:video game console
+#. name:game console sound chip
 #: DB:instrument/description:853
 msgid ""
-"Sound chip in various video game consoles used for music, chiefly in bit-"
-"tunes and chip-tunes"
+"Sound chip from various video game consoles, computers and similar, used for"
+" music, chiefly in bitunes and chiptunes"
 msgstr ""
 
 #. name:sitar
@@ -3734,6 +3862,16 @@ msgstr ""
 msgid "Theatre organ, such as the Wurlitzer"
 msgstr "Teatteriurut, kuten Wurlitzer. "
 
+#. name:akete
+#: DB:instrument/description:747
+msgid ""
+"Three-parts drumset (<a href=\"/instrument/ed1628bd-8541-4874-b8ca-"
+"2cec8b4c5140\">baandu</a>, <a "
+"href=\"/instrument/81b68590-5c82-47a3-9790-1570ca60f711\">funde</a> and <a "
+"href=\"/instrument/30aeef52-3ebf-405e-9baa-ef6c6f3ef6d5\">kete</a>) commonly"
+" used in Burru and Nyabinghi musics."
+msgstr ""
+
 #. name:timpani
 #: DB:instrument/description:167
 msgid "Timpani (Kettle drum)"
@@ -3957,6 +4095,13 @@ msgid ""
 " perform creating sound."
 msgstr ""
 
+#. name:bonang panerus
+#: DB:instrument/description:971
+msgid ""
+"Used to play fast melodies, it is the highest pitched member of the bonang "
+"family of gongs"
+msgstr ""
+
 #. name:lap harp
 #: DB:instrument/description:886
 msgid ""
@@ -3970,7 +4115,7 @@ msgid ""
 "Used traditionally by the Minang people of West Sumatra for love songs, in "
 "shamanic rites and for capturing tigers, this open end-blown bamboo flute "
 "can be decorated to resemble tiger-stripes. Played with a circular breathing"
-" technique, it is 75 cm long with 3 to 6 holes depending on subtype. </br> "
+" technique, it is 75 cm long with 3 to 6 holes depending on subtype. <br /> "
 "<ul> <li>saluang darek \"inland\" 4 holes</li> <li>saluang pauh/padang 6 "
 "holes</li> <li>saluang sungai pagu 3 holes</li> </ul>"
 msgstr ""
@@ -4066,13 +4211,6 @@ msgid ""
 "small hole (guxin)."
 msgstr ""
 
-#. name:wind chime
-#: DB:instrument/description:497
-msgid ""
-"Wind chimes are chimes constructed from suspended tubes, rods, bells or "
-"other objects, designed to be hung outside and played by the wind."
-msgstr ""
-
 #. name:zill
 #: DB:instrument/description:455
 msgid ""
@@ -4127,15 +4265,6 @@ msgid ""
 "also known as dangubica or kuterevka, it is similar to the bisernica and the"
 " ancestor of the entire tamburica ensemble. this plucked long-necked lute "
 "has two double strings and is played solo."
-msgstr ""
-
-#. name:repeater
-#: DB:instrument/description:882
-msgid ""
-"also known as kette or keteh, it is the smallest size/pitch drum. It has a "
-"tight goat skin membrane and it is struck with the fingertips. Important in "
-"the Jamaican Burru music and Rastafari movement, it is part of the "
-"Nyabinghi/Akete drums."
 msgstr ""
 
 #. name:clavioline
@@ -4337,14 +4466,6 @@ msgid ""
 "booming bass sound."
 msgstr ""
 
-#. name:baandu
-#: DB:instrument/description:880
-msgid ""
-"larger bass drum also known as thunder or pope smasher, it has a double goat"
-" skin membrane and is hit with a padded mallet. Important in the Jamaican "
-"Burru music and Rastafari movement, it is part of the Nyabinghi/Akete drums."
-msgstr ""
-
 #. name:duggi
 #: DB:instrument/description:851
 msgid ""
@@ -4358,14 +4479,6 @@ msgstr ""
 msgid ""
 "made of wood, bone or stone it has a long string attached, when spun around "
 "it produces a deep, loud whizzing sound that can be heard from far away."
-msgstr ""
-
-#. name:fundeh
-#: DB:instrument/description:881
-msgid ""
-"middle size/pitch drum, it has a slack goat skin membrane and it is hit with"
-" the palms. Important in the Jamaican Burru music and Rastafari movement, it"
-" is part of the Nyabinghi/Akete drums."
 msgstr ""
 
 #. name:kamalen ngɔni
@@ -4516,13 +4629,6 @@ msgstr ""
 #. name:rōria
 #: DB:instrument/description:859
 msgid "thin quiet jew's harp-like instrument made of wood or bone."
-msgstr ""
-
-#. name:akete
-#: DB:instrument/description:747
-msgid ""
-"three-parts drumset (baandu, funde, and kete) commonly used in Burru and "
-"Nyabinghi musics."
 msgstr ""
 
 #. name:ti bwa
