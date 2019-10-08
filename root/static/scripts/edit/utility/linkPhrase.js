@@ -61,17 +61,17 @@ function _getResultCache<T>(
 type AttrValue<T> = Array<T | string> | T | string;
 
 class PhraseVarArgs<T> extends VarArgs<AttrValue<T>> {
-  +usedAttributes: Array<string>;
+  +i18n: LinkPhraseI18n<T | string>;
 
-  +makeCommaList: ($ReadOnlyArray<T | string>) => T | string;
+  +usedAttributes: Array<string>;
 
   constructor(
     args: ?VarArgsObject<AttrValue<T>>,
-    makeCommaList: ($ReadOnlyArray<T | string>) => T | string,
+    i18n: LinkPhraseI18n<T | string>,
   ) {
     super(args || EMPTY_OBJECT);
+    this.i18n = i18n;
     this.usedAttributes = [];
-    this.makeCommaList = makeCommaList;
   }
 
   get(name): T | string {
@@ -80,7 +80,7 @@ class PhraseVarArgs<T> extends VarArgs<AttrValue<T>> {
       return '';
     }
     if (Array.isArray(value)) {
-      return this.makeCommaList(value);
+      return this.i18n.commaList(value);
     }
     return value;
   }
@@ -255,7 +255,7 @@ export function getPhraseAndExtraAttributes<T>(
     shouldStripAttributes
       ? _getRequiredAttributes(linkType)
       : attributeValues,
-    i18n.commaList,
+    i18n,
   );
 
   let phrase = i18n.expand(phraseSource, varArgs);
@@ -345,6 +345,6 @@ export const getExtraAttributesText = (
 export const stripAttributes = (linkType: LinkTypeT, phrase: string) => {
   return clean(textI18n.expand(phrase, new PhraseVarArgs(
     _getRequiredAttributes(linkType),
-    textI18n.commaList,
+    textI18n,
   )));
 };
