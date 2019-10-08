@@ -10,7 +10,6 @@ use base 'Template::Plugin';
 use Algorithm::Diff qw( sdiff traverse_sequences );
 use Carp qw( confess );
 use HTML::Tiny;
-use HTML::TreeBuilder;
 use HTML::Entities qw( decode_entities );
 use Scalar::Util qw( blessed );
 use MusicBrainz::Server::Translation qw( l );
@@ -48,24 +47,6 @@ sub diff_side {
     my @diffs = sdiff([ _split_text($old, $split) ], [ _split_text($new, $split) ]);
 
     return $self->_render_side_diff(1, $filter, $split, @diffs);
-}
-
-sub diff_html_side {
-    my ($self, $old, $new, $filter) = @_;
-
-    my $old_root = HTML::TreeBuilder->new_from_content('<body>'.($old // '').'</body>');
-    my @old_tokens = map {
-        _html_token($_)
-    } $old_root->content_array_ref->[1]->content_list;
-
-    my $new_root = HTML::TreeBuilder->new_from_content('<body>'.($new // '').'</body>');
-    my @new_tokens = map {
-        _html_token($_)
-    } $new_root->content_array_ref->[1]->content_list;
-
-    my @diffs = sdiff(\@old_tokens, \@new_tokens);
-
-    return $self->_render_side_diff(0, $filter, '\s+', @diffs);
 }
 
 sub _html_token {
@@ -128,7 +109,7 @@ sub _render_side_diff {
 
             my $text = $_->{str};
             $text = encode_entities($text) if $escape_output;
-            $h->span({ class => $class }, $text)
+            $class ? $h->span({ class => $class }, $text) : $text
         } @stack
     )
 }

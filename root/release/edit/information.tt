@@ -339,7 +339,7 @@
 
   <div class="bubble" data-bind="bubble: $root.commentBubble">
     <p>
-      [% l('The comment field is used to help users distinguish between identically named releases.') %]
+      [% l('The disambiguation field is used to help users distinguish between identically named releases.') %]
     </p>
     <p>
       [% l('This field is not a place to store general background information about the release: that kind of information should go in the annotation field.') %]

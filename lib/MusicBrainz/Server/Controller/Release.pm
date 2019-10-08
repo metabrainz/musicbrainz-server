@@ -88,6 +88,9 @@ after 'load' => sub {
     my $artwork = $c->model('Artwork')->find_front_cover_by_release($release);
     $c->stash->{release_artwork} = $artwork->[0];
 
+    my $artwork_count = $c->model('Artwork')->find_count_by_release($release->id);
+    $c->stash->{release_artwork_count} = $artwork_count;
+
     # We need to load more artist credits in 'show'
     if ($c->action->name ne 'show') {
         $c->model('ArtistCredit')->load($release);

@@ -75,7 +75,11 @@ releaseEditor.seedRelease = function (release, data) {
     }
 
     if (data.barcode) {
-        release.barcode.value(data.barcode);
+        if (data.barcode === 'none') {
+            release.barcode.none(true);
+        } else {
+            release.barcode.value(data.barcode);
+        }
     }
 
     if (data.artistCredit) {

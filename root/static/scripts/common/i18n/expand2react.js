@@ -61,8 +61,26 @@ function handleTextContentText(text: string) {
   return he.decode(text);
 }
 
+/*
+ * `reactTextContentHook`, when overridden from the outside, allows
+ * customizing each bit of free text content in the expanded string. This can
+ * be used, for example, to wrap them in spans to apply a certain style.
+ * (This is how our relationship edit diff display works.)
+ *
+ * The use of the word "hooks" here is completely unrelated to the React
+ * concept with the same name.
+ */
+export const hooks: {
+  reactTextContentHook: ((Expand2ReactOutput) => Expand2ReactOutput) | null,
+} = {
+  reactTextContentHook: null,
+};
+
 function handleTextContentReact(text: string) {
   const replacement = state.replacement;
+  const hook = hooks.reactTextContentHook;
+  let content;
+
   if (gotMatch(replacement) && percentSign.test(text)) {
     const parts = text.split(percentSign);
     const result: Array<Output> = [];
@@ -75,12 +93,15 @@ function handleTextContentReact(text: string) {
       }
     }
     if (typeof replacement === 'string') {
-      return result.join('');
+      content = result.join('');
+    } else {
+      content = React.createElement(React.Fragment, null, ...result);
     }
-    return React.createElement(React.Fragment, null, ...result);
   } else {
-    return he.decode(text);
+    content = he.decode(text);
   }
+
+  return hook ? hook(content) : content;
 }
 
 const parseRootTextContent = createTextContentParser<Output, Input>(

@@ -143,11 +143,16 @@ sub find_outdated_releases
                     $row->{c_last_updated} ? (last_updated => $row->{c_last_updated}) : ()
                 )
             );
+            my $url = $self->c->model('URL')->_new_from_row($row);
 
             $release->add_relationship(
                 Relationship->new(
                     entity0 => $release,
-                    entity1 => $self->c->model('URL')->_new_from_row($row),
+                    entity1 => $url,
+                    source => $release,
+                    target => $url,
+                    source_type => 'release',
+                    target_type => 'url',
                     link => Link->new(
                         type => LinkType->new( name => $row->{link_type} )
                     )

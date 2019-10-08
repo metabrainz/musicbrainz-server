@@ -33,7 +33,6 @@ is($edits->[0]->id, $edit->id);
 $c->model('Edit')->load_all($edit);
 is($edit->display_data->{label}->id, 1);
 is($edit->display_data->{changelog}, 'A changelog');
-is($edit->display_data->{annotation_id}, $edit->annotation_id);
 
 $label = $c->model('Label')->get_by_id(1);
 $c->model('Label')->annotation->load_latest($label);

@@ -139,6 +139,7 @@ sub make_release
 {
     my ($type, $url) = @_;
     my $release = Release->new( name => 'Test release' );
+    my $url = URL->new( url => $url );
     $release->add_relationship(
         Relationship->new(
             link => Link->new(
@@ -146,9 +147,11 @@ sub make_release
                     name => $type
                 ),
             ),
-            entity1 => URL->new(
-                url => $url,
-            ),
+            entity1 => $url,
+            source => $release,
+            target => $url,
+            source_type => 'release',
+            target_type => 'url',
             direction => $MusicBrainz::Server::Entity::Relationship::DIRECTION_FORWARD,
         )
     );

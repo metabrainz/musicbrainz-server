@@ -56,6 +56,30 @@ test 'recording lookup with releases' => sub {
             video => JSON::false,
             releases => [
                 {
+                    id => "b3b7e934-445b-4c68-a097-730c6a6d47e6",
+                    title => "Summer Reggae! Rainbow",
+                    status => "Pseudo-Release",
+                    "status-id" => "41121bb9-3413-3818-8a9a-9742318349aa",
+                    quality => "normal",
+                    "text-representation" => { language => "jpn", script => "Latn" },
+                    date => "2001-07-04",
+                    country => "JP",
+                    "release-events" => [{
+                        date => "2001-07-04",
+                        "area" => {
+                            disambiguation => '',
+                            "id" => "2db42837-c832-3c27-b4a3-08198f75693c",
+                            "name" => "Japan",
+                            "sort-name" => "Japan",
+                            "iso-3166-1-codes" => ["JP"],
+                        },
+                    }],
+                    barcode => "4942463511227",
+                    disambiguation => "",
+                    packaging => JSON::null,
+                    "packaging-id" => JSON::null,
+                },
+                {
                     id => "0385f276-5f4f-4c81-a7a4-6bd7b8d85a7e",
                     title => "サマーれげぇ!レインボー",
                     status => "Official",
@@ -79,30 +103,7 @@ test 'recording lookup with releases' => sub {
                     packaging => JSON::null,
                     "packaging-id" => JSON::null,
                 },
-                {
-                    id => "b3b7e934-445b-4c68-a097-730c6a6d47e6",
-                    title => "Summer Reggae! Rainbow",
-                    status => "Pseudo-Release",
-                    "status-id" => "41121bb9-3413-3818-8a9a-9742318349aa",
-                    quality => "normal",
-                    "text-representation" => { language => "jpn", script => "Latn" },
-                    date => "2001-07-04",
-                    country => "JP",
-                    "release-events" => [{
-                        date => "2001-07-04",
-                        "area" => {
-                            disambiguation => '',
-                            "id" => "2db42837-c832-3c27-b4a3-08198f75693c",
-                            "name" => "Japan",
-                            "sort-name" => "Japan",
-                            "iso-3166-1-codes" => ["JP"],
-                        },
-                    }],
-                    barcode => "4942463511227",
-                    disambiguation => "",
-                    packaging => JSON::null,
-                    "packaging-id" => JSON::null,
-                }]
+            ],
         };
 };
 

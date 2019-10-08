@@ -68,13 +68,13 @@ ws_test 'artist lookup with releases',
     <artist type="Group" type-id="e431f5f6-b5d2-343d-8b36-72607fffb74b" id="802673f0-9b88-4e8a-bb5c-dd01d68b086f">
         <name>7人祭</name><sort-name>7nin Matsuri</sort-name>
         <release-list count="2">
-            <release id="0385f276-5f4f-4c81-a7a4-6bd7b8d85a7e">
-                <title>サマーれげぇ!レインボー</title>
-                <status id="4e304316-386d-3409-af2e-78857eec5cfe">Official</status>
+            <release id="b3b7e934-445b-4c68-a097-730c6a6d47e6">
+                <title>Summer Reggae! Rainbow</title>
+                <status id="41121bb9-3413-3818-8a9a-9742318349aa">Pseudo-Release</status>
                 <quality>normal</quality>
                 <text-representation>
                     <language>jpn</language>
-                    <script>Jpan</script>
+                    <script>Latn</script>
                 </text-representation>
                 <date>2001-07-04</date>
                 <country>JP</country>
@@ -92,13 +92,13 @@ ws_test 'artist lookup with releases',
                 </release-event-list>
                 <barcode>4942463511227</barcode>
             </release>
-            <release id="b3b7e934-445b-4c68-a097-730c6a6d47e6">
-                <title>Summer Reggae! Rainbow</title>
-                <status id="41121bb9-3413-3818-8a9a-9742318349aa">Pseudo-Release</status>
+            <release id="0385f276-5f4f-4c81-a7a4-6bd7b8d85a7e">
+                <title>サマーれげぇ!レインボー</title>
+                <status id="4e304316-386d-3409-af2e-78857eec5cfe">Official</status>
                 <quality>normal</quality>
                 <text-representation>
                     <language>jpn</language>
-                    <script>Latn</script>
+                    <script>Jpan</script>
                 </text-representation>
                 <date>2001-07-04</date>
                 <country>JP</country>
@@ -162,6 +162,56 @@ ws_test 'artist lookup with releases and discids',
     <artist type="Person" type-id="b6e035f4-3ce9-331c-97df-83397230b0df" id="472bc127-8861-45e8-bc9e-31e8dd32de7a">
         <name>Distance</name><sort-name>Distance</sort-name><disambiguation>UK dubstep artist Greg Sanders</disambiguation>
         <release-list count="2">
+            <release id="adcf7b48-086e-48ee-b420-1001f88d672f">
+                <title>My Demons</title>
+                <status id="4e304316-386d-3409-af2e-78857eec5cfe">Official</status>
+                <quality>normal</quality>
+                <text-representation>
+                    <language>eng</language>
+                    <script>Latn</script>
+                </text-representation>
+                <date>2007-01-29</date>
+                <country>GB</country>
+                <release-event-list count="1">
+                    <release-event>
+                        <date>2007-01-29</date>
+                        <area id="8a754a16-0027-3a29-b6d7-2b40ea0481ed">
+                            <name>United Kingdom</name>
+                            <sort-name>United Kingdom</sort-name>
+                            <iso-3166-1-code-list>
+                                <iso-3166-1-code>GB</iso-3166-1-code>
+                            </iso-3166-1-code-list>
+                        </area>
+                    </release-event>
+                </release-event-list>
+                <barcode>600116817020</barcode>
+                <medium-list count="1">
+                    <medium>
+                        <position>1</position>
+                        <format id="9712d52a-4509-3d4b-a1a2-67c88c643e31">CD</format>
+                        <disc-list count="1">
+                            <disc id="75S7Yp3IiqPVREQhjAjMXPhwz0Y-">
+                                <sectors>281289</sectors>
+                                <offset-list count="12">
+                                    <offset position="1">150</offset>
+                                    <offset position="2">27852</offset>
+                                    <offset position="3">49751</offset>
+                                    <offset position="4">75876</offset>
+                                    <offset position="5">99845</offset>
+                                    <offset position="6">120876</offset>
+                                    <offset position="7">140765</offset>
+                                    <offset position="8">165856</offset>
+                                    <offset position="9">188422</offset>
+                                    <offset position="10">211757</offset>
+                                    <offset position="11">232229</offset>
+                                    <offset position="12">255810</offset>
+                                </offset-list>
+                            </disc>
+                        </disc-list>
+                        <track-list count="12" />
+                    </medium>
+                </medium-list>
+            </release>
             <release id="3b3d130a-87a8-4a47-b9fb-920f2530d134">
                 <title>Repercussions</title>
                 <status id="4e304316-386d-3409-af2e-78857eec5cfe">Official</status>
@@ -228,56 +278,6 @@ ws_test 'artist lookup with releases and discids',
                             </disc>
                         </disc-list>
                         <track-list count="9" />
-                    </medium>
-                </medium-list>
-            </release>
-            <release id="adcf7b48-086e-48ee-b420-1001f88d672f">
-                <title>My Demons</title>
-                <status id="4e304316-386d-3409-af2e-78857eec5cfe">Official</status>
-                <quality>normal</quality>
-                <text-representation>
-                    <language>eng</language>
-                    <script>Latn</script>
-                </text-representation>
-                <date>2007-01-29</date>
-                <country>GB</country>
-                <release-event-list count="1">
-                    <release-event>
-                        <date>2007-01-29</date>
-                        <area id="8a754a16-0027-3a29-b6d7-2b40ea0481ed">
-                            <name>United Kingdom</name>
-                            <sort-name>United Kingdom</sort-name>
-                            <iso-3166-1-code-list>
-                                <iso-3166-1-code>GB</iso-3166-1-code>
-                            </iso-3166-1-code-list>
-                        </area>
-                    </release-event>
-                </release-event-list>
-                <barcode>600116817020</barcode>
-                <medium-list count="1">
-                    <medium>
-                        <position>1</position>
-                        <format id="9712d52a-4509-3d4b-a1a2-67c88c643e31">CD</format>
-                        <disc-list count="1">
-                            <disc id="75S7Yp3IiqPVREQhjAjMXPhwz0Y-">
-                                <sectors>281289</sectors>
-                                <offset-list count="12">
-                                    <offset position="1">150</offset>
-                                    <offset position="2">27852</offset>
-                                    <offset position="3">49751</offset>
-                                    <offset position="4">75876</offset>
-                                    <offset position="5">99845</offset>
-                                    <offset position="6">120876</offset>
-                                    <offset position="7">140765</offset>
-                                    <offset position="8">165856</offset>
-                                    <offset position="9">188422</offset>
-                                    <offset position="10">211757</offset>
-                                    <offset position="11">232229</offset>
-                                    <offset position="12">255810</offset>
-                                </offset-list>
-                            </disc>
-                        </disc-list>
-                        <track-list count="12" />
                     </medium>
                 </medium-list>
             </release>
@@ -460,21 +460,21 @@ ws_test 'artist lookup with works (using l_recording_work)',
     <name>BoA</name><sort-name>BoA</sort-name>
     <life-span><begin>1986-11-05</begin></life-span>
     <work-list count="15">
-      <work id="286ecfdd-2ffe-3bc7-b3e9-04cc8cea229b"><title>Easy To Be Hard</title></work>
-      <work id="2d967c29-63dc-309d-bbc1-a2d38639aaa1"><title>心の手紙</title></work>
+      <work id="53d1fbac-e60a-38cb-85ff-e5a9224c9749"><title>Be the one</title></work>
       <work id="303f9bd2-152f-3145-9e09-afa34edb6a57"><title>DOUBLE</title></work>
-      <work id="46724ef1-241e-3d7f-9f3b-e51ba34e2aa1"><title>the Love Bug</title></work>
-      <work id="4b6a46c2-a904-3471-9bff-3942d4549f47"><title>SOME DAY ONE DAY )</title></work>
+      <work id="286ecfdd-2ffe-3bc7-b3e9-04cc8cea229b"><title>Easy To Be Hard</title></work>
+      <work id="7e78f281-52b4-315b-9d7b-6d215732f3d7"><title>EXPECT</title></work>
+      <work id="f23ae726-0300-3830-b1ca-634f4362f78c"><title>LOVE &amp; HONESTY</title></work>
+      <work id="6f08d5a8-1811-3e5e-848b-35ffa77babe5"><title>Midnight Parade</title></work>
       <work id="50c07b24-7ee2-31ac-ab87-f0d399011c71"><title>Milky Way 〜君の歌〜</title></work>
       <work id="511f5124-c0ae-3386-bb76-4b6521498a68"><title>Milky Way-君の歌-</title></work>
-      <work id="53d1fbac-e60a-38cb-85ff-e5a9224c9749"><title>Be the one</title></work>
-      <work id="61ab56f0-e803-3aef-a91b-63564b7a8043"><title>Rock With You</title></work>
-      <work id="6f08d5a8-1811-3e5e-848b-35ffa77babe5"><title>Midnight Parade</title></work>
-      <work id="7981d409-8e76-33df-be27-ef625d81c501"><title>Shine We Are!</title></work>
-      <work id="7e78f281-52b4-315b-9d7b-6d215732f3d7"><title>EXPECT</title></work>
-      <work id="cd86f9e2-83ce-3192-a817-fe6c98079303"><title>Song With No Name～名前のない歌～</title></work>
       <work id="d2f1ea1f-de2e-3d0c-b534-e96377912478"><title>OVER～across the time～</title></work>
-      <work id="f23ae726-0300-3830-b1ca-634f4362f78c"><title>LOVE &amp; HONESTY</title></work>
+      <work id="61ab56f0-e803-3aef-a91b-63564b7a8043"><title>Rock With You</title></work>
+      <work id="7981d409-8e76-33df-be27-ef625d81c501"><title>Shine We Are!</title></work>
+      <work id="4b6a46c2-a904-3471-9bff-3942d4549f47"><title>SOME DAY ONE DAY )</title></work>
+      <work id="cd86f9e2-83ce-3192-a817-fe6c98079303"><title>Song With No Name～名前のない歌～</title></work>
+      <work id="46724ef1-241e-3d7f-9f3b-e51ba34e2aa1"><title>the Love Bug</title></work>
+      <work id="2d967c29-63dc-309d-bbc1-a2d38639aaa1"><title>心の手紙</title></work>
     </work-list>
   </artist>
 </metadata>';
@@ -501,6 +501,7 @@ ws_test 'artist lookup with artist relations',
         <relation-list target-type="artist">
             <relation type-id="5be4c609-9afa-4ea0-910b-12ffb71e3821" type="member of band">
                 <target>802673f0-9b88-4e8a-bb5c-dd01d68b086f</target>
+                <direction>forward</direction>
                 <begin>2001</begin>
                 <artist id="802673f0-9b88-4e8a-bb5c-dd01d68b086f">
                     <name>7人祭</name>

@@ -70,6 +70,7 @@ our @EXPORT_OK = qw(
     sanitize
     take_while
     trim
+    trim_comment
     type_to_model
     split_relationship_by_attributes
 );
@@ -137,7 +138,7 @@ sub load_subobjects
         my $attr_id = $attr_obj . '_id';
         my @objs_with_id;
         for my $obj (@objs) {
-            next unless $obj->meta->find_attribute_by_name($attr_id);
+            next unless $obj->can($attr_id);
             my $id = $obj->$attr_id;
             if (defined $id) {
                 push @ids, $id;
@@ -339,6 +340,14 @@ sub trim {
     $t = Text::Trim::trim($t);
 
     return $t;
+}
+
+sub trim_comment {
+    my $t = shift;
+
+    $t =~ s/^\s*\(([^()]+)\)\s*$/$1/;
+
+    return trim($t);
 }
 
 sub remove_direction_marks {

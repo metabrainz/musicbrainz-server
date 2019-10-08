@@ -1,4 +1,5 @@
 package MusicBrainz::Server::Data::DurationLookup;
+use JSON::XS qw( decode_json );
 use Moose;
 use namespace::autoclean -also => [qw( _parse_toc )];
 use Readonly;
@@ -7,6 +8,7 @@ use MusicBrainz::Server::Entity::Medium;
 use MusicBrainz::Server::Constants qw( $MAX_POSTGRES_INT );
 
 with 'MusicBrainz::Server::Data::Role::Sql';
+with 'MusicBrainz::Server::Data::Role::QueryToList';
 
 Readonly our $DIMENSIONS => 6;
 
@@ -47,11 +49,14 @@ sub _parse_toc
 
 sub lookup
 {
-    my ($self, $toc, $fuzzy) = @_;
+    my ($self, $toc, $fuzzy, $all_formats, $limit, $offset) = @_;
 
     $toc =~ tr/+/ /;
     my %toc_info = _parse_toc($toc);
     return undef unless scalar(%toc_info);
+
+    $limit //= 25;
+    $offset //= 0;
 
     my @offsets = @{$toc_info{trackoffsets}};
     push @offsets, $toc_info{leadoutoffset};
@@ -67,38 +72,31 @@ sub lookup
 
     my $dur_string = "'{" . join(",", @durations) . "}'";
 
-    my $list = $self->sql->select_list_of_hashes(
-            "SELECT medium_index.medium AS medium,
-                    cube_distance(toc, create_cube_from_durations($dur_string)) AS distance,
-                    release,
-                    position,
-                    format,
-                    name,
-                    edits_pending
+    $self->query_to_list_limited(
+            "SELECT release,
+                    min(cube_distance(toc, create_cube_from_durations($dur_string))) AS min_distance,
+                    json_agg(json_build_object(
+                        'medium', medium_index.medium,
+                        'distance', cube_distance(toc, create_cube_from_durations($dur_string)),
+                        'position', position
+                    ) ORDER BY position) AS results
                FROM medium_index
-               JOIN medium m ON medium_index.medium = m.id
+               JOIN medium m ON medium_index.medium = m.id " .
+               ($all_formats ? '' : ' LEFT JOIN medium_format mf ON m.format = mf.id ') . "
              WHERE  track_count_matches_cdtoc(m, ?)
-                AND toc <@ create_bounding_cube($dur_string, ?)
-           ORDER BY distance
-           LIMIT 25", $toc_info{tracks}, $fuzzy);
-
-    my @results;
-    foreach my $item (@{$list})
-    {
-        my $result = MusicBrainz::Server::Entity::DurationLookupResult->new();
-        $result->distance(int($item->{distance}));
-        $result->medium_id($item->{medium});
-        my $medium = MusicBrainz::Server::Entity::Medium->new();
-        $medium->id($item->{medium});
-        $medium->release_id($item->{release});
-        $medium->position($item->{position});
-        $medium->format_id($item->{format}) if $item->{format};
-        $medium->name($item->{name} or '');
-        $medium->edits_pending($item->{edits_pending});
-        $result->medium($medium);
-        push @results, $result;
-    }
-    return \@results;
+                AND toc <@ create_bounding_cube($dur_string, ?) " .
+                ($all_formats ? '' : ' AND (m.format IS NULL OR mf.has_discids) ') . "
+           GROUP BY release
+           ORDER BY min_distance, release
+           LIMIT 25",
+        [$toc_info{tracks}, $fuzzy], $limit, $offset, sub {
+            my ($model, $row) = @_;
+            return {
+                release => $row->{release},
+                min_distance => $row->{min_distance},
+                results => decode_json($row->{results}),
+            };
+        });
 }
 
 sub update

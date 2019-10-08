@@ -18,6 +18,8 @@ jobs:
       - attach_workspace:
           at: &home /home/musicbrainz
       - run: |
+          chown -R musicbrainz:musicbrainz .
+          chown -R postgres:postgres /home/musicbrainz/pgdata
           rm /etc/service/chrome/down && sv start chrome
           export JUNIT_OUTPUT_FILE=junit_output/js.xml
           sudo -E -H -u musicbrainz carton exec -- prove \
@@ -35,6 +37,8 @@ jobs:
       - attach_workspace:
           at: *home
       - run: |
+          chown -R musicbrainz:musicbrainz .
+          chown -R postgres:postgres /home/musicbrainz/pgdata
           # As noted in docker/musicbrainz-tests/DBDefs.pm, CircleCI
           # sets NO_PROXY=127.0.0.1,localhost in every container, so
           # the Selenium proxy doesn't work unless we make requests
@@ -77,6 +81,8 @@ jobs:
       - attach_workspace:
           at: *home
       - run: |
+          chown -R musicbrainz:musicbrainz .
+          chown -R postgres:postgres /home/musicbrainz/pgdata
           echo '127.0.0.1 mbtest' >> /etc/hosts
           ./docker/musicbrainz-tests/install_pg_extensions.sh
           rm /etc/service/{postgresql,redis,template-renderer,website}/down && sv start postgresql redis template-renderer website
@@ -108,9 +114,9 @@ jobs:
             - v1-source-
       - checkout
       - run: |
-          git submodule sync
-          git submodule update --init
           chown -R musicbrainz:musicbrainz .
+          sudo -E -H -u musicbrainz git submodule sync
+          sudo -E -H -u musicbrainz git submodule update --init
           # The checkout step configures git to skip gc, so we run it
           # here to reduce .git's size before saving it to cache.
           sudo -E -H -u musicbrainz git gc
@@ -128,13 +134,14 @@ jobs:
       - run: |
           cd /home/musicbrainz
           if [[ ! -d mmd-schema ]]; then
-            git clone https://github.com/metabrainz/mmd-schema.git
+            sudo -E -H -u musicbrainz git clone https://github.com/metabrainz/mmd-schema.git
             cd mmd-schema
           else
+            chown -R musicbrainz:musicbrainz mmd-schema
             cd mmd-schema
-            git fetch origin
+            sudo -E -H -u musicbrainz git fetch origin
           fi
-          git checkout $MMD_SCHEMA_TAG
+          sudo -E -H -u musicbrainz git checkout $MMD_SCHEMA_TAG
           cd ../musicbrainz-server
       - save_cache:
           key: v1-mmd-schema-{{ .Environment.MMD_SCHEMA_TAG }}
@@ -145,7 +152,9 @@ jobs:
           keys:
             - v2-node-{{ checksum "yarn.lock" }}
             - v2-node-
-      - run: sudo -E -H -u musicbrainz yarn
+      - run: |
+          chown -R musicbrainz:musicbrainz .
+          sudo -E -H -u musicbrainz yarn
       - save_cache:
           key: v2-node-{{ checksum "yarn.lock" }}
           paths:
@@ -156,6 +165,7 @@ jobs:
             - v3-carton-{{ checksum "cpanfile.snapshot" }}
             - v3-carton-
       - run: |
+          chown -R musicbrainz:musicbrainz /home/musicbrainz/{carton-local,vendor}
           sudo -E -H -u musicbrainz carton install --cached --deployment
           sudo -E -H -u musicbrainz carton bundle
       - save_cache:

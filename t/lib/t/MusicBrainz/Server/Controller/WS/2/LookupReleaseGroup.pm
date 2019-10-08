@@ -143,6 +143,7 @@ ws_test 'release group lookup with inc=artists+releases+tags+ratings',
                 <barcode>4988064451180</barcode>
             </release>
         </release-list>
+        <rating votes-count="2">5</rating>
     </release-group>
 </metadata>';
 

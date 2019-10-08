@@ -99,7 +99,12 @@ const linkedEntities/*: LinkedEntities */ = Object.create(Object.seal({
 
   setLinkedEntities(update/*: ?LinkedEntities */) {
     for (const key of Object.keys(linkedEntities)) {
+      // $FlowFixMe
       delete linkedEntities[key];
+      /*
+       * The above line is deleting the own property only, not the one on the
+       * prototype. However, Flow thinks it'll make the object key undefined.
+       */
     }
     if (update) {
       Object.assign(linkedEntities, update);

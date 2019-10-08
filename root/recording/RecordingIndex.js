@@ -35,8 +35,10 @@ type Props = {|
 |};
 
 const RecordingAppearancesTable = ({
+  recording,
   tracks,
 }: {
+  recording: RecordingT,
   tracks: $ElementType<Props, 'tracks'>,
 }) => (
   <table className="tbl">
@@ -45,6 +47,7 @@ const RecordingAppearancesTable = ({
         <th className="t pos">{l('#')}</th>
         <th>{l('Title')}</th>
         <th className="treleases">{l('Length')}</th>
+        <th>{l('Track Artist')}</th>
         <th>{l('Release Title')}</th>
         <th>{l('Release Artist')}</th>
         <th>{l('Date')}</th>
@@ -63,7 +66,7 @@ const RecordingAppearancesTable = ({
         return (
           <React.Fragment key={status ? status.name : 'no-status'}>
             <tr className="subh">
-              <th colSpan="9">
+              <th colSpan="10">
                 {status
                   ? lp_attributes(status.name, 'release_status')
                   : l('(unknown)')
@@ -91,6 +94,14 @@ const RecordingAppearancesTable = ({
                   </td>
                   <td>{isolateText(track.name)}</td>
                   <td>{formatTrackLength(track.length)}</td>
+                  {/* The class being added is for usage with userscripts */}
+                  <td className={
+                    track.artistCredit.id === recording.artistCredit.id
+                      ? null
+                      : 'artist-credit-variation'}
+                  >
+                    <ArtistCreditLink artistCredit={track.artistCredit} />
+                  </td>
                   <td>
                     <EntityLink entity={release} />
                   </td>
@@ -136,7 +147,7 @@ const RecordingIndex = ({
     <h2 className="appears-on-releases">{l('Appears on releases')}</h2>
     <PaginatedResults pager={pager}>
       {tracks && tracks.length > 0 ? (
-        <RecordingAppearancesTable tracks={tracks} />
+        <RecordingAppearancesTable recording={recording} tracks={tracks} />
       ) : (
         <p>{l('No releases found which feature this recording.')}</p>
       )}

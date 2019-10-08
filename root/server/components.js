@@ -42,8 +42,11 @@ module.exports = {
   'area/AreaReleases': require('../area/AreaReleases'),
   'area/AreaUsers': require('../area/AreaUsers'),
   'artist/ArtistEvents': require('../artist/ArtistEvents'),
+  'artist/ArtistIndex': require('../artist/ArtistIndex'),
   'artist/ArtistMerge': require('../artist/ArtistMerge'),
+  'artist/ArtistRecordings': require('../artist/ArtistRecordings'),
   'artist/ArtistRelationships': require('../artist/ArtistRelationships'),
+  'artist/ArtistReleases': require('../artist/ArtistReleases'),
   'artist/ArtistWorks': require('../artist/ArtistWorks'),
   'artist/CannotSplit': require('../artist/CannotSplit'),
   'artist/SpecialPurpose': require('../artist/SpecialPurpose'),
@@ -81,6 +84,7 @@ module.exports = {
   'place/PlaceEvents': require('../place/PlaceEvents'),
   'place/PlaceIndex': require('../place/PlaceIndex'),
   'place/PlacePerformances': require('../place/PlacePerformances'),
+  'recording/RecordingFingerprints': require('../recording/RecordingFingerprints'),
   'recording/RecordingIndex': require('../recording/RecordingIndex'),
   'recording/RecordingMerge': require('../recording/RecordingMerge'),
   'release_group/ReleaseGroupIndex': require('../release_group/ReleaseGroupIndex'),
@@ -209,6 +213,7 @@ module.exports = {
   'url/UrlIndex': require('../url/UrlIndex'),
   'user/PrivilegedUsers': require('../user/PrivilegedUsers'),
   'user/ReportUser': require('../user/ReportUser'),
+  'work/WorkIndex': require('../work/WorkIndex'),
 
   /*
    * XXX Components included via React.embed in our TT templates
@@ -268,7 +273,6 @@ module.exports = {
   'static/scripts/common/components/Annotation': require('../static/scripts/common/components/Annotation'),
   'static/scripts/common/components/ArtistCreditLink': require('../static/scripts/common/components/ArtistCreditLink'),
   'static/scripts/common/components/CritiqueBrainzReview': require('../static/scripts/common/components/CritiqueBrainzReview'),
-  'static/scripts/common/components/FilterIcon': require('../static/scripts/common/components/FilterIcon'),
   'static/scripts/common/components/SearchIcon': require('../static/scripts/common/components/SearchIcon'),
   'static/scripts/common/components/TaggerIcon': require('../static/scripts/common/components/TaggerIcon'),
   'static/scripts/common/components/WarningIcon': require('../static/scripts/common/components/WarningIcon'),
@@ -276,6 +280,8 @@ module.exports = {
   'static/scripts/edit/components/AddIcon': require('../static/scripts/edit/components/AddIcon'),
   'static/scripts/edit/components/GuessCaseIcon': require('../static/scripts/edit/components/GuessCaseIcon'),
   'static/scripts/edit/components/InformationIcon': require('../static/scripts/edit/components/InformationIcon'),
+  'static/scripts/edit/components/edit/RelationshipDiff': require('../static/scripts/edit/components/edit/RelationshipDiff'),
+  'static/scripts/edit/components/edit/ReleaseEventsDiff': require('../static/scripts/edit/components/edit/ReleaseEventsDiff'),
   'url/UrlHeader': require('../url/UrlHeader'),
   'work/WorkHeader': require('../work/WorkHeader'),
 };

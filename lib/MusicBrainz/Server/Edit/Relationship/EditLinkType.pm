@@ -158,14 +158,20 @@ sub build_display_data {
                         } qw( entity0_type entity1_type );
 
                         my $rel = $_->{relationship};
+                        my $entity0 = $class0->new($rel->{entity0});
+                        my $entity1 = $class1->new($rel->{entity1});
                         MusicBrainz::Server::Entity::ExampleRelationship->new(
                             published => $_->{published},
                             name => $_->{name},
                             relationship =>
                                 MusicBrainz::Server::Entity::Relationship->new(
                                     id => $rel->{id},
-                                    entity0 => $class0->new($rel->{entity0}),
-                                    entity1 => $class1->new($rel->{entity1}),
+                                    entity0 => $entity0,
+                                    entity1 => $entity1,
+                                    source => $entity0,
+                                    target => $entity1,
+                                    source_type => $entity0->entity_type,
+                                    target_type => $entity1->entity_type,
                                     verbose_phrase => $rel->{verbose_phrase},
                                     link =>
                                         MusicBrainz::Server::Entity::Link->new(

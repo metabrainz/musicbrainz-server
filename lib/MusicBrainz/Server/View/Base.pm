@@ -4,10 +4,6 @@ use strict;
 use warnings;
 
 use base 'Catalyst::View';
-use Date::Calc qw( Today_and_Now Add_Delta_DHMS Date_to_Time );
-use DBDefs;
-use Digest::MD5 qw( md5_hex );
-use feature 'state';
 use IO::Socket::UNIX;
 use MusicBrainz::Server::Data::Utils qw( boolean_to_json );
 use MusicBrainz::Server::Renderer qw( send_to_renderer );
@@ -53,33 +49,9 @@ sub _post_process {
     $socket->shutdown(2);
     $socket->close;
 
-    return 1 unless DBDefs->USE_ETAGS;
-
-    my $method = $c->request->method;
-    if ($method ne 'GET' and $method ne 'HEAD' or $c->stash->{nocache}) {
-        # disable caching explicitely
-        return 1;
-    }
-
-    my $body = $c->response->body;
-    if ($body) {
-        utf8::encode($body) if utf8::is_utf8($body);
-        $c->response->headers->etag(md5_hex($body));
-
-        # MBS-7061: Prevent network providers/proxies from stripping HTML
-        # comments, which are used heavily by knockout.js.
-        $c->response->headers->push_header('Cache-Control' => 'no-transform');
-
-        if (DBDefs->REPLICATION_TYPE eq DBDefs->RT_SLAVE && !$c->res->headers->expires) {
-            my @today = Today_and_Now(1);
-            my $next_hour = Date_to_Time(
-                Add_Delta_DHMS($today[0], $today[1], $today[2], $today[3], 10, 0, 0, 1, 0, 0)
-            );
-            my $this_hour = Date_to_Time($today[0], $today[1], $today[2], $today[3], 10, 0);
-            $c->res->headers->expires($next_hour);
-            $c->res->headers->last_modified($this_hour);
-        }
-    }
+    # MBS-7061: Prevent network providers/proxies from stripping HTML
+    # comments, which are used heavily by knockout.js.
+    $c->response->headers->push_header('Cache-Control' => 'no-transform');
 
     return 1;
 }

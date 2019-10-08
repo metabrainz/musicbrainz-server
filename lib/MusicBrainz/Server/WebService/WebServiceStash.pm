@@ -13,12 +13,7 @@ sub store
 {
     my ($self, $entity) = @_;
 
-    if (! defined $self->_data->{$entity->meta->{'package'}}->{$entity->id})
-    {
-        $self->_data->{$entity->meta->{'package'}}->{$entity->id} = {};
-    }
-
-    return $self->_data->{$entity->meta->{'package'}}->{$entity->id};
+    return ($self->_data->{$entity->entity_type}{$entity->id} //= {});
 }
 
 __PACKAGE__->meta->make_immutable;

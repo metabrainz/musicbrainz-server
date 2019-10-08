@@ -35,6 +35,7 @@ require("../lib/jquery.ui/ui/jquery-ui.custom");
 
 require("./common/components/Annotation");
 require("./common/components/CommonsImage");
+require("./common/components/FingerprintTable");
 require("./common/components/WikipediaExtract");
 require("./common/i18n");
 require("./common/entity");
@@ -43,7 +44,7 @@ require("./common/components/TagEditor");
 
 import(/* webpackChunkName: "common-artwork-viewer" */ "./common/artworkViewer");
 import(/* webpackChunkName: "common-dialogs" */ "./common/dialogs");
-import(/* webpackChunkName: "common-filter" */ "./common/MB/Control/Filter");
+import(/* webpackChunkName: "common-filter" */ "./common/components/Filter");
 import(/* webpackChunkName: "common-menu" */ "./common/MB/Control/Menu");
 import(/* webpackChunkName: "common-select-all" */ "./common/MB/Control/SelectAll");
 import(/* webpackChunkName: "common-edit-search" */ "./common/MB/edit_search");
