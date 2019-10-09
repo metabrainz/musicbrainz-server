@@ -22,6 +22,7 @@ import {bracketedText} from '../static/scripts/common/utility/bracketed';
 import FormSubmit from '../components/FormSubmit';
 import RecordingList from '../components/list/RecordingList';
 import ReleaseGroupList from '../components/list/ReleaseGroupList';
+import PaginatedResults from '../components/PaginatedResults';
 import * as manifest from '../static/manifest';
 import entityHref from '../static/scripts/common/utility/entityHref';
 
@@ -53,6 +54,7 @@ type Props = {|
   +legalNameArtistAliases: ?$ReadOnlyArray<string>,
   +numberOfRevisions: number,
   +otherIdentities: $ReadOnlyArray<ArtistT>,
+  +pager: PagerT,
   +recordings: ?$ReadOnlyArray<RecordingT>,
   +releaseGroups: ?$ReadOnlyArray<ReleaseGroupT>,
   +showingVariousArtistsOnly: boolean,
@@ -74,6 +76,7 @@ const ArtistIndex = ({
   legalNameArtistAliases,
   numberOfRevisions,
   otherIdentities,
+  pager,
   recordings,
   releaseGroups,
   showingVariousArtistsOnly,
@@ -276,12 +279,14 @@ const ArtistIndex = ({
       {hasReleaseGroups ? (
         <form action="/release_group/merge_queue" method="post">
           {/* TODO: MBS-10155 */}
-          <ReleaseGroupList
-            checkboxes="add-to-merge"
-            groupByType
-            releaseGroups={releaseGroups}
-            showRatings
-          />
+          <PaginatedResults pager={pager}>
+            <ReleaseGroupList
+              checkboxes="add-to-merge"
+              groupByType
+              releaseGroups={releaseGroups}
+              showRatings
+            />
+          </PaginatedResults>
           {$c.user_exists ? (
             <div className="row">
               <FormSubmit label={l('Merge release groups')} />
@@ -291,11 +296,13 @@ const ArtistIndex = ({
       ) : null}
 
       {hasRecordings ? (
-        <RecordingList
-          checkboxes="add-to-merge"
-          recordings={recordings}
-          showRatings
-        />
+        <PaginatedResults pager={pager}>
+          <RecordingList
+            checkboxes="add-to-merge"
+            recordings={recordings}
+            showRatings
+          />
+        </PaginatedResults>
       ) : null}
 
       <p>{message}</p>

@@ -296,6 +296,7 @@ sub show : PathPart('') Chained('load')
             legalNameArtistAliases => $legal_name_artist_aliases,
             numberOfRevisions => $c->stash->{number_of_revisions},
             otherIdentities => \@other_identities,
+            pager => serialize_pager($c->stash->{pager}),
             recordings => $recordings,
             releaseGroups => $release_groups,
             showingVariousArtistsOnly => $showing_va_only,
