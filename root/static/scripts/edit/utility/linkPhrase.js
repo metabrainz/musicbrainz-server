@@ -248,19 +248,19 @@ export function getPhraseAndExtraAttributes<T>(
   /* flow-include if (!attributesByRootName) throw 'impossible'; */
 
   /*
-    * When forGrouping is enabled:
-    *
-    * For ordered relationships (such as those in a series), build
-    * a phrase with attributes removed, so that those relationships
-    * can remain grouped together under the same phrase in our
-    * relationships display, even if their attributes differ.
-    *
-    * Required attributes (where `min` is not null) are kept in the
-    * phrase, however, since they wouldn't be written in a way that'd
-    * make sense without them grammatically. Note, however, that there
-    * are currently no orderable link types with any required
-    * attributes.
-    */
+   * When forGrouping is enabled:
+   *
+   * For ordered relationships (such as those in a series), build
+   * a phrase with attributes removed, so that those relationships
+   * can remain grouped together under the same phrase in our
+   * relationships display, even if their attributes differ.
+   *
+   * Required attributes (where `min` is not null) are kept in the
+   * phrase, however, since they wouldn't be written in a way that'd
+   * make sense without them grammatically. Note, however, that there
+   * are currently no orderable link types with any required
+   * attributes.
+   */
   const shouldStripAttributes =
     forGrouping &&
     linkType.orderable_direction > 0;
