@@ -67,7 +67,13 @@ class PhraseVarArgs<T> extends VarArgs<LinkAttrs, T | string> {
 
   +entity1: T | string;
 
-  +usedAttributes: Array<string>;
+  /*
+   * Contains attributes that appear in the text of the given link
+   * phrase. Later used for calculating "extra" attributes (which
+   * didn't appear in the link phrase, so that we can display them
+   * separately).
+   */
+   +usedAttributes: Array<string>;
 
   constructor(
     args: ?VarArgsObject<LinkAttrs>,
