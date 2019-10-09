@@ -26,8 +26,10 @@ const emptyResult = Object.freeze(['', '']);
 const entity0Subst = /\{entity0\}/;
 const entity1Subst = /\{entity1\}/;
 
+type LinkAttrs = Array<LinkAttrT> | LinkAttrT;
+
 export type CachedLinkPhraseData<T> = {
-  attributeValues: ?{+[attributeName: string]: Array<T> | T, ...},
+  attributeValues: ?{+[attributeName: string]: LinkAttrs, ...},
   phraseAndExtraAttributes: {[phraseKey: string]: [T, T], ...},
 };
 
@@ -58,9 +60,7 @@ function _getResultCache<T>(
   return result;
 }
 
-type AttrValue<T> = Array<T | string> | T | string;
-
-class PhraseVarArgs<T> extends VarArgs<AttrValue<T>> {
+class PhraseVarArgs<T> extends VarArgs<LinkAttrs, T | string> {
   +i18n: LinkPhraseI18n<T | string>;
 
   +entity0: T | string;
@@ -70,7 +70,7 @@ class PhraseVarArgs<T> extends VarArgs<AttrValue<T>> {
   +usedAttributes: Array<string>;
 
   constructor(
-    args: ?VarArgsObject<AttrValue<T>>,
+    args: ?VarArgsObject<LinkAttrs>,
     i18n: LinkPhraseI18n<T | string>,
     entity0: ?T,
     entity1: ?T,
@@ -89,14 +89,16 @@ class PhraseVarArgs<T> extends VarArgs<AttrValue<T>> {
     if (name === 'entity1') {
       return this.entity1;
     }
-    const value = super.get(name);
-    if (value == null) {
+    const attributes = this.data[name];
+    if (attributes == null) {
       return '';
     }
-    if (Array.isArray(value)) {
-      return this.i18n.commaList(value);
+    if (Array.isArray(attributes)) {
+      return this.i18n.commaList(
+        attributes.map(this.i18n.displayLinkAttribute),
+      );
     }
-    return value;
+    return this.i18n.displayLinkAttribute(attributes);
   }
 
   has(name) {
@@ -150,25 +152,26 @@ function _setAttributeValues<T>(
 
   for (let i = 0; i < attributes.length; i++) {
     const attribute = attributes[i];
-    const value = i18n.displayLinkAttribute(attribute);
+    const type = linkedEntities.link_attribute_type[attribute.typeID];
+    const info = linkType.attributes[type.root_id];
+    const rootName = linkedEntities.link_attribute_type[type.root_id].name;
 
-    if (value) {
-      const type = linkedEntities.link_attribute_type[attribute.typeID];
-      const info = linkType.attributes[type.root_id];
-      const rootName = linkedEntities.link_attribute_type[type.root_id].name;
-
-      /*
-       * This may be a historical relationship which uses an attribute
-       * that has since been removed from the link type, but where the
-       * attribute still exists in the link_attribute_type table. In
-       * that case we assume `max` is unbounded just to be safe. (The
-       * only effect this has is passing the values to commaOnlyList
-       * for display.)
-       */
-      if (info && info.max === 1) {
-        values[rootName] = value;
+    /*
+     * This may be a historical relationship which uses an attribute
+     * that has since been removed from the link type, but where the
+     * attribute still exists in the link_attribute_type table. In
+     * that case we assume `max` is unbounded just to be safe. (The
+     * only effect this has is passing the values to commaOnlyList
+     * for display.)
+     */
+    if (info && info.max === 1) {
+      values[rootName] = attribute;
+    } else {
+      const attributesList = values[rootName];
+      if (attributesList) {
+        attributesList.push(attribute);
       } else {
-        (values[rootName] = values[rootName] || []).push(value);
+        values[rootName] = [attribute];
       }
     }
   }
@@ -176,8 +179,8 @@ function _setAttributeValues<T>(
 
 const requiredAttributesCache: {
   __proto__: null,
-  [linkTypeId: number]: {+[attributeName: string]: string},
-  ...
+  [linkTypeId: number]: {+[attributeName: string]: LinkAttrT},
+  ...,
 } = Object.create(null);
 
 function _getRequiredAttributes(linkType: LinkTypeT) {
@@ -190,7 +193,11 @@ function _getRequiredAttributes(linkType: LinkTypeT) {
     if (min) {
       const attribute = linkedEntities.link_attribute_type[Number(typeId)];
       required = required || {};
-      required[attribute.name] = localizeLinkAttributeTypeName(attribute);
+      required[attribute.name] = {
+        type: attribute,
+        typeID: attribute.id,
+        typeName: attribute.name,
+      };
     }
   }
   return (requiredAttributesCache[linkType.id] = required || EMPTY_OBJECT);
@@ -281,9 +288,13 @@ export function getPhraseAndExtraAttributes<T>(
         !varArgs.usedAttributes.includes(key)) {
       const values = attributeValues[key];
       if (Array.isArray(values)) {
-        extraAttributes.push(...values);
+        extraAttributes.push(...values.map(
+          i18n.displayLinkAttribute,
+        ));
       } else {
-        extraAttributes.push(values);
+        extraAttributes.push(
+          i18n.displayLinkAttribute(values),
+        );
       }
     }
   }

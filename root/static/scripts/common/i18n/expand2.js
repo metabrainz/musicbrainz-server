@@ -33,14 +33,14 @@ export function gotMatch(x: mixed): boolean %checks {
 
 export type VarArgsObject<+T> = {+[arg: string]: T, ...};
 
-export class VarArgs<+T> {
+export class VarArgs<+T, +U = T> {
   +data: VarArgsObject<T>;
 
   constructor(data: VarArgsObject<T>) {
     this.data = data;
   }
 
-  get(name: string): T {
+  get(name: string): T | U {
     return this.data[name];
   }
 
