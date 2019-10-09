@@ -29,7 +29,7 @@ const entity1Subst = /\{entity1\}/;
 type LinkAttrs = Array<LinkAttrT> | LinkAttrT;
 
 export type CachedLinkPhraseData<T> = {
-  attributeValues: ?{+[attributeName: string]: LinkAttrs, ...},
+  attributesByRootName: ?{+[attributeName: string]: LinkAttrs, ...},
   phraseAndExtraAttributes: {[phraseKey: string]: [T, T], ...},
 };
 
@@ -52,7 +52,7 @@ function _getResultCache<T>(
   let result = resultCache.get(relationship);
   if (!result) {
     result = {
-      attributeValues: null,
+      attributesByRootName: null,
       phraseAndExtraAttributes: {},
     };
     resultCache.set(relationship, result);
@@ -142,7 +142,7 @@ function _setAttributeValues<T>(
   const attributes = relationship.attributes;
   const values = {};
 
-  cache.attributeValues = values;
+  cache.attributesByRootName = values;
 
   if (!attributes) {
     return;
@@ -229,7 +229,7 @@ export function getPhraseAndExtraAttributes<T>(
     return emptyResult;
   }
 
-  if (!cache.attributeValues) {
+  if (!cache.attributesByRootName) {
     _setAttributeValues<T | string>(
       i18n,
       relationship,
@@ -237,9 +237,9 @@ export function getPhraseAndExtraAttributes<T>(
     );
   }
 
-  const attributeValues = cache.attributeValues;
+  const attributesByRootName = cache.attributesByRootName;
 
-  /* flow-include if (!attributeValues) throw 'impossible'; */
+  /* flow-include if (!attributesByRootName) throw 'impossible'; */
 
   /*
     * When forGrouping is enabled:
@@ -271,7 +271,7 @@ export function getPhraseAndExtraAttributes<T>(
   const varArgs = new PhraseVarArgs(
     shouldStripAttributes
       ? _getRequiredAttributes(linkType)
-      : attributeValues,
+      : attributesByRootName,
     i18n,
     entity0,
     entity1,
@@ -283,10 +283,10 @@ export function getPhraseAndExtraAttributes<T>(
   }
 
   const extraAttributes: Array<T | string> = [];
-  for (const key in attributeValues) {
+  for (const key in attributesByRootName) {
     if (shouldStripAttributes ||
         !varArgs.usedAttributes.includes(key)) {
-      const values = attributeValues[key];
+      const values = attributesByRootName[key];
       if (Array.isArray(values)) {
         extraAttributes.push(...values.map(
           i18n.displayLinkAttribute,
