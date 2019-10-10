@@ -189,7 +189,10 @@ const requiredAttributesCache: {
   ...,
 } = Object.create(null);
 
-function _getRequiredAttributes(linkType: LinkTypeT) {
+function _getRequiredAttributes(
+  linkType: LinkTypeT,
+  attributesByRootName: ?{+[attributeName: string]: LinkAttrs, ...},
+) {
   let required = requiredAttributesCache[linkType.id];
   if (required) {
     return required;
@@ -199,7 +202,9 @@ function _getRequiredAttributes(linkType: LinkTypeT) {
     if (min) {
       const attribute = linkedEntities.link_attribute_type[Number(typeId)];
       required = required || {};
-      required[attribute.name] = {
+      required[attribute.name] = attributesByRootName ? (
+        attributesByRootName[attribute.name]
+      ) : {
         type: attribute,
         typeID: attribute.id,
         typeName: attribute.name,
@@ -274,9 +279,14 @@ export function getPhraseAndExtraAttributes<T>(
     }
   }
 
+  const requiredAttributes = _getRequiredAttributes(
+    linkType,
+    attributesByRootName,
+  );
+
   const varArgs = new PhraseVarArgs(
     shouldStripAttributes
-      ? _getRequiredAttributes(linkType)
+      ? requiredAttributes
       : attributesByRootName,
     i18n,
     entity0,
@@ -290,8 +300,10 @@ export function getPhraseAndExtraAttributes<T>(
 
   const extraAttributes: Array<T | string> = [];
   for (const key in attributesByRootName) {
-    if (shouldStripAttributes ||
-        !varArgs.usedPhraseAttributes.includes(key)) {
+    if (
+      (shouldStripAttributes && requiredAttributes[key] == null) ||
+      !varArgs.usedPhraseAttributes.includes(key)
+    ) {
       const values = attributesByRootName[key];
       if (Array.isArray(values)) {
         extraAttributes.push(...values.map(
@@ -373,7 +385,7 @@ export const getExtraAttributesText = (
 
 export const stripAttributes = (linkType: LinkTypeT, phrase: string) => {
   return clean(textI18n.expand(phrase, new PhraseVarArgs(
-    _getRequiredAttributes(linkType),
+    _getRequiredAttributes(linkType, null),
     textI18n,
     null,
     null,

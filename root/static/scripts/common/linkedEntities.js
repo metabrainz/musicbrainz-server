@@ -15,22 +15,23 @@
 /*::
 type LinkedEntities = {
   artist_type: {
-    +[number]: ArtistTypeT,
+    [number]: ArtistTypeT,
   },
   language: {
-    +[number]: LanguageT,
+    [number]: LanguageT,
   },
   link_attribute_type: {
-    +[number]: LinkAttrTypeT,
+    [number]: LinkAttrTypeT,
   },
   link_type: {
-    +[number]: LinkTypeT,
+    [number]: LinkTypeT,
   },
   link_type_tree: {
-    +[string]: $ReadOnlyArray<LinkTypeT>,
+    [string]: $ReadOnlyArray<LinkTypeT>,
   },
+  mergeLinkedEntities: (update: ?$Shape<LinkedEntities>) => void,
   release: {
-    +[number]: ReleaseT,
+    [number]: ReleaseT,
   },
   release_group_primary_type: {
     [number]: ReleaseGroupTypeT,
@@ -39,28 +40,28 @@ type LinkedEntities = {
     [number]: ReleaseGroupSecondaryTypeT,
   },
   release_packaging: {
-    +[number]: ReleasePackagingT,
+    [number]: ReleasePackagingT,
   },
   release_status: {
-    +[number]: ReleaseStatusT,
+    [number]: ReleaseStatusT,
   },
   script: {
-    +[number]: ScriptT,
+    [number]: ScriptT,
   },
   series: {
-    +[number]: SeriesT,
+    [number]: SeriesT,
   },
   series_ordering_type: {
-    +[number]: SeriesOrderingTypeT,
+    [number]: SeriesOrderingTypeT,
   },
   series_type: {
-    +[number]: SeriesTypeT,
+    [number]: SeriesTypeT,
   },
   work: {
-    +[number]: WorkT,
+    [number]: WorkT,
   },
   work_attribute_type: {
-    +[number]: WorkAttributeTypeT,
+    [number]: WorkAttributeTypeT,
   },
   ...
 };
@@ -86,7 +87,7 @@ const linkedEntities/*: LinkedEntities */ = Object.create(Object.seal({
   work:                           EMPTY_OBJECT,
   work_attribute_type:            EMPTY_OBJECT,
 
-  mergeLinkedEntities(update/*: ?LinkedEntities */) {
+  mergeLinkedEntities(update/*: ?$Shape<LinkedEntities> */) {
     if (update) {
       for (const [type, entities] of Object.entries(update)) {
         if (Object.prototype.hasOwnProperty.call(linkedEntities, type)) {
