@@ -4,7 +4,7 @@ use MooseX::ABC;
 
 use MooseX::Types::Moose qw( Bool Int Str );
 use MooseX::Types::Structured qw( Dict Optional );
-use MusicBrainz::Server::Data::Utils qw( partial_date_to_hash );
+use MusicBrainz::Server::Data::Utils qw( partial_date_to_hash boolean_to_json );
 use MusicBrainz::Server::Edit::Types qw( Nullable PartialDateHash );
 
 extends 'MusicBrainz::Server::Edit';
@@ -43,7 +43,7 @@ sub build_display_data
         type => $self->_alias_model->parent->alias_type->get_by_id($self->data->{type_id}),
         begin_date => PartialDate->new($self->data->{begin_date}),
         end_date => PartialDate->new($self->data->{end_date}),
-        primary_for_locale => $self->data->{primary_for_locale}
+        primary_for_locale => boolean_to_json($self->data->{primary_for_locale})
     };
 }
 
@@ -87,7 +87,7 @@ sub initialize
     });
 }
 
-sub edit_template { "add_remove_alias" };
+sub edit_template_react { "AddRemoveAlias" };
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

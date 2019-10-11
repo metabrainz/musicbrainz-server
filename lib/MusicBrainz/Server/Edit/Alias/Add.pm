@@ -2,7 +2,7 @@ package MusicBrainz::Server::Edit::Alias::Add;
 use MooseX::Role::Parameterized;
 use MooseX::Types::Moose qw( Bool Int Str );
 use MooseX::Types::Structured qw( Dict Optional );
-use MusicBrainz::Server::Data::Utils qw( model_to_type non_empty );
+use MusicBrainz::Server::Data::Utils qw( model_to_type non_empty boolean_to_json );
 use MusicBrainz::Server::Edit::Types qw( Nullable PartialDateHash );
 use aliased 'MusicBrainz::Server::Entity::PartialDate';
 
@@ -141,8 +141,8 @@ role {
             type                => $self->_alias_model->parent->alias_type->get_by_id($self->data->{type_id}),
             begin_date          => PartialDate->new($self->data->{begin_date}),
             end_date            => PartialDate->new($self->data->{end_date}),
-            primary_for_locale  => $self->data->{primary_for_locale},
-            ended               => $self->data->{ended} // 0,
+            primary_for_locale  => boolean_to_json($self->data->{primary_for_locale}),
+            ended               => boolean_to_json($self->data->{ended}),
             entity_type         => $entity_type,
             $entity_type        => $loaded->{$model}->{$self->$entity_id} //
                                     $self->c->model($model)->_entity_class->new(name => $self->data->{entity}{name}),
@@ -150,6 +150,6 @@ role {
     };
 };
 
-sub edit_template { "add_remove_alias" };
+sub edit_template_react { "AddRemoveAlias" };
 
 1;

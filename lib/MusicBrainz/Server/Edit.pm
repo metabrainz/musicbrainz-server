@@ -330,6 +330,7 @@ sub TO_JSON {
         created_time => datetime_to_iso8601($self->created_time),
         display_data => $self->display_data,
         data => $self->data,
+        edit_kind => $self->edit_kind,
         edit_type => $self->edit_type + 0,
         editor_id => $self->editor_id + 0,
         expires_time => datetime_to_iso8601($self->expires_time),
