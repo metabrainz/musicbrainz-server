@@ -83,9 +83,10 @@ role {
         my $model = $self->_annotation_model;
         my $latest_annotation = $model->get_latest($self->data->{entity}{id});
 
-        if ($latest_annotation && $latest_annotation->{creation_date} > $self->{created_time} ) {
-            MusicBrainz::Server::Edit::Exceptions::FailedDependency
-            ->throw('The annotation has changed since this edit was entered.');
+        if ($latest_annotation && $latest_annotation->creation_date > $self->created_time) {
+            MusicBrainz::Server::Edit::Exceptions::FailedDependency->throw(
+                'The annotation has changed since this edit was entered.'
+            );
         }
 
         my $id = $model->edit({
