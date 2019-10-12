@@ -520,10 +520,29 @@ sub schema_fixup
                 name => delete $data->{status}
             )
         }
-        if ($data->{packaging}) {
-            $data->{packaging} = MusicBrainz::Server::Entity::ReleasePackaging->new(
-                name => delete $data->{packaging}
-            )
+
+        my $packaging = delete $data->{packaging};
+        my $packaging_id = delete $data->{'packaging-id'};
+
+        if ($packaging) {
+            if (ref($packaging) eq 'HASH') {
+                # MB Solr search server v3.1
+                $data->{packaging} = MusicBrainz::Server::Entity::ReleasePackaging->new(
+                    name => $packaging->{name},
+                    gid => $packaging->{id}
+                )
+            } elsif ($packaging_id) {
+                # MB Solr search server v3.2? (SOLR-121)
+                $data->{packaging} = MusicBrainz::Server::Entity::ReleasePackaging->new(
+                    name => $packaging,
+                    gid => $packaging_id
+                )
+            } else {
+                # MB Lucene search server
+                $data->{packaging} = MusicBrainz::Server::Entity::ReleasePackaging->new(
+                    name => $packaging
+                )
+            }
         }
     }
     if ($type eq 'release-group') {
