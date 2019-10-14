@@ -21,7 +21,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-10-07 20:08-0500\n"
+"POT-Creation-Date: 2019-10-14 23:12+0200\n"
 "PO-Revision-Date: 2019-10-08 01:15+0000\n"
 "Last-Translator: Michael Wiencek <email address hidden>\n"
 "Language-Team: German (http://www.transifex.com/musicbrainz/musicbrainz/language/de/)\n"
@@ -2186,10 +2186,6 @@ msgstr "Anzahl aller Serien"
 #: ../root/statistics/stats.js:624
 msgid "Count of all Tags"
 msgstr "Anzahl aller Tags"
-
-#: ../root/statistics/stats.js:625
-msgid "Tags"
-msgstr "Tags"
 
 #: ../root/statistics/stats.js:630
 msgid "Count of all Tags (raw)"

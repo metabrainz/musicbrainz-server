@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-10-07 20:08-0500\n"
+"POT-Creation-Date: 2019-10-14 23:12+0200\n"
 "PO-Revision-Date: 2019-10-08 01:15+0000\n"
 "Last-Translator: Michael Wiencek <email address hidden>\n"
 "Language-Team: Japanese (http://www.transifex.com/musicbrainz/musicbrainz/language/ja/)\n"
@@ -2173,10 +2173,6 @@ msgstr ""
 #: ../root/statistics/stats.js:624
 msgid "Count of all Tags"
 msgstr ""
-
-#: ../root/statistics/stats.js:625
-msgid "Tags"
-msgstr "タグ"
 
 #: ../root/statistics/stats.js:630
 msgid "Count of all Tags (raw)"

@@ -32,9 +32,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-10-07 20:08-0500\n"
-"PO-Revision-Date: 2019-10-08 01:15+0000\n"
-"Last-Translator: Michael Wiencek <email address hidden>\n"
+"POT-Creation-Date: 2019-10-14 23:12+0200\n"
+"PO-Revision-Date: 2019-10-14 21:16+0000\n"
+"Last-Translator: yvanz\n"
 "Language-Team: Japanese (http://www.transifex.com/musicbrainz/musicbrainz/language/ja/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -74,15 +74,15 @@ msgstr "「XXX」は登録した組織の一意な3文字の英数字コード�
 msgid "\"YY\" is the last two digits of the year of registration."
 msgstr "「YY」は登録された年の最後の2桁です。"
 
-#: ../root/cdstub/cdstub.tt:4 ../root/components/medium.tt:72
+#: ../root/cdstub/cdstub.tt:4 ../root/components/medium.tt:78
 #: ../root/edit/details/add_medium.tt:49
 #: ../root/edit/details/edit_medium.tt:52
 #: ../root/edit/details/edit_medium.tt:56
 #: ../root/edit/details/edit_medium.tt:182
 #: ../root/edit/details/edit_medium.tt:221
 #: ../root/edit/details/historic/add_release.tt:49
-#: ../root/release/edit/tracklist.tt:148 ../root/release/edit/tracklist.tt:361
 #: ../root/release/edit_relationships.tt:48
+#: ../root/release/edit/tracklist.tt:148 ../root/release/edit/tracklist.tt:361
 #: ../root/components/list/EventList.js:64
 #: ../root/components/list/RecordingList.js:60
 #: ../root/components/list/ReleaseGroupList.js:71
@@ -835,7 +835,7 @@ msgstr "地域\t"
 #: ../root/cdstub/browse.tt:9 ../root/cdstub/cdstub.tt:7
 #: ../root/cdtoc/attach_filter_release.tt:29 ../root/cdtoc/list.tt:6
 #: ../root/cdtoc/lookup.tt:39 ../root/components/common-macros.tt:572
-#: ../root/components/medium.tt:75 ../root/components/results-generic.tt:6
+#: ../root/components/medium.tt:81 ../root/components/results-generic.tt:6
 #: ../root/edit/details/add_medium.tt:50
 #: ../root/edit/details/edit_medium.tt:54
 #: ../root/edit/details/edit_medium.tt:58
@@ -844,7 +844,7 @@ msgstr "地域\t"
 #: ../root/edit/details/merge_releases.tt:19 ../root/edit/search_macros.tt:365
 #: ../root/otherlookup/results-release.tt:11
 #: ../root/release/edit/tracklist.tt:150 ../root/release/edit/tracklist.tt:363
-#: ../root/release/merge.tt:14 ../root/release_group/merge.tt:13
+#: ../root/release_group/merge.tt:13 ../root/release/merge.tt:14
 #: ../root/watch/list.tt:14 ../lib/MusicBrainz/Server/Edit/Artist.pm:7
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:35
 #: ../root/artist/ArtistHeader.js:29
@@ -934,7 +934,7 @@ msgstr "アーティストクレジット:"
 msgid "Artist name:"
 msgstr "アーティスト名:"
 
-#: ../root/user/ratings.tt:2 ../root/user/ratings_summary.tt:3
+#: ../root/user/ratings_summary.tt:3 ../root/user/ratings.tt:2
 msgid "Artist ratings"
 msgstr "アーティストの評価"
 
@@ -945,13 +945,13 @@ msgstr "アーティスト {n}:"
 #: ../root/cdstub/edit_form.tt:6 ../root/cdstub/import.tt:7
 #: ../root/cdtoc/attach_filter_artist.tt:8 ../root/cdtoc/lookup.tt:61
 #: ../root/components/common-macros.tt:555
-#: ../root/edit/details/add_release.tt:15
 #: ../root/edit/details/add_release_group.tt:15
+#: ../root/edit/details/add_release.tt:15
 #: ../root/edit/details/add_standalone_recording.tt:15
 #: ../root/edit/details/edit_artist.tt:5
 #: ../root/edit/details/edit_recording.tt:32
-#: ../root/edit/details/edit_release.tt:15
 #: ../root/edit/details/edit_release_group.tt:30
+#: ../root/edit/details/edit_release.tt:15
 #: ../root/edit/details/historic/add_release.tt:19
 #: ../root/edit/details/historic/add_track_kv.tt:20
 #: ../root/edit/details/historic/change_artist_quality.tt:3
@@ -1072,8 +1072,8 @@ msgstr "バーコード"
 #: ../root/cdstub/edit_form.tt:7 ../root/edit/details/add_release.tt:67
 #: ../root/edit/details/edit_barcodes.tt:17
 #: ../root/edit/details/edit_barcodes.tt:21
-#: ../root/edit/details/edit_release.tt:53
-#: ../root/edit/details/edit_release_label.tt:56 ../root/otherlookup/form.tt:3
+#: ../root/edit/details/edit_release_label.tt:56
+#: ../root/edit/details/edit_release.tt:53 ../root/otherlookup/form.tt:3
 #: ../root/release/edit/information.tt:216
 #: ../root/layout/components/MetaDescription.js:136
 #: ../root/layout/components/sidebar/CDStubSidebar.js:67
@@ -1255,8 +1255,8 @@ msgstr "承認できる"
 #: ../root/event/merge.tt:56 ../root/instrument/merge.tt:36
 #: ../root/label/merge.tt:49 ../root/layout/merge-helper.tt:34
 #: ../root/place/merge.tt:48 ../root/release/edit/layout.tt:67
-#: ../root/release/edit/tracklist.tt:104 ../root/release/merge.tt:130
-#: ../root/release_group/merge.tt:41 ../root/series/merge.tt:37
+#: ../root/release/edit/tracklist.tt:104 ../root/release_group/merge.tt:41
+#: ../root/release/merge.tt:130 ../root/series/merge.tt:37
 #: ../root/work/merge.tt:73 ../root/artist/ArtistMerge.js:80
 #: ../root/components/ConfirmLayout.js:39
 #: ../root/layout/components/MergeHelper.js:40
@@ -1599,7 +1599,7 @@ msgstr "DD"
 msgid "Data Quality"
 msgstr "データ品質"
 
-#: ../root/components/medium.tt:89 ../root/medium/tracklist.tt:35
+#: ../root/components/medium.tt:95 ../root/medium/tracklist.tt:35
 #: ../root/release/edit/tracklist.tt:376
 msgid "Data Tracks"
 msgstr "データトラック"
@@ -1729,8 +1729,8 @@ msgstr "データベースの直接検索"
 #: ../root/area/edit_form.tt:10 ../root/artist/edit_form.tt:14
 #: ../root/edit/details/add_instrument.tt:16
 #: ../root/edit/details/add_label.tt:23 ../root/edit/details/add_place.tt:16
-#: ../root/edit/details/add_release.tt:32
 #: ../root/edit/details/add_release_group.tt:21
+#: ../root/edit/details/add_release.tt:32
 #: ../root/edit/details/add_series.tt:16
 #: ../root/edit/details/add_standalone_recording.tt:21
 #: ../root/edit/details/add_work.tt:16 ../root/edit/details/edit_area.tt:21
@@ -1739,8 +1739,8 @@ msgstr "データベースの直接検索"
 #: ../root/edit/details/edit_instrument.tt:14
 #: ../root/edit/details/edit_label.tt:19 ../root/edit/details/edit_place.tt:14
 #: ../root/edit/details/edit_recording.tt:17
-#: ../root/edit/details/edit_release.tt:25
 #: ../root/edit/details/edit_release_group.tt:15
+#: ../root/edit/details/edit_release.tt:25
 #: ../root/edit/details/edit_series.tt:14 ../root/edit/details/edit_work.tt:15
 #: ../root/event/edit_form.tt:13 ../root/instrument/edit_form.tt:10
 #: ../root/label/edit_form.tt:13 ../root/place/edit_form.tt:13
@@ -1899,8 +1899,8 @@ msgstr "関係タイプを編集"
 msgid "Edit Relationships: {release}"
 msgstr "{release}の関係を編集"
 
-#: ../root/doc/edit_type.tt:18 ../root/doc/edit_types.tt:1
-#: ../root/doc/edit_types.tt:3 ../root/edit/components/EditSidebar.js:91
+#: ../root/doc/edit_types.tt:1 ../root/doc/edit_types.tt:3
+#: ../root/doc/edit_type.tt:18 ../root/edit/components/EditSidebar.js:91
 #: ../root/layout/components/BottomMenu.js:281
 msgid "Edit Types"
 msgstr "タイプを編集"
@@ -2176,7 +2176,7 @@ msgstr "イベントのコレクション"
 msgid "Event Details"
 msgstr "イベントの詳細"
 
-#: ../root/user/ratings.tt:2 ../root/user/ratings_summary.tt:3
+#: ../root/user/ratings_summary.tt:3 ../root/user/ratings.tt:2
 msgid "Event ratings"
 msgstr "イベントの評価"
 
@@ -2919,7 +2919,7 @@ msgstr "購読中のレーベル"
 msgid "Label code:"
 msgstr "レーベルコード:"
 
-#: ../root/user/ratings.tt:2 ../root/user/ratings_summary.tt:3
+#: ../root/user/ratings_summary.tt:3 ../root/user/ratings.tt:2
 msgid "Label ratings"
 msgstr "レーベルの評価"
 
@@ -2984,7 +2984,7 @@ msgid "Last replication packet received at {datetime}"
 msgstr ""
 
 #: ../root/cdstub/cdstub.tt:9 ../root/cdtoc/info.tt:33
-#: ../root/components/medium.tt:78 ../root/edit/details/edit_medium.tt:55
+#: ../root/components/medium.tt:84 ../root/edit/details/edit_medium.tt:55
 #: ../root/edit/details/edit_medium.tt:59
 #: ../root/edit/details/historic/add_release.tt:52
 #: ../root/release/discids.tt:10 ../root/release/edit/tracklist.tt:151
@@ -3420,8 +3420,8 @@ msgstr "名前"
 #: ../root/edit/details/add_place.tt:10
 #: ../root/edit/details/add_relationship_attribute.tt:3
 #: ../root/edit/details/add_relationship_type.tt:3
-#: ../root/edit/details/add_release.tt:10
 #: ../root/edit/details/add_release_group.tt:10
+#: ../root/edit/details/add_release.tt:10
 #: ../root/edit/details/add_series.tt:10
 #: ../root/edit/details/add_standalone_recording.tt:10
 #: ../root/edit/details/add_work.tt:10 ../root/edit/details/edit_area.tt:11
@@ -3432,8 +3432,8 @@ msgstr "名前"
 #: ../root/edit/details/edit_recording.tt:12
 #: ../root/edit/details/edit_relationship_attribute.tt:4
 #: ../root/edit/details/edit_relationship_type.tt:11
-#: ../root/edit/details/edit_release.tt:9
 #: ../root/edit/details/edit_release_group.tt:11
+#: ../root/edit/details/edit_release.tt:9
 #: ../root/edit/details/edit_series.tt:9 ../root/edit/details/edit_work.tt:11
 #: ../root/edit/details/historic/add_release.tt:14
 #: ../root/edit/details/historic/add_track_kv.tt:14
@@ -4131,7 +4131,7 @@ msgid "Rate: {rating} star"
 msgid_plural "Rate: {rating} stars"
 msgstr[0] "評価: {rating}つ星"
 
-#: ../root/components/medium.tt:77 ../root/components/list/ArtistList.js:86
+#: ../root/components/medium.tt:83 ../root/components/list/ArtistList.js:86
 #: ../root/components/list/EventList.js:104
 #: ../root/components/list/LabelList.js:113
 #: ../root/components/list/RecordingList.js:84
@@ -4191,7 +4191,11 @@ msgstr "レコーディング詳細"
 msgid "Recording Merges"
 msgstr ""
 
-#: ../root/user/ratings.tt:2 ../root/user/ratings_summary.tt:3
+#: ../root/components/medium.tt:54
+msgid "Recording artist:"
+msgstr ""
+
+#: ../root/user/ratings_summary.tt:3 ../root/user/ratings.tt:2
 msgid "Recording ratings"
 msgstr "レコーディングの評価"
 
@@ -4393,8 +4397,8 @@ msgid "Release Group Relationships"
 msgstr "リリースグループの関連"
 
 #: ../root/edit/details/add_release_group.tt:3
-#: ../root/edit/details/edit_release.tt:21
 #: ../root/edit/details/edit_release_group.tt:5
+#: ../root/edit/details/edit_release.tt:21
 #: ../root/release/edit/information.tt:33
 msgid "Release Group:"
 msgstr "リリースグループ:"
@@ -4436,7 +4440,7 @@ msgstr "リリースイベント"
 msgid "Release events:"
 msgstr "リリースイベント:"
 
-#: ../root/user/ratings.tt:2 ../root/user/ratings_summary.tt:3
+#: ../root/user/ratings_summary.tt:3 ../root/user/ratings.tt:2
 msgid "Release group ratings"
 msgstr "リリースグループ評価"
 
@@ -4468,13 +4472,14 @@ msgstr "{artist}のリリース「{name}」"
 
 #: ../root/cdtoc/lookup.tt:71 ../root/components/common-macros.tt:555
 #: ../root/edit/details/add_cover_art.tt:5
-#: ../root/edit/details/add_medium.tt:5 ../root/edit/details/add_release.tt:3
+#: ../root/edit/details/add_medium.tt:5
 #: ../root/edit/details/add_release_label.tt:4
+#: ../root/edit/details/add_release.tt:3
 #: ../root/edit/details/change_release_data_quality.tt:3
 #: ../root/edit/details/edit_barcodes.tt:12
 #: ../root/edit/details/edit_cover_art.tt:5
-#: ../root/edit/details/edit_release.tt:5
 #: ../root/edit/details/edit_release_label.tt:5
+#: ../root/edit/details/edit_release.tt:5
 #: ../root/edit/details/historic/move_release_to_rg.tt:3
 #: ../root/edit/details/remove_cover_art.tt:5
 #: ../root/edit/details/remove_release_label.tt:3
@@ -4510,8 +4515,8 @@ msgstr "リリース"
 #: ../root/edit/details/historic/mac_to_sac.tt:3
 #: ../root/edit/details/historic/move_release.tt:3
 #: ../root/edit/details/historic/remove_disc_id.tt:3
-#: ../root/edit/details/historic/remove_release.tt:2
 #: ../root/edit/details/historic/remove_releases.tt:3
+#: ../root/edit/details/historic/remove_release.tt:2
 #: ../root/edit/details/historic/remove_track.tt:3
 msgid "Releases:"
 msgstr "リリース:"
@@ -4778,8 +4783,8 @@ msgstr "アーティストで検索"
 msgid "Search by release"
 msgstr "リリースで検索"
 
-#: ../root/edit/search.tt:2 ../root/edit/search.tt:4
 #: ../root/edit/search_results.tt:3 ../root/edit/search_results.tt:5
+#: ../root/edit/search.tt:2 ../root/edit/search.tt:4
 msgid "Search for Edits"
 msgstr "編集を検索"
 
@@ -5754,7 +5759,7 @@ msgid "Time:"
 msgstr ""
 
 #: ../root/cdstub/browse.tt:8 ../root/cdstub/cdstub.tt:5
-#: ../root/cdtoc/list.tt:5 ../root/components/medium.tt:73
+#: ../root/cdtoc/list.tt:5 ../root/components/medium.tt:79
 #: ../root/edit/details/edit_medium.tt:53
 #: ../root/edit/details/edit_medium.tt:57
 #: ../root/release/edit/tracklist.tt:149 ../root/release/edit/tracklist.tt:362
@@ -6402,7 +6407,7 @@ msgstr "作品の詳細"
 msgid "Work Type:"
 msgstr "作品タイプ:"
 
-#: ../root/user/ratings.tt:2 ../root/user/ratings_summary.tt:3
+#: ../root/user/ratings_summary.tt:3 ../root/user/ratings.tt:2
 msgid "Work ratings"
 msgstr "作品の評価"
 
@@ -7122,7 +7127,7 @@ msgstr ""
 msgid "track"
 msgstr "トラック"
 
-#: ../root/components/medium.tt:112
+#: ../root/components/medium.tt:118
 msgid "track {tracks}"
 msgid_plural "tracks {tracks}"
 msgstr[0] "トラック {tracks}"
@@ -7553,11 +7558,11 @@ msgid ""
 "Banner updated. Remember that each server has its own, independent banner."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/Artist.pm:615
+#: ../lib/MusicBrainz/Server/Controller/Artist.pm:616
 msgid "You cannot merge a special purpose artist into another artist"
 msgstr "特殊目的のアーティストを他のアーティストとマージ出来ません。"
 
-#: ../lib/MusicBrainz/Server/Controller/Artist.pm:620
+#: ../lib/MusicBrainz/Server/Controller/Artist.pm:621
 msgid "You cannot merge into Deleted Artist"
 msgstr "削除されたアーティストにマージできません。"
 
@@ -8245,7 +8250,7 @@ msgid "Edit release group alias"
 msgstr "リリースグループの別名を編集"
 
 #: ../lib/MusicBrainz/Server/Edit/ReleaseGroup/Merge.pm:13
-#: ../root/artist/ArtistIndex.js:287
+#: ../root/artist/ArtistIndex.js:292
 msgid "Merge release groups"
 msgstr "リリースグループのマージ"
 
@@ -9375,106 +9380,106 @@ msgstr ""
 msgid "This artist is not currently associated with any events."
 msgstr "このアーティストは現在、どのイベントにも関連付けられていません。"
 
-#: ../root/artist/ArtistIndex.js:91
+#: ../root/artist/ArtistIndex.js:94
 msgid "This artist has no release groups, only standalone recordings."
 msgstr ""
 
-#: ../root/artist/ArtistIndex.js:94
+#: ../root/artist/ArtistIndex.js:97
 msgid "No release groups found that match this search."
 msgstr ""
 
-#: ../root/artist/ArtistIndex.js:99
+#: ../root/artist/ArtistIndex.js:102
 msgid ""
 "Showing official release groups by this artist. {show_all|Show all release "
 "groups instead}, or {show_va|show various artists release groups}."
 msgstr ""
 
-#: ../root/artist/ArtistIndex.js:108 ../root/artist/ArtistIndex.js:154
+#: ../root/artist/ArtistIndex.js:111 ../root/artist/ArtistIndex.js:157
 msgid "This artist does not have any release groups or standalone recordings."
 msgstr ""
 
-#: ../root/artist/ArtistIndex.js:114
+#: ../root/artist/ArtistIndex.js:117
 msgid "This artist only has unofficial release groups."
 msgstr ""
 
-#: ../root/artist/ArtistIndex.js:117
+#: ../root/artist/ArtistIndex.js:120
 msgid ""
 "Showing all release groups by this artist. {show_va|Show various artists "
 "release groups instead}."
 msgstr ""
 
-#: ../root/artist/ArtistIndex.js:126 ../root/artist/ArtistIndex.js:159
+#: ../root/artist/ArtistIndex.js:129 ../root/artist/ArtistIndex.js:162
 msgid "This artist only has release groups by various artists."
 msgstr "このアーティストは、さまざまなアーティストによるリリースグループのみがあります。"
 
-#: ../root/artist/ArtistIndex.js:129
+#: ../root/artist/ArtistIndex.js:132
 msgid ""
 "Showing official release groups for various artists. {show_all|Show all "
 "various artists release groups instead}."
 msgstr ""
 
-#: ../root/artist/ArtistIndex.js:137 ../root/artist/ArtistIndex.js:190
+#: ../root/artist/ArtistIndex.js:140 ../root/artist/ArtistIndex.js:193
 msgid "This artist only has unofficial release groups by various artists."
 msgstr "このアーティストは、さまざまなアーティストによる非公式のリリースグループのみがあります。"
 
-#: ../root/artist/ArtistIndex.js:139
+#: ../root/artist/ArtistIndex.js:142
 msgid "Showing all release groups for various artists."
 msgstr ""
 
-#: ../root/artist/ArtistIndex.js:145
+#: ../root/artist/ArtistIndex.js:148
 msgid ""
 "Showing all release groups by this artist. {show_official|Show only official"
 " release groups instead}, or {show_va|show various artists release groups}."
 msgstr ""
 
-#: ../root/artist/ArtistIndex.js:162
+#: ../root/artist/ArtistIndex.js:165
 msgid ""
 "Showing all release groups for various artists. {show_official|Show only "
 "official various artists release groups instead}."
 msgstr ""
 
-#: ../root/artist/ArtistIndex.js:173
+#: ../root/artist/ArtistIndex.js:176
 msgid ""
 "Showing official release groups for various artists. {show_all|Show all "
 "various artists release groups instead}, or {show_non_va|show release groups"
 " by this artist}."
 msgstr ""
 
-#: ../root/artist/ArtistIndex.js:183 ../root/artist/ArtistIndex.js:215
+#: ../root/artist/ArtistIndex.js:186 ../root/artist/ArtistIndex.js:218
 msgid ""
 "This artist does not have any various artists release groups. "
 "{show_non_va|Show release groups by this artist instead}."
 msgstr ""
 
-#: ../root/artist/ArtistIndex.js:194
+#: ../root/artist/ArtistIndex.js:197
 msgid ""
 "Showing all release groups for various artists. {show_non_va|Show release "
 "groups by this artist instead}."
 msgstr ""
 
-#: ../root/artist/ArtistIndex.js:204
+#: ../root/artist/ArtistIndex.js:207
 msgid ""
 "Showing all release groups for various artists. {show_official|Show only "
 "official various artists release groups instead}, or {show_non_va|show "
 "release groups by this artist}."
 msgstr ""
 
-#: ../root/artist/ArtistIndex.js:226 ../root/components/CleanupBanner.js:14
+#: ../root/artist/ArtistIndex.js:229 ../root/components/CleanupBanner.js:14
 msgid ""
 "This artist has no relationships, recordings, releases or release groups, "
 "and will be removed automatically in the next few days. If this is not "
 "intended, please add more data to this artist."
 msgstr "このアーティストは関係、レコーディング、リリース、リリースグループのいずれも持たないため、数日のうちに自動的に削除されます。止めるためには、このアーティストに関するデータをさらに追加してください。"
 
-#: ../root/artist/ArtistIndex.js:241 ../root/artist/ArtistIndex.js:249
+#: ../root/artist/ArtistIndex.js:244 ../root/artist/ArtistIndex.js:252
 msgid "Legal name"
 msgstr "正式名称"
 
-#: ../root/artist/ArtistIndex.js:255
+#: ../root/artist/ArtistIndex.js:258
 msgid "Also performs as"
 msgstr "他の活動名"
 
-#: ../root/artist/ArtistIndex.js:269
+#: ../root/artist/ArtistIndex.js:272
 msgid "Discography"
 msgstr "ディスコグラフィー"
 

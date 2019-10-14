@@ -26,9 +26,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-10-07 20:08-0500\n"
-"PO-Revision-Date: 2019-10-08 23:56+0000\n"
-"Last-Translator: Luca Salini <email address hidden>\n"
+"POT-Creation-Date: 2019-10-14 23:12+0200\n"
+"PO-Revision-Date: 2019-10-14 21:16+0000\n"
+"Last-Translator: yvanz\n"
 "Language-Team: Italian (http://www.transifex.com/musicbrainz/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -68,15 +68,15 @@ msgstr "\"XXX\" è un codice alfanumerico di tre caratteri che identifica in mod
 msgid "\"YY\" is the last two digits of the year of registration."
 msgstr "\"AA\" sono le ultime due cifre dell'anno di registrazione."
 
-#: ../root/cdstub/cdstub.tt:4 ../root/components/medium.tt:72
+#: ../root/cdstub/cdstub.tt:4 ../root/components/medium.tt:78
 #: ../root/edit/details/add_medium.tt:49
 #: ../root/edit/details/edit_medium.tt:52
 #: ../root/edit/details/edit_medium.tt:56
 #: ../root/edit/details/edit_medium.tt:182
 #: ../root/edit/details/edit_medium.tt:221
 #: ../root/edit/details/historic/add_release.tt:49
-#: ../root/release/edit/tracklist.tt:148 ../root/release/edit/tracklist.tt:361
 #: ../root/release/edit_relationships.tt:48
+#: ../root/release/edit/tracklist.tt:148 ../root/release/edit/tracklist.tt:361
 #: ../root/components/list/EventList.js:64
 #: ../root/components/list/RecordingList.js:60
 #: ../root/components/list/ReleaseGroupList.js:71
@@ -830,7 +830,7 @@ msgstr "Aree"
 #: ../root/cdstub/browse.tt:9 ../root/cdstub/cdstub.tt:7
 #: ../root/cdtoc/attach_filter_release.tt:29 ../root/cdtoc/list.tt:6
 #: ../root/cdtoc/lookup.tt:39 ../root/components/common-macros.tt:572
-#: ../root/components/medium.tt:75 ../root/components/results-generic.tt:6
+#: ../root/components/medium.tt:81 ../root/components/results-generic.tt:6
 #: ../root/edit/details/add_medium.tt:50
 #: ../root/edit/details/edit_medium.tt:54
 #: ../root/edit/details/edit_medium.tt:58
@@ -839,7 +839,7 @@ msgstr "Aree"
 #: ../root/edit/details/merge_releases.tt:19 ../root/edit/search_macros.tt:365
 #: ../root/otherlookup/results-release.tt:11
 #: ../root/release/edit/tracklist.tt:150 ../root/release/edit/tracklist.tt:363
-#: ../root/release/merge.tt:14 ../root/release_group/merge.tt:13
+#: ../root/release_group/merge.tt:13 ../root/release/merge.tt:14
 #: ../root/watch/list.tt:14 ../lib/MusicBrainz/Server/Edit/Artist.pm:7
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:35
 #: ../root/artist/ArtistHeader.js:29
@@ -929,7 +929,7 @@ msgstr "Accreditamenti artista:"
 msgid "Artist name:"
 msgstr "Nome artista"
 
-#: ../root/user/ratings.tt:2 ../root/user/ratings_summary.tt:3
+#: ../root/user/ratings_summary.tt:3 ../root/user/ratings.tt:2
 msgid "Artist ratings"
 msgstr "Valutazioni di artisti"
 
@@ -940,13 +940,13 @@ msgstr "Artista {n}:"
 #: ../root/cdstub/edit_form.tt:6 ../root/cdstub/import.tt:7
 #: ../root/cdtoc/attach_filter_artist.tt:8 ../root/cdtoc/lookup.tt:61
 #: ../root/components/common-macros.tt:555
-#: ../root/edit/details/add_release.tt:15
 #: ../root/edit/details/add_release_group.tt:15
+#: ../root/edit/details/add_release.tt:15
 #: ../root/edit/details/add_standalone_recording.tt:15
 #: ../root/edit/details/edit_artist.tt:5
 #: ../root/edit/details/edit_recording.tt:32
-#: ../root/edit/details/edit_release.tt:15
 #: ../root/edit/details/edit_release_group.tt:30
+#: ../root/edit/details/edit_release.tt:15
 #: ../root/edit/details/historic/add_release.tt:19
 #: ../root/edit/details/historic/add_track_kv.tt:20
 #: ../root/edit/details/historic/change_artist_quality.tt:3
@@ -1067,8 +1067,8 @@ msgstr "Codice a barre"
 #: ../root/cdstub/edit_form.tt:7 ../root/edit/details/add_release.tt:67
 #: ../root/edit/details/edit_barcodes.tt:17
 #: ../root/edit/details/edit_barcodes.tt:21
-#: ../root/edit/details/edit_release.tt:53
-#: ../root/edit/details/edit_release_label.tt:56 ../root/otherlookup/form.tt:3
+#: ../root/edit/details/edit_release_label.tt:56
+#: ../root/edit/details/edit_release.tt:53 ../root/otherlookup/form.tt:3
 #: ../root/release/edit/information.tt:216
 #: ../root/layout/components/MetaDescription.js:136
 #: ../root/layout/components/sidebar/CDStubSidebar.js:67
@@ -1250,8 +1250,8 @@ msgstr "Può essere approvato"
 #: ../root/event/merge.tt:56 ../root/instrument/merge.tt:36
 #: ../root/label/merge.tt:49 ../root/layout/merge-helper.tt:34
 #: ../root/place/merge.tt:48 ../root/release/edit/layout.tt:67
-#: ../root/release/edit/tracklist.tt:104 ../root/release/merge.tt:130
-#: ../root/release_group/merge.tt:41 ../root/series/merge.tt:37
+#: ../root/release/edit/tracklist.tt:104 ../root/release_group/merge.tt:41
+#: ../root/release/merge.tt:130 ../root/series/merge.tt:37
 #: ../root/work/merge.tt:73 ../root/artist/ArtistMerge.js:80
 #: ../root/components/ConfirmLayout.js:39
 #: ../root/layout/components/MergeHelper.js:40
@@ -1594,7 +1594,7 @@ msgstr "GG"
 msgid "Data Quality"
 msgstr "Qualità dati"
 
-#: ../root/components/medium.tt:89 ../root/medium/tracklist.tt:35
+#: ../root/components/medium.tt:95 ../root/medium/tracklist.tt:35
 #: ../root/release/edit/tracklist.tt:376
 msgid "Data Tracks"
 msgstr "Tracce dati"
@@ -1724,8 +1724,8 @@ msgstr "Ricerca diretta nel database"
 #: ../root/area/edit_form.tt:10 ../root/artist/edit_form.tt:14
 #: ../root/edit/details/add_instrument.tt:16
 #: ../root/edit/details/add_label.tt:23 ../root/edit/details/add_place.tt:16
-#: ../root/edit/details/add_release.tt:32
 #: ../root/edit/details/add_release_group.tt:21
+#: ../root/edit/details/add_release.tt:32
 #: ../root/edit/details/add_series.tt:16
 #: ../root/edit/details/add_standalone_recording.tt:21
 #: ../root/edit/details/add_work.tt:16 ../root/edit/details/edit_area.tt:21
@@ -1734,8 +1734,8 @@ msgstr "Ricerca diretta nel database"
 #: ../root/edit/details/edit_instrument.tt:14
 #: ../root/edit/details/edit_label.tt:19 ../root/edit/details/edit_place.tt:14
 #: ../root/edit/details/edit_recording.tt:17
-#: ../root/edit/details/edit_release.tt:25
 #: ../root/edit/details/edit_release_group.tt:15
+#: ../root/edit/details/edit_release.tt:25
 #: ../root/edit/details/edit_series.tt:14 ../root/edit/details/edit_work.tt:15
 #: ../root/event/edit_form.tt:13 ../root/instrument/edit_form.tt:10
 #: ../root/label/edit_form.tt:13 ../root/place/edit_form.tt:13
@@ -1894,8 +1894,8 @@ msgstr "Modifica tipo di relazione"
 msgid "Edit Relationships: {release}"
 msgstr "Modifica relazioni: {release}"
 
-#: ../root/doc/edit_type.tt:18 ../root/doc/edit_types.tt:1
-#: ../root/doc/edit_types.tt:3 ../root/edit/components/EditSidebar.js:91
+#: ../root/doc/edit_types.tt:1 ../root/doc/edit_types.tt:3
+#: ../root/doc/edit_type.tt:18 ../root/edit/components/EditSidebar.js:91
 #: ../root/layout/components/BottomMenu.js:281
 msgid "Edit Types"
 msgstr "Tipi di modifiche"
@@ -2172,7 +2172,7 @@ msgstr "Collezioni di eventi"
 msgid "Event Details"
 msgstr "Dettagli evento"
 
-#: ../root/user/ratings.tt:2 ../root/user/ratings_summary.tt:3
+#: ../root/user/ratings_summary.tt:3 ../root/user/ratings.tt:2
 msgid "Event ratings"
 msgstr "Valutazioni di eventi"
 
@@ -2919,7 +2919,7 @@ msgstr "Sottoscrizioni di etichette"
 msgid "Label code:"
 msgstr "Codice di etichetta:"
 
-#: ../root/user/ratings.tt:2 ../root/user/ratings_summary.tt:3
+#: ../root/user/ratings_summary.tt:3 ../root/user/ratings.tt:2
 msgid "Label ratings"
 msgstr "Valutazioni di etichette"
 
@@ -2984,7 +2984,7 @@ msgid "Last replication packet received at {datetime}"
 msgstr "Ultimo pacchetto di replica ricevuto il {datetime}"
 
 #: ../root/cdstub/cdstub.tt:9 ../root/cdtoc/info.tt:33
-#: ../root/components/medium.tt:78 ../root/edit/details/edit_medium.tt:55
+#: ../root/components/medium.tt:84 ../root/edit/details/edit_medium.tt:55
 #: ../root/edit/details/edit_medium.tt:59
 #: ../root/edit/details/historic/add_release.tt:52
 #: ../root/release/discids.tt:10 ../root/release/edit/tracklist.tt:151
@@ -3420,8 +3420,8 @@ msgstr "Nome"
 #: ../root/edit/details/add_place.tt:10
 #: ../root/edit/details/add_relationship_attribute.tt:3
 #: ../root/edit/details/add_relationship_type.tt:3
-#: ../root/edit/details/add_release.tt:10
 #: ../root/edit/details/add_release_group.tt:10
+#: ../root/edit/details/add_release.tt:10
 #: ../root/edit/details/add_series.tt:10
 #: ../root/edit/details/add_standalone_recording.tt:10
 #: ../root/edit/details/add_work.tt:10 ../root/edit/details/edit_area.tt:11
@@ -3432,8 +3432,8 @@ msgstr "Nome"
 #: ../root/edit/details/edit_recording.tt:12
 #: ../root/edit/details/edit_relationship_attribute.tt:4
 #: ../root/edit/details/edit_relationship_type.tt:11
-#: ../root/edit/details/edit_release.tt:9
 #: ../root/edit/details/edit_release_group.tt:11
+#: ../root/edit/details/edit_release.tt:9
 #: ../root/edit/details/edit_series.tt:9 ../root/edit/details/edit_work.tt:11
 #: ../root/edit/details/historic/add_release.tt:14
 #: ../root/edit/details/historic/add_track_kv.tt:14
@@ -4132,7 +4132,7 @@ msgid_plural "Rate: {rating} stars"
 msgstr[0] "Valuta: {rating} stella"
 msgstr[1] "Valuta: {rating} stelle"
 
-#: ../root/components/medium.tt:77 ../root/components/list/ArtistList.js:86
+#: ../root/components/medium.tt:83 ../root/components/list/ArtistList.js:86
 #: ../root/components/list/EventList.js:104
 #: ../root/components/list/LabelList.js:113
 #: ../root/components/list/RecordingList.js:84
@@ -4192,7 +4192,11 @@ msgstr "Dettagli della registrazione"
 msgid "Recording Merges"
 msgstr "Unioni di registrazioni"
 
-#: ../root/user/ratings.tt:2 ../root/user/ratings_summary.tt:3
+#: ../root/components/medium.tt:54
+msgid "Recording artist:"
+msgstr ""
+
+#: ../root/user/ratings_summary.tt:3 ../root/user/ratings.tt:2
 msgid "Recording ratings"
 msgstr "Valutazioni di registrazioni"
 
@@ -4394,8 +4398,8 @@ msgid "Release Group Relationships"
 msgstr "Relazioni del gruppo di pubblicazioni"
 
 #: ../root/edit/details/add_release_group.tt:3
-#: ../root/edit/details/edit_release.tt:21
 #: ../root/edit/details/edit_release_group.tt:5
+#: ../root/edit/details/edit_release.tt:21
 #: ../root/release/edit/information.tt:33
 msgid "Release Group:"
 msgstr "Gruppo di pubblicazioni:"
@@ -4437,7 +4441,7 @@ msgstr "Evento di pubblicazione"
 msgid "Release events:"
 msgstr "Eventi di pubblicazione:"
 
-#: ../root/user/ratings.tt:2 ../root/user/ratings_summary.tt:3
+#: ../root/user/ratings_summary.tt:3 ../root/user/ratings.tt:2
 msgid "Release group ratings"
 msgstr "Valutazioni di gruppi di pubblicazioni"
 
@@ -4469,13 +4473,14 @@ msgstr "Pubblicazione \"{name}\" di {artist}"
 
 #: ../root/cdtoc/lookup.tt:71 ../root/components/common-macros.tt:555
 #: ../root/edit/details/add_cover_art.tt:5
-#: ../root/edit/details/add_medium.tt:5 ../root/edit/details/add_release.tt:3
+#: ../root/edit/details/add_medium.tt:5
 #: ../root/edit/details/add_release_label.tt:4
+#: ../root/edit/details/add_release.tt:3
 #: ../root/edit/details/change_release_data_quality.tt:3
 #: ../root/edit/details/edit_barcodes.tt:12
 #: ../root/edit/details/edit_cover_art.tt:5
-#: ../root/edit/details/edit_release.tt:5
 #: ../root/edit/details/edit_release_label.tt:5
+#: ../root/edit/details/edit_release.tt:5
 #: ../root/edit/details/historic/move_release_to_rg.tt:3
 #: ../root/edit/details/remove_cover_art.tt:5
 #: ../root/edit/details/remove_release_label.tt:3
@@ -4511,8 +4516,8 @@ msgstr "Pubblicazioni"
 #: ../root/edit/details/historic/mac_to_sac.tt:3
 #: ../root/edit/details/historic/move_release.tt:3
 #: ../root/edit/details/historic/remove_disc_id.tt:3
-#: ../root/edit/details/historic/remove_release.tt:2
 #: ../root/edit/details/historic/remove_releases.tt:3
+#: ../root/edit/details/historic/remove_release.tt:2
 #: ../root/edit/details/historic/remove_track.tt:3
 msgid "Releases:"
 msgstr "Pubblicazioni:"
@@ -4779,8 +4784,8 @@ msgstr "Cerca per artista"
 msgid "Search by release"
 msgstr "Cerca per pubblicazione"
 
-#: ../root/edit/search.tt:2 ../root/edit/search.tt:4
 #: ../root/edit/search_results.tt:3 ../root/edit/search_results.tt:5
+#: ../root/edit/search.tt:2 ../root/edit/search.tt:4
 msgid "Search for Edits"
 msgstr "Cerca modifiche"
 
@@ -5756,7 +5761,7 @@ msgid "Time:"
 msgstr "Ora:"
 
 #: ../root/cdstub/browse.tt:8 ../root/cdstub/cdstub.tt:5
-#: ../root/cdtoc/list.tt:5 ../root/components/medium.tt:73
+#: ../root/cdtoc/list.tt:5 ../root/components/medium.tt:79
 #: ../root/edit/details/edit_medium.tt:53
 #: ../root/edit/details/edit_medium.tt:57
 #: ../root/release/edit/tracklist.tt:149 ../root/release/edit/tracklist.tt:362
@@ -6404,7 +6409,7 @@ msgstr "Dettagli dell'opera"
 msgid "Work Type:"
 msgstr "Tipo di opera:"
 
-#: ../root/user/ratings.tt:2 ../root/user/ratings_summary.tt:3
+#: ../root/user/ratings_summary.tt:3 ../root/user/ratings.tt:2
 msgid "Work ratings"
 msgstr "Valutazioni di opere"
 
@@ -7126,7 +7131,7 @@ msgstr "tab o 4 spazi e: * punti o 1., a., A., i., I. elementi numerati (visuali
 msgid "track"
 msgstr "traccia"
 
-#: ../root/components/medium.tt:112
+#: ../root/components/medium.tt:118
 msgid "track {tracks}"
 msgid_plural "tracks {tracks}"
 msgstr[0] "traccia {tracks}"
@@ -7574,11 +7579,11 @@ msgid ""
 "Banner updated. Remember that each server has its own, independent banner."
 msgstr "Banner aggiornato. Ricordati che ogni server ha il suo banner indipendente dagli altri."
 
-#: ../lib/MusicBrainz/Server/Controller/Artist.pm:615
+#: ../lib/MusicBrainz/Server/Controller/Artist.pm:616
 msgid "You cannot merge a special purpose artist into another artist"
 msgstr "Non è possibile unire un artista speciale con un altro artista."
 
-#: ../lib/MusicBrainz/Server/Controller/Artist.pm:620
+#: ../lib/MusicBrainz/Server/Controller/Artist.pm:621
 msgid "You cannot merge into Deleted Artist"
 msgstr "Non puoi unire con Artista eliminato"
 
@@ -8266,7 +8271,7 @@ msgid "Edit release group alias"
 msgstr "Modifica alias del gruppo di pubblicazioni"
 
 #: ../lib/MusicBrainz/Server/Edit/ReleaseGroup/Merge.pm:13
-#: ../root/artist/ArtistIndex.js:287
+#: ../root/artist/ArtistIndex.js:292
 msgid "Merge release groups"
 msgstr "Unisci gruppi di pubblicazioni"
 
@@ -9397,106 +9402,106 @@ msgstr "Al momento non ci sono utenti in quest'area."
 msgid "This artist is not currently associated with any events."
 msgstr "Questo artista non è al momento associato a nessun evento."
 
-#: ../root/artist/ArtistIndex.js:91
+#: ../root/artist/ArtistIndex.js:94
 msgid "This artist has no release groups, only standalone recordings."
 msgstr "Questo artista non ha nessun gruppo di pubblicazioni, ma solo registrazioni indipendenti."
 
-#: ../root/artist/ArtistIndex.js:94
+#: ../root/artist/ArtistIndex.js:97
 msgid "No release groups found that match this search."
 msgstr "Non è stato trovato nessun gruppo di pubblicazioni corrispondente a questa ricerca."
 
-#: ../root/artist/ArtistIndex.js:99
+#: ../root/artist/ArtistIndex.js:102
 msgid ""
 "Showing official release groups by this artist. {show_all|Show all release "
 "groups instead}, or {show_va|show various artists release groups}."
 msgstr "Stai visualizzando i gruppi di pubblicazioni ufficiali di questo artista. {show_all|Visualizza tutti i gruppi di pubblicazioni} o {show_va|visualizza i gruppi di pubblicazioni di artisti vari}."
 
-#: ../root/artist/ArtistIndex.js:108 ../root/artist/ArtistIndex.js:154
+#: ../root/artist/ArtistIndex.js:111 ../root/artist/ArtistIndex.js:157
 msgid "This artist does not have any release groups or standalone recordings."
 msgstr "Questo artista non ha nessun gruppo di pubblicazioni né registrazioni indipendenti."
 
-#: ../root/artist/ArtistIndex.js:114
+#: ../root/artist/ArtistIndex.js:117
 msgid "This artist only has unofficial release groups."
 msgstr "Questo artista ha solo gruppi di pubblicazioni non ufficiali."
 
-#: ../root/artist/ArtistIndex.js:117
+#: ../root/artist/ArtistIndex.js:120
 msgid ""
 "Showing all release groups by this artist. {show_va|Show various artists "
 "release groups instead}."
 msgstr "Stai visualizzando tutti i gruppi di pubblicazioni di questo artista. {show_va|Visualizza i gruppi di pubblicazioni di artisti vari}."
 
-#: ../root/artist/ArtistIndex.js:126 ../root/artist/ArtistIndex.js:159
+#: ../root/artist/ArtistIndex.js:129 ../root/artist/ArtistIndex.js:162
 msgid "This artist only has release groups by various artists."
 msgstr "Questo artista ha solo gruppi di pubblicazioni di artisti vari."
 
-#: ../root/artist/ArtistIndex.js:129
+#: ../root/artist/ArtistIndex.js:132
 msgid ""
 "Showing official release groups for various artists. {show_all|Show all "
 "various artists release groups instead}."
 msgstr "Stai visualizzando i gruppi di pubblicazioni ufficiali di artisti vari. {show_all|Visualizza tutti i gruppi di pubblicazioni di artisti vari}."
 
-#: ../root/artist/ArtistIndex.js:137 ../root/artist/ArtistIndex.js:190
+#: ../root/artist/ArtistIndex.js:140 ../root/artist/ArtistIndex.js:193
 msgid "This artist only has unofficial release groups by various artists."
 msgstr "Questo artista ha solo gruppi di pubblicazioni non ufficiali di artisti vari."
 
-#: ../root/artist/ArtistIndex.js:139
+#: ../root/artist/ArtistIndex.js:142
 msgid "Showing all release groups for various artists."
 msgstr "Stai visualizzando tutti i gruppi di pubblicazioni di artisti vari."
 
-#: ../root/artist/ArtistIndex.js:145
+#: ../root/artist/ArtistIndex.js:148
 msgid ""
 "Showing all release groups by this artist. {show_official|Show only official"
 " release groups instead}, or {show_va|show various artists release groups}."
 msgstr "Stai visualizzando tutti i gruppi di pubblicazioni di questo artista. {show_official|Visualizza solo i gruppi di pubblicazioni ufficiali} o {show_va|visualizza i gruppi di pubblicazioni di artisti vari}."
 
-#: ../root/artist/ArtistIndex.js:162
+#: ../root/artist/ArtistIndex.js:165
 msgid ""
 "Showing all release groups for various artists. {show_official|Show only "
 "official various artists release groups instead}."
 msgstr "Stai visualizzando tutti i gruppi di pubblicazioni di artisti vari. {show_official|Visualizza solo i gruppi di pubblicazioni ufficiali di artisti vari}."
 
-#: ../root/artist/ArtistIndex.js:173
+#: ../root/artist/ArtistIndex.js:176
 msgid ""
 "Showing official release groups for various artists. {show_all|Show all "
 "various artists release groups instead}, or {show_non_va|show release groups"
 " by this artist}."
 msgstr "Stai visualizzando i gruppi di pubblicazioni ufficiali di artisti vari. {show_all|Visualizza tutti i gruppi di pubblicazioni di artisti vari} o {show_non_va|visualizza i gruppi di pubblicazioni di questo artista}."
 
-#: ../root/artist/ArtistIndex.js:183 ../root/artist/ArtistIndex.js:215
+#: ../root/artist/ArtistIndex.js:186 ../root/artist/ArtistIndex.js:218
 msgid ""
 "This artist does not have any various artists release groups. "
 "{show_non_va|Show release groups by this artist instead}."
 msgstr "Questo artista non ha gruppi di pubblicazioni di artisti vari. {show_non_va|Visualizza i gruppi di pubblicazioni di questo artista}."
 
-#: ../root/artist/ArtistIndex.js:194
+#: ../root/artist/ArtistIndex.js:197
 msgid ""
 "Showing all release groups for various artists. {show_non_va|Show release "
 "groups by this artist instead}."
 msgstr "Stai visualizzando tutti i gruppi di pubblicazioni di artisti vari. {show_non_va|Visualizza i gruppi di pubblicazioni di questo artista}."
 
-#: ../root/artist/ArtistIndex.js:204
+#: ../root/artist/ArtistIndex.js:207
 msgid ""
 "Showing all release groups for various artists. {show_official|Show only "
 "official various artists release groups instead}, or {show_non_va|show "
 "release groups by this artist}."
 msgstr "Stai visualizzando tutti i gruppi di pubblicazioni di artisti vari. {show_official|Visualizza solo i gruppi di pubblicazioni ufficiali di artisti vari} o {show_non_va|visualizza i gruppi di pubblicazioni di questo artista}."
 
-#: ../root/artist/ArtistIndex.js:226 ../root/components/CleanupBanner.js:14
+#: ../root/artist/ArtistIndex.js:229 ../root/components/CleanupBanner.js:14
 msgid ""
 "This artist has no relationships, recordings, releases or release groups, "
 "and will be removed automatically in the next few days. If this is not "
 "intended, please add more data to this artist."
 msgstr "Questo artista non ha relazioni, registrazioni, pubblicazioni né gruppi di pubblicazioni e sarà rimosso automaticamente nei prossimi giorni. Se vuoi evitare che ciò succeda, aggiungi più dati."
 
-#: ../root/artist/ArtistIndex.js:241 ../root/artist/ArtistIndex.js:249
+#: ../root/artist/ArtistIndex.js:244 ../root/artist/ArtistIndex.js:252
 msgid "Legal name"
 msgstr "Nome legale"
 
-#: ../root/artist/ArtistIndex.js:255
+#: ../root/artist/ArtistIndex.js:258
 msgid "Also performs as"
 msgstr "Si esibisce anche come"
 
-#: ../root/artist/ArtistIndex.js:269
+#: ../root/artist/ArtistIndex.js:272
 msgid "Discography"
 msgstr "Discografia"
 

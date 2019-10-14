@@ -23,8 +23,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2019-10-08 01:15+0000\n"
-"Last-Translator: Michael Wiencek <email address hidden>\n"
+"PO-Revision-Date: 2019-10-14 21:16+0000\n"
+"Last-Translator: yvanz\n"
 "Language-Team: French (http://www.transifex.com/musicbrainz/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -373,6 +373,22 @@ msgid ""
 "strings are played upright with a horsetail bow."
 msgstr ""
 
+#. name:kethuk
+#: DB:instrument/description:986
+msgid ""
+"Always used with kempyang, it consists of a single bronze kettle-gong, "
+"pitched deeper than kempyangs'. Flat top bossed gong is sat in a highly "
+"decorated rancak frame, beaten with tabuh beaters by the same person."
+msgstr ""
+
+#. name:kempyang
+#: DB:instrument/description:987
+msgid ""
+"Always used with ketuk, it consists of two bronze kettle-gongs, pitched a "
+"note apart. Ached top bossed gongs are sat in the highly decorated rancak "
+"frame, beaten with tabuh beaters by the same person."
+msgstr ""
+
 #. name:amadinda
 #: DB:instrument/description:363
 msgid ""
@@ -565,6 +581,13 @@ msgstr ""
 #: DB:instrument/description:343
 msgid "Bendir, frame drum from North Africa, doesn't have jingles"
 msgstr "Le bendir, un tambour sur cadre d’Afrique du Nord, sans cymbalette"
+
+#. name:kemanak
+#: DB:instrument/description:988
+msgid ""
+"Bent into a ladle or banana like shape, it is a pair of bronze slit-drums "
+"hit with tabuh beaters."
+msgstr ""
 
 #. name:typewriter
 #: DB:instrument/description:526
@@ -1874,6 +1897,13 @@ msgstr ""
 #. name:flute
 #: DB:instrument/description:13
 msgid "Reedless Aerophone, usually a tube"
+msgstr ""
+
+#. name:kenong
+#: DB:instrument/description:985
+msgid ""
+"Related to bonang, it consists of 3 decorated rancak frames that each hold 2"
+" large arched(jaler) bronze gong-chimes hit by heavy tabuh beater(s)."
 msgstr ""
 
 #. name:rubab
