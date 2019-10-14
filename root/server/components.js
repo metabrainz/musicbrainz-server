@@ -282,6 +282,7 @@ module.exports = {
   'static/scripts/common/components/Annotation': require('../static/scripts/common/components/Annotation'),
   'static/scripts/common/components/ArtistCreditLink': require('../static/scripts/common/components/ArtistCreditLink'),
   'static/scripts/common/components/CritiqueBrainzReview': require('../static/scripts/common/components/CritiqueBrainzReview'),
+  'static/scripts/common/components/ReleaseEvents': require('../static/scripts/common/components/ReleaseEvents'),
   'static/scripts/common/components/SearchIcon': require('../static/scripts/common/components/SearchIcon'),
   'static/scripts/common/components/TaggerIcon': require('../static/scripts/common/components/TaggerIcon'),
   'static/scripts/common/components/WarningIcon': require('../static/scripts/common/components/WarningIcon'),

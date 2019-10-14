@@ -13,8 +13,6 @@ import {withCatalystContext} from '../../context';
 import loopParity from '../../utility/loopParity';
 import InstrumentRelTypes from '../InstrumentRelTypes';
 import ReleaseCatnoList from '../ReleaseCatnoList';
-import ReleaseCountries from '../ReleaseCountries';
-import ReleaseDates from '../ReleaseDates';
 import ReleaseLabelList from '../ReleaseLabelList';
 import filterReleaseLabels
   from '../../static/scripts/common/utility/filterReleaseLabels';
@@ -22,6 +20,8 @@ import formatBarcode from '../../static/scripts/common/utility/formatBarcode';
 import ArtistCreditLink
   from '../../static/scripts/common/components/ArtistCreditLink';
 import EntityLink from '../../static/scripts/common/components/EntityLink';
+import ReleaseEvents
+  from '../../static/scripts/common/components/ReleaseEvents';
 import TaggerIcon from '../../static/scripts/common/components/TaggerIcon';
 import RatingStars from '../RatingStars';
 import SortableTableHeader from '../SortableTableHeader';
@@ -107,24 +107,21 @@ const ReleaseList = ({
         <th>
           {sortable
             ? (
-              <SortableTableHeader
-                label={l('Date')}
-                name="date"
-                order={order}
-              />
+              <>
+                <SortableTableHeader
+                  label={l('Country')}
+                  name="country"
+                  order={order}
+                />
+                {lp('/', 'and')}
+                <SortableTableHeader
+                  label={l('Date')}
+                  name="date"
+                  order={order}
+                />
+              </>
             )
-            : l('Date')}
-        </th>
-        <th>
-          {sortable
-            ? (
-              <SortableTableHeader
-                label={l('Country')}
-                name="country"
-                order={order}
-              />
-            )
-            : l('Country')}
+            : l('Country') + lp('/', 'and') + l('Date')}
         </th>
         {filterLabel ? null : (
           <th>
@@ -196,10 +193,7 @@ const ReleaseList = ({
             {release.combined_track_count || lp('-', 'missing data')}
           </td>
           <td>
-            <ReleaseDates events={release.events} />
-          </td>
-          <td>
-            <ReleaseCountries events={release.events} />
+            <ReleaseEvents events={release.events} />
           </td>
           {filterLabel ? (
             <td>

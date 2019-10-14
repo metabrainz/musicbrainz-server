@@ -9,19 +9,41 @@
 
 import * as React from 'react';
 
+import entityHref from '../static/scripts/common/utility/entityHref';
 import primaryAreaCode
   from '../static/scripts/common/utility/primaryAreaCode';
 
-const CountryAbbr = ({country}: {+country: AreaT}) => {
+const CountryAbbr = ({
+  className,
+  country,
+  withLink = false,
+}: {
+  +className?: string,
+  +country: AreaT,
+  +withLink?: boolean,
+}) => {
   const primaryCode = primaryAreaCode(country);
   if (!primaryCode) {
     return null;
   }
+  const combinedClass =
+    ('flag flag-' + primaryCode) +
+    (className ? (' ' + className) : '');
+  let content = (
+    <abbr title={l_countries(country.name)}>
+      {primaryCode}
+    </abbr>
+  );
+  if (withLink) {
+    content = (
+      <a href={entityHref(country)}>
+        {content}
+      </a>
+    );
+  }
   return (
-    <span className={'flag flag-' + primaryCode}>
-      <abbr title={l_countries(country.name)}>
-        {primaryCode}
-      </abbr>
+    <span className={combinedClass}>
+      {content}
     </span>
   );
 };

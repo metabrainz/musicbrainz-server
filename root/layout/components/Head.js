@@ -18,7 +18,7 @@ import MetaDescription from './MetaDescription';
 
 export type HeadProps = {
   +$c: CatalystContextT,
-  +gettextDomains?: $ReadOnlyArray<string>,
+  +gettextDomains?: ?$ReadOnlyArray<string>,
   +homepage?: boolean,
   +noIcons?: boolean,
   +pager?: PagerT,

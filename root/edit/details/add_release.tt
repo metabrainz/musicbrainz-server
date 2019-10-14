@@ -72,7 +72,9 @@
   [% IF edit.display_data.events.size %]
   <tr>
     <th>[% l('Release events:') %]</th>
-    <td>[% release_events(edit.display_data.events) %]</td>
+    <td>
+      [% React.embed(c, 'static/scripts/common/components/ReleaseEvents', {events => edit.display_data.events}) %]
+    </td>
   </tr>
   [% END %]
 </table>
