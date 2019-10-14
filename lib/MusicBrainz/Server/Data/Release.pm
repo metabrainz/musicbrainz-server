@@ -302,24 +302,17 @@ sub find_by_release_group
       SELECT *
       FROM (
         SELECT DISTINCT ON (release.id) " . $self->_columns . ",
-          date_year, date_month, date_day, area.name AS country_name,
-          rl.catalog_numbers AS catalog_numbers
+          date_year, date_month, date_day, area.name AS country_name
         FROM " . $self->_table . "
         " . join(' ', @$extra_joins) . "
         LEFT JOIN release_event ON release_event.release = release.id
         LEFT JOIN area ON area.id = release_event.country
-        LEFT JOIN (
-          SELECT
-            array_agg(catalog_number ORDER BY catalog_number) AS catalog_numbers, release
-            FROM release_label
-            GROUP BY release
-        ) rl ON release.id = rl.release
         WHERE " . join(" AND ", @$conditions) . "
         ORDER BY release.id, date_year, date_month, date_day,
-          rl.catalog_numbers, country_name, barcode
+          country_name, barcode
       ) s
       ORDER BY date_year, date_month, date_day,
-        catalog_numbers, country_name, barcode
+        country_name, barcode
     ";
 
     $self->query_to_list_limited($query, $params, $limit, $offset);
