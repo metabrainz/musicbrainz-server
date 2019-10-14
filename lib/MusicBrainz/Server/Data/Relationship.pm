@@ -250,7 +250,10 @@ sub load_entities
 
                 if ($rel->direction == $MusicBrainz::Server::Entity::Relationship::DIRECTION_BACKWARD) {
                     $rel->target($obj);
-                    $rel->target_type($obj->entity_type);
+                    $rel->target_type($type);
+                } elsif (!defined $rel->source) {
+                    $rel->source($obj);
+                    $rel->source_type($type);
                 }
             }
         }
@@ -263,7 +266,10 @@ sub load_entities
 
                 if ($rel->direction == $MusicBrainz::Server::Entity::Relationship::DIRECTION_FORWARD) {
                     $rel->target($obj);
-                    $rel->target_type($obj->entity_type);
+                    $rel->target_type($type);
+                } elsif (!defined $rel->source) {
+                    $rel->source($obj);
+                    $rel->source_type($type);
                 }
             }
         }

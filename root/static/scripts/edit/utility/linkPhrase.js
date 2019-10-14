@@ -141,7 +141,15 @@ function _setAttributeValues<T>(
       const info = linkType.attributes[type.root_id];
       const rootName = linkedEntities.link_attribute_type[type.root_id].name;
 
-      if (info.max === 1) {
+      /*
+       * This may be a historical relationship which uses an attribute
+       * that has since been removed from the link type, but where the
+       * attribute still exists in the link_attribute_type table. In
+       * that case we assume `max` is unbounded just to be safe. (The
+       * only effect this has is passing the values to commaOnlyList
+       * for display.)
+       */
+      if (info && info.max === 1) {
         values[rootName] = value;
       } else {
         (values[rootName] = values[rootName] || []).push(value);

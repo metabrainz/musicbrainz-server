@@ -48,7 +48,13 @@
     </td>
     <td>
       [%- link_recording(track.recording, 'show', track.name) -%]
-      <br/>
+      [% # Show recording artist only to logged in users to avoid confusing visitors with recordings -%]
+      [% IF c.user_exists && track.artist_credit_id != track.recording.artist_credit_id %]
+          <div class="small">
+          [% l('Recording artist:') %]
+          [% artist_credit(track.recording.artist_credit) %]
+        </div>
+      [% END %]
       <div class="ars" style="display: none;">
         [% grouped_relationships(track.recording) %]
       </div>
