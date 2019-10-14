@@ -25,7 +25,7 @@ sub get_by_ids
     my ($self, @ids) = @_;
     my $artist_columns = $self->c->model('Artist')->_columns;
     my $query = "SELECT artist, artist_credit_name.name AS ac_name, join_phrase, artist_credit, " .
-                $artist_columns . ", ac.edits_pending " .
+                $artist_columns . ", ac.edits_pending AS ac_edits_pending " .
                 "FROM artist_credit_name " .
                 "JOIN artist ON artist.id=artist_credit_name.artist " .
                 "JOIN artist_credit ac ON ac.id = artist_credit_name.artist_credit " .
@@ -39,7 +39,7 @@ sub get_by_ids
         $counts{$id} //= 0;
         $result{$id} //= MusicBrainz::Server::Entity::ArtistCredit->new(
             id => $id,
-            edits_pending => $row->{edits_pending},
+            edits_pending => $row->{ac_edits_pending},
         );
 
         my $acn = MusicBrainz::Server::Entity::ArtistCreditName->new(
