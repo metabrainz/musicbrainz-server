@@ -23,8 +23,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2019-09-07 10:18+0000\n"
-"Last-Translator: yvanz\n"
+"PO-Revision-Date: 2019-10-08 01:15+0000\n"
+"Last-Translator: Michael Wiencek <email address hidden>\n"
 "Language-Team: French (http://www.transifex.com/musicbrainz/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -335,6 +335,13 @@ msgstr "Un instrument en bois à anche double et perce conique du 16e et 17e si�
 msgid "Acoustic guitar without frets."
 msgstr "Guitare acoustique sans frette."
 
+#. name:diatonic button accordion
+#: DB:instrument/description:361
+msgid ""
+"Also known as Melodeon, it has 1 to 2 rows of buttons that each produce two "
+"tones (bisonoric)."
+msgstr ""
+
 #. name:repeater
 #: DB:instrument/description:882
 msgid ""
@@ -542,6 +549,11 @@ msgid ""
 "like. it has four thick metal strings"
 msgstr "proche de la contrebasse, dotée de quatre cordes en métal, elle fait généralement la partie basse des orchestres de tamburica  serbo-croates."
 
+#. name:segunda
+#: DB:instrument/description:757
+msgid "Bass member of the garifuna drum group."
+msgstr ""
+
 #. name:bicycle bell
 #: DB:instrument/description:743
 msgid ""
@@ -610,11 +622,19 @@ msgid ""
 "ritualistically buried in pairs."
 msgstr ""
 
+#. name:gong-chime
+#: DB:instrument/description:981
+msgid ""
+"Chiefly used in Southeast Asian music, these consist of from only 1 to "
+"several dozens of metal (often bronze) \"kettles\", set in a wide variety of"
+" different supports and played with mallets."
+msgstr ""
+
 #. name:bonang panembung
 #: DB:instrument/description:972
 msgid ""
 "Chiefly used in Yogyvanese gamelan, the largest and deepest pitched member "
-"of the bonang family of gongs"
+"of the bonang family of gong-chimes"
 msgstr ""
 
 #. name:naobo
@@ -964,6 +984,13 @@ msgid ""
 "griots. Made of hollowed out wood with an animal hide as membrane."
 msgstr "Luth à quatre cordes d'Afrique de l'Ouest en forme de banjo, jouétraditionnellement par les griots. La caisse est un tronc évidé, refermé par une peau tendue."
 
+#. name:bellowed reed
+#: DB:instrument/description:983
+msgid ""
+"Free reeds with bellows attached, often in a square shape, thence called "
+"squeezebox"
+msgstr ""
+
 #. name:friction idiophone
 #: DB:instrument/description:701
 msgid ""
@@ -1103,6 +1130,14 @@ msgid ""
 "clapper <a "
 "href=\"/instrument/c641bccc-2060-4871-9c12-e2df2523e53c\">paiban</a>. Drum "
 "is played by one hand and clapper with the other."
+msgstr ""
+
+#. name:garifuna drum
+#: DB:instrument/description:756
+msgid ""
+"Important to the Garifuna culture, it consists of two drums, the tenor, "
+"primero and the bass, segunda, each is made of hollowed out wood with "
+"membranes of pig, sheep or deer."
 msgstr ""
 
 #. name:morin khuur
@@ -1259,6 +1294,14 @@ msgid ""
 "different sizes. Played by rubbing dampened fingers on the rims."
 msgstr ""
 
+#. name:zill
+#: DB:instrument/description:455
+msgid ""
+"Known since ancient times in south-east Europe and Turkey, small bronze "
+"finger cymbals are used for dancing and other performances. These are "
+"similar to the jingles set in some frame drums."
+msgstr ""
+
 #. name:krakebs
 #: DB:instrument/description:652
 msgid ""
@@ -1297,6 +1340,13 @@ msgid ""
 "Larger orchestral version of chimes, closed top hollow metal tubes are set "
 "in a stand with a damper operated by pedals, they are tuned at a definite "
 "pitch and played with mallets."
+msgstr ""
+
+#. name:jegogan
+#: DB:instrument/description:979
+msgid ""
+"Largest and lowest pitched of the gangsa, it has 5 to 7 large metal bars "
+"suspended over long bamboo resonators"
 msgstr ""
 
 #. name:Scottish smallpipes
@@ -1387,7 +1437,9 @@ msgstr ""
 msgid ""
 "Made of multiple vertical hung bamboo tubes with segments cut out to create "
 "different pitch. They can be played either hanging suspended or on a bamboo "
-"frame like a xylophone."
+"frame like a xylophone. <br /> For the balinese metallophone sometimes known"
+" as chalung or calung, see <a "
+"href=\"/instrument/395bab77-bb77-4696-96d6-dfcade201c6d\">jublag</a>"
 msgstr ""
 
 #. name:sasando
@@ -1466,6 +1518,11 @@ msgid ""
 "pastorally. Modern revival variants are more complicated and are usually "
 "made of cattle-horn."
 msgstr "Médiéval et éventuellement plus vieux encore, il était fabriqué en corne de chèvre ou plus rarement en terre cuite. Avec que peu de trous et une amplitude d'une seule octave, il était utilisé par les bergers. Les variantes modernes sont plus compliquées et sont généralement fabriquées en corne de bœuf. "
+
+#. name:xylorimba
+#: DB:instrument/description:703
+msgid "Member of the xylophone family, it has 5 octaves."
+msgstr ""
 
 #. name:Mexican vihuela
 #: DB:instrument/description:92
@@ -1558,8 +1615,9 @@ msgstr ""
 #. name:bonang barung
 #: DB:instrument/description:970
 msgid ""
-"One to two octaves below panerus, it plays elaborate melodies and is one of "
-"the most important instruments in the ensemble."
+"One to two octaves below <a href=\"/instrument/7e024f24-f778-4942-8fba-"
+"6f33ebfb2ac6\">panerus</a>, it plays elaborate melodies and is one of the "
+"most important instruments in the ensemble."
 msgstr ""
 
 #. name:handbell
@@ -1859,11 +1917,28 @@ msgid ""
 " ornate case."
 msgstr ""
 
+#. name:jublag
+#: DB:instrument/description:980
+msgid ""
+"Second lowest pitched of the gangsa, it has 4 to 7 bronze keys suspended "
+"over long bamboo resonators <br /> For the sundanese bamboo xylophone also "
+"used in gamelan, see <a href=\"/instrument/6e180df5-6df9-46bb-8ebf-"
+"c576a010fb5a\">calung</a>"
+msgstr ""
+
 #. name:reyong
 #: DB:instrument/description:973
 msgid ""
 "Set of 4 to 12 small metal gongs suspended in a string carriage, played by "
 "two to four players."
+msgstr ""
+
+#. name:kempul
+#: DB:instrument/description:984
+msgid ""
+"Set of 6 to 10 smaller hanging pitched bronze gongs with a protruding centre"
+" knob struck with tabuh beaters. Higher pitched than the gong ageng, it is "
+"often hung together with it."
 msgstr ""
 
 #. name:drums (drum set)
@@ -1921,6 +1996,14 @@ msgstr ""
 msgid ""
 "Simultaneously a woodwind and membranophone, sound is produced by singing or"
 " speaking into a thin buzzing membrane."
+msgstr ""
+
+#. name:kempli
+#: DB:instrument/description:982
+msgid ""
+"Singular bronze gong-chime kettle set on a decorated jackfruit-wood box "
+"stand. Used as time or tempo keeper, it is struck on the boss with panggul "
+"beater, which provides reference point in the pokok."
 msgstr ""
 
 #. name:donso ngɔni
@@ -2058,6 +2141,11 @@ msgid ""
 "Tap dancing is a type of dance in which the dancer wears special shoes that "
 "make a clicking sound as the dancer's feet strike the floor."
 msgstr "Les claquettes sont un style de danse dans lequel le danseur porte des chaussures spéciales ferrées produisant un son quand les pieds du danseur frappent le sol."
+
+#. name:primero
+#: DB:instrument/description:758
+msgid "Tenor member of the garifuna drum group."
+msgstr ""
 
 #. name:tenor viol
 #: DB:instrument/description:922
@@ -2664,13 +2752,6 @@ msgid ""
 "tuned a fourth higher."
 msgstr "Le gaohu est un instrument chinois à cordes frottées développé à partir du erhu et accordé un quart plus haut."
 
-#. name:garifuna drum
-#: DB:instrument/description:756
-msgid ""
-"The garifuna drum is a membranophone from the Garifuna culture in Belize, "
-"Guatemala and Honduras."
-msgstr "Membranophone de la culture garifuna diffuse en Amérique latine et dans les Caraïbes."
-
 #. name:gayageum
 #: DB:instrument/description:75
 msgid ""
@@ -3152,11 +3233,6 @@ msgid ""
 "arrival or departure of a post rider or mail coach."
 msgstr "Le cor postal est un instrument en cuivre sans piston utilisé pour signaler l’arrivée ou le départ d’un porteur de courrier."
 
-#. name:primero
-#: DB:instrument/description:758
-msgid "The primero is a tenor garifuna drum."
-msgstr "Tambour ténor garifuna."
-
 #. name:pātē
 #: DB:instrument/description:726
 msgid "The pātē is a Polynesian slit drum made from a hollowed-out log."
@@ -3317,11 +3393,6 @@ msgstr "Le saw u est un instrument Thaï à cordes frottées constitué d’un r
 msgid "The saz is a long-necked fretted lute"
 msgstr "Le saz est luth à manche long avec frettes. (<a href=\"http://fr.wikipedia.org/wiki/Saz\">Wikipédia</a>)"
 
-#. name:segunda
-#: DB:instrument/description:757
-msgid "The segunda is a bass garifuna drum."
-msgstr "Tambour basse garifuna."
-
 #. name:shakuhachi
 #: DB:instrument/description:173
 msgid "The shakuhachi is a Japanese end-blown flute."
@@ -3444,11 +3515,6 @@ msgstr "La suona est une chamelie chinoise fréquemment utilisée dans la musiqu
 msgid ""
 "The surdo is a large bass drum used in Brazilian music, most notably samba."
 msgstr "Le surdo est un grand tambour basse utilisé dans la musique brésilienne, principalement la samba."
-
-#. name:swarmandal
-#: DB:instrument/description:716
-msgid "The swarmandal is an Indian zither."
-msgstr "Le swarmandal est une cithare indienne."
 
 #. name:sáo trúc
 #: DB:instrument/description:199
@@ -3695,11 +3761,6 @@ msgid ""
 "The xun is a vessel flute from China which has a blowing hole at the top."
 msgstr "Le xun est une flûte globulaire de Chine dont l’embouchure est sur le dessus."
 
-#. name:xylorimba
-#: DB:instrument/description:703
-msgid "The xylorimba is an extended-range xylophone."
-msgstr "Le xylorimba est un xylophone à gamme étendue."
-
 #. name:yatga
 #: DB:instrument/description:564
 msgid ""
@@ -3720,13 +3781,6 @@ msgid ""
 "The yehu is a Chinese bowed string instrument in the huqin family, made from"
 " a coconut shell."
 msgstr "Le yehu est un instrument à cordes frottées chinois de la famille des huqin, dont le résonateur est une noix de coco."
-
-#. name:yonggo
-#: DB:instrument/description:685
-msgid ""
-"The yonggo is a barrel drum with a dragon painted on its shell which is used"
-" in daechwita, a genre of traditional Korean music."
-msgstr "L’yonggo est un tambour à fût. Un dragon est peint dessus. Il est utilisé en daechwita, un genre musical traditionnel coréen. "
 
 #. name:zabumba
 #: DB:instrument/description:715
@@ -4026,6 +4080,14 @@ msgid ""
 "traditionally to accompany didgeridoo. There are also Boomerang clapsticks."
 msgstr ""
 
+#. name:swarmandal
+#: DB:instrument/description:716
+msgid ""
+"Used chiefly in classical Indian songstyles Khyal and Thumri, it has a "
+"trapezoid shape with up to 40 metal strings fastened at both sides by iron "
+"pegs with one side having tuning keys."
+msgstr ""
+
 #. name:harmonica
 #: DB:instrument/description:43
 msgid ""
@@ -4056,6 +4118,14 @@ msgid ""
 "20th century, it together with bandurria and laúd carried the melody in "
 "rondas and rondallas. It had six pairs of strings, tuned a fourth lower than"
 " bandurria, It fell out of use when contralto bandurria became common."
+msgstr ""
+
+#. name:kecer
+#: DB:instrument/description:978
+msgid ""
+"Used in both gamelan and Wayang puppet theatre, it consists of two small "
+"cymbals sets; the bottom pair affixed in a highly decorated rancak rack, "
+"their lose counterparts attached together by string."
 msgstr ""
 
 #. name:danso
@@ -4093,6 +4163,13 @@ msgid ""
 "21 cm long and 3-4 cm thick."
 msgstr ""
 
+#. name:yonggo
+#: DB:instrument/description:685
+msgid ""
+"Used in the traditional Korean music daechwita, it consists of a large two "
+"headed wooden barrel painted with dragon designs."
+msgstr ""
+
 #. name:hyoshigi
 #: DB:instrument/description:905
 msgid ""
@@ -4111,7 +4188,7 @@ msgstr ""
 #: DB:instrument/description:971
 msgid ""
 "Used to play fast melodies, it is the highest pitched member of the bonang "
-"family of gongs"
+"family of gong-chimes"
 msgstr ""
 
 #. name:lap harp
@@ -4222,13 +4299,6 @@ msgid ""
 "cone-shaped with cow/pigskin nailed to the larger convex end which has a "
 "small hole (guxin)."
 msgstr ""
-
-#. name:zill
-#: DB:instrument/description:455
-msgid ""
-"Zills are tiny metallic finger cymbals used in belly dancing and other "
-"similar performances."
-msgstr "Les sagattes sont de petites cymbales de doigt en métal utilisées pour la danse du ventre et autres spectacles semblables."
 
 #. name:pang gu ly hu hmông
 #: DB:instrument/description:315

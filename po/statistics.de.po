@@ -21,9 +21,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-05-23 20:14+0200\n"
-"PO-Revision-Date: 2019-05-11 18:27+0000\n"
-"Last-Translator: Philipp Wolfer <email address hidden>\n"
+"POT-Creation-Date: 2019-10-07 20:08-0500\n"
+"PO-Revision-Date: 2019-10-08 01:15+0000\n"
+"Last-Translator: Michael Wiencek <email address hidden>\n"
 "Language-Team: German (http://www.transifex.com/musicbrainz/musicbrainz/language/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -612,18 +612,18 @@ msgid "Controls"
 msgstr "Steuerelemente"
 
 #: ../root/statistics/layout.tt:4 ../root/statistics/Countries.js:36
-#: ../root/statistics/StatisticsLayout.js:49
+#: ../root/statistics/StatisticsLayout.js:51
 msgid "Countries"
 msgstr "Länder"
 
 #: ../root/statistics/layout.tt:4 ../root/statistics/CoverArt.js:68
-#: ../root/statistics/StatisticsLayout.js:59 ../root/statistics/stats.js:27
+#: ../root/statistics/StatisticsLayout.js:61 ../root/statistics/stats.js:27
 msgid "Cover Art"
 msgstr "Cover-Art"
 
 #: ../root/statistics/layout.tt:23 ../root/statistics/layout.tt:34
-#: ../root/statistics/StatisticsLayout.js:95
-#: ../root/statistics/StatisticsLayout.js:109
+#: ../root/statistics/StatisticsLayout.js:97
+#: ../root/statistics/StatisticsLayout.js:111
 msgid "Database Statistics"
 msgstr "Datenbankstatistiken"
 
@@ -637,13 +637,13 @@ msgstr "Zeichne ein Rechteck auf einem der Graphen"
 
 #: ../root/statistics/layout.tt:4 ../root/statistics/Editors.js:97
 #: ../root/statistics/Editors.js:108 ../root/statistics/Index.js:838
-#: ../root/statistics/StatisticsLayout.js:79
+#: ../root/statistics/StatisticsLayout.js:81
 msgid "Editors"
 msgstr "Bearbeiter"
 
 #: ../root/statistics/layout.tt:4 ../root/statistics/Edits.js:32
 #: ../root/statistics/Edits.js:36 ../root/statistics/Edits.js:45
-#: ../root/statistics/Index.js:954 ../root/statistics/StatisticsLayout.js:69
+#: ../root/statistics/Index.js:954 ../root/statistics/StatisticsLayout.js:71
 #: ../root/statistics/stats.js:194
 msgid "Edits"
 msgstr "Bearbeitungen"
@@ -652,7 +652,7 @@ msgstr "Bearbeitungen"
 msgid "Exact Values (items vs. day)"
 msgstr "Genaue Werte (Einträge vs. Tag)"
 
-#: ../root/statistics/layout.tt:4 ../root/statistics/StatisticsLayout.js:74
+#: ../root/statistics/layout.tt:4 ../root/statistics/StatisticsLayout.js:76
 #: ../root/statistics/stats.js:29
 msgid "Formats"
 msgstr "Formate"
@@ -661,7 +661,7 @@ msgstr "Formate"
 msgid "Hover and click on vertical lines"
 msgstr "Über vertikale Linien bewegen und klicken"
 
-#: ../root/statistics/layout.tt:4 ../root/statistics/StatisticsLayout.js:54
+#: ../root/statistics/layout.tt:4 ../root/statistics/StatisticsLayout.js:56
 msgid "Languages/Scripts"
 msgstr "Sprachen/Schriften"
 
@@ -678,7 +678,7 @@ msgid "MusicBrainz Events:"
 msgstr "MusicBrainz-Ereignisse:"
 
 #: ../root/statistics/layout.tt:4 ../root/statistics/Index.js:63
-#: ../root/statistics/StatisticsLayout.js:44
+#: ../root/statistics/StatisticsLayout.js:46
 msgid "Overview"
 msgstr "Übersicht"
 
@@ -692,7 +692,7 @@ msgstr "Diagramm der Veränderungsrate"
 
 #: ../root/statistics/layout.tt:4 ../root/statistics/Relationships.js:77
 #: ../root/statistics/Relationships.js:81
-#: ../root/statistics/StatisticsLayout.js:64 ../root/statistics/stats.js:33
+#: ../root/statistics/StatisticsLayout.js:66 ../root/statistics/stats.js:33
 #: ../root/statistics/stats.js:43
 msgid "Relationships"
 msgstr "Beziehungen"
@@ -701,7 +701,7 @@ msgstr "Beziehungen"
 msgid "Reset:"
 msgstr "Zurücksetzen:"
 
-#: ../root/statistics/layout.tt:4 ../root/statistics/StatisticsLayout.js:84
+#: ../root/statistics/layout.tt:4 ../root/statistics/StatisticsLayout.js:86
 msgid "Timeline"
 msgstr "Zeitleiste"
 
@@ -1460,12 +1460,14 @@ msgid "No relationship statistics available."
 msgstr "Keine Beziehungsstatistiken verfügbar."
 
 #: ../root/statistics/Relationships.js:91
-msgid "Exclusive"
-msgstr "Exklusive"
+msgctxt "relationships"
+msgid "This type only"
+msgstr ""
 
 #: ../root/statistics/Relationships.js:92
-msgid "Inclusive"
-msgstr "Inklusive"
+msgctxt "relationships"
+msgid "Including subtypes"
+msgstr ""
 
 #: ../root/statistics/Relationships.js:109
 msgid "{type0}-{type1}"
@@ -2184,6 +2186,10 @@ msgstr "Anzahl aller Serien"
 #: ../root/statistics/stats.js:624
 msgid "Count of all Tags"
 msgstr "Anzahl aller Tags"
+
+#: ../root/statistics/stats.js:625
+msgid "Tags"
+msgstr "Tags"
 
 #: ../root/statistics/stats.js:630
 msgid "Count of all Tags (raw)"
