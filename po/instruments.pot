@@ -360,7 +360,7 @@ msgid "analog synthesizer"
 msgstr ""
 
 #: DB:instrument/name:371
-msgctxt "single pitch bamboo rattle xylophone"
+msgctxt "Sundanese single pitch bamboo rattle xylophone"
 msgid "angklung"
 msgstr ""
 
@@ -2000,6 +2000,11 @@ msgctxt "Indonesian racked cymbals"
 msgid "kecer"
 msgstr ""
 
+#: DB:instrument/name:988
+msgctxt "Banana shaped bronze slit-drum used in javanese gamelan"
+msgid "kemanak"
+msgstr ""
+
 #: DB:instrument/name:211
 msgid "kemenche"
 msgstr ""
@@ -2016,6 +2021,21 @@ msgstr ""
 #: DB:instrument/name:984
 msgctxt "Javanese hanging gong-set"
 msgid "kempul"
+msgstr ""
+
+#: DB:instrument/name:987
+msgctxt "Small boxed double gong-chime used in Javanese gamelan"
+msgid "kempyang"
+msgstr ""
+
+#: DB:instrument/name:985
+msgctxt "Large high-pitch gong-chime used in Indonesian Gamelan"
+msgid "kenong"
+msgstr ""
+
+#: DB:instrument/name:986
+msgctxt "Small boxed gong-chime used in Javanese gamelan"
+msgid "kethuk"
 msgstr ""
 
 #: DB:instrument/name:367
