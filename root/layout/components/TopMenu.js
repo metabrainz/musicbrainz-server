@@ -7,7 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import _ from 'lodash';
 import React from 'react';
 
 import RequestLogin from '../../components/RequestLogin';
