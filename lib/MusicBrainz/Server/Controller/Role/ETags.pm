@@ -10,6 +10,8 @@ after end => sub {
 
     my $body = $c->response->body;
     if ($body) {
+        $body = ${$body->string_ref}
+            if ref($body) eq 'IO::String';
         utf8::encode($body)
             if utf8::is_utf8($body);
         $c->response->headers->etag(md5_hex($body));

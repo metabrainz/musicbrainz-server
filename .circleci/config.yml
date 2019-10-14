@@ -165,7 +165,8 @@ jobs:
             - v3-carton-{{ checksum "cpanfile.snapshot" }}
             - v3-carton-
       - run: |
-          chown -R musicbrainz:musicbrainz /home/musicbrainz/{carton-local,vendor}
+          [[ -d /home/musicbrainz/carton-local ]] && chown -R musicbrainz:musicbrainz /home/musicbrainz/carton-local
+          [[ -d /home/musicbrainz/vendor ]] && chown -R musicbrainz:musicbrainz /home/musicbrainz/vendor
           sudo -E -H -u musicbrainz carton install --cached --deployment
           sudo -E -H -u musicbrainz carton bundle
       - save_cache:

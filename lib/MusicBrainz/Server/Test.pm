@@ -389,7 +389,7 @@ sub _build_ws_test_json {
                 $mech->clear_credentials;
             }
 
-            $Test->plan(tests => 2);
+            $Test->plan(tests => 2 + ($opts->{extra_plan} // 0));
 
             $mech->get($end_point . $url, 'fetching');
             if ($opts->{response_code}) {
@@ -399,6 +399,9 @@ sub _build_ws_test_json {
             }
 
             cmp_deeply(decode_json($mech->content), $expected);
+
+            my $cb = $opts->{content_cb};
+            $cb->($mech->content) if $cb;
         });
     };
 }

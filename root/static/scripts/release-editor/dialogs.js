@@ -123,8 +123,16 @@ class SearchResult {
         if (track.artistCredit) {
             track.artist = reduceArtistCredit(track.artistCredit);
         } else {
+            // If the track artist matches the release artist, reuse the AC
+            const release = releaseEditor.rootField.release();
+            const releaseArtistCredit = release.artistCredit();
+            const releaseArtistName = reduceArtistCredit(releaseArtistCredit);
             track.artist = track.artist || this.artist || "";
-            track.artistCredit = {names: [{ name: track.artist }]};
+            if (track.artist === releaseArtistName) {
+                track.artistCredit = releaseArtistCredit;
+            } else {
+                track.artistCredit = {names: [{ name: track.artist }]};
+            }
         }
     }
 

@@ -374,8 +374,8 @@ is( scalar(@$releases), 6 );
 ok( (grep { $_->id == 1 } @$releases), 'found release by release group' );
 ok( (grep { $_->id == 2 } @$releases), 'found release by release group' );
 
-my @releases = $release_data->find_by_medium(1);
-is( $releases[0]->id, 3 );
+($releases, $hits) = $release_data->find_by_medium([1], 25, 0);
+is( $releases->[0]->id, 3 );
 
 my $annotation = $release_data->annotation->get_latest(1);
 is ( $annotation->text, "Annotation" );

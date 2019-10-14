@@ -88,8 +88,8 @@ const Relationships = ({
         <tbody>
           <tr className="thead">
             <th />
-            <th>{l('Exclusive')}</th>
-            <th>{l('Inclusive')}</th>
+            <th>{lp('This type only', 'relationships')}</th>
+            <th>{lp('Including subtypes', 'relationships')}</th>
             <th />
           </tr>
           <tr>

@@ -36,6 +36,19 @@ ws2_test_xml 'browse artists via recording',
     '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
     <artist-list count="2">
+        <artist type="Person" type-id="b6e035f4-3ce9-331c-97df-83397230b0df" id="a16d1433-ba89-4f72-a47b-a370add0bb55">
+            <name>BoA</name><sort-name>BoA</sort-name>
+            <life-span>
+                <begin>1986-11-05</begin>
+            </life-span>
+            <alias-list count="5">
+              <alias sort-name="Beat of Angel">Beat of Angel</alias>
+              <alias sort-name="BoA Kwon">BoA Kwon</alias>
+              <alias sort-name="Kwon BoA">Kwon BoA</alias>
+              <alias sort-name="ボア">ボア</alias>
+              <alias sort-name="보아">보아</alias>
+            </alias-list>
+        </artist>
         <artist type="Group" type-id="e431f5f6-b5d2-343d-8b36-72607fffb74b" id="22dd2db3-88ea-4428-a7a8-5cd3acf23175">
             <name>m-flo</name><sort-name>m-flo</sort-name>
             <life-span>
@@ -50,19 +63,6 @@ ws2_test_xml 'browse artists via recording',
               <alias sort-name="エムフロウ">エムフロウ</alias>
             </alias-list>
         </artist>
-        <artist type="Person" type-id="b6e035f4-3ce9-331c-97df-83397230b0df" id="a16d1433-ba89-4f72-a47b-a370add0bb55">
-            <name>BoA</name><sort-name>BoA</sort-name>
-            <life-span>
-                <begin>1986-11-05</begin>
-            </life-span>
-            <alias-list count="5">
-              <alias sort-name="Beat of Angel">Beat of Angel</alias>
-              <alias sort-name="BoA Kwon">BoA Kwon</alias>
-              <alias sort-name="Kwon BoA">Kwon BoA</alias>
-              <alias sort-name="ボア">ボア</alias>
-              <alias sort-name="보아">보아</alias>
-            </alias-list>
-        </artist>
     </artist-list>
 </metadata>';
 
@@ -71,13 +71,6 @@ ws2_test_xml 'browse artists via release, inc=tags+ratings',
     '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
     <artist-list count="3">
-        <artist type="Group" type-id="e431f5f6-b5d2-343d-8b36-72607fffb74b" id="22dd2db3-88ea-4428-a7a8-5cd3acf23175">
-            <name>m-flo</name><sort-name>m-flo</sort-name>
-            <life-span>
-                <begin>1998</begin>
-            </life-span>
-            <rating votes-count="3">3</rating>
-        </artist>
         <artist id="97fa3f6e-557c-4227-bc0e-95a7f9f3285d">
             <name>BAGDAD CAFE THE trench town</name>
             <sort-name>BAGDAD CAFE THE trench town</sort-name>
@@ -97,6 +90,13 @@ ws2_test_xml 'browse artists via release, inc=tags+ratings',
               <tag count="1"><name>pop</name></tag>
             </tag-list>
             <rating votes-count="3">4.35</rating>
+        </artist>
+        <artist type="Group" type-id="e431f5f6-b5d2-343d-8b36-72607fffb74b" id="22dd2db3-88ea-4428-a7a8-5cd3acf23175">
+            <name>m-flo</name><sort-name>m-flo</sort-name>
+            <life-span>
+                <begin>1998</begin>
+            </life-span>
+            <rating votes-count="3">3</rating>
         </artist>
     </artist-list>
 </metadata>';

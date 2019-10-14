@@ -122,7 +122,15 @@ sub show : Chained('load') PathPart('') {
     );
 }
 
-sub fingerprints : Chained('load') PathPart('fingerprints') { }
+sub fingerprints : Chained('load') PathPart('fingerprints') {
+    my ($self, $c) = @_;
+
+    $c->stash(
+        component_path => 'recording/RecordingFingerprints',
+        component_props => { recording => $c->stash->{recording} },
+        current_view => 'Node',
+    );
+}
 
 # Stuff that has the sidebar and needs collection info
 after [qw( show collections details tags aliases fingerprints )] => sub {

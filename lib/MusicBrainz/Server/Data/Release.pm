@@ -302,17 +302,24 @@ sub find_by_release_group
       SELECT *
       FROM (
         SELECT DISTINCT ON (release.id) " . $self->_columns . ",
-          date_year, date_month, date_day, area.name AS country_name
+          date_year, date_month, date_day, area.name AS country_name,
+          rl.catalog_numbers AS catalog_numbers
         FROM " . $self->_table . "
         " . join(' ', @$extra_joins) . "
         LEFT JOIN release_event ON release_event.release = release.id
         LEFT JOIN area ON area.id = release_event.country
+        LEFT JOIN (
+          SELECT
+            array_agg(catalog_number ORDER BY catalog_number) AS catalog_numbers, release
+            FROM release_label
+            GROUP BY release
+        ) rl ON release.id = rl.release
         WHERE " . join(" AND ", @$conditions) . "
         ORDER BY release.id, date_year, date_month, date_day,
-          country_name, barcode
+          rl.catalog_numbers, country_name, barcode
       ) s
       ORDER BY date_year, date_month, date_day,
-        country_name, barcode
+        catalog_numbers, country_name, barcode
     ";
 
     $self->query_to_list_limited($query, $params, $limit, $offset);
@@ -609,16 +616,17 @@ sub load_with_medium_for_recording
 }
 
 sub find_by_medium {
-    my ($self, @medium_ids) = @_;
+    my ($self, $medium_ids, $limit, $offset) = @_;
 
     my $query = 'SELECT ' . $self->_columns .
                 ' FROM ' . $self->_table .
                 ' WHERE release.id IN (
                     SELECT release FROM medium
                      WHERE medium.id = any(?)
-                )';
+                )' .
+                ' ORDER BY release.id';
 
-    $self->query_to_list($query, [\@medium_ids]);
+    $self->query_to_list_limited($query, [$medium_ids], $limit, $offset);
 }
 
 sub _order_by {

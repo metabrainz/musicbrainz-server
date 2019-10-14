@@ -7,8 +7,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2019-08-19 08:27+0000\n"
-"Last-Translator: Maurits Meulenbelt <email address hidden>\n"
+"PO-Revision-Date: 2019-10-14 21:16+0000\n"
+"Last-Translator: yvanz\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -205,14 +205,6 @@ msgid ""
 "control surface based on the layout of a marimba."
 msgstr "Een marimba lumina is een MIDI-controller waarmee een muzikant een oppervlak kan bespelen met de indeling van een marimba."
 
-#. name:mark tree
-#: DB:instrument/description:637
-msgid ""
-"A mark tree consists of many small chimes arranged in order of length which "
-"hang from a bar. The chimes are played by sweeping a finger or stick through"
-" the length of the hanging chimes."
-msgstr "Een bellenboom bestaat uit vele kleine bellen die op lengte gerangschikt aan een balk hangen. De bellen worden bespeeld door met een vinger of stokje langs de hangende bellen te gaan."
-
 #. name:mouth organ
 #: DB:instrument/description:610
 msgid ""
@@ -327,6 +319,22 @@ msgstr "Een houten dubbelrietinstrument met een conische boring uit de 16de en 1
 msgid "Acoustic guitar without frets."
 msgstr "Akoestische gitaar zonder fretten."
 
+#. name:diatonic button accordion
+#: DB:instrument/description:361
+msgid ""
+"Also known as Melodeon, it has 1 to 2 rows of buttons that each produce two "
+"tones (bisonoric)."
+msgstr ""
+
+#. name:repeater
+#: DB:instrument/description:882
+msgid ""
+"Also known as kette or keteh, it is the smallest size/pitch drum. It has a "
+"tight goat skin membrane and it is struck with the fingertips. Important in "
+"the Jamaican Burru music and Rastafari movement, it is part of the "
+"Nyabinghi/Akete drums."
+msgstr ""
+
 #. name:alto viol
 #: DB:instrument/description:923
 msgid ""
@@ -348,6 +356,22 @@ msgid ""
 "unique to japan. With ebony neck and coconut body its three (rarely four) "
 "strings are played upright with a horsetail bow."
 msgstr "Hoewel de kokyu lijkt op de shamisen en tegelijkertijd werd geïntroduceerd, is het een uniek Japans instrument. De hals is van ebbenhout en de klankkast van kokosnoot. Het instrument heeft drie (heel soms vier) snaren en wordt rechtop bespeeld met een strijkstok met paardenhaar."
+
+#. name:kethuk
+#: DB:instrument/description:986
+msgid ""
+"Always used with kempyang, it consists of a single bronze kettle-gong, "
+"pitched deeper than kempyangs'. Flat top bossed gong is sat in a highly "
+"decorated rancak frame, beaten with tabuh beaters by the same person."
+msgstr ""
+
+#. name:kempyang
+#: DB:instrument/description:987
+msgid ""
+"Always used with ketuk, it consists of two bronze kettle-gongs, pitched a "
+"note apart. Ached top bossed gongs are sat in the highly decorated rancak "
+"frame, beaten with tabuh beaters by the same person."
+msgstr ""
 
 #. name:amadinda
 #: DB:instrument/description:363
@@ -479,8 +503,10 @@ msgid ""
 "Bar or pole shaped chimes, usually arranged in a line or circle, hanging "
 "free or struck with mallets. <br /> For the instrument often used in bell "
 "towers, see <a "
-"href=\"/instrument/0d14d4e0-9ac9-4a96-a595-4145d7794082\">carillon</a>."
-msgstr "Een glockenspiel is een metallofoon die bestaat uit toetsen of staven die met een hamer worden beslagen. <br /> Zie voor het instrument in klokkentorens <a href=\"/instrument/0d14d4e0-9ac9-4a96-a595-4145d7794082\">carillon</a>."
+"href=\"/instrument/0d14d4e0-9ac9-4a96-a595-4145d7794082\">carillon</a>.<br "
+"/> For the instrument used in orchestra, see <a href=\"/instrument/7d6964ff-"
+"b1f5-472b-bdd7-b53de3739ad3\">tubular bells</a>."
+msgstr ""
 
 #. name:baroque trumpet
 #: DB:instrument/description:521
@@ -523,6 +549,11 @@ msgid ""
 "like. it has four thick metal strings"
 msgstr "Een soort contrabas uit de Balkan met vier dikke metalen snaren. De berda maakt deel uit van het tamburica-orkest."
 
+#. name:segunda
+#: DB:instrument/description:757
+msgid "Bass member of the garifuna drum group."
+msgstr ""
+
 #. name:bicycle bell
 #: DB:instrument/description:743
 msgid ""
@@ -535,18 +566,17 @@ msgstr "Een fietsbel maakt geluid door met de duim een veer aan te spannen die b
 msgid "Bendir, frame drum from North Africa, doesn't have jingles"
 msgstr "Bendir, lijsttrommel zonder belletjes uit Noord-Afrika."
 
+#. name:kemanak
+#: DB:instrument/description:988
+msgid ""
+"Bent into a ladle or banana like shape, it is a pair of bronze slit-drums "
+"hit with tabuh beaters."
+msgstr ""
+
 #. name:typewriter
 #: DB:instrument/description:526
 msgid "Besides being used for writing, it has also been used in percussion."
 msgstr "Typemachines worden niet alleen gebruikt om mee te schrijven, maar ook voor percussie."
-
-#. name:ugal
-#: DB:instrument/description:967
-msgid ""
-"Bronze metallophone with 10 keys suspended over tuned bamboo resonators that"
-" the player hits with a small hammer, often in a theatrical manner. In the "
-"indonesian gamelan it is the leader of the pokok melody."
-msgstr "Een ugal is een bronzen metallofoon die bestaat uit 10 toetsen die boven gestemde resonatoren van bamboe zijn opgehangen. De bespeler slaat, vaak op een theatrale manier, met een kleine hamer op de toetsen. In de Indonesische gamelan is de ugal de leider van de pokok-melodie."
 
 #. name:cajón
 #: DB:instrument/description:336
@@ -599,12 +629,20 @@ msgid ""
 "ritualistically buried in pairs."
 msgstr "De bronselur is een Scandinavische natuurhoorn van brons die vaak in paren ritueel werden begraven."
 
+#. name:gong-chime
+#: DB:instrument/description:981
+msgid ""
+"Chiefly used in Southeast Asian music, these consist of from only 1 to "
+"several dozens of metal (often bronze) \"kettles\", set in a wide variety of"
+" different supports and played with mallets."
+msgstr ""
+
 #. name:bonang panembung
 #: DB:instrument/description:972
 msgid ""
 "Chiefly used in Yogyvanese gamelan, the largest and deepest pitched member "
-"of the bonang family of gongs"
-msgstr "De bonang panembung wordt vooral in het gamelanensemble uit Jogjakarta bespeeld. Het is het grootste en laagst klinkende lid van de bonangfamilie."
+"of the bonang family of gong-chimes"
+msgstr ""
 
 #. name:naobo
 #: DB:instrument/description:599
@@ -636,8 +674,10 @@ msgid ""
 "Common and popular metallophone, usually an arrangement of metal keys or "
 "slabs on a wooden resonator box. <br /> For the instrument often used in "
 "bell towers, see <a "
-"href=\"/instrument/0d14d4e0-9ac9-4a96-a595-4145d7794082\">carillon</a>."
-msgstr "Een glockenspiel is een populaire metallofoon die meestal bestaat uit metalen toetsen of staven op een houten resonator. <br /> Zie voor het instrument in klokkentorens <a href=\"/instrument/0d14d4e0-9ac9-4a96-a595-4145d7794082\">carillon</a>."
+"href=\"/instrument/0d14d4e0-9ac9-4a96-a595-4145d7794082\">carillon</a>.<br "
+"/> For the instrument called orchestra bell/chime in some languages, see <a "
+"href=\"/instrument/7d6964ff-b1f5-472b-bdd7-b53de3739ad3\">tubular bells</a>."
+msgstr ""
 
 #. name:rudra veena
 #: DB:instrument/description:501
@@ -670,6 +710,14 @@ msgid ""
 "Consisting of two parts joined together by a hinge, it creates a whip-like "
 "sound when clacked together."
 msgstr "Een zweep bestaat uit twee delen die met een scharnier aan elkaar zijn bevestigd. Als de delen tegen elkaar aan worden geklapt, klinkt een zweep-achtig geluid."
+
+#. name:gambang
+#: DB:instrument/description:977
+msgid ""
+"Consists of up to 21 hardwood bars suspended by pins and rope over an oft "
+"ornate wooden trapeze shaped box, the two springy beaters are made of "
+"buffalo horn."
+msgstr ""
 
 #. name:octobass
 #: DB:instrument/description:935
@@ -737,9 +785,10 @@ msgstr "De flamencogitaar is afgeleid van de klassieke gitaar, maar heeft veel a
 #: DB:instrument/description:638
 msgid ""
 "Despite the name, it is not a chime but instead consists of tuned metal bars"
-" each on individual resonator boxes. <br></br> It is similar to "
-"glockenspiel."
-msgstr "Hoewel de naam anders doet vermoeden, bestaat een klokkenstaaf niet uit klokken, maar uit gestemde metalen staven op resonatoren. <br></br>Het instrument lijkt op een glockenspiel."
+" each on individual resonator boxes. <br /> It is similar to glockenspiel. "
+"<br /> For the instrument called <em>bar chimes</em>, see <a "
+"href=\"/instrument/3b8cd68b-aadc-4e43-a13f-e575202d67ea\">chimes</a>."
+msgstr ""
 
 #. name:theorbo
 #: DB:instrument/description:395
@@ -860,6 +909,14 @@ msgid ""
 "plate."
 msgstr "Een trautonium is een elektrisch instrument uit de jaren 1930, met een weerstandsdraad en een bewegende metalen plaat."
 
+#. name:ugal
+#: DB:instrument/description:967
+msgid ""
+"Even lower pitched than the pemade , it also has 10 bronze keys suspended "
+"over tuned bamboo resonators that the player hits with a small hammer, often"
+" in a theatrical manner. It is the leader of the pokok melody."
+msgstr ""
+
 #. name:spinettone
 #: DB:instrument/description:799
 msgid ""
@@ -874,6 +931,11 @@ msgid ""
 "from a rack and beat with mallet, it is used in central Javanese gamelan and"
 " for religious signalling purposes in mosques."
 msgstr "Een bedug is een extra grote dubbelkoppige trommel met een membraan van buffelhuid. De trommel wordt aan een rek opgehangen en met een hamer aangeslagen. Het instrument maakt deel uit van het gamelanensemble en wordt ook in moskeeën gebruikt."
+
+#. name:pi
+#: DB:instrument/description:667
+msgid "Family of quadruple reed oboes"
+msgstr ""
 
 #. name:Baltic psalteries
 #: DB:instrument/description:421
@@ -928,6 +990,13 @@ msgid ""
 "Four-stringed banjo-like lute from West Africa, traditionally played by "
 "griots. Made of hollowed out wood with an animal hide as membrane."
 msgstr "Een jeli ngoni is een banjo-achtige luit uit West-Afrika. Het wordt gemaakt van hout met een dierenhuid als membraan. Het instrument wordt traditioneel door griotten bespeeld."
+
+#. name:bellowed reed
+#: DB:instrument/description:983
+msgid ""
+"Free reeds with bellows attached, often in a square shape, thence called "
+"squeezebox"
+msgstr ""
 
 #. name:friction idiophone
 #: DB:instrument/description:701
@@ -1028,6 +1097,13 @@ msgid ""
 "side of the short neck and one under the bridge which is membrane-covered."
 msgstr "De qeychak (ook wel ghichak of ghaychak) heeft vier metalen snaren en is uit één stuk hout gesneden in een vorm die lijkt op die van de sarinda. Het instrument heeft drie klankgaten: twee aan weerszijden van de korte hals en een onder de brug, afgedekt door een membraan."
 
+#. name:kantilan
+#: DB:instrument/description:975
+msgid ""
+"Highest pitched gangsa, it has 10 brass or bronze keys suspended over short "
+"resonating bamboo pipes set in an heavily ornate case."
+msgstr ""
+
 #. name:gut guitar
 #: DB:instrument/description:567
 msgid "Hollow-body acoustic guitar strung with gut-strings."
@@ -1062,6 +1138,14 @@ msgid ""
 "href=\"/instrument/c641bccc-2060-4871-9c12-e2df2523e53c\">paiban</a>. Drum "
 "is played by one hand and clapper with the other."
 msgstr "Deze combinatie van de trommel <a href=\"/instrument/42349583-c10d-4c6e-b553-28d916113856\">bangu</a> en klepper <a href=\"/instrument/c641bccc-2060-4871-9c12-e2df2523e53c\">paiban</a> speelt een belangrijke rol in Yue- en Kunkqumuziek en de Pekingopera. De trommel wordt met de ene hand bespeeld en de klepper met de andere hand."
+
+#. name:garifuna drum
+#: DB:instrument/description:756
+msgid ""
+"Important to the Garifuna culture, it consists of two drums, the tenor, "
+"primero and the bass, segunda, each is made of hollowed out wood with "
+"membranes of pig, sheep or deer."
+msgstr ""
 
 #. name:morin khuur
 #: DB:instrument/description:224
@@ -1127,6 +1211,15 @@ msgid ""
 "Invented initially as the Hang, it is made of two tuned metal convex pans "
 "glued together creating an UFO shape."
 msgstr "De handpan werd ontwikkeld als de Hang. Het is gemaakt van twee gestemde bolle pannen die zo op elkaar zijn gelijmd dat het geheel eruitziet als een ufo."
+
+#. name:wind chime
+#: DB:instrument/description:497
+msgid ""
+"It differs from other chimes by addition of pendulum(s), such to be worked "
+"by wind, the sonorous parts can be rods, bells or other shapes of metal, "
+"wood, glass or ceramic.<br /> Often decorated, it is seen as a good luck "
+"charm."
+msgstr ""
 
 #. name:yueqin
 #: DB:instrument/description:240
@@ -1208,6 +1301,14 @@ msgid ""
 "different sizes. Played by rubbing dampened fingers on the rims."
 msgstr "De glasharp was al in de 14e eeuw in Perzië bekend. Het bestaat uit glazen containers, die worden gestemd door ze deels met water te vullen of door de grootte van de glazen te variëren. Het wordt bespeeld door met vochtige vingers over de randen te wrijven."
 
+#. name:zill
+#: DB:instrument/description:455
+msgid ""
+"Known since ancient times in south-east Europe and Turkey, small bronze "
+"finger cymbals are used for dancing and other performances. These are "
+"similar to the jingles set in some frame drums."
+msgstr ""
+
 #. name:krakebs
 #: DB:instrument/description:652
 msgid ""
@@ -1232,6 +1333,29 @@ msgid ""
 " the neck."
 msgstr "Een bandoera is een groot snaarinstrument dat overeenkomsten vertoont met de luit en de citer. Het heeft een korte hals zonder fretten en dertig of meer snaren die over de hele klankkast zijn gespannen. De vier tot acht bassnaren worden over de hals gespannen."
 
+#. name:baandu
+#: DB:instrument/description:880
+msgid ""
+"Larger bass drum also known as thunder or pope smasher, it has a double goat"
+" skin membrane and is hit with a padded mallet. Important in the Jamaican "
+"Burru music and Rastafari movement, it is part of the Nyabinghi/Akete drums."
+msgstr ""
+
+#. name:tubular bells
+#: DB:instrument/description:168
+msgid ""
+"Larger orchestral version of chimes, closed top hollow metal tubes are set "
+"in a stand with a damper operated by pedals, they are tuned at a definite "
+"pitch and played with mallets."
+msgstr ""
+
+#. name:jegogan
+#: DB:instrument/description:979
+msgid ""
+"Largest and lowest pitched of the gangsa, it has 5 to 7 large metal bars "
+"suspended over long bamboo resonators"
+msgstr ""
+
 #. name:Scottish smallpipes
 #: DB:instrument/description:427
 msgid ""
@@ -1244,8 +1368,8 @@ msgstr "Gelijkend op (en afgeleid van) de Northumbrian smallpipes maar met de vi
 msgid ""
 "Located in the Luray Caverns of Virginia USA, it is made of an electric "
 "console wired to mallets striking thirty-seven stalactites producing tones. "
-"This is a singular specific instrument, not an instrument <i>type</i>"
-msgstr "The Great Stalacpipe Organ is een orgel in de Luray Caverns in Virginia in de VS. Het bestaat uit een elektrisch klaviatuur dat is verbonden met hamers die 37 stalactieten aanslaan om geluid te maken. Dit is een specifiek instrument en geen <i>type</i> instrument."
+"This is a singular specific instrument, not an instrument <em>type</em>."
+msgstr ""
 
 #. name:pahū
 #: DB:instrument/description:864
@@ -1314,6 +1438,16 @@ msgid ""
 "Made of metal with many small notches scraped with a brush or hair pick, it "
 "is used in Merengue típico."
 msgstr "De güira is een metalen cilinder met veel kleine groeven en wordt bespeeld door er met een borstel of lange kam overheen te schrapen. Het wordt gebruikt in merengue típico-muziek."
+
+#. name:calung
+#: DB:instrument/description:974
+msgid ""
+"Made of multiple vertical hung bamboo tubes with segments cut out to create "
+"different pitch. They can be played either hanging suspended or on a bamboo "
+"frame like a xylophone. <br /> For the balinese metallophone sometimes known"
+" as chalung or calung, see <a "
+"href=\"/instrument/395bab77-bb77-4696-96d6-dfcade201c6d\">jublag</a>"
+msgstr ""
 
 #. name:sasando
 #: DB:instrument/description:928
@@ -1392,10 +1526,23 @@ msgid ""
 "made of cattle-horn."
 msgstr "De gemshoorn stamt uit de middeleeuwen of eerder en werd vroeger gemaakt van de hoorn van een gems of van klei. Het heeft maar een paar vingergaten en een bereik van een octaaf. Moderne varianten zijn complexer en meestal gemaakt van de hoornen van vee."
 
+#. name:xylorimba
+#: DB:instrument/description:703
+msgid "Member of the xylophone family, it has 5 octaves."
+msgstr ""
+
 #. name:Mexican vihuela
 #: DB:instrument/description:92
 msgid "Mexican vihuela, used by mariachi bands"
 msgstr "Mexicaanse vihuela, wordt gebruikt door mariachibands."
+
+#. name:fundeh
+#: DB:instrument/description:881
+msgid ""
+"Middle size/pitch drum, it has a slack goat skin membrane and it is hit with"
+" the palms. Important in the Jamaican Burru music and Rastafari movement, it"
+" is part of the Nyabinghi/Akete drums."
+msgstr ""
 
 #. name:kachva sitar
 #: DB:instrument/description:947
@@ -1475,9 +1622,10 @@ msgstr "De kanklės is het oudste instrument van Litouwen, gemaakt van een speci
 #. name:bonang barung
 #: DB:instrument/description:970
 msgid ""
-"One to two octaves below panerus, it plays elaborate melodies and is one of "
-"the most important instruments in the ensemble."
-msgstr "De bonang barung is een tot twee octaven lager gestemd dan de panerus. Het wordt gebruikt voor het spelen van ingewikkelde melodieën en is een van de belangrijkste leden van het ensemble."
+"One to two octaves below <a href=\"/instrument/7e024f24-f778-4942-8fba-"
+"6f33ebfb2ac6\">panerus</a>, it plays elaborate melodies and is one of the "
+"most important instruments in the ensemble."
+msgstr ""
 
 #. name:handbell
 #: DB:instrument/description:275
@@ -1631,11 +1779,6 @@ msgid ""
 "block. The sound produced is used to keep time."
 msgstr "Phách zijn houten stokjes die op een klein stuk bamboe of een houten blok worden geslagen. Het geproduceerde geluid wordt gemaakt om de maat te houden."
 
-#. name:pi
-#: DB:instrument/description:667
-msgid "Pi is a family of quadruple reed oboes from Thailand."
-msgstr "Pi is een familie van hobo’s uit Thailand met vier rieten."
-
 #. name:boobam
 #: DB:instrument/description:874
 msgid ""
@@ -1740,6 +1883,13 @@ msgstr "De đàn tam thập lục, een recent geïntroduceerd Vietnamees instrum
 msgid "Reedless Aerophone, usually a tube"
 msgstr "Een fluit is een rietloze aerofoon, meestal in de vorm van een buis."
 
+#. name:kenong
+#: DB:instrument/description:985
+msgid ""
+"Related to bonang, it consists of 3 decorated rancak frames that each hold 2"
+" large arched(jaler) bronze gong-chimes hit by heavy tabuh beater(s)."
+msgstr ""
+
 #. name:rubab
 #: DB:instrument/description:883
 msgid ""
@@ -1772,6 +1922,38 @@ msgid ""
 "Scraper made of bones tied together with rope scraped with a conch-shell, in"
 " Catalonia it's scraped with a castanet. Ginebra is a variant made of cane."
 msgstr "De arrabel is een idiofoon gemaakt van beenderen, samengebonden met touw. Het wordt bespeeld door er met een zeeschelp, of in Catalonië met een castagnet, overheen te schrapen. De ginebra is een variant gemaakt van riet."
+
+#. name:pemade
+#: DB:instrument/description:976
+msgid ""
+"Second highest pitched gangsa, it is deeper than the kantil but also has 10 "
+"brass or bronze keys suspended over short resonating pipes set in an heavily"
+" ornate case."
+msgstr ""
+
+#. name:jublag
+#: DB:instrument/description:980
+msgid ""
+"Second lowest pitched of the gangsa, it has 4 to 7 bronze keys suspended "
+"over long bamboo resonators <br /> For the sundanese bamboo xylophone also "
+"used in gamelan, see <a href=\"/instrument/6e180df5-6df9-46bb-8ebf-"
+"c576a010fb5a\">calung</a>"
+msgstr ""
+
+#. name:reyong
+#: DB:instrument/description:973
+msgid ""
+"Set of 4 to 12 small metal gongs suspended in a string carriage, played by "
+"two to four players."
+msgstr ""
+
+#. name:kempul
+#: DB:instrument/description:984
+msgid ""
+"Set of 6 to 10 smaller hanging pitched bronze gongs with a protruding centre"
+" knob struck with tabuh beaters. Higher pitched than the gong ageng, it is "
+"often hung together with it."
+msgstr ""
 
 #. name:drums (drum set)
 #: DB:instrument/description:101
@@ -1829,6 +2011,14 @@ msgid ""
 "Simultaneously a woodwind and membranophone, sound is produced by singing or"
 " speaking into a thin buzzing membrane."
 msgstr "De mirliton is zowel een blaasinstrument als een membranofoon. Het geluid wordt geproduceerd door in een dun, zoemend membraan te spreken of zingen."
+
+#. name:kempli
+#: DB:instrument/description:982
+msgid ""
+"Singular bronze gong-chime kettle set on a decorated jackfruit-wood box "
+"stand. Used as time or tempo keeper, it is struck on the boss with panggul "
+"beater, which provides reference point in the pokok."
+msgstr ""
 
 #. name:donso ngɔni
 #: DB:instrument/description:776
@@ -1902,6 +2092,13 @@ msgid ""
 "narrower bore."
 msgstr "Een pijperfluit is een kleine dwarsfluit, vergelijkbaar met de piccolo, maar met een smallere boring."
 
+#. name:Mark tree
+#: DB:instrument/description:637
+msgid ""
+"Solid metal (often aluminium) rods hanging on a bar, set at an inharmonic "
+"pitch."
+msgstr ""
+
 #. name:sopilka
 #: DB:instrument/description:760
 msgid ""
@@ -1909,12 +2106,12 @@ msgid ""
 "music."
 msgstr "Sopilka verwijst (meestal) naar een soort pijperfluit die wordt gebruikt voor traditionele Oekraïense muziek."
 
-#. name:video game console
+#. name:game console sound chip
 #: DB:instrument/description:853
 msgid ""
-"Sound chip in various video game consoles used for music, chiefly in bit-"
-"tunes and chip-tunes"
-msgstr "Met spelcomputer wordt de geluidschip uit verschillende spelcomputers bedoeld. Deze wordt meestal gebruikt voor het maken van bitpop en chiptune-muziek."
+"Sound chip from various video game consoles, computers and similar, used for"
+" music, chiefly in bitunes and chiptunes"
+msgstr ""
 
 #. name:sitar
 #: DB:instrument/description:88
@@ -1958,6 +2155,11 @@ msgid ""
 "Tap dancing is a type of dance in which the dancer wears special shoes that "
 "make a clicking sound as the dancer's feet strike the floor."
 msgstr "Tapdansen is een vorm van dans waarbij ritmische klanken worden gemaakt door tikken op de grond met metalen plaatjes aan de schoenzolen. De danser doet daarmee aan een vorm van percussie."
+
+#. name:primero
+#: DB:instrument/description:758
+msgid "Tenor member of the garifuna drum group."
+msgstr ""
 
 #. name:tenor viol
 #: DB:instrument/description:922
@@ -2564,13 +2766,6 @@ msgid ""
 "tuned a fourth higher."
 msgstr "Een gaohu is een Chinees strijkinstrument dat is is ontstaan uit de erhu en een kwart hoger gestemd is."
 
-#. name:garifuna drum
-#: DB:instrument/description:756
-msgid ""
-"The garifuna drum is a membranophone from the Garifuna culture in Belize, "
-"Guatemala and Honduras."
-msgstr "Een garifunatrommel is een membranofoon die wordt gebruikt door de Garifuna in Belize, Guatemala en Honduras."
-
 #. name:gayageum
 #: DB:instrument/description:75
 msgid ""
@@ -3052,11 +3247,6 @@ msgid ""
 "arrival or departure of a post rider or mail coach."
 msgstr "Een posthoorn is een gekrulde koperblazer zonder ventielen. Traditioneel wordt het gebruikt om de aankomst of het vertrek van een koerier of postkoets aan te duiden."
 
-#. name:primero
-#: DB:instrument/description:758
-msgid "The primero is a tenor garifuna drum."
-msgstr "Een primero is een tenorgarifunatrommel."
-
 #. name:pātē
 #: DB:instrument/description:726
 msgid "The pātē is a Polynesian slit drum made from a hollowed-out log."
@@ -3217,11 +3407,6 @@ msgstr "Een saw u is een Thais strijkinstrument met een klankkast die wordt gema
 msgid "The saz is a long-necked fretted lute"
 msgstr "Saz is een familie van snaarinstrumenten waaronder de bağlama valt. De term saz wordt vaak foutief gebruikt voor een bağlama."
 
-#. name:segunda
-#: DB:instrument/description:757
-msgid "The segunda is a bass garifuna drum."
-msgstr "Een segunda is een basgarifunatrommel."
-
 #. name:shakuhachi
 #: DB:instrument/description:173
 msgid "The shakuhachi is a Japanese end-blown flute."
@@ -3344,11 +3529,6 @@ msgstr "Een suona, ook bekend als laba of haidi, is een Chinese schalmei die vaa
 msgid ""
 "The surdo is a large bass drum used in Brazilian music, most notably samba."
 msgstr "Een surdo is een grote bastrommel die wordt gebruikt voor Braziliaanse muziek."
-
-#. name:swarmandal
-#: DB:instrument/description:716
-msgid "The swarmandal is an Indian zither."
-msgstr "Een swarmandal is een Indiase citer."
 
 #. name:sáo trúc
 #: DB:instrument/description:199
@@ -3595,11 +3775,6 @@ msgid ""
 "The xun is a vessel flute from China which has a blowing hole at the top."
 msgstr "Een xun is een vatfluit uit China met een blaasgat bovenop het instrument."
 
-#. name:xylorimba
-#: DB:instrument/description:703
-msgid "The xylorimba is an extended-range xylophone."
-msgstr "Een xylorimba is een xylofoon met een een uitgebreid bereik."
-
 #. name:yatga
 #: DB:instrument/description:564
 msgid ""
@@ -3620,13 +3795,6 @@ msgid ""
 "The yehu is a Chinese bowed string instrument in the huqin family, made from"
 " a coconut shell."
 msgstr "De yehu is een Chinees strijkinstrument uit de familie van de huqin, gemaakt uit de schil van een kokosnoot."
-
-#. name:yonggo
-#: DB:instrument/description:685
-msgid ""
-"The yonggo is a barrel drum with a dragon painted on its shell which is used"
-" in daechwita, a genre of traditional Korean music."
-msgstr "Een yonggo is een vattrommel met die met een draak is beschilderd en wordt gebruikt voor daechwita, een soort traditionele Koreaanse muziek."
 
 #. name:zabumba
 #: DB:instrument/description:715
@@ -3774,6 +3942,16 @@ msgstr "Een żummara is een Maltees instrument dat lijkt op de kazoo. Het wordt 
 msgid "Theatre organ, such as the Wurlitzer"
 msgstr "Een (klein) pijporgel dat bedoeld was voor de begeleiding van stomme films. Ook bekend onder de namen bioscooporgel en cinemaorgel."
 
+#. name:akete
+#: DB:instrument/description:747
+msgid ""
+"Three-parts drumset (<a href=\"/instrument/ed1628bd-8541-4874-b8ca-"
+"2cec8b4c5140\">baandu</a>, <a "
+"href=\"/instrument/81b68590-5c82-47a3-9790-1570ca60f711\">funde</a> and <a "
+"href=\"/instrument/30aeef52-3ebf-405e-9baa-ef6c6f3ef6d5\">kete</a>) commonly"
+" used in Burru and Nyabinghi musics."
+msgstr ""
+
 #. name:timpani
 #: DB:instrument/description:167
 msgid "Timpani (Kettle drum)"
@@ -3916,6 +4094,14 @@ msgid ""
 "traditionally to accompany didgeridoo. There are also Boomerang clapsticks."
 msgstr "De clapstick wordt gebruikt door Australische Aboriginals om bij gezang in het ritme te blijven. Het instrument wordt traditioneel gebruikt als begeleiding van de didgeridoo. Er zijn ook boomerangclapsticks."
 
+#. name:swarmandal
+#: DB:instrument/description:716
+msgid ""
+"Used chiefly in classical Indian songstyles Khyal and Thumri, it has a "
+"trapezoid shape with up to 40 metal strings fastened at both sides by iron "
+"pegs with one side having tuning keys."
+msgstr ""
+
 #. name:harmonica
 #: DB:instrument/description:43
 msgid ""
@@ -3947,6 +4133,14 @@ msgid ""
 "rondas and rondallas. It had six pairs of strings, tuned a fourth lower than"
 " bandurria, It fell out of use when contralto bandurria became common."
 msgstr "De octavilla werd in de late 19e en begin 20e eeuw bespeeld. Samen met de bandurria en de laúd zorgde het voor de melodie in ronda’s en rondalla’s. Het had zes paar snaren en was een kwart lager gestemd dan de bandurria. Met de opkomst van de contra-altbandurria raakte het instrument in onbruik."
+
+#. name:kecer
+#: DB:instrument/description:978
+msgid ""
+"Used in both gamelan and Wayang puppet theatre, it consists of two small "
+"cymbals sets; the bottom pair affixed in a highly decorated rancak rack, "
+"their lose counterparts attached together by string."
+msgstr ""
 
 #. name:danso
 #: DB:instrument/description:927
@@ -3983,6 +4177,13 @@ msgid ""
 "21 cm long and 3-4 cm thick."
 msgstr "De krap sēphā wordt bespeeld tijdens sēphāgezang. Het instrument bestaat uit een paar stokken van rozenhout met een lengte van ongeveer 21 cm en een dikte van 3 tot 4 cm."
 
+#. name:yonggo
+#: DB:instrument/description:685
+msgid ""
+"Used in the traditional Korean music daechwita, it consists of a large two "
+"headed wooden barrel painted with dragon designs."
+msgstr ""
+
 #. name:hyoshigi
 #: DB:instrument/description:905
 msgid ""
@@ -4001,8 +4202,8 @@ msgstr "Draaitafels worden gebruikt bij turntablism. Platen worden niet simpelwe
 #: DB:instrument/description:971
 msgid ""
 "Used to play fast melodies, it is the highest pitched member of the bonang "
-"family of gongs"
-msgstr "De bonang panerus wordt gebruikt om snelle melodieën te spelen. Het is het hoogst gestemde lid van de bonangfamilie."
+"family of gong-chimes"
+msgstr ""
 
 #. name:lap harp
 #: DB:instrument/description:886
@@ -4113,20 +4314,6 @@ msgid ""
 "small hole (guxin)."
 msgstr "De bangu wordt veel gebruikt voor volksmuziek, opera en in muziekensembles. Het kan rond of conisch zijn en het grootste uiteinde is bespannen met een koeien- of varkenshuid."
 
-#. name:wind chime
-#: DB:instrument/description:497
-msgid ""
-"Wind chimes are chimes constructed from suspended tubes, rods, bells or "
-"other objects, designed to be hung outside and played by the wind."
-msgstr "Windgongen (wind chimes) zijn gongen die zijn gemaakt van opgehangen buizen, staven, bellen of andere objecten die buiten worden opgehangen om door de wind bespeeld te worden."
-
-#. name:zill
-#: DB:instrument/description:455
-msgid ""
-"Zills are tiny metallic finger cymbals used in belly dancing and other "
-"similar performances."
-msgstr "Ook wel zils, kleine bekkens die worden gebruikt bij buikdansen en soortgelijke voorstellingen."
-
 #. name:pang gu ly hu hmông
 #: DB:instrument/description:315
 msgid "a kind of a \"slide whistle\" form. Hmông flute"
@@ -4175,15 +4362,6 @@ msgid ""
 " ancestor of the entire tamburica ensemble. this plucked long-necked lute "
 "has two double strings and is played solo."
 msgstr "De samica staat ook bekend als dangubica of kuterevka. Het lijkt op de bisernica en is een voorloper van alle instrumenten van het tamburica-orkest. Het is een langhalsluit met twee dubbele snaren en wordt getokkeld."
-
-#. name:repeater
-#: DB:instrument/description:882
-msgid ""
-"also known as kette or keteh, it is the smallest size/pitch drum. It has a "
-"tight goat skin membrane and it is struck with the fingertips. Important in "
-"the Jamaican Burru music and Rastafari movement, it is part of the "
-"Nyabinghi/Akete drums."
-msgstr "Een keteh, ook bekend als kette of repeater is de kleinste trommel van het akete-trio. Het heeft een strak membraan van geitenhuid en wordt met de vingertoppen bespeeld."
 
 #. name:clavioline
 #: DB:instrument/description:815
@@ -4384,14 +4562,6 @@ msgid ""
 "booming bass sound."
 msgstr "Een hue puruhau is een grote kalebas (hue) zonder vingergaten. Het wordt bespeeld door over het gat heen te blazen, waardoor een laag basgeluid ontstaat."
 
-#. name:baandu
-#: DB:instrument/description:880
-msgid ""
-"larger bass drum also known as thunder or pope smasher, it has a double goat"
-" skin membrane and is hit with a padded mallet. Important in the Jamaican "
-"Burru music and Rastafari movement, it is part of the Nyabinghi/Akete drums."
-msgstr "Een baandu (ook wel thunder of pope smasher) is een grote trom met een dubbel membraan van geitenhuid en wordt met een gestoffeerde hamer bespeeld."
-
 #. name:duggi
 #: DB:instrument/description:851
 msgid ""
@@ -4406,14 +4576,6 @@ msgid ""
 "made of wood, bone or stone it has a long string attached, when spun around "
 "it produces a deep, loud whizzing sound that can be heard from far away."
 msgstr "De puurerehua wordt gemaakt van hout, bot of steen en zit vast aan een lang koord. Als het instrument aan het koord wordt rondgeslingerd, maakt het een diep en luid zoevend geluid dat tot op grote afstand kan worden gehoord."
-
-#. name:fundeh
-#: DB:instrument/description:881
-msgid ""
-"middle size/pitch drum, it has a slack goat skin membrane and it is hit with"
-" the palms. Important in the Jamaican Burru music and Rastafari movement, it"
-" is part of the Nyabinghi/Akete drums."
-msgstr "Een fundeh is een middelgrote trom met een slap membraan van geitenhuid en wordt met de handpalmen bespeeld."
 
 #. name:kamalen ngɔni
 #: DB:instrument/description:817
@@ -4564,13 +4726,6 @@ msgstr "Er zijn twee soorten aman khuur: temür/tömör khuur (staal) en khulsan
 #: DB:instrument/description:859
 msgid "thin quiet jew's harp-like instrument made of wood or bone."
 msgstr "De rooria is een dunne mondharp, gemaakt van hout of bot."
-
-#. name:akete
-#: DB:instrument/description:747
-msgid ""
-"three-parts drumset (baandu, funde, and kete) commonly used in Burru and "
-"Nyabinghi musics."
-msgstr "Een akete is een drumstel in drie delen (baandu, funde en kete), vaak gebruikt voor nyabinghi- en burru-muziek."
 
 #. name:ti bwa
 #: DB:instrument/description:332

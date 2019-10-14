@@ -216,12 +216,18 @@ sub _display_relationships {
             my $model1 = type_to_model( $_->{entity1_type} );
             my $entity0_id = $_->{entity0_id};
             my $entity1_id = $_->{entity1_id};
+            my $entity0 = $loaded->{ $model0 }{ $entity0_id } ||
+                $self->c->model($model0)->_entity_class->new( name => $_->{entity0_name});
+            my $entity1 = $loaded->{ $model1 }{ $entity1_id } ||
+                $self->c->model($model1)->_entity_class->new( name => $_->{entity1_name});
 
             Relationship->new(
-                entity0 => $loaded->{ $model0 }{ $entity0_id } ||
-                    $self->c->model($model0)->_entity_class->new( name => $_->{entity0_name}),
-                entity1 => $loaded->{ $model1 }{ $entity1_id } ||
-                    $self->c->model($model1)->_entity_class->new( name => $_->{entity1_name}),
+                entity0 => $entity0,
+                entity1 => $entity1,
+                source => $entity0,
+                target => $entity1,
+                source_type => $entity0->entity_type,
+                target_type => $entity1->entity_type,
                 link    => Link->new(
                     begin_date => PartialDate->new($data->{begin_date}),
                     end_date   => PartialDate->new($data->{end_date}),

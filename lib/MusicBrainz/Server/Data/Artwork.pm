@@ -145,6 +145,18 @@ sub find_front_cover_by_release
     return \@artwork;
 }
 
+sub find_count_by_release
+{
+    my ($self, $release_id) = @_;
+
+    return unless $release_id; # nothing to do
+    my $query = "SELECT count(*)
+        FROM cover_art_archive.index_listing
+        WHERE cover_art_archive.index_listing.release = ?";
+
+    return $self->sql->select_single_value($query, $release_id);
+}
+
 sub load_for_release_groups
 {
     my ($self, @release_groups) = @_;

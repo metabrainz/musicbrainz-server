@@ -56,6 +56,7 @@ require Exporter;
         is_valid_iso_3166_2
         is_valid_iso_3166_3
         is_valid_partial_date
+        is_valid_edit_note
         encode_entities
         normalise_strings
         is_nat
@@ -306,6 +307,20 @@ sub is_valid_partial_date
         # partial dates with year <= 0 are OK, but complete dates are not (don't ask)
         return 0 unless $year > 0;
     }
+
+    return 1;
+}
+
+sub is_valid_edit_note
+{
+    my $edit_note = shift;
+
+    # An edit note with only spaces and / or punctuation is useless
+    return 0 if $edit_note =~ /^[[:space:][:punct:]]+$/;
+
+    # An edit note with just one ASCII character is useless
+    # A one-character Japanese note (for example) might be useful, so limited to ASCII 
+    return 0 if $edit_note =~ /^[[:ascii:]]$/;
 
     return 1;
 }

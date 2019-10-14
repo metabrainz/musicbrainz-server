@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-05-23 20:14+0200\n"
-"PO-Revision-Date: 2019-05-11 18:27+0000\n"
+"POT-Creation-Date: 2019-10-14 23:12+0200\n"
+"PO-Revision-Date: 2019-10-08 23:43+0000\n"
 "Last-Translator: Luca Salini <email address hidden>\n"
 "Language-Team: Italian (http://www.transifex.com/musicbrainz/musicbrainz/language/it/)\n"
 "MIME-Version: 1.0\n"
@@ -600,18 +600,18 @@ msgid "Controls"
 msgstr "Comandi"
 
 #: ../root/statistics/layout.tt:4 ../root/statistics/Countries.js:36
-#: ../root/statistics/StatisticsLayout.js:49
+#: ../root/statistics/StatisticsLayout.js:51
 msgid "Countries"
 msgstr "Paesi"
 
 #: ../root/statistics/layout.tt:4 ../root/statistics/CoverArt.js:68
-#: ../root/statistics/StatisticsLayout.js:59 ../root/statistics/stats.js:27
+#: ../root/statistics/StatisticsLayout.js:61 ../root/statistics/stats.js:27
 msgid "Cover Art"
 msgstr "Copertine"
 
 #: ../root/statistics/layout.tt:23 ../root/statistics/layout.tt:34
-#: ../root/statistics/StatisticsLayout.js:95
-#: ../root/statistics/StatisticsLayout.js:109
+#: ../root/statistics/StatisticsLayout.js:97
+#: ../root/statistics/StatisticsLayout.js:111
 msgid "Database Statistics"
 msgstr "Statistiche database"
 
@@ -625,13 +625,13 @@ msgstr "Disegna un rettangolo su uno dei grafici"
 
 #: ../root/statistics/layout.tt:4 ../root/statistics/Editors.js:97
 #: ../root/statistics/Editors.js:108 ../root/statistics/Index.js:838
-#: ../root/statistics/StatisticsLayout.js:79
+#: ../root/statistics/StatisticsLayout.js:81
 msgid "Editors"
 msgstr "Editor"
 
 #: ../root/statistics/layout.tt:4 ../root/statistics/Edits.js:32
 #: ../root/statistics/Edits.js:36 ../root/statistics/Edits.js:45
-#: ../root/statistics/Index.js:954 ../root/statistics/StatisticsLayout.js:69
+#: ../root/statistics/Index.js:954 ../root/statistics/StatisticsLayout.js:71
 #: ../root/statistics/stats.js:194
 msgid "Edits"
 msgstr "Modifiche"
@@ -640,7 +640,7 @@ msgstr "Modifiche"
 msgid "Exact Values (items vs. day)"
 msgstr "Valori esatti (elementi per ogni giorno)"
 
-#: ../root/statistics/layout.tt:4 ../root/statistics/StatisticsLayout.js:74
+#: ../root/statistics/layout.tt:4 ../root/statistics/StatisticsLayout.js:76
 #: ../root/statistics/stats.js:29
 msgid "Formats"
 msgstr "Formati"
@@ -649,7 +649,7 @@ msgstr "Formati"
 msgid "Hover and click on vertical lines"
 msgstr "Soffermati e clicca sulle righe verticali"
 
-#: ../root/statistics/layout.tt:4 ../root/statistics/StatisticsLayout.js:54
+#: ../root/statistics/layout.tt:4 ../root/statistics/StatisticsLayout.js:56
 msgid "Languages/Scripts"
 msgstr "Lingue/Script"
 
@@ -666,7 +666,7 @@ msgid "MusicBrainz Events:"
 msgstr "Eventi di MusicBrainz:"
 
 #: ../root/statistics/layout.tt:4 ../root/statistics/Index.js:63
-#: ../root/statistics/StatisticsLayout.js:44
+#: ../root/statistics/StatisticsLayout.js:46
 msgid "Overview"
 msgstr "Riepilogo"
 
@@ -680,7 +680,7 @@ msgstr "Grafico del tasso di variazione"
 
 #: ../root/statistics/layout.tt:4 ../root/statistics/Relationships.js:77
 #: ../root/statistics/Relationships.js:81
-#: ../root/statistics/StatisticsLayout.js:64 ../root/statistics/stats.js:33
+#: ../root/statistics/StatisticsLayout.js:66 ../root/statistics/stats.js:33
 #: ../root/statistics/stats.js:43
 msgid "Relationships"
 msgstr "Relazioni"
@@ -689,7 +689,7 @@ msgstr "Relazioni"
 msgid "Reset:"
 msgstr "Reimposta:"
 
-#: ../root/statistics/layout.tt:4 ../root/statistics/StatisticsLayout.js:84
+#: ../root/statistics/layout.tt:4 ../root/statistics/StatisticsLayout.js:86
 msgid "Timeline"
 msgstr "Cronologia"
 
@@ -1448,12 +1448,14 @@ msgid "No relationship statistics available."
 msgstr "Non è disponibile nessuna statistica sulle relazioni."
 
 #: ../root/statistics/Relationships.js:91
-msgid "Exclusive"
-msgstr "Escluse"
+msgctxt "relationships"
+msgid "This type only"
+msgstr "Solo questo tipo"
 
 #: ../root/statistics/Relationships.js:92
-msgid "Inclusive"
-msgstr "Incluse"
+msgctxt "relationships"
+msgid "Including subtypes"
+msgstr "Includi sottotipi"
 
 #: ../root/statistics/Relationships.js:109
 msgid "{type0}-{type1}"

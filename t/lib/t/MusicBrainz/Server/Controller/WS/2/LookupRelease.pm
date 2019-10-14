@@ -403,8 +403,8 @@ ws_test 'release lookup with labels, recordings and tags',
     </release>
 </metadata>';
 
-ws_test 'release lookup with release-groups',
-    '/release/aff4a693-5970-4e2e-bd46-e2ee49c22de7?inc=artist-credits+release-groups' =>
+ws_test 'release lookup with release-groups and ratings',
+    '/release/aff4a693-5970-4e2e-bd46-e2ee49c22de7?inc=artist-credits+release-groups+ratings' =>
     '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
     <release id="aff4a693-5970-4e2e-bd46-e2ee49c22de7">
@@ -420,6 +420,7 @@ ws_test 'release lookup with release-groups',
                 <artist id="22dd2db3-88ea-4428-a7a8-5cd3acf23175">
                     <name>m-flo</name>
                     <sort-name>m-flo</sort-name>
+                    <rating votes-count="3">3</rating>
                 </artist>
             </name-credit>
         </artist-credit>
@@ -432,9 +433,11 @@ ws_test 'release lookup with release-groups',
                     <artist id="22dd2db3-88ea-4428-a7a8-5cd3acf23175">
                         <name>m-flo</name>
                         <sort-name>m-flo</sort-name>
+                        <rating votes-count="3">3</rating>
                     </artist>
                 </name-credit>
             </artist-credit>
+            <rating votes-count="2">5</rating>
         </release-group>
         <date>2004-03-17</date>
         <country>JP</country>
@@ -654,6 +657,7 @@ ws_test 'release lookup, relation attributes',
         <relation-list target-type="release">
             <relation type="transl-tracklisting" type-id="fc399d47-23a7-4c28-bfcf-0607a562b644">
                 <target>757a1723-3769-4298-89cd-48d31177852a</target>
+                <direction>forward</direction>
                 <release id="757a1723-3769-4298-89cd-48d31177852a">
                     <title>LOVE &amp; HONESTY</title>
                     <quality>normal</quality>
@@ -749,7 +753,8 @@ ws_test 'release lookup, related artists have no tags',
               <title>On My Bus</title><length>267560</length>
               <relation-list target-type="artist">
                 <relation type-id="5c0ceac3-feb4-41f0-868d-dc06f6e27fc0" type="producer">
-                  <target>3088b672-fba9-4b4b-8ae0-dce13babfbb4</target><direction>backward</direction>
+                  <target>3088b672-fba9-4b4b-8ae0-dce13babfbb4</target>
+                  <direction>backward</direction>
                   <artist id="3088b672-fba9-4b4b-8ae0-dce13babfbb4">
                     <name>Plone</name><sort-name>Plone</sort-name>
                   </artist>
@@ -763,7 +768,8 @@ ws_test 'release lookup, related artists have no tags',
               <title>Top &amp; Low Rent</title><length>230506</length>
               <relation-list target-type="artist">
                 <relation type-id="5c0ceac3-feb4-41f0-868d-dc06f6e27fc0" type="producer">
-                  <target>3088b672-fba9-4b4b-8ae0-dce13babfbb4</target><direction>backward</direction>
+                  <target>3088b672-fba9-4b4b-8ae0-dce13babfbb4</target>
+                  <direction>backward</direction>
                   <artist id="3088b672-fba9-4b4b-8ae0-dce13babfbb4">
                     <name>Plone</name><sort-name>Plone</sort-name>
                   </artist>
@@ -777,7 +783,8 @@ ws_test 'release lookup, related artists have no tags',
               <title>Plock</title><length>237133</length>
               <relation-list target-type="artist">
                 <relation type-id="5c0ceac3-feb4-41f0-868d-dc06f6e27fc0" type="producer">
-                  <target>3088b672-fba9-4b4b-8ae0-dce13babfbb4</target><direction>backward</direction>
+                  <target>3088b672-fba9-4b4b-8ae0-dce13babfbb4</target>
+                  <direction>backward</direction>
                   <artist id="3088b672-fba9-4b4b-8ae0-dce13babfbb4">
                     <name>Plone</name><sort-name>Plone</sort-name>
                   </artist>
@@ -791,7 +798,8 @@ ws_test 'release lookup, related artists have no tags',
               <title>Marbles</title><length>229826</length>
               <relation-list target-type="artist">
                 <relation type-id="5c0ceac3-feb4-41f0-868d-dc06f6e27fc0" type="producer">
-                  <target>3088b672-fba9-4b4b-8ae0-dce13babfbb4</target><direction>backward</direction>
+                  <target>3088b672-fba9-4b4b-8ae0-dce13babfbb4</target>
+                  <direction>backward</direction>
                   <artist id="3088b672-fba9-4b4b-8ae0-dce13babfbb4">
                     <name>Plone</name><sort-name>Plone</sort-name>
                   </artist>
@@ -805,7 +813,8 @@ ws_test 'release lookup, related artists have no tags',
               <title>Busy Working</title><length>217440</length>
               <relation-list target-type="artist">
                 <relation type-id="5c0ceac3-feb4-41f0-868d-dc06f6e27fc0" type="producer">
-                  <target>3088b672-fba9-4b4b-8ae0-dce13babfbb4</target><direction>backward</direction>
+                  <target>3088b672-fba9-4b4b-8ae0-dce13babfbb4</target>
+                  <direction>backward</direction>
                   <artist id="3088b672-fba9-4b4b-8ae0-dce13babfbb4">
                     <name>Plone</name><sort-name>Plone</sort-name>
                   </artist>
@@ -819,7 +828,8 @@ ws_test 'release lookup, related artists have no tags',
               <title>The Greek Alphabet</title><length>227293</length>
               <relation-list target-type="artist">
                 <relation type-id="5c0ceac3-feb4-41f0-868d-dc06f6e27fc0" type="producer">
-                  <target>3088b672-fba9-4b4b-8ae0-dce13babfbb4</target><direction>backward</direction>
+                  <target>3088b672-fba9-4b4b-8ae0-dce13babfbb4</target>
+                  <direction>backward</direction>
                   <artist id="3088b672-fba9-4b4b-8ae0-dce13babfbb4">
                     <name>Plone</name><sort-name>Plone</sort-name>
                   </artist>
@@ -833,7 +843,8 @@ ws_test 'release lookup, related artists have no tags',
               <title>Press a Key</title><length>244506</length>
               <relation-list target-type="artist">
                 <relation type-id="5c0ceac3-feb4-41f0-868d-dc06f6e27fc0" type="producer">
-                  <target>3088b672-fba9-4b4b-8ae0-dce13babfbb4</target><direction>backward</direction>
+                  <target>3088b672-fba9-4b4b-8ae0-dce13babfbb4</target>
+                  <direction>backward</direction>
                   <artist id="3088b672-fba9-4b4b-8ae0-dce13babfbb4">
                     <name>Plone</name><sort-name>Plone</sort-name>
                   </artist>
@@ -847,7 +858,8 @@ ws_test 'release lookup, related artists have no tags',
               <title>Bibi Plone</title><length>173960</length>
               <relation-list target-type="artist">
                 <relation type-id="5c0ceac3-feb4-41f0-868d-dc06f6e27fc0" type="producer">
-                  <target>3088b672-fba9-4b4b-8ae0-dce13babfbb4</target><direction>backward</direction>
+                  <target>3088b672-fba9-4b4b-8ae0-dce13babfbb4</target>
+                  <direction>backward</direction>
                   <artist id="3088b672-fba9-4b4b-8ae0-dce13babfbb4">
                     <name>Plone</name><sort-name>Plone</sort-name>
                   </artist>
@@ -861,7 +873,8 @@ ws_test 'release lookup, related artists have no tags',
               <title>Be Rude to Your School</title><length>208706</length>
               <relation-list target-type="artist">
                 <relation type-id="5c0ceac3-feb4-41f0-868d-dc06f6e27fc0" type="producer">
-                  <target>3088b672-fba9-4b4b-8ae0-dce13babfbb4</target><direction>backward</direction>
+                  <target>3088b672-fba9-4b4b-8ae0-dce13babfbb4</target>
+                  <direction>backward</direction>
                   <artist id="3088b672-fba9-4b4b-8ae0-dce13babfbb4">
                     <name>Plone</name><sort-name>Plone</sort-name>
                   </artist>
@@ -875,7 +888,8 @@ ws_test 'release lookup, related artists have no tags',
               <title>Summer Plays Out</title><length>320067</length>
               <relation-list target-type="artist">
                 <relation type-id="5c0ceac3-feb4-41f0-868d-dc06f6e27fc0" type="producer">
-                  <target>3088b672-fba9-4b4b-8ae0-dce13babfbb4</target><direction>backward</direction>
+                  <target>3088b672-fba9-4b4b-8ae0-dce13babfbb4</target>
+                  <direction>backward</direction>
                   <artist id="3088b672-fba9-4b4b-8ae0-dce13babfbb4">
                     <name>Plone</name><sort-name>Plone</sort-name>
                   </artist>
@@ -888,7 +902,8 @@ ws_test 'release lookup, related artists have no tags',
     </medium-list>
     <relation-list target-type="artist">
       <relation type-id="307e95dd-88b5-419b-8223-b146d4a0d439" type="design/illustration">
-        <target>3088b672-fba9-4b4b-8ae0-dce13babfbb4</target><direction>backward</direction>
+        <target>3088b672-fba9-4b4b-8ae0-dce13babfbb4</target>
+        <direction>backward</direction>
         <artist id="3088b672-fba9-4b4b-8ae0-dce13babfbb4">
           <name>Plone</name><sort-name>Plone</sort-name>
         </artist>
@@ -967,19 +982,22 @@ ws_test 'release lookup, track artists have no aliases',
               </artist-credit>
               <relation-list target-type="artist">
                 <relation type-id="5c0ceac3-feb4-41f0-868d-dc06f6e27fc0" type="producer">
-                  <target>22dd2db3-88ea-4428-a7a8-5cd3acf23175</target><direction>backward</direction>
+                  <target>22dd2db3-88ea-4428-a7a8-5cd3acf23175</target>
+                  <direction>backward</direction>
                   <artist id="22dd2db3-88ea-4428-a7a8-5cd3acf23175">
                     <name>m-flo</name><sort-name>m-flo</sort-name>
                   </artist>
                 </relation>
                 <relation type-id="36c50022-44e0-488d-994b-33f11d20301e" type="programming">
-                  <target>22dd2db3-88ea-4428-a7a8-5cd3acf23175</target><direction>backward</direction>
+                  <target>22dd2db3-88ea-4428-a7a8-5cd3acf23175</target>
+                  <direction>backward</direction>
                   <artist id="22dd2db3-88ea-4428-a7a8-5cd3acf23175">
                     <name>m-flo</name><sort-name>m-flo</sort-name>
                   </artist>
                 </relation>
                 <relation type-id="0fdbe3c6-7700-4a31-ae54-b53f06ae1cfa" type="vocal">
-                  <target>a16d1433-ba89-4f72-a47b-a370add0bb55</target><direction>backward</direction>
+                  <target>a16d1433-ba89-4f72-a47b-a370add0bb55</target>
+                  <direction>backward</direction>
                   <attribute-list>
                     <attribute type-id="b3045913-62ac-433e-9211-ac683cdf6b5c">guest</attribute>
                   </attribute-list>

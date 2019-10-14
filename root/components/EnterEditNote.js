@@ -30,7 +30,13 @@ const EnterEditNote = ({
             note: {href: '/doc/Edit_Note', target: '_blank'},
           })}
         </p>
-        <p>{l('Even just providing a URL or two is helpful!')}</p>
+        <p>
+          {exp.l(
+            `Even just providing a URL or two is helpful!
+             For more suggestions, see {doc_how_to|our guide for writing good edit notes}.`,
+            {doc_how_to: {href: '/doc/How_to_Write_Edit_Notes', target: '_blank'}},
+          )}
+        </p>
       </>
     )}
     <FormRow>

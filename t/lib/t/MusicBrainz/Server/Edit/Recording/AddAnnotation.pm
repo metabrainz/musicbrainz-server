@@ -32,7 +32,6 @@ is($edits->[0]->id, $edit->id);
 $c->model('Edit')->load_all($edit);
 is($edit->display_data->{recording}->id, 1);
 is($edit->display_data->{changelog}, 'A changelog');
-is($edit->display_data->{annotation_id}, $edit->annotation_id);
 
 my $recording = $c->model('Recording')->get_by_id(1);
 
@@ -45,7 +44,6 @@ is($annotation->changelog, 'A changelog');
 
 my $annotation2 = $c->model('Recording')->annotation->get_by_id($edit->annotation_id);
 is_deeply($annotation, $annotation2);
-
 
 };
 

@@ -1,11 +1,8 @@
-[%-
-  PROCESS 'edit/details/macros.tt';
-  old_rel = edit.display_data.old;
-  new_rel = edit.display_data.new;
--%]
-
 <table class="details edit-relationship">
-  [%- display_relationship_differences(l('Relationship:'), old_rel, new_rel) -%]
+  [%- React.embed(c, 'static/scripts/edit/components/edit/RelationshipDiff', {
+        oldRelationship => edit.display_data.old,
+        newRelationship => edit.display_data.new,
+      }) -%]
 
   [% IF edit.display_data.unknown_attributes %]
   <tr>

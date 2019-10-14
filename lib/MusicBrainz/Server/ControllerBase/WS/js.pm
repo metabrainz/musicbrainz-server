@@ -34,6 +34,7 @@ sub output_error : Private
 sub begin : Private {
     my ($self, $c) = @_;
 
+    $c->stash->{current_view} = 'WS';
     $c->stash->{serializer} = MusicBrainz::Server::WebService::JSONSerializer->new;
 }
 

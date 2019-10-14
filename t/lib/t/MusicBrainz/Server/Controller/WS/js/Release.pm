@@ -77,6 +77,8 @@ test all => sub {
         linkOrder => 0,
         entity0_credit => '',
         entity1_credit => '',
+        entity0_id => 9496,
+        entity1_id => 4525123,
     }, "BoA performed vocals");
 
     is_deeply(

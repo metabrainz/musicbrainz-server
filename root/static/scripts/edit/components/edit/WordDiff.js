@@ -9,11 +9,15 @@
 
 import * as React from 'react';
 
-const FilterIcon = () => (
-  <img
-    alt=""
-    src={require('../../../images/icons/filter.png')}
+import Diff, {type DiffProps} from './Diff';
+
+const WordDiff = ({label, newText, oldText}: DiffProps) => (
+  <Diff
+    label={label}
+    newText={newText}
+    oldText={oldText}
+    split="\s+"
   />
 );
 
-export default FilterIcon;
+export default WordDiff;

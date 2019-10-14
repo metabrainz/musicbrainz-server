@@ -30,10 +30,8 @@ sub serialize
             my $ret = {
                 $plural => [ map { serialize_entity($_, $inc, $opts, 1) } sort_by { $_->gid } @{ $entity->{items} } ],
             };
-            if (defined($entity->{offset}) || defined($entity->{total})) {
-                $ret->{$singular . '-offset'} = number($entity->{offset});
-                $ret->{$singular . '-count' } = number($entity->{total});
-            }
+            $ret->{$singular . '-offset'} = number($entity->{offset}) if defined($entity->{offset});
+            $ret->{$singular . '-count' } = number($entity->{total}) if defined($entity->{total});
             return encode_json($ret);
         }
     }

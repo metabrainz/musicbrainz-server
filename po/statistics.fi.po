@@ -13,9 +13,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-05-23 20:14+0200\n"
-"PO-Revision-Date: 2019-06-24 20:51+0000\n"
-"Last-Translator: Jaakko Perttilä <email address hidden>\n"
+"POT-Creation-Date: 2019-10-14 23:12+0200\n"
+"PO-Revision-Date: 2019-10-08 01:15+0000\n"
+"Last-Translator: Michael Wiencek <email address hidden>\n"
 "Language-Team: Finnish (http://www.transifex.com/musicbrainz/musicbrainz/language/fi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -604,18 +604,18 @@ msgid "Controls"
 msgstr "Säätimet"
 
 #: ../root/statistics/layout.tt:4 ../root/statistics/Countries.js:36
-#: ../root/statistics/StatisticsLayout.js:49
+#: ../root/statistics/StatisticsLayout.js:51
 msgid "Countries"
 msgstr "Maat"
 
 #: ../root/statistics/layout.tt:4 ../root/statistics/CoverArt.js:68
-#: ../root/statistics/StatisticsLayout.js:59 ../root/statistics/stats.js:27
+#: ../root/statistics/StatisticsLayout.js:61 ../root/statistics/stats.js:27
 msgid "Cover Art"
 msgstr "Kansitaide"
 
 #: ../root/statistics/layout.tt:23 ../root/statistics/layout.tt:34
-#: ../root/statistics/StatisticsLayout.js:95
-#: ../root/statistics/StatisticsLayout.js:109
+#: ../root/statistics/StatisticsLayout.js:97
+#: ../root/statistics/StatisticsLayout.js:111
 msgid "Database Statistics"
 msgstr "Tietokannat tilastot"
 
@@ -629,13 +629,13 @@ msgstr ""
 
 #: ../root/statistics/layout.tt:4 ../root/statistics/Editors.js:97
 #: ../root/statistics/Editors.js:108 ../root/statistics/Index.js:838
-#: ../root/statistics/StatisticsLayout.js:79
+#: ../root/statistics/StatisticsLayout.js:81
 msgid "Editors"
 msgstr "Käyttäjät"
 
 #: ../root/statistics/layout.tt:4 ../root/statistics/Edits.js:32
 #: ../root/statistics/Edits.js:36 ../root/statistics/Edits.js:45
-#: ../root/statistics/Index.js:954 ../root/statistics/StatisticsLayout.js:69
+#: ../root/statistics/Index.js:954 ../root/statistics/StatisticsLayout.js:71
 #: ../root/statistics/stats.js:194
 msgid "Edits"
 msgstr "Muokkaukset"
@@ -644,7 +644,7 @@ msgstr "Muokkaukset"
 msgid "Exact Values (items vs. day)"
 msgstr "Tarkat arvot (kohdetta suhteessa päivään)"
 
-#: ../root/statistics/layout.tt:4 ../root/statistics/StatisticsLayout.js:74
+#: ../root/statistics/layout.tt:4 ../root/statistics/StatisticsLayout.js:76
 #: ../root/statistics/stats.js:29
 msgid "Formats"
 msgstr "Tallennusformaatit"
@@ -653,7 +653,7 @@ msgstr "Tallennusformaatit"
 msgid "Hover and click on vertical lines"
 msgstr ""
 
-#: ../root/statistics/layout.tt:4 ../root/statistics/StatisticsLayout.js:54
+#: ../root/statistics/layout.tt:4 ../root/statistics/StatisticsLayout.js:56
 msgid "Languages/Scripts"
 msgstr "Kielet/merkistöt"
 
@@ -670,7 +670,7 @@ msgid "MusicBrainz Events:"
 msgstr "MusicBrainzin tapahtumia:"
 
 #: ../root/statistics/layout.tt:4 ../root/statistics/Index.js:63
-#: ../root/statistics/StatisticsLayout.js:44
+#: ../root/statistics/StatisticsLayout.js:46
 msgid "Overview"
 msgstr "Yleiskatsaus"
 
@@ -684,7 +684,7 @@ msgstr "Muutosnopeuksien kuvaaja"
 
 #: ../root/statistics/layout.tt:4 ../root/statistics/Relationships.js:77
 #: ../root/statistics/Relationships.js:81
-#: ../root/statistics/StatisticsLayout.js:64 ../root/statistics/stats.js:33
+#: ../root/statistics/StatisticsLayout.js:66 ../root/statistics/stats.js:33
 #: ../root/statistics/stats.js:43
 msgid "Relationships"
 msgstr "Yhteydet"
@@ -693,7 +693,7 @@ msgstr "Yhteydet"
 msgid "Reset:"
 msgstr "Palaa alkutilaan: "
 
-#: ../root/statistics/layout.tt:4 ../root/statistics/StatisticsLayout.js:84
+#: ../root/statistics/layout.tt:4 ../root/statistics/StatisticsLayout.js:86
 msgid "Timeline"
 msgstr "Aikajana"
 
@@ -1452,12 +1452,14 @@ msgid "No relationship statistics available."
 msgstr ""
 
 #: ../root/statistics/Relationships.js:91
-msgid "Exclusive"
-msgstr "Suppea"
+msgctxt "relationships"
+msgid "This type only"
+msgstr ""
 
 #: ../root/statistics/Relationships.js:92
-msgid "Inclusive"
-msgstr "Laaja"
+msgctxt "relationships"
+msgid "Including subtypes"
+msgstr ""
 
 #: ../root/statistics/Relationships.js:109
 msgid "{type0}-{type1}"

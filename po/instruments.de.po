@@ -15,7 +15,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2019-06-16 09:09+0000\n"
+"PO-Revision-Date: 2019-10-14 21:16+0000\n"
 "Last-Translator: Marc Rodrigues <email address hidden>\n"
 "Language-Team: German (http://www.transifex.com/musicbrainz/musicbrainz/language/de/)\n"
 "MIME-Version: 1.0\n"
@@ -162,6 +162,11 @@ msgstr "Cláirseach"
 #: DB:instrument/name:561
 msgid "Lyricon"
 msgstr "Lyricon"
+
+#: DB:instrument/name:637
+msgctxt "Mark Stevens' bar chime"
+msgid "Mark tree"
+msgstr ""
 
 #: DB:instrument/name:442
 msgid "Marxophone"
@@ -371,7 +376,7 @@ msgid "analog synthesizer"
 msgstr "Analoger Synthesizer"
 
 #: DB:instrument/name:371
-msgctxt "single pitch bamboo rattle xylophone"
+msgctxt "Sundanese single pitch bamboo rattle xylophone"
 msgid "angklung"
 msgstr "Angklung"
 
@@ -645,6 +650,10 @@ msgstr "Glockenbaum"
 msgid "bellow-blown bagpipes"
 msgstr "balggeblasener Dudelsack"
 
+#: DB:instrument/name:983
+msgid "bellowed reed"
+msgstr ""
+
 #: DB:instrument/name:343
 msgid "bendir"
 msgstr "Bendir"
@@ -708,6 +717,26 @@ msgstr "Bolon"
 #: DB:instrument/name:431
 msgid "bombarde"
 msgstr "Bombarde"
+
+#: DB:instrument/name:969
+msgctxt "Family of bronze gong-chime sets used in Javanese gamelan"
+msgid "bonang"
+msgstr ""
+
+#: DB:instrument/name:970
+msgctxt "Medium pitched gong-chime set in Javanese gamelan"
+msgid "bonang barung"
+msgstr ""
+
+#: DB:instrument/name:972
+msgctxt "Lowest pitched gong-chime set in Javanese gamelan"
+msgid "bonang panembung"
+msgstr ""
+
+#: DB:instrument/name:971
+msgctxt "Highest pitched gong-chime set in Javanese gamelan"
+msgid "bonang panerus"
+msgstr ""
 
 #: DB:instrument/name:357
 msgctxt "Folk music idiophone"
@@ -817,7 +846,13 @@ msgstr "Kalebasse"
 msgid "calliope"
 msgstr "Dampforgel / Calliope"
 
+#: DB:instrument/name:974
+msgctxt "Sundanese bamboo xylophone"
+msgid "calung"
+msgstr ""
+
 #: DB:instrument/name:128
+msgctxt "belfry tower bell set"
 msgid "carillon"
 msgstr "Carillon"
 
@@ -888,10 +923,12 @@ msgid "chikuzen biwa"
 msgstr "Chikuzen Biwa"
 
 #: DB:instrument/name:638
+msgctxt "Individual percussion plates."
 msgid "chime bar"
 msgstr "Chime Bar"
 
 #: DB:instrument/name:338
+msgctxt "Arrangement of hanging struck tuned metal rods."
 msgid "chimes"
 msgstr "Chimes"
 
@@ -920,6 +957,7 @@ msgid "chitra veena"
 msgstr "Vichitra Vina"
 
 #: DB:instrument/name:433
+msgctxt "Accordion with buttons arranged chromatically"
 msgid "chromatic button accordion"
 msgstr "chromatisches Knopfakkordeon"
 
@@ -1160,8 +1198,9 @@ msgid "dholak"
 msgstr "Dholak"
 
 #: DB:instrument/name:361
-msgid "diatonic accordion / melodeon"
-msgstr "diatonisches Akkordeon"
+msgctxt "Accordion with buttons arranged diatonically"
+msgid "diatonic button accordion"
+msgstr ""
 
 #: DB:instrument/name:635
 msgid "diddley bow"
@@ -1514,6 +1553,16 @@ msgstr ""
 msgid "gadulka"
 msgstr "Gadulka"
 
+#: DB:instrument/name:977
+msgctxt "Indonesian wood box-resonated xylophone"
+msgid "gambang"
+msgstr ""
+
+#: DB:instrument/name:853
+msgctxt "sound chip from gaming consoles"
+msgid "game console sound chip"
+msgstr ""
+
 #: DB:instrument/name:365
 msgctxt "Indonesian traditional ensemble"
 msgid "gamelan"
@@ -1613,6 +1662,11 @@ msgstr ""
 #: DB:instrument/name:639
 msgid "gong bass drum"
 msgstr "Bass-Gong (Trommel)"
+
+#: DB:instrument/name:981
+msgctxt "Arrangement of kettle shaped gongs"
+msgid "gong-chime"
+msgstr ""
 
 #: DB:instrument/name:582
 msgid "gralla"
@@ -1847,6 +1901,11 @@ msgstr "Igil"
 msgid "janggu"
 msgstr "Changgu"
 
+#: DB:instrument/name:979
+msgctxt "Deepest pitch gangsa used in Balinese gamelan"
+msgid "jegogan"
+msgstr ""
+
 #: DB:instrument/name:854
 msgctxt "West African four-stringed grigot lute"
 msgid "jeli ngɔni"
@@ -1873,6 +1932,11 @@ msgstr ""
 #: DB:instrument/name:695
 msgid "jouhikko"
 msgstr "Jouhikko"
+
+#: DB:instrument/name:980
+msgctxt "Second deepest pitch gangsa used in Balinese gamelan"
+msgid "jublag"
+msgstr ""
 
 #: DB:instrument/name:505
 msgid "jug"
@@ -1926,6 +1990,11 @@ msgctxt "Traditional Finnish plucked psaltery"
 msgid "kantele"
 msgstr ""
 
+#: DB:instrument/name:975
+msgctxt "High pitch gangsa used in Balinese gamelan"
+msgid "kantilan"
+msgstr ""
+
 #: DB:instrument/name:288
 msgid "kanun"
 msgstr "Kanun"
@@ -1942,6 +2011,16 @@ msgstr "Kaval"
 msgid "kazoo"
 msgstr "Kazoo"
 
+#: DB:instrument/name:978
+msgctxt "Indonesian racked cymbals"
+msgid "kecer"
+msgstr ""
+
+#: DB:instrument/name:988
+msgctxt "Banana shaped bronze slit-drum used in javanese gamelan"
+msgid "kemanak"
+msgstr ""
+
 #: DB:instrument/name:211
 msgid "kemenche"
 msgstr "Kemençe"
@@ -1949,6 +2028,31 @@ msgstr "Kemençe"
 #: DB:instrument/name:541
 msgid "kemençe of the Black Sea"
 msgstr "Kemençe"
+
+#: DB:instrument/name:982
+msgctxt "Singular metal timekeeping gong-chime used in Balinese gamelan"
+msgid "kempli"
+msgstr ""
+
+#: DB:instrument/name:984
+msgctxt "Javanese hanging gong-set"
+msgid "kempul"
+msgstr ""
+
+#: DB:instrument/name:987
+msgctxt "Small boxed double gong-chime used in Javanese gamelan"
+msgid "kempyang"
+msgstr ""
+
+#: DB:instrument/name:985
+msgctxt "Large high-pitch gong-chime used in Indonesian Gamelan"
+msgid "kenong"
+msgstr ""
+
+#: DB:instrument/name:986
+msgctxt "Small boxed gong-chime used in Javanese gamelan"
+msgid "kethuk"
+msgstr ""
 
 #: DB:instrument/name:367
 msgid "kettle drum"
@@ -2254,10 +2358,6 @@ msgstr "Marimba"
 msgid "marimba lumina"
 msgstr "Marimba Lumina"
 
-#: DB:instrument/name:637
-msgid "mark tree"
-msgstr "mark tree (auch Chimes)"
-
 #: DB:instrument/name:633
 msgid "marímbula"
 msgstr "Marímbula"
@@ -2289,9 +2389,9 @@ msgid "mendoza"
 msgstr ""
 
 #: DB:instrument/name:349
-msgctxt "Arrangements of struck tuned metal bars."
+msgctxt "Arrangement of struck tuned metal bars."
 msgid "metallophone"
-msgstr ""
+msgstr "Metallophon"
 
 #: DB:instrument/name:876
 msgctxt "twin bamboo single reed pipe"
@@ -2564,6 +2664,11 @@ msgstr "Pedalklavier"
 msgid "pedal steel guitar"
 msgstr "Pedal-Steel-Gitarre"
 
+#: DB:instrument/name:976
+msgctxt "Lower pitch gangsa used in Balinese gamelan"
+msgid "pemade"
+msgstr ""
+
 #: DB:instrument/name:99
 msgid "percussion"
 msgstr "Perkussion"
@@ -2593,6 +2698,7 @@ msgid "piano accordion"
 msgstr "Pianoakkordeon"
 
 #: DB:instrument/name:965
+msgctxt "ensemble of piano, violin, viola and cello"
 msgid "piano quartet"
 msgstr ""
 
@@ -2680,6 +2786,7 @@ msgid "prepared piano"
 msgstr "präpariertes Klavier"
 
 #: DB:instrument/name:758
+msgctxt "Tenor garifuna drum"
 msgid "primero"
 msgstr "Primero"
 
@@ -2840,6 +2947,11 @@ msgstr "Repinique"
 msgid "resonator guitar"
 msgstr "Resonatorgitarre"
 
+#: DB:instrument/name:973
+msgctxt "Gong-chime used in Balinese gamelan"
+msgid "reyong"
+msgstr ""
+
 #: DB:instrument/name:369
 msgid "rhythm sticks"
 msgstr ""
@@ -2982,6 +3094,7 @@ msgid "scraped idiophone"
 msgstr ""
 
 #: DB:instrument/name:757
+msgctxt "Bass garifuna drum"
 msgid "segunda"
 msgstr "Segundo"
 
@@ -3231,6 +3344,7 @@ msgid "sursingar"
 msgstr ""
 
 #: DB:instrument/name:716
+msgctxt "North Indian trapezoid board zither"
 msgid "swarmandal"
 msgstr "Indische Zither"
 
@@ -3615,6 +3729,7 @@ msgid "tubon"
 msgstr "Tubon"
 
 #: DB:instrument/name:168
+msgctxt "Orchestral chimes"
 msgid "tubular bells"
 msgstr "Röhrenglocken"
 
@@ -3669,7 +3784,7 @@ msgid "udu"
 msgstr "Udu"
 
 #: DB:instrument/name:967
-msgctxt "Indonesian bronze 10 key metallophone"
+msgctxt "Deep pitch gangsa used in Balinese gamelan"
 msgid "ugal"
 msgstr ""
 
@@ -3742,11 +3857,6 @@ msgstr "Vibraslap"
 #: DB:instrument/name:612
 msgid "vichitra veena"
 msgstr "Vichitra Vina"
-
-#: DB:instrument/name:853
-msgctxt "sound chip from gaming consoles"
-msgid "video game console"
-msgstr ""
 
 #: DB:instrument/name:91
 msgid "vielle"
@@ -3870,6 +3980,7 @@ msgid "willow flute"
 msgstr "Weidenrindenflöte"
 
 #: DB:instrument/name:497
+msgctxt "Wind played chimes"
 msgid "wind chime"
 msgstr "Windspiel"
 
@@ -3925,6 +4036,7 @@ msgid "xylophone"
 msgstr ""
 
 #: DB:instrument/name:703
+msgctxt "Extended range xylophone"
 msgid "xylorimba"
 msgstr "Xylorimba"
 
@@ -3948,6 +4060,7 @@ msgid "yehu"
 msgstr ""
 
 #: DB:instrument/name:685
+msgctxt "Korean traditional dragon-painted barrel drum"
 msgid "yonggo"
 msgstr ""
 
@@ -3993,6 +4106,7 @@ msgid "zhuihu"
 msgstr ""
 
 #: DB:instrument/name:455
+msgctxt "Eastern Mediterranean finger cymbals"
 msgid "zill"
 msgstr "Zimbel"
 
@@ -4005,6 +4119,7 @@ msgid "zurna"
 msgstr "Zurna"
 
 #: DB:instrument/name:740
+msgctxt "Ceremonial Ottoman jangle-staff"
 msgid "çevgen"
 msgstr ""
 

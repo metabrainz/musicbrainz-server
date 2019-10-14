@@ -628,6 +628,8 @@ sub schema_fixup
 
             push @relationships, MusicBrainz::Server::Entity::Relationship->new(
                 entity1 => $entity,
+                target => $entity,
+                target_type => $entity->entity_type,
                 link => MusicBrainz::Server::Entity::Link->new(
                     type => MusicBrainz::Server::Entity::LinkType->new(
                         entity1_type => $entity_type,

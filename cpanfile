@@ -98,6 +98,7 @@ requires 'Text::WikiFormat'                           => '0.81';
 requires 'Throwable'                                  => '0.200009';
 requires 'Unicode::ICU::Collator'                     => '0.002';
 requires 'URI'                                        => '1.69';
+requires 'XML::LibXML'                                => '1.70';
 requires 'XML::Parser::Lite'                          => '0.719';
 requires 'XML::RSS::Parser::Lite'                     => '0.10';
 requires 'XML::Simple'                                => '2.20';

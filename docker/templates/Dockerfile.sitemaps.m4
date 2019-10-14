@@ -1,7 +1,5 @@
 m4_include(`server_base.m4')m4_dnl
 
-RUN apt_install(`libxml2')
-
 copy_common_mbs_files
 
 COPY docker/musicbrainz-sitemaps/consul-template-sitemaps.conf /etc/

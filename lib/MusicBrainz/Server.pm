@@ -448,7 +448,7 @@ around 'finalize_error' => sub {
                 $c->res->{status} = $c->stash->{status};
             } else {
                 $c->res->{body} = 'clear';
-                $c->view('Default')->process($c);
+                $c->view->process($c);
                 $c->res->{body} = encode('utf-8', $c->res->{body});
                 $c->res->{status} = 503
                     if $timed_out;
@@ -505,6 +505,7 @@ sub TO_JSON {
         number_of_revisions
         own_collections
         release_artwork
+        release_artwork_count
         server_details
         server_languages
         subscribed
