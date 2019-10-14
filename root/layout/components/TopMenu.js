@@ -70,7 +70,7 @@ const DataMenu = ({user}: UserProp) => {
           <a href={userLink(userName, '/edits/open')}>{l('My Open Edits')}</a>
         </li>
         <li>
-          <a href={userLink(userName, '/edits/all')}>{l('All My Edits')}</a>
+          <a href={userLink(userName, '/edits')}>{l('All My Edits')}</a>
         </li>
         <li>
           <a href="/edit/subscribed">{l('Edits for Subscribed Entities')}</a>
