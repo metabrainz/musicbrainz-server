@@ -264,6 +264,7 @@ sub serialize_relationships {
          $entity->has_loaded_relationships);
 
     local $hide_tags_and_genres = 1;
+    local $hide_aliases = 1;
 
     my @relationships =
         map { serialize_entity($_, $inc, $stash) }
