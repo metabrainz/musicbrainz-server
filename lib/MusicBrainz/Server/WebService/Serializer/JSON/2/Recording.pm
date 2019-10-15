@@ -21,7 +21,6 @@ sub serialize
     $body{video} = boolean($entity->video);
 
     if ($entity->artist_credit && ($toplevel || ($inc && $inc->artist_credits))) {
-        local $MusicBrainz::Server::WebService::Serializer::JSON::2::Utils::hide_aliases = 1;
         $body{"artist-credit"} = serialize_entity($entity->artist_credit, $inc, $stash);
     }
 
