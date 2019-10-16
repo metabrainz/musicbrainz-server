@@ -66,7 +66,7 @@ const FingerprintTable = ({recording}: {recording: RecordingT}) => {
                   </a>
                 </code>
               </td>
-              <td>
+              <td className="actions">
                 <a
                   className="external"
                   href={
