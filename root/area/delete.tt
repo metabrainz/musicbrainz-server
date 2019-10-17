@@ -11,7 +11,7 @@
         </form>
     [%- ELSE -%]
     <p>
-       [% l('This area cannot be removed because there are still artists, labels, and/or releases using it.') -%]
+       [% l('This area cannot be removed because there are still artists, labels, places and/or releases using it.') -%]
     </p>
     [%- END -%]
 [%- END -%]

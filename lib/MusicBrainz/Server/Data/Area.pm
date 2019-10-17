@@ -150,6 +150,10 @@ sub can_delete
     $refcount = $self->sql->select_single_column_array('select 1 from label WHERE area = ?', $area_id);
     return 0 if @$refcount != 0;
 
+    # Check no places use the area
+    $refcount = $self->sql->select_single_column_array('select 1 from place WHERE area = ?', $area_id);
+    return 0 if @$refcount != 0;
+
     return 1;
 }
 
