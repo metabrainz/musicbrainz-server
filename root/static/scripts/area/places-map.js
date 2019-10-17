@@ -53,7 +53,7 @@ if (places.length) {
         className: 'cluster-div-icon',
         html: '<img src="' + _.escape(iconURL) + '" />' +
               '<div class="cluster-div-text">' +
-              '<b>' + cluster.getChildCount() + '</b></div>',
+              '<strong>' + cluster.getChildCount() + '</strong></div>',
         iconSize: L.point(25, 41),
       });
     },

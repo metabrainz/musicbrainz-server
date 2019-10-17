@@ -59,7 +59,7 @@ sub format_setlist_artist {
        [0-9a-f]{12})(?:\|([^\]]+))?\]
     /_make_link("artist",$1,$2)/eixg;
 
-    $line = "<b>Artist: $line</b>";
+    $line = "<strong>Artist: $line</strong>";
 
     return $line;
 }
