@@ -1557,6 +1557,17 @@ test 'MBS-7914' => sub {
                     aliases => [],
                     'artist-credit' => [{
                         artist => {
+                            aliases => [{
+                                locale => JSON::null,
+                                name => "CSO",
+                                primary => JSON::null,
+                                'sort-name' => "CSO",
+                                type => JSON::null,
+                                "type-id" => JSON::null,
+                                begin => JSON::null,
+                                end => JSON::null,
+                                ended => JSON::false,
+                            }],
                             disambiguation => '',
                             id => '509c772e-1164-4457-8d09-0553cfa77d64',
                             name => 'Chicago Symphony Orchestra',
