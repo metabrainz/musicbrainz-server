@@ -976,14 +976,9 @@ const CLEANUPS = {
       new RegExp('^(https?://)?([^/]+\\.)?ototoy\\.jp', 'i'),
       new RegExp('^(https?://)?([^/]+\\.)?hd-music\\.info', 'i'),
       new RegExp('^(https?://)?([^/]+\\.)?(7digital\\.com|zdigital\\.com\\.au)', 'i'),
-      new RegExp('^(https?://)?loudr\.fm/', 'i'),
       new RegExp('^(https?://)?([^/]+\\.)?musa24\\.fi', 'i'),
     ],
     type: LINK_TYPES.downloadpurchase,
-    clean: function (url) {
-      url = url.replace(/^https?:\/\/loudr\.fm\/(artist|release)\/([a-zA-Z0-9_-]+)\/([a-zA-Z0-9_-]{5}).*$/, 'https://loudr.fm/$1/$2/$3');
-      return url;
-    },
   },
   'dram': {
     match: [new RegExp('^(https?://)?([^/]+\\.)?dramonline\\.org/', 'i')],
@@ -1439,6 +1434,14 @@ const CLEANUPS = {
         }
       }
       return false;
+    },
+  },
+  'loudr': {
+    match: [new RegExp('^(https?://)?loudr\.fm/', 'i')],
+    type: LINK_TYPES.downloadpurchase,
+    clean: function (url) {
+      url = url.replace(/^https?:\/\/loudr\.fm\/(artist|release)\/([a-zA-Z0-9_-]+)\/([a-zA-Z0-9_-]{5}).*$/, 'https://loudr.fm/$1/$2/$3');
+      return url;
     },
   },
   'lyricevesta': {
