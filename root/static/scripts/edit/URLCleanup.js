@@ -312,6 +312,17 @@ function disallow(url, id) {
  *             for an auto-selected relationship type.
  */
 const CLEANUPS = {
+  '7digital': {
+    match: [new RegExp('^(https?://)?([^/]+\\.)?(7digital\\.com|zdigital\\.com\\.au)', 'i')],
+    type: LINK_TYPES.downloadpurchase,
+    clean: function (url) {
+      // Standardise to https
+      url = url.replace(/^https?:\/\/(.*)$/, 'https://$1');
+      // Remove yourmusic + id from link for own purchases
+      url = url.replace(/^https:\/\/([^/]+\.)?(7digital\.com|zdigital\.com\.au)\/yourmusic\/(.*)\/[\d]+\/?$/, 'https://$1$2/$3');
+      return url;
+    },
+  },
   '45cat': {
     match: [new RegExp('^(https?://)?(www\\.)?45cat\\.com/', 'i')],
     type: LINK_TYPES.otherdatabases,
@@ -975,7 +986,6 @@ const CLEANUPS = {
       new RegExp('^(https?://)?([^/]+\\.)?e-onkyo\\.com', 'i'),
       new RegExp('^(https?://)?([^/]+\\.)?ototoy\\.jp', 'i'),
       new RegExp('^(https?://)?([^/]+\\.)?hd-music\\.info', 'i'),
-      new RegExp('^(https?://)?([^/]+\\.)?(7digital\\.com|zdigital\\.com\\.au)', 'i'),
       new RegExp('^(https?://)?([^/]+\\.)?musa24\\.fi', 'i'),
     ],
     type: LINK_TYPES.downloadpurchase,
