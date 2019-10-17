@@ -134,16 +134,24 @@ sub update
     return 1;
 }
 
+sub is_release_country_area {
+    my ($self, $area_id) = @_;
+
+    my $is_used = $self->sql->select_single_value('SELECT 1 FROM country_area WHERE area = ?', $area_id);
+    return 1 if $is_used;
+
+    return 0;
+}
+
 sub can_delete
 {
     my ($self, $area_id) = @_;
 
-    # Check no releases use the area
-    my $refcount = $self->sql->select_single_column_array('select 1 from release_country WHERE country = ?', $area_id);
-    return 0 if @$refcount != 0;
+    # Check the area is not one of the release countries
+    return 0 if $self->is_release_country_area($area_id);
 
     # Check no artists use the area
-    $refcount = $self->sql->select_single_column_array('select 1 from artist WHERE begin_area = ? OR end_area = ? OR area = ?', $area_id, $area_id, $area_id);
+    my $refcount = $self->sql->select_single_column_array('select 1 from artist WHERE begin_area = ? OR end_area = ? OR area = ?', $area_id, $area_id, $area_id);
     return 0 if @$refcount != 0;
 
     # Check no labels use the area
