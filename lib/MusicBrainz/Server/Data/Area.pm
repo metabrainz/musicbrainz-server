@@ -24,6 +24,7 @@ use MusicBrainz::Server::Data::Utils qw(
     placeholders
     object_to_ids
 );
+use MusicBrainz::Server::Data::Utils::Cleanup qw( used_in_relationship );
 
 extends 'MusicBrainz::Server::Data::CoreEntity';
 with 'MusicBrainz::Server::Data::Role::Annotation' => { type => 'area' };
@@ -150,19 +151,37 @@ sub can_delete
     # Check the area is not one of the release countries
     return 0 if $self->is_release_country_area($area_id);
 
-    # Check no artists use the area
-    my $refcount = $self->sql->select_single_column_array('select 1 from artist WHERE begin_area = ? OR end_area = ? OR area = ?', $area_id, $area_id, $area_id);
-    return 0 if @$refcount != 0;
+    my $used_in_relationship = used_in_relationship($self->c, area => 'area_row.id');
+    return 1 if $self->sql->select_single_value(<<EOSQL, $area_id, $STATUS_OPEN);
+        SELECT TRUE
+        FROM area area_row
+        WHERE id = ?
+        AND edits_pending = 0
+        AND NOT (
+          EXISTS (
+            SELECT TRUE FROM edit_area
+            JOIN edit ON edit_area.edit = edit.id
+            WHERE edit.status = ? AND edit_area.area = area_row.id
+          ) OR
+          EXISTS (
+            SELECT TRUE FROM artist
+            WHERE area = area_row.id
+            OR begin_area = area_row.id
+            OR end_area = area_row.id
+          ) OR
+          EXISTS (
+            SELECT TRUE FROM label
+            WHERE area = area_row.id
+          ) OR
+          EXISTS (
+            SELECT TRUE FROM place
+            WHERE area = area_row.id
+          ) OR
+          $used_in_relationship
+        )
+EOSQL
 
-    # Check no labels use the area
-    $refcount = $self->sql->select_single_column_array('select 1 from label WHERE area = ?', $area_id);
-    return 0 if @$refcount != 0;
-
-    # Check no places use the area
-    $refcount = $self->sql->select_single_column_array('select 1 from place WHERE area = ?', $area_id);
-    return 0 if @$refcount != 0;
-
-    return 1;
+    return 0;
 }
 
 sub delete
