@@ -51,6 +51,7 @@
     "raven-js": "3.17.0",
     "react": "16.10.2",
     "react-dom": "16.10.2",
+    "react-table": "7.0.0-beta.26",
     "redux": "3.6.0",
     "shell-quote": "1.6.1",
     "shelljs": "0.5.3",

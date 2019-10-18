@@ -314,7 +314,6 @@ sub collections : Chained('load') PathPart('collections')
 
     my $user = $c->stash->{user};
     my $viewing_own_profile = $c->stash->{viewing_own_profile};
-    my $no_collections = 1;
 
     my ($collections) = $c->model('Collection')->find_by({
         editor_id => $user->id,
@@ -323,16 +322,15 @@ sub collections : Chained('load') PathPart('collections')
     $c->model('Collection')->load_entity_count(@$collections);
     $c->model('CollectionType')->load(@$collections);
 
+    my %collections_by_entity_type;
     for my $collection (@$collections) {
         $c->model('Editor')->load_for_collection($collection);
         if ($c->user_exists) {
             $collection->{'subscribed'} =
                 $c->model('Collection')->subscription->check_subscription($c->user->id, $collection->id);
         }
-        push @{ $c->stash->{collections}{$collection->type->item_entity_type} }, $collection;
+        push @{ $collections_by_entity_type{$collection->type->item_entity_type} }, $collection;
     }
-
-    $no_collections = 0 if ($no_collections && @$collections);
 
     my ($collaborative_collections) = $c->model('Collection')->find_by({
         collaborator_id => $user->id,
@@ -340,16 +338,27 @@ sub collections : Chained('load') PathPart('collections')
     $c->model('Collection')->load_entity_count(@$collaborative_collections);
     $c->model('CollectionType')->load(@$collaborative_collections);
 
+    my %collaborative_collections_by_entity_type;
     for my $collection (@$collaborative_collections) {
         $c->model('Editor')->load_for_collection($collection);
         if ($c->user_exists) {
             $collection->{'subscribed'} =
                 $c->model('Collection')->subscription->check_subscription($c->user->id, $collection->id);
         }
-        push @{ $c->stash->{collaborative_collections}{$collection->type->item_entity_type} }, $collection;
+        push @{ $collaborative_collections_by_entity_type{$collection->type->item_entity_type} }, $collection;
     }
 
-    $c->stash(user => $user, no_collections => $no_collections);
+    my %props = (
+        user                     => $user,
+        ownCollections           => \%collections_by_entity_type,
+        collaborativeCollections => \%collaborative_collections_by_entity_type,
+    );
+
+    $c->stash(
+        component_path  => 'user/UserCollections',
+        component_props => \%props,
+        current_view    => 'Node',
+    );
 }
 
 sub profile : Chained('load') PathPart('') HiddenOnSlaves

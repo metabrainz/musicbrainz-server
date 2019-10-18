@@ -5558,6 +5558,11 @@ react-is@^16.8.1:
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.11.0.tgz#b85dfecd48ad1ce469ff558a882ca8e8313928fa"
   integrity sha512-gbBVYR2p8mnriqAwWx9LbuUrShnAuSCNnuPGyc7GJrMVQtPDAh8iLpv7FRuMPFb56KkaVZIYSz1PrjI9q0QPCw==
 
+react-table@7.0.0-beta.26:
+  version "7.0.0-beta.26"
+  resolved "https://registry.yarnpkg.com/react-table/-/react-table-7.0.0-beta.26.tgz#20ab9a7bd21f01930e764198410a642a3ae28e79"
+  integrity sha512-Pw/1T9kiAjV1cIf6K6bQV6yNQc3O7XUGin1RcSR1xFKw0RNGC5vl1VDPZrNep1BXDsbR6o8O63X45HFNVg6HzA==
+
 react@16.10.2:
   version "16.10.2"
   resolved "https://registry.yarnpkg.com/react/-/react-16.10.2.tgz#a5ede5cdd5c536f745173c8da47bda64797a4cf0"
