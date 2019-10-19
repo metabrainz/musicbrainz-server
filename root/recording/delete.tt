@@ -1,9 +1,9 @@
 [%- WRAPPER 'recording/layout.tt' title=l('Remove') full_width=1 -%]
     <h2>[% l('Remove Recording') %]</h2>
     [%- IF can_delete -%]
-        <p>
-            [%- l('Please make sure you\'re not removing a legitimate {doc_standalone|standalone recording}. If this recording is a duplicate of another, please {doc_merge|merge them instead}.', {doc_standalone => doc_link('Standalone_Recording'), doc_merge => doc_link('Merge_Rather_Than_Delete')}) -%]
-        </p>
+        [% removal_help(
+            l('Please make sure you’re not removing a legitimate {doc_standalone|standalone recording}.', {doc_standalone => doc_link('Standalone_Recording')})
+        ) %]
         <form action="[% c.req.uri %]" method="post">
             [%- USE r = FormRenderer(form) -%]
             [%- INCLUDE 'forms/edit-note.tt' -%]
