@@ -1,4 +1,4 @@
-[%- WRAPPER 'release/layout.tt' title=l('Remove') full_width=1 -%]
+[%- WRAPPER 'release/layout.tt' title=l('Remove Release') full_width=1 -%]
     <h2>[% l('Remove Release') %]</h2>
     [% removal_help() %]
     <form action="[% c.req.uri %]" method="post">

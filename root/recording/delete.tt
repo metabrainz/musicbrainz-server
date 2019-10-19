@@ -1,4 +1,4 @@
-[%- WRAPPER 'recording/layout.tt' title=l('Remove') full_width=1 -%]
+[%- WRAPPER 'recording/layout.tt' title=l('Remove Recording') full_width=1 -%]
     <h2>[% l('Remove Recording') %]</h2>
     [%- IF can_delete -%]
         [% removal_help(

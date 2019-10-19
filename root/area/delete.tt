@@ -1,4 +1,4 @@
-[%- WRAPPER 'area/layout.tt' title=l('Remove') full_width=1 -%]
+[%- WRAPPER 'area/layout.tt' title=l('Remove Area') full_width=1 -%]
     <h2>[% l('Remove Area') %]</h2>
     [%- IF is_release_country_area -%]
     <p>

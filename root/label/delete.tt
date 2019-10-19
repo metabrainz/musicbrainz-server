@@ -1,4 +1,4 @@
-[%- WRAPPER 'label/layout.tt' title=l('Remove') full_width=1 -%]
+[%- WRAPPER 'label/layout.tt' title=l('Remove Label') full_width=1 -%]
     <h2>[% l('Remove Label') %]</h2>
     [%- IF can_delete -%]
         [% removal_help() %]
