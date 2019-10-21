@@ -25,7 +25,7 @@ sub combine_with_query {
                                    (data#>>'{link,link_type,id}')::int,
                                    (data#>>'{old,link_type,id}')::int,
                                    (data#>>'{new,link_type,id}')::int,
-                                   (data#>>'{relationship,link_type,id}')::int
+                                   (data#>>'{relationship,link,type,id}')::int
                                ], NULL)",
         [ $self->sql_arguments ],
     ]);

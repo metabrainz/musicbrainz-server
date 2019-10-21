@@ -273,7 +273,7 @@
 
   <div class="bubble" data-bind="bubble: $root.dateBubble">
     <p data-bind="visible: target() && target().hasAmazonDate()">
-      [% l('Warning! "1990-10-25" is the bogus date that Amazon gives to all releases for which they don\'t know the actual date. <b>Please use this date only if you\'re certain this date is correct!</b>') %]
+      [% l('Warning! "1990-10-25" is the bogus date that Amazon gives to all releases for which they don\'t know the actual date. <strong>Please use this date only if you\'re certain this date is correct!</strong>') %]
     </p>
     <p data-bind="visible: target() && target().hasJanuaryFirstDate()">
       [% l('Note! If you do not know the month or day of release, please leave them empty.  January 1st is not often the actual release date, please double check that you have entered the release date correctly.') %]

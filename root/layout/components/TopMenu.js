@@ -7,7 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import _ from 'lodash';
 import React from 'react';
 
 import RequestLogin from '../../components/RequestLogin';
@@ -70,7 +69,7 @@ const DataMenu = ({user}: UserProp) => {
           <a href={userLink(userName, '/edits/open')}>{l('My Open Edits')}</a>
         </li>
         <li>
-          <a href={userLink(userName, '/edits/all')}>{l('All My Edits')}</a>
+          <a href={userLink(userName, '/edits')}>{l('All My Edits')}</a>
         </li>
         <li>
           <a href="/edit/subscribed">{l('Edits for Subscribed Entities')}</a>

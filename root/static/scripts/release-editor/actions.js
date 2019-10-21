@@ -27,6 +27,12 @@ const actions = {
 
     previousTab: function () { this.adjacentTab(-1) },
 
+    lastTab: function () { 
+        this.uiTabs._setOption("active", this.tabCount - 1);
+        this.uiTabs.tabs.eq(this.tabCount - 1).focus();
+        return;
+     },
+
     adjacentTab: function (direction) {
         var index = this.activeTabIndex();
         var disabled = this.uiTabs.options.disabled;
