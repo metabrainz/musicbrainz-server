@@ -1485,7 +1485,7 @@ msgid "folk harp"
 msgstr ""
 
 #: DB:instrument/name:478
-msgid "foot percussion"
+msgid "foot stomps"
 msgstr ""
 
 #: DB:instrument/name:384
@@ -2026,6 +2026,41 @@ msgstr ""
 #: DB:instrument/name:987
 msgctxt "Small boxed double gong-chime used in Javanese gamelan"
 msgid "kempyang"
+msgstr ""
+
+#: DB:instrument/name:989
+msgctxt "Family of two sided laced drums used in various gamelan"
+msgid "kendang"
+msgstr ""
+
+#: DB:instrument/name:994
+msgctxt "High pitched cylindrical kendang used in Bali gamelan."
+msgid "kendang lanang"
+msgstr ""
+
+#: DB:instrument/name:995
+msgctxt "Low pitched cylindrical kendang used in Bali gamelan."
+msgid "kendang wadon"
+msgstr ""
+
+#: DB:instrument/name:992
+msgctxt "Middle conical kendang used in both Javanese/Sundanese gamelan"
+msgid "kendhang batangan"
+msgstr ""
+
+#: DB:instrument/name:990
+msgctxt "Largest conical kendang used in both Javanese/Sundanese gamelan"
+msgid "kendhang gendhing"
+msgstr ""
+
+#: DB:instrument/name:991
+msgctxt "Smallest conical kendang used in both Javanese/Sundanese gamelan"
+msgid "kendhang ketipung"
+msgstr ""
+
+#: DB:instrument/name:993
+msgctxt "Middle conical kendang used in javanese gamelan"
+msgid "kendhang wayangan"
 msgstr ""
 
 #: DB:instrument/name:985
@@ -3438,7 +3473,7 @@ msgid "taonga pūoro"
 msgstr ""
 
 #: DB:instrument/name:559
-msgid "tap dancing"
+msgid "tap dance"
 msgstr ""
 
 #: DB:instrument/name:520
