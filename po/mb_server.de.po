@@ -12,6 +12,7 @@
 # Christan Weller <email address hidden>, 2019
 # Daniel Schury <email address hidden>, 2011
 # Daniel Schury <email address hidden>, 2011
+# David Kellner <email address hidden>, 2019
 # Dirk Hoffmann <email address hidden>, 2019
 # Eckhard Henkel <email address hidden>, 2018
 # <email address hidden>, 2012
@@ -31,6 +32,7 @@
 # happykraut, 2017
 # Leo_Verto <email address hidden>, 2016
 # Leo_Verto <email address hidden>, 2016
+# Mark Spike, 2019
 # Mineo <email address hidden>, 2011
 # Wieland Hoffmann <email address hidden>, 2011
 # nikki, 2013
@@ -67,8 +69,8 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-10-14 23:12+0200\n"
-"PO-Revision-Date: 2019-10-14 21:16+0000\n"
-"Last-Translator: yvanz\n"
+"PO-Revision-Date: 2019-10-15 22:42+0000\n"
+"Last-Translator: Mark Spike\n"
 "Language-Team: German (http://www.transifex.com/musicbrainz/musicbrainz/language/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -90,7 +92,7 @@ msgstr "„CC“ ist der entsprechende aus zwei Zeichen bestehende Ländercode d
 
 #: ../root/components/forms.tt:331
 msgid "\"DDD\" is a nine digit work identifier."
-msgstr "„DDD“ ist ein aus neun Ziffern bestehende Kennung für ein Werk."
+msgstr "„DDD“ ist eine aus neun Ziffern bestehende Kennung für ein Werk."
 
 #: ../root/components/forms.tt:345
 msgid ""
@@ -148,7 +150,7 @@ msgstr "&#x26a0; Fehler beim Hochladen des Bildes"
 
 #: ../root/release/add_cover_art.tt:66
 msgid "&#x26a0; Server busy, try again later"
-msgstr "&#x26a0; Server ausgelastet, versuch es später wieder"
+msgstr "&#x26a0; Server ausgelastet, bitte später erneut versuchen"
 
 #: ../root/release/add_cover_art.tt:63
 msgid "&#x26a0; Unrecognized file"
@@ -255,11 +257,11 @@ msgstr "100&#xa0;%"
 
 #: ../root/components/common-macros.tt:103
 msgid "250px"
-msgstr "250px"
+msgstr "250 px"
 
 #: ../root/components/common-macros.tt:104
 msgid "500px"
-msgstr "500px"
+msgstr "500 px"
 
 #: ../root/admin/edit_user.tt:20
 msgid "<abbr title=\"MusicBrainz Identifier\">MBID</abbr> submitter"
@@ -300,7 +302,7 @@ msgid ""
 " matches the page name, it will take the version number and provide whatever"
 " page is associated with it. Make sure to double check your work when "
 "updating a page!"
-msgstr "<strong>Beachte:</strong> MediaWiki überprüft nicht, ob die Versionsnummer auf den Seitennamen zutrifft, stattdessen nimmt es die Versionsnummer und liefert die damit verbundene Seite. Bitte überprüfe deine Arbeit genau, wenn du eine Seite aktualisierst!"
+msgstr "<strong>Hinweis:</strong> MediaWiki überprüft nicht, ob die Versionsnummer auf den Seitennamen zutrifft, stattdessen nimmt es die Versionsnummer und liefert die damit verbundene Seite. Bitte überprüfe deine Arbeit genau, wenn du eine Seite aktualisierst!"
 
 #: ../root/components/common-macros.tt:701 ../root/recording/edit_form.tt:6
 msgid "<strong>Warning</strong>:"
@@ -371,7 +373,7 @@ msgstr "Angenommen"
 
 #: ../root/user/edits.tt:1
 msgid "Accepted edits by {name}"
-msgstr ""
+msgstr "Angenommene Bearbeitungen von {name}"
 
 #: ../root/admin/edit_user.tt:27 ../root/admin/edit_user.tt:31
 msgid "Account admin"
@@ -505,7 +507,7 @@ msgstr "Neues Beispiel hinzufügen"
 msgid ""
 "Add a medium by clicking “Add Medium” below, or tick the box confirming the "
 "tracklist is unknown."
-msgstr "Füge unten ein Medium mit Klick auf „Medium hinzufügen“ hinzu oder markiere die Box zur Bestätigung, dass die Titelliste unbekannt ist."
+msgstr "Ein Medium mit Klick auf „Medium hinzufügen“ unten hinzufügen oder die Box zur Bestätigung markieren, dass die Titelliste unbekannt ist."
 
 #: ../root/admin/wikidoc/index.tt:11
 msgid "Add a new entry"
@@ -670,7 +672,7 @@ msgid ""
 "An alias is an alternate name for an entity. They typically contain common "
 "mispellings or variations of the name and are also used to improve search "
 "results. View the {doc|alias documentation} for more details."
-msgstr "Ein Alias ist ein alternativer Name für ein Objekt. Er enthält typischerweise häufig auftretende Falschschreibungen oder Variationen des Namens und wird auch zur Verbesserung der Suche verwendet. Weitere Informationen findest du in der {doc|Alias-Dokumentation}."
+msgstr "Ein Alias ist ein alternativer Name für ein Objekt. Er enthält typischerweise häufig auftretende Falschschreibungen oder Variationen des Namens und wird auch zur Verbesserung der Suche verwendet. Weitere Informationen finden sich in der {doc|Alias-Dokumentation}."
 
 #: ../root/components/common-macros.tt:918
 msgid ""
@@ -688,7 +690,7 @@ msgstr ""
 
 #: ../root/release/edit/tracklist.tt:131
 msgid "An error occurred: "
-msgstr ""
+msgstr "Ein Fehler ist aufgetreten:"
 
 #: ../root/annotation/revision.tt:1
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:43
@@ -1120,7 +1122,7 @@ msgstr "Strichcode:"
 msgid ""
 "Based on the above CD stub, we also found the following releases in "
 "MusicBrainz that may be related:"
-msgstr "Basierend auf dem obigen CD-Stub haben wir auch die folgenden Veröffentlichungen in MusicBrainz gefunden, die zutreffen könnten:"
+msgstr "Basierend auf dem obigen CD-Stub haben wir auch folgende Veröffentlichungen in MusicBrainz gefunden, die zutreffen könnten:"
 
 #: ../root/release/edit/duplicates.tt:4
 msgid ""
@@ -2142,7 +2144,7 @@ msgid ""
 "is highly recommended. Not only does it make it clear where you got your "
 "information, but it can also encourage other users to vote on your edit "
 "&#x2014; thus making your edit get applied faster."
-msgstr "Das Eingeben einer {note|Bearbeitungsbemerkung}, die beschreibt, woher du deine Informationen hast, ist wärmstens empfohlen! Nicht nur, dass es deutlich macht, wie du an die Informationen herangekommen bist, es bewegt auch andere Benutzer eher dazu, über deine Bearbeitung abzustimmen – und sie damit schneller zur Anwendung zu bringen."
+msgstr "Das Eingeben einer {note|Bearbeitungsbemerkung}, die beschreibt, woher du deine Informationen hast, ist wärmstens empfohlen! Nicht nur, dass es deutlich macht, woher du die Informationen hast, bewegt es auch andere Benutzer eher dazu, über deine Bearbeitung abzustimmen – und sie damit schneller zur Anwendung zu bringen."
 
 #: ../root/admin/attributes/form.tt:35
 #: ../root/admin/attributes/Attribute.js:55
@@ -2769,7 +2771,7 @@ msgstr "Wenn du denkst, dass dies ein Fehler ist, kontaktiere bitte <code>suppor
 
 #: ../root/components/common-macros.tt:88 ../root/components/Artwork.js:43
 msgid "Image not available yet, please try again in a few minutes."
-msgstr "Bild noch nicht verfügbar, versuch es in ein paar Minuten nochmal."
+msgstr "Bild noch nicht verfügbar, bitte in ein paar Minuten erneut versuchen."
 
 #: ../root/cdstub/import.tt:1 ../root/cdstub/import.tt:2
 #: ../root/cdtoc/lookup.tt:25
@@ -2875,7 +2877,7 @@ msgstr "Ungültige Disc-ID"
 
 #: ../root/main/timeout.tt:6
 msgid "It may help to try again by reloading the page."
-msgstr "Möglicherweise hilft ein weiterer Versuch, indem du die Seite neu lädst."
+msgstr "Es kann helfen, zu versuchen, die Seite erneut zu laden."
 
 #: ../root/components/common-macros.tt:707
 msgid "Javascript is required for this page to work properly."

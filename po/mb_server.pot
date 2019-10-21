@@ -10,7 +10,7 @@ msgstr ""
 "#-#-#-#-#  mb_server.pot (PACKAGE VERSION)  #-#-#-#-#\n"
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-10-14 23:12+0200\n"
+"POT-Creation-Date: 2019-10-21 18:38-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22,7 +22,7 @@ msgstr ""
 "#-#-#-#-#  javascript.pot (PACKAGE VERSION)  #-#-#-#-#\n"
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-10-14 23:12+0200\n"
+"POT-Creation-Date: 2019-10-21 18:38-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -71,8 +71,8 @@ msgstr ""
 #: ../root/edit/details/edit_medium.tt:182
 #: ../root/edit/details/edit_medium.tt:221
 #: ../root/edit/details/historic/add_release.tt:49
-#: ../root/release/edit_relationships.tt:48
 #: ../root/release/edit/tracklist.tt:148 ../root/release/edit/tracklist.tt:361
+#: ../root/release/edit_relationships.tt:48
 #: ../root/components/list/EventList.js:64
 #: ../root/components/list/RecordingList.js:60
 #: ../root/components/list/ReleaseGroupList.js:71
@@ -401,7 +401,7 @@ msgctxt "button/menu"
 msgid "Add Label"
 msgstr ""
 
-#: ../root/release/edit/layout.tt:64 ../root/release/edit/tracklist.tt:254
+#: ../root/release/edit/layout.tt:67 ../root/release/edit/tracklist.tt:254
 #: ../root/static/scripts/release-editor/dialogs.js:302
 msgid "Add Medium"
 msgstr ""
@@ -750,7 +750,7 @@ msgstr ""
 msgid "Are you sure you wish to remove the <strong>{name}</strong> attribute?"
 msgstr ""
 
-#: ../root/area/delete.tt:5
+#: ../root/area/delete.tt:9
 msgid "Are you sure you wish to remove the area {area} from MusicBrainz?"
 msgstr ""
 
@@ -833,7 +833,7 @@ msgstr ""
 #: ../root/edit/details/merge_releases.tt:19 ../root/edit/search_macros.tt:365
 #: ../root/otherlookup/results-release.tt:11
 #: ../root/release/edit/tracklist.tt:150 ../root/release/edit/tracklist.tt:363
-#: ../root/release_group/merge.tt:13 ../root/release/merge.tt:14
+#: ../root/release/merge.tt:14 ../root/release_group/merge.tt:13
 #: ../root/watch/list.tt:14 ../lib/MusicBrainz/Server/Edit/Artist.pm:7
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:35
 #: ../root/artist/ArtistHeader.js:29
@@ -923,7 +923,7 @@ msgstr ""
 msgid "Artist name:"
 msgstr ""
 
-#: ../root/user/ratings_summary.tt:3 ../root/user/ratings.tt:2
+#: ../root/user/ratings.tt:2 ../root/user/ratings_summary.tt:3
 msgid "Artist ratings"
 msgstr ""
 
@@ -934,13 +934,13 @@ msgstr ""
 #: ../root/cdstub/edit_form.tt:6 ../root/cdstub/import.tt:7
 #: ../root/cdtoc/attach_filter_artist.tt:8 ../root/cdtoc/lookup.tt:61
 #: ../root/components/common-macros.tt:555
-#: ../root/edit/details/add_release_group.tt:15
 #: ../root/edit/details/add_release.tt:15
+#: ../root/edit/details/add_release_group.tt:15
 #: ../root/edit/details/add_standalone_recording.tt:15
 #: ../root/edit/details/edit_artist.tt:5
 #: ../root/edit/details/edit_recording.tt:32
-#: ../root/edit/details/edit_release_group.tt:30
 #: ../root/edit/details/edit_release.tt:15
+#: ../root/edit/details/edit_release_group.tt:30
 #: ../root/edit/details/historic/add_release.tt:19
 #: ../root/edit/details/historic/add_track_kv.tt:20
 #: ../root/edit/details/historic/change_artist_quality.tt:3
@@ -1061,8 +1061,8 @@ msgstr ""
 #: ../root/cdstub/edit_form.tt:7 ../root/edit/details/add_release.tt:67
 #: ../root/edit/details/edit_barcodes.tt:17
 #: ../root/edit/details/edit_barcodes.tt:21
-#: ../root/edit/details/edit_release_label.tt:56
-#: ../root/edit/details/edit_release.tt:53 ../root/otherlookup/form.tt:3
+#: ../root/edit/details/edit_release.tt:53
+#: ../root/edit/details/edit_release_label.tt:56 ../root/otherlookup/form.tt:3
 #: ../root/release/edit/information.tt:216
 #: ../root/layout/components/MetaDescription.js:136
 #: ../root/layout/components/sidebar/CDStubSidebar.js:67
@@ -1243,9 +1243,9 @@ msgstr ""
 #: ../root/area/merge.tt:20 ../root/components/relationship-editor.tt:5
 #: ../root/event/merge.tt:56 ../root/instrument/merge.tt:36
 #: ../root/label/merge.tt:49 ../root/layout/merge-helper.tt:34
-#: ../root/place/merge.tt:48 ../root/release/edit/layout.tt:67
-#: ../root/release/edit/tracklist.tt:104 ../root/release_group/merge.tt:41
-#: ../root/release/merge.tt:130 ../root/series/merge.tt:37
+#: ../root/place/merge.tt:48 ../root/release/edit/layout.tt:59
+#: ../root/release/edit/tracklist.tt:104 ../root/release/merge.tt:130
+#: ../root/release_group/merge.tt:41 ../root/series/merge.tt:37
 #: ../root/work/merge.tt:73 ../root/artist/ArtistMerge.js:80
 #: ../root/components/ConfirmLayout.js:39
 #: ../root/layout/components/MergeHelper.js:40
@@ -1527,7 +1527,7 @@ msgstr ""
 msgid "Create"
 msgstr ""
 
-#: ../root/account/register.tt:46 ../root/layout/components/TopMenu.js:152
+#: ../root/account/register.tt:46 ../root/layout/components/TopMenu.js:151
 msgid "Create Account"
 msgstr ""
 
@@ -1716,16 +1716,17 @@ msgstr ""
 #: ../root/area/edit_form.tt:10 ../root/artist/edit_form.tt:14
 #: ../root/edit/details/add_instrument.tt:16
 #: ../root/edit/details/add_label.tt:23 ../root/edit/details/add_place.tt:16
+#: ../root/edit/details/add_release.tt:32
 #: ../root/edit/details/add_release_group.tt:21
-#: ../root/edit/details/add_release.tt:32 ../root/edit/details/add_series.tt:16
+#: ../root/edit/details/add_series.tt:16
 #: ../root/edit/details/add_standalone_recording.tt:21
 #: ../root/edit/details/add_work.tt:16 ../root/edit/details/edit_area.tt:21
 #: ../root/edit/details/edit_artist.tt:21 ../root/edit/details/edit_event.tt:14
 #: ../root/edit/details/edit_instrument.tt:14
 #: ../root/edit/details/edit_label.tt:19 ../root/edit/details/edit_place.tt:14
 #: ../root/edit/details/edit_recording.tt:17
-#: ../root/edit/details/edit_release_group.tt:15
 #: ../root/edit/details/edit_release.tt:25
+#: ../root/edit/details/edit_release_group.tt:15
 #: ../root/edit/details/edit_series.tt:14 ../root/edit/details/edit_work.tt:15
 #: ../root/event/edit_form.tt:13 ../root/instrument/edit_form.tt:10
 #: ../root/label/edit_form.tt:13 ../root/place/edit_form.tt:13
@@ -1884,8 +1885,8 @@ msgstr ""
 msgid "Edit Relationships: {release}"
 msgstr ""
 
-#: ../root/doc/edit_types.tt:1 ../root/doc/edit_types.tt:3
-#: ../root/doc/edit_type.tt:18 ../root/edit/components/EditSidebar.js:91
+#: ../root/doc/edit_type.tt:18 ../root/doc/edit_types.tt:1
+#: ../root/doc/edit_types.tt:3 ../root/edit/components/EditSidebar.js:91
 #: ../root/layout/components/BottomMenu.js:281
 msgid "Edit Types"
 msgstr ""
@@ -2160,7 +2161,7 @@ msgstr ""
 msgid "Event Details"
 msgstr ""
 
-#: ../root/user/ratings_summary.tt:3 ../root/user/ratings.tt:2
+#: ../root/user/ratings.tt:2 ../root/user/ratings_summary.tt:3
 msgid "Event ratings"
 msgstr ""
 
@@ -2207,7 +2208,7 @@ msgid "Expire action"
 msgstr ""
 
 #: ../root/area/edit_form.tt:22 ../root/artist/edit_form.tt:70
-#: ../root/event/edit_form.tt:43 ../root/instrument/edit_form.tt:22
+#: ../root/event/edit_form.tt:43 ../root/instrument/edit_form.tt:32
 #: ../root/label/edit_form.tt:41 ../root/place/edit_form.tt:37
 #: ../root/recording/edit_form.tt:44 ../root/release/edit/information.tt:262
 #: ../root/release_group/edit_form.tt:23 ../root/series/edit_form.tt:22
@@ -2239,6 +2240,10 @@ msgstr ""
 
 #: ../root/relationship/linktype/form.tt:126
 msgid "Find Relationships"
+msgstr ""
+
+#: ../root/release/edit/layout.tt:64
+msgid "Finish"
 msgstr ""
 
 #: ../root/release/edit/layout.tt:17
@@ -2452,6 +2457,10 @@ msgstr ""
 
 #: ../root/components/forms.tt:116
 msgid "HH:MM"
+msgstr ""
+
+#: ../root/instrument/edit_form.tt:20
+msgid "HTML tags allowed in the description: {tag_list}."
 msgstr ""
 
 #: ../root/user/profile.tt:96
@@ -2899,7 +2908,7 @@ msgstr ""
 msgid "Label code:"
 msgstr ""
 
-#: ../root/user/ratings_summary.tt:3 ../root/user/ratings.tt:2
+#: ../root/user/ratings.tt:2 ../root/user/ratings_summary.tt:3
 msgid "Label ratings"
 msgstr ""
 
@@ -3052,7 +3061,7 @@ msgid "Location:"
 msgstr ""
 
 #: ../root/user/login.tt:1 ../root/user/login.tt:3 ../root/user/login.tt:34
-#: ../root/layout/components/TopMenu.js:148
+#: ../root/layout/components/TopMenu.js:147
 msgid "Log In"
 msgstr ""
 
@@ -3396,8 +3405,9 @@ msgstr ""
 #: ../root/edit/details/add_place.tt:10
 #: ../root/edit/details/add_relationship_attribute.tt:3
 #: ../root/edit/details/add_relationship_type.tt:3
+#: ../root/edit/details/add_release.tt:10
 #: ../root/edit/details/add_release_group.tt:10
-#: ../root/edit/details/add_release.tt:10 ../root/edit/details/add_series.tt:10
+#: ../root/edit/details/add_series.tt:10
 #: ../root/edit/details/add_standalone_recording.tt:10
 #: ../root/edit/details/add_work.tt:10 ../root/edit/details/edit_area.tt:11
 #: ../root/edit/details/edit_artist.tt:11 ../root/edit/details/edit_event.tt:9
@@ -3407,9 +3417,9 @@ msgstr ""
 #: ../root/edit/details/edit_recording.tt:12
 #: ../root/edit/details/edit_relationship_attribute.tt:4
 #: ../root/edit/details/edit_relationship_type.tt:11
+#: ../root/edit/details/edit_release.tt:9
 #: ../root/edit/details/edit_release_group.tt:11
-#: ../root/edit/details/edit_release.tt:9 ../root/edit/details/edit_series.tt:9
-#: ../root/edit/details/edit_work.tt:11
+#: ../root/edit/details/edit_series.tt:9 ../root/edit/details/edit_work.tt:11
 #: ../root/edit/details/historic/add_release.tt:14
 #: ../root/edit/details/historic/add_track_kv.tt:14
 #: ../root/edit/details/historic/add_track_old.tt:14
@@ -3526,7 +3536,7 @@ msgstr ""
 msgid "Next"
 msgstr ""
 
-#: ../root/release/edit/layout.tt:61
+#: ../root/release/edit/layout.tt:62
 msgid "Next »"
 msgstr ""
 
@@ -4169,7 +4179,7 @@ msgstr ""
 msgid "Recording artist:"
 msgstr ""
 
-#: ../root/user/ratings_summary.tt:3 ../root/user/ratings.tt:2
+#: ../root/user/ratings.tt:2 ../root/user/ratings_summary.tt:3
 msgid "Recording ratings"
 msgstr ""
 
@@ -4371,8 +4381,8 @@ msgid "Release Group Relationships"
 msgstr ""
 
 #: ../root/edit/details/add_release_group.tt:3
-#: ../root/edit/details/edit_release_group.tt:5
 #: ../root/edit/details/edit_release.tt:21
+#: ../root/edit/details/edit_release_group.tt:5
 #: ../root/release/edit/information.tt:33
 msgid "Release Group:"
 msgstr ""
@@ -4414,7 +4424,7 @@ msgstr ""
 msgid "Release events:"
 msgstr ""
 
-#: ../root/user/ratings_summary.tt:3 ../root/user/ratings.tt:2
+#: ../root/user/ratings.tt:2 ../root/user/ratings_summary.tt:3
 msgid "Release group ratings"
 msgstr ""
 
@@ -4446,13 +4456,13 @@ msgstr ""
 
 #: ../root/cdtoc/lookup.tt:71 ../root/components/common-macros.tt:555
 #: ../root/edit/details/add_cover_art.tt:5 ../root/edit/details/add_medium.tt:5
-#: ../root/edit/details/add_release_label.tt:4
 #: ../root/edit/details/add_release.tt:3
+#: ../root/edit/details/add_release_label.tt:4
 #: ../root/edit/details/change_release_data_quality.tt:3
 #: ../root/edit/details/edit_barcodes.tt:12
 #: ../root/edit/details/edit_cover_art.tt:5
-#: ../root/edit/details/edit_release_label.tt:5
 #: ../root/edit/details/edit_release.tt:5
+#: ../root/edit/details/edit_release_label.tt:5
 #: ../root/edit/details/historic/move_release_to_rg.tt:3
 #: ../root/edit/details/remove_cover_art.tt:5
 #: ../root/edit/details/remove_release_label.tt:3
@@ -4488,8 +4498,8 @@ msgstr ""
 #: ../root/edit/details/historic/mac_to_sac.tt:3
 #: ../root/edit/details/historic/move_release.tt:3
 #: ../root/edit/details/historic/remove_disc_id.tt:3
-#: ../root/edit/details/historic/remove_releases.tt:3
 #: ../root/edit/details/historic/remove_release.tt:2
+#: ../root/edit/details/historic/remove_releases.tt:3
 #: ../root/edit/details/historic/remove_track.tt:3
 msgid "Releases:"
 msgstr ""
@@ -4756,8 +4766,8 @@ msgstr ""
 msgid "Search by release"
 msgstr ""
 
-#: ../root/edit/search_results.tt:3 ../root/edit/search_results.tt:5
 #: ../root/edit/search.tt:2 ../root/edit/search.tt:4
+#: ../root/edit/search_results.tt:3 ../root/edit/search_results.tt:5
 msgid "Search for Edits"
 msgstr ""
 
@@ -5401,10 +5411,16 @@ msgid ""
 "promotional texts or other artist or label-owned texts into the annotation."
 msgstr ""
 
-#: ../root/area/delete.tt:14
+#: ../root/area/delete.tt:5
 msgid ""
-"This area cannot be removed because there are still artists, labels, and/or "
-"releases using it."
+"This area cannot be removed because it is one of the areas that can be used "
+"as a release country."
+msgstr ""
+
+#: ../root/area/delete.tt:18
+msgid ""
+"This area cannot be removed because it is still in use (in artists, labels, "
+"places, relationships or open edits)."
 msgstr ""
 
 #: ../root/area/edit_form.tt:17
@@ -6056,7 +6072,7 @@ msgid "Up to {n}"
 msgstr ""
 
 #: ../root/admin/wikidoc/edit.tt:21 ../root/admin/wikidoc/index.tt:61
-#: ../root/account/applications/Edit.js:28 ../root/admin/EditBanner.js:36
+#: ../root/account/applications/Edit.js:26 ../root/admin/EditBanner.js:36
 msgid "Update"
 msgstr ""
 
@@ -6253,8 +6269,8 @@ msgstr ""
 #: ../root/release/edit/information.tt:276
 msgid ""
 "Warning! \"1990-10-25\" is the bogus date that Amazon gives to all releases "
-"for which they don't know the actual date. <b>Please use this date only if "
-"you're certain this date is correct!</b>"
+"for which they don't know the actual date. <strong>Please use this date only "
+"if you're certain this date is correct!</strong>"
 msgstr ""
 
 #: ../root/release/edit/tracklist.tt:338
@@ -6371,7 +6387,7 @@ msgstr ""
 msgid "Work Type:"
 msgstr ""
 
-#: ../root/user/ratings_summary.tt:3 ../root/user/ratings.tt:2
+#: ../root/user/ratings.tt:2 ../root/user/ratings_summary.tt:3
 msgid "Work ratings"
 msgstr ""
 
@@ -7386,7 +7402,7 @@ msgstr ""
 msgid "{yes} yes : {no} no"
 msgstr ""
 
-#: ../root/release/edit/layout.tt:60
+#: ../root/release/edit/layout.tt:61
 msgid "« Previous"
 msgstr ""
 
@@ -7727,18 +7743,18 @@ msgstr ""
 msgid "{t0}-{t1} relationships"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Data/Release.pm:817
+#: ../lib/MusicBrainz/Server/Data/Release.pm:810
 msgid ""
 "The track counts on at least one set of corresponding mediums do not match."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Data/Release.pm:837
+#: ../lib/MusicBrainz/Server/Data/Release.pm:830
 msgid ""
 "Mediums with a pregap track can only be merged with other mediums with a "
 "pregap track."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Data/Release.pm:845
+#: ../lib/MusicBrainz/Server/Data/Release.pm:838
 msgid "The medium positions conflict."
 msgstr ""
 
@@ -9138,8 +9154,8 @@ msgid ""
 "page."
 msgstr ""
 
-#: ../root/account/applications/Edit.js:23
-#: ../root/account/applications/Edit.js:24
+#: ../root/account/applications/Edit.js:21
+#: ../root/account/applications/Edit.js:22
 msgid "Edit Application"
 msgstr ""
 
@@ -9163,7 +9179,7 @@ msgstr ""
 
 #: ../root/account/applications/Index.js:69
 #: ../root/account/applications/Index.js:70
-#: ../root/layout/components/TopMenu.js:36
+#: ../root/layout/components/TopMenu.js:35
 msgid "Applications"
 msgstr ""
 
@@ -9216,28 +9232,28 @@ msgstr ""
 msgid "You do not have any registered applications."
 msgstr ""
 
+#: ../root/account/applications/Register.js:22
 #: ../root/account/applications/Register.js:23
-#: ../root/account/applications/Register.js:24
 msgid "Register Application"
 msgstr ""
 
-#: ../root/account/applications/Register.js:28
+#: ../root/account/applications/Register.js:27
 msgid "Register"
 msgstr ""
 
-#: ../root/account/applications/Remove.js:15
+#: ../root/account/applications/Remove.js:16
 msgid "Are you sure you want to remove this application?"
 msgstr ""
 
-#: ../root/account/applications/Remove.js:16
+#: ../root/account/applications/Remove.js:17
 msgid "Remove Application"
 msgstr ""
 
-#: ../root/account/applications/RevokeAccess.js:15
+#: ../root/account/applications/RevokeAccess.js:16
 msgid "Are you sure you want to revoke this application's access?"
 msgstr ""
 
-#: ../root/account/applications/RevokeAccess.js:16
+#: ../root/account/applications/RevokeAccess.js:17
 msgid "Revoke Application Access"
 msgstr ""
 
@@ -9264,7 +9280,7 @@ msgstr ""
 msgid "Unconfirmed Email Address"
 msgstr ""
 
-#: ../root/admin/EditBanner.js:23 ../root/layout/components/TopMenu.js:124
+#: ../root/admin/EditBanner.js:23 ../root/layout/components/TopMenu.js:123
 msgid "Edit Banner Message"
 msgstr ""
 
@@ -9759,12 +9775,12 @@ msgid "{num}. {relationship}"
 msgstr ""
 
 #: ../root/components/UserAccountTabs.js:40
-#: ../root/layout/components/TopMenu.js:33
+#: ../root/layout/components/TopMenu.js:32
 msgid "Profile"
 msgstr ""
 
 #: ../root/components/UserAccountTabs.js:43
-#: ../root/layout/components/TopMenu.js:40
+#: ../root/layout/components/TopMenu.js:39
 #: ../root/layout/components/sidebar/CollectionSidebar.js:71
 #: ../root/layout/components/sidebar/SubscriptionLinks.js:28
 msgid "Subscriptions"
@@ -10115,12 +10131,12 @@ msgstr ""
 msgid "No elections found."
 msgstr ""
 
-#: ../root/elections/Nominate.js:16
+#: ../root/elections/Nominate.js:18
 msgid ""
 "Are you sure you want to nominate the editor {editor} for auto-editor status?"
 msgstr ""
 
-#: ../root/elections/Nominate.js:19
+#: ../root/elections/Nominate.js:22
 msgid "Nominate a candidate for auto-editor"
 msgstr ""
 
@@ -10804,74 +10820,74 @@ msgstr ""
 msgid "Writers:"
 msgstr ""
 
-#: ../root/layout/components/TopMenu.js:44
+#: ../root/layout/components/TopMenu.js:43
 msgid "Log Out"
 msgstr ""
 
-#: ../root/layout/components/TopMenu.js:56
+#: ../root/layout/components/TopMenu.js:55
 msgid "My Data"
 msgstr ""
 
-#: ../root/layout/components/TopMenu.js:61
+#: ../root/layout/components/TopMenu.js:60
 msgid "My Collections"
 msgstr ""
 
-#: ../root/layout/components/TopMenu.js:64
+#: ../root/layout/components/TopMenu.js:63
 msgid "My Ratings"
 msgstr ""
 
-#: ../root/layout/components/TopMenu.js:67
+#: ../root/layout/components/TopMenu.js:66
 msgid "My Tags"
 msgstr ""
 
-#: ../root/layout/components/TopMenu.js:70
+#: ../root/layout/components/TopMenu.js:69
 msgid "My Open Edits"
 msgstr ""
 
-#: ../root/layout/components/TopMenu.js:73
+#: ../root/layout/components/TopMenu.js:72
 msgid "All My Edits"
 msgstr ""
 
-#: ../root/layout/components/TopMenu.js:76
+#: ../root/layout/components/TopMenu.js:75
 msgid "Edits for Subscribed Entities"
 msgstr ""
 
-#: ../root/layout/components/TopMenu.js:79
+#: ../root/layout/components/TopMenu.js:78
 msgid "Edits by Subscribed Editors"
 msgstr ""
 
-#: ../root/layout/components/TopMenu.js:82
+#: ../root/layout/components/TopMenu.js:81
 msgid "Notes Left on My Edits"
 msgstr ""
 
-#: ../root/layout/components/TopMenu.js:92
+#: ../root/layout/components/TopMenu.js:91
 msgid "Admin"
 msgstr ""
 
-#: ../root/layout/components/TopMenu.js:98
+#: ../root/layout/components/TopMenu.js:97
 msgctxt "button/menu"
 msgid "Add Area"
 msgstr ""
 
-#: ../root/layout/components/TopMenu.js:105
+#: ../root/layout/components/TopMenu.js:104
 msgctxt "button/menu"
 msgid "Add Instrument"
 msgstr ""
 
-#: ../root/layout/components/TopMenu.js:108
+#: ../root/layout/components/TopMenu.js:107
 msgctxt "button/menu"
 msgid "Add Genre"
 msgstr ""
 
-#: ../root/layout/components/TopMenu.js:111
+#: ../root/layout/components/TopMenu.js:110
 msgid "Edit Relationship Types"
 msgstr ""
 
-#: ../root/layout/components/TopMenu.js:118
+#: ../root/layout/components/TopMenu.js:117
 msgid "Transclude WikiDocs"
 msgstr ""
 
-#: ../root/layout/components/TopMenu.js:130
+#: ../root/layout/components/TopMenu.js:129
 msgid "Edit Attributes"
 msgstr ""
 
@@ -13750,7 +13766,7 @@ msgid_plural "{n} works selected"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../root/static/scripts/release-editor/actions.js:255
+#: ../root/static/scripts/release-editor/actions.js:261
 msgid ""
 "This tracklist has artist credits with information that will be lost if you "
 "swap artist credits with track titles. This cannot be undone. Do you wish to "
@@ -14051,7 +14067,7 @@ msgstr ""
 msgid "The users make MusicBrainz happen and we appreciate your help!"
 msgstr ""
 
-#: ../root/taglookup/Nag.js:18
+#: ../root/taglookup/Nag.js:19
 msgid ""
 "However, we still have to pay the bills and hosting this site costs "
 "{finances|more than $1000 per month}. We need our users to help us make ends "
@@ -14062,19 +14078,19 @@ msgid ""
 "good karma everywhere else!"
 msgstr ""
 
-#: ../root/taglookup/Nag.js:24
+#: ../root/taglookup/Nag.js:34
 msgid ""
-"If you donate <b>$4</b> you will not get this nag text for a <b>month</b>. "
-"We encourage people to donate $12 to make the nag screen disappear for 3 "
-"months. Or even better, sign up for a recurring donation every three months "
-"to not have to think about or see this nag again."
+"If you donate <strong>$4</strong> you will not get this nag text for a "
+"<strong>month</strong>. We encourage people to donate $12 to make the nag "
+"screen disappear for 3 months. Or even better, sign up for a recurring "
+"donation every three months to not have to think about or see this nag again."
 msgstr ""
 
-#: ../root/taglookup/Nag.js:28
+#: ../root/taglookup/Nag.js:43
 msgid "Make a donation now!"
 msgstr ""
 
-#: ../root/taglookup/Nag.js:32
+#: ../root/taglookup/Nag.js:47
 msgid "I just donated! Why am I seeing this?"
 msgstr ""
 
