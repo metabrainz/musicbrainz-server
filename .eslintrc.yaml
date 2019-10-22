@@ -24,7 +24,7 @@ rules:
   no-await-in-loop: error
   no-cond-assign: warn
   no-constant-condition: [error, {checkLoops: false}]
-  no-control-regex: warn
+  no-control-regex: off
   no-debugger: error
   no-dupe-args: error
   no-dupe-keys: error

@@ -43,12 +43,29 @@ $(function () {
         <div>
           <h2>Entity autocomplete</h2>
           <p>
-            Current entity type: {entityType}.
-            Paste an MBID to change it.
+            Current entity type:
+            {' '}
+            <select
+              value={entityType}
+              onChange={event => render(event.target.value)}
+            >
+              <option value="area">Area</option>
+              <option value="artist">Artist</option>
+              <option value="event">Event</option>
+              <option value="instrument">Instrument</option>
+              <option value="label">Label</option>
+              <option value="place">Place</option>
+              <option value="recording">Recording</option>
+              <option value="release">Release</option>
+              <option value="release_group">Release Group</option>
+              <option value="series">Series</option>
+              <option value="work">Work</option>
+            </select>
           </p>
           <Autocomplete2
             entityType={entityType}
             id="entity-test"
+            key={entityType + '-autocomplete'}
             onChange={console.log}
             onTypeChange={render}
             width="200px"

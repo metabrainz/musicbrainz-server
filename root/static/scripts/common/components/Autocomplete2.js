@@ -35,6 +35,7 @@ import {
   MENU_ITEMS,
   SEARCH_PLACEHOLDERS,
 } from './Autocomplete2/constants';
+import formatItem from './Autocomplete2/formatters';
 import reducer from './Autocomplete2/reducer';
 import type {
   Actions,
@@ -396,9 +397,14 @@ export default function Autocomplete2(props: Props) {
         const itemMapKey = item.id + ',' +
           String(isHighlighted) + ',' +
           String(isSelected);
-        const style = item.level
+
+        let style = item.level
           ? {paddingLeft: String((item.level - 1) * 8) + 'px'}
           : null;
+
+        if (item.action) {
+          style = {textAlign: 'center'};
+        }
 
         children.set(
           itemMapKey,
@@ -419,7 +425,7 @@ export default function Autocomplete2(props: Props) {
               role="option"
               style={style}
             >
-              {unwrapNl(item.name)}
+              {formatItem(item)}
             </li>
           ),
         );

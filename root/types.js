@@ -103,6 +103,7 @@ declare type ArtistCreditNameT = {|
 |};
 
 declare type ArtistCreditRoleT = {|
+  +artist: string,
   +artistCredit: ArtistCreditT,
 |};
 
@@ -459,6 +460,11 @@ declare type Expand2ReactInput = VarSubstArg | AnchorProps;
 
 declare type Expand2ReactOutput = string | React$MixedElement;
 
+declare type ExpandLFunc<-Input, Output> = (
+  key: string,
+  args: {+[string]: Input | Output},
+) => Output;
+
 declare type FieldT<V> = {|
   errors: Array<string>,
   has_errors: boolean,
@@ -504,7 +510,7 @@ declare type GroupedOptionsT = $ReadOnlyArray<{|
 |}>;
 
 declare type InstrumentCreditsRoleT = {|
-  +instrumentCredits?: {+[string]: string},
+  +instrumentCredits?: {+[string]: $ReadOnlyArray<string>},
 |};
 
 declare type InstrumentT = {|
@@ -910,6 +916,7 @@ declare type SeriesT = {|
   ...CoreEntityRoleT<'series'>,
   ...TypeRoleT<SeriesTypeT>,
   +orderingTypeID: number,
+  +type?: SeriesTypeT,
 |};
 
 declare type SeriesItemNumbersRoleT = {|
