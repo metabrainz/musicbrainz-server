@@ -32,7 +32,7 @@ const ReleaseLabelList = ({labels: releaseLabels}: ReleaseLabelsProps) => {
       labels.push(label);
     }
   }
-  return commaOnlyList(uniqBy(labels, 'gid').map(displayLabel))
+  return commaOnlyList(uniqBy(labels, 'gid').map(displayLabel));
 };
 
 export default ReleaseLabelList;
