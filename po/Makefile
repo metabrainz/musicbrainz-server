@@ -1,15 +1,37 @@
-POTFILES=$(sort $(shell find ../lib -type f -name \*.pm)) \
-         $(sort $(shell find ../lib -type f -name \*.pl))
+# Allows passing file names with spaces in the prerequisite lists.
+SED_ESCAPE_SPACES:=sed -e 's/ /\\ /g'
 
-JSFILES=$(sort $(shell find ../root -type f -name \*.js \
-	-not -path '../root/static/scripts/tests/*' \
-	-not -path '../root/static/build/*' \
-	-not -path '../root/static/lib/*' \
-	-not -path '../root/statistics/*'))
+GIT_LS_PERL:=git ls-files -- \
+	':(top,glob)lib/**/*.pm' \
+	':(top,glob)lib/**/*.pl' \
+	| $(SED_ESCAPE_SPACES)
 
-TT=$(sort $(shell find ../root -path ../root/statistics -prune -o -type f -name \*.tt -print))
-STATTT=$(sort $(shell find ../root/statistics -type f -name \*.tt -print))
-STATJS=$(sort $(shell find ../root/statistics -type f -name \*.js -print))
+GIT_LS_JS:=git ls-files -- \
+    ':(top,glob)root/**/*.js' \
+    ':(top,glob,exclude)root/static/scripts/tests/**/*.js' \
+    ':(top,glob,exclude)root/static/build/**/*.js' \
+    ':(top,glob,exclude)root/static/lib/**/*.js' \
+    ':(top,glob,exclude)root/statistics/**/*.js' \
+    | $(SED_ESCAPE_SPACES)
+
+GIT_LS_TT:=git ls-files -- \
+    ':(top,glob)root/**/*.tt' \
+    ':(top,glob,exclude)root/statistics/**/*.tt' \
+    | $(SED_ESCAPE_SPACES)
+
+GIT_LS_STATTT:=git ls-files -- \
+	':(top,glob)root/statistics/**/*.tt' \
+	| $(SED_ESCAPE_SPACES)
+
+GIT_LS_STATJS:=git ls-files -- \
+	':(top,glob)root/statistics/**/*.js' \
+	| $(SED_ESCAPE_SPACES)
+
+POTFILES=$(shell $(GIT_LS_PERL))
+JSFILES=$(shell $(GIT_LS_JS))
+TT=$(shell $(GIT_LS_TT))
+STATTT=$(shell $(GIT_LS_STATTT))
+STATJS=$(shell $(GIT_LS_STATJS))
 
 POFILES=$(wildcard *.po)
 MOFILES=$(POFILES:.po=.mo)
@@ -40,18 +62,18 @@ pot: mb_server.pot statistics.pot languages.pot languages_notrim.pot scripts.pot
 mb_server.pot: $(POTFILES) $(JSFILES) $(TT) $(wildcard extract_pot_templates)
 	@echo "Rebuilding the mb_server.pot file";
 	@echo "- Update templates .pot";
-	@find ../root -path ../root/statistics -prune -o -type f -name \*.tt -print | sort | ./extract_pot_templates | msguniq -s > mb_server.pot;
+	@$(GIT_LS_TT) | ./extract_pot_templates | msguniq -s > mb_server.pot;
 	@echo "- Update code .pot"
-	@xgettext --from-code utf-8 --keyword=__ --keyword=l --keyword=lp:1,2c --keyword=N_lp:1,2c --keyword=N_l --keyword=ln:1,2 --keyword=N_ln:1,2 --keyword=__x --keyword=__nx:1,2 --keyword=__n:1,2 -Lperl -o mb_server.pot --add-comments=translators -j $(POTFILES)
-	@../script/xgettext.js $(JSFILES) > javascript.pot
+	@$(GIT_LS_PERL) | xargs xgettext --from-code utf-8 --keyword=__ --keyword=l --keyword=lp:1,2c --keyword=N_lp:1,2c --keyword=N_l --keyword=ln:1,2 --keyword=N_ln:1,2 --keyword=__x --keyword=__nx:1,2 --keyword=__n:1,2 -Lperl -o mb_server.pot --add-comments=translators -j
+	@$(GIT_LS_JS) | xargs ../script/xgettext.js > javascript.pot
 	@msgcat -o mb_server.pot mb_server.pot javascript.pot
 	@rm javascript.pot
 
 statistics.pot: $(STATTT) $(STATJS) $(wildcard extract_pot_db) $(wildcard extract_pot_templates)
 	@echo "Rebuilding the statistics.pot file";
 	@echo "- Update templates .pot";
-	@find ../root/statistics -type f -name \*.tt -print | sort | ./extract_pot_templates | msguniq -s > statistics_tmpl.pot;
-	@../script/xgettext.js $(STATJS) > statistics_js.pot
+	@$(GIT_LS_STATTT) | ./extract_pot_templates | msguniq -s > statistics_tmpl.pot;
+	@$(GIT_LS_STATJS) | xargs ../script/xgettext.js > statistics_js.pot
 	@echo "- Update database .pot";
 	@./extract_pot_db statistics | msguniq -s > statistics_db.pot
 	@echo "- Merge";
