@@ -14,6 +14,8 @@ import DescriptiveLink
   from '../static/scripts/common/components/DescriptiveLink';
 import bracketed, {bracketedText}
   from '../static/scripts/common/utility/bracketed';
+import {displayLinkAttributes}
+  from '../static/scripts/common/utility/displayLinkAttribute';
 import formatDatePeriod
   from '../static/scripts/common/utility/formatDatePeriod';
 import {artistCreditsAreEqual}
@@ -53,7 +55,9 @@ const RelationshipTargetLinks = ({
     <>
       {link}
       {extraAttributes ? ' ' : null}
-      {extraAttributes ? bracketed(extraAttributes) : null}
+      {extraAttributes ? bracketed(
+        displayLinkAttributes(extraAttributes),
+      ) : null}
       {datePeriod ? ' ' + bracketedText(datePeriod) : null}
     </>
   );

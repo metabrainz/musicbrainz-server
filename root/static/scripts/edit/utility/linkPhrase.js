@@ -8,8 +8,6 @@
  */
 
 import commaList, {commaListText} from '../../common/i18n/commaList';
-import commaOnlyList, {commaOnlyListText}
-  from '../../common/i18n/commaOnlyList';
 import {VarArgs, type VarArgsObject} from '../../common/i18n/expand2';
 import expand2react from '../../common/i18n/expand2react';
 import expand2text from '../../common/i18n/expand2text';
@@ -22,7 +20,7 @@ import displayLinkAttribute, {displayLinkAttributeText}
 
 const EMPTY_OBJECT = Object.freeze({});
 
-const emptyResult = Object.freeze(['', '']);
+const emptyResult = Object.freeze(['', []]);
 const entity0Subst = /\{entity0\}/;
 const entity1Subst = /\{entity1\}/;
 
@@ -30,7 +28,7 @@ type LinkAttrs = Array<LinkAttrT> | LinkAttrT;
 
 export type CachedLinkData<T> = {
   attributesByRootName: ?{+[attributeName: string]: LinkAttrs, ...},
-  phraseAndExtraAttributes: {[phraseKey: string]: [T, T], ...},
+  phraseAndExtraAttributes: {[phraseKey: string]: [T, Array<LinkAttrT>], ...},
 };
 
 export type RelationshipInfoT = {
@@ -61,7 +59,7 @@ function _getResultCache<T>(
 }
 
 class PhraseVarArgs<T> extends VarArgs<LinkAttrs, T | string> {
-  +i18n: LinkPhraseI18n<T | string>;
+  +i18n: LinkPhraseI18n<T>;
 
   +entity0: T | string;
 
@@ -77,7 +75,7 @@ class PhraseVarArgs<T> extends VarArgs<LinkAttrs, T | string> {
 
   constructor(
     args: ?VarArgsObject<LinkAttrs>,
-    i18n: LinkPhraseI18n<T | string>,
+    i18n: LinkPhraseI18n<T>,
     entity0: ?T,
     entity1: ?T,
   ) {
@@ -116,7 +114,6 @@ class PhraseVarArgs<T> extends VarArgs<LinkAttrs, T | string> {
 export type LinkPhraseI18n<T> = {
   cache: WeakMap<RelationshipInfoT, CachedLinkData<T>>,
   commaList: ($ReadOnlyArray<T>) => T,
-  commaOnlyList: ($ReadOnlyArray<T>) => T,
   expand: (string, PhraseVarArgs<T>) => T,
   displayLinkAttribute: (LinkAttrT) => T,
 };
@@ -127,7 +124,6 @@ const reactI18n: LinkPhraseI18n<Expand2ReactOutput> = {
     CachedLinkData<Expand2ReactOutput>,
   >(),
   commaList,
-  commaOnlyList,
   expand: expand2react,
   displayLinkAttribute,
 };
@@ -135,7 +131,6 @@ const reactI18n: LinkPhraseI18n<Expand2ReactOutput> = {
 const textI18n: LinkPhraseI18n<string> = {
   cache: new WeakMap<RelationshipInfoT, CachedLinkData<string>>(),
   commaList: commaListText,
-  commaOnlyList: commaOnlyListText,
   expand: expand2text,
   displayLinkAttribute: displayLinkAttributeText,
 };
@@ -183,9 +178,26 @@ function _setAttributeValues<T>(
   }
 }
 
+export function cmpLinkAttrs(a: LinkAttrT, b: LinkAttrT) {
+  const aType = linkedEntities.link_attribute_type[a.typeID];
+  const bType = linkedEntities.link_attribute_type[b.typeID];
+  const aRootType = linkedEntities.link_attribute_type[aType.root_id];
+  const bRootType = linkedEntities.link_attribute_type[bType.root_id];
+
+  return (
+    (aRootType.child_order - bRootType.child_order) ||
+    /*
+     * Sorting by the types' child orders doesn't make sense without taking
+     * into account the entire parent hierarchy, so we just sort by ID if
+     * they have the same root to achieve a consistent sort order.
+     */
+    (aType.id - bType.id)
+  );
+}
+
 const requiredAttributesCache: {
   __proto__: null,
-  [linkTypeId: number]: {+[attributeName: string]: LinkAttrT},
+  [linkTypeId: number]: {+[attributeName: string]: LinkAttrT, ...},
   ...,
 } = Object.create(null);
 
@@ -221,7 +233,7 @@ export function getPhraseAndExtraAttributes<T>(
   forGrouping?: boolean = false,
   entity0?: T,
   entity1?: T,
-): [T | string, T | string] {
+): [T | string, Array<LinkAttrT>] {
   const cache = _getResultCache<T | string>(i18n.cache, relationship);
   const key = phraseProp + '\0' + (forGrouping ? '1' : '0');
 
@@ -298,30 +310,24 @@ export function getPhraseAndExtraAttributes<T>(
     phrase = clean(phrase);
   }
 
-  const extraAttributes: Array<T | string> = [];
+  const extraAttributes: Array<LinkAttrT> = [];
+
   for (const key in attributesByRootName) {
     if (
       (shouldStripAttributes && requiredAttributes[key] == null) ||
       !varArgs.usedPhraseAttributes.includes(key)
     ) {
-      const values = attributesByRootName[key];
-      if (Array.isArray(values)) {
-        extraAttributes.push(...values.map(
-          i18n.displayLinkAttribute,
-        ));
+      const attributes = attributesByRootName[key];
+      if (Array.isArray(attributes)) {
+        extraAttributes.push(...attributes);
       } else {
-        extraAttributes.push(
-          i18n.displayLinkAttribute(values),
-        );
+        extraAttributes.push(attributes);
       }
     }
   }
 
-  result = [
-    phrase,
-    i18n.commaOnlyList(extraAttributes),
-  ];
-
+  extraAttributes.sort(cmpLinkAttrs);
+  result = [phrase, extraAttributes];
   cache.phraseAndExtraAttributes[key] = result;
   return result;
 }

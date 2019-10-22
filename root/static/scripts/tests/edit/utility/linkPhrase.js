@@ -97,5 +97,5 @@ test('required attributes are left with forGrouping', function (t) {
     true, /* forGrouping */
   );
 
-  t.deepEqual(result, ['supporting guitar for', '']);
+  t.deepEqual(result, ['supporting guitar for', []]);
 });
