@@ -28,7 +28,7 @@ const entity1Subst = /\{entity1\}/;
 
 type LinkAttrs = Array<LinkAttrT> | LinkAttrT;
 
-export type CachedLinkPhraseData<T> = {
+export type CachedLinkData<T> = {
   attributesByRootName: ?{+[attributeName: string]: LinkAttrs, ...},
   phraseAndExtraAttributes: {[phraseKey: string]: [T, T], ...},
 };
@@ -46,9 +46,9 @@ type LinkPhraseProp =
   ;
 
 function _getResultCache<T>(
-  resultCache: WeakMap<RelationshipInfoT, CachedLinkPhraseData<T>>,
+  resultCache: WeakMap<RelationshipInfoT, CachedLinkData<T>>,
   relationship: RelationshipInfoT,
-): CachedLinkPhraseData<T> {
+): CachedLinkData<T> {
   let result = resultCache.get(relationship);
   if (!result) {
     result = {
@@ -114,7 +114,7 @@ class PhraseVarArgs<T> extends VarArgs<LinkAttrs, T | string> {
 }
 
 export type LinkPhraseI18n<T> = {
-  cache: WeakMap<RelationshipInfoT, CachedLinkPhraseData<T>>,
+  cache: WeakMap<RelationshipInfoT, CachedLinkData<T>>,
   commaList: ($ReadOnlyArray<T>) => T,
   commaOnlyList: ($ReadOnlyArray<T>) => T,
   expand: (string, PhraseVarArgs<T>) => T,
@@ -124,7 +124,7 @@ export type LinkPhraseI18n<T> = {
 const reactI18n: LinkPhraseI18n<Expand2ReactOutput> = {
   cache: new WeakMap<
     RelationshipInfoT,
-    CachedLinkPhraseData<Expand2ReactOutput>,
+    CachedLinkData<Expand2ReactOutput>,
   >(),
   commaList,
   commaOnlyList,
@@ -133,7 +133,7 @@ const reactI18n: LinkPhraseI18n<Expand2ReactOutput> = {
 };
 
 const textI18n: LinkPhraseI18n<string> = {
-  cache: new WeakMap<RelationshipInfoT, CachedLinkPhraseData<string>>(),
+  cache: new WeakMap<RelationshipInfoT, CachedLinkData<string>>(),
   commaList: commaListText,
   commaOnlyList: commaOnlyListText,
   expand: expand2text,
@@ -143,7 +143,7 @@ const textI18n: LinkPhraseI18n<string> = {
 function _setAttributeValues<T>(
   i18n: LinkPhraseI18n<T | string>,
   relationship: RelationshipInfoT,
-  cache: CachedLinkPhraseData<T>,
+  cache: CachedLinkData<T>,
 ) {
   const attributes = relationship.attributes;
   const values = {};

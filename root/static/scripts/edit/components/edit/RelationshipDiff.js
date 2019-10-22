@@ -24,7 +24,7 @@ import displayLinkAttribute
   from '../../../common/utility/displayLinkAttribute';
 import {
   getPhraseAndExtraAttributes,
-  type CachedLinkPhraseData,
+  type CachedLinkData,
   type LinkPhraseI18n,
   type RelationshipInfoT,
 } from '../../utility/linkPhrase';
@@ -53,7 +53,7 @@ const RelationshipDiff = ({
   const i18nConfig: LinkPhraseI18n<Expand2ReactOutput> = {
     cache: new WeakMap<
       RelationshipInfoT,
-      CachedLinkPhraseData<Expand2ReactOutput>,
+      CachedLinkData<Expand2ReactOutput>,
     >(),
     commaList,
     commaOnlyList,
