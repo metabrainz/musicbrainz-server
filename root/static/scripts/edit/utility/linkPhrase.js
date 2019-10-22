@@ -373,16 +373,6 @@ export const getExtraAttributes = (
   forGrouping,
 )[1];
 
-export const getExtraAttributesText = (
-  relationship: RelationshipInfoT,
-  phraseProp: LinkPhraseProp,
-  forGrouping?: boolean = false,
-) => getPhraseAndExtraAttributesText(
-  relationship,
-  phraseProp,
-  forGrouping,
-)[1];
-
 export const stripAttributes = (linkType: LinkTypeT, phrase: string) => {
   return clean(textI18n.expand(phrase, new PhraseVarArgs(
     _getRequiredAttributes(linkType, null),
