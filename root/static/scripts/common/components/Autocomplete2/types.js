@@ -152,7 +152,14 @@ export type AutocompleteWorkT = {
 };
 
 export type EntityItem =
+  | AutocompleteAreaT
+  | AutocompleteEventT
+  | AutocompleteInstrumentT
+  | AutocompletePlaceT
   | AutocompleteRecordingT
-  | AutocompleteReleaseT;
+  | AutocompleteReleaseT
+  | AutocompleteReleaseGroupT
+  | AutocompleteSeriesT
+  | AutocompleteWorkT;
 
 export type Item = ActionItem | EntityItem;
