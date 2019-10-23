@@ -15,13 +15,13 @@ import UrlSidebar from '../layout/components/sidebar/UrlSidebar';
 
 import UrlHeader from './UrlHeader';
 
-type Props = {|
+type Props = {
   +children: ReactNode,
   +entity: UrlT,
   +fullWidth?: boolean,
   +page: string,
   +title?: string,
-|};
+};
 
 const UrlLayout = ({
   children,

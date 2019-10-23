@@ -22,9 +22,9 @@ const buildSidebarIpi = (ipi, index) => (
   </SidebarProperty>
 );
 
-type Props = {|
-  +entity: {...IpiCodesRoleT},
-|};
+type Props = {
+  +entity: {...IpiCodesRoleT, ...},
+};
 
 const SidebarIpis = ({entity}: Props):
   React.ChildrenArray<React.Element<typeof SidebarProperty>> => (

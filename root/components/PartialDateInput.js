@@ -9,9 +9,9 @@
 
 import * as React from 'react';
 
-type Props = {|
+type Props = {
   +field: PartialDateFieldT,
-|};
+};
 
 const PartialDateInput = ({
   field,

@@ -21,7 +21,7 @@ import reactTextContent from '../utility/reactTextContent';
 export const DeletedLink = ({
   allowNew,
   name,
-}: {|+allowNew: boolean, +name: React.Node|}) => {
+}: {+allowNew: boolean, +name: React.Node}) => {
   const caption = allowNew
     ? l('This entity will be created by this edit.')
     : l('This entity has been removed, and cannot be displayed correctly.');
@@ -36,7 +36,7 @@ export const DeletedLink = ({
 const Comment = ({
   className,
   comment,
-}: {|+className: string, +comment: string|}) => (
+}: {+className: string, +comment: string}) => (
   <>
     {' '}
     <span className={className}>
@@ -48,7 +48,7 @@ const Comment = ({
 const EventDisambiguation = ({
   event,
   showDate,
-}: {|+event: EventT, +showDate: boolean|}) => {
+}: {+event: EventT, +showDate: boolean}) => {
   const dates = formatDatePeriod(event);
   if ((!dates || !showDate) && !event.cancelled) {
     return null;
@@ -63,7 +63,7 @@ const EventDisambiguation = ({
   );
 };
 
-const AreaDisambiguation = ({area}: {|+area: AreaT|}) => {
+const AreaDisambiguation = ({area}: {+area: AreaT}) => {
   if (!area.ended) {
     return null;
   }
@@ -86,7 +86,7 @@ const AreaDisambiguation = ({area}: {|+area: AreaT|}) => {
   return <Comment className="historical" comment={comment} />;
 };
 
-const NoInfoURL = ({allowNew, url}: {|+allowNew: boolean, +url: string|}) => (
+const NoInfoURL = ({allowNew, url}: {+allowNew: boolean, +url: string}) => (
   <>
     <a href={url}>{url}</a>
     {' '}

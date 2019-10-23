@@ -23,12 +23,12 @@ import formatTrackLength
 import displayLinkAttribute
   from '../static/scripts/common/utility/displayLinkAttribute';
 
-type Props = {|
+type Props = {
   +entity: CoreEntityT,
   +fallbackMessage?: string,
   +heading: string,
   +showCredits?: boolean,
-|};
+};
 
 const RelationshipsTable = ({
   entity,

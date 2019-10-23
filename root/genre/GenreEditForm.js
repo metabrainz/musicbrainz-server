@@ -15,10 +15,10 @@ import FormSubmit from '../components/FormSubmit';
 
 import type {GenreFormT} from './types';
 
-type Props = {|
+type Props = {
   +$c: CatalystContextT,
   +form: GenreFormT,
-|};
+};
 
 const GenreEditForm = ({$c, form}: Props) => (
   <form action={$c.req.uri} method="post">

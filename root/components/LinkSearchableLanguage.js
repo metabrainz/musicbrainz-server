@@ -11,10 +11,10 @@ import React from 'react';
 
 import LinkSearchableProperty from './LinkSearchableProperty';
 
-type Props = {|
+type Props = {
   +entityType: string,
   +language: LanguageT,
-|};
+};
 
 const LinkSearchableLanguage = ({entityType, language}: Props) => (
   <LinkSearchableProperty

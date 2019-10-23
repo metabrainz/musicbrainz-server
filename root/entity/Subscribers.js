@@ -13,13 +13,13 @@ import EditorLink from '../static/scripts/common/components/EditorLink';
 import chooseLayoutComponent from '../utility/chooseLayoutComponent';
 import {withCatalystContext} from '../context';
 
-type Props = {|
+type Props = {
   +$c: CatalystContextT,
   +entity: CoreEntityT | CollectionT | EditorT,
   +privateEditors: number,
   +publicEditors: $ReadOnlyArray<EditorT>,
   +subscribed: boolean,
-|};
+};
 
 const Subscribers = ({
   $c,

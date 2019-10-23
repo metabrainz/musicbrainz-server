@@ -11,14 +11,14 @@ import React from 'react';
 import Paginator from './Paginator';
 import type {Node as ReactNode} from 'react';
 
-type Props = {|
+type Props = {
   +children: ReactNode,
   +pager: PagerT,
   +query?: string,
   +search?: boolean,
   +total?: boolean,
   +pageVar?: string,
-|};
+};
 
 const PaginatedResults = ({
   children,

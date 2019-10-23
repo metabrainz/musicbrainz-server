@@ -15,17 +15,17 @@ import FormRow from './FormRow';
 import FieldErrors from './FieldErrors';
 import FormLabel from './FormLabel';
 
-type RadioOptionsT = $ReadOnlyArray<{|
+type RadioOptionsT = $ReadOnlyArray<{
   +label: string | (() => string | React$MixedElement),
   +value: number | string,
-|}>;
+}>;
 
-type Props = {|
+type Props = {
   +field: ReadOnlyFieldT<string>,
   +label: string,
   +options: RadioOptionsT,
   +required?: boolean,
-|};
+};
 
 const FormRowRadio = ({
   field,

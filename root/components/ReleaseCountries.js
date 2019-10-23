@@ -9,6 +9,8 @@
 
 import * as React from 'react';
 
+import CountryAbbr from './CountryAbbr';
+
 const buildReleaseCountry = (event) => {
   const country = event.country;
   if (!country) {
@@ -16,18 +18,14 @@ const buildReleaseCountry = (event) => {
   }
   return (
     <li key={country.id}>
-      <span className={'flag flag-' + country.primary_code}>
-        <abbr title={l_countries(country.name)}>
-          {country.primary_code}
-        </abbr>
-      </span>
+      <CountryAbbr country={country} />
     </li>
   );
 };
 
-type ReleaseEventsProps = {|
+type ReleaseEventsProps = {
   +events?: $ReadOnlyArray<ReleaseEventT>,
-|};
+};
 
 const ReleaseCountries = ({events}: ReleaseEventsProps) => (
   events && events.length ? (

@@ -15,18 +15,18 @@ import expand2react from '../i18n/expand2react';
 
 import DescriptiveLink from './DescriptiveLink';
 
-type InstrumentListRowProps = {|
+type InstrumentListRowProps = {
   +$c: CatalystContextT,
   +checkboxes?: string,
   +instrument: InstrumentT,
-|};
+};
 
-type InstrumentListEntryProps = {|
+type InstrumentListEntryProps = {
   +checkboxes?: string,
   +index: number,
   +instrument: InstrumentT,
   +score?: number,
-|};
+};
 
 const InstrumentListRow = withCatalystContext(({
   $c,

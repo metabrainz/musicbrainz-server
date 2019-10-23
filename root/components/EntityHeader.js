@@ -14,7 +14,7 @@ import EntityLink from '../static/scripts/common/components/EntityLink';
 import EntityTabs from './EntityTabs';
 import SubHeader from './SubHeader';
 
-type Props = {|
+type Props = {
   +editTab?: React.Node,
   +entity: CoreEntityT,
   +headerClass: string,
@@ -22,7 +22,7 @@ type Props = {|
   +page: string,
   +preHeader?: React.Node,
   +subHeading: React.Node,
-|};
+};
 
 const EntityHeader = ({
   editTab,

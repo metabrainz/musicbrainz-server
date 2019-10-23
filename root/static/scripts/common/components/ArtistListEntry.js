@@ -17,16 +17,16 @@ import formatEndDate from '../utility/formatEndDate';
 
 import DescriptiveLink from './DescriptiveLink';
 
-type ArtistListRowProps = {|
+type ArtistListRowProps = {
   +$c: CatalystContextT,
   +artist: ArtistT,
   +checkboxes?: string,
   +showBeginEnd?: boolean,
   +showRatings?: boolean,
   +showSortName?: boolean,
-|};
+};
 
-type ArtistListEntryProps = {|
+type ArtistListEntryProps = {
   +artist: ArtistT,
   +checkboxes?: string,
   +index: number,
@@ -34,7 +34,7 @@ type ArtistListEntryProps = {|
   +showBeginEnd?: boolean,
   +showRatings?: boolean,
   +showSortName?: boolean,
-|};
+};
 
 const ArtistListRow = withCatalystContext(({
   $c,

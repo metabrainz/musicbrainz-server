@@ -27,25 +27,25 @@ import {initialize_guess_case} from './guess-case/MB/Control/GuessCase';
 
 const scriptArgs = getScriptArgs();
 
-type WorkAttributeField = ReadOnlyCompoundFieldT<{|
+type WorkAttributeField = ReadOnlyCompoundFieldT<{
   +type_id: ReadOnlyFieldT<?number>,
   +value: ReadOnlyFieldT<?StrOrNum>,
-|}>;
+}>;
 
-type WorkForm = FormT<{|
+type WorkForm = FormT<{
   +attributes: ReadOnlyRepeatableFieldT<WorkAttributeField>,
   +languages: ReadOnlyRepeatableFieldT<ReadOnlyFieldT<?number>>,
-|}>;
+}>;
 
-type WritableWorkAttributeField = CompoundFieldT<{|
+type WritableWorkAttributeField = CompoundFieldT<{
   +type_id: FieldT<?number>,
   +value: FieldT<?StrOrNum>,
-|}>;
+}>;
 
-type WritableWorkForm = FormT<{|
+type WritableWorkForm = FormT<{
   +attributes: RepeatableFieldT<WritableWorkAttributeField>,
   +languages: RepeatableFieldT<FieldT<?number>>,
-|}>;
+}>;
 
 /*
  * Flow does not support assigning types within destructuring assignments:
@@ -100,7 +100,7 @@ function removeLanguageFromState(form: WorkForm, i: number): WorkForm {
 class WorkAttribute {
   allowedValues: () => OptionListT;
 
-  allowedValuesByTypeID: {[number]: OptionListT};
+  allowedValuesByTypeID: {[number]: OptionListT, ...};
 
   attributeValue: KnockoutObservable<string>;
 
@@ -163,9 +163,9 @@ class WorkAttribute {
 class ViewModel {
   attributeTypes: OptionListT;
 
-  attributeTypesByID: {[number]: WorkAttributeTypeTreeT};
+  attributeTypesByID: {[number]: WorkAttributeTypeTreeT, ...};
 
-  allowedValuesByTypeID: {[number]: OptionListT};
+  allowedValuesByTypeID: {[number]: OptionListT, ...};
 
   attributes: KnockoutObservableArray<WorkAttribute>;
 

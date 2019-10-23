@@ -13,12 +13,12 @@ import {ACCESS_SCOPE_PERMISSIONS} from '../constants';
 import {withCatalystContext} from '../context';
 import Layout from '../layout';
 
-type Props = {|
+type Props = {
   +$c: CatalystContextT,
   +application: ApplicationT,
   +offline: boolean,
   +permissions: $ReadOnlyArray<number>,
-|};
+};
 
 const OAuth2Authorize = ({
   $c,

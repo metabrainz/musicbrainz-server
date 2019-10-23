@@ -11,10 +11,10 @@ import * as React from 'react';
 
 import Layout from '../layout';
 
-type Props = {|
+type Props = {
   +application: ApplicationT,
   +code: string,
-|};
+};
 
 const OAuth2Oob = ({
   application,

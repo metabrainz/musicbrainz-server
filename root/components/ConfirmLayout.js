@@ -11,11 +11,11 @@ import * as React from 'react';
 
 import Layout from '../layout';
 
-type Props = {|
+type Props = {
   +action?: string,
   +question: React.Node,
   +title: string,
-|};
+};
 
 const ConfirmLayout = ({action, question, title}: Props) => (
   <Layout fullWidth title={title}>

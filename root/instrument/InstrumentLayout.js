@@ -17,13 +17,13 @@ import localizeInstrumentName from '../static/scripts/common/i18n/localizeInstru
 
 import InstrumentHeader from './InstrumentHeader';
 
-type Props = {|
+type Props = {
   +children: ReactNode,
   +entity: InstrumentT,
   +fullWidth?: boolean,
   +page: string,
   +title?: string,
-|};
+};
 
 const InstrumentLayout = ({
   children,

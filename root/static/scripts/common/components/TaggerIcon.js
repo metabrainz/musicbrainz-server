@@ -23,10 +23,10 @@ function buildTaggerLink(entity, tport: number): string {
   return `http://127.0.0.1:${tport}/${path}?id=${gid}&t=${t}`;
 }
 
-type Props = {|
+type Props = {
   +$c: CatalystContextT,
   +entity: RecordingT | ReleaseT,
-|};
+};
 
 const TaggerIcon = ({$c, entity}: Props) => {
   const tport = $c.session ? $c.session.tport : null;

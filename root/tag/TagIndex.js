@@ -14,19 +14,19 @@ import DescriptiveLink from '../static/scripts/common/components/DescriptiveLink
 import expand2text from '../static/scripts/common/i18n/expand2text';
 import TagLayout from './TagLayout';
 
-type Props = {|
+type Props = {
   +tag: string,
   +taggedEntities: {
-    +[string]: {|
+    +[string]: {
       +count: number,
-      +tags: $ReadOnlyArray<{|
+      +tags: $ReadOnlyArray<{
         +count: number,
         +entity: CoreEntityT,
         +entity_id: number,
-      |}>,
-    |},
+      }>,
+    },
   },
-|};
+};
 
 function buildSection<T>(
   props: Props,

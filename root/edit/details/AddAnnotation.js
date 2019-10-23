@@ -14,16 +14,16 @@ import formatEntityTypeName from '../../static/scripts/common/utility/formatEnti
 
 type AnnotatedEntityTypeT = $ElementType<AnnotatedEntityT, 'entityType'>;
 
-type AddAnnotationEditT = {|
+type AddAnnotationEditT = {
   ...EditT,
-  +display_data: {|
+  +display_data: {
     +changelog: string,
     +entity_type: AnnotatedEntityTypeT,
     [AnnotatedEntityTypeT]: AnnotatedEntityT,
     +html: string,
     +text: string,
-  |},
-|};
+  },
+};
 
 const AddAnnotation = ({edit}: {edit: AddAnnotationEditT}) => {
   const display = edit.display_data;

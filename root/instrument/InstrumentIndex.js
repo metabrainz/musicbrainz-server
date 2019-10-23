@@ -18,11 +18,11 @@ import * as manifest from '../static/manifest';
 
 import InstrumentLayout from './InstrumentLayout';
 
-type Props = {|
+type Props = {
   +instrument: InstrumentT,
   +numberOfRevisions: number,
   +wikipediaExtract: WikipediaExtractT | null,
-|};
+};
 
 const InstrumentIndex = ({
   instrument,

@@ -15,12 +15,12 @@ import PaginatedResults from '../components/PaginatedResults';
 
 import AreaLayout from './AreaLayout';
 
-type Props = {|
+type Props = {
   +$c: CatalystContextT,
   +area: AreaT,
   +events: $ReadOnlyArray<EventT>,
   +pager: PagerT,
-|};
+};
 
 const AreaEvents = ({
   $c,

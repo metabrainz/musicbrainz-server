@@ -15,13 +15,13 @@ import PlaceSidebar from '../layout/components/sidebar/PlaceSidebar';
 
 import PlaceHeader from './PlaceHeader';
 
-type Props = {|
+type Props = {
   +children: ReactNode,
   +entity: PlaceT,
   +fullWidth?: boolean,
   +page: string,
   +title?: string,
-|};
+};
 
 const PlaceLayout = ({
   children,

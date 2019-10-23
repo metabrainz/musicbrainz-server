@@ -116,26 +116,38 @@ const testData = [
                      input_url: 'http://es.7digital.com/artist/the-impatient-sisters',
              input_entity_type: 'artist',
     expected_relationship_type: 'downloadpurchase',
+            expected_clean_url: 'https://es.7digital.com/artist/the-impatient-sisters',
   },
   {
                      input_url: 'http://www.7digital.com/artist/the-impatient-sisters',
              input_entity_type: 'artist',
     expected_relationship_type: 'downloadpurchase',
+            expected_clean_url: 'https://www.7digital.com/artist/the-impatient-sisters',
   },
   {
                      input_url: 'http://www.zdigital.com.au/artist/the-impatient-sisters',
              input_entity_type: 'artist',
     expected_relationship_type: 'downloadpurchase',
+            expected_clean_url: 'https://www.zdigital.com.au/artist/the-impatient-sisters',
   },
   {
                      input_url: 'http://fr-ca.7digital.com/artist/the-impatient-sisters',
              input_entity_type: 'release',
     expected_relationship_type: 'downloadpurchase',
+            expected_clean_url: 'https://fr-ca.7digital.com/artist/the-impatient-sisters',
+
   },
   {
                      input_url: 'http://www.7digital.com/artist/el-p/release/cancer-4-cure-1',
              input_entity_type: 'release',
     expected_relationship_type: 'downloadpurchase',
+            expected_clean_url: 'https://www.7digital.com/artist/el-p/release/cancer-4-cure-1',
+  },
+  {
+                     input_url: 'https://us.7digital.com/yourmusic/artist/falco/release/vienna-greatest-hits-311837/311837',
+             input_entity_type: 'release',
+    expected_relationship_type: 'downloadpurchase',
+            expected_clean_url: 'https://us.7digital.com/artist/falco/release/vienna-greatest-hits-311837',
   },
   // AllMusic
   {

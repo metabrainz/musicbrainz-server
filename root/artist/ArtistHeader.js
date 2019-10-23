@@ -11,10 +11,10 @@ import React from 'react';
 
 import EntityHeader from '../components/EntityHeader';
 
-type Props = {|
+type Props = {
   +artist: ArtistT,
   +page: string,
-|};
+};
 
 const ArtistHeader = ({artist, page}: Props) => {
   let headerClass = 'artistheader';

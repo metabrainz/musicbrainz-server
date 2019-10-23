@@ -1,18 +1,18 @@
 declare module 'jed' {
-  declare type JedOptions = {|
+  declare type JedOptions = {
     domain?: string,
     locale_data: {
       [string]: {
-        '': {|
+        '': {
           domain: string,
           lang: string,
           plural_forms: string,
-        |},
+        },
         [string]: Array<string>,
       }
     },
     missing_key_callback?: (key: string, domain: string) => void,
-  |};
+  };
 
   declare class Jed {
     constructor(options: JedOptions): Jed;

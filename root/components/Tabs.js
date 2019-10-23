@@ -9,9 +9,9 @@
 
 import * as React from 'react';
 
-type Props = {|
+type Props = {
   +children: React.Node,
-|};
+};
 
 const Tabs = ({children}: Props) => (
   <div className="tabs">

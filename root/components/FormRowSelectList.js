@@ -13,7 +13,7 @@ import FieldErrors from './FieldErrors';
 import FormRow from './FormRow';
 import SelectField from './SelectField';
 
-type Props<S> = {|
+type Props<S> = {
   +addId: string,
   +addLabel: string,
   +getSelectField: (S) => ReadOnlyFieldT<?StrOrNum>,
@@ -26,9 +26,9 @@ type Props<S> = {|
   +removeClassName: string,
   +removeLabel: string,
   +repeatable: ReadOnlyRepeatableFieldT<S>,
-|};
+};
 
-const FormRowSelectList = <S: {+id: number}>({
+const FormRowSelectList = <S: {+id: number, ...}>({
   addId,
   addLabel,
   getSelectField,

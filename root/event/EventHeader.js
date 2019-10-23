@@ -11,10 +11,10 @@ import React from 'react';
 
 import EntityHeader from '../components/EntityHeader';
 
-type Props = {|
+type Props = {
   +event: EventT,
   +page: string,
-|};
+};
 
 const EventHeader = ({event, page}: Props) => (
   <EntityHeader

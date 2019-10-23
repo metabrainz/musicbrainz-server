@@ -14,7 +14,7 @@ import ArtistListEntry
   from '../../static/scripts/common/components/ArtistListEntry';
 import SortableTableHeader from '../SortableTableHeader';
 
-type Props = {|
+type Props = {
   +$c: CatalystContextT,
   +artists: $ReadOnlyArray<ArtistT>,
   +checkboxes?: string,
@@ -22,7 +22,7 @@ type Props = {|
   +showBeginEnd?: boolean,
   +showRatings?: boolean,
   +sortable?: boolean,
-|};
+};
 
 const ArtistList = ({
   $c,

@@ -18,12 +18,12 @@ import * as manifest from '../static/manifest';
 
 import PlaceLayout from './PlaceLayout';
 
-type Props = {|
+type Props = {
   +eligibleForCleanup: boolean,
   +numberOfRevisions: number,
   +place: PlaceT,
   +wikipediaExtract: WikipediaExtractT | null,
-|};
+};
 
 const PlaceIndex = ({
   eligibleForCleanup,

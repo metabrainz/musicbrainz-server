@@ -26,10 +26,10 @@ import {SidebarProperty, SidebarProperties} from './SidebarProperties';
 import SidebarRating from './SidebarRating';
 import SidebarTags from './SidebarTags';
 
-type Props = {|
+type Props = {
   +$c: CatalystContextT,
   +recording: RecordingT,
-|};
+};
 
 const RecordingSidebar = ({$c, recording}: Props) => {
   const gid = encodeURIComponent(recording.gid);

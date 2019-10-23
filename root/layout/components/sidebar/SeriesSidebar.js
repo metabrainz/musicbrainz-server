@@ -25,10 +25,10 @@ import SidebarTags from './SidebarTags';
 import SidebarType from './SidebarType';
 import SubscriptionLinks from './SubscriptionLinks';
 
-type Props = {|
+type Props = {
   +$c: CatalystContextT,
   +series: SeriesT,
-|};
+};
 
 const SeriesSidebar = ({$c, series}: Props) => {
   const gid = encodeURIComponent(series.gid);

@@ -30,17 +30,17 @@ const CLASS_MAP = {
 
 export {INSERT, EQUAL, DELETE, CHANGE, CLASS_MAP};
 
-type GenericEditDiff<+T> = {|
+type GenericEditDiff<+T> = {
   +added: boolean,
   +items: $ReadOnlyArray<T>,
   +removed: boolean,
-|};
+};
 
-export type EditDiff<+T> = {|
+export type EditDiff<+T> = {
   +newItems: $ReadOnlyArray<T>,
   +oldItems: $ReadOnlyArray<T>,
   +type: EditType,
-|};
+};
 
 function getChangeType(diff) {
   if (!diff.added && !diff.removed) {

@@ -15,13 +15,13 @@ import LabelSidebar from '../layout/components/sidebar/LabelSidebar';
 
 import LabelHeader from './LabelHeader';
 
-type Props = {|
+type Props = {
   +children: ReactNode,
   +entity: LabelT,
   +fullWidth?: boolean,
   +page: string,
   +title?: string,
-|};
+};
 
 const LabelLayout = ({
   children,

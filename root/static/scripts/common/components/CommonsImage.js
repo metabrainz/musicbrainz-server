@@ -12,14 +12,14 @@ import React from 'react';
 import hydrate, {minimalEntity} from '../../../../utility/hydrate';
 import entityHref from '../utility/entityHref';
 
-type Props = {|
+type Props = {
   +cachedImage: ?CommonsImageT,
   +entity: CoreEntityT,
-|};
+};
 
-type State = {|
+type State = {
   image: ?CommonsImageT,
-|};
+};
 
 class CommonsImage extends React.Component<Props, State> {
   constructor(props: Props) {

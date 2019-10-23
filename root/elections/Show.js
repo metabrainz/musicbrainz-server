@@ -16,10 +16,10 @@ import ElectionDetails from './ElectionDetails';
 import ElectionVotes from './ElectionVotes';
 import ElectionVoting from './ElectionVoting';
 
-type Props = {|
+type Props = {
   +$c: CatalystContextT,
   +election: AutoEditorElectionT,
-|};
+};
 
 const Show = ({$c, election}: Props) => {
   const user = $c.user;

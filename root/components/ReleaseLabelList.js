@@ -13,18 +13,26 @@ import uniqBy from 'lodash/uniqBy';
 import commaOnlyList from '../static/scripts/common/i18n/commaOnlyList';
 import EntityLink from '../static/scripts/common/components/EntityLink';
 
-const ReleaseLabel = (label) => label.label ? (
-  <EntityLink entity={label.label} />
-) : null;
-
-type ReleaseLabelsProps = {|
-  +labels?: $ReadOnlyArray<ReleaseLabelT>,
-|};
-
-const ReleaseLabelList = ({labels}: ReleaseLabelsProps) => (
-  labels && labels.length ? (
-    commaOnlyList(uniqBy(labels, 'label.gid').map(ReleaseLabel))
-  ) : null
+const displayLabel = (label) => (
+  <EntityLink entity={label} />
 );
+
+type ReleaseLabelsProps = {
+  +labels?: $ReadOnlyArray<ReleaseLabelT>,
+};
+
+const ReleaseLabelList = ({labels: releaseLabels}: ReleaseLabelsProps) => {
+  if (!releaseLabels || !releaseLabels.length) {
+    return null;
+  }
+  const labels = [];
+  for (const releaseLabel of releaseLabels) {
+    const label = releaseLabel.label;
+    if (label) {
+      labels.push(label);
+    }
+  }
+  return commaOnlyList(uniqBy(labels, 'gid').map(displayLabel));
+};
 
 export default ReleaseLabelList;

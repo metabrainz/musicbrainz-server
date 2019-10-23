@@ -19,22 +19,33 @@ import entityHref from '../utility/entityHref';
 import Collapsible from './Collapsible';
 import EditorLink from './EditorLink';
 
-type MinimalAnnotatedEntityT = $ReadOnly<MinimalCoreEntityT & {
+type MinimalAnnotatedEntityT = $ReadOnly<{
+  ...MinimalCoreEntityT,
   +latest_annotation?: AnnotationT,
+  ...
 }>;
 
-type Props = {|
+type Props = {
   +$c: CatalystContextT | SanitizedCatalystContextT,
-  +annotation: ?({+editor: EditorT | SanitizedEditorT | null} & AnnotationT),
+  +annotation: ?$ReadOnly<{
+    ...AnnotationT,
+    +editor: EditorT | SanitizedEditorT | null,
+    ...
+  }>,
   +collapse?: boolean,
   +entity: MinimalAnnotatedEntityT,
   +numberOfRevisions: number,
   +showChangeLog?: boolean,
-|};
+};
 
 type WritableProps = {
-  annotation: ?({editor: EditorT | SanitizedEditorT | null} & AnnotationT),
+  annotation: ?{
+    ...AnnotationT,
+    editor: EditorT | SanitizedEditorT | null,
+    ...
+  },
   entity: MinimalAnnotatedEntityT,
+  ...
 };
 
 const Annotation = ({

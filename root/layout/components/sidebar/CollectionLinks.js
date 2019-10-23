@@ -14,10 +14,10 @@ import EntityLink from '../../../static/scripts/common/components/EntityLink';
 
 import CollectionList from './CollectionList';
 
-type Props = {|
+type Props = {
   +$c: CatalystContextT,
   +entity: CoreEntityT,
-|};
+};
 
 const CollectionLinks = ({$c, entity}: Props) => {
   const numberOfCollections = $c.stash.number_of_collections || 0;

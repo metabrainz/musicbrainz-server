@@ -28,10 +28,10 @@ import {SidebarProperty, SidebarProperties} from './SidebarProperties';
 import SidebarTags from './SidebarTags';
 import SidebarType from './SidebarType';
 
-type Props = {|
+type Props = {
   +$c: CatalystContextT,
   +place: PlaceT,
-|};
+};
 
 const PlaceSidebar = ({$c, place}: Props) => {
   const placeAge = age.age(place);

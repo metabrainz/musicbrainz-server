@@ -16,12 +16,12 @@ import PaginatedResults from '../../components/PaginatedResults';
 import commaOnlyList from '../../static/scripts/common/i18n/commaOnlyList';
 import loopParity from '../../utility/loopParity';
 
-type Props = {|
+type Props = {
   +applications: $ReadOnlyArray<ApplicationT>,
   +appsPager: PagerT,
   +tokens: $ReadOnlyArray<EditorOAuthTokenT>,
   +tokensPager: PagerT,
-|};
+};
 
 const buildApplicationRow = (application: ApplicationT, index: number) => (
   <tr className={loopParity(index)} key={application.id}>

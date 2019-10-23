@@ -36,7 +36,7 @@ export const CONTACT_URL = 'https://metabrainz.org/contact';
 
 export const DARTIST_ID = 2;
 
-export const FAVICON_CLASSES: {[string]: string} = {
+export const FAVICON_CLASSES = {
   '45cat.com': 'fortyfivecat',
   '45worlds.com': 'fortyfiveworlds',
   'allmusic.com': 'allmusic',
@@ -183,7 +183,7 @@ export const FAVICON_CLASSES: {[string]: string} = {
   'youtube.com': 'youtube',
 };
 
-export const PART_OF_SERIES_LINK_TYPES: {[string]: string} = {
+export const PART_OF_SERIES_LINK_TYPES = {
   event: '707d947d-9563-328a-9a7d-0c5b9c3a9791',
   recording: 'ea6f0698-6782-30d6-b16d-293081b66774',
   release: '3fa29f01-8e13-3e49-9b0a-ad212aa2f81d',
@@ -220,9 +220,10 @@ export const MAX_RECENT_ENTITIES = 10;
 
 export const MIN_NAME_SIMILARITY = 0.75;
 
-export const ENTITIES_WITH_RELATIONSHIP_CREDITS: {[string]: boolean} = {
+export const ENTITIES_WITH_RELATIONSHIP_CREDITS = {
   area: true,
   artist: true,
+  instrument: true,
   label: true,
   place: true,
 };

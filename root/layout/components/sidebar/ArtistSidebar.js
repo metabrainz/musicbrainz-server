@@ -39,10 +39,10 @@ import SidebarTags from './SidebarTags';
 import SidebarType from './SidebarType';
 import SubscriptionLinks from './SubscriptionLinks';
 
-type Props = {|
+type Props = {
   +$c: CatalystContextT,
   +artist: ArtistT,
-|};
+};
 
 const ArtistSidebar = ({$c, artist}: Props) => {
   const artistAge = age.age(artist);
