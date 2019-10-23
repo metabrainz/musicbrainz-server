@@ -13,10 +13,10 @@ import {withCatalystContext} from '../../../context';
 import entityHref from '../../../static/scripts/common/utility/entityHref';
 import returnUri from '../../../utility/returnUri';
 
-type Props = {|
+type Props = {
   +$c: CatalystContextT,
   +entity: CoreEntityT,
-|};
+};
 
 const AnnotationLinks = ({$c, entity}: Props) => (
   <>

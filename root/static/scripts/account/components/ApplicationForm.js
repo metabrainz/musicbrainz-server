@@ -19,21 +19,21 @@ import hydrate from '../../../../utility/hydrate';
 
 export type OauthTypeT = 'installed' | 'web';
 
-export type ApplicationFormT = FormT<{|
+export type ApplicationFormT = FormT<{
   +name: ReadOnlyFieldT<string>,
   +oauth_redirect_uri: FieldT<string>,
   +oauth_type: FieldT<OauthTypeT>,
-|}>;
+}>;
 
-type Props = {|
+type Props = {
   +action: string,
   +form: ApplicationFormT,
   +submitLabel: string,
-|};
+};
 
-type State = {|
+type State = {
   form: ApplicationFormT,
-|};
+};
 
 const oauthTypeOptions = {
   grouped: false,

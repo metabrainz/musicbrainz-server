@@ -43,17 +43,17 @@ const noEntitiesText = {
   work: N_l('No works with this tag were found.'),
 };
 
-type Props = {|
-  +entityTags: $ReadOnlyArray<{|
+type Props = {
+  +entityTags: $ReadOnlyArray<{
     +count: number,
     +entity: CoreEntityT,
     +entity_id: number,
-  |}>,
+  }>,
   +entityType: string,
   +page: string,
   +pager: PagerT,
   +tag: string,
-|};
+};
 
 const EntityList = ({
   entityTags,

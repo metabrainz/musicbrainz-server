@@ -17,9 +17,9 @@ const buildReleaseDate = (event) => event.date ? (
   </li>
 ) : null;
 
-type ReleaseEventsProps = {|
+type ReleaseEventsProps = {
   +events?: $ReadOnlyArray<ReleaseEventT>,
-|};
+};
 
 const ReleaseDates = ({events}: ReleaseEventsProps) => (
   events && events.length ? (

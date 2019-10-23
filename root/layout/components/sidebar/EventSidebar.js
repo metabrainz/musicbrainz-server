@@ -28,10 +28,10 @@ import SidebarRating from './SidebarRating';
 import SidebarTags from './SidebarTags';
 import SidebarType from './SidebarType';
 
-type Props = {|
+type Props = {
   +$c: CatalystContextT,
   +event: EventT,
-|};
+};
 
 const EventSidebar = ({$c, event}: Props) => {
   const hasBegin = !isDateEmpty(event.begin_date);

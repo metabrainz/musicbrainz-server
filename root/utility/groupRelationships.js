@@ -19,8 +19,11 @@ export type GroupedRelationshipsT = {
       linkType: LinkTypeT,
       phrase: Expand2ReactOutput,
       relationships: Array<RelationshipT>,
+      ...
     },
+    ...
   },
+  ...
 };
 
 export default function groupRelationships(

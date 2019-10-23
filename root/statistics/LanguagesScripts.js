@@ -19,24 +19,24 @@ import LinkSearchableProperty from '../components/LinkSearchableProperty';
 import {formatCount} from './utilities';
 import StatisticsLayout from './StatisticsLayout';
 
-type LanguagesScriptsStatsT = {|
+type LanguagesScriptsStatsT = {
   +$c: CatalystContextT,
   +dateCollected: string,
   +languageStats: $ReadOnlyArray<LanguageStatT>,
   +scriptStats: $ReadOnlyArray<ScriptStatT>,
-|};
+};
 
-type LanguageStatT = {|
+type LanguageStatT = {
   +entity: LanguageT | null,
   +releases: number,
   +total: number,
   +works: number,
-|};
+};
 
-type ScriptStatT = {|
+type ScriptStatT = {
   +count: number,
   +entity: ScriptT | null,
-|};
+};
 
 const LanguagesScripts = ({
   $c,

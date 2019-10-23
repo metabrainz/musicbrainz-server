@@ -13,11 +13,11 @@ import chooseLayoutComponent from '../utility/chooseLayoutComponent';
 import AliasesComponent from '../components/Aliases';
 import ArtistCreditList from '../components/Aliases/ArtistCreditList';
 
-type Props = {|
+type Props = {
   +aliases: $ReadOnlyArray<AliasT>,
   +artistCredits?: $ReadOnlyArray<{+id: number} & ArtistCreditT>,
   +entity: CoreEntityT,
-|};
+};
 
 const Aliases = ({aliases, artistCredits, entity}: Props) => {
   const entityType = entity.entityType;

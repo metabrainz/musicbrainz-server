@@ -15,13 +15,13 @@ import EventSidebar from '../layout/components/sidebar/EventSidebar';
 
 import EventHeader from './EventHeader';
 
-type Props = {|
+type Props = {
   +children: ReactNode,
   +entity: EventT,
   +fullWidth?: boolean,
   +page: string,
   +title?: string,
-|};
+};
 
 const EventLayout = ({
   children,

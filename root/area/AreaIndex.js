@@ -17,11 +17,11 @@ import * as manifest from '../static/manifest';
 
 import AreaLayout from './AreaLayout';
 
-type Props = {|
+type Props = {
   +area: AreaT,
   +numberOfRevisions: number,
   +wikipediaExtract: WikipediaExtractT | null,
-|};
+};
 
 const AreaIndex = ({
   area,

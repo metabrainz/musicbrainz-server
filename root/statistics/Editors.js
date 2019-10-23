@@ -17,26 +17,26 @@ import loopParity from '../utility/loopParity';
 import {formatCount} from './utilities';
 import StatisticsLayout from './StatisticsLayout';
 
-type EditorsStatsT = {|
+type EditorsStatsT = {
   +dateCollected: string,
   +topEditors: $ReadOnlyArray<EditorStatT>,
   +topRecentlyActiveEditors: $ReadOnlyArray<EditorStatT>,
   +topRecentlyActiveVoters: $ReadOnlyArray<EditorStatT>,
   +topVoters: $ReadOnlyArray<EditorStatT>,
-|};
+};
 
-type EditorStatsTableProps = {|
+type EditorStatsTableProps = {
   +$c: CatalystContextT,
   countLabel: string,
   dataPoints: $ReadOnlyArray<EditorStatT>,
   editorLabel: string,
   tableLabel: string,
-|};
+};
 
-type EditorStatT = {|
+type EditorStatT = {
   +count: number,
   +editor: EditorT,
-|};
+};
 
 const EditorStatsTable = withCatalystContext(({
   $c,

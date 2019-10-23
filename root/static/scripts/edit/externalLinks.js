@@ -35,6 +35,7 @@ type LinkStateT = {
   type: number | null,
   url: string,
   video: boolean,
+  ...
 };
 
 type LinksEditorProps = {
@@ -371,11 +372,14 @@ export class ExternalLink extends React.Component<LinkProps> {
     const showTypeSelection = props.errorMessage
       ? true
       : !(props.urlMatchesType || isEmpty(props));
+
     if (!showTypeSelection && props.urlMatchesType) {
-      faviconClass = _.find(
-        FAVICON_CLASSES,
-        (value: string, key: string) => props.url.indexOf(key) > 0,
-      );
+      for (const key of Object.keys(FAVICON_CLASSES)) {
+        if (props.url.indexOf(key) > 0) {
+          faviconClass = FAVICON_CLASSES[key];
+          break;
+        }
+      }
     }
 
     return (

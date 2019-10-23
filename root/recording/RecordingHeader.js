@@ -13,10 +13,10 @@ import EntityHeader from '../components/EntityHeader';
 import ArtistCreditLink from '../static/scripts/common/components/ArtistCreditLink';
 import TaggerIcon from '../static/scripts/common/components/TaggerIcon';
 
-type Props = {|
+type Props = {
   +page: string,
   +recording: RecordingT,
-|};
+};
 
 const RecordingHeader = ({recording, page}: Props) => {
   const lArgs = {

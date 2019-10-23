@@ -14,10 +14,10 @@ import {withCatalystContext} from '../../../context';
 import LastUpdated from './LastUpdated';
 import RemoveLink from './RemoveLink';
 
-type Props = {|
+type Props = {
   +$c: CatalystContextT,
   +genre: GenreT,
-|};
+};
 
 const GenreSidebar = ({$c, genre}: Props) => {
   return (

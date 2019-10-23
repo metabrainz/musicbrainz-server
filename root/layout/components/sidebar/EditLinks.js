@@ -13,11 +13,11 @@ import RequestLogin from '../../../components/RequestLogin';
 import {withCatalystContext} from '../../../context';
 import EntityLink from '../../../static/scripts/common/components/EntityLink';
 
-type Props = {|
+type Props = {
   +$c: CatalystContextT,
   +children?: React.Node,
   +entity: CoreEntityT,
-|};
+};
 
 const EditLinks = ({$c, children, entity}: Props) => (
   <>

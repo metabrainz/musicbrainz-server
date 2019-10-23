@@ -14,10 +14,10 @@ import linkedEntities from '../../../static/scripts/common/linkedEntities';
 
 import {SidebarProperty} from './SidebarProperties';
 
-type Props = {|
-  +entity: {...TypeRoleT<empty>},
+type Props = {
+  +entity: {...TypeRoleT<empty>, ...},
   +typeType: string,
-|};
+};
 
 const SidebarType = ({entity, typeType}: Props) => (
   entity.typeID ? (

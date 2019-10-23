@@ -9,21 +9,21 @@
 
 import type {Node as ReactNode} from 'react';
 
-export type TagLookupFormT = FormT<{|
+export type TagLookupFormT = FormT<{
   +artist: ReadOnlyFieldT<string>,
   +duration: ReadOnlyFieldT<string>,
   +filename: ReadOnlyFieldT<string>,
   +release: ReadOnlyFieldT<string>,
   +track: ReadOnlyFieldT<string>,
   +tracknum: ReadOnlyFieldT<string>,
-|}>;
+}>;
 
-export type TagLookupPropsT = {|
+export type TagLookupPropsT = {
   +form: TagLookupFormT,
   +nag: boolean,
-|};
+};
 
-export type TagLookupResultsPropsT<T> = {|
+export type TagLookupResultsPropsT<T> = {
   +$c: CatalystContextT,
   +children: ReactNode,
   +form: TagLookupFormT,
@@ -31,4 +31,4 @@ export type TagLookupResultsPropsT<T> = {|
   +pager: PagerT,
   +query: string,
   +results: $ReadOnlyArray<SearchResultT<T>>,
-|};
+};

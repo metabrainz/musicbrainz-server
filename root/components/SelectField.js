@@ -34,6 +34,7 @@ type SelectElementProps = {
   required?: boolean,
   style?: {},
   value?: StrOrNum,
+  ...
 };
 
 type SelectFieldProps = {
@@ -45,6 +46,7 @@ type SelectFieldProps = {
   +options: MaybeGroupedOptionsT,
   +required?: boolean,
   +uncontrolled?: boolean,
+  ...
 };
 
 const SelectField = ({

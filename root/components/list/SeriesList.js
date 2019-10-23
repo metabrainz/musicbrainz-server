@@ -16,13 +16,13 @@ import DescriptiveLink
 import linkedEntities from '../../static/scripts/common/linkedEntities';
 import SortableTableHeader from '../SortableTableHeader';
 
-type Props = {|
+type Props = {
   +$c: CatalystContextT,
   +checkboxes?: string,
   +order?: string,
   +series: $ReadOnlyArray<SeriesT>,
   +sortable?: boolean,
-|};
+};
 
 const SeriesList = ({
   $c,

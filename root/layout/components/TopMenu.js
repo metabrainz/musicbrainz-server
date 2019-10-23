@@ -19,7 +19,7 @@ function userLink(userName, path) {
   return `/user/${encodeURIComponent(userName)}${path}`;
 }
 
-type UserProp = {|+user: CatalystUserT|};
+type UserProp = {+user: CatalystUserT};
 
 const AccountMenu = ({user}: UserProp) => (
   <li className="account" tabIndex="-1">

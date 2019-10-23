@@ -41,16 +41,16 @@ function languageName(language, selected) {
   return text;
 }
 
-const LanguageLink = ({language}: {|+language: ServerLanguageT|}) => (
+const LanguageLink = ({language}: {+language: ServerLanguageT}) => (
   <a href={'/set-language/' + encodeURIComponent(language.name)}>
     {languageName(language, false)}
   </a>
 );
 
-type LanguageMenuProps = {|
+type LanguageMenuProps = {
   +currentBCP47Language: string,
   +serverLanguages: $ReadOnlyArray<ServerLanguageT>,
-|};
+};
 
 const LanguageMenu = ({
   currentBCP47Language,
@@ -296,7 +296,7 @@ const DocumentationMenu = () => (
   </li>
 );
 
-const BottomMenu = ({$c}: {|+$c: CatalystContextT|}) => {
+const BottomMenu = ({$c}: {+$c: CatalystContextT}) => {
   const serverLanguages = $c.stash.server_languages;
   return (
     <div className="bottom">

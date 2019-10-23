@@ -258,7 +258,7 @@ function parseHtmlTag(args) {
     throw error('bad HTML tag');
   }
 
-  type HtmlAttr = {[string]: string};
+  type HtmlAttr = {[string]: string, ...};
 
   const attributes = parseContinuousArray<HtmlAttr, Input>(
     htmlAttrParsers,
@@ -338,7 +338,7 @@ const parseRoot = args => parseContinuousArray(rootParsers, args);
  */
 export default function expand2react(
   source: string,
-  args?: ?{+[string]: Input},
+  args?: ?{+[string]: Input, ...},
 ): Output {
   const result = expand<$ReadOnlyArray<Output>, Input>(
     parseRoot,
@@ -357,18 +357,18 @@ export default function expand2react(
 
 export const l = (
   key: string,
-  args?: ?{+[string]: Input},
+  args?: ?{+[string]: Input, ...},
 ) => expand2react(lActual(key), args);
 
 export const ln = (
   skey: string,
   pkey: string,
   val: number,
-  args?: ?{+[string]: Input},
+  args?: ?{+[string]: Input, ...},
 ) => expand2react(lnActual(skey, pkey, val), args);
 
 export const lp = (
   key: string,
   context: string,
-  args?: ?{+[string]: Input},
+  args?: ?{+[string]: Input, ...},
 ) => expand2react(lpActual(key, context), args);

@@ -25,11 +25,11 @@ function artworkHover(artwork: ArtworkT) {
   return result;
 }
 
-type Props = {|
+type Props = {
   +artwork: ArtworkT,
   +fallback?: string,
   +message?: string,
-|};
+};
 
 export const ArtworkImage = ({artwork, fallback, message}: Props) => (
   <>

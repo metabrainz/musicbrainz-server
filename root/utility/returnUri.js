@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict
  * Copyright (C) 2018 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -11,7 +11,7 @@ export default function returnUri(
   $c: CatalystContextT,
   path: string,
   param?: string = 'uri',
-  redirect?: string,
+  redirect?: string = '',
 ) {
   return path + '?' + param + '=' + encodeURIComponent(
     $c.req.query_params[param] || redirect || $c.relative_uri,

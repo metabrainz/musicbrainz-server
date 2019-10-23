@@ -14,9 +14,9 @@ import isDateEmpty from '../../static/scripts/common/utility/isDateEmpty';
 import EntityLink from '../../static/scripts/common/components/EntityLink';
 import yesNo from '../../static/scripts/common/utility/yesNo';
 
-type AddEventEditT = {|
+type AddEventEditT = {
   ...EditT,
-  +display_data: {|
+  +display_data: {
     ...CommentRoleT,
     ...DatePeriodRoleT,
     +cancelled: boolean,
@@ -26,8 +26,8 @@ type AddEventEditT = {|
     +setlist: string,
     +time: string | null,
     +type: EventTypeT,
-  |},
-|};
+  },
+};
 
 const AddEvent = ({edit}: {edit: AddEventEditT}) => {
   const display = edit.display_data;

@@ -15,10 +15,10 @@ import EntityLink from '../static/scripts/common/components/EntityLink';
 import TaggerIcon from '../static/scripts/common/components/TaggerIcon';
 import bracketed from '../static/scripts/common/utility/bracketed';
 
-type Props = {|
+type Props = {
   page: string,
   release: ReleaseT,
-|};
+};
 
 const ReleaseHeader = ({release, page}: Props) => {
   const rgLink = release.releaseGroup

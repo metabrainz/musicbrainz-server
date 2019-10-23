@@ -14,17 +14,17 @@ import * as DBDefs from '../static/scripts/common/DBDefs';
 
 import DocSearchBox from './components/DocSearchBox';
 
-type DocPageT = {|
+type DocPageT = {
   +content: string,
   +hierarchy: $ReadOnlyArray<string>,
   +title: string,
   +version: number,
-|};
+};
 
-type Props = {|
+type Props = {
   +id: string,
   +page: DocPageT,
-|};
+};
 
 const DocPage = ({
   id,

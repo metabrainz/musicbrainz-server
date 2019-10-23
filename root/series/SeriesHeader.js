@@ -11,10 +11,10 @@ import React from 'react';
 
 import EntityHeader from '../components/EntityHeader';
 
-type Props = {|
+type Props = {
   page: string,
   series: SeriesT,
-|};
+};
 
 const SeriesHeader = ({series, page}: Props) => (
   <EntityHeader

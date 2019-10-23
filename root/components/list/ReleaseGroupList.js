@@ -21,7 +21,7 @@ import parseDate from '../../static/scripts/common/utility/parseDate';
 import RatingStars from '../RatingStars';
 import SortableTableHeader from '../SortableTableHeader';
 
-type ReleaseGroupListHeaderProps = {|
+type ReleaseGroupListHeaderProps = {
   ...SeriesItemNumbersRoleT,
   +$c: CatalystContextT,
   +checkboxes?: string,
@@ -29,9 +29,9 @@ type ReleaseGroupListHeaderProps = {|
   +order?: string,
   +showRatings?: boolean,
   +sortable?: boolean,
-|};
+};
 
-type ReleaseGroupListEntryProps = {|
+type ReleaseGroupListEntryProps = {
   ...SeriesItemNumbersRoleT,
   +$c: CatalystContextT,
   +checkboxes?: string,
@@ -39,9 +39,9 @@ type ReleaseGroupListEntryProps = {|
   +index: number,
   +releaseGroup: ReleaseGroupT,
   +showRatings?: boolean,
-|};
+};
 
-type ReleaseGroupListProps = {|
+type ReleaseGroupListProps = {
   ...SeriesItemNumbersRoleT,
   +$c: CatalystContextT,
   +checkboxes?: string,
@@ -50,7 +50,7 @@ type ReleaseGroupListProps = {|
   +releaseGroups: $ReadOnlyArray<ReleaseGroupT>,
   +showRatings?: boolean,
   +sortable?: boolean,
-|};
+};
 
 const ReleaseGroupListHeader = ({
   $c,

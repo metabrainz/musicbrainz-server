@@ -16,12 +16,12 @@ import formatUserDate from '../../utility/formatUserDate';
 
 import SearchForm from './SearchForm';
 
-type Props = {|
+type Props = {
   +$c: CatalystContextT,
   +children: ReactNode,
   +form: SearchFormT,
   +lastUpdated?: string,
-|};
+};
 
 const ResultsLayout = ({$c, children, form, lastUpdated}: Props) => (
   <Layout fullWidth title={l('Search Results')}>

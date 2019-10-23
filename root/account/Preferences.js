@@ -17,10 +17,10 @@ import type {PreferencesFormPropsT}
   from '../static/scripts/account/components/PreferencesForm';
 import * as manifest from '../static/manifest';
 
-type Props = {|
+type Props = {
   +$c: {user: EditorT} & CatalystContextT,
   ...PreferencesFormPropsT,
-|};
+};
 
 const Preferences = withCatalystContext(({$c, ...props}: Props) => (
   <UserAccountLayout

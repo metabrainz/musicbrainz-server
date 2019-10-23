@@ -11,10 +11,10 @@ import * as React from 'react';
 
 import Layout from '../layout';
 
-type Props = {|
+type Props = {
   +errorDescription: string,
   +errorMessage: string,
-|};
+};
 
 const OAuth2Error = ({
   errorDescription,

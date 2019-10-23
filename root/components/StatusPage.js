@@ -12,10 +12,10 @@ import type {Node as ReactNode} from 'react';
 
 import Layout from '../layout';
 
-type Props = {|
+type Props = {
   children: ReactNode,
   title: string,
-|};
+};
 
 const StatusPage = ({title, children}: Props) => (
   <Layout fullWidth title={title}>

@@ -24,7 +24,7 @@ import formatDatePeriod
 import RatingStars from '../RatingStars';
 import SortableTableHeader from '../SortableTableHeader';
 
-type Props = {|
+type Props = {
   ...SeriesItemNumbersRoleT,
   +$c: CatalystContextT,
   +artist?: ArtistT,
@@ -37,7 +37,7 @@ type Props = {|
   +showRatings?: boolean,
   +showType?: boolean,
   +sortable?: boolean,
-|};
+};
 
 const EventList = ({
   $c,

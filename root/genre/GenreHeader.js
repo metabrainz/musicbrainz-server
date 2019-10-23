@@ -12,10 +12,10 @@ import React from 'react';
 import EntityHeader from '../components/EntityHeader';
 import EntityLink from '../static/scripts/common/components/EntityLink';
 
-type Props = {|
+type Props = {
   genre: GenreT,
   page: string,
-|};
+};
 
 const GenreHeader = ({genre, page}: Props) => (
   <EntityHeader

@@ -33,10 +33,10 @@ import SidebarTags from './SidebarTags';
 import SidebarType from './SidebarType';
 import SubscriptionLinks from './SubscriptionLinks';
 
-type Props = {|
+type Props = {
   +$c: CatalystContextT,
   +label: LabelT,
-|};
+};
 
 const LabelSidebar = ({$c, label}: Props) => {
   const labelAge = age.age(label);

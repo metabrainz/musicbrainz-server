@@ -11,9 +11,9 @@ import React from 'react';
 
 import entityHref from '../utility/entityHref';
 
-type Props = {|
+type Props = {
   +code: IsrcT | IswcT,
-|};
+};
 
 const CodeLink = ({code}: Props) => {
   let link = (

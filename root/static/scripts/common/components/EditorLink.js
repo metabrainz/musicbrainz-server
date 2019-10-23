@@ -20,12 +20,12 @@ const MissingEditorLink = () => {
   );
 };
 
-type Props = {|
+type Props = {
   +avatarSize?: number,
   +content?: string,
   +editor: EditorT | SanitizedEditorT | null,
   +subPath?: string,
-|};
+};
 
 const EditorLink = ({editor, content, avatarSize, subPath}: Props) => {
   if (!editor) {

@@ -12,7 +12,7 @@ import * as React from 'react';
 import primaryAreaCode
   from '../static/scripts/common/utility/primaryAreaCode';
 
-const CountryAbbr = ({country}: {|+country: AreaT|}) => {
+const CountryAbbr = ({country}: {+country: AreaT}) => {
   const primaryCode = primaryAreaCode(country);
   if (!primaryCode) {
     return null;

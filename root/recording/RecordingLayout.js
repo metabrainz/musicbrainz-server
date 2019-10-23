@@ -18,13 +18,13 @@ import {
 
 import RecordingHeader from './RecordingHeader';
 
-type Props = {|
+type Props = {
   +children: ReactNode,
   +entity: RecordingT,
   +fullWidth?: boolean,
   +page: string,
   +title?: string,
-|};
+};
 
 const RecordingLayout = ({
   children,

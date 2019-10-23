@@ -12,11 +12,11 @@ import React from 'react';
 import FieldErrors from './FieldErrors';
 import FormRow from './FormRow';
 
-type Props = {|
+type Props = {
   +field: ReadOnlyFieldT<boolean>,
   +label: string,
   +onChange?: (event: SyntheticEvent<HTMLInputElement>) => void,
-|};
+};
 
 const FormRowCheckbox = ({field, label, onChange}: Props) => (
   <FormRow hasNoLabel>

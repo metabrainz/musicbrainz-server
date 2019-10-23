@@ -15,9 +15,9 @@ import isDateEmpty from '../../static/scripts/common/utility/isDateEmpty';
 import DescriptiveLink from '../../static/scripts/common/components/DescriptiveLink';
 import yesNo from '../../static/scripts/common/utility/yesNo';
 
-type AddAreaEditT = {|
+type AddAreaEditT = {
   ...EditT,
-  +display_data: {|
+  +display_data: {
     ...DatePeriodRoleT,
     +area: AreaT,
     +comment: string | null,
@@ -27,8 +27,8 @@ type AddAreaEditT = {|
     +name: string,
     +sort_name: string | null,
     +type: AreaTypeT,
-  |},
-|};
+  },
+};
 
 const AddArea = ({edit}: {edit: AddAreaEditT}) => {
   const display = edit.display_data;

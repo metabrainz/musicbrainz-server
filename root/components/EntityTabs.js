@@ -116,11 +116,11 @@ function buildLinks(
   return links;
 }
 
-type Props = {|
+type Props = {
   +editTab: ?React.Node,
   +entity: CoreEntityT,
   +page: string,
-|};
+};
 
 const EntityTabs = ({
   editTab,

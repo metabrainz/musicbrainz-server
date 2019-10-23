@@ -11,7 +11,7 @@ import React from 'react';
 
 import entityHref from '../../../static/scripts/common/utility/entityHref';
 
-type Props = {|
+type Props = {
   +entity:
     | AreaT
     | GenreT
@@ -19,7 +19,7 @@ type Props = {|
     | LabelT
     | RecordingT
     | ReleaseT,
-|};
+};
 
 const RemoveLink = ({entity}: Props) => (
   <li>

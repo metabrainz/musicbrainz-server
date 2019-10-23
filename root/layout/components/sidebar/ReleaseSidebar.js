@@ -40,10 +40,10 @@ import {SidebarProperty, SidebarProperties} from './SidebarProperties';
 import SidebarRating from './SidebarRating';
 import SidebarTags from './SidebarTags';
 
-type Props = {|
+type Props = {
   +$c: CatalystContextT,
   +release: ReleaseT,
-|};
+};
 
 const ReleaseSidebar = ({$c, release}: Props) => {
   const releaseGroup = release.releaseGroup;

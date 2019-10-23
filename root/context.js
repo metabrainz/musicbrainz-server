@@ -41,6 +41,7 @@ exports.CatalystContext = CatalystContext;
 /*::
 type ContextPropT = {
   +$c: CatalystContextT | SanitizedCatalystContextT,
+  ...
 };
 */
 

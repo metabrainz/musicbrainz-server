@@ -27,7 +27,7 @@ if (typeof document !== 'undefined') {
 }
 
 export default function useOutsideClickEffect(
-  targetRef: {|current: HTMLElement | null|},
+  targetRef: {current: HTMLElement | null},
   action: () => void,
   cleanup?: () => void,
 ) {

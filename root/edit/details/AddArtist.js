@@ -22,9 +22,9 @@ import EntityLink from '../../static/scripts/common/components/EntityLink';
 import yesNo from '../../static/scripts/common/utility/yesNo';
 import formatIsni from '../../utility/formatIsni';
 
-type AddArtistEditT = {|
+type AddArtistEditT = {
   ...EditT,
-  +display_data: {|
+  +display_data: {
     ...CommentRoleT,
     ...DatePeriodRoleT,
     +area: AreaT | null,
@@ -37,8 +37,8 @@ type AddArtistEditT = {|
     +name: string,
     +sort_name: string,
     +type: ArtistTypeT | null,
-  |},
-|};
+  },
+};
 
 const AddArtist = ({edit}: {edit: AddArtistEditT}) => {
   const display = edit.display_data;

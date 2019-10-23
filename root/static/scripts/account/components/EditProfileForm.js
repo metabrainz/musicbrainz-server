@@ -36,12 +36,12 @@ type AreaClassT = {
 
 type FluencyT = 'basic' | 'intermediate' | 'advanced' | 'native';
 
-type UserLanguageFieldT = CompoundFieldT<{|
+type UserLanguageFieldT = CompoundFieldT<{
   +fluency: FieldT<FluencyT | null>,
   +language_id: FieldT<number | null>,
-|}>;
+}>;
 
-type EditProfileFormT = FormT<{|
+type EditProfileFormT = FormT<{
   +area: AreaFieldT,
   +area_id: FieldT<number | null>,
   +biography: FieldT<string>,
@@ -51,17 +51,17 @@ type EditProfileFormT = FormT<{|
   +languages: RepeatableFieldT<UserLanguageFieldT>,
   +username: FieldT<string>,
   +website: FieldT<string>,
-|}>;
+}>;
 
-type Props = {|
+type Props = {
   +form: EditProfileFormT,
   +language_options: MaybeGroupedOptionsT,
-|};
+};
 
-type State = {|
+type State = {
   form: EditProfileFormT,
   +languageOptions: MaybeGroupedOptionsT,
-|};
+};
 
 const genderOptions = {
   grouped: false,

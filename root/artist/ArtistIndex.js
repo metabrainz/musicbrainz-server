@@ -28,10 +28,10 @@ import entityHref from '../static/scripts/common/utility/entityHref';
 
 import ArtistLayout from './ArtistLayout';
 
-type RelatedArtistsProps = {|
+type RelatedArtistsProps = {
   +children: React$Node,
   +title: string,
-|};
+};
 
 const RelatedArtists = ({children, title}: RelatedArtistsProps) => (
   <p>
@@ -41,7 +41,7 @@ const RelatedArtists = ({children, title}: RelatedArtistsProps) => (
   </p>
 );
 
-type Props = {|
+type Props = {
   +$c: CatalystContextT,
   +ajaxFilterFormUrl: string,
   +artist: ArtistT,
@@ -61,7 +61,7 @@ type Props = {|
   +wantAllStatuses: boolean,
   +wantVariousArtistsOnly: boolean,
   +wikipediaExtract: WikipediaExtractT,
-|};
+};
 
 const ArtistIndex = ({
   $c,

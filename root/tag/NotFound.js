@@ -11,7 +11,7 @@ import React from 'react';
 
 import NotFound from '../components/NotFound';
 
-const TagNotFound = ({tag}: {|+tag: string|}) => (
+const TagNotFound = ({tag}: {+tag: string}) => (
   <NotFound title={l('Tag Not Used')}>
     <p>
       {texp.l(

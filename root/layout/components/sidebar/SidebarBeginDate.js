@@ -16,11 +16,11 @@ import {displayAgeAgo} from '../../../utility/age';
 
 import {SidebarProperty} from './SidebarProperties';
 
-type Props = {|
+type Props = {
   +age?: [number, number, number] | null,
-  +entity: {...DatePeriodRoleT},
+  +entity: {...DatePeriodRoleT, ...},
   +label: string,
-|};
+};
 
 const SidebarBeginDate = ({age, entity, label}: Props) => (
   isDateEmpty(entity.begin_date) ? (

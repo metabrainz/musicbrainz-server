@@ -12,10 +12,10 @@ import React from 'react';
 import EntityHeader from '../components/EntityHeader';
 import ArtistCreditLink from '../static/scripts/common/components/ArtistCreditLink';
 
-type Props = {|
+type Props = {
   page: string,
   releaseGroup: ReleaseGroupT,
-|};
+};
 
 const ReleaseGroupHeader = ({releaseGroup, page}: Props) => {
   return (

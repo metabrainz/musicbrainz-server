@@ -14,7 +14,7 @@ import WorkListEntry
   from '../../static/scripts/common/components/WorkListEntry';
 import SortableTableHeader from '../SortableTableHeader';
 
-type Props = {|
+type Props = {
   ...SeriesItemNumbersRoleT,
   +$c: CatalystContextT,
   +checkboxes?: string,
@@ -22,7 +22,7 @@ type Props = {|
   +showRatings?: boolean,
   +sortable?: boolean,
   +works: $ReadOnlyArray<WorkT>,
-|};
+};
 
 const WorkList = ({
   $c,

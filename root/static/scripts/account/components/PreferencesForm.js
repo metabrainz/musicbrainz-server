@@ -20,7 +20,7 @@ import FormRowSelect from '../../../../components/FormRowSelect';
 import FormSubmit from '../../../../components/FormSubmit';
 import hydrate from '../../../../utility/hydrate';
 
-type PreferencesFormT = FormT<{|
+type PreferencesFormT = FormT<{
   +datetime_format: FieldT<string>,
   +email_on_no_vote: FieldT<boolean>,
   +email_on_notes: FieldT<boolean>,
@@ -35,17 +35,17 @@ type PreferencesFormT = FormT<{|
   +subscribe_to_created_series: FieldT<boolean>,
   +subscriptions_email_period: FieldT<string>,
   +timezone: FieldT<string>,
-|}>;
+}>;
 
-type Props = {|
+type Props = {
   +form: PreferencesFormT,
   +timezone_options: MaybeGroupedOptionsT,
-|};
+};
 
-type State = {|
+type State = {
   form: PreferencesFormT,
   timezoneOptions: MaybeGroupedOptionsT,
-|};
+};
 
 const allowedDateTimeFormats = [
   '%Y-%m-%d %H:%M %Z',
@@ -107,10 +107,13 @@ class PreferencesForm extends React.Component<Props, State> {
 
   handleTimezoneGuess() {
     const guess = moment.tz.guess();
-    if (_.some(this.state.timezoneOptions.options, {value: guess})) {
-      this.setState(prevState => mutate<State, _>(prevState, newState => {
-        newState.form.field.timezone.value = guess;
-      }));
+    for (const option of this.state.timezoneOptions.options) {
+      if (option.value === guess) {
+        this.setState(prevState => mutate<State, _>(prevState, newState => {
+          newState.form.field.timezone.value = guess;
+        }));
+        break;
+      }
     }
   }
 

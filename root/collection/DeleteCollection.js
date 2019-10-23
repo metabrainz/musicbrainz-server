@@ -15,10 +15,10 @@ import EntityLink from '../static/scripts/common/components/EntityLink';
 
 import CollectionLayout from './CollectionLayout';
 
-type Props = {|
+type Props = {
   +$c: CatalystContextT,
   +collection: CollectionT,
-|};
+};
 
 const DeleteCollection = ({$c, collection}: Props) => (
   <CollectionLayout

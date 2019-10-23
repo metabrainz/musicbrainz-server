@@ -18,13 +18,13 @@ import SortableTableHeader from '../SortableTableHeader';
 import formatDatePeriod
   from '../../static/scripts/common/utility/formatDatePeriod';
 
-type Props = {|
+type Props = {
   +$c: CatalystContextT,
   +checkboxes?: string,
   +order?: string,
   +places: $ReadOnlyArray<PlaceT>,
   +sortable?: boolean,
-|};
+};
 
 const PlaceList = ({
   $c,

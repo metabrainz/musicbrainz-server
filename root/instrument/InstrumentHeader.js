@@ -11,10 +11,10 @@ import React from 'react';
 
 import EntityHeader from '../components/EntityHeader';
 
-type Props = {|
+type Props = {
   +instrument: InstrumentT,
   +page: string,
-|};
+};
 
 const InstrumentHeader = ({instrument, page}: Props) => (
   <EntityHeader

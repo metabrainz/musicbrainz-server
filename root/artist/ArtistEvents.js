@@ -15,12 +15,12 @@ import PaginatedResults from '../components/PaginatedResults';
 
 import ArtistLayout from './ArtistLayout';
 
-type Props = {|
+type Props = {
   +$c: CatalystContextT,
   +artist: ArtistT,
   +events: $ReadOnlyArray<EventT>,
   +pager: PagerT,
-|};
+};
 
 const ArtistEvents = ({
   $c,

@@ -14,14 +14,14 @@ import entityHref from '../utility/entityHref';
 
 import Collapsible from './Collapsible';
 
-type Props = {|
+type Props = {
   +cachedWikipediaExtract: WikipediaExtractT | null,
   +entity: MinimalCoreEntityT,
-|};
+};
 
-type State = {|
+type State = {
   wikipediaExtract: WikipediaExtractT | null,
-|};
+};
 
 class WikipediaExtract extends React.Component<Props, State> {
   constructor(props: Props) {

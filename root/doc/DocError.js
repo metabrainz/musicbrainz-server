@@ -16,10 +16,10 @@ import bugTrackerURL from '../static/scripts/common/utility/bugTrackerURL';
 
 import DocSearchBox from './components/DocSearchBox';
 
-type Props = {|
+type Props = {
   +$c: CatalystContextT,
   +id: string,
-|};
+};
 
 const DocError = ({
   $c,

@@ -29,10 +29,10 @@ import SidebarRating from './SidebarRating';
 import SidebarTags from './SidebarTags';
 import SidebarType from './SidebarType';
 
-type Props = {|
+type Props = {
   +$c: CatalystContextT,
   +work: WorkT,
-|};
+};
 
 const WorkSidebar = ({$c, work}: Props) => {
   const gid = encodeURIComponent(work.gid);

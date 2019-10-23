@@ -16,11 +16,11 @@ import CollectionEditForm
 import CollectionLayout from './CollectionLayout';
 import type {CollectionEditFormT} from './types';
 
-type Props = {|
+type Props = {
   +collection: CollectionT,
   +collectionTypes: SelectOptionsT,
   +form: CollectionEditFormT,
-|};
+};
 
 const EditCollection = ({collection, collectionTypes, form}: Props) => (
   <CollectionLayout

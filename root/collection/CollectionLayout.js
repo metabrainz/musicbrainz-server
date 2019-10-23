@@ -15,13 +15,13 @@ import CollectionSidebar from '../layout/components/sidebar/CollectionSidebar';
 
 import CollectionHeader from './CollectionHeader';
 
-type Props = {|
+type Props = {
   +children: ReactNode,
   +entity: CollectionT,
   +fullWidth?: boolean,
   +page: string,
   +title?: string,
-|};
+};
 
 const CollectionLayout = ({
   children,

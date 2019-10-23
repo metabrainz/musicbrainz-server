@@ -10,9 +10,9 @@
 import React from 'react';
 
 
-type Props = {|
+type Props = {
   +entity: CoreEntityT,
-|};
+};
 
 const mergeUrl = entity => {
   const entityType = entity.entityType;

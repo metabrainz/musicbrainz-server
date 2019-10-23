@@ -26,12 +26,12 @@ function splitText(text, split = '') {
   return text.split(new RegExp(split));
 }
 
-type Props = {|
+type Props = {
   +filter: EditType,
   +newText: string,
   +oldText: string,
   +split?: string,
-|};
+};
 
 const DiffSide = ({filter, newText, oldText, split = ''}: Props) => {
   const stack = [];

@@ -22,7 +22,7 @@ import Annotation from '../static/scripts/common/components/Annotation';
 
 import LabelLayout from './LabelLayout';
 
-type Props = {|
+type Props = {
   +$c: CatalystContextT,
   +eligibleForCleanup: boolean,
   +label: LabelT,
@@ -30,7 +30,7 @@ type Props = {|
   +pager: PagerT,
   +releases: $ReadOnlyArray<ReleaseT>,
   +wikipediaExtract: WikipediaExtractT | null,
-|};
+};
 
 const LabelIndex = ({
   $c,
