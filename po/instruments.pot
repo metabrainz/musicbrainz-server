@@ -2053,9 +2053,19 @@ msgctxt "Largest conical kendang used in both Javanese/Sundanese gamelan"
 msgid "kendhang gendhing"
 msgstr ""
 
+#: DB:instrument/name:996
+msgctxt "King-Size truncated cone kendang used in Sundanese gamelan"
+msgid "kendhang indung"
+msgstr ""
+
 #: DB:instrument/name:991
 msgctxt "Smallest conical kendang used in both Javanese/Sundanese gamelan"
 msgid "kendhang ketipung"
+msgstr ""
+
+#: DB:instrument/name:997
+msgctxt "Paired truncated cone kendang used in Sundanese gamelan"
+msgid "kendhang kulanter"
 msgstr ""
 
 #: DB:instrument/name:993
