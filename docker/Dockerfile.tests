@@ -79,7 +79,7 @@ RUN apt-get update && \
 RUN wget -q -O - https://cpanmin.us | perl - App::cpanminus && \
     cpanm Carton JSON::XS
 
-RUN curl -sLO https://chromedriver.storage.googleapis.com/74.0.3729.6/chromedriver_linux64.zip && \
+RUN curl -sLO https://chromedriver.storage.googleapis.com/78.0.3904.70/chromedriver_linux64.zip && \
     unzip chromedriver_linux64.zip -d /usr/local/bin && \
     chmod +x /usr/local/bin/chromedriver && \
     rm chromedriver_linux64.zip
