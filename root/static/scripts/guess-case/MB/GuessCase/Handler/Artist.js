@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005 Stefan Kestenholz (keschte)
+ * Copyright (C) 2005 Stefan Kestenholz (keschte)
  * Copyright (C) 2010 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,

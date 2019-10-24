@@ -8,7 +8,7 @@ use feature "switch";
 # This script simulates the 503 Slow Down response we occassionally get
 # from the archive.org servers.
 
-# Copyright (c) 2013  MetaBrainz Foundation
+# Copyright (C) 2013  MetaBrainz Foundation
 
 # Permission is hereby granted, free of charge, to any person obtaining
 # a copy of this software and associated documentation files (the
