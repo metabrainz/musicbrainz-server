@@ -397,7 +397,6 @@ sub _merge_form_arguments {
 
     $c->stash(
         mediums => [ map { $medium_by_id{$_->{id}} } @mediums ],
-        xxx_releases => \@releases,
         bad_recording_merges => \@bad_recording_merges,
     );
 
