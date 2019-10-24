@@ -1,8 +1,9 @@
 /*
- * This file is part of MusicBrainz, the open internet music database.
  * Copyright (C) 2011-2014 MetaBrainz Foundation
- * Licensed under the GPL version 2, or (at your option) any later version:
- * http://www.gnu.org/licenses/gpl-2.0.txt
+ *
+ * This file is part of MusicBrainz, the open internet music database,
+ * and is licensed under the GPL version 2, or (at your option) any
+ * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  *
  * The 'base64' function contained in this file is derived from:
  * http://stringencoders.googlecode.com/svn-history/r210/trunk/javascript/base64.js
