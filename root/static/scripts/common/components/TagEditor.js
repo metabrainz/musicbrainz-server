@@ -452,173 +452,181 @@ class TagEditor extends React.Component<TagEditorProps, TagEditorState> {
   }
 }
 
-export const MainTagEditor = hydrate<TagEditorProps>('div.all-tags', class extends TagEditor {
-  hideNegativeTags(event: SyntheticEvent<HTMLAnchorElement>) {
-    event.preventDefault();
-    this.setState({positiveTagsOnly: true});
-  }
+export const MainTagEditor = hydrate<TagEditorProps>(
+  'div.all-tags',
+  class extends TagEditor {
+    hideNegativeTags(event: SyntheticEvent<HTMLAnchorElement>) {
+      event.preventDefault();
+      this.setState({positiveTagsOnly: true});
+    }
 
-  showAllTags(event: SyntheticEvent<HTMLAnchorElement>) {
-    event.preventDefault();
-    this.setState({positiveTagsOnly: false});
-  }
+    showAllTags(event: SyntheticEvent<HTMLAnchorElement>) {
+      event.preventDefault();
+      this.setState({positiveTagsOnly: false});
+    }
 
-  render() {
-    const {tags, positiveTagsOnly} = this.state;
-    const tagRows = this.createTagRows();
+    render() {
+      const {tags, positiveTagsOnly} = this.state;
+      const tagRows = this.createTagRows();
 
-    return (
-      <div>
-        {tags.length ? (
-          <>
-            <h2>{l('Genres')}</h2>
+      return (
+        <div>
+          {tags.length ? (
+            <>
+              <h2>{l('Genres')}</h2>
 
-            {tagRows.genres.length ? (
-              <ul className="genre-list">
-                {tagRows.genres}
-              </ul>
-            ) : (
-              <p>{l('There are no genres to show.')}</p>
-            )}
+              {tagRows.genres.length ? (
+                <ul className="genre-list">
+                  {tagRows.genres}
+                </ul>
+              ) : (
+                <p>{l('There are no genres to show.')}</p>
+              )}
 
-            <h2>{l('Other tags')}</h2>
+              <h2>{l('Other tags')}</h2>
 
-            {tagRows.tags.length ? (
-              <ul className="tag-list">
-                {tagRows.tags}
-              </ul>
-            ) : (
-              <p>{l('There are no other tags to show.')}</p>
-            )}
-          </>
-        ) : (
-          <p>{l('Nobody has tagged this yet.')}</p>
-        )}
+              {tagRows.tags.length ? (
+                <ul className="tag-list">
+                  {tagRows.tags}
+                </ul>
+              ) : (
+                <p>{l('There are no other tags to show.')}</p>
+              )}
+            </>
+          ) : (
+            <p>{l('Nobody has tagged this yet.')}</p>
+          )}
 
-        {(positiveTagsOnly && !tags.every(isAlwaysVisible)) ? (
-          <>
-            {this.props.$c.user_exists ? (
+          {(positiveTagsOnly && !tags.every(isAlwaysVisible)) ? (
+            <>
+              {this.props.$c.user_exists ? (
+                <p>
+                  {l(
+                    `Tags with a score of zero or below,
+                     and tags that you’ve downvoted are hidden.`,
+                  )}
+                </p>
+              ) : (
+                <p>
+                  {l('Tags with a score of zero or below are hidden.') + ' '}
+                </p>
+              )}
               <p>
-                {l(
-                  `Tags with a score of zero or below,
-                   and tags that you’ve downvoted are hidden.`,
+                <a href="#" onClick={this.showAllTags.bind(this)}>
+                  {l('Show all tags.')}
+                </a>
+              </p>
+            </>
+          ) : null}
+
+          {positiveTagsOnly === false ? (
+            <>
+              <p>
+                {l('All tags are being shown.')}
+              </p>
+              {this.props.$c.user_exists ? (
+                <p>
+                  <a href="#" onClick={this.hideNegativeTags.bind(this)}>
+                    {l(
+                      `Hide tags with a score of zero or below,
+                       and tags that you’ve downvoted.`,
+                    )}
+                  </a>
+                </p>
+              ) : (
+                <p>
+                  <a href="#" onClick={this.hideNegativeTags.bind(this)}>
+                    {l('Hide tags with a score of zero or below.')}
+                  </a>
+                </p>
+              )}
+            </>
+          ) : null}
+
+          {this.props.$c.user_exists ? (
+            <>
+              <h2>{l('Add Tags')}</h2>
+              <p>
+                {exp.l(
+                  `You can add your own {tagdocs|tags} below.
+                   Use commas to separate multiple tags.`,
+                  {tagdocs: '/doc/Folksonomy_Tagging'},
                 )}
               </p>
-            ) : (
-              <p>
-                {l('Tags with a score of zero or below are hidden.') + ' '}
-              </p>
-            )}
-            <p>
-              <a href="#" onClick={this.showAllTags.bind(this)}>
-                {l('Show all tags.')}
-              </a>
-            </p>
-          </>
-        ) : null}
+              <form id="tag-form" onSubmit={this.addTags}>
+                <p>
+                  <textarea cols="50" ref={this.setTagsInput} rows="5" />
+                </p>
+                <button className="styled-button" type="submit">
+                  {l('Submit tags')}
+                </button>
+              </form>
+            </>
+          ) : null}
+        </div>
+      );
+    }
+  },
+  minimalEntity,
+);
 
-        {positiveTagsOnly === false ? (
-          <>
-            <p>
-              {l('All tags are being shown.')}
-            </p>
-            {this.props.$c.user_exists ? (
-              <p>
-                <a href="#" onClick={this.hideNegativeTags.bind(this)}>
-                  {l(
-                    `Hide tags with a score of zero or below,
-                     and tags that you’ve downvoted.`,
-                  )}
-                </a>
-              </p>
-            ) : (
-              <p>
-                <a href="#" onClick={this.hideNegativeTags.bind(this)}>
-                  {l('Hide tags with a score of zero or below.')}
-                </a>
-              </p>
-            )}
-          </>
-        ) : null}
+export const SidebarTagEditor = hydrate<TagEditorProps>(
+  'div.sidebar-tags',
+  class extends TagEditor {
+    render() {
+      const tagRows = this.createTagRows();
+      return (
+        <>
+          <h2>{l('Genres')}</h2>
 
-        {this.props.$c.user_exists ? (
-          <>
-            <h2>{l('Add Tags')}</h2>
+          {tagRows.genres.length ? (
+            <ul className="genre-list">
+              {tagRows.genres}
+            </ul>
+          ) : (
+            <p>{lp('(none)', 'genre')}</p>
+          )}
+
+          <h2>{l('Other tags')}</h2>
+
+          {tagRows.tags.length ? (
+            <ul className="tag-list">
+              {tagRows.tags}
+            </ul>
+          ) : (
+            <p>{lp('(none)', 'tag')}</p>
+          )}
+
+          {this.props.more ? (
             <p>
-              {exp.l(
-                `You can add your own {tagdocs|tags} below.
-                 Use commas to separate multiple tags.`,
-                {tagdocs: '/doc/Folksonomy_Tagging'},
+              {bracketed(
+                <a href={getTagsPath(this.props.entity)} key="see-all">
+                  {l('see all tags')}
+                </a>,
               )}
             </p>
-            <form id="tag-form" onSubmit={this.addTags}>
-              <p>
-                <textarea cols="50" ref={this.setTagsInput} rows="5" />
-              </p>
+          ) : null}
+
+          <form id="tag-form" onSubmit={this.addTags}>
+            <div style={{display: 'flex'}}>
+              <input
+                className="tag-input"
+                name="tags"
+                ref={this.setTagsInput}
+                style={{flexGrow: 2}}
+                type="text"
+              />
               <button className="styled-button" type="submit">
-                {l('Submit tags')}
+                {lp('Tag', 'verb')}
               </button>
-            </form>
-          </>
-        ) : null}
-      </div>
-    );
-  }
-}, minimalEntity);
-
-export const SidebarTagEditor = hydrate<TagEditorProps>('div.sidebar-tags', class extends TagEditor {
-  render() {
-    const tagRows = this.createTagRows();
-    return (
-      <>
-        <h2>{l('Genres')}</h2>
-
-        {tagRows.genres.length ? (
-          <ul className="genre-list">
-            {tagRows.genres}
-          </ul>
-        ) : (
-          <p>{lp('(none)', 'genre')}</p>
-        )}
-
-        <h2>{l('Other tags')}</h2>
-
-        {tagRows.tags.length ? (
-          <ul className="tag-list">
-            {tagRows.tags}
-          </ul>
-        ) : (
-          <p>{lp('(none)', 'tag')}</p>
-        )}
-
-        {this.props.more ? (
-          <p>
-            {bracketed(
-              <a href={getTagsPath(this.props.entity)} key="see-all">
-                {l('see all tags')}
-              </a>,
-            )}
-          </p>
-        ) : null}
-
-        <form id="tag-form" onSubmit={this.addTags}>
-          <div style={{display: 'flex'}}>
-            <input
-              className="tag-input"
-              name="tags"
-              ref={this.setTagsInput}
-              style={{flexGrow: 2}}
-              type="text"
-            />
-            <button className="styled-button" type="submit">
-              {lp('Tag', 'verb')}
-            </button>
-          </div>
-        </form>
-      </>
-    );
-  }
-}, minimalEntity);
+            </div>
+          </form>
+        </>
+      );
+    }
+  },
+  minimalEntity,
+);
 
 function createInitialTagState(
   aggregatedTags: $ReadOnlyArray<AggregatedTagT>,
