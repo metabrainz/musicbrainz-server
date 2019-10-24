@@ -4,7 +4,12 @@ use Moose;
 use List::AllUtils qw( any );
 use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_MERGE );
 use MusicBrainz::Server::Edit::Exceptions;
-use MusicBrainz::Server::Edit::Types qw( Nullable PartialDateHash ArtistCreditDefinition );
+use MusicBrainz::Server::Edit::Types qw(
+    ArtistCreditDefinition
+    Nullable
+    PartialDateHash
+    RecordingMergesArray
+);
 use MusicBrainz::Server::Edit::Utils qw( calculate_recording_merges large_spread );
 use MusicBrainz::Server::Translation qw( N_l );
 use Try::Tiny;
@@ -92,20 +97,7 @@ has '+data' => (
                     new_name => Str,
                 ]]
             ]]],
-        recording_merges => Nullable[ArrayRef[Dict[
-            medium => Int,
-            track => Str,
-            sources => ArrayRef[Dict[
-                id => Int,
-                name => Str,
-                length => Nullable[Int]
-            ]],
-            destination => Dict[
-                id => Int,
-                name => Str,
-                length => Nullable[Int]
-            ]
-        ]]]
+        recording_merges => Nullable[RecordingMergesArray],
     ]
 );
 
