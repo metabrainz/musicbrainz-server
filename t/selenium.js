@@ -7,6 +7,12 @@
 require('@babel/register');
 
 const argv = require('yargs')
+  .option('c', {
+    alias: 'coverage',
+    default: true,
+    describe: 'dump coverage data to .nyc_output/',
+    type: 'boolean',
+  })
   .option('h', {
     alias: 'headless',
     default: true,
@@ -38,13 +44,13 @@ const utf8 = require('utf8');
 const webdriver = require('selenium-webdriver');
 const chrome = require('selenium-webdriver/chrome');
 const webdriverProxy = require('selenium-webdriver/proxy');
-const {UnexpectedAlertOpenError} = require('selenium-webdriver/lib/error');
 const {Key} = require('selenium-webdriver/lib/input');
 const promise = require('selenium-webdriver/lib/promise');
 const until = require('selenium-webdriver/lib/until');
 
 const DBDefs = require('../root/static/scripts/common/DBDefs');
 const escapeRegExp = require('../root/static/scripts/common/utility/escapeRegExp').default;
+const writeCoverage = require('../root/utility/writeCoverage');
 
 const IGNORE = Symbol();
 
@@ -222,6 +228,39 @@ function getPageErrors() {
   return driver.executeScript('return ((window.MB || {}).js_errors || [])');
 }
 
+let coverageObjectIndex = 0;
+function writeSeleniumCoverage(coverageString) {
+  writeCoverage(`selenium-${coverageObjectIndex++}`, coverageString);
+}
+
+async function writePreviousSeleniumCoverage() {
+  /*
+   * `previousCoverage` means for the previous window.
+   *
+   * We only want to write the __coverage__ object to disk before the page
+   * is about to change, for the obvious reason that it's not complete until
+   * then, but also because retrieving the large (> 1MB) __coverage__ object
+   * from the driver is slow, so we only want to do that when absolutely
+   * necessary.
+   */
+  const previousCoverage = await driver.executeScript(
+    `if (!window.__seen__) {
+       window.__seen__ = true;
+       window.addEventListener('beforeunload', function () {
+         sessionStorage.setItem(
+           '__previous_coverage__',
+           JSON.stringify(window.__coverage__),
+         );
+       });
+       return sessionStorage.getItem('__previous_coverage__');
+     }
+     return null;`,
+  );
+  if (previousCoverage) {
+    writeSeleniumCoverage(previousCoverage);
+  }
+}
+
 function parseEditData(value) {
   return (new Function('ignore', `return (${value})`))(IGNORE);
 }
@@ -235,41 +274,9 @@ async function handleCommandAndWait(file, command, target, value, t) {
 }
 
 async function handleCommand(file, command, target, value, t) {
-  // Die if there are any JS errors on the page since the previous command.
-  let errors;
-  try {
-    errors = await getPageErrors();
-  } catch (e) {
-    // Handle the "All of your changes will be lost" confirmation dialog in
-    // the release editor.
-    //  1. Setting the unexpectedAlertBehavior capability on the session
-    //     doesn't seem to handle this.
-    //  2. The webdriver thinks the alert text is empty, so we don't bother
-    //     checking it.
-    if (e instanceof UnexpectedAlertOpenError) {
-      await driver.switchTo().alert().accept();
-      errors = await getPageErrors();
-    } else {
-      throw e;
-    }
-  }
-
-  if (errors.length) {
-    throw new Error(
-      'Errors were found on the page since executing the previous command:\n' +
-      errors.join('\n\n')
-    );
-  }
-
   if (/AndWait$/.test(command)) {
     return handleCommandAndWait.apply(null, arguments);
   }
-
-  // The CATALYST_DEBUG views interfere with our tests. Remove them.
-  await driver.executeScript(`
-    node = document.getElementById('plDebug');
-    if (node) node.remove();
-  `);
 
   // Wait for all pending network requests before running the next command.
   await driver.wait(function () {
@@ -365,6 +372,9 @@ async function handleCommand(file, command, target, value, t) {
         'arguments[0].focus()',
         await findElement(target)
       );
+
+    case 'handleAlert':
+      return driver.switchTo().alert()[target]();
 
     case 'mouseOver':
       return driver.actions()
@@ -469,6 +479,36 @@ function getPlan(file) {
 async function runCommands(commands, t) {
   for (let i = 0; i < commands.length; i++) {
     await handleCommand(...commands[i], t);
+
+    const nextCommand = i < (commands.length - 1) ? commands[i + 1] : null;
+
+    /*
+     * If there's an alert open on the page, we can't execute any scripts;
+     * they'll die with an UnexpectedAlertOpenError. Since these must be
+     * handled explicitly with the `handleAlert` command, we check if that's
+     * the next command before proceeding.
+     */
+    if (!nextCommand || nextCommand[1] !== 'handleAlert') {
+      if (argv.coverage) {
+        await writePreviousSeleniumCoverage();
+      }
+
+      // Die if there are any JS errors on the page since the previous command.
+      const errors = await getPageErrors();
+
+      if (errors.length) {
+        throw new Error(
+          'Errors were found on the page since executing the previous command:\n' +
+          errors.join('\n\n')
+        );
+      }
+
+      // The CATALYST_DEBUG views interfere with our tests. Remove them.
+      await driver.executeScript(`
+        node = document.getElementById('plDebug');
+        if (node) node.remove();
+      `);
+    }
   }
 }
 
@@ -637,6 +677,15 @@ async function runCommands(commands, t) {
       });
     });
   }, Promise.resolve());
+
+  if (argv.coverage) {
+    const remainingCoverage = await driver.executeScript(
+      'return JSON.stringify(window.__coverage__)',
+    );
+    if (remainingCoverage) {
+      writeSeleniumCoverage(remainingCoverage);
+    }
+  }
 
   if (!argv.stayOpen) {
     await quit();

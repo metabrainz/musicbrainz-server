@@ -101,8 +101,14 @@ jobs:
               t/selenium.js \
               --harness=TAP::Harness::JUnit \
               -v
+          # Stop the template-renderer so that it dumps coverage.
+          sv down template-renderer
+          sleep 10
+          sudo -E -H -u musicbrainz ./node_modules/.bin/nyc report --reporter=html
       - store_test_results:
           path: ./junit_output
+      - store_artifacts:
+          path: ./coverage
 
   build:
     executor: musicbrainz-tests
@@ -181,7 +187,7 @@ jobs:
           rm /etc/service/{postgresql,redis}/down && sv start postgresql redis
           sudo -E -H -u musicbrainz carton exec -- ./script/create_test_db.sh
           sudo -E -H -u musicbrainz make -C po all_quiet deploy
-          sudo -E -H -u musicbrainz carton exec -- ./script/compile_resources.sh default web-tests
+          NODE_ENV=test sudo -E -H -u musicbrainz carton exec -- ./script/compile_resources.sh default web-tests
           sudo -E -H -u musicbrainz ./node_modules/.bin/flow --quiet
           # Prevent postgres from writing to pgdata while
           # persist_to_workspace runs below.
