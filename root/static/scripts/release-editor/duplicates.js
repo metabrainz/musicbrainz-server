@@ -1,7 +1,9 @@
-// This file is part of MusicBrainz, the open internet music database.
-// Copyright (C) 2014 MetaBrainz Foundation
-// Licensed under the GPL version 2, or (at your option) any later version:
-// http://www.gnu.org/licenses/gpl-2.0.txt
+/*
+ * This file is part of MusicBrainz, the open internet music database.
+ * Copyright (C) 2014 MetaBrainz Foundation
+ * Licensed under the GPL version 2, or (at your option) any later version:
+ * http://www.gnu.org/licenses/gpl-2.0.txt
+ */
 
 import $ from 'jquery';
 import ko from 'knockout';
@@ -71,8 +73,10 @@ releaseEditor.findReleaseDuplicates = function () {
     debounce(utils.withRelease(function (release) {
         var name = release.name();
 
-        // If a release group is selected, just show the releases from
-        // there without searching.
+        /*
+         * If a release group is selected, just show the releases from
+         * there without searching.
+         */
         var rgReleases = releaseGroupReleases();
 
         if (rgReleases.length > 0) {

@@ -1,7 +1,9 @@
-// This file is part of MusicBrainz, the open internet music database.
-// Copyright (C) 2015 MetaBrainz Foundation
-// Licensed under the GPL version 2, or (at your option) any later version:
-// http://www.gnu.org/licenses/gpl-2.0.txt
+/*
+ * This file is part of MusicBrainz, the open internet music database.
+ * Copyright (C) 2015 MetaBrainz Foundation
+ * Licensed under the GPL version 2, or (at your option) any later version:
+ * http://www.gnu.org/licenses/gpl-2.0.txt
+ */
 
 import $ from 'jquery';
 
@@ -38,8 +40,10 @@ MB.Control.EditList = function (container) {
             $('<div>').text(l("Vote on all edits:"))
         );
 
-        // :nth-child would make more sense, but I couldn't get it working
-        // - ocharles
+        /*
+         * :nth-child would make more sense, but I couldn't get it working
+         * - ocharles
+         */
         $voteOptions.find('input').each(function (i) {
             $(this).click(function () {
                     $container.find('div.voteopts').each(function () {

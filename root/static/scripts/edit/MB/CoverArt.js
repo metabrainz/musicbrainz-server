@@ -1,22 +1,22 @@
 /*
-   This file is part of MusicBrainz, the open internet music database.
-   Copyright (C) 2013 MetaBrainz Foundation
-
-   This program is free software; you can redistribute it and/or modify
-   it under the terms of the GNU General Public License as published by
-   the Free Software Foundation; either version 2 of the License, or
-   (at your option) any later version.
-
-   This program is distributed in the hope that it will be useful,
-   but WITHOUT ANY WARRANTY; without even the implied warranty of
-   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-   GNU General Public License for more details.
-
-   You should have received a copy of the GNU General Public License
-   along with this program; if not, write to the Free Software
-   Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
-
-*/
+ * This file is part of MusicBrainz, the open internet music database.
+ * Copyright (C) 2013 MetaBrainz Foundation
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+ *
+ */
 
 import filesize from 'filesize';
 import $ from 'jquery';
@@ -58,10 +58,12 @@ MB.CoverArt.image_error = function ($img, image) {
     }
     else
     {
-        /* image doesn't exist at all, perhaps it was removed
-           between requesting the index and loading the image.
-           FIXME: start over if this happens?  obviously the
-           data in the index is incorrect. */
+        /*
+         * image doesn't exist at all, perhaps it was removed
+         * between requesting the index and loading the image.
+         * FIXME: start over if this happens?  obviously the
+         * data in the index is incorrect.
+         */
         $img.attr("src", require('../../../images/image404-125.png'));
     }
 };
@@ -114,9 +116,11 @@ MB.CoverArt.reorder_position = function () {
         }
     );
 
-    /* moving <script> elements around with insertBefore() and
+    /*
+     * Moving <script> elements around with insertBefore() and
      * insertAfter() will rerun them.  The script bits for these
-     * images should NOT be ran again, so remove those nodes. */
+     * images should NOT be ran again, so remove those nodes.
+     */
     $('div.editimage script').remove();
 };
 
@@ -136,17 +140,17 @@ MB.CoverArt.cover_art_types = function () {
 };
 
 /*
-   For each image the upload process is:
-
-   1. validating   Validate the file the user has selected.
-   2. waiting      Wait for the user to make their selections and submit the edit.
-   3. signing      Request postfields from /ws/js/cover-art-upload/:mbid.
-   4. uploading    Upload image to postfields.action.
-   5. submitting   POST edit to /release/:mbid/add-cover-art.
-   6. done         All actions completed successfully.
-
-   most of these have an accompanying error state.
-*/
+ * For each image the upload process is:
+ *
+ * 1. validating   Validate the file the user has selected.
+ * 2. waiting      Wait for the user to make selections and submit the edit.
+ * 3. signing      Request postfields from /ws/js/cover-art-upload/:mbid.
+ * 4. uploading    Upload image to postfields.action.
+ * 5. submitting   POST edit to /release/:mbid/add-cover-art.
+ * 6. done         All actions completed successfully.
+ *
+ * most of these have an accompanying error state.
+ */
 
 MB.CoverArt.upload_status_enum = {
     'validating':     'validating',
@@ -168,8 +172,10 @@ MB.CoverArt.validate_file = function (file) {
     reader.addEventListener("loadend", function () {
         var uint32view = new Uint32Array(reader.result);
 
-        /* JPEG signature is usually FF D8 FF E0 (JFIF), or FF D8 FF E1 (EXIF).
-           Some cameras and phones write a different fourth byte. */
+        /*
+         * JPEG signature is usually FF D8 FF E0 (JFIF), or FF D8 FF E1 (EXIF).
+         * Some cameras and phones write a different fourth byte. 
+         */
 
         if ((uint32view[0] & 0x00FFFFFF) === 0x00FFD8FF)
         {
@@ -264,8 +270,10 @@ MB.CoverArt.upload_image = function (postfields, file) {
     /* IE10 and older don't have overrideMimeType. */
     if (typeof (xhr.overrideMimeType) === 'function')
     {
-        /* prevent firefox from parsing a 204 No Content response as XML.
-           https://bugzilla.mozilla.org/show_bug.cgi?id=884693 */
+        /*
+         * Prevent firefox from parsing a 204 No Content response as XML.
+         * https://bugzilla.mozilla.org/show_bug.cgi?id=884693
+         */
         xhr.overrideMimeType('text/plain');
     }
     xhr.addEventListener("error", function (event) {
@@ -378,8 +386,10 @@ MB.CoverArt.FileUpload = function (file) {
 
         if (self.status() === 'done' || self.busy())
         {
-            /* This file is currently being uploaded or has already
-               been uploaded. */
+            /*
+             * This file is currently being uploaded or has already
+             * been uploaded.
+             */
             deferred.reject();
             return deferred.promise();
         }
@@ -433,13 +443,13 @@ MB.CoverArt.FileUpload = function (file) {
 
     self.updateProgress = function (step, value) {
         /*
-          To make the progress bar show progress for the entire process each of
-          the three requests get a chunk of the progress bar:
-
-          step 1. Signing       0% to  10%
-          step 2. Upload       10% to  90%
-          step 3. Create edit  90% to 100%
-        */
+         * To make the progress bar show progress for the entire process each of
+         * the three requests get a chunk of the progress bar:
+         *
+         * step 1. Signing       0% to  10%
+         * step 2. Upload       10% to  90%
+         * step 3. Create edit  90% to 100%
+         */
 
         switch (step) {
         case 1:
@@ -520,8 +530,10 @@ MB.CoverArt.add_cover_art = function (gid) {
     {
         File.prototype.slice = File.prototype.webkitSlice || File.prototype.mozSlice || File.prototype.slice;
 
-        /* FormData is supported, so we can present the multifile ajax
-         * upload form. */
+        /*
+         * FormData is supported, so we can present the multifile ajax
+         * upload form. 
+         */
 
         $('.with-formdata').show();
 
@@ -604,16 +616,17 @@ MB.CoverArt.add_cover_art = function (gid) {
     }
 };
 
-/* This takes a list of asynchronous functions (i.e. functions which
-   return a jquery promise) and runs them in sequence.  It in turn
-   returns a promise which is only resolved when all promises in the
-   queue have been resolved.  If one of the promises is rejected, the
-   rest of the queue is still processed (but the returned promise will
-   be rejected).
-
-   Note that any results are currently ignored, it is assumed you are
-   interested in the side effects of the functions executed.
-*/
+/*
+ * This takes a list of asynchronous functions (i.e. functions which
+ * return a jquery promise) and runs them in sequence.  It in turn
+ * returns a promise which is only resolved when all promises in the
+ * queue have been resolved.  If one of the promises is rejected, the
+ * rest of the queue is still processed (but the returned promise will
+ * be rejected).
+ *
+ * Note that any results are currently ignored, it is assumed you are
+ * interested in the side effects of the functions executed.
+ */
 function iteratePromises(promises) {
     var deferred = $.Deferred();
     var failed = false;

@@ -1,7 +1,9 @@
-// This file is part of MusicBrainz, the open internet music database.
-// Copyright (C) 2014 MetaBrainz Foundation
-// Licensed under the GPL version 2, or (at your option) any later version:
-// http://www.gnu.org/licenses/gpl-2.0.txt
+/*
+ * This file is part of MusicBrainz, the open internet music database.
+ * Copyright (C) 2014 MetaBrainz Foundation
+ * Licensed under the GPL version 2, or (at your option) any later version:
+ * http://www.gnu.org/licenses/gpl-2.0.txt
+ */
 
 import $ from 'jquery';
 import ko from 'knockout';
@@ -54,9 +56,11 @@ ko.bindingHandlers.artistCreditEditor = {
         const prev = entity.medium.tracks()[entity.position() - 2];
         if (prev) {
             entity.artistCreditEditorInst.runDoneCallback();
-            // Defer until the setState calls in doneCallback finish,
-            // since initialArtistText (which is set in updateBubble)
-            // depends on the artist credit state.
+            /*
+             * Defer until the setState calls in doneCallback finish,
+             * since initialArtistText (which is set in updateBubble)
+             * depends on the artist credit state.
+             */
             _.defer(() => {
                 prev.artistCreditEditorInst.updateBubble(true, this.uncheckChangeMatchingArtists);
             });
@@ -96,8 +100,10 @@ ko.bindingHandlers.artistCreditEditor = {
     update: function (element, valueAccessor) {
         const bindingHandler = ko.bindingHandlers.artistCreditEditor;
         const entity = valueAccessor();
-        // Subscribe to the artistCredit observable so that we
-        // re-render the ArtistCreditEditor when it changes.
+        /*
+         * Subscribe to the artistCredit observable so that we
+         * re-render the ArtistCreditEditor when it changes.
+         */
         entity.artistCredit();
         const props = {
             entity: entity,

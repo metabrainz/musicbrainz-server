@@ -1,7 +1,9 @@
-// This file is part of MusicBrainz, the open internet music database.
-// Copyright (C) 2014 MetaBrainz Foundation
-// Licensed under the GPL version 2, or (at your option) any later version:
-// http://www.gnu.org/licenses/gpl-2.0.txt
+/*
+ * This file is part of MusicBrainz, the open internet music database.
+ * Copyright (C) 2014 MetaBrainz Foundation
+ * Licensed under the GPL version 2, or (at your option) any later version:
+ * http://www.gnu.org/licenses/gpl-2.0.txt
+ */
 
 import $ from 'jquery';
 import L from 'leaflet/dist/leaflet-src';
@@ -22,8 +24,11 @@ initializeDuplicateChecker('place');
 
 var bubble = initializeBubble('#coordinates-bubble', 'input[name=edit-place\\.coordinates]');
 
-// The map is hidden by default, which means it can't position itself correctly.
-// This tells it to update its position once it's visible.
+/*
+ * The map is hidden by default, which means it can't
+ * position itself correctly.
+ * This tells it to update its position once it's visible.
+ */
 const afterBubbleShow = _.once(function () {
     map.invalidateSize();
 });

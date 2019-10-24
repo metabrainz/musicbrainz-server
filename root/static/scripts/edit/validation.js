@@ -1,7 +1,9 @@
-// This file is part of MusicBrainz, the open internet music database.
-// Copyright (C) 2015 MetaBrainz Foundation
-// Licensed under the GPL version 2, or (at your option) any later version:
-// http://www.gnu.org/licenses/gpl-2.0.txt
+/*
+ * This file is part of MusicBrainz, the open internet music database.
+ * Copyright (C) 2015 MetaBrainz Foundation
+ * Licensed under the GPL version 2, or (at your option) any later version:
+ * http://www.gnu.org/licenses/gpl-2.0.txt
+ */
 
 const ko = require('knockout');
 
@@ -49,8 +51,10 @@ if (typeof document !== 'undefined') {
         $('#page form :input[required]').each(function () {
             var $input = $(this);
 
-            // XXX We can't handle artist credit fields here. They have separate
-            // hidden inputs that are injected by knockout.
+            /*
+             * XXX We can't handle artist credit fields here. They have
+             * separate hidden inputs that are injected by knockout.
+             */
             if ($input.is('.artist-credit-input')) {
                 return;
             }

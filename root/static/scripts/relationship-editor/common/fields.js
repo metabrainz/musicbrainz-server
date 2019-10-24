@@ -1,7 +1,9 @@
-// This file is part of MusicBrainz, the open internet music database.
-// Copyright (C) 2014 MetaBrainz Foundation
-// Licensed under the GPL version 2, or (at your option) any later version:
-// http://www.gnu.org/licenses/gpl-2.0.txt
+/*
+ * This file is part of MusicBrainz, the open internet music database.
+ * Copyright (C) 2014 MetaBrainz Foundation
+ * Licensed under the GPL version 2, or (at your option) any later version:
+ * http://www.gnu.org/licenses/gpl-2.0.txt
+ */
 
 import ko from 'knockout';
 import _ from 'lodash';
@@ -99,16 +101,19 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
                 });
             }
 
-            // XXX Sigh. This whole subscription shouldn't be necessary, because
-            // we already filter out invalid attributes in linkTypeIDChanged.
-            // But knockout's 'checked' binding is annoying and reverts any removals
-            // if it sees that the previous attributes are still checked (they
-            // haven't been removed from the template yet; that probably happens
-            // in a later subscription). That's why the _.defer is needed; we need
-            // to wait for it to idiotically add the attributes back. The proper
-            // solution would be to use a writable computed observable that filters
-            // out invalid values upon writing, but there's already a bunch of code
-            // that depends on 'attributes' being an observableArray.
+            /*
+             * XXX Sigh. This whole subscription shouldn't be necessary, since
+             * we already filter out invalid attributes in linkTypeIDChanged.
+             * But knockout's 'checked' binding is annoying and reverts any
+             * removals if it sees that the previous attributes are still
+             * checked (they haven't been removed from the template yet; that
+             * probably happens in a later subscription). That's why the
+             * _.defer is needed; we need to wait for it to idiotically add
+             * the attributes back. The proper solution would be to use a
+             * writable computed observable that filters out invalid values
+             * upon writing, but there's already a bunch of code
+             * that depends on 'attributes' being an observableArray.
+             */
             var removingInvalidAttributes = false;
             this.attributes.subscribe(function (newAttributes) {
                 if (!removingInvalidAttributes) {
@@ -174,8 +179,10 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
                 return;
             }
 
-            // This should really only change if the relationship was initially
-            // seeded without any link type.
+            /*
+             * This should really only change if the relationship was
+             * initially seeded without any link type.
+             */
             this.entityTypes = linkType.type0 + '-' + linkType.type1;
 
             var typeAttributes = linkType.attributes,
@@ -358,10 +365,12 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
             return !!(linkType && linkType.orderable_direction > 0);
         }
 
-        // Same as linkPhrase, but if the link type is orderable, then
-        // also stripped of non-required attributes so that `groupBy` keeps
-        // ordered relationships together even if they have different
-        // attributes.
+        /*
+         * Same as linkPhrase, but if the link type is orderable, then
+         * also stripped of non-required attributes so that `groupBy` keeps
+         * ordered relationships together even if they have different
+         * attributes.
+         */
         groupingLinkPhrase(source) {
             return this._linkPhrase(source, this.hasOrderableLinkType());
         }

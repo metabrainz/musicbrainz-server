@@ -1,7 +1,9 @@
-// This file is part of MusicBrainz, the open internet music database.
-// Copyright (C) 2015 MetaBrainz Foundation
-// Licensed under the GPL version 2, or (at your option) any later version:
-// http://www.gnu.org/licenses/gpl-2.0.txt
+/*
+ * This file is part of MusicBrainz, the open internet music database.
+ * Copyright (C) 2015 MetaBrainz Foundation
+ * Licensed under the GPL version 2, or (at your option) any later version:
+ * http://www.gnu.org/licenses/gpl-2.0.txt
+ */
 
 import $ from 'jquery';
 import balanced from 'balanced-match';
@@ -136,11 +138,13 @@ function bestArtistMatch(artists, name, isProbablyClassical) {
 function expandCredit(fullName, artists, isProbablyClassical) {
     fullName = cleanCredit(fullName, isProbablyClassical);
 
-    // See which produces a better match to an existing artist: the full
-    // credit, or the individual credits as split by collabRegex. Some artist
-    // names legitimately contain characters in collabRegex, so this stops
-    // those from getting split (assuming the artist appears in a relationship
-    // or artist credit).
+    /*
+     * See which produces a better match to an existing artist: the full
+     * credit, or the individual credits as split by collabRegex. Some artist
+     * names legitimately contain characters in collabRegex, so this stops
+     * those from getting split (assuming the artist appears in a relationship
+     * or artist credit).
+     */
     var bestFullMatch = bestArtistMatch(artists, fullName, isProbablyClassical);
 
     var fixJoinPhrase = function (existing) {
@@ -215,9 +219,11 @@ MB.Control.initGuessFeatButton = function (formName) {
                     return nameInput.value;
                 }
             },
-            // Confusingly, the artistCredit object used to generated hidden input
-            // fields is also different from MB.sourceRelationshipEditor.source's,
-            // so we have to replace this field too.
+            /*
+             * Confusingly, the artistCredit object used to generated hidden input
+             * fields is also different from MB.sourceRelationshipEditor.source's,
+             * so we have to replace this field too.
+             */
             artistCredit: MB.sourceEntity.artistCredit
         }
     );

@@ -1,7 +1,9 @@
-// This file is part of MusicBrainz, the open internet music database.
-// Copyright (C) 2016 MetaBrainz Foundation
-// Licensed under the GPL version 2, or (at your option) any later version:
-// http://www.gnu.org/licenses/gpl-2.0.txt
+/*
+ * This file is part of MusicBrainz, the open internet music database.
+ * Copyright (C) 2016 MetaBrainz Foundation
+ * Licensed under the GPL version 2, or (at your option) any later version:
+ * http://www.gnu.org/licenses/gpl-2.0.txt
+ */
 
 import $ from 'jquery';
 import ko from 'knockout';
@@ -184,9 +186,11 @@ class ArtistCreditEditor extends React.Component {
         .end()
       .show()
       .position(position)
-      // For some reason this needs to be called twice...
-      // Steps to reproduce: open the release AC bubble, switch to the
-      // tracklist tab, open a track AC bubble.
+      /*
+       * For some reason this needs to be called twice...
+       * Steps to reproduce: open the release AC bubble, switch to the
+       * tracklist tab, open a track AC bubble.
+       */
       .position(position);
   }
 
@@ -205,8 +209,10 @@ class ArtistCreditEditor extends React.Component {
       return;
     }
 
-    // Don't hijack the bubble unless show = true or this is for the
-    // currently-open entity.
+    /*
+     * Don't hijack the bubble unless show = true or this is for the
+     * currently-open entity.
+     */
     if (!show && $bubble.data('target') !== this.props.entity) {
       return;
     }
@@ -296,8 +302,10 @@ class ArtistCreditEditor extends React.Component {
             $bubble.is(':visible') &&
             $target.is(':not(.open-ac)') &&
             !$bubble.has($target).length &&
-            // Close unless focus was moved to a dialog above this one, e.g.
-            // when adding a new entity.
+            /*
+             * Close unless focus was moved to a dialog above this one, e.g.
+             * when adding a new entity.
+             */
             !$target.parents('.ui-dialog').length) {
           $bubble.data('componentInst').done(false);
         }
@@ -353,8 +361,10 @@ class ArtistCreditEditor extends React.Component {
     let entity = _.clone(this.props.entity);
     entity.artistCredit = {names: _.filter(ac.names, n => hasArtist(n))};
 
-    // The single-artist lookup changes the credit boxes in the doc bubble,
-    // and the credit boxes change the single-artist lookup.
+    /*
+     * The single-artist lookup changes the credit boxes in the doc bubble,
+     * and the credit boxes change the single-artist lookup.
+     */
     const complex = isComplexArtistCredit(ac);
     let singleArtistSelection = {name: ''};
     let singleArtistIsEditable = true;

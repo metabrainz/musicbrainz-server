@@ -1,7 +1,9 @@
-// This file is part of MusicBrainz, the open internet music database.
-// Copyright (C) 2014 MetaBrainz Foundation
-// Licensed under the GPL version 2, or (at your option) any later version:
-// http://www.gnu.org/licenses/gpl-2.0.txt
+/*
+ * This file is part of MusicBrainz, the open internet music database.
+ * Copyright (C) 2014 MetaBrainz Foundation
+ * Licensed under the GPL version 2, or (at your option) any later version:
+ * http://www.gnu.org/licenses/gpl-2.0.txt
+ */
 
 import ko from 'knockout';
 import _ from 'lodash';
@@ -154,8 +156,10 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
             return addColon(key);
         },
 
-        // searches this entity's relationships for potential duplicate "rel"
-        // if it is a duplicate, remove and merge it
+        /*
+         * Searches this entity's relationships for potential duplicate "rel"
+         * if it is a duplicate, remove and merge it
+         */
 
         mergeRelationship: function (rel) {
             var relationships = this.relationships();
@@ -179,11 +183,13 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
         },
 
         getRelationshipGroup: function (relationship, viewModel) {
-            // Returns all relationships that belong to the same 'ordering'
-            // group as `relationship`, i.e. that have the same link type and
-            // direction. Used in fields.js to recalculate link orders when an
-            // item is moved. Since displayableRelationships is used, it should
-            // be in the same order as it appears in the UI.
+            /*
+             * Returns all relationships that belong to the same 'ordering'
+             * group as `relationship`, i.e. that have the same link type and
+             * direction. Used in fields.js to recalculate link orders when an
+             * item is moved. Since displayableRelationships is used,
+             * it should be in the same order as it appears in the UI.
+             */
             let linkTypeID = String(relationship.linkTypeID());
             let direction = getDirection(relationship, this);
 

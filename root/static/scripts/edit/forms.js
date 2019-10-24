@@ -1,7 +1,9 @@
-// This file is part of MusicBrainz, the open internet music database.
-// Copyright (C) 2013 MetaBrainz Foundation
-// Licensed under the GPL version 2, or (at your option) any later version:
-// http://www.gnu.org/licenses/gpl-2.0.txt
+/*
+ * This file is part of MusicBrainz, the open internet music database.
+ * Copyright (C) 2013 MetaBrainz Foundation
+ * Licensed under the GPL version 2, or (at your option) any later version:
+ * http://www.gnu.org/licenses/gpl-2.0.txt
+ */
 
 import $ from 'jquery';
 import ko from 'knockout';
@@ -91,9 +93,11 @@ ko.bindingHandlers.loop = {
     ) {
         var options = valueAccessor(), observableArray = options.items;
 
-        // The way this binding handler works is by using the "arrayChange"
-        // event found on observableArrays, which notifies a list of changes
-        // we can apply to the UI.
+        /*
+         * The way this binding handler works is by using the "arrayChange"
+         * event found on observableArrays, which notifies a list of changes
+         * we can apply to the UI.
+         */
 
         if (!ko.isObservable(observableArray) ||
             !observableArray.cacheDiffForKnownOperation) {
@@ -111,8 +115,10 @@ ko.bindingHandlers.loop = {
             }
         });
 
-        // For regular DOM nodes this is the same as parentNode; if parentNode
-        // is a virtual element, this will be the parentNode of the comment.
+        /*
+         * For regular DOM nodes this is the same as parentNode; if parentNode
+         * is a virtual element, this will be the parentNode of the comment.
+         */
         var actualParentNode = parentNode;
         while (actualParentNode.nodeType !== ELEMENT_NODE) {
             actualParentNode = actualParentNode.parentNode;
@@ -143,9 +149,11 @@ ko.bindingHandlers.loop = {
                         var newContext = bindingContext.createChildContext(item);
 
                         if (!currentElements) {
-                            // Would simplify things to use a documentFragment,
-                            // but knockout doesn't support them.
-                            // https://github.com/knockout/knockout/pull/1432
+                            /*
+                             * Using a documentFragment would simplify things,
+                             * but knockout doesn't support them.
+                             * https://github.com/knockout/knockout/pull/1432
+                             */
                             tmpElementContainer = document.createElement("div");
 
                             for (j = 0; node = template[j]; j++) {
@@ -161,20 +169,24 @@ ko.bindingHandlers.loop = {
                 } else if (status === "deleted") {
                     if (change.moved === undefined) {
                         for (j = 0; node = currentElements[j]; j++) {
-                            // If the node is already removed for some unknown
-                            // reason, don't outright explode. It's possible
-                            // an exception occurred somewhere in the middle
-                            // of an arrayChange notification, causing
-                            // knockout to send duplicate changes afterward.
+                            /*
+                             * If the node is already removed for some unknown
+                             * reason, don't outright explode. It's possible
+                             * an exception occurred somewhere in the middle
+                             * of an arrayChange notification, causing
+                             * knockout to send duplicate changes afterward.
+                             */
                             if (node.parentNode) {
                                 node.parentNode.removeChild(node);
                             }
                             removals.push({ node: node, itemID: itemID });
                         }
                     }
-                    // When knockout detects a moved item, it sends both "added"
-                    // and "deleted" changes for it. We only need to handle the
-                    // former.
+                    /*
+                     * When knockout detects a moved item, it sends both
+                     * "added" and "deleted" changes for it. We only need
+                     * to handle the former.
+                     */
                     continue;
                 }
 
@@ -188,27 +200,33 @@ ko.bindingHandlers.loop = {
                     }
                 }
 
-                // Find where to insert the elements associated with this
-                // item. The final result should be in the same order as the
-                // items are in their containing array.
+                /*
+                 * Find where to insert the elements associated with this
+                 * item. The final result should be in the same order as the
+                 * items are in their containing array.
+                 */
                 var prevItem;
 
-                // Loop through the items before the current one, and find one
-                // that actually has elements on the page (i.e. something we
-                // can insertAfter). It doesn't matter if we don't insert
-                // after the *immediate* prevItem, because when *that* item
-                // is dealt with it'll be inserted after the same item we
-                // used (thus settling before us). prevItem will be undefined
-                // when it's past the first item in the array, and the for-
-                // loop will end; insertAfter handles that by just prepending
-                // the elements to parentNode.
+                /*
+                 * Loop through the items before the current one, and find one
+                 * that actually has elements on the page (i.e. something we
+                 * can insertAfter). It doesn't matter if we don't insert
+                 * after the *immediate* prevItem, because when *that* item
+                 * is dealt with it'll be inserted after the same item we
+                 * used (thus settling before us). prevItem will be undefined
+                 * when it's past the first item in the array, and the for-
+                 * loop will end; insertAfter handles that by just prepending
+                 * the elements to parentNode.
+                 */
 
                 for (var j = change.index - 1; prevItem = items[j]; j--) {
                     elementsToInsertAfter = elements[prevItem[idAttribute]];
 
-                    // prevItem's elements won't exist on the page if they
-                    // were previously removed, but haven't been purged from
-                    // `elements` yet (below).
+                    /*
+                     * prevItem's elements won't exist on the page if they
+                     * were previously removed, but haven't been purged from
+                     * `elements` yet (below).
+                     */
                     if (elementsToInsertAfter) {
                         if (actualParentNode.contains(elementsToInsertAfter[0])) {
                             break;
@@ -255,30 +273,31 @@ ko.bindingHandlers.loop = {
 ko.virtualElements.allowedBindings.loop = true;
 
 
-/* Helper binding that matches an input and label (assuming a table layout)
-   together in a foreach loop, by assigning an id composed of a prefix
-   concatenated with the index of the item in the loop.
-
-   So if you have something like this in the template:
-
-    <!-- ko foreach: items -->
-    <tr>
-      <td><label>Foo</label></td>
-      <td><input data-bind="withLabel: 'foo'" /></td>
-    <tr>
-    <!-- /ko -->
-
-   It'll result in this markup once rendered (assuming two items):
-
-    <tr>
-      <td><label for="foo-0">Foo</label></td>
-      <td><input id="foo-0" data-bind="withLabel: 'foo'" /></td>
-    <tr>
-    <tr>
-      <td><label for="foo-1">Foo</label></td>
-      <td><input id="foo-1" data-bind="withLabel: 'foo'" /></td>
-    <tr>
-*/
+/*
+ * Helper binding that matches an input and label (assuming a table layout)
+ * together in a foreach loop, by assigning an id composed of a prefix
+ * concatenated with the index of the item in the loop.
+ *
+ * So if you have something like this in the template:
+ *
+ * <!-- ko foreach: items -->
+ * <tr>
+ *   <td><label>Foo</label></td>
+ *   <td><input data-bind="withLabel: 'foo'" /></td>
+ * <tr>
+ * <!-- /ko -->
+ *
+ * It'll result in this markup once rendered (assuming two items):
+ *
+ * <tr>
+ *   <td><label for="foo-0">Foo</label></td>
+ *   <td><input id="foo-0" data-bind="withLabel: 'foo'" /></td>
+ * <tr>
+ * <tr>
+ *   <td><label for="foo-1">Foo</label></td>
+ *   <td><input id="foo-1" data-bind="withLabel: 'foo'" /></td>
+ * <tr>
+ */
 ko.bindingHandlers.withLabel = {
 
     update: function (element, valueAccessor, allBindings,
