@@ -462,7 +462,7 @@ sub _merge_parameters {
 
         return (recording_merges => $recording_merges);
     } else {
-        return ()
+        return ();
     }
 }
 
