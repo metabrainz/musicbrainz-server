@@ -40,11 +40,26 @@ function buildTabs(
   const tabs = [buildTab(page, l('Profile'), userPath, 'index')];
 
   if (showPrivate || user.preferences.public_subscriptions) {
-    tabs.push(buildTab(page, l('Subscriptions'), userPath + '/subscriptions/artist', 'subscriptions'));
+    tabs.push(buildTab(
+      page,
+      l('Subscriptions'),
+      userPath + '/subscriptions/artist',
+      'subscriptions',
+    ));
   }
 
-  tabs.push(buildTab(page, l('Subscribers'), userPath + '/subscribers', 'subscribers'));
-  tabs.push(buildTab(page, l('Collections'), userPath + '/collections', 'collections'));
+  tabs.push(buildTab(
+    page,
+    l('Subscribers'),
+    userPath + '/subscribers',
+    'subscribers',
+  ));
+  tabs.push(buildTab(
+    page,
+    l('Collections'),
+    userPath + '/collections',
+    'collections',
+  ));
 
   if (showPrivate || user.preferences.public_tags) {
     tabs.push(buildTab(page, l('Tags'), userPath + '/tags', 'tags'));
@@ -55,18 +70,48 @@ function buildTabs(
   }
 
   if (viewingOwnProfile) {
-    tabs.push(buildTab(page, l('Edit Profile'), '/account/edit', 'edit_profile'));
-    tabs.push(buildTab(page, l('Preferences'), '/account/preferences', 'preferences'));
-    tabs.push(buildTab(page, l('Change Password'), '/account/change-password', 'change_password'));
-    tabs.push(buildTab(page, l('Donation Check'), '/account/donation', 'donation'));
+    tabs.push(buildTab(
+      page,
+      l('Edit Profile'),
+      '/account/edit',
+      'edit_profile',
+    ));
+    tabs.push(buildTab(
+      page,
+      l('Preferences'),
+      '/account/preferences',
+      'preferences',
+    ));
+    tabs.push(buildTab(
+      page,
+      l('Change Password'),
+      '/account/change-password',
+      'change_password',
+    ));
+    tabs.push(buildTab(
+      page,
+      l('Donation Check'),
+      '/account/donation',
+      'donation',
+    ));
   }
 
   if (showAdmin || DBDefs.DB_STAGING_TESTING_FEATURES && $c.user_exists) {
-    tabs.push(buildTab(page, l('Edit User'), '/admin/user/edit/' + userName, 'edit_user'));
+    tabs.push(buildTab(
+      page,
+      l('Edit User'),
+      '/admin/user/edit/' + userName,
+      'edit_user',
+    ));
   }
 
   if (showPrivate && !user.deleted) {
-    tabs.push(buildTab(page, l('Delete Account'), '/admin/user/delete/' + userName, 'delete'));
+    tabs.push(buildTab(
+      page,
+      l('Delete Account'),
+      '/admin/user/delete/' + userName,
+      'delete',
+    ));
   }
 
   return tabs;

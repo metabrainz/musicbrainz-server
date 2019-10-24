@@ -15,7 +15,8 @@ import loopParity from '../../utility/loopParity';
 import formatDatePeriod
   from '../../static/scripts/common/utility/formatDatePeriod';
 import ArtistRoles from '../../static/scripts/common/components/ArtistRoles';
-import EventLocations from '../../static/scripts/common/components/EventLocations';
+import EventLocations
+  from '../../static/scripts/common/components/EventLocations';
 import type {ReportEventT} from '../types';
 
 const EventList = ({

@@ -63,7 +63,10 @@ const EditSidebar = ({$c, edit}: Props) => (
         </SidebarProperty>
       )}
 
-      <SidebarProperty className="" label={addColonText(l('For quicker closing'))}>
+      <SidebarProperty
+        className=""
+        label={addColonText(l('For quicker closing'))}
+      >
         {texp.ln(
           '1 vote',
           '{n} unanimous votes',
@@ -72,7 +75,10 @@ const EditSidebar = ({$c, edit}: Props) => (
         )}
       </SidebarProperty>
 
-      <SidebarProperty className="" label={addColonText(l('If no votes cast'))}>
+      <SidebarProperty
+        className=""
+        label={addColonText(l('If no votes cast'))}
+      >
         {getEditExpireAction(edit)}
       </SidebarProperty>
     </SidebarProperties>

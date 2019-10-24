@@ -57,13 +57,34 @@ declare var ln_statistics: typeof ln;
 declare var lp_statistics: typeof lp;
 
 declare var exp: {
-  +l: (key: string, args?: ?{+[string]: Expand2ReactInput, ...}) => Expand2ReactOutput,
-  +ln: (skey: string, pkey: string, val: number, args?: ?{+[string]: Expand2ReactInput, ...}) => Expand2ReactOutput,
-  +lp: (key: string, context: string, args?: ?{+[string]: Expand2ReactInput}) => Expand2ReactOutput,
+  +l: (
+    key: string,
+    args?: ?{+[string]: Expand2ReactInput, ...},
+  ) => Expand2ReactOutput,
+  +ln: (
+    skey: string,
+    pkey: string,
+    val: number,
+    args?: ?{+[string]: Expand2ReactInput, ...},
+  ) => Expand2ReactOutput,
+  +lp: (
+    key: string,
+    context: string,
+    args?: ?{+[string]: Expand2ReactInput},
+  ) => Expand2ReactOutput,
 };
 
 declare var texp: {
   +l: (key: string, args: {+[string]: StrOrNum, ...}) => string,
-  +ln: (skey: string, pkey: string, val: number, args: {+[string]: StrOrNum, ...}) => string,
-  +lp: (key: string, context: string, args: {+[string]: StrOrNum, ...}) => string,
+  +ln: (
+    skey: string,
+    pkey: string,
+    val: number,
+    args: {+[string]: StrOrNum, ...},
+  ) => string,
+  +lp: (
+    key: string,
+    context: string,
+    args: {+[string]: StrOrNum, ...},
+  ) => string,
 };

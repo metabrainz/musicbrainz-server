@@ -14,7 +14,13 @@ import isolateText from '../utility/isolateText';
 
 const MissingEditorLink = () => {
   return (
-    <span className="deleted tooltip" title={l('This editor is missing from this server, and cannot be displayed correctly.')}>
+    <span
+      className="deleted tooltip"
+      title={l(
+        `This editor is missing from this server,
+         and cannot be displayed correctly.`,
+      )}
+    >
       {isolateText(l('[missing editor]'))}
     </span>
   );
@@ -48,7 +54,13 @@ const EditorLink = ({editor, content, avatarSize, subPath}: Props) => {
   return (
     <a href={entityHref(editor, subPath)}>
       {gravatar ? (
-        <img alt="" className="gravatar" height={avatarSize} src={gravatar} width={avatarSize} />
+        <img
+          alt=""
+          className="gravatar"
+          height={avatarSize}
+          src={gravatar}
+          width={avatarSize}
+        />
       ) : null}
       {isolateText(content)}
     </a>

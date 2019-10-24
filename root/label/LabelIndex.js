@@ -59,7 +59,11 @@ const LabelIndex = ({
     {releases && releases.length > 0 ? (
       <form action="/release/merge_queue" method="post">
         <PaginatedResults pager={pager}>
-          <ReleaseList checkboxes="add-to-merge" filterLabel={label} releases={releases} />
+          <ReleaseList
+            checkboxes="add-to-merge"
+            filterLabel={label}
+            releases={releases}
+          />
         </PaginatedResults>
         {$c.user_exists ? (
           <FormRow>

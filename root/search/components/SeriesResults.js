@@ -27,7 +27,9 @@ function buildResult(result, index) {
         <EntityLink entity={series} />
       </td>
       <td>
-        {series.typeName ? lp_attributes(series.typeName, 'series_type') : null}
+        {series.typeName
+          ? lp_attributes(series.typeName, 'series_type')
+          : null}
       </td>
     </tr>
   );

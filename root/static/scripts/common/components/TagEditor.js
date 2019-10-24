@@ -240,7 +240,8 @@ class TagEditor extends React.Component<TagEditorProps, TagEditorState> {
     const actions = {};
 
     _.each(this.pendingVotes, item => {
-      const action = `${getTagsPath(this.props.entity)}/${VOTE_ACTIONS[item.vote]}`;
+      const action =
+        `${getTagsPath(this.props.entity)}/${VOTE_ACTIONS[item.vote]}`;
 
       (actions[action] = actions[action] || []).push(item);
     });
@@ -256,7 +257,8 @@ class TagEditor extends React.Component<TagEditorProps, TagEditorState> {
     }
 
     _.each(actions, (items, action) => {
-      const url = action + '?tags=' + encodeURIComponent(_(items).map('tag').join(','));
+      const url = action + '?tags=' +
+        encodeURIComponent(_(items).map('tag').join(','));
 
       doRequest({url: url})
         .done(data => this.updateTags(data.updates))
@@ -497,7 +499,10 @@ export const MainTagEditor = hydrate<TagEditorProps>('div.all-tags', class exten
           <>
             {this.props.$c.user_exists ? (
               <p>
-                {l('Tags with a score of zero or below, and tags that you’ve downvoted are hidden.')}
+                {l(
+                  `Tags with a score of zero or below,
+                   and tags that you’ve downvoted are hidden.`,
+                )}
               </p>
             ) : (
               <p>
@@ -505,7 +510,9 @@ export const MainTagEditor = hydrate<TagEditorProps>('div.all-tags', class exten
               </p>
             )}
             <p>
-              <a href="#" onClick={this.showAllTags.bind(this)}>{l('Show all tags.')}</a>
+              <a href="#" onClick={this.showAllTags.bind(this)}>
+                {l('Show all tags.')}
+              </a>
             </p>
           </>
         ) : null}
@@ -517,11 +524,18 @@ export const MainTagEditor = hydrate<TagEditorProps>('div.all-tags', class exten
             </p>
             {this.props.$c.user_exists ? (
               <p>
-                <a href="#" onClick={this.hideNegativeTags.bind(this)}>{l('Hide tags with a score of zero or below, and tags that you’ve downvoted.')}</a>
+                <a href="#" onClick={this.hideNegativeTags.bind(this)}>
+                  {l(
+                    `Hide tags with a score of zero or below,
+                     and tags that you’ve downvoted.`,
+                  )}
+                </a>
               </p>
             ) : (
               <p>
-                <a href="#" onClick={this.hideNegativeTags.bind(this)}>{l('Hide tags with a score of zero or below.')}</a>
+                <a href="#" onClick={this.hideNegativeTags.bind(this)}>
+                  {l('Hide tags with a score of zero or below.')}
+                </a>
               </p>
             )}
           </>
@@ -531,8 +545,11 @@ export const MainTagEditor = hydrate<TagEditorProps>('div.all-tags', class exten
           <>
             <h2>{l('Add Tags')}</h2>
             <p>
-              {exp.l('You can add your own {tagdocs|tags} below. Use commas to separate multiple tags.',
-                     {tagdocs: '/doc/Folksonomy_Tagging'})}
+              {exp.l(
+                `You can add your own {tagdocs|tags} below.
+                 Use commas to separate multiple tags.`,
+                {tagdocs: '/doc/Folksonomy_Tagging'},
+              )}
             </p>
             <form id="tag-form" onSubmit={this.addTags}>
               <p>

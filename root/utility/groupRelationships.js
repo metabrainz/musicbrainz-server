@@ -11,7 +11,8 @@ import * as React from 'react';
 
 import {INSTRUMENT_ROOT_ID} from '../static/scripts/common/constants';
 import linkedEntities from '../static/scripts/common/linkedEntities';
-import {interpolate, interpolateText} from '../static/scripts/edit/utility/linkPhrase';
+import {interpolate, interpolateText}
+  from '../static/scripts/edit/utility/linkPhrase';
 
 export type GroupedRelationshipsT = {
   [CoreEntityTypeT]: {
@@ -68,7 +69,8 @@ export default function groupRelationships(
     if (linkAttrs) {
       for (let i = 0; i < linkAttrs.length; i++) {
         const linkAttr = linkAttrs[i];
-        const linkAttrType = linkedEntities.link_attribute_type[linkAttr.typeID];
+        const linkAttrType =
+          linkedEntities.link_attribute_type[linkAttr.typeID];
         if (linkAttrType.root_id === INSTRUMENT_ROOT_ID) {
           hasInstruments = true;
           break;

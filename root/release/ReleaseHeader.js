@@ -10,7 +10,8 @@
 import React from 'react';
 
 import EntityHeader from '../components/EntityHeader';
-import ArtistCreditLink from '../static/scripts/common/components/ArtistCreditLink';
+import ArtistCreditLink
+  from '../static/scripts/common/components/ArtistCreditLink';
 import EntityLink from '../static/scripts/common/components/EntityLink';
 import TaggerIcon from '../static/scripts/common/components/TaggerIcon';
 import bracketed from '../static/scripts/common/utility/bracketed';

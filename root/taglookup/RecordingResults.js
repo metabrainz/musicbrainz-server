@@ -15,7 +15,9 @@ import {RecordingResultsInline} from '../search/components/RecordingResults';
 import TagLookupResults from './Results';
 import type {TagLookupResultsPropsT} from './types';
 
-const TagLookupRecordingResults = (props: TagLookupResultsPropsT<RecordingT>) => (
+const TagLookupRecordingResults = (
+  props: TagLookupResultsPropsT<RecordingT>,
+) => (
   <TagLookupResults {...props}>
     <RecordingResultsInline
       $c={props.$c}

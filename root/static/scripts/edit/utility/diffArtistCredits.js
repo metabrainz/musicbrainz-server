@@ -71,8 +71,10 @@ export default function diffArtistCredits(
       case CHANGE:
         // $FlowFixMe - zip doesn't like $ReadOnlyArray
         zip(diff.oldItems, diff.newItems).forEach(function (pair) {
-          const oldCredit = pair[0] || {artist: null, joinPhrase: '', name: ''};
-          const newCredit = pair[1] || {artist: null, joinPhrase: '', name: ''};
+          const oldCredit = pair[0] ||
+            {artist: null, joinPhrase: '', name: ''};
+          const newCredit = pair[1] ||
+            {artist: null, joinPhrase: '', name: ''};
 
           const oldJoin = (
             <DiffSide

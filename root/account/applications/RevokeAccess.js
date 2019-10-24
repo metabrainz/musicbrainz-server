@@ -13,7 +13,9 @@ import ConfirmLayout from '../../components/ConfirmLayout';
 
 const RevokeApplicationAccess = () => (
   <ConfirmLayout
-    question={l('Are you sure you want to revoke this application\'s access?')}
+    question={l(
+      `Are you sure you want to revoke this application's access?`,
+    )}
     title={l('Revoke Application Access')}
   />
 );

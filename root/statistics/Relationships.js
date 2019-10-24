@@ -12,7 +12,8 @@ import React from 'react';
 import {compare} from '../static/scripts/common/i18n';
 import {l_statistics as l} from '../static/scripts/common/i18n/statistics';
 import {withCatalystContext} from '../context';
-import formatEntityTypeName from '../static/scripts/common/utility/formatEntityTypeName';
+import formatEntityTypeName
+  from '../static/scripts/common/utility/formatEntityTypeName';
 
 import {formatCount, formatPercentage} from './utilities';
 import StatisticsLayout from './StatisticsLayout';
@@ -47,10 +48,20 @@ const TypeRows = withCatalystContext(({
   return (
     <>
       <tr>
-        <th style={{paddingLeft: (indent - 1) + 'em'}}>{l_relationships(type.long_link_phrase)}</th>
+        <th style={{paddingLeft: (indent - 1) + 'em'}}>
+          {l_relationships(type.long_link_phrase)}
+        </th>
         <td>{formatCount($c, stats[base + '.' + type.name])}</td>
-        <td>{formatCount($c, stats[base + '.' + type.name + '.inclusive'])}</td>
-        <td>{formatPercentage($c, stats[base + '.' + type.name + '.inclusive'] / stats[parent], 1)}</td>
+        <td>
+          {formatCount($c, stats[base + '.' + type.name + '.inclusive'])}
+        </td>
+        <td>
+          {formatPercentage(
+            $c,
+            stats[base + '.' + type.name + '.inclusive'] / stats[parent],
+            1,
+          )}
+        </td>
       </tr>
       {type.children ? (
         type.children.sort(comparePhrases).map((child) => (
@@ -122,7 +133,8 @@ const Relationships = ({
                   <td>
                     {formatPercentage(
                       $c,
-                      stats['count.ar.links.' + typeKey] / stats['count.ar.links'],
+                      stats['count.ar.links.' + typeKey] /
+                        stats['count.ar.links'],
                       1,
                     )}
                   </td>

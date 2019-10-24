@@ -13,7 +13,8 @@ import {withCatalystContext} from '../context';
 import Layout from '../layout';
 import formatUserDate from '../utility/formatUserDate';
 
-import RecordingRelationshipList from './components/RecordingRelationshipList';
+import RecordingRelationshipList
+  from './components/RecordingRelationshipList';
 import FilterLink from './FilterLink';
 import type {ReportDataT, ReportRecordingRelationshipT} from './types';
 

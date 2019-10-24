@@ -192,17 +192,20 @@ export const PART_OF_SERIES_LINK_TYPES = {
 };
 
 // orchestrator, orchestra performed, conductor, concertmaster
-export const PROBABLY_CLASSICAL_LINK_TYPES = [40, 45, 46, 150, 151, 300, 759, 760];
+export const PROBABLY_CLASSICAL_LINK_TYPES =
+  [40, 45, 46, 150, 151, 300, 759, 760];
 
 export const RT_SLAVE = 2;
 
-export const SERIES_ORDERING_ATTRIBUTE = 'a59c5830-5ec7-38fe-9a21-c7ea54f6650a';
+export const SERIES_ORDERING_ATTRIBUTE =
+  'a59c5830-5ec7-38fe-9a21-c7ea54f6650a';
 
 export const SERIES_ORDERING_TYPE_AUTOMATIC = 1;
 
 export const SERIES_ORDERING_TYPE_MANUAL = 2;
 
-export const UUID_REGEXP_STR = '[0-9a-f]{8}-[0-9a-f]{4}-[345][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}';
+export const UUID_REGEXP_STR =
+  '[0-9a-f]{8}-[0-9a-f]{4}-[345][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}';
 
 export const VARTIST_GID = '89ad4ac3-39f7-470e-963a-56509c546377';
 

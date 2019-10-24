@@ -180,7 +180,10 @@ class EditProfileForm extends React.Component<Props, State> {
         />
         {DBDefs.DB_STAGING_TESTING_FEATURES ? (
           <Warning
-            message={l('This is a development server. Your email address is not private or secure. Proceed with caution!')}
+            message={l(
+              `This is a development server. Your email address is not private
+               or secure. Proceed with caution!`,
+            )}
           />
         ) : null}
 
@@ -189,7 +192,10 @@ class EditProfileForm extends React.Component<Props, State> {
           label={addColonText(l('Email'))}
         />
         <FormRow hasNoLabel>
-          {l('If you change your email address, you will be required to verify it.')}
+          {l(
+            `If you change your email address,
+             you will be required to verify it.`,
+          )}
         </FormRow>
 
         <FormRowURLLong
@@ -232,7 +238,10 @@ class EditProfileForm extends React.Component<Props, State> {
           <FieldErrors field={areaField.name} />
         </FormRow>
         <FormRow hasNoLabel>
-          {l('You can pick the level you prefer here: your country, region or city. Be as specific as you want to!')}
+          {l(
+            `You can pick the level you prefer here: your country,
+             region or city. Be as specific as you want to!`,
+          )}
         </FormRow>
 
         <FormRowPartialDate
@@ -240,7 +249,10 @@ class EditProfileForm extends React.Component<Props, State> {
           label={l('Birth date:')}
         />
         <FormRow hasNoLabel>
-          {l('We will use your birth date to display your age in years on your profile page.')}
+          {l(
+            `We will use your birth date to display your age
+             in years on your profile page.`,
+          )}
         </FormRow>
 
         <FormRowTextArea

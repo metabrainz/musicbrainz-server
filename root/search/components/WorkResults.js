@@ -10,7 +10,8 @@
 import * as React from 'react';
 
 import {withCatalystContext} from '../../context';
-import WorkListEntry from '../../static/scripts/common/components/WorkListEntry';
+import WorkListEntry
+  from '../../static/scripts/common/components/WorkListEntry';
 import type {ResultsPropsWithContextT} from '../types';
 
 import PaginatedSearchResults from './PaginatedSearchResults';

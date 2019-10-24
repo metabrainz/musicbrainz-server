@@ -21,7 +21,9 @@ const PlaceHeader = ({place, page}: Props) => (
     entity={place}
     headerClass="placeheader"
     page={page}
-    subHeading={place.typeName ? lp_attributes(place.typeName, 'place_type') : l('Place')}
+    subHeading={place.typeName
+      ? lp_attributes(place.typeName, 'place_type')
+      : l('Place')}
   />
 );
 

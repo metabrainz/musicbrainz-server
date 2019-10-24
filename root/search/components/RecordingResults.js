@@ -12,7 +12,8 @@ import React from 'react';
 import {CatalystContext, withCatalystContext} from '../../context';
 import EntityLink from '../../static/scripts/common/components/EntityLink';
 import TaggerIcon from '../../static/scripts/common/components/TaggerIcon';
-import formatTrackLength from '../../static/scripts/common/utility/formatTrackLength';
+import formatTrackLength
+  from '../../static/scripts/common/utility/formatTrackLength';
 import loopParity from '../../utility/loopParity';
 import type {InlineResultsPropsT, ResultsPropsWithContextT} from '../types';
 import ArtistCreditLink
@@ -77,7 +78,9 @@ function buildResultWithReleases(result) {
         <td>{extraRow.medium_position}</td>
         <td>
           {releaseGroup && releaseGroup.typeName
-            ? lp_attributes(releaseGroup.typeName, 'release_group_primary_type')
+            ? lp_attributes(
+              releaseGroup.typeName, 'release_group_primary_type',
+            )
             : null}
         </td>
       </tr>
@@ -154,7 +157,8 @@ const RecordingResults = ({
       {$c.user && !$c.user.is_editing_disabled ? (
         <p>
           {exp.l('Alternatively, you may {uri|add a new recording}.', {
-            uri: '/recording/create?edit-recording.name=' + encodeURIComponent(query),
+            uri: '/recording/create?edit-recording.name=' +
+              encodeURIComponent(query),
           })}
         </p>
       ) : null}

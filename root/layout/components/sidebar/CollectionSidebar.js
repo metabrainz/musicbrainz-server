@@ -72,13 +72,19 @@ const CollectionSidebar = ({$c, collection}: Props) => (
         <ul className="links">
           {$c.stash.subscribed ? (
             <li>
-              <a href={'/account/subscriptions/collection/remove?id=' + String(collection.id)}>
+              <a
+                href={'/account/subscriptions/collection/remove?id=' +
+                  String(collection.id)}
+              >
                 {l('Unsubscribe')}
               </a>
             </li>
           ) : (
             <li>
-              <a href={'/account/subscriptions/collection/add?id=' + String(collection.id)}>
+              <a
+                href={'/account/subscriptions/collection/add?id=' +
+                  String(collection.id)}
+              >
                 {l('Subscribe')}
               </a>
             </li>

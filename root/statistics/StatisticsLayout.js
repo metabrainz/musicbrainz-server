@@ -14,7 +14,8 @@ import type {Node as ReactNode} from 'react';
 import Layout from '../layout';
 import Tabs from '../components/Tabs';
 import {unwrapNl} from '../static/scripts/common/i18n';
-import {l_statistics as l, N_l_statistics as N_l} from '../static/scripts/common/i18n/statistics';
+import {l_statistics as l, N_l_statistics as N_l}
+  from '../static/scripts/common/i18n/statistics';
 
 type StatisticsLayoutPropsT = {
   +children: ReactNode,

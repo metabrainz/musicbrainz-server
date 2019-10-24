@@ -44,7 +44,9 @@ const InstrumentList = ({
                 </td>
                 <td>
                   {item.instrument.typeName
-                    ? lp_attributes(item.instrument.typeName, 'instrument_type')
+                    ? lp_attributes(
+                      item.instrument.typeName, 'instrument_type',
+                    )
                     : l('Unclassified instrument')}
                 </td>
                 <td>

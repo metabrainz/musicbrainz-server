@@ -15,7 +15,8 @@ const ELEMENT_NODE = window.Node.ELEMENT_NODE;
 const COMMENT_NODE = window.Node.COMMENT_NODE;
 
 function cmpOptions(a, b) {
-    return (a.data.child_order - b.data.child_order) || compare(a.text, b.text);
+    return (a.data.child_order - b.data.child_order) ||
+        compare(a.text, b.text);
 }
 
 MB.forms = {
@@ -34,7 +35,9 @@ MB.forms = {
 
                 opt.value = child[valueAttr];
                 opt.text = _.repeat(nbsp, indent * 2) +
-                           (_.isFunction(textAttr) ? textAttr(child) : child[textAttr]);
+                           (_.isFunction(textAttr)
+                               ? textAttr(child)
+                               : child[textAttr]);
                 opt.data = child;
                 childOptions.push(opt);
             }
@@ -79,14 +82,21 @@ MB.forms = {
 
 ko.bindingHandlers.loop = {
 
-    init: function (parentNode, valueAccessor, allBindings, viewModel, bindingContext) {
+    init: function (
+        parentNode,
+        valueAccessor,
+        allBindings,
+        viewModel,
+        bindingContext,
+    ) {
         var options = valueAccessor(), observableArray = options.items;
 
         // The way this binding handler works is by using the "arrayChange"
         // event found on observableArrays, which notifies a list of changes
         // we can apply to the UI.
 
-        if (!ko.isObservable(observableArray) || !observableArray.cacheDiffForKnownOperation) {
+        if (!ko.isObservable(observableArray) ||
+            !observableArray.cacheDiffForKnownOperation) {
             throw new Error("items must an an observableArray");
         }
 
@@ -95,7 +105,8 @@ ko.bindingHandlers.loop = {
             template = [];
 
         _.each(ko.virtualElements.childNodes(parentNode), function (node) {
-            if (node.nodeType === ELEMENT_NODE || node.nodeType === COMMENT_NODE) {
+            if (node.nodeType === ELEMENT_NODE ||
+                node.nodeType === COMMENT_NODE) {
                 template.push(node);
             }
         });

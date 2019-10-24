@@ -10,7 +10,8 @@
 import * as React from 'react';
 
 import CDStubLink from '../../../static/scripts/common/components/CDStubLink';
-import escapeLuceneValue from '../../../static/scripts/common/utility/escapeLuceneValue';
+import escapeLuceneValue
+  from '../../../static/scripts/common/utility/escapeLuceneValue';
 import parseDate from '../../../static/scripts/common/utility/parseDate';
 import {age, displayAgeAgo} from '../../../utility/age';
 
@@ -36,10 +37,13 @@ const CDStubSidebar = ({cdstub}: Props) => {
   }) : null;
 
   const searchQuery = (
-    'artist:(' + escapeLuceneValue(cdstub.artist || l('Various Artists')) + ') ' +
+    'artist:(' +
+    escapeLuceneValue(cdstub.artist || l('Various Artists')) + ') ' +
     'release:(' + escapeLuceneValue(cdstub.title) + ') ' +
     'tracksmedium:(' + escapeLuceneValue(cdstub.track_count) + ')' +
-    (cdstub.barcode ? ' barcode:(' + escapeLuceneValue(cdstub.barcode) + ')' : '')
+    (cdstub.barcode
+      ? ' barcode:(' + escapeLuceneValue(cdstub.barcode) + ')'
+      : '')
   );
 
   const toc = cdstub.toc;
@@ -86,7 +90,10 @@ const CDStubSidebar = ({cdstub}: Props) => {
           </li>
         ) : null}
         <li>
-          <a href={'/search?advanced=1&type=release&query=' + encodeURIComponent(searchQuery)}>
+          <a
+            href={'/search?advanced=1&type=release&query=' +
+              encodeURIComponent(searchQuery)}
+          >
             {l('Search the database for this CD')}
           </a>
         </li>

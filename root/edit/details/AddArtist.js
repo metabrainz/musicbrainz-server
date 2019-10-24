@@ -17,7 +17,8 @@ import {
 } from '../../artist/utils';
 import formatDate from '../../static/scripts/common/utility/formatDate';
 import isDateEmpty from '../../static/scripts/common/utility/isDateEmpty';
-import DescriptiveLink from '../../static/scripts/common/components/DescriptiveLink';
+import DescriptiveLink
+  from '../../static/scripts/common/components/DescriptiveLink';
 import EntityLink from '../../static/scripts/common/components/EntityLink';
 import yesNo from '../../static/scripts/common/utility/yesNo';
 import formatIsni from '../../utility/formatIsni';

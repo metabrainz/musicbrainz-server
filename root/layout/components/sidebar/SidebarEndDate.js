@@ -9,7 +9,8 @@
 
 import * as React from 'react';
 
-import {bracketedText} from '../../../static/scripts/common/utility/bracketed';
+import {bracketedText}
+  from '../../../static/scripts/common/utility/bracketed';
 import formatDate from '../../../static/scripts/common/utility/formatDate';
 import isDateEmpty from '../../../static/scripts/common/utility/isDateEmpty';
 import {displayAge} from '../../../utility/age';

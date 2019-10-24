@@ -10,7 +10,8 @@
 import React from 'react';
 
 import {withCatalystContext} from '../../../context';
-import ArtistCreditLink from '../../../static/scripts/common/components/ArtistCreditLink';
+import ArtistCreditLink
+  from '../../../static/scripts/common/components/ArtistCreditLink';
 import entityHref from '../../../static/scripts/common/utility/entityHref';
 import ExternalLinks from '../ExternalLinks';
 import releaseGroupType from '../../../utility/releaseGroupType';

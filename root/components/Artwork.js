@@ -40,7 +40,9 @@ export const ArtworkImage = ({artwork, fallback, message}: Props) => (
       className="cover-art-image"
       data-fallback={fallback || ''}
       data-large-thumbnail={artwork.large_thumbnail}
-      data-message={message ? message : l('Image not available yet, please try again in a few minutes.')}
+      data-message={message
+        ? message
+        : l('Image not available yet, please try again in a few minutes.')}
       data-small-thumbnail={artwork.small_thumbnail}
       data-title={artworkHover(artwork)}
     />
@@ -49,14 +51,19 @@ export const ArtworkImage = ({artwork, fallback, message}: Props) => (
 
 export const Artwork = ({artwork, fallback, message}: Props) => (
   <a
-    className={artwork.mime_type === 'application/pdf' ? 'artwork-pdf' : 'artwork-image'}
+    className={artwork.mime_type === 'application/pdf'
+      ? 'artwork-pdf'
+      : 'artwork-image'}
     href={artwork.image}
     title={artworkHover(artwork)}
   >
     {artwork.mime_type === 'application/pdf' ? (
       <div
         className="file-format-tag"
-        title={l('This is a PDF file, the thumbnail may not show the entire contents of the file.')}
+        title={l(
+          `This is a PDF file, the thumbnail may not show
+           the entire contents of the file.`,
+        )}
       >
         {l('PDF file')}
       </div>

@@ -16,7 +16,8 @@ import FieldErrors from '../components/FieldErrors';
 import FormRowCheckbox from '../components/FormRowCheckbox';
 import {withCatalystContext} from '../context';
 import Layout from '../layout';
-import DescriptiveLink from '../static/scripts/common/components/DescriptiveLink';
+import DescriptiveLink
+  from '../static/scripts/common/components/DescriptiveLink';
 
 type ArtistMergeForm = FormT<{
   +edit_note: ReadOnlyFieldT<string>,
@@ -36,7 +37,11 @@ const ArtistMerge = ({$c, form, toMerge}: Props) => {
   function buildMergeTarget(artist, index) {
     return (
       <li key={artist.id}>
-        <input name={'merge.merging.' + index} type="hidden" value={artist.id} />
+        <input
+          name={'merge.merging.' + index}
+          type="hidden"
+          value={artist.id}
+        />
         <input
           checked={artist.id === form.field.target.value}
           name="merge.target"
