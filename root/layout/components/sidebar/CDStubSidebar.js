@@ -36,14 +36,19 @@ const CDStubSidebar = ({cdstub}: Props) => {
     ended: true,
   }) : null;
 
+  const artistField =
+    escapeLuceneValue(cdstub.artist || l('Various Artists'));
+  const releaseField = escapeLuceneValue(cdstub.title);
+  const tracksMediumField = escapeLuceneValue(cdstub.track_count);
+  const barcodeField = cdstub.barcode
+    ? escapeLuceneValue(cdstub.barcode)
+    : null;
+
   const searchQuery = (
-    'artist:(' +
-    escapeLuceneValue(cdstub.artist || l('Various Artists')) + ') ' +
-    'release:(' + escapeLuceneValue(cdstub.title) + ') ' +
-    'tracksmedium:(' + escapeLuceneValue(cdstub.track_count) + ')' +
-    (cdstub.barcode
-      ? ' barcode:(' + escapeLuceneValue(cdstub.barcode) + ')'
-      : '')
+    `artist:(${artistField}) ` +
+    `release:(${releaseField}) ` +
+    `tracksmedium:(${tracksMediumField})` +
+    (barcodeField ? ` barcode:(${barcodeField})` : '')
   );
 
   const toc = cdstub.toc;
