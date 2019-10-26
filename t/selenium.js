@@ -37,7 +37,6 @@ const httpProxy = require('http-proxy');
 const jsdom = require('jsdom');
 const isEqualWith = require('lodash/isEqualWith');
 const path = require('path');
-const shellQuote = require('shell-quote');
 const test = require('tape');
 const TestCls = require('tape/lib/test');
 const utf8 = require('utf8');
@@ -529,10 +528,6 @@ async function runCommands(commands, t) {
   }
 
   async function getDbConfig(name) {
-    if (name !== 'SYSTEM' && name !== 'TEST') {
-      return null;
-    }
-
     const result = (await execFile(
       'sh', [
         '-c',
@@ -550,78 +545,30 @@ async function runCommands(commands, t) {
     };
   }
 
-  const sysDb = await getDbConfig('SYSTEM');
-  const testDb = await getDbConfig('TEST');
+  const seleniumDb = await getDbConfig('SELENIUM');
+  const systemDb = await getDbConfig('SYSTEM');
+  const hostPort = ['-h', seleniumDb.host, '-p', seleniumDb.port];
 
-  const hostPort = ['-h', testDb.host, '-p', testDb.port];
-
-  /*
-   * In our production tests setup, there exists a musicbrainz_test_template
-   * database based on a pristine musicbrainz_test, so that we can run
-   * t/tests.t in parallel without having to worry about modifications to
-   * musicbrainz_test.
-   */
-  const testTemplateExists = await dbExists('musicbrainz_test_template');
-  const createdbArgs = [
-    '-O', testDb.user,
-    '-T', testTemplateExists ? 'musicbrainz_test_template' : testDb.database,
-    '-U', sysDb.user,
-    ...hostPort,
-    'musicbrainz_selenium',
-  ];
-
-  const dropdbArgs = [...hostPort, '-U', sysDb.user, 'musicbrainz_selenium'];
-
-  function execSql(sqlFile) {
-    const args = [
-      '-c',
-      shellQuote.quote(['cat', path.resolve(__dirname, 'sql', sqlFile)]) +  ' | ' +
-      shellQuote.quote(['psql', ...hostPort, '-U', testDb.user, 'musicbrainz_selenium']),
-    ];
-    return execFile('sh', args, pgPasswordEnv(testDb));
-  }
-
-  async function createSeleniumDb() {
-    await execFile('createdb', createdbArgs, pgPasswordEnv(sysDb));
-    await execSql('selenium.sql');
-  }
-
-  async function dropSeleniumDb() {
+  async function cleanSeleniumDb(extraSql) {
     // Close active sessions before dropping the database.
     await execFile(
       'psql',
       [
         ...hostPort,
-        '-U', sysDb.user,
+        '-U', systemDb.user,
         '-c', `
           SELECT pg_terminate_backend(pg_stat_activity.pid)
             FROM pg_stat_activity
-           WHERE datname = 'musicbrainz_selenium'
+           WHERE datname = '${seleniumDb.database.replace(/'/g, "''")}'
         `,
         'template1',
       ],
-      pgPasswordEnv(sysDb),
+      pgPasswordEnv(systemDb),
     );
-    return execFile('dropdb', dropdbArgs, pgPasswordEnv(sysDb));
-  }
-
-  async function dbExists(name) {
-    const result = await execFile(
-      'psql', [...hostPort, '-U', sysDb.user, '-c', 'SELECT 1', name],
-      pgPasswordEnv(sysDb),
-    ).catch(x => x);
-
-    if (result.code === 0) {
-      return true;
-    } else if (result.code !== 2) {
-      // An error other than the database not existing occurred.
-      throw result.error;
-    }
-    return false;
-  }
-
-  if (await dbExists('musicbrainz_selenium')) {
-    await dropSeleniumDb();
+    await execFile(
+      path.resolve(__dirname, '../script/reset_selenium_env.sh'),
+      extraSql ? [path.resolve(__dirname, 'sql', extraSql)] : [],
+    );
   }
 
   const loginPlan = getPlan(testPath('Log_In.html'));
@@ -646,11 +593,7 @@ async function runCommands(commands, t) {
 
         accum.then(async function () {
           try {
-            await createSeleniumDb();
-
-            if (stest.sql) {
-              await execSql(stest.sql);
-            }
+            await cleanSeleniumDb(stest.sql);
 
             if (stest.login) {
               await runCommands(loginPlan.commands, t);
@@ -662,7 +605,6 @@ async function runCommands(commands, t) {
               if (stest.login) {
                 await runCommands(logoutPlan.commands, t);
               }
-              await dropSeleniumDb();
             }
           } catch (error) {
             t.fail(

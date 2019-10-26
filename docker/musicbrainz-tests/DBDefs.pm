@@ -113,6 +113,9 @@ sub PLUGIN_CACHE_OPTIONS {
     };
 }
 
+sub SEARCH_SERVER { '127.0.0.1:8983/solr' }
+sub SEARCH_ENGINE { 'SOLR' }
+
 sub USE_SET_DATABASE_HEADER { 1 }
 
 # CircleCI sets `NO_PROXY=127.0.0.1,localhost` in every container,

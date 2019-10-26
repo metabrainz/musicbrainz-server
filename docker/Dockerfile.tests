@@ -29,7 +29,6 @@ RUN apt-get update && \
         ./nodejs_10.17.0-1nodesource1_amd64.deb \
         build-essential \
         bzip2 \
-        default-jre \
         gcc \
         gettext \
         git \
@@ -58,26 +57,78 @@ RUN apt-get update && \
         libxml2 \
         libxml2-dev \
         locales \
+        lsof \
         make \
+        maven \
+        openjdk-8-jdk \
+        openjdk-8-jre \
         openssh-client \
         perl \
         postgresql \
         postgresql-10-pgtap \
         postgresql-contrib \
         postgresql-server-dev-10 \
-        python-minimal \
+        python2.7-dev \
+        python2.7-minimal \
+        rabbitmq-server \
         redis-server \
         runit \
         runit-systemd \
         sudo \
         unzip \
+        virtualenv \
         yarn && \
     rm -rf /var/lib/apt/lists/* && \
     rm google-chrome-stable_current_amd64.deb && \
-    rm nodejs_10.17.0-1nodesource1_amd64.deb
+    rm nodejs_10.17.0-1nodesource1_amd64.deb && \
+    update-java-alternatives -s java-1.8.0-openjdk-amd64 && \
+    systemctl disable rabbitmq-server
+
+ENV PG_AMQP_TAG v0.4.1
+
+RUN git clone --branch $PG_AMQP_TAG --depth 1 https://github.com/omniti-labs/pg_amqp.git && \
+    cd pg_amqp && \
+    make && \
+    make install && \
+    cd /home/musicbrainz
+
+ENV SOLR_VERSION 7.7.2
+ENV SOLR_HOME /opt/solr/server/solr
+
+RUN curl -sLO https://www.apache.org/dist/lucene/solr/$SOLR_VERSION/solr-$SOLR_VERSION.tgz && \
+    tar xzf solr-$SOLR_VERSION.tgz solr-$SOLR_VERSION/bin/install_solr_service.sh --strip-components=2 && \
+    ./install_solr_service.sh solr-$SOLR_VERSION.tgz && \
+    systemctl disable solr
 
 RUN wget -q -O - https://cpanmin.us | perl - App::cpanminus && \
     cpanm Carton JSON::XS
+
+ENV MB_SOLR_TAG v3.1.1
+
+# Steps taken from https://github.com/metabrainz/mb-solr/blob/master/Dockerfile
+RUN sudo -E -H -u musicbrainz git clone --recursive https://github.com/metabrainz/mb-solr.git && \
+    cd mb-solr && \
+    git checkout $MB_SOLR_TAG && \
+    cd mmd-schema/brainz-mmd2-jaxb && \
+    mvn install && \
+    cd ../../mb-solr && \
+    mvn package -DskipTests && \
+    mkdir -p /opt/solr/lib $SOLR_HOME && \
+    cp target/mb-solr-0.0.1-SNAPSHOT-jar-with-dependencies.jar /opt/solr/lib/ && \
+    cd .. && \
+    cp -R mbsssss $SOLR_HOME/mycores/ && \
+    sed -i'' 's|</solr>|<str name="sharedLib">/opt/solr/lib</str></solr>|' $SOLR_HOME/solr.xml && \
+    mkdir $SOLR_HOME/data && \
+    chown -R solr:solr /opt/solr/ && \
+    cd /home/musicbrainz
+
+ENV SIR_COMMIT 7c4c50b
+
+RUN sudo -E -H -u musicbrainz git clone https://github.com/metabrainz/sir.git && \
+    cd sir && \
+    sudo -E -H -u musicbrainz git reset --hard $SIR_COMMIT && \
+    sudo -E -H -u musicbrainz sh -c 'virtualenv --python=python2 venv; . venv/bin/activate; pip install -r requirements.txt' && \
+    cd /home/musicbrainz
 
 RUN curl -sLO https://chromedriver.storage.googleapis.com/78.0.3904.70/chromedriver_linux64.zip && \
     unzip chromedriver_linux64.zip -d /usr/local/bin && \
@@ -104,6 +155,8 @@ COPY --chown=postgres:postgres \
 RUN sudo -E -H -u postgres touch \
     $PGDATA/pg_ident.conf
 
+COPY docker/musicbrainz-tests/sir-config.ini sir/config.ini
+
 COPY \
     docker/musicbrainz-tests/chrome.service \
     /etc/service/chrome/run
@@ -113,6 +166,12 @@ COPY \
 COPY \
     docker/musicbrainz-tests/redis.service \
     /etc/service/redis/run
+COPY \
+    docker/musicbrainz-tests/sir-queue-purger.service \
+    /etc/service/sir-queue-purger/run
+COPY \
+    docker/musicbrainz-tests/solr.service \
+    /etc/service/solr/run
 COPY \
     docker/scripts/start_template_renderer.sh \
     /etc/service/template-renderer/run
@@ -126,6 +185,8 @@ RUN chmod 755 \
         /etc/service/chrome/run \
         /etc/service/postgresql/run \
         /etc/service/redis/run \
+        /etc/service/sir-queue-purger/run \
+        /etc/service/solr/run \
         /etc/service/template-renderer/run \
         /etc/service/vnu/run \
         /etc/service/website/run
@@ -133,6 +194,8 @@ RUN touch \
     /etc/service/chrome/down \
     /etc/service/postgresql/down \
     /etc/service/redis/down \
+    /etc/service/sir-queue-purger/down \
+    /etc/service/solr/down \
     /etc/service/template-renderer/down \
     /etc/service/vnu/down \
     /etc/service/website/down

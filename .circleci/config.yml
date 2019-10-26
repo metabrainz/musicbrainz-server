@@ -4,10 +4,10 @@ executors:
   musicbrainz-tests:
     docker:
       - environment:
-          MMD_SCHEMA_TAG: v-2019-01-07
           PERL_CARTON_PATH: &carton /home/musicbrainz/carton-local
           PERL_CPANM_OPT: --notest --no-interactive
-        image: metabrainz/musicbrainz-tests:v-2019-11-14
+          SIR_DIR: /home/musicbrainz/sir
+        image: metabrainz/musicbrainz-tests:v-2020-01
         user: root
     working_directory: /home/musicbrainz/musicbrainz-server
 
@@ -54,6 +54,7 @@ jobs:
           sudo -u postgres createdb -O musicbrainz -T musicbrainz_test -U postgres musicbrainz_test_full_export
           sudo -u postgres createdb -O musicbrainz -T musicbrainz_test -U postgres musicbrainz_test_sitemaps
           rm /etc/service/{redis,template-renderer,vnu,website}/down && sv start redis template-renderer vnu website
+          export MMDSCHEMA=/home/musicbrainz/mb-solr/mmd-schema
           export JUNIT_OUTPUT_FILE=junit_output/perl_and_pgtap.xml
           sudo -E -H -u musicbrainz carton exec -- prove \
               --pgtap-option dbname=musicbrainz_test \
@@ -86,9 +87,25 @@ jobs:
           echo '127.0.0.1 mbtest' >> /etc/hosts
           ./docker/musicbrainz-tests/install_pg_extensions.sh
           rm /etc/service/{postgresql,redis,template-renderer,website}/down && sv start postgresql redis template-renderer website
-          # Wait for the website to start.
-          sleep 5
-          sudo -u postgres createdb -O musicbrainz -T musicbrainz_test -U postgres musicbrainz_test_template
+          # Wait for the database and website to start.
+          sleep 10
+          # Create the musicbrainz_selenium DB
+          sudo -u postgres createdb -O musicbrainz -T musicbrainz_test -U postgres musicbrainz_selenium
+          # Setup search
+          # Set the open file limit Solr requests on startup
+          ulimit -n 65000
+          rm /etc/service/solr/down && sv up solr
+          service rabbitmq-server start
+          rabbitmqctl add_user sir sir
+          rabbitmqctl add_vhost /sir-test
+          rabbitmqctl set_permissions -p /sir-test sir '.*' '.*' '.*'
+          cd /home/musicbrainz/sir
+          sudo -E -H -u musicbrainz sh -c '. venv/bin/activate; python -m sir amqp_setup; python -m sir extension; python -m sir triggers --broker-id=1'
+          sudo -u postgres psql -U postgres -f sql/CreateExtension.sql musicbrainz_selenium
+          sudo -u postgres psql -U musicbrainz -f sql/CreateFunctions.sql musicbrainz_selenium
+          sudo -u postgres psql -U musicbrainz -f sql/CreateTriggers.sql musicbrainz_selenium
+          rm /etc/service/sir-queue-purger/down && sv start sir-queue-purger
+          cd /home/musicbrainz/musicbrainz-server
           # Replace 'localhost:5000' in the Selenium tests with
           # 'mbtest:5000', our custom host alias. (Refer to the comment
           # in the perl-and-pgtap job above.) This mostly only matters
@@ -136,25 +153,6 @@ jobs:
           cd postgresql-musicbrainz-unaccent && make && make install && cd -
 
       - restore_cache:
-          key: v1-mmd-schema-{{ .Environment.MMD_SCHEMA_TAG }}
-      - run: |
-          cd /home/musicbrainz
-          if [[ ! -d mmd-schema ]]; then
-            sudo -E -H -u musicbrainz git clone https://github.com/metabrainz/mmd-schema.git
-            cd mmd-schema
-          else
-            chown -R musicbrainz:musicbrainz mmd-schema
-            cd mmd-schema
-            sudo -E -H -u musicbrainz git fetch origin
-          fi
-          sudo -E -H -u musicbrainz git checkout $MMD_SCHEMA_TAG
-          cd ../musicbrainz-server
-      - save_cache:
-          key: v1-mmd-schema-{{ .Environment.MMD_SCHEMA_TAG }}
-          paths:
-            - /home/musicbrainz/mmd-schema
-
-      - restore_cache:
           keys:
             - v2-node-{{ checksum "yarn.lock" }}
             - v2-node-
@@ -197,7 +195,6 @@ jobs:
           root: *home
           paths:
             - "carton-local"
-            - "mmd-schema"
             - "musicbrainz-server"
             - "pgdata"
 
