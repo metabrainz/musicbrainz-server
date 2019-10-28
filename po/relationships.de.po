@@ -17,7 +17,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2019-10-15 16:00+0000\n"
+"PO-Revision-Date: 2019-10-26 22:42+0000\n"
 "Last-Translator: David Kellner <email address hidden>\n"
 "Language-Team: German (http://www.transifex.com/musicbrainz/musicbrainz/language/de/)\n"
 "MIME-Version: 1.0\n"
@@ -1132,7 +1132,7 @@ msgstr "Dieses Attribut gibt an, dass der streambare Inhalt Video statt nur Audi
 
 #: DB:link_attribute_type/description:788
 msgid "This attribute indicates the number of a work in a series."
-msgstr "Dieses Attribut gibt die Anzahl von Werken in einer Serie an."
+msgstr "Dieses Attribut gibt die Nummer eines Werkes in einer Serie an."
 
 #: DB:link_attribute_type/description:425
 msgid ""

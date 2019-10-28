@@ -4,8 +4,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-05-23 20:14+0200\n"
-"PO-Revision-Date: 2019-08-25 10:16+0000\n"
+"POT-Creation-Date: 2019-10-22 09:13-0500\n"
+"PO-Revision-Date: 2019-10-27 12:10+0000\n"
 "Last-Translator: Besnik <email address hidden>\n"
 "Language-Team: Albanian (http://www.transifex.com/musicbrainz/musicbrainz/language/sq/)\n"
 "MIME-Version: 1.0\n"
@@ -595,18 +595,18 @@ msgid "Controls"
 msgstr ""
 
 #: ../root/statistics/layout.tt:4 ../root/statistics/Countries.js:36
-#: ../root/statistics/StatisticsLayout.js:49
+#: ../root/statistics/StatisticsLayout.js:51
 msgid "Countries"
 msgstr ""
 
 #: ../root/statistics/layout.tt:4 ../root/statistics/CoverArt.js:68
-#: ../root/statistics/StatisticsLayout.js:59 ../root/statistics/stats.js:27
+#: ../root/statistics/StatisticsLayout.js:61 ../root/statistics/stats.js:27
 msgid "Cover Art"
 msgstr "Kopertinë"
 
 #: ../root/statistics/layout.tt:23 ../root/statistics/layout.tt:34
-#: ../root/statistics/StatisticsLayout.js:95
-#: ../root/statistics/StatisticsLayout.js:109
+#: ../root/statistics/StatisticsLayout.js:97
+#: ../root/statistics/StatisticsLayout.js:111
 msgid "Database Statistics"
 msgstr ""
 
@@ -620,13 +620,13 @@ msgstr ""
 
 #: ../root/statistics/layout.tt:4 ../root/statistics/Editors.js:97
 #: ../root/statistics/Editors.js:108 ../root/statistics/Index.js:838
-#: ../root/statistics/StatisticsLayout.js:79
+#: ../root/statistics/StatisticsLayout.js:81
 msgid "Editors"
 msgstr "Përpunues"
 
 #: ../root/statistics/layout.tt:4 ../root/statistics/Edits.js:32
 #: ../root/statistics/Edits.js:36 ../root/statistics/Edits.js:45
-#: ../root/statistics/Index.js:954 ../root/statistics/StatisticsLayout.js:69
+#: ../root/statistics/Index.js:954 ../root/statistics/StatisticsLayout.js:71
 #: ../root/statistics/stats.js:194
 msgid "Edits"
 msgstr ""
@@ -635,7 +635,7 @@ msgstr ""
 msgid "Exact Values (items vs. day)"
 msgstr ""
 
-#: ../root/statistics/layout.tt:4 ../root/statistics/StatisticsLayout.js:74
+#: ../root/statistics/layout.tt:4 ../root/statistics/StatisticsLayout.js:76
 #: ../root/statistics/stats.js:29
 msgid "Formats"
 msgstr ""
@@ -644,7 +644,7 @@ msgstr ""
 msgid "Hover and click on vertical lines"
 msgstr ""
 
-#: ../root/statistics/layout.tt:4 ../root/statistics/StatisticsLayout.js:54
+#: ../root/statistics/layout.tt:4 ../root/statistics/StatisticsLayout.js:56
 msgid "Languages/Scripts"
 msgstr ""
 
@@ -661,7 +661,7 @@ msgid "MusicBrainz Events:"
 msgstr ""
 
 #: ../root/statistics/layout.tt:4 ../root/statistics/Index.js:63
-#: ../root/statistics/StatisticsLayout.js:44
+#: ../root/statistics/StatisticsLayout.js:46
 msgid "Overview"
 msgstr "Përmbledhje"
 
@@ -675,7 +675,7 @@ msgstr ""
 
 #: ../root/statistics/layout.tt:4 ../root/statistics/Relationships.js:77
 #: ../root/statistics/Relationships.js:81
-#: ../root/statistics/StatisticsLayout.js:64 ../root/statistics/stats.js:33
+#: ../root/statistics/StatisticsLayout.js:66 ../root/statistics/stats.js:33
 #: ../root/statistics/stats.js:43
 msgid "Relationships"
 msgstr "Marrëdhënie"
@@ -684,7 +684,7 @@ msgstr "Marrëdhënie"
 msgid "Reset:"
 msgstr ""
 
-#: ../root/statistics/layout.tt:4 ../root/statistics/StatisticsLayout.js:84
+#: ../root/statistics/layout.tt:4 ../root/statistics/StatisticsLayout.js:86
 msgid "Timeline"
 msgstr ""
 
@@ -1108,7 +1108,7 @@ msgstr ""
 
 #: ../root/statistics/Index.js:352
 msgid "Release Status"
-msgstr ""
+msgstr "Gjendje Hedhjeje Në Qarkullim"
 
 #: ../root/statistics/Index.js:371
 msgid "No status set"
@@ -1198,7 +1198,7 @@ msgstr ""
 
 #: ../root/statistics/Index.js:560 ../root/statistics/stats.js:613
 msgid "Release Groups"
-msgstr ""
+msgstr "Grupe Hedhjesh Në Qarkullim"
 
 #: ../root/statistics/Index.js:564
 msgid "Primary Types"
@@ -1443,11 +1443,13 @@ msgid "No relationship statistics available."
 msgstr ""
 
 #: ../root/statistics/Relationships.js:91
-msgid "Exclusive"
+msgctxt "relationships"
+msgid "This type only"
 msgstr ""
 
 #: ../root/statistics/Relationships.js:92
-msgid "Inclusive"
+msgctxt "relationships"
+msgid "Including subtypes"
 msgstr ""
 
 #: ../root/statistics/Relationships.js:109
@@ -1977,7 +1979,7 @@ msgstr ""
 
 #: ../root/statistics/stats.js:451
 msgid "Ratings"
-msgstr ""
+msgstr "Vlerësime"
 
 #: ../root/statistics/stats.js:456
 msgid "Count of all Artist Ratings"

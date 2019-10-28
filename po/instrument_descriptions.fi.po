@@ -11,8 +11,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2019-10-14 21:16+0000\n"
-"Last-Translator: yvanz\n"
+"PO-Revision-Date: 2019-10-23 20:34+0000\n"
+"Last-Translator: Michael Wiencek <email address hidden>\n"
 "Language-Team: Finnish (http://www.transifex.com/musicbrainz/musicbrainz/language/fi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -359,6 +359,15 @@ msgid ""
 "Although similar to and introduced at the same time as the shamisen, it is "
 "unique to japan. With ebony neck and coconut body its three (rarely four) "
 "strings are played upright with a horsetail bow."
+msgstr ""
+
+#. name:kendhang kulanter
+#: DB:instrument/description:997
+msgid ""
+"Always used together with the <a "
+"href=\"/instrument/c588cc24-e139-44a9-8a48-7963eb693dd1\">indung</a>, dual "
+"child drums are divided into the katipung (\"besar\" or larger) and the "
+"kutiplak (\"kecil\" or smaller)."
 msgstr ""
 
 #. name:kethuk
@@ -1360,6 +1369,14 @@ msgid ""
 "suspended over long bamboo resonators"
 msgstr ""
 
+#. name:kendhang gendhing
+#: DB:instrument/description:990
+msgid ""
+"Largest or \"ageng\" of the kendang, it is still smaller than the <a "
+"href=\"/instrument/9063d25e-87e4-4adc-81d4-8fdee23bd26f\">bedug</a>.<br /> "
+"In Sunda it is known as kendhang gedé."
+msgstr ""
+
 #. name:Scottish smallpipes
 #: DB:instrument/description:427
 msgid ""
@@ -1395,6 +1412,13 @@ msgid ""
 "Looks like a recorder, but with double reeds and bagpipe fingering system. "
 "Mostly used to learn how to play the pipes, but are occasionally played in "
 "their own right."
+msgstr ""
+
+#. name:kendang wadon
+#: DB:instrument/description:995
+msgid ""
+"Low pitched cylindrical kendang used in Bali gamelan. The larger and deeper "
+"pitched of the Bali kendang, it is the leader \"female\" drum."
 msgstr ""
 
 #. name:madal
@@ -1546,6 +1570,18 @@ msgid ""
 "Middle size/pitch drum, it has a slack goat skin membrane and it is hit with"
 " the palms. Important in the Jamaican Burru music and Rastafari movement, it"
 " is part of the Nyabinghi/Akete drums."
+msgstr ""
+
+#. name:kendhang batangan
+#: DB:instrument/description:992
+msgid ""
+"Middle sized kendang, it is used in lively and complex rhythms. <br /> In "
+"Sunda it is known as kendhang ciblon"
+msgstr ""
+
+#. name:kendhang wayangan
+#: DB:instrument/description:993
+msgid "Middle sized kendang, it was traditionally used for the wayang dance."
 msgstr ""
 
 #. name:kachva sitar
@@ -1761,10 +1797,10 @@ msgstr ""
 msgid "Percussion performed by parts of the body."
 msgstr "Lyömäsoittimet hyödyntäen kehonosia. "
 
-#. name:foot percussion
+#. name:foot stomps
 #: DB:instrument/description:478
 msgid ""
-"Percussion performed with the feet, such as <a "
+"Percussion performed with feet, such as <a "
 "href=\"http://en.wikipedia.org/wiki/Foot-tapping\">foot tapping</a> and <a "
 "href=\"http://en.wikipedia.org/wiki/Clogging\">clogging</a>."
 msgstr ""
@@ -1797,6 +1833,13 @@ msgid ""
 "Played by manipulating the airstream through bamboo pipes using cupping and "
 "clapping, this Vietnamesian \"Air Xylophone\" was traditionally played in "
 "the rice-field."
+msgstr ""
+
+#. name:kendhang indung
+#: DB:instrument/description:996
+msgid ""
+"Played in ensemble with kulanter, it is set at an angle and played with "
+"hands or sticks. it has the designation of \"mother\""
 msgstr ""
 
 #. name:mijwiz
@@ -2096,6 +2139,14 @@ msgid ""
 "narrower bore."
 msgstr ""
 
+#. name:kendhang ketipung
+#: DB:instrument/description:991
+msgid ""
+"Smallest of the kendang, it is has a special two-instrument use with the <a "
+"href=\"/instrument/14acd267-2e1b-459d-b41e-058d2c106345\">gendhing</a>.<br "
+"/> In Sunda it is known as kendhang katipung"
+msgstr ""
+
 #. name:Mark tree
 #: DB:instrument/description:637
 msgid ""
@@ -2153,7 +2204,7 @@ msgstr ""
 msgid "Tanbou ka or Tambu ka (a small high-pitched drum)"
 msgstr ""
 
-#. name:tap dancing
+#. name:tap dance
 #: DB:instrument/description:559
 msgid ""
 "Tap dancing is a type of dance in which the dancer wears special shoes that "
@@ -3494,6 +3545,13 @@ msgstr ""
 msgid "The sistrum is a metal rattle associated with ancient Iraq and Egypt."
 msgstr ""
 
+#. name:kendang lanang
+#: DB:instrument/description:994
+msgid ""
+"The smaller and higher pitched of the Bali kendang, it is the follower "
+"\"male\" drum."
+msgstr ""
+
 #. name:song loan
 #: DB:instrument/description:284
 msgid ""
@@ -4164,6 +4222,16 @@ msgstr ""
 #. name:viola caipira
 #: DB:instrument/description:660
 msgid "Used in folk-music, It has ten steel strings in five courses."
+msgstr ""
+
+#. name:kendang
+#: DB:instrument/description:989
+msgid ""
+"Used in many Southeast Asian countries, the body is made of woods like "
+"jackfruit or coconut, the heads of buffalo- and goat-hide.<br /> There are 2"
+" main groups:<br /> <ul> <li>The Java/Sunda set of 3 to 4 curve sided drums "
+"with heads of different sizes.</li> <li>The Bali set of two pairs of "
+"straight sided drums, both heads same size. </li> </ul>"
 msgstr ""
 
 #. name:krap phuang
