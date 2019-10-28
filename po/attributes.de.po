@@ -45,7 +45,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2019-10-16 13:06+0000\n"
+"PO-Revision-Date: 2019-10-27 10:29+0000\n"
 "Last-Translator: David Kellner <email address hidden>\n"
 "Language-Team: German (http://www.transifex.com/musicbrainz/musicbrainz/language/de/)\n"
 "MIME-Version: 1.0\n"
@@ -3238,7 +3238,7 @@ msgid ""
 "Island is used for islands and atolls which don't form subdivisions of their"
 " own, e.g. Skye. These are not considered when displaying the parent areas "
 "for a given area."
-msgstr "Insel wird für Inseln und Atolle verwendet, die keine eigenen Unterteilungen bilden, z.B. Skye. Diese werden bei der Anzeige der übergeordneten Bereiche für einen bestimmten Bereich nicht berücksichtigt."
+msgstr "Insel wird für Inseln und Atolle verwendet, die keine eigenen Unterteilungen bilden, z.B. Skye. Diese werden bei der Anzeige der übergeordneten Gebiete für ein bestimmtes Gebiet nicht berücksichtigt."
 
 #: DB:work_attribute_type/name:3
 msgctxt "work_attribute_type"
@@ -4093,6 +4093,11 @@ msgstr ""
 msgctxt "work_attribute_type_allowed_value"
 msgid "Mevlidişerif"
 msgstr "Mevlidişerif"
+
+#: DB:medium_format/name:83
+msgctxt "medium_format"
+msgid "Microcassette"
+msgstr ""
 
 #: DB:medium_format/name:6
 msgctxt "medium_format"
@@ -5033,7 +5038,7 @@ msgstr ""
 #: DB:medium_format/name:45
 msgctxt "medium_format"
 msgid "Playbutton"
-msgstr ""
+msgstr "Playbutton"
 
 #: DB:work_type/name:21
 msgctxt "work_type"
@@ -6580,7 +6585,7 @@ msgstr "Vinyl"
 #: DB:medium_format/name:48
 msgctxt "medium_format"
 msgid "VinylDisc"
-msgstr "Vinyl-Platte"
+msgstr "VinylDisc"
 
 #: DB:medium_format/name:82
 msgctxt "medium_format"

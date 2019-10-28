@@ -7,8 +7,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2019-10-14 21:16+0000\n"
-"Last-Translator: yvanz\n"
+"PO-Revision-Date: 2019-10-28 16:05+0000\n"
+"Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -356,6 +356,15 @@ msgid ""
 "unique to japan. With ebony neck and coconut body its three (rarely four) "
 "strings are played upright with a horsetail bow."
 msgstr "Hoewel de kokyu lijkt op de shamisen en tegelijkertijd werd geïntroduceerd, is het een uniek Japans instrument. De hals is van ebbenhout en de klankkast van kokosnoot. Het instrument heeft drie (heel soms vier) snaren en wordt rechtop bespeeld met een strijkstok met paardenhaar."
+
+#. name:kendhang kulanter
+#: DB:instrument/description:997
+msgid ""
+"Always used together with the <a "
+"href=\"/instrument/c588cc24-e139-44a9-8a48-7963eb693dd1\">indung</a>, dual "
+"child drums are divided into the katipung (\"besar\" or larger) and the "
+"kutiplak (\"kecil\" or smaller)."
+msgstr ""
 
 #. name:kethuk
 #: DB:instrument/description:986
@@ -1356,6 +1365,14 @@ msgid ""
 "suspended over long bamboo resonators"
 msgstr ""
 
+#. name:kendhang gendhing
+#: DB:instrument/description:990
+msgid ""
+"Largest or \"ageng\" of the kendang, it is still smaller than the <a "
+"href=\"/instrument/9063d25e-87e4-4adc-81d4-8fdee23bd26f\">bedug</a>.<br /> "
+"In Sunda it is known as kendhang gedé."
+msgstr ""
+
 #. name:Scottish smallpipes
 #: DB:instrument/description:427
 msgid ""
@@ -1369,7 +1386,7 @@ msgid ""
 "Located in the Luray Caverns of Virginia USA, it is made of an electric "
 "console wired to mallets striking thirty-seven stalactites producing tones. "
 "This is a singular specific instrument, not an instrument <em>type</em>."
-msgstr ""
+msgstr "The Great Stalacpipe Organ is een orgel in de Luray Caverns in Virginia in de VS. Het bestaat uit een elektrisch klaviatuur dat is verbonden met hamers die 37 stalactieten aanslaan om geluid te maken. Dit is een specifiek instrument en geen <em>type instrument."
 
 #. name:pahū
 #: DB:instrument/description:864
@@ -1392,6 +1409,13 @@ msgid ""
 "Mostly used to learn how to play the pipes, but are occasionally played in "
 "their own right."
 msgstr "Ziet er uit als een blokfluit, maar met dubbelriet en het vingersysteem van een doedelzak. Wordt vooral gebruikt om te leren de doedelzak te bespelen, maar soms ook op zichzelf."
+
+#. name:kendang wadon
+#: DB:instrument/description:995
+msgid ""
+"Low pitched cylindrical kendang used in Bali gamelan. The larger and deeper "
+"pitched of the Bali kendang, it is the leader \"female\" drum."
+msgstr ""
 
 #. name:madal
 #: DB:instrument/description:186
@@ -1542,6 +1566,18 @@ msgid ""
 "Middle size/pitch drum, it has a slack goat skin membrane and it is hit with"
 " the palms. Important in the Jamaican Burru music and Rastafari movement, it"
 " is part of the Nyabinghi/Akete drums."
+msgstr ""
+
+#. name:kendhang batangan
+#: DB:instrument/description:992
+msgid ""
+"Middle sized kendang, it is used in lively and complex rhythms. <br /> In "
+"Sunda it is known as kendhang ciblon"
+msgstr ""
+
+#. name:kendhang wayangan
+#: DB:instrument/description:993
+msgid "Middle sized kendang, it was traditionally used for the wayang dance."
 msgstr ""
 
 #. name:kachva sitar
@@ -1757,13 +1793,13 @@ msgstr "De saron bestaat uit zes tot negen dikke staven van brons of ijzer op ee
 msgid "Percussion performed by parts of the body."
 msgstr "Percussie die wordt uitgevoerd met lichaamsdelen."
 
-#. name:foot percussion
+#. name:foot stomps
 #: DB:instrument/description:478
 msgid ""
-"Percussion performed with the feet, such as <a "
+"Percussion performed with feet, such as <a "
 "href=\"http://en.wikipedia.org/wiki/Foot-tapping\">foot tapping</a> and <a "
 "href=\"http://en.wikipedia.org/wiki/Clogging\">clogging</a>."
-msgstr "Met de voeten uitgevoerde percussie, zoals <a href=\"http://nl.wikipedia.org/wiki/Klompendans\">klompendansen</a>."
+msgstr ""
 
 #. name:ney
 #: DB:instrument/description:540
@@ -1794,6 +1830,13 @@ msgid ""
 "clapping, this Vietnamesian \"Air Xylophone\" was traditionally played in "
 "the rice-field."
 msgstr "Een k'lông pút wordt bespeeld door de luchtstroom door bamboebuizen met de hand te manipuleren. Deze Vietnamese “luchtxylofoon” werd traditioneel in de rijstvelden bespeeld."
+
+#. name:kendhang indung
+#: DB:instrument/description:996
+msgid ""
+"Played in ensemble with kulanter, it is set at an angle and played with "
+"hands or sticks. it has the designation of \"mother\""
+msgstr ""
 
 #. name:mijwiz
 #: DB:instrument/description:876
@@ -2092,6 +2135,14 @@ msgid ""
 "narrower bore."
 msgstr "Een pijperfluit is een kleine dwarsfluit, vergelijkbaar met de piccolo, maar met een smallere boring."
 
+#. name:kendhang ketipung
+#: DB:instrument/description:991
+msgid ""
+"Smallest of the kendang, it is has a special two-instrument use with the <a "
+"href=\"/instrument/14acd267-2e1b-459d-b41e-058d2c106345\">gendhing</a>.<br "
+"/> In Sunda it is known as kendhang katipung"
+msgstr ""
+
 #. name:Mark tree
 #: DB:instrument/description:637
 msgid ""
@@ -2149,7 +2200,7 @@ msgstr "Een glasharmonica is een instrument dat gemaakt is van een serie glazen 
 msgid "Tanbou ka or Tambu ka (a small high-pitched drum)"
 msgstr "De tanbou ka of tambu ka is een kleine trommel met een hoog geluid."
 
-#. name:tap dancing
+#. name:tap dance
 #: DB:instrument/description:559
 msgid ""
 "Tap dancing is a type of dance in which the dancer wears special shoes that "
@@ -3490,6 +3541,13 @@ msgstr "Een siku is een traditionele panfluit uit de Andes."
 msgid "The sistrum is a metal rattle associated with ancient Iraq and Egypt."
 msgstr "Een sistrum is een metalen ratel."
 
+#. name:kendang lanang
+#: DB:instrument/description:994
+msgid ""
+"The smaller and higher pitched of the Bali kendang, it is the follower "
+"\"male\" drum."
+msgstr ""
+
 #. name:song loan
 #: DB:instrument/description:284
 msgid ""
@@ -4161,6 +4219,16 @@ msgstr "De krap khū wordt gebruikt in de volksmuziek en bestaat een in de lengt
 #: DB:instrument/description:660
 msgid "Used in folk-music, It has ten steel strings in five courses."
 msgstr "De viola caipira is een Braziliaanse gitaar met tien stalen snaren in vijf dubbele koren en wordt bij volksmuziek bespeeld."
+
+#. name:kendang
+#: DB:instrument/description:989
+msgid ""
+"Used in many Southeast Asian countries, the body is made of woods like "
+"jackfruit or coconut, the heads of buffalo- and goat-hide.<br /> There are 2"
+" main groups:<br /> <ul> <li>The Java/Sunda set of 3 to 4 curve sided drums "
+"with heads of different sizes.</li> <li>The Bali set of two pairs of "
+"straight sided drums, both heads same size. </li> </ul>"
+msgstr ""
 
 #. name:krap phuang
 #: DB:instrument/description:951

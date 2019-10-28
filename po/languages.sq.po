@@ -3,7 +3,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2019-08-25 10:49+0000\n"
+"PO-Revision-Date: 2019-10-27 11:49+0000\n"
 "Last-Translator: Besnik <email address hidden>\n"
 "Language-Team: Albanian (http://www.transifex.com/musicbrainz/musicbrainz/language/sq/)\n"
 "MIME-Version: 1.0\n"
@@ -110,7 +110,7 @@ msgstr ""
 #. frequency:2 iso_code_3:ara
 #: DB:language/name:18
 msgid "Arabic"
-msgstr ""
+msgstr "Arabisht"
 
 #. frequency:1 iso_code_3:arg
 #: DB:language/name:20

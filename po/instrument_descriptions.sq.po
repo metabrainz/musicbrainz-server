@@ -3,8 +3,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2019-09-07 10:18+0000\n"
-"Last-Translator: yvanz\n"
+"PO-Revision-Date: 2019-10-23 20:34+0000\n"
+"Last-Translator: Michael Wiencek <email address hidden>\n"
 "Language-Team: Albanian (http://www.transifex.com/musicbrainz/musicbrainz/language/sq/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -315,6 +315,13 @@ msgstr ""
 msgid "Acoustic guitar without frets."
 msgstr ""
 
+#. name:diatonic button accordion
+#: DB:instrument/description:361
+msgid ""
+"Also known as Melodeon, it has 1 to 2 rows of buttons that each produce two "
+"tones (bisonoric)."
+msgstr ""
+
 #. name:repeater
 #: DB:instrument/description:882
 msgid ""
@@ -344,6 +351,31 @@ msgid ""
 "Although similar to and introduced at the same time as the shamisen, it is "
 "unique to japan. With ebony neck and coconut body its three (rarely four) "
 "strings are played upright with a horsetail bow."
+msgstr ""
+
+#. name:kendhang kulanter
+#: DB:instrument/description:997
+msgid ""
+"Always used together with the <a "
+"href=\"/instrument/c588cc24-e139-44a9-8a48-7963eb693dd1\">indung</a>, dual "
+"child drums are divided into the katipung (\"besar\" or larger) and the "
+"kutiplak (\"kecil\" or smaller)."
+msgstr ""
+
+#. name:kethuk
+#: DB:instrument/description:986
+msgid ""
+"Always used with kempyang, it consists of a single bronze kettle-gong, "
+"pitched deeper than kempyangs'. Flat top bossed gong is sat in a highly "
+"decorated rancak frame, beaten with tabuh beaters by the same person."
+msgstr ""
+
+#. name:kempyang
+#: DB:instrument/description:987
+msgid ""
+"Always used with ketuk, it consists of two bronze kettle-gongs, pitched a "
+"note apart. Ached top bossed gongs are sat in the highly decorated rancak "
+"frame, beaten with tabuh beaters by the same person."
 msgstr ""
 
 #. name:amadinda
@@ -522,6 +554,11 @@ msgid ""
 "like. it has four thick metal strings"
 msgstr ""
 
+#. name:segunda
+#: DB:instrument/description:757
+msgid "Bass member of the garifuna drum group."
+msgstr ""
+
 #. name:bicycle bell
 #: DB:instrument/description:743
 msgid ""
@@ -532,6 +569,13 @@ msgstr ""
 #. name:bendir
 #: DB:instrument/description:343
 msgid "Bendir, frame drum from North Africa, doesn't have jingles"
+msgstr ""
+
+#. name:kemanak
+#: DB:instrument/description:988
+msgid ""
+"Bent into a ladle or banana like shape, it is a pair of bronze slit-drums "
+"hit with tabuh beaters."
 msgstr ""
 
 #. name:typewriter
@@ -590,11 +634,19 @@ msgid ""
 "ritualistically buried in pairs."
 msgstr ""
 
+#. name:gong-chime
+#: DB:instrument/description:981
+msgid ""
+"Chiefly used in Southeast Asian music, these consist of from only 1 to "
+"several dozens of metal (often bronze) \"kettles\", set in a wide variety of"
+" different supports and played with mallets."
+msgstr ""
+
 #. name:bonang panembung
 #: DB:instrument/description:972
 msgid ""
 "Chiefly used in Yogyvanese gamelan, the largest and deepest pitched member "
-"of the bonang family of gongs"
+"of the bonang family of gong-chimes"
 msgstr ""
 
 #. name:naobo
@@ -944,6 +996,13 @@ msgid ""
 "griots. Made of hollowed out wood with an animal hide as membrane."
 msgstr ""
 
+#. name:bellowed reed
+#: DB:instrument/description:983
+msgid ""
+"Free reeds with bellows attached, often in a square shape, thence called "
+"squeezebox"
+msgstr ""
+
 #. name:friction idiophone
 #: DB:instrument/description:701
 msgid ""
@@ -1083,6 +1142,14 @@ msgid ""
 "clapper <a "
 "href=\"/instrument/c641bccc-2060-4871-9c12-e2df2523e53c\">paiban</a>. Drum "
 "is played by one hand and clapper with the other."
+msgstr ""
+
+#. name:garifuna drum
+#: DB:instrument/description:756
+msgid ""
+"Important to the Garifuna culture, it consists of two drums, the tenor, "
+"primero and the bass, segunda, each is made of hollowed out wood with "
+"membranes of pig, sheep or deer."
 msgstr ""
 
 #. name:morin khuur
@@ -1239,6 +1306,14 @@ msgid ""
 "different sizes. Played by rubbing dampened fingers on the rims."
 msgstr ""
 
+#. name:zill
+#: DB:instrument/description:455
+msgid ""
+"Known since ancient times in south-east Europe and Turkey, small bronze "
+"finger cymbals are used for dancing and other performances. These are "
+"similar to the jingles set in some frame drums."
+msgstr ""
+
 #. name:krakebs
 #: DB:instrument/description:652
 msgid ""
@@ -1279,6 +1354,21 @@ msgid ""
 "pitch and played with mallets."
 msgstr ""
 
+#. name:jegogan
+#: DB:instrument/description:979
+msgid ""
+"Largest and lowest pitched of the gangsa, it has 5 to 7 large metal bars "
+"suspended over long bamboo resonators"
+msgstr ""
+
+#. name:kendhang gendhing
+#: DB:instrument/description:990
+msgid ""
+"Largest or \"ageng\" of the kendang, it is still smaller than the <a "
+"href=\"/instrument/9063d25e-87e4-4adc-81d4-8fdee23bd26f\">bedug</a>.<br /> "
+"In Sunda it is known as kendhang gedé."
+msgstr ""
+
 #. name:Scottish smallpipes
 #: DB:instrument/description:427
 msgid ""
@@ -1314,6 +1404,13 @@ msgid ""
 "Looks like a recorder, but with double reeds and bagpipe fingering system. "
 "Mostly used to learn how to play the pipes, but are occasionally played in "
 "their own right."
+msgstr ""
+
+#. name:kendang wadon
+#: DB:instrument/description:995
+msgid ""
+"Low pitched cylindrical kendang used in Bali gamelan. The larger and deeper "
+"pitched of the Bali kendang, it is the leader \"female\" drum."
 msgstr ""
 
 #. name:madal
@@ -1367,7 +1464,9 @@ msgstr ""
 msgid ""
 "Made of multiple vertical hung bamboo tubes with segments cut out to create "
 "different pitch. They can be played either hanging suspended or on a bamboo "
-"frame like a xylophone."
+"frame like a xylophone. <br /> For the balinese metallophone sometimes known"
+" as chalung or calung, see <a "
+"href=\"/instrument/395bab77-bb77-4696-96d6-dfcade201c6d\">jublag</a>"
 msgstr ""
 
 #. name:sasando
@@ -1447,6 +1546,11 @@ msgid ""
 "made of cattle-horn."
 msgstr ""
 
+#. name:xylorimba
+#: DB:instrument/description:703
+msgid "Member of the xylophone family, it has 5 octaves."
+msgstr ""
+
 #. name:Mexican vihuela
 #: DB:instrument/description:92
 msgid "Mexican vihuela, used by mariachi bands"
@@ -1458,6 +1562,18 @@ msgid ""
 "Middle size/pitch drum, it has a slack goat skin membrane and it is hit with"
 " the palms. Important in the Jamaican Burru music and Rastafari movement, it"
 " is part of the Nyabinghi/Akete drums."
+msgstr ""
+
+#. name:kendhang batangan
+#: DB:instrument/description:992
+msgid ""
+"Middle sized kendang, it is used in lively and complex rhythms. <br /> In "
+"Sunda it is known as kendhang ciblon"
+msgstr ""
+
+#. name:kendhang wayangan
+#: DB:instrument/description:993
+msgid "Middle sized kendang, it was traditionally used for the wayang dance."
 msgstr ""
 
 #. name:kachva sitar
@@ -1538,8 +1654,9 @@ msgstr ""
 #. name:bonang barung
 #: DB:instrument/description:970
 msgid ""
-"One to two octaves below panerus, it plays elaborate melodies and is one of "
-"the most important instruments in the ensemble."
+"One to two octaves below <a href=\"/instrument/7e024f24-f778-4942-8fba-"
+"6f33ebfb2ac6\">panerus</a>, it plays elaborate melodies and is one of the "
+"most important instruments in the ensemble."
 msgstr ""
 
 #. name:handbell
@@ -1672,10 +1789,10 @@ msgstr ""
 msgid "Percussion performed by parts of the body."
 msgstr ""
 
-#. name:foot percussion
+#. name:foot stomps
 #: DB:instrument/description:478
 msgid ""
-"Percussion performed with the feet, such as <a "
+"Percussion performed with feet, such as <a "
 "href=\"http://en.wikipedia.org/wiki/Foot-tapping\">foot tapping</a> and <a "
 "href=\"http://en.wikipedia.org/wiki/Clogging\">clogging</a>."
 msgstr ""
@@ -1708,6 +1825,13 @@ msgid ""
 "Played by manipulating the airstream through bamboo pipes using cupping and "
 "clapping, this Vietnamesian \"Air Xylophone\" was traditionally played in "
 "the rice-field."
+msgstr ""
+
+#. name:kendhang indung
+#: DB:instrument/description:996
+msgid ""
+"Played in ensemble with kulanter, it is set at an angle and played with "
+"hands or sticks. it has the designation of \"mother\""
 msgstr ""
 
 #. name:mijwiz
@@ -1798,6 +1922,13 @@ msgstr ""
 msgid "Reedless Aerophone, usually a tube"
 msgstr ""
 
+#. name:kenong
+#: DB:instrument/description:985
+msgid ""
+"Related to bonang, it consists of 3 decorated rancak frames that each hold 2"
+" large arched(jaler) bronze gong-chimes hit by heavy tabuh beater(s)."
+msgstr ""
+
 #. name:rubab
 #: DB:instrument/description:883
 msgid ""
@@ -1839,11 +1970,28 @@ msgid ""
 " ornate case."
 msgstr ""
 
+#. name:jublag
+#: DB:instrument/description:980
+msgid ""
+"Second lowest pitched of the gangsa, it has 4 to 7 bronze keys suspended "
+"over long bamboo resonators <br /> For the sundanese bamboo xylophone also "
+"used in gamelan, see <a href=\"/instrument/6e180df5-6df9-46bb-8ebf-"
+"c576a010fb5a\">calung</a>"
+msgstr ""
+
 #. name:reyong
 #: DB:instrument/description:973
 msgid ""
 "Set of 4 to 12 small metal gongs suspended in a string carriage, played by "
 "two to four players."
+msgstr ""
+
+#. name:kempul
+#: DB:instrument/description:984
+msgid ""
+"Set of 6 to 10 smaller hanging pitched bronze gongs with a protruding centre"
+" knob struck with tabuh beaters. Higher pitched than the gong ageng, it is "
+"often hung together with it."
 msgstr ""
 
 #. name:drums (drum set)
@@ -1901,6 +2049,14 @@ msgstr ""
 msgid ""
 "Simultaneously a woodwind and membranophone, sound is produced by singing or"
 " speaking into a thin buzzing membrane."
+msgstr ""
+
+#. name:kempli
+#: DB:instrument/description:982
+msgid ""
+"Singular bronze gong-chime kettle set on a decorated jackfruit-wood box "
+"stand. Used as time or tempo keeper, it is struck on the boss with panggul "
+"beater, which provides reference point in the pokok."
 msgstr ""
 
 #. name:donso ngɔni
@@ -1975,6 +2131,14 @@ msgid ""
 "narrower bore."
 msgstr ""
 
+#. name:kendhang ketipung
+#: DB:instrument/description:991
+msgid ""
+"Smallest of the kendang, it is has a special two-instrument use with the <a "
+"href=\"/instrument/14acd267-2e1b-459d-b41e-058d2c106345\">gendhing</a>.<br "
+"/> In Sunda it is known as kendhang katipung"
+msgstr ""
+
 #. name:Mark tree
 #: DB:instrument/description:637
 msgid ""
@@ -2032,11 +2196,16 @@ msgstr ""
 msgid "Tanbou ka or Tambu ka (a small high-pitched drum)"
 msgstr ""
 
-#. name:tap dancing
+#. name:tap dance
 #: DB:instrument/description:559
 msgid ""
 "Tap dancing is a type of dance in which the dancer wears special shoes that "
 "make a clicking sound as the dancer's feet strike the floor."
+msgstr ""
+
+#. name:primero
+#: DB:instrument/description:758
+msgid "Tenor member of the garifuna drum group."
 msgstr ""
 
 #. name:tenor viol
@@ -2644,13 +2813,6 @@ msgid ""
 "tuned a fourth higher."
 msgstr ""
 
-#. name:garifuna drum
-#: DB:instrument/description:756
-msgid ""
-"The garifuna drum is a membranophone from the Garifuna culture in Belize, "
-"Guatemala and Honduras."
-msgstr ""
-
 #. name:gayageum
 #: DB:instrument/description:75
 msgid ""
@@ -3132,11 +3294,6 @@ msgid ""
 "arrival or departure of a post rider or mail coach."
 msgstr ""
 
-#. name:primero
-#: DB:instrument/description:758
-msgid "The primero is a tenor garifuna drum."
-msgstr ""
-
 #. name:pātē
 #: DB:instrument/description:726
 msgid "The pātē is a Polynesian slit drum made from a hollowed-out log."
@@ -3297,11 +3454,6 @@ msgstr ""
 msgid "The saz is a long-necked fretted lute"
 msgstr ""
 
-#. name:segunda
-#: DB:instrument/description:757
-msgid "The segunda is a bass garifuna drum."
-msgstr ""
-
 #. name:shakuhachi
 #: DB:instrument/description:173
 msgid "The shakuhachi is a Japanese end-blown flute."
@@ -3385,6 +3537,13 @@ msgstr ""
 msgid "The sistrum is a metal rattle associated with ancient Iraq and Egypt."
 msgstr ""
 
+#. name:kendang lanang
+#: DB:instrument/description:994
+msgid ""
+"The smaller and higher pitched of the Bali kendang, it is the follower "
+"\"male\" drum."
+msgstr ""
+
 #. name:song loan
 #: DB:instrument/description:284
 msgid ""
@@ -3423,11 +3582,6 @@ msgstr ""
 #: DB:instrument/description:379
 msgid ""
 "The surdo is a large bass drum used in Brazilian music, most notably samba."
-msgstr ""
-
-#. name:swarmandal
-#: DB:instrument/description:716
-msgid "The swarmandal is an Indian zither."
 msgstr ""
 
 #. name:sáo trúc
@@ -3675,11 +3829,6 @@ msgid ""
 "The xun is a vessel flute from China which has a blowing hole at the top."
 msgstr ""
 
-#. name:xylorimba
-#: DB:instrument/description:703
-msgid "The xylorimba is an extended-range xylophone."
-msgstr ""
-
 #. name:yatga
 #: DB:instrument/description:564
 msgid ""
@@ -3699,13 +3848,6 @@ msgstr ""
 msgid ""
 "The yehu is a Chinese bowed string instrument in the huqin family, made from"
 " a coconut shell."
-msgstr ""
-
-#. name:yonggo
-#: DB:instrument/description:685
-msgid ""
-"The yonggo is a barrel drum with a dragon painted on its shell which is used"
-" in daechwita, a genre of traditional Korean music."
 msgstr ""
 
 #. name:zabumba
@@ -4006,6 +4148,14 @@ msgid ""
 "traditionally to accompany didgeridoo. There are also Boomerang clapsticks."
 msgstr ""
 
+#. name:swarmandal
+#: DB:instrument/description:716
+msgid ""
+"Used chiefly in classical Indian songstyles Khyal and Thumri, it has a "
+"trapezoid shape with up to 40 metal strings fastened at both sides by iron "
+"pegs with one side having tuning keys."
+msgstr ""
+
 #. name:harmonica
 #: DB:instrument/description:43
 msgid ""
@@ -4038,6 +4188,14 @@ msgid ""
 " bandurria, It fell out of use when contralto bandurria became common."
 msgstr ""
 
+#. name:kecer
+#: DB:instrument/description:978
+msgid ""
+"Used in both gamelan and Wayang puppet theatre, it consists of two small "
+"cymbals sets; the bottom pair affixed in a highly decorated rancak rack, "
+"their lose counterparts attached together by string."
+msgstr ""
+
 #. name:danso
 #: DB:instrument/description:927
 msgid ""
@@ -4058,6 +4216,16 @@ msgstr ""
 msgid "Used in folk-music, It has ten steel strings in five courses."
 msgstr ""
 
+#. name:kendang
+#: DB:instrument/description:989
+msgid ""
+"Used in many Southeast Asian countries, the body is made of woods like "
+"jackfruit or coconut, the heads of buffalo- and goat-hide.<br /> There are 2"
+" main groups:<br /> <ul> <li>The Java/Sunda set of 3 to 4 curve sided drums "
+"with heads of different sizes.</li> <li>The Bali set of two pairs of "
+"straight sided drums, both heads same size. </li> </ul>"
+msgstr ""
+
 #. name:krap phuang
 #: DB:instrument/description:951
 msgid ""
@@ -4071,6 +4239,13 @@ msgstr ""
 msgid ""
 "Used in the chant, sēphā, a pair of squared bevelled rosewood sticks around "
 "21 cm long and 3-4 cm thick."
+msgstr ""
+
+#. name:yonggo
+#: DB:instrument/description:685
+msgid ""
+"Used in the traditional Korean music daechwita, it consists of a large two "
+"headed wooden barrel painted with dragon designs."
 msgstr ""
 
 #. name:hyoshigi
@@ -4091,7 +4266,7 @@ msgstr ""
 #: DB:instrument/description:971
 msgid ""
 "Used to play fast melodies, it is the highest pitched member of the bonang "
-"family of gongs"
+"family of gong-chimes"
 msgstr ""
 
 #. name:lap harp
@@ -4201,13 +4376,6 @@ msgid ""
 "Widely used in folk music, opera and music ensembles, it can be round or "
 "cone-shaped with cow/pigskin nailed to the larger convex end which has a "
 "small hole (guxin)."
-msgstr ""
-
-#. name:zill
-#: DB:instrument/description:455
-msgid ""
-"Zills are tiny metallic finger cymbals used in belly dancing and other "
-"similar performances."
 msgstr ""
 
 #. name:pang gu ly hu hmông
