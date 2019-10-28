@@ -12,10 +12,10 @@ import React from 'react';
 import AreaContainmentLink from '../static/scripts/common/components/AreaContainmentLink';
 import EntityHeader from '../components/EntityHeader';
 
-type Props = {|
+type Props = {
   +area: AreaT,
   +page: string,
-|};
+};
 
 const AreaHeader = ({area, page}: Props) => {
   const areaType = area.typeName ? lp_attributes(area.typeName, 'area_type') : l('Area');

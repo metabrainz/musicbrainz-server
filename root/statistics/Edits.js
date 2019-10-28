@@ -16,17 +16,17 @@ import {withCatalystContext} from '../context';
 import {formatCount, formatPercentage} from './utilities';
 import StatisticsLayout from './StatisticsLayout';
 
-type EditCategoryT = {|
+type EditCategoryT = {
   +edit_name: string,
   +edit_type: string,
-|};
+};
 
-type EditsStatsT = {|
+type EditsStatsT = {
   +$c: CatalystContextT,
   +dateCollected: string,
   +stats: {[string]: number},
   +statsByCategory: {[string]: $ReadOnlyArray<EditCategoryT>},
-|};
+};
 
 const Edits = ({$c, dateCollected, stats, statsByCategory}: EditsStatsT) => (
   <StatisticsLayout fullWidth page="edits" title={l('Edits')}>

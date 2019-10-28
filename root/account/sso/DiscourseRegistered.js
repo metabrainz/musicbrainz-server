@@ -11,9 +11,9 @@ import React from 'react';
 
 import Layout from '../../layout';
 
-type Props = {|
+type Props = {
   +emailAddress: string,
-|};
+};
 
 const DiscourseRegistered = ({emailAddress}: Props) => (
   <Layout fullWidth title={l('Account Created')}>

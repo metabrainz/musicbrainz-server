@@ -26,14 +26,15 @@ const emptyResult = Object.freeze(['', '']);
 const entity0Subst = /\{entity0\}/;
 const entity1Subst = /\{entity1\}/;
 
-export type CachedLinkPhraseData<T> = {|
-  attributeValues: ?{+[string]: Array<T> | T},
-  phraseAndExtraAttributes: {[string]: [T, T]},
-|};
+export type CachedLinkPhraseData<T> = {
+  attributeValues: ?{+[string]: Array<T> | T, ...},
+  phraseAndExtraAttributes: {[string]: [T, T], ...},
+};
 
 export type RelationshipInfoT = {
   +attributes?: $ReadOnlyArray<LinkAttrT>,
   +linkTypeID: number,
+  ...
 };
 
 type LinkPhraseProp =
@@ -161,6 +162,7 @@ function _setAttributeValues<T>(
 const requiredAttributesCache: {
   __proto__: null,
   [number]: {+[string]: string},
+  ...
 } = Object.create(null);
 
 function _getRequiredAttributes(linkType: LinkTypeT) {

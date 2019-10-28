@@ -19,7 +19,7 @@ import CodeLink from './CodeLink';
 import AttributeList from './AttributeList';
 import EntityLink from './EntityLink';
 
-type WorkListRowProps = {|
+type WorkListRowProps = {
   ...SeriesItemNumbersRoleT,
   +$c: CatalystContextT,
   +checkboxes?: string,
@@ -27,9 +27,9 @@ type WorkListRowProps = {|
   +showIswcs?: boolean,
   +showRatings?: boolean,
   +work: WorkT,
-|};
+};
 
-type WorkListEntryProps = {|
+type WorkListEntryProps = {
   ...SeriesItemNumbersRoleT,
   +checkboxes?: string,
   +index: number,
@@ -38,7 +38,7 @@ type WorkListEntryProps = {|
   +showIswcs?: boolean,
   +showRatings?: boolean,
   +work: WorkT,
-|};
+};
 
 export const WorkListRow = withCatalystContext<WorkListRowProps>(({
   $c,

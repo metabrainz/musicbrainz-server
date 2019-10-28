@@ -12,9 +12,9 @@ import React from 'react';
 import {withCatalystContext} from '../context';
 import StatusPage from '../components/StatusPage';
 
-type Props = {|
+type Props = {
   +$c: CatalystContextT | SanitizedCatalystContextT,
-|};
+};
 
 const PreferencesSaved = ({$c}: Props) => (
   <StatusPage title={l('Preferences')}>

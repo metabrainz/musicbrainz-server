@@ -13,12 +13,12 @@ import React from 'react';
 import {withCatalystContext} from '../context';
 import uriWith from '../utility/uriWith';
 
-type Props = {|
+type Props = {
   +$c: CatalystContextT,
   +guessSearch?: boolean,
   +pager: PagerT,
   +pageVar?: string,
-|};
+};
 
 const Paginator = ({
   $c,

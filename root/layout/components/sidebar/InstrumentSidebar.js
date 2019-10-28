@@ -25,10 +25,10 @@ import {SidebarProperty, SidebarProperties} from './SidebarProperties';
 import SidebarTags from './SidebarTags';
 import SidebarType from './SidebarType';
 
-type Props = {|
+type Props = {
   +$c: CatalystContextT,
   +instrument: InstrumentT,
-|};
+};
 
 const InstrumentSidebar = ({$c, instrument}: Props) => {
   return (

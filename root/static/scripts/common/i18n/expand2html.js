@@ -16,6 +16,6 @@ export default function expand2html(
   args?: ?{+[string]: Expand2ReactInput},
 ) {
   return ReactDOMServer.renderToStaticMarkup(
-    expand2react(source, args)
+    expand2react(source, args),
   );
 }

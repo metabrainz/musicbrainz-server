@@ -25,10 +25,10 @@ function targetIsOrderable(relationship: RelationshipT) {
           (linkType.orderable_direction === 2 && backward);
 }
 
-type Props = {|
+type Props = {
   +hiddenArtistCredit?: ?ArtistCreditT,
   +relationships: GroupedRelationshipsT,
-|};
+};
 
 const StaticRelationshipsDisplay = ({
   hiddenArtistCredit,

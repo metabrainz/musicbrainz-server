@@ -26,10 +26,10 @@ import {SidebarProperty, SidebarProperties} from './SidebarProperties';
 import SidebarRating from './SidebarRating';
 import SidebarTags from './SidebarTags';
 
-type Props = {|
+type Props = {
   +$c: CatalystContextT,
   +releaseGroup: ReleaseGroupT,
-|};
+};
 
 const ReleaseGroupSidebar = ({$c, releaseGroup}: Props) => {
   const gid = encodeURIComponent(releaseGroup.gid);

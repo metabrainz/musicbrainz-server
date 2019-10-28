@@ -16,7 +16,7 @@ import FormSubmit from '../components/FormSubmit';
 
 import type {TagLookupFormT} from './types';
 
-const TagLookupForm = ({form}: {|+form: TagLookupFormT|}) => (
+const TagLookupForm = ({form}: {+form: TagLookupFormT}) => (
   <div className="searchform">
     <form action="/taglookup/index" method="get">
       <FormRowTextLong

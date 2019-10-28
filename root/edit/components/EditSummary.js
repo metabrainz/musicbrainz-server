@@ -25,11 +25,11 @@ import returnUri from '../../utility/returnUri';
 
 import Vote from './Vote';
 
-type Props = {|
+type Props = {
   +$c: CatalystContextT,
   +edit: EditT,
   +index: number,
-|};
+};
 
 const EditSummary = ({$c, edit, index}: Props) => {
   const user = $c.user;

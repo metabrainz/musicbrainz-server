@@ -15,14 +15,14 @@ import FormRowEmailLong from '../components/FormRowEmailLong';
 import FormSubmit from '../components/FormSubmit';
 import Layout from '../layout';
 
-type LostPasswordFormT = FormT<{|
+type LostPasswordFormT = FormT<{
   +email: ReadOnlyFieldT<string>,
   +username: ReadOnlyFieldT<string>,
-|}>;
+}>;
 
-type Props = {|
+type Props = {
   +form: LostPasswordFormT,
-|};
+};
 
 const LostPassword = (props: Props) => (
   <Layout fullWidth title={l('Lost Password')}>

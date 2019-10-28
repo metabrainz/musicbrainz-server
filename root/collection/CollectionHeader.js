@@ -17,11 +17,11 @@ import EntityLink from '../static/scripts/common/components/EntityLink';
 import bracketed from '../static/scripts/common/utility/bracketed';
 import {withCatalystContext} from '../context';
 
-type Props = {|
+type Props = {
   +$c: CatalystContextT,
   +collection: CollectionT,
   +page: string,
-|};
+};
 
 const CollectionHeader = ({$c, collection, page}: Props) => {
   const owner = collection.editor;

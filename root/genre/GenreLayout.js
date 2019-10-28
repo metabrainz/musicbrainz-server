@@ -15,13 +15,13 @@ import GenreSidebar from '../layout/components/sidebar/GenreSidebar';
 
 import GenreHeader from './GenreHeader';
 
-type Props = {|
+type Props = {
   +children: ReactNode,
   +entity: GenreT,
   +fullWidth?: boolean,
   +page: string,
   +title?: string,
-|};
+};
 
 const GenreLayout = ({
   children,

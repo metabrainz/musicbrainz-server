@@ -19,12 +19,12 @@ import * as manifest from '../static/manifest';
 
 import WorkLayout from './WorkLayout';
 
-type Props = {|
+type Props = {
   +eligibleForCleanup: boolean,
   +numberOfRevisions: number,
   +wikipediaExtract: WikipediaExtractT | null,
   +work: WorkT,
-|};
+};
 
 const WorkIndex = ({
   eligibleForCleanup,

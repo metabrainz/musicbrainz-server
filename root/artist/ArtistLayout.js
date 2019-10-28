@@ -15,13 +15,13 @@ import ArtistSidebar from '../layout/components/sidebar/ArtistSidebar';
 
 import ArtistHeader from './ArtistHeader';
 
-type Props = {|
+type Props = {
   +children: ReactNode,
   +entity: ArtistT,
   +fullWidth?: boolean,
   +page: string,
   +title?: string,
-|};
+};
 
 const ArtistLayout = ({
   children,

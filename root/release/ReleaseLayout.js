@@ -16,13 +16,13 @@ import {reduceArtistCredit} from '../static/scripts/common/immutable-entities';
 
 import ReleaseHeader from './ReleaseHeader';
 
-type Props = {|
+type Props = {
   +children: ReactNode,
   +entity: ReleaseT,
   +fullWidth?: boolean,
   +page: string,
   +title?: string,
-|};
+};
 
 const ReleaseLayout = ({
   children,

@@ -18,19 +18,19 @@ import {withCatalystContext} from '../context';
 import Layout from '../layout';
 import DescriptiveLink from '../static/scripts/common/components/DescriptiveLink';
 
-type ArtistMergeForm = FormT<{|
+type ArtistMergeForm = FormT<{
   +edit_note: ReadOnlyFieldT<string>,
   +make_votable: ReadOnlyFieldT<boolean>,
   +merging: ReadOnlyRepeatableFieldT<ReadOnlyFieldT<number>>,
   +rename: ReadOnlyFieldT<boolean>,
   +target: ReadOnlyFieldT<number>,
-|}>;
+}>;
 
-type Props = {|
+type Props = {
   +$c: CatalystContextT,
   +form: ArtistMergeForm,
   +toMerge: $ReadOnlyArray<ArtistT>,
-|};
+};
 
 const ArtistMerge = ({$c, form, toMerge}: Props) => {
   function buildMergeTarget(artist, index) {

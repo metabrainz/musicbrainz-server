@@ -16,11 +16,11 @@ import formatDatePeriod from '../static/scripts/common/utility/formatDatePeriod'
 import {artistCreditsAreEqual} from '../static/scripts/common/immutable-entities';
 import * as linkPhrase from '../static/scripts/edit/utility/linkPhrase';
 
-type Props = {|
+type Props = {
   +forGrouping: boolean,
   +hiddenArtistCredit?: ?ArtistCreditT,
   +relationship: RelationshipT,
-|};
+};
 
 const RelationshipTargetLinks = ({
   forGrouping,

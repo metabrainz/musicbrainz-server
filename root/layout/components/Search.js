@@ -53,7 +53,7 @@ function localizedTypeOption(group, key) {
 
 const SearchOptions = () => (
   <select id="headerid-type" name="type">
-    {TYPE_OPTION_GROUPS.map(<TogT: {}>(group: TogT, groupIndex) => (
+    {TYPE_OPTION_GROUPS.map(<TogT: {...}>(group: TogT, groupIndex) => (
       Object.keys(group).sort(function (a, b) {
         return compare(
           localizedTypeOption(group, a),

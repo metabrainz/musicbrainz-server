@@ -17,7 +17,7 @@ import {withCatalystContext} from '../context';
 import {formatCount, formatPercentage} from './utilities';
 import StatisticsLayout from './StatisticsLayout';
 
-type MainStatsT = {|
+type MainStatsT = {
   +$c: CatalystContextT,
   +areaTypes: $ReadOnlyArray<AreaTypeT>,
   +dateCollected: string,
@@ -33,7 +33,7 @@ type MainStatsT = {|
   +statuses: $ReadOnlyArray<ReleaseStatusT>,
   +workAttributeTypes: $ReadOnlyArray<WorkAttributeTypeT>,
   +workTypes: $ReadOnlyArray<WorkTypeT>,
-|};
+};
 
 const oneToNine = range(1, 10);
 

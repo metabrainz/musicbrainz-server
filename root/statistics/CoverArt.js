@@ -16,7 +16,7 @@ import {withCatalystContext} from '../context';
 import {formatCount, formatPercentage} from './utilities';
 import StatisticsLayout from './StatisticsLayout';
 
-type CoverArtStatsT = {|
+type CoverArtStatsT = {
   +$c: CatalystContextT,
   +dateCollected: string,
   +releaseFormatStats: $ReadOnlyArray<CoverArtReleaseFormatStatT>,
@@ -24,27 +24,27 @@ type CoverArtStatsT = {|
   +releaseTypeStats: $ReadOnlyArray<CoverArtReleaseTypeStatT>,
   +stats: {[string]: number},
   +typeStats: $ReadOnlyArray<CoverArtTypeStatT>,
-|};
+};
 
-type CoverArtReleaseFormatStatT = {|
+type CoverArtReleaseFormatStatT = {
   +format: string,
   +stat_name: string,
-|};
+};
 
-type CoverArtReleaseStatusStatT = {|
+type CoverArtReleaseStatusStatT = {
   +stat_name: string,
   +status: string,
-|};
+};
 
-type CoverArtReleaseTypeStatT = {|
+type CoverArtReleaseTypeStatT = {
   +stat_name: string,
   +type: string,
-|};
+};
 
-type CoverArtTypeStatT = {|
+type CoverArtTypeStatT = {
   +stat_name: string,
   +type: string,
-|};
+};
 
 const nameOrNull = (name: string, defaultName: string) => {
   if (name === 'null') {

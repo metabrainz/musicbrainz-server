@@ -15,9 +15,9 @@ const buildErrorListItem = (error, index) => (
   <li key={index}>{error}</li>
 );
 
-type Props = {|
+type Props = {
   +field: FieldShape,
-|};
+};
 
 const FieldErrors = ({field}: Props) => {
   if (!field) {

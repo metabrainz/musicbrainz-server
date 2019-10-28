@@ -27,10 +27,10 @@ import {
 } from '../../utility/edit';
 import formatUserDate from '../../utility/formatUserDate';
 
-type Props = {|
+type Props = {
   +$c: CatalystContextT,
   +edit: EditT,
-|};
+};
 
 const EditSidebar = ({$c, edit}: Props) => (
   <div id="sidebar">

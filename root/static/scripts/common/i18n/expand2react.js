@@ -10,13 +10,18 @@
 import he from 'he';
 import * as React from 'react';
 
+import {
+  l as lActual,
+  ln as lnActual,
+  lp as lpActual,
+} from '../i18n';
+
 import expand, {
   accept,
   createCondSubstParser,
   createTextContentParser,
   createVarSubstParser,
   error,
-  getString,
   getVarSubstArg,
   gotMatch,
   NO_MATCH_VALUE,
@@ -30,11 +35,6 @@ import expand, {
   type Parser,
   type VarArgs,
 } from './expand2';
-import {
-  l as lActual,
-  ln as lnActual,
-  lp as lpActual,
-} from '../i18n';
 
 type Input = Expand2ReactInput;
 type Output = Expand2ReactOutput;
@@ -46,7 +46,7 @@ const condSubstThenTextContent = /^[^<>{}|]+/;
 const percentSign = /(%)/;
 const linkSubstStart = /^\{([0-9A-z_]+)\|/;
 const htmlTagStart = /^<(?=[a-z])/;
-const htmlTagName = /^(a|abbr|b|br|code|em|li|p|span|strong|ul)(?=[\s\/>])/;
+const htmlTagName = /^(a|abbr|br|code|em|li|p|span|strong|ul)(?=[\s\/>])/;
 const htmlTagEnd = /^>/;
 const htmlSelfClosingTagEnd = /^\s*\/>/;
 const htmlAttrStart = /^\s+(?=[a-z])/;
@@ -258,7 +258,7 @@ function parseHtmlTag(args) {
     throw error('bad HTML tag');
   }
 
-  type HtmlAttr = {[string]: string};
+  type HtmlAttr = {[string]: string, ...};
 
   const attributes = parseContinuousArray<HtmlAttr, Input>(
     htmlAttrParsers,
@@ -338,7 +338,7 @@ const parseRoot = args => parseContinuousArray(rootParsers, args);
  */
 export default function expand2react(
   source: string,
-  args?: ?{+[string]: Input},
+  args?: ?{+[string]: Input, ...},
 ): Output {
   const result = expand<$ReadOnlyArray<Output>, Input>(
     parseRoot,
@@ -357,18 +357,18 @@ export default function expand2react(
 
 export const l = (
   key: string,
-  args?: ?{+[string]: Input},
+  args?: ?{+[string]: Input, ...},
 ) => expand2react(lActual(key), args);
 
 export const ln = (
   skey: string,
   pkey: string,
   val: number,
-  args?: ?{+[string]: Input},
+  args?: ?{+[string]: Input, ...},
 ) => expand2react(lnActual(skey, pkey, val), args);
 
 export const lp = (
   key: string,
   context: string,
-  args?: ?{+[string]: Input},
+  args?: ?{+[string]: Input, ...},
 ) => expand2react(lpActual(key, context), args);

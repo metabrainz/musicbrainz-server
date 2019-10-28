@@ -273,7 +273,6 @@ EOF
             type => 'composer',
             'type-id' => 'd59d99ea-23d4-4a80-b066-edca32ee158f',
             work => {
-                aliases => [],
                 attributes => [],
                 disambiguation => '',
                 id => 'b6c76104-d64c-4883-b395-c74f782b751c',
@@ -295,7 +294,6 @@ EOF
     $work2{relations} = [
         {
             artist => {
-                aliases => [],
                 disambiguation => '',
                 id => '30238ead-59fa-41e2-a7ab-b7f6e6363c4b',
                 name => 'Blues Guy',
@@ -558,7 +556,7 @@ EOF
         {
             aliases => [],
             annotation => undef,
-            'artist-credit' => $make_artist_credit->('', tags => [], genres => []),
+            'artist-credit' => $make_artist_credit->('', aliases => [], tags => [], genres => []),
             disambiguation => '',
             genres => [],
             id => '4293ab04-ec12-4c5e-9ffa-98ee6e833bb3',

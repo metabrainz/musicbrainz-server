@@ -69,10 +69,10 @@ const changeSide = (
   );
 };
 
-type Props = {|
+type Props = {
   +newEvents: $ReadOnlyArray<ReleaseEventT>,
   +oldEvents: $ReadOnlyArray<ReleaseEventT>,
-|};
+};
 
 const ReleaseEventsDiff = ({newEvents, oldEvents}: Props) => {
   const oldEventsByCountry = keyBy(oldEvents, countryId);

@@ -19,14 +19,14 @@ import formatEndDate from '../../static/scripts/common/utility/formatEndDate';
 import RatingStars from '../RatingStars';
 import SortableTableHeader from '../SortableTableHeader';
 
-type Props = {|
+type Props = {
   +$c: CatalystContextT,
   +checkboxes?: string,
   +labels: $ReadOnlyArray<LabelT>,
   +order?: string,
   +showRatings?: boolean,
   +sortable?: boolean,
-|};
+};
 
 const LabelList = ({
   $c,

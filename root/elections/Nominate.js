@@ -12,11 +12,15 @@ import React from 'react';
 import ConfirmLayout from '../components/ConfirmLayout';
 import EditorLink from '../static/scripts/common/components/EditorLink';
 
-const Nominate = ({candidate}: {+candidate: EditorT}) => ConfirmLayout({
-  question: exp.l('Are you sure you want to nominate the editor {editor} for auto-editor status?', {
-    editor: <EditorLink editor={candidate} key="editor" />,
-  }),
-  title: l('Nominate a candidate for auto-editor'),
-});
+const Nominate = ({candidate}: {+candidate: EditorT}) => (
+  <ConfirmLayout
+    question={exp.l(
+      `Are you sure you want to nominate the editor {editor}
+       for auto-editor status?`,
+      {editor: <EditorLink editor={candidate} key="editor" />},
+    )}
+    title={l('Nominate a candidate for auto-editor')}
+  />
+);
 
 export default Nominate;

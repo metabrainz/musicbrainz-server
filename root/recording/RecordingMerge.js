@@ -16,20 +16,20 @@ import RecordingList from '../components/list/RecordingList';
 import {withCatalystContext} from '../context';
 import Layout from '../layout';
 
-type RecordingMergeForm = FormT<{|
+type RecordingMergeForm = FormT<{
   +edit_note: FieldT<string>,
   +make_votable: FieldT<boolean>,
   +merging: RepeatableFieldT<FieldT<number>>,
   +rename: FieldT<boolean>,
   +target: FieldT<number>,
-|}>;
+}>;
 
-type Props = {|
+type Props = {
   +$c: CatalystContextT,
   +form: RecordingMergeForm,
   +isrcsDiffer?: boolean,
   +toMerge: $ReadOnlyArray<RecordingT>,
-|};
+};
 
 const RecordingMerge = ({$c, form, isrcsDiffer, toMerge}: Props) => {
   function renderCheckboxElement(recording, index) {

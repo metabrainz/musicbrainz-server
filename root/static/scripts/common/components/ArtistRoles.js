@@ -14,12 +14,12 @@ import localizeArtistRoles from '../i18n/localizeArtistRoles';
 
 import EntityLink from './EntityLink';
 
-type Props = {|
-  +relations: $ReadOnlyArray<{|
+type Props = {
+  +relations: $ReadOnlyArray<{
     +entity: ArtistT,
     +roles: $ReadOnlyArray<string>,
-  |}>,
-|};
+  }>,
+};
 
 const ArtistRoles = ({relations}: Props) => (
   <ul>

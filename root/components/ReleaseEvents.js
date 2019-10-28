@@ -24,9 +24,9 @@ const buildReleaseEvent = (event, index) => (
   </li>
 );
 
-type ReleaseEventsProps = {|
+type ReleaseEventsProps = {
   +events: $ReadOnlyArray<ReleaseEventT>,
-|};
+};
 
 const ReleaseEvents = ({events}: ReleaseEventsProps) => (
   events.length ? (

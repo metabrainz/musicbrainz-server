@@ -14,11 +14,11 @@ import EditorLink from '../static/scripts/common/components/EditorLink';
 
 import AreaLayout from './AreaLayout';
 
-type Props = {|
+type Props = {
   +area: AreaT,
   +editors: $ReadOnlyArray<EditorT>,
   +pager: PagerT,
-|};
+};
 
 const AreaUsers = ({
   area,

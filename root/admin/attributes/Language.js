@@ -30,7 +30,7 @@ const Language = ({model, attributes}: Props) => {
     <Layout fullWidth title={model || l('Language')}>
       <h1>
         <a href="/admin/attributes">{l('Attributes')}</a>
-        <text>{' / ' + l('Language')}</text>
+        {' / ' + l('Language')}
       </h1>
       <table className="tbl">
         <thead>

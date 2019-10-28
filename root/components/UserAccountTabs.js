@@ -72,10 +72,10 @@ function buildTabs(
   return tabs;
 }
 
-type Props = {|
+type Props = {
   +page: string,
   +user: EditorT,
-|};
+};
 
 const UserAccountTabs = ({
   user,

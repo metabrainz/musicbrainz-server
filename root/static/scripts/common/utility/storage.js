@@ -19,7 +19,7 @@ try {
 }
 
 // Holds data where localStorage isn't supported
-const store: {[string]: string} = {};
+const store: {[string]: string, ...} = {};
 
 export function localStorage(name: string, value?: string): string | void {
   if (arguments.length > 1) {

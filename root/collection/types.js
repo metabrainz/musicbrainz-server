@@ -7,19 +7,19 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-export type CollectionEditFormT = FormT<{|
-  +collaborators: ReadOnlyRepeatableFieldT<ReadOnlyCompoundFieldT<{|
+export type CollectionEditFormT = FormT<{
+  +collaborators: ReadOnlyRepeatableFieldT<ReadOnlyCompoundFieldT<{
     +id: ReadOnlyFieldT<number>,
     +name: ReadOnlyFieldT<string>,
-  |}>>,
+  }>>,
   +description: ReadOnlyFieldT<string>,
   +name: ReadOnlyFieldT<string>,
   +public: ReadOnlyFieldT<boolean>,
   +type_id: ReadOnlyFieldT<number>,
-|}>;
+}>;
 
 export type CollaboratorStateT =
-  RepeatableFieldT<CompoundFieldT<{|
+  RepeatableFieldT<CompoundFieldT<{
     +id: FieldT<number | null>,
     +name: FieldT<string>,
-  |}>>;
+  }>>;

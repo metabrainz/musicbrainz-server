@@ -11,15 +11,15 @@ import React from 'react';
 import type {ElementRef} from 'react';
 
 
-type Props = {|
+type Props = {
   +className: string,
   +html: string,
-|};
+};
 
-type State = {|
+type State = {
   isCollapsed: boolean,
   isCollapsible: boolean,
-|};
+};
 
 class Collapsible extends React.Component<Props, State> {
   constructor(props: Props) {

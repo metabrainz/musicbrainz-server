@@ -16,13 +16,13 @@ import * as manifest from '../static/manifest';
 
 import AreaLayout from './AreaLayout';
 
-type Props = {|
+type Props = {
   +$c: CatalystContextT,
   +area: AreaT,
   +mapDataArgs: {places: $ReadOnlyArray<PlaceT>},
   +pager: PagerT,
   +places: $ReadOnlyArray<PlaceT>,
-|};
+};
 
 const AreaPlaces = ({
   $c,

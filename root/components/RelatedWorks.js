@@ -23,9 +23,9 @@ const targetEntityTypes = [
   'work',
 ];
 
-type Props = {|
+type Props = {
   +workIds: $ReadOnlyArray<number>,
-|};
+};
 
 const RelatedWorks = ({workIds}: Props) => {
   const createArgs = [

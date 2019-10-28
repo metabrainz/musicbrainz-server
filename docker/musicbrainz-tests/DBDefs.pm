@@ -102,7 +102,7 @@ sub GIT_SHA { return }
 
 sub HTML_VALIDATOR { 'http://localhost:8888?out=json' }
 
-sub MB_LANGUAGES { qw( de el-gr es-es et fi fr it ja nl en ) }
+sub MB_LANGUAGES { qw( de el-gr es-es et fi fr it ja nl sq en ) }
 
 sub PLUGIN_CACHE_OPTIONS {
     my $self = shift;

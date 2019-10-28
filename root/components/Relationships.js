@@ -20,6 +20,7 @@ import StaticRelationshipsDisplay from './StaticRelationshipsDisplay';
 
 type DisplayTargets = {
   +[CoreEntityTypeT]: ?$ReadOnlyArray<CoreEntityTypeT>,
+  ...
 };
 
 const displayTargets: DisplayTargets = {
@@ -64,11 +65,11 @@ function isNotSeriesPart(r: RelationshipT) {
   return !seriesPartLinkTypes.has(linkedEntities.link_type[r.linkTypeID].gid);
 }
 
-type Props = {|
+type Props = {
   +noRelationshipsHeading?: boolean,
   +relationships?: GroupedRelationshipsT,
   +source: CoreEntityT,
-|};
+};
 
 const Relationships = ({
   noRelationshipsHeading = false,

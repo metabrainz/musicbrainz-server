@@ -28,26 +28,26 @@ function hasEntity($c, collection) {
   return !!(containment && containment[collection.id]);
 }
 
-type CollectionAddRemoveProps = {|
+type CollectionAddRemoveProps = {
   +$c: CatalystContextT,
   +collections?: $ReadOnlyArray<CollectionT>,
   +entity: CoreEntityT,
   +noneText?: string,
-|};
+};
 
-type CollaborativeCollectionListProps = {|
+type CollaborativeCollectionListProps = {
   +collections?: $ReadOnlyArray<CollectionT>,
   +entity: CoreEntityT,
-|};
+};
 
-type OwnCollectionListProps = {|
+type OwnCollectionListProps = {
   +addText: string,
   +collections?: $ReadOnlyArray<CollectionT>,
   +entity: CoreEntityT,
   +noneText: string,
-|};
+};
 
-type CollectionListProps = {|
+type CollectionListProps = {
   +addCollectionText: string,
   +collaborativeCollections?: $ReadOnlyArray<CollectionT>,
   +collaborativeCollectionsHeader: string,
@@ -59,7 +59,7 @@ type CollectionListProps = {|
   +sectionClass: string,
   +usersLink: ReactNode,
   +usersLinkHeader: string,
-|};
+};
 
 const CollectionAddRemove = withCatalystContext(({
   $c,

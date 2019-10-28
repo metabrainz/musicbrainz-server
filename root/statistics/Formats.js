@@ -18,20 +18,20 @@ import LinkSearchableProperty from '../components/LinkSearchableProperty';
 import {formatCount, formatPercentage} from './utilities';
 import StatisticsLayout from './StatisticsLayout';
 
-type FormatsStatsT = {|
+type FormatsStatsT = {
   +$c: CatalystContextT,
   +dateCollected: string,
   +formatStats: $ReadOnlyArray<FormatStatT>,
   +stats: {[string]: number},
-|};
+};
 
-type FormatStatT = {|
+type FormatStatT = {
   +entity: MediumFormatT | null,
   +medium_count: number,
   +medium_stat: string,
   +release_count: number,
   +release_stat: string,
-|};
+};
 
 const Formats = ({$c, dateCollected, formatStats, stats}: FormatsStatsT) => (
   <StatisticsLayout

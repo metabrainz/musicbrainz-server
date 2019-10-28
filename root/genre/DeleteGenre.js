@@ -15,10 +15,10 @@ import EntityLink from '../static/scripts/common/components/EntityLink';
 
 import GenreLayout from './GenreLayout';
 
-type Props = {|
+type Props = {
   +$c: CatalystContextT,
   +genre: GenreT,
-|};
+};
 
 const DeleteGenre = ({$c, genre}: Props) => (
   <GenreLayout

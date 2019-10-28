@@ -11,10 +11,10 @@ import React from 'react';
 
 import EntityHeader from '../components/EntityHeader';
 
-type Props = {|
+type Props = {
   page: string,
   place: PlaceT,
-|};
+};
 
 const PlaceHeader = ({place, page}: Props) => (
   <EntityHeader

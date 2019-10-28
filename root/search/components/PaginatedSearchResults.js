@@ -13,13 +13,13 @@ import type {Node as ReactNode} from 'react';
 
 import PaginatedResults from '../../components/PaginatedResults';
 
-type Props<T> = {|
+type Props<T> = {
   +buildResult: (SearchResultT<T>, number) => ReactNode,
   +columns: ReactNode,
   +pager: PagerT,
   +query: string,
   +results: $ReadOnlyArray<SearchResultT<T>>,
-|};
+};
 
 const PaginatedSearchResults = <T>({
   buildResult,

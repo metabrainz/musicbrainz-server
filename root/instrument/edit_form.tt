@@ -14,6 +14,16 @@
           [%- r.textarea('description', { rows => 5 }) -%]
           [%- field_errors(form, 'description') -%]
       [%- END -%]
+      [% WRAPPER form_row %]
+        <p>
+          [% # When converting to React, please move the list below to expand2react.js and import from there # %]
+          [% l('HTML tags allowed in the description: {tag_list}.', 
+            {tag_list => comma_only_list(
+              ['a', 'abbr', 'br', 'code', 'em', 'li', 'p', 'span', 'strong', 'ul'],
+            )}) %]
+        </p>
+      [%- END -%]
+
     </fieldset>
 
     [% PROCESS 'forms/relationship-editor.tt' %]

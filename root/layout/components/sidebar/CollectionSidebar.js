@@ -16,10 +16,10 @@ import EntityLink from '../../../static/scripts/common/components/EntityLink';
 
 import {SidebarProperties, SidebarProperty} from './SidebarProperties';
 
-type Props = {|
+type Props = {
   +$c: CatalystContextT,
   +collection: CollectionT,
-|};
+};
 
 const CollectionSidebar = ({$c, collection}: Props) => (
   <div id="sidebar">

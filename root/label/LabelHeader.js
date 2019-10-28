@@ -11,10 +11,10 @@ import React from 'react';
 
 import EntityHeader from '../components/EntityHeader';
 
-type Props = {|
+type Props = {
   +label: LabelT,
   +page: string,
-|};
+};
 
 const LabelHeader = ({label, page}: Props) => (
   <EntityHeader

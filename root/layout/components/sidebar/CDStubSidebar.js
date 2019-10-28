@@ -16,9 +16,9 @@ import {age, displayAgeAgo} from '../../../utility/age';
 
 import {SidebarProperties, SidebarProperty} from './SidebarProperties';
 
-type Props = {|
+type Props = {
   +cdstub: CDStubT,
-|};
+};
 
 const CDStubSidebar = ({cdstub}: Props) => {
   const now = parseDate((new Date()).toISOString().slice(0, 10));

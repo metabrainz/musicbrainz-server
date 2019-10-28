@@ -14,13 +14,13 @@ import FormRowEmailLong from '../components/FormRowEmailLong';
 import FormSubmit from '../components/FormSubmit';
 import Layout from '../layout';
 
-type LostUsernameFormT = FormT<{|
+type LostUsernameFormT = FormT<{
   +email: ReadOnlyFieldT<string>,
-|}>;
+}>;
 
-type Props = {|
+type Props = {
   +form: LostUsernameFormT,
-|};
+};
 
 const LostUsername = (props: Props) => (
   <Layout fullWidth title={l('Lost Username')}>

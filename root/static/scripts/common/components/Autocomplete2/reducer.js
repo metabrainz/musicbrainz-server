@@ -11,7 +11,6 @@ import {unwrapNl} from '../../i18n';
 
 import {
   SEARCH_AGAIN,
-  TOGGLE_INDEXED_SEARCH,
 } from './actions';
 import {EMPTY_ARRAY, MENU_ITEMS} from './constants';
 import type {
@@ -183,7 +182,7 @@ function runReducer(
       state.items = state.items.concat(
         state.indexedSearch
           ? MENU_ITEMS.ERROR_TRY_AGAIN_DIRECT
-          : MENU_ITEMS.ERROR_TRY_AGAIN_INDEXED
+          : MENU_ITEMS.ERROR_TRY_AGAIN_INDEXED,
       );
       state.pendingSearch = null;
       break;

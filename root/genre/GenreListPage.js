@@ -12,9 +12,9 @@ import * as React from 'react';
 import Layout from '../layout';
 import EntityLink from '../static/scripts/common/components/EntityLink';
 
-type PropsT = {|
+type PropsT = {
   +genres: $ReadOnlyArray<GenreT>,
-|};
+};
 
 const GenreListPage = ({genres}: PropsT) => (
   <Layout fullWidth title={l('Genre List')}>

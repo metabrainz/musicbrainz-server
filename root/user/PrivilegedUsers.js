@@ -13,7 +13,7 @@ import Layout from '../layout';
 
 import UserInlineList from './components/UserInlineList';
 
-type Props = {|
+type Props = {
   +accountAdmins: $ReadOnlyArray<EditorT>,
   +autoEditors: $ReadOnlyArray<EditorT>,
   +bannerEditors: $ReadOnlyArray<EditorT>,
@@ -21,7 +21,7 @@ type Props = {|
   +locationEditors: $ReadOnlyArray<EditorT>,
   +relationshipEditors: $ReadOnlyArray<EditorT>,
   +transclusionEditors: $ReadOnlyArray<EditorT>,
-|};
+};
 
 const PrivilegedUsers = ({
   accountAdmins,

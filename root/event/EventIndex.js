@@ -19,12 +19,12 @@ import * as manifest from '../static/manifest';
 
 import EventLayout from './EventLayout';
 
-type Props = {|
+type Props = {
   +eligibleForCleanup: boolean,
   +event: EventT,
   +numberOfRevisions: number,
   +wikipediaExtract: WikipediaExtractT,
-|};
+};
 
 const EventIndex = ({
   eligibleForCleanup,

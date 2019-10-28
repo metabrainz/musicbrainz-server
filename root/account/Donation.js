@@ -12,10 +12,10 @@ import React from 'react';
 import {CONTACT_URL, DONATE_URL} from '../constants';
 import StatusPage from '../components/StatusPage';
 
-type Props = {|
+type Props = {
   +days: number,
   +nag: boolean,
-|};
+};
 
 const Donation = ({days, nag}: Props) => (
   <StatusPage title={l('Donation Check')}>

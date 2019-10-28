@@ -15,13 +15,13 @@ import SeriesSidebar from '../layout/components/sidebar/SeriesSidebar';
 
 import SeriesHeader from './SeriesHeader';
 
-type Props = {|
+type Props = {
   +children: ReactNode,
   +entity: SeriesT,
   +fullWidth?: boolean,
   +page: string,
   +title?: string,
-|};
+};
 
 const SeriesLayout = ({
   children,

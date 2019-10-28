@@ -9,10 +9,10 @@
 
 import React from 'react';
 
-type Props = {|
+type Props = {
   +className?: string,
   +label: string,
-|};
+};
 
 const FormSubmit = ({className, label}: Props) => (
   <span className={'buttons' + (className ? ' ' + className : '')}>

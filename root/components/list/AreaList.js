@@ -15,13 +15,13 @@ import DescriptiveLink
   from '../../static/scripts/common/components/DescriptiveLink';
 import SortableTableHeader from '../SortableTableHeader';
 
-type Props = {|
+type Props = {
   +$c: CatalystContextT,
   +areas: $ReadOnlyArray<AreaT>,
   +checkboxes?: string,
   +order?: string,
   +sortable?: boolean,
-|};
+};
 
 const AreaList = ({
   $c,

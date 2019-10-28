@@ -82,25 +82,25 @@ function parseRoot(args) {
  */
 export default function expand2text(
   source: string,
-  args: {+[string]: StrOrNum},
+  args: {+[string]: StrOrNum, ...},
 ) {
   return expand<string, StrOrNum>(parseRoot, source, args);
 }
 
 export const l = (
   key: string,
-  args: {+[string]: StrOrNum},
+  args: {+[string]: StrOrNum, ...},
 ) => expand2text(lActual(key), args);
 
 export const ln = (
   skey: string,
   pkey: string,
   val: number,
-  args: {+[string]: StrOrNum},
+  args: {+[string]: StrOrNum, ...},
 ) => expand2text(lnActual(skey, pkey, val), args);
 
 export const lp = (
   key: string,
   context: string,
-  args: {+[string]: StrOrNum},
+  args: {+[string]: StrOrNum, ...},
 ) => expand2text(lpActual(key, context), args);

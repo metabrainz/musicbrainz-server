@@ -14,11 +14,11 @@ import Layout from '../layout';
 import CodeLink from '../static/scripts/common/components/CodeLink';
 import WorkListEntry from '../static/scripts/common/components/WorkListEntry';
 
-type Props = {|
+type Props = {
   +$c: CatalystContextT,
   +iswcs: $ReadOnlyArray<IswcT>,
   +works: $ReadOnlyArray<WorkT>,
-|};
+};
 
 const Index = ({$c, iswcs, works}: Props) => {
   const userExists = $c.user_exists;

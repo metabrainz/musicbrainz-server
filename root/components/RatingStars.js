@@ -23,10 +23,10 @@ const ratingURL = (entity: RatableT, rating) => (
 
 const ratingInts = [1, 2, 3, 4, 5];
 
-type Props = {|
+type Props = {
   +$c: CatalystContextT,
   +entity: RatableT,
-|};
+};
 
 const RatingStars = ({$c, entity}: Props) => {
   const currentStarRating =

@@ -152,6 +152,18 @@ sub serialize_aliases {
 
     return unless defined $inc && $inc->aliases;
 
+    # We don't show aliases again for recording artists if they're on the release or track AC
+    if ($entity->isa('MusicBrainz::Server::Entity::Artist')) {
+        if (my $release_ac = $stash->{release_artist_credit}) {
+            # We make sure a track AC is set (i.e. this is a recording)
+            # to avoid breaking stuff that expects track artist aliases
+            if (my $track_ac = $stash->{track_artist_credit}) {
+                return if (grep { $_->artist_id == $entity->id } $release_ac->all_names);
+                return if (grep { $_->artist_id == $entity->id } $track_ac->all_names);
+            }
+        }
+    }
+
     my $opts = $stash->store($entity);
 
     $into->{aliases} = [map {
@@ -252,6 +264,7 @@ sub serialize_relationships {
          $entity->has_loaded_relationships);
 
     local $hide_tags_and_genres = 1;
+    local $hide_aliases = 1;
 
     my @relationships =
         map { serialize_entity($_, $inc, $stash) }

@@ -30,7 +30,7 @@ const pickAppearancesTypes = (entityType) => {
 
 export default function generateRelationshipAppearancesList(
   entity: CoreEntityT,
-): {[string]: $ReadOnlyArray<RelationshipT>} {
+): {[string]: $ReadOnlyArray<RelationshipT>, ...} {
   const result = {};
   const appearancesTypes = pickAppearancesTypes(entity.entityType);
   const relationships =
