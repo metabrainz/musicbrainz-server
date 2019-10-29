@@ -10,8 +10,10 @@
 import * as React from 'react';
 
 import {withCatalystContext} from '../../../context';
-import CommonsImage from '../../../static/scripts/common/components/CommonsImage';
-import DescriptiveLink from '../../../static/scripts/common/components/DescriptiveLink';
+import CommonsImage
+  from '../../../static/scripts/common/components/CommonsImage';
+import DescriptiveLink
+  from '../../../static/scripts/common/components/DescriptiveLink';
 import * as age from '../../../utility/age';
 import {formatCoordinates, osmUrl} from '../../../utility/coordinates';
 import ExternalLinks from '../ExternalLinks';
@@ -37,6 +39,7 @@ const PlaceSidebar = ({$c, place}: Props) => {
   const placeAge = age.age(place);
   const gid = encodeURIComponent(place.gid);
   const coordinates = place.coordinates;
+  const heldAtRelGid = 'e2c6f697-07dc-38b1-be0b-83d740165532';
 
   return (
     <div id="sidebar">
@@ -52,9 +55,17 @@ const PlaceSidebar = ({$c, place}: Props) => {
       <SidebarProperties>
         <SidebarType entity={place} typeType="place_type" />
 
-        <SidebarBeginDate age={placeAge} entity={place} label={l('Opened:')} />
+        <SidebarBeginDate
+          age={placeAge}
+          entity={place}
+          label={l('Opened:')}
+        />
 
-        <SidebarEndDate age={placeAge} entity={place} label={l('Closed:')} />
+        <SidebarEndDate
+          age={placeAge}
+          entity={place}
+          label={l('Closed:')}
+        />
 
         {place.address ? (
           <SidebarProperty className="address" label={l('Address:')}>
@@ -88,7 +99,11 @@ const PlaceSidebar = ({$c, place}: Props) => {
 
       <EditLinks entity={place}>
         <li>
-          <a href={`/event/create?rels.0.target=${gid}&rels.0.type=e2c6f697-07dc-38b1-be0b-83d740165532`}>
+          <a
+            href={
+              `/event/create?rels.0.target=${gid}&rels.0.type=${heldAtRelGid}`
+            }
+          >
             {l('Add event')}
           </a>
         </li>

@@ -28,7 +28,9 @@ MB.Control.HeaderMenu = function () {
     function getLeft(li) {
         var $li = $(li);
         if ($li.hasClass('language-selector')) {
-            return '-' + ($li.children('ul:eq(0)').outerWidth() - $li.outerWidth()) + 'px';
+            return '-' +
+                ($li.children('ul:eq(0)').outerWidth() - $li.outerWidth()) +
+                'px';
         }
         return 'auto';
     }

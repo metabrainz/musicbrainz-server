@@ -14,7 +14,8 @@ import Layout from '../layout';
 import formatUserDate from '../utility/formatUserDate';
 
 import {ANNOTATION_REPORT_TEXT} from './constants';
-import ReleaseGroupAnnotationList from './components/ReleaseGroupAnnotationList';
+import ReleaseGroupAnnotationList
+  from './components/ReleaseGroupAnnotationList';
 import FilterLink from './FilterLink';
 import type {ReportDataT, ReportReleaseGroupAnnotationT} from './types';
 

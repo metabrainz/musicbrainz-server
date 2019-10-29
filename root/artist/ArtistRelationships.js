@@ -16,16 +16,29 @@ import EntityLink from '../static/scripts/common/components/EntityLink';
 import ArtistLayout from './ArtistLayout';
 
 const ArtistRelationships = ({artist}: {artist: ArtistT}) => (
-  <ArtistLayout entity={artist} page="relationships" title={l('Relationships')}>
+  <ArtistLayout
+    entity={artist}
+    page="relationships"
+    title={l('Relationships')}
+  >
     {artist.relationships && artist.relationships.length > 0 ? (
       <Relationships source={artist} />
     ) : (
       <>
         <h2 className="relationships">{l('Relationships')}</h2>
-        <p>{exp.l('{link} has no relationships.', {link: <EntityLink entity={artist} />})}</p>
+        <p>
+          {exp.l(
+            '{link} has no relationships.',
+            {link: <EntityLink entity={artist} />},
+          )}
+        </p>
       </>
     )}
-    <RelationshipsTable entity={artist} heading={l('Appearances')} showCredits />
+    <RelationshipsTable
+      entity={artist}
+      heading={l('Appearances')}
+      showCredits
+    />
   </ArtistLayout>
 );
 

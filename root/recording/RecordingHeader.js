@@ -10,7 +10,8 @@
 import React from 'react';
 
 import EntityHeader from '../components/EntityHeader';
-import ArtistCreditLink from '../static/scripts/common/components/ArtistCreditLink';
+import ArtistCreditLink
+  from '../static/scripts/common/components/ArtistCreditLink';
 import TaggerIcon from '../static/scripts/common/components/TaggerIcon';
 
 type Props = {
@@ -28,7 +29,9 @@ const RecordingHeader = ({recording, page}: Props) => {
       headerClass="recordingheader"
       page={page}
       preHeader={<TaggerIcon entity={recording} />}
-      subHeading={recording.video ? exp.l('Video by {artist}', lArgs) : exp.l('Recording by {artist}', lArgs)}
+      subHeading={recording.video
+        ? exp.l('Video by {artist}', lArgs)
+        : exp.l('Recording by {artist}', lArgs)}
     />
   );
 };

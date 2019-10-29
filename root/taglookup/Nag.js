@@ -20,9 +20,10 @@ const TagLookupNagSection = () => (
          {finances|more than $1000 per month}. We need our users to help us
          make ends meet and hopefully have money left over to sponsor more
          development. The {metabrainz_foundation|MetaBrainz Foundation}, a
-         California based 501(c)3 tax-exempt non-profit, operates the MusicBrainz
-         project which makes all donations <strong>tax deductible</strong>
-         for US taxpayers. And it's simply good karma everywhere else!`,
+         California based 501(c)3 tax-exempt non-profit, operates the
+         MusicBrainz project which makes all donations
+         <strong>tax deductible</strong> for US taxpayers.
+         And it's simply good karma everywhere else!`,
         {
           finances: 'https://metabrainz.org/finances',
           metabrainz_foundation: 'https://metabrainz.org',

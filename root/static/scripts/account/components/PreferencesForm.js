@@ -190,15 +190,25 @@ class PreferencesForm extends React.Component<Props, State> {
           <legend>{l('Email')}</legend>
           <FormRowCheckbox
             field={field.email_on_no_vote}
-            label={l('Mail me when one of my edits gets a "no" vote. (Note: the email is only sent for the first "no" vote, not each one)')}
+            label={l(
+              `Mail me when one of my edits gets a "no" vote.
+               (Note: the email is only sent for the first "no" vote,
+               not each one)`,
+            )}
           />
           <FormRowCheckbox
             field={field.email_on_notes}
-            label={l('When I add a note to an edit, mail me all future notes for that edit.')}
+            label={l(
+              `When I add a note to an edit,
+               mail me all future notes for that edit.`,
+            )}
           />
           <FormRowCheckbox
             field={field.email_on_vote}
-            label={l('When I vote on an edit, mail me all future notes for that edit.')}
+            label={l(
+              `When I vote on an edit,
+               mail me all future notes for that edit.`,
+            )}
           />
           <FormRowSelect
             field={field.subscriptions_email_period}

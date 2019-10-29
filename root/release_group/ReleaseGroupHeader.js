@@ -10,7 +10,8 @@
 import React from 'react';
 
 import EntityHeader from '../components/EntityHeader';
-import ArtistCreditLink from '../static/scripts/common/components/ArtistCreditLink';
+import ArtistCreditLink
+  from '../static/scripts/common/components/ArtistCreditLink';
 
 type Props = {
   page: string,

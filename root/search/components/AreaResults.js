@@ -10,10 +10,12 @@
 import React from 'react';
 
 import {withCatalystContext} from '../../context';
-import DescriptiveLink from '../../static/scripts/common/components/DescriptiveLink';
+import DescriptiveLink
+  from '../../static/scripts/common/components/DescriptiveLink';
 import formatDate from '../../static/scripts/common/utility/formatDate';
 import formatEndDate from '../../static/scripts/common/utility/formatEndDate';
-import primaryAreaCode from '../../static/scripts/common/utility/primaryAreaCode';
+import primaryAreaCode
+  from '../../static/scripts/common/utility/primaryAreaCode';
 import loopParity from '../../utility/loopParity';
 import type {ResultsPropsWithContextT} from '../types';
 

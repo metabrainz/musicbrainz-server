@@ -103,12 +103,17 @@ const Annotation = ({
               ) : null}
             </>
           ) : (
-            exp.l('This is an {history|old revision} of this annotation, as edited by {user} on {date}. {current|View current revision}.', {
-              current: entityHref(entity, '/annotation'),
-              date: formatUserDate($c.user, annotation.creation_date),
-              history: entityHref(entity, '/annotations'),
-              user: <EditorLink editor={annotation.editor} />,
-            })
+            exp.l(
+              `This is an {history|old revision} of this annotation,
+               as edited by {user} on {date}.
+               {current|View current revision}.`,
+              {
+                current: entityHref(entity, '/annotation'),
+                date: formatUserDate($c.user, annotation.creation_date),
+                history: entityHref(entity, '/annotations'),
+                user: <EditorLink editor={annotation.editor} />,
+              },
+            )
           )
         ) : (
           texp.l('Annotation last modified on {date}.', {

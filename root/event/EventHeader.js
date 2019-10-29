@@ -21,7 +21,9 @@ const EventHeader = ({event, page}: Props) => (
     entity={event}
     headerClass="eventheader"
     page={page}
-    subHeading={event.typeName ? lp_attributes(event.typeName, 'event_type') : l('Event')}
+    subHeading={event.typeName
+      ? lp_attributes(event.typeName, 'event_type')
+      : l('Event')}
   />
 );
 

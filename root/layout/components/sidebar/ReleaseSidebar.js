@@ -17,13 +17,18 @@ import {withCatalystContext} from '../../../context';
 import EntityLink from '../../../static/scripts/common/components/EntityLink';
 import linkedEntities from '../../../static/scripts/common/linkedEntities';
 import entityHref from '../../../static/scripts/common/utility/entityHref';
-import formatBarcode from '../../../static/scripts/common/utility/formatBarcode';
-import formatTrackLength from '../../../static/scripts/common/utility/formatTrackLength';
-import releaseLabelKey from '../../../static/scripts/common/utility/releaseLabelKey';
+import formatBarcode
+  from '../../../static/scripts/common/utility/formatBarcode';
+import formatTrackLength
+  from '../../../static/scripts/common/utility/formatTrackLength';
+import releaseLabelKey
+  from '../../../static/scripts/common/utility/releaseLabelKey';
 import {Artwork} from '../../../components/Artwork';
 import CritiqueBrainzLinks from '../../../components/CritiqueBrainzLinks';
-import LinkSearchableLanguage from '../../../components/LinkSearchableLanguage';
-import LinkSearchableProperty from '../../../components/LinkSearchableProperty';
+import LinkSearchableLanguage
+  from '../../../components/LinkSearchableLanguage';
+import LinkSearchableProperty
+  from '../../../components/LinkSearchableProperty';
 import ReleaseEvents from '../../../components/ReleaseEvents';
 import coverArtUrl from '../../../utility/coverArtUrl';
 import ExternalLinks from '../ExternalLinks';
@@ -77,7 +82,8 @@ const ReleaseSidebar = ({$c, release}: Props) => {
             artwork={releaseArtwork}
             fallback={releaseCoverUrl}
             message={ReactDOMServer.renderToStaticMarkup(exp.l(
-              'Front cover image failed to load correctly.<br/>{all|View all artwork}.',
+              'Front cover image failed to load correctly.' +
+              '<br/>{all|View all artwork}.',
               {all: entityHref(release, 'cover-art')},
             ))}
           />
@@ -160,7 +166,10 @@ const ReleaseSidebar = ({$c, release}: Props) => {
         ) : null}
 
         {release.statusID ? (
-          <SidebarProperty className="status" label={lp('Status:', 'release status')}>
+          <SidebarProperty
+            className="status"
+            label={lp('Status:', 'release status')}
+          >
             {l_attributes(
               linkedEntities.release_status[release.statusID].name,
             )}
@@ -169,7 +178,10 @@ const ReleaseSidebar = ({$c, release}: Props) => {
 
         {language ? (
           <SidebarProperty className="language" label={l('Language:')}>
-            <LinkSearchableLanguage entityType="release" language={language} />
+            <LinkSearchableLanguage
+              entityType="release"
+              language={language}
+            />
           </SidebarProperty>
         ) : null}
 

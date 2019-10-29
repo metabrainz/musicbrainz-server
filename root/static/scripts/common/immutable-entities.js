@@ -6,25 +6,31 @@
 import {VARTIST_GID} from './constants';
 import nonEmpty from './utility/nonEmpty';
 
-const reduceName = (memo, x) =>
+const reduceName = (memo, x) => (
   memo +
-  (nonEmpty(x.name) ? x.name : (x.artist && nonEmpty(x.artist.name) ? x.artist.name : '')) +
-  (nonEmpty(x.joinPhrase) ? x.joinPhrase : '');
+  (nonEmpty(x.name)
+    ? x.name
+    : (x.artist && nonEmpty(x.artist.name) ? x.artist.name : '')) +
+  (nonEmpty(x.joinPhrase) ? x.joinPhrase : '')
+);
 
-const isVariousArtist = name => name.artist ? name.artist.gid === VARTIST_GID : false;
+const isVariousArtist =
+  name => name.artist ? name.artist.gid === VARTIST_GID : false;
 
 export const hasVariousArtists = ac => ac.names.some(isVariousArtist);
 
 export const hasArtist = name => !!(name.artist && name.artist.gid);
 
-export const isCompleteArtistCredit = ac => ac.names.length > 0 && ac.names.every(hasArtist);
+export const isCompleteArtistCredit =
+  ac => ac.names.length > 0 && ac.names.every(hasArtist);
 
 export const reduceArtistCredit = ac => ac.names.reduce(reduceName, '');
 
 export const isComplexArtistCredit = function (ac) {
   const firstName = ac.names[0];
   if (firstName && hasArtist(firstName)) {
-     return !nonEmpty(firstName.name) || firstName.artist.name !== reduceArtistCredit(ac);
+    return !nonEmpty(firstName.name) ||
+      firstName.artist.name !== reduceArtistCredit(ac);
   }
   return false;
 };

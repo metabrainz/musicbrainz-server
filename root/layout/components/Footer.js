@@ -34,7 +34,9 @@ const Footer = ({$c, ...props}) => {
           <>
             {' | '}
             <a className="internal" href="/set-beta-preference">
-              {DBDefs.IS_BETA ? l('Stop using beta site') : l('Use beta site')}
+              {DBDefs.IS_BETA
+                ? l('Stop using beta site')
+                : l('Use beta site')}
             </a>
           </>
         ) : null}
@@ -44,7 +46,11 @@ const Footer = ({$c, ...props}) => {
             <br />
             {exp.l('Running: {git_details}', {
               git_details: (
-                <span className="tooltip" key="git_details" title={DBDefs.GIT_MSG}>
+                <span
+                  className="tooltip"
+                  key="git_details"
+                  title={DBDefs.GIT_MSG}
+                >
                   {DBDefs.GIT_BRANCH}
                   {' '}
                   {bracketed(DBDefs.GIT_SHA)}
@@ -67,13 +73,17 @@ const Footer = ({$c, ...props}) => {
       </p>
 
       <p className="right">
-        {exp.l('Brought to you by {MeB|MetaBrainz Foundation} and our {spon|sponsors} and {supp|supporters}. Cover Art provided by the {caa|Cover Art Archive}.',
+        {exp.l(
+          `Brought to you by {MeB|MetaBrainz Foundation} and our
+           {spon|sponsors} and {supp|supporters}. Cover Art provided
+           by the {caa|Cover Art Archive}.`,
           {
             MeB: 'https://metabrainz.org/',
             caa: '//coverartarchive.org/',
             spon: 'https://metabrainz.org/sponsors',
             supp: 'https://metabrainz.org/supporters',
-          })}
+          },
+        )}
       </p>
     </div>
   );

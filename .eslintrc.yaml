@@ -124,8 +124,8 @@ rules:
   lines-between-class-members: [warn, always]
   max-len: [warn, {code: 78,
                    ignoreUrls: true,
-                   ignoreStrings: true,
-                   ignoreTemplateLiterals: true,
+                   ignoreStrings: false,
+                   ignoreTemplateLiterals: false,
                    ignoreRegExpLiterals: true}]
   max-statements-per-line: [warn, {max: 1}]
   multiline-comment-style: [warn, starred-block]

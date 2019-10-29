@@ -39,14 +39,16 @@ function setAutoJoinPhrases(ac) {
 
   if (size > 1) {
     const name1 = names[size - 2];
-    if (name1 && name1.automaticJoinPhrase !== false && auto.test(name1.joinPhrase)) {
+    if (name1 && name1.automaticJoinPhrase !== false &&
+        auto.test(name1.joinPhrase)) {
       names[size - 2] = {...name1, joinPhrase: ' & '};
     }
   }
 
   if (size > 2) {
     const name2 = names[size - 3];
-    if (name2 && name2.automaticJoinPhrase !== false && auto.test(name2.joinPhrase)) {
+    if (name2 && name2.automaticJoinPhrase !== false &&
+        auto.test(name2.joinPhrase)) {
       names[size - 3] = {...name2, joinPhrase: ', '};
     }
   }
@@ -113,7 +115,8 @@ class ArtistCreditEditor extends React.Component {
 
   onNameChange(i, update) {
     this.setState(state => mutate(state, newState => {
-      newState.artistCredit.names[i] = {...state.artistCredit.names[i], ...update};
+      newState.artistCredit.names[i] =
+        {...state.artistCredit.names[i], ...update};
     }));
   }
 
@@ -168,7 +171,8 @@ class ArtistCreditEditor extends React.Component {
     } else {
       position.my = 'left center';
       position.at = 'right+15 center';
-      maxWidth = $('body').innerWidth() - ($button.position().left + $button.outerWidth() + 64);
+      maxWidth = $('body').innerWidth() - ($button.position().left +
+        $button.outerWidth() + 64);
       tailClass = 'left-tail';
     }
 
@@ -192,8 +196,11 @@ class ArtistCreditEditor extends React.Component {
     const $bubble = $('#artist-credit-bubble');
     const bubbleWasVisible = $bubble.is(':visible');
 
-    // `show` implies the bubble should be made visible with a new entity. If
-    // show = false and the bubble isn't visible, there's no point in updating it.
+    /*
+     * `show` implies the bubble should be made visible with a new entity.
+     * If show = false and the bubble isn't visible,
+     * there's no point in updating it.
+     */
     if (!show && !bubbleWasVisible) {
       return;
     }
@@ -304,7 +311,9 @@ class ArtistCreditEditor extends React.Component {
 
   componentDidUpdate(prevProps, prevState) {
     if (this.props.onChange &&
-        !artistCreditsAreEqual(prevState.artistCredit, this.state.artistCredit)) {
+        !artistCreditsAreEqual(
+          prevState.artistCredit, this.state.artistCredit,
+        )) {
       this.props.onChange(this.state.artistCredit);
     }
 
@@ -327,8 +336,14 @@ class ArtistCreditEditor extends React.Component {
       return [
         {name: curPrefix + 'name', value: name.name},
         {name: curPrefix + 'join_phrase', value: name.joinPhrase},
-        {name: curPrefix + 'artist.name', value: name.artist ? name.artist.name : ''},
-        {name: curPrefix + 'artist.id', value: name.artist ? name.artist.id : ''},
+        {
+          name: curPrefix + 'artist.name',
+          value: name.artist ? name.artist.name : '',
+        },
+        {
+          name: curPrefix + 'artist.id',
+          value: name.artist ? name.artist.id : '',
+        },
       ];
     }));
   }

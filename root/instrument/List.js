@@ -68,9 +68,11 @@ const InstrumentList = ({
           )
           : null}
         <p>
-          {exp.l('Is this list missing an instrument? Request it by following {link|these instructions}.', {
-            link: '/doc/How_to_Add_Instruments',
-          })}
+          {exp.l(
+            `Is this list missing an instrument?
+             Request it by following {link|these instructions}.`,
+            {link: '/doc/How_to_Add_Instruments'},
+          )}
         </p>
       </div>
     </Layout>

@@ -10,7 +10,8 @@
 import * as React from 'react';
 
 import PaginatedResults from '../components/PaginatedResults';
-import DescriptiveLink from '../static/scripts/common/components/DescriptiveLink';
+import DescriptiveLink
+  from '../static/scripts/common/components/DescriptiveLink';
 import expand2text from '../static/scripts/common/i18n/expand2text';
 
 import TagLayout from './TagLayout';
@@ -24,7 +25,10 @@ const headingsText = {
   place: N_ln('{num} place found', '{num} places found'),
   recording: N_ln('{num} recording found', '{num} recordings found'),
   release: N_ln('{num} release found', '{num} releases found'),
-  release_group: N_ln('{num} release group found', '{num} release groups found'),
+  release_group: N_ln(
+    '{num} release group found',
+    '{num} release groups found',
+  ),
   series: N_ln('{num} series found', '{num} series found'),
   work: N_ln('{num} work found', '{num} works found'),
 };

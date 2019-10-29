@@ -36,12 +36,18 @@ const RatingStars = ({$c, entity}: Props) => {
     <span className="inline-rating">
       <span className="star-rating" tabIndex="-1">
         {entity.user_rating ? (
-          <span className="current-user-rating" style={{width: `${entity.user_rating}%`}}>
+          <span
+            className="current-user-rating"
+            style={{width: `${entity.user_rating}%`}}
+          >
             {currentStarRating}
           </span>
         ) : (
           entity.rating ? (
-            <span className="current-rating" style={{width: `${entity.rating}%`}}>
+            <span
+              className="current-rating"
+              style={{width: `${entity.rating}%`}}
+            >
               {5 * entity.rating / 100}
             </span>
           ) : null
@@ -54,7 +60,9 @@ const RatingStars = ({$c, entity}: Props) => {
 
             return (
               <a
-                className={`stars-${rating} ${isCurrentRating ? 'remove-rating' : 'set-rating'}`}
+                className={`stars-${rating} ${isCurrentRating
+                  ? 'remove-rating'
+                  : 'set-rating'}`}
                 href={ratingURL(entity, newRating)}
                 key={rating}
                 title={ratingTooltip(newRating)}

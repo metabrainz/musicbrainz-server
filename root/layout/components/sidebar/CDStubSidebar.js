@@ -10,7 +10,8 @@
 import * as React from 'react';
 
 import CDStubLink from '../../../static/scripts/common/components/CDStubLink';
-import escapeLuceneValue from '../../../static/scripts/common/utility/escapeLuceneValue';
+import escapeLuceneValue
+  from '../../../static/scripts/common/utility/escapeLuceneValue';
 import parseDate from '../../../static/scripts/common/utility/parseDate';
 import {age, displayAgeAgo} from '../../../utility/age';
 
@@ -35,11 +36,19 @@ const CDStubSidebar = ({cdstub}: Props) => {
     ended: true,
   }) : null;
 
+  const artistField =
+    escapeLuceneValue(cdstub.artist || l('Various Artists'));
+  const releaseField = escapeLuceneValue(cdstub.title);
+  const tracksMediumField = escapeLuceneValue(cdstub.track_count);
+  const barcodeField = cdstub.barcode
+    ? escapeLuceneValue(cdstub.barcode)
+    : null;
+
   const searchQuery = (
-    'artist:(' + escapeLuceneValue(cdstub.artist || l('Various Artists')) + ') ' +
-    'release:(' + escapeLuceneValue(cdstub.title) + ') ' +
-    'tracksmedium:(' + escapeLuceneValue(cdstub.track_count) + ')' +
-    (cdstub.barcode ? ' barcode:(' + escapeLuceneValue(cdstub.barcode) + ')' : '')
+    `artist:(${artistField}) ` +
+    `release:(${releaseField}) ` +
+    `tracksmedium:(${tracksMediumField})` +
+    (barcodeField ? ` barcode:(${barcodeField})` : '')
   );
 
   const toc = cdstub.toc;
@@ -86,7 +95,10 @@ const CDStubSidebar = ({cdstub}: Props) => {
           </li>
         ) : null}
         <li>
-          <a href={'/search?advanced=1&type=release&query=' + encodeURIComponent(searchQuery)}>
+          <a
+            href={'/search?advanced=1&type=release&query=' +
+              encodeURIComponent(searchQuery)}
+          >
             {l('Search the database for this CD')}
           </a>
         </li>

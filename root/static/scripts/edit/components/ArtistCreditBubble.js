@@ -56,8 +56,11 @@ const ArtistCreditBubble = ({
       <thead>
         <tr>
           <td colSpan="3" style={{paddingBottom: '1em'}}>
-            {exp.l('Use the following fields to enter collaborations. See the {ac|Artist Credit} documentation for more information.',
-                   {ac: '/doc/Artist_Credits'})}
+            {exp.l(
+              `Use the following fields to enter collaborations. See the
+               {ac|Artist Credit} documentation for more information.`,
+              {ac: '/doc/Artist_Credits'},
+            )}
           </td>
         </tr>
         {clean(reduceArtistCredit(artistCredit)) ? (
@@ -105,7 +108,11 @@ const ArtistCreditBubble = ({
         ))}
         <tr>
           <td className="align-right" colSpan="4">
-            <button className="add-item with-label" onClick={addName} type="button">
+            <button
+              className="add-item with-label"
+              onClick={addName}
+              type="button"
+            >
               {l('Add Artist Credit')}
             </button>
           </td>
@@ -123,9 +130,28 @@ const ArtistCreditBubble = ({
       </div>
     ) : null}
     <div className="buttons">
-      <button onClick={copyArtistCredit} style={{float: 'left'}} type="button">{l('Copy Credits')}</button>
-      <button onClick={pasteArtistCredit} style={{float: 'left'}} type="button">{l('Paste Credits')}</button>
-      <button className="positive" onClick={done} style={{float: 'right'}} type="button">{l('Done')}</button>
+      <button
+        onClick={copyArtistCredit}
+        style={{float: 'left'}}
+        type="button"
+      >
+        {l('Copy Credits')}
+      </button>
+      <button
+        onClick={pasteArtistCredit}
+        style={{float: 'left'}}
+        type="button"
+      >
+        {l('Paste Credits')}
+      </button>
+      <button
+        className="positive"
+        onClick={done}
+        style={{float: 'right'}}
+        type="button"
+      >
+        {l('Done')}
+      </button>
       {extraButtons ? extraButtons : null}
     </div>
   </div>

@@ -11,8 +11,10 @@ import React from 'react';
 import type {Node as ReactNode} from 'react';
 
 import Layout from '../layout';
-import ReleaseGroupSidebar from '../layout/components/sidebar/ReleaseGroupSidebar';
-import {reduceArtistCredit} from '../static/scripts/common/immutable-entities';
+import ReleaseGroupSidebar
+  from '../layout/components/sidebar/ReleaseGroupSidebar';
+import {reduceArtistCredit}
+  from '../static/scripts/common/immutable-entities';
 
 import ReleaseGroupHeader from './ReleaseGroupHeader';
 

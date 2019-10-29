@@ -30,13 +30,17 @@ const SeparateDiscs = ({
 
     <ul>
       <li>
-        {l(`This report shows releases which have (disc n) or (bonus disc)
-            in the title.`)}
+        {l(
+          `This report shows releases which have (disc n) or (bonus disc)
+           in the title.`,
+        )}
       </li>
       <li>
-        {exp.l('For instructions on how to fix them, please see the documentation\
-            about {howto|how to merge releases}.',
-               {howto: '/doc/How_to_Merge_Releases'})}
+        {exp.l(
+          `For instructions on how to fix them, please see the documentation
+           about {howto|how to merge releases}.`,
+          {howto: '/doc/How_to_Merge_Releases'},
+        )}
       </li>
       <li>
         {texp.l('Total releases found: {count}',

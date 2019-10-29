@@ -106,7 +106,9 @@ const Paginator = ({
         <li className="separator" key="separate-next">
           {pager.next_page ? (
             <li key="next">
-              <a href={uriWith(reqUri, {page: pager.next_page})}>{l('Next')}</a>
+              <a href={uriWith(reqUri, {page: pager.next_page})}>
+                {l('Next')}
+              </a>
             </li>
           ) : (
             <li key="no-next">

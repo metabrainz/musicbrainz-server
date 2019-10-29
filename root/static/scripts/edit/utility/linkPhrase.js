@@ -9,7 +9,8 @@
 import * as React from 'react';
 
 import commaList, {commaListText} from '../../common/i18n/commaList';
-import commaOnlyList, {commaOnlyListText} from '../../common/i18n/commaOnlyList';
+import commaOnlyList, {commaOnlyListText}
+  from '../../common/i18n/commaOnlyList';
 import {VarArgs, type VarArgsObject} from '../../common/i18n/expand2';
 import expand2react from '../../common/i18n/expand2react';
 import expand2text from '../../common/i18n/expand2text';
@@ -100,7 +101,10 @@ export type LinkPhraseI18n<T> = {
 };
 
 const reactI18n: LinkPhraseI18n<Expand2ReactOutput> = {
-  cache: new WeakMap<RelationshipInfoT, CachedLinkPhraseData<Expand2ReactOutput>>(),
+  cache: new WeakMap<
+    RelationshipInfoT,
+    CachedLinkPhraseData<Expand2ReactOutput>,
+  >(),
   commaList,
   commaOnlyList,
   expand: expand2react,

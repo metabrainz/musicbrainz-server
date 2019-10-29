@@ -59,7 +59,8 @@ const FingerprintTable = ({recording}: {recording: RecordingT}) => {
               <td>
                 <code>
                   <a
-                    className={'external' + (track.disabled ? ' disabled-acoustid' : '')}
+                    className={'external' +
+                      (track.disabled ? ' disabled-acoustid' : '')}
                     href={`//acoustid.org/track/${track.id}`}
                   >
                     {track.id}
@@ -87,4 +88,7 @@ const FingerprintTable = ({recording}: {recording: RecordingT}) => {
   );
 };
 
-export default hydrate<{recording: RecordingT}>('div.acoustid-fingerprints', FingerprintTable);
+export default hydrate<{recording: RecordingT}>(
+  'div.acoustid-fingerprints',
+  FingerprintTable,
+);

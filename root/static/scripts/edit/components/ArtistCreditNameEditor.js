@@ -54,11 +54,13 @@ class ArtistCreditNameEditor extends React.Component {
       return;
     }
 
-    // This is the first value the user has entered into this field. If it is a
-    // simple word (such as "and") or an abbreviation (such as "feat.") it is
-    // likely that it should be surrounded by spaces. Add those spaces
-    // automatically only this first time. Also standardise "feat." according
-    // to our guidelines.
+    /*
+     * This is the first value the user has entered into this field. If it is
+     * a simple word (such as "and") or an abbreviation (such as "feat.")
+     * it is likely that it should be surrounded by spaces. Add those spaces
+     * automatically only this first time. Also standardise "feat." according
+     * to our guidelines.
+     */
     const currentJoinPhrase = event.target.value;
 
     let joinPhrase = clean(currentJoinPhrase);

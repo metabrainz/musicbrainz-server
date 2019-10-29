@@ -12,10 +12,16 @@ $(function () {
       '=': 1, '!=': 1, '>': 1, '<': 1, 'BETWEEN': 2,
     },
     set: {
-      '=': 1, '!=': 1, // Not directly true, but it here it means "show one argument control"
+      // Not directly true, but it here it means "show one argument control"
+      '=': 1, '!=': 1,
     },
     voter: {
-      '=': 1, '!=': 1, 'me': 0, 'not_me': 0, 'subscribed': 0, 'not_subscribed': 0,
+      '=': 1,
+      '!=': 1,
+      'me': 0,
+      'not_me': 0,
+      'subscribed': 0,
+      'not_subscribed': 0,
     },
     subscription: {
       '=': 1, '!=': 1, 'subscribed': 0, 'not_subscribed': 0,
@@ -24,7 +30,13 @@ $(function () {
       '=': 1,
     },
     user: {
-      '=': 1, '!=': 1, 'me': 0, 'not_me': 0, 'subscribed': 0, 'not_subscribed': 0, 'beginner': 0,
+      '=': 1,
+      '!=': 1,
+      'me': 0,
+      'not_me': 0,
+      'subscribed': 0,
+      'not_subscribed': 0,
+      'beginner': 0,
     },
   };
   /* eslint-enable sort-keys */
@@ -48,9 +60,10 @@ $(function () {
       .remove();
 
     newCondition.find('button.remove-item').show();
-  }).on('click', 'ul.conditions li.condition button.remove-item', function () {
-    $(this).parent('li').remove();
-  })
+  }).on('click', 'ul.conditions li.condition button.remove-item',
+        function () {
+          $(this).parent('li').remove();
+        })
     .on('change', 'ul.conditions select.field', function () {
       const val = $(this).val();
       const $replacement = $('#fields .field-' + val).clone();
@@ -58,7 +71,8 @@ $(function () {
         const $li = $(this).parent('li');
         $li.find('span.field-container span.field').replaceWith($replacement);
 
-        const $field = $(this).parent('li').find('span.field-container span.field');
+        const $field =
+          $(this).parent('li').find('span.field-container span.field');
         $field
           .show()
           .find('select.operator').trigger('change');

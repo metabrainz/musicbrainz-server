@@ -43,9 +43,21 @@ export const isDatePeriodValid = function (a, b) {
         return false;
     }
 
-    if (!y1 || !y2 || +y1 < +y2) return true; else if (+y2 < +y1) return false;
-    if (!m1 || !m2 || +m1 < +m2) return true; else if (+m2 < +m1) return false;
-    if (!d1 || !d2 || +d1 < +d2) return true; else if (+d2 < +d1) return false;
+    if (!y1 || !y2 || +y1 < +y2) {
+        return true;
+    } else if (+y2 < +y1) {
+        return false;
+    }
+    if (!m1 || !m2 || +m1 < +m2) {
+        return true;
+    } else if (+m2 < +m1) {
+        return false;
+    }
+    if (!d1 || !d2 || +d1 < +d2) {
+        return true;
+    } else if (+d2 < +d1) {
+        return false;
+    }
 
     return true;
 };
