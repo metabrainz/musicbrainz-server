@@ -72,10 +72,10 @@ MB.CoverArt.reorder_button = function (direction, $container) {
 
         var $swap = $editimage[direction === 'next' ? 'next' : 'prev']();
         var insert_after = (direction === 'next');
-        if (! $swap.length) {
+        if (!$swap.length) {
             // no direct neighbour, so wrap around
             $swap = $editimage.siblings()[direction === 'next' ? 'first' : 'last']();
-            insert_after = ! insert_after;
+            insert_after = !insert_after;
         }
         if ($swap.length)
         {
@@ -262,7 +262,7 @@ MB.CoverArt.upload_image = function (postfields, file) {
     });
 
     /* IE10 and older don't have overrideMimeType. */
-    if (typeof(xhr.overrideMimeType) === 'function')
+    if (typeof (xhr.overrideMimeType) === 'function')
     {
         /* prevent firefox from parsing a 204 No Content response as XML.
            https://bugzilla.mozilla.org/show_bug.cgi?id=884693 */
@@ -516,7 +516,7 @@ MB.CoverArt.set_position = function () {
 };
 
 MB.CoverArt.add_cover_art = function (gid) {
-    if (typeof(window.FormData) !== "undefined" && typeof(window.FileReader) !== 'undefined')
+    if (typeof (window.FormData) !== "undefined" && typeof (window.FileReader) !== 'undefined')
     {
         File.prototype.slice = File.prototype.webkitSlice || File.prototype.mozSlice || File.prototype.slice;
 
