@@ -408,7 +408,7 @@ class Medium {
             return self.loaded() && self.tracks().length === 0;
         });
 
-        this.needsFormat = ko.computed(function() {
+        this.needsFormat = ko.computed(function () {
             return !(self.formatID() || self.formatUnknownToUser());
         });
 

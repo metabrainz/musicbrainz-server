@@ -330,7 +330,7 @@ class TimelineLine {
         });
     }
 
-    loadData () {
+    loadData() {
         var self = this;
         self.loading(true);
         $.ajax({
@@ -355,7 +355,7 @@ class TimelineLine {
         });
     }
 
-    calculateRateData (data) {
+    calculateRateData(data) {
         if (!data || !data.length) { return {data: [], thresholds: {min: null, max: null}}; }
         var weekData = [];
         var oneDay = 1000 * 60 * 60 * 24;
@@ -389,7 +389,7 @@ class TimelineLine {
         });
         mean = mean / count;
 
-        var deviationSum = _.reduce(weekData, function(sum, next) {
+        var deviationSum = _.reduce(weekData, function (sum, next) {
             var toSquare = next[1] - mean;
             return sum + toSquare * toSquare;
         }, 0);
@@ -485,7 +485,7 @@ class TimelineLine {
             var graph = ko.unwrap(valueAccessor());
             var previousPoint = null;
             var currentEvent = null;
-            var reset = function() {
+            var reset = function () {
                 removeTooltip();
                 previousPoint = null;
                 currentEvent = null;
