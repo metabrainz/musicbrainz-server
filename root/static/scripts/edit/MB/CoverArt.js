@@ -92,14 +92,14 @@ MB.CoverArt.reorder_button = function (direction, $container) {
 MB.CoverArt.reorder_position = function () {
     var $container = $('div.image-position');
 
-    $container.sortable( {
+    $container.sortable({
             items: '> div.thumb-position',
             cancel: 'button,div.thumb-position:not(".editimage")',
             placeholder: 'thumb-position',
             cursor: 'grabbing',
             distance: 10,
             tolerance: 'pointer'
-        } );
+        });
 
     $('div.editimage button.left').bind('click.mb',
       MB.CoverArt.reorder_button('prev', $container));
@@ -110,7 +110,7 @@ MB.CoverArt.reorder_position = function () {
     // For the Add Cover Art page, the following is a no-op.
     $('#reorder-cover-art').submit(
         function (event) {
-            $('div.editimage input.position').val( function (index, oldvalue) { return (index + 1); } );
+            $('div.editimage input.position').val(function (index, oldvalue) { return (index + 1); });
         }
     );
 
@@ -443,7 +443,7 @@ MB.CoverArt.FileUpload = function (file) {
 
         switch (step) {
         case 1:
-            self.progress( 0 + value * 0.1);
+            self.progress(0 + value * 0.1);
             break;
         case 2:
             self.progress(10 + value * 0.8);

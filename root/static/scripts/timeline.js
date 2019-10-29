@@ -426,7 +426,7 @@ class TimelineLine {
 (function () {
     // Closure over utility functions.
     var showTooltip = function (x, y, contents) {
-        $('<div id="tooltip">' + contents + '</div>').css( {
+        $('<div id="tooltip">' + contents + '</div>').css({
             position: 'absolute',
             display: 'none',
             top: y + 5,
