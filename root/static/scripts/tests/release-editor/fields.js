@@ -185,7 +185,7 @@ fieldTest("tracks are set correctly when the cdtoc is changed", function (t, rel
     t.ok(_.last(medium.tracks()).isDataTrack());
 });
 
-fieldTest("track times entered as integers are converted into HH:MM:SS", function (t, release){
+fieldTest("track times entered as integers are converted into HH:MM:SS", function (t, release) {
     t.plan(11);
 
     var medium = new fields.Medium({ tracks: [ {} ] }, release);
