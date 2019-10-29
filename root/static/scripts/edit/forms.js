@@ -148,7 +148,7 @@ ko.bindingHandlers.loop = {
                             // https://github.com/knockout/knockout/pull/1432
                             tmpElementContainer = document.createElement("div");
 
-                            for (j = 0; node = template[j];  j++) {
+                            for (j = 0; node = template[j]; j++) {
                                 tmpElementContainer.appendChild(node.cloneNode(true));
                             }
 
