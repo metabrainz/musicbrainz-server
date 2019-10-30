@@ -983,6 +983,7 @@ declare type VarSubstArg =
   | StrOrNum
   | React$MixedElement;
 
+/* eslint-disable no-multi-spaces */
 declare type VoteOptionT =
   | -2   // None
   | -1   // Abstain
@@ -990,6 +991,7 @@ declare type VoteOptionT =
   |  1   // Yes
   |  2   // Approve
   ;
+/* eslint-enable no-multi-spaces */
 
 declare type VoteT = {
   +editor_id: number,

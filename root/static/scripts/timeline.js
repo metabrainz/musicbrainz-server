@@ -330,7 +330,7 @@ class TimelineLine {
         });
     }
 
-    loadData () {
+    loadData() {
         var self = this;
         self.loading(true);
         $.ajax({
@@ -355,7 +355,7 @@ class TimelineLine {
         });
     }
 
-    calculateRateData (data) {
+    calculateRateData(data) {
         if (!data || !data.length) { return {data: [], thresholds: {min: null, max: null}}; }
         var weekData = [];
         var oneDay = 1000 * 60 * 60 * 24;
@@ -389,7 +389,7 @@ class TimelineLine {
         });
         mean = mean / count;
 
-        var deviationSum = _.reduce(weekData, function(sum, next) {
+        var deviationSum = _.reduce(weekData, function (sum, next) {
             var toSquare = next[1] - mean;
             return sum + toSquare * toSquare;
         }, 0);
@@ -426,7 +426,7 @@ class TimelineLine {
 (function () {
     // Closure over utility functions.
     var showTooltip = function (x, y, contents) {
-        $('<div id="tooltip">' + contents + '</div>').css( {
+        $('<div id="tooltip">' + contents + '</div>').css({
             position: 'absolute',
             display: 'none',
             top: y + 5,
@@ -485,7 +485,7 @@ class TimelineLine {
             var graph = ko.unwrap(valueAccessor());
             var previousPoint = null;
             var currentEvent = null;
-            var reset = function() {
+            var reset = function () {
                 removeTooltip();
                 previousPoint = null;
                 currentEvent = null;

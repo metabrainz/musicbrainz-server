@@ -290,7 +290,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
             });
         }
 
-        _createEdit () {
+        _createEdit() {
             return MB.edit.create.apply(MB.edit, arguments);
         }
     }

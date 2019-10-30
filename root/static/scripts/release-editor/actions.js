@@ -27,7 +27,7 @@ const actions = {
 
     previousTab: function () { this.adjacentTab(-1) },
 
-    lastTab: function () { 
+    lastTab: function () {
         this.uiTabs._setOption("active", this.tabCount - 1);
         this.uiTabs.tabs.eq(this.tabCount - 1).focus();
         return;

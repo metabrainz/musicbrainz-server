@@ -162,7 +162,7 @@ RelationshipSearcher = function () {
         });
     };
 
-    self.clear =  function () {
+    self.clear = function () {
         this.query('');
         this.results.removeAll();
     }
