@@ -69,8 +69,23 @@ const ArtistMerge = ({$c, form, toMerge}: Props) => {
 
           <FormRowCheckbox
             field={form.field.rename}
+            help={
+              <>
+                <p>
+                  {l('You should only use the checkbox above to fix errors (e.g. typos).')}
+                </p>
+                <p>
+                  {exp.l(
+                    `If a name appears on the cover of a release, don’t check the box:
+                     the artists will still be combined if you don’t, but the 
+                     {doc_acs|artist credits} will be kept as they are now.`,
+                    {doc_acs: '/doc/Artist_Credits'},
+                  )}
+                </p>
+              </>
+            }
             label={l(`Update matching artist and relationship credits to use
-                      the new artist’s name`)}
+                      the target artist’s name`)}
           />
 
           <EnterEditNote field={form.field.edit_note} />
