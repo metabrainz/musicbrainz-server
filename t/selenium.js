@@ -218,7 +218,10 @@ async function selectOption(select, optionLocator) {
 
 const KEY_CODES = {
   '${KEY_BKSP}': Key.BACK_SPACE,
+  '${KEY_DOWN}': Key.ARROW_DOWN,
   '${KEY_END}': Key.END,
+  '${KEY_ENTER}': Key.ENTER,
+  '${KEY_ESC}': Key.ESCAPE,
   '${KEY_HOME}': Key.HOME,
   '${KEY_SHIFT}': Key.SHIFT,
 };
@@ -444,6 +447,7 @@ const seleniumTests = [
   {name: 'Redirect_Merged_Entities.html', login: true},
   {name: 'admin/Edit_Banner.html', login: true},
   {name: 'release-editor/The_Downward_Spiral.html', login: true},
+  {name: 'release-editor/Duplicate_Selection.html', login: true, sql: 'whatever_it_takes.sql'},
   {name: 'release-editor/Seeding.html', login: true, sql: 'vision_creation_newsun.sql'},
 ];
 

@@ -9,12 +9,14 @@ SELECT setval('editor_id_seq', 6, FALSE);
 SELECT setval('artist_id_seq', 3, FALSE);
 
 INSERT INTO area (id, gid, name, type, edits_pending, last_updated, begin_date_year, begin_date_month, begin_date_day, end_date_year, end_date_month, end_date_day, ended, comment) VALUES
+    (13, '106e0bec-b638-3b37-b731-f53d507dc00e', 'Australia', 1, 0, '2013-05-27 12:20:27.507257+00', NULL, NULL, NULL, NULL, NULL, NULL, '0', ''),
     (38, '71bbafaa-e825-3e15-8ca9-017dcad1748b', 'Canada', 1, 0, '2013-05-27 13:15:52.179105+00', NULL, NULL,  NULL,  NULL,  NULL,  NULL, 'f', ''),
     (73, '08310658-51eb-3801-80de-5a0739207115', 'France', 1, 0, '2013-05-27 12:50:32.702645+00', NULL, NULL,  NULL,  NULL,  NULL,  NULL, 'f', ''),
     (96, '0373cdff-eac8-3fbc-92dc-36a607da06d1', 'Hong Kong', 1, 0, '2013-11-03 06:25:22.345722+00', NULL, NULL, NULL, NULL, NULL, NULL, '0', ''),
     (107, '2db42837-c832-3c27-b4a3-08198f75693c', 'Japan', 1, 0, '2013-05-27 12:29:56.162248+00', NULL, NULL,  NULL,  NULL,  NULL,  NULL, 'f', ''),
     (221, '8a754a16-0027-3a29-b6d7-2b40ea0481ed', 'United Kingdom', 1, 0, '2013-05-16 11:06:19.67235+00', NULL, NULL, NULL, NULL, NULL, NULL, '0', ''),
     (222, '489ce91b-6658-3307-9877-795b68554c98', 'United States', 1, 0, '2013-06-15 18:06:39.59323+00', NULL, NULL, NULL, NULL, NULL, NULL, '0', ''),
+    (241, '89a675c2-3e37-3518-b83c-418bad59a85a', 'Europe', NULL, 0, '2013-08-28 11:55:13.834089+00', NULL, NULL, NULL, NULL, NULL, NULL, '0', ''),
     (3813, 'f0b226db-8e22-40e6-9a53-d839cfec6228', 'Cardiff', 3, 0, '2013-09-30 17:26:07.559949+00', NULL, NULL, NULL, NULL, NULL, NULL, '0', ''),
     (5241, '7b2ca1e7-e7f6-4155-881d-c660a45c11e8', 'Cleveland', 3, 0, '2013-05-24 20:55:33.73614+00', NULL, NULL, NULL, NULL, NULL, NULL, '0', ''),
     (5540, 'ced2611f-cfac-438a-95d0-02d6f5fb4f84', 'Tacoma', 3, 0, '2013-05-24 21:59:10.096014+00', NULL, NULL, NULL, NULL, NULL, NULL, '0', ''),
@@ -53,9 +55,11 @@ INSERT INTO artist_gid_redirect (gid, new_id, created) VALUES
     ('f21a407e-3af9-4539-ab3d-c92a5230dff6', 237981, '2012-04-09 20:07:05.161415+00');
 
 INSERT INTO country_area (area) VALUES
+    (13),
     (73),
     (107),
-    (222);
+    (222),
+    (241);
 
 INSERT INTO editor VALUES
     -- privs: BANNER_EDITOR_FLAG
@@ -74,11 +78,13 @@ INSERT INTO instrument_gid_redirect (gid, new_id, created) VALUES
     ('5fbe8ee7-dea3-8cf4-4008-78a54c8a4f94', 55, '2014-08-22 17:09:51.69681+00');
 
 INSERT INTO iso_3166_1 (area, code) VALUES
+    (13, 'AU'),
     (73, 'FR'),
     (96, 'HK'),
     (107, 'JP'),
     (221, 'GB'),
-    (222, 'US');
+    (222, 'US'),
+    (241, 'XE');
 
 INSERT INTO iso_3166_2 (area, code) VALUES
     (96, 'CN-91'),
