@@ -1,0 +1,12 @@
+#!/bin/bash
+
+cd "$(dirname "${BASH_SOURCE[0]}")/../"
+
+./node_modules/.bin/eslint \
+    --no-eslintrc \
+    --env 'browser,node,es6' \
+    --parser babel-eslint \
+    --plugin react \
+    --plugin flowtype \
+    --rule \
+    "$@"
