@@ -18,6 +18,7 @@ type Props = {
   +$c: CatalystContextT,
   +artists: $ReadOnlyArray<ArtistT>,
   +checkboxes?: string,
+  +mergeForm?: MergeFormT,
   +order?: string,
   +showBeginEnd?: boolean,
   +showRatings?: boolean,
@@ -28,6 +29,7 @@ const ArtistList = ({
   $c,
   artists,
   checkboxes,
+  mergeForm,
   order,
   showBeginEnd,
   showRatings,
@@ -36,9 +38,9 @@ const ArtistList = ({
   <table className="tbl">
     <thead>
       <tr>
-        {$c.user_exists && checkboxes ? (
+        {$c.user_exists && (checkboxes || mergeForm) ? (
           <th className="checkbox-cell">
-            <input type="checkbox" />
+            {mergeForm ? null : <input type="checkbox" />}
           </th>
         ) : null}
         <th>
@@ -93,6 +95,7 @@ const ArtistList = ({
           checkboxes={checkboxes}
           index={index}
           key={artist.id}
+          mergeForm={mergeForm}
           showBeginEnd={showBeginEnd}
           showRatings={showRatings}
         />

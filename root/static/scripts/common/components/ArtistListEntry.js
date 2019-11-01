@@ -14,6 +14,8 @@ import RatingStars from '../../../../components/RatingStars';
 import loopParity from '../../../../utility/loopParity';
 import formatDate from '../utility/formatDate';
 import formatEndDate from '../utility/formatEndDate';
+import renderMergeCheckboxElement
+  from '../utility/renderMergeCheckboxElement';
 
 import DescriptiveLink from './DescriptiveLink';
 
@@ -21,6 +23,8 @@ type ArtistListRowProps = {
   +$c: CatalystContextT,
   +artist: ArtistT,
   +checkboxes?: string,
+  +index: number,
+  +mergeForm?: MergeFormT,
   +showBeginEnd?: boolean,
   +showRatings?: boolean,
   +showSortName?: boolean,
@@ -30,6 +34,7 @@ type ArtistListEntryProps = {
   +artist: ArtistT,
   +checkboxes?: string,
   +index: number,
+  +mergeForm?: MergeFormT,
   +score?: number,
   +showBeginEnd?: boolean,
   +showRatings?: boolean,
@@ -40,18 +45,24 @@ const ArtistListRow = withCatalystContext(({
   $c,
   artist,
   checkboxes,
+  index,
+  mergeForm,
   showBeginEnd,
   showRatings,
   showSortName,
 }: ArtistListRowProps) => (
   <>
-    {$c.user_exists && checkboxes ? (
+    {$c.user_exists && (checkboxes || mergeForm) ? (
       <td>
-        <input
-          name={checkboxes}
-          type="checkbox"
-          value={artist.id}
-        />
+        {mergeForm
+          ? renderMergeCheckboxElement(artist, mergeForm, index)
+          : (
+            <input
+              name={checkboxes}
+              type="checkbox"
+              value={artist.id}
+            />
+          )}
       </td>
     ) : null}
     <td>
@@ -99,6 +110,7 @@ const ArtistListEntry = ({
   artist,
   checkboxes,
   index,
+  mergeForm,
   score,
   showBeginEnd,
   showRatings,
@@ -108,6 +120,8 @@ const ArtistListEntry = ({
     <ArtistListRow
       artist={artist}
       checkboxes={checkboxes}
+      index={index}
+      mergeForm={mergeForm}
       showBeginEnd={showBeginEnd}
       showRatings={showRatings}
       showSortName={showSortName}
