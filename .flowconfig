@@ -2,7 +2,6 @@
 <PROJECT_ROOT>/.nyc_output/.*
 <PROJECT_ROOT>/coverage/.*
 <PROJECT_ROOT>/lib/.*
-<PROJECT_ROOT>/node_modules/jsx-control-statements/jsx-control-statements.flow.js
 <PROJECT_ROOT>/root/static/build/.*
 <PROJECT_ROOT>/t/.*
 /Volumes/.*
