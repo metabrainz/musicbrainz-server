@@ -28,13 +28,16 @@ has '+data' => (
         begin_date => Nullable[PartialDateHash],
         end_date => Nullable[PartialDateHash],
         type_id => Nullable[Int],
-        primary_for_locale => Nullable[Bool]
+        primary_for_locale => Nullable[Bool],
+        ended => Optional[Bool],
     ]
 );
 
 sub build_display_data
 {
     my $self = shift;
+
+    my $end_date = PartialDate->new($self->data->{end_date});
     return {
         entity_type => $self->_alias_model->type,
         alias => $self->data->{name},
@@ -42,7 +45,9 @@ sub build_display_data
         sort_name => $self->data->{sort_name},
         type => $self->_alias_model->parent->alias_type->get_by_id($self->data->{type_id}),
         begin_date => PartialDate->new($self->data->{begin_date}),
-        end_date => PartialDate->new($self->data->{end_date}),
+        end_date => $end_date,
+        # `ended` info was not stored prior to fixing MBS-10460
+        ended => boolean_to_json($end_date->is_empty ? $self->data->{ended} : 1),
         primary_for_locale => boolean_to_json($self->data->{primary_for_locale})
     };
 }
@@ -82,6 +87,7 @@ sub initialize
         locale => $alias->locale,
         begin_date => partial_date_to_hash($alias->begin_date),
         end_date => partial_date_to_hash($alias->end_date),
+        ended => $alias->ended,
         type_id => $alias->type_id,
         primary_for_locale => $alias->primary_for_locale
     });
