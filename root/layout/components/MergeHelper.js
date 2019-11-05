@@ -20,7 +20,7 @@ const MergeHelper = ({$c}) => (
       </p>
       <ul>
         {$c.stash.to_merge.map(entity => (
-          <li>
+          <li key={entity.id}>
             <input
               id={`remove.${entity.id}`}
               name="remove"

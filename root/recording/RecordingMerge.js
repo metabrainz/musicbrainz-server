@@ -16,84 +16,58 @@ import RecordingList from '../components/list/RecordingList';
 import {withCatalystContext} from '../context';
 import Layout from '../layout';
 
-type RecordingMergeForm = FormT<{
-  +edit_note: FieldT<string>,
-  +make_votable: FieldT<boolean>,
-  +merging: RepeatableFieldT<FieldT<number>>,
-  +rename: FieldT<boolean>,
-  +target: FieldT<number>,
-}>;
-
 type Props = {
   +$c: CatalystContextT,
-  +form: RecordingMergeForm,
+  +form: MergeFormT,
   +isrcsDiffer?: boolean,
   +toMerge: $ReadOnlyArray<RecordingT>,
 };
 
-const RecordingMerge = ({$c, form, isrcsDiffer, toMerge}: Props) => {
-  function renderCheckboxElement(recording, index) {
-    return (
-      <>
-        <input
-          name={'merge.merging.' + index}
-          type="hidden"
-          value={recording.id}
+const RecordingMerge = ({$c, form, isrcsDiffer, toMerge}: Props) => (
+  <Layout fullWidth title={l('Merge recordings')}>
+    <div id="content">
+      <h1>{l('Merge recordings')}</h1>
+      <p>
+        {l(
+          `You are about to merge the following recordings into a single
+            recording. Please select the recording which you would like
+            other recordings to be merged into:`,
+        )}
+      </p>
+      {isrcsDiffer ? (
+        <div className="warning warning-isrcs-differ">
+          <p>
+            {exp.l(
+              `<strong>Warning:</strong> Some of the recordings you're
+                merging have different ISRCs. Please make sure they are
+                indeed the same recordings and you wish to continue with
+                the merge.`,
+            )}
+          </p>
+        </div>
+      ) : null}
+      <form action={$c.req.uri} method="post">
+        <RecordingList
+          mergeForm={form}
+          recordings={toMerge}
         />
-        <input
-          checked={recording.id === form.field.target.value}
-          name="merge.target"
-          type="radio"
-          value={recording.id}
-        />
-      </>
-    );
-  }
-  return (
-    <Layout fullWidth title={l('Merge recordings')}>
-      <div id="content">
-        <h1>{l('Merge recordings')}</h1>
-        <p>
-          {l(
-            `You are about to merge the following recordings into a single
-             recording. Please select the recording which you would like
-             other recordings to be merged into:`,
-          )}
-        </p>
-        {isrcsDiffer ? (
-          <div className="warning warning-isrcs-differ">
-            <p>
-              {exp.l(
-                `<strong>Warning:</strong> Some of the recordings you're
-                 merging have different ISRCs. Please make sure they are
-                 indeed the same recordings and you wish to continue with
-                 the merge.`,
-              )}
-            </p>
-          </div>
-        ) : null}
-        <form action={$c.req.uri} method="post">
-          <RecordingList
-            recordings={toMerge}
-            renderCheckboxElement={renderCheckboxElement}
-          />
-          <FieldErrors field={form.field.target} />
+        <FieldErrors field={form.field.target} />
 
-          <EnterEditNote field={form.field.edit_note} />
+        <EnterEditNote field={form.field.edit_note} />
 
-          <EnterEdit form={form}>
-            <button
-              className="negative"
-              name="submit"
-              type="submit"
-              value="cancel"
-            >
-              {l('Cancel')}
-            </button>
-          </EnterEdit>
-        </form>
-      </div>
-    </Layout>
-  );
-};
+        <EnterEdit form={form}>
+          <button
+            className="negative"
+            name="submit"
+            type="submit"
+            value="cancel"
+          >
+            {l('Cancel')}
+          </button>
+        </EnterEdit>
+      </form>
+    </div>
+  </Layout>
+);
+
 export default withCatalystContext(RecordingMerge);

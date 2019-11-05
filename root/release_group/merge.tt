@@ -14,11 +14,12 @@
                     <th>[%- l('Type') -%]</th>
                     <th class="year c">[%- l('Year') -%]</th>
                     <th class="count c">[%- l('Releases') -%]</th>
+                    [%- remove_from_merge_header(to_merge) -%]
                 </tr>
             </thead>
             <tbody>
             [% FOR entity=to_merge %]
-                 <tr class="[% loop.parity %]">
+                <tr class="[% loop.parity %]">
                     <td>
                         <input type="hidden" name="merge.merging.[% loop.index %]" value="[% entity.id %]" />
                         <input type="radio" name="merge.target" value="[% entity.id %]"
@@ -31,6 +32,7 @@
                     <td>[% entity.l_type_name %]</td>
                     <td class="c">[% entity.first_release_date.year or '&#x2014;' %]</td>
                     <td>[% entity.release_count %]</td>
+                    [%- remove_from_merge('release_group', to_merge) -%]
                 </tr>
             [%- END -%]
             </tbody>
