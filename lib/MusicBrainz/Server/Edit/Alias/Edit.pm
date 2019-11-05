@@ -10,6 +10,7 @@ use MooseX::Types::Structured qw( Dict Optional );
 use MusicBrainz::Server::Data::Utils qw(
     type_to_model
     non_empty
+    boolean_to_json
 );
 use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Edit::Types qw( Nullable PartialDateHash );
@@ -114,12 +115,12 @@ sub build_display_data
             old => PartialDate->new_from_row($self->data->{old}{end_date}),
         },
         primary_for_locale => {
-            new => $self->data->{new}{primary_for_locale},
-            old => $self->data->{old}{primary_for_locale},
+            new => boolean_to_json($self->data->{new}{primary_for_locale}),
+            old => boolean_to_json($self->data->{old}{primary_for_locale}),
         },
         ended => {
-            new => $self->data->{new}{ended},
-            old => $self->data->{old}{ended}
+            new => boolean_to_json($self->data->{new}{ended}),
+            old => boolean_to_json($self->data->{old}{ended})
         }
     };
 }
@@ -186,7 +187,16 @@ sub current_instance {
     $self->_load_alias;
 }
 
-sub edit_template { "edit_alias" };
+sub edit_template_react { "EditAlias" };
+
+around TO_JSON => sub {
+    my ($orig, $self) = @_;
+
+    my $json = $self->$orig;
+    my $alias = $self->alias;
+    $json->{alias} = $alias ? $alias->TO_JSON : undef;
+    return $json;
+};
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

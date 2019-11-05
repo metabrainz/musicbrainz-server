@@ -24,12 +24,14 @@ declare type AliasT = {
   ...DatePeriodRoleT,
   ...EditableRoleT,
   ...EntityRoleT<'alias'>,
-  ...TypeRoleT<empty>,
+  ...TypeRoleT<AliasTypeT>,
   +locale: string | null,
   +name: string,
   +primary_for_locale: boolean,
   +sort_name: string,
 };
+
+declare type AliasTypeT = OptionTreeT<'alias_type'>;
 
 declare type AnchorProps = {
   +href: string,
@@ -269,6 +271,11 @@ declare type CommonsImageT = {
   +thumb_url: string,
 };
 
+declare type CompT<T> = {
+  +new: T,
+  +old: T,
+};
+
 declare type CompoundFieldT<F> = {
   errors: Array<string>,
   field: F,
@@ -422,6 +429,7 @@ declare type EditT = {
   },
   +created_time: string,
   +data: Object,
+  +edit_kind: 'add' | 'edit' | 'remove' | 'merge' | 'other',
   +edit_type: number,
   +editor_id: number,
   +expires_time: string,

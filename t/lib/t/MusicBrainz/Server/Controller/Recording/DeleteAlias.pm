@@ -46,6 +46,7 @@ test all => sub {
             month => undef,
             day => undef
         },
+        ended => 0,
         type_id => 2,
         locale => undef,
         primary_for_locale => 0
