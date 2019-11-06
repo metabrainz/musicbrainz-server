@@ -21,15 +21,7 @@
   <form id="add-cover-art" class="cover-art" action="[% c.req.uri %]" method="post" >
     [%- USE r = FormRenderer(form) -%]
 
-    <iframe src="[% c.uri_for_action('/release/cover_art_uploader', [ entity.gid ]) %]"
-                class="without-formdata" width="500" height="100" style="border: 0; display: none"></iframe>
-    [%- r.hidden('id') -%]
-
-    [% field_errors(form, 'nonce') %]
-
-    <div style="display: none">[% r.select('mime_type') %]</div>
-
-    <div style="display: none" class="add-files row with-formdata">
+    <div class="add-files row">
       <label for="files">&nbsp;</label>
       <input style="position: absolute; top: 0; left: -1000px; "
              class="add-files" accept="[% mime_types.join(",") %]" type="file" name="files[]" multiple="multiple" />
@@ -39,7 +31,7 @@
       <div id="drop-zone">[%- l('or drop files here') -%]</div>
     </div>
 
-    <table style="width: 100%; display: none;" class="with-formdata">
+    <table style="width: 100%">
       <tbody data-bind="foreach: files_to_upload">
         <tr>
           <td class="uploader-preview-column">
@@ -123,7 +115,7 @@
       </tbody>
     </table>
 
-    <div class="without-formdata" style="display: none">
+    <div style="display: none">
       [%- React.embed(c, 'release/CoverArtFields', {
         form => React.to_json_object(form),
         typeIdOptions => form.options_type_id,

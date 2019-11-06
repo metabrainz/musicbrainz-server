@@ -276,20 +276,6 @@ sub cover_art_uploaded : Chained('load') PathPart('cover-art-uploaded') {
     $c->stash->{filename} = $c->req->params->{key};
 }
 
-sub cover_art_uploader : Chained('load') PathPart('cover-art-uploader') Edit {
-    my ($self, $c) = @_;
-
-    my @mime_types = map { $_->{mime_type} } @{ $c->model('CoverArt')->mime_types };
-    $c->stash->{mime_types} = \@mime_types;
-
-    my $entity = $c->stash->{$self->{entity_name}};
-    my $bucket = 'mbid-' . $entity->gid;
-    my $redirect = $c->uri_for_action('/release/cover_art_uploaded',
-                                      [ $entity->gid ])->as_string();
-
-    $c->stash->{form_action} = DBDefs->COVER_ART_ARCHIVE_UPLOAD_PREFIXER($bucket);
-}
-
 sub add_cover_art : Chained('load') PathPart('add-cover-art') Edit {
     my ($self, $c) = @_;
     my $entity = $c->stash->{$self->{entity_name}};
