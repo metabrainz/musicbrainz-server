@@ -29,7 +29,7 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-10-23 15:31-0500\n"
-"PO-Revision-Date: 2019-10-28 15:50+0000\n"
+"PO-Revision-Date: 2019-10-30 21:58+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -1938,7 +1938,7 @@ msgid ""
 "Edit notes support {doc_formatting|a limited set of wiki formatting "
 "options}. Please do always keep the {doc_coc|Code of Conduct} in mind when "
 "writing edit notes!"
-msgstr "Je kan voor je bewerkingsnotities {doc_formatting|beperkte wiki-opmaak gebruiken}. Houd bij het schrijven altijd rekening met de {doc_code|Gedragscode}."
+msgstr "Je kan voor je bewerkingsnotities {doc_formatting|beperkte wiki-opmaak gebruiken}. Houd bij het schrijven altijd rekening met de {doc_coc|Gedragscode}."
 
 #: ../root/admin/edit_user.tt:34
 msgid "Edit profile"
@@ -9798,7 +9798,7 @@ msgstr "Uitvoeringen"
 
 #: ../root/components/EntityTabs.js:89
 msgid "Cover Art ({num})"
-msgstr "Afbeelding ({num})"
+msgstr "Afbeelding(en) ({num})"
 
 #: ../root/components/EntityTabs.js:113
 msgid "Edit Relationships"
@@ -13663,7 +13663,7 @@ msgstr "Voer liever geen gebundelde of afgekorte URL’s in, maar alleen doeladr
 
 #: ../root/static/scripts/edit/externalLinks.js:219
 msgid "Please select a link type for the URL you’ve entered."
-msgstr "Selecteer links een passende relate voor deze URL."
+msgstr "Selecteer links een passende relatie voor deze URL."
 
 #: ../root/static/scripts/edit/externalLinks.js:229
 #: ../root/static/scripts/relationship-editor/common/dialog.js:486

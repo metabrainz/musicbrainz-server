@@ -69,7 +69,7 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-10-23 15:31-0500\n"
-"PO-Revision-Date: 2019-10-24 19:48+0000\n"
+"PO-Revision-Date: 2019-10-30 10:09+0000\n"
 "Last-Translator: David Kellner <email address hidden>\n"
 "Language-Team: German (http://www.transifex.com/musicbrainz/musicbrainz/language/de/)\n"
 "MIME-Version: 1.0\n"
@@ -1152,7 +1152,7 @@ msgid ""
 "hyperlinks. Example: If you want to use [unknown] in the annotation, you'll "
 "have to write <code>&amp;#91;unknown&amp;#93;</code> then it will appear the"
 " way you intended it to show."
-msgstr "Da eckige Klammern [] benutzt werden, um Links zu erstellen, musst du die kodierten HTML-Äquivalente (<code>&#91;</code> für [) und (<code>&#93;</code> für ]) benutzen, wenn du nicht willst, dass sie in Links umgewandelt werden. Beispiel: Wenn du in der Anmerkung [unknown] benutzen willst, musst du <code>&#91;unknown&#93;</code> schreiben, damit es wie von dir beabsichtigt angezeigt wird."
+msgstr "Da eckige Klammern [] benutzt werden, um Links zu erstellen, musst du die kodierten HTML-Äquivalente (<code>&amp;#91;</code> für [) und (<code>&amp;#93;</code> für ]) benutzen, wenn du nicht willst, dass sie in Links umgewandelt werden. Beispiel: Wenn du in der Anmerkung [unknown] benutzen willst, musst du <code>&amp;#91;unknown&amp;#93;</code> schreiben, damit es wie von dir beabsichtigt angezeigt wird."
 
 #: ../root/cdtoc/lookup.tt:90
 msgid ""
@@ -11174,7 +11174,7 @@ msgstr "Beziehungen bearbeiten"
 
 #: ../root/layout/components/sidebar/ReleaseSidebar.js:265
 msgid "Change data quality"
-msgstr ""
+msgstr "Datenqualität ändern"
 
 #: ../root/layout/components/sidebar/SeriesSidebar.js:44
 msgid "Series information"
@@ -14375,7 +14375,7 @@ msgstr "{num} Jahre alt"
 msgid "{num} year"
 msgid_plural "{num} years"
 msgstr[0] "Ein Jahr"
-msgstr[1] "{num}&nbsp;Jahre"
+msgstr[1] "{num}&#xa0;Jahre"
 
 #: ../root/utility/age.js:145
 msgid "{num} month"

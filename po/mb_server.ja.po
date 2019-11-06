@@ -21,11 +21,12 @@
 # nikki, 2013
 # PATATE12, 2014
 # Shunsuke Shimizu <email address hidden>, 2016
-# Shunsuke Shimizu <email address hidden>, 2016
+# Shunsuke Shimizu <email address hidden>, 2016,2019
 # th1rtyf0ur, 2013
 # th1rtyf0ur, 2013
 # wa2c <email address hidden>, 2018
 # 和田篤 <email address hidden>, 2018-2019
+# yvanz, 2018
 # yvanz, 2018
 # 和田篤 <email address hidden>, 2019
 msgid ""
@@ -33,8 +34,8 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-10-23 15:31-0500\n"
-"PO-Revision-Date: 2019-10-25 14:29+0000\n"
-"Last-Translator: 和田篤 <email address hidden>\n"
+"PO-Revision-Date: 2019-10-29 10:31+0000\n"
+"Last-Translator: Shunsuke Shimizu <email address hidden>\n"
 "Language-Team: Japanese (http://www.transifex.com/musicbrainz/musicbrainz/language/ja/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -289,16 +290,16 @@ msgstr "提出したディスクIDはCDスタブとマッチしました。以�
 msgid ""
 "A format is required. If you don’t know it, tick the “I don’t know” checkbox"
 " next to the format dropdown."
-msgstr "フォーマットが必要です。分からない場合、フォーマットのドロップダウンから \"不明\" にチェックを入れてください "
+msgstr "フォーマットを選んでください。分からない場合、フォーマット選択メニューの右側にある「不明」にチェックを入れてください。"
 
 #: ../root/place/map.tt:6
 msgid "A map cannot be shown because this place has no coordinates."
-msgstr "この場所には座標が割り当てられていないので地図が表示できません。"
+msgstr "この場所には座標が割り当てられていないので地図を表示できません。"
 
 #: ../root/entity/collections.tt:18
 msgid "A private collection"
 msgid_plural "{n} private collections"
-msgstr[0] "{n} 件の非公開コレクション"
+msgstr[0] "{n}件の非公開コレクション"
 
 #: ../root/release/edit/information.tt:23
 msgid "A release title is required."
@@ -336,7 +337,7 @@ msgstr "承認済"
 
 #: ../root/user/edits.tt:1
 msgid "Accepted edits by {name}"
-msgstr "{name} による編集の同意"
+msgstr "{name}による承認済みの編集"
 
 #: ../root/admin/edit_user.tt:27 ../root/admin/edit_user.tt:31
 msgid "Account admin"
@@ -609,7 +610,7 @@ msgstr "これらの関連の全て"
 
 #: ../root/edit/details/merge_releases.tt:127
 msgid "All recordings for these releases are already merged."
-msgstr "このリリースの全レコーディングは結合済みです。"
+msgstr "このリリースの全レコーディングはマージ済みです。"
 
 #: ../root/release/cover_art.tt:21
 msgid "All sizes:"
@@ -641,7 +642,7 @@ msgstr "エイリアスは、項目の代替名です。主に、よくあるス
 msgid ""
 "An entity with that name and disambiguation already exists. You must enter a"
 " unique disambiguation comment."
-msgstr ""
+msgstr "同じ名前の区別不能な項目が既に存在しています。他の項目と区別できるように一意な曖昧さ回避コメントを入力してください。"
 
 #: ../root/release/edit_relationships.tt:174
 msgid "An error occurred while creating the works."
@@ -721,11 +722,11 @@ msgstr "本当に {artist} {release} の {format} {pos} にディスクID <code>
 msgid ""
 "Are you sure you want to delete all information about {e}? This cannot be "
 "undone!"
-msgstr "本当に{e}の情報をすべて削除しますか？元には戻せません！"
+msgstr "本当に{e}の情報をすべて削除しますか？元に戻すことはできません！"
 
 #: ../root/admin/delete_user.tt:23
 msgid "Are you sure you want to delete your account? This cannot be undone!"
-msgstr "本当にアカウントを削除してよろしいでしょうか？元には戻せません！"
+msgstr "本当にアカウントを削除しますか？元に戻すことはできません！"
 
 #: ../root/cdtoc/remove.tt:5
 msgid ""
@@ -1038,7 +1039,7 @@ msgstr "自動編集"
 
 #: ../root/user/edits.tt:1
 msgid "Auto-edits by {name}"
-msgstr "{name} による自動編集"
+msgstr "{name}による自動編集"
 
 #: ../root/entity/ratings.tt:20
 msgid "Average rating:"
@@ -1990,7 +1991,7 @@ msgstr "編集を{view_url|表示}"
 
 #: ../root/edit/subscribed-editors.tt:1 ../root/edit/subscribed-editors.tt:3
 msgid "Edits by Your Subscribed Editors"
-msgstr "購読している編集者の編集"
+msgstr "購読中の編集者による編集"
 
 #: ../root/user/edits.tt:1
 msgid "Edits by {name}"
@@ -1998,7 +1999,7 @@ msgstr "{name}の編集"
 
 #: ../root/edit/subscribed.tt:1 ../root/edit/subscribed.tt:3
 msgid "Edits for Your Subscribed Entities"
-msgstr "購読しているエンティティの編集"
+msgstr "購読中の項目への編集"
 
 #: ../root/entity/edits.tt:1
 msgid "Edits for {name}"
@@ -2274,7 +2275,7 @@ msgstr "レコーディングを編集する前に、タイトルやアーティ
 msgid ""
 "Follow our {bl|blog} or {tw|twitter account}! To talk to other users, try "
 "the {fo|forums} or {irc|IRC}."
-msgstr ""
+msgstr "ぜひ私たちの{bl|ブログ}や{tw|twitterアカウント}をフォローください！{fo|フォーラム}や{irc|IRC}で他のユーザーとも話してみましょう。"
 
 #: ../root/search/error/wrapper.tt:5
 msgid ""
@@ -3574,7 +3575,7 @@ msgstr "いいえ"
 #: ../root/edit/components/Vote.js:73
 msgctxt "vote"
 msgid "No"
-msgstr "無し"
+msgstr "反対"
 
 #: ../root/edit/notes.tt:13
 msgid "No edit notes have been added."
@@ -4451,7 +4452,7 @@ msgstr "リリースイベント:"
 
 #: ../root/user/ratings.tt:2 ../root/user/ratings_summary.tt:3
 msgid "Release group ratings"
-msgstr "リリースグループ評価"
+msgstr "リリースグループの評価"
 
 #: ../root/release_group/layout.tt:1
 #: ../root/release_group/ReleaseGroupLayout.js:34
@@ -4735,7 +4736,7 @@ msgstr ""
 
 #: ../root/layout.tt:114
 msgid "Running: <span class=\"tooltip\" title=\"{msg}\">{branch} ({sha})</span>"
-msgstr ""
+msgstr "Running: <span class=\"tooltip\" title=\"{msg}\">{branch} ({sha})</span>"
 
 #: ../root/admin/attributes/form.tt:80
 #: ../root/relationship/linkattributetype/form.tt:21
@@ -5136,11 +5137,11 @@ msgstr ""
 
 #: ../root/edit/list_header.tt:20
 msgid "Subscribed editors"
-msgstr "購読してる編集者"
+msgstr "購読中の編集者"
 
 #: ../root/edit/list_header.tt:18
 msgid "Subscribed entities"
-msgstr "購読してるエンティティ"
+msgstr "購読中の項目"
 
 #: ../root/user/profile.tt:120
 msgid "Subscribers:"
@@ -5257,7 +5258,7 @@ msgstr "入力した日付は無効です。"
 msgid ""
 "The disambiguation field is used to help users distinguish between "
 "identically named releases."
-msgstr ""
+msgstr "曖昧さ回避フィールドは同じ名前のリリースを区別するために役立ちます。"
 
 #: ../root/user/profile.tt:90
 msgid "The early days of the project"
@@ -5468,7 +5469,7 @@ msgstr ""
 #: ../root/layout.tt:28 ../root/layout/index.js:52
 msgid ""
 "This beta test server allows testing of new features with the live database."
-msgstr "このベータテストサーバーは、稼働中データベースで新機能のテストができます。"
+msgstr "ベータテストサーバーでは、実際のデータベースを用いながら新機能のテストを行えます。"
 
 #: ../root/edit/details/edit_url.tt:31
 msgid "This change affects {num} relationship."
@@ -5479,7 +5480,7 @@ msgstr[0] ""
 #: ../root/collection/CollectionIndex.js:184
 msgid ""
 "This content is hidden to prevent spam. To view it, please {url|log in}."
-msgstr ""
+msgstr "スパム回避のため内容は表示されません。表示するには{url|ログイン}してください。"
 
 #: ../root/release/edit/tracklist.tt:410
 msgid "This disc contains data tracks at the end ({info|more info})"
@@ -5592,7 +5593,7 @@ msgstr "このロケールの一次エイリアスです"
 #: ../root/edit/data.tt:31
 msgid ""
 "This is the raw data for edit #{id}. It is available for debugging purposes."
-msgstr ""
+msgstr "編集#{id}の生データです。このデータをデバッグを目的としています。"
 
 #: ../root/label/delete.tt:14
 msgid ""
@@ -5606,17 +5607,17 @@ msgstr "このレーベルは解散しました。"
 
 #: ../root/release/edit/information.tt:203
 msgid "This label/catalog number pair already exists."
-msgstr ""
+msgstr "このレーベルとカタログ番号の組み合わせは既に存在しています。"
 
 #: ../root/cdtoc/attach_list.tt:24
 msgid "This medium format cannot have a disc ID attached"
-msgstr "このメディアフォーマットにディスクID付けられません。"
+msgstr "このメディアフォーマットにディスクIDを付与することはできません。"
 
 #: ../root/release/edit/tracklist.tt:321
 msgid ""
 "This medium has a disc ID, pregap track, or data track, so you can only "
 "change the format to one that can have disc IDs."
-msgstr ""
+msgstr "このメディアはディスクID、プリギャップトラック、またはデータトラックのいずれかを持っているため、ディスクディスクIDを付与することのできるフォーマットにのみ変更可能です。"
 
 #: ../root/release/merge.tt:109
 msgid ""
@@ -6126,11 +6127,11 @@ msgstr ""
 
 #: ../root/release/add_cover_art.tt:60
 msgid "Uploading image..."
-msgstr ""
+msgstr "画像をアップロード中……"
 
 #: ../root/components/forms.tt:292 ../root/components/forms.tt:316
 msgid "Uppercase Roman numerals"
-msgstr ""
+msgstr "ローマ数字を大文字にする"
 
 #: ../root/layout.tt:110 ../root/layout/components/Footer.js:37
 msgid "Use beta site"
@@ -6166,7 +6167,7 @@ msgstr "トラックタイトルを使用"
 
 #: ../root/search/form.tt:39
 msgid "Use {doc|advanced query syntax}"
-msgstr ""
+msgstr "{doc|高度なクエリ構文}を使う"
 
 #: ../root/user/profile.tt:58
 msgid ""
@@ -6477,7 +6478,7 @@ msgstr "はい"
 #: ../root/edit/components/Vote.js:70
 msgctxt "vote"
 msgid "Yes"
-msgstr "Yes"
+msgstr "賛成"
 
 #: ../root/admin/wikidoc/delete.tt:9
 msgid "Yes, I'm sure"
@@ -6487,13 +6488,13 @@ msgstr "確認"
 msgid ""
 "You are about to add an ISRC to this recording. The ISRC must be entered in "
 "standard <code>CCXXXYYNNNNN</code> format:"
-msgstr ""
+msgstr "ISRCをレコーディングに追加します。<code>CCXXXYYNNNNN</code>の標準形式に従ってISRCを入力してください。"
 
 #: ../root/components/forms.tt:328
 msgid ""
 "You are about to add an ISWC to this work. The ISWC must be entered in "
 "standard <code>T-DDD.DDD.DDD-C</code> format:"
-msgstr ""
+msgstr "ISWCを作品に追加します。<code>T-DDD.DDD.DDD-C</code>の標準形式に従ってISWCを入力してください。"
 
 #: ../root/cdtoc/set_durations.tt:4
 msgid ""
@@ -6505,20 +6506,20 @@ msgstr ""
 msgid ""
 "You are about to merge the following areas into a single area. Please select"
 " the area which you would like other areas to be merged into:"
-msgstr "以下の地域を一つにマージするところです。目的の地域をお選びください。"
+msgstr "以下の地域を一つの地域へとマージします。どの地域へ他の地域をマージするかを選んでください。"
 
 #: ../root/event/merge.tt:4
 msgid ""
 "You are about to merge the following events into a single event. Please "
 "select the event which you would like other events to be merged into:"
-msgstr ""
+msgstr "以下のイベントを一つのイベントへとマージします。どのイベントへ他のイベントをマージするかを選んでください。"
 
 #: ../root/instrument/merge.tt:4
 msgid ""
 "You are about to merge the following instruments into a single instrument. "
 "Please select the instrument which you would like other instruments to be "
 "merged into:"
-msgstr ""
+msgstr "以下の楽器を一つの楽器へとマージします。どの楽器へ他の楽器をマージするかを選んでください。"
 
 #: ../root/label/merge.tt:4
 msgid ""
@@ -6577,7 +6578,7 @@ msgstr ""
 #: ../root/user/subscriptions/collection.tt:7
 msgid "You are subscribed to {n} private collection."
 msgid_plural "You are subscribed to {n} private collections."
-msgstr[0] ""
+msgstr[0] "あなたは{n}件の非公開コレクションを購読しています。"
 
 #: ../root/cdtoc/attach_artist_releases.tt:5
 msgid "You are viewing releases by {artist}."
@@ -7212,7 +7213,7 @@ msgstr "{count} ({view_url|表示})"
 #: ../root/entity/ratings.tt:17
 msgid "{count} private rating not listed."
 msgid_plural "{count} private ratings not listed."
-msgstr[0] ""
+msgstr[0] "{count}件の評価は非公開となっています。"
 
 #: ../root/user/profile.tt:53
 msgid "{doc|Auto-Editor}"
@@ -7237,7 +7238,7 @@ msgstr ""
 #: ../root/user/subscriptions/collection.tt:13
 msgid "{editor} is subscribed to {n} private collection."
 msgid_plural "{editor} is subscribed to {n} private collections."
-msgstr[0] ""
+msgstr[0] "{editor}は{n}件の非公開コレクションを購読しています。"
 
 #: ../root/user/subscriptions/layout.tt:12
 msgid "{editor} is subscribed to:"
@@ -9636,7 +9637,7 @@ msgstr ""
 
 #: ../root/collection/CollectionHeader.js:35
 msgid "Private collection by {owner}"
-msgstr ""
+msgstr "{owner}の非公開コレクション"
 
 #: ../root/collection/CollectionHeader.js:50
 msgid "See all of your collections"
@@ -10420,18 +10421,18 @@ msgstr ""
 msgid "There is currently {num} user subscribed to edits that you make:"
 msgid_plural ""
 "There are currently {num} users subscribed to edits that you make:"
-msgstr[0] ""
+msgstr[0] "{num}名のユーザーがあなたの編集を購読しています。"
 
 #: ../root/entity/Subscribers.js:65
 msgid "There is currently {num} user subscribed to edits that {user} makes:"
 msgid_plural ""
 "There are currently {num} users subscribed to edits that {user} makes:"
-msgstr[0] ""
+msgstr[0] "{num}名のユーザーが{user}の編集を購読しています。"
 
 #: ../root/entity/Subscribers.js:78
 msgid "There is currently {num} user subscribed to {entity}:"
 msgid_plural "There are currently {num} users subscribed to {entity}:"
-msgstr[0] ""
+msgstr[0] "{num}名のユーザーが{entity}を購読しています。"
 
 #: ../root/entity/Subscribers.js:97
 msgid "Plus {n} other anonymous user"
@@ -10445,15 +10446,15 @@ msgstr[0] "匿名ユーザー{n}名"
 
 #: ../root/entity/Subscribers.js:121
 msgid "There are currently no users subscribed to edits that you make."
-msgstr ""
+msgstr "あなたの編集を購読しているユーザーはいません。"
 
 #: ../root/entity/Subscribers.js:124
 msgid "There are currently no users subscribed to edits that {user} makes."
-msgstr ""
+msgstr "{user}の編集を購読しているユーザーはいません。"
 
 #: ../root/entity/Subscribers.js:129
 msgid "There are currently no users subscribed to {entity}."
-msgstr ""
+msgstr "{entity}を購読しているユーザーはいません。"
 
 #: ../root/entity/Subscribers.js:138
 msgid "You are currently subscribed. {unsub|Unsubscribe}?"
@@ -10864,11 +10865,11 @@ msgstr "すべての自分の編集"
 
 #: ../root/layout/components/TopMenu.js:75
 msgid "Edits for Subscribed Entities"
-msgstr "購読してるエンティティの編集"
+msgstr "購読中の項目への編集"
 
 #: ../root/layout/components/TopMenu.js:78
 msgid "Edits by Subscribed Editors"
-msgstr "購読してる編集者の編集"
+msgstr "購読中の編集者による編集"
 
 #: ../root/layout/components/TopMenu.js:81
 msgid "Notes Left on My Edits"
@@ -11161,11 +11162,11 @@ msgstr "MusicBrainzへようこそ！"
 msgid ""
 "MusicBrainz is an open music encyclopedia that collects music metadata and "
 "makes it available to the public."
-msgstr "MusicBrainz は音楽のメタデータを収集し、公衆で利用できるようにする、オープンな音楽百科事典です。"
+msgstr "MusicBrainzは誰でも利用可能な音楽のメタデータを収集するオープンな音楽百科事典です。"
 
 #: ../root/main/index.js:38
 msgid "MusicBrainz aims to be:"
-msgstr "MusicBrainzは以下を目標としています。"
+msgstr "MusicBrainzは以下の目標を掲げています。"
 
 #: ../root/main/index.js:43
 msgid ""
@@ -11178,14 +11179,14 @@ msgid ""
 "<strong>The universal lingua franca for music</strong> by providing a "
 "reliable and unambiguous form of {doc|music identification}, enabling both "
 "people and machines to have meaningful conversations about music."
-msgstr "正確かつ曖昧でない{doc|音楽の識別}方法を提供することで、人間および機械が誤解なく音楽について話すために役立つ<strong>音楽の世界共通語</strong>となること。"
+msgstr "正確かつ曖昧でない{doc|音楽の識別}方法を提供することで、人間および機械が音楽に関する情報をやり取りするのに役立つ<strong>音楽の世界共通語</strong>となること。"
 
 #: ../root/main/index.js:56
 msgid ""
 "Like Wikipedia, MusicBrainz is maintained by a global community of users and"
 " we want everyone &#x2014; including you &#x2014; to {doc|participate and "
 "contribute}."
-msgstr "Wikipediaのように、MusicBrainzはユーザーのグローバルコミュニティによって運営されています。あなたもぜひ{doc|参加・貢献} してください。"
+msgstr "Wikipediaのように、MusicBrainzは世界中のユーザーに支えられています。あなたもぜひ{doc|参加・貢献} してください。"
 
 #: ../root/main/index.js:62
 msgid ""
@@ -11197,11 +11198,11 @@ msgid ""
 "MusicBrainz is operated by the {uri|MetaBrainz Foundation}, a California "
 "based 501(c)(3) tax-exempt non-profit corporation dedicated to keeping "
 "MusicBrainz {free|free and open source}."
-msgstr ""
+msgstr "MusicBrainzはカリフォルニアを拠点とする非営利団体{uri|MetaBrainz Foundation}によって運営されています。MetaBrainz FoundationはMusicBrainzを{free|フリーかつオープンソース}で提供し続けるために設立された、内国歳入法第501条C項3号に基づく非課税の団体です"
 
 #: ../root/main/index.js:79
 msgid "MetaBrainz Blog"
-msgstr ""
+msgstr "MetaBrainzブログ"
 
 #: ../root/main/index.js:84
 msgid "Latest posts:"
@@ -11213,7 +11214,7 @@ msgstr "もっと読む »"
 
 #: ../root/main/index.js:103
 msgid "The blog is currently unavailable."
-msgstr ""
+msgstr "ブログにアクセスできない状態です。"
 
 #: ../root/main/index.js:112
 msgid "Tag Your Music"
@@ -11254,7 +11255,7 @@ msgstr "開発者"
 msgid ""
 "Use our <strong>XML web service</strong> or <strong>development "
 "libraries</strong> to create your own MusicBrainz-enabled applications."
-msgstr ""
+msgstr "<strong>XML Webサービス</strong>や<strong>開発用ライブラリ</strong>を用いてMusicBrainzを利用したアプリケーションを作りましょう。"
 
 #: ../root/main/index.js:163
 msgid "Recent Additions"
@@ -11328,7 +11329,7 @@ msgstr "{artist}のレコーディング"
 
 #: ../root/recording/RecordingIndex.js:50
 msgid "Track Artist"
-msgstr ""
+msgstr "トラックアーティスト"
 
 #: ../root/recording/RecordingIndex.js:51
 msgid "Release Title"
@@ -11355,14 +11356,14 @@ msgid ""
 "You are about to merge the following recordings into a single recording. "
 "Please select the recording which you would like other recordings to be "
 "merged into:"
-msgstr ""
+msgstr "以下のレコーディングを一つのレコーディングへとマージします。どのレコーディングへ他のレコーディングをマージするかを選んでください。"
 
 #: ../root/recording/RecordingMerge.js:64
 msgid ""
 "<strong>Warning:</strong> Some of the recordings you're merging have "
 "different ISRCs. Please make sure they are indeed the same recordings and "
 "you wish to continue with the merge."
-msgstr "<strong>警告:</strong> 結合しようとしているレコーディングの一部で、ISRCが異なっています。レコーディングが確かに同一であるかを確認し、続行してください。"
+msgstr "<strong>警告:</strong> マージしようとしているレコーディングの一部で、ISRCが異なっています。レコーディングが確かに同一であるかを確認し、続行してください。"
 
 #: ../root/release/ReleaseHeader.js:26
 msgid "see all versions of this release, {count} available"
@@ -11644,25 +11645,25 @@ msgstr ""
 #: ../root/report/ArtistsContainingDisambiguationComments.js:32
 #: ../root/report/ReportsIndex.js:66
 msgid "Artists containing disambiguation comments in their name"
-msgstr "名前に曖昧さ回避メモを含むアーティスト一覧"
+msgstr "アーティスト名の中に曖昧さ回避コメントが含まれているアーティスト"
 
 #: ../root/report/ArtistsContainingDisambiguationComments.js:36
 msgid ""
 "This report lists artists that may have disambiguation comments in their "
 "name, rather than the actual disambiguation comment field."
-msgstr ""
+msgstr "このレポートはアーティスト名の中に他のアーティストと区別するためのコメントを含んでしまっている可能性があるアーティストを示しています。そうしたコメントは曖昧さ回避コメントのフィールドに移動すべきです。"
 
 #: ../root/report/ArtistsDisambiguationSameName.js:30
 #: ../root/report/ArtistsDisambiguationSameName.js:32
 #: ../root/report/ReportsIndex.js:96
 msgid "Artists with disambiguation the same as the name"
-msgstr "名前と同じ曖昧さ回避メモを含むアーティスト一覧"
+msgstr "アーティスト名と同じ曖昧さ回避コメントのあるアーティスト"
 
 #: ../root/report/ArtistsDisambiguationSameName.js:36
 msgid ""
 "This report lists artists that have their disambiguation set to be the same "
 "as their name. Disambiguation should not be filled in this case."
-msgstr ""
+msgstr "このレポートはアーティスト名と同一の曖昧さ回避コメントを設定されたアーティストを示しています。そのような曖昧さ回避コメントは不要です。"
 
 #: ../root/report/ArtistsThatMayBeGroups.js:28
 #: ../root/report/ArtistsThatMayBeGroups.js:29
@@ -11728,7 +11729,7 @@ msgid ""
 "This report lists artists that have no editors subscribed to them, and whose"
 " changes may therefore be under-reviewed. Artists with more release groups "
 "and more open edits are listed first."
-msgstr "このレポートは、購読者がいないためレビューが不足の可能性があるアーティストを表示します。リリースグループや未解決な編集が多いアーティストは最初に表示されます。"
+msgstr "このレポートは購読者がいないためレビューが不足の可能性があるアーティストを示しています。リリースグループや未解決な編集が多いアーティストは最初に表示されます。"
 
 #: ../root/report/AsinsWithMultipleReleases.js:28
 #: ../root/report/AsinsWithMultipleReleases.js:29
@@ -11745,7 +11746,7 @@ msgid ""
 " barcode, you can also search Amazon for it and see which ASIN matches. You "
 "might also find some ASINs linked to several discs of a multi-disc release: "
 "just merge those (see {how_to_merge_releases|How to Merge Releases})."
-msgstr ""
+msgstr "このレポートは複数のリリースに紐付けられたAmazon URLを示しています。ほとんどの場合Amazon ASINとMusicBrainzのリリースは一対一に対応するため、正しいリンクは一つだけです。まず、どのMusicBrainzのリリースがAmazonのリリースに対応するかを確認してください。（フォーマットやトラックリストなどが参考になります。）バーコードがあれば、Amazonでバーコード番号を検索してどのASINがマッチするかを調べることもできます。また、複数のディスクのそれぞれに対して同じASINが紐付けられてしまっていることもありますが、その場合は一つのリリースへとマージしてください。（{how_to_merge_releases|リリースをマージする方法}を参照ください。）"
 
 #: ../root/report/BadAmazonUrls.js:32 ../root/report/BadAmazonUrls.js:33
 msgid "Bad Amazon URLs"
@@ -11756,7 +11757,7 @@ msgid ""
 "This report shows releases with Amazon URLs which don't follow the expected "
 "format. They might still be correct if they're archive.org cover links, but "
 "in any other case they should probably be fixed or removed."
-msgstr ""
+msgstr "このレポートは適切なフォーマットに従っていないAmazon URLを持つリリースを示しています。archive.org上のカバーアートへのリンクとして正しい場合はありますが、その他の場合ではおそらく修正もしくは削除すべきです。"
 
 #: ../root/report/BadAmazonUrls.js:85 ../root/report/CatNoLooksLikeAsin.js:83
 #: ../root/report/ReleaseLabelSameArtist.js:92
@@ -11765,12 +11766,12 @@ msgstr ""
 #: ../root/report/components/ReleaseRelationshipList.js:53
 #: ../root/report/components/ReleaseUrlList.js:68
 msgid "This release no longer exists."
-msgstr ""
+msgstr "このリリースはもう存在していません。"
 
 #: ../root/report/CatNoLooksLikeAsin.js:34
 #: ../root/report/CatNoLooksLikeAsin.js:36 ../root/report/ReportsIndex.js:308
 msgid "Releases with catalog numbers that look like ASINs"
-msgstr "ASINに見えるカタログ番号のあるリリース"
+msgstr "カタログ番号がASINの形式になっているリリース"
 
 #: ../root/report/CatNoLooksLikeAsin.js:40
 msgid ""
@@ -11778,7 +11779,7 @@ msgid ""
 "This is almost always wrong: ASINs are just Amazon's entries for the "
 "releases and should be linked to the release with an Amazon URL relationship"
 " instead."
-msgstr ""
+msgstr "このレポートはカタログ番号がASINの形式になっているリリースを示しています。まず間違いなくカタログ番号は誤っています。Amazon独自の識別子であるASINは、カタログ番号ではなくAmazon URLとの関係によって、リリースに紐付けられるべきです。"
 
 #: ../root/report/CollaborationRelationships.js:33
 #: ../root/report/CollaborationRelationships.js:34
@@ -12226,13 +12227,13 @@ msgstr ""
 #: ../root/report/LabelsDisambiguationSameName.js:32
 #: ../root/report/ReportsIndex.js:165
 msgid "Labels with disambiguation the same as the name"
-msgstr "名前と同じ曖昧さのないレーベル"
+msgstr "レーベル名と同じ曖昧さ回避コメントのあるレーベル"
 
 #: ../root/report/LabelsDisambiguationSameName.js:36
 msgid ""
 "This report lists labels that have their disambiguation set to be the same "
 "as their name. Disambiguation should not be filled in this case."
-msgstr ""
+msgstr "このレポートはレーベル名と同一の曖昧さ回避コメントを設定されたレーベルを示しています。そのような曖昧さ回避コメントは不要です。"
 
 #: ../root/report/LimitedEditors.js:25 ../root/report/LimitedEditors.js:26
 #: ../root/report/ReportsIndex.js:108
