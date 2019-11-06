@@ -21,6 +21,7 @@ import FormRowURLLong from '../../../../components/FormRowURLLong';
 import FormSubmit from '../../../../components/FormSubmit';
 import SelectField from '../../../../components/SelectField';
 import DBDefs from '../../common/DBDefs-client';
+import {FLUENCY_NAMES} from '../../common/constants';
 import Autocomplete from '../../common/components/Autocomplete';
 import Warning from '../../common/components/Warning';
 import {N_lp_attributes} from '../../common/i18n/attributes';
@@ -73,10 +74,10 @@ const genderOptions = {
 const fluencyOptions = {
   grouped: false,
   options: [
-    {label: N_l('Basic'), value: 'basic'},
-    {label: N_l('Intermediate'), value: 'intermediate'},
-    {label: N_l('Advanced'), value: 'advanced'},
-    {label: N_l('Native'), value: 'native'},
+    {label: FLUENCY_NAMES.basic, value: 'basic'},
+    {label: FLUENCY_NAMES.intermediate, value: 'intermediate'},
+    {label: FLUENCY_NAMES.advanced, value: 'advanced'},
+    {label: FLUENCY_NAMES.native, value: 'native'},
   ],
 };
 

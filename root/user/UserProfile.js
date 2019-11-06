@@ -13,6 +13,7 @@ import UserAccountLayout from '../components/UserAccountLayout';
 import {withCatalystContext} from '../context';
 import DescriptiveLink
   from '../static/scripts/common/components/DescriptiveLink';
+import {FLUENCY_NAMES} from '../static/scripts/common/constants';
 import commaList from '../static/scripts/common/i18n/commaList';
 import expand2react from '../static/scripts/common/i18n/expand2react';
 import bracketed, {bracketedText}
@@ -21,13 +22,6 @@ import nonEmpty from '../static/scripts/common/utility/nonEmpty';
 import {formatCount, formatPercentage} from '../statistics/utilities';
 import formatUserDate from '../utility/formatUserDate';
 import {canNominate} from '../utility/voting';
-
-const fluencyLabels = {
-  advanced: N_l('Advanced'),
-  basic: N_l('Basic'),
-  intermediate: N_l('Intermediate'),
-  native: N_l('Native'),
-};
 
 function generateUserTypesList(user: EditorT) {
   const typesList = [];
@@ -299,7 +293,7 @@ const UserProfileInformation = withCatalystContext(({
                 <li key={language.language.id}>
                   {l_languages(language.language.name)}
                   {' '}
-                  {bracketedText(fluencyLabels[language.fluency]())}
+                  {bracketedText(FLUENCY_NAMES[language.fluency]())}
                 </li>
               ))}
             </ul>
