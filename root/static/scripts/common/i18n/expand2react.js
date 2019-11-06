@@ -219,6 +219,18 @@ const htmlAttrValueParsers = [
   parseHtmlAttrValueCondSubst,
 ];
 
+// Keep in sync with the htmlAttrName RegExp above.
+type HtmlAttrs = {
+  className?: string,
+  href?: string,
+  id?: string,
+  key?: string,
+  rel?: string,
+  target?: string,
+  title?: string,
+  ...,
+};
+
 function parseHtmlAttr(args) {
   if (!gotMatch(accept(htmlAttrStart))) {
     return NO_MATCH_VALUE;
@@ -243,7 +255,13 @@ function parseHtmlAttr(args) {
     throw error('bad href value');
   }
 
-  return {[name]: value};
+  /*
+   * See "Flow errors on unions in computed properties" here:
+   * https://medium.com/flow-type/spreads-common-errors-fixes-9701012e9d58
+   */
+  const attr: HtmlAttrs = {};
+  attr[name] = value;
+  return attr;
 }
 
 const htmlAttrParsers = [parseHtmlAttr];
@@ -258,9 +276,7 @@ function parseHtmlTag(args) {
     throw error('bad HTML tag');
   }
 
-  type HtmlAttr = {[string]: string, ...};
-
-  const attributes = parseContinuousArray<HtmlAttr, Input>(
+  const attributes = parseContinuousArray<HtmlAttrs, Input>(
     htmlAttrParsers,
     args,
   );

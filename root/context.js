@@ -47,7 +47,7 @@ type ContextPropT = {
 
 function withCatalystContext/*:: <P: ContextPropT> */(
   Component /*: ComponentType<P> */,
-) /*: ComponentType<$Diff<P, ContextPropT>> */ {
+) /*: ComponentType<$Exact<$Diff<P, ContextPropT>>> */ {
   return (props) => React.createElement(
     CatalystContext.Consumer,
     null,

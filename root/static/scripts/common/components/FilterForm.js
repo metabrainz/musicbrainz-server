@@ -12,17 +12,16 @@ import * as React from 'react';
 import SelectField from '../../../../components/SelectField';
 import {addColonText} from '../i18n/addColon';
 
-export type FilterFormT =
-  & FormT<{
-      +artist_credit_id: ReadOnlyFieldT<number>,
-      +name: ReadOnlyFieldT<string>,
-      +type_id?: ReadOnlyFieldT<number>,
-    }>
-  & {
-      +entity_type: 'recording' | 'release' | 'release_group',
-      +options_artist_credit_id: SelectOptionsT,
-      +options_type_id?: SelectOptionsT,
-    };
+export type FilterFormT = $ReadOnly<{
+  ...FormT<{
+    +artist_credit_id: ReadOnlyFieldT<number>,
+    +name: ReadOnlyFieldT<string>,
+    +type_id?: ReadOnlyFieldT<number>,
+  }>,
+  entity_type: 'recording' | 'release' | 'release_group',
+  options_artist_credit_id: SelectOptionsT,
+  options_type_id?: SelectOptionsT,
+}>;
 
 type Props = {
   +form: FilterFormT,
