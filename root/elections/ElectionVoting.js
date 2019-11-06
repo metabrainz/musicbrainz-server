@@ -10,7 +10,6 @@
 import React from 'react';
 
 import EditorLink from '../static/scripts/common/components/EditorLink';
-import formatUserDate from '../utility/formatUserDate';
 import {canCancel, canSecond, canVote, isInvolved, votesVisible}
   from '../utility/voting';
 

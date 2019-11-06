@@ -8,9 +8,6 @@
  */
 
 import * as React from 'react';
-import moment from 'moment';
-import 'moment-strftime';
-import 'moment-timezone';
 import _ from 'lodash';
 import mutate from 'mutate-cow';
 
@@ -18,6 +15,8 @@ import FormRow from '../../../../components/FormRow';
 import FormRowCheckbox from '../../../../components/FormRowCheckbox';
 import FormRowSelect from '../../../../components/FormRowSelect';
 import FormSubmit from '../../../../components/FormSubmit';
+import {withCatalystContext} from '../../../../context';
+import {formatUserDateObject} from '../../../../utility/formatUserDate';
 import hydrate from '../../../../utility/hydrate';
 
 type PreferencesFormT = FormT<{
@@ -38,6 +37,7 @@ type PreferencesFormT = FormT<{
 }>;
 
 type Props = {
+  +$c: CatalystContextT | SanitizedCatalystContextT,
   +form: PreferencesFormT,
   +timezone_options: MaybeGroupedOptionsT,
 };
@@ -62,12 +62,12 @@ const allowedDateTimeFormats = [
   '%m.%d.%Y %H:%M',
 ];
 
-function buildDateTimeFormatOptions(timezone) {
-  const hereAndNow = moment.tz(timezone);
+function buildDateTimeFormatOptions($c, timezone) {
+  const hereAndNow = new Date();
   return {
     grouped: false,
     options: allowedDateTimeFormats.map(a => ({
-      label: hereAndNow.strftime(a),
+      label: formatUserDateObject($c, hereAndNow, {format: a, timezone}),
       value: a,
     })),
   };
@@ -106,13 +106,21 @@ class PreferencesForm extends React.Component<Props, State> {
   handleTimezoneGuess: () => void;
 
   handleTimezoneGuess() {
-    const guess = moment.tz.guess();
-    for (const option of this.state.timezoneOptions.options) {
-      if (option.value === guess) {
-        this.setState(prevState => mutate<State, _>(prevState, newState => {
-          newState.form.field.timezone.value = guess;
-        }));
-        break;
+    let maybeGuess;
+    try {
+      maybeGuess = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    } catch (e) {
+      // ignored where Intl.DateTimeFormat is unsupported
+    }
+    const guess = maybeGuess;
+    if (guess) {
+      for (const option of this.state.timezoneOptions.options) {
+        if (option.value === guess) {
+          this.setState(prevState => mutate<State, _>(prevState, newState => {
+            newState.form.field.timezone.value = guess;
+          }));
+          break;
+        }
       }
     }
   }
@@ -164,7 +172,10 @@ class PreferencesForm extends React.Component<Props, State> {
             field={field.datetime_format}
             label={l('Date/time format:')}
             onChange={this.handleDateTimeFormatChange}
-            options={buildDateTimeFormatOptions(field.timezone.value)}
+            options={buildDateTimeFormatOptions(
+              this.props.$c,
+              field.timezone.value,
+            )}
           />
         </fieldset>
         <fieldset>
@@ -241,4 +252,5 @@ class PreferencesForm extends React.Component<Props, State> {
 }
 
 export type PreferencesFormPropsT = Props;
+
 export default hydrate<Props>('div.preferences-form', PreferencesForm);

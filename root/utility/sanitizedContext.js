@@ -19,6 +19,7 @@ const sanitizedEditor = require('./sanitizedEditor');
 function sanitizedContext(
   $c /*: CatalystContextT */,
 ) /*: SanitizedCatalystContextT */ {
+  const stash = $c.stash;
   const user = $c.user;
   return {
     action: {
@@ -26,6 +27,9 @@ function sanitizedContext(
     },
     req: {
       uri: $c.req.uri,
+    },
+    stash: {
+      current_language: stash.current_language,
     },
     user: user ? sanitizedEditor(user) : null,
     user_exists: $c.user_exists,

@@ -68,7 +68,7 @@ rules:
   no-use-before-define: off
 
   # Stylistic Issues
-  array-bracket-newline: [warn, {multiline: true}]
+  array-bracket-newline: [warn, consistent]
   array-bracket-spacing: [warn, never]
   array-element-newline: [warn, consistent]
   block-spacing: [warn, always]
