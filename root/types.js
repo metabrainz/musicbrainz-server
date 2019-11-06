@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict
  * Copyright (C) 2017 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -24,12 +24,14 @@ declare type AliasT = {
   ...DatePeriodRoleT,
   ...EditableRoleT,
   ...EntityRoleT<'alias'>,
-  ...TypeRoleT<empty>,
+  ...TypeRoleT<AliasTypeT>,
   +locale: string | null,
   +name: string,
   +primary_for_locale: boolean,
   +sort_name: string,
 };
+
+declare type AliasTypeT = OptionTreeT<'alias_type'>;
 
 declare type AnchorProps = {
   +href: string,
@@ -269,6 +271,11 @@ declare type CommonsImageT = {
   +thumb_url: string,
 };
 
+declare type CompT<T> = {
+  +new: T,
+  +old: T,
+};
+
 declare type CompoundFieldT<F> = {
   errors: Array<string>,
   field: F,
@@ -368,26 +375,38 @@ declare type EditorPreferencesT = {
 
 declare type EditorT = {
   ...EntityRoleT<'editor'>,
+  +age: number | null,
+  +area: AreaT | null,
   +biography: string | null,
   +birth_date: PartialDateT | null,
   +deleted: boolean,
   +email: string,
   +email_confirmation_date: string | null,
+  +gender: GenderT | null,
   +gravatar: string,
+  +has_confirmed_email_address: boolean,
   +is_account_admin: boolean,
   +is_admin: boolean,
   +is_auto_editor: boolean,
   +is_banner_editor: boolean,
   +is_bot: boolean,
+  +is_charter: boolean,
   +is_editing_disabled: boolean,
   +is_limited: boolean,
   +is_location_editor: boolean,
   +is_relationship_editor: boolean,
   +is_wiki_transcluder: boolean,
+  +languages: $ReadOnlyArray<EditorLanguageT> | null,
+  +last_login_date: string | null,
   +name: string,
   +preferences: EditorPreferencesT,
   +registration_date: string,
   +website: string | null,
+};
+
+declare type EditorLanguageT = {
+  +fluency: FluencyT,
+  +language: LanguageT,
 };
 
 declare type EditorOAuthTokenT = {
@@ -422,6 +441,7 @@ declare type EditT = {
   },
   +created_time: string,
   +data: Object,
+  +edit_kind: 'add' | 'edit' | 'remove' | 'merge' | 'other',
   +edit_type: number,
   +editor_id: number,
   +expires_time: string,
@@ -486,6 +506,13 @@ declare type ReadOnlyFieldT<+V> = {
   +id: number,
   +value: V,
 };
+
+declare type FluencyT =
+  | 'basic'
+  | 'intermediate'
+  | 'advanced'
+  | 'native'
+  ;
 
 // See lib/MusicBrainz/Server/Form/Role/ToJSON.pm
 declare type FormT<+F> = {
@@ -666,6 +693,14 @@ declare type MediumT = {
   +release_id: number,
   +tracks?: $ReadOnlyArray<TrackT>,
 };
+
+declare type MergeFormT = FormT<{
+  +edit_note: FieldT<string>,
+  +make_votable: FieldT<boolean>,
+  +merging: RepeatableFieldT<FieldT<number>>,
+  +rename: FieldT<boolean>,
+  +target: FieldT<number>,
+}>;
 
 declare type MinimalCoreEntityT = {
   +entityType: string,
@@ -857,6 +892,9 @@ declare type SanitizedCatalystContextT = {
   +req: {
     +uri: string,
   },
+  +stash: {
+    +current_language: string,
+  },
   +user: SanitizedEditorT | null,
   +user_exists: boolean,
 };
@@ -983,6 +1021,7 @@ declare type VarSubstArg =
   | StrOrNum
   | React$MixedElement;
 
+/* eslint-disable no-multi-spaces */
 declare type VoteOptionT =
   | -2   // None
   | -1   // Abstain
@@ -990,6 +1029,7 @@ declare type VoteOptionT =
   |  1   // Yes
   |  2   // Approve
   ;
+/* eslint-enable no-multi-spaces */
 
 declare type VoteT = {
   +editor_id: number,

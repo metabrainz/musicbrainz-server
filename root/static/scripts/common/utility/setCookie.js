@@ -13,7 +13,8 @@ function setCookieFallback(name, value) {
 }
 
 function setCookie(name, value, expiration = oneYearFromNow()) {
-  document.cookie = cookie.serialize(name, value, {expires: expiration, path: '/'});
+  document.cookie =
+    cookie.serialize(name, value, {expires: expiration, path: '/'});
 }
 
 if (typeof document === 'undefined' ||

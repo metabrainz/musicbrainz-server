@@ -12,7 +12,8 @@ import * as React from 'react';
 import {withCatalystContext} from '../../../context';
 import {GENRE_TAGS} from '../../../static/scripts/common/constants';
 import EntityLink from '../../../static/scripts/common/components/EntityLink';
-import {SidebarTagEditor} from '../../../static/scripts/common/components/TagEditor';
+import {SidebarTagEditor}
+  from '../../../static/scripts/common/components/TagEditor';
 import TagLink from '../../../static/scripts/common/components/TagLink';
 import commaOnlyList from '../../../static/scripts/common/i18n/commaOnlyList';
 

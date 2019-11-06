@@ -206,11 +206,13 @@ dl.properties label {
     width: auto;
 }
 
-div.ar-descr {
-    background: @effectively-white-bg;
-    padding: 4px;
-    border: dotted 1px @medium-border;
+div.ar-descr, div.form-help {
+    .help-box();
     margin: 6px;
+}
+
+div.form-help {
+    margin-left: 1.4em;
 }
 
 div.searchform {

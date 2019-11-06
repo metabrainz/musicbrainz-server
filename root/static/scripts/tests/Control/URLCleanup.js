@@ -1260,6 +1260,14 @@ const testData = [
     expected_relationship_type: 'patronage',
             expected_clean_url: 'https://d.rip/willits',
   },
+  // Dynamic Range DB
+  {
+                     input_url: 'https://dr.loudness-war.info/album/view/168230',
+             input_entity_type: 'release',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'http://dr.loudness-war.info/album/view/168230',
+       only_valid_entity_types: ['release'],
+  },
   // e-onkyo music
   {
                      input_url: 'http://www.e-onkyo.com/music/album/vpcd81809/',

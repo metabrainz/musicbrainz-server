@@ -10,13 +10,13 @@ import MB from '../../../common/MB';
 MB.Control.ArtistEdit = function () {
     var self = {};
 
-    self.$name   = $('#id-edit-artist\\.name');
-    self.$begin  = $('#label-id-edit-artist\\.period\\.begin_date');
-    self.$ended  = $('#label-id-edit-artist\\.period\\.ended');
-    self.$end    = $('#label-id-edit-artist\\.period\\.end_date');
-    self.$beginarea    = $('#label-id-edit-artist\\.begin_area\\.name');
-    self.$endarea    = $('#label-id-edit-artist\\.end_area\\.name');
-    self.$type   = $('#id-edit-artist\\.type_id');
+    self.$name = $('#id-edit-artist\\.name');
+    self.$begin = $('#label-id-edit-artist\\.period\\.begin_date');
+    self.$ended = $('#label-id-edit-artist\\.period\\.ended');
+    self.$end = $('#label-id-edit-artist\\.period\\.end_date');
+    self.$beginarea = $('#label-id-edit-artist\\.begin_area\\.name');
+    self.$endarea = $('#label-id-edit-artist\\.end_area\\.name');
+    self.$type = $('#id-edit-artist\\.type_id');
     self.$gender = $('#id-edit-artist\\.gender_id');
     self.old_gender = self.$gender.val();
 

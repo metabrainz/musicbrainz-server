@@ -68,7 +68,7 @@ rules:
   no-use-before-define: off
 
   # Stylistic Issues
-  array-bracket-newline: [warn, {multiline: true}]
+  array-bracket-newline: [warn, consistent]
   array-bracket-spacing: [warn, never]
   array-element-newline: [warn, consistent]
   block-spacing: [warn, always]
@@ -124,8 +124,8 @@ rules:
   lines-between-class-members: [warn, always]
   max-len: [warn, {code: 78,
                    ignoreUrls: true,
-                   ignoreStrings: true,
-                   ignoreTemplateLiterals: true,
+                   ignoreStrings: false,
+                   ignoreTemplateLiterals: false,
                    ignoreRegExpLiterals: true}]
   max-statements-per-line: [warn, {max: 1}]
   multiline-comment-style: [warn, starred-block]
@@ -167,7 +167,7 @@ rules:
   space-in-parens: [warn, never]
   space-infix-ops: [warn, {int32Hint: true}]
   space-unary-ops: [warn, {words: true, nonwords: false}]
-  spaced-comment: [warn, always, {block: {balanced: true}}]
+  spaced-comment: [warn, always, {block: {balanced: true}, markers: [":", "::"]}]
   switch-colon-spacing: [warn, {after: true, before: false}]
   template-tag-spacing: [warn, never]
 

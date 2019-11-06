@@ -47,7 +47,8 @@ class ApplicationForm extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = {form: props.form};
-    this.handleOauthRedirectURIChange = this.handleOauthRedirectURIChange.bind(this);
+    this.handleOauthRedirectURIChange =
+      this.handleOauthRedirectURIChange.bind(this);
     this.handleOauthTypeChange = this.handleOauthTypeChange.bind(this);
   }
 
@@ -65,7 +66,8 @@ class ApplicationForm extends React.Component<Props, State> {
   handleOauthTypeChange(e: SyntheticEvent<HTMLSelectElement>) {
     const selectedOauthType = e.currentTarget.value;
     this.setState(prevState => mutate<State, _>(prevState, newState => {
-      newState.form.field.oauth_type.value = ((selectedOauthType: any): OauthTypeT);
+      newState.form.field.oauth_type.value =
+        ((selectedOauthType: any): OauthTypeT);
     }));
   }
 

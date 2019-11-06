@@ -11,7 +11,8 @@ import React from 'react';
 import type {Node as ReactNode} from 'react';
 
 import Layout from '../layout';
-import CollectionSidebar from '../layout/components/sidebar/CollectionSidebar';
+import CollectionSidebar
+  from '../layout/components/sidebar/CollectionSidebar';
 
 import CollectionHeader from './CollectionHeader';
 

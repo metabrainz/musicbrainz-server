@@ -9,7 +9,8 @@
 
 import * as React from 'react';
 
-import {l_relationships} from '../../static/scripts/common/i18n/relationships';
+import {l_relationships}
+  from '../../static/scripts/common/i18n/relationships';
 import PaginatedResults from '../../components/PaginatedResults';
 import EntityLink from '../../static/scripts/common/components/EntityLink';
 import loopParity from '../../utility/loopParity';

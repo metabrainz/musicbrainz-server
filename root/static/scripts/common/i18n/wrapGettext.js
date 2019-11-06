@@ -57,7 +57,7 @@ export function dgettext(domain: Domain) {
       tryLoadDomain(domain);
     }
     key = cleanMsgid(key);
-    return  gettext.dgettext(domain, key);
+    return gettext.dgettext(domain, key);
   };
 }
 

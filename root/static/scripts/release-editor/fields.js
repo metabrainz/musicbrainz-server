@@ -408,7 +408,7 @@ class Medium {
             return self.loaded() && self.tracks().length === 0;
         });
 
-        this.needsFormat = ko.computed(function() {
+        this.needsFormat = ko.computed(function () {
             return !(self.formatID() || self.formatUnknownToUser());
         });
 
@@ -614,7 +614,7 @@ class ReleaseEvent {
         if (nonEmpty(date.year)) {
             date.year = _.padStart(String(date.year), 4, '0');
         }
-        
+
         this.date = {
             year:   ko.observable(date.year == null ? null : date.year),
             month:  ko.observable(date.month == null ? null : date.month),

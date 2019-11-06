@@ -23,11 +23,13 @@ function mergeDates(a, b) {
         return null;
     }
 
+    /* eslint-disable no-multi-spaces */
     return {
         year:  nonEmpty(a.year)  ? a.year  : b.year,
         month: nonEmpty(a.month) ? a.month : b.month,
         day:   nonEmpty(a.day)   ? a.day   : b.day
     };
+    /* eslint-enable no-multi-spaces */
 }
 
 export default mergeDates;

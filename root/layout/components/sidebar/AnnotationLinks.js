@@ -21,7 +21,14 @@ type Props = {
 const AnnotationLinks = ({$c, entity}: Props) => (
   <>
     <li>
-      <a href={returnUri($c, entityHref(entity, 'edit_annotation'), 'returnto', $c.req.uri)}>
+      <a
+        href={returnUri(
+          $c,
+          entityHref(entity, 'edit_annotation'),
+          'returnto',
+          $c.req.uri,
+        )}
+      >
         {entity.latest_annotation && entity.latest_annotation.text
           ? l('Edit annotation')
           : l('Add annotation')}

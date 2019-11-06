@@ -11,6 +11,7 @@ use MusicBrainz::Server::Data::Utils qw( boolean_to_json datetime_to_iso8601 );
 use MusicBrainz::Server::Entity::Preferences;
 use MusicBrainz::Server::Entity::Types qw( Area );
 use MusicBrainz::Server::Constants qw( :privileges $EDITOR_MODBOT);
+use MusicBrainz::Server::Filters qw( format_wikitext );
 use MusicBrainz::Server::Types DateTime => { -as => 'DateTimeType' };
 
 my $LATEST_SECURITY_VULNERABILITY = DateTime->new( year => 2013, month => 3, day => 28 );
@@ -300,26 +301,33 @@ around TO_JSON => sub {
 
     return {
         %{$self->$orig},
-        biography               => $self->biography,
-        birth_date              => $birth_partial_date,
-        deleted                 => boolean_to_json($self->deleted),
-        email                   => $self->email,
-        email_confirmation_date => datetime_to_iso8601($self->email_confirmation_date),
-        gravatar                => $self->gravatar,
-        is_account_admin        => boolean_to_json($self->is_account_admin),
-        is_admin                => boolean_to_json($self->is_admin),
-        is_auto_editor          => boolean_to_json($self->is_auto_editor),
-        is_banner_editor        => boolean_to_json($self->is_banner_editor),
-        is_bot                  => boolean_to_json($self->is_bot),
-        is_editing_disabled     => boolean_to_json($self->is_editing_disabled),
-        is_limited              => boolean_to_json($self->is_limited),
-        is_location_editor      => boolean_to_json($self->is_location_editor),
-        is_relationship_editor  => boolean_to_json($self->is_relationship_editor),
-        is_wiki_transcluder     => boolean_to_json($self->is_wiki_transcluder),
-        name                    => $self->name,
-        preferences             => $self->preferences->TO_JSON,
-        registration_date       => datetime_to_iso8601($self->registration_date),
-        website                 => $self->website,
+        age                         => $self->age ? $self->age : undef,
+        area                        => $self->area,
+        biography                   => format_wikitext($self->biography),
+        birth_date                  => $birth_partial_date,
+        deleted                     => boolean_to_json($self->deleted),
+        email                       => $self->email,
+        email_confirmation_date     => datetime_to_iso8601($self->email_confirmation_date),
+        gender                      => $self->gender,
+        gravatar                    => $self->gravatar,
+        has_confirmed_email_address => boolean_to_json($self->has_confirmed_email_address),
+        is_account_admin            => boolean_to_json($self->is_account_admin),
+        is_admin                    => boolean_to_json($self->is_admin),
+        is_auto_editor              => boolean_to_json($self->is_auto_editor),
+        is_banner_editor            => boolean_to_json($self->is_banner_editor),
+        is_bot                      => boolean_to_json($self->is_bot),
+        is_charter                  => boolean_to_json($self->is_charter),
+        is_editing_disabled         => boolean_to_json($self->is_editing_disabled),
+        is_limited                  => boolean_to_json($self->is_limited),
+        is_location_editor          => boolean_to_json($self->is_location_editor),
+        is_relationship_editor      => boolean_to_json($self->is_relationship_editor),
+        is_wiki_transcluder         => boolean_to_json($self->is_wiki_transcluder),
+        languages                   => $self->languages,
+        last_login_date             => datetime_to_iso8601($self->last_login_date),
+        name                        => $self->name,
+        preferences                 => $self->preferences->TO_JSON,
+        registration_date           => datetime_to_iso8601($self->registration_date),
+        website                     => $self->website,
     };
 };
 

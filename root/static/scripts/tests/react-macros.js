@@ -15,7 +15,7 @@ if (!document) {
 }
 
 const React = require('react');
-const ReactDOMServer  = require('react-dom/server');
+const ReactDOMServer = require('react-dom/server');
 
 const DescriptiveLink = require('../common/components/DescriptiveLink').default;
 const EditorLink = require('../common/components/EditorLink').default;

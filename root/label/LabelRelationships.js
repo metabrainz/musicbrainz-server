@@ -22,7 +22,12 @@ const LabelRelationships = ({label}: {label: LabelT}) => (
     ) : (
       <>
         <h2 className="relationships">{l('Relationships')}</h2>
-        <p>{exp.l('{link} has no relationships.', {link: <EntityLink entity={label} />})}</p>
+        <p>
+          {exp.l(
+            '{link} has no relationships.',
+            {link: <EntityLink entity={label} />},
+          )}
+        </p>
       </>
     )}
     <RelationshipsTable entity={label} heading={l('Appearances')} />

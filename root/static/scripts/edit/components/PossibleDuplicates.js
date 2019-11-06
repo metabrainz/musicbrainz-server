@@ -24,13 +24,23 @@ class PossibleDuplicates extends React.Component {
           <label>
             <input type="checkbox" onChange={this.props.checkboxCallback} />
             {' '}
-            {texp.l('Yes, I still want to enter “{entity_name}”.', {entity_name: this.props.name})}
+            {texp.l(
+              'Yes, I still want to enter “{entity_name}”.',
+              {entity_name: this.props.name},
+            )}
           </label>
         </p>
         <p>
-          {exp.l('Please enter a {doc_disambiguation|disambiguation} to help distinguish this entity from the others.', {
-            doc_disambiguation: {href: '/doc/Disambiguation_Comment', target: '_blank'},
-          })}
+          {exp.l(
+            `Please enter a {doc_disambiguation|disambiguation}
+             to help distinguish this entity from the others.`,
+            {
+              doc_disambiguation: {
+                href: '/doc/Disambiguation_Comment',
+                target: '_blank',
+              },
+            },
+          )}
         </p>
       </div>
     );

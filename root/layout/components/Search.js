@@ -64,7 +64,14 @@ const SearchOptions = () => (
         if (!text) {
           return null;
         }
-        return <option key={groupIndex + '.' + index} value={key}>{text}</option>;
+        return (
+          <option
+            key={groupIndex + '.' + index}
+            value={key}
+          >
+            {text}
+          </option>
+        );
       })
     ))}
   </select>

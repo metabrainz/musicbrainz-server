@@ -88,7 +88,9 @@ export const WorkListRow = withCatalystContext<WorkListRowProps>(({
         </ul>
       </td>
     ) : null}
-    <td>{work.typeName ? lp_attributes(work.typeName, 'work_type') : null}</td>
+    <td>
+      {work.typeName ? lp_attributes(work.typeName, 'work_type') : null}
+    </td>
     <td>
       <ul>
         {work.languages.map(language => (

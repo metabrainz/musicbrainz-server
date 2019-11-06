@@ -10,10 +10,14 @@
 import * as React from 'react';
 
 import EntityLink from '../static/scripts/common/components/EntityLink';
-import DescriptiveLink from '../static/scripts/common/components/DescriptiveLink';
-import bracketed, {bracketedText} from '../static/scripts/common/utility/bracketed';
-import formatDatePeriod from '../static/scripts/common/utility/formatDatePeriod';
-import {artistCreditsAreEqual} from '../static/scripts/common/immutable-entities';
+import DescriptiveLink
+  from '../static/scripts/common/components/DescriptiveLink';
+import bracketed, {bracketedText}
+  from '../static/scripts/common/utility/bracketed';
+import formatDatePeriod
+  from '../static/scripts/common/utility/formatDatePeriod';
+import {artistCreditsAreEqual}
+  from '../static/scripts/common/immutable-entities';
 import * as linkPhrase from '../static/scripts/edit/utility/linkPhrase';
 
 type Props = {

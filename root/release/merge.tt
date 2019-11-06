@@ -19,30 +19,32 @@
                     <th>[% l('Label') %]</th>
                     <th>[% l('Catalog#') %]</th>
                     <th>[% l('Barcode') %]</th>
+                    [%- remove_from_merge_header(to_merge) -%]
                 </tr>
             </thead>
             <tbody>
-            [%- FOR release=to_merge -%]
+            [%- FOR entity=to_merge -%]
               <tr class="[% loop.parity %]">
                 <td>
-                  <input type="hidden" name="merge.merging.[% loop.index %]" value="[% release.id %]" />
-                  <input type="radio" name="merge.target" value="[% release.id %]" />
+                  <input type="hidden" name="merge.merging.[% loop.index %]" value="[% entity.id %]" />
+                  <input type="radio" name="merge.target" value="[% entity.id %]" />
                 </td>
                   <td>
-                    [%~ link_entity(release) ~%]
+                    [%~ link_entity(entity) ~%]
                   </td>
-                  <td>[% artist_credit(release.artist_credit) %]</td>
-                  <td>[% html_escape(release.combined_format_name) or "-" %]</td>
-                  <td>[% release.combined_track_count or "-" %]</td>
-                  <td>[% release_dates(release.events) %]</td>
-                  <td>[% release_countries(release.events) %]</td>
+                  <td>[% artist_credit(entity.artist_credit) %]</td>
+                  <td>[% html_escape(entity.combined_format_name) or "-" %]</td>
+                  <td>[% entity.combined_track_count or "-" %]</td>
+                  <td>[% release_dates(entity.events) %]</td>
+                  <td>[% release_countries(entity.events) %]</td>
                   [%- IF filter_label -%]
-                      <td>[% release_catno_list(release.filter_labels(filter_label)) %]</td>
+                      <td>[% release_catno_list(entity.filter_labels(filter_label)) %]</td>
                   [%- ELSE -%]
-                      <td>[% release_label_list(release.labels) %]</td>
-                      <td>[% release_catno_list(release.labels) %]</td>
+                      <td>[% release_label_list(entity.labels) %]</td>
+                      <td>[% release_catno_list(entity.labels) %]</td>
                   [%- END -%]
-                  <td class="barcode-cell">[% release.barcode.format %]</td>
+                  <td class="barcode-cell">[% entity.barcode.format %]</td>
+                  [%- remove_from_merge('release', to_merge) -%]
               </tr>
               [%- END -%]
             </tbody>

@@ -16,10 +16,13 @@ import {
   artistEndLabel,
 } from '../../../artist/utils';
 import {withCatalystContext} from '../../../context';
-import CommonsImage from '../../../static/scripts/common/components/CommonsImage';
-import DescriptiveLink from '../../../static/scripts/common/components/DescriptiveLink';
+import CommonsImage
+  from '../../../static/scripts/common/components/CommonsImage';
+import DescriptiveLink
+  from '../../../static/scripts/common/components/DescriptiveLink';
 import entityHref from '../../../static/scripts/common/utility/entityHref';
-import isSpecialPurposeArtist from '../../../static/scripts/common/utility/isSpecialPurposeArtist';
+import isSpecialPurposeArtist
+  from '../../../static/scripts/common/utility/isSpecialPurposeArtist';
 import * as age from '../../../utility/age';
 import ExternalLinks from '../ExternalLinks';
 
@@ -82,7 +85,10 @@ const ArtistSidebar = ({$c, artist}: Props) => {
         />
 
         {artist.begin_area ? (
-          <SidebarProperty className="begin_area" label={artistBeginAreaLabel(artist.typeID)}>
+          <SidebarProperty
+            className="begin_area"
+            label={artistBeginAreaLabel(artist.typeID)}
+          >
             <DescriptiveLink entity={artist.begin_area} />
           </SidebarProperty>
         ) : null}
@@ -94,7 +100,10 @@ const ArtistSidebar = ({$c, artist}: Props) => {
         />
 
         {artist.end_area ? (
-          <SidebarProperty className="end_area" label={artistEndAreaLabel(artist.typeID)}>
+          <SidebarProperty
+            className="end_area"
+            label={artistEndAreaLabel(artist.typeID)}
+          >
             <DescriptiveLink entity={artist.end_area} />
           </SidebarProperty>
         ) : null}

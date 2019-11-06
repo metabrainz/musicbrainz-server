@@ -47,6 +47,7 @@ is_deeply($edit->data, {
         month => 5,
         day => 6
     },
+    ended => 1,
     type_id => undef
 });
 

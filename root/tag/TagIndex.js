@@ -10,8 +10,11 @@
 import * as React from 'react';
 
 import ENTITIES from '../../entities';
-import DescriptiveLink from '../static/scripts/common/components/DescriptiveLink';
-import expand2text from '../static/scripts/common/i18n/expand2text';
+import DescriptiveLink
+  from '../static/scripts/common/components/DescriptiveLink';
+import expand2text
+  from '../static/scripts/common/i18n/expand2text';
+
 import TagLayout from './TagLayout';
 
 type Props = {
@@ -75,17 +78,50 @@ const TagIndex = (props: Props) => (
       * we do not make a distinction other than for 1, which will never
       * show in this case.
       */}
-    {buildSection(props, 'area', l('Areas'), N_ln('See all {num} areas', 'See all {num} areas'))}
-    {buildSection(props, 'artist', l('Artists'), N_ln('See all {num} artists', 'See all {num} artists'))}
-    {buildSection(props, 'event', l('Events'), N_ln('See all {num} events', 'See all {num} events'))}
-    {buildSection(props, 'instrument', l('Instruments'), N_ln('See all {num} instruments', 'See all {num} instruments'))}
-    {buildSection(props, 'label', l('Labels'), N_ln('See all {num} labels', 'See all {num} labels'))}
-    {buildSection(props, 'place', l('Places'), N_ln('See all {num} places', 'See all {num} places'))}
-    {buildSection(props, 'release_group', l('Release Groups'), N_ln('See all {num} release groups', 'See all {num} release groups'))}
-    {buildSection(props, 'release', l('Releases'), N_ln('See all {num} releases', 'See all {num} releases'))}
-    {buildSection(props, 'recording', l('Recordings'), N_ln('See all {num} recordings', 'See all {num} recordings'))}
-    {buildSection(props, 'series', l('Series'), N_ln('See all {num} series', 'See all {num} series'))}
-    {buildSection(props, 'work', l('Works'), N_ln('See all {num} works', 'See all {num} works'))}
+    {buildSection(props, 'area', l('Areas'), N_ln(
+      'See all {num} areas',
+      'See all {num} areas',
+    ))}
+    {buildSection(props, 'artist', l('Artists'), N_ln(
+      'See all {num} artists',
+      'See all {num} artists',
+    ))}
+    {buildSection(props, 'event', l('Events'), N_ln(
+      'See all {num} events',
+      'See all {num} events',
+    ))}
+    {buildSection(props, 'instrument', l('Instruments'), N_ln(
+      'See all {num} instruments',
+      'See all {num} instruments',
+    ))}
+    {buildSection(props, 'label', l('Labels'), N_ln(
+      'See all {num} labels',
+      'See all {num} labels',
+    ))}
+    {buildSection(props, 'place', l('Places'), N_ln(
+      'See all {num} places',
+      'See all {num} places',
+    ))}
+    {buildSection(props, 'release_group', l('Release Groups'), N_ln(
+      'See all {num} release groups',
+      'See all {num} release groups',
+    ))}
+    {buildSection(props, 'release', l('Releases'), N_ln(
+      'See all {num} releases',
+      'See all {num} releases',
+    ))}
+    {buildSection(props, 'recording', l('Recordings'), N_ln(
+      'See all {num} recordings',
+      'See all {num} recordings',
+    ))}
+    {buildSection(props, 'series', l('Series'), N_ln(
+      'See all {num} series',
+      'See all {num} series',
+    ))}
+    {buildSection(props, 'work', l('Works'), N_ln(
+      'See all {num} works',
+      'See all {num} works',
+    ))}
   </TagLayout>
 );
 

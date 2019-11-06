@@ -10,7 +10,8 @@
 import * as React from 'react';
 
 import {withCatalystContext} from '../../../context';
-import CommonsImage from '../../../static/scripts/common/components/CommonsImage';
+import CommonsImage
+  from '../../../static/scripts/common/components/CommonsImage';
 import entityHref from '../../../static/scripts/common/utility/entityHref';
 import ExternalLinks from '../ExternalLinks';
 

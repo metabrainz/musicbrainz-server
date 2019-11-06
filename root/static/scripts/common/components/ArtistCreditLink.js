@@ -24,7 +24,9 @@ type MpIconProps = {
   +artistCredit: ArtistCreditT,
 };
 
-const MpIcon = hydrate<MpIconProps>('span.ac-mp', ({artistCredit}: MpIconProps) => {
+const MpIcon = hydrate<MpIconProps>('span.ac-mp', (
+  {artistCredit}: MpIconProps,
+) => {
   const [hover, setHover] = useState(false);
 
   let editSearch =

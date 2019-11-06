@@ -12,6 +12,7 @@
                     <th>[% lp('Series', 'singular') %]</th>
                     <th>[% l('Type') %]</th>
                     <th>[% l('Ordering Type') %]</th>
+                    [%- remove_from_merge_header(to_merge) -%]
                 </tr>
             </thead>
             <tbody>
@@ -27,6 +28,7 @@
                      </td>
                      <td>[% entity.type.l_name  %]</td>
                      <td>[% entity.ordering_type.l_name %]</td>
+                    [%- remove_from_merge('series', to_merge) -%]
                  </tr>
             [%- END -%]
             </tbody>

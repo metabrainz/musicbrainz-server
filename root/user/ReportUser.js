@@ -128,20 +128,19 @@ const ReportUser = ({
         rows={10}
       />
 
-      <FormRow hasNoLabel>
-        <p>
-          {exp.l(
-            `If you don’t want our admins to contact you further regarding 
-             this report, you can uncheck the checkbox below.
-             <br />
-             We recommend leaving it checked, so that you can be contacted if 
-             the report is resolved or the admins need more information.`,
-          )}
-        </p>
-      </FormRow>
-
       <FormRowCheckbox
         field={form.field.reveal_address}
+        help={
+          <p>
+            {exp.l(
+              `If you don’t want our admins to contact you further regarding 
+               this report, you can uncheck the checkbox above.
+               <br />
+               We recommend leaving it checked, so that you can be contacted if 
+               the report is resolved or the admins need more information.`,
+            )}
+          </p>
+        }
         label={l('Reveal my email address')}
       />
 

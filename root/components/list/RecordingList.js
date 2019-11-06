@@ -18,7 +18,11 @@ import CodeLink from '../../static/scripts/common/components/CodeLink';
 import EntityLink from '../../static/scripts/common/components/EntityLink';
 import formatTrackLength
   from '../../static/scripts/common/utility/formatTrackLength';
+import renderMergeCheckboxElement
+  from '../../static/scripts/common/utility/renderMergeCheckboxElement';
 import RatingStars from '../RatingStars';
+import RemoveFromMergeTableCell from '../RemoveFromMergeTableCell';
+import RemoveFromMergeTableHeader from '../RemoveFromMergeTableHeader';
 import SortableTableHeader from '../SortableTableHeader';
 
 type Props = {
@@ -27,10 +31,9 @@ type Props = {
   +$c: CatalystContextT,
   +checkboxes?: string,
   +lengthClass?: string,
-  +merging?: boolean,
+  +mergeForm?: MergeFormT,
   +order?: string,
   +recordings: $ReadOnlyArray<RecordingT>,
-  +renderCheckboxElement?: (RecordingT, number) => React$MixedElement,
   +showInstrumentCredits?: boolean,
   +showRatings?: boolean,
   +sortable?: boolean,
@@ -41,9 +44,9 @@ const RecordingList = ({
   checkboxes,
   instrumentCredits,
   lengthClass,
+  mergeForm,
   order,
   recordings,
-  renderCheckboxElement,
   seriesItemNumbers,
   showInstrumentCredits,
   showRatings,
@@ -52,9 +55,9 @@ const RecordingList = ({
   <table className="tbl">
     <thead>
       <tr>
-        {$c.user_exists && (checkboxes || renderCheckboxElement) ? (
+        {$c.user_exists && (checkboxes || mergeForm) ? (
           <th className="checkbox-cell">
-            {renderCheckboxElement ? null : <input type="checkbox" />}
+            {mergeForm ? null : <input type="checkbox" />}
           </th>
         ) : null}
         {seriesItemNumbers ? <th style={{width: '1em'}}>{l('#')}</th> : null}
@@ -94,15 +97,18 @@ const RecordingList = ({
             : l('Length')}
         </th>
         {showInstrumentCredits ? <th>{l('Instrument Credits')}</th> : null}
+        {mergeForm
+          ? <RemoveFromMergeTableHeader toMerge={recordings} />
+          : null}
       </tr>
     </thead>
     <tbody>
       {recordings.map((recording, index) => (
         <tr className={loopParity(index)} key={recording.id}>
-          {$c.user_exists && (checkboxes || renderCheckboxElement) ? (
+          {$c.user_exists && (checkboxes || mergeForm) ? (
             <td>
-              {renderCheckboxElement
-                ? renderCheckboxElement(recording, index)
+              {mergeForm
+                ? renderMergeCheckboxElement(recording, mergeForm, index)
                 : (
                   <input
                     name={checkboxes}
@@ -149,6 +155,12 @@ const RecordingList = ({
                 ? commaListText(instrumentCredits[recording.gid])
                 : null}
             </td>
+          ) : null}
+          {mergeForm ? (
+            <RemoveFromMergeTableCell
+              entity={recording}
+              toMerge={recordings}
+            />
           ) : null}
         </tr>
       ))}

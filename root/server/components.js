@@ -7,6 +7,8 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
+/* eslint-disable max-len */
+
 module.exports = {
   /*
    * Any server-rendered page referenced via component_path in the
@@ -213,6 +215,8 @@ module.exports = {
   'url/UrlIndex': require('../url/UrlIndex'),
   'user/PrivilegedUsers': require('../user/PrivilegedUsers'),
   'user/ReportUser': require('../user/ReportUser'),
+  'user/UserProfile': require('../user/UserProfile'),
+  'vote/VotingIndex': require('../vote/VotingIndex'),
   'work/WorkIndex': require('../work/WorkIndex'),
 
   /*
@@ -246,6 +250,8 @@ module.exports = {
   'edit/details/AddArea': require('../edit/details/AddArea'),
   'edit/details/AddArtist': require('../edit/details/AddArtist'),
   'edit/details/AddEvent': require('../edit/details/AddEvent'),
+  'edit/details/AddRemoveAlias': require('../edit/details/AddRemoveAlias'),
+  'edit/details/EditAlias': require('../edit/details/EditAlias'),
   'event/EventHeader': require('../event/EventHeader'),
   'instrument/InstrumentHeader': require('../instrument/InstrumentHeader'),
   'label/LabelHeader': require('../label/LabelHeader'),

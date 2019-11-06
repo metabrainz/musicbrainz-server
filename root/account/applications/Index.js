@@ -27,14 +27,20 @@ const buildApplicationRow = (application: ApplicationT, index: number) => (
   <tr className={loopParity(index)} key={application.id}>
     <td>{application.name}</td>
     <td>
-      {application.is_server ? l('Web Application') : l('Installed Application')}
+      {application.is_server
+        ? l('Web Application')
+        : l('Installed Application')}
     </td>
     <td><code>{application.oauth_id}</code></td>
     <td><code>{application.oauth_secret}</code></td>
     <td>
-      <a href={'/account/applications/edit/' + application.id}>{l('Edit')}</a>
+      <a href={'/account/applications/edit/' + application.id}>
+        {l('Edit')}
+      </a>
       {' | '}
-      <a href={'/account/applications/remove/' + application.id}>{l('Remove')}</a>
+      <a href={'/account/applications/remove/' + application.id}>
+        {l('Remove')}
+      </a>
     </td>
   </tr>
 );
@@ -44,7 +50,10 @@ const buildTokenRow = (token: EditorOAuthTokenT, index: number) => (
     <td>{token.application.name}</td>
     <td>{formatScopes(token)}</td>
     <td>
-      <a href={'/account/applications/revoke-access/' + token.application.id + '/' + token.scope}>
+      <a
+        href={'/account/applications/revoke-access/' +
+          token.application.id + '/' + token.scope}
+      >
         {l('Revoke Access')}
       </a>
     </td>
@@ -72,7 +81,13 @@ const Index = ({applications, appsPager, tokens, tokensPager}: Props) => (
     <h2>{l('Authorized Applications')}</h2>
 
     <p>
-      {l('Some applications and websites support accessing private data from or submitting data to MusicBrainz but require your permission to access your account. These are the applications that you have authorized to access your MusicBrainz account. If you no longer use some of the applications, you can revoke their access.')}
+      {l(
+        `Some applications and websites support accessing private data from
+         or submitting data to MusicBrainz but require your permission to
+         access your account. These are the applications that you have
+         authorized to access your MusicBrainz account. If you no longer use
+         some of the applications, you can revoke their access.`,
+      )}
     </p>
 
     {tokens.length
@@ -98,11 +113,17 @@ const Index = ({applications, appsPager, tokens, tokensPager}: Props) => (
     <h2>{l('Developer Applications')}</h2>
 
     <p>
-      {exp.l('Do you want to develop an application that uses the {ws|MusicBrainz web service}? {register|Register an application} to generate OAuth tokens. See our {oauth2|OAuth documentation} for more details.', {
-        oauth2: '/doc/Development/OAuth2',
-        register: '/account/applications/register',
-        ws: '/doc/Development/XML_Web_Service/Version_2',
-      })}
+      {exp.l(
+        `Do you want to develop an application that uses the
+         {ws|MusicBrainz web service}? {register|Register an application}
+         to generate OAuth tokens. See our {oauth2|OAuth documentation}
+         for more details.`,
+        {
+          oauth2: '/doc/Development/OAuth2',
+          register: '/account/applications/register',
+          ws: '/doc/Development/XML_Web_Service/Version_2',
+        },
+      )}
     </p>
 
     {applications.length

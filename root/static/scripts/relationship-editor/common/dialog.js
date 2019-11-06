@@ -10,7 +10,8 @@ import ReactDOMServer from 'react-dom/server';
 
 import '../../../lib/jquery-ui';
 
-import {ENTITY_NAMES, PART_OF_SERIES_LINK_TYPES} from '../../common/constants';
+import {ENTITY_NAMES, PART_OF_SERIES_LINK_TYPES}
+    from '../../common/constants';
 import {compare} from '../../common/i18n';
 import expand2react from '../../common/i18n/expand2react';
 import linkedEntities from '../../common/linkedEntities';

@@ -530,7 +530,9 @@ export default function Autocomplete2(props: Props) {
           onBlur={instance.handleBlur}
           onChange={instance.handleInputChange}
           onKeyDown={instance.handleInputKeyDown}
-          placeholder={props.placeholder || l('Type to search, or paste an MBID')}
+          placeholder={
+            props.placeholder || l('Type to search, or paste an MBID')
+          }
           value={state.inputValue}
         />
         <button

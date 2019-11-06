@@ -1,5 +1,6 @@
 <table class="details remove-relationship-historic">
   <tr>
+    [% IF edit.display_data.relationships.size %]
     <th>[% l('Relationships:') %]</th>
     <td>
       <ul>
@@ -11,5 +12,10 @@
         [% END %]
       </ul>
     </td>
+    [% ELSE %]
+      <td>
+        [% l('An error occurred while loading this edit.') %]
+      </td>
+    [% END %]
   </tr>
 </table>

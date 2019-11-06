@@ -607,6 +607,15 @@ with 'MusicBrainz::Server::Controller::Role::Merge' => {
     merge_form => 'Merge::Artist'
 };
 
+sub _merge_load_entities {
+    my ($self, $c, @artists) = @_;
+
+    $c->model('ArtistType')->load(@artists);
+    $c->model('Gender')->load(@artists);
+    $c->model('Area')->load(@artists);
+    $c->model('Area')->load_containment(map { $_->{area} } @artists);
+};
+
 around _validate_merge => sub {
     my ($orig, $self, $c, $form) = @_;
     return unless $self->$orig($c, $form);

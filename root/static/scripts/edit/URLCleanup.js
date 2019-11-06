@@ -1026,6 +1026,16 @@ const CLEANUPS = {
       return url;
     },
   },
+  'dynamicrangedb': {
+    match: [new RegExp('^(https?://)?dr\\.loudness-war\\.info', 'i')],
+    type: LINK_TYPES.otherdatabases,
+    clean: function (url) {
+      return url.replace(/^https:/, 'http:');
+    },
+    validate: function (url, id) {
+      return id === LINK_TYPES.otherdatabases.release;
+    },
+  },
   'ester': {
     match: [new RegExp('^(https?://)?(www\\.)?ester\\.ee/', 'i')],
     type: LINK_TYPES.otherdatabases,

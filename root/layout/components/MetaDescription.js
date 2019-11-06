@@ -12,7 +12,8 @@ import {artistBeginLabel, artistEndLabel} from '../../artist/utils';
 import commaOnlyList from '../../static/scripts/common/i18n/commaOnlyList';
 import formatBarcode from '../../static/scripts/common/utility/formatBarcode';
 import formatDate from '../../static/scripts/common/utility/formatDate';
-import formatTrackLength from '../../static/scripts/common/utility/formatTrackLength';
+import formatTrackLength
+  from '../../static/scripts/common/utility/formatTrackLength';
 
 function entityDescription(entity) {
   const desc = [];

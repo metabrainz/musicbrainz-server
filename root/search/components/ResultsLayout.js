@@ -31,7 +31,7 @@ const ResultsLayout = ({$c, children, form, lastUpdated}: Props) => (
         <p>
           {texp.l(
             'Last updated: {date}',
-            {date: formatUserDate($c.user, lastUpdated)},
+            {date: formatUserDate($c, lastUpdated)},
           )}
         </p>
       ) : null}

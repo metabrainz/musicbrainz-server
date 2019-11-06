@@ -18,6 +18,7 @@ const _ = require('lodash');
 
 const createServer = require('./server/createServer');
 const {clearRequireCache} = require('./server/utils');
+const writeCoverage = require('./utility/writeCoverage');
 
 const yargs = require('yargs')
   .option('socket', {
@@ -148,4 +149,14 @@ if (cluster.isMaster) {
   process.on('SIGHUP', hup);
 } else {
   createServer(SOCKET_PATH);
+
+  process.on('beforeExit', function () {
+    const coverage = global.__coverage__;
+    if (coverage) {
+      writeCoverage(
+        `server-${process.pid}`,
+        JSON.stringify(coverage),
+      );
+    }
+  });
 }

@@ -119,16 +119,21 @@ RelationshipSearcher = function () {
         .done(function (data, status, jqxhr) {
             var search_result_type = data.entityType.replace("-", "_");
 
-            if (!(search_result_type === type0 || search_result_type === type1)) {
-                self.error('Invalid type for this relationship: ' +  search_result_type +
+            if (!(search_result_type === type0 ||
+                  search_result_type === type1)) {
+                self.error('Invalid type for this relationship: ' +
+                           search_result_type +
                            ' (expected ' + type0 + ' or ' + type1 + ')');
                 return;
             }
 
-            var relationships = _.filter(data.relationships, { linkTypeID: linkTypeID });
+            var relationships =
+                _.filter(data.relationships, { linkTypeID: linkTypeID });
 
             if (!relationships.length) {
-                self.error('No ' + linkTypeName + ' relationships found for ' + data.name);
+                self.error(
+                    'No ' + linkTypeName + ' relationships found for ' + data.name,
+                );
             } else {
                 self.error(null);
 
@@ -157,7 +162,7 @@ RelationshipSearcher = function () {
         });
     };
 
-    self.clear =  function () {
+    self.clear = function () {
         this.query('');
         this.results.removeAll();
     }

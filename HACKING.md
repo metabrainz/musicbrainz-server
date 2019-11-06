@@ -205,13 +205,35 @@ the test database is clean and has t/sql/selenium.sql loaded into it.
 
 ### Code standards
 
-We use `Perl::Critic` to enforce certain code standards. The list of
-policies we use can be found in
-[.perlcriticrc](.perlcriticrc).
+For our Perl, we use `Perl::Critic` to enforce certain code standards.
+The list of policies we use can be found in [.perlcriticrc](.perlcriticrc).
 If you'd like to test them yourself before submitting a pull request, invoke
 `prove` as follows:
 
     $ prove -lv t/critic.t
+
+For JavaScript, we use eslint. Our rules and other configuration can be found
+in [.eslintrc.yaml](.eslintrc.yaml). To check a file or directory against all
+of these rules, run:
+
+    $ ./node_modules/.bin/eslint $file_or_directory
+
+Replace `$file_or_directory` with the path to the file or directory you'd like
+to check.
+
+If you want to check only a specific rule (say, because you'd like to fix that
+particular rule across the codebase and want to ignore others while doing so),
+we also have a script for that:
+
+    $ ./script/check_eslint_rule $rule $file_or_directory
+
+In this case, you'd replace `$rule` with a string defining the specific rule
+you'd like to check, in [levn](https://github.com/gkz/levn) format. For
+example, `'block-scoped-var: [warn]'`. Further documentation on how to specify
+these can be found
+[here](https://eslint.org/docs/user-guide/command-line-interface#--rule),
+but in most cases you can copy rules as-is from .eslintrc.yaml, since the YAML
+syntax is very similar.
 
 Reports
 -------

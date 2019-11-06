@@ -15,10 +15,11 @@ const moduleConfig = require('./webpack/moduleConfig');
 const providePluginConfig = require('./webpack/providePluginConfig');
 
 process.env.MUSICBRAINZ_RUNNING_TESTS = true;
-process.env.NODE_ENV = 'development';
+process.env.NODE_ENV = 'test';
 
 const baseTestsConfig = {
   context: dirs.CHECKOUT,
+  devtool: 'source-map',
   mode: 'development',
   module: moduleConfig,
   output: {
