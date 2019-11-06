@@ -3,8 +3,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2019-09-07 10:18+0000\n"
-"Last-Translator: yvanz\n"
+"PO-Revision-Date: 2019-10-29 12:30+0000\n"
+"Last-Translator: Besnik <email address hidden>\n"
 "Language-Team: Albanian (http://www.transifex.com/musicbrainz/musicbrainz/language/sq/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -19,7 +19,7 @@ msgid ""
 "network</a> which only people involved with the label can post content to. "
 "Examples include Facebook pages, and accounts on Twitter, Instagram and "
 "Flickr."
-msgstr ""
+msgstr "Një faqe rrjeti shoqëror është faqja e etiketës diskografike në një <a href=\"https://en.wikipedia.org/wiki/Social_networking_service\">rrjet shoqëror</a> te e cila mund të postojnë lëndë vetëm persona që kanë lidhje me etiketën. Te shembujt hyjnë faqe në Facebook dhe llogari në Twitter, Instagram dhe Flickr."
 
 #: DB:link_type/description:784
 msgid ""
@@ -28,7 +28,7 @@ msgid ""
 "network</a> which only people involved with the series can post content to. "
 "Examples include Facebook pages, and accounts on Twitter, Instagram and "
 "Flickr."
-msgstr ""
+msgstr "Një faqe rrjeti shoqëror është faqja për serinë në një <a href=\"https://en.wikipedia.org/wiki/Social_networking_service\">rrjet shoqëror</a> te e cila mund të postojnë lëndë vetëm persona që kanë lidhje me etiketën. Te shembujt hyjnë faqe në Facebook dhe llogari në Twitter, Instagram dhe Flickr."
 
 #: DB:link_type/description:429
 msgid ""
@@ -37,7 +37,7 @@ msgid ""
 "network</a> which only people involved with the place can post content to. "
 "Examples include Facebook pages, and accounts on Twitter, Instagram and "
 "Flickr."
-msgstr ""
+msgstr "Një faqe rrjeti shoqëror është faqja e vendit në një <a href=\"https://en.wikipedia.org/wiki/Social_networking_service\">rrjet shoqëror</a> te e cila mund të postojnë lëndë vetëm persona që kanë lidhje me etiketën. Te shembujt hyjnë faqe në Facebook dhe llogari në Twitter, Instagram dhe Flickr."
 
 #: DB:link_type/description:192
 msgid ""
@@ -48,7 +48,7 @@ msgid ""
 "adding them as a friend or by commenting on the things that they post. "
 "Examples include Facebook pages and profiles, Last.fm users and accounts on "
 "Twitter, Instagram and Flickr."
-msgstr ""
+msgstr "Një faqe rrjeti shoqëror është faqja e profilit të artistit në një <a href=\"https://en.wikipedia.org/wiki/Social_networking_service\">rrjet shoqëror</a> te e cila mund të postojnë lëndë vetëm ai (ose menaxherët e tij). Persona të tjerë mund të krijojnë profilet e tyre dhe të ndërveprojnë me artistin, p.sh., duke i shtuar si shokë ose duke komentuar në gjëra që postojnë artistët. Te shembujt hyjnë faqe dhe profile në Facebook, përdorues te Last.fm dhe llogari në Twitter, Instagram dhe Flickr."
 
 #: DB:link_type/description:783
 msgid ""
@@ -57,53 +57,53 @@ msgid ""
 "network</a> which only people involved with the event can post content to. "
 "Examples include Facebook pages and event entries, and accounts on Twitter, "
 "Instagram and Flickr."
-msgstr ""
+msgstr "Një faqe rrjeti shoqëror është faqja e veprimtarisë në një <a href=\"https://en.wikipedia.org/wiki/Social_networking_service\">rrjet shoqëror</a> te e cila mund të postojnë lëndë vetëm persona që kanë lidhje me etiketën. Te shembujt hyjnë faqe dhe zëra veprimtarish në Facebook dhe llogari në Twitter, Instagram dhe Flickr."
 
 #: DB:link_type/link_phrase:77 DB:link_type/reverse_link_phrase:77
 msgid "ASIN"
-msgstr ""
+msgstr "ASIN"
 
 #: DB:link_type/link_phrase:755 DB:link_type/link_phrase:284
 #: DB:link_type/link_phrase:283 DB:link_type/link_phrase:285
 #: DB:link_type/reverse_link_phrase:286
 msgid "Allmusic"
-msgstr ""
+msgstr "Allmusic"
 
 #: DB:link_type/link_phrase:286 DB:link_type/reverse_link_phrase:755
 #: DB:link_type/reverse_link_phrase:284 DB:link_type/reverse_link_phrase:283
 #: DB:link_type/reverse_link_phrase:285
 msgid "Allmusic page for"
-msgstr ""
+msgstr "Faqe te Allmusic për"
 
 #: DB:link_type/link_phrase:190
 msgid "BBC Music"
-msgstr ""
+msgstr "Muzikë BBC"
 
 #: DB:link_type/name:190
 msgid "BBC Music page"
-msgstr ""
+msgstr "Faqe në BBC Music"
 
 #: DB:link_type/reverse_link_phrase:190
 msgid "BBC Music page for"
-msgstr ""
+msgstr "Faqe në BBC Music për"
 
 #: DB:link_type/link_phrase:719 DB:link_type/link_phrase:718
 msgid "Bandcamp"
-msgstr ""
+msgstr "Bandcamp"
 
 #: DB:link_type/reverse_link_phrase:719 DB:link_type/reverse_link_phrase:718
 msgid "Bandcamp page for"
-msgstr ""
+msgstr "Faqe në Bandcamp për"
 
 #: DB:link_type/link_phrase:861 DB:link_type/link_phrase:862
 #: DB:link_type/link_phrase:860
 msgid "Bandsintown"
-msgstr ""
+msgstr "Bandsintown"
 
 #: DB:link_type/reverse_link_phrase:861 DB:link_type/reverse_link_phrase:862
 #: DB:link_type/reverse_link_phrase:860
 msgid "Bandsintown page for"
-msgstr ""
+msgstr "Faqe në Bandsintown për"
 
 #: DB:link_type/link_phrase:851 DB:link_type/link_phrase:852
 #: DB:link_type/link_phrase:853 DB:link_type/link_phrase:850
@@ -111,45 +111,45 @@ msgstr ""
 #: DB:link_type/name:854 DB:link_type/name:850
 #: DB:link_type/reverse_link_phrase:854
 msgid "BookBrainz"
-msgstr ""
+msgstr "BookBrainz"
 
 #: DB:link_type/link_phrase:854 DB:link_type/reverse_link_phrase:851
 #: DB:link_type/reverse_link_phrase:852 DB:link_type/reverse_link_phrase:853
 #: DB:link_type/reverse_link_phrase:850
 msgid "BookBrainz page for"
-msgstr ""
+msgstr "Faqe në BookBrainz për"
 
 #: DB:link_type/link_phrase:919 DB:link_type/name:919
 msgid "CD Baby"
-msgstr ""
+msgstr "CD Baby"
 
 #: DB:link_type/reverse_link_phrase:919
 msgid "CD Baby page for"
-msgstr ""
+msgstr "Faqe në CD Baby për"
 
 #: DB:link_type/name:8 DB:link_type/name:227
 msgid "DJ-mix"
-msgstr "DJ-mix"
+msgstr "Miks DJ-i"
 
 #: DB:link_type/link_phrase:8 DB:link_type/link_phrase:227
 msgid "DJ-mix of"
-msgstr ""
+msgstr "Miks DJ-i i"
 
 #: DB:link_type/link_phrase:155 DB:link_type/long_link_phrase:155
 msgid "DJ-mixed"
-msgstr ""
+msgstr "Miksazh nga DJ"
 
 #: DB:link_type/reverse_link_phrase:8
 msgid "DJ-mixed versions"
-msgstr ""
+msgstr "Versione miksazh nga DJ"
 
 #: DB:link_type/long_link_phrase:43
 msgid "DJ-mixed {medium:% of}"
-msgstr ""
+msgstr "{medium:% of} miksazh nga DJ"
 
 #: DB:link_type/link_phrase:43
 msgid "DJ-mixed {medium}"
-msgstr ""
+msgstr "{medium} miksazh nga DJ"
 
 #: DB:link_type/reverse_link_phrase:155
 msgid "DJ-mixer"
@@ -161,50 +161,50 @@ msgstr ""
 
 #: DB:link_type/reverse_link_phrase:227
 msgid "DJ-mixes"
-msgstr ""
+msgstr "Miksazhe nga DJ"
 
 #: DB:link_type/description:704
 msgid ""
 "Describes the fact a person was contracted by a place as a mastering "
 "engineer."
-msgstr ""
+msgstr "Përshkruan faktin që një person qe kontraktuar nga një vend si inxhinier masterizimi."
 
 #: DB:link_type/description:703
 msgid ""
 "Describes the fact a person was contracted by a place as a mixing engineer."
-msgstr ""
+msgstr "Përshkruan faktin që një person qe kontraktuar nga një vend si inxhinier miksazhi."
 
 #: DB:link_type/description:702
 msgid ""
 "Describes the fact a person was contracted by a place as a recording "
 "engineer."
-msgstr ""
+msgstr "Përshkruan faktin që një person qe kontraktuar nga një vend si inxhinier incizimi."
 
 #: DB:link_type/description:701
 msgid "Describes the fact a person was contracted by a place as an engineer."
-msgstr ""
+msgstr "Përshkruan faktin që një person qe kontraktuar nga një vend si inxhinier."
 
 #: DB:link_type/description:357
 msgid "Designates that a work is or was the anthem for an area"
-msgstr ""
+msgstr "Përcakton që një vepër është ose ka qenë himni për një zonë"
 
 #: DB:link_type/description:356
 msgid "Designates that one area is contained by another."
-msgstr ""
+msgstr "Përcakton se një zonë përmbahet nga një tjetër."
 
 #: DB:link_type/link_phrase:180 DB:link_type/link_phrase:76
 #: DB:link_type/link_phrase:217 DB:link_type/link_phrase:90
 #: DB:link_type/link_phrase:747 DB:link_type/link_phrase:705
 #: DB:link_type/reverse_link_phrase:971
 msgid "Discogs"
-msgstr ""
+msgstr "Discogs"
 
 #: DB:link_type/link_phrase:971 DB:link_type/reverse_link_phrase:180
 #: DB:link_type/reverse_link_phrase:76 DB:link_type/reverse_link_phrase:217
 #: DB:link_type/reverse_link_phrase:90 DB:link_type/reverse_link_phrase:747
 #: DB:link_type/reverse_link_phrase:705
 msgid "Discogs page for"
-msgstr ""
+msgstr "Faqe në Discogs për"
 
 #: DB:link_attribute_type/description:1020
 msgid ""
@@ -217,19 +217,19 @@ msgid ""
 "For works that have lyrics, this indicates that those lyrics are not "
 "relevant to this recording. Examples include instrumental arrangements, or "
 "\"beats\" from hip-hop songs which may be reused with different lyrics."
-msgstr ""
+msgstr "Për vepra që kanë vargje, kjo tregon se këto vargje nuk kanë peshë për këtë incizim. Si shembull mund të shihen orkestrimet instrumentale, ose \"beats\" nga këngë hip-hop të cilat mund të ripërdoren me vargje të ndryshme."
 
 #: DB:link_type/link_phrase:934 DB:link_type/link_phrase:713
 msgid "Geonames"
-msgstr ""
+msgstr "Geonames"
 
 #: DB:link_type/reverse_link_phrase:934 DB:link_type/reverse_link_phrase:713
 msgid "Geonames page for"
-msgstr ""
+msgstr "Faqe në Geonames për"
 
 #: DB:link_type/name:83 DB:link_type/name:258
 msgid "IMDB samples"
-msgstr ""
+msgstr "Copëza nga IMDB"
 
 #: DB:link_type/link_phrase:313 DB:link_type/link_phrase:178
 #: DB:link_type/link_phrase:97 DB:link_type/link_phrase:706
@@ -237,35 +237,35 @@ msgstr ""
 #: DB:link_type/name:97 DB:link_type/name:706
 #: DB:link_type/reverse_link_phrase:843
 msgid "IMDb"
-msgstr ""
+msgstr "IMDb"
 
 #: DB:link_type/reverse_link_phrase:83 DB:link_type/reverse_link_phrase:258
 msgid "IMDb entry sampled in"
-msgstr ""
+msgstr "Zë në IMDb i për në"
 
 #: DB:link_type/link_phrase:843 DB:link_type/reverse_link_phrase:313
 #: DB:link_type/reverse_link_phrase:178 DB:link_type/reverse_link_phrase:97
 #: DB:link_type/reverse_link_phrase:706
 msgid "IMDb page for"
-msgstr ""
+msgstr "Faqe në IMDb për"
 
 #: DB:link_type/link_phrase:754 DB:link_type/name:754
 msgid "IMSLP"
-msgstr ""
+msgstr "IMSLP"
 
 #: DB:link_type/reverse_link_phrase:754
 msgid "IMSLP page for"
-msgstr ""
+msgstr "Faqe në IMSLP për"
 
 #: DB:link_attribute_type/description:516
 msgid "Indicates a bonus disc"
-msgstr ""
+msgstr "Tregon një disk bonus"
 
 #: DB:link_type/description:162
 msgid ""
 "Indicates a miscellaneous support role. This is usually stated in the liner "
 "notes of an album."
-msgstr ""
+msgstr "Tregon një rol të ndryshëm ndihmës. Kjo zakonisht shprehet te shënimet shoqëruese të një albumi."
 
 #: DB:link_type/description:105
 msgid ""
@@ -273,7 +273,7 @@ msgid ""
 " albums and/or at concerts. This is a person-to-artist relationship that "
 "normally applies to well-known solo artists, although it can sometimes apply"
 " to groups."
-msgstr ""
+msgstr "Tregon një muzikant që si instrumentist ndihmon prej një kohe të gjatë një tjetër në albume dhe/ose në koncerte. Kjo është një marrëdhënie person-artist që zakonisht ka vend për artistë të njohur solo, por ndonjëherë mund të vlejë edhe për grupe."
 
 #: DB:link_type/description:107
 msgid ""
@@ -281,53 +281,53 @@ msgid ""
 " and/or at concerts. This is a person-to-artist relationship that normally "
 "applies to well-known solo artists, although it can sometimes apply to "
 "groups."
-msgstr ""
+msgstr "Tregon një muzikant që me vokal ndihmon prej një kohe të gjatë një tjetër në albume dhe/ose në koncerte. Kjo është një marrëdhënie person-artist që zakonisht ka vend për artistë të njohur solo, por ndonjëherë mund të vlejë edhe për grupe."
 
 #: DB:link_type/description:109
 msgid "Indicates a parent-child relationship."
-msgstr ""
+msgstr "Tregon një marrëdhënie prind-fëmijë."
 
 #: DB:link_type/description:396
 msgid "Indicates a pictorial image (JPEG, GIF, PNG) of a place"
-msgstr ""
+msgstr "Tregon një figurë (JPEG, GIF, PNG) të një vendi"
 
 #: DB:link_type/description:173
 msgid "Indicates a pictorial image (JPEG, GIF, PNG) of an artist."
-msgstr ""
+msgstr "Tregon një figurë (JPEG, GIF, PNG) të një artisti."
 
 #: DB:link_type/description:943
 msgid ""
 "Indicates a place that moved from one location to another, while still being"
 " generally considered the same."
-msgstr ""
+msgstr "Tregon një vend që kaloi nga një vendndodhje në një tjetër, teksa përgjithësisht konsiderohet i njëjti."
 
 #: DB:link_attribute_type/description:1019
 msgid "Indicates a sibling with whom the artist has only one parent in common"
-msgstr ""
+msgstr "Tregon një vëlla/motër me të cilin artisti ka vetëm një prind të përbashkët"
 
 #: DB:link_type/description:842
 msgid "Indicates a webpage that reviews the event in question."
-msgstr ""
+msgstr "Tregon një faqe web që shqyrton veprimtarinë në fjalë."
 
 #: DB:link_type/description:94
 msgid "Indicates a webpage that reviews the release (group) in question."
-msgstr ""
+msgstr "Tregon një faqe web që shqyrton hedhjen në qarkullim (grup) në fjalë."
 
 #: DB:link_type/description:958
 msgid ""
 "Indicates a webpage where you can download a label's releases for free."
-msgstr ""
+msgstr "Tregon një faqe web prej nga ku mund të shkarkoni falas hedhjen në qarkullim të një etikete diskografike."
 
 #: DB:link_type/description:177
 msgid "Indicates a webpage where you can download an artist's work for free."
-msgstr ""
+msgstr "Tregon një faqe web prej nga ku mund të shkarkoni falas një vepër të artistit."
 
 #: DB:link_type/description:834
 msgid ""
 "Indicates an artist (generally a composer) this work was previously "
 "attributed to, but who is currently confirmed (or very strongly suspected) "
 "not to be the real author."
-msgstr ""
+msgstr "Tregon një artist (përgjithësisht kompozitorin) të cilit i është atribuuar më parë kjo vepër, por që tani është ripohuar (ose dyshohet shumë) se s’është autori i njëmendtë."
 
 #: DB:link_type/description:104
 msgid ""
@@ -335,358 +335,358 @@ msgid ""
 "another one on albums and/or at concerts. This is a person-to-artist "
 "relationship that normally applies to well-known solo artists, although it "
 "can sometimes apply to groups."
-msgstr ""
+msgstr "Tregon një muzikant që me vokal ose si instrumentist ndihmon prej një kohe të gjatë një tjetër në albume dhe/ose në koncerte. Kjo është një marrëdhënie person-artist që zakonisht ka vend për artistë të njohur solo, por ndonjëherë mund të vlejë edhe për grupe."
 
 #: DB:link_type/description:156
 msgid "Indicates an artist that performed on this recording."
-msgstr ""
+msgstr "Tregon një artist që ekzekutoi në këtë incizim."
 
 #: DB:link_type/description:51
 msgid "Indicates an artist that performed on this release."
-msgstr ""
+msgstr "Tregon një artist që ekzekutoi në këtë hedhje në qarkullim."
 
 #: DB:link_type/description:148
 msgid ""
 "Indicates an artist that performed one or more instruments on this "
 "recording."
-msgstr ""
+msgstr "Tregon një artist që ekzekutoi në një ose më tepër instrumente në këtë incizim."
 
 #: DB:link_type/description:44
 msgid ""
 "Indicates an artist that performed one or more instruments on this release."
-msgstr ""
+msgstr "Tregon një artist që ekzekutoi në një ose më tepër instrumente në këtë hedhje në qarkullim."
 
 #: DB:link_type/description:149
 msgid "Indicates an artist that performed vocals on this recording."
-msgstr ""
+msgstr "Tregon një artist që pat pjesë vokale në këtë incizim."
 
 #: DB:link_type/description:60
 msgid "Indicates an artist that performed vocals on this release."
-msgstr ""
+msgstr "Tregon një artist që pat pjesë vokale në këtë hedhje në qarkullim."
 
 #: DB:link_type/description:150
 msgid "Indicates an orchestra that performed on this recording."
-msgstr ""
+msgstr "Tregon një orkestër që luajti në këtë incizim."
 
 #: DB:link_type/description:45
 msgid "Indicates an orchestra that performed on this release."
-msgstr ""
+msgstr "Tregon një orkestër që luajti në këtë hedhje në qarkullim."
 
 #: DB:link_attribute_type/description:1080
 msgid ""
 "Indicates how many of a specific instrument an ensemble usually includes."
-msgstr ""
+msgstr "Tregon sa prej një lloji të caktuar instrumenti përfshin zakonisht një ansambël."
 
 #: DB:link_type/description:844
 msgid ""
 "Indicates that an artist revised a work. In most cases, this will be the "
 "original composer revising the work at a later date."
-msgstr ""
+msgstr "Tregon që një artist rishikoi një vepër. Në shumicën e rasteve, ky do të jetë kompozitori origjinal që rishikon veprën në një datë të mëvonshme."
 
 #: DB:link_type/description:887
 msgid ""
 "Indicates that an event was intended as a performance of a specific release "
 "group (usually an album)."
-msgstr ""
+msgstr "Tregon se një veprimtari qe menduar si ekzekutim i një grupi të caktuar hedhjesh në qarkullim (zakonisht një album)."
 
 #: DB:link_attribute_type/description:567
 msgid "Indicates that one entity is a cover of another entity"
-msgstr ""
+msgstr "Tregon se një njësi është interpretim i ri i një njësie tjetër"
 
 #: DB:link_type/description:802
 msgid "Indicates that the event is part of a series."
-msgstr ""
+msgstr "Tregon se një veprimtari është pjesë e një serie."
 
 #: DB:link_type/description:231
 msgid "Indicates that the recording contains samples from another."
-msgstr ""
+msgstr "Tregon se incizimi përmban copëza prej një tjetri."
 
 #: DB:link_type/description:154
 msgid ""
 "Indicates that the recording contains samples from material by the indicated"
 " artist. Use this only if you really cannot figure out the particular "
 "recording that has been sampled."
-msgstr ""
+msgstr "Tregon se incizimi përmban copëza prej materiali nga artisti i dhënë. Përdoreni vetëm nëse vërtet s’gjeni dot incizimin prej të cilit është marrë copëza."
 
 #: DB:link_type/description:69
 msgid "Indicates that the recording contains samples from this release."
-msgstr ""
+msgstr "Tregon se incizimi përmban copëza prej kësaj hedhjeje në qarkullim."
 
 #: DB:link_type/description:740
 msgid "Indicates that the recording is part of a series."
-msgstr ""
+msgstr "Tregon se incizimi është pjesë e një serie."
 
 #: DB:link_attribute_type/description:1053
 msgid "Indicates that the relationship is optional - doesn't always apply."
-msgstr ""
+msgstr "Tregon se marrëdhënia është opsionale - jo gjithmonë ka vend."
 
 #: DB:link_type/description:49
 msgid ""
 "Indicates that the release contains samples from material by the indicated "
 "artist. Use this only if you really cannot figure out the particular "
 "recording that has been sampled."
-msgstr ""
+msgstr "Tregon se hedhja në qarkullim përmban copëza prej materiali nga artisti i dhënë. Përdoreni vetëm nëse vërtet s’gjeni dot incizimin prej të cilit është marrë copëza."
 
 #: DB:link_type/description:742
 msgid "Indicates that the release group is part of a series."
-msgstr ""
+msgstr "Tregon se grupi i hedhjeve në qarkullim është pjesë e një serie."
 
 #: DB:link_type/description:741
 msgid "Indicates that the release is part of a series."
-msgstr ""
+msgstr "Tregon se hedhja në qarkullim është pjesë e një serie."
 
 #: DB:link_type/description:743
 msgid "Indicates that the work is part of a series."
-msgstr ""
+msgstr "Tregon se vepra është pjesë e një serie."
 
 #: DB:link_type/description:112
 msgid ""
 "Indicates that two persons were romantically involved with each other "
 "without being married."
-msgstr ""
+msgstr "Tregon se dy persona patën lidhje dashurie pa qenë të martuar me njëri-tjetrin."
 
 #: DB:link_type/description:715
 msgid "Indicates the area where the work had its first performance"
-msgstr ""
+msgstr "Tregon zonën ku vepra u ekzekutua për herë të parë"
 
 #: DB:link_type/description:956
 msgid "Indicates the artist(s) who gave the first performance of the work"
-msgstr ""
+msgstr "Tregon artistin(ët) që dhanë shfaqjen e parë të veprës"
 
 #: DB:link_type/description:55
 msgid ""
 "Indicates the composer for this release, i.e. the artist who wrote the music"
 " (not necessarily the lyrics)."
-msgstr ""
+msgstr "Tregon kompozitorin e kësaj hedhjeje në qarkullim, domethënë, artistin që shkroi muzikën (jo domosdo edhe vargjet)."
 
 #: DB:link_type/description:168
 msgid ""
 "Indicates the composer for this work, i.e. the artist who wrote the music "
 "(not necessarily the lyrics)."
-msgstr ""
+msgstr "Tregon kompozitorin e kësaj vepre, domethënë, artistin që shkroi muzikën (jo domosdo edhe vargjet)."
 
 #: DB:link_type/description:845
 msgid "Indicates the event where the work had its first performance"
-msgstr ""
+msgstr "Tregon veprimtarinë ku vepra u ekzekutua për herë të parë"
 
 #: DB:link_type/description:57
 msgid "Indicates the librettist for this release."
-msgstr ""
+msgstr "Tregon libretistin për këtë hedhje në qarkullim."
 
 #: DB:link_type/description:169
 msgid "Indicates the librettist for this work."
-msgstr ""
+msgstr "Tregon libretistin për këtë vepër."
 
 #: DB:link_type/description:56
 msgid "Indicates the lyricist for this release."
-msgstr ""
+msgstr "Tregon hartuesin e vargjeve për këtë hedhje në qarkullim."
 
 #: DB:link_type/description:165
 msgid "Indicates the lyricist for this work."
-msgstr ""
+msgstr "Tregon hartuesin e vargjeve për këtë vepër."
 
 #: DB:link_type/description:42
 msgid "Indicates the mastering engineer for this work."
-msgstr ""
+msgstr "Tregon inxhinierin e masterizimit për këtë vepër."
 
 #: DB:link_type/description:219
 msgid "Indicates the official homepage for a label."
-msgstr ""
+msgstr "Tregon faqen hyrëse zyrtare për një etiketë diskografike."
 
 #: DB:link_type/description:363
 msgid "Indicates the official homepage for a place."
-msgstr ""
+msgstr "Tregon faqen hyrëse zyrtare për një vend."
 
 #: DB:link_type/description:745
 msgid "Indicates the official homepage for a series."
-msgstr ""
+msgstr "Tregon faqen hyrëse zyrtare për një seri."
 
 #: DB:link_type/description:183
 msgid "Indicates the official homepage for an artist."
-msgstr ""
+msgstr "Tregon faqen hyrëse zyrtare për një artist."
 
 #: DB:link_type/description:782
 msgid "Indicates the official homepage for an event."
-msgstr ""
+msgstr "Tregon faqen hyrëse zyrtare për një veprimtari."
 
 #: DB:link_type/description:871
 msgid ""
 "Indicates the person who translated the lyrics/libretto for this release."
-msgstr ""
+msgstr "Tregon personin që përktheu vargjet/libretin për këtë hedhje në qarkullim."
 
 #: DB:link_type/description:872
 msgid "Indicates the person who translated the lyrics/libretto for this work."
-msgstr ""
+msgstr "Tregon personin që përktheu vargjet/libretin për këtë hedhje vepër."
 
 #: DB:link_type/description:930 DB:link_type/description:931
 msgid ""
 "Indicates the piano technician for this release. Use also for \"piano "
 "tuner\" credits."
-msgstr ""
+msgstr "Tregon akorduesin e pianos për këtë hedhje në qarkullim. Përdorni edhe kredite për \"akordues pianoje\"."
 
 #: DB:link_type/description:716
 msgid "Indicates the place where the work had its first performance"
-msgstr ""
+msgstr "Tregon vendin ku vepra pat ekzekutimin e saj të parë"
 
 #: DB:link_type/description:32
 msgid ""
 "Indicates the publisher of this release. This is <strong>not</strong> the "
 "same concept as the <a href=\"/doc/Label\">record label</a>."
-msgstr ""
+msgstr "Tregon botuesin e kësaj hedhjeje në qarkullim. Ky <strong>nuk</strong> është i njëjti koncept me <a href=\"/doc/Label\">etiketën diskografike</a>."
 
 #: DB:link_type/description:161 DB:link_type/description:208
 msgid ""
 "Indicates the publisher of this work. This is <strong>not</strong> the same "
 "concept as the <a href=\"/doc/Label\">record label</a>."
-msgstr ""
+msgstr "Tregon botuesin e kësaj vepre. Ky <strong>nuk</strong> është i njëjti koncept me <a href=\"/doc/Label\">etiketën diskografike</a>."
 
 #: DB:link_type/link_phrase:837 DB:link_type/link_phrase:840
 #: DB:link_type/link_phrase:839 DB:link_type/link_phrase:838
 msgid "Last.fm"
-msgstr ""
+msgstr "Last.fm"
 
 #: DB:link_type/reverse_link_phrase:837 DB:link_type/reverse_link_phrase:840
 #: DB:link_type/reverse_link_phrase:839 DB:link_type/reverse_link_phrase:838
 msgid "Last.fm page for"
-msgstr ""
+msgstr "Faqe në Last.fm për"
 
 #: DB:link_attribute_type/description:4
 msgid "Lead or solo vocal"
-msgstr ""
+msgstr "Zëri i parë ose solo"
 
 #: DB:link_type/description:864
 msgid ""
 "Links a recording to the area it was arranged in. Use only when the place is"
 " unknown!"
-msgstr ""
+msgstr "Lidh një incizim me zonën ku qe orkestruar. Përdoreni vetëm nëse vendi është i panjohur!"
 
 #: DB:link_type/description:821
 msgid ""
 "Links a recording to the area it was edited in. Use only when the place is "
 "unknown!"
-msgstr ""
+msgstr "Lidh një incizim me zonën ku qe përpunuar. Përdoreni vetëm nëse vendi është i panjohur!"
 
 #: DB:link_type/description:814
 msgid ""
 "Links a recording to the area it was engineered in. Use only when the place "
 "is unknown!"
-msgstr ""
+msgstr "Lidh një incizim me zonën ku iu bë inxhinierimi. Përdoreni vetëm nëse vendi është i panjohur!"
 
 #: DB:link_type/description:758
 msgid ""
 "Links a recording to the area it was mixed in. Use only when the place is "
 "unknown!"
-msgstr ""
+msgstr "Lidh një incizim me zonën ku iu bë miksimi. Përdoreni vetëm nëse vendi është i panjohur!"
 
 #: DB:link_type/description:827
 msgid ""
 "Links a recording to the area it was produced in. Use only when the place is"
 " unknown!"
-msgstr ""
+msgstr "Lidh një incizim me zonën ku u prodhua. Përdoreni vetëm nëse vendi është i panjohur!"
 
 #: DB:link_type/description:698
 msgid ""
 "Links a recording to the area it was recorded in. Use only when the place is"
 " unknown!"
-msgstr ""
+msgstr "Lidh një incizim me zonën ku u bë incizimi. Përdoreni vetëm nëse vendi është i panjohur!"
 
 #: DB:link_type/description:830
 msgid ""
 "Links a recording to the area it was remixed in. Use only when the place is "
 "unknown!"
-msgstr ""
+msgstr "Lidh një incizim me zonën ku iu bë rimiksim. Përdoreni vetëm nëse vendi është i panjohur!"
 
 #: DB:link_type/description:809
 msgid "Links a recording to the event it was recorded at."
-msgstr ""
+msgstr "Lidh një incizim me veprimtarinë ku u incizua."
 
 #: DB:link_type/description:866
 msgid "Links a recording to the place it was arranged at."
-msgstr ""
+msgstr "Lidh një incizim me vendin ku u orkestrua."
 
 #: DB:link_type/description:819
 msgid "Links a recording to the place it was edited at."
-msgstr ""
+msgstr "Lidh një incizim me vendin ku u përpunua."
 
 #: DB:link_type/description:813
 msgid "Links a recording to the place it was engineered at."
-msgstr ""
+msgstr "Lidh një incizim me vendin ku iu inxhinierimi."
 
 #: DB:link_type/description:694
 msgid "Links a recording to the place it was mixed at."
-msgstr ""
+msgstr "Lidh një incizim me vendin ku iu bë miksimi."
 
 #: DB:link_type/description:825
 msgid "Links a recording to the place it was produced at."
-msgstr ""
+msgstr "Lidh një incizim me vendin ku u prodhua."
 
 #: DB:link_type/description:693
 msgid "Links a recording to the place it was recorded at."
-msgstr ""
+msgstr "Lidh një incizim me vendin ku u incizua."
 
 #: DB:link_type/description:829
 msgid "Links a recording to the place it was remixed at."
-msgstr ""
+msgstr "Lidh një incizim me vendin ku iu bë rimiksimi."
 
 #: DB:link_type/description:797
 msgid "Links a release group with a launch event for it."
-msgstr ""
+msgstr "Lidh një grup hedhjeje në qarkullim me një veprimtari për hedhjen në qarkullim."
 
 #: DB:link_type/description:863
 msgid ""
 "Links a release to the area it was arranged in. Use only when the place is "
 "unknown!"
-msgstr ""
+msgstr "Lidh një hedhje në qarkullim me zonën ku u orkestrua. Përdoreni vetëm kur vendi është i panjohur!"
 
 #: DB:link_type/description:822
 msgid ""
 "Links a release to the area it was edited in. Use only when the place is "
 "unknown!"
-msgstr ""
+msgstr "Lidh një hedhje në qarkullim me zonën ku u përpunua. Përdoreni vetëm kur vendi është i panjohur!"
 
 #: DB:link_type/description:815
 msgid ""
 "Links a release to the area it was engineered in. Use only when the place is"
 " unknown!"
-msgstr ""
+msgstr "Lidh një hedhje në qarkullim me zonën ku iu bë inxhinierimi. Përdoreni vetëm kur vendi është i panjohur!"
 
 #: DB:link_type/description:835
 msgid "Links a release to the area it was manufactured (\"made\") in."
-msgstr ""
+msgstr "Lidh një hedhje në qarkullim me zonën ku u prodhua (\"made\")."
 
 #: DB:link_type/description:756
 msgid ""
 "Links a release to the area it was mastered in. Use only when the place is "
 "unknown!"
-msgstr ""
+msgstr "Lidh një hedhje në qarkullim me zonën ku u masterizua. Përdoreni vetëm kur vendi është i panjohur!"
 
 #: DB:link_type/description:757
 msgid ""
 "Links a release to the area it was mixed in. Use only when the place is "
 "unknown!"
-msgstr ""
+msgstr "Lidh një hedhje në qarkullim me zonën ku iu bë miksimi. Përdoreni vetëm nëse vendi është i panjohur!"
 
 #: DB:link_type/description:849
 msgid "Links a release to the area it was printed in."
-msgstr ""
+msgstr "Lidh një hedhje në qarkullim me zonën ku u shtyp."
 
 #: DB:link_type/description:826
 msgid ""
 "Links a release to the area it was produced in. Use only when the place is "
 "unknown!"
-msgstr ""
+msgstr "Lidh një hedhje në qarkullim me zonën ku u prodhua. Përdoreni vetëm nëse vendi është i panjohur!"
 
 #: DB:link_type/description:699
 msgid ""
 "Links a release to the area it was recorded in. Use only when the place is "
 "unknown!"
-msgstr ""
+msgstr "Lidh një hedhje në qarkullim me zonën ku u bë incizimi. Përdoreni vetëm nëse vendi është i panjohur!"
 
 #: DB:link_type/description:831
 msgid ""
 "Links a release to the area it was remixed in. Use only when the place is "
 "unknown!"
-msgstr ""
+msgstr "Lidh një hedhje në qarkullim me zonën ku iu bë rimiksim. Përdoreni vetëm nëse vendi është i panjohur!"
 
 #: DB:link_type/description:967
 msgid ""
@@ -700,19 +700,19 @@ msgstr ""
 
 #: DB:link_type/description:810
 msgid "Links a release to the event it was recorded at."
-msgstr ""
+msgstr "Lidh një hedhje në qarkullim me veprimtarinë ku u incizua."
 
 #: DB:link_type/description:865
 msgid "Links a release to the place it was arranged at."
-msgstr ""
+msgstr "Lidh një hedhje në qarkullim me vendin ku u orkestrua."
 
 #: DB:link_type/description:820
 msgid "Links a release to the place it was edited at."
-msgstr ""
+msgstr "Lidh një hedhje në qarkullim me vendin ku u përpunua."
 
 #: DB:link_type/description:812
 msgid "Links a release to the place it was engineered at."
-msgstr ""
+msgstr "Lidh një hedhje në qarkullim me vendin ku iu inxhinierimi."
 
 #: DB:link_type/description:953
 msgid ""
@@ -722,27 +722,27 @@ msgstr ""
 
 #: DB:link_type/description:697
 msgid "Links a release to the place it was mastered at."
-msgstr ""
+msgstr "Lidh një hedhje në qarkullim me vendin ku u bë masterizimi."
 
 #: DB:link_type/description:696
 msgid "Links a release to the place it was mixed at."
-msgstr ""
+msgstr "Lidh një hedhje në qarkullim me vendin ku iu bë miksimi."
 
 #: DB:link_type/description:941
 msgid "Links a release to the place it was pressed at."
-msgstr ""
+msgstr "Lidh një hedhje në qarkullim me vendin ku u shtyp."
 
 #: DB:link_type/description:824
 msgid "Links a release to the place it was produced at."
-msgstr ""
+msgstr "Lidh një hedhje në qarkullim me vendin ku u prodhua."
 
 #: DB:link_type/description:695
 msgid "Links a release to the place it was recorded at."
-msgstr ""
+msgstr "Lidh një hedhje në qarkullim me vendin ku u incizua."
 
 #: DB:link_type/description:828
 msgid "Links a release to the place it was remixed at."
-msgstr ""
+msgstr "Lidh një hedhje në qarkullim me vendin ku iu bë rimiksimi."
 
 #: DB:link_type/description:954
 msgid ""
@@ -756,7 +756,7 @@ msgstr ""
 
 #: DB:link_type/description:796
 msgid "Links a release with a launch event for it."
-msgstr ""
+msgstr "Lidh një hedhje në qarkullim me një veprimtari për hedhjen në qarkullim."
 
 #: DB:link_type/description:795
 msgid ""
@@ -793,11 +793,11 @@ msgstr ""
 
 #: DB:link_type/description:806
 msgid "Links an event to an artist that was a conductor in it."
-msgstr ""
+msgstr "Lidh një veprimtari me një artist që qe dirigjent në të."
 
 #: DB:link_type/description:807
 msgid "Links an event to an orchestra that performed in it."
-msgstr ""
+msgstr "Lidh një veprimtari me një orkestër që ekzekutoi në të."
 
 #: DB:link_type/description:801
 msgid ""
@@ -827,12 +827,12 @@ msgstr ""
 #: DB:link_type/link_phrase:215 DB:link_type/link_phrase:462
 #: DB:link_type/link_phrase:189
 msgid "Myspace"
-msgstr ""
+msgstr "Myspace"
 
 #: DB:link_type/reverse_link_phrase:215 DB:link_type/reverse_link_phrase:462
 #: DB:link_type/reverse_link_phrase:189
 msgid "Myspace page for"
-msgstr ""
+msgstr "Faqe në Myspace për"
 
 #: DB:link_attribute_type/description:461
 msgid "Other vocalizations"
@@ -840,121 +840,121 @@ msgstr ""
 
 #: DB:link_type/description:852
 msgid "Points to the BookBrainz page for this artist."
-msgstr ""
+msgstr "Shpie te faqja në BookBrainz për këtë artist."
 
 #: DB:link_type/description:851
 msgid "Points to the BookBrainz page for this label."
-msgstr ""
+msgstr "Shpie te faqja në BookBrainz për këtë etiketë diskografike."
 
 #: DB:link_type/description:853
 msgid "Points to the BookBrainz page for this release group."
-msgstr ""
+msgstr "Shpie te faqja në BookBrainz për këtë grup hedhjeje në qarkullim."
 
 #: DB:link_type/description:850
 msgid "Points to the BookBrainz page for this release."
-msgstr ""
+msgstr "Shpie te faqja në BookBrainz për këtë hedhje në qarkullim."
 
 #: DB:link_type/description:854
 msgid "Points to the BookBrainz page for this work."
-msgstr ""
+msgstr "Shpie te faqja në BookBrainz për këtë vepër."
 
 #: DB:link_type/description:713
 msgid "Points to the Geonames page for this area."
-msgstr ""
+msgstr "Shpie te faqja në Geonames për këtë zonë."
 
 #: DB:link_type/description:934
 msgid "Points to the Geonames page for this place."
-msgstr ""
+msgstr "Shpie te faqja në Geonames për këtë vend."
 
 #: DB:link_type/description:706
 msgid "Points to the Internet Movie Database page for this place."
-msgstr ""
+msgstr "Shpie te faqja në Internet Movie Database për këtë vend."
 
 #: DB:link_type/description:358
 msgid ""
 "Points to the Wikidata page for this area, and will be used to fetch "
 "Wikipedia summaries and images"
-msgstr ""
+msgstr "Shpie te faqja në Wikidata për këtë zonë dhe do të përdoret për të sjellë përmbledhje dhe figura nga Wikipedia"
 
 #: DB:link_type/description:352
 msgid ""
 "Points to the Wikidata page for this artist, and will be used to fetch "
 "Wikipedia summaries and images"
-msgstr ""
+msgstr "Shpie te faqja në Wikidata për këtë artist dhe do të përdoret për të sjellë përmbledhje dhe figura nga Wikipedia"
 
 #: DB:link_type/description:790
 msgid ""
 "Points to the Wikidata page for this event, and will be used to fetch "
 "Wikipedia summaries and images"
-msgstr ""
+msgstr "Shpie te faqja në Wikidata për këtë veprimtari dhe do të përdoret për të sjellë përmbledhje dhe figura nga Wikipedia"
 
 #: DB:link_type/description:733
 msgid ""
 "Points to the Wikidata page for this instrument, and will be used to fetch "
 "Wikipedia summaries and images"
-msgstr ""
+msgstr "Shpie te faqja në Wikidata për këtë instrument dhe do të përdoret për të sjellë përmbledhje dhe figura nga Wikipedia"
 
 #: DB:link_type/description:354
 msgid ""
 "Points to the Wikidata page for this label, and will be used to fetch "
 "Wikipedia summaries and images"
-msgstr ""
+msgstr "Shpie te faqja në Wikidata për këtë etiketë diskografike dhe do të përdoret për të sjellë përmbledhje dhe figura nga Wikipedia"
 
 #: DB:link_type/description:594
 msgid ""
 "Points to the Wikidata page for this place, and will be used to fetch "
 "Wikipedia summaries and images"
-msgstr ""
+msgstr "Shpie te faqja në Wikidata për këtë vend dhe do të përdoret për të sjellë përmbledhje dhe figura nga Wikipedia"
 
 #: DB:link_type/description:353
 msgid ""
 "Points to the Wikidata page for this release group, and will be used to "
 "fetch Wikipedia summaries"
-msgstr ""
+msgstr "Shpie te faqja në Wikidata për këtë grup hedhjesh në qarkullim dhe do të përdoret për të sjellë përmbledhje dhe figura nga Wikipedia"
 
 #: DB:link_type/description:749
 msgid ""
 "Points to the Wikidata page for this series, and will be used to fetch "
 "Wikipedia summaries and images"
-msgstr ""
+msgstr "Shpie te faqja në Wikidata për këtë seri dhe do të përdoret për të sjellë përmbledhje dhe figura nga Wikipedia"
 
 #: DB:link_type/description:351
 msgid ""
 "Points to the Wikidata page for this work, and will be used to fetch "
 "Wikipedia summaries and images"
-msgstr ""
+msgstr "Shpie te faqja në Wikidata për këtë vepër dhe do të përdoret për të sjellë përmbledhje dhe figura nga Wikipedia"
 
 #: DB:link_type/description:89
 msgid "Points to the Wikipedia page for this album."
-msgstr ""
+msgstr "Shpie te faqja në Wikipedia për këtë album."
 
 #: DB:link_type/description:355
 msgid "Points to the Wikipedia page for this area."
-msgstr ""
+msgstr "Shpie te faqja në Wikipedia për këtë zonë."
 
 #: DB:link_type/description:179
 msgid "Points to the Wikipedia page for this artist."
-msgstr ""
+msgstr "Shpie te faqja në Wikipedia për këtë artist."
 
 #: DB:link_type/description:789
 msgid "Points to the Wikipedia page for this event."
-msgstr ""
+msgstr "Shpie te faqja në Wikipedia për këtë veprimtari."
 
 #: DB:link_type/description:731
 msgid "Points to the Wikipedia page for this instrument."
-msgstr ""
+msgstr "Shpie te faqja në Wikipedia për këtë instrument."
 
 #: DB:link_type/description:595
 msgid "Points to the Wikipedia page for this place"
-msgstr ""
+msgstr "Shpie te faqja në Wikipedia për këtë vend."
 
 #: DB:link_type/description:744
 msgid "Points to the Wikipedia page for this series."
-msgstr ""
+msgstr "Shpie te faqja në Wikipedia për këtë seri."
 
 #: DB:link_type/description:279
 msgid "Points to the Wikipedia page for this work."
-msgstr ""
+msgstr "Shpie te faqja në Wikipedia për këtë vepër."
 
 #: DB:link_type/description:127
 msgid ""
@@ -965,51 +965,51 @@ msgstr ""
 
 #: DB:link_type/link_phrase:174
 msgid "PureVolume"
-msgstr ""
+msgstr "PureVolume"
 
 #: DB:link_type/reverse_link_phrase:174
 msgid "PureVolume page for"
-msgstr ""
+msgstr "Faqe në PureVolume për"
 
 #: DB:link_type/link_phrase:308 DB:link_type/link_phrase:976
 #: DB:link_type/link_phrase:977 DB:link_type/link_phrase:307
 #: DB:link_type/reverse_link_phrase:280
 msgid "SecondHandSongs"
-msgstr ""
+msgstr "SecondHandSongs"
 
 #: DB:link_type/link_phrase:280 DB:link_type/reverse_link_phrase:308
 #: DB:link_type/reverse_link_phrase:976 DB:link_type/reverse_link_phrase:977
 #: DB:link_type/reverse_link_phrase:307
 msgid "SecondHandSongs page for"
-msgstr ""
+msgstr "Faqe në SecondHandSongs për"
 
 #: DB:link_type/reverse_link_phrase:289
 msgid "Songfacts"
-msgstr ""
+msgstr "Songfacts"
 
 #: DB:link_type/link_phrase:289
 msgid "Songfacts page for"
-msgstr ""
+msgstr "Faqe në Songfacts për"
 
 #: DB:link_type/link_phrase:786 DB:link_type/link_phrase:785
 #: DB:link_type/link_phrase:787
 msgid "Songkick"
-msgstr ""
+msgstr "Songkick"
 
 #: DB:link_type/reverse_link_phrase:786 DB:link_type/reverse_link_phrase:785
 #: DB:link_type/reverse_link_phrase:787
 msgid "Songkick page for"
-msgstr ""
+msgstr "Faqe në Songkick për"
 
 #: DB:link_type/link_phrase:870 DB:link_type/link_phrase:291
 #: DB:link_type/link_phrase:290 DB:link_type/link_phrase:940
 msgid "SoundCloud"
-msgstr ""
+msgstr "SoundCloud"
 
 #: DB:link_type/reverse_link_phrase:870 DB:link_type/reverse_link_phrase:291
 #: DB:link_type/reverse_link_phrase:290 DB:link_type/reverse_link_phrase:940
 msgid "SoundCloud page for"
-msgstr ""
+msgstr "Faqe në SoundCloud për"
 
 #: DB:link_attribute_type/description:1135
 msgid ""
@@ -1118,7 +1118,7 @@ msgstr ""
 
 #: DB:link_attribute_type/description:788
 msgid "This attribute indicates the number of a work in a series."
-msgstr ""
+msgstr "Ky atribut tregon numrin e një vepre në një seri."
 
 #: DB:link_attribute_type/description:425
 msgid ""
@@ -1268,7 +1268,7 @@ msgstr ""
 
 #: DB:link_type/description:103
 msgid "This indicates a person is a member of a group."
-msgstr ""
+msgstr "Kjo tregon se një person është anëtar i një grupi."
 
 #: DB:link_type/description:135 DB:link_type/description:62
 msgid ""
@@ -1693,15 +1693,15 @@ msgstr ""
 
 #: DB:link_type/description:963
 msgid "This indicates the video was shot at this place."
-msgstr ""
+msgstr "Kjo tregon se videoja qe regjistruar në këtë vend."
 
 #: DB:link_type/description:966
 msgid "This indicates the video was shot at/during this event."
-msgstr ""
+msgstr "Kjo tregon se videoja qe regjistruar në/gjatë kësaj veprimtarie."
 
 #: DB:link_type/description:964
 msgid "This indicates the video was shot in this area."
-msgstr ""
+msgstr "Kjo tregon se videoja qe regjistruar në këtë zonë."
 
 #: DB:link_type/description:914
 msgid ""
@@ -1724,7 +1724,7 @@ msgstr ""
 
 #: DB:link_type/description:972
 msgid "This indicates the work that inspired this artist’s name."
-msgstr ""
+msgstr "Kjo tregon veprën që frymëzoi emrin e këtij artisti."
 
 #: DB:link_type/description:915
 msgid "This indicates where a feed for this podcast can be found."
@@ -1992,7 +1992,7 @@ msgstr ""
 
 #: DB:link_type/description:290
 msgid "This links a label to its profile at SoundCloud."
-msgstr ""
+msgstr "Kjo lidh një etiketë diskografike te profili përkatës në SoundCloud."
 
 #: DB:link_type/description:225
 msgid "This links a label to the equivalent entry at YouTube."
@@ -2024,7 +2024,7 @@ msgstr ""
 
 #: DB:link_type/description:940
 msgid "This links a place to its profile at SoundCloud."
-msgstr ""
+msgstr "Kjo lidh një vend te profili përkatës në SoundCloud."
 
 #: DB:link_type/description:909
 msgid ""
@@ -2200,51 +2200,51 @@ msgstr ""
 
 #: DB:link_type/description:885
 msgid "This links a work with the area it was arranged in."
-msgstr ""
+msgstr "Kjo lidh një vepër me zonën ku u orkestrua."
 
 #: DB:link_type/description:875
 msgid "This links a work with the area it was composed in."
-msgstr ""
+msgstr "Kjo lidh një vepër me zonën ku u kompozua."
 
 #: DB:link_type/description:881
 msgid "This links a work with the area it was revised in."
-msgstr ""
+msgstr "Kjo lidh një vepër me zonën ku u rishikua."
 
 #: DB:link_type/description:884
 msgid "This links a work with the area it was translated in."
-msgstr ""
+msgstr "Kjo lidh një vepër me zonën ku u përkthye."
 
 #: DB:link_type/description:873
 msgid "This links a work with the area it was written in."
-msgstr ""
+msgstr "Kjo lidh një vepër me zonën ku u shkrua."
 
 #: DB:link_type/description:879
 msgid "This links a work with the area its libretto was written in."
-msgstr ""
+msgstr "Lidh një incizim me vendin ku iu inxhinierimi."
 
 #: DB:link_type/description:877
 msgid "This links a work with the area its lyrics were written in."
-msgstr ""
+msgstr "Kjo lidh një vepër me zonën ku u shkruan vargjet e saj."
 
 #: DB:link_type/description:886
 msgid "This links a work with the place it was arranged at."
-msgstr ""
+msgstr "Kjo lidh një vepër me vendin ku u orkestrua."
 
 #: DB:link_type/description:876
 msgid "This links a work with the place it was composed at."
-msgstr ""
+msgstr "Kjo lidh një vepër me vendin ku u kompozua."
 
 #: DB:link_type/description:882
 msgid "This links a work with the place it was revised at."
-msgstr ""
+msgstr "Kjo lidh një vepër me vendin ku u rishikua."
 
 #: DB:link_type/description:883
 msgid "This links a work with the place it was translated at."
-msgstr ""
+msgstr "Kjo lidh një vepër me vendin ku u përkthye."
 
 #: DB:link_type/description:874
 msgid "This links a work with the place it was written at."
-msgstr ""
+msgstr "Kjo lidh një vepër me vendin ku u shkrua."
 
 #: DB:link_type/description:880
 msgid "This links a work with the place its libretto was written at."
@@ -3130,7 +3130,7 @@ msgstr ""
 #: DB:link_type/link_phrase:358 DB:link_type/link_phrase:733
 #: DB:link_type/reverse_link_phrase:351
 msgid "Wikidata"
-msgstr ""
+msgstr "Wikidata"
 
 #: DB:link_type/link_phrase:351 DB:link_type/reverse_link_phrase:353
 #: DB:link_type/reverse_link_phrase:354 DB:link_type/reverse_link_phrase:749
@@ -3138,7 +3138,7 @@ msgstr ""
 #: DB:link_type/reverse_link_phrase:352 DB:link_type/reverse_link_phrase:358
 #: DB:link_type/reverse_link_phrase:733
 msgid "Wikidata page for"
-msgstr ""
+msgstr "faqe në Wikidata për"
 
 #: DB:link_type/link_phrase:595 DB:link_type/link_phrase:355
 #: DB:link_type/link_phrase:89 DB:link_type/link_phrase:744
@@ -3154,19 +3154,19 @@ msgstr "Wikipedia"
 #: DB:link_type/reverse_link_phrase:216 DB:link_type/reverse_link_phrase:731
 #: DB:link_type/reverse_link_phrase:789
 msgid "Wikipedia page for"
-msgstr ""
+msgstr "faqe në Wikipedia për"
 
 #: DB:link_type/reverse_link_phrase:791 DB:link_type/reverse_link_phrase:792
 #: DB:link_type/reverse_link_phrase:193 DB:link_type/reverse_link_phrase:225
 #: DB:link_type/reverse_link_phrase:528
 msgid "YouTube channel for"
-msgstr ""
+msgstr "Kanal YouTube për"
 
 #: DB:link_type/link_phrase:791 DB:link_type/link_phrase:792
 #: DB:link_type/link_phrase:193 DB:link_type/link_phrase:225
 #: DB:link_type/link_phrase:528
 msgid "YouTube channels"
-msgstr ""
+msgstr "kanale YouTube"
 
 #: DB:link_attribute_type/name:1030
 msgid "act"
@@ -3179,71 +3179,71 @@ msgstr ""
 #: DB:link_type/name:755 DB:link_type/name:284 DB:link_type/name:283
 #: DB:link_type/name:285 DB:link_type/name:286
 msgid "allmusic"
-msgstr ""
+msgstr "allmusic"
 
 #: DB:link_attribute_type/description:5 DB:link_attribute_type/name:5
 msgid "alto vocals"
-msgstr ""
+msgstr "zëra alto"
 
 #: DB:link_type/name:77
 msgid "amazon asin"
-msgstr ""
+msgstr "asin në amazon"
 
 #: DB:link_attribute_type/name:1080
 msgid "amount"
-msgstr ""
+msgstr "sasi"
 
 #: DB:link_attribute_type/name:1079
 msgid "anniversary"
-msgstr ""
+msgstr "përvjetor"
 
 #: DB:link_type/link_phrase:357 DB:link_type/name:357
 msgid "anthem"
-msgstr ""
+msgstr "himn"
 
 #: DB:link_type/reverse_link_phrase:357
 msgid "anthem of"
-msgstr ""
+msgstr "himn i"
 
 #: DB:link_type/link_phrase:858 DB:link_type/long_link_phrase:858
 msgid "appears on video"
-msgstr ""
+msgstr "shfaqet në video"
 
 #: DB:link_type/name:865 DB:link_type/name:866 DB:link_type/name:886
 #: DB:link_type/reverse_link_phrase:865 DB:link_type/reverse_link_phrase:866
 msgid "arranged at"
-msgstr ""
+msgstr "orkestruar më"
 
 #: DB:link_type/name:948 DB:link_type/name:949
 #: DB:link_type/reverse_link_phrase:948 DB:link_type/reverse_link_phrase:949
 msgid "arranged for"
-msgstr ""
+msgstr "orkestruar për"
 
 #: DB:link_type/name:863 DB:link_type/name:864 DB:link_type/name:885
 #: DB:link_type/reverse_link_phrase:863 DB:link_type/reverse_link_phrase:864
 msgid "arranged in"
-msgstr ""
+msgstr "orkestruar në"
 
 #: DB:link_type/name:350
 msgid "arrangement"
-msgstr ""
+msgstr "orkestrim"
 
 #: DB:link_type/reverse_link_phrase:350
 msgid "arrangement of"
-msgstr ""
+msgstr "orkestrim i"
 
 #: DB:link_type/link_phrase:350
 msgid "arrangements"
-msgstr ""
+msgstr "orkestrime"
 
 #: DB:link_type/name:297 DB:link_type/name:295 DB:link_type/name:293
 msgid "arranger"
-msgstr ""
+msgstr "orkestrues"
 
 #: DB:link_type/link_phrase:863 DB:link_type/link_phrase:864
 #: DB:link_type/link_phrase:865 DB:link_type/link_phrase:866
 msgid "arranging location for"
-msgstr ""
+msgstr "vend orkestrimi për"
 
 #: DB:link_type/name:137 DB:link_type/name:18
 msgid "art direction"
@@ -3256,19 +3256,19 @@ msgstr ""
 
 #: DB:link_type/name:965 DB:link_type/reverse_link_phrase:965
 msgid "artistic director"
-msgstr ""
+msgstr "drejtor artistik"
 
 #: DB:link_type/link_phrase:965
 msgid "artistic director for"
-msgstr ""
+msgstr "drejtor artistik për"
 
 #: DB:link_type/name:135 DB:link_type/name:62
 msgid "artists and repertoire"
-msgstr ""
+msgstr "artistë dhe repertor"
 
 #: DB:link_attribute_type/name:526
 msgid "assistant"
-msgstr ""
+msgstr "asistent"
 
 #: DB:link_attribute_type/name:527
 msgid "associate"
@@ -3288,7 +3288,7 @@ msgstr ""
 
 #: DB:link_type/name:140 DB:link_type/name:31
 msgid "audio"
-msgstr ""
+msgstr "audio"
 
 #: DB:link_type/name:795 DB:link_type/reverse_link_phrase:795
 msgid "available at"
@@ -3304,7 +3304,7 @@ msgstr ""
 
 #: DB:link_attribute_type/description:12 DB:link_attribute_type/name:12
 msgid "background vocals"
-msgstr ""
+msgstr "zëra sfond"
 
 #: DB:link_type/name:727 DB:link_type/name:726
 msgid "balance"
@@ -3312,7 +3312,7 @@ msgstr ""
 
 #: DB:link_type/name:719 DB:link_type/name:718
 msgid "bandcamp"
-msgstr ""
+msgstr "bandcamp"
 
 #: DB:link_type/name:861 DB:link_type/name:862 DB:link_type/name:860
 msgid "bandsintown"
@@ -3324,11 +3324,11 @@ msgstr ""
 
 #: DB:link_type/name:314
 msgid "based on"
-msgstr ""
+msgstr "bazuar në"
 
 #: DB:link_attribute_type/description:7 DB:link_attribute_type/name:7
 msgid "bass vocals"
-msgstr ""
+msgstr "zëra bas"
 
 #: DB:link_attribute_type/description:231 DB:link_attribute_type/name:231
 msgid "bass-baritone vocals"
@@ -3336,33 +3336,33 @@ msgstr ""
 
 #: DB:link_type/link_phrase:182
 msgid "biographies"
-msgstr ""
+msgstr "jetëshkrime"
 
 #: DB:link_type/name:182
 msgid "biography"
-msgstr ""
+msgstr "jetëshkrim"
 
 #: DB:link_type/reverse_link_phrase:182
 msgid "biography of"
-msgstr ""
+msgstr "jetëshkrim i"
 
 #: DB:link_type/name:224 DB:link_type/name:199 DB:link_type/name:627
 msgid "blog"
-msgstr ""
+msgstr "blog"
 
 #: DB:link_type/reverse_link_phrase:224 DB:link_type/reverse_link_phrase:199
 #: DB:link_type/reverse_link_phrase:627
 msgid "blog of"
-msgstr ""
+msgstr "blog i"
 
 #: DB:link_type/link_phrase:224 DB:link_type/link_phrase:199
 #: DB:link_type/link_phrase:627
 msgid "blogs"
-msgstr ""
+msgstr "blogje"
 
 #: DB:link_attribute_type/name:516
 msgid "bonus"
-msgstr ""
+msgstr "bonus"
 
 #: DB:link_type/link_phrase:23 DB:link_type/link_phrase:134
 #: DB:link_type/name:23 DB:link_type/name:134
@@ -3411,7 +3411,7 @@ msgstr "anuluar"
 
 #: DB:link_type/link_phrase:212 DB:link_type/reverse_link_phrase:212
 msgid "catalog of records"
-msgstr ""
+msgstr "katalog incizimesh"
 
 #: DB:link_type/reverse_link_phrase:201
 msgid "catalog reissued by"
@@ -3419,7 +3419,7 @@ msgstr ""
 
 #: DB:link_type/name:212
 msgid "catalog site"
-msgstr ""
+msgstr "sajt katalogu"
 
 #: DB:link_type/link_phrase:751 DB:link_type/name:751
 #: DB:link_type/long_link_phrase:751
@@ -3436,15 +3436,15 @@ msgstr ""
 
 #: DB:link_type/reverse_link_phrase:735
 msgid "child of"
-msgstr ""
+msgstr "pjellë e"
 
 #: DB:link_type/link_phrase:735 DB:link_type/name:735
 msgid "children"
-msgstr ""
+msgstr "pjella"
 
 #: DB:link_attribute_type/description:13 DB:link_attribute_type/name:13
 msgid "choir vocals"
-msgstr ""
+msgstr "zëra kori"
 
 #: DB:link_type/name:152 DB:link_type/name:53
 msgid "chorus master"
@@ -3464,7 +3464,7 @@ msgstr ""
 
 #: DB:link_type/name:102
 msgid "collaboration"
-msgstr ""
+msgstr "bashkëpunim"
 
 #: DB:link_type/link_phrase:891 DB:link_type/link_phrase:890
 #: DB:link_type/link_phrase:889 DB:link_type/link_phrase:892
@@ -3477,11 +3477,11 @@ msgstr ""
 
 #: DB:link_type/name:228
 msgid "compilation"
-msgstr ""
+msgstr "përmbledhje"
 
 #: DB:link_type/link_phrase:228
 msgid "compilation of"
-msgstr ""
+msgstr "përmbledhje e"
 
 #: DB:link_type/link_phrase:48 DB:link_type/link_phrase:147
 #: DB:link_type/long_link_phrase:48 DB:link_type/long_link_phrase:147
@@ -3499,15 +3499,15 @@ msgstr ""
 
 #: DB:link_type/name:876
 msgid "composed at"
-msgstr ""
+msgstr "kompozuar më"
 
 #: DB:link_type/name:875
 msgid "composed in"
-msgstr ""
+msgstr "kompozuar në"
 
 #: DB:link_type/name:55 DB:link_type/name:168
 msgid "composer"
-msgstr ""
+msgstr "kompozitor"
 
 #: DB:link_type/name:855 DB:link_type/name:937
 msgid "composer-in-residence"
@@ -3538,11 +3538,11 @@ msgstr ""
 
 #: DB:link_type/name:806 DB:link_type/name:46 DB:link_type/name:151
 msgid "conductor"
-msgstr ""
+msgstr "dirigjent"
 
 #: DB:link_type/link_phrase:806
 msgid "conductor at"
-msgstr ""
+msgstr "dirigjent në"
 
 #: DB:link_type/name:305
 msgid "conductor position"
@@ -3606,11 +3606,11 @@ msgstr ""
 
 #: DB:link_type/name:708 DB:link_type/name:709
 msgid "copyright"
-msgstr ""
+msgstr "të drejta kopjimi"
 
 #: DB:link_type/reverse_link_phrase:708 DB:link_type/reverse_link_phrase:709
 msgid "copyrighted by"
-msgstr ""
+msgstr "të drejta kopjimi nga"
 
 #: DB:link_attribute_type/description:8 DB:link_attribute_type/name:8
 msgid "countertenor vocals"
@@ -3685,7 +3685,7 @@ msgstr ""
 #: DB:link_type/reverse_link_phrase:846 DB:link_type/reverse_link_phrase:922
 #: DB:link_type/reverse_link_phrase:914
 msgid "dedicated to"
-msgstr ""
+msgstr "kushtuar"
 
 #: DB:link_type/link_phrase:846 DB:link_type/link_phrase:922
 #: DB:link_type/link_phrase:914
@@ -3694,7 +3694,7 @@ msgstr ""
 
 #: DB:link_type/name:846 DB:link_type/name:922 DB:link_type/name:914
 msgid "dedication"
-msgstr ""
+msgstr "kushtim"
 
 #: DB:link_type/link_phrase:868
 msgid "dedications"
@@ -3710,7 +3710,7 @@ msgstr ""
 
 #: DB:link_type/description:737 DB:link_type/reverse_link_phrase:737
 msgid "derived from"
-msgstr ""
+msgstr "e rrjedhur prej"
 
 #: DB:link_type/name:928
 msgid "design"
@@ -3733,29 +3733,29 @@ msgstr ""
 #: DB:link_type/reverse_link_phrase:88 DB:link_type/reverse_link_phrase:171
 #: DB:link_type/long_link_phrase:88 DB:link_type/long_link_phrase:171
 msgid "discography"
-msgstr ""
+msgstr "diskografi"
 
 #: DB:link_type/link_phrase:288 DB:link_type/name:288
 msgid "discography entry"
-msgstr ""
+msgstr "zë diskografie"
 
 #: DB:link_type/reverse_link_phrase:288
 msgid "discography entry for"
-msgstr ""
+msgstr "zë diskografie për"
 
 #: DB:link_type/reverse_link_phrase:184
 msgid "discography page for"
-msgstr ""
+msgstr "faqe diskografie për"
 
 #: DB:link_type/link_phrase:184
 msgid "discography pages"
-msgstr ""
+msgstr "faqe diskografie"
 
 #: DB:link_type/name:180 DB:link_type/name:76 DB:link_type/name:217
 #: DB:link_type/name:971 DB:link_type/name:90 DB:link_type/name:747
 #: DB:link_type/name:705
 msgid "discogs"
-msgstr ""
+msgstr "discogs"
 
 #: DB:link_type/link_phrase:361 DB:link_type/name:361
 #: DB:link_type/long_link_phrase:361
@@ -3790,11 +3790,11 @@ msgstr ""
 #: DB:link_type/name:958 DB:link_type/name:75 DB:link_type/name:177
 #: DB:link_type/name:255 DB:link_type/name:274
 msgid "download for free"
-msgstr ""
+msgstr "sShkarkojeni falas"
 
 #: DB:link_type/link_phrase:958 DB:link_type/link_phrase:177
 msgid "download music for free"
-msgstr ""
+msgstr "shkarkoni muzikë falas"
 
 #: DB:link_type/reverse_link_phrase:959 DB:link_type/reverse_link_phrase:254
 #: DB:link_type/reverse_link_phrase:74 DB:link_type/reverse_link_phrase:176
@@ -3815,7 +3815,7 @@ msgstr ""
 
 #: DB:link_attribute_type/name:1131
 msgid "early music"
-msgstr ""
+msgstr "muzikë e hershme"
 
 #: DB:link_type/name:309
 msgid "edit"
@@ -3851,11 +3851,11 @@ msgstr ""
 
 #: DB:link_type/reverse_link_phrase:924
 msgid "educators"
-msgstr ""
+msgstr "edukatorë"
 
 #: DB:link_attribute_type/name:1127
 msgid "electronic music"
-msgstr ""
+msgstr "muzikë elektronike"
 
 #: DB:link_attribute_type/name:617
 msgid "emeritus"
@@ -3863,7 +3863,7 @@ msgstr ""
 
 #: DB:link_type/name:138 DB:link_type/name:28
 msgid "engineer"
-msgstr ""
+msgstr "inxhinier"
 
 #: DB:link_type/link_phrase:120 DB:link_type/name:120 DB:link_type/name:701
 msgid "engineer position"
@@ -3883,7 +3883,7 @@ msgstr ""
 
 #: DB:link_type/reverse_link_phrase:120 DB:link_type/reverse_link_phrase:701
 msgid "engineers"
-msgstr ""
+msgstr "inxhinierë"
 
 #: DB:link_attribute_type/name:1094
 msgid "eponymous"
@@ -3911,7 +3911,7 @@ msgstr ""
 
 #: DB:link_attribute_type/name:1133
 msgid "folk music"
-msgstr ""
+msgstr "muzikë folk"
 
 #: DB:link_type/link_phrase:116 DB:link_type/link_phrase:832
 #: DB:link_type/link_phrase:895 DB:link_type/long_link_phrase:116
@@ -3921,15 +3921,15 @@ msgstr ""
 
 #: DB:link_type/reverse_link_phrase:895
 msgid "founded by"
-msgstr ""
+msgstr "themeluar nga"
 
 #: DB:link_type/name:832 DB:link_type/name:895
 msgid "founder"
-msgstr ""
+msgstr "themelues"
 
 #: DB:link_type/reverse_link_phrase:116 DB:link_type/reverse_link_phrase:832
 msgid "founders"
-msgstr ""
+msgstr "themelues"
 
 #: DB:link_type/reverse_link_phrase:958 DB:link_type/reverse_link_phrase:75
 #: DB:link_type/reverse_link_phrase:177 DB:link_type/reverse_link_phrase:255
@@ -3954,11 +3954,11 @@ msgstr ""
 
 #: DB:link_type/reverse_link_phrase:752
 msgid "from"
-msgstr ""
+msgstr "nga"
 
 #: DB:link_type/name:934 DB:link_type/name:713
 msgid "geonames"
-msgstr ""
+msgstr "geonames"
 
 #: DB:link_type/link_phrase:957 DB:link_type/link_phrase:257
 #: DB:link_type/link_phrase:73 DB:link_type/link_phrase:187
@@ -3969,12 +3969,12 @@ msgstr ""
 #: DB:link_type/long_link_phrase:257 DB:link_type/long_link_phrase:73
 #: DB:link_type/long_link_phrase:187
 msgid "get the music"
-msgstr ""
+msgstr "merrni muzikën"
 
 #: DB:link_type/link_phrase:911 DB:link_type/name:911
 #: DB:link_type/reverse_link_phrase:911 DB:link_type/long_link_phrase:911
 msgid "get the score"
-msgstr ""
+msgstr "merrni partiturën"
 
 #: DB:link_type/link_phrase:955 DB:link_type/name:955
 #: DB:link_type/long_link_phrase:955
@@ -4060,88 +4060,88 @@ msgstr ""
 
 #: DB:link_type/long_link_phrase:190
 msgid "has a BBC Music page at"
-msgstr ""
+msgstr "ka një faqe në BBC Music te"
 
 #: DB:link_type/long_link_phrase:861 DB:link_type/long_link_phrase:862
 #: DB:link_type/long_link_phrase:860
 msgid "has a Bandsintown page at"
-msgstr ""
+msgstr "ka një faqe në Bandsintown te"
 
 #: DB:link_type/long_link_phrase:851 DB:link_type/long_link_phrase:852
 #: DB:link_type/long_link_phrase:853 DB:link_type/long_link_phrase:850
 msgid "has a BookBrainz page at"
-msgstr ""
+msgstr "ka një faqe në BookBrainz te"
 
 #: DB:link_type/long_link_phrase:180 DB:link_type/long_link_phrase:76
 #: DB:link_type/long_link_phrase:217 DB:link_type/long_link_phrase:90
 #: DB:link_type/long_link_phrase:747 DB:link_type/long_link_phrase:705
 msgid "has a Discogs page at"
-msgstr ""
+msgstr "ka një faqe në Discogs te"
 
 #: DB:link_type/long_link_phrase:934 DB:link_type/long_link_phrase:713
 msgid "has a Geonames page at"
-msgstr ""
+msgstr "ka një faqe Geonames te"
 
 #: DB:link_type/long_link_phrase:837 DB:link_type/long_link_phrase:840
 #: DB:link_type/long_link_phrase:839 DB:link_type/long_link_phrase:838
 msgid "has a Last.fm page at"
-msgstr ""
+msgstr "ka një faqe në Last.fm te"
 
 #: DB:link_type/long_link_phrase:215 DB:link_type/long_link_phrase:462
 #: DB:link_type/long_link_phrase:189
 msgid "has a Myspace page at"
-msgstr ""
+msgstr "ka një faqe në Myspace te"
 
 #: DB:link_type/long_link_phrase:174
 msgid "has a PureVolume page at"
-msgstr ""
+msgstr "ka një faqe në PureVolume te"
 
 #: DB:link_type/long_link_phrase:308 DB:link_type/long_link_phrase:976
 #: DB:link_type/long_link_phrase:977 DB:link_type/long_link_phrase:307
 msgid "has a SecondHandSongs page at"
-msgstr ""
+msgstr "ka një faqe në SecondHandSongs te"
 
 #: DB:link_type/long_link_phrase:786 DB:link_type/long_link_phrase:785
 #: DB:link_type/long_link_phrase:787
 msgid "has a Songkick page at"
-msgstr ""
+msgstr "ka një faqe në Songkick te"
 
 #: DB:link_type/long_link_phrase:870 DB:link_type/long_link_phrase:291
 #: DB:link_type/long_link_phrase:290 DB:link_type/long_link_phrase:940
 msgid "has a SoundCloud page at"
-msgstr ""
+msgstr "ka një faqe në SoundCloud te"
 
 #: DB:link_type/long_link_phrase:86 DB:link_type/long_link_phrase:191
 #: DB:link_type/long_link_phrase:210 DB:link_type/long_link_phrase:788
 msgid "has a VGMdb page at"
-msgstr ""
+msgstr "ka një faqe VGMdb te"
 
 #: DB:link_type/long_link_phrase:353 DB:link_type/long_link_phrase:354
 #: DB:link_type/long_link_phrase:749 DB:link_type/long_link_phrase:594
 #: DB:link_type/long_link_phrase:790 DB:link_type/long_link_phrase:352
 #: DB:link_type/long_link_phrase:358 DB:link_type/long_link_phrase:733
 msgid "has a Wikidata page at"
-msgstr ""
+msgstr "ka një faqe në Wikidata te"
 
 #: DB:link_type/long_link_phrase:595 DB:link_type/long_link_phrase:355
 #: DB:link_type/long_link_phrase:89 DB:link_type/long_link_phrase:744
 #: DB:link_type/long_link_phrase:179 DB:link_type/long_link_phrase:216
 #: DB:link_type/long_link_phrase:731 DB:link_type/long_link_phrase:789
 msgid "has a Wikipedia page at"
-msgstr ""
+msgstr "ka një faqe nē Wikipedia te"
 
 #: DB:link_type/long_link_phrase:182
 msgid "has a biography page at"
-msgstr ""
+msgstr "ka një faqe jetëshkrimi te"
 
 #: DB:link_type/long_link_phrase:224 DB:link_type/long_link_phrase:199
 #: DB:link_type/long_link_phrase:627
 msgid "has a blog at"
-msgstr ""
+msgstr "ka një blog në"
 
 #: DB:link_type/long_link_phrase:212
 msgid "has a catalog of records at"
-msgstr ""
+msgstr "ka një katalog incizimesh te"
 
 #: DB:link_type/long_link_phrase:904 DB:link_type/long_link_phrase:909
 #: DB:link_type/long_link_phrase:903 DB:link_type/long_link_phrase:905
@@ -4164,7 +4164,7 @@ msgstr ""
 
 #: DB:link_type/long_link_phrase:226
 msgid "has a karaoke version"
-msgstr ""
+msgstr "ka version karaoke"
 
 #: DB:link_type/long_link_phrase:213
 msgid "has a logo at"
@@ -4191,44 +4191,44 @@ msgstr ""
 #: DB:link_type/long_link_phrase:173 DB:link_type/long_link_phrase:396
 #: DB:link_type/long_link_phrase:732
 msgid "has a picture at"
-msgstr ""
+msgstr "ka foto te"
 
 #: DB:link_type/long_link_phrase:842 DB:link_type/long_link_phrase:94
 msgid "has a review page at"
-msgstr ""
+msgstr "ka një faqe shqyrtimesh te"
 
 #: DB:link_type/long_link_phrase:811 DB:link_type/long_link_phrase:816
 #: DB:link_type/long_link_phrase:817 DB:link_type/long_link_phrase:938
 msgid "has a setlist.fm page at"
-msgstr ""
+msgstr "ka një faqe setlist.fm te"
 
 #: DB:link_type/long_link_phrase:784 DB:link_type/long_link_phrase:783
 #: DB:link_type/long_link_phrase:192 DB:link_type/long_link_phrase:218
 #: DB:link_type/long_link_phrase:429
 msgid "has a social networking page at"
-msgstr ""
+msgstr "ka një faqe rrjeti shoqëror te"
 
 #: DB:link_type/long_link_phrase:287
 msgid "has a standalone website at"
-msgstr ""
+msgstr "ka një sajt më vete te"
 
 #: DB:link_type/long_link_phrase:755 DB:link_type/long_link_phrase:284
 #: DB:link_type/long_link_phrase:283 DB:link_type/long_link_phrase:285
 msgid "has an Allmusic page at"
-msgstr ""
+msgstr "ka një faqe në Allmusic te"
 
 #: DB:link_type/long_link_phrase:313 DB:link_type/long_link_phrase:178
 #: DB:link_type/long_link_phrase:97 DB:link_type/long_link_phrase:706
 msgid "has an IMDb page at"
-msgstr ""
+msgstr "ka nëj faqe në IMDb te"
 
 #: DB:link_type/long_link_phrase:754
 msgid "has an IMSLP page at"
-msgstr ""
+msgstr "ka një faqe në IMSLP te"
 
 #: DB:link_type/long_link_phrase:707
 msgid "has an interview at"
-msgstr ""
+msgstr "ka një intervistë te"
 
 #: DB:link_type/long_link_phrase:791 DB:link_type/long_link_phrase:792
 #: DB:link_type/long_link_phrase:193 DB:link_type/long_link_phrase:225
@@ -4246,15 +4246,15 @@ msgstr ""
 #: DB:link_type/long_link_phrase:303 DB:link_type/long_link_phrase:304
 #: DB:link_type/long_link_phrase:495
 msgid "has an official video channel at"
-msgstr ""
+msgstr "ka një kanal zyrtar video te"
 
 #: DB:link_type/long_link_phrase:185
 msgid "has an online community page at"
-msgstr ""
+msgstr "ka një faqe bashkësie internetore te"
 
 #: DB:link_type/long_link_phrase:350
 msgid "has arrangement"
-msgstr ""
+msgstr "ka orkestrim"
 
 #: DB:link_type/long_link_phrase:66
 msgid "has business association with"
@@ -4262,11 +4262,11 @@ msgstr ""
 
 #: DB:link_type/link_phrase:750 DB:link_type/name:750
 msgid "has catalogue"
-msgstr ""
+msgstr "ka katalog"
 
 #: DB:link_type/long_link_phrase:735
 msgid "has child"
-msgstr ""
+msgstr "ka pjellë"
 
 #: DB:link_type/long_link_phrase:78
 msgid "has cover art at"
@@ -4298,30 +4298,30 @@ msgstr ""
 
 #: DB:link_type/long_link_phrase:316
 msgid "has orchestration"
-msgstr ""
+msgstr "ka orkestrim"
 
 #: DB:link_type/long_link_phrase:739 DB:link_type/long_link_phrase:717
 #: DB:link_type/long_link_phrase:281 DB:link_type/long_link_phrase:356
 msgid "has part"
-msgstr ""
+msgstr "ka pjesë"
 
 #: DB:link_type/link_phrase:743 DB:link_type/reverse_link_phrase:802
 #: DB:link_type/reverse_link_phrase:742 DB:link_type/reverse_link_phrase:740
 #: DB:link_type/reverse_link_phrase:741 DB:link_type/long_link_phrase:818
 msgid "has parts"
-msgstr ""
+msgstr "ka pjesë"
 
 #: DB:link_type/link_phrase:723 DB:link_type/long_link_phrase:723
 msgid "has personal label"
-msgstr ""
+msgstr "ka etiketë diskografike personale"
 
 #: DB:link_type/link_phrase:724 DB:link_type/long_link_phrase:724
 msgid "has personal publisher"
-msgstr ""
+msgstr "ka botues personal"
 
 #: DB:link_type/long_link_phrase:808
 msgid "has poster at"
-msgstr ""
+msgstr "ka afishe te"
 
 #: DB:link_type/reverse_link_phrase:230
 msgid "has remixes"
@@ -4405,12 +4405,12 @@ msgstr ""
 
 #: DB:link_type/name:927
 msgid "illustration"
-msgstr ""
+msgstr "ilustrim"
 
 #: DB:link_type/description:732 DB:link_type/name:173 DB:link_type/name:396
 #: DB:link_type/name:732
 msgid "image"
-msgstr ""
+msgstr "figurë"
 
 #: DB:link_type/name:725
 msgid "imprint"
@@ -4426,42 +4426,42 @@ msgstr ""
 
 #: DB:link_attribute_type/name:1134
 msgid "improvisation"
-msgstr ""
+msgstr "improvizim"
 
 #: DB:link_type/link_phrase:894 DB:link_type/name:894
 msgid "included in"
-msgstr ""
+msgstr "përfshirë në"
 
 #: DB:link_type/reverse_link_phrase:894
 msgid "includes"
-msgstr ""
+msgstr "përfshin"
 
 #: DB:link_type/description:734 DB:link_type/link_phrase:734
 #: DB:link_type/name:734 DB:link_type/reverse_link_phrase:734
 #: DB:link_type/long_link_phrase:734
 msgid "information page"
-msgstr ""
+msgstr "faqe të dhënash"
 
 #: DB:link_type/link_phrase:975 DB:link_type/reverse_link_phrase:973
 #: DB:link_type/reverse_link_phrase:972 DB:link_type/reverse_link_phrase:974
 msgid "inspired the name of"
-msgstr ""
+msgstr "frymëzoi emrin e "
 
 #: DB:link_type/name:44 DB:link_type/name:148
 msgid "instrument"
-msgstr "Instrument"
+msgstr "instrument"
 
 #: DB:link_type/name:158 DB:link_type/name:41 DB:link_type/name:282
 msgid "instrument arranger"
-msgstr ""
+msgstr "orkestrues instrumenti"
 
 #: DB:link_type/name:752
 msgid "instrument origin"
-msgstr ""
+msgstr "origjinë instrumenti"
 
 #: DB:link_attribute_type/name:580
 msgid "instrumental"
-msgstr ""
+msgstr "instrumentale"
 
 #: DB:link_type/name:105
 msgid "instrumental supporting musician"
@@ -4473,15 +4473,15 @@ msgstr "instrumente"
 
 #: DB:link_type/name:707
 msgid "interview"
-msgstr ""
+msgstr "intervistë"
 
 #: DB:link_type/reverse_link_phrase:707
 msgid "interview with"
-msgstr ""
+msgstr "intervistë me"
 
 #: DB:link_type/link_phrase:707
 msgid "interviews"
-msgstr ""
+msgstr "intervista"
 
 #: DB:link_type/link_phrase:896 DB:link_type/name:896 DB:link_type/name:918
 #: DB:link_type/reverse_link_phrase:918 DB:link_type/long_link_phrase:896
@@ -4490,7 +4490,7 @@ msgstr ""
 
 #: DB:link_type/link_phrase:918 DB:link_type/reverse_link_phrase:896
 msgid "invented by"
-msgstr ""
+msgstr "shpikur nga"
 
 #: DB:link_type/name:112
 msgid "involved with"
@@ -4664,7 +4664,7 @@ msgstr ""
 
 #: DB:link_type/name:226
 msgid "karaoke"
-msgstr ""
+msgstr "karaoke"
 
 #: DB:link_type/reverse_link_phrase:226
 msgid "karaoke version of"
@@ -4738,32 +4738,32 @@ msgstr ""
 
 #: DB:link_attribute_type/name:4
 msgid "lead vocals"
-msgstr ""
+msgstr "zëra të parë"
 
 #: DB:link_type/reverse_link_phrase:108
 msgid "legal name"
-msgstr ""
+msgstr "emër ligjor"
 
 #: DB:link_type/link_phrase:142 DB:link_type/name:22 DB:link_type/name:142
 #: DB:link_type/reverse_link_phrase:142
 msgid "legal representation"
-msgstr ""
+msgstr "përfaqësim ligjor"
 
 #: DB:link_attribute_type/name:1135
 msgid "level of studies"
-msgstr ""
+msgstr "shkallë studimesh"
 
 #: DB:link_type/name:57 DB:link_type/name:169
 msgid "librettist"
-msgstr ""
+msgstr "ibretist"
 
 #: DB:link_type/name:880
 msgid "libretto written at"
-msgstr ""
+msgstr "libret i shkruar më"
 
 #: DB:link_type/name:879
 msgid "libretto written in"
-msgstr ""
+msgstr "libret i shkruar në"
 
 #: DB:link_type/reverse_link_phrase:880
 msgid "libretto {additional:additionally} written at"
@@ -4777,12 +4777,12 @@ msgstr ""
 #: DB:link_type/name:302 DB:link_type/name:939 DB:link_type/name:301
 #: DB:link_type/reverse_link_phrase:939
 msgid "license"
-msgstr ""
+msgstr "licencë"
 
 #: DB:link_type/link_phrase:939 DB:link_type/reverse_link_phrase:302
 #: DB:link_type/reverse_link_phrase:301
 msgid "license for"
-msgstr ""
+msgstr "licencë për"
 
 #: DB:link_type/link_phrase:712 DB:link_type/long_link_phrase:712
 msgid "licensed"
@@ -4790,11 +4790,11 @@ msgstr ""
 
 #: DB:link_type/reverse_link_phrase:712
 msgid "licensed from"
-msgstr ""
+msgstr "licencuar nga"
 
 #: DB:link_type/reverse_link_phrase:833
 msgid "licensed to"
-msgstr ""
+msgstr "licencuar për"
 
 #: DB:link_type/name:833
 msgid "licensee"
@@ -4806,11 +4806,11 @@ msgstr ""
 
 #: DB:link_type/name:712
 msgid "licensor"
-msgstr ""
+msgstr "licencues"
 
 #: DB:link_type/name:24
 msgid "liner notes"
-msgstr ""
+msgstr "shënime shoqëruese"
 
 #: DB:link_attribute_type/name:578
 msgid "live"
@@ -4846,25 +4846,25 @@ msgstr ""
 
 #: DB:link_type/name:271 DB:link_type/name:93 DB:link_type/name:197
 msgid "lyrics"
-msgstr ""
+msgstr "vargje"
 
 #: DB:link_type/link_phrase:93 DB:link_type/link_phrase:197
 #: DB:link_type/reverse_link_phrase:271
 msgid "lyrics page"
-msgstr ""
+msgstr "faqe vargjesh"
 
 #: DB:link_type/link_phrase:271 DB:link_type/reverse_link_phrase:93
 #: DB:link_type/reverse_link_phrase:197
 msgid "lyrics page for"
-msgstr ""
+msgstr "faqe vargjesh për"
 
 #: DB:link_type/name:878
 msgid "lyrics written at"
-msgstr ""
+msgstr "vargje të shkruar më"
 
 #: DB:link_type/name:877
 msgid "lyrics written in"
-msgstr ""
+msgstr "vargje të shkruar në"
 
 #: DB:link_type/reverse_link_phrase:960 DB:link_type/reverse_link_phrase:175
 #: DB:link_type/reverse_link_phrase:79
@@ -4877,15 +4877,15 @@ msgstr ""
 
 #: DB:link_type/name:798
 msgid "main performer"
-msgstr ""
+msgstr "ekzekutuesi kryesor"
 
 #: DB:link_type/link_phrase:798
 msgid "main performer at"
-msgstr ""
+msgstr "ekzekutuesi kryesor më"
 
 #: DB:link_type/reverse_link_phrase:798
 msgid "main performers"
-msgstr ""
+msgstr "ekzekutues kryesor"
 
 #: DB:link_type/link_phrase:360 DB:link_type/name:360
 #: DB:link_type/long_link_phrase:360
@@ -4940,11 +4940,11 @@ msgstr ""
 
 #: DB:link_type/name:697
 msgid "mastered at"
-msgstr ""
+msgstr "masterizuar më"
 
 #: DB:link_type/name:756
 msgid "mastered in"
-msgstr ""
+msgstr "masterizuar në"
 
 #: DB:link_type/name:136 DB:link_type/name:42
 msgid "mastering"
@@ -4972,43 +4972,43 @@ msgstr ""
 
 #: DB:link_attribute_type/name:568
 msgid "medium"
-msgstr ""
+msgstr "medie"
 
 #: DB:link_attribute_type/name:570
 msgid "medium 1"
-msgstr ""
+msgstr "medie 1"
 
 #: DB:link_attribute_type/name:569
 msgid "medium 2"
-msgstr ""
+msgstr "medie 2"
 
 #: DB:link_attribute_type/name:571
 msgid "medium 3"
-msgstr ""
+msgstr "medie 3"
 
 #: DB:link_attribute_type/name:577
 msgid "medium 4"
-msgstr ""
+msgstr "medie 4"
 
 #: DB:link_attribute_type/name:576
 msgid "medium 5"
-msgstr ""
+msgstr "medie 5"
 
 #: DB:link_attribute_type/name:575
 msgid "medium 6"
-msgstr ""
+msgstr "medie 6"
 
 #: DB:link_attribute_type/name:574
 msgid "medium 7"
-msgstr ""
+msgstr "medie 7"
 
 #: DB:link_attribute_type/name:573
 msgid "medium 8"
-msgstr ""
+msgstr "medie 8"
 
 #: DB:link_attribute_type/name:572
 msgid "medium 9"
-msgstr ""
+msgstr "medie 9"
 
 #: DB:link_attribute_type/name:750 DB:link_type/name:239
 msgid "medley"
@@ -5020,11 +5020,11 @@ msgstr ""
 
 #: DB:link_type/name:103
 msgid "member of band"
-msgstr ""
+msgstr "anëtar i grupit"
 
 #: DB:link_attribute_type/description:9 DB:link_attribute_type/name:9
 msgid "mezzo-soprano vocals"
-msgstr ""
+msgstr "zëra mexosoprano"
 
 #: DB:link_attribute_type/name:2
 msgid "minor"
@@ -5079,15 +5079,15 @@ msgstr ""
 
 #: DB:link_attribute_type/name:1031
 msgid "movement"
-msgstr ""
+msgstr "kohë"
 
 #: DB:link_type/long_link_phrase:958 DB:link_type/long_link_phrase:177
 msgid "music can be downloaded for free at"
-msgstr ""
+msgstr "muzika mund të shkarkohet falas te"
 
 #: DB:link_type/long_link_phrase:959 DB:link_type/long_link_phrase:176
 msgid "music can be purchased for download at"
-msgstr ""
+msgstr "muzika mund të blihet për shkarkim te"
 
 #: DB:link_type/long_link_phrase:960 DB:link_type/long_link_phrase:175
 msgid "music can be purchased for mail-order at"
@@ -5099,39 +5099,39 @@ msgstr ""
 
 #: DB:link_type/name:857
 msgid "music video"
-msgstr ""
+msgstr "video muzikore"
 
 #: DB:link_type/reverse_link_phrase:857
 msgid "music video for"
-msgstr ""
+msgstr "video muzikore për"
 
 #: DB:link_type/link_phrase:857
 msgid "music videos"
-msgstr ""
+msgstr "video muzikore"
 
 #: DB:link_type/link_phrase:106 DB:link_type/reverse_link_phrase:106
 #: DB:link_type/long_link_phrase:106
 msgid "musical relationship"
-msgstr ""
+msgstr "marrëdhënie muzikore"
 
 #: DB:link_type/name:106
 msgid "musical relationships"
-msgstr ""
+msgstr "marrëdhënie muzikore"
 
 #: DB:link_attribute_type/name:1141
 msgid "musicology"
-msgstr ""
+msgstr "muzikologji"
 
 #: DB:link_type/name:215 DB:link_type/name:462 DB:link_type/name:189
 msgid "myspace"
-msgstr ""
+msgstr "myspace"
 
 #: DB:link_type/link_phrase:973 DB:link_type/link_phrase:972
 #: DB:link_type/link_phrase:974 DB:link_type/name:973 DB:link_type/name:972
 #: DB:link_type/name:975 DB:link_type/name:974
 #: DB:link_type/reverse_link_phrase:975
 msgid "named after"
-msgstr ""
+msgstr "emërtuar për nder të"
 
 #: DB:link_type/link_phrase:935 DB:link_type/name:935
 #: DB:link_type/reverse_link_phrase:935 DB:link_type/long_link_phrase:935
@@ -5140,40 +5140,40 @@ msgstr ""
 
 #: DB:link_attribute_type/name:788 DB:link_attribute_type/name:1032
 msgid "number"
-msgstr ""
+msgstr "numër"
 
 #: DB:link_type/name:745 DB:link_type/name:782 DB:link_type/name:287
 #: DB:link_type/name:183 DB:link_type/name:363
 msgid "official homepage"
-msgstr ""
+msgstr "faqja hyrëse zyrtare"
 
 #: DB:link_type/reverse_link_phrase:745 DB:link_type/reverse_link_phrase:782
 #: DB:link_type/reverse_link_phrase:183 DB:link_type/reverse_link_phrase:219
 #: DB:link_type/reverse_link_phrase:363
 msgid "official homepage for"
-msgstr ""
+msgstr "faqja hyrëse zyrtare për"
 
 #: DB:link_type/link_phrase:745 DB:link_type/link_phrase:782
 #: DB:link_type/link_phrase:183 DB:link_type/link_phrase:219
 #: DB:link_type/link_phrase:363
 msgid "official homepages"
-msgstr ""
+msgstr "faqe hyrëse zyrtare"
 
 #: DB:link_type/name:219
 msgid "official site"
-msgstr ""
+msgstr "sajt zyrtar"
 
 #: DB:link_type/link_phrase:185
 msgid "online communities"
-msgstr ""
+msgstr "bashkësi internetore"
 
 #: DB:link_type/name:185
 msgid "online community"
-msgstr ""
+msgstr "bashkësi internetore"
 
 #: DB:link_type/reverse_link_phrase:185
 msgid "online community page for"
-msgstr ""
+msgstr "faqe bashkësie internetore për"
 
 #: DB:link_type/link_phrase:841 DB:link_type/link_phrase:221
 #: DB:link_type/link_phrase:660 DB:link_type/name:841 DB:link_type/name:221
@@ -5182,15 +5182,15 @@ msgstr ""
 #: DB:link_type/long_link_phrase:841 DB:link_type/long_link_phrase:221
 #: DB:link_type/long_link_phrase:660
 msgid "online data"
-msgstr ""
+msgstr "të dhëna internetore"
 
 #: DB:link_attribute_type/name:1053
 msgid "optional"
-msgstr ""
+msgstr "opsionale"
 
 #: DB:link_type/name:807
 msgid "orchestra"
-msgstr ""
+msgstr "orkestër"
 
 #: DB:link_type/link_phrase:807
 msgid "orchestra at"
@@ -5202,35 +5202,35 @@ msgstr ""
 
 #: DB:link_type/reverse_link_phrase:807
 msgid "orchestras"
-msgstr ""
+msgstr "orkestra"
 
 #: DB:link_type/name:316
 msgid "orchestration"
-msgstr ""
+msgstr "orkestrim"
 
 #: DB:link_type/reverse_link_phrase:316
 msgid "orchestration of"
-msgstr ""
+msgstr "orkestrim i"
 
 #: DB:link_type/link_phrase:316
 msgid "orchestrations"
-msgstr ""
+msgstr "orkestrime"
 
 #: DB:link_type/name:40 DB:link_type/name:164 DB:link_type/name:300
 msgid "orchestrator"
-msgstr ""
+msgstr "orkestrues"
 
 #: DB:link_type/name:856
 msgid "organist"
-msgstr ""
+msgstr "organist"
 
 #: DB:link_type/link_phrase:856
 msgid "organist at"
-msgstr ""
+msgstr "organist në"
 
 #: DB:link_type/reverse_link_phrase:856
 msgid "organists"
-msgstr ""
+msgstr "organistë"
 
 #: DB:link_attribute_type/name:525
 msgid "original"
@@ -5238,11 +5238,11 @@ msgstr "origjinali"
 
 #: DB:link_type/reverse_link_phrase:836
 msgid "originally scheduled as"
-msgstr ""
+msgstr "fillimisht e planifikuar për"
 
 #: DB:link_attribute_type/name:1128
 msgid "other"
-msgstr ""
+msgstr "tjetër"
 
 #: DB:link_type/link_phrase:753 DB:link_type/link_phrase:730
 #: DB:link_type/link_phrase:82 DB:link_type/link_phrase:273
@@ -5260,20 +5260,20 @@ msgstr ""
 #: DB:link_type/reverse_link_phrase:746 DB:link_type/reverse_link_phrase:96
 #: DB:link_type/reverse_link_phrase:803
 msgid "other databases"
-msgstr ""
+msgstr "baza të tjera të dhënash"
 
 #: DB:link_type/name:241
 msgid "other version"
-msgstr ""
+msgstr "version tjetër"
 
 #: DB:link_type/link_phrase:233 DB:link_type/reverse_link_phrase:233
 #: DB:link_type/long_link_phrase:233
 msgid "other versions"
-msgstr ""
+msgstr "versione të tjera"
 
 #: DB:link_attribute_type/name:461
 msgid "other vocals"
-msgstr ""
+msgstr "zëra të tjerë"
 
 #: DB:link_type/name:109
 msgid "parent"
@@ -5285,7 +5285,7 @@ msgstr ""
 
 #: DB:link_attribute_type/name:511
 msgid "parody"
-msgstr ""
+msgstr "parodi"
 
 #: DB:link_type/link_phrase:802 DB:link_type/link_phrase:742
 #: DB:link_type/link_phrase:740 DB:link_type/link_phrase:741
@@ -5295,15 +5295,15 @@ msgstr ""
 #: DB:link_type/reverse_link_phrase:717 DB:link_type/reverse_link_phrase:281
 #: DB:link_type/reverse_link_phrase:356 DB:link_type/reverse_link_phrase:743
 msgid "part of"
-msgstr ""
+msgstr "pjesë e"
 
 #: DB:link_attribute_type/name:1033
 msgid "part of collection"
-msgstr ""
+msgstr "pjesë e koleksionit"
 
 #: DB:link_type/name:1
 msgid "part of set"
-msgstr ""
+msgstr "pjesë e setit"
 
 #: DB:link_attribute_type/name:579
 msgid "partial"
@@ -5314,7 +5314,7 @@ msgstr ""
 #: DB:link_type/link_phrase:356 DB:link_type/name:739 DB:link_type/name:818
 #: DB:link_type/name:717 DB:link_type/name:281
 msgid "parts"
-msgstr ""
+msgstr "pjesë"
 
 #: DB:link_type/name:901 DB:link_type/name:900 DB:link_type/name:898
 #: DB:link_type/name:899 DB:link_type/name:897
@@ -5366,7 +5366,7 @@ msgstr ""
 
 #: DB:link_type/name:51 DB:link_type/name:156
 msgid "performer"
-msgstr ""
+msgstr "ekzekutues"
 
 #: DB:link_type/name:150 DB:link_type/name:45
 msgid "performing orchestra"
@@ -5374,28 +5374,28 @@ msgstr ""
 
 #: DB:link_type/link_phrase:108 DB:link_type/long_link_phrase:108
 msgid "performs as"
-msgstr ""
+msgstr "ekzekuton si"
 
 #: DB:link_type/name:723
 msgid "personal label"
-msgstr ""
+msgstr "etiketë diskografike personale"
 
 #: DB:link_type/reverse_link_phrase:723
 msgid "personal label for"
-msgstr ""
+msgstr "etiketë diskografike personale për"
 
 #: DB:link_type/name:724
 msgid "personal publisher"
-msgstr ""
+msgstr "botues personal"
 
 #: DB:link_type/reverse_link_phrase:724
 msgid "personal publisher for"
-msgstr ""
+msgstr "botues personal për"
 
 #: DB:link_type/link_phrase:113 DB:link_type/name:113
 #: DB:link_type/reverse_link_phrase:113 DB:link_type/long_link_phrase:113
 msgid "personal relationship"
-msgstr ""
+msgstr "marrëdhënie personale"
 
 #: DB:link_type/name:869 DB:link_type/name:710 DB:link_type/name:867
 #: DB:link_type/name:711
@@ -5409,63 +5409,63 @@ msgstr ""
 
 #: DB:link_type/name:20 DB:link_type/name:123
 msgid "photography"
-msgstr ""
+msgstr "fotografi"
 
 #: DB:link_type/name:930 DB:link_type/name:931
 #: DB:link_type/reverse_link_phrase:930 DB:link_type/reverse_link_phrase:931
 msgid "piano technician"
-msgstr ""
+msgstr "akordues pianoje"
 
 #: DB:link_type/link_phrase:930 DB:link_type/link_phrase:931
 msgid "piano technician for"
-msgstr ""
+msgstr "akordues pianoje për"
 
 #: DB:link_type/link_phrase:173 DB:link_type/link_phrase:396
 #: DB:link_type/link_phrase:732
 msgid "picture"
-msgstr ""
+msgstr "foto"
 
 #: DB:link_type/reverse_link_phrase:173 DB:link_type/reverse_link_phrase:396
 #: DB:link_type/reverse_link_phrase:732
 msgid "picture of"
-msgstr ""
+msgstr "foto e"
 
 #: DB:link_type/link_phrase:915 DB:link_type/name:915
 msgid "podcast feed"
-msgstr ""
+msgstr "prurje podkasti"
 
 #: DB:link_type/reverse_link_phrase:915
 msgid "podcast feed for"
-msgstr ""
+msgstr "prurje podkasti për"
 
 #: DB:link_type/link_phrase:808 DB:link_type/name:808
 msgid "poster"
-msgstr ""
+msgstr "afishe"
 
 #: DB:link_type/reverse_link_phrase:808
 msgid "poster for"
-msgstr ""
+msgstr "afishe për"
 
 #: DB:link_type/name:845 DB:link_type/name:716 DB:link_type/name:715
 #: DB:link_type/name:956
 msgid "premiere"
-msgstr ""
+msgstr "premierë"
 
 #: DB:link_type/reverse_link_phrase:845 DB:link_type/reverse_link_phrase:716
 msgid "premiered at"
-msgstr ""
+msgstr "premierë më"
 
 #: DB:link_type/reverse_link_phrase:956
 msgid "premiered by"
-msgstr ""
+msgstr "premierë nga"
 
 #: DB:link_type/reverse_link_phrase:715
 msgid "premiered in"
-msgstr ""
+msgstr "premierë në"
 
 #: DB:link_type/link_phrase:845
 msgid "premieres"
-msgstr ""
+msgstr "premiera"
 
 #: DB:link_type/link_phrase:716 DB:link_type/link_phrase:715
 msgid "premieres hosted"
@@ -5522,15 +5522,15 @@ msgstr ""
 
 #: DB:link_type/name:824 DB:link_type/name:825
 msgid "produced at"
-msgstr ""
+msgstr "prodhuar më"
 
 #: DB:link_type/name:951 DB:link_type/name:950
 msgid "produced for"
-msgstr ""
+msgstr "prodhuar për"
 
 #: DB:link_type/name:826 DB:link_type/name:827
 msgid "produced in"
-msgstr ""
+msgstr "prodhuar në"
 
 #: DB:link_type/link_phrase:154 DB:link_type/link_phrase:49
 msgid "produced material that was {additional:additionally} sampled in"
@@ -5538,7 +5538,7 @@ msgstr ""
 
 #: DB:link_type/name:30 DB:link_type/name:141
 msgid "producer"
-msgstr ""
+msgstr "producent"
 
 #: DB:link_type/link_phrase:117 DB:link_type/name:117
 msgid "producer position"
@@ -5546,7 +5546,7 @@ msgstr ""
 
 #: DB:link_type/reverse_link_phrase:117
 msgid "producers"
-msgstr ""
+msgstr "producentë"
 
 #: DB:link_type/link_phrase:256 DB:link_type/link_phrase:160
 #: DB:link_type/link_phrase:59 DB:link_type/link_phrase:72
@@ -5557,11 +5557,11 @@ msgstr ""
 #: DB:link_type/long_link_phrase:160 DB:link_type/long_link_phrase:59
 #: DB:link_type/long_link_phrase:72
 msgid "production"
-msgstr ""
+msgstr "produksion"
 
 #: DB:link_type/name:37 DB:link_type/name:132
 msgid "programming"
-msgstr ""
+msgstr "programim"
 
 #: DB:link_type/link_phrase:359 DB:link_type/name:359
 #: DB:link_type/long_link_phrase:359
@@ -5693,11 +5693,11 @@ msgstr ""
 #: DB:link_type/name:695 DB:link_type/reverse_link_phrase:810
 #: DB:link_type/reverse_link_phrase:809
 msgid "recorded at"
-msgstr ""
+msgstr "incizuar më"
 
 #: DB:link_type/name:698 DB:link_type/name:699
 msgid "recorded in"
-msgstr ""
+msgstr "Incizuar në"
 
 #: DB:link_type/name:36 DB:link_type/name:128
 msgid "recording"
@@ -5705,7 +5705,7 @@ msgstr "incizim"
 
 #: DB:link_type/name:121
 msgid "recording contract"
-msgstr ""
+msgstr "kontratë incizimesh"
 
 #: DB:link_type/name:702
 msgid "recording engineer position"
@@ -5883,25 +5883,25 @@ msgstr ""
 #: DB:link_type/link_phrase:811 DB:link_type/link_phrase:816
 #: DB:link_type/link_phrase:817 DB:link_type/link_phrase:938
 msgid "setlist.fm"
-msgstr ""
+msgstr "setlist.fm"
 
 #: DB:link_type/reverse_link_phrase:811 DB:link_type/reverse_link_phrase:816
 #: DB:link_type/reverse_link_phrase:817 DB:link_type/reverse_link_phrase:938
 msgid "setlist.fm page for"
-msgstr ""
+msgstr "faqe setlist.fm për"
 
 #: DB:link_type/name:811 DB:link_type/name:816 DB:link_type/name:817
 #: DB:link_type/name:938
 msgid "setlistfm"
-msgstr ""
+msgstr "setlistfm"
 
 #: DB:link_type/link_phrase:729 DB:link_type/name:729
 msgid "show notes"
-msgstr ""
+msgstr "shënime shfaqjeje"
 
 #: DB:link_type/reverse_link_phrase:729
 msgid "show notes for"
-msgstr ""
+msgstr "shënime shfaqjeje për"
 
 #: DB:link_type/name:110
 msgid "sibling"
@@ -5926,7 +5926,7 @@ msgstr ""
 #: DB:link_type/name:784 DB:link_type/name:783 DB:link_type/name:192
 #: DB:link_type/name:218 DB:link_type/name:429
 msgid "social network"
-msgstr ""
+msgstr "rrjet shoqëror"
 
 #: DB:link_type/link_phrase:784 DB:link_type/link_phrase:783
 #: DB:link_type/link_phrase:192 DB:link_type/link_phrase:218
@@ -5938,32 +5938,32 @@ msgstr ""
 #: DB:link_type/reverse_link_phrase:192 DB:link_type/reverse_link_phrase:218
 #: DB:link_type/reverse_link_phrase:429
 msgid "social networking page for"
-msgstr ""
+msgstr "faqe rrjeti shoqëror për"
 
 #: DB:link_attribute_type/name:596
 msgid "solo"
-msgstr ""
+msgstr "solo"
 
 #: DB:link_type/name:289
 msgid "songfacts"
-msgstr ""
+msgstr "songfacts"
 
 #: DB:link_type/name:786 DB:link_type/name:785 DB:link_type/name:787
 msgid "songkick"
-msgstr ""
+msgstr "songkick"
 
 #: DB:link_attribute_type/description:10 DB:link_attribute_type/name:10
 msgid "soprano vocals"
-msgstr ""
+msgstr "zëra soprano"
 
 #: DB:link_type/name:29 DB:link_type/name:133
 msgid "sound"
-msgstr ""
+msgstr "tingull"
 
 #: DB:link_type/name:870 DB:link_type/name:291 DB:link_type/name:290
 #: DB:link_type/name:940
 msgid "soundcloud"
-msgstr ""
+msgstr "soundcloud"
 
 #: DB:link_attribute_type/name:561
 msgid "spoken vocals"
@@ -5971,11 +5971,11 @@ msgstr ""
 
 #: DB:link_type/link_phrase:287
 msgid "standalone website"
-msgstr ""
+msgstr "sajt më vete"
 
 #: DB:link_type/reverse_link_phrase:287
 msgid "standalone website for"
-msgstr ""
+msgstr "sajt më vete për"
 
 #: DB:link_attribute_type/name:1020
 msgid "step"
@@ -6005,7 +6005,7 @@ msgstr ""
 
 #: DB:link_type/link_phrase:847 DB:link_type/reverse_link_phrase:923
 msgid "students"
-msgstr ""
+msgstr "nxënës"
 
 #: DB:link_type/link_phrase:923 DB:link_type/name:923
 #: DB:link_type/long_link_phrase:923
@@ -6014,27 +6014,27 @@ msgstr ""
 
 #: DB:link_type/name:722
 msgid "subgroup"
-msgstr ""
+msgstr "nëngrup"
 
 #: DB:link_type/link_phrase:722
 msgid "subgroup of"
-msgstr ""
+msgstr "nëngrup i"
 
 #: DB:link_type/reverse_link_phrase:722
 msgid "subgroups"
-msgstr ""
+msgstr "nëngrupe"
 
 #: DB:link_attribute_type/name:1125
 msgid "subject"
-msgstr ""
+msgstr "subjekt"
 
 #: DB:link_type/link_phrase:823 DB:link_type/name:823
 msgid "subseries"
-msgstr ""
+msgstr "nënseri"
 
 #: DB:link_type/reverse_link_phrase:823
 msgid "subseries of"
-msgstr ""
+msgstr "nëseri e"
 
 #: DB:link_type/link_phrase:200
 msgid "subsidiaries"
@@ -6042,11 +6042,11 @@ msgstr ""
 
 #: DB:link_type/name:736
 msgid "subtype"
-msgstr ""
+msgstr "nënlloj"
 
 #: DB:link_type/link_phrase:736
 msgid "subtypes"
-msgstr ""
+msgstr "nënlloje"
 
 #: DB:link_type/name:799
 msgid "support act"
@@ -6112,27 +6112,27 @@ msgstr ""
 
 #: DB:link_type/name:847 DB:link_type/name:893
 msgid "teacher"
-msgstr ""
+msgstr "mësues"
 
 #: DB:link_type/reverse_link_phrase:847 DB:link_type/reverse_link_phrase:893
 msgid "teachers"
-msgstr ""
+msgstr "mësues"
 
 #: DB:link_attribute_type/description:11 DB:link_attribute_type/name:11
 msgid "tenor vocals"
-msgstr ""
+msgstr "zëra tenor"
 
 #: DB:link_attribute_type/name:830
 msgid "time"
-msgstr ""
+msgstr "kohë"
 
 #: DB:link_type/name:859
 msgid "tour"
-msgstr ""
+msgstr "tur"
 
 #: DB:link_type/reverse_link_phrase:859
 msgid "tour by"
-msgstr ""
+msgstr "tur nga"
 
 #: DB:link_type/name:888
 msgid "tour in support of"
@@ -6140,7 +6140,7 @@ msgstr ""
 
 #: DB:link_type/link_phrase:859
 msgid "tours"
-msgstr ""
+msgstr "ture"
 
 #: DB:link_type/name:2
 msgid "transl-tracklisting"
@@ -6148,20 +6148,20 @@ msgstr ""
 
 #: DB:link_attribute_type/name:517 DB:link_type/link_phrase:871
 msgid "translated"
-msgstr ""
+msgstr "përkthyer"
 
 #: DB:link_type/name:883 DB:link_type/reverse_link_phrase:883
 msgid "translated at"
-msgstr ""
+msgstr "përkthyer më"
 
 #: DB:link_type/name:884
 msgid "translated in"
-msgstr ""
+msgstr "përkthyer në"
 
 #: DB:link_attribute_type/name:1018 DB:link_type/name:871
 #: DB:link_type/name:872
 msgid "translator"
-msgstr ""
+msgstr "përkthyes"
 
 #: DB:link_attribute_type/name:477
 msgid "transliterated"
@@ -6225,13 +6225,13 @@ msgstr ""
 #: DB:link_type/link_phrase:495 DB:link_type/name:804 DB:link_type/name:805
 #: DB:link_type/name:303 DB:link_type/name:304 DB:link_type/name:495
 msgid "video channel"
-msgstr ""
+msgstr "kanal videosh"
 
 #: DB:link_type/reverse_link_phrase:804 DB:link_type/reverse_link_phrase:805
 #: DB:link_type/reverse_link_phrase:303 DB:link_type/reverse_link_phrase:304
 #: DB:link_type/reverse_link_phrase:495
 msgid "video channel for"
-msgstr ""
+msgstr "kanal videosh për"
 
 #: DB:link_type/name:962
 msgid "video director"
@@ -6251,11 +6251,11 @@ msgstr ""
 
 #: DB:link_attribute_type/name:3 DB:link_type/name:60 DB:link_type/name:149
 msgid "vocal"
-msgstr ""
+msgstr "zë"
 
 #: DB:link_type/name:298 DB:link_type/name:296 DB:link_type/name:294
 msgid "vocal arranger"
-msgstr ""
+msgstr "orkestrues vokal"
 
 #: DB:link_type/name:107
 msgid "vocal supporting musician"
@@ -6320,7 +6320,7 @@ msgstr ""
 
 #: DB:link_type/long_link_phrase:856
 msgid "was organist at"
-msgstr ""
+msgstr "qe organist në"
 
 #: DB:link_type/long_link_phrase:3
 msgid "was released in support of"
@@ -6355,13 +6355,13 @@ msgstr ""
 #: DB:link_type/name:749 DB:link_type/name:594 DB:link_type/name:790
 #: DB:link_type/name:352 DB:link_type/name:358 DB:link_type/name:733
 msgid "wikidata"
-msgstr ""
+msgstr "wikidata"
 
 #: DB:link_type/name:595 DB:link_type/name:355 DB:link_type/name:89
 #: DB:link_type/name:744 DB:link_type/name:179 DB:link_type/name:279
 #: DB:link_type/name:216 DB:link_type/name:731 DB:link_type/name:789
 msgid "wikipedia"
-msgstr ""
+msgstr "wikipedia"
 
 #: DB:link_type/name:921 DB:link_type/reverse_link_phrase:921
 msgid "work list entry"
@@ -6393,20 +6393,20 @@ msgstr ""
 
 #: DB:link_type/name:54 DB:link_type/name:167
 msgid "writer"
-msgstr ""
+msgstr "shkrimtar"
 
 #: DB:link_type/name:874
 msgid "written at"
-msgstr ""
+msgstr "shkruar më"
 
 #: DB:link_type/name:873
 msgid "written in"
-msgstr ""
+msgstr "shkruar në"
 
 #: DB:link_type/name:791 DB:link_type/name:792 DB:link_type/name:193
 #: DB:link_type/name:225 DB:link_type/name:528
 msgid "youtube"
-msgstr ""
+msgstr "youtube"
 
 #: DB:link_type/reverse_link_phrase:886
 msgid "{additional:additionally} arranged at"
@@ -6987,7 +6987,7 @@ msgstr ""
 
 #: DB:link_type/long_link_phrase:843
 msgid "{entity1} has an IMDb page at {entity0}"
-msgstr ""
+msgstr "{entity1} ka një faqe në IMDb te {entity0}"
 
 #: DB:link_type/long_link_phrase:271
 msgid "{entity1} has lyrics available at {entity0}"
@@ -7015,11 +7015,11 @@ msgstr ""
 
 #: DB:link_type/long_link_phrase:752
 msgid "{entity1} is a traditional instrument from {entity0}"
-msgstr ""
+msgstr "{entity1} është një instrument tradicional prej {entity0}"
 
 #: DB:link_type/long_link_phrase:65 DB:link_type/long_link_phrase:970
 msgid "{entity1} is a tribute to {entity0}"
-msgstr ""
+msgstr "{entity1} është një tribut për {entity0}"
 
 #: DB:link_type/long_link_phrase:868 DB:link_type/long_link_phrase:846
 #: DB:link_type/long_link_phrase:922 DB:link_type/long_link_phrase:914
@@ -7044,15 +7044,15 @@ msgstr ""
 
 #: DB:link_type/long_link_phrase:865 DB:link_type/long_link_phrase:866
 msgid "{entity1} was arranged at {entity0}"
-msgstr ""
+msgstr "{entity1} qe orkestruar më {entity0}"
 
 #: DB:link_type/long_link_phrase:948 DB:link_type/long_link_phrase:949
 msgid "{entity1} was arranged for {entity0}"
-msgstr ""
+msgstr "{entity1} qe orkestruar për {entity0}"
 
 #: DB:link_type/long_link_phrase:863 DB:link_type/long_link_phrase:864
 msgid "{entity1} was arranged in {entity0}"
-msgstr ""
+msgstr "{entity1} qe orkestruar në {entity0}"
 
 #: DB:link_type/long_link_phrase:795
 msgid "{entity1} was available at {entity0}"
@@ -7088,15 +7088,15 @@ msgstr ""
 
 #: DB:link_type/long_link_phrase:845 DB:link_type/long_link_phrase:716
 msgid "{entity1} was premiered at {entity0}"
-msgstr ""
+msgstr "{entity1} e pat premierën më {entity0}"
 
 #: DB:link_type/long_link_phrase:956
 msgid "{entity1} was premiered by {entity0}"
-msgstr ""
+msgstr "{entity1} e pat premierën nga {entity0}"
 
 #: DB:link_type/long_link_phrase:715
 msgid "{entity1} was premiered in {entity0}"
-msgstr ""
+msgstr "{entity1} e pat premierën në {entity0}"
 
 #: DB:link_type/long_link_phrase:941
 msgid "{entity1} was pressed at {entity0}"

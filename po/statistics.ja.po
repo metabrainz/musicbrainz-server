@@ -4,15 +4,15 @@
 # john doe, 2016
 # mai inoue, 2015
 # Nozomu KURASAWA <email address hidden>, 2013
-# Shunsuke Shimizu <email address hidden>, 2017
+# Shunsuke Shimizu <email address hidden>, 2017,2019
 # th1rtyf0ur, 2013
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-10-22 09:13-0500\n"
-"PO-Revision-Date: 2019-10-08 01:15+0000\n"
-"Last-Translator: Michael Wiencek <email address hidden>\n"
+"PO-Revision-Date: 2019-10-29 14:01+0000\n"
+"Last-Translator: Shunsuke Shimizu <email address hidden>\n"
 "Language-Team: Japanese (http://www.transifex.com/musicbrainz/musicbrainz/language/ja/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -30,7 +30,7 @@ msgstr "AJAXによる新しいカバーアートアップローダによって�
 msgid ""
 "A new banner message now notifies users whenever they receive a new edit "
 "note."
-msgstr ""
+msgstr "新しい通知メッセージは、新たな編集ノートを受け取ったことをすぐにユーザーに知らせます。"
 
 #: DB:statistics.statistic_event/description:2006-08-15
 msgid "A rift in the MusicBrainz community leads to a Great Dispute."
@@ -603,7 +603,7 @@ msgstr ""
 #: ../root/statistics/layout.tt:4 ../root/statistics/Countries.js:36
 #: ../root/statistics/StatisticsLayout.js:51
 msgid "Countries"
-msgstr ""
+msgstr "国"
 
 #: ../root/statistics/layout.tt:4 ../root/statistics/CoverArt.js:68
 #: ../root/statistics/StatisticsLayout.js:61 ../root/statistics/stats.js:27
@@ -911,93 +911,93 @@ msgstr ""
 
 #: ../root/statistics/Index.js:67
 msgid "Basic metadata"
-msgstr ""
+msgstr "基本メタデータ"
 
 #: ../root/statistics/Index.js:71 ../root/statistics/stats.js:26
 msgid "Core Entities"
-msgstr ""
+msgstr "主要な項目"
 
 #: ../root/statistics/Index.js:74 ../root/statistics/Index.js:230
 msgid "Artists:"
-msgstr "アーティスト:"
+msgstr "アーティスト数:"
 
 #: ../root/statistics/Index.js:78 ../root/statistics/Index.js:567
 #: ../root/statistics/Index.js:583
 msgid "Release Groups:"
-msgstr "リリースグループ："
+msgstr "リリースグループ数:"
 
 #: ../root/statistics/Index.js:84 ../root/statistics/Index.js:333
 #: ../root/statistics/Index.js:355 ../root/statistics/Index.js:381
 #: ../root/statistics/Index.js:407 ../root/statistics/Index.js:441
 #: ../root/statistics/Index.js:488
 msgid "Releases:"
-msgstr "リリース："
+msgstr "リリース数:"
 
 #: ../root/statistics/Index.js:88 ../root/statistics/Index.js:523
 msgid "Mediums:"
-msgstr "メディア:"
+msgstr "メディア数:"
 
 #: ../root/statistics/Index.js:92 ../root/statistics/Index.js:605
 msgid "Recordings:"
-msgstr "レコーディング："
+msgstr "レコーディング数:"
 
 #: ../root/statistics/Index.js:98
 msgid "Tracks:"
-msgstr "トラック："
+msgstr "トラック数:"
 
 #: ../root/statistics/Index.js:102
 msgid "Labels:"
-msgstr "レーベル："
+msgstr "レーベル数:"
 
 #: ../root/statistics/Index.js:106 ../root/statistics/Index.js:652
 #: ../root/statistics/Index.js:679
 msgid "Works:"
-msgstr "ワーク："
+msgstr "作品数:"
 
 #: ../root/statistics/Index.js:110
 msgid "URLs:"
-msgstr "URL："
+msgstr "URL数:"
 
 #: ../root/statistics/Index.js:114 ../root/statistics/Index.js:707
 msgid "Areas:"
-msgstr "地域："
+msgstr "地域数:"
 
 #: ../root/statistics/Index.js:118 ../root/statistics/Index.js:735
 msgid "Places:"
-msgstr ""
+msgstr "場所数:"
 
 #: ../root/statistics/Index.js:122 ../root/statistics/Index.js:763
 msgctxt "plural"
 msgid "Series:"
-msgstr "シリーズ:"
+msgstr "シリーズ数:"
 
 #: ../root/statistics/Index.js:126 ../root/statistics/Index.js:785
 msgid "Instruments:"
-msgstr "楽器："
+msgstr "楽器数:"
 
 #: ../root/statistics/Index.js:132 ../root/statistics/Index.js:813
 msgid "Events:"
-msgstr ""
+msgstr "イベント数:"
 
 #: ../root/statistics/Index.js:136
 msgid "Genres"
-msgstr "ジャンル"
+msgstr "ジャンル数"
 
 #: ../root/statistics/Index.js:142
 msgid "Other Entities"
-msgstr ""
+msgstr "その他の項目"
 
 #: ../root/statistics/Index.js:145
 msgid "Editors (valid / deleted):"
-msgstr ""
+msgstr "編集者数（有効 / 削除済）:"
 
 #: ../root/statistics/Index.js:151 ../root/statistics/Relationships.js:96
 msgid "Relationships:"
-msgstr "関連："
+msgstr "関係数:"
 
 #: ../root/statistics/Index.js:155
 msgid "CD Stubs (all time / current):"
-msgstr ""
+msgstr "CDスタブ数（全期間 / 現在）:"
 
 #: ../root/statistics/Index.js:164
 msgid "Tags (raw / aggregated):"
@@ -1009,63 +1009,63 @@ msgstr ""
 
 #: ../root/statistics/Index.js:186
 msgid "Identifiers"
-msgstr ""
+msgstr "識別子"
 
 #: ../root/statistics/Index.js:189
 msgid "MBIDs:"
-msgstr ""
+msgstr "MBID数:"
 
 #: ../root/statistics/Index.js:193
 msgid "ISRCs (all / unique):"
-msgstr ""
+msgstr "ISRC数（重複含む / 含まない）:"
 
 #: ../root/statistics/Index.js:199
 msgid "ISWCs (all / unique):"
-msgstr ""
+msgstr "ISWC数（重複含む / 含まない）:"
 
 #: ../root/statistics/Index.js:205 ../root/statistics/Index.js:483
 msgid "Disc IDs:"
-msgstr ""
+msgstr "ディスクID数:"
 
 #: ../root/statistics/Index.js:209
 msgid "Barcodes:"
-msgstr "バーコード："
+msgstr "バーコード数:"
 
 #: ../root/statistics/Index.js:213
 msgid "IPIs:"
-msgstr ""
+msgstr "IPI数:"
 
 #: ../root/statistics/Index.js:217
 msgid "ISNIs:"
-msgstr ""
+msgstr "ISNI数:"
 
 #: ../root/statistics/Index.js:236
 msgid "of type Person:"
-msgstr ""
+msgstr "個人"
 
 #: ../root/statistics/Index.js:242
 msgid "of type Group:"
-msgstr ""
+msgstr "グループ"
 
 #: ../root/statistics/Index.js:248
 msgid "of type Orchestra:"
-msgstr ""
+msgstr "オーケストラ"
 
 #: ../root/statistics/Index.js:254
 msgid "of type Choir:"
-msgstr ""
+msgstr "合唱団"
 
 #: ../root/statistics/Index.js:260
 msgid "of type Character:"
-msgstr ""
+msgstr "キャラクター"
 
 #: ../root/statistics/Index.js:266
 msgid "of type Other:"
-msgstr ""
+msgstr "その他"
 
 #: ../root/statistics/Index.js:272
 msgid "with no type set:"
-msgstr ""
+msgstr "未指定"
 
 #: ../root/statistics/Index.js:278
 msgid "with appearances in artist credits:"
@@ -1081,23 +1081,23 @@ msgstr ""
 
 #: ../root/statistics/Index.js:295
 msgid "Male:"
-msgstr "男性："
+msgstr "男性"
 
 #: ../root/statistics/Index.js:301
 msgid "Female:"
-msgstr "女性："
+msgstr "女性"
 
 #: ../root/statistics/Index.js:307
 msgid "Other gender:"
-msgstr ""
+msgstr "その他の性"
 
 #: ../root/statistics/Index.js:313
 msgid "Gender not applicable:"
-msgstr ""
+msgstr "該当なし"
 
 #: ../root/statistics/Index.js:319
 msgid "with no gender set:"
-msgstr ""
+msgstr "未指定"
 
 #: ../root/statistics/Index.js:326
 msgid "Releases, Data Quality, and Disc IDs"
@@ -1238,7 +1238,7 @@ msgstr "なし"
 #: ../root/statistics/Index.js:645 ../root/statistics/LanguagesScripts.js:67
 #: ../root/statistics/stats.js:735
 msgid "Works"
-msgstr "ワーク"
+msgstr "作品"
 
 #: ../root/statistics/Index.js:676
 msgid "Attributes"
@@ -1389,12 +1389,12 @@ msgstr "承認"
 #: ../root/statistics/Index.js:1039
 msgctxt "vote"
 msgid "Yes"
-msgstr "はい"
+msgstr "賛成"
 
 #: ../root/statistics/Index.js:1045
 msgctxt "vote"
 msgid "No"
-msgstr "いいえ"
+msgstr "反対"
 
 #: ../root/statistics/Index.js:1051
 msgctxt "vote"
@@ -1403,7 +1403,7 @@ msgstr "棄権"
 
 #: ../root/statistics/LanguagesScripts.js:47
 msgid "Languages and Scripts"
-msgstr ""
+msgstr "言語と文字"
 
 #: ../root/statistics/LanguagesScripts.js:51
 msgid "All other available languages and scripts have 0 releases and works."
@@ -2071,7 +2071,7 @@ msgstr ""
 
 #: ../root/statistics/stats.js:517
 msgid "Work Ratings"
-msgstr "ワークの評価"
+msgstr "作品の評価"
 
 #: ../root/statistics/stats.js:522
 msgid "Count of all recordings"
