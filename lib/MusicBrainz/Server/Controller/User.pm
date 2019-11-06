@@ -366,11 +366,21 @@ sub profile : Chained('load') PathPart('') HiddenOnSlaves
     $c->model('Gender')->load($user);
     $c->model('EditorLanguage')->load_for_editor($user);
 
+    my $edit_stats = $c->model('Editor')->various_edit_counts($user->id);
+    $edit_stats->{last_day_count} = $c->model('Editor')->last_24h_edit_count($user->id);
+
+    my %props = (
+        editStats       => $edit_stats,
+        subscribed      => $c->stash->{subscribed},
+        subscriberCount => $c->stash->{subscriber_count},
+        user            => $user,
+        votes           => $c->stash->{votes},
+    );
+
     $c->stash(
-        user     => $user,
-        template => 'user/profile.tt',
-        last_day_count => $c->model('Editor')->last_24h_edit_count($user->id),
-        %{ $c->model('Editor')->various_edit_counts($user->id) },
+        component_path  => 'user/UserProfile',
+        component_props => \%props,
+        current_view    => 'Node',
     );
 }
 

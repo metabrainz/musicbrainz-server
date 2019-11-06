@@ -237,3 +237,10 @@ export const QUALITY_NAMES: Map<QualityT, () => string> = new Map([
   [1, N_l('Normal')],
   [2, N_l('High')],
 ]);
+
+export const FLUENCY_NAMES = {
+  advanced: N_l('Advanced'),
+  basic: N_l('Basic'),
+  intermediate: N_l('Intermediate'),
+  native: N_l('Native'),
+};

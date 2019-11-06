@@ -86,9 +86,9 @@ test 'Hide biography and website/homepage of beginners/limited users from not-lo
     $mech->get('/user/new_editor');
     html_ok($mech->content);
     $tx = test_xpath_html($mech->content);
-    $tx->ok('//tr[@class="biography"]/td[count(*)=1]/p[@class="deleted" and starts-with(text(), "This content is hidden to prevent spam.")]',
+    $tx->ok('//tr[@class="biography"]/td[count(*)=1]/div[@class="deleted" and starts-with(text(), "This content is hidden to prevent spam.")]',
         'biography field of beginner/limited user is hidden from not-logged-in user');
-    $tx->ok('//tr/td[preceding-sibling::th[1][normalize-space(text())="Homepage:"]]/p[@class="deleted" and starts-with(text(), "This content is hidden to prevent spam.")]',
+    $tx->ok('//tr/td[preceding-sibling::th[1][normalize-space(text())="Homepage:"]]/div[@class="deleted" and starts-with(text(), "This content is hidden to prevent spam.")]',
         'website field of beginner/limited user is hidden from not-logged-in user');
 
     $test->c->sql->do(<<EOSQL);

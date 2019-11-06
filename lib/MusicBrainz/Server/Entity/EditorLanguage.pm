@@ -19,9 +19,13 @@ has 'fluency' => (
     is => 'rw',
 );
 
-sub l_fluency {
-    my $self = shift;
-    return l(ucfirst $self->fluency);
+sub TO_JSON {
+    my ($self) = @_;
+
+    return {
+        fluency => $self->fluency,
+        language => $self->language->TO_JSON,
+    };
 }
 
 __PACKAGE__->meta->make_immutable;
