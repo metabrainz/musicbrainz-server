@@ -395,6 +395,7 @@ test 'Paths that allow browsing without a confirmed email address' => sub {
   "Controller::User::ratings",
   "Controller::User::tag",
   "Controller::User::tags",
+  "Controller::Vote::index",
   "Controller::ws1_gone",
   "Controller::WS::2::default",
   "Controller::WS::2::Annotation::annotation_search",

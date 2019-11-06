@@ -216,6 +216,7 @@ module.exports = {
   'user/PrivilegedUsers': require('../user/PrivilegedUsers'),
   'user/ReportUser': require('../user/ReportUser'),
   'user/UserProfile': require('../user/UserProfile'),
+  'vote/VotingIndex': require('../vote/VotingIndex'),
   'work/WorkIndex': require('../work/WorkIndex'),
 
   /*

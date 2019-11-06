@@ -252,7 +252,7 @@ const EditingMenu = () => (
         <a href="/event/create">{lp('Add Event', 'button/menu')}</a>
       </li>
       <li className="separator">
-        <a href="/edit/open">{l('Vote on Edits')}</a>
+        <a href="/vote">{l('Vote on Edits')}</a>
       </li>
       <li>
         <a href="/reports">{l('Reports')}</a>
