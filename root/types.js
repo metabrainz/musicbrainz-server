@@ -182,7 +182,7 @@ type CatalystActionT = {
   +name: string,
 };
 
-type CatalystContextT = {
+declare type CatalystContextT = {
   +action: CatalystActionT,
   +flash: {
     +message?: string,
@@ -204,8 +204,8 @@ type CatalystRequestContextT = {
 };
 
 type CatalystSessionT = {
-  +tport?: number,
   +merger?: MergeQueueT,
+  +tport?: number,
 };
 
 type CatalystStashT = {
@@ -457,7 +457,6 @@ declare type EditT = {
     +votes: number,
   },
   +created_time: string,
-  +data: Object,
   +edit_kind: 'add' | 'edit' | 'remove' | 'merge' | 'other',
   +edit_type: number,
   +editor_id: number,
@@ -733,9 +732,9 @@ declare type MergeFormT = FormT<{
 }>;
 
 declare type MergeQueueT = {
-  +type: CoreEntityTypeT,
   +entities: $ReadOnlyArray<number>,
   +ready_to_merge: boolean,
+  +type: CoreEntityTypeT,
 };
 
 declare type MinimalCoreEntityT = {
@@ -831,8 +830,8 @@ declare type RelationshipT = {
   +attributes?: $ReadOnlyArray<LinkAttrT>,
   +direction?: 'backward',
   +entity0_credit: string,
-  +entity1_credit: string,
   +entity0_id: number,
+  +entity1_credit: string,
   +entity1_id: number,
   +id: number,
   +linkOrder: number,
@@ -1014,10 +1013,6 @@ declare type ServerLanguageT = {
 };
 
 declare type StrOrNum = string | number;
-
-type StructFieldT<F> =
-  | CompoundFieldT<F>
-  | RepeatableFieldT<F>;
 
 declare type TagT = {
   +entityType: 'tag',
