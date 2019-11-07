@@ -193,6 +193,7 @@ module.exports = {
   'search/components/SeriesResults': require('../search/components/SeriesResults'),
   'search/components/TagResults': require('../search/components/TagResults'),
   'search/components/WorkResults': require('../search/components/WorkResults'),
+  'series/SeriesIndex': require('../series/SeriesIndex'),
   'statistics/Countries': require('../statistics/Countries'),
   'statistics/CoverArt': require('../statistics/CoverArt'),
   'statistics/Editors': require('../statistics/Editors'),

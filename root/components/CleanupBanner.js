@@ -36,9 +36,14 @@ const cleanupBannerStrings = {
      and will be removed automatically in the next few days. If this
      is not intended, please add more data to this release group.`,
   ),
+  series: N_l(
+    `This series has no relationships and will be removed automatically
+     in the next few days. If this is not intended, please add more data
+     to this series.`,
+  ),
   work: N_l(
-    `This work has no relationships and will be removed
-     automatically in the next few days. If this is not intended, please add
+    `This work has no relationships and will be removed automatically
+     in the next few days. If this is not intended, please add
      relationships to this work.`,
   ),
 };
