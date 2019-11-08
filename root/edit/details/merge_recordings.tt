@@ -2,13 +2,13 @@
   <tr>
     <th>[% l('Merge:') %]</th>
     <td>
-      [% React.embed(c, 'components/list/RecordingList', { recordings => edit.display_data.old, lengthClass => (edit.display_data.large_spread ? 'warn-lengths' : '') }) %]
+      [% React.embed(c, 'components/list/RecordingList', { recordings => edit.display_data.old, lengthClass => (edit.display_data.large_spread ? 'warn-lengths' : ''), showExpandedArtistCredits => 1 }) %]
     </td>
   </tr>
   <tr>
     <th>[% l('Into:') %]</th>
     <td>
-      [% React.embed(c, 'components/list/RecordingList', { recordings => [edit.display_data.new], lengthClass => (edit.display_data.large_spread ? 'warn-lengths' : '') }) %]
+      [% React.embed(c, 'components/list/RecordingList', { recordings => [edit.display_data.new], lengthClass => (edit.display_data.large_spread ? 'warn-lengths' : ''), showExpandedArtistCredits => 1 }) %]
     </td>
   </tr>
 </table>
