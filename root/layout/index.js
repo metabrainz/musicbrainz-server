@@ -40,9 +40,11 @@ function showBirthdayBanner($c) {
     return false;
   }
   const now = new Date();
-  return (birthDate.month === Number(formatUserDateObject($c, now, {format: '%m'})) &&
-          birthDate.day === Number(formatUserDateObject($c, now, {format: '%d'})) &&
-          !getRequestCookie($c.req, 'birthday_message_dismissed_mtime'));
+  return birthDate.day ===
+           Number(formatUserDateObject($c, now, {format: '%d'})) &&
+         birthDate.month ===
+           Number(formatUserDateObject($c, now, {format: '%m'})) &&
+         !getRequestCookie($c.req, 'birthday_message_dismissed_mtime');
 }
 
 const ServerDetailsBanner = () => {
