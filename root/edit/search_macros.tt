@@ -19,6 +19,10 @@
     [%- sort_select_block = '<select name="order">
       <option value="desc"' _ selected_if_matches('desc', query.order, 1) _ '>' _ l('newest first') _ '</option>
       <option value="asc"'  _ selected_if_matches('asc', query.order)  _ '>' _ l('oldest first') _ '</option>
+      <option value="closed_desc"' _ selected_if_matches('closed_desc', query.order) _ '>' _ l('recently closed first')     _ '</option>
+      <option value="closed_asc"' _ selected_if_matches('closed_asc', query.order) _ '>' _ l('earliest closed first')     _ '</option>
+      <option value="vote_closing_asc"' _ selected_if_matches('vote_closing_asc', query.order) _ '>' _ l('voting closing sooner first')     _ '</option>
+      <option value="vote_closing_desc"' _ selected_if_matches('vote_closing_desc', query.order) _ '>' _ l('voting closing later first')     _ '</option>
       <option value="rand"' _ selected_if_matches('rand', query.order) _ '>' _ l('randomly')     _ '</option>
     </select>' -%]
     [%- match_or_negation_block = '<select name="negation">

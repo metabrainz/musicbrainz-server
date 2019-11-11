@@ -67,7 +67,7 @@ has combinator => (
 );
 
 has order => (
-    isa => enum([qw( asc desc rand )]),
+    isa => enum([qw( asc desc closed_asc closed_desc vote_closing_asc vote_closing_desc rand )]),
     is => 'ro',
     required => 1,
     default => 'desc'
@@ -149,14 +149,31 @@ sub as_string {
         'autoedit = ? AND ' : '';
 
     my $order = '';
-    $order = 'ORDER BY edit.id ' . $self->order
-        unless $self->order eq 'rand';
+    my $extra_conditions = '';
+    if ($self->order eq 'asc') {
+        $order = 'ORDER BY edit.id ASC';
+    } elsif ($self->order eq 'desc') {
+        $order = 'ORDER BY edit.id DESC';
+    } elsif ($self->order eq 'closed_asc') {
+        $order = 'ORDER BY edit.close_time ASC';
+        $extra_conditions = ' AND edit.close_time IS NOT NULL';
+    } elsif ($self->order eq 'closed_desc') {
+        $order = 'ORDER BY edit.close_time DESC';
+        $extra_conditions = ' AND edit.close_time IS NOT NULL';
+    } elsif ($self->order eq 'vote_closing_asc') {
+        $order = 'ORDER BY edit.expire_time ASC';
+        $extra_conditions = ' AND edit.close_time IS NULL';
+    } elsif ($self->order eq 'vote_closing_desc') {
+        $order = 'ORDER BY edit.expire_time DESC';
+        $extra_conditions = ' AND edit.close_time IS NULL';
+    }
 
     return 'SELECT edit.*, edit_data.data ' .
         'FROM edit JOIN edit_data ON edit.id = edit_data.edit ' .
         'WHERE ' . $ae_predicate . ($self->negate ? 'NOT ' : '') . '(' .
             join(" $comb ", map { '(' . $_->[0] . ')' } $self->where) .
         ")
+         $extra_conditions
          $order
          LIMIT $LIMIT_FOR_EDIT_LISTING";
 }
