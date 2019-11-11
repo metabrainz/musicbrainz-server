@@ -25,7 +25,8 @@ class Autocomplete extends React.Component {
     this._currentSelection = currentSelection;
     this._subscription = currentSelection.subscribe(this.props.onChange);
 
-    this._autocomplete = $(this._nameInput).entitylookup(options).data('mb-entitylookup');
+    this._autocomplete =
+      $(this._nameInput).entitylookup(options).data('mb-entitylookup');
     currentSelection(
       this._autocomplete._dataToEntity(this.props.currentSelection),
     );
@@ -66,7 +67,10 @@ class Autocomplete extends React.Component {
     }
 
     if (nextProps.hasOwnProperty('isLookupPerformed')) {
-      autocomplete.element.toggleClass('lookup-performed', !!nextProps.isLookupPerformed);
+      autocomplete.element.toggleClass(
+        'lookup-performed',
+        !!nextProps.isLookupPerformed,
+      );
     }
   }
 

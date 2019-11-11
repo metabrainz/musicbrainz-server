@@ -31,7 +31,9 @@ const WorkLayout = ({
   title,
 }: Props) => {
   const mainTitle = texp.l('{type} “{work}”', {
-    type: work.typeName ? lp_attributes(work.typeName, 'work_type') : l('Work'),
+    type: work.typeName
+      ? lp_attributes(work.typeName, 'work_type')
+      : l('Work'),
     work: work.name,
   });
   return (

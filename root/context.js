@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict
  * Copyright (C) 2018 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -47,7 +47,7 @@ type ContextPropT = {
 
 function withCatalystContext/*:: <P: ContextPropT> */(
   Component /*: ComponentType<P> */,
-) /*: ComponentType<$Diff<P, ContextPropT>> */ {
+) /*: ComponentType<$Exact<$Diff<P, ContextPropT>>> */ {
   return (props) => React.createElement(
     CatalystContext.Consumer,
     null,

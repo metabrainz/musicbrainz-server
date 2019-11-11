@@ -13,7 +13,8 @@ import {withCatalystContext} from '../context';
 import Layout from '../layout';
 import formatUserDate from '../utility/formatUserDate';
 
-import ReleaseGroupRelationshipList from './components/ReleaseGroupRelationshipList';
+import ReleaseGroupRelationshipList
+  from './components/ReleaseGroupRelationshipList';
 import FilterLink from './FilterLink';
 import type {ReportDataT, ReportReleaseGroupRelationshipT} from './types';
 
@@ -39,7 +40,7 @@ const DeprecatedRelationshipReleaseGroups = ({
       </li>
       <li>
         {texp.l('Generated on {date}',
-                {date: formatUserDate($c.user, generated)})}
+                {date: formatUserDate($c, generated)})}
       </li>
 
       {canBeFiltered ? <FilterLink filtered={filtered} /> : null}

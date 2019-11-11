@@ -44,8 +44,11 @@ function getResponse(requestBody, context) {
 
   let components;
   try {
-    // N.B. This *must* be required in the same process that serves the request.
-    // Do not move to the top of the file.
+    /*
+     * N.B. This *must* be required in the same process
+     * that serves the request.
+     * Do not move to the top of the file.
+     */
     components = require('../static/build/server-components');
   } catch (err) {
     Raven.captureException(err);

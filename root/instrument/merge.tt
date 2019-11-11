@@ -11,6 +11,7 @@
                     <th>[% l('Instrument') %]</th>
                     <th>[% l('Type') %]</th>
                     <th>[% l('Description') %]</th>
+                    [%- remove_from_merge_header(to_merge) -%]
                 </tr>
             </thead>
             <tbody>
@@ -26,6 +27,7 @@
                     </td>
                     <td>[% entity.l_type_name  %]</td>
                     <td>[% l(entity.description) %]</td>
+                    [%- remove_from_merge('instrument', to_merge) -%]
                 </tr>
             [%- END -%]
             </tbody>

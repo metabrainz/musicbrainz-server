@@ -27,7 +27,10 @@ export const DeletedLink = ({
     : l('This entity has been removed, and cannot be displayed correctly.');
 
   return (
-    <span className={(allowNew ? '' : 'deleted ') + 'tooltip'} title={caption}>
+    <span
+      className={(allowNew ? '' : 'deleted ') + 'tooltip'}
+      title={caption}
+    >
       {isolateText(name || l('[removed]'))}
     </span>
   );

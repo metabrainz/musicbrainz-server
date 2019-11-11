@@ -26,7 +26,9 @@ const ArtistHeader = ({artist, page}: Props) => {
       entity={artist}
       headerClass={headerClass}
       page={page}
-      subHeading={artist.typeName ? lp_attributes(artist.typeName, 'artist_type') : l('Artist')}
+      subHeading={artist.typeName
+        ? lp_attributes(artist.typeName, 'artist_type')
+        : l('Artist')}
     />
   );
 };

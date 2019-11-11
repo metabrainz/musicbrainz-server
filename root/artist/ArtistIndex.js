@@ -11,13 +11,16 @@ import * as React from 'react';
 
 import {withCatalystContext} from '../context';
 import Annotation from '../static/scripts/common/components/Annotation';
-import DescriptiveLink from '../static/scripts/common/components/DescriptiveLink';
+import DescriptiveLink
+  from '../static/scripts/common/components/DescriptiveLink';
 import Filter from '../static/scripts/common/components/Filter';
-import {type FilterFormT} from '../static/scripts/common/components/FilterForm';
+import {type FilterFormT}
+  from '../static/scripts/common/components/FilterForm';
 import WikipediaExtract
   from '../static/scripts/common/components/WikipediaExtract';
 import {addColonText} from '../static/scripts/common/i18n/addColon';
-import commaOnlyList, {commaOnlyListText} from '../static/scripts/common/i18n/commaOnlyList';
+import commaOnlyList, {commaOnlyListText}
+  from '../static/scripts/common/i18n/commaOnlyList';
 import {bracketedText} from '../static/scripts/common/utility/bracketed';
 import FormSubmit from '../components/FormSubmit';
 import RecordingList from '../components/list/RecordingList';

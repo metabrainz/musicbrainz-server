@@ -17,9 +17,9 @@ const PlacePerformances = ({place}: {place: PlaceT}) => (
   <PlaceLayout entity={place} page="performances" title={l('Performances')}>
     <RelationshipsTable
       entity={place}
-      fallbackMessage={
-        l('No recordings, releases or release groups are linked to this place.')
-      }
+      fallbackMessage={l(
+        'No recordings, releases or release groups are linked to this place.',
+      )}
       heading={l('Performances')}
     />
   </PlaceLayout>

@@ -9,9 +9,9 @@
 
 import url from 'url';
 
-export default function uriWith(
+export default function uriWith<T: {...}>(
   uriString: string,
-  params: {[string]: mixed, ...},
+  params: T,
 ) {
   const u = url.parse(uriString, true);
 

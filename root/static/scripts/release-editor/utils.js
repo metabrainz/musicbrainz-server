@@ -12,7 +12,8 @@ import ko from 'knockout';
 import _ from 'lodash';
 
 import {rstr_sha1} from '../../lib/sha1/sha1';
-import {MAX_LENGTH_DIFFERENCE, MIN_NAME_SIMILARITY} from '../common/constants';
+import {MAX_LENGTH_DIFFERENCE, MIN_NAME_SIMILARITY}
+    from '../common/constants';
 import escapeLuceneValue from '../common/utility/escapeLuceneValue';
 import request from '../common/utility/request';
 import similarity from '../edit/utility/similarity';

@@ -25,7 +25,6 @@ require('@babel/register')({
 
 const gettextParser = require('gettext-parser');
 const has = require('lodash/has');
-const moment = require('moment');
 const XGettext = require('xgettext-js');
 const argv = require('yargs').argv;
 
@@ -41,7 +40,6 @@ const potFile = {
   headers: {
     'project-id-version': 'PACKAGE VERSION',
     'report-msgid-bugs-to': '',
-    'pot-creation-date': moment().format('YYYY-MM-DD HH:mmZZ'),
     'po-revision-date': 'YEAR-MO-DA HO:MI+ZONE',
     'last-translator': 'FULL NAME <EMAIL@ADDRESS>',
     'language-team': 'LANGUAGE <LL@li.org>',

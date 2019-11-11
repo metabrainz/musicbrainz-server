@@ -21,7 +21,10 @@ const Warning = ({
   message,
   ...divProps
 }: Props) => (
-  <div className={'warning' + (className ? ' ' + className : '')} {...divProps}>
+  <div
+    className={'warning' + (className ? ' ' + className : '')}
+    {...divProps}
+  >
     <WarningIcon />
     <p>
       <strong>{addColon(l('Warning'))}</strong>

@@ -3,7 +3,6 @@ use JSON;
 use Moose;
 use MusicBrainz::Server::Constants qw(
     $EDIT_SERIES_CREATE
-    $EDIT_SERIES_DELETE
     $EDIT_SERIES_EDIT
     $EDIT_SERIES_MERGE
 );
@@ -145,10 +144,6 @@ with 'MusicBrainz::Server::Controller::Role::Create' => {
 with 'MusicBrainz::Server::Controller::Role::Edit' => {
     form           => 'Series',
     edit_type      => $EDIT_SERIES_EDIT,
-};
-
-with 'MusicBrainz::Server::Controller::Role::Delete' => {
-    edit_type      => $EDIT_SERIES_DELETE,
 };
 
 before qw( edit create ) => sub {

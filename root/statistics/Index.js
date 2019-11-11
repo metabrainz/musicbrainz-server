@@ -11,7 +11,8 @@
 import React from 'react';
 import {range} from 'lodash';
 
-import {l_statistics as l, ln_statistics as ln, lp_statistics as lp} from '../static/scripts/common/i18n/statistics';
+import {l_statistics as l, ln_statistics as ln, lp_statistics as lp}
+  from '../static/scripts/common/i18n/statistics';
 import {withCatalystContext} from '../context';
 
 import {formatCount, formatPercentage} from './utilities';
@@ -59,6 +60,22 @@ const Index = ({
     stats['count.artist.type.character'] +
     stats['count.artist.type.other'];
 
+  // formatCount shortcut
+  const fc = (a) => (
+    formatCount($c, stats['count.' + a])
+  );
+
+  // formatPercentage shortcut
+  const fp = (a, b) => (
+    formatPercentage($c, stats['count.' + a] / stats['count.' + b], 1)
+  );
+
+  /*
+   * Long-form for cases where `a` or `b` aren't keys in `stats`,
+   * but so `$c` and `digits` still don't need to be provided.
+   */
+  const _formatPercentage = (a, b) => formatPercentage($c, a / b, 1);
+
   return (
     <StatisticsLayout fullWidth page="index" title={l('Overview')}>
       <p>
@@ -72,69 +89,63 @@ const Index = ({
           </tr>
           <tr>
             <th>{l('Artists:')}</th>
-            <td colSpan="3">{formatCount($c, stats['count.artist'])}</td>
+            <td colSpan="3">{fc('artist')}</td>
           </tr>
           <tr>
             <th>{l('Release Groups:')}</th>
-            <td colSpan="3">
-              {formatCount($c, stats['count.releasegroup'])}
-            </td>
+            <td colSpan="3">{fc('releasegroup')}</td>
           </tr>
           <tr>
             <th>{l('Releases:')}</th>
-            <td colSpan="3">{formatCount($c, stats['count.release'])}</td>
+            <td colSpan="3">{fc('release')}</td>
           </tr>
           <tr>
             <th>{l('Mediums:')}</th>
-            <td colSpan="3">{formatCount($c, stats['count.medium'])}</td>
+            <td colSpan="3">{fc('medium')}</td>
           </tr>
           <tr>
             <th>{l('Recordings:')}</th>
-            <td colSpan="3">
-              {formatCount($c, stats['count.recording'])}
-            </td>
+            <td colSpan="3">{fc('recording')}</td>
           </tr>
           <tr>
             <th>{l('Tracks:')}</th>
-            <td colSpan="3">{formatCount($c, stats['count.track'])}</td>
+            <td colSpan="3">{fc('track')}</td>
           </tr>
           <tr>
             <th>{l('Labels:')}</th>
-            <td colSpan="3">{formatCount($c, stats['count.label'])}</td>
+            <td colSpan="3">{fc('label')}</td>
           </tr>
           <tr>
             <th>{l('Works:')}</th>
-            <td colSpan="3">{formatCount($c, stats['count.work'])}</td>
+            <td colSpan="3">{fc('work')}</td>
           </tr>
           <tr>
             <th>{l('URLs:')}</th>
-            <td colSpan="3">{formatCount($c, stats['count.url'])}</td>
+            <td colSpan="3">{fc('url')}</td>
           </tr>
           <tr>
             <th>{l('Areas:')}</th>
-            <td colSpan="3">{formatCount($c, stats['count.area'])}</td>
+            <td colSpan="3">{fc('area')}</td>
           </tr>
           <tr>
             <th>{l('Places:')}</th>
-            <td colSpan="3">{formatCount($c, stats['count.place'])}</td>
+            <td colSpan="3">{fc('place')}</td>
           </tr>
           <tr>
             <th>{lp('Series:', 'plural')}</th>
-            <td colSpan="3">{formatCount($c, stats['count.series'])}</td>
+            <td colSpan="3">{fc('series')}</td>
           </tr>
           <tr>
             <th>{l('Instruments:')}</th>
-            <td colSpan="3">
-              {formatCount($c, stats['count.instrument'])}
-            </td>
+            <td colSpan="3">{fc('instrument')}</td>
           </tr>
           <tr>
             <th>{l('Events:')}</th>
-            <td colSpan="3">{formatCount($c, stats['count.event'])}</td>
+            <td colSpan="3">{fc('event')}</td>
           </tr>
           <tr>
             <th>{addColonText(l('Genres'))}</th>
-            <td colSpan="3">{formatCount($c, stats['count.genre'])}</td>
+            <td colSpan="3">{fc('genre')}</td>
           </tr>
         </tbody>
         <tbody>
@@ -143,42 +154,34 @@ const Index = ({
           </tr>
           <tr>
             <th>{l('Editors (valid / deleted):')}</th>
-            <td>{formatCount($c, stats['count.editor.valid'])}</td>
+            <td>{fc('editor.valid')}</td>
             <td>{'/'}</td>
-            <td>{formatCount($c, stats['count.editor.deleted'])}</td>
+            <td>{fc('editor.deleted')}</td>
           </tr>
           <tr>
             <th>{l('Relationships:')}</th>
-            <td colSpan="3">{formatCount($c, stats['count.ar.links'])}</td>
+            <td colSpan="3">{fc('ar.links')}</td>
           </tr>
           <tr>
             <th>{l('CD Stubs (all time / current):')}</th>
-            <td>{formatCount($c, stats['count.cdstub.submitted'])}</td>
+            <td>{fc('cdstub.submitted')}</td>
             <td>{'/'}</td>
             <td>
               {' '}
-              {formatCount($c, stats['count.cdstub'])}
+              {fc('cdstub')}
             </td>
           </tr>
           <tr>
             <th>{l('Tags (raw / aggregated):')}</th>
-            <td>
-              {formatCount($c, stats['count.tag.raw'])}
-            </td>
+            <td>{fc('tag.raw')}</td>
             <td>{'/'}</td>
-            <td>
-              {formatCount($c, stats['count.tag'])}
-            </td>
+            <td>{fc('tag')}</td>
           </tr>
           <tr>
             <th>{l('Ratings (raw / aggregated):')}</th>
-            <td>
-              {formatCount($c, stats['count.rating.raw'])}
-            </td>
+            <td>{fc('rating.raw')}</td>
             <td>{'/'}</td>
-            <td>
-              {formatCount($c, stats['count.rating'])}
-            </td>
+            <td>{fc('rating')}</td>
           </tr>
         </tbody>
         <tbody>
@@ -187,35 +190,35 @@ const Index = ({
           </tr>
           <tr>
             <th>{l('MBIDs:')}</th>
-            <td colSpan="3">{formatCount($c, stats['count.mbid'])}</td>
+            <td colSpan="3">{fc('mbid')}</td>
           </tr>
           <tr>
             <th>{l('ISRCs (all / unique):')}</th>
-            <td>{formatCount($c, stats['count.isrc.all'])}</td>
+            <td>{fc('isrc.all')}</td>
             <td>{'/'}</td>
-            <td>{formatCount($c, stats['count.isrc'])}</td>
+            <td>{fc('isrc')}</td>
           </tr>
           <tr>
             <th>{l('ISWCs (all / unique):')}</th>
-            <td>{formatCount($c, stats['count.iswc.all'])}</td>
+            <td>{fc('iswc.all')}</td>
             <td>{'/'}</td>
-            <td>{formatCount($c, stats['count.iswc'])}</td>
+            <td>{fc('iswc')}</td>
           </tr>
           <tr>
             <th>{l('Disc IDs:')}</th>
-            <td colSpan="3">{formatCount($c, stats['count.discid'])}</td>
+            <td colSpan="3">{fc('discid')}</td>
           </tr>
           <tr>
             <th>{l('Barcodes:')}</th>
-            <td colSpan="3">{formatCount($c, stats['count.barcode'])}</td>
+            <td colSpan="3">{fc('barcode')}</td>
           </tr>
           <tr>
             <th>{l('IPIs:')}</th>
-            <td colSpan="3">{formatCount($c, stats['count.ipi'])}</td>
+            <td colSpan="3">{fc('ipi')}</td>
           </tr>
           <tr>
             <th>{l('ISNIs:')}</th>
-            <td colSpan="3">{formatCount($c, stats['count.isni'])}</td>
+            <td colSpan="3">{fc('isni')}</td>
           </tr>
         </tbody>
       </table>
@@ -228,62 +231,62 @@ const Index = ({
           </tr>
           <tr>
             <th colSpan="2">{l('Artists:')}</th>
-            <td>{formatCount($c, stats['count.artist'])}</td>
+            <td>{fc('artist')}</td>
             <td />
           </tr>
           <tr>
             <th />
             <th>{l('of type Person:')}</th>
-            <td>{formatCount($c, stats['count.artist.type.person'])}</td>
-            <td>{formatPercentage($c, stats['count.artist.type.person'] / stats['count.artist'], 1)}</td>
+            <td>{fc('artist.type.person')}</td>
+            <td>{fp('artist.type.person', 'artist')}</td>
           </tr>
           <tr>
             <th />
             <th>{l('of type Group:')}</th>
-            <td>{formatCount($c, stats['count.artist.type.group'])}</td>
-            <td>{formatPercentage($c, stats['count.artist.type.group'] / stats['count.artist'], 1)}</td>
+            <td>{fc('artist.type.group')}</td>
+            <td>{fp('artist.type.group', 'artist')}</td>
           </tr>
           <tr>
             <th />
             <th>{l('of type Orchestra:')}</th>
-            <td>{formatCount($c, stats['count.artist.type.orchestra'])}</td>
-            <td>{formatPercentage($c, stats['count.artist.type.orchestra'] / stats['count.artist'], 1)}</td>
+            <td>{fc('artist.type.orchestra')}</td>
+            <td>{fp('artist.type.orchestra', 'artist')}</td>
           </tr>
           <tr>
             <th />
             <th>{l('of type Choir:')}</th>
-            <td>{formatCount($c, stats['count.artist.type.choir'])}</td>
-            <td>{formatPercentage($c, stats['count.artist.type.choir'] / stats['count.artist'], 1)}</td>
+            <td>{fc('artist.type.choir')}</td>
+            <td>{fp('artist.type.choir', 'artist')}</td>
           </tr>
           <tr>
             <th />
             <th>{l('of type Character:')}</th>
-            <td>{formatCount($c, stats['count.artist.type.character'])}</td>
-            <td>{formatPercentage($c, stats['count.artist.type.character'] / stats['count.artist'], 1)}</td>
+            <td>{fc('artist.type.character')}</td>
+            <td>{fp('artist.type.character', 'artist')}</td>
           </tr>
           <tr>
             <th />
             <th>{l('of type Other:')}</th>
-            <td>{formatCount($c, stats['count.artist.type.other'])}</td>
-            <td>{formatPercentage($c, stats['count.artist.type.other'] / stats['count.artist'], 1)}</td>
+            <td>{fc('artist.type.other')}</td>
+            <td>{fp('artist.type.other', 'artist')}</td>
           </tr>
           <tr>
             <th />
             <th>{l('with no type set:')}</th>
-            <td>{formatCount($c, stats['count.artist.type.null'])}</td>
-            <td>{formatPercentage($c, stats['count.artist.type.null'] / stats['count.artist'], 1)}</td>
+            <td>{fc('artist.type.null')}</td>
+            <td>{fp('artist.type.null', 'artist')}</td>
           </tr>
           <tr>
             <th />
             <th>{l('with appearances in artist credits:')}</th>
-            <td>{formatCount($c, stats['count.artist.has_credits'])}</td>
-            <td>{formatPercentage($c, stats['count.artist.has_credits'] / stats['count.artist'], 1)}</td>
+            <td>{fc('artist.has_credits')}</td>
+            <td>{fp('artist.has_credits', 'artist')}</td>
           </tr>
           <tr>
             <th />
             <th>{l('with no appearances in artist credits:')}</th>
-            <td>{formatCount($c, stats['count.artist.0credits'])}</td>
-            <td>{formatPercentage($c, stats['count.artist.0credits'] / stats['count.artist'], 1)}</td>
+            <td>{fc('artist.0credits')}</td>
+            <td>{fp('artist.0credits', 'artist')}</td>
           </tr>
           <tr>
             <th colSpan="2">{l('Non-group artists:')}</th>
@@ -293,32 +296,57 @@ const Index = ({
           <tr>
             <th />
             <th>{l('Male:')}</th>
-            <td>{formatCount($c, stats['count.artist.gender.male'])}</td>
-            <td>{formatPercentage($c, stats['count.artist.gender.male'] / nonGroupCount, 1)}</td>
+            <td>{fc('artist.gender.male')}</td>
+            <td>
+              {_formatPercentage(
+                stats['count.artist.gender.male'],
+                nonGroupCount,
+              )}
+            </td>
           </tr>
           <tr>
             <th />
             <th>{l('Female:')}</th>
-            <td>{formatCount($c, stats['count.artist.gender.female'])}</td>
-            <td>{formatPercentage($c, stats['count.artist.gender.female'] / nonGroupCount, 1)}</td>
+            <td>{fc('artist.gender.female')}</td>
+            <td>
+              {_formatPercentage(
+                stats['count.artist.gender.female'],
+                nonGroupCount,
+              )}
+            </td>
           </tr>
           <tr>
             <th />
             <th>{l('Other gender:')}</th>
-            <td>{formatCount($c, stats['count.artist.gender.other'])}</td>
-            <td>{formatPercentage($c, stats['count.artist.gender.other'] / nonGroupCount, 1)}</td>
+            <td>{fc('artist.gender.other')}</td>
+            <td>
+              {_formatPercentage(
+                stats['count.artist.gender.other'],
+                nonGroupCount,
+              )}
+            </td>
           </tr>
           <tr>
             <th />
             <th>{l('Gender not applicable:')}</th>
-            <td>{formatCount($c, stats['count.artist.gender.not_applicable'])}</td>
-            <td>{formatPercentage($c, stats['count.artist.gender.not_applicable'] / nonGroupCount, 1)}</td>
+            <td>{fc('artist.gender.not_applicable')}</td>
+            <td>
+              {_formatPercentage(
+                stats['count.artist.gender.not_applicable'],
+                nonGroupCount,
+              )}
+            </td>
           </tr>
           <tr>
             <th />
             <th>{l('with no gender set:')}</th>
-            <td>{formatCount($c, stats['count.artist.gender.null'])}</td>
-            <td>{formatPercentage($c, stats['count.artist.gender.null'] / nonGroupCount, 1)}</td>
+            <td>{fc('artist.gender.null')}</td>
+            <td>
+              {_formatPercentage(
+                stats['count.artist.gender.null'],
+                nonGroupCount,
+              )}
+            </td>
           </tr>
         </tbody>
       </table>
@@ -331,20 +359,20 @@ const Index = ({
           </tr>
           <tr>
             <th colSpan="3">{l('Releases:')}</th>
-            <td>{formatCount($c, stats['count.release'])}</td>
+            <td>{fc('release')}</td>
             <td />
           </tr>
           <tr>
             <th />
             <th colSpan="2">{l('by various artists:')}</th>
-            <td>{formatCount($c, stats['count.release.various'])}</td>
-            <td>{formatPercentage($c, stats['count.release.various'] / stats['count.release'], 1)}</td>
+            <td>{fc('release.various')}</td>
+            <td>{fp('release.various', 'release')}</td>
           </tr>
           <tr>
             <th />
             <th colSpan="2">{l('by a single artist:')}</th>
-            <td>{formatCount($c, stats['count.release.nonvarious'])}</td>
-            <td>{formatPercentage($c, stats['count.release.nonvarious'] / stats['count.release'], 1)}</td>
+            <td>{fc('release.nonvarious')}</td>
+            <td>{fp('release.nonvarious', 'release')}</td>
           </tr>
         </tbody>
         <tbody>
@@ -353,7 +381,7 @@ const Index = ({
           </tr>
           <tr>
             <th colSpan="3">{l('Releases:')}</th>
-            <td>{formatCount($c, stats['count.release'])}</td>
+            <td>{fc('release')}</td>
             <td />
           </tr>
           {statuses.map(status => (
@@ -362,15 +390,15 @@ const Index = ({
               <th colSpan="2">
                 {lp_attributes(status.name, 'release_status')}
               </th>
-              <td>{formatCount($c, stats['count.release.status.' + status.id])}</td>
-              <td>{formatPercentage($c, stats['count.release.status.' + status.id] / stats['count.release'], 1)}</td>
+              <td>{fc('release.status.' + status.id)}</td>
+              <td>{fp('release.status.' + status.id, 'release')}</td>
             </tr>
           ))}
           <tr>
             <th />
             <th colSpan="2">{l('No status set')}</th>
-            <td>{formatCount($c, stats['count.release.status.null'])}</td>
-            <td>{formatPercentage($c, stats['count.release.status.null'] / stats['count.release'], 1)}</td>
+            <td>{fc('release.status.null')}</td>
+            <td>{fp('release.status.null', 'release')}</td>
           </tr>
         </tbody>
         <tbody>
@@ -379,7 +407,7 @@ const Index = ({
           </tr>
           <tr>
             <th colSpan="3">{l('Releases:')}</th>
-            <td>{formatCount($c, stats['count.release'])}</td>
+            <td>{fc('release')}</td>
             <td />
           </tr>
           {packagings.map(packaging => (
@@ -388,15 +416,15 @@ const Index = ({
               <th colSpan="2">
                 {lp_attributes(packaging.name, 'release_packaging')}
               </th>
-              <td>{formatCount($c, stats['count.release.packaging.' + packaging.id])}</td>
-              <td>{formatPercentage($c, stats['count.release.packaging.' + packaging.id] / stats['count.release'], 1)}</td>
+              <td>{fc('release.packaging.' + packaging.id)}</td>
+              <td>{fp('release.packaging.' + packaging.id, 'release')}</td>
             </tr>
           ))}
           <tr>
             <th />
             <th colSpan="2">{l('No packaging set')}</th>
-            <td>{formatCount($c, stats['count.release.packaging.null'])}</td>
-            <td>{formatPercentage($c, stats['count.release.packaging.null'] / stats['count.release'], 1)}</td>
+            <td>{fc('release.packaging.null')}</td>
+            <td>{fp('release.packaging.null', 'release')}</td>
           </tr>
         </tbody>
         <tbody>
@@ -405,32 +433,32 @@ const Index = ({
           </tr>
           <tr>
             <th colSpan="3">{l('Releases:')}</th>
-            <td>{formatCount($c, stats['count.release'])}</td>
+            <td>{fc('release')}</td>
             <td />
           </tr>
           <tr>
             <th />
             <th colSpan="2">{l('CAA:')}</th>
-            <td>{formatCount($c, stats['count.release.coverart.caa'])}</td>
-            <td>{formatPercentage($c, stats['count.release.coverart.caa'] / stats['count.release'], 1)}</td>
+            <td>{fc('release.coverart.caa')}</td>
+            <td>{fp('release.coverart.caa', 'release')}</td>
           </tr>
           <tr>
             <th />
             <th colSpan="2">{l('Amazon:')}</th>
-            <td>{formatCount($c, stats['count.release.coverart.amazon'])}</td>
-            <td>{formatPercentage($c, stats['count.release.coverart.amazon'] / stats['count.release'], 1)}</td>
+            <td>{fc('release.coverart.amazon')}</td>
+            <td>{fp('release.coverart.amazon', 'release')}</td>
           </tr>
           <tr>
             <th />
             <th colSpan="2">{l('URL Relationships:')}</th>
-            <td>{formatCount($c, stats['count.release.coverart.relationship'])}</td>
-            <td>{formatPercentage($c, stats['count.release.coverart.relationship'] / stats['count.release'], 1)}</td>
+            <td>{fc('release.coverart.relationship')}</td>
+            <td>{fp('release.coverart.relationship', 'release')}</td>
           </tr>
           <tr>
             <th />
             <th colSpan="2">{l('No front cover art:')}</th>
-            <td>{formatCount($c, stats['count.release.coverart.none'])}</td>
-            <td>{formatPercentage($c, stats['count.release.coverart.none'] / stats['count.release'], 1)}</td>
+            <td>{fc('release.coverart.none')}</td>
+            <td>{fp('release.coverart.none', 'release')}</td>
           </tr>
         </tbody>
         <tbody>
@@ -439,40 +467,42 @@ const Index = ({
           </tr>
           <tr>
             <th colSpan="3">{l('Releases:')}</th>
-            <td>{formatCount($c, stats['count.release'])}</td>
+            <td>{fc('release')}</td>
             <td />
           </tr>
           <tr>
             <th />
             <th colSpan="2">{l('High Data Quality:')}</th>
-            <td>{formatCount($c, stats['count.quality.release.high'])}</td>
-            <td>{formatPercentage($c, stats['count.quality.release.high'] / stats['count.release'], 1)}</td>
+            <td>{fc('quality.release.high')}</td>
+            <td>{fp('quality.release.high', 'release')}</td>
           </tr>
           <tr>
             <th />
             <th colSpan="2">{l('Default Data Quality:')}</th>
-            <td>{formatCount($c, stats['count.quality.release.default'])}</td>
-            <td>{formatPercentage($c, stats['count.quality.release.default'] / stats['count.release'], 1)}</td>
+            <td>{fc('quality.release.default')}</td>
+            <td>{fp('quality.release.default', 'release')}</td>
           </tr>
           <tr>
             <th />
             <th />
             <th>{l('Normal Data Quality:')}</th>
-            <td>{formatCount($c, stats['count.quality.release.normal'])}</td>
-            <td>{formatPercentage($c, stats['count.quality.release.normal'] / stats['count.quality.release.default'], 1)}</td>
+            <td>{fc('quality.release.normal')}</td>
+            <td>{fp('quality.release.normal', 'quality.release.default')}</td>
           </tr>
           <tr>
             <th />
             <th />
             <th>{l('Unknown Data Quality:')}</th>
-            <td>{formatCount($c, stats['count.quality.release.unknown'])}</td>
-            <td>{formatPercentage($c, stats['count.quality.release.unknown'] / stats['count.quality.release.default'], 1)}</td>
+            <td>{fc('quality.release.unknown')}</td>
+            <td>
+              {fp('quality.release.unknown', 'quality.release.default')}
+            </td>
           </tr>
           <tr>
             <th />
             <th colSpan="2">{l('Low Data Quality:')}</th>
-            <td>{formatCount($c, stats['count.quality.release.low'])}</td>
-            <td>{formatPercentage($c, stats['count.quality.release.low'] / stats['count.release'], 1)}</td>
+            <td>{fc('quality.release.low')}</td>
+            <td>{fp('quality.release.low', 'release')}</td>
           </tr>
         </tbody>
         <tbody>
@@ -481,78 +511,94 @@ const Index = ({
           </tr>
           <tr>
             <th colSpan="3">{l('Disc IDs:')}</th>
-            <td>{formatCount($c, stats['count.discid'])}</td>
+            <td>{fc('discid')}</td>
             <td />
           </tr>
           <tr>
             <th colSpan="3">{l('Releases:')}</th>
-            <td>{formatCount($c, stats['count.release'])}</td>
+            <td>{fc('release')}</td>
             <td />
           </tr>
           <tr>
             <th />
             <th colSpan="2">{l('Releases with no disc IDs:')}</th>
-            <td>{formatCount($c, stats['count.release.0discids'])}</td>
-            <td>{formatPercentage($c, stats['count.release.0discids'] / stats['count.release'], 1)}</td>
+            <td>{fc('release.0discids')}</td>
+            <td>{fp('release.0discids', 'release')}</td>
           </tr>
           <tr>
             <th />
             <th colSpan="2">
               {l('Releases with at least one disc ID:')}
             </th>
-            <td>{formatCount($c, stats['count.release.has_discid'])}</td>
-            <td>{formatPercentage($c, stats['count.release.has_discid'] / stats['count.release'], 1)}</td>
+            <td>{fc('release.has_discid')}</td>
+            <td>{fp('release.has_discid', 'release')}</td>
           </tr>
           {oneToNine.map(num => (
             <tr key={num}>
               <th />
               <th />
-              <th>{texp.ln('with {num} disc ID:', 'with {num} disc IDs:', num, {num: num})}</th>
-              <td>{formatCount($c, stats['count.release.' + num + 'discids'])}</td>
-              <td>{formatPercentage($c, stats['count.release.' + num + 'discids'] / stats['count.release.has_discid'], 1)}</td>
+              <th>
+                {texp.ln(
+                  'with {num} disc ID:',
+                  'with {num} disc IDs:',
+                  num,
+                  {num: num},
+                )}
+              </th>
+              <td>{fc('release.' + num + 'discids')}</td>
+              <td>
+                {fp('release.' + num + 'discids', 'release.has_discid')}
+              </td>
             </tr>
           ))}
           <tr>
             <th />
             <th />
             <th>{l('with 10 or more disc IDs:')}</th>
-            <td>{formatCount($c, stats['count.release.10discids'])}</td>
-            <td>{formatPercentage($c, stats['count.release.10discids'] / stats['count.release.has_discid'], 1)}</td>
+            <td>{fc('release.10discids')}</td>
+            <td>{fp('release.10discids', 'release.has_discid')}</td>
           </tr>
           <tr>
             <th colSpan="3">{l('Mediums:')}</th>
-            <td>{formatCount($c, stats['count.medium'])}</td>
+            <td>{fc('medium')}</td>
             <td />
           </tr>
           <tr>
             <th />
             <th colSpan="2">{l('Mediums with no disc IDs:')}</th>
-            <td>{formatCount($c, stats['count.medium.0discids'])}</td>
-            <td>{formatPercentage($c, stats['count.medium.0discids'] / stats['count.medium'], 1)}</td>
+            <td>{fc('medium.0discids')}</td>
+            <td>{fp('medium.0discids', 'medium')}</td>
           </tr>
           <tr>
             <th />
             <th colSpan="2">
               {l('Mediums with at least one disc ID:')}
             </th>
-            <td>{formatCount($c, stats['count.medium.has_discid'])}</td>
-            <td>{formatPercentage($c, stats['count.medium.has_discid'] / stats['count.medium'], 1)}</td>
+            <td>{fc('medium.has_discid')}</td>
+            <td>{fp('medium.has_discid', 'medium')}</td>
           </tr>
           {oneToNine.map(num => (
             <tr key={num}>
               <th />
               <th />
-              <th>{texp.ln('with {num} disc ID:', 'with {num} disc IDs:', num, {num: num})}</th>
-              <td>{formatCount($c, stats['count.medium.' + num + 'discids'])}</td>
-              <td>{formatPercentage($c, stats['count.medium.' + num + 'discids'] / stats['count.medium.has_discid'], 1)}</td>
+              <th>
+                {texp.ln(
+                  'with {num} disc ID:',
+                  'with {num} disc IDs:',
+                  num,
+                  {num: num},
+                )}
+              </th>
+              <td>{fc('medium.' + num + 'discids')}</td>
+              <td>{fp('medium.' + num + 'discids', 'medium.has_discid')}</td>
             </tr>
           ))}
           <tr>
             <th />
             <th />
             <th>{l('with 10 or more disc IDs:')}</th>
-            <td>{formatCount($c, stats['count.medium.10discids'])}</td>
-            <td>{formatPercentage($c, stats['count.medium.10discids'] / stats['count.medium.has_discid'], 1)}</td>
+            <td>{fc('medium.10discids')}</td>
+            <td>{fp('medium.10discids', 'medium.has_discid')}</td>
           </tr>
         </tbody>
       </table>
@@ -565,15 +611,25 @@ const Index = ({
           </tr>
           <tr>
             <th colSpan="2">{l('Release Groups:')}</th>
-            <td>{formatCount($c, stats['count.releasegroup'])}</td>
+            <td>{fc('releasegroup')}</td>
             <td />
           </tr>
           {primaryTypes.map(primaryType => (
             <tr key={primaryType.gid}>
               <th />
-              <th>{lp_attributes(primaryType.name, 'release_group_primary_type')}</th>
-              <td>{formatCount($c, stats['count.releasegroup.primary_type.' + primaryType.id])}</td>
-              <td>{formatPercentage($c, stats['count.releasegroup.primary_type.' + primaryType.id] / stats['count.releasegroup'], 1)}</td>
+              <th>
+                {lp_attributes(
+                  primaryType.name,
+                  'release_group_primary_type',
+                )}
+              </th>
+              <td>{fc('releasegroup.primary_type.' + primaryType.id)}</td>
+              <td>
+                {fp(
+                  'releasegroup.primary_type.' + primaryType.id,
+                  'releasegroup',
+                )}
+              </td>
             </tr>
           ))}
           <tr className="thead">
@@ -581,15 +637,25 @@ const Index = ({
           </tr>
           <tr>
             <th colSpan="2">{l('Release Groups:')}</th>
-            <td>{formatCount($c, stats['count.releasegroup'])}</td>
+            <td>{fc('releasegroup')}</td>
             <td />
           </tr>
           {secondaryTypes.map(secondaryType => (
             <tr key={secondaryType.gid}>
               <th />
-              <th>{lp_attributes(secondaryType.name, 'release_group_secondary_type')}</th>
-              <td>{formatCount($c, stats['count.releasegroup.secondary_type.' + secondaryType.id])}</td>
-              <td>{formatPercentage($c, stats['count.releasegroup.secondary_type.' + secondaryType.id] / stats['count.releasegroup'], 1)}</td>
+              <th>
+                {lp_attributes(
+                  secondaryType.name,
+                  'release_group_secondary_type',
+                )}
+              </th>
+              <td>{fc('releasegroup.secondary_type.' + secondaryType.id)}</td>
+              <td>
+                {fp(
+                  'releasegroup.secondary_type.' + secondaryType.id,
+                  'releasegroup',
+                )}
+              </td>
             </tr>
           ))}
         </tbody>
@@ -603,13 +669,13 @@ const Index = ({
           </tr>
           <tr>
             <th>{l('Recordings:')}</th>
-            <td>{formatCount($c, stats['count.recording'])}</td>
+            <td>{fc('recording')}</td>
             <td />
           </tr>
           <tr>
             <th>{l('Videos:')}</th>
-            <td>{formatCount($c, stats['count.video'])}</td>
-            <td>{formatPercentage($c, stats['count.video'] / stats['count.recording'], 1)}</td>
+            <td>{fc('video')}</td>
+            <td>{fp('video', 'recording')}</td>
           </tr>
         </tbody>
       </table>
@@ -622,22 +688,22 @@ const Index = ({
           </tr>
           <tr>
             <th colSpan="2">{addColon(l('Labels'))}</th>
-            <td>{formatCount($c, stats['count.label'])}</td>
+            <td>{fc('label')}</td>
             <td />
           </tr>
           {labelTypes.map(labelType => (
             <tr key={labelType.gid}>
               <th />
               <th>{lp_attributes(labelType.name, 'label_type')}</th>
-              <td>{formatCount($c, stats['count.label.type.' + labelType.id])}</td>
-              <td>{formatPercentage($c, stats['count.label.type.' + labelType.id] / stats['count.label'], 1)}</td>
+              <td>{fc('label.type.' + labelType.id)}</td>
+              <td>{fp('label.type.' + labelType.id, 'label')}</td>
             </tr>
           ))}
           <tr>
             <th />
             <th>{l('None')}</th>
-            <td>{formatCount($c, stats['count.label.type.null'])}</td>
-            <td>{formatPercentage($c, stats['count.label.type.null'] / stats['count.label'], 1)}</td>
+            <td>{fc('label.type.null')}</td>
+            <td>{fp('label.type.null', 'label')}</td>
           </tr>
         </tbody>
       </table>
@@ -650,22 +716,22 @@ const Index = ({
           </tr>
           <tr>
             <th colSpan="2">{l('Works:')}</th>
-            <td>{formatCount($c, stats['count.work'])}</td>
+            <td>{fc('work')}</td>
             <td />
           </tr>
           {workTypes.map(workType => (
             <tr key={workType.gid}>
               <th />
               <th>{lp_attributes(workType.name, 'work_type')}</th>
-              <td>{formatCount($c, stats['count.work.type.' + workType.id])}</td>
-              <td>{formatPercentage($c, stats['count.work.type.' + workType.id] / stats['count.work'], 1)}</td>
+              <td>{fc('work.type.' + workType.id)}</td>
+              <td>{fp('work.type.' + workType.id, 'work')}</td>
             </tr>
           ))}
           <tr>
             <th />
             <th>{l('None')}</th>
-            <td>{formatCount($c, stats['count.work.type.null'])}</td>
-            <td>{formatPercentage($c, stats['count.work.type.null'] / stats['count.work'], 1)}</td>
+            <td>{fc('work.type.null')}</td>
+            <td>{fp('work.type.null', 'work')}</td>
           </tr>
         </tbody>
       </table>
@@ -677,22 +743,24 @@ const Index = ({
           </tr>
           <tr>
             <th colSpan="2">{l('Works:')}</th>
-            <td>{formatCount($c, stats['count.work'])}</td>
+            <td>{fc('work')}</td>
             <td />
           </tr>
           {workAttributeTypes.map(workAttributeType => (
             <tr key={workAttributeType.gid}>
               <th />
-              <th>{lp_attributes(workAttributeType.name, 'work_attribute_type')}</th>
-              <td>{formatCount($c, stats['count.work.attribute.' + workAttributeType.id])}</td>
-              <td>{formatPercentage($c, stats['count.work.attribute.' + workAttributeType.id] / stats['count.work'], 1)}</td>
+              <th>
+                {lp_attributes(workAttributeType.name, 'work_attribute_type')}
+              </th>
+              <td>{fc('work.attribute.' + workAttributeType.id)}</td>
+              <td>{fp('work.attribute.' + workAttributeType.id, 'work')}</td>
             </tr>
           ))}
           <tr>
             <th />
             <th>{l('None')}</th>
-            <td>{formatCount($c, stats['count.work.attribute.null'])}</td>
-            <td>{formatPercentage($c, stats['count.work.attribute.null'] / stats['count.work'], 1)}</td>
+            <td>{fc('work.attribute.null')}</td>
+            <td>{fp('work.attribute.null', 'work')}</td>
           </tr>
         </tbody>
       </table>
@@ -705,22 +773,22 @@ const Index = ({
           </tr>
           <tr>
             <th colSpan="2">{l('Areas:')}</th>
-            <td>{formatCount($c, stats['count.area'])}</td>
+            <td>{fc('area')}</td>
             <td />
           </tr>
           {areaTypes.map(areaType => (
             <tr key={areaType.gid}>
               <th />
               <th>{lp_attributes(areaType.name, 'area_type')}</th>
-              <td>{formatCount($c, stats['count.area.type.' + areaType.id])}</td>
-              <td>{formatPercentage($c, stats['count.area.type.' + areaType.id] / stats['count.area'], 1)}</td>
+              <td>{fc('area.type.' + areaType.id)}</td>
+              <td>{fp('area.type.' + areaType.id, 'area')}</td>
             </tr>
           ))}
           <tr>
             <th />
             <th>{l('None')}</th>
-            <td>{formatCount($c, stats['count.area.type.null'])}</td>
-            <td>{formatPercentage($c, stats['count.area.type.null'] / stats['count.area'], 1)}</td>
+            <td>{fc('area.type.null')}</td>
+            <td>{fp('area.type.null', 'area')}</td>
           </tr>
         </tbody>
       </table>
@@ -733,22 +801,22 @@ const Index = ({
           </tr>
           <tr>
             <th colSpan="2">{l('Places:')}</th>
-            <td>{formatCount($c, stats['count.place'])}</td>
+            <td>{fc('place')}</td>
             <td />
           </tr>
           {placeTypes.map(placeType => (
             <tr key={placeType.gid}>
               <th />
               <th>{lp_attributes(placeType.name, 'place_type')}</th>
-              <td>{formatCount($c, stats['count.place.type.' + placeType.id])}</td>
-              <td>{formatPercentage($c, stats['count.place.type.' + placeType.id] / stats['count.place'], 1)}</td>
+              <td>{fc('place.type.' + placeType.id)}</td>
+              <td>{fp('place.type.' + placeType.id, 'place')}</td>
             </tr>
           ))}
           <tr>
             <th />
             <th>{l('None')}</th>
-            <td>{formatCount($c, stats['count.place.type.null'])}</td>
-            <td>{formatPercentage($c, stats['count.place.type.null'] / stats['count.place'], 1)}</td>
+            <td>{fc('place.type.null')}</td>
+            <td>{fp('place.type.null', 'place')}</td>
           </tr>
         </tbody>
       </table>
@@ -761,15 +829,15 @@ const Index = ({
           </tr>
           <tr>
             <th colSpan="2">{lp('Series:', 'plural')}</th>
-            <td>{formatCount($c, stats['count.series'])}</td>
+            <td>{fc('series')}</td>
             <td />
           </tr>
           {seriesTypes.map(seriesType => (
             <tr key={seriesType.gid}>
               <th />
               <th>{lp_attributes(seriesType.name, 'series_type')}</th>
-              <td>{formatCount($c, stats['count.series.type.' + seriesType.id])}</td>
-              <td>{formatPercentage($c, stats['count.series.type.' + seriesType.id] / stats['count.series'], 1)}</td>
+              <td>{fc('series.type.' + seriesType.id)}</td>
+              <td>{fp('series.type.' + seriesType.id, 'series')}</td>
             </tr>
           ))}
         </tbody>
@@ -783,22 +851,24 @@ const Index = ({
           </tr>
           <tr>
             <th colSpan="2">{l('Instruments:')}</th>
-            <td>{formatCount($c, stats['count.instrument'])}</td>
+            <td>{fc('instrument')}</td>
             <td />
           </tr>
           {instrumentTypes.map(instrumentType => (
             <tr key={instrumentType.gid}>
               <th />
               <th>{lp_attributes(instrumentType.name, 'instrument_type')}</th>
-              <td>{formatCount($c, stats['count.instrument.type.' + instrumentType.id])}</td>
-              <td>{formatPercentage($c, stats['count.instrument.type.' + instrumentType.id] / stats['count.instrument'], 1)}</td>
+              <td>{fc('instrument.type.' + instrumentType.id)}</td>
+              <td>
+                {fp('instrument.type.' + instrumentType.id, 'instrument')}
+              </td>
             </tr>
           ))}
           <tr>
             <th />
             <th>{l('None')}</th>
-            <td>{formatCount($c, stats['count.instrument.type.null'])}</td>
-            <td>{formatPercentage($c, stats['count.instrument.type.null'] / stats['count.instrument'], 1)}</td>
+            <td>{fc('instrument.type.null')}</td>
+            <td>{fp('instrument.type.null', 'instrument')}</td>
           </tr>
         </tbody>
       </table>
@@ -811,22 +881,22 @@ const Index = ({
           </tr>
           <tr>
             <th colSpan="2">{l('Events:')}</th>
-            <td>{formatCount($c, stats['count.event'])}</td>
+            <td>{fc('event')}</td>
             <td />
           </tr>
           {eventTypes.map(eventType => (
             <tr key={eventType.gid}>
               <th />
               <th>{lp_attributes(eventType.name, 'event_type')}</th>
-              <td>{formatCount($c, stats['count.event.type.' + eventType.id])}</td>
-              <td>{formatPercentage($c, stats['count.event.type.' + eventType.id] / stats['count.event'], 1)}</td>
+              <td>{fc('event.type.' + eventType.id)}</td>
+              <td>{fp('event.type.' + eventType.id, 'event')}</td>
             </tr>
           ))}
           <tr>
             <th />
             <th>{l('None')}</th>
-            <td>{formatCount($c, stats['count.event.type.null'])}</td>
-            <td>{formatPercentage($c, stats['count.event.type.null'] / stats['count.event'], 1)}</td>
+            <td>{fc('event.type.null')}</td>
+            <td>{fp('event.type.null', 'event')}</td>
           </tr>
         </tbody>
       </table>
@@ -839,14 +909,14 @@ const Index = ({
           </tr>
           <tr>
             <th colSpan="4">{l('Editors (valid):')}</th>
-            <td>{formatCount($c, stats['count.editor.valid'])}</td>
+            <td>{fc('editor.valid')}</td>
             <td />
           </tr>
           <tr>
             <th />
             <th colSpan="3">{l('active ever:')}</th>
-            <td>{formatCount($c, stats['count.editor.valid.active'])}</td>
-            <td>{formatPercentage($c, stats['count.editor.valid.active'] / stats['count.editor.valid'], 1)}</td>
+            <td>{fc('editor.valid.active')}</td>
+            <td>{fp('editor.valid.active', 'editor.valid')}</td>
           </tr>
           <tr>
             <th />
@@ -854,73 +924,79 @@ const Index = ({
             <th colSpan="2">
               {l('who edited and/or voted in the last 7 days:')}
             </th>
-            <td>{formatCount($c, stats['count.editor.activelastweek'])}</td>
-            <td>{formatPercentage($c, stats['count.editor.activelastweek'] / stats['count.editor.valid.active'], 1)}</td>
+            <td>{fc('editor.activelastweek')}</td>
+            <td>{fp('editor.activelastweek', 'editor.valid.active')}</td>
           </tr>
           <tr>
             <th />
             <th />
             <th />
             <th>{l('who edited in the last 7 days:')}</th>
-            <td>{formatCount($c, stats['count.editor.editlastweek'])}</td>
-            <td>{formatPercentage($c, stats['count.editor.editlastweek'] / stats['count.editor.activelastweek'], 1)}</td>
+            <td>{fc('editor.editlastweek')}</td>
+            <td>{fp('editor.editlastweek', 'editor.activelastweek')}</td>
           </tr>
           <tr>
             <th />
             <th />
             <th />
             <th>{l('who voted in the last 7 days:')}</th>
-            <td>{formatCount($c, stats['count.editor.votelastweek'])}</td>
-            <td>{formatPercentage($c, stats['count.editor.votelastweek'] / stats['count.editor.activelastweek'], 1)}</td>
+            <td>{fc('editor.votelastweek')}</td>
+            <td>{fp('editor.votelastweek', 'editor.activelastweek')}</td>
           </tr>
           <tr>
             <th />
             <th />
             <th colSpan="2">{l('who edit:')}</th>
-            <td>{formatCount($c, stats['count.editor.valid.active.edits'])}</td>
-            <td>{formatPercentage($c, stats['count.editor.valid.active.edits'] / stats['count.editor.valid.active'], 1)}</td>
+            <td>{fc('editor.valid.active.edits')}</td>
+            <td>{fp('editor.valid.active.edits', 'editor.valid.active')}</td>
           </tr>
           <tr>
             <th />
             <th />
             <th colSpan="2">{l('who vote:')}</th>
-            <td>{formatCount($c, stats['count.editor.valid.active.votes'])}</td>
-            <td>{formatPercentage($c, stats['count.editor.valid.active.votes'] / stats['count.editor.valid.active'], 1)}</td>
+            <td>{fc('editor.valid.active.votes')}</td>
+            <td>{fp('editor.valid.active.votes', 'editor.valid.active')}</td>
           </tr>
           <tr>
             <th />
             <th />
             <th colSpan="2">{l('who leave edit notes:')}</th>
-            <td>{formatCount($c, stats['count.editor.valid.active.notes'])}</td>
-            <td>{formatPercentage($c, stats['count.editor.valid.active.notes'] / stats['count.editor.valid.active'], 1)}</td>
+            <td>{fc('editor.valid.active.notes')}</td>
+            <td>{fp('editor.valid.active.notes', 'editor.valid.active')}</td>
           </tr>
           <tr>
             <th />
             <th />
             <th colSpan="2">{l('who use tags:')}</th>
-            <td>{formatCount($c, stats['count.editor.valid.active.tags'])}</td>
-            <td>{formatPercentage($c, stats['count.editor.valid.active.tags'] / stats['count.editor.valid.active'], 1)}</td>
+            <td>{fc('editor.valid.active.tags')}</td>
+            <td>{fp('editor.valid.active.tags', 'editor.valid.active')}</td>
           </tr>
           <tr>
             <th />
             <th />
             <th colSpan="2">{l('who use ratings:')}</th>
-            <td>{formatCount($c, stats['count.editor.valid.active.ratings'])}</td>
-            <td>{formatPercentage($c, stats['count.editor.valid.active.ratings'] / stats['count.editor.valid.active'], 1)}</td>
+            <td>{fc('editor.valid.active.ratings')}</td>
+            <td>
+              {fp('editor.valid.active.ratings', 'editor.valid.active')}
+            </td>
           </tr>
           <tr>
             <th />
             <th />
             <th colSpan="2">{l('who use subscriptions:')}</th>
-            <td>{formatCount($c, stats['count.editor.valid.active.subscriptions'])}</td>
-            <td>{formatPercentage($c, stats['count.editor.valid.active.subscriptions'] / stats['count.editor.valid.active'], 1)}</td>
+            <td>{fc('editor.valid.active.subscriptions')}</td>
+            <td>
+              {fp('editor.valid.active.subscriptions', 'editor.valid.active')}
+            </td>
           </tr>
           <tr>
             <th />
             <th />
             <th colSpan="2">{l('who use collections:')}</th>
-            <td>{formatCount($c, stats['count.editor.valid.active.collections'])}</td>
-            <td>{formatPercentage($c, stats['count.editor.valid.active.collections'] / stats['count.editor.valid.active'], 1)}</td>
+            <td>{fc('editor.valid.active.collections')}</td>
+            <td>
+              {fp('editor.valid.active.collections', 'editor.valid.active')}
+            </td>
           </tr>
           <tr>
             <th />
@@ -928,24 +1004,26 @@ const Index = ({
             <th colSpan="2">
               {l('who have registered applications:')}
             </th>
-            <td>{formatCount($c, stats['count.editor.valid.active.applications'])}</td>
-            <td>{formatPercentage($c, stats['count.editor.valid.active.applications'] / stats['count.editor.valid.active'], 1)}</td>
+            <td>{fc('editor.valid.active.applications')}</td>
+            <td>
+              {fp('editor.valid.active.applications', 'editor.valid.active')}
+            </td>
           </tr>
           <tr>
             <th />
             <th colSpan="3">{l('validated email only:')}</th>
-            <td>{formatCount($c, stats['count.editor.valid.validated_only'])}</td>
-            <td>{formatPercentage($c, stats['count.editor.valid.validated_only'] / stats['count.editor.valid'], 1)}</td>
+            <td>{fc('editor.valid.validated_only')}</td>
+            <td>{fp('editor.valid.validated_only', 'editor.valid')}</td>
           </tr>
           <tr>
             <th />
             <th colSpan="3">{l('inactive:')}</th>
-            <td>{formatCount($c, stats['count.editor.valid.inactive'])}</td>
-            <td>{formatPercentage($c, stats['count.editor.valid.inactive'] / stats['count.editor.valid'], 1)}</td>
+            <td>{fc('editor.valid.inactive')}</td>
+            <td>{fp('editor.valid.inactive', 'editor.valid')}</td>
           </tr>
           <tr>
             <th colSpan="4">{l('Editors (deleted):')}</th>
-            <td>{formatCount($c, stats['count.editor.deleted'])}</td>
+            <td>{fc('editor.deleted')}</td>
             <td />
           </tr>
         </tbody>
@@ -955,68 +1033,68 @@ const Index = ({
           </tr>
           <tr>
             <th colSpan="4">{l('Edits:')}</th>
-            <td>{formatCount($c, stats['count.edit'])}</td>
+            <td>{fc('edit')}</td>
             <td />
           </tr>
           <tr>
             <th />
             <th colSpan="3">{l('Open:')}</th>
-            <td>{formatCount($c, stats['count.edit.open'])}</td>
-            <td>{formatPercentage($c, stats['count.edit.open'] / stats['count.edit'], 1)}</td>
+            <td>{fc('edit.open')}</td>
+            <td>{fp('edit.open', 'edit')}</td>
           </tr>
           <tr>
             <th />
             <th colSpan="3">{l('Applied:')}</th>
-            <td>{formatCount($c, stats['count.edit.applied'])}</td>
-            <td>{formatPercentage($c, stats['count.edit.applied'] / stats['count.edit'], 1)}</td>
+            <td>{fc('edit.applied')}</td>
+            <td>{fp('edit.applied', 'edit')}</td>
           </tr>
           <tr>
             <th />
             <th colSpan="3">{l('Voted down:')}</th>
-            <td>{formatCount($c, stats['count.edit.failedvote'])}</td>
-            <td>{formatPercentage($c, stats['count.edit.failedvote'] / stats['count.edit'], 1)}</td>
+            <td>{fc('edit.failedvote')}</td>
+            <td>{fp('edit.failedvote', 'edit')}</td>
           </tr>
           <tr>
             <th />
             <th colSpan="3">{l('Failed (dependency):')}</th>
-            <td>{formatCount($c, stats['count.edit.faileddep'])}</td>
-            <td>{formatPercentage($c, stats['count.edit.faileddep'] / stats['count.edit'], 1)}</td>
+            <td>{fc('edit.faileddep')}</td>
+            <td>{fp('edit.faileddep', 'edit')}</td>
           </tr>
           <tr>
             <th />
             <th colSpan="3">{l('Failed (prerequisite):')}</th>
-            <td>{formatCount($c, stats['count.edit.failedprereq'])}</td>
-            <td>{formatPercentage($c, stats['count.edit.failedprereq'] / stats['count.edit'], 1)}</td>
+            <td>{fc('edit.failedprereq')}</td>
+            <td>{fp('edit.failedprereq', 'edit')}</td>
           </tr>
           <tr>
             <th />
             <th colSpan="3">{l('Failed (internal error):')}</th>
-            <td>{formatCount($c, stats['count.edit.error'])}</td>
-            <td>{formatPercentage($c, stats['count.edit.error'] / stats['count.edit'], 1)}</td>
+            <td>{fc('edit.error')}</td>
+            <td>{fp('edit.error', 'edit')}</td>
           </tr>
           <tr>
             <th />
             <th colSpan="3">{l('Cancelled:')}</th>
-            <td>{formatCount($c, stats['count.edit.deleted'])}</td>
-            <td>{formatPercentage($c, stats['count.edit.deleted'] / stats['count.edit'], 1)}</td>
+            <td>{fc('edit.deleted')}</td>
+            <td>{fp('edit.deleted', 'edit')}</td>
           </tr>
           <tr>
             <th colSpan="4">{l('Edits:')}</th>
-            <td>{formatCount($c, stats['count.edit'])}</td>
+            <td>{fc('edit')}</td>
             <td />
           </tr>
           <tr>
             <th />
             <th colSpan="3">{l('Last 7 days:')}</th>
-            <td>{formatCount($c, stats['count.edit.perweek'])}</td>
-            <td>{formatPercentage($c, stats['count.edit.perweek'] / stats['count.edit'], 1)}</td>
+            <td>{fc('edit.perweek')}</td>
+            <td>{fp('edit.perweek', 'edit')}</td>
           </tr>
           <tr>
             <th />
             <th colSpan="2" />
             <th>{l('Yesterday:')}</th>
-            <td>{formatCount($c, stats['count.edit.perday'])}</td>
-            <td>{formatPercentage($c, stats['count.edit.perday'] / stats['count.edit.perweek'], 1)}</td>
+            <td>{fc('edit.perday')}</td>
+            <td>{fp('edit.perday', 'edit.perweek')}</td>
           </tr>
         </tbody>
         <tbody>
@@ -1025,50 +1103,50 @@ const Index = ({
           </tr>
           <tr>
             <th colSpan="4">{l('Votes:')}</th>
-            <td>{formatCount($c, stats['count.vote'])}</td>
+            <td>{fc('vote')}</td>
             <td />
           </tr>
           <tr>
             <th />
             <th colSpan="3">{addColon(lp('Approve', 'vote'))}</th>
-            <td>{formatCount($c, stats['count.vote.approve'])}</td>
-            <td>{formatPercentage($c, stats['count.vote.approve'] / stats['count.vote'], 1)}</td>
+            <td>{fc('vote.approve')}</td>
+            <td>{fp('vote.approve', 'vote')}</td>
           </tr>
           <tr>
             <th />
             <th colSpan="3">{addColon(lp('Yes', 'vote'))}</th>
-            <td>{formatCount($c, stats['count.vote.yes'])}</td>
-            <td>{formatPercentage($c, stats['count.vote.yes'] / stats['count.vote'], 1)}</td>
+            <td>{fc('vote.yes')}</td>
+            <td>{fp('vote.yes', 'vote')}</td>
           </tr>
           <tr>
             <th />
             <th colSpan="3">{addColon(lp('No', 'vote'))}</th>
-            <td>{formatCount($c, stats['count.vote.no'])}</td>
-            <td>{formatPercentage($c, stats['count.vote.no'] / stats['count.vote'], 1)}</td>
+            <td>{fc('vote.no')}</td>
+            <td>{fp('vote.no', 'vote')}</td>
           </tr>
           <tr>
             <th />
             <th colSpan="3">{addColon(lp('Abstain', 'vote'))}</th>
-            <td>{formatCount($c, stats['count.vote.abstain'])}</td>
-            <td>{formatPercentage($c, stats['count.vote.abstain'] / stats['count.vote'], 1)}</td>
+            <td>{fc('vote.abstain')}</td>
+            <td>{fp('vote.abstain', 'vote')}</td>
           </tr>
           <tr>
             <th colSpan="4">{l('Votes:')}</th>
-            <td>{formatCount($c, stats['count.vote'])}</td>
+            <td>{fc('vote')}</td>
             <td />
           </tr>
           <tr>
             <th />
             <th colSpan="3">{l('Last 7 days:')}</th>
-            <td>{formatCount($c, stats['count.vote.perweek'])}</td>
-            <td>{formatPercentage($c, stats['count.vote.perweek'] / stats['count.vote'], 1)}</td>
+            <td>{fc('vote.perweek')}</td>
+            <td>{fp('vote.perweek', 'vote')}</td>
           </tr>
           <tr>
             <th />
             <th />
             <th colSpan="2">{l('Yesterday:')}</th>
-            <td>{formatCount($c, stats['count.vote.perday'])}</td>
-            <td>{formatPercentage($c, stats['count.vote.perday'] / stats['count.vote.perweek'], 1)}</td>
+            <td>{fc('vote.perday')}</td>
+            <td>{fp('vote.perday', 'vote.perweek')}</td>
           </tr>
         </tbody>
       </table>

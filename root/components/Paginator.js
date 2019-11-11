@@ -13,12 +13,29 @@ import React from 'react';
 import {withCatalystContext} from '../context';
 import uriWith from '../utility/uriWith';
 
+type PageQueryParam = 'apps_page' | 'page' | 'tokens_page';
+type PageQueryObject = {[PageQueryParam]: number, ...};
+
 type Props = {
   +$c: CatalystContextT,
   +guessSearch?: boolean,
   +pager: PagerT,
-  +pageVar?: string,
+  +pageVar?: PageQueryParam,
 };
+
+function uriPage(
+  uri: string,
+  pageVar: PageQueryParam,
+  page: number,
+) {
+  /*
+   * See "Flow errors on unions in computed properties" here:
+   * https://medium.com/flow-type/spreads-common-errors-fixes-9701012e9d58
+   */
+  const params: PageQueryObject = {};
+  params[pageVar] = page;
+  return uriWith(uri, params);
+}
 
 const Paginator = ({
   $c,
@@ -26,24 +43,30 @@ const Paginator = ({
   pager,
   pageVar = 'page',
 }: Props) => {
-  if (pager.last_page <= 1) {
+  const lastPage = pager.last_page;
+
+  if (lastPage <= 1) {
     return null;
   }
+
+  const firstPage = pager.first_page;
+  const previousPage = pager.previous_page;
+  const nextPage = pager.next_page;
 
   const start = (pager.current_page - 4) > 0
     ? (pager.current_page - 4) : 1;
 
-  const end = (pager.current_page + 4) < pager.last_page
-    ? (pager.current_page + 4) : pager.last_page;
+  const end = (pager.current_page + 4) < lastPage
+    ? (pager.current_page + 4) : lastPage;
 
   const reqUri = $c.req.uri;
 
   return (
     <nav>
       <ul className="pagination">
-        {pager.previous_page ? (
+        {previousPage ? (
           <li key="previous">
-            <a href={uriWith(reqUri, {page: pager.previous_page})}>
+            <a href={uriPage(reqUri, pageVar, previousPage)}>
               {l('Previous')}
             </a>
           </li>
@@ -55,15 +78,15 @@ const Paginator = ({
 
         <li className="separator" key="separate-previous" />
 
-        {start > pager.first_page ? (
+        {start > firstPage ? (
           <li key="first">
-            <a href={uriWith(reqUri, {page: pager.first_page})}>
-              {pager.first_page}
+            <a href={uriPage(reqUri, pageVar, firstPage)}>
+              {firstPage}
             </a>
           </li>
         ) : null}
 
-        {start > (pager.first_page + 1) ? (
+        {start > (firstPage + 1) ? (
           <li key="after-first">
             <span>{l('…')}</span>
           </li>
@@ -72,27 +95,32 @@ const Paginator = ({
         {range(start, end + 1).map(page => (
           (pager.current_page === page) ? (
             <li key={"number-" + page}>
-              <a className="sel" href={uriWith(reqUri, {[pageVar]: page})}>
+              <a
+                className="sel"
+                href={uriPage(reqUri, pageVar, page)}
+              >
                 <strong>{page}</strong>
               </a>
             </li>
           ) : (
             <li key={"number-" + page}>
-              <a href={uriWith(reqUri, {[pageVar]: page})}>{page}</a>
+              <a href={uriPage(reqUri, pageVar, page)}>
+                {page}
+              </a>
             </li>
           )
         ))}
 
-        {end < (pager.last_page - 1) ? (
+        {end < (lastPage - 1) ? (
           <li key="before-last">
             <span>{l('…')}</span>
           </li>
         ) : null}
 
-        {end < pager.last_page ? (
+        {end < lastPage ? (
           <li key="last">
-            <a href={uriWith(reqUri, {page: pager.last_page})}>
-              {pager.last_page}
+            <a href={uriPage(reqUri, pageVar, lastPage)}>
+              {lastPage}
             </a>
           </li>
         ) : null}
@@ -104,9 +132,11 @@ const Paginator = ({
         ) : null}
 
         <li className="separator" key="separate-next">
-          {pager.next_page ? (
+          {nextPage ? (
             <li key="next">
-              <a href={uriWith(reqUri, {page: pager.next_page})}>{l('Next')}</a>
+              <a href={uriPage(reqUri, pageVar, nextPage)}>
+                {l('Next')}
+              </a>
             </li>
           ) : (
             <li key="no-next">

@@ -14,7 +14,8 @@ import RecordingList from '../components/list/RecordingList';
 import PaginatedResults from '../components/PaginatedResults';
 import {withCatalystContext} from '../context';
 import Filter from '../static/scripts/common/components/Filter';
-import {type FilterFormT} from '../static/scripts/common/components/FilterForm';
+import {type FilterFormT}
+  from '../static/scripts/common/components/FilterForm';
 
 import ArtistLayout from './ArtistLayout';
 

@@ -68,7 +68,8 @@ const Edits = ({$c, dateCollected, stats, statsByCategory}: EditsStatsT) => (
                       <td>
                         {formatPercentage(
                           $c,
-                          stats['count.edit.type.' + type.edit_type] / stats['count.edit'],
+                          stats['count.edit.type.' + type.edit_type] /
+                            stats['count.edit'],
                           2,
                         )}
                       </td>

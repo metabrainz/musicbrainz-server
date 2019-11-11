@@ -18,13 +18,13 @@ import type {PreferencesFormPropsT}
 import * as manifest from '../static/manifest';
 
 type Props = {
-  +$c: {user: EditorT} & CatalystContextT,
   ...PreferencesFormPropsT,
+  +$c: $ReadOnly<{...CatalystContextT, user: EditorT}>,
 };
 
-const Preferences = withCatalystContext(({$c, ...props}: Props) => (
+const Preferences = withCatalystContext((props: Props) => (
   <UserAccountLayout
-    entity={$c.user}
+    entity={props.$c.user}
     page="preferences"
     title={l('Preferences')}
   >

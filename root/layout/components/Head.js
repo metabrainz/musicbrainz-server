@@ -102,7 +102,10 @@ const Head = ({$c, ...props}) => (
 
     <noscript>
       <style
-        dangerouslySetInnerHTML={{__html: '.header > .right > .bottom > .menu > li:focus > ul { left: auto; }'}}
+        dangerouslySetInnerHTML={{
+          __html: '.header > .right > .bottom > .menu' +
+                  ' > li:focus > ul { left: auto; }',
+        }}
         type="text/css"
       />
     </noscript>
@@ -113,12 +116,14 @@ const Head = ({$c, ...props}) => (
 
     {manifest.js('jed-data')}
 
-    {$c.stash.current_language !== 'en'
-      ? ['mb_server'].concat(props.gettext_domains || []).map(function (domain) {
-        const name = 'jed-' + $c.stash.current_language + '-' + domain;
-        return manifest.js(name, {key: name});
-      })
-      : null}
+    {$c.stash.current_language !== 'en' ? (
+      ['mb_server']
+        .concat(props.gettext_domains || [])
+        .map(function (domain) {
+          const name ='jed-' + $c.stash.current_language + '-' + domain;
+          return manifest.js(name, {key: name});
+        })
+    ) : null}
 
     {manifest.js('common', {
       'data-args': JSON.stringify({

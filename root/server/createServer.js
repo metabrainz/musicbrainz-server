@@ -67,13 +67,15 @@ const connectionListener = Raven.wrap(function (socket) {
         context = requestBody.context;
         context.toJSON = () => sanitizedContext(context);
 
-        const {setLinkedEntities} = require('../static/scripts/common/linkedEntities');
+        const {setLinkedEntities} =
+          require('../static/scripts/common/linkedEntities');
         setLinkedEntities(requestBody.linked_entities);
       } else if (requestBody.finish) {
         socket.end();
         socket.destroy();
       } else {
-        const {mergeLinkedEntities} = require('../static/scripts/common/linkedEntities');
+        const {mergeLinkedEntities} =
+          require('../static/scripts/common/linkedEntities');
         // Merge new linked entities into current ones.
         mergeLinkedEntities(requestBody.linked_entities);
         writeResponse(socket, getResponse(requestBody, context));

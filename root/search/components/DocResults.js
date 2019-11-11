@@ -21,7 +21,10 @@ const DocResults = () => (
         src={'https://cse.google.com/cse.js?cx=' + encodeURIComponent(GOOGLE_CUSTOM_SEARCH)}
         type="text/javascript"
       />
-      {React.createElement('gcse:search', {enablehistory: 'true', queryparametername: 'query'})}
+      {React.createElement(
+        'gcse:search',
+        {enablehistory: 'true', queryparametername: 'query'},
+      )}
     </div>
   </Layout>
 );

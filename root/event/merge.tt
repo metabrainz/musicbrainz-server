@@ -14,6 +14,7 @@
                     <th>[% l('Begin') %]</th>
                     <th>[% l('End') %]</th>
                     <th>[% l('Time') %]</th>
+                    [%- remove_from_merge_header(to_merge) -%]
                 </tr>
             </thead>
             <tbody>
@@ -46,6 +47,7 @@
                             END; -%]
                      </td>
                      <td>[% entity.formatted_time %]</td>
+                    [%- remove_from_merge('event', to_merge) -%]
                  </tr>
             [%- END -%]
             </tbody>

@@ -461,7 +461,7 @@ MB.GuessCase.Handler.Base = function (gc) {
                 flags.context.forceCaps = true;
 
             // preserve whitespace after closing singlequote.
-            } else  if (!a && b) {
+            } else if (!a && b) {
                 if (state) {
                     flags.context.forceCaps = true;
                     flags.context.openedSingleQuote = false;

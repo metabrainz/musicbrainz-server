@@ -39,11 +39,12 @@ const EditSummary = ({$c, edit, index}: Props) => {
 
   return (
     <>
-      {edit.status !== EDIT_STATUS_OPEN && edit.status !== EDIT_STATUS_APPLIED ? (
-        <div className="edit-status">
-          {getEditStatusName(edit)}
-        </div>
-      ) : null}
+      {edit.status !== EDIT_STATUS_OPEN &&
+        edit.status !== EDIT_STATUS_APPLIED ? (
+          <div className="edit-status">
+            {getEditStatusName(edit)}
+          </div>
+        ) : null}
 
       <Vote edit={edit} index={index} summary />
 
@@ -71,16 +72,17 @@ const EditSummary = ({$c, edit, index}: Props) => {
             </a>
           ) : null}
 
-          {edit.status === EDIT_STATUS_OPEN && DBDefs.DB_STAGING_TESTING_FEATURES ? (
-            <>
-              <a className="positive" href={`/test/accept-edit/${edit.id}`}>
-                {l('Accept edit')}
-              </a>
-              <a className="negative" href={`/test/reject-edit/${edit.id}`}>
-                {l('Reject edit')}
-              </a>
-            </>
-          ) : null}
+          {edit.status === EDIT_STATUS_OPEN &&
+            DBDefs.DB_STAGING_TESTING_FEATURES ? (
+              <>
+                <a className="positive" href={`/test/accept-edit/${edit.id}`}>
+                  {l('Accept edit')}
+                </a>
+                <a className="negative" href={`/test/reject-edit/${edit.id}`}>
+                  {l('Reject edit')}
+                </a>
+              </>
+            ) : null}
         </div>
       ) : null}
     </>

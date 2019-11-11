@@ -21,7 +21,9 @@ const WorkHeader = ({work, page}: Props) => (
     entity={work}
     headerClass="workheader"
     page={page}
-    subHeading={work.typeName ? lp_attributes(work.typeName, 'work_type') : l('Work')}
+    subHeading={work.typeName
+      ? lp_attributes(work.typeName, 'work_type')
+      : l('Work')}
   />
 );
 

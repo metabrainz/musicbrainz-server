@@ -71,7 +71,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
             this.end_date = setPartialDate({}, data.end_date || {});
             this.ended = ko.observable(!!data.ended);
 
-            this.disableEndedCheckBox = ko.computed(function() {
+            this.disableEndedCheckBox = ko.computed(function () {
                 var hasEndDate = !!formatDate(this.end_date);
                 this.ended(hasEndDate || data.ended);
                 return hasEndDate;

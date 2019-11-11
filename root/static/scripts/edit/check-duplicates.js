@@ -100,7 +100,8 @@ function sortDuplicates(type, duplicates) {
 }
 
 function getSelectedArea() {
-  return $('span.area.autocomplete > input.name').data('mb-entitylookup').currentSelection;
+  return $('span.area.autocomplete > input.name')
+    .data('mb-entitylookup').currentSelection;
 }
 
 function isPlaceCommentRequired(duplicates) {
@@ -136,7 +137,8 @@ function markCommentAsRequired(input) {
     .parent();
 
   if (!$parent.next('div.comment-required').length) {
-    $parent.after($('<div>').addClass('no-label error comment-required').text(l('Required field.')));
+    $parent.after($('<div>').addClass('no-label error comment-required')
+      .text(l('Required field.')));
   }
 }
 
@@ -168,9 +170,13 @@ MB.initializeDuplicateChecker = function (type) {
   function makeRequest(name, forceRequest) {
     var nameChanged = name !== originalName;
 
-    // forceRequest only applies if name is non-empty.
-    // we should never check for duplicates of an existing entity, if the name hasn't changed.
-    if (isBlank(name) || !(nameChanged || forceRequest) || (sourceEntityGID && !nameChanged)) {
+    /*
+     * forceRequest only applies if name is non-empty.
+     * we should never check for duplicates of an existing entity,
+     * if the name hasn't changed.
+     */
+    if (isBlank(name) || !(nameChanged || forceRequest) ||
+        (sourceEntityGID && !nameChanged)) {
       unmountDuplicates(dupeContainer);
       markCommentAsNotRequired(commentInput);
       return;
@@ -187,7 +193,8 @@ MB.initializeDuplicateChecker = function (type) {
         if (duplicates.length) {
           renderDuplicates(name, duplicates, dupeContainer);
 
-          if (isBlank(commentInput.value) && isCommentRequired(type, name, duplicates)) {
+          if (isBlank(commentInput.value) &&
+              isCommentRequired(type, name, duplicates)) {
             markCommentAsRequired(commentInput);
           } else {
             markCommentAsNotRequired(commentInput);
@@ -240,7 +247,8 @@ MB.initializeDuplicateChecker = function (type) {
 
   if (type === 'place') {
     getSelectedArea().subscribe(function () {
-      if (currentDuplicates.length && isPlaceCommentRequired(currentDuplicates)) {
+      if (currentDuplicates.length &&
+          isPlaceCommentRequired(currentDuplicates)) {
         markCommentAsRequired(commentInput);
       } else {
         markCommentAsNotRequired(commentInput);

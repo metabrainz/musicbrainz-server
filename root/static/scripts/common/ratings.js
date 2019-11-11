@@ -46,11 +46,16 @@ $(document).on("click", "span.star-rating a", function () {
 
         container.children('a').each(function (i) {
             var originalRating = 100 * (1 + i) / 5;
-            var newRating = data.rating == originalRating ? 0 : originalRating;
+            var newRating = data.rating == originalRating
+                ? 0
+                : originalRating;
             var oldRatingMatch = this.href.match(/rating=(\d+)/);
             if (oldRatingMatch[1] != newRating)
             {
-                this.href = this.href.replace(oldRatingMatch[0], 'rating=' + newRating);
+                this.href = this.href.replace(
+                    oldRatingMatch[0],
+                    'rating=' + newRating,
+                );
                 $(this).attr('title', ratingTooltip(5 * newRating / 100));
             }
         });

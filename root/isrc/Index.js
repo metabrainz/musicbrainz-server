@@ -11,10 +11,12 @@ import React from 'react';
 
 import {withCatalystContext} from '../context';
 import Layout from '../layout';
-import ArtistCreditLink from '../static/scripts/common/components/ArtistCreditLink';
+import ArtistCreditLink
+  from '../static/scripts/common/components/ArtistCreditLink';
 import CodeLink from '../static/scripts/common/components/CodeLink';
 import EntityLink from '../static/scripts/common/components/EntityLink';
-import formatTrackLength from '../static/scripts/common/utility/formatTrackLength';
+import formatTrackLength
+  from '../static/scripts/common/utility/formatTrackLength';
 import loopParity from '../utility/loopParity';
 
 type PropsT = {
@@ -29,8 +31,10 @@ const Index = ({$c, isrcs, recordings}: PropsT) => {
   return (
     <Layout fullWidth title={texp.l('ISRC “{isrc}”', {isrc: isrc.isrc})}>
       <h1>
-        {exp.l('ISRC “{isrc}”',
-          {isrc: <CodeLink code={isrc} key="isrc" />})}
+        {exp.l(
+          'ISRC “{isrc}”',
+          {isrc: <CodeLink code={isrc} key="isrc" />},
+        )}
       </h1>
       <h2>
         {texp.ln(
@@ -81,7 +85,9 @@ const Index = ({$c, isrcs, recordings}: PropsT) => {
         {userExists ? (
           <div className="row">
             <span className="buttons">
-              <button type="submit">{l('Add selected recordings for merging')}</button>
+              <button type="submit">
+                {l('Add selected recordings for merging')}
+              </button>
             </span>
           </div>
         ) : null}

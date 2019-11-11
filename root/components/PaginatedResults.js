@@ -39,7 +39,9 @@ const PaginatedResults = ({
               pager.total_entries,
               {n: Number(pager.total_entries).toLocaleString()})
           ) : (
-            texp.ln('Found {n} result for "{q}"', 'Found {n} results for "{q}"',
+            texp.ln(
+              'Found {n} result for "{q}"',
+              'Found {n} results for "{q}"',
               pager.total_entries,
               {n: Number(pager.total_entries).toLocaleString(), q: query})
           )}

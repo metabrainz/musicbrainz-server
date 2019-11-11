@@ -4,16 +4,29 @@
     <p>[% l('You are about to merge the following areas into a single area. Please
              select the area which you would like other areas to be merged into:') %]</p>
     <form action="[% c.req.uri %]" method="post">
-        <ul>
+        <table class="tbl">
+            <thead>
+                <tr>
+                    <th style="width: 1em">
+                    </th>
+                    <th>[%- l('Area') -%]</th>
+                    [%- remove_from_merge_header(to_merge) -%]
+                </tr>
+            </thead>
+            <tbody>
             [% FOR entity=to_merge %]
-            <li>
-                <input type="hidden" name="merge.merging.[% loop.index %]" value="[% entity.id %]" />
-                <input type="radio" name="merge.target" value="[% entity.id %]"
-                   [% 'checked="checked"' IF entity.id == form.field('target').value %] />
-                [% descriptive_link(entity) %]
-            </li>
+                <tr class="[% loop.parity %]">
+                    <td>
+                        <input type="hidden" name="merge.merging.[% loop.index %]" value="[% entity.id %]" />
+                        <input type="radio" name="merge.target" value="[% entity.id %]"
+                           [% 'checked="checked"' IF entity.id == form.field('target').value %] />
+                    </td>
+                    <td>[% descriptive_link(entity) %]</td>
+                    [%- remove_from_merge('area', to_merge) -%]
+                </tr>
             [% END %]
-        </ul>
+            </tbody>
+        </table>
         [% field_errors(form, 'target') %]
 
         [% INCLUDE "forms/edit-note.tt" %]

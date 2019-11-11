@@ -10,7 +10,8 @@
 import React from 'react';
 import {range} from 'lodash';
 
-import {l_statistics as l, ln_statistics as ln} from '../static/scripts/common/i18n/statistics';
+import {l_statistics as l, ln_statistics as ln}
+  from '../static/scripts/common/i18n/statistics';
 import {withCatalystContext} from '../context';
 
 import {formatCount, formatPercentage} from './utilities';
@@ -201,11 +202,17 @@ const CoverArt = ({
         <tr>
           <th />
           <th>{l('manually selected:')}</th>
-          <td>{formatCount($c, stats['count.releasegroup.caa.manually_selected'])}</td>
+          <td>
+            {formatCount(
+              $c,
+              stats['count.releasegroup.caa.manually_selected'],
+            )}
+          </td>
           <td>
             {formatPercentage(
               $c,
-              stats['count.releasegroup.caa.manually_selected'] / stats['count.releasegroup.caa'],
+              stats['count.releasegroup.caa.manually_selected'] /
+                stats['count.releasegroup.caa'],
               1,
             )}
           </td>
@@ -217,7 +224,8 @@ const CoverArt = ({
           <td>
             {formatPercentage(
               $c,
-              stats['count.releasegroup.caa.inferred'] / stats['count.releasegroup.caa'],
+              stats['count.releasegroup.caa.inferred'] /
+                stats['count.releasegroup.caa'],
               1,
             )}
           </td>
@@ -288,7 +296,8 @@ const CoverArt = ({
               <td>
                 {formatPercentage(
                   $c,
-                  stats['count.coverart.per_release.' + number + 'images'] / stats['count.release.has_caa'],
+                  stats['count.coverart.per_release.' + number + 'images'] /
+                    stats['count.release.has_caa'],
                   1,
                 )}
               </td>
@@ -306,7 +315,8 @@ const CoverArt = ({
             <td>
               {formatPercentage(
                 $c,
-                stats['count.coverart.per_release.30images'] / stats['count.release.has_caa'],
+                stats['count.coverart.per_release.30images'] /
+                  stats['count.release.has_caa'],
                 1,
               )}
             </td>

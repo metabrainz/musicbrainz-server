@@ -92,8 +92,10 @@ const PrivilegedUsers = ({
 
       <h2>{l('Location editors')}</h2>
       <p>
-        {exp.l('Location editors are users who can add or modify {uri|areas}.',
-          {uri: 'doc/Area'})}
+        {exp.l(
+          'Location editors are users who can add or modify {uri|areas}.',
+          {uri: 'doc/Area'},
+        )}
       </p>
       <p>
         {texp.l(

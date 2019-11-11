@@ -11,8 +11,10 @@ import React from 'react';
 import type {Node as ReactNode} from 'react';
 
 import Layout from '../layout';
-import InstrumentSidebar from '../layout/components/sidebar/InstrumentSidebar';
-import localizeInstrumentName from '../static/scripts/common/i18n/localizeInstrumentName';
+import InstrumentSidebar
+  from '../layout/components/sidebar/InstrumentSidebar';
+import localizeInstrumentName
+  from '../static/scripts/common/i18n/localizeInstrumentName';
 
 
 import InstrumentHeader from './InstrumentHeader';

@@ -11,7 +11,8 @@ import setCookie from '../utility/setCookie';
 $(function () {
   var $bottomCredits = $('#bottom-credits');
   var bottomCreditsEnabled = getBooleanCookie('bottom-credits');
-  var hasReleaseCredits = !!$('#release-relationships, #release-group-relationships').length;
+  var hasReleaseCredits =
+    !!$('#release-relationships, #release-group-relationships').length;
 
   function switchToInlineCredits() {
     $('.bottom-credits').hide();
@@ -73,21 +74,25 @@ $(function () {
           var position = $credits.data('position');
           var insertAfter;
 
-          $bottomCredits.find('.bottom-credits').each(function (index, other) {
-            var $other = $(other);
+          $bottomCredits.find('.bottom-credits')
+            .each(function (index, other) {
+              var $other = $(other);
 
-            if (position > $other.data('position')) {
-              insertAfter = $other;
-            } else {
-              return false;
-            }
-          });
+              if (position > $other.data('position')) {
+                insertAfter = $other;
+              } else {
+                return false;
+              }
+            });
 
-          insertAfter ? $credits.insertAfter(insertAfter) : $bottomCredits.find('h2').after($credits);
+          insertAfter
+            ? $credits.insertAfter(insertAfter)
+            : $bottomCredits.find('h2').after($credits);
         }
       })
       .fail(function () {
-        $message.removeClass('loading-message').text(l('Failed to load the medium.'));
+        $message.removeClass('loading-message')
+          .text(l('Failed to load the medium.'));
       });
 
     // Prevent browser from following link

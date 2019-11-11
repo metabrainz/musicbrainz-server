@@ -34,3 +34,8 @@ export function canSecond(election: AutoEditorElectionT, user: ?EditorT) {
 export function canCancel(election: AutoEditorElectionT, user: ?EditorT) {
   return (!!user && !election.is_closed && election.proposer.id === user.id);
 }
+
+export function canNominate(nominator: ?EditorT, nominee: ?EditorT) {
+  return (!!nominator && !!nominee && nominator.is_auto_editor &&
+    !nominee.is_auto_editor && !nominee.deleted);
+}

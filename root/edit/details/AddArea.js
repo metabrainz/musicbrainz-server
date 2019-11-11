@@ -12,7 +12,8 @@ import React from 'react';
 import commaOnlyList from '../../static/scripts/common/i18n/commaOnlyList';
 import formatDate from '../../static/scripts/common/utility/formatDate';
 import isDateEmpty from '../../static/scripts/common/utility/isDateEmpty';
-import DescriptiveLink from '../../static/scripts/common/components/DescriptiveLink';
+import DescriptiveLink
+  from '../../static/scripts/common/components/DescriptiveLink';
 import yesNo from '../../static/scripts/common/utility/yesNo';
 
 type AddAreaEditT = {
