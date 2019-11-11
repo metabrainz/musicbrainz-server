@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2019-10-23 20:34+0000\n"
+"PO-Revision-Date: 2019-11-06 21:54+0000\n"
 "Last-Translator: Michael Wiencek <email address hidden>\n"
 "Language-Team: Greek (http://www.transifex.com/musicbrainz/musicbrainz/language/el/)\n"
 "MIME-Version: 1.0\n"
@@ -3998,6 +3998,15 @@ msgstr ""
 msgid "Theatre organ, such as the Wurlitzer"
 msgstr ""
 
+#. name:kacapi
+#: DB:instrument/description:999
+msgid ""
+"There are two kinds, boat shaped \"mother\" and \"child\" ones, originally "
+"made of a single piece of wood and descended from the kacapi pantun as used "
+"in epic story. And a flat box-zither made of wood used from the 1950's and "
+"in experimental music."
+msgstr ""
+
 #. name:akete
 #: DB:instrument/description:747
 msgid ""
@@ -4262,6 +4271,14 @@ msgstr ""
 msgid ""
 "Used in turntablism, vinyl records are not simply played on it, instead DJ's"
 " perform creating sound."
+msgstr ""
+
+#. name:kepyak
+#: DB:instrument/description:998
+msgid ""
+"Used in wayang puppetry, it is made of 1 to 4 iron (sometimes bronze) plates"
+" hung by strings, The puppeteer uses a small mallet set in the foot to hit "
+"the plate(s)."
 msgstr ""
 
 #. name:bonang panerus
