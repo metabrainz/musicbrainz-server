@@ -5,6 +5,7 @@
 # Felix Gruber <email address hidden>, 2015
 # lorenzpressler <email address hidden>, 2012
 # Marc Rodrigues <email address hidden>, 2019
+# Mark Spike, 2019
 # nikki, 2013
 # Patrick <email address hidden>, 2015
 # Philipp Wolfer <email address hidden>, 2015
@@ -15,8 +16,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2019-10-23 20:34+0000\n"
-"Last-Translator: Michael Wiencek <email address hidden>\n"
+"PO-Revision-Date: 2019-11-11 21:39+0000\n"
+"Last-Translator: Mark Spike\n"
 "Language-Team: German (http://www.transifex.com/musicbrainz/musicbrainz/language/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1952,6 +1953,11 @@ msgctxt "Vietnamese Air Xylophone"
 msgid "k'lông pút"
 msgstr "K'lông pút"
 
+#: DB:instrument/name:999
+msgctxt "Family of Sundanese string zithers"
+msgid "kacapi"
+msgstr "Kacapi"
+
 #: DB:instrument/name:947
 msgctxt "Flat-cut gourd sitar"
 msgid "kachva sitar"
@@ -2019,7 +2025,7 @@ msgstr ""
 #: DB:instrument/name:988
 msgctxt "Banana shaped bronze slit-drum used in javanese gamelan"
 msgid "kemanak"
-msgstr ""
+msgstr "Kemanak"
 
 #: DB:instrument/name:211
 msgid "kemenche"
@@ -2047,7 +2053,7 @@ msgstr ""
 #: DB:instrument/name:989
 msgctxt "Family of two sided laced drums used in various gamelan"
 msgid "kendang"
-msgstr ""
+msgstr "Kendang"
 
 #: DB:instrument/name:994
 msgctxt "High pitched cylindrical kendang used in Bali gamelan."
@@ -2077,7 +2083,7 @@ msgstr ""
 #: DB:instrument/name:991
 msgctxt "Smallest conical kendang used in both Javanese/Sundanese gamelan"
 msgid "kendhang ketipung"
-msgstr ""
+msgstr "Kendang Ketipung"
 
 #: DB:instrument/name:997
 msgctxt "Paired truncated cone kendang used in Sundanese gamelan"
@@ -2092,12 +2098,17 @@ msgstr ""
 #: DB:instrument/name:985
 msgctxt "Large high-pitch gong-chime used in Indonesian Gamelan"
 msgid "kenong"
+msgstr "Kenong"
+
+#: DB:instrument/name:998
+msgctxt "Metal plate percussion used in Javanese gamelan"
+msgid "kepyak"
 msgstr ""
 
 #: DB:instrument/name:986
 msgctxt "Small boxed gong-chime used in Javanese gamelan"
 msgid "kethuk"
-msgstr ""
+msgstr "Kethuk"
 
 #: DB:instrument/name:367
 msgid "kettle drum"

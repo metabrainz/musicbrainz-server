@@ -61,12 +61,45 @@ const patterns = {
   }],
 };
 
+const TZ_CANCUN = 'America/Cancun';
+const TZ_CHICAGO = 'America/Chicago';
+const TZ_DENVER = 'America/Denver';
+const TZ_HONOLULU = 'Pacific/Honolulu';
+const TZ_LISBON = 'Europe/Lisbon';
+const TZ_LOSANGELES = 'America/Los_Angeles';
+const TZ_NEWYORK = 'America/New_York';
+const TZ_PARIS = 'Europe/Paris';
+const TZ_PHOENIX = 'America/Phoenix';
+const TZ_SOFIA = 'Europe/Sofia';
+
+/*
+ * These short names are selectable in /account/preferences, but
+ * unsupported by Intl.DateTimeFormat in Node. We map them to a
+ * supported "Area/Location" name that observes the referenced time
+ * zone. This should fortunately match the behavior of Perl's
+ * DateTime::TimeZone, which does not define all of these as hard-coded
+ * offsets, but takes DST into account where it makes sense to.
+ */
+const timeZoneFallbacks = {
+  CET: TZ_PARIS,
+  CST6CDT: TZ_CHICAGO,
+  EET: TZ_SOFIA,
+  EST: TZ_CANCUN,
+  EST5EDT: TZ_NEWYORK,
+  HST: TZ_HONOLULU,
+  MET: TZ_PARIS,
+  MST: TZ_PHOENIX,
+  MST7MDT: TZ_DENVER,
+  PST8PDT: TZ_LOSANGELES,
+  WET: TZ_LISBON,
+};
+
 let HAS_INTL_DATETIMEFORMAT = true;
 
 try {
   const now = new Date();
-  formatDateUsingPattern(now, '%a', 'America/Chicago', 'en-US');
-  formatDateUsingPattern(now, '%c', 'America/Chicago', 'en-US');
+  formatDateUsingPattern(now, '%a', TZ_CHICAGO, 'en-US');
+  formatDateUsingPattern(now, '%c', TZ_CHICAGO, 'en-US');
 } catch (e) {
   HAS_INTL_DATETIMEFORMAT = false;
 }
@@ -81,10 +114,22 @@ function formatDateUsingPattern(
   const cacheKey = pattern + '-' + timezone + '-' + locale;
   let formatter = formatterCache.get(cacheKey);
   if (!formatter) {
-    formatter = new Intl.DateTimeFormat(
-      locale,
-      Object.assign({timeZone: timezone}, options),
-    );
+    try {
+      formatter = new Intl.DateTimeFormat(
+        locale,
+        Object.assign({timeZone: timezone}, options),
+      );
+    } catch (e) {
+      if (e instanceof RangeError && /time zone/.test(e.message)) {
+        const fallback = timeZoneFallbacks[timezone] ?? 'UTC';
+        formatter = new Intl.DateTimeFormat(
+          locale,
+          Object.assign({timeZone: fallback}, options),
+        );
+      } else {
+        throw e;
+      }
+    }
     formatterCache.set(formatter);
   }
   if (property) {

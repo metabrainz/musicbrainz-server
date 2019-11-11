@@ -7,8 +7,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2019-10-29 10:01+0000\n"
-"Last-Translator: Maurits Meulenbelt <email address hidden>\n"
+"PO-Revision-Date: 2019-11-06 21:54+0000\n"
+"Last-Translator: Michael Wiencek <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -4000,6 +4000,15 @@ msgstr "Een żummara is een Maltees instrument dat lijkt op de kazoo. Het wordt 
 msgid "Theatre organ, such as the Wurlitzer"
 msgstr "Een (klein) pijporgel dat bedoeld was voor de begeleiding van stomme films. Ook bekend onder de namen bioscooporgel en cinemaorgel."
 
+#. name:kacapi
+#: DB:instrument/description:999
+msgid ""
+"There are two kinds, boat shaped \"mother\" and \"child\" ones, originally "
+"made of a single piece of wood and descended from the kacapi pantun as used "
+"in epic story. And a flat box-zither made of wood used from the 1950's and "
+"in experimental music."
+msgstr ""
+
 #. name:akete
 #: DB:instrument/description:747
 msgid ""
@@ -4265,6 +4274,14 @@ msgid ""
 "Used in turntablism, vinyl records are not simply played on it, instead DJ's"
 " perform creating sound."
 msgstr "Draaitafels worden gebruikt bij turntablism. Platen worden niet simpelweg afgespeeld, maar door dj’s gebruikt om nieuw geluid te creëren."
+
+#. name:kepyak
+#: DB:instrument/description:998
+msgid ""
+"Used in wayang puppetry, it is made of 1 to 4 iron (sometimes bronze) plates"
+" hung by strings, The puppeteer uses a small mallet set in the foot to hit "
+"the plate(s)."
+msgstr ""
 
 #. name:bonang panerus
 #: DB:instrument/description:971

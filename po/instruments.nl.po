@@ -8,8 +8,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2019-10-29 09:58+0000\n"
-"Last-Translator: Maurits Meulenbelt <email address hidden>\n"
+"PO-Revision-Date: 2019-11-06 21:54+0000\n"
+"Last-Translator: Michael Wiencek <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1945,6 +1945,11 @@ msgctxt "Vietnamese Air Xylophone"
 msgid "k'lông pút"
 msgstr "k'lông pút"
 
+#: DB:instrument/name:999
+msgctxt "Family of Sundanese string zithers"
+msgid "kacapi"
+msgstr ""
+
 #: DB:instrument/name:947
 msgctxt "Flat-cut gourd sitar"
 msgid "kachva sitar"
@@ -2085,6 +2090,11 @@ msgstr ""
 #: DB:instrument/name:985
 msgctxt "Large high-pitch gong-chime used in Indonesian Gamelan"
 msgid "kenong"
+msgstr ""
+
+#: DB:instrument/name:998
+msgctxt "Metal plate percussion used in Javanese gamelan"
+msgid "kepyak"
 msgstr ""
 
 #: DB:instrument/name:986
