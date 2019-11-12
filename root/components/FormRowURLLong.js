@@ -14,8 +14,8 @@ import FormRowTextLong from './FormRowTextLong';
 type Props = {
   +field: ReadOnlyFieldT<string>,
   +label: string,
+  +onChange?: (SyntheticEvent<HTMLInputElement>) => void,
   +required?: boolean,
-  ...
 };
 
 const FormRowURLLong = (props: Props) => (

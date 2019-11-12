@@ -16,17 +16,19 @@ import FormLabel from './FormLabel';
 type Props = {
   +field: ReadOnlyFieldT<?string>,
   +label: string,
+  +onChange?: (SyntheticEvent<HTMLInputElement>) => void,
   +required?: boolean,
+  +size?: number,
   +type?: string,
-  ...
 };
 
 const FormRowText = ({
   field,
   label,
+  onChange,
   required = false,
+  size,
   type = 'text',
-  ...inputProps
 }: Props) => (
   <FormRow>
     <FormLabel forField={field} label={label} required={required} />
@@ -34,9 +36,10 @@ const FormRowText = ({
       defaultValue={field.value || ''}
       id={'id-' + field.html_name}
       name={field.html_name}
+      onChange={onChange}
       required={required}
+      size={size}
       type={type}
-      {...inputProps}
     />
     <FieldErrors field={field} />
   </FormRow>

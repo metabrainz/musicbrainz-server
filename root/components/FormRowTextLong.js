@@ -14,6 +14,7 @@ import FormRowText from './FormRowText';
 type Props = {
   +field: ReadOnlyFieldT<string>,
   +label: string,
+  +onChange?: (SyntheticEvent<HTMLInputElement>) => void,
   +required?: boolean,
   +type?: string,
 };
