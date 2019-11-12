@@ -198,7 +198,7 @@ export default function guessFeat(entity) {
     entity.artistCreditEditorInst && entity.artistCreditEditorInst.setState({
         artistCredit: entity.artistCredit.peek(),
     });
-};
+}
 
 // For use outside of the release editor.
 MB.Control.initGuessFeatButton = function (formName) {

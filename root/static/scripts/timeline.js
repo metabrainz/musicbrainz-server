@@ -445,7 +445,7 @@ class TimelineLine {
     }
 
     var setItemTooltip = function (item, extra, fixed) {
-            if (!extra) { extra = '' };
+            if (!extra) { extra = '' }
             removeTooltip();
             setCursor();
             var x = item.datapoint[0],

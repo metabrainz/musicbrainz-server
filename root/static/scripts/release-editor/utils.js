@@ -62,7 +62,7 @@ export function unformatTrackLength(duration) {
     var hours = parseInt(parts.pop() || 0, 10) * 3600;
 
     return (hours + minutes + seconds) * 1000;
-};
+}
 
 utils.unformatTrackLength = unformatTrackLength;
 
@@ -180,7 +180,7 @@ export function calculateDiscID(toc) {
     }
 
     return base64(rstr_sha1(temp));
-};
+}
 
 utils.calculateDiscID = calculateDiscID;
 

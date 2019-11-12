@@ -22,4 +22,4 @@ export default function similarity(a, b) {
     b = stripSpacesAndPunctuation(b) || b || '';
 
     return 1 - (leven(a, b) / (a.length + b.length));
-};
+}

@@ -823,7 +823,7 @@ MB.Control.autocomplete_formatters = {
             }
             a.append('<br /><span class="autocomplete-comment">' +
                      _.escape(commaOnlyList(items)) + '</span>');
-        };
+        }
 
         return $("<li>").append(a).appendTo(ul);
     },
@@ -863,7 +863,7 @@ MB.Control.autocomplete_formatters = {
             }
             a.append('<br /><span class="autocomplete-comment">' +
                      _.escape(commaOnlyList(items)) + '</span>');
-        };
+        }
 
         return $("<li>").append(a).appendTo(ul);
     },

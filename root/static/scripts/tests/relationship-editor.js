@@ -133,7 +133,7 @@ function setupGenericRelationshipEditor(options) {
 function formData() {
     var inputsArray = _.toArray($("input[type=hidden]"));
     return _.transform(inputsArray, function (result, input) { result[input.name] = input.value }, {});
-};
+}
 
 function relationshipEditorTest(name, callback) {
     test(name, function (t) {
