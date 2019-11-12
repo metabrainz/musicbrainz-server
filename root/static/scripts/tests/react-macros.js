@@ -17,6 +17,8 @@ if (!document) {
 const React = require('react');
 const ReactDOMServer = require('react-dom/server');
 
+/* eslint-disable no-unused-vars */
+
 const DescriptiveLink = require('../common/components/DescriptiveLink').default;
 const EditorLink = require('../common/components/EditorLink').default;
 const EntityLink = require('../common/components/EntityLink').default;
@@ -25,6 +27,8 @@ const diffArtistCredits = require('../edit/utility/diffArtistCredits').default;
 const Diff = require('../edit/components/edit/Diff').default;
 const FullChangeDiff = require('../edit/components/edit/FullChangeDiff').default;
 const WordDiff = require('../edit/components/edit/WordDiff').default;
+
+/* eslint-enable no-unused-vars */
 
 function throwNotEquivalent(message, got, expected) {
   throw {message: message, got: got, expected: expected};
