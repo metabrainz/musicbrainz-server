@@ -501,6 +501,7 @@ sub TO_JSON {
         merge_link
         more_tags
         new_edit_notes
+        new_edit_notes_mtime
         number_of_collections
         number_of_revisions
         own_collections
