@@ -48,6 +48,7 @@ __PACKAGE__->config(
     encoding => 'UTF-8',
     "View::Default" => {
         expose_methods => [qw(
+            boolean_to_json
             comma_list
             comma_only_list
         )],

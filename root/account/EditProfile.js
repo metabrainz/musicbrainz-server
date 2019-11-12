@@ -30,7 +30,7 @@ const EditProfile = ({$c, ...props}: Props) => {
   return (
     <UserAccountLayout
       entity={user}
-      gettext_domains={['attributes']}
+      gettextDomains={['attributes']}
       page="edit_profile"
       title={l('Edit Profile')}
     >

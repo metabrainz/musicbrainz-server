@@ -5,6 +5,7 @@ use base 'Catalyst::View::TT';
 use DBDefs;
 use MRO::Compat;
 use Digest::MD5 qw( md5_hex );
+use MusicBrainz::Server::Data::Utils;
 use MusicBrainz::Server::Translation;
 use MusicBrainz::Server::View::Base;
 
@@ -17,6 +18,11 @@ sub process {
     MusicBrainz::Server::View::Base::process($self, @_) or return 0;
     $self->next::method(@_) or return 0;
     MusicBrainz::Server::View::Base::_post_process($self, @_);
+}
+
+sub boolean_to_json {
+    my ($self, $c, $bool) = @_;
+    MusicBrainz::Server::Data::Utils::boolean_to_json($bool);
 }
 
 sub comma_list {

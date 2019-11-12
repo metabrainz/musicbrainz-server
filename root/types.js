@@ -210,6 +210,8 @@ type CatalystStashT = {
   },
   +current_language: string,
   +current_language_html: string,
+  +entity?: CoreEntityT,
+  +jsonld_data?: {...},
   +more_tags?: boolean,
   +number_of_collections?: number,
   +number_of_revisions?: number,
