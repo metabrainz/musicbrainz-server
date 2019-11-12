@@ -73,18 +73,21 @@ const SearchForm = ({form}: Props) => (
           field={form.field.query}
           label={l('Query:')}
           required
+          uncontrolled
         />
         <FormRowSelect
           field={form.field.type}
           label={l('Type:')}
           onChange={noop}
           options={typeOptions}
+          uncontrolled
         />
         <FormRowSelect
           field={form.field.limit}
           label={l('Results per page:')}
           onChange={noop}
           options={limitOptions}
+          uncontrolled
         />
         <FormRowRadio
           field={form.field.method}

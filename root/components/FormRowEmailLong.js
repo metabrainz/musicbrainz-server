@@ -9,15 +9,10 @@
 
 import React from 'react';
 
+import type {Props as FormRowTextProps} from './FormRowText';
 import FormRowTextLong from './FormRowTextLong';
 
-type Props = {
-  +field: ReadOnlyFieldT<string>,
-  +label: string,
-  +required?: boolean,
-};
-
-const FormRowEmailLong = (props: Props) => (
+const FormRowEmailLong = (props: FormRowTextProps) => (
   <FormRowTextLong type="email" {...props} />
 );
 

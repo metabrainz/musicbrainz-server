@@ -75,6 +75,7 @@ const CollectionEditForm = ({$c, collectionTypes, form}: Props) => {
           field={form.field.name}
           label={addColonText(l('Name'))}
           required
+          uncontrolled
         />
         <FormRowSelect
           field={form.field.type_id}

@@ -29,10 +29,12 @@ const GenreEditForm = ({$c, form}: Props) => (
           field={form.field.name}
           label={addColonText(l('Name'))}
           required
+          uncontrolled
         />
         <FormRowTextLong
           field={form.field.comment}
           label={addColonText(l('Disambiguation'))}
+          uncontrolled
         />
       </fieldset>
     </div>

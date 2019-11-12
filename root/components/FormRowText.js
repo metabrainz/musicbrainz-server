@@ -13,36 +13,66 @@ import FieldErrors from './FieldErrors';
 import FormRow from './FormRow';
 import FormLabel from './FormLabel';
 
-type Props = {
+type InputOnChange = (SyntheticEvent<HTMLInputElement>) => void;
+
+type InputProps = {
+  defaultValue?: string,
+  +id: string,
+  +name: string,
+  onChange?: InputOnChange,
+  +required: boolean,
+  +size: ?number,
+  +type: string,
+  value?: string,
+};
+
+type CommonProps = {
   +field: ReadOnlyFieldT<?string>,
   +label: string,
-  +onChange?: (SyntheticEvent<HTMLInputElement>) => void,
   +required?: boolean,
   +size?: number,
   +type?: string,
 };
 
-const FormRowText = ({
-  field,
-  label,
-  onChange,
-  required = false,
-  size,
-  type = 'text',
-}: Props) => (
-  <FormRow>
-    <FormLabel forField={field} label={label} required={required} />
-    <input
-      defaultValue={field.value || ''}
-      id={'id-' + field.html_name}
-      name={field.html_name}
-      onChange={onChange}
-      required={required}
-      size={size}
-      type={type}
-    />
-    <FieldErrors field={field} />
-  </FormRow>
-);
+export type Props =
+  | $ReadOnly<{
+      ...CommonProps,
+      onChange: InputOnChange,
+      uncontrolled?: false,
+    }>
+  | $ReadOnly<{
+      ...CommonProps,
+      uncontrolled: true,
+    }>;
+
+const FormRowText = (props: Props) => {
+  const field = props.field;
+  const required = props.required ?? false;
+
+  const inputProps: InputProps = {
+    id: 'id-' + field.html_name,
+    name: field.html_name,
+    required: required,
+    size: props.size,
+    type: props.type ?? 'text',
+  };
+
+  const inputValue = field.value ?? '';
+
+  if (props.uncontrolled) {
+    inputProps.defaultValue = inputValue;
+  } else {
+    inputProps.onChange = props.onChange;
+    inputProps.value = inputValue;
+  }
+
+  return (
+    <FormRow>
+      <FormLabel forField={field} label={props.label} required={required} />
+      <input {...inputProps} />
+      <FieldErrors field={field} />
+    </FormRow>
+  );
+};
 
 export default FormRowText;

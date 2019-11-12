@@ -9,17 +9,10 @@
 
 import React from 'react';
 
+import type {Props as FormRowTextProps} from './FormRowText';
 import FormRowText from './FormRowText';
 
-type Props = {
-  +field: ReadOnlyFieldT<string>,
-  +label: string,
-  +onChange?: (SyntheticEvent<HTMLInputElement>) => void,
-  +required?: boolean,
-  +type?: string,
-};
-
-const FormRowTextLong = (props: Props) => (
+const FormRowTextLong = (props: FormRowTextProps) => (
   <FormRowText size={47} {...props} />
 );
 
