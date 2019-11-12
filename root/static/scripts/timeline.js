@@ -93,9 +93,8 @@ class TimelineViewModel {
                 var parts = self.zoomArray();
                 if (_.filter(parts).length > 0) {
                     return ['g'].concat(parts).join('/');
-                } else {
-                    return null;
-                }
+                } 
+                return null;
             },
             write: function (part) {
                 if (part) {
