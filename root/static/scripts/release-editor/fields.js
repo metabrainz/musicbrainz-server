@@ -724,7 +724,7 @@ class Barcode {
         if (barcode.length !== 12) return false;
 
         for (var i = 0, calc = 0; i < 12; i++) {
-            calc += parseInt(barcode[i]) * this.weights[i];
+            calc += parseInt(barcode[i], 10) * this.weights[i];
         }
 
         var digit = 10 - (calc % 10);

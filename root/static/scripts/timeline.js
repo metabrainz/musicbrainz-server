@@ -450,7 +450,7 @@ class TimelineLine {
             setCursor();
             var x = item.datapoint[0],
                 y = item.datapoint[1],
-                date = new Date(parseInt(x));
+                date = new Date(parseInt(x, 10));
 
             if (fixed) {
                 y = y.toFixed(fixed);
