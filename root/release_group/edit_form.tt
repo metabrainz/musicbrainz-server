@@ -38,7 +38,7 @@
       [% closing_tag_escape(form.to_encoded_json) %],
       [% closing_tag_escape(form.field('artist_credit').json) %]
     );
-    MB.Control.initialize_guess_case("release-group", "id-edit-release-group");
+    MB.Control.initialize_guess_case("release_group", "id-edit-release-group");
     MB.Control.initGuessFeatButton('edit-release-group');
   });
 </script>
