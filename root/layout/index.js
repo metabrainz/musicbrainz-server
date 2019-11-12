@@ -180,7 +180,7 @@ const Layout = ({$c, ...props}) => (
       </div>
 
       {($c.session && $c.session.merger && !$c.stash.hide_merge_helper) &&
-        <MergeHelper />}
+        <MergeHelper merger={$c.session.merger} />}
 
       <Footer {...props} />
     </body>

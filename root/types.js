@@ -200,6 +200,7 @@ type CatalystRequestContextT = {
 
 type CatalystSessionT = {
   +tport?: number,
+  +merger?: MergeQueueT,
 };
 
 type CatalystStashT = {
@@ -220,6 +221,7 @@ type CatalystStashT = {
   +release_artwork_count?: number,
   +server_languages?: $ReadOnlyArray<ServerLanguageT>,
   +subscribed?: boolean,
+  +to_merge?: $ReadOnlyArray<CoreEntityT>,
   +top_tags?: $ReadOnlyArray<AggregatedTagT>,
   +user_tags?: $ReadOnlyArray<UserTagT>,
 };
@@ -703,6 +705,12 @@ declare type MergeFormT = FormT<{
   +rename: FieldT<boolean>,
   +target: FieldT<number>,
 }>;
+
+declare type MergeQueueT = {
+  +type: CoreEntityTypeT,
+  +entities: $ReadOnlyArray<number>,
+  +ready_to_merge: boolean,
+};
 
 declare type MinimalCoreEntityT = {
   +entityType: string,

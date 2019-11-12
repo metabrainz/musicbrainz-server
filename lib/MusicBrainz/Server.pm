@@ -499,7 +499,6 @@ sub TO_JSON {
         jsonld_data
         last_replication_date
         makes_no_changes
-        merge_link
         more_tags
         new_edit_notes
         new_edit_notes_mtime
