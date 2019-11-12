@@ -495,12 +495,9 @@ sub TO_JSON {
         current_language
         current_language_html
         entity
-        hide_merge_helper
         jsonld_data
         last_replication_date
-        makes_no_changes
         more_tags
-        new_edit_notes
         new_edit_notes_mtime
         number_of_collections
         number_of_revisions
@@ -515,9 +512,20 @@ sub TO_JSON {
         user_tags
     );
 
+    my @boolean_stash_keys = qw(
+        hide_merge_helper
+        makes_no_changes
+        new_edit_notes
+    );
+
     my %stash;
     for (@stash_keys) {
         $stash{$_} = $self->stash->{$_} if exists $self->stash->{$_};
+    }
+
+    for (@boolean_stash_keys) {
+        $stash{$_} = boolean_to_json($self->stash->{$_})
+            if exists $self->stash->{$_};
     }
 
     if (my $entity = delete $stash{entity}) {

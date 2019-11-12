@@ -182,6 +182,9 @@ type CatalystActionT = {
 
 type CatalystContextT = {
   +action: CatalystActionT,
+  +flash: {
+    +message?: string,
+  },
   +relative_uri: string,
   +req: CatalystRequestContextT,
   +session: CatalystSessionT | null,
@@ -204,6 +207,8 @@ type CatalystSessionT = {
 };
 
 type CatalystStashT = {
+  +alert?: string,
+  +alert_mtime?: number | null,
   +collaborative_collections?: $ReadOnlyArray<CollectionT>,
   +commons_image?: CommonsImageT | null,
   +containment?: {
@@ -212,8 +217,12 @@ type CatalystStashT = {
   +current_language: string,
   +current_language_html: string,
   +entity?: CoreEntityT,
+  +hide_merge_helper?: boolean,
   +jsonld_data?: {...},
+  +makes_no_changes?: boolean,
   +more_tags?: boolean,
+  +new_edit_notes?: boolean,
+  +new_edit_notes_mtime?: number | null,
   +number_of_collections?: number,
   +number_of_revisions?: number,
   +own_collections?: $ReadOnlyArray<CollectionT>,

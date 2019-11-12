@@ -15,8 +15,8 @@ const parseCookie = require('../static/scripts/common/utility/parseCookie');
 function getRequestCookie(
   req /*: CatalystRequestContextT */,
   name /*: string */,
-  defaultValue /*: mixed */ = undefined,
-) {
+  defaultValue /*: string */ = '',
+) /*: string */ {
   const headers = req.headers;
   const cookie = (
     headers.cookie ||

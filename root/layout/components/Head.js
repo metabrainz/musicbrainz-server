@@ -16,7 +16,7 @@ import escapeClosingTags from '../../utility/escapeClosingTags';
 
 import MetaDescription from './MetaDescription';
 
-type HeadProps = {
+export type HeadProps = {
   +$c: CatalystContextT,
   +gettextDomains?: $ReadOnlyArray<string>,
   +homepage?: boolean,
