@@ -1,4 +1,5 @@
 /*
+ * @flow
  * Copyright (C) 2017 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -6,11 +7,11 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import _ from 'lodash';
 import React from 'react';
 
 import {artistBeginLabel, artistEndLabel} from '../../artist/utils';
-import commaOnlyList from '../../static/scripts/common/i18n/commaOnlyList';
+import {commaOnlyListText}
+  from '../../static/scripts/common/i18n/commaOnlyList';
 import formatBarcode from '../../static/scripts/common/utility/formatBarcode';
 import formatDate from '../../static/scripts/common/utility/formatDate';
 import formatTrackLength
@@ -21,18 +22,24 @@ function entityDescription(entity) {
   if (entity.comment) {
     desc.push(entity.comment);
   }
-  if (entity.type) {
-    desc.push(l('Type:') + ' ' + entity.type.name);
-  }
   return desc;
+}
+
+function pushTypeName(desc, entity) {
+  const typeName = entity.typeName;
+  if (typeName) {
+    desc.push(l('Type:') + ' ' + typeName);
+  }
 }
 
 function artistDescription(artist) {
   const desc = entityDescription(artist);
+  pushTypeName(desc, artist);
   const beginDate = formatDate(artist.begin_date);
   const endDate = formatDate(artist.end_date);
-  if (artist.gender) {
-    desc.push(l('Gender:') + ' ' + artist.gender.name);
+  const gender = artist.gender;
+  if (gender) {
+    desc.push(l('Gender:') + ' ' + gender.name);
   }
   if (beginDate || artist.begin_area) {
     desc.push(
@@ -48,14 +55,16 @@ function artistDescription(artist) {
       (artist.end_area ? ' in ' + artist.end_area.name : ''),
     );
   }
-  if (artist.area) {
-    desc.push(l('Area:') + ' ' + artist.area.name);
+  const area = artist.area;
+  if (area) {
+    desc.push(l('Area:') + ' ' + area.name);
   }
   return desc;
 }
 
 function eventDescription(event) {
   const desc = entityDescription(event);
+  pushTypeName(desc, event);
   const beginDate = formatDate(event.begin_date);
   const endDate = formatDate(event.end_date);
   if (beginDate) {
@@ -72,6 +81,7 @@ function eventDescription(event) {
 
 function instrumentDescription(instrument) {
   const desc = entityDescription(instrument);
+  pushTypeName(desc, instrument);
   if (instrument.description) {
     desc.push(l('Description:') + ' ' + instrument.description);
   }
@@ -80,6 +90,7 @@ function instrumentDescription(instrument) {
 
 function labelDescription(label) {
   const desc = entityDescription(label);
+  pushTypeName(desc, label);
   const beginDate = formatDate(label.begin_date);
   const endDate = formatDate(label.end_date);
   if (label.label_code) {
@@ -91,14 +102,16 @@ function labelDescription(label) {
   if (endDate) {
     desc.push(l('Defunct:') + ' ' + endDate);
   }
-  if (label.area) {
-    desc.push(l('Area:') + ' ' + label.area.name);
+  const area = label.area;
+  if (area) {
+    desc.push(l('Area:') + ' ' + area.name);
   }
   return desc;
 }
 
 function placeDescription(place) {
   const desc = entityDescription(place);
+  pushTypeName(desc, place);
   const beginDate = formatDate(place.begin_date);
   const endDate = formatDate(place.end_date);
   if (beginDate) {
@@ -112,12 +125,13 @@ function placeDescription(place) {
 
 function releaseDescription(release) {
   const desc = entityDescription(release);
-  if (release.combined_format_name) {
-    desc.push(l('Format:') + ' ' + release.combined_format_name);
+  const combinedFormatName = release.combined_format_name;
+  if (combinedFormatName) {
+    desc.push(l('Format:') + ' ' + combinedFormatName);
   }
   let year;
   if (release.events && release.events.length) {
-    year = release.events[0].date.year;
+    year = release.events[0].date?.year;
   }
   if (year) {
     desc.push(l('Year:') + ' ' + year);
@@ -131,7 +145,7 @@ function releaseDescription(release) {
     });
     desc.push(
       (labels.length > 1 ? l('Labels:') : l('Label:')) + ' ' +
-      commaOnlyList(labels),
+      commaOnlyListText(labels),
     );
   }
   if (release.barcode) {
@@ -143,29 +157,40 @@ function releaseDescription(release) {
   return desc;
 }
 
+const getEntityName = x => x.entity.name;
+
+const getIswc = x => x.iswc;
+
 function workDescription(work) {
   const desc = entityDescription(work);
+  pushTypeName(desc, work);
   if (work.languages.length) {
     desc.push(
-      addColon(l('Lyrics Languages')) + ' ' +
-      commaOnlyList(work.languages.map(wl => l_languages(wl.language.name))),
+      addColonText(l('Lyrics Languages')) + ' ' +
+      commaOnlyListText(
+        work.languages.map(wl => l_languages(wl.language.name)),
+      ),
     );
   }
   if (work.writers) {
     desc.push(
       l('Writers:') + ' ' +
-      commaOnlyList(_.map(work.writers, 'entity.name')),
+      commaOnlyListText(work.writers.map(getEntityName)),
     );
   }
   if (work.iswcs) {
     desc.push(
-      l('ISWCs:') + ' ' + commaOnlyList(_.map(work.iswcs, 'iswc')),
+      l('ISWCs:') + ' ' + commaOnlyListText(work.iswcs.map(getIswc)),
     );
   }
   return desc;
 }
 
-const MetaDescription = ({entity}) => {
+type Props = {
+  +entity: ?CoreEntityT,
+};
+
+const MetaDescription = ({entity}: Props) => {
   if (!entity) {
     return null;
   }
@@ -194,7 +219,7 @@ const MetaDescription = ({entity}) => {
       break;
   }
   if (desc && desc.length) {
-    return <meta content={commaOnlyList(desc)} name="description" />;
+    return <meta content={commaOnlyListText(desc)} name="description" />;
   }
   return null;
 };
