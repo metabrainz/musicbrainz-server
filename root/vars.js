@@ -12,6 +12,8 @@
  * See /webpack/providePluginConfig.js.
  */
 
+/* eslint-disable no-unused-vars */
+
 declare var addColon: (variable: Expand2ReactInput) => Expand2ReactOutput;
 declare var addColonText: (variable: StrOrNum) => string;
 declare var hyphenateTitle: (title: string, subtitle: string) => string;
