@@ -74,4 +74,4 @@
         name: 'musicbrainzEvents',
         version: '1.0'
     });
-})(jQuery);
+}(jQuery));

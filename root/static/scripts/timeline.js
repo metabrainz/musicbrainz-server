@@ -612,7 +612,7 @@ class TimelineLine {
             }
         }
     };
-})();
+}());
 
 $.ajax({
     dataType: 'json',
