@@ -611,15 +611,14 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
 
         if (_.isEmpty(attributes) || _.isEmpty(linkType) || _.isEmpty(linkType.attributes)) {
             return [];
-        } else {
-            return _.transform(attributes, function (accum, data) {
-                var attrInfo = linkedEntities.link_attribute_type[data.type.gid];
+        } 
+        return _.transform(attributes, function (accum, data) {
+            var attrInfo = linkedEntities.link_attribute_type[data.type.gid];
 
-                if (attrInfo && linkType.attributes[attrInfo.root_id]) {
-                    accum.push(data);
-                }
-            });
-        }
+            if (attrInfo && linkType.attributes[attrInfo.root_id]) {
+                accum.push(data);
+            }
+        });
     }
 
 

@@ -344,9 +344,8 @@ MB.CoverArt.FileUpload = function (file) {
             return "";
         } else if (self.mime_type() == "application/pdf") {
             return "/static/images/icons/pdf-icon.png";
-        } else {
-            return self.data_uri_data();
-        }
+        } 
+        return self.data_uri_data();
     });
 
 

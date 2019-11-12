@@ -90,9 +90,8 @@ class TimelineViewModel {
                 var parts = self.zoomArray();
                 if (_.filter(parts).length > 0) {
                     return ['g'].concat(parts).join('/');
-                } else {
-                    return null;
-                }
+                } 
+                return null;
             },
             write: function (part) {
                 if (part) {
@@ -294,7 +293,8 @@ class TimelineCategory {
         self.needLoadingLines = ko.computed(function () {
             if (self.enabled()) {
                 return _.filter(self.lines(), function (line) { return line.enabled() && !line.loaded() && !line.loading() })
-            } else { return [] }
+            }
+            return [];
         });
         self.hasLoadingLines = ko.computed(function () {
             return _.filter(self.lines(), function (line) { return line.enabled() && line.loading() }).length;

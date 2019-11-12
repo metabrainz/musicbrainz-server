@@ -110,9 +110,8 @@ MB.GuessCase.Output = function (gc) {
     self.getWordAtIndex = function (index) {
         if (self._w[index]) {
             return self._w[index];
-        } else {
-            return null;
-        }
+        } 
+        return null;
     };
 
     /**
@@ -130,9 +129,8 @@ MB.GuessCase.Output = function (gc) {
     self.getLastWord = function () {
         if (!self.isEmpty()) {
             return self._w[self._w.length-1];
-        } else {
-            return null;
-        }
+        } 
+        return null;
     };
 
     /**
