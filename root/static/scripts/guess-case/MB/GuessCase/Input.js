@@ -178,7 +178,7 @@ MB.GuessCase.Input = function (gc) {
      * Capitalize the word at the current position
      **/
     self.insertWordsAtIndex = function (index, w) {
-        var part1 = self._w.slice(0,index);
+        var part1 = self._w.slice(0, index);
         var part2 = self._w.slice(index, self._w.length);
         self._w = part1.concat(w).concat(part2);
         self._l = self._w.length;
@@ -228,9 +228,9 @@ MB.GuessCase.Input = function (gc) {
      * @returns         sets the GLOBAL array of words and puctuation characters
      **/
     self.splitWordsAndPunctuation = function (is) {
-        is = is.replace(/^\s\s*/,""); // delete leading space
-        is = is.replace(/\s\s*$/,""); // delete trailing space
-        is = is.replace(/\s\s*/g," "); // compress whitespace:
+        is = is.replace(/^\s\s*/, ""); // delete leading space
+        is = is.replace(/\s\s*$/, ""); // delete trailing space
+        is = is.replace(/\s\s*/g, " "); // compress whitespace:
         var chars = is.split("");
         var splitwords = [];
         var word = [];
