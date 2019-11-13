@@ -35,7 +35,7 @@ ERE.init = function (config) {
     });
     ERE.viewModel.selectedEntityType.subscribe(autocomplete.changeEntity);
     ERE.viewModel.availableEntityTypes(
-        _.uniq([ type0, type1 ]).map(function (value) {
+        _.uniq([type0, type1]).map(function (value) {
             return { 'value': value, 'text': ENTITY_NAMES[value]() };
         }));
 

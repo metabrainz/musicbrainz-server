@@ -45,7 +45,7 @@ recordingAssociation.getReleaseGroupRecordings = function (releaseGroup, offset,
     if (!releaseGroup || !releaseGroup.gid) return;
 
     var query = utils.constructLuceneField(
-        [ utils.escapeLuceneValue(releaseGroup.gid) ], "rgid"
+        [utils.escapeLuceneValue(releaseGroup.gid)], "rgid"
     );
 
     utils.search("recording", query, 100, offset)
@@ -70,7 +70,7 @@ recordingAssociation.getReleaseGroupRecordings = function (releaseGroup, offset,
 
 function recordingQuery(track, name) {
     var params = {
-        recording: [ utils.escapeLuceneValue(name) ],
+        recording: [utils.escapeLuceneValue(name)],
 
         arid: _(track.artistCredit().names).map('artist.gid')
             .map(utils.escapeLuceneValue).value()

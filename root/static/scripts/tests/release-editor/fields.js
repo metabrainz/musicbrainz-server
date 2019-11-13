@@ -52,11 +52,11 @@ fieldTest("mediums having their \"loaded\" observable set correctly", function (
 
     mediums([
         new fields.Medium({ tracks: [] }),
-        new fields.Medium({ tracks: [ {} ] }),
+        new fields.Medium({ tracks: [{}] }),
         new fields.Medium({ id: 1, tracks: [] }),
         new fields.Medium({ originalID: 1, tracks: [] }),
-        new fields.Medium({ id: 1, tracks: [ {} ] }),
-        new fields.Medium({ originalID: 1, tracks: [ {} ] })
+        new fields.Medium({ id: 1, tracks: [{}] }),
+        new fields.Medium({ originalID: 1, tracks: [{}] })
     ]);
 
     t.equal(mediums()[0].loaded(), true, "medium without id or tracks is considered loaded");
@@ -79,7 +79,7 @@ fieldTest("loading a medium doesn't overwrite its original edit data", function 
         tracks: []
     }, release);
 
-    release.mediums([ medium ]);
+    release.mediums([medium]);
 
     medium.position(2);
     medium.formatID(2);
@@ -94,7 +94,7 @@ fieldTest("loading a medium doesn't overwrite its original edit data", function 
     t.equal(original.name, "foo", "original name is foo");
 
     medium.tracksLoaded({
-        tracks: [ { position: 1, name: "~fooo~", length: 12345 } ]
+        tracks: [{ position: 1, name: "~fooo~", length: 12345 }]
     });
 
     t.ok(medium.loaded(), "medium is loaded");
@@ -188,7 +188,7 @@ fieldTest("tracks are set correctly when the cdtoc is changed", function (t, rel
 fieldTest("track times entered as integers are converted into HH:MM:SS", function (t, release) {
     t.plan(11);
 
-    var medium = new fields.Medium({ tracks: [ {} ] }, release);
+    var medium = new fields.Medium({ tracks: [{}] }, release);
 
     const tests = [
         {input: "5", output: "0:05"},

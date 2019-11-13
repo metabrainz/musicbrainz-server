@@ -42,8 +42,8 @@ test("releaseReorderMediums edits are not generated for new releases", function 
 
     var release = new fields.Release({
         mediums: [
-            { position: 1, tracks: [ { name: "foo" } ] },
-            { position: 2, tracks: [ { name: "bar" } ] },
+            { position: 1, tracks: [{ name: "foo" }] },
+            { position: 2, tracks: [{ name: "bar" }] },
         ]
     });
 
