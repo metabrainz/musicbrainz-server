@@ -17,10 +17,10 @@ export default function formatTrackLength(milliseconds, placeholder='?:??') {
 
     var seconds = Math.round(milliseconds / 1000.0);
     var hours = Math.floor(seconds / oneHour);
-    seconds = seconds % oneHour;
+    seconds %= oneHour;
 
     var minutes = Math.floor(seconds / oneMinute);
-    seconds = seconds % oneMinute;
+    seconds %= oneMinute;
 
     var result = ('00' + seconds).slice(-2);
 

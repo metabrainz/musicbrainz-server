@@ -138,9 +138,9 @@ class TimelineViewModel {
                 return accum;
             }, {min: null, max: null});
             if (bounds.min)
-                bounds.min = bounds.min - Math.abs(bounds.min * 0.10);
+                bounds.min -= Math.abs(bounds.min * 0.10);
             if (bounds.max)
-                bounds.max = bounds.max + Math.abs(bounds.max * 0.10);
+                bounds.max += Math.abs(bounds.max * 0.10);
             return bounds;
         });
 
@@ -378,12 +378,12 @@ class TimelineLine {
 
             if (datePrev != null && value[0] > datePrev + oneDay) {
                 days = (value[0] - datePrev) / oneDay;
-                changeValue = changeValue / days
+                changeValue /= days
             }
 
             for (var i = 0; i < days; i++) {
                 count++;
-                mean = mean + changeValue;
+                mean += changeValue;
                 sCurrent = a * changeValue + (1-a) * sPrev;
                 weekData.push([datePrev + (i+1) * oneDay, sCurrent]);
                 sPrev = sCurrent;
@@ -391,7 +391,7 @@ class TimelineLine {
             dataPrev = value[1];
             datePrev = value[0]
         });
-        mean = mean / count;
+        mean /= count;
 
         var deviationSum = _.reduce(weekData, function (sum, next) {
             var toSquare = next[1] - mean;
