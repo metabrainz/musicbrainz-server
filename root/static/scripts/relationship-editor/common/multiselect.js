@@ -233,5 +233,5 @@ import deferFocus from '../../edit/utility/deferFocus';
                 return new Multiselect(params, $(componentInfo.element));
             },
         },
-        template: { fromScript: "template.multiselect" },
+        template: {fromScript: "template.multiselect"},
     });

@@ -232,7 +232,7 @@ MB.GuessCase.Output = function (gc) {
      **/
     self.appendWordPreserveWhiteSpace = function (c) {
         if (c) {
-            var ws = { before: gc.i.isPreviousWord(" "), after: gc.i.isNextWord(" ") };
+            var ws = {before: gc.i.isPreviousWord(" "), after: gc.i.isNextWord(" ")};
             if (c.apply) {
                 // do not register method, such that this message appears as
                 // it were sent from the calling method.

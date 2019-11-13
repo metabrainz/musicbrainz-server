@@ -259,7 +259,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
         }
 
         loadWorkRelationships(work) {
-            var args = { url: "/ws/js/entity/" + work.gid + "?inc=rels" };
+            var args = {url: "/ws/js/entity/" + work.gid + "?inc=rels"};
 
             request(args).done(function (data) {
                 work.parseRelationships(data.relationships);
@@ -290,7 +290,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
             for (var i = 0, linkAttribute; linkAttribute = attributes[i]; i++) {
                 if (linkAttribute.type.gid === typeGID) return linkAttribute;
             }
-            return new fields.LinkAttribute({ type: { gid: typeGID }});
+            return new fields.LinkAttribute({type: {gid: typeGID}});
         }
 
         setAttributes(attributes) {
@@ -300,7 +300,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
         }
 
         addAttribute(typeGID) {
-            var attribute = new fields.LinkAttribute({ type: { gid: typeGID } });
+            var attribute = new fields.LinkAttribute({type: {gid: typeGID}});
             this.attributes.push(attribute);
             return attribute;
         }
@@ -544,7 +544,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
 
     fields.LinkAttribute.prototype.toJS = function () {
         var type = this.type;
-        var output = { type: { gid: type.gid } };
+        var output = {type: {gid: type.gid}};
 
         if (type.creditable) {
             output.credited_as = clean(this.creditedAs());
@@ -571,7 +571,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
                 }
                 currentValue = newValue;
             });
-            ko.applyBindingsToNode(element, { value: linkAttribute.textValue });
+            ko.applyBindingsToNode(element, {value: linkAttribute.textValue});
         },
     };
 

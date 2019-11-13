@@ -245,7 +245,7 @@ $.widget("mb.entitylookup", $.ui.autocomplete, {
         // entity (like release group types).
 
         if (currentSelection.id) {
-            this.currentSelection(this._dataToEntity({ name: name }));
+            this.currentSelection(this._dataToEntity({name: name}));
         } else if (currentSelection.name !== name) {
             currentSelection.name = name;
             this.currentSelection.notifySubscribers(currentSelection);
@@ -389,7 +389,7 @@ $.widget("mb.entitylookup", $.ui.autocomplete, {
                         return;
                     }
                 }
-                self.options.select(null, { item: data });
+                self.options.select(null, {item: data});
             },
 
             error: _.bind(this.clear, this),
@@ -450,7 +450,7 @@ $.widget("mb.entitylookup", $.ui.autocomplete, {
                         entity: entity,
                         title: label,
                         callback: function (item) {
-                            self.options.select(null, { item: item });
+                            self.options.select(null, {item: item});
                         },
                     });
                 },
@@ -562,7 +562,7 @@ $.widget("ui.menu", $.ui.menu, {
 
     _create: function () {
         this._super();
-        this._on({ "click .ui-menu-item > a": this._selectAction });
+        this._on({"click .ui-menu-item > a": this._selectAction});
     },
 
     select: function (event) {

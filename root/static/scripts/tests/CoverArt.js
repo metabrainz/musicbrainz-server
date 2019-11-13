@@ -11,8 +11,8 @@ import MB from '../common/MB';
 import CoverArt from '../edit/MB/CoverArt';
 
 MB.cover_art_types_json = [
-    { id: 'image/jpeg', l_name: 'jpg' },
-    { id: 'image/png', l_name: 'png' },
+    {id: 'image/jpeg', l_name: 'jpg'},
+    {id: 'image/png', l_name: 'png'},
 ];
 
 function base64_to_blob(data, mime) {
@@ -23,7 +23,7 @@ function base64_to_blob(data, mime) {
         ia[i] = byteString.charCodeAt(i);
     }
 
-    return new window.Blob([ia], { type: mime });
+    return new window.Blob([ia], {type: mime});
 }
 
 var test_files = {

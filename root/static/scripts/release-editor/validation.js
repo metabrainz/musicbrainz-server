@@ -136,7 +136,7 @@ utils.withRelease(function (release) {
         field.error(
             l("The barcode you entered looks like a UPC code with the check digit missing.") +
             " " +
-            expand2text(checkDigitText, { checkdigit: field.checkDigit("0" + barcode) }),
+            expand2text(checkDigitText, {checkdigit: field.checkDigit("0" + barcode)}),
         );
     } else if (barcode.length === 12) {
         if (field.validateCheckDigit("0" + barcode)) {
@@ -147,7 +147,7 @@ utils.withRelease(function (release) {
                 " " +
                 doubleCheckText +
                 " " +
-                expand2text(checkDigitText, { checkdigit: field.checkDigit(barcode) }),
+                expand2text(checkDigitText, {checkdigit: field.checkDigit(barcode)}),
             );
         }
     } else if (barcode.length === 13) {

@@ -42,8 +42,8 @@ test("releaseReorderMediums edits are not generated for new releases", function 
 
     var release = new fields.Release({
         mediums: [
-            { position: 1, tracks: [{ name: "foo" }] },
-            { position: 2, tracks: [{ name: "bar" }] },
+            {position: 1, tracks: [{name: "foo"}]},
+            {position: 2, tracks: [{name: "bar"}]},
         ],
     });
 
@@ -57,7 +57,7 @@ test("releaseReorderMediums edits are not generated for new releases", function 
 test("MBS-7453: release group edits strip whitespace from name", function (t) {
     t.plan(1);
 
-    var release = new fields.Release({ name: "  Foo  oo " });
+    var release = new fields.Release({name: "  Foo  oo "});
 
     t.equal(releaseEditor.edits.releaseGroup(release)[0].name, "Foo oo");
 });
@@ -176,8 +176,8 @@ test("mediumEdit and releaseReorderMediums edits are generated for non-loaded me
     var release = new fields.Release({
         gid: "f4c552ab-515e-42df-a9ee-a370867d29d1",
         mediums: [
-            { id: 123, name: "foo", position: 1 },
-            { id: 456, name: "bar", position: 2 },
+            {id: 123, name: "foo", position: 1},
+            {id: 456, name: "bar", position: 2},
         ],
     });
 
@@ -244,8 +244,8 @@ test("mediumCreate edits are not given conflicting positions", function (t) {
     var release = new fields.Release({
         gid: "f4c552ab-515e-42df-a9ee-a370867d29d1",
         mediums: [
-            { id: 123, position: 1 },
-            { id: 456, position: 3 },
+            {id: 123, position: 1},
+            {id: 456, position: 3},
         ],
     });
 
@@ -325,13 +325,13 @@ test("mediumCreate positions don't conflict with removed mediums (MBS-7952)", fu
 
     var release = new fields.Release({
         gid: "f4c552ab-515e-42df-a9ee-a370867d29d1",
-        mediums: [{ id: 123, position: 1 }],
+        mediums: [{id: 123, position: 1}],
     });
 
     releaseEditor.rootField.release(release);
 
     var mediums = release.mediums;
-    var newMedium = new fields.Medium({ position: 2 });
+    var newMedium = new fields.Medium({position: 2});
 
     newMedium.tracks.push(new fields.Track({}, newMedium));
     mediums.push(newMedium);
@@ -365,7 +365,7 @@ test("releaseDeleteReleaseLabel edits are not generated for non-existent release
     var release = new fields.Release({
         gid: "f4c552ab-515e-42df-a9ee-a370867d29d1",
         labels: [
-            { id: 123, label: null, catalogNumber: "foo123" },
+            {id: 123, label: null, catalogNumber: "foo123"},
         ],
     });
 
@@ -383,8 +383,8 @@ test("releaseDeleteReleaseLabel edits are not generated for non-existent release
     var edits = submission.edits(release);
 
     submission.callback(release, [
-        { message: "OK" },
-        { message: "OK", entity: { id: 456, labelID: null, catalogNumber: "foo456" } },
+        {message: "OK"},
+        {message: "OK", entity: {id: 456, labelID: null, catalogNumber: "foo456"}},
     ]);
 
     edits = submission.edits(release);

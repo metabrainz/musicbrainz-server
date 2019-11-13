@@ -102,7 +102,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
                 var commonAttributes = _.map(
                     _.reject(_.intersection.apply(_, attributeLists), isFreeText),
                     function (attr) {
-                        return { type: { gid: attr.type.gid } };
+                        return {type: {gid: attr.type.gid}};
                     },
                 );
 

@@ -15,7 +15,7 @@ function autocompleteTest(name, callback) {
         var $fixture = $('<div>').appendTo('body');
         var $input = $("<input>").attr("type", "text").appendTo($fixture);
 
-        ko.applyBindingsToNode($input[0], { autocomplete: { entity: "artist" } });
+        ko.applyBindingsToNode($input[0], {autocomplete: {entity: "artist"}});
         var $menu = $input.entitylookup("widget");
 
         callback(t, $input, $menu);

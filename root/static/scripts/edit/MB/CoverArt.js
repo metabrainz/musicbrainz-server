@@ -213,7 +213,7 @@ MB.CoverArt.sign_upload = function (file, gid, mime_type) {
 
     var postfields = $.ajax({
         url: "/ws/js/cover-art-upload/" + gid,
-        data: { mime_type: mime_type },
+        data: {mime_type: mime_type},
         dataType: "json",
         cache: false,
     });
@@ -332,7 +332,7 @@ MB.CoverArt.FileUpload = function (file) {
     var statuses = MB.CoverArt.upload_status_enum;
 
     self.name = file.name;
-    self.size = filesize(file.size, { round: 1, bits: false });
+    self.size = filesize(file.size, {round: 1, bits: false});
     self.comment = ko.observable("");
     self.types = MB.CoverArt.cover_art_types();
     self.data = file;

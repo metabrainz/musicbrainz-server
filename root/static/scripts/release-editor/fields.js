@@ -79,7 +79,7 @@ class Track {
         releaseEditor.copyTrackArtistsToRecordings.subscribe(this.updateRecordingArtist);
 
         this.recordingValue = ko.observable(
-            new MB_entity.Recording({ name: data.name }),
+            new MB_entity.Recording({name: data.name}),
         );
 
         // Custom write function is needed around recordingValue because
@@ -240,7 +240,7 @@ class Track {
     }
 
     setRecordingValue(value) {
-        value = value || new MB_entity.Recording({ name: this.name() });
+        value = value || new MB_entity.Recording({name: this.name()});
 
         var currentValue = this.recording.peek();
         if (value.gid === currentValue.gid) return;
@@ -335,7 +335,7 @@ class Medium {
                         self.tracks.shift();
                     }
                 } else if (newValue && !oldValue) {
-                    self.tracks.unshift(new Track({ position: 0, number: 0 }, self));
+                    self.tracks.unshift(new Track({position: 0, number: 0}, self));
                 }
             },
         });
@@ -363,7 +363,7 @@ class Medium {
                         }
                     }
                 } else if (newValue && !oldValue) {
-                    self.pushTrack({ isDataTrack: true });
+                    self.pushTrack({isDataTrack: true});
                 }
             },
         });
@@ -526,7 +526,7 @@ class Medium {
 
         var args = {
             url: "/ws/js/medium/" + id,
-            data: { inc: "recordings+rels" },
+            data: {inc: "recordings+rels"},
         };
 
         request(args, this).done(this.tracksLoaded);
@@ -572,13 +572,13 @@ class Medium {
 
         if (name) {
             if (multidisc) {
-                return texp.l("Medium {position}: {title}", { position: position, title: name });
+                return texp.l("Medium {position}: {title}", {position: position, title: name});
             }
             return name;
 
         }
         else if (multidisc) {
-            return texp.l("Medium {position}", { position: position });
+            return texp.l("Medium {position}", {position: position});
         }
         return l("Tracklist");
     }
@@ -678,7 +678,7 @@ class ReleaseLabel {
     }
 
     labelHTML() {
-        return this.label().html({ target: "_blank" });
+        return this.label().html({target: "_blank"});
     }
 
     needsLabelMessage() {

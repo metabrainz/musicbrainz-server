@@ -58,7 +58,7 @@ releaseEditor.findReleaseDuplicates = function () {
         loadingFromRG = true;
         toggleLoadingIndicator(true);
 
-        request({ url: url })
+        request({url: url})
             .always(function () {
                 loadingFromRG = false;
                 toggleLoadingIndicator(false);
@@ -144,7 +144,7 @@ function formatReleaseData(release) {
         .flatten().compact().uniq().value();
 
     clean.labels = pluck(labels, "label").map(function (info) {
-        return new MB.entity.Label({ gid: info.id, name: info.name });
+        return new MB.entity.Label({gid: info.id, name: info.name});
     }).value();
 
     clean.catalogNumbers = pluck(labels, "catalog-number").value();

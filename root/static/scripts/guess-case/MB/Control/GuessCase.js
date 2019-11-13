@@ -20,8 +20,8 @@ MB.Control.initialize_guess_case = function (type, formPrefix) {
     var $options = $("#guesscase-options");
 
     if ($options.length && !$options.data("ui-dialog")) {
-        $options.dialog({ title: l('Guess Case Options'), autoOpen: false });
-        ko.applyBindingsToNode($options[0], { guessCase: _.noop });
+        $options.dialog({title: l('Guess Case Options'), autoOpen: false});
+        ko.applyBindingsToNode($options[0], {guessCase: _.noop});
     }
 
     var guess = MB.GuessCase[type];
@@ -111,7 +111,7 @@ ko.bindingHandlers.guessCase = {
         var context = bindingContext.createChildContext(bindings);
         ko.applyBindingsToDescendants(context, element);
 
-        return { controlsDescendantBindings: true };
+        return {controlsDescendantBindings: true};
     },
 };
 

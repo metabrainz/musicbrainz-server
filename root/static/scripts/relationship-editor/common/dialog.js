@@ -64,7 +64,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
 
                             var possible = dialog.targetTypeOptions();
 
-                            if (!_.find(possible, { value: type })) {
+                            if (!_.find(possible, {value: type})) {
                                 return false;
                             }
 
@@ -90,7 +90,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
                     dialog.autocomplete.currentSelection(target);
                 } else {
                     // Fills in the recording name in the add-related-work dialog.
-                    dialog.autocomplete.currentSelection({ name: target.name });
+                    dialog.autocomplete.currentSelection({name: target.name});
                 }
             },
         };
@@ -161,7 +161,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
             var childBindingContext = bindingContext.createChildContext(vm);
             ko.applyBindingsToDescendants(childBindingContext, element);
 
-            return { controlsDescendantBindings: true };
+            return {controlsDescendantBindings: true};
         },
     };
 
@@ -184,7 +184,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
                 }, source);
 
                 options.relationship.linkTypeID(
-                    defaultLinkType({ children: linkedEntities.link_type_tree[options.relationship.entityTypes] }),
+                    defaultLinkType({children: linkedEntities.link_type_tree[options.relationship.entityTypes]}),
                 );
             }
 
@@ -366,7 +366,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
                 description = ReactDOMServer.renderToStaticMarkup(
                     exp.l("{description} ({url|more documentation})", {
                         description: expand2react(l_relationships(linkType.description)),
-                        url: { href: "/relationship/" + linkType.gid, target: "_blank" },
+                        url: {href: "/relationship/" + linkType.gid, target: "_blank"},
                     }),
                 );
             }
@@ -382,7 +382,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
 
         linkTypeOptions(entityTypes) {
             var options = MB.forms.linkTypeOptions(
-                { children: linkedEntities.link_type_tree[entityTypes] }, this.backward(),
+                {children: linkedEntities.link_type_tree[entityTypes]}, this.backward(),
             );
 
             if (this.source.entityType === "series") {
@@ -418,7 +418,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
             }
 
             var options = _.map(targetTypes, function (type) {
-                return { value: type, text: ENTITY_NAMES[type]() };
+                return {value: type, text: ENTITY_NAMES[type]()};
             });
 
             options.sort(function (a, b) {
@@ -435,7 +435,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
             var currentTarget = currentRelationship.target(this.source);
 
             var data = currentRelationship.editData();
-            data.target = MB.entity({ name: currentTarget.name }, newType);
+            data.target = MB.entity({name: currentTarget.name}, newType);
 
             // Always keep any existing dates, even if the new relationship
             // doesn't support them. If they're not supported they'll be
@@ -449,7 +449,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
             delete data.entities;
 
             var entityTypes = [this.source.entityType, newType].sort().join("-");
-            data.linkTypeID = defaultLinkType({ children: linkedEntities.link_type_tree[entityTypes] });
+            data.linkTypeID = defaultLinkType({children: linkedEntities.link_type_tree[entityTypes]});
             data.attributes = [];
 
             var newRelationship = this.viewModel.getRelationship(data, this.source);
@@ -712,7 +712,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
     export class BatchCreateWorksDialog extends BatchRelationshipDialog {
 
         constructor(options) {
-            super(Object.assign(options, { target: new MB.entity.Work({}) }));
+            super(Object.assign(options, {target: new MB.entity.Work({})}));
             this.error = ko.observable(false);
         }
 
@@ -750,7 +750,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
         }
 
         createEdits(edits) {
-            return MB.edit.create({ editNote: "", makeVotable: false, edits: edits });
+            return MB.edit.create({editNote: "", makeVotable: false, edits: edits});
         }
 
         targetEntityError() { return "" }

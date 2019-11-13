@@ -194,7 +194,7 @@ $(function () {
         if ($artwork.length === 0) return;
 
         var $artworkViewer = $("<div>").appendTo("body")
-                .artworkViewer({ $artwork: $artwork });
+                .artworkViewer({$artwork: $artwork});
 
         $(container).on("click", "a.artwork-image", function (event) {
             if (!(event.which > 1 || event.shiftKey || event.altKey ||

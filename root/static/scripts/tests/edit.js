@@ -28,10 +28,10 @@ test("loop binding keeps items in order when some are quickly removed and re-add
     childNode.setAttribute("data-bind", "text: id");
     parentNode.appendChild(childNode);
 
-    var item1 = { id: 1 },
-        item2 = { id: 2 },
-        item3 = { id: 3 },
-        vm = { items: ko.observableArray([item1, item2, item3]) };
+    var item1 = {id: 1},
+        item2 = {id: 2},
+        item3 = {id: 3},
+        vm = {items: ko.observableArray([item1, item2, item3])};
 
     ko.applyBindings(vm, parentNode);
 

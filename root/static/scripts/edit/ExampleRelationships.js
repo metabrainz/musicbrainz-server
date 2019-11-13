@@ -36,7 +36,7 @@ ERE.init = function (config) {
     ERE.viewModel.selectedEntityType.subscribe(autocomplete.changeEntity);
     ERE.viewModel.availableEntityTypes(
         _.uniq([type0, type1]).map(function (value) {
-            return { 'value': value, 'text': ENTITY_NAMES[value]() };
+            return {'value': value, 'text': ENTITY_NAMES[value]()};
         }));
 
     ko.bindingHandlers.checkObject = {
@@ -128,7 +128,7 @@ RelationshipSearcher = function () {
             }
 
             var relationships =
-                _.filter(data.relationships, { linkTypeID: linkTypeID });
+                _.filter(data.relationships, {linkTypeID: linkTypeID});
 
             if (!relationships.length) {
                 self.error(

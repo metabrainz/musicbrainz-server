@@ -31,7 +31,7 @@ validationTest("non-loaded mediums validate, even though they have no tracks (MB
 
     releaseEditor.releaseLoaded({
         mediums: [
-            { id: 123, position: 1, tracks: [] },
+            {id: 123, position: 1, tracks: []},
         ],
     });
 
@@ -55,10 +55,10 @@ validationTest("duplicate release countries are rejected, including null ones (M
 
     releaseEditor.releaseLoaded({
         events: [
-            { countryID: 123, date: { year: 1999 } },
-            { countryID: 123, date: { year: 2000 } },
-            { countryID: null, date: { year: 1999 } },
-            { countryID: null, date: { year: 2000 } },
+            {countryID: 123, date: {year: 1999}},
+            {countryID: 123, date: {year: 2000}},
+            {countryID: null, date: {year: 1999}},
+            {countryID: null, date: {year: 2000}},
         ],
     });
 
@@ -77,19 +77,19 @@ validationTest('duplicate label/catalog number pairs are rejected (MBS-8137)', f
 
     releaseEditor.action = 'edit';
 
-    var label1 = { name: 'Foo', id: 123 };
-    var label2 = { name: 'Bar', id: 456 };
+    var label1 = {name: 'Foo', id: 123};
+    var label2 = {name: 'Bar', id: 456};
 
     releaseEditor.releaseLoaded({
         labels: [
-            { label: label1, catalogNumber: 'ABC-123' },
-            { label: label1, catalogNumber: 'ABC-123' },
-            { label: null, catalogNumber: 'ABC-456' },
-            { label: null, catalogNumber: 'ABC-456' },
-            { label: label2, catalogNumber: null },
-            { label: label2, catalogNumber: null },
-            { label: null, catalogNumber: null },
-            { label: null, catalogNumber: null },
+            {label: label1, catalogNumber: 'ABC-123'},
+            {label: label1, catalogNumber: 'ABC-123'},
+            {label: null, catalogNumber: 'ABC-456'},
+            {label: null, catalogNumber: 'ABC-456'},
+            {label: label2, catalogNumber: null},
+            {label: label2, catalogNumber: null},
+            {label: null, catalogNumber: null},
+            {label: null, catalogNumber: null},
         ],
     });
 

@@ -116,7 +116,7 @@ utils.reuseExistingMediumData = function (data) {
 // we'll have a standard MB data format and this won't be needed.
 
 utils.cleanWebServiceData = function (data) {
-    var clean = { gid: data.id, name: data.title };
+    var clean = {gid: data.id, name: data.title};
 
     if (data.length) clean.length = data.length;
 

@@ -40,12 +40,12 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
 
                 recordingMessage: function () {
                     var n = this.recordingCount();
-                    return "(" + texp.ln("{n} recording selected", "{n} recordings selected", n, { n: n }) + ")";
+                    return "(" + texp.ln("{n} recording selected", "{n} recordings selected", n, {n: n}) + ")";
                 },
 
                 workMessage: function () {
                     var n = this.workCount();
-                    return "(" + texp.ln("{n} work selected", "{n} works selected", n, { n: n }) + ")";
+                    return "(" + texp.ln("{n} work selected", "{n} works selected", n, {n: n}) + ")";
                 },
             };
 
@@ -231,7 +231,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
             var sources = UI.checkedRecordings();
 
             if (sources.length > 0) {
-                new UI.BatchRelationshipDialog({ sources: sources, viewModel: this }).open();
+                new UI.BatchRelationshipDialog({sources: sources, viewModel: this}).open();
             }
         }
 
@@ -239,7 +239,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
             var sources = UI.checkedWorks();
 
             if (sources.length > 0) {
-                new UI.BatchRelationshipDialog({ sources: sources, viewModel: this }).open();
+                new UI.BatchRelationshipDialog({sources: sources, viewModel: this}).open();
             }
         }
 
@@ -249,13 +249,13 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
             });
 
             if (sources.length > 0) {
-                new UI.BatchCreateWorksDialog({ sources: sources, viewModel: this }).open();
+                new UI.BatchCreateWorksDialog({sources: sources, viewModel: this}).open();
             }
         }
 
         openRelateToWorkDialog(track) {
             var source = track.recording;
-            var target = new MB.entity.Work({ name: source.name });
+            var target = new MB.entity.Work({name: source.name});
 
             new UI.AddDialog({
                 source: source,

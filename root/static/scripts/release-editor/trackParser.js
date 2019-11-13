@@ -158,7 +158,7 @@ const trackParser = releaseEditor.trackParser = {
             }
 
             data.artistCredit = data.artistCredit ||
-                {names: [{ name: data.artist || "" }]};
+                {names: [{name: data.artist || ""}]};
 
             // If the AC has just a single artist, we can re-use the parsed
             // artist text as the credited name for that artist. Otherwise we
@@ -416,7 +416,7 @@ const trackParser = releaseEditor.trackParser = {
         var similarity = getSimilarity(data.name, track.name.peek());
 
         if (similarity >= MIN_NAME_SIMILARITY) {
-            return { similarity: similarity, track: track, data: data };
+            return {similarity: similarity, track: track, data: data};
         }
     },
 };

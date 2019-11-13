@@ -81,7 +81,7 @@ import request from '../../common/utility/request';
                 attributes: [],
                 entities: [
                     this.relationshipEntity(source),
-                    { entityType: 'url', name: string(link.url) },
+                    {entityType: 'url', name: string(link.url)},
                 ],
             };
 
@@ -90,7 +90,7 @@ import request from '../../common/utility/request';
             }
 
             if (link.video) {
-                editData.attributes = [{ type: { gid: VIDEO_ATTRIBUTE_GID } }];
+                editData.attributes = [{type: {gid: VIDEO_ATTRIBUTE_GID}}];
             }
 
             return editData;

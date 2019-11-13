@@ -256,7 +256,7 @@ releaseEditor.edits = {
 
         _.each(release.mediums.original(), function (m) {
             if (m.id && m.removed) {
-                edits.push(MB.edit.mediumDelete({ medium: m.id }));
+                edits.push(MB.edit.mediumDelete({medium: m.id}));
             }
         });
 
@@ -347,7 +347,7 @@ releaseEditor.edits = {
             return edits;
         }
 
-        var { oldLinks, newLinks, allLinks } = releaseEditor.externalLinksEditData();
+        var {oldLinks, newLinks, allLinks} = releaseEditor.externalLinksEditData();
 
         _.each(allLinks, function (link) {
             if (!link.type || !link.url) {
@@ -442,7 +442,7 @@ releaseEditor.getEditPreviews = function () {
             previewRequest.abort();
         }
 
-        previewRequest = MB.edit.preview({ edits: addedEdits })
+        previewRequest = MB.edit.preview({edits: addedEdits})
             .done(function (data) {
                 _.each(_.zip(addedEdits, data.previews), addPreview);
 
@@ -502,7 +502,7 @@ function chainEditSubmissions(release, submissions) {
             submitted = null;
 
         if (edits.length) {
-            submitted = MB.edit.create($.extend({ edits: edits }, args));
+            submitted = MB.edit.create($.extend({edits: edits}, args));
         }
 
         let submissionDone = function (data) {

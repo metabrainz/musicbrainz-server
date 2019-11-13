@@ -51,12 +51,12 @@ fieldTest("mediums having their \"loaded\" observable set correctly", function (
     var mediums = release.mediums;
 
     mediums([
-        new fields.Medium({ tracks: [] }),
-        new fields.Medium({ tracks: [{}] }),
-        new fields.Medium({ id: 1, tracks: [] }),
-        new fields.Medium({ originalID: 1, tracks: [] }),
-        new fields.Medium({ id: 1, tracks: [{}] }),
-        new fields.Medium({ originalID: 1, tracks: [{}] }),
+        new fields.Medium({tracks: []}),
+        new fields.Medium({tracks: [{}]}),
+        new fields.Medium({id: 1, tracks: []}),
+        new fields.Medium({originalID: 1, tracks: []}),
+        new fields.Medium({id: 1, tracks: [{}]}),
+        new fields.Medium({originalID: 1, tracks: [{}]}),
     ]);
 
     t.equal(mediums()[0].loaded(), true, "medium without id or tracks is considered loaded");
@@ -94,7 +94,7 @@ fieldTest("loading a medium doesn't overwrite its original edit data", function 
     t.equal(original.name, "foo", "original name is foo");
 
     medium.tracksLoaded({
-        tracks: [{ position: 1, name: "~fooo~", length: 12345 }],
+        tracks: [{position: 1, name: "~fooo~", length: 12345}],
     });
 
     t.ok(medium.loaded(), "medium is loaded");
@@ -115,7 +115,7 @@ fieldTest("loading a medium doesn't overwrite its original edit data", function 
 fieldTest("data tracks are appended with a correct position if there's a pregap (MBS-8013)", function (t, release) {
     t.plan(1);
 
-    var medium = new fields.Medium({ tracks: [] }, release);
+    var medium = new fields.Medium({tracks: []}, release);
     medium.hasPregap(true);
     medium.hasDataTracks(true);
 
@@ -127,7 +127,7 @@ fieldTest("tracks are set correctly when the cdtoc is changed", function (t, rel
 
     function lengthsAndPositions() {
         return _.map(medium.tracks(), function (t) {
-            return { length: t.length(), position: t.position() };
+            return {length: t.length(), position: t.position()};
         });
     }
 
@@ -135,24 +135,24 @@ fieldTest("tracks are set correctly when the cdtoc is changed", function (t, rel
     var toc2 = "1 5 180562 150 28552 55959 88371 125305";
 
     var tocData1 = [
-        { length: 294000, position: 1 },
-        { length: 370000, position: 2 },
-        { length: 259000, position: 3 },
-        { length: 359000, position: 4 },
-        { length: 333000, position: 5 },
-        { length: 296000, position: 6 },
-        { length: 372000, position: 7 },
+        {length: 294000, position: 1},
+        {length: 370000, position: 2},
+        {length: 259000, position: 3},
+        {length: 359000, position: 4},
+        {length: 333000, position: 5},
+        {length: 296000, position: 6},
+        {length: 372000, position: 7},
     ];
 
     var tocData2 = [
-        { length: 379000, position: 1 },
-        { length: 365000, position: 2 },
-        { length: 432000, position: 3 },
-        { length: 492000, position: 4 },
-        { length: 737000, position: 5 },
+        {length: 379000, position: 1},
+        {length: 365000, position: 2},
+        {length: 432000, position: 3},
+        {length: 492000, position: 4},
+        {length: 737000, position: 5},
     ];
 
-    var medium = new fields.Medium({ tracks: [] }, release);
+    var medium = new fields.Medium({tracks: []}, release);
 
     // 7 tracks added
     medium.toc(toc1);
@@ -165,14 +165,14 @@ fieldTest("tracks are set correctly when the cdtoc is changed", function (t, rel
     // 2 tracks added, pregap doesn't affect positions
     medium.hasPregap(true);
     medium.toc(toc1);
-    t.deepEqual(lengthsAndPositions(), Array.prototype.concat({ length: undefined, position: 0 }, tocData1));
+    t.deepEqual(lengthsAndPositions(), Array.prototype.concat({length: undefined, position: 0}, tocData1));
 
     // 2 tracks removed, data tracks left at end
     medium.hasDataTracks(true);
     medium.toc(toc2);
     t.deepEqual(
         lengthsAndPositions(),
-        Array.prototype.concat({ length: undefined, position: 0 }, tocData2, { length: undefined, position: 6 }),
+        Array.prototype.concat({length: undefined, position: 0}, tocData2, {length: undefined, position: 6}),
     );
     t.ok(_.last(medium.tracks()).isDataTrack());
 
@@ -180,7 +180,7 @@ fieldTest("tracks are set correctly when the cdtoc is changed", function (t, rel
     medium.toc(toc1);
     t.deepEqual(
         lengthsAndPositions(),
-        Array.prototype.concat({ length: undefined, position: 0 }, tocData1, { length: undefined, position: 8 }),
+        Array.prototype.concat({length: undefined, position: 0}, tocData1, {length: undefined, position: 8}),
     );
     t.ok(_.last(medium.tracks()).isDataTrack());
 });
@@ -188,7 +188,7 @@ fieldTest("tracks are set correctly when the cdtoc is changed", function (t, rel
 fieldTest("track times entered as integers are converted into HH:MM:SS", function (t, release) {
     t.plan(11);
 
-    var medium = new fields.Medium({ tracks: [{}] }, release);
+    var medium = new fields.Medium({tracks: [{}]}, release);
 
     const tests = [
         {input: "5", output: "0:05"},
