@@ -60,7 +60,7 @@ MB.Control.EditList = function (container) {
 $(function () {
     $('div.vote input[type="radio"]').change(function () {
         $(this).parents('.voteopts').find('.vote').attr('class', 'vote');
-        $(this).parent('label').parent('.vote').addClass(SELECTED_CLASS[ $(this).val() ]);
+        $(this).parent('label').parent('.vote').addClass(SELECTED_CLASS[$(this).val()]);
     })
 
     $('div.vote input[checked="checked"]').change();
