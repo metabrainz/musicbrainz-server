@@ -157,6 +157,8 @@ function releaseDescription(release) {
   return desc;
 }
 
+const getLanguageName = wl => l_languages(wl.language.name);
+
 const getEntityName = x => x.entity.name;
 
 const getIswc = x => x.iswc;
@@ -167,9 +169,7 @@ function workDescription(work) {
   if (work.languages.length) {
     desc.push(
       addColonText(l('Lyrics Languages')) + ' ' +
-      commaOnlyListText(
-        work.languages.map(wl => l_languages(wl.language.name)),
-      ),
+      commaOnlyListText(work.languages.map(getLanguageName)),
     );
   }
   if (work.writers) {
