@@ -62,10 +62,14 @@ class TimelineViewModel {
         // rateLimit so they'll all be updated before zoomHashPart is recalculated,
         // and to ensure graph doesn't need repeated redrawing
         self.zoom = {
-            xaxis: { min: debounce(ko.observable(null), 50),
-                     max: debounce(ko.observable(null), 50) },
-            yaxis: { min: debounce(ko.observable(null), 50),
-                     max: debounce(ko.observable(null), 50) },
+            xaxis: {
+                min: debounce(ko.observable(null), 50),
+                max: debounce(ko.observable(null), 50),
+            },
+            yaxis: {
+                min: debounce(ko.observable(null), 50),
+                max: debounce(ko.observable(null), 50),
+            },
         };
         self.zoomArray = ko.computed({
             read: function () {
@@ -394,8 +398,10 @@ class TimelineLine {
             return sum + toSquare * toSquare;
         }, 0);
         var standardDeviation = Math.sqrt(deviationSum / count);
-        var thresholds = {min: mean - 3 * standardDeviation,
-                          max: mean + 3 * standardDeviation};
+        var thresholds = {
+            min: mean - 3 * standardDeviation,
+            max: mean + 3 * standardDeviation,
+        };
 
         return {data: weekData, thresholds: thresholds};
     }
@@ -555,9 +561,11 @@ class TimelineLine {
                 if (graph === 'main' || graph === 'rate') {
                     options.grid = { hoverable: true };
                     options.xaxis = { mode: "time", timeformat: "%Y/%m/%d", minTickSize: [7, "day"]};
-                    options.yaxis = { tickFormatter: function (x) {
-                        return x.toString().replace(/\B(?=(?:\d{3})+(?!\d))/g, ","); // XXX: localized number formatting
-                    }};
+                    options.yaxis = {
+                        tickFormatter: function (x) {
+                            return x.toString().replace(/\B(?=(?:\d{3})+(?!\d))/g, ","); // XXX: localized number formatting
+                        },
+                    };
                     if (bindingContext.$data.options.events()) {
                         options.musicbrainzEvents = {
                             enabled: bindingContext.$data.options.events(),
