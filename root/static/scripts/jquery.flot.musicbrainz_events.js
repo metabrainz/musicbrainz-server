@@ -26,7 +26,7 @@
                     return !plotEvent;
             });
             return plotEvent;
-        } 
+        }
         return false;
     }
 

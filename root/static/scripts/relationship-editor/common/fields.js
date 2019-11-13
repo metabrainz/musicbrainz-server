@@ -611,7 +611,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
 
         if (_.isEmpty(attributes) || _.isEmpty(linkType) || _.isEmpty(linkType.attributes)) {
             return [];
-        } 
+        }
         return _.transform(attributes, function (accum, data) {
             var attrInfo = linkedEntities.link_attribute_type[data.type.gid];
 

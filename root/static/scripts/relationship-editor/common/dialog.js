@@ -77,7 +77,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
                                 return _.filter(items, function (item) {
                                     return item.type.item_entity_type === dialog.source.entityType;
                                 });
-                            } 
+                            }
                             return items;
                         },
                     }).data("mb-entitylookup");
