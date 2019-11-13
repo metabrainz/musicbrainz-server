@@ -159,7 +159,7 @@ const trackParser = releaseEditor.trackParser = {
              * track at this position, or the release.
              */
             var matchedAC = _.find(
-                [ matchedTrackAC, previousTrackAC, releaseAC ],
+                [matchedTrackAC, previousTrackAC, releaseAC],
                 function (ac) {
                     if (!ac || hasVariousArtists(ac)) {
                         return false;

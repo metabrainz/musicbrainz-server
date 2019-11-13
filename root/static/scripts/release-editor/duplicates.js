@@ -30,7 +30,7 @@ releaseEditor.baseRelease.subscribe(function (gid) {
     var release = releaseEditor.rootField.release();
 
     if (!gid) {
-        release.mediums([ new releaseEditor.fields.Medium({}, release) ]);
+        release.mediums([new releaseEditor.fields.Medium({}, release)]);
         return;
     }
 
@@ -95,7 +95,7 @@ releaseEditor.findReleaseDuplicates = function () {
         }
 
         var query = utils.constructLuceneFieldConjunction({
-            release: [ utils.escapeLuceneValue(name) ],
+            release: [utils.escapeLuceneValue(name)],
 
             arid: _(ac.names)
                 .map('artist.gid')
