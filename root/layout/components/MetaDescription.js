@@ -10,8 +10,6 @@
 import React from 'react';
 
 import {artistBeginLabel, artistEndLabel} from '../../artist/utils';
-import {commaOnlyListText}
-  from '../../static/scripts/common/i18n/commaOnlyList';
 import formatBarcode from '../../static/scripts/common/utility/formatBarcode';
 import formatDate from '../../static/scripts/common/utility/formatDate';
 import formatTrackLength
@@ -28,7 +26,7 @@ function entityDescription(entity) {
 function pushTypeName(desc, entity) {
   const typeName = entity.typeName;
   if (typeName) {
-    desc.push(l('Type:') + ' ' + typeName);
+    desc.push('Type: ' + typeName);
   }
 }
 
@@ -39,7 +37,7 @@ function artistDescription(artist) {
   const endDate = formatDate(artist.end_date);
   const gender = artist.gender;
   if (gender) {
-    desc.push(l('Gender:') + ' ' + gender.name);
+    desc.push('Gender: ' + gender.name);
   }
   if (beginDate || artist.begin_area) {
     desc.push(
@@ -57,7 +55,7 @@ function artistDescription(artist) {
   }
   const area = artist.area;
   if (area) {
-    desc.push(l('Area:') + ' ' + area.name);
+    desc.push('Area: ' + area.name);
   }
   return desc;
 }
@@ -68,10 +66,10 @@ function eventDescription(event) {
   const beginDate = formatDate(event.begin_date);
   const endDate = formatDate(event.end_date);
   if (beginDate) {
-    desc.push(l('Start:') + ' ' + beginDate);
+    desc.push('Start: ' + beginDate);
   }
   if (endDate) {
-    desc.push(l('End:') + ' ' + endDate);
+    desc.push('End: ' + endDate);
   }
   if (event.time) {
     desc.push(event.time);
@@ -83,7 +81,7 @@ function instrumentDescription(instrument) {
   const desc = entityDescription(instrument);
   pushTypeName(desc, instrument);
   if (instrument.description) {
-    desc.push(l('Description:') + ' ' + instrument.description);
+    desc.push('Description: ' + instrument.description);
   }
   return desc;
 }
@@ -94,17 +92,17 @@ function labelDescription(label) {
   const beginDate = formatDate(label.begin_date);
   const endDate = formatDate(label.end_date);
   if (label.label_code) {
-    desc.push(l('Label Code:') + ' ' + label.label_code);
+    desc.push('Label Code: ' + label.label_code);
   }
   if (beginDate) {
-    desc.push(l('Founded:') + ' ' + beginDate);
+    desc.push('Founded: ' + beginDate);
   }
   if (endDate) {
-    desc.push(l('Defunct:') + ' ' + endDate);
+    desc.push('Defunct: ' + endDate);
   }
   const area = label.area;
   if (area) {
-    desc.push(l('Area:') + ' ' + area.name);
+    desc.push('Area: ' + area.name);
   }
   return desc;
 }
@@ -115,10 +113,10 @@ function placeDescription(place) {
   const beginDate = formatDate(place.begin_date);
   const endDate = formatDate(place.end_date);
   if (beginDate) {
-    desc.push(l('Opened:') + ' ' + beginDate);
+    desc.push('Opened: ' + beginDate);
   }
   if (endDate) {
-    desc.push(l('Closed:') + ' ' + endDate);
+    desc.push('Closed: ' + endDate);
   }
   return desc;
 }
@@ -127,14 +125,14 @@ function releaseDescription(release) {
   const desc = entityDescription(release);
   const combinedFormatName = release.combined_format_name;
   if (combinedFormatName) {
-    desc.push(l('Format:') + ' ' + combinedFormatName);
+    desc.push('Format: ' + combinedFormatName);
   }
   let year;
   if (release.events && release.events.length) {
     year = release.events[0].date?.year;
   }
   if (year) {
-    desc.push(l('Year:') + ' ' + year);
+    desc.push('Year: ' + year);
   }
   if (release.labels && release.labels.length) {
     const labels = release.labels.map(function (rl) {
@@ -144,20 +142,20 @@ function releaseDescription(release) {
       );
     });
     desc.push(
-      (labels.length > 1 ? l('Labels:') : l('Label:')) + ' ' +
-      commaOnlyListText(labels),
+      (labels.length > 1 ? 'Labels:' : 'Label:') + ' ' +
+      labels.join(', '),
     );
   }
   if (release.barcode) {
-    desc.push(l('Barcode:') + ' ' + formatBarcode(release.barcode));
+    desc.push('Barcode: ' + formatBarcode(release.barcode));
   }
   if (release.length) {
-    desc.push(l('Length:') + ' ' + formatTrackLength(release.length));
+    desc.push('Length: ' + formatTrackLength(release.length));
   }
   return desc;
 }
 
-const getLanguageName = wl => l_languages(wl.language.name);
+const getLanguageName = wl => wl.language.name;
 
 const getEntityName = x => x.entity.name;
 
@@ -168,19 +166,19 @@ function workDescription(work) {
   pushTypeName(desc, work);
   if (work.languages.length) {
     desc.push(
-      addColonText(l('Lyrics Languages')) + ' ' +
-      commaOnlyListText(work.languages.map(getLanguageName)),
+      'Lyrics Languages: ' +
+      work.languages.map(getLanguageName).join(', '),
     );
   }
   if (work.writers) {
     desc.push(
-      l('Writers:') + ' ' +
-      commaOnlyListText(work.writers.map(getEntityName)),
+      'Writers: ' +
+      work.writers.map(getEntityName).join(', '),
     );
   }
   if (work.iswcs) {
     desc.push(
-      l('ISWCs:') + ' ' + commaOnlyListText(work.iswcs.map(getIswc)),
+      'ISWCs: ' + work.iswcs.map(getIswc).join(', '),
     );
   }
   return desc;
@@ -219,7 +217,7 @@ const MetaDescription = ({entity}: Props) => {
       break;
   }
   if (desc && desc.length) {
-    return <meta content={commaOnlyListText(desc)} name="description" />;
+    return <meta content={desc.join(', ')} name="description" />;
   }
   return null;
 };
