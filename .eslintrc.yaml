@@ -110,7 +110,7 @@ rules:
                         functions: always-multiline}]
   comma-spacing: [warn, {before: false, after: true}]
   comma-style: [warn, last]
-  computed-property-spacing: [warn, never]
+  computed-property-spacing: [warn, never, {"enforceForClassMembers": true}]
   consistent-this: [warn, self]
   eol-last: [warn, always]
   func-call-spacing: [warn, never]
