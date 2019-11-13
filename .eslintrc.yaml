@@ -21,6 +21,7 @@ settings:
 rules:
   # Possible Errors
   for-direction: error
+  no-async-promise-executor: error
   no-await-in-loop: error
   no-cond-assign: warn
   no-constant-condition: [error, {checkLoops: false}]
@@ -33,15 +34,19 @@ rules:
   no-empty: [error, {allowEmptyCatch: true}]
   no-extra-semi: warn
   no-irregular-whitespace: warn
+  no-misleading-character-class: error
   no-obj-calls: error
   no-prototype-builtins: warn
   no-regex-spaces: error
+  no-shadow-restricted-names: error
   no-sparse-arrays: error
   no-unexpected-multiline: error
   no-unreachable: error
   no-unsafe-finally: error
   no-unsafe-negation: error
   no-unused-vars: error
+  no-with: error
+  require-atomic-updates: error
   use-isnan: error
   valid-typeof: error
 
@@ -58,6 +63,7 @@ rules:
   no-eq-null: off
   no-floating-decimal: warn
   no-multi-spaces: [error, {ignoreEOLComments: true}]
+  no-useless-catch: warn
   radix: warn
   wrap-iife: warn
 
