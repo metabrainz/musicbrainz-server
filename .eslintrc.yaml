@@ -103,6 +103,7 @@ rules:
   dot-notation: [warn, {allowKeywords: true}]
   eqeqeq: [warn, smart]
   no-alert: off
+  no-console: [warn, { allow: ["warn", "error", "info"] }]
   no-else-return: warn
   no-eq-null: off
   no-floating-decimal: warn

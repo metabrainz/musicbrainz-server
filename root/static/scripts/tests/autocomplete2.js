@@ -67,7 +67,7 @@ $(function () {
             id="entity-test"
             key={entityType + '-autocomplete'}
             // eslint-disable-next-line react/jsx-handler-names
-            onChange={console.log}
+            onChange={console.info}
             onTypeChange={render}
             width="200px"
           />
@@ -79,7 +79,7 @@ $(function () {
             id="vocal-test"
             items={vocals}
             // eslint-disable-next-line react/jsx-handler-names
-            onChange={console.log}
+            onChange={console.info}
             placeholder="Choose a vocal"
             width="200px"
           />
