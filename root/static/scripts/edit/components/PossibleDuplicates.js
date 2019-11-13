@@ -14,11 +14,11 @@ class PossibleDuplicates extends React.Component {
         <h3>{l('Possible Duplicates')}</h3>
         <p>{l('We found the following entities with very similar names:')}</p>
         <ul>
-          {this.props.duplicates.map(dupe =>
+          {this.props.duplicates.map(dupe => (
             <li key={dupe.gid}>
               <EntityLink entity={dupe} target="_blank" />
-            </li>,
-          )}
+            </li>
+          ))}
         </ul>
         <p>
           <label>
