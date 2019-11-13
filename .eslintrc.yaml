@@ -258,6 +258,7 @@ rules:
   import/no-duplicates: warn
   import/no-dynamic-require: error
   import/no-unresolved: error
+  import/no-useless-path-segments: error
   import/order: [warn, {newlines-between: always}]
 
   #######################
