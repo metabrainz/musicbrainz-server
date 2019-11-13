@@ -7,7 +7,7 @@
 
 import React from 'react';
 
-import commaOnlyList from '../../common/i18n/commaOnlyList';
+import commaOnlyList from '../i18n/commaOnlyList';
 
 import EntityLink from './EntityLink';
 

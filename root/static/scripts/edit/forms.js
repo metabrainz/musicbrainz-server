@@ -9,7 +9,8 @@ import _ from 'lodash';
 
 import {compare} from '../common/i18n';
 import MB from '../common/MB';
-import {stripAttributes} from '../edit/utility/linkPhrase';
+
+import {stripAttributes} from './utility/linkPhrase';
 
 const ELEMENT_NODE = window.Node.ELEMENT_NODE;
 const COMMENT_NODE = window.Node.COMMENT_NODE;

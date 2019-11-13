@@ -9,11 +9,12 @@
 
 import * as React from 'react';
 
-import RelationshipTargetLinks from '../components/RelationshipTargetLinks';
 import {compare} from '../static/scripts/common/i18n';
 import linkedEntities from '../static/scripts/common/linkedEntities';
 import compareRelationships from '../utility/compareRelationships';
 import {type GroupedRelationshipsT} from '../utility/groupRelationships';
+
+import RelationshipTargetLinks from './RelationshipTargetLinks';
 
 const detailsTableStyle = Object.freeze({width: '100%'});
 

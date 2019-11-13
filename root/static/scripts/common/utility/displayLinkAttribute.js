@@ -13,7 +13,8 @@ import {type VarArgsObject} from '../i18n/expand2';
 import localizeLinkAttributeTypeName
   from '../i18n/localizeLinkAttributeTypeName';
 import linkedEntities from '../linkedEntities';
-import clean from '../utility/clean';
+
+import clean from './clean';
 
 function _displayLinkAttribute<T>(
   attribute: LinkAttrT,
