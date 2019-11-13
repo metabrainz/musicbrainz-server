@@ -669,7 +669,7 @@ MB.GuessCase.Handler.Base = function (gc) {
 
         if (tmp.length > 2) {
             var s = tmp.join(""); // Yes, we have an acronym, get string
-            s = s.replace(/(\.)*$/,"."); // Replace any number of trailing "." with ". "
+            s = s.replace(/(\.)*$/, "."); // Replace any number of trailing "." with ". "
 
             gc.o.appendSpaceIfNeeded();
             gc.o.appendWord(s);
