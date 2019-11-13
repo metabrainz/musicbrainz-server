@@ -89,7 +89,7 @@ if (cluster.isMaster) {
     if (!worker.isDead()) {
       console.info(
         `worker hasn't died after ${DISCONNECT_TIMEOUT}ms; ` +
-        `sending SIGKILL to pid ${worker.process.pid}`
+        `sending SIGKILL to pid ${worker.process.pid}`,
       );
       worker.process.kill('SIGKILL');
     }

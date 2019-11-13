@@ -51,12 +51,12 @@ $(function () {
   ko.applyBindingsToNode($type[0], {
     value: series.typeID,
     controlsBubble: series.typeBubble,
-    disable: seriesHasItems
+    disable: seriesHasItems,
   }, series);
 
   ko.applyBindingsToNode($orderingType[0], {
     value: series.orderingTypeID,
-    controlsBubble: series.orderingTypeBubble
+    controlsBubble: series.orderingTypeBubble,
   }, series);
 
   ko.applyBindings(series, $("#series-type-bubble")[0]);

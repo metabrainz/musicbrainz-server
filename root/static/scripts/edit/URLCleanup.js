@@ -2293,11 +2293,11 @@ const CLEANUPS = {
     clean: function (url) {
       url = url.replace(
         /^(?:https?:\/\/)?(?:(?:www|mobile)\.)?twitter\.com(?:\/#!)?\//,
-        'https://twitter.com/'
+        'https://twitter.com/',
       );
       url = url.replace(
         /^(https:\/\/twitter\.com)\/@?([^\/?#]+(?:\/status\/\d+)?)(?:[\/?#].*)?$/,
-        '$1/$2'
+        '$1/$2',
       );
       return url;
     },
