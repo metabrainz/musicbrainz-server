@@ -7,7 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import noop from 'lodash/noop';
 import React from 'react';
 
 import * as DBDefs from '../../static/scripts/common/DBDefs';
@@ -78,14 +77,12 @@ const SearchForm = ({form}: Props) => (
         <FormRowSelect
           field={form.field.type}
           label={l('Type:')}
-          onChange={noop}
           options={typeOptions}
           uncontrolled
         />
         <FormRowSelect
           field={form.field.limit}
           label={l('Results per page:')}
-          onChange={noop}
           options={limitOptions}
           uncontrolled
         />
