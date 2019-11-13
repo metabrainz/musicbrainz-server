@@ -7,7 +7,7 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import {INSTRUMENT_ROOT_ID} from '../../common/constants';
+import {INSTRUMENT_ROOT_ID} from '../constants';
 
 function localizeLinkAttributeTypeName(type: LinkAttrTypeT) {
   if (type.root_id === INSTRUMENT_ROOT_ID) {
