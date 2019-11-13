@@ -815,4 +815,3 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
     UI.EditDialog = EditDialog;
     UI.BatchRelationshipDialog = BatchRelationshipDialog;
     UI.BatchCreateWorksDialog = BatchCreateWorksDialog;
-
