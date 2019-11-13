@@ -109,29 +109,27 @@ MB.GuessCase.Handler.Track = function (gc) {
         if (self.doIgnoreWords()) {
         } else if (self.doFeaturingArtistStyle()) {
         } else if (gc.mode.doWord()) {
+        } else if (gc.i.matchCurrentWord(/7in/i)) {
+            gc.o.appendSpaceIfNeeded();
+            gc.o.appendWord('7"');
+            flags.resetContext();
+            flags.context.spaceNextWord = false;
+            flags.context.forceCaps = false;
+        } else if (gc.i.matchCurrentWord(/12in/i)) {
+            gc.o.appendSpaceIfNeeded();
+            gc.o.appendWord('12"');
+            flags.resetContext();
+            flags.context.spaceNextWord = false;
+            flags.context.forceCaps = false;
         } else {
-            if (gc.i.matchCurrentWord(/7in/i)) {
-                gc.o.appendSpaceIfNeeded();
-                gc.o.appendWord('7"');
-                flags.resetContext();
-                flags.context.spaceNextWord = false;
-                flags.context.forceCaps = false;
-            } else if (gc.i.matchCurrentWord(/12in/i)) {
-                gc.o.appendSpaceIfNeeded();
-                gc.o.appendWord('12"');
-                flags.resetContext();
-                flags.context.spaceNextWord = false;
-                flags.context.forceCaps = false;
-            } else {
-                // handle other cases (e.g. normal words)
-                gc.o.appendSpaceIfNeeded();
-                gc.i.capitalizeCurrentWord();
+            // handle other cases (e.g. normal words)
+            gc.o.appendSpaceIfNeeded();
+            gc.i.capitalizeCurrentWord();
 
-                gc.o.appendCurrentWord();
-                flags.resetContext();
-                flags.context.spaceNextWord = true;
-                flags.context.forceCaps = false;
-            }
+            gc.o.appendCurrentWord();
+            flags.resetContext();
+            flags.context.spaceNextWord = true;
+            flags.context.forceCaps = false;
         }
         flags.context.number = false;
         return null;

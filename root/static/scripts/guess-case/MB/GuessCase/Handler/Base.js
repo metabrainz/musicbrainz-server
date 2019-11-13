@@ -664,22 +664,18 @@ MB.GuessCase.Handler.Base = function (gc) {
                     tmp.push(cw.toUpperCase()); // do character
                     flags.context.expectWord = false;
                     flags.context.gotPeriod = false;
+                } else if (cw == "." && !flags.context.gotPeriod) {
+                    tmp[tmp.length] = "."; // do dot
+                    flags.context.gotPeriod = true;
+                    flags.context.expectWord = true;
+                } else if (flags.context.gotPeriod && cw == " ") {
+                    flags.context.expectWord = true; // do a single whitespace
                 } else {
-                    if (cw == "." && !flags.context.gotPeriod) {
-                        tmp[tmp.length] = "."; // do dot
-                        flags.context.gotPeriod = true;
-                        flags.context.expectWord = true;
-                    } else {
-                        if (flags.context.gotPeriod && cw == " ") {
-                            flags.context.expectWord = true; // do a single whitespace
-                        } else {
-                            if (tmp[tmp.length-1] != ".") {
-                                tmp.pop(); // loose last of the acronym
-                                subIndex--; // its for example "P.S. I" love you
-                            }
-                            break acronymloop; // found something which is not part of the acronym
-                        }
+                    if (tmp[tmp.length-1] != ".") {
+                        tmp.pop(); // loose last of the acronym
+                        subIndex--; // its for example "P.S. I" love you
                     }
+                    break acronymloop; // found something which is not part of the acronym
                 }
                 subIndex++;
             }
@@ -728,38 +724,34 @@ MB.GuessCase.Handler.Base = function (gc) {
                     } else {
                         break numberloop;
                     }
-                } else {
-                    // look for a group of 3 digits
-                    if (gc.i.matchWordAtIndex(subIndex, gc.re.DIGITS_TRIPLE)) {
+                // look for a group of 3 digits
+                } else if (gc.i.matchWordAtIndex(subIndex, gc.re.DIGITS_TRIPLE)) {
                         if (flags.context.numberSplitChar == null) {
                             flags.context.numberSplitChar = tmp[tmp.length - 1]; // confirmed number split
                         }
                         tmp.push(gc.i.getWordAtIndex(subIndex));
                         flags.context.numberSplitExpect = true;
-                    } else {
-                        if (gc.i.matchWordAtIndex(subIndex, gc.re.DIGITS_DUPLE)) {
-                            if (tmp.length > 2 && flags.context.numberSplitChar != tmp[tmp.length - 1]) {
-                                // check for the opposite number splitter (,or .)
-                                // because numbers are generally either
-                                // 1,000,936.00 or 1.300.402,00 depending on
-                                // the country
-                                tmp.push(gc.i.getWordAtIndex(subIndex++));
-                            } else {
-                                tmp.pop(); // stand-alone number pair
-                                subIndex--;
-                            }
+                } else {
+                    if (gc.i.matchWordAtIndex(subIndex, gc.re.DIGITS_DUPLE)) {
+                        if (tmp.length > 2 && flags.context.numberSplitChar != tmp[tmp.length - 1]) {
+                            // check for the opposite number splitter (,or .)
+                            // because numbers are generally either
+                            // 1,000,936.00 or 1.300.402,00 depending on
+                            // the country
+                            tmp.push(gc.i.getWordAtIndex(subIndex++));
                         } else {
-                            if (gc.i.matchWordAtIndex(subIndex, gc.re.DIGITS_NTUPLE)) {
-                                // big number at the end,probably a decimal point,
-                                // end of number in any case
-                                tmp.push(gc.i.getWordAtIndex(subIndex++));
-                            } else {
-                                tmp.pop(); // last number split was not
-                                subIndex--; // actually a number split
-                            }
+                            tmp.pop(); // stand-alone number pair
+                            subIndex--;
                         }
-                        break numberloop;
+                    } else if (gc.i.matchWordAtIndex(subIndex, gc.re.DIGITS_NTUPLE)) {
+                        // big number at the end,probably a decimal point,
+                        // end of number in any case
+                        tmp.push(gc.i.getWordAtIndex(subIndex++));
+                    } else {
+                        tmp.pop(); // last number split was not
+                        subIndex--; // actually a number split
                     }
+                    break numberloop;
                 }
                 subIndex++;
             }

@@ -623,12 +623,10 @@ function iteratePromises(promises) {
                 failed = true;
                 iterate();
             });
+        } else if (failed) {
+            deferred.reject();
         } else {
-            if (failed) {
-                deferred.reject();
-            } else {
-                deferred.resolve();
-            }
+            deferred.resolve();
         }
     }
 
