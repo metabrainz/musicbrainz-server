@@ -77,7 +77,9 @@ $(function () {
         $(this)
             .parent('label')
             .parent('.vote')
-            .addClass(SELECTED_CLASS[ $(this).val() ]);
+            .addClass(SELECTED_CLASS[
+                $(this).val()
+            ]);
     });
 
     $('div.vote input[checked="checked"]').change();
