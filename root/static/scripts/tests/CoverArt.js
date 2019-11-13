@@ -96,7 +96,7 @@ test('iframe mime type', function (t) {
 
 test('multifile/ajax upload mime type', function (t) {
     if (typeof window.Blob !== 'function') {
-        console.log('# Blob constructor not available, skipping test: multifile/ajax upload mime type');
+        console.warn('# Blob constructor not available, skipping test: multifile/ajax upload mime type');
         t.end();
         return;
     }
@@ -122,7 +122,7 @@ test('cover art types', function (t) {
 
 test('upload queue', function (t) {
     if (typeof window.Blob !== 'function') {
-        console.log('# Blob constructor not available, skipping test: multifile/ajax upload mime type');
+        console.warn('# Blob constructor not available, skipping test: multifile/ajax upload mime type');
         t.end();
         return;
     }

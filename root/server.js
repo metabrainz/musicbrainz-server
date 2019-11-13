@@ -76,7 +76,7 @@ if (cluster.isMaster) {
     forkWorker();
   }
 
-  console.log(`server.js listening on ${SOCKET_PATH} (pid ${process.pid})`);
+  console.info(`server.js listening on ${SOCKET_PATH} (pid ${process.pid})`);
 
   function killWorker(worker) {
     if (!worker.isDead()) {

@@ -101,7 +101,7 @@ function writeResponse(socket, body) {
 }
 
 function listenCallback() {
-  console.log(`server.js worker started (pid ${process.pid})`);
+  console.info(`server.js worker started (pid ${process.pid})`);
 }
 
 function createServer(socketPath) {

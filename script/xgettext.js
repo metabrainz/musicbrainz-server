@@ -240,6 +240,7 @@ for (currentFile of argv._) {
   }
 }
 
+// eslint-disable-next-line no-console
 console.log(
   gettextParser.po
     .compile(potFile, {

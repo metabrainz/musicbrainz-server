@@ -4,6 +4,7 @@ var rowCount = 0;
 var timeout;
 
 require('tape').createStream().on('data', function (row) {
+    // eslint-disable-next-line no-console
     console.log(row.replace(/\n$/, ''));
 
     var lastKnownRow = ++rowCount;

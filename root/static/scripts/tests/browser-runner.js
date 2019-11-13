@@ -32,15 +32,15 @@ document.body.appendChild(loggerNode);
 
 test.createStream().on('data', function (row) {
     row = row.replace(/\n$/, '');
-
+    // eslint-disable-next-line no-console
     console.log(row);
     loggerNode.appendChild(createRow(row));
 });
 
 window.addEventListener('error', function (event) {
-    console.log(event.message);
-    console.log('File name: ' + event.filename);
-    console.log('Line number: ' + event.lineno);
+    console.error(event.message);
+    console.error('File name: ' + event.filename);
+    console.error('Line number: ' + event.lineno);
 });
 
 require('./index-web');

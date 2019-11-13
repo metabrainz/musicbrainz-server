@@ -66,7 +66,7 @@ $(function () {
             entityType={entityType}
             id="entity-test"
             key={entityType + '-autocomplete'}
-            onChange={console.log}
+            onChange={console.info}
             onTypeChange={render}
             width="200px"
           />
@@ -77,7 +77,7 @@ $(function () {
             entityType={entityType}
             id="vocal-test"
             items={vocals}
-            onChange={console.log}
+            onChange={console.info}
             placeholder="Choose a vocal"
             width="200px"
           />
