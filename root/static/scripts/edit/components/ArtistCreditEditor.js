@@ -70,7 +70,7 @@ class ArtistCreditEditor extends React.Component {
     super(props);
 
     this.state = {
-      artistCredit: ko.unwrap(this.props.entity.artistCredit)
+      artistCredit: ko.unwrap(this.props.entity.artistCredit),
     };
 
     this.initialArtistText = '';

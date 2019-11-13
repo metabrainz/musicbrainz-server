@@ -36,7 +36,7 @@ parserTest("track numbers", function (t) {
         hasVinylNumbers: true,
         useTrackNumbers: true,
         useTrackNames: true,
-        useTrackLengths: true
+        useTrackLengths: true,
     });
 
     var input = [
@@ -46,7 +46,7 @@ parserTest("track numbers", function (t) {
         "4 Rot Beat         01:07",
         "5. Pruik           02:21",
         "6.In Je Graff      03:21",
-        "７ Ｈｉｌｌｗｏｏｄ   ０２：３４"
+        "７ Ｈｉｌｌｗｏｏｄ   ０２：３４",
     ]
     .join("\n");
 
@@ -57,7 +57,7 @@ parserTest("track numbers", function (t) {
         { position: 4, number: "4", name: "Rot Beat" },
         { position: 5, number: "5", name: "Pruik" },
         { position: 6, number: "6", name: "In Je Graff" },
-        { position: 7, number: "7", name: "Ｈｉｌｌｗｏｏｄ" }
+        { position: 7, number: "7", name: "Ｈｉｌｌｗｏｏｄ" },
     ]);
 });
 
@@ -68,14 +68,14 @@ parserTest("parsing track durations with trailing whitespace (MBS-1284)", functi
         hasTrackNumbers: true,
         useTrackNumbers: true,
         useTrackNames: true,
-        useTrackLengths: true
+        useTrackLengths: true,
     });
 
     var input = [
         "1. Forgotten Child    3:39    ",
         "2. Dirty Looks  4:34   ",
         "  3. Private Life  3:29  ",
-        "4.  Never Can Wait  3:24 "
+        "4.  Never Can Wait  3:24 ",
     ]
     .join("\n");
 
@@ -84,7 +84,7 @@ parserTest("parsing track durations with trailing whitespace (MBS-1284)", functi
         { position: 1, name: "Forgotten Child", formattedLength: "3:39" },
         { position: 2, name: "Dirty Looks",     formattedLength: "4:34" },
         { position: 3, name: "Private Life",    formattedLength: "3:29" },
-        { position: 4, name: "Never Can Wait",  formattedLength: "3:24" }
+        { position: 4, name: "Never Can Wait",  formattedLength: "3:24" },
     ]);
     /* eslint-enable no-multi-spaces */
 
@@ -97,18 +97,18 @@ parserTest("numbers at the end of track names being wrongly interpreted as durat
         hasTrackNumbers: true,
         useTrackNumbers: true,
         useTrackNames: true,
-        useTrackLengths: true
+        useTrackLengths: true,
     });
 
     var input = [
         "1. Criminology 2.5",
-        "2. Love On A .45"
+        "2. Love On A .45",
     ]
     .join("\n");
 
     common.trackParserTest(t, input, [
         { position: 1, name: "Criminology 2.5", formattedLength: "" },
-        { position: 2, name: "Love On A .45", formattedLength: "" }
+        { position: 2, name: "Love On A .45", formattedLength: "" },
     ]);
 });
 
@@ -119,7 +119,7 @@ parserTest("ignoring lines that don't start with a number when the option is set
         hasTrackNumbers: true,
         useTrackNumbers: true,
         useTrackNames: true,
-        useTrackLengths: true
+        useTrackLengths: true,
     });
 
     var input = "\
@@ -133,7 +133,7 @@ parserTest("ignoring lines that don't start with a number when the option is set
 
     common.trackParserTest(t, input, [
         { position: 1, name: "Freeman Hardy & Willis Acid", formattedLength: "" },
-        { position: 2, name: "Orange Romeda", formattedLength: "" }
+        { position: 2, name: "Orange Romeda", formattedLength: "" },
     ]);
 });
 
@@ -144,13 +144,13 @@ parserTest("XX:XX:XX track times (MBS-3353)", function (t) {
         hasTrackNumbers: true,
         useTrackNumbers: true,
         useTrackNames: true,
-        useTrackLengths: true
+        useTrackLengths: true,
     });
 
     var input = "1. Love On A .45  05:22:31";
 
     common.trackParserTest(t, input, [
-        { position: 1, name: "Love On A .45", formattedLength: "5:22:31" }
+        { position: 1, name: "Love On A .45", formattedLength: "5:22:31" },
     ]);
 });
 
@@ -160,7 +160,7 @@ parserTest("internal track positions are updated appropriately after being reuse
     Object.assign(trackParser.options, {
         hasTrackNumbers: true,
         useTrackNames: true,
-        useTrackLengths: true
+        useTrackLengths: true,
     });
 
     var re = releaseEditor;
@@ -208,7 +208,7 @@ parserTest("MBS-7451: track parser can clear TOC track lengths", function (t) {
     t.deepEqual(
         _.invokeMap(tracks, "length"),
         _.map(medium.original().tracklist, "length"),
-        "track lengths are unchanged"
+        "track lengths are unchanged",
     );
 });
 
@@ -219,7 +219,7 @@ parserTest("can parse only numbers, titles, artists, or lengths (MBS-3730, MBS-3
         hasTrackNumbers: true,
         hasVinylNumbers: true,
         hasTrackArtists: true,
-        useTrackNumbers: true
+        useTrackNumbers: true,
     });
 
     var release = new fields.Release({
@@ -228,9 +228,9 @@ parserTest("can parse only numbers, titles, artists, or lengths (MBS-3730, MBS-3
                 number: "1",
                 name: "foo",
                 artistCredit: {names: [{ name: "bar" }]},
-                length: 180000
-            }]
-        }]
+                length: 180000,
+            }],
+        }],
     });
 
     releaseEditor.rootField.release(release);
@@ -248,7 +248,7 @@ parserTest("can parse only numbers, titles, artists, or lengths (MBS-3730, MBS-3
     // Parse only titles
     Object.assign(trackParser.options, {
         useTrackNumbers: false,
-        useTrackNames: true
+        useTrackNames: true,
     });
 
     medium.tracks(trackParser.parse("B1. FOO! - BAR! (2:55)", medium));
@@ -262,7 +262,7 @@ parserTest("can parse only numbers, titles, artists, or lengths (MBS-3730, MBS-3
     // Parse only artists
     Object.assign(trackParser.options, {
         useTrackNames: false,
-        useTrackArtists: true
+        useTrackArtists: true,
     });
 
     medium.tracks(trackParser.parse("B1. oof - BAR! (2:55)", medium));
@@ -276,7 +276,7 @@ parserTest("can parse only numbers, titles, artists, or lengths (MBS-3730, MBS-3
     // Parse only lengths
     Object.assign(trackParser.options, {
         useTrackArtists: false,
-        useTrackLengths: true
+        useTrackLengths: true,
     });
 
     medium.tracks(trackParser.parse("B1. oof - rab (2:55)", medium));
@@ -296,7 +296,7 @@ parserTest("Does not lose previous recordings (MBS-7719)", function (t) {
     Object.assign(trackParser.options, {
         hasTrackNumbers: true,
         useTrackNumbers: true,
-        useTrackNames: true
+        useTrackNames: true,
     });
 
     var release = new fields.Release({
@@ -309,8 +309,8 @@ parserTest("Does not lose previous recordings (MBS-7719)", function (t) {
                         name: 'Old Track 1',
                         recording: {
                             gid: 'adbd01f7-7d69-43cc-95b5-d3a163be44ef',
-                            name: 'Old Recording 1'
-                        }
+                            name: 'Old Recording 1',
+                        },
                     },
                     {
                         id: 2,
@@ -318,8 +318,8 @@ parserTest("Does not lose previous recordings (MBS-7719)", function (t) {
                         name: 'Old Track 2',
                         recording: {
                             gid: '81a5d436-d16f-4bff-8be6-5fd29c1ce0fc',
-                            name: 'Old Recording 2'
-                        }
+                            name: 'Old Recording 2',
+                        },
                     },
                     {
                         id: 3,
@@ -327,12 +327,12 @@ parserTest("Does not lose previous recordings (MBS-7719)", function (t) {
                         name: 'This Track Will Be Moved',
                         recording: {
                             gid: '843910ac-4c11-4c3f-9a8a-1056d161dd2f',
-                            name: 'Old Recording 3'
-                        }
-                    }
-                ]
-            }
-        ]
+                            name: 'Old Recording 3',
+                        },
+                    },
+                ],
+            },
+        ],
     });
 
     releaseEditor.rootField.release(release);
@@ -344,8 +344,8 @@ parserTest("Does not lose previous recordings (MBS-7719)", function (t) {
             "1. Completely Different Title\n" +
             "2. This Track Will Be Moved\n" +
             "3. Another Completely Different Title",
-            medium
-        )
+            medium,
+        ),
     );
     var newTracks = medium.tracks();
     var newRecordings = _(newTracks).invokeMap('recording').value();
@@ -375,13 +375,13 @@ parserTest("parsing fullwidth numbers", function (t) {
         hasTrackNumbers: true,
         useTrackNumbers: true,
         useTrackNames: true,
-        useTrackLengths: true
+        useTrackLengths: true,
     });
 
     var input = "１ Ｆｏｏ ２：３４";
 
     common.trackParserTest(t, input, [
-        { position: 1, name: "Ｆｏｏ", formattedLength: "2:34" }
+        { position: 1, name: "Ｆｏｏ", formattedLength: "2:34" },
     ]);
 });
 
@@ -402,18 +402,18 @@ parserTest("parses track times for data tracks if there's a disc ID (MBS-8409)",
                         id: 1,
                         gid: '33705d86-ab4f-4bed-9a6c-1a690df7e70b',
                         name: 'Track 1',
-                        length: 12000
+                        length: 12000,
                     },
                     {
                         id: 2,
                         gid: 'bd43814d-096d-48d7-8ff8-634baa0a8aa6',
                         name: 'Track 2',
                         length: 0,
-                        isDataTrack: true
-                    }
-                ]
-            }
-        ]
+                        isDataTrack: true,
+                    },
+                ],
+            },
+        ],
     });
 
     releaseEditor.rootField.release(release);
@@ -439,10 +439,10 @@ parserTest("data track boundary is unchanged if the track count is >= the previo
                 id: 1,
                 tracks: [
                     {id: 1, name: 'Track A'},
-                    {id: 2, name: 'Track B', isDataTrack: true}
-                ]
-            }
-        ]
+                    {id: 2, name: 'Track B', isDataTrack: true},
+                ],
+            },
+        ],
     });
 
     releaseEditor.rootField.release(release);
@@ -457,8 +457,8 @@ parserTest("data track boundary is unchanged if the track count is >= the previo
         [
             {id: 2, name: 'Track B', isDataTrack: false},
             {id: 1, name: 'Track A', isDataTrack: true},
-            {id: undefined, name: 'Cool Bonus Vid', isDataTrack: true}
-        ]
+            {id: undefined, name: 'Cool Bonus Vid', isDataTrack: true},
+        ],
     );
 });
 
@@ -476,10 +476,10 @@ parserTest("force number of tracks to equal CD TOC", function (t) {
                 tracks: [
                     {id: 1, name: 'Track A'},
                     // data tracks should not be included in count
-                    {id: 2, name: 'Track B', isDataTrack: true}
-                ]
-            }
-        ]
+                    {id: 2, name: 'Track B', isDataTrack: true},
+                ],
+            },
+        ],
     });
 
     releaseEditor.rootField.release(release);
@@ -489,7 +489,7 @@ parserTest("force number of tracks to equal CD TOC", function (t) {
         'Track A\n' +
         'Very Different Title\n' +
         'Another Data Track',
-        medium
+        medium,
     ));
 
     t.equal(medium.audioTracks().length, 1);

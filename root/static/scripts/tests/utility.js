@@ -216,43 +216,43 @@ test("validDatePeriod", function (t) {
         {
             a: {},
             b: {},
-            expected: true
+            expected: true,
         },
         {
             a: { year: 2000, month: null, day: 11 },
             b: { year: 2000, month: null, day: 10 },
-            expected: true
+            expected: true,
         },
         {
             a: { year: 2000, month: 11, day: 11 },
             b: { year: 2000, month: 12, day: 12 },
-            expected: true
+            expected: true,
         },
         {
             a: { year: 2000, month: 11, day: 11 },
             b: { year: 1999, month: 12, day: 12 },
-            expected: false
+            expected: false,
         },
         {
             a: { year: 2000, month: 11, day: 11 },
             b: { year: 2000, month: 10, day: 12 },
-            expected: false
+            expected: false,
         },
         {
             a: { year: 2000, month: 11, day: 11 },
             b: { year: 2000, month: 11, day: 10 },
-            expected: false
+            expected: false,
         },
         {
             a: { year: "2000", month: "3", day: "1" },
             b: { year: "2000", month: "10", day: "1" },
-            expected: true
+            expected: true,
         },
         {
             a: { year: 1961, month: 2, day: 28 },
             b: { year: 1961, month: 2, day: 29 },
-            expected: false
-        }
+            expected: false,
+        },
     ];
 
     _.each(tests, function (test) {

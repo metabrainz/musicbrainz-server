@@ -30,6 +30,6 @@ test('calculateDiscID', function (t) {
 
     t.equal(
         calculateDiscID('1 9 252000 150 31615 67600 87137 108242 127110 142910 166340 231445'),
-        'gtWBI_F_fQFSSRt8nVChAVFaT_A-'
+        'gtWBI_F_fQFSSRt8nVChAVFaT_A-',
     );
 });

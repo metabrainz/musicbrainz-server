@@ -12,7 +12,7 @@ export const context = {
     colon: false,
     acronym_split: false,
     singlequote: false,
-    ellipsis: false
+    ellipsis: false,
 };
 
 // Reset the context
@@ -51,7 +51,7 @@ var bracketPairs = {
     '{': '}',
     '}': '{',
     '<': '>',
-    '>': '<'
+    '>': '<',
 };
 
 function getCorrespondingBracket(w) {

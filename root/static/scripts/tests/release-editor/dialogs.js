@@ -36,12 +36,12 @@ function dialogTest(name, callback) {
             useTrackNumbers: true,
             useTrackArtists: true,
             useTrackNames: true,
-            useTrackLengths: true
+            useTrackLengths: true,
         };
 
         var $fixture = $('<div>').attr('id', 'fixture').appendTo('body').append(
             $("<div>").attr("id", "add-disc-dialog").hide(),
-            $("<div>").attr("id", "track-parser-dialog").hide()
+            $("<div>").attr("id", "track-parser-dialog").hide(),
         );
 
         releaseEditor.activeTabID("#information");
@@ -89,7 +89,7 @@ dialogTest("switching to the tracklist tab opens the add-disc dialog if there's 
     t.ok(!uiDialog.isOpen(), "add-disc dialog is closed after switching back to the information tab");
 
     release.mediums()[0].tracks.push(
-        new fields.Track({ name: "~fooo~", position: 1, length: 12345 })
+        new fields.Track({ name: "~fooo~", position: 1, length: 12345 }),
     );
 
     releaseEditor.activeTabID("#information");
@@ -104,7 +104,7 @@ dialogTest("clearing the tracks of an existing medium via the track parser doesn
     var medium = release.mediums()[0];
 
     medium.tracks.push(
-        new fields.Track({ name: "~fooo~", position: 1, length: 12345 })
+        new fields.Track({ name: "~fooo~", position: 1, length: 12345 }),
     );
 
     t.ok(medium.hasTracks(), "medium has tracks");
@@ -126,8 +126,8 @@ dialogTest("adding a new medium does not cause reorder edits (MBS-7412)", functi
 
     release.mediums([
         new fields.Medium(
-            Object.assign(_.omit(common.testMedium, "id"), { position: 1 })
-        )
+            Object.assign(_.omit(common.testMedium, "id"), { position: 1 }),
+        ),
     ]);
 
     addDiscDialog.open();

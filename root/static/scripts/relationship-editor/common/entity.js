@@ -91,7 +91,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
                     source: self,
                     target: MB.entity({}, firstRelationship.target(self).entityType),
                     direction: getDirection(firstRelationship, self),
-                    viewModel: vm
+                    viewModel: vm,
                 });
 
                 var relationship = dialog.relationship();
@@ -103,7 +103,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
                     _.reject(_.intersection.apply(_, attributeLists), isFreeText),
                     function (attr) {
                         return { type: { gid: attr.type.gid } };
-                    }
+                    },
                 );
 
                 relationship.setAttributes(commonAttributes);
@@ -142,7 +142,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
                                 } else if (newValue && !currentValue) {
                                     _.each(group.values.slice(0), function (r, i) { r.linkOrder(i + 1) });
                                 }
-                            }
+                            },
                         });
                     }
 
@@ -189,9 +189,9 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
 
             return _.filter(
                 this.displayableRelationships(viewModel)(),
-                r => String(r.linkTypeID()) === linkTypeID && getDirection(r, this) === direction
+                r => String(r.linkTypeID()) === linkTypeID && getDirection(r, this) === direction,
             );
-        }
+        },
     });
 
     const recordingPrototype = MB.entity.Recording.prototype;

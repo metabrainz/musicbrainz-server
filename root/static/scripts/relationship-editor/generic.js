@@ -32,7 +32,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
             this.incompleteRelationships = validation.errorField(
                 source.displayableRelationships(this).any(function (r) {
                     return !r.linkTypeID() || !r.target(source).gid;
-                })
+                }),
             );
         }
 
@@ -42,7 +42,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
             new UI.AddDialog({
                 source: source,
                 target: MB.entity({}, targetType),
-                viewModel: this
+                viewModel: this,
             }).open(event.target);
         }
 
@@ -51,7 +51,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
                 new UI.EditDialog({
                     relationship: relationship,
                     source: ko.contextFor(event.target).$parents[1],
-                    viewModel: this
+                    viewModel: this,
                 }).open(event.target);
             }
         }
@@ -92,19 +92,19 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
                 relationships,
                 function (r) { return r.target(series).begin_date || '' },
                 function (r) { return r.target(series).end_date || '' },
-                function (r) { return r.target(series).time || '' }
+                function (r) { return r.target(series).time || '' },
             );
         },
         release: function (relationships, series) {
             return _.sortBy(
                 relationships,
                 function (r) { return _(r.target(series).events).map(getDate).sort().head() },
-                function (r) { return _(r.target(series).labels).map(getCatalogNumber).sort().head() }
+                function (r) { return _(r.target(series).labels).map(getCatalogNumber).sort().head() },
             );
         },
         release_group: function (relationships, series) {
             return _.sortBy(relationships, function (r) { return r.target(series).firstReleaseDate || '' });
-        }
+        },
     };
 
     function getDate(x) {
@@ -125,7 +125,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
                 .toggleClass("rel-add", added)
                 .toggleClass("rel-remove", relationship.removed())
                 .toggleClass("rel-edit", !added && relationship.edited());
-        }
+        },
     };
 
 
@@ -251,7 +251,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
                     }
 
                     return data;
-                })
+                }),
             ));
         }
 

@@ -104,7 +104,7 @@ function compareNodes(a, b) {
       throwNotEquivalent(
         'Different text content',
         JSON.stringify(textA),
-        JSON.stringify(textB)
+        JSON.stringify(textB),
       );
     }
   }
@@ -134,7 +134,7 @@ testData.forEach(function (test) {
 
   let reactMarkup =
     ReactDOMServer.renderToStaticMarkup(
-      React.createElement('div', null, eval(test.react_element))
+      React.createElement('div', null, eval(test.react_element)),
     )
     .replace(/^<div>(.*)<\/div>$/, '$1')
     .replace(/([^\s])\/>/g, '$1 />');

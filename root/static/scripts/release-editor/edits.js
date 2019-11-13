@@ -228,7 +228,7 @@ releaseEditor.edits = {
                                 newMediums,
                                 function (other) {
                                     return other.position() === attempt;
-                                }
+                                },
                             );
 
                             if (possibleSwap.original().position === newPosition) {
@@ -289,14 +289,14 @@ releaseEditor.edits = {
                     newOrder.push({
                         medium_id:  removedMedium.id,
                         "old":      newPosition,
-                        "new":      oldPosition
+                        "new":      oldPosition,
                     });
                 }
 
                 newOrder.push({
                     medium_id:  medium.id,
                     "old":      oldPosition,
-                    "new":      newPosition
+                    "new":      newPosition,
                 });
             }
         });
@@ -305,8 +305,8 @@ releaseEditor.edits = {
             edits.push(
                 MB.edit.releaseReorderMediums({
                     release: release.gid(),
-                    medium_positions: newOrder
-                })
+                    medium_positions: newOrder,
+                }),
             );
         }
 
@@ -326,8 +326,8 @@ releaseEditor.edits = {
                         medium_position:    medium.position(),
                         release:            release.gid(),
                         release_name:       release.name(),
-                        cdtoc:              toc
-                    })
+                        cdtoc:              toc,
+                    }),
                 );
             }
         });
@@ -378,7 +378,7 @@ releaseEditor.edits = {
         });
 
         return edits;
-    }
+    },
 };
 
 
@@ -390,7 +390,7 @@ var _allEdits = _.map([
     'mediumReorder',
     'discID',
     'annotation',
-    'externalLinks'
+    'externalLinks',
 ], function (name) {
     return utils.withRelease(releaseEditor.edits[name].bind(releaseEditor.edits), []);
 });
@@ -472,7 +472,7 @@ function chainEditSubmissions(release, submissions) {
 
     var args = {
         makeVotable: root.makeVotable(),
-        editNote: root.editNote()
+        editNote: root.editNote(),
     };
 
     function nextSubmission(index) {
@@ -510,7 +510,7 @@ function chainEditSubmissions(release, submissions) {
                 current.callback(
                     release,
                     data.edits.filter(
-                        x => x.response === WS_EDIT_RESPONSE_OK
+                        x => x.response === WS_EDIT_RESPONSE_OK,
                     ),
                 );
             }
@@ -558,7 +558,7 @@ releaseEditor.orderedEditSubmissions = [
             if (edit.edit_type == MB.edit.TYPES.EDIT_RELEASEGROUP_CREATE) {
                 release.releaseGroup(new releaseEditor.fields.ReleaseGroup(edits[0].entity));
             }
-        }
+        },
     },
     {
         edits: releaseEditor.edits.release,
@@ -571,7 +571,7 @@ releaseEditor.orderedEditSubmissions = [
             }
 
             release.original(MB.edit.fields.release(release));
-        }
+        },
     },
     {
         edits: releaseEditor.edits.releaseLabel,
@@ -582,17 +582,17 @@ releaseEditor.orderedEditSubmissions = [
                     var newData = _.find(edits, {
                         entity: {
                             labelID: label.label().id || null,
-                            catalogNumber: label.catalogNumber() || null
-                        }
+                            catalogNumber: label.catalogNumber() || null,
+                        },
                     });
 
                     if (newData) {
                         label.id = newData.entity.id;
                     }
                     return MB.edit.fields.releaseLabel(label);
-                })
+                }),
             );
-        }
+        },
     },
     {
         edits: releaseEditor.edits.medium,
@@ -622,28 +622,28 @@ releaseEditor.orderedEditSubmissions = [
 
             release.mediums.original(release.existingMediumData());
             release.mediums.notifySubscribers(newMediums);
-        }
+        },
     },
     {
-        edits: releaseEditor.edits.mediumReorder
+        edits: releaseEditor.edits.mediumReorder,
     },
     {
         edits: releaseEditor.edits.discID,
 
         callback: function (release) {
             release.mediums().forEach(m => m.toc(null));
-        }
+        },
     },
     {
         edits: releaseEditor.edits.annotation,
 
         callback: function (release) {
             release.annotation.original(release.annotation());
-        }
+        },
     },
     {
-        edits: releaseEditor.edits.externalLinks
-    }
+        edits: releaseEditor.edits.externalLinks,
+    },
 ];
 
 

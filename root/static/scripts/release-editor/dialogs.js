@@ -66,7 +66,7 @@ Object.assign(trackParserDialog, {
     addDisc: function () {
         this.parse();
         return this.error() ? null : this.medium;
-    }
+    },
 });
 
 
@@ -94,7 +94,7 @@ class SearchResult {
 
             request({
                 url: this.tab.tracksRequestURL(this),
-                data: this.tab.tracksRequestData
+                data: this.tab.tracksRequestData,
             }, this)
             .done(this.requestDone)
             .fail(function (jqXHR) {
@@ -181,7 +181,7 @@ class SearchTab {
             q: this.releaseName(),
             artist: this.artistName(),
             tracks: this.trackCount(),
-            page: pageJump ? this.currentPage() + pageJump : 1
+            page: pageJump ? this.currentPage() + pageJump : 1,
         };
 
         this._jqXHR = request({ url: this.endpoint, data: data }, this)
@@ -280,7 +280,7 @@ Object.assign(mediumSearchTab, {
     _addDisc(medium) {
         medium.loaded(true);
         medium.collapsed(false);
-    }
+    },
 });
 
 
@@ -291,7 +291,7 @@ Object.assign(cdstubSearchTab, {
 
     tracksRequestURL: function (result) {
         return [this.endpoint, result.discid].join("/");
-    }
+    },
 });
 
 
@@ -351,7 +351,7 @@ Object.assign(addDiscDialog, {
         }
 
         this.close();
-    }
+    },
 });
 
 
@@ -363,6 +363,6 @@ $(function () {
     $(addDiscDialog.element).tabs({
         activate: function (event, ui) {
             addDiscDialog.currentTab(ui.newPanel.data("model"));
-        }
+        },
     });
 });

@@ -12,7 +12,7 @@ import CoverArt from '../edit/MB/CoverArt';
 
 MB.cover_art_types_json = [
     { id: 'image/jpeg', l_name: 'jpg' },
-    { id: 'image/png', l_name: 'png' }
+    { id: 'image/png', l_name: 'png' },
 ];
 
 function base64_to_blob(data, mime) {
@@ -42,7 +42,7 @@ var test_files = {
         'bW9kaWZ5ADIwMTMtMDYtMjhUMTY6MjE6NDkrMDI6MDA5MCFeAAAAAElFTkSu' +
         'QmCC',
     '1x1.gif': 'R0lGODlhAQABAPAAAP///wAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==',
-    'not an image.txt': 'bm90IGFuIGltYWdlCg=='
+    'not an image.txt': 'bm90IGFuIGltYWdlCg==',
 };
 
 function mime_type_test(t, filename, expected, expected_state) {

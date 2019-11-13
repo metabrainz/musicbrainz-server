@@ -71,7 +71,7 @@ function getResponse(requestBody, context) {
   if (!componentModule) {
     console.warn(
       'warning: component ' + JSON.stringify(componentPath) +
-      ' is missing from root/server/components.js or invalid'
+      ' is missing from root/server/components.js or invalid',
     );
   }
 
@@ -103,7 +103,7 @@ function getResponse(requestBody, context) {
         CatalystContext.Provider,
         {value: context},
         React.createElement(Page, requestBody.props),
-      )
+      ),
     );
   } catch (err) {
     Raven.captureException(err);

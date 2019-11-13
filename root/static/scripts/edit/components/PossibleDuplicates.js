@@ -17,7 +17,7 @@ class PossibleDuplicates extends React.Component {
           {this.props.duplicates.map(dupe =>
             <li key={dupe.gid}>
               <EntityLink entity={dupe} target="_blank" />
-            </li>
+            </li>,
           )}
         </ul>
         <p>

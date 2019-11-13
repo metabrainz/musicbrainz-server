@@ -10,10 +10,10 @@ ko.components.loaders.unshift({
     loadTemplate: function (componentName, templateConfig, callback) {
         callback(
             templateConfig.fromScript ? ko.utils.parseHtmlFragment(
-                document.getElementById(templateConfig.fromScript).innerHTML
-            ) : null
+                document.getElementById(templateConfig.fromScript).innerHTML,
+            ) : null,
         );
-    }
+    },
 });
 
 

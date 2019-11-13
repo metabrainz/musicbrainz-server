@@ -10,7 +10,7 @@ import MB from '../../MB';
 var SELECTED_CLASS = {
     '1':  'vote-yes',
     '0':  'vote-no',
-    '-1': 'vote-abs'
+    '-1': 'vote-abs',
 };
 
 MB.Control.EditList = function (container) {
@@ -35,7 +35,7 @@ MB.Control.EditList = function (container) {
         $voteOptions.find('.vote').attr('class', 'vote');
 
         $voteOptions.prepend(
-            $('<div>').text(l("Vote on all edits:"))
+            $('<div>').text(l("Vote on all edits:")),
         );
 
         // :nth-child would make more sense, but I couldn't get it working

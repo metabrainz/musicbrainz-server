@@ -34,7 +34,7 @@ import request from '../../common/utility/request';
                 entity: nullableString(entity.gid),
 
                 // Don't clean()!
-                text: String(value(entity.annotation) || '').trim()
+                text: String(value(entity.annotation) || '').trim(),
             };
         },
 
@@ -52,9 +52,9 @@ import request from '../../common/utility/request';
                     artist: {
                         name: string(artist.name),
                         id: number(artist.id),
-                        gid: nullableString(artist.gid)
+                        gid: nullableString(artist.gid),
                     },
-                    name: string(credit.name)
+                    name: string(credit.name),
                 };
 
                 var joinPhrase = value(credit.joinPhrase) || "";
@@ -81,8 +81,8 @@ import request from '../../common/utility/request';
                 attributes: [],
                 entities: [
                     this.relationshipEntity(source),
-                    { entityType: 'url', name: string(link.url) }
-                ]
+                    { entityType: 'url', name: string(link.url) },
+                ],
             };
 
             if (source.entityType > 'url') {
@@ -101,7 +101,7 @@ import request from '../../common/utility/request';
                 name:       string(medium.name),
                 format_id:  number(medium.formatID),
                 position:   number(medium.position),
-                tracklist:  array(medium.tracks, fields.track)
+                tracklist:  array(medium.tracks, fields.track),
             };
         },
 
@@ -111,7 +111,7 @@ import request from '../../common/utility/request';
             return {
                 year:   number(data.year),
                 month:  number(data.month),
-                day:    number(data.day)
+                day:    number(data.day),
             };
         },
 
@@ -122,7 +122,7 @@ import request from '../../common/utility/request';
                 artist_credit:  fields.artistCredit(recording.artistCredit),
                 length:         number(recording.length),
                 comment:        string(recording.comment),
-                video:          Boolean(value(recording.video))
+                video:          Boolean(value(recording.video)),
             };
         },
 
@@ -132,7 +132,7 @@ import request from '../../common/utility/request';
                 linkTypeID:     number(relationship.linkTypeID),
                 entities:       array(relationship.entities, this.relationshipEntity),
                 entity0_credit: string(relationship.entity0_credit),
-                entity1_credit: string(relationship.entity1_credit)
+                entity1_credit: string(relationship.entity1_credit),
             };
 
             data.attributes = _(ko.unwrap(relationship.attributes))
@@ -164,7 +164,7 @@ import request from '../../common/utility/request';
             var data = {
                 entityType: entity.entityType,
                 gid:        nullableString(entity.gid),
-                name:       string(entity.name)
+                name:       string(entity.name),
             };
 
             // We only use URL gids on the edit-url form.
@@ -181,7 +181,7 @@ import request from '../../common/utility/request';
             var events = _(value(release.events)).map(function (data) {
                 var event = {
                     date:       fields.partialDate(data.date),
-                    country_id: number(data.countryID)
+                    country_id: number(data.countryID),
                 };
 
                 if (_(event.date).values().some(nonEmpty) || event.country_id !== null) {
@@ -199,7 +199,7 @@ import request from '../../common/utility/request';
                 packaging_id:       number(release.packagingID),
                 script_id:          number(release.scriptID),
                 status_id:          number(release.statusID),
-                events:             events
+                events:             events,
             };
         },
 
@@ -210,7 +210,7 @@ import request from '../../common/utility/request';
                 name:               string(rg.name),
                 artist_credit:      fields.artistCredit(rg.artistCredit),
                 comment:            string(rg.comment),
-                secondary_type_ids: _.compact(array(rg.secondaryTypeIDs, number))
+                secondary_type_ids: _.compact(array(rg.secondaryTypeIDs, number)),
             };
         },
 
@@ -220,7 +220,7 @@ import request from '../../common/utility/request';
             return {
                 release_label:  number(releaseLabel.id),
                 label:          number(label.id),
-                catalog_number: nullableString(releaseLabel.catalogNumber)
+                catalog_number: nullableString(releaseLabel.catalogNumber),
             };
         },
 
@@ -235,7 +235,7 @@ import request from '../../common/utility/request';
                 position:       number(track.position),
                 number:         string(track.number),
                 length:         number(track.length),
-                is_data_track:  !!ko.unwrap(track.isDataTrack)
+                is_data_track:  !!ko.unwrap(track.isDataTrack),
             };
         },
 
@@ -246,7 +246,7 @@ import request from '../../common/utility/request';
                 type_id:        number(work.typeID),
                 languages:      array(work.languages, number),
             };
-        }
+        },
     };
 
 
@@ -296,13 +296,13 @@ import request from '../../common/utility/request';
             if (!_.some(args.secondary_type_ids)) {
                 delete args.secondary_type_ids;
             }
-        }
+        },
     );
 
 
     edit.releaseGroupEdit = editConstructor(
         TYPES.EDIT_RELEASEGROUP_EDIT,
-        _.partialRight(removeEqual, ['gid'])
+        _.partialRight(removeEqual, ['gid']),
     );
 
 
@@ -313,35 +313,35 @@ import request from '../../common/utility/request';
             if (args.events && !args.events.length) {
                 delete args.events;
             }
-        }
+        },
     );
 
 
     edit.releaseEdit = editConstructor(
         TYPES.EDIT_RELEASE_EDIT,
-        _.partialRight(removeEqual, ['to_edit'])
+        _.partialRight(removeEqual, ['to_edit']),
     );
 
 
     edit.releaseAddReleaseLabel = editConstructor(
         TYPES.EDIT_RELEASE_ADDRELEASELABEL,
 
-        function (args) { delete args.release_label }
+        function (args) { delete args.release_label },
     );
 
 
     edit.releaseAddAnnotation = editConstructor(
-        TYPES.EDIT_RELEASE_ADD_ANNOTATION
+        TYPES.EDIT_RELEASE_ADD_ANNOTATION,
     );
 
 
     edit.releaseDeleteReleaseLabel = editConstructor(
-        TYPES.EDIT_RELEASE_DELETERELEASELABEL
+        TYPES.EDIT_RELEASE_DELETERELEASELABEL,
     );
 
 
     edit.releaseEditReleaseLabel = editConstructor(
-        TYPES.EDIT_RELEASE_EDITRELEASELABEL
+        TYPES.EDIT_RELEASE_EDITRELEASELABEL,
     );
 
 
@@ -355,13 +355,13 @@ import request from '../../common/utility/request';
             if (args.format_id === null) {
                 delete args.format_id;
             }
-        }
+        },
     );
 
 
     edit.mediumEdit = editConstructor(
         TYPES.EDIT_MEDIUM_EDIT,
-        _.partialRight(removeEqual, ['to_edit'])
+        _.partialRight(removeEqual, ['to_edit']),
     );
 
 
@@ -373,13 +373,13 @@ import request from '../../common/utility/request';
 
     edit.recordingEdit = editConstructor(
         TYPES.EDIT_RECORDING_EDIT,
-        _.partialRight(removeEqual, ['to_edit'])
+        _.partialRight(removeEqual, ['to_edit']),
     );
 
 
     edit.relationshipCreate = editConstructor(
         TYPES.EDIT_RELATIONSHIP_CREATE,
-        function (args) { delete args.id }
+        function (args) { delete args.id },
     );
 
 
@@ -408,17 +408,17 @@ import request from '../../common/utility/request';
 
             args.attributes = changedAttributes;
             removeEqual(args, orig, ['id', 'linkTypeID']);
-        }
+        },
     );
 
 
     edit.relationshipDelete = editConstructor(
-        TYPES.EDIT_RELATIONSHIP_DELETE
+        TYPES.EDIT_RELATIONSHIP_DELETE,
     );
 
 
     edit.releaseReorderMediums = editConstructor(
-        TYPES.EDIT_RELEASE_REORDER_MEDIUMS
+        TYPES.EDIT_RELEASE_REORDER_MEDIUMS,
     );
 
 
@@ -432,7 +432,7 @@ import request from '../../common/utility/request';
                 type: "POST",
                 url: endpoint,
                 data: JSON.stringify(data),
-                contentType: "application/json; charset=utf-8"
+                contentType: "application/json; charset=utf-8",
             }, context || null);
         };
     }

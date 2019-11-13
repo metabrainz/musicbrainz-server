@@ -57,7 +57,7 @@ MB.Control.initialize_guess_case = function (type, formPrefix) {
 var guessCaseOptions = {
     modeName: ko.observable(),
     keepUpperCase: ko.observable(),
-    upperCaseRoman: ko.observable()
+    upperCaseRoman: ko.observable(),
 };
 
 var mode = ko.computed({
@@ -71,14 +71,14 @@ var mode = ko.computed({
         }
         return gc.mode;
     },
-    deferEvaluation: true
+    deferEvaluation: true,
 });
 
 guessCaseOptions.help = ko.computed({
     read: function () {
         return mode().description;
     },
-    deferEvaluation: true
+    deferEvaluation: true,
 });
 
 guessCaseOptions.keepUpperCase.subscribe(function (value) {
@@ -112,7 +112,7 @@ ko.bindingHandlers.guessCase = {
         ko.applyBindingsToDescendants(context, element);
 
         return { controlsDescendantBindings: true };
-    }
+    },
 };
 
 ko.virtualElements.allowedBindings.guessCase = true;

@@ -56,7 +56,7 @@ function showErrorHandler(handler) {
                     handler(value, $element, $panel);
                     markTabWithErrors($panel);
                 },
-                disposeWhenNodeIsRemoved: element
+                disposeWhenNodeIsRemoved: element,
             });
         });
     };
@@ -67,7 +67,7 @@ ko.bindingHandlers.showErrorRightAway = {
 
     init: showErrorHandler(function (value, $element) {
         $element.data("visible", !!value).toggle(!!value);
-    })
+    }),
 };
 
 ko.bindingHandlers.showMessageRightAway = ko.bindingHandlers.showErrorRightAway;
@@ -86,7 +86,7 @@ ko.bindingHandlers.showErrorWhenTabIsSwitched = {
         $panel.data("hiddenErrors",
             (value && !alreadyVisible)
                 ? $hidden.add($element) : $hidden.not($element));
-    })
+    }),
 };
 
 
@@ -136,7 +136,7 @@ utils.withRelease(function (release) {
         field.error(
             l("The barcode you entered looks like a UPC code with the check digit missing.") +
             " " +
-            expand2text(checkDigitText, { checkdigit: field.checkDigit("0" + barcode) })
+            expand2text(checkDigitText, { checkdigit: field.checkDigit("0" + barcode) }),
         );
     } else if (barcode.length === 12) {
         if (field.validateCheckDigit("0" + barcode)) {
@@ -147,7 +147,7 @@ utils.withRelease(function (release) {
                 " " +
                 doubleCheckText +
                 " " +
-                expand2text(checkDigitText, { checkdigit: field.checkDigit(barcode) })
+                expand2text(checkDigitText, { checkdigit: field.checkDigit(barcode) }),
             );
         }
     } else if (barcode.length === 13) {
@@ -157,14 +157,14 @@ utils.withRelease(function (release) {
             field.error(
                 l("The barcode you entered is not a valid EAN code.") +
                 " " +
-                doubleCheckText
+                doubleCheckText,
             );
         }
     } else {
         field.error(
             l("The barcode you entered is not a valid UPC or EAN code.") +
             " " +
-            doubleCheckText
+            doubleCheckText,
         );
     }
 });

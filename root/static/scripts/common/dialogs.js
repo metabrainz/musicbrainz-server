@@ -13,7 +13,7 @@ import MB from './MB';
         options: {
             width: 800,
             title: l("Loading..."),
-            resizable: false
+            resizable: false,
         },
 
         _create: function () {
@@ -58,7 +58,7 @@ import MB from './MB';
 
             this._setOptions({
                 title: this.options.title,
-                position: { my: "center", at: "center", of: window }
+                position: { my: "center", at: "center", of: window },
             });
         },
 
@@ -69,7 +69,7 @@ import MB from './MB';
         adjustSize: function (contentDocument) {
             $(contentDocument.body).width(this.element.width());
             this.$iframe.height($(contentDocument).height());
-        }
+        },
     });
 
 
@@ -106,7 +106,7 @@ import MB from './MB';
                     });
                 });
             }
-        }
+        },
     });
 
 

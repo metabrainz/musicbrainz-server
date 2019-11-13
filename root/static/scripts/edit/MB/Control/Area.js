@@ -24,7 +24,7 @@ MB.Control.Area = function () {
         var ac = MB.Control.EntityAutocomplete({ inputs: $span });
 
         ko.applyBindingsToNode(
-            name, { controlsBubble: bubble }, { area: ac.currentSelection }
+            name, { controlsBubble: bubble }, { area: ac.currentSelection },
         );
     });
 };

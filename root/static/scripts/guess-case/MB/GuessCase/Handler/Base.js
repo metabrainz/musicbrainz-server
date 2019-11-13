@@ -886,7 +886,7 @@ MB.GuessCase.Handler.Base = function (gc) {
     self.moveArticleToEnd = function (is) {
         return utils.trim(is).replace(
             /^(The|Los) (.+)$/,
-            function (match, article, name) { return name + ", " + article }
+            function (match, article, name) { return name + ", " + article },
         );
     };
 

@@ -260,7 +260,7 @@ const actions = {
         var question = l(
             "This tracklist has artist credits with information that " +
             "will be lost if you swap artist credits with track titles. " +
-            "This cannot be undone. Do you wish to continue?"
+            "This cannot be undone. Do you wish to continue?",
         );
 
         if (!requireConf || confirm(question)) {
@@ -313,7 +313,7 @@ const actions = {
     },
 
     copyTrackTitlesToRecordings: ko.observable(false),
-    copyTrackArtistsToRecordings: ko.observable(false)
+    copyTrackArtistsToRecordings: ko.observable(false),
 };
 
 Object.assign(releaseEditor, actions);

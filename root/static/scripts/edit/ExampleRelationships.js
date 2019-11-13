@@ -31,7 +31,7 @@ ERE.init = function (config) {
     var autocomplete = MB.Control.EntityAutocomplete({
         'inputs': $('span.autocomplete'),
         'entity': type0,
-        'setEntity': ERE.viewModel.selectedEntityType
+        'setEntity': ERE.viewModel.selectedEntityType,
     });
     ERE.viewModel.selectedEntityType.subscribe(autocomplete.changeEntity);
     ERE.viewModel.availableEntityTypes(
@@ -55,7 +55,7 @@ ERE.init = function (config) {
                 meValue = bindingContext.$data;
 
             element.checked = (checkedValue === meValue);
-        }
+        },
     };
 
     ko.applyBindings(ERE.viewModel);
@@ -91,8 +91,8 @@ ViewModel = function () {
                 ce.relationship(null);
                 ce.possibleRelationships.clear();
             },
-            possibleRelationships: new RelationshipSearcher()
-        }
+            possibleRelationships: new RelationshipSearcher(),
+        },
     }
 };
 
@@ -150,12 +150,12 @@ RelationshipSearcher = function () {
                         phrase: rel.verbosePhrase,
                         source: {
                             name: source.name,
-                            mbid: source.gid
+                            mbid: source.gid,
                         },
                         target: {
                             name: target.name,
-                            mbid: target.gid
-                        }
+                            mbid: target.gid,
+                        },
                     })
                 });
             }

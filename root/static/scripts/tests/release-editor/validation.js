@@ -32,7 +32,7 @@ validationTest("non-loaded mediums validate, even though they have no tracks (MB
     releaseEditor.releaseLoaded({
         mediums: [
             { id: 123, position: 1, tracks: [] },
-        ]
+        ],
     });
 
     var release = releaseEditor.rootField.release(),
@@ -59,7 +59,7 @@ validationTest("duplicate release countries are rejected, including null ones (M
             { countryID: 123, date: { year: 2000 } },
             { countryID: null, date: { year: 1999 } },
             { countryID: null, date: { year: 2000 } },
-        ]
+        ],
     });
 
     var release = releaseEditor.rootField.release();
@@ -89,8 +89,8 @@ validationTest('duplicate label/catalog number pairs are rejected (MBS-8137)', f
             { label: label2, catalogNumber: null },
             { label: label2, catalogNumber: null },
             { label: null, catalogNumber: null },
-            { label: null, catalogNumber: null }
-        ]
+            { label: null, catalogNumber: null },
+        ],
     });
 
     var labels = releaseEditor.rootField.release().labels();

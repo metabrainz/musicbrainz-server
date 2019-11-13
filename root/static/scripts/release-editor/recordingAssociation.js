@@ -45,13 +45,13 @@ recordingAssociation.getReleaseGroupRecordings = function (releaseGroup, offset,
     if (!releaseGroup || !releaseGroup.gid) return;
 
     var query = utils.constructLuceneField(
-        [utils.escapeLuceneValue(releaseGroup.gid)], "rgid"
+        [utils.escapeLuceneValue(releaseGroup.gid)], "rgid",
     );
 
     utils.search("recording", query, 100, offset)
         .done(function (data) {
             results.push.apply(
-                results, _.map(data.recordings, cleanRecordingData)
+                results, _.map(data.recordings, cleanRecordingData),
             );
 
             var countSoFar = data.offset + 100;
@@ -73,7 +73,7 @@ function recordingQuery(track, name) {
         recording: [utils.escapeLuceneValue(name)],
 
         arid: _(track.artistCredit().names).map('artist.gid')
-            .map(utils.escapeLuceneValue).value()
+            .map(utils.escapeLuceneValue).value(),
     };
 
     var titleAndArtists = utils.constructLuceneFieldConjunction(params);
@@ -107,7 +107,7 @@ function cleanRecordingData(data) {
             return {
                 name: release.title,
                 gid: release.id,
-                releaseGroupGID: release["release-group"].id
+                releaseGroupGID: release["release-group"].id,
             };
         })
         .uniqBy('releaseGroupGID').value();
@@ -115,7 +115,7 @@ function cleanRecordingData(data) {
     clean.appearsOn = {
         hits: appearsOn.length,
         results: appearsOn,
-        entityType: "release"
+        entityType: "release",
     };
 
     // Recording entities will have already been created and cached for
@@ -150,7 +150,7 @@ function searchTrackArtistRecordings(track) {
     track._recordingRequest = utils.search("recording", query)
         .done(function (data) {
             var recordings = matchAgainstRecordings(
-                track, _.map(data.recordings, cleanRecordingData)
+                track, _.map(data.recordings, cleanRecordingData),
             );
 
             setSuggestedRecordings(track, recordings || []);
@@ -176,9 +176,9 @@ recordingAssociation.autocompleteHook = function (track) {
             url: "/ws/2/recording",
             data: {
                 query: recordingQuery(track, args.data.q),
-                fmt: "json"
+                fmt: "json",
             },
-            dataType: "json"
+            dataType: "json",
         };
 
         newArgs.success = function (data) {
@@ -187,7 +187,7 @@ recordingAssociation.autocompleteHook = function (track) {
 
             newData.push({
                 current: (data.offset / 10) + 1,
-                pages: Math.ceil(data.count / 10)
+                pages: Math.ceil(data.count / 10),
             });
 
             args.success(newData);

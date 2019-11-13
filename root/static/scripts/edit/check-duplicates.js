@@ -41,7 +41,7 @@ function renderDuplicates(name, duplicates, container) {
       name={name}
       duplicates={duplicates}
       checkboxCallback={event => isConfirmed(event.target.checked)} />,
-    container
+    container,
   );
 }
 
@@ -163,7 +163,7 @@ MB.initializeDuplicateChecker = function (type) {
   var promise;
 
   const mbidLocationMatch = window.location.pathname.match(
-    /[a-f\d]{8}-[a-f\d]{4}-[a-f\d]{4}-[a-f\d]{4}-[a-f\d]{12}/
+    /[a-f\d]{8}-[a-f\d]{4}-[a-f\d]{4}-[a-f\d]{4}-[a-f\d]{12}/,
   );
   const sourceEntityGID = mbidLocationMatch ? mbidLocationMatch[0] : '';
 
@@ -185,7 +185,7 @@ MB.initializeDuplicateChecker = function (type) {
     requestPending(true);
     promise = request({
         url: '/ws/js/check_duplicates',
-        data: $.param({type: type, name: name, mbid: sourceEntityGID}, true)
+        data: $.param({type: type, name: name, mbid: sourceEntityGID}, true),
       })
       .done(function (data) {
         var duplicates = sortDuplicates(type, data.duplicates);

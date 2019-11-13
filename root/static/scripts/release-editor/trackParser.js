@@ -114,7 +114,7 @@ const trackParser = releaseEditor.trackParser = {
                         .map(function (track) {
                             return self.matchDataWithTrack(data, track);
                         })
-                        .compact().value()
+                        .compact().value(),
                 );
             }
 
@@ -150,7 +150,7 @@ const trackParser = releaseEditor.trackParser = {
                         !data.artist ||
                         utils.similarNames(data.artist, reduceArtistCredit(ac))
                     );
-                }
+                },
             );
 
             if (matchedAC) {
@@ -235,9 +235,9 @@ const trackParser = releaseEditor.trackParser = {
                     newTracks,
                     [newAudioTrackCount, 0].concat(_.times(difference, function (n) {
                         return new fields.Track({
-                            length: currentTracks[newAudioTrackCount + n].length.peek()
+                            length: currentTracks[newAudioTrackCount + n].length.peek(),
                         }, medium);
-                    }))
+                    })),
                 );
 
                 _.each(newTracks, function (t, index) {
@@ -273,7 +273,7 @@ const trackParser = releaseEditor.trackParser = {
                     if (previousTrack.gid) {
                         track.previousTrackAtThisPosition = {
                             id: previousTrack.id,
-                            gid: previousTrack.gid
+                            gid: previousTrack.gid,
                         };
                     }
                 }
@@ -418,7 +418,7 @@ const trackParser = releaseEditor.trackParser = {
         if (similarity >= MIN_NAME_SIMILARITY) {
             return { similarity: similarity, track: track, data: data };
         }
-    }
+    },
 };
 
 trackParser.customDelimiterRegExp = ko.computed(function () {
@@ -447,11 +447,11 @@ function optionCookie(name, defaultValue, checkbox=true) {
 
     if (checkbox) {
       var observable = ko.observable(
-          defaultValue ? existingValue !== "false" : existingValue === "true"
+          defaultValue ? existingValue !== "false" : existingValue === "true",
       );
     } else {
       var observable = ko.observable(
-          existingValue ? existingValue : defaultValue
+          existingValue ? existingValue : defaultValue,
       );
     }
 

@@ -16,12 +16,12 @@ test("CoreEntity", function (t) {
     t.equal(
         source.html(),
         '<a href="/recording/123"><bdi>a recording</bdi></a>',
-        "recording link"
+        "recording link",
     );
 
     t.equal(
         target.html({ "target": "_blank" }),
         '<a target="_blank" href="/artist/456" title="bar"><bdi>foo</bdi></a>',
-        "artist link"
+        "artist link",
     );
 });

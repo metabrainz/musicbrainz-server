@@ -33,8 +33,8 @@ fieldTest("release group types being preserved after editing the name", function
         autocomplete: {
             entity: "release-group",
             currentSelection: releaseGroup,
-            entityConstructor: fields.ReleaseGroup
-        }
+            entityConstructor: fields.ReleaseGroup,
+        },
     });
 
     $autocomplete.val("bar").trigger("input");
@@ -56,7 +56,7 @@ fieldTest("mediums having their \"loaded\" observable set correctly", function (
         new fields.Medium({ id: 1, tracks: [] }),
         new fields.Medium({ originalID: 1, tracks: [] }),
         new fields.Medium({ id: 1, tracks: [{}] }),
-        new fields.Medium({ originalID: 1, tracks: [{}] })
+        new fields.Medium({ originalID: 1, tracks: [{}] }),
     ]);
 
     t.equal(mediums()[0].loaded(), true, "medium without id or tracks is considered loaded");
@@ -76,7 +76,7 @@ fieldTest("loading a medium doesn't overwrite its original edit data", function 
         position: 1,
         formatID: 1,
         name: "foo",
-        tracks: []
+        tracks: [],
     }, release);
 
     release.mediums([medium]);
@@ -94,7 +94,7 @@ fieldTest("loading a medium doesn't overwrite its original edit data", function 
     t.equal(original.name, "foo", "original name is foo");
 
     medium.tracksLoaded({
-        tracks: [{ position: 1, name: "~fooo~", length: 12345 }]
+        tracks: [{ position: 1, name: "~fooo~", length: 12345 }],
     });
 
     t.ok(medium.loaded(), "medium is loaded");
@@ -141,7 +141,7 @@ fieldTest("tracks are set correctly when the cdtoc is changed", function (t, rel
         { length: 359000, position: 4 },
         { length: 333000, position: 5 },
         { length: 296000, position: 6 },
-        { length: 372000, position: 7 }
+        { length: 372000, position: 7 },
     ];
 
     var tocData2 = [
@@ -149,7 +149,7 @@ fieldTest("tracks are set correctly when the cdtoc is changed", function (t, rel
         { length: 365000, position: 2 },
         { length: 432000, position: 3 },
         { length: 492000, position: 4 },
-        { length: 737000, position: 5 }
+        { length: 737000, position: 5 },
     ];
 
     var medium = new fields.Medium({ tracks: [] }, release);
@@ -172,7 +172,7 @@ fieldTest("tracks are set correctly when the cdtoc is changed", function (t, rel
     medium.toc(toc2);
     t.deepEqual(
         lengthsAndPositions(),
-        Array.prototype.concat({ length: undefined, position: 0 }, tocData2, { length: undefined, position: 6 })
+        Array.prototype.concat({ length: undefined, position: 0 }, tocData2, { length: undefined, position: 6 }),
     );
     t.ok(_.last(medium.tracks()).isDataTrack());
 
@@ -180,7 +180,7 @@ fieldTest("tracks are set correctly when the cdtoc is changed", function (t, rel
     medium.toc(toc1);
     t.deepEqual(
         lengthsAndPositions(),
-        Array.prototype.concat({ length: undefined, position: 0 }, tocData1, { length: undefined, position: 8 })
+        Array.prototype.concat({ length: undefined, position: 0 }, tocData1, { length: undefined, position: 8 }),
     );
     t.ok(_.last(medium.tracks()).isDataTrack());
 });
@@ -201,7 +201,7 @@ fieldTest("track times entered as integers are converted into HH:MM:SS", functio
         {input: "96900", output: "26:55:00"},
         {input: "160000", output: "16:00:00"},
         {input: "166000", output: "46:06:40"},
-        {input: "3723494", output: "1034:18:14"}
+        {input: "3723494", output: "1034:18:14"},
     ];
 
     tests.forEach(({input, output}) => {

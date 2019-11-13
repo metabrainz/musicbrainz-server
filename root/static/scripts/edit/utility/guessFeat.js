@@ -56,7 +56,7 @@ function extractNonBracketedFeatCredits(str, artists, isProbablyClassical) {
     return {
         name: name,
         joinPhrase: joinPhrase,
-        artistCredit: artistCredit
+        artistCredit: artistCredit,
     };
 }
 
@@ -158,7 +158,7 @@ function expandCredit(fullName, artists, isProbablyClassical) {
 
             return Object.assign(
                 {similarity: -1, artist: null, name: name, joinPhrase: fixJoinPhrase(pair[1])},
-                bestArtistMatch(artists, name, isProbablyClassical) || {}
+                bestArtistMatch(artists, name, isProbablyClassical) || {},
             );
         });
 
@@ -218,8 +218,8 @@ MB.Control.initGuessFeatButton = function (formName) {
             // Confusingly, the artistCredit object used to generated hidden input
             // fields is also different from MB.sourceRelationshipEditor.source's,
             // so we have to replace this field too.
-            artistCredit: MB.sourceEntity.artistCredit
-        }
+            artistCredit: MB.sourceEntity.artistCredit,
+        },
     );
 
     $(document).on('click', 'button.guessfeat.icon', function () {

@@ -55,9 +55,9 @@ var testRelease = {
                     sort_name: "Beatles, The",
                     name: "The Beatles",
                     id: 303,
-                    gid: "b10bbbfc-cf9e-42e0-be17-e2c3e1d2600d"
+                    gid: "b10bbbfc-cf9e-42e0-be17-e2c3e1d2600d",
                 },
-                joinPhrase: ""
+                joinPhrase: "",
             },
         ],
     },
@@ -74,7 +74,7 @@ var testRelease = {
                         relationships: [],
                         name: "Love Me Do",
                         id: 6393661,
-                        gid: "87ec065e-f139-41b9-b3b9-f746addf5b1e"
+                        gid: "87ec065e-f139-41b9-b3b9-f746addf5b1e",
                     },
                     position: 1,
                     name: "Love Me Do",
@@ -89,16 +89,16 @@ var testRelease = {
                         relationships: [],
                         name: "I Saw Her Standing There",
                         id: 6393662,
-                        gid: "6de731d6-7a8f-43a0-8cb0-1dca5a40d04e"
+                        gid: "6de731d6-7a8f-43a0-8cb0-1dca5a40d04e",
                     },
                     position: 2,
                     name: "I Saw Her Standing There",
                     artistCredit: {names: []},
-                }
+                },
             ],
             format: "Vinyl",
-            position: 1
-        }
+            position: 1,
+        },
     ],
     gid: "867cc694-0f35-4a65-acb4-bc873795701a",
     releaseGroup: {
@@ -107,8 +107,8 @@ var testRelease = {
         name: "Love Me Do",
         id: 564256,
         gid: "5db85281-934d-36e5-865c-1922ad82a948",
-        relationships: []
-    }
+        relationships: [],
+    },
 };
 
 function id2attr(id) { return { type: linkedEntities.link_attribute_type[id] } }
@@ -117,7 +117,7 @@ function ids2attrs(ids) { return _.map(ids, id2attr) }
 
 function setupReleaseRelationshipEditor() {
     var vm = new FakeReleaseViewModel({
-        sourceData: _.omit(testRelease, "mediums")
+        sourceData: _.omit(testRelease, "mediums"),
     });
 
     vm.releaseLoaded(testRelease);
@@ -177,7 +177,7 @@ relationshipEditorTest("link phrase interpolation", function (t) {
 
     var relationship = vm.getRelationship({
         target: target,
-        linkTypeID: 148
+        linkTypeID: 148,
     }, source);
 
     var entities = relationship.entities();
@@ -189,30 +189,30 @@ relationshipEditorTest("link phrase interpolation", function (t) {
         {
             linkTypeID: 148,
             attributes: ids2attrs([123, 229, 277, 596]),
-            expected: "solo zither, guitar and bass guitar"
+            expected: "solo zither, guitar and bass guitar",
         },
         {
             linkTypeID: 141,
             attributes: ids2attrs([424, 425]),
-            expected: "co-executive producer"
+            expected: "co-executive producer",
         },
         {
             linkTypeID: 154,
             attributes: ids2attrs([1, 69, 75, 109, 302]),
             expected: "contains additional samples by",
-            expectedExtra: "strings, guitars, lyre, plucked string instruments"
+            expectedExtra: "strings, guitars, lyre, plucked string instruments",
         },
         // MBS-6129
         {
             linkTypeID: 149,
             attributes: ids2attrs([4]),
-            expected: "lead vocals"
+            expected: "lead vocals",
         },
         {
             linkTypeID: 149,
             attributes: ids2attrs([]),
-            expected: "vocals"
-        }
+            expected: "vocals",
+        },
     ];
 
     _.each(tests, function (test) {
@@ -227,7 +227,7 @@ relationshipEditorTest("link phrase interpolation", function (t) {
         t.equal(
             result[0],
             test.expected,
-            [test.linkTypeID, JSON.stringify(_(test.attributes).map('type.id').value())].join(", ")
+            [test.linkTypeID, JSON.stringify(_(test.attributes).map('type.id').value())].join(", "),
         );
 
         if (test.expectedExtra) {
@@ -252,7 +252,7 @@ relationshipEditorTest("merging duplicate relationships", function (t) {
         attributes: ids2attrs([123, 194, 277]),
         begin_date: { year: 2001 },
         end_date: null,
-        ended: false
+        ended: false,
     }, source);
 
     var duplicateRelationship = vm.getRelationship({
@@ -261,7 +261,7 @@ relationshipEditorTest("merging duplicate relationships", function (t) {
         attributes: ids2attrs([123, 194, 277]),
         begin_date: null,
         end_date: { year: 2002 },
-        ended: true
+        ended: true,
     }, source);
 
     relationship.show();
@@ -272,7 +272,7 @@ relationshipEditorTest("merging duplicate relationships", function (t) {
     t.deepEqual(
         _(relationship.attributes()).map('type.id').value().sort(),
         [123, 194, 277],
-        "attributes are the same"
+        "attributes are the same",
     );
 
     t.deepEqual(
@@ -284,9 +284,9 @@ relationshipEditorTest("merging duplicate relationships", function (t) {
         {
             begin_date: { year: 2001, month: null, day: null },
             end_date: { year: 2002, month: null, day: null },
-            ended: true
+            ended: true,
         },
-        "date period is merged correctly"
+        "date period is merged correctly",
     );
 
     t.equal(source.relationships.indexOf(duplicateRelationship), -1,
@@ -298,7 +298,7 @@ relationshipEditorTest("merging duplicate relationships", function (t) {
         target: target,
         linkTypeID: 148,
         begin_date: { year: 2003 },
-        end_date: { year: 2004 }
+        end_date: { year: 2004 },
     }, source);
 
     notDuplicateRelationship.show();
@@ -324,44 +324,44 @@ relationshipEditorTest("dialog backwardness", function (t) {
         {
             input: {
                 source: release,
-                target: recording0
+                target: recording0,
             },
             expected: {
                 backward: true,
-                entities: [recording0, release]
-            }
+                entities: [recording0, release],
+            },
         },
         {
             input: {
                 source: recording0,
-                target: release
+                target: release,
             },
             expected: {
                 backward: false,
-                entities: [recording0, release]
-            }
+                entities: [recording0, release],
+            },
         },
         {
             input: {
                 source: recording0,
-                target: recording1
+                target: recording1,
             },
             expected: {
                 backward: false,
-                entities: [recording0, recording1]
-            }
+                entities: [recording0, recording1],
+            },
         },
         {
             input: {
                 source: recording1,
                 target: recording0,
-                direction: "backward"
+                direction: "backward",
             },
             expected: {
                 backward: true,
-                entities: [recording0, recording1]
-            }
-        }
+                entities: [recording0, recording1],
+            },
+        },
     ];
 
     _.each(tests, function (test) {
@@ -406,7 +406,7 @@ relationshipEditorTest("BatchRelationshipDialog", function (t) {
     var dialog = new BatchRelationshipDialog({
         sources: recordings,
         target: target,
-        viewModel: vm
+        viewModel: vm,
     });
 
     var relationship = dialog.relationship();
@@ -438,26 +438,26 @@ relationshipEditorTest("BatchCreateWorksDialog", function (t) {
     var recordings = _.map(vm.source.mediums()[0].tracks, "recording");
 
     var dialog = new BatchCreateWorksDialog({
-        sources: recordings, viewModel: vm
+        sources: recordings, viewModel: vm,
     });
 
     dialog.createEdits = function () {
         return $.Deferred().resolve({
             edits: [
                 { entity: { name: "WorkFoo", gid: fakeGID0, entityType: "work" } },
-                { entity: { name: "WorkBar", gid: fakeGID1, entityType: "work" } }
-            ]
+                { entity: { name: "WorkBar", gid: fakeGID1, entityType: "work" } },
+            ],
         });
     };
 
     dialog.accept();
 
     t.deepEqual(recordings[0].relationships()[0].entities(), [
-        recordings[0], MB.entity({ gid: fakeGID0 }, "work")
+        recordings[0], MB.entity({ gid: fakeGID0 }, "work"),
     ]);
 
     t.deepEqual(recordings[1].relationships()[0].entities(), [
-        recordings[1], MB.entity({ gid: fakeGID1 }, "work")
+        recordings[1], MB.entity({ gid: fakeGID1 }, "work"),
     ]);
 });
 
@@ -477,7 +477,7 @@ relationshipEditorTest("canceling an edit dialog reverts the changes", function 
     var dialog = new EditDialog({
         relationship: relationship,
         source: source,
-        viewModel: vm
+        viewModel: vm,
     });
 
     var newTarget = MB.entity({ entityType: "artist", name: "bar", gid: fakeGID1 });
@@ -524,11 +524,11 @@ relationshipEditorTest("backwardness of submitted relationships is preserved (MB
 
     var source = {
             entityType: "recording",
-            gid: fakeGID0
+            gid: fakeGID0,
         },
         target = {
             entityType: "recording",
-            gid: fakeGID1
+            gid: fakeGID1,
         };
 
     window.sessionStorage.setItem('submittedRelationships', JSON.stringify([
@@ -537,8 +537,8 @@ relationshipEditorTest("backwardness of submitted relationships is preserved (MB
             linkTypeID: 234,
             target: target,
             entities: [target, source],
-            direction: "backward"
-        }
+            direction: "backward",
+        },
     ]));
 
     // Pretend the form was posted.
@@ -561,20 +561,20 @@ relationshipEditorTest("edit submission request is entered for release (MBS-7740
         target: {
             id: 102938,
             entityType: "release",
-            gid: fakeGID2
+            gid: fakeGID2,
         },
         linkTypeID: 69,
-        attributes: []
+        attributes: [],
     }, recording);
 
     var relationship2 = vm.getRelationship({
         target: {
             id: 839201,
             entityType: "work",
-            gid: fakeGID1
+            gid: fakeGID1,
         },
         linkTypeID: 278,
-        attributes: []
+        attributes: [],
     }, recording);
 
     relationship1.show();
@@ -593,13 +593,13 @@ relationshipEditorTest("edit submission request is entered for release (MBS-7740
                     {
                         "entityType": "recording",
                         "gid": "87ec065e-f139-41b9-b3b9-f746addf5b1e",
-                        "name": "Love Me Do"
+                        "name": "Love Me Do",
                     },
                     {
                         "entityType": "release",
                         "gid": "c4804cb2-bf33-4394-bb5f-3fac972fa7a5",
-                        "name": ""
-                    }
+                        "name": "",
+                    },
                 ],
                 "entity0_credit" : "",
                 "entity1_credit" : "",
@@ -607,7 +607,7 @@ relationshipEditorTest("edit submission request is entered for release (MBS-7740
                 "begin_date": {year: null, month: null, day: null},
                 "end_date": {year: null, month: null, day: null},
                 "ended": false,
-                "hash": "55151b28b91b09db7fdcdd1c1a55c531a5cece34"
+                "hash": "55151b28b91b09db7fdcdd1c1a55c531a5cece34",
             },
             {
                 "edit_type": 90,
@@ -616,13 +616,13 @@ relationshipEditorTest("edit submission request is entered for release (MBS-7740
                     {
                         "entityType": "recording",
                         "gid": "87ec065e-f139-41b9-b3b9-f746addf5b1e",
-                        "name": "Love Me Do"
+                        "name": "Love Me Do",
                     },
                     {
                         "entityType": "work",
                         "gid": "acb75d59-b0dc-4105-bad6-81ac8c66da4d",
-                        "name": ""
-                    }
+                        "name": "",
+                    },
                 ],
                 "entity0_credit" : "",
                 "entity1_credit" : "",
@@ -630,8 +630,8 @@ relationshipEditorTest("edit submission request is entered for release (MBS-7740
                 "begin_date": {year: null, month: null, day: null},
                 "end_date": {year: null, month: null, day: null},
                 "ended": false,
-                "hash": "02435f0bff45272e4d3a3ff6fe134ae2445aa49f"
-            }
+                "hash": "02435f0bff45272e4d3a3ff6fe134ae2445aa49f",
+            },
         ]);
     };
 
@@ -657,11 +657,11 @@ relationshipEditorTest("hidden input fields are generated for non-release forms"
                         comment: "",
                         name: "Paul McCartney",
                         id: 2122,
-                        gid: "ba550d0e-adac-4864-b88b-407cab5e76af"
+                        gid: "ba550d0e-adac-4864-b88b-407cab5e76af",
                     },
                     id: 131689,
                     attributes: ids2attrs([277, 4]),
-                    verbosePhrase: "is/was a member of"
+                    verbosePhrase: "is/was a member of",
                 },
                 {
                     linkTypeID: 103,
@@ -673,14 +673,14 @@ relationshipEditorTest("hidden input fields are generated for non-release forms"
                         comment: "",
                         name: "Stuart Sutcliffe",
                         id: 321117,
-                        gid: "49a51491-650e-44b3-8085-2f07ac2986dd"
+                        gid: "49a51491-650e-44b3-8085-2f07ac2986dd",
                     },
                     id: 35568,
                     attributes: ids2attrs([277]),
-                    verbosePhrase: "is/was a member of"
-                }
-            ]
-        }
+                    verbosePhrase: "is/was a member of",
+                },
+            ],
+        },
     });
 
     var newRelationship = vm.getRelationship({
@@ -693,10 +693,10 @@ relationshipEditorTest("hidden input fields are generated for non-release forms"
             comment: "The Beatles",
             name: "George Harrison",
             id: 2863,
-            gid: "42a8f507-8412-4611-854f-926571049fa0"
+            gid: "42a8f507-8412-4611-854f-926571049fa0",
         },
         attributes: ids2attrs([229, 4]),
-        verbosePhrase: "is/was a member of"
+        verbosePhrase: "is/was a member of",
     }, vm.source);
 
     newRelationship.show();
@@ -745,7 +745,7 @@ relationshipEditorTest("hidden input fields are generated for non-release forms"
         "edit-artist.rel.2.backward": "1",
         "edit-artist.rel.2.entity0_credit": "",
         "edit-artist.rel.2.entity1_credit": "",
-        "edit-artist.rel.2.link_type_id": "103"
+        "edit-artist.rel.2.link_type_id": "103",
     });
 });
 
@@ -757,8 +757,8 @@ relationshipEditorTest("link orders are submitted for new, orderable relationshi
             entityType: "series",
             name: "「神のみぞ知るセカイ」キャラクターCD",
             gid: "0fda0386-cd02-422a-9baa-54dc91ea4771",
-            relationships: []
-        }
+            relationships: [],
+        },
     });
 
     var newRelationship1 = vm.getRelationship({
@@ -767,11 +767,11 @@ relationshipEditorTest("link orders are submitted for new, orderable relationshi
         target: {
             entityType: "release_group",
             name: "「神のみぞ知るセカイ」キャラクターCD.0",
-            gid: "0a95623a-08d1-41a6-9f0c-409e40ce4476"
+            gid: "0a95623a-08d1-41a6-9f0c-409e40ce4476",
         },
         linkOrder: 1,
         attributes: ids2attrs([788]),
-        verbosePhrase: "is a part of"
+        verbosePhrase: "is a part of",
     }, vm.source);
 
     var newRelationship2 = vm.getRelationship({
@@ -780,11 +780,11 @@ relationshipEditorTest("link orders are submitted for new, orderable relationshi
         target: {
             entityType: "release_group",
             name: "「神のみぞ知るセカイ」キャラクターCD.1",
-            gid: "4550586c-c886-483d-922b-4e810f7c85fc"
+            gid: "4550586c-c886-483d-922b-4e810f7c85fc",
         },
         linkOrder: 2,
         attributes: ids2attrs([788]),
-        verbosePhrase: "is a part of"
+        verbosePhrase: "is a part of",
     }, vm.source);
 
     var newRelationship3 = vm.getRelationship({
@@ -793,11 +793,11 @@ relationshipEditorTest("link orders are submitted for new, orderable relationshi
         target: {
             entityType: "release_group",
             name: "「神のみぞ知るセカイ」キャラクターCD.2",
-            gid: "3c8460ee-25ec-45b2-8990-0c1e78fe2ead"
+            gid: "3c8460ee-25ec-45b2-8990-0c1e78fe2ead",
         },
         linkOrder: 3,
         attributes: ids2attrs([788]),
-        verbosePhrase: "is a part of"
+        verbosePhrase: "is a part of",
     }, vm.source);
 
     newRelationship1.attributes()[0].textValue("20101110");
@@ -846,14 +846,14 @@ relationshipEditorTest("relationships for entities not editable under the viewMo
             entityType: "series",
             name: "「神のみぞ知るセカイ」キャラクターCD",
             gid: "0fda0386-cd02-422a-9baa-54dc91ea4771",
-            relationships: []
-        }
+            relationships: [],
+        },
     });
 
     var artist = MB.entity({
         entityType: "artist",
         name: "Foo",
-        gid: fakeGID0
+        gid: fakeGID0,
     });
 
     var newRelationship = vm.getRelationship({
@@ -861,8 +861,8 @@ relationshipEditorTest("relationships for entities not editable under the viewMo
         target: {
             entityType: "release_group",
             name: "「神のみぞ知るセカイ」キャラクターCD.0",
-            gid: "0a95623a-08d1-41a6-9f0c-409e40ce4476"
-        }
+            gid: "0a95623a-08d1-41a6-9f0c-409e40ce4476",
+        },
     }, artist);
 
     t.ok(!newRelationship);
@@ -880,20 +880,20 @@ var loveMeDo = {
             target: {
                 entityType: "artist",
                 name: "Ringo Starr",
-                gid: "300c4c73-33ac-4255-9d57-4e32627f5e13"
+                gid: "300c4c73-33ac-4255-9d57-4e32627f5e13",
             },
             linkOrder: 0,
             attributes: ids2attrs([333]),
-            verbosePhrase: "performed {additional} {guest} {solo} {instrument:%|instruments} on"
-        }
-    ]
+            verbosePhrase: "performed {additional} {guest} {solo} {instrument:%|instruments} on",
+        },
+    ],
 };
 
 relationshipEditorTest("attributes are cleared when the target type is changed (MBS-7875)", function (t) {
     t.plan(2);
 
     var vm = setupGenericRelationshipEditor({
-        sourceData: _.cloneDeep(loveMeDo)
+        sourceData: _.cloneDeep(loveMeDo),
     });
 
     var relationship = vm.source.relationships()[0];
@@ -902,7 +902,7 @@ relationshipEditorTest("attributes are cleared when the target type is changed (
     var dialog = new EditDialog({
         relationship: relationship,
         source: vm.source,
-        viewModel: vm
+        viewModel: vm,
     });
 
     dialog.targetType("work");
@@ -911,8 +911,8 @@ relationshipEditorTest("attributes are cleared when the target type is changed (
         vm.source,
         MB.entity({
             gid: "3d2be76e-8193-307e-bca5-71f9c734c0f0",
-            name: "Love Me Do"
-        }, "work")
+            name: "Love Me Do",
+        }, "work"),
     ]);
 
     dialog.accept();
@@ -924,7 +924,7 @@ relationshipEditorTest("invalid attributes can’t be set on a relationship (MBS
     t.plan(2);
 
     var vm = setupGenericRelationshipEditor({
-        sourceData: loveMeDo
+        sourceData: loveMeDo,
     });
 
     var relationship = vm.source.relationships()[0];
@@ -932,8 +932,8 @@ relationshipEditorTest("invalid attributes can’t be set on a relationship (MBS
 
     relationship.attributes.push(
         new fields.LinkAttribute(
-            { type: { gid: "ed11fcb1-5a18-4e1d-b12c-633ed19c8ee1" } }
-        )
+            { type: { gid: "ed11fcb1-5a18-4e1d-b12c-633ed19c8ee1" } },
+        ),
     );
 
     t.equal(relationship.attributes().length, 1, "invalid attribute not added");
@@ -945,14 +945,14 @@ relationshipEditorTest('relationships with different link orders are not duplica
     var sourceData = _.cloneDeep(loveMeDo);
 
     var vm = setupGenericRelationshipEditor({
-        sourceData: sourceData
+        sourceData: sourceData,
     });
 
     var relationship = vm.source.relationships()[0];
 
     var newRelationship = vm.getRelationship(
         {...sourceData.relationships[0], linkOrder: 1},
-        vm.source
+        vm.source,
     );
 
     t.ok(!newRelationship.isDuplicate(relationship));
@@ -967,7 +967,7 @@ relationshipEditorTest("empty dates are submitted as a hash, not as undef (MBS-8
         gid: "1f9df192-a621-4f54-8850-2c5373b7eac9",
         name: "Ludwig van Beethoven",
         sort_name: "Beethoven, Ludwig van",
-        comment: ""
+        comment: "",
     };
 
     var compositionData = {
@@ -995,8 +995,8 @@ relationshipEditorTest("empty dates are submitted as a hash, not as undef (MBS-8
                 gid: "d0dd466b-3385-356b-bdf0-856737c6baf7",
                 name: "3 Great Piano Sonatas",
                 artistCredit: {names: [{name: "Beethoven", joinPhrase: "; ", artist: beethoven}]},
-            }
-        }
+            },
+        },
     });
 
     var relationship = vm.getRelationship(compositionData, vm.source);
@@ -1015,10 +1015,10 @@ relationshipEditorTest("empty date period fields are outputted when cleared", fu
         target: {
             entityType: "artist",
             name: "Ringo Starr",
-            gid: "300c4c73-33ac-4255-9d57-4e32627f5e13"
+            gid: "300c4c73-33ac-4255-9d57-4e32627f5e13",
         },
         begin_date: {year: 2006},
-        ended: true
+        ended: true,
     };
 
     var vm = setupGenericRelationshipEditor({
@@ -1026,8 +1026,8 @@ relationshipEditorTest("empty date period fields are outputted when cleared", fu
             entityType: "artist",
             name: "The Beatles",
             gid: "b10bbbfc-cf9e-42e0-be17-e2c3e1d2600d",
-            relationships: [relData]
-        }
+            relationships: [relData],
+        },
     });
 
     var relationship = vm.getRelationship(relData, vm.source);

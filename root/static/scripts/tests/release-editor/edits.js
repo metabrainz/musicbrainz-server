@@ -44,7 +44,7 @@ test("releaseReorderMediums edits are not generated for new releases", function 
         mediums: [
             { position: 1, tracks: [{ name: "foo" }] },
             { position: 2, tracks: [{ name: "bar" }] },
-        ]
+        ],
     });
 
     releaseEditor.rootField.release(release);
@@ -81,8 +81,8 @@ editReleaseTest("releaseAddAnnotation edit is generated for existing release", f
         entity: "868cc741-e3bc-31bc-9dac-756e35c8f152",
         text: "foooooo",
         edit_type: 35,
-        hash: "aaef07d691a28785980903fe976cc4827e8731fa"
-      }
+        hash: "aaef07d691a28785980903fe976cc4827e8731fa",
+      },
     ]);
 });
 
@@ -95,8 +95,8 @@ editReleaseTest("releaseDeleteReleaseLabel edit is generated for existing releas
       {
         "edit_type": 36,
         "hash": "b6cf0e5b82d3ab32124df85bc5e824e612d1237a",
-        "release_label": 27903
-      }
+        "release_label": 27903,
+      },
     ]);
 });
 
@@ -111,8 +111,8 @@ editReleaseTest("releaseDeleteReleaseLabel edit is generated when label/catalog 
       {
         "edit_type": 36,
         "hash": "b6cf0e5b82d3ab32124df85bc5e824e612d1237a",
-        "release_label": 27903
-      }
+        "release_label": 27903,
+      },
     ]);
 });
 
@@ -128,15 +128,15 @@ editReleaseTest("releaseEditReleaseLabel edits are generated for existing releas
         label: 30265,
         catalog_number: "WPC6-10046",
         edit_type: 37,
-        hash: "20e2df134a7e1d477950b85d16c9cdf7f2d2778a"
+        hash: "20e2df134a7e1d477950b85d16c9cdf7f2d2778a",
       },
       {
         release_label: 64842,
         label: null,
         catalog_number: "WPC6-10045",
         edit_type: 37,
-        hash: "348a0d63ef950babd4ef636d1162dae67c8503a5"
-      }
+        hash: "348a0d63ef950babd4ef636d1162dae67c8503a5",
+      },
     ]);
 });
 
@@ -149,8 +149,8 @@ editReleaseTest("mediumDelete edit is generated for existing release", function 
       {
         edit_type: 53,
         medium: 249113,
-        hash: "e1ae70a7a8cbf0dc0f838672d8041489cd023847"
-      }
+        hash: "e1ae70a7a8cbf0dc0f838672d8041489cd023847",
+      },
     ]);
 });
 
@@ -165,8 +165,8 @@ editReleaseTest("releaseGroupEdit edits should not include unchanged fields (MBS
           "edit_type" : 21,
           "gid" : "1c205925-2cfe-35c0-81de-d7ef17df9658",
           "hash" : "6b8e1d79cb7a109986781e453bd954558cb6bf19",
-          "name" : "Blah"
-        }
+          "name" : "Blah",
+        },
     ]);
 });
 
@@ -178,7 +178,7 @@ test("mediumEdit and releaseReorderMediums edits are generated for non-loaded me
         mediums: [
             { id: 123, name: "foo", position: 1 },
             { id: 456, name: "bar", position: 2 },
-        ]
+        ],
     });
 
     releaseEditor.rootField.release(release);
@@ -206,15 +206,15 @@ test("mediumEdit and releaseReorderMediums edits are generated for non-loaded me
         "format_id": 2,
         "hash": "7e795b9d8b514ec0549c667c8da7a844d9d00835",
         "name": "bar!",
-        "to_edit": 456
+        "to_edit": 456,
       },
       {
         "edit_type": 52,
         "format_id": 1,
         "hash": "bee90ecf182e5b8f1a80b4393f2ded17c2d0109c",
         "name": "foo!",
-        "to_edit": 123
-      }
+        "to_edit": 123,
+      },
     ]);
 
     t.deepEqual(releaseEditor.edits.mediumReorder(release), [
@@ -225,16 +225,16 @@ test("mediumEdit and releaseReorderMediums edits are generated for non-loaded me
           {
             "medium_id": 456,
             "new": 1,
-            "old": 2
+            "old": 2,
           },
           {
             "medium_id": 123,
             "new": 2,
-            "old": 1
-          }
+            "old": 1,
+          },
         ],
-        "release": "f4c552ab-515e-42df-a9ee-a370867d29d1"
-      }
+        "release": "f4c552ab-515e-42df-a9ee-a370867d29d1",
+      },
     ]);
 });
 
@@ -246,7 +246,7 @@ test("mediumCreate edits are not given conflicting positions", function (t) {
         mediums: [
             { id: 123, position: 1 },
             { id: 456, position: 3 },
-        ]
+        ],
     });
 
     releaseEditor.rootField.release(release);
@@ -259,14 +259,14 @@ test("mediumCreate edits are not given conflicting positions", function (t) {
 
     var newMedium1 = new fields.Medium({
         name: "foo",
-        position: 1
+        position: 1,
     });
 
     newMedium1.tracks.push(new fields.Track({}, newMedium1));
 
     var newMedium2 = new fields.Medium({
         name: "bar",
-        position: 2
+        position: 2,
     });
 
     newMedium2.tracks.push(new fields.Track({}, newMedium2));
@@ -277,7 +277,7 @@ test("mediumCreate edits are not given conflicting positions", function (t) {
         function (edit) {
             // Don't care about this.
             return _.omit(edit, "tracklist");
-        }
+        },
     );
 
     t.deepEqual(mediumCreateEdits, [
@@ -286,15 +286,15 @@ test("mediumCreate edits are not given conflicting positions", function (t) {
         "position": 4,
         "name": "foo",
         "release": "f4c552ab-515e-42df-a9ee-a370867d29d1",
-        "hash": "aca331e8e3448781852995b146feae853acbaa0e"
+        "hash": "aca331e8e3448781852995b146feae853acbaa0e",
       },
       {
         "edit_type": MB.edit.TYPES.EDIT_MEDIUM_CREATE,
         "position": 2,
         "name": "bar",
         "release": "f4c552ab-515e-42df-a9ee-a370867d29d1",
-        "hash": "d0f3777cede43eef81db632b671ca8da45085760"
-      }
+        "hash": "d0f3777cede43eef81db632b671ca8da45085760",
+      },
     ]);
 
     common.createMediums(release);
@@ -307,16 +307,16 @@ test("mediumCreate edits are not given conflicting positions", function (t) {
           {
             "medium_id": 123,
             "new": 4,
-            "old": 1
+            "old": 1,
           },
           {
             "medium_id": 666,
             "new": 1,
-            "old": 4
-          }
+            "old": 4,
+          },
         ],
-        "release": "f4c552ab-515e-42df-a9ee-a370867d29d1"
-      }
+        "release": "f4c552ab-515e-42df-a9ee-a370867d29d1",
+      },
     ]);
 });
 
@@ -325,7 +325,7 @@ test("mediumCreate positions don't conflict with removed mediums (MBS-7952)", fu
 
     var release = new fields.Release({
         gid: "f4c552ab-515e-42df-a9ee-a370867d29d1",
-        mediums: [{ id: 123, position: 1 }]
+        mediums: [{ id: 123, position: 1 }],
     });
 
     releaseEditor.rootField.release(release);
@@ -346,16 +346,16 @@ test("mediumCreate positions don't conflict with removed mediums (MBS-7952)", fu
           {
             "medium_id": 123,
             "new": 2,
-            "old": 1
+            "old": 1,
           },
           {
             "medium_id": 666,
             "new": 1,
-            "old": 2
-          }
+            "old": 2,
+          },
         ],
-        "release": "f4c552ab-515e-42df-a9ee-a370867d29d1"
-      }
+        "release": "f4c552ab-515e-42df-a9ee-a370867d29d1",
+      },
     ]);
 });
 
@@ -366,7 +366,7 @@ test("releaseDeleteReleaseLabel edits are not generated for non-existent release
         gid: "f4c552ab-515e-42df-a9ee-a370867d29d1",
         labels: [
             { id: 123, label: null, catalogNumber: "foo123" },
-        ]
+        ],
     });
 
     releaseEditor.rootField.release(release);
@@ -376,7 +376,7 @@ test("releaseDeleteReleaseLabel edits are not generated for non-existent release
     releaseEditor.addReleaseLabel(release);
 
     var submission = _.find(releaseEditor.orderedEditSubmissions, {
-        edits: releaseEditor.edits.releaseLabel
+        edits: releaseEditor.edits.releaseLabel,
     });
 
     // Simulate edit submission.
@@ -384,7 +384,7 @@ test("releaseDeleteReleaseLabel edits are not generated for non-existent release
 
     submission.callback(release, [
         { message: "OK" },
-        { message: "OK", entity: { id: 456, labelID: null, catalogNumber: "foo456" } }
+        { message: "OK", entity: { id: 456, labelID: null, catalogNumber: "foo456" } },
     ]);
 
     edits = submission.edits(release);

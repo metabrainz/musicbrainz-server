@@ -27,7 +27,7 @@ function mergeDates(a, b) {
     return {
         year:  nonEmpty(a.year)  ? a.year  : b.year,
         month: nonEmpty(a.month) ? a.month : b.month,
-        day:   nonEmpty(a.day)   ? a.day   : b.day
+        day:   nonEmpty(a.day)   ? a.day   : b.day,
     };
     /* eslint-enable no-multi-spaces */
 }

@@ -40,12 +40,12 @@ $.mb.entitylookup.prototype.options.source = function (request, response) {
             sortname: "Foo?",
             comment: "Foo!",
             id: "123",
-            gid: "ac467e15-90a4-424e-9d4b-dda9564a5b35"
+            gid: "ac467e15-90a4-424e-9d4b-dda9564a5b35",
         },
         {
             current: 1,
-            pages: 2
-        }
+            pages: 2,
+        },
     ];
 
     this._lookupSuccess(response, data);

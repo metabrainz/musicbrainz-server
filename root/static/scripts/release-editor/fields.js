@@ -79,7 +79,7 @@ class Track {
         releaseEditor.copyTrackArtistsToRecordings.subscribe(this.updateRecordingArtist);
 
         this.recordingValue = ko.observable(
-            new MB_entity.Recording({ name: data.name })
+            new MB_entity.Recording({ name: data.name }),
         );
 
         // Custom write function is needed around recordingValue because
@@ -88,7 +88,7 @@ class Track {
         this.recording = ko.computed({
             read: this.recordingValue,
             write: this.setRecordingValue,
-            owner: this
+            owner: this,
         });
 
         this.recording.original = ko.observable();
@@ -337,7 +337,7 @@ class Medium {
                 } else if (newValue && !oldValue) {
                     self.tracks.unshift(new Track({ position: 0, number: 0 }, self));
                 }
-            }
+            },
         });
 
         this.audioTracks = this.tracks.reject("isDataTrack");
@@ -365,7 +365,7 @@ class Medium {
                 } else if (newValue && !oldValue) {
                     self.pushTrack({ isDataTrack: true });
                 }
-            }
+            },
         });
 
         this.needsRecordings = this.tracks.any("needsRecording");
@@ -475,15 +475,15 @@ class Medium {
             Array.prototype.concat(
                 this.hasPregap() ? tracks[0] : [],
                 tocTracks,
-                this.dataTracks()
-            )
+                this.dataTracks(),
+            ),
         );
 
         _.each(tocTracks, function (track, index) {
             track.formattedLength(
                 formatTrackLength(
-                    (((toc[index + 4] || toc[2]) - toc[index + 3]) / 75 * 1000), ''
-                )
+                    (((toc[index + 4] || toc[2]) - toc[index + 3]) / 75 * 1000), '',
+                ),
             );
         });
 
@@ -526,7 +526,7 @@ class Medium {
 
         var args = {
             url: "/ws/js/medium/" + id,
-            data: { inc: "recordings+rels" }
+            data: { inc: "recordings+rels" },
         };
 
         request(args, this).done(this.tracksLoaded);
@@ -618,7 +618,7 @@ class ReleaseEvent {
         this.date = {
             year:   ko.observable(date.year == null ? null : date.year),
             month:  ko.observable(date.month == null ? null : date.month),
-            day:    ko.observable(date.day == null ? null : date.day)
+            day:    ko.observable(date.day == null ? null : date.day),
         };
 
         this.countryID = ko.observable(data.country ? data.country.id : null);
@@ -642,7 +642,7 @@ class ReleaseEvent {
         return {
             year: this.date.year(),
             month: this.date.month(),
-            day: this.date.day()
+            day: this.date.day(),
         };
     }
 
@@ -700,7 +700,7 @@ class Barcode {
         this.value = ko.computed({
             read: this.barcode,
             write: this.writeBarcode,
-            owner: this
+            owner: this,
         });
 
         // Always notify of changes, so that when non-digits are stripped,
@@ -716,7 +716,7 @@ class Barcode {
             write: function (bool) {
                 this.barcode(bool ? "" : null);
             },
-            owner: this
+            owner: this,
         });
     }
 
@@ -794,7 +794,7 @@ class Release extends MB_entity.Release {
         this.annotation.original = ko.observable(annotationText);
 
         this.events = ko.observableArray(
-            utils.mapChild(this, data.events, ReleaseEvent)
+            utils.mapChild(this, data.events, ReleaseEvent),
         );
 
         function countryID(event) { return event.countryID() }
@@ -816,11 +816,11 @@ class Release extends MB_entity.Release {
         this.hasTooShortYears = errorField(this.events.any("hasTooShortYear"));
 
         this.labels = ko.observableArray(
-            utils.mapChild(this, data.labels, ReleaseLabel)
+            utils.mapChild(this, data.labels, ReleaseLabel),
         );
 
         this.labels.original = ko.observable(
-            _.map(this.labels.peek(), MB_edit.fields.releaseLabel)
+            _.map(this.labels.peek(), MB_edit.fields.releaseLabel),
         );
 
         function nonEmptyReleaseLabel(releaseLabel) {
@@ -838,7 +838,7 @@ class Release extends MB_entity.Release {
         this.hasDuplicateLabels = errorField(this.labels.any("isDuplicate"));
 
         this.releaseGroup = ko.observable(
-            new ReleaseGroup(data.releaseGroup || {})
+            new ReleaseGroup(data.releaseGroup || {}),
         );
 
         this.releaseGroup.subscribe(function (releaseGroup) {
@@ -856,7 +856,7 @@ class Release extends MB_entity.Release {
         });
 
         this.mediums = ko.observableArray(
-            utils.mapChild(this, data.mediums, Medium)
+            utils.mapChild(this, data.mediums, Medium),
         );
 
         this.formats = data.combined_format_name;

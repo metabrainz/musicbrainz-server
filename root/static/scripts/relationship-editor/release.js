@@ -46,14 +46,14 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
                 workMessage: function () {
                     var n = this.workCount();
                     return "(" + texp.ln("{n} work selected", "{n} works selected", n, { n: n }) + ")";
-                }
+                },
             };
 
             this.source = MB.entity(options.sourceData);
             this.source.parseRelationships(options.sourceData.relationships);
 
             this.source.releaseGroup.parseRelationships(
-                options.sourceData.releaseGroup.relationships
+                options.sourceData.releaseGroup.relationships,
             );
 
             this.source.mediums = ko.observableArray([]);
@@ -164,7 +164,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
             var data = {
                 editNote: this.editNote(),
                 makeVotable: this.makeVotable(),
-                edits: edits
+                edits: edits,
             };
 
             this._createEdit(data, this)
@@ -197,7 +197,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
             release.mediums(_.map(data.mediums, function (mediumData) {
                 _.each(mediumData.tracks, function (trackData) {
                     MB.entity(trackData.recording).parseRelationships(
-                        trackData.recording.relationships
+                        trackData.recording.relationships,
                     );
                 });
                 return new MB.entity.Medium(mediumData, release);
@@ -213,7 +213,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
             new UI.AddDialog({
                 source: source,
                 target: new MB.entity.Artist({}),
-                viewModel: this
+                viewModel: this,
             }).open(event.target);
         }
 
@@ -222,7 +222,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
                 new UI.EditDialog({
                     relationship: relationship,
                     source: ko.contextFor(event.target).$parent,
-                    viewModel: this
+                    viewModel: this,
                 }).open(event.target);
             }
         }
@@ -260,7 +260,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
             new UI.AddDialog({
                 source: source,
                 target: target,
-                viewModel: this
+                viewModel: this,
             }).open();
         }
 

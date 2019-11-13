@@ -31,7 +31,7 @@ import deferFocus from '../../edit/utility/deferFocus';
 
             $element.find(".multiselect-input").on({
                 "keydown": $.proxy(this.inputKeydown, this),
-                "click": $.proxy(this.inputClick, this)
+                "click": $.proxy(this.inputClick, this),
             });
 
             this.placeholder = params.placeholder || "";
@@ -231,7 +231,7 @@ import deferFocus from '../../edit/utility/deferFocus';
         viewModel: {
             createViewModel: function (params, componentInfo) {
                 return new Multiselect(params, $(componentInfo.element));
-            }
+            },
         },
-        template: { fromScript: "template.multiselect" }
+        template: { fromScript: "template.multiselect" },
     });

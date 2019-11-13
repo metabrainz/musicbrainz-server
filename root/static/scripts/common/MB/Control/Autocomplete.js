@@ -69,27 +69,27 @@ $.widget("mb.entitylookup", $.ui.autocomplete, {
                 data: {
                     q: request.term,
                     page: this.currentPage,
-                    direct: !this.indexedSearch
+                    direct: !this.indexedSearch,
                 },
                 dataType: "json",
                 success: $.proxy(this._lookupSuccess, this, response),
                 error: function () {
                     response([{
                         label: l("An error occurred while searching. Click here to try again."),
-                        action: _.bind(self._searchAgain, self)
+                        action: _.bind(self._searchAgain, self),
                     }, {
                         label: self.indexedSearch ?
                                l("Try with direct search instead.") :
                                l("Try with indexed search instead."),
-                        action: _.bind(self._searchAgain, self, true)
+                        action: _.bind(self._searchAgain, self, true),
 
                     }]);
-                }
+                },
             }));
         },
 
         resultHook: _.identity,
-        lookupHook: _.identity
+        lookupHook: _.identity,
     },
 
     _create: function () {
@@ -104,8 +104,8 @@ $.widget("mb.entitylookup", $.ui.autocomplete, {
 
         this.setObservable(
             this.options.currentSelection || ko.observable({
-                name: this._value()
-            })
+                name: this._value(),
+            }),
         );
 
         this.$input = this.element;
@@ -188,7 +188,7 @@ $.widget("mb.entitylookup", $.ui.autocomplete, {
                     action: function () {
                         self.recentEntities([]);
                         self.clear();
-                    }
+                    },
                 });
 
                 self._suggest(recent);
@@ -298,7 +298,7 @@ $.widget("mb.entitylookup", $.ui.autocomplete, {
             var entityProperties = ENTITIES[this.entityType()];
             var duplicate = _.find(
                 recent,
-                _.pick(data, entityProperties.mbid ? 'gid' : 'id')
+                _.pick(data, entityProperties.mbid ? 'gid' : 'id'),
             );
 
             duplicate && recent.splice(recent.indexOf(duplicate), 1);
@@ -357,7 +357,7 @@ $.widget("mb.entitylookup", $.ui.autocomplete, {
                     this.selectedItem = null;
                     this.search(null, event);
                 },
-                this.options.delay
+                this.options.delay,
             );
         }
     },
@@ -392,7 +392,7 @@ $.widget("mb.entitylookup", $.ui.autocomplete, {
                 self.options.select(null, { item: data });
             },
 
-            error: _.bind(this.clear, this)
+            error: _.bind(this.clear, this),
         });
     },
 
@@ -420,21 +420,21 @@ $.widget("mb.entitylookup", $.ui.autocomplete, {
         if (results.length === 0) {
             results.push({
                 label: "(" + l("No results") + ")",
-                action: _.bind(this.close, this)
+                action: _.bind(this.close, this),
             });
         }
 
         if (this.currentPage < this.totalPages) {
             results.push({
                 label: l("Show more..."),
-                action: _.bind(this._showMore, this)
+                action: _.bind(this._showMore, this),
             });
         }
 
         results.push({
             label: this.indexedSearch ? l("Not found? Try again with direct search.") :
                                         l("Slow? Switch back to indexed search."),
-            action: _.bind(this._searchAgain, this, true)
+            action: _.bind(this._searchAgain, this, true),
         });
 
         var allowCreation = window === window.top,
@@ -451,9 +451,9 @@ $.widget("mb.entitylookup", $.ui.autocomplete, {
                         title: label,
                         callback: function (item) {
                             self.options.select(null, { item: item });
-                        }
+                        },
                     });
-                }
+                },
             });
         }
 
@@ -528,7 +528,7 @@ $.widget("mb.entitylookup", $.ui.autocomplete, {
         } else {
             return recentEntities[entityType] || [];
         }
-    }
+    },
 });
 
 
@@ -573,7 +573,7 @@ $.widget("ui.menu", $.ui.menu, {
         // gets reset to false if you click outside of the menu, but we want
         // it to be false no matter what.
         this.mouseHandled = false;
-    }
+    },
 });
 
 
@@ -681,7 +681,7 @@ MB.Control.autocomplete_formatters = {
             appendComment(
                 $a,
                 date +
-                (countryHTML ? maybeParentheses(countryHTML, date) : '')
+                (countryHTML ? maybeParentheses(countryHTML, date) : ''),
             );
         });
 
@@ -694,7 +694,7 @@ MB.Control.autocomplete_formatters = {
                     appendComment(
                         $a,
                         name +
-                        maybeParentheses(_.head(catalogNumbers) + ' … ' + _.last(catalogNumbers), name)
+                        maybeParentheses(_.head(catalogNumbers) + ' … ' + _.last(catalogNumbers), name),
                     );
                 } else {
                     _.each(releaseLabels, function (releaseLabel) {
@@ -952,7 +952,7 @@ MB.Control.autocomplete_formatters = {
         }
 
         return $("<li>").append(a).appendTo(ul);
-    }
+    },
 
 };
 
@@ -1023,7 +1023,7 @@ MB.Control.EntityAutocomplete = function (options) {
     autocomplete.currentSelection(MB_entity({
         name: $name.val(),
         id: $inputs.find("input.id").val(),
-        gid: $inputs.find("input.gid").val()
+        gid: $inputs.find("input.gid").val(),
     }, options.entity));
 
     autocomplete.currentSelection.subscribe(function (item) {
@@ -1053,7 +1053,7 @@ ko.bindingHandlers.autocomplete = {
             .data('mb-entitylookup')
             .menu.element[0]
             .setAttribute('data-input-id', element.id);
-    }
+    },
 };
 
 function isLatin(str) {
