@@ -15,7 +15,7 @@ type Props = {
   +field: ReadOnlyFieldT<string>,
   +label: string,
   +required?: boolean,
-  ...
+  ...,
 };
 
 const FormRowURLLong = (props: Props) => (

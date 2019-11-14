@@ -13,7 +13,7 @@ export type FieldShape = {
   // `errors` is optional too because FormT has none
   +errors?: $ReadOnlyArray<string>,
   +field?: FieldShape,
-  ...
+  ...,
 };
 
 export default function subfieldErrors(

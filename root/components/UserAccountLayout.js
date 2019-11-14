@@ -19,7 +19,7 @@ type Props = {
   +entity: EditorT,
   +page: string,
   +title?: string,
-  ...
+  ...,
 };
 
 const UserAccountLayout = ({

@@ -20,7 +20,7 @@ import StaticRelationshipsDisplay from './StaticRelationshipsDisplay';
 
 type DisplayTargets = {
   +[CoreEntityTypeT]: ?$ReadOnlyArray<CoreEntityTypeT>,
-  ...
+  ...,
 };
 
 const displayTargets: DisplayTargets = {

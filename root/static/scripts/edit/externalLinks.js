@@ -35,7 +35,7 @@ type LinkStateT = {
   type: number | null,
   url: string,
   video: boolean,
-  ...
+  ...,
 };
 
 type LinksEditorProps = {

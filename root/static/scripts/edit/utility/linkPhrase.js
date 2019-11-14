@@ -35,7 +35,7 @@ export type CachedLinkPhraseData<T> = {
 export type RelationshipInfoT = {
   +attributes?: $ReadOnlyArray<LinkAttrT>,
   +linkTypeID: number,
-  ...
+  ...,
 };
 
 type LinkPhraseProp =
@@ -166,7 +166,7 @@ function _setAttributeValues<T>(
 const requiredAttributesCache: {
   __proto__: null,
   [number]: {+[string]: string},
-  ...
+  ...,
 } = Object.create(null);
 
 function _getRequiredAttributes(linkType: LinkTypeT) {

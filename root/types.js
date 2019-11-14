@@ -705,7 +705,7 @@ declare type MergeFormT = FormT<{
 declare type MinimalCoreEntityT = {
   +entityType: string,
   +gid: string,
-  ...
+  ...,
 };
 
 // See MB.forms.buildOptionsTree

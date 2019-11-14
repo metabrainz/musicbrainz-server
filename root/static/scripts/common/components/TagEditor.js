@@ -72,7 +72,7 @@ type VoteButtonProps = {
   text: string,
   title: string | () => string,
   vote: VoteT,
-  ...
+  ...,
 };
 
 class VoteButton extends React.Component<VoteButtonProps> {
@@ -130,7 +130,7 @@ type VoteButtonsProps = {
   callback: (VoteT) => void,
   count: number,
   currentVote: VoteT,
-  ...
+  ...,
 };
 
 class VoteButtons extends React.Component<VoteButtonsProps> {
