@@ -9,6 +9,7 @@
 const Jed = require('jed');
 
 const {jedData} = require('../static/scripts/jed-data');
+
 const poFile = require('./gettext/poFile');
 
 const gettext = new Jed({});

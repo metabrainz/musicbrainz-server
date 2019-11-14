@@ -6,10 +6,12 @@
 /* eslint-disable import/no-commonjs */
 
 const net = require('net');
+
 const Raven = require('raven');
 
 const DBDefs = require('../static/scripts/common/DBDefs');
 const sanitizedContext = require('../utility/sanitizedContext');
+
 const {allocBuffer} = require('./buffer');
 const {badRequest, getResponse} = require('./response');
 const {clearRequireCache} = require('./utils');

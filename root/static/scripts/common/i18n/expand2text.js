@@ -9,6 +9,12 @@
 
 import * as React from 'react';
 
+import {
+  l as lActual,
+  ln as lnActual,
+  lp as lpActual,
+} from '../i18n';
+
 import expand, {
   createCondSubstParser,
   createTextContentParser,
@@ -16,11 +22,6 @@ import expand, {
   parseStringVarSubst,
   state,
 } from './expand2';
-import {
-  l as lActual,
-  ln as lnActual,
-  lp as lpActual,
-} from '../i18n';
 
 const textContent = /^[^{}]+/;
 const condSubstThenTextContent = /^[^{}|]+/;

@@ -6,11 +6,11 @@
 /* eslint-disable import/no-commonjs */
 
 const _ = require('lodash');
-const path = require('path');
 const Raven = require('raven');
 
 const DBDefs = require('../static/scripts/common/DBDefs');
 const getRequestCookie = require('../utility/getRequestCookie');
+
 const {bufferFrom} = require('./buffer');
 
 function badRequest(err) {

@@ -6,10 +6,10 @@
 // later version: http://www.gnu.org/licenses/gpl-2.0.txt
 
 import isNodeJS from 'detect-node';
+import {type default as Jed} from 'jed';
 
 import cleanMsgid from './cleanMsgid';
 
-import {type default as Jed} from 'jed';
 
 let gettext: Jed;
 if (isNodeJS) {

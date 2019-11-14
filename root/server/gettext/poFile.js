@@ -8,6 +8,7 @@
 
 const fs = require('fs');
 const path = require('path');
+
 const po2json = require('po2json');
 
 const LOCALE_EXT = new RegExp('_[a-zA-Z]+\\.po$');

@@ -13,6 +13,7 @@ require('core-js/es6/symbol');
 const $ = require('jquery');
 const React = require('react');
 const ReactDOM = require('react-dom');
+
 const Autocomplete2 = require('../common/components/Autocomplete2').default;
 
 const vocals = [

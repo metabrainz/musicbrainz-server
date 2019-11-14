@@ -9,13 +9,6 @@
 
 require('@babel/register');
 
-const global = require('../global').default;
-
-let document = global.document;
-if (!document) {
-  document = new (require('jsdom').JSDOM)('').window.document;
-}
-
 const React = require('react');
 const ReactDOMServer = require('react-dom/server');
 
@@ -29,8 +22,14 @@ const diffArtistCredits = require('../edit/utility/diffArtistCredits').default;
 const Diff = require('../edit/components/edit/Diff').default;
 const FullChangeDiff = require('../edit/components/edit/FullChangeDiff').default;
 const WordDiff = require('../edit/components/edit/WordDiff').default;
+const global = require('../global').default;
 
 /* eslint-enable no-unused-vars */
+
+let document = global.document;
+if (!document) {
+  document = new (require('jsdom').JSDOM)('').window.document;
+}
 
 function throwNotEquivalent(message, got, expected) {
   throw {message: message, got: got, expected: expected};

@@ -8,8 +8,9 @@
  */
 
 import React from 'react';
-import Paginator from './Paginator';
 import type {Node as ReactNode} from 'react';
+
+import Paginator from './Paginator';
 
 type Props = {
   +children: ReactNode,
