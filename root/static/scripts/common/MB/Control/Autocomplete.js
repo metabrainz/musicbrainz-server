@@ -737,7 +737,7 @@ MB.Control.autocomplete_formatters = {
         return $("<li>").append(a).appendTo(ul);
     },
 
-    series: function (ul, item) {
+    "series": function (ul, item) {
         var a = $("<a>").text(item.name);
 
         if (item.comment) {

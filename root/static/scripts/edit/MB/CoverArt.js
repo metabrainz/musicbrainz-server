@@ -149,17 +149,17 @@ MB.CoverArt.cover_art_types = function () {
 */
 
 MB.CoverArt.upload_status_enum = {
-    'validating':     'validating',
-    'validate_error': 'validate_error',
-    'waiting':        'waiting',
-    'signing':        'signing',
-    'sign_error':     'sign_error',
-    'uploading':      'uploading',
-    'upload_error':   'upload_error',
-    'slowdown_error': 'slowdown_error',
-    'submitting':     'submitting',
-    'submit_error':   'submit_error',
-    'done':           'done',
+    validating:     'validating',
+    validate_error: 'validate_error',
+    waiting:        'waiting',
+    signing:        'signing',
+    sign_error:     'sign_error',
+    uploading:      'uploading',
+    upload_error:   'upload_error',
+    slowdown_error: 'slowdown_error',
+    submitting:     'submitting',
+    submit_error:   'submit_error',
+    done:           'done',
 };
 
 MB.CoverArt.validate_file = function (file) {

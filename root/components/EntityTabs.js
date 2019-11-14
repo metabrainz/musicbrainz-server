@@ -18,7 +18,7 @@ import Tabs from './Tabs';
 import EntityTabLink from './EntityTabLink';
 
 const tabLinkNames = {
-  'artists': N_l('Artists'),
+  artists: N_l('Artists'),
   discids: N_l('Disc IDs'),
   events: N_l('Events'),
   fingerprints: N_l('Fingerprints'),

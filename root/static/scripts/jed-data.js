@@ -7,75 +7,75 @@
  */
 
 const jedData = {
-  "en": {
-    "domain": "mb_server",
-    "locale_data": {
-      "attributes": {
+  en: {
+    domain: "mb_server",
+    locale_data: {
+      attributes: {
         "": {
-          "domain": "attributes",
-          "lang": "en",
-          "plural_forms": "nplurals=2; plural=(n != 1);",
+          domain: "attributes",
+          lang: "en",
+          plural_forms: "nplurals=2; plural=(n != 1);",
         },
       },
-      "countries": {
+      countries: {
         "": {
-          "domain": "countries",
-          "lang": "en",
-          "plural_forms": "nplurals=2; plural=(n != 1);",
+          domain: "countries",
+          lang: "en",
+          plural_forms: "nplurals=2; plural=(n != 1);",
         },
       },
-      "instrument_descriptions": {
+      instrument_descriptions: {
         "": {
-          "domain": "instrument_descriptions",
-          "lang": "en",
-          "plural_forms": "nplurals=2; plural=(n != 1);",
+          domain: "instrument_descriptions",
+          lang: "en",
+          plural_forms: "nplurals=2; plural=(n != 1);",
         },
       },
-      "instruments": {
+      instruments: {
         "": {
-          "domain": "instruments",
-          "lang": "en",
-          "plural_forms": "nplurals=2; plural=(n != 1);",
+          domain: "instruments",
+          lang: "en",
+          plural_forms: "nplurals=2; plural=(n != 1);",
         },
       },
-      "languages": {
+      languages: {
         "": {
-          "domain": "languages",
-          "lang": "en",
-          "plural_forms": "nplurals=2; plural=(n != 1);",
+          domain: "languages",
+          lang: "en",
+          plural_forms: "nplurals=2; plural=(n != 1);",
         },
       },
-      "mb_server": {
+      mb_server: {
         "": {
-          "domain": "mb_server",
-          "lang": "en",
-          "plural_forms": "nplurals=2; plural=(n != 1);",
+          domain: "mb_server",
+          lang: "en",
+          plural_forms: "nplurals=2; plural=(n != 1);",
         },
       },
-      "relationships": {
+      relationships: {
         "": {
-          "domain": "relationships",
-          "lang": "en",
-          "plural_forms": "nplurals=2; plural=(n != 1);",
+          domain: "relationships",
+          lang: "en",
+          plural_forms: "nplurals=2; plural=(n != 1);",
         },
       },
-      "scripts": {
+      scripts: {
         "": {
-          "domain": "scripts",
-          "lang": "en",
-          "plural_forms": "nplurals=2; plural=(n != 1);",
+          domain: "scripts",
+          lang: "en",
+          plural_forms: "nplurals=2; plural=(n != 1);",
         },
       },
-      "statistics": {
+      statistics: {
         "": {
-          "domain": "statistics",
-          "lang": "en",
-          "plural_forms": "nplurals=2; plural=(n != 1);",
+          domain: "statistics",
+          lang: "en",
+          plural_forms: "nplurals=2; plural=(n != 1);",
         },
       },
     },
   },
-  "locale": "en",
+  locale: "en",
 };
 
 function mergeData(domain, lang, newData) {

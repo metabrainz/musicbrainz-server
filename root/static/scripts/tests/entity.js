@@ -20,7 +20,7 @@ test("CoreEntity", function (t) {
     );
 
     t.equal(
-        target.html({"target": "_blank"}),
+        target.html({target: "_blank"}),
         '<a target="_blank" href="/artist/456" title="bar"><bdi>foo</bdi></a>',
         "artist link",
     );

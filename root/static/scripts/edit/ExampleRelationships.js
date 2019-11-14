@@ -28,14 +28,14 @@ ERE.init = function (config) {
     ERE.viewModel = new ViewModel();
 
     var autocomplete = MB.Control.EntityAutocomplete({
-        'inputs': $('span.autocomplete'),
-        'entity': type0,
-        'setEntity': ERE.viewModel.selectedEntityType,
+        inputs: $('span.autocomplete'),
+        entity: type0,
+        setEntity: ERE.viewModel.selectedEntityType,
     });
     ERE.viewModel.selectedEntityType.subscribe(autocomplete.changeEntity);
     ERE.viewModel.availableEntityTypes(
         _.uniq([type0, type1]).map(function (value) {
-            return {'value': value, 'text': ENTITY_NAMES[value]()};
+            return {value: value, text: ENTITY_NAMES[value]()};
         }));
 
     ko.bindingHandlers.checkObject = {

@@ -288,15 +288,15 @@ releaseEditor.edits = {
                 if (removedMedium = removedMediums[newPosition]) {
                     newOrder.push({
                         medium_id:  removedMedium.id,
-                        "old":      newPosition,
-                        "new":      oldPosition,
+                        old:      newPosition,
+                        new:      oldPosition,
                     });
                 }
 
                 newOrder.push({
                     medium_id:  medium.id,
-                    "old":      oldPosition,
-                    "new":      newPosition,
+                    old:      oldPosition,
+                    new:      newPosition,
                 });
             }
         });

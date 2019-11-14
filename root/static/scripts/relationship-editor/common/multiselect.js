@@ -29,8 +29,8 @@ import deferFocus from '../../edit/utility/deferFocus';
             this.$items.on("click", "a", $.proxy(this.deselect, this));
 
             $element.find(".multiselect-input").on({
-                "keydown": $.proxy(this.inputKeydown, this),
-                "click": $.proxy(this.inputClick, this),
+                keydown: $.proxy(this.inputKeydown, this),
+                click: $.proxy(this.inputClick, this),
             });
 
             this.placeholder = params.placeholder || "";

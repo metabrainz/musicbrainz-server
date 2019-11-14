@@ -20,8 +20,8 @@ $(function () {
                     .replaceWith('<em>' + $e.data("message") + '</em>');
             }
         }).attr({
-            "src": thumbnail_url,
-            "title": $e.data("title"),
+            src: thumbnail_url,
+            title: $e.data("title"),
         }).appendTo(this);
     });
 });

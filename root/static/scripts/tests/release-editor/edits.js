@@ -93,9 +93,9 @@ editReleaseTest("releaseDeleteReleaseLabel edit is generated for existing releas
 
     t.deepEqual(releaseEditor.edits.releaseLabel(release), [
       {
-        "edit_type": 36,
-        "hash": "b6cf0e5b82d3ab32124df85bc5e824e612d1237a",
-        "release_label": 27903,
+        edit_type: 36,
+        hash: "b6cf0e5b82d3ab32124df85bc5e824e612d1237a",
+        release_label: 27903,
       },
     ]);
 });
@@ -109,9 +109,9 @@ editReleaseTest("releaseDeleteReleaseLabel edit is generated when label/catalog 
 
     t.deepEqual(releaseEditor.edits.releaseLabel(release), [
       {
-        "edit_type": 36,
-        "hash": "b6cf0e5b82d3ab32124df85bc5e824e612d1237a",
-        "release_label": 27903,
+        edit_type: 36,
+        hash: "b6cf0e5b82d3ab32124df85bc5e824e612d1237a",
+        release_label: 27903,
       },
     ]);
 });
@@ -162,10 +162,10 @@ editReleaseTest("releaseGroupEdit edits should not include unchanged fields (MBS
 
     t.deepEqual(releaseEditor.edits.releaseGroup(release), [
         {
-          "edit_type" : 21,
-          "gid" : "1c205925-2cfe-35c0-81de-d7ef17df9658",
-          "hash" : "6b8e1d79cb7a109986781e453bd954558cb6bf19",
-          "name" : "Blah",
+          edit_type: 21,
+          gid: "1c205925-2cfe-35c0-81de-d7ef17df9658",
+          hash: "6b8e1d79cb7a109986781e453bd954558cb6bf19",
+          name: "Blah",
         },
     ]);
 });
@@ -202,38 +202,38 @@ test("mediumEdit and releaseReorderMediums edits are generated for non-loaded me
 
     t.deepEqual(releaseEditor.edits.medium(release), [
       {
-        "edit_type": 52,
-        "format_id": 2,
-        "hash": "7e795b9d8b514ec0549c667c8da7a844d9d00835",
-        "name": "bar!",
-        "to_edit": 456,
+        edit_type: 52,
+        format_id: 2,
+        hash: "7e795b9d8b514ec0549c667c8da7a844d9d00835",
+        name: "bar!",
+        to_edit: 456,
       },
       {
-        "edit_type": 52,
-        "format_id": 1,
-        "hash": "bee90ecf182e5b8f1a80b4393f2ded17c2d0109c",
-        "name": "foo!",
-        "to_edit": 123,
+        edit_type: 52,
+        format_id: 1,
+        hash: "bee90ecf182e5b8f1a80b4393f2ded17c2d0109c",
+        name: "foo!",
+        to_edit: 123,
       },
     ]);
 
     t.deepEqual(releaseEditor.edits.mediumReorder(release), [
       {
-        "edit_type": 313,
-        "hash": "fe6d272bd48a354f1f42e1ca0816397d7754d0ff",
-        "medium_positions": [
+        edit_type: 313,
+        hash: "fe6d272bd48a354f1f42e1ca0816397d7754d0ff",
+        medium_positions: [
           {
-            "medium_id": 456,
-            "new": 1,
-            "old": 2,
+            medium_id: 456,
+            new: 1,
+            old: 2,
           },
           {
-            "medium_id": 123,
-            "new": 2,
-            "old": 1,
+            medium_id: 123,
+            new: 2,
+            old: 1,
           },
         ],
-        "release": "f4c552ab-515e-42df-a9ee-a370867d29d1",
+        release: "f4c552ab-515e-42df-a9ee-a370867d29d1",
       },
     ]);
 });
@@ -282,18 +282,18 @@ test("mediumCreate edits are not given conflicting positions", function (t) {
 
     t.deepEqual(mediumCreateEdits, [
       {
-        "edit_type": MB.edit.TYPES.EDIT_MEDIUM_CREATE,
-        "position": 4,
-        "name": "foo",
-        "release": "f4c552ab-515e-42df-a9ee-a370867d29d1",
-        "hash": "aca331e8e3448781852995b146feae853acbaa0e",
+        edit_type: MB.edit.TYPES.EDIT_MEDIUM_CREATE,
+        position: 4,
+        name: "foo",
+        release: "f4c552ab-515e-42df-a9ee-a370867d29d1",
+        hash: "aca331e8e3448781852995b146feae853acbaa0e",
       },
       {
-        "edit_type": MB.edit.TYPES.EDIT_MEDIUM_CREATE,
-        "position": 2,
-        "name": "bar",
-        "release": "f4c552ab-515e-42df-a9ee-a370867d29d1",
-        "hash": "d0f3777cede43eef81db632b671ca8da45085760",
+        edit_type: MB.edit.TYPES.EDIT_MEDIUM_CREATE,
+        position: 2,
+        name: "bar",
+        release: "f4c552ab-515e-42df-a9ee-a370867d29d1",
+        hash: "d0f3777cede43eef81db632b671ca8da45085760",
       },
     ]);
 
@@ -301,21 +301,21 @@ test("mediumCreate edits are not given conflicting positions", function (t) {
 
     t.deepEqual(releaseEditor.edits.mediumReorder(release), [
       {
-        "edit_type": MB.edit.TYPES.EDIT_RELEASE_REORDER_MEDIUMS,
-        "hash": "175c1aabc49c94c5edb79fd11cca04a31f0f85ad",
-        "medium_positions": [
+        edit_type: MB.edit.TYPES.EDIT_RELEASE_REORDER_MEDIUMS,
+        hash: "175c1aabc49c94c5edb79fd11cca04a31f0f85ad",
+        medium_positions: [
           {
-            "medium_id": 123,
-            "new": 4,
-            "old": 1,
+            medium_id: 123,
+            new: 4,
+            old: 1,
           },
           {
-            "medium_id": 666,
-            "new": 1,
-            "old": 4,
+            medium_id: 666,
+            new: 1,
+            old: 4,
           },
         ],
-        "release": "f4c552ab-515e-42df-a9ee-a370867d29d1",
+        release: "f4c552ab-515e-42df-a9ee-a370867d29d1",
       },
     ]);
 });
@@ -340,21 +340,21 @@ test("mediumCreate positions don't conflict with removed mediums (MBS-7952)", fu
 
     t.deepEqual(releaseEditor.edits.mediumReorder(release), [
       {
-        "edit_type": MB.edit.TYPES.EDIT_RELEASE_REORDER_MEDIUMS,
-        "hash": "6a2634d88b570aef5d0dd8521c7166b4a40ec042",
-        "medium_positions": [
+        edit_type: MB.edit.TYPES.EDIT_RELEASE_REORDER_MEDIUMS,
+        hash: "6a2634d88b570aef5d0dd8521c7166b4a40ec042",
+        medium_positions: [
           {
-            "medium_id": 123,
-            "new": 2,
-            "old": 1,
+            medium_id: 123,
+            new: 2,
+            old: 1,
           },
           {
-            "medium_id": 666,
-            "new": 1,
-            "old": 2,
+            medium_id: 666,
+            new: 1,
+            old: 2,
           },
         ],
-        "release": "f4c552ab-515e-42df-a9ee-a370867d29d1",
+        release: "f4c552ab-515e-42df-a9ee-a370867d29d1",
       },
     ]);
 });
