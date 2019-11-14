@@ -1,3 +1,5 @@
+/* eslint-disable import/no-commonjs */
+
 require('@babel/register');
 
 var rowCount = 0;

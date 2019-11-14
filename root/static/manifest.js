@@ -12,6 +12,9 @@
  * there. The actual manifest file (./build/rev-manifest) doesn't exist
  * until after the client scripts are bundled.
  */
+
+/* eslint-disable import/no-commonjs */
+
 const React = require('react');
 
 const revManifest = require('./build/rev-manifest');

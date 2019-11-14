@@ -2,6 +2,8 @@
 // css_manifest TT macro that requires common.less to exist in
 // rev-manifest.json.
 
+/* eslint-disable import/no-commonjs */
+
 require('../styles/common.less');
 
 // IE 11 support.

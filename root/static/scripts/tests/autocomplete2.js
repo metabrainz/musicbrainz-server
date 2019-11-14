@@ -1,3 +1,5 @@
+/* eslint-disable import/no-commonjs */
+
 // IE 11 support.
 require('core-js/modules/es6.object.assign');
 require('core-js/modules/es6.array.from');

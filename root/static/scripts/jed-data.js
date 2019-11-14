@@ -6,6 +6,8 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
+/* eslint-disable import/no-commonjs */
+
 const jedData = {
   en: {
     domain: 'mb_server',

@@ -1,3 +1,5 @@
 root/static/build/**/*.js
 root/static/lib/**/*.js
+root/static/scripts/common/DBDefs.js
+root/static/scripts/common/DBDefs-client.js
 root/static/scripts/tests/typeInfo.js
