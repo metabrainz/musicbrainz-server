@@ -406,14 +406,16 @@ class ArtistCreditEditor extends React.Component {
                       });
                     }
                   }}
-                  showStatus={false} />
+                  showStatus={false}
+                />
               </td>
               <td className="open-ac-cell">
                 <button
                   className="open-ac"
                   ref={button => this._editButton = button}
                   type="button"
-                  onClick={this.toggleBubble}>
+                  onClick={this.toggleBubble}
+                >
                   {l('Edit')}
                 </button>
               </td>

@@ -40,7 +40,8 @@ function renderDuplicates(name, duplicates, container) {
     <PossibleDuplicates
       name={name}
       duplicates={duplicates}
-      checkboxCallback={event => isConfirmed(event.target.checked)} />,
+      checkboxCallback={event => isConfirmed(event.target.checked)}
+    />,
     container,
   );
 }
