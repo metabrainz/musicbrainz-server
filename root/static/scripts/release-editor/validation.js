@@ -92,7 +92,6 @@ ko.bindingHandlers.showErrorWhenTabIsSwitched = {
 
 $(function () {
     $("#release-editor").on("tabsbeforeactivate", function (event, ui) {
-
         // Show errors on and mark all tabs between the one we just
         // clicked on, including the one we left.
         var oldPanel = ui.oldPanel;

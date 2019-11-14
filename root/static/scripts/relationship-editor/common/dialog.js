@@ -167,7 +167,6 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
 
 
     class Dialog {
-
         constructor(options) {
             var self = this;
 
@@ -617,7 +616,6 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
     }
 
     export class AddDialog extends Dialog {
-
         _accept() {
             addRelationships(splitByCreditableAttributes(this.relationship()), this.source, this.viewModel);
         }
@@ -636,7 +634,6 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
     });
 
     export class EditDialog extends Dialog {
-
         constructor(options) {
             // originalRelationship is a copy of the relationship when the dialog
             // was opened, i.e. before the user edits it. if they cancel the
@@ -677,7 +674,6 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
     });
 
     export class BatchRelationshipDialog extends Dialog {
-
         constructor(options) {
             options.source = MB.entity({}, options.sources[0].entityType);
             options.target = options.target || new MB.entity.Artist({});
@@ -710,7 +706,6 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
     });
 
     export class BatchCreateWorksDialog extends BatchRelationshipDialog {
-
         constructor(options) {
             super(Object.assign(options, {target: new MB.entity.Work({})}));
             this.error = ko.observable(false);

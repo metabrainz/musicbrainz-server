@@ -81,16 +81,12 @@ MB.GuessCase.Handler.Track = function (gc) {
             }
             if (is.match(gc.re.TRACK_DATATRACK)) {
                 return self.SPECIALCASE_DATA_TRACK;
-
             } else if (is.match(gc.re.TRACK_SILENCE)) {
                 return self.SPECIALCASE_SILENCE;
-
             } else if (is.match(gc.re.TRACK_UNTITLED)) {
                 return self.SPECIALCASE_UNTITLED;
-
             } else if (is.match(gc.re.TRACK_UNKNOWN)) {
                 return self.SPECIALCASE_UNKNOWN;
-
             } else if (is.match(gc.re.TRACK_MYSTERY)) {
                 return self.SPECIALCASE_UNKNOWN;
             }

@@ -55,19 +55,14 @@ MB.GuessCase.Handler.Label = function (gc) {
             var os = is;
             if (is.match(gc.re.LABEL_EMPTY)) {
                 return self.SPECIALCASE_UNKNOWN;
-
             } else if (is.match(gc.re.LABEL_UNKNOWN)) {
                 return self.SPECIALCASE_UNKNOWN;
-
             } else if (is.match(gc.re.LABEL_NONE)) {
                 return self.SPECIALCASE_UNKNOWN;
-
             } else if (is.match(gc.re.LABEL_NOLABEL)) {
                 return self.SPECIALCASE_UNKNOWN;
-
             } else if (is.match(gc.re.LABEL_NOTAPPLICABLE)) {
                 return self.SPECIALCASE_UNKNOWN;
-
             } else if (is.match(gc.re.LABEL_NA)) {
                 return self.SPECIALCASE_UNKNOWN;
             }

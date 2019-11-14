@@ -31,7 +31,6 @@
     }
 
     function drawCrosshairLine(plot, ctx, x, color) {
-
         var plotOffset = plot.getPlotOffset();
 
         x = plot.p2c({x: x}).left;

@@ -68,13 +68,10 @@ class ArtistCreditNameEditor extends React.Component {
 
     if (/^[A-Za-z]+\.?$/.test(joinPhrase)) {
       joinPhrase = ' ' + joinPhrase + ' ';
-
     } else if (/^,$/.test(joinPhrase)) {
       joinPhrase = ', ';
-
     } else if (/^&$/.test(joinPhrase)) {
       joinPhrase = ' & ';
-
     } else if (/^;$/.test(joinPhrase)) {
       joinPhrase = '; ';
     }

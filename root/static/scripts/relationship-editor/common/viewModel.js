@@ -98,7 +98,6 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
 
 
 export class ViewModel {
-
         constructor(options) {
             this.source = options.source;
             this.uniqueID = _.uniqueId("relationship-editor-");

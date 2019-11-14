@@ -58,19 +58,14 @@ MB.GuessCase.Handler.Artist = function (gc) {
             var os = is;
             if (is.match(gc.re.ARTIST_EMPTY)) {
                 return self.SPECIALCASE_UNKNOWN;
-
             } else if (is.match(gc.re.ARTIST_UNKNOWN)) {
                 return self.SPECIALCASE_UNKNOWN;
-
             } else if (is.match(gc.re.ARTIST_NONE)) {
                 return self.SPECIALCASE_UNKNOWN;
-
             } else if (is.match(gc.re.ARTIST_NOARTIST)) {
                 return self.SPECIALCASE_UNKNOWN;
-
             } else if (is.match(gc.re.ARTIST_NOTAPPLICABLE)) {
                 return self.SPECIALCASE_UNKNOWN;
-
             } else if (is.match(gc.re.ARTIST_NA)) {
                 return self.SPECIALCASE_UNKNOWN;
             }

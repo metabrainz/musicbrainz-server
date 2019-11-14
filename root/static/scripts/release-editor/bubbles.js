@@ -55,7 +55,6 @@ releaseEditor.annotationBubble = bubbleDoc();
 releaseEditor.commentBubble = bubbleDoc();
 
 class RecordingBubble extends MB.Control.BubbleDoc {
-
     previousTrack(data, event, stealFocus) {
         event && event.stopPropagation();
 

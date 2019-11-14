@@ -44,7 +44,6 @@ const defaultLines = [
 ];
 
 class TimelineViewModel {
-
     constructor() {
         var self = this;
         self.categories = ko.observableArray([]);
@@ -277,7 +276,6 @@ class TimelineViewModel {
 }
 
 class TimelineCategory {
-
     constructor(name, label, enabledByDefault) {
         var self = this;
         if (enabledByDefault === undefined) {
@@ -314,7 +312,6 @@ class TimelineCategory {
 }
 
 class TimelineLine {
-
     constructor(name, label, color, enabledByDefault) {
         var self = this;
         if (enabledByDefault === undefined) {

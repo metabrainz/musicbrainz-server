@@ -16,7 +16,6 @@ import nonEmpty from '../../common/utility/nonEmpty';
 import request from '../../common/utility/request';
 
 (function (edit) {
-
     edit.TYPES = TYPES;
 
 
@@ -439,7 +438,6 @@ import request from '../../common/utility/request';
 
     edit.preview = editEndpoint("/ws/js/edit/preview");
     edit.create = editEndpoint("/ws/js/edit/create");
-
 }(MB.edit = {}));
 
 export default MB.edit;

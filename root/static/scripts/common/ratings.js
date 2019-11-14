@@ -59,7 +59,6 @@ $(document).on("click", "span.star-rating a", function () {
                 $(this).attr('title', ratingTooltip(5 * newRating / 100));
             }
         });
-
     })
     return false;
 });

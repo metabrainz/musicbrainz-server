@@ -31,7 +31,6 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
 
 
     class Relationship {
-
         constructor(data, source, parent) {
             var self = this;
 

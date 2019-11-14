@@ -65,7 +65,6 @@ fieldTest("mediums having their \"loaded\" observable set correctly", function (
     t.equal(mediums()[3].loaded(), false, "medium with originalID but without tracks is considered not loaded");
     t.equal(mediums()[4].loaded(), true, "medium with id and with tracks is considered loaded")
     t.equal(mediums()[5].loaded(), true, "medium with originalID and with tracks is considered loaded");
-
 });
 
 fieldTest("loading a medium doesn't overwrite its original edit data", function (t, release) {

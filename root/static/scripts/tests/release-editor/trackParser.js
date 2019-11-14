@@ -87,7 +87,6 @@ parserTest("parsing track durations with trailing whitespace (MBS-1284)", functi
         {position: 4, name: "Never Can Wait",  formattedLength: "3:24"},
     ]);
     /* eslint-enable no-multi-spaces */
-
 });
 
 parserTest("numbers at the end of track names being wrongly interpreted as durations (MBS-2511, MBS-2902)", function (t) {

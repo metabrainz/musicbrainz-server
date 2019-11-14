@@ -37,7 +37,6 @@ const fields = {};
 releaseEditor.fields = fields;
 
 class Track {
-
     constructor(data, medium) {
         this.medium = medium;
 
@@ -302,7 +301,6 @@ Object.assign(Track.prototype, {
 fields.Track = Track;
 
 class Medium {
-
     constructor(data, release) {
         this.release = release;
         this.name = ko.observable(data.name);
@@ -462,7 +460,6 @@ class Medium {
 
         if (trackCount > tocTrackCount) {
             tocTracks = tocTracks.slice(0, tocTrackCount);
-
         } else if (trackCount < tocTrackCount) {
             var self = this;
 
@@ -575,7 +572,6 @@ class Medium {
                 return texp.l("Medium {position}: {title}", {position: position, title: name});
             }
             return name;
-
         }
         else if (multidisc) {
             return texp.l("Medium {position}", {position: position});
@@ -593,7 +589,6 @@ class Medium {
 fields.Medium = Medium;
 
 class ReleaseGroup extends MB_entity.ReleaseGroup {
-
     constructor(data) {
         data = data || {};
 
@@ -607,7 +602,6 @@ class ReleaseGroup extends MB_entity.ReleaseGroup {
 fields.ReleaseGroup = ReleaseGroup;
 
 class ReleaseEvent {
-
     constructor(data, release) {
         var date = data.date || {};
 
@@ -660,7 +654,6 @@ class ReleaseEvent {
 fields.ReleaseEvent = ReleaseEvent;
 
 class ReleaseLabel {
-
     constructor(data, release) {
         if (data.id) this.id = data.id;
 
@@ -689,7 +682,6 @@ class ReleaseLabel {
 fields.ReleaseLabel = ReleaseLabel;
 
 class Barcode {
-
     constructor(data) {
         this.original = data;
         this.barcode = ko.observable(data);
@@ -746,7 +738,6 @@ Barcode.prototype.weights = [1, 3, 1, 3, 1, 3, 1, 3, 1, 3, 1, 3];
 fields.Barcode = Barcode;
 
 class Release extends MB_entity.Release {
-
     constructor(data) {
         super(data);
 

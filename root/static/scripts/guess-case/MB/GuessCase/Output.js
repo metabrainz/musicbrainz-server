@@ -151,7 +151,6 @@ MB.GuessCase.Output = function (gc) {
         if ((!gc.mode.isSentenceCaps() || overrideCaps) &&
             (!self.isEmpty()) &&
             (self.getWordAtIndex(index) != null)) {
-
             // don't capitalize last word before puncuation/end of string in sentence mode.
             var w = self.getWordAtIndex(index), o = w;
 

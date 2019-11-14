@@ -20,7 +20,6 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
 
 
     export class ReleaseViewModel extends ViewModel {
-
         constructor(options) {
             super(options);
 
@@ -281,10 +280,8 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
 
             return relationships.filter(function (relationship) {
                 return relationship.entityTypes !== "recording-work";
-
             }).sortBy(function (relationship) {
                 return relationship.lowerCaseTargetName(source);
-
             }).sortBy("linkOrder").sortBy(function (relationship) {
                 return relationship.lowerCasePhrase(source);
             });

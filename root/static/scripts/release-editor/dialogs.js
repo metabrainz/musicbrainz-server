@@ -21,7 +21,6 @@ import utils from './utils';
 import releaseEditor from './viewModel';
 
 class Dialog {
-
     open() {
         $(this.element).dialog({title: this.title, width: 700});
     }
@@ -71,7 +70,6 @@ Object.assign(trackParserDialog, {
 
 
 class SearchResult {
-
     constructor(tab, data) {
         Object.assign(this, data);
 
@@ -159,7 +157,6 @@ class SearchResult {
 
 
 class SearchTab {
-
     constructor() {
         this.releaseName = ko.observable("");
         this.artistName = ko.observable("");

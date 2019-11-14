@@ -7,7 +7,6 @@ import MB from '../common/MB';
 import request from '../common/utility/request';
 
 MB.ExampleRelationshipsEditor = (function (ERE) {
-
 // Private variables
 var type0, type1, linkTypeName, linkTypeID, jsRoot, formName;
 
@@ -171,5 +170,4 @@ RelationshipSearcher = function () {
 }
 
 return ERE;
-
 }(MB.ExampleRelationshipsEditor || {}));

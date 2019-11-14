@@ -10,7 +10,6 @@ import MB from '../../../common/MB';
 import deferFocus from '../../utility/deferFocus';
 
 class BubbleBase {
-
     // The default observable equality comparer returns false if the values
     // aren't primitive, even if the values are equal.
     targetEqualityComparer(a, b) { return a === b }
@@ -112,7 +111,6 @@ BubbleBase.prototype.closeWhenFocusIsLost = false;
    input to the left of it.
 */
 class BubbleDoc extends BubbleBase {
-
     show(control) {
         super.show(control);
 
@@ -151,7 +149,6 @@ ko.bindingHandlers.bubble = {
 
     init: function (element, valueAccessor, allBindingsAccessor,
                     viewModel, bindingContext) {
-
         var bubble = valueAccessor();
         element.bubbleDoc = bubble;
         bubble.$bubble = $(element);
@@ -244,7 +241,6 @@ function bubbleControlHandler(event) {
                 // Close unless focus was moved to a dialog above this
                 // one, i.e. when adding a new entity.
                 !$(event.target).parents(".ui-dialog").length) {
-
                 bubble.hide(false);
             }
         }
@@ -263,7 +259,6 @@ function bubbleControlHandler(event) {
 
         if (buttonClicked && wasOpen) {
             bubble.hide();
-
         } else if (inputFocused || (buttonClicked && !wasOpen)) {
             bubble.show(control);
         }

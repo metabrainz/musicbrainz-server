@@ -271,7 +271,6 @@ releaseEditor.loadRelease = function (gid, callback) {
 
                 this.loadError(error);
             });
-
 };
 
 releaseEditor.releaseLoaded = function (data) {
