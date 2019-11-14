@@ -62,9 +62,12 @@ export default function diffArtistCredits(
     switch (diff.type) {
       case EQUAL:
         diff.oldItems.forEach(function (credit) {
-          const link = <ArtistLink credit={credit} />;
-          oldNames.push(link, credit.joinPhrase);
-          newNames.push(link, credit.joinPhrase);
+          const oldLink =
+            <ArtistLink credit={credit} key={oldNames.length} />;
+          const newLink =
+            <ArtistLink credit={credit} key={newNames.length} />;
+          oldNames.push(oldLink, credit.joinPhrase);
+          newNames.push(newLink, credit.joinPhrase);
         });
         break;
 
@@ -105,6 +108,7 @@ export default function diffArtistCredits(
                 />
               }
               credit={oldCredit}
+              key={oldNames.length}
               nameVariation={oldCredit.artist.name !== oldCredit.name}
             />,
             oldJoin,
@@ -121,6 +125,7 @@ export default function diffArtistCredits(
                 />
               }
               credit={newCredit}
+              key={newNames.length}
               nameVariation={newCredit.artist.name !== newCredit.name}
             />,
             newJoin,
@@ -131,7 +136,7 @@ export default function diffArtistCredits(
 
       case DELETE:
         oldNames.push(...diff.oldItems.map(credit => (
-          <span className={CLASS_MAP[DELETE]}>
+          <span className={CLASS_MAP[DELETE]} key={oldNames.length}>
             <ArtistLink credit={credit} />
             {credit.joinPhrase}
           </span>
@@ -140,7 +145,7 @@ export default function diffArtistCredits(
 
       case INSERT:
         newNames.push(...diff.newItems.map(credit => (
-          <span className={CLASS_MAP[INSERT]}>
+          <span className={CLASS_MAP[INSERT]} key={newNames.length}>
             <ArtistLink credit={credit} />
             {credit.joinPhrase}
           </span>
