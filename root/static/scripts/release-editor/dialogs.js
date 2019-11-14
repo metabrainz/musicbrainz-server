@@ -143,10 +143,10 @@ class SearchResult {
 
         const link = exp.l('{entity} by {artist}', {
             entity: (
-                <>
-                    <bdi>{this.name}</bdi>
-                    {formatString ? ' ' + bracketed(formatString) : null}
-                </>
+              <>
+                <bdi>{this.name}</bdi>
+                {formatString ? ' ' + bracketed(formatString) : null}
+              </>
             ),
             artist: <bdi>{this.artist}</bdi>,
         });

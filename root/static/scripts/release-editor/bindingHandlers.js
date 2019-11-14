@@ -27,14 +27,14 @@ ko.bindingHandlers.disableBecauseDiscIDs = {
 };
 
 const TrackButtons = ({nextTrack, previousTrack}) => (
-    <>
-        <button type="button" style={{float: 'right'}} onClick={nextTrack}>
-            {l('Next')}
-        </button>
-        <button type="button" style={{float: 'right'}} onClick={previousTrack}>
-            {l('Previous')}
-        </button>
-    </>
+  <>
+    <button type="button" style={{float: 'right'}} onClick={nextTrack}>
+      {l('Next')}
+    </button>
+    <button type="button" style={{float: 'right'}} onClick={previousTrack}>
+      {l('Previous')}
+    </button>
+  </>
 );
 
 ko.bindingHandlers.artistCreditEditor = {
@@ -107,10 +107,10 @@ ko.bindingHandlers.artistCreditEditor = {
         if (entity instanceof fields.Track) {
             props.doneCallback = this.doneCallback;
             props.extraButtons = (
-                <TrackButtons
-                    nextTrack={this.nextTrack}
-                    previousTrack={this.previousTrack}
-                />
+              <TrackButtons
+                nextTrack={this.nextTrack}
+                previousTrack={this.previousTrack}
+              />
             );
             props.orientation = 'left';
         }

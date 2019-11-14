@@ -47,7 +47,7 @@ import formatTrackLength from './utility/formatTrackLength';
         renderArtistCredit(ac) {
             ac = ko.unwrap(ac);
             return ReactDOMServer.renderToStaticMarkup(
-                <ArtistCreditLink artistCredit={ac} target="_blank" />,
+              <ArtistCreditLink artistCredit={ac} target="_blank" />,
             );
         }
 
@@ -148,20 +148,20 @@ import formatTrackLength from './utility/formatTrackLength';
                 }
 
                 return (
-                    <EntityLink
-                        content={json.creditedAs}
-                        entity={{
-                            comment: json.comment,
-                            editsPending: json.editsPending,
-                            entityType: json.entityType,
-                            gid: json.gid,
-                            name: json.name,
-                            sort_name: json.sort_name,
-                            typeID: json.typeID,
-                            video: json.video,
-                        }}
-                        {...renderParams}
-                    />
+                  <EntityLink
+                    content={json.creditedAs}
+                    entity={{
+                        comment: json.comment,
+                        editsPending: json.editsPending,
+                        entityType: json.entityType,
+                        gid: json.gid,
+                        name: json.name,
+                        sort_name: json.sort_name,
+                        typeID: json.typeID,
+                        video: json.video,
+                    }}
+                    {...renderParams}
+                  />
                 );
             }
 
@@ -197,7 +197,7 @@ import formatTrackLength from './utility/formatTrackLength';
     class Editor extends CoreEntity {
         reactElement() {
             return (
-                <EditorLink editor={{entityType: 'editor', name: this.name}} />
+              <EditorLink editor={{entityType: 'editor', name: this.name}} />
             );
         }
     }
@@ -380,7 +380,7 @@ import formatTrackLength from './utility/formatTrackLength';
                 video: recording.video,
             };
             return (
-                <EntityLink content={this.name} entity={json} {...renderParams} />
+              <EntityLink content={this.name} entity={json} {...renderParams} />
             );
         }
     }
