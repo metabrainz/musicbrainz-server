@@ -61,9 +61,9 @@ fieldTest('mediums having their "loaded" observable set correctly', function (t,
 
     t.equal(mediums()[0].loaded(), true, 'medium without id or tracks is considered loaded');
     t.equal(mediums()[1].loaded(), true, 'medium without id but with tracks is considered loaded');
-    t.equal(mediums()[2].loaded(), false, 'medium with id but without tracks is considered not loaded')
+    t.equal(mediums()[2].loaded(), false, 'medium with id but without tracks is considered not loaded');
     t.equal(mediums()[3].loaded(), false, 'medium with originalID but without tracks is considered not loaded');
-    t.equal(mediums()[4].loaded(), true, 'medium with id and with tracks is considered loaded')
+    t.equal(mediums()[4].loaded(), true, 'medium with id and with tracks is considered loaded');
     t.equal(mediums()[5].loaded(), true, 'medium with originalID and with tracks is considered loaded');
 });
 

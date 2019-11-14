@@ -251,6 +251,6 @@ MB.GuessCase.Output = function (gc) {
     };
 
     return self;
-}
+};
 
 export default MB.GuessCase.Output;

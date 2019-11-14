@@ -59,6 +59,6 @@ MB.Control.SelectAll = function (table) {
 
 $(function () {
     $('table.tbl').each(function () {
-        MB.Control.SelectAll(this)
+        MB.Control.SelectAll(this);
     });
 });

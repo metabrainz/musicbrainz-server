@@ -142,14 +142,14 @@ test('upload queue', function (t) {
     t.equal(upvm.files_to_upload().length, 4, 'four files in upload queue');
 
     upvm.moveFile(txt_file, 1);
-    t.equal(upvm.files_to_upload()[3].name, txt_file.name, "moving last file to the end doesn't move it")
+    t.equal(upvm.files_to_upload()[3].name, txt_file.name, "moving last file to the end doesn't move it");
     upvm.moveFile(txt_file, -1);
-    t.equal(upvm.files_to_upload()[2].name, txt_file.name, 'last file moved to third position')
-    t.equal(upvm.files_to_upload()[3].name, png_file.name, 'file in third position is now at the end')
+    t.equal(upvm.files_to_upload()[2].name, txt_file.name, 'last file moved to third position');
+    t.equal(upvm.files_to_upload()[3].name, png_file.name, 'file in third position is now at the end');
 
     upvm.moveFile(gif_file, -1);
-    t.equal(upvm.files_to_upload()[0].name, gif_file.name, "moving first file to the start doesn't move it")
+    t.equal(upvm.files_to_upload()[0].name, gif_file.name, "moving first file to the start doesn't move it");
     upvm.moveFile(gif_file, 1);
-    t.equal(upvm.files_to_upload()[1].name, gif_file.name, 'first file moved to second position')
-    t.equal(upvm.files_to_upload()[0].name, jpg_file.name, 'file in second position is now at the start')
+    t.equal(upvm.files_to_upload()[1].name, gif_file.name, 'first file moved to second position');
+    t.equal(upvm.files_to_upload()[0].name, jpg_file.name, 'file in second position is now at the start');
 });

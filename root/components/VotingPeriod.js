@@ -28,7 +28,7 @@ const VotingPeriod = ({$c, closingDate}: PropsT) => {
 
   if (date > now) {
     const durationSeconds = Math.floor((date - now) / 1000);
-    const durationMinutes = Math.floor(durationSeconds / 60)
+    const durationMinutes = Math.floor(durationSeconds / 60);
     const durationHours = Math.floor(durationMinutes / 60);
     const durationDays = Math.floor(durationHours / 24);
 

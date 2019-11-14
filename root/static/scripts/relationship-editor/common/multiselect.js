@@ -47,7 +47,7 @@ import deferFocus from '../../edit/utility/deferFocus';
             var optionNodes = [];
 
             for (var i = 0, node, option; option = options[i]; i++) {
-                node = document.createElement('a')
+                node = document.createElement('a');
                 node.href = '#';
                 node.style.paddingLeft = option.depth + 'em';
                 node.appendChild(document.createTextNode(option.text));

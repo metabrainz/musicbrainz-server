@@ -343,7 +343,7 @@ function parseQueryString(queryString) {
 
         _.each(parts, function (part, index) {
             if (index === parts.length - 1) {
-                subField[part] = decodeURIComponent(match[2])
+                subField[part] = decodeURIComponent(match[2]);
             } else {
                 subField = subField[part] = subField[part] || {};
             }

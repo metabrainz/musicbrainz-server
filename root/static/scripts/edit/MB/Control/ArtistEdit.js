@@ -120,7 +120,7 @@ MB.Control.ArtistEdit = function () {
                 }
             });
         });
-    }
+    };
 
     MB.Control.initialize_guess_case('artist', 'id-edit-artist');
 

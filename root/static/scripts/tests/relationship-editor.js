@@ -150,7 +150,7 @@ function relationshipEditorTest(name, callback) {
 
         _.defer = function (func) {
             func.apply(null, _.toArray(arguments).slice(1));
-        }
+        };
 
         callback(t);
 
@@ -368,7 +368,7 @@ relationshipEditorTest('dialog backwardness', function (t) {
         var options = {...test.input, viewModel: vm};
         var dialog = new AddDialog(options);
 
-        t.equal(dialog.backward(), test.expected.backward)
+        t.equal(dialog.backward(), test.expected.backward);
         t.deepEqual(dialog.relationship().entities(), test.expected.entities);
 
         dialog.close();

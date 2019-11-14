@@ -62,7 +62,7 @@ var guessCaseOptions = {
 
 var mode = ko.computed({
     read: function () {
-        var modeName = guessCaseOptions.modeName()
+        var modeName = guessCaseOptions.modeName();
 
         if (modeName !== gc.modeName) {
             gc.modeName = modeName;

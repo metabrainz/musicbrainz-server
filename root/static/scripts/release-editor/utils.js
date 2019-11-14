@@ -72,7 +72,7 @@ utils.escapeLuceneValue = escapeLuceneValue;
 
 utils.constructLuceneField = function (values, key) {
     return key + ':(' + values.join(' OR ') + ')';
-}
+};
 
 utils.constructLuceneFieldConjunction = function (params) {
     return _.map(params, utils.constructLuceneField).join(' AND ');

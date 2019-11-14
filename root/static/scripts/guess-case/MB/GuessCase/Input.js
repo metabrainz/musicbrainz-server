@@ -257,6 +257,6 @@ MB.GuessCase.Input = function (gc) {
     };
 
     return self;
-}
+};
 
 export default MB.GuessCase.Input;
