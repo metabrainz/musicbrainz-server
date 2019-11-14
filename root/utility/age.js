@@ -134,7 +134,7 @@ export function age<+T: {...DatePeriodRoleT, ...}>(entity: T) {
   return [dy, dm, dd];
 }
 
-export function displayAge(age: [number, number, number], isPerson: bool) {
+export function displayAge(age: [number, number, number], isPerson: boolean) {
   const [years, months, days] = age;
 
   if (isPerson && years) {

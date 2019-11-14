@@ -12,7 +12,7 @@ import * as React from 'react';
 import ReactDOM from 'react-dom';
 
 type TooltipProps = {
-  +hoverCallback: (bool) => void,
+  +hoverCallback: (boolean) => void,
   +content: React.Node,
 };
 
