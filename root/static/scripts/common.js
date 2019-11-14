@@ -1,6 +1,7 @@
 // Needed by root/release/cover_art_uploader.tt, which uses the
 // css_manifest TT macro that requires common.less to exist in
 // rev-manifest.json.
+
 require('../styles/common.less');
 
 // IE 11 support.
@@ -14,7 +15,7 @@ require('core-js/es6/promise');
 require('core-js/es6/symbol');
 
 const DBDefs = require('./common/DBDefs-client');
-import MB from './common/MB';
+const MB = require('./common/MB').default;
 
 if (DBDefs.DEVELOPMENT_SERVER) {
   // Used by the Selenium tests under /t/selenium/ to make sure that no errors
