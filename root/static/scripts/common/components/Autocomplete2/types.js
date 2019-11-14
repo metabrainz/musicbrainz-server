@@ -80,8 +80,7 @@ export type Actions =
   | { +type: 'show-search-error' }
   | { +type: 'stop-search' }
   | { +type: 'toggle-indexed-search' }
-  | { +type: 'type-value', +value: string }
-  ;
+  | { +type: 'type-value', +value: string };
 
 export type ActionItem = {
   +action: Actions,

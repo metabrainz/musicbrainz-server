@@ -18,8 +18,7 @@ export type EditType =
   | typeof CHANGE
   | typeof DELETE
   | typeof EQUAL
-  | typeof INSERT
-  ;
+  | typeof INSERT;
 
 const CLASS_MAP = {
   [CHANGE]: '',
