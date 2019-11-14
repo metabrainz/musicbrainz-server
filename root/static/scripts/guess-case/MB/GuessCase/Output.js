@@ -45,7 +45,7 @@ MB.GuessCase.Output = function (gc) {
      **/
     self.init = function () {
         self._w = [];
-        self._output = "";
+        self._output = '';
     };
 
     /**
@@ -80,9 +80,9 @@ MB.GuessCase.Output = function (gc) {
      * @param w        the word
      **/
     self.appendWord = function (w) {
-        if (w == " ") {
+        if (w == ' ') {
             gc.o.appendSpace();
-        } else if (w != "" && w != null) {
+        } else if (w != '' && w != null) {
             self._w[self._w.length] = w;
         }
     };
@@ -91,7 +91,7 @@ MB.GuessCase.Output = function (gc) {
      * Adds a space to the processed wordslist
      **/
     self.appendSpace = function () {
-       self._w[self._w.length] = " ";
+       self._w[self._w.length] = ' ';
     };
 
     /**
@@ -205,7 +205,7 @@ MB.GuessCase.Output = function (gc) {
         self.capitalizeLastWord();
 
         self.closeOpenBrackets();
-        return utils.trim(self._w.join(""));
+        return utils.trim(self._w.join(''));
     };
 
     /**
@@ -217,7 +217,7 @@ MB.GuessCase.Output = function (gc) {
             // close brackets that were opened before
             parts[parts.length] = flags.popBracket();
         }
-        self.appendWord(parts.join(""));
+        self.appendWord(parts.join(''));
     };
 
     /**
@@ -231,7 +231,7 @@ MB.GuessCase.Output = function (gc) {
      **/
     self.appendWordPreserveWhiteSpace = function (c) {
         if (c) {
-            var ws = {before: gc.i.isPreviousWord(" "), after: gc.i.isNextWord(" ")};
+            var ws = {before: gc.i.isPreviousWord(' '), after: gc.i.isNextWord(' ')};
             if (c.apply) {
                 // do not register method, such that this message appears as
                 // it were sent from the calling method.

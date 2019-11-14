@@ -28,7 +28,7 @@ const actions = {
     previousTab: function () { this.adjacentTab(-1) },
 
     lastTab: function () {
-        this.uiTabs._setOption("active", this.tabCount - 1);
+        this.uiTabs._setOption('active', this.tabCount - 1);
         this.uiTabs.tabs.eq(this.tabCount - 1).focus();
         return;
      },
@@ -41,7 +41,7 @@ const actions = {
             index += direction;
 
             if (!disabled || disabled.indexOf(index) < 0) {
-                this.uiTabs._setOption("active", index);
+                this.uiTabs._setOption('active', index);
                 this.uiTabs.tabs.eq(index).focus();
                 return;
             }
@@ -141,7 +141,7 @@ const actions = {
             this.swapTracks(track, previous, track.medium);
         }
 
-        deferFocus("button.track-up", "#" + track.elementID);
+        deferFocus('button.track-up', '#' + track.elementID);
 
         // If the medium had a TOC attached, it's no longer valid.
         track.medium.toc(null);
@@ -162,7 +162,7 @@ const actions = {
             this.swapTracks(track, next, track.medium);
         }
 
-        deferFocus("button.track-down", "#" + track.elementID);
+        deferFocus('button.track-down', '#' + track.elementID);
 
         // If the medium had a TOC attached, it's no longer valid.
         track.medium.toc(null);
@@ -209,7 +209,7 @@ const actions = {
 
     removeTrack: function (track) {
         var focus = track.next() || track.previous();
-        var $medium = $("#" + track.elementID).parents(".advanced-disc");
+        var $medium = $('#' + track.elementID).parents('.advanced-disc');
         var medium = track.medium;
         var tracks = medium.tracks;
         var index = tracks.indexOf(track);
@@ -219,9 +219,9 @@ const actions = {
         releaseEditor.resetTrackPositions(tracks.peek(), index, offset, 1);
 
         if (focus) {
-            deferFocus("button.remove-item", "#" + focus.elementID);
+            deferFocus('button.remove-item', '#' + focus.elementID);
         } else {
-            deferFocus(".add-tracks button.add-item", $medium);
+            deferFocus('.add-tracks button.add-item', $medium);
         }
 
         medium.toc(null);
@@ -258,9 +258,9 @@ const actions = {
         });
 
         var question = l(
-            "This tracklist has artist credits with information that " +
-            "will be lost if you swap artist credits with track titles. " +
-            "This cannot be undone. Do you wish to continue?",
+            'This tracklist has artist credits with information that ' +
+            'will be lost if you swap artist credits with track titles. ' +
+            'This cannot be undone. Do you wish to continue?',
         );
 
         if (!requireConf || confirm(question)) {

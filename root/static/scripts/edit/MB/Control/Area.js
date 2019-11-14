@@ -16,11 +16,11 @@ MB.Control.Area = function () {
         return viewModel.area().gid;
     };
 
-    ko.applyBindingsToNode($("#area-bubble")[0], {bubble: bubble});
+    ko.applyBindingsToNode($('#area-bubble')[0], {bubble: bubble});
 
     _.each(arguments, function (selector) {
         var $span = $(selector);
-        var name = $span.find("input.name")[0];
+        var name = $span.find('input.name')[0];
         var ac = MB.Control.EntityAutocomplete({inputs: $span});
 
         ko.applyBindingsToNode(

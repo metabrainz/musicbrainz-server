@@ -7,14 +7,14 @@ import MB from './common/MB';
 import initializeDuplicateChecker from './edit/check-duplicates';
 
 $(function () {
-  var $type = $("#id-edit-series\\.type_id");
-  var $orderingType = $("#id-edit-series\\.ordering_type_id");
+  var $type = $('#id-edit-series\\.type_id');
+  var $orderingType = $('#id-edit-series\\.ordering_type_id');
 
   // Type can be disabled, but is a required field, so use a hidden input.
-  var $hiddenType = $("<input>")
-    .attr({type: "hidden", name: $type[0].name})
+  var $hiddenType = $('<input>')
+    .attr({type: 'hidden', name: $type[0].name})
     .val($type.val())
-    .insertAfter($type.removeAttr("name"));
+    .insertAfter($type.removeAttr('name'));
 
   var series = MB.entityCache[MB.sourceEntityGID];
   series.typeID($type.val());
@@ -59,12 +59,12 @@ $(function () {
     controlsBubble: series.orderingTypeBubble,
   }, series);
 
-  ko.applyBindings(series, $("#series-type-bubble")[0]);
-  ko.applyBindings(series, $("#ordering-type-bubble")[0]);
+  ko.applyBindings(series, $('#series-type-bubble')[0]);
+  ko.applyBindings(series, $('#ordering-type-bubble')[0]);
 
-  MB.Control.initialize_guess_case("series", "id-edit-series");
+  MB.Control.initialize_guess_case('series', 'id-edit-series');
 
-  $orderingType.on("change", function () {
+  $orderingType.on('change', function () {
     series.orderingTypeID(+this.value);
 
     if (+this.value === SERIES_ORDERING_TYPE_AUTOMATIC) {

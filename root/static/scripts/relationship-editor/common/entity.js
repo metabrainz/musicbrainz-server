@@ -34,7 +34,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
 
     coreEntityPrototype._afterCoreEntityCtor = function () {
         if (this.uniqueID == null) {
-            this.uniqueID = _.uniqueId("entity-");
+            this.uniqueID = _.uniqueId('entity-');
         }
         this.relationshipElements = {};
     };
@@ -97,7 +97,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
                 var relationship = dialog.relationship();
                 relationship.linkTypeID(firstRelationship.linkTypeID());
 
-                var attributeLists = _.invokeMap(relationships, "attributes");
+                var attributeLists = _.invokeMap(relationships, 'attributes');
 
                 var commonAttributes = _.map(
                     _.reject(_.intersection.apply(_, attributeLists), isFreeText),
@@ -107,13 +107,13 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
                 );
 
                 relationship.setAttributes(commonAttributes);
-                deferFocus("input.name", "#dialog");
+                deferFocus('input.name', '#dialog');
                 dialog.open(event.target);
                 return dialog;
             }
 
             return this.displayableRelationships(vm)
-                .groupBy(linkPhrase).sortBy("key").map(function (group) {
+                .groupBy(linkPhrase).sortBy('key').map(function (group) {
                     group.openAddDialog = openAddDialog;
                     group.canBeOrdered = ko.observable(false);
 
@@ -164,7 +164,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
                 var other = relationships[i];
 
                 if (rel !== other && rel.isDuplicate(other)) {
-                    var obj = _.omit(rel.editData(), "id");
+                    var obj = _.omit(rel.editData(), 'id');
 
                     obj.begin_date = mergeDates(rel.begin_date, other.begin_date);
                     obj.end_date = mergeDates(rel.end_date, other.end_date);
@@ -201,7 +201,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
     };
 
     function isPerformance(relationship) {
-        return relationship.entityTypes === "recording-work";
+        return relationship.entityTypes === 'recording-work';
     }
 
     function isFreeText(linkAttribute) {
@@ -209,7 +209,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
     }
 
     function cacheByID(func) {
-        var cacheID = _.uniqueId("cache-");
+        var cacheID = _.uniqueId('cache-');
 
         return function (vm) {
             var cache = this[cacheID] = this[cacheID] || {};

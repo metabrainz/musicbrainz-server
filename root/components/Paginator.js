@@ -94,7 +94,7 @@ const Paginator = ({
 
         {range(start, end + 1).map(page => (
           (pager.current_page === page) ? (
-            <li key={"number-" + page}>
+            <li key={'number-' + page}>
               <a
                 className="sel"
                 href={uriPage(reqUri, pageVar, page)}
@@ -103,7 +103,7 @@ const Paginator = ({
               </a>
             </li>
           ) : (
-            <li key={"number-" + page}>
+            <li key={'number-' + page}>
               <a href={uriPage(reqUri, pageVar, page)}>
                 {page}
               </a>

@@ -7,7 +7,7 @@ import $ from 'jquery';
 
 import ratingTooltip from '../../../utility/ratingTooltip';
 
-$(document).on("click", "span.star-rating a", function () {
+$(document).on('click', 'span.star-rating a', function () {
     var $ratingLink = $(this);
     var url = this.href + '&json=1';
 

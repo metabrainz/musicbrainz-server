@@ -12,5 +12,5 @@ import * as React from 'react';
 const specialLuceneChars = /([+\-&|!(){}[\]^"~*?:\\\/])/g;
 
 export default function escapeLuceneValue(value: number | string) {
-  return String(value).replace(specialLuceneChars, "\\$1");
+  return String(value).replace(specialLuceneChars, '\\$1');
 }

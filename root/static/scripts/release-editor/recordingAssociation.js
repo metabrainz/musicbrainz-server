@@ -45,10 +45,10 @@ recordingAssociation.getReleaseGroupRecordings = function (releaseGroup, offset,
     if (!releaseGroup || !releaseGroup.gid) return;
 
     var query = utils.constructLuceneField(
-        [utils.escapeLuceneValue(releaseGroup.gid)], "rgid",
+        [utils.escapeLuceneValue(releaseGroup.gid)], 'rgid',
     );
 
-    utils.search("recording", query, 100, offset)
+    utils.search('recording', query, 100, offset)
         .done(function (data) {
             results.push.apply(
                 results, _.map(data.recordings, cleanRecordingData),
@@ -77,8 +77,8 @@ function recordingQuery(track, name) {
     };
 
     var titleAndArtists = utils.constructLuceneFieldConjunction(params);
-    var justTitle = utils.constructLuceneField(params.recording, "recording");
-    var query = "(" + titleAndArtists + ")^2 OR (" + justTitle + ")";
+    var justTitle = utils.constructLuceneField(params.recording, 'recording');
+    var query = '(' + titleAndArtists + ')^2 OR (' + justTitle + ')';
 
     var duration = parseInt(track.length(), 10);
 
@@ -87,7 +87,7 @@ function recordingQuery(track, name) {
         var b = duration + MAX_LENGTH_DIFFERENCE;
 
         duration = utils.constructLuceneField([`[${a} TO ${b}] OR \\-`], 'dur');
-        query = "(" + query + ") AND " + duration;
+        query = '(' + query + ') AND ' + duration;
     }
 
     return query;
@@ -107,7 +107,7 @@ function cleanRecordingData(data) {
             return {
                 name: release.title,
                 gid: release.id,
-                releaseGroupGID: release["release-group"].id,
+                releaseGroupGID: release['release-group'].id,
             };
         })
         .uniqBy('releaseGroupGID').value();
@@ -115,7 +115,7 @@ function cleanRecordingData(data) {
     clean.appearsOn = {
         hits: appearsOn.length,
         results: appearsOn,
-        entityType: "release",
+        entityType: 'release',
     };
 
     // Recording entities will have already been created and cached for
@@ -129,7 +129,7 @@ function cleanRecordingData(data) {
 
         recording.appearsOn.results = _.map(recording.appearsOn.results,
             function (appearance) {
-                return MB.entity(appearance, "release");
+                return MB.entity(appearance, 'release');
             });
     }
 
@@ -147,7 +147,7 @@ function searchTrackArtistRecordings(track) {
 
     var query = recordingQuery(track, track.name());
 
-    track._recordingRequest = utils.search("recording", query)
+    track._recordingRequest = utils.search('recording', query)
         .done(function (data) {
             var recordings = matchAgainstRecordings(
                 track, _.map(data.recordings, cleanRecordingData),
@@ -157,7 +157,7 @@ function searchTrackArtistRecordings(track) {
             track.loadingSuggestedRecordings(false);
         })
         .fail(function (jqXHR, textStatus) {
-            if (textStatus !== "abort") {
+            if (textStatus !== 'abort') {
                 _.delay(searchTrackArtistRecordings, 5000, track);
             }
         });
@@ -173,12 +173,12 @@ recordingAssociation.autocompleteHook = function (track) {
         if (args.data.direct) return args;
 
         var newArgs = {
-            url: "/ws/2/recording",
+            url: '/ws/2/recording',
             data: {
                 query: recordingQuery(track, args.data.q),
-                fmt: "json",
+                fmt: 'json',
             },
-            dataType: "json",
+            dataType: 'json',
         };
 
         newArgs.success = function (data) {
@@ -222,11 +222,11 @@ function watchTrackForChanges(track) {
     };
 
     // The current name/length is similar to the saved name/length.
-    if (similarTo("saved")) {
+    if (similarTo('saved')) {
         track.recording(track.recording.saved);
     }
     // The current name/length is similar to the original name/length.
-    else if (similarTo("original")) {
+    else if (similarTo('original')) {
         track.recording(track.recording.original.peek());
     }
     else {
@@ -303,7 +303,7 @@ function matchAgainstRecordings(track, recordings) {
             if (utils.similarNames(trackName, recording.name)) {
                 return true;
             }
-            var recordingWithoutETI = recording.name.replace(etiRegex, "");
+            var recordingWithoutETI = recording.name.replace(etiRegex, '');
 
             if (utils.similarNames(trackName, recordingWithoutETI)) {
                 return true;
@@ -329,7 +329,7 @@ function matchAgainstRecordings(track, recordings) {
 
     if (matches.length) {
         return _.map(matches, function (match) {
-            return MB.entity(match, "recording");
+            return MB.entity(match, 'recording');
         });
     }
 }

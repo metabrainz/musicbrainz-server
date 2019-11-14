@@ -28,7 +28,7 @@ function parserTest(name, callback) {
     });
 }
 
-parserTest("track numbers", function (t) {
+parserTest('track numbers', function (t) {
     t.plan(1);
 
     Object.assign(trackParser.options, {
@@ -40,28 +40,28 @@ parserTest("track numbers", function (t) {
     });
 
     var input = [
-        "a1  Kermis         02:04",
-        "a2.  Glitch        02:51",
-        "a3.Afrik Slang     02:11",
-        "4 Rot Beat         01:07",
-        "5. Pruik           02:21",
-        "6.In Je Graff      03:21",
-        "７ Ｈｉｌｌｗｏｏｄ   ０２：３４",
+        'a1  Kermis         02:04',
+        'a2.  Glitch        02:51',
+        'a3.Afrik Slang     02:11',
+        '4 Rot Beat         01:07',
+        '5. Pruik           02:21',
+        '6.In Je Graff      03:21',
+        '７ Ｈｉｌｌｗｏｏｄ   ０２：３４',
     ]
-    .join("\n");
+    .join('\n');
 
     common.trackParserTest(t, input, [
-        {position: 1, number: "a1", name: "Kermis"},
-        {position: 2, number: "a2", name: "Glitch"},
-        {position: 3, number: "a3", name: "Afrik Slang"},
-        {position: 4, number: "4", name: "Rot Beat"},
-        {position: 5, number: "5", name: "Pruik"},
-        {position: 6, number: "6", name: "In Je Graff"},
-        {position: 7, number: "7", name: "Ｈｉｌｌｗｏｏｄ"},
+        {position: 1, number: 'a1', name: 'Kermis'},
+        {position: 2, number: 'a2', name: 'Glitch'},
+        {position: 3, number: 'a3', name: 'Afrik Slang'},
+        {position: 4, number: '4', name: 'Rot Beat'},
+        {position: 5, number: '5', name: 'Pruik'},
+        {position: 6, number: '6', name: 'In Je Graff'},
+        {position: 7, number: '7', name: 'Ｈｉｌｌｗｏｏｄ'},
     ]);
 });
 
-parserTest("parsing track durations with trailing whitespace (MBS-1284)", function (t) {
+parserTest('parsing track durations with trailing whitespace (MBS-1284)', function (t) {
     t.plan(1);
 
     Object.assign(trackParser.options, {
@@ -72,24 +72,24 @@ parserTest("parsing track durations with trailing whitespace (MBS-1284)", functi
     });
 
     var input = [
-        "1. Forgotten Child    3:39    ",
-        "2. Dirty Looks  4:34   ",
-        "  3. Private Life  3:29  ",
-        "4.  Never Can Wait  3:24 ",
+        '1. Forgotten Child    3:39    ',
+        '2. Dirty Looks  4:34   ',
+        '  3. Private Life  3:29  ',
+        '4.  Never Can Wait  3:24 ',
     ]
-    .join("\n");
+    .join('\n');
 
     /* eslint-disable no-multi-spaces */
     common.trackParserTest(t, input, [
-        {position: 1, name: "Forgotten Child", formattedLength: "3:39"},
-        {position: 2, name: "Dirty Looks",     formattedLength: "4:34"},
-        {position: 3, name: "Private Life",    formattedLength: "3:29"},
-        {position: 4, name: "Never Can Wait",  formattedLength: "3:24"},
+        {position: 1, name: 'Forgotten Child', formattedLength: '3:39'},
+        {position: 2, name: 'Dirty Looks',     formattedLength: '4:34'},
+        {position: 3, name: 'Private Life',    formattedLength: '3:29'},
+        {position: 4, name: 'Never Can Wait',  formattedLength: '3:24'},
     ]);
     /* eslint-enable no-multi-spaces */
 });
 
-parserTest("numbers at the end of track names being wrongly interpreted as durations (MBS-2511, MBS-2902)", function (t) {
+parserTest('numbers at the end of track names being wrongly interpreted as durations (MBS-2511, MBS-2902)', function (t) {
     t.plan(1);
 
     Object.assign(trackParser.options, {
@@ -100,14 +100,14 @@ parserTest("numbers at the end of track names being wrongly interpreted as durat
     });
 
     var input = [
-        "1. Criminology 2.5",
-        "2. Love On A .45",
+        '1. Criminology 2.5',
+        '2. Love On A .45',
     ]
-    .join("\n");
+    .join('\n');
 
     common.trackParserTest(t, input, [
-        {position: 1, name: "Criminology 2.5", formattedLength: ""},
-        {position: 2, name: "Love On A .45", formattedLength: ""},
+        {position: 1, name: 'Criminology 2.5', formattedLength: ''},
+        {position: 2, name: 'Love On A .45', formattedLength: ''},
     ]);
 });
 
@@ -121,22 +121,22 @@ parserTest("ignoring lines that don't start with a number when the option is set
         useTrackLengths: true,
     });
 
-    var input = "\
+    var input = '\
         1 Freeman Hardy & Willis Acid\n\n\
            Written-By – James*, Jenkinson* \n\n\
         5:42\n\
         2 Orange Romeda\n\n\
         Written-By – Eoin*, Sandison* \n\n\
         4:51 \n\
-    ";
+    ';
 
     common.trackParserTest(t, input, [
-        {position: 1, name: "Freeman Hardy & Willis Acid", formattedLength: ""},
-        {position: 2, name: "Orange Romeda", formattedLength: ""},
+        {position: 1, name: 'Freeman Hardy & Willis Acid', formattedLength: ''},
+        {position: 2, name: 'Orange Romeda', formattedLength: ''},
     ]);
 });
 
-parserTest("XX:XX:XX track times (MBS-3353)", function (t) {
+parserTest('XX:XX:XX track times (MBS-3353)', function (t) {
     t.plan(1);
 
     Object.assign(trackParser.options, {
@@ -146,14 +146,14 @@ parserTest("XX:XX:XX track times (MBS-3353)", function (t) {
         useTrackLengths: true,
     });
 
-    var input = "1. Love On A .45  05:22:31";
+    var input = '1. Love On A .45  05:22:31';
 
     common.trackParserTest(t, input, [
-        {position: 1, name: "Love On A .45", formattedLength: "5:22:31"},
+        {position: 1, name: 'Love On A .45', formattedLength: '5:22:31'},
     ]);
 });
 
-parserTest("internal track positions are updated appropriately after being reused", function (t) {
+parserTest('internal track positions are updated appropriately after being reused', function (t) {
     t.plan(2);
 
     Object.assign(trackParser.options, {
@@ -171,17 +171,17 @@ parserTest("internal track positions are updated appropriately after being reuse
     medium.cdtocs = [];
     medium.toc(null);
 
-    var input = trackParser.mediumToString(medium).split('\n').reverse().join("\n");
+    var input = trackParser.mediumToString(medium).split('\n').reverse().join('\n');
 
     medium.tracks(trackParser.parse(input, medium));
 
     var tracks = medium.tracks();
 
-    t.equal(tracks[0].position(), 1, "track 1 has position 1");
-    t.equal(tracks[1].position(), 2, "track 2 has position 2");
+    t.equal(tracks[0].position(), 1, 'track 1 has position 1');
+    t.equal(tracks[1].position(), 2, 'track 2 has position 2');
 });
 
-parserTest("MBS-7451: track parser can clear TOC track lengths", function (t) {
+parserTest('MBS-7451: track parser can clear TOC track lengths', function (t) {
     t.plan(1);
 
     var re = releaseEditor;
@@ -190,7 +190,7 @@ parserTest("MBS-7451: track parser can clear TOC track lengths", function (t) {
     var release = releaseEditor.rootField.release();
     var medium = release.mediums()[0];
 
-    medium.cdtocs = ["1"];
+    medium.cdtocs = ['1'];
 
     trackParser.options.useTrackLengths = true;
 
@@ -205,13 +205,13 @@ parserTest("MBS-7451: track parser can clear TOC track lengths", function (t) {
     var tracks = medium.tracks();
 
     t.deepEqual(
-        _.invokeMap(tracks, "length"),
-        _.map(medium.original().tracklist, "length"),
-        "track lengths are unchanged",
+        _.invokeMap(tracks, 'length'),
+        _.map(medium.original().tracklist, 'length'),
+        'track lengths are unchanged',
     );
 });
 
-parserTest("can parse only numbers, titles, artists, or lengths (MBS-3730, MBS-3732)", function (t) {
+parserTest('can parse only numbers, titles, artists, or lengths (MBS-3730, MBS-3732)', function (t) {
     t.plan(16);
 
     Object.assign(trackParser.options, {
@@ -224,9 +224,9 @@ parserTest("can parse only numbers, titles, artists, or lengths (MBS-3730, MBS-3
     var release = new fields.Release({
         mediums: [{
             tracks: [{
-                number: "1",
-                name: "foo",
-                artistCredit: {names: [{name: "bar"}]},
+                number: '1',
+                name: 'foo',
+                artistCredit: {names: [{name: 'bar'}]},
                 length: 180000,
             }],
         }],
@@ -236,13 +236,13 @@ parserTest("can parse only numbers, titles, artists, or lengths (MBS-3730, MBS-3
 
     // Parse only numbers
     var medium = release.mediums()[0];
-    medium.tracks(trackParser.parse("A1. FOO! - BAR! (2:55)", medium));
+    medium.tracks(trackParser.parse('A1. FOO! - BAR! (2:55)', medium));
 
     var track = medium.tracks()[0];
-    t.equal(track.number(), "A1", "number was used");
-    t.equal(track.name(), "foo", "name was not used");
-    t.equal(reduceArtistCredit(track.artistCredit()), "bar", "artist was not used");
-    t.equal(track.formattedLength(), "3:00", "length was not used");
+    t.equal(track.number(), 'A1', 'number was used');
+    t.equal(track.name(), 'foo', 'name was not used');
+    t.equal(reduceArtistCredit(track.artistCredit()), 'bar', 'artist was not used');
+    t.equal(track.formattedLength(), '3:00', 'length was not used');
 
     // Parse only titles
     Object.assign(trackParser.options, {
@@ -250,13 +250,13 @@ parserTest("can parse only numbers, titles, artists, or lengths (MBS-3730, MBS-3
         useTrackNames: true,
     });
 
-    medium.tracks(trackParser.parse("B1. FOO! - BAR! (2:55)", medium));
+    medium.tracks(trackParser.parse('B1. FOO! - BAR! (2:55)', medium));
 
     track = medium.tracks()[0];
-    t.equal(track.number(), "A1", "number was not used");
-    t.equal(track.name(), "FOO!", "name was used");
-    t.equal(reduceArtistCredit(track.artistCredit()), "bar", "artist was not used");
-    t.equal(track.formattedLength(), "3:00", "length was not used");
+    t.equal(track.number(), 'A1', 'number was not used');
+    t.equal(track.name(), 'FOO!', 'name was used');
+    t.equal(reduceArtistCredit(track.artistCredit()), 'bar', 'artist was not used');
+    t.equal(track.formattedLength(), '3:00', 'length was not used');
 
     // Parse only artists
     Object.assign(trackParser.options, {
@@ -264,13 +264,13 @@ parserTest("can parse only numbers, titles, artists, or lengths (MBS-3730, MBS-3
         useTrackArtists: true,
     });
 
-    medium.tracks(trackParser.parse("B1. oof - BAR! (2:55)", medium));
+    medium.tracks(trackParser.parse('B1. oof - BAR! (2:55)', medium));
 
     track = medium.tracks()[0];
-    t.equal(track.number(), "A1", "number was not used");
-    t.equal(track.name(), "FOO!", "name was not used");
-    t.equal(reduceArtistCredit(track.artistCredit()), "BAR!", "artist was used");
-    t.equal(track.formattedLength(), "3:00", "length was not used");
+    t.equal(track.number(), 'A1', 'number was not used');
+    t.equal(track.name(), 'FOO!', 'name was not used');
+    t.equal(reduceArtistCredit(track.artistCredit()), 'BAR!', 'artist was used');
+    t.equal(track.formattedLength(), '3:00', 'length was not used');
 
     // Parse only lengths
     Object.assign(trackParser.options, {
@@ -278,16 +278,16 @@ parserTest("can parse only numbers, titles, artists, or lengths (MBS-3730, MBS-3
         useTrackLengths: true,
     });
 
-    medium.tracks(trackParser.parse("B1. oof - rab (2:55)", medium));
+    medium.tracks(trackParser.parse('B1. oof - rab (2:55)', medium));
 
     track = medium.tracks()[0];
-    t.equal(track.number(), "A1", "number was not used");
-    t.equal(track.name(), "FOO!", "name was not used");
-    t.equal(reduceArtistCredit(track.artistCredit()), "BAR!", "artist was not used");
-    t.equal(track.formattedLength(), "2:55", "length was used");
+    t.equal(track.number(), 'A1', 'number was not used');
+    t.equal(track.name(), 'FOO!', 'name was not used');
+    t.equal(reduceArtistCredit(track.artistCredit()), 'BAR!', 'artist was not used');
+    t.equal(track.formattedLength(), '2:55', 'length was used');
 });
 
-parserTest("Does not lose previous recordings (MBS-7719)", function (t) {
+parserTest('Does not lose previous recordings (MBS-7719)', function (t) {
     t.plan(11);
 
     var trackParser = releaseEditor.trackParser;
@@ -340,9 +340,9 @@ parserTest("Does not lose previous recordings (MBS-7719)", function (t) {
 
     medium.tracks(
         trackParser.parse(
-            "1. Completely Different Title\n" +
-            "2. This Track Will Be Moved\n" +
-            "3. Another Completely Different Title",
+            '1. Completely Different Title\n' +
+            '2. This Track Will Be Moved\n' +
+            '3. Another Completely Different Title',
             medium,
         ),
     );
@@ -367,7 +367,7 @@ parserTest("Does not lose previous recordings (MBS-7719)", function (t) {
     t.equal(oldRecordings[2], newRecordings[1], 'third recording is still reused from second track');
 });
 
-parserTest("parsing fullwidth numbers", function (t) {
+parserTest('parsing fullwidth numbers', function (t) {
     t.plan(1);
 
     Object.assign(releaseEditor.trackParser.options, {
@@ -377,10 +377,10 @@ parserTest("parsing fullwidth numbers", function (t) {
         useTrackLengths: true,
     });
 
-    var input = "１ Ｆｏｏ ２：３４";
+    var input = '１ Ｆｏｏ ２：３４';
 
     common.trackParserTest(t, input, [
-        {position: 1, name: "Ｆｏｏ", formattedLength: "2:34"},
+        {position: 1, name: 'Ｆｏｏ', formattedLength: '2:34'},
     ]);
 });
 
@@ -425,7 +425,7 @@ parserTest("parses track times for data tracks if there's a disc ID (MBS-8409)",
     t.equal(tracks[1].length(), 154000, 'length of data track changed');
 });
 
-parserTest("data track boundary is unchanged if the track count is >= the previous one (MBS-8410)", function (t) {
+parserTest('data track boundary is unchanged if the track count is >= the previous one (MBS-8410)', function (t) {
     t.plan(1);
 
     var trackParser = releaseEditor.trackParser;
@@ -461,7 +461,7 @@ parserTest("data track boundary is unchanged if the track count is >= the previo
     );
 });
 
-parserTest("force number of tracks to equal CD TOC", function (t) {
+parserTest('force number of tracks to equal CD TOC', function (t) {
     t.plan(3);
 
     trackParser.options.useTrackNames = true;

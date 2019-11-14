@@ -71,19 +71,19 @@ utils.unformatTrackLength = unformatTrackLength;
 utils.escapeLuceneValue = escapeLuceneValue;
 
 utils.constructLuceneField = function (values, key) {
-    return key + ":(" + values.join(" OR ") + ")";
+    return key + ':(' + values.join(' OR ') + ')';
 }
 
 utils.constructLuceneFieldConjunction = function (params) {
-    return _.map(params, utils.constructLuceneField).join(" AND ");
+    return _.map(params, utils.constructLuceneField).join(' AND ');
 };
 
 
 utils.search = function (resource, query, limit, offset) {
     var requestArgs = {
-        url: "/ws/2/" + resource,
+        url: '/ws/2/' + resource,
         data: {
-            fmt: "json",
+            fmt: 'json',
             query: query,
         },
     };
@@ -104,7 +104,7 @@ utils.reuseExistingMediumData = function (data) {
      * can request them later. We also drop the format, since it'll often
      * be different.
      */
-    var newData = _.omit(data, "id", "cdtocs", "format", "formatID");
+    var newData = _.omit(data, 'id', 'cdtocs', 'format', 'formatID');
 
     if (data.id) newData.originalID = data.id;
 
@@ -120,11 +120,11 @@ utils.cleanWebServiceData = function (data) {
 
     if (data.length) clean.length = data.length;
 
-    if (data["sort-name"]) clean.sort_name = data["sort-name"];
+    if (data['sort-name']) clean.sort_name = data['sort-name'];
 
-    if (data["artist-credit"]) {
+    if (data['artist-credit']) {
         clean.artistCredit = {
-            names: _.map(data["artist-credit"], cleanArtistCreditName),
+            names: _.map(data['artist-credit'], cleanArtistCreditName),
         };
     }
 
@@ -140,11 +140,11 @@ function cleanArtistCreditName(data) {
         artist: {
             gid: data.artist.id,
             name: data.artist.name,
-            sort_name: data.artist["sort-name"],
+            sort_name: data.artist['sort-name'],
             entityType: 'artist',
         },
         name: data.name || data.artist.name,
-        joinPhrase: data.joinphrase || "",
+        joinPhrase: data.joinphrase || '',
     };
 }
 
@@ -191,8 +191,8 @@ function paddedHex(str, length) {
 // The alphabet has been modified and does not conform to RFC822.
 // For an explanation, see http://wiki.musicbrainz.org/Disc_ID_Calculation
 
-var padchar = "-";
-var alpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789._";
+var padchar = '-';
+var alpha = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789._';
 
 function base64(s) {
     var i, b10;
@@ -220,7 +220,7 @@ function base64(s) {
             break;
     }
 
-    return x.join("");
+    return x.join('');
 }
 
 export default utils;

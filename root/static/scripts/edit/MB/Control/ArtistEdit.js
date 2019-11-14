@@ -43,22 +43,22 @@ MB.Control.ArtistEdit = function () {
         switch (self.$type.val()) {
             default:
             case '0':
-                self.changeDateText(l("Began:"), l("Ended:"), l("This artist has ended."));
-                self.changeAreaText(l("Begin area:"), l("End area:"));
+                self.changeDateText(l('Began:'), l('Ended:'), l('This artist has ended.'));
+                self.changeAreaText(l('Begin area:'), l('End area:'));
                 self.enableGender();
                 break;
 
             case '1':
-                self.changeDateText(l("Born:"), l("Died:"), l("This person is deceased."));
-                self.changeAreaText(l("Born in:"), l("Died in:"));
+                self.changeDateText(l('Born:'), l('Died:'), l('This person is deceased.'));
+                self.changeAreaText(l('Born in:'), l('Died in:'));
                 self.enableGender();
                 break;
 
             case '2':
             case '5':
             case '6':
-                self.changeDateText(l("Founded:"), l("Dissolved:"), l("This group has dissolved."));
-                self.changeAreaText(l("Founded in:"), l("Dissolved in:"));
+                self.changeDateText(l('Founded:'), l('Dissolved:'), l('This group has dissolved.'));
+                self.changeAreaText(l('Founded in:'), l('Dissolved in:'));
                 self.disableGender();
                 break;
         }
@@ -67,13 +67,13 @@ MB.Control.ArtistEdit = function () {
     self.enableGender = function () {
         if (self.$gender.prop('disabled')) {
             self.$gender
-               .prop("disabled", false)
+               .prop('disabled', false)
                .val(self.old_gender);
         }
     };
 
     self.disableGender = function () {
-        self.$gender.prop("disabled", true);
+        self.$gender.prop('disabled', true);
         self.old_gender = self.$gender.val();
         self.$gender.val('');
     };
@@ -82,7 +82,7 @@ MB.Control.ArtistEdit = function () {
     self.$type.bind('change.mb', self.typeChanged);
 
     self.initializeArtistCreditPreviews = function (gid) {
-        var artist_re = new RegExp("/artist/" + gid + "$");
+        var artist_re = new RegExp('/artist/' + gid + '$');
         $('span.rename-artist-credit').each(function () {
             var $ac = $(this);
             $ac.find('input').change(function () {
@@ -124,7 +124,7 @@ MB.Control.ArtistEdit = function () {
 
     MB.Control.initialize_guess_case('artist', 'id-edit-artist');
 
-    MB.Control.Area("#area", "#begin_area", "#end_area");
+    MB.Control.Area('#area', '#begin_area', '#end_area');
 
     return self;
 };

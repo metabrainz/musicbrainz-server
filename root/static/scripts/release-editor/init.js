@@ -24,9 +24,9 @@ import utils from './utils';
 import releaseEditor from './viewModel';
 
 Object.assign(releaseEditor, {
-    activeTabID: ko.observable("#information"),
+    activeTabID: ko.observable('#information'),
     activeTabIndex: ko.observable(0),
-    loadError: ko.observable(""),
+    loadError: ko.observable(''),
     loadErrorMessage: function () {
         return texp.l('Error loading release: {error}', {error: releaseEditor.loadError()});
     },
@@ -37,14 +37,14 @@ Object.assign(releaseEditor, {
 releaseEditor.init = function (options) {
     var self = this;
 
-    $.extend(this, _.pick(options, "action", "returnTo", "redirectURI"));
+    $.extend(this, _.pick(options, 'action', 'returnTo', 'redirectURI'));
 
     // Setup guess case buttons for the title field. Do this every time the
     // release changes, since the old fields get removed and the events no
     // longer exist.
     utils.withRelease(function (release) {
         _.defer(function () {
-            MB.Control.initialize_guess_case("release");
+            MB.Control.initialize_guess_case('release');
         });
     });
 
@@ -52,7 +52,7 @@ releaseEditor.init = function (options) {
     // to the document and not #release-editor so that other events can call
     // preventDefault if necessary.
 
-    $(document).on("keydown", "#release-editor :input:not(:button, textarea)",
+    $(document).on('keydown', '#release-editor :input:not(:button, textarea)',
         function (event) {
             if (event.which === 13 && !event.isDefaultPrevented()) {
                 // The _.defer is entirely for <select> elements in Firefox,
@@ -61,12 +61,12 @@ releaseEditor.init = function (options) {
                 // change event is handled, it doesn't seem to even register
                 // (probably because the <select> is hidden by then).
                 _.defer(function () {
-                    self.activeTabID() === "#edit-note" ? self.submitEdits() : self.nextTab();
+                    self.activeTabID() === '#edit-note' ? self.submitEdits() : self.nextTab();
                 });
             }
         });
 
-    var $pageContent = $("#release-editor").tabs({
+    var $pageContent = $('#release-editor').tabs({
 
         beforeActivate: function (event, ui) {
             /*
@@ -89,7 +89,7 @@ releaseEditor.init = function (options) {
             // switched to, we have to trigger its position to update,
             // now that it's visible.
 
-            var $bubble = panel.find("div.bubble:visible:eq(0)");
+            var $bubble = panel.find('div.bubble:visible:eq(0)');
             if ($bubble.length) {
                 let bubbleDoc = $bubble[0].bubbleDoc;
                 bubbleDoc.redraw(true /* stealFocus */);
@@ -99,24 +99,24 @@ releaseEditor.init = function (options) {
         },
     });
 
-    this.uiTabs = $pageContent.data("ui-tabs");
+    this.uiTabs = $pageContent.data('ui-tabs');
     this.tabCount = this.uiTabs.panels.length;
 
-    if (this.action === "add") {
-        $pageContent.tabs("disable", 1);
+    if (this.action === 'add') {
+        $pageContent.tabs('disable', 1);
 
         this.findReleaseDuplicates();
     }
 
     // Initiate tooltip widget (current just used by the recordings tab).
 
-    $pageContent.find(".ui-tabs-nav a").tooltip();
+    $pageContent.find('.ui-tabs-nav a').tooltip();
 
     // Enable or disable the recordings tab depending on whether there are
     // tracks or if the tracks have errors.
 
     utils.withRelease(function (release) {
-        var addingRelease = self.action === "add";
+        var addingRelease = self.action === 'add';
         var tabEnabled = addingRelease ? release.hasTracks() : true;
 
         if (tabEnabled) {
@@ -127,18 +127,18 @@ releaseEditor.init = function (options) {
         }
 
         var tabNumber = addingRelease ? 3 : 2;
-        self.uiTabs[tabEnabled ? "enable" : "disable"](tabNumber);
+        self.uiTabs[tabEnabled ? 'enable' : 'disable'](tabNumber);
 
         // When the tab is enabled, the tooltip is *disabled*
 
         var tooltipEnabled = !tabEnabled;
-        var $tab = self.uiTabs.tabs.eq(tabNumber).find("a");
+        var $tab = self.uiTabs.tabs.eq(tabNumber).find('a');
 
         // XXX Don't disable the tooltip twice.
         // http://bugs.jqueryui.com/ticket/9719
 
-        if ($tab.tooltip("option", "disabled") === tooltipEnabled) {
-            $tab.tooltip(tooltipEnabled ? "enable" : "disable");
+        if ($tab.tooltip('option', 'disabled') === tooltipEnabled) {
+            $tab.tooltip(tooltipEnabled ? 'enable' : 'disable');
         }
     });
 
@@ -150,7 +150,7 @@ releaseEditor.init = function (options) {
         var savedReleaseAC = release.artistCredit.saved;
         var releaseACChanged = !artistCreditsAreEqual(releaseAC, savedReleaseAC);
 
-        if (tabID === "#tracklist" && releaseACChanged) {
+        if (tabID === '#tracklist' && releaseACChanged) {
             if (!hasVariousArtists(releaseAC)) {
                 _.each(release.mediums(), function (medium) {
                     _.each(medium.tracks(), function (track) {
@@ -172,14 +172,14 @@ releaseEditor.init = function (options) {
     utils.withRelease(function (release) {
         var name = clean(release.name());
 
-        if (self.action === "add") {
+        if (self.action === 'add') {
             document.title =
-                name ? hyphenateTitle(name, l("Add Release")) :
-                       l("Add Release");
+                name ? hyphenateTitle(name, l('Add Release')) :
+                       l('Add Release');
         } else {
             document.title =
-                name ? hyphenateTitle(name, l("Edit Release")) :
-                       l("Edit Release");
+                name ? hyphenateTitle(name, l('Edit Release')) :
+                       l('Edit Release');
         }
     });
 
@@ -218,7 +218,7 @@ releaseEditor.init = function (options) {
 
     window.addEventListener('beforeunload', event => {
         if (hasEdits() && !this.rootField.redirecting) {
-            event.returnValue = l("All of your changes will be lost if you leave this page.");
+            event.returnValue = l('All of your changes will be lost if you leave this page.');
             return event.returnValue;
         }
     });
@@ -226,12 +226,12 @@ releaseEditor.init = function (options) {
     // Intialize release data/view model.
 
     this.rootField.missingEditNote = function () {
-        return self.action === "add" && !self.rootField.editNote();
+        return self.action === 'add' && !self.rootField.editNote();
     };
 
     this.seed(options.seed);
 
-    if (this.action === "edit") {
+    if (this.action === 'edit') {
         this.loadRelease(options.gid);
     } else {
         releaseEditor.createExternalLinksEditor(
@@ -249,24 +249,24 @@ releaseEditor.init = function (options) {
     // Fancy!
 
     $(function () {
-        $pageContent.fadeIn("fast", function () { $("#name").focus() });
+        $pageContent.fadeIn('fast', function () { $('#name').focus() });
     });
 };
 
 releaseEditor.loadRelease = function (gid, callback) {
     var args = {
-        url: "/ws/js/release/" + gid,
-        data: {inc: "rels"},
+        url: '/ws/js/release/' + gid,
+        data: {inc: 'rels'},
     };
 
     return request(args, this)
             .done(callback || this.releaseLoaded)
             .fail(function (jqXHR, status, error) {
-                error = jqXHR.status + " (" + error + ")"
+                error = jqXHR.status + ' (' + error + ')'
 
                 // If there wasn't an ISE, the response should parse as JSON.
                 try {
-                    error += ": " + JSON.parse(jqXHR.responseText).error;
+                    error += ': ' + JSON.parse(jqXHR.responseText).error;
                 } catch (e) {}
 
                 this.loadError(error);
@@ -274,7 +274,7 @@ releaseEditor.loadRelease = function (gid, callback) {
 };
 
 releaseEditor.releaseLoaded = function (data) {
-    this.loadError("");
+    this.loadError('');
 
     var seed = this.seededReleaseData;
 
@@ -327,11 +327,11 @@ releaseEditor.createExternalLinksEditor = function (data, mountPoint) {
 };
 
 releaseEditor.autoOpenTheAddDiscDialog = function (release) {
-    var addDiscUI = $(this.addDiscDialog.element).data("ui-dialog");
-    var trackParserUI = $(this.trackParserDialog.element).data("ui-dialog");
+    var addDiscUI = $(this.addDiscDialog.element).data('ui-dialog');
+    var trackParserUI = $(this.trackParserDialog.element).data('ui-dialog');
 
     // Show the dialog if there's no non-empty disc.
-    if (this.activeTabID() === "#tracklist") {
+    if (this.activeTabID() === '#tracklist') {
         var dialogIsOpen = (addDiscUI && addDiscUI.isOpen()) ||
                             (trackParserUI && trackParserUI.isOpen());
 
@@ -348,7 +348,7 @@ releaseEditor.allowsSubmission = function () {
     return (
         !this.submissionInProgress() &&
         !validation.errorsExist() &&
-        (this.action === "edit" || this.rootField.editNote()) &&
+        (this.action === 'edit' || this.rootField.editNote()) &&
         this.allEdits().length > 0
     );
 };

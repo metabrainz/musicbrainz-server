@@ -51,7 +51,7 @@ MB.Form.TextList = function (input) {
             .removeClass(template)
             .insertAfter($template.parent().find('div.text-list-row').last())
             .show()
-            .find('input.value').attr("name", input + '.' + counter).val(init_value)
+            .find('input.value').attr('name', input + '.' + counter).val(init_value)
             .end()
             .find('button.remove-item').bind('click.mb', self.removeEvent);
 

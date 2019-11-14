@@ -36,7 +36,7 @@ MB.GuessCase.Input = function (gc) {
     // ----------------------------------------------------------------------------
     // member variables
     // ---------------------------------------------------------------------------
-    self._source = "";
+    self._source = '';
     self._w = [];
     self._l = 0;
     self._wi = 0;
@@ -49,7 +49,7 @@ MB.GuessCase.Input = function (gc) {
      * Initialise the GcInput object
      **/
     self.init = function (is, w) {
-        self._source = (is || "");
+        self._source = (is || '');
         self._w = (w || []);
         self._l = self._w.length;
         self._wi = 0;
@@ -137,7 +137,7 @@ MB.GuessCase.Input = function (gc) {
      * regular expression or string given
      **/
     self.matchWordAtIndex = function (index, re) {
-        var cw = (self.getWordAtIndex(index) || "");
+        var cw = (self.getWordAtIndex(index) || '');
         var f;
         if (_.isString(re)) {
             f = (re == cw);
@@ -228,10 +228,10 @@ MB.GuessCase.Input = function (gc) {
      * @returns         sets the GLOBAL array of words and puctuation characters
      **/
     self.splitWordsAndPunctuation = function (is) {
-        is = is.replace(/^\s\s*/, ""); // delete leading space
-        is = is.replace(/\s\s*$/, ""); // delete trailing space
-        is = is.replace(/\s\s*/g, " "); // compress whitespace:
-        var chars = is.split("");
+        is = is.replace(/^\s\s*/, ''); // delete leading space
+        is = is.replace(/\s\s*$/, ''); // delete trailing space
+        is = is.replace(/\s\s*/g, ' '); // compress whitespace:
+        var chars = is.split('');
         var splitwords = [];
         var word = [];
         if (!gc.re.SPLITWORDSANDPUNCTUATION) {
@@ -244,14 +244,14 @@ MB.GuessCase.Input = function (gc) {
                 word.push(chars[i]); // greedy match anything except our stop characters
             } else {
                 if (word.length > 0) {
-                    splitwords.push(word.join(""));
+                    splitwords.push(word.join(''));
                 }
                 splitwords.push(chars[i]);
                 word = [];
             }
         }
         if (word.length > 0) {
-            splitwords.push(word.join(""));
+            splitwords.push(word.join(''));
         }
         return splitwords;
     };

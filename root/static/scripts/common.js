@@ -27,29 +27,29 @@ if (DBDefs.DEVELOPMENT_SERVER) {
 
 require('./common/raven');
 
-window.ko = require("knockout");
-window._ = require("lodash");
-window.$ = window.jQuery = require("jquery");
+window.ko = require('knockout');
+window._ = require('lodash');
+window.$ = window.jQuery = require('jquery');
 
-require("../lib/jquery.ui/ui/jquery-ui.custom");
+require('../lib/jquery.ui/ui/jquery-ui.custom');
 
-require("./common/components/Annotation");
-require("./common/components/CommonsImage");
-require("./common/components/FingerprintTable");
-require("./common/components/WikipediaExtract");
-require("./common/i18n");
-require("./common/entity");
-require("./common/MB/Control/Autocomplete");
-require("./common/components/TagEditor");
+require('./common/components/Annotation');
+require('./common/components/CommonsImage');
+require('./common/components/FingerprintTable');
+require('./common/components/WikipediaExtract');
+require('./common/i18n');
+require('./common/entity');
+require('./common/MB/Control/Autocomplete');
+require('./common/components/TagEditor');
 
-import(/* webpackChunkName: "common-artwork-viewer" */ "./common/artworkViewer");
-import(/* webpackChunkName: "common-dialogs" */ "./common/dialogs");
-import(/* webpackChunkName: "common-filter" */ "./common/components/Filter");
-import(/* webpackChunkName: "common-menu" */ "./common/MB/Control/Menu");
-import(/* webpackChunkName: "common-select-all" */ "./common/MB/Control/SelectAll");
-import(/* webpackChunkName: "common-edit-search" */ "./common/MB/edit_search");
-import(/* webpackChunkName: "common-release" */ "./common/MB/release");
-import(/* webpackChunkName: "common-ratings" */ "./common/ratings");
-import(/* webpackChunkName: "common-tagger" */ "./common/tagger");
-import(/* webpackChunkName: "common-cover-art" */ "./common/coverart");
-import(/* webpackChunkName: "common-banner" */ "./common/banner");
+import(/* webpackChunkName: "common-artwork-viewer" */ './common/artworkViewer');
+import(/* webpackChunkName: "common-dialogs" */ './common/dialogs');
+import(/* webpackChunkName: "common-filter" */ './common/components/Filter');
+import(/* webpackChunkName: "common-menu" */ './common/MB/Control/Menu');
+import(/* webpackChunkName: "common-select-all" */ './common/MB/Control/SelectAll');
+import(/* webpackChunkName: "common-edit-search" */ './common/MB/edit_search');
+import(/* webpackChunkName: "common-release" */ './common/MB/release');
+import(/* webpackChunkName: "common-ratings" */ './common/ratings');
+import(/* webpackChunkName: "common-tagger" */ './common/tagger');
+import(/* webpackChunkName: "common-cover-art" */ './common/coverart');
+import(/* webpackChunkName: "common-banner" */ './common/banner');

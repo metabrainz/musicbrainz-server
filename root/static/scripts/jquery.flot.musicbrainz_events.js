@@ -1,8 +1,8 @@
 (function ($) {
     var options = {
         musicbrainzEvents: {
-            selectColor: "rgba(170, 0, 0, 1)",
-            deselectColor: "rgba(170, 0, 0, 0.20)",
+            selectColor: 'rgba(170, 0, 0, 1)',
+            deselectColor: 'rgba(170, 0, 0, 0.20)',
             data: [],
             currentEvent: {},
             enabled: true,
@@ -41,7 +41,7 @@
 
             ctx.strokeStyle = color;
             ctx.lineWidth = 2;
-            ctx.lineJoin = "round";
+            ctx.lineJoin = 'round';
 
             ctx.beginPath();
             ctx.moveTo(x, 0);

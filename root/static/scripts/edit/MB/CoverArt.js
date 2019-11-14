@@ -33,28 +33,28 @@ MB.CoverArt.get_image_mime_type = function () {
 
     if (filename.match(/\.j(peg|pg|pe|fif|if)$/i))
     {
-        mime_type = "image/jpeg";
+        mime_type = 'image/jpeg';
     }
     else if (filename.match(/\.png$/i))
     {
-        mime_type = "image/png";
+        mime_type = 'image/png';
     }
     else if (filename.match(/\.gif$/i))
     {
-        mime_type = "image/gif";
+        mime_type = 'image/gif';
     }
     else if (filename.match(/\.pdf$/i))
     {
-        mime_type = "application/pdf";
+        mime_type = 'application/pdf';
     }
 
     return mime_type;
 };
 
 MB.CoverArt.image_error = function ($img, image) {
-    if ($img.attr("src") !== image.image)
+    if ($img.attr('src') !== image.image)
     {
-        $img.attr("src", image.image)
+        $img.attr('src', image.image)
     }
     else
     {
@@ -62,7 +62,7 @@ MB.CoverArt.image_error = function ($img, image) {
            between requesting the index and loading the image.
            FIXME: start over if this happens?  obviously the
            data in the index is incorrect. */
-        $img.attr("src", require('../../../images/image404-125.png'));
+        $img.attr('src', require('../../../images/image404-125.png'));
     }
 };
 
@@ -165,7 +165,7 @@ MB.CoverArt.upload_status_enum = {
 MB.CoverArt.validate_file = function (file) {
     var deferred = $.Deferred();
     var reader = new window.FileReader();
-    reader.addEventListener("loadend", function () {
+    reader.addEventListener('loadend', function () {
         var uint32view = new Uint32Array(reader.result);
 
         /* JPEG signature is usually FF D8 FF E0 (JFIF), or FF D8 FF E1 (EXIF).
@@ -189,7 +189,7 @@ MB.CoverArt.validate_file = function (file) {
         }
         else
         {
-            deferred.reject("unrecognized image format");
+            deferred.reject('unrecognized image format');
         }
     });
     reader.readAsArrayBuffer(file.slice(0, 4));
@@ -200,7 +200,7 @@ MB.CoverArt.validate_file = function (file) {
 MB.CoverArt.file_data_uri = function (file) {
     var deferred = $.Deferred();
     var reader = new window.FileReader();
-    reader.addEventListener("loadend", function () {
+    reader.addEventListener('loadend', function () {
         deferred.resolve(reader.result);
     });
     reader.readAsDataURL(file);
@@ -212,14 +212,14 @@ MB.CoverArt.sign_upload = function (file, gid, mime_type) {
     var deferred = $.Deferred();
 
     var postfields = $.ajax({
-        url: "/ws/js/cover-art-upload/" + gid,
+        url: '/ws/js/cover-art-upload/' + gid,
         data: {mime_type: mime_type},
-        dataType: "json",
+        dataType: 'json',
         cache: false,
     });
 
     postfields.fail(function (jqxhr, status, error) {
-        deferred.reject("error obtaining signature: " + status + " " + error);
+        deferred.reject('error obtaining signature: ' + status + ' ' + error);
     });
 
     postfields.done(function (data, status, jqxhr) {
@@ -238,17 +238,17 @@ MB.CoverArt.upload_image = function (postfields, file) {
         formdata.append(key, val);
     });
 
-    formdata.append("file", file);
+    formdata.append('file', file);
 
     var xhr = new XMLHttpRequest();
-    xhr.upload.addEventListener("progress", function (event) {
+    xhr.upload.addEventListener('progress', function (event) {
         if (event.lengthComputable)
         {
             deferred.notify(100 * event.loaded / event.total);
         }
     });
 
-    xhr.addEventListener("load", function (event) {
+    xhr.addEventListener('load', function (event) {
         if (xhr.status >= 200 && xhr.status < 210)
         {
             deferred.notify(100);
@@ -256,7 +256,7 @@ MB.CoverArt.upload_image = function (postfields, file) {
         }
         else
         {
-            deferred.reject("error uploading image: " + xhr.status + " " +
+            deferred.reject('error uploading image: ' + xhr.status + ' ' +
                              xhr.responseText, xhr.status);
         }
     });
@@ -268,13 +268,13 @@ MB.CoverArt.upload_image = function (postfields, file) {
            https://bugzilla.mozilla.org/show_bug.cgi?id=884693 */
         xhr.overrideMimeType('text/plain');
     }
-    xhr.addEventListener("error", function (event) {
-        deferred.reject("error uploading image");
+    xhr.addEventListener('error', function (event) {
+        deferred.reject('error uploading image');
     });
-    xhr.addEventListener("abort", function (event) {
-        deferred.reject("image upload aborted");
+    xhr.addEventListener('abort', function (event) {
+        deferred.reject('image upload aborted');
     });
-    xhr.open("POST", postfields.action);
+    xhr.open('POST', postfields.action);
     xhr.send(formdata);
 
     return deferred.promise();
@@ -301,26 +301,26 @@ MB.CoverArt.submit_edit = function (file_upload, postfields, mime_type, position
     });
 
     var xhr = new XMLHttpRequest();
-    xhr.addEventListener("load", function (event) {
+    xhr.addEventListener('load', function (event) {
         if (xhr.status === 200)
         {
             deferred.resolve();
         }
         else
         {
-            deferred.reject("error creating edit: " + xhr.status + " " + xhr.statusText);
+            deferred.reject('error creating edit: ' + xhr.status + ' ' + xhr.statusText);
         }
     });
 
-    xhr.addEventListener("error", function (event) {
-        deferred.reject("unknown error creating edit");
+    xhr.addEventListener('error', function (event) {
+        deferred.reject('unknown error creating edit');
     });
 
-    xhr.addEventListener("abort", function (event) {
-        deferred.reject("create edit aborted");
+    xhr.addEventListener('abort', function (event) {
+        deferred.reject('create edit aborted');
     });
 
-    xhr.open("POST", $('#add-cover-art').attr('action'));
+    xhr.open('POST', $('#add-cover-art').attr('action'));
     xhr.send(formdata);
 
     return deferred.promise();
@@ -332,17 +332,17 @@ MB.CoverArt.FileUpload = function (file) {
 
     self.name = file.name;
     self.size = filesize(file.size, {round: 1, bits: false});
-    self.comment = ko.observable("");
+    self.comment = ko.observable('');
     self.types = MB.CoverArt.cover_art_types();
     self.data = file;
-    self.data_uri_data = ko.observable("");
-    self.mime_type = ko.observable("");
+    self.data_uri_data = ko.observable('');
+    self.mime_type = ko.observable('');
 
     self.data_uri = ko.computed(function () {
-        if (self.mime_type() == "" || self.data_uri_data() == "") {
-            return "";
-        } else if (self.mime_type() == "application/pdf") {
-            return "/static/images/icons/pdf-icon.png";
+        if (self.mime_type() == '' || self.data_uri_data() == '') {
+            return '';
+        } else if (self.mime_type() == 'application/pdf') {
+            return '/static/images/icons/pdf-icon.png';
         }
         return self.data_uri_data();
     });
@@ -511,7 +511,7 @@ MB.CoverArt.set_position = function () {
 };
 
 MB.CoverArt.add_cover_art = function (gid) {
-    if (typeof (window.FormData) !== "undefined" && typeof (window.FileReader) !== 'undefined')
+    if (typeof (window.FormData) !== 'undefined' && typeof (window.FileReader) !== 'undefined')
     {
         File.prototype.slice = File.prototype.webkitSlice || File.prototype.mozSlice || File.prototype.slice;
 

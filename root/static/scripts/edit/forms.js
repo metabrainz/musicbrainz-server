@@ -98,7 +98,7 @@ ko.bindingHandlers.loop = {
 
         if (!ko.isObservable(observableArray) ||
             !observableArray.cacheDiffForKnownOperation) {
-            throw new Error("items must an an observableArray");
+            throw new Error('items must an an observableArray');
         }
 
         var idAttribute = options.id,
@@ -129,7 +129,7 @@ ko.bindingHandlers.loop = {
             for (var i = 0, change, j, node; change = changes[i]; i++) {
                 var status = change.status;
 
-                if (status === "retained") {
+                if (status === 'retained') {
                     continue;
                 }
 
@@ -139,7 +139,7 @@ ko.bindingHandlers.loop = {
                     nextItem = items[change.index + 1],
                     tmpElementContainer;
 
-                if (status === "added") {
+                if (status === 'added') {
                     if (change.moved === undefined) {
                         var newContext = bindingContext.createChildContext(item);
 
@@ -147,7 +147,7 @@ ko.bindingHandlers.loop = {
                             // Would simplify things to use a documentFragment,
                             // but knockout doesn't support them.
                             // https://github.com/knockout/knockout/pull/1432
-                            tmpElementContainer = document.createElement("div");
+                            tmpElementContainer = document.createElement('div');
 
                             for (j = 0; node = template[j]; j++) {
                                 tmpElementContainer.appendChild(node.cloneNode(true));
@@ -159,7 +159,7 @@ ko.bindingHandlers.loop = {
                             tmpElementContainer = null;
                         }
                     }
-                } else if (status === "deleted") {
+                } else if (status === 'deleted') {
                     if (change.moved === undefined) {
                         for (j = 0; node = currentElements[j]; j++) {
                             // If the node is already removed for some unknown
@@ -236,7 +236,7 @@ ko.bindingHandlers.loop = {
             }
         }
 
-        var changeSubscription = observableArray.subscribe(update, null, "arrayChange");
+        var changeSubscription = observableArray.subscribe(update, null, 'arrayChange');
 
         function nodeDisposal() {
             ko.utils.domNodeDisposal.removeDisposeCallback(parentNode, nodeDisposal);
@@ -246,7 +246,7 @@ ko.bindingHandlers.loop = {
         ko.utils.domNodeDisposal.addDisposeCallback(parentNode, nodeDisposal);
 
         update(_.map(observableArray.peek(), function (value, index) {
-            return {status: "added", value: value, index: index};
+            return {status: 'added', value: value, index: index};
         }));
 
         return {controlsDescendantBindings: true};
@@ -284,10 +284,10 @@ ko.bindingHandlers.withLabel = {
 
     update: function (element, valueAccessor, allBindings,
                       viewModel, bindingContext) {
-        var name = valueAccessor() + "-" + bindingContext.$index();
+        var name = valueAccessor() + '-' + bindingContext.$index();
 
-        $(element).attr("id", name)
-            .parents("td").prev("td").find("label").attr("for", name);
+        $(element).attr('id', name)
+            .parents('td').prev('td').find('label').attr('for', name);
     },
 };
 

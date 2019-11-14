@@ -63,7 +63,7 @@ function getResponse(requestBody, context) {
    */
   const gettext = require('./gettext');
   const bcp47Locale = getRequestCookie(context.req, 'lang') || 'en';
-  gettext.setLocale(bcp47Locale.replace("-", "_"));
+  gettext.setLocale(bcp47Locale.replace('-', '_'));
 
   const componentPath = String(requestBody.component).replace(jsExt, '');
   const componentModule = components[componentPath];

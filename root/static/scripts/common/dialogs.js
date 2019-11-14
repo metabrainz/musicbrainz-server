@@ -8,11 +8,11 @@ import _ from 'lodash';
 
 import MB from './MB';
 
-    $.widget("mb.iframeDialog", $.ui.dialog, {
+    $.widget('mb.iframeDialog', $.ui.dialog, {
 
         options: {
             width: 800,
-            title: l("Loading..."),
+            title: l('Loading...'),
             resizable: false,
         },
 
@@ -20,14 +20,14 @@ import MB from './MB';
             this._super();
             var path = encodeURIComponent(this.options.path);
 
-            this.$loading = $("<div>").addClass("content-loading");
+            this.$loading = $('<div>').addClass('content-loading');
 
-            this.$iframe = $("<iframe>")
-                .on("load", _.bind(this._onLoad, this))
-                .attr("src", "/dialog?path=" + path);
+            this.$iframe = $('<iframe>')
+                .on('load', _.bind(this._onLoad, this))
+                .attr('src', '/dialog?path=' + path);
 
             this.element
-                .addClass("iframe-dialog")
+                .addClass('iframe-dialog')
                 .append(this.$loading, this.$iframe);
         },
 
@@ -58,7 +58,7 @@ import MB from './MB';
 
             this._setOptions({
                 title: this.options.title,
-                position: {my: "center", at: "center", of: window},
+                position: {my: 'center', at: 'center', of: window},
             });
         },
 
@@ -73,10 +73,10 @@ import MB from './MB';
     });
 
 
-    $.widget("mb.createEntityDialog", $.mb.iframeDialog, {
+    $.widget('mb.createEntityDialog', $.mb.iframeDialog, {
 
         _create: function () {
-            this.options.path = "/" + this.options.entity + "/create";
+            this.options.path = '/' + this.options.entity + '/create';
             this._super();
         },
 
@@ -94,7 +94,7 @@ import MB from './MB';
 
             if (this.options.name) {
                 var self = this,
-                    nameField = "#id-edit-" + entity.replace("_", "-") + "\\.name";
+                    nameField = '#id-edit-' + entity.replace('_', '-') + '\\.name';
 
                 // Must use contentWindow's jQuery handle or this won't work.
                 contentWindow.$(function () {
@@ -114,7 +114,7 @@ import MB from './MB';
     // side-effects.
 
     $(function () {
-        $("body").on("click", ".ui-dialog", function (event) {
+        $('body').on('click', '.ui-dialog', function (event) {
             event.stopPropagation();
         });
     });

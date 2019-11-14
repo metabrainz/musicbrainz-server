@@ -96,7 +96,7 @@ MB.GuessCase.Handler.Artist = function (gc) {
         return self.sortCompoundName(is, function (artist) {
             if (artist) {
                 artist = utils.trim(artist);
-                var append = "";
+                var append = '';
 
                 // strip Jr./Sr. from the string, and append at the end.
                 if (!gc.re.SORTNAME_SR) {
@@ -105,13 +105,13 @@ MB.GuessCase.Handler.Artist = function (gc) {
                 }
 
                 if (artist.match(gc.re.SORTNAME_SR)) {
-                    artist = artist.replace(gc.re.SORTNAME_SR, "");
-                    append = ", Sr.";
+                    artist = artist.replace(gc.re.SORTNAME_SR, '');
+                    append = ', Sr.';
                 } else if (artist.match(gc.re.SORTNAME_JR)) {
-                    artist = artist.replace(gc.re.SORTNAME_JR, "");
-                    append = ", Jr.";
+                    artist = artist.replace(gc.re.SORTNAME_JR, '');
+                    append = ', Jr.';
                 }
-                var names = artist.split(" ");
+                var names = artist.split(' ');
 
                 // handle some special cases, like DJ, The, Los which
                 // are sorted at the end.
@@ -124,16 +124,16 @@ MB.GuessCase.Handler.Artist = function (gc) {
                 }
                 var firstName = names[0];
                 if (firstName.match(gc.re.SORTNAME_DJ)) {
-                    append = (", DJ" + append); // handle DJ xyz -> xyz, DJ
+                    append = (', DJ' + append); // handle DJ xyz -> xyz, DJ
                     names[0] = null;
                 } else if (firstName.match(gc.re.SORTNAME_THE)) {
-                    append = (", The" + append); // handle The xyz -> xyz, The
+                    append = (', The' + append); // handle The xyz -> xyz, The
                     names[0] = null;
                 } else if (firstName.match(gc.re.SORTNAME_LOS)) {
-                    append = (", Los" + append); // handle Los xyz -> xyz, Los
+                    append = (', Los' + append); // handle Los xyz -> xyz, Los
                     names[0] = null;
                 } else if (firstName.match(gc.re.SORTNAME_DR)) {
-                    append = (", Dr." + append); // handle Dr. xyz -> xyz, Dr.
+                    append = (', Dr.' + append); // handle Dr. xyz -> xyz, Dr.
                     names[0] = null;
                     reorder = true; // reorder doctors.
                 } else {
@@ -151,8 +151,8 @@ MB.GuessCase.Handler.Artist = function (gc) {
                     if (names.length > 1) {
                         for (i = 0; i < names.length-1; i++) {
                             // >> firstnames,middlenames one pos right
-                            if (i == names.length-2 && names[i] == "St.") {
-                                names[i+1] = names[i] + " " + names[i+1];
+                            if (i == names.length-2 && names[i] == 'St.') {
+                                names[i+1] = names[i] + ' ' + names[i+1];
                             // handle St. because it belongs
                             // to the lastname
                             } else if (names[i]) {
@@ -163,13 +163,13 @@ MB.GuessCase.Handler.Artist = function (gc) {
                         if (reOrderedNames.length > 1) {
                             // only append comma if there was more than 1
                             // non-empty word (and therefore switched)
-                            reOrderedNames[0] += ",";
+                            reOrderedNames[0] += ',';
                         }
                         names = reOrderedNames;
                     }
                 }
 
-                return utils.trim(_.compact(names).join(" ") + (append || ""));
+                return utils.trim(_.compact(names).join(' ') + (append || ''));
             }
         });
     };

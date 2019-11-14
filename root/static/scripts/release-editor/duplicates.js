@@ -20,7 +20,7 @@ var releaseGroupReleases = ko.observableArray([]);
 
 
 releaseEditor.similarReleases = ko.observableArray([]);
-releaseEditor.baseRelease = ko.observable("");
+releaseEditor.baseRelease = ko.observable('');
 
 
 releaseEditor.baseRelease.subscribe(function (gid) {
@@ -77,7 +77,7 @@ releaseEditor.findReleaseDuplicates = function () {
 
         if (rgReleases.length > 0) {
             releaseEditor.similarReleases(rgReleases);
-            $("#release-editor").tabs("enable", 1);
+            $('#release-editor').tabs('enable', 1);
             return;
         }
 
@@ -97,7 +97,7 @@ releaseEditor.findReleaseDuplicates = function () {
 
         toggleLoadingIndicator(true);
 
-        utils.search("release", query, 10).done(gotResults);
+        utils.search('release', query, 10).done(gotResults);
     }));
 };
 
@@ -110,9 +110,9 @@ function gotResults(data) {
     if (releases.length > 0) {
         releaseEditor.similarReleases(_.map(releases, formatReleaseData));
 
-        $("#release-editor").tabs("enable", 1);
+        $('#release-editor').tabs('enable', 1);
     } else {
-        $("#release-editor").tabs("disable", 1);
+        $('#release-editor').tabs('disable', 1);
     }
 
     toggleLoadingIndicator(false);
@@ -120,8 +120,8 @@ function gotResults(data) {
 
 
 function toggleLoadingIndicator(show) {
-    $("#release-editor").data("ui-tabs")
-        .tabs.eq(1).toggleClass("loading-tab", show);
+    $('#release-editor').data('ui-tabs')
+        .tabs.eq(1).toggleClass('loading-tab', show);
 }
 
 
@@ -131,38 +131,38 @@ function pluck(chain, name) { return chain.map(name).compact() }
 function formatReleaseData(release) {
     var clean = new MB.entity.Release(utils.cleanWebServiceData(release));
 
-    var events = _(release["release-events"]);
-    var labels = _(release["label-info"]);
+    var events = _(release['release-events']);
+    var labels = _(release['label-info']);
 
     clean.formats = combinedMediumFormatName(release.media);
-    clean.tracks = _.map(release.media, "track-count").join(" + ");
+    clean.tracks = _.map(release.media, 'track-count').join(' + ');
 
-    clean.dates = pluck(events, "date").value();
+    clean.dates = pluck(events, 'date').value();
 
-    clean.countries = pluck(events, "area")
-        .map("iso-3166-1-codes")
+    clean.countries = pluck(events, 'area')
+        .map('iso-3166-1-codes')
         .flatten().compact().uniq().value();
 
-    clean.labels = pluck(labels, "label").map(function (info) {
+    clean.labels = pluck(labels, 'label').map(function (info) {
         return new MB.entity.Label({gid: info.id, name: info.name});
     }).value();
 
-    clean.catalogNumbers = pluck(labels, "catalog-number").value();
+    clean.catalogNumbers = pluck(labels, 'catalog-number').value();
 
-    clean.barcode = release.barcode || "";
+    clean.barcode = release.barcode || '';
 
     return clean;
 }
 
 
 function combinedMediumFormatName(mediums) {
-    var formats = pluck(_(mediums), "format");
+    var formats = pluck(_(mediums), 'format');
     var formatCounts = formats.countBy(_.identity);
 
     return formats.uniq().map(function (format) {
         var count = formatCounts[format];
 
-        return (count > 1 ? count + "\u00D7" : "") + format;
+        return (count > 1 ? count + '\u00D7' : '') + format;
     })
-    .value().join(" + ");
+    .value().join(' + ');
 }

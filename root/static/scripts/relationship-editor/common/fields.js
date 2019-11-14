@@ -47,8 +47,8 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
             this.entities.equalityComparer = entitiesComparer;
             this.entities.saved = this.entities.peek().slice(0);
             this.entities.subscribe(this.entitiesChanged, this);
-            this.entityTypes = _(data.entities).map("entityType").join("-");
-            this.uniqueID = this.entityTypes + "-" + (this.id || _.uniqueId("new-"));
+            this.entityTypes = _(data.entities).map('entityType').join('-');
+            this.uniqueID = this.entityTypes + '-' + (this.id || _.uniqueId('new-'));
 
             this.entity0_credit = ko.observable(data.entity0_credit || '');
             this.entity1_credit = ko.observable(data.entity1_credit || '');
@@ -154,7 +154,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
             this.setAttributes(data.attributes);
             this.linkOrder(data.linkOrder || 0);
 
-            _.has(data, "removed") && this.removed(!!data.removed);
+            _.has(data, 'removed') && this.removed(!!data.removed);
         }
 
         target(source) {
@@ -163,7 +163,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
             if (source === entities[0]) return entities[1];
             if (source === entities[1]) return entities[0];
 
-            throw new Error("The given entity is not used by this relationship");
+            throw new Error('The given entity is not used by this relationship');
         }
 
         linkTypeIDChanged() {
@@ -248,8 +248,8 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
             if (containedBy0 && !containedBy1) relationships1.push(this);
             if (containedBy1 && !containedBy0) relationships0.push(this);
 
-            if (entity0.entityType === "recording"
-                && entity1.entityType === "work"
+            if (entity0.entityType === 'recording'
+                && entity1.entityType === 'work'
                 && saved1 !== entity1 && entity1.gid) {
                 this.loadWorkRelationships(entity1);
             }
@@ -258,7 +258,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
         }
 
         loadWorkRelationships(work) {
-            var args = {url: "/ws/js/entity/" + work.gid + "?inc=rels"};
+            var args = {url: '/ws/js/entity/' + work.gid + '?inc=rels'};
 
             request(args).done(function (data) {
                 work.parseRelationships(data.relationships);
@@ -266,7 +266,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
         }
 
         clone() {
-            var clone = new fields.Relationship(_.omit(this.editData(), "id"));
+            var clone = new fields.Relationship(_.omit(this.editData(), 'id'));
             clone.parent = this.parent;
             return clone;
         }
@@ -279,7 +279,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
             entities[0].relationships.remove(this);
             entities[1].relationships.remove(this);
 
-            delete this.parent.cache[this.entityTypes + "-" + this.id];
+            delete this.parent.cache[this.entityTypes + '-' + this.id];
             this.removed(true);
         }
 
@@ -320,11 +320,11 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
                 });
 
                 if (values.length < min) {
-                    return l("This attribute is required.");
+                    return l('This attribute is required.');
                 }
             }
 
-            return "";
+            return '';
         }
 
         attributeLabel(attribute) {
@@ -383,7 +383,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
             }
 
             if (!numberAttribute) {
-                return "";
+                return '';
             }
 
             var parts = _.compact(numberAttribute.textValue().split(/(\d+)/)),
@@ -391,11 +391,11 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
 
             for (var i = 0, part; part = parts[i]; i++) {
                 if (integerRegex.test(part)) {
-                    parts[i] = _.padStart(part, 10, "0");
+                    parts[i] = _.padStart(part, 10, '0');
                 }
             }
 
-            return parts.join("");
+            return parts.join('');
         }
 
         entityIsOrdered(entity) {
@@ -425,7 +425,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
 
             var target = this.target(entity);
 
-            if (target.entityType === "series") {
+            if (target.entityType === 'series') {
                 return +target.orderingTypeID() !== SERIES_ORDERING_TYPE_AUTOMATIC;
             }
 
@@ -521,11 +521,11 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
         var type = this.type = linkedEntities.link_attribute_type[data.type.gid];
 
         if (type.creditable) {
-            this.creditedAs = ko.observable(ko.unwrap(data.credited_as) || "");
+            this.creditedAs = ko.observable(ko.unwrap(data.credited_as) || '');
         }
 
         if (type.free_text) {
-            this.textValue = ko.observable(ko.unwrap(data.text_value) || "");
+            this.textValue = ko.observable(ko.unwrap(data.text_value) || '');
         }
     };
 
@@ -533,10 +533,10 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
         var type = this.type;
 
         if (type.creditable) {
-            return type.gid + "\0" + clean(this.creditedAs());
+            return type.gid + '\0' + clean(this.creditedAs());
         }
         if (type.free_text) {
-            return type.gid + "\0" + clean(this.textValue());
+            return type.gid + '\0' + clean(this.textValue());
         }
         return type.gid;
     };
@@ -581,7 +581,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
     function linkTypeComparer(a, b) { return a != b }
 
     function setPartialDate(target, data) {
-        _.each(["year", "month", "day"], function (key) {
+        _.each(['year', 'month', 'day'], function (key) {
             (target[key] = target[key] || ko.observable())(ko.unwrap(data[key]) || null);
         });
         return target;

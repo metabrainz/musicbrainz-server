@@ -73,7 +73,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
         MB.allowedRelations = {};
 
         _(typeInfo).keys().each(function (typeString) {
-            var types = typeString.split("-");
+            var types = typeString.split('-');
             var type0 = types[0];
             var type1 = types[1];
 
@@ -100,7 +100,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
 export class ViewModel {
         constructor(options) {
             this.source = options.source;
-            this.uniqueID = _.uniqueId("relationship-editor-");
+            this.uniqueID = _.uniqueId('relationship-editor-');
             this.cache = {};
         }
 
@@ -124,7 +124,7 @@ export class ViewModel {
         _sortedRelationships(relationships, source) {
             return relationships
                 .sortBy(function (r) { return r.lowerCaseTargetName(source) })
-                .sortBy("linkOrder");
+                .sortBy('linkOrder');
         }
 
         addAnotherEntityLabel(group, entity) {
@@ -153,7 +153,7 @@ MB.initRelationshipEditors = function (args) {
     var sourceData = args.sourceData;
 
     // XXX used by series edit form
-    sourceData.gid = sourceData.gid || _.uniqueId("tmp-");
+    sourceData.gid = sourceData.gid || _.uniqueId('tmp-');
     sourceData.uniqueID = sourceData.id || 'source';
     MB.sourceEntityGID = sourceData.gid;
     MB.sourceEntity = MB.entity(sourceData);
@@ -184,7 +184,7 @@ MB.initRelationshipEditors = function (args) {
         addRelationshipsFromQueryString(source);
     }
 
-    var $content = $("#relationship-editor");
+    var $content = $('#relationship-editor');
     ko.applyBindings(MB.sourceRelationshipEditor, $content[0]);
     $content.show();
 };
@@ -197,7 +197,7 @@ MB.getRelationship = function (data, source) {
     var backward = source.entityType > target.entityType;
 
     if (source.entityType === target.entityType) {
-        backward = (data.direction === "backward");
+        backward = (data.direction === 'backward');
     }
 
     data.entities = backward ? [target, source] : [source, target];
@@ -206,7 +206,7 @@ MB.getRelationship = function (data, source) {
 
     if (viewModel) {
         if (data.id) {
-            var cacheKey = _.map(data.entities, "entityType").concat(data.id).join("-");
+            var cacheKey = _.map(data.entities, 'entityType').concat(data.id).join('-');
             var cached = viewModel.cache[cacheKey];
 
             if (cached) {

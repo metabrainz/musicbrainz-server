@@ -6,7 +6,7 @@ $(function () {
         if (window.opera) {
             var iframe = document.createElement('iframe');
             iframe.src = this.href;
-            iframe.style.display = "none";
+            iframe.style.display = 'none';
             $('body').append(iframe);
         }
         else {

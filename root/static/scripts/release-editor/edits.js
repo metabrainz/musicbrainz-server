@@ -57,7 +57,7 @@ releaseEditor.edits = {
             if (dataChanged) {
                 return [MB.edit.releaseGroupEdit(editData, origData)];
             }
-        } else if (releaseEditor.action === "add") {
+        } else if (releaseEditor.action === 'add') {
             editData.name = clean(releaseGroup.name) || releaseName;
             editData.artist_credit = MB.edit.fields.artistCredit(releaseAC);
             return [MB.edit.releaseGroupCreate(editData)];
@@ -99,8 +99,8 @@ releaseEditor.edits = {
         var newLabels = _.map(newReleaseLabels(), MB.edit.fields.releaseLabel);
         var oldLabels = release.labels.original();
 
-        var newLabelsByID = _.keyBy(newLabels, "release_label");
-        var oldLabelsByID = _.keyBy(oldLabels, "release_label");
+        var newLabelsByID = _.keyBy(newLabels, 'release_label');
+        var oldLabelsByID = _.keyBy(oldLabels, 'release_label');
 
         var edits = [];
 
@@ -131,7 +131,7 @@ releaseEditor.edits = {
 
             if (!newLabel || !(newLabel.label || newLabel.catalog_number)) {
                 // Delete ReleaseLabel
-                oldLabel = _.omit(oldLabel, "label", "catalog_number");
+                oldLabel = _.omit(oldLabel, 'label', 'catalog_number');
                 edits.push(MB.edit.releaseDeleteReleaseLabel(oldLabel));
             }
         });
@@ -153,7 +153,7 @@ releaseEditor.edits = {
         });
 
         var newMediums = release.mediums();
-        var newPositions = _.invokeMap(newMediums, "position");
+        var newPositions = _.invokeMap(newMediums, 'position');
         var tmpPositions = [];
 
         _.each(newMediums, function (medium) {
@@ -188,8 +188,8 @@ releaseEditor.edits = {
             newMediumData = _.cloneDeep(newMediumData);
 
             if (medium.id) {
-                var newNoPosition = _.omit(newMediumData, "position");
-                var oldNoPosition = _.omit(oldMediumData, "position");
+                var newNoPosition = _.omit(newMediumData, 'position');
+                var oldNoPosition = _.omit(oldMediumData, 'position');
 
                 if (!_.isEqual(newNoPosition, oldNoPosition)) {
                     newNoPosition.to_edit = medium.id;
@@ -485,15 +485,15 @@ function chainEditSubmissions(release, submissions) {
             root.redirecting = true;
 
             if (releaseEditor.redirectURI) {
-                var a = document.createElement("a");
+                var a = document.createElement('a');
                 a.href = releaseEditor.redirectURI;
 
-                a.search += /^\?/.test(a.search) ? "&" : "?";
-                a.search += "release_mbid=" + release.gid();
+                a.search += /^\?/.test(a.search) ? '&' : '?';
+                a.search += 'release_mbid=' + release.gid();
 
                 window.location.href = a.href;
             } else {
-                window.location.pathname = "/release/" + release.gid();
+                window.location.pathname = '/release/' + release.gid();
             }
             return;
         }
@@ -536,11 +536,11 @@ function submissionErrorOccurred(data) {
             if (error.message) {
                 error = error.message;
             } else {
-                error = _.escape(data.statusText + ": " + data.status);
+                error = _.escape(data.statusText + ': ' + data.status);
             }
         }
     } catch (e) {
-        error = _.escape(data.statusText + ": " + data.status);
+        error = _.escape(data.statusText + ': ' + data.status);
     }
 
     releaseEditor.submissionError(error);
@@ -598,12 +598,12 @@ releaseEditor.orderedEditSubmissions = [
         edits: releaseEditor.edits.medium,
 
         callback: function (release, edits) {
-            var added = _(edits).map("entity").compact()
-                                .keyBy("position").value();
+            var added = _(edits).map('entity').compact()
+                                .keyBy('position').value();
 
             var newMediums = release.mediums();
 
-            _(newMediums).reject("id").each(function (medium) {
+            _(newMediums).reject('id').each(function (medium) {
                 var addedData = added[medium.tmpPosition || medium.position()];
 
                 if (addedData) {

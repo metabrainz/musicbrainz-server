@@ -14,29 +14,29 @@ import deferFocus from '../../edit/utility/deferFocus';
     class Multiselect {
         constructor(params, $element) {
             this.$element = $element;
-            this.$menu = $element.find("div.menu").data("multiselect", this);
-            this.$items = $element.find("div.items");
+            this.$menu = $element.find('div.menu').data('multiselect', this);
+            this.$items = $element.find('div.items');
 
             var self = this;
 
             this.$menu
-                .on("keydown", $.proxy(this.menuKeydown, this))
-                .on("click", "a", function (event) {
+                .on('keydown', $.proxy(this.menuKeydown, this))
+                .on('click', 'a', function (event) {
                     event.preventDefault();
                     self.select(event.target.optionData);
                 });
 
-            this.$items.on("click", "a", $.proxy(this.deselect, this));
+            this.$items.on('click', 'a', $.proxy(this.deselect, this));
 
-            $element.find(".multiselect-input").on({
+            $element.find('.multiselect-input').on({
                 keydown: $.proxy(this.inputKeydown, this),
                 click: $.proxy(this.inputClick, this),
             });
 
-            this.placeholder = params.placeholder || "";
+            this.placeholder = params.placeholder || '';
             this.relationship = params.relationship;
 
-            this.term = ko.observable("");
+            this.term = ko.observable('');
             this.term.subscribe(this.termChanged, this);
             this.inputHasFocus = ko.observable(false);
 
@@ -47,9 +47,9 @@ import deferFocus from '../../edit/utility/deferFocus';
             var optionNodes = [];
 
             for (var i = 0, node, option; option = options[i]; i++) {
-                node = document.createElement("a")
-                node.href = "#";
-                node.style.paddingLeft = option.depth + "em";
+                node = document.createElement('a')
+                node.href = '#';
+                node.style.paddingLeft = option.depth + 'em';
                 node.appendChild(document.createTextNode(option.text));
                 node.optionData = option;
                 optionNodes.push(node);
@@ -74,7 +74,7 @@ import deferFocus from '../../edit/utility/deferFocus';
 
         menuVisibleChanged(visible) {
             if (visible) {
-                this.$menu.css("top", this.$element.outerHeight() + "px");
+                this.$menu.css('top', this.$element.outerHeight() + 'px');
             }
         }
 
@@ -84,7 +84,7 @@ import deferFocus from '../../edit/utility/deferFocus';
             var menu = this.$menu[0];
 
             var previousDisplay = menu.style.display;
-            menu.style.display = "none";
+            menu.style.display = 'none';
 
             var optionNodes = _.filter(this.optionNodes, function (node) {
                 var option = node.optionData;
@@ -95,7 +95,7 @@ import deferFocus from '../../edit/utility/deferFocus';
                     _.findIndex(selected, function (a) { return a.type.gid === typeGID }) < 0
                 );
 
-                node.style.display = visible ? "block" : "none";
+                node.style.display = visible ? 'block' : 'none';
                 return visible;
             });
 
@@ -106,9 +106,9 @@ import deferFocus from '../../edit/utility/deferFocus';
         select(option) {
             this.relationship.addAttribute(option.value);
             this.menuVisible(false);
-            this.term("");
+            this.term('');
             this.inputHasFocus(true);
-            this.updateOptions("");
+            this.updateOptions('');
         }
 
         deselect(event) {
@@ -127,7 +127,7 @@ import deferFocus from '../../edit/utility/deferFocus';
             });
 
             while (node = nodes[++nextIndex]) {
-                if (node.style.display === "block") {
+                if (node.style.display === 'block') {
                     ++nextIndex;
                     break;
                 }
@@ -135,7 +135,7 @@ import deferFocus from '../../edit/utility/deferFocus';
             --nextIndex;
 
             if (nextIndex >= 0) {
-                deferFocus("a:eq(" + nextIndex + ")", this.$items);
+                deferFocus('a:eq(' + nextIndex + ')', this.$items);
             } else {
                 this.inputHasFocus(true);
             }
@@ -193,7 +193,7 @@ import deferFocus from '../../edit/utility/deferFocus';
                     if (menuItemActive) {
                         var nextItem = activeElement.previousSibling;
 
-                        while (nextItem && nextItem.style.display === "none") {
+                        while (nextItem && nextItem.style.display === 'none') {
                             nextItem = nextItem.previousSibling;
                         }
 
@@ -205,7 +205,7 @@ import deferFocus from '../../edit/utility/deferFocus';
                     if (menuItemActive) {
                         var nextItem = activeElement.nextSibling;
 
-                        while (nextItem && nextItem.style.display === "none") {
+                        while (nextItem && nextItem.style.display === 'none') {
                             nextItem = nextItem.nextSibling;
                         }
 
@@ -226,11 +226,11 @@ import deferFocus from '../../edit/utility/deferFocus';
     }
 
 
-    ko.components.register("multiselect", {
+    ko.components.register('multiselect', {
         viewModel: {
             createViewModel: function (params, componentInfo) {
                 return new Multiselect(params, $(componentInfo.element));
             },
         },
-        template: {fromScript: "template.multiselect"},
+        template: {fromScript: 'template.multiselect'},
     });

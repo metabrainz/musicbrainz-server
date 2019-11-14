@@ -438,7 +438,7 @@ class TimelineLine {
             'padding': '2px',
             'background-color': '#fee',
             'opacity': 0.80,
-        }).appendTo("body").fadeIn(200);
+        }).appendTo('body').fadeIn(200);
     }
     var removeTooltip = function () { $('#tooltip').remove(); }
 
@@ -474,7 +474,7 @@ class TimelineLine {
             }
 
             showTooltip(item.pageX, item.pageY,
-                date.getFullYear() + '-' + month + '-' + day + ": " + y + " " + item.series.label + extra);
+                date.getFullYear() + '-' + month + '-' + day + ': ' + y + ' ' + item.series.label + extra);
     }
     var setEventTooltip = function (thisEvent, pos) {
         removeTooltip();
@@ -538,7 +538,7 @@ class TimelineLine {
             });
 
             // Resize the graph when the window size changes
-            $(window).on("resize", _.debounce(function () {
+            $(window).on('resize', _.debounce(function () {
                 var plot = $(element).data('plot');
                 plot.resize();
                 plot.setupGrid();
@@ -557,10 +557,10 @@ class TimelineLine {
                 // Main options (hoverability, axes, tick formatting, events, line size)
                 if (graph === 'main' || graph === 'rate') {
                     options.grid = {hoverable: true};
-                    options.xaxis = {mode: "time", timeformat: "%Y/%m/%d", minTickSize: [7, "day"]};
+                    options.xaxis = {mode: 'time', timeformat: '%Y/%m/%d', minTickSize: [7, 'day']};
                     options.yaxis = {
                         tickFormatter: function (x) {
-                            return x.toString().replace(/\B(?=(?:\d{3})+(?!\d))/g, ","); // XXX: localized number formatting
+                            return x.toString().replace(/\B(?=(?:\d{3})+(?!\d))/g, ','); // XXX: localized number formatting
                         },
                     };
                     if (bindingContext.$data.options.events()) {
@@ -572,15 +572,15 @@ class TimelineLine {
                     }
                 } else if (graph === 'overview') {
                     options.series = {lines: {lineWidth: 1}, shadowSize: 0};
-                    options.xaxis = {mode: "time", minTickSize: [1, "year"]};
+                    options.xaxis = {mode: 'time', minTickSize: [1, 'year']};
                     options.yaxis = {tickFormatter: function () { return '' }};
                 }
 
                 // Selection mode
                 if (graph === 'main' || graph === 'overview') {
-                    options.selection = {mode: "xy"};
+                    options.selection = {mode: 'xy'};
                 } else if (graph === 'rate') {
-                    options.selection = {mode: "x"};
+                    options.selection = {mode: 'x'};
                 }
 
                 // zoom

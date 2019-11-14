@@ -11,7 +11,7 @@ import MB from '../common/MB';
 import releaseEditor from './viewModel';
 
 function bubbleDoc(options) {
-    var bubble = new MB.Control.BubbleDoc("Information");
+    var bubble = new MB.Control.BubbleDoc('Information');
     Object.assign(bubble, options);
     return bubble;
 }
@@ -108,4 +108,4 @@ class RecordingBubble extends MB.Control.BubbleDoc {
     }
 }
 
-releaseEditor.recordingBubble = new RecordingBubble("Recording");
+releaseEditor.recordingBubble = new RecordingBubble('Recording');

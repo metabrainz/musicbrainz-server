@@ -40,7 +40,7 @@ ERE.init = function (config) {
 
     ko.bindingHandlers.checkObject = {
         init: function (element, valueAccessor, all, vm, bindingContext) {
-            ko.utils.registerEventHandler(element, "click", function () {
+            ko.utils.registerEventHandler(element, 'click', function () {
                 var checkedValue = valueAccessor(),
                     meValue = bindingContext.$data,
                     checked = element.checked;
@@ -116,7 +116,7 @@ RelationshipSearcher = function () {
             self.error('Lookup failed: ' + error);
         })
         .done(function (data, status, jqxhr) {
-            var search_result_type = data.entityType.replace("-", "_");
+            var search_result_type = data.entityType.replace('-', '_');
 
             if (!(search_result_type === type0 ||
                   search_result_type === type1)) {
@@ -139,7 +139,7 @@ RelationshipSearcher = function () {
                 _.each(relationships, function (rel) {
                     var source = data, target = rel.target;
 
-                    if (rel.direction == "backward") {
+                    if (rel.direction == 'backward') {
                         source = rel.target;
                         target = data;
                     }
