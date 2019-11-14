@@ -248,9 +248,9 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
             if (containedBy0 && !containedBy1) relationships1.push(this);
             if (containedBy1 && !containedBy0) relationships0.push(this);
 
-            if (entity0.entityType === 'recording'
-                && entity1.entityType === 'work'
-                && saved1 !== entity1 && entity1.gid) {
+            if (entity0.entityType === 'recording' &&
+                entity1.entityType === 'work' &&
+                saved1 !== entity1 && entity1.gid) {
                 this.loadWorkRelationships(entity1);
             }
 

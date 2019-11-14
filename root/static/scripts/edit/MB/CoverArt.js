@@ -401,8 +401,9 @@ MB.CoverArt.FileUpload = function (file) {
                     self.updateProgress(2, value);
                 });
                 uploading.fail(function (msg, status) {
-                    self.status(status === 503 ?
-                                 statuses.slowdown_error : statuses.upload_error);
+                    self.status(status === 503
+                        ? statuses.slowdown_error
+                        : statuses.upload_error);
                     deferred.reject(msg);
                 });
                 uploading.done(function () {

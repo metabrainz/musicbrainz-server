@@ -174,8 +174,9 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
                 .fail(function (jqXHR) {
                     try {
                         var response = JSON.parse(jqXHR.responseText);
-                        var message = _.isObject(response.error) ?
-                                        response.error.message : response.error;
+                        var message = _.isObject(response.error)
+                            ? response.error.message
+                            : response.error;
 
                         this.submissionError(message);
                     }

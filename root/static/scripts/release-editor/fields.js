@@ -532,9 +532,9 @@ class Medium {
     tracksLoaded(data) {
         var tracks = data.tracks;
 
-        var pp = this.id ? // no ID means this medium is being reused
-            Track :
-            function (track, parent) { return new Track(_.omit(track, 'id'), parent) };
+        var pp = this.id // no ID means this medium is being reused
+            ? Track
+            : function (track, parent) { return new Track(_.omit(track, 'id'), parent) };
         this.tracks(utils.mapChild(this, data.tracks, pp));
 
         if (this.release.seededTocs) {

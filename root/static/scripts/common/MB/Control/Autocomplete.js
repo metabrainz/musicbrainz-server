@@ -78,9 +78,9 @@ $.widget('mb.entitylookup', $.ui.autocomplete, {
                         label: l('An error occurred while searching. Click here to try again.'),
                         action: _.bind(self._searchAgain, self),
                     }, {
-                        label: self.indexedSearch ?
-                               l('Try with direct search instead.') :
-                               l('Try with indexed search instead.'),
+                        label: self.indexedSearch
+                            ? l('Try with direct search instead.')
+                            : l('Try with indexed search instead.'),
                         action: _.bind(self._searchAgain, self, true),
 
                     }]);
@@ -432,8 +432,9 @@ $.widget('mb.entitylookup', $.ui.autocomplete, {
         }
 
         results.push({
-            label: this.indexedSearch ? l('Not found? Try again with direct search.') :
-                                        l('Slow? Switch back to indexed search.'),
+            label: this.indexedSearch
+                ? l('Not found? Try again with direct search.')
+                : l('Slow? Switch back to indexed search.'),
             action: _.bind(this._searchAgain, this, true),
         });
 

@@ -101,8 +101,12 @@ $.widget('mb.artworkViewer', $.ui.dialog, {
     },
 
     _focusTabbable: function () {
-        this._nextImageLink ? this.$next.focus() :
-        this._prevImageLink ? this.$prev.focus() : this._super();
+        this._nextImageLink
+            ? this.$next.focus()
+            : this._prevImageLink
+                ? this.$prev.focus()
+                : this._super();
+
     },
 
     prevImage: function () {

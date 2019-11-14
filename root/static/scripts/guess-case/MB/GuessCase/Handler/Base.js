@@ -806,9 +806,10 @@ MB.GuessCase.Handler.Base = function (gc) {
             // enough words after the keyword
             if (gc.i.getPos() < gc.i.getLength() - 2) {
                 const featWord = gc.i.getCurrentWord() + (
-                    gc.i.isNextWord('.') || gc.i.isNextWord('/') ? gc.i.getNextWord() :
-                    // special case (feat), fix typo by adding a "." if missing
-                    gc.i.matchCurrentWord(gc.re.FEAT_FEAT) ? '.' : ''
+                    gc.i.isNextWord('.') || gc.i.isNextWord('/')
+                        ? gc.i.getNextWord()
+                        // special case (feat), fix typo by adding a "." if missing
+                        : gc.i.matchCurrentWord(gc.re.FEAT_FEAT) ? '.' : ''
                 );
 
                 if (!flags.context.openingBracket && !flags.isInsideBrackets()) {
