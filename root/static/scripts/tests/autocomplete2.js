@@ -49,8 +49,8 @@ $(function () {
             Current entity type:
             {' '}
             <select
-              value={entityType}
               onChange={event => render(event.target.value)}
+              value={entityType}
             >
               <option value="area">Area</option>
               <option value="artist">Artist</option>

@@ -92,7 +92,7 @@ const Index = ({applications, appsPager, tokens, tokensPager}: Props) => (
 
     {tokens.length
       ? (
-        <PaginatedResults pageVar="tokens_page" pager={tokensPager}>
+        <PaginatedResults pager={tokensPager} pageVar="tokens_page">
           <table className="tbl">
             <thead>
               <tr>
@@ -128,7 +128,7 @@ const Index = ({applications, appsPager, tokens, tokensPager}: Props) => (
 
     {applications.length
       ? (
-        <PaginatedResults pageVar="apps_page" pager={appsPager}>
+        <PaginatedResults pager={appsPager} pageVar="apps_page">
           <table className="tbl">
             <thead>
               <tr>

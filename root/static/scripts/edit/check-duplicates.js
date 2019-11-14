@@ -38,9 +38,9 @@ function renderDuplicates(name, duplicates, container) {
 
   ReactDOM.render(
     <PossibleDuplicates
-      name={name}
-      duplicates={duplicates}
       checkboxCallback={event => isConfirmed(event.target.checked)}
+      duplicates={duplicates}
+      name={name}
     />,
     container,
   );

@@ -15,7 +15,7 @@ import ArtistCreditEditor from './ArtistCreditEditor';
 
 export const FormRowArtistCredit = ({form, entity}) => (
   <FormRow>
-    <label htmlFor="entity-artist" className="required">
+    <label className="required" htmlFor="entity-artist">
       {l('Artist:')}
     </label>
     <ArtistCreditEditor

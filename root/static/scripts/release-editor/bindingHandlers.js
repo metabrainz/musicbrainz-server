@@ -28,10 +28,10 @@ ko.bindingHandlers.disableBecauseDiscIDs = {
 
 const TrackButtons = ({nextTrack, previousTrack}) => (
   <>
-    <button type="button" style={{float: 'right'}} onClick={nextTrack}>
+    <button onClick={nextTrack} style={{float: 'right'}} type="button">
       {l('Next')}
     </button>
-    <button type="button" style={{float: 'right'}} onClick={previousTrack}>
+    <button onClick={previousTrack} style={{float: 'right'}} type="button">
       {l('Previous')}
     </button>
   </>
