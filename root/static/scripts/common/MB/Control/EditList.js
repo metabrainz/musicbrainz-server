@@ -56,9 +56,9 @@ MB.Control.EditList = function (container) {
         });
 
         $container.before($voteOptions);
-    }
+    };
 
-    self.initialize()
+    self.initialize();
     return self;
 };
 
@@ -66,7 +66,7 @@ $(function () {
     $('div.vote input[type="radio"]').change(function () {
         $(this).parents('.voteopts').find('.vote').attr('class', 'vote');
         $(this).parent('label').parent('.vote').addClass(SELECTED_CLASS[ $(this).val() ]);
-    })
+    });
 
     $('div.vote input[checked="checked"]').change();
 });

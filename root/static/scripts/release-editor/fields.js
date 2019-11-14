@@ -307,7 +307,7 @@ Object.assign(Track.prototype, {
     entityType: 'track',
     renderArtistCredit: MB_entity.Entity.prototype.renderArtistCredit,
     isCompleteArtistCredit: MB_entity.Entity.prototype.isCompleteArtistCredit,
-})
+});
 
 fields.Track = Track;
 
@@ -564,7 +564,7 @@ class Medium {
 
         var pp = this.id ? // no ID means this medium is being reused
             Track :
-            function (track, parent) { return new Track(_.omit(track, 'id'), parent); };
+            function (track, parent) { return new Track(_.omit(track, 'id'), parent) };
         this.tracks(utils.mapChild(this, data.tracks, pp));
 
         if (this.release.seededTocs) {
@@ -629,7 +629,7 @@ class ReleaseGroup extends MB_entity.ReleaseGroup {
 
         super(data);
 
-        this.typeID = ko.observable(data.typeID)
+        this.typeID = ko.observable(data.typeID);
         this.secondaryTypeIDs = ko.observableArray(data.secondaryTypeIDs);
     }
 }

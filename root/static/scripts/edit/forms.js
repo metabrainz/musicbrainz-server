@@ -30,7 +30,7 @@ MB.forms = {
 
         function buildOptions(parent, indent) {
             var i = 0, children = parent.children, child;
-            if (!children) { return; }
+            if (!children) { return }
 
             const childOptions = [];
             while ((child = children[i++])) {
@@ -164,7 +164,7 @@ ko.bindingHandlers.loop = {
                                 tmpElementContainer.appendChild(node.cloneNode(true));
                             }
 
-                            ko.applyBindingsToDescendants(newContext, tmpElementContainer)
+                            ko.applyBindingsToDescendants(newContext, tmpElementContainer);
                             currentElements = _.toArray(tmpElementContainer.childNodes);
                             elements[itemID] = currentElements;
                             tmpElementContainer = null;

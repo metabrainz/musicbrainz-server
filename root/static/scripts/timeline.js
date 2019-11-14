@@ -235,7 +235,7 @@ class TimelineViewModel {
                 for (const category of self.categories()) {
                     for (const line of category.lines()) {
                         if (line.hashIdentifier === match[2]) {
-                            line.enabled(!(match[1] === '-'))
+                            line.enabled(!(match[1] === '-'));
                             break outer;
                         }
                     }
@@ -246,11 +246,11 @@ class TimelineViewModel {
 
     addCategory(category) {
         this.categories.push(category);
-        return category
+        return category;
     }
 
     addLine(name) {
-        var newLine = getStat(name)
+        var newLine = getStat(name);
         var category = _.find(this.categories(), { name: newLine.category });
 
         if (!category) {
@@ -302,11 +302,11 @@ class TimelineCategory {
         self.lines = debounce(ko.observableArray([]), 50);
 
         self.enabledLines = ko.computed(function () {
-            return _.filter(self.lines(), function (line) { return line.enabled() && line.loaded() })
+            return _.filter(self.lines(), function (line) { return line.enabled() && line.loaded() });
         });
         self.needLoadingLines = ko.computed(function () {
             if (self.enabled()) {
-                return _.filter(self.lines(), function (line) { return line.enabled() && !line.loaded() && !line.loading() })
+                return _.filter(self.lines(), function (line) { return line.enabled() && !line.loaded() && !line.loading() });
             } else { return [] }
         });
         self.hasLoadingLines = ko.computed(function () {
@@ -319,7 +319,7 @@ class TimelineCategory {
         }, 1);
     }
 
-    addLine(line) { this.lines.push(line); }
+    addLine(line) { this.lines.push(line) }
 }
 
 class TimelineLine {
@@ -369,7 +369,7 @@ class TimelineLine {
     }
 
     calculateRateData(data) {
-        if (!data || !data.length) { return {data: [], thresholds: {min: null, max: null}}; }
+        if (!data || !data.length) { return {data: [], thresholds: {min: null, max: null}} }
         var weekData = [];
         var oneDay = 1000 * 60 * 60 * 24;
         var dataPrev = data[0][1];
@@ -387,7 +387,7 @@ class TimelineLine {
 
             if (datePrev != null && value[0] > datePrev + oneDay) {
                 days = (value[0] - datePrev) / oneDay;
-                changeValue = changeValue / days
+                changeValue = changeValue / days;
             }
 
             for (var i = 0; i < days; i++) {
@@ -398,7 +398,7 @@ class TimelineLine {
                 sPrev = sCurrent;
             }
             dataPrev = value[1];
-            datePrev = value[0]
+            datePrev = value[0];
         });
         mean = mean / count;
 
@@ -449,13 +449,13 @@ class TimelineLine {
             'background-color': '#fee',
             opacity: 0.80
         }).appendTo("body").fadeIn(200);
-    }
-    var removeTooltip = function () { $('#tooltip').remove(); }
+    };
+    var removeTooltip = function () { $('#tooltip').remove() };
 
     var setCursor = function (type) {
-        if (!type) { type = ''; }
+        if (!type) { type = '' }
         $('body').css('cursor', type);
-    }
+    };
 
     var setItemTooltip = function (item, extra, fixed) {
             if (!extra) { extra = '' };
@@ -485,13 +485,13 @@ class TimelineLine {
 
             showTooltip(item.pageX, item.pageY,
                 date.getFullYear() + '-' + month + '-' + day + ": " + y + " " + item.series.label + extra);
-    }
+    };
     var setEventTooltip = function (thisEvent, pos) {
         removeTooltip();
         setCursor('pointer');
         showTooltip(pos.pageX, pos.pageY,
             '<h2 style="margin-top: 0px; padding-top: 0px">' + thisEvent.title + '</h2>' + thisEvent.description);
-    }
+    };
 
     ko.bindingHandlers.flot = {
         init: function (element, valueAccessor, allBindings, viewModel, bindingContext) {
@@ -523,7 +523,7 @@ class TimelineLine {
                         setEventTooltip(thisEvent, pos);
                     }
                 } else {
-                    reset()
+                    reset();
                 }
             }).bind('plotselected', function (event, ranges) {
                 // Prevent eternal zoom
@@ -545,7 +545,7 @@ class TimelineLine {
                 if (currentEvent && currentEvent.link) {
                     window.open(currentEvent.link);
                 } else {
-                    bindingContext.$data.zoomArray([null, null, null, null])
+                    bindingContext.$data.zoomArray([null, null, null, null]);
                 }
             });
 
@@ -621,7 +621,7 @@ class TimelineLine {
                         data: data,
                         label: line.label,
                         color: line.color
-                    }
+                    };
                 }), options);
                 plot.triggerRedrawOverlay();
             }
