@@ -69,11 +69,13 @@ const Head = ({$c, ...props}) => (
 
     {props.no_icons
       ? null
-      : <link
+      : (
+        <link
           href={require('../../static/styles/icons.less')}
           rel="stylesheet"
           type="text/css"
-        />}
+        />
+      )}
 
     <link
       href="/static/search_plugins/opensearch/musicbrainz_artist.xml"
