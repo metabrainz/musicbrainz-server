@@ -128,7 +128,7 @@ MB.GuessCase.Output = function (gc) {
      **/
     self.getLastWord = function () {
         if (!self.isEmpty()) {
-            return self._w[self._w.length-1];
+            return self._w[self._w.length - 1];
         }
         return null;
     };
@@ -169,7 +169,7 @@ MB.GuessCase.Output = function (gc) {
                     // else capitalize the current word.
                 } else {
                     // rewind pos pointer on input
-                    var bef = gc.i.getPos(), pos = bef-1;
+                    var bef = gc.i.getPos(), pos = bef - 1;
                     while (pos >= 0 && utils.trim(gc.i.getWordAtIndex(pos).toLowerCase()) != probe) {
                         pos--;
                     }
@@ -193,7 +193,7 @@ MB.GuessCase.Output = function (gc) {
      *                            the flags.context.forceCaps parameter.
      **/
     self.capitalizeLastWord = function (overrideCaps) {
-        self.capitalizeWordAtIndex(self.getLength()-1, overrideCaps);
+        self.capitalizeWordAtIndex(self.getLength() - 1, overrideCaps);
     };
 
     /**

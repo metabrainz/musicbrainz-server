@@ -29,7 +29,7 @@ function pathTo(manifest) {
 }
 
 const jsExt = /\.js(?:on)?$/;
-function js(manifest, extraAttrs={}) {
+function js(manifest, extraAttrs = {}) {
   if (!jsExt.test(manifest)) {
     manifest += '.js';
   }

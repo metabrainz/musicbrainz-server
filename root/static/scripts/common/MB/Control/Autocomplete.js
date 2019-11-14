@@ -851,7 +851,7 @@ MB.Control.autocomplete_formatters = {
 
         var area = item.area;
         if (item.typeName || area) {
-            var items =[];
+            var items = [];
             if (item.typeName) {
                 items.push(lp_attributes(item.typeName, 'place_type'));
             }

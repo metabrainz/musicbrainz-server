@@ -149,17 +149,17 @@ MB.GuessCase.Handler.Artist = function (gc) {
                 if (reorder) {
                     var reOrderedNames = [];
                     if (names.length > 1) {
-                        for (i = 0; i < names.length-1; i++) {
+                        for (i = 0; i < names.length - 1; i++) {
                             // >> firstnames,middlenames one pos right
-                            if (i == names.length-2 && names[i] == 'St.') {
-                                names[i+1] = names[i] + ' ' + names[i+1];
+                            if (i == names.length - 2 && names[i] == 'St.') {
+                                names[i + 1] = names[i] + ' ' + names[i + 1];
                             // handle St. because it belongs
                             // to the lastname
                             } else if (names[i]) {
-                                reOrderedNames[i+1] = names[i];
+                                reOrderedNames[i + 1] = names[i];
                             }
                         }
-                        reOrderedNames[0] = names[names.length-1]; // lastname,firstname
+                        reOrderedNames[0] = names[names.length - 1]; // lastname,firstname
                         if (reOrderedNames.length > 1) {
                             // only append comma if there was more than 1
                             // non-empty word (and therefore switched)

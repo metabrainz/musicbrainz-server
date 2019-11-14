@@ -442,7 +442,7 @@ trackParser.customDelimiterError = debounce(function () {
         : l('Invalid regular expression.');
 });
 
-function optionCookie(name, defaultValue, checkbox=true) {
+function optionCookie(name, defaultValue, checkbox = true) {
     var existingValue = getCookie(name);
 
     if (checkbox) {

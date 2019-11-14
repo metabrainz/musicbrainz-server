@@ -120,7 +120,7 @@ const Head = ({$c, ...props}) => (
       ['mb_server']
         .concat(props.gettext_domains || [])
         .map(function (domain) {
-          const name ='jed-' + $c.stash.current_language + '-' + domain;
+          const name = 'jed-' + $c.stash.current_language + '-' + domain;
           return manifest.js(name, {key: name});
         })
     ) : null}

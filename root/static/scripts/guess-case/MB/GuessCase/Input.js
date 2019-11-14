@@ -94,7 +94,7 @@ MB.GuessCase.Input = function (gc) {
     };
 
     self.getNextWord = function () {
-        return self.getWordAtIndex(self._wi+1);
+        return self.getWordAtIndex(self._wi + 1);
     };
 
     self.getCurrentWord = function () {
@@ -102,7 +102,7 @@ MB.GuessCase.Input = function (gc) {
     };
 
     self.getPreviousWord = function () {
-        return self.getWordAtIndex(self._wi-1);
+        return self.getWordAtIndex(self._wi - 1);
     };
 
     /**
@@ -113,7 +113,7 @@ MB.GuessCase.Input = function (gc) {
     };
 
     self.isLastWord = function () {
-        return (self.getLength() == self._wi-1);
+        return (self.getLength() == self._wi - 1);
     };
 
     self.isNextWord = function (s) {
@@ -151,7 +151,7 @@ MB.GuessCase.Input = function (gc) {
      * Index methods
      **/
     self.hasMoreWords = function () {
-        return (self._wi == 0 && self.getLength() > 0 || self._wi-1 < self.getLength());
+        return (self._wi == 0 && self.getLength() > 0 || self._wi - 1 < self.getLength());
     };
 
     self.isIndexAtEnd = function () {
