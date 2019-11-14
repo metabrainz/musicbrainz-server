@@ -39,8 +39,8 @@ function js(manifest, extraAttrs = {}) {
   return (
     <script
       src={pathTo(manifest)}
-      {...extraAttrs}>
-    </script>
+      {...extraAttrs}
+    />
   );
 }
 
