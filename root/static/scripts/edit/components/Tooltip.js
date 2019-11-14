@@ -12,8 +12,8 @@ import * as React from 'react';
 import ReactDOM from 'react-dom';
 
 type TooltipProps = {
-  +hoverCallback: (boolean) => void,
   +content: React.Node,
+  +hoverCallback: (boolean) => void,
 };
 
 class Tooltip extends React.Component<TooltipProps> {

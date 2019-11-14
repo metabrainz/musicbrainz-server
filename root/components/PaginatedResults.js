@@ -15,10 +15,10 @@ import Paginator from './Paginator';
 type Props = {
   +children: ReactNode,
   +pager: PagerT,
+  +pageVar?: string,
   +query?: string,
   +search?: boolean,
   +total?: boolean,
-  +pageVar?: string,
 };
 
 const PaginatedResults = ({

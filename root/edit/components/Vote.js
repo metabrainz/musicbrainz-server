@@ -26,9 +26,9 @@ import {
 
 type VoteCheckboxProps = {
   +edit: EditT,
-  +user: CatalystUserT,
-  +name: string,
   +label: string,
+  +name: string,
+  +user: CatalystUserT,
   +value: number,
 };
 

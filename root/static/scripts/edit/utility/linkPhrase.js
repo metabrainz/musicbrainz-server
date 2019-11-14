@@ -96,8 +96,8 @@ export type LinkPhraseI18n<T> = {
   cache: WeakMap<RelationshipInfoT, CachedLinkPhraseData<T>>,
   commaList: ($ReadOnlyArray<T>) => T,
   commaOnlyList: ($ReadOnlyArray<T>) => T,
-  expand: (string, PhraseVarArgs<T>) => T,
   displayLinkAttribute: (LinkAttrT) => T,
+  expand: (string, PhraseVarArgs<T>) => T,
 };
 
 const reactI18n: LinkPhraseI18n<Expand2ReactOutput> = {
