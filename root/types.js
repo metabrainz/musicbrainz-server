@@ -950,14 +950,14 @@ declare type SelectOptionT = {
 
 declare type SelectOptionsT = $ReadOnlyArray<SelectOptionT>;
 
-declare type SeriesT = {
+declare type SeriesT = $ReadOnly<{
   ...AnnotationRoleT,
   ...CommentRoleT,
   ...CoreEntityRoleT<'series'>,
   ...TypeRoleT<SeriesTypeT>,
   +orderingTypeID: number,
   +type?: SeriesTypeT,
-};
+}>;
 
 declare type SeriesItemNumbersRoleT = {
   +seriesItemNumbers?: {+[number]: string},
@@ -965,7 +965,10 @@ declare type SeriesItemNumbersRoleT = {
 
 declare type SeriesOrderingTypeT = OptionTreeT<'series_ordering_type'>;
 
-declare type SeriesTypeT = OptionTreeT<'series_type'>;
+declare type SeriesTypeT = $ReadOnly<{
+  ...OptionTreeT<'series_type'>,
+  item_entity_type: CoreEntityTypeT,
+}>;
 
 declare type ServerLanguageT = {
   +id: number,
