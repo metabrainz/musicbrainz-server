@@ -8,6 +8,7 @@
 import React from 'react';
 
 import {withCatalystContext} from '../context';
+import {formatUserDateObject} from '../utility/formatUserDate';
 import getRequestCookie from '../utility/getRequestCookie';
 import {RT_SLAVE} from '../static/scripts/common/constants';
 import * as DBDefs from '../static/scripts/common/DBDefs';
@@ -39,9 +40,11 @@ function showBirthdayBanner($c) {
     return false;
   }
   const now = new Date();
-  return (birthDate.month === now.getMonth() + 1 &&
-          birthDate.day === now.getDate() &&
-          !getRequestCookie($c.req, 'birthday_message_dismissed_mtime'));
+  return birthDate.day ===
+           Number(formatUserDateObject($c, now, {format: '%d'})) &&
+         birthDate.month ===
+           Number(formatUserDateObject($c, now, {format: '%m'})) &&
+         !getRequestCookie($c.req, 'birthday_message_dismissed_mtime');
 }
 
 const ServerDetailsBanner = () => {
