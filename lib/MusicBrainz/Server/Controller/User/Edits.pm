@@ -35,8 +35,10 @@ sub open : Chained('/user/load') PathPart('edits/open') RequireAuth HiddenOnSlav
     });
     $c->stash(
         refine_url_args =>
-            { auto_edit_filter => '', order=> 'desc', negation=> 0,
-              combinator=>'and',
+            { auto_edit_filter => '',
+              order => 'desc',
+              negation => 0,
+              combinator => 'and',
               'conditions.0.field' => 'editor',
               'conditions.0.operator' => '=',
               'conditions.0.name' => $c->stash->{user}->name,
@@ -57,8 +59,10 @@ sub cancelled : Chained('/user/load') PathPart('edits/cancelled') RequireAuth Hi
     });
     $c->stash(
         refine_url_args =>
-            { auto_edit_filter => '', order=> 'desc', negation=> 0,
-              combinator=>'and',
+            { auto_edit_filter => '',
+              order => 'desc',
+              negation => 0,
+              combinator => 'and',
               'conditions.0.field' => 'editor',
               'conditions.0.operator' => '=',
               'conditions.0.name' => $c->stash->{user}->name,
@@ -80,8 +84,10 @@ sub accepted : Chained('/user/load') PathPart('edits/accepted') RequireAuth Hidd
     });
     $c->stash(
         refine_url_args =>
-            { auto_edit_filter => 0, order=> 'desc', negation=> 0,
-              combinator=>'and',
+            { auto_edit_filter => 0,
+              order => 'desc',
+              negation => 0,
+              combinator => 'and',
               'conditions.0.field' => 'editor',
               'conditions.0.operator' => '=',
               'conditions.0.name' => $c->stash->{user}->name,
@@ -103,8 +109,10 @@ sub failed : Chained('/user/load') PathPart('edits/failed') RequireAuth HiddenOn
     });
     $c->stash(
         refine_url_args =>
-            { auto_edit_filter => '', order=> 'desc', negation=> 0,
-              combinator=>'and',
+            { auto_edit_filter => '',
+              order => 'desc',
+              negation => 0,
+              combinator => 'and',
               'conditions.0.field' => 'editor',
               'conditions.0.operator' => '=',
               'conditions.0.name' => $c->stash->{user}->name,
@@ -127,8 +135,10 @@ sub rejected : Chained('/user/load') PathPart('edits/rejected') RequireAuth Hidd
     });
     $c->stash(
         refine_url_args =>
-            { auto_edit_filter => '', order=> 'desc', negation=> 0,
-              combinator=>'and',
+            { auto_edit_filter => '',
+              order => 'desc',
+              negation => 0,
+              combinator => 'and',
               'conditions.0.field' => 'editor',
               'conditions.0.operator' => '=',
               'conditions.0.name' => $c->stash->{user}->name,
@@ -149,8 +159,10 @@ sub autoedits : Chained('/user/load') PathPart('edits/autoedits') RequireAuth Hi
     });
     $c->stash(
         refine_url_args =>
-            { auto_edit_filter => 1, order=> 'desc', negation=> 0,
-              combinator=>'and',
+            { auto_edit_filter => 1,
+              order => 'desc',
+              negation => 0,
+              combinator => 'and',
               'conditions.0.field' => 'editor',
               'conditions.0.operator' => '=',
               'conditions.0.name' => $c->stash->{user}->name,
@@ -168,8 +180,10 @@ sub applied : Chained('/user/load') PathPart('edits/applied') RequireAuth Hidden
     });
     $c->stash(
         refine_url_args =>
-            { auto_edit_filter => '', order=> 'desc', negation=> 0,
-              combinator=>'and',
+            { auto_edit_filter => '',
+              order => 'desc',
+              negation => 0,
+              combinator => 'and',
               'conditions.0.field' => 'editor',
               'conditions.0.operator' => '=',
               'conditions.0.name' => $c->stash->{user}->name,
@@ -189,8 +203,10 @@ sub all : Chained('/user/load') PathPart('edits') RequireAuth HiddenOnSlaves {
     });
     $c->stash(
         refine_url_args =>
-            { auto_edit_filter => '', order=> 'desc', negation=> 0,
-              combinator=>'and',
+            { auto_edit_filter => '',
+              order => 'desc',
+              negation => 0,
+              combinator => 'and',
               'conditions.0.field' => 'editor',
               'conditions.0.operator' => '=',
               'conditions.0.name' => $c->stash->{user}->name,
