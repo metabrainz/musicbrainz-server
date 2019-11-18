@@ -83,12 +83,13 @@ sub find_by_artist
                       JOIN link ON ar.link = link.id
                       JOIN link_type lt ON lt.id = link.link_type
                      WHERE entity0 = ?
+                     AND lt.gid IN (' . placeholders(@WRITER_RELATIONSHIP_GIDS) . ')
                 ) s, ' . $self->_table .'
           WHERE work.id = s.work
        ORDER BY musicbrainz_collate(work.name)';
 
     # We actually use this for the side effect in the closure
-    $self->query_to_list_limited($query, [($artist_id) x 2], $limit, $offset);
+    $self->query_to_list_limited($query, [($artist_id) x 2, @WRITER_RELATIONSHIP_GIDS], $limit, $offset);
 }
 
 =method find_by_iswc
