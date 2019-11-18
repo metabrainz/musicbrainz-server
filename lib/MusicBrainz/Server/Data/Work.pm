@@ -88,6 +88,7 @@ sub find_by_artist
           JOIN link ON law.link = link.id
           JOIN link_type lt ON lt.id = link.link_type
          WHERE law.entity0 = ?
+           AND lt.gid = any(?)
         SQL
 
     my $inner_query = $performers_query . ' UNION ' . $writers_query;
@@ -103,10 +104,10 @@ sub find_by_artist
             } elsif ($filter{role_type} == 2) {
                 # Show only works as writer
                 $inner_query = $writers_query;
-                push @where_args, $artist_id;
+                push @where_args, $artist_id, [@WRITER_RELATIONSHIP_GIDS];
             }
         } else {
-            push @where_args, ($artist_id) x 2;
+            push @where_args, ($artist_id) x 2, [@WRITER_RELATIONSHIP_GIDS];
         }
 
         if (exists $filter{name}) {
@@ -123,7 +124,7 @@ sub find_by_artist
             }
         }
     } else {
-        push @where_args, ($artist_id) x 2;
+        push @where_args, ($artist_id) x 2, [@WRITER_RELATIONSHIP_GIDS];
     }
 
     my $query =
