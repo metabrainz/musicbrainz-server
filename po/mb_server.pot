@@ -10,7 +10,7 @@ msgstr ""
 "#-#-#-#-#  mb_server.pot (PACKAGE VERSION)  #-#-#-#-#\n"
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-11-06 15:45-0600\n"
+"POT-Creation-Date: 2019-11-18 21:53-0600\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2049,8 +2049,7 @@ msgid ""
 msgstr ""
 
 #: ../root/components/common-macros.tt:572 ../root/edit/search_macros.tt:365
-#: ../root/event/merge.tt:11 ../root/series/index.tt:15
-#: ../lib/MusicBrainz/Server/Edit/Event.pm:7
+#: ../root/event/merge.tt:11 ../lib/MusicBrainz/Server/Edit/Event.pm:7
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:49
 #: ../root/components/list/EventList.js:69
 #: ../root/components/list/EventList.js:74 ../root/edit/details/AddEvent.js:39
@@ -4048,9 +4047,8 @@ msgstr ""
 
 #: ../root/components/common-macros.tt:589 ../root/instrument/recordings.tt:1
 #: ../root/instrument/recordings.tt:2 ../root/release/edit/layout.tt:17
-#: ../root/series/index.tt:15 ../root/artist/ArtistRecordings.js:45
-#: ../root/artist/ArtistRecordings.js:46 ../root/components/EntityTabs.js:29
-#: ../root/report/ReportsIndex.js:402
+#: ../root/artist/ArtistRecordings.js:45 ../root/artist/ArtistRecordings.js:46
+#: ../root/components/EntityTabs.js:29 ../root/report/ReportsIndex.js:402
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:27
 #: ../root/tag/TagIndex.js:113 ../root/tag/TagLayout.js:28
 #: ../root/work/WorkIndex.js:50
@@ -4242,7 +4240,7 @@ msgstr ""
 msgid "Release Group: {release_group_link}"
 msgstr ""
 
-#: ../root/components/common-macros.tt:589 ../root/series/index.tt:15
+#: ../root/components/common-macros.tt:589
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:31
 #: ../root/tag/TagIndex.js:105 ../root/tag/TagLayout.js:26
 msgid "Release Groups"
@@ -4325,10 +4323,9 @@ msgstr ""
 #: ../root/components/common-macros.tt:589
 #: ../root/edit/details/historic/add_release_annotation.tt:3
 #: ../root/instrument/releases.tt:1 ../root/instrument/releases.tt:2
-#: ../root/release_group/merge.tt:16 ../root/series/index.tt:15
-#: ../root/area/AreaReleases.js:31 ../root/area/AreaReleases.js:32
-#: ../root/artist/ArtistReleases.js:45 ../root/artist/ArtistReleases.js:46
-#: ../root/components/EntityTabs.js:30
+#: ../root/release_group/merge.tt:16 ../root/area/AreaReleases.js:31
+#: ../root/area/AreaReleases.js:32 ../root/artist/ArtistReleases.js:45
+#: ../root/artist/ArtistReleases.js:46 ../root/components/EntityTabs.js:30
 #: ../root/components/list/ReleaseGroupList.js:109
 #: ../root/label/LabelIndex.js:58 ../root/report/ReportsIndex.js:222
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:29
@@ -5037,7 +5034,7 @@ msgid ""
 "and may not display correctly"
 msgstr ""
 
-#: ../root/layout.tt:81 ../root/layout/index.js:158
+#: ../root/layout.tt:81 ../root/layout/index.js:161
 msgid ""
 "The data you have submitted does not make any changes to the data already "
 "present."
@@ -5120,7 +5117,7 @@ msgid ""
 "This is usually only temporary, so please retry your search again later."
 msgstr ""
 
-#: ../root/layout.tt:62 ../root/layout/index.js:119
+#: ../root/layout.tt:62 ../root/layout/index.js:122
 msgid "The server is temporarily in read-only mode for database maintenance."
 msgstr ""
 
@@ -5259,7 +5256,7 @@ msgstr ""
 msgid "This attribute type is only used for grouping, please select a subtype"
 msgstr ""
 
-#: ../root/layout.tt:28 ../root/layout/index.js:53
+#: ../root/layout.tt:28 ../root/layout/index.js:56
 msgid ""
 "This beta test server allows testing of new features with the live database."
 msgstr ""
@@ -5350,11 +5347,11 @@ msgid ""
 "attributed to it."
 msgstr ""
 
-#: ../root/layout.tt:28 ../root/layout/index.js:57
+#: ../root/layout.tt:28 ../root/layout/index.js:60
 msgid "This is a MusicBrainz development server."
 msgstr ""
 
-#: ../root/layout.tt:45 ../root/layout/index.js:85
+#: ../root/layout.tt:45 ../root/layout/index.js:88
 msgid ""
 "This is a MusicBrainz mirror server. To edit or make changes to the data, "
 "please {uri|return to musicbrainz.org}."
@@ -5489,16 +5486,6 @@ msgstr ""
 #: ../root/release/merge.tt:113
 msgid ""
 "This requires that corresponding mediums have the same number of tracks."
-msgstr ""
-
-#: ../root/series/index.tt:4
-msgid ""
-"This series has no relationships and will be removed automatically in the "
-"next few days. If this is not intended, please add more data to this series."
-msgstr ""
-
-#: ../root/series/index.tt:50
-msgid "This series is currently empty."
 msgstr ""
 
 #: ../root/components/common-macros.tt:900
@@ -6191,9 +6178,9 @@ msgstr ""
 msgid "Work:"
 msgstr ""
 
-#: ../root/components/common-macros.tt:589 ../root/series/index.tt:15
-#: ../root/artist/ArtistWorks.js:31 ../root/artist/ArtistWorks.js:32
-#: ../root/components/EntityTabs.js:32 ../root/report/ReportsIndex.js:485
+#: ../root/components/common-macros.tt:589 ../root/artist/ArtistWorks.js:31
+#: ../root/artist/ArtistWorks.js:32 ../root/components/EntityTabs.js:32
+#: ../root/report/ReportsIndex.js:485
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:37
 #: ../root/tag/TagIndex.js:121 ../root/tag/TagLayout.js:29
 msgid "Works"
@@ -6968,7 +6955,7 @@ msgstr[1] ""
 msgid "{entity} has not been added to any collections."
 msgstr ""
 
-#: ../root/layout.tt:72 ../root/layout/index.js:146
+#: ../root/layout.tt:72 ../root/layout/index.js:149
 msgid ""
 "{link|New notes} have been left on some of your edits. Please make sure to "
 "read them and respond if necessary."
@@ -7084,7 +7071,7 @@ msgstr ""
 msgid "{type} “{work}”"
 msgstr ""
 
-#: ../root/layout.tt:36 ../root/layout/index.js:66
+#: ../root/layout.tt:36 ../root/layout/index.js:69
 msgid "{uri|Return to musicbrainz.org}."
 msgstr ""
 
@@ -7362,7 +7349,7 @@ msgid ""
 "or expected."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/Series.pm:133
+#: ../lib/MusicBrainz/Server/Controller/Series.pm:143
 msgid "Series that have different entity types cannot be merged."
 msgstr ""
 
@@ -9483,6 +9470,12 @@ msgstr ""
 
 #: ../root/components/CleanupBanner.js:40
 msgid ""
+"This series has no relationships and will be removed automatically in the "
+"next few days. If this is not intended, please add more data to this series."
+msgstr ""
+
+#: ../root/components/CleanupBanner.js:45
+msgid ""
 "This work has no relationships and will be removed automatically in the next "
 "few days. If this is not intended, please add relationships to this work."
 msgstr ""
@@ -10932,11 +10925,11 @@ msgstr ""
 msgid "Work information"
 msgstr ""
 
-#: ../root/layout/index.js:29
+#: ../root/layout/index.js:30
 msgid "Birthday cakes"
 msgstr ""
 
-#: ../root/layout/index.js:130
+#: ../root/layout/index.js:133
 msgid "Happy birthday, and thanks for contributing to MusicBrainz!"
 msgstr ""
 
@@ -12766,6 +12759,10 @@ msgstr ""
 
 #: ../root/search/components/WorkResults.js:62
 msgid "Alternatively, you may {uri|add a new work}."
+msgstr ""
+
+#: ../root/series/SeriesIndex.js:135
+msgid "This series is currently empty."
 msgstr ""
 
 #: ../root/static/scripts/account/components/ApplicationForm.js:92
