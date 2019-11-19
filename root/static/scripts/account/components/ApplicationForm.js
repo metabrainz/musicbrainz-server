@@ -78,6 +78,7 @@ class ApplicationForm extends React.Component<Props, State> {
           field={this.state.form.field.name}
           label={addColonText(l('Name'))}
           required
+          uncontrolled
         />
         <FormRowSelect
           field={this.state.form.field.oauth_type}

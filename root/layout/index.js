@@ -1,4 +1,5 @@
 /*
+ * @flow
  * Copyright (C) 2015 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -16,7 +17,7 @@ import * as DBDefs from '../static/scripts/common/DBDefs';
 
 import Footer from './components/Footer';
 import Header from './components/Header';
-import Head from './components/Head';
+import Head, {type HeadProps} from './components/Head';
 import MergeHelper from './components/MergeHelper';
 
 const DismissBannerButton = ({bannerName}) => (
@@ -99,7 +100,13 @@ const ServerDetailsBanner = () => {
   return null;
 };
 
-const Layout = ({$c, ...props}) => (
+export type Props = $ReadOnly<{
+  ...HeadProps,
+  children: React$Node,
+  fullWidth?: boolean,
+}>;
+
+const Layout = ({$c, ...props}: Props) => (
   <html lang={$c.stash.current_language_html}>
     <Head {...props} />
 
@@ -109,8 +116,8 @@ const Layout = ({$c, ...props}) => (
       {!getRequestCookie($c.req, 'server_details_dismissed_mtime') &&
         <ServerDetailsBanner />}
 
-      {!!($c.stash.alert && $c.stash.alert_mtime >
-        getRequestCookie($c.req, 'alert_dismissed_mtime', 0)) &&
+      {!!($c.stash.alert && ($c.stash.alert_mtime ?? Infinity) >
+        Number(getRequestCookie($c.req, 'alert_dismissed_mtime', '0'))) &&
         <div className="banner warning-header">
           <p dangerouslySetInnerHTML={{__html: $c.stash.alert}} />
           <DismissBannerButton bannerName="alert" />
@@ -139,9 +146,11 @@ const Layout = ({$c, ...props}) => (
         </div>}
 
       {!!($c.stash.new_edit_notes &&
-          $c.stash.new_edit_notes_mtime >
-          getRequestCookie($c.req, 'new_edit_notes_dismissed_mtime', 0) &&
-          ($c.user.is_limited ||
+          ($c.stash.new_edit_notes_mtime ?? Infinity) >
+          Number(
+            getRequestCookie($c.req, 'new_edit_notes_dismissed_mtime', '0'),
+          ) &&
+          (($c.user && $c.user.is_limited) ||
           getRequestCookie($c.req, 'alert_new_edit_notes', 'true') !==
           'false')) &&
           <div className="banner new-edit-notes">
@@ -180,7 +189,7 @@ const Layout = ({$c, ...props}) => (
       </div>
 
       {($c.session && $c.session.merger && !$c.stash.hide_merge_helper) &&
-        <MergeHelper />}
+        <MergeHelper merger={$c.session.merger} />}
 
       <Footer {...props} />
     </body>

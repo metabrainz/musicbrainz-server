@@ -189,6 +189,7 @@ class EditProfileForm extends React.Component<Props, State> {
         <FormRowEmailLong
           field={field.email}
           label={addColonText(l('Email'))}
+          uncontrolled
         />
         <FormRow hasNoLabel>
           {l(
@@ -200,6 +201,7 @@ class EditProfileForm extends React.Component<Props, State> {
         <FormRowURLLong
           field={field.website}
           label={addColonText(l('Website'))}
+          uncontrolled
         />
 
         <FormRowSelect

@@ -99,7 +99,7 @@ const StatisticsLayout = ({
   return (
     <Layout
       fullWidth={fullWidth}
-      gettext_domains={['attributes', 'relationships', 'statistics']}
+      gettextDomains={['attributes', 'relationships', 'statistics']}
       title={htmlTitle}
     >
       <link
