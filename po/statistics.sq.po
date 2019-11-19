@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2019-10-29 12:30+0000\n"
+"PO-Revision-Date: 2019-11-12 18:41+0000\n"
 "Last-Translator: Besnik <email address hidden>\n"
 "Language-Team: Albanian (http://www.transifex.com/musicbrainz/musicbrainz/language/sq/)\n"
 "MIME-Version: 1.0\n"
@@ -929,11 +929,11 @@ msgstr "Hedhje në qarkullim:"
 
 #: ../root/statistics/Index.js:103 ../root/statistics/Index.js:562
 msgid "Mediums:"
-msgstr ""
+msgstr "Media:"
 
 #: ../root/statistics/Index.js:107 ../root/statistics/Index.js:671
 msgid "Recordings:"
-msgstr ""
+msgstr "Incizime:"
 
 #: ../root/statistics/Index.js:111
 msgid "Tracks:"
@@ -1143,7 +1143,7 @@ msgstr ""
 
 #: ../root/statistics/Index.js:466
 msgid "Data Quality"
-msgstr ""
+msgstr "Cilësi të Dhënash"
 
 #: ../root/statistics/Index.js:475
 msgid "High Data Quality:"
@@ -1210,7 +1210,7 @@ msgstr ""
 #: ../root/statistics/Index.js:664 ../root/statistics/Index.js:668
 #: ../root/statistics/stats.js:529
 msgid "Recordings"
-msgstr ""
+msgstr "Incizime"
 
 #: ../root/statistics/Index.js:676
 msgid "Videos:"
@@ -1358,7 +1358,7 @@ msgstr ""
 
 #: ../root/statistics/Index.js:1077
 msgid "Cancelled:"
-msgstr ""
+msgstr "Të anuluara:"
 
 #: ../root/statistics/Index.js:1088 ../root/statistics/Index.js:1140
 msgid "Last 7 days:"
@@ -1453,7 +1453,7 @@ msgstr ""
 
 #: ../root/statistics/Relationships.js:120
 msgid "{type0}-{type1}"
-msgstr ""
+msgstr "{type0}-{type1}"
 
 #: ../root/statistics/Relationships.js:126
 msgid "{type0}-{type1} relationships:"
@@ -1634,7 +1634,7 @@ msgstr ""
 
 #: ../root/statistics/stats.js:151
 msgid "Artist Credits"
-msgstr ""
+msgstr "Kredite Artisti"
 
 #: ../root/statistics/stats.js:156
 msgid "Count of all Barcodes"
@@ -1738,7 +1738,7 @@ msgstr ""
 
 #: ../root/statistics/stats.js:242
 msgid "Open Edits"
-msgstr ""
+msgstr "Hapni Përpunime"
 
 #: ../root/statistics/stats.js:247
 msgid "Count of edits per day"

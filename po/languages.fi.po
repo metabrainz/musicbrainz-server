@@ -6,7 +6,7 @@
 # Timo Martikainen <email address hidden>, 2012
 # phonebox, 2014
 # phonebox, 2014
-# Sami Korkalainen, 2017
+# Sami Korkalainen, 2017,2019
 # Sami Korkalainen, 2017,2019
 # Timo Martikainen <>, 2012
 # Timo Martikainen <email address hidden>, 2012-2014
@@ -16,8 +16,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2019-04-16 16:54+0000\n"
-"Last-Translator: Sami Korkalainen\n"
+"PO-Revision-Date: 2019-11-14 22:28+0000\n"
+"Last-Translator: Jaakko Perttilä <email address hidden>\n"
 "Language-Team: Finnish (http://www.transifex.com/musicbrainz/musicbrainz/language/fi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -578,7 +578,7 @@ msgstr "dargi"
 #. frequency:1 iso_code_3:del
 #: DB:language/name:103
 msgid "Delaware"
-msgstr "Delaware"
+msgstr "delaware"
 
 #. frequency:1 iso_code_3:din
 #: DB:language/name:106
@@ -2378,12 +2378,12 @@ msgstr "tokelau"
 #. frequency:1 iso_code_3:tog
 #: DB:language/name:424
 msgid "Tonga (Nyasa)"
-msgstr "Malawin tonga"
+msgstr "malawintonga"
 
 #. frequency:1 iso_code_3:ton
 #: DB:language/name:425
 msgid "Tonga (Tonga Islands)"
-msgstr "Tongan tonga"
+msgstr "tonga (Tonga)"
 
 #. frequency:1 iso_code_3:tsi
 #: DB:language/name:427
