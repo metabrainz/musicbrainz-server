@@ -10,10 +10,11 @@
 import _ from 'lodash';
 import React from 'react';
 
-import {withCatalystContext} from '../../context';
 import {VARTIST_GID} from '../../static/scripts/common/constants';
 
-function languageName(language, selected) {
+import MenuDropdown from './MenuDropdown';
+
+function languageName(language) {
   if (!language) {
     return '';
   }
@@ -34,18 +35,8 @@ function languageName(language, selected) {
     }
   }
 
-  if (selected) {
-    text += ' \u25be';
-  }
-
   return text;
 }
-
-const LanguageLink = ({language}: {+language: ServerLanguageT}) => (
-  <a href={'/set-language/' + encodeURIComponent(language.name)}>
-    {languageName(language, false)}
-  </a>
-);
 
 type LanguageMenuProps = {
   +currentBCP47Language: string,
@@ -56,273 +47,267 @@ const LanguageMenu = ({
   currentBCP47Language,
   serverLanguages,
 }: LanguageMenuProps) => (
-  <li className="language-selector" tabIndex="-1">
-    <span className="menu-header">
-      {languageName(
-        _.find(serverLanguages, x => x.name === currentBCP47Language),
-        true,
-      )}
-    </span>
-    <ul>
-      {serverLanguages.map(function (language, index) {
-        let inner = <LanguageLink language={language} />;
+  <MenuDropdown
+    className="language-selector"
+    id="language-selector-menu-dropdown"
+    label={languageName(
+      _.find(serverLanguages, x => x.name === currentBCP47Language),
+    )}
+  >
+    {serverLanguages.map(function (language) {
+      let inner = languageName(language);
 
-        if (language.name === currentBCP47Language) {
-          inner = <strong>{inner}</strong>;
-        }
-
-        return <li key={index}>{inner}</li>;
-      })}
-      <li>
-        <a href="/set-language/unset">
-          {l('(reset language)')}
+      if (language.name === currentBCP47Language) {
+        inner = <strong>{inner}</strong>;
+      }
+      return (
+        <a
+          className="dropdown-item"
+          href={'/set-language/' + encodeURIComponent(language.name)}
+          key={language.name}
+        >
+          {inner}
         </a>
-      </li>
-      <li className="separator">
-        <a href="https://www.transifex.com/musicbrainz/musicbrainz/">
-          {l('Help Translate')}
-        </a>
-      </li>
-    </ul>
-  </li>
+      );
+    })}
+    <a className="dropdown-item" href="/set-language/unset">
+      {l('(reset language)')}
+    </a>
+    <div className="dropdown-divider" />
+    <a
+      className="dropdown-item"
+      href="https://www.transifex.com/musicbrainz/musicbrainz/"
+    >
+      {l('Help Translate')}
+    </a>
+  </MenuDropdown>
 );
 
 const AboutMenu = () => (
-  <li className="about" tabIndex="-1">
-    <span className="menu-header">
-      {l('About Us')}
-      {'\xA0\u25BE'}
-    </span>
-    <ul>
-      <li>
-        <a href="/doc/About">{l('About MusicBrainz')}</a>
-      </li>
-      <li>
-        <a href="https://metabrainz.org/sponsors">{l('Sponsors')}</a>
-      </li>
-      <li>
-        <a href="https://metabrainz.org/team">{l('Team')}</a>
-      </li>
-      <li>
-        <a href="https://www.redbubble.com/people/metabrainz/shop">{l('Shop')}</a>
-      </li>
-      <li>
-        <a href="https://metabrainz.org/contact">{l('Contact Us')}</a>
-      </li>
-      <li className="separator">
-        <a href="/doc/About/Data_License">{l('Data Licenses')}</a>
-      </li>
-      <li>
-        <a href="https://metabrainz.org/social-contract">{l('Social Contract')}</a>
-      </li>
-      <li>
-        <a href="/doc/Code_of_Conduct">{l('Code of Conduct')}</a>
-      </li>
-      <li>
-        <a href="https://metabrainz.org/privacy">{l('Privacy Policy')}</a>
-      </li>
-      <li>
-        <a href="https://metabrainz.org/gdpr">{l('GDPR Compliance')}</a>
-      </li>
-      <li className="separator">
-        <a href="/elections">{l('Auto-editor Elections')}</a>
-      </li>
-      <li>
-        <a href="/privileged">{l('Privileged User Accounts')}</a>
-      </li>
-      <li>
-        <a href="/statistics">{l('Statistics')}</a>
-      </li>
-      <li>
-        <a href="/statistics/timeline">{l('Timeline Graph')}</a>
-      </li>
-    </ul>
-  </li>
+  <MenuDropdown
+    className="about"
+    id="about-menu-dropdown"
+    label={l('About Us')}
+  >
+    <a className="dropdown-item" href="/doc/About">
+      {l('About MusicBrainz')}
+    </a>
+    <a className="dropdown-item" href="https://metabrainz.org/sponsors">
+      {l('Sponsors')}
+    </a>
+    <a className="dropdown-item" href="https://metabrainz.org/team">
+      {l('Team')}
+    </a>
+    <a className="dropdown-item" href="https://www.redbubble.com/people/metabrainz/shop">
+      {l('Shop')}
+    </a>
+    <a className="dropdown-item" href="https://metabrainz.org/contact">
+      {l('Contact Us')}
+    </a>
+    <div className="dropdown-divider" />
+    <a className="dropdown-item" href="/doc/About/Data_License">
+      {l('Data Licenses')}
+    </a>
+    <a className="dropdown-item" href="https://metabrainz.org/social-contract">
+      {l('Social Contract')}
+    </a>
+    <a className="dropdown-item" href="/doc/Code_of_Conduct">
+      {l('Code of Conduct')}
+    </a>
+    <a className="dropdown-item" href="https://metabrainz.org/privacy">
+      {l('Privacy Policy')}
+    </a>
+    <a className="dropdown-item" href="https://metabrainz.org/gdpr">
+      {l('GDPR Compliance')}
+    </a>
+    <div className="dropdown-divider" />
+    <a className="dropdown-item" href="/elections">
+      {l('Auto-editor Elections')}
+    </a>
+    <a className="dropdown-item" href="/privileged">
+      {l('Privileged User Accounts')}
+    </a>
+    <a className="dropdown-item" href="/statistics">
+      {l('Statistics')}
+    </a>
+    <a className="dropdown-item" href="/statistics/timeline">
+      {l('Timeline Graph')}
+    </a>
+  </MenuDropdown>
 );
 
 const ProductsMenu = () => (
-  <li className="products" tabIndex="-1">
-    <span className="menu-header">
-      {l('Products')}
-      {'\xA0\u25BE'}
-    </span>
-    <ul>
-      <li>
-        <a href="//picard.musicbrainz.org">{l('MusicBrainz Picard')}</a>
-      </li>
-      <li>
-        <a href="/doc/Magic_MP3_Tagger">{l('Magic MP3 Tagger')}</a>
-      </li>
-      <li>
-        <a href="/doc/Yate_Music_Tagger">{l('Yate Music Tagger')}</a>
-      </li>
-      <li className="separator">
-        <a href="/doc/MusicBrainz_for_Android">
-          {l('MusicBrainz for Android')}
-        </a>
-      </li>
-      <li className="separator">
-        <a href="/doc/MusicBrainz_Server">{l('MusicBrainz Server')}</a>
-      </li>
-      <li>
-        <a href="/doc/MusicBrainz_Database">{l('MusicBrainz Database')}</a>
-      </li>
-      <li className="separator">
-        <a href="/doc/Developer_Resources">{l('Developer Resources')}</a>
-      </li>
-      <li>
-        <a href="/doc/XML_Web_Service">{l('XML Web Service')}</a>
-      </li>
-      <li>
-        <a href="/doc/Live_Data_Feed">{l('Live Data Feed')}</a>
-      </li>
-      <li className="separator">
-        <a href="/doc/FreeDB_Gateway">{l('FreeDB Gateway')}</a>
-      </li>
-    </ul>
-  </li>
+  <MenuDropdown
+    className="products"
+    id="products-menu-dropdown"
+    label={l('Products')}
+  >
+    <a className="dropdown-item" href="//picard.musicbrainz.org">
+      {l('MusicBrainz Picard')}
+    </a>
+    <a className="dropdown-item" href="/doc/Magic_MP3_Tagger">
+      {l('Magic MP3 Tagger')}
+    </a>
+    <a className="dropdown-item" href="/doc/Yate_Music_Tagger">
+      {l('Yate Music Tagger')}
+    </a>
+    <div className="dropdown-divider" />
+    <a className="dropdown-item" href="/doc/MusicBrainz_for_Android">
+      {l('MusicBrainz for Android')}
+    </a>
+    <div className="dropdown-divider" />
+    <a className="dropdown-item" href="/doc/MusicBrainz_Server">
+      {l('MusicBrainz Server')}
+    </a>
+    <a className="dropdown-item" href="/doc/MusicBrainz_Database">
+      {l('MusicBrainz Database')}
+    </a>
+    <div className="dropdown-divider" />
+    <a className="dropdown-item" href="/doc/Developer_Resources">
+      {l('Developer Resources')}
+    </a>
+    <a className="dropdown-item" href="/doc/XML_Web_Service">
+      {l('XML Web Service')}
+    </a>
+    <a className="dropdown-item" href="/doc/Live_Data_Feed">
+      {l('Live Data Feed')}
+    </a>
+    <div className="dropdown-divider" />
+    <a className="dropdown-item" href="/doc/FreeDB_Gateway">
+      {l('FreeDB Gateway')}
+    </a>
+  </MenuDropdown>
 );
 
-const SearchMenu = withCatalystContext(({$c}: {+$c: CatalystContextT}) => (
-  <li className="search" tabIndex="-1">
-    <span className="menu-header">
-      {l('Search')}
-      {'\xA0\u25BE'}
-    </span>
-    <ul>
-      <li>
-        <a href="/search">{l('Search Entities')}</a>
-      </li>
-      {$c.user_exists ? (
-        <li>
-          <a href="/search/edits">{l('Search Edits')}</a>
-        </li>
-      ) : null}
-      <li>
-        <a href="/tags">{l('Tags')}</a>
-      </li>
-      <li>
-        <a href="/cdstub/browse">{l('Top CD Stubs')}</a>
-      </li>
-    </ul>
-  </li>
-));
+const SearchMenu = ({$c}: {+$c: CatalystContextT}) => (
+  <MenuDropdown
+    className="search"
+    id="search-menu-dropdown"
+    label={l('Search')}
+  >
+    <a className="dropdown-item" href="/search">{l('Search Entities')}</a>
+    {$c.user_exists ? (
+      <a className="dropdown-item" href="/search/edits">{l('Search Edits')}</a>
+    ) : null}
+    <a className="dropdown-item" href="/tags">{l('Tags')}</a>
+    <a className="dropdown-item" href="/cdstub/browse">{l('Top CD Stubs')}</a>
+  </MenuDropdown>
+);
 
 const EditingMenu = () => (
-  <li className="editing" tabIndex="-1">
-    <span className="menu-header">
-      {l('Editing')}
-      {'\xA0\u25BE'}
-    </span>
-    <ul>
-      <li>
-        <a href="/artist/create">{lp('Add Artist', 'button/menu')}</a>
-      </li>
-      <li>
-        <a href="/label/create">{lp('Add Label', 'button/menu')}</a>
-      </li>
-      <li>
-        <a href="/release-group/create">
-          {lp('Add Release Group', 'button/menu')}
-        </a>
-      </li>
-      <li>
-        <a href="/release/add">{lp('Add Release', 'button/menu')}</a>
-      </li>
-      <li>
-        <a href={'/release/add?artist=' + encodeURIComponent(VARTIST_GID)}>
-          {l('Add Various Artists Release')}
-        </a>
-      </li>
-      <li>
-        <a href="/recording/create">
-          {lp('Add Standalone Recording', 'button/menu')}
-        </a>
-      </li>
-      <li>
-        <a href="/work/create">{lp('Add Work', 'button/menu')}</a>
-      </li>
-      <li>
-        <a href="/place/create">{lp('Add Place', 'button/menu')}</a>
-      </li>
-      <li>
-        <a href="/series/create">{lp('Add Series', 'button/menu')}</a>
-      </li>
-      <li>
-        <a href="/event/create">{lp('Add Event', 'button/menu')}</a>
-      </li>
-      <li className="separator">
-        <a href="/vote">{l('Vote on Edits')}</a>
-      </li>
-      <li>
-        <a href="/reports">{l('Reports')}</a>
-      </li>
-    </ul>
-  </li>
+  <MenuDropdown
+    className="editing"
+    id="editing-menu-dropdown"
+    label={l('Editing')}
+  >
+    <a className="dropdown-item" href="/artist/create">
+      {lp('Add Artist', 'button/menu')}
+    </a>
+    <a className="dropdown-item" href="/label/create">
+      {lp('Add Label', 'button/menu')}
+    </a>
+    <a className="dropdown-item" href="/release-group/create">
+      {lp('Add Release Group', 'button/menu')}
+    </a>
+    <a className="dropdown-item" href="/release/add">
+      {lp('Add Release', 'button/menu')}
+    </a>
+    <a className="dropdown-item" href={'/release/add?artist=' + encodeURIComponent(VARTIST_GID)}>
+      {l('Add Various Artists Release')}
+    </a>
+    <a className="dropdown-item" href="/recording/create">
+      {lp('Add Standalone Recording', 'button/menu')}
+    </a>
+    <a className="dropdown-item" href="/work/create">
+      {lp('Add Work', 'button/menu')}
+    </a>
+    <a className="dropdown-item" href="/place/create">
+      {lp('Add Place', 'button/menu')}
+    </a>
+    <a className="dropdown-item" href="/series/create">
+      {lp('Add Series', 'button/menu')}
+    </a>
+    <a className="dropdown-item" href="/event/create">
+      {lp('Add Event', 'button/menu')}
+    </a>
+    <div className="dropdown-divider" />
+    <a className="dropdown-item" href="/vote">
+      {l('Vote on Edits')}
+    </a>
+    <a className="dropdown-item" href="/reports">
+      {l('Reports')}
+    </a>
+  </MenuDropdown>
 );
 
 const DocumentationMenu = () => (
-  <li className="documentation" tabIndex="-1">
-    <span className="menu-header">
-      {l('Documentation')}
-      {'\xA0\u25BE'}
-    </span>
-    <ul>
-      <li>
-        <a href="/doc/Beginners_Guide">{l('Beginners Guide')}</a>
-      </li>
-      <li>
-        <a href="/doc/Style">{l('Style Guidelines')}</a>
-      </li>
-      <li>
-        <a href="/doc/How_To">{l('How Tos')}</a>
-      </li>
-      <li>
-        <a href="/doc/Frequently_Asked_Questions">{l('FAQs')}</a>
-      </li>
-      <li>
-        <a href="/doc/MusicBrainz_Documentation">
-          {l('Documentation Index')}
-        </a>
-      </li>
-      <li className="separator">
-        <a href="/doc/Edit_Types">{l('Edit Types')}</a>
-      </li>
-      <li>
-        <a href="/relationships">{l('Relationship Types')}</a>
-      </li>
-      <li>
-        <a href="/instruments">{l('Instrument List')}</a>
-      </li>
-      <li>
-        <a href="/genres">{l('Genre List')}</a>
-      </li>
-      <li className="separator">
-        <a href="/doc/Development">{l('Development')}</a>
-      </li>
-    </ul>
-  </li>
+  <MenuDropdown
+    className="documentation"
+    id="documentation-menu-dropdown"
+    label={l('Documentation')}
+  >
+    <a className="dropdown-item" href="/doc/Beginners_Guide">
+      {l('Beginners Guide')}
+    </a>
+    <a className="dropdown-item" href="/doc/Style">
+      {l('Style Guidelines')}
+    </a>
+    <a className="dropdown-item" href="/doc/How_To">
+      {l('How Tos')}
+    </a>
+    <a className="dropdown-item" href="/doc/Frequently_Asked_Questions">
+      {l('FAQs')}
+    </a>
+    <a className="dropdown-item" href="/doc/MusicBrainz_Documentation">
+      {l('Documentation Index')}
+    </a>
+    <div className="dropdown-divider" />
+    <a className="dropdown-item" href="/doc/Edit_Types">
+      {l('Edit Types')}
+    </a>
+    <a className="dropdown-item" href="/relationships">
+      {l('Relationship Types')}
+    </a>
+    <a className="dropdown-item" href="/instruments">
+      {l('Instrument List')}
+    </a>
+    <a className="dropdown-item" href="/genres">
+      {l('Genre List')}
+    </a>
+    <div className="dropdown-divider" />
+    <a className="dropdown-item" href="/doc/Development">
+      {l('Development')}
+    </a>
+  </MenuDropdown>
 );
 
-const BottomMenu = ({$c}: {+$c: CatalystContextT}) => {
-  const serverLanguages = $c.stash.server_languages;
-  return (
-    <div className="bottom">
-      <ul className="menu">
-        <AboutMenu />
-        <ProductsMenu />
-        <SearchMenu />
-        {$c.user_exists ? <EditingMenu /> : null}
-        <DocumentationMenu />
-        {serverLanguages && serverLanguages.length > 1 ? (
-          <LanguageMenu
-            currentBCP47Language={$c.stash.current_language.replace('_', '-')}
-            serverLanguages={serverLanguages}
-          />
-        ) : null}
-      </ul>
-    </div>
-  );
+type Props = {
+  +$c: CatalystContextT,
+  +currentLanguage: string,
+  +serverLanguages: ?$ReadOnlyArray<ServerLanguageT>,
 };
 
-export default withCatalystContext(BottomMenu);
+const BottomMenu = ({
+  $c,
+  currentLanguage,
+  serverLanguages,
+}: Props) => (
+  <ul className="navbar-nav mr-auto mt-0" style={{width: '100%'}}>
+    <AboutMenu />
+    <ProductsMenu />
+    <SearchMenu $c={$c} />
+    {$c.user_exists ? <EditingMenu /> : null}
+    <DocumentationMenu />
+    {serverLanguages && serverLanguages.length > 1 ? (
+      <>
+        <li style={{flexGrow: 2}} />
+        <LanguageMenu
+          currentBCP47Language={currentLanguage.replace('_', '-')}
+          serverLanguages={serverLanguages}
+        />
+      </>
+    ) : null}
+  </ul>
+);
+
+export default BottomMenu;

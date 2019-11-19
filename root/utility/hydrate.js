@@ -10,13 +10,12 @@
 import mutate from 'mutate-cow';
 import * as React from 'react';
 import ReactDOM from 'react-dom';
+import ReactDOMServer from 'react-dom/server';
 
-export default function hydrate<Config>(
-  containerSelector: string,
+export function hydrateClient<Config>(
   Component: React.AbstractComponent<Config>,
-  mungeProps?: (Config) => Config,
-): React.AbstractComponent<Config, void> {
-  const [containerTag, ...classes] = containerSelector.split('.');
+  containerSelector: string,
+) {
   if (typeof document !== 'undefined') {
     // This should only run on the client.
     const $ = require('jquery');
@@ -32,6 +31,17 @@ export default function hydrate<Config>(
       }
     });
   }
+}
+
+export default function hydrate<Config>(
+  containerSelector: string,
+  Component: React.AbstractComponent<Config>,
+  mungeProps?: (Config) => Config,
+): React.AbstractComponent<Config, void> {
+  const [containerTag, ...classes] = containerSelector.split('.');
+
+  hydrateClient<Config>(Component, containerSelector);
+
   return (props) => {
     let dataProps = props;
     if (mungeProps) {

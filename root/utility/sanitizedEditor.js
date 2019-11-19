@@ -17,6 +17,12 @@ function sanitizedEditor(
     entityType: 'editor',
     gravatar: editor.gravatar,
     id: editor.id,
+    is_account_admin: editor.is_account_admin,
+    is_admin: editor.is_admin,
+    is_banner_editor: editor.is_banner_editor,
+    is_location_editor: editor.is_location_editor,
+    is_relationship_editor: editor.is_relationship_editor,
+    is_wiki_transcluder: editor.is_wiki_transcluder,
     name: editor.name,
     preferences: {
       datetime_format: editor.preferences.datetime_format,

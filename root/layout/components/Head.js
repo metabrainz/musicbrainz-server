@@ -101,11 +101,9 @@ const Head = ({$c, ...props}) => (
     />
 
     <noscript>
-      <style
-        dangerouslySetInnerHTML={{
-          __html: '.header > .right > .bottom > .menu' +
-                  ' > li:focus > ul { left: auto; }',
-        }}
+      <link
+        href={require('../../static/styles/noscript.less')}
+        rel="stylesheet"
         type="text/css"
       />
     </noscript>

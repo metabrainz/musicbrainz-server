@@ -103,7 +103,7 @@ const Layout = ({$c, ...props}) => (
     <Head {...props} />
 
     <body>
-      <Header {...props} />
+      <Header $c={$c} />
 
       {!getRequestCookie($c.req, 'server_details_dismissed_mtime') &&
         <ServerDetailsBanner />}

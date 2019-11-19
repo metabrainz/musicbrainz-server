@@ -10,9 +10,9 @@
 import React from 'react';
 
 import RequestLogin from '../../components/RequestLogin';
-import {withCatalystContext} from '../../context';
 import returnUri from '../../utility/returnUri';
 
+import MenuDropdown from './MenuDropdown';
 import Search from './Search';
 
 function userLink(userName, path) {
@@ -22,125 +22,113 @@ function userLink(userName, path) {
 type UserProp = {+user: CatalystUserT};
 
 const AccountMenu = ({user}: UserProp) => (
-  <li className="account" tabIndex="-1">
-    <span className="menu-header">
-      {user.name}
-      {'\xA0\u25BE'}
-    </span>
-    <ul>
-      <li>
-        <a href={userLink(user.name, '')}>{l('Profile')}</a>
-      </li>
-      <li>
-        <a href="/account/applications">{l('Applications')}</a>
-      </li>
-      <li>
-        <a href={userLink(user.name, '/subscriptions/artist')}>
-          {l('Subscriptions')}
-        </a>
-      </li>
-      <li>
-        <a href="/logout">{l('Log Out')}</a>
-      </li>
-    </ul>
-  </li>
+  <MenuDropdown
+    className="account"
+    id="account-menu-dropdown"
+    label={user.name}
+  >
+    <a className="dropdown-item" href={userLink(user.name, '')}>
+      {l('Profile')}
+    </a>
+    <a className="dropdown-item" href="/account/applications">
+      {l('Applications')}
+    </a>
+    <a
+      className="dropdown-item"
+      href={userLink(user.name, '/subscriptions/artist')}
+    >
+      {l('Subscriptions')}
+    </a>
+    <a className="dropdown-item" href="/logout">{l('Log Out')}</a>
+  </MenuDropdown>
 );
 
 const DataMenu = ({user}: UserProp) => {
   const userName = user.name;
 
   return (
-    <li className="data" tabIndex="-1">
-      <span className="menu-header">
-        {l('My Data')}
-        {'\xA0\u25BE'}
-      </span>
-      <ul>
-        <li>
-          <a href={userLink(userName, '/collections')}>
-            {l('My Collections')}
-          </a>
-        </li>
-        <li>
-          <a href={userLink(userName, '/ratings')}>{l('My Ratings')}</a>
-        </li>
-        <li>
-          <a href={userLink(userName, '/tags')}>{l('My Tags')}</a>
-        </li>
-        <li className="separator">
-          <a href={userLink(userName, '/edits/open')}>{l('My Open Edits')}</a>
-        </li>
-        <li>
-          <a href={userLink(userName, '/edits')}>{l('All My Edits')}</a>
-        </li>
-        <li>
-          <a href="/edit/subscribed">{l('Edits for Subscribed Entities')}</a>
-        </li>
-        <li>
-          <a href="/edit/subscribed_editors">
-            {l('Edits by Subscribed Editors')}
-          </a>
-        </li>
-        <li>
-          <a href="/edit/notes-received">{l('Notes Left on My Edits')}</a>
-        </li>
-      </ul>
-    </li>
+    <MenuDropdown
+      className="data"
+      id="data-menu-dropdown"
+      label={l('My Data')}
+    >
+      <a className="dropdown-item" href={userLink(userName, '/collections')}>
+        {l('My Collections')}
+      </a>
+      <a className="dropdown-item" href={userLink(userName, '/ratings')}>
+        {l('My Ratings')}
+      </a>
+      <a className="dropdown-item" href={userLink(userName, '/tags')}>
+        {l('My Tags')}
+      </a>
+      <div className="dropdown-divider" />
+      <a className="dropdown-item" href={userLink(userName, '/edits/open')}>
+        {l('My Open Edits')}
+      </a>
+      <a className="dropdown-item" href={userLink(userName, '/edits')}>
+        {l('All My Edits')}
+      </a>
+      <a className="dropdown-item" href="/edit/subscribed">
+        {l('Edits for Subscribed Entities')}
+      </a>
+      <a className="dropdown-item" href="/edit/subscribed_editors">
+        {l('Edits by Subscribed Editors')}
+      </a>
+      <a className="dropdown-item" href="/edit/notes-received">
+        {l('Notes Left on My Edits')}
+      </a>
+    </MenuDropdown>
   );
 };
 
 const AdminMenu = ({user}: UserProp) => (
-  <li className="admin" tabIndex="-1">
-    <span className="menu-header">
-      {l('Admin')}
-      {'\xA0\u25BE'}
-    </span>
-    <ul>
-      {user.is_location_editor ? (
-        <li>
-          <a href="/area/create">{lp('Add Area', 'button/menu')}</a>
-        </li>
-      ) : null}
+  <MenuDropdown
+    className="admin"
+    id="admin-menu-dropdown"
+    label={l('Admin')}
+  >
+    {user.is_location_editor ? (
+      <a className="dropdown-item" href="/area/create">
+        {lp('Add Area', 'button/menu')}
+      </a>
+    ) : null}
 
-      {user.is_relationship_editor ? (
-        <>
-          <li>
-            <a href="/instrument/create">
-              {lp('Add Instrument', 'button/menu')}
-            </a>
-          </li>
-          <li>
-            <a href="/genre/create">{lp('Add Genre', 'button/menu')}</a>
-          </li>
-          <li>
-            <a href="/relationships">{l('Edit Relationship Types')}</a>
-          </li>
-        </>
-      ) : null}
+    {user.is_relationship_editor ? (
+      <>
+        <a className="dropdown-item" href="/instrument/create">
+          {lp('Add Instrument', 'button/menu')}
+        </a>
+        <a className="dropdown-item" href="/genre/create">
+          {lp('Add Genre', 'button/menu')}
+        </a>
+        <a className="dropdown-item" href="/relationships">
+          {l('Edit Relationship Types')}
+        </a>
+      </>
+    ) : null}
 
-      {user.is_wiki_transcluder ? (
-        <li>
-          <a href="/admin/wikidoc">{l('Transclude WikiDocs')}</a>
-        </li>
-      ) : null}
+    {user.is_wiki_transcluder ? (
+      <a className="dropdown-item" href="/admin/wikidoc">
+        {l('Transclude WikiDocs')}
+      </a>
+    ) : null}
 
-      {user.is_banner_editor ? (
-        <li>
-          <a href="/admin/banner/edit">{l('Edit Banner Message')}</a>
-        </li>
-      ) : null}
+    {user.is_banner_editor ? (
+      <a className="dropdown-item" href="/admin/banner/edit">
+        {l('Edit Banner Message')}
+      </a>
+    ) : null}
 
-      {user.is_account_admin ? (
-        <li>
-          <a href="/admin/attributes">{l('Edit Attributes')}</a>
-        </li>
-      ) : null}
-    </ul>
-  </li>
+    {user.is_account_admin ? (
+      <a className="dropdown-item" href="/admin/attributes">
+        {l('Edit Attributes')}
+      </a>
+    ) : null}
+  </MenuDropdown>
 );
 
 const UserMenu = ({$c}) => (
-  <ul className="menu" tabIndex="-1">
+  <ul className="navbar-nav flex-grow-1 align-items-md-end">
     {$c.user ? (
       <>
         <AccountMenu user={$c.user} />
@@ -150,10 +138,10 @@ const UserMenu = ({$c}) => (
     ) : (
       <>
         <li>
-          <RequestLogin $c={$c} text={l('Log In')} />
+          <RequestLogin $c={$c} className="nav-link" text={l('Log In')} />
         </li>
         <li>
-          <a href={returnUri($c, '/register')}>
+          <a className="nav-link" href={returnUri($c, '/register')}>
             {l('Create Account')}
           </a>
         </li>
@@ -162,15 +150,11 @@ const UserMenu = ({$c}) => (
   </ul>
 );
 
-const TopMenu = ({$c}) => (
-  <div className="top">
-    <div className="links-container">
-      <UserMenu $c={$c} />
-    </div>
-    <div className="search-container">
-      <Search />
-    </div>
+const TopMenu = ({$c}: {$c: CatalystContextT}) => (
+  <div className="d-flex w-100 flex-column flex-md-row" id="headerid-topmenu">
+    <UserMenu $c={$c} />
+    <Search />
   </div>
 );
 
-export default withCatalystContext(TopMenu);
+export default TopMenu;

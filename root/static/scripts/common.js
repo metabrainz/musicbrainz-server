@@ -42,10 +42,9 @@ require("./common/entity");
 require("./common/MB/Control/Autocomplete");
 require("./common/components/TagEditor");
 
+import(/* webpackChunkName: "common-header" */ "../../layout/components/Header");
 import(/* webpackChunkName: "common-artwork-viewer" */ "./common/artworkViewer");
 import(/* webpackChunkName: "common-dialogs" */ "./common/dialogs");
-import(/* webpackChunkName: "common-filter" */ "./common/components/Filter");
-import(/* webpackChunkName: "common-menu" */ "./common/MB/Control/Menu");
 import(/* webpackChunkName: "common-select-all" */ "./common/MB/Control/SelectAll");
 import(/* webpackChunkName: "common-edit-search" */ "./common/MB/edit_search");
 import(/* webpackChunkName: "common-release" */ "./common/MB/release");

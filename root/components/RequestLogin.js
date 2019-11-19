@@ -11,10 +11,14 @@ import * as React from 'react';
 
 import returnUri from '../utility/returnUri';
 
-type Props = {+$c: CatalystContextT, text: string};
+type Props = {
+  +$c: CatalystContextT,
+  +className?: string,
+  +text: string,
+};
 
-const RequestLogin = ({$c, text}: Props) => (
-  <a href={returnUri($c, '/login')}>
+const RequestLogin = ({$c, className = null, text}: Props) => (
+  <a className={className} href={returnUri($c, '/login')}>
     {text || l('Log in')}
   </a>
 );
