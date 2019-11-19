@@ -1,17 +1,24 @@
+const BROWSER_TARGETS = {
+  chrome: '49',
+  edge: '14',
+  firefox: '52',
+  ie: '11',
+  safari: '9.0',
+};
+
+const NODE_TARGETS = {
+  node: process.versions.node,
+};
+
 module.exports = function (api) {
   api.cache.using(() => process.env.NODE_ENV);
 
   const presets = [
     ['@babel/preset-env', {
       corejs: 3,
-      targets: {
-        chrome: '49',
-        edge: '14',
-        firefox: '52',
-        ie: '11',
-        node: '6',
-        safari: '9.0',
-      },
+      targets: api.caller(caller => caller && caller.target === 'node')
+        ? NODE_TARGETS
+        : BROWSER_TARGETS,
       useBuiltIns: 'usage',
     }],
   ];
