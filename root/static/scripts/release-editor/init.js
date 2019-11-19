@@ -1,7 +1,10 @@
-// This file is part of MusicBrainz, the open internet music database.
-// Copyright (C) 2014 MetaBrainz Foundation
-// Licensed under the GPL version 2, or (at your option) any later version:
-// http://www.gnu.org/licenses/gpl-2.0.txt
+/*
+ * Copyright (C) 2014 MetaBrainz Foundation
+ *
+ * This file is part of MusicBrainz, the open internet music database,
+ * and is licensed under the GPL version 2, or (at your option) any
+ * later version: http://www.gnu.org/licenses/gpl-2.0.txt
+ */
 
 import $ from 'jquery';
 import ko from 'knockout';
@@ -39,27 +42,33 @@ releaseEditor.init = function (options) {
 
     $.extend(this, _.pick(options, "action", "returnTo", "redirectURI"));
 
-    // Setup guess case buttons for the title field. Do this every time the
-    // release changes, since the old fields get removed and the events no
-    // longer exist.
+    /*
+     * Setup guess case buttons for the title field. Do this every time the
+     * release changes, since the old fields get removed and the events no
+     * longer exist.
+     */
     utils.withRelease(function (release) {
         _.defer(function () {
             MB.Control.initialize_guess_case("release");
         });
     });
 
-    // Allow pressing enter to advance to the next tab. The listener is added
-    // to the document and not #release-editor so that other events can call
-    // preventDefault if necessary.
+    /*
+     * Allow pressing enter to advance to the next tab. The listener is added
+     * to the document and not #release-editor so that other events can call
+     * preventDefault if necessary.
+     */
 
     $(document).on("keydown", "#release-editor :input:not(:button, textarea)",
         function (event) {
             if (event.which === 13 && !event.isDefaultPrevented()) {
-                // The _.defer is entirely for <select> elements in Firefox,
-                // which don't have their change events triggered until after
-                // enter is hit. Additionally, if we switch tabs before the
-                // change event is handled, it doesn't seem to even register
-                // (probably because the <select> is hidden by then).
+                /*
+                 * The _.defer is entirely for <select> elements in Firefox,
+                 * which don't have their change events triggered until after
+                 * enter is hit. Additionally, if we switch tabs before the
+                 * change event is handled, it doesn't seem to even register
+                 * (probably because the <select> is hidden by then).
+                 */
                 _.defer(function () {
                     self.activeTabID() === "#edit-note" ? self.submitEdits() : self.nextTab();
                 });
@@ -84,10 +93,12 @@ releaseEditor.init = function (options) {
             self.activeTabID(panel.selector)
                 .activeTabIndex(self.uiTabs.panels.index(panel));
 
-            // jQuery UI's position() function doesn't work on hidden
-            // elements. So if any bubble was open in the tab we just
-            // switched to, we have to trigger its position to update,
-            // now that it's visible.
+            /*
+             * jQuery UI's position() function doesn't work on hidden
+             * elements. So if any bubble was open in the tab we just
+             * switched to, we have to trigger its position to update,
+             * now that it's visible.
+             */
 
             var $bubble = panel.find("div.bubble:visible:eq(0)");
             if ($bubble.length) {
@@ -112,17 +123,21 @@ releaseEditor.init = function (options) {
 
     $pageContent.find(".ui-tabs-nav a").tooltip();
 
-    // Enable or disable the recordings tab depending on whether there are
-    // tracks or if the tracks have errors.
+    /*
+     * Enable or disable the recordings tab depending on whether there are
+     * tracks or if the tracks have errors.
+     */
 
     utils.withRelease(function (release) {
         var addingRelease = self.action === "add";
         var tabEnabled = addingRelease ? release.hasTracks() : true;
 
         if (tabEnabled) {
-            // If we're editing a release and the mediums aren't loaded
-            // (because there are many discs), we should still allow the
-            // user to edit the recordings if that's all they want to do.
+            /*
+             * If we're editing a release and the mediums aren't loaded
+             * (because there are many discs), we should still allow the
+             * user to edit the recordings if that's all they want to do.
+             */
             tabEnabled = release.hasTrackInfo();
         }
 
@@ -134,8 +149,10 @@ releaseEditor.init = function (options) {
         var tooltipEnabled = !tabEnabled;
         var $tab = self.uiTabs.tabs.eq(tabNumber).find("a");
 
-        // XXX Don't disable the tooltip twice.
-        // http://bugs.jqueryui.com/ticket/9719
+        /*
+         * XXX Don't disable the tooltip twice.
+         * http://bugs.jqueryui.com/ticket/9719
+         */
 
         if ($tab.tooltip("option", "disabled") === tooltipEnabled) {
             $tab.tooltip(tooltipEnabled ? "enable" : "disable");
@@ -183,8 +200,10 @@ releaseEditor.init = function (options) {
         }
     });
 
-    // Handle showing/hiding the AddDisc dialog when the user switches to/from
-    // the tracklist tab.
+    /*
+     * Handle showing/hiding the AddDisc dialog when the user switches to/from
+     * the tracklist tab.
+     */
 
     utils.withRelease(function (release) {
         self.autoOpenTheAddDiscDialog(release);
@@ -202,16 +221,20 @@ releaseEditor.init = function (options) {
             recordingAssociation.getReleaseGroupRecordings(releaseGroup, 0, []);
         }
 
-        // Refresh our list of recordings every 10 minutes, in case the user
-        // leaves the tab open and comes back later, potentially leaving us
-        // with stale data.
+        /*
+         * Refresh our list of recordings every 10 minutes, in case the user
+         * leaves the tab open and comes back later, potentially leaving us
+         * with stale data.
+         */
         releaseGroupTimer = setTimeout(getRecordings, 10 * 60 * 1000);
 
         getRecordings();
     });
 
-    // Make sure the user actually wants to close the page/tab if they've made
-    // any changes.
+    /*
+     * Make sure the user actually wants to close the page/tab if they've made
+     * any changes.
+     */
     var hasEdits = ko.computed(function () {
         return releaseEditor.allEdits().length > 0;
     });
@@ -313,10 +336,12 @@ releaseEditor.createExternalLinksEditor = function (data, mountPoint) {
         errorObservable: this.hasInvalidLinks
     });
 
-    // XXX Since there's no notion of observable data in React, we need to
-    // override componentDidUpdate to watch for changes to the external links.
-    // externalLinksEditData is hooked into the edit generation code and will
-    // create corresponding edits for the new link data.
+    /*
+     * XXX Since there's no notion of observable data in React, we need to
+     * override componentDidUpdate to watch for changes to the external links.
+     * externalLinksEditData is hooked into the edit generation code and will
+     * create corresponding edits for the new link data.
+     */
     this.externalLinks.componentDidUpdate = function () {
         self.externalLinksEditData(self.externalLinks.getEditData());
     };

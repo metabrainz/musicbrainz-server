@@ -1,6 +1,8 @@
-// Needed by root/release/cover_art_uploader.tt, which uses the
-// css_manifest TT macro that requires common.less to exist in
-// rev-manifest.json.
+/*
+ * Needed by root/release/cover_art_uploader.tt, which uses the
+ * css_manifest TT macro that requires common.less to exist in
+ * rev-manifest.json.
+ */
 require('../styles/common.less');
 
 // IE 11 support.
@@ -17,8 +19,10 @@ const DBDefs = require('./common/DBDefs-client');
 import MB from './common/MB';
 
 if (DBDefs.DEVELOPMENT_SERVER) {
-  // Used by the Selenium tests under /t/selenium/ to make sure that no errors
-  // occurred on the page.
+  /*
+   * Used by the Selenium tests under /t/selenium/ to make sure that no errors
+   * occurred on the page.
+   */
   MB.js_errors = [];
   window.onerror = function (message, source, lineno, colno, error) {
     MB.js_errors.push(error && error.stack ? error.stack : message);

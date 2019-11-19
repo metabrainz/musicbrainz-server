@@ -1,12 +1,15 @@
-// This file is part of MusicBrainz, the open internet music database.
-// Copyright (C) 2011-2014 MetaBrainz Foundation
-// Licensed under the GPL version 2, or (at your option) any later version:
-// http://www.gnu.org/licenses/gpl-2.0.txt
-//
-// The 'base64' function contained in this file is derived from:
-// http://stringencoders.googlecode.com/svn-history/r210/trunk/javascript/base64.js
-// Original version Copyright (C) 2010 Nick Galbreath, and released under
-// the MIT license: http://opensource.org/licenses/MIT
+/*
+ * Copyright (C) 2011-2014 MetaBrainz Foundation
+ *
+ * This file is part of MusicBrainz, the open internet music database,
+ * and is licensed under the GPL version 2, or (at your option) any
+ * later version: http://www.gnu.org/licenses/gpl-2.0.txt
+ *
+ * The 'base64' function contained in this file is derived from:
+ * http://stringencoders.googlecode.com/svn-history/r210/trunk/javascript/base64.js
+ * Original version Copyright (C) 2010 Nick Galbreath, and released under
+ * the MIT license: http://opensource.org/licenses/MIT
+ */
 
 import ko from 'knockout';
 import _ from 'lodash';
@@ -112,8 +115,10 @@ utils.reuseExistingMediumData = function (data) {
 };
 
 
-// Converts JSON from /ws/2 into /ws/js-formatted data. Hopefully one day
-// we'll have a standard MB data format and this won't be needed.
+/*
+ * Converts JSON from /ws/2 into /ws/js-formatted data. Hopefully one day
+ * we'll have a standard MB data format and this won't be needed.
+ */
 
 utils.cleanWebServiceData = function (data) {
     var clean = { gid: data.id, name: data.title };
@@ -164,8 +169,10 @@ utils.similarNames = function (oldName, newName) {
 };
 
 utils.similarLengths = function (oldLength, newLength) {
-    // If either of the lengths are empty, we can't compare them, so we
-    // consider them to be "similar" for recording association purposes.
+    /*
+     * If either of the lengths are empty, we can't compare them, so we
+     * consider them to be "similar" for recording association purposes.
+     */
     return !oldLength || !newLength || lengthsAreWithin10s(oldLength, newLength);
 };
 
@@ -188,8 +195,10 @@ function paddedHex(str, length) {
     return _.padStart((parseInt(str, 10) || 0).toString(16).toUpperCase(), length, '0');
 }
 
-// The alphabet has been modified and does not conform to RFC822.
-// For an explanation, see http://wiki.musicbrainz.org/Disc_ID_Calculation
+/*
+ * The alphabet has been modified and does not conform to RFC822.
+ * For an explanation, see http://wiki.musicbrainz.org/Disc_ID_Calculation
+ */
 
 var padchar = "-";
 var alpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789._";

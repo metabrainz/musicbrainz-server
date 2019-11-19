@@ -1,6 +1,10 @@
-// This file is part of MusicBrainz, the open internet music database.
-// Copyright (C) 2013 MetaBrainz Foundation
-// Released under the GPLv2 license: http://www.gnu.org/licenses/gpl-2.0.txt
+/*
+ * Copyright (C) 2013 MetaBrainz Foundation
+ *
+ * This file is part of MusicBrainz, the open internet music database,
+ * and is licensed under the GPL version 2, or (at your option) any
+ * later version: http://www.gnu.org/licenses/gpl-2.0.txt
+ */
 
 import $ from 'jquery';
 import _ from 'lodash';
@@ -11,8 +15,10 @@ import deferFocus from '../../utility/deferFocus';
 
 class BubbleBase {
 
-    // The default observable equality comparer returns false if the values
-    // aren't primitive, even if the values are equal.
+    /*
+     * The default observable equality comparer returns false if the values
+     * aren't primitive, even if the values are equal.
+     */
     targetEqualityComparer(a, b) { return a === b }
 
     constructor(group) {
@@ -82,9 +88,11 @@ class BubbleBase {
 
     redraw(stealFocus) {
         if (this.visible.peek()) {
-            // It's possible that the control we're pointing at has been
-            // removed, hence why MutationObserver has triggered a redraw. If
-            // that's the case, we want to hide the bubble, not show it.
+            /*
+             * It's possible that the control we're pointing at has been
+             * removed, hence why MutationObserver has triggered a redraw. If
+             * that's the case, we want to hide the bubble, not show it.
+             */
 
             if ($(this.control).parents("html").length === 0) {
                 this.hide(false);
@@ -100,17 +108,22 @@ class BubbleBase {
     }
 }
 
-// Organized by group, where only one bubble from each group can be
-// visible on the page at once.
+/*
+ * Organized by group, where only one bubble from each group can be
+ * visible on the page at once.
+ */
 BubbleBase.prototype.activeBubbles = {};
 
-// Whether the bubble should close when we click outside of it. Used for
-// track artist credit bubbles.
+/*
+ * Whether the bubble should close when we click outside of it. Used for
+ * track artist credit bubbles.
+ */
 BubbleBase.prototype.closeWhenFocusIsLost = false;
 
-/* BubbleDoc turns a documentation div into a bubble pointing at an
-   input to the left of it.
-*/
+/*
+ * BubbleDoc turns a documentation div into a bubble pointing at an
+ * input to the left of it.
+ */
 class BubbleDoc extends BubbleBase {
 
     show(control) {
@@ -134,10 +147,12 @@ class BubbleDoc extends BubbleBase {
 
 MB.Control.BubbleDoc = BubbleDoc;
 
-// Knockout's visible binding only toggles the display style between "none"
-// and "". When it's an empty string, the display falls back to whatever
-// overriding CSS rule is in place, which in our case is "display: none".
-// This explicitly sets it to "block".
+/*
+ * Knockout's visible binding only toggles the display style between "none"
+ * and "". When it's an empty string, the display falls back to whatever
+ * overriding CSS rule is in place, which in our case is "display: none".
+ * This explicitly sets it to "block".
+ */
 
 ko.bindingHandlers.show = {
 
@@ -174,8 +189,10 @@ ko.bindingHandlers.controlsBubble = {
         element.bubbleDoc = bubble;
         viewModel["bubbleControl" + bubble.group] = element;
 
-        // We may be here because a template was redrawn. Since the old control
-        // we pointed at is gone, we have to update it to the new one.
+        /*
+         * We may be here because a template was redrawn. Since the old
+         * control we pointed at is gone, we have to update it to the new one.
+         */
         if (bubble.visible.peek() && bubble.targetIs(viewModel)) {
             bubble.control = element;
         }
@@ -196,11 +213,13 @@ ko.bindingHandlers.controlsBubble = {
 };
 
 
-// Used to watch for DOM changes, so that doc bubbles stay pointed at the
-// correct position.
-//
-// See https://developer.mozilla.org/en-US/docs/Web/API/MutationObserver
-// for browser support.
+/*
+ * Used to watch for DOM changes, so that doc bubbles stay pointed at the
+ * correct position.
+ *
+ * See https://developer.mozilla.org/en-US/docs/Web/API/MutationObserver
+ * for browser support.
+ */
 
 ko.bindingHandlers.affectsBubble = {
 
@@ -222,10 +241,12 @@ ko.bindingHandlers.affectsBubble = {
 };
 
 
-// Handle click and focus events that might cause a bubble to be shown or
-// hidden. This event could be attached individually in controlsBubble, but
-// since there can be a lot of bubble controls on the page, event
-// delegation is better for performance.
+/*
+ * Handle click and focus events that might cause a bubble to be shown or
+ * hidden. This event could be attached individually in controlsBubble, but
+ * since there can be a lot of bubble controls on the page, event
+ * delegation is better for performance.
+ */
 
 function bubbleControlHandler(event) {
     var control = event.target;
@@ -241,8 +262,10 @@ function bubbleControlHandler(event) {
             if (bubble && bubble.closeWhenFocusIsLost &&
                 !event.isDefaultPrevented() &&
 
-                // Close unless focus was moved to a dialog above this
-                // one, i.e. when adding a new entity.
+                /*
+                 * Close unless focus was moved to a dialog above this
+                 * one, i.e. when adding a new entity.
+                 */
                 !$(event.target).parents(".ui-dialog").length) {
 
                 bubble.hide(false);
@@ -256,8 +279,10 @@ function bubbleControlHandler(event) {
     var inputFocused = !isButton && event.type === "focusin";
     var viewModel = ko.dataFor(control);
 
-    // If this is false, the bubble should already be hidden. See the
-    // computed in controlsBubble.
+    /*
+     * If this is false, the bubble should already be hidden. See the
+     * computed in controlsBubble.
+     */
     if (bubble.canBeShown(viewModel)) {
         var wasOpen = bubble.visible() && bubble.targetIs(viewModel);
 
@@ -273,8 +298,10 @@ function bubbleControlHandler(event) {
 }
 
 
-// Pressing enter should close the bubble or perform a custom action (i.e.
-// going to the next track). Pressing escape should always close it.
+/*
+ * Pressing enter should close the bubble or perform a custom action (i.e.
+ * going to the next track). Pressing escape should always close it.
+ */
 
 function bubbleKeydownHandler(event) {
     if (event.isDefaultPrevented()) {
@@ -295,11 +322,13 @@ function bubbleKeydownHandler(event) {
     if (pressedEsc || (pressedEnter && $target.is(":not(:button)"))) {
         event.preventDefault();
 
-        // This causes any "value" binding on the input to update its
-        // associated observable. e.g. if the user types something in a
-        // join phrase field and hits esc., the join phrase in the view
-        // model should update. This should run before the code below,
-        // because the view model for the bubble may change.
+        /*
+         * This causes any "value" binding on the input to update its
+         * associated observable. e.g. if the user types something in a
+         * join phrase field and hits esc., the join phrase in the view
+         * model should update. This should run before the code below,
+         * because the view model for the bubble may change.
+         */
         $target.trigger("change");
 
         if (pressedEsc) {

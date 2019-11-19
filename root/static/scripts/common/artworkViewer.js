@@ -1,7 +1,10 @@
-// This file is part of MusicBrainz, the open internet music database.
-// Copyright (C) 2013 MetaBrainz Foundation
-// Licensed under the GPL version 2, or (at your option) any later version:
-// http://www.gnu.org/licenses/gpl-2.0.txt
+/*
+ * Copyright (C) 2013 MetaBrainz Foundation
+ *
+ * This file is part of MusicBrainz, the open internet music database,
+ * and is licensed under the GPL version 2, or (at your option) any
+ * later version: http://www.gnu.org/licenses/gpl-2.0.txt
+ */
 
 import $ from 'jquery';
 import _ from 'lodash';
@@ -24,9 +27,11 @@ $.widget("mb.artworkViewer", $.ui.dialog, {
 
         // Only display prev/next buttons if there's >1 image.
         if (this.$artwork.length > 1) {
-            // jQuery UI dialogs have a buttons API, but it's difficult to
-            // style them like our other ones without duplicating CSS. And
-            // it doesn't save a whole lotta code anyway.
+            /*
+             * jQuery UI dialogs have a buttons API, but it's difficult to
+             * style them like our other ones without duplicating CSS. And
+             * it doesn't save a whole lotta code anyway.
+             */
 
             this.$prev = $("<button>").attr("type", "button")
                             .text(l("Previous"))
@@ -73,11 +78,13 @@ $.widget("mb.artworkViewer", $.ui.dialog, {
 
         this._super();
 
-        // Only size the dialog based on the preview image's aspect ratio if
-        // the dialog was just opened. If the dialog is already open and the
-        // user is simply loading a previous/next image, it'll get resized
-        // later, once the image actually loads. But if we were to resize
-        // *now*, the current image would get clipped.
+        /*
+         * Only size the dialog based on the preview image's aspect ratio if
+         * the dialog was just opened. If the dialog is already open and the
+         * user is simply loading a previous/next image, it'll get resized
+         * later, once the image actually loads. But if we were to resize
+         * *now*, the current image would get clipped.
+         */
 
         if (wasClosed) {
             this._sizeAndPosition($preview.width() / $preview.height());
@@ -156,8 +163,10 @@ $.widget("mb.artworkViewer", $.ui.dialog, {
             nonContentHeight = this.uiDialog.outerHeight() - this.element.height(),
             nonContentWidth = this.uiDialog.outerWidth() - this.element.width();
 
-        // Don't stretch the image beyond its original dimensions, and don't
-        // exceed maxDialogHeight or maxDialogWidth.
+        /*
+         * Don't stretch the image beyond its original dimensions, and don't
+         * exceed maxDialogHeight or maxDialogWidth.
+         */
         var imageHeight = maxDialogHeight - nonContentHeight;
 
         if (imageElement && imageElement.height < imageHeight) {
@@ -187,8 +196,10 @@ $.widget("mb.artworkViewer", $.ui.dialog, {
 $(function () {
     var $activeDialog = $();
 
-    // Create separate dialogs for the sidebar and content, so that the
-    // image "albums" are logically grouped.
+    /*
+     * Create separate dialogs for the sidebar and content, so that the
+     * image "albums" are logically grouped.
+     */
     $("#sidebar, #content").each(function (index, container) {
         var $artwork = $("a.artwork-image", container);
         if ($artwork.length === 0) return;

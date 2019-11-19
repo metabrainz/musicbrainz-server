@@ -1,7 +1,10 @@
-// This file is part of MusicBrainz, the open internet music database.
-// Copyright (C) 2014 MetaBrainz Foundation
-// Licensed under the GPL version 2, or (at your option) any later version:
-// http://www.gnu.org/licenses/gpl-2.0.txt
+/*
+ * Copyright (C) 2014 MetaBrainz Foundation
+ *
+ * This file is part of MusicBrainz, the open internet music database,
+ * and is licensed under the GPL version 2, or (at your option) any
+ * later version: http://www.gnu.org/licenses/gpl-2.0.txt
+ */
 
 import ko from 'knockout';
 import _ from 'lodash';
@@ -82,9 +85,11 @@ class Track {
             new MB_entity.Recording({ name: data.name })
         );
 
-        // Custom write function is needed around recordingValue because
-        // when it's written to there's certain values we need to save
-        // beforehand (see methods below).
+        /*
+         * Custom write function is needed around recordingValue because
+         * when it's written to there's certain values we need to save
+         * beforehand (see methods below).
+         */
         this.recording = ko.computed({
             read: this.recordingValue,
             write: this.setRecordingValue,
@@ -173,9 +178,11 @@ class Track {
             return;
         }
 
-        // If the length being changed is for a pregap track and the medium
-        // has cdtocs attached, make sure the new length doesn't exceed the
-        // maximum possible allowed by any of the tocs.
+        /*
+         * If the length being changed is for a pregap track and the medium
+         * has cdtocs attached, make sure the new length doesn't exceed the
+         * maximum possible allowed by any of the tocs.
+         */
         const $ = require('jquery');
 
         var $lengthInput = $("input.track-length", "#track-row-" + this.uniqueID);
@@ -217,9 +224,11 @@ class Track {
     artistDiffersFromRecording() {
         const recording = this.recording();
 
-        // This function is used to determine whether we can update the
-        // recording AC, so if there's no recording, then there's nothing
-        // to compare against.
+        /*
+         * This function is used to determine whether we can update the
+         * recording AC, so if there's no recording, then there's nothing
+         * to compare against.
+         */
         if (!recording || !recording.gid) {
             return false;
         }
@@ -245,11 +254,13 @@ class Track {
         var currentValue = this.recording.peek();
         if (value.gid === currentValue.gid) return;
 
-        // Save the current track values to allow for comparison when they
-        // change. If they change too much, we unset the recording and find
-        // a new suggestion. Only save these if there's a recording to
-        // revert back to - it doesn't make sense to save these values for
-        // comparison if there's no recording.
+        /*
+         * Save the current track values to allow for comparison when they
+         * change. If they change too much, we unset the recording and find
+         * a new suggestion. Only save these if there's a recording to
+         * revert back to - it doesn't make sense to save these values for
+         * comparison if there's no recording.
+         */
         if (value.gid) {
             this.name.saved = this.name.peek();
             this.length.saved = this.length.peek();
@@ -381,8 +392,10 @@ class Medium {
             this.originalID = data.originalID;
         }
 
-        // The medium is considered to be loaded if it has tracks, or if
-        // there's no ID to load tracks from.
+        /*
+         * The medium is considered to be loaded if it has tracks, or if
+         * there's no ID to load tracks from.
+         */
         var loaded = !!(this.tracks().length || !(this.id || this.originalID));
 
         if (data.cdtocs) {
@@ -548,10 +561,12 @@ class Medium {
             }
         }
 
-        // We already have the original name, format, and position data,
-        // which we don't want to overwrite - it could have been changed
-        // by the user before they loaded the medium. We just need the
-        // tracklist data, now that it's loaded.
+        /*
+         * We already have the original name, format, and position data,
+         * which we don't want to overwrite - it could have been changed
+         * by the user before they loaded the medium. We just need the
+         * tracklist data, now that it's loaded.
+         */
         var currentEditData = MB_edit.fields.medium(this);
         var originalEditData = this.original();
 
@@ -703,9 +718,11 @@ class Barcode {
             owner: this
         });
 
-        // Always notify of changes, so that when non-digits are stripped,
-        // the text in the input element will update even if the stripped
-        // value is identical to the old value.
+        /*
+         * Always notify of changes, so that when non-digits are stripped,
+         * the text in the input element will update even if the stripped
+         * value is identical to the old value.
+         */
         this.barcode.equalityComparer = null;
         this.value.equalityComparer = null;
 
@@ -915,9 +932,11 @@ class Release extends MB_entity.Release {
     }
 
     existingMediumData() {
-        // This function should return the mediums on the release as they
-        // hopefully exist in the DB, so including ones removed from the
-        // page (as long as they have an id, i.e. were attached before).
+        /*
+         * This function should return the mediums on the release as they
+         * hopefully exist in the DB, so including ones removed from the
+         * page (as long as they have an id, i.e. were attached before).
+         */
 
         var mediums = _.union(this.mediums(), this.mediums.original());
 

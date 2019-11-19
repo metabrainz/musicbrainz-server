@@ -1,7 +1,10 @@
-// This file is part of MusicBrainz, the open internet music database.
-// Copyright (C) 2014 MetaBrainz Foundation
-// Licensed under the GPL version 2, or (at your option) any later version:
-// http://www.gnu.org/licenses/gpl-2.0.txt
+/*
+ * Copyright (C) 2014 MetaBrainz Foundation
+ *
+ * This file is part of MusicBrainz, the open internet music database,
+ * and is licensed under the GPL version 2, or (at your option) any
+ * later version: http://www.gnu.org/licenses/gpl-2.0.txt
+ */
 
 import $ from 'jquery';
 import ko from 'knockout';
@@ -174,8 +177,10 @@ const actions = {
         var tracks = medium.tracks,
             underlyingTracks = tracks.peek(),
             offset = medium.hasPregap() ? 0 : 1,
-            // Use _.indexOf instead of .position()
-            // http://tickets.metabrainz.org/browse/MBS-7227
+            /*
+             * Use _.indexOf instead of .position()
+             * http://tickets.metabrainz.org/browse/MBS-7227
+             */
             position1 = _.indexOf(underlyingTracks, track1) + offset,
             position2 = _.indexOf(underlyingTracks, track2) + offset,
             number1 = track1.number(),
