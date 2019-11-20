@@ -13,7 +13,6 @@
  */
 
 import * as React from 'react';
-import ReactDOM from 'react-dom';
 
 type TooltipProps = {
   +hoverCallback: (bool) => void,
@@ -21,20 +20,31 @@ type TooltipProps = {
 };
 
 class Tooltip extends React.Component<TooltipProps> {
+  constructor(props: TooltipProps) {
+    super(props);
+
+    this.containerRef = React.createRef();
+  }
+
   componentDidMount() {
-    const element: any = ReactDOM.findDOMNode(this);
-    const links = element.getElementsByTagName('a');
-    for (let i = 0; i < links.length; i++) {
-      links[i].setAttribute('target', '_blank');
+    const container = this.containerRef.current;
+    const links = container?.getElementsByTagName('a');
+    if (links) {
+      for (let i = 0; i < links.length; i++) {
+        links[i].setAttribute('target', '_blank');
+      }
     }
   }
+
+  containerRef: {current: HTMLDivElement | null};
 
   render() {
     var hoverCallback = this.props.hoverCallback;
     return (
       <div className="tooltip-container"
            onMouseEnter={() => hoverCallback(true)}
-           onMouseLeave={() => hoverCallback(false)}>
+           onMouseLeave={() => hoverCallback(false)}
+           ref={this.containerRef}>
         <div className="tooltip-triangle" />
         <div className="tooltip-content">{this.props.content}</div>
       </div>
