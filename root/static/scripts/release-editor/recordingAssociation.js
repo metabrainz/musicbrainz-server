@@ -1,7 +1,10 @@
-// This file is part of MusicBrainz, the open internet music database.
-// Copyright (C) 2014 MetaBrainz Foundation
-// Licensed under the GPL version 2, or (at your option) any later version:
-// http://www.gnu.org/licenses/gpl-2.0.txt
+/*
+ * Copyright (C) 2014 MetaBrainz Foundation
+ *
+ * This file is part of MusicBrainz, the open internet music database,
+ * and is licensed under the GPL version 2, or (at your option) any
+ * later version: http://www.gnu.org/licenses/gpl-2.0.txt
+ */
 
 import ko from 'knockout';
 import _ from 'lodash';
@@ -21,21 +24,23 @@ const recordingAssociation = {};
 
 releaseEditor.recordingAssociation = recordingAssociation;
 
-// This file contains code for finding suggested recording associations
-// in the release editor.
-//
-// Levenshtein is used to compare track & recording titles, and track
-// lengths are checked to be within 10s of recording lengths.
-//
-// Recordings from the same release group are preferred. Since there are
-// usually less than 50 recordings in a release group, we request and cache
-// all of them as soon as the release group changes. If there is no release
-// group (i.e. one isn't selected), all recordings of the selected track's
-// artists are searched using the web service.
-//
-// Direct database search is terrible at matching titles (a single
-// apostrophe changes the entire set of results), so indexed search is
-// used.
+/*
+ * This file contains code for finding suggested recording associations
+ * in the release editor.
+ *
+ * Levenshtein is used to compare track & recording titles, and track
+ * lengths are checked to be within 10s of recording lengths.
+ *
+ * Recordings from the same release group are preferred. Since there are
+ * usually less than 50 recordings in a release group, we request and cache
+ * all of them as soon as the release group changes. If there is no release
+ * group (i.e. one isn't selected), all recordings of the selected track's
+ * artists are searched using the web service.
+ *
+ * Direct database search is terrible at matching titles (a single
+ * apostrophe changes the entire set of results), so indexed search is
+ * used.
+ */
 
 var releaseGroupRecordings = ko.observable(),
     etiRegex = /(\([^)]+\) ?)*$/;
@@ -102,8 +107,10 @@ function cleanRecordingData(data) {
 
     var appearsOn = _(data.releases)
         .map(function (release) {
-            // The webservice doesn't include the release group title, so
-            // we have to use the release title instead.
+            /*
+             * The webservice doesn't include the release group title, so
+             * we have to use the release title instead.
+             */
             return {
                 name: release.title,
                 gid: release.id,
@@ -118,10 +125,12 @@ function cleanRecordingData(data) {
         entityType: "release"
     };
 
-    // Recording entities will have already been created and cached for
-    // any existing recordings on the release. However, /ws/js/release does
-    // not provide any appearsOn data. So now that we have it, we can add
-    // it in.
+    /*
+     * Recording entities will have already been created and cached for
+     * any existing recordings on the release. However, /ws/js/release does
+     * not provide any appearsOn data. So now that we have it, we can add
+     * it in.
+     */
     var recording = MB.entityCache[clean.gid];
 
     if (recording && !recording.appearsOn) {
@@ -164,9 +173,11 @@ function searchTrackArtistRecordings(track) {
 }
 
 
-// Allow the recording search autocomplete to also get better results.
-// The standard /ws/js indexed search doesn't support sending artist or
-// length info.
+/*
+ * Allow the recording search autocomplete to also get better results.
+ * The standard /ws/js indexed search doesn't support sending artist or
+ * length info.
+ */
 
 recordingAssociation.autocompleteHook = function (track) {
     return function (args) {
@@ -206,14 +217,18 @@ function watchTrackForChanges(track) {
     var name = track.name();
     var length = track.length();
 
-    // We don't compare any artist credit changes, but we use the track
-    // artists when searching the web service. If there are track changes
-    // below but the AC is not complete, the ko.computed this is inside of
-    // will re-evaluate once the user fixes the artist.
+    /*
+     * We don't compare any artist credit changes, but we use the track
+     * artists when searching the web service. If there are track changes
+     * below but the AC is not complete, the ko.computed this is inside of
+     * will re-evaluate once the user fixes the artist.
+     */
     var completeAC = isCompleteArtistCredit(track.artistCredit());
 
-    // Only proceed if we need a recording, and the track has information
-    // we can search for - this tab should be disabled otherwise, anyway.
+    /*
+     * Only proceed if we need a recording, and the track has information
+     * we can search for - this tab should be disabled otherwise, anyway.
+     */
     if (!name || !completeAC) return;
 
     var similarTo = function (prop) {
@@ -274,9 +289,11 @@ recordingAssociation.findRecordingSuggestions = function (track) {
 };
 
 
-// Sets track.suggestedRecordings. If the track currently does not have
-// a recording selected, it shifts the last used recording to the top of
-// the suggestions list (if there is one).
+/*
+ * Sets track.suggestedRecordings. If the track currently does not have
+ * a recording selected, it shifts the last used recording to the top of
+ * the suggestions list (if there is one).
+ */
 
 function setSuggestedRecordings(track, recordings) {
     var lastRecording = track.recording.saved;
@@ -315,8 +332,10 @@ function matchAgainstRecordings(track, recordings) {
         })
         .reverse()
         .sortBy(function (recording) {
-            // Prefer that recordings with a length be at the top of the
-            // suggestions list.
+            /*
+             * Prefer that recordings with a length be at the top of the
+             * suggestions list.
+             */
             if (!recording.length) {
                 return MAX_LENGTH_DIFFERENCE + 1;
             }

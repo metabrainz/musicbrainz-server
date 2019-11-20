@@ -41,11 +41,13 @@ const LostPassword = (props: Props) => (
         field={props.form.field.username}
         label={l('Username:')}
         required
+        uncontrolled
       />
       <FormRowEmailLong
         field={props.form.field.email}
         label={addColonText(l('Email'))}
         required
+        uncontrolled
       />
       <FormRow hasNoLabel>
         <FormSubmit label={l('Reset Password')} />

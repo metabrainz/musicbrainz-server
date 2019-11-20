@@ -22,26 +22,32 @@ const TagLookupForm = ({form}: {+form: TagLookupFormT}) => (
       <FormRowTextLong
         field={form.field.artist}
         label={addColonText(l('Artist'))}
+        uncontrolled
       />
       <FormRowTextLong
         field={form.field.release}
         label={addColonText(l('Release'))}
+        uncontrolled
       />
       <FormRowText
         field={form.field.tracknum}
         label={addColonText(l('Track number'))}
+        uncontrolled
       />
       <FormRowTextLong
         field={form.field.track}
         label={addColonText(l('Track'))}
+        uncontrolled
       />
       <FormRowText
         field={form.field.duration}
         label={addColonText(l('Duration'))}
+        uncontrolled
       />
       <FormRowTextLong
         field={form.field.filename}
         label={addColonText(l('Filename'))}
+        uncontrolled
       />
       <FormRow hasNoLabel>
         <FormSubmit label={l('Search')} />

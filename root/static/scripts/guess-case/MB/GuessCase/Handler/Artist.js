@@ -1,23 +1,11 @@
 /*
-   This file is part of MusicBrainz, the open internet music database.
-   Copyright (c) 2005 Stefan Kestenholz (keschte)
-   Copyright (C) 2010 MetaBrainz Foundation
-
-   This program is free software; you can redistribute it and/or modify
-   it under the terms of the GNU General Public License as published by
-   the Free Software Foundation; either version 2 of the License, or
-   (at your option) any later version.
-
-   This program is distributed in the hope that it will be useful,
-   but WITHOUT ANY WARRANTY; without even the implied warranty of
-   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-   GNU General Public License for more details.
-
-   You should have received a copy of the GNU General Public License
-   along with this program; if not, write to the Free Software
-   Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
-
-*/
+ * Copyright (C) 2005 Stefan Kestenholz (keschte)
+ * Copyright (C) 2010 MetaBrainz Foundation
+ *
+ * This file is part of MusicBrainz, the open internet music database,
+ * and is licensed under the GPL version 2, or (at your option) any
+ * later version: http://www.gnu.org/licenses/gpl-2.0.txt
+ */
 
 import _ from 'lodash';
 
@@ -28,31 +16,29 @@ import * as utils from '../../../utils';
 MB.GuessCase = (MB.GuessCase) ? MB.GuessCase : {};
 MB.GuessCase.Handler = (MB.GuessCase.Handler) ? MB.GuessCase.Handler : {};
 
-/**
- * Artist specific GuessCase functionality
- **/
+// Artist specific GuessCase functionality
 MB.GuessCase.Handler.Artist = function (gc) {
     var self = MB.GuessCase.Handler.Base(gc);
 
-    /**
+    /*
      * Checks special cases of artists
      * - empty, unknown -> [unknown]
      * - none, no artist, not applicable, n/a -> [no artist]
-     **/
+     */
     self.checkSpecialCase = function (is) {
         if (is) {
             if (!gc.re.ARTIST_EMPTY) {
-                // match empty
+                // Match empty
                 gc.re.ARTIST_EMPTY = /^\s*$/i;
-                // match "unknown" and variants
+                // Match "unknown" and variants
                 gc.re.ARTIST_UNKNOWN = /^[\(\[]?\s*Unknown\s*[\)\]]?$/i;
-                // match "none" and variants
+                // Match "none" and variants
                 gc.re.ARTIST_NONE = /^[\(\[]?\s*none\s*[\)\]]?$/i;
-                // match "no artist" and variants
+                // Match "no artist" and variants
                 gc.re.ARTIST_NOARTIST = /^[\(\[]?\s*no[\s-]+artist\s*[\)\]]?$/i;
-                // match "not applicable" and variants
+                // Match "not applicable" and variants
                 gc.re.ARTIST_NOTAPPLICABLE = /^[\(\[]?\s*not[\s-]+applicable\s*[\)\]]?$/i;
-                // match "n/a" and variants
+                // Match "n/a" and variants
                 gc.re.ARTIST_NA = /^[\(\[]?\s*n\s*[\\\/]\s*a\s*[\)\]]?$/i;
             }
             var os = is;
@@ -78,10 +64,10 @@ MB.GuessCase.Handler.Artist = function (gc) {
         return self.NOT_A_SPECIALCASE;
     };
 
-    /**
+    /*
      * Delegate function which handles words not handled
      * in the common word handlers.
-     **/
+     */
     self.doWord = function () {
         gc.o.appendSpaceIfNeeded();
         gc.i.capitalizeCurrentWord();
@@ -94,16 +80,14 @@ MB.GuessCase.Handler.Artist = function (gc) {
         return null;
     };
 
-    /**
-     * Guesses the sortname for artists
-     **/
+    // Guesses the sortname for artists
     self.guessSortName = function (is, person) {
         return self.sortCompoundName(is, function (artist) {
             if (artist) {
                 artist = utils.trim(artist);
                 var append = "";
 
-                // strip Jr./Sr. from the string, and append at the end.
+                // Strip Jr./Sr. from the string, and append at the end.
                 if (!gc.re.SORTNAME_SR) {
                     gc.re.SORTNAME_SR = /,\s*Sr[\.]?$/i;
                     gc.re.SORTNAME_JR = /,\s*Jr[\.]?$/i;
@@ -118,8 +102,10 @@ MB.GuessCase.Handler.Artist = function (gc) {
                 }
                 var names = artist.split(" ");
 
-                // handle some special cases, like DJ, The, Los which
-                // are sorted at the end.
+                /*
+                 * Handle some special cases, like DJ, The, Los which
+                 * are sorted at the end.
+                 */
                 var reorder = false;
                 if (!gc.re.SORTNAME_DJ) {
                     gc.re.SORTNAME_DJ = /^DJ$/i; // match DJ
@@ -158,16 +144,20 @@ MB.GuessCase.Handler.Artist = function (gc) {
                             // >> firstnames,middlenames one pos right
                             if (i == names.length-2 && names[i] == "St.") {
                                 names[i+1] = names[i] + " " + names[i+1];
-                            // handle St. because it belongs
-                            // to the lastname
+                            /*
+                             * Handle St. because it belongs
+                             * to the lastname
+                             */
                             } else if (names[i]) {
                                 reOrderedNames[i+1] = names[i];
                             }
                         }
                         reOrderedNames[0] = names[names.length-1]; // lastname,firstname
                         if (reOrderedNames.length > 1) {
-                            // only append comma if there was more than 1
-                            // non-empty word (and therefore switched)
+                            /*
+                             * Only append comma if there was more than 1
+                             * non-empty word (and therefore switched)
+                             */
                             reOrderedNames[0] += ",";
                         }
                         names = reOrderedNames;

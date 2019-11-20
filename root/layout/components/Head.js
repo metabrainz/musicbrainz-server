@@ -1,8 +1,10 @@
 /*
- * This file is part of MusicBrainz, the open internet music database.
+ * @flow
  * Copyright (C) 2015 MetaBrainz Foundation
- * Licensed under the GPL version 2, or (at your option) any later version:
- * http://www.gnu.org/licenses/gpl-2.0.txt
+ *
+ * This file is part of MusicBrainz, the open internet music database,
+ * and is licensed under the GPL version 2, or (at your option) any
+ * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
 import React from 'react';
@@ -13,6 +15,15 @@ import * as DBDefs from '../../static/scripts/common/DBDefs';
 import escapeClosingTags from '../../utility/escapeClosingTags';
 
 import MetaDescription from './MetaDescription';
+
+export type HeadProps = {
+  +$c: CatalystContextT,
+  +gettextDomains?: $ReadOnlyArray<string>,
+  +homepage?: boolean,
+  +noIcons?: boolean,
+  +pager?: PagerT,
+  +title: string,
+};
 
 const canonRegexp = new RegExp('^(https?:)?//' + DBDefs.WEB_SERVER);
 function canonicalize(url) {
@@ -50,7 +61,7 @@ const CanonicalLink = ({requestUri}) => {
   return null;
 };
 
-const Head = ({$c, ...props}) => (
+const Head = ({$c, ...props}: HeadProps) => (
   <head>
     <meta charSet="utf-8" />
     <meta content="IE=edge" httpEquiv="X-UA-Compatible" />
@@ -67,7 +78,7 @@ const Head = ({$c, ...props}) => (
       type="text/css"
     />
 
-    {props.no_icons
+    {props.noIcons
       ? null
       : <link
           href={require('../../static/styles/icons.less')}
@@ -118,7 +129,7 @@ const Head = ({$c, ...props}) => (
 
     {$c.stash.current_language !== 'en' ? (
       ['mb_server']
-        .concat(props.gettext_domains || [])
+        .concat(props.gettextDomains || [])
         .map(function (domain) {
           const name ='jed-' + $c.stash.current_language + '-' + domain;
           return manifest.js(name, {key: name});

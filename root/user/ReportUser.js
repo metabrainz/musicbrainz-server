@@ -7,7 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import noop from 'lodash/noop';
 import * as React from 'react';
 
 import UserAccountLayout from '../components/UserAccountLayout';
@@ -116,8 +115,8 @@ const ReportUser = ({
       <FormRowSelect
         field={form.field.reason}
         label={addColonText(l('Reason'))}
-        onChange={noop}
         options={reportReasonOptions}
+        uncontrolled
       />
 
       <FormRowTextArea

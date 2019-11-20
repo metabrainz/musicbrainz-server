@@ -59,8 +59,10 @@ class TimelineViewModel {
             rate: ko.observable(false),
             events: ko.observable(true)
         };
-        // rateLimit so they'll all be updated before zoomHashPart is recalculated,
-        // and to ensure graph doesn't need repeated redrawing
+        /*
+         * rateLimit so they'll all be updated before zoomHashPart is
+         * recalculated, and to ensure graph doesn't need repeated redrawing
+         */
         self.zoom = {
             xaxis: { min: debounce(ko.observable(null), 50),
                      max: debounce(ko.observable(null), 50) },
@@ -174,9 +176,11 @@ class TimelineViewModel {
             return optionParts.concat(categoryParts, lineParts).join('+');
         }, 1000);
 
-        // Ignore hashchange events that are the result of the user fiddling
-        // with options. We only need to call _getLocationHashSettings again
-        // if it's directly changed in the address bar.
+        /*
+         * Ignore hashchange events that are the result of the user fiddling
+         * with options. We only need to call _getLocationHashSettings again
+         * if it's directly changed in the address bar.
+         */
         var ignoreHashChange = false;
 
         self.hash.subscribe(function (newHash) {

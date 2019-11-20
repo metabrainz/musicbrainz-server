@@ -7,7 +7,7 @@ executors:
           MMD_SCHEMA_TAG: v-2019-01-07
           PERL_CARTON_PATH: &carton /home/musicbrainz/carton-local
           PERL_CPANM_OPT: --notest --no-interactive
-        image: metabrainz/musicbrainz-tests:v-2019-10
+        image: metabrainz/musicbrainz-tests:v-2019-11-14
         user: root
     working_directory: /home/musicbrainz/musicbrainz-server
 

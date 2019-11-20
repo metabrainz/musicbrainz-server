@@ -15,7 +15,7 @@ import linkedEntities from '../../../static/scripts/common/linkedEntities';
 import {SidebarProperty} from './SidebarProperties';
 
 type Props = {
-  +entity: {...TypeRoleT<empty>, ...},
+  +entity: $ReadOnly<{...TypeRoleT<empty>, ...}>,
   +typeType: string,
 };
 

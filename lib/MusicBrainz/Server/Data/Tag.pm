@@ -12,19 +12,25 @@ sub _type { 'tag' }
 
 sub _table
 {
-    return 'tag';
+    return 'tag LEFT JOIN genre USING (name)';
+}
+
+sub _id_column
+{
+    return 'tag.id';
 }
 
 sub _columns
 {
-    return 'id, name';
+    return 'tag.id, tag.name, genre.id as genre_id';
 }
 
 sub _column_mapping
 {
     return {
-        id => 'id',
-        name => 'name',
+        id        => 'id',
+        name      => 'name',
+        genre_id  => 'genre_id',
     };
 }
 

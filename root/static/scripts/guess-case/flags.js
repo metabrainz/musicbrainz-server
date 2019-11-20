@@ -1,8 +1,11 @@
-// This file is part of MusicBrainz, the open internet music database.
-// Copyright (C) 2005 Stefan Kestenholz (keschte)
-// Copyright (C) 2010 MetaBrainz Foundation
-// Licensed under the GPL version 2, or (at your option) any later version:
-// http://www.gnu.org/licenses/gpl-2.0.txt
+/*
+ * Copyright (C) 2005 Stefan Kestenholz (keschte)
+ * Copyright (C) 2010 MetaBrainz Foundation
+ *
+ * This file is part of MusicBrainz, the open internet music database,
+ * and is licensed under the GPL version 2, or (at your option) any
+ * later version: http://www.gnu.org/licenses/gpl-2.0.txt
+ */
 
 // Holds the state of the current GC operation.
 export const context = {
@@ -65,8 +68,10 @@ export function getCurrentCloseBracket() {
 
 // Initialise flags for another run.
 export function init() {
-    // Flag to force the next word to capitalize the first letter. Set to true
-    // because the first word is always capitalized.
+    /*
+     * Flag to force the next word to capitalize the first letter. Set to true
+     * because the first word is always capitalized.
+     */
     context.forceCaps = true;
 
     // Flag to force a space before the next word.
@@ -84,10 +89,12 @@ export function init() {
     // Flag used for the number splitting routine (i.e. 10,000,000).
     context.number = false;
 
-    // Defines the current number split. Note that this will not be cleared,
-    // which has the side-effect of forcing the first type of number split
-    // encountered to be the only one used for the entire string, assuming that
-    // people aren't going to be mixing grammars in titles.
+    /*
+     * Defines the current number split. Note that this will not be cleared,
+     * which has the side-effect of forcing the first type of number split
+     * encountered to be the only one used for the entire string, assuming
+     * people aren't going to be mixing grammars in titles.
+     */
     context.numberSplitChar = null;
     context.numberSplitExpect = false;
 }
