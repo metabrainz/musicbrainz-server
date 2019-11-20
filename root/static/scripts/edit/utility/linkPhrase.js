@@ -175,10 +175,10 @@ function _getRequiredAttributes(linkType: LinkTypeT) {
   if (required) {
     return required;
   }
-  for (const [typeId, info] of Object.entries(linkType.attributes)) {
-    const {min} = ((info: any): LinkTypeAttrTypeT);
+  for (const typeId of Object.keys(linkType.attributes)) {
+    const {min} = linkType.attributes[Number(typeId)];
     if (min) {
-      const attribute = linkedEntities.link_attribute_type[(typeId: any)];
+      const attribute = linkedEntities.link_attribute_type[Number(typeId)];
       required = required || {};
       required[attribute.name] = localizeLinkAttributeTypeName(attribute);
     }
