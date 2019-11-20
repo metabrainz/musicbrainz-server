@@ -723,9 +723,8 @@ declare type MergeQueueT = {
 };
 
 declare type MinimalCoreEntityT = {
-  +entityType: string,
+  +entityType: CoreEntityTypeT,
   +gid: string,
-  ...
 };
 
 // See MB.forms.buildOptionsTree

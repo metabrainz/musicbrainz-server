@@ -177,7 +177,7 @@ class TagRow extends React.Component<TagRowProps> {
 type TagEditorProps = {
   +$c: CatalystContextT,
   +aggregatedTags: $ReadOnlyArray<AggregatedTagT>,
-  +entity: MinimalCoreEntityT,
+  +entity: CoreEntityT | MinimalCoreEntityT,
   +more: boolean,
   +userTags: $ReadOnlyArray<UserTagT>,
 };

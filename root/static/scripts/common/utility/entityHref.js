@@ -16,32 +16,41 @@ import nonEmpty from './nonEmpty';
 const leadingSlash = /^\/?(.*)/;
 
 type LinkableEntity =
-  | CDStubT
-  | CollectionT
-  | CoreEntityT
-  | EditorT
-  | IsrcT
-  | IswcT
-  | MinimalCoreEntityT
-  | SanitizedEditorT;
+  | {+discid: string, +entityType: 'cdstub', ...}
+  | {+entityType: 'editor', +name: string, ...}
+  | {+entityType: 'isrc', +isrc: string, ...}
+  | {+entityType: 'iswc', +iswc: string, ...}
+  | {+entityType: CoreEntityTypeT | 'collection', +gid: string, ...};
 
 function entityHref(
   entity: LinkableEntity,
   subPath?: string,
 ) {
-  const entityType = entity.entityType;
-  const entityProps = ENTITIES[entityType];
+  const entityProps = ENTITIES[entity.entityType];
   let href = '/' + entityProps.url + '/';
-  let id: string;
+  let id = '';
 
-  if (entityProps.mbid) {
-    id = ko.unwrap((entity: any).gid);
-  } else if (entityType === 'isrc' || entityType === 'iswc') {
-    id = (entity: any)[entityType];
-  } else if (entityType === 'cdstub') {
-    id = (entity: any).discid;
-  } else {
-    id = (entity: any).name;
+  switch (entity.entityType) {
+    case 'isrc':
+      id = entity.isrc;
+      break;
+
+    case 'iswc':
+      id = entity.iswc;
+      break;
+
+    case 'cdstub':
+      id = entity.discid;
+      break;
+
+    case 'editor':
+      id = entity.name;
+      break;
+
+    default:
+      if (entityProps.mbid && entity.gid) {
+        id = ko.unwrap(entity.gid);
+      }
   }
 
   href += encodeURIComponent(id);
