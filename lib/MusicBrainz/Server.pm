@@ -495,6 +495,7 @@ sub TO_JSON {
         current_language
         current_language_html
         entity
+        genre_map
         jsonld_data
         last_replication_date
         more_tags

@@ -18,7 +18,6 @@ type Props = {
   +$c: CatalystContextT,
   +allTags: $ReadOnlyArray<AggregatedTagT>,
   +entity: CoreEntityT,
-  +lastUpdated: string,
   +moreTags: boolean,
   +userTags: $ReadOnlyArray<UserTagT>,
 };
@@ -27,7 +26,6 @@ const Tags = ({
   $c,
   allTags,
   entity,
-  lastUpdated,
   moreTags,
   userTags,
 }: Props) => {

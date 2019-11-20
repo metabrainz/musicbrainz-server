@@ -210,14 +210,9 @@ sub _tags
     my @todo = grep { $c->stash->{inc}->$_ } qw( tags user_tags genres user_genres );
 
     for my $type (@todo) {
-        # This is a hack but it seems pointless to create a dupe
-        # find_genres_for_entities, etc.
-        my $genre_flag = $type =~ /genres$/ ? 1 : 0;
-        my $massaged_type = $type =~ s/genre/tag/gr;
-        my $find_method = 'find_' . $massaged_type . '_for_entities';
+        my $find_method = 'find_' . $type . '_for_entities';
         my @tags = $model->tags->$find_method(
                         ($type =~ /^user_/ ? $c->user->id : ()),
-                        $genre_flag,
                         map { $_->id } @$entities);
 
         my %tags_by_entity = partition_by { $_->entity_id } @tags;

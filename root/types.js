@@ -17,7 +17,7 @@
 
 declare type AggregatedTagT = {
   +count: number,
-  +tag: string,
+  +tag: TagT,
 };
 
 declare type AliasT = {
@@ -217,6 +217,7 @@ type CatalystStashT = {
   +current_language: string,
   +current_language_html: string,
   +entity?: CoreEntityT,
+  +genre_map?: {+[string]: GenreT, ...},
   +hide_merge_helper?: boolean,
   +jsonld_data?: {...},
   +makes_no_changes?: boolean,
@@ -913,6 +914,7 @@ declare type SanitizedCatalystContextT = {
   },
   +stash: {
     +current_language: string,
+    +genre_map?: {+[string]: GenreT, ...},
   },
   +user: SanitizedEditorT | null,
   +user_exists: boolean,
@@ -1002,6 +1004,13 @@ type StructFieldT<F> =
   | CompoundFieldT<F>
   | RepeatableFieldT<F>;
 
+declare type TagT = {
+  +entityType: 'tag',
+  +genre?: GenreT,
+  +id: number | null,
+  +name: string,
+};
+
 declare type TrackT = {
   ...EntityRoleT<'track'>,
   ...LastUpdateRoleT,
@@ -1035,7 +1044,7 @@ declare type UrlT = {
 
 declare type UserTagT = {
   +count: number,
-  +tag: string,
+  +tag: TagT,
   +vote: 1 | 0 | -1,
 };
 

@@ -460,6 +460,7 @@ test 'Paths that allow browsing without a confirmed email address' => sub {
   "Controller::WS::js::CheckDuplicates::check_duplicates",
   "Controller::WS::js::Editor::search",
   "Controller::WS::js::Event::search",
+  "Controller::WS::js::Genre::search",
   "Controller::WS::js::Instrument::search",
   "Controller::WS::js::Label::search",
   "Controller::WS::js::Place::search",

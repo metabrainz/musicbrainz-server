@@ -456,8 +456,8 @@ sub tags : Chained('load') PathPart('tags')
     }
 
     my $tags = $c->model('Editor')->get_tags($user);
-    my @display_tags = grep { !$_->{tag}->is_genre_tag } @{ $tags->{tags} };
-    my @display_genres = grep { $_->{tag}->is_genre_tag } @{ $tags->{tags} };
+    my @display_tags = grep { !$_->{tag}->genre_id } @{ $tags->{tags} };
+    my @display_genres = grep { $_->{tag}->genre_id } @{ $tags->{tags} };
 
     $c->stash(
         user => $user,

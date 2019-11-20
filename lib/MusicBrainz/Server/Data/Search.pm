@@ -270,6 +270,35 @@ sub search
         $hard_search_limit = $offset * 2;
     }
 
+    elsif ($type eq 'genre') {
+
+        $query = "
+            SELECT
+                entity.id,
+                entity.gid,
+                entity.name,
+                entity.comment,
+                MAX(rank) AS rank
+            FROM
+                (
+                    SELECT name, ts_rank_cd(to_tsvector('mb_simple', name), query, 2) AS rank
+                    FROM genre,
+                        plainto_tsquery('mb_simple', ?) AS query
+                    WHERE to_tsvector('mb_simple', name) @@ query OR name = ?
+                    ORDER BY rank DESC
+                ) AS r
+                JOIN genre AS entity ON r.name = entity.name
+            GROUP BY
+                entity.id, entity.gid, entity.name, entity.comment
+            ORDER BY
+                rank DESC, entity.name, entity.gid
+            OFFSET
+                ?
+        ";
+
+        $use_hard_search_limit = 0;
+    }
+
     elsif ($type eq "tag") {
         $query = "
             SELECT id, name, ts_rank_cd(to_tsvector('mb_simple', name), query, 2) AS rank
