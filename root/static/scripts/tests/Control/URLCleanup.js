@@ -2361,6 +2361,14 @@ const testData = [
     expected_relationship_type: 'patronage',
             expected_clean_url: 'https://www.patreon.com/user?u=4212671',
   },
+  {
+                     input_url: 'https://www.patreon.com/posts/gamers-natural-1823606',
+             input_entity_type: 'release',
+    expected_relationship_type: undefined,
+            expected_clean_url: 'https://www.patreon.com/posts/gamers-natural-1823606',
+       input_relationship_type: 'patronage',
+       only_valid_entity_types: [],
+  },
   // PayPal.Me
   {
                      input_url: 'https://paypal.me/example',
