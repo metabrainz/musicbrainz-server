@@ -354,7 +354,7 @@ const UserProfileStatistics = withCatalystContext(({
             <th colSpan="2">
               {exp.l(
                 'Edits ({view_url|view})',
-                {view_url: `/user/${encodedName}/edits/all`},
+                {view_url: `/user/${encodedName}/edits`},
               )}
             </th>
           </tr>
