@@ -254,13 +254,13 @@ const UserProfileInformation = withCatalystContext(({
               {bracketed(
                 subscribed ? (
                   <a href={
-                    `/account/subscriptions/editor/remove?id=${encodedName}`}
+                    `/account/subscriptions/editor/remove?id=${user.id}`}
                   >
                     {l('unsubscribe')}
                   </a>
                 ) : (
                   <a href={
-                    `account/subscriptions/editor/add?id=${encodedName}`}
+                    `/account/subscriptions/editor/add?id=${user.id}`}
                   >
                     {l('subscribe')}
                   </a>
