@@ -254,13 +254,13 @@ const UserProfileInformation = withCatalystContext(({
               {bracketed(
                 subscribed ? (
                   <a href={
-                    `/account/subscriptions/editor/remove?id=${encodedName}`}
+                    `/account/subscriptions/editor/remove?id=${user.id}`}
                   >
                     {l('unsubscribe')}
                   </a>
                 ) : (
                   <a href={
-                    `account/subscriptions/editor/add?id=${encodedName}`}
+                    `/account/subscriptions/editor/add?id=${user.id}`}
                   >
                     {l('subscribe')}
                   </a>
@@ -354,7 +354,7 @@ const UserProfileStatistics = withCatalystContext(({
             <th colSpan="2">
               {exp.l(
                 'Edits ({view_url|view})',
-                {view_url: `/user/${encodedName}/edits/all`},
+                {view_url: `/user/${encodedName}/edits`},
               )}
             </th>
           </tr>
