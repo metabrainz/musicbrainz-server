@@ -73,7 +73,7 @@ class PhraseVarArgs<T> extends VarArgs<LinkAttrs, T | string> {
    * didn't appear in the link phrase, so that we can display them
    * separately).
    */
-   +usedAttributes: Array<string>;
+   +usedPhraseAttributes: Array<string>;
 
   constructor(
     args: ?VarArgsObject<LinkAttrs>,
@@ -85,7 +85,7 @@ class PhraseVarArgs<T> extends VarArgs<LinkAttrs, T | string> {
     this.i18n = i18n;
     this.entity0 = entity0 || '';
     this.entity1 = entity1 || '';
-    this.usedAttributes = [];
+    this.usedPhraseAttributes = [];
   }
 
   get(name): T | string {
@@ -108,7 +108,7 @@ class PhraseVarArgs<T> extends VarArgs<LinkAttrs, T | string> {
   }
 
   has(name) {
-    this.usedAttributes.push(name);
+    this.usedPhraseAttributes.push(name);
     return true;
   }
 }
@@ -291,7 +291,7 @@ export function getPhraseAndExtraAttributes<T>(
   const extraAttributes: Array<T | string> = [];
   for (const key in attributesByRootName) {
     if (shouldStripAttributes ||
-        !varArgs.usedAttributes.includes(key)) {
+        !varArgs.usedPhraseAttributes.includes(key)) {
       const values = attributesByRootName[key];
       if (Array.isArray(values)) {
         extraAttributes.push(...values.map(
