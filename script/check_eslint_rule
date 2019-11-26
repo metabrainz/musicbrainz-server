@@ -8,5 +8,8 @@ cd "$(dirname "${BASH_SOURCE[0]}")/../"
     --parser babel-eslint \
     --plugin react \
     --plugin flowtype \
+    --plugin import \
+    --rule 'react/jsx-uses-react: warn' \
+    --rule 'react/jsx-uses-vars: warn' \
     --rule \
     "$@"

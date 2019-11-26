@@ -2,10 +2,10 @@
     [%- DEFAULT no_icons = homepage -%]
     [%- React.embed(c, 'layout/components/Head', {
             homepage => homepage,
-            no_icons => no_icons,
+            noIcons => boolean_to_json(no_icons),
             pager => pager,
             title => title,
-            gettext_domains => gettext_domains,
+            gettextDomains => gettext_domains,
         })
     -%]
     <body>

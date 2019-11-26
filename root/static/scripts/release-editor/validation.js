@@ -1,7 +1,10 @@
-// This file is part of MusicBrainz, the open internet music database.
-// Copyright (C) 2014 MetaBrainz Foundation
-// Licensed under the GPL version 2, or (at your option) any later version:
-// http://www.gnu.org/licenses/gpl-2.0.txt
+/*
+ * Copyright (C) 2014 MetaBrainz Foundation
+ *
+ * This file is part of MusicBrainz, the open internet music database,
+ * and is licensed under the GPL version 2, or (at your option) any
+ * later version: http://www.gnu.org/licenses/gpl-2.0.txt
+ */
 
 import $ from 'jquery';
 import ko from 'knockout';
@@ -21,8 +24,10 @@ releaseEditor.validation = validation;
 validation.errorsExist = errorsExist;
 
 function markTabWithErrors($panel) {
-    // Don't mark the edit note tab, because it's the last one and only
-    // can have one error, so the user will always see it anyway.
+    /*
+     * Don't mark the edit note tab, because it's the last one and only
+     * can have one error, so the user will always see it anyway.
+     */
     if ($panel.attr("id") === "edit-note") {
         return;
     }
@@ -93,8 +98,10 @@ ko.bindingHandlers.showErrorWhenTabIsSwitched = {
 $(function () {
     $("#release-editor").on("tabsbeforeactivate", function (event, ui) {
 
-        // Show errors on and mark all tabs between the one we just
-        // clicked on, including the one we left.
+        /*
+         * Show errors on and mark all tabs between the one we just
+         * clicked on, including the one we left.
+         */
         var oldPanel = ui.oldPanel;
         var newPanel = ui.newPanel;
 

@@ -30,6 +30,7 @@ function sanitizedContext(
     },
     stash: {
       current_language: stash.current_language,
+      genre_map: stash.genre_map,
     },
     user: user ? sanitizedEditor(user) : null,
     user_exists: $c.user_exists,

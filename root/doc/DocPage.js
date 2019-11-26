@@ -52,7 +52,7 @@ const DocPage = ({
     </a>
   );
   return (
-    <Layout fullWidth no_icons title={page.title}>
+    <Layout fullWidth noIcons title={page.title}>
       <div className="wikicontent" id="content">
         {useGoogleCustomSearch ? <DocSearchBox /> : null}
 

@@ -1,15 +1,15 @@
 /*
- * This file is part of MusicBrainz, the open internet music database.
+ * @flow
  * Copyright (C) 2017 MetaBrainz Foundation
- * Licensed under the GPL version 2, or (at your option) any later version:
- * http://www.gnu.org/licenses/gpl-2.0.txt
+ *
+ * This file is part of MusicBrainz, the open internet music database,
+ * and is licensed under the GPL version 2, or (at your option) any
+ * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import _ from 'lodash';
 import React from 'react';
 
 import {artistBeginLabel, artistEndLabel} from '../../artist/utils';
-import commaOnlyList from '../../static/scripts/common/i18n/commaOnlyList';
 import formatBarcode from '../../static/scripts/common/utility/formatBarcode';
 import formatDate from '../../static/scripts/common/utility/formatDate';
 import formatTrackLength
@@ -20,18 +20,24 @@ function entityDescription(entity) {
   if (entity.comment) {
     desc.push(entity.comment);
   }
-  if (entity.type) {
-    desc.push(l('Type:') + ' ' + entity.type.name);
-  }
   return desc;
+}
+
+function pushTypeName(desc, entity) {
+  const typeName = entity.typeName;
+  if (typeName) {
+    desc.push('Type: ' + typeName);
+  }
 }
 
 function artistDescription(artist) {
   const desc = entityDescription(artist);
+  pushTypeName(desc, artist);
   const beginDate = formatDate(artist.begin_date);
   const endDate = formatDate(artist.end_date);
-  if (artist.gender) {
-    desc.push(l('Gender:') + ' ' + artist.gender.name);
+  const gender = artist.gender;
+  if (gender) {
+    desc.push('Gender: ' + gender.name);
   }
   if (beginDate || artist.begin_area) {
     desc.push(
@@ -47,21 +53,23 @@ function artistDescription(artist) {
       (artist.end_area ? ' in ' + artist.end_area.name : ''),
     );
   }
-  if (artist.area) {
-    desc.push(l('Area:') + ' ' + artist.area.name);
+  const area = artist.area;
+  if (area) {
+    desc.push('Area: ' + area.name);
   }
   return desc;
 }
 
 function eventDescription(event) {
   const desc = entityDescription(event);
+  pushTypeName(desc, event);
   const beginDate = formatDate(event.begin_date);
   const endDate = formatDate(event.end_date);
   if (beginDate) {
-    desc.push(l('Start:') + ' ' + beginDate);
+    desc.push('Start: ' + beginDate);
   }
   if (endDate) {
-    desc.push(l('End:') + ' ' + endDate);
+    desc.push('End: ' + endDate);
   }
   if (event.time) {
     desc.push(event.time);
@@ -71,55 +79,60 @@ function eventDescription(event) {
 
 function instrumentDescription(instrument) {
   const desc = entityDescription(instrument);
+  pushTypeName(desc, instrument);
   if (instrument.description) {
-    desc.push(l('Description:') + ' ' + instrument.description);
+    desc.push('Description: ' + instrument.description);
   }
   return desc;
 }
 
 function labelDescription(label) {
   const desc = entityDescription(label);
+  pushTypeName(desc, label);
   const beginDate = formatDate(label.begin_date);
   const endDate = formatDate(label.end_date);
   if (label.label_code) {
-    desc.push(l('Label Code:') + ' ' + label.label_code);
+    desc.push('Label Code: ' + label.label_code);
   }
   if (beginDate) {
-    desc.push(l('Founded:') + ' ' + beginDate);
+    desc.push('Founded: ' + beginDate);
   }
   if (endDate) {
-    desc.push(l('Defunct:') + ' ' + endDate);
+    desc.push('Defunct: ' + endDate);
   }
-  if (label.area) {
-    desc.push(l('Area:') + ' ' + label.area.name);
+  const area = label.area;
+  if (area) {
+    desc.push('Area: ' + area.name);
   }
   return desc;
 }
 
 function placeDescription(place) {
   const desc = entityDescription(place);
+  pushTypeName(desc, place);
   const beginDate = formatDate(place.begin_date);
   const endDate = formatDate(place.end_date);
   if (beginDate) {
-    desc.push(l('Opened:') + ' ' + beginDate);
+    desc.push('Opened: ' + beginDate);
   }
   if (endDate) {
-    desc.push(l('Closed:') + ' ' + endDate);
+    desc.push('Closed: ' + endDate);
   }
   return desc;
 }
 
 function releaseDescription(release) {
   const desc = entityDescription(release);
-  if (release.combined_format_name) {
-    desc.push(l('Format:') + ' ' + release.combined_format_name);
+  const combinedFormatName = release.combined_format_name;
+  if (combinedFormatName) {
+    desc.push('Format: ' + combinedFormatName);
   }
   let year;
   if (release.events && release.events.length) {
-    year = release.events[0].date.year;
+    year = release.events[0].date?.year;
   }
   if (year) {
-    desc.push(l('Year:') + ' ' + year);
+    desc.push('Year: ' + year);
   }
   if (release.labels && release.labels.length) {
     const labels = release.labels.map(function (rl) {
@@ -129,42 +142,53 @@ function releaseDescription(release) {
       );
     });
     desc.push(
-      (labels.length > 1 ? l('Labels:') : l('Label:')) + ' ' +
-      commaOnlyList(labels),
+      (labels.length > 1 ? 'Labels:' : 'Label:') + ' ' +
+      labels.join(', '),
     );
   }
   if (release.barcode) {
-    desc.push(l('Barcode:') + ' ' + formatBarcode(release.barcode));
+    desc.push('Barcode: ' + formatBarcode(release.barcode));
   }
   if (release.length) {
-    desc.push(l('Length:') + ' ' + formatTrackLength(release.length));
+    desc.push('Length: ' + formatTrackLength(release.length));
   }
   return desc;
 }
 
+const getLanguageName = wl => wl.language.name;
+
+const getEntityName = x => x.entity.name;
+
+const getIswc = x => x.iswc;
+
 function workDescription(work) {
   const desc = entityDescription(work);
+  pushTypeName(desc, work);
   if (work.languages.length) {
     desc.push(
-      addColon(l('Lyrics Languages')) + ' ' +
-      commaOnlyList(work.languages.map(wl => l_languages(wl.language.name))),
+      'Lyrics Languages: ' +
+      work.languages.map(getLanguageName).join(', '),
     );
   }
   if (work.writers) {
     desc.push(
-      l('Writers:') + ' ' +
-      commaOnlyList(_.map(work.writers, 'entity.name')),
+      'Writers: ' +
+      work.writers.map(getEntityName).join(', '),
     );
   }
   if (work.iswcs) {
     desc.push(
-      l('ISWCs:') + ' ' + commaOnlyList(_.map(work.iswcs, 'iswc')),
+      'ISWCs: ' + work.iswcs.map(getIswc).join(', '),
     );
   }
   return desc;
 }
 
-const MetaDescription = ({entity}) => {
+type Props = {
+  +entity: ?CoreEntityT,
+};
+
+const MetaDescription = ({entity}: Props) => {
   if (!entity) {
     return null;
   }
@@ -193,7 +217,7 @@ const MetaDescription = ({entity}) => {
       break;
   }
   if (desc && desc.length) {
-    return <meta content={commaOnlyList(desc)} name="description" />;
+    return <meta content={desc.join(', ')} name="description" />;
   }
   return null;
 };

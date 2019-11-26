@@ -254,13 +254,13 @@ const UserProfileInformation = withCatalystContext(({
               {bracketed(
                 subscribed ? (
                   <a href={
-                    `/account/subscriptions/editor/remove?id=${encodedName}`}
+                    `/account/subscriptions/editor/remove?id=${user.id}`}
                   >
                     {l('unsubscribe')}
                   </a>
                 ) : (
                   <a href={
-                    `account/subscriptions/editor/add?id=${encodedName}`}
+                    `/account/subscriptions/editor/add?id=${user.id}`}
                   >
                     {l('subscribe')}
                   </a>
@@ -341,6 +341,8 @@ const UserProfileStatistics = withCatalystContext(({
 }: UserProfileStatisticsProps) => {
   const voteTotals = votes.pop();
   const encodedName = encodeURIComponent(user.name);
+  const allAppliedCount = editStats.accepted_count +
+                          editStats.accepted_auto_count;
 
   return (
     <>
@@ -352,7 +354,7 @@ const UserProfileStatistics = withCatalystContext(({
             <th colSpan="2">
               {exp.l(
                 'Edits ({view_url|view})',
-                {view_url: `/user/${encodedName}/edits/all`},
+                {view_url: `/user/${encodedName}/edits`},
               )}
             </th>
           </tr>
@@ -379,7 +381,17 @@ const UserProfileStatistics = withCatalystContext(({
             )}
           </UserProfileProperty>
 
-          <UserProfileProperty name={l('Voted down')}>
+          <UserProfileProperty className="positive" name={l('Total applied')}>
+            {exp.l(
+              '{count} ({view_url|view})',
+              {
+                count: formatCount($c, allAppliedCount),
+                view_url: `/user/${encodedName}/edits/applied`,
+              },
+            )}
+          </UserProfileProperty>
+
+          <UserProfileProperty className="negative" name={l('Voted down')}>
             {exp.l(
               '{count} ({view_url|view})',
               {
@@ -399,22 +411,22 @@ const UserProfileStatistics = withCatalystContext(({
             )}
           </UserProfileProperty>
 
-          <UserProfileProperty name={l('Open')}>
-            {exp.l(
-              '{count} ({view_url|view})',
-              {
-                count: formatCount($c, editStats.open_count),
-                view_url: `/user/${encodedName}/edits/open`,
-              },
-            )}
-          </UserProfileProperty>
-
           <UserProfileProperty name={l('Cancelled')}>
             {exp.l(
               '{count} ({view_url|view})',
               {
                 count: formatCount($c, editStats.cancelled_count),
                 view_url: `/user/${encodedName}/edits/cancelled`,
+              },
+            )}
+          </UserProfileProperty>
+
+          <UserProfileProperty name={l('Open')}>
+            {exp.l(
+              '{count} ({view_url|view})',
+              {
+                count: formatCount($c, editStats.open_count),
+                view_url: `/user/${encodedName}/edits/open`,
               },
             )}
           </UserProfileProperty>
@@ -431,7 +443,7 @@ const UserProfileStatistics = withCatalystContext(({
                 `&conditions.0.name=${encodedName}` +
                 '&conditions.0.field=editor' +
                 '&order=desc' +
-                `&conditions.0.args.0=${encodedName}` +
+                `&conditions.0.args.0=${user.id}` +
                 '&conditions.0.operator=%3D' +
                 '&negation=0' +
                 '&auto_edit_filter='

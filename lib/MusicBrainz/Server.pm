@@ -48,6 +48,7 @@ __PACKAGE__->config(
     encoding => 'UTF-8',
     "View::Default" => {
         expose_methods => [qw(
+            boolean_to_json
             comma_list
             comma_only_list
         )],
@@ -494,13 +495,11 @@ sub TO_JSON {
         current_language
         current_language_html
         entity
-        hide_merge_helper
+        genre_map
         jsonld_data
         last_replication_date
-        makes_no_changes
-        merge_link
         more_tags
-        new_edit_notes
+        new_edit_notes_mtime
         number_of_collections
         number_of_revisions
         own_collections
@@ -514,9 +513,20 @@ sub TO_JSON {
         user_tags
     );
 
+    my @boolean_stash_keys = qw(
+        hide_merge_helper
+        makes_no_changes
+        new_edit_notes
+    );
+
     my %stash;
     for (@stash_keys) {
         $stash{$_} = $self->stash->{$_} if exists $self->stash->{$_};
+    }
+
+    for (@boolean_stash_keys) {
+        $stash{$_} = boolean_to_json($self->stash->{$_})
+            if exists $self->stash->{$_};
     }
 
     if (my $entity = delete $stash{entity}) {

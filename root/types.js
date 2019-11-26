@@ -17,7 +17,7 @@
 
 declare type AggregatedTagT = {
   +count: number,
-  +tag: string,
+  +tag: TagT,
 };
 
 declare type AliasT = {
@@ -182,6 +182,9 @@ type CatalystActionT = {
 
 type CatalystContextT = {
   +action: CatalystActionT,
+  +flash: {
+    +message?: string,
+  },
   +relative_uri: string,
   +req: CatalystRequestContextT,
   +session: CatalystSessionT | null,
@@ -200,9 +203,12 @@ type CatalystRequestContextT = {
 
 type CatalystSessionT = {
   +tport?: number,
+  +merger?: MergeQueueT,
 };
 
 type CatalystStashT = {
+  +alert?: string,
+  +alert_mtime?: number | null,
   +collaborative_collections?: $ReadOnlyArray<CollectionT>,
   +commons_image?: CommonsImageT | null,
   +containment?: {
@@ -210,7 +216,14 @@ type CatalystStashT = {
   },
   +current_language: string,
   +current_language_html: string,
+  +entity?: CoreEntityT,
+  +genre_map?: {+[string]: GenreT, ...},
+  +hide_merge_helper?: boolean,
+  +jsonld_data?: {...},
+  +makes_no_changes?: boolean,
   +more_tags?: boolean,
+  +new_edit_notes?: boolean,
+  +new_edit_notes_mtime?: number | null,
   +number_of_collections?: number,
   +number_of_revisions?: number,
   +own_collections?: $ReadOnlyArray<CollectionT>,
@@ -218,6 +231,7 @@ type CatalystStashT = {
   +release_artwork_count?: number,
   +server_languages?: $ReadOnlyArray<ServerLanguageT>,
   +subscribed?: boolean,
+  +to_merge?: $ReadOnlyArray<CoreEntityT>,
   +top_tags?: $ReadOnlyArray<AggregatedTagT>,
   +user_tags?: $ReadOnlyArray<UserTagT>,
 };
@@ -702,6 +716,12 @@ declare type MergeFormT = FormT<{
   +target: FieldT<number>,
 }>;
 
+declare type MergeQueueT = {
+  +type: CoreEntityTypeT,
+  +entities: $ReadOnlyArray<number>,
+  +ready_to_merge: boolean,
+};
+
 declare type MinimalCoreEntityT = {
   +entityType: string,
   +gid: string,
@@ -894,6 +914,7 @@ declare type SanitizedCatalystContextT = {
   },
   +stash: {
     +current_language: string,
+    +genre_map?: {+[string]: GenreT, ...},
   },
   +user: SanitizedEditorT | null,
   +user_exists: boolean,
@@ -950,14 +971,14 @@ declare type SelectOptionT = {
 
 declare type SelectOptionsT = $ReadOnlyArray<SelectOptionT>;
 
-declare type SeriesT = {
+declare type SeriesT = $ReadOnly<{
   ...AnnotationRoleT,
   ...CommentRoleT,
   ...CoreEntityRoleT<'series'>,
   ...TypeRoleT<SeriesTypeT>,
   +orderingTypeID: number,
   +type?: SeriesTypeT,
-};
+}>;
 
 declare type SeriesItemNumbersRoleT = {
   +seriesItemNumbers?: {+[number]: string},
@@ -965,7 +986,10 @@ declare type SeriesItemNumbersRoleT = {
 
 declare type SeriesOrderingTypeT = OptionTreeT<'series_ordering_type'>;
 
-declare type SeriesTypeT = OptionTreeT<'series_type'>;
+declare type SeriesTypeT = $ReadOnly<{
+  ...OptionTreeT<'series_type'>,
+  item_entity_type: CoreEntityTypeT,
+}>;
 
 declare type ServerLanguageT = {
   +id: number,
@@ -979,6 +1003,13 @@ declare type StrOrNum = string | number;
 type StructFieldT<F> =
   | CompoundFieldT<F>
   | RepeatableFieldT<F>;
+
+declare type TagT = {
+  +entityType: 'tag',
+  +genre?: GenreT,
+  +id: number | null,
+  +name: string,
+};
 
 declare type TrackT = {
   ...EntityRoleT<'track'>,
@@ -1013,7 +1044,7 @@ declare type UrlT = {
 
 declare type UserTagT = {
   +count: number,
-  +tag: string,
+  +tag: TagT,
   +vote: 1 | 0 | -1,
 };
 

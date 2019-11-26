@@ -35,6 +35,7 @@ role {
     method 'merge_queue' => sub {
         my ($self, $c) = @_;
         my $model = $c->model( $self->{model} );
+        my $type = model_to_type($self->{model});
 
         my $add = exists $c->req->params->{'add-to-merge'} ? $c->req->params->{'add-to-merge'} : [];
         my @add = ref($add) ? @$add : ($add);
@@ -44,9 +45,9 @@ role {
             my @loaded = values %{ $model->get_by_ids(@add) };
 
             if (!$c->session->{merger} ||
-                 $c->session->{merger}->type ne $self->{model}) {
+                 $c->session->{merger}->type ne $type) {
                 $c->session->{merger} = MusicBrainz::Server::MergeQueue->new(
-                    type => $self->{model},
+                    type => $type,
                 );
             }
 
@@ -123,7 +124,7 @@ role {
             or $c->res->redirect('/'), $c->detach;
 
         my @entities = values %{
-            $c->model($merger->type)->get_by_ids($merger->all_entities)
+            $c->model($self->{model})->get_by_ids($merger->all_entities)
         };
 
         unless ($merger->ready_to_merge) {
@@ -132,7 +133,7 @@ role {
                     $c->uri_for_action('/'));
             $c->detach;
         }
-        
+
         my $check_form = $c->form(form => 'Merge');
         if ($check_form->submitted_and_valid($c->req->params)) {
             # Ensure that we use the entities that appeared on the page and the right type,

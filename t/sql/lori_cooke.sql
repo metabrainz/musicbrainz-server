@@ -89,6 +89,13 @@ INSERT INTO musicbrainz.release_tag (release, tag, count, last_updated) VALUES
 	(2299278, 1137, 1, '2019-02-12 07:11:54.439327+00');
 INSERT INTO musicbrainz.release_tag_raw (release, editor, tag, is_upvote) VALUES
 	(2299278, 58244, 1137, '1');
+INSERT INTO musicbrainz.genre (id, gid, name) VALUES (11, '8a14f570-7297-438d-996d-8797f9b8cfcc', 'psychobilly');
+INSERT INTO musicbrainz.genre (id, gid, name) VALUES (12, '8c083468-2dce-4a31-ae77-433af3deafd3', 'hard bop');
+INSERT INTO musicbrainz.genre (id, gid, name) VALUES (13, 'f976d48b-965e-4fe9-aaa6-105aab988c7c', 'blackened death metal');
+INSERT INTO musicbrainz.genre (id, gid, name) VALUES (14, 'f1c9b874-7ef2-4e79-9419-c0bcb5f33a30', 'britpop');
+INSERT INTO musicbrainz.genre (id, gid, name) VALUES (15, '8103927c-5f4b-4bbc-9d8c-7a1241d2bab8', 'freak folk');
+INSERT INTO musicbrainz.genre (id, gid, name) VALUES (16, '842008b8-1c67-4c8c-b450-7f5adf20fb7f', 'post-classical');
+INSERT INTO musicbrainz.genre (id, gid, name) VALUES (17, '1696f12e-9f01-4309-be9d-116e31ac65b7', 'doo-wop');
 
 -- Restore triggers.
 CREATE TRIGGER deny_deprecated BEFORE UPDATE OR INSERT ON link FOR EACH ROW EXECUTE PROCEDURE deny_deprecated_links();

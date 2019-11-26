@@ -1162,6 +1162,18 @@ INSERT INTO tag (id, name, ref_count) VALUES (27737, 'country-jp', 188);
 INSERT INTO tag (id, name, ref_count) VALUES (29329, 'format-dvd-video', 264);
 INSERT INTO tag (id, name, ref_count) VALUES (33017, 'electronica dubstep', 14);
 
+-- Genres
+INSERT INTO genre (id, gid, name) VALUES (1, '1b50083b-1afa-4778-82c8-548b309af783', 'dubstep');
+INSERT INTO genre (id, gid, name) VALUES (2, '89255676-1f14-4dd8-bbad-fca839d6aff4', 'electronic');
+INSERT INTO genre (id, gid, name) VALUES (3, '51cfaac4-6696-480b-8f1b-27cfc789109c', 'grime');
+INSERT INTO genre (id, gid, name) VALUES (4, 'eba7715e-ee26-4989-8d49-9db382955419', 'j-pop');
+INSERT INTO genre (id, gid, name) VALUES (5, 'b74b3b6c-0700-46b1-aa55-1f2869a3bd1a', 'k-pop');
+INSERT INTO genre (id, gid, name) VALUES (6, '911c7bbb-172d-4df8-9478-dbff4296e791', 'pop');
+INSERT INTO genre (id, gid, name) VALUES (7, '53a3cea3-17af-4421-a07a-5824b540aeb5', 'electronica');
+INSERT INTO genre (id, gid, name) VALUES (8, 'aac07ae0-8acf-4249-b5c0-2762b53947a2', 'big beat');
+INSERT INTO genre (id, gid, name) VALUES (9, 'a2782cb6-1cd0-477c-a61d-b3f8b42dd1b3', 'house');
+INSERT INTO genre (id, gid, name) VALUES (10, '18b010d7-7d85-4445-a4a8-1889a4688308', 'glitch');
+
 INSERT INTO artist_tag (artist, count, last_updated, tag) VALUES (242, 3, '2011-01-18 15:21:33.71184+00', 34);
 INSERT INTO artist_tag (artist, count, last_updated, tag) VALUES (242, 1, '2011-01-18 15:21:33.71184+00', 77);
 INSERT INTO artist_tag (artist, count, last_updated, tag) VALUES (242, 1, '2011-01-18 15:21:33.71184+00', 1);

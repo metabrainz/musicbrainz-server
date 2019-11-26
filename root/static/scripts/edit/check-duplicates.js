@@ -1,7 +1,10 @@
-// This file is part of MusicBrainz, the open internet music database.
-// Copyright (C) 2015 MetaBrainz Foundation
-// Licensed under the GPL version 2, or (at your option) any later version:
-// http://www.gnu.org/licenses/gpl-2.0.txt
+/*
+ * Copyright (C) 2015 MetaBrainz Foundation
+ *
+ * This file is part of MusicBrainz, the open internet music database,
+ * and is licensed under the GPL version 2, or (at your option) any
+ * later version: http://www.gnu.org/licenses/gpl-2.0.txt
+ */
 
 import $ from 'jquery';
 import ko from 'knockout';
@@ -107,8 +110,10 @@ function getSelectedArea() {
 function isPlaceCommentRequired(duplicates) {
   var selectedArea = ko.unwrap(getSelectedArea()) || {};
 
-  // We require a disambiguation comment if no area is given, or if there
-  // is a possible duplicate in the same area or lacking area information.
+  /*
+   * We require a disambiguation comment if no area is given, or if there
+   * is a possible duplicate in the same area or lacking area information.
+   */
   if (!selectedArea.gid) {
     return true;
   }
@@ -231,8 +236,10 @@ MB.initializeDuplicateChecker = function (type) {
     }
   }, 300);
 
-  // Initiate the duplicate checker on the existing name, which may have been
-  // seeded via query parameters.
+  /*
+   * Initiate the duplicate checker on the existing name, which may have been
+   * seeded via query parameters.
+   */
   handleNameChange(currentName, true);
   $(nameInput).on('input', function () {
     handleNameChange(this.value, false);

@@ -16,7 +16,7 @@ import TagLink from '../static/scripts/common/components/TagLink';
 type Props = {
   +children: React.Node,
   +page: string,
-  +tag: string,
+  +tag: TagT,
   +title?: string,
 };
 
@@ -40,18 +40,18 @@ const TagLayout = ({children, page, tag, title}: Props) => (
     fullWidth
     title={
       title
-        ? hyphenateTitle(texp.l('Tag “{tag}”', {tag}), title)
-        : texp.l('Tag “{tag}”', {tag})
+        ? hyphenateTitle(texp.l('Tag “{tag}”', {tag: tag.name}), title)
+        : texp.l('Tag “{tag}”', {tag: tag.name})
     }
   >
     <div id="content">
       <h1>
-        {exp.l('Tag “{tag}”', {tag: <TagLink tag={tag} />})}
+        {exp.l('Tag “{tag}”', {tag: <TagLink tag={tag.name} />})}
       </h1>
       <Tabs>
         {tabLinks.map(link => (
           <li className={page === link[0] ? 'sel' : ''} key={link[0]}>
-            <a href={'/tag/' + encodeURIComponent(tag) + link[0]}>
+            <a href={'/tag/' + encodeURIComponent(tag.name) + link[0]}>
               {link[1]()}
             </a>
           </li>

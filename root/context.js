@@ -17,6 +17,7 @@ const defaultContext = {
   action: {
     name: '',
   },
+  flash: {},
   relative_uri: '',
   req: {
     headers: {},

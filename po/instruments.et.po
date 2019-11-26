@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2019-11-06 21:54+0000\n"
-"Last-Translator: Michael Wiencek <email address hidden>\n"
+"PO-Revision-Date: 2019-11-20 18:56+0000\n"
+"Last-Translator: Mihkel Tõnnov <email address hidden>\n"
 "Language-Team: Estonian (http://www.transifex.com/musicbrainz/musicbrainz/language/et/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -367,7 +367,7 @@ msgid "analog synthesizer"
 msgstr ""
 
 #: DB:instrument/name:371
-msgctxt "Sundanese single pitch bamboo rattle xylophone"
+msgctxt "Single pitch bamboo rattle xylophone used in Sundanese gamelan"
 msgid "angklung"
 msgstr ""
 
@@ -838,7 +838,7 @@ msgid "calliope"
 msgstr ""
 
 #: DB:instrument/name:974
-msgctxt "Sundanese bamboo xylophone"
+msgctxt "Bamboo xylophone used in Sundanese gamelan"
 msgid "calung"
 msgstr ""
 
@@ -1599,6 +1599,21 @@ msgctxt "Family of Indonesian metallophones"
 msgid "gendèr"
 msgstr ""
 
+#: DB:instrument/name:1004
+msgctxt "Middle pitch metallophone used in Javanese gamelan"
+msgid "gendèr barung"
+msgstr ""
+
+#: DB:instrument/name:1003
+msgctxt "Higest pitch metallophone used in Javanese gamelan"
+msgid "gendèr panerus"
+msgstr ""
+
+#: DB:instrument/name:1005
+msgctxt "Ten key metallophone used in Bali wayang."
+msgid "gendèr wayang"
+msgstr ""
+
 #: DB:instrument/name:76
 msgid "geomungo"
 msgstr "geomungo"
@@ -1946,6 +1961,21 @@ msgstr ""
 #: DB:instrument/name:999
 msgctxt "Family of Sundanese string zithers"
 msgid "kacapi"
+msgstr ""
+
+#: DB:instrument/name:1001
+msgctxt "Boat shaped zither used in Sundanese gamelan"
+msgid "kacapi indung"
+msgstr ""
+
+#: DB:instrument/name:1002
+msgctxt "Small boat shaped zither used in Sundanese gamelan"
+msgid "kacapi rincik"
+msgstr ""
+
+#: DB:instrument/name:1000
+msgctxt "Box zither used in Sundanese gamelan"
+msgid "kacapi siter"
 msgstr ""
 
 #: DB:instrument/name:947
@@ -3094,7 +3124,7 @@ msgid "sarod"
 msgstr "sarod"
 
 #: DB:instrument/name:597
-msgctxt "Javanese wooden trough metallophone family"
+msgctxt "Family of Sundanese metallophones"
 msgid "saron"
 msgstr "saron"
 
@@ -3237,12 +3267,12 @@ msgid "sitar"
 msgstr ""
 
 #: DB:instrument/name:962
-msgctxt "Central Javanese single octave metallophone"
+msgctxt "Deepest pitch single octave metallophone used in Javanese gamelan"
 msgid "slenthem"
 msgstr ""
 
 #: DB:instrument/name:964
-msgctxt "Largely obsolete Central Javan metallophone."
+msgctxt "Obsolete deepest saron-family member used in Sundanese gamelan."
 msgid "slentho"
 msgstr ""
 

@@ -1,7 +1,10 @@
-// This file is part of MusicBrainz, the open internet music database.
-// Copyright (C) 2014 MetaBrainz Foundation
-// Licensed under the GPL version 2, or (at your option) any later version:
-// http://www.gnu.org/licenses/gpl-2.0.txt
+/*
+ * Copyright (C) 2014 MetaBrainz Foundation
+ *
+ * This file is part of MusicBrainz, the open internet music database,
+ * and is licensed under the GPL version 2, or (at your option) any
+ * later version: http://www.gnu.org/licenses/gpl-2.0.txt
+ */
 
 import $ from 'jquery';
 import ko from 'knockout';
@@ -209,8 +212,10 @@ class SearchTab {
             this.search(data, event);
         }
         else {
-            // Knockout calls preventDefault unless you return true. Allows
-            // people to actually enter text.
+            /*
+             * Knockout calls preventDefault unless you return true. Allows
+             * people to actually enter text.
+             */
             return true;
         }
     }

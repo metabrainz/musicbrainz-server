@@ -199,8 +199,7 @@ END -%]
     [%- END -%]
 [%- END -%]
 
-[%~ MACRO expanded_artist_credit(ac) IF ac -%]
-  [%- artist_credit(ac) -%]<br />
+[%~ MACRO expanded_artist_credit_list(ac) IF ac -%]
   [%- IF ac.name != ac.names.0.artist.name || ac.names.size > 1 || ac.names.0.artist.comment -%]
     [%- SET artist_list = [];
         SET show_list = 0;
@@ -217,6 +216,11 @@ END -%]
         END; -%]
     [%- IF show_list -%]<span class="expanded-ac-list">[%- comma_only_list(artist_list) -%]</span>[%- END -%]
   [% END %]
+[%- END -%]
+
+[%~ MACRO expanded_artist_credit(ac) IF ac -%]
+  [%- artist_credit(ac) -%]<br />
+  [%- expanded_artist_credit_list(ac) -%]<br />
 [%- END -%]
 
 [%~ MACRO entity_exists(entity) BLOCK; entity.gid.defined; END -%]
