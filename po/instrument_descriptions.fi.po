@@ -11,7 +11,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2019-11-06 21:54+0000\n"
+"PO-Revision-Date: 2019-11-20 18:56+0000\n"
 "Last-Translator: Michael Wiencek <email address hidden>\n"
 "Language-Team: Finnish (http://www.transifex.com/musicbrainz/musicbrainz/language/fi/)\n"
 "MIME-Version: 1.0\n"
@@ -1026,13 +1026,6 @@ msgid ""
 "ensemble with zhu."
 msgstr ""
 
-#. name:gendèr
-#: DB:instrument/description:961
-msgid ""
-"From the Bali and Java use in gamelan, it has 12-14 tuned bronze keys "
-"suspended over metal or bamboo resonators."
-msgstr ""
-
 #. name:gankogui
 #: DB:instrument/description:383
 msgid "Gankogui, iron bell"
@@ -1188,6 +1181,13 @@ msgid ""
 "Cretan lyra with the violin."
 msgstr ""
 
+#. name:kacapi siter
+#: DB:instrument/description:1000
+msgid ""
+"Inspired by western zithers, it has 20 strings and is flatter than the other"
+" kacapis."
+msgstr ""
+
 #. name:tubulum
 #: DB:instrument/description:873
 msgid ""
@@ -1245,9 +1245,9 @@ msgstr ""
 #. name:slentho
 #: DB:instrument/description:964
 msgid ""
-"It has seven bossed keys hit with the tabuh mallet and is nailed to a wooden"
-" frame. Largely replaced by the <a href=\"/instrument/73173277-b7ef-4d5e-"
-"83b2-205cd2f12488\">slethem</a> in gamelan, it is the lowest member of the "
+"It has seven bossed keys hit with tabuh mallet and nailed to a wooden frame."
+" Largely replaced by the <a href=\"/instrument/73173277-b7ef-4d5e-"
+"83b2-205cd2f12488\">slethem</a> in gamelan, it is the deepest member of the "
 "saron family."
 msgstr ""
 
@@ -1297,6 +1297,21 @@ msgid ""
 "Known also as contrabass or upright bass, it is the largest and lowest-"
 "pitched member of the modern violin family, it is a principal member of the "
 "symphony orchestra."
+msgstr ""
+
+#. name:kacapi indung
+#: DB:instrument/description:1001
+msgid ""
+"Known as indung \"mother\" or parahu \"boat\", it has 18 brass strings each "
+"with its own pyramid shaped bridge. Shaped like a boat, its sound hole is at"
+" the bottom."
+msgstr ""
+
+#. name:kacapi rincik
+#: DB:instrument/description:1002
+msgid ""
+"Known as rincik \"child\" it has 15 steel strings, it has individual bridges"
+" and a sound-hole in the bottom."
 msgstr ""
 
 #. name:birch lur
@@ -1776,20 +1791,19 @@ msgstr ""
 msgid "Pardessus or sopranino member of the viol family"
 msgstr ""
 
-#. name:slenthem
-#: DB:instrument/description:962
-msgid ""
-"Part of central Javanese gamelan, the 6(slendro)-7(pelog) bronze keys beat "
-"by a disk mallet(tabuh) are suspended above individual tube metal/bamboo "
-"resonators set in a 75 cm long wooden frame."
-msgstr ""
-
 #. name:saron
 #: DB:instrument/description:597
 msgid ""
-"Part of the Javanese gamelan, these can have from six up to nine thick "
-"bronze or iron slabs resting on wooden resonator (rancak) and are hit with "
-"wooden mallets or buffalo horn."
+"Part of the Sundanese gamelan, these consist of a decorated wood resonator "
+"(rancak) upon which is resting six to nine thick, smooth, bronze or iron "
+"keys that are hit with mallets of hard wood or buffalo horn. <br /><br /> "
+"The saron family consists of the smallest member; saron panerus, the middle "
+"pitch member; saron barung and the largest member; sarong demung. "
+"Additionally, the largely obsolete slentho (which has been subsumed by the "
+"slenthem) is even deeper than the demung and the saron peking, which is a "
+"special slendro variant is even higher than the panerus, of which it shares "
+"an overlapping range. Finally the saron wayang is used in wayang "
+"performances."
 msgstr ""
 
 #. name:body percussion
@@ -2176,6 +2190,14 @@ msgid ""
 " tuning pegs of the sympathetic strings are attached. Used in India since "
 "ancient times, it flourished during the 16-17th before arriving at it's "
 "current form in the 18th century. It became popular worldwide in the 1950-60"
+msgstr ""
+
+#. name:gendèr wayang
+#: DB:instrument/description:1005
+msgid ""
+"Special version of the gendèr used in Gamelan gendèr wayang performances. "
+"Tuned in Slendro, one to two pairs are played using the same hand to both "
+"play and dampen the keys."
 msgstr ""
 
 #. name:struck idiophone
@@ -4181,6 +4203,21 @@ msgid ""
 "drawn across free reeds which are mounted on a plate inside."
 msgstr ""
 
+#. name:gendèr barung
+#: DB:instrument/description:1004
+msgid ""
+"Used for elaborate and complex parts, it has thinner but wider metal bars "
+"suspended above resonator rods, it is the middle-pitched member of the "
+"gendèr family."
+msgstr ""
+
+#. name:gendèr panerus
+#: DB:instrument/description:1003
+msgid ""
+"Used for simple ornamentation, it has thick small metal bars suspended above"
+" resonator rods, it is the highest pitched member of the gendèr family."
+msgstr ""
+
 #. name:Saraswati veena
 #: DB:instrument/description:476
 msgid ""
@@ -4194,6 +4231,14 @@ msgstr ""
 msgid ""
 "Used in Hindustani dhrupad, this two-headed barrel-drum is tuned like its "
 "descendant the tabla."
+msgstr ""
+
+#. name:slenthem
+#: DB:instrument/description:962
+msgid ""
+"Used in Javanese gamelan, the 6(slendro)-7(pelog) bronze keys beat by a disk"
+" mallet(tabuh) are suspended above individual tube metal/bamboo resonators "
+"set in a 75 cm long wooden frame."
 msgstr ""
 
 #. name:octavilla
@@ -4310,6 +4355,13 @@ msgid ""
 " technique, it is 75 cm long with 3 to 6 holes depending on subtype. <br /> "
 "<ul> <li>saluang darek \"inland\" 4 holes</li> <li>saluang pauh/padang 6 "
 "holes</li> <li>saluang sungai pagu 3 holes</li> </ul>"
+msgstr ""
+
+#. name:gendèr
+#: DB:instrument/description:961
+msgid ""
+"Uses in Javanese gamelan and Balinese wayang, these range from 12 to 14 "
+"tuned bronze keys, all suspended over metal or bamboo resonators."
 msgstr ""
 
 #. name:tanpura
