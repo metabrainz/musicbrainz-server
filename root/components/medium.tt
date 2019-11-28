@@ -1,46 +1,3 @@
-[%~ MACRO grouped_relationships(source) BLOCK ~%]
-  [%- has_work_relationships = 0 %]
-  [%- FOR target_type_group=source.grouped_relationships.pairs %]
-    [%- IF target_type_group.key == 'work';
-          has_work_relationships = 1;
-          NEXT;
-        END;
-        NEXT IF target_type_group.key == 'url' %]
-    <dl class="ars">
-      [%- FOR link_type_group=target_type_group.value.pairs %]
-        <dt>[% add_colon(link_type_group.key) %]</dt>
-        [%- links = [] %]
-        [%- FOR relationship IN link_type_group.value %]
-          [% links.push(relationship_target_links(relationship)) %]
-        [%- END %]
-        <dd>[% comma_list(links) %]</dd>
-      [%- END %]
-    </dl>
-  [%- END %]
-  [%# Work relationships are not grouped together on a single line, because
-      we have to output the relationships of the work under its parent
-      recording-work relationship. So it's intentional that we use
-      relationship.phrase instead of relationship.grouping_phrase here. %]
-  [%- IF has_work_relationships %]
-    <dl class="ars">
-    [%- FOR relationship=source.relationships %]
-      [%- IF relationship.target_type == 'work' &&
-              # Specifically ignore work parts,
-              # still keep works this work is a part of.
-              !(relationship.link.type_id == 281 && relationship.direction == 1) %]
-        [%- work = relationship.target %]
-        <dt>[% add_colon(relationship.phrase) %]</dt>
-        <dd>
-          [%- link_entity(work) %]
-          [%- bracketedWithSpace(relationship.link.formatted_date) %]
-          [%- grouped_relationships(work) %]
-        </dd>
-      [%- END %]
-    [%- END %]
-    </dl>
-  [%- END %]
-[%~ END ~%]
-
 [%~ MACRO medium_track_row(track, show_artists) BLOCK ~%]
   <tr class="[% loop.parity %][% ' mp' IF track.edits_pending %]" id="[% track.gid %]">
     <td class="pos t">
@@ -56,7 +13,7 @@
         </div>
       [% END %]
       <div class="ars" style="display: none;">
-        [% grouped_relationships(track.recording) %]
+        [% React.embed(c, 'components/GroupedTrackRelationships', {source => track.recording}) %]
       </div>
     </td>
     [% IF show_artists %]

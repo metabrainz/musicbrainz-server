@@ -181,6 +181,7 @@ function targetIsOrderable(relationship: RelationshipT) {
 export default function groupRelationships(
   relationships: ?$ReadOnlyArray<RelationshipT>,
   types?: ?$ReadOnlyArray<CoreEntityTypeT>,
+  filter?: (RelationshipT, CoreEntityT, CoreEntityTypeT) => boolean,
 ): $ReadOnlyArray<RelationshipTargetTypeGroupT> {
   if (!relationships) {
     return [];
@@ -194,6 +195,10 @@ export default function groupRelationships(
     const targetType = target.entityType;
 
     if (types && !types.includes(targetType)) {
+      continue;
+    }
+
+    if (filter && !filter(relationship, target, targetType)) {
       continue;
     }
 
