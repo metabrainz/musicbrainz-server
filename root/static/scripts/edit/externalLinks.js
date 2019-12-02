@@ -278,7 +278,7 @@ export class ExternalLinksEditor
                 }
                 isOnlyLink={this.state.links.length === 1}
                 key={link.relationship}
-                removeCallback={_.bind(this.removeLink, this, index)}
+                handleRemoveCallback={_.bind(this.removeLink, this, index)}
                 type={link.type}
                 typeChangeCallback={
                   _.bind(this.handleTypeChange, this, index)
@@ -329,7 +329,7 @@ type LinkProps = {
   handleVideoChange:
     (number, SyntheticEvent<HTMLInputElement>) => void,
   isOnlyLink: boolean,
-  removeCallback: (number) => void,
+  handleRemoveCallback: (number) => void,
   type: number | null,
   typeChangeCallback: (number, SyntheticEvent<HTMLSelectElement>) => void,
   typeOptions: Array<React.Element<'option'>>,
@@ -441,7 +441,7 @@ export class ExternalLink extends React.Component<LinkProps> {
           {typeDescription && <HelpIcon content={typeDescription} />}
           {isEmpty(props) ||
             <RemoveButton
-              callback={props.removeCallback}
+              callback={handleRemoveCallback}
               title={l('Remove Link')}
             />}
         </td>

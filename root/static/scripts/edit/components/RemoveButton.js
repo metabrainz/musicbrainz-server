@@ -13,7 +13,7 @@ class RemoveButton extends React.Component {
     return (
       <button
         className="nobutton icon remove-item"
-        onClick={this.props.callback}
+        onClick={this.props.onButtonRemoved}
         title={this.props.title}
         type="button"
       />
