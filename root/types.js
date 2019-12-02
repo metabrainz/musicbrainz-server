@@ -693,6 +693,7 @@ declare type LinkTypeT = {
   +long_link_phrase: string,
   +orderable_direction: number,
   +reverse_link_phrase: string,
+  +root_id: number | null,
   +type0: string,
   +type1: string,
 };

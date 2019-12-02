@@ -120,6 +120,11 @@ has 'orderable_direction' => (
     isa => 'Int',
 );
 
+has 'root_id' => (
+    is => 'rw',
+    isa => 'Int',
+);
+
 around TO_JSON => sub {
     my ($orig, $self) = @_;
 
@@ -137,6 +142,7 @@ around TO_JSON => sub {
     $json->{deprecated} = boolean_to_json($self->is_deprecated);
     $json->{has_dates} = boolean_to_json($self->has_dates);
     $json->{id} = $self->id;
+    $json->{root_id} = $self->root_id;
     $json->{link_phrase} = $self->link_phrase;
     $json->{long_link_phrase} = $self->long_link_phrase;
     $json->{orderable_direction} = $self->orderable_direction;
