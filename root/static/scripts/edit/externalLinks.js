@@ -441,7 +441,7 @@ export class ExternalLink extends React.Component<LinkProps> {
           {typeDescription && <HelpIcon content={typeDescription} />}
           {isEmpty(props) ||
             <RemoveButton
-              callback={handleRemoveCallback}
+              onButtonRemoved={handleRemoveCallback}
               title={l('Remove Link')}
             />}
         </td>
