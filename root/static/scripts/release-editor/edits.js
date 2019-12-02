@@ -516,7 +516,7 @@ function chainEditSubmissions(release, submissions) {
             submitted = MB.edit.create($.extend({ edits: edits }, args));
         }
 
-        let submissionDone = function (data) {
+        const submissionDone = function (data) {
             if (data && current.callback) {
                 current.callback(
                     release,

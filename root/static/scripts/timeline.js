@@ -223,8 +223,8 @@ class TimelineViewModel {
             } else {
                 match = part.match(/^(-)?(.*)$/);
                 outer:
-                for (let category of self.categories()) {
-                    for (let line of category.lines()) {
+                for (const category of self.categories()) {
+                    for (const line of category.lines()) {
                         if (line.hashIdentifier === match[2]) {
                             line.enabled(!(match[1] === '-'))
                             break outer;

@@ -260,7 +260,7 @@ function addPostedRelationships(source) {
         return;
     }
 
-    let submittedRelationships = window.sessionStorage.getItem('submittedRelationships');
+    const submittedRelationships = window.sessionStorage.getItem('submittedRelationships');
     if (MB.formWasPosted && submittedRelationships) {
         _.each(JSON.parse(submittedRelationships), function (data) {
             addSubmittedRelationship(data, source);
