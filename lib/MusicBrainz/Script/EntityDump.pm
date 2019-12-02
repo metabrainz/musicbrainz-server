@@ -13,6 +13,7 @@ use MusicBrainz::Server::Constants qw(
 );
 
 our @EXPORT_OK = qw(
+    edits
     get_core_entities
     get_core_entities_by_gids
 );
@@ -21,6 +22,7 @@ our @link_path;
 
 # Should be set by users of this package.
 our $handle_inserts = sub {};
+our $dump_aliases = 0;
 our $dump_annotations = 0;
 our $dump_collections = 0;
 our $dump_gid_redirects = 0;
@@ -28,7 +30,8 @@ our $dump_meta_tables = 0;
 our $dump_ratings = 0;
 our $dump_subscriptions = 0;
 our $dump_tags = 0;
-our $follow_extra_data = 1;
+our $dump_types = 0;
+our $follow_extra_data = 0;
 our $relationships_cardinality = 0;
 our @skip_tables;
 # This is a hack that allows us to clear editor.area for areas that weren't
@@ -275,7 +278,7 @@ sub core_entity {
         isnis($c, $entity_type, $ids);
     }
 
-    if ($entity_properties->{aliases}) {
+    if ($dump_aliases && $entity_properties->{aliases}) {
         handle_rows($c, "${entity_type}_alias", $entity_type, $ids);
     }
 
@@ -331,6 +334,17 @@ sub edits {
     $ids = get_new_ids('edit', $ids);
     return unless @{$ids};
 
+    my $rows = get_rows($c, 'edit', 'id', $ids);
+    editors($c, pluck('editor', $rows));
+    handle_rows($c, 'edit', $rows);
+
+    $rows = get_rows($c, 'edit_data', 'edit', $ids);
+    handle_rows($c, 'edit_data', $rows);
+
+    $rows = get_rows($c, 'vote', 'edit', $ids);
+    editors($c, pluck('editor', $rows));
+    handle_rows($c, 'vote', $rows);
+
     for my $entity_type (entities_with('edit_table')) {
         my $table = "edit_$entity_type";
         my $rows = get_rows($c, $table, 'edit', $ids);
@@ -339,10 +353,6 @@ sub edits {
 
         handle_rows($c, $table, $rows);
     }
-
-    my $rows = get_rows($c, 'edit', 'id', $ids);
-    editors($c, pluck('editor', $rows));
-    handle_rows($c, 'edit', $rows);
 }
 
 sub editors {
@@ -438,8 +448,11 @@ sub releases {
         my ($c, $entity_type, $rows) = @_;
 
         release_groups($c, pluck('release_group', $rows));
-        handle_rows($c, 'release_status', 'id', pluck('status', $rows));
-        handle_rows($c, 'script', 'id', pluck('script', $rows));
+
+        if ($dump_types) {
+            handle_rows($c, 'release_status', 'id', pluck('status', $rows));
+            handle_rows($c, 'script', 'id', pluck('script', $rows));
+        }
 
         handle_rows($c, $entity_type, $rows);
 
@@ -459,7 +472,9 @@ sub releases {
         my $medium_rows = get_rows($c, 'medium', 'release', $ids);
         my $medium_ids = pluck('id', $medium_rows);
 
-        handle_rows($c, 'medium_format', 'id', pluck('format', $medium_rows));
+        if ($dump_types) {
+            handle_rows($c, 'medium_format', 'id', pluck('format', $medium_rows));
+        }
         handle_rows($c, 'medium', $medium_rows);
 
         my $cdtoc_rows = get_rows($c, 'medium_cdtoc', 'medium', $medium_ids);
@@ -479,7 +494,9 @@ sub releases {
 
         my $cover_art_rows = get_rows($c, 'cover_art_archive.cover_art', 'release', $ids);
         edits($c, pluck('edit', $cover_art_rows));
-        handle_rows($c, 'cover_art_archive.image_type', 'mime_type', pluck('mime_type', $cover_art_rows));
+        if ($dump_types) {
+            handle_rows($c, 'cover_art_archive.image_type', 'mime_type', pluck('mime_type', $cover_art_rows));
+        }
         handle_rows($c, 'cover_art_archive.cover_art', $cover_art_rows);
         handle_rows($c, 'release_coverart', 'id', $ids);
     });
