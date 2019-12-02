@@ -141,7 +141,9 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
             }
 
             // By default, show all existing relationships on the page.
-            if (this.id) this.show();
+            if (this.id) {
+                this.show();
+            }
         }
 
         formatDatePeriod() {
@@ -167,8 +169,12 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
         target(source) {
             var entities = this.entities();
 
-            if (source === entities[0]) return entities[1];
-            if (source === entities[1]) return entities[0];
+            if (source === entities[0]) {
+                return entities[1];
+            }
+            if (source === entities[1]) {
+                return entities[0];
+            }
 
             throw new Error("The given entity is not used by this relationship");
         }
@@ -254,8 +260,12 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
             var containedBy0 = relationships0.indexOf(this) >= 0;
             var containedBy1 = relationships1.indexOf(this) >= 0;
 
-            if (containedBy0 && !containedBy1) relationships1.push(this);
-            if (containedBy1 && !containedBy0) relationships0.push(this);
+            if (containedBy0 && !containedBy1) {
+                relationships1.push(this);
+            }
+            if (containedBy1 && !containedBy0) {
+                relationships0.push(this);
+            }
 
             if (entity0.entityType === "recording"
                 && entity1.entityType === "work"
@@ -281,7 +291,9 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
         }
 
         remove() {
-            if (this.removed() === true) return;
+            if (this.removed() === true) {
+                return;
+            }
 
             var entities = this.entities();
 
@@ -296,7 +308,9 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
             var attributes = this.attributes();
 
             for (var i = 0, linkAttribute; linkAttribute = attributes[i]; i++) {
-                if (linkAttribute.type.gid === typeGID) return linkAttribute;
+                if (linkAttribute.type.gid === typeGID) {
+                    return linkAttribute;
+                }
             }
             return new fields.LinkAttribute({ type: { gid: typeGID }});
         }
@@ -411,10 +425,14 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
 
         entityIsOrdered(entity) {
             var linkType = this.getLinkType();
-            if (!linkType) return false;
+            if (!linkType) {
+                return false;
+            }
 
             var orderableDirection = linkType.orderable_direction;
-            if (orderableDirection === 0) return false;
+            if (orderableDirection === 0) {
+                return false;
+            }
 
             var entities = this.entities();
 
@@ -611,7 +629,9 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
                     break;
                 }
             }
-            if (!match) return false;
+            if (!match) {
+                return false;
+            }
         }
         return true;
     }

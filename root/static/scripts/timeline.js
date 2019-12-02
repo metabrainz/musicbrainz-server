@@ -111,11 +111,13 @@ class TimelineViewModel {
         }, 1000);
 
         self.waitToGraph = ko.computed(function () {
-            if (_.some(self.enabledCategories(), function (c) { return c.hasLoadingLines() }))
+            if (_.some(self.enabledCategories(), function (c) { return c.hasLoadingLines() })) {
                 return true;
+            }
 
-            if (self.options.events() && !self.loadedEvents())
+            if (self.options.events() && !self.loadedEvents()) {
                 return true;
+            }
 
             return false;
         });
@@ -136,10 +138,12 @@ class TimelineViewModel {
                 }
                 return accum;
             }, {min: null, max: null});
-            if (bounds.min)
+            if (bounds.min) {
                 bounds.min = bounds.min - Math.abs(bounds.min * 0.10);
-            if (bounds.max)
+            }
+            if (bounds.max) {
                 bounds.max = bounds.max + Math.abs(bounds.max * 0.10);
+            }
             return bounds;
         });
 
@@ -518,10 +522,12 @@ class TimelineLine {
                 }
             }).bind('plotselected', function (event, ranges) {
                 // Prevent eternal zoom
-                if (ranges.xaxis.to - ranges.xaxis.from < 86400000)
+                if (ranges.xaxis.to - ranges.xaxis.from < 86400000) {
                     ranges.xaxis.to = ranges.xaxis.from + 86400000;
-                if (ranges.yaxis.to - ranges.yaxis.from < 1)
+                }
+                if (ranges.yaxis.to - ranges.yaxis.from < 1) {
                     ranges.yaxis.to = ranges.yaxis.from + 1;
+                 }
 
                 var zoomArr = [ranges.xaxis.from, ranges.xaxis.to];
                 if (graph === 'main' || graph === 'overview') {

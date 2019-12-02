@@ -54,7 +54,9 @@ releaseEditor.findReleaseDuplicates = function () {
         var releaseGroup = release.releaseGroup();
         var gid = releaseGroup.gid;
 
-        if (!gid) return;
+        if (!gid) {
+            return;
+        }
 
         var url = `/ws/2/release?release-group=${gid}&inc=labels+media&fmt=json`;
 

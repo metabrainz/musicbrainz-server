@@ -439,7 +439,9 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
         }
 
         targetTypeChanged(newType) {
-            if (!newType) return;
+            if (!newType) {
+                return;
+            }
 
             var currentRelationship = this.relationship();
             var currentTarget = currentRelationship.target(this.source);
@@ -831,4 +833,3 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
     UI.EditDialog = EditDialog;
     UI.BatchRelationshipDialog = BatchRelationshipDialog;
     UI.BatchCreateWorksDialog = BatchCreateWorksDialog;
-

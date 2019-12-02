@@ -309,9 +309,13 @@ releaseEditor.releaseLoaded = function (data) {
 
     var release = new fields.Release(data);
 
-    if (seed) this.seedRelease(release, seed);
+    if (seed) {
+        this.seedRelease(release, seed);
+    }
 
-    if (!seed || !seed.mediums) release.loadMedia();
+    if (!seed || !seed.mediums) {
+        release.loadMedia();
+    }
 
     this.rootField.release(release);
 };
