@@ -84,7 +84,7 @@ class ArtistCreditEditor extends React.Component {
     this.handleNameChange = this.handleNameChange.bind(this);
     this.pasteArtistCredit = this.pasteArtistCredit.bind(this);
     this.removeName = this.removeName.bind(this);
-    this.toggleBubble = this.toggleBubble.bind(this);
+    this.handleToggleBubble = this.handleToggleBubble.bind(this);
   }
 
   addName() {
@@ -138,7 +138,7 @@ class ArtistCreditEditor extends React.Component {
     this.setState({artistCredit: {names}});
   }
 
-  toggleBubble() {
+  handleToggleBubble() {
     const $bubble = $('#artist-credit-bubble');
     if ($bubble.is(':visible')) {
       const inst = $bubble.data('componentInst');
@@ -424,7 +424,7 @@ class ArtistCreditEditor extends React.Component {
                   className="open-ac"
                   ref={button => this._editButton = button}
                   type="button"
-                  onClick={this.toggleBubble}>
+                  onClick={this.handleToggleBubble}>
                   {l('Edit')}
                 </button>
               </td>
