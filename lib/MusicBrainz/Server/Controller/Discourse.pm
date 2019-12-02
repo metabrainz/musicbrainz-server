@@ -22,6 +22,8 @@ has lwp => (
         $lwp->env_proxy;
         $lwp->timeout(5);
         $lwp->agent(DBDefs->LWP_USER_AGENT);
+        $lwp->default_header('Api-Key' => DBDefs->DISCOURSE_API_KEY);
+        $lwp->default_header('Api-Username' => DBDefs->DISCOURSE_API_USERNAME);
         $lwp;
     },
 );
@@ -46,8 +48,6 @@ sub _create_uri {
 
     my $uri = URI->new(DBDefs->DISCOURSE_SERVER);
     $uri->path($path);
-    $uri->query_param_append('api_key', DBDefs->DISCOURSE_API_KEY);
-    $uri->query_param_append('api_username', DBDefs->DISCOURSE_API_USERNAME);
     $uri;
 }
 
