@@ -14,13 +14,13 @@ import MB from './common/MB';
 import './common/MB/Control/EditList';
 import './common/MB/Control/EditSummary';
 
-$('.edit-list').each(function () {
+$('.edit-list').each(function() {
   MB.Control.EditSummary(this);
 });
 
-$('#only-open-edits').on('change', function () {
-  let search = window.location.search.replace(/^\?/, '');
-  let args = querystring.parse(search);
+$('#only-open-edits').on('change', function() {
+  const search = window.location.search.replace(/^\?/, '');
+  const args = querystring.parse(search);
 
   if (this.checked) {
     args.open = 1;

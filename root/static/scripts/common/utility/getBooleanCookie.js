@@ -9,7 +9,7 @@
 import getCookie from './getCookie';
 
 function getBooleanCookie(name, defaultValue = false) {
-  let value = getCookie(name);
+  const value = getCookie(name);
 
   if (value === '1' || value === 'true') {
     return true;

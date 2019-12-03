@@ -39,7 +39,7 @@ const connectionListener = Raven.wrap(function (socket) {
     }
 
     let overflow = null;
-    let remainder = expectedBytes - recvBytes;
+    const remainder = expectedBytes - recvBytes;
     if (data.length > remainder) {
       overflow = data.slice(remainder);
       data = data.slice(0, remainder);
