@@ -212,13 +212,26 @@ class TimelineViewModel {
 
         _.forEach(parts, function (part) {
             var match;
-            if (match = part.match(/^(-)?([rv])-?$/)) { // trailing - for backwards-compatibility
+
+            /** Please correct me if i'm misunderstanding this
+             * if(match = part.match(RegExp) {
+             *    // Do sth!!
+             * }
+             * 
+             * is equivalent to
+             * 
+             * if(part.match(RegExp)) {
+             *    match = part.match(RegExp);
+             *    // Do sth!!
+             * }
+             *  */ 
+            if ((match = part.match(/^(-)?([rv])-?$/))) { // trailing - for backwards-compatibility
                 var meth = match[2] === 'r' ? 'rate' : 'events';
                 self.options[meth](!(match[1] === '-'));
-            } else if (match = part.match(/^(-)?(c-.*)$/)) {
+            } else if ((match = part.match(/^(-)?(c-.*)$/))) {
                 var category = _.find(self.categories(), { hashIdentifier: match[2] });
                 if (category) { category.enabled(!(match[1] === '-')) }
-            } else if (match = part.match(/^g\/.*$/)) {
+            } else if ((match = part.match(/^g\/.*$/))) {
                 self.zoomHashPart(part);
             } else {
                 match = part.match(/^(-)?(.*)$/);
