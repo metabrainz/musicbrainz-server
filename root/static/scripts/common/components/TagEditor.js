@@ -223,7 +223,7 @@ class TagEditor extends React.Component<TagEditorProps, TagEditorState> {
       this,
       'flushPendingVotes',
       'onBeforeUnload',
-      'handleAddTags',
+      'handleSubmit',
       'setTagsInput',
     );
 
@@ -329,7 +329,7 @@ class TagEditor extends React.Component<TagEditorProps, TagEditorState> {
     return current.count + ((current.vote === -vote ? 2 : 1) * vote);
   }
 
-  handleAddTags(event: SyntheticEvent<HTMLFormElement>) {
+  handleSubmit(event: SyntheticEvent<HTMLFormElement>) {
     event.preventDefault();
 
     const input = this.tagsInput;
@@ -562,7 +562,7 @@ export const MainTagEditor = hydrate<TagEditorProps>(
                   {tagdocs: '/doc/Folksonomy_Tagging'},
                 )}
               </p>
-              <form id="tag-form" onSubmit={this.handleAddTags}>
+              <form id="tag-form" onSubmit={this.handleSubmit}>
                 <p>
                   <textarea cols="50" ref={this.setTagsInput} rows="5" />
                 </p>
@@ -616,7 +616,7 @@ export const SidebarTagEditor = hydrate<TagEditorProps>(
             </p>
           ) : null}
 
-          <form id="tag-form" onSubmit={this.handleAddTags}>
+          <form id="tag-form" onSubmit={this.handleSubmit}>
             <div style={{display: 'flex'}}>
               <input
                 className="tag-input"
