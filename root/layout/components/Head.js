@@ -33,7 +33,8 @@ function canonicalize(url) {
 }
 
 function getTitle(props) {
-  let {title, pager} = props;
+  const pager = props.pager;
+  let title = props.title;
 
   if (!props.homepage) {
     const parts = [];
