@@ -264,6 +264,7 @@ declare type CollectionT = {
   +gid: string,
   +name: string,
   +public: boolean,
+  +subscribed?: boolean,
 };
 
 declare type CollectionTypeT = {

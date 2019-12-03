@@ -9,6 +9,7 @@
 
 import some from 'lodash/some';
 import * as React from 'react';
+import type {ColumnOptions} from 'react-table';
 
 import Table from '../components/Table';
 import UserAccountLayout from '../components/UserAccountLayout';
@@ -30,7 +31,10 @@ type Props = {
 };
 
 type CollectionListT = {
-  +[entityType: string]: $ReadOnlyArray<CollectionT>,
+  +[entityType: string]: $ReadOnlyArray<$ReadOnly<{
+    ...CollectionT,
+    subscribed: boolean,
+  }>>,
 };
 
 const collectionsListTitles = {
@@ -85,27 +89,30 @@ const CollectionsEntityTypeSection = ({
 }) => {
   const viewingOwnProfile = !!$c.user && $c.user.id === user.id;
   const nameColumn = defineNameColumn(l('Collection'));
-  const sizeColumn = {
-    Header: formatPluralEntityTypeName(type),
-    accessor: 'entity_count',
-    id: 'size',
-  };
-  const collaboratorsColumn = {
-    Cell: ({cell: {value}}) => formatCollaboratorNumber(value, $c.user),
-    Header: l('Collaborators'),
-    accessor: 'collaborators',
-    id: 'collaborators',
-  };
-  const privacyColumn = {
-    Cell: ({row: {original}}) => formatPrivacy(
-      original,
-      $c.user,
-      isCollaborative,
-    ),
-    Header: l('Privacy'),
-    accessor: 'public',
-    id: 'privacy',
-  };
+  const sizeColumn:
+    ColumnOptions<CollectionT, number> = {
+      Header: formatPluralEntityTypeName(type),
+      accessor: 'entity_count',
+      id: 'size',
+    };
+  const collaboratorsColumn:
+    ColumnOptions<CollectionT, $ReadOnlyArray<EditorT>> = {
+      Cell: ({cell: {value}}) => formatCollaboratorNumber(value, $c.user),
+      Header: l('Collaborators'),
+      accessor: 'collaborators',
+      id: 'collaborators',
+    };
+  const privacyColumn:
+    ColumnOptions<CollectionT, boolean> = {
+      Cell: ({row: {original}}) => formatPrivacy(
+        original,
+        $c.user,
+        isCollaborative,
+      ),
+      Header: l('Privacy'),
+      accessor: 'public',
+      id: 'privacy',
+    };
   const actionsColumn = defineActionsColumn([
     [l('Edit'), '/edit'],
     [l('Remove'), '/delete'],

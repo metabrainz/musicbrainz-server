@@ -8,24 +8,16 @@
  */
 
 import * as React from 'react';
+import type {ColumnOptions} from 'react-table';
 
 import EntityLink from '../static/scripts/common/components/EntityLink';
 import yesNo from '../static/scripts/common/utility/yesNo';
 
-declare type CellT = {
-  +cell: {
-    +value: any,
-  },
-  +row: {
-    +original: any,
-  },
-};
-
 export function defineNameColumn(
   title: string,
-) {
+): ColumnOptions<CoreEntityT | CollectionT, string> {
   return {
-    Cell: ({row: {original}}: CellT) => (
+    Cell: ({row: {original}}) => (
       <EntityLink entity={original} />
     ),
     Header: title,
@@ -33,24 +25,25 @@ export function defineNameColumn(
   };
 }
 
-export const typeColumn = {
-  Cell: ({cell: {value}}: CellT) => l(value),
+export const typeColumn: ColumnOptions<CollectionT, string> = {
+  Cell: ({cell: {value}}) => l(value),
   Header: N_l('Type'),
   accessor: 'typeName',
   id: 'type',
 };
 
-export const subscriptionColumn = {
-  Cell: ({cell: {value}}: CellT) => yesNo(value),
-  Header: N_l('Subscribed'),
-  accessor: 'subscribed',
-};
+export const subscriptionColumn:
+  ColumnOptions<{+subscribed: boolean, ...}, boolean> = {
+    Cell: ({cell: {value}}) => yesNo(value),
+    Header: N_l('Subscribed'),
+    accessor: 'subscribed',
+  };
 
 export function defineActionsColumn(
   actions: $ReadOnlyArray<[string, string]>,
-) {
+): ColumnOptions<CoreEntityT | CollectionT, number> {
   return {
-    Cell: ({row: {original}}: CellT) => (
+    Cell: ({row: {original}}) => (
       <>
         {actions.map((actionPair, index) => (
           <React.Fragment key={actionPair[1] + (index === 0 ? '-first' : '')}>

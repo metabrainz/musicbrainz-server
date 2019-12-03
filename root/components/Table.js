@@ -36,7 +36,15 @@ const renderTableRow = (row, i) => (
   </tr>
 );
 
-const Table = (({columns, data}: any) => {
+type Props<CV, D> = {
+  columns: CV,
+  data: $ReadOnlyArray<D>,
+};
+
+const Table = <CV, D>({
+  columns,
+  data,
+}: Props<CV, D>): React$MixedElement => {
   const {
     getTableProps,
     getTableBodyProps,
@@ -61,6 +69,6 @@ const Table = (({columns, data}: any) => {
       </tbody>
     </table>
   );
-});
+};
 
 export default Table;
