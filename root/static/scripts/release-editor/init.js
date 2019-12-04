@@ -47,7 +47,7 @@ releaseEditor.init = function (options) {
      * release changes, since the old fields get removed and the events no
      * longer exist.
      */
-    utils.withRelease(function (release) {
+    utils.withRelease(function () {
         _.defer(function () {
             MB.Control.initialize_guess_case("release");
         });

@@ -8,11 +8,8 @@
  */
 
 import map from 'lodash/map';
-import sortBy from 'lodash/sortBy';
 import * as React from 'react';
 
-import {withCatalystContext} from '../../../context';
-import * as manifest from '../../../static/manifest';
 import {compare} from '../../../static/scripts/common/i18n';
 import linkedEntities from '../../../static/scripts/common/linkedEntities';
 

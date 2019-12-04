@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import {INSTRUMENT_ROOT_ID} from '../static/scripts/common/constants';
 import linkedEntities from '../static/scripts/common/linkedEntities';
 import {interpolate, interpolateText}

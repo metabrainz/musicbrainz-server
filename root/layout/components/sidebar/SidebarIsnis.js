@@ -15,7 +15,7 @@ import {SidebarProperty} from './SidebarProperties';
 
 const isniUrl = 'http://www.isni.org/';
 
-const buildSidebarIsni = (isni, index) => (
+const buildSidebarIsni = (isni) => (
   <SidebarProperty
     className="isni-code"
     key={'isni-code-' + isni.isni}

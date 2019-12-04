@@ -18,7 +18,7 @@ MB.GuessCase.Handler.Area = function (gc) {
     var self = MB.GuessCase.Handler.Base(gc);
 
     // Checks special cases
-    self.checkSpecialCase = function (is) {
+    self.checkSpecialCase = function () {
         return self.NOT_A_SPECIALCASE;
     };
 

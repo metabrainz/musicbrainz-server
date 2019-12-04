@@ -12,6 +12,8 @@
  * See /webpack/providePluginConfig.js.
  */
 
+/* eslint no-unused-vars: 0 */
+
 declare var addColon: (variable: Expand2ReactInput) => Expand2ReactOutput;
 declare var addColonText: (variable: StrOrNum) => string;
 declare var hyphenateTitle: (title: string, subtitle: string) => string;
@@ -25,36 +27,22 @@ declare var N_ln: (skey: string, pkey: string) => (val: number) => string;
 declare var N_lp: (key: string, context: string) => () => string;
 
 declare var l_attributes: typeof l;
-declare var ln_attributes: typeof ln;
 declare var lp_attributes: typeof lp;
 
 declare var l_countries: typeof l;
-declare var ln_countries: typeof ln;
-declare var lp_countries: typeof lp;
 
 declare var l_instrument_descriptions: typeof l;
-declare var ln_instrument_descriptions: typeof ln;
-declare var lp_instrument_descriptions: typeof lp;
 
 declare var l_instruments: typeof l;
-declare var ln_instruments: typeof ln;
 declare var lp_instruments: typeof lp;
 
 declare var l_languages: typeof l;
-declare var ln_languages: typeof ln;
-declare var lp_languages: typeof lp;
 
 declare var l_relationships: typeof l;
-declare var ln_relationships: typeof ln;
-declare var lp_relationships: typeof lp;
 
 declare var l_scripts: typeof l;
-declare var ln_scripts: typeof ln;
-declare var lp_scripts: typeof lp;
 
 declare var l_statistics: typeof l;
-declare var ln_statistics: typeof ln;
-declare var lp_statistics: typeof lp;
 
 declare var exp: {
   +l: (

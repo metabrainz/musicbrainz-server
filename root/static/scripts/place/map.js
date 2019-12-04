@@ -9,7 +9,7 @@
 import {createMap, L} from '../common/leaflet';
 import getScriptArgs from '../common/utility/getScriptArgs';
 
-const {draggable, place, title} = getScriptArgs();
+const {place, title} = getScriptArgs();
 
 let latitude = 0;
 let longitude = 0;

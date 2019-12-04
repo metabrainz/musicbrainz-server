@@ -22,7 +22,6 @@ import {
   isComplexArtistCredit,
   reduceArtistCredit,
 } from '../../common/immutable-entities';
-import MB from '../../common/MB';
 import nonEmpty from '../../common/utility/nonEmpty';
 import {localStorage} from '../../common/utility/storage';
 

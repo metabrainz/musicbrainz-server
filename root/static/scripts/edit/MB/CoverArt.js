@@ -99,8 +99,8 @@ MB.CoverArt.reorder_position = function () {
 
     // For the Add Cover Art page, the following is a no-op.
     $('#reorder-cover-art').submit(
-        function (event) {
-            $('div.editimage input.position').val(function (index, oldvalue) { return (index + 1); });
+        function () {
+            $('div.editimage input.position').val(function (index) { return (index + 1); });
         }
     );
 
@@ -216,7 +216,7 @@ MB.CoverArt.sign_upload = function (file, gid, mime_type) {
         deferred.reject("error obtaining signature: " + status + " " + error);
     });
 
-    postfields.done(function (data, status, jqxhr) {
+    postfields.done(function (data) {
         deferred.resolve(data);
     });
 
@@ -242,7 +242,7 @@ MB.CoverArt.upload_image = function (postfields, file) {
         }
     });
 
-    xhr.addEventListener("load", function (event) {
+    xhr.addEventListener("load", function () {
         if (xhr.status >= 200 && xhr.status < 210)
         {
             deferred.notify(100);
@@ -264,10 +264,10 @@ MB.CoverArt.upload_image = function (postfields, file) {
          */
         xhr.overrideMimeType('text/plain');
     }
-    xhr.addEventListener("error", function (event) {
+    xhr.addEventListener("error", function () {
         deferred.reject("error uploading image");
     });
-    xhr.addEventListener("abort", function (event) {
+    xhr.addEventListener("abort", function () {
         deferred.reject("image upload aborted");
     });
     xhr.open("POST", postfields.action);
@@ -297,7 +297,7 @@ MB.CoverArt.submit_edit = function (file_upload, postfields, mime_type, position
     });
 
     var xhr = new XMLHttpRequest();
-    xhr.addEventListener("load", function (event) {
+    xhr.addEventListener("load", function () {
         if (xhr.status === 200)
         {
             deferred.resolve();
@@ -308,11 +308,11 @@ MB.CoverArt.submit_edit = function (file_upload, postfields, mime_type, position
         }
     });
 
-    xhr.addEventListener("error", function (event) {
+    xhr.addEventListener("error", function () {
         deferred.reject("unknown error creating edit");
     });
 
-    xhr.addEventListener("abort", function (event) {
+    xhr.addEventListener("abort", function () {
         deferred.reject("create edit aborted");
     });
 
@@ -543,11 +543,11 @@ MB.CoverArt.add_cover_art = function (gid) {
             upvm.moveFile(ko.dataFor(this), 1);
         });
 
-        $('button.add-files').on('click', function (event) {
+        $('button.add-files').on('click', function () {
             $('input.add-files').trigger('click');
         });
 
-        $('input.add-files').on('change', function (event) {
+        $('input.add-files').on('change', function () {
             $.each($('input.add-files')[0].files, function (idx, file) {
                 upvm.addFile(file);
             });

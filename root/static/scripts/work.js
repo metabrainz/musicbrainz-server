@@ -222,8 +222,6 @@ function byID(result, parent) {
 {
   const attributes = form.field.attributes;
   if (_.isEmpty(attributes.field)) {
-    const name = attributes.html_name + '.' +
-      String(attributes.field.length);
     form = mutate<WritableWorkForm, _>(form, newForm => {
       pushCompoundField(newForm.field.attributes, {
         type_id: null,

@@ -30,7 +30,6 @@ const PART_OF_SERIES_LINK_TYPE_GIDS = _.values(PART_OF_SERIES_LINK_TYPES);
 const RE = MB.relationshipEditor = MB.relationshipEditor || {};
 
     var UI = RE.UI = RE.UI || {};
-    var fields = RE.fields = RE.fields || {};
 
     var incorrectEntityForSeries = {
         recording:      l("The series you’ve selected is for recordings."),
@@ -54,7 +53,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
         }
 
         return {
-            init: function (element, valueAccessor, allBindings, viewModel, bindingContext) {
+            init: function (element, valueAccessor) {
                 dialog = valueAccessor();
 
                 dialog.autocomplete = $(element).entitylookup({

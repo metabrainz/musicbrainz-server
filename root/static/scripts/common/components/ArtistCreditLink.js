@@ -70,7 +70,6 @@ const MpIcon = hydrate<MpIconProps>('span.ac-mp', (
 const ArtistCreditLink = ({
   artistCredit,
   showDeleted = true,
-  showEditsPending = true,
   ...props
 }: Props) => {
   const names = artistCredit.names;

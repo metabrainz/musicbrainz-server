@@ -11,7 +11,6 @@ import React from 'react';
 
 import EditorLink from '../static/scripts/common/components/EditorLink';
 import formatUserDate from '../utility/formatUserDate';
-import {votesVisible} from '../utility/voting';
 
 type PropsT = {
   +$c: CatalystContextT,

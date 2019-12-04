@@ -8,8 +8,9 @@ import request from '../common/utility/request';
 
 MB.ExampleRelationshipsEditor = (function (ERE) {
 
+
 // Private variables
-var type0, type1, linkTypeName, linkTypeID, jsRoot, formName;
+var type0, type1, linkTypeName, linkTypeID, jsRoot;
 
 // Private methods
 var searchUrl;
@@ -24,7 +25,6 @@ ERE.init = function (config) {
     linkTypeID = +config.linkTypeID;
 
     jsRoot = config.jsRoot;
-    formName = config.formName;
 
     ERE.viewModel = new ViewModel();
 
@@ -116,7 +116,7 @@ RelationshipSearcher = function () {
         .fail(function (jqxhr, status, error) {
             self.error('Lookup failed: ' + error);
         })
-        .done(function (data, status, jqxhr) {
+        .done(function (data) {
             var search_result_type = data.entityType.replace("-", "_");
 
             if (!(search_result_type === type0 ||

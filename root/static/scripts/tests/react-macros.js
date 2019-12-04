@@ -20,15 +20,6 @@ if (!document) {
 const React = require('react');
 const ReactDOMServer = require('react-dom/server');
 
-const DescriptiveLink = require('../common/components/DescriptiveLink').default;
-const EditorLink = require('../common/components/EditorLink').default;
-const EntityLink = require('../common/components/EntityLink').default;
-const l = require('../common/i18n').l;
-const diffArtistCredits = require('../edit/utility/diffArtistCredits').default;
-const Diff = require('../edit/components/edit/Diff').default;
-const FullChangeDiff = require('../edit/components/edit/FullChangeDiff').default;
-const WordDiff = require('../edit/components/edit/WordDiff').default;
-
 function throwNotEquivalent(message, got, expected) {
   throw {message: message, got: got, expected: expected};
 }
@@ -123,7 +114,6 @@ const testData = JSON.parse(process.argv[2]);
 const testResults = [];
 
 testData.forEach(function (test) {
-  let entity = test.entity;
 
   let ttMarkup = test.tt_markup
     .replace(/<tr>\s+<(td|th)>/g, '<tr><$1>')

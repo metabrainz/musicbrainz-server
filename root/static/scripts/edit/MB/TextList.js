@@ -18,9 +18,7 @@ MB.Form.TextList = function (input) {
     var $template = $('.' + template.replace(/\./g, '\\.'));
     var counter = 0;
 
-    var last_item = input;
-
-    self.removeEvent = function (event) {
+    self.removeEvent = function () {
         $(this).closest('div.text-list-row').remove();
     };
 
@@ -48,11 +46,7 @@ MB.Form.TextList = function (input) {
         return self;
     };
 
-    $template.parent().find('button.add-item').bind('click.mb', function (event) {
-        var parts = last_item.split('.');
-        var field_name = parts.pop();
-        var idx = parseInt(parts.pop(), 10) + 1;
-        var prefix = parts.join('.') + '.' + idx + '.';
+    $template.parent().find('button.add-item').bind('click.mb', function () {
         self.add('');
     });
 

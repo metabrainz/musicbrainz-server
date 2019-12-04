@@ -32,6 +32,7 @@ type Props = {
   },
 };
 
+// eslint-disable-next-line no-unused-vars
 function buildSection<T>(
   props: Props,
   entityType: string,
