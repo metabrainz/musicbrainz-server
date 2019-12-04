@@ -213,18 +213,6 @@ class TimelineViewModel {
         _.forEach(parts, function (part) {
             var match;
 
-            /** Please correct me if i'm misunderstanding this
-             * if(match = part.match(RegExp) {
-             *    // Do sth!!
-             * }
-             * 
-             * is equivalent to
-             * 
-             * if(part.match(RegExp)) {
-             *    match = part.match(RegExp);
-             *    // Do sth!!
-             * }
-             *  */ 
             if ((match = part.match(/^(-)?([rv])-?$/))) { // trailing - for backwards-compatibility
                 var meth = match[2] === 'r' ? 'rate' : 'events';
                 self.options[meth](!(match[1] === '-'));
