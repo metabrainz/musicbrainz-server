@@ -123,6 +123,7 @@ const testData = JSON.parse(process.argv[2]);
 const testResults = [];
 
 testData.forEach(function (test) {
+  const entity = test.entity;
 
   const ttMarkup = test.tt_markup
     .replace(/<tr>\s+<(td|th)>/g, '<tr><$1>')
