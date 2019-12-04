@@ -30,10 +30,10 @@ const testData = [
   },
   {
                      input_url: 'http://45cat.com/record/vs1370&rc=365077#365077',
-             input_entity_type: 'release',
+             input_entity_type: 'release_group',
     expected_relationship_type: 'otherdatabases',
             expected_clean_url: 'http://www.45cat.com/record/vs1370',
-       only_valid_entity_types: ['release'],
+       only_valid_entity_types: ['release_group'],
   },
   {
                      input_url: 'http://www.45cat.com/45_composer.php?tc=Floyd+Hunt',
@@ -86,31 +86,31 @@ const testData = [
   },
   {
                      input_url: 'http://www.45worlds.com/vinyl/album/mfsl1100',
-             input_entity_type: 'release',
+             input_entity_type: 'release_group',
     expected_relationship_type: 'otherdatabases',
             expected_clean_url: 'http://www.45worlds.com/vinyl/album/mfsl1100',
-       only_valid_entity_types: ['release'],
+       only_valid_entity_types: ['release_group'],
   },
   {
                      input_url: 'http://www.45worlds.com/12single/record/fu2t',
-             input_entity_type: 'release',
+             input_entity_type: 'release_group',
     expected_relationship_type: 'otherdatabases',
             expected_clean_url: 'http://www.45worlds.com/12single/record/fu2t',
-       only_valid_entity_types: ['release'],
+       only_valid_entity_types: ['release_group'],
   },
   {
                      input_url: 'http://www.45worlds.com/cdsingle/cd/pwcd227',
-             input_entity_type: 'release',
+             input_entity_type: 'release_group',
     expected_relationship_type: 'otherdatabases',
             expected_clean_url: 'http://www.45worlds.com/cdsingle/cd/pwcd227',
-       only_valid_entity_types: ['release'],
+       only_valid_entity_types: ['release_group'],
   },
   {
                      input_url: 'http://www.45worlds.com/classical/music/asd264',
-             input_entity_type: 'release',
+             input_entity_type: 'release_group',
     expected_relationship_type: 'otherdatabases',
             expected_clean_url: 'http://www.45worlds.com/classical/music/asd264',
-       only_valid_entity_types: ['release'],
+       only_valid_entity_types: ['release_group'],
   },
   // 7digital (zdigital)
   {
