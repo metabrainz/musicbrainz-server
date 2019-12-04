@@ -295,7 +295,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
         getAttribute(typeGID) {
             var attributes = this.attributes();
 
-            for (var i = 0, linkAttribute; linkAttribute = attributes[i]; i++) {
+            for (var i = 0, linkAttribute; (linkAttribute = attributes[i]); i++) {
                 if (linkAttribute.type.gid === typeGID) return linkAttribute;
             }
             return new fields.LinkAttribute({ type: { gid: typeGID }});
@@ -387,7 +387,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
         paddedSeriesNumber() {
             var attributes = this.attributes(), numberAttribute;
 
-            for (var i = 0; numberAttribute = attributes[i]; i++) {
+            for (var i = 0; (numberAttribute = attributes[i]); i++) {
                 if (numberAttribute.type.gid === SERIES_ORDERING_ATTRIBUTE) {
                     break;
                 }
@@ -400,7 +400,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
             var parts = _.compact(numberAttribute.textValue().split(/(\d+)/)),
                 integerRegex = /^\d+$/;
 
-            for (var i = 0, part; part = parts[i]; i++) {
+            for (var i = 0, part; (part = parts[i]); i++) {
                 if (integerRegex.test(part)) {
                     parts[i] = _.padStart(part, 10, "0");
                 }
@@ -602,10 +602,10 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
         if (attributesA.length !== attributesB.length) {
             return false;
         }
-        for (var i = 0, a; a = attributesA[i]; i++) {
+        for (var i = 0, a; (a = attributesA[i]); i++) {
             var match = false;
 
-            for (var j = i, b; b = attributesB[j]; j++) {
+            for (var j = i, b; (b = attributesB[j]); j++) {
                 if (a.identity() === b.identity()) {
                     match = true;
                     break;

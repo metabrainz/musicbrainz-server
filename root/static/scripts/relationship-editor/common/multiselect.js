@@ -50,7 +50,7 @@ import deferFocus from '../../edit/utility/deferFocus';
             var options = params.options;
             var optionNodes = [];
 
-            for (var i = 0, node, option; option = options[i]; i++) {
+            for (var i = 0, node, option; (option = options[i]); i++) {
                 node = document.createElement("a")
                 node.href = "#";
                 node.style.paddingLeft = option.depth + "em";
@@ -130,7 +130,7 @@ import deferFocus from '../../edit/utility/deferFocus';
                 return node.optionData.value === typeGID;
             });
 
-            while (node = nodes[++nextIndex]) {
+            while ((node = nodes[++nextIndex])) {
                 if (node.style.display === "block") {
                     ++nextIndex;
                     break;
