@@ -52,7 +52,7 @@ class ArtistCreditNameEditor extends React.Component {
     this.props.onChange({name: event.target.value});
   }
 
-  hanldeJoinPhraseBlur(event) {
+  handleJoinPhraseBlur(event) {
     if (!this.props.name.automaticJoinPhrase) {
       return;
     }
