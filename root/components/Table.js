@@ -12,27 +12,27 @@ import {useTable} from 'react-table';
 
 import loopParity from '../utility/loopParity';
 
-const TableHeaderCell = (column) => (
+const renderTableHeaderCell = (column) => (
   <th {...column.getHeaderProps({className: column.className})}>
     {column.render('Header')}
   </th>
 );
 
-const TableHeaderRow = (headerGroup) => (
+const renderTableHeaderRow = (headerGroup) => (
   <tr {...headerGroup.getHeaderGroupProps()}>
-    {headerGroup.headers.map(TableHeaderCell)}
+    {headerGroup.headers.map(renderTableHeaderCell)}
   </tr>
 );
 
-const TableCell = (cell) => (
+const renderTableCell = (cell) => (
   <td {...cell.getCellProps({className: cell.column.className})}>
     {cell.render('Cell')}
   </td>
 );
 
-const TableRow = (row, i) => (
+const renderTableRow = (row, i) => (
   <tr {...row.getRowProps({className: loopParity(i)})}>
-    {row.cells.map(TableCell)}
+    {row.cells.map(renderTableCell)}
   </tr>
 );
 
@@ -51,12 +51,12 @@ const Table = (({columns, data}: any) => {
   return (
     <table {...getTableProps({className: 'tbl'})}>
       <thead>
-        {headerGroups.map(TableHeaderRow)}
+        {headerGroups.map(renderTableHeaderRow)}
       </thead>
       <tbody {...getTableBodyProps()}>
         {rows.map((row, i) => {
           prepareRow(row);
-          return TableRow(row, i);
+          return renderTableRow(row, i);
         })}
       </tbody>
     </table>
