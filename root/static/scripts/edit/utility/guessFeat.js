@@ -192,7 +192,7 @@ export default function guessFeat(entity) {
     _.last(artistCredit).joinPhrase = match.joinPhrase;
     _.last(match.artistCredit).joinPhrase = '';
 
-    for (let name of match.artistCredit) {
+    for (const name of match.artistCredit) {
         delete name.similarity;
     }
 

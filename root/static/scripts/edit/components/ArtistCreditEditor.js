@@ -161,7 +161,7 @@ class ArtistCreditEditor extends React.Component {
     }
 
     const $button = $(this._editButton);
-    let position = {of: $button[0], collision: 'fit none', within: $('body')};
+    const position = {of: $button[0], collision: 'fit none', within: $('body')};
     let maxWidth;
     let tailClass;
 
@@ -358,7 +358,7 @@ class ArtistCreditEditor extends React.Component {
 
   render() {
     const ac = this.state.artistCredit;
-    let entity = _.clone(this.props.entity);
+    const entity = _.clone(this.props.entity);
     entity.artistCredit = {names: _.filter(ac.names, n => hasArtist(n))};
 
     /*

@@ -102,7 +102,7 @@ releaseEditor.init = function (options) {
 
             var $bubble = panel.find("div.bubble:visible:eq(0)");
             if ($bubble.length) {
-                let bubbleDoc = $bubble[0].bubbleDoc;
+                const bubbleDoc = $bubble[0].bubbleDoc;
                 bubbleDoc.redraw(true /* stealFocus */);
             }
 

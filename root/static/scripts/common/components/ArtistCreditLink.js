@@ -37,7 +37,7 @@ const MpIcon = hydrate<MpIconProps>('span.ac-mp', (
     '&conditions.1.operator=%3D&conditions.1.args=1';
 
   let i = 2;
-  for (let name of artistCredit.names) {
+  for (const name of artistCredit.names) {
     editSearch +=
       `&conditions.${i}.field=artist&conditions.${i}.operator=%3D` +
       `&conditions.${i}.name=${encodeURIComponent(name.artist.name)}` +
