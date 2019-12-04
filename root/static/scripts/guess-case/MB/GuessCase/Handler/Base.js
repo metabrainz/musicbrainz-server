@@ -892,8 +892,8 @@ MB.GuessCase.Handler.Base = function (gc) {
         is = utils.trim(is);
 
         var joinPhrase = " and ";
-        joinPhrase = (is.indexOf(" + ") != -1 ? " + " : joinPhrase);
-        joinPhrase = (is.indexOf(" & ") != -1 ? " & " : joinPhrase);
+        joinPhrase = (is.indexOf(" + ") == -1 ? joinPhrase : " + ");
+        joinPhrase = (is.indexOf(" & ") == -1 ? joinPhrase : " & ");
 
         return is.split(joinPhrase).map(callback).join(joinPhrase);
     };

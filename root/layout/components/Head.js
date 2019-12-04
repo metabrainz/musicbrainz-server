@@ -127,14 +127,14 @@ const Head = ({$c, ...props}: HeadProps) => (
 
     {manifest.js('jed-data')}
 
-    {$c.stash.current_language !== 'en' ? (
+    {$c.stash.current_language === 'en' ? null : (
       ['mb_server']
         .concat(props.gettextDomains || [])
         .map(function (domain) {
           const name ='jed-' + $c.stash.current_language + '-' + domain;
           return manifest.js(name, {key: name});
         })
-    ) : null}
+    )}
 
     {manifest.js('common', {
       'data-args': JSON.stringify({

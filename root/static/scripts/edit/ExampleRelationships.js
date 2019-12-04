@@ -130,11 +130,7 @@ RelationshipSearcher = function () {
             var relationships =
                 _.filter(data.relationships, { linkTypeID: linkTypeID });
 
-            if (!relationships.length) {
-                self.error(
-                    'No ' + linkTypeName + ' relationships found for ' + data.name,
-                );
-            } else {
+            if (relationships.length) {
                 self.error(null);
 
                 _.each(relationships, function (rel) {
@@ -158,6 +154,10 @@ RelationshipSearcher = function () {
                         }
                     })
                 });
+            } else {
+                self.error(
+                    'No ' + linkTypeName + ' relationships found for ' + data.name,
+                );
             }
         });
     };
