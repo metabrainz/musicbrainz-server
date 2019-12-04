@@ -123,7 +123,7 @@ const CollectionsEntityTypeSection = ({
       typeColumn,
       sizeColumn,
       collaboratorsColumn,
-      ...(viewingOwnProfile ? [subscriptionColumn] : []),
+      ...($c.user_exists ? [subscriptionColumn] : []),
       ...(viewingOwnProfile || isCollaborative ? [privacyColumn] : []),
       ...(viewingOwnProfile && !isCollaborative ? [actionsColumn] : []),
     ],
