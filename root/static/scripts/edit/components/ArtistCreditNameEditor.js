@@ -20,7 +20,7 @@ class ArtistCreditNameEditor extends React.Component {
     this.artistName = _.get(props.name, ['artist', 'name'], '');
     this.handleArtistChange = this.handleArtistChange.bind(this);
     this.handleNameBlur = this.handleNameBlur.bind(this);
-    this.handleNameChange = this.handleNameChange.bind(this);
+    this.onNameChange = this.onNameChange.bind(this);
     this.handleJoinPhraseBlur = this.handleJoinPhraseBlur.bind(this);
     this.handleJoinPhraseChange = this.handleJoinPhraseChange.bind(this);
   }
@@ -48,7 +48,7 @@ class ArtistCreditNameEditor extends React.Component {
     this.props.onChange({name: newName});
   }
 
-  handleNameChange(event) {
+  onNameChange(event) {
     this.props.onChange({name: event.target.value});
   }
 
@@ -113,7 +113,7 @@ class ArtistCreditNameEditor extends React.Component {
           <input
             id={`${id}-credited-as-${index}`}
             onBlur={this.handleNameBlur}
-            onChange={this.handleNameChange}
+            onChange={this.onNameChange}
             type="text"
             value={nonEmpty(name.name) ? name.name : ''} />
         </td>
