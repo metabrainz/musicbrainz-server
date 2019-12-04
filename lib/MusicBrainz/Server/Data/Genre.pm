@@ -65,6 +65,16 @@ sub _hash_to_row {
     return $row;
 }
 
+sub get_all_limited {
+    my ($self, $limit, $offset) = @_;
+
+    my $query = 'SELECT ' . $self->_columns .
+                ' FROM ' . $self->_table .
+                ' ORDER BY id';
+
+    $self->query_to_list_limited($query, [], $limit, $offset);
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;

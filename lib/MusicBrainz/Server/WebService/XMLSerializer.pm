@@ -1284,8 +1284,21 @@ sub _serialize_tags_and_ratings
         if $opts->{tags} && $inc->{tags};
     $self->_serialize_user_tag_list($parent_node, $entity, $inc, $stash)
         if $opts->{user_tags} && $inc->{user_tags};
-    $self->_serialize_genre_list($parent_node, $entity, $inc, $stash)
-        if $opts->{genres} && $inc->{genres};
+    if ($opts->{genres} && $inc->{genres}) {
+        my @genre_tags = sort_by { $_->tag->name } @{$opts->{genres}};
+        my $genres = [map {$_->tag->genre} @genre_tags];
+        # Total is not used here for parity with tag-list
+        my $genre_hash = {items => $genres};
+        my %genre_counts = map { $_->tag->genre_id => $_->count } @genre_tags;
+        $self->_serialize_genre_list(
+            $parent_node,
+            $genre_hash,
+            $inc,
+            $stash,
+            0,
+            \%genre_counts,
+        );
+    }
     $self->_serialize_user_genre_list($parent_node, $entity, $inc, $stash)
         if $opts->{user_genres} && $inc->{user_genres};
     $self->_serialize_rating($parent_node, $entity, $inc, $stash)
@@ -1319,16 +1332,34 @@ sub _serialize_tag
 
 sub _serialize_genre_list
 {
-    my ($self, $parent_node, $entity, $inc, $stash) = @_;
+    my (
+        $self,
+        $parent_node,
+        $list,
+        $inc,
+        $stash,
+        $toplevel,
+        $genre_counts
+    ) = @_;
+
     return if $in_relation_node;
 
-    my $opts = $stash->store($entity);
     my $list_node = $parent_node->addNewChild(undef, 'genre-list');
 
-    foreach my $tag (sort_by { $_->tag->name } @{$opts->{genres}})
+    if ($toplevel) {
+        set_list_attributes($list_node, $list);
+    }
+
+    foreach my $genre (@{ $list->{items} })
     {
-        my $genre = $tag->tag->genre;
-        $self->_serialize_genre($list_node, $genre, $inc, $stash, 1, $tag->count);
+        $self->_serialize_genre(
+            $list_node,
+            $genre,
+            $inc,
+            $stash,
+            $toplevel,
+            $genre_counts->{$genre->id}
+        );
     }
 }
 
