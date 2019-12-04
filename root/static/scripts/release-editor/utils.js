@@ -137,6 +137,10 @@ utils.cleanWebServiceData = function (data) {
         clean.comment = data.disambiguation;
     }
 
+    if (data.isrcs) {
+        clean.isrcs = data.isrcs.map(cleanIsrc);
+    }
+
     return clean;
 };
 
@@ -150,6 +154,12 @@ function cleanArtistCreditName(data) {
         },
         name: data.name || data.artist.name,
         joinPhrase: data.joinphrase || ""
+    };
+}
+
+function cleanIsrc(data) {
+    return {
+        isrc: data,
     };
 }
 
