@@ -146,12 +146,9 @@ test 'Merging mediums with swapped recordings (MBS-9309)' => sub {
 
     MusicBrainz::Server::Test->prepare_raw_test_database($c, '+mbs-9309');
 
-    $c->model('Medium')->merge(1, 2);
-
-    my $medium = $c->model('Medium')->get_by_id(1);
-    $c->model('Track')->load_for_mediums($medium);
-
-    is_deeply([map { $_->recording_id } $medium->all_tracks], [1, 2]);
+    my ($success, $error) = $c->model('Release')->determine_recording_merges(1, 2);
+    is($success, 0);
+    like($error->{message}, qr/^A merge cycle exists/);
 };
 
 1;

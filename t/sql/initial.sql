@@ -104,11 +104,16 @@ INSERT INTO label_type VALUES (7, 'Publisher', NULL, 0, NULL, 'e9ad53b0-e3d0-388
 INSERT INTO label_type VALUES (8, 'Rights Society', NULL, 0, NULL, '78ab2758-7809-372c-9b99-74b7ab87f390');
 INSERT INTO label_type VALUES (9, 'Imprint', NULL, 0, NULL, 'b6285b2a-3514-3d43-80df-fcf528824ded');
 
+INSERT INTO language VALUES (27, 'ast', 'ast', NULL, 'Asturian', 1, 'ast');
 INSERT INTO language VALUES (113, 'nld', 'dut', 'nl', 'Dutch', 2, 'nld');
 INSERT INTO language VALUES (120, 'eng', 'eng', 'en', 'English', 2, 'eng');
+INSERT INTO language VALUES (123, 'est', 'est', 'et', 'Estonian', 1, 'est');
 INSERT INTO language VALUES (134, 'fra', 'fre', 'fr', 'French', 2, 'fra');
 INSERT INTO language VALUES (145, 'deu', 'ger', 'de', 'German', 2, 'deu');
+INSERT INTO language VALUES (171, 'hin', 'hin', 'hi', 'Hindi', 1, 'hin');
+INSERT INTO language VALUES (195, 'ita', 'ita', 'it', 'Italian', 2, 'ita');
 INSERT INTO language VALUES (198, 'jpn', 'jpn', 'ja', 'Japanese', 2, 'jpn');
+INSERT INTO language VALUES (393, 'spa', 'spa', 'es', 'Spanish', 2, 'spa');
 INSERT INTO language VALUES (486, 'zxx', 'zxx', NULL, 'No linguistic content', 1, 'zxx');
 
 INSERT INTO link_attribute_type VALUES (1, NULL, 1, 0, '0a5341f8-3b1d-4f99-a0c6-26b7f4e42c7f', 'additional', 'This attribute describes if a particular role was considered normal or additional.', '2014-03-30 09:53:32.715353+00');
@@ -981,6 +986,8 @@ INSERT INTO work_type VALUES (26, 'Beijing opera', NULL, 2, 'Beijing opera is a 
 INSERT INTO work_type VALUES (28, 'Play', NULL, 2, 'A play is a form of literature usually consisting of scripted dialogue between characters, and intended for theatrical performance rather than just reading.', 'db708738-f2b6-3e4e-8f23-1661a3395947');
 INSERT INTO work_type VALUES (29, 'Musical', NULL, 2, 'Musical theatre is a form of theatrical performance that combines songs, spoken dialogue, acting, and dance.', '9ca5e067-acf7-3cd6-baa4-92bf1975bf24');
 INSERT INTO work_type VALUES (30, 'Incidental music', NULL, 2, 'Incidental music is music written as background for (usually) a theatre play.', '3cd7c402-444a-3d04-a154-4fa7d13e4ec6');
+
+INSERT INTO editor (id, name, privs, email, bio, email_confirm_date, password, ha1) VALUES (4, 'ModBot', 2, 'support@musicbrainz.org', 'ModBot is a bot used by the MusicBrainz Server to perform a variety of automated functions. \r+', '2013-07-26 11:48:31.088042+00', '{CLEARTEXT}mb', '03503a81a03bdbb6055f4a6c8b86b5b8');
 
 -- Restore FK constraints.
 ALTER TABLE link_attribute_type ADD CONSTRAINT link_attribute_type_fk_parent FOREIGN KEY (parent) REFERENCES link_attribute_type(id);
