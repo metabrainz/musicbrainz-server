@@ -81,7 +81,7 @@ class ArtistCreditEditor extends React.Component {
     this.copyArtistCredit = this.copyArtistCredit.bind(this);
     this.done = this.done.bind(this);
     this.hide = this.hide.bind(this);
-    this.onNameChange = this.onNameChange.bind(this);
+    this.handleNameChange = this.handleNameChange.bind(this);
     this.pasteArtistCredit = this.pasteArtistCredit.bind(this);
     this.removeName = this.removeName.bind(this);
     this.handleBubbleToggle = this.handleBubbleToggle.bind(this);
@@ -116,7 +116,7 @@ class ArtistCreditEditor extends React.Component {
     });
   }
 
-  onNameChange(i, update) {
+  handleNameChange(i, update) {
     this.setState(state => mutate(state, newState => {
       newState.artistCredit.names[i] =
         {...state.artistCredit.names[i], ...update};
@@ -234,7 +234,7 @@ class ArtistCreditEditor extends React.Component {
         copyArtistCredit={this.copyArtistCredit}
         done={this.done}
         hide={this.hide}
-        onNameChange={this.onNameChange}
+        onNameChange={this.handleNameChange}
         pasteArtistCredit={this.pasteArtistCredit}
         removeName={this.removeName}
         {...this.props}
