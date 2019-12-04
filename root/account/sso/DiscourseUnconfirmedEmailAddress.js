@@ -12,8 +12,8 @@ import React from 'react';
 import Layout from '../../layout';
 
 const DiscourseUnconfirmedEmailAddress = () => (
-  <Layout fullWidth title={l('Unconfirmed Email Address')}>
-    <h2>{l('Unconfirmed Email Address')}</h2>
+  <Layout fullWidth title={l('Unverified Email Address')}>
+    <h2>{l('Unverified Email Address')}</h2>
     <p>
       {exp.l(
         `You must verify your email address before you can
