@@ -9,6 +9,11 @@ my $ws_defs = Data::OptList::mkopt([
     genre => {
         method   => 'GET',
         optional => [ qw(fmt) ],
+    },
+    genre => {
+        action   => '/ws/2/genre/lookup',
+        method   => 'GET',
+        optional => [ qw(fmt) ],
     }
 ]);
 
@@ -24,6 +29,25 @@ sub base : Chained('root') PathPart('genre') CaptureArgs(0) { }
 
 # Nothing extra to load yet, but this is required by Role::Lookup
 sub genre_toplevel {}
+
+sub genre_list : Chained('base') PathPart('list') {
+    my ($self, $c) = @_;
+
+    $c->detach('method_not_allowed')
+        unless $c->req->method eq 'GET';
+
+    $c->detach('genre_browse')
+        if $c->stash->{linked};
+
+    my $stash = WebServiceStash->new;
+    my @genres = $c->model('Genre')->get_all;
+
+    my $genres->{items} = $self->make_list(\@genres, scalar @genres)->{items};
+
+    $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
+    $c->res->body($c->stash->{serializer}->serialize('genre-list', $genres,
+                                                     $c->stash->{inc}, $stash));
+}
 
 sub genre_browse : Private {
     my ($self, $c) = @_;
