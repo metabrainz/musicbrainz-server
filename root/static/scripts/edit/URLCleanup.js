@@ -339,7 +339,7 @@ const CLEANUPS = {
             return prefix === 'artist';
           case LINK_TYPES.otherdatabases.label:
             return prefix === 'label';
-          case LINK_TYPES.otherdatabases.release:
+          case LINK_TYPES.otherdatabases.release_group:
             return prefix === 'record';
         }
       }
@@ -366,7 +366,7 @@ const CLEANUPS = {
             return prefix === 'label';
           case LINK_TYPES.otherdatabases.place:
             return prefix === 'venue';
-          case LINK_TYPES.otherdatabases.release:
+          case LINK_TYPES.otherdatabases.release_group:
             return /^(album|cd|media|music|record)$/.test(prefix);
         }
       }
