@@ -326,8 +326,9 @@ sub collections : Chained('load') PathPart('collections')
     for my $collection (@$collections) {
         $c->model('Editor')->load_for_collection($collection);
         if ($c->user_exists) {
-            $collection->{'subscribed'} =
-                $c->model('Collection')->subscription->check_subscription($c->user->id, $collection->id);
+            $collection->subscribed(
+                $c->model('Collection')->subscription->check_subscription($c->user->id, $collection->id),
+            );
         }
         push @{ $collections_by_entity_type{$collection->type->item_entity_type} }, $collection;
     }
@@ -342,8 +343,9 @@ sub collections : Chained('load') PathPart('collections')
     for my $collection (@$collaborative_collections) {
         $c->model('Editor')->load_for_collection($collection);
         if ($c->user_exists) {
-            $collection->{'subscribed'} =
-                $c->model('Collection')->subscription->check_subscription($c->user->id, $collection->id);
+            $collection->subscribed(
+                $c->model('Collection')->subscription->check_subscription($c->user->id, $collection->id),
+            );
         }
         push @{ $collaborative_collections_by_entity_type{$collection->type->item_entity_type} }, $collection;
     }
