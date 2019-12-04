@@ -1,6 +1,7 @@
 package MusicBrainz::Server::Data::Release;
 
 use 5.18.2; # enables the state feature
+use utf8;
 
 use Moose;
 use namespace::autoclean -also => [qw( _where_status_in _where_type_in )];
@@ -45,6 +46,7 @@ Readonly our $MERGE_MERGE => 2;
 
 Readonly::Hash our %RELEASE_MERGE_ERRORS => (
     ambiguous_recording_merge   => N_l('Unable to determine which recording {source_recording} should be merged into. There are multiple valid options: {target_recordings}.'),
+    medium_missing              => N_l('Some mediums being merged don’t have an equivalent on the target release: either the target release has less mediums, or the positions don’t match.'),
     medium_positions            => N_l('The medium positions conflict.'),
     medium_track_counts         => N_l('The track counts on at least one set of corresponding mediums do not match.'),
     pregaps                     => N_l('Mediums with a pregap track can only be merged with other mediums with a pregap track.'),
@@ -803,21 +805,35 @@ sub can_merge {
     my $strategy = $opts->{merge_strategy} || $MERGE_APPEND;
 
     if ($strategy == $MERGE_MERGE) {
-        my $mediums_differ = $self->sql->select_single_value(
+        my $mediums_query =
             'SELECT TRUE
              FROM (
                  SELECT medium.id, medium.position, medium.track_count
                  FROM medium
-                 WHERE release IN (' . placeholders(@old_ids) . ')
+                 WHERE release = any(?)
              ) s
              LEFT JOIN medium new_medium ON
-                 (new_medium.position = s.position AND new_medium.release = ?)
-             WHERE new_medium.track_count <> s.track_count
-                OR new_medium.id IS NULL
-             LIMIT 1',
-            @old_ids, $new_id);
+                 (new_medium.position = s.position AND new_medium.release = ?)';
 
-        if ($mediums_differ) {
+        my $target_medium_missing = $self->sql->select_single_value(
+            "$mediums_query
+             WHERE new_medium.id IS NULL
+             LIMIT 1",
+            \@old_ids, $new_id);
+
+        if ($target_medium_missing) {
+            return (0, {
+                message => $RELEASE_MERGE_ERRORS{medium_missing},
+            });
+        }
+
+        my $medium_track_counts_differ = $self->sql->select_single_value(
+            "$mediums_query
+             WHERE new_medium.track_count <> s.track_count
+             LIMIT 1",
+            \@old_ids, $new_id);
+
+        if ($medium_track_counts_differ) {
             return (0, {
                 message => $RELEASE_MERGE_ERRORS{medium_track_counts},
             });
