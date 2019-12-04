@@ -21,13 +21,13 @@ const MediumDescription = ({medium}: {+medium: MediumT}) => {
   if (medium.name) {
     return (
       <>
-        <span>{addColonText(formatAndPosition)}</span>
+        {addColonText(formatAndPosition)}
         {' '}
         <span className="medium-name">{isolateText(medium.name)}</span>
       </>
     );
   }
-  return <span>{formatAndPosition}</span>;
+  return formatAndPosition;
 };
 
 export default MediumDescription;
