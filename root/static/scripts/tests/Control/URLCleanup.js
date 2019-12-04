@@ -404,6 +404,14 @@ const testData = [
        only_valid_entity_types: ['recording', 'release'],
   },
   {
+                     input_url: 'https://non-serviam-records.bandcamp.com/merch/the-howling-void-megaliths-of-the-abyss-digipak',
+             input_entity_type: 'release',
+    expected_relationship_type: undefined,
+            expected_clean_url: 'https://non-serviam-records.bandcamp.com/merch/the-howling-void-megaliths-of-the-abyss-digipak',
+       input_relationship_type: 'mailorder',
+       only_valid_entity_types: ['release'],
+  },
+  {
                      input_url: 'daily.bandcamp.com/2018/05/30/brownout-fear-of-a-brown-planet-album-review/#more-90177',
              input_entity_type: 'release_group',
     expected_relationship_type: 'review',

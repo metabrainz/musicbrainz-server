@@ -527,7 +527,7 @@ const CLEANUPS = {
       if (/^https:\/\/daily\.bandcamp\.com/.test(url)) {
         url = url.replace(/^https:\/\/daily\.bandcamp\.com\/(\d+\/\d+\/\d+\/[\w-]+)(?:\/.*)?$/, 'https://daily.bandcamp.com/$1/');
       } else {
-        url = url.replace(/^https:\/\/([^\/]+)\.bandcamp\.com\/(?:((?:album|track)\/[^\/]+))?.*$/, 'https://$1.bandcamp.com/$2');
+        url = url.replace(/^https:\/\/([^\/]+)\.bandcamp\.com\/(?:((?:album|merch|track)\/[^\/]+))?.*$/, 'https://$1.bandcamp.com/$2');
       }
       return url;
     },
