@@ -2,8 +2,8 @@
   <tr>
     <td>[% link_entity(release) %]</td>
     <td>[% artist_credit(release.artist_credit) %]</td>
-    <td>[% html_escape(release.combined_format_name) %]</td>
-    <td>[% release.combined_track_count %]</td>
+    <td>[% html_escape(release.combined_format_name) || l('[missing media]') %]</td>
+    <td>[% release.combined_track_count || lp('-', 'missing data') %]</td>
     <td>[% release_dates(release.events) %]</td>
     <td>[% release_countries(release.events) %]</td>
     <td>[% release_label_list(release.labels) %]</td>
@@ -28,6 +28,14 @@
   </thead>
   <tbody>
   [% IF edit.data.merge_strategy == 1 %]
+    [% FOR empty_release=edit.display_data.empty_releases %]
+      [% release_row(empty_release.release) %]
+      <tr class="[% loop.parity %]">
+        <td colspan="9">
+          [% l('This release has no media to merge.') %]
+        </td>
+      </tr>
+    [% END %]
     [% FOR change=edit.display_data.changes %]
       [% release_row(change.release) %]
       [% FOR medium=change.mediums %]
