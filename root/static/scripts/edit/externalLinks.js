@@ -52,6 +52,8 @@ type LinksEditorState = {
 
 export class ExternalLinksEditor
   extends React.Component<LinksEditorProps, LinksEditorState> {
+  tableRef: {current: HTMLTableElement | null};
+
   constructor(props: LinksEditorProps) {
     super(props);
     this.state = {links: withOneEmptyLink(props.initialLinks)};
@@ -90,8 +92,6 @@ export class ExternalLinksEditor
       }
     });
   }
-
-  tableRef: {current: HTMLTableElement | null};
 
   handleUrlBlur(index: number, event: SyntheticEvent<HTMLInputElement>) {
     const url = event.currentTarget.value;

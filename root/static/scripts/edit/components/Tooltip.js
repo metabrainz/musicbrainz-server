@@ -20,6 +20,8 @@ type TooltipProps = {
 };
 
 class Tooltip extends React.Component<TooltipProps> {
+  containerRef: {current: HTMLDivElement | null};
+
   constructor(props: TooltipProps) {
     super(props);
 
@@ -35,8 +37,6 @@ class Tooltip extends React.Component<TooltipProps> {
       }
     }
   }
-
-  containerRef: {current: HTMLDivElement | null};
 
   render() {
     var hoverCallback = this.props.hoverCallback;
