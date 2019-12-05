@@ -17,7 +17,6 @@ import EntityLink, {DeletedLink} from './EntityLink';
 type Props = {
   +artistCredit: ArtistCreditT,
   +showDeleted?: boolean,
-  +showEditsPending?: boolean,
   +target?: '_blank',
 };
 
