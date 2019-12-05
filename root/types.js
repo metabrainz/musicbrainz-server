@@ -552,8 +552,10 @@ declare type GroupedOptionsT = $ReadOnlyArray<{
   +options: SelectOptionsT,
 }>;
 
-declare type InstrumentCreditsRoleT = {
-  +instrumentCredits?: {+[string]: $ReadOnlyArray<string>},
+declare type InstrumentCreditsAndRelTypesRoleT = {
+  +instrumentCreditsAndRelTypes?: {
+    +[string]: $ReadOnlyArray<string>,
+  },
 };
 
 declare type InstrumentT = {

@@ -11,7 +11,6 @@ import React from 'react';
 
 import {withCatalystContext} from '../../context';
 import loopParity from '../../utility/loopParity';
-import {commaListText} from '../../static/scripts/common/i18n/commaList';
 import ArtistCreditLink
   from '../../static/scripts/common/components/ArtistCreditLink';
 import CodeLink from '../../static/scripts/common/components/CodeLink';
@@ -20,13 +19,14 @@ import formatTrackLength
   from '../../static/scripts/common/utility/formatTrackLength';
 import renderMergeCheckboxElement
   from '../../static/scripts/common/utility/renderMergeCheckboxElement';
+import InstrumentRelTypes from '../InstrumentRelTypes';
 import RatingStars from '../RatingStars';
 import RemoveFromMergeTableCell from '../RemoveFromMergeTableCell';
 import RemoveFromMergeTableHeader from '../RemoveFromMergeTableHeader';
 import SortableTableHeader from '../SortableTableHeader';
 
 type Props = {
-  ...InstrumentCreditsRoleT,
+  ...InstrumentCreditsAndRelTypesRoleT,
   ...SeriesItemNumbersRoleT,
   +$c: CatalystContextT,
   +checkboxes?: string,
@@ -34,7 +34,7 @@ type Props = {
   +mergeForm?: MergeFormT,
   +order?: string,
   +recordings: $ReadOnlyArray<RecordingT>,
-  +showInstrumentCredits?: boolean,
+  +showInstrumentCreditsAndRelTypes?: boolean,
   +showRatings?: boolean,
   +sortable?: boolean,
 };
@@ -42,13 +42,13 @@ type Props = {
 const RecordingList = ({
   $c,
   checkboxes,
-  instrumentCredits,
+  instrumentCreditsAndRelTypes,
   lengthClass,
   mergeForm,
   order,
   recordings,
   seriesItemNumbers,
-  showInstrumentCredits,
+  showInstrumentCreditsAndRelTypes,
   showRatings,
   sortable,
 }: Props) => (
@@ -96,7 +96,9 @@ const RecordingList = ({
             )
             : l('Length')}
         </th>
-        {showInstrumentCredits ? <th>{l('Instrument Credits')}</th> : null}
+        {showInstrumentCreditsAndRelTypes
+          ? <th>{l('Relationship Types')}</th>
+          : null}
         {mergeForm
           ? <RemoveFromMergeTableHeader toMerge={recordings} />
           : null}
@@ -149,12 +151,11 @@ const RecordingList = ({
             {/* Show nothing rather than ?:?? for recordings merged away */}
             {recording.gid ? formatTrackLength(recording.length) : null}
           </td>
-          {showInstrumentCredits ? (
-            <td>
-              {instrumentCredits && instrumentCredits[recording.gid]
-                ? commaListText(instrumentCredits[recording.gid])
-                : null}
-            </td>
+          {showInstrumentCreditsAndRelTypes ? (
+            <InstrumentRelTypes
+              entity={recording}
+              instrumentCreditsAndRelTypes={instrumentCreditsAndRelTypes}
+            />
           ) : null}
           {mergeForm ? (
             <RemoveFromMergeTableCell
