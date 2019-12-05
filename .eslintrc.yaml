@@ -72,6 +72,7 @@ rules:
   strict: off
 
   # Variables
+  no-undef: error
   no-use-before-define: off
 
   # Stylistic Issues
