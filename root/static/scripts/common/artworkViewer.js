@@ -138,7 +138,9 @@ $.widget("mb.artworkViewer", $.ui.dialog, {
 
     _imageLoaded: function (image) {
         // Return if the user skipped this image or closed the dialog.
-        if (!this.isOpen() || image.src !== this._currentImageSrc) return;
+        if (!this.isOpen() || image.src !== this._currentImageSrc) {
+            return;
+        }
 
         this._imageAspectRatio = image.width / image.height;
         this._imageElement = image;
@@ -202,7 +204,9 @@ $(function () {
      */
     $("#sidebar, #content").each(function (index, container) {
         var $artwork = $("a.artwork-image", container);
-        if ($artwork.length === 0) return;
+        if ($artwork.length === 0) {
+            return;
+        }
 
         var $artworkViewer = $("<div>").appendTo("body")
                 .artworkViewer({ $artwork: $artwork });
@@ -219,7 +223,9 @@ $(function () {
 
     $("body")
         .on("keydown", function (event) {
-            if ($activeDialog.artworkViewer("isOpen") !== true) return;
+            if ($activeDialog.artworkViewer("isOpen") !== true) {
+                return;
+            }
 
             if (event.keyCode === 37) { // Left arrow
                 $activeDialog.artworkViewer("prevImage");
@@ -246,7 +252,9 @@ $(function () {
     var resizeDialog = _.debounce(function () {
         var dialog = $activeDialog.data("mb-artworkViewer");
 
-        if (dialog && dialog.isOpen()) dialog._sizeAndPosition();
+        if (dialog && dialog.isOpen()) {
+            dialog._sizeAndPosition();
+        }
     }, 100);
 
     $(window).on("resize", resizeDialog);

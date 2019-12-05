@@ -91,9 +91,13 @@ utils.search = function (resource, query, limit, offset) {
         }
     };
 
-    if (limit !== undefined) requestArgs.data.limit = limit;
+    if (limit !== undefined) {
+        requestArgs.data.limit = limit;
+    }
 
-    if (offset !== undefined) requestArgs.data.offset = offset;
+    if (offset !== undefined) {
+        requestArgs.data.offset = offset;
+    }
 
     return request(requestArgs);
 };
@@ -109,7 +113,9 @@ utils.reuseExistingMediumData = function (data) {
      */
     var newData = _.omit(data, "id", "cdtocs", "format", "formatID");
 
-    if (data.id) newData.originalID = data.id;
+    if (data.id) {
+        newData.originalID = data.id;
+    }
 
     return newData;
 };
@@ -123,9 +129,13 @@ utils.reuseExistingMediumData = function (data) {
 utils.cleanWebServiceData = function (data) {
     var clean = { gid: data.id, name: data.title };
 
-    if (data.length) clean.length = data.length;
+    if (data.length) {
+        clean.length = data.length;
+    }
 
-    if (data["sort-name"]) clean.sort_name = data["sort-name"];
+    if (data["sort-name"]) {
+        clean.sort_name = data["sort-name"];
+    }
 
     if (data["artist-credit"]) {
         clean.artistCredit = {

@@ -86,7 +86,9 @@ const actions = {
         var oldPosition = medium.position.peek();
         var newPosition = oldPosition + offset;
 
-        if (newPosition <= 0) return;
+        if (newPosition <= 0) {
+            return;
+        }
 
         medium.position(newPosition);
 
