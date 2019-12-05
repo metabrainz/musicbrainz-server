@@ -22,7 +22,6 @@ import {
   isComplexArtistCredit,
   reduceArtistCredit,
 } from '../../common/immutable-entities';
-import MB from '../../common/MB';
 import nonEmpty from '../../common/utility/nonEmpty';
 import {localStorage} from '../../common/utility/storage';
 
@@ -81,10 +80,10 @@ class ArtistCreditEditor extends React.Component {
     this.copyArtistCredit = this.copyArtistCredit.bind(this);
     this.done = this.done.bind(this);
     this.hide = this.hide.bind(this);
-    this.onNameChange = this.onNameChange.bind(this);
+    this.handleNameChange = this.handleNameChange.bind(this);
     this.pasteArtistCredit = this.pasteArtistCredit.bind(this);
     this.removeName = this.removeName.bind(this);
-    this.toggleBubble = this.toggleBubble.bind(this);
+    this.handleBubbleToggle = this.handleBubbleToggle.bind(this);
   }
 
   addName() {
@@ -116,7 +115,7 @@ class ArtistCreditEditor extends React.Component {
     });
   }
 
-  onNameChange(i, update) {
+  handleNameChange(i, update) {
     this.setState(state => mutate(state, newState => {
       newState.artistCredit.names[i] =
         {...state.artistCredit.names[i], ...update};
@@ -138,7 +137,7 @@ class ArtistCreditEditor extends React.Component {
     this.setState({artistCredit: {names}});
   }
 
-  toggleBubble() {
+  handleBubbleToggle() {
     const $bubble = $('#artist-credit-bubble');
     if ($bubble.is(':visible')) {
       const inst = $bubble.data('componentInst');
@@ -162,7 +161,7 @@ class ArtistCreditEditor extends React.Component {
     }
 
     const $button = $(this._editButton);
-    let position = {of: $button[0], collision: 'fit none', within: $('body')};
+    const position = {of: $button[0], collision: 'fit none', within: $('body')};
     let maxWidth;
     let tailClass;
 
@@ -234,7 +233,7 @@ class ArtistCreditEditor extends React.Component {
         copyArtistCredit={this.copyArtistCredit}
         done={this.done}
         hide={this.hide}
-        onNameChange={this.onNameChange}
+        onNameChange={this.handleNameChange}
         pasteArtistCredit={this.pasteArtistCredit}
         removeName={this.removeName}
         {...this.props}
@@ -359,7 +358,7 @@ class ArtistCreditEditor extends React.Component {
 
   render() {
     const ac = this.state.artistCredit;
-    let entity = _.clone(this.props.entity);
+    const entity = _.clone(this.props.entity);
     entity.artistCredit = {names: _.filter(ac.names, n => hasArtist(n))};
 
     /*
@@ -424,7 +423,7 @@ class ArtistCreditEditor extends React.Component {
                   className="open-ac"
                   ref={button => this._editButton = button}
                   type="button"
-                  onClick={this.toggleBubble}>
+                  onClick={this.handleBubbleToggle}>
                   {l('Edit')}
                 </button>
               </td>

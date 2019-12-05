@@ -37,7 +37,6 @@ type Props = {
 };
 
 const WorkSidebar = ({$c, work}: Props) => {
-  const gid = encodeURIComponent(work.gid);
   const {attributes, iswcs, languages, typeID} = work;
   const showInfo =
     attributes.length ||
@@ -67,7 +66,7 @@ const WorkSidebar = ({$c, work}: Props) => {
                 label={addColonText(l('Lyrics Languages'))}
               >
                 {commaOnlyList(
-                  languages.map((wl, index) => (
+                  languages.map((wl) => (
                     <LinkSearchableLanguage
                       entityType="work"
                       key={wl.language.id}
@@ -79,7 +78,7 @@ const WorkSidebar = ({$c, work}: Props) => {
             ) : null}
 
             {iswcs && iswcs.length ? (
-              iswcs.map((iswc, index) => (
+              iswcs.map((iswc) => (
                 <SidebarProperty
                   className="iswc"
                   key={iswc.iswc}
@@ -91,7 +90,7 @@ const WorkSidebar = ({$c, work}: Props) => {
             ) : null}
 
             {attributes.length ? (
-              attributes.map((attr, index) => {
+              attributes.map((attr) => {
                 const type = linkedEntities.work_attribute_type[attr.typeID];
                 return (
                   <SidebarProperty

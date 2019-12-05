@@ -17,7 +17,6 @@ const {allocBuffer} = require('./buffer');
 const {badRequest, getResponse} = require('./response');
 const {clearRequireCache} = require('./utils');
 
-const REQUEST_TIMEOUT = 60000;
 
 const connectionListener = Raven.wrap(function (socket) {
   let expectedBytes = 0;
@@ -39,7 +38,7 @@ const connectionListener = Raven.wrap(function (socket) {
     }
 
     let overflow = null;
-    let remainder = expectedBytes - recvBytes;
+    const remainder = expectedBytes - recvBytes;
     if (data.length > remainder) {
       overflow = data.slice(remainder);
       data = data.slice(0, remainder);

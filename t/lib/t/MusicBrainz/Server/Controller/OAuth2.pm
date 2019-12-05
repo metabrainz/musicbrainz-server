@@ -109,13 +109,13 @@ test 'Authorize web workflow online' => sub {
     $test->mech->get_ok("/oauth2/authorize?client_id=$client_id&response_type=code&scope=profile&state=xxx&redirect_uri=$redirect_uri");
     $test->mech->submit_form( form_name => 'confirm', button => 'confirm.submit' );
     my $code = oauth_redirect_ok($test->mech, 'www.example.com', '/callback', 'xxx');
-    oauth_authorization_code_ok($test, $code, 2, 1, 0);
+    oauth_authorization_code_ok($test, $code, 2, 11, 0);
 
     # Try to authorize one more time, this time we should be redirected automatically and only get the access_token
     $test->mech->get("/oauth2/authorize?client_id=$client_id&response_type=code&scope=profile&state=yyy&redirect_uri=$redirect_uri");
     my $code2 = oauth_redirect_ok($test->mech, 'www.example.com', '/callback', 'yyy');
     isnt($code, $code2);
-    oauth_authorization_code_ok($test, $code2, 2, 1, 0);
+    oauth_authorization_code_ok($test, $code2, 2, 11, 0);
 };
 
 test 'Authorize web workflow offline' => sub {
@@ -139,13 +139,13 @@ test 'Authorize web workflow offline' => sub {
     $test->mech->content_like(qr{Perform the above operations when I&#x27;m not using the application});
     $test->mech->submit_form( form_name => 'confirm', button => 'confirm.submit' );
     my $code = oauth_redirect_ok($test->mech, 'www.example.com', '/callback', 'xxx');
-    oauth_authorization_code_ok($test, $code, 2, 1, 1);
+    oauth_authorization_code_ok($test, $code, 2, 11, 1);
 
     # Try to authorize one more time, this time we should be redirected automatically and only get the access_token
     $test->mech->get("/oauth2/authorize?client_id=$client_id&response_type=code&scope=profile&state=yyy&access_type=offline&redirect_uri=$redirect_uri");
     my $code2 = oauth_redirect_ok($test->mech, 'www.example.com', '/callback', 'yyy');
     isnt($code, $code2);
-    oauth_authorization_code_ok($test, $code2, 2, 1, 0);
+    oauth_authorization_code_ok($test, $code2, 2, 11, 0);
 
     # And one more time, this time force manual authorization
     $test->mech->get_ok("/oauth2/authorize?client_id=$client_id&response_type=code&scope=profile&state=yyy&access_type=offline&redirect_uri=$redirect_uri&approval_prompt=force");
@@ -157,7 +157,7 @@ test 'Authorize web workflow offline' => sub {
     my $code3 = oauth_redirect_ok($test->mech, 'www.example.com', '/callback', 'yyy');
     isnt($code, $code3);
     isnt($code2, $code3);
-    oauth_authorization_code_ok($test, $code3, 2, 1, 1);
+    oauth_authorization_code_ok($test, $code3, 2, 11, 1);
 };
 
 test 'Authorize desktop workflow oob' => sub {
@@ -182,7 +182,7 @@ test 'Authorize desktop workflow oob' => sub {
     $test->mech->submit_form( form_name => 'confirm', button => 'confirm.submit' );
     my $code = oauth_redirect_ok($test->mech, 'localhost', '/oauth2/oob', 'xxx');
     $test->mech->content_contains($code);
-    oauth_authorization_code_ok($test, $code, 1, 2, 1);
+    oauth_authorization_code_ok($test, $code, 1, 12, 1);
 
     # Try to authorize one more time, this should ask for manual approval as well
     $test->mech->get_ok("/oauth2/authorize?client_id=$client_id&response_type=code&scope=profile&state=yyy&redirect_uri=$redirect_uri");
@@ -193,7 +193,7 @@ test 'Authorize desktop workflow oob' => sub {
     $test->mech->submit_form( form_name => 'confirm', button => 'confirm.submit' );
     my $code2 = oauth_redirect_ok($test->mech, 'localhost', '/oauth2/oob', 'yyy');
     isnt($code, $code2);
-    oauth_authorization_code_ok($test, $code2, 1, 2, 1);
+    oauth_authorization_code_ok($test, $code2, 1, 12, 1);
 };
 
 test 'Authorize desktop workflow localhost' => sub {
@@ -218,7 +218,7 @@ test 'Authorize desktop workflow localhost' => sub {
     $test->mech->submit_form( form_name => 'confirm', button => 'confirm.submit' );
     my $code = oauth_redirect_ok($test->mech, 'localhost', '/cb', 'xxx');
     $test->mech->content_contains($code);
-    oauth_authorization_code_ok($test, $code, 1, 2, 1);
+    oauth_authorization_code_ok($test, $code, 1, 12, 1);
 
     # Try to authorize one more time, this should ask for manual approval as well
     $test->mech->get_ok("/oauth2/authorize?client_id=$client_id&response_type=code&scope=profile&state=yyy&redirect_uri=$redirect_uri");
@@ -229,7 +229,7 @@ test 'Authorize desktop workflow localhost' => sub {
     $test->mech->submit_form( form_name => 'confirm', button => 'confirm.submit' );
     my $code2 = oauth_redirect_ok($test->mech, 'localhost', '/cb', 'yyy');
     isnt($code, $code2);
-    oauth_authorization_code_ok($test, $code2, 1, 2, 1);
+    oauth_authorization_code_ok($test, $code2, 1, 12, 1);
 };
 
 test 'Exchange authorization code' => sub {
@@ -542,7 +542,7 @@ test 'User info' => sub {
         zoneinfo => 'Europe/Bratislava',
         email => 'me@mysite.com',
         email_verified => JSON::true,
-        metabrainz_user_id => 1,
+        metabrainz_user_id => 11,
     });
     $test->mech->header_is('access-control-allow-origin', '*');
 
@@ -557,7 +557,7 @@ test 'User info' => sub {
         website => 'http://www.mysite.com/',
         gender => 'male',
         zoneinfo => 'Europe/Bratislava',
-        metabrainz_user_id => 1,
+        metabrainz_user_id => 11,
     });
 
     # MBS-9744
@@ -566,14 +566,14 @@ test 'User info' => sub {
     is($test->mech->status, 200);
     $response = from_json(decode('utf8', $test->mech->content(raw => 1)));
     is_deeply($response, {
-        metabrainz_user_id => 4,
+        metabrainz_user_id => 14,
         profile => 'http://localhost/user/%C3%A6ditor%E2%85%A3',
         sub => 'æditorⅣ',
         zoneinfo => 'UTC',
     });
 
     # Deleted users (bearer)
-    $test->c->sql->do('UPDATE editor SET deleted = true WHERE id = 4');
+    $test->c->sql->do('UPDATE editor SET deleted = true WHERE id = 14');
     $test->mech->get("/oauth2/userinfo?access_token=$code");
     is(401, $test->mech->status);
     $test->mech->get('/oauth2/userinfo', {Authorization => "Bearer $code"});

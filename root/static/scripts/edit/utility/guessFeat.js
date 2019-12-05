@@ -122,7 +122,7 @@ function cleanCredit(name, isProbablyClassical) {
     return isProbablyClassical ? name.replace(/^[a-z]+: (.+)$/, '$1') : name;
 }
 
-function bestArtistMatch(artists, name, isProbablyClassical) {
+function bestArtistMatch(artists, name) {
     return _(artists)
         .map(function (a) {
             var similarity = getSimilarity(name, a.name);
@@ -192,7 +192,7 @@ export default function guessFeat(entity) {
     _.last(artistCredit).joinPhrase = match.joinPhrase;
     _.last(match.artistCredit).joinPhrase = '';
 
-    for (let name of match.artistCredit) {
+    for (const name of match.artistCredit) {
         delete name.similarity;
     }
 

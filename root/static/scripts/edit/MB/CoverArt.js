@@ -40,11 +40,7 @@ MB.CoverArt.get_image_mime_type = function () {
 };
 
 MB.CoverArt.image_error = function ($img, image) {
-    if ($img.attr("src") !== image.image)
-    {
-        $img.attr("src", image.image)
-    }
-    else
+    if ($img.attr("src") === image.image)
     {
         /*
          * image doesn't exist at all, perhaps it was removed
@@ -53,6 +49,10 @@ MB.CoverArt.image_error = function ($img, image) {
          * data in the index is incorrect.
          */
         $img.attr("src", require('../../../images/image404-125.png'));
+    }
+    else
+    {
+        $img.attr("src", image.image)
     }
 };
 
@@ -99,8 +99,8 @@ MB.CoverArt.reorder_position = function () {
 
     // For the Add Cover Art page, the following is a no-op.
     $('#reorder-cover-art').submit(
-        function (event) {
-            $('div.editimage input.position').val(function (index, oldvalue) { return (index + 1); });
+        function () {
+            $('div.editimage input.position').val(function (index) { return (index + 1); });
         }
     );
 
@@ -162,7 +162,7 @@ MB.CoverArt.validate_file = function (file) {
 
         /*
          * JPEG signature is usually FF D8 FF E0 (JFIF), or FF D8 FF E1 (EXIF).
-         * Some cameras and phones write a different fourth byte. 
+         * Some cameras and phones write a different fourth byte.
          */
 
         if ((uint32view[0] & 0x00FFFFFF) === 0x00FFD8FF)
@@ -216,7 +216,7 @@ MB.CoverArt.sign_upload = function (file, gid, mime_type) {
         deferred.reject("error obtaining signature: " + status + " " + error);
     });
 
-    postfields.done(function (data, status, jqxhr) {
+    postfields.done(function (data) {
         deferred.resolve(data);
     });
 
@@ -242,7 +242,7 @@ MB.CoverArt.upload_image = function (postfields, file) {
         }
     });
 
-    xhr.addEventListener("load", function (event) {
+    xhr.addEventListener("load", function () {
         if (xhr.status >= 200 && xhr.status < 210)
         {
             deferred.notify(100);
@@ -264,10 +264,10 @@ MB.CoverArt.upload_image = function (postfields, file) {
          */
         xhr.overrideMimeType('text/plain');
     }
-    xhr.addEventListener("error", function (event) {
+    xhr.addEventListener("error", function () {
         deferred.reject("error uploading image");
     });
-    xhr.addEventListener("abort", function (event) {
+    xhr.addEventListener("abort", function () {
         deferred.reject("image upload aborted");
     });
     xhr.open("POST", postfields.action);
@@ -297,7 +297,7 @@ MB.CoverArt.submit_edit = function (file_upload, postfields, mime_type, position
     });
 
     var xhr = new XMLHttpRequest();
-    xhr.addEventListener("load", function (event) {
+    xhr.addEventListener("load", function () {
         if (xhr.status === 200)
         {
             deferred.resolve();
@@ -308,11 +308,11 @@ MB.CoverArt.submit_edit = function (file_upload, postfields, mime_type, position
         }
     });
 
-    xhr.addEventListener("error", function (event) {
+    xhr.addEventListener("error", function () {
         deferred.reject("unknown error creating edit");
     });
 
-    xhr.addEventListener("abort", function (event) {
+    xhr.addEventListener("abort", function () {
         deferred.reject("create edit aborted");
     });
 
@@ -466,8 +466,9 @@ MB.CoverArt.UploadProcessViewModel = function () {
 
     self.moveFile = function (to_move, direction) {
         var new_pos = self.files_to_upload().indexOf(to_move) + direction;
-        if (new_pos < 0 || new_pos >= self.files_to_upload().length)
-            return
+        if (new_pos < 0 || new_pos >= self.files_to_upload().length) {
+            return;
+        }
 
         self.files_to_upload.remove(to_move);
         self.files_to_upload.splice(new_pos, 0, to_move);
@@ -520,7 +521,7 @@ MB.CoverArt.add_cover_art = function (gid) {
 
         /*
          * FormData is supported, so we can present the multifile ajax
-         * upload form. 
+         * upload form.
          */
 
         $('.with-formdata').show();
@@ -543,11 +544,11 @@ MB.CoverArt.add_cover_art = function (gid) {
             upvm.moveFile(ko.dataFor(this), 1);
         });
 
-        $('button.add-files').on('click', function (event) {
+        $('button.add-files').on('click', function () {
             $('input.add-files').trigger('click');
         });
 
-        $('input.add-files').on('change', function (event) {
+        $('input.add-files').on('change', function () {
             $.each($('input.add-files')[0].files, function (idx, file) {
                 upvm.addFile(file);
             });

@@ -11,7 +11,7 @@
 import React from 'react';
 import {range} from 'lodash';
 
-import {l_statistics as l, ln_statistics as ln, lp_statistics as lp}
+import {l_statistics as l, lp_statistics as lp}
   from '../static/scripts/common/i18n/statistics';
 import {withCatalystContext} from '../context';
 

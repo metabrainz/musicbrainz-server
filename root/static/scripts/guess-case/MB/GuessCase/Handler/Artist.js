@@ -41,7 +41,6 @@ MB.GuessCase.Handler.Artist = function (gc) {
                 // Match "n/a" and variants
                 gc.re.ARTIST_NA = /^[\(\[]?\s*n\s*[\\\/]\s*a\s*[\)\]]?$/i;
             }
-            var os = is;
             if (is.match(gc.re.ARTIST_EMPTY)) {
                 return self.SPECIALCASE_UNKNOWN;
 

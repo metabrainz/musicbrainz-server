@@ -151,6 +151,7 @@ sub cdtoc_tracks {
     return [ grep { $_->position > 0 && !$_->is_data_track } $self->all_tracks ];
 }
 
+# Converted to JavaScript at root/utility/mediumHasMultipleArtists.js
 sub has_multiple_artists {
     my ($self) = @_;
     foreach my $track ($self->all_tracks) {
@@ -274,8 +275,8 @@ around TO_JSON => sub {
     my $data = {
         %{ $self->$orig },
         cdtocs      => [map { $_->cdtoc->toc } $self->all_cdtocs],
-        format      => $self->l_format_name,
-        formatID    => $self->format_id,
+        format      => $self->format ? $self->format->TO_JSON : undef,
+        format_id   => $self->format_id,
         name        => $self->name,
         position    => $self->position,
         release_id  => $self->release_id,
@@ -288,7 +289,7 @@ around TO_JSON => sub {
     if ($self->release) {
         $self->link_entity('release', $self->release->id, $self->release);
     }
-    
+
     return $data;
 };
 

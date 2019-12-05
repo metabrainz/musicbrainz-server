@@ -90,7 +90,7 @@ test('age', function (t) {
 test('hasAge', function (t) {
     t.plan(4);
 
-    let entity = {
+    const entity = {
         begin_date: {year: 1970, month: 1, day: 1},
         end_date: {year: null, month: 1, day: 1},
         ended: true,

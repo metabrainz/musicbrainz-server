@@ -9,7 +9,6 @@
 
 import * as React from 'react';
 
-import {withCatalystContext} from '../../../context';
 import linkedEntities from '../../../static/scripts/common/linkedEntities';
 
 import {SidebarProperty} from './SidebarProperties';

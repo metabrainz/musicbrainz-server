@@ -402,7 +402,7 @@ sub _seeded_medium
         my $format = $c->model('MediumFormat')->find_by_name($name);
 
         if ($format) {
-            $result->{formatID} = $format->id;
+            $result->{format_id} = $format->id;
         } else {
             push @$errors, "Invalid $field_name.format: “$name”.";
         }

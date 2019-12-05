@@ -5,5 +5,4 @@ INSERT INTO editor (id, name, password, privs, email, website, bio, member_since
     (5, 'noob1', '{CLEARTEXT}password', 0, 'noob1@email.com', 'http://test.website', 'biography', '1989-07-23', '2005-10-20', now(), 'e0f6eda39b0af93a47ad3ba8f1bccdbf'),
     (6, 'noob2', '{CLEARTEXT}password', 0, 'noob2@email.com', 'http://test.website', 'biography', '1989-07-23', '2005-10-20', now(), '4c1b6d0776572a47ce3a424efbdea6f6'),
     (7, 'autoeditor4', '{CLEARTEXT}password', 1, 'autoeditor4@email.com', 'http://test.website', 'biography', '1989-07-23', '2005-10-20', now(), 'e548c5e2e91c72a124b27e6ff2f2942c'),
-    (8, 'autoeditor5', '{CLEARTEXT}password', 1, 'autoeditor5@email.com', 'http://test.website', 'biography', '1989-07-23', '2005-10-20', now(), 'df934bf45e1f89f425ee2c345bf7f228'),
-    (4, 'ModBot', '{CLEARTEXT}mb', 0, '', 'http://musicbrainz.org/doc/ModBot', 'See the above link for more information.', NULL, NULL, NULL, '03503a81a03bdbb6055f4a6c8b86b5b8');
+    (8, 'autoeditor5', '{CLEARTEXT}password', 1, 'autoeditor5@email.com', 'http://test.website', 'biography', '1989-07-23', '2005-10-20', now(), 'df934bf45e1f89f425ee2c345bf7f228');

@@ -38,7 +38,7 @@ sub language_options {
     my @languages = $c->model('Language')->get_all;
     if ($context eq "editor") {
         for my $language (@languages) {
-            if ($language->iso_code_3 && $language->iso_code_3 =~ /mis|mul|qaa|und|zxx/) {
+            if ($language->iso_code_3 && $language->iso_code_3 eq 'mul') {
                 $language->frequency($skip);
             }
         }

@@ -115,6 +115,12 @@
 
   <!-- ko if: hasTracks() -->
     <fieldset>
+      <p>
+        [% l('If the {recording_doc|recording titles/artists} listed above are incorrect, you can check the boxes below to replace them with the track titles/artists for this release.', {recording_doc => doc_link('Recording')}) %]
+      </p>
+      <p>
+        [% l('<strong>Note:</strong> In classical music, {csg_recording_artist|recording artists} should almost always be different from {csg_track_artist|track artists}, so don’t use the “copy artist credits” option while editing a classical release unless you’re very sure it’s a good idea!', {csg_recording_artist => doc_link('Style/Classical/Recording/Artist'), csg_track_artist => doc_link('Style/Classical/Track/Artist')}) %]
+      </p>
       <legend>[% l('Options') %]</legend>
       <p>
         <label>

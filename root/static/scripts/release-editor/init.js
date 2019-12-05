@@ -47,7 +47,7 @@ releaseEditor.init = function (options) {
      * release changes, since the old fields get removed and the events no
      * longer exist.
      */
-    utils.withRelease(function (release) {
+    utils.withRelease(function () {
         _.defer(function () {
             MB.Control.initialize_guess_case("release");
         });
@@ -102,7 +102,7 @@ releaseEditor.init = function (options) {
 
             var $bubble = panel.find("div.bubble:visible:eq(0)");
             if ($bubble.length) {
-                let bubbleDoc = $bubble[0].bubbleDoc;
+                const bubbleDoc = $bubble[0].bubbleDoc;
                 bubbleDoc.redraw(true /* stealFocus */);
             }
 
@@ -309,9 +309,13 @@ releaseEditor.releaseLoaded = function (data) {
 
     var release = new fields.Release(data);
 
-    if (seed) this.seedRelease(release, seed);
+    if (seed) {
+        this.seedRelease(release, seed);
+    }
 
-    if (!seed || !seed.mediums) release.loadMedia();
+    if (!seed || !seed.mediums) {
+        release.loadMedia();
+    }
 
     this.rootField.release(release);
 };

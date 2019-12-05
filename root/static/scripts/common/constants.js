@@ -126,7 +126,6 @@ export const FAVICON_CLASSES = {
   'paypal.me': 'paypal',
   'petitlyrics.com': 'petitlyrics',
   'play.google.com': 'googleplay',
-  'plus.google.com': 'googleplus',
   'progarchives.com': 'progarchives',
   'psydb.net': 'psydb',
   'qim.com': 'quebecinfomusique',

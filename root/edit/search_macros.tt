@@ -56,9 +56,9 @@
              CASE 'MusicBrainz::Server::EditSearch::Predicate::Set';
                SWITCH field.field_name;
                  CASE 'type';
-                   predicate_set(field.field_name, edit_types, field);
+                   predicate_set(field.field_name, edit_types, field, 15, 1);
                  CASE 'status';
-                   predicate_set(field.field_name, status, field);
+                   predicate_set(field.field_name, status, field, 8);
                END;
              CASE 'MusicBrainz::Server::EditSearch::Predicate::ReleaseQuality';
                predicate_set(field.field_name, quality, field);
@@ -181,11 +181,13 @@
   </span>
 [% END %]
 
-[% MACRO predicate_set(field, set_contents, field_contents) WRAPPER wfield predicate="set" %]
+[% MACRO predicate_set(field, set_contents, field_contents, size) WRAPPER wfield predicate="set" %]
   [% operators([ [ '=', l('is') ]
                  [ '!=', l('is not') ] ], field_contents) %]
 
-  <select name="args" multiple="multiple">
+  <select name="args" multiple="multiple"
+          [%~ ' size="' _ size _ '"' IF size ~%]
+          >
     [%- FOR item=set_contents %]
     <option value="[% html_escape(item.0) %]"
             [%~ ' selected="selected"' IF field_contents.find_argument(item.0).defined ~%]
@@ -198,7 +200,7 @@
   [% operators([ [ '=', l('is') ]
                  [ '!=', l('is not') ] ], field_contents) %]
 
-  <select name="args" multiple="multiple">
+  <select name="args" multiple="multiple" size="15">
     [%- FOR language=languages %]
     <option value="[% language.id %]"
             [%~ ' selected="selected"' IF field_contents.find_argument(language.id) ~%]
@@ -219,7 +221,7 @@
 [% MACRO predicate_link_type(field, field_contents) WRAPPER wfield predicate="set" %]
   [% operators([ [ '=', l('is') ] ], field_contents) %]
 
-  <select name="args" multiple="multiple">
+  <select name="args" multiple="multiple" size="15">
     [%- FOR type_group=relationship_type %]
     <optgroup label="[% type_group.name %]">
         [%- relationship_node(top_level, '', field_contents)
@@ -265,7 +267,7 @@
     [% add_colon(l('and voted')) %]
   </span>
 
-  <select name="args" multiple="multiple">
+  <select name="args" multiple="multiple" size="5">
     [%- FOR item=[ [  2,   lp('Approve', 'vote') ]
                 , [  1,   lp('Yes', 'vote') ]
                 , [  0,   lp('No', 'vote') ]
@@ -314,7 +316,7 @@
   [% operators([ [ '=', l('is') ]
                  [ '!=', l('is not') ] ], field_contents) %]
 
-  <select name="args" multiple="multiple">
+  <select name="args" multiple="multiple" size="15">
     [%- FOR country=countries %]
     <option value="[% country.id %]"
             [%- 'selected="selected"' IF field_contents.find_argument(country.id) %]>
@@ -407,8 +409,8 @@
   <div id="fields">
     [% predicate_id('id') %]
     [% predicate_date(field_name) FOR field_name=['open_time', 'expire_time', 'close_time'] %]
-    [% predicate_set('type', edit_types) %]
-    [% predicate_set('status', status) %]
+    [% predicate_set('type', edit_types, [], 15) %]
+    [% predicate_set('status', status, [], 8) %]
     [% predicate_set('release_quality', quality) %]
     [% predicate_vote_count('vote_count') %]
     [% predicate_user('edit_note_author') %]

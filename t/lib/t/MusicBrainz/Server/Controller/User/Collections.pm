@@ -60,7 +60,7 @@ test 'Viewing someone elses collections' => sub {
     my $tx = test_xpath_html($mech->content);
 
     $tx->is('count(//div[@id="page"]//table//th)',
-            4, 'other collection list has 4 cols');
+            5, 'other collection list has 5 cols');
 };
 
 test 'Invalid user' => sub {

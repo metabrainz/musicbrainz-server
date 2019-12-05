@@ -15,7 +15,6 @@ import FormRow from '../../../../components/FormRow';
 import FormRowCheckbox from '../../../../components/FormRowCheckbox';
 import FormRowSelect from '../../../../components/FormRowSelect';
 import FormSubmit from '../../../../components/FormSubmit';
-import {withCatalystContext} from '../../../../context';
 import {formatUserDateObject} from '../../../../utility/formatUserDate';
 import hydrate from '../../../../utility/hydrate';
 

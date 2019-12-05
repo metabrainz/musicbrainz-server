@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import React from 'react';
-
 import {withCatalystContext} from '../context';
 import {formatUserDateObject} from '../utility/formatUserDate';
 import parseIsoDate from '../utility/parseIsoDate';

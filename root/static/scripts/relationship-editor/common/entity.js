@@ -20,7 +20,7 @@ import mergeDates from './mergeDates';
 import '../../common/entity';
 
 function getDirection(relationship, source) {
-  let entities = relationship.entities();
+  const entities = relationship.entities();
 
   if (source === entities[0]) {
     return 'forward';
@@ -73,7 +73,6 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
         }),
 
         relationshipsInViewModel: cacheByID(function (vm) {
-            var self = this;
             return this.relationships.filter(function (relationship) {
                 return vm === relationship.parent;
             });
@@ -191,8 +190,8 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
              * item is moved. Since displayableRelationships is used,
              * it should be in the same order as it appears in the UI.
              */
-            let linkTypeID = String(relationship.linkTypeID());
-            let direction = getDirection(relationship, this);
+            const linkTypeID = String(relationship.linkTypeID());
+            const direction = getDirection(relationship, this);
 
             return _.filter(
                 this.displayableRelationships(viewModel)(),

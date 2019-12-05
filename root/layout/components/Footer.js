@@ -14,7 +14,7 @@ import {DONATE_URL} from '../../constants';
 import bracketed from '../../static/scripts/common/utility/bracketed';
 import formatUserDate from '../../utility/formatUserDate';
 
-const Footer = ({$c, ...props}) => {
+const Footer = ({$c}) => {
   const stash = $c.stash;
   return (
     <div id="footer">

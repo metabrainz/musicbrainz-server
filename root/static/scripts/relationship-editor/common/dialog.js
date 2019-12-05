@@ -30,7 +30,6 @@ const PART_OF_SERIES_LINK_TYPE_GIDS = _.values(PART_OF_SERIES_LINK_TYPES);
 const RE = MB.relationshipEditor = MB.relationshipEditor || {};
 
     var UI = RE.UI = RE.UI || {};
-    var fields = RE.fields = RE.fields || {};
 
     var incorrectEntityForSeries = {
         recording:      l("The series you’ve selected is for recordings."),
@@ -54,7 +53,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
         }
 
         return {
-            init: function (element, valueAccessor, allBindings, viewModel, bindingContext) {
+            init: function (element, valueAccessor) {
                 dialog = valueAccessor();
 
                 dialog.autocomplete = $(element).entitylookup({
@@ -439,7 +438,9 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
         }
 
         targetTypeChanged(newType) {
-            if (!newType) return;
+            if (!newType) {
+                return;
+            }
 
             var currentRelationship = this.relationship();
             var currentTarget = currentRelationship.target(this.source);
@@ -781,7 +782,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
     function defaultLinkType(root) {
         var child, id, i = 0;
 
-        while (child = root.children[i++]) {
+        while ((child = root.children[i++])) {
             if (child.description && !child.deprecated) {
                 return child.id;
             }
@@ -831,4 +832,3 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
     UI.EditDialog = EditDialog;
     UI.BatchRelationshipDialog = BatchRelationshipDialog;
     UI.BatchCreateWorksDialog = BatchCreateWorksDialog;
-

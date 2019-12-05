@@ -3074,10 +3074,10 @@ flatted@^2.0.0:
   resolved "https://registry.yarnpkg.com/flatted/-/flatted-2.0.0.tgz#55122b6536ea496b4b44893ee2608141d10d9916"
   integrity sha512-R+H8IZclI8AAkSBRQJLVOsxwAoHd6WC40b4QTNWIjzAa6BXOBfQcM587MXDTVPeYaopFNWHUFLx7eNmHDSxMWg==
 
-flow-bin@0.112.0:
-  version "0.112.0"
-  resolved "https://registry.yarnpkg.com/flow-bin/-/flow-bin-0.112.0.tgz#6a21c31937c4a2f23a750056a364c598a95ea216"
-  integrity sha512-vdcuKv0UU55vjv0e2EVh1ZxlU+TSNT19SkE+6gT1vYzTKtzYE6dLuAmBIiS3Rg2N9D9HOI6TKSyl53zPtqZLrA==
+flow-bin@0.113.0:
+  version "0.113.0"
+  resolved "https://registry.yarnpkg.com/flow-bin/-/flow-bin-0.113.0.tgz#6457d250dbc6f71ca51e75f00a96d23cde5d987a"
+  integrity sha512-76uE2LGNe50wm+Jup8Np4FBcMbyy5V2iE+K25PPIYLaEMGHrL1jnQfP9L0hTzA5oh2ZJlexRLMlaPqIYIKH9nw==
 
 flush-write-stream@^1.0.0:
   version "1.1.1"
@@ -5557,6 +5557,11 @@ react-is@^16.8.1:
   version "16.11.0"
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.11.0.tgz#b85dfecd48ad1ce469ff558a882ca8e8313928fa"
   integrity sha512-gbBVYR2p8mnriqAwWx9LbuUrShnAuSCNnuPGyc7GJrMVQtPDAh8iLpv7FRuMPFb56KkaVZIYSz1PrjI9q0QPCw==
+
+react-table@7.0.0-beta.26:
+  version "7.0.0-beta.26"
+  resolved "https://registry.yarnpkg.com/react-table/-/react-table-7.0.0-beta.26.tgz#20ab9a7bd21f01930e764198410a642a3ae28e79"
+  integrity sha512-Pw/1T9kiAjV1cIf6K6bQV6yNQc3O7XUGin1RcSR1xFKw0RNGC5vl1VDPZrNep1BXDsbR6o8O63X45HFNVg6HzA==
 
 react@16.10.2:
   version "16.10.2"

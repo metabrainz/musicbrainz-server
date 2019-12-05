@@ -15,6 +15,8 @@
  * how data is serialized for us.
  */
 
+/* eslint-disable no-unused-vars */
+
 declare type AggregatedTagT = {
   +count: number,
   +tag: TagT,
@@ -264,6 +266,7 @@ declare type CollectionT = {
   +gid: string,
   +name: string,
   +public: boolean,
+  +subscribed?: boolean,
 };
 
 declare type CollectionTypeT = {
@@ -552,8 +555,10 @@ declare type GroupedOptionsT = $ReadOnlyArray<{
   +options: SelectOptionsT,
 }>;
 
-declare type InstrumentCreditsRoleT = {
-  +instrumentCredits?: {+[string]: $ReadOnlyArray<string>},
+declare type InstrumentCreditsAndRelTypesRoleT = {
+  +instrumentCreditsAndRelTypes?: {
+    +[string]: $ReadOnlyArray<string>,
+  },
 };
 
 declare type InstrumentT = {
@@ -700,8 +705,8 @@ declare type MediumT = {
   ...EntityRoleT<'track'>,
   ...LastUpdateRoleT,
   +editsPending: boolean,
-  +format: string,
-  +formatID: number,
+  +format: MediumFormatT | null,
+  +format_id: number,
   +name: string,
   +position: number,
   +release_id: number,

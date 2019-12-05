@@ -32,7 +32,6 @@ type Props = {
 };
 
 const SeriesSidebar = ({$c, series}: Props) => {
-  const gid = encodeURIComponent(series.gid);
 
   return (
     <div id="sidebar">

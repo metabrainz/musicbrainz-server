@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from 'react';
-
 import commaList, {commaListText} from '../../common/i18n/commaList';
 import commaOnlyList, {commaOnlyListText}
   from '../../common/i18n/commaOnlyList';
