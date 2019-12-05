@@ -2,6 +2,7 @@ package MusicBrainz::Server::Controller::Role::Merge;
 use MooseX::MethodAttributes::Role;
 use MooseX::Role::Parameterized;
 
+use List::UtilsBy qw( nsort_by );
 use MusicBrainz::Server::Data::Utils qw( type_to_model );
 use MusicBrainz::Server::Log qw( log_assertion );
 use MusicBrainz::Server::Translation qw( l ln );
@@ -141,6 +142,11 @@ role {
             @entities = values %{
                 $c->model($self->{model})->get_by_ids(map { $_->value } $check_form->field('merging')->fields)
             };
+
+            my $target = $check_form->field('target')->value;
+            # Put the target first, since `determine_recording_merges` etc.
+            # requires that.
+            @entities = nsort_by { $_->id == $target ? 0 : 1 } @entities;
         }
 
         $self->_merge_load_entities($c, @entities);

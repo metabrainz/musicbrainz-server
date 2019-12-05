@@ -437,6 +437,7 @@ const seleniumTests = [
   {name: 'MBS-9548.html'},
   {name: 'MBS-9669.html'},
   {name: 'MBS-9941.html', login: true},
+  {name: 'MBS-10188.html', login: true, sql: 'mbs-10188.sql'},
   {name: 'Artist_Credit_Editor.html', login: true},
   {name: 'External_Links_Editor.html', login: true},
   {name: 'Work_Editor.html', login: true},

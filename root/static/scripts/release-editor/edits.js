@@ -219,7 +219,7 @@ releaseEditor.edits = {
                     var lastAttempt = (_.last(tmpPositions) + 1) || 1;
                     var attempt;
 
-                    while (attempt = lastAttempt++) {
+                    while ((attempt = lastAttempt++)) {
                         if (_.includes(oldPositions, attempt) ||
                             _.includes(tmpPositions, attempt)) {
                             // This position is taken.
@@ -296,7 +296,7 @@ releaseEditor.edits = {
                  * make sure we swap with it to avoid conflicts.
                  */
                 var removedMedium;
-                if (removedMedium = removedMediums[newPosition]) {
+                if ((removedMedium = removedMediums[newPosition])) {
                     newOrder.push({
                         medium_id:  removedMedium.id,
                         "old":      newPosition,

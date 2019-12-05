@@ -438,7 +438,9 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
         }
 
         targetTypeChanged(newType) {
-            if (!newType) return;
+            if (!newType) {
+                return;
+            }
 
             var currentRelationship = this.relationship();
             var currentTarget = currentRelationship.target(this.source);
@@ -780,7 +782,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
     function defaultLinkType(root) {
         var child, id, i = 0;
 
-        while (child = root.children[i++]) {
+        while ((child = root.children[i++])) {
             if (child.description && !child.deprecated) {
                 return child.id;
             }
@@ -830,4 +832,3 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
     UI.EditDialog = EditDialog;
     UI.BatchRelationshipDialog = BatchRelationshipDialog;
     UI.BatchCreateWorksDialog = BatchCreateWorksDialog;
-

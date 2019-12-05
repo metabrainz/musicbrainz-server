@@ -235,7 +235,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
         $("#page form button[type=submit]").prop("disabled", true);
         $("input[type=hidden]", "#relationship-editor").remove();
 
-        if (vm = MB.sourceRelationshipEditor) {
+        if ((vm = MB.sourceRelationshipEditor)) {
             addHiddenInputs(pushInput, vm, formName);
             submitted = submitted.concat(source.relationshipsInViewModel(vm)());
         }
@@ -257,7 +257,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
             ));
         }
 
-        if (vm = MB.sourceExternalLinksEditor) {
+        if ((vm = MB.sourceExternalLinksEditor)) {
             vm.getFormData(formName + '.url', fieldCount, pushInput);
 
             if (hasSessionStorage && vm.state.links.length) {

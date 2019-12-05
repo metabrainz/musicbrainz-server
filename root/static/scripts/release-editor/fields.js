@@ -249,7 +249,9 @@ class Track {
         value = value || new MB_entity.Recording({ name: this.name() });
 
         var currentValue = this.recording.peek();
-        if (value.gid === currentValue.gid) return;
+        if (value.gid === currentValue.gid) {
+            return;
+        }
 
         /*
          * Save the current track values to allow for comparison when they
@@ -467,7 +469,9 @@ class Medium {
     }
 
     tocChanged(toc) {
-        if (!_.isString(toc)) return;
+        if (!_.isString(toc)) {
+            return;
+        }
 
         toc = toc.split(/\s+/);
 
@@ -541,7 +545,9 @@ class Medium {
 
     loadTracks() {
         var id = this.id || this.originalID;
-        if (!id) return;
+        if (!id) {
+            return;
+        }
 
         this.loading(true);
 
@@ -686,7 +692,9 @@ fields.ReleaseEvent = ReleaseEvent;
 class ReleaseLabel {
 
     constructor(data, release) {
-        if (data.id) this.id = data.id;
+        if (data.id) {
+            this.id = data.id;
+        }
 
         this.label = ko.observable(MB_entity(data.label || {}, "label"));
         this.catalogNumber = ko.observable(data.catalogNumber);
@@ -747,7 +755,9 @@ class Barcode {
     }
 
     checkDigit(barcode) {
-        if (barcode.length !== 12) return false;
+        if (barcode.length !== 12) {
+            return false;
+        }
 
         for (var i = 0, calc = 0; i < 12; i++) {
             calc += parseInt(barcode[i]) * this.weights[i];

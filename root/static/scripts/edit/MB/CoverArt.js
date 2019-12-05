@@ -162,7 +162,7 @@ MB.CoverArt.validate_file = function (file) {
 
         /*
          * JPEG signature is usually FF D8 FF E0 (JFIF), or FF D8 FF E1 (EXIF).
-         * Some cameras and phones write a different fourth byte. 
+         * Some cameras and phones write a different fourth byte.
          */
 
         if ((uint32view[0] & 0x00FFFFFF) === 0x00FFD8FF)
@@ -466,8 +466,9 @@ MB.CoverArt.UploadProcessViewModel = function () {
 
     self.moveFile = function (to_move, direction) {
         var new_pos = self.files_to_upload().indexOf(to_move) + direction;
-        if (new_pos < 0 || new_pos >= self.files_to_upload().length)
-            return
+        if (new_pos < 0 || new_pos >= self.files_to_upload().length) {
+            return;
+        }
 
         self.files_to_upload.remove(to_move);
         self.files_to_upload.splice(new_pos, 0, to_move);
@@ -520,7 +521,7 @@ MB.CoverArt.add_cover_art = function (gid) {
 
         /*
          * FormData is supported, so we can present the multifile ajax
-         * upload form. 
+         * upload form.
          */
 
         $('.with-formdata').show();

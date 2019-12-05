@@ -112,10 +112,13 @@ sub find_by_instrument {
     my ($self, $instrument_id, $limit, $offset) = @_;
 
     # NOTE: if more tables than l_artist_recording are added here, check admin/BuildSitemaps.pl
-    my $query = "SELECT " . $self->_columns . ", array_agg(lac.credited_as) AS instrument_credits
+    my $query = "SELECT " . $self->_columns . ", 
+                     array_agg(json_build_object('name', link_type.name, 'credit', lac.credited_as)) AS instrument_credits_and_rel_types
                  FROM " . $self->_table . "
                      JOIN l_artist_recording ON l_artist_recording.entity1 = recording.id
-                     JOIN link_attribute ON link_attribute.link = l_artist_recording.link
+                     JOIN link ON link.id = l_artist_recording.link
+                     JOIN link_type ON link_type.id = link.link_type
+                     JOIN link_attribute ON link_attribute.link = link.id
                      JOIN link_attribute_type ON link_attribute_type.id = link_attribute.attribute_type
                      JOIN instrument ON instrument.gid = link_attribute_type.gid
                      LEFT JOIN link_attribute_credit lac ON (
@@ -133,8 +136,8 @@ sub find_by_instrument {
         $offset,
         sub {
             my ($model, $row) = @_;
-            my $credits = delete $row->{instrument_credits};
-            { recording => $model->_new_from_row($row), instrument_credits => $credits };
+            my $credits_and_rel_types = delete $row->{instrument_credits_and_rel_types};
+            { recording => $model->_new_from_row($row), instrument_credits_and_rel_types => $credits_and_rel_types };
         },
     );
 }

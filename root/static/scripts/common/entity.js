@@ -346,7 +346,9 @@ import formatTrackLength from './utility/formatTrackLength';
 
         getSeriesItems(viewModel) {
             var type = this.type();
-            if (!type) return [];
+            if (!type) {
+                return [];
+            }
 
             var gid = PART_OF_SERIES_LINK_TYPES[type.item_entity_type];
             var linkTypeID = linkedEntities.link_type[gid].id;

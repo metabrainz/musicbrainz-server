@@ -339,7 +339,7 @@ const CLEANUPS = {
             return prefix === 'artist';
           case LINK_TYPES.otherdatabases.label:
             return prefix === 'label';
-          case LINK_TYPES.otherdatabases.release:
+          case LINK_TYPES.otherdatabases.release_group:
             return prefix === 'record';
         }
       }
@@ -365,7 +365,7 @@ const CLEANUPS = {
             return prefix === 'label';
           case LINK_TYPES.otherdatabases.place:
             return prefix === 'venue';
-          case LINK_TYPES.otherdatabases.release:
+          case LINK_TYPES.otherdatabases.release_group:
             return /^(album|cd|media|music|record)$/.test(prefix);
         }
       }
@@ -526,7 +526,7 @@ const CLEANUPS = {
       if (/^https:\/\/daily\.bandcamp\.com/.test(url)) {
         url = url.replace(/^https:\/\/daily\.bandcamp\.com\/(\d+\/\d+\/\d+\/[\w-]+)(?:\/.*)?$/, 'https://daily.bandcamp.com/$1/');
       } else {
-        url = url.replace(/^https:\/\/([^\/]+)\.bandcamp\.com\/(?:((?:album|track)\/[^\/]+))?.*$/, 'https://$1.bandcamp.com/$2');
+        url = url.replace(/^https:\/\/([^\/]+)\.bandcamp\.com\/(?:((?:album|merch|track)\/[^\/]+))?.*$/, 'https://$1.bandcamp.com/$2');
       }
       return url;
     },

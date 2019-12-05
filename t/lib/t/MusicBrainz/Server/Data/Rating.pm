@@ -28,10 +28,10 @@ MusicBrainz::Server::Test->prepare_test_database($test->c, "
     UPDATE artist_meta SET rating=33, rating_count=3 WHERE id=1;
     UPDATE artist_meta SET rating=50, rating_count=1 WHERE id=2;
 
-    INSERT INTO editor (id, name, password, ha1) VALUES (1, 'editor1', '{CLEARTEXT}password', '0e5b1cce99adc89b535a3c6523c5410a'), (2, 'editor2', '{CLEARTEXT}password', '9ab932d00c88daf4a3ccf3a25e00f977'), (3, 'editor3', '{CLEARTEXT}password', '8226c71cd2dd007dc924910793b8ca83'), (4, 'editor4', '{CLEARTEXT}password', 'f0ab22e1a22cb1e60fea481f812450cb');
+    INSERT INTO editor (id, name, password, ha1) VALUES (11, 'editor1', '{CLEARTEXT}password', '0e5b1cce99adc89b535a3c6523c5410a'), (12, 'editor2', '{CLEARTEXT}password', '9ab932d00c88daf4a3ccf3a25e00f977'), (13, 'editor3', '{CLEARTEXT}password', '8226c71cd2dd007dc924910793b8ca83'), (14, 'editor4', '{CLEARTEXT}password', 'f0ab22e1a22cb1e60fea481f812450cb');
 
     INSERT INTO artist_rating_raw (artist, editor, rating)
-        VALUES (1, 1, 50), (2, 2, 50), (1, 3, 40), (1, 4, 10);
+        VALUES (1, 11, 50), (2, 12, 50), (1, 13, 40), (1, 14, 10);
 ");
 
 my $rating_data = MusicBrainz::Server::Data::Rating->new(
@@ -40,54 +40,54 @@ my $rating_data = MusicBrainz::Server::Data::Rating->new(
 
 my @ratings = $rating_data->find_by_entity_id(1);
 is( scalar(@ratings), 3 );
-is( $ratings[0]->editor_id, 1 );
+is( $ratings[0]->editor_id, 11 );
 is( $ratings[0]->rating, 50 );
-is( $ratings[1]->editor_id, 3 );
+is( $ratings[1]->editor_id, 13 );
 is( $ratings[1]->rating, 40 );
-is( $ratings[2]->editor_id, 4 );
+is( $ratings[2]->editor_id, 14 );
 is( $ratings[2]->rating, 10 );
 
 
 # Check that it doesn't fail on an empty list
-$rating_data->load_user_ratings(1);
+$rating_data->load_user_ratings(11);
 
 my $artist = MusicBrainz::Server::Entity::Artist->new( id => 1 );
 is($artist->user_rating, undef);
-$rating_data->load_user_ratings(1, $artist);
+$rating_data->load_user_ratings(11, $artist);
 is($artist->user_rating, 50);
-$rating_data->load_user_ratings(3, $artist);
+$rating_data->load_user_ratings(13, $artist);
 is($artist->user_rating, 40);
 
 my $artist_data = MusicBrainz::Server::Data::Artist->new(c => $test->c);
 
 # Update rating on artist with only one rating
-$rating_data->update(2, 2, 40);
+$rating_data->update(12, 2, 40);
 $artist = MusicBrainz::Server::Entity::Artist->new( id => 2 );
-$rating_data->load_user_ratings(2, $artist);
+$rating_data->load_user_ratings(12, $artist);
 is($artist->user_rating, 40);
 $artist_data->load_meta($artist);
 is($artist->rating, 40);
 
 # Delete rating on artist with only one rating
-$rating_data->update(2, 2, 0);
+$rating_data->update(12, 2, 0);
 $artist = MusicBrainz::Server::Entity::Artist->new( id => 2 );
-$rating_data->load_user_ratings(2, $artist);
+$rating_data->load_user_ratings(12, $artist);
 is($artist->user_rating, undef);
 $artist_data->load_meta($artist);
 is($artist->rating, undef);
 
 # Add rating
-$rating_data->update(2, 1, 70);
+$rating_data->update(12, 1, 70);
 $artist = MusicBrainz::Server::Entity::Artist->new( id => 1 );
-$rating_data->load_user_ratings(2, $artist);
+$rating_data->load_user_ratings(12, $artist);
 is($artist->user_rating, 70);
 $artist_data->load_meta($artist);
 is($artist->rating, 43);
 
 # Delete rating on artist with multiple ratings
-$rating_data->update(2, 1, 0);
+$rating_data->update(12, 1, 0);
 $artist = MusicBrainz::Server::Entity::Artist->new( id => 1 );
-$rating_data->load_user_ratings(2, $artist);
+$rating_data->load_user_ratings(12, $artist);
 is($artist->user_rating, undef);
 $artist_data->load_meta($artist);
 is($artist->rating, 33);
@@ -102,7 +102,7 @@ is( scalar(@ratings), 0 );
 MusicBrainz::Server::Test->prepare_raw_test_database($test->c, "
     TRUNCATE artist_rating_raw CASCADE;
     INSERT INTO artist_rating_raw (artist, editor, rating)
-        VALUES (1, 1, 50), (2, 1, 60), (2, 2, 70), (1, 3, 40), (1, 4, 10);
+        VALUES (1, 11, 50), (2, 11, 60), (2, 12, 70), (1, 13, 40), (1, 14, 10);
 ");
 
 $test->c->sql->begin;
@@ -126,10 +126,10 @@ $artist = MusicBrainz::Server::Entity::Artist->new( id => 1 );
 $artist_data->load_meta($artist);
 is($artist->rating, 45);
 
-$rating_data->load_user_ratings(1, $artist);
+$rating_data->load_user_ratings(11, $artist);
 is($artist->user_rating, 60);
 
-$rating_data->load_user_ratings(2, $artist);
+$rating_data->load_user_ratings(12, $artist);
 is($artist->user_rating, 70);
 
 };
@@ -146,18 +146,18 @@ test 'Test find_editor_ratings' => sub {
     UPDATE artist_meta SET rating=33, rating_count=3 WHERE id=1;
     UPDATE artist_meta SET rating=50, rating_count=1 WHERE id=2;
 
-    INSERT INTO editor (id, name, password, ha1) VALUES (1, 'editor1', '{CLEARTEXT}password', '0e5b1cce99adc89b535a3c6523c5410a'), (2, 'editor2', '{CLEARTEXT}password', '9ab932d00c88daf4a3ccf3a25e00f977');
+    INSERT INTO editor (id, name, password, ha1) VALUES (11, 'editor1', '{CLEARTEXT}password', '0e5b1cce99adc89b535a3c6523c5410a'), (12, 'editor2', '{CLEARTEXT}password', '9ab932d00c88daf4a3ccf3a25e00f977');
 
     INSERT INTO artist_rating_raw (artist, editor, rating)
-        VALUES (1, 1, 50), (2, 1, 60), (1, 2, 40);
+        VALUES (1, 11, 50), (2, 11, 60), (1, 12, 40);
 ");
 
     my @tests = (
-        { editor_id => 1, limit => 1, offset => 0, expected_hits => 2, expected_ids => [ 2 ] },
-        { editor_id => 1, limit => 1, offset => 1, expected_hits => 2, expected_ids => [ 1 ] },
-        { editor_id => 1, limit => 1, offset => 2, expected_hits => 2, expected_ids => [] },
-        { editor_id => 2, limit => 1, offset => 0, expected_hits => 1, expected_ids => [ 1 ] },
-        { editor_id => 3, limit => 1, offset => 0, expected_hits => 0, expected_ids => [ ] },
+        { editor_id => 11, limit => 1, offset => 0, expected_hits => 2, expected_ids => [ 2 ] },
+        { editor_id => 11, limit => 1, offset => 1, expected_hits => 2, expected_ids => [ 1 ] },
+        { editor_id => 11, limit => 1, offset => 2, expected_hits => 2, expected_ids => [] },
+        { editor_id => 12, limit => 1, offset => 0, expected_hits => 1, expected_ids => [ 1 ] },
+        { editor_id => 13, limit => 1, offset => 0, expected_hits => 0, expected_ids => [ ] },
     );
 
     find_editor_ratings_ok($c, %$_) for @tests;

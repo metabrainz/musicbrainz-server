@@ -29,9 +29,9 @@ const EnterEditNote = ({
           {exp.l(
             `Entering an {note|edit note} that describes where you got
              your information is highly recommended. Not only does it
-             make it clear where you got your information, but it can also
-             encourage other users to vote on your edit — thus making
-             your edit get applied faster.`,
+             make your sources clear (both now and to users who see the
+             edit years later), but it can also encourage other users
+             to vote on the edit — thus making it get applied faster.`,
             {note: {href: '/doc/Edit_Note', target: '_blank'}},
           )}
         </p>

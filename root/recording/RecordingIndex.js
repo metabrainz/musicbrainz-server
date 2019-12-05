@@ -50,6 +50,7 @@ const RecordingAppearancesTable = ({
         <th>{l('Track Artist')}</th>
         <th>{l('Release Title')}</th>
         <th>{l('Release Artist')}</th>
+        <th>{l('Release Group Type')}</th>
         <th>{l('Date')}</th>
         <th>{l('Country')}</th>
         <th>{l('Label')}</th>
@@ -66,7 +67,7 @@ const RecordingAppearancesTable = ({
         return (
           <React.Fragment key={status ? status.name : 'no-status'}>
             <tr className="subh">
-              <th colSpan="10">
+              <th colSpan="11">
                 {status
                   ? lp_attributes(status.name, 'release_status')
                   : l('(unknown)')
@@ -107,6 +108,14 @@ const RecordingAppearancesTable = ({
                   </td>
                   <td>
                     <ArtistCreditLink artistCredit={release.artistCredit} />
+                  </td>
+                  <td>
+                    {release.releaseGroup && release.releaseGroup.typeName
+                      ? lp_attributes(
+                        release.releaseGroup.typeName,
+                        'release_group_primary_type',
+                      )
+                      : null}
                   </td>
                   <td>
                     <ReleaseDates events={release.events} />

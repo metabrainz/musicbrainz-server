@@ -950,7 +950,11 @@ note-[%- edit.id -%]-[%- loop.count() -%]
       [%- editor_type_info(note.editor) -%]
     </h3>
     <div class="edit-note-text [% 'modbot' IF note.editor_id == 4 %]">
-      [%- note.text | format_editnote -%]
+      [%- IF note.editor_id == 4;
+            note.localize;
+          ELSE;
+            note.text | format_editnote;
+          END; -%]
     </div>
   </div>
 [%~ END ~%]

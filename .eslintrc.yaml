@@ -316,6 +316,7 @@ rules:
   flowtype/no-weak-types: warn
   flowtype/object-type-delimiter: [warn, comma]
   flowtype/require-exact-type: off
+  flowtype/require-indexer-name: [warn, always]
   flowtype/require-parameter-type: off
   flowtype/require-return-type: off
   flowtype/require-valid-file-annotation: off

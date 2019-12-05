@@ -106,6 +106,9 @@ sub show : Chained('load') PathPart('') {
     $c->model('ReleaseLabel')->load(@releases);
     $c->model('Label')->load(map { $_->all_labels } @releases);
     $c->model('ReleaseStatus')->load(@releases);
+    $c->model('ReleaseGroup')->load(@releases);
+    $c->model('ReleaseGroupType')->load(map { $_->release_group }
+        @releases);
 
     my %props = (
         numberOfRevisions => $c->stash->{number_of_revisions},

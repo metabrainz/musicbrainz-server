@@ -25,7 +25,6 @@ use base 'Exporter';
 our @EXPORT_OK = qw(
     artist_credit_from_loaded_definition
     artist_credit_preview
-    calculate_recording_merges
     changed_relations
     changed_display_data
     clean_submitted_artist_credits
@@ -432,31 +431,6 @@ sub merge_set {
         + ($current_set - $old_set);  # ... and include those added
 
     return $result_set->members;
-}
-
-sub calculate_recording_merges {
-    my ($new, $old) = @_;
-    my $recording_merges = [];
-    for my $medium ($new->all_mediums) {
-        for my $track ($medium->all_tracks) {
-            try {
-                my @sources;
-                for my $source_medium (map { $_->all_mediums } @{ $old }) {
-                    if ($source_medium->position == $medium->position) {
-                        push @sources, map { $_->recording }
-                            grep { $_->position == $track->position } $source_medium->all_tracks;
-                    }
-                }
-                @sources = grep { $_->id != $track->recording->id } @sources;
-                push(@$recording_merges, {
-                         medium => $medium->position,
-                         track => $track->number,
-                         sources => \@sources,
-                         destination => $track->recording}) if scalar @sources;
-            };
-        }
-    }
-    return $recording_merges;
 }
 
 sub large_spread {
