@@ -49,5 +49,7 @@ cd "$(dirname "${BASH_SOURCE[0]}")/../"
     --global lp_statistics:readonly \
     --rule 'react/jsx-uses-react: warn' \
     --rule 'react/jsx-uses-vars: warn' \
+    --rule 'flowtype/define-flow-type: warn' \
+    --rule 'flowtype/use-flow-type: warn' \
     --rule \
     "$@"
