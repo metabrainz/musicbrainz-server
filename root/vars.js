@@ -27,6 +27,7 @@ declare var N_ln: (skey: string, pkey: string) => (val: number) => string;
 declare var N_lp: (key: string, context: string) => () => string;
 
 declare var l_attributes: typeof l;
+declare var ln_attributes: typeof ln;
 declare var lp_attributes: typeof lp;
 
 declare var l_countries: typeof l;
