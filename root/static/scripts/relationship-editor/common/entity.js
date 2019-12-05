@@ -73,7 +73,6 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
         }),
 
         relationshipsInViewModel: cacheByID(function (vm) {
-            var self = this;
             return this.relationships.filter(function (relationship) {
                 return vm === relationship.parent;
             });

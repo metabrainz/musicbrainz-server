@@ -17,7 +17,6 @@ const {allocBuffer} = require('./buffer');
 const {badRequest, getResponse} = require('./response');
 const {clearRequireCache} = require('./utils');
 
-const REQUEST_TIMEOUT = 60000;
 
 const connectionListener = Raven.wrap(function (socket) {
   let expectedBytes = 0;

@@ -218,7 +218,6 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
 
     export function prepareSubmission(formName) {
         var submitted = [];
-        var submittedLinks;
         var vm;
         var source = MB.sourceEntity;
         var hiddenInputs = document.createDocumentFragment();

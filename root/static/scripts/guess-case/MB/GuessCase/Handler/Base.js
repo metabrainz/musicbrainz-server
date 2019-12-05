@@ -816,7 +816,6 @@ MB.GuessCase.Handler.Base = function (gc) {
                 if (!flags.context.openingBracket && !flags.isInsideBrackets()) {
                     if (flags.isInsideBrackets()) {
                         // Close open parentheses before the feat. part.
-                        var closebrackets = new Array();
                         while (flags.isInsideBrackets()) {
                             // Close brackets that were opened before
                             var cb = flags.popBracket();

@@ -34,7 +34,6 @@ type Props = {
 };
 
 const RecordingSidebar = ({$c, recording}: Props) => {
-  const gid = encodeURIComponent(recording.gid);
 
   return (
     <div id="sidebar">

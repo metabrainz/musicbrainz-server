@@ -142,7 +142,6 @@ ko.bindingHandlers.loop = {
                 var item = change.value,
                     itemID = item[idAttribute],
                     currentElements = elements[itemID],
-                    nextItem = items[change.index + 1],
                     tmpElementContainer;
 
                 if (status === "added") {

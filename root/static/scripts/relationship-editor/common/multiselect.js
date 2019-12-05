@@ -84,7 +84,6 @@ import deferFocus from '../../edit/utility/deferFocus';
 
         updateOptions(term) {
             var selected = this.relationship.attributes.peek();
-            var self = this;
             var menu = this.$menu[0];
 
             var previousDisplay = menu.style.display;

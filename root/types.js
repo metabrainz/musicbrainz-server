@@ -15,6 +15,8 @@
  * how data is serialized for us.
  */
 
+/* eslint-disable no-unused-vars */
+
 declare type AggregatedTagT = {
   +count: number,
   +tag: TagT,

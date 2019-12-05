@@ -43,7 +43,7 @@ MB.confirmNavigationFallback = function () {
         }
     };
 
-    document.onkeypress = function (event) {
+    document.onkeypress = function () {
         if (prevented) {
             return (prevented = false);
         }

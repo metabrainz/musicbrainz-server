@@ -18,7 +18,6 @@ import {
   reduceArtistCredit,
 } from '../common/immutable-entities';
 import MB from '../common/MB';
-import clean from '../common/utility/clean';
 import debounce from '../common/utility/debounce';
 import formatTrackLength from '../common/utility/formatTrackLength';
 import nonEmpty from '../common/utility/nonEmpty';
@@ -30,7 +29,6 @@ import * as validation from '../edit/validation';
 
 import 'knockout-arraytransforms';
 
-import actions from './actions';
 import recordingAssociation from './recordingAssociation';
 import utils from './utils';
 import releaseEditor from './viewModel';
@@ -124,7 +122,7 @@ class Track {
         return recording ? recording.gid : null;
     }
 
-    nameChanged(name) {
+    nameChanged() {
         if (!this.hasExistingRecording()) {
             var recording = this.recording.peek();
 
@@ -158,7 +156,6 @@ class Track {
             }
         }
 
-        var oldLength = this.length();
         var newLength = utils.unformatTrackLength(length);
 
         if (_.isNaN(newLength)) {

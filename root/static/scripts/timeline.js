@@ -268,7 +268,7 @@ class TimelineViewModel {
         $.ajax({
             url: '../../ws/js/events',
             dataType: 'json'
-        }).done(function (data, status, jqxhr) {
+        }).done(function (data) {
             self.events(_.map(data, function (e) {
                 e.jsDate = Date.parse(e.date);
                 return e;
@@ -345,7 +345,7 @@ class TimelineLine {
         $.ajax({
             url: '../../statistics/dataset/' + self.name,
             dataType: 'json'
-        }).done(function (data, status, jqxhr) {
+        }).done(function (data) {
             data = data.data;
 
             const serial = [];

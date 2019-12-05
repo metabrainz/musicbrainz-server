@@ -137,7 +137,7 @@ const actions = {
         }
     },
 
-    moveTrackUp: function (track, event) {
+    moveTrackUp: function (track) {
         var previous = track.previous();
 
         if (track.isDataTrack() && (!previous || !previous.isDataTrack())) {

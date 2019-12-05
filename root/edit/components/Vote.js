@@ -15,7 +15,6 @@ import {
   EDIT_VOTE_ABSTAIN,
   EDIT_VOTE_NO,
   EDIT_VOTE_YES,
-  EDIT_VOTE_APPROVE,
 } from '../../constants';
 import {withCatalystContext} from '../../context';
 import * as DBDefs from '../../static/scripts/common/DBDefs';

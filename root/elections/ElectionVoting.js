@@ -9,8 +9,7 @@
 
 import React from 'react';
 
-import EditorLink from '../static/scripts/common/components/EditorLink';
-import {canCancel, canSecond, canVote, isInvolved, votesVisible}
+import {canCancel, canSecond, canVote, isInvolved}
   from '../utility/voting';
 
 type PropsT = {

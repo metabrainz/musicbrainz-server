@@ -12,7 +12,7 @@ import React from 'react';
 import {commaOnlyListText} from '../static/scripts/common/i18n/commaOnlyList';
 import {bracketedText} from '../static/scripts/common/utility/bracketed';
 
-const lType = (x, index) => l_attributes(x);
+const lType = (x) => l_attributes(x);
 
 function artworkHover(artwork: ArtworkT) {
   let result = '';

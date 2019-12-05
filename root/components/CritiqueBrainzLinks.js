@@ -7,8 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import React from 'react';
-
 import * as DBDefs from '../static/scripts/common/DBDefs-client';
 
 const seeReviewsHref = (releaseGroup) => (
