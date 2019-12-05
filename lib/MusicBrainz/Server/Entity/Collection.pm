@@ -37,6 +37,12 @@ has entity_count => (
     predicate => 'loaded_entity_count'
 );
 
+has subscribed => (
+    is => 'rw',
+    isa => 'Bool',
+    predicate => 'loaded_subscription'
+);
+
 has 'collaborators' => (
     isa     => 'ArrayRef[Editor]',
     is      => 'rw',
@@ -60,6 +66,10 @@ around TO_JSON => sub {
 
     if ($self->loaded_entity_count) {
         $json->{entity_count} = $self->entity_count;
+    }
+
+    if ($self->loaded_subscription) {
+        $json->{subscribed} = boolean_to_json($self->subscribed);
     }
 
     return $json;
