@@ -260,7 +260,7 @@ function addPostedRelationships(source) {
         return;
     }
 
-    let submittedRelationships = window.sessionStorage.getItem('submittedRelationships');
+    const submittedRelationships = window.sessionStorage.getItem('submittedRelationships');
     if (MB.formWasPosted && submittedRelationships) {
         _.each(JSON.parse(submittedRelationships), function (data) {
             addSubmittedRelationship(data, source);
@@ -341,7 +341,7 @@ function parseQueryString(queryString) {
     var fields = {};
     var subField, match, parts;
 
-    while (match = queryStringRegex.exec(queryString)) {
+    while ((match = queryStringRegex.exec(queryString))) {
         subField = fields;
         parts = match[1].split('.');
 

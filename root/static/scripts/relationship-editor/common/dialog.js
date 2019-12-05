@@ -783,7 +783,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
     function defaultLinkType(root) {
         var child, id, i = 0;
 
-        while (child = root.children[i++]) {
+        while ((child = root.children[i++])) {
             if (child.description && !child.deprecated) {
                 return child.id;
             }

@@ -114,7 +114,7 @@ const actions = {
         mediums.remove(medium);
         mediums = mediums.peek();
 
-        for (var i = index; medium = mediums[i]; i++) {
+        for (var i = index; (medium = mediums[i]); i++) {
             if (medium.position() === position + 1) {
                 medium.position(position);
             }
@@ -205,7 +205,7 @@ const actions = {
 
     resetTrackPositions: function (tracks, start, offset, removed) {
         let track;
-        for (let i = start; track = tracks[i]; i++) {
+        for (let i = start; (track = tracks[i]); i++) {
             track.position(i + offset);
 
             if (track.number.peek() == (i + offset + removed)) {

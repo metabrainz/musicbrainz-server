@@ -204,22 +204,26 @@ sub delete
 
 sub merge_mediums
 {
-    my ($self, $new_medium, $old_medium) = @_;
+    my ($self, $new_medium_id, @old_medium_ids) = @_;
 
     my @track_merges = @{
         $self->sql->select_list_of_lists(
-            'SELECT DISTINCT newt.id AS new, oldt.id AS old
+            'SELECT newt.id AS new_id,
+                    array_agg(oldt.id) AS old_ids
                FROM track oldt
                JOIN track newt ON newt.position = oldt.position
-              WHERE newt.medium = ? AND oldt.medium = ?',
-            $new_medium, $old_medium
+              WHERE newt.medium = ?
+                AND oldt.medium = any(?)
+              GROUP BY newt.id',
+            $new_medium_id,
+            \@old_medium_ids,
         )
     };
 
     for my $track_merge (@track_merges) {
-        my ($new, $old) = @$track_merge;
+        my ($new_id, $old_ids) = @$track_merge;
 
-        $self->_delete_and_redirect_gids('track', $new, $old);
+        $self->_delete_and_redirect_gids('track', $new_id, @{$old_ids});
     }
 }
 

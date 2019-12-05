@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Data::Utils;
 
+use 5.18.2;
 use strict;
 use warnings;
 
@@ -14,6 +15,7 @@ use Math::Random::Secure qw( irand );
 use MIME::Base64 qw( encode_base64url );
 use Digest::SHA qw( sha1_base64 );
 use Encode qw( decode encode );
+use JSON::XS;
 use List::MoreUtils qw( natatime uniq zip );
 use List::UtilsBy qw( sort_by );
 use MusicBrainz::Server::Constants qw(
@@ -50,6 +52,7 @@ our @EXPORT_OK = qw(
     hash_to_row
     is_special_artist
     is_special_label
+    localized_note
     load_everything_for_edits
     load_meta
     load_subobjects
@@ -662,6 +665,16 @@ sub datetime_to_iso8601 {
     $date->set_time_zone('UTC');
     $date = $date->iso8601 . 'Z';
     return $date;
+}
+
+sub localized_note {
+    my ($message, $args) = @_;
+
+    state $json = JSON::XS->new;
+    'localize:' . $json->encode({
+        message => $message,
+        defined $args ? (args => $args) : (),
+    });
 }
 
 1;

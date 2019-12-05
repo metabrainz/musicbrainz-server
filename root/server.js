@@ -99,19 +99,17 @@ if (cluster.isMaster) {
   }
 
   const cleanup = Raven.wrap(function (signal) {
-    let timeout;
-
-    cluster.disconnect(function () {
-      clearTimeout(timeout);
-      process.exit();
-    });
-
-    timeout = setTimeout(() => {
+    const timeout = setTimeout(() => {
       for (const id in cluster.workers) {
         killWorker(cluster.workers[id]);
       }
       process.exit();
     }, DISCONNECT_TIMEOUT);
+
+    cluster.disconnect(function () {
+      clearTimeout(timeout);
+      process.exit();
+    });
   });
 
   let hupAction = null;

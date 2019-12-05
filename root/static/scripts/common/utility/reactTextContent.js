@@ -25,7 +25,7 @@ export default function reactTextContent(
     return previous;
   }
 
-  let children = props.children;
+  const children = props.children;
 
   if (nonEmpty(children)) {
     if (Array.isArray(children)) {

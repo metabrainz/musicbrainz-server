@@ -89,7 +89,7 @@
 </table>
 
 [%~ IF edit.data.merge_strategy == 2 ~%]
-[%~ IF edit.display_data.recording_merges.size ~%]
+[%~ IF edit.display_data.recording_merges.defined && edit.display_data.recording_merges.size ~%]
     <table class="tbl">
     <thead>
         <tr>
@@ -121,9 +121,15 @@
         [%~ END; END %]
     [%~ END ~%]
     </tbody></table>
-[%~ ELSIF edit.display_data.merges_are_calculated && !edit.is_open ~%]
+[%~ ELSIF !edit.display_data.recording_merges.defined && !edit.is_open ~%]
     <p><strong>[% l('This edit does not store recording merge information and is closed, so no recording merge information can be shown.') %]</strong></p>
-[%~ ELSE  ~%]
+[%~ ELSIF edit.cannot_merge_recordings_reason ~%]
+    <p class="error merge-error">
+      <strong>
+        [%- l(edit.cannot_merge_recordings_reason.message, edit.cannot_merge_recordings_reason.args) -%]
+      </strong>
+    </p>
+[%~ ELSE ~%]
     <p><strong>[% l('All recordings for these releases are already merged.') %]</strong></p>
 [%~ END ~%]
 [%~ END ~%]
