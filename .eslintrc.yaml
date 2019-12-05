@@ -106,6 +106,7 @@ rules:
   no-else-return: warn
   no-eq-null: off
   no-floating-decimal: warn
+  no-global-assign: error
   no-multi-spaces: [error, {ignoreEOLComments: true}]
   no-useless-catch: warn
   radix: warn
