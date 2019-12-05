@@ -17,7 +17,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2019-10-26 22:42+0000\n"
+"PO-Revision-Date: 2019-12-04 15:13+0000\n"
 "Last-Translator: David Kellner <email address hidden>\n"
 "Language-Team: German (http://www.transifex.com/musicbrainz/musicbrainz/language/de/)\n"
 "MIME-Version: 1.0\n"
@@ -4563,7 +4563,7 @@ msgstr "ist eine Hommage an"
 msgid ""
 "is a {live} {medley:medley including a} {partial} {instrumental} {cover} "
 "recording of"
-msgstr ""
+msgstr "ist eine {live} {medley:medley including a} {partial:teilweise} {instrumental:Instrumental-}{cover:Cover-}Aufnahme von"
 
 #: DB:link_type/long_link_phrase:15
 msgid "is a {translated} {parody} cover of"
@@ -7288,7 +7288,7 @@ msgstr "{translated:übersetzte} {parody:Parodie|Coverversion} von"
 
 #: DB:link_type/reverse_link_phrase:241
 msgid "{translated} {parody} version of"
-msgstr "{translated:übersetze} {parody:Parodieversion|Version} von"
+msgstr "{translated:übersetzte} {parody:Parodieversion|Version} von"
 
 #: DB:link_type/long_link_phrase:24
 msgid "{translator:translated|wrote} {additional} liner notes for"
