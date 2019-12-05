@@ -317,8 +317,8 @@ class Medium {
         this.release = release;
         this.name = ko.observable(data.name);
         this.position = ko.observable(data.position || 1);
-        this.formatID = ko.observable(data.formatID);
-        this.formatUnknownToUser = ko.observable(Boolean(data.id && !data.formatID));
+        this.formatID = ko.observable(data.format_id);
+        this.formatUnknownToUser = ko.observable(Boolean(data.id && !data.format_id));
 
         var tracks = data.tracks;
         this.tracks = ko.observableArray(utils.mapChild(this, tracks, Track));

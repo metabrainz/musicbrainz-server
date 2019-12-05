@@ -10,7 +10,7 @@ msgstr ""
 "#-#-#-#-#  mb_server.pot (PACKAGE VERSION)  #-#-#-#-#\n"
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-11-20 12:21-0600\n"
+"POT-Creation-Date: 2019-12-04 12:41-0600\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -70,7 +70,7 @@ msgstr ""
 #: ../root/edit/details/edit_medium.tt:182
 #: ../root/edit/details/edit_medium.tt:221
 #: ../root/edit/details/historic/add_release.tt:49
-#: ../root/release/edit/tracklist.tt:148 ../root/release/edit/tracklist.tt:361
+#: ../root/release/edit/tracklist.tt:148 ../root/release/edit/tracklist.tt:368
 #: ../root/release/edit_relationships.tt:48
 #: ../root/components/list/EventList.js:64
 #: ../root/components/list/RecordingList.js:63
@@ -269,7 +269,7 @@ msgstr[1] ""
 msgid "A release title is required."
 msgstr ""
 
-#: ../root/release/edit/tracklist.tt:346
+#: ../root/release/edit/tracklist.tt:353
 msgid "A tracklist is required."
 msgstr ""
 
@@ -492,7 +492,7 @@ msgstr ""
 msgid "Add selected releases for merging"
 msgstr ""
 
-#: ../root/release/edit/tracklist.tt:424
+#: ../root/release/edit/tracklist.tt:431
 msgid "Add track(s)"
 msgstr ""
 
@@ -500,7 +500,7 @@ msgstr ""
 msgid "Add {item}"
 msgstr ""
 
-#: ../root/release/edit/tracklist.tt:423
+#: ../root/release/edit/tracklist.tt:430
 msgid "Add {num} track(s)"
 msgstr ""
 
@@ -777,7 +777,7 @@ msgstr ""
 #: ../root/edit/details/historic/edit_track.tt:13
 #: ../root/edit/details/merge_releases.tt:19 ../root/edit/search_macros.tt:369
 #: ../root/otherlookup/results-release.tt:11
-#: ../root/release/edit/tracklist.tt:150 ../root/release/edit/tracklist.tt:363
+#: ../root/release/edit/tracklist.tt:150 ../root/release/edit/tracklist.tt:370
 #: ../root/release/merge.tt:14 ../root/release_group/merge.tt:13
 #: ../root/watch/list.tt:14 ../lib/MusicBrainz/Server/Edit/Artist.pm:7
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:35
@@ -933,7 +933,7 @@ msgctxt "header"
 msgid "Attach CD TOC"
 msgstr ""
 
-#: ../root/cdtoc/lookup.tt:52 ../root/release/edit/tracklist.tt:388
+#: ../root/cdtoc/lookup.tt:52 ../root/release/edit/tracklist.tt:395
 msgid "Attach Disc ID"
 msgstr ""
 
@@ -1515,7 +1515,7 @@ msgid "Data Quality"
 msgstr ""
 
 #: ../root/components/medium.tt:95 ../root/medium/tracklist.tt:35
-#: ../root/release/edit/tracklist.tt:376
+#: ../root/release/edit/tracklist.tt:383
 msgid "Data Tracks"
 msgstr ""
 
@@ -1593,7 +1593,7 @@ msgstr ""
 #: ../root/collection/CollectionIndex.js:178
 #: ../root/components/list/InstrumentList.js:62
 #: ../root/instrument/InstrumentIndex.js:35
-#: ../root/search/components/InstrumentResults.js:47
+#: ../root/search/components/InstrumentResults.js:49
 #: ../root/static/scripts/collection/components/CollectionEditForm.js:88
 msgid "Description"
 msgstr ""
@@ -2337,7 +2337,7 @@ msgstr ""
 msgid "Guess feat. artists"
 msgstr ""
 
-#: ../root/release/edit/tracklist.tt:419
+#: ../root/release/edit/tracklist.tt:426
 msgid "Guess feat. artists from track titles"
 msgstr ""
 
@@ -2383,7 +2383,7 @@ msgstr ""
 
 #: ../root/components/common-macros.tt:609
 #: ../lib/MusicBrainz/Server/Controller/Edit.pm:219
-#: ../root/static/scripts/common/constants.js:236
+#: ../root/static/scripts/common/constants.js:235
 msgid "High"
 msgstr ""
 
@@ -2402,6 +2402,10 @@ msgstr ""
 
 #: ../root/release/edit/information.tt:317
 msgid "I confirm that this is the barcode as it appears on the release."
+msgstr ""
+
+#: ../root/release/edit/tracklist.tt:343
+msgid "I confirm this is an intentional use of Various Artists on tracks."
 msgstr ""
 
 #: ../root/release/edit/tracklist.tt:301
@@ -2611,6 +2615,12 @@ msgstr ""
 msgid ""
 "If you think this is a mistake, please contact <code>support@musicbrainz."
 "org</code> with the name of your account."
+msgstr ""
+
+#: ../root/release/edit/tracklist.tt:346
+msgid ""
+"If you’re sure the use of Various Artists is correct, confirm it above. "
+"Otherwise, please fix the data."
 msgstr ""
 
 #: ../root/components/common-macros.tt:88 ../root/components/Artwork.js:45
@@ -2850,7 +2860,7 @@ msgstr ""
 #: ../root/edit/details/edit_medium.tt:59
 #: ../root/edit/details/historic/add_release.tt:52
 #: ../root/release/discids.tt:10 ../root/release/edit/tracklist.tt:151
-#: ../root/release/edit/tracklist.tt:364
+#: ../root/release/edit/tracklist.tt:371
 #: ../root/components/RelationshipsTable.js:92
 #: ../root/components/list/RecordingList.js:92
 #: ../root/components/list/RecordingList.js:97 ../root/isrc/Index.js:58
@@ -2961,7 +2971,7 @@ msgstr ""
 
 #: ../root/components/common-macros.tt:609
 #: ../lib/MusicBrainz/Server/Controller/Edit.pm:219
-#: ../root/static/scripts/common/constants.js:233
+#: ../root/static/scripts/common/constants.js:232
 msgid "Low"
 msgstr ""
 
@@ -3017,6 +3027,7 @@ msgstr ""
 #: ../root/components/common-macros.tt:732
 #: ../lib/MusicBrainz/Server/Edit/Medium.pm:8
 #: ../root/search/components/RecordingResults.js:130
+#: ../root/static/scripts/common/utility/mediumFormatName.js:14
 msgid "Medium"
 msgstr ""
 
@@ -3243,7 +3254,7 @@ msgstr ""
 #: ../root/search/components/ArtistResults.js:45
 #: ../root/search/components/EditorResults.js:44
 #: ../root/search/components/EventResults.js:64
-#: ../root/search/components/InstrumentResults.js:45
+#: ../root/search/components/InstrumentResults.js:47
 #: ../root/search/components/LabelResults.js:60
 #: ../root/search/components/PlaceResults.js:59
 #: ../root/search/components/RecordingResults.js:123
@@ -3482,7 +3493,7 @@ msgstr ""
 msgid "None"
 msgstr ""
 
-#: ../root/release/edit/tracklist.tt:354
+#: ../root/release/edit/tracklist.tt:361
 #: ../root/static/scripts/release-editor/fields.js:194
 msgid ""
 "None of the attached disc IDs can fit a pregap track of the given length."
@@ -3490,8 +3501,8 @@ msgstr ""
 
 #: ../root/components/common-macros.tt:609
 #: ../lib/MusicBrainz/Server/Controller/Edit.pm:219
+#: ../root/static/scripts/common/constants.js:233
 #: ../root/static/scripts/common/constants.js:234
-#: ../root/static/scripts/common/constants.js:235
 msgid "Normal"
 msgstr ""
 
@@ -4500,7 +4511,7 @@ msgstr ""
 msgid "Reset Password"
 msgstr ""
 
-#: ../root/release/edit/tracklist.tt:417
+#: ../root/release/edit/tracklist.tt:424
 msgid "Reset track numbers"
 msgstr ""
 
@@ -4944,7 +4955,7 @@ msgstr ""
 msgid "Summary"
 msgstr ""
 
-#: ../root/release/edit/tracklist.tt:418
+#: ../root/release/edit/tracklist.tt:425
 msgid "Swap track titles with artist credits"
 msgstr ""
 
@@ -5256,11 +5267,11 @@ msgid_plural "This change affects {num} relationships."
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../root/release/edit/tracklist.tt:410
+#: ../root/release/edit/tracklist.tt:417
 msgid "This disc contains data tracks at the end ({info|more info})"
 msgstr ""
 
-#: ../root/release/edit/tracklist.tt:404
+#: ../root/release/edit/tracklist.tt:411
 msgid "This disc has a hidden pregap track before track 1 ({info|more info})"
 msgstr ""
 
@@ -5532,7 +5543,7 @@ msgstr ""
 #: ../root/cdtoc/list.tt:5 ../root/components/medium.tt:79
 #: ../root/edit/details/edit_medium.tt:53
 #: ../root/edit/details/edit_medium.tt:57 ../root/release/edit/tracklist.tt:149
-#: ../root/release/edit/tracklist.tt:362
+#: ../root/release/edit/tracklist.tt:369
 #: ../root/components/RelationshipsTable.js:88
 #: ../root/components/list/ReleaseGroupList.js:87
 #: ../root/components/list/ReleaseGroupList.js:92 ../root/isrc/Index.js:56
@@ -5605,7 +5616,7 @@ msgstr ""
 msgid "Track #"
 msgstr ""
 
-#: ../root/release/edit/tracklist.tt:416
+#: ../root/release/edit/tracklist.tt:423
 #: ../root/static/scripts/release-editor/dialogs.js:42
 msgid "Track Parser"
 msgstr ""
@@ -5646,7 +5657,7 @@ msgstr ""
 
 #: ../root/cdstub/edit_form.tt:12 ../root/cdstub/index.tt:7
 #: ../root/release/edit/layout.tt:16 ../root/release/index.tt:4
-#: ../root/static/scripts/release-editor/fields.js:598
+#: ../root/static/scripts/release-editor/fields.js:610
 msgid "Tracklist"
 msgstr ""
 
@@ -5735,7 +5746,7 @@ msgstr ""
 #: ../root/search/components/AreaResults.js:58
 #: ../root/search/components/ArtistResults.js:47
 #: ../root/search/components/EventResults.js:67
-#: ../root/search/components/InstrumentResults.js:46
+#: ../root/search/components/InstrumentResults.js:48
 #: ../root/search/components/LabelResults.js:61
 #: ../root/search/components/PlaceResults.js:60
 #: ../root/search/components/RecordingResults.js:131
@@ -6392,7 +6403,7 @@ msgstr ""
 msgid "You must enter a disambiguation comment for this entity."
 msgstr ""
 
-#: ../root/release/edit/tracklist.tt:350
+#: ../root/release/edit/tracklist.tt:357
 msgid "You must enter a title and select an artist for every track."
 msgstr ""
 
@@ -6737,7 +6748,7 @@ msgstr ""
 msgid "labels"
 msgstr ""
 
-#: ../root/release/edit/tracklist.tt:394
+#: ../root/release/edit/tracklist.tt:401
 msgid "link"
 msgstr ""
 
@@ -6971,11 +6982,13 @@ msgid "{link} has no ratings."
 msgstr ""
 
 #: ../root/components/common-macros.tt:735
-#: ../root/static/scripts/common/entity.js:434
+#: ../root/static/scripts/common/components/MediumDescription.js:21
+#: ../root/static/scripts/common/entity.js:436
 msgid "{medium_format} {position}"
 msgstr ""
 
 #: ../root/components/common-macros.tt:747
+#: ../root/static/scripts/common/components/MediumLink.js:21
 msgid "{medium} on {release}"
 msgstr ""
 
@@ -8171,12 +8184,12 @@ msgstr ""
 msgid "{attribute}: {value}"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Entity/Medium.pm:258
+#: ../lib/MusicBrainz/Server/Entity/Medium.pm:259
 #, perl-brace-format
 msgid "{start_track}&#x2013;{end_track}"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Entity/Medium.pm:265
+#: ../lib/MusicBrainz/Server/Entity/Medium.pm:266
 #: ../lib/MusicBrainz/Server/Translation.pm:262
 #: ../root/static/scripts/common/i18n/commaOnlyList.js:25
 #, perl-brace-format
@@ -8536,22 +8549,22 @@ msgid "Invalid URL format"
 msgstr ""
 
 #: ../lib/MusicBrainz/Server/Form/User/EditProfile.pm:72
-#: ../root/static/scripts/common/constants.js:241
+#: ../root/static/scripts/common/constants.js:240
 msgid "Basic"
 msgstr ""
 
 #: ../lib/MusicBrainz/Server/Form/User/EditProfile.pm:73
-#: ../root/static/scripts/common/constants.js:242
+#: ../root/static/scripts/common/constants.js:241
 msgid "Intermediate"
 msgstr ""
 
 #: ../lib/MusicBrainz/Server/Form/User/EditProfile.pm:74
-#: ../root/static/scripts/common/constants.js:240
+#: ../root/static/scripts/common/constants.js:239
 msgid "Advanced"
 msgstr ""
 
 #: ../lib/MusicBrainz/Server/Form/User/EditProfile.pm:75
-#: ../root/static/scripts/common/constants.js:243
+#: ../root/static/scripts/common/constants.js:242
 msgid "Native"
 msgstr ""
 
@@ -10582,23 +10595,23 @@ msgstr ""
 msgid "Running: {git_details}"
 msgstr ""
 
-#: ../root/layout/components/Head.js:46
+#: ../root/layout/components/Head.js:47
 msgid "Page {n}"
 msgstr ""
 
-#: ../root/layout/components/Head.js:92
+#: ../root/layout/components/Head.js:93
 msgid "MusicBrainz: Artist"
 msgstr ""
 
-#: ../root/layout/components/Head.js:98
+#: ../root/layout/components/Head.js:99
 msgid "MusicBrainz: Label"
 msgstr ""
 
-#: ../root/layout/components/Head.js:104
+#: ../root/layout/components/Head.js:105
 msgid "MusicBrainz: Release"
 msgstr ""
 
-#: ../root/layout/components/Head.js:110
+#: ../root/layout/components/Head.js:111
 msgid "MusicBrainz: Track"
 msgstr ""
 
@@ -12703,6 +12716,10 @@ msgstr ""
 msgid "Alternatively, you may {uri|add a new event}."
 msgstr ""
 
+#: ../root/search/components/InstrumentResults.js:58
+msgid "Alternatively, you may {uri|add a new instrument}."
+msgstr ""
+
 #: ../root/search/components/LabelResults.js:74
 msgid "Alternatively, you may {uri|add a new label}."
 msgstr ""
@@ -13269,17 +13286,17 @@ msgstr ""
 msgid "You selected {releasegroup}."
 msgstr ""
 
-#: ../root/static/scripts/common/entity.js:430
+#: ../root/static/scripts/common/entity.js:432
 msgid "{medium_format} {position}: {title}"
 msgstr ""
 
-#: ../root/static/scripts/common/entity.js:431
-#: ../root/static/scripts/release-editor/fields.js:590
+#: ../root/static/scripts/common/entity.js:433
+#: ../root/static/scripts/release-editor/fields.js:602
 msgid "Medium {position}: {title}"
 msgstr ""
 
-#: ../root/static/scripts/common/entity.js:435
-#: ../root/static/scripts/release-editor/fields.js:596
+#: ../root/static/scripts/common/entity.js:437
+#: ../root/static/scripts/release-editor/fields.js:608
 msgid "Medium {position}"
 msgstr ""
 
@@ -13591,7 +13608,7 @@ msgstr ""
 msgid "Page {page} of {total}"
 msgstr ""
 
-#: ../root/static/scripts/release-editor/fields.js:700
+#: ../root/static/scripts/release-editor/fields.js:712
 msgid "You haven’t selected a label for “{name}”."
 msgstr ""
 
