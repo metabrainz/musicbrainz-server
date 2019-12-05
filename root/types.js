@@ -613,6 +613,7 @@ declare type IswcT = {
 };
 
 declare type KnockoutObservable<T> = {
+  // eslint-disable-next-line no-undef
   [[call]]: (() => T) & ((T) => empty),
   peek: () => T,
   subscribe: ((T) => void) => {dispose: () => empty},
