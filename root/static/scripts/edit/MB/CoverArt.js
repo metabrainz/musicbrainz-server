@@ -40,11 +40,7 @@ MB.CoverArt.get_image_mime_type = function () {
 };
 
 MB.CoverArt.image_error = function ($img, image) {
-    if ($img.attr("src") !== image.image)
-    {
-        $img.attr("src", image.image)
-    }
-    else
+    if ($img.attr("src") === image.image)
     {
         /*
          * image doesn't exist at all, perhaps it was removed
@@ -53,6 +49,10 @@ MB.CoverArt.image_error = function ($img, image) {
          * data in the index is incorrect.
          */
         $img.attr("src", require('../../../images/image404-125.png'));
+    }
+    else
+    {
+        $img.attr("src", image.image)
     }
 };
 
