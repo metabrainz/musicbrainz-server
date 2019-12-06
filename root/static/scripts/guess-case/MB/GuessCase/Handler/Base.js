@@ -101,8 +101,8 @@ MB.GuessCase.Handler.Base = function (gc) {
      * returns true, if there are more words, else false.
      */
     self.processWord = function () {
-        if (self.doWhiteSpace()) {
-        } else {
+        if (self.doWhiteSpace());
+        else {
             // Dump information if in debug mode.
 
             /*
@@ -119,30 +119,30 @@ MB.GuessCase.Handler.Base = function (gc) {
             if (gc.i.matchCurrentWord(gc.re.SPECIALCASES)) {
                 handled = true;
 
-                if (self.doDoubleQuote()) {
-                } else if (self.doSingleQuote()) {
-                } else if (self.doOpeningBracket()) {
-                } else if (self.doClosingBracket()) {
-                } else if (self.doComma()) {
-                } else if (self.doPeriod()) {
-                } else if (self.doLineStop()) {
-                } else if (self.doAmpersand()) {
-                } else if (self.doSlash()) {
-                } else if (self.doColon()) {
-                } else if (self.doHyphen()) {
-                } else if (self.doInvertedMarks()) {
-                } else if (self.doPlus()) {
-                } else if (self.doAsterix()) {
-                } else if (self.doDiamond()) {
-                } else if (self.doPercent()) {
-                } else {
+                if (self.doDoubleQuote());
+                else if (self.doSingleQuote());
+                else if (self.doOpeningBracket());
+                else if (self.doClosingBracket());
+                else if (self.doComma());
+                else if (self.doPeriod());
+                else if (self.doLineStop());
+                else if (self.doAmpersand());
+                else if (self.doSlash());
+                else if (self.doColon());
+                else if (self.doHyphen());
+                else if (self.doInvertedMarks());
+                else if (self.doPlus());
+                else if (self.doAsterix());
+                else if (self.doDiamond());
+                else if (self.doPercent());
+                else {
                     handled = false;
                 }
             }
             if (!handled) {
-                if (self.doDigits()) {
-                } else if (self.doAcronym()) {
-                } else {
+                if (self.doDigits());
+                else if (self.doAcronym());
+                else {
                     self.doWord();
                 }
             }
@@ -440,8 +440,6 @@ MB.GuessCase.Handler.Base = function (gc) {
                 if (state) {
                     flags.context.forceCaps = true;
                     flags.context.openedSingleQuote = false;
-                } else {
-
                 }
                 gc.o.capitalizeLastWord();
             }

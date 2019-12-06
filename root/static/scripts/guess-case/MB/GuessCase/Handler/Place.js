@@ -26,9 +26,9 @@ MB.GuessCase.Handler.Place = function (gc) {
      * in the common word handlers.
      */
     self.doWord = function () {
-        if (self.doIgnoreWords()) {
-        } else if (gc.mode.doWord()) {
-        } else {
+        if (self.doIgnoreWords());
+        else if (gc.mode.doWord());
+        else {
             self.doNormalWord();
         }
         flags.context.number = false;

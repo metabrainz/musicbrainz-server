@@ -30,10 +30,10 @@ MB.GuessCase.Handler.Area = function (gc) {
      * - Handles FeaturingArtistStyle
      */
     self.doWord = function () {
-        if (self.doIgnoreWords()) {
-        } else if (self.doFeaturingArtistStyle()) {
-        } else if (gc.mode.doWord()) {
-        } else {
+        if (self.doIgnoreWords());
+        else if (self.doFeaturingArtistStyle());
+        else if (gc.mode.doWord());
+        else {
             self.doNormalWord();
         }
         flags.context.number = false;
