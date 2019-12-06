@@ -90,7 +90,7 @@ const CollectionsEntityTypeSection = ({
   const viewingOwnProfile = !!$c.user && $c.user.id === user.id;
   const nameColumn =
     defineNameColumn<CollectionT>(l('Collection'));
-  const typeColumn = defineTypeColumn('');
+  const typeColumn = defineTypeColumn('collection_type');
   const sizeColumn:
     ColumnOptions<CollectionT, number> = {
       Header: formatPluralEntityTypeName(type),
