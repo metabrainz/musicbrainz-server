@@ -57,11 +57,11 @@ MB.GuessCase.Handler.Release = function (gc) {
      * - Handles FeaturingArtistStyle
      */
     self.doWord = function () {
-        if (self.doFeaturingArtistStyle());
-        else if (gc.mode.doWord());
-        else {
-            self.doNormalWord();
-        }
+        (
+            self.doFeaturingArtistStyle() ||
+            gc.mode.doWord() ||
+            self.doNormalWord()
+        );
         flags.context.number = false;
         return null;
     };

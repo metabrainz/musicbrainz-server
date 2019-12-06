@@ -26,11 +26,11 @@ MB.GuessCase.Handler.Place = function (gc) {
      * in the common word handlers.
      */
     self.doWord = function () {
-        if (self.doIgnoreWords());
-        else if (gc.mode.doWord());
-        else {
-            self.doNormalWord();
-        }
+        (
+            self.doIgnoreWords() ||
+            gc.mode.doWord() ||
+            self.doNormalWord()
+        );
         flags.context.number = false;
         return null;
     };
