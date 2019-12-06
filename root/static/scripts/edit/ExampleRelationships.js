@@ -37,7 +37,8 @@ ERE.init = function (config) {
     ERE.viewModel.availableEntityTypes(
         _.uniq([ type0, type1 ]).map(function (value) {
             return { 'value': value, 'text': ENTITY_NAMES[value]() };
-        }));
+        }),
+    );
 
     ko.bindingHandlers.checkObject = {
         init: function (element, valueAccessor, all, vm, bindingContext) {
@@ -85,7 +86,8 @@ ViewModel = function () {
                 var ce = this.currentExample;
 
                 this.examples.push(
-                    new ERE.Example(ce.name(), ce.relationship()));
+                    new ERE.Example(ce.name(), ce.relationship()),
+                );
 
                 ce.name('');
                 ce.relationship(null);
