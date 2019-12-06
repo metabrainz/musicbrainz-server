@@ -16,7 +16,7 @@ import EntityLink from './EntityLink';
 
 type DescriptiveLinkProps = {
   +content?: React.Node,
-  +entity: CoreEntityT,
+  +entity: CollectionT | CoreEntityT,
   +showDeletedArtists?: boolean,
   +target?: '_blank',
 };

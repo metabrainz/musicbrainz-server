@@ -9,11 +9,13 @@
 
 import React from 'react';
 
+import Table from '../Table';
 import {withCatalystContext} from '../../context';
-import loopParity from '../../utility/loopParity';
-import DescriptiveLink
-  from '../../static/scripts/common/components/DescriptiveLink';
-import SortableTableHeader from '../SortableTableHeader';
+import {
+  defineCheckboxColumn,
+  defineNameColumn,
+  defineTypeColumn,
+} from '../../utility/tableColumns';
 
 type Props = {
   +$c: CatalystContextT,
@@ -29,63 +31,26 @@ const AreaList = ({
   checkboxes,
   order,
   sortable,
-}: Props) => (
-  <table className="tbl">
-    <thead>
-      <tr>
-        {$c.user_exists && checkboxes ? (
-          <th className="checkbox-cell">
-            <input type="checkbox" />
-          </th>
-        ) : null}
-        <th>
-          {sortable
-            ? (
-              <SortableTableHeader
-                label={l('Area')}
-                name="name"
-                order={order}
-              />
-            )
-            : l('Area')}
-        </th>
-        <th>
-          {sortable
-            ? (
-              <SortableTableHeader
-                label={l('Type')}
-                name="type"
-                order={order}
-              />
-            )
-            : l('Type')}
-        </th>
-      </tr>
-    </thead>
-    <tbody>
-      {areas.map((area, index) => (
-        <tr className={loopParity(index)} key={area.id}>
-          {$c.user_exists && checkboxes ? (
-            <td>
-              <input
-                name={checkboxes}
-                type="checkbox"
-                value={area.id}
-              />
-            </td>
-          ) : null}
-          <td>
-            <DescriptiveLink entity={area} />
-          </td>
-          <td>
-            {area.typeName
-              ? lp_attributes(area.typeName, 'area_type')
-              : null}
-          </td>
-        </tr>
-      ))}
-    </tbody>
-  </table>
-);
+}: Props) => {
+  const columns = React.useMemo(
+    () => {
+      const checkboxColumn = $c.user_exists && checkboxes
+        ? defineCheckboxColumn(checkboxes)
+        : null;
+      const nameColumn =
+        defineNameColumn<CoreEntityT>(l('Area'), order, sortable);
+      const typeColumn = defineTypeColumn('area_type', order, sortable);
+
+      return [
+        ...(checkboxColumn ? [checkboxColumn] : []),
+        nameColumn,
+        typeColumn,
+      ];
+    },
+    [$c.user_exists, checkboxes, order, sortable],
+  );
+
+  return <Table columns={columns} data={areas} />;
+};
 
 export default withCatalystContext(AreaList);
