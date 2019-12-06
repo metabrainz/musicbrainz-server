@@ -20,7 +20,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2019-11-20 18:56+0000\n"
+"PO-Revision-Date: 2019-12-05 22:48+0000\n"
 "Last-Translator: Michael Wiencek <email address hidden>\n"
 "Language-Team: Spanish (http://www.transifex.com/musicbrainz/musicbrainz/language/es/)\n"
 "MIME-Version: 1.0\n"
@@ -605,6 +605,20 @@ msgstr ""
 msgid "Cajón, Peruvian box drum"
 msgstr "Cajón, instrumento de percusión peruano"
 
+#. name:saron demung
+#: DB:instrument/description:1006
+msgid ""
+"Called simply \"demung\", it is the largest and deepest pitched of the "
+"regular saron."
+msgstr ""
+
+#. name:saron panerus
+#: DB:instrument/description:1008
+msgid ""
+"Called simply \"panerus\", it has seven bronze keys resting on a decorated "
+"rancak box. Keys are hit by tabuh mallet with head of buffalo horn."
+msgstr ""
+
 #. name:tōkere
 #: DB:instrument/description:865
 msgid "Castanets of wood, bone, bivalve shells or even flax leaf."
@@ -1035,6 +1049,19 @@ msgid ""
 "ensemble with zhu."
 msgstr ""
 
+#. name:gamelan
+#: DB:instrument/description:365
+msgid ""
+"Gamelan is basically split up in 3 traditions: the Balinese, the Sundanese "
+"and the Javanese, with each area having several different gamelan ensembles "
+"from large to small, each including a variety of instruments.<br /> Most if "
+"not all gamelan instruments come in two scales, Sléndro and Pélog, these are"
+" tuned differently and large gamelan orchestras always include at-least one "
+"of each scale and often several sets in each.<br /> Gamelan is an integrated"
+" part of Indonesian culture, is used in important traditions and throughout "
+"Indonesian life."
+msgstr ""
+
 #. name:gankogui
 #: DB:instrument/description:383
 msgid "Gankogui, iron bell"
@@ -1109,7 +1136,9 @@ msgstr ""
 msgid ""
 "Having 4 metal strings, it is carved from a single piece of wood into a "
 "particular shape similar to the Sarinda, it has 3 soundholes, two on each "
-"side of the short neck and one under the bridge which is membrane-covered."
+"side of the short neck and one under the bridge which is membrane-"
+"covered.<br /> Not to be confused with the Uyghur spike fiddle <a "
+"href=\"/instrument//0d766870-3021-47ce-bd51-78d2d2484e1b\">ghijak</a>."
 msgstr ""
 
 #. name:kantilan
@@ -1249,15 +1278,6 @@ msgid ""
 "It has a short fretted neck originally with four silk but now usually nylon "
 "or steel strings, and large flat round body, earning it the nickname \"moon "
 "lute\""
-msgstr ""
-
-#. name:slentho
-#: DB:instrument/description:964
-msgid ""
-"It has seven bossed keys hit with tabuh mallet and nailed to a wooden frame."
-" Largely replaced by the <a href=\"/instrument/73173277-b7ef-4d5e-"
-"83b2-205cd2f12488\">slethem</a> in gamelan, it is the deepest member of the "
-"saron family."
 msgstr ""
 
 #. name:yangqin
@@ -1423,6 +1443,11 @@ msgid ""
 "for both war and peace. Even living hollowed trees have been used as pahū."
 msgstr ""
 
+#. name:baglamas
+#: DB:instrument/description:236
+msgid "Long necked bowl lute, it is named after a related Turkish lute"
+msgstr ""
+
 #. name:pūmotomoto
 #: DB:instrument/description:785
 msgid ""
@@ -1436,13 +1461,6 @@ msgid ""
 "Looks like a recorder, but with double reeds and bagpipe fingering system. "
 "Mostly used to learn how to play the pipes, but are occasionally played in "
 "their own right."
-msgstr ""
-
-#. name:kendang wadon
-#: DB:instrument/description:995
-msgid ""
-"Low pitched cylindrical kendang used in Bali gamelan. The larger and deeper "
-"pitched of the Bali kendang, it is the leader \"female\" drum."
 msgstr ""
 
 #. name:madal
@@ -1656,6 +1674,13 @@ msgstr ""
 msgid "Northumbrian (small)pipes"
 msgstr ""
 
+#. name:ghijak
+#: DB:instrument/description:932
+msgid ""
+"Not to be confused with the Persian lute <a href=\"/instrument/d50ba107-4930"
+"-4e0b-8b3f-ffbea4a1ade1\">ghaychak</a>."
+msgstr ""
+
 #. name:oboe
 #: DB:instrument/description:8
 msgid "Oboe (soprano)"
@@ -1665,6 +1690,11 @@ msgstr "Oboe (soprano)"
 #: DB:instrument/description:473
 msgid "Oboe d'amore / Oboe d'amour (mezzo-soprano)"
 msgstr "Oboe de amor (mesosoprano)"
+
+#. name:saron barung
+#: DB:instrument/description:1007
+msgid "Often called simply \"saron\", it plays the basic, balungan melody"
+msgstr ""
 
 #. name:boomwhacker
 #: DB:instrument/description:948
@@ -1800,7 +1830,7 @@ msgstr ""
 msgid "Pardessus or sopranino member of the viol family"
 msgstr ""
 
-#. name:saron
+#. name:saron family
 #: DB:instrument/description:597
 msgid ""
 "Part of the Sundanese gamelan, these consist of a decorated wood resonator "
@@ -1917,6 +1947,14 @@ msgstr ""
 msgid ""
 "Popular in the renaissance, it was small and portable with two bellows and "
 "brass reeds."
+msgstr ""
+
+#. name:komuz
+#: DB:instrument/description:543
+msgid ""
+"Possibly dating back as far as 6000 BC, it is a national symbol of the "
+"Kyrgyz. Made of a single piece of apricot or juniper wood with 3 gut stings,"
+" it has derivations in much of eastern Europe."
 msgstr ""
 
 #. name:baroque guitar
@@ -2073,6 +2111,13 @@ msgstr ""
 msgid ""
 "Side drum, often with one or more snares, worn by one person and beaten by "
 "one hand, it is often combined with tabor pipes."
+msgstr ""
+
+#. name:saron peking
+#: DB:instrument/description:1009
+msgid ""
+"Similar to panerus with which it has a different but overlapping range, it "
+"has 6 bronze keys tuned for the slendro key."
 msgstr ""
 
 #. name:mirliton
@@ -3098,13 +3143,6 @@ msgid ""
 " a colourful skirt."
 msgstr ""
 
-#. name:komuz
-#: DB:instrument/description:543
-msgid ""
-"The komuz is a fretless string instrument used in Central Asian music, seen "
-"as the Kyrgyz national instrument."
-msgstr ""
-
 #. name:kortholt
 #: DB:instrument/description:264
 msgid ""
@@ -3145,6 +3183,13 @@ msgid ""
 "The kèn lá is an instrument used by the Hmong minority of Vietnam which "
 "consists of a leaf which is curled up and positioned in the mouth so it "
 "vibrates when it is blown."
+msgstr ""
+
+#. name:kendang wadon
+#: DB:instrument/description:995
+msgid ""
+"The larger and deeper pitched of the Bali kendang, it is the leader "
+"\"female\" drum."
 msgstr ""
 
 #. name:lasso d'amore
@@ -4182,6 +4227,15 @@ msgid ""
 "classical Carnatic music."
 msgstr ""
 
+#. name:slentho
+#: DB:instrument/description:964
+msgid ""
+"Unlike the other saron, its six-seven keys are not smooth, but bevelled or "
+"bossed, like the gendèr and the <a href=\"/instrument/73173277-b7ef-4d5e-"
+"83b2-205cd2f12488\">slenthem</a>, which has largely replaced it in the "
+"modernised gamelan."
+msgstr ""
+
 #. name:pūkaea
 #: DB:instrument/description:788
 msgid ""
@@ -4282,6 +4336,14 @@ msgid ""
 "are hit together."
 msgstr ""
 
+#. name:bağlama
+#: DB:instrument/description:235
+msgid ""
+"Used in folk music, it is often called \"saz\". The neck with adjustable "
+"frets, is of beech or juniper, the body with spruce soundboard, of various "
+"woods, its seven strings divided into courses are plucked with a plectrum."
+msgstr ""
+
 #. name:viola caipira
 #: DB:instrument/description:660
 msgid "Used in folk-music, It has ten steel strings in five courses."
@@ -4303,6 +4365,13 @@ msgid ""
 "Used in royal ceremonies, played by striking against the palm, it is made of"
 " several pieces of wood, ivory and sheets of brass between two larger pieces"
 " of wood tied together by a string at one end."
+msgstr ""
+
+#. name:saron wayang
+#: DB:instrument/description:1010
+msgid ""
+"Used in the Javanese Wayang puppet theatre, it has nine large bronze keys "
+"set in a decorated frame."
 msgstr ""
 
 #. name:krap sēphā

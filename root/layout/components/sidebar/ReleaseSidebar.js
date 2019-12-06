@@ -239,7 +239,7 @@ const ReleaseSidebar = ({$c, release}: Props) => {
         heading={l('Release group rating')}
       />
 
-      {releaseGroup.review_count != null ? (
+      {releaseGroup.review_count == null ? null : (
         <>
           <h2 className="reviews">
             {l('Release group reviews')}
@@ -248,7 +248,7 @@ const ReleaseSidebar = ({$c, release}: Props) => {
             <CritiqueBrainzLinks releaseGroup={releaseGroup} />
           </p>
         </>
-      ) : null}
+      )}
 
       <SidebarTags
         aggregatedTags={$c.stash.top_tags}

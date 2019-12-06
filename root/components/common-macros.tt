@@ -728,11 +728,11 @@ END -%]
 
 [%~ MACRO format_length(n) BLOCK; n | format_length; END -%]
 
-[%~ MACRO medium_format_name(medium) BLOCK -%]
+[%~ MACRO medium_format_name(medium) BLOCK # Converted to React at root/static/scripts/common/utility/mediumFormatName.js -%]
     [% medium.l_format_name or l("Medium") | html %]
 [%- END -%]
 
-[%~ MACRO medium_description(medium) BLOCK;
+[%~ MACRO medium_description(medium) BLOCK; # Converted to React at root/static/scripts/common/components/MediumDescription.js
     format_position = l('{medium_format} {position}', {
         medium_format => medium_format_name(medium),
         position => medium.position,
@@ -744,7 +744,7 @@ END -%]
     END;
 END ~%]
 
-[%~ MACRO medium_link(medium) BLOCK;
+[%~ MACRO medium_link(medium) BLOCK; # Converted to React at root/static/scripts/common/components/MediumLink.js
     l('{medium} on {release}', {
         medium => medium_description(medium),
         release => descriptive_link(medium.release),

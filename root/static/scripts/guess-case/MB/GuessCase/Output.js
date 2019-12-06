@@ -96,10 +96,10 @@ MB.GuessCase.Output = function (gc) {
 
     // Returns the last word of the wordlist
     self.getLastWord = function () {
-        if (!self.isEmpty()) {
-            return self._w[self._w.length-1];
-        } else {
+        if (self.isEmpty()) {
             return null;
+        } else {
+            return self._w[self._w.length-1];
         }
     };
 
@@ -113,7 +113,7 @@ MB.GuessCase.Output = function (gc) {
 
     // Capitalize the word at the current cursor position.
     self.capitalizeWordAtIndex = function (index, overrideCaps) {
-        overrideCaps = (overrideCaps != null ? overrideCaps : flags.context.forceCaps);
+        overrideCaps = (overrideCaps == null ? flags.context.forceCaps : overrideCaps);
         if ((!gc.mode.isSentenceCaps() || overrideCaps) &&
             (!self.isEmpty()) &&
             (self.getWordAtIndex(index) != null)) {

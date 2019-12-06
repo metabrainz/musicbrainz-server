@@ -266,6 +266,7 @@ declare type CollectionT = {
   +gid: string,
   +name: string,
   +public: boolean,
+  +subscribed?: boolean,
 };
 
 declare type CollectionTypeT = {
@@ -704,8 +705,8 @@ declare type MediumT = {
   ...EntityRoleT<'track'>,
   ...LastUpdateRoleT,
   +editsPending: boolean,
-  +format: string,
-  +formatID: number,
+  +format: MediumFormatT | null,
+  +format_id: number,
   +name: string,
   +position: number,
   +release_id: number,
