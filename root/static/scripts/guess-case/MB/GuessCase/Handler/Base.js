@@ -135,9 +135,12 @@ MB.GuessCase.Handler.Base = function (gc) {
                     self.doPercent()
                 );
             }
-            if (!handled && !self.doDigits() && !self.doAcronym()) {
-                self.doWord();
-            }
+            (
+                handled ||
+                self.doDigits() ||
+                self.doAcronym() ||
+                self.doWord()
+            );
         }
         gc.i.nextIndex();
     };
