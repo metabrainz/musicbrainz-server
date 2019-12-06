@@ -64,10 +64,7 @@ export function defineTypeColumn(
 ): ColumnOptions<{+typeName: string, ...}, string> {
   return {
     Cell: ({cell: {value}}) => (value
-      ? (typeContext
-        ? lp_attributes(value, typeContext)
-        : l(value)
-      )
+      ? lp_attributes(value, typeContext)
       : null),
     Header: (sortable
       ? (
