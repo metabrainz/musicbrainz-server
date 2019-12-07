@@ -121,8 +121,6 @@ author_requires 'Test::NoTabs';
 
 test_requires 'Cache::Null';
 test_requires 'Catalyst::Plugin::Static::Simple';
-# Broken in Perl >= 5.22; the one test that requires it is disabled for now.
-# test_requires 'Coro';
 test_requires 'HTML::HTML5::Parser';
 test_requires 'HTML::HTML5::Sanity';
 test_requires 'HTML::Selector::XPath';
