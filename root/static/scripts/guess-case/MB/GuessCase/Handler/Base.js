@@ -841,20 +841,22 @@ MB.GuessCase.Handler.Base = function (gc) {
                      *    though :]
                      * Blah (feat. Erroll Flynn Some Remixname) (remix)
                      */
-                    var pos = gc.i.getPos();
-                    var len = gc.i.getLength();
-                    for (var i = pos; i < len; i++) {
-                        if (gc.i.getWordAtIndex(i) == "(") {
+                    const pos = gc.i.getPos();
+                    const len = gc.i.getLength();
+                    let currPos = pos;
+                    while(currPos < len) {
+                        if (gc.i.getWordAtIndex(currPos) == "(") {
                             break;
                         }
+                        currPos++;
                     }
 
                     /*
                      * We got a part, but not until the end of the string
                      * close feat. part, and add space to next set of brackets
                      */
-                    if (i != pos && i < len-1) {
-                        gc.i.insertWordsAtIndex(i, [")", " "]);
+                    if (currPos != pos && currPos < len-1) {
+                        gc.i.insertWordsAtIndex(currPos, [")", " "]);
                     }
                     gc.i.updateCurrentWord("(");
                     self.doOpeningBracket();

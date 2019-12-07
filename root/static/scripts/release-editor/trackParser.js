@@ -485,17 +485,19 @@ trackParser.customDelimiterError = debounce(function () {
 })
 
 function optionCookie(name, defaultValue, checkbox=true) {
-    var existingValue = getCookie(name);
+    let existingValue = getCookie(name);
 
-    if (checkbox) {
-      var observable = ko.observable(
-          defaultValue ? existingValue !== "false" : existingValue === "true"
-      );
-    } else {
-      var observable = ko.observable(
-          existingValue ? existingValue : defaultValue
-      );
-    }
+    let observable = checkbox  
+        ? ko.observable(
+            defaultValue  
+                ? existingValue !== "false"
+                : existingValue === "true"
+          )
+        : ko.observable(
+            existingValue 
+                ? existingValue 
+                : defaultValue
+          )
 
     observable.subscribe(function (newValue) {
         setCookie(name, newValue);

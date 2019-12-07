@@ -612,10 +612,11 @@ class TimelineLine {
                 }
 
                 var plot = $.plot($(element), _.map(lines, function (line) {
+                    let data;
                     if (graph === 'main' || graph === 'overview') {
-                        var data = line.data();
+                        data = line.data();
                     } else if (graph === 'rate') {
-                        var data = line.rateData().data;
+                        data = line.rateData().data;
                     }
                     return {
                         data: data,

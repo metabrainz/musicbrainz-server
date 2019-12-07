@@ -399,9 +399,10 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
         }
 
         paddedSeriesNumber() {
-            var attributes = this.attributes(), numberAttribute;
+            const attributes = this.attributes();
+            let numberAttribute;
 
-            for (var i = 0; (numberAttribute = attributes[i]); i++) {
+            for (let i = 0; (numberAttribute = attributes[i]); i++) {
                 if (numberAttribute.type.gid === SERIES_ORDERING_ATTRIBUTE) {
                     break;
                 }
@@ -411,10 +412,10 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
                 return "";
             }
 
-            var parts = _.compact(numberAttribute.textValue().split(/(\d+)/)),
-                integerRegex = /^\d+$/;
+            const integerRegex = /^\d+$/;
+            let parts = _.compact(numberAttribute.textValue().split(/(\d+)/));
 
-            for (var i = 0, part; (part = parts[i]); i++) {
+            for (let i = 0, part; (part = parts[i]); i++) {
                 if (integerRegex.test(part)) {
                     parts[i] = _.padStart(part, 10, "0");
                 }
