@@ -73,6 +73,7 @@ sub _create_cache_entries {
         @ids = @ids[0..$MAX_CACHE_ENTRIES];
     }
 
+    my $ttl = DBDefs->ENTITY_CACHE_TTL;
     my $it = natatime 100, @ids;
     while (my @next_ids = $it->()) {
         # MBS-7241
@@ -84,7 +85,7 @@ sub _create_cache_entries {
         );
         push @entries, map {
             my $id = $_->{id};
-            [$cache_prefix . $id, $data->{$id}, DBDefs->ENTITY_CACHE_TTL]
+            [$cache_prefix . $id, $data->{$id}, ($ttl ? $ttl : ())]
         } grep { $_->{got_lock} } @$locks;
     }
 
