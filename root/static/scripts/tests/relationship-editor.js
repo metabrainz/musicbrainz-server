@@ -117,9 +117,13 @@ var testRelease = {
     }
 };
 
-function id2attr(id) { return { type: linkedEntities.link_attribute_type[id] } }
+function id2attr(id) {
+    return { type: linkedEntities.link_attribute_type[id] };
+}
 
-function ids2attrs(ids) { return _.map(ids, id2attr) }
+function ids2attrs(ids) {
+    return _.map(ids, id2attr);
+}
 
 function setupReleaseRelationshipEditor() {
     var vm = new FakeReleaseViewModel({
@@ -138,7 +142,9 @@ function setupGenericRelationshipEditor(options) {
 
 function formData() {
     var inputsArray = _.toArray($("input[type=hidden]"));
-    return _.transform(inputsArray, function (result, input) { result[input.name] = input.value }, {});
+    return _.transform(inputsArray, function (result, input) {
+        result[input.name] = input.value;
+    }, {});
 };
 
 function relationshipEditorTest(name, callback) {
