@@ -765,7 +765,8 @@ class Barcode {
             return false;
         }
 
-        for (var i = 0, calc = 0; i < 12; i++) {
+        let calc = 0;
+        for (let i = 0; i < 12; i++) {
             calc += parseInt(barcode[i]) * this.weights[i];
         }
 

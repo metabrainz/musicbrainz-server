@@ -194,7 +194,7 @@ import deferFocus from '../../edit/utility/deferFocus';
                     break;
                 case 38: // up arrow
                     if (menuItemActive) {
-                        var nextItem = activeElement.previousSibling;
+                        let nextItem = activeElement.previousSibling;
 
                         while (nextItem && nextItem.style.display === "none") {
                             nextItem = nextItem.previousSibling;
@@ -206,7 +206,7 @@ import deferFocus from '../../edit/utility/deferFocus';
                     break;
                 case 40: // down arrow
                     if (menuItemActive) {
-                        var nextItem = activeElement.nextSibling;
+                        let nextItem = activeElement.nextSibling;
 
                         while (nextItem && nextItem.style.display === "none") {
                             nextItem = nextItem.nextSibling;
