@@ -83,10 +83,10 @@ $(function () {
 
               if (position > $other.data('position')) {
                 insertAfter = $other;
-                return true;
+                return false; // break out of the .each early
               }
 
-              return false; // break out of the .each early
+              return true;
             });
 
           insertAfter

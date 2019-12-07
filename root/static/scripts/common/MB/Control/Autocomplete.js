@@ -554,7 +554,7 @@ $.widget("mb.entitylookup", $.ui.autocomplete, {
         if (arguments.length) {
             recentEntities[entityType] = _.take(arguments[0], MAX_RECENT_ENTITIES);
             localStorage("recentAutocompleteEntities", JSON.stringify(recentEntities));
-            return null;
+            return undefined;
         } else {
             return recentEntities[entityType] || [];
         }
@@ -589,9 +589,11 @@ $.widget("ui.menu", $.ui.menu, {
              */
             event.stopPropagation();
             event.preventDefault();
+
+            return true;
         }
 
-        return true;
+        return false;
     },
 
     _create: function () {
