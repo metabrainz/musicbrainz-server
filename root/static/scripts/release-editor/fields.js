@@ -763,7 +763,7 @@ class Barcode {
         for (let i = 0; i < 12; i++) {
             calc += parseInt(barcode[i]) * this.weights[i];
         }
-        
+
         var digit = 10 - (calc % 10);
         return digit === 10 ? 0 : digit;
     }
