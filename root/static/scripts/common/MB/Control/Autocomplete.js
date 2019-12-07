@@ -554,6 +554,7 @@ $.widget("mb.entitylookup", $.ui.autocomplete, {
         if (arguments.length) {
             recentEntities[entityType] = _.take(arguments[0], MAX_RECENT_ENTITIES);
             localStorage("recentAutocompleteEntities", JSON.stringify(recentEntities));
+            return null;
         } else {
             return recentEntities[entityType] || [];
         }
@@ -588,9 +589,9 @@ $.widget("ui.menu", $.ui.menu, {
              */
             event.stopPropagation();
             event.preventDefault();
-
-            return true;
         }
+
+        return true;
     },
 
     _create: function () {
@@ -1047,8 +1048,10 @@ MB.Control.EntityAutocomplete = function (options) {
             entity = entity.replace(/_/g, '-');
             if ($inputs.hasClass(entity)) {
                 options.entity = entity;
-                return true;
+                return true; // stop subsequent iterations
             }
+
+            return false;
         });
     }
 
