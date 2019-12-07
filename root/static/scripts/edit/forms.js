@@ -31,7 +31,7 @@ MB.forms = {
         function buildOptions(parent, indent) {
             var i = 0, children = parent.children, child;
             if (!children) { 
-              return; 
+                return; 
             }
 
             const childOptions = [];
