@@ -100,7 +100,9 @@ MB.CoverArt.reorder_position = function () {
     // For the Add Cover Art page, the following is a no-op.
     $('#reorder-cover-art').submit(
         function () {
-            $('div.editimage input.position').val(function (index) { return (index + 1); });
+            $('div.editimage input.position').val(function (index) { 
+                return (index + 1); 
+            });
         }
     );
 
@@ -382,7 +384,9 @@ MB.CoverArt.FileUpload = function (file) {
             return deferred.promise();
         }
 
-        self.validating.fail(function (msg) { deferred.reject(msg); });
+        self.validating.fail(function (msg) { 
+            deferred.reject(msg); 
+        });
         self.validating.done(function (mime_type) {
             self.status(statuses.signing);
 
