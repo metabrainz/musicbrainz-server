@@ -263,14 +263,14 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
                             if (gid === target.gid) {
                                 _.each(entity.displayableRelationships(vm)(), function (r) {
                                     switch (relationshipFilter) {
-                                      case 'same-entity-types': if (r.entityTypes !== relationship.entityTypes) { 
-                                        return; 
-                                    }; 
-                                    break;
-                                      case 'same-relationship-type': if (r.linkTypeID() !== relationship.linkTypeID()) { 
-                                        return; 
-                                    }; 
-                                    break;
+                                        case 'same-entity-types': if (r.entityTypes !== relationship.entityTypes) { 
+                                            return; 
+                                        }; 
+                                        break;
+                                        case 'same-relationship-type': if (r.linkTypeID() !== relationship.linkTypeID()) { 
+                                            return; 
+                                        }; 
+                                        break;
                                     }
 
                                     var entities = r.entities();
