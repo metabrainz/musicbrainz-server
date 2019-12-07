@@ -76,7 +76,11 @@ sub _create_cache_entries {
     my $ttl = DBDefs->ENTITY_CACHE_TTL;
     my $it = natatime 100, @ids;
     while (my @next_ids = $it->()) {
-        # MBS-7241
+        # MBS-7241: Try to acquire deletion locks on all of the cache
+        # keys, so that we don't repopulate those which are being
+        # deleted in a concurrent transaction. (This is non-blocking;
+        # if we fail to acquire the lock for a particular id, we skip
+        # the key.)
         my $locks = $self->c->sql->select_list_of_hashes(
             'SELECT id, pg_try_advisory_xact_lock(?, id) AS got_lock ' .
             '  FROM unnest(?::integer[]) AS id',
@@ -107,7 +111,9 @@ sub _delete_from_cache {
 
     my $cache_id = $self->_cache_id;
 
-    # MBS-7241
+    # MBS-7241: Lock cache deletions from `_create_cache_entries`
+    # above, so that these keys can't be repopulated until after the
+    # database transaction commits.
     my @row_ids = grep { is_database_row_id($_) } @ids;
     $self->c->sql->do(
         'SELECT pg_advisory_xact_lock(?, id) ' .
