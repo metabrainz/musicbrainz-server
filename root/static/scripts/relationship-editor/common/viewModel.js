@@ -209,18 +209,17 @@ MB.getRelationship = function (data, source) {
     const viewModel = getRelationshipEditor(data, source);
 
     if (viewModel) {
-        const relationship = new viewModel.relationshipClass(data, source, viewModel);
+        let cacheKey;
         if (data.id) {      
-            const cacheKey = _.map(data.entities, "entityType").concat(data.id).join("-");
+            cacheKey = _.map(data.entities, "entityType").concat(data.id).join("-");
             let cached = viewModel.cache[cacheKey];
 
             if (cached) {
                 return cached;
             }
-
-            return (viewModel.cache[cacheKey] = relationship);
         }
-        return relationship;
+        const relationship = new viewModel.relationshipClass(data, source, viewModel);
+        return data.id ? (viewModel.cache[cacheKey] = relationship) : relationship;
     }
 };
 
