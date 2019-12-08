@@ -135,7 +135,11 @@ class TimelineViewModel {
                     var rateBounds = line.calculateRateBounds(
                         line.rateData().data,
                         line.rateData().thresholds,
-                        {min: self.zoom.xaxis.min(), max: self.zoom.xaxis.max()});
+                        {
+                          min: self.zoom.xaxis.min(),
+                          max: self.zoom.xaxis.max(),
+                        },
+                    );
                     if (accum.min == null || rateBounds.min < accum.min) {
                         accum.min = rateBounds.min;
                     }
