@@ -364,8 +364,8 @@ function matchAgainstRecordings(track, recordings) {
 
 
 recordingAssociation.track = function (track) {
-    debounce(function () { 
-        watchTrackForChanges(track) 
+    debounce(function () {
+        watchTrackForChanges(track);
     });
 };
 

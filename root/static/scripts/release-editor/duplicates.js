@@ -132,8 +132,8 @@ function toggleLoadingIndicator(show) {
 }
 
 
-function pluck(chain, name) { 
-    return chain.map(name).compact() 
+function pluck(chain, name) {
+    return chain.map(name).compact();
 }
 
 

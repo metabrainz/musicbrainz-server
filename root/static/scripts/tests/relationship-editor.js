@@ -117,12 +117,12 @@ var testRelease = {
     }
 };
 
-function id2attr(id) { 
-    return { type: linkedEntities.link_attribute_type[id] } 
+function id2attr(id) {
+    return { type: linkedEntities.link_attribute_type[id] };
 }
 
-function ids2attrs(ids) { 
-    return _.map(ids, id2attr) 
+function ids2attrs(ids) {
+    return _.map(ids, id2attr);
 }
 
 function setupReleaseRelationshipEditor() {
@@ -142,8 +142,8 @@ function setupGenericRelationshipEditor(options) {
 
 function formData() {
     var inputsArray = _.toArray($("input[type=hidden]"));
-    return _.transform(inputsArray, function (result, input) { 
-        result[input.name] = input.value 
+    return _.transform(inputsArray, function (result, input) {
+        result[input.name] = input.value;
     }, {});
 };
 
@@ -164,7 +164,7 @@ function relationshipEditorTest(name, callback) {
 
         _.defer = function (func) {
             func.apply(null, _.toArray(arguments).slice(1));
-        }
+        };
 
         callback(t);
 
@@ -382,7 +382,7 @@ relationshipEditorTest("dialog backwardness", function (t) {
         var options = {...test.input, viewModel: vm};
         var dialog = new AddDialog(options);
 
-        t.equal(dialog.backward(), test.expected.backward)
+        t.equal(dialog.backward(), test.expected.backward);
         t.deepEqual(dialog.relationship().entities(), test.expected.entities);
 
         dialog.close();

@@ -52,7 +52,7 @@ MB.CoverArt.image_error = function ($img, image) {
     }
     else
     {
-        $img.attr("src", image.image)
+        $img.attr("src", image.image);
     }
 };
 
@@ -76,7 +76,7 @@ MB.CoverArt.reorder_button = function (direction, $container) {
         $(this).focus();
         event.preventDefault();
         return false;
-    }
+    };
 };
 
 MB.CoverArt.reorder_position = function () {
@@ -100,8 +100,8 @@ MB.CoverArt.reorder_position = function () {
     // For the Add Cover Art page, the following is a no-op.
     $('#reorder-cover-art').submit(
         function () {
-            $('div.editimage input.position').val(function (index) { 
-                return (index + 1); 
+            $('div.editimage input.position').val(function (index) {
+                return (index + 1);
             });
         }
     );
@@ -119,7 +119,7 @@ MB.CoverArt.CoverArtType = function (name, id) {
     self.name = name;
     self.id = id;
     self.checked = ko.observable(false);
-}
+};
 
 MB.CoverArt.cover_art_types = function () {
     return ko.observableArray(
@@ -364,11 +364,11 @@ MB.CoverArt.FileUpload = function (file) {
 
     self.validating = MB.CoverArt.validate_file(self.data)
         .fail(function () {
-            self.status(statuses.validate_error)
+            self.status(statuses.validate_error);
         })
         .done(function (mime_type) {
             self.mime_type(mime_type);
-            self.status(statuses.waiting)
+            self.status(statuses.waiting);
         });
 
     self.doUpload = function (gid, position) {
@@ -384,8 +384,8 @@ MB.CoverArt.FileUpload = function (file) {
             return deferred.promise();
         }
 
-        self.validating.fail(function (msg) { 
-            deferred.reject(msg); 
+        self.validating.fail(function (msg) {
+            deferred.reject(msg);
         });
         self.validating.done(function (mime_type) {
             self.status(statuses.signing);
@@ -415,15 +415,15 @@ MB.CoverArt.FileUpload = function (file) {
 
                     var submitting = MB.CoverArt.submit_edit(
                         self,
-                        postfields, 
-                        mime_type, 
+                        postfields,
+                        mime_type,
                         position,
                     );
 
                     submitting.fail(function (msg) {
                         self.status(statuses.submit_error);
                         deferred.reject(msg);
-                    })
+                    });
                     submitting.done(function () {
                         self.status(statuses.done);
                         self.updateProgress(3, 100);
@@ -470,7 +470,7 @@ MB.CoverArt.UploadProcessViewModel = function () {
         var file_upload = new MB.CoverArt.FileUpload(file);
         self.files_to_upload.push(file_upload);
         return file_upload;
-    }
+    };
 
     self.moveFile = function (to_move, direction) {
         var new_pos = self.files_to_upload().indexOf(to_move) + direction;
@@ -480,7 +480,7 @@ MB.CoverArt.UploadProcessViewModel = function () {
 
         self.files_to_upload.remove(to_move);
         self.files_to_upload.splice(new_pos, 0, to_move);
-    }
+    };
 };
 
 
@@ -601,7 +601,7 @@ MB.CoverArt.add_cover_art = function (gid) {
             if (mime_type)
             {
                 $('iframe')[0].contentWindow.upload(
-                    gid, 
+                    gid,
                     $('#id-add-cover-art\\.id').val(),
                     mime_type,
                 );
