@@ -16,7 +16,7 @@ import _ from 'lodash';
 
 import {rstr_sha1} from '../../lib/sha1/sha1';
 import {MAX_LENGTH_DIFFERENCE, MIN_NAME_SIMILARITY}
-    from '../common/constants';
+  from '../common/constants';
 import escapeLuceneValue from '../common/utility/escapeLuceneValue';
 import request from '../common/utility/request';
 import similarity from '../edit/utility/similarity';
@@ -28,43 +28,43 @@ const utils = {};
 releaseEditor.utils = utils;
 
 utils.mapChild = function (parent, children, type) {
-    return _.map(children || [], function (data) {
-        return new type(data, parent);
-    });
+  return _.map(children || [], function (data) {
+    return new type(data, parent);
+  });
 };
 
 
 utils.computedWith = function (callback, observable, defaultValue) {
-    return ko.computed(function () {
-        var result = observable();
-        return result ? callback(result) : defaultValue;
-    });
+  return ko.computed(function () {
+    var result = observable();
+    return result ? callback(result) : defaultValue;
+  });
 };
 
 
 utils.withRelease = function (read, defaultValue) {
-    return utils.computedWith(read, releaseEditor.rootField.release, defaultValue);
+  return utils.computedWith(read, releaseEditor.rootField.release, defaultValue);
 };
 
 export function unformatTrackLength(duration) {
-    if (!duration) {
-        return null;
-    }
+  if (!duration) {
+    return null;
+  }
 
-    if (duration.slice(-2) == 'ms') {
-        return parseInt(duration, 10);
-    }
+  if (duration.slice(-2) == 'ms') {
+    return parseInt(duration, 10);
+  }
 
-    var parts = duration.replace(/[:\.]/, ':').split(':');
-    if (parts[0] == '?' || parts[0] == '??' || duration === '') {
-        return null;
-    }
+  var parts = duration.replace(/[:\.]/, ':').split(':');
+  if (parts[0] == '?' || parts[0] == '??' || duration === '') {
+    return null;
+  }
 
-    var seconds = parseInt(parts.pop(), 10);
-    var minutes = parseInt(parts.pop() || 0, 10) * 60;
-    var hours = parseInt(parts.pop() || 0, 10) * 3600;
+  var seconds = parseInt(parts.pop(), 10);
+  var minutes = parseInt(parts.pop() || 0, 10) * 60;
+  var hours = parseInt(parts.pop() || 0, 10) * 3600;
 
-    return (hours + minutes + seconds) * 1000;
+  return (hours + minutes + seconds) * 1000;
 };
 
 utils.unformatTrackLength = unformatTrackLength;
@@ -74,50 +74,50 @@ utils.unformatTrackLength = unformatTrackLength;
 utils.escapeLuceneValue = escapeLuceneValue;
 
 utils.constructLuceneField = function (values, key) {
-    return key + ":(" + values.join(" OR ") + ")";
+  return key + ":(" + values.join(" OR ") + ")";
 }
 
 utils.constructLuceneFieldConjunction = function (params) {
-    return _.map(params, utils.constructLuceneField).join(" AND ");
+  return _.map(params, utils.constructLuceneField).join(" AND ");
 };
 
 
 utils.search = function (resource, query, limit, offset) {
-    var requestArgs = {
-        url: "/ws/2/" + resource,
-        data: {
-            fmt: "json",
-            query: query
-        }
-    };
-
-    if (limit !== undefined) {
-        requestArgs.data.limit = limit;
+  var requestArgs = {
+    url: "/ws/2/" + resource,
+    data: {
+      fmt: "json",
+      query: query
     }
+  };
 
-    if (offset !== undefined) {
-        requestArgs.data.offset = offset;
-    }
+  if (limit !== undefined) {
+    requestArgs.data.limit = limit;
+  }
 
-    return request(requestArgs);
+  if (offset !== undefined) {
+    requestArgs.data.offset = offset;
+  }
+
+  return request(requestArgs);
 };
 
 
 utils.reuseExistingMediumData = function (data) {
-    /*
-     * When reusing an existing medium, we don't want to keep its id or
-     * its cdtocs, since neither of those will be shared. However, if we
-     * haven't loaded the tracks yet, we retain the id as originalID so we
-     * can request them later. We also drop the format, since it'll often
-     * be different.
-     */
-    var newData = _.omit(data, "id", "cdtocs", "format", "format_id");
+  /*
+   * When reusing an existing medium, we don't want to keep its id or
+   * its cdtocs, since neither of those will be shared. However, if we
+   * haven't loaded the tracks yet, we retain the id as originalID so we
+   * can request them later. We also drop the format, since it'll often
+   * be different.
+   */
+  var newData = _.omit(data, "id", "cdtocs", "format", "format_id");
 
-    if (data.id) {
-        newData.originalID = data.id;
-    }
+  if (data.id) {
+    newData.originalID = data.id;
+  }
 
-    return newData;
+  return newData;
 };
 
 
@@ -127,92 +127,92 @@ utils.reuseExistingMediumData = function (data) {
  */
 
 utils.cleanWebServiceData = function (data) {
-    var clean = { gid: data.id, name: data.title };
+  var clean = { gid: data.id, name: data.title };
 
-    if (data.length) {
-        clean.length = data.length;
-    }
+  if (data.length) {
+    clean.length = data.length;
+  }
 
-    if (data["sort-name"]) {
-        clean.sort_name = data["sort-name"];
-    }
+  if (data["sort-name"]) {
+    clean.sort_name = data["sort-name"];
+  }
 
-    if (data["artist-credit"]) {
-        clean.artistCredit = {
-            names: _.map(data["artist-credit"], cleanArtistCreditName),
-        };
-    }
+  if (data["artist-credit"]) {
+    clean.artistCredit = {
+      names: _.map(data["artist-credit"], cleanArtistCreditName),
+    };
+  }
 
-    if (data.disambiguation) {
-        clean.comment = data.disambiguation;
-    }
+  if (data.disambiguation) {
+    clean.comment = data.disambiguation;
+  }
 
-    if (data.isrcs) {
-        clean.isrcs = data.isrcs.map(cleanIsrc);
-    }
+  if (data.isrcs) {
+    clean.isrcs = data.isrcs.map(cleanIsrc);
+  }
 
-    return clean;
+  return clean;
 };
 
 function cleanArtistCreditName(data) {
-    return {
-        artist: {
-            gid: data.artist.id,
-            name: data.artist.name,
-            sort_name: data.artist["sort-name"],
-            entityType: 'artist',
-        },
-        name: data.name || data.artist.name,
-        joinPhrase: data.joinphrase || ""
-    };
+  return {
+    artist: {
+      gid: data.artist.id,
+      name: data.artist.name,
+      sort_name: data.artist["sort-name"],
+      entityType: 'artist',
+    },
+    name: data.name || data.artist.name,
+    joinPhrase: data.joinphrase || ""
+  };
 }
 
 function cleanIsrc(data) {
-    return {
-        isrc: data,
-    };
+  return {
+    isrc: data,
+  };
 }
 
 
 // Metadata comparison utilities.
 
 function lengthsAreWithin10s(a, b) {
-    return Math.abs(a - b) <= MAX_LENGTH_DIFFERENCE;
+  return Math.abs(a - b) <= MAX_LENGTH_DIFFERENCE;
 }
 
 function namesAreSimilar(a, b) {
-    return similarity(a, b) >= MIN_NAME_SIMILARITY;
+  return similarity(a, b) >= MIN_NAME_SIMILARITY;
 }
 
 utils.similarNames = function (oldName, newName) {
-    return oldName == newName || namesAreSimilar(oldName, newName);
+  return oldName == newName || namesAreSimilar(oldName, newName);
 };
 
 utils.similarLengths = function (oldLength, newLength) {
-    /*
-     * If either of the lengths are empty, we can't compare them, so we
-     * consider them to be "similar" for recording association purposes.
-     */
-    return !oldLength || !newLength || lengthsAreWithin10s(oldLength, newLength);
+  /*
+   * If either of the lengths are empty, we can't compare them, so we
+   * consider them to be "similar" for recording association purposes.
+   */
+  return !oldLength || !newLength || lengthsAreWithin10s(oldLength, newLength);
 };
 
 
 export function calculateDiscID(toc) {
-    var info = toc.split(/\s/);
+  var info = toc.split(/\s/);
 
-    var temp = paddedHex(info.shift(), 2) + paddedHex(info.shift(), 2);
+  var temp = paddedHex(info.shift(), 2) + paddedHex(info.shift(), 2);
 
-    for (var i = 0; i < 100; i++) {
-        temp += paddedHex(info[i], 8);
-    }
+  for (var i = 0; i < 100; i++) {
+    temp += paddedHex(info[i], 8);
+  }
 
-    return base64(rstr_sha1(temp));
+  return base64(rstr_sha1(temp));
 };
 
 utils.calculateDiscID = calculateDiscID;
 
 function paddedHex(str, length) {
-    return _.padStart((parseInt(str, 10) || 0).toString(16).toUpperCase(), length, '0');
+  return _.padStart((parseInt(str, 10) || 0).toString(16).toUpperCase(), length, '0');
 }
 
 /*
@@ -224,32 +224,32 @@ var padchar = "-";
 var alpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789._";
 
 function base64(s) {
-    var i, b10;
-    var x = [];
-    var imax = s.length - s.length % 3;
+  var i; var b10;
+  var x = [];
+  var imax = s.length - s.length % 3;
 
-    for (i = 0; i < imax; i += 3) {
-        b10 = (s.charCodeAt(i) << 16) | (s.charCodeAt(i + 1) << 8) | s.charCodeAt(i + 2);
-        x.push(alpha.charAt(b10 >> 18));
-        x.push(alpha.charAt((b10 >> 12) & 0x3F));
-        x.push(alpha.charAt((b10 >> 6) & 0x3F));
-        x.push(alpha.charAt(b10 & 0x3F));
-    }
+  for (i = 0; i < imax; i += 3) {
+    b10 = (s.charCodeAt(i) << 16) | (s.charCodeAt(i + 1) << 8) | s.charCodeAt(i + 2);
+    x.push(alpha.charAt(b10 >> 18));
+    x.push(alpha.charAt((b10 >> 12) & 0x3F));
+    x.push(alpha.charAt((b10 >> 6) & 0x3F));
+    x.push(alpha.charAt(b10 & 0x3F));
+  }
 
-    switch (s.length - imax) {
-        case 1:
-            b10 = s.charCodeAt(i) << 16;
-            x.push(alpha.charAt(b10 >> 18) + alpha.charAt((b10 >> 12) & 0x3F) +
+  switch (s.length - imax) {
+    case 1:
+      b10 = s.charCodeAt(i) << 16;
+      x.push(alpha.charAt(b10 >> 18) + alpha.charAt((b10 >> 12) & 0x3F) +
                    padchar + padchar);
-            break;
-        case 2:
-            b10 = (s.charCodeAt(i) << 16) | (s.charCodeAt(i + 1) << 8);
-            x.push(alpha.charAt(b10 >> 18) + alpha.charAt((b10 >> 12) & 0x3F) +
+      break;
+    case 2:
+      b10 = (s.charCodeAt(i) << 16) | (s.charCodeAt(i + 1) << 8);
+      x.push(alpha.charAt(b10 >> 18) + alpha.charAt((b10 >> 12) & 0x3F) +
                    alpha.charAt((b10 >> 6) & 0x3F) + padchar);
-            break;
-    }
+      break;
+  }
 
-    return x.join("");
+  return x.join("");
 }
 
 export default utils;
