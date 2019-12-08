@@ -796,7 +796,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
             }
         }
 
-        return null;
+        return undefined;
     }
 
     function isCreditable(attribute) {

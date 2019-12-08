@@ -166,7 +166,7 @@ MB.GuessCase.Handler.Artist = function (gc) {
                 return utils.trim(_.compact(names).join(" ") + (append || ""));
             }
 
-            return null;
+            return undefined;
         });
     };
 
