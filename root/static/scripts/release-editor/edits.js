@@ -80,8 +80,7 @@ releaseEditor.edits = {
 
         if (!release.gid()) {
             edits.push(MB.edit.releaseCreate(newData));
-        }
-        else if (!_.isEqual(newData, oldData)) {
+        } else if (!_.isEqual(newData, oldData)) {
             newData = {...newData, to_edit: release.gid()};
             edits.push(MB.edit.releaseEdit(newData, oldData));
         }
@@ -425,6 +424,7 @@ releaseEditor.getEditPreviews = function () {
     function getPreview(edit) {
         return previews[edit.hash];
     }
+
     function addPreview(tuple) {
         var editHash = tuple[0].hash, preview = tuple[1];
         if (preview) {
@@ -432,6 +432,7 @@ releaseEditor.getEditPreviews = function () {
             previews[editHash] = preview;
         }
     }
+
     function isNewEdit(edit) {
         return previews[edit.hash] === undefined;
     }

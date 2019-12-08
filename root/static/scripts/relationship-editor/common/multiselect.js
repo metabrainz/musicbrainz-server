@@ -95,7 +95,7 @@ import deferFocus from '../../edit/utility/deferFocus';
 
                 var visible = matchIndex(option, term) >= 0 && (
                     linkedEntities.link_attribute_type[typeGID].creditable ||
-                    _.findIndex(selected, function (a) { return a.type.gid === typeGID }) < 0
+                    _.findIndex(selected, a => a.type.gid === typeGID) < 0
                 );
 
                 node.style.display = visible ? "block" : "none";
@@ -125,9 +125,7 @@ import deferFocus from '../../edit/utility/deferFocus';
             this.updateOptions(this.term.peek());
 
             var nodes = this.optionNodes, node;
-            var nextIndex = _.findIndex(nodes, function (node) {
-                return node.optionData.value === typeGID;
-            });
+            var nextIndex = _.findIndex(nodes, node => node.optionData.value === typeGID);
 
             while ((node = nodes[++nextIndex])) {
                 if (node.style.display === "block") {
@@ -170,8 +168,7 @@ import deferFocus from '../../edit/utility/deferFocus';
                     if (menuVisible) {
                         this.firstVisibleOption().focus();
                         event.preventDefault();
-                    }
-                    else if (this.firstVisibleOption()) {
+                    } else if (this.firstVisibleOption()) {
                         this.menuVisible(true);
                         event.preventDefault();
                     }

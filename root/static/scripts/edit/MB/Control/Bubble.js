@@ -19,7 +19,9 @@ class BubbleBase {
      * The default observable equality comparer returns false if the values
      * aren't primitive, even if the values are equal.
      */
-    targetEqualityComparer(a, b) { return a === b }
+    targetEqualityComparer(a, b) {
+        return a === b;
+    }
 
     constructor(group) {
         this.group = group || 0;
@@ -72,7 +74,9 @@ class BubbleBase {
     }
 
     // Action upon pressing enter in an input. Defaults to hide.
-    submit() { this.hide() }
+    submit() {
+        this.hide();
+    }
 
     toggle(control) {
         if (this.visible.peek()) {
@@ -96,8 +100,7 @@ class BubbleBase {
 
             if ($(this.control).parents("html").length === 0) {
                 this.hide(false);
-            }
-            else {
+            } else {
                 this.show(this.control, !!stealFocus, true /* isRedraw */);
             }
         }
@@ -198,14 +201,15 @@ ko.bindingHandlers.controlsBubble = {
         }
 
         ko.computed({
-            read: function () { return !!bubble.canBeShown(viewModel) },
+            read: function () {
+                return !!bubble.canBeShown(viewModel);
+            },
             disposeWhenNodeIsRemoved: element
         })
         .subscribe(function (show) {
             if (show !== bubble.visible()) {
                 bubble.toggle(element);
-            }
-            else if (show && !bubble.targetIs(viewModel)) {
+            } else if (show && !bubble.targetIs(viewModel)) {
                 bubble.show(element);
             }
         });
@@ -335,8 +339,7 @@ function bubbleKeydownHandler(event) {
 
         if (pressedEsc) {
             bubbleDoc.hide();
-        }
-        else if (pressedEnter) {
+        } else if (pressedEnter) {
             bubbleDoc.submit();
         }
     }

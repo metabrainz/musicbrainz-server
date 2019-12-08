@@ -93,25 +93,25 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
         event: function (relationships, series) {
             return _.sortBy(
                 relationships,
-                function (r) { return r.target(series).begin_date || '' },
-                function (r) { return r.target(series).end_date || '' },
-                function (r) { return r.target(series).time || '' }
+                r => r.target(series).begin_date || '',
+                r => r.target(series).end_date || '',
+                r => r.target(series).time || '',
             );
         },
         release: function (relationships, series) {
             return _.sortBy(
                 relationships,
-                function (r) { 
+                function (r) {
                     return _(r.target(series).events)
                         .map(getDate)
                         .sort()
-                        .head(); 
+                        .head();
                 },
-                function (r) { 
+                function (r) {
                     return _(r.target(series).labels)
                         .map(getCatalogNumber)
                         .sort()
-                        .head(); 
+                        .head();
                 },
             );
         },

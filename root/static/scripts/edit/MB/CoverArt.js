@@ -22,20 +22,13 @@ MB.CoverArt.get_image_mime_type = function () {
         .val();
     var mimeType = null;
 
-    if (filename.match(/\.j(peg|pg|pe|fif|if)$/i))
-    {
+    if (filename.match(/\.j(peg|pg|pe|fif|if)$/i)) {
         mimeType = "image/jpeg";
-    }
-    else if (filename.match(/\.png$/i))
-    {
+    } else if (filename.match(/\.png$/i)) {
         mimeType = "image/png";
-    }
-    else if (filename.match(/\.gif$/i))
-    {
+    } else if (filename.match(/\.gif$/i)) {
         mimeType = "image/gif";
-    }
-    else if (filename.match(/\.pdf$/i))
-    {
+    } else if (filename.match(/\.pdf$/i)) {
         mimeType = "application/pdf";
     }
 
@@ -43,8 +36,7 @@ MB.CoverArt.get_image_mime_type = function () {
 };
 
 MB.CoverArt.image_error = function ($img, image) {
-    if ($img.attr("src") === image.image)
-    {
+    if ($img.attr("src") === image.image) {
         /*
          * image doesn't exist at all, perhaps it was removed
          * between requesting the index and loading the image.
@@ -52,9 +44,7 @@ MB.CoverArt.image_error = function ($img, image) {
          * data in the index is incorrect.
          */
         $img.attr("src", require('../../../images/image404-125.png'));
-    }
-    else
-    {
+    } else {
         $img.attr("src", image.image);
     }
 };
@@ -70,8 +60,7 @@ MB.CoverArt.reorder_button = function (direction, $container) {
             $swap = $editimage.siblings()[direction === 'next' ? 'first' : 'last']();
             insertAfter = !insertAfter;
         }
-        if ($swap.length)
-        {
+        if ($swap.length) {
             $editimage[insertAfter ? 'insertAfter' : 'insertBefore']($swap);
             $container.sortable('refresh');
         }
@@ -170,24 +159,18 @@ MB.CoverArt.validate_file = function (file) {
          * Some cameras and phones write a different fourth byte.
          */
 
-        if ((uint32view[0] & 0x00FFFFFF) === 0x00FFD8FF)
-        {
+        if ((uint32view[0] & 0x00FFFFFF) === 0x00FFD8FF) {
             deferred.resolve('image/jpeg');
-        }
-        else if (uint32view[0] === 0x38464947) /* GIF signature. "GIF8" */
-        {
+        } else if (uint32view[0] === 0x38464947) {
+            // GIF signature. "GIF8"
             deferred.resolve('image/gif');
-        }
-        else if (uint32view[0] === 0x474E5089) /* PNG signature, 0x89 "PNG" */
-        {
+        } else if (uint32view[0] === 0x474E5089) {
+            // PNG signature, 0x89 "PNG"
             deferred.resolve('image/png');
-        }
-        else if (uint32view[0] === 0x46445025) /* PDF signature, 0x89 "%PDF" */
-        {
+        } else if (uint32view[0] === 0x46445025) {
+            // PDF signature, 0x89 "%PDF"
             deferred.resolve('application/pdf');
-        }
-        else
-        {
+        } else {
             deferred.reject("unrecognized image format");
         }
     });
@@ -241,28 +224,23 @@ MB.CoverArt.upload_image = function (postfields, file) {
 
     var xhr = new XMLHttpRequest();
     xhr.upload.addEventListener("progress", function (event) {
-        if (event.lengthComputable)
-        {
+        if (event.lengthComputable) {
             deferred.notify(100 * event.loaded / event.total);
         }
     });
 
     xhr.addEventListener("load", function () {
-        if (xhr.status >= 200 && xhr.status < 210)
-        {
+        if (xhr.status >= 200 && xhr.status < 210) {
             deferred.notify(100);
             deferred.resolve();
-        }
-        else
-        {
+        } else {
             deferred.reject("error uploading image: " + xhr.status + " " +
                              xhr.responseText, xhr.status);
         }
     });
 
     /* IE10 and older don't have overrideMimeType. */
-    if (typeof (xhr.overrideMimeType) === 'function')
-    {
+    if (typeof (xhr.overrideMimeType) === 'function') {
         /*
          * Prevent firefox from parsing a 204 No Content response as XML.
          * https://bugzilla.mozilla.org/show_bug.cgi?id=884693
@@ -295,20 +273,16 @@ MB.CoverArt.submit_edit = function (fileUpload, postfields, mimeType, position) 
     }
 
     _.each(fileUpload.types(), function (checkbox) {
-        if (checkbox.checked())
-        {
+        if (checkbox.checked()) {
             formdata.append('add-cover-art.type_id', checkbox.id);
         }
     });
 
     var xhr = new XMLHttpRequest();
     xhr.addEventListener("load", function () {
-        if (xhr.status === 200)
-        {
+        if (xhr.status === 200) {
             deferred.resolve();
-        }
-        else
-        {
+        } else {
             deferred.reject("error creating edit: " + xhr.status + " " + xhr.statusText);
         }
     });
@@ -377,8 +351,7 @@ MB.CoverArt.FileUpload = function (file) {
     self.doUpload = function (gid, position) {
         var deferred = $.Deferred();
 
-        if (self.status() === 'done' || self.busy())
-        {
+        if (self.status() === 'done' || self.busy()) {
             /*
              * This file is currently being uploaded or has already
              * been uploaded.
@@ -526,8 +499,7 @@ MB.CoverArt.set_position = function () {
 };
 
 MB.CoverArt.add_cover_art = function (gid) {
-    if (typeof (window.FormData) !== "undefined" && typeof (window.FileReader) !== 'undefined')
-    {
+    if (typeof (window.FormData) !== "undefined" && typeof (window.FileReader) !== 'undefined') {
         File.prototype.slice = File.prototype.webkitSlice || File.prototype.mozSlice || File.prototype.slice;
 
         /*
@@ -588,9 +560,7 @@ MB.CoverArt.add_cover_art = function (gid) {
             MB.CoverArt.set_position();
             MB.CoverArt.add_cover_art_submit(gid, upvm);
         });
-    }
-    else
-    {
+    } else {
         $('.without-formdata').show();
         $('#add-cover-art-submit').prop('disabled', false);
 
@@ -601,16 +571,13 @@ MB.CoverArt.add_cover_art = function (gid) {
             var mimeType = MB.CoverArt.get_image_mime_type();
             $('#id-add-cover-art\\.mime_type').val(mimeType);
 
-            if (mimeType)
-            {
+            if (mimeType) {
                 $('iframe')[0].contentWindow.upload(
                     gid,
                     $('#id-add-cover-art\\.id').val(),
                     mimeType,
                 );
-            }
-            else
-            {
+            } else {
                 $('iframe')
                     .contents()
                     .find('#cover-art-file-error')

@@ -787,7 +787,9 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
             return MB.edit.create({ editNote: "", makeVotable: false, edits: edits });
         }
 
-        targetEntityError() { return "" }
+        targetEntityError() {
+            return '';
+        }
     }
 
     Object.assign(BatchCreateWorksDialog.prototype, {

@@ -215,7 +215,9 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
             return linkType ? (linkType.has_dates !== false) : true;
         }
 
-        added() { return !this.id }
+        added() {
+            return !this.id;
+        }
 
         edited() {
             return !_.isEqual(this.original, this.editData());
