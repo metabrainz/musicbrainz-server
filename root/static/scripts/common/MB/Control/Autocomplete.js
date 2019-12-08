@@ -433,9 +433,11 @@ $.widget("mb.entitylookup", $.ui.autocomplete, {
          */
 
         var results = this.currentResults = _.filter(
-            this.currentResults, function (item) {
+            this.currentResults,
+            function (item) {
                 return !item.action;
-            });
+            },
+        );
 
         results.push.apply(results, data);
 

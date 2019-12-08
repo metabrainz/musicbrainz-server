@@ -275,7 +275,8 @@ recordingAssociation.findRecordingSuggestions = function (track) {
                         delete releaseGroupRecordings.loading;
 
                         recordingAssociation.findRecordingSuggestions(track);
-                    });
+                    },
+                );
             }
             return;
         }

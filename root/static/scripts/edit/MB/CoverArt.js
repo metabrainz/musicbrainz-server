@@ -390,7 +390,11 @@ MB.CoverArt.FileUpload = function (file) {
                     self.updateProgress(2, 100);
 
                     var submitting = MB.CoverArt.submit_edit(
-                        self, postfields, mime_type, position);
+                        self,
+                        postfields, 
+                        mime_type, 
+                        position,
+                    );
 
                     submitting.fail(function (msg) {
                         self.status(statuses.submit_error);
@@ -569,7 +573,10 @@ MB.CoverArt.add_cover_art = function (gid) {
 
             if (mime_type) {
                 $('iframe')[0].contentWindow.upload(
-                    gid, $('#id-add-cover-art\\.id').val(), mime_type);
+                    gid, 
+                    $('#id-add-cover-art\\.id').val(),
+                    mime_type,
+                );
             } else {
                 $('iframe').contents().find('#cover-art-file-error').show();
             }
