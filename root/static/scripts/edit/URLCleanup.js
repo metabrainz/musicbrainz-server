@@ -436,7 +436,7 @@ const CLEANUPS = {
         return 'https://www.amazon.' + tld + '/gp/product/' + asin;
       }
 
-      return undefined;
+      return null;
     },
     validate: function (url) {
       return /^https:\/\/www\.amazon\.(com|ca|co\.uk|fr|at|de|it|co\.jp|jp|cn|es|in|com\.br|com\.mx|com\.au)\//.test(url);
