@@ -97,7 +97,8 @@ releaseEditor.findReleaseDuplicates = function () {
 
             arid: _(ac.names)
                     .map('artist.gid')
-                    .map(utils.escapeLuceneValue).value()
+                    .map(utils.escapeLuceneValue)
+                    .value()
         });
 
         toggleLoadingIndicator(true);
@@ -146,7 +147,10 @@ function formatReleaseData(release) {
 
     clean.countries = pluck(events, "area")
         .map("iso-3166-1-codes")
-        .flatten().compact().uniq().value();
+        .flatten()
+        .compact()
+        .uniq()
+        .value();
 
     clean.labels = pluck(labels, "label").map(function (info) {
         return new MB.entity.Label({ gid: info.id, name: info.name });
@@ -169,5 +173,6 @@ function combinedMediumFormatName(mediums) {
 
         return (count > 1 ? count + "\u00D7" : "") + format;
     })
-    .value().join(" + ");
+    .value()
+    .join(" + ");
 }

@@ -307,7 +307,10 @@ ko.bindingHandlers.withLabel = {
         var name = valueAccessor() + "-" + bindingContext.$index();
 
         $(element).attr("id", name)
-            .parents("td").prev("td").find("label").attr("for", name);
+            .parents("td")
+            .prev("td")
+            .find("label")
+            .attr("for", name);
     }
 };
 

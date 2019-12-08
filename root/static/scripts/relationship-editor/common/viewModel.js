@@ -63,7 +63,9 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
 
         Object.assign(linkedEntities, {
             link_type_tree: typeInfo,
-            link_type: _(typeInfo).values().flatten().transform(mapItems, {}).value(),
+            link_type: _(typeInfo).values().flatten()
+            .transform(mapItems, {})
+            .value(),
             link_attribute_type: _.transform(attrInfo, mapItems, {}),
         });
 
@@ -92,7 +94,9 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
         });
 
         // Sort each list of types alphabetically.
-        _(MB.allowedRelations).values().invokeMap('sort').value();
+        _(MB.allowedRelations).values()
+        .invokeMap('sort')
+        .value();
 
         _.each(linkedEntities.link_attribute_type, function (attr) {
             attr.root = linkedEntities.link_attribute_type[attr.root_id];

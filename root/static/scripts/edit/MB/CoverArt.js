@@ -16,7 +16,9 @@ import MB from '../../common/MB';
 MB.CoverArt = {};
 
 MB.CoverArt.get_image_mime_type = function () {
-    var filename = $('iframe').contents().find('#file').val();
+    var filename = $('iframe').contents()
+    .find('#file')
+    .val();
     var mime_type = null;
 
     if (filename.match(/\.j(peg|pg|pe|fif|if)$/i))
@@ -596,7 +598,9 @@ MB.CoverArt.add_cover_art = function (gid) {
             }
             else
             {
-                $('iframe').contents().find('#cover-art-file-error').show();
+                $('iframe').contents()
+                .find('#cover-art-file-error')
+                .show();
             }
 
             return false;

@@ -285,10 +285,12 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
             return relationships.filter(function (relationship) {
                 return relationship.entityTypes !== "recording-work";
 
-            }).sortBy(function (relationship) {
+            })
+            .sortBy(function (relationship) {
                 return relationship.lowerCaseTargetName(source);
 
-            }).sortBy("linkOrder").sortBy(function (relationship) {
+            })
+            .sortBy("linkOrder").sortBy(function (relationship) {
                 return relationship.lowerCasePhrase(source);
             });
         }
@@ -327,7 +329,8 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
             $tracklist.on("change", medium_selector, function (event) {
                 var checked = this.checked,
                     $changed = $(this).parents("tr.subh").nextUntil("tr.subh")
-                        .find(selector).filter(checked ? ":not(:checked)" : ":checked")
+                        .find(selector)
+                        .filter(checked ? ":not(:checked)" : ":checked")
                         .prop("checked", checked);
                 counter(counter() + count($changed) * (checked ? 1 : -1));
             });

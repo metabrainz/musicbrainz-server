@@ -23,7 +23,9 @@ MB.Control.EditList = function (container) {
 
     self.initialize = function () {
         var $voteOptions = $container.find('input[type="radio"]')
-            .first().parents('.voteopts').clone().addClass('overall-vote');
+            .first().parents('.voteopts')
+            .clone()
+            .addClass('overall-vote');
 
         $voteOptions.find('label').each(function () {
             $(this).attr('for', $(this).attr('for').replace(/id-enter-vote.vote.\d+/, 'vote-all'));
@@ -64,8 +66,10 @@ MB.Control.EditList = function (container) {
 
 $(function () {
     $('div.vote input[type="radio"]').change(function () {
-        $(this).parents('.voteopts').find('.vote').attr('class', 'vote');
-        $(this).parent('label').parent('.vote').addClass(SELECTED_CLASS[ $(this).val() ]);
+        $(this).parents('.voteopts').find('.vote')
+        .attr('class', 'vote');
+        $(this).parent('label').parent('.vote')
+        .addClass(SELECTED_CLASS[ $(this).val() ]);
     })
 
     $('div.vote input[checked="checked"]').change();

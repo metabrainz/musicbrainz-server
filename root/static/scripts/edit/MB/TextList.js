@@ -21,7 +21,8 @@ MB.Form.TextList = function (input) {
     var last_item = input;
 
     self.removeEvent = function (event) {
-        $(this).closest('div.text-list-row').remove();
+        $(this).closest('div.text-list-row')
+        .remove();
     };
 
     self.init = function (max_index) {
@@ -39,9 +40,12 @@ MB.Form.TextList = function (input) {
             .removeClass(template)
             .insertAfter($template.parent().find('div.text-list-row').last())
             .show()
-            .find('input.value').attr("name", input + '.' + counter).val(init_value)
+            .find('input.value')
+            .attr("name", input + '.' + counter)
+            .val(init_value)
             .end()
-            .find('button.remove-item').bind('click.mb', self.removeEvent);
+            .find('button.remove-item')
+            .bind('click.mb', self.removeEvent);
 
         counter++;
 

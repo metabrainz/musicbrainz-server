@@ -125,7 +125,8 @@ const trackParser = releaseEditor.trackParser = {
                         .map(function (track) {
                             return self.matchDataWithTrack(data, track);
                         })
-                        .compact().value()
+                        .compact()
+                        .value()
                 );
             }
 

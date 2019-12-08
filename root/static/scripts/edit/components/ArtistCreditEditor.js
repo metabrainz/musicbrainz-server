@@ -104,14 +104,17 @@ class ArtistCreditEditor extends React.Component {
 
     const ac = this.state.artistCredit;
     const newState = mutate(this.state, newState => {
-      newState.artistCredit.names.splice(i, 1);
+      newState.artistCredit.names
+      .splice(i, 1);
     });
     setAutoJoinPhrases(newState.artistCredit);
 
     this.setState(newState, () => {
       this.positionBubble();
       if (i > 0 && i === ac.names.length - 1) {
-        $('#artist-credit-bubble').find('.remove-item').eq(i - 1).focus();
+        $('#artist-credit-bubble').find('.remove-item')
+        .eq(i - 1)
+        .focus();
       }
     });
   }

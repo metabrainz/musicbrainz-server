@@ -269,9 +269,11 @@ class TimelineViewModel {
                 return e;
             }));
             self.loadedEvents(true);
-        }).fail(function () {
+        })
+        .fail(function () {
             self.events([]);
-        }).always(function () {
+        })
+        .always(function () {
             self.loadingEvents(false);
         });
     }
@@ -352,9 +354,11 @@ class TimelineLine {
 
             self.data(serial);
             self.loaded(true);
-        }).fail(function () {
+        })
+        .fail(function () {
             self.data(null);
-        }).always(function () {
+        })
+        .always(function () {
             self.loading(false);
         });
     }
@@ -439,7 +443,8 @@ class TimelineLine {
             padding: '2px',
             'background-color': '#fee',
             opacity: 0.80
-        }).appendTo("body").fadeIn(200);
+        }).appendTo("body")
+        .fadeIn(200);
     }
     var removeTooltip = function () { $('#tooltip').remove(); }
 
@@ -530,7 +535,8 @@ class TimelineLine {
                 }
 
                 bindingContext.$data.zoomArray(zoomArr);
-            }).bind('plotunselected', function () {
+            })
+            .bind('plotunselected', function () {
                 if (currentEvent && currentEvent.link) {
                     window.open(currentEvent.link);
                 } else {

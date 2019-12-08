@@ -6,9 +6,14 @@ $(function () {
 
     $(".toggle").click(function () {
 
-        $(this).parent().next(".reldetails").toggle();
+        $(this).parent()
+        .next(".reldetails")
+        .toggle();
 
-        if ($(this).parent().next(".reldetails").is(':hidden')) {
+        if ($(this)
+        .parent()
+        .next(".reldetails")
+        .is(':hidden')) {
             $(this).text("more");
         } else {
             $(this).text("less");
