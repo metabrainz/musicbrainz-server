@@ -133,7 +133,7 @@ function toggleLoadingIndicator(show) {
 
 
 function pluck(chain, name) {
- return chain.map(name).compact() 
+    return chain.map(name).compact();
 }
 
 

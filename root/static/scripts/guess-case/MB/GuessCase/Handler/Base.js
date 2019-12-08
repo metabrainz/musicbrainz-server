@@ -884,8 +884,8 @@ MB.GuessCase.Handler.Base = function (gc) {
         return utils.trim(is).replace(
             /^(The|Los) (.+)$/,
             function (match, article, name) {
- return name + ", " + article 
-}
+                return name + ", " + article;
+            }
         );
     };
 

@@ -90,8 +90,8 @@ MB.CoverArt.reorder_position = function () {
     $('#reorder-cover-art').submit(
         function () {
             $('div.editimage input.position').val(function (index) {
- return (index + 1);
-});
+                return (index + 1);
+            });
         }
     );
 
@@ -361,8 +361,8 @@ MB.CoverArt.FileUpload = function (file) {
         }
 
         self.validating.fail(function (msg) {
- deferred.reject(msg);
-});
+            deferred.reject(msg);
+        });
         self.validating.done(function (mime_type) {
             self.status(statuses.signing);
 

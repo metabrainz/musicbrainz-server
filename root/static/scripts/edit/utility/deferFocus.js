@@ -12,8 +12,8 @@ import _ from 'lodash';
 function deferFocus() {
     var selectorArguments = arguments;
     _.defer(function () {
- $.apply(null, selectorArguments).focus() 
-});
+      $.apply(null, selectorArguments).focus();
+    });
 }
 
 export default deferFocus;

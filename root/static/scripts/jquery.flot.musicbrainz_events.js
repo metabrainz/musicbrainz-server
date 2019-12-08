@@ -56,8 +56,8 @@
     function init(plot) {
         plot.changeCurrentEvent = changeCurrentEvent;
         plot.getEvent = function (pos) {
- return getEvent(pos, plot) 
-};
+            return getEvent(pos, plot);
+        };
 
         plot.hooks.drawOverlay.push(function (plot, ctx) {
             var options = plot.getOptions();

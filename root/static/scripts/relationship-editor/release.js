@@ -204,8 +204,10 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
 
             var trackCount = _.reduce(release.mediums(),
                 function (memo, medium) {
- return memo + medium.tracks.length 
-}, 0);
+                    return memo + medium.tracks.length;
+                },
+                0
+            );
 
             initCheckboxes(this.checkboxes, trackCount);
         }

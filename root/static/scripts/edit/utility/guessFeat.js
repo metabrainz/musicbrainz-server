@@ -51,8 +51,8 @@ function extractNonBracketedFeatCredits(str, artists, isProbablyClassical) {
     var artistCredit = wrapped
         .splice(2)
         .filter(function (value, key) {
- return key %2 == 0; 
-})
+            return key %2 == 0;
+        })
         .compact()
         .map(c => expandCredit(c, artists, isProbablyClassical))
         .flatten()

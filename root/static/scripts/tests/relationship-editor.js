@@ -118,11 +118,11 @@ var testRelease = {
 };
 
 function id2attr(id) {
- return { type: linkedEntities.link_attribute_type[id] } 
+    return { type: linkedEntities.link_attribute_type[id] };
 }
 
 function ids2attrs(ids) {
- return _.map(ids, id2attr) 
+    return _.map(ids, id2attr);
 }
 
 function setupReleaseRelationshipEditor() {
@@ -143,9 +143,9 @@ function setupGenericRelationshipEditor(options) {
 function formData() {
     var inputsArray = _.toArray($("input[type=hidden]"));
     return _.transform(inputsArray, function (result, input) {
- result[input.name] = input.value 
-}, {});
-};
+        result[input.name] = input.value;
+    }, {});
+}
 
 function relationshipEditorTest(name, callback) {
     test(name, function (t) {

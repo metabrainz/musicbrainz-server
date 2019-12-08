@@ -51,8 +51,9 @@ class TimelineViewModel {
         self.enabledCategories = ko.computed(function () {
             return _.filter(self.categories(),
                 function (category) {
- return category.enabled() 
-});
+                    return category.enabled();
+                }
+            );
         });
         self.events = debounce(ko.observableArray([]), 50);
         self.loadingEvents = ko.observable(false);
@@ -101,8 +102,8 @@ class TimelineViewModel {
             write: function (part) {
                 if (part) {
                     var item_fix = function (item) {
- return (item === 'null' ? null : parseFloat(item)) 
-};
+                        return (item === 'null' ? null : parseFloat(item));
+                    };
                     self.zoomArray(_.map(part.split('/').slice(1), item_fix));
                 } else {
                     self.zoomArray([null, null, null, null]);
@@ -116,8 +117,8 @@ class TimelineViewModel {
 
         self.waitToGraph = ko.computed(function () {
             if (_.some(self.enabledCategories(), function (c) {
- return c.hasLoadingLines() 
-})) {
+                return c.hasLoadingLines();
+            })) {
                 return true;
             }
 
@@ -174,14 +175,14 @@ class TimelineViewModel {
         self.hash = debounce(function () {
             var optionParts = [];
             if (self.options.rate()) {
- optionParts.push('r') 
-}
+                optionParts.push('r');
+            }
             if (!self.options.events()) {
- optionParts.push('-v') 
-}
+                optionParts.push('-v');
+            }
             if (self.zoomHashPart()) {
- optionParts.push(self.zoomHashPart()) 
-}
+                optionParts.push(self.zoomHashPart());
+            }
             var categoryParts = self.categories().reduce(getHashPart, []).sort();
             var lineParts = self.categories().reduce((accum, category) => {
                 if (category.enabled()) {
@@ -235,8 +236,8 @@ class TimelineViewModel {
             } else if ((match = part.match(/^(-)?(c-.*)$/))) {
                 var category = _.find(self.categories(), { hashIdentifier: match[2] });
                 if (category) {
- category.enabled(!(match[1] === '-')) 
-}
+                    category.enabled(!(match[1] === '-'));
+                }
             } else if ((match = part.match(/^g\/.*$/))) {
                 self.zoomHashPart(part);
             } else {
@@ -245,7 +246,7 @@ class TimelineViewModel {
                 for (const category of self.categories()) {
                     for (const line of category.lines()) {
                         if (line.hashIdentifier === match[2]) {
-                            line.enabled(!(match[1] === '-'))
+                            line.enabled(!(match[1] === '-'));
                             break outer;
                         }
                     }
@@ -274,8 +275,8 @@ class TimelineViewModel {
     addLines(names) {
         var self = this;
         _.forEach(names, function (name) {
- self.addLine(name) 
-});
+            self.addLine(name);
+        });
     }
 
     loadEvents() {
@@ -315,35 +316,35 @@ class TimelineCategory {
 
         self.enabledLines = ko.computed(function () {
             return _.filter(self.lines(), function (line) {
- return line.enabled() && line.loaded() 
-})
+                return line.enabled() && line.loaded();
+            });
         });
         self.needLoadingLines = ko.computed(function () {
             if (self.enabled()) {
                 return _.filter(self.lines(), function (line) {
- return line.enabled() && !line.loaded() && !line.loading() 
-})
+                    return line.enabled() && !line.loaded() && !line.loading();
+                });
             } else {
- return [] 
-}
+                return [];
+            }
         });
         self.hasLoadingLines = ko.computed(function () {
             return _.filter(self.lines(), function (line) {
- return line.enabled() && line.loading() 
-}).length;
+                return line.enabled() && line.loading();
+            }).length;
         });
 
         // rateLimit to load asynchronously
         debounce(function () {
             _.forEach(self.needLoadingLines(), function (line) {
- line.loadData() 
-});
+                line.loadData();
+            });
         }, 1);
     }
 
     addLine(line) {
- this.lines.push(line); 
-}
+        this.lines.push(line);
+    }
 }
 
 class TimelineLine {
@@ -394,8 +395,8 @@ class TimelineLine {
 
     calculateRateData(data) {
         if (!data || !data.length) {
- return {data: [], thresholds: {min: null, max: null}}; 
-}
+            return {data: [], thresholds: {min: null, max: null}};
+        }
         var weekData = [];
         var oneDay = 1000 * 60 * 60 * 24;
         var dataPrev = data[0][1];
@@ -477,46 +478,46 @@ class TimelineLine {
         }).appendTo("body").fadeIn(200);
     }
     var removeTooltip = function () {
- $('#tooltip').remove(); 
-}
+        $('#tooltip').remove();
+    }
 
     var setCursor = function (type) {
         if (!type) {
- type = ''; 
-}
+            type = '';
+        }
         $('body').css('cursor', type);
     }
 
     var setItemTooltip = function (item, extra, fixed) {
-            if (!extra) {
- extra = '' 
-};
-            removeTooltip();
-            setCursor();
-            var x = item.datapoint[0],
-                y = item.datapoint[1],
-                date = new Date(parseInt(x));
+        if (!extra) {
+            extra = '';
+        }
+        removeTooltip();
+        setCursor();
+        var x = item.datapoint[0],
+            y = item.datapoint[1],
+            date = new Date(parseInt(x));
 
-            if (fixed) {
-                y = y.toFixed(fixed);
-            }
+        if (fixed) {
+            y = y.toFixed(fixed);
+        }
 
-            let day;
-            if (date.getDate() < 10) {
-                day = '0' + date.getDate();
-            } else {
-                day = date.getDate();
-            }
+        let day;
+        if (date.getDate() < 10) {
+            day = '0' + date.getDate();
+        } else {
+            day = date.getDate();
+        }
 
-            let month;
-            if (date.getMonth() + 1 < 10) {
-                month = '0' + (date.getMonth() + 1);
-            } else {
-                month = date.getMonth() + 1;
-            }
+        let month;
+        if (date.getMonth() + 1 < 10) {
+            month = '0' + (date.getMonth() + 1);
+        } else {
+            month = date.getMonth() + 1;
+        }
 
-            showTooltip(item.pageX, item.pageY,
-                date.getFullYear() + '-' + month + '-' + day + ": " + y + " " + item.series.label + extra);
+        showTooltip(item.pageX, item.pageY,
+            date.getFullYear() + '-' + month + '-' + day + ": " + y + " " + item.series.label + extra);
     }
     var setEventTooltip = function (thisEvent, pos) {
         removeTooltip();
@@ -615,9 +616,11 @@ class TimelineLine {
                 } else if (graph === 'overview') {
                     options.series = { lines: { lineWidth: 1 }, shadowSize: 0 };
                     options.xaxis = { mode: "time", minTickSize: [1, "year"] };
-                    options.yaxis = { tickFormatter: function () {
- return '' 
-} };
+                    options.yaxis = {
+                        tickFormatter: function () {
+                            return '';
+                        }
+                    };
                 }
 
                 // Selection mode

@@ -216,8 +216,8 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
         }
 
         added() {
- return !this.id 
-}
+            return !this.id;
+        }
 
         edited() {
             return !_.isEqual(this.original, this.editData());
@@ -610,8 +610,8 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
     }
 
     function linkTypeComparer(a, b) {
- return a != b 
-}
+        return a != b;
+    }
 
     function setPartialDate(target, data) {
         _.each(["year", "month", "day"], function (key) {

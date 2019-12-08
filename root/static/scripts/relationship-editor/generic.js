@@ -94,31 +94,31 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
             return _.sortBy(
                 relationships,
                 function (r) {
- return r.target(series).begin_date || '' 
-},
+                    return r.target(series).begin_date || '';
+                    },
                 function (r) {
- return r.target(series).end_date || '' 
-},
+                    return r.target(series).end_date || '';
+                    },
                 function (r) {
- return r.target(series).time || '' 
-}
+                    return r.target(series).time || '';
+                }
             );
         },
         release: function (relationships, series) {
             return _.sortBy(
                 relationships,
                 function (r) {
- return _(r.target(series).events).map(getDate).sort().head() 
-},
+                    return _(r.target(series).events).map(getDate).sort().head();
+                    },
                 function (r) {
- return _(r.target(series).labels).map(getCatalogNumber).sort().head() 
-}
+                    return _(r.target(series).labels).map(getCatalogNumber).sort().head();
+                }
             );
         },
         release_group: function (relationships, series) {
             return _.sortBy(relationships, function (r) {
- return r.target(series).firstReleaseDate || '' 
-});
+                return r.target(series).firstReleaseDate || '';
+            });
         }
     };
 

@@ -85,8 +85,8 @@ class SearchResult {
     }
 
     expanded() {
- return this.tab.result() === this 
-}
+        return this.tab.result() === this;
+    }
 
     toggle() {
         var expand = this.tab.result() !== this;
@@ -107,8 +107,8 @@ class SearchResult {
                 this.error(response.error);
             })
             .always(function () {
- this.loading(false) 
-});
+                this.loading(false);
+            });
         }
 
         return false;

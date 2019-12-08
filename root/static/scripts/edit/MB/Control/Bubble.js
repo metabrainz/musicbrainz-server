@@ -20,8 +20,8 @@ class BubbleBase {
      * aren't primitive, even if the values are equal.
      */
     targetEqualityComparer(a, b) {
- return a === b 
-}
+        return a === b;
+    }
 
     constructor(group) {
         this.group = group || 0;
@@ -75,8 +75,8 @@ class BubbleBase {
 
     // Action upon pressing enter in an input. Defaults to hide.
     submit() {
- this.hide() 
-}
+        this.hide();
+    }
 
     toggle(control) {
         if (this.visible.peek()) {
@@ -202,8 +202,8 @@ ko.bindingHandlers.controlsBubble = {
 
         ko.computed({
             read: function () {
- return !!bubble.canBeShown(viewModel) 
-},
+                return !!bubble.canBeShown(viewModel);
+            },
             disposeWhenNodeIsRemoved: element
         })
         .subscribe(function (show) {
@@ -234,8 +234,8 @@ ko.bindingHandlers.affectsBubble = {
 
         var observer = new MutationObserver(_.throttle(function () {
             _.delay(function () {
- valueAccessor().redraw() 
-}, 100);
+                valueAccessor().redraw();
+            }, 100);
         }, 100));
 
         observer.observe(element, { childList: true, subtree: true });

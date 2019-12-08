@@ -90,8 +90,8 @@ $('input[name=edit-place\\.coordinates]').on('input', function () {
             map.setZoom(16);
         }).fail(function (jqxhr, text_status) {
             if (text_status === 'abort') {
- return; 
-}
+                return;
+            }
 
             $('input[name=edit-place\\.coordinates]').addClass('error');
             $('.coordinates-errors').css('display', 'block');

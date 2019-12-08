@@ -25,22 +25,22 @@ import releaseEditor from './viewModel';
 const actions = {
 
     cancelPage: function () {
- window.location = this.returnTo 
-},
+        window.location = this.returnTo;
+    },
 
     nextTab: function () {
- this.adjacentTab(1) 
-},
+        this.adjacentTab(1);
+    },
 
     previousTab: function () {
- this.adjacentTab(-1) 
-},
+        this.adjacentTab(-1);
+    },
 
     lastTab: function () {
         this.uiTabs._setOption("active", this.tabCount - 1);
         this.uiTabs.tabs.eq(this.tabCount - 1).focus();
         return;
-     },
+    },
 
     adjacentTab: function (direction) {
         var index = this.activeTabIndex();
@@ -251,12 +251,12 @@ const actions = {
     },
 
     toggleMedium: function (medium) {
- medium.collapsed(!medium.collapsed()) 
-},
+        medium.collapsed(!medium.collapsed());
+    },
 
     openTrackParser: function (medium) {
- this.trackParserDialog.open(medium) 
-},
+        this.trackParserDialog.open(medium);
+    },
 
     resetTrackNumbers: function (medium) {
         var offset = medium.hasPregap() ? 0 : 1;

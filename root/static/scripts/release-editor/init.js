@@ -273,8 +273,8 @@ releaseEditor.init = function (options) {
 
     $(function () {
         $pageContent.fadeIn("fast", function () {
- $("#name").focus() 
-});
+            $("#name").focus();
+        });
     });
 };
 

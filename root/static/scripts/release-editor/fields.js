@@ -383,8 +383,8 @@ class Medium {
         this.hasVariousArtistTracks = this.tracks.any("hasVariousArtists");
         this.confirmedVariousArtists = ko.observable(this.hasVariousArtistTracks());
         this.needsTrackInfo = ko.computed(function () {
- return !self.hasTrackInfo() 
-});
+            return !self.hasTrackInfo();
+        });
 
         if (data.id != null) {
             this.id = data.id;
@@ -480,8 +480,8 @@ class Medium {
         var tocTrackCount = toc.length - 3;
         var tracks = this.tracks();
         var tocTracks = _.reject(tracks, function (t) {
- return t.position() == 0 || t.isDataTrack() 
-});
+            return t.position() == 0 || t.isDataTrack();
+        });
         var trackCount = tocTracks.length;
         var pregapOffset = this.hasPregap() ? 0 : 1;
 
@@ -569,8 +569,9 @@ class Medium {
         var pp = this.id ? // no ID means this medium is being reused
             Track :
             function (track, parent) {
- return new Track(_.omit(track, 'id'), parent); 
-};
+                return new Track(_.omit(track, 'id'), parent);
+            };
+
         this.tracks(utils.mapChild(this, data.tracks, pp));
 
         if (this.release.seededTocs) {
@@ -600,8 +601,8 @@ class Medium {
     }
 
     hasTracks() {
- return this.tracks().length > 0 
-}
+        return this.tracks().length > 0;
+    }
 
     formattedName() {
         var name = this.name(),
@@ -841,8 +842,8 @@ class Release extends MB_entity.Release {
         );
 
         function countryID(event) {
- return event.countryID() 
-}
+            return event.countryID();
+        }
 
         function nonEmptyEvent(event) {
             var date = event.unwrapDate();
@@ -917,13 +918,13 @@ class Release extends MB_entity.Release {
         this.hasInvalidFormats = errorField(this.mediums.any("hasInvalidFormat"));
         this.hasUnconfirmedVariousArtists = errorField(this.mediums.any("hasUnconfirmedVariousArtists"));
         this.needsMediums = errorField(function () {
- return !(self.mediums().length || self.hasUnknownTracklist()) 
-});
+            return !(self.mediums().length || self.hasUnknownTracklist());
+        });
         this.needsFormat = errorField(this.mediums.any("needsFormat"));
         this.needsTracks = errorField(this.mediums.any("needsTracks"));
         this.needsTrackInfo = errorField(function () {
- return !self.hasTrackInfo() 
-});
+            return !self.hasTrackInfo();
+        });
         this.hasInvalidPregapLength = errorField(this.mediums.any("hasInvalidPregapLength"));
 
         // Ensure there's at least one event, label, and medium to edit.

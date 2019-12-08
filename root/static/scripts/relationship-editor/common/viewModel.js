@@ -128,8 +128,8 @@ export class ViewModel {
         _sortedRelationships(relationships, source) {
             return relationships
                 .sortBy(function (r) {
- return r.lowerCaseTargetName(source) 
-})
+                    return r.lowerCaseTargetName(source);
+                })
                 .sortBy("linkOrder");
         }
 

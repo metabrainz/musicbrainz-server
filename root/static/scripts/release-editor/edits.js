@@ -422,8 +422,8 @@ releaseEditor.getEditPreviews = function () {
     }
 
     function getPreview(edit) {
- return previews[edit.hash] 
-}
+        return previews[edit.hash];
+    }
     function addPreview(tuple) {
         var editHash = tuple[0].hash, preview = tuple[1];
         if (preview) {
@@ -432,8 +432,8 @@ releaseEditor.getEditPreviews = function () {
         }
     }
     function isNewEdit(edit) {
- return previews[edit.hash] === undefined 
-}
+        return previews[edit.hash] === undefined;
+    }
 
     debounce(function () {
         var edits = releaseEditor.allEdits();

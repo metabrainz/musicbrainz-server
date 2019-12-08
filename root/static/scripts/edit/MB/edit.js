@@ -24,20 +24,20 @@ import request from '../../common/utility/request';
 
 
     function value(arg) {
- return typeof arg === "function" ? arg() : arg 
-}
+        return typeof arg === "function" ? arg() : arg;
+    }
     function string(arg) {
- return clean(value(arg)) 
-}
+        return clean(value(arg));
+    }
     function number(arg) {
- var num = parseInt(value(arg), 10); return isNaN(num) ? null : num 
-}
+        var num = parseInt(value(arg), 10); return isNaN(num) ? null : num;
+    }
     function array(arg, type) {
- return _.map(value(arg), type) 
-}
+        return _.map(value(arg), type);
+    }
     function nullableString(arg) {
- return string(arg) || null 
-}
+        return string(arg) || null;
+    }
 
 
     var fields = edit.fields = {
@@ -151,8 +151,8 @@ import request from '../../common/utility/request';
             data.attributes = _(ko.unwrap(relationship.attributes))
                 .invokeMap('toJS')
                 .sortBy(function (a) {
- return a.type.id 
-})
+                    return a.type.id;
+                })
                 .value();
 
             if (_.isNumber(data.linkTypeID)) {
@@ -342,8 +342,8 @@ import request from '../../common/utility/request';
         TYPES.EDIT_RELEASE_ADDRELEASELABEL,
 
         function (args) {
- delete args.release_label 
-}
+            delete args.release_label;
+        }
     );
 
 
@@ -397,8 +397,8 @@ import request from '../../common/utility/request';
     edit.relationshipCreate = editConstructor(
         TYPES.EDIT_RELATIONSHIP_CREATE,
         function (args) {
- delete args.id 
-}
+            delete args.id;
+        }
     );
 
 
@@ -443,8 +443,8 @@ import request from '../../common/utility/request';
 
     function editEndpoint(endpoint) {
         function omitHash(edit) {
- return _.omit(edit, "hash") 
-}
+            return _.omit(edit, "hash");
+        }
 
         return function (data, context) {
             data.edits = _.map(data.edits, omitHash);
