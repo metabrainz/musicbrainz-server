@@ -104,11 +104,13 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
                 function (r) { return _(r.target(series).events)
                     .map(getDate)
                     .sort()
-                    .head() },
+                    .head() 
+                },
                 function (r) { return _(r.target(series).labels)
                     .map(getCatalogNumber)
                     .sort()
-                    .head() }
+                    .head() 
+                }
             );
         },
         release_group: function (relationships, series) {

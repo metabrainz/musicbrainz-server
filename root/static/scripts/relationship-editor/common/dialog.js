@@ -552,8 +552,8 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
                    this.targetEntityError() ||
                    _(relationship.getLinkType().attributes)
                      .values()
-                     .map(_.bind(relationship.attributeError, relationship))
-                     .some() ||
+                        .map(_.bind(relationship.attributeError, relationship))
+                        .some() ||
                    this.dateError(relationship.begin_date) ||
                    this.dateError(relationship.end_date) ||
                    this.tooShortBeginYearError() ||

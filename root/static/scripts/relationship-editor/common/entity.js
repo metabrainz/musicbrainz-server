@@ -116,41 +116,41 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
 
             return this.displayableRelationships(vm)
                 .groupBy(linkPhrase).sortBy("key")
-                .map(function (group) {
-                    group.openAddDialog = openAddDialog;
-                    group.canBeOrdered = ko.observable(false);
+                    .map(function (group) {
+                        group.openAddDialog = openAddDialog;
+                        group.canBeOrdered = ko.observable(false);
 
-                    var relationships = group.values.peek();
-                    if (!relationships.length) {
-                        return group;
-                    }
-                    var linkType = relationships[0].getLinkType();
+                        var relationships = group.values.peek();
+                        if (!relationships.length) {
+                            return group;
+                        }
+                        var linkType = relationships[0].getLinkType();
 
-                    if (linkType && linkType.orderable_direction > 0) {
-                        group.canBeOrdered = group.values.all(function (r) {
-                            return r.entityCanBeReordered(r.target(self));
-                        });
-                    }
+                        if (linkType && linkType.orderable_direction > 0) {
+                            group.canBeOrdered = group.values.all(function (r) {
+                                return r.entityCanBeReordered(r.target(self));
+                            });
+                        }
 
-                    if (ko.unwrap(group.canBeOrdered)) {
-                        var hasOrdering = group.values.any(function (r) { return r.linkOrder() > 0 });
+                        if (ko.unwrap(group.canBeOrdered)) {
+                            var hasOrdering = group.values.any(function (r) { return r.linkOrder() > 0 });
 
-                        group.hasOrdering = ko.computed({
-                            read: hasOrdering,
-                            write: function (newValue) {
-                                var currentValue = hasOrdering.peek();
+                            group.hasOrdering = ko.computed({
+                                read: hasOrdering,
+                                write: function (newValue) {
+                                    var currentValue = hasOrdering.peek();
 
-                                if (currentValue && !newValue) {
-                                    _.each(group.values.slice(0), function (r) { r.linkOrder(0) });
-                                } else if (newValue && !currentValue) {
-                                    _.each(group.values.slice(0), function (r, i) { r.linkOrder(i + 1) });
+                                    if (currentValue && !newValue) {
+                                        _.each(group.values.slice(0), function (r) { r.linkOrder(0) });
+                                    } else if (newValue && !currentValue) {
+                                        _.each(group.values.slice(0), function (r, i) { r.linkOrder(i + 1) });
+                                    }
                                 }
-                            }
-                        });
-                    }
+                            });
+                        }
 
-                    return group;
-                });
+                        return group;
+                    });
         }),
 
         groupedRelationshipsLabel: function (key) {

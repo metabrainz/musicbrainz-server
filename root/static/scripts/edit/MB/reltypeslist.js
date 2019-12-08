@@ -7,13 +7,13 @@ $(function () {
     $(".toggle").click(function () {
 
         $(this).parent()
-        .next(".reldetails")
-        .toggle();
+            .next(".reldetails")
+            .toggle();
 
         if ($(this)
-        .parent()
-        .next(".reldetails")
-        .is(':hidden')) {
+            .parent()
+            .next(".reldetails")
+            .is(':hidden')) {
             $(this).text("more");
         } else {
             $(this).text("less");

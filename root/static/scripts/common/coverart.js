@@ -26,7 +26,7 @@ $(function () {
             "src": thumbnail_url,
             "title": $e.data("title")
         })
-        .appendTo(this);
+            .appendTo(this);
 
     });
 });

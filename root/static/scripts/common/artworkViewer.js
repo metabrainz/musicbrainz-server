@@ -148,10 +148,10 @@ $.widget("mb.artworkViewer", $.ui.dialog, {
         this._sizeAndPosition();
 
         this.element.find("img").remove()
-        .end()
-        .append(image);
+            .end()
+            .append(image);
         this.$loading.stop(true, true)
-        .fadeOut();
+            .fadeOut();
 
         // Preload the previous and next images.
         this._prevImageLink && this._loadImage(this._prevImageLink.href);

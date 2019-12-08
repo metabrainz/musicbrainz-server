@@ -191,7 +191,7 @@ import request from '../../common/utility/request';
                     return event;
                 }
             }).compact()
-            .value();
+                .value();
 
             return {
                 name:               string(release.name),

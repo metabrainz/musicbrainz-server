@@ -724,8 +724,8 @@ MB.Control.autocomplete_formatters = {
             .groupBy(getLabelName)
             .each(function (releaseLabels, name) {
                 var catalogNumbers = _(releaseLabels).map(getCatalogNumber).compact()
-                .sort()
-                .value();
+                    .sort()
+                    .value();
 
                 if (catalogNumbers.length > 2) {
                     appendComment(

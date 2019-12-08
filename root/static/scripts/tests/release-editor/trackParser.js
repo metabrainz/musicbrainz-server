@@ -175,8 +175,8 @@ parserTest("internal track positions are updated appropriately after being reuse
     medium.toc(null);
 
     var input = trackParser.mediumToString(medium).split('\n')
-    .reverse()
-    .join("\n");
+        .reverse()
+        .join("\n");
 
     medium.tracks(trackParser.parse(input, medium));
 

@@ -611,7 +611,7 @@ releaseEditor.orderedEditSubmissions = [
         callback: function (release, edits) {
             var added = _(edits).map("entity").compact()
                                 .keyBy("position")
-                                .value();
+                                    .value();
 
             var newMediums = release.mediums();
 
