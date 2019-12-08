@@ -9,8 +9,6 @@
 import $ from 'jquery';
 import _ from 'lodash';
 
-import MB from './MB';
-
     $.widget("mb.iframeDialog", $.ui.dialog, {
 
         options: {

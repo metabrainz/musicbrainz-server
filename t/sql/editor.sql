@@ -5,9 +5,7 @@ INSERT INTO editor (id, name, password, privs, email, website, bio, member_since
          (2, 'Alice', '{CLEARTEXT}secret1', 0, 'alice@example.com', 'http://example.com',
         'second biography', '2007-07-23', '2007-10-20', now(), 'e7f46e4f25ae38fcc952ef2b7edf0de9'),
          (3, 'kuno', '{CLEARTEXT}byld', 0, 'kuno@example.com', 'http://frob.nl',
-        'donation check test user', '2010-03-25', '2010-03-25', now(), '00863261763ed5029ea051f87c4bbec3'),
-         (4, 'ModBot', '{CLEARTEXT}mb', 0, '', 'http://musicbrainz.org/doc/ModBot',
-         'See the above link for more information.', NULL, NULL, NULL, '9bcacf185adc9268d460694f78615c33');
+        'donation check test user', '2010-03-25', '2010-03-25', now(), '00863261763ed5029ea051f87c4bbec3');
 
 INSERT INTO editor_preference (editor, name, value)
     VALUES (1, 'datetime_format', '%m/%d/%Y %H:%M:%S'),

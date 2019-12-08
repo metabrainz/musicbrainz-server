@@ -15,7 +15,7 @@ $(function () {
             ? $e.data("large-thumbnail")
             : $e.data("small-thumbnail");
 
-        $("<img />").bind('error', function (event) {
+        $("<img />").bind('error', function () {
             if ($e.data("fallback") && $e.attr("src") === thumbnail_url) {
                 $e.attr("src", $e.data("fallback"));
             } else {

@@ -100,7 +100,6 @@ ko.bindingHandlers.artistCreditEditor = {
     },
 
     update: function (element, valueAccessor) {
-        const bindingHandler = ko.bindingHandlers.artistCreditEditor;
         const entity = valueAccessor();
         /*
          * Subscribe to the artistCredit observable so that we

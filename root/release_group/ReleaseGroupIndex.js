@@ -74,7 +74,7 @@ function buildReleaseStatusTable($c, releaseStatusGroup) {
             <EntityLink entity={release} />
           </td>
           <td>{release.combined_format_name || l('[missing media]')}</td>
-          <td>{release.combined_track_count || '-'}</td>
+          <td>{release.combined_track_count || lp('-', 'missing data')}</td>
           <td>
             <ReleaseDates events={release.events} />
           </td>

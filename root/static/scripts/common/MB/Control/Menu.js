@@ -36,7 +36,7 @@ MB.Control.HeaderMenu = function () {
         }
     });
 
-    $('body').on('click', function (event) {
+    $('body').on('click', function () {
         /*
          * Clicks outside of the menu (anything that reaches the body) should
          * close the menu.

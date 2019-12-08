@@ -111,11 +111,13 @@ class TimelineViewModel {
         }, 1000);
 
         self.waitToGraph = ko.computed(function () {
-            if (_.some(self.enabledCategories(), function (c) { return c.hasLoadingLines() }))
+            if (_.some(self.enabledCategories(), function (c) { return c.hasLoadingLines() })) {
                 return true;
+            }
 
-            if (self.options.events() && !self.loadedEvents())
+            if (self.options.events() && !self.loadedEvents()) {
                 return true;
+            }
 
             return false;
         });
@@ -126,7 +128,11 @@ class TimelineViewModel {
                     var rateBounds = line.calculateRateBounds(
                         line.rateData().data,
                         line.rateData().thresholds,
-                        {min: self.zoom.xaxis.min(), max: self.zoom.xaxis.max()});
+                        {
+                          min: self.zoom.xaxis.min(),
+                          max: self.zoom.xaxis.max(),
+                        },
+                    );
                     if (accum.min == null || rateBounds.min < accum.min) {
                         accum.min = rateBounds.min;
                     }
@@ -136,10 +142,12 @@ class TimelineViewModel {
                 }
                 return accum;
             }, {min: null, max: null});
-            if (bounds.min)
+            if (bounds.min) {
                 bounds.min = bounds.min - Math.abs(bounds.min * 0.10);
-            if (bounds.max)
+            }
+            if (bounds.max) {
                 bounds.max = bounds.max + Math.abs(bounds.max * 0.10);
+            }
             return bounds;
         });
 
@@ -212,13 +220,14 @@ class TimelineViewModel {
 
         _.forEach(parts, function (part) {
             var match;
-            if (match = part.match(/^(-)?([rv])-?$/)) { // trailing - for backwards-compatibility
+
+            if ((match = part.match(/^(-)?([rv])-?$/))) { // trailing - for backwards-compatibility
                 var meth = match[2] === 'r' ? 'rate' : 'events';
                 self.options[meth](!(match[1] === '-'));
-            } else if (match = part.match(/^(-)?(c-.*)$/)) {
+            } else if ((match = part.match(/^(-)?(c-.*)$/))) {
                 var category = _.find(self.categories(), { hashIdentifier: match[2] });
                 if (category) { category.enabled(!(match[1] === '-')) }
-            } else if (match = part.match(/^g\/.*$/)) {
+            } else if ((match = part.match(/^g\/.*$/))) {
                 self.zoomHashPart(part);
             } else {
                 match = part.match(/^(-)?(.*)$/);
@@ -263,7 +272,7 @@ class TimelineViewModel {
         $.ajax({
             url: '../../ws/js/events',
             dataType: 'json'
-        }).done(function (data, status, jqxhr) {
+        }).done(function (data) {
             self.events(_.map(data, function (e) {
                 e.jsDate = Date.parse(e.date);
                 return e;
@@ -342,7 +351,7 @@ class TimelineLine {
         $.ajax({
             url: '../../statistics/dataset/' + self.name,
             dataType: 'json'
-        }).done(function (data, status, jqxhr) {
+        }).done(function (data) {
             data = data.data;
 
             const serial = [];
@@ -523,10 +532,12 @@ class TimelineLine {
                 }
             }).bind('plotselected', function (event, ranges) {
                 // Prevent eternal zoom
-                if (ranges.xaxis.to - ranges.xaxis.from < 86400000)
+                if (ranges.xaxis.to - ranges.xaxis.from < 86400000) {
                     ranges.xaxis.to = ranges.xaxis.from + 86400000;
-                if (ranges.yaxis.to - ranges.yaxis.from < 1)
+                }
+                if (ranges.yaxis.to - ranges.yaxis.from < 1) {
                     ranges.yaxis.to = ranges.yaxis.from + 1;
+                 }
 
                 var zoomArr = [ranges.xaxis.from, ranges.xaxis.to];
                 if (graph === 'main' || graph === 'overview') {

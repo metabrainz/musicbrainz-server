@@ -32,7 +32,7 @@ type Props = {
   },
 };
 
-function buildSection<T>(
+function buildSection(
   props: Props,
   entityType: string,
   title: string,

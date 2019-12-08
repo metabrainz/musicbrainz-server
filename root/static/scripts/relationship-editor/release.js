@@ -94,7 +94,6 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
         }
 
         getEdits(addChanged) {
-            var self = this;
             var release = this.source;
 
             _.each(release.mediums(), function (medium) {
@@ -134,7 +133,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
 
             this.submissionLoading(true);
 
-            function addChanged(relationship, source) {
+            function addChanged(relationship) {
                 if (alreadyAdded[relationship.uniqueID]) {
                     return;
                 }
@@ -280,7 +279,6 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
         }
 
         _sortedRelationships(relationships, source) {
-            var self = this;
 
             return relationships.filter(function (relationship) {
                 return relationship.entityTypes !== "recording-work";
@@ -316,7 +314,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
     };
 
 
-    function initCheckboxes(checkboxes, trackCount) {
+    function initCheckboxes(checkboxes) {
         var medium_recording_selector = "input.medium-recordings";
         var medium_work_selector = "input.medium-works";
         var $tracklist = $("#tracklist tbody");
@@ -326,7 +324,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
         }
 
         function medium(medium_selector, selector, counter) {
-            $tracklist.on("change", medium_selector, function (event) {
+            $tracklist.on("change", medium_selector, function () {
                 var checked = this.checked,
                     $changed = $(this).parents("tr.subh").nextUntil("tr.subh")
                         .find(selector)
@@ -338,7 +336,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
 
         function _release(medium_selector, cls) {
             $('<input type="checkbox"/>&#160;')
-                .change(function (event) {
+                .change(function () {
                     $tracklist.find(medium_selector)
                         .prop("checked", this.checked).change();
                 })

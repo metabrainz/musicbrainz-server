@@ -15,6 +15,7 @@ import ArtistCreditLink from './components/ArtistCreditLink';
 import EditorLink from './components/EditorLink';
 import EntityLink from './components/EntityLink';
 import DescriptiveLink from './components/DescriptiveLink';
+import MediumDescription from './components/MediumDescription';
 import {
   ENTITY_NAMES,
   PART_OF_SERIES_LINK_TYPES,
@@ -346,7 +347,9 @@ import formatTrackLength from './utility/formatTrackLength';
 
         getSeriesItems(viewModel) {
             var type = this.type();
-            if (!type) return [];
+            if (!type) {
+                return [];
+            }
 
             var gid = PART_OF_SERIES_LINK_TYPES[type.item_entity_type];
             var linkTypeID = linkedEntities.link_type[gid].id;
@@ -420,20 +423,9 @@ import formatTrackLength from './utility/formatTrackLength';
 
             this.tracks = _.map(data.tracks, x => new Track(x));
 
-            const positionArgs = {
-                medium_format: this.format,
-                position: this.position,
-                title: this.name
-            };
-            if (this.name) {
-                this.positionName = this.format
-                    ? texp.l('{medium_format} {position}: {title}', positionArgs)
-                    : texp.l('Medium {position}: {title}', positionArgs);
-            } else {
-                this.positionName = this.format
-                    ? texp.l('{medium_format} {position}', positionArgs)
-                    : texp.l('Medium {position}', positionArgs);
-            }
+            this.positionName = ReactDOMServer.renderToString(
+                <MediumDescription medium={this} />,
+            );
         }
     }
 

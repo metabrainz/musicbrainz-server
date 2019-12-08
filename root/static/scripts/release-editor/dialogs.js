@@ -142,7 +142,7 @@ class SearchResult {
     link() {
         let formatString;
         if (this.format) {
-            formatString = this.format +
+            formatString = lp_attributes(this.format.name, 'medium_format') +
                 (this.position ? ' ' + this.position : '');
         }
 
@@ -200,7 +200,9 @@ class SearchTab {
     }
 
     cancelSearch() {
-        if (this._jqXHR) this._jqXHR.abort();
+        if (this._jqXHR) {
+            this._jqXHR.abort();
+        }
     }
 
     buttonClicked() {
@@ -320,7 +322,9 @@ Object.assign(addDiscDialog, {
 
         _.each([mediumSearchTab, cdstubSearchTab],
             function (tab) {
-                if (!tab.releaseName()) tab.releaseName(release.name());
+                if (!tab.releaseName()) {
+                    tab.releaseName(release.name());
+                }
 
                 if (!tab.artistName()) {
                     tab.artistName(reduceArtistCredit(release.artistCredit()));
@@ -332,7 +336,9 @@ Object.assign(addDiscDialog, {
 
     addDisc: function () {
         var medium = this.currentTab().addDisc();
-        if (!medium) return;
+        if (!medium) {
+            return;
+        }
 
         var release = releaseEditor.rootField.release();
 

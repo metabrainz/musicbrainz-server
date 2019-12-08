@@ -17,7 +17,6 @@ import EntityLink, {DeletedLink} from './EntityLink';
 type Props = {
   +artistCredit: ArtistCreditT,
   +showDeleted?: boolean,
-  +showEditsPending?: boolean,
   +target?: '_blank',
 };
 
@@ -70,7 +69,6 @@ const MpIcon = hydrate<MpIconProps>('span.ac-mp', (
 const ArtistCreditLink = ({
   artistCredit,
   showDeleted = true,
-  showEditsPending = true,
   ...props
 }: Props) => {
   const names = artistCredit.names;

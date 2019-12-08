@@ -20,7 +20,6 @@ const spawnSync = require('child_process').spawnSync;
 const _ = require('lodash');
 
 const createServer = require('./server/createServer');
-const {clearRequireCache} = require('./server/utils');
 const writeCoverage = require('./utility/writeCoverage');
 
 const yargs = require('yargs')
@@ -98,7 +97,7 @@ if (cluster.isMaster) {
     }
   }
 
-  const cleanup = Raven.wrap(function (signal) {
+  const cleanup = Raven.wrap(function () {
     const timeout = setTimeout(() => {
       for (const id in cluster.workers) {
         killWorker(cluster.workers[id]);

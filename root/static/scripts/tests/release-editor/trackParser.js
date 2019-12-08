@@ -166,7 +166,6 @@ parserTest("internal track positions are updated appropriately after being reuse
         useTrackLengths: true
     });
 
-    var re = releaseEditor;
     releaseEditor.rootField.release(new fields.Release(common.testRelease));
 
     var release = releaseEditor.rootField.release();
@@ -190,7 +189,6 @@ parserTest("internal track positions are updated appropriately after being reuse
 parserTest("MBS-7451: track parser can clear TOC track lengths", function (t) {
     t.plan(1);
 
-    var re = releaseEditor;
     releaseEditor.rootField.release(new fields.Release(common.testRelease));
 
     var release = releaseEditor.rootField.release();

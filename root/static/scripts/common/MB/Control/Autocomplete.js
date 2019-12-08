@@ -52,7 +52,7 @@ $.widget("mb.entitylookup", $.ui.autocomplete, {
         showStatus: true,
 
         // Prevent menu item focus from changing the input value
-        focus: function (event, data) {
+        focus: function () {
             return false;
         },
 
@@ -147,7 +147,7 @@ $.widget("mb.entitylookup", $.ui.autocomplete, {
 
         // End of options callbacks.
 
-        this.element.on("input", function (event) {
+        this.element.on("input", function () {
             var selection = self.currentSelection.peek();
 
             /*
@@ -165,7 +165,7 @@ $.widget("mb.entitylookup", $.ui.autocomplete, {
             }
         });
 
-        this.element.on("blur", function (event) {
+        this.element.on("blur", function () {
             /*
              * Stop searching if someone types something and then tabs out of
              * the field.
@@ -211,7 +211,7 @@ $.widget("mb.entitylookup", $.ui.autocomplete, {
         });
 
 
-        this.$search.on("click.mb", function (event) {
+        this.$search.on("click.mb", function () {
             if (self.element.is(":enabled")) {
                 self.element.focus();
 
@@ -433,9 +433,11 @@ $.widget("mb.entitylookup", $.ui.autocomplete, {
          */
 
         var results = this.currentResults = _.filter(
-            this.currentResults, function (item) {
+            this.currentResults,
+            function (item) {
                 return !item.action;
-            });
+            },
+        );
 
         results.push.apply(results, data);
 

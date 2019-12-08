@@ -12,7 +12,6 @@ import sortBy from 'lodash/sortBy';
 
 import EnterEdit from '../components/EnterEdit';
 import EnterEditNote from '../components/EnterEditNote';
-import FieldErrors from '../components/FieldErrors';
 import FormRowCheckbox from '../components/FormRowCheckbox';
 import ArtistList from '../components/list/ArtistList';
 import {withCatalystContext} from '../context';

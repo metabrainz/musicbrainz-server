@@ -33,7 +33,7 @@ MB.forms = {
             if (!children) { return; }
 
             const childOptions = [];
-            while (child = children[i++]) {
+            while ((child = children[i++])) {
                 var opt = {};
 
                 opt.value = child[valueAttr];
@@ -60,8 +60,12 @@ MB.forms = {
 
     linkTypeOptions: function (root, backward) {
         function getText(data) {
-            return stripAttributes(data, l_relationships(
-                backward ? data.reverse_link_phrase : data.link_phrase));
+            return stripAttributes(
+                data, 
+                l_relationships(
+                    backward ? data.reverse_link_phrase : data.link_phrase,
+                ),
+            );
         }
 
         var options = MB.forms.buildOptionsTree(root, getText, 'id');
@@ -132,7 +136,7 @@ ko.bindingHandlers.loop = {
                 items = observableArray.peek(),
                 removals = [];
 
-            for (var i = 0, change, j, node; change = changes[i]; i++) {
+            for (var i = 0, change, j, node; (change = changes[i]); i++) {
                 var status = change.status;
 
                 if (status === "retained") {
@@ -142,7 +146,6 @@ ko.bindingHandlers.loop = {
                 var item = change.value,
                     itemID = item[idAttribute],
                     currentElements = elements[itemID],
-                    nextItem = items[change.index + 1],
                     tmpElementContainer;
 
                 if (status === "added") {
@@ -157,7 +160,7 @@ ko.bindingHandlers.loop = {
                              */
                             tmpElementContainer = document.createElement("div");
 
-                            for (j = 0; node = template[j]; j++) {
+                            for (j = 0; (node = template[j]); j++) {
                                 tmpElementContainer.appendChild(node.cloneNode(true));
                             }
 
@@ -169,7 +172,7 @@ ko.bindingHandlers.loop = {
                     }
                 } else if (status === "deleted") {
                     if (change.moved === undefined) {
-                        for (j = 0; node = currentElements[j]; j++) {
+                        for (j = 0; (node = currentElements[j]); j++) {
                             /*
                              * If the node is already removed for some unknown
                              * reason, don't outright explode. It's possible
@@ -196,7 +199,7 @@ ko.bindingHandlers.loop = {
                     elementsToInsert = currentElements[0];
                 } else {
                     elementsToInsert = document.createDocumentFragment();
-                    for (j = 0; node = currentElements[j]; j++) {
+                    for (j = 0; (node = currentElements[j]); j++) {
                         elementsToInsert.appendChild(node);
                     }
                 }
@@ -220,7 +223,7 @@ ko.bindingHandlers.loop = {
                  * the elements to parentNode.
                  */
 
-                for (var j = change.index - 1; prevItem = items[j]; j--) {
+                for (var j = change.index - 1; (prevItem = items[j]); j--) {
                     elementsToInsertAfter = elements[prevItem[idAttribute]];
 
                     /*
@@ -241,7 +244,7 @@ ko.bindingHandlers.loop = {
 
             // Brief timeout in case a removed item gets re-added.
             setTimeout(function () {
-                for (var i = 0, removal; removal = removals[i]; i++) {
+                for (var i = 0, removal; (removal = removals[i]); i++) {
                     if (!document.body.contains(removal.node)) {
                         ko.cleanNode(removal.node);
                         delete elements[removal.itemID];

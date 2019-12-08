@@ -18,7 +18,7 @@ const releaseEventKey = event => (
   formatDate(event.date)
 );
 
-const buildReleaseEvent = (event, index) => (
+const buildReleaseEvent = (event) => (
   <li key={releaseEventKey(event)}>
     <ReleaseEvent event={event} />
   </li>

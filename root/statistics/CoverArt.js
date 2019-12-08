@@ -10,7 +10,7 @@
 import React from 'react';
 import {range} from 'lodash';
 
-import {l_statistics as l, ln_statistics as ln}
+import {l_statistics as l}
   from '../static/scripts/common/i18n/statistics';
 import {withCatalystContext} from '../context';
 

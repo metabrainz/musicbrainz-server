@@ -95,7 +95,9 @@ const trackParser = releaseEditor.trackParser = {
              * went wrong. Returning undefined removes this result from
              * newTracks.
              */
-            if (!_.some(_.values(data))) return;
+            if (!_.some(_.values(data))) {
+                return;
+            }
 
             currentPosition += 1;
             data.position = currentPosition;
@@ -104,7 +106,9 @@ const trackParser = releaseEditor.trackParser = {
                 data.number = currentPosition;
             }
 
-            if (!currentTracks || !currentTracks.length) return data;
+            if (!currentTracks || !currentTracks.length) {
+                return data;
+            }
 
             /*
              * Check for tracks with similar names to existing tracks, so that
@@ -154,7 +158,8 @@ const trackParser = releaseEditor.trackParser = {
              * See if we can re-use the AC from the matched track, the previous
              * track at this position, or the release.
              */
-            var matchedAC = _.find([ matchedTrackAC, previousTrackAC, releaseAC ],
+            var matchedAC = _.find(
+                [ matchedTrackAC, previousTrackAC, releaseAC ],
                 function (ac) {
                     if (!ac || hasVariousArtists(ac)) {
                         return false;
@@ -164,7 +169,7 @@ const trackParser = releaseEditor.trackParser = {
                         !data.artist ||
                         utils.similarNames(data.artist, reduceArtistCredit(ac))
                     );
-                }
+                },
             );
 
             if (matchedAC) {
@@ -313,7 +318,9 @@ const trackParser = releaseEditor.trackParser = {
         // trim only, keeping tabs and other space separators intact.
         line = line.trim();
 
-        if (line === "") return data;
+        if (line === "") {
+            return data;
+        }
 
         /*
          * Parse track times first, because they could be confused with track
@@ -337,7 +344,9 @@ const trackParser = releaseEditor.trackParser = {
             match = line.match(options.hasVinylNumbers ? this.vinylNumber : this.trackNumber);
 
             // There should always be a track number if this option's set.
-            if (match === null) return {};
+            if (match === null) {
+                return {};
+            }
 
             if (options.useTrackNumbers) {
                 data.number = fromFullwidthLatin(match[1]);
@@ -431,7 +440,9 @@ const trackParser = releaseEditor.trackParser = {
             if (options.hasTrackArtists) {
                 var artist = reduceArtistCredit(track.artistCredit());
 
-                if (artist) memo += " - " + artist;
+                if (artist) {
+                    memo += " - " + artist;
+                }
             }
 
             memo += " (" + (track.formattedLength.peek() || "?:??") + ")";
@@ -441,7 +452,9 @@ const trackParser = releaseEditor.trackParser = {
     },
 
     matchDataWithTrack: function (data, track) {
-        if (!track) return;
+        if (!track) {
+            return;
+        }
 
         var similarity = getSimilarity(data.name, track.name.peek());
 

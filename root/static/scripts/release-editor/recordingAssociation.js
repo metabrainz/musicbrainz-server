@@ -47,7 +47,9 @@ var releaseGroupRecordings = ko.observable(),
 
 
 recordingAssociation.getReleaseGroupRecordings = function (releaseGroup, offset, results) {
-    if (!releaseGroup || !releaseGroup.gid) return;
+    if (!releaseGroup || !releaseGroup.gid) {
+        return;
+    }
 
     var query = utils.constructLuceneField(
         [ utils.escapeLuceneValue(releaseGroup.gid) ], "rgid"
@@ -183,7 +185,9 @@ function searchTrackArtistRecordings(track) {
 
 recordingAssociation.autocompleteHook = function (track) {
     return function (args) {
-        if (args.data.direct) return args;
+        if (args.data.direct) {
+            return args;
+        }
 
         var newArgs = {
             url: "/ws/2/recording",
@@ -231,7 +235,9 @@ function watchTrackForChanges(track) {
      * Only proceed if we need a recording, and the track has information
      * we can search for - this tab should be disabled otherwise, anyway.
      */
-    if (!name || !completeAC) return;
+    if (!name || !completeAC) {
+        return;
+    }
 
     var similarTo = function (prop) {
         return (utils.similarNames(track.name[prop], name) &&
@@ -271,7 +277,8 @@ recordingAssociation.findRecordingSuggestions = function (track) {
                         delete releaseGroupRecordings.loading;
 
                         recordingAssociation.findRecordingSuggestions(track);
-                    });
+                    },
+                );
             }
             return;
         }
@@ -309,7 +316,9 @@ function setSuggestedRecordings(track, recordings) {
 
 
 function matchAgainstRecordings(track, recordings) {
-    if (!recordings || !recordings.length) return;
+    if (!recordings || !recordings.length) {
+        return;
+    }
 
     var trackLength = track.length();
     var trackName = track.name();

@@ -99,7 +99,10 @@ var testRelease = {
                     artistCredit: {names: []},
                 }
             ],
-            format: "Vinyl",
+            format: {
+                name: "Vinyl",
+            },
+            format_id: 7,
             position: 1
         }
     ],

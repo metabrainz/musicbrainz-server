@@ -43,7 +43,11 @@ const PaginatedResults = ({
               'Found {n} result for "{q}"',
               'Found {n} results for "{q}"',
               pager.total_entries,
-              {n: Number(pager.total_entries).toLocaleString(), q: query})
+              {
+                n: Number(pager.total_entries).toLocaleString(),
+                q: query,
+              },
+            )
           )}
         </p>
       ) : null}

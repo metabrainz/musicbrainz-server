@@ -345,7 +345,7 @@ function parseQueryString(queryString) {
     var fields = {};
     var subField, match, parts;
 
-    while (match = queryStringRegex.exec(queryString)) {
+    while ((match = queryStringRegex.exec(queryString))) {
         subField = fields;
         parts = match[1].split('.');
 

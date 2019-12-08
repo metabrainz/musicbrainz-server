@@ -38,7 +38,6 @@ MB.GuessCase.Handler.Label = function (gc) {
                 // Match "n/a" and variants
                 gc.re.LABEL_NA = /^[\(\[]?\s*n\s*[\\\/]\s*a\s*[\)\]]?$/i;
             }
-            var os = is;
             if (is.match(gc.re.LABEL_EMPTY)) {
                 return self.SPECIALCASE_UNKNOWN;
 

@@ -9,7 +9,6 @@
 
 import * as React from 'react';
 
-import * as manifest from '../../../manifest';
 
 const style = {float: 'left', margin: '1em'};
 

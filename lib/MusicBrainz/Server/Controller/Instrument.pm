@@ -10,6 +10,7 @@ use MusicBrainz::Server::Constants qw(
     $EDIT_INSTRUMENT_DELETE
 );
 use MusicBrainz::Server::Translation qw( l );
+use List::MoreUtils qw( uniq );
 use List::UtilsBy qw( sort_by );
 
 with 'MusicBrainz::Server::Controller::Role::Load' => {
@@ -58,7 +59,7 @@ sub recordings : Chained('load') {
     my ($self, $c) = @_;
 
     my $instrument = $c->stash->{instrument};
-    my ($results, @recordings, %instrument_credits);
+    my ($results, @recordings, %instrument_credits_and_rel_types);
 
     $results = $self->_load_paged($c, sub {
         $c->model('Recording')->find_by_instrument($instrument->id, shift, shift);
@@ -66,8 +67,8 @@ sub recordings : Chained('load') {
 
     for my $item (@$results) {
         push @recordings, $item->{recording};
-        my @credits = grep { $_ } @{ $item->{instrument_credits} // [] };
-        $instrument_credits{$item->{recording}->gid} = \@credits if @credits;
+        my @credits_and_rel_types = uniq grep { $_ } @{ $item->{instrument_credits_and_rel_types} // [] };
+        $instrument_credits_and_rel_types{$item->{recording}->gid} = \@credits_and_rel_types if @credits_and_rel_types;
     }
 
     $c->model('Recording')->load_meta(@recordings);
@@ -83,7 +84,7 @@ sub recordings : Chained('load') {
 
     $c->stash(
         recordings => \@recordings,
-        instrument_credits => \%instrument_credits,
+        instrument_credits_and_rel_types => \%instrument_credits_and_rel_types,
     );
 }
 
@@ -91,7 +92,7 @@ sub releases : Chained('load') {
     my ($self, $c) = @_;
 
     my $instrument = $c->stash->{instrument};
-    my ($results, @releases, %instrument_credits);
+    my ($results, @releases, %instrument_credits_and_rel_types);
 
     $results = $self->_load_paged($c, sub {
         $c->model('Release')->find_by_instrument($instrument->id, shift, shift);
@@ -99,8 +100,8 @@ sub releases : Chained('load') {
 
     for my $item (@$results) {
         push @releases, $item->{release};
-        my @credits = grep { $_ } @{ $item->{instrument_credits} // [] };
-        $instrument_credits{$item->{release}->gid} = \@credits if @credits;
+        my @credits_and_rel_types = uniq grep { $_ } @{ $item->{instrument_credits_and_rel_types} // [] };
+        $instrument_credits_and_rel_types{$item->{release}->gid} = \@credits_and_rel_types if @credits_and_rel_types;
     }
 
     $c->stash( template => 'instrument/releases.tt' );
@@ -109,7 +110,7 @@ sub releases : Chained('load') {
     $c->model('Release')->load_related_info(@releases);
     $c->stash(
         releases => \@releases,
-        instrument_credits => \%instrument_credits,
+        instrument_credits_and_rel_types => \%instrument_credits_and_rel_types,
     );
 }
 

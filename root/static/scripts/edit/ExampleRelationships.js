@@ -8,8 +8,9 @@ import request from '../common/utility/request';
 
 MB.ExampleRelationshipsEditor = (function (ERE) {
 
+
 // Private variables
-var type0, type1, linkTypeName, linkTypeID, jsRoot, formName;
+var type0, type1, linkTypeName, linkTypeID, jsRoot;
 
 // Private methods
 var searchUrl;
@@ -24,7 +25,6 @@ ERE.init = function (config) {
     linkTypeID = +config.linkTypeID;
 
     jsRoot = config.jsRoot;
-    formName = config.formName;
 
     ERE.viewModel = new ViewModel();
 
@@ -37,7 +37,8 @@ ERE.init = function (config) {
     ERE.viewModel.availableEntityTypes(
         _.uniq([ type0, type1 ]).map(function (value) {
             return { 'value': value, 'text': ENTITY_NAMES[value]() };
-        }));
+        }),
+    );
 
     ko.bindingHandlers.checkObject = {
         init: function (element, valueAccessor, all, vm, bindingContext) {
@@ -85,7 +86,8 @@ ViewModel = function () {
                 var ce = this.currentExample;
 
                 this.examples.push(
-                    new ERE.Example(ce.name(), ce.relationship()));
+                    new ERE.Example(ce.name(), ce.relationship()),
+                );
 
                 ce.name('');
                 ce.relationship(null);
@@ -116,7 +118,7 @@ RelationshipSearcher = function () {
         .fail(function (jqxhr, status, error) {
             self.error('Lookup failed: ' + error);
         })
-        .done(function (data, status, jqxhr) {
+        .done(function (data) {
             var search_result_type = data.entityType.replace("-", "_");
 
             if (!(search_result_type === type0 ||
@@ -130,11 +132,7 @@ RelationshipSearcher = function () {
             var relationships =
                 _.filter(data.relationships, { linkTypeID: linkTypeID });
 
-            if (!relationships.length) {
-                self.error(
-                    'No ' + linkTypeName + ' relationships found for ' + data.name,
-                );
-            } else {
+            if (relationships.length) {
                 self.error(null);
 
                 _.each(relationships, function (rel) {
@@ -158,6 +156,10 @@ RelationshipSearcher = function () {
                         }
                     })
                 });
+            } else {
+                self.error(
+                    'No ' + linkTypeName + ' relationships found for ' + data.name,
+                );
             }
         });
     };
