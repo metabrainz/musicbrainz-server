@@ -20,8 +20,8 @@ MB.ExampleRelationshipsEditor = (function (ERE) {
   let searchUrl;
 
   // Private classes
-  const RelationshipSearcher;
-  const ViewModel;
+  let RelationshipSearcher;
+  let ViewModel;
 
   ERE.init = function (config) {
     type0 = config.type0;

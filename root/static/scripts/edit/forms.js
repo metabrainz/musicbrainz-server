@@ -72,7 +72,7 @@ MB.forms = {
 
     const options = MB.forms.buildOptionsTree(root, getText, 'id');
 
-    for (const i = 0, len = options.length, option; i < len; i++) {
+    for (var i = 0, len = options.length, option; i < len; i++) {
       if ((option = options[i]) && !option.data.description) {
         option.disabled = true;
       }
@@ -101,10 +101,10 @@ ko.bindingHandlers.loop = {
     const options = valueAccessor(); const observableArray = options.items;
 
     /*
-         * The way this binding handler works is by using the "arrayChange"
-         * event found on observableArrays, which notifies a list of changes
-         * we can apply to the UI.
-         */
+     * The way this binding handler works is by using the "arrayChange"
+     * event found on observableArrays, which notifies a list of changes
+     * we can apply to the UI.
+     */
 
     if (!ko.isObservable(observableArray) ||
             !observableArray.cacheDiffForKnownOperation) {
@@ -123,9 +123,9 @@ ko.bindingHandlers.loop = {
     });
 
     /*
-         * For regular DOM nodes this is the same as parentNode; if parentNode
-         * is a virtual element, this will be the parentNode of the comment.
-         */
+     * For regular DOM nodes this is the same as parentNode; if parentNode
+     * is a virtual element, this will be the parentNode of the comment.
+     */
     let actualParentNode = parentNode;
     while (actualParentNode.nodeType !== ELEMENT_NODE) {
       actualParentNode = actualParentNode.parentNode;
@@ -156,10 +156,10 @@ ko.bindingHandlers.loop = {
 
             if (!currentElements) {
               /*
-                             * Using a documentFragment would simplify things,
-                             * but knockout doesn't support them.
-                             * https://github.com/knockout/knockout/pull/1432
-                             */
+               * Using a documentFragment would simplify things,
+               * but knockout doesn't support them.
+               * https://github.com/knockout/knockout/pull/1432
+               */
               tmpElementContainer = document.createElement("div");
 
               for (j = 0; (node = template[j]); j++) {
@@ -176,12 +176,12 @@ ko.bindingHandlers.loop = {
           if (change.moved === undefined) {
             for (j = 0; (node = currentElements[j]); j++) {
               /*
-                             * If the node is already removed for some unknown
-                             * reason, don't outright explode. It's possible
-                             * an exception occurred somewhere in the middle
-                             * of an arrayChange notification, causing
-                             * knockout to send duplicate changes afterward.
-                             */
+               * If the node is already removed for some unknown
+               * reason, don't outright explode. It's possible
+               * an exception occurred somewhere in the middle
+               * of an arrayChange notification, causing
+               * knockout to send duplicate changes afterward.
+               */
               if (node.parentNode) {
                 node.parentNode.removeChild(node);
               }
@@ -189,14 +189,15 @@ ko.bindingHandlers.loop = {
             }
           }
           /*
-                     * When knockout detects a moved item, it sends both
-                     * "added" and "deleted" changes for it. We only need
-                     * to handle the former.
-                     */
+           * When knockout detects a moved item, it sends both
+           * "added" and "deleted" changes for it. We only need
+           * to handle the former.
+           */
           continue;
         }
 
-        var elementsToInsert; var elementsToInsertAfter;
+        var elementsToInsert;
+        var elementsToInsertAfter;
         if (currentElements.length === 1) {
           elementsToInsert = currentElements[0];
         } else {
@@ -207,32 +208,32 @@ ko.bindingHandlers.loop = {
         }
 
         /*
-                 * Find where to insert the elements associated with this
-                 * item. The final result should be in the same order as the
-                 * items are in their containing array.
-                 */
+         * Find where to insert the elements associated with this
+         * item. The final result should be in the same order as the
+         * items are in their containing array.
+         */
         var prevItem;
 
         /*
-                 * Loop through the items before the current one, and find one
-                 * that actually has elements on the page (i.e. something we
-                 * can insertAfter). It doesn't matter if we don't insert
-                 * after the *immediate* prevItem, because when *that* item
-                 * is dealt with it'll be inserted after the same item we
-                 * used (thus settling before us). prevItem will be undefined
-                 * when it's past the first item in the array, and the for-
-                 * loop will end; insertAfter handles that by just prepending
-                 * the elements to parentNode.
-                 */
+         * Loop through the items before the current one, and find one
+         * that actually has elements on the page (i.e. something we
+         * can insertAfter). It doesn't matter if we don't insert
+         * after the *immediate* prevItem, because when *that* item
+         * is dealt with it'll be inserted after the same item we
+         * used (thus settling before us). prevItem will be undefined
+         * when it's past the first item in the array, and the for-
+         * loop will end; insertAfter handles that by just prepending
+         * the elements to parentNode.
+         */
 
         for (var j = change.index - 1; (prevItem = items[j]); j--) {
           elementsToInsertAfter = elements[prevItem[idAttribute]];
 
           /*
-                     * prevItem's elements won't exist on the page if they
-                     * were previously removed, but haven't been purged from
-                     * `elements` yet (below).
-                     */
+           * prevItem's elements won't exist on the page if they
+           * were previously removed, but haven't been purged from
+           * `elements` yet (below).
+           */
           if (elementsToInsertAfter) {
             if (actualParentNode.contains(elementsToInsertAfter[0])) {
               break;
