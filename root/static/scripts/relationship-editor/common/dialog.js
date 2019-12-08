@@ -71,6 +71,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
                             }
 
                             dialog.targetType(type);
+                            return true;
                         },
 
                         resultHook: function (items) {
@@ -404,6 +405,8 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
                             linkType.gid !== PART_OF_SERIES_LINK_TYPES[itemType]) {
                         return true;
                     }
+
+                    return false;
                 });
             }
 
@@ -423,6 +426,8 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
                     if (self.linkTypeOptions(key).length) {
                         return true;
                     }
+
+                    return false;
                 })
             }
 

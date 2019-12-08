@@ -271,7 +271,7 @@ function bubbleControlHandler(event) {
                 bubble.hide(false);
             }
         }
-        return;
+        return true;
     }
 
     var isButton = $(control).is(":button");

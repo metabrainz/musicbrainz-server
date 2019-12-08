@@ -232,7 +232,7 @@ function getRelationshipEditor(data, source) {
 
     if ((target && target.entityType === 'url') ||
         (linkType && (linkType.type0 === 'url' || linkType.type1 === 'url'))) {
-        return; // handled by the external links editor
+        return null; // handled by the external links editor
     }
 
     if (MB.releaseRelationshipEditor) {
@@ -242,6 +242,8 @@ function getRelationshipEditor(data, source) {
     if (source === MB.sourceRelationshipEditor.source) {
         return MB.sourceRelationshipEditor;
     }
+
+    return null;
 }
 
 function addSubmittedRelationship(data, source) {

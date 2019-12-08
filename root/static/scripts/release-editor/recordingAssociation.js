@@ -315,7 +315,7 @@ function setSuggestedRecordings(track, recordings) {
 
 function matchAgainstRecordings(track, recordings) {
     if (!recordings || !recordings.length) {
-        return;
+        return null;
     }
 
     var trackLength = track.length();
@@ -334,6 +334,8 @@ function matchAgainstRecordings(track, recordings) {
             if (utils.similarNames(trackName, recordingWithoutETI)) {
                 return true;
             }
+            
+            return false;
         })
         .sortBy(function (recording) {
             var appearsOn = recording.appearsOn;
@@ -360,6 +362,8 @@ function matchAgainstRecordings(track, recordings) {
             return MB.entity(match, "recording");
         });
     }
+
+    return null;
 }
 
 

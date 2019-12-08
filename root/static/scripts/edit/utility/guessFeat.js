@@ -129,6 +129,7 @@ function bestArtistMatch(artists, name) {
             if (similarity >= MIN_NAME_SIMILARITY) {
                 return {similarity: similarity, artist: a, name: name};
             }
+            return null;
         })
         .compact()
         .sortBy('similarity')
@@ -216,6 +217,7 @@ MB.Control.initGuessFeatButton = function (formName) {
             name: function () {
                 if (arguments.length) {
                     nameInput.value = arguments[0];
+                    return undefined;
                 } else {
                     return nameInput.value;
                 }

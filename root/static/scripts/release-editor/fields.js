@@ -523,7 +523,7 @@ class Medium {
 
     hasInvalidPregapLength() {
         if (!this.hasPregap() || !this.hasToc()) {
-            return;
+            return false;
         }
 
         var maxLength = -Infinity;
