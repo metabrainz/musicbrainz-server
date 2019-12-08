@@ -265,8 +265,8 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
                                     switch (relationshipFilter) {
                                       case 'same-entity-types':
                                           if (r.entityTypes !== relationship.entityTypes) {
-                                            return;
-                                        }
+                                              return;
+                                          }
                                       break;
                                       case 'same-relationship-type':
                                           if (r.linkTypeID() !== relationship.linkTypeID()) {
