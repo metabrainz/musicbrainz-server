@@ -1050,6 +1050,8 @@ MB.Control.EntityAutocomplete = function (options) {
                 options.entity = entity;
                 return true;
             }
+
+            return false;
         });
     }
 

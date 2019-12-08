@@ -220,6 +220,8 @@ MB.getRelationship = function (data, source) {
         var relationship = new viewModel.relationshipClass(data, source, viewModel);
         return data.id ? (viewModel.cache[cacheKey] = relationship) : relationship;
     }
+
+    return null;
 };
 
 function getRelationshipEditor(data, source) {

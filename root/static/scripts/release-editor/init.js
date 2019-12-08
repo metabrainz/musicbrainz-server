@@ -325,7 +325,7 @@ releaseEditor.releaseLoaded = function (data) {
 releaseEditor.createExternalLinksEditor = function (data, mountPoint) {
     if (!mountPoint) {
         // XXX undefined in some tape tests
-        return;
+        return null;
     }
 
     var self = this;

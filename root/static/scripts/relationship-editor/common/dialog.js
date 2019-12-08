@@ -306,7 +306,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
 
         keydownEvent(data, event) {
             if (event.isDefaultPrevented()) {
-                return;
+                return false;
             }
 
             var nodeName = event.target.nodeName.toLowerCase();
