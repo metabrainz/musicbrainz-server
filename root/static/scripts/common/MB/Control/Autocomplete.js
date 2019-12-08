@@ -592,8 +592,6 @@ $.widget("ui.menu", $.ui.menu, {
 
             return true;
         }
-
-        return false;
     },
 
     _create: function () {
