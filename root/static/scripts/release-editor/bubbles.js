@@ -26,7 +26,9 @@ releaseEditor.releaseGroupBubble = bubbleDoc({
 });
 
 releaseEditor.statusBubble = bubbleDoc({
-    canBeShown: function (release) { return release.statusID() == 4 }
+    canBeShown: function (release) {
+ return release.statusID() == 4 
+}
 });
 
 releaseEditor.dateBubble = bubbleDoc({
@@ -49,7 +51,9 @@ releaseEditor.labelBubble = bubbleDoc({
 });
 
 releaseEditor.barcodeBubble = bubbleDoc({
-    canBeShown: function (release) { return !release.barcode.none() }
+    canBeShown: function (release) {
+ return !release.barcode.none() 
+}
 });
 
 releaseEditor.annotationBubble = bubbleDoc();
@@ -108,7 +112,9 @@ class RecordingBubble extends MB.Control.BubbleDoc {
         super.show(control);
     }
 
-    currentTrack() { return this.target() }
+    currentTrack() {
+ return this.target() 
+}
 
     moveToTrack(track, stealFocus) {
         this.show(track.bubbleControlRecording, stealFocus);

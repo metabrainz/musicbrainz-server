@@ -146,11 +146,9 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
 
                 if (relationship.added()) {
                     edits.push(MB.edit.relationshipCreate(editData));
-                }
-                else if (relationship.edited()) {
+                } else if (relationship.edited()) {
                     edits.push(MB.edit.relationshipEdit(editData, relationship.original, relationship));
-                }
-                else if (relationship.removed()) {
+                } else if (relationship.removed()) {
                     edits.push(MB.edit.relationshipDelete(editData));
                 }
             }
@@ -181,8 +179,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
                                         response.error.message : response.error;
 
                         this.submissionError(message);
-                    }
-                    catch (e) {
+                    } catch (e) {
                         this.submissionError(jqXHR.responseText);
                     }
                 });
@@ -206,7 +203,9 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
             }));
 
             var trackCount = _.reduce(release.mediums(),
-                function (memo, medium) { return memo + medium.tracks.length }, 0);
+                function (memo, medium) {
+ return memo + medium.tracks.length 
+}, 0);
 
             initCheckboxes(this.checkboxes, trackCount);
         }

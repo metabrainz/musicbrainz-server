@@ -19,20 +19,13 @@ MB.CoverArt.get_image_mime_type = function () {
     var filename = $('iframe').contents().find('#file').val();
     var mime_type = null;
 
-    if (filename.match(/\.j(peg|pg|pe|fif|if)$/i))
-    {
+    if (filename.match(/\.j(peg|pg|pe|fif|if)$/i)) {
         mime_type = "image/jpeg";
-    }
-    else if (filename.match(/\.png$/i))
-    {
+    } else if (filename.match(/\.png$/i)) {
         mime_type = "image/png";
-    }
-    else if (filename.match(/\.gif$/i))
-    {
+    } else if (filename.match(/\.gif$/i)) {
         mime_type = "image/gif";
-    }
-    else if (filename.match(/\.pdf$/i))
-    {
+    } else if (filename.match(/\.pdf$/i)) {
         mime_type = "application/pdf";
     }
 
@@ -40,8 +33,7 @@ MB.CoverArt.get_image_mime_type = function () {
 };
 
 MB.CoverArt.image_error = function ($img, image) {
-    if ($img.attr("src") === image.image)
-    {
+    if ($img.attr("src") === image.image) {
         /*
          * image doesn't exist at all, perhaps it was removed
          * between requesting the index and loading the image.
@@ -49,9 +41,7 @@ MB.CoverArt.image_error = function ($img, image) {
          * data in the index is incorrect.
          */
         $img.attr("src", require('../../../images/image404-125.png'));
-    }
-    else
-    {
+    } else {
         $img.attr("src", image.image)
     }
 };
@@ -67,8 +57,7 @@ MB.CoverArt.reorder_button = function (direction, $container) {
             $swap = $editimage.siblings()[direction === 'next' ? 'first' : 'last']();
             insert_after = !insert_after;
         }
-        if ($swap.length)
-        {
+        if ($swap.length) {
             $editimage[insert_after ? 'insertAfter' : 'insertBefore']($swap);
             $container.sortable('refresh');
         }
@@ -100,7 +89,9 @@ MB.CoverArt.reorder_position = function () {
     // For the Add Cover Art page, the following is a no-op.
     $('#reorder-cover-art').submit(
         function () {
-            $('div.editimage input.position').val(function (index) { return (index + 1); });
+            $('div.editimage input.position').val(function (index) {
+ return (index + 1);
+});
         }
     );
 
@@ -165,24 +156,21 @@ MB.CoverArt.validate_file = function (file) {
          * Some cameras and phones write a different fourth byte.
          */
 
-        if ((uint32view[0] & 0x00FFFFFF) === 0x00FFD8FF)
-        {
+        if ((uint32view[0] & 0x00FFFFFF) === 0x00FFD8FF) {
             deferred.resolve('image/jpeg');
-        }
-        else if (uint32view[0] === 0x38464947) /* GIF signature. "GIF8" */
-        {
+        } else if (uint32view[0] === 0x38464947) {
+            // GIF signature. "GIF8"
+
             deferred.resolve('image/gif');
-        }
-        else if (uint32view[0] === 0x474E5089) /* PNG signature, 0x89 "PNG" */
-        {
+        } else if (uint32view[0] === 0x474E5089) {
+            // PNG signature, 0x89 "PNG"
+
             deferred.resolve('image/png');
-        }
-        else if (uint32view[0] === 0x46445025) /* PDF signature, 0x89 "%PDF" */
-        {
+        } else if (uint32view[0] === 0x46445025) {
+            // PDF signature, 0x89 "%PDF"
+
             deferred.resolve('application/pdf');
-        }
-        else
-        {
+        } else {
             deferred.reject("unrecognized image format");
         }
     });
@@ -236,28 +224,23 @@ MB.CoverArt.upload_image = function (postfields, file) {
 
     var xhr = new XMLHttpRequest();
     xhr.upload.addEventListener("progress", function (event) {
-        if (event.lengthComputable)
-        {
+        if (event.lengthComputable) {
             deferred.notify(100 * event.loaded / event.total);
         }
     });
 
     xhr.addEventListener("load", function () {
-        if (xhr.status >= 200 && xhr.status < 210)
-        {
+        if (xhr.status >= 200 && xhr.status < 210) {
             deferred.notify(100);
             deferred.resolve();
-        }
-        else
-        {
+        } else {
             deferred.reject("error uploading image: " + xhr.status + " " +
                              xhr.responseText, xhr.status);
         }
     });
 
     /* IE10 and older don't have overrideMimeType. */
-    if (typeof (xhr.overrideMimeType) === 'function')
-    {
+    if (typeof (xhr.overrideMimeType) === 'function') {
         /*
          * Prevent firefox from parsing a 204 No Content response as XML.
          * https://bugzilla.mozilla.org/show_bug.cgi?id=884693
@@ -290,20 +273,16 @@ MB.CoverArt.submit_edit = function (file_upload, postfields, mime_type, position
     }
 
     _.each(file_upload.types(), function (checkbox) {
-        if (checkbox.checked())
-        {
+        if (checkbox.checked()) {
             formdata.append('add-cover-art.type_id', checkbox.id);
         }
     });
 
     var xhr = new XMLHttpRequest();
     xhr.addEventListener("load", function () {
-        if (xhr.status === 200)
-        {
+        if (xhr.status === 200) {
             deferred.resolve();
-        }
-        else
-        {
+        } else {
             deferred.reject("error creating edit: " + xhr.status + " " + xhr.statusText);
         }
     });
@@ -372,8 +351,7 @@ MB.CoverArt.FileUpload = function (file) {
     self.doUpload = function (gid, position) {
         var deferred = $.Deferred();
 
-        if (self.status() === 'done' || self.busy())
-        {
+        if (self.status() === 'done' || self.busy()) {
             /*
              * This file is currently being uploaded or has already
              * been uploaded.
@@ -382,7 +360,9 @@ MB.CoverArt.FileUpload = function (file) {
             return deferred.promise();
         }
 
-        self.validating.fail(function (msg) { deferred.reject(msg); });
+        self.validating.fail(function (msg) {
+ deferred.reject(msg);
+});
         self.validating.done(function (mime_type) {
             self.status(statuses.signing);
 
@@ -515,8 +495,7 @@ MB.CoverArt.set_position = function () {
 };
 
 MB.CoverArt.add_cover_art = function (gid) {
-    if (typeof (window.FormData) !== "undefined" && typeof (window.FileReader) !== 'undefined')
-    {
+    if (typeof (window.FormData) !== "undefined" && typeof (window.FileReader) !== 'undefined') {
         File.prototype.slice = File.prototype.webkitSlice || File.prototype.mozSlice || File.prototype.slice;
 
         /*
@@ -577,9 +556,7 @@ MB.CoverArt.add_cover_art = function (gid) {
             MB.CoverArt.set_position();
             MB.CoverArt.add_cover_art_submit(gid, upvm);
         });
-    }
-    else
-    {
+    } else {
         $('.without-formdata').show();
         $('#add-cover-art-submit').prop('disabled', false);
 
@@ -590,13 +567,10 @@ MB.CoverArt.add_cover_art = function (gid) {
             var mime_type = MB.CoverArt.get_image_mime_type();
             $('#id-add-cover-art\\.mime_type').val(mime_type);
 
-            if (mime_type)
-            {
+            if (mime_type) {
                 $('iframe')[0].contentWindow.upload(
                     gid, $('#id-add-cover-art\\.id').val(), mime_type);
-            }
-            else
-            {
+            } else {
                 $('iframe').contents().find('#cover-art-file-error').show();
             }
 

@@ -242,15 +242,15 @@ function watchTrackForChanges(track) {
                 utils.similarLengths(track.length[prop], length));
     };
 
-    // The current name/length is similar to the saved name/length.
     if (similarTo("saved")) {
+        // The current name/length is similar to the saved name/length.
+
         track.recording(track.recording.saved);
-    }
-    // The current name/length is similar to the original name/length.
-    else if (similarTo("original")) {
+    } else if (similarTo("original")) {
+        // The current name/length is similar to the original name/length.
+
         track.recording(track.recording.original.peek());
-    }
-    else {
+    } else {
         track.recording(null);
     }
 }
@@ -363,7 +363,9 @@ function matchAgainstRecordings(track, recordings) {
 
 
 recordingAssociation.track = function (track) {
-    debounce(function () { watchTrackForChanges(track) });
+    debounce(function () {
+ watchTrackForChanges(track)
+});
 };
 
 export default recordingAssociation;
