@@ -91,7 +91,11 @@ MB.GuessCase.Handler.Track = function (gc) {
      * - Handles FeaturingArtistStyle
      */
     self.doWord = function () {
-        if (!self.doIgnoreWords() && !self.doFeaturingArtistStyle() && !gc.mode.doWord()) {
+        if (
+          !self.doIgnoreWords() &&
+          !self.doFeaturingArtistStyle() &&
+          !gc.mode.doWord()
+        ) {
             if (gc.i.matchCurrentWord(/7in/i)) {
                 gc.o.appendSpaceIfNeeded();
                 gc.o.appendWord('7"');
