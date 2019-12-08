@@ -212,7 +212,7 @@ MB.getRelationship = function (data, source) {
         let cacheKey;
         if (data.id) {      
             cacheKey = _.map(data.entities, "entityType").concat(data.id).join("-");
-            let cached = viewModel.cache[cacheKey];
+            const cached = viewModel.cache[cacheKey];
 
             if (cached) {
                 return cached;

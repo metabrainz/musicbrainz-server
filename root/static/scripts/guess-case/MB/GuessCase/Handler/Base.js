@@ -844,7 +844,7 @@ MB.GuessCase.Handler.Base = function (gc) {
                     const pos = gc.i.getPos();
                     const len = gc.i.getLength();
                     let currPos = pos;
-                    while(currPos < len) {
+                    while (currPos < len) {
                         if (gc.i.getWordAtIndex(currPos) == "(") {
                             break;
                         }

@@ -67,8 +67,8 @@ MB.GuessCase = MB.GuessCase || {};
              * a special case, fetch the correct format, if the
              * returned case is indeed a special case.
              */
-            let num = handler.checkSpecialCase(is);
-            let os = handler.isSpecialCase(num) 
+            const num = handler.checkSpecialCase(is);
+            const os = handler.isSpecialCase(num) 
                 ? handler.getSpecialCaseFormatted(is, num)
                 // if it was not a special case, start Guessing
                 : handler[method].apply(handler, arguments);
