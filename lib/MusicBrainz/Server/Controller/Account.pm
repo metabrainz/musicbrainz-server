@@ -622,7 +622,7 @@ sub register : Path('/register') ForbiddenOnSlaves RequireSSL DenyWhenReadonly
 
 =head2 resend_verification
 
-Send out an email allowing users to verify their email address, from the web
+Send out an email allowing users to confirm their email address, from the web
 
 =cut
 
@@ -639,7 +639,7 @@ sub resend_verification : Path('/account/resend-verification') ForbiddenOnSlaves
 
 =head2 _send_confirmation_email
 
-Send out an email allowing users to verify their email address
+Send out an email allowing users to confirm their email address
 
 =cut
 
@@ -665,7 +665,7 @@ sub _send_confirmation_email
     }
     catch {
         $c->flash->{message} = l(
-            '<strong>We were unable to send a verification email to you.</strong><br/>Please confirm that you have entered a valid ' .
+            '<strong>We were unable to send a confirmation email to you.</strong><br/>Please confirm that you have entered a valid ' .
             'address by editing your {settings|account settings}. If the problem still persists, please contact us at ' .
             '{mail|support@musicbrainz.org}.',
             {

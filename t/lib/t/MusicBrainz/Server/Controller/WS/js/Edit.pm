@@ -1054,7 +1054,7 @@ test 'Edits are rejected without a confirmed email address' => sub {
     post_json($mech, '/ws/js/edit/create', encode_json({ edits => [] }));
 
     my $response = from_json($mech->content);
-    is($response->{error}, 'a verified email address is required', 'error is returned for unconfirmed email');
+    is($response->{error}, 'a confirmed email address is required', 'error is returned for unconfirmed email');
 };
 
 

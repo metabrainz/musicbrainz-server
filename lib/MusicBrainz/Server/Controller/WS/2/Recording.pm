@@ -230,7 +230,7 @@ sub recording_submit : Private
     }
 
     if (!$c->user->has_confirmed_email_address) {
-        $self->_error($c, "You must have a verified email address to submit edits");
+        $self->_error($c, "You must have a confirmed email address to submit edits");
     }
 
     $c->model('MB')->with_transaction(sub {
