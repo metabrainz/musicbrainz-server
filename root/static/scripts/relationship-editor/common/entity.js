@@ -132,7 +132,9 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
                     }
 
                     if (ko.unwrap(group.canBeOrdered)) {
-                        var hasOrdering = group.values.any(function (r) { return r.linkOrder() > 0 });
+                        var hasOrdering = group.values.any(function (r) {
+                            return r.linkOrder() > 0;
+                        });
 
                         group.hasOrdering = ko.computed({
                             read: hasOrdering,
@@ -140,9 +142,13 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
                                 var currentValue = hasOrdering.peek();
 
                                 if (currentValue && !newValue) {
-                                    _.each(group.values.slice(0), function (r) { r.linkOrder(0) });
+                                    _.each(group.values.slice(0), function (r) {
+                                        r.linkOrder(0);
+                                    });
                                 } else if (newValue && !currentValue) {
-                                    _.each(group.values.slice(0), function (r, i) { r.linkOrder(i + 1) });
+                                    _.each(group.values.slice(0), function (r, i) {
+                                        r.linkOrder(i + 1);
+                                    });
                                 }
                             }
                         });

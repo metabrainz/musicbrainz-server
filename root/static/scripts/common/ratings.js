@@ -63,6 +63,6 @@ $(document).on("click", "span.star-rating a", function () {
             }
         });
 
-    })
+    });
     return false;
 });
