@@ -399,7 +399,7 @@ import request from '../../common/utility/request';
         TYPES.EDIT_RELATIONSHIP_CREATE,
         function (args) {
             delete args.id;
-        }
+        },
     );
 
 
