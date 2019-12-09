@@ -30,7 +30,7 @@ function getDirection(relationship, source) {
     return 'backward';
   }
 
-  throw 'source should be in the entities array (which has length 2)';
+  throw 'source not in the entities array';
 }
 
 const RE = MB.relationshipEditor = MB.relationshipEditor || {};

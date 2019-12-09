@@ -68,7 +68,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
 
             window.addEventListener('beforeunload', function (event) {
                 if (self.redirecting) {
-                    return true;
+                    return undefined;
                 }
                 var $changes = $(".link-phrase")
                     .filter(".rel-edit:eq(0), .rel-add:eq(0), .rel-remove:eq(0)");
@@ -78,7 +78,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
                     return event.returnValue;
                 }
 
-                return true;
+                return undefined;
             });
         }
 

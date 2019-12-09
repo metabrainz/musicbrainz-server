@@ -589,6 +589,8 @@ $.widget("ui.menu", $.ui.menu, {
              */
             event.stopPropagation();
             event.preventDefault();
+
+            return true;
         }
     },
 

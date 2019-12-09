@@ -42,7 +42,7 @@ MB.confirmNavigationFallback = function () {
             }
         }
 
-        return true;
+        return undefined;
     };
 
     document.onkeypress = function () {
@@ -50,6 +50,6 @@ MB.confirmNavigationFallback = function () {
             return (prevented = false);
         }
 
-        return true;
+        return undefined;
     };
 };
