@@ -32,7 +32,8 @@ MB.confirmNavigationFallback = function () {
    */
   document.onkeydown = function (event) {
     if (event.keyCode == 8) {
-      let node = event.srcElement || event.target; let tag = node.tagName.toLowerCase();
+      let node = event.srcElement || event.target;
+      let tag = node.tagName.toLowerCase();
       let type = (node.type || "").toLowerCase();
       let prevent = !((tag == "input" && (type == "text" || type == "password")) || tag == "textarea");
 

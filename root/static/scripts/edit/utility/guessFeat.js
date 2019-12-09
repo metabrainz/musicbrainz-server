@@ -69,7 +69,8 @@ function extractBracketedFeatCredits(str, artists, isProbablyClassical) {
     let joinPhrase = accum.joinPhrase;
     let credits = accum.artistCredit;
     let remainder = accum.name;
-    let b; let m;
+    let b;
+    let m;
 
     while (true) {
       b = balanced(pair[0], pair[1], remainder);
