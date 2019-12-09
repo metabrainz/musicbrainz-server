@@ -79,7 +79,8 @@ function recordingQuery(track, name) {
     var params = {
         recording: [ utils.escapeLuceneValue(name) ],
 
-        arid: _(track.artistCredit().names).map('artist.gid')
+        arid: _(track.artistCredit().names)
+            .map('artist.gid')
             .map(utils.escapeLuceneValue)
                 .value()
     };

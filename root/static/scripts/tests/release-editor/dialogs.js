@@ -42,12 +42,13 @@ function dialogTest(name, callback) {
             useTrackLengths: true
         };
 
-        var $fixture = $('<div>').attr('id', 'fixture')
-        .appendTo('body')
-            .append(
-                $("<div>").attr("id", "add-disc-dialog").hide(),
-                $("<div>").attr("id", "track-parser-dialog").hide()
-            );
+        var $fixture = $('<div>')
+            .attr('id', 'fixture')
+            .appendTo('body')
+                .append(
+                    $("<div>").attr("id", "add-disc-dialog").hide(),
+                    $("<div>").attr("id", "track-parser-dialog").hide()
+                );
 
         releaseEditor.activeTabID("#information");
 

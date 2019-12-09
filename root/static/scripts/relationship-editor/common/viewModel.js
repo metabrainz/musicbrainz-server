@@ -63,7 +63,9 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
 
         Object.assign(linkedEntities, {
             link_type_tree: typeInfo,
-            link_type: _(typeInfo).values().flatten()
+            link_type: _(typeInfo)
+                .values()
+                .flatten()
                 .transform(mapItems, {})
                 .value(),
             link_attribute_type: _.transform(attrInfo, mapItems, {}),
@@ -94,7 +96,8 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
         });
 
         // Sort each list of types alphabetically.
-        _(MB.allowedRelations).values()
+        _(MB.allowedRelations)
+            .values()
             .invokeMap('sort')
             .value();
 

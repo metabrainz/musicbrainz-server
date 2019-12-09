@@ -49,8 +49,12 @@ MB.Control.EditList = function (container) {
          */
         $voteOptions.find('input').each(function (i) {
             $(this).click(function () {
-                    $container.find('div.voteopts').each(function () {
-                            $(this).find('input').eq(i)
+                    $container
+                        .find('div.voteopts')
+                        .each(function () {
+                            $(this)
+                                .find('input')
+                                .eq(i)
                                 .prop('checked', true)
                                 .change();
                         });

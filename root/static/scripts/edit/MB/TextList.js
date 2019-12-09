@@ -27,7 +27,8 @@ MB.Form.TextList = function (input) {
 
     self.init = function (max_index) {
         counter = max_index;
-        $template.parent()
+        $template
+            .parent()
             .find('div.text-list-row input.value')
             .siblings('button.remove-item')
             .bind('click.mb', self.removeEvent);
@@ -38,7 +39,9 @@ MB.Form.TextList = function (input) {
     self.add = function (init_value) {
         $template.clone()
             .removeClass(template)
-            .insertAfter($template.parent().find('div.text-list-row').last())
+            .insertAfter($template.parent()
+                .find('div.text-list-row')
+                .last())
             .show()
             .find('input.value')
                 .attr("name", input + '.' + counter)

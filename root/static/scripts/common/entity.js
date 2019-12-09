@@ -448,7 +448,8 @@ import formatTrackLength from './utility/formatTrackLength';
     MB.entity.Work = Work;
 
     function relatedArtists(relationships) {
-        return _(relationships).filter({target: {entityType: 'artist'}})
+        return _(relationships)
+            .filter({target: {entityType: 'artist'}})
             .map('target')
             .value();
     }

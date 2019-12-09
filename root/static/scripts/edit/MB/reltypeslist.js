@@ -6,7 +6,8 @@ $(function () {
 
     $(".toggle").click(function () {
 
-        $(this).parent()
+        $(this)
+            .parent()
             .next(".reldetails")
             .toggle();
 
