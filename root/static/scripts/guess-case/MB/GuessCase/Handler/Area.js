@@ -30,12 +30,12 @@ MB.GuessCase.Handler.Area = function (gc) {
      * - Handles FeaturingArtistStyle
      */
     self.doWord = function () {
-        if (self.doIgnoreWords()) {
-        } else if (self.doFeaturingArtistStyle()) {
-        } else if (gc.mode.doWord()) {
-        } else {
-            self.doNormalWord();
-        }
+        (
+            self.doIgnoreWords() ||
+            self.doFeaturingArtistStyle() ||
+            gc.mode.doWord() ||
+            self.doNormalWord()
+        );
         flags.context.number = false;
         return null;
     };
