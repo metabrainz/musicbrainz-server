@@ -60,7 +60,8 @@ $.widget("mb.artworkViewer", $.ui.dialog, {
     open: function (link, wasClosed) {
         this._imageElement = null;
 
-        var hadFocus = document.activeElement; var $preview = $(link).find("img");
+        const hadFocus = document.activeElement;
+        const $preview = $(link).find("img");
         this._setOption("title", $preview.attr("title"));
 
         var index = this.$artwork.index(link);
