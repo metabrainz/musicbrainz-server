@@ -54,7 +54,7 @@ map.on('click', function (e) {
 
 marker.on('dragend', function () {
     var latlng = marker.getLatLng().wrap();
-    update_coordinates(latlng)
+    update_coordinates(latlng);
 });
 
 function update_coordinates(latlng) {

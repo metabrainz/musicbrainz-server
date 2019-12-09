@@ -261,11 +261,11 @@ class TimelineViewModel {
 
     addCategory(category) {
         this.categories.push(category);
-        return category
+        return category;
     }
 
     addLine(name) {
-        var newLine = getStat(name)
+        var newLine = getStat(name);
         var category = _.find(this.categories(), { name: newLine.category });
 
         if (!category) {
@@ -418,7 +418,7 @@ class TimelineLine {
 
             if (datePrev != null && value[0] > datePrev + oneDay) {
                 days = (value[0] - datePrev) / oneDay;
-                changeValue = changeValue / days
+                changeValue = changeValue / days;
             }
 
             for (var i = 0; i < days; i++) {
@@ -429,7 +429,7 @@ class TimelineLine {
                 sPrev = sCurrent;
             }
             dataPrev = value[1];
-            datePrev = value[0]
+            datePrev = value[0];
         });
         mean = mean / count;
 
@@ -480,17 +480,17 @@ class TimelineLine {
             'background-color': '#fee',
             opacity: 0.80
         }).appendTo("body").fadeIn(200);
-    }
+    };
     var removeTooltip = function () {
         $('#tooltip').remove();
-    }
+    };
 
     var setCursor = function (type) {
         if (!type) {
             type = '';
         }
         $('body').css('cursor', type);
-    }
+    };
 
     var setItemTooltip = function (item, extra, fixed) {
         if (!extra) {
@@ -528,7 +528,7 @@ class TimelineLine {
         setCursor('pointer');
         showTooltip(pos.pageX, pos.pageY,
             '<h2 style="margin-top: 0px; padding-top: 0px">' + thisEvent.title + '</h2>' + thisEvent.description);
-    }
+    };
 
     ko.bindingHandlers.flot = {
         init: function (element, valueAccessor, allBindings, viewModel, bindingContext) {
@@ -560,7 +560,7 @@ class TimelineLine {
                         setEventTooltip(thisEvent, pos);
                     }
                 } else {
-                    reset()
+                    reset();
                 }
             }).bind('plotselected', function (event, ranges) {
                 // Prevent eternal zoom
@@ -582,7 +582,7 @@ class TimelineLine {
                 if (currentEvent && currentEvent.link) {
                     window.open(currentEvent.link);
                 } else {
-                    bindingContext.$data.zoomArray([null, null, null, null])
+                    bindingContext.$data.zoomArray([null, null, null, null]);
                 }
             });
 
@@ -620,11 +620,7 @@ class TimelineLine {
                 } else if (graph === 'overview') {
                     options.series = { lines: { lineWidth: 1 }, shadowSize: 0 };
                     options.xaxis = { mode: "time", minTickSize: [1, "year"] };
-                    options.yaxis = {
-                        tickFormatter: function () {
-                            return '';
-                        }
-                    };
+                    options.yaxis = { tickFormatter: () => '' };
                 }
 
                 // Selection mode
@@ -662,7 +658,7 @@ class TimelineLine {
                         data: data,
                         label: line.label,
                         color: line.color
-                    }
+                    };
                 }), options);
                 plot.triggerRedrawOverlay();
             }

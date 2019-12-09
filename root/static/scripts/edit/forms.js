@@ -63,7 +63,7 @@ MB.forms = {
     linkTypeOptions: function (root, backward) {
         function getText(data) {
             return stripAttributes(
-                data, 
+                data,
                 l_relationships(
                     backward ? data.reverse_link_phrase : data.link_phrase,
                 ),
@@ -166,7 +166,7 @@ ko.bindingHandlers.loop = {
                                 tmpElementContainer.appendChild(node.cloneNode(true));
                             }
 
-                            ko.applyBindingsToDescendants(newContext, tmpElementContainer)
+                            ko.applyBindingsToDescendants(newContext, tmpElementContainer);
                             currentElements = _.toArray(tmpElementContainer.childNodes);
                             elements[itemID] = currentElements;
                             tmpElementContainer = null;

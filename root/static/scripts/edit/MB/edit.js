@@ -30,7 +30,8 @@ import request from '../../common/utility/request';
         return clean(value(arg));
     }
     function number(arg) {
-        var num = parseInt(value(arg), 10); return isNaN(num) ? null : num;
+        var num = parseInt(value(arg), 10);
+        return isNaN(num) ? null : num;
     }
     function array(arg, type) {
         return _.map(value(arg), type);
