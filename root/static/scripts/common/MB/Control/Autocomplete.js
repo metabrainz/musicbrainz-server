@@ -590,10 +590,10 @@ $.widget("ui.menu", $.ui.menu, {
             event.stopPropagation();
             event.preventDefault();
 
-            return true;
+            return false;
         }
 
-        return undefined;
+        return true;
     },
 
     _create: function () {
@@ -602,7 +602,7 @@ $.widget("ui.menu", $.ui.menu, {
     },
 
     select: function (event) {
-        if (!this._selectAction(event)) {
+        if (this._selectAction(event)) {
             this._super(event);
         }
         /*
