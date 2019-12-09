@@ -96,8 +96,8 @@ import _ from 'lodash';
             this._super(event);
 
             if (this.options.name) {
-                var self = this;
-                    var nameField = "#id-edit-" + entity.replace("_", "-") + "\\.name";
+                const self = this;
+                    const nameField = "#id-edit-" + entity.replace("_", "-") + "\\.name";
 
                 // Must use contentWindow's jQuery handle or this won't work.
                 contentWindow.$(function () {
