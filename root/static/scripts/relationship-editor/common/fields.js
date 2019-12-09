@@ -607,7 +607,9 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
         return a[0] === b[0] && a[1] === b[1];
     }
 
-    function linkTypeComparer(a, b) { return a != b }
+    function linkTypeComparer(a, b) {
+        return a != b;
+    }
 
     function setPartialDate(target, data) {
         _.each(["year", "month", "day"], function (key) {

@@ -113,7 +113,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
                 instruments.push(observable);
 
                 observable.subscribe(function (instrument) {
-                    relationship.attributes.remove(observable.linkAttribute.peek())
+                    relationship.attributes.remove(observable.linkAttribute.peek());
                     if (instrument.gid) {
                         observable.linkAttribute(relationship.addAttribute(instrument.gid));
                     } else {
@@ -263,8 +263,16 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
                             if (gid === target.gid) {
                                 _.each(entity.displayableRelationships(vm)(), function (r) {
                                     switch (relationshipFilter) {
-                                      case 'same-entity-types': if (r.entityTypes !== relationship.entityTypes) { return; }; break;
-                                      case 'same-relationship-type': if (r.linkTypeID() !== relationship.linkTypeID()) { return; }; break;
+                                        case 'same-entity-types':
+                                            if (r.entityTypes !== relationship.entityTypes) {
+                                                return;
+                                            }
+                                            break;
+                                        case 'same-relationship-type':
+                                            if (r.linkTypeID() !== relationship.linkTypeID()) {
+                                                return;
+                                            }
+                                            break;
                                     }
 
                                     var entities = r.entities();
@@ -326,7 +334,9 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
                      * clicked if the dialog is closed too fast, which makes
                      * it immediately reopen, hence the added delay here.
                      */
-                    _.defer(function () { self.accept() });
+                    _.defer(function () {
+                        self.accept();
+                    });
                 }
             } else if (event.keyCode === 27 && nodeName !== "select") {
                 this.close();
@@ -423,7 +433,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
                     if (self.linkTypeOptions(key).length) {
                         return true;
                     }
-                })
+                });
             }
 
             var options = _.map(targetTypes, function (type) {

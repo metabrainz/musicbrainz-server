@@ -115,6 +115,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
             }
 
             return this.displayableRelationships(vm)
+
                 .groupBy(linkPhrase).sortBy("key")
                     .map(function (group) {
                         group.openAddDialog = openAddDialog;
@@ -145,6 +146,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
                                     } else if (newValue && !currentValue) {
                                         _.each(group.values.slice(0), function (r, i) { r.linkOrder(i + 1) });
                                     }
+
                                 }
                             });
                         }

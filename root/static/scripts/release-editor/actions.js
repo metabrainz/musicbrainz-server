@@ -172,7 +172,7 @@ const actions = {
         // If the medium had a TOC attached, it's no longer valid.
         track.medium.toc(null);
 
-        return true
+        return true;
     },
 
     swapTracks: function (track1, track2, medium) {
@@ -222,7 +222,7 @@ const actions = {
         var index = tracks.indexOf(track);
         var offset = medium.hasPregap() ? 0 : 1;
 
-        tracks.remove(track)
+        tracks.remove(track);
         releaseEditor.resetTrackPositions(tracks.peek(), index, offset, 1);
 
         if (focus) {

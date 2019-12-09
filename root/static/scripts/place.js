@@ -54,7 +54,7 @@ map.on('click', function (e) {
 
 marker.on('dragend', function () {
     var latlng = marker.getLatLng().wrap();
-    update_coordinates(latlng)
+    update_coordinates(latlng);
 });
 
 function update_coordinates(latlng) {
@@ -89,7 +89,9 @@ $('input[name=edit-place\\.coordinates]').on('input', function () {
             map.panTo(L.latLng(data.coordinates.latitude, data.coordinates.longitude));
             map.setZoom(16);
         }).fail(function (jqxhr, text_status) {
-            if (text_status === 'abort') { return; }
+            if (text_status === 'abort') {
+                return;
+            }
 
             $('input[name=edit-place\\.coordinates]').addClass('error');
             $('.coordinates-errors').css('display', 'block');

@@ -307,7 +307,7 @@ Object.assign(Track.prototype, {
     entityType: 'track',
     renderArtistCredit: MB_entity.Entity.prototype.renderArtistCredit,
     isCompleteArtistCredit: MB_entity.Entity.prototype.isCompleteArtistCredit,
-})
+});
 
 fields.Track = Track;
 
@@ -382,7 +382,9 @@ class Medium {
         this.hasTrackInfo = this.tracks.all("hasNameAndArtist");
         this.hasVariousArtistTracks = this.tracks.any("hasVariousArtists");
         this.confirmedVariousArtists = ko.observable(this.hasVariousArtistTracks());
-        this.needsTrackInfo = ko.computed(function () { return !self.hasTrackInfo() });
+        this.needsTrackInfo = ko.computed(function () {
+            return !self.hasTrackInfo();
+        });
 
         if (data.id != null) {
             this.id = data.id;
@@ -477,7 +479,9 @@ class Medium {
 
         var tocTrackCount = toc.length - 3;
         var tracks = this.tracks();
-        var tocTracks = _.reject(tracks, function (t) { return t.position() == 0 || t.isDataTrack() });
+        var tocTracks = _.reject(tracks, function (t) {
+            return t.position() == 0 || t.isDataTrack();
+        });
         var trackCount = tocTracks.length;
         var pregapOffset = this.hasPregap() ? 0 : 1;
 
@@ -564,7 +568,9 @@ class Medium {
 
         var pp = this.id ? // no ID means this medium is being reused
             Track :
-            function (track, parent) { return new Track(_.omit(track, 'id'), parent); };
+            function (track, parent) {
+                return new Track(_.omit(track, 'id'), parent);
+            };
         this.tracks(utils.mapChild(this, data.tracks, pp));
 
         if (this.release.seededTocs) {
@@ -629,7 +635,7 @@ class ReleaseGroup extends MB_entity.ReleaseGroup {
 
         super(data);
 
-        this.typeID = ko.observable(data.typeID)
+        this.typeID = ko.observable(data.typeID);
         this.secondaryTypeIDs = ko.observableArray(data.secondaryTypeIDs);
     }
 }
@@ -833,7 +839,9 @@ class Release extends MB_entity.Release {
             utils.mapChild(this, data.events, ReleaseEvent)
         );
 
-        function countryID(event) { return event.countryID() }
+        function countryID(event) {
+            return event.countryID();
+        }
 
         function nonEmptyEvent(event) {
             var date = event.unwrapDate();
@@ -907,10 +915,14 @@ class Release extends MB_entity.Release {
         this.needsRecordings = errorField(this.mediums.any("needsRecordings"));
         this.hasInvalidFormats = errorField(this.mediums.any("hasInvalidFormat"));
         this.hasUnconfirmedVariousArtists = errorField(this.mediums.any("hasUnconfirmedVariousArtists"));
-        this.needsMediums = errorField(function () { return !(self.mediums().length || self.hasUnknownTracklist()) });
+        this.needsMediums = errorField(function () {
+            return !(self.mediums().length || self.hasUnknownTracklist());
+        });
         this.needsFormat = errorField(this.mediums.any("needsFormat"));
         this.needsTracks = errorField(this.mediums.any("needsTracks"));
-        this.needsTrackInfo = errorField(function () { return !self.hasTrackInfo() });
+        this.needsTrackInfo = errorField(function () {
+            return !self.hasTrackInfo();
+        });
         this.hasInvalidPregapLength = errorField(this.mediums.any("hasInvalidPregapLength"));
 
         // Ensure there's at least one event, label, and medium to edit.

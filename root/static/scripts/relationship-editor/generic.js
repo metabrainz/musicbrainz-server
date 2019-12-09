@@ -114,7 +114,9 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
             );
         },
         release_group: function (relationships, series) {
-            return _.sortBy(relationships, function (r) { return r.target(series).firstReleaseDate || '' });
+            return _.sortBy(relationships, function (r) {
+                return r.target(series).firstReleaseDate || '';
+            });
         }
     };
 
