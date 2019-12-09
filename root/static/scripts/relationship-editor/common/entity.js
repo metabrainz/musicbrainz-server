@@ -30,7 +30,7 @@ function getDirection(relationship, source) {
     return 'backward';
   }
 
-  return null;
+  throw 'source should be in the entities array (which has length 2)';
 }
 
 const RE = MB.relationshipEditor = MB.relationshipEditor || {};

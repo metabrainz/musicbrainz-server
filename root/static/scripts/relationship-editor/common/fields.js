@@ -542,7 +542,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
                 return this.entity1_credit;
             }
 
-            return null;
+            throw 'entity should be in the entities array (which has length 2)';
         }
     }
 
