@@ -82,7 +82,7 @@ function recordingQuery(track, name) {
         arid: _(track.artistCredit().names)
             .map('artist.gid')
             .map(utils.escapeLuceneValue)
-                .value()
+            .value()
     };
 
     var titleAndArtists = utils.constructLuceneFieldConjunction(params);

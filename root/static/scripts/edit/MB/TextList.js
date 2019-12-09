@@ -39,7 +39,8 @@ MB.Form.TextList = function (input) {
     self.add = function (init_value) {
         $template.clone()
             .removeClass(template)
-            .insertAfter($template.parent()
+            .insertAfter($template
+                .parent()
                 .find('div.text-list-row')
                 .last())
             .show()

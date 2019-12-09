@@ -47,7 +47,7 @@ function dialogTest(name, callback) {
             .appendTo('body')
                 .append(
                     $("<div>").attr("id", "add-disc-dialog").hide(),
-                    $("<div>").attr("id", "track-parser-dialog").hide()
+                    $("<div>").attr("id", "track-parser-dialog").hide(),
                 );
 
         releaseEditor.activeTabID("#information");

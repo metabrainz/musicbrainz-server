@@ -49,9 +49,7 @@ MB.Control.EditList = function (container) {
          */
         $voteOptions.find('input').each(function (i) {
             $(this).click(function () {
-                    $container
-                        .find('div.voteopts')
-                        .each(function () {
+                    $container.find('div.voteopts').each(function () {
                             $(this)
                                 .find('input')
                                 .eq(i)

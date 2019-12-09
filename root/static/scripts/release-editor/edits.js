@@ -613,7 +613,7 @@ releaseEditor.orderedEditSubmissions = [
                 .map("entity")
                 .compact()
                 .keyBy("position")
-                    .value();
+                .value();
 
             var newMediums = release.mediums();
 
