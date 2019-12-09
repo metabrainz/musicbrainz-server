@@ -63,7 +63,7 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-12-05 16:44-0600\n"
-"PO-Revision-Date: 2019-12-05 22:48+0000\n"
+"PO-Revision-Date: 2019-12-09 19:54+0000\n"
 "Last-Translator: yvanz\n"
 "Language-Team: French (http://www.transifex.com/musicbrainz/musicbrainz/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -276,7 +276,7 @@ msgid ""
 "artists} should almost always be different from {csg_track_artist|track "
 "artists}, so don’t use the “copy artist credits” option while editing a "
 "classical release unless you’re very sure it’s a good idea!"
-msgstr ""
+msgstr "<strong>Note :</strong> En musique classique, les {csg_recording_artist|artistes des enregistrements} doivent presque toujours être différents des {csg_track_artist|artistes des pistes}, donc veuillez ne pas utiliser l’option « Copier tous les crédits d’artiste… » sauf si vous êtes absolument sûrs que c’est une bonne idée !"
 
 #: ../root/admin/wikidoc/index.tt:16
 msgid ""
@@ -2445,7 +2445,7 @@ msgstr "Je confirme que c’est le code-barres comme l est sur la parution."
 
 #: ../root/release/edit/tracklist.tt:343
 msgid "I confirm this is an intentional use of Various Artists on tracks."
-msgstr ""
+msgstr "Je confirme que l’utilisation de « Various Artists » pour des pistes est intentionnelle."
 
 #: ../root/release/edit/tracklist.tt:301
 msgid "I don’t know"
@@ -2602,7 +2602,7 @@ msgid ""
 "If the {recording_doc|recording titles/artists} listed above are incorrect, "
 "you can check the boxes below to replace them with the track titles/artists "
 "for this release."
-msgstr ""
+msgstr "Si les titres/artistes des {recording_doc|enregistrements} listés ci-dessus sont incorrects, vous pouvez cochez les cases ci-dessous pour les remplacer tous par les titres/artistes des pistes de cette parution."
 
 #: ../root/release/edit/information.tt:294
 msgid ""
@@ -2667,7 +2667,7 @@ msgstr "Si vous pensez que ceci est une erreur, veuillez contacter <code>support
 msgid ""
 "If you’re sure the use of Various Artists is correct, confirm it above. "
 "Otherwise, please fix the data."
-msgstr ""
+msgstr "Si vous êtes sûrs que l’utilisation de « Various Artists » est correcte, alors confirmez le ci-dessus. Sinon, veuillez corriger les données."
 
 #: ../root/components/common-macros.tt:88 ../root/components/Artwork.js:45
 msgid "Image not available yet, please try again in a few minutes."
@@ -5485,7 +5485,7 @@ msgstr "Ce groupe de parution sera enlevé automatiquement quand il n’aura plu
 
 #: ../root/edit/details/merge_releases.tt:35
 msgid "This release has no media to merge."
-msgstr ""
+msgstr "Cette parution n’a aucun support à fusionner."
 
 #: ../root/release/edit/information.tt:351
 msgid ""
@@ -7484,13 +7484,13 @@ msgstr "{t0}-{t1} relations"
 msgid ""
 "Unable to determine which recording {source_recording} should be merged "
 "into. There are multiple valid options: {target_recordings}."
-msgstr ""
+msgstr "Impossible de déterminer avec quel enregistrement {source_recording} devrait être fusionné. Il y a plusieurs cibles valides : {target_recordings}"
 
 #: ../lib/MusicBrainz/Server/Data/Release.pm:49
 msgid ""
 "Some mediums being merged don’t have an equivalent on the target release: "
 "either the target release has less mediums, or the positions don’t match."
-msgstr ""
+msgstr "Certains supports à fusionner n’ont pas d’équivalent sur la parution cible : soit la parution cible a moins de supports, ou leurs positions ne correspondent pas."
 
 #: ../lib/MusicBrainz/Server/Data/Release.pm:50
 msgid "The medium positions conflict."
@@ -7513,7 +7513,7 @@ msgid ""
 "A merge cycle exists whereby two recordings ({recording1} and {recording2}) "
 "each want to merge into the other. This is likely because the tracks or "
 "recordings are in an inconsistent order on the releases."
-msgstr ""
+msgstr "Un cycle de fusion existe où deux enregistrements ({recording1} et {recording2}) seraient fusionnés l’un avec l’autre. C’est probablement dû à un ordre des pistes ou des enregistrements qui pourrait être contradictoire entre les parutions."
 
 #: ../lib/MusicBrainz/Server/Data/Vote.pm:159
 msgid "Total"
@@ -7958,7 +7958,7 @@ msgstr "Modifier le label de parution"
 #: ../lib/MusicBrainz/Server/Edit/Release/Merge.pm:324
 #, perl-brace-format
 msgid "These releases could not be merged: {reason}"
-msgstr ""
+msgstr "Ces parutions n’ont pas pu être fusionnées : {reason}"
 
 #: ../lib/MusicBrainz/Server/Edit/Release/RemoveCoverArt.pm:19
 msgid "Remove cover art"
@@ -9566,7 +9566,7 @@ msgid ""
 "is highly recommended. Not only does it make your sources clear (both now "
 "and to users who see the edit years later), but it can also encourage other "
 "users to vote on the edit — thus making it get applied faster."
-msgstr ""
+msgstr "Il est fortement recommandé de saisir une {note|note de modification} décrivant où vous avez eu vos informations. Non seulement cela clarifie la provenance de vos informations (aujourd’hui et pour les éditeurs qui verront ces modifications dans des années), mais cela peut encourager les autres à voter pour votre modification — ainsi votre modification sera appliquée plus rapidement."
 
 #: ../root/components/EntityTabs.js:24
 #: ../root/recording/RecordingFingerprints.js:21
@@ -9588,7 +9588,7 @@ msgstr "Modifier les relations"
 
 #: ../root/components/InstrumentRelTypes.js:33
 msgid "as “{credit}”"
-msgstr ""
+msgstr "comme « {credit} »"
 
 #: ../root/components/RelatedSeries.js:30
 msgid "Related series"
@@ -11167,7 +11167,7 @@ msgstr "Artiste de parution"
 
 #: ../root/recording/RecordingIndex.js:53
 msgid "Release Group Type"
-msgstr ""
+msgstr "Type de groupe de parution"
 
 #: ../root/recording/RecordingIndex.js:86
 msgid "Medium {medium_num}, track {track_num}"
@@ -12768,7 +12768,7 @@ msgstr "Autrement, vous pouvez {uri|ajouter un nouvel événement}."
 
 #: ../root/search/components/InstrumentResults.js:58
 msgid "Alternatively, you may {uri|add a new instrument}."
-msgstr ""
+msgstr "Autrement, vous pouvez {uri|ajouter une nouvel instrument}."
 
 #: ../root/search/components/LabelResults.js:74
 msgid "Alternatively, you may {uri|add a new label}."

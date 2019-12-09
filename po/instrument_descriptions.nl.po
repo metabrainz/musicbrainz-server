@@ -2,13 +2,13 @@
 # Translators:
 # reneweesp <email address hidden>, 2017-2019
 # Maurits Meulenbelt <email address hidden>, 2012
-# Maurits Meulenbelt <email address hidden>, 2013-2019
+# Maurits Meulenbelt <email address hidden>, 2012-2019
 # Nikolai Prokoschenko <email address hidden>, 2011
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2019-12-05 22:48+0000\n"
-"Last-Translator: Michael Wiencek <email address hidden>\n"
+"PO-Revision-Date: 2019-12-07 15:36+0000\n"
+"Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -324,7 +324,7 @@ msgstr "Akoestische gitaar zonder fretten."
 msgid ""
 "Also known as Melodeon, it has 1 to 2 rows of buttons that each produce two "
 "tones (bisonoric)."
-msgstr ""
+msgstr "De trekharmonica of trekzak is een diatonische accordeon met één, twee of drie rijen knoppen."
 
 #. name:repeater
 #: DB:instrument/description:882
@@ -1433,7 +1433,7 @@ msgstr "De pahuu bestaat uit boomstammen of dikke planken met een lengte tot neg
 #. name:baglamas
 #: DB:instrument/description:236
 msgid "Long necked bowl lute, it is named after a related Turkish lute"
-msgstr ""
+msgstr "De baglamas is een langhalsluit die verwant is aan de Turkse luit."
 
 #. name:pūmotomoto
 #: DB:instrument/description:785
@@ -1504,7 +1504,7 @@ msgid ""
 "frame like a xylophone. <br /> For the balinese metallophone sometimes known"
 " as chalung or calung, see <a "
 "href=\"/instrument/395bab77-bb77-4696-96d6-dfcade201c6d\">jublag</a>"
-msgstr ""
+msgstr "De tjaloeng is een percussie-instrument dat bestaat uit verticaal opgehangen bamboebuizen die voor de juiste toonhoogte op maat zijn gesneden. Het instrument kan zowel hangend als op een rek (als een xylofoon) worden bespeeld. <br />Zie voor de Balinese metallofoon die ook soms tjaloeng wordt genoemd <a href=\"/instrument/395bab77-bb77-4696-96d6-dfcade201c6d\">djoeblag</a>."
 
 #. name:sasando
 #: DB:instrument/description:928
@@ -1843,7 +1843,7 @@ msgid ""
 "Percussion performed with feet, such as <a "
 "href=\"http://en.wikipedia.org/wiki/Foot-tapping\">foot tapping</a> and <a "
 "href=\"http://en.wikipedia.org/wiki/Clogging\">clogging</a>."
-msgstr ""
+msgstr "Met voeten uitgevoerde percussie, zoals <a href=\"http://en.wikipedia.org/wiki/Clogging\">klompendansen</a>."
 
 #. name:ney
 #: DB:instrument/description:540
@@ -1865,7 +1865,7 @@ msgid ""
 "Pipes of bamboo with goat or calfskin membranes, the pitches depend largely "
 "on tube-lenght, it is the ancestor to the octoban. Modern variants are "
 "usually made of wood, plastic or metal with plastic membranes."
-msgstr "Een boebam is een pijp van bamboe met een membraan van geiten- of kalfshuid.  De toonhoogte hangt vooral van de lengte van de pijp af. Het instrument is een voorloper van de octoban."
+msgstr "Een boebam is een pijp van bamboe met een membraan van geiten- of kalfshuid. De toonhoogte hangt vooral van de lengte van de pijp af. Het instrument is een voorloper van de octoban."
 
 #. name:k'lông pút
 #: DB:instrument/description:283
@@ -2033,7 +2033,7 @@ msgid ""
 "over long bamboo resonators <br /> For the sundanese bamboo xylophone also "
 "used in gamelan, see <a href=\"/instrument/6e180df5-6df9-46bb-8ebf-"
 "c576a010fb5a\">calung</a>"
-msgstr ""
+msgstr "De djoeblag is het een-na-laagst klinkende lid van de gangsafamilie en bestaat uit vier tot zeven bronzen staven die boven lange klankkasten van bamboe hangen. <br />Zie voor de Soendanese xylofoon die ook in gamelanensembles wordt gebruikt de <a href=\"/instrument/6e180df5-6df9-46bb-8ebf-c576a010fb5a\">tjaloeng</a>."
 
 #. name:reyong
 #: DB:instrument/description:973
@@ -2221,7 +2221,7 @@ msgstr "Sopilka verwijst (meestal) naar een soort pijperfluit die wordt gebruikt
 msgid ""
 "Sound chip from various video game consoles, computers and similar, used for"
 " music, chiefly in bitunes and chiptunes"
-msgstr ""
+msgstr "De geluidschip van een spelcomputer of ander soort computer, gebruikt als instrument, zoals bij chiptunemuziek."
 
 #. name:sitar
 #: DB:instrument/description:88
@@ -3428,7 +3428,7 @@ msgstr "De reco-reco is een of ander instrument. Ik weet het verder ook niet."
 #. name:repinique
 #: DB:instrument/description:722
 msgid "The repinique is a cylindrical drum from Brazil."
-msgstr "Een repinique is een cilindrische trommel uit Brazilië"
+msgstr "Een repinique is een cilindrische trommel uit Brazilië."
 
 #. name:riq
 #: DB:instrument/description:329
@@ -3589,7 +3589,7 @@ msgstr "Een schruti-doos of srut-doos is vergelijkbaar met een harmonium en word
 #. name:shudraga
 #: DB:instrument/description:593
 msgid "The shudraga is a Mongolian fretless lute with three strings."
-msgstr "De shudraga is een Mongoolse luit zonder fretten en met drie snaren. Het staat ook bekend als  shanz en shadraga."
+msgstr "De shudraga is een Mongoolse luit zonder fretten en met drie snaren. Het staat ook bekend als shanz en shadraga."
 
 #. name:sho
 #: DB:instrument/description:192
@@ -4329,7 +4329,7 @@ msgid ""
 "Used in folk music, it is often called \"saz\". The neck with adjustable "
 "frets, is of beech or juniper, the body with spruce soundboard, of various "
 "woods, its seven strings divided into courses are plucked with a plectrum."
-msgstr ""
+msgstr "De bağlama, een instrument dat ook vaak saz wordt genoemd, is een langhalsluit met instelbare fretten, een hals van berken- of jeneverbeshout, een klankbord van sparrenhout en een klankkast van verschillende houtsoorten. De zeven snaren worden met een plectrum bespeeld."
 
 #. name:viola caipira
 #: DB:instrument/description:660
@@ -4698,7 +4698,7 @@ msgstr "Een tubon is een soort elektronisch orgel dat als een gitaar om de nek k
 #. name:saxophone quartet
 #: DB:instrument/description:942
 msgid "ensemble of four saxophones, generally SATBar"
-msgstr "Een saxofoonkwartet is een ensemble van vier saxofonen, meestal bestaande uit sopraan, alt, tenor en bariton."
+msgstr "Een saxofoonkwartet is een ensemble van vier saxofoons, meestal bestaande uit sopraan, alt, tenor en bariton."
 
 #. name:hmông flute
 #: DB:instrument/description:312
@@ -4892,7 +4892,7 @@ msgstr "Een bekfluit met zes gaten die net als de gerelateerde spilåpipa tradit
 msgid ""
 "small fretted hybrid instrument with a banjo body and a ukulele neck, "
 "popular in the 1920-30"
-msgstr "Een in de jaren 1920 en 1930 populaire kruising tussen de klankkast van een banjo en de hals van een ukulele."
+msgstr "Een in de jaren 1920 en 1930 populaire kruising tussen de klankkast van een banjo en de hals van een ukelele."
 
 #. name:piano spinet
 #: DB:instrument/description:798
