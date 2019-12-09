@@ -13,10 +13,10 @@ import MB from '../../MB';
 MB.Control.EditSummary = function (container) {
     var self = {};
 
-    var $container = $(container);
-    var $toggleEditNote = $container.find('.edit-note-toggle');
-    var $editNote = $container.find('.add-edit-note');
-    var $editNoteField = $editNote.find('textarea');
+    let $container = $(container);
+        let $toggleEditNote = $container.find('.edit-note-toggle');
+        let $editNote = $container.find('.add-edit-note');
+        let $editNoteField = $editNote.find('textarea');
 
     self.addNote = function () {
         $toggleEditNote
