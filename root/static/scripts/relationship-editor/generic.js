@@ -95,10 +95,10 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
                 relationships,
                 function (r) {
                     return r.target(series).begin_date || '';
-                    },
+                },
                 function (r) {
                     return r.target(series).end_date || '';
-                    },
+                },
                 function (r) {
                     return r.target(series).time || '';
                 },
