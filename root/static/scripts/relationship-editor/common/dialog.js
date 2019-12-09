@@ -267,12 +267,12 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
                                           if (r.entityTypes !== relationship.entityTypes) {
                                               return;
                                           }
-                                      break;
+                                          break;
                                       case 'same-relationship-type':
                                           if (r.linkTypeID() !== relationship.linkTypeID()) {
                                               return;
                                           }
-                                      break;
+                                          break;
                                     }
 
                                     var entities = r.entities();

@@ -101,7 +101,7 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
                     },
                 function (r) {
                     return r.target(series).time || '';
-                }
+                },
             );
         },
         release: function (relationships, series) {
@@ -109,10 +109,10 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
                 relationships,
                 function (r) {
                     return _(r.target(series).events).map(getDate).sort().head();
-                    },
+                },
                 function (r) {
                     return _(r.target(series).labels).map(getCatalogNumber).sort().head();
-                }
+                },
             );
         },
         release_group: function (relationships, series) {
