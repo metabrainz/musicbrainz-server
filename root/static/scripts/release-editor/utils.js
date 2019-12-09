@@ -224,7 +224,8 @@ var padchar = "-";
 var alpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789._";
 
 function base64(s) {
-    var i; var b10;
+    let i;
+    let b10;
     var x = [];
     var imax = s.length - s.length % 3;
 

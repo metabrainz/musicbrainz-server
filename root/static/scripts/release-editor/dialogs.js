@@ -250,8 +250,8 @@ class SearchTab {
     }
 
     addDisc() {
-        var release = releaseEditor.rootField.release();
-            var medium = new fields.Medium(this.result(), release);
+        const release = releaseEditor.rootField.release();
+            const medium = new fields.Medium(this.result(), release);
 
         medium.name("");
 
@@ -314,8 +314,8 @@ Object.assign(addDiscDialog, {
     currentTab: ko.observable(trackParserDialog),
 
     open: function () {
-        var release = releaseEditor.rootField.release();
-            var blankMedium = new fields.Medium({}, release);
+        const release = releaseEditor.rootField.release();
+            const blankMedium = new fields.Medium({}, release);
 
         this.trackParser.setMedium(blankMedium);
         this.trackParser.result(blankMedium);

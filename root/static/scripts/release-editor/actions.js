@@ -176,19 +176,19 @@ const actions = {
     },
 
     swapTracks: function (track1, track2, medium) {
-        var tracks = medium.tracks;
-            var underlyingTracks = tracks.peek();
-            var offset = medium.hasPregap() ? 0 : 1;
+        const tracks = medium.tracks;
+            const underlyingTracks = tracks.peek();
+            const offset = medium.hasPregap() ? 0 : 1;
             /*
              * Use _.indexOf instead of .position()
              * http://tickets.metabrainz.org/browse/MBS-7227
              */
-            var position1 = _.indexOf(underlyingTracks, track1) + offset;
-            var position2 = _.indexOf(underlyingTracks, track2) + offset;
-            var number1 = track1.number();
-            var number2 = track2.number();
-            var dataTrack1 = track1.isDataTrack();
-            var dataTrack2 = track2.isDataTrack();
+            const position1 = _.indexOf(underlyingTracks, track1) + offset;
+            const position2 = _.indexOf(underlyingTracks, track2) + offset;
+            const number1 = track1.number();
+            const number2 = track2.number();
+            const dataTrack1 = track1.isDataTrack();
+            const dataTrack2 = track2.isDataTrack();
 
         track1.position(position2);
         track1.number(number2);
