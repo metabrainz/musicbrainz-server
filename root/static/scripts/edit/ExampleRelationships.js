@@ -60,7 +60,7 @@ ERE.init = function (config) {
     };
 
     ko.applyBindings(ERE.viewModel);
-}
+};
 
 ERE.Example = function (name, relationship) {
     var self = this;
@@ -69,10 +69,10 @@ ERE.Example = function (name, relationship) {
     self.relationship = relationship;
     self.removeExample = function () {
         ERE.viewModel.examples.remove(this);
-    }
+    };
 
     return self;
-}
+};
 
 ViewModel = function () {
     return {
@@ -95,12 +95,12 @@ ViewModel = function () {
             },
             possibleRelationships: new RelationshipSearcher()
         }
-    }
+    };
 };
 
 searchUrl = function (mbid) {
     return jsRoot + mbid + '?inc=rels';
-}
+};
 
 
 RelationshipSearcher = function () {
@@ -154,7 +154,7 @@ RelationshipSearcher = function () {
                             name: target.name,
                             mbid: target.gid
                         }
-                    })
+                    });
                 });
             } else {
                 self.error(
@@ -167,10 +167,10 @@ RelationshipSearcher = function () {
     self.clear = function () {
         this.query('');
         this.results.removeAll();
-    }
+    };
 
     return self;
-}
+};
 
 return ERE;
 

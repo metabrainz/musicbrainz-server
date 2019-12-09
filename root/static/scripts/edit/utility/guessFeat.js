@@ -50,7 +50,9 @@ function extractNonBracketedFeatCredits(str, artists, isProbablyClassical) {
 
     var artistCredit = wrapped
         .splice(2)
-        .filter(function (value, key) { return key %2 == 0; })
+        .filter(function (value, key) {
+            return key % 2 === 0;
+        })
         .compact()
         .map(c => expandCredit(c, artists, isProbablyClassical))
         .flatten()
@@ -114,7 +116,7 @@ function extractFeatCredits(str, artists, isProbablyClassical, allowEmptyName) {
         return m1;
     }
 
-    return {name: m2.name, joinPhrase: m2.joinPhrase || m1.joinPhrase, artistCredit: m2.artistCredit.concat(m1.artistCredit)}
+    return {name: m2.name, joinPhrase: m2.joinPhrase || m1.joinPhrase, artistCredit: m2.artistCredit.concat(m1.artistCredit)};
 }
 
 function cleanCredit(name, isProbablyClassical) {

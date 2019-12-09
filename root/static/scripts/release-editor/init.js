@@ -274,7 +274,9 @@ releaseEditor.init = function (options) {
     // Fancy!
 
     $(function () {
-        $pageContent.fadeIn("fast", function () { $("#name").focus() });
+        $pageContent.fadeIn("fast", function () {
+            $("#name").focus();
+        });
     });
 };
 
@@ -287,7 +289,7 @@ releaseEditor.loadRelease = function (gid, callback) {
     return request(args, this)
             .done(callback || this.releaseLoaded)
             .fail(function (jqXHR, status, error) {
-                error = jqXHR.status + " (" + error + ")"
+                error = jqXHR.status + " (" + error + ")";
 
                 // If there wasn't an ISE, the response should parse as JSON.
                 try {

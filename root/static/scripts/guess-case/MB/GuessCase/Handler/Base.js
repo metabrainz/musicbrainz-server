@@ -780,7 +780,7 @@ MB.GuessCase.Handler.Base = function (gc) {
             return true;
         }
         return false;
-    }
+    };
 
     /*
      * Detect featuring,f., ft[.], feat[.] and add parentheses as needed.

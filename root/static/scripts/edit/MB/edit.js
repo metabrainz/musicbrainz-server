@@ -23,11 +23,22 @@ import request from '../../common/utility/request';
     edit.TYPES = TYPES;
 
 
-    function value(arg) { return typeof arg === "function" ? arg() : arg }
-    function string(arg) { return clean(value(arg)) }
-    function number(arg) { var num = parseInt(value(arg), 10); return isNaN(num) ? null : num }
-    function array(arg, type) { return _.map(value(arg), type) }
-    function nullableString(arg) { return string(arg) || null }
+    function value(arg) {
+        return typeof arg === "function" ? arg() : arg;
+    }
+    function string(arg) {
+        return clean(value(arg));
+    }
+    function number(arg) {
+        var num = parseInt(value(arg), 10);
+        return isNaN(num) ? null : num;
+    }
+    function array(arg, type) {
+        return _.map(value(arg), type);
+    }
+    function nullableString(arg) {
+        return string(arg) || null;
+    }
 
 
     var fields = edit.fields = {
@@ -428,7 +439,9 @@ import request from '../../common/utility/request';
 
 
     function editEndpoint(endpoint) {
-        function omitHash(edit) { return _.omit(edit, "hash") }
+        function omitHash(edit) {
+            return _.omit(edit, "hash");
+        }
 
         return function (data, context) {
             data.edits = _.map(data.edits, omitHash);
