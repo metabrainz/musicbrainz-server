@@ -14,10 +14,11 @@
 # Ian McEwen <email address hidden>, 2012
 # Maurits Meulenbelt <email address hidden>, 2012
 # Maurits Meulenbelt <email address hidden>, 2012
-# Maurits Meulenbelt <email address hidden>, 2013-2019
+# Maurits Meulenbelt <email address hidden>, 2012-2019
 # Nathan Follens, 2016
 # Nathan Follens, 2016
 # nikki, 2012-2013
+# nikki2 <email address hidden>, 2012
 # nikki2 <email address hidden>, 2012
 # Nikolai Prokoschenko <email address hidden>, 2011
 # Nikolai Prokoschenko <email address hidden>, 2011
@@ -29,8 +30,8 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-12-05 16:44-0600\n"
-"PO-Revision-Date: 2019-12-05 22:48+0000\n"
-"Last-Translator: yvanz\n"
+"PO-Revision-Date: 2019-12-07 15:36+0000\n"
+"Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -205,7 +206,7 @@ msgstr "500px"
 
 #: ../root/admin/edit_user.tt:20
 msgid "<abbr title=\"MusicBrainz Identifier\">MBID</abbr> submitter"
-msgstr "<abbr title=\"MusicBrainz Identificator\">MBID</abbr>-indiener"
+msgstr "<abbr title=\"MusicBrainz Identifier\">MBID</abbr>-indiener"
 
 #: ../root/annotation/history.tt:34
 msgid "<em>no changelog specified</em>"
@@ -242,7 +243,7 @@ msgid ""
 "artists} should almost always be different from {csg_track_artist|track "
 "artists}, so don’t use the “copy artist credits” option while editing a "
 "classical release unless you’re very sure it’s a good idea!"
-msgstr ""
+msgstr "<strong>Let op:</strong> bij klassieke muziek is de {csg_recording_artist|artiest van de opname} bijna altijd anders dan de {csg_track_artist|artiest van het nummer}, dus gebruik bij klassieke muziek niet de optie “Kopieer de artiesten …”, tenzij je heel zeker weet dat dit een goed idee is!"
 
 #: ../root/admin/wikidoc/index.tt:16
 msgid ""
@@ -1235,7 +1236,7 @@ msgstr "De captcha is incorrect. Probeer het opnieuw."
 
 #: ../root/release/edit/information.tt:188
 msgid "Cat. No:"
-msgstr "Catalogusnr."
+msgstr "Catalogusnr.:"
 
 #: ../root/edit/details/historic/add_release.tt:78
 #: ../root/report/CatNoLooksLikeAsin.js:61
@@ -1965,7 +1966,7 @@ msgstr "Beëindigd:"
 
 #: ../root/relationship/linktype/form.tt:112
 msgid "Endpoint:"
-msgstr "Eindpunt"
+msgstr "Eindpunt:"
 
 #: ../root/components/forms.tt:279 ../root/components/forms.tt:303
 msgid "English"
@@ -2025,7 +2026,7 @@ msgstr "Fout bij het stemmen"
 
 #: ../root/main/info/error.tt:22 ../root/main/404.js:31
 msgid "Error message: "
-msgstr "Foutmelding"
+msgstr "Foutmelding:"
 
 #: ../root/admin/wikidoc/index.tt:50
 msgid "Error!"
@@ -2411,7 +2412,7 @@ msgstr "Ik bevestig dat de streepjescode precies zo op de uitgave staat."
 
 #: ../root/release/edit/tracklist.tt:343
 msgid "I confirm this is an intentional use of Various Artists on tracks."
-msgstr ""
+msgstr "Ik bevestig dat het de bedoeling is om Diverse Artiesten voor nummers te gebruiken."
 
 #: ../root/release/edit/tracklist.tt:301
 msgid "I don’t know"
@@ -2561,14 +2562,14 @@ msgstr "Als het object dubbel is, {doc_merge|is het waarschijnlijk beter om ze s
 msgid ""
 "If the problem persists, please {report|report a bug} and include any error "
 "message that is shown above."
-msgstr "Als het probleem zich blijft voordoen, {report|kun je een bug melden}; voeg elke foutmelding die je hierboven ziet aan de bug toe."
+msgstr "Als het probleem zich blijft voordoen, {report|kan je een bug melden}; voeg elke foutmelding die je hierboven ziet aan de bug toe."
 
 #: ../root/release/edit/recordings.tt:119
 msgid ""
 "If the {recording_doc|recording titles/artists} listed above are incorrect, "
 "you can check the boxes below to replace them with the track titles/artists "
 "for this release."
-msgstr ""
+msgstr "Als de hierboven genoemde {recording_doc|titels of artiesten van de opnames} niet kloppen, kan je de opties hieronder aanvinken om ze te vervangen door de titels of artiesten van de nummers zoals ze op deze uitgave staan."
 
 #: ../root/release/edit/information.tt:294
 msgid ""
@@ -2633,7 +2634,7 @@ msgstr "Neem, als je denkt dat dit een fout is, contact <code>support@musicbrain
 msgid ""
 "If you’re sure the use of Various Artists is correct, confirm it above. "
 "Otherwise, please fix the data."
-msgstr ""
+msgstr "Als je zeker weet dat Diverse Artiesten hier moet worden gebruikt, kan je dat hierboven bevestigen. Anders moet je de informatie verbeteren."
 
 #: ../root/components/common-macros.tt:88 ../root/components/Artwork.js:45
 msgid "Image not available yet, please try again in a few minutes."
@@ -2813,7 +2814,7 @@ msgstr "Abonnementen op platenmaatschappijen"
 #: ../root/label/edit_form.tt:28
 #: ../root/layout/components/sidebar/LabelSidebar.js:78
 msgid "Label code:"
-msgstr "Platenmaatschappij-code"
+msgstr "Platenmaatschappij-code:"
 
 #: ../root/user/ratings.tt:2 ../root/user/ratings_summary.tt:3
 msgid "Label ratings"
@@ -2929,7 +2930,7 @@ msgstr "Aan het laden …"
 
 #: ../root/entity/alias/edit_form.tt:16
 msgid "Locale:"
-msgstr "Lokalisatie"
+msgstr "Lokalisatie:"
 
 #: ../root/edit/search_macros.tt:350
 msgid "Location Editor"
@@ -3229,7 +3230,7 @@ msgstr "MusicBrainz heeft één type account voor alle gebruikers. Gebruik het b
 
 #: ../root/edit/index.tt:30
 msgid "My vote:"
-msgstr "Mijn stem: "
+msgstr "Mijn stem:"
 
 #: ../root/edit/edit_header.tt:16 ../root/edit/edit_header.tt:21
 #: ../root/edit/edit_header.tt:26
@@ -3825,7 +3826,7 @@ msgstr "Overweeg alsjeblieft om deze uitgave/cd toe te voegen aan MusicBrainz. G
 msgid ""
 "Please enter the barcode of the release you are entering, see <a "
 "href=\"{url}\" target=\"_blank\">Barcode</a> for more information."
-msgstr "Voer de streepjescode in van de uitgave die je aan het toevoegen bent. Zie <a href=\"{url}\">Streepjescodes</a> voor meer informatie."
+msgstr "Voer de streepjescode in van de uitgave die je aan het toevoegen bent. Zie <a href=\"{url}\" target=\"_blank\">Streepjescodes</a> voor meer informatie."
 
 #: ../root/account/change_password.tt:16
 msgid "Please enter your old password below, and then your new password."
@@ -4276,7 +4277,7 @@ msgstr "Informatie over de uitgave"
 
 #: ../root/cdtoc/attach_filter_release.tt:9 ../root/cdtoc/move_search.tt:15
 msgid "Release title:"
-msgstr "Titel van de uitgave"
+msgstr "Titel van de uitgave:"
 
 #: ../root/release/layout.tt:1 ../root/release/ReleaseLayout.js:35
 msgid "Release “{name}” by {artist}"
@@ -4776,7 +4777,7 @@ msgstr "<code>{discid}</code> komt helaas niet overeen met een cd-beginnetje. Je
 
 #: ../root/cdstub/error.tt:19
 msgid "Sorry, <code>{discid}</code> is not a valid disc ID."
-msgstr " {discid}</code> is helaas geen geldige disc-ID."
+msgstr "<code>{discid}</code> is helaas geen geldige disc-ID."
 
 #: ../root/search/error/no-results.tt:3
 msgid ""
@@ -5451,7 +5452,7 @@ msgstr "Deze uitgavegroep zal automatisch worden verwijderd zodra het geen uitga
 
 #: ../root/edit/details/merge_releases.tt:35
 msgid "This release has no media to merge."
-msgstr ""
+msgstr "Deze uitgave heeft geen media om samen te voegen."
 
 #: ../root/release/edit/information.tt:351
 msgid ""
@@ -5495,7 +5496,7 @@ msgstr "Dit voegt een relatie toe aan alle aangevinkte composities."
 msgid ""
 "This will create a new work for each checked recording that has no work "
 "already. The work names will be the same as their respective recording."
-msgstr "Dit zal een nieuwe compositie toevoegen voor elke aangevinkte opname die nog geen compositie heeft. De namen van de composities zullen gelijk zijn aan de bijbehorende opname. "
+msgstr "Dit zal een nieuwe compositie toevoegen voor elke aangevinkte opname die nog geen compositie heeft. De namen van de composities zullen gelijk zijn aan de bijbehorende opname."
 
 #: ../root/artist/edit_form.tt:81
 msgid ""
@@ -5585,7 +5586,7 @@ msgstr "Totale duur:"
 
 #: ../root/cdstub/index.tt:17 ../root/cdtoc/info.tt:19
 msgid "Total tracks:"
-msgstr "Totaal aantal nummers"
+msgstr "Totaal aantal nummers:"
 
 #: ../root/cdtoc/info.tt:31 ../root/search/components/RecordingResults.js:129
 #: ../root/taglookup/Form.js:39
@@ -6565,7 +6566,7 @@ msgstr "niet overeenkomend met"
 
 #: ../root/edit/search_macros.tt:19
 msgid "earliest closed first"
-msgstr ""
+msgstr "eerst langst geleden gesloten"
 
 #: ../root/components/common-macros.tt:117
 msgid "editors"
@@ -6808,7 +6809,7 @@ msgstr "onbewerkte bewerkingsgegevens"
 
 #: ../root/edit/search_macros.tt:19
 msgid "recently closed first"
-msgstr ""
+msgstr "eerst onlangs gesloten"
 
 #: ../root/release/edit/recordings.tt:23
 msgid "recording"
@@ -6866,11 +6867,11 @@ msgstr "tot {date}"
 
 #: ../root/edit/search_macros.tt:19
 msgid "voting closing later first"
-msgstr ""
+msgstr "eerst stemmen die later sluiten"
 
 #: ../root/edit/search_macros.tt:19
 msgid "voting closing sooner first"
-msgstr ""
+msgstr "eerst stemmen die eerder sluiten"
 
 #: ../root/components/common-macros.tt:117
 msgid "works"
@@ -6908,7 +6909,7 @@ msgstr[1] "{count} privéwaarderingen niet weergegeven"
 
 #: ../root/cdstub/index.tt:13
 msgid "{doc|Disc ID}:"
-msgstr "{doc|disc-ID}"
+msgstr "{doc|disc-ID}:"
 
 #: ../root/user/subscriptions/collection.tt:13
 msgid "{editor} is subscribed to {n} private collection."
@@ -7152,7 +7153,7 @@ msgid_plural ""
 " with {num_open_edits} in the edit queue for peer review, and the rest "
 "automatically accepted and applied."
 msgstr[0] "Bedankt, je {edit_url|bewerking} ({edit_ids}) is ingevoerd. Op {num_open_edits} bewerking moet nog gestemd worden. De rest is automatisch geaccepteerd en doorgevoerd."
-msgstr[1] "Bedankt, je {num_edits} {edit_url|bewerkingen} ({edit_ids}) zijn ingevoerd. Op {num_open_edits}  van deze bewerkingen moet nog gestemd worden. De rest is automatisch geaccepteerd en doorgevoerd."
+msgstr[1] "Bedankt, je {num_edits} {edit_url|bewerkingen} ({edit_ids}) zijn ingevoerd. Op {num_open_edits} van deze bewerkingen moet nog gestemd worden. De rest is automatisch geaccepteerd en doorgevoerd."
 
 #: ../lib/MusicBrainz/Server/Controller/Account.pm:55
 msgid "The user ID is missing or is in an invalid format."
@@ -7190,7 +7191,7 @@ msgid ""
 "We were unable to send login information to your email address.  Please try "
 "again, however if you continue to experience difficulty contact us at "
 "support@musicbrainz.org."
-msgstr "We konden geen aanmeldinformatie naar je e-mailadres sturen. Probeer het opnieuw, en neem als je problemen blijft houden contact met ons op via support@musicbrainz.org"
+msgstr "We konden geen aanmeldinformatie naar je e-mailadres sturen. Probeer het opnieuw, en neem als je problemen blijft houden contact met ons op via support@musicbrainz.org."
 
 #: ../lib/MusicBrainz/Server/Controller/Account.pm:194
 msgid "There is no user with this username"
@@ -7339,7 +7340,7 @@ msgstr "Onze Redis-server lijkt niet te werken; sommige functies werken misschie
 
 #: ../lib/MusicBrainz/Server/Controller/Series.pm:143
 msgid "Series that have different entity types cannot be merged."
-msgstr "Series die verschillende objecttypes hebben kunnen niet worden samengevoegd."
+msgstr "Series die verschillende objecttypes hebben, kunnen niet worden samengevoegd."
 
 #: ../lib/MusicBrainz/Server/Controller/User.pm:251
 msgid ""
@@ -7450,13 +7451,13 @@ msgstr "{t0}-{t1}-relaties"
 msgid ""
 "Unable to determine which recording {source_recording} should be merged "
 "into. There are multiple valid options: {target_recordings}."
-msgstr ""
+msgstr "Er kan niet worden bepaald naar welke opname {source_recording} moet worden samengevoegd. Er zijn meerdere opties mogelijk: {target_recordings}."
 
 #: ../lib/MusicBrainz/Server/Data/Release.pm:49
 msgid ""
 "Some mediums being merged don’t have an equivalent on the target release: "
 "either the target release has less mediums, or the positions don’t match."
-msgstr ""
+msgstr "Sommige media die moeten worden samengevoegd, hebben geen overeenkomstig medium op de doeluitgave: of de doeluitgave heeft minder media, of de posities komen niet overeen."
 
 #: ../lib/MusicBrainz/Server/Data/Release.pm:50
 msgid "The medium positions conflict."
@@ -7479,7 +7480,7 @@ msgid ""
 "A merge cycle exists whereby two recordings ({recording1} and {recording2}) "
 "each want to merge into the other. This is likely because the tracks or "
 "recordings are in an inconsistent order on the releases."
-msgstr ""
+msgstr "Er bestaat een situatie waarin twee opnames ({recording1} en {recording2}) allebei in elkaar zouden moeten worden samengevoegd. Dit komt waarschijnlijk doordat de nummers of de opnames op de uitgaves niet in dezelfde volgorde staan."
 
 #: ../lib/MusicBrainz/Server/Data/Vote.pm:159
 msgid "Total"
@@ -7924,7 +7925,7 @@ msgstr "Platenmaatschappij van de uitgave bewerken"
 #: ../lib/MusicBrainz/Server/Edit/Release/Merge.pm:324
 #, perl-brace-format
 msgid "These releases could not be merged: {reason}"
-msgstr ""
+msgstr "Deze uitgaves kunnen niet worden samengevoegd: {reason}"
 
 #: ../lib/MusicBrainz/Server/Edit/Release/RemoveCoverArt.pm:19
 msgid "Remove cover art"
@@ -9234,13 +9235,13 @@ msgid ""
 "If a name appears on the cover of a release, don’t check the box: the "
 "artists will still be combined if you don’t, but the {doc_acs|artist "
 "credits} will be kept as they are now."
-msgstr ""
+msgstr "Als de naam zo op de uitgave staat, moet je het vakje niet aanvinken: de artiesten worden ook gecombineerd als je dit niet doet, maar de bestaande {doc_acs|vermeldingen} blijven behouden."
 
 #: ../root/artist/ArtistMerge.js:62
 msgid ""
 "Update matching artist and relationship credits to use the target artist’s "
 "name"
-msgstr ""
+msgstr "Verander de bestaande naam van de artiest in nummers en relaties naar de doelartiest"
 
 #: ../root/artist/ArtistRecordings.js:71
 msgid "No recordings found that match this search."
@@ -9532,7 +9533,7 @@ msgid ""
 "is highly recommended. Not only does it make your sources clear (both now "
 "and to users who see the edit years later), but it can also encourage other "
 "users to vote on the edit — thus making it get applied faster."
-msgstr ""
+msgstr "We raden je sterk aan om een {note|bewerkingsnotitie} toe te voegen waarin je beschrijft waar je je informatie hebt gevonden. Dit maakt niet alleen duidelijk waar je je informatie vandaan hebt (zowel voor huidige gebruikers als in de toekomst), maar kan gebruikers ook aansporen om op de bewerking te stemmen, waardoor ze sneller wordt doorgevoerd. Vergeet niet dat dit een internationale gemeenschap is: schijf je notitie daarom in het Engels, ook als je Nederlandse artiesten bewerkt."
 
 #: ../root/components/EntityTabs.js:24
 #: ../root/recording/RecordingFingerprints.js:21
@@ -9554,7 +9555,7 @@ msgstr "Relaties bewerken"
 
 #: ../root/components/InstrumentRelTypes.js:33
 msgid "as “{credit}”"
-msgstr ""
+msgstr "als “{credit}”"
 
 #: ../root/components/RelatedSeries.js:30
 msgid "Related series"
@@ -9969,7 +9970,7 @@ msgstr "Uitgebrachte stemmen"
 
 #: ../root/entity/Details.js:70
 msgid "{mbid|<abbr title=\"MusicBrainz Identifier\">MBID</abbr>}:"
-msgstr "{mbid|<abbr title=\"MusicBrainz Identificator\">MBID</abbr>}:"
+msgstr "{mbid|<abbr title=\"MusicBrainz Identifier\">MBID</abbr>}:"
 
 #: ../root/entity/Details.js:76
 msgid "Last updated:"
@@ -10223,8 +10224,8 @@ msgstr[1] "Er zijn nu {num} gebruikers geabonneerd op bewerkingen die je maakt:"
 msgid "There is currently {num} user subscribed to edits that {user} makes:"
 msgid_plural ""
 "There are currently {num} users subscribed to edits that {user} makes:"
-msgstr[0] "Er is momenteel {num} gebruiker geabonneerd op bewerkingen die {user} maakt"
-msgstr[1] "Er zijn momenteel {num} gebruikers geabonneerd op bewerkingen die {user} maakt."
+msgstr[0] "Er is momenteel {num} gebruiker geabonneerd op bewerkingen die {user} maakt:"
+msgstr[1] "Er zijn momenteel {num} gebruikers geabonneerd op bewerkingen die {user} maakt:"
 
 #: ../root/entity/Subscribers.js:78
 msgid "There is currently {num} user subscribed to {entity}:"
@@ -10319,7 +10320,7 @@ msgstr "Dit zijn alle {genre_url|genres} die nu op MusicBrainz kunnen worden geb
 #: ../root/genre/GenreListPage.js:31
 msgid ""
 "To associate a genre with an entity, tag the entity with the genre name."
-msgstr "Als je een genre aan een object wilt koppelen, kun je het object taggen met de naam van het genre."
+msgstr "Als je een genre aan een object wilt koppelen, kan je het object taggen met de naam van het genre."
 
 #: ../root/genre/GenreListPage.js:42
 msgid ""
@@ -11133,7 +11134,7 @@ msgstr "Artiest van de uitgave"
 
 #: ../root/recording/RecordingIndex.js:53
 msgid "Release Group Type"
-msgstr ""
+msgstr "Type uitgavegroep"
 
 #: ../root/recording/RecordingIndex.js:86
 msgid "Medium {medium_num}, track {track_num}"
@@ -11943,7 +11944,7 @@ msgid ""
 "featured artists} to know more. Don’t forget that the same generally applies"
 " to tracks, so if the track titles also include featuring credits you can "
 "fix them too while you edit the release!"
-msgstr "In dit rapport staan uitgaves met “feat. Artist” (of iets dergelijks) in de titel. Bekijk voor klassieke uitgaves de {CSG|Klassieke stijlgids}. Voor niet-klassieke uitgaves is dit meestal een overblijfsel van een oudere versie van MusicBrainz en moet dit worden verbeterd. Lees {featured_artists| de pagina over gastartiesten} om meer te weten te komen. Vergeet niet dat voor de nummers meestal hetzelfde geldt, dus je kunt tegelijk met de uitgave ook de titels en artiesten van die nummers verbeteren."
+msgstr "In dit rapport staan uitgaves met “feat. Artist” (of iets dergelijks) in de titel. Lees voor klassieke uitgaves de {CSG|Klassieke stijlgids}. Voor niet-klassieke uitgaves is dit meestal een overblijfsel van een oudere versie van MusicBrainz en moet dit worden verbeterd. Lees {featured_artists| de pagina over gastartiesten} om meer te weten te komen. Vergeet niet dat voor de nummers meestal hetzelfde geldt, dus je kan tegelijk met de uitgave ook de titels en artiesten van die nummers verbeteren."
 
 #: ../root/report/FilterLink.js:24
 msgid "Show all results."
@@ -12734,7 +12735,7 @@ msgstr "Je kan ook {uri|een nieuw evenement toevoegen}."
 
 #: ../root/search/components/InstrumentResults.js:58
 msgid "Alternatively, you may {uri|add a new instrument}."
-msgstr ""
+msgstr "Je kan ook {uri|een nieuw instrument toevoegen}."
 
 #: ../root/search/components/LabelResults.js:74
 msgid "Alternatively, you may {uri|add a new label}."
@@ -13484,7 +13485,7 @@ msgid ""
 "before semicolons, colons, exclamation marks and question marks, and inside "
 "guillemets. Some words may need to be manually capitalised to follow the "
 "{url|French capitalisation guidelines}."
-msgstr "Deze methode schrijft hoofdletters zoals in zinnen, maar voegt ook spaties toe voor puntkomma’s, dubbele punten, uitroeptekens en vraagtekens en binnen guillemets. Sommige woorden moeten misschien handmatig van hoofdletters worden voorzien, naar aanleiding van de {url|richtlijn voor hoofdlettergebruik in het Frans}. "
+msgstr "Deze methode schrijft hoofdletters zoals in zinnen, maar voegt ook spaties toe voor puntkomma’s, dubbele punten, uitroeptekens en vraagtekens en binnen guillemets. Sommige woorden moeten misschien handmatig van hoofdletters worden voorzien, naar aanleiding van de {url|richtlijn voor hoofdlettergebruik in het Frans}."
 
 #: ../root/static/scripts/guess-case/modes.js:321
 msgid ""
@@ -13822,7 +13823,7 @@ msgstr "De database heeft geen etiketten."
 
 #: ../root/tag/TagIndex.js:81
 msgid "This tag is associated with the genre {genre}."
-msgstr ""
+msgstr "Deze tag is geassocieerd met het genre {genre}."
 
 #: ../root/tag/TagIndex.js:95
 msgid "See all {num} areas"
@@ -13929,7 +13930,7 @@ msgid ""
 "screen disappear for 3 months. Or even better, sign up for a recurring "
 "donation every three months to not have to think about or see this nag "
 "again."
-msgstr "Als je <strong>$4 doneert, krijg je deze zeurtekst een <strong>maand</strong> niet te zien. We moedigen mensen aan om $12 te doneren om het zeurscherm drie maanden te laten verdwijnen. Of nog beter: meld je aan voor een driemaandelijkse periodieke donatie, zodat je nooit meer aan dit gezeur hoeft te denken of het hoeft te zien."
+msgstr "Als je <strong>$4</strong> doneert, krijg je deze zeurtekst een <strong>maand</strong> niet te zien. We moedigen mensen aan om $12 te doneren om het zeurscherm drie maanden te laten verdwijnen. Of nog beter: meld je aan voor een driemaandelijkse periodieke donatie, zodat je nooit meer aan dit gezeur hoeft te denken of het hoeft te zien."
 
 #: ../root/taglookup/Nag.js:44
 msgid "Make a donation now!"
@@ -14085,7 +14086,7 @@ msgid ""
 " makes it much easier for the recipients of the report to look into the "
 "issues; a report without links is unlikely to be acted on fast, since it "
 "will require a lot of additional research."
-msgstr "Zorg dat je rechtstreekse links naar het gedrag dat je wil melden opgeeft (bijvoorbeeld “<code>https://musicbrainz.org/edit/23</code>” in plaats van “bewerking 23” en gebruik “<code>https://musicbrainz.org/edit/42</code> en <code>https://musicbrainz.org/edit/43</code>” in plaats van “<code>https://musicbrainz.org/user/Gebruikersnaam/edits</code>”). Met deze links kunnen de ontvangers van de melding veel makkelijker naar de problemen kijken. Een melding zonder links wordt waarschijnlijk minder snel opgepakt omdat het veel meer onderzoek vergt."
+msgstr "Zorg dat je rechtstreekse links naar het gedrag dat je wil melden opgeeft (bijvoorbeeld “<code>https://musicbrainz.org/edit/23</code>” in plaats van “bewerking 23” en gebruik “<code>https://musicbrainz.org/edit/42</code> en <code>https://musicbrainz.org/edit/43</code>” in plaats van “<code>https://musicbrainz.org/user/Gebruikersnaam/edits</code>”). Met deze links kunnen de ontvangers van de melding veel makkelijker naar de problemen kijken. Een melding zonder links wordt waarschijnlijk minder snel opgepakt omdat er veel meer onderzoek voor nodig is."
 
 #: ../root/user/ReportUser.js:117
 msgid "Reason"
@@ -14097,7 +14098,7 @@ msgid ""
 "you can uncheck the checkbox above. <br /> We recommend leaving it checked, "
 "so that you can be contacted if the report is resolved or the admins need "
 "more information."
-msgstr ""
+msgstr "Als je niet wil dat onze beheerders contact met je opnemen over deze melding, kan je het vakje hierboven uitvingen. <br /> We raden aan om het vakje aangevinkt te laten, zodat we contact met je op kunnen nemen als de melding is afgewikkeld of als we meer informatie nodig hebben."
 
 #: ../root/user/UserCollections.js:41
 msgid "Area Collections"
@@ -14331,7 +14332,7 @@ msgstr "Automatische bewerkingen"
 
 #: ../root/user/UserProfile.js:384
 msgid "Total applied"
-msgstr ""
+msgstr "Totaal doorgevoerd"
 
 #: ../root/user/UserProfile.js:394
 msgid "Voted down"
@@ -14449,11 +14450,11 @@ msgstr "Geabonneerd"
 
 #: ../root/vote/VotingIndex.js:37
 msgid "…related to artists in my subscriptions"
-msgstr ""
+msgstr "… voor artiesten in mijn abonnementen"
 
 #: ../root/vote/VotingIndex.js:47 ../root/vote/VotingIndex.js:49
 msgid "Voting suggestions"
-msgstr ""
+msgstr "Suggesties voor het stemmen"
 
 #: ../root/vote/VotingIndex.js:53
 msgid ""
@@ -14462,7 +14463,7 @@ msgid ""
 " useful. These are pre-defined {edit_search|edit searches}; once you’re "
 "comfortable with the edit search you can refine them further or just create "
 "your own personal searches and bookmark them for your own use!"
-msgstr ""
+msgstr "Als je wilt helpen controleren of de veranderingen die aan data in MusicBrainz worden gebruikt juist zijn, maar niet weet waar je moet beginnen, kunnen de volgende suggesties je helpen. Het zijn kant-en-klare {edit_search|zoekopdrachten} die je kunt aanpassen als je wat beter bekend met het systeem bent. Je kunt ook zelf zoekopdrachten samenstellen en als bladwijzer opslaan."
 
 #: ../root/vote/VotingIndex.js:64
 msgid ""
@@ -14473,7 +14474,7 @@ msgid ""
 "mistakes, so that they’ll hopefully grow into better editors! That said, if "
 "you find an editor that seems to be vandalizing the data, you can always "
 "report them from their profile."
-msgstr ""
+msgstr "Houd wel de {coc|Gedragscode} in het achterhoofd als je het werk van anderen nakijkt. Bijna iedereen wil helpen, dus als stemmer is het de bedoeling om ze bij het helpen te helpen. Dit geldt vooral voor beginners: probeer altijd hulpvaardig en geduldig te zijn, zelfs als ze fouten maken. Zo worden ze hopelijk betere redacteurs! Als je toch een redacteur vindt die vernielingen aanricht, kan je hem via zijn profiel melden."
 
 #: ../root/vote/VotingIndex.js:77
 msgid ""
@@ -14481,11 +14482,11 @@ msgid ""
 "voted on (when relevant). To change that, load the search and then remove "
 "the conditions “Editor is not me” and “Voter is me and voted No vote”, "
 "respectively."
-msgstr ""
+msgstr "Standaard worden je eigen bewerkingen en bewerkingen waar je al op hebt gestemd in deze zoekopdrachten overgeslagen. Als je dit wil veranderen, kan je de zoekopdracht openen en de voorwaarden “Redacteur ben ik niet” en “Stemmer ben ik niet” verwijderen."
 
 #: ../root/vote/VotingIndex.js:84
 msgid "Destructive edits"
-msgstr ""
+msgstr "Destructieve bewerkingen"
 
 #: ../root/vote/VotingIndex.js:87
 msgid ""
@@ -14499,27 +14500,27 @@ msgid ""
 "(the edits more likely to cause a mess if they incorrectly go through), one "
 "for relationship removals only, and one for destructive changes to releases "
 "(track, medium and release label removals)."
-msgstr ""
+msgstr "Destructieve bewerkingen (verwijderingen en samenvoegingen) zijn vaak heel moeilijk of zelfs onmogelijk terug te draaien. Een destructieve bewerkingen die ongemerkt wordt doorgevoerd kan dus veel problemen veroorzaken! De meeste van deze bewerkingen blijven altijd minimaal 48 uur open, zelfs als er drie keer voor wordt gestemd. Toch is het altijd een goed idee als er zo veel mogelijk mensen naar kijken.\nHieronder vind je vier zoekopdrachten: een voor alle destructieve bewerkingen (dit kunnen er héél veel zijn), een met alleen het samenvoegen en verwijderen van objecten (bewerkingen die grote problemen kunnen veroorzaken als ze onjuist zijn), een voor het verwijderen van relaties en een voor destructieve veranderingen aan uitgaves (het verwijderen van nummers, media en platenmaatschappijen)."
 
 #: ../root/vote/VotingIndex.js:104
 msgid "All open destructive edits"
-msgstr ""
+msgstr "Alle open destructieve bewerkingen"
 
 #: ../root/vote/VotingIndex.js:113
 msgid "All open entity merges and removals"
-msgstr ""
+msgstr "Alle open samenvoegingen en verwijderingen"
 
 #: ../root/vote/VotingIndex.js:122
 msgid "All open relationship removals"
-msgstr ""
+msgstr "Alle open verwijderingen van relaties"
 
 #: ../root/vote/VotingIndex.js:131
 msgid "All open destructive changes to releases"
-msgstr ""
+msgstr "Alle open destructieve veranderingen aan uitgaves"
 
 #: ../root/vote/VotingIndex.js:142
 msgid "Unreviewed and potentially problematic edits"
-msgstr ""
+msgstr "Niet gecontroleerde en mogelijk problematische bewerkingen"
 
 #: ../root/vote/VotingIndex.js:145
 msgid ""
@@ -14529,25 +14530,25 @@ msgid ""
 "edit: it’s perfectly fine to just abstain if you feel something doesn’t seem"
 " wrong but it’s also not 100% obvious that it is right without further "
 "checks."
-msgstr ""
+msgstr "Het is altijd goed als bewerkingen die nog door niemand zijn gezien, kort worden bekeken: zelfs als je niet bekend bent met de muziek kan je het soms zien als er iets niet klopt. Je hoeft niet per se op elke bewerking te stemmen: het is prima om onthouding te stemmen als je niets verkeerds ziet, maar ook niet 100% zeker weet dat de bewerking juist is."
 
 #: ../root/vote/VotingIndex.js:156
 msgid "Unreviewed edits (0 votes) that will close in less than a day"
-msgstr ""
+msgstr "Niet-beoordeelde bewerkingen (0 stemmen) die binnen een dag sluiten"
 
 #: ../root/vote/VotingIndex.js:167
 msgid "All open unreviewed edits (0 votes)"
-msgstr ""
+msgstr "Alle open, niet-beoordeelde bewerkingen (0 stemmen)"
 
 #: ../root/vote/VotingIndex.js:177
 msgid ""
 "All open unconfirmed edits (“Abstain” votes only) that will close in less "
 "than a day"
-msgstr ""
+msgstr "Alle open, niet-bevestigde bewerkingen (alleen stemmen onthouding) die binnen een dag sluiten"
 
 #: ../root/vote/VotingIndex.js:187
 msgid "All open unconfirmed edits (“Abstain” votes only)"
-msgstr ""
+msgstr "Alle open, niet-bevestigde bewerkingen (alleen stemmen onthouding)"
 
 #: ../root/vote/VotingIndex.js:199
 msgid ""
@@ -14557,19 +14558,19 @@ msgid ""
 "both “Yes” and “No” votes are likely to benefit from more opinions to push "
 "them to one side or the other. As always, remember to be polite, even if you"
 " disagree with a voter!"
-msgstr ""
+msgstr "Ook bewerkingen die een of meer tegenstemmen hebben gehad, kunnen extra aandacht gebruiken, om te bevestigen dat de bewerking echt niet juist is of om tegengewicht te bieden aan de tegenstem. Als bewerkingen zowel voor- als tegenstemmen hebben gehad, is het goed als er meer mensen naar kijken en hun mening geven, zodat er een duidelijke consensus ontstaat. Maar blijf wel beleefd, ook als je het niet met iemand eens bent."
 
 #: ../root/vote/VotingIndex.js:211
 msgid "Open edits with at least 1 “No” vote"
-msgstr ""
+msgstr "Open bewerkingen met minimaal één tegenstem"
 
 #: ../root/vote/VotingIndex.js:220
 msgid "Open edits with both “Yes” and “No” votes (controversial edits)"
-msgstr ""
+msgstr "Open bewerkingen met zowel voor- als tegenstemmen (controversiële bewerkingen)"
 
 #: ../root/vote/VotingIndex.js:232
 msgid "Edits by beginners"
-msgstr ""
+msgstr "Bewerkingen door beginners"
 
 #: ../root/vote/VotingIndex.js:235
 msgid ""
@@ -14591,7 +14592,7 @@ msgid ""
 "{voting_blog|this blog post about voting}. Also, if a beginner is making "
 "especially good edits, you might want to let them know so they’ll feel good "
 "about it!"
-msgstr ""
+msgstr "Beginnende redacteurs kunnen vaak wel een beetje hulp bij hun bewerkingen gebruiken. Je kan kijken of de bewerkingen tegen onze richtlijnen ingaan of om een andere reden niet juist zijn en bewerkingsnotities plaatsen waarmee je de redacteur op weg helpt. Gebruik hiervoor links naar relevante richtlijnen of voorbeelden van goede data, maar wees vooral aardig. Zelfs als gebruikers er een potje van maken, is dat meestal niet expres maar omdat MusicBrainz nogal overweldigend kan zijn. Je kan de fouten repareren (en de redacteur vertellen wat je hebt gedaan, zodat ze kunnen zien hoe het eindresultaat eruit zou moeten zien). Dit is beter dan gewoon tegenstemmen, want dat kan heel ontmoedigend werken, zeker voor nieuwe redacteurs. Als een bewerking zo slecht is dat hij niet kan worden gerepareerd en de bestaande data slechter maakt, moet je wel tegenstemmen, maar leg dan wel vriendelijk uit waarom dat nodig was. Stilletjes tegenstemmen werkt vaak averechts. In {voting_blog|dit blogbericht over stemmen} kan je meer lezen over de houding die we hopen te zien. Als een beginner echt goede bewerkingen maakt, mag je ze dat natuurlijk ook gewoon laten weten om ze aan te moedigen."
 
 #: ../root/vote/VotingIndex.js:262
 msgid ""
@@ -14599,7 +14600,7 @@ msgid ""
 "edits (since you can’t vote on closed edits anyway). That said, a fair "
 "amount of edits that auto-apply might still be worth reviewing when entered "
 "by beginners, so consider checking those too!"
-msgstr ""
+msgstr "De filters voor bewerkingen waar je nog niet op hebt gestemd, tonen alleen open bewerkingen (op gesloten bewerkingen kan je toch niet stemmen). Toch zijn er best veel bewerkingen van beginners die automatisch worden doorgevoerd, maar toch beter even bekeken kunnen worden. Daar zou je dus ook nog naar kunnen kijken (door de voorwaarde “Status is geopend” te verwijderen)."
 
 #: ../root/vote/VotingIndex.js:271
 msgid ""
@@ -14607,45 +14608,45 @@ msgid ""
 "probably the most complex and as such reasonably likely to have issues, plus"
 " for edits adding artists, which might include artists trying to add their "
 "own data and not doing a great job of it."
-msgstr ""
+msgstr "Er zijn zoekopdrachten voor bewerkingen die uitgaves of media toevoegen, omdat deze bewerkingen het meest complex zijn en de kans op problemen dus groot is, en er zijn zoekopdrachten voor bewerkingen die artiesten toevoegen, omdat dit soms artiesten zijn die informatie over zichzelf toevoegen en daar fouten bij maken."
 
 #: ../root/vote/VotingIndex.js:282
 msgid "All edits from beginner editors"
-msgstr ""
+msgstr "Alle bewerkingen door beginnende redacteurs"
 
 #: ../root/vote/VotingIndex.js:290
 msgid "All edits from beginner editors made less than 2 weeks ago"
-msgstr ""
+msgstr "Alle bewerkingen door beginnende redacteurs in de afgelopen twee weken"
 
 #: ../root/vote/VotingIndex.js:299
 msgid "All \"Add release/medium\" edits by beginner editors"
-msgstr ""
+msgstr "Alle bewerkingen voor het toevoegen van een uitgave of medium door beginnende redacteurs"
 
 #: ../root/vote/VotingIndex.js:306
 msgid ""
 "All \"Add release/medium\" edits by beginner editors made less than 2 weeks "
 "ago"
-msgstr ""
+msgstr "Alle bewerkingen voor het toevoegen van een uitgave of medium door beginnende gebruikers in de afgelopen twee weken"
 
 #: ../root/vote/VotingIndex.js:314
 msgid "All \"Add artist\" edits by beginner editors"
-msgstr ""
+msgstr "Alle bewerkingen voor het toevoegen van een artiest door beginnende redacteurs"
 
 #: ../root/vote/VotingIndex.js:320
 msgid "All \"Add artist\" edits by beginner editors made less than 2 weeks ago"
-msgstr ""
+msgstr "Alle bewerkingen voor het toevoegen van een artiest door beginnende redacteurs in de afgelopen twee weken"
 
 #: ../root/vote/VotingIndex.js:327
 msgid "All open destructive edits by beginner editors"
-msgstr ""
+msgstr "Alle open destructieve bewerkingen door beginnende redacteurs"
 
 #: ../root/vote/VotingIndex.js:336
 msgid "All open unreviewed edits (0 votes) by beginner editors"
-msgstr ""
+msgstr "Alle open, niet-beoordeelde bewerkingen (0 stemmen) door beginnende redacteurs"
 
 #: ../root/vote/VotingIndex.js:348 ../root/vote/VotingIndex.js:370
 msgid "All edits"
-msgstr ""
+msgstr "Alle bewerkingen"
 
 #: ../root/vote/VotingIndex.js:351
 msgid ""
@@ -14654,8 +14655,8 @@ msgid ""
 "doctor ordered, just check the searches below! Don’t forget you can always "
 "experiment with different edit search filters to limit the amount of edits "
 "shown a bit and make it more manageable"
-msgstr ""
+msgstr "Soms wil je gewoon alle bewerkingen controleren. Als je zin hebt in een enorme lijst bewerkingen, kan je een van de volgende zoekopdrachten gebruiken. Maar je kan natuurlijk ook experimenteren met verschillende zoekfilters om de hoeveelheid resultaten een beetje te beperken en overzichtelijker te maken."
 
 #: ../root/vote/VotingIndex.js:363
 msgid "All open edits"
-msgstr ""
+msgstr "Alle open bewerkingen"

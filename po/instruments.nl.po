@@ -3,12 +3,14 @@
 # nikki, 2014
 # reneweesp <email address hidden>, 2017,2019
 # Maurits Meulenbelt <email address hidden>, 2012
-# Maurits Meulenbelt <email address hidden>, 2013-2019
+# Maurits Meulenbelt <email address hidden>, 2012-2019
+# nikki, 2014
 # Nikolai Prokoschenko <email address hidden>, 2011
+# reneweesp <email address hidden>, 2017,2019
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2019-12-05 22:48+0000\n"
+"PO-Revision-Date: 2019-12-07 15:35+0000\n"
 "Last-Translator: Maurits Meulenbelt <email address hidden>\n"
 "Language-Team: Dutch (http://www.transifex.com/musicbrainz/musicbrainz/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -421,7 +423,7 @@ msgstr "baandu"
 #: DB:instrument/name:236
 msgctxt "Treble bouzouki"
 msgid "baglamas"
-msgstr ""
+msgstr "baglamas"
 
 #: DB:instrument/name:4
 msgid "bagpipe"
@@ -621,11 +623,11 @@ msgstr "bazooka"
 #: DB:instrument/name:235
 msgctxt "Turkish long-necked bowl lute"
 msgid "bağlama"
-msgstr ""
+msgstr "bağlama"
 
 #: DB:instrument/name:426
 msgid "bağlama (saz) family"
-msgstr ""
+msgstr "bağlamafamilie (sazfamilie)"
 
 #: DB:instrument/name:968
 msgctxt "Very large suspended Javanese barrel drum"
@@ -844,7 +846,7 @@ msgstr "stoomorgel of stoompiano"
 #: DB:instrument/name:974
 msgctxt "Bamboo xylophone used in Sundanese gamelan"
 msgid "calung"
-msgstr ""
+msgstr "tjaloeng"
 
 #: DB:instrument/name:128
 msgctxt "belfry tower bell set"
@@ -1195,7 +1197,7 @@ msgstr "dhool"
 #: DB:instrument/name:361
 msgctxt "Accordion with buttons arranged diatonically"
 msgid "diatonic button accordion"
-msgstr ""
+msgstr "trekharmonica"
 
 #: DB:instrument/name:635
 msgid "diddley bow"
@@ -1497,7 +1499,7 @@ msgstr "folkharp"
 
 #: DB:instrument/name:478
 msgid "foot stomps"
-msgstr ""
+msgstr "voetpercussie"
 
 #: DB:instrument/name:384
 msgid "fortepiano"
@@ -1556,7 +1558,7 @@ msgstr ""
 #: DB:instrument/name:853
 msgctxt "sound chip from gaming consoles"
 msgid "game console sound chip"
-msgstr ""
+msgstr "geluidschip van een spelcomputer"
 
 #: DB:instrument/name:365
 msgctxt "Indonesian traditional ensemble"
@@ -1946,7 +1948,7 @@ msgstr "jouhikko"
 #: DB:instrument/name:980
 msgctxt "Second deepest pitch gangsa used in Balinese gamelan"
 msgid "jublag"
-msgstr ""
+msgstr "djoeblag"
 
 #: DB:instrument/name:505
 msgid "jug"
@@ -3561,7 +3563,7 @@ msgstr "taonga puuoro"
 
 #: DB:instrument/name:559
 msgid "tap dance"
-msgstr ""
+msgstr "tapdans"
 
 #: DB:instrument/name:520
 msgid "tape"
