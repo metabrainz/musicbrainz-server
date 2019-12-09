@@ -411,8 +411,8 @@ MB.CoverArt.FileUpload = function (file) {
 
                     var submitting = MB.CoverArt.submit_edit(
                         self,
-                        postfields, 
-                        mime_type, 
+                        postfields,
+                        mime_type,
                         position,
                     );
 
@@ -597,7 +597,7 @@ MB.CoverArt.add_cover_art = function (gid) {
             if (mime_type)
             {
                 $('iframe')[0].contentWindow.upload(
-                    gid, 
+                    gid,
                     $('#id-add-cover-art\\.id').val(),
                     mime_type,
                 );

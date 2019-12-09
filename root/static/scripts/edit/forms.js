@@ -61,7 +61,7 @@ MB.forms = {
     linkTypeOptions: function (root, backward) {
         function getText(data) {
             return stripAttributes(
-                data, 
+                data,
                 l_relationships(
                     backward ? data.reverse_link_phrase : data.link_phrase,
                 ),
