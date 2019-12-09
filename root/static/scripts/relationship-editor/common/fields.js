@@ -192,8 +192,9 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
              */
             this.entityTypes = linkType.type0 + '-' + linkType.type1;
 
-            var typeAttributes = linkType.attributes;
-                var attributes = this.attributes(); var attribute;
+            const typeAttributes = linkType.attributes;
+                const attributes = this.attributes();
+                let attribute;
 
             for (var i = 0, len = attributes.length; i < len; i++) {
                 attribute = attributes[i];
@@ -399,7 +400,8 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
         }
 
         paddedSeriesNumber() {
-            var attributes = this.attributes(); var numberAttribute;
+            const attributes = this.attributes();
+            let numberAttribute;
 
             for (var i = 0; (numberAttribute = attributes[i]); i++) {
                 if (numberAttribute.type.gid === SERIES_ORDERING_ATTRIBUTE) {
@@ -411,8 +413,8 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
                 return "";
             }
 
-            var parts = _.compact(numberAttribute.textValue().split(/(\d+)/));
-                var integerRegex = /^\d+$/;
+            const parts = _.compact(numberAttribute.textValue().split(/(\d+)/));
+                const integerRegex = /^\d+$/;
 
             for (var i = 0, part; (part = parts[i]); i++) {
                 if (integerRegex.test(part)) {
@@ -587,9 +589,9 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
 
     ko.bindingHandlers.textAttribute = {
         init: function (element, valueAccessor) {
-            var options = valueAccessor();
-                var linkAttribute = options.relationship.getAttribute(options.typeGID);
-                var currentValue = linkAttribute.textValue.peek();
+            const options = valueAccessor();
+                const linkAttribute = options.relationship.getAttribute(options.typeGID);
+                const currentValue = linkAttribute.textValue.peek();
 
             linkAttribute.textValue.subscribe(function (newValue) {
                 if (newValue && !currentValue) {
