@@ -49,8 +49,12 @@ export const isYearFourDigits = function (y) {
 };
 
 export const isDatePeriodValid = function (a, b) {
-    var y1 = a.year; var m1 = a.month; var d1 = a.day;
-    var y2 = b.year; var m2 = b.month; var d2 = b.day;
+    const y1 = a.year;
+    const m1 = a.month;
+    const d1 = a.day;
+    const y2 = b.year;
+    const m2 = b.month;
+    const d2 = b.day;
 
     if (!isDateValid(y1, m1, d1) || !isDateValid(y2, m2, d2)) {
         return false;
