@@ -878,7 +878,7 @@ MB.GuessCase.Handler.Base = function (gc) {
             /^(The|Los) (.+)$/,
             function (match, article, name) {
                 return name + ", " + article;
-            }
+            },
         );
     };
 
