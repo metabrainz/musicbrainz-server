@@ -604,9 +604,9 @@ class Medium {
     }
 
     formattedName() {
-        var name = this.name(),
-            position = this.position(),
-            multidisc = this.release.mediums().length > 1 || position > 1;
+        const name = this.name();
+        const position = this.position();
+        const multidisc = this.release.mediums().length > 1 || position > 1;
 
         if (name) {
             if (multidisc) {

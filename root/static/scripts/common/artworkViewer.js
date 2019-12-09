@@ -60,7 +60,8 @@ $.widget("mb.artworkViewer", $.ui.dialog, {
     open: function (link, wasClosed) {
         this._imageElement = null;
 
-        var hadFocus = document.activeElement, $preview = $(link).find("img");
+        const hadFocus = document.activeElement;
+        const $preview = $(link).find("img");
         this._setOption("title", $preview.attr("title"));
 
         var index = this.$artwork.index(link);
@@ -163,11 +164,11 @@ $.widget("mb.artworkViewer", $.ui.dialog, {
         imageAspectRatio = this._imageAspectRatio || imageAspectRatio;
         imageElement = this._imageElement || imageElement;
 
-        var $window = $(window),
-            maxDialogHeight = $window.height() * 0.95,
-            maxDialogWidth = $window.width() * 0.95,
-            nonContentHeight = this.uiDialog.outerHeight() - this.element.height(),
-            nonContentWidth = this.uiDialog.outerWidth() - this.element.width();
+        const $window = $(window);
+        const maxDialogHeight = $window.height() * 0.95;
+        const maxDialogWidth = $window.width() * 0.95;
+        const nonContentHeight = this.uiDialog.outerHeight() - this.element.height();
+        const nonContentWidth = this.uiDialog.outerWidth() - this.element.width();
 
         /*
          * Don't stretch the image beyond its original dimensions, and don't

@@ -28,8 +28,8 @@ MB.Control.SelectAll = function (table) {
 
     self.$checkboxes.click(function (event) {
         if (event.shiftKey && self.lastChecked && self.lastChecked != this) {
-            var first = self.$checkboxes.index(self.lastChecked),
-                last = self.$checkboxes.index(this);
+            const first = self.$checkboxes.index(self.lastChecked);
+            const last = self.$checkboxes.index(this);
 
             if (first > last) {
                 self.$checkboxes.slice(last, first + 1)

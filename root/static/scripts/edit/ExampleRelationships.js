@@ -10,13 +10,14 @@ MB.ExampleRelationshipsEditor = (function (ERE) {
 
 
 // Private variables
-var type0, type1, linkTypeName, linkTypeID, jsRoot;
+let type0;
+let type1;
+let linkTypeName;
+let linkTypeID;
+let jsRoot;
 
 // Private methods
 var searchUrl;
-
-// Private classes
-var RelationshipSearcher, ViewModel;
 
 ERE.init = function (config) {
     type0 = config.type0;
@@ -43,17 +44,17 @@ ERE.init = function (config) {
     ko.bindingHandlers.checkObject = {
         init: function (element, valueAccessor, all, vm, bindingContext) {
             ko.utils.registerEventHandler(element, "click", function () {
-                var checkedValue = valueAccessor(),
-                    meValue = bindingContext.$data,
-                    checked = element.checked;
+                const checkedValue = valueAccessor();
+                const meValue = bindingContext.$data;
+                const checked = element.checked;
                 if (checked && ko.isObservable(checkedValue)) {
                     checkedValue(meValue);
                 }
             });
         },
         update: function (element, valueAccessor, all, vm, bindingContext) {
-            var checkedValue = ko.utils.unwrapObservable(valueAccessor()),
-                meValue = bindingContext.$data;
+            const checkedValue = ko.utils.unwrapObservable(valueAccessor());
+            const meValue = bindingContext.$data;
 
             element.checked = (checkedValue === meValue);
         }
@@ -74,7 +75,7 @@ ERE.Example = function (name, relationship) {
     return self;
 };
 
-ViewModel = function () {
+const ViewModel = function () {
     return {
         examples: ko.observableArray(),
         availableEntityTypes: ko.observableArray(),
@@ -103,7 +104,7 @@ searchUrl = function (mbid) {
 };
 
 
-RelationshipSearcher = function () {
+const RelationshipSearcher = function () {
     var self = this;
 
     self.query = ko.observable();
@@ -136,7 +137,8 @@ RelationshipSearcher = function () {
                 self.error(null);
 
                 _.each(relationships, function (rel) {
-                    var source = data, target = rel.target;
+                    let source = data;
+                    let target = rel.target;
 
                     if (rel.direction == "backward") {
                         source = rel.target;

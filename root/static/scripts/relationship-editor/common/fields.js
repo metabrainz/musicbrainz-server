@@ -192,8 +192,9 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
              */
             this.entityTypes = linkType.type0 + '-' + linkType.type1;
 
-            var typeAttributes = linkType.attributes,
-                attributes = this.attributes(), attribute;
+            const typeAttributes = linkType.attributes;
+            const attributes = this.attributes();
+            let attribute;
 
             for (var i = 0, len = attributes.length; i < len; i++) {
                 attribute = attributes[i];
@@ -592,9 +593,9 @@ const RE = MB.relationshipEditor = MB.relationshipEditor || {};
 
     ko.bindingHandlers.textAttribute = {
         init: function (element, valueAccessor) {
-            var options = valueAccessor(),
-                linkAttribute = options.relationship.getAttribute(options.typeGID),
-                currentValue = linkAttribute.textValue.peek();
+            const options = valueAccessor();
+            const linkAttribute = options.relationship.getAttribute(options.typeGID);
+            let currentValue = linkAttribute.textValue.peek();
 
             linkAttribute.textValue.subscribe(function (newValue) {
                 if (newValue && !currentValue) {
